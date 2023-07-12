@@ -42,6 +42,7 @@ package                                                2
 port                                                   5
 ref_module                                             1
 ref_obj                                                5
+ref_typespec                                           8
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -59,6 +60,7 @@ package                                                2
 port                                                   7
 ref_module                                             1
 ref_obj                                                7
+ref_typespec                                          10
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ConstPort/slpp_all/surelog.uhdm ...
 
@@ -86,9 +88,12 @@ design: (work@cipher_core)
     |vpiInstance:
     \_package: aes_pkg (aes_pkg::), file:${SURELOG_DIR}/tests/ConstPort/dut.sv, line:1:1, endln:6:11
     |vpiBaseTypespec:
-    \_logic_typespec: , line:2:14, endln:2:19
-      |vpiInstance:
-      \_package: aes_pkg (aes_pkg::), file:${SURELOG_DIR}/tests/ConstPort/dut.sv, line:1:1, endln:6:11
+    \_ref_typespec: (aes_pkg::aes_pkg::ciph_op_e)
+      |vpiParent:
+      \_enum_typespec: (aes_pkg::ciph_op_e), line:2:1, endln:5:13
+      |vpiFullName:aes_pkg::aes_pkg::ciph_op_e
+      |vpiActual:
+      \_logic_typespec: , line:2:14, endln:2:19
     |vpiEnumConst:
     \_enum_const: (CIPH_FWD), line:3:3, endln:3:18
       |vpiParent:
@@ -120,9 +125,12 @@ design: (work@cipher_core)
     |vpiInstance:
     \_package: aes_pkg (aes_pkg::), file:${SURELOG_DIR}/tests/ConstPort/dut.sv, line:1:1, endln:6:11
     |vpiBaseTypespec:
-    \_logic_typespec: , line:2:14, endln:2:19
-      |vpiInstance:
-      \_package: aes_pkg (aes_pkg::), file:${SURELOG_DIR}/tests/ConstPort/dut.sv, line:1:1, endln:6:11
+    \_ref_typespec: (work@cipher_core.aes_pkg::ciph_op_e)
+      |vpiParent:
+      \_enum_typespec: (aes_pkg::ciph_op_e), line:2:1, endln:5:13
+      |vpiFullName:work@cipher_core.aes_pkg::ciph_op_e
+      |vpiActual:
+      \_logic_typespec: , line:2:14, endln:2:19
     |vpiEnumConst:
     \_enum_const: (CIPH_FWD), line:3:3, endln:3:18
       |vpiParent:
@@ -172,7 +180,12 @@ design: (work@cipher_core)
       |vpiActual:
       \_logic_net: (work@cipher_core.op_i), line:14:32, endln:14:36
     |vpiTypedef:
-    \_enum_typespec: (aes_pkg::ciph_op_e), line:2:1, endln:5:13
+    \_ref_typespec: (work@cipher_core.op_i)
+      |vpiParent:
+      \_port: (op_i), line:14:32, endln:14:36
+      |vpiFullName:work@cipher_core.op_i
+      |vpiActual:
+      \_enum_typespec: (aes_pkg::ciph_op_e), line:2:1, endln:5:13
   |vpiRefModule:
   \_ref_module: work@mix_columns (key_mix_columns), line:17:15, endln:17:30
     |vpiParent:
@@ -221,7 +234,12 @@ design: (work@cipher_core)
       |vpiActual:
       \_logic_net: (work@mix_columns.op_i), line:9:32, endln:9:36
     |vpiTypedef:
-    \_enum_typespec: (aes_pkg::ciph_op_e), line:2:1, endln:5:13
+    \_ref_typespec: (work@mix_columns.op_i)
+      |vpiParent:
+      \_port: (op_i), line:9:32, endln:9:36
+      |vpiFullName:work@mix_columns.op_i
+      |vpiActual:
+      \_enum_typespec: (aes_pkg::ciph_op_e), line:2:1, endln:5:13
 |uhdmtopModules:
 \_module_inst: work@cipher_core (work@cipher_core), file:${SURELOG_DIR}/tests/ConstPort/dut.sv, line:13:1, endln:20:10
   |vpiName:work@cipher_core
@@ -230,7 +248,12 @@ design: (work@cipher_core)
     |vpiParent:
     \_module_inst: work@cipher_core (work@cipher_core), file:${SURELOG_DIR}/tests/ConstPort/dut.sv, line:13:1, endln:20:10
     |vpiTypespec:
-    \_enum_typespec: (aes_pkg::ciph_op_e), line:2:1, endln:5:13
+    \_ref_typespec: (work@cipher_core.op_i)
+      |vpiParent:
+      \_enum_var: (work@cipher_core.op_i), line:14:32, endln:14:36
+      |vpiFullName:work@cipher_core.op_i
+      |vpiActual:
+      \_enum_typespec: (aes_pkg::ciph_op_e), line:2:1, endln:5:13
     |vpiName:op_i
     |vpiFullName:work@cipher_core.op_i
     |vpiVisibility:1
@@ -256,7 +279,12 @@ design: (work@cipher_core)
       |vpiActual:
       \_enum_var: (work@cipher_core.op_i), line:14:32, endln:14:36
     |vpiTypedef:
-    \_enum_typespec: (aes_pkg::ciph_op_e), line:2:1, endln:5:13
+    \_ref_typespec: (work@cipher_core.op_i)
+      |vpiParent:
+      \_port: (op_i), line:14:32, endln:14:36
+      |vpiFullName:work@cipher_core.op_i
+      |vpiActual:
+      \_enum_typespec: (aes_pkg::ciph_op_e), line:2:1, endln:5:13
     |vpiInstance:
     \_module_inst: work@cipher_core (work@cipher_core), file:${SURELOG_DIR}/tests/ConstPort/dut.sv, line:13:1, endln:20:10
   |vpiModule:
@@ -270,7 +298,12 @@ design: (work@cipher_core)
       |vpiParent:
       \_module_inst: work@mix_columns (work@cipher_core.key_mix_columns), file:${SURELOG_DIR}/tests/ConstPort/dut.sv, line:17:3, endln:19:5
       |vpiTypespec:
-      \_enum_typespec: (aes_pkg::ciph_op_e), line:2:1, endln:5:13
+      \_ref_typespec: (work@cipher_core.key_mix_columns.op_i)
+        |vpiParent:
+        \_enum_var: (work@cipher_core.key_mix_columns.op_i), line:9:32, endln:9:36
+        |vpiFullName:work@cipher_core.key_mix_columns.op_i
+        |vpiActual:
+        \_enum_typespec: (aes_pkg::ciph_op_e), line:2:1, endln:5:13
       |vpiName:op_i
       |vpiFullName:work@cipher_core.key_mix_columns.op_i
       |vpiVisibility:1
@@ -302,9 +335,43 @@ design: (work@cipher_core)
         |vpiActual:
         \_enum_var: (work@cipher_core.key_mix_columns.op_i), line:9:32, endln:9:36
       |vpiTypedef:
-      \_enum_typespec: (aes_pkg::ciph_op_e), line:2:1, endln:5:13
+      \_ref_typespec: (work@cipher_core.key_mix_columns.op_i)
+        |vpiParent:
+        \_port: (op_i), line:9:32, endln:9:36
+        |vpiFullName:work@cipher_core.key_mix_columns.op_i
+        |vpiActual:
+        \_enum_typespec: (aes_pkg::ciph_op_e), line:2:1, endln:5:13
       |vpiInstance:
       \_module_inst: work@mix_columns (work@cipher_core.key_mix_columns), file:${SURELOG_DIR}/tests/ConstPort/dut.sv, line:17:3, endln:19:5
+\_weaklyReferenced:
+\_logic_typespec: , line:2:14, endln:2:19
+  |vpiInstance:
+  \_package: aes_pkg (aes_pkg::), file:${SURELOG_DIR}/tests/ConstPort/dut.sv, line:1:1, endln:6:11
+\_logic_typespec: , line:2:14, endln:2:19
+  |vpiInstance:
+  \_package: aes_pkg (aes_pkg::), file:${SURELOG_DIR}/tests/ConstPort/dut.sv, line:1:1, endln:6:11
+\_port: (op_i), line:9:32, endln:9:36
+  |vpiParent:
+  \_module_inst: work@mix_columns (work@cipher_core.key_mix_columns), file:${SURELOG_DIR}/tests/ConstPort/dut.sv, line:17:3, endln:19:5
+  |vpiName:op_i
+  |vpiDirection:1
+  |vpiHighConn:
+  \_constant: , line:18:15, endln:18:23
+  |vpiLowConn:
+  \_ref_obj: (work@cipher_core.key_mix_columns.op_i), line:18:6, endln:18:10
+    |vpiParent:
+    \_port: (op_i), line:9:32, endln:9:36
+    |vpiName:op_i
+    |vpiFullName:work@cipher_core.key_mix_columns.op_i
+    |vpiActual:
+    \_enum_var: (work@cipher_core.key_mix_columns.op_i), line:9:32, endln:9:36
+  |vpiTypedef:
+  \_ref_typespec: (work@cipher_core.key_mix_columns.op_i)
+    |vpiParent:
+    \_port: (op_i), line:9:32, endln:9:36
+    |vpiFullName:work@cipher_core.key_mix_columns.op_i
+    |vpiActual:
+    \_enum_typespec: (aes_pkg::ciph_op_e), line:2:1, endln:5:13
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

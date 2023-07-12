@@ -220,6 +220,7 @@ logic_typespec                                         1
 module_inst                                            3
 operation                                             24
 range                                                  1
+ref_typespec                                           1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -232,6 +233,7 @@ logic_typespec                                         1
 module_inst                                            3
 operation                                             24
 range                                                  1
+ref_typespec                                           1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/EnumVal/slpp_all/surelog.uhdm ...
 
@@ -258,27 +260,12 @@ design: (work@top)
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/EnumVal/dut.sv, line:1:1, endln:16:10
     |vpiBaseTypespec:
-    \_logic_typespec: , line:2:18, endln:2:29
-      |vpiRange:
-      \_range: , line:2:24, endln:2:29
-        |vpiParent:
-        \_logic_typespec: , line:2:18, endln:2:29
-        |vpiLeftRange:
-        \_constant: , line:2:25, endln:2:26
-          |vpiParent:
-          \_range: , line:2:24, endln:2:29
-          |vpiDecompile:5
-          |vpiSize:64
-          |UINT:5
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:27, endln:2:28
-          |vpiParent:
-          \_range: , line:2:24, endln:2:29
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@top.exc_cause_e)
+      |vpiParent:
+      \_enum_typespec: (exc_cause_e), line:2:5, endln:15:19
+      |vpiFullName:work@top.exc_cause_e
+      |vpiActual:
+      \_logic_typespec: , line:2:18, endln:2:29
     |vpiEnumConst:
     \_enum_const: (EXC_CAUSE_IRQ_SOFTWARE_M), line:3:5, endln:3:49
       |vpiParent:
@@ -384,6 +371,28 @@ design: (work@top)
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
+\_weaklyReferenced:
+\_logic_typespec: , line:2:18, endln:2:29
+  |vpiRange:
+  \_range: , line:2:24, endln:2:29
+    |vpiParent:
+    \_logic_typespec: , line:2:18, endln:2:29
+    |vpiLeftRange:
+    \_constant: , line:2:25, endln:2:26
+      |vpiParent:
+      \_range: , line:2:24, endln:2:29
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:27, endln:2:28
+      |vpiParent:
+      \_range: , line:2:24, endln:2:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

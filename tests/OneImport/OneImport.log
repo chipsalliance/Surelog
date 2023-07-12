@@ -257,8 +257,8 @@ design                                                 1
 enum_const                                             4
 enum_typespec                                          2
 import_typespec                                        4
-int_typespec                                           8
-integer_typespec                                       4
+int_typespec                                           2
+integer_typespec                                       2
 logic_net                                              4
 logic_typespec                                         8
 module_inst                                            6
@@ -269,6 +269,7 @@ parameter                                              7
 port                                                   4
 range                                                 10
 ref_obj                                               12
+ref_typespec                                          25
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -279,8 +280,8 @@ design                                                 1
 enum_const                                             4
 enum_typespec                                          2
 import_typespec                                        4
-int_typespec                                           8
-integer_typespec                                       4
+int_typespec                                           2
+integer_typespec                                       2
 logic_net                                              4
 logic_typespec                                         8
 module_inst                                            6
@@ -291,6 +292,7 @@ parameter                                              7
 port                                                   6
 range                                                 10
 ref_obj                                               17
+ref_typespec                                          29
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/OneImport/slpp_all/surelog.uhdm ...
 
@@ -316,11 +318,12 @@ design: (work@dut)
     \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/OneImport/dut.sv, line:1:1, endln:9:11
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: , line:7:11, endln:7:23
+    \_ref_typespec: (my_pkg::PMP_CFG_W)
       |vpiParent:
       \_parameter: (my_pkg::PMP_CFG_W), line:7:24, endln:7:33
-      |vpiInstance:
-      \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/OneImport/dut.sv, line:1:1, endln:9:11
+      |vpiFullName:my_pkg::PMP_CFG_W
+      |vpiActual:
+      \_int_typespec: , line:7:11, endln:7:23
     |vpiName:PMP_CFG_W
     |vpiFullName:my_pkg::PMP_CFG_W
   |vpiParamAssign:
@@ -335,7 +338,12 @@ design: (work@dut)
       |vpiSize:32
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:7:11, endln:7:23
+      \_ref_typespec: (my_pkg)
+        |vpiParent:
+        \_constant: , line:7:36, endln:7:37
+        |vpiFullName:my_pkg
+        |vpiActual:
+        \_int_typespec: , line:7:11, endln:7:23
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (my_pkg::PMP_CFG_W), line:7:24, endln:7:33
@@ -347,29 +355,12 @@ design: (work@dut)
     |vpiInstance:
     \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/OneImport/dut.sv, line:1:1, endln:9:11
     |vpiBaseTypespec:
-    \_logic_typespec: , line:2:16, endln:2:27
-      |vpiInstance:
-      \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/OneImport/dut.sv, line:1:1, endln:9:11
-      |vpiRange:
-      \_range: , line:2:22, endln:2:27
-        |vpiParent:
-        \_logic_typespec: , line:2:16, endln:2:27
-        |vpiLeftRange:
-        \_constant: , line:2:23, endln:2:24
-          |vpiParent:
-          \_range: , line:2:22, endln:2:27
-          |vpiDecompile:5
-          |vpiSize:64
-          |UINT:5
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:25, endln:2:26
-          |vpiParent:
-          \_range: , line:2:22, endln:2:27
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (my_pkg::my_pkg::opcode_e)
+      |vpiParent:
+      \_enum_typespec: (my_pkg::opcode_e), line:2:3, endln:5:14
+      |vpiFullName:my_pkg::my_pkg::opcode_e
+      |vpiActual:
+      \_logic_typespec: , line:2:16, endln:2:27
     |vpiEnumConst:
     \_enum_const: (OPCODE_LOAD), line:3:5, endln:3:28
       |vpiParent:
@@ -399,11 +390,12 @@ design: (work@dut)
     \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/OneImport/dut.sv, line:1:1, endln:9:11
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: , line:7:11, endln:7:23
+    \_ref_typespec: (my_pkg::PMP_CFG_W)
       |vpiParent:
       \_parameter: (my_pkg::PMP_CFG_W), line:7:24, endln:7:33
-      |vpiInstance:
-      \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/OneImport/dut.sv, line:1:1, endln:9:11
+      |vpiFullName:my_pkg::PMP_CFG_W
+      |vpiActual:
+      \_int_typespec: , line:7:11, endln:7:23
     |vpiName:PMP_CFG_W
     |vpiFullName:my_pkg::PMP_CFG_W
   |vpiParamAssign:
@@ -418,7 +410,12 @@ design: (work@dut)
       |vpiSize:32
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:7:11, endln:7:23
+      \_ref_typespec: (my_pkg)
+        |vpiParent:
+        \_constant: , line:7:36, endln:7:37
+        |vpiFullName:my_pkg
+        |vpiActual:
+        \_int_typespec: , line:7:11, endln:7:23
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (my_pkg::PMP_CFG_W), line:7:24, endln:7:33
@@ -430,29 +427,12 @@ design: (work@dut)
     |vpiInstance:
     \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/OneImport/dut.sv, line:1:1, endln:9:11
     |vpiBaseTypespec:
-    \_logic_typespec: , line:2:16, endln:2:27
-      |vpiInstance:
-      \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/OneImport/dut.sv, line:1:1, endln:9:11
-      |vpiRange:
-      \_range: , line:2:22, endln:2:27
-        |vpiParent:
-        \_logic_typespec: , line:2:16, endln:2:27
-        |vpiLeftRange:
-        \_constant: , line:2:23, endln:2:24
-          |vpiParent:
-          \_range: , line:2:22, endln:2:27
-          |vpiDecompile:5
-          |vpiSize:64
-          |UINT:5
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:25, endln:2:26
-          |vpiParent:
-          \_range: , line:2:22, endln:2:27
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@dut.my_pkg::opcode_e)
+      |vpiParent:
+      \_enum_typespec: (my_pkg::opcode_e), line:2:3, endln:5:14
+      |vpiFullName:work@dut.my_pkg::opcode_e
+      |vpiActual:
+      \_logic_typespec: , line:2:16, endln:2:27
     |vpiEnumConst:
     \_enum_const: (OPCODE_LOAD), line:3:5, endln:3:28
       |vpiParent:
@@ -482,11 +462,12 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneImport/dut.sv, line:11:1, endln:20:10
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: , line:7:11, endln:7:23
+    \_ref_typespec: (work@dut.PMP_CFG_W)
       |vpiParent:
       \_parameter: (work@dut.PMP_CFG_W), line:7:24, endln:7:33
-      |vpiInstance:
-      \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/OneImport/dut.sv, line:1:1, endln:9:11
+      |vpiFullName:work@dut.PMP_CFG_W
+      |vpiActual:
+      \_int_typespec: , line:7:11, endln:7:23
     |vpiName:PMP_CFG_W
     |vpiFullName:work@dut.PMP_CFG_W
     |vpiImported:my_pkg
@@ -502,11 +483,12 @@ design: (work@dut)
       |vpiSize:32
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:7:11, endln:7:23
+      \_ref_typespec: (work@dut)
         |vpiParent:
         \_constant: , line:7:36, endln:7:37
-        |vpiInstance:
-        \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/OneImport/dut.sv, line:1:1, endln:9:11
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_int_typespec: , line:7:11, endln:7:23
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@dut.PMP_CFG_W), line:7:24, endln:7:33
@@ -514,11 +496,12 @@ design: (work@dut)
       \_param_assign: , line:7:24, endln:7:37
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:7:11, endln:7:23
+      \_ref_typespec: (work@dut.PMP_CFG_W)
         |vpiParent:
         \_parameter: (work@dut.PMP_CFG_W), line:7:24, endln:7:33
-        |vpiInstance:
-        \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/OneImport/dut.sv, line:1:1, endln:9:11
+        |vpiFullName:work@dut.PMP_CFG_W
+        |vpiActual:
+        \_int_typespec: , line:7:11, endln:7:23
       |vpiName:PMP_CFG_W
       |vpiFullName:work@dut.PMP_CFG_W
       |vpiImported:my_pkg
@@ -561,27 +544,12 @@ design: (work@dut)
       |vpiActual:
       \_logic_net: (work@dut.a), line:16:14, endln:16:15
     |vpiTypedef:
-    \_logic_typespec: , line:14:9, endln:14:14
-      |vpiRange:
-      \_range: , line:14:9, endln:14:14
-        |vpiParent:
-        \_logic_typespec: , line:14:9, endln:14:14
-        |vpiLeftRange:
-        \_constant: , line:14:10, endln:14:11
-          |vpiParent:
-          \_range: , line:14:9, endln:14:14
-          |vpiDecompile:5
-          |vpiSize:64
-          |UINT:5
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:14:12, endln:14:13
-          |vpiParent:
-          \_range: , line:14:9, endln:14:14
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@dut.a)
+      |vpiParent:
+      \_port: (a), line:11:13, endln:11:14
+      |vpiFullName:work@dut.a
+      |vpiActual:
+      \_logic_typespec: , line:14:9, endln:14:14
   |vpiPort:
   \_port: (b), line:11:16, endln:11:17
     |vpiParent:
@@ -596,27 +564,12 @@ design: (work@dut)
       |vpiActual:
       \_logic_net: (work@dut.b), line:17:13, endln:17:14
     |vpiTypedef:
-    \_logic_typespec: , line:15:10, endln:15:15
-      |vpiRange:
-      \_range: , line:15:10, endln:15:15
-        |vpiParent:
-        \_logic_typespec: , line:15:10, endln:15:15
-        |vpiLeftRange:
-        \_constant: , line:15:11, endln:15:12
-          |vpiParent:
-          \_range: , line:15:10, endln:15:15
-          |vpiDecompile:2
-          |vpiSize:64
-          |UINT:2
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:15:13, endln:15:14
-          |vpiParent:
-          \_range: , line:15:10, endln:15:15
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@dut.b)
+      |vpiParent:
+      \_port: (b), line:11:16, endln:11:17
+      |vpiFullName:work@dut.b
+      |vpiActual:
+      \_logic_typespec: , line:15:10, endln:15:15
   |vpiContAssign:
   \_cont_assign: , line:18:10, endln:19:35
     |vpiParent:
@@ -631,8 +584,12 @@ design: (work@dut)
         |vpiParent:
         \_operation: , line:18:14, endln:19:35
         |vpiTypespec:
-        \_integer_typespec: , line:18:14, endln:18:15
-          |INT:3
+        \_ref_typespec: (work@dut)
+          |vpiParent:
+          \_operation: , line:18:14, endln:18:35
+          |vpiFullName:work@dut
+          |vpiActual:
+          \_integer_typespec: , line:18:14, endln:18:15
         |vpiOpType:67
         |vpiOperand:
         \_constant: , line:18:17, endln:18:34
@@ -647,8 +604,12 @@ design: (work@dut)
         |vpiParent:
         \_operation: , line:18:14, endln:19:35
         |vpiTypespec:
-        \_integer_typespec: , line:19:15, endln:19:16
-          |INT:3
+        \_ref_typespec: (work@dut)
+          |vpiParent:
+          \_operation: , line:19:15, endln:19:35
+          |vpiFullName:work@dut
+          |vpiActual:
+          \_integer_typespec: , line:19:15, endln:19:16
         |vpiOpType:67
         |vpiOperand:
         \_operation: , line:19:18, endln:19:34
@@ -688,11 +649,12 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneImport/dut.sv, line:11:1, endln:20:10
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: , line:7:11, endln:7:23
+    \_ref_typespec: (work@dut.PMP_CFG_W)
       |vpiParent:
       \_parameter: (work@dut.PMP_CFG_W), line:7:24, endln:7:33
-      |vpiInstance:
-      \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/OneImport/dut.sv, line:1:1, endln:9:11
+      |vpiFullName:work@dut.PMP_CFG_W
+      |vpiActual:
+      \_int_typespec: , line:7:11, endln:7:23
     |vpiName:PMP_CFG_W
     |vpiFullName:work@dut.PMP_CFG_W
     |vpiImported:my_pkg
@@ -708,7 +670,12 @@ design: (work@dut)
       |vpiSize:32
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:7:11, endln:7:23
+      \_ref_typespec: (work@dut)
+        |vpiParent:
+        \_constant: , line:7:36, endln:7:37
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_int_typespec: , line:7:11, endln:7:23
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@dut.PMP_CFG_W), line:7:24, endln:7:33
@@ -729,29 +696,12 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneImport/dut.sv, line:11:1, endln:20:10
     |vpiTypespec:
-    \_logic_typespec: , line:16:3, endln:16:13
+    \_ref_typespec: (work@dut.a)
       |vpiParent:
       \_logic_net: (work@dut.a), line:16:14, endln:16:15
-      |vpiRange:
-      \_range: , line:16:8, endln:16:13
-        |vpiParent:
-        \_logic_typespec: , line:16:3, endln:16:13
-        |vpiLeftRange:
-        \_constant: , line:16:9, endln:16:10
-          |vpiParent:
-          \_range: , line:16:8, endln:16:13
-          |vpiDecompile:5
-          |vpiSize:64
-          |UINT:5
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:16:11, endln:16:12
-          |vpiParent:
-          \_range: , line:16:8, endln:16:13
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@dut.a
+      |vpiActual:
+      \_logic_typespec: , line:16:3, endln:16:13
     |vpiName:a
     |vpiFullName:work@dut.a
     |vpiNetType:1
@@ -760,27 +710,12 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneImport/dut.sv, line:11:1, endln:20:10
     |vpiTypespec:
-    \_logic_typespec: , line:17:3, endln:17:12
-      |vpiRange:
-      \_range: , line:17:7, endln:17:12
-        |vpiParent:
-        \_logic_typespec: , line:17:3, endln:17:12
-        |vpiLeftRange:
-        \_constant: , line:17:8, endln:17:9
-          |vpiParent:
-          \_range: , line:17:7, endln:17:12
-          |vpiDecompile:2
-          |vpiSize:64
-          |UINT:2
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:17:10, endln:17:11
-          |vpiParent:
-          \_range: , line:17:7, endln:17:12
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@dut.b)
+      |vpiParent:
+      \_logic_net: (work@dut.b), line:17:13, endln:17:14
+      |vpiFullName:work@dut.b
+      |vpiActual:
+      \_logic_typespec: , line:17:3, endln:17:12
     |vpiName:b
     |vpiFullName:work@dut.b
     |vpiNetType:48
@@ -800,27 +735,12 @@ design: (work@dut)
       |vpiActual:
       \_logic_net: (work@dut.a), line:16:14, endln:16:15
     |vpiTypedef:
-    \_logic_typespec: , line:14:9, endln:14:14
-      |vpiRange:
-      \_range: , line:14:9, endln:14:14
-        |vpiParent:
-        \_logic_typespec: , line:14:9, endln:14:14
-        |vpiLeftRange:
-        \_constant: , line:14:10, endln:14:11
-          |vpiParent:
-          \_range: , line:14:9, endln:14:14
-          |vpiDecompile:5
-          |vpiSize:64
-          |UINT:5
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:14:12, endln:14:13
-          |vpiParent:
-          \_range: , line:14:9, endln:14:14
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@dut.a)
+      |vpiParent:
+      \_port: (a), line:11:13, endln:11:14
+      |vpiFullName:work@dut.a
+      |vpiActual:
+      \_logic_typespec: , line:14:9, endln:14:14
     |vpiInstance:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneImport/dut.sv, line:11:1, endln:20:10
   |vpiPort:
@@ -838,27 +758,12 @@ design: (work@dut)
       |vpiActual:
       \_logic_net: (work@dut.b), line:17:13, endln:17:14
     |vpiTypedef:
-    \_logic_typespec: , line:15:10, endln:15:15
-      |vpiRange:
-      \_range: , line:15:10, endln:15:15
-        |vpiParent:
-        \_logic_typespec: , line:15:10, endln:15:15
-        |vpiLeftRange:
-        \_constant: , line:15:11, endln:15:12
-          |vpiParent:
-          \_range: , line:15:10, endln:15:15
-          |vpiDecompile:2
-          |vpiSize:64
-          |UINT:2
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:15:13, endln:15:14
-          |vpiParent:
-          \_range: , line:15:10, endln:15:15
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@dut.b)
+      |vpiParent:
+      \_port: (b), line:11:16, endln:11:17
+      |vpiFullName:work@dut.b
+      |vpiActual:
+      \_logic_typespec: , line:15:10, endln:15:15
     |vpiInstance:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneImport/dut.sv, line:11:1, endln:20:10
   |vpiContAssign:
@@ -880,10 +785,12 @@ design: (work@dut)
         |vpiParent:
         \_operation: , line:18:14, endln:19:35
         |vpiTypespec:
-        \_integer_typespec: , line:19:15, endln:19:16
+        \_ref_typespec: (work@dut)
           |vpiParent:
           \_operation: , line:19:15, endln:19:35
-          |INT:3
+          |vpiFullName:work@dut
+          |vpiActual:
+          \_integer_typespec: , line:19:15, endln:19:16
         |vpiOpType:67
         |vpiOperand:
         \_operation: , line:19:18, endln:19:34
@@ -914,6 +821,195 @@ design: (work@dut)
       |vpiFullName:work@dut.b
       |vpiActual:
       \_logic_net: (work@dut.b), line:17:13, endln:17:14
+\_weaklyReferenced:
+\_logic_typespec: , line:2:16, endln:2:27
+  |vpiInstance:
+  \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/OneImport/dut.sv, line:1:1, endln:9:11
+  |vpiRange:
+  \_range: , line:2:22, endln:2:27
+    |vpiParent:
+    \_logic_typespec: , line:2:16, endln:2:27
+    |vpiLeftRange:
+    \_constant: , line:2:23, endln:2:24
+      |vpiParent:
+      \_range: , line:2:22, endln:2:27
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:25, endln:2:26
+      |vpiParent:
+      \_range: , line:2:22, endln:2:27
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:7:11, endln:7:23
+  |vpiParent:
+  \_parameter: (my_pkg::PMP_CFG_W), line:7:24, endln:7:33
+  |vpiInstance:
+  \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/OneImport/dut.sv, line:1:1, endln:9:11
+\_logic_typespec: , line:2:16, endln:2:27
+  |vpiInstance:
+  \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/OneImport/dut.sv, line:1:1, endln:9:11
+  |vpiRange:
+  \_range: , line:2:22, endln:2:27
+    |vpiParent:
+    \_logic_typespec: , line:2:16, endln:2:27
+    |vpiLeftRange:
+    \_constant: , line:2:23, endln:2:24
+      |vpiParent:
+      \_range: , line:2:22, endln:2:27
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:25, endln:2:26
+      |vpiParent:
+      \_range: , line:2:22, endln:2:27
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:7:11, endln:7:23
+  |vpiParent:
+  \_parameter: (my_pkg::PMP_CFG_W), line:7:24, endln:7:33
+  |vpiInstance:
+  \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/OneImport/dut.sv, line:1:1, endln:9:11
+\_integer_typespec: , line:18:14, endln:18:15
+  |INT:3
+\_integer_typespec: , line:19:15, endln:19:16
+  |INT:3
+\_logic_typespec: , line:14:9, endln:14:14
+  |vpiRange:
+  \_range: , line:14:9, endln:14:14
+    |vpiParent:
+    \_logic_typespec: , line:14:9, endln:14:14
+    |vpiLeftRange:
+    \_constant: , line:14:10, endln:14:11
+      |vpiParent:
+      \_range: , line:14:9, endln:14:14
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:14:12, endln:14:13
+      |vpiParent:
+      \_range: , line:14:9, endln:14:14
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:15:10, endln:15:15
+  |vpiRange:
+  \_range: , line:15:10, endln:15:15
+    |vpiParent:
+    \_logic_typespec: , line:15:10, endln:15:15
+    |vpiLeftRange:
+    \_constant: , line:15:11, endln:15:12
+      |vpiParent:
+      \_range: , line:15:10, endln:15:15
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:15:13, endln:15:14
+      |vpiParent:
+      \_range: , line:15:10, endln:15:15
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:16:3, endln:16:13
+  |vpiParent:
+  \_logic_net: (work@dut.a), line:16:14, endln:16:15
+  |vpiRange:
+  \_range: , line:16:8, endln:16:13
+    |vpiParent:
+    \_logic_typespec: , line:16:3, endln:16:13
+    |vpiLeftRange:
+    \_constant: , line:16:9, endln:16:10
+      |vpiParent:
+      \_range: , line:16:8, endln:16:13
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:16:11, endln:16:12
+      |vpiParent:
+      \_range: , line:16:8, endln:16:13
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:17:3, endln:17:12
+  |vpiRange:
+  \_range: , line:17:7, endln:17:12
+    |vpiParent:
+    \_logic_typespec: , line:17:3, endln:17:12
+    |vpiLeftRange:
+    \_constant: , line:17:8, endln:17:9
+      |vpiParent:
+      \_range: , line:17:7, endln:17:12
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:17:10, endln:17:11
+      |vpiParent:
+      \_range: , line:17:7, endln:17:12
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:14:9, endln:14:14
+  |vpiRange:
+  \_range: , line:14:9, endln:14:14
+    |vpiParent:
+    \_logic_typespec: , line:14:9, endln:14:14
+    |vpiLeftRange:
+    \_constant: , line:14:10, endln:14:11
+      |vpiParent:
+      \_range: , line:14:9, endln:14:14
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:14:12, endln:14:13
+      |vpiParent:
+      \_range: , line:14:9, endln:14:14
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:15:10, endln:15:15
+  |vpiRange:
+  \_range: , line:15:10, endln:15:15
+    |vpiParent:
+    \_logic_typespec: , line:15:10, endln:15:15
+    |vpiLeftRange:
+    \_constant: , line:15:11, endln:15:12
+      |vpiParent:
+      \_range: , line:15:10, endln:15:15
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:15:13, endln:15:14
+      |vpiParent:
+      \_range: , line:15:10, endln:15:15
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

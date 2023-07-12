@@ -72,24 +72,26 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 constant                                               9
 design                                                 1
-int_typespec                                           6
+int_typespec                                           3
 module_inst                                            3
 package                                                4
 param_assign                                           8
 parameter                                              8
 ref_obj                                                3
+ref_typespec                                          11
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 constant                                               9
 design                                                 1
-int_typespec                                           6
+int_typespec                                           3
 module_inst                                            3
 package                                                4
 param_assign                                           8
 parameter                                              8
 ref_obj                                                3
+ref_typespec                                          11
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/UnelabPack/slpp_all/surelog.uhdm ...
 
@@ -115,7 +117,12 @@ design: (unnamed)
     \_package: pkg1 (pkg1::), file:${SURELOG_DIR}/tests/UnelabPack/dut.sv, line:1:1, endln:3:11
     |UINT:4
     |vpiTypespec:
-    \_int_typespec: , line:2:1, endln:2:17
+    \_ref_typespec: (pkg1::X)
+      |vpiParent:
+      \_parameter: (pkg1::X), line:2:12, endln:2:13
+      |vpiFullName:pkg1::X
+      |vpiActual:
+      \_int_typespec: , line:2:1, endln:2:17
     |vpiLocalParam:1
     |vpiName:X
     |vpiFullName:pkg1::X
@@ -131,7 +138,12 @@ design: (unnamed)
       |vpiSize:32
       |UINT:4
       |vpiTypespec:
-      \_int_typespec: , line:2:1, endln:2:17
+      \_ref_typespec: (pkg1)
+        |vpiParent:
+        \_constant: , line:2:16, endln:2:17
+        |vpiFullName:pkg1
+        |vpiActual:
+        \_int_typespec: , line:2:1, endln:2:17
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (pkg1::X), line:2:12, endln:2:13
@@ -176,7 +188,12 @@ design: (unnamed)
     \_package: pkg1 (pkg1::), file:${SURELOG_DIR}/tests/UnelabPack/dut.sv, line:1:1, endln:3:11
     |UINT:4
     |vpiTypespec:
-    \_int_typespec: , line:2:1, endln:2:17
+    \_ref_typespec: (pkg1::X)
+      |vpiParent:
+      \_parameter: (pkg1::X), line:2:12, endln:2:13
+      |vpiFullName:pkg1::X
+      |vpiActual:
+      \_int_typespec: , line:2:1, endln:2:17
     |vpiLocalParam:1
     |vpiName:X
     |vpiFullName:pkg1::X
@@ -192,7 +209,12 @@ design: (unnamed)
       |vpiSize:32
       |UINT:4
       |vpiTypespec:
-      \_int_typespec: , line:2:1, endln:2:17
+      \_ref_typespec: (pkg1)
+        |vpiParent:
+        \_constant: , line:2:16, endln:2:17
+        |vpiFullName:pkg1
+        |vpiActual:
+        \_int_typespec: , line:2:1, endln:2:17
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (pkg1::X), line:2:12, endln:2:13
@@ -210,7 +232,12 @@ design: (unnamed)
     \_package: pkg2 (pkg2::), file:${SURELOG_DIR}/tests/UnelabPack/dut.sv, line:5:1, endln:7:11
     |UINT:4
     |vpiTypespec:
-    \_int_typespec: , line:6:1, endln:6:23
+    \_ref_typespec: (pkg2::Y)
+      |vpiParent:
+      \_parameter: (pkg2::Y), line:6:12, endln:6:13
+      |vpiFullName:pkg2::Y
+      |vpiActual:
+      \_int_typespec: , line:6:1, endln:6:23
     |vpiLocalParam:1
     |vpiName:Y
     |vpiFullName:pkg2::Y
@@ -226,12 +253,21 @@ design: (unnamed)
       |vpiSize:32
       |UINT:4
       |vpiTypespec:
-      \_int_typespec: , line:6:1, endln:6:23
+      \_ref_typespec: (pkg2)
+        |vpiParent:
+        \_constant: , line:6:16, endln:6:22
+        |vpiFullName:pkg2
+        |vpiActual:
+        \_int_typespec: , line:6:1, endln:6:23
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (pkg2::Y), line:6:12, endln:6:13
   |vpiDefName:pkg2
   |vpiTop:1
+\_weaklyReferenced:
+\_int_typespec: , line:2:1, endln:2:17
+\_int_typespec: , line:2:1, endln:2:17
+\_int_typespec: , line:6:1, endln:6:23
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

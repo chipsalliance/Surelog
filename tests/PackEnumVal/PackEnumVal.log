@@ -155,6 +155,7 @@ param_assign                                           1
 parameter                                              1
 port                                                   4
 ref_obj                                               10
+ref_typespec                                          13
 return_stmt                                            2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -178,6 +179,7 @@ param_assign                                           1
 parameter                                              1
 port                                                   6
 ref_obj                                               16
+ref_typespec                                          18
 return_stmt                                            4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PackEnumVal/slpp_all/surelog.uhdm ...
@@ -206,9 +208,12 @@ design: (work@top)
     |vpiInstance:
     \_package: test_package (test_package::), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:2:1, endln:13:11
     |vpiBaseTypespec:
-    \_logic_typespec: , line:4:16, endln:4:21
-      |vpiInstance:
-      \_package: test_package (test_package::), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:2:1, endln:13:11
+    \_ref_typespec: (test_package::test_package::lc_tx_t)
+      |vpiParent:
+      \_enum_typespec: (test_package::lc_tx_t), line:9:38, endln:9:45
+      |vpiFullName:test_package::test_package::lc_tx_t
+      |vpiActual:
+      \_logic_typespec: , line:4:16, endln:4:21
     |vpiEnumConst:
     \_enum_const: (On), line:5:5, endln:5:12
       |vpiParent:
@@ -239,9 +244,12 @@ design: (work@top)
       |vpiParent:
       \_function: (test_package::test_true), line:9:3, endln:11:26
       |vpiTypespec:
-      \_logic_typespec: , line:9:22, endln:9:27
-        |vpiInstance:
-        \_package: test_package (test_package::), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:2:1, endln:13:11
+      \_ref_typespec: (test_package::test_true)
+        |vpiParent:
+        \_logic_var: (test_package::test_true), line:9:22, endln:9:27
+        |vpiFullName:test_package::test_true
+        |vpiActual:
+        \_logic_typespec: , line:9:22, endln:9:27
       |vpiFullName:test_package::test_true
     |vpiIODecl:
     \_io_decl: (val), line:9:46, endln:9:49
@@ -250,7 +258,12 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:val
       |vpiTypedef:
-      \_enum_typespec: (test_package::lc_tx_t), line:9:38, endln:9:45
+      \_ref_typespec: (test_package::test_true::val)
+        |vpiParent:
+        \_io_decl: (val), line:9:46, endln:9:49
+        |vpiFullName:test_package::test_true::val
+        |vpiActual:
+        \_enum_typespec: (test_package::lc_tx_t), line:9:38, endln:9:45
     |vpiStmt:
     \_return_stmt: , line:10:5, endln:10:11
       |vpiParent:
@@ -292,9 +305,12 @@ design: (work@top)
     |vpiInstance:
     \_package: test_package (test_package::), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:2:1, endln:13:11
     |vpiBaseTypespec:
-    \_logic_typespec: , line:4:16, endln:4:21
-      |vpiInstance:
-      \_package: test_package (test_package::), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:2:1, endln:13:11
+    \_ref_typespec: (test_package::test_package::lc_tx_t)
+      |vpiParent:
+      \_enum_typespec: (test_package::lc_tx_t), line:9:38, endln:9:45
+      |vpiFullName:test_package::test_package::lc_tx_t
+      |vpiActual:
+      \_logic_typespec: , line:4:16, endln:4:21
     |vpiEnumConst:
     \_enum_const: (On), line:5:5, endln:5:12
       |vpiParent:
@@ -326,9 +342,12 @@ design: (work@top)
       |vpiParent:
       \_function: (test_package::test_true), line:9:3, endln:11:26
       |vpiTypespec:
-      \_logic_typespec: , line:9:22, endln:9:27
-        |vpiInstance:
-        \_package: test_package (test_package::), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:2:1, endln:13:11
+      \_ref_typespec: (test_package::test_true)
+        |vpiParent:
+        \_logic_var: (test_package::test_true), line:9:22, endln:9:27
+        |vpiFullName:test_package::test_true
+        |vpiActual:
+        \_logic_typespec: , line:9:22, endln:9:27
       |vpiFullName:test_package::test_true
     |vpiIODecl:
     \_io_decl: (val), line:9:46, endln:9:49
@@ -337,7 +356,12 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:val
       |vpiTypedef:
-      \_enum_typespec: (test_package::lc_tx_t), line:9:38, endln:9:45
+      \_ref_typespec: (test_package::test_true::val)
+        |vpiParent:
+        \_io_decl: (val), line:9:46, endln:9:49
+        |vpiFullName:test_package::test_true::val
+        |vpiActual:
+        \_enum_typespec: (test_package::lc_tx_t), line:9:38, endln:9:45
     |vpiStmt:
     \_return_stmt: , line:10:5, endln:10:11
       |vpiParent:
@@ -400,7 +424,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.i), line:16:24, endln:16:25
     |vpiTypedef:
-    \_logic_typespec: , line:16:18, endln:16:23
+    \_ref_typespec: (work@top.i)
+      |vpiParent:
+      \_port: (i), line:16:24, endln:16:25
+      |vpiFullName:work@top.i
+      |vpiActual:
+      \_logic_typespec: , line:16:18, endln:16:23
   |vpiPort:
   \_port: (o), line:16:40, endln:16:41
     |vpiParent:
@@ -416,7 +445,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.o), line:16:40, endln:16:41
     |vpiTypedef:
-    \_logic_typespec: , line:16:34, endln:16:39
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_port: (o), line:16:40, endln:16:41
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_logic_typespec: , line:16:34, endln:16:39
   |vpiContAssign:
   \_cont_assign: , line:17:10, endln:17:40
     |vpiParent:
@@ -430,7 +464,12 @@ design: (work@top)
         |vpiParent:
         \_func_call: (test_package::test_true), line:17:14, endln:17:26
         |vpiTypespec:
-        \_enum_typespec: (test_package::lc_tx_t), line:9:38, endln:9:45
+        \_ref_typespec: (work@top.i)
+          |vpiParent:
+          \_ref_obj: (work@top.i), line:17:38, endln:17:39
+          |vpiFullName:work@top.i
+          |vpiActual:
+          \_enum_typespec: (test_package::lc_tx_t), line:9:38, endln:9:45
         |vpiName:i
         |vpiFullName:work@top.i
         |vpiActual:
@@ -456,9 +495,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:16:1, endln:18:10
     |vpiTypespec:
-    \_logic_typespec: , line:16:18, endln:16:23
+    \_ref_typespec: (work@top.i)
       |vpiParent:
       \_logic_net: (work@top.i), line:16:24, endln:16:25
+      |vpiFullName:work@top.i
+      |vpiActual:
+      \_logic_typespec: , line:16:18, endln:16:23
     |vpiName:i
     |vpiFullName:work@top.i
     |vpiNetType:36
@@ -467,7 +509,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:16:1, endln:18:10
     |vpiTypespec:
-    \_logic_typespec: , line:16:34, endln:16:39
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_logic_net: (work@top.o), line:16:40, endln:16:41
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_logic_typespec: , line:16:34, endln:16:39
     |vpiName:o
     |vpiFullName:work@top.o
     |vpiNetType:36
@@ -487,7 +534,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.i), line:16:24, endln:16:25
     |vpiTypedef:
-    \_logic_typespec: , line:16:18, endln:16:23
+    \_ref_typespec: (work@top.i)
+      |vpiParent:
+      \_port: (i), line:16:24, endln:16:25
+      |vpiFullName:work@top.i
+      |vpiActual:
+      \_logic_typespec: , line:16:18, endln:16:23
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:16:1, endln:18:10
   |vpiPort:
@@ -505,7 +557,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.o), line:16:40, endln:16:41
     |vpiTypedef:
-    \_logic_typespec: , line:16:34, endln:16:39
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_port: (o), line:16:40, endln:16:41
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_logic_typespec: , line:16:34, endln:16:39
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:16:1, endln:18:10
   |vpiContAssign:
@@ -521,7 +578,12 @@ design: (work@top)
         |vpiParent:
         \_func_call: (test_package::test_true), line:17:14, endln:17:26
         |vpiTypespec:
-        \_enum_typespec: (test_package::lc_tx_t), line:9:38, endln:9:45
+        \_ref_typespec: (work@top.i)
+          |vpiParent:
+          \_ref_obj: (work@top.i), line:17:38, endln:17:39
+          |vpiFullName:work@top.i
+          |vpiActual:
+          \_enum_typespec: (test_package::lc_tx_t), line:9:38, endln:9:45
         |vpiName:i
         |vpiFullName:work@top.i
         |vpiActual:
@@ -537,6 +599,113 @@ design: (work@top)
       |vpiFullName:work@top.o
       |vpiActual:
       \_logic_net: (work@top.o), line:16:40, endln:16:41
+\_weaklyReferenced:
+\_function: (test_package::test_true), line:9:3, endln:11:26
+  |vpiParent:
+  \_package: test_package (test_package::), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:2:1, endln:13:11
+  |vpiName:test_true
+  |vpiFullName:test_package::test_true
+  |vpiVisibility:1
+  |vpiAutomatic:1
+  |vpiReturn:
+  \_logic_var: (test_package::test_true), line:9:22, endln:9:27
+  |vpiIODecl:
+  \_io_decl: (val), line:9:46, endln:9:49
+    |vpiParent:
+    \_function: (test_package::test_true), line:9:3, endln:11:26
+    |vpiDirection:1
+    |vpiName:val
+    |vpiTypedef:
+    \_ref_typespec: (test_package::test_true::val)
+      |vpiParent:
+      \_io_decl: (val), line:9:46, endln:9:49
+      |vpiFullName:test_package::test_true::val
+      |vpiActual:
+      \_enum_typespec: (test_package::lc_tx_t), line:9:38, endln:9:45
+  |vpiStmt:
+  \_return_stmt: , line:10:5, endln:10:11
+    |vpiParent:
+    \_function: (test_package::test_true), line:9:3, endln:11:26
+    |vpiCondition:
+    \_operation: , line:10:12, endln:10:21
+      |vpiParent:
+      \_return_stmt: , line:10:5, endln:10:11
+      |vpiOpType:14
+      |vpiOperand:
+      \_constant: , line:10:12, endln:10:14
+      |vpiOperand:
+      \_ref_obj: (test_package::test_true::val), line:10:18, endln:10:21
+        |vpiParent:
+        \_operation: , line:10:12, endln:10:21
+        |vpiName:val
+        |vpiFullName:test_package::test_true::val
+        |vpiActual:
+        \_io_decl: (val), line:9:46, endln:9:49
+  |vpiInstance:
+  \_package: test_package (test_package::), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:2:1, endln:13:11
+\_logic_typespec: , line:4:16, endln:4:21
+  |vpiInstance:
+  \_package: test_package (test_package::), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:2:1, endln:13:11
+\_logic_typespec: , line:9:22, endln:9:27
+  |vpiInstance:
+  \_package: test_package (test_package::), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:2:1, endln:13:11
+\_function: (test_package::test_true), line:9:3, endln:11:26
+  |vpiParent:
+  \_package: test_package (test_package::), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:2:1, endln:13:11
+  |vpiName:test_true
+  |vpiFullName:test_package::test_true
+  |vpiVisibility:1
+  |vpiAutomatic:1
+  |vpiReturn:
+  \_logic_var: (test_package::test_true), line:9:22, endln:9:27
+  |vpiIODecl:
+  \_io_decl: (val), line:9:46, endln:9:49
+    |vpiParent:
+    \_function: (test_package::test_true), line:9:3, endln:11:26
+    |vpiDirection:1
+    |vpiName:val
+    |vpiTypedef:
+    \_ref_typespec: (test_package::test_true::val)
+      |vpiParent:
+      \_io_decl: (val), line:9:46, endln:9:49
+      |vpiFullName:test_package::test_true::val
+      |vpiActual:
+      \_enum_typespec: (test_package::lc_tx_t), line:9:38, endln:9:45
+  |vpiStmt:
+  \_return_stmt: , line:10:5, endln:10:11
+    |vpiParent:
+    \_function: (test_package::test_true), line:9:3, endln:11:26
+    |vpiCondition:
+    \_operation: , line:10:12, endln:10:21
+      |vpiParent:
+      \_return_stmt: , line:10:5, endln:10:11
+      |vpiOpType:14
+      |vpiOperand:
+      \_constant: , line:10:12, endln:10:14
+      |vpiOperand:
+      \_ref_obj: (test_package::test_true::val), line:10:18, endln:10:21
+        |vpiParent:
+        \_operation: , line:10:12, endln:10:21
+        |vpiName:val
+        |vpiFullName:test_package::test_true::val
+        |vpiActual:
+        \_io_decl: (val), line:9:46, endln:9:49
+  |vpiInstance:
+  \_package: test_package (test_package::), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:2:1, endln:13:11
+\_logic_typespec: , line:4:16, endln:4:21
+  |vpiInstance:
+  \_package: test_package (test_package::), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:2:1, endln:13:11
+\_logic_typespec: , line:9:22, endln:9:27
+  |vpiInstance:
+  \_package: test_package (test_package::), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:2:1, endln:13:11
+\_logic_typespec: , line:16:18, endln:16:23
+\_logic_typespec: , line:16:34, endln:16:39
+\_logic_typespec: , line:16:18, endln:16:23
+  |vpiParent:
+  \_logic_net: (work@top.i), line:16:24, endln:16:25
+\_logic_typespec: , line:16:34, endln:16:39
+\_logic_typespec: , line:16:18, endln:16:23
+\_logic_typespec: , line:16:34, endln:16:39
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

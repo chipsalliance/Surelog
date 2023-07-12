@@ -95,6 +95,7 @@ logic_typespec                                         1
 module_inst                                            3
 operation                                              4
 range                                                  1
+ref_typespec                                           1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/EnumConst/slpp_unit/surelog.uhdm ...
 
@@ -120,27 +121,12 @@ design: (work@dut)
     |vpiInstance:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/EnumConst/dut.sv, line:1:1, endln:7:10
     |vpiBaseTypespec:
-    \_logic_typespec: , line:2:14, endln:2:25
-      |vpiRange:
-      \_range: , line:2:20, endln:2:25
-        |vpiParent:
-        \_logic_typespec: , line:2:14, endln:2:25
-        |vpiLeftRange:
-        \_constant: , line:2:21, endln:2:22
-          |vpiParent:
-          \_range: , line:2:20, endln:2:25
-          |vpiDecompile:5
-          |vpiSize:64
-          |UINT:5
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:23, endln:2:24
-          |vpiParent:
-          \_range: , line:2:20, endln:2:25
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@dut.exc_cause_e)
+      |vpiParent:
+      \_enum_typespec: (exc_cause_e), line:2:1, endln:5:15
+      |vpiFullName:work@dut.exc_cause_e
+      |vpiActual:
+      \_logic_typespec: , line:2:14, endln:2:25
     |vpiEnumConst:
     \_enum_const: (EXC_CAUSE_IRQ_SOFTWARE_M), line:3:3, endln:3:47
       |vpiParent:
@@ -166,6 +152,28 @@ design: (work@dut)
   |vpiDefName:work@dut
   |vpiTop:1
   |vpiTopModule:1
+\_weaklyReferenced:
+\_logic_typespec: , line:2:14, endln:2:25
+  |vpiRange:
+  \_range: , line:2:20, endln:2:25
+    |vpiParent:
+    \_logic_typespec: , line:2:14, endln:2:25
+    |vpiLeftRange:
+    \_constant: , line:2:21, endln:2:22
+      |vpiParent:
+      \_range: , line:2:20, endln:2:25
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:23, endln:2:24
+      |vpiParent:
+      \_range: , line:2:20, endln:2:25
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

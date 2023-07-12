@@ -200,23 +200,24 @@ AST_DEBUG_END
 assign_stmt                                            1
 begin                                                  4
 bit_select                                             5
-constant                                              57
+constant                                              55
 design                                                 1
 gen_for                                                1
 gen_if                                                 1
 gen_if_else                                            1
 gen_scope                                             14
 gen_scope_array                                       14
-int_typespec                                           6
+int_typespec                                           5
 logic_net                                              1
 logic_typespec                                         4
 module_inst                                           10
 operation                                             16
 param_assign                                           2
 parameter                                              6
-range                                                  6
+range                                                  5
 ref_module                                             7
 ref_obj                                                5
+ref_typespec                                          15
 ref_var                                                1
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
@@ -226,23 +227,24 @@ unsupported_typespec                                   1
 assign_stmt                                            1
 begin                                                  4
 bit_select                                             5
-constant                                              57
+constant                                              55
 design                                                 1
 gen_for                                                1
 gen_if                                                 1
 gen_if_else                                            1
 gen_scope                                             20
 gen_scope_array                                       20
-int_typespec                                           6
+int_typespec                                           5
 logic_net                                              1
 logic_typespec                                         4
 module_inst                                           14
 operation                                             16
 param_assign                                           2
 parameter                                              6
-range                                                  6
+range                                                  5
 ref_module                                             7
 ref_obj                                                5
+ref_typespec                                          19
 ref_var                                                1
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
@@ -275,17 +277,12 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamBitSelect/dut.sv, line:5:1, endln:21:10
     |BIN:0011
     |vpiTypespec:
-    \_int_typespec: , line:7:1, endln:7:25
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:7:1, endln:7:25
-        |vpiLeftRange:
-        \_constant: 
-          |INT:3
-        |vpiRightRange:
-        \_constant: 
-          |INT:0
+    \_ref_typespec: (work@dut.test)
+      |vpiParent:
+      \_parameter: (work@dut.test), line:7:11, endln:7:15
+      |vpiFullName:work@dut.test
+      |vpiActual:
+      \_int_typespec: , line:7:1, endln:7:25
     |vpiName:test
     |vpiFullName:work@dut.test
   |vpiParamAssign:
@@ -300,7 +297,12 @@ design: (work@dut)
       |vpiSize:4
       |BIN:0011
       |vpiTypespec:
-      \_int_typespec: , line:7:1, endln:7:25
+      \_ref_typespec: (work@dut)
+        |vpiParent:
+        \_constant: , line:7:18, endln:7:25
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_int_typespec: , line:7:1, endln:7:25
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@dut.test), line:7:11, endln:7:15
@@ -476,23 +478,12 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamBitSelect/dut.sv, line:5:1, endln:21:10
     |BIN:0011
     |vpiTypespec:
-    \_int_typespec: , line:7:1, endln:7:25
+    \_ref_typespec: (work@dut.test)
       |vpiParent:
       \_parameter: (work@dut.test), line:7:11, endln:7:15
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:7:1, endln:7:25
-        |vpiLeftRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:3
-        |vpiRightRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:0
+      |vpiFullName:work@dut.test
+      |vpiActual:
+      \_int_typespec: , line:7:1, endln:7:25
     |vpiName:test
     |vpiFullName:work@dut.test
   |vpiParamAssign:
@@ -507,17 +498,12 @@ design: (work@dut)
       |vpiSize:4
       |BIN:0011
       |vpiTypespec:
-      \_logic_typespec: 
-        |vpiRange:
-        \_range: 
-          |vpiParent:
-          \_logic_typespec: 
-          |vpiLeftRange:
-          \_constant: 
-            |UINT:3
-          |vpiRightRange:
-          \_constant: 
-            |UINT:0
+      \_ref_typespec: (work@dut)
+        |vpiParent:
+        \_constant: , line:7:18, endln:7:25
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_logic_typespec: 
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@dut.test), line:7:11, endln:7:15
@@ -541,7 +527,12 @@ design: (work@dut)
         \_gen_scope: (work@dut.genblk1[0]), line:9:32, endln:19:4
         |UINT:0
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@dut.genblk1[0].k)
+          |vpiParent:
+          \_parameter: (work@dut.genblk1[0].k), line:9:0
+          |vpiFullName:work@dut.genblk1[0].k
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:k
         |vpiFullName:work@dut.genblk1[0].k
@@ -589,7 +580,12 @@ design: (work@dut)
         \_gen_scope: (work@dut.genblk1[1]), line:9:32, endln:19:4
         |UINT:1
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@dut.genblk1[1].k)
+          |vpiParent:
+          \_parameter: (work@dut.genblk1[1].k), line:9:0
+          |vpiFullName:work@dut.genblk1[1].k
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:k
         |vpiFullName:work@dut.genblk1[1].k
@@ -637,7 +633,12 @@ design: (work@dut)
         \_gen_scope: (work@dut.genblk1[2]), line:9:32, endln:19:4
         |UINT:2
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@dut.genblk1[2].k)
+          |vpiParent:
+          \_parameter: (work@dut.genblk1[2].k), line:9:0
+          |vpiFullName:work@dut.genblk1[2].k
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:k
         |vpiFullName:work@dut.genblk1[2].k
@@ -658,10 +659,42 @@ design: (work@dut)
         \_gen_scope: (work@dut.genblk1[3]), line:9:32, endln:19:4
         |UINT:3
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@dut.genblk1[3].k)
+          |vpiParent:
+          \_parameter: (work@dut.genblk1[3].k), line:9:0
+          |vpiFullName:work@dut.genblk1[3].k
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:k
         |vpiFullName:work@dut.genblk1[3].k
+\_weaklyReferenced:
+\_int_typespec: , line:7:1, endln:7:25
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:7:1, endln:7:25
+    |vpiLeftRange:
+    \_constant: 
+      |INT:3
+    |vpiRightRange:
+    \_constant: 
+      |INT:0
+\_logic_typespec: 
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_logic_typespec: 
+    |vpiLeftRange:
+    \_constant: 
+      |UINT:3
+    |vpiRightRange:
+    \_constant: 
+      |UINT:0
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

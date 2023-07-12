@@ -160,8 +160,8 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 constant                                              22
 design                                                 1
-int_typespec                                          13
-logic_typespec                                        13
+int_typespec                                           2
+logic_typespec                                         2
 module_inst                                            7
 operation                                             11
 package                                                2
@@ -169,18 +169,19 @@ param_assign                                           4
 parameter                                              6
 ref_module                                             1
 ref_obj                                                2
-string_typespec                                       14
-struct_typespec                                       13
+ref_typespec                                          32
+string_typespec                                        4
+struct_typespec                                        2
 tagged_pattern                                        14
-typespec_member                                       26
+typespec_member                                        4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 constant                                              22
 design                                                 1
-int_typespec                                          13
-logic_typespec                                        13
+int_typespec                                           2
+logic_typespec                                         2
 module_inst                                            7
 operation                                             11
 package                                                2
@@ -188,10 +189,11 @@ param_assign                                           4
 parameter                                              6
 ref_module                                             1
 ref_obj                                                2
-string_typespec                                       14
-struct_typespec                                       13
+ref_typespec                                          32
+string_typespec                                        4
+struct_typespec                                        2
 tagged_pattern                                        14
-typespec_member                                       26
+typespec_member                                        4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/TaggedParam/slpp_all/surelog.uhdm ...
 
@@ -225,11 +227,12 @@ design: (work@fpu_wrap)
       \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:6:4
       |vpiName:Width
       |vpiTypespec:
-      \_int_typespec: , line:4:5, endln:4:17
+      \_ref_typespec: (fpnew_pkg::fpnew_pkg::fpu_features_t::Width)
         |vpiParent:
         \_typespec_member: (Width), line:4:18, endln:4:23
-        |vpiInstance:
-        \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/TaggedParam/dut.sv, line:1:1, endln:8:11
+        |vpiFullName:fpnew_pkg::fpnew_pkg::fpu_features_t::Width
+        |vpiActual:
+        \_int_typespec: , line:4:5, endln:4:17
       |vpiRefFile:${SURELOG_DIR}/tests/TaggedParam/dut.sv
       |vpiRefLineNo:4
       |vpiRefColumnNo:5
@@ -241,11 +244,12 @@ design: (work@fpu_wrap)
       \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:6:4
       |vpiName:EnableNanBox
       |vpiTypespec:
-      \_logic_typespec: , line:5:5, endln:5:10
+      \_ref_typespec: (fpnew_pkg::fpnew_pkg::fpu_features_t::EnableNanBox)
         |vpiParent:
         \_typespec_member: (EnableNanBox), line:5:18, endln:5:30
-        |vpiInstance:
-        \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/TaggedParam/dut.sv, line:1:1, endln:8:11
+        |vpiFullName:fpnew_pkg::fpnew_pkg::fpu_features_t::EnableNanBox
+        |vpiActual:
+        \_logic_typespec: , line:5:5, endln:5:10
       |vpiRefFile:${SURELOG_DIR}/tests/TaggedParam/dut.sv
       |vpiRefLineNo:5
       |vpiRefColumnNo:5
@@ -272,11 +276,12 @@ design: (work@fpu_wrap)
       \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:6:4
       |vpiName:Width
       |vpiTypespec:
-      \_int_typespec: , line:4:5, endln:4:17
+      \_ref_typespec: (fpnew_pkg::fpnew_pkg::fpu_features_t::Width)
         |vpiParent:
         \_typespec_member: (Width), line:4:18, endln:4:23
-        |vpiInstance:
-        \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/TaggedParam/dut.sv, line:1:1, endln:8:11
+        |vpiFullName:fpnew_pkg::fpnew_pkg::fpu_features_t::Width
+        |vpiActual:
+        \_int_typespec: , line:4:5, endln:4:17
       |vpiRefFile:${SURELOG_DIR}/tests/TaggedParam/dut.sv
       |vpiRefLineNo:4
       |vpiRefColumnNo:5
@@ -288,11 +293,12 @@ design: (work@fpu_wrap)
       \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:6:4
       |vpiName:EnableNanBox
       |vpiTypespec:
-      \_logic_typespec: , line:5:5, endln:5:10
+      \_ref_typespec: (fpnew_pkg::fpnew_pkg::fpu_features_t::EnableNanBox)
         |vpiParent:
         \_typespec_member: (EnableNanBox), line:5:18, endln:5:30
-        |vpiInstance:
-        \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/TaggedParam/dut.sv, line:1:1, endln:8:11
+        |vpiFullName:fpnew_pkg::fpnew_pkg::fpu_features_t::EnableNanBox
+        |vpiActual:
+        \_logic_typespec: , line:5:5, endln:5:10
       |vpiRefFile:${SURELOG_DIR}/tests/TaggedParam/dut.sv
       |vpiRefLineNo:5
       |vpiRefColumnNo:5
@@ -310,7 +316,12 @@ design: (work@fpu_wrap)
     |vpiParent:
     \_module_inst: work@fpnew_top (work@fpnew_top), file:${SURELOG_DIR}/tests/TaggedParam/dut.sv, line:10:2, endln:14:11
     |vpiTypespec:
-    \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:6:4
+    \_ref_typespec: (work@fpnew_top.Features)
+      |vpiParent:
+      \_parameter: (work@fpnew_top.Features), line:12:45, endln:12:53
+      |vpiFullName:work@fpnew_top.Features
+      |vpiActual:
+      \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:6:4
     |vpiName:Features
     |vpiFullName:work@fpnew_top.Features
   |vpiParamAssign:
@@ -336,7 +347,12 @@ design: (work@fpu_wrap)
     |vpiParent:
     \_module_inst: work@fpu_wrap (work@fpu_wrap), file:${SURELOG_DIR}/tests/TaggedParam/dut.sv, line:16:1, endln:27:10
     |vpiTypespec:
-    \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:6:4
+    \_ref_typespec: (work@fpu_wrap.FPU_FEATURES)
+      |vpiParent:
+      \_parameter: (work@fpu_wrap.FPU_FEATURES), line:18:38, endln:18:50
+      |vpiFullName:work@fpu_wrap.FPU_FEATURES
+      |vpiActual:
+      \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:6:4
     |vpiLocalParam:1
     |vpiName:FPU_FEATURES
     |vpiFullName:work@fpu_wrap.FPU_FEATURES
@@ -360,10 +376,12 @@ design: (work@fpu_wrap)
           |UINT:64
           |vpiConstType:9
         |vpiTypespec:
-        \_string_typespec: (Width), line:19:7, endln:19:12
+        \_ref_typespec: (work@fpu_wrap)
           |vpiParent:
           \_tagged_pattern: , line:19:22, endln:19:24
-          |vpiName:Width
+          |vpiFullName:work@fpu_wrap
+          |vpiActual:
+          \_string_typespec: (Width), line:19:7, endln:19:12
       |vpiOperand:
       \_tagged_pattern: , line:20:22, endln:20:26
         |vpiParent:
@@ -375,10 +393,12 @@ design: (work@fpu_wrap)
           |BIN:1
           |vpiConstType:3
         |vpiTypespec:
-        \_string_typespec: (EnableNanBox), line:20:7, endln:20:19
+        \_ref_typespec: (work@fpu_wrap)
           |vpiParent:
           \_tagged_pattern: , line:20:22, endln:20:26
-          |vpiName:EnableNanBox
+          |vpiFullName:work@fpu_wrap
+          |vpiActual:
+          \_string_typespec: (EnableNanBox), line:20:7, endln:20:19
     |vpiLhs:
     \_parameter: (work@fpu_wrap.FPU_FEATURES), line:18:38, endln:18:50
   |vpiDefName:work@fpu_wrap
@@ -398,45 +418,12 @@ design: (work@fpu_wrap)
     |vpiParent:
     \_module_inst: work@fpu_wrap (work@fpu_wrap), file:${SURELOG_DIR}/tests/TaggedParam/dut.sv, line:16:1, endln:27:10
     |vpiTypespec:
-    \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:6:4
+    \_ref_typespec: (work@fpu_wrap.FPU_FEATURES)
       |vpiParent:
       \_parameter: (work@fpu_wrap.FPU_FEATURES), line:18:38, endln:18:50
-      |vpiName:fpnew_pkg::fpu_features_t
-      |vpiInstance:
-      \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/TaggedParam/dut.sv, line:1:1, endln:8:11
-      |vpiPacked:1
-      |vpiTypespecMember:
-      \_typespec_member: (Width), line:4:18, endln:4:23
-        |vpiParent:
-        \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:6:4
-        |vpiName:Width
-        |vpiTypespec:
-        \_int_typespec: , line:4:5, endln:4:17
-          |vpiParent:
-          \_typespec_member: (Width), line:4:18, endln:4:23
-          |vpiInstance:
-          \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/TaggedParam/dut.sv, line:1:1, endln:8:11
-        |vpiRefFile:${SURELOG_DIR}/tests/TaggedParam/dut.sv
-        |vpiRefLineNo:4
-        |vpiRefColumnNo:5
-        |vpiRefEndLineNo:4
-        |vpiRefEndColumnNo:17
-      |vpiTypespecMember:
-      \_typespec_member: (EnableNanBox), line:5:18, endln:5:30
-        |vpiParent:
-        \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:6:4
-        |vpiName:EnableNanBox
-        |vpiTypespec:
-        \_logic_typespec: , line:5:5, endln:5:10
-          |vpiParent:
-          \_typespec_member: (EnableNanBox), line:5:18, endln:5:30
-          |vpiInstance:
-          \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/TaggedParam/dut.sv, line:1:1, endln:8:11
-        |vpiRefFile:${SURELOG_DIR}/tests/TaggedParam/dut.sv
-        |vpiRefLineNo:5
-        |vpiRefColumnNo:5
-        |vpiRefEndLineNo:5
-        |vpiRefEndColumnNo:10
+      |vpiFullName:work@fpu_wrap.FPU_FEATURES
+      |vpiActual:
+      \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:6:4
     |vpiLocalParam:1
     |vpiName:FPU_FEATURES
     |vpiFullName:work@fpu_wrap.FPU_FEATURES
@@ -449,45 +436,12 @@ design: (work@fpu_wrap)
       |vpiParent:
       \_param_assign: , line:18:38, endln:21:6
       |vpiTypespec:
-      \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:6:4
+      \_ref_typespec: (work@fpu_wrap)
         |vpiParent:
         \_operation: , line:18:53, endln:21:6
-        |vpiName:fpnew_pkg::fpu_features_t
-        |vpiInstance:
-        \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/TaggedParam/dut.sv, line:1:1, endln:8:11
-        |vpiPacked:1
-        |vpiTypespecMember:
-        \_typespec_member: (Width), line:4:18, endln:4:23
-          |vpiParent:
-          \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:6:4
-          |vpiName:Width
-          |vpiTypespec:
-          \_int_typespec: , line:4:5, endln:4:17
-            |vpiParent:
-            \_typespec_member: (Width), line:4:18, endln:4:23
-            |vpiInstance:
-            \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/TaggedParam/dut.sv, line:1:1, endln:8:11
-          |vpiRefFile:${SURELOG_DIR}/tests/TaggedParam/dut.sv
-          |vpiRefLineNo:4
-          |vpiRefColumnNo:5
-          |vpiRefEndLineNo:4
-          |vpiRefEndColumnNo:17
-        |vpiTypespecMember:
-        \_typespec_member: (EnableNanBox), line:5:18, endln:5:30
-          |vpiParent:
-          \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:6:4
-          |vpiName:EnableNanBox
-          |vpiTypespec:
-          \_logic_typespec: , line:5:5, endln:5:10
-            |vpiParent:
-            \_typespec_member: (EnableNanBox), line:5:18, endln:5:30
-            |vpiInstance:
-            \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/TaggedParam/dut.sv, line:1:1, endln:8:11
-          |vpiRefFile:${SURELOG_DIR}/tests/TaggedParam/dut.sv
-          |vpiRefLineNo:5
-          |vpiRefColumnNo:5
-          |vpiRefEndLineNo:5
-          |vpiRefEndColumnNo:10
+        |vpiFullName:work@fpu_wrap
+        |vpiActual:
+        \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:6:4
       |vpiOpType:75
       |vpiOperand:
       \_constant: , line:19:22, endln:19:24
@@ -521,45 +475,12 @@ design: (work@fpu_wrap)
       |vpiParent:
       \_module_inst: work@fpnew_top (work@fpu_wrap.i_fpnew_bulk), file:${SURELOG_DIR}/tests/TaggedParam/dut.sv, line:23:8, endln:25:24
       |vpiTypespec:
-      \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:6:4
+      \_ref_typespec: (work@fpu_wrap.i_fpnew_bulk.Features)
         |vpiParent:
         \_parameter: (work@fpu_wrap.i_fpnew_bulk.Features), line:12:45, endln:12:53
-        |vpiName:fpnew_pkg::fpu_features_t
-        |vpiInstance:
-        \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/TaggedParam/dut.sv, line:1:1, endln:8:11
-        |vpiPacked:1
-        |vpiTypespecMember:
-        \_typespec_member: (Width), line:4:18, endln:4:23
-          |vpiParent:
-          \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:6:4
-          |vpiName:Width
-          |vpiTypespec:
-          \_int_typespec: , line:4:5, endln:4:17
-            |vpiParent:
-            \_typespec_member: (Width), line:4:18, endln:4:23
-            |vpiInstance:
-            \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/TaggedParam/dut.sv, line:1:1, endln:8:11
-          |vpiRefFile:${SURELOG_DIR}/tests/TaggedParam/dut.sv
-          |vpiRefLineNo:4
-          |vpiRefColumnNo:5
-          |vpiRefEndLineNo:4
-          |vpiRefEndColumnNo:17
-        |vpiTypespecMember:
-        \_typespec_member: (EnableNanBox), line:5:18, endln:5:30
-          |vpiParent:
-          \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:6:4
-          |vpiName:EnableNanBox
-          |vpiTypespec:
-          \_logic_typespec: , line:5:5, endln:5:10
-            |vpiParent:
-            \_typespec_member: (EnableNanBox), line:5:18, endln:5:30
-            |vpiInstance:
-            \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/TaggedParam/dut.sv, line:1:1, endln:8:11
-          |vpiRefFile:${SURELOG_DIR}/tests/TaggedParam/dut.sv
-          |vpiRefLineNo:5
-          |vpiRefColumnNo:5
-          |vpiRefEndLineNo:5
-          |vpiRefEndColumnNo:10
+        |vpiFullName:work@fpu_wrap.i_fpnew_bulk.Features
+        |vpiActual:
+        \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:6:4
       |vpiName:Features
       |vpiFullName:work@fpu_wrap.i_fpnew_bulk.Features
     |vpiParamAssign:
@@ -572,45 +493,12 @@ design: (work@fpu_wrap)
         |vpiParent:
         \_param_assign: , line:12:45, endln:12:84
         |vpiTypespec:
-        \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:6:4
+        \_ref_typespec: (work@fpu_wrap.i_fpnew_bulk)
           |vpiParent:
           \_operation: , line:24:25, endln:24:37
-          |vpiName:fpnew_pkg::fpu_features_t
-          |vpiInstance:
-          \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/TaggedParam/dut.sv, line:1:1, endln:8:11
-          |vpiPacked:1
-          |vpiTypespecMember:
-          \_typespec_member: (Width), line:4:18, endln:4:23
-            |vpiParent:
-            \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:6:4
-            |vpiName:Width
-            |vpiTypespec:
-            \_int_typespec: , line:4:5, endln:4:17
-              |vpiParent:
-              \_typespec_member: (Width), line:4:18, endln:4:23
-              |vpiInstance:
-              \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/TaggedParam/dut.sv, line:1:1, endln:8:11
-            |vpiRefFile:${SURELOG_DIR}/tests/TaggedParam/dut.sv
-            |vpiRefLineNo:4
-            |vpiRefColumnNo:5
-            |vpiRefEndLineNo:4
-            |vpiRefEndColumnNo:17
-          |vpiTypespecMember:
-          \_typespec_member: (EnableNanBox), line:5:18, endln:5:30
-            |vpiParent:
-            \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:6:4
-            |vpiName:EnableNanBox
-            |vpiTypespec:
-            \_logic_typespec: , line:5:5, endln:5:10
-              |vpiParent:
-              \_typespec_member: (EnableNanBox), line:5:18, endln:5:30
-              |vpiInstance:
-              \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/TaggedParam/dut.sv, line:1:1, endln:8:11
-            |vpiRefFile:${SURELOG_DIR}/tests/TaggedParam/dut.sv
-            |vpiRefLineNo:5
-            |vpiRefColumnNo:5
-            |vpiRefEndLineNo:5
-            |vpiRefEndColumnNo:10
+          |vpiFullName:work@fpu_wrap.i_fpnew_bulk
+          |vpiActual:
+          \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:6:4
         |vpiOpType:75
         |vpiOperand:
         \_constant: , line:19:22, endln:19:24
@@ -635,6 +523,65 @@ design: (work@fpu_wrap)
     |vpiDefLineNo:10
     |vpiInstance:
     \_module_inst: work@fpu_wrap (work@fpu_wrap), file:${SURELOG_DIR}/tests/TaggedParam/dut.sv, line:16:1, endln:27:10
+\_weaklyReferenced:
+\_int_typespec: , line:4:5, endln:4:17
+  |vpiParent:
+  \_typespec_member: (Width), line:4:18, endln:4:23
+  |vpiInstance:
+  \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/TaggedParam/dut.sv, line:1:1, endln:8:11
+\_logic_typespec: , line:5:5, endln:5:10
+  |vpiParent:
+  \_typespec_member: (EnableNanBox), line:5:18, endln:5:30
+  |vpiInstance:
+  \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/TaggedParam/dut.sv, line:1:1, endln:8:11
+\_int_typespec: , line:4:5, endln:4:17
+  |vpiParent:
+  \_typespec_member: (Width), line:4:18, endln:4:23
+  |vpiInstance:
+  \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/TaggedParam/dut.sv, line:1:1, endln:8:11
+\_logic_typespec: , line:5:5, endln:5:10
+  |vpiParent:
+  \_typespec_member: (EnableNanBox), line:5:18, endln:5:30
+  |vpiInstance:
+  \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/TaggedParam/dut.sv, line:1:1, endln:8:11
+\_string_typespec: (Width), line:19:7, endln:19:12
+  |vpiParent:
+  \_tagged_pattern: , line:19:22, endln:19:24
+  |vpiName:Width
+\_string_typespec: (EnableNanBox), line:20:7, endln:20:19
+  |vpiParent:
+  \_tagged_pattern: , line:20:22, endln:20:26
+  |vpiName:EnableNanBox
+\_operation: , line:18:53, endln:21:6
+  |vpiParent:
+  \_param_assign: , line:18:38, endln:21:6
+  |vpiTypespec:
+  \_ref_typespec: (work@fpu_wrap)
+    |vpiParent:
+    \_operation: , line:18:53, endln:21:6
+    |vpiFullName:work@fpu_wrap
+    |vpiActual:
+    \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:6:4
+  |vpiOpType:75
+  |vpiOperand:
+  \_constant: , line:19:22, endln:19:24
+  |vpiOperand:
+  \_constant: , line:20:22, endln:20:26
+\_operation: , line:24:25, endln:24:37
+  |vpiParent:
+  \_param_assign: , line:12:45, endln:12:84
+  |vpiTypespec:
+  \_ref_typespec: (work@fpu_wrap.i_fpnew_bulk)
+    |vpiParent:
+    \_operation: , line:24:25, endln:24:37
+    |vpiFullName:work@fpu_wrap.i_fpnew_bulk
+    |vpiActual:
+    \_struct_typespec: (fpnew_pkg::fpu_features_t), line:3:9, endln:6:4
+  |vpiOpType:75
+  |vpiOperand:
+  \_constant: , line:19:22, endln:19:24
+  |vpiOperand:
+  \_constant: , line:20:22, endln:20:26
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

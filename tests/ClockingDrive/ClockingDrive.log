@@ -1559,6 +1559,35 @@ design: (work@main)
             |vpiParent:
             \_hier_path: (pe.nibble), line:34:1, endln:34:10
             |vpiName:nibble
+\_weaklyReferenced:
+\_clocking_block: (work@main.cb), line:6:1, endln:8:12
+  |vpiParent:
+  \_module_inst: work@main (work@main), file:${SURELOG_DIR}/tests/ClockingDrive/dut.sv, line:3:1, endln:36:10
+  |vpiName:cb
+  |vpiFullName:work@main.cb
+  |vpiClockingEvent:
+  \_event_control: , line:6:21, endln:6:35
+    |vpiParent:
+    \_clocking_block: (work@main.cb), line:6:1, endln:8:12
+    |vpiCondition:
+    \_operation: , line:6:23, endln:6:34
+      |vpiParent:
+      \_event_control: , line:6:21, endln:6:35
+      |vpiOpType:39
+      |vpiOperand:
+      \_ref_obj: (work@main.cb.clk), line:6:31, endln:6:34
+        |vpiParent:
+        \_operation: , line:6:23, endln:6:34
+        |vpiName:clk
+        |vpiFullName:work@main.cb.clk
+        |vpiActual:
+        \_logic_net: (work@main.clk), line:6:31, endln:6:34
+  |vpiClockingIODecl:
+  \_clocking_io_decl: (v), line:7:8, endln:7:9
+    |vpiParent:
+    \_clocking_block: (work@main.cb), line:6:1, endln:8:12
+    |vpiDirection:2
+    |vpiName:v
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

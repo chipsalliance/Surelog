@@ -33,6 +33,7 @@ logic_var                                              1
 module_inst                                            3
 packed_array_typespec                                  3
 range                                                 14
+ref_typespec                                          14
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -47,6 +48,7 @@ logic_var                                              1
 module_inst                                            3
 packed_array_typespec                                  3
 range                                                 14
+ref_typespec                                          14
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/LogicTypedef/slpp_unit/surelog.uhdm ...
 
@@ -152,32 +154,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/LogicTypedef/dut.sv, line:1:1, endln:11:10
     |vpiTypespec:
-    \_logic_typespec: (log_two_bits), line:2:13, endln:2:24
-      |vpiName:log_two_bits
-      |vpiTypedefAlias:
+    \_ref_typespec: (work@test.logn)
+      |vpiParent:
+      \_logic_net: (work@test.logn), line:3:18, endln:3:22
+      |vpiFullName:work@test.logn
+      |vpiActual:
       \_logic_typespec: (log_two_bits), line:2:13, endln:2:24
-      |vpiInstance:
-      \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/LogicTypedef/dut.sv, line:1:1, endln:11:10
-      |vpiRange:
-      \_range: , line:2:19, endln:2:24
-        |vpiParent:
-        \_logic_typespec: (log_two_bits), line:2:13, endln:2:24
-        |vpiLeftRange:
-        \_constant: , line:2:20, endln:2:21
-          |vpiParent:
-          \_range: , line:2:19, endln:2:24
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:22, endln:2:23
-          |vpiParent:
-          \_range: , line:2:19, endln:2:24
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
     |vpiName:logn
     |vpiFullName:work@test.logn
     |vpiNetType:36
@@ -186,32 +168,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/LogicTypedef/dut.sv, line:1:1, endln:11:10
     |vpiTypespec:
-    \_logic_typespec: (reg_two_bits), line:5:13, endln:5:22
-      |vpiName:reg_two_bits
-      |vpiTypedefAlias:
+    \_ref_typespec: (work@test.regn)
+      |vpiParent:
+      \_logic_net: (work@test.regn), line:6:18, endln:6:22
+      |vpiFullName:work@test.regn
+      |vpiActual:
       \_logic_typespec: (reg_two_bits), line:5:13, endln:5:22
-      |vpiInstance:
-      \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/LogicTypedef/dut.sv, line:1:1, endln:11:10
-      |vpiRange:
-      \_range: , line:5:17, endln:5:22
-        |vpiParent:
-        \_logic_typespec: (reg_two_bits), line:5:13, endln:5:22
-        |vpiLeftRange:
-        \_constant: , line:5:18, endln:5:19
-          |vpiParent:
-          \_range: , line:5:17, endln:5:22
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:5:20, endln:5:21
-          |vpiParent:
-          \_range: , line:5:17, endln:5:22
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
     |vpiName:regn
     |vpiFullName:work@test.regn
     |vpiNetType:48
@@ -220,32 +182,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/LogicTypedef/dut.sv, line:1:1, endln:11:10
     |vpiTypespec:
-    \_bit_typespec: (bit_two_bits), line:8:13, endln:8:22
-      |vpiName:bit_two_bits
-      |vpiTypedefAlias:
+    \_ref_typespec: (work@test.bitn)
+      |vpiParent:
+      \_logic_net: (work@test.bitn), line:9:18, endln:9:22
+      |vpiFullName:work@test.bitn
+      |vpiActual:
       \_bit_typespec: (bit_two_bits), line:8:13, endln:8:22
-      |vpiInstance:
-      \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/LogicTypedef/dut.sv, line:1:1, endln:11:10
-      |vpiRange:
-      \_range: , line:8:17, endln:8:22
-        |vpiParent:
-        \_bit_typespec: (bit_two_bits), line:8:13, endln:8:22
-        |vpiLeftRange:
-        \_constant: , line:8:18, endln:8:19
-          |vpiParent:
-          \_range: , line:8:17, endln:8:22
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:8:20, endln:8:21
-          |vpiParent:
-          \_range: , line:8:17, endln:8:22
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
     |vpiName:bitn
     |vpiFullName:work@test.bitn
 |uhdmtopModules:
@@ -256,28 +198,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/LogicTypedef/dut.sv, line:1:1, endln:11:10
     |vpiTypespec:
-    \_logic_typespec: (log_two_bits), line:2:13, endln:2:24
-      |vpiName:log_two_bits
-      |vpiRange:
-      \_range: , line:2:19, endln:2:24
-        |vpiParent:
-        \_logic_typespec: (log_two_bits), line:2:13, endln:2:24
-        |vpiLeftRange:
-        \_constant: , line:2:20, endln:2:21
-          |vpiParent:
-          \_range: , line:2:19, endln:2:24
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:22, endln:2:23
-          |vpiParent:
-          \_range: , line:2:19, endln:2:24
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@test.logn)
+      |vpiParent:
+      \_logic_var: (work@test.logn), line:3:18, endln:3:22
+      |vpiFullName:work@test.logn
+      |vpiActual:
+      \_logic_typespec: (log_two_bits), line:2:13, endln:2:24
     |vpiName:logn
     |vpiFullName:work@test.logn
     |vpiVisibility:1
@@ -286,28 +212,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/LogicTypedef/dut.sv, line:1:1, endln:11:10
     |vpiTypespec:
-    \_bit_typespec: (bit_two_bits), line:8:13, endln:8:22
-      |vpiName:bit_two_bits
-      |vpiRange:
-      \_range: , line:8:17, endln:8:22
-        |vpiParent:
-        \_bit_typespec: (bit_two_bits), line:8:13, endln:8:22
-        |vpiLeftRange:
-        \_constant: , line:8:18, endln:8:19
-          |vpiParent:
-          \_range: , line:8:17, endln:8:22
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:8:20, endln:8:21
-          |vpiParent:
-          \_range: , line:8:17, endln:8:22
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@test.bitn)
+      |vpiParent:
+      \_bit_var: (work@test.bitn), line:9:18, endln:9:22
+      |vpiFullName:work@test.bitn
+      |vpiActual:
+      \_bit_typespec: (bit_two_bits), line:8:13, endln:8:22
     |vpiName:bitn
     |vpiFullName:work@test.bitn
     |vpiVisibility:1
@@ -324,11 +234,154 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/LogicTypedef/dut.sv, line:1:1, endln:11:10
     |vpiTypespec:
-    \_logic_typespec: (reg_two_bits), line:5:13, endln:5:22
+    \_ref_typespec: (work@test.regn)
+      |vpiParent:
+      \_logic_net: (work@test.regn), line:6:18, endln:6:22
+      |vpiFullName:work@test.regn
+      |vpiActual:
+      \_logic_typespec: (reg_two_bits), line:5:13, endln:5:22
     |vpiName:regn
     |vpiFullName:work@test.regn
     |vpiNetType:48
   |vpiTopModule:1
+\_weaklyReferenced:
+\_logic_typespec: (log_two_bits), line:2:13, endln:2:24
+  |vpiName:log_two_bits
+  |vpiRange:
+  \_range: , line:2:19, endln:2:24
+    |vpiParent:
+    \_logic_typespec: (log_two_bits), line:2:13, endln:2:24
+    |vpiLeftRange:
+    \_constant: , line:2:20, endln:2:21
+      |vpiParent:
+      \_range: , line:2:19, endln:2:24
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:22, endln:2:23
+      |vpiParent:
+      \_range: , line:2:19, endln:2:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_bit_typespec: (bit_two_bits), line:8:13, endln:8:22
+  |vpiName:bit_two_bits
+  |vpiRange:
+  \_range: , line:8:17, endln:8:22
+    |vpiParent:
+    \_bit_typespec: (bit_two_bits), line:8:13, endln:8:22
+    |vpiLeftRange:
+    \_constant: , line:8:18, endln:8:19
+      |vpiParent:
+      \_range: , line:8:17, endln:8:22
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:8:20, endln:8:21
+      |vpiParent:
+      \_range: , line:8:17, endln:8:22
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: (log_two_bits), line:2:13, endln:2:24
+  |vpiName:log_two_bits
+  |vpiTypedefAlias:
+  \_ref_typespec: (log_two_bits)
+    |vpiParent:
+    \_logic_typespec: (log_two_bits), line:2:13, endln:2:24
+    |vpiFullName:log_two_bits
+    |vpiActual:
+    \_logic_typespec: (log_two_bits), line:2:13, endln:2:24
+  |vpiInstance:
+  \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/LogicTypedef/dut.sv, line:1:1, endln:11:10
+  |vpiRange:
+  \_range: , line:2:19, endln:2:24
+    |vpiParent:
+    \_logic_typespec: (log_two_bits), line:2:13, endln:2:24
+    |vpiLeftRange:
+    \_constant: , line:2:20, endln:2:21
+      |vpiParent:
+      \_range: , line:2:19, endln:2:24
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:22, endln:2:23
+      |vpiParent:
+      \_range: , line:2:19, endln:2:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: (reg_two_bits), line:5:13, endln:5:22
+  |vpiName:reg_two_bits
+  |vpiTypedefAlias:
+  \_ref_typespec: (reg_two_bits)
+    |vpiParent:
+    \_logic_typespec: (reg_two_bits), line:5:13, endln:5:22
+    |vpiFullName:reg_two_bits
+    |vpiActual:
+    \_logic_typespec: (reg_two_bits), line:5:13, endln:5:22
+  |vpiInstance:
+  \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/LogicTypedef/dut.sv, line:1:1, endln:11:10
+  |vpiRange:
+  \_range: , line:5:17, endln:5:22
+    |vpiParent:
+    \_logic_typespec: (reg_two_bits), line:5:13, endln:5:22
+    |vpiLeftRange:
+    \_constant: , line:5:18, endln:5:19
+      |vpiParent:
+      \_range: , line:5:17, endln:5:22
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:20, endln:5:21
+      |vpiParent:
+      \_range: , line:5:17, endln:5:22
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_bit_typespec: (bit_two_bits), line:8:13, endln:8:22
+  |vpiName:bit_two_bits
+  |vpiTypedefAlias:
+  \_ref_typespec: (bit_two_bits)
+    |vpiParent:
+    \_bit_typespec: (bit_two_bits), line:8:13, endln:8:22
+    |vpiFullName:bit_two_bits
+    |vpiActual:
+    \_bit_typespec: (bit_two_bits), line:8:13, endln:8:22
+  |vpiInstance:
+  \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/LogicTypedef/dut.sv, line:1:1, endln:11:10
+  |vpiRange:
+  \_range: , line:8:17, endln:8:22
+    |vpiParent:
+    \_bit_typespec: (bit_two_bits), line:8:13, endln:8:22
+    |vpiLeftRange:
+    \_constant: , line:8:18, endln:8:19
+      |vpiParent:
+      \_range: , line:8:17, endln:8:22
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:8:20, endln:8:21
+      |vpiParent:
+      \_range: , line:8:17, endln:8:22
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

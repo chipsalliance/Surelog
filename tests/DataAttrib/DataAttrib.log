@@ -74,6 +74,7 @@ design                                                 1
 logic_net                                              6
 logic_typespec                                         5
 module_inst                                            2
+ref_typespec                                           6
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -83,6 +84,7 @@ design                                                 1
 logic_net                                              6
 logic_typespec                                         5
 module_inst                                            2
+ref_typespec                                           6
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/DataAttrib/slpp_all/surelog.uhdm ...
 
@@ -107,7 +109,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DataAttrib/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:16, endln:3:19
+    \_ref_typespec: (work@top.my_reg1)
+      |vpiParent:
+      \_logic_net: (work@top.my_reg1), line:3:20, endln:3:27
+      |vpiFullName:work@top.my_reg1
+      |vpiActual:
+      \_logic_typespec: , line:3:16, endln:3:19
     |vpiName:my_reg1
     |vpiFullName:work@top.my_reg1
     |vpiNetType:48
@@ -116,7 +123,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DataAttrib/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:16, endln:3:19
+    \_ref_typespec: (work@top.my_reg2)
+      |vpiParent:
+      \_logic_net: (work@top.my_reg2), line:3:29, endln:3:36
+      |vpiFullName:work@top.my_reg2
+      |vpiActual:
+      \_logic_typespec: , line:3:16, endln:3:19
     |vpiName:my_reg2
     |vpiFullName:work@top.my_reg2
     |vpiNetType:48
@@ -125,7 +137,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DataAttrib/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_logic_typespec: , line:5:1, endln:5:4
+    \_ref_typespec: (work@top.no_attrib)
+      |vpiParent:
+      \_logic_net: (work@top.no_attrib), line:5:5, endln:5:14
+      |vpiFullName:work@top.no_attrib
+      |vpiActual:
+      \_logic_typespec: , line:5:1, endln:5:4
     |vpiName:no_attrib
     |vpiFullName:work@top.no_attrib
     |vpiNetType:48
@@ -139,9 +156,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DataAttrib/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:16, endln:3:19
+    \_ref_typespec: (work@top.my_reg1)
       |vpiParent:
-      \_logic_net: (work@top.my_reg2), line:3:29, endln:3:36
+      \_logic_net: (work@top.my_reg1), line:3:20, endln:3:27
+      |vpiFullName:work@top.my_reg1
+      |vpiActual:
+      \_logic_typespec: , line:3:16, endln:3:19
     |vpiName:my_reg1
     |vpiFullName:work@top.my_reg1
     |vpiNetType:48
@@ -155,7 +175,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DataAttrib/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:16, endln:3:19
+    \_ref_typespec: (work@top.my_reg2)
+      |vpiParent:
+      \_logic_net: (work@top.my_reg2), line:3:29, endln:3:36
+      |vpiFullName:work@top.my_reg2
+      |vpiActual:
+      \_logic_typespec: , line:3:16, endln:3:19
     |vpiName:my_reg2
     |vpiFullName:work@top.my_reg2
     |vpiNetType:48
@@ -166,13 +191,26 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DataAttrib/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_logic_typespec: , line:5:1, endln:5:4
+    \_ref_typespec: (work@top.no_attrib)
       |vpiParent:
       \_logic_net: (work@top.no_attrib), line:5:5, endln:5:14
+      |vpiFullName:work@top.no_attrib
+      |vpiActual:
+      \_logic_typespec: , line:5:1, endln:5:4
     |vpiName:no_attrib
     |vpiFullName:work@top.no_attrib
     |vpiNetType:48
   |vpiTopModule:1
+\_weaklyReferenced:
+\_logic_typespec: , line:3:16, endln:3:19
+  |vpiParent:
+  \_logic_net: (work@top.my_reg2), line:3:29, endln:3:36
+\_logic_typespec: , line:5:1, endln:5:4
+  |vpiParent:
+  \_logic_net: (work@top.no_attrib), line:5:5, endln:5:14
+\_logic_typespec: , line:3:16, endln:3:19
+\_logic_typespec: , line:3:16, endln:3:19
+\_logic_typespec: , line:5:1, endln:5:4
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

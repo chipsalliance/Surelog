@@ -72,6 +72,7 @@ logic_typespec                                         2
 logic_var                                              4
 module_inst                                            2
 range                                                  2
+ref_typespec                                           2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -83,6 +84,7 @@ logic_typespec                                         2
 logic_var                                              4
 module_inst                                            2
 range                                                  2
+ref_typespec                                           2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ImplicitFunc/slpp_all/surelog.uhdm ...
 
@@ -114,27 +116,12 @@ design: (work@dut)
       |vpiParent:
       \_function: (work@dut.foo), line:3:4, endln:5:15
       |vpiTypespec:
-      \_logic_typespec: , line:3:13, endln:3:18
-        |vpiRange:
-        \_range: , line:3:13, endln:3:18
-          |vpiParent:
-          \_logic_typespec: , line:3:13, endln:3:18
-          |vpiLeftRange:
-          \_constant: , line:3:14, endln:3:15
-            |vpiParent:
-            \_range: , line:3:13, endln:3:18
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:3:16, endln:3:17
-            |vpiParent:
-            \_range: , line:3:13, endln:3:18
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_typespec: (work@dut.foo)
+        |vpiParent:
+        \_logic_var: (work@dut.foo), line:3:13, endln:3:18
+        |vpiFullName:work@dut.foo
+        |vpiActual:
+        \_logic_typespec: , line:3:13, endln:3:18
       |vpiFullName:work@dut.foo
     |vpiInstance:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ImplicitFunc/dut.sv, line:1:1, endln:11:10
@@ -180,6 +167,28 @@ design: (work@dut)
     |vpiInstance:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ImplicitFunc/dut.sv, line:1:1, endln:11:10
   |vpiTopModule:1
+\_weaklyReferenced:
+\_logic_typespec: , line:3:13, endln:3:18
+  |vpiRange:
+  \_range: , line:3:13, endln:3:18
+    |vpiParent:
+    \_logic_typespec: , line:3:13, endln:3:18
+    |vpiLeftRange:
+    \_constant: , line:3:14, endln:3:15
+      |vpiParent:
+      \_range: , line:3:13, endln:3:18
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:16, endln:3:17
+      |vpiParent:
+      \_range: , line:3:13, endln:3:18
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

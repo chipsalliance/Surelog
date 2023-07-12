@@ -228,7 +228,7 @@ AST_DEBUG_END
 assignment                                             2
 begin                                                  1
 bit_select                                             1
-bit_typespec                                           5
+bit_typespec                                           3
 bit_var                                                1
 constant                                               5
 design                                                 1
@@ -239,9 +239,10 @@ io_decl                                                2
 logic_net                                              1
 module_inst                                            3
 range                                                  2
-real_typespec                                          8
+real_typespec                                          6
 real_var                                               2
 ref_obj                                                8
+ref_typespec                                          21
 ref_var                                                2
 struct_typespec                                        3
 struct_var                                             1
@@ -254,7 +255,7 @@ unsupported_typespec                                   4
 assignment                                             2
 begin                                                  1
 bit_select                                             1
-bit_typespec                                           5
+bit_typespec                                           3
 bit_var                                                1
 constant                                               5
 design                                                 1
@@ -265,9 +266,10 @@ io_decl                                                2
 logic_net                                              1
 module_inst                                            3
 range                                                  2
-real_typespec                                          8
+real_typespec                                          6
 real_var                                               2
 ref_obj                                                8
+ref_typespec                                          21
 ref_var                                                2
 struct_typespec                                        3
 struct_var                                             1
@@ -311,9 +313,12 @@ design: (work@dut)
     \_struct_typespec: (T), line:28:34, endln:28:35
     |vpiName:field1
     |vpiTypespec:
-    \_real_typespec: , line:23:3, endln:23:7
+    \_ref_typespec: (T.field1)
       |vpiParent:
       \_typespec_member: (field1), line:23:8, endln:23:14
+      |vpiFullName:T.field1
+      |vpiActual:
+      \_real_typespec: , line:23:3, endln:23:7
     |vpiRefFile:${SURELOG_DIR}/tests/NetType/dut.sv
     |vpiRefLineNo:23
     |vpiRefColumnNo:3
@@ -325,9 +330,12 @@ design: (work@dut)
     \_struct_typespec: (T), line:28:34, endln:28:35
     |vpiName:field2
     |vpiTypespec:
-    \_bit_typespec: , line:24:3, endln:24:6
+    \_ref_typespec: (T.field2)
       |vpiParent:
       \_typespec_member: (field2), line:24:7, endln:24:13
+      |vpiFullName:T.field2
+      |vpiActual:
+      \_bit_typespec: , line:24:3, endln:24:6
     |vpiRefFile:${SURELOG_DIR}/tests/NetType/dut.sv
     |vpiRefLineNo:24
     |vpiRefColumnNo:3
@@ -367,7 +375,12 @@ design: (work@dut)
       |vpiParent:
       \_function: (my_function), line:3:1, endln:4:12
       |vpiTypespec:
-      \_bit_typespec: , line:3:20, endln:3:23
+      \_ref_typespec: (my_function)
+        |vpiParent:
+        \_bit_var: (my_function), line:3:20, endln:3:23
+        |vpiFullName:my_function
+        |vpiActual:
+        \_bit_typespec: , line:3:20, endln:3:23
       |vpiFullName:my_function
 |vpiTypedef:
 \_struct_typespec: (wT), line:28:34, endln:28:35
@@ -375,7 +388,12 @@ design: (work@dut)
   \_design: (work@dut)
   |vpiName:wT
   |vpiTypedefAlias:
-  \_struct_typespec: (T), line:28:34, endln:28:35
+  \_ref_typespec: (wT)
+    |vpiParent:
+    \_struct_typespec: (wT), line:28:34, endln:28:35
+    |vpiFullName:wT
+    |vpiActual:
+    \_struct_typespec: (T), line:28:34, endln:28:35
   |vpiInstance:
   \_design: (work@dut)
   |vpiTypespecMember:
@@ -384,9 +402,12 @@ design: (work@dut)
     \_struct_typespec: (wT), line:28:34, endln:28:35
     |vpiName:field1
     |vpiTypespec:
-    \_real_typespec: , line:23:3, endln:23:7
+    \_ref_typespec: (wT.field1)
       |vpiParent:
       \_typespec_member: (field1), line:23:8, endln:23:14
+      |vpiFullName:wT.field1
+      |vpiActual:
+      \_real_typespec: , line:23:3, endln:23:7
     |vpiRefFile:${SURELOG_DIR}/tests/NetType/dut.sv
     |vpiRefLineNo:23
     |vpiRefColumnNo:3
@@ -398,9 +419,12 @@ design: (work@dut)
     \_struct_typespec: (wT), line:28:34, endln:28:35
     |vpiName:field2
     |vpiTypespec:
-    \_bit_typespec: , line:24:3, endln:24:6
+    \_ref_typespec: (wT.field2)
       |vpiParent:
       \_typespec_member: (field2), line:24:7, endln:24:13
+      |vpiFullName:wT.field2
+      |vpiActual:
+      \_bit_typespec: , line:24:3, endln:24:6
     |vpiRefFile:${SURELOG_DIR}/tests/NetType/dut.sv
     |vpiRefLineNo:24
     |vpiRefColumnNo:3
@@ -412,7 +436,12 @@ design: (work@dut)
   \_design: (work@dut)
   |vpiName:wTsum
   |vpiTypedefAlias:
-  \_struct_typespec: (T), line:28:34, endln:28:35
+  \_ref_typespec: (wTsum)
+    |vpiParent:
+    \_struct_typespec: (wTsum), line:28:34, endln:28:35
+    |vpiFullName:wTsum
+    |vpiActual:
+    \_struct_typespec: (T), line:28:34, endln:28:35
   |vpiInstance:
   \_design: (work@dut)
   |vpiTypespecMember:
@@ -421,9 +450,12 @@ design: (work@dut)
     \_struct_typespec: (wTsum), line:28:34, endln:28:35
     |vpiName:field1
     |vpiTypespec:
-    \_real_typespec: , line:23:3, endln:23:7
+    \_ref_typespec: (wTsum.field1)
       |vpiParent:
       \_typespec_member: (field1), line:23:8, endln:23:14
+      |vpiFullName:wTsum.field1
+      |vpiActual:
+      \_real_typespec: , line:23:3, endln:23:7
     |vpiRefFile:${SURELOG_DIR}/tests/NetType/dut.sv
     |vpiRefLineNo:23
     |vpiRefColumnNo:3
@@ -435,9 +467,12 @@ design: (work@dut)
     \_struct_typespec: (wTsum), line:28:34, endln:28:35
     |vpiName:field2
     |vpiTypespec:
-    \_bit_typespec: , line:24:3, endln:24:6
+    \_ref_typespec: (wTsum.field2)
       |vpiParent:
       \_typespec_member: (field2), line:24:7, endln:24:13
+      |vpiFullName:wTsum.field2
+      |vpiActual:
+      \_bit_typespec: , line:24:3, endln:24:6
     |vpiRefFile:${SURELOG_DIR}/tests/NetType/dut.sv
     |vpiRefLineNo:24
     |vpiRefColumnNo:3
@@ -456,7 +491,12 @@ design: (work@dut)
       |vpiParent:
       \_function: (Tsum), line:28:1, endln:32:12
       |vpiTypespec:
-      \_struct_typespec: (T), line:28:34, endln:28:35
+      \_ref_typespec: (Tsum)
+        |vpiParent:
+        \_struct_var: (Tsum), line:28:20, endln:28:21
+        |vpiFullName:Tsum
+        |vpiActual:
+        \_struct_typespec: (T), line:28:34, endln:28:35
       |vpiFullName:Tsum
     |vpiIODecl:
     \_io_decl: (driver), line:28:36, endln:28:42
@@ -484,7 +524,12 @@ design: (work@dut)
           |STRING:unsized
           |vpiConstType:6
       |vpiTypedef:
-      \_struct_typespec: (T), line:28:34, endln:28:35
+      \_ref_typespec: (Tsum.driver)
+        |vpiParent:
+        \_io_decl: (driver), line:28:36, endln:28:42
+        |vpiFullName:Tsum.driver
+        |vpiActual:
+        \_struct_typespec: (T), line:28:34, endln:28:35
     |vpiStmt:
     \_begin: (Tsum), line:30:3, endln:31:37
       |vpiParent:
@@ -529,7 +574,12 @@ design: (work@dut)
           |vpiParent:
           \_foreach_stmt: (Tsum), line:30:3, endln:30:10
           |vpiTypespec:
-          \_struct_typespec: (T), line:28:34, endln:28:35
+          \_ref_typespec: (Tsum.driver)
+            |vpiParent:
+            \_ref_var: (Tsum.driver), line:30:12, endln:30:18
+            |vpiFullName:Tsum.driver
+            |vpiActual:
+            \_struct_typespec: (T), line:28:34, endln:28:35
           |vpiName:driver
           |vpiFullName:Tsum.driver
         |vpiLoopVars:
@@ -537,10 +587,12 @@ design: (work@dut)
           |vpiParent:
           \_foreach_stmt: (Tsum), line:30:3, endln:30:10
           |vpiTypespec:
-          \_unsupported_typespec: (i), line:30:19, endln:30:20
+          \_ref_typespec: (Tsum.i)
             |vpiParent:
             \_ref_var: (Tsum.i), line:30:19, endln:30:20
-            |vpiName:i
+            |vpiFullName:Tsum.i
+            |vpiActual:
+            \_unsupported_typespec: (i), line:30:19, endln:30:20
           |vpiName:i
           |vpiFullName:Tsum.i
         |vpiStmt:
@@ -610,7 +662,12 @@ design: (work@dut)
     |vpiParent:
     \_function: (my_function2), line:41:1, endln:42:12
     |vpiTypespec:
-    \_real_typespec: , line:41:20, endln:41:24
+    \_ref_typespec: (my_function2)
+      |vpiParent:
+      \_real_var: (my_function2), line:41:20, endln:41:24
+      |vpiFullName:my_function2
+      |vpiActual:
+      \_real_typespec: , line:41:20, endln:41:24
     |vpiFullName:my_function2
   |vpiIODecl:
   \_io_decl: (driver), line:41:49, endln:41:55
@@ -638,7 +695,12 @@ design: (work@dut)
         |STRING:unsized
         |vpiConstType:6
     |vpiTypedef:
-    \_real_typespec: , line:41:44, endln:41:48
+    \_ref_typespec: (my_function2.driver)
+      |vpiParent:
+      \_io_decl: (driver), line:41:49, endln:41:55
+      |vpiFullName:my_function2.driver
+      |vpiActual:
+      \_real_typespec: , line:41:44, endln:41:48
 |uhdmtopModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/NetType/dut.sv, line:11:1, endln:15:10
   |vpiName:work@dut
@@ -647,13 +709,32 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/NetType/dut.sv, line:11:1, endln:15:10
     |vpiTypespec:
-    \_real_typespec: (my_real), line:9:9, endln:9:13
+    \_ref_typespec: (work@dut.my_real_net)
+      |vpiParent:
+      \_real_var: (work@dut.my_real_net), line:13:13, endln:13:24
+      |vpiFullName:work@dut.my_real_net
+      |vpiActual:
+      \_real_typespec: (my_real), line:9:9, endln:9:13
     |vpiName:my_real_net
     |vpiFullName:work@dut.my_real_net
     |vpiVisibility:1
   |vpiDefName:work@dut
   |vpiTop:1
   |vpiTopModule:1
+\_weaklyReferenced:
+\_bit_typespec: , line:3:20, endln:3:23
+\_real_typespec: , line:23:3, endln:23:7
+  |vpiParent:
+  \_typespec_member: (field1), line:23:8, endln:23:14
+\_bit_typespec: , line:24:3, endln:24:6
+  |vpiParent:
+  \_typespec_member: (field2), line:24:7, endln:24:13
+\_unsupported_typespec: (i), line:30:19, endln:30:20
+  |vpiParent:
+  \_ref_var: (Tsum.i), line:30:19, endln:30:20
+  |vpiName:i
+\_real_typespec: , line:41:20, endln:41:24
+\_real_typespec: , line:41:44, endln:41:48
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

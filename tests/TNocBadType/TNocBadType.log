@@ -98,6 +98,7 @@ interface_typespec                                     2
 logic_net                                              2
 logic_var                                              1
 module_inst                                            2
+ref_typespec                                           2
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -110,6 +111,7 @@ interface_typespec                                     2
 logic_net                                              2
 logic_var                                              1
 module_inst                                            2
+ref_typespec                                           2
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/TNocBadType/slpp_all/surelog.uhdm ...
@@ -156,8 +158,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TNocBadType/dut.sv, line:7:1, endln:13:10
     |vpiTypespec:
-    \_interface_typespec: (tnoc_types), line:8:4, endln:8:14
-      |vpiName:tnoc_types
+    \_ref_typespec: (work@top.types)
+      |vpiParent:
+      \_logic_net: (work@top.types), line:8:16, endln:8:21
+      |vpiFullName:work@top.types
+      |vpiActual:
+      \_interface_typespec: (tnoc_types), line:8:4, endln:8:14
     |vpiName:types
     |vpiFullName:work@top.types
   |vpiNet:
@@ -165,7 +171,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TNocBadType/dut.sv, line:7:1, endln:13:10
     |vpiTypespec:
-    \_unsupported_typespec: (tnoc_common_header), line:10:11, endln:10:16
+    \_ref_typespec: (work@top.common_header)
+      |vpiParent:
+      \_logic_net: (work@top.common_header), line:12:23, endln:12:36
+      |vpiFullName:work@top.common_header
+      |vpiActual:
+      \_unsupported_typespec: (tnoc_common_header), line:10:11, endln:10:16
     |vpiName:common_header
     |vpiFullName:work@top.common_header
 |uhdmtopModules:
@@ -183,6 +194,9 @@ design: (work@top)
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
+\_weaklyReferenced:
+\_interface_typespec: (tnoc_types), line:8:4, endln:8:14
+  |vpiName:tnoc_types
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

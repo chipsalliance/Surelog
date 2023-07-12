@@ -161,7 +161,7 @@ design                                                 1
 gen_if                                                 1
 gen_scope                                              2
 gen_scope_array                                        2
-int_typespec                                           6
+int_typespec                                           4
 logic_net                                              2
 logic_typespec                                         3
 module_inst                                            7
@@ -171,6 +171,7 @@ parameter                                              4
 port                                                   2
 ref_module                                             2
 ref_obj                                                5
+ref_typespec                                          16
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -181,7 +182,7 @@ design                                                 1
 gen_if                                                 1
 gen_scope                                              3
 gen_scope_array                                        3
-int_typespec                                           6
+int_typespec                                           4
 logic_net                                              2
 logic_typespec                                         3
 module_inst                                            8
@@ -191,6 +192,7 @@ parameter                                              4
 port                                                   3
 ref_module                                             2
 ref_obj                                                6
+ref_typespec                                          17
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/CondOpPred/slpp_all/surelog.uhdm ...
 
@@ -221,10 +223,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CondOpPrec/dut.sv, line:5:1, endln:17:10
     |UINT:16
     |vpiTypespec:
-    \_int_typespec: , line:6:14, endln:6:17
+    \_ref_typespec: (work@top.Width)
       |vpiParent:
       \_parameter: (work@top.Width), line:6:18, endln:6:23
-      |vpiSigned:1
+      |vpiFullName:work@top.Width
+      |vpiActual:
+      \_int_typespec: , line:6:14, endln:6:17
     |vpiSigned:1
     |vpiName:Width
     |vpiFullName:work@top.Width
@@ -233,10 +237,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CondOpPrec/dut.sv, line:5:1, endln:17:10
     |vpiTypespec:
-    \_int_typespec: , line:10:14, endln:10:17
+    \_ref_typespec: (work@top.ParWidth)
       |vpiParent:
       \_parameter: (work@top.ParWidth), line:10:18, endln:10:26
-      |vpiSigned:1
+      |vpiFullName:work@top.ParWidth
+      |vpiActual:
+      \_int_typespec: , line:10:14, endln:10:17
     |vpiSigned:1
     |vpiLocalParam:1
     |vpiName:ParWidth
@@ -253,7 +259,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:16
       |vpiTypespec:
-      \_int_typespec: , line:6:14, endln:6:17
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:6:26, endln:6:28
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:6:14, endln:6:17
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.Width), line:6:18, endln:6:23
@@ -358,7 +369,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.o), line:8:17, endln:8:18
     |vpiTypedef:
-    \_logic_typespec: , line:8:11, endln:8:16
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_port: (o), line:8:17, endln:8:18
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_logic_typespec: , line:8:11, endln:8:16
   |vpiGenStmt:
   \_gen_if: , line:13:3, endln:13:5
     |vpiParent:
@@ -402,10 +418,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CondOpPrec/dut.sv, line:5:1, endln:17:10
     |UINT:16
     |vpiTypespec:
-    \_int_typespec: , line:6:14, endln:6:17
+    \_ref_typespec: (work@top.Width)
       |vpiParent:
       \_parameter: (work@top.Width), line:6:18, endln:6:23
-      |vpiSigned:1
+      |vpiFullName:work@top.Width
+      |vpiActual:
+      \_int_typespec: , line:6:14, endln:6:17
     |vpiSigned:1
     |vpiName:Width
     |vpiFullName:work@top.Width
@@ -414,10 +432,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CondOpPrec/dut.sv, line:5:1, endln:17:10
     |vpiTypespec:
-    \_int_typespec: , line:10:14, endln:10:17
+    \_ref_typespec: (work@top.ParWidth)
       |vpiParent:
       \_parameter: (work@top.ParWidth), line:10:18, endln:10:26
-      |vpiSigned:1
+      |vpiFullName:work@top.ParWidth
+      |vpiActual:
+      \_int_typespec: , line:10:14, endln:10:17
     |vpiSigned:1
     |vpiLocalParam:1
     |vpiName:ParWidth
@@ -434,7 +454,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:16
       |vpiTypespec:
-      \_int_typespec: , line:6:14, endln:6:17
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:6:26, endln:6:28
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:6:14, endln:6:17
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.Width), line:6:18, endln:6:23
@@ -450,7 +475,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:6
       |vpiTypespec:
-      \_int_typespec: , line:10:14, endln:10:17
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:10:29, endln:11:51
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:10:14, endln:10:17
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.ParWidth), line:10:18, endln:10:26
@@ -461,9 +491,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CondOpPrec/dut.sv, line:5:1, endln:17:10
     |vpiTypespec:
-    \_logic_typespec: , line:8:11, endln:8:16
+    \_ref_typespec: (work@top.o)
       |vpiParent:
       \_logic_net: (work@top.o), line:8:17, endln:8:18
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_logic_typespec: , line:8:11, endln:8:16
     |vpiName:o
     |vpiFullName:work@top.o
     |vpiNetType:36
@@ -483,7 +516,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.o), line:8:17, endln:8:18
     |vpiTypedef:
-    \_logic_typespec: , line:8:11, endln:8:16
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_port: (o), line:8:17, endln:8:18
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_logic_typespec: , line:8:11, endln:8:16
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CondOpPrec/dut.sv, line:5:1, endln:17:10
   |vpiGenScopeArray:
@@ -506,6 +544,20 @@ design: (work@top)
         |vpiDefName:work@GOOD
         |vpiDefFile:${SURELOG_DIR}/tests/CondOpPrec/dut.sv
         |vpiDefLineNo:1
+\_weaklyReferenced:
+\_int_typespec: , line:6:14, endln:6:17
+  |vpiParent:
+  \_parameter: (work@top.Width), line:6:18, endln:6:23
+  |vpiSigned:1
+\_int_typespec: , line:10:14, endln:10:17
+  |vpiParent:
+  \_parameter: (work@top.ParWidth), line:10:18, endln:10:26
+  |vpiSigned:1
+\_logic_typespec: , line:8:11, endln:8:16
+\_logic_typespec: , line:8:11, endln:8:16
+  |vpiParent:
+  \_logic_net: (work@top.o), line:8:17, endln:8:18
+\_logic_typespec: , line:8:11, endln:8:16
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

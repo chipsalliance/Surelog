@@ -172,26 +172,28 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 constant                                               1
 design                                                 1
-int_typespec                                          29
+int_typespec                                           1
 module_inst                                            8
 operation                                              3
 param_assign                                          10
 parameter                                             10
 ref_module                                             1
 ref_obj                                             4528
+ref_typespec                                          31
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 constant                                               1
 design                                                 1
-int_typespec                                          29
+int_typespec                                           1
 module_inst                                            8
 operation                                              3
 param_assign                                          10
 parameter                                             10
 ref_module                                             1
 ref_obj                                             4528
+ref_typespec                                          31
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/LoopParamOver/slpp_all/surelog.uhdm ...
 
@@ -216,7 +218,12 @@ design: (work@top)
     \_module_inst: work@Foo (work@Foo), file:${SURELOG_DIR}/tests/LoopParamOver/dut.sv, line:1:1, endln:5:10
     |UINT:10
     |vpiTypespec:
-    \_int_typespec: , line:2:2, endln:2:19
+    \_ref_typespec: (work@Foo.P1)
+      |vpiParent:
+      \_parameter: (work@Foo.P1), line:2:12, endln:2:14
+      |vpiFullName:work@Foo.P1
+      |vpiActual:
+      \_int_typespec: , line:2:2, endln:2:19
     |vpiName:P1
     |vpiFullName:work@Foo.P1
   |vpiParameter:
@@ -237,7 +244,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:10
       |vpiTypespec:
-      \_int_typespec: , line:2:2, endln:2:19
+      \_ref_typespec: (work@Foo)
+        |vpiParent:
+        \_constant: , line:2:17, endln:2:19
+        |vpiFullName:work@Foo
+        |vpiActual:
+        \_int_typespec: , line:2:2, endln:2:19
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@Foo.P1), line:2:12, endln:2:14
@@ -377,7 +389,12 @@ design: (work@top)
       |vpiParent:
       \_param_assign: , line:9:13, endln:9:20
       |vpiTypespec:
-      \_int_typespec: , line:2:2, endln:2:19
+      \_ref_typespec: (work@top.P2)
+        |vpiParent:
+        \_ref_obj: (work@top.P2), line:10:18, endln:10:20
+        |vpiFullName:work@top.P2
+        |vpiActual:
+        \_int_typespec: , line:2:2, endln:2:19
       |vpiName:P2
       |vpiFullName:work@top.P2
       |vpiActual:
@@ -407,9 +424,12 @@ design: (work@top)
       \_module_inst: work@Foo (work@top.sub), file:${SURELOG_DIR}/tests/LoopParamOver/dut.sv, line:12:1, endln:12:22
       |UINT:10
       |vpiTypespec:
-      \_int_typespec: , line:2:2, endln:2:19
+      \_ref_typespec: (work@top.sub.P1)
         |vpiParent:
         \_parameter: (work@top.sub.P1), line:2:12, endln:2:14
+        |vpiFullName:work@top.sub.P1
+        |vpiActual:
+        \_int_typespec: , line:2:2, endln:2:19
       |vpiName:P1
       |vpiFullName:work@top.sub.P1
     |vpiParameter:
@@ -442,9 +462,12 @@ design: (work@top)
           |vpiParent:
           \_operation: , line:3:17, endln:3:24
           |vpiTypespec:
-          \_int_typespec: , line:2:2, endln:2:19
+          \_ref_typespec: (work@top.sub.P2)
             |vpiParent:
             \_ref_obj: (work@top.sub.P2), line:10:18, endln:10:20
+            |vpiFullName:work@top.sub.P2
+            |vpiActual:
+            \_int_typespec: , line:2:2, endln:2:19
           |vpiName:P2
           |vpiFullName:work@top.sub.P2
           |vpiActual:
@@ -477,6 +500,8 @@ design: (work@top)
     |vpiDefLineNo:1
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LoopParamOver/dut.sv, line:8:1, endln:13:10
+\_weaklyReferenced:
+\_int_typespec: , line:2:2, endln:2:19
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

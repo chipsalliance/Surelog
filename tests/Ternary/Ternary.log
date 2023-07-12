@@ -1167,7 +1167,7 @@ case_stmt                                              1
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                             159
+constant                                             135
 design                                                 1
 enum_const                                             5
 enum_typespec                                          1
@@ -1176,7 +1176,7 @@ event_control                                          1
 function                                               9
 if_else                                                3
 if_stmt                                                2
-int_typespec                                          35
+int_typespec                                          22
 int_var                                                4
 io_decl                                               11
 logic_net                                             22
@@ -1189,8 +1189,9 @@ param_assign                                          26
 parameter                                             26
 part_select                                            2
 port                                                   2
-range                                                 48
+range                                                 36
 ref_obj                                               37
+ref_typespec                                         116
 task                                                   9
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -1205,7 +1206,7 @@ case_stmt                                              2
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                             159
+constant                                             135
 design                                                 1
 enum_const                                            10
 enum_typespec                                          2
@@ -1214,7 +1215,7 @@ event_control                                          2
 function                                              18
 if_else                                                6
 if_stmt                                                4
-int_typespec                                          35
+int_typespec                                          22
 int_var                                                4
 io_decl                                               22
 logic_net                                             22
@@ -1227,8 +1228,9 @@ param_assign                                          26
 parameter                                             26
 part_select                                            4
 port                                                   3
-range                                                 48
+range                                                 36
 ref_obj                                               73
+ref_typespec                                         122
 task                                                  18
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/Ternary/slpp_unit/surelog.uhdm ...
@@ -1305,9 +1307,12 @@ design: (work@test)
       |vpiParent:
       \_function: (work@mailbox::new), line:3:5, endln:4:16
       |vpiTypespec:
-      \_class_typespec: 
-        |vpiClassDefn:
-        \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/Ternary/builtin.sv, line:1:3, endln:27:11
+      \_ref_typespec: (work@mailbox::new)
+        |vpiParent:
+        \_class_var: (work@mailbox::new), line:3:23, endln:3:28
+        |vpiFullName:work@mailbox::new
+        |vpiActual:
+        \_class_typespec: 
       |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound), line:3:23, endln:3:28
@@ -1322,8 +1327,12 @@ design: (work@test)
         |UINT:0
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:3:19, endln:3:22
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::new::bound)
+        |vpiParent:
+        \_io_decl: (bound), line:3:23, endln:3:28
+        |vpiFullName:work@mailbox::new::bound
+        |vpiActual:
+        \_int_typespec: , line:3:19, endln:3:22
   |vpiMethod:
   \_function: (work@mailbox::num), line:6:5, endln:7:16
     |vpiParent:
@@ -1337,8 +1346,12 @@ design: (work@test)
       |vpiParent:
       \_function: (work@mailbox::num), line:6:5, endln:7:16
       |vpiTypespec:
-      \_int_typespec: , line:6:14, endln:6:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::num)
+        |vpiParent:
+        \_int_var: (work@mailbox::num), line:6:14, endln:6:17
+        |vpiFullName:work@mailbox::num
+        |vpiActual:
+        \_int_typespec: , line:6:14, endln:6:17
       |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
@@ -1401,8 +1414,12 @@ design: (work@test)
       |vpiParent:
       \_function: (work@mailbox::try_get), line:18:5, endln:19:16
       |vpiTypespec:
-      \_int_typespec: , line:18:14, endln:18:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::try_get)
+        |vpiParent:
+        \_int_var: (work@mailbox::try_get), line:18:14, endln:18:17
+        |vpiFullName:work@mailbox::try_get
+        |vpiActual:
+        \_int_typespec: , line:18:14, endln:18:17
       |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
@@ -1438,8 +1455,12 @@ design: (work@test)
       |vpiParent:
       \_function: (work@mailbox::try_peek), line:24:5, endln:25:16
       |vpiTypespec:
-      \_int_typespec: , line:24:14, endln:24:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::try_peek)
+        |vpiParent:
+        \_int_var: (work@mailbox::try_peek), line:24:14, endln:24:17
+        |vpiFullName:work@mailbox::try_peek
+        |vpiActual:
+        \_int_typespec: , line:24:14, endln:24:17
       |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
@@ -1511,9 +1532,12 @@ design: (work@test)
       |vpiParent:
       \_function: (work@process::self), line:34:5, endln:34:11
       |vpiTypespec:
-      \_class_typespec: , line:34:21, endln:34:28
-        |vpiClassDefn:
-        \_class_defn: (work@process), file:${SURELOG_DIR}/tests/Ternary/builtin.sv, line:30:3, endln:52:11
+      \_ref_typespec: (work@process::self)
+        |vpiParent:
+        \_class_var: (work@process::self), line:34:21, endln:34:28
+        |vpiFullName:work@process::self
+        |vpiActual:
+        \_class_typespec: , line:34:21, endln:34:28
       |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status), line:37:5, endln:38:16
@@ -1528,50 +1552,12 @@ design: (work@test)
       |vpiParent:
       \_function: (work@process::status), line:37:5, endln:38:16
       |vpiTypespec:
-      \_enum_typespec: (state), line:32:5, endln:32:74
+      \_ref_typespec: (work@process::status)
         |vpiParent:
-        \_class_defn: (work@process), file:${SURELOG_DIR}/tests/Ternary/builtin.sv, line:30:3, endln:52:11
-        |vpiName:state
-        |vpiEnumConst:
-        \_enum_const: (FINISHED), line:32:20, endln:32:28
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:FINISHED
-          |INT:0
-          |vpiDecompile:0
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (RUNNING), line:32:30, endln:32:37
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:RUNNING
-          |INT:1
-          |vpiDecompile:1
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (WAITING), line:32:39, endln:32:46
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:WAITING
-          |INT:2
-          |vpiDecompile:2
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (SUSPENDED), line:32:48, endln:32:57
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:SUSPENDED
-          |INT:3
-          |vpiDecompile:3
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (KILLED), line:32:59, endln:32:65
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:KILLED
-          |INT:4
-          |vpiDecompile:4
-          |vpiSize:64
+        \_enum_var: (work@process::status), line:37:14, endln:37:19
+        |vpiFullName:work@process::status
+        |vpiActual:
+        \_enum_typespec: (state), line:32:5, endln:32:74
       |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill), line:40:5, endln:41:12
@@ -1622,9 +1608,12 @@ design: (work@test)
       |vpiParent:
       \_function: (work@semaphore::new), line:57:5, endln:58:16
       |vpiTypespec:
-      \_class_typespec: 
-        |vpiClassDefn:
-        \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/Ternary/builtin.sv, line:55:3, endln:69:11
+      \_ref_typespec: (work@semaphore::new)
+        |vpiParent:
+        \_class_var: (work@semaphore::new), line:57:22, endln:57:30
+        |vpiFullName:work@semaphore::new
+        |vpiActual:
+        \_class_typespec: 
       |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount), line:57:22, endln:57:30
@@ -1639,8 +1628,12 @@ design: (work@test)
         |UINT:0
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:57:18, endln:57:21
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::new::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:57:22, endln:57:30
+        |vpiFullName:work@semaphore::new::keyCount
+        |vpiActual:
+        \_int_typespec: , line:57:18, endln:57:21
   |vpiMethod:
   \_task: (work@semaphore::put), line:60:5, endln:61:12
     |vpiParent:
@@ -1662,8 +1655,12 @@ design: (work@test)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:60:14, endln:60:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::put::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:60:18, endln:60:26
+        |vpiFullName:work@semaphore::put::keyCount
+        |vpiActual:
+        \_int_typespec: , line:60:14, endln:60:17
   |vpiMethod:
   \_task: (work@semaphore::get), line:63:5, endln:64:12
     |vpiParent:
@@ -1685,8 +1682,12 @@ design: (work@test)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:63:14, endln:63:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::get::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:63:18, endln:63:26
+        |vpiFullName:work@semaphore::get::keyCount
+        |vpiActual:
+        \_int_typespec: , line:63:14, endln:63:17
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:66:5, endln:67:16
     |vpiParent:
@@ -1700,8 +1701,12 @@ design: (work@test)
       |vpiParent:
       \_function: (work@semaphore::try_get), line:66:5, endln:67:16
       |vpiTypespec:
-      \_int_typespec: , line:66:14, endln:66:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::try_get)
+        |vpiParent:
+        \_int_var: (work@semaphore::try_get), line:66:14, endln:66:17
+        |vpiFullName:work@semaphore::try_get
+        |vpiActual:
+        \_int_typespec: , line:66:14, endln:66:17
       |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
@@ -1717,8 +1722,12 @@ design: (work@test)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:66:26, endln:66:29
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::try_get::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:66:30, endln:66:38
+        |vpiFullName:work@semaphore::try_get::keyCount
+        |vpiActual:
+        \_int_typespec: , line:66:26, endln:66:29
 |uhdmallModules:
 \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
   |vpiParent:
@@ -1730,7 +1739,12 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |UINT:15
     |vpiTypespec:
-    \_int_typespec: , line:9:5, endln:9:33
+    \_ref_typespec: (work@test.FRAME_LENGTH)
+      |vpiParent:
+      \_parameter: (work@test.FRAME_LENGTH), line:9:16, endln:9:28
+      |vpiFullName:work@test.FRAME_LENGTH
+      |vpiActual:
+      \_int_typespec: , line:9:5, endln:9:33
     |vpiLocalParam:1
     |vpiName:FRAME_LENGTH
     |vpiFullName:work@test.FRAME_LENGTH
@@ -1740,17 +1754,12 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |HEX:0003
     |vpiTypespec:
-    \_int_typespec: , line:10:5, endln:10:39
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:10:5, endln:10:39
-        |vpiLeftRange:
-        \_constant: 
-          |INT:15
-        |vpiRightRange:
-        \_constant: 
-          |INT:0
+    \_ref_typespec: (work@test.ESTABLISHED)
+      |vpiParent:
+      \_parameter: (work@test.ESTABLISHED), line:10:16, endln:10:27
+      |vpiFullName:work@test.ESTABLISHED
+      |vpiActual:
+      \_int_typespec: , line:10:5, endln:10:39
     |vpiLocalParam:1
     |vpiName:ESTABLISHED
     |vpiFullName:work@test.ESTABLISHED
@@ -1760,17 +1769,12 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |HEX:001
     |vpiTypespec:
-    \_int_typespec: , line:24:5, endln:24:42
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:24:5, endln:24:42
-        |vpiLeftRange:
-        \_constant: 
-          |INT:10
-        |vpiRightRange:
-        \_constant: 
-          |INT:0
+    \_ref_typespec: (work@test.USER_DELAY_INIT)
+      |vpiParent:
+      \_parameter: (work@test.USER_DELAY_INIT), line:24:16, endln:24:31
+      |vpiFullName:work@test.USER_DELAY_INIT
+      |vpiActual:
+      \_int_typespec: , line:24:5, endln:24:42
     |vpiLocalParam:1
     |vpiName:USER_DELAY_INIT
     |vpiFullName:work@test.USER_DELAY_INIT
@@ -1780,17 +1784,12 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |HEX:002
     |vpiTypespec:
-    \_int_typespec: , line:25:5, endln:25:42
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:25:5, endln:25:42
-        |vpiLeftRange:
-        \_constant: 
-          |INT:10
-        |vpiRightRange:
-        \_constant: 
-          |INT:0
+    \_ref_typespec: (work@test.USER_CLEAN)
+      |vpiParent:
+      \_parameter: (work@test.USER_CLEAN), line:25:16, endln:25:26
+      |vpiFullName:work@test.USER_CLEAN
+      |vpiActual:
+      \_int_typespec: , line:25:5, endln:25:42
     |vpiLocalParam:1
     |vpiName:USER_CLEAN
     |vpiFullName:work@test.USER_CLEAN
@@ -1800,17 +1799,12 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |HEX:004
     |vpiTypespec:
-    \_int_typespec: , line:26:5, endln:26:42
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:26:5, endln:26:42
-        |vpiLeftRange:
-        \_constant: 
-          |INT:10
-        |vpiRightRange:
-        \_constant: 
-          |INT:0
+    \_ref_typespec: (work@test.USER_CLEAN_CHECK)
+      |vpiParent:
+      \_parameter: (work@test.USER_CLEAN_CHECK), line:26:16, endln:26:32
+      |vpiFullName:work@test.USER_CLEAN_CHECK
+      |vpiActual:
+      \_int_typespec: , line:26:5, endln:26:42
     |vpiLocalParam:1
     |vpiName:USER_CLEAN_CHECK
     |vpiFullName:work@test.USER_CLEAN_CHECK
@@ -1820,17 +1814,12 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |HEX:008
     |vpiTypespec:
-    \_int_typespec: , line:27:5, endln:27:42
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:27:5, endln:27:42
-        |vpiLeftRange:
-        \_constant: 
-          |INT:10
-        |vpiRightRange:
-        \_constant: 
-          |INT:0
+    \_ref_typespec: (work@test.USER_CLEAR_INTS)
+      |vpiParent:
+      \_parameter: (work@test.USER_CLEAR_INTS), line:27:16, endln:27:31
+      |vpiFullName:work@test.USER_CLEAR_INTS
+      |vpiActual:
+      \_int_typespec: , line:27:5, endln:27:42
     |vpiLocalParam:1
     |vpiName:USER_CLEAR_INTS
     |vpiFullName:work@test.USER_CLEAR_INTS
@@ -1840,17 +1829,12 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |HEX:010
     |vpiTypespec:
-    \_int_typespec: , line:28:5, endln:28:42
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:28:5, endln:28:42
-        |vpiLeftRange:
-        \_constant: 
-          |INT:10
-        |vpiRightRange:
-        \_constant: 
-          |INT:0
+    \_ref_typespec: (work@test.USER_INIT)
+      |vpiParent:
+      \_parameter: (work@test.USER_INIT), line:28:16, endln:28:25
+      |vpiFullName:work@test.USER_INIT
+      |vpiActual:
+      \_int_typespec: , line:28:5, endln:28:42
     |vpiLocalParam:1
     |vpiName:USER_INIT
     |vpiFullName:work@test.USER_INIT
@@ -1860,17 +1844,12 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |HEX:020
     |vpiTypespec:
-    \_int_typespec: , line:29:5, endln:29:42
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:29:5, endln:29:42
-        |vpiLeftRange:
-        \_constant: 
-          |INT:10
-        |vpiRightRange:
-        \_constant: 
-          |INT:0
+    \_ref_typespec: (work@test.USER_IDLE)
+      |vpiParent:
+      \_parameter: (work@test.USER_IDLE), line:29:16, endln:29:25
+      |vpiFullName:work@test.USER_IDLE
+      |vpiActual:
+      \_int_typespec: , line:29:5, endln:29:42
     |vpiLocalParam:1
     |vpiName:USER_IDLE
     |vpiFullName:work@test.USER_IDLE
@@ -1880,17 +1859,12 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |HEX:040
     |vpiTypespec:
-    \_int_typespec: , line:30:5, endln:30:42
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:30:5, endln:30:42
-        |vpiLeftRange:
-        \_constant: 
-          |INT:10
-        |vpiRightRange:
-        \_constant: 
-          |INT:0
+    \_ref_typespec: (work@test.USER_CHECK_STATE)
+      |vpiParent:
+      \_parameter: (work@test.USER_CHECK_STATE), line:30:16, endln:30:32
+      |vpiFullName:work@test.USER_CHECK_STATE
+      |vpiActual:
+      \_int_typespec: , line:30:5, endln:30:42
     |vpiLocalParam:1
     |vpiName:USER_CHECK_STATE
     |vpiFullName:work@test.USER_CHECK_STATE
@@ -1900,17 +1874,12 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |HEX:080
     |vpiTypespec:
-    \_int_typespec: , line:31:5, endln:31:42
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:31:5, endln:31:42
-        |vpiLeftRange:
-        \_constant: 
-          |INT:10
-        |vpiRightRange:
-        \_constant: 
-          |INT:0
+    \_ref_typespec: (work@test.USER_CHECK_SPACE)
+      |vpiParent:
+      \_parameter: (work@test.USER_CHECK_SPACE), line:31:16, endln:31:32
+      |vpiFullName:work@test.USER_CHECK_SPACE
+      |vpiActual:
+      \_int_typespec: , line:31:5, endln:31:42
     |vpiLocalParam:1
     |vpiName:USER_CHECK_SPACE
     |vpiFullName:work@test.USER_CHECK_SPACE
@@ -1920,17 +1889,12 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |HEX:100
     |vpiTypespec:
-    \_int_typespec: , line:32:5, endln:32:42
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:32:5, endln:32:42
-        |vpiLeftRange:
-        \_constant: 
-          |INT:10
-        |vpiRightRange:
-        \_constant: 
-          |INT:0
+    \_ref_typespec: (work@test.USER_WRITE_DATA)
+      |vpiParent:
+      \_parameter: (work@test.USER_WRITE_DATA), line:32:16, endln:32:31
+      |vpiFullName:work@test.USER_WRITE_DATA
+      |vpiActual:
+      \_int_typespec: , line:32:5, endln:32:42
     |vpiLocalParam:1
     |vpiName:USER_WRITE_DATA
     |vpiFullName:work@test.USER_WRITE_DATA
@@ -1940,17 +1904,12 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |HEX:200
     |vpiTypespec:
-    \_int_typespec: , line:33:5, endln:33:42
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:33:5, endln:33:42
-        |vpiLeftRange:
-        \_constant: 
-          |INT:10
-        |vpiRightRange:
-        \_constant: 
-          |INT:0
+    \_ref_typespec: (work@test.USER_READ_LENGTH)
+      |vpiParent:
+      \_parameter: (work@test.USER_READ_LENGTH), line:33:16, endln:33:32
+      |vpiFullName:work@test.USER_READ_LENGTH
+      |vpiActual:
+      \_int_typespec: , line:33:5, endln:33:42
     |vpiLocalParam:1
     |vpiName:USER_READ_LENGTH
     |vpiFullName:work@test.USER_READ_LENGTH
@@ -1960,17 +1919,12 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |HEX:400
     |vpiTypespec:
-    \_int_typespec: , line:34:5, endln:34:42
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:34:5, endln:34:42
-        |vpiLeftRange:
-        \_constant: 
-          |INT:10
-        |vpiRightRange:
-        \_constant: 
-          |INT:0
+    \_ref_typespec: (work@test.USER_READ_DATA)
+      |vpiParent:
+      \_parameter: (work@test.USER_READ_DATA), line:34:16, endln:34:30
+      |vpiFullName:work@test.USER_READ_DATA
+      |vpiActual:
+      \_int_typespec: , line:34:5, endln:34:42
     |vpiLocalParam:1
     |vpiName:USER_READ_DATA
     |vpiFullName:work@test.USER_READ_DATA
@@ -1986,7 +1940,12 @@ design: (work@test)
       |vpiSize:32
       |UINT:15
       |vpiTypespec:
-      \_int_typespec: , line:9:5, endln:9:33
+      \_ref_typespec: (work@test)
+        |vpiParent:
+        \_constant: , line:9:31, endln:9:33
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:9:5, endln:9:33
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test.FRAME_LENGTH), line:9:16, endln:9:28
@@ -2002,7 +1961,12 @@ design: (work@test)
       |vpiSize:16
       |HEX:0003
       |vpiTypespec:
-      \_int_typespec: , line:10:5, endln:10:39
+      \_ref_typespec: (work@test)
+        |vpiParent:
+        \_constant: , line:10:31, endln:10:39
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:10:5, endln:10:39
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (work@test.ESTABLISHED), line:10:16, endln:10:27
@@ -2018,7 +1982,12 @@ design: (work@test)
       |vpiSize:11
       |HEX:001
       |vpiTypespec:
-      \_int_typespec: , line:24:5, endln:24:42
+      \_ref_typespec: (work@test)
+        |vpiParent:
+        \_constant: , line:24:35, endln:24:42
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:24:5, endln:24:42
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (work@test.USER_DELAY_INIT), line:24:16, endln:24:31
@@ -2034,7 +2003,12 @@ design: (work@test)
       |vpiSize:11
       |HEX:002
       |vpiTypespec:
-      \_int_typespec: , line:25:5, endln:25:42
+      \_ref_typespec: (work@test)
+        |vpiParent:
+        \_constant: , line:25:35, endln:25:42
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:25:5, endln:25:42
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (work@test.USER_CLEAN), line:25:16, endln:25:26
@@ -2050,7 +2024,12 @@ design: (work@test)
       |vpiSize:11
       |HEX:004
       |vpiTypespec:
-      \_int_typespec: , line:26:5, endln:26:42
+      \_ref_typespec: (work@test)
+        |vpiParent:
+        \_constant: , line:26:35, endln:26:42
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:26:5, endln:26:42
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (work@test.USER_CLEAN_CHECK), line:26:16, endln:26:32
@@ -2066,7 +2045,12 @@ design: (work@test)
       |vpiSize:11
       |HEX:008
       |vpiTypespec:
-      \_int_typespec: , line:27:5, endln:27:42
+      \_ref_typespec: (work@test)
+        |vpiParent:
+        \_constant: , line:27:35, endln:27:42
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:27:5, endln:27:42
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (work@test.USER_CLEAR_INTS), line:27:16, endln:27:31
@@ -2082,7 +2066,12 @@ design: (work@test)
       |vpiSize:11
       |HEX:010
       |vpiTypespec:
-      \_int_typespec: , line:28:5, endln:28:42
+      \_ref_typespec: (work@test)
+        |vpiParent:
+        \_constant: , line:28:35, endln:28:42
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:28:5, endln:28:42
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (work@test.USER_INIT), line:28:16, endln:28:25
@@ -2098,7 +2087,12 @@ design: (work@test)
       |vpiSize:11
       |HEX:020
       |vpiTypespec:
-      \_int_typespec: , line:29:5, endln:29:42
+      \_ref_typespec: (work@test)
+        |vpiParent:
+        \_constant: , line:29:35, endln:29:42
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:29:5, endln:29:42
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (work@test.USER_IDLE), line:29:16, endln:29:25
@@ -2114,7 +2108,12 @@ design: (work@test)
       |vpiSize:11
       |HEX:040
       |vpiTypespec:
-      \_int_typespec: , line:30:5, endln:30:42
+      \_ref_typespec: (work@test)
+        |vpiParent:
+        \_constant: , line:30:35, endln:30:42
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:30:5, endln:30:42
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (work@test.USER_CHECK_STATE), line:30:16, endln:30:32
@@ -2130,7 +2129,12 @@ design: (work@test)
       |vpiSize:11
       |HEX:080
       |vpiTypespec:
-      \_int_typespec: , line:31:5, endln:31:42
+      \_ref_typespec: (work@test)
+        |vpiParent:
+        \_constant: , line:31:35, endln:31:42
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:31:5, endln:31:42
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (work@test.USER_CHECK_SPACE), line:31:16, endln:31:32
@@ -2146,7 +2150,12 @@ design: (work@test)
       |vpiSize:11
       |HEX:100
       |vpiTypespec:
-      \_int_typespec: , line:32:5, endln:32:42
+      \_ref_typespec: (work@test)
+        |vpiParent:
+        \_constant: , line:32:35, endln:32:42
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:32:5, endln:32:42
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (work@test.USER_WRITE_DATA), line:32:16, endln:32:31
@@ -2162,7 +2171,12 @@ design: (work@test)
       |vpiSize:11
       |HEX:200
       |vpiTypespec:
-      \_int_typespec: , line:33:5, endln:33:42
+      \_ref_typespec: (work@test)
+        |vpiParent:
+        \_constant: , line:33:35, endln:33:42
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:33:5, endln:33:42
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (work@test.USER_READ_LENGTH), line:33:16, endln:33:32
@@ -2178,7 +2192,12 @@ design: (work@test)
       |vpiSize:11
       |HEX:400
       |vpiTypespec:
-      \_int_typespec: , line:34:5, endln:34:42
+      \_ref_typespec: (work@test)
+        |vpiParent:
+        \_constant: , line:34:35, endln:34:42
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:34:5, endln:34:42
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (work@test.USER_READ_DATA), line:34:16, endln:34:30
@@ -2194,7 +2213,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |vpiTypespec:
-    \_logic_typespec: , line:12:5, endln:12:9
+    \_ref_typespec: (work@test.RAMRST)
+      |vpiParent:
+      \_logic_net: (work@test.RAMRST), line:12:10, endln:12:16
+      |vpiFullName:work@test.RAMRST
+      |vpiActual:
+      \_logic_typespec: , line:12:5, endln:12:9
     |vpiName:RAMRST
     |vpiFullName:work@test.RAMRST
     |vpiNetType:1
@@ -2203,27 +2227,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |vpiTypespec:
-    \_logic_typespec: , line:13:5, endln:13:16
-      |vpiRange:
-      \_range: , line:13:10, endln:13:16
-        |vpiParent:
-        \_logic_typespec: , line:13:5, endln:13:16
-        |vpiLeftRange:
-        \_constant: , line:13:11, endln:13:13
-          |vpiParent:
-          \_range: , line:13:10, endln:13:16
-          |vpiDecompile:15
-          |vpiSize:64
-          |UINT:15
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:13:14, endln:13:15
-          |vpiParent:
-          \_range: , line:13:10, endln:13:16
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@test.UserReadData)
+      |vpiParent:
+      \_logic_net: (work@test.UserReadData), line:13:17, endln:13:29
+      |vpiFullName:work@test.UserReadData
+      |vpiActual:
+      \_logic_typespec: , line:13:5, endln:13:16
     |vpiName:UserReadData
     |vpiFullName:work@test.UserReadData
     |vpiNetType:1
@@ -2232,7 +2241,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |vpiTypespec:
-    \_logic_typespec: , line:14:5, endln:14:9
+    \_ref_typespec: (work@test.UserReadDataValid)
+      |vpiParent:
+      \_logic_net: (work@test.UserReadDataValid), line:14:10, endln:14:27
+      |vpiFullName:work@test.UserReadDataValid
+      |vpiActual:
+      \_logic_typespec: , line:14:5, endln:14:9
     |vpiName:UserReadDataValid
     |vpiFullName:work@test.UserReadDataValid
     |vpiNetType:1
@@ -2241,27 +2255,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |vpiTypespec:
-    \_logic_typespec: , line:16:5, endln:16:15
-      |vpiRange:
-      \_range: , line:16:9, endln:16:15
-        |vpiParent:
-        \_logic_typespec: , line:16:5, endln:16:15
-        |vpiLeftRange:
-        \_constant: , line:16:10, endln:16:12
-          |vpiParent:
-          \_range: , line:16:9, endln:16:15
-          |vpiDecompile:23
-          |vpiSize:64
-          |UINT:23
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:16:13, endln:16:14
-          |vpiParent:
-          \_range: , line:16:9, endln:16:15
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@test.Delay)
+      |vpiParent:
+      \_logic_net: (work@test.Delay), line:16:16, endln:16:21
+      |vpiFullName:work@test.Delay
+      |vpiActual:
+      \_logic_typespec: , line:16:5, endln:16:15
     |vpiName:Delay
     |vpiFullName:work@test.Delay
     |vpiNetType:48
@@ -2270,27 +2269,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |vpiTypespec:
-    \_logic_typespec: , line:17:5, endln:17:15
-      |vpiRange:
-      \_range: , line:17:9, endln:17:15
-        |vpiParent:
-        \_logic_typespec: , line:17:5, endln:17:15
-        |vpiLeftRange:
-        \_constant: , line:17:10, endln:17:12
-          |vpiParent:
-          \_range: , line:17:9, endln:17:15
-          |vpiDecompile:10
-          |vpiSize:64
-          |UINT:10
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:17:13, endln:17:14
-          |vpiParent:
-          \_range: , line:17:9, endln:17:15
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@test.UserState)
+      |vpiParent:
+      \_logic_net: (work@test.UserState), line:17:16, endln:17:25
+      |vpiFullName:work@test.UserState
+      |vpiActual:
+      \_logic_typespec: , line:17:5, endln:17:15
     |vpiName:UserState
     |vpiFullName:work@test.UserState
     |vpiNetType:48
@@ -2299,27 +2283,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |vpiTypespec:
-    \_logic_typespec: , line:18:5, endln:18:15
-      |vpiRange:
-      \_range: , line:18:9, endln:18:15
-        |vpiParent:
-        \_logic_typespec: , line:18:5, endln:18:15
-        |vpiLeftRange:
-        \_constant: , line:18:10, endln:18:12
-          |vpiParent:
-          \_range: , line:18:9, endln:18:15
-          |vpiDecompile:15
-          |vpiSize:64
-          |UINT:15
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:18:13, endln:18:14
-          |vpiParent:
-          \_range: , line:18:9, endln:18:15
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@test.UserValidCount)
+      |vpiParent:
+      \_logic_net: (work@test.UserValidCount), line:18:16, endln:18:30
+      |vpiFullName:work@test.UserValidCount
+      |vpiActual:
+      \_logic_typespec: , line:18:5, endln:18:15
     |vpiName:UserValidCount
     |vpiFullName:work@test.UserValidCount
     |vpiNetType:48
@@ -2328,27 +2297,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |vpiTypespec:
-    \_logic_typespec: , line:19:5, endln:19:14
-      |vpiRange:
-      \_range: , line:19:9, endln:19:14
-        |vpiParent:
-        \_logic_typespec: , line:19:5, endln:19:14
-        |vpiLeftRange:
-        \_constant: , line:19:10, endln:19:11
-          |vpiParent:
-          \_range: , line:19:9, endln:19:14
-          |vpiDecompile:5
-          |vpiSize:64
-          |UINT:5
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:19:12, endln:19:13
-          |vpiParent:
-          \_range: , line:19:9, endln:19:14
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@test.ConnectionState)
+      |vpiParent:
+      \_logic_net: (work@test.ConnectionState), line:19:15, endln:19:30
+      |vpiFullName:work@test.ConnectionState
+      |vpiActual:
+      \_logic_typespec: , line:19:5, endln:19:14
     |vpiName:ConnectionState
     |vpiFullName:work@test.ConnectionState
     |vpiNetType:48
@@ -2357,27 +2311,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |vpiTypespec:
-    \_logic_typespec: , line:20:5, endln:20:15
-      |vpiRange:
-      \_range: , line:20:9, endln:20:15
-        |vpiParent:
-        \_logic_typespec: , line:20:5, endln:20:15
-        |vpiLeftRange:
-        \_constant: , line:20:10, endln:20:12
-          |vpiParent:
-          \_range: , line:20:9, endln:20:15
-          |vpiDecompile:15
-          |vpiSize:64
-          |UINT:15
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:20:13, endln:20:14
-          |vpiParent:
-          \_range: , line:20:9, endln:20:15
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@test.InterruptStatus)
+      |vpiParent:
+      \_logic_net: (work@test.InterruptStatus), line:20:16, endln:20:31
+      |vpiFullName:work@test.InterruptStatus
+      |vpiActual:
+      \_logic_typespec: , line:20:5, endln:20:15
     |vpiName:InterruptStatus
     |vpiFullName:work@test.InterruptStatus
     |vpiNetType:48
@@ -2386,27 +2325,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |vpiTypespec:
-    \_logic_typespec: , line:21:5, endln:21:15
-      |vpiRange:
-      \_range: , line:21:9, endln:21:15
-        |vpiParent:
-        \_logic_typespec: , line:21:5, endln:21:15
-        |vpiLeftRange:
-        \_constant: , line:21:10, endln:21:12
-          |vpiParent:
-          \_range: , line:21:9, endln:21:15
-          |vpiDecompile:15
-          |vpiSize:64
-          |UINT:15
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:21:13, endln:21:14
-          |vpiParent:
-          \_range: , line:21:9, endln:21:15
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@test.FrameLength)
+      |vpiParent:
+      \_logic_net: (work@test.FrameLength), line:21:16, endln:21:27
+      |vpiFullName:work@test.FrameLength
+      |vpiActual:
+      \_logic_typespec: , line:21:5, endln:21:15
     |vpiName:FrameLength
     |vpiFullName:work@test.FrameLength
     |vpiNetType:48
@@ -2415,27 +2339,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |vpiTypespec:
-    \_logic_typespec: , line:22:5, endln:22:14
-      |vpiRange:
-      \_range: , line:22:9, endln:22:14
-        |vpiParent:
-        \_logic_typespec: , line:22:5, endln:22:14
-        |vpiLeftRange:
-        \_constant: , line:22:10, endln:22:11
-          |vpiParent:
-          \_range: , line:22:9, endln:22:14
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:22:12, endln:22:13
-          |vpiParent:
-          \_range: , line:22:9, endln:22:14
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@test.LatencyDelay)
+      |vpiParent:
+      \_logic_net: (work@test.LatencyDelay), line:22:15, endln:22:27
+      |vpiFullName:work@test.LatencyDelay
+      |vpiActual:
+      \_logic_typespec: , line:22:5, endln:22:14
     |vpiName:LatencyDelay
     |vpiFullName:work@test.LatencyDelay
     |vpiNetType:48
@@ -2454,7 +2363,12 @@ design: (work@test)
       |vpiActual:
       \_logic_net: (work@test.CLK), line:6:11, endln:6:14
     |vpiTypedef:
-    \_logic_typespec: , line:6:11, endln:6:11
+    \_ref_typespec: (work@test.CLK)
+      |vpiParent:
+      \_port: (CLK), line:6:11, endln:6:14
+      |vpiFullName:work@test.CLK
+      |vpiActual:
+      \_logic_typespec: , line:6:11, endln:6:11
   |vpiProcess:
   \_always: , line:37:5, endln:83:8
     |vpiParent:
@@ -3127,9 +3041,12 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |UINT:15
     |vpiTypespec:
-    \_int_typespec: , line:9:5, endln:9:33
+    \_ref_typespec: (work@test.FRAME_LENGTH)
       |vpiParent:
       \_parameter: (work@test.FRAME_LENGTH), line:9:16, endln:9:28
+      |vpiFullName:work@test.FRAME_LENGTH
+      |vpiActual:
+      \_int_typespec: , line:9:5, endln:9:33
     |vpiLocalParam:1
     |vpiName:FRAME_LENGTH
     |vpiFullName:work@test.FRAME_LENGTH
@@ -3139,23 +3056,12 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |HEX:0003
     |vpiTypespec:
-    \_int_typespec: , line:10:5, endln:10:39
+    \_ref_typespec: (work@test.ESTABLISHED)
       |vpiParent:
       \_parameter: (work@test.ESTABLISHED), line:10:16, endln:10:27
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:10:5, endln:10:39
-        |vpiLeftRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:15
-        |vpiRightRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:0
+      |vpiFullName:work@test.ESTABLISHED
+      |vpiActual:
+      \_int_typespec: , line:10:5, endln:10:39
     |vpiLocalParam:1
     |vpiName:ESTABLISHED
     |vpiFullName:work@test.ESTABLISHED
@@ -3165,23 +3071,12 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |HEX:001
     |vpiTypespec:
-    \_int_typespec: , line:24:5, endln:24:42
+    \_ref_typespec: (work@test.USER_DELAY_INIT)
       |vpiParent:
       \_parameter: (work@test.USER_DELAY_INIT), line:24:16, endln:24:31
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:24:5, endln:24:42
-        |vpiLeftRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:10
-        |vpiRightRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:0
+      |vpiFullName:work@test.USER_DELAY_INIT
+      |vpiActual:
+      \_int_typespec: , line:24:5, endln:24:42
     |vpiLocalParam:1
     |vpiName:USER_DELAY_INIT
     |vpiFullName:work@test.USER_DELAY_INIT
@@ -3191,23 +3086,12 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |HEX:002
     |vpiTypespec:
-    \_int_typespec: , line:25:5, endln:25:42
+    \_ref_typespec: (work@test.USER_CLEAN)
       |vpiParent:
       \_parameter: (work@test.USER_CLEAN), line:25:16, endln:25:26
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:25:5, endln:25:42
-        |vpiLeftRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:10
-        |vpiRightRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:0
+      |vpiFullName:work@test.USER_CLEAN
+      |vpiActual:
+      \_int_typespec: , line:25:5, endln:25:42
     |vpiLocalParam:1
     |vpiName:USER_CLEAN
     |vpiFullName:work@test.USER_CLEAN
@@ -3217,23 +3101,12 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |HEX:004
     |vpiTypespec:
-    \_int_typespec: , line:26:5, endln:26:42
+    \_ref_typespec: (work@test.USER_CLEAN_CHECK)
       |vpiParent:
       \_parameter: (work@test.USER_CLEAN_CHECK), line:26:16, endln:26:32
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:26:5, endln:26:42
-        |vpiLeftRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:10
-        |vpiRightRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:0
+      |vpiFullName:work@test.USER_CLEAN_CHECK
+      |vpiActual:
+      \_int_typespec: , line:26:5, endln:26:42
     |vpiLocalParam:1
     |vpiName:USER_CLEAN_CHECK
     |vpiFullName:work@test.USER_CLEAN_CHECK
@@ -3243,23 +3116,12 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |HEX:008
     |vpiTypespec:
-    \_int_typespec: , line:27:5, endln:27:42
+    \_ref_typespec: (work@test.USER_CLEAR_INTS)
       |vpiParent:
       \_parameter: (work@test.USER_CLEAR_INTS), line:27:16, endln:27:31
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:27:5, endln:27:42
-        |vpiLeftRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:10
-        |vpiRightRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:0
+      |vpiFullName:work@test.USER_CLEAR_INTS
+      |vpiActual:
+      \_int_typespec: , line:27:5, endln:27:42
     |vpiLocalParam:1
     |vpiName:USER_CLEAR_INTS
     |vpiFullName:work@test.USER_CLEAR_INTS
@@ -3269,23 +3131,12 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |HEX:010
     |vpiTypespec:
-    \_int_typespec: , line:28:5, endln:28:42
+    \_ref_typespec: (work@test.USER_INIT)
       |vpiParent:
       \_parameter: (work@test.USER_INIT), line:28:16, endln:28:25
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:28:5, endln:28:42
-        |vpiLeftRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:10
-        |vpiRightRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:0
+      |vpiFullName:work@test.USER_INIT
+      |vpiActual:
+      \_int_typespec: , line:28:5, endln:28:42
     |vpiLocalParam:1
     |vpiName:USER_INIT
     |vpiFullName:work@test.USER_INIT
@@ -3295,23 +3146,12 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |HEX:020
     |vpiTypespec:
-    \_int_typespec: , line:29:5, endln:29:42
+    \_ref_typespec: (work@test.USER_IDLE)
       |vpiParent:
       \_parameter: (work@test.USER_IDLE), line:29:16, endln:29:25
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:29:5, endln:29:42
-        |vpiLeftRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:10
-        |vpiRightRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:0
+      |vpiFullName:work@test.USER_IDLE
+      |vpiActual:
+      \_int_typespec: , line:29:5, endln:29:42
     |vpiLocalParam:1
     |vpiName:USER_IDLE
     |vpiFullName:work@test.USER_IDLE
@@ -3321,23 +3161,12 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |HEX:040
     |vpiTypespec:
-    \_int_typespec: , line:30:5, endln:30:42
+    \_ref_typespec: (work@test.USER_CHECK_STATE)
       |vpiParent:
       \_parameter: (work@test.USER_CHECK_STATE), line:30:16, endln:30:32
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:30:5, endln:30:42
-        |vpiLeftRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:10
-        |vpiRightRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:0
+      |vpiFullName:work@test.USER_CHECK_STATE
+      |vpiActual:
+      \_int_typespec: , line:30:5, endln:30:42
     |vpiLocalParam:1
     |vpiName:USER_CHECK_STATE
     |vpiFullName:work@test.USER_CHECK_STATE
@@ -3347,23 +3176,12 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |HEX:080
     |vpiTypespec:
-    \_int_typespec: , line:31:5, endln:31:42
+    \_ref_typespec: (work@test.USER_CHECK_SPACE)
       |vpiParent:
       \_parameter: (work@test.USER_CHECK_SPACE), line:31:16, endln:31:32
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:31:5, endln:31:42
-        |vpiLeftRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:10
-        |vpiRightRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:0
+      |vpiFullName:work@test.USER_CHECK_SPACE
+      |vpiActual:
+      \_int_typespec: , line:31:5, endln:31:42
     |vpiLocalParam:1
     |vpiName:USER_CHECK_SPACE
     |vpiFullName:work@test.USER_CHECK_SPACE
@@ -3373,23 +3191,12 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |HEX:100
     |vpiTypespec:
-    \_int_typespec: , line:32:5, endln:32:42
+    \_ref_typespec: (work@test.USER_WRITE_DATA)
       |vpiParent:
       \_parameter: (work@test.USER_WRITE_DATA), line:32:16, endln:32:31
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:32:5, endln:32:42
-        |vpiLeftRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:10
-        |vpiRightRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:0
+      |vpiFullName:work@test.USER_WRITE_DATA
+      |vpiActual:
+      \_int_typespec: , line:32:5, endln:32:42
     |vpiLocalParam:1
     |vpiName:USER_WRITE_DATA
     |vpiFullName:work@test.USER_WRITE_DATA
@@ -3399,23 +3206,12 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |HEX:200
     |vpiTypespec:
-    \_int_typespec: , line:33:5, endln:33:42
+    \_ref_typespec: (work@test.USER_READ_LENGTH)
       |vpiParent:
       \_parameter: (work@test.USER_READ_LENGTH), line:33:16, endln:33:32
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:33:5, endln:33:42
-        |vpiLeftRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:10
-        |vpiRightRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:0
+      |vpiFullName:work@test.USER_READ_LENGTH
+      |vpiActual:
+      \_int_typespec: , line:33:5, endln:33:42
     |vpiLocalParam:1
     |vpiName:USER_READ_LENGTH
     |vpiFullName:work@test.USER_READ_LENGTH
@@ -3425,23 +3221,12 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |HEX:400
     |vpiTypespec:
-    \_int_typespec: , line:34:5, endln:34:42
+    \_ref_typespec: (work@test.USER_READ_DATA)
       |vpiParent:
       \_parameter: (work@test.USER_READ_DATA), line:34:16, endln:34:30
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:34:5, endln:34:42
-        |vpiLeftRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:10
-        |vpiRightRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:0
+      |vpiFullName:work@test.USER_READ_DATA
+      |vpiActual:
+      \_int_typespec: , line:34:5, endln:34:42
     |vpiLocalParam:1
     |vpiName:USER_READ_DATA
     |vpiFullName:work@test.USER_READ_DATA
@@ -3457,7 +3242,12 @@ design: (work@test)
       |vpiSize:32
       |UINT:15
       |vpiTypespec:
-      \_int_typespec: , line:9:5, endln:9:33
+      \_ref_typespec: (work@test)
+        |vpiParent:
+        \_constant: , line:9:31, endln:9:33
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:9:5, endln:9:33
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test.FRAME_LENGTH), line:9:16, endln:9:28
@@ -3473,7 +3263,12 @@ design: (work@test)
       |vpiSize:16
       |HEX:0003
       |vpiTypespec:
-      \_int_typespec: , line:10:5, endln:10:39
+      \_ref_typespec: (work@test)
+        |vpiParent:
+        \_constant: , line:10:31, endln:10:39
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:10:5, endln:10:39
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (work@test.ESTABLISHED), line:10:16, endln:10:27
@@ -3489,7 +3284,12 @@ design: (work@test)
       |vpiSize:11
       |HEX:001
       |vpiTypespec:
-      \_int_typespec: , line:24:5, endln:24:42
+      \_ref_typespec: (work@test)
+        |vpiParent:
+        \_constant: , line:24:35, endln:24:42
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:24:5, endln:24:42
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (work@test.USER_DELAY_INIT), line:24:16, endln:24:31
@@ -3505,7 +3305,12 @@ design: (work@test)
       |vpiSize:11
       |HEX:002
       |vpiTypespec:
-      \_int_typespec: , line:25:5, endln:25:42
+      \_ref_typespec: (work@test)
+        |vpiParent:
+        \_constant: , line:25:35, endln:25:42
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:25:5, endln:25:42
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (work@test.USER_CLEAN), line:25:16, endln:25:26
@@ -3521,7 +3326,12 @@ design: (work@test)
       |vpiSize:11
       |HEX:004
       |vpiTypespec:
-      \_int_typespec: , line:26:5, endln:26:42
+      \_ref_typespec: (work@test)
+        |vpiParent:
+        \_constant: , line:26:35, endln:26:42
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:26:5, endln:26:42
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (work@test.USER_CLEAN_CHECK), line:26:16, endln:26:32
@@ -3537,7 +3347,12 @@ design: (work@test)
       |vpiSize:11
       |HEX:008
       |vpiTypespec:
-      \_int_typespec: , line:27:5, endln:27:42
+      \_ref_typespec: (work@test)
+        |vpiParent:
+        \_constant: , line:27:35, endln:27:42
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:27:5, endln:27:42
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (work@test.USER_CLEAR_INTS), line:27:16, endln:27:31
@@ -3553,7 +3368,12 @@ design: (work@test)
       |vpiSize:11
       |HEX:010
       |vpiTypespec:
-      \_int_typespec: , line:28:5, endln:28:42
+      \_ref_typespec: (work@test)
+        |vpiParent:
+        \_constant: , line:28:35, endln:28:42
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:28:5, endln:28:42
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (work@test.USER_INIT), line:28:16, endln:28:25
@@ -3569,7 +3389,12 @@ design: (work@test)
       |vpiSize:11
       |HEX:020
       |vpiTypespec:
-      \_int_typespec: , line:29:5, endln:29:42
+      \_ref_typespec: (work@test)
+        |vpiParent:
+        \_constant: , line:29:35, endln:29:42
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:29:5, endln:29:42
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (work@test.USER_IDLE), line:29:16, endln:29:25
@@ -3585,7 +3410,12 @@ design: (work@test)
       |vpiSize:11
       |HEX:040
       |vpiTypespec:
-      \_int_typespec: , line:30:5, endln:30:42
+      \_ref_typespec: (work@test)
+        |vpiParent:
+        \_constant: , line:30:35, endln:30:42
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:30:5, endln:30:42
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (work@test.USER_CHECK_STATE), line:30:16, endln:30:32
@@ -3601,7 +3431,12 @@ design: (work@test)
       |vpiSize:11
       |HEX:080
       |vpiTypespec:
-      \_int_typespec: , line:31:5, endln:31:42
+      \_ref_typespec: (work@test)
+        |vpiParent:
+        \_constant: , line:31:35, endln:31:42
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:31:5, endln:31:42
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (work@test.USER_CHECK_SPACE), line:31:16, endln:31:32
@@ -3617,7 +3452,12 @@ design: (work@test)
       |vpiSize:11
       |HEX:100
       |vpiTypespec:
-      \_int_typespec: , line:32:5, endln:32:42
+      \_ref_typespec: (work@test)
+        |vpiParent:
+        \_constant: , line:32:35, endln:32:42
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:32:5, endln:32:42
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (work@test.USER_WRITE_DATA), line:32:16, endln:32:31
@@ -3633,7 +3473,12 @@ design: (work@test)
       |vpiSize:11
       |HEX:200
       |vpiTypespec:
-      \_int_typespec: , line:33:5, endln:33:42
+      \_ref_typespec: (work@test)
+        |vpiParent:
+        \_constant: , line:33:35, endln:33:42
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:33:5, endln:33:42
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (work@test.USER_READ_LENGTH), line:33:16, endln:33:32
@@ -3649,7 +3494,12 @@ design: (work@test)
       |vpiSize:11
       |HEX:400
       |vpiTypespec:
-      \_int_typespec: , line:34:5, endln:34:42
+      \_ref_typespec: (work@test)
+        |vpiParent:
+        \_constant: , line:34:35, endln:34:42
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:34:5, endln:34:42
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (work@test.USER_READ_DATA), line:34:16, endln:34:30
@@ -3660,9 +3510,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |vpiTypespec:
-    \_logic_typespec: , line:6:11, endln:6:11
+    \_ref_typespec: (work@test.CLK)
       |vpiParent:
       \_logic_net: (work@test.CLK), line:6:11, endln:6:14
+      |vpiFullName:work@test.CLK
+      |vpiActual:
+      \_logic_typespec: , line:6:11, endln:6:11
     |vpiName:CLK
     |vpiFullName:work@test.CLK
   |vpiNet:
@@ -3670,9 +3523,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |vpiTypespec:
-    \_logic_typespec: , line:12:5, endln:12:9
+    \_ref_typespec: (work@test.RAMRST)
       |vpiParent:
       \_logic_net: (work@test.RAMRST), line:12:10, endln:12:16
+      |vpiFullName:work@test.RAMRST
+      |vpiActual:
+      \_logic_typespec: , line:12:5, endln:12:9
     |vpiName:RAMRST
     |vpiFullName:work@test.RAMRST
     |vpiNetType:1
@@ -3681,29 +3537,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |vpiTypespec:
-    \_logic_typespec: , line:13:5, endln:13:16
+    \_ref_typespec: (work@test.UserReadData)
       |vpiParent:
       \_logic_net: (work@test.UserReadData), line:13:17, endln:13:29
-      |vpiRange:
-      \_range: , line:13:10, endln:13:16
-        |vpiParent:
-        \_logic_typespec: , line:13:5, endln:13:16
-        |vpiLeftRange:
-        \_constant: , line:13:11, endln:13:13
-          |vpiParent:
-          \_range: , line:13:10, endln:13:16
-          |vpiDecompile:15
-          |vpiSize:64
-          |UINT:15
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:13:14, endln:13:15
-          |vpiParent:
-          \_range: , line:13:10, endln:13:16
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@test.UserReadData
+      |vpiActual:
+      \_logic_typespec: , line:13:5, endln:13:16
     |vpiName:UserReadData
     |vpiFullName:work@test.UserReadData
     |vpiNetType:1
@@ -3712,9 +3551,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |vpiTypespec:
-    \_logic_typespec: , line:14:5, endln:14:9
+    \_ref_typespec: (work@test.UserReadDataValid)
       |vpiParent:
       \_logic_net: (work@test.UserReadDataValid), line:14:10, endln:14:27
+      |vpiFullName:work@test.UserReadDataValid
+      |vpiActual:
+      \_logic_typespec: , line:14:5, endln:14:9
     |vpiName:UserReadDataValid
     |vpiFullName:work@test.UserReadDataValid
     |vpiNetType:1
@@ -3723,29 +3565,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |vpiTypespec:
-    \_logic_typespec: , line:16:5, endln:16:15
+    \_ref_typespec: (work@test.Delay)
       |vpiParent:
       \_logic_net: (work@test.Delay), line:16:16, endln:16:21
-      |vpiRange:
-      \_range: , line:16:9, endln:16:15
-        |vpiParent:
-        \_logic_typespec: , line:16:5, endln:16:15
-        |vpiLeftRange:
-        \_constant: , line:16:10, endln:16:12
-          |vpiParent:
-          \_range: , line:16:9, endln:16:15
-          |vpiDecompile:23
-          |vpiSize:64
-          |UINT:23
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:16:13, endln:16:14
-          |vpiParent:
-          \_range: , line:16:9, endln:16:15
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@test.Delay
+      |vpiActual:
+      \_logic_typespec: , line:16:5, endln:16:15
     |vpiName:Delay
     |vpiFullName:work@test.Delay
     |vpiNetType:48
@@ -3754,29 +3579,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |vpiTypespec:
-    \_logic_typespec: , line:17:5, endln:17:15
+    \_ref_typespec: (work@test.UserState)
       |vpiParent:
       \_logic_net: (work@test.UserState), line:17:16, endln:17:25
-      |vpiRange:
-      \_range: , line:17:9, endln:17:15
-        |vpiParent:
-        \_logic_typespec: , line:17:5, endln:17:15
-        |vpiLeftRange:
-        \_constant: , line:17:10, endln:17:12
-          |vpiParent:
-          \_range: , line:17:9, endln:17:15
-          |vpiDecompile:10
-          |vpiSize:64
-          |UINT:10
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:17:13, endln:17:14
-          |vpiParent:
-          \_range: , line:17:9, endln:17:15
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@test.UserState
+      |vpiActual:
+      \_logic_typespec: , line:17:5, endln:17:15
     |vpiName:UserState
     |vpiFullName:work@test.UserState
     |vpiNetType:48
@@ -3785,29 +3593,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |vpiTypespec:
-    \_logic_typespec: , line:18:5, endln:18:15
+    \_ref_typespec: (work@test.UserValidCount)
       |vpiParent:
       \_logic_net: (work@test.UserValidCount), line:18:16, endln:18:30
-      |vpiRange:
-      \_range: , line:18:9, endln:18:15
-        |vpiParent:
-        \_logic_typespec: , line:18:5, endln:18:15
-        |vpiLeftRange:
-        \_constant: , line:18:10, endln:18:12
-          |vpiParent:
-          \_range: , line:18:9, endln:18:15
-          |vpiDecompile:15
-          |vpiSize:64
-          |UINT:15
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:18:13, endln:18:14
-          |vpiParent:
-          \_range: , line:18:9, endln:18:15
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@test.UserValidCount
+      |vpiActual:
+      \_logic_typespec: , line:18:5, endln:18:15
     |vpiName:UserValidCount
     |vpiFullName:work@test.UserValidCount
     |vpiNetType:48
@@ -3816,29 +3607,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |vpiTypespec:
-    \_logic_typespec: , line:19:5, endln:19:14
+    \_ref_typespec: (work@test.ConnectionState)
       |vpiParent:
       \_logic_net: (work@test.ConnectionState), line:19:15, endln:19:30
-      |vpiRange:
-      \_range: , line:19:9, endln:19:14
-        |vpiParent:
-        \_logic_typespec: , line:19:5, endln:19:14
-        |vpiLeftRange:
-        \_constant: , line:19:10, endln:19:11
-          |vpiParent:
-          \_range: , line:19:9, endln:19:14
-          |vpiDecompile:5
-          |vpiSize:64
-          |UINT:5
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:19:12, endln:19:13
-          |vpiParent:
-          \_range: , line:19:9, endln:19:14
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@test.ConnectionState
+      |vpiActual:
+      \_logic_typespec: , line:19:5, endln:19:14
     |vpiName:ConnectionState
     |vpiFullName:work@test.ConnectionState
     |vpiNetType:48
@@ -3847,29 +3621,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |vpiTypespec:
-    \_logic_typespec: , line:20:5, endln:20:15
+    \_ref_typespec: (work@test.InterruptStatus)
       |vpiParent:
       \_logic_net: (work@test.InterruptStatus), line:20:16, endln:20:31
-      |vpiRange:
-      \_range: , line:20:9, endln:20:15
-        |vpiParent:
-        \_logic_typespec: , line:20:5, endln:20:15
-        |vpiLeftRange:
-        \_constant: , line:20:10, endln:20:12
-          |vpiParent:
-          \_range: , line:20:9, endln:20:15
-          |vpiDecompile:15
-          |vpiSize:64
-          |UINT:15
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:20:13, endln:20:14
-          |vpiParent:
-          \_range: , line:20:9, endln:20:15
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@test.InterruptStatus
+      |vpiActual:
+      \_logic_typespec: , line:20:5, endln:20:15
     |vpiName:InterruptStatus
     |vpiFullName:work@test.InterruptStatus
     |vpiNetType:48
@@ -3878,29 +3635,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |vpiTypespec:
-    \_logic_typespec: , line:21:5, endln:21:15
+    \_ref_typespec: (work@test.FrameLength)
       |vpiParent:
       \_logic_net: (work@test.FrameLength), line:21:16, endln:21:27
-      |vpiRange:
-      \_range: , line:21:9, endln:21:15
-        |vpiParent:
-        \_logic_typespec: , line:21:5, endln:21:15
-        |vpiLeftRange:
-        \_constant: , line:21:10, endln:21:12
-          |vpiParent:
-          \_range: , line:21:9, endln:21:15
-          |vpiDecompile:15
-          |vpiSize:64
-          |UINT:15
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:21:13, endln:21:14
-          |vpiParent:
-          \_range: , line:21:9, endln:21:15
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@test.FrameLength
+      |vpiActual:
+      \_logic_typespec: , line:21:5, endln:21:15
     |vpiName:FrameLength
     |vpiFullName:work@test.FrameLength
     |vpiNetType:48
@@ -3909,29 +3649,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
     |vpiTypespec:
-    \_logic_typespec: , line:22:5, endln:22:14
+    \_ref_typespec: (work@test.LatencyDelay)
       |vpiParent:
       \_logic_net: (work@test.LatencyDelay), line:22:15, endln:22:27
-      |vpiRange:
-      \_range: , line:22:9, endln:22:14
-        |vpiParent:
-        \_logic_typespec: , line:22:5, endln:22:14
-        |vpiLeftRange:
-        \_constant: , line:22:10, endln:22:11
-          |vpiParent:
-          \_range: , line:22:9, endln:22:14
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:22:12, endln:22:13
-          |vpiParent:
-          \_range: , line:22:9, endln:22:14
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@test.LatencyDelay
+      |vpiActual:
+      \_logic_typespec: , line:22:5, endln:22:14
     |vpiName:LatencyDelay
     |vpiFullName:work@test.LatencyDelay
     |vpiNetType:48
@@ -3951,7 +3674,12 @@ design: (work@test)
       |vpiActual:
       \_logic_net: (work@test.CLK), line:6:11, endln:6:14
     |vpiTypedef:
-    \_logic_typespec: , line:6:11, endln:6:11
+    \_ref_typespec: (work@test.CLK)
+      |vpiParent:
+      \_port: (CLK), line:6:11, endln:6:14
+      |vpiFullName:work@test.CLK
+      |vpiActual:
+      \_logic_typespec: , line:6:11, endln:6:11
     |vpiInstance:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Ternary/top.sv, line:3:1, endln:85:10
   |vpiProcess:
@@ -4551,6 +4279,718 @@ design: (work@test)
                           |vpiActual:
                           \_logic_net: (work@test.UserState), line:17:16, endln:17:25
     |vpiAlwaysType:1
+\_weaklyReferenced:
+\_int_typespec: , line:9:5, endln:9:33
+\_int_typespec: , line:10:5, endln:10:39
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:10:5, endln:10:39
+    |vpiLeftRange:
+    \_constant: 
+      |INT:15
+    |vpiRightRange:
+    \_constant: 
+      |INT:0
+\_int_typespec: , line:24:5, endln:24:42
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:24:5, endln:24:42
+    |vpiLeftRange:
+    \_constant: 
+      |INT:10
+    |vpiRightRange:
+    \_constant: 
+      |INT:0
+\_int_typespec: , line:25:5, endln:25:42
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:25:5, endln:25:42
+    |vpiLeftRange:
+    \_constant: 
+      |INT:10
+    |vpiRightRange:
+    \_constant: 
+      |INT:0
+\_int_typespec: , line:26:5, endln:26:42
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:26:5, endln:26:42
+    |vpiLeftRange:
+    \_constant: 
+      |INT:10
+    |vpiRightRange:
+    \_constant: 
+      |INT:0
+\_int_typespec: , line:27:5, endln:27:42
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:27:5, endln:27:42
+    |vpiLeftRange:
+    \_constant: 
+      |INT:10
+    |vpiRightRange:
+    \_constant: 
+      |INT:0
+\_int_typespec: , line:28:5, endln:28:42
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:28:5, endln:28:42
+    |vpiLeftRange:
+    \_constant: 
+      |INT:10
+    |vpiRightRange:
+    \_constant: 
+      |INT:0
+\_int_typespec: , line:29:5, endln:29:42
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:29:5, endln:29:42
+    |vpiLeftRange:
+    \_constant: 
+      |INT:10
+    |vpiRightRange:
+    \_constant: 
+      |INT:0
+\_int_typespec: , line:30:5, endln:30:42
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:30:5, endln:30:42
+    |vpiLeftRange:
+    \_constant: 
+      |INT:10
+    |vpiRightRange:
+    \_constant: 
+      |INT:0
+\_int_typespec: , line:31:5, endln:31:42
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:31:5, endln:31:42
+    |vpiLeftRange:
+    \_constant: 
+      |INT:10
+    |vpiRightRange:
+    \_constant: 
+      |INT:0
+\_int_typespec: , line:32:5, endln:32:42
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:32:5, endln:32:42
+    |vpiLeftRange:
+    \_constant: 
+      |INT:10
+    |vpiRightRange:
+    \_constant: 
+      |INT:0
+\_int_typespec: , line:33:5, endln:33:42
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:33:5, endln:33:42
+    |vpiLeftRange:
+    \_constant: 
+      |INT:10
+    |vpiRightRange:
+    \_constant: 
+      |INT:0
+\_int_typespec: , line:34:5, endln:34:42
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:34:5, endln:34:42
+    |vpiLeftRange:
+    \_constant: 
+      |INT:10
+    |vpiRightRange:
+    \_constant: 
+      |INT:0
+\_function: (work@mailbox::new), line:3:5, endln:4:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/Ternary/builtin.sv, line:1:3, endln:27:11
+  |vpiName:new
+  |vpiFullName:work@mailbox::new
+  |vpiMethod:1
+  |vpiReturn:
+  \_class_var: (work@mailbox::new), line:3:23, endln:3:28
+  |vpiIODecl:
+  \_io_decl: (bound), line:3:23, endln:3:28
+    |vpiParent:
+    \_function: (work@mailbox::new), line:3:5, endln:4:16
+    |vpiDirection:1
+    |vpiName:bound
+    |vpiExpr:
+    \_constant: , line:3:31, endln:3:32
+    |vpiTypedef:
+    \_ref_typespec: (work@mailbox::new::bound)
+      |vpiParent:
+      \_io_decl: (bound), line:3:23, endln:3:28
+      |vpiFullName:work@mailbox::new::bound
+      |vpiActual:
+      \_int_typespec: , line:3:19, endln:3:22
+\_class_typespec: 
+  |vpiClassDefn:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/Ternary/builtin.sv, line:1:3, endln:27:11
+\_int_typespec: , line:3:19, endln:3:22
+  |vpiSigned:1
+\_function: (work@mailbox::num), line:6:5, endln:7:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/Ternary/builtin.sv, line:1:3, endln:27:11
+  |vpiName:num
+  |vpiFullName:work@mailbox::num
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::num), line:6:14, endln:6:17
+\_int_typespec: , line:6:14, endln:6:17
+  |vpiSigned:1
+\_function: (work@mailbox::try_put), line:12:5, endln:13:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/Ternary/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_put
+  |vpiFullName:work@mailbox::try_put
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_logic_var: (work@mailbox::try_put)
+  |vpiIODecl:
+  \_io_decl: (message), line:12:23, endln:12:30
+    |vpiParent:
+    \_function: (work@mailbox::try_put), line:12:5, endln:13:16
+    |vpiDirection:1
+    |vpiName:message
+\_function: (work@mailbox::try_get), line:18:5, endln:19:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/Ternary/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_get
+  |vpiFullName:work@mailbox::try_get
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::try_get), line:18:14, endln:18:17
+  |vpiIODecl:
+  \_io_decl: (message), line:18:31, endln:18:38
+    |vpiParent:
+    \_function: (work@mailbox::try_get), line:18:5, endln:19:16
+    |vpiDirection:6
+    |vpiName:message
+\_int_typespec: , line:18:14, endln:18:17
+  |vpiSigned:1
+\_function: (work@mailbox::try_peek), line:24:5, endln:25:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/Ternary/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_peek
+  |vpiFullName:work@mailbox::try_peek
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::try_peek), line:24:14, endln:24:17
+  |vpiIODecl:
+  \_io_decl: (message), line:24:31, endln:24:38
+    |vpiParent:
+    \_function: (work@mailbox::try_peek), line:24:5, endln:25:16
+    |vpiDirection:6
+    |vpiName:message
+\_int_typespec: , line:24:14, endln:24:17
+  |vpiSigned:1
+\_enum_typespec: (state), line:32:5, endln:32:74
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/Ternary/builtin.sv, line:30:3, endln:52:11
+  |vpiName:state
+  |vpiEnumConst:
+  \_enum_const: (FINISHED), line:32:20, endln:32:28
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:FINISHED
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (RUNNING), line:32:30, endln:32:37
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:RUNNING
+    |INT:1
+    |vpiDecompile:1
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (WAITING), line:32:39, endln:32:46
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:WAITING
+    |INT:2
+    |vpiDecompile:2
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (SUSPENDED), line:32:48, endln:32:57
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:SUSPENDED
+    |INT:3
+    |vpiDecompile:3
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (KILLED), line:32:59, endln:32:65
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:KILLED
+    |INT:4
+    |vpiDecompile:4
+    |vpiSize:64
+\_function: (work@process::self), line:34:5, endln:34:11
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/Ternary/builtin.sv, line:30:3, endln:52:11
+  |vpiName:self
+  |vpiFullName:work@process::self
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_class_var: (work@process::self), line:34:21, endln:34:28
+\_class_typespec: , line:34:21, endln:34:28
+  |vpiClassDefn:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/Ternary/builtin.sv, line:30:3, endln:52:11
+\_function: (work@process::status), line:37:5, endln:38:16
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/Ternary/builtin.sv, line:30:3, endln:52:11
+  |vpiName:status
+  |vpiFullName:work@process::status
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_enum_var: (work@process::status), line:37:14, endln:37:19
+\_function: (work@semaphore::new), line:57:5, endln:58:16
+  |vpiParent:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/Ternary/builtin.sv, line:55:3, endln:69:11
+  |vpiName:new
+  |vpiFullName:work@semaphore::new
+  |vpiMethod:1
+  |vpiReturn:
+  \_class_var: (work@semaphore::new), line:57:22, endln:57:30
+  |vpiIODecl:
+  \_io_decl: (keyCount), line:57:22, endln:57:30
+    |vpiParent:
+    \_function: (work@semaphore::new), line:57:5, endln:58:16
+    |vpiDirection:1
+    |vpiName:keyCount
+    |vpiExpr:
+    \_constant: , line:57:33, endln:57:34
+    |vpiTypedef:
+    \_ref_typespec: (work@semaphore::new::keyCount)
+      |vpiParent:
+      \_io_decl: (keyCount), line:57:22, endln:57:30
+      |vpiFullName:work@semaphore::new::keyCount
+      |vpiActual:
+      \_int_typespec: , line:57:18, endln:57:21
+\_class_typespec: 
+  |vpiClassDefn:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/Ternary/builtin.sv, line:55:3, endln:69:11
+\_int_typespec: , line:57:18, endln:57:21
+  |vpiSigned:1
+\_int_typespec: , line:60:14, endln:60:17
+  |vpiSigned:1
+\_int_typespec: , line:63:14, endln:63:17
+  |vpiSigned:1
+\_function: (work@semaphore::try_get), line:66:5, endln:67:16
+  |vpiParent:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/Ternary/builtin.sv, line:55:3, endln:69:11
+  |vpiName:try_get
+  |vpiFullName:work@semaphore::try_get
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@semaphore::try_get), line:66:14, endln:66:17
+  |vpiIODecl:
+  \_io_decl: (keyCount), line:66:30, endln:66:38
+    |vpiParent:
+    \_function: (work@semaphore::try_get), line:66:5, endln:67:16
+    |vpiDirection:1
+    |vpiName:keyCount
+    |vpiExpr:
+    \_constant: , line:66:41, endln:66:42
+    |vpiTypedef:
+    \_ref_typespec: (work@semaphore::try_get::keyCount)
+      |vpiParent:
+      \_io_decl: (keyCount), line:66:30, endln:66:38
+      |vpiFullName:work@semaphore::try_get::keyCount
+      |vpiActual:
+      \_int_typespec: , line:66:26, endln:66:29
+\_int_typespec: , line:66:14, endln:66:17
+  |vpiSigned:1
+\_int_typespec: , line:66:26, endln:66:29
+  |vpiSigned:1
+\_logic_typespec: , line:6:11, endln:6:11
+\_logic_typespec: , line:6:11, endln:6:11
+  |vpiParent:
+  \_logic_net: (work@test.CLK), line:6:11, endln:6:14
+\_logic_typespec: , line:12:5, endln:12:9
+  |vpiParent:
+  \_logic_net: (work@test.RAMRST), line:12:10, endln:12:16
+\_logic_typespec: , line:13:5, endln:13:16
+  |vpiParent:
+  \_logic_net: (work@test.UserReadData), line:13:17, endln:13:29
+  |vpiRange:
+  \_range: , line:13:10, endln:13:16
+    |vpiParent:
+    \_logic_typespec: , line:13:5, endln:13:16
+    |vpiLeftRange:
+    \_constant: , line:13:11, endln:13:13
+      |vpiParent:
+      \_range: , line:13:10, endln:13:16
+      |vpiDecompile:15
+      |vpiSize:64
+      |UINT:15
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:13:14, endln:13:15
+      |vpiParent:
+      \_range: , line:13:10, endln:13:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:14:5, endln:14:9
+  |vpiParent:
+  \_logic_net: (work@test.UserReadDataValid), line:14:10, endln:14:27
+\_logic_typespec: , line:16:5, endln:16:15
+  |vpiParent:
+  \_logic_net: (work@test.Delay), line:16:16, endln:16:21
+  |vpiRange:
+  \_range: , line:16:9, endln:16:15
+    |vpiParent:
+    \_logic_typespec: , line:16:5, endln:16:15
+    |vpiLeftRange:
+    \_constant: , line:16:10, endln:16:12
+      |vpiParent:
+      \_range: , line:16:9, endln:16:15
+      |vpiDecompile:23
+      |vpiSize:64
+      |UINT:23
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:16:13, endln:16:14
+      |vpiParent:
+      \_range: , line:16:9, endln:16:15
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:17:5, endln:17:15
+  |vpiParent:
+  \_logic_net: (work@test.UserState), line:17:16, endln:17:25
+  |vpiRange:
+  \_range: , line:17:9, endln:17:15
+    |vpiParent:
+    \_logic_typespec: , line:17:5, endln:17:15
+    |vpiLeftRange:
+    \_constant: , line:17:10, endln:17:12
+      |vpiParent:
+      \_range: , line:17:9, endln:17:15
+      |vpiDecompile:10
+      |vpiSize:64
+      |UINT:10
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:17:13, endln:17:14
+      |vpiParent:
+      \_range: , line:17:9, endln:17:15
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:18:5, endln:18:15
+  |vpiParent:
+  \_logic_net: (work@test.UserValidCount), line:18:16, endln:18:30
+  |vpiRange:
+  \_range: , line:18:9, endln:18:15
+    |vpiParent:
+    \_logic_typespec: , line:18:5, endln:18:15
+    |vpiLeftRange:
+    \_constant: , line:18:10, endln:18:12
+      |vpiParent:
+      \_range: , line:18:9, endln:18:15
+      |vpiDecompile:15
+      |vpiSize:64
+      |UINT:15
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:18:13, endln:18:14
+      |vpiParent:
+      \_range: , line:18:9, endln:18:15
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:19:5, endln:19:14
+  |vpiParent:
+  \_logic_net: (work@test.ConnectionState), line:19:15, endln:19:30
+  |vpiRange:
+  \_range: , line:19:9, endln:19:14
+    |vpiParent:
+    \_logic_typespec: , line:19:5, endln:19:14
+    |vpiLeftRange:
+    \_constant: , line:19:10, endln:19:11
+      |vpiParent:
+      \_range: , line:19:9, endln:19:14
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:19:12, endln:19:13
+      |vpiParent:
+      \_range: , line:19:9, endln:19:14
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:20:5, endln:20:15
+  |vpiParent:
+  \_logic_net: (work@test.InterruptStatus), line:20:16, endln:20:31
+  |vpiRange:
+  \_range: , line:20:9, endln:20:15
+    |vpiParent:
+    \_logic_typespec: , line:20:5, endln:20:15
+    |vpiLeftRange:
+    \_constant: , line:20:10, endln:20:12
+      |vpiParent:
+      \_range: , line:20:9, endln:20:15
+      |vpiDecompile:15
+      |vpiSize:64
+      |UINT:15
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:20:13, endln:20:14
+      |vpiParent:
+      \_range: , line:20:9, endln:20:15
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:21:5, endln:21:15
+  |vpiParent:
+  \_logic_net: (work@test.FrameLength), line:21:16, endln:21:27
+  |vpiRange:
+  \_range: , line:21:9, endln:21:15
+    |vpiParent:
+    \_logic_typespec: , line:21:5, endln:21:15
+    |vpiLeftRange:
+    \_constant: , line:21:10, endln:21:12
+      |vpiParent:
+      \_range: , line:21:9, endln:21:15
+      |vpiDecompile:15
+      |vpiSize:64
+      |UINT:15
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:21:13, endln:21:14
+      |vpiParent:
+      \_range: , line:21:9, endln:21:15
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:22:5, endln:22:14
+  |vpiParent:
+  \_logic_net: (work@test.LatencyDelay), line:22:15, endln:22:27
+  |vpiRange:
+  \_range: , line:22:9, endln:22:14
+    |vpiParent:
+    \_logic_typespec: , line:22:5, endln:22:14
+    |vpiLeftRange:
+    \_constant: , line:22:10, endln:22:11
+      |vpiParent:
+      \_range: , line:22:9, endln:22:14
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:22:12, endln:22:13
+      |vpiParent:
+      \_range: , line:22:9, endln:22:14
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:6:11, endln:6:11
+\_logic_typespec: , line:12:5, endln:12:9
+\_logic_typespec: , line:13:5, endln:13:16
+  |vpiRange:
+  \_range: , line:13:10, endln:13:16
+    |vpiParent:
+    \_logic_typespec: , line:13:5, endln:13:16
+    |vpiLeftRange:
+    \_constant: , line:13:11, endln:13:13
+      |vpiParent:
+      \_range: , line:13:10, endln:13:16
+      |vpiDecompile:15
+      |vpiSize:64
+      |UINT:15
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:13:14, endln:13:15
+      |vpiParent:
+      \_range: , line:13:10, endln:13:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:14:5, endln:14:9
+\_logic_typespec: , line:16:5, endln:16:15
+  |vpiRange:
+  \_range: , line:16:9, endln:16:15
+    |vpiParent:
+    \_logic_typespec: , line:16:5, endln:16:15
+    |vpiLeftRange:
+    \_constant: , line:16:10, endln:16:12
+      |vpiParent:
+      \_range: , line:16:9, endln:16:15
+      |vpiDecompile:23
+      |vpiSize:64
+      |UINT:23
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:16:13, endln:16:14
+      |vpiParent:
+      \_range: , line:16:9, endln:16:15
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:17:5, endln:17:15
+  |vpiRange:
+  \_range: , line:17:9, endln:17:15
+    |vpiParent:
+    \_logic_typespec: , line:17:5, endln:17:15
+    |vpiLeftRange:
+    \_constant: , line:17:10, endln:17:12
+      |vpiParent:
+      \_range: , line:17:9, endln:17:15
+      |vpiDecompile:10
+      |vpiSize:64
+      |UINT:10
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:17:13, endln:17:14
+      |vpiParent:
+      \_range: , line:17:9, endln:17:15
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:18:5, endln:18:15
+  |vpiRange:
+  \_range: , line:18:9, endln:18:15
+    |vpiParent:
+    \_logic_typespec: , line:18:5, endln:18:15
+    |vpiLeftRange:
+    \_constant: , line:18:10, endln:18:12
+      |vpiParent:
+      \_range: , line:18:9, endln:18:15
+      |vpiDecompile:15
+      |vpiSize:64
+      |UINT:15
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:18:13, endln:18:14
+      |vpiParent:
+      \_range: , line:18:9, endln:18:15
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:19:5, endln:19:14
+  |vpiRange:
+  \_range: , line:19:9, endln:19:14
+    |vpiParent:
+    \_logic_typespec: , line:19:5, endln:19:14
+    |vpiLeftRange:
+    \_constant: , line:19:10, endln:19:11
+      |vpiParent:
+      \_range: , line:19:9, endln:19:14
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:19:12, endln:19:13
+      |vpiParent:
+      \_range: , line:19:9, endln:19:14
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:20:5, endln:20:15
+  |vpiRange:
+  \_range: , line:20:9, endln:20:15
+    |vpiParent:
+    \_logic_typespec: , line:20:5, endln:20:15
+    |vpiLeftRange:
+    \_constant: , line:20:10, endln:20:12
+      |vpiParent:
+      \_range: , line:20:9, endln:20:15
+      |vpiDecompile:15
+      |vpiSize:64
+      |UINT:15
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:20:13, endln:20:14
+      |vpiParent:
+      \_range: , line:20:9, endln:20:15
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:21:5, endln:21:15
+  |vpiRange:
+  \_range: , line:21:9, endln:21:15
+    |vpiParent:
+    \_logic_typespec: , line:21:5, endln:21:15
+    |vpiLeftRange:
+    \_constant: , line:21:10, endln:21:12
+      |vpiParent:
+      \_range: , line:21:9, endln:21:15
+      |vpiDecompile:15
+      |vpiSize:64
+      |UINT:15
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:21:13, endln:21:14
+      |vpiParent:
+      \_range: , line:21:9, endln:21:15
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:22:5, endln:22:14
+  |vpiRange:
+  \_range: , line:22:9, endln:22:14
+    |vpiParent:
+    \_logic_typespec: , line:22:5, endln:22:14
+    |vpiLeftRange:
+    \_constant: , line:22:10, endln:22:11
+      |vpiParent:
+      \_range: , line:22:9, endln:22:14
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:22:12, endln:22:13
+      |vpiParent:
+      \_range: , line:22:9, endln:22:14
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

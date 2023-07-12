@@ -140,13 +140,14 @@ constant                                              10
 cont_assign                                            1
 design                                                 1
 gen_for                                                1
-int_typespec                                           3
+int_typespec                                           2
 logic_net                                              1
 module_inst                                            4
 operation                                              8
 param_assign                                           2
 parameter                                              2
 ref_obj                                                8
+ref_typespec                                           7
 ref_var                                                1
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
@@ -160,13 +161,14 @@ constant                                              10
 cont_assign                                            1
 design                                                 1
 gen_for                                                1
-int_typespec                                           3
+int_typespec                                           2
 logic_net                                              1
 module_inst                                            4
 operation                                              8
 param_assign                                           2
 parameter                                              2
 ref_obj                                                8
+ref_typespec                                           7
 ref_var                                                1
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
@@ -192,10 +194,12 @@ design: (work@find_first_one)
     |vpiParent:
     \_module_inst: work@find_first_one (work@find_first_one), file:${SURELOG_DIR}/tests/NegInt/dut.sv, line:1:1, endln:5:10
     |vpiTypespec:
-    \_int_typespec: , line:1:36, endln:1:39
+    \_ref_typespec: (work@find_first_one.WIDTH)
       |vpiParent:
       \_parameter: (work@find_first_one.WIDTH), line:1:40, endln:1:45
-      |vpiSigned:1
+      |vpiFullName:work@find_first_one.WIDTH
+      |vpiActual:
+      \_int_typespec: , line:1:36, endln:1:39
     |vpiSigned:1
     |vpiName:WIDTH
     |vpiFullName:work@find_first_one.WIDTH
@@ -364,10 +368,12 @@ design: (work@find_first_one)
     |vpiParent:
     \_module_inst: work@find_first_one (work@find_first_one), file:${SURELOG_DIR}/tests/NegInt/dut.sv, line:1:1, endln:5:10
     |vpiTypespec:
-    \_int_typespec: , line:1:36, endln:1:39
+    \_ref_typespec: (work@find_first_one.WIDTH)
       |vpiParent:
       \_parameter: (work@find_first_one.WIDTH), line:1:40, endln:1:45
-      |vpiSigned:1
+      |vpiFullName:work@find_first_one.WIDTH
+      |vpiActual:
+      \_int_typespec: , line:1:36, endln:1:39
     |vpiSigned:1
     |vpiName:WIDTH
     |vpiFullName:work@find_first_one.WIDTH
@@ -383,13 +389,23 @@ design: (work@find_first_one)
       |vpiSize:32
       |INT:-1
       |vpiTypespec:
-      \_int_typespec: , line:1:36, endln:1:39
+      \_ref_typespec: (work@find_first_one)
+        |vpiParent:
+        \_constant: , line:1:48, endln:1:50
+        |vpiFullName:work@find_first_one
+        |vpiActual:
+        \_int_typespec: , line:1:36, endln:1:39
       |vpiConstType:7
     |vpiLhs:
     \_parameter: (work@find_first_one.WIDTH), line:1:40, endln:1:45
   |vpiDefName:work@find_first_one
   |vpiTop:1
   |vpiTopModule:1
+\_weaklyReferenced:
+\_int_typespec: , line:1:36, endln:1:39
+  |vpiParent:
+  \_parameter: (work@find_first_one.WIDTH), line:1:40, endln:1:45
+  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

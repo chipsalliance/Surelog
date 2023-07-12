@@ -74,6 +74,7 @@ logic_net                                              1
 module_inst                                            3
 operation                                              1
 range                                                  1
+ref_typespec                                           3
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -88,6 +89,7 @@ logic_net                                              1
 module_inst                                            3
 operation                                              1
 range                                                  1
+ref_typespec                                           3
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/UnsizedArray/slpp_all/surelog.uhdm ...
 
@@ -112,8 +114,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedArray/dut.sv, line:1:1, endln:4:10
     |vpiTypespec:
-    \_byte_typespec: , line:2:4, endln:2:12
-      |vpiSigned:1
+    \_ref_typespec: (work@top.b)
+      |vpiParent:
+      \_logic_net: (work@top.b), line:2:9, endln:2:10
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_byte_typespec: , line:2:4, endln:2:12
     |vpiName:b
     |vpiFullName:work@top.b
 |uhdmtopModules:
@@ -125,7 +131,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedArray/dut.sv, line:1:1, endln:4:10
     |vpiSize:1
     |vpiTypespec:
-    \_array_typespec: 
+    \_ref_typespec: (work@top.b)
+      |vpiParent:
+      \_array_var: (work@top.b), line:2:9, endln:2:10
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_array_typespec: 
     |vpiName:b
     |vpiFullName:work@top.b
     |vpiRandType:1
@@ -159,16 +170,26 @@ design: (work@top)
       |vpiParent:
       \_array_var: (work@top.b), line:2:9, endln:2:10
       |vpiTypespec:
-      \_byte_typespec: , line:2:4, endln:2:8
+      \_ref_typespec: (work@top.b)
         |vpiParent:
         \_byte_var: (work@top.b), line:2:9, endln:2:10
-        |vpiSigned:1
+        |vpiFullName:work@top.b
+        |vpiActual:
+        \_byte_typespec: , line:2:4, endln:2:8
       |vpiFullName:work@top.b
       |vpiExpr:
       \_operation: , line:2:15, endln:2:24
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
+\_weaklyReferenced:
+\_byte_typespec: , line:2:4, endln:2:8
+  |vpiParent:
+  \_byte_var: (work@top.b), line:2:9, endln:2:10
+  |vpiSigned:1
+\_array_typespec: 
+\_byte_typespec: , line:2:4, endln:2:12
+  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

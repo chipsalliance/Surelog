@@ -102,6 +102,7 @@ logic_typespec                                         5
 logic_var                                              2
 module_inst                                            2
 package                                                2
+ref_typespec                                           5
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -113,6 +114,7 @@ logic_typespec                                         5
 logic_var                                              2
 module_inst                                            2
 package                                                2
+ref_typespec                                           5
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/LowMemPkg/slpp_all/surelog.uhdm ...
 
@@ -180,7 +182,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LowMemPkg/dut.sv, line:4:1, endln:8:10
     |vpiTypespec:
-    \_logic_typespec: , line:6:4, endln:6:9
+    \_ref_typespec: (work@top.b)
+      |vpiParent:
+      \_logic_net: (work@top.b), line:6:10, endln:6:11
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_logic_typespec: , line:6:4, endln:6:9
     |vpiName:b
     |vpiFullName:work@top.b
     |vpiNetType:36
@@ -192,7 +199,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LowMemPkg/dut.sv, line:4:1, endln:8:10
     |vpiTypespec:
-    \_logic_typespec: (wddr_pkg::my_logic), line:20:9, endln:20:14
+    \_ref_typespec: (work@top.a)
+      |vpiParent:
+      \_logic_var: (work@top.a), line:5:13, endln:5:14
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_logic_typespec: (wddr_pkg::my_logic), line:20:9, endln:20:14
     |vpiName:a
     |vpiFullName:work@top.a
     |vpiVisibility:1
@@ -201,9 +213,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LowMemPkg/dut.sv, line:4:1, endln:8:10
     |vpiTypespec:
-    \_logic_typespec: , line:6:4, endln:6:9
+    \_ref_typespec: (work@top.b)
       |vpiParent:
       \_logic_var: (work@top.b), line:6:10, endln:6:11
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_logic_typespec: , line:6:4, endln:6:9
     |vpiName:b
     |vpiFullName:work@top.b
     |vpiVisibility:1
@@ -212,6 +227,11 @@ design: (work@top)
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
+\_weaklyReferenced:
+\_logic_typespec: , line:6:4, endln:6:9
+  |vpiParent:
+  \_logic_var: (work@top.b), line:6:10, endln:6:11
+\_logic_typespec: , line:6:4, endln:6:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

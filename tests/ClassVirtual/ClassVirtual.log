@@ -34,16 +34,18 @@ class_typespec                                         4
 design                                                 1
 extends                                                2
 package                                                2
+ref_typespec                                           4
 type_parameter                                         2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 class_defn                                             6
-class_typespec                                         7
+class_typespec                                         4
 design                                                 1
 extends                                                5
 package                                                2
+ref_typespec                                          10
 type_parameter                                         2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ClassVirtual/slpp_unit/surelog.uhdm ...
@@ -92,23 +94,23 @@ design: (unnamed)
         |vpiName:IF
         |vpiFullName:pack::uvm_port_base2::IF
         |vpiTypespec:
-        \_class_typespec: (uvm_void), line:12:32, endln:12:40
+        \_ref_typespec: (pack::uvm_port_base2::IF)
           |vpiParent:
           \_type_parameter: (pack::uvm_port_base2::IF), line:12:29, endln:12:31
-          |vpiName:uvm_void
-          |vpiClassDefn:
-          \_class_defn: (pack::uvm_void), file:${SURELOG_DIR}/tests/ClassVirtual/dut.sv, line:3:1, endln:4:9
+          |vpiFullName:pack::uvm_port_base2::IF
+          |vpiActual:
+          \_class_typespec: (uvm_void), line:12:32, endln:12:40
       |vpiExtends:
       \_extends: , line:12:50, endln:12:54
         |vpiParent:
         \_class_defn: (pack::uvm_port_base2), file:${SURELOG_DIR}/tests/ClassVirtual/dut.sv, line:12:1, endln:13:9
         |vpiClassTypespec:
-        \_class_typespec: (Base), line:12:50, endln:12:54
+        \_ref_typespec: (pack::uvm_port_base2)
           |vpiParent:
           \_extends: , line:12:50, endln:12:54
-          |vpiName:Base
-          |vpiClassDefn:
-          \_class_defn: (pack::Base), file:${SURELOG_DIR}/tests/ClassVirtual/dut.sv, line:6:1, endln:7:9
+          |vpiFullName:pack::uvm_port_base2
+          |vpiActual:
+          \_class_typespec: (Base), line:12:50, endln:12:54
   |vpiClassDefn:
   \_class_defn: (pack::uvm_port_base1), file:${SURELOG_DIR}/tests/ClassVirtual/dut.sv, line:9:9, endln:10:9
     |vpiParent:
@@ -122,24 +124,24 @@ design: (unnamed)
       |vpiName:IF
       |vpiFullName:pack::uvm_port_base1::IF
       |vpiTypespec:
-      \_class_typespec: (uvm_void), line:9:40, endln:9:48
+      \_ref_typespec: (pack::uvm_port_base1::IF)
         |vpiParent:
         \_type_parameter: (pack::uvm_port_base1::IF), line:9:37, endln:9:39
-        |vpiName:uvm_void
-        |vpiClassDefn:
-        \_class_defn: (pack::uvm_void), file:${SURELOG_DIR}/tests/ClassVirtual/dut.sv, line:3:1, endln:4:9
+        |vpiFullName:pack::uvm_port_base1::IF
+        |vpiActual:
+        \_class_typespec: (uvm_void), line:9:40, endln:9:48
     |vpiVirtual:1
     |vpiExtends:
     \_extends: , line:9:58, endln:9:60
       |vpiParent:
       \_class_defn: (pack::uvm_port_base1), file:${SURELOG_DIR}/tests/ClassVirtual/dut.sv, line:9:9, endln:10:9
       |vpiClassTypespec:
-      \_class_typespec: (IF)
+      \_ref_typespec: (pack::uvm_port_base1)
         |vpiParent:
         \_extends: , line:9:58, endln:9:60
-        |vpiName:IF
-        |vpiClassDefn:
-        \_class_defn: (pack::uvm_void), file:${SURELOG_DIR}/tests/ClassVirtual/dut.sv, line:3:1, endln:4:9
+        |vpiFullName:pack::uvm_port_base1
+        |vpiActual:
+        \_class_typespec: (IF)
   |vpiClassDefn:
   \_class_defn: (pack::uvm_port_base2), file:${SURELOG_DIR}/tests/ClassVirtual/dut.sv, line:12:1, endln:13:9
   |vpiClassDefn:
@@ -148,6 +150,27 @@ design: (unnamed)
     \_package: pack (pack::), file:${SURELOG_DIR}/tests/ClassVirtual/dut.sv, line:1:1, endln:16:11
     |vpiName:uvm_void
     |vpiFullName:pack::uvm_void
+\_weaklyReferenced:
+\_class_typespec: (uvm_void), line:9:40, endln:9:48
+  |vpiParent:
+  \_type_parameter: (pack::uvm_port_base1::IF), line:9:37, endln:9:39
+  |vpiName:uvm_void
+  |vpiClassDefn:
+  \_class_defn: (pack::uvm_void), file:${SURELOG_DIR}/tests/ClassVirtual/dut.sv, line:3:1, endln:4:9
+\_class_typespec: (uvm_void), line:12:32, endln:12:40
+  |vpiParent:
+  \_type_parameter: (pack::uvm_port_base2::IF), line:12:29, endln:12:31
+  |vpiName:uvm_void
+  |vpiClassDefn:
+  \_class_defn: (pack::uvm_void), file:${SURELOG_DIR}/tests/ClassVirtual/dut.sv, line:3:1, endln:4:9
+\_class_typespec: (IF)
+  |vpiName:IF
+  |vpiClassDefn:
+  \_class_defn: (pack::uvm_void), file:${SURELOG_DIR}/tests/ClassVirtual/dut.sv, line:3:1, endln:4:9
+\_class_typespec: (Base), line:12:50, endln:12:54
+  |vpiName:Base
+  |vpiClassDefn:
+  \_class_defn: (pack::Base), file:${SURELOG_DIR}/tests/ClassVirtual/dut.sv, line:6:1, endln:7:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

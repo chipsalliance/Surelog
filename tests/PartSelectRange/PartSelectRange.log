@@ -263,14 +263,14 @@ AST_DEBUG_END
 assign_stmt                                            1
 assignment                                             1
 begin                                                  1
-constant                                              75
+constant                                              73
 design                                                 1
 gen_for                                                1
 gen_if                                                 1
 gen_if_else                                            1
 gen_scope                                              8
 gen_scope_array                                        8
-int_typespec                                           6
+int_typespec                                           4
 logic_net                                              1
 logic_typespec                                         3
 module_inst                                            7
@@ -279,9 +279,10 @@ operation                                             25
 param_assign                                           4
 parameter                                              6
 part_select                                            5
-range                                                  5
+range                                                  4
 ref_module                                             4
 ref_obj                                               14
+ref_typespec                                          18
 ref_var                                                1
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
@@ -291,14 +292,14 @@ unsupported_typespec                                   1
 assign_stmt                                            1
 assignment                                             1
 begin                                                  1
-constant                                              75
+constant                                              73
 design                                                 1
 gen_for                                                1
 gen_if                                                 1
 gen_if_else                                            1
 gen_scope                                             12
 gen_scope_array                                       12
-int_typespec                                           6
+int_typespec                                           4
 logic_net                                              1
 logic_typespec                                         3
 module_inst                                            9
@@ -307,9 +308,10 @@ operation                                             25
 param_assign                                           4
 parameter                                              6
 part_select                                            5
-range                                                  5
+range                                                  4
 ref_module                                             4
 ref_obj                                               14
+ref_typespec                                          20
 ref_var                                                1
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
@@ -336,29 +338,12 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PartSelectRange/dut.sv, line:1:1, endln:19:10
     |BIN:0100
     |vpiTypespec:
-    \_int_typespec: , line:3:13, endln:3:18
+    \_ref_typespec: (work@test.MAP)
       |vpiParent:
       \_parameter: (work@test.MAP), line:3:19, endln:3:22
-      |vpiRange:
-      \_range: , line:3:13, endln:3:18
-        |vpiParent:
-        \_int_typespec: , line:3:13, endln:3:18
-        |vpiLeftRange:
-        \_constant: , line:3:14, endln:3:15
-          |vpiParent:
-          \_range: , line:3:13, endln:3:18
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:3:16, endln:3:17
-          |vpiParent:
-          \_range: , line:3:13, endln:3:18
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@test.MAP
+      |vpiActual:
+      \_int_typespec: , line:3:13, endln:3:18
     |vpiName:MAP
     |vpiFullName:work@test.MAP
   |vpiParameter:
@@ -367,7 +352,12 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PartSelectRange/dut.sv, line:1:1, endln:19:10
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: , line:4:3, endln:4:18
+    \_ref_typespec: (work@test.N)
+      |vpiParent:
+      \_parameter: (work@test.N), line:4:13, endln:4:14
+      |vpiFullName:work@test.N
+      |vpiActual:
+      \_int_typespec: , line:4:3, endln:4:18
     |vpiName:N
     |vpiFullName:work@test.N
   |vpiParamAssign:
@@ -382,7 +372,12 @@ design: (work@test)
       |vpiSize:4
       |BIN:0100
       |vpiTypespec:
-      \_int_typespec: , line:3:13, endln:3:18
+      \_ref_typespec: (work@test)
+        |vpiParent:
+        \_constant: , line:3:25, endln:3:33
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:3:13, endln:3:18
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@test.MAP), line:3:19, endln:3:22
@@ -398,7 +393,12 @@ design: (work@test)
       |vpiSize:32
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:4:3, endln:4:18
+      \_ref_typespec: (work@test)
+        |vpiParent:
+        \_constant: , line:4:17, endln:4:18
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:4:3, endln:4:18
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test.N), line:4:13, endln:4:14
@@ -679,29 +679,12 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PartSelectRange/dut.sv, line:1:1, endln:19:10
     |BIN:0100
     |vpiTypespec:
-    \_int_typespec: , line:3:13, endln:3:18
+    \_ref_typespec: (work@test.MAP)
       |vpiParent:
       \_parameter: (work@test.MAP), line:3:19, endln:3:22
-      |vpiRange:
-      \_range: , line:3:13, endln:3:18
-        |vpiParent:
-        \_int_typespec: , line:3:13, endln:3:18
-        |vpiLeftRange:
-        \_constant: , line:3:14, endln:3:15
-          |vpiParent:
-          \_range: , line:3:13, endln:3:18
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:3:16, endln:3:17
-          |vpiParent:
-          \_range: , line:3:13, endln:3:18
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@test.MAP
+      |vpiActual:
+      \_int_typespec: , line:3:13, endln:3:18
     |vpiName:MAP
     |vpiFullName:work@test.MAP
   |vpiParameter:
@@ -710,9 +693,12 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PartSelectRange/dut.sv, line:1:1, endln:19:10
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: , line:4:3, endln:4:18
+    \_ref_typespec: (work@test.N)
       |vpiParent:
       \_parameter: (work@test.N), line:4:13, endln:4:14
+      |vpiFullName:work@test.N
+      |vpiActual:
+      \_int_typespec: , line:4:3, endln:4:18
     |vpiName:N
     |vpiFullName:work@test.N
   |vpiParamAssign:
@@ -727,17 +713,12 @@ design: (work@test)
       |vpiSize:4
       |BIN:0100
       |vpiTypespec:
-      \_logic_typespec: 
-        |vpiRange:
-        \_range: 
-          |vpiParent:
-          \_logic_typespec: 
-          |vpiLeftRange:
-          \_constant: 
-            |UINT:3
-          |vpiRightRange:
-          \_constant: 
-            |UINT:0
+      \_ref_typespec: (work@test)
+        |vpiParent:
+        \_constant: , line:3:25, endln:3:33
+        |vpiFullName:work@test
+        |vpiActual:
+        \_logic_typespec: 
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@test.MAP), line:3:19, endln:3:22
@@ -753,7 +734,12 @@ design: (work@test)
       |vpiSize:32
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:4:3, endln:4:18
+      \_ref_typespec: (work@test)
+        |vpiParent:
+        \_constant: , line:4:17, endln:4:18
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:4:3, endln:4:18
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test.N), line:4:13, endln:4:14
@@ -777,7 +763,12 @@ design: (work@test)
         \_gen_scope: (work@test.loop[0]), line:8:6, endln:17:9
         |UINT:0
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@test.loop[0].i)
+          |vpiParent:
+          \_parameter: (work@test.loop[0].i), line:7:0
+          |vpiFullName:work@test.loop[0].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@test.loop[0].i
@@ -816,7 +807,12 @@ design: (work@test)
         \_gen_scope: (work@test.loop[1]), line:8:6, endln:17:9
         |UINT:1
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@test.loop[1].i)
+          |vpiParent:
+          \_parameter: (work@test.loop[1].i), line:7:0
+          |vpiFullName:work@test.loop[1].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@test.loop[1].i
@@ -838,6 +834,44 @@ design: (work@test)
             |vpiName:i0
             |vpiFullName:work@test.loop[1].bar.i0
             |vpiDefName:work@test.loop[1].bar::bar
+\_weaklyReferenced:
+\_int_typespec: , line:3:13, endln:3:18
+  |vpiParent:
+  \_parameter: (work@test.MAP), line:3:19, endln:3:22
+  |vpiRange:
+  \_range: , line:3:13, endln:3:18
+    |vpiParent:
+    \_int_typespec: , line:3:13, endln:3:18
+    |vpiLeftRange:
+    \_constant: , line:3:14, endln:3:15
+      |vpiParent:
+      \_range: , line:3:13, endln:3:18
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:16, endln:3:17
+      |vpiParent:
+      \_range: , line:3:13, endln:3:18
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:4:3, endln:4:18
+\_logic_typespec: 
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_logic_typespec: 
+    |vpiLeftRange:
+    \_constant: 
+      |UINT:3
+    |vpiRightRange:
+    \_constant: 
+      |UINT:0
+\_int_typespec: 
+\_int_typespec: 
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

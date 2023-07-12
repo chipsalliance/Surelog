@@ -162,6 +162,7 @@ packed_array_typespec                                  2
 packed_array_var                                       1
 range                                                  3
 ref_obj                                                3
+ref_typespec                                           7
 struct_typespec                                        1
 struct_var                                             1
 typespec_member                                        1
@@ -184,6 +185,7 @@ packed_array_typespec                                  2
 packed_array_var                                       1
 range                                                  3
 ref_obj                                                6
+ref_typespec                                           7
 struct_typespec                                        1
 struct_var                                             1
 typespec_member                                        1
@@ -218,10 +220,12 @@ design: (work@t)
       \_struct_typespec: (S), line:2:12, endln:2:29
       |vpiName:x
       |vpiTypespec:
-      \_int_typespec: , line:2:21, endln:2:24
+      \_ref_typespec: (work@t.S.x)
         |vpiParent:
         \_typespec_member: (x), line:2:25, endln:2:26
-        |vpiSigned:1
+        |vpiFullName:work@t.S.x
+        |vpiActual:
+        \_int_typespec: , line:2:21, endln:2:24
       |vpiRefFile:${SURELOG_DIR}/tests/NetLValue/dut.sv
       |vpiRefLineNo:2
       |vpiRefColumnNo:21
@@ -233,29 +237,12 @@ design: (work@t)
     |vpiParent:
     \_module_inst: work@t (work@t), file:${SURELOG_DIR}/tests/NetLValue/dut.sv, line:1:1, endln:10:10
     |vpiTypespec:
-    \_packed_array_typespec: , line:3:4, endln:3:10
-      |vpiRange:
-      \_range: , line:3:5, endln:3:10
-        |vpiParent:
-        \_packed_array_typespec: , line:3:4, endln:3:10
-        |vpiLeftRange:
-        \_constant: , line:3:6, endln:3:7
-          |vpiParent:
-          \_range: , line:3:5, endln:3:10
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:3:8, endln:3:9
-          |vpiParent:
-          \_range: , line:3:5, endln:3:10
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-      |vpiElemTypespec:
-      \_struct_typespec: (S), line:2:12, endln:2:29
+    \_ref_typespec: (work@t.s)
+      |vpiParent:
+      \_logic_net: (work@t.s), line:3:11, endln:3:12
+      |vpiFullName:work@t.s
+      |vpiActual:
+      \_packed_array_typespec: , line:3:4, endln:3:10
     |vpiName:s
     |vpiFullName:work@t.s
   |vpiNet:
@@ -263,8 +250,12 @@ design: (work@t)
     |vpiParent:
     \_module_inst: work@t (work@t), file:${SURELOG_DIR}/tests/NetLValue/dut.sv, line:1:1, endln:10:10
     |vpiTypespec:
-    \_int_typespec: , line:4:4, endln:4:7
-      |vpiSigned:1
+    \_ref_typespec: (work@t.y)
+      |vpiParent:
+      \_logic_net: (work@t.y), line:4:8, endln:4:9
+      |vpiFullName:work@t.y
+      |vpiActual:
+      \_int_typespec: , line:4:4, endln:4:7
     |vpiName:y
     |vpiFullName:work@t.y
   |vpiProcess:
@@ -384,17 +375,24 @@ design: (work@t)
       |vpiParent:
       \_packed_array_var: (work@t.s), line:3:11, endln:3:12
       |vpiTypespec:
-      \_struct_typespec: (S), line:2:12, endln:2:29
+      \_ref_typespec: (work@t.s)
+        |vpiParent:
+        \_struct_var: (work@t.s)
+        |vpiFullName:work@t.s
+        |vpiActual:
+        \_struct_typespec: (S), line:2:12, endln:2:29
       |vpiFullName:work@t.s
   |vpiVariables:
   \_int_var: (work@t.y), line:4:8, endln:4:9
     |vpiParent:
     \_module_inst: work@t (work@t), file:${SURELOG_DIR}/tests/NetLValue/dut.sv, line:1:1, endln:10:10
     |vpiTypespec:
-    \_int_typespec: , line:4:4, endln:4:7
+    \_ref_typespec: (work@t.y)
       |vpiParent:
       \_int_var: (work@t.y), line:4:8, endln:4:9
-      |vpiSigned:1
+      |vpiFullName:work@t.y
+      |vpiActual:
+      \_int_typespec: , line:4:4, endln:4:7
     |vpiName:y
     |vpiFullName:work@t.y
     |vpiVisibility:1
@@ -481,6 +479,44 @@ design: (work@t)
             |vpiActual:
             \_typespec_member: (x), line:2:25, endln:2:26
     |vpiAlwaysType:2
+\_weaklyReferenced:
+\_int_typespec: , line:2:21, endln:2:24
+  |vpiParent:
+  \_typespec_member: (x), line:2:25, endln:2:26
+  |vpiSigned:1
+\_int_typespec: , line:4:4, endln:4:7
+  |vpiParent:
+  \_int_var: (work@t.y), line:4:8, endln:4:9
+  |vpiSigned:1
+\_packed_array_typespec: , line:3:4, endln:3:10
+  |vpiRange:
+  \_range: , line:3:5, endln:3:10
+    |vpiParent:
+    \_packed_array_typespec: , line:3:4, endln:3:10
+    |vpiLeftRange:
+    \_constant: , line:3:6, endln:3:7
+      |vpiParent:
+      \_range: , line:3:5, endln:3:10
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:8, endln:3:9
+      |vpiParent:
+      \_range: , line:3:5, endln:3:10
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_typespec: 
+    |vpiParent:
+    \_packed_array_typespec: , line:3:4, endln:3:10
+    |vpiActual:
+    \_struct_typespec: (S), line:2:12, endln:2:29
+\_int_typespec: , line:4:4, endln:4:7
+  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

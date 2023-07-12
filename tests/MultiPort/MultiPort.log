@@ -105,6 +105,7 @@ package                                                2
 port                                                   4
 range                                                  2
 ref_obj                                                4
+ref_typespec                                          10
 struct_typespec                                        2
 struct_var                                             2
 typespec_member                                        4
@@ -123,6 +124,7 @@ package                                                2
 port                                                   6
 range                                                  2
 ref_obj                                                6
+ref_typespec                                          12
 struct_typespec                                        2
 struct_var                                             2
 typespec_member                                        4
@@ -158,31 +160,12 @@ design: (work@top)
       \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:5:6
       |vpiName:first
       |vpiTypespec:
-      \_logic_typespec: , line:3:9, endln:3:19
+      \_ref_typespec: (my_pkg::my_pkg::variable_type::first)
         |vpiParent:
         \_typespec_member: (first), line:3:20, endln:3:25
-        |vpiInstance:
-        \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/MultiPort/dut.sv, line:1:1, endln:6:11
-        |vpiRange:
-        \_range: , line:3:14, endln:3:19
-          |vpiParent:
-          \_logic_typespec: , line:3:9, endln:3:19
-          |vpiLeftRange:
-          \_constant: , line:3:15, endln:3:16
-            |vpiParent:
-            \_range: , line:3:14, endln:3:19
-            |vpiDecompile:2
-            |vpiSize:64
-            |UINT:2
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:3:17, endln:3:18
-            |vpiParent:
-            \_range: , line:3:14, endln:3:19
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:my_pkg::my_pkg::variable_type::first
+        |vpiActual:
+        \_logic_typespec: , line:3:9, endln:3:19
       |vpiRefFile:${SURELOG_DIR}/tests/MultiPort/dut.sv
       |vpiRefLineNo:3
       |vpiRefColumnNo:9
@@ -194,12 +177,12 @@ design: (work@top)
       \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:5:6
       |vpiName:second
       |vpiTypespec:
-      \_int_typespec: , line:4:9, endln:4:12
+      \_ref_typespec: (my_pkg::my_pkg::variable_type::second)
         |vpiParent:
         \_typespec_member: (second), line:4:13, endln:4:19
-        |vpiInstance:
-        \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/MultiPort/dut.sv, line:1:1, endln:6:11
-        |vpiSigned:1
+        |vpiFullName:my_pkg::my_pkg::variable_type::second
+        |vpiActual:
+        \_int_typespec: , line:4:9, endln:4:12
       |vpiRefFile:${SURELOG_DIR}/tests/MultiPort/dut.sv
       |vpiRefLineNo:4
       |vpiRefColumnNo:9
@@ -225,31 +208,12 @@ design: (work@top)
       \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:5:6
       |vpiName:first
       |vpiTypespec:
-      \_logic_typespec: , line:3:9, endln:3:19
+      \_ref_typespec: (work@top.my_pkg::variable_type.first)
         |vpiParent:
         \_typespec_member: (first), line:3:20, endln:3:25
-        |vpiInstance:
-        \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/MultiPort/dut.sv, line:1:1, endln:6:11
-        |vpiRange:
-        \_range: , line:3:14, endln:3:19
-          |vpiParent:
-          \_logic_typespec: , line:3:9, endln:3:19
-          |vpiLeftRange:
-          \_constant: , line:3:15, endln:3:16
-            |vpiParent:
-            \_range: , line:3:14, endln:3:19
-            |vpiDecompile:2
-            |vpiSize:64
-            |UINT:2
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:3:17, endln:3:18
-            |vpiParent:
-            \_range: , line:3:14, endln:3:19
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@top.my_pkg::variable_type.first
+        |vpiActual:
+        \_logic_typespec: , line:3:9, endln:3:19
       |vpiRefFile:${SURELOG_DIR}/tests/MultiPort/dut.sv
       |vpiRefLineNo:3
       |vpiRefColumnNo:9
@@ -261,12 +225,12 @@ design: (work@top)
       \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:5:6
       |vpiName:second
       |vpiTypespec:
-      \_int_typespec: , line:4:9, endln:4:12
+      \_ref_typespec: (work@top.my_pkg::variable_type.second)
         |vpiParent:
         \_typespec_member: (second), line:4:13, endln:4:19
-        |vpiInstance:
-        \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/MultiPort/dut.sv, line:1:1, endln:6:11
-        |vpiSigned:1
+        |vpiFullName:work@top.my_pkg::variable_type.second
+        |vpiActual:
+        \_int_typespec: , line:4:9, endln:4:12
       |vpiRefFile:${SURELOG_DIR}/tests/MultiPort/dut.sv
       |vpiRefLineNo:4
       |vpiRefColumnNo:9
@@ -311,7 +275,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.a), line:9:25, endln:9:26
     |vpiTypedef:
-    \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:5:6
+    \_ref_typespec: (work@top.a)
+      |vpiParent:
+      \_port: (a), line:9:25, endln:9:26
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:5:6
   |vpiPort:
   \_port: (b), line:9:28, endln:9:29
     |vpiParent:
@@ -327,7 +296,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.b), line:9:28, endln:9:29
     |vpiTypedef:
-    \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:5:6
+    \_ref_typespec: (work@top.b)
+      |vpiParent:
+      \_port: (b), line:9:28, endln:9:29
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:5:6
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/MultiPort/dut.sv, line:7:1, endln:11:10
   |vpiName:work@top
@@ -336,7 +310,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/MultiPort/dut.sv, line:7:1, endln:11:10
     |vpiTypespec:
-    \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:5:6
+    \_ref_typespec: (work@top.a)
+      |vpiParent:
+      \_struct_var: (work@top.a), line:9:25, endln:9:26
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:5:6
     |vpiName:a
     |vpiFullName:work@top.a
     |vpiVisibility:1
@@ -345,7 +324,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/MultiPort/dut.sv, line:7:1, endln:11:10
     |vpiTypespec:
-    \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:5:6
+    \_ref_typespec: (work@top.b)
+      |vpiParent:
+      \_struct_var: (work@top.b), line:9:28, endln:9:29
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:5:6
     |vpiName:b
     |vpiFullName:work@top.b
     |vpiVisibility:1
@@ -371,7 +355,12 @@ design: (work@top)
       |vpiActual:
       \_struct_var: (work@top.a), line:9:25, endln:9:26
     |vpiTypedef:
-    \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:5:6
+    \_ref_typespec: (work@top.a)
+      |vpiParent:
+      \_port: (a), line:9:25, endln:9:26
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:5:6
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/MultiPort/dut.sv, line:7:1, endln:11:10
   |vpiPort:
@@ -389,9 +378,77 @@ design: (work@top)
       |vpiActual:
       \_struct_var: (work@top.b), line:9:28, endln:9:29
     |vpiTypedef:
-    \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:5:6
+    \_ref_typespec: (work@top.b)
+      |vpiParent:
+      \_port: (b), line:9:28, endln:9:29
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_struct_typespec: (my_pkg::variable_type), line:2:13, endln:5:6
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/MultiPort/dut.sv, line:7:1, endln:11:10
+\_weaklyReferenced:
+\_logic_typespec: , line:3:9, endln:3:19
+  |vpiParent:
+  \_typespec_member: (first), line:3:20, endln:3:25
+  |vpiInstance:
+  \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/MultiPort/dut.sv, line:1:1, endln:6:11
+  |vpiRange:
+  \_range: , line:3:14, endln:3:19
+    |vpiParent:
+    \_logic_typespec: , line:3:9, endln:3:19
+    |vpiLeftRange:
+    \_constant: , line:3:15, endln:3:16
+      |vpiParent:
+      \_range: , line:3:14, endln:3:19
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:17, endln:3:18
+      |vpiParent:
+      \_range: , line:3:14, endln:3:19
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:4:9, endln:4:12
+  |vpiParent:
+  \_typespec_member: (second), line:4:13, endln:4:19
+  |vpiInstance:
+  \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/MultiPort/dut.sv, line:1:1, endln:6:11
+  |vpiSigned:1
+\_logic_typespec: , line:3:9, endln:3:19
+  |vpiParent:
+  \_typespec_member: (first), line:3:20, endln:3:25
+  |vpiInstance:
+  \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/MultiPort/dut.sv, line:1:1, endln:6:11
+  |vpiRange:
+  \_range: , line:3:14, endln:3:19
+    |vpiParent:
+    \_logic_typespec: , line:3:9, endln:3:19
+    |vpiLeftRange:
+    \_constant: , line:3:15, endln:3:16
+      |vpiParent:
+      \_range: , line:3:14, endln:3:19
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:17, endln:3:18
+      |vpiParent:
+      \_range: , line:3:14, endln:3:19
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:4:9, endln:4:12
+  |vpiParent:
+  \_typespec_member: (second), line:4:13, endln:4:19
+  |vpiInstance:
+  \_package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/MultiPort/dut.sv, line:1:1, endln:6:11
+  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

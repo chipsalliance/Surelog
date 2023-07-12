@@ -191,6 +191,7 @@ part_select                                            2
 port                                                   8
 range                                                  2
 ref_obj                                               12
+ref_typespec                                           4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -212,6 +213,7 @@ part_select                                            4
 port                                                  12
 range                                                  2
 ref_obj                                               20
+ref_typespec                                           7
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamInFunc/slpp_all/surelog.uhdm ...
 
@@ -243,7 +245,12 @@ design: (work@func_block_top)
       \_param_assign: , line:5:28, endln:5:34
       |UINT:31
       |vpiTypespec:
-      \_int_typespec: , line:5:17, endln:5:34
+      \_ref_typespec: (work@func_block_top.func3.A)
+        |vpiParent:
+        \_parameter: (work@func_block_top.func3.A), line:5:28, endln:5:29
+        |vpiFullName:work@func_block_top.func3.A
+        |vpiActual:
+        \_int_typespec: , line:5:17, endln:5:34
       |vpiLocalParam:1
       |vpiName:A
       |vpiFullName:work@func_block_top.func3.A
@@ -265,7 +272,12 @@ design: (work@func_block_top)
         |vpiSize:32
         |UINT:31
         |vpiTypespec:
-        \_int_typespec: , line:5:17, endln:5:34
+        \_ref_typespec: (work@func_block_top.func3)
+          |vpiParent:
+          \_constant: , line:5:32, endln:5:34
+          |vpiFullName:work@func_block_top.func3
+          |vpiActual:
+          \_int_typespec: , line:5:17, endln:5:34
         |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@func_block_top.func3.A), line:5:28, endln:5:29
@@ -303,27 +315,12 @@ design: (work@func_block_top)
       |vpiParent:
       \_function: (work@func_block_top.func3), line:4:9, endln:9:20
       |vpiTypespec:
-      \_logic_typespec: , line:4:28, endln:4:34
-        |vpiRange:
-        \_range: , line:4:28, endln:4:34
-          |vpiParent:
-          \_logic_typespec: , line:4:28, endln:4:34
-          |vpiLeftRange:
-          \_constant: , line:4:29, endln:4:31
-            |vpiParent:
-            \_range: , line:4:28, endln:4:34
-            |vpiDecompile:31
-            |vpiSize:64
-            |UINT:31
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:4:32, endln:4:33
-            |vpiParent:
-            \_range: , line:4:28, endln:4:34
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_typespec: (work@func_block_top.func3)
+        |vpiParent:
+        \_logic_var: (work@func_block_top.func3), line:4:28, endln:4:34
+        |vpiFullName:work@func_block_top.func3
+        |vpiActual:
+        \_logic_typespec: , line:4:28, endln:4:34
       |vpiFullName:work@func_block_top.func3
     |vpiIODecl:
     \_io_decl: (inp), line:7:30, endln:7:33
@@ -332,27 +329,12 @@ design: (work@func_block_top)
       |vpiDirection:1
       |vpiName:inp
       |vpiTypedef:
-      \_logic_typespec: , line:7:23, endln:7:29
-        |vpiRange:
-        \_range: , line:7:23, endln:7:29
-          |vpiParent:
-          \_logic_typespec: , line:7:23, endln:7:29
-          |vpiLeftRange:
-          \_constant: , line:7:24, endln:7:26
-            |vpiParent:
-            \_range: , line:7:23, endln:7:29
-            |vpiDecompile:31
-            |vpiSize:64
-            |UINT:31
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:7:27, endln:7:28
-            |vpiParent:
-            \_range: , line:7:23, endln:7:29
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_typespec: (work@func_block_top.func3.inp)
+        |vpiParent:
+        \_io_decl: (inp), line:7:30, endln:7:33
+        |vpiFullName:work@func_block_top.func3.inp
+        |vpiActual:
+        \_logic_typespec: , line:7:23, endln:7:29
     |vpiStmt:
     \_assignment: , line:8:17, endln:8:38
       |vpiParent:
@@ -510,7 +492,12 @@ design: (work@func_block_top)
       \_function: (work@func_block_top.func3), line:4:9, endln:9:20
       |UINT:31
       |vpiTypespec:
-      \_int_typespec: , line:5:17, endln:5:34
+      \_ref_typespec: (work@func_block_top.func3.A)
+        |vpiParent:
+        \_parameter: (work@func_block_top.func3.A), line:5:28, endln:5:29
+        |vpiFullName:work@func_block_top.func3.A
+        |vpiActual:
+        \_int_typespec: , line:5:17, endln:5:34
       |vpiLocalParam:1
       |vpiName:A
       |vpiFullName:work@func_block_top.func3.A
@@ -532,7 +519,12 @@ design: (work@func_block_top)
         \_param_assign: , line:5:28, endln:5:34
         |UINT:31
         |vpiTypespec:
-        \_int_typespec: , line:5:17, endln:5:34
+        \_ref_typespec: (work@func_block_top.func3.A)
+          |vpiParent:
+          \_parameter: (work@func_block_top.func3.A), line:5:28, endln:5:29
+          |vpiFullName:work@func_block_top.func3.A
+          |vpiActual:
+          \_int_typespec: , line:5:17, endln:5:34
         |vpiLocalParam:1
         |vpiName:A
         |vpiFullName:work@func_block_top.func3.A
@@ -566,7 +558,12 @@ design: (work@func_block_top)
       |vpiDirection:1
       |vpiName:inp
       |vpiTypedef:
-      \_logic_typespec: , line:7:23, endln:7:29
+      \_ref_typespec: (work@func_block_top.func3.inp)
+        |vpiParent:
+        \_io_decl: (inp), line:7:30, endln:7:33
+        |vpiFullName:work@func_block_top.func3.inp
+        |vpiActual:
+        \_logic_typespec: , line:7:23, endln:7:29
     |vpiStmt:
     \_assignment: , line:8:17, endln:8:38
       |vpiParent:
@@ -716,6 +713,50 @@ design: (work@func_block_top)
       \_logic_net: (work@func_block_top.out3), line:3:40, endln:3:44
     |vpiInstance:
     \_module_inst: work@func_block_top (work@func_block_top), file:${SURELOG_DIR}/tests/ParamInFunc/dut.sv, line:3:1, endln:10:10
+\_weaklyReferenced:
+\_logic_typespec: , line:4:28, endln:4:34
+  |vpiRange:
+  \_range: , line:4:28, endln:4:34
+    |vpiParent:
+    \_logic_typespec: , line:4:28, endln:4:34
+    |vpiLeftRange:
+    \_constant: , line:4:29, endln:4:31
+      |vpiParent:
+      \_range: , line:4:28, endln:4:34
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:4:32, endln:4:33
+      |vpiParent:
+      \_range: , line:4:28, endln:4:34
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:7:23, endln:7:29
+  |vpiRange:
+  \_range: , line:7:23, endln:7:29
+    |vpiParent:
+    \_logic_typespec: , line:7:23, endln:7:29
+    |vpiLeftRange:
+    \_constant: , line:7:24, endln:7:26
+      |vpiParent:
+      \_range: , line:7:23, endln:7:29
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:7:27, endln:7:28
+      |vpiParent:
+      \_range: , line:7:23, endln:7:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:5:17, endln:5:34
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -117,6 +117,7 @@ module_inst                                            3
 port                                                   5
 ref_module                                             1
 ref_obj                                                7
+ref_typespec                                           5
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -134,6 +135,7 @@ module_inst                                            3
 port                                                   6
 ref_module                                             1
 ref_obj                                                8
+ref_typespec                                           6
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/InterfAlways/slpp_all/surelog.uhdm ...
 
@@ -230,8 +232,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.o), line:7:23, endln:7:24
     |vpiTypedef:
-    \_int_typespec: , line:7:19, endln:7:22
-      |vpiSigned:1
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_port: (o), line:7:23, endln:7:24
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_int_typespec: , line:7:19, endln:7:22
   |vpiRefModule:
   \_ref_module: work@sw_test_status_if (u_sw), line:8:22, endln:8:26
     |vpiParent:
@@ -261,10 +267,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InterfAlways/dut.sv, line:7:1, endln:9:10
     |vpiTypespec:
-    \_int_typespec: , line:7:19, endln:7:22
+    \_ref_typespec: (work@top.o)
       |vpiParent:
       \_int_var: (work@top.o), line:7:23, endln:7:24
-      |vpiSigned:1
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_int_typespec: , line:7:19, endln:7:22
     |vpiName:o
     |vpiFullName:work@top.o
     |vpiSigned:1
@@ -287,8 +295,12 @@ design: (work@top)
       |vpiActual:
       \_int_var: (work@top.o), line:7:23, endln:7:24
     |vpiTypedef:
-    \_int_typespec: , line:7:19, endln:7:22
-      |vpiSigned:1
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_port: (o), line:7:23, endln:7:24
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_int_typespec: , line:7:19, endln:7:22
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InterfAlways/dut.sv, line:7:1, endln:9:10
   |vpiInterface:
@@ -302,10 +314,12 @@ design: (work@top)
       |vpiParent:
       \_interface_inst: work@sw_test_status_if (work@top.u_sw), file:${SURELOG_DIR}/tests/InterfAlways/dut.sv, line:8:4, endln:8:34
       |vpiTypespec:
-      \_int_typespec: , line:1:36, endln:1:39
+      \_ref_typespec: (work@top.u_sw.x)
         |vpiParent:
         \_int_var: (work@top.u_sw.x), line:1:40, endln:1:41
-        |vpiSigned:1
+        |vpiFullName:work@top.u_sw.x
+        |vpiActual:
+        \_int_typespec: , line:1:36, endln:1:39
       |vpiName:x
       |vpiFullName:work@top.u_sw.x
       |vpiSigned:1
@@ -340,8 +354,27 @@ design: (work@top)
         |vpiActual:
         \_int_var: (work@top.u_sw.x), line:1:40, endln:1:41
       |vpiTypedef:
-      \_int_typespec: , line:1:36, endln:1:39
-        |vpiSigned:1
+      \_ref_typespec: (work@top.u_sw.x)
+        |vpiParent:
+        \_port: (x), line:1:40, endln:1:41
+        |vpiFullName:work@top.u_sw.x
+        |vpiActual:
+        \_int_typespec: , line:1:36, endln:1:39
+\_weaklyReferenced:
+\_int_typespec: , line:7:19, endln:7:22
+  |vpiSigned:1
+\_int_typespec: , line:7:19, endln:7:22
+  |vpiParent:
+  \_int_var: (work@top.o), line:7:23, endln:7:24
+  |vpiSigned:1
+\_int_typespec: , line:1:36, endln:1:39
+  |vpiSigned:1
+\_int_typespec: , line:1:36, endln:1:39
+  |vpiParent:
+  \_int_var: (work@top.u_sw.x), line:1:40, endln:1:41
+  |vpiSigned:1
+\_int_typespec: , line:7:19, endln:7:22
+  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

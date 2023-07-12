@@ -58,6 +58,7 @@ port                                                  14
 range                                                  5
 ref_module                                             2
 ref_obj                                               10
+ref_typespec                                          22
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ModPortHighConn/slpp_unit/surelog.uhdm ...
 
@@ -103,7 +104,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@moduleA.port0), line:2:23, endln:2:28
     |vpiTypedef:
-    \_logic_typespec: , line:2:23, endln:2:23
+    \_ref_typespec: (work@moduleA.port0)
+      |vpiParent:
+      \_port: (port0), line:2:23, endln:2:28
+      |vpiFullName:work@moduleA.port0
+      |vpiActual:
+      \_logic_typespec: , line:2:23, endln:2:23
   |vpiPort:
   \_port: (port1), line:2:30, endln:2:35
     |vpiParent:
@@ -119,7 +125,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@moduleA.port1), line:2:30, endln:2:35
     |vpiTypedef:
-    \_logic_typespec: , line:2:23, endln:2:23
+    \_ref_typespec: (work@moduleA.port1)
+      |vpiParent:
+      \_port: (port1), line:2:30, endln:2:35
+      |vpiFullName:work@moduleA.port1
+      |vpiActual:
+      \_logic_typespec: , line:2:23, endln:2:23
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ModPortHighConn/dut.sv, line:5:1, endln:11:10
   |vpiParent:
@@ -131,27 +142,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ModPortHighConn/dut.sv, line:5:1, endln:11:10
     |vpiTypespec:
-    \_logic_typespec: , line:6:5, endln:6:15
-      |vpiRange:
-      \_range: , line:6:10, endln:6:15
-        |vpiParent:
-        \_logic_typespec: , line:6:5, endln:6:15
-        |vpiLeftRange:
-        \_constant: , line:6:11, endln:6:12
-          |vpiParent:
-          \_range: , line:6:10, endln:6:15
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:6:13, endln:6:14
-          |vpiParent:
-          \_range: , line:6:10, endln:6:15
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@top.topA)
+      |vpiParent:
+      \_logic_net: (work@top.topA), line:6:16, endln:6:20
+      |vpiFullName:work@top.topA
+      |vpiActual:
+      \_logic_typespec: , line:6:5, endln:6:15
     |vpiName:topA
     |vpiFullName:work@top.topA
     |vpiNetType:1
@@ -160,27 +156,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ModPortHighConn/dut.sv, line:5:1, endln:11:10
     |vpiTypespec:
-    \_logic_typespec: , line:6:5, endln:6:15
-      |vpiRange:
-      \_range: , line:6:10, endln:6:15
-        |vpiParent:
-        \_logic_typespec: , line:6:5, endln:6:15
-        |vpiLeftRange:
-        \_constant: , line:6:11, endln:6:12
-          |vpiParent:
-          \_range: , line:6:10, endln:6:15
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:6:13, endln:6:14
-          |vpiParent:
-          \_range: , line:6:10, endln:6:15
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@top.topB)
+      |vpiParent:
+      \_logic_net: (work@top.topB), line:6:22, endln:6:26
+      |vpiFullName:work@top.topB
+      |vpiActual:
+      \_logic_typespec: , line:6:5, endln:6:15
     |vpiName:topB
     |vpiFullName:work@top.topB
     |vpiNetType:1
@@ -303,29 +284,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ModPortHighConn/dut.sv, line:5:1, endln:11:10
     |vpiTypespec:
-    \_logic_typespec: , line:6:5, endln:6:15
+    \_ref_typespec: (work@top.topA)
       |vpiParent:
-      \_logic_net: (work@top.topB), line:6:22, endln:6:26
-      |vpiRange:
-      \_range: , line:6:10, endln:6:15
-        |vpiParent:
-        \_logic_typespec: , line:6:5, endln:6:15
-        |vpiLeftRange:
-        \_constant: , line:6:11, endln:6:12
-          |vpiParent:
-          \_range: , line:6:10, endln:6:15
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:6:13, endln:6:14
-          |vpiParent:
-          \_range: , line:6:10, endln:6:15
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      \_logic_net: (work@top.topA), line:6:16, endln:6:20
+      |vpiFullName:work@top.topA
+      |vpiActual:
+      \_logic_typespec: , line:6:5, endln:6:15
     |vpiName:topA
     |vpiFullName:work@top.topA
     |vpiNetType:1
@@ -334,7 +298,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ModPortHighConn/dut.sv, line:5:1, endln:11:10
     |vpiTypespec:
-    \_logic_typespec: , line:6:5, endln:6:15
+    \_ref_typespec: (work@top.topB)
+      |vpiParent:
+      \_logic_net: (work@top.topB), line:6:22, endln:6:26
+      |vpiFullName:work@top.topB
+      |vpiActual:
+      \_logic_typespec: , line:6:5, endln:6:15
     |vpiName:topB
     |vpiFullName:work@top.topB
     |vpiNetType:1
@@ -353,9 +322,12 @@ design: (work@top)
       |vpiParent:
       \_module_inst: work@moduleA (work@top.instanceA), file:${SURELOG_DIR}/tests/ModPortHighConn/dut.sv, line:7:5, endln:7:57
       |vpiTypespec:
-      \_logic_typespec: , line:2:23, endln:2:23
+      \_ref_typespec: (work@top.instanceA.port0)
         |vpiParent:
-        \_logic_net: (work@top.instanceA.port1), line:2:30, endln:2:35
+        \_logic_net: (work@top.instanceA.port0), line:2:23, endln:2:28
+        |vpiFullName:work@top.instanceA.port0
+        |vpiActual:
+        \_logic_typespec: , line:2:23, endln:2:23
       |vpiName:port0
       |vpiFullName:work@top.instanceA.port0
     |vpiNet:
@@ -363,7 +335,12 @@ design: (work@top)
       |vpiParent:
       \_module_inst: work@moduleA (work@top.instanceA), file:${SURELOG_DIR}/tests/ModPortHighConn/dut.sv, line:7:5, endln:7:57
       |vpiTypespec:
-      \_logic_typespec: , line:2:23, endln:2:23
+      \_ref_typespec: (work@top.instanceA.port1)
+        |vpiParent:
+        \_logic_net: (work@top.instanceA.port1), line:2:30, endln:2:35
+        |vpiFullName:work@top.instanceA.port1
+        |vpiActual:
+        \_logic_typespec: , line:2:23, endln:2:23
       |vpiName:port1
       |vpiFullName:work@top.instanceA.port1
     |vpiInstance:
@@ -397,7 +374,12 @@ design: (work@top)
         |vpiActual:
         \_logic_net: (work@top.instanceA.port0), line:2:23, endln:2:28
       |vpiTypedef:
-      \_logic_typespec: , line:2:23, endln:2:23
+      \_ref_typespec: (work@top.instanceA.port0)
+        |vpiParent:
+        \_port: (port0), line:2:23, endln:2:28
+        |vpiFullName:work@top.instanceA.port0
+        |vpiActual:
+        \_logic_typespec: , line:2:23, endln:2:23
     |vpiPort:
     \_port: (port1), line:2:30, endln:2:35
       |vpiParent:
@@ -427,7 +409,12 @@ design: (work@top)
         |vpiActual:
         \_logic_net: (work@top.instanceA.port1), line:2:30, endln:2:35
       |vpiTypedef:
-      \_logic_typespec: , line:2:23, endln:2:23
+      \_ref_typespec: (work@top.instanceA.port1)
+        |vpiParent:
+        \_port: (port1), line:2:30, endln:2:35
+        |vpiFullName:work@top.instanceA.port1
+        |vpiActual:
+        \_logic_typespec: , line:2:23, endln:2:23
   |vpiModule:
   \_module_inst: work@moduleA (work@top.instanceB), file:${SURELOG_DIR}/tests/ModPortHighConn/dut.sv, line:8:5, endln:8:41
     |vpiParent:
@@ -442,9 +429,12 @@ design: (work@top)
       |vpiParent:
       \_module_inst: work@moduleA (work@top.instanceB), file:${SURELOG_DIR}/tests/ModPortHighConn/dut.sv, line:8:5, endln:8:41
       |vpiTypespec:
-      \_logic_typespec: , line:2:23, endln:2:23
+      \_ref_typespec: (work@top.instanceB.port0)
         |vpiParent:
-        \_logic_net: (work@top.instanceB.port1), line:2:30, endln:2:35
+        \_logic_net: (work@top.instanceB.port0), line:2:23, endln:2:28
+        |vpiFullName:work@top.instanceB.port0
+        |vpiActual:
+        \_logic_typespec: , line:2:23, endln:2:23
       |vpiName:port0
       |vpiFullName:work@top.instanceB.port0
     |vpiNet:
@@ -452,7 +442,12 @@ design: (work@top)
       |vpiParent:
       \_module_inst: work@moduleA (work@top.instanceB), file:${SURELOG_DIR}/tests/ModPortHighConn/dut.sv, line:8:5, endln:8:41
       |vpiTypespec:
-      \_logic_typespec: , line:2:23, endln:2:23
+      \_ref_typespec: (work@top.instanceB.port1)
+        |vpiParent:
+        \_logic_net: (work@top.instanceB.port1), line:2:30, endln:2:35
+        |vpiFullName:work@top.instanceB.port1
+        |vpiActual:
+        \_logic_typespec: , line:2:23, endln:2:23
       |vpiName:port1
       |vpiFullName:work@top.instanceB.port1
     |vpiInstance:
@@ -486,7 +481,12 @@ design: (work@top)
         |vpiActual:
         \_logic_net: (work@top.instanceB.port0), line:2:23, endln:2:28
       |vpiTypedef:
-      \_logic_typespec: , line:2:23, endln:2:23
+      \_ref_typespec: (work@top.instanceB.port0)
+        |vpiParent:
+        \_port: (port0), line:2:23, endln:2:28
+        |vpiFullName:work@top.instanceB.port0
+        |vpiActual:
+        \_logic_typespec: , line:2:23, endln:2:23
     |vpiPort:
     \_port: (port1), line:2:30, endln:2:35
       |vpiParent:
@@ -516,7 +516,12 @@ design: (work@top)
         |vpiActual:
         \_logic_net: (work@top.instanceB.port1), line:2:30, endln:2:35
       |vpiTypedef:
-      \_logic_typespec: , line:2:23, endln:2:23
+      \_ref_typespec: (work@top.instanceB.port1)
+        |vpiParent:
+        \_port: (port1), line:2:30, endln:2:35
+        |vpiFullName:work@top.instanceB.port1
+        |vpiActual:
+        \_logic_typespec: , line:2:23, endln:2:23
   |vpiModule:
   \_module_inst: work@moduleA (work@top.instanceC), file:${SURELOG_DIR}/tests/ModPortHighConn/dut.sv, line:9:5, endln:9:50
     |vpiParent:
@@ -531,9 +536,12 @@ design: (work@top)
       |vpiParent:
       \_module_inst: work@moduleA (work@top.instanceC), file:${SURELOG_DIR}/tests/ModPortHighConn/dut.sv, line:9:5, endln:9:50
       |vpiTypespec:
-      \_logic_typespec: , line:2:23, endln:2:23
+      \_ref_typespec: (work@top.instanceC.port0)
         |vpiParent:
-        \_logic_net: (work@top.instanceC.port1), line:2:30, endln:2:35
+        \_logic_net: (work@top.instanceC.port0), line:2:23, endln:2:28
+        |vpiFullName:work@top.instanceC.port0
+        |vpiActual:
+        \_logic_typespec: , line:2:23, endln:2:23
       |vpiName:port0
       |vpiFullName:work@top.instanceC.port0
     |vpiNet:
@@ -541,7 +549,12 @@ design: (work@top)
       |vpiParent:
       \_module_inst: work@moduleA (work@top.instanceC), file:${SURELOG_DIR}/tests/ModPortHighConn/dut.sv, line:9:5, endln:9:50
       |vpiTypespec:
-      \_logic_typespec: , line:2:23, endln:2:23
+      \_ref_typespec: (work@top.instanceC.port1)
+        |vpiParent:
+        \_logic_net: (work@top.instanceC.port1), line:2:30, endln:2:35
+        |vpiFullName:work@top.instanceC.port1
+        |vpiActual:
+        \_logic_typespec: , line:2:23, endln:2:23
       |vpiName:port1
       |vpiFullName:work@top.instanceC.port1
     |vpiInstance:
@@ -575,7 +588,12 @@ design: (work@top)
         |vpiActual:
         \_logic_net: (work@top.instanceC.port0), line:2:23, endln:2:28
       |vpiTypedef:
-      \_logic_typespec: , line:2:23, endln:2:23
+      \_ref_typespec: (work@top.instanceC.port0)
+        |vpiParent:
+        \_port: (port0), line:2:23, endln:2:28
+        |vpiFullName:work@top.instanceC.port0
+        |vpiActual:
+        \_logic_typespec: , line:2:23, endln:2:23
     |vpiPort:
     \_port: (port1), line:2:30, endln:2:35
       |vpiParent:
@@ -624,7 +642,12 @@ design: (work@top)
         |vpiActual:
         \_logic_net: (work@top.instanceC.port1), line:2:30, endln:2:35
       |vpiTypedef:
-      \_logic_typespec: , line:2:23, endln:2:23
+      \_ref_typespec: (work@top.instanceC.port1)
+        |vpiParent:
+        \_port: (port1), line:2:30, endln:2:35
+        |vpiFullName:work@top.instanceC.port1
+        |vpiActual:
+        \_logic_typespec: , line:2:23, endln:2:23
   |vpiModule:
   \_module_inst: work@moduleA (work@top.instanceD), file:${SURELOG_DIR}/tests/ModPortHighConn/dut.sv, line:10:5, endln:10:50
     |vpiParent:
@@ -639,9 +662,12 @@ design: (work@top)
       |vpiParent:
       \_module_inst: work@moduleA (work@top.instanceD), file:${SURELOG_DIR}/tests/ModPortHighConn/dut.sv, line:10:5, endln:10:50
       |vpiTypespec:
-      \_logic_typespec: , line:2:23, endln:2:23
+      \_ref_typespec: (work@top.instanceD.port0)
         |vpiParent:
-        \_logic_net: (work@top.instanceD.port1), line:2:30, endln:2:35
+        \_logic_net: (work@top.instanceD.port0), line:2:23, endln:2:28
+        |vpiFullName:work@top.instanceD.port0
+        |vpiActual:
+        \_logic_typespec: , line:2:23, endln:2:23
       |vpiName:port0
       |vpiFullName:work@top.instanceD.port0
     |vpiNet:
@@ -649,7 +675,12 @@ design: (work@top)
       |vpiParent:
       \_module_inst: work@moduleA (work@top.instanceD), file:${SURELOG_DIR}/tests/ModPortHighConn/dut.sv, line:10:5, endln:10:50
       |vpiTypespec:
-      \_logic_typespec: , line:2:23, endln:2:23
+      \_ref_typespec: (work@top.instanceD.port1)
+        |vpiParent:
+        \_logic_net: (work@top.instanceD.port1), line:2:30, endln:2:35
+        |vpiFullName:work@top.instanceD.port1
+        |vpiActual:
+        \_logic_typespec: , line:2:23, endln:2:23
       |vpiName:port1
       |vpiFullName:work@top.instanceD.port1
     |vpiInstance:
@@ -702,7 +733,12 @@ design: (work@top)
         |vpiActual:
         \_logic_net: (work@top.instanceD.port0), line:2:23, endln:2:28
       |vpiTypedef:
-      \_logic_typespec: , line:2:23, endln:2:23
+      \_ref_typespec: (work@top.instanceD.port0)
+        |vpiParent:
+        \_port: (port0), line:2:23, endln:2:28
+        |vpiFullName:work@top.instanceD.port0
+        |vpiActual:
+        \_logic_typespec: , line:2:23, endln:2:23
     |vpiPort:
     \_port: (port1), line:2:30, endln:2:35
       |vpiParent:
@@ -732,7 +768,96 @@ design: (work@top)
         |vpiActual:
         \_logic_net: (work@top.instanceD.port1), line:2:30, endln:2:35
       |vpiTypedef:
-      \_logic_typespec: , line:2:23, endln:2:23
+      \_ref_typespec: (work@top.instanceD.port1)
+        |vpiParent:
+        \_port: (port1), line:2:30, endln:2:35
+        |vpiFullName:work@top.instanceD.port1
+        |vpiActual:
+        \_logic_typespec: , line:2:23, endln:2:23
+\_weaklyReferenced:
+\_logic_typespec: , line:6:5, endln:6:15
+  |vpiParent:
+  \_logic_net: (work@top.topB), line:6:22, endln:6:26
+  |vpiRange:
+  \_range: , line:6:10, endln:6:15
+    |vpiParent:
+    \_logic_typespec: , line:6:5, endln:6:15
+    |vpiLeftRange:
+    \_constant: , line:6:11, endln:6:12
+      |vpiParent:
+      \_range: , line:6:10, endln:6:15
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:13, endln:6:14
+      |vpiParent:
+      \_range: , line:6:10, endln:6:15
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:2:23, endln:2:23
+\_logic_typespec: , line:2:23, endln:2:23
+  |vpiParent:
+  \_logic_net: (work@top.instanceA.port1), line:2:30, endln:2:35
+\_logic_typespec: , line:2:23, endln:2:23
+\_logic_typespec: , line:2:23, endln:2:23
+  |vpiParent:
+  \_logic_net: (work@top.instanceB.port1), line:2:30, endln:2:35
+\_logic_typespec: , line:2:23, endln:2:23
+\_logic_typespec: , line:2:23, endln:2:23
+  |vpiParent:
+  \_logic_net: (work@top.instanceC.port1), line:2:30, endln:2:35
+\_logic_typespec: , line:2:23, endln:2:23
+\_logic_typespec: , line:2:23, endln:2:23
+  |vpiParent:
+  \_logic_net: (work@top.instanceD.port1), line:2:30, endln:2:35
+\_logic_typespec: , line:2:23, endln:2:23
+\_logic_typespec: , line:2:23, endln:2:23
+\_logic_typespec: , line:6:5, endln:6:15
+  |vpiRange:
+  \_range: , line:6:10, endln:6:15
+    |vpiParent:
+    \_logic_typespec: , line:6:5, endln:6:15
+    |vpiLeftRange:
+    \_constant: , line:6:11, endln:6:12
+      |vpiParent:
+      \_range: , line:6:10, endln:6:15
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:13, endln:6:14
+      |vpiParent:
+      \_range: , line:6:10, endln:6:15
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:6:5, endln:6:15
+  |vpiRange:
+  \_range: , line:6:10, endln:6:15
+    |vpiParent:
+    \_logic_typespec: , line:6:5, endln:6:15
+    |vpiLeftRange:
+    \_constant: , line:6:11, endln:6:12
+      |vpiParent:
+      \_range: , line:6:10, endln:6:15
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:13, endln:6:14
+      |vpiParent:
+      \_range: , line:6:10, endln:6:15
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -346,6 +346,7 @@ io_decl                                                2
 logic_var                                              2
 operation                                              7
 ref_obj                                               23
+ref_typespec                                           4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/UnitForLoop/slpp_unit/surelog.uhdm ...
 
@@ -383,8 +384,12 @@ design: (unnamed)
       |vpiDirection:1
       |vpiName:i
       |vpiTypedef:
-      \_int_typespec: , line:3:14, endln:3:17
-        |vpiSigned:1
+      \_ref_typespec: (work@top::f2::i)
+        |vpiParent:
+        \_io_decl: (i), line:3:18, endln:3:19
+        |vpiFullName:work@top::f2::i
+        |vpiActual:
+        \_int_typespec: , line:3:14, endln:3:17
     |vpiIODecl:
     \_io_decl: (j), line:3:25, endln:3:26
       |vpiParent:
@@ -392,8 +397,12 @@ design: (unnamed)
       |vpiDirection:1
       |vpiName:j
       |vpiTypedef:
-      \_int_typespec: , line:3:21, endln:3:24
-        |vpiSigned:1
+      \_ref_typespec: (work@top::f2::j)
+        |vpiParent:
+        \_io_decl: (j), line:3:25, endln:3:26
+        |vpiFullName:work@top::f2::j
+        |vpiActual:
+        \_int_typespec: , line:3:21, endln:3:24
   |vpiMethod:
   \_function: (work@top::f1), line:7:1, endln:27:12
     |vpiParent:
@@ -434,8 +443,12 @@ design: (unnamed)
             |vpiParent:
             \_assign_stmt: , line:8:10, endln:8:21
             |vpiTypespec:
-            \_int_typespec: , line:8:10, endln:8:13
-              |vpiSigned:1
+            \_ref_typespec: (work@top::f1::j)
+              |vpiParent:
+              \_int_var: (work@top::f1::j), line:8:14, endln:8:15
+              |vpiFullName:work@top::f1::j
+              |vpiActual:
+              \_int_typespec: , line:8:10, endln:8:13
             |vpiName:j
             |vpiFullName:work@top::f1::j
             |vpiSigned:1
@@ -543,8 +556,12 @@ design: (unnamed)
             |vpiParent:
             \_assign_stmt: , line:12:9, endln:12:22
             |vpiTypespec:
-            \_int_typespec: , line:12:9, endln:12:12
-              |vpiSigned:1
+            \_ref_typespec: (work@top::f1::j)
+              |vpiParent:
+              \_int_var: (work@top::f1::j), line:12:13, endln:12:14
+              |vpiFullName:work@top::f1::j
+              |vpiActual:
+              \_int_typespec: , line:12:9, endln:12:12
             |vpiName:j
             |vpiFullName:work@top::f1::j
             |vpiSigned:1
@@ -733,6 +750,15 @@ design: (unnamed)
               |vpiName:j
               |vpiFullName:work@top::f1::j
             |vpiName:f6
+\_weaklyReferenced:
+\_int_typespec: , line:3:14, endln:3:17
+  |vpiSigned:1
+\_int_typespec: , line:3:21, endln:3:24
+  |vpiSigned:1
+\_int_typespec: , line:8:10, endln:8:13
+  |vpiSigned:1
+\_int_typespec: , line:12:9, endln:12:12
+  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

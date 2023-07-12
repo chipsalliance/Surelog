@@ -189,12 +189,13 @@ gen_region                                             1
 gen_scope                                              8
 gen_scope_array                                        8
 indexed_part_select                                    7
-int_typespec                                           7
+int_typespec                                           6
 module_inst                                            5
 operation                                              9
 param_assign                                           6
 parameter                                             10
 ref_obj                                                1
+ref_typespec                                          12
 sys_task_call                                          4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -207,12 +208,13 @@ gen_region                                             1
 gen_scope                                             12
 gen_scope_array                                       12
 indexed_part_select                                    7
-int_typespec                                           7
+int_typespec                                           6
 module_inst                                            5
 operation                                              9
 param_assign                                           6
 parameter                                             10
 ref_obj                                                1
+ref_typespec                                          16
 sys_task_call                                          8
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/IndexedSelect/slpp_all/surelog.uhdm ...
@@ -238,7 +240,12 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/IndexedSelect/dut.sv, line:1:1, endln:17:10
     |UINT:3
     |vpiTypespec:
-    \_int_typespec: , line:3:1, endln:3:16
+    \_ref_typespec: (work@test.FOO)
+      |vpiParent:
+      \_parameter: (work@test.FOO), line:3:11, endln:3:14
+      |vpiFullName:work@test.FOO
+      |vpiActual:
+      \_int_typespec: , line:3:1, endln:3:16
     |vpiName:FOO
     |vpiFullName:work@test.FOO
   |vpiParameter:
@@ -265,7 +272,12 @@ design: (work@test)
       |vpiSize:32
       |UINT:3
       |vpiTypespec:
-      \_int_typespec: , line:3:1, endln:3:16
+      \_ref_typespec: (work@test)
+        |vpiParent:
+        \_constant: , line:3:15, endln:3:16
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:3:1, endln:3:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test.FOO), line:3:11, endln:3:14
@@ -343,9 +355,12 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/IndexedSelect/dut.sv, line:1:1, endln:17:10
     |UINT:3
     |vpiTypespec:
-    \_int_typespec: , line:3:1, endln:3:16
+    \_ref_typespec: (work@test.FOO)
       |vpiParent:
       \_parameter: (work@test.FOO), line:3:11, endln:3:14
+      |vpiFullName:work@test.FOO
+      |vpiActual:
+      \_int_typespec: , line:3:1, endln:3:16
     |vpiName:FOO
     |vpiFullName:work@test.FOO
   |vpiParameter:
@@ -372,7 +387,12 @@ design: (work@test)
       |vpiSize:32
       |UINT:3
       |vpiTypespec:
-      \_int_typespec: , line:3:1, endln:3:16
+      \_ref_typespec: (work@test)
+        |vpiParent:
+        \_constant: , line:3:15, endln:3:16
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:3:1, endln:3:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test.FOO), line:3:11, endln:3:14
@@ -388,8 +408,12 @@ design: (work@test)
       |vpiSize:96
       |BIN:000000000000000000000000000001000000000000000000000000000000010000000000000000000000000000000100
       |vpiTypespec:
-      \_int_typespec: 
-        |UINT:32
+      \_ref_typespec: (work@test)
+        |vpiParent:
+        \_constant: , line:4:20, endln:4:32
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: 
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@test.FOO_REPL), line:4:11, endln:4:19
@@ -427,7 +451,12 @@ design: (work@test)
         \_gen_scope: (work@test.genfoo[0]), line:11:45, endln:13:8
         |UINT:0
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@test.genfoo[0].i)
+          |vpiParent:
+          \_parameter: (work@test.genfoo[0].i), line:11:0
+          |vpiFullName:work@test.genfoo[0].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@test.genfoo[0].i
@@ -458,7 +487,12 @@ design: (work@test)
         \_gen_scope: (work@test.genfoo[1]), line:11:45, endln:13:8
         |UINT:1
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@test.genfoo[1].i)
+          |vpiParent:
+          \_parameter: (work@test.genfoo[1].i), line:11:0
+          |vpiFullName:work@test.genfoo[1].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@test.genfoo[1].i
@@ -489,7 +523,12 @@ design: (work@test)
         \_gen_scope: (work@test.genfoo[2]), line:11:45, endln:13:8
         |UINT:2
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@test.genfoo[2].i)
+          |vpiParent:
+          \_parameter: (work@test.genfoo[2].i), line:11:0
+          |vpiFullName:work@test.genfoo[2].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@test.genfoo[2].i
@@ -520,7 +559,12 @@ design: (work@test)
         \_gen_scope: (work@test.genfoo[3]), line:11:45, endln:13:8
         |UINT:3
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@test.genfoo[3].i)
+          |vpiParent:
+          \_parameter: (work@test.genfoo[3].i), line:11:0
+          |vpiFullName:work@test.genfoo[3].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@test.genfoo[3].i
@@ -534,6 +578,14 @@ design: (work@test)
           |STRING:"test"
           |vpiConstType:6
         |vpiName:display
+\_weaklyReferenced:
+\_int_typespec: , line:3:1, endln:3:16
+\_int_typespec: 
+  |UINT:32
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

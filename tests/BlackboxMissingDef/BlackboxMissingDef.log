@@ -106,6 +106,7 @@ port                                                   2
 range                                                  7
 ref_module                                             1
 ref_obj                                                2
+ref_typespec                                           4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -124,6 +125,7 @@ port                                                   3
 range                                                  7
 ref_module                                             1
 ref_obj                                                3
+ref_typespec                                           5
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/BlackboxMissingDef/slpp_all/surelog.uhdm ...
 
@@ -165,62 +167,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.e), line:1:30, endln:1:31
     |vpiTypedef:
-    \_array_typespec: , line:1:18, endln:1:33
+    \_ref_typespec: (work@top.e)
       |vpiParent:
       \_port: (e), line:1:30, endln:1:31
-      |vpiArrayType:1
-      |vpiRange:
-      \_range: , line:1:32, endln:1:33
-        |vpiParent:
-        \_array_typespec: , line:1:18, endln:1:33
-        |vpiLeftRange:
-        \_constant: 
-          |vpiParent:
-          \_range: , line:1:32, endln:1:33
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-        |vpiRightRange:
-        \_operation: , line:1:32, endln:1:33
-          |vpiParent:
-          \_range: , line:1:32, endln:1:33
-          |vpiOpType:11
-          |vpiOperand:
-          \_constant: , line:1:32, endln:1:33
-            |vpiParent:
-            \_operation: , line:1:32, endln:1:33
-            |vpiDecompile:2
-            |vpiSize:64
-            |UINT:2
-            |vpiConstType:9
-          |vpiOperand:
-          \_constant: 
-            |vpiSize:64
-            |INT:1
-            |vpiConstType:7
-      |vpiElemTypespec:
-      \_logic_typespec: , line:1:18, endln:1:29
-        |vpiRange:
-        \_range: , line:1:24, endln:1:29
-          |vpiParent:
-          \_logic_typespec: , line:1:18, endln:1:29
-          |vpiLeftRange:
-          \_constant: , line:1:25, endln:1:26
-            |vpiParent:
-            \_range: , line:1:24, endln:1:29
-            |vpiDecompile:7
-            |vpiSize:64
-            |UINT:7
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:1:27, endln:1:28
-            |vpiParent:
-            \_range: , line:1:24, endln:1:29
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      |vpiFullName:work@top.e
+      |vpiActual:
+      \_array_typespec: , line:1:18, endln:1:33
   |vpiRefModule:
   \_ref_module: work@PLLE2_ADV (pll), line:4:6, endln:4:9
     |vpiParent:
@@ -274,29 +226,12 @@ design: (work@top)
       |vpiParent:
       \_array_net: (work@top.e), line:1:30, endln:1:31
       |vpiTypespec:
-      \_logic_typespec: , line:1:18, endln:1:29
+      \_ref_typespec: (work@top.e)
         |vpiParent:
         \_logic_net: (work@top.e), line:1:30, endln:1:31
-        |vpiRange:
-        \_range: , line:1:24, endln:1:29
-          |vpiParent:
-          \_logic_typespec: , line:1:18, endln:1:29
-          |vpiLeftRange:
-          \_constant: , line:1:25, endln:1:26
-            |vpiParent:
-            \_range: , line:1:24, endln:1:29
-            |vpiDecompile:7
-            |vpiSize:64
-            |UINT:7
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:1:27, endln:1:28
-            |vpiParent:
-            \_range: , line:1:24, endln:1:29
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@top.e
+        |vpiActual:
+        \_logic_typespec: , line:1:18, endln:1:29
       |vpiFullName:work@top.e
       |vpiNetType:36
   |vpiTopModule:1
@@ -315,27 +250,12 @@ design: (work@top)
       |vpiActual:
       \_array_net: (work@top.e), line:1:30, endln:1:31
     |vpiTypedef:
-    \_logic_typespec: , line:1:18, endln:1:29
-      |vpiRange:
-      \_range: , line:1:24, endln:1:29
-        |vpiParent:
-        \_logic_typespec: , line:1:18, endln:1:29
-        |vpiLeftRange:
-        \_constant: , line:1:25, endln:1:26
-          |vpiParent:
-          \_range: , line:1:24, endln:1:29
-          |vpiDecompile:7
-          |vpiSize:64
-          |UINT:7
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:1:27, endln:1:28
-          |vpiParent:
-          \_range: , line:1:24, endln:1:29
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@top.e)
+      |vpiParent:
+      \_port: (e), line:1:30, endln:1:31
+      |vpiFullName:work@top.e
+      |vpiActual:
+      \_logic_typespec: , line:1:18, endln:1:29
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackboxMissingDef/dut.sv, line:1:1, endln:5:10
   |vpiModule:
@@ -381,6 +301,113 @@ design: (work@top)
     |vpiDefName:work@top::PLLE2_ADV
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackboxMissingDef/dut.sv, line:1:1, endln:5:10
+\_weaklyReferenced:
+\_logic_typespec: , line:1:18, endln:1:29
+  |vpiRange:
+  \_range: , line:1:24, endln:1:29
+    |vpiParent:
+    \_logic_typespec: , line:1:18, endln:1:29
+    |vpiLeftRange:
+    \_constant: , line:1:25, endln:1:26
+      |vpiParent:
+      \_range: , line:1:24, endln:1:29
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:1:27, endln:1:28
+      |vpiParent:
+      \_range: , line:1:24, endln:1:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:1:18, endln:1:29
+  |vpiParent:
+  \_logic_net: (work@top.e), line:1:30, endln:1:31
+  |vpiRange:
+  \_range: , line:1:24, endln:1:29
+    |vpiParent:
+    \_logic_typespec: , line:1:18, endln:1:29
+    |vpiLeftRange:
+    \_constant: , line:1:25, endln:1:26
+      |vpiParent:
+      \_range: , line:1:24, endln:1:29
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:1:27, endln:1:28
+      |vpiParent:
+      \_range: , line:1:24, endln:1:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_array_typespec: , line:1:18, endln:1:33
+  |vpiParent:
+  \_port: (e), line:1:30, endln:1:31
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , line:1:32, endln:1:33
+    |vpiParent:
+    \_array_typespec: , line:1:18, endln:1:33
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: , line:1:32, endln:1:33
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_operation: , line:1:32, endln:1:33
+      |vpiParent:
+      \_range: , line:1:32, endln:1:33
+      |vpiOpType:11
+      |vpiOperand:
+      \_constant: , line:1:32, endln:1:33
+        |vpiParent:
+        \_operation: , line:1:32, endln:1:33
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
+        |vpiConstType:9
+      |vpiOperand:
+      \_constant: 
+        |vpiSize:64
+        |INT:1
+        |vpiConstType:7
+  |vpiElemTypespec:
+  \_ref_typespec: (work@top.e)
+    |vpiParent:
+    \_array_typespec: , line:1:18, endln:1:33
+    |vpiFullName:work@top.e
+    |vpiActual:
+    \_logic_typespec: , line:1:18, endln:1:29
+\_logic_typespec: , line:1:18, endln:1:29
+  |vpiRange:
+  \_range: , line:1:24, endln:1:29
+    |vpiParent:
+    \_logic_typespec: , line:1:18, endln:1:29
+    |vpiLeftRange:
+    \_constant: , line:1:25, endln:1:26
+      |vpiParent:
+      \_range: , line:1:24, endln:1:29
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:1:27, endln:1:28
+      |vpiParent:
+      \_range: , line:1:24, endln:1:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

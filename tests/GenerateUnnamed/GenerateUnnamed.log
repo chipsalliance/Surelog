@@ -1046,7 +1046,7 @@ gen_if                                                 6
 gen_if_else                                            6
 gen_scope                                             16
 gen_scope_array                                       16
-int_typespec                                          17
+int_typespec                                          13
 int_var                                                4
 io_decl                                               11
 logic_net                                             12
@@ -1061,6 +1061,7 @@ parameter                                              8
 port                                                  24
 prim_term                                             48
 ref_obj                                               58
+ref_typespec                                          51
 task                                                   9
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/GenerateUnnamed/slpp_unit/surelog.uhdm ...
@@ -1136,9 +1137,12 @@ design: (work@test1)
       |vpiParent:
       \_function: (work@mailbox::new), line:3:5, endln:4:16
       |vpiTypespec:
-      \_class_typespec: 
-        |vpiClassDefn:
-        \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/GenerateUnnamed/builtin.sv, line:1:3, endln:27:11
+      \_ref_typespec: (work@mailbox::new)
+        |vpiParent:
+        \_class_var: (work@mailbox::new), line:3:23, endln:3:28
+        |vpiFullName:work@mailbox::new
+        |vpiActual:
+        \_class_typespec: 
       |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound), line:3:23, endln:3:28
@@ -1153,8 +1157,12 @@ design: (work@test1)
         |UINT:0
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:3:19, endln:3:22
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::new::bound)
+        |vpiParent:
+        \_io_decl: (bound), line:3:23, endln:3:28
+        |vpiFullName:work@mailbox::new::bound
+        |vpiActual:
+        \_int_typespec: , line:3:19, endln:3:22
   |vpiMethod:
   \_function: (work@mailbox::num), line:6:5, endln:7:16
     |vpiParent:
@@ -1168,8 +1176,12 @@ design: (work@test1)
       |vpiParent:
       \_function: (work@mailbox::num), line:6:5, endln:7:16
       |vpiTypespec:
-      \_int_typespec: , line:6:14, endln:6:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::num)
+        |vpiParent:
+        \_int_var: (work@mailbox::num), line:6:14, endln:6:17
+        |vpiFullName:work@mailbox::num
+        |vpiActual:
+        \_int_typespec: , line:6:14, endln:6:17
       |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
@@ -1232,8 +1244,12 @@ design: (work@test1)
       |vpiParent:
       \_function: (work@mailbox::try_get), line:18:5, endln:19:16
       |vpiTypespec:
-      \_int_typespec: , line:18:14, endln:18:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::try_get)
+        |vpiParent:
+        \_int_var: (work@mailbox::try_get), line:18:14, endln:18:17
+        |vpiFullName:work@mailbox::try_get
+        |vpiActual:
+        \_int_typespec: , line:18:14, endln:18:17
       |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
@@ -1269,8 +1285,12 @@ design: (work@test1)
       |vpiParent:
       \_function: (work@mailbox::try_peek), line:24:5, endln:25:16
       |vpiTypespec:
-      \_int_typespec: , line:24:14, endln:24:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::try_peek)
+        |vpiParent:
+        \_int_var: (work@mailbox::try_peek), line:24:14, endln:24:17
+        |vpiFullName:work@mailbox::try_peek
+        |vpiActual:
+        \_int_typespec: , line:24:14, endln:24:17
       |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
@@ -1342,9 +1362,12 @@ design: (work@test1)
       |vpiParent:
       \_function: (work@process::self), line:34:5, endln:34:11
       |vpiTypespec:
-      \_class_typespec: , line:34:21, endln:34:28
-        |vpiClassDefn:
-        \_class_defn: (work@process), file:${SURELOG_DIR}/tests/GenerateUnnamed/builtin.sv, line:30:3, endln:52:11
+      \_ref_typespec: (work@process::self)
+        |vpiParent:
+        \_class_var: (work@process::self), line:34:21, endln:34:28
+        |vpiFullName:work@process::self
+        |vpiActual:
+        \_class_typespec: , line:34:21, endln:34:28
       |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status), line:37:5, endln:38:16
@@ -1359,7 +1382,12 @@ design: (work@test1)
       |vpiParent:
       \_function: (work@process::status), line:37:5, endln:38:16
       |vpiTypespec:
-      \_enum_typespec: (state), line:32:5, endln:32:74
+      \_ref_typespec: (work@process::status)
+        |vpiParent:
+        \_enum_var: (work@process::status), line:37:14, endln:37:19
+        |vpiFullName:work@process::status
+        |vpiActual:
+        \_enum_typespec: (state), line:32:5, endln:32:74
       |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill), line:40:5, endln:41:12
@@ -1410,9 +1438,12 @@ design: (work@test1)
       |vpiParent:
       \_function: (work@semaphore::new), line:57:5, endln:58:16
       |vpiTypespec:
-      \_class_typespec: 
-        |vpiClassDefn:
-        \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/GenerateUnnamed/builtin.sv, line:55:3, endln:69:11
+      \_ref_typespec: (work@semaphore::new)
+        |vpiParent:
+        \_class_var: (work@semaphore::new), line:57:22, endln:57:30
+        |vpiFullName:work@semaphore::new
+        |vpiActual:
+        \_class_typespec: 
       |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount), line:57:22, endln:57:30
@@ -1427,8 +1458,12 @@ design: (work@test1)
         |UINT:0
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:57:18, endln:57:21
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::new::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:57:22, endln:57:30
+        |vpiFullName:work@semaphore::new::keyCount
+        |vpiActual:
+        \_int_typespec: , line:57:18, endln:57:21
   |vpiMethod:
   \_task: (work@semaphore::put), line:60:5, endln:61:12
     |vpiParent:
@@ -1450,8 +1485,12 @@ design: (work@test1)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:60:14, endln:60:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::put::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:60:18, endln:60:26
+        |vpiFullName:work@semaphore::put::keyCount
+        |vpiActual:
+        \_int_typespec: , line:60:14, endln:60:17
   |vpiMethod:
   \_task: (work@semaphore::get), line:63:5, endln:64:12
     |vpiParent:
@@ -1473,8 +1512,12 @@ design: (work@test1)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:63:14, endln:63:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::get::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:63:18, endln:63:26
+        |vpiFullName:work@semaphore::get::keyCount
+        |vpiActual:
+        \_int_typespec: , line:63:14, endln:63:17
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:66:5, endln:67:16
     |vpiParent:
@@ -1488,8 +1531,12 @@ design: (work@test1)
       |vpiParent:
       \_function: (work@semaphore::try_get), line:66:5, endln:67:16
       |vpiTypespec:
-      \_int_typespec: , line:66:14, endln:66:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::try_get)
+        |vpiParent:
+        \_int_var: (work@semaphore::try_get), line:66:14, endln:66:17
+        |vpiFullName:work@semaphore::try_get
+        |vpiActual:
+        \_int_typespec: , line:66:14, endln:66:17
       |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
@@ -1505,8 +1552,12 @@ design: (work@test1)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:66:26, endln:66:29
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::try_get::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:66:30, endln:66:38
+        |vpiFullName:work@semaphore::try_get::keyCount
+        |vpiActual:
+        \_int_typespec: , line:66:26, endln:66:29
 |uhdmallModules:
 \_module_inst: work@test1 (work@test1), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:1:1, endln:56:10
   |vpiParent:
@@ -1518,7 +1569,12 @@ design: (work@test1)
     \_module_inst: work@test1 (work@test1), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:1:1, endln:56:10
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: , line:2:3, endln:2:25
+    \_ref_typespec: (work@test1.p)
+      |vpiParent:
+      \_parameter: (work@test1.p), line:2:13, endln:2:14
+      |vpiFullName:work@test1.p
+      |vpiActual:
+      \_int_typespec: , line:2:3, endln:2:25
     |vpiName:p
     |vpiFullName:work@test1.p
   |vpiParameter:
@@ -1527,7 +1583,12 @@ design: (work@test1)
     \_module_inst: work@test1 (work@test1), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:1:1, endln:56:10
     |UINT:4
     |vpiTypespec:
-    \_int_typespec: , line:2:3, endln:2:25
+    \_ref_typespec: (work@test1.q)
+      |vpiParent:
+      \_parameter: (work@test1.q), line:2:20, endln:2:21
+      |vpiFullName:work@test1.q
+      |vpiActual:
+      \_int_typespec: , line:2:3, endln:2:25
     |vpiName:q
     |vpiFullName:work@test1.q
   |vpiParamAssign:
@@ -1542,7 +1603,12 @@ design: (work@test1)
       |vpiSize:32
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:2:3, endln:2:25
+      \_ref_typespec: (work@test1)
+        |vpiParent:
+        \_constant: , line:2:17, endln:2:18
+        |vpiFullName:work@test1
+        |vpiActual:
+        \_int_typespec: , line:2:3, endln:2:25
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test1.p), line:2:13, endln:2:14
@@ -1558,7 +1624,12 @@ design: (work@test1)
       |vpiSize:32
       |UINT:4
       |vpiTypespec:
-      \_int_typespec: , line:2:3, endln:2:25
+      \_ref_typespec: (work@test1)
+        |vpiParent:
+        \_constant: , line:2:24, endln:2:25
+        |vpiFullName:work@test1
+        |vpiActual:
+        \_int_typespec: , line:2:3, endln:2:25
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test1.q), line:2:20, endln:2:21
@@ -1568,7 +1639,12 @@ design: (work@test1)
     |vpiParent:
     \_module_inst: work@test1 (work@test1), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:1:1, endln:56:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:3, endln:3:7
+    \_ref_typespec: (work@test1.a)
+      |vpiParent:
+      \_logic_net: (work@test1.a), line:3:8, endln:3:9
+      |vpiFullName:work@test1.a
+      |vpiActual:
+      \_logic_typespec: , line:3:3, endln:3:7
     |vpiName:a
     |vpiFullName:work@test1.a
     |vpiNetType:1
@@ -1577,7 +1653,12 @@ design: (work@test1)
     |vpiParent:
     \_module_inst: work@test1 (work@test1), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:1:1, endln:56:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:3, endln:3:7
+    \_ref_typespec: (work@test1.b)
+      |vpiParent:
+      \_logic_net: (work@test1.b), line:3:11, endln:3:12
+      |vpiFullName:work@test1.b
+      |vpiActual:
+      \_logic_typespec: , line:3:3, endln:3:7
     |vpiName:b
     |vpiFullName:work@test1.b
     |vpiNetType:1
@@ -1586,7 +1667,12 @@ design: (work@test1)
     |vpiParent:
     \_module_inst: work@test1 (work@test1), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:1:1, endln:56:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:3, endln:3:7
+    \_ref_typespec: (work@test1.c)
+      |vpiParent:
+      \_logic_net: (work@test1.c), line:3:14, endln:3:15
+      |vpiFullName:work@test1.c
+      |vpiActual:
+      \_logic_typespec: , line:3:3, endln:3:7
     |vpiName:c
     |vpiFullName:work@test1.c
     |vpiNetType:1
@@ -1845,7 +1931,12 @@ design: (work@test1)
     \_module_inst: work@test2 (work@test2), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:60:1, endln:115:10
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: , line:61:3, endln:61:25
+    \_ref_typespec: (work@test2.p)
+      |vpiParent:
+      \_parameter: (work@test2.p), line:61:13, endln:61:14
+      |vpiFullName:work@test2.p
+      |vpiActual:
+      \_int_typespec: , line:61:3, endln:61:25
     |vpiName:p
     |vpiFullName:work@test2.p
   |vpiParameter:
@@ -1854,7 +1945,12 @@ design: (work@test1)
     \_module_inst: work@test2 (work@test2), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:60:1, endln:115:10
     |UINT:4
     |vpiTypespec:
-    \_int_typespec: , line:61:3, endln:61:25
+    \_ref_typespec: (work@test2.q)
+      |vpiParent:
+      \_parameter: (work@test2.q), line:61:20, endln:61:21
+      |vpiFullName:work@test2.q
+      |vpiActual:
+      \_int_typespec: , line:61:3, endln:61:25
     |vpiName:q
     |vpiFullName:work@test2.q
   |vpiParamAssign:
@@ -1869,7 +1965,12 @@ design: (work@test1)
       |vpiSize:32
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:61:3, endln:61:25
+      \_ref_typespec: (work@test2)
+        |vpiParent:
+        \_constant: , line:61:17, endln:61:18
+        |vpiFullName:work@test2
+        |vpiActual:
+        \_int_typespec: , line:61:3, endln:61:25
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test2.p), line:61:13, endln:61:14
@@ -1885,7 +1986,12 @@ design: (work@test1)
       |vpiSize:32
       |UINT:4
       |vpiTypespec:
-      \_int_typespec: , line:61:3, endln:61:25
+      \_ref_typespec: (work@test2)
+        |vpiParent:
+        \_constant: , line:61:24, endln:61:25
+        |vpiFullName:work@test2
+        |vpiActual:
+        \_int_typespec: , line:61:3, endln:61:25
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test2.q), line:61:20, endln:61:21
@@ -1895,7 +2001,12 @@ design: (work@test1)
     |vpiParent:
     \_module_inst: work@test2 (work@test2), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:60:1, endln:115:10
     |vpiTypespec:
-    \_logic_typespec: , line:62:3, endln:62:7
+    \_ref_typespec: (work@test2.a)
+      |vpiParent:
+      \_logic_net: (work@test2.a), line:62:8, endln:62:9
+      |vpiFullName:work@test2.a
+      |vpiActual:
+      \_logic_typespec: , line:62:3, endln:62:7
     |vpiName:a
     |vpiFullName:work@test2.a
     |vpiNetType:1
@@ -1904,7 +2015,12 @@ design: (work@test1)
     |vpiParent:
     \_module_inst: work@test2 (work@test2), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:60:1, endln:115:10
     |vpiTypespec:
-    \_logic_typespec: , line:62:3, endln:62:7
+    \_ref_typespec: (work@test2.b)
+      |vpiParent:
+      \_logic_net: (work@test2.b), line:62:11, endln:62:12
+      |vpiFullName:work@test2.b
+      |vpiActual:
+      \_logic_typespec: , line:62:3, endln:62:7
     |vpiName:b
     |vpiFullName:work@test2.b
     |vpiNetType:1
@@ -1913,7 +2029,12 @@ design: (work@test1)
     |vpiParent:
     \_module_inst: work@test2 (work@test2), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:60:1, endln:115:10
     |vpiTypespec:
-    \_logic_typespec: , line:62:3, endln:62:7
+    \_ref_typespec: (work@test2.c)
+      |vpiParent:
+      \_logic_net: (work@test2.c), line:62:14, endln:62:15
+      |vpiFullName:work@test2.c
+      |vpiActual:
+      \_logic_typespec: , line:62:3, endln:62:7
     |vpiName:c
     |vpiFullName:work@test2.c
     |vpiNetType:1
@@ -2171,9 +2292,12 @@ design: (work@test1)
     \_module_inst: work@test1 (work@test1), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:1:1, endln:56:10
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: , line:2:3, endln:2:25
+    \_ref_typespec: (work@test1.p)
       |vpiParent:
       \_parameter: (work@test1.p), line:2:13, endln:2:14
+      |vpiFullName:work@test1.p
+      |vpiActual:
+      \_int_typespec: , line:2:3, endln:2:25
     |vpiName:p
     |vpiFullName:work@test1.p
   |vpiParameter:
@@ -2182,9 +2306,12 @@ design: (work@test1)
     \_module_inst: work@test1 (work@test1), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:1:1, endln:56:10
     |UINT:4
     |vpiTypespec:
-    \_int_typespec: , line:2:3, endln:2:25
+    \_ref_typespec: (work@test1.q)
       |vpiParent:
       \_parameter: (work@test1.q), line:2:20, endln:2:21
+      |vpiFullName:work@test1.q
+      |vpiActual:
+      \_int_typespec: , line:2:3, endln:2:25
     |vpiName:q
     |vpiFullName:work@test1.q
   |vpiParamAssign:
@@ -2199,7 +2326,12 @@ design: (work@test1)
       |vpiSize:32
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:2:3, endln:2:25
+      \_ref_typespec: (work@test1)
+        |vpiParent:
+        \_constant: , line:2:17, endln:2:18
+        |vpiFullName:work@test1
+        |vpiActual:
+        \_int_typespec: , line:2:3, endln:2:25
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test1.p), line:2:13, endln:2:14
@@ -2215,7 +2347,12 @@ design: (work@test1)
       |vpiSize:32
       |UINT:4
       |vpiTypespec:
-      \_int_typespec: , line:2:3, endln:2:25
+      \_ref_typespec: (work@test1)
+        |vpiParent:
+        \_constant: , line:2:24, endln:2:25
+        |vpiFullName:work@test1
+        |vpiActual:
+        \_int_typespec: , line:2:3, endln:2:25
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test1.q), line:2:20, endln:2:21
@@ -2226,9 +2363,12 @@ design: (work@test1)
     |vpiParent:
     \_module_inst: work@test1 (work@test1), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:1:1, endln:56:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:3, endln:3:7
+    \_ref_typespec: (work@test1.a)
       |vpiParent:
-      \_logic_net: (work@test1.c), line:3:14, endln:3:15
+      \_logic_net: (work@test1.a), line:3:8, endln:3:9
+      |vpiFullName:work@test1.a
+      |vpiActual:
+      \_logic_typespec: , line:3:3, endln:3:7
     |vpiName:a
     |vpiFullName:work@test1.a
     |vpiNetType:1
@@ -2237,7 +2377,12 @@ design: (work@test1)
     |vpiParent:
     \_module_inst: work@test1 (work@test1), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:1:1, endln:56:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:3, endln:3:7
+    \_ref_typespec: (work@test1.b)
+      |vpiParent:
+      \_logic_net: (work@test1.b), line:3:11, endln:3:12
+      |vpiFullName:work@test1.b
+      |vpiActual:
+      \_logic_typespec: , line:3:3, endln:3:7
     |vpiName:b
     |vpiFullName:work@test1.b
     |vpiNetType:1
@@ -2246,7 +2391,12 @@ design: (work@test1)
     |vpiParent:
     \_module_inst: work@test1 (work@test1), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:1:1, endln:56:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:3, endln:3:7
+    \_ref_typespec: (work@test1.c)
+      |vpiParent:
+      \_logic_net: (work@test1.c), line:3:14, endln:3:15
+      |vpiFullName:work@test1.c
+      |vpiActual:
+      \_logic_typespec: , line:3:3, endln:3:7
     |vpiName:c
     |vpiFullName:work@test1.c
     |vpiNetType:1
@@ -2489,9 +2639,12 @@ design: (work@test1)
     \_module_inst: work@test2 (work@test2), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:60:1, endln:115:10
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: , line:61:3, endln:61:25
+    \_ref_typespec: (work@test2.p)
       |vpiParent:
       \_parameter: (work@test2.p), line:61:13, endln:61:14
+      |vpiFullName:work@test2.p
+      |vpiActual:
+      \_int_typespec: , line:61:3, endln:61:25
     |vpiName:p
     |vpiFullName:work@test2.p
   |vpiParameter:
@@ -2500,9 +2653,12 @@ design: (work@test1)
     \_module_inst: work@test2 (work@test2), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:60:1, endln:115:10
     |UINT:4
     |vpiTypespec:
-    \_int_typespec: , line:61:3, endln:61:25
+    \_ref_typespec: (work@test2.q)
       |vpiParent:
       \_parameter: (work@test2.q), line:61:20, endln:61:21
+      |vpiFullName:work@test2.q
+      |vpiActual:
+      \_int_typespec: , line:61:3, endln:61:25
     |vpiName:q
     |vpiFullName:work@test2.q
   |vpiParamAssign:
@@ -2517,7 +2673,12 @@ design: (work@test1)
       |vpiSize:32
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:61:3, endln:61:25
+      \_ref_typespec: (work@test2)
+        |vpiParent:
+        \_constant: , line:61:17, endln:61:18
+        |vpiFullName:work@test2
+        |vpiActual:
+        \_int_typespec: , line:61:3, endln:61:25
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test2.p), line:61:13, endln:61:14
@@ -2533,7 +2694,12 @@ design: (work@test1)
       |vpiSize:32
       |UINT:4
       |vpiTypespec:
-      \_int_typespec: , line:61:3, endln:61:25
+      \_ref_typespec: (work@test2)
+        |vpiParent:
+        \_constant: , line:61:24, endln:61:25
+        |vpiFullName:work@test2
+        |vpiActual:
+        \_int_typespec: , line:61:3, endln:61:25
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test2.q), line:61:20, endln:61:21
@@ -2544,9 +2710,12 @@ design: (work@test1)
     |vpiParent:
     \_module_inst: work@test2 (work@test2), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:60:1, endln:115:10
     |vpiTypespec:
-    \_logic_typespec: , line:62:3, endln:62:7
+    \_ref_typespec: (work@test2.a)
       |vpiParent:
-      \_logic_net: (work@test2.c), line:62:14, endln:62:15
+      \_logic_net: (work@test2.a), line:62:8, endln:62:9
+      |vpiFullName:work@test2.a
+      |vpiActual:
+      \_logic_typespec: , line:62:3, endln:62:7
     |vpiName:a
     |vpiFullName:work@test2.a
     |vpiNetType:1
@@ -2555,7 +2724,12 @@ design: (work@test1)
     |vpiParent:
     \_module_inst: work@test2 (work@test2), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:60:1, endln:115:10
     |vpiTypespec:
-    \_logic_typespec: , line:62:3, endln:62:7
+    \_ref_typespec: (work@test2.b)
+      |vpiParent:
+      \_logic_net: (work@test2.b), line:62:11, endln:62:12
+      |vpiFullName:work@test2.b
+      |vpiActual:
+      \_logic_typespec: , line:62:3, endln:62:7
     |vpiName:b
     |vpiFullName:work@test2.b
     |vpiNetType:1
@@ -2564,7 +2738,12 @@ design: (work@test1)
     |vpiParent:
     \_module_inst: work@test2 (work@test2), file:${SURELOG_DIR}/tests/GenerateUnnamed/top.v, line:60:1, endln:115:10
     |vpiTypespec:
-    \_logic_typespec: , line:62:3, endln:62:7
+    \_ref_typespec: (work@test2.c)
+      |vpiParent:
+      \_logic_net: (work@test2.c), line:62:14, endln:62:15
+      |vpiFullName:work@test2.c
+      |vpiActual:
+      \_logic_typespec: , line:62:3, endln:62:7
     |vpiName:c
     |vpiFullName:work@test2.c
     |vpiNetType:1
@@ -2809,6 +2988,50 @@ design: (work@test1)
         |vpiFullName:work@test2.c
         |vpiActual:
         \_logic_net: (work@test2.c), line:62:14, endln:62:15
+\_weaklyReferenced:
+\_int_typespec: , line:2:3, endln:2:25
+\_int_typespec: , line:2:3, endln:2:25
+\_int_typespec: , line:61:3, endln:61:25
+\_int_typespec: , line:61:3, endln:61:25
+\_class_typespec: 
+  |vpiClassDefn:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/GenerateUnnamed/builtin.sv, line:1:3, endln:27:11
+\_int_typespec: , line:3:19, endln:3:22
+  |vpiSigned:1
+\_int_typespec: , line:6:14, endln:6:17
+  |vpiSigned:1
+\_int_typespec: , line:18:14, endln:18:17
+  |vpiSigned:1
+\_int_typespec: , line:24:14, endln:24:17
+  |vpiSigned:1
+\_class_typespec: , line:34:21, endln:34:28
+  |vpiClassDefn:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/GenerateUnnamed/builtin.sv, line:30:3, endln:52:11
+\_class_typespec: 
+  |vpiClassDefn:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/GenerateUnnamed/builtin.sv, line:55:3, endln:69:11
+\_int_typespec: , line:57:18, endln:57:21
+  |vpiSigned:1
+\_int_typespec: , line:60:14, endln:60:17
+  |vpiSigned:1
+\_int_typespec: , line:63:14, endln:63:17
+  |vpiSigned:1
+\_int_typespec: , line:66:14, endln:66:17
+  |vpiSigned:1
+\_int_typespec: , line:66:26, endln:66:29
+  |vpiSigned:1
+\_logic_typespec: , line:3:3, endln:3:7
+  |vpiParent:
+  \_logic_net: (work@test1.c), line:3:14, endln:3:15
+\_logic_typespec: , line:62:3, endln:62:7
+  |vpiParent:
+  \_logic_net: (work@test2.c), line:62:14, endln:62:15
+\_logic_typespec: , line:3:3, endln:3:7
+\_logic_typespec: , line:3:3, endln:3:7
+\_logic_typespec: , line:3:3, endln:3:7
+\_logic_typespec: , line:62:3, endln:62:7
+\_logic_typespec: , line:62:3, endln:62:7
+\_logic_typespec: , line:62:3, endln:62:7
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

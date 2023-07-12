@@ -47,7 +47,7 @@ enum_const                                             5
 enum_typespec                                          1
 enum_var                                               1
 function                                              10
-int_typespec                                          12
+int_typespec                                          10
 int_var                                                4
 io_decl                                               11
 logic_typespec                                         2
@@ -60,6 +60,7 @@ parameter                                              3
 range                                                  4
 ref_module                                             2
 ref_obj                                                5
+ref_typespec                                          23
 return_stmt                                            1
 task                                                   9
 === UHDM Object Stats End ===
@@ -76,7 +77,7 @@ enum_const                                            10
 enum_typespec                                          2
 enum_var                                               1
 function                                              21
-int_typespec                                          12
+int_typespec                                          10
 int_var                                                4
 io_decl                                               22
 logic_typespec                                         2
@@ -89,6 +90,7 @@ parameter                                              3
 range                                                  4
 ref_module                                             2
 ref_obj                                                7
+ref_typespec                                          32
 return_stmt                                            3
 task                                                  18
 === UHDM Object Stats End ===
@@ -166,9 +168,12 @@ design: (work@aes_prng)
       |vpiParent:
       \_function: (work@mailbox::new), line:3:5, endln:4:16
       |vpiTypespec:
-      \_class_typespec: 
-        |vpiClassDefn:
-        \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/FuncParam/builtin.sv, line:1:3, endln:27:11
+      \_ref_typespec: (work@mailbox::new)
+        |vpiParent:
+        \_class_var: (work@mailbox::new), line:3:23, endln:3:28
+        |vpiFullName:work@mailbox::new
+        |vpiActual:
+        \_class_typespec: 
       |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound), line:3:23, endln:3:28
@@ -183,8 +188,12 @@ design: (work@aes_prng)
         |UINT:0
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:3:19, endln:3:22
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::new::bound)
+        |vpiParent:
+        \_io_decl: (bound), line:3:23, endln:3:28
+        |vpiFullName:work@mailbox::new::bound
+        |vpiActual:
+        \_int_typespec: , line:3:19, endln:3:22
   |vpiMethod:
   \_function: (work@mailbox::num), line:6:5, endln:7:16
     |vpiParent:
@@ -198,8 +207,12 @@ design: (work@aes_prng)
       |vpiParent:
       \_function: (work@mailbox::num), line:6:5, endln:7:16
       |vpiTypespec:
-      \_int_typespec: , line:6:14, endln:6:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::num)
+        |vpiParent:
+        \_int_var: (work@mailbox::num), line:6:14, endln:6:17
+        |vpiFullName:work@mailbox::num
+        |vpiActual:
+        \_int_typespec: , line:6:14, endln:6:17
       |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
@@ -262,8 +275,12 @@ design: (work@aes_prng)
       |vpiParent:
       \_function: (work@mailbox::try_get), line:18:5, endln:19:16
       |vpiTypespec:
-      \_int_typespec: , line:18:14, endln:18:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::try_get)
+        |vpiParent:
+        \_int_var: (work@mailbox::try_get), line:18:14, endln:18:17
+        |vpiFullName:work@mailbox::try_get
+        |vpiActual:
+        \_int_typespec: , line:18:14, endln:18:17
       |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
@@ -299,8 +316,12 @@ design: (work@aes_prng)
       |vpiParent:
       \_function: (work@mailbox::try_peek), line:24:5, endln:25:16
       |vpiTypespec:
-      \_int_typespec: , line:24:14, endln:24:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::try_peek)
+        |vpiParent:
+        \_int_var: (work@mailbox::try_peek), line:24:14, endln:24:17
+        |vpiFullName:work@mailbox::try_peek
+        |vpiActual:
+        \_int_typespec: , line:24:14, endln:24:17
       |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
@@ -372,9 +393,12 @@ design: (work@aes_prng)
       |vpiParent:
       \_function: (work@process::self), line:34:5, endln:34:11
       |vpiTypespec:
-      \_class_typespec: , line:34:21, endln:34:28
-        |vpiClassDefn:
-        \_class_defn: (work@process), file:${SURELOG_DIR}/tests/FuncParam/builtin.sv, line:30:3, endln:52:11
+      \_ref_typespec: (work@process::self)
+        |vpiParent:
+        \_class_var: (work@process::self), line:34:21, endln:34:28
+        |vpiFullName:work@process::self
+        |vpiActual:
+        \_class_typespec: , line:34:21, endln:34:28
       |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status), line:37:5, endln:38:16
@@ -389,50 +413,12 @@ design: (work@aes_prng)
       |vpiParent:
       \_function: (work@process::status), line:37:5, endln:38:16
       |vpiTypespec:
-      \_enum_typespec: (state), line:32:5, endln:32:74
+      \_ref_typespec: (work@process::status)
         |vpiParent:
-        \_class_defn: (work@process), file:${SURELOG_DIR}/tests/FuncParam/builtin.sv, line:30:3, endln:52:11
-        |vpiName:state
-        |vpiEnumConst:
-        \_enum_const: (FINISHED), line:32:20, endln:32:28
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:FINISHED
-          |INT:0
-          |vpiDecompile:0
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (RUNNING), line:32:30, endln:32:37
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:RUNNING
-          |INT:1
-          |vpiDecompile:1
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (WAITING), line:32:39, endln:32:46
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:WAITING
-          |INT:2
-          |vpiDecompile:2
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (SUSPENDED), line:32:48, endln:32:57
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:SUSPENDED
-          |INT:3
-          |vpiDecompile:3
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (KILLED), line:32:59, endln:32:65
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:KILLED
-          |INT:4
-          |vpiDecompile:4
-          |vpiSize:64
+        \_enum_var: (work@process::status), line:37:14, endln:37:19
+        |vpiFullName:work@process::status
+        |vpiActual:
+        \_enum_typespec: (state), line:32:5, endln:32:74
       |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill), line:40:5, endln:41:12
@@ -483,9 +469,12 @@ design: (work@aes_prng)
       |vpiParent:
       \_function: (work@semaphore::new), line:57:5, endln:58:16
       |vpiTypespec:
-      \_class_typespec: 
-        |vpiClassDefn:
-        \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/FuncParam/builtin.sv, line:55:3, endln:69:11
+      \_ref_typespec: (work@semaphore::new)
+        |vpiParent:
+        \_class_var: (work@semaphore::new), line:57:22, endln:57:30
+        |vpiFullName:work@semaphore::new
+        |vpiActual:
+        \_class_typespec: 
       |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount), line:57:22, endln:57:30
@@ -500,8 +489,12 @@ design: (work@aes_prng)
         |UINT:0
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:57:18, endln:57:21
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::new::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:57:22, endln:57:30
+        |vpiFullName:work@semaphore::new::keyCount
+        |vpiActual:
+        \_int_typespec: , line:57:18, endln:57:21
   |vpiMethod:
   \_task: (work@semaphore::put), line:60:5, endln:61:12
     |vpiParent:
@@ -523,8 +516,12 @@ design: (work@aes_prng)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:60:14, endln:60:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::put::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:60:18, endln:60:26
+        |vpiFullName:work@semaphore::put::keyCount
+        |vpiActual:
+        \_int_typespec: , line:60:14, endln:60:17
   |vpiMethod:
   \_task: (work@semaphore::get), line:63:5, endln:64:12
     |vpiParent:
@@ -546,8 +543,12 @@ design: (work@aes_prng)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:63:14, endln:63:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::get::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:63:18, endln:63:26
+        |vpiFullName:work@semaphore::get::keyCount
+        |vpiActual:
+        \_int_typespec: , line:63:14, endln:63:17
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:66:5, endln:67:16
     |vpiParent:
@@ -561,8 +562,12 @@ design: (work@aes_prng)
       |vpiParent:
       \_function: (work@semaphore::try_get), line:66:5, endln:67:16
       |vpiTypespec:
-      \_int_typespec: , line:66:14, endln:66:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::try_get)
+        |vpiParent:
+        \_int_var: (work@semaphore::try_get), line:66:14, endln:66:17
+        |vpiFullName:work@semaphore::try_get
+        |vpiActual:
+        \_int_typespec: , line:66:14, endln:66:17
       |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
@@ -578,8 +583,12 @@ design: (work@aes_prng)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:66:26, endln:66:29
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::try_get::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:66:30, endln:66:38
+        |vpiFullName:work@semaphore::try_get::keyCount
+        |vpiActual:
+        \_int_typespec: , line:66:26, endln:66:29
 |uhdmallModules:
 \_module_inst: work@aes_prng (work@aes_prng), file:${SURELOG_DIR}/tests/FuncParam/dut.sv, line:10:1, endln:19:10
   |vpiParent:
@@ -613,9 +622,12 @@ design: (work@aes_prng)
     \_module_inst: work@prim_lfsr (work@prim_lfsr), file:${SURELOG_DIR}/tests/FuncParam/dut.sv, line:1:1, endln:8:10
     |UINT:12
     |vpiTypespec:
-    \_int_typespec: , line:2:14, endln:2:26
+    \_ref_typespec: (work@prim_lfsr.LfsrDw)
       |vpiParent:
       \_parameter: (work@prim_lfsr.LfsrDw), line:2:27, endln:2:33
+      |vpiFullName:work@prim_lfsr.LfsrDw
+      |vpiActual:
+      \_int_typespec: , line:2:14, endln:2:26
     |vpiName:LfsrDw
     |vpiFullName:work@prim_lfsr.LfsrDw
   |vpiParamAssign:
@@ -630,7 +642,12 @@ design: (work@aes_prng)
       |vpiSize:32
       |UINT:12
       |vpiTypespec:
-      \_int_typespec: , line:2:14, endln:2:26
+      \_ref_typespec: (work@prim_lfsr)
+        |vpiParent:
+        \_constant: , line:2:36, endln:2:38
+        |vpiFullName:work@prim_lfsr
+        |vpiActual:
+        \_int_typespec: , line:2:14, endln:2:26
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@prim_lfsr.LfsrDw), line:2:27, endln:2:33
@@ -646,39 +663,12 @@ design: (work@aes_prng)
       |vpiParent:
       \_begin: (work@prim_lfsr.compute), line:5:7, endln:5:25
       |vpiTypespec:
-      \_logic_typespec: , line:4:7, endln:4:25
-        |vpiRange:
-        \_range: , line:4:13, endln:4:25
-          |vpiParent:
-          \_logic_typespec: , line:4:7, endln:4:25
-          |vpiLeftRange:
-          \_operation: , line:4:14, endln:4:22
-            |vpiParent:
-            \_range: , line:4:13, endln:4:25
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (LfsrDw), line:4:14, endln:4:20
-              |vpiParent:
-              \_operation: , line:4:14, endln:4:22
-              |vpiName:LfsrDw
-              |vpiActual:
-              \_parameter: (work@aes_prng.u_lfsr16.LfsrDw), line:2:27, endln:2:33
-            |vpiOperand:
-            \_constant: , line:4:21, endln:4:22
-              |vpiParent:
-              \_operation: , line:4:14, endln:4:22
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:4:23, endln:4:24
-            |vpiParent:
-            \_range: , line:4:13, endln:4:25
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_typespec: (work@prim_lfsr.compute.next_state)
+        |vpiParent:
+        \_logic_var: (work@prim_lfsr.compute.next_state), line:4:26, endln:4:36
+        |vpiFullName:work@prim_lfsr.compute.next_state
+        |vpiActual:
+        \_logic_typespec: , line:4:7, endln:4:25
       |vpiName:next_state
       |vpiFullName:work@prim_lfsr.compute.next_state
     |vpiVisibility:1
@@ -688,39 +678,12 @@ design: (work@aes_prng)
       |vpiParent:
       \_function: (work@prim_lfsr.compute), line:3:4, endln:6:15
       |vpiTypespec:
-      \_logic_typespec: , line:3:23, endln:3:41
-        |vpiRange:
-        \_range: , line:3:29, endln:3:41
-          |vpiParent:
-          \_logic_typespec: , line:3:23, endln:3:41
-          |vpiLeftRange:
-          \_operation: , line:3:30, endln:3:38
-            |vpiParent:
-            \_range: , line:3:29, endln:3:41
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (LfsrDw), line:3:30, endln:3:36
-              |vpiParent:
-              \_operation: , line:3:30, endln:3:38
-              |vpiName:LfsrDw
-              |vpiActual:
-              \_parameter: (work@aes_prng.u_lfsr16.LfsrDw), line:2:27, endln:2:33
-            |vpiOperand:
-            \_constant: , line:3:37, endln:3:38
-              |vpiParent:
-              \_operation: , line:3:30, endln:3:38
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:3:39, endln:3:40
-            |vpiParent:
-            \_range: , line:3:29, endln:3:41
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_typespec: (work@prim_lfsr.compute)
+        |vpiParent:
+        \_logic_var: (work@prim_lfsr.compute), line:3:23, endln:3:41
+        |vpiFullName:work@prim_lfsr.compute
+        |vpiActual:
+        \_logic_typespec: , line:3:23, endln:3:41
       |vpiFullName:work@prim_lfsr.compute
     |vpiStmt:
     \_begin: (work@prim_lfsr.compute), line:5:7, endln:5:25
@@ -761,9 +724,12 @@ design: (work@aes_prng)
       \_module_inst: work@prim_lfsr (work@aes_prng.u_lfsr16), file:${SURELOG_DIR}/tests/FuncParam/dut.sv, line:11:4, endln:13:17
       |UINT:12
       |vpiTypespec:
-      \_int_typespec: , line:2:14, endln:2:26
+      \_ref_typespec: (work@aes_prng.u_lfsr16.LfsrDw)
         |vpiParent:
         \_parameter: (work@aes_prng.u_lfsr16.LfsrDw), line:2:27, endln:2:33
+        |vpiFullName:work@aes_prng.u_lfsr16.LfsrDw
+        |vpiActual:
+        \_int_typespec: , line:2:14, endln:2:26
       |vpiName:LfsrDw
       |vpiFullName:work@aes_prng.u_lfsr16.LfsrDw
     |vpiParamAssign:
@@ -779,7 +745,12 @@ design: (work@aes_prng)
         |vpiSize:32
         |UINT:16
         |vpiTypespec:
-        \_int_typespec: , line:2:14, endln:2:26
+        \_ref_typespec: (work@aes_prng.u_lfsr16)
+          |vpiParent:
+          \_constant: , line:2:36, endln:2:38
+          |vpiFullName:work@aes_prng.u_lfsr16
+          |vpiActual:
+          \_int_typespec: , line:2:14, endln:2:26
         |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@aes_prng.u_lfsr16.LfsrDw), line:2:27, endln:2:33
@@ -797,7 +768,12 @@ design: (work@aes_prng)
         |vpiParent:
         \_function: (work@aes_prng.u_lfsr16.compute), line:3:4, endln:6:15
         |vpiTypespec:
-        \_logic_typespec: , line:4:7, endln:4:25
+        \_ref_typespec: (work@aes_prng.u_lfsr16.compute.next_state)
+          |vpiParent:
+          \_logic_var: (work@aes_prng.u_lfsr16.compute.next_state), line:4:26, endln:4:36
+          |vpiFullName:work@aes_prng.u_lfsr16.compute.next_state
+          |vpiActual:
+          \_logic_typespec: , line:4:7, endln:4:25
         |vpiName:next_state
         |vpiFullName:work@aes_prng.u_lfsr16.compute.next_state
       |vpiVisibility:1
@@ -814,7 +790,12 @@ design: (work@aes_prng)
           |vpiParent:
           \_begin: (work@aes_prng.u_lfsr16.compute), line:5:7, endln:5:25
           |vpiTypespec:
-          \_logic_typespec: , line:4:7, endln:4:25
+          \_ref_typespec: (work@aes_prng.u_lfsr16.compute.next_state)
+            |vpiParent:
+            \_logic_var: (work@aes_prng.u_lfsr16.compute.next_state), line:4:26, endln:4:36
+            |vpiFullName:work@aes_prng.u_lfsr16.compute.next_state
+            |vpiActual:
+            \_logic_typespec: , line:4:7, endln:4:25
           |vpiName:next_state
           |vpiFullName:work@aes_prng.u_lfsr16.compute.next_state
         |vpiStmt:
@@ -845,9 +826,12 @@ design: (work@aes_prng)
       \_module_inst: work@prim_lfsr (work@aes_prng.u_lfsr18), file:${SURELOG_DIR}/tests/FuncParam/dut.sv, line:15:3, endln:17:17
       |UINT:12
       |vpiTypespec:
-      \_int_typespec: , line:2:14, endln:2:26
+      \_ref_typespec: (work@aes_prng.u_lfsr18.LfsrDw)
         |vpiParent:
         \_parameter: (work@aes_prng.u_lfsr18.LfsrDw), line:2:27, endln:2:33
+        |vpiFullName:work@aes_prng.u_lfsr18.LfsrDw
+        |vpiActual:
+        \_int_typespec: , line:2:14, endln:2:26
       |vpiName:LfsrDw
       |vpiFullName:work@aes_prng.u_lfsr18.LfsrDw
     |vpiParamAssign:
@@ -863,7 +847,12 @@ design: (work@aes_prng)
         |vpiSize:32
         |UINT:18
         |vpiTypespec:
-        \_int_typespec: , line:2:14, endln:2:26
+        \_ref_typespec: (work@aes_prng.u_lfsr18)
+          |vpiParent:
+          \_constant: , line:2:36, endln:2:38
+          |vpiFullName:work@aes_prng.u_lfsr18
+          |vpiActual:
+          \_int_typespec: , line:2:14, endln:2:26
         |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@aes_prng.u_lfsr18.LfsrDw), line:2:27, endln:2:33
@@ -881,7 +870,12 @@ design: (work@aes_prng)
         |vpiParent:
         \_function: (work@aes_prng.u_lfsr18.compute), line:3:4, endln:6:15
         |vpiTypespec:
-        \_logic_typespec: , line:4:7, endln:4:25
+        \_ref_typespec: (work@aes_prng.u_lfsr18.compute.next_state)
+          |vpiParent:
+          \_logic_var: (work@aes_prng.u_lfsr18.compute.next_state), line:4:26, endln:4:36
+          |vpiFullName:work@aes_prng.u_lfsr18.compute.next_state
+          |vpiActual:
+          \_logic_typespec: , line:4:7, endln:4:25
         |vpiName:next_state
         |vpiFullName:work@aes_prng.u_lfsr18.compute.next_state
       |vpiVisibility:1
@@ -898,7 +892,12 @@ design: (work@aes_prng)
           |vpiParent:
           \_begin: (work@aes_prng.u_lfsr18.compute), line:5:7, endln:5:25
           |vpiTypespec:
-          \_logic_typespec: , line:4:7, endln:4:25
+          \_ref_typespec: (work@aes_prng.u_lfsr18.compute.next_state)
+            |vpiParent:
+            \_logic_var: (work@aes_prng.u_lfsr18.compute.next_state), line:4:26, endln:4:36
+            |vpiFullName:work@aes_prng.u_lfsr18.compute.next_state
+            |vpiActual:
+            \_logic_typespec: , line:4:7, endln:4:25
           |vpiName:next_state
           |vpiFullName:work@aes_prng.u_lfsr18.compute.next_state
         |vpiStmt:
@@ -917,6 +916,289 @@ design: (work@aes_prng)
       \_module_inst: work@prim_lfsr (work@aes_prng.u_lfsr18), file:${SURELOG_DIR}/tests/FuncParam/dut.sv, line:15:3, endln:17:17
     |vpiInstance:
     \_module_inst: work@aes_prng (work@aes_prng), file:${SURELOG_DIR}/tests/FuncParam/dut.sv, line:10:1, endln:19:10
+\_weaklyReferenced:
+\_int_typespec: , line:2:14, endln:2:26
+  |vpiParent:
+  \_parameter: (work@prim_lfsr.LfsrDw), line:2:27, endln:2:33
+\_logic_typespec: , line:3:23, endln:3:41
+  |vpiRange:
+  \_range: , line:3:29, endln:3:41
+    |vpiParent:
+    \_logic_typespec: , line:3:23, endln:3:41
+    |vpiLeftRange:
+    \_operation: , line:3:30, endln:3:38
+      |vpiParent:
+      \_range: , line:3:29, endln:3:41
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (LfsrDw), line:3:30, endln:3:36
+        |vpiParent:
+        \_operation: , line:3:30, endln:3:38
+        |vpiName:LfsrDw
+        |vpiActual:
+        \_parameter: (work@aes_prng.u_lfsr16.LfsrDw), line:2:27, endln:2:33
+      |vpiOperand:
+      \_constant: , line:3:37, endln:3:38
+        |vpiParent:
+        \_operation: , line:3:30, endln:3:38
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:39, endln:3:40
+      |vpiParent:
+      \_range: , line:3:29, endln:3:41
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:4:7, endln:4:25
+  |vpiRange:
+  \_range: , line:4:13, endln:4:25
+    |vpiParent:
+    \_logic_typespec: , line:4:7, endln:4:25
+    |vpiLeftRange:
+    \_operation: , line:4:14, endln:4:22
+      |vpiParent:
+      \_range: , line:4:13, endln:4:25
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (LfsrDw), line:4:14, endln:4:20
+        |vpiParent:
+        \_operation: , line:4:14, endln:4:22
+        |vpiName:LfsrDw
+        |vpiActual:
+        \_parameter: (work@aes_prng.u_lfsr16.LfsrDw), line:2:27, endln:2:33
+      |vpiOperand:
+      \_constant: , line:4:21, endln:4:22
+        |vpiParent:
+        \_operation: , line:4:14, endln:4:22
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:4:23, endln:4:24
+      |vpiParent:
+      \_range: , line:4:13, endln:4:25
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_function: (work@mailbox::new), line:3:5, endln:4:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/FuncParam/builtin.sv, line:1:3, endln:27:11
+  |vpiName:new
+  |vpiFullName:work@mailbox::new
+  |vpiMethod:1
+  |vpiReturn:
+  \_class_var: (work@mailbox::new), line:3:23, endln:3:28
+  |vpiIODecl:
+  \_io_decl: (bound), line:3:23, endln:3:28
+    |vpiParent:
+    \_function: (work@mailbox::new), line:3:5, endln:4:16
+    |vpiDirection:1
+    |vpiName:bound
+    |vpiExpr:
+    \_constant: , line:3:31, endln:3:32
+    |vpiTypedef:
+    \_ref_typespec: (work@mailbox::new::bound)
+      |vpiParent:
+      \_io_decl: (bound), line:3:23, endln:3:28
+      |vpiFullName:work@mailbox::new::bound
+      |vpiActual:
+      \_int_typespec: , line:3:19, endln:3:22
+\_class_typespec: 
+  |vpiClassDefn:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/FuncParam/builtin.sv, line:1:3, endln:27:11
+\_int_typespec: , line:3:19, endln:3:22
+  |vpiSigned:1
+\_function: (work@mailbox::num), line:6:5, endln:7:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/FuncParam/builtin.sv, line:1:3, endln:27:11
+  |vpiName:num
+  |vpiFullName:work@mailbox::num
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::num), line:6:14, endln:6:17
+\_int_typespec: , line:6:14, endln:6:17
+  |vpiSigned:1
+\_function: (work@mailbox::try_put), line:12:5, endln:13:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/FuncParam/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_put
+  |vpiFullName:work@mailbox::try_put
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_logic_var: (work@mailbox::try_put)
+  |vpiIODecl:
+  \_io_decl: (message), line:12:23, endln:12:30
+    |vpiParent:
+    \_function: (work@mailbox::try_put), line:12:5, endln:13:16
+    |vpiDirection:1
+    |vpiName:message
+\_function: (work@mailbox::try_get), line:18:5, endln:19:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/FuncParam/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_get
+  |vpiFullName:work@mailbox::try_get
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::try_get), line:18:14, endln:18:17
+  |vpiIODecl:
+  \_io_decl: (message), line:18:31, endln:18:38
+    |vpiParent:
+    \_function: (work@mailbox::try_get), line:18:5, endln:19:16
+    |vpiDirection:6
+    |vpiName:message
+\_int_typespec: , line:18:14, endln:18:17
+  |vpiSigned:1
+\_function: (work@mailbox::try_peek), line:24:5, endln:25:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/FuncParam/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_peek
+  |vpiFullName:work@mailbox::try_peek
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::try_peek), line:24:14, endln:24:17
+  |vpiIODecl:
+  \_io_decl: (message), line:24:31, endln:24:38
+    |vpiParent:
+    \_function: (work@mailbox::try_peek), line:24:5, endln:25:16
+    |vpiDirection:6
+    |vpiName:message
+\_int_typespec: , line:24:14, endln:24:17
+  |vpiSigned:1
+\_enum_typespec: (state), line:32:5, endln:32:74
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/FuncParam/builtin.sv, line:30:3, endln:52:11
+  |vpiName:state
+  |vpiEnumConst:
+  \_enum_const: (FINISHED), line:32:20, endln:32:28
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:FINISHED
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (RUNNING), line:32:30, endln:32:37
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:RUNNING
+    |INT:1
+    |vpiDecompile:1
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (WAITING), line:32:39, endln:32:46
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:WAITING
+    |INT:2
+    |vpiDecompile:2
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (SUSPENDED), line:32:48, endln:32:57
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:SUSPENDED
+    |INT:3
+    |vpiDecompile:3
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (KILLED), line:32:59, endln:32:65
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:KILLED
+    |INT:4
+    |vpiDecompile:4
+    |vpiSize:64
+\_function: (work@process::self), line:34:5, endln:34:11
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/FuncParam/builtin.sv, line:30:3, endln:52:11
+  |vpiName:self
+  |vpiFullName:work@process::self
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_class_var: (work@process::self), line:34:21, endln:34:28
+\_class_typespec: , line:34:21, endln:34:28
+  |vpiClassDefn:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/FuncParam/builtin.sv, line:30:3, endln:52:11
+\_function: (work@process::status), line:37:5, endln:38:16
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/FuncParam/builtin.sv, line:30:3, endln:52:11
+  |vpiName:status
+  |vpiFullName:work@process::status
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_enum_var: (work@process::status), line:37:14, endln:37:19
+\_function: (work@semaphore::new), line:57:5, endln:58:16
+  |vpiParent:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/FuncParam/builtin.sv, line:55:3, endln:69:11
+  |vpiName:new
+  |vpiFullName:work@semaphore::new
+  |vpiMethod:1
+  |vpiReturn:
+  \_class_var: (work@semaphore::new), line:57:22, endln:57:30
+  |vpiIODecl:
+  \_io_decl: (keyCount), line:57:22, endln:57:30
+    |vpiParent:
+    \_function: (work@semaphore::new), line:57:5, endln:58:16
+    |vpiDirection:1
+    |vpiName:keyCount
+    |vpiExpr:
+    \_constant: , line:57:33, endln:57:34
+    |vpiTypedef:
+    \_ref_typespec: (work@semaphore::new::keyCount)
+      |vpiParent:
+      \_io_decl: (keyCount), line:57:22, endln:57:30
+      |vpiFullName:work@semaphore::new::keyCount
+      |vpiActual:
+      \_int_typespec: , line:57:18, endln:57:21
+\_class_typespec: 
+  |vpiClassDefn:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/FuncParam/builtin.sv, line:55:3, endln:69:11
+\_int_typespec: , line:57:18, endln:57:21
+  |vpiSigned:1
+\_int_typespec: , line:60:14, endln:60:17
+  |vpiSigned:1
+\_int_typespec: , line:63:14, endln:63:17
+  |vpiSigned:1
+\_function: (work@semaphore::try_get), line:66:5, endln:67:16
+  |vpiParent:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/FuncParam/builtin.sv, line:55:3, endln:69:11
+  |vpiName:try_get
+  |vpiFullName:work@semaphore::try_get
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@semaphore::try_get), line:66:14, endln:66:17
+  |vpiIODecl:
+  \_io_decl: (keyCount), line:66:30, endln:66:38
+    |vpiParent:
+    \_function: (work@semaphore::try_get), line:66:5, endln:67:16
+    |vpiDirection:1
+    |vpiName:keyCount
+    |vpiExpr:
+    \_constant: , line:66:41, endln:66:42
+    |vpiTypedef:
+    \_ref_typespec: (work@semaphore::try_get::keyCount)
+      |vpiParent:
+      \_io_decl: (keyCount), line:66:30, endln:66:38
+      |vpiFullName:work@semaphore::try_get::keyCount
+      |vpiActual:
+      \_int_typespec: , line:66:26, endln:66:29
+\_int_typespec: , line:66:14, endln:66:17
+  |vpiSigned:1
+\_int_typespec: , line:66:26, endln:66:29
+  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

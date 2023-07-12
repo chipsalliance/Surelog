@@ -94,6 +94,7 @@ io_decl                                                3
 logic_typespec                                         1
 module_inst                                            2
 range                                                  2
+ref_typespec                                           3
 string_typespec                                        1
 task                                                   1
 === UHDM Object Stats End ===
@@ -107,6 +108,7 @@ io_decl                                                6
 logic_typespec                                         1
 module_inst                                            2
 range                                                  3
+ref_typespec                                           6
 string_typespec                                        1
 task                                                   2
 === UHDM Object Stats End ===
@@ -142,7 +144,12 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:file
       |vpiTypedef:
-      \_string_typespec: , line:3:11, endln:3:17
+      \_ref_typespec: (work@top.simutil_memload.file)
+        |vpiParent:
+        \_io_decl: (file), line:3:18, endln:3:22
+        |vpiFullName:work@top.simutil_memload.file
+        |vpiActual:
+        \_string_typespec: , line:3:11, endln:3:17
     |vpiIODecl:
     \_io_decl: (files), line:4:15, endln:4:20
       |vpiParent:
@@ -170,8 +177,12 @@ design: (work@top)
           |UINT:0
           |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:4:11, endln:4:14
-        |vpiSigned:1
+      \_ref_typespec: (work@top.simutil_memload.files)
+        |vpiParent:
+        \_io_decl: (files), line:4:15, endln:4:20
+        |vpiFullName:work@top.simutil_memload.files
+        |vpiActual:
+        \_int_typespec: , line:4:11, endln:4:14
     |vpiIODecl:
     \_io_decl: (implic), line:5:18, endln:5:24
       |vpiParent:
@@ -179,27 +190,12 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:implic
       |vpiTypedef:
-      \_logic_typespec: , line:5:11, endln:5:16
-        |vpiRange:
-        \_range: , line:5:11, endln:5:16
-          |vpiParent:
-          \_logic_typespec: , line:5:11, endln:5:16
-          |vpiLeftRange:
-          \_constant: , line:5:12, endln:5:13
-            |vpiParent:
-            \_range: , line:5:11, endln:5:16
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:5:14, endln:5:15
-            |vpiParent:
-            \_range: , line:5:11, endln:5:16
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_typespec: (work@top.simutil_memload.implic)
+        |vpiParent:
+        \_io_decl: (implic), line:5:18, endln:5:24
+        |vpiFullName:work@top.simutil_memload.implic
+        |vpiActual:
+        \_logic_typespec: , line:5:11, endln:5:16
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TaskDeclTypes/dut.sv, line:1:1, endln:7:10
 |uhdmtopModules:
@@ -221,7 +217,12 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:file
       |vpiTypedef:
-      \_string_typespec: , line:3:11, endln:3:17
+      \_ref_typespec: (work@top.simutil_memload.file)
+        |vpiParent:
+        \_io_decl: (file), line:3:18, endln:3:22
+        |vpiFullName:work@top.simutil_memload.file
+        |vpiActual:
+        \_string_typespec: , line:3:11, endln:3:17
     |vpiIODecl:
     \_io_decl: (files), line:4:15, endln:4:20
       |vpiParent:
@@ -237,7 +238,12 @@ design: (work@top)
         |vpiRightRange:
         \_constant: , line:4:25, endln:4:26
       |vpiTypedef:
-      \_int_typespec: , line:4:11, endln:4:14
+      \_ref_typespec: (work@top.simutil_memload.files)
+        |vpiParent:
+        \_io_decl: (files), line:4:15, endln:4:20
+        |vpiFullName:work@top.simutil_memload.files
+        |vpiActual:
+        \_int_typespec: , line:4:11, endln:4:14
     |vpiIODecl:
     \_io_decl: (implic), line:5:18, endln:5:24
       |vpiParent:
@@ -245,10 +251,40 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:implic
       |vpiTypedef:
-      \_logic_typespec: , line:5:11, endln:5:16
+      \_ref_typespec: (work@top.simutil_memload.implic)
+        |vpiParent:
+        \_io_decl: (implic), line:5:18, endln:5:24
+        |vpiFullName:work@top.simutil_memload.implic
+        |vpiActual:
+        \_logic_typespec: , line:5:11, endln:5:16
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TaskDeclTypes/dut.sv, line:1:1, endln:7:10
   |vpiTopModule:1
+\_weaklyReferenced:
+\_string_typespec: , line:3:11, endln:3:17
+\_int_typespec: , line:4:11, endln:4:14
+  |vpiSigned:1
+\_logic_typespec: , line:5:11, endln:5:16
+  |vpiRange:
+  \_range: , line:5:11, endln:5:16
+    |vpiParent:
+    \_logic_typespec: , line:5:11, endln:5:16
+    |vpiLeftRange:
+    \_constant: , line:5:12, endln:5:13
+      |vpiParent:
+      \_range: , line:5:11, endln:5:16
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:14, endln:5:15
+      |vpiParent:
+      \_range: , line:5:11, endln:5:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

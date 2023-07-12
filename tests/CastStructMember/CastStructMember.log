@@ -147,40 +147,42 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              25
+constant                                              21
 cont_assign                                            4
 design                                                 1
 hier_path                                              2
-int_typespec                                           4
+int_typespec                                           1
 logic_net                                              6
-logic_typespec                                         6
+logic_typespec                                         4
 module_inst                                            3
 operation                                              8
 param_assign                                           2
 parameter                                              2
-range                                                  8
+range                                                  6
 ref_obj                                                4
-struct_typespec                                        3
-typespec_member                                        3
+ref_typespec                                          16
+struct_typespec                                        1
+typespec_member                                        1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              25
+constant                                              21
 cont_assign                                            6
 design                                                 1
 hier_path                                              2
-int_typespec                                           4
+int_typespec                                           1
 logic_net                                              6
-logic_typespec                                         6
+logic_typespec                                         4
 module_inst                                            3
 operation                                             10
 param_assign                                           2
 parameter                                              2
-range                                                  8
+range                                                  6
 ref_obj                                                4
-struct_typespec                                        3
-typespec_member                                        3
+ref_typespec                                          18
+struct_typespec                                        1
+typespec_member                                        1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/CastStructMember/slpp_all/surelog.uhdm ...
 
@@ -204,27 +206,12 @@ design: (work@Foo)
     |vpiParent:
     \_module_inst: work@Foo (work@Foo), file:${SURELOG_DIR}/tests/CastStructMember/dut.sv, line:6:1, endln:10:10
     |vpiTypespec:
-    \_struct_typespec: (width_t), line:2:9, endln:4:2
+    \_ref_typespec: (work@Foo.w)
       |vpiParent:
-      \_design: (work@Foo)
-      |vpiName:width_t
-      |vpiInstance:
-      \_design: (work@Foo)
-      |vpiTypespecMember:
-      \_typespec_member: (WIDTH), line:3:7, endln:3:12
-        |vpiParent:
-        \_struct_typespec: (width_t), line:2:9, endln:4:2
-        |vpiName:WIDTH
-        |vpiTypespec:
-        \_int_typespec: , line:3:3, endln:3:6
-          |vpiParent:
-          \_typespec_member: (WIDTH), line:3:7, endln:3:12
-          |vpiSigned:1
-        |vpiRefFile:${SURELOG_DIR}/tests/CastStructMember/dut.sv
-        |vpiRefLineNo:3
-        |vpiRefColumnNo:3
-        |vpiRefEndLineNo:3
-        |vpiRefEndColumnNo:6
+      \_parameter: (work@Foo.w), line:7:22, endln:7:23
+      |vpiFullName:work@Foo.w
+      |vpiActual:
+      \_struct_typespec: (width_t), line:2:9, endln:4:2
     |vpiLocalParam:1
     |vpiName:w
     |vpiFullName:work@Foo.w
@@ -237,7 +224,12 @@ design: (work@Foo)
       |vpiParent:
       \_param_assign: , line:7:22, endln:7:38
       |vpiTypespec:
-      \_struct_typespec: (width_t), line:2:9, endln:4:2
+      \_ref_typespec: (work@Foo)
+        |vpiParent:
+        \_operation: , line:7:26, endln:7:38
+        |vpiFullName:work@Foo
+        |vpiActual:
+        \_struct_typespec: (width_t), line:2:9, endln:4:2
       |vpiOpType:67
       |vpiOperand:
       \_operation: , line:7:34, endln:7:38
@@ -258,27 +250,12 @@ design: (work@Foo)
     |vpiParent:
     \_module_inst: work@Foo (work@Foo), file:${SURELOG_DIR}/tests/CastStructMember/dut.sv, line:6:1, endln:10:10
     |vpiTypespec:
-    \_logic_typespec: , line:8:3, endln:8:14
-      |vpiRange:
-      \_range: , line:8:8, endln:8:14
-        |vpiParent:
-        \_logic_typespec: , line:8:3, endln:8:14
-        |vpiLeftRange:
-        \_constant: , line:8:9, endln:8:11
-          |vpiParent:
-          \_range: , line:8:8, endln:8:14
-          |vpiDecompile:31
-          |vpiSize:64
-          |UINT:31
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:8:12, endln:8:13
-          |vpiParent:
-          \_range: , line:8:8, endln:8:14
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@Foo.t1)
+      |vpiParent:
+      \_logic_net: (work@Foo.t1), line:8:15, endln:8:17
+      |vpiFullName:work@Foo.t1
+      |vpiActual:
+      \_logic_typespec: , line:8:3, endln:8:14
     |vpiName:t1
     |vpiFullName:work@Foo.t1
     |vpiNetType:1
@@ -287,32 +264,39 @@ design: (work@Foo)
     |vpiParent:
     \_module_inst: work@Foo (work@Foo), file:${SURELOG_DIR}/tests/CastStructMember/dut.sv, line:6:1, endln:10:10
     |vpiTypespec:
-    \_logic_typespec: , line:9:3, endln:9:14
-      |vpiRange:
-      \_range: , line:9:8, endln:9:14
-        |vpiParent:
-        \_logic_typespec: , line:9:3, endln:9:14
-        |vpiLeftRange:
-        \_constant: , line:9:9, endln:9:11
-          |vpiParent:
-          \_range: , line:9:8, endln:9:14
-          |vpiDecompile:31
-          |vpiSize:64
-          |UINT:31
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:9:12, endln:9:13
-          |vpiParent:
-          \_range: , line:9:8, endln:9:14
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@Foo.t2)
+      |vpiParent:
+      \_logic_net: (work@Foo.t2), line:9:15, endln:9:17
+      |vpiFullName:work@Foo.t2
+      |vpiActual:
+      \_logic_typespec: , line:9:3, endln:9:14
     |vpiName:t2
     |vpiFullName:work@Foo.t2
     |vpiNetType:1
 |vpiTypedef:
 \_struct_typespec: (width_t), line:2:9, endln:4:2
+  |vpiParent:
+  \_design: (work@Foo)
+  |vpiName:width_t
+  |vpiInstance:
+  \_design: (work@Foo)
+  |vpiTypespecMember:
+  \_typespec_member: (WIDTH), line:3:7, endln:3:12
+    |vpiParent:
+    \_struct_typespec: (width_t), line:2:9, endln:4:2
+    |vpiName:WIDTH
+    |vpiTypespec:
+    \_ref_typespec: (width_t.WIDTH)
+      |vpiParent:
+      \_typespec_member: (WIDTH), line:3:7, endln:3:12
+      |vpiFullName:width_t.WIDTH
+      |vpiActual:
+      \_int_typespec: , line:3:3, endln:3:6
+    |vpiRefFile:${SURELOG_DIR}/tests/CastStructMember/dut.sv
+    |vpiRefLineNo:3
+    |vpiRefColumnNo:3
+    |vpiRefEndLineNo:3
+    |vpiRefEndColumnNo:6
 |uhdmtopModules:
 \_module_inst: work@Foo (work@Foo), file:${SURELOG_DIR}/tests/CastStructMember/dut.sv, line:6:1, endln:10:10
   |vpiName:work@Foo
@@ -321,27 +305,12 @@ design: (work@Foo)
     |vpiParent:
     \_module_inst: work@Foo (work@Foo), file:${SURELOG_DIR}/tests/CastStructMember/dut.sv, line:6:1, endln:10:10
     |vpiTypespec:
-    \_struct_typespec: (width_t), line:2:9, endln:4:2
+    \_ref_typespec: (work@Foo.w)
       |vpiParent:
       \_parameter: (work@Foo.w), line:7:22, endln:7:23
-      |vpiName:width_t
-      |vpiInstance:
-      \_design: (work@Foo)
-      |vpiTypespecMember:
-      \_typespec_member: (WIDTH), line:3:7, endln:3:12
-        |vpiParent:
-        \_struct_typespec: (width_t), line:2:9, endln:4:2
-        |vpiName:WIDTH
-        |vpiTypespec:
-        \_int_typespec: , line:3:3, endln:3:6
-          |vpiParent:
-          \_typespec_member: (WIDTH), line:3:7, endln:3:12
-          |vpiSigned:1
-        |vpiRefFile:${SURELOG_DIR}/tests/CastStructMember/dut.sv
-        |vpiRefLineNo:3
-        |vpiRefColumnNo:3
-        |vpiRefEndLineNo:3
-        |vpiRefEndColumnNo:6
+      |vpiFullName:work@Foo.w
+      |vpiActual:
+      \_struct_typespec: (width_t), line:2:9, endln:4:2
     |vpiLocalParam:1
     |vpiName:w
     |vpiFullName:work@Foo.w
@@ -354,7 +323,12 @@ design: (work@Foo)
       |vpiParent:
       \_param_assign: , line:7:22, endln:7:38
       |vpiTypespec:
-      \_struct_typespec: (width_t), line:2:9, endln:4:2
+      \_ref_typespec: (work@Foo)
+        |vpiParent:
+        \_operation: , line:7:26, endln:7:38
+        |vpiFullName:work@Foo
+        |vpiActual:
+        \_struct_typespec: (width_t), line:2:9, endln:4:2
       |vpiOpType:67
       |vpiOperand:
       \_operation: , line:7:34, endln:7:38
@@ -376,29 +350,12 @@ design: (work@Foo)
     |vpiParent:
     \_module_inst: work@Foo (work@Foo), file:${SURELOG_DIR}/tests/CastStructMember/dut.sv, line:6:1, endln:10:10
     |vpiTypespec:
-    \_logic_typespec: , line:8:3, endln:8:14
+    \_ref_typespec: (work@Foo.t1)
       |vpiParent:
       \_logic_net: (work@Foo.t1), line:8:15, endln:8:17
-      |vpiRange:
-      \_range: , line:8:8, endln:8:14
-        |vpiParent:
-        \_logic_typespec: , line:8:3, endln:8:14
-        |vpiLeftRange:
-        \_constant: , line:8:9, endln:8:11
-          |vpiParent:
-          \_range: , line:8:8, endln:8:14
-          |vpiDecompile:31
-          |vpiSize:64
-          |UINT:31
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:8:12, endln:8:13
-          |vpiParent:
-          \_range: , line:8:8, endln:8:14
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@Foo.t1
+      |vpiActual:
+      \_logic_typespec: , line:8:3, endln:8:14
     |vpiName:t1
     |vpiFullName:work@Foo.t1
     |vpiNetType:1
@@ -407,29 +364,12 @@ design: (work@Foo)
     |vpiParent:
     \_module_inst: work@Foo (work@Foo), file:${SURELOG_DIR}/tests/CastStructMember/dut.sv, line:6:1, endln:10:10
     |vpiTypespec:
-    \_logic_typespec: , line:9:3, endln:9:14
+    \_ref_typespec: (work@Foo.t2)
       |vpiParent:
       \_logic_net: (work@Foo.t2), line:9:15, endln:9:17
-      |vpiRange:
-      \_range: , line:9:8, endln:9:14
-        |vpiParent:
-        \_logic_typespec: , line:9:3, endln:9:14
-        |vpiLeftRange:
-        \_constant: , line:9:9, endln:9:11
-          |vpiParent:
-          \_range: , line:9:8, endln:9:14
-          |vpiDecompile:31
-          |vpiSize:64
-          |UINT:31
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:9:12, endln:9:13
-          |vpiParent:
-          \_range: , line:9:8, endln:9:14
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@Foo.t2
+      |vpiActual:
+      \_logic_typespec: , line:9:3, endln:9:14
     |vpiName:t2
     |vpiFullName:work@Foo.t2
     |vpiNetType:1
@@ -456,27 +396,12 @@ design: (work@Foo)
       |vpiParent:
       \_cont_assign: , line:9:15, endln:9:17
       |vpiTypespec:
-      \_struct_typespec: (width_t), line:2:9, endln:4:2
+      \_ref_typespec: (work@Foo)
         |vpiParent:
         \_operation: , line:9:20, endln:9:25
-        |vpiName:width_t
-        |vpiInstance:
-        \_design: (work@Foo)
-        |vpiTypespecMember:
-        \_typespec_member: (WIDTH), line:3:7, endln:3:12
-          |vpiParent:
-          \_struct_typespec: (width_t), line:2:9, endln:4:2
-          |vpiName:WIDTH
-          |vpiTypespec:
-          \_int_typespec: , line:3:3, endln:3:6
-            |vpiParent:
-            \_typespec_member: (WIDTH), line:3:7, endln:3:12
-            |vpiSigned:1
-          |vpiRefFile:${SURELOG_DIR}/tests/CastStructMember/dut.sv
-          |vpiRefLineNo:3
-          |vpiRefColumnNo:3
-          |vpiRefEndLineNo:3
-          |vpiRefEndColumnNo:6
+        |vpiFullName:work@Foo
+        |vpiActual:
+        \_struct_typespec: (width_t), line:2:9, endln:4:2
       |vpiOpType:67
       |vpiOperand:
       \_constant: , line:9:23, endln:9:24
@@ -488,6 +413,128 @@ design: (work@Foo)
         |vpiConstType:9
     |vpiLhs:
     \_logic_net: (work@Foo.t2), line:9:15, endln:9:17
+\_weaklyReferenced:
+\_int_typespec: , line:3:3, endln:3:6
+  |vpiParent:
+  \_typespec_member: (WIDTH), line:3:7, endln:3:12
+  |vpiSigned:1
+\_logic_typespec: , line:8:3, endln:8:14
+  |vpiRange:
+  \_range: , line:8:8, endln:8:14
+    |vpiParent:
+    \_logic_typespec: , line:8:3, endln:8:14
+    |vpiLeftRange:
+    \_constant: , line:8:9, endln:8:11
+      |vpiParent:
+      \_range: , line:8:8, endln:8:14
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:8:12, endln:8:13
+      |vpiParent:
+      \_range: , line:8:8, endln:8:14
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:9:3, endln:9:14
+  |vpiRange:
+  \_range: , line:9:8, endln:9:14
+    |vpiParent:
+    \_logic_typespec: , line:9:3, endln:9:14
+    |vpiLeftRange:
+    \_constant: , line:9:9, endln:9:11
+      |vpiParent:
+      \_range: , line:9:8, endln:9:14
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:9:12, endln:9:13
+      |vpiParent:
+      \_range: , line:9:8, endln:9:14
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:8:3, endln:8:14
+  |vpiRange:
+  \_range: , line:8:8, endln:8:14
+    |vpiParent:
+    \_logic_typespec: , line:8:3, endln:8:14
+    |vpiLeftRange:
+    \_constant: , line:8:9, endln:8:11
+      |vpiParent:
+      \_range: , line:8:8, endln:8:14
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:8:12, endln:8:13
+      |vpiParent:
+      \_range: , line:8:8, endln:8:14
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:9:3, endln:9:14
+  |vpiRange:
+  \_range: , line:9:8, endln:9:14
+    |vpiParent:
+    \_logic_typespec: , line:9:3, endln:9:14
+    |vpiLeftRange:
+    \_constant: , line:9:9, endln:9:11
+      |vpiParent:
+      \_range: , line:9:8, endln:9:14
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:9:12, endln:9:13
+      |vpiParent:
+      \_range: , line:9:8, endln:9:14
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_operation: , line:9:20, endln:9:25
+  |vpiParent:
+  \_cont_assign: , line:9:15, endln:9:17
+  |vpiTypespec:
+  \_ref_typespec: (work@Foo)
+    |vpiParent:
+    \_operation: , line:9:20, endln:9:25
+    |vpiFullName:work@Foo
+    |vpiActual:
+    \_struct_typespec: (width_t), line:2:9, endln:4:2
+  |vpiOpType:67
+  |vpiOperand:
+  \_constant: , line:9:23, endln:9:24
+\_cont_assign: , line:9:15, endln:9:17
+  |vpiParent:
+  \_module_inst: work@Foo (work@Foo), file:${SURELOG_DIR}/tests/CastStructMember/dut.sv, line:6:1, endln:10:10
+  |vpiNetDeclAssign:1
+  |vpiRhs:
+  \_operation: , line:9:20, endln:9:25
+  |vpiLhs:
+  \_logic_net: (work@Foo.t2), line:9:15, endln:9:17
+    |vpiParent:
+    \_cont_assign: , line:9:15, endln:9:17
+    |vpiTypespec:
+    \_ref_typespec: (work@Foo.t2)
+      |vpiParent:
+      \_logic_net: (work@Foo.t2), line:9:15, endln:9:17
+      |vpiFullName:work@Foo.t2
+      |vpiActual:
+      \_logic_typespec: , line:9:3, endln:9:14
+    |vpiName:t2
+    |vpiFullName:work@Foo.t2
+    |vpiNetType:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -424,7 +424,7 @@ bit_select                                            15
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              72
+constant                                              58
 cont_assign                                           15
 design                                                 1
 enum_const                                             5
@@ -438,7 +438,7 @@ int_typespec                                          16
 int_var                                                4
 io_decl                                               11
 logic_net                                              2
-logic_typespec                                         8
+logic_typespec                                         1
 logic_var                                              1
 module_inst                                            4
 named_begin                                            1
@@ -446,13 +446,14 @@ operation                                             28
 package                                                2
 parameter                                              7
 port                                                   2
-range                                                 11
+range                                                  4
 ref_obj                                               19
+ref_typespec                                          43
 ref_var                                                1
 struct_net                                             1
-struct_typespec                                        8
+struct_typespec                                        1
 task                                                   9
-typespec_member                                        8
+typespec_member                                        1
 unsupported_typespec                                   2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -465,7 +466,7 @@ bit_select                                            22
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              72
+constant                                              58
 cont_assign                                           22
 design                                                 1
 enum_const                                            10
@@ -479,7 +480,7 @@ int_typespec                                          16
 int_var                                                4
 io_decl                                               22
 logic_net                                              2
-logic_typespec                                         8
+logic_typespec                                         1
 logic_var                                              1
 module_inst                                            4
 named_begin                                            1
@@ -487,13 +488,14 @@ operation                                             35
 package                                                2
 parameter                                              7
 port                                                   3
-range                                                 11
+range                                                  4
 ref_obj                                               27
+ref_typespec                                          63
 ref_var                                                1
 struct_net                                             1
-struct_typespec                                        8
+struct_typespec                                        1
 task                                                  18
-typespec_member                                        8
+typespec_member                                        1
 unsupported_typespec                                   2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/UnpackPort/slpp_all/surelog.uhdm ...
@@ -570,9 +572,12 @@ design: (work@dut)
       |vpiParent:
       \_function: (work@mailbox::new), line:3:5, endln:4:16
       |vpiTypespec:
-      \_class_typespec: 
-        |vpiClassDefn:
-        \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnpackPort/builtin.sv, line:1:3, endln:27:11
+      \_ref_typespec: (work@mailbox::new)
+        |vpiParent:
+        \_class_var: (work@mailbox::new), line:3:23, endln:3:28
+        |vpiFullName:work@mailbox::new
+        |vpiActual:
+        \_class_typespec: 
       |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound), line:3:23, endln:3:28
@@ -587,8 +592,12 @@ design: (work@dut)
         |UINT:0
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:3:19, endln:3:22
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::new::bound)
+        |vpiParent:
+        \_io_decl: (bound), line:3:23, endln:3:28
+        |vpiFullName:work@mailbox::new::bound
+        |vpiActual:
+        \_int_typespec: , line:3:19, endln:3:22
   |vpiMethod:
   \_function: (work@mailbox::num), line:6:5, endln:7:16
     |vpiParent:
@@ -602,8 +611,12 @@ design: (work@dut)
       |vpiParent:
       \_function: (work@mailbox::num), line:6:5, endln:7:16
       |vpiTypespec:
-      \_int_typespec: , line:6:14, endln:6:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::num)
+        |vpiParent:
+        \_int_var: (work@mailbox::num), line:6:14, endln:6:17
+        |vpiFullName:work@mailbox::num
+        |vpiActual:
+        \_int_typespec: , line:6:14, endln:6:17
       |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
@@ -666,8 +679,12 @@ design: (work@dut)
       |vpiParent:
       \_function: (work@mailbox::try_get), line:18:5, endln:19:16
       |vpiTypespec:
-      \_int_typespec: , line:18:14, endln:18:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::try_get)
+        |vpiParent:
+        \_int_var: (work@mailbox::try_get), line:18:14, endln:18:17
+        |vpiFullName:work@mailbox::try_get
+        |vpiActual:
+        \_int_typespec: , line:18:14, endln:18:17
       |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
@@ -703,8 +720,12 @@ design: (work@dut)
       |vpiParent:
       \_function: (work@mailbox::try_peek), line:24:5, endln:25:16
       |vpiTypespec:
-      \_int_typespec: , line:24:14, endln:24:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::try_peek)
+        |vpiParent:
+        \_int_var: (work@mailbox::try_peek), line:24:14, endln:24:17
+        |vpiFullName:work@mailbox::try_peek
+        |vpiActual:
+        \_int_typespec: , line:24:14, endln:24:17
       |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
@@ -776,9 +797,12 @@ design: (work@dut)
       |vpiParent:
       \_function: (work@process::self), line:34:5, endln:34:11
       |vpiTypespec:
-      \_class_typespec: , line:34:21, endln:34:28
-        |vpiClassDefn:
-        \_class_defn: (work@process), file:${SURELOG_DIR}/tests/UnpackPort/builtin.sv, line:30:3, endln:52:11
+      \_ref_typespec: (work@process::self)
+        |vpiParent:
+        \_class_var: (work@process::self), line:34:21, endln:34:28
+        |vpiFullName:work@process::self
+        |vpiActual:
+        \_class_typespec: , line:34:21, endln:34:28
       |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status), line:37:5, endln:38:16
@@ -793,50 +817,12 @@ design: (work@dut)
       |vpiParent:
       \_function: (work@process::status), line:37:5, endln:38:16
       |vpiTypespec:
-      \_enum_typespec: (state), line:32:5, endln:32:74
+      \_ref_typespec: (work@process::status)
         |vpiParent:
-        \_class_defn: (work@process), file:${SURELOG_DIR}/tests/UnpackPort/builtin.sv, line:30:3, endln:52:11
-        |vpiName:state
-        |vpiEnumConst:
-        \_enum_const: (FINISHED), line:32:20, endln:32:28
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:FINISHED
-          |INT:0
-          |vpiDecompile:0
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (RUNNING), line:32:30, endln:32:37
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:RUNNING
-          |INT:1
-          |vpiDecompile:1
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (WAITING), line:32:39, endln:32:46
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:WAITING
-          |INT:2
-          |vpiDecompile:2
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (SUSPENDED), line:32:48, endln:32:57
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:SUSPENDED
-          |INT:3
-          |vpiDecompile:3
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (KILLED), line:32:59, endln:32:65
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:KILLED
-          |INT:4
-          |vpiDecompile:4
-          |vpiSize:64
+        \_enum_var: (work@process::status), line:37:14, endln:37:19
+        |vpiFullName:work@process::status
+        |vpiActual:
+        \_enum_typespec: (state), line:32:5, endln:32:74
       |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill), line:40:5, endln:41:12
@@ -887,9 +873,12 @@ design: (work@dut)
       |vpiParent:
       \_function: (work@semaphore::new), line:57:5, endln:58:16
       |vpiTypespec:
-      \_class_typespec: 
-        |vpiClassDefn:
-        \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/UnpackPort/builtin.sv, line:55:3, endln:69:11
+      \_ref_typespec: (work@semaphore::new)
+        |vpiParent:
+        \_class_var: (work@semaphore::new), line:57:22, endln:57:30
+        |vpiFullName:work@semaphore::new
+        |vpiActual:
+        \_class_typespec: 
       |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount), line:57:22, endln:57:30
@@ -904,8 +893,12 @@ design: (work@dut)
         |UINT:0
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:57:18, endln:57:21
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::new::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:57:22, endln:57:30
+        |vpiFullName:work@semaphore::new::keyCount
+        |vpiActual:
+        \_int_typespec: , line:57:18, endln:57:21
   |vpiMethod:
   \_task: (work@semaphore::put), line:60:5, endln:61:12
     |vpiParent:
@@ -927,8 +920,12 @@ design: (work@dut)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:60:14, endln:60:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::put::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:60:18, endln:60:26
+        |vpiFullName:work@semaphore::put::keyCount
+        |vpiActual:
+        \_int_typespec: , line:60:14, endln:60:17
   |vpiMethod:
   \_task: (work@semaphore::get), line:63:5, endln:64:12
     |vpiParent:
@@ -950,8 +947,12 @@ design: (work@dut)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:63:14, endln:63:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::get::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:63:18, endln:63:26
+        |vpiFullName:work@semaphore::get::keyCount
+        |vpiActual:
+        \_int_typespec: , line:63:14, endln:63:17
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:66:5, endln:67:16
     |vpiParent:
@@ -965,8 +966,12 @@ design: (work@dut)
       |vpiParent:
       \_function: (work@semaphore::try_get), line:66:5, endln:67:16
       |vpiTypespec:
-      \_int_typespec: , line:66:14, endln:66:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::try_get)
+        |vpiParent:
+        \_int_var: (work@semaphore::try_get), line:66:14, endln:66:17
+        |vpiFullName:work@semaphore::try_get
+        |vpiActual:
+        \_int_typespec: , line:66:14, endln:66:17
       |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
@@ -982,8 +987,12 @@ design: (work@dut)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:66:26, endln:66:29
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::try_get::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:66:30, endln:66:38
+        |vpiFullName:work@semaphore::try_get::keyCount
+        |vpiActual:
+        \_int_typespec: , line:66:26, endln:66:29
 |uhdmallModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
   |vpiParent:
@@ -1003,29 +1012,12 @@ design: (work@dut)
       \_struct_typespec: (struct2), line:2:11, endln:4:4
       |vpiName:third
       |vpiTypespec:
-      \_logic_typespec: , line:3:7, endln:3:18
+      \_ref_typespec: (work@dut.struct2.third)
         |vpiParent:
         \_typespec_member: (third), line:3:19, endln:3:24
-        |vpiRange:
-        \_range: , line:3:13, endln:3:18
-          |vpiParent:
-          \_logic_typespec: , line:3:7, endln:3:18
-          |vpiLeftRange:
-          \_constant: , line:3:14, endln:3:15
-            |vpiParent:
-            \_range: , line:3:13, endln:3:18
-            |vpiDecompile:5
-            |vpiSize:64
-            |UINT:5
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:3:16, endln:3:17
-            |vpiParent:
-            \_range: , line:3:13, endln:3:18
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@dut.struct2.third
+        |vpiActual:
+        \_logic_typespec: , line:3:7, endln:3:18
       |vpiRefFile:${SURELOG_DIR}/tests/UnpackPort/dut.sv
       |vpiRefLineNo:3
       |vpiRefColumnNo:7
@@ -1060,42 +1052,12 @@ design: (work@dut)
       |vpiActual:
       \_logic_net: (work@dut.var3), line:1:12, endln:1:16
     |vpiTypedef:
-    \_array_typespec: , line:6:10, endln:6:25
+    \_ref_typespec: (work@dut.var3)
       |vpiParent:
       \_port: (var3), line:1:12, endln:1:16
-      |vpiArrayType:1
-      |vpiRange:
-      \_range: , line:6:24, endln:6:25
-        |vpiParent:
-        \_array_typespec: , line:6:10, endln:6:25
-        |vpiLeftRange:
-        \_constant: 
-          |vpiParent:
-          \_range: , line:6:24, endln:6:25
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-        |vpiRightRange:
-        \_operation: , line:6:24, endln:6:25
-          |vpiParent:
-          \_range: , line:6:24, endln:6:25
-          |vpiOpType:11
-          |vpiOperand:
-          \_constant: , line:6:24, endln:6:25
-            |vpiParent:
-            \_operation: , line:6:24, endln:6:25
-            |vpiDecompile:7
-            |vpiSize:64
-            |UINT:7
-            |vpiConstType:9
-          |vpiOperand:
-          \_constant: 
-            |vpiSize:64
-            |INT:1
-            |vpiConstType:7
-      |vpiElemTypespec:
-      \_struct_typespec: (struct2), line:2:11, endln:4:4
+      |vpiFullName:work@dut.var3
+      |vpiActual:
+      \_array_typespec: , line:6:10, endln:6:25
   |vpiGenStmt:
   \_gen_for: 
     |vpiParent:
@@ -1165,8 +1127,12 @@ design: (work@dut)
           |vpiParent:
           \_cont_assign: , line:9:14, endln:9:37
           |vpiTypespec:
-          \_unsupported_typespec: (struct2), line:9:24, endln:9:31
-            |vpiName:struct2
+          \_ref_typespec: (work@dut.g_fill)
+            |vpiParent:
+            \_operation: , line:9:24, endln:9:37
+            |vpiFullName:work@dut.g_fill
+            |vpiActual:
+            \_unsupported_typespec: (struct2), line:9:24, endln:9:31
           |vpiOpType:67
           |vpiOperand:
           \_constant: , line:9:33, endln:9:36
@@ -1237,7 +1203,12 @@ design: (work@dut)
       |vpiParent:
       \_array_net: (work@dut.var3), line:1:12, endln:1:16
       |vpiTypespec:
-      \_struct_typespec: (struct2), line:2:11, endln:4:4
+      \_ref_typespec: (work@dut.var3.var3)
+        |vpiParent:
+        \_struct_net: (work@dut.var3.var3), line:1:12, endln:6:26
+        |vpiFullName:work@dut.var3.var3
+        |vpiActual:
+        \_struct_typespec: (struct2), line:2:11, endln:4:4
       |vpiName:var3
       |vpiFullName:work@dut.var3.var3
   |vpiTopModule:1
@@ -1256,7 +1227,12 @@ design: (work@dut)
       |vpiActual:
       \_array_net: (work@dut.var3), line:1:12, endln:1:16
     |vpiTypedef:
-    \_struct_typespec: (struct2), line:2:11, endln:4:4
+    \_ref_typespec: (work@dut.var3)
+      |vpiParent:
+      \_port: (var3), line:1:12, endln:1:16
+      |vpiFullName:work@dut.var3
+      |vpiActual:
+      \_struct_typespec: (struct2), line:2:11, endln:4:4
     |vpiInstance:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
   |vpiGenScopeArray:
@@ -1276,7 +1252,12 @@ design: (work@dut)
         \_gen_scope: (work@dut.g_fill[0]), line:8:30, endln:10:6
         |UINT:0
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@dut.g_fill[0].i)
+          |vpiParent:
+          \_parameter: (work@dut.g_fill[0].i), line:8:0
+          |vpiFullName:work@dut.g_fill[0].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@dut.g_fill[0].i
@@ -1289,47 +1270,12 @@ design: (work@dut)
           |vpiParent:
           \_cont_assign: , line:9:14, endln:9:37
           |vpiTypespec:
-          \_struct_typespec: (struct2), line:2:11, endln:4:4
+          \_ref_typespec: (work@dut.g_fill[0])
             |vpiParent:
             \_operation: , line:9:24, endln:9:37
-            |vpiName:struct2
-            |vpiInstance:
-            \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
-            |vpiPacked:1
-            |vpiTypespecMember:
-            \_typespec_member: (third), line:3:19, endln:3:24
-              |vpiParent:
-              \_struct_typespec: (struct2), line:2:11, endln:4:4
-              |vpiName:third
-              |vpiTypespec:
-              \_logic_typespec: , line:3:7, endln:3:18
-                |vpiParent:
-                \_typespec_member: (third), line:3:19, endln:3:24
-                |vpiRange:
-                \_range: , line:3:13, endln:3:18
-                  |vpiParent:
-                  \_logic_typespec: , line:3:7, endln:3:18
-                  |vpiLeftRange:
-                  \_constant: , line:3:14, endln:3:15
-                    |vpiParent:
-                    \_range: , line:3:13, endln:3:18
-                    |vpiDecompile:5
-                    |vpiSize:64
-                    |UINT:5
-                    |vpiConstType:9
-                  |vpiRightRange:
-                  \_constant: , line:3:16, endln:3:17
-                    |vpiParent:
-                    \_range: , line:3:13, endln:3:18
-                    |vpiDecompile:0
-                    |vpiSize:64
-                    |UINT:0
-                    |vpiConstType:9
-              |vpiRefFile:${SURELOG_DIR}/tests/UnpackPort/dut.sv
-              |vpiRefLineNo:3
-              |vpiRefColumnNo:7
-              |vpiRefEndLineNo:3
-              |vpiRefEndColumnNo:18
+            |vpiFullName:work@dut.g_fill[0]
+            |vpiActual:
+            \_struct_typespec: (struct2), line:2:11, endln:4:4
           |vpiOpType:67
           |vpiOperand:
           \_constant: , line:9:33, endln:9:36
@@ -1372,7 +1318,12 @@ design: (work@dut)
         \_gen_scope: (work@dut.g_fill[1]), line:8:30, endln:10:6
         |UINT:1
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@dut.g_fill[1].i)
+          |vpiParent:
+          \_parameter: (work@dut.g_fill[1].i), line:8:0
+          |vpiFullName:work@dut.g_fill[1].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@dut.g_fill[1].i
@@ -1385,47 +1336,12 @@ design: (work@dut)
           |vpiParent:
           \_cont_assign: , line:9:14, endln:9:37
           |vpiTypespec:
-          \_struct_typespec: (struct2), line:2:11, endln:4:4
+          \_ref_typespec: (work@dut.g_fill[1])
             |vpiParent:
             \_operation: , line:9:24, endln:9:37
-            |vpiName:struct2
-            |vpiInstance:
-            \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
-            |vpiPacked:1
-            |vpiTypespecMember:
-            \_typespec_member: (third), line:3:19, endln:3:24
-              |vpiParent:
-              \_struct_typespec: (struct2), line:2:11, endln:4:4
-              |vpiName:third
-              |vpiTypespec:
-              \_logic_typespec: , line:3:7, endln:3:18
-                |vpiParent:
-                \_typespec_member: (third), line:3:19, endln:3:24
-                |vpiRange:
-                \_range: , line:3:13, endln:3:18
-                  |vpiParent:
-                  \_logic_typespec: , line:3:7, endln:3:18
-                  |vpiLeftRange:
-                  \_constant: , line:3:14, endln:3:15
-                    |vpiParent:
-                    \_range: , line:3:13, endln:3:18
-                    |vpiDecompile:5
-                    |vpiSize:64
-                    |UINT:5
-                    |vpiConstType:9
-                  |vpiRightRange:
-                  \_constant: , line:3:16, endln:3:17
-                    |vpiParent:
-                    \_range: , line:3:13, endln:3:18
-                    |vpiDecompile:0
-                    |vpiSize:64
-                    |UINT:0
-                    |vpiConstType:9
-              |vpiRefFile:${SURELOG_DIR}/tests/UnpackPort/dut.sv
-              |vpiRefLineNo:3
-              |vpiRefColumnNo:7
-              |vpiRefEndLineNo:3
-              |vpiRefEndColumnNo:18
+            |vpiFullName:work@dut.g_fill[1]
+            |vpiActual:
+            \_struct_typespec: (struct2), line:2:11, endln:4:4
           |vpiOpType:67
           |vpiOperand:
           \_constant: , line:9:33, endln:9:36
@@ -1468,7 +1384,12 @@ design: (work@dut)
         \_gen_scope: (work@dut.g_fill[2]), line:8:30, endln:10:6
         |UINT:2
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@dut.g_fill[2].i)
+          |vpiParent:
+          \_parameter: (work@dut.g_fill[2].i), line:8:0
+          |vpiFullName:work@dut.g_fill[2].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@dut.g_fill[2].i
@@ -1481,47 +1402,12 @@ design: (work@dut)
           |vpiParent:
           \_cont_assign: , line:9:14, endln:9:37
           |vpiTypespec:
-          \_struct_typespec: (struct2), line:2:11, endln:4:4
+          \_ref_typespec: (work@dut.g_fill[2])
             |vpiParent:
             \_operation: , line:9:24, endln:9:37
-            |vpiName:struct2
-            |vpiInstance:
-            \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
-            |vpiPacked:1
-            |vpiTypespecMember:
-            \_typespec_member: (third), line:3:19, endln:3:24
-              |vpiParent:
-              \_struct_typespec: (struct2), line:2:11, endln:4:4
-              |vpiName:third
-              |vpiTypespec:
-              \_logic_typespec: , line:3:7, endln:3:18
-                |vpiParent:
-                \_typespec_member: (third), line:3:19, endln:3:24
-                |vpiRange:
-                \_range: , line:3:13, endln:3:18
-                  |vpiParent:
-                  \_logic_typespec: , line:3:7, endln:3:18
-                  |vpiLeftRange:
-                  \_constant: , line:3:14, endln:3:15
-                    |vpiParent:
-                    \_range: , line:3:13, endln:3:18
-                    |vpiDecompile:5
-                    |vpiSize:64
-                    |UINT:5
-                    |vpiConstType:9
-                  |vpiRightRange:
-                  \_constant: , line:3:16, endln:3:17
-                    |vpiParent:
-                    \_range: , line:3:13, endln:3:18
-                    |vpiDecompile:0
-                    |vpiSize:64
-                    |UINT:0
-                    |vpiConstType:9
-              |vpiRefFile:${SURELOG_DIR}/tests/UnpackPort/dut.sv
-              |vpiRefLineNo:3
-              |vpiRefColumnNo:7
-              |vpiRefEndLineNo:3
-              |vpiRefEndColumnNo:18
+            |vpiFullName:work@dut.g_fill[2]
+            |vpiActual:
+            \_struct_typespec: (struct2), line:2:11, endln:4:4
           |vpiOpType:67
           |vpiOperand:
           \_constant: , line:9:33, endln:9:36
@@ -1564,7 +1450,12 @@ design: (work@dut)
         \_gen_scope: (work@dut.g_fill[3]), line:8:30, endln:10:6
         |UINT:3
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@dut.g_fill[3].i)
+          |vpiParent:
+          \_parameter: (work@dut.g_fill[3].i), line:8:0
+          |vpiFullName:work@dut.g_fill[3].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@dut.g_fill[3].i
@@ -1577,47 +1468,12 @@ design: (work@dut)
           |vpiParent:
           \_cont_assign: , line:9:14, endln:9:37
           |vpiTypespec:
-          \_struct_typespec: (struct2), line:2:11, endln:4:4
+          \_ref_typespec: (work@dut.g_fill[3])
             |vpiParent:
             \_operation: , line:9:24, endln:9:37
-            |vpiName:struct2
-            |vpiInstance:
-            \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
-            |vpiPacked:1
-            |vpiTypespecMember:
-            \_typespec_member: (third), line:3:19, endln:3:24
-              |vpiParent:
-              \_struct_typespec: (struct2), line:2:11, endln:4:4
-              |vpiName:third
-              |vpiTypespec:
-              \_logic_typespec: , line:3:7, endln:3:18
-                |vpiParent:
-                \_typespec_member: (third), line:3:19, endln:3:24
-                |vpiRange:
-                \_range: , line:3:13, endln:3:18
-                  |vpiParent:
-                  \_logic_typespec: , line:3:7, endln:3:18
-                  |vpiLeftRange:
-                  \_constant: , line:3:14, endln:3:15
-                    |vpiParent:
-                    \_range: , line:3:13, endln:3:18
-                    |vpiDecompile:5
-                    |vpiSize:64
-                    |UINT:5
-                    |vpiConstType:9
-                  |vpiRightRange:
-                  \_constant: , line:3:16, endln:3:17
-                    |vpiParent:
-                    \_range: , line:3:13, endln:3:18
-                    |vpiDecompile:0
-                    |vpiSize:64
-                    |UINT:0
-                    |vpiConstType:9
-              |vpiRefFile:${SURELOG_DIR}/tests/UnpackPort/dut.sv
-              |vpiRefLineNo:3
-              |vpiRefColumnNo:7
-              |vpiRefEndLineNo:3
-              |vpiRefEndColumnNo:18
+            |vpiFullName:work@dut.g_fill[3]
+            |vpiActual:
+            \_struct_typespec: (struct2), line:2:11, endln:4:4
           |vpiOpType:67
           |vpiOperand:
           \_constant: , line:9:33, endln:9:36
@@ -1660,7 +1516,12 @@ design: (work@dut)
         \_gen_scope: (work@dut.g_fill[4]), line:8:30, endln:10:6
         |UINT:4
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@dut.g_fill[4].i)
+          |vpiParent:
+          \_parameter: (work@dut.g_fill[4].i), line:8:0
+          |vpiFullName:work@dut.g_fill[4].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@dut.g_fill[4].i
@@ -1673,47 +1534,12 @@ design: (work@dut)
           |vpiParent:
           \_cont_assign: , line:9:14, endln:9:37
           |vpiTypespec:
-          \_struct_typespec: (struct2), line:2:11, endln:4:4
+          \_ref_typespec: (work@dut.g_fill[4])
             |vpiParent:
             \_operation: , line:9:24, endln:9:37
-            |vpiName:struct2
-            |vpiInstance:
-            \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
-            |vpiPacked:1
-            |vpiTypespecMember:
-            \_typespec_member: (third), line:3:19, endln:3:24
-              |vpiParent:
-              \_struct_typespec: (struct2), line:2:11, endln:4:4
-              |vpiName:third
-              |vpiTypespec:
-              \_logic_typespec: , line:3:7, endln:3:18
-                |vpiParent:
-                \_typespec_member: (third), line:3:19, endln:3:24
-                |vpiRange:
-                \_range: , line:3:13, endln:3:18
-                  |vpiParent:
-                  \_logic_typespec: , line:3:7, endln:3:18
-                  |vpiLeftRange:
-                  \_constant: , line:3:14, endln:3:15
-                    |vpiParent:
-                    \_range: , line:3:13, endln:3:18
-                    |vpiDecompile:5
-                    |vpiSize:64
-                    |UINT:5
-                    |vpiConstType:9
-                  |vpiRightRange:
-                  \_constant: , line:3:16, endln:3:17
-                    |vpiParent:
-                    \_range: , line:3:13, endln:3:18
-                    |vpiDecompile:0
-                    |vpiSize:64
-                    |UINT:0
-                    |vpiConstType:9
-              |vpiRefFile:${SURELOG_DIR}/tests/UnpackPort/dut.sv
-              |vpiRefLineNo:3
-              |vpiRefColumnNo:7
-              |vpiRefEndLineNo:3
-              |vpiRefEndColumnNo:18
+            |vpiFullName:work@dut.g_fill[4]
+            |vpiActual:
+            \_struct_typespec: (struct2), line:2:11, endln:4:4
           |vpiOpType:67
           |vpiOperand:
           \_constant: , line:9:33, endln:9:36
@@ -1756,7 +1582,12 @@ design: (work@dut)
         \_gen_scope: (work@dut.g_fill[5]), line:8:30, endln:10:6
         |UINT:5
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@dut.g_fill[5].i)
+          |vpiParent:
+          \_parameter: (work@dut.g_fill[5].i), line:8:0
+          |vpiFullName:work@dut.g_fill[5].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@dut.g_fill[5].i
@@ -1769,47 +1600,12 @@ design: (work@dut)
           |vpiParent:
           \_cont_assign: , line:9:14, endln:9:37
           |vpiTypespec:
-          \_struct_typespec: (struct2), line:2:11, endln:4:4
+          \_ref_typespec: (work@dut.g_fill[5])
             |vpiParent:
             \_operation: , line:9:24, endln:9:37
-            |vpiName:struct2
-            |vpiInstance:
-            \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
-            |vpiPacked:1
-            |vpiTypespecMember:
-            \_typespec_member: (third), line:3:19, endln:3:24
-              |vpiParent:
-              \_struct_typespec: (struct2), line:2:11, endln:4:4
-              |vpiName:third
-              |vpiTypespec:
-              \_logic_typespec: , line:3:7, endln:3:18
-                |vpiParent:
-                \_typespec_member: (third), line:3:19, endln:3:24
-                |vpiRange:
-                \_range: , line:3:13, endln:3:18
-                  |vpiParent:
-                  \_logic_typespec: , line:3:7, endln:3:18
-                  |vpiLeftRange:
-                  \_constant: , line:3:14, endln:3:15
-                    |vpiParent:
-                    \_range: , line:3:13, endln:3:18
-                    |vpiDecompile:5
-                    |vpiSize:64
-                    |UINT:5
-                    |vpiConstType:9
-                  |vpiRightRange:
-                  \_constant: , line:3:16, endln:3:17
-                    |vpiParent:
-                    \_range: , line:3:13, endln:3:18
-                    |vpiDecompile:0
-                    |vpiSize:64
-                    |UINT:0
-                    |vpiConstType:9
-              |vpiRefFile:${SURELOG_DIR}/tests/UnpackPort/dut.sv
-              |vpiRefLineNo:3
-              |vpiRefColumnNo:7
-              |vpiRefEndLineNo:3
-              |vpiRefEndColumnNo:18
+            |vpiFullName:work@dut.g_fill[5]
+            |vpiActual:
+            \_struct_typespec: (struct2), line:2:11, endln:4:4
           |vpiOpType:67
           |vpiOperand:
           \_constant: , line:9:33, endln:9:36
@@ -1852,7 +1648,12 @@ design: (work@dut)
         \_gen_scope: (work@dut.g_fill[6]), line:8:30, endln:10:6
         |UINT:6
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@dut.g_fill[6].i)
+          |vpiParent:
+          \_parameter: (work@dut.g_fill[6].i), line:8:0
+          |vpiFullName:work@dut.g_fill[6].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@dut.g_fill[6].i
@@ -1865,47 +1666,12 @@ design: (work@dut)
           |vpiParent:
           \_cont_assign: , line:9:14, endln:9:37
           |vpiTypespec:
-          \_struct_typespec: (struct2), line:2:11, endln:4:4
+          \_ref_typespec: (work@dut.g_fill[6])
             |vpiParent:
             \_operation: , line:9:24, endln:9:37
-            |vpiName:struct2
-            |vpiInstance:
-            \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/UnpackPort/dut.sv, line:1:1, endln:11:10
-            |vpiPacked:1
-            |vpiTypespecMember:
-            \_typespec_member: (third), line:3:19, endln:3:24
-              |vpiParent:
-              \_struct_typespec: (struct2), line:2:11, endln:4:4
-              |vpiName:third
-              |vpiTypespec:
-              \_logic_typespec: , line:3:7, endln:3:18
-                |vpiParent:
-                \_typespec_member: (third), line:3:19, endln:3:24
-                |vpiRange:
-                \_range: , line:3:13, endln:3:18
-                  |vpiParent:
-                  \_logic_typespec: , line:3:7, endln:3:18
-                  |vpiLeftRange:
-                  \_constant: , line:3:14, endln:3:15
-                    |vpiParent:
-                    \_range: , line:3:13, endln:3:18
-                    |vpiDecompile:5
-                    |vpiSize:64
-                    |UINT:5
-                    |vpiConstType:9
-                  |vpiRightRange:
-                  \_constant: , line:3:16, endln:3:17
-                    |vpiParent:
-                    \_range: , line:3:13, endln:3:18
-                    |vpiDecompile:0
-                    |vpiSize:64
-                    |UINT:0
-                    |vpiConstType:9
-              |vpiRefFile:${SURELOG_DIR}/tests/UnpackPort/dut.sv
-              |vpiRefLineNo:3
-              |vpiRefColumnNo:7
-              |vpiRefEndLineNo:3
-              |vpiRefEndColumnNo:18
+            |vpiFullName:work@dut.g_fill[6]
+            |vpiActual:
+            \_struct_typespec: (struct2), line:2:11, endln:4:4
           |vpiOpType:67
           |vpiOperand:
           \_constant: , line:9:33, endln:9:36
@@ -1931,6 +1697,468 @@ design: (work@dut)
             |vpiFullName:work@dut.g_fill[6].i
             |vpiActual:
             \_parameter: (work@dut.g_fill[6].i), line:8:0
+\_weaklyReferenced:
+\_logic_typespec: , line:3:7, endln:3:18
+  |vpiParent:
+  \_typespec_member: (third), line:3:19, endln:3:24
+  |vpiRange:
+  \_range: , line:3:13, endln:3:18
+    |vpiParent:
+    \_logic_typespec: , line:3:7, endln:3:18
+    |vpiLeftRange:
+    \_constant: , line:3:14, endln:3:15
+      |vpiParent:
+      \_range: , line:3:13, endln:3:18
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:16, endln:3:17
+      |vpiParent:
+      \_range: , line:3:13, endln:3:18
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_unsupported_typespec: (struct2), line:9:24, endln:9:31
+  |vpiName:struct2
+\_function: (work@mailbox::new), line:3:5, endln:4:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnpackPort/builtin.sv, line:1:3, endln:27:11
+  |vpiName:new
+  |vpiFullName:work@mailbox::new
+  |vpiMethod:1
+  |vpiReturn:
+  \_class_var: (work@mailbox::new), line:3:23, endln:3:28
+  |vpiIODecl:
+  \_io_decl: (bound), line:3:23, endln:3:28
+    |vpiParent:
+    \_function: (work@mailbox::new), line:3:5, endln:4:16
+    |vpiDirection:1
+    |vpiName:bound
+    |vpiExpr:
+    \_constant: , line:3:31, endln:3:32
+    |vpiTypedef:
+    \_ref_typespec: (work@mailbox::new::bound)
+      |vpiParent:
+      \_io_decl: (bound), line:3:23, endln:3:28
+      |vpiFullName:work@mailbox::new::bound
+      |vpiActual:
+      \_int_typespec: , line:3:19, endln:3:22
+\_class_typespec: 
+  |vpiClassDefn:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnpackPort/builtin.sv, line:1:3, endln:27:11
+\_int_typespec: , line:3:19, endln:3:22
+  |vpiSigned:1
+\_function: (work@mailbox::num), line:6:5, endln:7:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnpackPort/builtin.sv, line:1:3, endln:27:11
+  |vpiName:num
+  |vpiFullName:work@mailbox::num
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::num), line:6:14, endln:6:17
+\_int_typespec: , line:6:14, endln:6:17
+  |vpiSigned:1
+\_function: (work@mailbox::try_put), line:12:5, endln:13:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnpackPort/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_put
+  |vpiFullName:work@mailbox::try_put
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_logic_var: (work@mailbox::try_put)
+  |vpiIODecl:
+  \_io_decl: (message), line:12:23, endln:12:30
+    |vpiParent:
+    \_function: (work@mailbox::try_put), line:12:5, endln:13:16
+    |vpiDirection:1
+    |vpiName:message
+\_function: (work@mailbox::try_get), line:18:5, endln:19:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnpackPort/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_get
+  |vpiFullName:work@mailbox::try_get
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::try_get), line:18:14, endln:18:17
+  |vpiIODecl:
+  \_io_decl: (message), line:18:31, endln:18:38
+    |vpiParent:
+    \_function: (work@mailbox::try_get), line:18:5, endln:19:16
+    |vpiDirection:6
+    |vpiName:message
+\_int_typespec: , line:18:14, endln:18:17
+  |vpiSigned:1
+\_function: (work@mailbox::try_peek), line:24:5, endln:25:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnpackPort/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_peek
+  |vpiFullName:work@mailbox::try_peek
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::try_peek), line:24:14, endln:24:17
+  |vpiIODecl:
+  \_io_decl: (message), line:24:31, endln:24:38
+    |vpiParent:
+    \_function: (work@mailbox::try_peek), line:24:5, endln:25:16
+    |vpiDirection:6
+    |vpiName:message
+\_int_typespec: , line:24:14, endln:24:17
+  |vpiSigned:1
+\_enum_typespec: (state), line:32:5, endln:32:74
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/UnpackPort/builtin.sv, line:30:3, endln:52:11
+  |vpiName:state
+  |vpiEnumConst:
+  \_enum_const: (FINISHED), line:32:20, endln:32:28
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:FINISHED
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (RUNNING), line:32:30, endln:32:37
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:RUNNING
+    |INT:1
+    |vpiDecompile:1
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (WAITING), line:32:39, endln:32:46
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:WAITING
+    |INT:2
+    |vpiDecompile:2
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (SUSPENDED), line:32:48, endln:32:57
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:SUSPENDED
+    |INT:3
+    |vpiDecompile:3
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (KILLED), line:32:59, endln:32:65
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:KILLED
+    |INT:4
+    |vpiDecompile:4
+    |vpiSize:64
+\_function: (work@process::self), line:34:5, endln:34:11
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/UnpackPort/builtin.sv, line:30:3, endln:52:11
+  |vpiName:self
+  |vpiFullName:work@process::self
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_class_var: (work@process::self), line:34:21, endln:34:28
+\_class_typespec: , line:34:21, endln:34:28
+  |vpiClassDefn:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/UnpackPort/builtin.sv, line:30:3, endln:52:11
+\_function: (work@process::status), line:37:5, endln:38:16
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/UnpackPort/builtin.sv, line:30:3, endln:52:11
+  |vpiName:status
+  |vpiFullName:work@process::status
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_enum_var: (work@process::status), line:37:14, endln:37:19
+\_function: (work@semaphore::new), line:57:5, endln:58:16
+  |vpiParent:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/UnpackPort/builtin.sv, line:55:3, endln:69:11
+  |vpiName:new
+  |vpiFullName:work@semaphore::new
+  |vpiMethod:1
+  |vpiReturn:
+  \_class_var: (work@semaphore::new), line:57:22, endln:57:30
+  |vpiIODecl:
+  \_io_decl: (keyCount), line:57:22, endln:57:30
+    |vpiParent:
+    \_function: (work@semaphore::new), line:57:5, endln:58:16
+    |vpiDirection:1
+    |vpiName:keyCount
+    |vpiExpr:
+    \_constant: , line:57:33, endln:57:34
+    |vpiTypedef:
+    \_ref_typespec: (work@semaphore::new::keyCount)
+      |vpiParent:
+      \_io_decl: (keyCount), line:57:22, endln:57:30
+      |vpiFullName:work@semaphore::new::keyCount
+      |vpiActual:
+      \_int_typespec: , line:57:18, endln:57:21
+\_class_typespec: 
+  |vpiClassDefn:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/UnpackPort/builtin.sv, line:55:3, endln:69:11
+\_int_typespec: , line:57:18, endln:57:21
+  |vpiSigned:1
+\_int_typespec: , line:60:14, endln:60:17
+  |vpiSigned:1
+\_int_typespec: , line:63:14, endln:63:17
+  |vpiSigned:1
+\_function: (work@semaphore::try_get), line:66:5, endln:67:16
+  |vpiParent:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/UnpackPort/builtin.sv, line:55:3, endln:69:11
+  |vpiName:try_get
+  |vpiFullName:work@semaphore::try_get
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@semaphore::try_get), line:66:14, endln:66:17
+  |vpiIODecl:
+  \_io_decl: (keyCount), line:66:30, endln:66:38
+    |vpiParent:
+    \_function: (work@semaphore::try_get), line:66:5, endln:67:16
+    |vpiDirection:1
+    |vpiName:keyCount
+    |vpiExpr:
+    \_constant: , line:66:41, endln:66:42
+    |vpiTypedef:
+    \_ref_typespec: (work@semaphore::try_get::keyCount)
+      |vpiParent:
+      \_io_decl: (keyCount), line:66:30, endln:66:38
+      |vpiFullName:work@semaphore::try_get::keyCount
+      |vpiActual:
+      \_int_typespec: , line:66:26, endln:66:29
+\_int_typespec: , line:66:14, endln:66:17
+  |vpiSigned:1
+\_int_typespec: , line:66:26, endln:66:29
+  |vpiSigned:1
+\_operation: , line:9:24, endln:9:37
+  |vpiParent:
+  \_cont_assign: , line:9:14, endln:9:37
+  |vpiTypespec:
+  \_ref_typespec: 
+    |vpiParent:
+    \_operation: , line:9:24, endln:9:37
+    |vpiActual:
+    \_struct_typespec: (struct2), line:2:11, endln:4:4
+  |vpiOpType:67
+  |vpiOperand:
+  \_constant: , line:9:33, endln:9:36
+\_cont_assign: , line:9:14, endln:9:37
+  |vpiRhs:
+  \_operation: , line:9:24, endln:9:37
+  |vpiLhs:
+  \_bit_select: (var3), line:9:14, endln:9:21
+    |vpiParent:
+    \_cont_assign: , line:9:14, endln:9:37
+    |vpiName:var3
+    |vpiIndex:
+    \_ref_obj: (i), line:9:19, endln:9:20
+      |vpiParent:
+      \_bit_select: (var3), line:9:14, endln:9:21
+      |vpiName:i
+\_operation: , line:9:24, endln:9:37
+  |vpiParent:
+  \_cont_assign: , line:9:14, endln:9:37
+  |vpiTypespec:
+  \_ref_typespec: 
+    |vpiParent:
+    \_operation: , line:9:24, endln:9:37
+    |vpiActual:
+    \_struct_typespec: (struct2), line:2:11, endln:4:4
+  |vpiOpType:67
+  |vpiOperand:
+  \_constant: , line:9:33, endln:9:36
+\_cont_assign: , line:9:14, endln:9:37
+  |vpiRhs:
+  \_operation: , line:9:24, endln:9:37
+  |vpiLhs:
+  \_bit_select: (var3), line:9:14, endln:9:21
+    |vpiParent:
+    \_cont_assign: , line:9:14, endln:9:37
+    |vpiName:var3
+    |vpiIndex:
+    \_ref_obj: (i), line:9:19, endln:9:20
+      |vpiParent:
+      \_bit_select: (var3), line:9:14, endln:9:21
+      |vpiName:i
+\_operation: , line:9:24, endln:9:37
+  |vpiParent:
+  \_cont_assign: , line:9:14, endln:9:37
+  |vpiTypespec:
+  \_ref_typespec: 
+    |vpiParent:
+    \_operation: , line:9:24, endln:9:37
+    |vpiActual:
+    \_struct_typespec: (struct2), line:2:11, endln:4:4
+  |vpiOpType:67
+  |vpiOperand:
+  \_constant: , line:9:33, endln:9:36
+\_cont_assign: , line:9:14, endln:9:37
+  |vpiRhs:
+  \_operation: , line:9:24, endln:9:37
+  |vpiLhs:
+  \_bit_select: (var3), line:9:14, endln:9:21
+    |vpiParent:
+    \_cont_assign: , line:9:14, endln:9:37
+    |vpiName:var3
+    |vpiIndex:
+    \_ref_obj: (i), line:9:19, endln:9:20
+      |vpiParent:
+      \_bit_select: (var3), line:9:14, endln:9:21
+      |vpiName:i
+\_operation: , line:9:24, endln:9:37
+  |vpiParent:
+  \_cont_assign: , line:9:14, endln:9:37
+  |vpiTypespec:
+  \_ref_typespec: 
+    |vpiParent:
+    \_operation: , line:9:24, endln:9:37
+    |vpiActual:
+    \_struct_typespec: (struct2), line:2:11, endln:4:4
+  |vpiOpType:67
+  |vpiOperand:
+  \_constant: , line:9:33, endln:9:36
+\_cont_assign: , line:9:14, endln:9:37
+  |vpiRhs:
+  \_operation: , line:9:24, endln:9:37
+  |vpiLhs:
+  \_bit_select: (var3), line:9:14, endln:9:21
+    |vpiParent:
+    \_cont_assign: , line:9:14, endln:9:37
+    |vpiName:var3
+    |vpiIndex:
+    \_ref_obj: (i), line:9:19, endln:9:20
+      |vpiParent:
+      \_bit_select: (var3), line:9:14, endln:9:21
+      |vpiName:i
+\_operation: , line:9:24, endln:9:37
+  |vpiParent:
+  \_cont_assign: , line:9:14, endln:9:37
+  |vpiTypespec:
+  \_ref_typespec: 
+    |vpiParent:
+    \_operation: , line:9:24, endln:9:37
+    |vpiActual:
+    \_struct_typespec: (struct2), line:2:11, endln:4:4
+  |vpiOpType:67
+  |vpiOperand:
+  \_constant: , line:9:33, endln:9:36
+\_cont_assign: , line:9:14, endln:9:37
+  |vpiRhs:
+  \_operation: , line:9:24, endln:9:37
+  |vpiLhs:
+  \_bit_select: (var3), line:9:14, endln:9:21
+    |vpiParent:
+    \_cont_assign: , line:9:14, endln:9:37
+    |vpiName:var3
+    |vpiIndex:
+    \_ref_obj: (i), line:9:19, endln:9:20
+      |vpiParent:
+      \_bit_select: (var3), line:9:14, endln:9:21
+      |vpiName:i
+\_operation: , line:9:24, endln:9:37
+  |vpiParent:
+  \_cont_assign: , line:9:14, endln:9:37
+  |vpiTypespec:
+  \_ref_typespec: 
+    |vpiParent:
+    \_operation: , line:9:24, endln:9:37
+    |vpiActual:
+    \_struct_typespec: (struct2), line:2:11, endln:4:4
+  |vpiOpType:67
+  |vpiOperand:
+  \_constant: , line:9:33, endln:9:36
+\_cont_assign: , line:9:14, endln:9:37
+  |vpiRhs:
+  \_operation: , line:9:24, endln:9:37
+  |vpiLhs:
+  \_bit_select: (var3), line:9:14, endln:9:21
+    |vpiParent:
+    \_cont_assign: , line:9:14, endln:9:37
+    |vpiName:var3
+    |vpiIndex:
+    \_ref_obj: (i), line:9:19, endln:9:20
+      |vpiParent:
+      \_bit_select: (var3), line:9:14, endln:9:21
+      |vpiName:i
+\_operation: , line:9:24, endln:9:37
+  |vpiParent:
+  \_cont_assign: , line:9:14, endln:9:37
+  |vpiTypespec:
+  \_ref_typespec: 
+    |vpiParent:
+    \_operation: , line:9:24, endln:9:37
+    |vpiActual:
+    \_struct_typespec: (struct2), line:2:11, endln:4:4
+  |vpiOpType:67
+  |vpiOperand:
+  \_constant: , line:9:33, endln:9:36
+\_cont_assign: , line:9:14, endln:9:37
+  |vpiRhs:
+  \_operation: , line:9:24, endln:9:37
+  |vpiLhs:
+  \_bit_select: (var3), line:9:14, endln:9:21
+    |vpiParent:
+    \_cont_assign: , line:9:14, endln:9:37
+    |vpiName:var3
+    |vpiIndex:
+    \_ref_obj: (i), line:9:19, endln:9:20
+      |vpiParent:
+      \_bit_select: (var3), line:9:14, endln:9:21
+      |vpiName:i
+\_array_typespec: , line:6:10, endln:6:25
+  |vpiParent:
+  \_port: (var3), line:1:12, endln:1:16
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , line:6:24, endln:6:25
+    |vpiParent:
+    \_array_typespec: , line:6:10, endln:6:25
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: , line:6:24, endln:6:25
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_operation: , line:6:24, endln:6:25
+      |vpiParent:
+      \_range: , line:6:24, endln:6:25
+      |vpiOpType:11
+      |vpiOperand:
+      \_constant: , line:6:24, endln:6:25
+        |vpiParent:
+        \_operation: , line:6:24, endln:6:25
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiOperand:
+      \_constant: 
+        |vpiSize:64
+        |INT:1
+        |vpiConstType:7
+  |vpiElemTypespec:
+  \_ref_typespec: (work@dut.var3)
+    |vpiParent:
+    \_array_typespec: , line:6:10, endln:6:25
+    |vpiFullName:work@dut.var3
+    |vpiActual:
+    \_struct_typespec: (struct2), line:2:11, endln:4:4
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

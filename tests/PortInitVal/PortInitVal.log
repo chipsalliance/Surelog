@@ -137,10 +137,11 @@ design                                                 1
 event_control                                          1
 if_stmt                                                1
 logic_net                                              6
-logic_typespec                                         6
+logic_typespec                                         5
 module_inst                                            4
 port                                                   2
 ref_obj                                                6
+ref_typespec                                           6
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -154,10 +155,11 @@ design                                                 1
 event_control                                          2
 if_stmt                                                2
 logic_net                                              6
-logic_typespec                                         6
+logic_typespec                                         5
 module_inst                                            4
 port                                                   3
 ref_obj                                               11
+ref_typespec                                           7
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PortInitVal/slpp_all/surelog.uhdm ...
 
@@ -182,7 +184,12 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/PortInitVal/dut.sv, line:1:1, endln:9:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:9, endln:2:13
+    \_ref_typespec: (work@dut.a)
+      |vpiParent:
+      \_logic_net: (work@dut.a), line:2:14, endln:2:15
+      |vpiFullName:work@dut.a
+      |vpiActual:
+      \_logic_typespec: , line:2:9, endln:2:13
     |vpiName:a
     |vpiFullName:work@dut.a
     |vpiNetType:1
@@ -221,7 +228,12 @@ design: (work@dut)
       |vpiActual:
       \_logic_net: (work@dut.b), line:1:13, endln:1:14
     |vpiTypedef:
-    \_logic_typespec: , line:3:16, endln:3:19
+    \_ref_typespec: (work@dut.b)
+      |vpiParent:
+      \_port: (b), line:1:13, endln:1:14
+      |vpiFullName:work@dut.b
+      |vpiActual:
+      \_logic_typespec: , line:3:16, endln:3:19
   |vpiProcess:
   \_always: , line:4:9, endln:6:12
     |vpiParent:
@@ -298,7 +310,12 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/PortInitVal/dut.sv, line:1:1, endln:9:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:9, endln:2:13
+    \_ref_typespec: (work@dut.a)
+      |vpiParent:
+      \_logic_net: (work@dut.a), line:2:14, endln:2:15
+      |vpiFullName:work@dut.a
+      |vpiActual:
+      \_logic_typespec: , line:2:9, endln:2:13
     |vpiName:a
     |vpiFullName:work@dut.a
     |vpiNetType:1
@@ -307,9 +324,12 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/PortInitVal/dut.sv, line:1:1, endln:9:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:16, endln:3:19
+    \_ref_typespec: (work@dut.b)
       |vpiParent:
       \_logic_net: (work@dut.b), line:1:13, endln:1:14
+      |vpiFullName:work@dut.b
+      |vpiActual:
+      \_logic_typespec: , line:3:16, endln:3:19
     |vpiName:b
     |vpiFullName:work@dut.b
     |vpiNetType:48
@@ -335,7 +355,12 @@ design: (work@dut)
       |vpiActual:
       \_logic_net: (work@dut.b), line:1:13, endln:1:14
     |vpiTypedef:
-    \_logic_typespec: , line:3:16, endln:3:19
+    \_ref_typespec: (work@dut.b)
+      |vpiParent:
+      \_port: (b), line:1:13, endln:1:14
+      |vpiFullName:work@dut.b
+      |vpiActual:
+      \_logic_typespec: , line:3:16, endln:3:19
     |vpiInstance:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/PortInitVal/dut.sv, line:1:1, endln:9:10
   |vpiProcess:
@@ -415,6 +440,34 @@ design: (work@dut)
       |vpiFullName:work@dut.c
       |vpiActual:
       \_logic_net: (work@dut.c), line:7:11, endln:7:12
+\_weaklyReferenced:
+\_logic_typespec: , line:3:16, endln:3:19
+\_logic_typespec: , line:2:9, endln:2:13
+\_logic_typespec: , line:3:16, endln:3:19
+  |vpiParent:
+  \_logic_net: (work@dut.b), line:1:13, endln:1:14
+\_logic_typespec: , line:3:16, endln:3:19
+\_logic_typespec: , line:2:9, endln:2:13
+\_cont_assign: , line:2:14, endln:2:15
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/PortInitVal/dut.sv, line:1:1, endln:9:10
+  |vpiNetDeclAssign:1
+  |vpiRhs:
+  \_constant: , line:2:18, endln:2:19
+  |vpiLhs:
+  \_logic_net: (work@dut.a), line:2:14, endln:2:15
+    |vpiParent:
+    \_cont_assign: , line:2:14, endln:2:15
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.a)
+      |vpiParent:
+      \_logic_net: (work@dut.a), line:2:14, endln:2:15
+      |vpiFullName:work@dut.a
+      |vpiActual:
+      \_logic_typespec: , line:2:9, endln:2:13
+    |vpiName:a
+    |vpiFullName:work@dut.a
+    |vpiNetType:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

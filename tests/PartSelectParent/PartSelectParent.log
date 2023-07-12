@@ -134,6 +134,7 @@ operation                                              3
 part_select                                            3
 port                                                   2
 ref_obj                                                3
+ref_typespec                                           3
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -152,6 +153,7 @@ operation                                              5
 part_select                                            5
 port                                                   3
 ref_obj                                                5
+ref_typespec                                           4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PartSelectParent/slpp_all/surelog.uhdm ...
 
@@ -192,8 +194,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.o), line:1:23, endln:1:24
     |vpiTypedef:
-    \_int_typespec: , line:1:19, endln:1:22
-      |vpiSigned:1
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_port: (o), line:1:23, endln:1:24
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_int_typespec: , line:1:19, endln:1:22
   |vpiProcess:
   \_initial: , line:2:4, endln:5:7
     |vpiParent:
@@ -305,10 +311,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PartSelectParent/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
-    \_int_typespec: , line:1:19, endln:1:22
+    \_ref_typespec: (work@top.o)
       |vpiParent:
       \_int_var: (work@top.o), line:1:23, endln:1:24
-      |vpiSigned:1
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_int_typespec: , line:1:19, endln:1:22
     |vpiName:o
     |vpiFullName:work@top.o
     |vpiSigned:1
@@ -331,8 +339,12 @@ design: (work@top)
       |vpiActual:
       \_int_var: (work@top.o), line:1:23, endln:1:24
     |vpiTypedef:
-    \_int_typespec: , line:1:19, endln:1:22
-      |vpiSigned:1
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_port: (o), line:1:23, endln:1:24
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_int_typespec: , line:1:19, endln:1:22
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PartSelectParent/dut.sv, line:1:1, endln:8:10
   |vpiProcess:
@@ -424,6 +436,37 @@ design: (work@top)
           |vpiSize:64
           |UINT:0
           |vpiConstType:9
+\_weaklyReferenced:
+\_int_typespec: , line:1:19, endln:1:22
+  |vpiSigned:1
+\_int_typespec: , line:1:19, endln:1:22
+  |vpiParent:
+  \_int_var: (work@top.o), line:1:23, endln:1:24
+  |vpiSigned:1
+\_int_typespec: , line:1:19, endln:1:22
+  |vpiSigned:1
+\_cont_assign: , line:7:13, endln:7:29
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PartSelectParent/dut.sv, line:1:1, endln:8:10
+  |vpiRhs:
+  \_constant: , line:7:24, endln:7:29
+  |vpiLhs:
+  \_operation: , line:7:14, endln:7:20
+    |vpiParent:
+    \_cont_assign: , line:7:13, endln:7:29
+    |vpiOpType:33
+    |vpiOperand:
+    \_part_select: o (work@top.o), line:7:14, endln:7:20
+      |vpiParent:
+      \_operation: , line:7:14, endln:7:20
+      |vpiName:o
+      |vpiFullName:work@top.o
+      |vpiDefName:o
+      |vpiConstantSelect:1
+      |vpiLeftRange:
+      \_constant: , line:7:16, endln:7:17
+      |vpiRightRange:
+      \_constant: , line:7:18, endln:7:19
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -288,7 +288,7 @@ gen_if                                                 3
 gen_if_else                                            2
 gen_scope                                             14
 gen_scope_array                                       14
-int_typespec                                           4
+int_typespec                                           3
 logic_net                                              1
 logic_typespec                                        12
 logic_var                                             12
@@ -298,6 +298,7 @@ operation                                              8
 param_assign                                           2
 parameter                                              4
 ref_obj                                                8
+ref_typespec                                          22
 ref_var                                                2
 unsupported_typespec                                   2
 === UHDM Object Stats End ===
@@ -314,7 +315,7 @@ gen_if                                                 3
 gen_if_else                                            2
 gen_scope                                             21
 gen_scope_array                                       21
-int_typespec                                           4
+int_typespec                                           3
 logic_net                                              1
 logic_typespec                                        12
 logic_var                                             17
@@ -324,6 +325,7 @@ operation                                              8
 param_assign                                           2
 parameter                                              4
 ref_obj                                                8
+ref_typespec                                          29
 ref_var                                                2
 unsupported_typespec                                   2
 === UHDM Object Stats End ===
@@ -350,7 +352,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StandardBlock/dut.sv, line:1:1, endln:28:10
     |UINT:0
     |vpiTypespec:
-    \_int_typespec: , line:2:1, endln:2:22
+    \_ref_typespec: (work@top.genblk2)
+      |vpiParent:
+      \_parameter: (work@top.genblk2), line:2:11, endln:2:18
+      |vpiFullName:work@top.genblk2
+      |vpiActual:
+      \_int_typespec: , line:2:1, endln:2:22
     |vpiName:genblk2
     |vpiFullName:work@top.genblk2
   |vpiParamAssign:
@@ -365,7 +372,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:0
       |vpiTypespec:
-      \_int_typespec: , line:2:1, endln:2:22
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:2:21, endln:2:22
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:2:1, endln:2:22
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.genblk2), line:2:11, endln:2:18
@@ -401,7 +413,12 @@ design: (work@top)
           |vpiParent:
           \_assign_stmt: , line:5:20, endln:5:21
           |vpiTypespec:
-          \_logic_typespec: , line:5:14, endln:5:19
+          \_ref_typespec: (work@top.a)
+            |vpiParent:
+            \_logic_var: (work@top.a), line:5:20, endln:5:21
+            |vpiFullName:work@top.a
+            |vpiActual:
+            \_logic_typespec: , line:5:14, endln:5:19
           |vpiName:a
           |vpiFullName:work@top.a
     |vpiElseStmt:
@@ -418,7 +435,12 @@ design: (work@top)
           |vpiParent:
           \_assign_stmt: , line:6:12, endln:6:13
           |vpiTypespec:
-          \_logic_typespec: , line:6:6, endln:6:11
+          \_ref_typespec: (work@top.b)
+            |vpiParent:
+            \_logic_var: (work@top.b), line:6:12, endln:6:13
+            |vpiFullName:work@top.b
+            |vpiActual:
+            \_logic_typespec: , line:6:6, endln:6:11
           |vpiName:b
           |vpiFullName:work@top.b
   |vpiGenStmt:
@@ -445,7 +467,12 @@ design: (work@top)
           |vpiParent:
           \_assign_stmt: , line:9:20, endln:9:21
           |vpiTypespec:
-          \_logic_typespec: , line:9:14, endln:9:19
+          \_ref_typespec: (work@top.a)
+            |vpiParent:
+            \_logic_var: (work@top.a), line:9:20, endln:9:21
+            |vpiFullName:work@top.a
+            |vpiActual:
+            \_logic_typespec: , line:9:14, endln:9:19
           |vpiName:a
           |vpiFullName:work@top.a
     |vpiElseStmt:
@@ -462,7 +489,12 @@ design: (work@top)
           |vpiParent:
           \_assign_stmt: , line:10:12, endln:10:13
           |vpiTypespec:
-          \_logic_typespec: , line:10:6, endln:10:11
+          \_ref_typespec: (work@top.b)
+            |vpiParent:
+            \_logic_var: (work@top.b), line:10:12, endln:10:13
+            |vpiFullName:work@top.b
+            |vpiActual:
+            \_logic_typespec: , line:10:6, endln:10:11
           |vpiName:b
           |vpiFullName:work@top.b
   |vpiGenStmt:
@@ -572,7 +604,12 @@ design: (work@top)
               |vpiParent:
               \_assign_stmt: , line:16:14, endln:16:15
               |vpiTypespec:
-              \_logic_typespec: , line:16:8, endln:16:13
+              \_ref_typespec: (work@top.g1.a)
+                |vpiParent:
+                \_logic_var: (work@top.g1.a), line:16:14, endln:16:15
+                |vpiFullName:work@top.g1.a
+                |vpiActual:
+                \_logic_typespec: , line:16:8, endln:16:13
               |vpiName:a
               |vpiFullName:work@top.g1.a
   |vpiGenStmt:
@@ -681,7 +718,12 @@ design: (work@top)
               |vpiParent:
               \_assign_stmt: , line:25:14, endln:25:15
               |vpiTypespec:
-              \_logic_typespec: , line:25:8, endln:25:13
+              \_ref_typespec: (work@top.a)
+                |vpiParent:
+                \_logic_var: (work@top.a), line:25:14, endln:25:15
+                |vpiFullName:work@top.a
+                |vpiActual:
+                \_logic_typespec: , line:25:8, endln:25:13
               |vpiName:a
               |vpiFullName:work@top.a
   |vpiGenStmt:
@@ -710,7 +752,12 @@ design: (work@top)
           |vpiParent:
           \_assign_stmt: , line:27:14, endln:27:15
           |vpiTypespec:
-          \_logic_typespec: , line:27:8, endln:27:13
+          \_ref_typespec: (work@top.a)
+            |vpiParent:
+            \_logic_var: (work@top.a), line:27:14, endln:27:15
+            |vpiFullName:work@top.a
+            |vpiActual:
+            \_logic_typespec: , line:27:8, endln:27:13
           |vpiName:a
           |vpiFullName:work@top.a
 |uhdmtopModules:
@@ -722,9 +769,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StandardBlock/dut.sv, line:1:1, endln:28:10
     |UINT:0
     |vpiTypespec:
-    \_int_typespec: , line:2:1, endln:2:22
+    \_ref_typespec: (work@top.genblk2)
       |vpiParent:
       \_parameter: (work@top.genblk2), line:2:11, endln:2:18
+      |vpiFullName:work@top.genblk2
+      |vpiActual:
+      \_int_typespec: , line:2:1, endln:2:22
     |vpiName:genblk2
     |vpiFullName:work@top.genblk2
   |vpiParamAssign:
@@ -739,7 +789,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:0
       |vpiTypespec:
-      \_int_typespec: , line:2:1, endln:2:22
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:2:21, endln:2:22
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:2:1, endln:2:22
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.genblk2), line:2:11, endln:2:18
@@ -762,9 +817,12 @@ design: (work@top)
         |vpiParent:
         \_gen_scope: (work@top.genblk1), line:6:6, endln:6:14
         |vpiTypespec:
-        \_logic_typespec: , line:6:6, endln:6:11
+        \_ref_typespec: (work@top.genblk1.b)
           |vpiParent:
           \_logic_var: (work@top.genblk1.b), line:6:12, endln:6:13
+          |vpiFullName:work@top.genblk1.b
+          |vpiActual:
+          \_logic_typespec: , line:6:6, endln:6:11
         |vpiName:b
         |vpiFullName:work@top.genblk1.b
         |vpiVisibility:1
@@ -784,9 +842,12 @@ design: (work@top)
         |vpiParent:
         \_gen_scope: (work@top.genblk02), line:10:6, endln:10:14
         |vpiTypespec:
-        \_logic_typespec: , line:10:6, endln:10:11
+        \_ref_typespec: (work@top.genblk02.b)
           |vpiParent:
           \_logic_var: (work@top.genblk02.b), line:10:12, endln:10:13
+          |vpiFullName:work@top.genblk02.b
+          |vpiActual:
+          \_logic_typespec: , line:10:6, endln:10:11
         |vpiName:b
         |vpiFullName:work@top.genblk02.b
         |vpiVisibility:1
@@ -807,7 +868,12 @@ design: (work@top)
         \_gen_scope: (work@top.g1[0]), line:13:31, endln:17:4
         |UINT:0
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@top.g1[0].i)
+          |vpiParent:
+          \_parameter: (work@top.g1[0].i), line:13:0
+          |vpiFullName:work@top.g1[0].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@top.g1[0].i
@@ -827,9 +893,12 @@ design: (work@top)
             |vpiParent:
             \_gen_scope: (work@top.g1[0].genblk1), line:16:8, endln:16:16
             |vpiTypespec:
-            \_logic_typespec: , line:16:8, endln:16:13
+            \_ref_typespec: (work@top.g1[0].genblk1.a)
               |vpiParent:
               \_logic_var: (work@top.g1[0].genblk1.a), line:16:14, endln:16:15
+              |vpiFullName:work@top.g1[0].genblk1.a
+              |vpiActual:
+              \_logic_typespec: , line:16:8, endln:16:13
             |vpiName:a
             |vpiFullName:work@top.g1[0].genblk1.a
             |vpiVisibility:1
@@ -850,7 +919,12 @@ design: (work@top)
         \_gen_scope: (work@top.genblk4[0]), line:25:1, endln:25:16
         |UINT:0
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@top.genblk4[0].i)
+          |vpiParent:
+          \_parameter: (work@top.genblk4[0].i), line:22:0
+          |vpiFullName:work@top.genblk4[0].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@top.genblk4[0].i
@@ -870,9 +944,12 @@ design: (work@top)
             |vpiParent:
             \_gen_scope: (work@top.genblk4[0].genblk1), line:25:8, endln:25:16
             |vpiTypespec:
-            \_logic_typespec: , line:25:8, endln:25:13
+            \_ref_typespec: (work@top.genblk4[0].genblk1.a)
               |vpiParent:
               \_logic_var: (work@top.genblk4[0].genblk1.a), line:25:14, endln:25:15
+              |vpiFullName:work@top.genblk4[0].genblk1.a
+              |vpiActual:
+              \_logic_typespec: , line:25:8, endln:25:13
             |vpiName:a
             |vpiFullName:work@top.genblk4[0].genblk1.a
             |vpiVisibility:1
@@ -892,12 +969,201 @@ design: (work@top)
         |vpiParent:
         \_gen_scope: (work@top.genblk5), line:27:8, endln:27:16
         |vpiTypespec:
-        \_logic_typespec: , line:27:8, endln:27:13
+        \_ref_typespec: (work@top.genblk5.a)
           |vpiParent:
           \_logic_var: (work@top.genblk5.a), line:27:14, endln:27:15
+          |vpiFullName:work@top.genblk5.a
+          |vpiActual:
+          \_logic_typespec: , line:27:8, endln:27:13
         |vpiName:a
         |vpiFullName:work@top.genblk5.a
         |vpiVisibility:1
+\_weaklyReferenced:
+\_int_typespec: , line:2:1, endln:2:22
+\_logic_typespec: , line:5:14, endln:5:19
+\_logic_typespec: , line:6:6, endln:6:11
+\_logic_typespec: , line:9:14, endln:9:19
+\_logic_typespec: , line:10:6, endln:10:11
+\_logic_typespec: , line:16:8, endln:16:13
+\_logic_typespec: , line:25:8, endln:25:13
+\_logic_typespec: , line:27:8, endln:27:13
+\_logic_typespec: , line:6:6, endln:6:11
+  |vpiParent:
+  \_logic_var: (work@top.genblk1.b), line:6:12, endln:6:13
+\_logic_var: (work@top.genblk1.b), line:6:12, endln:6:13
+  |vpiParent:
+  \_gen_scope: (work@top.genblk1), line:6:6, endln:6:14
+  |vpiTypespec:
+  \_ref_typespec: (work@top.genblk1.b)
+    |vpiParent:
+    \_logic_var: (work@top.genblk1.b), line:6:12, endln:6:13
+    |vpiFullName:work@top.genblk1.b
+    |vpiActual:
+    \_logic_typespec: , line:6:6, endln:6:11
+  |vpiName:b
+  |vpiFullName:work@top.genblk1.b
+  |vpiVisibility:1
+\_logic_typespec: , line:10:6, endln:10:11
+  |vpiParent:
+  \_logic_var: (work@top.genblk02.b), line:10:12, endln:10:13
+\_logic_var: (work@top.genblk02.b), line:10:12, endln:10:13
+  |vpiParent:
+  \_gen_scope: (work@top.genblk02), line:10:6, endln:10:14
+  |vpiTypespec:
+  \_ref_typespec: (work@top.genblk02.b)
+    |vpiParent:
+    \_logic_var: (work@top.genblk02.b), line:10:12, endln:10:13
+    |vpiFullName:work@top.genblk02.b
+    |vpiActual:
+    \_logic_typespec: , line:10:6, endln:10:11
+  |vpiName:b
+  |vpiFullName:work@top.genblk02.b
+  |vpiVisibility:1
+\_logic_typespec: , line:16:8, endln:16:13
+  |vpiParent:
+  \_logic_var: (work@top.g1[0].genblk1.a), line:16:14, endln:16:15
+\_logic_var: (work@top.g1[0].genblk1.a), line:16:14, endln:16:15
+  |vpiParent:
+  \_gen_scope: (work@top.g1[0].genblk1), line:16:8, endln:16:16
+  |vpiTypespec:
+  \_ref_typespec: (work@top.g1[0].genblk1.a)
+    |vpiParent:
+    \_logic_var: (work@top.g1[0].genblk1.a), line:16:14, endln:16:15
+    |vpiFullName:work@top.g1[0].genblk1.a
+    |vpiActual:
+    \_logic_typespec: , line:16:8, endln:16:13
+  |vpiName:a
+  |vpiFullName:work@top.g1[0].genblk1.a
+  |vpiVisibility:1
+\_logic_typespec: , line:25:8, endln:25:13
+  |vpiParent:
+  \_logic_var: (work@top.genblk4[0].genblk1.a), line:25:14, endln:25:15
+\_logic_var: (work@top.genblk4[0].genblk1.a), line:25:14, endln:25:15
+  |vpiParent:
+  \_gen_scope: (work@top.genblk4[0].genblk1), line:25:8, endln:25:16
+  |vpiTypespec:
+  \_ref_typespec: (work@top.genblk4[0].genblk1.a)
+    |vpiParent:
+    \_logic_var: (work@top.genblk4[0].genblk1.a), line:25:14, endln:25:15
+    |vpiFullName:work@top.genblk4[0].genblk1.a
+    |vpiActual:
+    \_logic_typespec: , line:25:8, endln:25:13
+  |vpiName:a
+  |vpiFullName:work@top.genblk4[0].genblk1.a
+  |vpiVisibility:1
+\_logic_typespec: , line:27:8, endln:27:13
+  |vpiParent:
+  \_logic_var: (work@top.genblk5.a), line:27:14, endln:27:15
+\_logic_var: (work@top.genblk5.a), line:27:14, endln:27:15
+  |vpiParent:
+  \_gen_scope: (work@top.genblk5), line:27:8, endln:27:16
+  |vpiTypespec:
+  \_ref_typespec: (work@top.genblk5.a)
+    |vpiParent:
+    \_logic_var: (work@top.genblk5.a), line:27:14, endln:27:15
+    |vpiFullName:work@top.genblk5.a
+    |vpiActual:
+    \_logic_typespec: , line:27:8, endln:27:13
+  |vpiName:a
+  |vpiFullName:work@top.genblk5.a
+  |vpiVisibility:1
+\_gen_scope: (work@top.genblk1), line:6:6, endln:6:14
+  |vpiParent:
+  \_gen_scope_array: (work@top.genblk1), line:6:6, endln:6:14
+  |vpiFullName:work@top.genblk1
+  |vpiVariables:
+  \_logic_var: (work@top.genblk1.b), line:6:12, endln:6:13
+\_gen_scope_array: (work@top.genblk1), line:6:6, endln:6:14
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StandardBlock/dut.sv, line:1:1, endln:28:10
+  |vpiName:genblk1
+  |vpiFullName:work@top.genblk1
+  |vpiGenScope:
+  \_gen_scope: (work@top.genblk1), line:6:6, endln:6:14
+\_gen_scope: (work@top.genblk02), line:10:6, endln:10:14
+  |vpiParent:
+  \_gen_scope_array: (work@top.genblk02), line:10:6, endln:10:14
+  |vpiFullName:work@top.genblk02
+  |vpiVariables:
+  \_logic_var: (work@top.genblk02.b), line:10:12, endln:10:13
+\_gen_scope_array: (work@top.genblk02), line:10:6, endln:10:14
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StandardBlock/dut.sv, line:1:1, endln:28:10
+  |vpiName:genblk02
+  |vpiFullName:work@top.genblk02
+  |vpiGenScope:
+  \_gen_scope: (work@top.genblk02), line:10:6, endln:10:14
+\_int_typespec: 
+\_gen_scope: (work@top.g1[0].genblk1), line:16:8, endln:16:16
+  |vpiParent:
+  \_gen_scope_array: (work@top.g1[0].genblk1), line:16:8, endln:16:16
+  |vpiFullName:work@top.g1[0].genblk1
+  |vpiVariables:
+  \_logic_var: (work@top.g1[0].genblk1.a), line:16:14, endln:16:15
+\_gen_scope_array: (work@top.g1[0].genblk1), line:16:8, endln:16:16
+  |vpiParent:
+  \_gen_scope: (work@top.g1[0]), line:13:31, endln:17:4
+  |vpiName:genblk1
+  |vpiFullName:work@top.g1[0].genblk1
+  |vpiGenScope:
+  \_gen_scope: (work@top.g1[0].genblk1), line:16:8, endln:16:16
+\_gen_scope: (work@top.g1[0]), line:13:31, endln:17:4
+  |vpiParent:
+  \_gen_scope_array: (work@top.g1[0]), line:13:31, endln:17:4
+  |vpiFullName:work@top.g1[0]
+  |vpiParameter:
+  \_parameter: (work@top.g1[0].i), line:13:0
+  |vpiGenScopeArray:
+  \_gen_scope_array: (work@top.g1[0].genblk1), line:16:8, endln:16:16
+\_gen_scope_array: (work@top.g1[0]), line:13:31, endln:17:4
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StandardBlock/dut.sv, line:1:1, endln:28:10
+  |vpiName:g1[0]
+  |vpiFullName:work@top.g1[0]
+  |vpiGenScope:
+  \_gen_scope: (work@top.g1[0]), line:13:31, endln:17:4
+\_int_typespec: 
+\_gen_scope: (work@top.genblk4[0].genblk1), line:25:8, endln:25:16
+  |vpiParent:
+  \_gen_scope_array: (work@top.genblk4[0].genblk1), line:25:8, endln:25:16
+  |vpiFullName:work@top.genblk4[0].genblk1
+  |vpiVariables:
+  \_logic_var: (work@top.genblk4[0].genblk1.a), line:25:14, endln:25:15
+\_gen_scope_array: (work@top.genblk4[0].genblk1), line:25:8, endln:25:16
+  |vpiParent:
+  \_gen_scope: (work@top.genblk4[0]), line:25:1, endln:25:16
+  |vpiName:genblk1
+  |vpiFullName:work@top.genblk4[0].genblk1
+  |vpiGenScope:
+  \_gen_scope: (work@top.genblk4[0].genblk1), line:25:8, endln:25:16
+\_gen_scope: (work@top.genblk4[0]), line:25:1, endln:25:16
+  |vpiParent:
+  \_gen_scope_array: (work@top.genblk4[0]), line:25:1, endln:25:16
+  |vpiFullName:work@top.genblk4[0]
+  |vpiParameter:
+  \_parameter: (work@top.genblk4[0].i), line:22:0
+  |vpiGenScopeArray:
+  \_gen_scope_array: (work@top.genblk4[0].genblk1), line:25:8, endln:25:16
+\_gen_scope_array: (work@top.genblk4[0]), line:25:1, endln:25:16
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StandardBlock/dut.sv, line:1:1, endln:28:10
+  |vpiName:genblk4[0]
+  |vpiFullName:work@top.genblk4[0]
+  |vpiGenScope:
+  \_gen_scope: (work@top.genblk4[0]), line:25:1, endln:25:16
+\_gen_scope: (work@top.genblk5), line:27:8, endln:27:16
+  |vpiParent:
+  \_gen_scope_array: (work@top.genblk5), line:27:8, endln:27:16
+  |vpiFullName:work@top.genblk5
+  |vpiVariables:
+  \_logic_var: (work@top.genblk5.a), line:27:14, endln:27:15
+\_gen_scope_array: (work@top.genblk5), line:27:8, endln:27:16
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StandardBlock/dut.sv, line:1:1, endln:28:10
+  |vpiName:genblk5
+  |vpiFullName:work@top.genblk5
+  |vpiGenScope:
+  \_gen_scope: (work@top.genblk5), line:27:8, endln:27:16
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -228,37 +228,39 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 begin                                                  4
-constant                                              32
+constant                                              28
 design                                                 1
 gen_if                                                 4
 gen_scope                                              4
 gen_scope_array                                        4
-logic_typespec                                         4
+logic_typespec                                         2
 module_inst                                            8
 operation                                              8
 param_assign                                           4
 parameter                                              4
-range                                                  4
+range                                                  2
 ref_module                                             6
 ref_obj                                                2
+ref_typespec                                          12
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 begin                                                  4
-constant                                              32
+constant                                              28
 design                                                 1
 gen_if                                                 4
 gen_scope                                              6
 gen_scope_array                                        6
-logic_typespec                                         4
+logic_typespec                                         2
 module_inst                                           10
 operation                                              8
 param_assign                                           4
 parameter                                              4
-range                                                  4
+range                                                  2
 ref_module                                             6
 ref_obj                                                2
+ref_typespec                                          12
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/UnsizedElabComp/slpp_all/surelog.uhdm ...
 
@@ -289,29 +291,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedElabComp/dut.sv, line:4:1, endln:23:10
     |BIN:111
     |vpiTypespec:
-    \_logic_typespec: , line:5:13, endln:5:24
+    \_ref_typespec: (work@top.P1)
       |vpiParent:
       \_parameter: (work@top.P1), line:5:25, endln:5:27
-      |vpiRange:
-      \_range: , line:5:19, endln:5:24
-        |vpiParent:
-        \_logic_typespec: , line:5:13, endln:5:24
-        |vpiLeftRange:
-        \_constant: , line:5:20, endln:5:21
-          |vpiParent:
-          \_range: , line:5:19, endln:5:24
-          |vpiDecompile:2
-          |vpiSize:64
-          |UINT:2
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:5:22, endln:5:23
-          |vpiParent:
-          \_range: , line:5:19, endln:5:24
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@top.P1
+      |vpiActual:
+      \_logic_typespec: , line:5:13, endln:5:24
     |vpiName:P1
     |vpiFullName:work@top.P1
   |vpiParameter:
@@ -320,29 +305,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedElabComp/dut.sv, line:4:1, endln:23:10
     |BIN:110
     |vpiTypespec:
-    \_logic_typespec: , line:6:13, endln:6:24
+    \_ref_typespec: (work@top.P2)
       |vpiParent:
       \_parameter: (work@top.P2), line:6:25, endln:6:27
-      |vpiRange:
-      \_range: , line:6:19, endln:6:24
-        |vpiParent:
-        \_logic_typespec: , line:6:13, endln:6:24
-        |vpiLeftRange:
-        \_constant: , line:6:20, endln:6:21
-          |vpiParent:
-          \_range: , line:6:19, endln:6:24
-          |vpiDecompile:2
-          |vpiSize:64
-          |UINT:2
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:6:22, endln:6:23
-          |vpiParent:
-          \_range: , line:6:19, endln:6:24
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@top.P2
+      |vpiActual:
+      \_logic_typespec: , line:6:13, endln:6:24
     |vpiName:P2
     |vpiFullName:work@top.P2
   |vpiParamAssign:
@@ -357,7 +325,12 @@ design: (work@top)
       |vpiSize:3
       |BIN:111
       |vpiTypespec:
-      \_logic_typespec: , line:5:13, endln:5:24
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:5:30, endln:5:36
+        |vpiFullName:work@top
+        |vpiActual:
+        \_logic_typespec: , line:5:13, endln:5:24
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@top.P1), line:5:25, endln:5:27
@@ -373,7 +346,12 @@ design: (work@top)
       |vpiSize:3
       |BIN:110
       |vpiTypespec:
-      \_logic_typespec: , line:6:13, endln:6:24
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:6:30, endln:6:36
+        |vpiFullName:work@top
+        |vpiActual:
+        \_logic_typespec: , line:6:13, endln:6:24
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@top.P2), line:6:25, endln:6:27
@@ -527,29 +505,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedElabComp/dut.sv, line:4:1, endln:23:10
     |BIN:111
     |vpiTypespec:
-    \_logic_typespec: , line:5:13, endln:5:24
+    \_ref_typespec: (work@top.P1)
       |vpiParent:
       \_parameter: (work@top.P1), line:5:25, endln:5:27
-      |vpiRange:
-      \_range: , line:5:19, endln:5:24
-        |vpiParent:
-        \_logic_typespec: , line:5:13, endln:5:24
-        |vpiLeftRange:
-        \_constant: , line:5:20, endln:5:21
-          |vpiParent:
-          \_range: , line:5:19, endln:5:24
-          |vpiDecompile:2
-          |vpiSize:64
-          |UINT:2
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:5:22, endln:5:23
-          |vpiParent:
-          \_range: , line:5:19, endln:5:24
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@top.P1
+      |vpiActual:
+      \_logic_typespec: , line:5:13, endln:5:24
     |vpiName:P1
     |vpiFullName:work@top.P1
   |vpiParameter:
@@ -558,29 +519,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedElabComp/dut.sv, line:4:1, endln:23:10
     |BIN:110
     |vpiTypespec:
-    \_logic_typespec: , line:6:13, endln:6:24
+    \_ref_typespec: (work@top.P2)
       |vpiParent:
       \_parameter: (work@top.P2), line:6:25, endln:6:27
-      |vpiRange:
-      \_range: , line:6:19, endln:6:24
-        |vpiParent:
-        \_logic_typespec: , line:6:13, endln:6:24
-        |vpiLeftRange:
-        \_constant: , line:6:20, endln:6:21
-          |vpiParent:
-          \_range: , line:6:19, endln:6:24
-          |vpiDecompile:2
-          |vpiSize:64
-          |UINT:2
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:6:22, endln:6:23
-          |vpiParent:
-          \_range: , line:6:19, endln:6:24
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@top.P2
+      |vpiActual:
+      \_logic_typespec: , line:6:13, endln:6:24
     |vpiName:P2
     |vpiFullName:work@top.P2
   |vpiParamAssign:
@@ -595,7 +539,12 @@ design: (work@top)
       |vpiSize:3
       |BIN:111
       |vpiTypespec:
-      \_logic_typespec: , line:5:13, endln:5:24
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:5:30, endln:5:36
+        |vpiFullName:work@top
+        |vpiActual:
+        \_logic_typespec: , line:5:13, endln:5:24
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@top.P1), line:5:25, endln:5:27
@@ -611,7 +560,12 @@ design: (work@top)
       |vpiSize:3
       |BIN:110
       |vpiTypespec:
-      \_logic_typespec: , line:6:13, endln:6:24
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:6:30, endln:6:36
+        |vpiFullName:work@top
+        |vpiActual:
+        \_logic_typespec: , line:6:13, endln:6:24
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@top.P2), line:6:25, endln:6:27
@@ -658,6 +612,53 @@ design: (work@top)
         |vpiDefName:work@GOOD
         |vpiDefFile:${SURELOG_DIR}/tests/UnsizedElabComp/dut.sv
         |vpiDefLineNo:1
+\_weaklyReferenced:
+\_logic_typespec: , line:5:13, endln:5:24
+  |vpiParent:
+  \_parameter: (work@top.P1), line:5:25, endln:5:27
+  |vpiRange:
+  \_range: , line:5:19, endln:5:24
+    |vpiParent:
+    \_logic_typespec: , line:5:13, endln:5:24
+    |vpiLeftRange:
+    \_constant: , line:5:20, endln:5:21
+      |vpiParent:
+      \_range: , line:5:19, endln:5:24
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:22, endln:5:23
+      |vpiParent:
+      \_range: , line:5:19, endln:5:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:6:13, endln:6:24
+  |vpiParent:
+  \_parameter: (work@top.P2), line:6:25, endln:6:27
+  |vpiRange:
+  \_range: , line:6:19, endln:6:24
+    |vpiParent:
+    \_logic_typespec: , line:6:13, endln:6:24
+    |vpiLeftRange:
+    \_constant: , line:6:20, endln:6:21
+      |vpiParent:
+      \_range: , line:6:19, endln:6:24
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:22, endln:6:23
+      |vpiParent:
+      \_range: , line:6:19, endln:6:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -61,6 +61,7 @@ operation                                             11
 package                                                2
 port                                                  18
 ref_obj                                               37
+ref_typespec                                          44
 task                                                   9
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -92,6 +93,7 @@ operation                                             17
 package                                                2
 port                                                  27
 ref_obj                                               60
+ref_typespec                                          58
 task                                                  18
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/JKFlipflop/slpp_all/surelog.uhdm ...
@@ -168,9 +170,12 @@ design: (work@JKFlipflop)
       |vpiParent:
       \_function: (work@mailbox::new), line:3:5, endln:4:16
       |vpiTypespec:
-      \_class_typespec: 
-        |vpiClassDefn:
-        \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/JKFlipflop/builtin.sv, line:1:3, endln:27:11
+      \_ref_typespec: (work@mailbox::new)
+        |vpiParent:
+        \_class_var: (work@mailbox::new), line:3:23, endln:3:28
+        |vpiFullName:work@mailbox::new
+        |vpiActual:
+        \_class_typespec: 
       |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound), line:3:23, endln:3:28
@@ -185,8 +190,12 @@ design: (work@JKFlipflop)
         |UINT:0
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:3:19, endln:3:22
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::new::bound)
+        |vpiParent:
+        \_io_decl: (bound), line:3:23, endln:3:28
+        |vpiFullName:work@mailbox::new::bound
+        |vpiActual:
+        \_int_typespec: , line:3:19, endln:3:22
   |vpiMethod:
   \_function: (work@mailbox::num), line:6:5, endln:7:16
     |vpiParent:
@@ -200,8 +209,12 @@ design: (work@JKFlipflop)
       |vpiParent:
       \_function: (work@mailbox::num), line:6:5, endln:7:16
       |vpiTypespec:
-      \_int_typespec: , line:6:14, endln:6:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::num)
+        |vpiParent:
+        \_int_var: (work@mailbox::num), line:6:14, endln:6:17
+        |vpiFullName:work@mailbox::num
+        |vpiActual:
+        \_int_typespec: , line:6:14, endln:6:17
       |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
@@ -264,8 +277,12 @@ design: (work@JKFlipflop)
       |vpiParent:
       \_function: (work@mailbox::try_get), line:18:5, endln:19:16
       |vpiTypespec:
-      \_int_typespec: , line:18:14, endln:18:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::try_get)
+        |vpiParent:
+        \_int_var: (work@mailbox::try_get), line:18:14, endln:18:17
+        |vpiFullName:work@mailbox::try_get
+        |vpiActual:
+        \_int_typespec: , line:18:14, endln:18:17
       |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
@@ -301,8 +318,12 @@ design: (work@JKFlipflop)
       |vpiParent:
       \_function: (work@mailbox::try_peek), line:24:5, endln:25:16
       |vpiTypespec:
-      \_int_typespec: , line:24:14, endln:24:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::try_peek)
+        |vpiParent:
+        \_int_var: (work@mailbox::try_peek), line:24:14, endln:24:17
+        |vpiFullName:work@mailbox::try_peek
+        |vpiActual:
+        \_int_typespec: , line:24:14, endln:24:17
       |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
@@ -374,9 +395,12 @@ design: (work@JKFlipflop)
       |vpiParent:
       \_function: (work@process::self), line:34:5, endln:34:11
       |vpiTypespec:
-      \_class_typespec: , line:34:21, endln:34:28
-        |vpiClassDefn:
-        \_class_defn: (work@process), file:${SURELOG_DIR}/tests/JKFlipflop/builtin.sv, line:30:3, endln:52:11
+      \_ref_typespec: (work@process::self)
+        |vpiParent:
+        \_class_var: (work@process::self), line:34:21, endln:34:28
+        |vpiFullName:work@process::self
+        |vpiActual:
+        \_class_typespec: , line:34:21, endln:34:28
       |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status), line:37:5, endln:38:16
@@ -391,50 +415,12 @@ design: (work@JKFlipflop)
       |vpiParent:
       \_function: (work@process::status), line:37:5, endln:38:16
       |vpiTypespec:
-      \_enum_typespec: (state), line:32:5, endln:32:74
+      \_ref_typespec: (work@process::status)
         |vpiParent:
-        \_class_defn: (work@process), file:${SURELOG_DIR}/tests/JKFlipflop/builtin.sv, line:30:3, endln:52:11
-        |vpiName:state
-        |vpiEnumConst:
-        \_enum_const: (FINISHED), line:32:20, endln:32:28
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:FINISHED
-          |INT:0
-          |vpiDecompile:0
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (RUNNING), line:32:30, endln:32:37
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:RUNNING
-          |INT:1
-          |vpiDecompile:1
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (WAITING), line:32:39, endln:32:46
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:WAITING
-          |INT:2
-          |vpiDecompile:2
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (SUSPENDED), line:32:48, endln:32:57
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:SUSPENDED
-          |INT:3
-          |vpiDecompile:3
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (KILLED), line:32:59, endln:32:65
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:KILLED
-          |INT:4
-          |vpiDecompile:4
-          |vpiSize:64
+        \_enum_var: (work@process::status), line:37:14, endln:37:19
+        |vpiFullName:work@process::status
+        |vpiActual:
+        \_enum_typespec: (state), line:32:5, endln:32:74
       |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill), line:40:5, endln:41:12
@@ -485,9 +471,12 @@ design: (work@JKFlipflop)
       |vpiParent:
       \_function: (work@semaphore::new), line:57:5, endln:58:16
       |vpiTypespec:
-      \_class_typespec: 
-        |vpiClassDefn:
-        \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/JKFlipflop/builtin.sv, line:55:3, endln:69:11
+      \_ref_typespec: (work@semaphore::new)
+        |vpiParent:
+        \_class_var: (work@semaphore::new), line:57:22, endln:57:30
+        |vpiFullName:work@semaphore::new
+        |vpiActual:
+        \_class_typespec: 
       |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount), line:57:22, endln:57:30
@@ -502,8 +491,12 @@ design: (work@JKFlipflop)
         |UINT:0
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:57:18, endln:57:21
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::new::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:57:22, endln:57:30
+        |vpiFullName:work@semaphore::new::keyCount
+        |vpiActual:
+        \_int_typespec: , line:57:18, endln:57:21
   |vpiMethod:
   \_task: (work@semaphore::put), line:60:5, endln:61:12
     |vpiParent:
@@ -525,8 +518,12 @@ design: (work@JKFlipflop)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:60:14, endln:60:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::put::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:60:18, endln:60:26
+        |vpiFullName:work@semaphore::put::keyCount
+        |vpiActual:
+        \_int_typespec: , line:60:14, endln:60:17
   |vpiMethod:
   \_task: (work@semaphore::get), line:63:5, endln:64:12
     |vpiParent:
@@ -548,8 +545,12 @@ design: (work@JKFlipflop)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:63:14, endln:63:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::get::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:63:18, endln:63:26
+        |vpiFullName:work@semaphore::get::keyCount
+        |vpiActual:
+        \_int_typespec: , line:63:14, endln:63:17
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:66:5, endln:67:16
     |vpiParent:
@@ -563,8 +564,12 @@ design: (work@JKFlipflop)
       |vpiParent:
       \_function: (work@semaphore::try_get), line:66:5, endln:67:16
       |vpiTypespec:
-      \_int_typespec: , line:66:14, endln:66:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::try_get)
+        |vpiParent:
+        \_int_var: (work@semaphore::try_get), line:66:14, endln:66:17
+        |vpiFullName:work@semaphore::try_get
+        |vpiActual:
+        \_int_typespec: , line:66:14, endln:66:17
       |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
@@ -580,8 +585,12 @@ design: (work@JKFlipflop)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:66:26, endln:66:29
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::try_get::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:66:30, endln:66:38
+        |vpiFullName:work@semaphore::try_get::keyCount
+        |vpiActual:
+        \_int_typespec: , line:66:26, endln:66:29
 |uhdmallModules:
 \_module_inst: work@D_Flipflop (work@D_Flipflop), file:${SURELOG_DIR}/tests/JKFlipflop/dut.sv, line:9:1, endln:19:10
   |vpiParent:
@@ -628,7 +637,12 @@ design: (work@JKFlipflop)
       |vpiActual:
       \_logic_net: (work@D_Flipflop.Din), line:9:19, endln:9:22
     |vpiTypedef:
-    \_logic_typespec: , line:10:11, endln:10:11
+    \_ref_typespec: (work@D_Flipflop.Din)
+      |vpiParent:
+      \_port: (Din), line:9:19, endln:9:22
+      |vpiFullName:work@D_Flipflop.Din
+      |vpiActual:
+      \_logic_typespec: , line:10:11, endln:10:11
   |vpiPort:
   \_port: (clk), line:9:23, endln:9:26
     |vpiParent:
@@ -644,7 +658,12 @@ design: (work@JKFlipflop)
       |vpiActual:
       \_logic_net: (work@D_Flipflop.clk), line:9:23, endln:9:26
     |vpiTypedef:
-    \_logic_typespec: , line:10:11, endln:10:11
+    \_ref_typespec: (work@D_Flipflop.clk)
+      |vpiParent:
+      \_port: (clk), line:9:23, endln:9:26
+      |vpiFullName:work@D_Flipflop.clk
+      |vpiActual:
+      \_logic_typespec: , line:10:11, endln:10:11
   |vpiPort:
   \_port: (reset), line:9:27, endln:9:32
     |vpiParent:
@@ -660,7 +679,12 @@ design: (work@JKFlipflop)
       |vpiActual:
       \_logic_net: (work@D_Flipflop.reset), line:9:27, endln:9:32
     |vpiTypedef:
-    \_logic_typespec: , line:10:11, endln:10:11
+    \_ref_typespec: (work@D_Flipflop.reset)
+      |vpiParent:
+      \_port: (reset), line:9:27, endln:9:32
+      |vpiFullName:work@D_Flipflop.reset
+      |vpiActual:
+      \_logic_typespec: , line:10:11, endln:10:11
   |vpiPort:
   \_port: (q), line:9:33, endln:9:34
     |vpiParent:
@@ -676,7 +700,12 @@ design: (work@JKFlipflop)
       |vpiActual:
       \_logic_net: (work@D_Flipflop.q), line:9:33, endln:9:34
     |vpiTypedef:
-    \_logic_typespec: , line:11:12, endln:11:15
+    \_ref_typespec: (work@D_Flipflop.q)
+      |vpiParent:
+      \_port: (q), line:9:33, endln:9:34
+      |vpiFullName:work@D_Flipflop.q
+      |vpiActual:
+      \_logic_typespec: , line:11:12, endln:11:15
   |vpiProcess:
   \_always: , line:12:5, endln:18:8
     |vpiParent:
@@ -769,7 +798,12 @@ design: (work@JKFlipflop)
     |vpiParent:
     \_module_inst: work@JKFlipflop (work@JKFlipflop), file:${SURELOG_DIR}/tests/JKFlipflop/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_logic_typespec: , line:4:3, endln:4:7
+    \_ref_typespec: (work@JKFlipflop.w)
+      |vpiParent:
+      \_logic_net: (work@JKFlipflop.w), line:4:8, endln:4:9
+      |vpiFullName:work@JKFlipflop.w
+      |vpiActual:
+      \_logic_typespec: , line:4:3, endln:4:7
     |vpiName:w
     |vpiFullName:work@JKFlipflop.w
     |vpiNetType:1
@@ -818,7 +852,12 @@ design: (work@JKFlipflop)
       |vpiActual:
       \_logic_net: (work@JKFlipflop.J), line:1:19, endln:1:20
     |vpiTypedef:
-    \_logic_typespec: , line:2:9, endln:2:9
+    \_ref_typespec: (work@JKFlipflop.J)
+      |vpiParent:
+      \_port: (J), line:1:19, endln:1:20
+      |vpiFullName:work@JKFlipflop.J
+      |vpiActual:
+      \_logic_typespec: , line:2:9, endln:2:9
   |vpiPort:
   \_port: (K), line:1:21, endln:1:22
     |vpiParent:
@@ -834,7 +873,12 @@ design: (work@JKFlipflop)
       |vpiActual:
       \_logic_net: (work@JKFlipflop.K), line:1:21, endln:1:22
     |vpiTypedef:
-    \_logic_typespec: , line:2:9, endln:2:9
+    \_ref_typespec: (work@JKFlipflop.K)
+      |vpiParent:
+      \_port: (K), line:1:21, endln:1:22
+      |vpiFullName:work@JKFlipflop.K
+      |vpiActual:
+      \_logic_typespec: , line:2:9, endln:2:9
   |vpiPort:
   \_port: (clk), line:1:23, endln:1:26
     |vpiParent:
@@ -850,7 +894,12 @@ design: (work@JKFlipflop)
       |vpiActual:
       \_logic_net: (work@JKFlipflop.clk), line:1:23, endln:1:26
     |vpiTypedef:
-    \_logic_typespec: , line:2:9, endln:2:9
+    \_ref_typespec: (work@JKFlipflop.clk)
+      |vpiParent:
+      \_port: (clk), line:1:23, endln:1:26
+      |vpiFullName:work@JKFlipflop.clk
+      |vpiActual:
+      \_logic_typespec: , line:2:9, endln:2:9
   |vpiPort:
   \_port: (reset), line:1:27, endln:1:32
     |vpiParent:
@@ -866,7 +915,12 @@ design: (work@JKFlipflop)
       |vpiActual:
       \_logic_net: (work@JKFlipflop.reset), line:1:27, endln:1:32
     |vpiTypedef:
-    \_logic_typespec: , line:2:9, endln:2:9
+    \_ref_typespec: (work@JKFlipflop.reset)
+      |vpiParent:
+      \_port: (reset), line:1:27, endln:1:32
+      |vpiFullName:work@JKFlipflop.reset
+      |vpiActual:
+      \_logic_typespec: , line:2:9, endln:2:9
   |vpiPort:
   \_port: (q), line:1:33, endln:1:34
     |vpiParent:
@@ -882,7 +936,12 @@ design: (work@JKFlipflop)
       |vpiActual:
       \_logic_net: (work@JKFlipflop.q), line:1:33, endln:1:34
     |vpiTypedef:
-    \_logic_typespec: , line:3:10, endln:3:10
+    \_ref_typespec: (work@JKFlipflop.q)
+      |vpiParent:
+      \_port: (q), line:1:33, endln:1:34
+      |vpiFullName:work@JKFlipflop.q
+      |vpiActual:
+      \_logic_typespec: , line:3:10, endln:3:10
   |vpiContAssign:
   \_cont_assign: , line:5:10, endln:5:25
     |vpiParent:
@@ -962,7 +1021,12 @@ design: (work@JKFlipflop)
     |vpiParent:
     \_module_inst: work@JKFlipflop (work@JKFlipflop), file:${SURELOG_DIR}/tests/JKFlipflop/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_logic_typespec: , line:4:3, endln:4:7
+    \_ref_typespec: (work@JKFlipflop.w)
+      |vpiParent:
+      \_logic_net: (work@JKFlipflop.w), line:4:8, endln:4:9
+      |vpiFullName:work@JKFlipflop.w
+      |vpiActual:
+      \_logic_typespec: , line:4:3, endln:4:7
     |vpiName:w
     |vpiFullName:work@JKFlipflop.w
     |vpiNetType:1
@@ -971,9 +1035,12 @@ design: (work@JKFlipflop)
     |vpiParent:
     \_module_inst: work@JKFlipflop (work@JKFlipflop), file:${SURELOG_DIR}/tests/JKFlipflop/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:9, endln:2:9
+    \_ref_typespec: (work@JKFlipflop.J)
       |vpiParent:
-      \_logic_net: (work@JKFlipflop.reset), line:1:27, endln:1:32
+      \_logic_net: (work@JKFlipflop.J), line:1:19, endln:1:20
+      |vpiFullName:work@JKFlipflop.J
+      |vpiActual:
+      \_logic_typespec: , line:2:9, endln:2:9
     |vpiName:J
     |vpiFullName:work@JKFlipflop.J
   |vpiNet:
@@ -981,7 +1048,12 @@ design: (work@JKFlipflop)
     |vpiParent:
     \_module_inst: work@JKFlipflop (work@JKFlipflop), file:${SURELOG_DIR}/tests/JKFlipflop/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:9, endln:2:9
+    \_ref_typespec: (work@JKFlipflop.K)
+      |vpiParent:
+      \_logic_net: (work@JKFlipflop.K), line:1:21, endln:1:22
+      |vpiFullName:work@JKFlipflop.K
+      |vpiActual:
+      \_logic_typespec: , line:2:9, endln:2:9
     |vpiName:K
     |vpiFullName:work@JKFlipflop.K
   |vpiNet:
@@ -989,7 +1061,12 @@ design: (work@JKFlipflop)
     |vpiParent:
     \_module_inst: work@JKFlipflop (work@JKFlipflop), file:${SURELOG_DIR}/tests/JKFlipflop/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:9, endln:2:9
+    \_ref_typespec: (work@JKFlipflop.clk)
+      |vpiParent:
+      \_logic_net: (work@JKFlipflop.clk), line:1:23, endln:1:26
+      |vpiFullName:work@JKFlipflop.clk
+      |vpiActual:
+      \_logic_typespec: , line:2:9, endln:2:9
     |vpiName:clk
     |vpiFullName:work@JKFlipflop.clk
   |vpiNet:
@@ -997,7 +1074,12 @@ design: (work@JKFlipflop)
     |vpiParent:
     \_module_inst: work@JKFlipflop (work@JKFlipflop), file:${SURELOG_DIR}/tests/JKFlipflop/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:9, endln:2:9
+    \_ref_typespec: (work@JKFlipflop.reset)
+      |vpiParent:
+      \_logic_net: (work@JKFlipflop.reset), line:1:27, endln:1:32
+      |vpiFullName:work@JKFlipflop.reset
+      |vpiActual:
+      \_logic_typespec: , line:2:9, endln:2:9
     |vpiName:reset
     |vpiFullName:work@JKFlipflop.reset
   |vpiNet:
@@ -1005,9 +1087,12 @@ design: (work@JKFlipflop)
     |vpiParent:
     \_module_inst: work@JKFlipflop (work@JKFlipflop), file:${SURELOG_DIR}/tests/JKFlipflop/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:10, endln:3:10
+    \_ref_typespec: (work@JKFlipflop.q)
       |vpiParent:
       \_logic_net: (work@JKFlipflop.q), line:1:33, endln:1:34
+      |vpiFullName:work@JKFlipflop.q
+      |vpiActual:
+      \_logic_typespec: , line:3:10, endln:3:10
     |vpiName:q
     |vpiFullName:work@JKFlipflop.q
   |vpiTopModule:1
@@ -1026,7 +1111,12 @@ design: (work@JKFlipflop)
       |vpiActual:
       \_logic_net: (work@JKFlipflop.J), line:1:19, endln:1:20
     |vpiTypedef:
-    \_logic_typespec: , line:2:9, endln:2:9
+    \_ref_typespec: (work@JKFlipflop.J)
+      |vpiParent:
+      \_port: (J), line:1:19, endln:1:20
+      |vpiFullName:work@JKFlipflop.J
+      |vpiActual:
+      \_logic_typespec: , line:2:9, endln:2:9
     |vpiInstance:
     \_module_inst: work@JKFlipflop (work@JKFlipflop), file:${SURELOG_DIR}/tests/JKFlipflop/dut.sv, line:1:1, endln:7:10
   |vpiPort:
@@ -1044,7 +1134,12 @@ design: (work@JKFlipflop)
       |vpiActual:
       \_logic_net: (work@JKFlipflop.K), line:1:21, endln:1:22
     |vpiTypedef:
-    \_logic_typespec: , line:2:9, endln:2:9
+    \_ref_typespec: (work@JKFlipflop.K)
+      |vpiParent:
+      \_port: (K), line:1:21, endln:1:22
+      |vpiFullName:work@JKFlipflop.K
+      |vpiActual:
+      \_logic_typespec: , line:2:9, endln:2:9
     |vpiInstance:
     \_module_inst: work@JKFlipflop (work@JKFlipflop), file:${SURELOG_DIR}/tests/JKFlipflop/dut.sv, line:1:1, endln:7:10
   |vpiPort:
@@ -1062,7 +1157,12 @@ design: (work@JKFlipflop)
       |vpiActual:
       \_logic_net: (work@JKFlipflop.clk), line:1:23, endln:1:26
     |vpiTypedef:
-    \_logic_typespec: , line:2:9, endln:2:9
+    \_ref_typespec: (work@JKFlipflop.clk)
+      |vpiParent:
+      \_port: (clk), line:1:23, endln:1:26
+      |vpiFullName:work@JKFlipflop.clk
+      |vpiActual:
+      \_logic_typespec: , line:2:9, endln:2:9
     |vpiInstance:
     \_module_inst: work@JKFlipflop (work@JKFlipflop), file:${SURELOG_DIR}/tests/JKFlipflop/dut.sv, line:1:1, endln:7:10
   |vpiPort:
@@ -1080,7 +1180,12 @@ design: (work@JKFlipflop)
       |vpiActual:
       \_logic_net: (work@JKFlipflop.reset), line:1:27, endln:1:32
     |vpiTypedef:
-    \_logic_typespec: , line:2:9, endln:2:9
+    \_ref_typespec: (work@JKFlipflop.reset)
+      |vpiParent:
+      \_port: (reset), line:1:27, endln:1:32
+      |vpiFullName:work@JKFlipflop.reset
+      |vpiActual:
+      \_logic_typespec: , line:2:9, endln:2:9
     |vpiInstance:
     \_module_inst: work@JKFlipflop (work@JKFlipflop), file:${SURELOG_DIR}/tests/JKFlipflop/dut.sv, line:1:1, endln:7:10
   |vpiPort:
@@ -1098,7 +1203,12 @@ design: (work@JKFlipflop)
       |vpiActual:
       \_logic_net: (work@JKFlipflop.q), line:1:33, endln:1:34
     |vpiTypedef:
-    \_logic_typespec: , line:3:10, endln:3:10
+    \_ref_typespec: (work@JKFlipflop.q)
+      |vpiParent:
+      \_port: (q), line:1:33, endln:1:34
+      |vpiFullName:work@JKFlipflop.q
+      |vpiActual:
+      \_logic_typespec: , line:3:10, endln:3:10
     |vpiInstance:
     \_module_inst: work@JKFlipflop (work@JKFlipflop), file:${SURELOG_DIR}/tests/JKFlipflop/dut.sv, line:1:1, endln:7:10
   |vpiModule:
@@ -1115,9 +1225,12 @@ design: (work@JKFlipflop)
       |vpiParent:
       \_module_inst: work@D_Flipflop (work@JKFlipflop.dff), file:${SURELOG_DIR}/tests/JKFlipflop/dut.sv, line:6:3, endln:6:33
       |vpiTypespec:
-      \_logic_typespec: , line:10:11, endln:10:11
+      \_ref_typespec: (work@JKFlipflop.dff.Din)
         |vpiParent:
-        \_logic_net: (work@JKFlipflop.dff.reset), line:9:27, endln:9:32
+        \_logic_net: (work@JKFlipflop.dff.Din), line:9:19, endln:9:22
+        |vpiFullName:work@JKFlipflop.dff.Din
+        |vpiActual:
+        \_logic_typespec: , line:10:11, endln:10:11
       |vpiName:Din
       |vpiFullName:work@JKFlipflop.dff.Din
     |vpiNet:
@@ -1125,7 +1238,12 @@ design: (work@JKFlipflop)
       |vpiParent:
       \_module_inst: work@D_Flipflop (work@JKFlipflop.dff), file:${SURELOG_DIR}/tests/JKFlipflop/dut.sv, line:6:3, endln:6:33
       |vpiTypespec:
-      \_logic_typespec: , line:10:11, endln:10:11
+      \_ref_typespec: (work@JKFlipflop.dff.clk)
+        |vpiParent:
+        \_logic_net: (work@JKFlipflop.dff.clk), line:9:23, endln:9:26
+        |vpiFullName:work@JKFlipflop.dff.clk
+        |vpiActual:
+        \_logic_typespec: , line:10:11, endln:10:11
       |vpiName:clk
       |vpiFullName:work@JKFlipflop.dff.clk
     |vpiNet:
@@ -1133,7 +1251,12 @@ design: (work@JKFlipflop)
       |vpiParent:
       \_module_inst: work@D_Flipflop (work@JKFlipflop.dff), file:${SURELOG_DIR}/tests/JKFlipflop/dut.sv, line:6:3, endln:6:33
       |vpiTypespec:
-      \_logic_typespec: , line:10:11, endln:10:11
+      \_ref_typespec: (work@JKFlipflop.dff.reset)
+        |vpiParent:
+        \_logic_net: (work@JKFlipflop.dff.reset), line:9:27, endln:9:32
+        |vpiFullName:work@JKFlipflop.dff.reset
+        |vpiActual:
+        \_logic_typespec: , line:10:11, endln:10:11
       |vpiName:reset
       |vpiFullName:work@JKFlipflop.dff.reset
     |vpiNet:
@@ -1141,9 +1264,12 @@ design: (work@JKFlipflop)
       |vpiParent:
       \_module_inst: work@D_Flipflop (work@JKFlipflop.dff), file:${SURELOG_DIR}/tests/JKFlipflop/dut.sv, line:6:3, endln:6:33
       |vpiTypespec:
-      \_logic_typespec: , line:11:12, endln:11:15
+      \_ref_typespec: (work@JKFlipflop.dff.q)
         |vpiParent:
         \_logic_net: (work@JKFlipflop.dff.q), line:9:33, endln:9:34
+        |vpiFullName:work@JKFlipflop.dff.q
+        |vpiActual:
+        \_logic_typespec: , line:11:12, endln:11:15
       |vpiName:q
       |vpiFullName:work@JKFlipflop.dff.q
       |vpiNetType:48
@@ -1172,7 +1298,12 @@ design: (work@JKFlipflop)
         |vpiActual:
         \_logic_net: (work@JKFlipflop.dff.Din), line:9:19, endln:9:22
       |vpiTypedef:
-      \_logic_typespec: , line:10:11, endln:10:11
+      \_ref_typespec: (work@JKFlipflop.dff.Din)
+        |vpiParent:
+        \_port: (Din), line:9:19, endln:9:22
+        |vpiFullName:work@JKFlipflop.dff.Din
+        |vpiActual:
+        \_logic_typespec: , line:10:11, endln:10:11
       |vpiInstance:
       \_module_inst: work@D_Flipflop (work@JKFlipflop.dff), file:${SURELOG_DIR}/tests/JKFlipflop/dut.sv, line:6:3, endln:6:33
     |vpiPort:
@@ -1198,7 +1329,12 @@ design: (work@JKFlipflop)
         |vpiActual:
         \_logic_net: (work@JKFlipflop.dff.clk), line:9:23, endln:9:26
       |vpiTypedef:
-      \_logic_typespec: , line:10:11, endln:10:11
+      \_ref_typespec: (work@JKFlipflop.dff.clk)
+        |vpiParent:
+        \_port: (clk), line:9:23, endln:9:26
+        |vpiFullName:work@JKFlipflop.dff.clk
+        |vpiActual:
+        \_logic_typespec: , line:10:11, endln:10:11
       |vpiInstance:
       \_module_inst: work@D_Flipflop (work@JKFlipflop.dff), file:${SURELOG_DIR}/tests/JKFlipflop/dut.sv, line:6:3, endln:6:33
     |vpiPort:
@@ -1224,7 +1360,12 @@ design: (work@JKFlipflop)
         |vpiActual:
         \_logic_net: (work@JKFlipflop.dff.reset), line:9:27, endln:9:32
       |vpiTypedef:
-      \_logic_typespec: , line:10:11, endln:10:11
+      \_ref_typespec: (work@JKFlipflop.dff.reset)
+        |vpiParent:
+        \_port: (reset), line:9:27, endln:9:32
+        |vpiFullName:work@JKFlipflop.dff.reset
+        |vpiActual:
+        \_logic_typespec: , line:10:11, endln:10:11
       |vpiInstance:
       \_module_inst: work@D_Flipflop (work@JKFlipflop.dff), file:${SURELOG_DIR}/tests/JKFlipflop/dut.sv, line:6:3, endln:6:33
     |vpiPort:
@@ -1250,7 +1391,12 @@ design: (work@JKFlipflop)
         |vpiActual:
         \_logic_net: (work@JKFlipflop.dff.q), line:9:33, endln:9:34
       |vpiTypedef:
-      \_logic_typespec: , line:11:12, endln:11:15
+      \_ref_typespec: (work@JKFlipflop.dff.q)
+        |vpiParent:
+        \_port: (q), line:9:33, endln:9:34
+        |vpiFullName:work@JKFlipflop.dff.q
+        |vpiActual:
+        \_logic_typespec: , line:11:12, endln:11:15
       |vpiInstance:
       \_module_inst: work@D_Flipflop (work@JKFlipflop.dff), file:${SURELOG_DIR}/tests/JKFlipflop/dut.sv, line:6:3, endln:6:33
     |vpiProcess:
@@ -1399,6 +1545,247 @@ design: (work@JKFlipflop)
       |vpiFullName:work@JKFlipflop.w
       |vpiActual:
       \_logic_net: (work@JKFlipflop.w), line:4:8, endln:4:9
+\_weaklyReferenced:
+\_function: (work@mailbox::new), line:3:5, endln:4:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/JKFlipflop/builtin.sv, line:1:3, endln:27:11
+  |vpiName:new
+  |vpiFullName:work@mailbox::new
+  |vpiMethod:1
+  |vpiReturn:
+  \_class_var: (work@mailbox::new), line:3:23, endln:3:28
+  |vpiIODecl:
+  \_io_decl: (bound), line:3:23, endln:3:28
+    |vpiParent:
+    \_function: (work@mailbox::new), line:3:5, endln:4:16
+    |vpiDirection:1
+    |vpiName:bound
+    |vpiExpr:
+    \_constant: , line:3:31, endln:3:32
+    |vpiTypedef:
+    \_ref_typespec: (work@mailbox::new::bound)
+      |vpiParent:
+      \_io_decl: (bound), line:3:23, endln:3:28
+      |vpiFullName:work@mailbox::new::bound
+      |vpiActual:
+      \_int_typespec: , line:3:19, endln:3:22
+\_class_typespec: 
+  |vpiClassDefn:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/JKFlipflop/builtin.sv, line:1:3, endln:27:11
+\_int_typespec: , line:3:19, endln:3:22
+  |vpiSigned:1
+\_function: (work@mailbox::num), line:6:5, endln:7:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/JKFlipflop/builtin.sv, line:1:3, endln:27:11
+  |vpiName:num
+  |vpiFullName:work@mailbox::num
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::num), line:6:14, endln:6:17
+\_int_typespec: , line:6:14, endln:6:17
+  |vpiSigned:1
+\_function: (work@mailbox::try_put), line:12:5, endln:13:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/JKFlipflop/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_put
+  |vpiFullName:work@mailbox::try_put
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_logic_var: (work@mailbox::try_put)
+  |vpiIODecl:
+  \_io_decl: (message), line:12:23, endln:12:30
+    |vpiParent:
+    \_function: (work@mailbox::try_put), line:12:5, endln:13:16
+    |vpiDirection:1
+    |vpiName:message
+\_function: (work@mailbox::try_get), line:18:5, endln:19:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/JKFlipflop/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_get
+  |vpiFullName:work@mailbox::try_get
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::try_get), line:18:14, endln:18:17
+  |vpiIODecl:
+  \_io_decl: (message), line:18:31, endln:18:38
+    |vpiParent:
+    \_function: (work@mailbox::try_get), line:18:5, endln:19:16
+    |vpiDirection:6
+    |vpiName:message
+\_int_typespec: , line:18:14, endln:18:17
+  |vpiSigned:1
+\_function: (work@mailbox::try_peek), line:24:5, endln:25:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/JKFlipflop/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_peek
+  |vpiFullName:work@mailbox::try_peek
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::try_peek), line:24:14, endln:24:17
+  |vpiIODecl:
+  \_io_decl: (message), line:24:31, endln:24:38
+    |vpiParent:
+    \_function: (work@mailbox::try_peek), line:24:5, endln:25:16
+    |vpiDirection:6
+    |vpiName:message
+\_int_typespec: , line:24:14, endln:24:17
+  |vpiSigned:1
+\_enum_typespec: (state), line:32:5, endln:32:74
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/JKFlipflop/builtin.sv, line:30:3, endln:52:11
+  |vpiName:state
+  |vpiEnumConst:
+  \_enum_const: (FINISHED), line:32:20, endln:32:28
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:FINISHED
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (RUNNING), line:32:30, endln:32:37
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:RUNNING
+    |INT:1
+    |vpiDecompile:1
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (WAITING), line:32:39, endln:32:46
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:WAITING
+    |INT:2
+    |vpiDecompile:2
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (SUSPENDED), line:32:48, endln:32:57
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:SUSPENDED
+    |INT:3
+    |vpiDecompile:3
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (KILLED), line:32:59, endln:32:65
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:KILLED
+    |INT:4
+    |vpiDecompile:4
+    |vpiSize:64
+\_function: (work@process::self), line:34:5, endln:34:11
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/JKFlipflop/builtin.sv, line:30:3, endln:52:11
+  |vpiName:self
+  |vpiFullName:work@process::self
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_class_var: (work@process::self), line:34:21, endln:34:28
+\_class_typespec: , line:34:21, endln:34:28
+  |vpiClassDefn:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/JKFlipflop/builtin.sv, line:30:3, endln:52:11
+\_function: (work@process::status), line:37:5, endln:38:16
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/JKFlipflop/builtin.sv, line:30:3, endln:52:11
+  |vpiName:status
+  |vpiFullName:work@process::status
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_enum_var: (work@process::status), line:37:14, endln:37:19
+\_function: (work@semaphore::new), line:57:5, endln:58:16
+  |vpiParent:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/JKFlipflop/builtin.sv, line:55:3, endln:69:11
+  |vpiName:new
+  |vpiFullName:work@semaphore::new
+  |vpiMethod:1
+  |vpiReturn:
+  \_class_var: (work@semaphore::new), line:57:22, endln:57:30
+  |vpiIODecl:
+  \_io_decl: (keyCount), line:57:22, endln:57:30
+    |vpiParent:
+    \_function: (work@semaphore::new), line:57:5, endln:58:16
+    |vpiDirection:1
+    |vpiName:keyCount
+    |vpiExpr:
+    \_constant: , line:57:33, endln:57:34
+    |vpiTypedef:
+    \_ref_typespec: (work@semaphore::new::keyCount)
+      |vpiParent:
+      \_io_decl: (keyCount), line:57:22, endln:57:30
+      |vpiFullName:work@semaphore::new::keyCount
+      |vpiActual:
+      \_int_typespec: , line:57:18, endln:57:21
+\_class_typespec: 
+  |vpiClassDefn:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/JKFlipflop/builtin.sv, line:55:3, endln:69:11
+\_int_typespec: , line:57:18, endln:57:21
+  |vpiSigned:1
+\_int_typespec: , line:60:14, endln:60:17
+  |vpiSigned:1
+\_int_typespec: , line:63:14, endln:63:17
+  |vpiSigned:1
+\_function: (work@semaphore::try_get), line:66:5, endln:67:16
+  |vpiParent:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/JKFlipflop/builtin.sv, line:55:3, endln:69:11
+  |vpiName:try_get
+  |vpiFullName:work@semaphore::try_get
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@semaphore::try_get), line:66:14, endln:66:17
+  |vpiIODecl:
+  \_io_decl: (keyCount), line:66:30, endln:66:38
+    |vpiParent:
+    \_function: (work@semaphore::try_get), line:66:5, endln:67:16
+    |vpiDirection:1
+    |vpiName:keyCount
+    |vpiExpr:
+    \_constant: , line:66:41, endln:66:42
+    |vpiTypedef:
+    \_ref_typespec: (work@semaphore::try_get::keyCount)
+      |vpiParent:
+      \_io_decl: (keyCount), line:66:30, endln:66:38
+      |vpiFullName:work@semaphore::try_get::keyCount
+      |vpiActual:
+      \_int_typespec: , line:66:26, endln:66:29
+\_int_typespec: , line:66:14, endln:66:17
+  |vpiSigned:1
+\_int_typespec: , line:66:26, endln:66:29
+  |vpiSigned:1
+\_logic_typespec: , line:2:9, endln:2:9
+\_logic_typespec: , line:3:10, endln:3:10
+\_logic_typespec: , line:4:3, endln:4:7
+\_logic_typespec: , line:2:9, endln:2:9
+  |vpiParent:
+  \_logic_net: (work@JKFlipflop.reset), line:1:27, endln:1:32
+\_logic_typespec: , line:3:10, endln:3:10
+  |vpiParent:
+  \_logic_net: (work@JKFlipflop.q), line:1:33, endln:1:34
+\_logic_typespec: , line:10:11, endln:10:11
+\_logic_typespec: , line:11:12, endln:11:15
+\_logic_typespec: , line:10:11, endln:10:11
+  |vpiParent:
+  \_logic_net: (work@JKFlipflop.dff.reset), line:9:27, endln:9:32
+\_logic_typespec: , line:11:12, endln:11:15
+  |vpiParent:
+  \_logic_net: (work@JKFlipflop.dff.q), line:9:33, endln:9:34
+\_logic_typespec: , line:10:11, endln:10:11
+\_logic_typespec: , line:10:11, endln:10:11
+\_logic_typespec: , line:10:11, endln:10:11
+\_logic_typespec: , line:11:12, endln:11:15
+\_logic_typespec: , line:2:9, endln:2:9
+\_logic_typespec: , line:2:9, endln:2:9
+\_logic_typespec: , line:2:9, endln:2:9
+\_logic_typespec: , line:2:9, endln:2:9
+\_logic_typespec: , line:3:10, endln:3:10
+\_logic_typespec: , line:4:3, endln:4:7
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -677,7 +677,7 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-bit_typespec                                           2
+bit_typespec                                           1
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
@@ -687,7 +687,7 @@ enum_const                                             5
 enum_typespec                                          1
 enum_var                                               1
 function                                               9
-int_typespec                                          25
+int_typespec                                          17
 int_var                                                4
 io_decl                                               11
 logic_net                                              3
@@ -700,13 +700,14 @@ param_assign                                          18
 parameter                                             18
 range                                                 15
 ref_obj                                               12
+ref_typespec                                          70
 sys_func_call                                          2
 task                                                   9
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-bit_typespec                                           2
+bit_typespec                                           1
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
@@ -716,7 +717,7 @@ enum_const                                            10
 enum_typespec                                          2
 enum_var                                               1
 function                                              18
-int_typespec                                          25
+int_typespec                                          17
 int_var                                                4
 io_decl                                               22
 logic_net                                              3
@@ -729,6 +730,7 @@ param_assign                                          18
 parameter                                             18
 range                                                 15
 ref_obj                                               12
+ref_typespec                                          75
 sys_func_call                                          2
 task                                                  18
 === UHDM Object Stats End ===
@@ -806,9 +808,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@mailbox::new), line:3:5, endln:4:16
       |vpiTypespec:
-      \_class_typespec: 
-        |vpiClassDefn:
-        \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/ConditionalOp/builtin.sv, line:1:3, endln:27:11
+      \_ref_typespec: (work@mailbox::new)
+        |vpiParent:
+        \_class_var: (work@mailbox::new), line:3:23, endln:3:28
+        |vpiFullName:work@mailbox::new
+        |vpiActual:
+        \_class_typespec: 
       |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound), line:3:23, endln:3:28
@@ -823,8 +828,12 @@ design: (work@top)
         |UINT:0
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:3:19, endln:3:22
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::new::bound)
+        |vpiParent:
+        \_io_decl: (bound), line:3:23, endln:3:28
+        |vpiFullName:work@mailbox::new::bound
+        |vpiActual:
+        \_int_typespec: , line:3:19, endln:3:22
   |vpiMethod:
   \_function: (work@mailbox::num), line:6:5, endln:7:16
     |vpiParent:
@@ -838,8 +847,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@mailbox::num), line:6:5, endln:7:16
       |vpiTypespec:
-      \_int_typespec: , line:6:14, endln:6:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::num)
+        |vpiParent:
+        \_int_var: (work@mailbox::num), line:6:14, endln:6:17
+        |vpiFullName:work@mailbox::num
+        |vpiActual:
+        \_int_typespec: , line:6:14, endln:6:17
       |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
@@ -902,8 +915,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@mailbox::try_get), line:18:5, endln:19:16
       |vpiTypespec:
-      \_int_typespec: , line:18:14, endln:18:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::try_get)
+        |vpiParent:
+        \_int_var: (work@mailbox::try_get), line:18:14, endln:18:17
+        |vpiFullName:work@mailbox::try_get
+        |vpiActual:
+        \_int_typespec: , line:18:14, endln:18:17
       |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
@@ -939,8 +956,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@mailbox::try_peek), line:24:5, endln:25:16
       |vpiTypespec:
-      \_int_typespec: , line:24:14, endln:24:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::try_peek)
+        |vpiParent:
+        \_int_var: (work@mailbox::try_peek), line:24:14, endln:24:17
+        |vpiFullName:work@mailbox::try_peek
+        |vpiActual:
+        \_int_typespec: , line:24:14, endln:24:17
       |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
@@ -1012,9 +1033,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@process::self), line:34:5, endln:34:11
       |vpiTypespec:
-      \_class_typespec: , line:34:21, endln:34:28
-        |vpiClassDefn:
-        \_class_defn: (work@process), file:${SURELOG_DIR}/tests/ConditionalOp/builtin.sv, line:30:3, endln:52:11
+      \_ref_typespec: (work@process::self)
+        |vpiParent:
+        \_class_var: (work@process::self), line:34:21, endln:34:28
+        |vpiFullName:work@process::self
+        |vpiActual:
+        \_class_typespec: , line:34:21, endln:34:28
       |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status), line:37:5, endln:38:16
@@ -1029,50 +1053,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@process::status), line:37:5, endln:38:16
       |vpiTypespec:
-      \_enum_typespec: (state), line:32:5, endln:32:74
+      \_ref_typespec: (work@process::status)
         |vpiParent:
-        \_class_defn: (work@process), file:${SURELOG_DIR}/tests/ConditionalOp/builtin.sv, line:30:3, endln:52:11
-        |vpiName:state
-        |vpiEnumConst:
-        \_enum_const: (FINISHED), line:32:20, endln:32:28
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:FINISHED
-          |INT:0
-          |vpiDecompile:0
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (RUNNING), line:32:30, endln:32:37
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:RUNNING
-          |INT:1
-          |vpiDecompile:1
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (WAITING), line:32:39, endln:32:46
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:WAITING
-          |INT:2
-          |vpiDecompile:2
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (SUSPENDED), line:32:48, endln:32:57
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:SUSPENDED
-          |INT:3
-          |vpiDecompile:3
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (KILLED), line:32:59, endln:32:65
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:KILLED
-          |INT:4
-          |vpiDecompile:4
-          |vpiSize:64
+        \_enum_var: (work@process::status), line:37:14, endln:37:19
+        |vpiFullName:work@process::status
+        |vpiActual:
+        \_enum_typespec: (state), line:32:5, endln:32:74
       |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill), line:40:5, endln:41:12
@@ -1123,9 +1109,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@semaphore::new), line:57:5, endln:58:16
       |vpiTypespec:
-      \_class_typespec: 
-        |vpiClassDefn:
-        \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/ConditionalOp/builtin.sv, line:55:3, endln:69:11
+      \_ref_typespec: (work@semaphore::new)
+        |vpiParent:
+        \_class_var: (work@semaphore::new), line:57:22, endln:57:30
+        |vpiFullName:work@semaphore::new
+        |vpiActual:
+        \_class_typespec: 
       |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount), line:57:22, endln:57:30
@@ -1140,8 +1129,12 @@ design: (work@top)
         |UINT:0
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:57:18, endln:57:21
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::new::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:57:22, endln:57:30
+        |vpiFullName:work@semaphore::new::keyCount
+        |vpiActual:
+        \_int_typespec: , line:57:18, endln:57:21
   |vpiMethod:
   \_task: (work@semaphore::put), line:60:5, endln:61:12
     |vpiParent:
@@ -1163,8 +1156,12 @@ design: (work@top)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:60:14, endln:60:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::put::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:60:18, endln:60:26
+        |vpiFullName:work@semaphore::put::keyCount
+        |vpiActual:
+        \_int_typespec: , line:60:14, endln:60:17
   |vpiMethod:
   \_task: (work@semaphore::get), line:63:5, endln:64:12
     |vpiParent:
@@ -1186,8 +1183,12 @@ design: (work@top)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:63:14, endln:63:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::get::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:63:18, endln:63:26
+        |vpiFullName:work@semaphore::get::keyCount
+        |vpiActual:
+        \_int_typespec: , line:63:14, endln:63:17
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:66:5, endln:67:16
     |vpiParent:
@@ -1201,8 +1202,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@semaphore::try_get), line:66:5, endln:67:16
       |vpiTypespec:
-      \_int_typespec: , line:66:14, endln:66:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::try_get)
+        |vpiParent:
+        \_int_var: (work@semaphore::try_get), line:66:14, endln:66:17
+        |vpiFullName:work@semaphore::try_get
+        |vpiActual:
+        \_int_typespec: , line:66:14, endln:66:17
       |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
@@ -1218,8 +1223,12 @@ design: (work@top)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:66:26, endln:66:29
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::try_get::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:66:30, endln:66:38
+        |vpiFullName:work@semaphore::try_get::keyCount
+        |vpiActual:
+        \_int_typespec: , line:66:26, endln:66:29
 |uhdmallModules:
 \_module_inst: work@ibex_register_file (work@ibex_register_file), file:${SURELOG_DIR}/tests/ConditionalOp/dut.sv, line:14:1, endln:24:10
   |vpiParent:
@@ -1231,9 +1240,12 @@ design: (work@top)
     \_module_inst: work@ibex_register_file (work@ibex_register_file), file:${SURELOG_DIR}/tests/ConditionalOp/dut.sv, line:14:1, endln:24:10
     |UINT:0
     |vpiTypespec:
-    \_bit_typespec: , line:15:15, endln:15:18
+    \_ref_typespec: (work@ibex_register_file.RV32E)
       |vpiParent:
       \_parameter: (work@ibex_register_file.RV32E), line:15:28, endln:15:33
+      |vpiFullName:work@ibex_register_file.RV32E
+      |vpiActual:
+      \_bit_typespec: , line:15:15, endln:15:18
     |vpiName:RV32E
     |vpiFullName:work@ibex_register_file.RV32E
   |vpiParameter:
@@ -1242,9 +1254,12 @@ design: (work@top)
     \_module_inst: work@ibex_register_file (work@ibex_register_file), file:${SURELOG_DIR}/tests/ConditionalOp/dut.sv, line:14:1, endln:24:10
     |UINT:32
     |vpiTypespec:
-    \_int_typespec: , line:16:15, endln:16:27
+    \_ref_typespec: (work@ibex_register_file.DataWidth)
       |vpiParent:
       \_parameter: (work@ibex_register_file.DataWidth), line:16:28, endln:16:37
+      |vpiFullName:work@ibex_register_file.DataWidth
+      |vpiActual:
+      \_int_typespec: , line:16:15, endln:16:27
     |vpiName:DataWidth
     |vpiFullName:work@ibex_register_file.DataWidth
   |vpiParameter:
@@ -1252,9 +1267,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@ibex_register_file (work@ibex_register_file), file:${SURELOG_DIR}/tests/ConditionalOp/dut.sv, line:14:1, endln:24:10
     |vpiTypespec:
-    \_int_typespec: , line:18:14, endln:18:26
+    \_ref_typespec: (work@ibex_register_file.ADDR_WIDTH)
       |vpiParent:
       \_parameter: (work@ibex_register_file.ADDR_WIDTH), line:18:27, endln:18:37
+      |vpiFullName:work@ibex_register_file.ADDR_WIDTH
+      |vpiActual:
+      \_int_typespec: , line:18:14, endln:18:26
     |vpiLocalParam:1
     |vpiName:ADDR_WIDTH
     |vpiFullName:work@ibex_register_file.ADDR_WIDTH
@@ -1263,9 +1281,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@ibex_register_file (work@ibex_register_file), file:${SURELOG_DIR}/tests/ConditionalOp/dut.sv, line:14:1, endln:24:10
     |vpiTypespec:
-    \_int_typespec: , line:19:14, endln:19:26
+    \_ref_typespec: (work@ibex_register_file.NUM_WORDS)
       |vpiParent:
       \_parameter: (work@ibex_register_file.NUM_WORDS), line:19:27, endln:19:36
+      |vpiFullName:work@ibex_register_file.NUM_WORDS
+      |vpiActual:
+      \_int_typespec: , line:19:14, endln:19:26
     |vpiLocalParam:1
     |vpiName:NUM_WORDS
     |vpiFullName:work@ibex_register_file.NUM_WORDS
@@ -1281,7 +1302,12 @@ design: (work@top)
       |vpiSize:1
       |UINT:0
       |vpiTypespec:
-      \_bit_typespec: , line:15:15, endln:15:18
+      \_ref_typespec: (work@ibex_register_file)
+        |vpiParent:
+        \_constant: , line:15:48, endln:15:49
+        |vpiFullName:work@ibex_register_file
+        |vpiActual:
+        \_bit_typespec: , line:15:15, endln:15:18
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@ibex_register_file.RV32E), line:15:28, endln:15:33
@@ -1297,7 +1323,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:32
       |vpiTypespec:
-      \_int_typespec: , line:16:15, endln:16:27
+      \_ref_typespec: (work@ibex_register_file)
+        |vpiParent:
+        \_constant: , line:16:48, endln:16:50
+        |vpiFullName:work@ibex_register_file
+        |vpiActual:
+        \_int_typespec: , line:16:15, endln:16:27
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@ibex_register_file.DataWidth), line:16:28, endln:16:37
@@ -1365,67 +1396,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@ibex_register_file (work@ibex_register_file), file:${SURELOG_DIR}/tests/ConditionalOp/dut.sv, line:14:1, endln:24:10
     |vpiTypespec:
-    \_logic_typespec: , line:21:3, endln:21:24
-      |vpiRange:
-      \_range: , line:21:9, endln:21:24
-        |vpiParent:
-        \_logic_typespec: , line:21:3, endln:21:24
-        |vpiLeftRange:
-        \_operation: , line:21:10, endln:21:21
-          |vpiParent:
-          \_range: , line:21:9, endln:21:24
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (NUM_WORDS), line:21:10, endln:21:19
-            |vpiParent:
-            \_operation: , line:21:10, endln:21:21
-            |vpiName:NUM_WORDS
-          |vpiOperand:
-          \_constant: , line:21:20, endln:21:21
-            |vpiParent:
-            \_operation: , line:21:10, endln:21:21
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:21:22, endln:21:23
-          |vpiParent:
-          \_range: , line:21:9, endln:21:24
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-      |vpiRange:
-      \_range: , line:21:24, endln:21:39
-        |vpiParent:
-        \_logic_typespec: , line:21:3, endln:21:24
-        |vpiLeftRange:
-        \_operation: , line:21:25, endln:21:36
-          |vpiParent:
-          \_range: , line:21:24, endln:21:39
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (DataWidth), line:21:25, endln:21:34
-            |vpiParent:
-            \_operation: , line:21:25, endln:21:36
-            |vpiName:DataWidth
-          |vpiOperand:
-          \_constant: , line:21:35, endln:21:36
-            |vpiParent:
-            \_operation: , line:21:25, endln:21:36
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:21:37, endln:21:38
-          |vpiParent:
-          \_range: , line:21:24, endln:21:39
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@ibex_register_file.rf_reg)
+      |vpiParent:
+      \_logic_net: (work@ibex_register_file.rf_reg), line:21:40, endln:21:46
+      |vpiFullName:work@ibex_register_file.rf_reg
+      |vpiActual:
+      \_logic_typespec: , line:21:3, endln:21:24
     |vpiName:rf_reg
     |vpiFullName:work@ibex_register_file.rf_reg
     |vpiNetType:36
@@ -1434,67 +1410,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@ibex_register_file (work@ibex_register_file), file:${SURELOG_DIR}/tests/ConditionalOp/dut.sv, line:14:1, endln:24:10
     |vpiTypespec:
-    \_logic_typespec: , line:22:3, endln:22:24
-      |vpiRange:
-      \_range: , line:22:9, endln:22:24
-        |vpiParent:
-        \_logic_typespec: , line:22:3, endln:22:24
-        |vpiLeftRange:
-        \_operation: , line:22:10, endln:22:21
-          |vpiParent:
-          \_range: , line:22:9, endln:22:24
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (NUM_WORDS), line:22:10, endln:22:19
-            |vpiParent:
-            \_operation: , line:22:10, endln:22:21
-            |vpiName:NUM_WORDS
-          |vpiOperand:
-          \_constant: , line:22:20, endln:22:21
-            |vpiParent:
-            \_operation: , line:22:10, endln:22:21
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:22:22, endln:22:23
-          |vpiParent:
-          \_range: , line:22:9, endln:22:24
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-      |vpiRange:
-      \_range: , line:22:24, endln:22:39
-        |vpiParent:
-        \_logic_typespec: , line:22:3, endln:22:24
-        |vpiLeftRange:
-        \_operation: , line:22:25, endln:22:36
-          |vpiParent:
-          \_range: , line:22:24, endln:22:39
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (DataWidth), line:22:25, endln:22:34
-            |vpiParent:
-            \_operation: , line:22:25, endln:22:36
-            |vpiName:DataWidth
-          |vpiOperand:
-          \_constant: , line:22:35, endln:22:36
-            |vpiParent:
-            \_operation: , line:22:25, endln:22:36
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:22:37, endln:22:38
-          |vpiParent:
-          \_range: , line:22:24, endln:22:39
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@ibex_register_file.rf_reg_q)
+      |vpiParent:
+      \_logic_net: (work@ibex_register_file.rf_reg_q), line:22:40, endln:22:48
+      |vpiFullName:work@ibex_register_file.rf_reg_q
+      |vpiActual:
+      \_logic_typespec: , line:22:3, endln:22:24
     |vpiName:rf_reg_q
     |vpiFullName:work@ibex_register_file.rf_reg_q
     |vpiNetType:36
@@ -1503,37 +1424,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@ibex_register_file (work@ibex_register_file), file:${SURELOG_DIR}/tests/ConditionalOp/dut.sv, line:14:1, endln:24:10
     |vpiTypespec:
-    \_logic_typespec: , line:23:3, endln:23:24
-      |vpiRange:
-      \_range: , line:23:9, endln:23:24
-        |vpiParent:
-        \_logic_typespec: , line:23:3, endln:23:24
-        |vpiLeftRange:
-        \_operation: , line:23:10, endln:23:21
-          |vpiParent:
-          \_range: , line:23:9, endln:23:24
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (NUM_WORDS), line:23:10, endln:23:19
-            |vpiParent:
-            \_operation: , line:23:10, endln:23:21
-            |vpiName:NUM_WORDS
-          |vpiOperand:
-          \_constant: , line:23:20, endln:23:21
-            |vpiParent:
-            \_operation: , line:23:10, endln:23:21
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:23:22, endln:23:23
-          |vpiParent:
-          \_range: , line:23:9, endln:23:24
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
+    \_ref_typespec: (work@ibex_register_file.we_a_dec)
+      |vpiParent:
+      \_logic_net: (work@ibex_register_file.we_a_dec), line:23:40, endln:23:48
+      |vpiFullName:work@ibex_register_file.we_a_dec
+      |vpiActual:
+      \_logic_typespec: , line:23:3, endln:23:24
     |vpiName:we_a_dec
     |vpiFullName:work@ibex_register_file.we_a_dec
     |vpiNetType:36
@@ -1548,9 +1444,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ConditionalOp/dut.sv, line:1:1, endln:12:10
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: , line:2:20, endln:2:32
+    \_ref_typespec: (work@top.NrHarts)
       |vpiParent:
       \_parameter: (work@top.NrHarts), line:2:33, endln:2:40
+      |vpiFullName:work@top.NrHarts
+      |vpiActual:
+      \_int_typespec: , line:2:20, endln:2:32
     |vpiLocalParam:1
     |vpiName:NrHarts
     |vpiFullName:work@top.NrHarts
@@ -1560,9 +1459,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ConditionalOp/dut.sv, line:1:1, endln:12:10
     |UINT:8
     |vpiTypespec:
-    \_int_typespec: , line:4:13, endln:4:25
+    \_ref_typespec: (work@top.NrHarts2)
       |vpiParent:
       \_parameter: (work@top.NrHarts2), line:4:26, endln:4:34
+      |vpiFullName:work@top.NrHarts2
+      |vpiActual:
+      \_int_typespec: , line:4:13, endln:4:25
     |vpiLocalParam:1
     |vpiName:NrHarts2
     |vpiFullName:work@top.NrHarts2
@@ -1571,9 +1473,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ConditionalOp/dut.sv, line:1:1, endln:12:10
     |vpiTypespec:
-    \_int_typespec: , line:6:13, endln:6:25
+    \_ref_typespec: (work@top.HartSelLen1)
       |vpiParent:
       \_parameter: (work@top.HartSelLen1), line:6:26, endln:6:37
+      |vpiFullName:work@top.HartSelLen1
+      |vpiActual:
+      \_int_typespec: , line:6:13, endln:6:25
     |vpiLocalParam:1
     |vpiName:HartSelLen1
     |vpiFullName:work@top.HartSelLen1
@@ -1582,9 +1487,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ConditionalOp/dut.sv, line:1:1, endln:12:10
     |vpiTypespec:
-    \_int_typespec: , line:8:13, endln:8:25
+    \_ref_typespec: (work@top.HartSelLen2)
       |vpiParent:
       \_parameter: (work@top.HartSelLen2), line:8:26, endln:8:37
+      |vpiFullName:work@top.HartSelLen2
+      |vpiActual:
+      \_int_typespec: , line:8:13, endln:8:25
     |vpiLocalParam:1
     |vpiName:HartSelLen2
     |vpiFullName:work@top.HartSelLen2
@@ -1593,9 +1501,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ConditionalOp/dut.sv, line:1:1, endln:12:10
     |vpiTypespec:
-    \_int_typespec: , line:10:13, endln:10:25
+    \_ref_typespec: (work@top.HartSelLen3)
       |vpiParent:
       \_parameter: (work@top.HartSelLen3), line:10:26, endln:10:37
+      |vpiFullName:work@top.HartSelLen3
+      |vpiActual:
+      \_int_typespec: , line:10:13, endln:10:25
     |vpiLocalParam:1
     |vpiName:HartSelLen3
     |vpiFullName:work@top.HartSelLen3
@@ -1611,7 +1522,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: , line:2:20, endln:2:32
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:2:43, endln:2:44
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:2:20, endln:2:32
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.NrHarts), line:2:33, endln:2:40
@@ -1627,7 +1543,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:8
       |vpiTypespec:
-      \_int_typespec: , line:4:13, endln:4:25
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:4:37, endln:4:38
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:4:13, endln:4:25
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.NrHarts2), line:4:26, endln:4:34
@@ -1785,9 +1706,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ConditionalOp/dut.sv, line:1:1, endln:12:10
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: , line:2:20, endln:2:32
+    \_ref_typespec: (work@top.NrHarts)
       |vpiParent:
       \_parameter: (work@top.NrHarts), line:2:33, endln:2:40
+      |vpiFullName:work@top.NrHarts
+      |vpiActual:
+      \_int_typespec: , line:2:20, endln:2:32
     |vpiLocalParam:1
     |vpiName:NrHarts
     |vpiFullName:work@top.NrHarts
@@ -1797,9 +1721,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ConditionalOp/dut.sv, line:1:1, endln:12:10
     |UINT:8
     |vpiTypespec:
-    \_int_typespec: , line:4:13, endln:4:25
+    \_ref_typespec: (work@top.NrHarts2)
       |vpiParent:
       \_parameter: (work@top.NrHarts2), line:4:26, endln:4:34
+      |vpiFullName:work@top.NrHarts2
+      |vpiActual:
+      \_int_typespec: , line:4:13, endln:4:25
     |vpiLocalParam:1
     |vpiName:NrHarts2
     |vpiFullName:work@top.NrHarts2
@@ -1808,9 +1735,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ConditionalOp/dut.sv, line:1:1, endln:12:10
     |vpiTypespec:
-    \_int_typespec: , line:6:13, endln:6:25
+    \_ref_typespec: (work@top.HartSelLen1)
       |vpiParent:
       \_parameter: (work@top.HartSelLen1), line:6:26, endln:6:37
+      |vpiFullName:work@top.HartSelLen1
+      |vpiActual:
+      \_int_typespec: , line:6:13, endln:6:25
     |vpiLocalParam:1
     |vpiName:HartSelLen1
     |vpiFullName:work@top.HartSelLen1
@@ -1819,9 +1749,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ConditionalOp/dut.sv, line:1:1, endln:12:10
     |vpiTypespec:
-    \_int_typespec: , line:8:13, endln:8:25
+    \_ref_typespec: (work@top.HartSelLen2)
       |vpiParent:
       \_parameter: (work@top.HartSelLen2), line:8:26, endln:8:37
+      |vpiFullName:work@top.HartSelLen2
+      |vpiActual:
+      \_int_typespec: , line:8:13, endln:8:25
     |vpiLocalParam:1
     |vpiName:HartSelLen2
     |vpiFullName:work@top.HartSelLen2
@@ -1830,9 +1763,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ConditionalOp/dut.sv, line:1:1, endln:12:10
     |vpiTypespec:
-    \_int_typespec: , line:10:13, endln:10:25
+    \_ref_typespec: (work@top.HartSelLen3)
       |vpiParent:
       \_parameter: (work@top.HartSelLen3), line:10:26, endln:10:37
+      |vpiFullName:work@top.HartSelLen3
+      |vpiActual:
+      \_int_typespec: , line:10:13, endln:10:25
     |vpiLocalParam:1
     |vpiName:HartSelLen3
     |vpiFullName:work@top.HartSelLen3
@@ -1848,7 +1784,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: , line:2:20, endln:2:32
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:2:43, endln:2:44
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:2:20, endln:2:32
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.NrHarts), line:2:33, endln:2:40
@@ -1864,7 +1805,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:8
       |vpiTypespec:
-      \_int_typespec: , line:4:13, endln:4:25
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:4:37, endln:4:38
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:4:13, endln:4:25
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.NrHarts2), line:4:26, endln:4:34
@@ -1880,7 +1826,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: , line:6:13, endln:6:25
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:6:40, endln:6:76
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:6:13, endln:6:25
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.HartSelLen1), line:6:26, endln:6:37
@@ -1896,7 +1847,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: , line:8:13, endln:8:25
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:8:40, endln:8:62
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:8:13, endln:8:25
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.HartSelLen2), line:8:26, endln:8:37
@@ -1912,7 +1868,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: , line:10:13, endln:10:25
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:10:40, endln:10:77
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:10:13, endln:10:25
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.HartSelLen3), line:10:26, endln:10:37
@@ -1927,49 +1888,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@ibex_register_file (work@ibex_register_file), file:${SURELOG_DIR}/tests/ConditionalOp/dut.sv, line:14:1, endln:24:10
     |vpiTypespec:
-    \_logic_typespec: , line:21:3, endln:21:39
+    \_ref_typespec: (work@ibex_register_file.rf_reg)
       |vpiParent:
       \_logic_var: (work@ibex_register_file.rf_reg), line:21:40, endln:21:46
-      |vpiRange:
-      \_range: , line:21:9, endln:21:24
-        |vpiParent:
-        \_logic_typespec: , line:21:3, endln:21:39
-        |vpiLeftRange:
-        \_constant: , line:21:10, endln:21:19
-          |vpiParent:
-          \_range: , line:21:9, endln:21:24
-          |vpiDecompile:31
-          |vpiSize:64
-          |INT:31
-          |vpiConstType:7
-        |vpiRightRange:
-        \_constant: , line:21:22, endln:21:23
-          |vpiParent:
-          \_range: , line:21:9, endln:21:24
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-      |vpiRange:
-      \_range: , line:21:24, endln:21:39
-        |vpiParent:
-        \_logic_typespec: , line:21:3, endln:21:39
-        |vpiLeftRange:
-        \_constant: , line:21:25, endln:21:34
-          |vpiParent:
-          \_range: , line:21:24, endln:21:39
-          |vpiDecompile:31
-          |vpiSize:64
-          |INT:31
-          |vpiConstType:7
-        |vpiRightRange:
-        \_constant: , line:21:37, endln:21:38
-          |vpiParent:
-          \_range: , line:21:24, endln:21:39
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@ibex_register_file.rf_reg
+      |vpiActual:
+      \_logic_typespec: , line:21:3, endln:21:39
     |vpiName:rf_reg
     |vpiFullName:work@ibex_register_file.rf_reg
     |vpiVisibility:1
@@ -2018,49 +1942,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@ibex_register_file (work@ibex_register_file), file:${SURELOG_DIR}/tests/ConditionalOp/dut.sv, line:14:1, endln:24:10
     |vpiTypespec:
-    \_logic_typespec: , line:22:3, endln:22:39
+    \_ref_typespec: (work@ibex_register_file.rf_reg_q)
       |vpiParent:
       \_logic_var: (work@ibex_register_file.rf_reg_q), line:22:40, endln:22:48
-      |vpiRange:
-      \_range: , line:22:9, endln:22:24
-        |vpiParent:
-        \_logic_typespec: , line:22:3, endln:22:39
-        |vpiLeftRange:
-        \_constant: , line:22:10, endln:22:19
-          |vpiParent:
-          \_range: , line:22:9, endln:22:24
-          |vpiDecompile:31
-          |vpiSize:64
-          |INT:31
-          |vpiConstType:7
-        |vpiRightRange:
-        \_constant: , line:22:22, endln:22:23
-          |vpiParent:
-          \_range: , line:22:9, endln:22:24
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-      |vpiRange:
-      \_range: , line:22:24, endln:22:39
-        |vpiParent:
-        \_logic_typespec: , line:22:3, endln:22:39
-        |vpiLeftRange:
-        \_constant: , line:22:25, endln:22:34
-          |vpiParent:
-          \_range: , line:22:24, endln:22:39
-          |vpiDecompile:31
-          |vpiSize:64
-          |INT:31
-          |vpiConstType:7
-        |vpiRightRange:
-        \_constant: , line:22:37, endln:22:38
-          |vpiParent:
-          \_range: , line:22:24, endln:22:39
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@ibex_register_file.rf_reg_q
+      |vpiActual:
+      \_logic_typespec: , line:22:3, endln:22:39
     |vpiName:rf_reg_q
     |vpiFullName:work@ibex_register_file.rf_reg_q
     |vpiVisibility:1
@@ -2109,29 +1996,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@ibex_register_file (work@ibex_register_file), file:${SURELOG_DIR}/tests/ConditionalOp/dut.sv, line:14:1, endln:24:10
     |vpiTypespec:
-    \_logic_typespec: , line:23:3, endln:23:24
+    \_ref_typespec: (work@ibex_register_file.we_a_dec)
       |vpiParent:
       \_logic_var: (work@ibex_register_file.we_a_dec), line:23:40, endln:23:48
-      |vpiRange:
-      \_range: , line:23:9, endln:23:24
-        |vpiParent:
-        \_logic_typespec: , line:23:3, endln:23:24
-        |vpiLeftRange:
-        \_constant: , line:23:10, endln:23:19
-          |vpiParent:
-          \_range: , line:23:9, endln:23:24
-          |vpiDecompile:31
-          |vpiSize:64
-          |INT:31
-          |vpiConstType:7
-        |vpiRightRange:
-        \_constant: , line:23:22, endln:23:23
-          |vpiParent:
-          \_range: , line:23:9, endln:23:24
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
+      |vpiFullName:work@ibex_register_file.we_a_dec
+      |vpiActual:
+      \_logic_typespec: , line:23:3, endln:23:24
     |vpiName:we_a_dec
     |vpiFullName:work@ibex_register_file.we_a_dec
     |vpiVisibility:1
@@ -2161,9 +2031,12 @@ design: (work@top)
     \_module_inst: work@ibex_register_file (work@ibex_register_file), file:${SURELOG_DIR}/tests/ConditionalOp/dut.sv, line:14:1, endln:24:10
     |UINT:0
     |vpiTypespec:
-    \_bit_typespec: , line:15:15, endln:15:18
+    \_ref_typespec: (work@ibex_register_file.RV32E)
       |vpiParent:
       \_parameter: (work@ibex_register_file.RV32E), line:15:28, endln:15:33
+      |vpiFullName:work@ibex_register_file.RV32E
+      |vpiActual:
+      \_bit_typespec: , line:15:15, endln:15:18
     |vpiName:RV32E
     |vpiFullName:work@ibex_register_file.RV32E
   |vpiParameter:
@@ -2172,9 +2045,12 @@ design: (work@top)
     \_module_inst: work@ibex_register_file (work@ibex_register_file), file:${SURELOG_DIR}/tests/ConditionalOp/dut.sv, line:14:1, endln:24:10
     |UINT:32
     |vpiTypespec:
-    \_int_typespec: , line:16:15, endln:16:27
+    \_ref_typespec: (work@ibex_register_file.DataWidth)
       |vpiParent:
       \_parameter: (work@ibex_register_file.DataWidth), line:16:28, endln:16:37
+      |vpiFullName:work@ibex_register_file.DataWidth
+      |vpiActual:
+      \_int_typespec: , line:16:15, endln:16:27
     |vpiName:DataWidth
     |vpiFullName:work@ibex_register_file.DataWidth
   |vpiParameter:
@@ -2182,9 +2058,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@ibex_register_file (work@ibex_register_file), file:${SURELOG_DIR}/tests/ConditionalOp/dut.sv, line:14:1, endln:24:10
     |vpiTypespec:
-    \_int_typespec: , line:18:14, endln:18:26
+    \_ref_typespec: (work@ibex_register_file.ADDR_WIDTH)
       |vpiParent:
       \_parameter: (work@ibex_register_file.ADDR_WIDTH), line:18:27, endln:18:37
+      |vpiFullName:work@ibex_register_file.ADDR_WIDTH
+      |vpiActual:
+      \_int_typespec: , line:18:14, endln:18:26
     |vpiLocalParam:1
     |vpiName:ADDR_WIDTH
     |vpiFullName:work@ibex_register_file.ADDR_WIDTH
@@ -2193,9 +2072,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@ibex_register_file (work@ibex_register_file), file:${SURELOG_DIR}/tests/ConditionalOp/dut.sv, line:14:1, endln:24:10
     |vpiTypespec:
-    \_int_typespec: , line:19:14, endln:19:26
+    \_ref_typespec: (work@ibex_register_file.NUM_WORDS)
       |vpiParent:
       \_parameter: (work@ibex_register_file.NUM_WORDS), line:19:27, endln:19:36
+      |vpiFullName:work@ibex_register_file.NUM_WORDS
+      |vpiActual:
+      \_int_typespec: , line:19:14, endln:19:26
     |vpiLocalParam:1
     |vpiName:NUM_WORDS
     |vpiFullName:work@ibex_register_file.NUM_WORDS
@@ -2211,7 +2093,12 @@ design: (work@top)
       |vpiSize:1
       |UINT:0
       |vpiTypespec:
-      \_bit_typespec: , line:15:15, endln:15:18
+      \_ref_typespec: (work@ibex_register_file)
+        |vpiParent:
+        \_constant: , line:15:48, endln:15:49
+        |vpiFullName:work@ibex_register_file
+        |vpiActual:
+        \_bit_typespec: , line:15:15, endln:15:18
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@ibex_register_file.RV32E), line:15:28, endln:15:33
@@ -2227,7 +2114,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:32
       |vpiTypespec:
-      \_int_typespec: , line:16:15, endln:16:27
+      \_ref_typespec: (work@ibex_register_file)
+        |vpiParent:
+        \_constant: , line:16:48, endln:16:50
+        |vpiFullName:work@ibex_register_file
+        |vpiActual:
+        \_int_typespec: , line:16:15, endln:16:27
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@ibex_register_file.DataWidth), line:16:28, endln:16:37
@@ -2243,7 +2135,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:5
       |vpiTypespec:
-      \_int_typespec: , line:18:14, endln:18:26
+      \_ref_typespec: (work@ibex_register_file)
+        |vpiParent:
+        \_constant: , line:18:40, endln:18:53
+        |vpiFullName:work@ibex_register_file
+        |vpiActual:
+        \_int_typespec: , line:18:14, endln:18:26
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@ibex_register_file.ADDR_WIDTH), line:18:27, endln:18:37
@@ -2259,13 +2156,521 @@ design: (work@top)
       |vpiSize:32
       |INT:32
       |vpiTypespec:
-      \_int_typespec: , line:19:14, endln:19:26
+      \_ref_typespec: (work@ibex_register_file)
+        |vpiParent:
+        \_constant: , line:19:40, endln:19:53
+        |vpiFullName:work@ibex_register_file
+        |vpiActual:
+        \_int_typespec: , line:19:14, endln:19:26
       |vpiConstType:7
     |vpiLhs:
     \_parameter: (work@ibex_register_file.NUM_WORDS), line:19:27, endln:19:36
   |vpiDefName:work@ibex_register_file
   |vpiTop:1
   |vpiTopModule:1
+\_weaklyReferenced:
+\_bit_typespec: , line:15:15, endln:15:18
+  |vpiParent:
+  \_parameter: (work@ibex_register_file.RV32E), line:15:28, endln:15:33
+\_int_typespec: , line:16:15, endln:16:27
+  |vpiParent:
+  \_parameter: (work@ibex_register_file.DataWidth), line:16:28, endln:16:37
+\_int_typespec: , line:18:14, endln:18:26
+  |vpiParent:
+  \_parameter: (work@ibex_register_file.ADDR_WIDTH), line:18:27, endln:18:37
+\_int_typespec: , line:19:14, endln:19:26
+  |vpiParent:
+  \_parameter: (work@ibex_register_file.NUM_WORDS), line:19:27, endln:19:36
+\_int_typespec: , line:2:20, endln:2:32
+  |vpiParent:
+  \_parameter: (work@top.NrHarts), line:2:33, endln:2:40
+\_int_typespec: , line:4:13, endln:4:25
+  |vpiParent:
+  \_parameter: (work@top.NrHarts2), line:4:26, endln:4:34
+\_int_typespec: , line:6:13, endln:6:25
+  |vpiParent:
+  \_parameter: (work@top.HartSelLen1), line:6:26, endln:6:37
+\_int_typespec: , line:8:13, endln:8:25
+  |vpiParent:
+  \_parameter: (work@top.HartSelLen2), line:8:26, endln:8:37
+\_int_typespec: , line:10:13, endln:10:25
+  |vpiParent:
+  \_parameter: (work@top.HartSelLen3), line:10:26, endln:10:37
+\_function: (work@mailbox::new), line:3:5, endln:4:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/ConditionalOp/builtin.sv, line:1:3, endln:27:11
+  |vpiName:new
+  |vpiFullName:work@mailbox::new
+  |vpiMethod:1
+  |vpiReturn:
+  \_class_var: (work@mailbox::new), line:3:23, endln:3:28
+  |vpiIODecl:
+  \_io_decl: (bound), line:3:23, endln:3:28
+    |vpiParent:
+    \_function: (work@mailbox::new), line:3:5, endln:4:16
+    |vpiDirection:1
+    |vpiName:bound
+    |vpiExpr:
+    \_constant: , line:3:31, endln:3:32
+    |vpiTypedef:
+    \_ref_typespec: (work@mailbox::new::bound)
+      |vpiParent:
+      \_io_decl: (bound), line:3:23, endln:3:28
+      |vpiFullName:work@mailbox::new::bound
+      |vpiActual:
+      \_int_typespec: , line:3:19, endln:3:22
+\_class_typespec: 
+  |vpiClassDefn:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/ConditionalOp/builtin.sv, line:1:3, endln:27:11
+\_int_typespec: , line:3:19, endln:3:22
+  |vpiSigned:1
+\_function: (work@mailbox::num), line:6:5, endln:7:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/ConditionalOp/builtin.sv, line:1:3, endln:27:11
+  |vpiName:num
+  |vpiFullName:work@mailbox::num
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::num), line:6:14, endln:6:17
+\_int_typespec: , line:6:14, endln:6:17
+  |vpiSigned:1
+\_function: (work@mailbox::try_put), line:12:5, endln:13:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/ConditionalOp/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_put
+  |vpiFullName:work@mailbox::try_put
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_logic_var: (work@mailbox::try_put)
+  |vpiIODecl:
+  \_io_decl: (message), line:12:23, endln:12:30
+    |vpiParent:
+    \_function: (work@mailbox::try_put), line:12:5, endln:13:16
+    |vpiDirection:1
+    |vpiName:message
+\_function: (work@mailbox::try_get), line:18:5, endln:19:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/ConditionalOp/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_get
+  |vpiFullName:work@mailbox::try_get
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::try_get), line:18:14, endln:18:17
+  |vpiIODecl:
+  \_io_decl: (message), line:18:31, endln:18:38
+    |vpiParent:
+    \_function: (work@mailbox::try_get), line:18:5, endln:19:16
+    |vpiDirection:6
+    |vpiName:message
+\_int_typespec: , line:18:14, endln:18:17
+  |vpiSigned:1
+\_function: (work@mailbox::try_peek), line:24:5, endln:25:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/ConditionalOp/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_peek
+  |vpiFullName:work@mailbox::try_peek
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::try_peek), line:24:14, endln:24:17
+  |vpiIODecl:
+  \_io_decl: (message), line:24:31, endln:24:38
+    |vpiParent:
+    \_function: (work@mailbox::try_peek), line:24:5, endln:25:16
+    |vpiDirection:6
+    |vpiName:message
+\_int_typespec: , line:24:14, endln:24:17
+  |vpiSigned:1
+\_enum_typespec: (state), line:32:5, endln:32:74
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/ConditionalOp/builtin.sv, line:30:3, endln:52:11
+  |vpiName:state
+  |vpiEnumConst:
+  \_enum_const: (FINISHED), line:32:20, endln:32:28
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:FINISHED
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (RUNNING), line:32:30, endln:32:37
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:RUNNING
+    |INT:1
+    |vpiDecompile:1
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (WAITING), line:32:39, endln:32:46
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:WAITING
+    |INT:2
+    |vpiDecompile:2
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (SUSPENDED), line:32:48, endln:32:57
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:SUSPENDED
+    |INT:3
+    |vpiDecompile:3
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (KILLED), line:32:59, endln:32:65
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:KILLED
+    |INT:4
+    |vpiDecompile:4
+    |vpiSize:64
+\_function: (work@process::self), line:34:5, endln:34:11
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/ConditionalOp/builtin.sv, line:30:3, endln:52:11
+  |vpiName:self
+  |vpiFullName:work@process::self
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_class_var: (work@process::self), line:34:21, endln:34:28
+\_class_typespec: , line:34:21, endln:34:28
+  |vpiClassDefn:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/ConditionalOp/builtin.sv, line:30:3, endln:52:11
+\_function: (work@process::status), line:37:5, endln:38:16
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/ConditionalOp/builtin.sv, line:30:3, endln:52:11
+  |vpiName:status
+  |vpiFullName:work@process::status
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_enum_var: (work@process::status), line:37:14, endln:37:19
+\_function: (work@semaphore::new), line:57:5, endln:58:16
+  |vpiParent:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/ConditionalOp/builtin.sv, line:55:3, endln:69:11
+  |vpiName:new
+  |vpiFullName:work@semaphore::new
+  |vpiMethod:1
+  |vpiReturn:
+  \_class_var: (work@semaphore::new), line:57:22, endln:57:30
+  |vpiIODecl:
+  \_io_decl: (keyCount), line:57:22, endln:57:30
+    |vpiParent:
+    \_function: (work@semaphore::new), line:57:5, endln:58:16
+    |vpiDirection:1
+    |vpiName:keyCount
+    |vpiExpr:
+    \_constant: , line:57:33, endln:57:34
+    |vpiTypedef:
+    \_ref_typespec: (work@semaphore::new::keyCount)
+      |vpiParent:
+      \_io_decl: (keyCount), line:57:22, endln:57:30
+      |vpiFullName:work@semaphore::new::keyCount
+      |vpiActual:
+      \_int_typespec: , line:57:18, endln:57:21
+\_class_typespec: 
+  |vpiClassDefn:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/ConditionalOp/builtin.sv, line:55:3, endln:69:11
+\_int_typespec: , line:57:18, endln:57:21
+  |vpiSigned:1
+\_int_typespec: , line:60:14, endln:60:17
+  |vpiSigned:1
+\_int_typespec: , line:63:14, endln:63:17
+  |vpiSigned:1
+\_function: (work@semaphore::try_get), line:66:5, endln:67:16
+  |vpiParent:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/ConditionalOp/builtin.sv, line:55:3, endln:69:11
+  |vpiName:try_get
+  |vpiFullName:work@semaphore::try_get
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@semaphore::try_get), line:66:14, endln:66:17
+  |vpiIODecl:
+  \_io_decl: (keyCount), line:66:30, endln:66:38
+    |vpiParent:
+    \_function: (work@semaphore::try_get), line:66:5, endln:67:16
+    |vpiDirection:1
+    |vpiName:keyCount
+    |vpiExpr:
+    \_constant: , line:66:41, endln:66:42
+    |vpiTypedef:
+    \_ref_typespec: (work@semaphore::try_get::keyCount)
+      |vpiParent:
+      \_io_decl: (keyCount), line:66:30, endln:66:38
+      |vpiFullName:work@semaphore::try_get::keyCount
+      |vpiActual:
+      \_int_typespec: , line:66:26, endln:66:29
+\_int_typespec: , line:66:14, endln:66:17
+  |vpiSigned:1
+\_int_typespec: , line:66:26, endln:66:29
+  |vpiSigned:1
+\_logic_typespec: , line:21:3, endln:21:39
+  |vpiParent:
+  \_logic_var: (work@ibex_register_file.rf_reg), line:21:40, endln:21:46
+  |vpiRange:
+  \_range: , line:21:9, endln:21:24
+    |vpiParent:
+    \_logic_typespec: , line:21:3, endln:21:39
+    |vpiLeftRange:
+    \_constant: , line:21:10, endln:21:19
+      |vpiParent:
+      \_range: , line:21:9, endln:21:24
+      |vpiDecompile:31
+      |vpiSize:64
+      |INT:31
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:21:22, endln:21:23
+      |vpiParent:
+      \_range: , line:21:9, endln:21:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:21:24, endln:21:39
+    |vpiParent:
+    \_logic_typespec: , line:21:3, endln:21:39
+    |vpiLeftRange:
+    \_constant: , line:21:25, endln:21:34
+      |vpiParent:
+      \_range: , line:21:24, endln:21:39
+      |vpiDecompile:31
+      |vpiSize:64
+      |INT:31
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:21:37, endln:21:38
+      |vpiParent:
+      \_range: , line:21:24, endln:21:39
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:22:3, endln:22:39
+  |vpiParent:
+  \_logic_var: (work@ibex_register_file.rf_reg_q), line:22:40, endln:22:48
+  |vpiRange:
+  \_range: , line:22:9, endln:22:24
+    |vpiParent:
+    \_logic_typespec: , line:22:3, endln:22:39
+    |vpiLeftRange:
+    \_constant: , line:22:10, endln:22:19
+      |vpiParent:
+      \_range: , line:22:9, endln:22:24
+      |vpiDecompile:31
+      |vpiSize:64
+      |INT:31
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:22:22, endln:22:23
+      |vpiParent:
+      \_range: , line:22:9, endln:22:24
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:22:24, endln:22:39
+    |vpiParent:
+    \_logic_typespec: , line:22:3, endln:22:39
+    |vpiLeftRange:
+    \_constant: , line:22:25, endln:22:34
+      |vpiParent:
+      \_range: , line:22:24, endln:22:39
+      |vpiDecompile:31
+      |vpiSize:64
+      |INT:31
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:22:37, endln:22:38
+      |vpiParent:
+      \_range: , line:22:24, endln:22:39
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:23:3, endln:23:24
+  |vpiParent:
+  \_logic_var: (work@ibex_register_file.we_a_dec), line:23:40, endln:23:48
+  |vpiRange:
+  \_range: , line:23:9, endln:23:24
+    |vpiParent:
+    \_logic_typespec: , line:23:3, endln:23:24
+    |vpiLeftRange:
+    \_constant: , line:23:10, endln:23:19
+      |vpiParent:
+      \_range: , line:23:9, endln:23:24
+      |vpiDecompile:31
+      |vpiSize:64
+      |INT:31
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:23:22, endln:23:23
+      |vpiParent:
+      \_range: , line:23:9, endln:23:24
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+\_logic_typespec: , line:21:3, endln:21:24
+  |vpiRange:
+  \_range: , line:21:9, endln:21:24
+    |vpiParent:
+    \_logic_typespec: , line:21:3, endln:21:24
+    |vpiLeftRange:
+    \_operation: , line:21:10, endln:21:21
+      |vpiParent:
+      \_range: , line:21:9, endln:21:24
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (NUM_WORDS), line:21:10, endln:21:19
+        |vpiParent:
+        \_operation: , line:21:10, endln:21:21
+        |vpiName:NUM_WORDS
+      |vpiOperand:
+      \_constant: , line:21:20, endln:21:21
+        |vpiParent:
+        \_operation: , line:21:10, endln:21:21
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:21:22, endln:21:23
+      |vpiParent:
+      \_range: , line:21:9, endln:21:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:21:24, endln:21:39
+    |vpiParent:
+    \_logic_typespec: , line:21:3, endln:21:24
+    |vpiLeftRange:
+    \_operation: , line:21:25, endln:21:36
+      |vpiParent:
+      \_range: , line:21:24, endln:21:39
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (DataWidth), line:21:25, endln:21:34
+        |vpiParent:
+        \_operation: , line:21:25, endln:21:36
+        |vpiName:DataWidth
+      |vpiOperand:
+      \_constant: , line:21:35, endln:21:36
+        |vpiParent:
+        \_operation: , line:21:25, endln:21:36
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:21:37, endln:21:38
+      |vpiParent:
+      \_range: , line:21:24, endln:21:39
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:22:3, endln:22:24
+  |vpiRange:
+  \_range: , line:22:9, endln:22:24
+    |vpiParent:
+    \_logic_typespec: , line:22:3, endln:22:24
+    |vpiLeftRange:
+    \_operation: , line:22:10, endln:22:21
+      |vpiParent:
+      \_range: , line:22:9, endln:22:24
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (NUM_WORDS), line:22:10, endln:22:19
+        |vpiParent:
+        \_operation: , line:22:10, endln:22:21
+        |vpiName:NUM_WORDS
+      |vpiOperand:
+      \_constant: , line:22:20, endln:22:21
+        |vpiParent:
+        \_operation: , line:22:10, endln:22:21
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:22:22, endln:22:23
+      |vpiParent:
+      \_range: , line:22:9, endln:22:24
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:22:24, endln:22:39
+    |vpiParent:
+    \_logic_typespec: , line:22:3, endln:22:24
+    |vpiLeftRange:
+    \_operation: , line:22:25, endln:22:36
+      |vpiParent:
+      \_range: , line:22:24, endln:22:39
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (DataWidth), line:22:25, endln:22:34
+        |vpiParent:
+        \_operation: , line:22:25, endln:22:36
+        |vpiName:DataWidth
+      |vpiOperand:
+      \_constant: , line:22:35, endln:22:36
+        |vpiParent:
+        \_operation: , line:22:25, endln:22:36
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:22:37, endln:22:38
+      |vpiParent:
+      \_range: , line:22:24, endln:22:39
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:23:3, endln:23:24
+  |vpiRange:
+  \_range: , line:23:9, endln:23:24
+    |vpiParent:
+    \_logic_typespec: , line:23:3, endln:23:24
+    |vpiLeftRange:
+    \_operation: , line:23:10, endln:23:21
+      |vpiParent:
+      \_range: , line:23:9, endln:23:24
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (NUM_WORDS), line:23:10, endln:23:19
+        |vpiParent:
+        \_operation: , line:23:10, endln:23:21
+        |vpiName:NUM_WORDS
+      |vpiOperand:
+      \_constant: , line:23:20, endln:23:21
+        |vpiParent:
+        \_operation: , line:23:10, endln:23:21
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:23:22, endln:23:23
+      |vpiParent:
+      \_range: , line:23:9, endln:23:24
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

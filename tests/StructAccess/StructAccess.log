@@ -549,6 +549,7 @@ operation                                              1
 package                                                2
 range                                                  2
 ref_obj                                               15
+ref_typespec                                          31
 struct_typespec                                        2
 struct_var                                             2
 task                                                   9
@@ -582,6 +583,7 @@ operation                                              1
 package                                                2
 range                                                  2
 ref_obj                                               18
+ref_typespec                                          36
 struct_typespec                                        2
 struct_var                                             2
 task                                                  18
@@ -661,9 +663,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@mailbox::new), line:3:5, endln:4:16
       |vpiTypespec:
-      \_class_typespec: 
-        |vpiClassDefn:
-        \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/StructAccess/builtin.sv, line:1:3, endln:27:11
+      \_ref_typespec: (work@mailbox::new)
+        |vpiParent:
+        \_class_var: (work@mailbox::new), line:3:23, endln:3:28
+        |vpiFullName:work@mailbox::new
+        |vpiActual:
+        \_class_typespec: 
       |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound), line:3:23, endln:3:28
@@ -678,8 +683,12 @@ design: (work@top)
         |UINT:0
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:3:19, endln:3:22
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::new::bound)
+        |vpiParent:
+        \_io_decl: (bound), line:3:23, endln:3:28
+        |vpiFullName:work@mailbox::new::bound
+        |vpiActual:
+        \_int_typespec: , line:3:19, endln:3:22
   |vpiMethod:
   \_function: (work@mailbox::num), line:6:5, endln:7:16
     |vpiParent:
@@ -693,8 +702,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@mailbox::num), line:6:5, endln:7:16
       |vpiTypespec:
-      \_int_typespec: , line:6:14, endln:6:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::num)
+        |vpiParent:
+        \_int_var: (work@mailbox::num), line:6:14, endln:6:17
+        |vpiFullName:work@mailbox::num
+        |vpiActual:
+        \_int_typespec: , line:6:14, endln:6:17
       |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
@@ -757,8 +770,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@mailbox::try_get), line:18:5, endln:19:16
       |vpiTypespec:
-      \_int_typespec: , line:18:14, endln:18:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::try_get)
+        |vpiParent:
+        \_int_var: (work@mailbox::try_get), line:18:14, endln:18:17
+        |vpiFullName:work@mailbox::try_get
+        |vpiActual:
+        \_int_typespec: , line:18:14, endln:18:17
       |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
@@ -794,8 +811,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@mailbox::try_peek), line:24:5, endln:25:16
       |vpiTypespec:
-      \_int_typespec: , line:24:14, endln:24:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::try_peek)
+        |vpiParent:
+        \_int_var: (work@mailbox::try_peek), line:24:14, endln:24:17
+        |vpiFullName:work@mailbox::try_peek
+        |vpiActual:
+        \_int_typespec: , line:24:14, endln:24:17
       |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
@@ -867,9 +888,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@process::self), line:34:5, endln:34:11
       |vpiTypespec:
-      \_class_typespec: , line:34:21, endln:34:28
-        |vpiClassDefn:
-        \_class_defn: (work@process), file:${SURELOG_DIR}/tests/StructAccess/builtin.sv, line:30:3, endln:52:11
+      \_ref_typespec: (work@process::self)
+        |vpiParent:
+        \_class_var: (work@process::self), line:34:21, endln:34:28
+        |vpiFullName:work@process::self
+        |vpiActual:
+        \_class_typespec: , line:34:21, endln:34:28
       |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status), line:37:5, endln:38:16
@@ -884,50 +908,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@process::status), line:37:5, endln:38:16
       |vpiTypespec:
-      \_enum_typespec: (state), line:32:5, endln:32:74
+      \_ref_typespec: (work@process::status)
         |vpiParent:
-        \_class_defn: (work@process), file:${SURELOG_DIR}/tests/StructAccess/builtin.sv, line:30:3, endln:52:11
-        |vpiName:state
-        |vpiEnumConst:
-        \_enum_const: (FINISHED), line:32:20, endln:32:28
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:FINISHED
-          |INT:0
-          |vpiDecompile:0
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (RUNNING), line:32:30, endln:32:37
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:RUNNING
-          |INT:1
-          |vpiDecompile:1
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (WAITING), line:32:39, endln:32:46
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:WAITING
-          |INT:2
-          |vpiDecompile:2
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (SUSPENDED), line:32:48, endln:32:57
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:SUSPENDED
-          |INT:3
-          |vpiDecompile:3
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (KILLED), line:32:59, endln:32:65
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:KILLED
-          |INT:4
-          |vpiDecompile:4
-          |vpiSize:64
+        \_enum_var: (work@process::status), line:37:14, endln:37:19
+        |vpiFullName:work@process::status
+        |vpiActual:
+        \_enum_typespec: (state), line:32:5, endln:32:74
       |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill), line:40:5, endln:41:12
@@ -978,9 +964,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@semaphore::new), line:57:5, endln:58:16
       |vpiTypespec:
-      \_class_typespec: 
-        |vpiClassDefn:
-        \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/StructAccess/builtin.sv, line:55:3, endln:69:11
+      \_ref_typespec: (work@semaphore::new)
+        |vpiParent:
+        \_class_var: (work@semaphore::new), line:57:22, endln:57:30
+        |vpiFullName:work@semaphore::new
+        |vpiActual:
+        \_class_typespec: 
       |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount), line:57:22, endln:57:30
@@ -995,8 +984,12 @@ design: (work@top)
         |UINT:0
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:57:18, endln:57:21
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::new::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:57:22, endln:57:30
+        |vpiFullName:work@semaphore::new::keyCount
+        |vpiActual:
+        \_int_typespec: , line:57:18, endln:57:21
   |vpiMethod:
   \_task: (work@semaphore::put), line:60:5, endln:61:12
     |vpiParent:
@@ -1018,8 +1011,12 @@ design: (work@top)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:60:14, endln:60:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::put::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:60:18, endln:60:26
+        |vpiFullName:work@semaphore::put::keyCount
+        |vpiActual:
+        \_int_typespec: , line:60:14, endln:60:17
   |vpiMethod:
   \_task: (work@semaphore::get), line:63:5, endln:64:12
     |vpiParent:
@@ -1041,8 +1038,12 @@ design: (work@top)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:63:14, endln:63:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::get::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:63:18, endln:63:26
+        |vpiFullName:work@semaphore::get::keyCount
+        |vpiActual:
+        \_int_typespec: , line:63:14, endln:63:17
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:66:5, endln:67:16
     |vpiParent:
@@ -1056,8 +1057,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@semaphore::try_get), line:66:5, endln:67:16
       |vpiTypespec:
-      \_int_typespec: , line:66:14, endln:66:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::try_get)
+        |vpiParent:
+        \_int_var: (work@semaphore::try_get), line:66:14, endln:66:17
+        |vpiFullName:work@semaphore::try_get
+        |vpiActual:
+        \_int_typespec: , line:66:14, endln:66:17
       |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
@@ -1073,8 +1078,12 @@ design: (work@top)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:66:26, endln:66:29
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::try_get::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:66:30, endln:66:38
+        |vpiFullName:work@semaphore::try_get::keyCount
+        |vpiActual:
+        \_int_typespec: , line:66:26, endln:66:29
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructAccess/dut.sv, line:1:1, endln:30:10
   |vpiParent:
@@ -1086,27 +1095,12 @@ design: (work@top)
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructAccess/dut.sv, line:1:1, endln:30:10
     |vpiBaseTypespec:
-    \_logic_typespec: , line:3:15, endln:3:26
-      |vpiRange:
-      \_range: , line:3:21, endln:3:26
-        |vpiParent:
-        \_logic_typespec: , line:3:15, endln:3:26
-        |vpiLeftRange:
-        \_constant: , line:3:22, endln:3:23
-          |vpiParent:
-          \_range: , line:3:21, endln:3:26
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:3:24, endln:3:25
-          |vpiParent:
-          \_range: , line:3:21, endln:3:26
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (pmp_cfg_enum)
+      |vpiParent:
+      \_enum_typespec: (pmp_cfg_enum), line:3:2, endln:5:17
+      |vpiFullName:pmp_cfg_enum
+      |vpiActual:
+      \_logic_typespec: , line:3:15, endln:3:26
     |vpiEnumConst:
     \_enum_const: (PMP_MODE_OFF), line:4:4, endln:4:26
       |vpiParent:
@@ -1129,9 +1123,12 @@ design: (work@top)
       \_struct_typespec: (pmp_cfg_struct), line:7:10, endln:9:3
       |vpiName:a
       |vpiTypespec:
-      \_logic_typespec: , line:8:4, endln:8:9
+      \_ref_typespec: (work@top.pmp_cfg_struct.a)
         |vpiParent:
         \_typespec_member: (a), line:8:10, endln:8:11
+        |vpiFullName:work@top.pmp_cfg_struct.a
+        |vpiActual:
+        \_logic_typespec: , line:8:4, endln:8:9
       |vpiRefFile:${SURELOG_DIR}/tests/StructAccess/dut.sv
       |vpiRefLineNo:8
       |vpiRefColumnNo:4
@@ -1151,7 +1148,12 @@ design: (work@top)
       \_struct_typespec: (pmp_cfg_t), line:11:10, endln:14:3
       |vpiName:mode
       |vpiTypespec:
-      \_enum_typespec: (pmp_cfg_enum), line:3:2, endln:5:17
+      \_ref_typespec: (work@top.pmp_cfg_t.mode)
+        |vpiParent:
+        \_typespec_member: (mode), line:12:17, endln:12:21
+        |vpiFullName:work@top.pmp_cfg_t.mode
+        |vpiActual:
+        \_enum_typespec: (pmp_cfg_enum), line:3:2, endln:5:17
       |vpiRefFile:${SURELOG_DIR}/tests/StructAccess/dut.sv
       |vpiRefLineNo:12
       |vpiRefColumnNo:4
@@ -1163,7 +1165,12 @@ design: (work@top)
       \_struct_typespec: (pmp_cfg_t), line:11:10, endln:14:3
       |vpiName:struct_var
       |vpiTypespec:
-      \_struct_typespec: (pmp_cfg_struct), line:7:10, endln:9:3
+      \_ref_typespec: (work@top.pmp_cfg_t.struct_var)
+        |vpiParent:
+        \_typespec_member: (struct_var), line:13:19, endln:13:29
+        |vpiFullName:work@top.pmp_cfg_t.struct_var
+        |vpiActual:
+        \_struct_typespec: (pmp_cfg_struct), line:7:10, endln:9:3
       |vpiRefFile:${SURELOG_DIR}/tests/StructAccess/dut.sv
       |vpiRefLineNo:13
       |vpiRefColumnNo:4
@@ -1193,7 +1200,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructAccess/dut.sv, line:1:1, endln:30:10
     |vpiTypespec:
-    \_logic_typespec: , line:22:2, endln:22:24
+    \_ref_typespec: (work@top.t)
+      |vpiParent:
+      \_logic_net: (work@top.t), line:22:8, endln:22:9
+      |vpiFullName:work@top.t
+      |vpiActual:
+      \_logic_typespec: , line:22:2, endln:22:24
     |vpiName:t
     |vpiFullName:work@top.t
     |vpiNetType:36
@@ -1202,7 +1214,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructAccess/dut.sv, line:1:1, endln:30:10
     |vpiTypespec:
-    \_enum_typespec: (pmp_cfg_enum), line:3:2, endln:5:17
+    \_ref_typespec: (work@top.first)
+      |vpiParent:
+      \_logic_net: (work@top.first), line:24:15, endln:24:20
+      |vpiFullName:work@top.first
+      |vpiActual:
+      \_enum_typespec: (pmp_cfg_enum), line:3:2, endln:5:17
     |vpiName:first
     |vpiFullName:work@top.first
   |vpiNet:
@@ -1210,7 +1227,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructAccess/dut.sv, line:1:1, endln:30:10
     |vpiTypespec:
-    \_logic_typespec: , line:25:2, endln:25:39
+    \_ref_typespec: (work@top.second)
+      |vpiParent:
+      \_logic_net: (work@top.second), line:25:8, endln:25:14
+      |vpiFullName:work@top.second
+      |vpiActual:
+      \_logic_typespec: , line:25:2, endln:25:39
     |vpiName:second
     |vpiFullName:work@top.second
     |vpiNetType:36
@@ -1219,7 +1241,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructAccess/dut.sv, line:1:1, endln:30:10
     |vpiTypespec:
-    \_logic_typespec: , line:26:2, endln:26:43
+    \_ref_typespec: (work@top.third)
+      |vpiParent:
+      \_logic_net: (work@top.third), line:26:8, endln:26:13
+      |vpiFullName:work@top.third
+      |vpiActual:
+      \_logic_typespec: , line:26:2, endln:26:43
     |vpiName:third
     |vpiFullName:work@top.third
     |vpiNetType:36
@@ -1279,7 +1306,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructAccess/dut.sv, line:1:1, endln:30:10
     |vpiSize:4
     |vpiTypespec:
-    \_array_typespec: 
+    \_ref_typespec: (work@top.csr_pmp_cfg_i)
+      |vpiParent:
+      \_array_var: (work@top.csr_pmp_cfg_i), line:16:17, endln:16:30
+      |vpiFullName:work@top.csr_pmp_cfg_i
+      |vpiActual:
+      \_array_typespec: 
     |vpiName:csr_pmp_cfg_i
     |vpiFullName:work@top.csr_pmp_cfg_i
     |vpiRandType:1
@@ -1320,14 +1352,24 @@ design: (work@top)
       |vpiParent:
       \_array_var: (work@top.csr_pmp_cfg_i), line:16:17, endln:16:30
       |vpiTypespec:
-      \_struct_typespec: (pmp_cfg_t), line:11:10, endln:14:3
+      \_ref_typespec: (work@top.csr_pmp_cfg_i)
+        |vpiParent:
+        \_struct_var: (work@top.csr_pmp_cfg_i), line:16:17, endln:16:30
+        |vpiFullName:work@top.csr_pmp_cfg_i
+        |vpiActual:
+        \_struct_typespec: (pmp_cfg_t), line:11:10, endln:14:3
       |vpiFullName:work@top.csr_pmp_cfg_i
   |vpiVariables:
   \_struct_var: (work@top.csr_pmp_cfg_ie), line:17:17, endln:17:31
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructAccess/dut.sv, line:1:1, endln:30:10
     |vpiTypespec:
-    \_struct_typespec: (pmp_cfg_t), line:11:10, endln:14:3
+    \_ref_typespec: (work@top.csr_pmp_cfg_ie)
+      |vpiParent:
+      \_struct_var: (work@top.csr_pmp_cfg_ie), line:17:17, endln:17:31
+      |vpiFullName:work@top.csr_pmp_cfg_ie
+      |vpiActual:
+      \_struct_typespec: (pmp_cfg_t), line:11:10, endln:14:3
     |vpiName:csr_pmp_cfg_ie
     |vpiFullName:work@top.csr_pmp_cfg_ie
     |vpiVisibility:1
@@ -1336,7 +1378,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructAccess/dut.sv, line:1:1, endln:30:10
     |vpiTypespec:
-    \_enum_typespec: (pmp_cfg_enum), line:3:2, endln:5:17
+    \_ref_typespec: (work@top.enum_test)
+      |vpiParent:
+      \_enum_var: (work@top.enum_test), line:18:15, endln:18:24
+      |vpiFullName:work@top.enum_test
+      |vpiActual:
+      \_enum_typespec: (pmp_cfg_enum), line:3:2, endln:5:17
     |vpiName:enum_test
     |vpiFullName:work@top.enum_test
     |vpiVisibility:1
@@ -1345,9 +1392,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructAccess/dut.sv, line:1:1, endln:30:10
     |vpiTypespec:
-    \_logic_typespec: , line:22:2, endln:22:7
+    \_ref_typespec: (work@top.t)
       |vpiParent:
       \_logic_var: (work@top.t), line:22:8, endln:22:24
+      |vpiFullName:work@top.t
+      |vpiActual:
+      \_logic_typespec: , line:22:2, endln:22:7
     |vpiName:t
     |vpiFullName:work@top.t
     |vpiVisibility:1
@@ -1372,7 +1422,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructAccess/dut.sv, line:1:1, endln:30:10
     |vpiTypespec:
-    \_enum_typespec: (pmp_cfg_enum), line:3:2, endln:5:17
+    \_ref_typespec: (work@top.first)
+      |vpiParent:
+      \_enum_var: (work@top.first), line:24:15, endln:24:20
+      |vpiFullName:work@top.first
+      |vpiActual:
+      \_enum_typespec: (pmp_cfg_enum), line:3:2, endln:5:17
     |vpiName:first
     |vpiFullName:work@top.first
     |vpiVisibility:1
@@ -1406,9 +1461,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructAccess/dut.sv, line:1:1, endln:30:10
     |vpiTypespec:
-    \_logic_typespec: , line:25:2, endln:25:7
+    \_ref_typespec: (work@top.second)
       |vpiParent:
       \_logic_var: (work@top.second), line:25:8, endln:25:39
+      |vpiFullName:work@top.second
+      |vpiActual:
+      \_logic_typespec: , line:25:2, endln:25:7
     |vpiName:second
     |vpiFullName:work@top.second
     |vpiVisibility:1
@@ -1443,9 +1501,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructAccess/dut.sv, line:1:1, endln:30:10
     |vpiTypespec:
-    \_logic_typespec: , line:26:2, endln:26:7
+    \_ref_typespec: (work@top.third)
       |vpiParent:
       \_logic_var: (work@top.third), line:26:8, endln:26:43
+      |vpiFullName:work@top.third
+      |vpiActual:
+      \_logic_typespec: , line:26:2, endln:26:7
     |vpiName:third
     |vpiFullName:work@top.third
     |vpiVisibility:1
@@ -1532,6 +1593,290 @@ design: (work@top)
         |vpiName:mode
         |vpiActual:
         \_typespec_member: (mode), line:12:17, endln:12:21
+\_weaklyReferenced:
+\_logic_typespec: , line:3:15, endln:3:26
+  |vpiRange:
+  \_range: , line:3:21, endln:3:26
+    |vpiParent:
+    \_logic_typespec: , line:3:15, endln:3:26
+    |vpiLeftRange:
+    \_constant: , line:3:22, endln:3:23
+      |vpiParent:
+      \_range: , line:3:21, endln:3:26
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:24, endln:3:25
+      |vpiParent:
+      \_range: , line:3:21, endln:3:26
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:8:4, endln:8:9
+  |vpiParent:
+  \_typespec_member: (a), line:8:10, endln:8:11
+\_function: (work@mailbox::new), line:3:5, endln:4:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/StructAccess/builtin.sv, line:1:3, endln:27:11
+  |vpiName:new
+  |vpiFullName:work@mailbox::new
+  |vpiMethod:1
+  |vpiReturn:
+  \_class_var: (work@mailbox::new), line:3:23, endln:3:28
+  |vpiIODecl:
+  \_io_decl: (bound), line:3:23, endln:3:28
+    |vpiParent:
+    \_function: (work@mailbox::new), line:3:5, endln:4:16
+    |vpiDirection:1
+    |vpiName:bound
+    |vpiExpr:
+    \_constant: , line:3:31, endln:3:32
+    |vpiTypedef:
+    \_ref_typespec: (work@mailbox::new::bound)
+      |vpiParent:
+      \_io_decl: (bound), line:3:23, endln:3:28
+      |vpiFullName:work@mailbox::new::bound
+      |vpiActual:
+      \_int_typespec: , line:3:19, endln:3:22
+\_class_typespec: 
+  |vpiClassDefn:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/StructAccess/builtin.sv, line:1:3, endln:27:11
+\_int_typespec: , line:3:19, endln:3:22
+  |vpiSigned:1
+\_function: (work@mailbox::num), line:6:5, endln:7:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/StructAccess/builtin.sv, line:1:3, endln:27:11
+  |vpiName:num
+  |vpiFullName:work@mailbox::num
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::num), line:6:14, endln:6:17
+\_int_typespec: , line:6:14, endln:6:17
+  |vpiSigned:1
+\_function: (work@mailbox::try_put), line:12:5, endln:13:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/StructAccess/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_put
+  |vpiFullName:work@mailbox::try_put
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_logic_var: (work@mailbox::try_put)
+  |vpiIODecl:
+  \_io_decl: (message), line:12:23, endln:12:30
+    |vpiParent:
+    \_function: (work@mailbox::try_put), line:12:5, endln:13:16
+    |vpiDirection:1
+    |vpiName:message
+\_function: (work@mailbox::try_get), line:18:5, endln:19:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/StructAccess/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_get
+  |vpiFullName:work@mailbox::try_get
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::try_get), line:18:14, endln:18:17
+  |vpiIODecl:
+  \_io_decl: (message), line:18:31, endln:18:38
+    |vpiParent:
+    \_function: (work@mailbox::try_get), line:18:5, endln:19:16
+    |vpiDirection:6
+    |vpiName:message
+\_int_typespec: , line:18:14, endln:18:17
+  |vpiSigned:1
+\_function: (work@mailbox::try_peek), line:24:5, endln:25:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/StructAccess/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_peek
+  |vpiFullName:work@mailbox::try_peek
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::try_peek), line:24:14, endln:24:17
+  |vpiIODecl:
+  \_io_decl: (message), line:24:31, endln:24:38
+    |vpiParent:
+    \_function: (work@mailbox::try_peek), line:24:5, endln:25:16
+    |vpiDirection:6
+    |vpiName:message
+\_int_typespec: , line:24:14, endln:24:17
+  |vpiSigned:1
+\_enum_typespec: (state), line:32:5, endln:32:74
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/StructAccess/builtin.sv, line:30:3, endln:52:11
+  |vpiName:state
+  |vpiEnumConst:
+  \_enum_const: (FINISHED), line:32:20, endln:32:28
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:FINISHED
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (RUNNING), line:32:30, endln:32:37
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:RUNNING
+    |INT:1
+    |vpiDecompile:1
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (WAITING), line:32:39, endln:32:46
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:WAITING
+    |INT:2
+    |vpiDecompile:2
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (SUSPENDED), line:32:48, endln:32:57
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:SUSPENDED
+    |INT:3
+    |vpiDecompile:3
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (KILLED), line:32:59, endln:32:65
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:KILLED
+    |INT:4
+    |vpiDecompile:4
+    |vpiSize:64
+\_function: (work@process::self), line:34:5, endln:34:11
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/StructAccess/builtin.sv, line:30:3, endln:52:11
+  |vpiName:self
+  |vpiFullName:work@process::self
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_class_var: (work@process::self), line:34:21, endln:34:28
+\_class_typespec: , line:34:21, endln:34:28
+  |vpiClassDefn:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/StructAccess/builtin.sv, line:30:3, endln:52:11
+\_function: (work@process::status), line:37:5, endln:38:16
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/StructAccess/builtin.sv, line:30:3, endln:52:11
+  |vpiName:status
+  |vpiFullName:work@process::status
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_enum_var: (work@process::status), line:37:14, endln:37:19
+\_function: (work@semaphore::new), line:57:5, endln:58:16
+  |vpiParent:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/StructAccess/builtin.sv, line:55:3, endln:69:11
+  |vpiName:new
+  |vpiFullName:work@semaphore::new
+  |vpiMethod:1
+  |vpiReturn:
+  \_class_var: (work@semaphore::new), line:57:22, endln:57:30
+  |vpiIODecl:
+  \_io_decl: (keyCount), line:57:22, endln:57:30
+    |vpiParent:
+    \_function: (work@semaphore::new), line:57:5, endln:58:16
+    |vpiDirection:1
+    |vpiName:keyCount
+    |vpiExpr:
+    \_constant: , line:57:33, endln:57:34
+    |vpiTypedef:
+    \_ref_typespec: (work@semaphore::new::keyCount)
+      |vpiParent:
+      \_io_decl: (keyCount), line:57:22, endln:57:30
+      |vpiFullName:work@semaphore::new::keyCount
+      |vpiActual:
+      \_int_typespec: , line:57:18, endln:57:21
+\_class_typespec: 
+  |vpiClassDefn:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/StructAccess/builtin.sv, line:55:3, endln:69:11
+\_int_typespec: , line:57:18, endln:57:21
+  |vpiSigned:1
+\_int_typespec: , line:60:14, endln:60:17
+  |vpiSigned:1
+\_int_typespec: , line:63:14, endln:63:17
+  |vpiSigned:1
+\_function: (work@semaphore::try_get), line:66:5, endln:67:16
+  |vpiParent:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/StructAccess/builtin.sv, line:55:3, endln:69:11
+  |vpiName:try_get
+  |vpiFullName:work@semaphore::try_get
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@semaphore::try_get), line:66:14, endln:66:17
+  |vpiIODecl:
+  \_io_decl: (keyCount), line:66:30, endln:66:38
+    |vpiParent:
+    \_function: (work@semaphore::try_get), line:66:5, endln:67:16
+    |vpiDirection:1
+    |vpiName:keyCount
+    |vpiExpr:
+    \_constant: , line:66:41, endln:66:42
+    |vpiTypedef:
+    \_ref_typespec: (work@semaphore::try_get::keyCount)
+      |vpiParent:
+      \_io_decl: (keyCount), line:66:30, endln:66:38
+      |vpiFullName:work@semaphore::try_get::keyCount
+      |vpiActual:
+      \_int_typespec: , line:66:26, endln:66:29
+\_int_typespec: , line:66:14, endln:66:17
+  |vpiSigned:1
+\_int_typespec: , line:66:26, endln:66:29
+  |vpiSigned:1
+\_array_typespec: 
+\_logic_typespec: , line:22:2, endln:22:7
+  |vpiParent:
+  \_logic_var: (work@top.t), line:22:8, endln:22:24
+\_logic_typespec: , line:25:2, endln:25:7
+  |vpiParent:
+  \_logic_var: (work@top.second), line:25:8, endln:25:39
+\_logic_typespec: , line:26:2, endln:26:7
+  |vpiParent:
+  \_logic_var: (work@top.third), line:26:8, endln:26:43
+\_logic_typespec: , line:22:2, endln:22:24
+\_logic_typespec: , line:25:2, endln:25:39
+\_logic_typespec: , line:26:2, endln:26:43
+\_cont_assign: , line:20:9, endln:20:33
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructAccess/dut.sv, line:1:1, endln:30:10
+  |vpiRhs:
+  \_constant: 
+  |vpiLhs:
+  \_ref_obj: (work@top.enum_test), line:20:9, endln:20:18
+    |vpiParent:
+    \_cont_assign: , line:20:9, endln:20:33
+    |vpiName:enum_test
+    |vpiFullName:work@top.enum_test
+    |vpiActual:
+    \_logic_net: (work@top.enum_test), line:18:15, endln:18:24
+\_cont_assign: , line:28:9, endln:28:43
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructAccess/dut.sv, line:1:1, endln:30:10
+  |vpiRhs:
+  \_constant: 
+  |vpiLhs:
+  \_hier_path: (csr_pmp_cfg_ie.mode), line:28:9, endln:28:28
+    |vpiParent:
+    \_cont_assign: , line:28:9, endln:28:43
+    |vpiName:csr_pmp_cfg_ie.mode
+    |vpiActual:
+    \_ref_obj: (csr_pmp_cfg_ie), line:28:24, endln:28:28
+      |vpiParent:
+      \_hier_path: (csr_pmp_cfg_ie.mode), line:28:9, endln:28:28
+      |vpiName:csr_pmp_cfg_ie
+    |vpiActual:
+    \_ref_obj: (mode), line:28:24, endln:28:28
+      |vpiParent:
+      \_hier_path: (csr_pmp_cfg_ie.mode), line:28:9, endln:28:28
+      |vpiName:mode
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

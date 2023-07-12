@@ -199,7 +199,7 @@ gen_region                                             1
 gen_scope                                              4
 gen_scope_array                                        4
 hier_path                                              4
-int_typespec                                           4
+int_typespec                                           3
 interface_array                                        2
 interface_inst                                         3
 interface_typespec                                     7
@@ -215,6 +215,7 @@ parameter                                              4
 port                                                   2
 range                                                  3
 ref_obj                                               16
+ref_typespec                                          15
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -229,7 +230,7 @@ gen_region                                             1
 gen_scope                                              6
 gen_scope_array                                        6
 hier_path                                              6
-int_typespec                                           4
+int_typespec                                           3
 interface_array                                        2
 interface_inst                                         3
 interface_typespec                                     7
@@ -245,6 +246,7 @@ parameter                                              4
 port                                                   3
 range                                                  3
 ref_obj                                               23
+ref_typespec                                          18
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ModPortArrayBind/slpp_all/surelog.uhdm ...
 
@@ -269,7 +271,12 @@ design: (work@r5p_bus_dec)
     |vpiParent:
     \_interface_inst: work@r5p_bus_if (work@r5p_bus_if), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:2:1, endln:10:25
     |vpiTypespec:
-    \_logic_typespec: , line:4:2, endln:4:7
+    \_ref_typespec: (work@r5p_bus_if.vld)
+      |vpiParent:
+      \_logic_net: (work@r5p_bus_if.vld), line:4:17, endln:4:20
+      |vpiFullName:work@r5p_bus_if.vld
+      |vpiActual:
+      \_logic_typespec: , line:4:2, endln:4:7
     |vpiName:vld
     |vpiFullName:work@r5p_bus_if.vld
     |vpiNetType:36
@@ -295,9 +302,12 @@ design: (work@r5p_bus_dec)
     \_module_inst: work@r5p_bus_dec (work@r5p_bus_dec), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:12:1, endln:29:10
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: , line:13:3, endln:13:15
+    \_ref_typespec: (work@r5p_bus_dec.BN)
       |vpiParent:
       \_parameter: (work@r5p_bus_dec.BN), line:13:16, endln:13:18
+      |vpiFullName:work@r5p_bus_dec.BN
+      |vpiActual:
+      \_int_typespec: , line:13:3, endln:13:15
     |vpiName:BN
     |vpiFullName:work@r5p_bus_dec.BN
   |vpiParamAssign:
@@ -312,7 +322,12 @@ design: (work@r5p_bus_dec)
       |vpiSize:32
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:13:3, endln:13:15
+      \_ref_typespec: (work@r5p_bus_dec)
+        |vpiParent:
+        \_constant: , line:13:21, endln:13:22
+        |vpiFullName:work@r5p_bus_dec
+        |vpiActual:
+        \_int_typespec: , line:13:3, endln:13:15
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@r5p_bus_dec.BN), line:13:16, endln:13:18
@@ -338,47 +353,12 @@ design: (work@r5p_bus_dec)
       |vpiActual:
       \_modport: (man), line:6:11, endln:6:14
     |vpiTypedef:
-    \_array_typespec: , line:15:3, endln:15:27
+    \_ref_typespec: (work@r5p_bus_dec.m)
       |vpiParent:
       \_port: (m), line:15:18, endln:15:19
-      |vpiArrayType:1
-      |vpiRange:
-      \_range: , line:15:19, endln:15:27
-        |vpiParent:
-        \_array_typespec: , line:15:3, endln:15:27
-        |vpiLeftRange:
-        \_operation: , line:15:20, endln:15:24
-          |vpiParent:
-          \_range: , line:15:19, endln:15:27
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (work@r5p_bus_dec.m.BN), line:15:20, endln:15:22
-            |vpiParent:
-            \_operation: , line:15:20, endln:15:24
-            |vpiName:BN
-            |vpiFullName:work@r5p_bus_dec.m.BN
-          |vpiOperand:
-          \_constant: , line:15:23, endln:15:24
-            |vpiParent:
-            \_operation: , line:15:20, endln:15:24
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:15:25, endln:15:26
-          |vpiParent:
-          \_range: , line:15:19, endln:15:27
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-      |vpiElemTypespec:
-      \_interface_typespec: (man), line:15:14, endln:15:17
-        |vpiParent:
-        \_interface_typespec: (r5p_bus_if), line:15:3, endln:15:13
-        |vpiName:man
-        |vpiIsModPort:1
+      |vpiFullName:work@r5p_bus_dec.m
+      |vpiActual:
+      \_array_typespec: , line:15:3, endln:15:27
   |vpiInterfaceArray:
   \_interface_array: (r5p_bus_if.man), line:15:18, endln:15:19
     |vpiParent:
@@ -417,8 +397,12 @@ design: (work@r5p_bus_dec)
         |UINT:0
         |vpiConstType:9
     |vpiElemTypespec:
-    \_interface_typespec: (r5p_bus_if.man), line:15:3, endln:15:17
-      |vpiName:r5p_bus_if.man
+    \_ref_typespec: (work@r5p_bus_dec.m)
+      |vpiParent:
+      \_interface_array: (r5p_bus_if.man), line:15:18, endln:15:19
+      |vpiFullName:work@r5p_bus_dec.m
+      |vpiActual:
+      \_interface_typespec: (r5p_bus_if.man), line:15:3, endln:15:17
   |vpiGenStmt:
   \_gen_region: 
     |vpiParent:
@@ -437,9 +421,12 @@ design: (work@r5p_bus_dec)
     \_module_inst: work@r5p_bus_dec (work@r5p_bus_dec), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:12:1, endln:29:10
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: , line:13:3, endln:13:15
+    \_ref_typespec: (work@r5p_bus_dec.BN)
       |vpiParent:
       \_parameter: (work@r5p_bus_dec.BN), line:13:16, endln:13:18
+      |vpiFullName:work@r5p_bus_dec.BN
+      |vpiActual:
+      \_int_typespec: , line:13:3, endln:13:15
     |vpiName:BN
     |vpiFullName:work@r5p_bus_dec.BN
   |vpiParamAssign:
@@ -454,7 +441,12 @@ design: (work@r5p_bus_dec)
       |vpiSize:32
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:13:3, endln:13:15
+      \_ref_typespec: (work@r5p_bus_dec)
+        |vpiParent:
+        \_constant: , line:13:21, endln:13:22
+        |vpiFullName:work@r5p_bus_dec
+        |vpiActual:
+        \_int_typespec: , line:13:3, endln:13:15
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@r5p_bus_dec.BN), line:13:16, endln:13:18
@@ -475,11 +467,12 @@ design: (work@r5p_bus_dec)
       |vpiActual:
       \_interface_array: (work@r5p_bus_dec.m), line:15:18, endln:15:19
     |vpiTypedef:
-    \_interface_typespec: (man), line:15:14, endln:15:17
+    \_ref_typespec: (work@r5p_bus_dec.m)
       |vpiParent:
-      \_interface_typespec: (r5p_bus_if), line:15:3, endln:15:13
-      |vpiName:man
-      |vpiIsModPort:1
+      \_port: (m), line:15:18, endln:15:19
+      |vpiFullName:work@r5p_bus_dec.m
+      |vpiActual:
+      \_interface_typespec: (man), line:15:14, endln:15:17
     |vpiInstance:
     \_module_inst: work@r5p_bus_dec (work@r5p_bus_dec), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:12:1, endln:29:10
   |vpiInterface:
@@ -493,9 +486,12 @@ design: (work@r5p_bus_dec)
       |vpiParent:
       \_interface_inst: work@r5p_bus_if (work@r5p_bus_dec.m[0]), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:12:0
       |vpiTypespec:
-      \_logic_typespec: , line:4:2, endln:4:7
+      \_ref_typespec: (work@r5p_bus_dec.m[0].vld)
         |vpiParent:
         \_logic_var: (work@r5p_bus_dec.m[0].vld), line:4:17, endln:4:20
+        |vpiFullName:work@r5p_bus_dec.m[0].vld
+        |vpiActual:
+        \_logic_typespec: , line:4:2, endln:4:7
       |vpiName:vld
       |vpiFullName:work@r5p_bus_dec.m[0].vld
       |vpiVisibility:1
@@ -526,9 +522,12 @@ design: (work@r5p_bus_dec)
       |vpiParent:
       \_interface_inst: work@r5p_bus_if (work@r5p_bus_dec.m[1]), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:12:0
       |vpiTypespec:
-      \_logic_typespec: , line:4:2, endln:4:7
+      \_ref_typespec: (work@r5p_bus_dec.m[1].vld)
         |vpiParent:
         \_logic_var: (work@r5p_bus_dec.m[1].vld), line:4:17, endln:4:20
+        |vpiFullName:work@r5p_bus_dec.m[1].vld
+        |vpiActual:
+        \_logic_typespec: , line:4:2, endln:4:7
       |vpiName:vld
       |vpiFullName:work@r5p_bus_dec.m[1].vld
       |vpiVisibility:1
@@ -594,7 +593,12 @@ design: (work@r5p_bus_dec)
         \_gen_scope: (work@r5p_bus_dec.gen_loop[0]), line:21:22, endln:25:14
         |UINT:0
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@r5p_bus_dec.gen_loop[0].i)
+          |vpiParent:
+          \_parameter: (work@r5p_bus_dec.gen_loop[0].i), line:21:0
+          |vpiFullName:work@r5p_bus_dec.gen_loop[0].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@r5p_bus_dec.gen_loop[0].i
@@ -681,7 +685,12 @@ design: (work@r5p_bus_dec)
         \_gen_scope: (work@r5p_bus_dec.gen_loop[1]), line:21:22, endln:25:14
         |UINT:1
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@r5p_bus_dec.gen_loop[1].i)
+          |vpiParent:
+          \_parameter: (work@r5p_bus_dec.gen_loop[1].i), line:21:0
+          |vpiFullName:work@r5p_bus_dec.gen_loop[1].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@r5p_bus_dec.gen_loop[1].i
@@ -751,6 +760,215 @@ design: (work@r5p_bus_dec)
             |vpiFullName:m[i].vld
             |vpiActual:
             \_logic_var: (work@r5p_bus_dec.m[1].vld), line:4:17, endln:4:20
+\_weaklyReferenced:
+\_int_typespec: , line:13:3, endln:13:15
+  |vpiParent:
+  \_parameter: (work@r5p_bus_dec.BN), line:13:16, endln:13:18
+\_interface_typespec: (man), line:15:14, endln:15:17
+  |vpiParent:
+  \_interface_typespec: (r5p_bus_if), line:15:3, endln:15:13
+  |vpiName:man
+  |vpiIsModPort:1
+\_interface_typespec: (r5p_bus_if), line:15:3, endln:15:13
+  |vpiName:r5p_bus_if
+\_logic_typespec: , line:4:2, endln:4:7
+  |vpiParent:
+  \_logic_var: (work@r5p_bus_dec.m[0].vld), line:4:17, endln:4:20
+\_logic_typespec: , line:4:2, endln:4:7
+  |vpiParent:
+  \_logic_var: (work@r5p_bus_dec.m[1].vld), line:4:17, endln:4:20
+\_logic_typespec: , line:4:2, endln:4:7
+\_array_typespec: , line:15:3, endln:15:27
+  |vpiParent:
+  \_port: (m), line:15:18, endln:15:19
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , line:15:19, endln:15:27
+    |vpiParent:
+    \_array_typespec: , line:15:3, endln:15:27
+    |vpiLeftRange:
+    \_operation: , line:15:20, endln:15:24
+      |vpiParent:
+      \_range: , line:15:19, endln:15:27
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@r5p_bus_dec.m.BN), line:15:20, endln:15:22
+        |vpiParent:
+        \_operation: , line:15:20, endln:15:24
+        |vpiName:BN
+        |vpiFullName:work@r5p_bus_dec.m.BN
+      |vpiOperand:
+      \_constant: , line:15:23, endln:15:24
+        |vpiParent:
+        \_operation: , line:15:20, endln:15:24
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:15:25, endln:15:26
+      |vpiParent:
+      \_range: , line:15:19, endln:15:27
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_typespec: (work@r5p_bus_dec.m)
+    |vpiParent:
+    \_array_typespec: , line:15:3, endln:15:27
+    |vpiFullName:work@r5p_bus_dec.m
+    |vpiActual:
+    \_interface_typespec: (man), line:15:14, endln:15:17
+\_interface_typespec: (man), line:15:14, endln:15:17
+  |vpiParent:
+  \_interface_typespec: (r5p_bus_if), line:15:3, endln:15:13
+  |vpiName:man
+  |vpiIsModPort:1
+\_interface_typespec: (r5p_bus_if), line:15:3, endln:15:13
+  |vpiName:r5p_bus_if
+\_interface_typespec: (r5p_bus_if.man), line:15:3, endln:15:17
+  |vpiName:r5p_bus_if.man
+\_operation: , line:23:21, endln:23:38
+  |vpiParent:
+  \_cont_assign: , line:23:10, endln:23:38
+  |vpiOpType:32
+  |vpiOperand:
+  \_bit_select: (work@r5p_bus_dec.gen_loop[0].s_dec), line:23:27, endln:23:28
+    |vpiParent:
+    \_operation: , line:23:21, endln:23:38
+    |vpiName:s_dec
+    |vpiFullName:work@r5p_bus_dec.gen_loop[0].s_dec
+    |vpiIndex:
+    \_ref_obj: (work@r5p_bus_dec.gen_loop[0].i), line:23:27, endln:23:28
+      |vpiParent:
+      \_bit_select: (work@r5p_bus_dec.gen_loop[0].s_dec), line:23:27, endln:23:28
+      |vpiName:i
+      |vpiFullName:work@r5p_bus_dec.gen_loop[0].i
+  |vpiOperand:
+  \_constant: , line:23:32, endln:23:33
+  |vpiOperand:
+  \_constant: , line:23:36, endln:23:38
+    |vpiParent:
+    \_operation: , line:23:21, endln:23:38
+    |vpiDecompile:'0
+    |vpiSize:-1
+    |BIN:0
+    |vpiConstType:3
+\_cont_assign: , line:23:10, endln:23:38
+  |vpiParent:
+  \_gen_scope: (work@r5p_bus_dec.gen_loop[0]), line:21:22, endln:25:14
+  |vpiRhs:
+  \_operation: , line:23:21, endln:23:38
+  |vpiLhs:
+  \_hier_path: (m[i].vld), line:23:10, endln:23:11
+    |vpiParent:
+    \_cont_assign: , line:23:10, endln:23:38
+    |vpiName:m[i].vld
+    |vpiActual:
+    \_bit_select: (m[i]), line:23:10, endln:23:11
+      |vpiParent:
+      \_hier_path: (m[i].vld), line:23:10, endln:23:11
+      |vpiName:m
+      |vpiFullName:m[i]
+      |vpiIndex:
+      \_ref_obj: (work@r5p_bus_dec.gen_loop[0].m[i].vld.i), line:23:12, endln:23:13
+        |vpiParent:
+        \_bit_select: (m[i]), line:23:10, endln:23:11
+        |vpiName:i
+        |vpiFullName:work@r5p_bus_dec.gen_loop[0].m[i].vld.i
+    |vpiActual:
+    \_ref_obj: (m[i].vld), line:23:15, endln:23:18
+      |vpiParent:
+      \_hier_path: (m[i].vld), line:23:10, endln:23:11
+      |vpiName:vld
+      |vpiFullName:m[i].vld
+\_gen_scope: (work@r5p_bus_dec.gen_loop[0]), line:21:22, endln:25:14
+  |vpiParent:
+  \_gen_scope_array: (work@r5p_bus_dec.gen_loop[0]), line:21:22, endln:25:14
+  |vpiFullName:work@r5p_bus_dec.gen_loop[0]
+  |vpiParameter:
+  \_parameter: (work@r5p_bus_dec.gen_loop[0].i), line:21:0
+  |vpiContAssign:
+  \_cont_assign: , line:23:10, endln:23:38
+\_gen_scope_array: (work@r5p_bus_dec.gen_loop[0]), line:21:22, endln:25:14
+  |vpiParent:
+  \_module_inst: work@r5p_bus_dec (work@r5p_bus_dec), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:12:1, endln:29:10
+  |vpiName:gen_loop[0]
+  |vpiFullName:work@r5p_bus_dec.gen_loop[0]
+  |vpiGenScope:
+  \_gen_scope: (work@r5p_bus_dec.gen_loop[0]), line:21:22, endln:25:14
+\_int_typespec: 
+\_operation: , line:23:21, endln:23:38
+  |vpiParent:
+  \_cont_assign: , line:23:10, endln:23:38
+  |vpiOpType:32
+  |vpiOperand:
+  \_bit_select: (work@r5p_bus_dec.gen_loop[1].s_dec), line:23:27, endln:23:28
+    |vpiParent:
+    \_operation: , line:23:21, endln:23:38
+    |vpiName:s_dec
+    |vpiFullName:work@r5p_bus_dec.gen_loop[1].s_dec
+    |vpiIndex:
+    \_ref_obj: (work@r5p_bus_dec.gen_loop[1].i), line:23:27, endln:23:28
+      |vpiParent:
+      \_bit_select: (work@r5p_bus_dec.gen_loop[1].s_dec), line:23:27, endln:23:28
+      |vpiName:i
+      |vpiFullName:work@r5p_bus_dec.gen_loop[1].i
+  |vpiOperand:
+  \_constant: , line:23:32, endln:23:33
+  |vpiOperand:
+  \_constant: , line:23:36, endln:23:38
+    |vpiParent:
+    \_operation: , line:23:21, endln:23:38
+    |vpiDecompile:'0
+    |vpiSize:-1
+    |BIN:0
+    |vpiConstType:3
+\_cont_assign: , line:23:10, endln:23:38
+  |vpiParent:
+  \_gen_scope: (work@r5p_bus_dec.gen_loop[1]), line:21:22, endln:25:14
+  |vpiRhs:
+  \_operation: , line:23:21, endln:23:38
+  |vpiLhs:
+  \_hier_path: (m[i].vld), line:23:10, endln:23:11
+    |vpiParent:
+    \_cont_assign: , line:23:10, endln:23:38
+    |vpiName:m[i].vld
+    |vpiActual:
+    \_bit_select: (m[i]), line:23:10, endln:23:11
+      |vpiParent:
+      \_hier_path: (m[i].vld), line:23:10, endln:23:11
+      |vpiName:m
+      |vpiFullName:m[i]
+      |vpiIndex:
+      \_ref_obj: (work@r5p_bus_dec.gen_loop[1].m[i].vld.i), line:23:12, endln:23:13
+        |vpiParent:
+        \_bit_select: (m[i]), line:23:10, endln:23:11
+        |vpiName:i
+        |vpiFullName:work@r5p_bus_dec.gen_loop[1].m[i].vld.i
+    |vpiActual:
+    \_ref_obj: (m[i].vld), line:23:15, endln:23:18
+      |vpiParent:
+      \_hier_path: (m[i].vld), line:23:10, endln:23:11
+      |vpiName:vld
+      |vpiFullName:m[i].vld
+\_gen_scope: (work@r5p_bus_dec.gen_loop[1]), line:21:22, endln:25:14
+  |vpiParent:
+  \_gen_scope_array: (work@r5p_bus_dec.gen_loop[1]), line:21:22, endln:25:14
+  |vpiFullName:work@r5p_bus_dec.gen_loop[1]
+  |vpiParameter:
+  \_parameter: (work@r5p_bus_dec.gen_loop[1].i), line:21:0
+  |vpiContAssign:
+  \_cont_assign: , line:23:10, endln:23:38
+\_gen_scope_array: (work@r5p_bus_dec.gen_loop[1]), line:21:22, endln:25:14
+  |vpiParent:
+  \_module_inst: work@r5p_bus_dec (work@r5p_bus_dec), file:${SURELOG_DIR}/tests/ModPortArrayBind/dut.sv, line:12:1, endln:29:10
+  |vpiName:gen_loop[1]
+  |vpiFullName:work@r5p_bus_dec.gen_loop[1]
+  |vpiGenScope:
+  \_gen_scope: (work@r5p_bus_dec.gen_loop[1]), line:21:22, endln:25:14
+\_int_typespec: 
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

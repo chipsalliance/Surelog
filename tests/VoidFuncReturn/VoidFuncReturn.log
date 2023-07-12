@@ -140,6 +140,7 @@ io_decl                                                2
 module_inst                                            2
 operation                                              1
 ref_obj                                                4
+ref_typespec                                           2
 return_stmt                                            1
 sys_func_call                                          2
 === UHDM Object Stats End ===
@@ -157,6 +158,7 @@ io_decl                                                4
 module_inst                                            2
 operation                                              2
 ref_obj                                                8
+ref_typespec                                           4
 return_stmt                                            2
 sys_func_call                                          4
 === UHDM Object Stats End ===
@@ -194,8 +196,12 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:a
       |vpiTypedef:
-      \_int_typespec: , line:3:19, endln:3:22
-        |vpiSigned:1
+      \_ref_typespec: (work@top.add.a)
+        |vpiParent:
+        \_io_decl: (a), line:3:23, endln:3:24
+        |vpiFullName:work@top.add.a
+        |vpiActual:
+        \_int_typespec: , line:3:19, endln:3:22
     |vpiIODecl:
     \_io_decl: (b), line:3:30, endln:3:31
       |vpiParent:
@@ -203,8 +209,12 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:b
       |vpiTypedef:
-      \_int_typespec: , line:3:26, endln:3:29
-        |vpiSigned:1
+      \_ref_typespec: (work@top.add.b)
+        |vpiParent:
+        \_io_decl: (b), line:3:30, endln:3:31
+        |vpiFullName:work@top.add.b
+        |vpiActual:
+        \_int_typespec: , line:3:26, endln:3:29
     |vpiStmt:
     \_begin: (work@top.add), line:5:1, endln:5:14
       |vpiParent:
@@ -325,7 +335,12 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:a
       |vpiTypedef:
-      \_int_typespec: , line:3:19, endln:3:22
+      \_ref_typespec: (work@top.add.a)
+        |vpiParent:
+        \_io_decl: (a), line:3:23, endln:3:24
+        |vpiFullName:work@top.add.a
+        |vpiActual:
+        \_int_typespec: , line:3:19, endln:3:22
     |vpiIODecl:
     \_io_decl: (b), line:3:30, endln:3:31
       |vpiParent:
@@ -333,7 +348,12 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:b
       |vpiTypedef:
-      \_int_typespec: , line:3:26, endln:3:29
+      \_ref_typespec: (work@top.add.b)
+        |vpiParent:
+        \_io_decl: (b), line:3:30, endln:3:31
+        |vpiFullName:work@top.add.b
+        |vpiActual:
+        \_int_typespec: , line:3:26, endln:3:29
     |vpiStmt:
     \_begin: (work@top.add), line:5:1, endln:5:14
       |vpiParent:
@@ -412,6 +432,11 @@ design: (work@top)
         |vpiFunction:
         \_function: (work@top.add), line:3:1, endln:6:12
       |vpiName:$display
+\_weaklyReferenced:
+\_int_typespec: , line:3:19, endln:3:22
+  |vpiSigned:1
+\_int_typespec: , line:3:26, endln:3:29
+  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

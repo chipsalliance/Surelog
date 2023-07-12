@@ -247,6 +247,7 @@ method_func_call                                       1
 module_inst                                            3
 operation                                              6
 ref_obj                                               12
+ref_typespec                                           4
 var_select                                             1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -267,6 +268,7 @@ method_func_call                                       1
 module_inst                                            3
 operation                                             11
 ref_obj                                               22
+ref_typespec                                           4
 var_select                                             2
 === UHDM Object Stats End ===
 [ERR:UH0725] ${SURELOG_DIR}/tests/HierMultiSelect/dut.sv:2:10: Unresolved hierarchical reference "dmi_req_i.addr1".
@@ -300,7 +302,12 @@ design: (work@dm_csrs)
     |vpiParent:
     \_module_inst: work@dm_csrs (work@dm_csrs), file:${SURELOG_DIR}/tests/HierMultiSelect/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
-    \_logic_typespec: , line:6:3, endln:6:32
+    \_ref_typespec: (work@dm_csrs.c)
+      |vpiParent:
+      \_logic_net: (work@dm_csrs.c), line:6:9, endln:6:10
+      |vpiFullName:work@dm_csrs.c
+      |vpiActual:
+      \_logic_typespec: , line:6:3, endln:6:32
     |vpiName:c
     |vpiFullName:work@dm_csrs.c
     |vpiNetType:36
@@ -309,8 +316,12 @@ design: (work@dm_csrs)
     |vpiParent:
     \_module_inst: work@dm_csrs (work@dm_csrs), file:${SURELOG_DIR}/tests/HierMultiSelect/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
-    \_byte_typespec: , line:7:3, endln:7:17
-      |vpiSigned:1
+    \_ref_typespec: (work@dm_csrs.o)
+      |vpiParent:
+      \_logic_net: (work@dm_csrs.o), line:7:8, endln:7:9
+      |vpiFullName:work@dm_csrs.o
+      |vpiActual:
+      \_byte_typespec: , line:7:3, endln:7:17
     |vpiName:o
     |vpiFullName:work@dm_csrs.o
   |vpiNet:
@@ -565,9 +576,12 @@ design: (work@dm_csrs)
     |vpiParent:
     \_module_inst: work@dm_csrs (work@dm_csrs), file:${SURELOG_DIR}/tests/HierMultiSelect/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
-    \_logic_typespec: , line:6:3, endln:6:8
+    \_ref_typespec: (work@dm_csrs.c)
       |vpiParent:
       \_logic_var: (work@dm_csrs.c), line:6:9, endln:6:32
+      |vpiFullName:work@dm_csrs.c
+      |vpiActual:
+      \_logic_typespec: , line:6:3, endln:6:8
     |vpiName:c
     |vpiFullName:work@dm_csrs.c
     |vpiVisibility:1
@@ -613,8 +627,12 @@ design: (work@dm_csrs)
     |vpiParent:
     \_module_inst: work@dm_csrs (work@dm_csrs), file:${SURELOG_DIR}/tests/HierMultiSelect/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
-    \_byte_typespec: , line:7:3, endln:7:7
-      |vpiSigned:1
+    \_ref_typespec: (work@dm_csrs.o)
+      |vpiParent:
+      \_byte_var: (work@dm_csrs.o), line:7:8, endln:7:17
+      |vpiFullName:work@dm_csrs.o
+      |vpiActual:
+      \_byte_typespec: , line:7:3, endln:7:7
     |vpiName:o
     |vpiFullName:work@dm_csrs.o
     |vpiVisibility:1
@@ -832,6 +850,46 @@ design: (work@dm_csrs)
         \_hier_path: (sram_otp_key_o[2 - 2].nonce), line:5:10, endln:5:24
         |vpiName:nonce
         |vpiFullName:sram_otp_key_o[2 - 2].nonce
+\_weaklyReferenced:
+\_logic_typespec: , line:6:3, endln:6:8
+  |vpiParent:
+  \_logic_var: (work@dm_csrs.c), line:6:9, endln:6:32
+\_byte_typespec: , line:7:3, endln:7:7
+  |vpiSigned:1
+\_logic_typespec: , line:6:3, endln:6:32
+\_byte_typespec: , line:7:3, endln:7:17
+  |vpiSigned:1
+\_cont_assign: , line:5:10, endln:5:39
+  |vpiParent:
+  \_module_inst: work@dm_csrs (work@dm_csrs), file:${SURELOG_DIR}/tests/HierMultiSelect/dut.sv, line:1:1, endln:8:10
+  |vpiRhs:
+  \_constant: , line:5:38, endln:5:39
+  |vpiLhs:
+  \_hier_path: (sram_otp_key_o[2 - 2].nonce), line:5:10, endln:5:24
+    |vpiParent:
+    \_cont_assign: , line:5:10, endln:5:39
+    |vpiName:sram_otp_key_o[2 - 2].nonce
+    |vpiActual:
+    \_bit_select: (sram_otp_key_o[2 - 2]), line:5:10, endln:5:24
+      |vpiParent:
+      \_hier_path: (sram_otp_key_o[2 - 2].nonce), line:5:10, endln:5:24
+      |vpiName:sram_otp_key_o
+      |vpiFullName:sram_otp_key_o[2 - 2]
+      |vpiIndex:
+      \_operation: , line:5:25, endln:5:28
+        |vpiParent:
+        \_bit_select: (sram_otp_key_o[2 - 2]), line:5:10, endln:5:24
+        |vpiOpType:11
+        |vpiOperand:
+        \_constant: , line:5:25, endln:5:26
+        |vpiOperand:
+        \_constant: , line:5:27, endln:5:28
+    |vpiActual:
+    \_ref_obj: (sram_otp_key_o[2 - 2].nonce), line:5:30, endln:5:35
+      |vpiParent:
+      \_hier_path: (sram_otp_key_o[2 - 2].nonce), line:5:10, endln:5:24
+      |vpiName:nonce
+      |vpiFullName:sram_otp_key_o[2 - 2].nonce
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

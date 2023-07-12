@@ -1052,7 +1052,7 @@ if_stmt                                                3
 initial                                                1
 int_typespec                                          12
 int_var                                                4
-integer_typespec                                      16
+integer_typespec                                      12
 integer_var                                           14
 io_decl                                               23
 logic_net                                              6
@@ -1066,6 +1066,7 @@ parameter                                              6
 range                                                  4
 ref_module                                             2
 ref_obj                                               40
+ref_typespec                                          66
 string_typespec                                       14
 string_var                                             3
 struct_typespec                                        2
@@ -1099,7 +1100,7 @@ if_stmt                                                8
 initial                                                2
 int_typespec                                          12
 int_var                                                4
-integer_typespec                                      16
+integer_typespec                                      12
 integer_var                                           14
 io_decl                                               58
 logic_net                                              6
@@ -1113,6 +1114,7 @@ parameter                                              6
 range                                                  4
 ref_module                                             2
 ref_obj                                              117
+ref_typespec                                          96
 string_typespec                                       14
 string_var                                             3
 struct_typespec                                        2
@@ -1152,7 +1154,12 @@ design: (work@simple_package)
     \_package: definesPkg (definesPkg::), file:${SURELOG_DIR}/tests/UnitPackage/definesPkg.pkg, line:4:1, endln:17:11
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: , line:8:3, endln:8:21
+    \_ref_typespec: (definesPkg::SIZE)
+      |vpiParent:
+      \_parameter: (definesPkg::SIZE), line:8:13, endln:8:17
+      |vpiFullName:definesPkg::SIZE
+      |vpiActual:
+      \_int_typespec: , line:8:3, endln:8:21
     |vpiName:SIZE
     |vpiFullName:definesPkg::SIZE
   |vpiParamAssign:
@@ -1167,7 +1174,12 @@ design: (work@simple_package)
       |vpiSize:32
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:8:3, endln:8:21
+      \_ref_typespec: (definesPkg)
+        |vpiParent:
+        \_constant: , line:8:20, endln:8:21
+        |vpiFullName:definesPkg
+        |vpiActual:
+        \_int_typespec: , line:8:3, endln:8:21
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (definesPkg::SIZE), line:8:13, endln:8:17
@@ -1207,31 +1219,12 @@ design: (work@simple_package)
       \_struct_typespec: (definesPkg::mem_s), line:11:11, endln:15:4
       |vpiName:addr
       |vpiTypespec:
-      \_bit_typespec: , line:12:6, endln:12:9
+      \_ref_typespec: (definesPkg::definesPkg::mem_s::addr)
         |vpiParent:
         \_typespec_member: (addr), line:12:20, endln:12:24
-        |vpiInstance:
-        \_package: definesPkg (definesPkg::), file:${SURELOG_DIR}/tests/UnitPackage/definesPkg.pkg, line:4:1, endln:17:11
-        |vpiRange:
-        \_range: , line:12:12, endln:12:17
-          |vpiParent:
-          \_bit_typespec: , line:12:6, endln:12:9
-          |vpiLeftRange:
-          \_constant: , line:12:13, endln:12:14
-            |vpiParent:
-            \_range: , line:12:12, endln:12:17
-            |vpiDecompile:7
-            |vpiSize:64
-            |UINT:7
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:12:15, endln:12:16
-            |vpiParent:
-            \_range: , line:12:12, endln:12:17
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:definesPkg::definesPkg::mem_s::addr
+        |vpiActual:
+        \_bit_typespec: , line:12:6, endln:12:9
       |vpiRefFile:${SURELOG_DIR}/tests/UnitPackage/definesPkg.pkg
       |vpiRefLineNo:12
       |vpiRefColumnNo:6
@@ -1243,31 +1236,12 @@ design: (work@simple_package)
       \_struct_typespec: (definesPkg::mem_s), line:11:11, endln:15:4
       |vpiName:data
       |vpiTypespec:
-      \_bit_typespec: , line:13:6, endln:13:9
+      \_ref_typespec: (definesPkg::definesPkg::mem_s::data)
         |vpiParent:
         \_typespec_member: (data), line:13:20, endln:13:24
-        |vpiInstance:
-        \_package: definesPkg (definesPkg::), file:${SURELOG_DIR}/tests/UnitPackage/definesPkg.pkg, line:4:1, endln:17:11
-        |vpiRange:
-        \_range: , line:13:12, endln:13:17
-          |vpiParent:
-          \_bit_typespec: , line:13:6, endln:13:9
-          |vpiLeftRange:
-          \_constant: , line:13:13, endln:13:14
-            |vpiParent:
-            \_range: , line:13:12, endln:13:17
-            |vpiDecompile:7
-            |vpiSize:64
-            |UINT:7
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:13:15, endln:13:16
-            |vpiParent:
-            \_range: , line:13:12, endln:13:17
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:definesPkg::definesPkg::mem_s::data
+        |vpiActual:
+        \_bit_typespec: , line:13:6, endln:13:9
       |vpiRefFile:${SURELOG_DIR}/tests/UnitPackage/definesPkg.pkg
       |vpiRefLineNo:13
       |vpiRefColumnNo:6
@@ -1279,11 +1253,12 @@ design: (work@simple_package)
       \_struct_typespec: (definesPkg::mem_s), line:11:11, endln:15:4
       |vpiName:wr
       |vpiTypespec:
-      \_bit_typespec: , line:14:6, endln:14:9
+      \_ref_typespec: (definesPkg::definesPkg::mem_s::wr)
         |vpiParent:
         \_typespec_member: (wr), line:14:20, endln:14:22
-        |vpiInstance:
-        \_package: definesPkg (definesPkg::), file:${SURELOG_DIR}/tests/UnitPackage/definesPkg.pkg, line:4:1, endln:17:11
+        |vpiFullName:definesPkg::definesPkg::mem_s::wr
+        |vpiActual:
+        \_bit_typespec: , line:14:6, endln:14:9
       |vpiRefFile:${SURELOG_DIR}/tests/UnitPackage/definesPkg.pkg
       |vpiRefLineNo:14
       |vpiRefColumnNo:6
@@ -1301,12 +1276,12 @@ design: (work@simple_package)
     |vpiParent:
     \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
     |vpiTypespec:
-    \_integer_typespec: , line:5:3, endln:5:10
+    \_ref_typespec: (msgPkg::errCnt)
       |vpiParent:
       \_integer_var: (msgPkg::errCnt), line:5:12, endln:5:23
-      |vpiInstance:
-      \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
-      |vpiSigned:1
+      |vpiFullName:msgPkg::errCnt
+      |vpiActual:
+      \_integer_typespec: , line:5:3, endln:5:10
     |vpiName:errCnt
     |vpiFullName:msgPkg::errCnt
     |vpiAutomatic:1
@@ -1324,12 +1299,12 @@ design: (work@simple_package)
     |vpiParent:
     \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
     |vpiTypespec:
-    \_integer_typespec: , line:6:3, endln:6:10
+    \_ref_typespec: (msgPkg::warnCnt)
       |vpiParent:
       \_integer_var: (msgPkg::warnCnt), line:6:12, endln:6:23
-      |vpiInstance:
-      \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
-      |vpiSigned:1
+      |vpiFullName:msgPkg::warnCnt
+      |vpiActual:
+      \_integer_typespec: , line:6:3, endln:6:10
     |vpiName:warnCnt
     |vpiFullName:msgPkg::warnCnt
     |vpiAutomatic:1
@@ -1347,11 +1322,12 @@ design: (work@simple_package)
     |vpiParent:
     \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
     |vpiTypespec:
-    \_bit_typespec: , line:7:3, endln:7:6
+    \_ref_typespec: (msgPkg::terminate_on_error)
       |vpiParent:
       \_bit_var: (msgPkg::terminate_on_error), line:7:12, endln:7:30
-      |vpiInstance:
-      \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+      |vpiFullName:msgPkg::terminate_on_error
+      |vpiActual:
+      \_bit_typespec: , line:7:3, endln:7:6
     |vpiName:terminate_on_error
     |vpiFullName:msgPkg::terminate_on_error
     |vpiVisibility:1
@@ -1368,11 +1344,12 @@ design: (work@simple_package)
     |vpiParent:
     \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
     |vpiTypespec:
-    \_string_typespec: , line:8:3, endln:8:9
+    \_ref_typespec: (msgPkg::msgName)
       |vpiParent:
       \_string_var: (msgPkg::msgName), line:8:12, endln:8:28
-      |vpiInstance:
-      \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+      |vpiFullName:msgPkg::msgName
+      |vpiActual:
+      \_string_typespec: , line:8:3, endln:8:9
     |vpiName:msgName
     |vpiFullName:msgPkg::msgName
     |vpiAutomatic:1
@@ -1400,9 +1377,12 @@ design: (work@simple_package)
       |vpiDirection:1
       |vpiName:mName
       |vpiTypedef:
-      \_string_typespec: , line:12:20, endln:12:26
-        |vpiInstance:
-        \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+      \_ref_typespec: (msgPkg::initMsgPkg::mName)
+        |vpiParent:
+        \_io_decl: (mName), line:12:27, endln:12:32
+        |vpiFullName:msgPkg::initMsgPkg::mName
+        |vpiActual:
+        \_string_typespec: , line:12:20, endln:12:26
     |vpiIODecl:
     \_io_decl: (term), line:12:38, endln:12:42
       |vpiParent:
@@ -1410,9 +1390,12 @@ design: (work@simple_package)
       |vpiDirection:1
       |vpiName:term
       |vpiTypedef:
-      \_bit_typespec: , line:12:34, endln:12:37
-        |vpiInstance:
-        \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+      \_ref_typespec: (msgPkg::initMsgPkg::term)
+        |vpiParent:
+        \_io_decl: (term), line:12:38, endln:12:42
+        |vpiFullName:msgPkg::initMsgPkg::term
+        |vpiActual:
+        \_bit_typespec: , line:12:34, endln:12:37
     |vpiStmt:
     \_begin: (msgPkg::initMsgPkg), line:14:5, endln:14:21
       |vpiParent:
@@ -1478,9 +1461,12 @@ design: (work@simple_package)
       |vpiDirection:1
       |vpiName:msg
       |vpiTypedef:
-      \_string_typespec: , line:19:19, endln:19:25
-        |vpiInstance:
-        \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+      \_ref_typespec: (msgPkg::msg_info::msg)
+        |vpiParent:
+        \_io_decl: (msg), line:19:26, endln:19:29
+        |vpiFullName:msgPkg::msg_info::msg
+        |vpiActual:
+        \_string_typespec: , line:19:19, endln:19:25
     |vpiStmt:
     \_sys_func_call: ($display), line:20:5, endln:20:55
       |vpiParent:
@@ -1531,9 +1517,12 @@ design: (work@simple_package)
       |vpiDirection:1
       |vpiName:msg
       |vpiTypedef:
-      \_string_typespec: , line:25:19, endln:25:25
-        |vpiInstance:
-        \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+      \_ref_typespec: (msgPkg::msg_warn::msg)
+        |vpiParent:
+        \_io_decl: (msg), line:25:26, endln:25:29
+        |vpiFullName:msgPkg::msg_warn::msg
+        |vpiActual:
+        \_string_typespec: , line:25:19, endln:25:25
     |vpiStmt:
     \_begin: (msgPkg::msg_warn), line:27:5, endln:27:16
       |vpiParent:
@@ -1602,9 +1591,12 @@ design: (work@simple_package)
       |vpiDirection:1
       |vpiName:msg
       |vpiTypedef:
-      \_string_typespec: , line:32:20, endln:32:26
-        |vpiInstance:
-        \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+      \_ref_typespec: (msgPkg::msg_error::msg)
+        |vpiParent:
+        \_io_decl: (msg), line:32:27, endln:32:30
+        |vpiFullName:msgPkg::msg_error::msg
+        |vpiActual:
+        \_string_typespec: , line:32:20, endln:32:26
     |vpiStmt:
     \_begin: (msgPkg::msg_error), line:34:5, endln:34:15
       |vpiParent:
@@ -1690,9 +1682,12 @@ design: (work@simple_package)
       |vpiDirection:1
       |vpiName:msg
       |vpiTypedef:
-      \_string_typespec: , line:40:20, endln:40:26
-        |vpiInstance:
-        \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+      \_ref_typespec: (msgPkg::msg_fatal::msg)
+        |vpiParent:
+        \_io_decl: (msg), line:40:27, endln:40:30
+        |vpiFullName:msgPkg::msg_fatal::msg
+        |vpiActual:
+        \_string_typespec: , line:40:20, endln:40:26
     |vpiStmt:
     \_begin: (msgPkg::msg_fatal), line:42:5, endln:42:13
       |vpiParent:
@@ -1751,10 +1746,12 @@ design: (work@simple_package)
       |vpiParent:
       \_function: (msgPkg::getErrCnt), line:47:3, endln:49:14
       |vpiTypespec:
-      \_integer_typespec: , line:47:12, endln:47:19
-        |vpiInstance:
-        \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
-        |vpiSigned:1
+      \_ref_typespec: (msgPkg::getErrCnt)
+        |vpiParent:
+        \_integer_var: (msgPkg::getErrCnt), line:47:12, endln:47:19
+        |vpiFullName:msgPkg::getErrCnt
+        |vpiActual:
+        \_integer_typespec: , line:47:12, endln:47:19
       |vpiFullName:msgPkg::getErrCnt
       |vpiSigned:1
     |vpiStmt:
@@ -1793,10 +1790,12 @@ design: (work@simple_package)
       |vpiParent:
       \_function: (msgPkg::getWarnCnt), line:53:3, endln:55:14
       |vpiTypespec:
-      \_integer_typespec: , line:53:12, endln:53:19
-        |vpiInstance:
-        \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
-        |vpiSigned:1
+      \_ref_typespec: (msgPkg::getWarnCnt)
+        |vpiParent:
+        \_integer_var: (msgPkg::getWarnCnt), line:53:12, endln:53:19
+        |vpiFullName:msgPkg::getWarnCnt
+        |vpiActual:
+        \_integer_typespec: , line:53:12, endln:53:19
       |vpiFullName:msgPkg::getWarnCnt
       |vpiSigned:1
     |vpiStmt:
@@ -1873,7 +1872,12 @@ design: (work@simple_package)
     \_package: definesPkg (definesPkg::), file:${SURELOG_DIR}/tests/UnitPackage/definesPkg.pkg, line:4:1, endln:17:11
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: , line:8:3, endln:8:21
+    \_ref_typespec: (definesPkg::SIZE)
+      |vpiParent:
+      \_parameter: (definesPkg::SIZE), line:8:13, endln:8:17
+      |vpiFullName:definesPkg::SIZE
+      |vpiActual:
+      \_int_typespec: , line:8:3, endln:8:21
     |vpiName:SIZE
     |vpiFullName:definesPkg::SIZE
   |vpiParamAssign:
@@ -1888,7 +1892,12 @@ design: (work@simple_package)
       |vpiSize:32
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:8:3, endln:8:21
+      \_ref_typespec: (definesPkg)
+        |vpiParent:
+        \_constant: , line:8:20, endln:8:21
+        |vpiFullName:definesPkg
+        |vpiActual:
+        \_int_typespec: , line:8:3, endln:8:21
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (definesPkg::SIZE), line:8:13, endln:8:17
@@ -1928,31 +1937,12 @@ design: (work@simple_package)
       \_struct_typespec: (definesPkg::mem_s), line:11:11, endln:15:4
       |vpiName:addr
       |vpiTypespec:
-      \_bit_typespec: , line:12:6, endln:12:9
+      \_ref_typespec: (definesPkg::definesPkg::mem_s::addr)
         |vpiParent:
         \_typespec_member: (addr), line:12:20, endln:12:24
-        |vpiInstance:
-        \_package: definesPkg (definesPkg::), file:${SURELOG_DIR}/tests/UnitPackage/definesPkg.pkg, line:4:1, endln:17:11
-        |vpiRange:
-        \_range: , line:12:12, endln:12:17
-          |vpiParent:
-          \_bit_typespec: , line:12:6, endln:12:9
-          |vpiLeftRange:
-          \_constant: , line:12:13, endln:12:14
-            |vpiParent:
-            \_range: , line:12:12, endln:12:17
-            |vpiDecompile:7
-            |vpiSize:64
-            |UINT:7
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:12:15, endln:12:16
-            |vpiParent:
-            \_range: , line:12:12, endln:12:17
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:definesPkg::definesPkg::mem_s::addr
+        |vpiActual:
+        \_bit_typespec: , line:12:6, endln:12:9
       |vpiRefFile:${SURELOG_DIR}/tests/UnitPackage/definesPkg.pkg
       |vpiRefLineNo:12
       |vpiRefColumnNo:6
@@ -1964,31 +1954,12 @@ design: (work@simple_package)
       \_struct_typespec: (definesPkg::mem_s), line:11:11, endln:15:4
       |vpiName:data
       |vpiTypespec:
-      \_bit_typespec: , line:13:6, endln:13:9
+      \_ref_typespec: (definesPkg::definesPkg::mem_s::data)
         |vpiParent:
         \_typespec_member: (data), line:13:20, endln:13:24
-        |vpiInstance:
-        \_package: definesPkg (definesPkg::), file:${SURELOG_DIR}/tests/UnitPackage/definesPkg.pkg, line:4:1, endln:17:11
-        |vpiRange:
-        \_range: , line:13:12, endln:13:17
-          |vpiParent:
-          \_bit_typespec: , line:13:6, endln:13:9
-          |vpiLeftRange:
-          \_constant: , line:13:13, endln:13:14
-            |vpiParent:
-            \_range: , line:13:12, endln:13:17
-            |vpiDecompile:7
-            |vpiSize:64
-            |UINT:7
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:13:15, endln:13:16
-            |vpiParent:
-            \_range: , line:13:12, endln:13:17
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:definesPkg::definesPkg::mem_s::data
+        |vpiActual:
+        \_bit_typespec: , line:13:6, endln:13:9
       |vpiRefFile:${SURELOG_DIR}/tests/UnitPackage/definesPkg.pkg
       |vpiRefLineNo:13
       |vpiRefColumnNo:6
@@ -2000,11 +1971,12 @@ design: (work@simple_package)
       \_struct_typespec: (definesPkg::mem_s), line:11:11, endln:15:4
       |vpiName:wr
       |vpiTypespec:
-      \_bit_typespec: , line:14:6, endln:14:9
+      \_ref_typespec: (definesPkg::definesPkg::mem_s::wr)
         |vpiParent:
         \_typespec_member: (wr), line:14:20, endln:14:22
-        |vpiInstance:
-        \_package: definesPkg (definesPkg::), file:${SURELOG_DIR}/tests/UnitPackage/definesPkg.pkg, line:4:1, endln:17:11
+        |vpiFullName:definesPkg::definesPkg::mem_s::wr
+        |vpiActual:
+        \_bit_typespec: , line:14:6, endln:14:9
       |vpiRefFile:${SURELOG_DIR}/tests/UnitPackage/definesPkg.pkg
       |vpiRefLineNo:14
       |vpiRefColumnNo:6
@@ -2023,12 +1995,12 @@ design: (work@simple_package)
     |vpiParent:
     \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
     |vpiTypespec:
-    \_integer_typespec: , line:5:3, endln:5:10
+    \_ref_typespec: (msgPkg::errCnt)
       |vpiParent:
       \_integer_var: (msgPkg::errCnt), line:5:12, endln:5:23
-      |vpiInstance:
-      \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
-      |vpiSigned:1
+      |vpiFullName:msgPkg::errCnt
+      |vpiActual:
+      \_integer_typespec: , line:5:3, endln:5:10
     |vpiName:errCnt
     |vpiFullName:msgPkg::errCnt
     |vpiAutomatic:1
@@ -2046,12 +2018,12 @@ design: (work@simple_package)
     |vpiParent:
     \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
     |vpiTypespec:
-    \_integer_typespec: , line:6:3, endln:6:10
+    \_ref_typespec: (msgPkg::warnCnt)
       |vpiParent:
       \_integer_var: (msgPkg::warnCnt), line:6:12, endln:6:23
-      |vpiInstance:
-      \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
-      |vpiSigned:1
+      |vpiFullName:msgPkg::warnCnt
+      |vpiActual:
+      \_integer_typespec: , line:6:3, endln:6:10
     |vpiName:warnCnt
     |vpiFullName:msgPkg::warnCnt
     |vpiAutomatic:1
@@ -2069,11 +2041,12 @@ design: (work@simple_package)
     |vpiParent:
     \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
     |vpiTypespec:
-    \_bit_typespec: , line:7:3, endln:7:6
+    \_ref_typespec: (msgPkg::terminate_on_error)
       |vpiParent:
       \_bit_var: (msgPkg::terminate_on_error), line:7:12, endln:7:30
-      |vpiInstance:
-      \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+      |vpiFullName:msgPkg::terminate_on_error
+      |vpiActual:
+      \_bit_typespec: , line:7:3, endln:7:6
     |vpiName:terminate_on_error
     |vpiFullName:msgPkg::terminate_on_error
     |vpiVisibility:1
@@ -2090,11 +2063,12 @@ design: (work@simple_package)
     |vpiParent:
     \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
     |vpiTypespec:
-    \_string_typespec: , line:8:3, endln:8:9
+    \_ref_typespec: (msgPkg::msgName)
       |vpiParent:
       \_string_var: (msgPkg::msgName), line:8:12, endln:8:28
-      |vpiInstance:
-      \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+      |vpiFullName:msgPkg::msgName
+      |vpiActual:
+      \_string_typespec: , line:8:3, endln:8:9
     |vpiName:msgName
     |vpiFullName:msgPkg::msgName
     |vpiAutomatic:1
@@ -2123,9 +2097,12 @@ design: (work@simple_package)
       |vpiDirection:1
       |vpiName:mName
       |vpiTypedef:
-      \_string_typespec: , line:12:20, endln:12:26
-        |vpiInstance:
-        \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+      \_ref_typespec: (msgPkg::initMsgPkg::mName)
+        |vpiParent:
+        \_io_decl: (mName), line:12:27, endln:12:32
+        |vpiFullName:msgPkg::initMsgPkg::mName
+        |vpiActual:
+        \_string_typespec: , line:12:20, endln:12:26
     |vpiIODecl:
     \_io_decl: (term), line:12:38, endln:12:42
       |vpiParent:
@@ -2133,9 +2110,12 @@ design: (work@simple_package)
       |vpiDirection:1
       |vpiName:term
       |vpiTypedef:
-      \_bit_typespec: , line:12:34, endln:12:37
-        |vpiInstance:
-        \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+      \_ref_typespec: (msgPkg::initMsgPkg::term)
+        |vpiParent:
+        \_io_decl: (term), line:12:38, endln:12:42
+        |vpiFullName:msgPkg::initMsgPkg::term
+        |vpiActual:
+        \_bit_typespec: , line:12:34, endln:12:37
     |vpiStmt:
     \_begin: (msgPkg::initMsgPkg), line:14:5, endln:14:21
       |vpiParent:
@@ -2201,9 +2181,12 @@ design: (work@simple_package)
       |vpiDirection:1
       |vpiName:msg
       |vpiTypedef:
-      \_string_typespec: , line:19:19, endln:19:25
-        |vpiInstance:
-        \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+      \_ref_typespec: (msgPkg::msg_info::msg)
+        |vpiParent:
+        \_io_decl: (msg), line:19:26, endln:19:29
+        |vpiFullName:msgPkg::msg_info::msg
+        |vpiActual:
+        \_string_typespec: , line:19:19, endln:19:25
     |vpiStmt:
     \_sys_func_call: ($display), line:20:5, endln:20:55
       |vpiParent:
@@ -2254,9 +2237,12 @@ design: (work@simple_package)
       |vpiDirection:1
       |vpiName:msg
       |vpiTypedef:
-      \_string_typespec: , line:25:19, endln:25:25
-        |vpiInstance:
-        \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+      \_ref_typespec: (msgPkg::msg_warn::msg)
+        |vpiParent:
+        \_io_decl: (msg), line:25:26, endln:25:29
+        |vpiFullName:msgPkg::msg_warn::msg
+        |vpiActual:
+        \_string_typespec: , line:25:19, endln:25:25
     |vpiStmt:
     \_begin: (msgPkg::msg_warn), line:27:5, endln:27:16
       |vpiParent:
@@ -2325,9 +2311,12 @@ design: (work@simple_package)
       |vpiDirection:1
       |vpiName:msg
       |vpiTypedef:
-      \_string_typespec: , line:32:20, endln:32:26
-        |vpiInstance:
-        \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+      \_ref_typespec: (msgPkg::msg_error::msg)
+        |vpiParent:
+        \_io_decl: (msg), line:32:27, endln:32:30
+        |vpiFullName:msgPkg::msg_error::msg
+        |vpiActual:
+        \_string_typespec: , line:32:20, endln:32:26
     |vpiStmt:
     \_begin: (msgPkg::msg_error), line:34:5, endln:34:15
       |vpiParent:
@@ -2413,9 +2402,12 @@ design: (work@simple_package)
       |vpiDirection:1
       |vpiName:msg
       |vpiTypedef:
-      \_string_typespec: , line:40:20, endln:40:26
-        |vpiInstance:
-        \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+      \_ref_typespec: (msgPkg::msg_fatal::msg)
+        |vpiParent:
+        \_io_decl: (msg), line:40:27, endln:40:30
+        |vpiFullName:msgPkg::msg_fatal::msg
+        |vpiActual:
+        \_string_typespec: , line:40:20, endln:40:26
     |vpiStmt:
     \_begin: (msgPkg::msg_fatal), line:42:5, endln:42:13
       |vpiParent:
@@ -2474,10 +2466,12 @@ design: (work@simple_package)
       |vpiParent:
       \_function: (msgPkg::getErrCnt), line:47:3, endln:49:14
       |vpiTypespec:
-      \_integer_typespec: , line:47:12, endln:47:19
-        |vpiInstance:
-        \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
-        |vpiSigned:1
+      \_ref_typespec: (msgPkg::getErrCnt)
+        |vpiParent:
+        \_integer_var: (msgPkg::getErrCnt), line:47:12, endln:47:19
+        |vpiFullName:msgPkg::getErrCnt
+        |vpiActual:
+        \_integer_typespec: , line:47:12, endln:47:19
       |vpiFullName:msgPkg::getErrCnt
       |vpiSigned:1
     |vpiStmt:
@@ -2516,10 +2510,12 @@ design: (work@simple_package)
       |vpiParent:
       \_function: (msgPkg::getWarnCnt), line:53:3, endln:55:14
       |vpiTypespec:
-      \_integer_typespec: , line:53:12, endln:53:19
-        |vpiInstance:
-        \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
-        |vpiSigned:1
+      \_ref_typespec: (msgPkg::getWarnCnt)
+        |vpiParent:
+        \_integer_var: (msgPkg::getWarnCnt), line:53:12, endln:53:19
+        |vpiFullName:msgPkg::getWarnCnt
+        |vpiActual:
+        \_integer_typespec: , line:53:12, endln:53:19
       |vpiFullName:msgPkg::getWarnCnt
       |vpiSigned:1
     |vpiStmt:
@@ -2563,9 +2559,12 @@ design: (work@simple_package)
       |vpiParent:
       \_function: (work@mailbox::new), line:3:5, endln:4:16
       |vpiTypespec:
-      \_class_typespec: 
-        |vpiClassDefn:
-        \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv, line:1:3, endln:27:11
+      \_ref_typespec: (work@mailbox::new)
+        |vpiParent:
+        \_class_var: (work@mailbox::new), line:3:23, endln:3:28
+        |vpiFullName:work@mailbox::new
+        |vpiActual:
+        \_class_typespec: 
       |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound), line:3:23, endln:3:28
@@ -2580,8 +2579,12 @@ design: (work@simple_package)
         |UINT:0
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:3:19, endln:3:22
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::new::bound)
+        |vpiParent:
+        \_io_decl: (bound), line:3:23, endln:3:28
+        |vpiFullName:work@mailbox::new::bound
+        |vpiActual:
+        \_int_typespec: , line:3:19, endln:3:22
   |vpiMethod:
   \_function: (work@mailbox::num), line:6:5, endln:7:16
     |vpiParent:
@@ -2595,8 +2598,12 @@ design: (work@simple_package)
       |vpiParent:
       \_function: (work@mailbox::num), line:6:5, endln:7:16
       |vpiTypespec:
-      \_int_typespec: , line:6:14, endln:6:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::num)
+        |vpiParent:
+        \_int_var: (work@mailbox::num), line:6:14, endln:6:17
+        |vpiFullName:work@mailbox::num
+        |vpiActual:
+        \_int_typespec: , line:6:14, endln:6:17
       |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
@@ -2659,8 +2666,12 @@ design: (work@simple_package)
       |vpiParent:
       \_function: (work@mailbox::try_get), line:18:5, endln:19:16
       |vpiTypespec:
-      \_int_typespec: , line:18:14, endln:18:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::try_get)
+        |vpiParent:
+        \_int_var: (work@mailbox::try_get), line:18:14, endln:18:17
+        |vpiFullName:work@mailbox::try_get
+        |vpiActual:
+        \_int_typespec: , line:18:14, endln:18:17
       |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
@@ -2696,8 +2707,12 @@ design: (work@simple_package)
       |vpiParent:
       \_function: (work@mailbox::try_peek), line:24:5, endln:25:16
       |vpiTypespec:
-      \_int_typespec: , line:24:14, endln:24:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::try_peek)
+        |vpiParent:
+        \_int_var: (work@mailbox::try_peek), line:24:14, endln:24:17
+        |vpiFullName:work@mailbox::try_peek
+        |vpiActual:
+        \_int_typespec: , line:24:14, endln:24:17
       |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
@@ -2769,9 +2784,12 @@ design: (work@simple_package)
       |vpiParent:
       \_function: (work@process::self), line:34:5, endln:34:11
       |vpiTypespec:
-      \_class_typespec: , line:34:21, endln:34:28
-        |vpiClassDefn:
-        \_class_defn: (work@process), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv, line:30:3, endln:52:11
+      \_ref_typespec: (work@process::self)
+        |vpiParent:
+        \_class_var: (work@process::self), line:34:21, endln:34:28
+        |vpiFullName:work@process::self
+        |vpiActual:
+        \_class_typespec: , line:34:21, endln:34:28
       |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status), line:37:5, endln:38:16
@@ -2786,50 +2804,12 @@ design: (work@simple_package)
       |vpiParent:
       \_function: (work@process::status), line:37:5, endln:38:16
       |vpiTypespec:
-      \_enum_typespec: (state), line:32:5, endln:32:74
+      \_ref_typespec: (work@process::status)
         |vpiParent:
-        \_class_defn: (work@process), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv, line:30:3, endln:52:11
-        |vpiName:state
-        |vpiEnumConst:
-        \_enum_const: (FINISHED), line:32:20, endln:32:28
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:FINISHED
-          |INT:0
-          |vpiDecompile:0
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (RUNNING), line:32:30, endln:32:37
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:RUNNING
-          |INT:1
-          |vpiDecompile:1
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (WAITING), line:32:39, endln:32:46
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:WAITING
-          |INT:2
-          |vpiDecompile:2
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (SUSPENDED), line:32:48, endln:32:57
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:SUSPENDED
-          |INT:3
-          |vpiDecompile:3
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (KILLED), line:32:59, endln:32:65
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:KILLED
-          |INT:4
-          |vpiDecompile:4
-          |vpiSize:64
+        \_enum_var: (work@process::status), line:37:14, endln:37:19
+        |vpiFullName:work@process::status
+        |vpiActual:
+        \_enum_typespec: (state), line:32:5, endln:32:74
       |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill), line:40:5, endln:41:12
@@ -2880,9 +2860,12 @@ design: (work@simple_package)
       |vpiParent:
       \_function: (work@semaphore::new), line:57:5, endln:58:16
       |vpiTypespec:
-      \_class_typespec: 
-        |vpiClassDefn:
-        \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv, line:55:3, endln:69:11
+      \_ref_typespec: (work@semaphore::new)
+        |vpiParent:
+        \_class_var: (work@semaphore::new), line:57:22, endln:57:30
+        |vpiFullName:work@semaphore::new
+        |vpiActual:
+        \_class_typespec: 
       |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount), line:57:22, endln:57:30
@@ -2897,8 +2880,12 @@ design: (work@simple_package)
         |UINT:0
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:57:18, endln:57:21
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::new::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:57:22, endln:57:30
+        |vpiFullName:work@semaphore::new::keyCount
+        |vpiActual:
+        \_int_typespec: , line:57:18, endln:57:21
   |vpiMethod:
   \_task: (work@semaphore::put), line:60:5, endln:61:12
     |vpiParent:
@@ -2920,8 +2907,12 @@ design: (work@simple_package)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:60:14, endln:60:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::put::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:60:18, endln:60:26
+        |vpiFullName:work@semaphore::put::keyCount
+        |vpiActual:
+        \_int_typespec: , line:60:14, endln:60:17
   |vpiMethod:
   \_task: (work@semaphore::get), line:63:5, endln:64:12
     |vpiParent:
@@ -2943,8 +2934,12 @@ design: (work@simple_package)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:63:14, endln:63:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::get::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:63:18, endln:63:26
+        |vpiFullName:work@semaphore::get::keyCount
+        |vpiActual:
+        \_int_typespec: , line:63:14, endln:63:17
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:66:5, endln:67:16
     |vpiParent:
@@ -2958,8 +2953,12 @@ design: (work@simple_package)
       |vpiParent:
       \_function: (work@semaphore::try_get), line:66:5, endln:67:16
       |vpiTypespec:
-      \_int_typespec: , line:66:14, endln:66:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::try_get)
+        |vpiParent:
+        \_int_var: (work@semaphore::try_get), line:66:14, endln:66:17
+        |vpiFullName:work@semaphore::try_get
+        |vpiActual:
+        \_int_typespec: , line:66:14, endln:66:17
       |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
@@ -2975,8 +2974,12 @@ design: (work@simple_package)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:66:26, endln:66:29
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::try_get::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:66:30, endln:66:38
+        |vpiFullName:work@semaphore::try_get::keyCount
+        |vpiActual:
+        \_int_typespec: , line:66:26, endln:66:29
 |uhdmallModules:
 \_module_inst: work@simple_package (work@simple_package), file:${SURELOG_DIR}/tests/UnitPackage/simple_pkg.sv, line:11:1, endln:30:10
   |vpiParent:
@@ -2999,7 +3002,12 @@ design: (work@simple_package)
       |vpiDirection:1
       |vpiName:mName
       |vpiTypedef:
-      \_string_typespec: , line:12:20, endln:12:26
+      \_ref_typespec: (msgPkg::initMsgPkg::mName)
+        |vpiParent:
+        \_io_decl: (mName), line:12:27, endln:12:32
+        |vpiFullName:msgPkg::initMsgPkg::mName
+        |vpiActual:
+        \_string_typespec: , line:12:20, endln:12:26
     |vpiIODecl:
     \_io_decl: (term), line:12:38, endln:12:42
       |vpiParent:
@@ -3007,7 +3015,12 @@ design: (work@simple_package)
       |vpiDirection:1
       |vpiName:term
       |vpiTypedef:
-      \_bit_typespec: , line:12:34, endln:12:37
+      \_ref_typespec: (msgPkg::initMsgPkg::term)
+        |vpiParent:
+        \_io_decl: (term), line:12:38, endln:12:42
+        |vpiFullName:msgPkg::initMsgPkg::term
+        |vpiActual:
+        \_bit_typespec: , line:12:34, endln:12:37
     |vpiStmt:
     \_begin: (msgPkg::initMsgPkg), line:14:5, endln:14:21
       |vpiParent:
@@ -3073,7 +3086,12 @@ design: (work@simple_package)
       |vpiDirection:1
       |vpiName:msg
       |vpiTypedef:
-      \_string_typespec: , line:19:19, endln:19:25
+      \_ref_typespec: (msgPkg::msg_info::msg)
+        |vpiParent:
+        \_io_decl: (msg), line:19:26, endln:19:29
+        |vpiFullName:msgPkg::msg_info::msg
+        |vpiActual:
+        \_string_typespec: , line:19:19, endln:19:25
     |vpiStmt:
     \_sys_func_call: ($display), line:20:5, endln:20:55
       |vpiParent:
@@ -3118,7 +3136,12 @@ design: (work@simple_package)
       |vpiDirection:1
       |vpiName:msg
       |vpiTypedef:
-      \_string_typespec: , line:25:19, endln:25:25
+      \_ref_typespec: (msgPkg::msg_warn::msg)
+        |vpiParent:
+        \_io_decl: (msg), line:25:26, endln:25:29
+        |vpiFullName:msgPkg::msg_warn::msg
+        |vpiActual:
+        \_string_typespec: , line:25:19, endln:25:25
     |vpiStmt:
     \_begin: (msgPkg::msg_warn), line:27:5, endln:27:16
       |vpiParent:
@@ -3181,7 +3204,12 @@ design: (work@simple_package)
       |vpiDirection:1
       |vpiName:msg
       |vpiTypedef:
-      \_string_typespec: , line:32:20, endln:32:26
+      \_ref_typespec: (msgPkg::msg_error::msg)
+        |vpiParent:
+        \_io_decl: (msg), line:32:27, endln:32:30
+        |vpiFullName:msgPkg::msg_error::msg
+        |vpiActual:
+        \_string_typespec: , line:32:20, endln:32:26
     |vpiStmt:
     \_begin: (msgPkg::msg_error), line:34:5, endln:34:15
       |vpiParent:
@@ -3261,7 +3289,12 @@ design: (work@simple_package)
       |vpiDirection:1
       |vpiName:msg
       |vpiTypedef:
-      \_string_typespec: , line:40:20, endln:40:26
+      \_ref_typespec: (msgPkg::msg_fatal::msg)
+        |vpiParent:
+        \_io_decl: (msg), line:40:27, endln:40:30
+        |vpiFullName:msgPkg::msg_fatal::msg
+        |vpiActual:
+        \_string_typespec: , line:40:20, endln:40:26
     |vpiStmt:
     \_begin: (msgPkg::msg_fatal), line:42:5, endln:42:13
       |vpiParent:
@@ -3373,8 +3406,12 @@ design: (work@simple_package)
     |vpiParent:
     \_module_inst: work@simple_package (work@simple_package), file:${SURELOG_DIR}/tests/UnitPackage/simple_pkg.sv, line:11:1, endln:30:10
     |vpiTypespec:
-    \_integer_typespec: , line:5:3, endln:5:23
-      |vpiSigned:1
+    \_ref_typespec: (work@simple_package.errCnt)
+      |vpiParent:
+      \_logic_net: (work@simple_package.errCnt), line:5:12, endln:5:18
+      |vpiFullName:work@simple_package.errCnt
+      |vpiActual:
+      \_integer_typespec: , line:5:3, endln:5:23
     |vpiName:errCnt
     |vpiFullName:work@simple_package.errCnt
   |vpiNet:
@@ -3382,8 +3419,12 @@ design: (work@simple_package)
     |vpiParent:
     \_module_inst: work@simple_package (work@simple_package), file:${SURELOG_DIR}/tests/UnitPackage/simple_pkg.sv, line:11:1, endln:30:10
     |vpiTypespec:
-    \_integer_typespec: , line:6:3, endln:6:23
-      |vpiSigned:1
+    \_ref_typespec: (work@simple_package.warnCnt)
+      |vpiParent:
+      \_logic_net: (work@simple_package.warnCnt), line:6:12, endln:6:19
+      |vpiFullName:work@simple_package.warnCnt
+      |vpiActual:
+      \_integer_typespec: , line:6:3, endln:6:23
     |vpiName:warnCnt
     |vpiFullName:work@simple_package.warnCnt
   |vpiNet:
@@ -3391,7 +3432,12 @@ design: (work@simple_package)
     |vpiParent:
     \_module_inst: work@simple_package (work@simple_package), file:${SURELOG_DIR}/tests/UnitPackage/simple_pkg.sv, line:11:1, endln:30:10
     |vpiTypespec:
-    \_bit_typespec: , line:7:3, endln:7:6
+    \_ref_typespec: (work@simple_package.terminate_on_error)
+      |vpiParent:
+      \_logic_net: (work@simple_package.terminate_on_error), line:7:12, endln:7:30
+      |vpiFullName:work@simple_package.terminate_on_error
+      |vpiActual:
+      \_bit_typespec: , line:7:3, endln:7:6
     |vpiName:terminate_on_error
     |vpiFullName:work@simple_package.terminate_on_error
   |vpiNet:
@@ -3399,7 +3445,12 @@ design: (work@simple_package)
     |vpiParent:
     \_module_inst: work@simple_package (work@simple_package), file:${SURELOG_DIR}/tests/UnitPackage/simple_pkg.sv, line:11:1, endln:30:10
     |vpiTypespec:
-    \_string_typespec: , line:8:3, endln:8:28
+    \_ref_typespec: (work@simple_package.msgName)
+      |vpiParent:
+      \_logic_net: (work@simple_package.msgName), line:8:12, endln:8:19
+      |vpiFullName:work@simple_package.msgName
+      |vpiActual:
+      \_string_typespec: , line:8:3, endln:8:28
     |vpiName:msgName
     |vpiFullName:work@simple_package.msgName
   |vpiNet:
@@ -3407,7 +3458,12 @@ design: (work@simple_package)
     |vpiParent:
     \_module_inst: work@simple_package (work@simple_package), file:${SURELOG_DIR}/tests/UnitPackage/simple_pkg.sv, line:11:1, endln:30:10
     |vpiTypespec:
-    \_enum_typespec: (definesPkg::bool), line:10:3, endln:10:36
+    \_ref_typespec: (work@simple_package.value)
+      |vpiParent:
+      \_logic_net: (work@simple_package.value), line:13:8, endln:13:13
+      |vpiFullName:work@simple_package.value
+      |vpiActual:
+      \_enum_typespec: (definesPkg::bool), line:10:3, endln:10:36
     |vpiName:value
     |vpiFullName:work@simple_package.value
   |vpiNet:
@@ -3628,10 +3684,12 @@ design: (work@simple_package)
     |vpiParent:
     \_module_inst: work@simple_package (work@simple_package), file:${SURELOG_DIR}/tests/UnitPackage/simple_pkg.sv, line:11:1, endln:30:10
     |vpiTypespec:
-    \_integer_typespec: , line:5:3, endln:5:10
+    \_ref_typespec: (work@simple_package.errCnt)
       |vpiParent:
       \_integer_var: (work@simple_package.errCnt), line:5:12, endln:5:23
-      |vpiSigned:1
+      |vpiFullName:work@simple_package.errCnt
+      |vpiActual:
+      \_integer_typespec: , line:5:3, endln:5:10
     |vpiName:errCnt
     |vpiFullName:work@simple_package.errCnt
     |vpiAutomatic:1
@@ -3649,10 +3707,12 @@ design: (work@simple_package)
     |vpiParent:
     \_module_inst: work@simple_package (work@simple_package), file:${SURELOG_DIR}/tests/UnitPackage/simple_pkg.sv, line:11:1, endln:30:10
     |vpiTypespec:
-    \_integer_typespec: , line:6:3, endln:6:10
+    \_ref_typespec: (work@simple_package.warnCnt)
       |vpiParent:
       \_integer_var: (work@simple_package.warnCnt), line:6:12, endln:6:23
-      |vpiSigned:1
+      |vpiFullName:work@simple_package.warnCnt
+      |vpiActual:
+      \_integer_typespec: , line:6:3, endln:6:10
     |vpiName:warnCnt
     |vpiFullName:work@simple_package.warnCnt
     |vpiAutomatic:1
@@ -3670,9 +3730,12 @@ design: (work@simple_package)
     |vpiParent:
     \_module_inst: work@simple_package (work@simple_package), file:${SURELOG_DIR}/tests/UnitPackage/simple_pkg.sv, line:11:1, endln:30:10
     |vpiTypespec:
-    \_bit_typespec: , line:7:3, endln:7:6
+    \_ref_typespec: (work@simple_package.terminate_on_error)
       |vpiParent:
       \_bit_var: (work@simple_package.terminate_on_error), line:7:12, endln:7:30
+      |vpiFullName:work@simple_package.terminate_on_error
+      |vpiActual:
+      \_bit_typespec: , line:7:3, endln:7:6
     |vpiName:terminate_on_error
     |vpiFullName:work@simple_package.terminate_on_error
     |vpiVisibility:1
@@ -3689,9 +3752,12 @@ design: (work@simple_package)
     |vpiParent:
     \_module_inst: work@simple_package (work@simple_package), file:${SURELOG_DIR}/tests/UnitPackage/simple_pkg.sv, line:11:1, endln:30:10
     |vpiTypespec:
-    \_string_typespec: , line:8:3, endln:8:9
+    \_ref_typespec: (work@simple_package.msgName)
       |vpiParent:
       \_string_var: (work@simple_package.msgName), line:8:12, endln:8:28
+      |vpiFullName:work@simple_package.msgName
+      |vpiActual:
+      \_string_typespec: , line:8:3, endln:8:9
     |vpiName:msgName
     |vpiFullName:work@simple_package.msgName
     |vpiAutomatic:1
@@ -3709,7 +3775,12 @@ design: (work@simple_package)
     |vpiParent:
     \_module_inst: work@simple_package (work@simple_package), file:${SURELOG_DIR}/tests/UnitPackage/simple_pkg.sv, line:11:1, endln:30:10
     |vpiTypespec:
-    \_enum_typespec: (definesPkg::bool), line:10:3, endln:10:36
+    \_ref_typespec: (work@simple_package.value)
+      |vpiParent:
+      \_enum_var: (work@simple_package.value), line:13:8, endln:13:13
+      |vpiFullName:work@simple_package.value
+      |vpiActual:
+      \_enum_typespec: (definesPkg::bool), line:10:3, endln:10:36
     |vpiName:value
     |vpiFullName:work@simple_package.value
     |vpiVisibility:1
@@ -3738,7 +3809,12 @@ design: (work@simple_package)
       |vpiDirection:1
       |vpiName:mName
       |vpiTypedef:
-      \_string_typespec: , line:12:20, endln:12:26
+      \_ref_typespec: (work@simple_package.initMsgPkg.mName)
+        |vpiParent:
+        \_io_decl: (mName), line:12:27, endln:12:32
+        |vpiFullName:work@simple_package.initMsgPkg.mName
+        |vpiActual:
+        \_string_typespec: , line:12:20, endln:12:26
     |vpiIODecl:
     \_io_decl: (term), line:12:38, endln:12:42
       |vpiParent:
@@ -3746,7 +3822,12 @@ design: (work@simple_package)
       |vpiDirection:1
       |vpiName:term
       |vpiTypedef:
-      \_bit_typespec: , line:12:34, endln:12:37
+      \_ref_typespec: (work@simple_package.initMsgPkg.term)
+        |vpiParent:
+        \_io_decl: (term), line:12:38, endln:12:42
+        |vpiFullName:work@simple_package.initMsgPkg.term
+        |vpiActual:
+        \_bit_typespec: , line:12:34, endln:12:37
     |vpiStmt:
     \_begin: (work@simple_package.initMsgPkg), line:14:5, endln:14:21
       |vpiParent:
@@ -3812,7 +3893,12 @@ design: (work@simple_package)
       |vpiDirection:1
       |vpiName:msg
       |vpiTypedef:
-      \_string_typespec: , line:19:19, endln:19:25
+      \_ref_typespec: (work@simple_package.msg_info.msg)
+        |vpiParent:
+        \_io_decl: (msg), line:19:26, endln:19:29
+        |vpiFullName:work@simple_package.msg_info.msg
+        |vpiActual:
+        \_string_typespec: , line:19:19, endln:19:25
     |vpiStmt:
     \_sys_func_call: ($display), line:20:5, endln:20:55
       |vpiParent:
@@ -3857,7 +3943,12 @@ design: (work@simple_package)
       |vpiDirection:1
       |vpiName:msg
       |vpiTypedef:
-      \_string_typespec: , line:25:19, endln:25:25
+      \_ref_typespec: (work@simple_package.msg_warn.msg)
+        |vpiParent:
+        \_io_decl: (msg), line:25:26, endln:25:29
+        |vpiFullName:work@simple_package.msg_warn.msg
+        |vpiActual:
+        \_string_typespec: , line:25:19, endln:25:25
     |vpiStmt:
     \_begin: (work@simple_package.msg_warn), line:27:5, endln:27:16
       |vpiParent:
@@ -3920,7 +4011,12 @@ design: (work@simple_package)
       |vpiDirection:1
       |vpiName:msg
       |vpiTypedef:
-      \_string_typespec: , line:32:20, endln:32:26
+      \_ref_typespec: (work@simple_package.msg_error.msg)
+        |vpiParent:
+        \_io_decl: (msg), line:32:27, endln:32:30
+        |vpiFullName:work@simple_package.msg_error.msg
+        |vpiActual:
+        \_string_typespec: , line:32:20, endln:32:26
     |vpiStmt:
     \_begin: (work@simple_package.msg_error), line:34:5, endln:34:15
       |vpiParent:
@@ -4000,7 +4096,12 @@ design: (work@simple_package)
       |vpiDirection:1
       |vpiName:msg
       |vpiTypedef:
-      \_string_typespec: , line:40:20, endln:40:26
+      \_ref_typespec: (work@simple_package.msg_fatal.msg)
+        |vpiParent:
+        \_io_decl: (msg), line:40:27, endln:40:30
+        |vpiFullName:work@simple_package.msg_fatal.msg
+        |vpiActual:
+        \_string_typespec: , line:40:20, endln:40:26
     |vpiStmt:
     \_begin: (work@simple_package.msg_fatal), line:42:5, endln:42:13
       |vpiParent:
@@ -4278,7 +4379,12 @@ design: (work@simple_package)
           |vpiDirection:1
           |vpiName:mName
           |vpiTypedef:
-          \_string_typespec: , line:12:20, endln:12:26
+          \_ref_typespec: (work@simple_package.inst.initMsgPkg.mName)
+            |vpiParent:
+            \_io_decl: (mName), line:12:27, endln:12:32
+            |vpiFullName:work@simple_package.inst.initMsgPkg.mName
+            |vpiActual:
+            \_string_typespec: , line:12:20, endln:12:26
         |vpiIODecl:
         \_io_decl: (term), line:12:38, endln:12:42
           |vpiParent:
@@ -4286,7 +4392,12 @@ design: (work@simple_package)
           |vpiDirection:1
           |vpiName:term
           |vpiTypedef:
-          \_bit_typespec: , line:12:34, endln:12:37
+          \_ref_typespec: (work@simple_package.inst.initMsgPkg.term)
+            |vpiParent:
+            \_io_decl: (term), line:12:38, endln:12:42
+            |vpiFullName:work@simple_package.inst.initMsgPkg.term
+            |vpiActual:
+            \_bit_typespec: , line:12:34, endln:12:37
         |vpiStmt:
         \_begin: (work@simple_package.inst.initMsgPkg), line:14:5, endln:14:21
           |vpiParent:
@@ -4352,7 +4463,12 @@ design: (work@simple_package)
           |vpiDirection:1
           |vpiName:msg
           |vpiTypedef:
-          \_string_typespec: , line:19:19, endln:19:25
+          \_ref_typespec: (work@simple_package.inst.msg_info.msg)
+            |vpiParent:
+            \_io_decl: (msg), line:19:26, endln:19:29
+            |vpiFullName:work@simple_package.inst.msg_info.msg
+            |vpiActual:
+            \_string_typespec: , line:19:19, endln:19:25
         |vpiStmt:
         \_sys_func_call: ($display), line:20:5, endln:20:55
           |vpiParent:
@@ -4397,7 +4513,12 @@ design: (work@simple_package)
           |vpiDirection:1
           |vpiName:msg
           |vpiTypedef:
-          \_string_typespec: , line:25:19, endln:25:25
+          \_ref_typespec: (work@simple_package.inst.msg_warn.msg)
+            |vpiParent:
+            \_io_decl: (msg), line:25:26, endln:25:29
+            |vpiFullName:work@simple_package.inst.msg_warn.msg
+            |vpiActual:
+            \_string_typespec: , line:25:19, endln:25:25
         |vpiStmt:
         \_begin: (work@simple_package.inst.msg_warn), line:27:5, endln:27:16
           |vpiParent:
@@ -4460,7 +4581,12 @@ design: (work@simple_package)
           |vpiDirection:1
           |vpiName:msg
           |vpiTypedef:
-          \_string_typespec: , line:32:20, endln:32:26
+          \_ref_typespec: (work@simple_package.inst.msg_error.msg)
+            |vpiParent:
+            \_io_decl: (msg), line:32:27, endln:32:30
+            |vpiFullName:work@simple_package.inst.msg_error.msg
+            |vpiActual:
+            \_string_typespec: , line:32:20, endln:32:26
         |vpiStmt:
         \_begin: (work@simple_package.inst.msg_error), line:34:5, endln:34:15
           |vpiParent:
@@ -4540,7 +4666,12 @@ design: (work@simple_package)
           |vpiDirection:1
           |vpiName:msg
           |vpiTypedef:
-          \_string_typespec: , line:40:20, endln:40:26
+          \_ref_typespec: (work@simple_package.inst.msg_fatal.msg)
+            |vpiParent:
+            \_io_decl: (msg), line:40:27, endln:40:30
+            |vpiFullName:work@simple_package.inst.msg_fatal.msg
+            |vpiActual:
+            \_string_typespec: , line:40:20, endln:40:26
         |vpiStmt:
         \_begin: (work@simple_package.inst.msg_fatal), line:42:5, endln:42:13
           |vpiParent:
@@ -4647,6 +4778,826 @@ design: (work@simple_package)
             \_integer_var: (msgPkg::getWarnCnt), line:53:12, endln:53:19
         |vpiInstance:
         \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+\_weaklyReferenced:
+\_int_typespec: , line:8:3, endln:8:21
+\_bit_typespec: , line:12:6, endln:12:9
+  |vpiParent:
+  \_typespec_member: (addr), line:12:20, endln:12:24
+  |vpiInstance:
+  \_package: definesPkg (definesPkg::), file:${SURELOG_DIR}/tests/UnitPackage/definesPkg.pkg, line:4:1, endln:17:11
+  |vpiRange:
+  \_range: , line:12:12, endln:12:17
+    |vpiParent:
+    \_bit_typespec: , line:12:6, endln:12:9
+    |vpiLeftRange:
+    \_constant: , line:12:13, endln:12:14
+      |vpiParent:
+      \_range: , line:12:12, endln:12:17
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:12:15, endln:12:16
+      |vpiParent:
+      \_range: , line:12:12, endln:12:17
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_bit_typespec: , line:13:6, endln:13:9
+  |vpiParent:
+  \_typespec_member: (data), line:13:20, endln:13:24
+  |vpiInstance:
+  \_package: definesPkg (definesPkg::), file:${SURELOG_DIR}/tests/UnitPackage/definesPkg.pkg, line:4:1, endln:17:11
+  |vpiRange:
+  \_range: , line:13:12, endln:13:17
+    |vpiParent:
+    \_bit_typespec: , line:13:6, endln:13:9
+    |vpiLeftRange:
+    \_constant: , line:13:13, endln:13:14
+      |vpiParent:
+      \_range: , line:13:12, endln:13:17
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:13:15, endln:13:16
+      |vpiParent:
+      \_range: , line:13:12, endln:13:17
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_bit_typespec: , line:14:6, endln:14:9
+  |vpiParent:
+  \_typespec_member: (wr), line:14:20, endln:14:22
+  |vpiInstance:
+  \_package: definesPkg (definesPkg::), file:${SURELOG_DIR}/tests/UnitPackage/definesPkg.pkg, line:4:1, endln:17:11
+\_int_typespec: , line:8:3, endln:8:21
+\_bit_typespec: , line:12:6, endln:12:9
+  |vpiParent:
+  \_typespec_member: (addr), line:12:20, endln:12:24
+  |vpiInstance:
+  \_package: definesPkg (definesPkg::), file:${SURELOG_DIR}/tests/UnitPackage/definesPkg.pkg, line:4:1, endln:17:11
+  |vpiRange:
+  \_range: , line:12:12, endln:12:17
+    |vpiParent:
+    \_bit_typespec: , line:12:6, endln:12:9
+    |vpiLeftRange:
+    \_constant: , line:12:13, endln:12:14
+      |vpiParent:
+      \_range: , line:12:12, endln:12:17
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:12:15, endln:12:16
+      |vpiParent:
+      \_range: , line:12:12, endln:12:17
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_bit_typespec: , line:13:6, endln:13:9
+  |vpiParent:
+  \_typespec_member: (data), line:13:20, endln:13:24
+  |vpiInstance:
+  \_package: definesPkg (definesPkg::), file:${SURELOG_DIR}/tests/UnitPackage/definesPkg.pkg, line:4:1, endln:17:11
+  |vpiRange:
+  \_range: , line:13:12, endln:13:17
+    |vpiParent:
+    \_bit_typespec: , line:13:6, endln:13:9
+    |vpiLeftRange:
+    \_constant: , line:13:13, endln:13:14
+      |vpiParent:
+      \_range: , line:13:12, endln:13:17
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:13:15, endln:13:16
+      |vpiParent:
+      \_range: , line:13:12, endln:13:17
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_bit_typespec: , line:14:6, endln:14:9
+  |vpiParent:
+  \_typespec_member: (wr), line:14:20, endln:14:22
+  |vpiInstance:
+  \_package: definesPkg (definesPkg::), file:${SURELOG_DIR}/tests/UnitPackage/definesPkg.pkg, line:4:1, endln:17:11
+\_string_typespec: , line:12:20, endln:12:26
+  |vpiInstance:
+  \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+\_bit_typespec: , line:12:34, endln:12:37
+  |vpiInstance:
+  \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+\_string_typespec: , line:19:19, endln:19:25
+  |vpiInstance:
+  \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+\_string_typespec: , line:25:19, endln:25:25
+  |vpiInstance:
+  \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+\_string_typespec: , line:32:20, endln:32:26
+  |vpiInstance:
+  \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+\_string_typespec: , line:40:20, endln:40:26
+  |vpiInstance:
+  \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+\_integer_typespec: , line:47:12, endln:47:19
+  |vpiInstance:
+  \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+  |vpiSigned:1
+\_integer_typespec: , line:53:12, endln:53:19
+  |vpiInstance:
+  \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+  |vpiSigned:1
+\_function: (msgPkg::getErrCnt), line:47:3, endln:49:14
+  |vpiParent:
+  \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+  |vpiName:getErrCnt
+  |vpiFullName:msgPkg::getErrCnt
+  |vpiVisibility:1
+  |vpiReturn:
+  \_integer_var: (msgPkg::getErrCnt), line:47:12, endln:47:19
+  |vpiStmt:
+  \_assignment: , line:48:5, endln:48:23
+    |vpiParent:
+    \_function: (msgPkg::getErrCnt), line:47:3, endln:49:14
+    |vpiOpType:82
+    |vpiBlocking:1
+    |vpiRhs:
+    \_ref_obj: (msgPkg::getErrCnt::errCnt), line:48:17, endln:48:23
+      |vpiParent:
+      \_assignment: , line:48:5, endln:48:23
+      |vpiName:errCnt
+      |vpiFullName:msgPkg::getErrCnt::errCnt
+      |vpiActual:
+      \_integer_var: (msgPkg::errCnt), line:5:12, endln:5:23
+    |vpiLhs:
+    \_ref_obj: (msgPkg::getErrCnt::getErrCnt), line:48:5, endln:48:14
+      |vpiParent:
+      \_assignment: , line:48:5, endln:48:23
+      |vpiName:getErrCnt
+      |vpiFullName:msgPkg::getErrCnt::getErrCnt
+      |vpiActual:
+      \_integer_var: (msgPkg::getErrCnt), line:47:12, endln:47:19
+  |vpiInstance:
+  \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+\_function: (msgPkg::getWarnCnt), line:53:3, endln:55:14
+  |vpiParent:
+  \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+  |vpiName:getWarnCnt
+  |vpiFullName:msgPkg::getWarnCnt
+  |vpiVisibility:1
+  |vpiReturn:
+  \_integer_var: (msgPkg::getWarnCnt), line:53:12, endln:53:19
+  |vpiStmt:
+  \_assignment: , line:54:5, endln:54:25
+    |vpiParent:
+    \_function: (msgPkg::getWarnCnt), line:53:3, endln:55:14
+    |vpiOpType:82
+    |vpiBlocking:1
+    |vpiRhs:
+    \_ref_obj: (msgPkg::getWarnCnt::warnCnt), line:54:18, endln:54:25
+      |vpiParent:
+      \_assignment: , line:54:5, endln:54:25
+      |vpiName:warnCnt
+      |vpiFullName:msgPkg::getWarnCnt::warnCnt
+      |vpiActual:
+      \_integer_var: (msgPkg::warnCnt), line:6:12, endln:6:23
+    |vpiLhs:
+    \_ref_obj: (msgPkg::getWarnCnt::getWarnCnt), line:54:5, endln:54:15
+      |vpiParent:
+      \_assignment: , line:54:5, endln:54:25
+      |vpiName:getWarnCnt
+      |vpiFullName:msgPkg::getWarnCnt::getWarnCnt
+      |vpiActual:
+      \_integer_var: (msgPkg::getWarnCnt), line:53:12, endln:53:19
+  |vpiInstance:
+  \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+\_string_typespec: , line:12:20, endln:12:26
+  |vpiInstance:
+  \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+\_bit_typespec: , line:12:34, endln:12:37
+  |vpiInstance:
+  \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+\_string_typespec: , line:19:19, endln:19:25
+  |vpiInstance:
+  \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+\_sys_func_call: ($display), line:20:5, endln:20:55
+  |vpiParent:
+  \_task: (msgPkg::msg_info), line:19:3, endln:21:10
+  |vpiArgument:
+  \_constant: , line:20:15, endln:20:36
+  |vpiArgument:
+  \_sys_func_call: ($time), line:20:37, endln:20:42
+    |vpiParent:
+    \_sys_func_call: ($display), line:20:5, endln:20:55
+    |vpiName:$time
+  |vpiArgument:
+  \_ref_obj: (msgPkg::msg_info::msgName), line:20:43, endln:20:50
+    |vpiParent:
+    \_sys_func_call: ($display), line:20:5, endln:20:55
+    |vpiName:msgName
+    |vpiFullName:msgPkg::msg_info::msgName
+    |vpiActual:
+    \_string_var: (msgPkg::msgName), line:8:12, endln:8:28
+  |vpiArgument:
+  \_ref_obj: (msgPkg::msg_info::msg), line:20:51, endln:20:54
+    |vpiParent:
+    \_sys_func_call: ($display), line:20:5, endln:20:55
+    |vpiName:msg
+    |vpiFullName:msgPkg::msg_info::msg
+    |vpiActual:
+    \_io_decl: (msg), line:19:26, endln:19:29
+  |vpiName:$display
+\_task: (msgPkg::msg_info), line:19:3, endln:21:10
+  |vpiParent:
+  \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+  |vpiName:msg_info
+  |vpiFullName:msgPkg::msg_info
+  |vpiVisibility:1
+  |vpiIODecl:
+  \_io_decl: (msg), line:19:26, endln:19:29
+    |vpiParent:
+    \_task: (msgPkg::msg_info), line:19:3, endln:21:10
+    |vpiDirection:1
+    |vpiName:msg
+    |vpiTypedef:
+    \_ref_typespec: (msgPkg::msg_info::msg)
+      |vpiParent:
+      \_io_decl: (msg), line:19:26, endln:19:29
+      |vpiFullName:msgPkg::msg_info::msg
+      |vpiActual:
+      \_string_typespec: , line:19:19, endln:19:25
+  |vpiStmt:
+  \_sys_func_call: ($display), line:20:5, endln:20:55
+  |vpiInstance:
+  \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+\_string_typespec: , line:25:19, endln:25:25
+  |vpiInstance:
+  \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+\_sys_func_call: ($display), line:26:5, endln:26:55
+  |vpiParent:
+  \_begin: (msgPkg::msg_warn), line:27:5, endln:27:16
+  |vpiArgument:
+  \_constant: , line:26:15, endln:26:36
+  |vpiArgument:
+  \_sys_func_call: ($time), line:26:37, endln:26:42
+    |vpiParent:
+    \_sys_func_call: ($display), line:26:5, endln:26:55
+    |vpiName:$time
+  |vpiArgument:
+  \_ref_obj: (msgPkg::msg_warn::msgName), line:26:43, endln:26:50
+    |vpiParent:
+    \_sys_func_call: ($display), line:26:5, endln:26:55
+    |vpiName:msgName
+    |vpiFullName:msgPkg::msg_warn::msgName
+    |vpiActual:
+    \_string_var: (msgPkg::msgName), line:8:12, endln:8:28
+  |vpiArgument:
+  \_ref_obj: (msgPkg::msg_warn::msg), line:26:51, endln:26:54
+    |vpiParent:
+    \_sys_func_call: ($display), line:26:5, endln:26:55
+    |vpiName:msg
+    |vpiFullName:msgPkg::msg_warn::msg
+    |vpiActual:
+    \_io_decl: (msg), line:25:26, endln:25:29
+  |vpiName:$display
+\_io_decl: (msg), line:25:26, endln:25:29
+  |vpiParent:
+  \_task: (msgPkg::msg_warn), line:25:3, endln:28:10
+  |vpiDirection:1
+  |vpiName:msg
+  |vpiTypedef:
+  \_ref_typespec: (msgPkg::msg_warn::msg)
+    |vpiParent:
+    \_io_decl: (msg), line:25:26, endln:25:29
+    |vpiFullName:msgPkg::msg_warn::msg
+    |vpiActual:
+    \_string_typespec: , line:25:19, endln:25:25
+\_task: (msgPkg::msg_warn), line:25:3, endln:28:10
+  |vpiParent:
+  \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+  |vpiName:msg_warn
+  |vpiFullName:msgPkg::msg_warn
+  |vpiVisibility:1
+  |vpiIODecl:
+  \_io_decl: (msg), line:25:26, endln:25:29
+  |vpiStmt:
+  \_begin: (msgPkg::msg_warn), line:27:5, endln:27:16
+    |vpiParent:
+    \_task: (msgPkg::msg_warn), line:25:3, endln:28:10
+    |vpiFullName:msgPkg::msg_warn
+    |vpiStmt:
+    \_sys_func_call: ($display), line:26:5, endln:26:55
+    |vpiStmt:
+    \_operation: , line:27:5, endln:27:15
+      |vpiParent:
+      \_begin: (msgPkg::msg_warn), line:27:5, endln:27:16
+      |vpiOpType:62
+      |vpiOperand:
+      \_ref_obj: (msgPkg::msg_warn::warnCnt), line:27:5, endln:27:12
+        |vpiParent:
+        \_operation: , line:27:5, endln:27:15
+        |vpiName:warnCnt
+        |vpiFullName:msgPkg::msg_warn::warnCnt
+        |vpiActual:
+        \_integer_var: (msgPkg::warnCnt), line:6:12, endln:6:23
+  |vpiInstance:
+  \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+\_string_typespec: , line:32:20, endln:32:26
+  |vpiInstance:
+  \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+\_sys_func_call: ($display), line:33:5, endln:33:56
+  |vpiParent:
+  \_begin: (msgPkg::msg_error), line:34:5, endln:34:15
+  |vpiArgument:
+  \_constant: , line:33:15, endln:33:37
+  |vpiArgument:
+  \_sys_func_call: ($time), line:33:38, endln:33:43
+    |vpiParent:
+    \_sys_func_call: ($display), line:33:5, endln:33:56
+    |vpiName:$time
+  |vpiArgument:
+  \_ref_obj: (msgPkg::msg_error::msgName), line:33:44, endln:33:51
+    |vpiParent:
+    \_sys_func_call: ($display), line:33:5, endln:33:56
+    |vpiName:msgName
+    |vpiFullName:msgPkg::msg_error::msgName
+    |vpiActual:
+    \_string_var: (msgPkg::msgName), line:8:12, endln:8:28
+  |vpiArgument:
+  \_ref_obj: (msgPkg::msg_error::msg), line:33:52, endln:33:55
+    |vpiParent:
+    \_sys_func_call: ($display), line:33:5, endln:33:56
+    |vpiName:msg
+    |vpiFullName:msgPkg::msg_error::msg
+    |vpiActual:
+    \_io_decl: (msg), line:32:27, endln:32:30
+  |vpiName:$display
+\_io_decl: (msg), line:32:27, endln:32:30
+  |vpiParent:
+  \_task: (msgPkg::msg_error), line:32:3, endln:36:10
+  |vpiDirection:1
+  |vpiName:msg
+  |vpiTypedef:
+  \_ref_typespec: (msgPkg::msg_error::msg)
+    |vpiParent:
+    \_io_decl: (msg), line:32:27, endln:32:30
+    |vpiFullName:msgPkg::msg_error::msg
+    |vpiActual:
+    \_string_typespec: , line:32:20, endln:32:26
+\_task: (msgPkg::msg_error), line:32:3, endln:36:10
+  |vpiParent:
+  \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+  |vpiName:msg_error
+  |vpiFullName:msgPkg::msg_error
+  |vpiVisibility:1
+  |vpiIODecl:
+  \_io_decl: (msg), line:32:27, endln:32:30
+  |vpiStmt:
+  \_begin: (msgPkg::msg_error), line:34:5, endln:34:15
+    |vpiParent:
+    \_task: (msgPkg::msg_error), line:32:3, endln:36:10
+    |vpiFullName:msgPkg::msg_error
+    |vpiStmt:
+    \_sys_func_call: ($display), line:33:5, endln:33:56
+    |vpiStmt:
+    \_operation: , line:34:5, endln:34:14
+      |vpiParent:
+      \_begin: (msgPkg::msg_error), line:34:5, endln:34:15
+      |vpiOpType:62
+      |vpiOperand:
+      \_ref_obj: (msgPkg::msg_error::errCnt), line:34:5, endln:34:11
+        |vpiParent:
+        \_operation: , line:34:5, endln:34:14
+        |vpiName:errCnt
+        |vpiFullName:msgPkg::msg_error::errCnt
+        |vpiActual:
+        \_integer_var: (msgPkg::errCnt), line:5:12, endln:5:23
+    |vpiStmt:
+    \_if_stmt: , line:35:5, endln:35:37
+      |vpiParent:
+      \_begin: (msgPkg::msg_error), line:34:5, endln:34:15
+      |vpiCondition:
+      \_ref_obj: (msgPkg::msg_error::terminate_on_error), line:35:9, endln:35:27
+        |vpiParent:
+        \_begin: (msgPkg::msg_error), line:34:5, endln:34:15
+        |vpiName:terminate_on_error
+        |vpiFullName:msgPkg::msg_error::terminate_on_error
+        |vpiActual:
+        \_bit_var: (msgPkg::terminate_on_error), line:7:12, endln:7:30
+      |vpiStmt:
+      \_sys_func_call: ($finish), line:35:29, endln:35:36
+        |vpiParent:
+        \_if_stmt: , line:35:5, endln:35:37
+        |vpiName:$finish
+  |vpiInstance:
+  \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+\_string_typespec: , line:40:20, endln:40:26
+  |vpiInstance:
+  \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+\_sys_func_call: ($display), line:41:5, endln:41:56
+  |vpiParent:
+  \_begin: (msgPkg::msg_fatal), line:42:5, endln:42:13
+  |vpiArgument:
+  \_constant: , line:41:15, endln:41:37
+  |vpiArgument:
+  \_sys_func_call: ($time), line:41:38, endln:41:43
+    |vpiParent:
+    \_sys_func_call: ($display), line:41:5, endln:41:56
+    |vpiName:$time
+  |vpiArgument:
+  \_ref_obj: (msgPkg::msg_fatal::msgName), line:41:44, endln:41:51
+    |vpiParent:
+    \_sys_func_call: ($display), line:41:5, endln:41:56
+    |vpiName:msgName
+    |vpiFullName:msgPkg::msg_fatal::msgName
+    |vpiActual:
+    \_string_var: (msgPkg::msgName), line:8:12, endln:8:28
+  |vpiArgument:
+  \_ref_obj: (msgPkg::msg_fatal::msg), line:41:52, endln:41:55
+    |vpiParent:
+    \_sys_func_call: ($display), line:41:5, endln:41:56
+    |vpiName:msg
+    |vpiFullName:msgPkg::msg_fatal::msg
+    |vpiActual:
+    \_io_decl: (msg), line:40:27, endln:40:30
+  |vpiName:$display
+\_io_decl: (msg), line:40:27, endln:40:30
+  |vpiParent:
+  \_task: (msgPkg::msg_fatal), line:40:3, endln:43:10
+  |vpiDirection:1
+  |vpiName:msg
+  |vpiTypedef:
+  \_ref_typespec: (msgPkg::msg_fatal::msg)
+    |vpiParent:
+    \_io_decl: (msg), line:40:27, endln:40:30
+    |vpiFullName:msgPkg::msg_fatal::msg
+    |vpiActual:
+    \_string_typespec: , line:40:20, endln:40:26
+\_task: (msgPkg::msg_fatal), line:40:3, endln:43:10
+  |vpiParent:
+  \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+  |vpiName:msg_fatal
+  |vpiFullName:msgPkg::msg_fatal
+  |vpiVisibility:1
+  |vpiIODecl:
+  \_io_decl: (msg), line:40:27, endln:40:30
+  |vpiStmt:
+  \_begin: (msgPkg::msg_fatal), line:42:5, endln:42:13
+    |vpiParent:
+    \_task: (msgPkg::msg_fatal), line:40:3, endln:43:10
+    |vpiFullName:msgPkg::msg_fatal
+    |vpiStmt:
+    \_sys_func_call: ($display), line:41:5, endln:41:56
+    |vpiStmt:
+    \_sys_func_call: ($finish), line:42:5, endln:42:12
+      |vpiParent:
+      \_begin: (msgPkg::msg_fatal), line:42:5, endln:42:13
+      |vpiName:$finish
+  |vpiInstance:
+  \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+\_integer_typespec: , line:47:12, endln:47:19
+  |vpiInstance:
+  \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+  |vpiSigned:1
+\_integer_typespec: , line:53:12, endln:53:19
+  |vpiInstance:
+  \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+  |vpiSigned:1
+\_function: (work@mailbox::new), line:3:5, endln:4:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv, line:1:3, endln:27:11
+  |vpiName:new
+  |vpiFullName:work@mailbox::new
+  |vpiMethod:1
+  |vpiReturn:
+  \_class_var: (work@mailbox::new), line:3:23, endln:3:28
+  |vpiIODecl:
+  \_io_decl: (bound), line:3:23, endln:3:28
+    |vpiParent:
+    \_function: (work@mailbox::new), line:3:5, endln:4:16
+    |vpiDirection:1
+    |vpiName:bound
+    |vpiExpr:
+    \_constant: , line:3:31, endln:3:32
+    |vpiTypedef:
+    \_ref_typespec: (work@mailbox::new::bound)
+      |vpiParent:
+      \_io_decl: (bound), line:3:23, endln:3:28
+      |vpiFullName:work@mailbox::new::bound
+      |vpiActual:
+      \_int_typespec: , line:3:19, endln:3:22
+\_class_typespec: 
+  |vpiClassDefn:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv, line:1:3, endln:27:11
+\_int_typespec: , line:3:19, endln:3:22
+  |vpiSigned:1
+\_function: (work@mailbox::num), line:6:5, endln:7:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv, line:1:3, endln:27:11
+  |vpiName:num
+  |vpiFullName:work@mailbox::num
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::num), line:6:14, endln:6:17
+\_int_typespec: , line:6:14, endln:6:17
+  |vpiSigned:1
+\_function: (work@mailbox::try_put), line:12:5, endln:13:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_put
+  |vpiFullName:work@mailbox::try_put
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_logic_var: (work@mailbox::try_put)
+  |vpiIODecl:
+  \_io_decl: (message), line:12:23, endln:12:30
+    |vpiParent:
+    \_function: (work@mailbox::try_put), line:12:5, endln:13:16
+    |vpiDirection:1
+    |vpiName:message
+\_function: (work@mailbox::try_get), line:18:5, endln:19:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_get
+  |vpiFullName:work@mailbox::try_get
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::try_get), line:18:14, endln:18:17
+  |vpiIODecl:
+  \_io_decl: (message), line:18:31, endln:18:38
+    |vpiParent:
+    \_function: (work@mailbox::try_get), line:18:5, endln:19:16
+    |vpiDirection:6
+    |vpiName:message
+\_int_typespec: , line:18:14, endln:18:17
+  |vpiSigned:1
+\_function: (work@mailbox::try_peek), line:24:5, endln:25:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_peek
+  |vpiFullName:work@mailbox::try_peek
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::try_peek), line:24:14, endln:24:17
+  |vpiIODecl:
+  \_io_decl: (message), line:24:31, endln:24:38
+    |vpiParent:
+    \_function: (work@mailbox::try_peek), line:24:5, endln:25:16
+    |vpiDirection:6
+    |vpiName:message
+\_int_typespec: , line:24:14, endln:24:17
+  |vpiSigned:1
+\_enum_typespec: (state), line:32:5, endln:32:74
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv, line:30:3, endln:52:11
+  |vpiName:state
+  |vpiEnumConst:
+  \_enum_const: (FINISHED), line:32:20, endln:32:28
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:FINISHED
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (RUNNING), line:32:30, endln:32:37
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:RUNNING
+    |INT:1
+    |vpiDecompile:1
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (WAITING), line:32:39, endln:32:46
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:WAITING
+    |INT:2
+    |vpiDecompile:2
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (SUSPENDED), line:32:48, endln:32:57
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:SUSPENDED
+    |INT:3
+    |vpiDecompile:3
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (KILLED), line:32:59, endln:32:65
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:KILLED
+    |INT:4
+    |vpiDecompile:4
+    |vpiSize:64
+\_function: (work@process::self), line:34:5, endln:34:11
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv, line:30:3, endln:52:11
+  |vpiName:self
+  |vpiFullName:work@process::self
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_class_var: (work@process::self), line:34:21, endln:34:28
+\_class_typespec: , line:34:21, endln:34:28
+  |vpiClassDefn:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv, line:30:3, endln:52:11
+\_function: (work@process::status), line:37:5, endln:38:16
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv, line:30:3, endln:52:11
+  |vpiName:status
+  |vpiFullName:work@process::status
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_enum_var: (work@process::status), line:37:14, endln:37:19
+\_function: (work@semaphore::new), line:57:5, endln:58:16
+  |vpiParent:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv, line:55:3, endln:69:11
+  |vpiName:new
+  |vpiFullName:work@semaphore::new
+  |vpiMethod:1
+  |vpiReturn:
+  \_class_var: (work@semaphore::new), line:57:22, endln:57:30
+  |vpiIODecl:
+  \_io_decl: (keyCount), line:57:22, endln:57:30
+    |vpiParent:
+    \_function: (work@semaphore::new), line:57:5, endln:58:16
+    |vpiDirection:1
+    |vpiName:keyCount
+    |vpiExpr:
+    \_constant: , line:57:33, endln:57:34
+    |vpiTypedef:
+    \_ref_typespec: (work@semaphore::new::keyCount)
+      |vpiParent:
+      \_io_decl: (keyCount), line:57:22, endln:57:30
+      |vpiFullName:work@semaphore::new::keyCount
+      |vpiActual:
+      \_int_typespec: , line:57:18, endln:57:21
+\_class_typespec: 
+  |vpiClassDefn:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv, line:55:3, endln:69:11
+\_int_typespec: , line:57:18, endln:57:21
+  |vpiSigned:1
+\_int_typespec: , line:60:14, endln:60:17
+  |vpiSigned:1
+\_int_typespec: , line:63:14, endln:63:17
+  |vpiSigned:1
+\_function: (work@semaphore::try_get), line:66:5, endln:67:16
+  |vpiParent:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/UnitPackage/builtin.sv, line:55:3, endln:69:11
+  |vpiName:try_get
+  |vpiFullName:work@semaphore::try_get
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@semaphore::try_get), line:66:14, endln:66:17
+  |vpiIODecl:
+  \_io_decl: (keyCount), line:66:30, endln:66:38
+    |vpiParent:
+    \_function: (work@semaphore::try_get), line:66:5, endln:67:16
+    |vpiDirection:1
+    |vpiName:keyCount
+    |vpiExpr:
+    \_constant: , line:66:41, endln:66:42
+    |vpiTypedef:
+    \_ref_typespec: (work@semaphore::try_get::keyCount)
+      |vpiParent:
+      \_io_decl: (keyCount), line:66:30, endln:66:38
+      |vpiFullName:work@semaphore::try_get::keyCount
+      |vpiActual:
+      \_int_typespec: , line:66:26, endln:66:29
+\_int_typespec: , line:66:14, endln:66:17
+  |vpiSigned:1
+\_int_typespec: , line:66:26, endln:66:29
+  |vpiSigned:1
+\_integer_typespec: , line:5:3, endln:5:10
+  |vpiParent:
+  \_integer_var: (msgPkg::errCnt), line:5:12, endln:5:23
+  |vpiInstance:
+  \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+  |vpiSigned:1
+\_integer_typespec: , line:6:3, endln:6:10
+  |vpiParent:
+  \_integer_var: (msgPkg::warnCnt), line:6:12, endln:6:23
+  |vpiInstance:
+  \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+  |vpiSigned:1
+\_bit_typespec: , line:7:3, endln:7:6
+  |vpiParent:
+  \_bit_var: (msgPkg::terminate_on_error), line:7:12, endln:7:30
+  |vpiInstance:
+  \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+\_string_typespec: , line:8:3, endln:8:9
+  |vpiParent:
+  \_string_var: (msgPkg::msgName), line:8:12, endln:8:28
+  |vpiInstance:
+  \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+\_integer_typespec: , line:5:3, endln:5:10
+  |vpiParent:
+  \_integer_var: (msgPkg::errCnt), line:5:12, endln:5:23
+  |vpiInstance:
+  \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+  |vpiSigned:1
+\_integer_typespec: , line:6:3, endln:6:10
+  |vpiParent:
+  \_integer_var: (msgPkg::warnCnt), line:6:12, endln:6:23
+  |vpiInstance:
+  \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+  |vpiSigned:1
+\_bit_typespec: , line:7:3, endln:7:6
+  |vpiParent:
+  \_bit_var: (msgPkg::terminate_on_error), line:7:12, endln:7:30
+  |vpiInstance:
+  \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+\_string_typespec: , line:8:3, endln:8:9
+  |vpiParent:
+  \_string_var: (msgPkg::msgName), line:8:12, endln:8:28
+  |vpiInstance:
+  \_package: msgPkg (msgPkg::), file:${SURELOG_DIR}/tests/UnitPackage/msgPkg.pkg, line:4:1, endln:57:11
+\_integer_typespec: , line:5:3, endln:5:10
+  |vpiParent:
+  \_integer_var: (work@simple_package.errCnt), line:5:12, endln:5:23
+  |vpiSigned:1
+\_integer_typespec: , line:6:3, endln:6:10
+  |vpiParent:
+  \_integer_var: (work@simple_package.warnCnt), line:6:12, endln:6:23
+  |vpiSigned:1
+\_bit_typespec: , line:7:3, endln:7:6
+  |vpiParent:
+  \_bit_var: (work@simple_package.terminate_on_error), line:7:12, endln:7:30
+\_string_typespec: , line:8:3, endln:8:9
+  |vpiParent:
+  \_string_var: (work@simple_package.msgName), line:8:12, endln:8:28
+\_integer_typespec: , line:5:3, endln:5:23
+  |vpiSigned:1
+\_integer_typespec: , line:6:3, endln:6:23
+  |vpiSigned:1
+\_bit_typespec: , line:7:3, endln:7:6
+\_string_typespec: , line:8:3, endln:8:28
+\_gen_scope: (work@simple_package.inst), line:15:15, endln:17:6
+  |vpiParent:
+  \_gen_scope_array: (work@simple_package.inst), line:15:15, endln:17:6
+  |vpiFullName:work@simple_package.inst
+  |vpiParameter:
+  \_parameter: (work@simple_package.inst.u1.SIZE)
+  |vpiTypedef:
+  \_enum_typespec: (definesPkg::bool), line:10:3, endln:10:36
+  |vpiModule:
+  \_module_inst: work@simple_package.inst::M1 (work@simple_package.inst.u1), file:${SURELOG_DIR}/tests/UnitPackage/simple_pkg.sv, line:16:4, endln:16:12
+    |vpiParent:
+    \_gen_scope: (work@simple_package.inst), line:15:15, endln:17:6
+    |vpiName:u1
+    |vpiFullName:work@simple_package.inst.u1
+    |vpiParamAssign:
+    \_param_assign: 
+      |vpiParent:
+      \_module_inst: work@simple_package.inst::M1 (work@simple_package.inst.u1), file:${SURELOG_DIR}/tests/UnitPackage/simple_pkg.sv, line:16:4, endln:16:12
+      |vpiRhs:
+      \_constant: , line:8:0, endln:8:0
+      |vpiLhs:
+      \_parameter: (work@simple_package.inst.u1.SIZE)
+        |vpiParent:
+        \_param_assign: 
+        |vpiName:SIZE
+        |vpiFullName:work@simple_package.inst.u1.SIZE
+    |vpiDefName:work@simple_package.inst::M1
+  |vpiTaskFunc:
+  \_task: (msgPkg::initMsgPkg), line:12:3, endln:15:10
+  |vpiTaskFunc:
+  \_task: (msgPkg::msg_info), line:19:3, endln:21:10
+  |vpiTaskFunc:
+  \_task: (msgPkg::msg_warn), line:25:3, endln:28:10
+  |vpiTaskFunc:
+  \_task: (msgPkg::msg_error), line:32:3, endln:36:10
+  |vpiTaskFunc:
+  \_task: (msgPkg::msg_fatal), line:40:3, endln:43:10
+  |vpiTaskFunc:
+  \_function: (msgPkg::getErrCnt), line:47:3, endln:49:14
+  |vpiTaskFunc:
+  \_function: (msgPkg::getWarnCnt), line:53:3, endln:55:14
+\_gen_scope_array: (work@simple_package.inst), line:15:15, endln:17:6
+  |vpiParent:
+  \_module_inst: work@simple_package (work@simple_package), file:${SURELOG_DIR}/tests/UnitPackage/simple_pkg.sv, line:11:1, endln:30:10
+  |vpiName:inst
+  |vpiFullName:work@simple_package.inst
+  |vpiGenScope:
+  \_gen_scope: (work@simple_package.inst), line:15:15, endln:17:6
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

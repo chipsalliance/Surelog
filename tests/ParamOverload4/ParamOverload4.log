@@ -701,7 +701,7 @@ design                                                 1
 gen_for                                                1
 gen_scope                                            520
 gen_scope_array                                      520
-int_typespec                                         138
+int_typespec                                         135
 logic_net                                              1
 module_inst                                            5
 named_begin                                            1
@@ -709,6 +709,7 @@ operation                                            399
 param_assign                                           6
 parameter                                            138
 ref_obj                                                3
+ref_typespec                                         151
 ref_var                                                1
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
@@ -721,7 +722,7 @@ design                                                 1
 gen_for                                                1
 gen_scope                                            780
 gen_scope_array                                      780
-int_typespec                                         138
+int_typespec                                         135
 logic_net                                              1
 module_inst                                            5
 named_begin                                            1
@@ -729,6 +730,7 @@ operation                                            399
 param_assign                                           6
 parameter                                            138
 ref_obj                                                3
+ref_typespec                                         283
 ref_var                                                1
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
@@ -755,9 +757,12 @@ design: (work@ibex_pmp)
     \_module_inst: work@ibex_pmp (work@ibex_pmp), file:${SURELOG_DIR}/tests/ParamOverload4/dut.sv, line:2:1, endln:34:10
     |UINT:0
     |vpiTypespec:
-    \_int_typespec: , line:5:15, endln:5:27
+    \_ref_typespec: (work@ibex_pmp.PMPGranularity)
       |vpiParent:
       \_parameter: (work@ibex_pmp.PMPGranularity), line:5:28, endln:5:42
+      |vpiFullName:work@ibex_pmp.PMPGranularity
+      |vpiActual:
+      \_int_typespec: , line:5:15, endln:5:27
     |vpiName:PMPGranularity
     |vpiFullName:work@ibex_pmp.PMPGranularity
   |vpiParameter:
@@ -766,9 +771,12 @@ design: (work@ibex_pmp)
     \_module_inst: work@ibex_pmp (work@ibex_pmp), file:${SURELOG_DIR}/tests/ParamOverload4/dut.sv, line:2:1, endln:34:10
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: , line:7:15, endln:7:27
+    \_ref_typespec: (work@ibex_pmp.PMPNumChan)
       |vpiParent:
       \_parameter: (work@ibex_pmp.PMPNumChan), line:7:28, endln:7:38
+      |vpiFullName:work@ibex_pmp.PMPNumChan
+      |vpiActual:
+      \_int_typespec: , line:7:15, endln:7:27
     |vpiName:PMPNumChan
     |vpiFullName:work@ibex_pmp.PMPNumChan
   |vpiParameter:
@@ -777,9 +785,12 @@ design: (work@ibex_pmp)
     \_module_inst: work@ibex_pmp (work@ibex_pmp), file:${SURELOG_DIR}/tests/ParamOverload4/dut.sv, line:2:1, endln:34:10
     |UINT:4
     |vpiTypespec:
-    \_int_typespec: , line:9:15, endln:9:27
+    \_ref_typespec: (work@ibex_pmp.PMPNumRegions)
       |vpiParent:
       \_parameter: (work@ibex_pmp.PMPNumRegions), line:9:28, endln:9:41
+      |vpiFullName:work@ibex_pmp.PMPNumRegions
+      |vpiActual:
+      \_int_typespec: , line:9:15, endln:9:27
     |vpiName:PMPNumRegions
     |vpiFullName:work@ibex_pmp.PMPNumRegions
   |vpiParamAssign:
@@ -794,7 +805,12 @@ design: (work@ibex_pmp)
       |vpiSize:32
       |UINT:0
       |vpiTypespec:
-      \_int_typespec: , line:5:15, endln:5:27
+      \_ref_typespec: (work@ibex_pmp)
+        |vpiParent:
+        \_constant: , line:5:45, endln:5:46
+        |vpiFullName:work@ibex_pmp
+        |vpiActual:
+        \_int_typespec: , line:5:15, endln:5:27
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@ibex_pmp.PMPGranularity), line:5:28, endln:5:42
@@ -810,7 +826,12 @@ design: (work@ibex_pmp)
       |vpiSize:32
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:7:15, endln:7:27
+      \_ref_typespec: (work@ibex_pmp)
+        |vpiParent:
+        \_constant: , line:7:45, endln:7:46
+        |vpiFullName:work@ibex_pmp
+        |vpiActual:
+        \_int_typespec: , line:7:15, endln:7:27
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@ibex_pmp.PMPNumChan), line:7:28, endln:7:38
@@ -826,7 +847,12 @@ design: (work@ibex_pmp)
       |vpiSize:32
       |UINT:4
       |vpiTypespec:
-      \_int_typespec: , line:9:15, endln:9:27
+      \_ref_typespec: (work@ibex_pmp)
+        |vpiParent:
+        \_constant: , line:9:45, endln:9:46
+        |vpiFullName:work@ibex_pmp
+        |vpiActual:
+        \_int_typespec: , line:9:15, endln:9:27
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@ibex_pmp.PMPNumRegions), line:9:28, endln:9:41
@@ -905,9 +931,12 @@ design: (work@ibex_pmp)
     \_module_inst: work@ibex_pmp (work@ibex_pmp), file:${SURELOG_DIR}/tests/ParamOverload4/dut.sv, line:2:1, endln:34:10
     |UINT:0
     |vpiTypespec:
-    \_int_typespec: , line:5:15, endln:5:27
+    \_ref_typespec: (work@ibex_pmp.PMPGranularity)
       |vpiParent:
       \_parameter: (work@ibex_pmp.PMPGranularity), line:5:28, endln:5:42
+      |vpiFullName:work@ibex_pmp.PMPGranularity
+      |vpiActual:
+      \_int_typespec: , line:5:15, endln:5:27
     |vpiName:PMPGranularity
     |vpiFullName:work@ibex_pmp.PMPGranularity
   |vpiParameter:
@@ -916,9 +945,12 @@ design: (work@ibex_pmp)
     \_module_inst: work@ibex_pmp (work@ibex_pmp), file:${SURELOG_DIR}/tests/ParamOverload4/dut.sv, line:2:1, endln:34:10
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: , line:7:15, endln:7:27
+    \_ref_typespec: (work@ibex_pmp.PMPNumChan)
       |vpiParent:
       \_parameter: (work@ibex_pmp.PMPNumChan), line:7:28, endln:7:38
+      |vpiFullName:work@ibex_pmp.PMPNumChan
+      |vpiActual:
+      \_int_typespec: , line:7:15, endln:7:27
     |vpiName:PMPNumChan
     |vpiFullName:work@ibex_pmp.PMPNumChan
   |vpiParameter:
@@ -927,9 +959,12 @@ design: (work@ibex_pmp)
     \_module_inst: work@ibex_pmp (work@ibex_pmp), file:${SURELOG_DIR}/tests/ParamOverload4/dut.sv, line:2:1, endln:34:10
     |UINT:4
     |vpiTypespec:
-    \_int_typespec: , line:9:15, endln:9:27
+    \_ref_typespec: (work@ibex_pmp.PMPNumRegions)
       |vpiParent:
       \_parameter: (work@ibex_pmp.PMPNumRegions), line:9:28, endln:9:41
+      |vpiFullName:work@ibex_pmp.PMPNumRegions
+      |vpiActual:
+      \_int_typespec: , line:9:15, endln:9:27
     |vpiName:PMPNumRegions
     |vpiFullName:work@ibex_pmp.PMPNumRegions
   |vpiParamAssign:
@@ -944,7 +979,12 @@ design: (work@ibex_pmp)
       |vpiSize:32
       |UINT:0
       |vpiTypespec:
-      \_int_typespec: , line:5:15, endln:5:27
+      \_ref_typespec: (work@ibex_pmp)
+        |vpiParent:
+        \_constant: , line:5:45, endln:5:46
+        |vpiFullName:work@ibex_pmp
+        |vpiActual:
+        \_int_typespec: , line:5:15, endln:5:27
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@ibex_pmp.PMPGranularity), line:5:28, endln:5:42
@@ -960,7 +1000,12 @@ design: (work@ibex_pmp)
       |vpiSize:32
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:7:15, endln:7:27
+      \_ref_typespec: (work@ibex_pmp)
+        |vpiParent:
+        \_constant: , line:7:45, endln:7:46
+        |vpiFullName:work@ibex_pmp
+        |vpiActual:
+        \_int_typespec: , line:7:15, endln:7:27
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@ibex_pmp.PMPNumChan), line:7:28, endln:7:38
@@ -976,7 +1021,12 @@ design: (work@ibex_pmp)
       |vpiSize:32
       |UINT:4
       |vpiTypespec:
-      \_int_typespec: , line:9:15, endln:9:27
+      \_ref_typespec: (work@ibex_pmp)
+        |vpiParent:
+        \_constant: , line:9:45, endln:9:46
+        |vpiFullName:work@ibex_pmp
+        |vpiActual:
+        \_int_typespec: , line:9:15, endln:9:27
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@ibex_pmp.PMPNumRegions), line:9:28, endln:9:41
@@ -1000,7 +1050,12 @@ design: (work@ibex_pmp)
         \_gen_scope: (work@ibex_pmp.g_addr_exp[0]), line:20:46, endln:30:6
         |UINT:0
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@ibex_pmp.g_addr_exp[0].r)
+          |vpiParent:
+          \_parameter: (work@ibex_pmp.g_addr_exp[0].r), line:20:0
+          |vpiFullName:work@ibex_pmp.g_addr_exp[0].r
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:r
         |vpiFullName:work@ibex_pmp.g_addr_exp[0].r
@@ -1021,7 +1076,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[0].g_bitmask[2]), line:23:52, endln:29:8
             |UINT:2
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[0].g_bitmask[2].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[0].g_bitmask[2].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[2].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[2].b
@@ -1053,7 +1113,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[0].g_bitmask[3]), line:23:52, endln:29:8
             |UINT:3
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[0].g_bitmask[3].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[0].g_bitmask[3].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[3].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[3].b
@@ -1085,7 +1150,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[0].g_bitmask[4]), line:23:52, endln:29:8
             |UINT:4
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[0].g_bitmask[4].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[0].g_bitmask[4].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[4].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[4].b
@@ -1117,7 +1187,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[0].g_bitmask[5]), line:23:52, endln:29:8
             |UINT:5
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[0].g_bitmask[5].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[0].g_bitmask[5].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[5].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[5].b
@@ -1149,7 +1224,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[0].g_bitmask[6]), line:23:52, endln:29:8
             |UINT:6
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[0].g_bitmask[6].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[0].g_bitmask[6].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[6].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[6].b
@@ -1181,7 +1261,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[0].g_bitmask[7]), line:23:52, endln:29:8
             |UINT:7
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[0].g_bitmask[7].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[0].g_bitmask[7].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[7].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[7].b
@@ -1213,7 +1298,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[0].g_bitmask[8]), line:23:52, endln:29:8
             |UINT:8
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[0].g_bitmask[8].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[0].g_bitmask[8].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[8].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[8].b
@@ -1245,7 +1335,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[0].g_bitmask[9]), line:23:52, endln:29:8
             |UINT:9
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[0].g_bitmask[9].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[0].g_bitmask[9].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[9].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[9].b
@@ -1277,7 +1372,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[0].g_bitmask[10]), line:23:52, endln:29:8
             |UINT:10
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[0].g_bitmask[10].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[0].g_bitmask[10].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[10].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[10].b
@@ -1309,7 +1409,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[0].g_bitmask[11]), line:23:52, endln:29:8
             |UINT:11
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[0].g_bitmask[11].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[0].g_bitmask[11].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[11].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[11].b
@@ -1341,7 +1446,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[0].g_bitmask[12]), line:23:52, endln:29:8
             |UINT:12
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[0].g_bitmask[12].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[0].g_bitmask[12].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[12].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[12].b
@@ -1373,7 +1483,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[0].g_bitmask[13]), line:23:52, endln:29:8
             |UINT:13
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[0].g_bitmask[13].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[0].g_bitmask[13].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[13].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[13].b
@@ -1405,7 +1520,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[0].g_bitmask[14]), line:23:52, endln:29:8
             |UINT:14
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[0].g_bitmask[14].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[0].g_bitmask[14].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[14].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[14].b
@@ -1437,7 +1557,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[0].g_bitmask[15]), line:23:52, endln:29:8
             |UINT:15
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[0].g_bitmask[15].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[0].g_bitmask[15].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[15].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[15].b
@@ -1469,7 +1594,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[0].g_bitmask[16]), line:23:52, endln:29:8
             |UINT:16
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[0].g_bitmask[16].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[0].g_bitmask[16].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[16].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[16].b
@@ -1501,7 +1631,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[0].g_bitmask[17]), line:23:52, endln:29:8
             |UINT:17
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[0].g_bitmask[17].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[0].g_bitmask[17].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[17].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[17].b
@@ -1533,7 +1668,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[0].g_bitmask[18]), line:23:52, endln:29:8
             |UINT:18
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[0].g_bitmask[18].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[0].g_bitmask[18].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[18].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[18].b
@@ -1565,7 +1705,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[0].g_bitmask[19]), line:23:52, endln:29:8
             |UINT:19
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[0].g_bitmask[19].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[0].g_bitmask[19].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[19].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[19].b
@@ -1597,7 +1742,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[0].g_bitmask[20]), line:23:52, endln:29:8
             |UINT:20
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[0].g_bitmask[20].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[0].g_bitmask[20].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[20].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[20].b
@@ -1629,7 +1779,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[0].g_bitmask[21]), line:23:52, endln:29:8
             |UINT:21
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[0].g_bitmask[21].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[0].g_bitmask[21].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[21].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[21].b
@@ -1661,7 +1816,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[0].g_bitmask[22]), line:23:52, endln:29:8
             |UINT:22
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[0].g_bitmask[22].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[0].g_bitmask[22].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[22].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[22].b
@@ -1693,7 +1853,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[0].g_bitmask[23]), line:23:52, endln:29:8
             |UINT:23
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[0].g_bitmask[23].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[0].g_bitmask[23].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[23].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[23].b
@@ -1725,7 +1890,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[0].g_bitmask[24]), line:23:52, endln:29:8
             |UINT:24
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[0].g_bitmask[24].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[0].g_bitmask[24].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[24].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[24].b
@@ -1757,7 +1927,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[0].g_bitmask[25]), line:23:52, endln:29:8
             |UINT:25
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[0].g_bitmask[25].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[0].g_bitmask[25].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[25].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[25].b
@@ -1789,7 +1964,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[0].g_bitmask[26]), line:23:52, endln:29:8
             |UINT:26
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[0].g_bitmask[26].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[0].g_bitmask[26].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[26].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[26].b
@@ -1821,7 +2001,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[0].g_bitmask[27]), line:23:52, endln:29:8
             |UINT:27
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[0].g_bitmask[27].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[0].g_bitmask[27].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[27].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[27].b
@@ -1853,7 +2038,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[0].g_bitmask[28]), line:23:52, endln:29:8
             |UINT:28
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[0].g_bitmask[28].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[0].g_bitmask[28].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[28].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[28].b
@@ -1885,7 +2075,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[0].g_bitmask[29]), line:23:52, endln:29:8
             |UINT:29
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[0].g_bitmask[29].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[0].g_bitmask[29].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[29].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[29].b
@@ -1917,7 +2112,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[0].g_bitmask[30]), line:23:52, endln:29:8
             |UINT:30
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[0].g_bitmask[30].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[0].g_bitmask[30].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[30].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[30].b
@@ -1949,7 +2149,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[0].g_bitmask[31]), line:23:52, endln:29:8
             |UINT:31
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[0].g_bitmask[31].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[0].g_bitmask[31].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[31].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[31].b
@@ -1981,7 +2186,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[0].g_bitmask[32]), line:23:52, endln:29:8
             |UINT:32
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[0].g_bitmask[32].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[0].g_bitmask[32].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[32].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[32].b
@@ -2013,7 +2223,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[0].g_bitmask[33]), line:23:52, endln:29:8
             |UINT:33
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[0].g_bitmask[33].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[0].g_bitmask[33].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[33].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[0].g_bitmask[33].b
@@ -2045,7 +2260,12 @@ design: (work@ibex_pmp)
         \_gen_scope: (work@ibex_pmp.g_addr_exp[1]), line:20:46, endln:30:6
         |UINT:1
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@ibex_pmp.g_addr_exp[1].r)
+          |vpiParent:
+          \_parameter: (work@ibex_pmp.g_addr_exp[1].r), line:20:0
+          |vpiFullName:work@ibex_pmp.g_addr_exp[1].r
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:r
         |vpiFullName:work@ibex_pmp.g_addr_exp[1].r
@@ -2066,7 +2286,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[1].g_bitmask[2]), line:23:52, endln:29:8
             |UINT:2
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[1].g_bitmask[2].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[1].g_bitmask[2].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[2].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[2].b
@@ -2098,7 +2323,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[1].g_bitmask[3]), line:23:52, endln:29:8
             |UINT:3
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[1].g_bitmask[3].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[1].g_bitmask[3].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[3].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[3].b
@@ -2130,7 +2360,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[1].g_bitmask[4]), line:23:52, endln:29:8
             |UINT:4
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[1].g_bitmask[4].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[1].g_bitmask[4].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[4].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[4].b
@@ -2162,7 +2397,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[1].g_bitmask[5]), line:23:52, endln:29:8
             |UINT:5
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[1].g_bitmask[5].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[1].g_bitmask[5].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[5].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[5].b
@@ -2194,7 +2434,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[1].g_bitmask[6]), line:23:52, endln:29:8
             |UINT:6
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[1].g_bitmask[6].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[1].g_bitmask[6].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[6].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[6].b
@@ -2226,7 +2471,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[1].g_bitmask[7]), line:23:52, endln:29:8
             |UINT:7
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[1].g_bitmask[7].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[1].g_bitmask[7].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[7].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[7].b
@@ -2258,7 +2508,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[1].g_bitmask[8]), line:23:52, endln:29:8
             |UINT:8
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[1].g_bitmask[8].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[1].g_bitmask[8].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[8].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[8].b
@@ -2290,7 +2545,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[1].g_bitmask[9]), line:23:52, endln:29:8
             |UINT:9
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[1].g_bitmask[9].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[1].g_bitmask[9].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[9].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[9].b
@@ -2322,7 +2582,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[1].g_bitmask[10]), line:23:52, endln:29:8
             |UINT:10
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[1].g_bitmask[10].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[1].g_bitmask[10].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[10].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[10].b
@@ -2354,7 +2619,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[1].g_bitmask[11]), line:23:52, endln:29:8
             |UINT:11
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[1].g_bitmask[11].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[1].g_bitmask[11].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[11].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[11].b
@@ -2386,7 +2656,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[1].g_bitmask[12]), line:23:52, endln:29:8
             |UINT:12
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[1].g_bitmask[12].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[1].g_bitmask[12].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[12].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[12].b
@@ -2418,7 +2693,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[1].g_bitmask[13]), line:23:52, endln:29:8
             |UINT:13
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[1].g_bitmask[13].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[1].g_bitmask[13].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[13].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[13].b
@@ -2450,7 +2730,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[1].g_bitmask[14]), line:23:52, endln:29:8
             |UINT:14
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[1].g_bitmask[14].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[1].g_bitmask[14].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[14].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[14].b
@@ -2482,7 +2767,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[1].g_bitmask[15]), line:23:52, endln:29:8
             |UINT:15
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[1].g_bitmask[15].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[1].g_bitmask[15].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[15].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[15].b
@@ -2514,7 +2804,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[1].g_bitmask[16]), line:23:52, endln:29:8
             |UINT:16
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[1].g_bitmask[16].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[1].g_bitmask[16].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[16].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[16].b
@@ -2546,7 +2841,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[1].g_bitmask[17]), line:23:52, endln:29:8
             |UINT:17
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[1].g_bitmask[17].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[1].g_bitmask[17].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[17].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[17].b
@@ -2578,7 +2878,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[1].g_bitmask[18]), line:23:52, endln:29:8
             |UINT:18
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[1].g_bitmask[18].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[1].g_bitmask[18].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[18].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[18].b
@@ -2610,7 +2915,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[1].g_bitmask[19]), line:23:52, endln:29:8
             |UINT:19
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[1].g_bitmask[19].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[1].g_bitmask[19].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[19].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[19].b
@@ -2642,7 +2952,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[1].g_bitmask[20]), line:23:52, endln:29:8
             |UINT:20
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[1].g_bitmask[20].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[1].g_bitmask[20].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[20].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[20].b
@@ -2674,7 +2989,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[1].g_bitmask[21]), line:23:52, endln:29:8
             |UINT:21
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[1].g_bitmask[21].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[1].g_bitmask[21].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[21].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[21].b
@@ -2706,7 +3026,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[1].g_bitmask[22]), line:23:52, endln:29:8
             |UINT:22
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[1].g_bitmask[22].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[1].g_bitmask[22].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[22].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[22].b
@@ -2738,7 +3063,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[1].g_bitmask[23]), line:23:52, endln:29:8
             |UINT:23
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[1].g_bitmask[23].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[1].g_bitmask[23].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[23].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[23].b
@@ -2770,7 +3100,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[1].g_bitmask[24]), line:23:52, endln:29:8
             |UINT:24
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[1].g_bitmask[24].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[1].g_bitmask[24].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[24].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[24].b
@@ -2802,7 +3137,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[1].g_bitmask[25]), line:23:52, endln:29:8
             |UINT:25
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[1].g_bitmask[25].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[1].g_bitmask[25].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[25].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[25].b
@@ -2834,7 +3174,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[1].g_bitmask[26]), line:23:52, endln:29:8
             |UINT:26
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[1].g_bitmask[26].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[1].g_bitmask[26].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[26].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[26].b
@@ -2866,7 +3211,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[1].g_bitmask[27]), line:23:52, endln:29:8
             |UINT:27
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[1].g_bitmask[27].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[1].g_bitmask[27].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[27].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[27].b
@@ -2898,7 +3248,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[1].g_bitmask[28]), line:23:52, endln:29:8
             |UINT:28
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[1].g_bitmask[28].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[1].g_bitmask[28].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[28].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[28].b
@@ -2930,7 +3285,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[1].g_bitmask[29]), line:23:52, endln:29:8
             |UINT:29
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[1].g_bitmask[29].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[1].g_bitmask[29].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[29].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[29].b
@@ -2962,7 +3322,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[1].g_bitmask[30]), line:23:52, endln:29:8
             |UINT:30
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[1].g_bitmask[30].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[1].g_bitmask[30].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[30].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[30].b
@@ -2994,7 +3359,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[1].g_bitmask[31]), line:23:52, endln:29:8
             |UINT:31
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[1].g_bitmask[31].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[1].g_bitmask[31].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[31].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[31].b
@@ -3026,7 +3396,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[1].g_bitmask[32]), line:23:52, endln:29:8
             |UINT:32
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[1].g_bitmask[32].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[1].g_bitmask[32].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[32].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[32].b
@@ -3058,7 +3433,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[1].g_bitmask[33]), line:23:52, endln:29:8
             |UINT:33
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[1].g_bitmask[33].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[1].g_bitmask[33].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[33].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[1].g_bitmask[33].b
@@ -3090,7 +3470,12 @@ design: (work@ibex_pmp)
         \_gen_scope: (work@ibex_pmp.g_addr_exp[2]), line:20:46, endln:30:6
         |UINT:2
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@ibex_pmp.g_addr_exp[2].r)
+          |vpiParent:
+          \_parameter: (work@ibex_pmp.g_addr_exp[2].r), line:20:0
+          |vpiFullName:work@ibex_pmp.g_addr_exp[2].r
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:r
         |vpiFullName:work@ibex_pmp.g_addr_exp[2].r
@@ -3111,7 +3496,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[2].g_bitmask[2]), line:23:52, endln:29:8
             |UINT:2
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[2].g_bitmask[2].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[2].g_bitmask[2].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[2].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[2].b
@@ -3143,7 +3533,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[2].g_bitmask[3]), line:23:52, endln:29:8
             |UINT:3
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[2].g_bitmask[3].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[2].g_bitmask[3].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[3].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[3].b
@@ -3175,7 +3570,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[2].g_bitmask[4]), line:23:52, endln:29:8
             |UINT:4
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[2].g_bitmask[4].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[2].g_bitmask[4].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[4].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[4].b
@@ -3207,7 +3607,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[2].g_bitmask[5]), line:23:52, endln:29:8
             |UINT:5
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[2].g_bitmask[5].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[2].g_bitmask[5].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[5].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[5].b
@@ -3239,7 +3644,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[2].g_bitmask[6]), line:23:52, endln:29:8
             |UINT:6
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[2].g_bitmask[6].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[2].g_bitmask[6].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[6].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[6].b
@@ -3271,7 +3681,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[2].g_bitmask[7]), line:23:52, endln:29:8
             |UINT:7
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[2].g_bitmask[7].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[2].g_bitmask[7].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[7].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[7].b
@@ -3303,7 +3718,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[2].g_bitmask[8]), line:23:52, endln:29:8
             |UINT:8
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[2].g_bitmask[8].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[2].g_bitmask[8].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[8].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[8].b
@@ -3335,7 +3755,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[2].g_bitmask[9]), line:23:52, endln:29:8
             |UINT:9
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[2].g_bitmask[9].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[2].g_bitmask[9].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[9].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[9].b
@@ -3367,7 +3792,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[2].g_bitmask[10]), line:23:52, endln:29:8
             |UINT:10
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[2].g_bitmask[10].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[2].g_bitmask[10].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[10].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[10].b
@@ -3399,7 +3829,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[2].g_bitmask[11]), line:23:52, endln:29:8
             |UINT:11
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[2].g_bitmask[11].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[2].g_bitmask[11].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[11].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[11].b
@@ -3431,7 +3866,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[2].g_bitmask[12]), line:23:52, endln:29:8
             |UINT:12
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[2].g_bitmask[12].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[2].g_bitmask[12].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[12].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[12].b
@@ -3463,7 +3903,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[2].g_bitmask[13]), line:23:52, endln:29:8
             |UINT:13
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[2].g_bitmask[13].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[2].g_bitmask[13].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[13].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[13].b
@@ -3495,7 +3940,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[2].g_bitmask[14]), line:23:52, endln:29:8
             |UINT:14
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[2].g_bitmask[14].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[2].g_bitmask[14].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[14].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[14].b
@@ -3527,7 +3977,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[2].g_bitmask[15]), line:23:52, endln:29:8
             |UINT:15
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[2].g_bitmask[15].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[2].g_bitmask[15].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[15].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[15].b
@@ -3559,7 +4014,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[2].g_bitmask[16]), line:23:52, endln:29:8
             |UINT:16
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[2].g_bitmask[16].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[2].g_bitmask[16].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[16].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[16].b
@@ -3591,7 +4051,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[2].g_bitmask[17]), line:23:52, endln:29:8
             |UINT:17
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[2].g_bitmask[17].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[2].g_bitmask[17].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[17].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[17].b
@@ -3623,7 +4088,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[2].g_bitmask[18]), line:23:52, endln:29:8
             |UINT:18
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[2].g_bitmask[18].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[2].g_bitmask[18].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[18].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[18].b
@@ -3655,7 +4125,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[2].g_bitmask[19]), line:23:52, endln:29:8
             |UINT:19
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[2].g_bitmask[19].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[2].g_bitmask[19].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[19].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[19].b
@@ -3687,7 +4162,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[2].g_bitmask[20]), line:23:52, endln:29:8
             |UINT:20
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[2].g_bitmask[20].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[2].g_bitmask[20].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[20].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[20].b
@@ -3719,7 +4199,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[2].g_bitmask[21]), line:23:52, endln:29:8
             |UINT:21
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[2].g_bitmask[21].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[2].g_bitmask[21].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[21].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[21].b
@@ -3751,7 +4236,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[2].g_bitmask[22]), line:23:52, endln:29:8
             |UINT:22
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[2].g_bitmask[22].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[2].g_bitmask[22].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[22].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[22].b
@@ -3783,7 +4273,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[2].g_bitmask[23]), line:23:52, endln:29:8
             |UINT:23
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[2].g_bitmask[23].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[2].g_bitmask[23].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[23].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[23].b
@@ -3815,7 +4310,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[2].g_bitmask[24]), line:23:52, endln:29:8
             |UINT:24
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[2].g_bitmask[24].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[2].g_bitmask[24].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[24].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[24].b
@@ -3847,7 +4347,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[2].g_bitmask[25]), line:23:52, endln:29:8
             |UINT:25
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[2].g_bitmask[25].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[2].g_bitmask[25].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[25].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[25].b
@@ -3879,7 +4384,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[2].g_bitmask[26]), line:23:52, endln:29:8
             |UINT:26
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[2].g_bitmask[26].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[2].g_bitmask[26].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[26].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[26].b
@@ -3911,7 +4421,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[2].g_bitmask[27]), line:23:52, endln:29:8
             |UINT:27
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[2].g_bitmask[27].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[2].g_bitmask[27].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[27].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[27].b
@@ -3943,7 +4458,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[2].g_bitmask[28]), line:23:52, endln:29:8
             |UINT:28
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[2].g_bitmask[28].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[2].g_bitmask[28].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[28].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[28].b
@@ -3975,7 +4495,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[2].g_bitmask[29]), line:23:52, endln:29:8
             |UINT:29
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[2].g_bitmask[29].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[2].g_bitmask[29].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[29].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[29].b
@@ -4007,7 +4532,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[2].g_bitmask[30]), line:23:52, endln:29:8
             |UINT:30
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[2].g_bitmask[30].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[2].g_bitmask[30].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[30].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[30].b
@@ -4039,7 +4569,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[2].g_bitmask[31]), line:23:52, endln:29:8
             |UINT:31
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[2].g_bitmask[31].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[2].g_bitmask[31].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[31].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[31].b
@@ -4071,7 +4606,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[2].g_bitmask[32]), line:23:52, endln:29:8
             |UINT:32
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[2].g_bitmask[32].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[2].g_bitmask[32].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[32].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[32].b
@@ -4103,7 +4643,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[2].g_bitmask[33]), line:23:52, endln:29:8
             |UINT:33
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[2].g_bitmask[33].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[2].g_bitmask[33].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[33].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[2].g_bitmask[33].b
@@ -4135,7 +4680,12 @@ design: (work@ibex_pmp)
         \_gen_scope: (work@ibex_pmp.g_addr_exp[3]), line:20:46, endln:30:6
         |UINT:3
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@ibex_pmp.g_addr_exp[3].r)
+          |vpiParent:
+          \_parameter: (work@ibex_pmp.g_addr_exp[3].r), line:20:0
+          |vpiFullName:work@ibex_pmp.g_addr_exp[3].r
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:r
         |vpiFullName:work@ibex_pmp.g_addr_exp[3].r
@@ -4156,7 +4706,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[3].g_bitmask[2]), line:23:52, endln:29:8
             |UINT:2
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[3].g_bitmask[2].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[3].g_bitmask[2].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[2].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[2].b
@@ -4188,7 +4743,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[3].g_bitmask[3]), line:23:52, endln:29:8
             |UINT:3
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[3].g_bitmask[3].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[3].g_bitmask[3].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[3].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[3].b
@@ -4220,7 +4780,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[3].g_bitmask[4]), line:23:52, endln:29:8
             |UINT:4
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[3].g_bitmask[4].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[3].g_bitmask[4].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[4].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[4].b
@@ -4252,7 +4817,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[3].g_bitmask[5]), line:23:52, endln:29:8
             |UINT:5
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[3].g_bitmask[5].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[3].g_bitmask[5].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[5].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[5].b
@@ -4284,7 +4854,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[3].g_bitmask[6]), line:23:52, endln:29:8
             |UINT:6
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[3].g_bitmask[6].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[3].g_bitmask[6].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[6].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[6].b
@@ -4316,7 +4891,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[3].g_bitmask[7]), line:23:52, endln:29:8
             |UINT:7
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[3].g_bitmask[7].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[3].g_bitmask[7].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[7].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[7].b
@@ -4348,7 +4928,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[3].g_bitmask[8]), line:23:52, endln:29:8
             |UINT:8
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[3].g_bitmask[8].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[3].g_bitmask[8].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[8].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[8].b
@@ -4380,7 +4965,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[3].g_bitmask[9]), line:23:52, endln:29:8
             |UINT:9
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[3].g_bitmask[9].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[3].g_bitmask[9].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[9].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[9].b
@@ -4412,7 +5002,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[3].g_bitmask[10]), line:23:52, endln:29:8
             |UINT:10
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[3].g_bitmask[10].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[3].g_bitmask[10].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[10].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[10].b
@@ -4444,7 +5039,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[3].g_bitmask[11]), line:23:52, endln:29:8
             |UINT:11
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[3].g_bitmask[11].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[3].g_bitmask[11].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[11].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[11].b
@@ -4476,7 +5076,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[3].g_bitmask[12]), line:23:52, endln:29:8
             |UINT:12
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[3].g_bitmask[12].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[3].g_bitmask[12].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[12].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[12].b
@@ -4508,7 +5113,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[3].g_bitmask[13]), line:23:52, endln:29:8
             |UINT:13
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[3].g_bitmask[13].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[3].g_bitmask[13].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[13].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[13].b
@@ -4540,7 +5150,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[3].g_bitmask[14]), line:23:52, endln:29:8
             |UINT:14
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[3].g_bitmask[14].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[3].g_bitmask[14].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[14].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[14].b
@@ -4572,7 +5187,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[3].g_bitmask[15]), line:23:52, endln:29:8
             |UINT:15
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[3].g_bitmask[15].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[3].g_bitmask[15].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[15].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[15].b
@@ -4604,7 +5224,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[3].g_bitmask[16]), line:23:52, endln:29:8
             |UINT:16
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[3].g_bitmask[16].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[3].g_bitmask[16].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[16].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[16].b
@@ -4636,7 +5261,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[3].g_bitmask[17]), line:23:52, endln:29:8
             |UINT:17
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[3].g_bitmask[17].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[3].g_bitmask[17].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[17].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[17].b
@@ -4668,7 +5298,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[3].g_bitmask[18]), line:23:52, endln:29:8
             |UINT:18
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[3].g_bitmask[18].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[3].g_bitmask[18].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[18].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[18].b
@@ -4700,7 +5335,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[3].g_bitmask[19]), line:23:52, endln:29:8
             |UINT:19
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[3].g_bitmask[19].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[3].g_bitmask[19].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[19].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[19].b
@@ -4732,7 +5372,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[3].g_bitmask[20]), line:23:52, endln:29:8
             |UINT:20
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[3].g_bitmask[20].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[3].g_bitmask[20].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[20].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[20].b
@@ -4764,7 +5409,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[3].g_bitmask[21]), line:23:52, endln:29:8
             |UINT:21
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[3].g_bitmask[21].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[3].g_bitmask[21].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[21].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[21].b
@@ -4796,7 +5446,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[3].g_bitmask[22]), line:23:52, endln:29:8
             |UINT:22
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[3].g_bitmask[22].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[3].g_bitmask[22].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[22].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[22].b
@@ -4828,7 +5483,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[3].g_bitmask[23]), line:23:52, endln:29:8
             |UINT:23
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[3].g_bitmask[23].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[3].g_bitmask[23].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[23].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[23].b
@@ -4860,7 +5520,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[3].g_bitmask[24]), line:23:52, endln:29:8
             |UINT:24
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[3].g_bitmask[24].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[3].g_bitmask[24].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[24].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[24].b
@@ -4892,7 +5557,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[3].g_bitmask[25]), line:23:52, endln:29:8
             |UINT:25
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[3].g_bitmask[25].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[3].g_bitmask[25].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[25].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[25].b
@@ -4924,7 +5594,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[3].g_bitmask[26]), line:23:52, endln:29:8
             |UINT:26
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[3].g_bitmask[26].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[3].g_bitmask[26].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[26].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[26].b
@@ -4956,7 +5631,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[3].g_bitmask[27]), line:23:52, endln:29:8
             |UINT:27
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[3].g_bitmask[27].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[3].g_bitmask[27].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[27].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[27].b
@@ -4988,7 +5668,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[3].g_bitmask[28]), line:23:52, endln:29:8
             |UINT:28
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[3].g_bitmask[28].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[3].g_bitmask[28].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[28].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[28].b
@@ -5020,7 +5705,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[3].g_bitmask[29]), line:23:52, endln:29:8
             |UINT:29
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[3].g_bitmask[29].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[3].g_bitmask[29].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[29].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[29].b
@@ -5052,7 +5742,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[3].g_bitmask[30]), line:23:52, endln:29:8
             |UINT:30
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[3].g_bitmask[30].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[3].g_bitmask[30].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[30].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[30].b
@@ -5084,7 +5779,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[3].g_bitmask[31]), line:23:52, endln:29:8
             |UINT:31
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[3].g_bitmask[31].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[3].g_bitmask[31].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[31].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[31].b
@@ -5116,7 +5816,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[3].g_bitmask[32]), line:23:52, endln:29:8
             |UINT:32
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[3].g_bitmask[32].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[3].g_bitmask[32].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[32].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[32].b
@@ -5148,7 +5853,12 @@ design: (work@ibex_pmp)
             \_gen_scope: (work@ibex_pmp.g_addr_exp[3].g_bitmask[33]), line:23:52, endln:29:8
             |UINT:33
             |vpiTypespec:
-            \_int_typespec: 
+            \_ref_typespec: (work@ibex_pmp.g_addr_exp[3].g_bitmask[33].b)
+              |vpiParent:
+              \_parameter: (work@ibex_pmp.g_addr_exp[3].g_bitmask[33].b), line:23:0
+              |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[33].b
+              |vpiActual:
+              \_int_typespec: 
             |vpiLocalParam:1
             |vpiName:b
             |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[33].b
@@ -5163,6 +5873,148 @@ design: (work@ibex_pmp)
               |vpiParent:
               \_gen_scope_array: (work@ibex_pmp.g_addr_exp[3].g_bitmask[33].g_others), line:26:16, endln:28:10
               |vpiFullName:work@ibex_pmp.g_addr_exp[3].g_bitmask[33].g_others
+\_weaklyReferenced:
+\_int_typespec: , line:5:15, endln:5:27
+  |vpiParent:
+  \_parameter: (work@ibex_pmp.PMPGranularity), line:5:28, endln:5:42
+\_int_typespec: , line:7:15, endln:7:27
+  |vpiParent:
+  \_parameter: (work@ibex_pmp.PMPNumChan), line:7:28, endln:7:38
+\_int_typespec: , line:9:15, endln:9:27
+  |vpiParent:
+  \_parameter: (work@ibex_pmp.PMPNumRegions), line:9:28, endln:9:41
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
