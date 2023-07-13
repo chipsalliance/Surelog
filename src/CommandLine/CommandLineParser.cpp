@@ -249,6 +249,7 @@ static const std::initializer_list<std::string_view> helpText = {
     "                        <with> are expected to be absolute paths.",
     "  -exe <command>        Post execute a system call <command>, passes it",
     "                        the preprocessor file list.",
+    "  -nogc                 Disable garbage collection during save.",
     "  --help                This help",
     "  --version             Surelog version",
     "",
@@ -402,7 +403,8 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_nonSynthesizableWithFormal(false),
       m_noCacheHash(false),
       m_sepComp(false),
-      m_link(false) {
+      m_link(false),
+      m_gc(false) {
   if (FileSystem::getInstance() == nullptr) {
     // Ensures that instance gets created early!
     FileSystem::setInstance(new PlatformFileSystem(fs::current_path()));
@@ -1020,6 +1022,8 @@ bool CommandLineParser::parseCommandLine(int32_t argc, const char** argv) {
       }
       std::error_code ec;
       m_exeCommand = fs::weakly_canonical(exeCommand, ec).string();
+    } else if (all_arguments[i] == "-nogc") {
+      m_gc = false;
     }
 // No multiprocess on Windows platform, only multithreads
 #if defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__)
