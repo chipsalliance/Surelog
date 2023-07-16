@@ -4451,8 +4451,6 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
     }
   }
 
-  // s.GarbageCollect();
-
   const fs::path uhdmFile = fileSystem->toPlatformAbsPath(uhdmFileId);
   if (m_compileDesign->getCompiler()->getCommandLineParser()->writeUhdm()) {
     Error err(ErrorDefinition::UHDM_WRITE_DB, loc);
