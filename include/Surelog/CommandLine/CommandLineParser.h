@@ -149,6 +149,7 @@ class CommandLineParser final {
   bool writeUhdm() const { return m_writeUhdm; }
   bool sepComp() const { return m_sepComp; }
   bool link() const { return m_link; }
+  bool gc() const { return m_gc; }
   void setParse(bool val) { m_parse = val; }
   void setParseOnly(bool val) { m_parseOnly = val; }
   void setLowMem(bool val) { m_lowMem = val; }
@@ -178,6 +179,7 @@ class CommandLineParser final {
   void setDebugUhdm(bool val) { m_dumpUhdm = val; }
   void setCoverUhdm(bool val) { m_coverUhdm = val; }
   void setWriteUhdm(bool val) { m_writeUhdm = val; }
+  void setGC(bool val) { m_gc = val; }
   void showVpiIds(bool val) { m_showVpiIDs = val; }
   void setDebugAstModel(bool val) { m_debugAstModel = val; }
   void setParametersSubstitution(bool val) { m_parametersubstitution = val; }
@@ -361,6 +363,7 @@ class CommandLineParser final {
   bool m_noCacheHash;
   bool m_sepComp;
   bool m_link;
+  bool m_gc;
 };
 
 }  // namespace SURELOG

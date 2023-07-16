@@ -4459,6 +4459,8 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
     m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
     m_compileDesign->getCompiler()->getErrorContainer()->printMessages(
         m_compileDesign->getCompiler()->getCommandLineParser()->muteStdout());
+    s.SetGCEnabled(
+        m_compileDesign->getCompiler()->getCommandLineParser()->gc());
     s.Save(uhdmFile);
   }
 

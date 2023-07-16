@@ -285,7 +285,7 @@ bool ElaborationStep::bindTypedefs_() {
         if (orig && (orig->UhdmType() == uhdmunsupported_typespec)) {
           const std::string_view need = orig->VpiName();
           if (need == tps->VpiName()) {
-            s.unsupported_typespecMaker.Erase((unsupported_typespec*)orig);
+            // s.Erase(orig);
             if (expr* ex = any_cast<expr*>(var)) {
               ex->Typespec(tps);
             } else if (typespec_member* ex = any_cast<typespec_member*>(var)) {
@@ -326,7 +326,7 @@ bool ElaborationStep::bindTypedefs_() {
           std::map<std::string, typespec*>::iterator itr = specs.find(need);
           if (itr != specs.end()) {
             typespec* tps = (*itr).second;
-            s.unsupported_typespecMaker.Erase((unsupported_typespec*)orig);
+            // s.Erase(orig);
             if (expr* ex = any_cast<expr*>(var)) {
               ex->Typespec(tps);
             } else if (typespec_member* ex = any_cast<typespec_member*>(var)) {
@@ -364,7 +364,7 @@ bool ElaborationStep::bindTypedefs_() {
 
         if (itr != specs.end()) {
           typespec* tps = (*itr).second;
-          s.unsupported_typespecMaker.Erase((unsupported_typespec*)orig);
+          // s.Erase(orig);
           if (expr* ex = any_cast<expr*>(var)) {
             ex->Typespec(tps);
           } else if (typespec_member* ex = any_cast<typespec_member*>(var)) {
@@ -400,7 +400,7 @@ bool ElaborationStep::bindTypedefs_() {
         std::map<std::string, typespec*>::iterator itr = specs.find(need);
         if (itr != specs.end()) {
           typespec* tps = (*itr).second;
-          s.unsupported_typespecMaker.Erase((unsupported_typespec*)orig);
+          // s.Erase(orig);
           if (expr* ex = any_cast<expr*>(var)) {
             ex->Typespec(tps);
           } else if (typespec_member* ex = any_cast<typespec_member*>(var)) {
