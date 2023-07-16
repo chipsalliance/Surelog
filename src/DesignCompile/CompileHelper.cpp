@@ -3587,11 +3587,12 @@ bool CompileHelper::compileParameterDeclaration(
                 break;
             }
           }
-          adjustSize(ts, component, compileDesign, instance, c);
+          if (reduce == Reduce::Yes)
+            adjustSize(ts, component, compileDesign, instance, c);
           c->Typespec(ts);
 
           int32_t size = c->VpiSize();
-          if (ts) {
+          if (ts && (reduce == Reduce::Yes)) {
             bool invalidValue = false;
             int32_t sizetmp =
                 Bits(ts, invalidValue, component, compileDesign, Reduce::Yes,
