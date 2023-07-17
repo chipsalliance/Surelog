@@ -401,7 +401,6 @@ void ElaborationStep::swapTypespecPointers(
   // Replace all references of obsolete typespecs
   for (auto o : s.AllObjects()) {
     any* var = (any*)o.first;
-    std::vector<const typespec*> all_orig;
     if (expr* ex = any_cast<expr*>(var)) {
       ex->Typespec(replace(ex->Typespec(), typespecSwapMap));
     } else if (typespec_member* ex = any_cast<typespec_member*>(var)) {
@@ -417,33 +416,34 @@ void ElaborationStep::swapTypespecPointers(
           (class_typespec*)replace(ex->Class_typespec(), typespecSwapMap));
     } else if (class_defn* ex = any_cast<class_defn*>(var)) {
       if (ex->Typespecs()) {
-        for (UHDM::VectorOftypespec::iterator itr = ex->Typespecs()->begin();
-             itr != ex->Typespecs()->end(); itr++) {
-          (*itr) = replace(*itr, typespecSwapMap);
+        for (uint32_t i = 0; i < ex->Typespecs()->size(); i++) {
+          ex->Typespecs()->at(i) =
+              replace(ex->Typespecs()->at(i), typespecSwapMap);
         }
       }
     } else if (ports* ex = any_cast<ports*>(var)) {
       ex->Typespec(replace(ex->Typespec(), typespecSwapMap));
     } else if (class_obj* ex = any_cast<class_obj*>(var)) {
       if (ex->Typespecs()) {
-        for (UHDM::VectorOftypespec::iterator itr = ex->Typespecs()->begin();
-             itr != ex->Typespecs()->end(); itr++) {
-          (*itr) = replace(*itr, typespecSwapMap);
+        for (uint32_t i = 0; i < ex->Typespecs()->size(); i++) {
+          ex->Typespecs()->at(i) =
+              replace(ex->Typespecs()->at(i), typespecSwapMap);
         }
       }
       ex->Class_typespec(
           (class_typespec*)replace(ex->Class_typespec(), typespecSwapMap));
     } else if (scope* ex = any_cast<scope*>(var)) {
       if (ex->Typespecs()) {
-        for (auto ori : *ex->Typespecs()) {
-          all_orig.push_back(ori);
+        for (uint32_t i = 0; i < ex->Typespecs()->size(); i++) {
+          ex->Typespecs()->at(i) =
+              replace(ex->Typespecs()->at(i), typespecSwapMap);
         }
       }
     } else if (design* ex = any_cast<design*>(var)) {
       if (ex->Typespecs()) {
-        for (UHDM::VectorOftypespec::iterator itr = ex->Typespecs()->begin();
-             itr != ex->Typespecs()->end(); itr++) {
-          (*itr) = replace(*itr, typespecSwapMap);
+        for (uint32_t i = 0; i < ex->Typespecs()->size(); i++) {
+          ex->Typespecs()->at(i) =
+              replace(ex->Typespecs()->at(i), typespecSwapMap);
         }
       }
     } else if (extends* ex = any_cast<extends*>(var)) {
@@ -478,10 +478,10 @@ void ElaborationStep::swapTypespecPointers(
     }
   }
   // Purge obsolete typespecs
-  for (auto o : typespecSwapMap) {
-    const typespec* orig = o.first;
-    s.Erase(orig);
-  }
+  // for (auto o : typespecSwapMap) {
+  // const typespec* orig = o.first;
+  // s.Erase(orig);
+  //}
 }
 
 bool ElaborationStep::bindTypedefsPostElab_() {
