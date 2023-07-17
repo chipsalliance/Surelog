@@ -487,10 +487,12 @@ void ElaborationStep::swapTypespecPointers(
 bool ElaborationStep::bindTypedefsPostElab_() {
   Compiler* compiler = m_compileDesign->getCompiler();
   Design* design = compiler->getDesign();
+  Serializer& s = m_compileDesign->getSerializer();
   std::queue<ModuleInstance*> queue;
   for (auto instance : design->getTopLevelModuleInstances()) {
     queue.push(instance);
   }
+  std::map<const typespec*, const typespec*> typespecSwapMap;
 
   while (!queue.empty()) {
     ModuleInstance* current = queue.front();
@@ -576,24 +578,16 @@ bool ElaborationStep::bindTypedefsPostElab_() {
               }
             }
             if (found == true) {
-              if (expr* ex = any_cast<expr*>(var)) {
-                ex->Typespec(tps);
-              } else if (typespec_member* ex =
-                             any_cast<typespec_member*>(var)) {
-                ex->Typespec(tps);
-              } else if (parameter* ex = any_cast<parameter*>(var)) {
-                ex->Typespec(tps);
-              } else if (type_parameter* ex = any_cast<type_parameter*>(var)) {
-                ex->Typespec(tps);
-              } else if (io_decl* ex = any_cast<io_decl*>(var)) {
-                ex->Typespec(tps);
-              }
+              typespecSwapMap.emplace(orig, tps);
             }
           }
         }
       }
     }
   }
+
+  swapTypespecPointers(s, typespecSwapMap);
+
   return true;
 }
 
