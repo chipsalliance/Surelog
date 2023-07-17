@@ -1990,7 +1990,7 @@ bool CompileHelper::compileTask(DesignComponent* component,
                   stmts->push_back(st);
                 } else {
                   any_cast<variables*>((expr*)stmt->Lhs())->VpiParent(begin);
-                  s.Erase(stmt);
+                  // s.Erase(stmt);
                 }
               } else {
                 stmts->push_back(st);
@@ -2036,7 +2036,7 @@ bool CompileHelper::compileTask(DesignComponent* component,
                 task->Stmt(st);
               } else {
                 any_cast<variables*>((expr*)stmt->Lhs())->VpiParent(task);
-                s.Erase(stmt);
+                // s.Erase(stmt);
               }
             } else {
               task->Stmt(st);
@@ -2405,7 +2405,7 @@ bool CompileHelper::compileFunction(DesignComponent* component,
                   stmts->push_back(st);
                 } else {
                   any_cast<variables*>((expr*)stmt->Lhs())->VpiParent(begin);
-                  s.Erase(stmt);
+                  // s.Erase(stmt);
                 }
               } else {
                 stmts->push_back(st);
@@ -2451,7 +2451,7 @@ bool CompileHelper::compileFunction(DesignComponent* component,
               func->Stmt(st);
             } else {
               any_cast<variables*>((expr*)stmt->Lhs())->VpiParent(func);
-              s.Erase(stmt);
+              // s.Erase(stmt);
             }
           } else {
             func->Stmt(st);
