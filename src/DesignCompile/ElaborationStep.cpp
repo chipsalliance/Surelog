@@ -56,6 +56,7 @@
 #include <uhdm/ExprEval.h>
 #include <uhdm/clone_tree.h>
 #include <uhdm/uhdm.h>
+#include <uhdm/vpi_visitor.h>
 
 namespace SURELOG {
 
@@ -124,6 +125,8 @@ bool ElaborationStep::bindTypedefs_() {
       defs.emplace_back(typd, classp);
     }
   }
+
+  std::map<const typespec*, const typespec*> typespecSwapMap;
 
   for (auto& defTuple : defs) {
     TypeDef* typd = defTuple.first;
@@ -285,18 +288,7 @@ bool ElaborationStep::bindTypedefs_() {
         if (orig && (orig->UhdmType() == uhdmunsupported_typespec)) {
           const std::string_view need = orig->VpiName();
           if (need == tps->VpiName()) {
-            // s.Erase(orig);
-            if (expr* ex = any_cast<expr*>(var)) {
-              ex->Typespec(tps);
-            } else if (typespec_member* ex = any_cast<typespec_member*>(var)) {
-              ex->Typespec(tps);
-            } else if (parameter* ex = any_cast<parameter*>(var)) {
-              ex->Typespec(tps);
-            } else if (type_parameter* ex = any_cast<type_parameter*>(var)) {
-              ex->Typespec(tps);
-            } else if (io_decl* ex = any_cast<io_decl*>(var)) {
-              ex->Typespec(tps);
-            }
+            typespecSwapMap.emplace(orig, tps);
           }
         }
       }
@@ -326,18 +318,7 @@ bool ElaborationStep::bindTypedefs_() {
           std::map<std::string, typespec*>::iterator itr = specs.find(need);
           if (itr != specs.end()) {
             typespec* tps = (*itr).second;
-            // s.Erase(orig);
-            if (expr* ex = any_cast<expr*>(var)) {
-              ex->Typespec(tps);
-            } else if (typespec_member* ex = any_cast<typespec_member*>(var)) {
-              ex->Typespec(tps);
-            } else if (parameter* ex = any_cast<parameter*>(var)) {
-              ex->Typespec(tps);
-            } else if (type_parameter* ex = any_cast<type_parameter*>(var)) {
-              ex->Typespec(tps);
-            } else if (io_decl* ex = any_cast<io_decl*>(var)) {
-              ex->Typespec(tps);
-            }
+            typespecSwapMap.emplace(orig, tps);
           }
         }
       }
@@ -364,18 +345,7 @@ bool ElaborationStep::bindTypedefs_() {
 
         if (itr != specs.end()) {
           typespec* tps = (*itr).second;
-          // s.Erase(orig);
-          if (expr* ex = any_cast<expr*>(var)) {
-            ex->Typespec(tps);
-          } else if (typespec_member* ex = any_cast<typespec_member*>(var)) {
-            ex->Typespec(tps);
-          } else if (parameter* ex = any_cast<parameter*>(var)) {
-            ex->Typespec(tps);
-          } else if (type_parameter* ex = any_cast<type_parameter*>(var)) {
-            ex->Typespec(tps);
-          } else if (io_decl* ex = any_cast<io_decl*>(var)) {
-            ex->Typespec(tps);
-          }
+          typespecSwapMap.emplace(orig, tps);
         }
       }
     }
@@ -400,23 +370,118 @@ bool ElaborationStep::bindTypedefs_() {
         std::map<std::string, typespec*>::iterator itr = specs.find(need);
         if (itr != specs.end()) {
           typespec* tps = (*itr).second;
-          // s.Erase(orig);
-          if (expr* ex = any_cast<expr*>(var)) {
-            ex->Typespec(tps);
-          } else if (typespec_member* ex = any_cast<typespec_member*>(var)) {
-            ex->Typespec(tps);
-          } else if (parameter* ex = any_cast<parameter*>(var)) {
-            ex->Typespec(tps);
-          } else if (type_parameter* ex = any_cast<type_parameter*>(var)) {
-            ex->Typespec(tps);
-          } else if (io_decl* ex = any_cast<io_decl*>(var)) {
-            ex->Typespec(tps);
-          }
+          typespecSwapMap.emplace(orig, tps);
         }
       }
     }
   }
+
+  swapTypespecPointers(s, typespecSwapMap);
+
   return true;
+}
+
+typespec* replace(
+    const typespec* orig,
+    std::map<const UHDM::typespec*, const UHDM::typespec*>& typespecSwapMap) {
+  if (orig && (orig->UhdmType() == uhdmunsupported_typespec)) {
+    std::map<const typespec*, const typespec*>::const_iterator itr =
+        typespecSwapMap.find(orig);
+    if (itr != typespecSwapMap.end()) {
+      const typespec* tps = (*itr).second;
+      return (typespec*)tps;
+    }
+  }
+  return (typespec*)orig;
+}
+
+void ElaborationStep::swapTypespecPointers(
+    UHDM::Serializer& s,
+    std::map<const UHDM::typespec*, const UHDM::typespec*>& typespecSwapMap) {
+  // Replace all references of obsolete typespecs
+  for (auto o : s.AllObjects()) {
+    any* var = (any*)o.first;
+    std::vector<const typespec*> all_orig;
+    if (expr* ex = any_cast<expr*>(var)) {
+      ex->Typespec(replace(ex->Typespec(), typespecSwapMap));
+    } else if (typespec_member* ex = any_cast<typespec_member*>(var)) {
+      ex->Typespec(replace(ex->Typespec(), typespecSwapMap));
+    } else if (parameter* ex = any_cast<parameter*>(var)) {
+      ex->Typespec(replace(ex->Typespec(), typespecSwapMap));
+    } else if (type_parameter* ex = any_cast<type_parameter*>(var)) {
+      ex->Typespec(replace(ex->Typespec(), typespecSwapMap));
+    } else if (io_decl* ex = any_cast<io_decl*>(var)) {
+      ex->Typespec(replace(ex->Typespec(), typespecSwapMap));
+    } else if (class_typespec* ex = any_cast<class_typespec*>(var)) {
+      ex->Class_typespec(
+          (class_typespec*)replace(ex->Class_typespec(), typespecSwapMap));
+    } else if (class_defn* ex = any_cast<class_defn*>(var)) {
+      if (ex->Typespecs()) {
+        for (UHDM::VectorOftypespec::iterator itr = ex->Typespecs()->begin();
+             itr != ex->Typespecs()->end(); itr++) {
+          (*itr) = replace(*itr, typespecSwapMap);
+        }
+      }
+    } else if (ports* ex = any_cast<ports*>(var)) {
+      ex->Typespec(replace(ex->Typespec(), typespecSwapMap));
+    } else if (class_obj* ex = any_cast<class_obj*>(var)) {
+      if (ex->Typespecs()) {
+        for (UHDM::VectorOftypespec::iterator itr = ex->Typespecs()->begin();
+             itr != ex->Typespecs()->end(); itr++) {
+          (*itr) = replace(*itr, typespecSwapMap);
+        }
+      }
+      ex->Class_typespec(
+          (class_typespec*)replace(ex->Class_typespec(), typespecSwapMap));
+    } else if (scope* ex = any_cast<scope*>(var)) {
+      if (ex->Typespecs()) {
+        for (auto ori : *ex->Typespecs()) {
+          all_orig.push_back(ori);
+        }
+      }
+    } else if (design* ex = any_cast<design*>(var)) {
+      if (ex->Typespecs()) {
+        for (UHDM::VectorOftypespec::iterator itr = ex->Typespecs()->begin();
+             itr != ex->Typespecs()->end(); itr++) {
+          (*itr) = replace(*itr, typespecSwapMap);
+        }
+      }
+    } else if (extends* ex = any_cast<extends*>(var)) {
+      ex->Class_typespec(
+          (class_typespec*)replace(ex->Class_typespec(), typespecSwapMap));
+    } else if (logic_typespec* ex = any_cast<logic_typespec*>(var)) {
+      ex->Logic_typespec(
+          (logic_typespec*)replace(ex->Logic_typespec(), typespecSwapMap));
+      ex->Typespec(replace(ex->Typespec(), typespecSwapMap));
+    } else if (tagged_pattern* ex = any_cast<tagged_pattern*>(var)) {
+      ex->Typespec(replace(ex->Typespec(), typespecSwapMap));
+    } else if (array_typespec* ex = any_cast<array_typespec*>(var)) {
+      ex->Elem_typespec(replace(ex->Elem_typespec(), typespecSwapMap));
+      ex->Index_typespec(replace(ex->Index_typespec(), typespecSwapMap));
+    } else if (packed_array_typespec* ex =
+                   any_cast<packed_array_typespec*>(var)) {
+      ex->Elem_typespec(
+          replace((typespec*)ex->Elem_typespec(), typespecSwapMap));
+      ex->Typespec(replace(ex->Typespec(), typespecSwapMap));
+    } else if (bit_typespec* ex = any_cast<bit_typespec*>(var)) {
+      ex->Bit_typespec(
+          (bit_typespec*)replace(ex->Bit_typespec(), typespecSwapMap));
+      ex->Typespec(replace(ex->Typespec(), typespecSwapMap));
+    } else if (enum_typespec* ex = any_cast<enum_typespec*>(var)) {
+      ex->Base_typespec(
+          (bit_typespec*)replace(ex->Base_typespec(), typespecSwapMap));
+    } else if (seq_formal_decl* ex = any_cast<seq_formal_decl*>(var)) {
+      ex->Typespec(replace(ex->Typespec(), typespecSwapMap));
+    } else if (named_event* ex = any_cast<named_event*>(var)) {
+      ex->Event_typespec(
+          (event_typespec*)replace(ex->Event_typespec(), typespecSwapMap));
+    }
+  }
+  // Purge obsolete typespecs
+  for (auto o : typespecSwapMap) {
+    const typespec* orig = o.first;
+    s.Erase(orig);
+  }
 }
 
 bool ElaborationStep::bindTypedefsPostElab_() {
@@ -529,7 +594,6 @@ bool ElaborationStep::bindTypedefsPostElab_() {
       }
     }
   }
-
   return true;
 }
 
