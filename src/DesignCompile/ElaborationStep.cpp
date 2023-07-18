@@ -421,6 +421,8 @@ void ElaborationStep::swapTypespecPointers(
       }
     } else if (ports* ex = any_cast<ports*>(var)) {
       ex->Typespec(replace(ex->Typespec(), typespecSwapMap));
+    } else if (prop_formal_decl* ex = any_cast<prop_formal_decl*>(var)) {
+      ex->VpiTypespec(replace(ex->VpiTypespec(), typespecSwapMap));
     } else if (class_obj* ex = any_cast<class_obj*>(var)) {
       if (ex->Typespecs()) {
         for (auto& tps : *ex->Typespecs()) {
@@ -429,12 +431,6 @@ void ElaborationStep::swapTypespecPointers(
       }
       ex->Class_typespec(
           (class_typespec*)replace(ex->Class_typespec(), typespecSwapMap));
-    } else if (scope* ex = any_cast<scope*>(var)) {
-      if (ex->Typespecs()) {
-        for (auto& tps : *ex->Typespecs()) {
-          tps = replace(tps, typespecSwapMap);
-        }
-      }
     } else if (design* ex = any_cast<design*>(var)) {
       if (ex->Typespecs()) {
         for (auto& tps : *ex->Typespecs()) {
@@ -467,11 +463,27 @@ void ElaborationStep::swapTypespecPointers(
           (bit_typespec*)replace(ex->Base_typespec(), typespecSwapMap));
     } else if (seq_formal_decl* ex = any_cast<seq_formal_decl*>(var)) {
       ex->Typespec(replace(ex->Typespec(), typespecSwapMap));
+    } else if (instance_array* ex = any_cast<instance_array*>(var)) {
+      ex->Elem_typespec(replace(ex->Elem_typespec(), typespecSwapMap));
     } else if (named_event* ex = any_cast<named_event*>(var)) {
       ex->Event_typespec(
           (event_typespec*)replace(ex->Event_typespec(), typespecSwapMap));
+    } else if (param_assign* ex = any_cast<param_assign*>(var)) {
+      any* rhs = ex->Rhs();
+      if (rhs) {
+        if (typespec* t = any_cast<typespec*>(rhs)) {
+          ex->Rhs(replace(t, typespecSwapMap));
+        }
+      }
     }
     // common pointers
+    if (scope* ex = any_cast<scope*>(var)) {
+      if (ex->Typespecs()) {
+        for (auto& tps : *ex->Typespecs()) {
+          tps = replace(tps, typespecSwapMap);
+        }
+      }
+    }
     if (expr* ex = any_cast<expr*>(var)) {
       ex->Typespec(replace(ex->Typespec(), typespecSwapMap));
     }
