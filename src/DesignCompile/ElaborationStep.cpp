@@ -401,14 +401,13 @@ void ElaborationStep::swapTypespecPointers(
   // Replace all references of obsolete typespecs
   for (auto o : s.AllObjects()) {
     any* var = (any*)o.first;
-    if (expr* ex = any_cast<expr*>(var)) {
-      ex->Typespec(replace(ex->Typespec(), typespecSwapMap));
-    } else if (typespec_member* ex = any_cast<typespec_member*>(var)) {
+    if (typespec_member* ex = any_cast<typespec_member*>(var)) {
       ex->Typespec(replace(ex->Typespec(), typespecSwapMap));
     } else if (parameter* ex = any_cast<parameter*>(var)) {
       ex->Typespec(replace(ex->Typespec(), typespecSwapMap));
     } else if (type_parameter* ex = any_cast<type_parameter*>(var)) {
       ex->Typespec(replace(ex->Typespec(), typespecSwapMap));
+      ex->Expr(replace(ex->Expr(), typespecSwapMap));
     } else if (io_decl* ex = any_cast<io_decl*>(var)) {
       ex->Typespec(replace(ex->Typespec(), typespecSwapMap));
     } else if (class_typespec* ex = any_cast<class_typespec*>(var)) {
@@ -416,34 +415,30 @@ void ElaborationStep::swapTypespecPointers(
           (class_typespec*)replace(ex->Class_typespec(), typespecSwapMap));
     } else if (class_defn* ex = any_cast<class_defn*>(var)) {
       if (ex->Typespecs()) {
-        for (uint32_t i = 0; i < ex->Typespecs()->size(); i++) {
-          ex->Typespecs()->at(i) =
-              replace(ex->Typespecs()->at(i), typespecSwapMap);
+        for (auto& tps : *ex->Typespecs()) {
+          tps = replace(tps, typespecSwapMap);
         }
       }
     } else if (ports* ex = any_cast<ports*>(var)) {
       ex->Typespec(replace(ex->Typespec(), typespecSwapMap));
     } else if (class_obj* ex = any_cast<class_obj*>(var)) {
       if (ex->Typespecs()) {
-        for (uint32_t i = 0; i < ex->Typespecs()->size(); i++) {
-          ex->Typespecs()->at(i) =
-              replace(ex->Typespecs()->at(i), typespecSwapMap);
+        for (auto& tps : *ex->Typespecs()) {
+          tps = replace(tps, typespecSwapMap);
         }
       }
       ex->Class_typespec(
           (class_typespec*)replace(ex->Class_typespec(), typespecSwapMap));
     } else if (scope* ex = any_cast<scope*>(var)) {
       if (ex->Typespecs()) {
-        for (uint32_t i = 0; i < ex->Typespecs()->size(); i++) {
-          ex->Typespecs()->at(i) =
-              replace(ex->Typespecs()->at(i), typespecSwapMap);
+        for (auto& tps : *ex->Typespecs()) {
+          tps = replace(tps, typespecSwapMap);
         }
       }
     } else if (design* ex = any_cast<design*>(var)) {
       if (ex->Typespecs()) {
-        for (uint32_t i = 0; i < ex->Typespecs()->size(); i++) {
-          ex->Typespecs()->at(i) =
-              replace(ex->Typespecs()->at(i), typespecSwapMap);
+        for (auto& tps : *ex->Typespecs()) {
+          tps = replace(tps, typespecSwapMap);
         }
       }
     } else if (extends* ex = any_cast<extends*>(var)) {
@@ -476,12 +471,20 @@ void ElaborationStep::swapTypespecPointers(
       ex->Event_typespec(
           (event_typespec*)replace(ex->Event_typespec(), typespecSwapMap));
     }
+    // common pointers
+    if (expr* ex = any_cast<expr*>(var)) {
+      ex->Typespec(replace(ex->Typespec(), typespecSwapMap));
+    }
+    if (typespec* ex = any_cast<typespec*>(var)) {
+      ex->Typedef_alias(replace(ex->Typedef_alias(), typespecSwapMap));
+    }
   }
   // Purge obsolete typespecs
-  // for (auto o : typespecSwapMap) {
-  // const typespec* orig = o.first;
-  // s.Erase(orig);
-  //}
+  for (auto o : typespecSwapMap) {
+    const typespec* orig = o.first;
+    const typespec* tps = o.second;
+    if (tps != orig) s.Erase(orig);
+  }
 }
 
 bool ElaborationStep::bindTypedefsPostElab_() {
