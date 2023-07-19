@@ -105,7 +105,8 @@ class ElaborationStep {
                       UHDM::VectorOfvariables* vars, UHDM::expr* assignExp,
                       UHDM::typespec* tps);
 
-  void swapTypespecPointers(UHDM::Serializer& s, std::map<const UHDM::typespec*, const UHDM::typespec*>& typespecSwapMap);
+  void swapTypespecPointersInUhdm(UHDM::Serializer& s, std::map<const UHDM::typespec*, const UHDM::typespec*>& typespecSwapMap);
+  void swapTypespecPointersInTypedef(Design* design, std::map<const UHDM::typespec*, const UHDM::typespec*>& typespecSwapMap);
 
   CompileDesign* m_compileDesign;
   ExprBuilder m_exprBuilder;
@@ -114,6 +115,7 @@ class ElaborationStep {
   CompileHelper m_helper;
 
   std::map<std::string, Variable*> m_staticVariables;
+  std::map<const UHDM::typespec*, const UHDM::typespec*> m_typespecSwapMap;
 };
 
 };  // namespace SURELOG

@@ -126,8 +126,6 @@ bool ElaborationStep::bindTypedefs_() {
     }
   }
 
-  std::map<const typespec*, const typespec*> typespecSwapMap;
-
   for (auto& defTuple : defs) {
     TypeDef* typd = defTuple.first;
     DesignComponent* comp = defTuple.second;
@@ -288,7 +286,7 @@ bool ElaborationStep::bindTypedefs_() {
         if (orig && (orig->UhdmType() == uhdmunsupported_typespec)) {
           const std::string_view need = orig->VpiName();
           if (need == tps->VpiName()) {
-            typespecSwapMap.emplace(orig, tps);
+            m_typespecSwapMap.emplace(orig, tps);
           }
         }
       }
@@ -318,7 +316,7 @@ bool ElaborationStep::bindTypedefs_() {
           std::map<std::string, typespec*>::iterator itr = specs.find(need);
           if (itr != specs.end()) {
             typespec* tps = (*itr).second;
-            typespecSwapMap.emplace(orig, tps);
+            m_typespecSwapMap.emplace(orig, tps);
           }
         }
       }
@@ -345,7 +343,7 @@ bool ElaborationStep::bindTypedefs_() {
 
         if (itr != specs.end()) {
           typespec* tps = (*itr).second;
-          typespecSwapMap.emplace(orig, tps);
+          m_typespecSwapMap.emplace(orig, tps);
         }
       }
     }
@@ -370,13 +368,14 @@ bool ElaborationStep::bindTypedefs_() {
         std::map<std::string, typespec*>::iterator itr = specs.find(need);
         if (itr != specs.end()) {
           typespec* tps = (*itr).second;
-          typespecSwapMap.emplace(orig, tps);
+          m_typespecSwapMap.emplace(orig, tps);
         }
       }
     }
   }
 
-  swapTypespecPointers(s, typespecSwapMap);
+  swapTypespecPointersInUhdm(s, m_typespecSwapMap);
+  swapTypespecPointersInTypedef(design, m_typespecSwapMap);
 
   return true;
 }
@@ -395,7 +394,113 @@ typespec* replace(
   return (typespec*)orig;
 }
 
-void ElaborationStep::swapTypespecPointers(
+void ElaborationStep::swapTypespecPointersInTypedef(
+    Design* design,
+    std::map<const UHDM::typespec*, const UHDM::typespec*>& typespecSwapMap) {
+  for (const auto& file : design->getAllFileContents()) {
+    FileContent* fC = file.second;
+    for (const auto& typed : fC->getDataTypeMap()) {
+      const DataType* dt = typed.second;
+      while (dt) {
+        ((DataType*)dt)
+            ->setTypespec(replace(dt->getTypespec(), typespecSwapMap));
+        dt = dt->getDefinition();
+      }
+    }
+    for (const auto& typed : fC->getTypeDefMap()) {
+      TypeDef* typd = typed.second;
+      const DataType* dt = typd;
+      while (dt) {
+        ((DataType*)dt)
+            ->setTypespec(replace(dt->getTypespec(), typespecSwapMap));
+        dt = dt->getDefinition();
+      }
+    }
+  }
+  for (const auto& package : design->getPackageDefinitions()) {
+    Package* pack = package.second;
+    for (const auto& typed : pack->getDataTypeMap()) {
+      const DataType* dt = typed.second;
+      while (dt) {
+        ((DataType*)dt)
+            ->setTypespec(replace(dt->getTypespec(), typespecSwapMap));
+        dt = dt->getDefinition();
+      }
+    }
+    for (const auto& typed : pack->getTypeDefMap()) {
+      TypeDef* typd = typed.second;
+      const DataType* dt = typd;
+      while (dt) {
+        ((DataType*)dt)
+            ->setTypespec(replace(dt->getTypespec(), typespecSwapMap));
+        dt = dt->getDefinition();
+      }
+    }
+  }
+  for (const auto& module : design->getModuleDefinitions()) {
+    ModuleDefinition* mod = module.second;
+    for (const auto& typed : mod->getDataTypeMap()) {
+      const DataType* dt = typed.second;
+      while (dt) {
+        ((DataType*)dt)
+            ->setTypespec(replace(dt->getTypespec(), typespecSwapMap));
+        dt = dt->getDefinition();
+      }
+    }
+    for (const auto& typed : mod->getTypeDefMap()) {
+      TypeDef* typd = typed.second;
+      const DataType* dt = typd;
+      while (dt) {
+        ((DataType*)dt)
+            ->setTypespec(replace(dt->getTypespec(), typespecSwapMap));
+        dt = dt->getDefinition();
+      }
+    }
+  }
+  for (const auto& program_def : design->getProgramDefinitions()) {
+    Program* program = program_def.second;
+    for (const auto& typed : program->getDataTypeMap()) {
+      const DataType* dt = typed.second;
+      while (dt) {
+        ((DataType*)dt)
+            ->setTypespec(replace(dt->getTypespec(), typespecSwapMap));
+        dt = dt->getDefinition();
+      }
+    }
+    for (const auto& typed : program->getTypeDefMap()) {
+      TypeDef* typd = typed.second;
+      const DataType* dt = typd;
+      while (dt) {
+        ((DataType*)dt)
+            ->setTypespec(replace(dt->getTypespec(), typespecSwapMap));
+        dt = dt->getDefinition();
+      }
+    }
+  }
+
+  for (const auto& class_def : design->getClassDefinitions()) {
+    ClassDefinition* classp = class_def.second;
+    for (const auto& typed : classp->getDataTypeMap()) {
+      const DataType* dt = typed.second;
+      while (dt) {
+        ((DataType*)dt)
+            ->setTypespec(replace(dt->getTypespec(), typespecSwapMap));
+        dt = dt->getDefinition();
+      }
+    }
+    for (const auto& typed : classp->getTypeDefMap()) {
+      TypeDef* typd = typed.second;
+      const DataType* dt = typd;
+      while (dt) {
+        ((DataType*)dt)
+            ->setTypespec(replace(dt->getTypespec(), typespecSwapMap));
+        dt = dt->getDefinition();
+      }
+    }
+  }
+}
+
+void ElaborationStep::swapTypespecPointersInUhdm(
     UHDM::Serializer& s,
     std::map<const UHDM::typespec*, const UHDM::typespec*>& typespecSwapMap) {
   // Replace all references of obsolete typespecs
@@ -507,7 +612,6 @@ bool ElaborationStep::bindTypedefsPostElab_() {
   for (auto instance : design->getTopLevelModuleInstances()) {
     queue.push(instance);
   }
-  std::map<const typespec*, const typespec*> typespecSwapMap;
 
   while (!queue.empty()) {
     ModuleInstance* current = queue.front();
@@ -593,16 +697,33 @@ bool ElaborationStep::bindTypedefsPostElab_() {
               }
             }
             if (found == true) {
-              typespecSwapMap.emplace(orig, tps);
+              m_typespecSwapMap.emplace(orig, tps);
             }
           }
+        }
+      }
+      for (const auto& typed : comp->getDataTypeMap()) {
+        const DataType* dt = typed.second;
+        while (dt) {
+          ((DataType*)dt)
+              ->setTypespec(replace(dt->getTypespec(), m_typespecSwapMap));
+          dt = dt->getDefinition();
+        }
+      }
+      for (const auto& typed : comp->getTypeDefMap()) {
+        TypeDef* typd = typed.second;
+        const DataType* dt = typd;
+        while (dt) {
+          ((DataType*)dt)
+              ->setTypespec(replace(dt->getTypespec(), m_typespecSwapMap));
+          dt = dt->getDefinition();
         }
       }
     }
   }
 
-  swapTypespecPointers(s, typespecSwapMap);
-
+  swapTypespecPointersInUhdm(s, m_typespecSwapMap);
+  swapTypespecPointersInTypedef(design, m_typespecSwapMap);
   return true;
 }
 
