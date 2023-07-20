@@ -57,7 +57,7 @@ class CompileDesign {
   void lockSerializer() { m_serializerMutex.lock(); }
   void unlockSerializer() { m_serializerMutex.unlock(); }
   UHDM::VectorOfinclude_file_info* getFileInfo() { return m_fileInfo; }
-   
+  std::map<const UHDM::typespec*, const UHDM::typespec*>& getSwapedObjects() { return m_typespecSwapMap; }
  private:
   CompileDesign(const CompileDesign& orig) = delete;
 
@@ -75,6 +75,7 @@ class CompileDesign {
   UHDM::VectorOfinclude_file_info* m_fileInfo = nullptr;
   std::mutex m_serializerMutex;
   UHDM::Serializer m_serializer;
+  std::map<const UHDM::typespec*, const UHDM::typespec*> m_typespecSwapMap;
 };
 
 }  // namespace SURELOG

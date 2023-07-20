@@ -51,6 +51,18 @@ For debug builds:
 make debug
 ```
 
+For address sanitization build:
+```
+export CXX='clang++-12' (or above)
+rm -rf build/
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-fsanitize=address -fno-omit-frame-pointer" -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DSURELOG_WITH_TCMALLOC=Off -S . -B build
+make -j
+rm -rf dbuild/
+cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="-fsanitize=address -fno-omit-frame-pointer" -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DSURELOG_WITH_TCMALLOC=Off -S . -B dbuild
+make -j
+
+
+
 As a guide where unit tests are not covering code yet (we're using [gtest]),
 run
 

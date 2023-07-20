@@ -286,7 +286,7 @@ bool ElaborationStep::bindTypedefs_() {
         if (orig && (orig->UhdmType() == uhdmunsupported_typespec)) {
           const std::string_view need = orig->VpiName();
           if (need == tps->VpiName()) {
-            m_typespecSwapMap.emplace(orig, tps);
+            m_compileDesign->getSwapedObjects().emplace(orig, tps);
           }
         }
       }
@@ -316,7 +316,7 @@ bool ElaborationStep::bindTypedefs_() {
           std::map<std::string, typespec*>::iterator itr = specs.find(need);
           if (itr != specs.end()) {
             typespec* tps = (*itr).second;
-            m_typespecSwapMap.emplace(orig, tps);
+            m_compileDesign->getSwapedObjects().emplace(orig, tps);
           }
         }
       }
@@ -343,7 +343,7 @@ bool ElaborationStep::bindTypedefs_() {
 
         if (itr != specs.end()) {
           typespec* tps = (*itr).second;
-          m_typespecSwapMap.emplace(orig, tps);
+          m_compileDesign->getSwapedObjects().emplace(orig, tps);
         }
       }
     }
@@ -368,19 +368,19 @@ bool ElaborationStep::bindTypedefs_() {
         std::map<std::string, typespec*>::iterator itr = specs.find(need);
         if (itr != specs.end()) {
           typespec* tps = (*itr).second;
-          m_typespecSwapMap.emplace(orig, tps);
+          m_compileDesign->getSwapedObjects().emplace(orig, tps);
         }
       }
     }
   }
 
-  swapTypespecPointersInUhdm(s, m_typespecSwapMap);
-  swapTypespecPointersInTypedef(design, m_typespecSwapMap);
+  swapTypespecPointersInUhdm(s, m_compileDesign->getSwapedObjects());
+  swapTypespecPointersInTypedef(design, m_compileDesign->getSwapedObjects());
 
   return true;
 }
 
-typespec* replace(
+static typespec* replace(
     const typespec* orig,
     std::map<const UHDM::typespec*, const UHDM::typespec*>& typespecSwapMap) {
   if (orig && (orig->UhdmType() == uhdmunsupported_typespec)) {
@@ -596,12 +596,6 @@ void ElaborationStep::swapTypespecPointersInUhdm(
       ex->Typedef_alias(replace(ex->Typedef_alias(), typespecSwapMap));
     }
   }
-  // Purge obsolete typespecs
-  for (auto o : typespecSwapMap) {
-    const typespec* orig = o.first;
-    const typespec* tps = o.second;
-    if (tps != orig) s.Erase(orig);
-  }
 }
 
 bool ElaborationStep::bindTypedefsPostElab_() {
@@ -697,7 +691,7 @@ bool ElaborationStep::bindTypedefsPostElab_() {
               }
             }
             if (found == true) {
-              m_typespecSwapMap.emplace(orig, tps);
+              m_compileDesign->getSwapedObjects().emplace(orig, tps);
             }
           }
         }
@@ -706,7 +700,8 @@ bool ElaborationStep::bindTypedefsPostElab_() {
         const DataType* dt = typed.second;
         while (dt) {
           ((DataType*)dt)
-              ->setTypespec(replace(dt->getTypespec(), m_typespecSwapMap));
+              ->setTypespec(replace(dt->getTypespec(),
+                                    m_compileDesign->getSwapedObjects()));
           dt = dt->getDefinition();
         }
       }
@@ -715,15 +710,16 @@ bool ElaborationStep::bindTypedefsPostElab_() {
         const DataType* dt = typd;
         while (dt) {
           ((DataType*)dt)
-              ->setTypespec(replace(dt->getTypespec(), m_typespecSwapMap));
+              ->setTypespec(replace(dt->getTypespec(),
+                                    m_compileDesign->getSwapedObjects()));
           dt = dt->getDefinition();
         }
       }
     }
   }
 
-  swapTypespecPointersInUhdm(s, m_typespecSwapMap);
-  swapTypespecPointersInTypedef(design, m_typespecSwapMap);
+  swapTypespecPointersInUhdm(s, m_compileDesign->getSwapedObjects());
+  swapTypespecPointersInTypedef(design, m_compileDesign->getSwapedObjects());
   return true;
 }
 

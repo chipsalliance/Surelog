@@ -115,7 +115,6 @@ class ElaborationStep {
   CompileHelper m_helper;
 
   std::map<std::string, Variable*> m_staticVariables;
-  std::map<const UHDM::typespec*, const UHDM::typespec*> m_typespecSwapMap;
 };
 
 };  // namespace SURELOG

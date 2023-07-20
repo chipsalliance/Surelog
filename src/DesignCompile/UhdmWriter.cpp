@@ -61,6 +61,20 @@ namespace SURELOG {
 namespace fs = std::filesystem;
 using namespace UHDM;  // NOLINT (we're using a whole bunch of these)
 
+static typespec* replace(
+    const typespec* orig,
+    std::map<const UHDM::typespec*, const UHDM::typespec*>& typespecSwapMap) {
+  if (orig && (orig->UhdmType() == uhdmunsupported_typespec)) {
+    std::map<const typespec*, const typespec*>::const_iterator itr =
+        typespecSwapMap.find(orig);
+    if (itr != typespecSwapMap.end()) {
+      const typespec* tps = (*itr).second;
+      return (typespec*)tps;
+    }
+  }
+  return (typespec*)orig;
+}
+
 std::string UhdmWriter::builtinGateName(VObjectType type) {
   std::string modName;
   switch (type) {
@@ -645,9 +659,10 @@ void UhdmWriter::writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
   }
 }
 
-void writeDataTypes(const DesignComponent::DataTypeMap& datatypeMap,
-                    BaseClass* parent, VectorOftypespec* dest_typespecs,
-                    Serializer& s, bool setParent) {
+void UhdmWriter::writeDataTypes(const DesignComponent::DataTypeMap& datatypeMap,
+                                BaseClass* parent,
+                                VectorOftypespec* dest_typespecs, Serializer& s,
+                                bool setParent) {
   std::set<uint64_t> ids;
   for (const auto& entry : datatypeMap) {
     const DataType* dtype = entry.second;
@@ -658,6 +673,7 @@ void writeDataTypes(const DesignComponent::DataTypeMap& datatypeMap,
       if (dtype->getTypespec() == nullptr) dtype = dtype->getDefinition();
     }
     typespec* tps = dtype->getTypespec();
+    tps = replace(tps, m_compileDesign->getSwapedObjects());
     if (parent->UhdmType() == uhdmpackage) {
       if (tps && (tps->VpiName().find("::") == std::string::npos)) {
         const std::string newName =
@@ -2539,6 +2555,10 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
           }
         }
         if (found) {
+          if (tps) {
+            tps = replace(tps, m_compileDesign->getSwapedObjects());
+          }
+
           if (unsup->Ranges()) {
             if (unsup->VpiPacked()) {
               packed_array_typespec* ptps = s.MakePacked_array_typespec();
@@ -3205,6 +3225,7 @@ void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod, scope* m) {
       const DataType* dt = td.second;
       while (dt) {
         typespec* n = dt->getTypespec();
+        n = replace(n, m_compileDesign->getSwapedObjects());
         if (n && (n->UhdmType() == uhdmenum_typespec)) {
           enum_typespec* tps = any_cast<enum_typespec*>(n);
           if (tps && tps->Enum_consts()) {
@@ -4449,6 +4470,13 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
       annotate->listenDesigns(designs);
       delete annotate;
     }
+  }
+
+  // Purge obsolete typespecs
+  for (auto o : m_compileDesign->getSwapedObjects()) {
+    const typespec* orig = o.first;
+    const typespec* tps = o.second;
+    if (tps != orig) s.Erase(orig);
   }
 
   const fs::path uhdmFile = fileSystem->toPlatformAbsPath(uhdmFileId);

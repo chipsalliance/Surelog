@@ -81,6 +81,9 @@ class UhdmWriter final {
                  UHDM::Serializer& s, SignalBaseClassMap& signalBaseMap,
                  SignalMap& signalMap, SignalMap& portMap,
                  ModuleInstance* instance = nullptr);
+  void writeDataTypes(const DesignComponent::DataTypeMap& datatypeMap,
+                    UHDM::BaseClass* parent, UHDM::VectorOftypespec* dest_typespecs,
+                    UHDM::Serializer& s, bool setParent);
   void writeVariables(const DesignComponent::VariableMap& orig_vars,
                       UHDM::BaseClass* parent,
                       UHDM::VectorOfvariables* dest_vars, UHDM::Serializer& s);
