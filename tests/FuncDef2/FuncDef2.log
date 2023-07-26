@@ -3658,7 +3658,7 @@ bit_select                                            39
 bit_typespec                                           9
 bit_var                                                4
 break_stmt                                             2
-constant                                             332
+constant                                             319
 design                                                 1
 enum_const                                            28
 enum_typespec                                          9
@@ -3673,21 +3673,21 @@ hier_path                                             74
 if_else                                               20
 if_stmt                                               18
 import_typespec                                        1
-int_typespec                                         138
+int_typespec                                         132
 int_var                                               88
 io_decl                                               72
 logic_net                                              7
 logic_typespec                                        26
 logic_var                                             14
-module_inst                                           76
+module_inst                                           42
 named_begin                                            3
 operation                                            120
 package                                                2
-param_assign                                         118
-parameter                                            125
+param_assign                                          76
+parameter                                             83
 port                                                   6
 range                                                  9
-ref_obj                                              442
+ref_obj                                              448
 ref_var                                                1
 return_stmt                                           88
 short_int_typespec                                   104
@@ -3711,7 +3711,7 @@ bit_select                                            76
 bit_typespec                                           9
 bit_var                                                4
 break_stmt                                             5
-constant                                             335
+constant                                             321
 design                                                 1
 enum_const                                            28
 enum_typespec                                          9
@@ -3726,21 +3726,21 @@ hier_path                                            159
 if_else                                               50
 if_stmt                                               45
 import_typespec                                        1
-int_typespec                                         138
+int_typespec                                         132
 int_var                                              193
 io_decl                                              180
 logic_net                                              7
 logic_typespec                                        26
 logic_var                                             14
-module_inst                                           76
+module_inst                                           42
 named_begin                                            3
 operation                                            270
 package                                                2
-param_assign                                         118
-parameter                                            125
+param_assign                                          76
+parameter                                             83
 port                                                   9
 range                                                  9
-ref_obj                                             1016
+ref_obj                                             1031
 ref_var                                                1
 return_stmt                                          220
 short_int_typespec                                   104
@@ -4989,8 +4989,6 @@ design: (work@tnoc_vc_splitter)
           \_ref_obj: (tnoc_pkg::get_location_id_width::packet_config), line:104:27, endln:104:40
             |vpiParent:
             \_func_call: (get_id_x_width), line:104:12, endln:104:41
-            |vpiTypespec:
-            \_struct_typespec: (tnoc_pkg::tnoc_packet_config), line:387:5, endln:387:23
             |vpiName:packet_config
             |vpiFullName:tnoc_pkg::get_location_id_width::packet_config
             |vpiActual:
@@ -5006,8 +5004,6 @@ design: (work@tnoc_vc_splitter)
           \_ref_obj: (tnoc_pkg::get_location_id_width::packet_config), line:104:59, endln:104:72
             |vpiParent:
             \_func_call: (get_id_y_width), line:104:44, endln:104:73
-            |vpiTypespec:
-            \_struct_typespec: (tnoc_pkg::tnoc_packet_config), line:387:5, endln:387:23
             |vpiName:packet_config
             |vpiFullName:tnoc_pkg::get_location_id_width::packet_config
             |vpiActual:
@@ -5440,8 +5436,6 @@ design: (work@tnoc_vc_splitter)
         \_operation: , line:135:23, endln:135:56
           |vpiParent:
           \_func_call: (tnoc_clog2), line:135:12, endln:135:57
-          |vpiTypespec:
-          \_bit_typespec: , line:66:37, endln:66:40
           |vpiOpType:24
           |vpiOperand:
           \_hier_path: (packet_config.max_byte_length), line:135:23, endln:135:52
@@ -5965,8 +5959,6 @@ design: (work@tnoc_vc_splitter)
           \_operation: , line:168:23, endln:168:71
             |vpiParent:
             \_func_call: (tnoc_clog2), line:168:12, endln:168:72
-            |vpiTypespec:
-            \_bit_typespec: , line:66:37, endln:66:40
             |vpiOpType:24
             |vpiOperand:
             \_operation: , line:168:24, endln:168:66
@@ -6057,13 +6049,13 @@ design: (work@tnoc_vc_splitter)
           |vpiActual:
           \_io_decl: (packet_type), line:199:66, endln:199:77
         |vpiOperand:
-        \_constant: , line:200:28, endln:200:47
+        \_ref_obj: (tnoc_pkg::is_valid_packet_type::TNOC_INVALID_PACKET), line:200:28, endln:200:47
           |vpiParent:
           \_operation: , line:200:13, endln:200:47
-          |vpiDecompile:'b00000000
-          |vpiSize:-1
-          |BIN:00000000
-          |vpiConstType:3
+          |vpiName:TNOC_INVALID_PACKET
+          |vpiFullName:tnoc_pkg::is_valid_packet_type::TNOC_INVALID_PACKET
+          |vpiActual:
+          \_enum_const: (TNOC_INVALID_PACKET), line:175:5, endln:175:42
     |vpiInstance:
     \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
   |vpiTaskFunc:
@@ -6108,8 +6100,6 @@ design: (work@tnoc_vc_splitter)
           \_ref_obj: (tnoc_pkg::is_request_packet_type::packet_type), line:204:34, endln:204:45
             |vpiParent:
             \_func_call: (is_valid_packet_type), line:204:13, endln:204:46
-            |vpiTypespec:
-            \_enum_typespec: (tnoc_pkg::tnoc_packet_type), line:223:62, endln:223:78
             |vpiName:packet_type
             |vpiFullName:tnoc_pkg::is_request_packet_type::packet_type
             |vpiActual:
@@ -6131,20 +6121,13 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_type), line:203:68, endln:203:79
             |vpiIndex:
-            \_constant: , line:204:64, endln:204:93
+            \_ref_obj: (tnoc_pkg::is_request_packet_type::TNOC_PACKET_TYPE_RESPONSE_BIT), line:204:64, endln:204:93
               |vpiParent:
               \_bit_select: (tnoc_pkg::is_request_packet_type::packet_type), line:204:64, endln:204:93
-              |vpiDecompile:7
-              |vpiSize:64
-              |UINT:7
-              |vpiTypespec:
-              \_int_typespec: , line:183:15, endln:183:18
-                |vpiParent:
-                \_constant: , line:204:64, endln:204:93
-                |vpiInstance:
-                \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
-                |vpiSigned:1
-              |vpiConstType:9
+              |vpiName:TNOC_PACKET_TYPE_RESPONSE_BIT
+              |vpiFullName:tnoc_pkg::is_request_packet_type::TNOC_PACKET_TYPE_RESPONSE_BIT
+              |vpiActual:
+              \_parameter: (tnoc_pkg::TNOC_PACKET_TYPE_RESPONSE_BIT), line:183:19, endln:183:48
     |vpiInstance:
     \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
   |vpiTaskFunc:
@@ -6189,8 +6172,6 @@ design: (work@tnoc_vc_splitter)
           \_ref_obj: (tnoc_pkg::is_response_packet_type::packet_type), line:208:34, endln:208:45
             |vpiParent:
             \_func_call: (is_valid_packet_type), line:208:13, endln:208:46
-            |vpiTypespec:
-            \_enum_typespec: (tnoc_pkg::tnoc_packet_type), line:223:62, endln:223:78
             |vpiName:packet_type
             |vpiFullName:tnoc_pkg::is_response_packet_type::packet_type
             |vpiActual:
@@ -6207,20 +6188,13 @@ design: (work@tnoc_vc_splitter)
           |vpiActual:
           \_io_decl: (packet_type), line:207:69, endln:207:80
           |vpiIndex:
-          \_constant: , line:208:62, endln:208:91
+          \_ref_obj: (tnoc_pkg::is_response_packet_type::TNOC_PACKET_TYPE_RESPONSE_BIT), line:208:62, endln:208:91
             |vpiParent:
             \_bit_select: (tnoc_pkg::is_response_packet_type::packet_type), line:208:62, endln:208:91
-            |vpiDecompile:7
-            |vpiSize:64
-            |UINT:7
-            |vpiTypespec:
-            \_int_typespec: , line:183:15, endln:183:18
-              |vpiParent:
-              \_constant: , line:208:62, endln:208:91
-              |vpiInstance:
-              \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
-              |vpiSigned:1
-            |vpiConstType:9
+            |vpiName:TNOC_PACKET_TYPE_RESPONSE_BIT
+            |vpiFullName:tnoc_pkg::is_response_packet_type::TNOC_PACKET_TYPE_RESPONSE_BIT
+            |vpiActual:
+            \_parameter: (tnoc_pkg::TNOC_PACKET_TYPE_RESPONSE_BIT), line:183:19, endln:183:48
     |vpiInstance:
     \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
   |vpiTaskFunc:
@@ -6265,8 +6239,6 @@ design: (work@tnoc_vc_splitter)
           \_ref_obj: (tnoc_pkg::is_packet_with_payload_type::packet_type), line:212:34, endln:212:45
             |vpiParent:
             \_func_call: (is_valid_packet_type), line:212:13, endln:212:46
-            |vpiTypespec:
-            \_enum_typespec: (tnoc_pkg::tnoc_packet_type), line:223:62, endln:223:78
             |vpiName:packet_type
             |vpiFullName:tnoc_pkg::is_packet_with_payload_type::packet_type
             |vpiActual:
@@ -6283,20 +6255,13 @@ design: (work@tnoc_vc_splitter)
           |vpiActual:
           \_io_decl: (packet_type), line:211:73, endln:211:84
           |vpiIndex:
-          \_constant: , line:212:62, endln:212:90
+          \_ref_obj: (tnoc_pkg::is_packet_with_payload_type::TNOC_PACKET_TYPE_PAYLOAD_BIT), line:212:62, endln:212:90
             |vpiParent:
             \_bit_select: (tnoc_pkg::is_packet_with_payload_type::packet_type), line:212:62, endln:212:90
-            |vpiDecompile:6
-            |vpiSize:64
-            |UINT:6
-            |vpiTypespec:
-            \_int_typespec: , line:184:15, endln:184:18
-              |vpiParent:
-              \_constant: , line:212:62, endln:212:90
-              |vpiInstance:
-              \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
-              |vpiSigned:1
-            |vpiConstType:9
+            |vpiName:TNOC_PACKET_TYPE_PAYLOAD_BIT
+            |vpiFullName:tnoc_pkg::is_packet_with_payload_type::TNOC_PACKET_TYPE_PAYLOAD_BIT
+            |vpiActual:
+            \_parameter: (tnoc_pkg::TNOC_PACKET_TYPE_PAYLOAD_BIT), line:184:19, endln:184:47
     |vpiInstance:
     \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
   |vpiTaskFunc:
@@ -6341,8 +6306,6 @@ design: (work@tnoc_vc_splitter)
           \_ref_obj: (tnoc_pkg::is_header_only_packet_type::packet_type), line:216:34, endln:216:45
             |vpiParent:
             \_func_call: (is_valid_packet_type), line:216:13, endln:216:46
-            |vpiTypespec:
-            \_enum_typespec: (tnoc_pkg::tnoc_packet_type), line:223:62, endln:223:78
             |vpiName:packet_type
             |vpiFullName:tnoc_pkg::is_header_only_packet_type::packet_type
             |vpiActual:
@@ -6364,20 +6327,13 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_type), line:215:72, endln:215:83
             |vpiIndex:
-            \_constant: , line:216:64, endln:216:92
+            \_ref_obj: (tnoc_pkg::is_header_only_packet_type::TNOC_PACKET_TYPE_PAYLOAD_BIT), line:216:64, endln:216:92
               |vpiParent:
               \_bit_select: (tnoc_pkg::is_header_only_packet_type::packet_type), line:216:64, endln:216:92
-              |vpiDecompile:6
-              |vpiSize:64
-              |UINT:6
-              |vpiTypespec:
-              \_int_typespec: , line:184:15, endln:184:18
-                |vpiParent:
-                \_constant: , line:216:64, endln:216:92
-                |vpiInstance:
-                \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
-                |vpiSigned:1
-              |vpiConstType:9
+              |vpiName:TNOC_PACKET_TYPE_PAYLOAD_BIT
+              |vpiFullName:tnoc_pkg::is_header_only_packet_type::TNOC_PACKET_TYPE_PAYLOAD_BIT
+              |vpiActual:
+              \_parameter: (tnoc_pkg::TNOC_PACKET_TYPE_PAYLOAD_BIT), line:184:19, endln:184:47
     |vpiInstance:
     \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
   |vpiTaskFunc:
@@ -6422,8 +6378,6 @@ design: (work@tnoc_vc_splitter)
           \_ref_obj: (tnoc_pkg::is_posted_request_packet_type::packet_type), line:220:36, endln:220:47
             |vpiParent:
             \_func_call: (is_request_packet_type), line:220:13, endln:220:48
-            |vpiTypespec:
-            \_enum_typespec: (tnoc_pkg::tnoc_packet_type), line:223:62, endln:223:78
             |vpiName:packet_type
             |vpiFullName:tnoc_pkg::is_posted_request_packet_type::packet_type
             |vpiActual:
@@ -6445,20 +6399,13 @@ design: (work@tnoc_vc_splitter)
             |vpiActual:
             \_io_decl: (packet_type), line:219:75, endln:219:86
             |vpiIndex:
-            \_constant: , line:220:66, endln:220:97
+            \_ref_obj: (tnoc_pkg::is_posted_request_packet_type::TNOC_PACKET_TYPE_NON_POSTED_BIT), line:220:66, endln:220:97
               |vpiParent:
               \_bit_select: (tnoc_pkg::is_posted_request_packet_type::packet_type), line:220:66, endln:220:97
-              |vpiDecompile:5
-              |vpiSize:64
-              |UINT:5
-              |vpiTypespec:
-              \_int_typespec: , line:185:15, endln:185:18
-                |vpiParent:
-                \_constant: , line:220:66, endln:220:97
-                |vpiInstance:
-                \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
-                |vpiSigned:1
-              |vpiConstType:9
+              |vpiName:TNOC_PACKET_TYPE_NON_POSTED_BIT
+              |vpiFullName:tnoc_pkg::is_posted_request_packet_type::TNOC_PACKET_TYPE_NON_POSTED_BIT
+              |vpiActual:
+              \_parameter: (tnoc_pkg::TNOC_PACKET_TYPE_NON_POSTED_BIT), line:185:19, endln:185:50
     |vpiInstance:
     \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
   |vpiTaskFunc:
@@ -6503,8 +6450,6 @@ design: (work@tnoc_vc_splitter)
           \_ref_obj: (tnoc_pkg::is_non_posted_request_packet_type::packet_type), line:224:36, endln:224:47
             |vpiParent:
             \_func_call: (is_request_packet_type), line:224:13, endln:224:48
-            |vpiTypespec:
-            \_enum_typespec: (tnoc_pkg::tnoc_packet_type), line:223:62, endln:223:78
             |vpiName:packet_type
             |vpiFullName:tnoc_pkg::is_non_posted_request_packet_type::packet_type
             |vpiActual:
@@ -6521,20 +6466,13 @@ design: (work@tnoc_vc_splitter)
           |vpiActual:
           \_io_decl: (packet_type), line:223:79, endln:223:90
           |vpiIndex:
-          \_constant: , line:224:64, endln:224:95
+          \_ref_obj: (tnoc_pkg::is_non_posted_request_packet_type::TNOC_PACKET_TYPE_NON_POSTED_BIT), line:224:64, endln:224:95
             |vpiParent:
             \_bit_select: (tnoc_pkg::is_non_posted_request_packet_type::packet_type), line:224:64, endln:224:95
-            |vpiDecompile:5
-            |vpiSize:64
-            |UINT:5
-            |vpiTypespec:
-            \_int_typespec: , line:185:15, endln:185:18
-              |vpiParent:
-              \_constant: , line:224:64, endln:224:95
-              |vpiInstance:
-              \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
-              |vpiSigned:1
-            |vpiConstType:9
+            |vpiName:TNOC_PACKET_TYPE_NON_POSTED_BIT
+            |vpiFullName:tnoc_pkg::is_non_posted_request_packet_type::TNOC_PACKET_TYPE_NON_POSTED_BIT
+            |vpiActual:
+            \_parameter: (tnoc_pkg::TNOC_PACKET_TYPE_NON_POSTED_BIT), line:185:19, endln:185:50
     |vpiInstance:
     \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
   |vpiTaskFunc:
@@ -9050,13 +8988,13 @@ design: (work@tnoc_vc_splitter)
           |vpiActual:
           \_io_decl: (port_type), line:378:55, endln:378:64
         |vpiOperand:
-        \_constant: , line:379:26, endln:379:41
+        \_ref_obj: (tnoc_pkg::is_local_port::TNOC_LOCAL_PORT), line:379:26, endln:379:41
           |vpiParent:
           \_operation: , line:379:13, endln:379:41
-          |vpiDecompile:1'b0
-          |vpiSize:1
-          |BIN:0
-          |vpiConstType:3
+          |vpiName:TNOC_LOCAL_PORT
+          |vpiFullName:tnoc_pkg::is_local_port::TNOC_LOCAL_PORT
+          |vpiActual:
+          \_enum_const: (TNOC_LOCAL_PORT), line:374:5, endln:374:31
     |vpiInstance:
     \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
   |vpiTaskFunc:
@@ -9102,13 +9040,13 @@ design: (work@tnoc_vc_splitter)
           |vpiActual:
           \_io_decl: (port_type), line:382:57, endln:382:66
         |vpiOperand:
-        \_constant: , line:383:26, endln:383:44
+        \_ref_obj: (tnoc_pkg::is_interna_port::TNOC_INTERNAL_PORT), line:383:26, endln:383:44
           |vpiParent:
           \_operation: , line:383:13, endln:383:44
-          |vpiDecompile:1'b1
-          |vpiSize:1
-          |BIN:1
-          |vpiConstType:3
+          |vpiName:TNOC_INTERNAL_PORT
+          |vpiFullName:tnoc_pkg::is_interna_port::TNOC_INTERNAL_PORT
+          |vpiActual:
+          \_enum_const: (TNOC_INTERNAL_PORT), line:375:5, endln:375:31
     |vpiInstance:
     \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
   |vpiTaskFunc:

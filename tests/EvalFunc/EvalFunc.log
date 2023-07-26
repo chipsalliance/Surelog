@@ -764,11 +764,11 @@ integer_var                                           16
 io_decl                                                8
 logic_typespec                                         2
 logic_var                                              1
-module_inst                                           16
+module_inst                                           13
 operation                                             23
 package                                                2
-param_assign                                          64
-parameter                                             64
+param_assign                                          62
+parameter                                             62
 range                                                  3
 ref_obj                                               52
 ref_var                                                3
@@ -794,11 +794,11 @@ integer_var                                           21
 io_decl                                               16
 logic_typespec                                         2
 logic_var                                              2
-module_inst                                           16
+module_inst                                           13
 operation                                             46
 package                                                2
-param_assign                                          64
-parameter                                             64
+param_assign                                          62
+parameter                                             62
 range                                                  3
 ref_obj                                               96
 ref_var                                                6
@@ -1126,11 +1126,6 @@ design: (work@top)
           \_ref_obj: (prim_util_pkg::vbits::value), line:14:53, endln:14:58
             |vpiParent:
             \_func_call: (prim_util_pkg::_clog2), line:14:31, endln:14:44
-            |vpiTypespec:
-            \_integer_typespec: , line:3:37, endln:3:44
-              |vpiInstance:
-              \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:1:1, endln:18:11
-              |vpiSigned:1
             |vpiName:value
             |vpiFullName:prim_util_pkg::vbits::value
             |vpiActual:
@@ -1187,6 +1182,9 @@ design: (work@top)
       |vpiName:value
       |vpiTypedef:
       \_integer_typespec: , line:3:37, endln:3:44
+        |vpiInstance:
+        \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:1:1, endln:18:11
+        |vpiSigned:1
     |vpiStmt:
     \_begin: (prim_util_pkg::_clog2), line:5:5, endln:5:23
       |vpiParent:

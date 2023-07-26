@@ -137,7 +137,7 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              10
+constant                                               9
 cont_assign                                            1
 design                                                 1
 enum_const                                             4
@@ -160,7 +160,7 @@ return_stmt                                            2
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              10
+constant                                               9
 cont_assign                                            2
 design                                                 1
 enum_const                                             4
@@ -177,7 +177,7 @@ package                                                2
 param_assign                                           1
 parameter                                              1
 port                                                   6
-ref_obj                                               16
+ref_obj                                               17
 return_stmt                                            4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PackEnumVal/slpp_all/surelog.uhdm ...
@@ -261,13 +261,13 @@ design: (work@top)
         \_return_stmt: , line:10:5, endln:10:11
         |vpiOpType:14
         |vpiOperand:
-        \_constant: , line:10:12, endln:10:14
+        \_ref_obj: (test_package::test_true::On), line:10:12, endln:10:14
           |vpiParent:
           \_operation: , line:10:12, endln:10:21
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
+          |vpiName:On
+          |vpiFullName:test_package::test_true::On
+          |vpiActual:
+          \_enum_const: (On), line:5:5, endln:5:12
         |vpiOperand:
         \_ref_obj: (test_package::test_true::val), line:10:18, endln:10:21
           |vpiParent:
@@ -545,4 +545,4 @@ design: (work@top)
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/PackEnumVal/dut.sv | ${SURELOG_DIR}/build/regression/PackEnumVal/roundtrip/dut_000.sv | 7 | 18 |
+[roundtrip]: ${SURELOG_DIR}/tests/PackEnumVal/dut.sv | ${SURELOG_DIR}/build/regression/PackEnumVal/roundtrip/dut_000.sv | 6 | 18 |

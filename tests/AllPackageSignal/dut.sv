@@ -27,9 +27,9 @@ package pkg_a;
   // Comment line 6
   parameter int ParameterIntInPkgA = 4;
   //// The two following lines do not raise any error when uncommented:
-  `ASSERT_STATIC_IN_PACKAGE(ThisNameDoesNotMatter, 32 == $bits(pkg_b::ParameterIntEqual4))
-  `ASSERT_STATIC_IN_PACKAGE(ThisNameDoesNotMatter, $bits(ParameterIntInPkgA) == 32)
+  `ASSERT_STATIC_IN_PACKAGE(ThisNameDoesNotMatter1, 32 == $bits(pkg_b::ParameterIntEqual4))
+  `ASSERT_STATIC_IN_PACKAGE(ThisNameDoesNotMatter2, $bits(ParameterIntInPkgA) == 32)
   //// This one does fail:
-  `ASSERT_STATIC_IN_PACKAGE(ThisNameDoesNotMatter, $bits(ParameterIntInPkgA) == $bits(pkg_b::ParameterIntEqual4))
+  `ASSERT_STATIC_IN_PACKAGE(ThisNameDoesNotMatter3, $bits(ParameterIntInPkgA) == $bits(pkg_b::ParameterIntEqual4))
 endpackage : pkg_a
 

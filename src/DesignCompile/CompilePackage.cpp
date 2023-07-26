@@ -189,15 +189,15 @@ bool CompilePackage::collectObjects_(CollectType collectType, Reduce reduce) {
         case VObjectType::slTask_declaration: {
           // Called twice, placeholder first, then definition
           if (collectType == CollectType::OTHER) break;
-          m_helper.compileTask(m_package, fC, id, m_compileDesign, Reduce::Yes,
+          m_helper.compileTask(m_package, fC, id, m_compileDesign, reduce,
                                nullptr, false);
           break;
         }
         case VObjectType::slFunction_declaration: {
           // Called twice, placeholder first, then definition
           if (collectType == CollectType::OTHER) break;
-          m_helper.compileFunction(m_package, fC, id, m_compileDesign,
-                                   Reduce::Yes, nullptr, false);
+          m_helper.compileFunction(m_package, fC, id, m_compileDesign, reduce,
+                                   nullptr, false);
           break;
         }
         case VObjectType::slLet_declaration: {
