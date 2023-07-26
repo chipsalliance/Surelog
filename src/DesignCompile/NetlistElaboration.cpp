@@ -79,6 +79,7 @@ bool NetlistElaboration::elaboratePackages() {
   auto& packageDefs = design->getPackageDefinitions();
   for (auto& packageDef : packageDefs) {
     Package* p = packageDef.second;
+    Reduce reduce = Reduce::No;
     for (Package* pack : {p->getUnElabPackage(), p}) {
       if (pack->getNetlist() == nullptr) {
         Netlist* netlist = new Netlist(nullptr);
@@ -90,7 +91,7 @@ bool NetlistElaboration::elaboratePackages() {
       TypespecCache tscache;
       for (Signal* sig : pack->getSignals()) {
         if (!elabSignal(sig, nullptr, nullptr, nullptr, netlist, pack, "",
-                        false, tscache)) {
+                        false, tscache, reduce)) {
           notSignals.insert(sig);
         }
       }
@@ -103,6 +104,7 @@ bool NetlistElaboration::elaboratePackages() {
           }
         }
       }
+      reduce = Reduce::Yes;
     }
   }
   return true;
@@ -1694,7 +1696,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
                                     Netlist* parentNetlist, Netlist* netlist,
                                     DesignComponent* comp,
                                     std::string_view prefix, bool signalIsPort,
-                                    TypespecCache& tscache) {
+                                    TypespecCache& tscache, Reduce reduce) {
   Serializer& s = m_compileDesign->getSerializer();
   std::vector<net*>* nets = netlist->nets();
   std::vector<variables*>* vars = netlist->variables();
@@ -1743,7 +1745,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
     if (itr == tscache.end()) {
       m_helper.checkForLoops(true);
       tps = m_helper.compileTypespec(comp, fC, typeSpecId, m_compileDesign,
-                                     Reduce::Yes, nullptr, child, true);
+                                     reduce, nullptr, child, true);
       m_helper.checkForLoops(false);
       tscache.emplace(typeSpecId, tps);
     } else {
@@ -1756,8 +1758,8 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
       if (itr == tscache.end()) {
         m_helper.checkForLoops(true);
         tps = m_helper.compileTypespec(comp, fC, sig->getInterfaceTypeNameId(),
-                                       m_compileDesign, Reduce::Yes, nullptr,
-                                       child, true);
+                                       m_compileDesign, reduce, nullptr, child,
+                                       true);
         m_helper.checkForLoops(false);
         tscache.emplace(sig->getInterfaceTypeNameId(), tps);
       } else {
@@ -1825,13 +1827,13 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
   int32_t unpackedSize;
   m_helper.checkForLoops(true);
   std::vector<UHDM::range*>* packedDimensions =
-      m_helper.compileRanges(comp, fC, packedDimension, m_compileDesign,
-                             Reduce::Yes, nullptr, child, packedSize, false);
+      m_helper.compileRanges(comp, fC, packedDimension, m_compileDesign, reduce,
+                             nullptr, child, packedSize, false);
   m_helper.checkForLoops(false);
   m_helper.checkForLoops(true);
   std::vector<UHDM::range*>* unpackedDimensions =
       m_helper.compileRanges(comp, fC, unpackedDimension, m_compileDesign,
-                             Reduce::Yes, nullptr, child, unpackedSize, false);
+                             reduce, nullptr, child, unpackedSize, false);
   m_helper.checkForLoops(false);
   any* obj = nullptr;
 
@@ -1840,8 +1842,8 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
   if ((exp == nullptr) && sig->getDefaultValue()) {
     m_helper.checkForLoops(true);
     exp = (expr*)m_helper.compileExpression(comp, fC, sig->getDefaultValue(),
-                                            m_compileDesign, Reduce::Yes,
-                                            nullptr, child);
+                                            m_compileDesign, reduce, nullptr,
+                                            child);
     m_helper.checkForLoops(false);
   }
   if (isNet) {
@@ -2247,7 +2249,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
       if (sig->getDelay()) {
         m_helper.checkForLoops(true);
         if (expr* delay_expr = (expr*)m_helper.compileExpression(
-                comp, fC, sig->getDelay(), m_compileDesign, Reduce::Yes, assign,
+                comp, fC, sig->getDelay(), m_compileDesign, reduce, assign,
                 child)) {
           assign->Delay(delay_expr);
         }
@@ -2544,7 +2546,7 @@ bool NetlistElaboration::elab_ports_nets_(
               }
             }
             elabSignal(sig, instance, child, parentNetlist, netlist, comp,
-                       prefix, sigIsPort, tscache);
+                       prefix, sigIsPort, tscache, Reduce::Yes);
           }
         }
 
