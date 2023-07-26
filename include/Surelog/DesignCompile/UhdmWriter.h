@@ -121,6 +121,11 @@ class UhdmWriter final {
                         std::vector<UHDM::cont_assign*>* assigns);
 
   void lateBinding(UHDM::Serializer& s, DesignComponent* mod, UHDM::scope* m);
+  UHDM::any* swapForSpecifiedVar(UHDM::Serializer& s, DesignComponent* mod,
+                           UHDM::any* tmp,
+                           UHDM::VectorOfvariables* lvariables,
+                           UHDM::variables* lvariable, std::string_view name,
+                           const UHDM::any* var, const UHDM::any* parent);
   void lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
                           UHDM::scope* m);
 
