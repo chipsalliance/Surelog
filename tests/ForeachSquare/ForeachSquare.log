@@ -121,14 +121,15 @@ begin                                                  1
 constant                                               6
 design                                                 1
 foreach_stmt                                           2
+hier_path                                              2
 initial                                                1
-int_typespec                                           2
-int_var                                                1
+int_typespec                                           4
+int_var                                                3
 logic_net                                              3
-module_inst                                            3
+module_inst                                            4
 operation                                              3
 range                                                  2
-ref_obj                                                4
+ref_obj                                                6
 ref_var                                                5
 unsupported_typespec                                   5
 var_select                                             1
@@ -143,15 +144,16 @@ begin                                                  2
 constant                                               6
 design                                                 1
 foreach_stmt                                           4
+hier_path                                              2
 initial                                                2
-int_typespec                                           2
-int_var                                                1
+int_typespec                                           4
+int_var                                                6
 logic_net                                              3
-module_inst                                            3
+module_inst                                            4
 operation                                              4
 range                                                  2
-ref_obj                                                8
-ref_var                                               10
+ref_obj                                               10
+ref_var                                                7
 unsupported_typespec                                   5
 var_select                                             2
 === UHDM Object Stats End ===
@@ -219,9 +221,12 @@ design: (work@dut)
           |vpiName:array
           |vpiFullName:work@dut.array
         |vpiLoopVars:
-        \_ref_var: (work@dut.i), line:6:23, endln:6:24
+        \_int_var: (work@dut.i), line:6:23, endln:6:24
           |vpiParent:
           \_foreach_stmt: (work@dut), line:6:9, endln:6:16
+          |vpiTypespec:
+          \_int_typespec: , line:3:5, endln:3:8
+            |vpiSigned:1
           |vpiName:i
           |vpiFullName:work@dut.i
         |vpiStmt:
@@ -238,15 +243,14 @@ design: (work@dut)
             |vpiName:array
             |vpiFullName:work@dut.array
           |vpiLoopVars:
-          \_ref_var: (work@dut.i), line:7:27, endln:7:28
-            |vpiParent:
-            \_foreach_stmt: (work@dut), line:7:13, endln:7:20
-            |vpiName:i
-            |vpiFullName:work@dut.i
+          \_int_var: (work@dut.i), line:6:23, endln:6:24
           |vpiLoopVars:
-          \_ref_var: (work@dut.j), line:7:30, endln:7:31
+          \_int_var: (work@dut.j), line:7:30, endln:7:31
             |vpiParent:
             \_foreach_stmt: (work@dut), line:7:13, endln:7:20
+            |vpiTypespec:
+            \_int_typespec: , line:3:5, endln:3:8
+              |vpiSigned:1
             |vpiName:j
             |vpiFullName:work@dut.j
           |vpiStmt:
@@ -267,7 +271,7 @@ design: (work@dut)
                 |vpiName:i
                 |vpiFullName:work@dut.i
                 |vpiActual:
-                \_ref_var: (work@dut.i), line:7:27, endln:7:28
+                \_int_var: (work@dut.i), line:6:23, endln:6:24
               |vpiOperand:
               \_ref_obj: (work@dut.j), line:8:35, endln:8:36
                 |vpiParent:
@@ -275,7 +279,7 @@ design: (work@dut)
                 |vpiName:j
                 |vpiFullName:work@dut.j
                 |vpiActual:
-                \_ref_var: (work@dut.j), line:7:30, endln:7:31
+                \_int_var: (work@dut.j), line:7:30, endln:7:31
             |vpiLhs:
             \_var_select: (work@dut.array), line:8:17, endln:8:28
               |vpiParent:
@@ -289,7 +293,7 @@ design: (work@dut)
                 |vpiName:i
                 |vpiFullName:work@dut.array.i
                 |vpiActual:
-                \_ref_var: (work@dut.i), line:7:27, endln:7:28
+                \_int_var: (work@dut.i), line:6:23, endln:6:24
               |vpiIndex:
               \_ref_obj: (work@dut.array.j), line:8:26, endln:8:27
                 |vpiParent:
@@ -297,7 +301,7 @@ design: (work@dut)
                 |vpiName:j
                 |vpiFullName:work@dut.array.j
                 |vpiActual:
-                \_ref_var: (work@dut.j), line:7:30, endln:7:31
+                \_int_var: (work@dut.j), line:7:30, endln:7:31
 |uhdmtopModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ForeachSquare/dut.sv, line:1:1, endln:11:10
   |vpiName:work@dut
@@ -411,13 +415,13 @@ design: (work@dut)
           |vpiActual:
           \_array_var: (work@dut.array), line:3:9, endln:3:14
         |vpiLoopVars:
-        \_ref_var: (work@dut.i), line:6:23, endln:6:24
+        \_int_var: (work@dut.i), line:6:23, endln:6:24
           |vpiParent:
           \_foreach_stmt: (work@dut), line:6:9, endln:6:16
+          |vpiTypespec:
+          \_int_typespec: , line:3:5, endln:3:8
           |vpiName:i
           |vpiFullName:work@dut.i
-          |vpiActual:
-          \_ref_var: (work@dut.i), line:6:23, endln:6:24
         |vpiStmt:
         \_foreach_stmt: (work@dut), line:7:13, endln:7:20
           |vpiParent:
@@ -434,21 +438,21 @@ design: (work@dut)
             |vpiActual:
             \_array_var: (work@dut.array), line:3:9, endln:3:14
           |vpiLoopVars:
-          \_ref_var: (work@dut.i), line:7:27, endln:7:28
+          \_int_var: (work@dut.i), line:6:23, endln:6:24
             |vpiParent:
             \_foreach_stmt: (work@dut), line:7:13, endln:7:20
+            |vpiTypespec:
+            \_int_typespec: , line:3:5, endln:3:8
             |vpiName:i
             |vpiFullName:work@dut.i
-            |vpiActual:
-            \_ref_var: (work@dut.i), line:7:27, endln:7:28
           |vpiLoopVars:
-          \_ref_var: (work@dut.j), line:7:30, endln:7:31
+          \_int_var: (work@dut.j), line:7:30, endln:7:31
             |vpiParent:
             \_foreach_stmt: (work@dut), line:7:13, endln:7:20
+            |vpiTypespec:
+            \_int_typespec: , line:3:5, endln:3:8
             |vpiName:j
             |vpiFullName:work@dut.j
-            |vpiActual:
-            \_ref_var: (work@dut.j), line:7:30, endln:7:31
           |vpiStmt:
           \_assignment: , line:8:17, endln:8:36
             |vpiParent:
@@ -467,7 +471,7 @@ design: (work@dut)
                 |vpiName:i
                 |vpiFullName:work@dut.i
                 |vpiActual:
-                \_ref_var: (work@dut.i), line:7:27, endln:7:28
+                \_int_var: (work@dut.i), line:6:23, endln:6:24
               |vpiOperand:
               \_ref_obj: (work@dut.j), line:8:35, endln:8:36
                 |vpiParent:
@@ -475,7 +479,7 @@ design: (work@dut)
                 |vpiName:j
                 |vpiFullName:work@dut.j
                 |vpiActual:
-                \_ref_var: (work@dut.j), line:7:30, endln:7:31
+                \_int_var: (work@dut.j), line:7:30, endln:7:31
             |vpiLhs:
             \_var_select: (work@dut.array), line:8:17, endln:8:28
               |vpiParent:
@@ -491,7 +495,7 @@ design: (work@dut)
                 |vpiName:i
                 |vpiFullName:work@dut.array.i
                 |vpiActual:
-                \_ref_var: (work@dut.i), line:7:27, endln:7:28
+                \_int_var: (work@dut.i), line:6:23, endln:6:24
               |vpiIndex:
               \_ref_obj: (work@dut.array.j), line:8:26, endln:8:27
                 |vpiParent:
@@ -499,7 +503,7 @@ design: (work@dut)
                 |vpiName:j
                 |vpiFullName:work@dut.array.j
                 |vpiActual:
-                \_ref_var: (work@dut.j), line:7:30, endln:7:31
+                \_int_var: (work@dut.j), line:7:30, endln:7:31
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

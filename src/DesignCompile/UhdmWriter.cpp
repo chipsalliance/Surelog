@@ -2121,9 +2121,87 @@ bool UhdmWriter::writeElabGenScope(Serializer& s, ModuleInstance* instance,
   return true;
 }
 
+UHDM::any* UhdmWriter::swapForSpecifiedVar(UHDM::Serializer& s,
+                                           DesignComponent* mod, any* tmp,
+                                           VectorOfvariables* lvariables,
+                                           variables* lvariable,
+                                           std::string_view name,
+                                           const any* var, const any* parent) {
+  FileSystem* const fileSystem = FileSystem::getInstance();
+  if (tmp->VpiName() == name) {
+    if (var->UhdmType() == uhdmref_var) {
+      ref_var* ref = (ref_var*)var;
+      const typespec* tp = ref->Typespec();
+      if (tp && tp->UhdmType() == uhdmunsupported_typespec) {
+        const typespec* indexTypespec = nullptr;
+        if (lvariables) {
+          for (auto var : *lvariables) {
+            if (var->UhdmType() == uhdmhier_path) {
+              PathId parentFileId = fileSystem->toPathId(
+                  parent->VpiFile(),
+                  m_compileDesign->getCompiler()->getSymbolTable());
+              bool invalidValue = false;
+              indexTypespec = (typespec*)m_helper.decodeHierPath(
+                  (hier_path*)var, invalidValue, mod, m_compileDesign,
+                  Reduce::Yes, nullptr, parentFileId, parent->VpiLineNo(),
+                  (any*)parent, true /*mute for now*/, true);
+            }
+          }
+        } else if (const variables* var = lvariable) {
+          if (var->UhdmType() == uhdmhier_path) {
+            PathId parentFileId = fileSystem->toPathId(
+                parent->VpiFile(),
+                m_compileDesign->getCompiler()->getSymbolTable());
+            bool invalidValue = false;
+            indexTypespec = (typespec*)m_helper.decodeHierPath(
+                (hier_path*)var, invalidValue, mod, m_compileDesign,
+                Reduce::Yes, nullptr, parentFileId, parent->VpiLineNo(),
+                (any*)parent, true /*mute for now*/, true);
+          } else if (var->UhdmType() == uhdmref_var) {
+            bool invalidValue = false;
+            hier_path* path = s.MakeHier_path();
+            VectorOfany* elems = s.MakeAnyVec();
+            path->Path_elems(elems);
+            ref_obj* ref = s.MakeRef_obj();
+            elems->push_back(ref);
+            ref->VpiName(var->VpiName());
+            path->VpiFullName(var->VpiName());
+            PathId parentFileId = fileSystem->toPathId(
+                parent->VpiFile(),
+                m_compileDesign->getCompiler()->getSymbolTable());
+            indexTypespec = (typespec*)m_helper.decodeHierPath(
+                path, invalidValue, mod, m_compileDesign, Reduce::Yes, nullptr,
+                parentFileId, parent->VpiLineNo(), (any*)parent,
+                true /*mute for now*/, true);
+          }
+        }
+        variables* swapVar = nullptr;
+        if (indexTypespec) {
+          swapVar = m_helper.getSimpleVarFromTypespec((typespec*)indexTypespec,
+                                                      nullptr, m_compileDesign);
+        } else {
+          int_var* ivar = s.MakeInt_var();
+          ivar->Typespec(s.MakeInt_typespec());
+          swapVar = ivar;
+        }
+        if (swapVar) {
+          swapVar->VpiName(ref->VpiName());
+          swapVar->VpiParent(const_cast<any*>(ref->VpiParent()));
+          swapVar->VpiFile(ref->VpiFile());
+          swapVar->VpiLineNo(ref->VpiLineNo());
+          swapVar->VpiColumnNo(ref->VpiColumnNo());
+          swapVar->VpiEndLineNo(ref->VpiEndLineNo());
+          swapVar->VpiEndColumnNo(ref->VpiEndColumnNo());
+          tmp = swapVar;
+        }
+      }
+    }
+  }
+  return tmp;
+}
+
 void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
                                     scope* m) {
-  FileSystem* const fileSystem = FileSystem::getInstance();
   for (UHDM::any* var : mod->getLateTypedefBinding()) {
     const typespec* orig = nullptr;
     if (expr* ex = any_cast<expr*>(var)) {
@@ -2319,12 +2397,24 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
           foreach_stmt* f = (foreach_stmt*)parent;
           VectorOfany* vars = f->VpiLoopVars();
           if (vars) {
-            for (auto var : *vars) {
-              if (var->VpiName() == name) {
-                if (var->UhdmType() == uhdmref_var) continue;
-                if (var->UhdmType() == uhdmref_obj) continue;
+            for (auto& vart : *vars) {
+              if (vart->VpiName() == name) {
+                if (vart->UhdmType() == uhdmref_var) continue;
+                if (vart->UhdmType() == uhdmref_obj) continue;
                 found = true;
-                tps = ((variables*)var)->Typespec();
+                tps = ((variables*)vart)->Typespec();
+                if (any* p = var->VpiParent()) {
+                  if (p->UhdmType() == uhdmforeach_stmt) {
+                    foreach_stmt* fc = (foreach_stmt*)p;
+                    VectorOfany* varsc = fc->VpiLoopVars();
+                    for (auto& vartc : *varsc) {
+                      if (vartc->VpiName() == name) {
+                        vartc = vart;
+                        break;
+                      }
+                    }
+                  }
+                }
                 break;
               }
             }
@@ -2362,9 +2452,11 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
           if (ports) {
             for (auto port : *ports) {
               if (port->VpiName() == name) {
-                found = true;
-                tps = port->Typespec();
-                break;
+                if (typespec* tmp = port->Typespec()) {
+                  found = true;
+                  tps = tmp;
+                  break;
+                }
               }
             }
           }
@@ -2373,8 +2465,11 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
           if (nets) {
             for (auto net : *nets) {
               if (net->VpiName() == name) {
-                found = true;
-                tps = net->Typespec();
+                if (typespec* tmp = net->Typespec()) {
+                  found = true;
+                  tps = tmp;
+                  break;
+                }
               }
             }
           }
@@ -2582,84 +2677,29 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
         parent = parent->VpiParent();
       }
 
-      // Foreach-loop, implicit loop var declaration fixup
       if (found == false) {
-        const any* parent = var->VpiParent();
-        if (parent && (parent->UhdmType() == uhdmforeach_stmt)) {
-          foreach_stmt* for_stmt = (foreach_stmt*)parent;
-          if (VectorOfany* loopvars = for_stmt->VpiLoopVars()) {
-            for (any*& tmp : *loopvars) {
-              if (tmp->VpiName() == name) {
-                if (var->UhdmType() == uhdmref_var) {
-                  ref_var* ref = (ref_var*)var;
-                  const typespec* tp = ref->Typespec();
-                  if (tp && tp->UhdmType() == uhdmunsupported_typespec) {
-                    const typespec* indexTypespec = nullptr;
-                    if (for_stmt->Variables()) {
-                      for (auto var : *for_stmt->Variables()) {
-                        if (var->UhdmType() == uhdmhier_path) {
-                          PathId parentFileId = fileSystem->toPathId(
-                              parent->VpiFile(),
-                              m_compileDesign->getCompiler()->getSymbolTable());
-                          bool invalidValue = false;
-                          indexTypespec = (typespec*)m_helper.decodeHierPath(
-                              (hier_path*)var, invalidValue, mod,
-                              m_compileDesign, Reduce::Yes, nullptr,
-                              parentFileId, parent->VpiLineNo(), (any*)parent,
-                              true /*mute for now*/, true);
-                        }
-                      }
-                    } else if (const variables* var = for_stmt->Variable()) {
-                      if (var->UhdmType() == uhdmhier_path) {
-                        PathId parentFileId = fileSystem->toPathId(
-                            parent->VpiFile(),
-                            m_compileDesign->getCompiler()->getSymbolTable());
-                        bool invalidValue = false;
-                        indexTypespec = (typespec*)m_helper.decodeHierPath(
-                            (hier_path*)var, invalidValue, mod, m_compileDesign,
-                            Reduce::Yes, nullptr, parentFileId,
-                            parent->VpiLineNo(), (any*)parent,
-                            true /*mute for now*/, true);
-                      } else if (var->UhdmType() == uhdmref_var) {
-                        bool invalidValue = false;
-                        hier_path* path = s.MakeHier_path();
-                        VectorOfany* elems = s.MakeAnyVec();
-                        path->Path_elems(elems);
-                        ref_obj* ref = s.MakeRef_obj();
-                        elems->push_back(ref);
-                        ref->VpiName(var->VpiName());
-                        path->VpiFullName(var->VpiName());
-                        PathId parentFileId = fileSystem->toPathId(
-                            parent->VpiFile(),
-                            m_compileDesign->getCompiler()->getSymbolTable());
-                        indexTypespec = (typespec*)m_helper.decodeHierPath(
-                            path, invalidValue, mod, m_compileDesign,
-                            Reduce::Yes, nullptr, parentFileId,
-                            parent->VpiLineNo(), (any*)parent,
-                            true /*mute for now*/, true);
-                      }
-                    }
-                    variables* swapVar = nullptr;
-                    if (indexTypespec) {
-                      swapVar = m_helper.getSimpleVarFromTypespec(
-                          (typespec*)indexTypespec, nullptr, m_compileDesign);
-                    } else {
-                      int_var* ivar = s.MakeInt_var();
-                      ivar->Typespec(s.MakeInt_typespec());
-                      swapVar = ivar;
-                    }
-                    if (swapVar) {
-                      swapVar->VpiName(ref->VpiName());
-                      swapVar->VpiParent(const_cast<any*>(ref->VpiParent()));
-                      swapVar->VpiFile(ref->VpiFile());
-                      swapVar->VpiLineNo(ref->VpiLineNo());
-                      swapVar->VpiColumnNo(ref->VpiColumnNo());
-                      swapVar->VpiEndLineNo(ref->VpiEndLineNo());
-                      swapVar->VpiEndColumnNo(ref->VpiEndColumnNo());
-                      tmp = swapVar;
-                    }
-                    break;
-                  }
+        if (const any* parent = var->VpiParent()) {
+          // Foreach-loop, implicit loop var declaration fixup
+          if (parent->UhdmType() == uhdmforeach_stmt) {
+            foreach_stmt* for_stmt = (foreach_stmt*)parent;
+            if (VectorOfany* loopvars = for_stmt->VpiLoopVars()) {
+              for (any*& tmp : *loopvars) {
+                tmp = swapForSpecifiedVar(s, mod, tmp, for_stmt->Variables(),
+                                          for_stmt->Variable(), name, var,
+                                          parent);
+              }
+            }
+          } else if (parent->UhdmType() == uhdmassign_stmt) {
+            parent = var->VpiParent()->VpiParent();
+            // gen_for loop, implicit loop var declaration fixup
+            if (parent->UhdmType() == uhdmgen_for) {
+              gen_for* for_stmt = (gen_for*)parent;
+              if (for_stmt->VpiForInitStmts()) {
+                any* stmt = for_stmt->VpiForInitStmts()->at(0);
+                if (stmt->UhdmType() == uhdmassign_stmt) {
+                  assign_stmt* st = (assign_stmt*)stmt;
+                  st->Lhs((expr*)swapForSpecifiedVar(
+                      s, mod, st->Lhs(), nullptr, nullptr, name, var, parent));
                 }
               }
             }

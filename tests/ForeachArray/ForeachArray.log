@@ -97,14 +97,15 @@ bit_select                                             1
 constant                                               3
 design                                                 1
 foreach_stmt                                           1
+hier_path                                              1
 initial                                                1
-int_typespec                                           2
-int_var                                                1
+int_typespec                                           3
+int_var                                                2
 logic_net                                              2
-module_inst                                            3
+module_inst                                            4
 operation                                              1
 range                                                  1
-ref_obj                                                2
+ref_obj                                                3
 ref_var                                                2
 unsupported_typespec                                   2
 === UHDM Object Stats End ===
@@ -119,15 +120,16 @@ bit_select                                             2
 constant                                               3
 design                                                 1
 foreach_stmt                                           2
+hier_path                                              1
 initial                                                2
-int_typespec                                           2
-int_var                                                1
+int_typespec                                           3
+int_var                                                3
 logic_net                                              2
-module_inst                                            3
+module_inst                                            4
 operation                                              1
 range                                                  1
-ref_obj                                                4
-ref_var                                                4
+ref_obj                                                5
+ref_var                                                3
 unsupported_typespec                                   2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ForeachArray/slpp_all/surelog.uhdm ...
@@ -187,9 +189,12 @@ design: (work@dut)
           |vpiName:array
           |vpiFullName:work@dut.array
         |vpiLoopVars:
-        \_ref_var: (work@dut.i), line:6:23, endln:6:24
+        \_int_var: (work@dut.i), line:6:23, endln:6:24
           |vpiParent:
           \_foreach_stmt: (work@dut), line:6:9, endln:6:16
+          |vpiTypespec:
+          \_int_typespec: , line:3:5, endln:3:8
+            |vpiSigned:1
           |vpiName:i
           |vpiFullName:work@dut.i
         |vpiStmt:
@@ -205,7 +210,7 @@ design: (work@dut)
             |vpiName:i
             |vpiFullName:work@dut.i
             |vpiActual:
-            \_ref_var: (work@dut.i), line:6:23, endln:6:24
+            \_int_var: (work@dut.i), line:6:23, endln:6:24
           |vpiLhs:
           \_bit_select: (work@dut.array), line:7:13, endln:7:21
             |vpiParent:
@@ -219,7 +224,7 @@ design: (work@dut)
               |vpiName:i
               |vpiFullName:work@dut.i
               |vpiActual:
-              \_ref_var: (work@dut.i), line:6:23, endln:6:24
+              \_int_var: (work@dut.i), line:6:23, endln:6:24
 |uhdmtopModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ForeachArray/dut.sv, line:1:1, endln:10:10
   |vpiName:work@dut
@@ -303,13 +308,13 @@ design: (work@dut)
           |vpiActual:
           \_array_var: (work@dut.array), line:3:9, endln:3:14
         |vpiLoopVars:
-        \_ref_var: (work@dut.i), line:6:23, endln:6:24
+        \_int_var: (work@dut.i), line:6:23, endln:6:24
           |vpiParent:
           \_foreach_stmt: (work@dut), line:6:9, endln:6:16
+          |vpiTypespec:
+          \_int_typespec: , line:3:5, endln:3:8
           |vpiName:i
           |vpiFullName:work@dut.i
-          |vpiActual:
-          \_ref_var: (work@dut.i), line:6:23, endln:6:24
         |vpiStmt:
         \_assignment: , line:7:13, endln:7:25
           |vpiParent:
@@ -323,7 +328,7 @@ design: (work@dut)
             |vpiName:i
             |vpiFullName:work@dut.i
             |vpiActual:
-            \_ref_var: (work@dut.i), line:6:23, endln:6:24
+            \_int_var: (work@dut.i), line:6:23, endln:6:24
           |vpiLhs:
           \_bit_select: (work@dut.array), line:7:13, endln:7:21
             |vpiParent:
@@ -339,7 +344,7 @@ design: (work@dut)
               |vpiName:i
               |vpiFullName:work@dut.i
               |vpiActual:
-              \_ref_var: (work@dut.i), line:6:23, endln:6:24
+              \_int_var: (work@dut.i), line:6:23, endln:6:24
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
