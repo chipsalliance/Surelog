@@ -165,6 +165,7 @@ ifdef_directive
     | macro_instance
   )
   ;
+
 ifdef_directive_in_macro_body
   : TICK_IFDEF Spaces (
     identifier_in_macro_body
@@ -180,6 +181,7 @@ ifndef_directive
     | macro_instance
   )
   ;
+
 ifndef_directive_in_macro_body
   : TICK_IFNDEF Spaces (
     identifier_in_macro_body
@@ -195,6 +197,7 @@ elsif_directive
     | macro_instance
   )
   ;
+
 elsif_directive_in_macro_body
   : TICK_ELSIF Spaces (
     identifier_in_macro_body
@@ -210,6 +213,7 @@ elseif_directive
     | macro_instance
   )
   ;
+
 elseif_directive_in_macro_body
   : TICK_ELSEIF Spaces (
     identifier_in_macro_body

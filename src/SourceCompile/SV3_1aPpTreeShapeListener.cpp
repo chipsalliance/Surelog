@@ -246,7 +246,7 @@ void SV3_1aPpTreeShapeListener::enterInclude_directive(
       return;
     }
 
-    fileName = StringUtils::unquoted(fileName);
+    fileName = StringUtils::unquoted(StringUtils::trim(fileName));
     if (m_pp->m_debugPP)
       std::cout << "PP INCLUDE DIRECTIVE " << fileName << std::endl;
 

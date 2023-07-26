@@ -33,6 +33,7 @@
 #include <Surelog/SourceCompile/Compiler.h>
 #include <Surelog/SourceCompile/MacroInfo.h>
 #include <Surelog/SourceCompile/PreprocessFile.h>
+#include <Surelog/SourceCompile/SV3_1aPpParseTreeListener.h>
 #include <Surelog/SourceCompile/SV3_1aPpTreeShapeListener.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
 #include <Surelog/Utils/StringUtils.h>
@@ -542,8 +543,15 @@ bool PreprocessFile::preprocess() {
   m_result.clear();
   m_lineCount = 0;
   delete m_listener;
-  m_listener = new SV3_1aPpTreeShapeListener(
-      this, m_antlrParserHandler->m_pptokens, m_instructions);
+
+  if (clp->parseTree()) {
+    m_listener = new SV3_1aPpParseTreeListener(
+        this, m_antlrParserHandler->m_pptokens, m_instructions);
+  } else {
+    m_listener = new SV3_1aPpTreeShapeListener(
+        this, m_antlrParserHandler->m_pptokens, m_instructions);
+  }
+
   // TODO: this leaks
   antlr4::tree::ParseTreeWalker::DEFAULT.walk(m_listener,
                                               m_antlrParserHandler->m_pptree);

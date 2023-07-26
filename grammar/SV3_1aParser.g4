@@ -151,7 +151,8 @@ null_rule
   ; // Placeholder rule that create the "0" VObject, DO NOT REMOVE
 
 description
-  : module_declaration
+  : Preproc_identifier
+  | module_declaration
   | udp_declaration
   | interface_declaration
   | program_declaration
@@ -248,7 +249,7 @@ program_declaration
   ;
 
 class_declaration
-  : VIRTUAL? CLASS lifetime? identifier parameter_port_list? (
+  : VIRTUAL? CLASS lifetime? identifier parameter_port_list? Preproc_identifier? (
     EXTENDS class_type (
       OPEN_PARENS list_of_arguments CLOSE_PARENS
     )?
@@ -260,13 +261,14 @@ class_declaration
 interface_class_type: ps_identifier parameter_value_assignment?;
 
 interface_class_declaration
-  : INTERFACE CLASS identifier parameter_port_list? (
+  : INTERFACE CLASS identifier parameter_port_list? Preproc_identifier? (
     EXTENDS interface_class_type (COMMA interface_class_type)*
   )? SEMICOLON interface_class_item* ENDCLASS (COLON identifier)?
   ;
 
 interface_class_item
-  : type_declaration
+  : Preproc_identifier
+  | type_declaration
   | attribute_instance* interface_class_method SEMICOLON
   | local_parameter_declaration SEMICOLON
   | parameter_declaration SEMICOLON
@@ -384,7 +386,11 @@ module_common_item
   | system_task
   ;
 
-module_item: port_declaration SEMICOLON | non_port_module_item;
+module_item
+  : Preproc_identifier
+  | port_declaration SEMICOLON
+  | non_port_module_item
+  ;
 
 module_or_generate_item
   : attribute_instance* (
@@ -405,7 +411,8 @@ module_or_generate_item_declaration
   ;
 
 non_port_module_item
-  : generate_region
+  : Preproc_identifier
+  | generate_region
   | module_or_generate_item
   | specify_block
   | attribute_instance* specparam_declaration
@@ -529,7 +536,8 @@ checker_generate_item
   ;
 
 class_item
-  : attribute_instance* (
+  : Preproc_identifier
+  | attribute_instance* (
     class_property
     | class_method
     | class_constraint
@@ -597,7 +605,7 @@ super_dot_new: SUPER DOT NEW;
 class_constructor_declaration
   : FUNCTION class_scope? NEW (
     OPEN_PARENS tf_port_list? CLOSE_PARENS
-  )? SEMICOLON block_item_declaration* (
+  )? SEMICOLON Preproc_identifier* block_item_declaration* (
     super_dot_new (OPEN_PARENS list_of_arguments CLOSE_PARENS)? SEMICOLON
   )? function_statement_or_null* ENDFUNCTION (COLON NEW)?
   ;
@@ -665,7 +673,8 @@ extern_constraint_declaration
 identifier_list: identifier (COMMA identifier)*;
 
 package_item
-  : package_or_generate_item_declaration
+  : Preproc_identifier
+  | package_or_generate_item_declaration
   | specparam_declaration
   | anonymous_program
   | package_export_declaration
@@ -1286,7 +1295,8 @@ task_prototype
 
 block_item_declaration
   : attribute_instance* (
-    data_declaration
+    Preproc_identifier
+    | data_declaration
     | local_parameter_declaration SEMICOLON
     | parameter_declaration SEMICOLON
     | overload_declaration
@@ -2355,7 +2365,8 @@ join_none_keyword: JOIN_NONE;
 statement_or_null: statement | attribute_instance* SEMICOLON;
 
 statement
-  : (identifier COLON)? attribute_instance* statement_item
+  : Preproc_identifier
+  | (identifier COLON)? attribute_instance* statement_item
   ;
 
 statement_item
@@ -3240,7 +3251,8 @@ inc_or_dec_expression
   ;
 
 constant_expression
-  : constant_primary
+  : Preproc_identifier
+  | constant_primary
   | (
     PLUS
     | MINUS
@@ -3307,7 +3319,8 @@ constant_mintypmax_expression
   ;
 
 constant_param_expression
-  : constant_mintypmax_expression
+  : Preproc_identifier
+  | constant_mintypmax_expression
   | data_type
   | DOLLAR
   ;
@@ -3421,7 +3434,8 @@ constant_indexed_range
  */
 
 expression
-  : primary
+  : Preproc_identifier
+  | primary
   | OPEN_PARENS expression CLOSE_PARENS
   | (
     PLUS
@@ -3759,7 +3773,8 @@ hierarchical_identifier
   ;
 
 identifier
-  : Simple_identifier
+  : Preproc_identifier
+  | Simple_identifier
   | Escaped_identifier
   | THIS // System Verilog keyword
   | RANDOMIZE // System Verilog keyword
@@ -3771,6 +3786,7 @@ interface_identifier
     (OPEN_BRACKET constant_expression CLOSE_BRACKET)* DOT identifier
   )*
   ;
+
 package_scope
   : (
     Simple_identifier

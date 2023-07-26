@@ -24,6 +24,7 @@
 #include <Surelog/SourceCompile/CompileSourceFile.h>
 #include <Surelog/SourceCompile/Compiler.h>
 #include <Surelog/SourceCompile/ParseFile.h>
+#include <Surelog/SourceCompile/ParseTreeListener.h>
 
 namespace SURELOG {
 
@@ -59,6 +60,18 @@ vpiHandle get_uhdm_design(scompiler* compiler) {
 }
 
 void walk_ast(scompiler* compiler, AstListener* listener) {
+  if (!compiler || !listener) return;
+  Compiler* the_compiler = (Compiler*)compiler;
+  for (const CompileSourceFile* csf : the_compiler->getCompileSourceFiles()) {
+    const FileContent* const fC = csf->getParser()->getFileContent();
+    const std::vector<VObject>& objects = fC->getVObjects();
+    const SymbolTable* const symbolTable = fC->getSymbolTable();
+    listener->listen(fC->getFileId(), objects.data(), objects.size(),
+                     symbolTable);
+  }
+}
+
+void walk_ast(scompiler* compiler, ParseTreeListener* listener) {
   if (!compiler || !listener) return;
   Compiler* the_compiler = (Compiler*)compiler;
   for (const CompileSourceFile* csf : the_compiler->getCompileSourceFiles()) {

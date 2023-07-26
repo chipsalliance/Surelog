@@ -34,7 +34,7 @@ std::string VObject::print(SymbolTable* symbols, NodeId uniqueId,
   if (symbol == SymbolTable::getBadSymbol()) {
     StrAppend(&text, "n<>");
   } else {
-    StrAppend(&text, "n<", symbol, ">");
+    StrAppend(&text, "n<", StringUtils::replaceAll(symbol, "\n", "\\n"), ">");
   }
   StrAppend(&text, " u<", uniqueId, "> ");
   StrAppend(&text, "t<", getTypeName(m_type).substr(2), ">");

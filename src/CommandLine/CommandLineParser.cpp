@@ -130,6 +130,10 @@ static const std::initializer_list<std::string_view> helpText = {
     "                        separate compilation units to perform diffs",
     "  -parse                Parse/Compile/Elaborate the files after",
     "                        pre-processing step",
+    "  -parsetree            Collect all possible tokens and rules in the",
+    "                        parse tree. This includes spaces, newlines, and",
+    "                        other bracketing information which is excluded",
+    "                        for Surelog AST. Good for uses like Linting.",
     "  -noparse              Turns off Parsing & Compilation & Elaboration",
     "  -nocomp               Turns off Compilation & Elaboration",
     "  -noelab               Turns off Elaboration",
@@ -362,6 +366,7 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_parametersubstitution(true),
       m_letexprsubstitution(true),
       m_diffCompMode(diffCompMode),
+      m_parseTree(false),
       m_help(false),
       m_cacheAllowed(true),
       m_writeCache(true),
@@ -1262,6 +1267,12 @@ bool CommandLineParser::parseCommandLine(int32_t argc, const char** argv) {
       m_parse = true;
       m_compile = true;
       m_elaborate = true;
+    } else if (all_arguments[i] == "-parsetree") {
+      m_parseTree = true;
+      m_parse = true;
+      m_parseOnly = false;
+      m_compile = false;
+      m_elaborate = false;
     } else if (all_arguments[i] == "-parseonly") {
       m_writePpOutput = true;
       m_parse = true;

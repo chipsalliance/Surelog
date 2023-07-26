@@ -150,7 +150,9 @@ class CommandLineParser final {
   bool sepComp() const { return m_sepComp; }
   bool link() const { return m_link; }
   bool gc() const { return m_gc; }
+  bool parseTree() const { return m_parseTree; }
   void setParse(bool val) { m_parse = val; }
+  void setParseTree(bool val) { m_parseTree = val; }
   void setParseOnly(bool val) { m_parseOnly = val; }
   void setLowMem(bool val) { m_lowMem = val; }
   void setCompile(bool val) { m_compile = val; }
@@ -310,6 +312,7 @@ class CommandLineParser final {
   bool m_parametersubstitution;
   bool m_letexprsubstitution;
   bool m_diffCompMode;
+  bool m_parseTree;
   bool m_help;
   bool m_cacheAllowed;
   bool m_writeCache;

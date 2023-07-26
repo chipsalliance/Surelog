@@ -34,6 +34,7 @@ class CommandLineParser;
 class Design;
 struct scompiler;
 class AstListener;
+class ParseTreeListener;
 
 // Create a compiler session based on the command line options
 scompiler* start_compiler(CommandLineParser* clp);
@@ -54,6 +55,7 @@ vpiHandle get_uhdm_design(scompiler* compiler);
 void shutdown_compiler(scompiler* compiler);
 
 void walk_ast(scompiler* compiler, AstListener* listener);
+void walk_ast(scompiler* compiler, ParseTreeListener* listener);
 
 }  // namespace SURELOG
 

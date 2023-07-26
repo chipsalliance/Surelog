@@ -31,6 +31,7 @@
 #include <Surelog/SourceCompile/AntlrParserHandler.h>
 #include <Surelog/SourceCompile/CompileSourceFile.h>
 #include <Surelog/SourceCompile/ParseFile.h>
+#include <Surelog/SourceCompile/SV3_1aParseTreeListener.h>
 #include <Surelog/SourceCompile/SV3_1aTreeShapeListener.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
 #include <Surelog/Utils/StringUtils.h>
@@ -509,8 +510,15 @@ bool ParseFile::parse() {
     if ((m_parent == nullptr) && (m_children.empty())) {
       Timer tmr;
 
-      m_listener = new SV3_1aTreeShapeListener(
-          this, m_antlrParserHandler->m_tokens, m_offsetLine);
+      if (clp->parseTree()) {
+        FileContent* const ppFileContent =
+            getCompileSourceFile()->getPreprocessor()->getFileContent();
+        m_listener = new SV3_1aParseTreeListener(
+            ppFileContent, this, m_antlrParserHandler->m_tokens, m_offsetLine);
+      } else {
+        m_listener = new SV3_1aTreeShapeListener(
+            this, m_antlrParserHandler->m_tokens, m_offsetLine);
+      }
       antlr4::tree::ParseTreeWalker::DEFAULT.walk(m_listener,
                                                   m_antlrParserHandler->m_tree);
 
@@ -545,9 +553,18 @@ bool ParseFile::parse() {
           // Only visit the chunks that got re-parsed
           // TODO: Incrementally regenerate the FileContent
           child->m_fileContent->setParent(m_fileContent);
-          child->m_listener = new SV3_1aTreeShapeListener(
-              child, child->m_antlrParserHandler->m_tokens,
-              child->m_offsetLine);
+          if (clp->parseTree()) {
+            FileContent* const ppFileContent = child->getCompileSourceFile()
+                                                   ->getPreprocessor()
+                                                   ->getFileContent();
+            child->m_listener = new SV3_1aParseTreeListener(
+                ppFileContent, child, child->m_antlrParserHandler->m_tokens,
+                child->m_offsetLine);
+          } else {
+            child->m_listener = new SV3_1aTreeShapeListener(
+                child, child->m_antlrParserHandler->m_tokens,
+                child->m_offsetLine);
+          }
 
           Timer tmr;
           antlr4::tree::ParseTreeWalker::DEFAULT.walk(

@@ -82,7 +82,7 @@ struct AstNodeEqualityComparer final {
 
 struct AstNodeHash final {
   size_t operator()(const AstNode& node) const {
-    return std::hash<uint32_t>()(node.m_index);
+    return std::hash<RawNodeId>()(node.m_index);
   }
 };
 
@@ -100,6 +100,9 @@ class AstListener {
   virtual void enterSourceFile(PathId fileId) {}
   virtual void leaveSourceFile(PathId fileId) {}
 
+  virtual void enter(const AstNode& node) {}
+  virtual void leave(const AstNode& node) {}
+
   // clang-format off
 <PUBLIC_ENTER_LEAVE_DECLARATIONS>
   // clang-format on
@@ -112,6 +115,7 @@ class AstListener {
               const SymbolTable* symbolTable);
 
   VObjectType getNodeType(const AstNode& node) const;
+  AstNode getRootNode() const;
   bool getNodeName(const AstNode& node, std::string& name) const;
   bool getNodeFileId(const AstNode& node, PathId& fileId) const;
   bool getNodeStartLocation(const AstNode& node, int32_t& line,

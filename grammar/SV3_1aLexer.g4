@@ -916,6 +916,7 @@ NETTYPE: 'nettype';
 //Escaped_identifier : '^^^' [\\|+a-zA-Z0-9_$:,-/*{}()`~!=;'"<>?.]* '^^^' ;
 
 Escaped_identifier: '#~@' .*? '#~@';
+Preproc_identifier: '@~#' Decimal_digit+;
 
 TILDA: '~';
 
