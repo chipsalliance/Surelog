@@ -135,17 +135,18 @@ bit_select                                             2
 bit_typespec                                           3
 bit_var                                                3
 class_defn                                             1
-class_typespec                                         3
+class_typespec                                         2
 class_var                                              2
-constant                                              11
+constant                                              10
 design                                                 1
 foreach_stmt                                           4
 function                                               2
 hier_path                                              3
-module_inst                                            4
+module_inst                                            3
+operation                                              1
 package                                                2
-range                                                  6
-ref_obj                                               13
+range                                                  5
+ref_obj                                               12
 ref_var                                                6
 unsupported_typespec                                   6
 === UHDM Object Stats End ===
@@ -161,17 +162,18 @@ bit_select                                             4
 bit_typespec                                           3
 bit_var                                               10
 class_defn                                             1
-class_typespec                                         3
+class_typespec                                         2
 class_var                                              4
-constant                                              11
+constant                                              10
 design                                                 1
 foreach_stmt                                           8
 function                                               4
 hier_path                                              5
-module_inst                                            4
+module_inst                                            3
+operation                                              1
 package                                                2
-range                                                  6
-ref_obj                                               19
+range                                                  5
+ref_obj                                               18
 ref_var                                               10
 unsupported_typespec                                   6
 === UHDM Object Stats End ===
@@ -205,42 +207,41 @@ design: (unnamed)
       |vpiParent:
       \_function: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:8:3, endln:20:14
       |vpiTypespec:
-      \_array_typespec: , line:11:10, endln:11:33
+      \_array_typespec: , line:11:10, endln:11:32
         |vpiRange:
-        \_range: , line:11:22, endln:11:33
+        \_range: , line:11:23, endln:11:32
           |vpiParent:
-          \_array_typespec: , line:11:10, endln:11:33
+          \_array_typespec: , line:11:10, endln:11:32
           |vpiLeftRange:
-          \_constant: , line:11:22, endln:11:23
+          \_constant: 
             |vpiParent:
-            \_range: , line:11:22, endln:11:33
+            \_range: , line:11:23, endln:11:32
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
           |vpiRightRange:
-          \_constant: , line:11:22, endln:11:23
+          \_operation: , line:11:23, endln:11:32
             |vpiParent:
-            \_range: , line:11:22, endln:11:33
-            |vpiDecompile:associative
-            |STRING:associative
-            |vpiTypespec:
-            \_class_typespec: (uvm_phase), line:11:23, endln:11:32
+            \_range: , line:11:23, endln:11:32
+            |vpiOpType:11
+            |vpiOperand:
+            \_ref_obj: (uvm_phase), line:11:23, endln:11:32
+              |vpiParent:
+              \_operation: , line:11:23, endln:11:32
               |vpiName:uvm_phase
-              |vpiInstance:
-              \_package: uvm (uvm::), file:${SURELOG_DIR}/tests/ForeachForeach/dut.sv, line:1:1, endln:23:11
-              |vpiClassDefn:
-              \_class_defn: (uvm::uvm_phase), file:${SURELOG_DIR}/tests/ForeachForeach/dut.sv, line:3:1, endln:5:9
-            |vpiConstType:6
-        |vpiIndexTypespec:
-        \_class_typespec: (uvm_phase), line:11:23, endln:11:32
+            |vpiOperand:
+            \_constant: 
+              |vpiSize:64
+              |INT:1
+              |vpiConstType:7
         |vpiElemTypespec:
         \_bit_typespec: , line:11:6, endln:11:9
           |vpiInstance:
           \_package: uvm (uvm::), file:${SURELOG_DIR}/tests/ForeachForeach/dut.sv, line:1:1, endln:23:11
       |vpiName:predecessors
       |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors
-      |vpiArrayType:3
+      |vpiArrayType:1
       |vpiReg:
       \_bit_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:11:10, endln:11:22
         |vpiParent:
@@ -266,10 +267,10 @@ design: (unnamed)
         |vpiParent:
         \_begin: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:13:6, endln:17:9
         |vpiTypespec:
-        \_array_typespec: , line:11:10, endln:11:33
+        \_array_typespec: , line:11:10, endln:11:32
         |vpiName:predecessors
         |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors
-        |vpiArrayType:3
+        |vpiArrayType:1
         |vpiReg:
         \_bit_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:11:10, endln:11:22
           |vpiParent:
