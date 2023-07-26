@@ -51,7 +51,7 @@ class NetlistElaboration : public TestbenchElaboration {
   bool elabSignal(Signal* sig, ModuleInstance* instance, ModuleInstance* child,
                   Netlist* parentNetlist, Netlist* netlist,
                   DesignComponent* comp, std::string_view prefix,
-                  bool signalIsPort, TypespecCache& cache);
+                  bool signalIsPort, TypespecCache& cache, Reduce reduce);
 
  private:
   bool elaborate_(ModuleInstance* instance, bool recurse);
