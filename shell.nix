@@ -27,7 +27,6 @@ pkgs.mkShell {
       antlr4
       antlr4.runtime.cpp
       capnproto
-      flatbuffers
       gtest
 
       # Ease development
@@ -40,9 +39,7 @@ pkgs.mkShell {
     ];
   shellHook = ''
     export CMAKE_CXX_COMPILER_LAUNCHER=ccache
-    export ADDITIONAL_CMAKE_OPTIONS="-DSURELOG_USE_HOST_GTEST=On"
-    export ADDITIONAL_CMAKE_OPTIONS="$ADDITIONAL_CMAKE_OPTIONS -DSURELOG_USE_HOST_FLATBUFFERS=On"
-    export ADDITIONAL_CMAKE_OPTIONS="$ADDITIONAL_CMAKE_OPTIONS -DSURELOG_USE_HOST_ANTLR=On -DANTLR_JAR_LOCATION=${pkgs.antlr4.jarLocation}"
+    export ADDITIONAL_CMAKE_OPTIONS="-DSURELOG_USE_HOST_GTEST=On -DSURELOG_USE_HOST_ANTLR=On -DANTLR_JAR_LOCATION=${pkgs.antlr4.jarLocation}"
 
     # For the UHDM dependency: tell it to use local capnp
     export ADDITIONAL_CMAKE_OPTIONS="$ADDITIONAL_CMAKE_OPTIONS -DUHDM_USE_HOST_CAPNP=On"

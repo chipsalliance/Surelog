@@ -113,6 +113,7 @@ class FileContent : public DesignComponent {
   PathId* getMutableFileId(NodeId id);
   Library* getLibrary() const { return m_library; }
   std::vector<DesignElement*>& getDesignElements() { return m_elements; }
+  const std::vector<DesignElement*>& getDesignElements() const { return m_elements; }
   void addDesignElement(std::string_view name, DesignElement* elem);
   const DesignElement* getDesignElement(std::string_view name) const;
   using DesignComponent::addObject;

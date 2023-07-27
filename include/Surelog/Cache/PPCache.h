@@ -26,6 +26,7 @@
 #pragma once
 
 #include <Surelog/Cache/Cache.h>
+#include <Surelog/Cache/PPCache.capnp.h>
 
 namespace SURELOG {
 
@@ -33,7 +34,7 @@ class PreprocessFile;
 
 class PPCache : Cache {
  public:
-  PPCache(PreprocessFile* pp);
+  explicit PPCache(PreprocessFile* pp);
 
   bool restore(bool errorsOnly);
   bool save();
@@ -42,13 +43,69 @@ class PPCache : Cache {
  private:
   PPCache(const PPCache& orig) = delete;
 
-  PathId getCacheFileId_(PathId sourceFileId) const;
-  bool restore_(PathId cacheFileId, const std::vector<char>& content,
-                bool errorsOnly, int32_t recursionDepth);
-  bool checkCacheIsValid_(PathId cacheFileId) const;
-  bool checkCacheIsValid_(PathId cacheFileId,
-                          const std::vector<char>& content) const;
+  PathId getCacheFileId(PathId sourceFileId) const;
 
+  bool checkCacheIsValid(PathId cacheFileId,
+                         const ::PPCache::Reader& root) const;
+  bool checkCacheIsValid(PathId cacheFileId) const;
+
+  // Store symbols in cache.
+  void cacheSymbols(::PPCache::Builder builder, SymbolTable& sourceSymbols);
+
+  // Store errors in cache. Canonicalize strings and store in "targetSymbols".
+  void cacheErrors(::PPCache::Builder builder, SymbolTable& targetSymbols,
+                   const ErrorContainer* errorContainer,
+                   const SymbolTable& sourceSymbols, PathId subjectId);
+
+  // Convert vobjects from "fcontent" into cachable VObjects.
+  // Uses "sourceSymbols" and "targetSymbols" to map symbols found in "fC"
+  // to IDs used on the cache on disk.
+  // Updates "targetSymbols" if new IDs are needed.
+  void cacheVObjects(::PPCache::Builder builder, const FileContent* fC,
+                     SymbolTable& targetSymbols,
+                     const SymbolTable& sourceSymbols, PathId fileId);
+
+  // Store macros in cache. Canonicalize strings and store in "targetSymbols".
+  void cacheMacros(::PPCache::Builder builder, SymbolTable& targetSymbols,
+                   const SymbolTable& sourceSymbols);
+
+  void cacheDefines(::PPCache::Builder builder, SymbolTable& targetSymbols,
+                    const SymbolTable& sourceSymbols);
+
+  void cacheTimeInfos(::PPCache::Builder builder, SymbolTable& targetSymbols,
+                    const SymbolTable& sourceSymbols);
+
+  void cacheLineTranslationInfos(::PPCache::Builder builder,
+                                 SymbolTable& targetSymbols,
+                                 const SymbolTable& sourceSymbols);
+
+  void cacheIncludeFileInfos(::PPCache::Builder builder,
+                             SymbolTable& targetSymbols,
+                             const SymbolTable& sourceSymbols);
+
+  bool restore(PathId cacheFileId, bool errorsOnly, int32_t recursionDepth);
+
+  void restoreMacros(SymbolTable& targetSymbols,
+                     const ::capnp::List<::Macro>::Reader& sourceMacros,
+                     const SymbolTable& sourceSymbols);
+
+  void restoreTimeInfos(
+      SymbolTable& targetSymbols,
+      const ::capnp::List<::TimeInfo>::Reader& sourceTimeInfos,
+      const SymbolTable& sourceSymbols);
+
+  void restoreLineTranslationInfos(
+      SymbolTable& targetSymbols,
+      const ::capnp::List<::LineTranslationInfo>::Reader&
+          sourceLineTranslationInfos,
+      const SymbolTable& sourceSymbols);
+
+  void restoreIncludeFileInfos(
+      SymbolTable& targetSymbols,
+      const ::capnp::List<::IncludeFileInfo>::Reader& sourceIncludeFileInfos,
+      const SymbolTable& sourceSymbols);
+
+ private:
   PreprocessFile* const m_pp = nullptr;
 };
 

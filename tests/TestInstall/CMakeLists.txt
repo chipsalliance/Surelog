@@ -15,7 +15,7 @@ project(HELLOSUREWORLD)
 
 # NOTE: Policy changes has to happen before adding any subprojects
 cmake_policy(SET CMP0091 NEW)
-set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -29,12 +29,6 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/../../cmake/modules")
 
 # Dependencies
 find_package(Surelog REQUIRED)
-if(SURELOG_USE_HOST_FLATBUFFERS)
-  find_package(Flatbuffers REQUIRED)
-  set(FLATBUFFERS_LIBRARY flatbuffers::flatbuffers)
-else()
-  set(FLATBUFFERS_LIBRARY flatbuffers)
-endif()
 
 set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
 set(THREADS_PREFER_PTHREAD_FLAG TRUE)
@@ -108,7 +102,6 @@ if (SURELOG_WITH_PYTHON)
   target_link_libraries(test_hellosureworld
     surelog::surelog
     ${ANTLR_LIBRARY}
-    ${FLATBUFFERS_LIBRARY}
     ${UHDM_LIBRARY}
     ${CAPNPROTO_LIBRARY}
     ${Python3_LIBRARIES}
@@ -118,7 +111,6 @@ else()
   target_link_libraries(test_hellosureworld
     surelog::surelog
     ${ANTLR_LIBRARY}
-    ${FLATBUFFERS_LIBRARY}
     ${UHDM_LIBRARY}
     ${CAPNPROTO_LIBRARY}
     $<$<BOOL:${TCMALLOC_LIBRARY}>:tcmalloc>

@@ -317,6 +317,9 @@ class PreprocessFile final {
   std::vector<LineTranslationInfo>& getLineTranslationInfo() {
     return m_lineTranslationVec;
   }
+  const std::vector<LineTranslationInfo>& getLineTranslationInfo() const {
+    return m_lineTranslationVec;
+  }
 
  private:
   std::pair<bool, std::string> evaluateMacro_(

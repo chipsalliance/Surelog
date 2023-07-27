@@ -23,7 +23,7 @@ We started maintaining a list of ideas for contribution under [Help Wanted](http
 ## Features
 
  * The preprocessor and the parser use Antlr 4.10 as a parser generator, we track Antlr/main.
- * The preprocessor and the parser ASTs are made persistent on disk using Google Flatbuffers, enabling incremental compilation.
+ * The preprocessor and the parser ASTs are made persistent on disk using Cap'n'Proto, enabling incremental compilation.
  * The tool is built thread safe and performs multithread parsing.
  * Large files/modules/packages are splitted for multi-threading compilation.
  * Surelog accepts IEEE Simulator-compliant project specification.
