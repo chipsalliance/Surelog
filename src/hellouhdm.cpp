@@ -90,7 +90,9 @@ int main(int argc, const char** argv) {
       // C++ top handle from which the entire design can be traversed using the
       // C++ API
       udesign = UhdmDesignFromVpiHandle(the_design);
-      result.append("Design name (C++): ").append(udesign->VpiName()) + "\n";
+      result.append("Design name (C++): ")
+          .append(udesign->VpiName())
+          .append("\n");
     }
     // Example demonstrating the classic VPI API traversal of the folded model
     // of the design Flat non-elaborated module/interface/packages/classes list
@@ -120,9 +122,13 @@ int main(int argc, const char** argv) {
       // ...
       // Iterate thru statements
       // ...
-      result.append("+ module: ") + defName + objectName +
-          ", file:" + vpi_get_str(vpiFile, obj_h) +
-          ", line:" + std::to_string(vpi_get(vpiLineNo, obj_h));
+      result.append("+ module: ")
+          .append(defName)
+          .append(objectName)
+          .append(", file:")
+          .append(vpi_get_str(vpiFile, obj_h))
+          .append(", line:")
+          .append(std::to_string(vpi_get(vpiLineNo, obj_h)));
       vpiHandle processItr = vpi_iterate(vpiProcess, obj_h);
       while (vpiHandle sub_h = vpi_scan(processItr)) {
         result += "\n    \\_ process stmt, file:" +
@@ -168,9 +174,15 @@ int main(int argc, const char** argv) {
             if (const char* s = vpi_get_str(vpiFile, obj_h)) {
               f = s;
             }
-            res.append(margin) + "+ module: " + defName + objectName +
-                ", file:" + f +
-                ", line:" + std::to_string(vpi_get(vpiLineNo, obj_h)) + "\n";
+            res.append(margin)
+                .append("+ module: ")
+                .append(defName)
+                .append(objectName)
+                .append(", file:")
+                .append(f)
+                .append(", line:")
+                .append(std::to_string(vpi_get(vpiLineNo, obj_h)))
+                .append("\n");
 
             // Recursive tree traversal
             margin = std::string("  ") + margin;
