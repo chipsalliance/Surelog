@@ -31,6 +31,8 @@
 #include <regex>
 
 namespace SURELOG {
+static constexpr std::string_view kPreprocBeginIdentifier = "/*{*/";
+static constexpr std::string_view kPreprocEndIdentifier = "/*}*/";
 
 SV3_1aPpTreeShapeListener::SV3_1aPpTreeShapeListener(
     PreprocessFile *pp, antlr4::CommonTokenStream *tokens,
@@ -388,6 +390,7 @@ void SV3_1aPpTreeShapeListener::exitInclude_directive(
 
 void SV3_1aPpTreeShapeListener::enterSimple_no_args_macro_definition(
     SV3_1aPpParser::Simple_no_args_macro_definitionContext *ctx) {
+  m_pp->append(StrCat("/*{#", m_fileContent->getVObjects().size(), "*/"));
   if (m_inActiveBranch) {
     std::string macroName;
     if (ctx->Simple_identifier())
@@ -433,7 +436,9 @@ void SV3_1aPpTreeShapeListener::enterSimple_no_args_macro_definition(
 void SV3_1aPpTreeShapeListener::exitSimple_no_args_macro_definition(
     SV3_1aPpParser::Simple_no_args_macro_definitionContext *ctx) {
   m_inMacroDefinitionParsing = false;
-  addVObject(ctx, VObjectType::slMacro_definition);
+  const size_t index =
+      (RawNodeId)addVObject(ctx, VObjectType::slMacro_definition);
+  m_pp->append(StrCat("/*#", index, "}*/"));
 }
 
 void SV3_1aPpTreeShapeListener::enterMacroInstanceWithArgs(

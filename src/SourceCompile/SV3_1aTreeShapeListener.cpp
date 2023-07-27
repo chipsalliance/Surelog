@@ -1862,7 +1862,29 @@ void SV3_1aTreeShapeListener::enterNounconnected_drive_directive(
 
 void SV3_1aTreeShapeListener::enterEveryRule(antlr4::ParserRuleContext *ctx) {}
 void SV3_1aTreeShapeListener::exitEveryRule(antlr4::ParserRuleContext *ctx) {}
-void SV3_1aTreeShapeListener::visitTerminal(antlr4::tree::TerminalNode *node) {}
+
+void SV3_1aTreeShapeListener::visitTerminal(antlr4::tree::TerminalNode *node) {
+  const antlr4::Token *const token = node->getSymbol();
+  if (token->getType() == antlr4::Token::EOF) return;
+
+  const size_t index = token->getTokenIndex();
+
+  // Track line/column offset to apply because of additional
+  // text in the preprocessor generated text stream.
+
+  switch (token->getType()) {
+    case SV3_1aParser::PREPROC_BEGIN: {
+    } break;
+
+    case SV3_1aParser::PREPROC_END: {
+      // Parse out the node-id from the token text
+      // Merge the tree from preprocessor FileContent
+    } break;
+
+    default: break;
+  }
+}
+
 void SV3_1aTreeShapeListener::visitErrorNode(antlr4::tree::ErrorNode *node) {}
 
 void SV3_1aTreeShapeListener::exitBegin_keywords_directive(
