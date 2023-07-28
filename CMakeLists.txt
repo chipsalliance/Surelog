@@ -27,9 +27,6 @@ option(
   OFF)
 
 option(
-  SURELOG_USE_HOST_FLATBUFFERS
-  "Use flatbuffers library from host instead of third_party" OFF)
-option(
   SURELOG_USE_HOST_ANTLR
   "Use Antlr library from host instead of third_party" OFF)
 option(
@@ -52,7 +49,7 @@ option(SURELOG_BUILD_TESTS "Enable testing." ON)
 
 # NOTE: Policy changes has to happen before adding any subprojects
 cmake_policy(SET CMP0091 NEW)
-set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_CXX_STANDARD 17)
@@ -92,17 +89,7 @@ if(WITH_LIBCXX)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
 endif()
 
-set(FLATBUFFERS_FLATC_EXECUTABLE "flatc")
-if(SURELOG_USE_HOST_FLATBUFFERS)
-  find_package(Flatbuffers REQUIRED)
-  set(FLATBUFFERS_LIBRARY flatbuffers::flatbuffers)
-else()
-  set(FLATBUFFERS_BUILD_TESTS OFF CACHE BOOL "Skip flatbuffers' tests")
-  add_subdirectory(third_party/flatbuffers EXCLUDE_FROM_ALL)
-  set(FLATBUFFERS_LIBRARY flatbuffers)
-endif()
-
-set(WITH_STATIC_CRT ON CACHE BOOL "Use Static CRT")
+set(WITH_STATIC_CRT OFF CACHE BOOL "Use Static CRT")
 set(ANTLR_BUILD_CPP_TESTS OFF CACHE BOOL "Skip ANTLR tests")
 
 if(SURELOG_USE_HOST_ANTLR)
@@ -119,12 +106,10 @@ if(SURELOG_USE_HOST_UHDM)
   find_package(UHDM REQUIRED)
   find_package(CapnProto)
   set(UHDM_LIBRARY uhdm::uhdm)
-  set(CAPNPROTO_LIBRARY CapnProto::capnp)
 else()
   add_subdirectory(third_party/UHDM)
   set(UHDM_LIBRARY uhdm)
   get_target_property(UHDM_INCLUDE_DIRS uhdm INCLUDE_DIRECTORIES)
-  set(CAPNPROTO_LIBRARY capnp)
 endif()
 
 if(SURELOG_USE_HOST_GTEST)
@@ -206,29 +191,37 @@ if (WIN32)
   add_compile_definitions(WIN32_LEAN_AND_MEAN)
 endif()
 
-# Flatbuffer
-set(flatbuffer-GENERATED_SRC
-    ${GENDIR}/include/Surelog/Cache/header_generated.h
-    ${GENDIR}/include/Surelog/Cache/parser_generated.h
-    ${GENDIR}/include/Surelog/Cache/preproc_generated.h
-    ${GENDIR}/include/Surelog/Cache/python_api_generated.h)
-
-foreach(header_file ${flatbuffer-GENERATED_SRC})
+# Cap'n'Proto
+set(capnp-GENERATED_SRC
+  ${GENDIR}/include/Surelog/Cache/Cache.capnp.h
+  ${GENDIR}/include/Surelog/Cache/Cache.capnp.c++
+  ${GENDIR}/include/Surelog/Cache/PPCache.capnp.h
+  ${GENDIR}/include/Surelog/Cache/PPCache.capnp.c++
+  ${GENDIR}/include/Surelog/Cache/ParseCache.capnp.h
+  ${GENDIR}/include/Surelog/Cache/ParseCache.capnp.c++
+  ${GENDIR}/include/Surelog/Cache/PythonAPICache.capnp.h
+  ${GENDIR}/include/Surelog/Cache/PythonAPICache.capnp.c++
+)
+foreach(header_file ${capnp-GENERATED_SRC})
   set_source_files_properties(${header_file} PROPERTIES GENERATED TRUE)
-endforeach(header_file ${flatbuffer-GENERATED_SRC})
-add_custom_target(GenerateSerializer DEPENDS ${flatbuffer-GENERATED_SRC})
+endforeach(header_file ${capnp-GENERATED_SRC})
+add_custom_target(GenerateCacheSerializers DEPENDS ${capnp-GENERATED_SRC})
 add_custom_command(
-  OUTPUT ${flatbuffer-GENERATED_SRC}
+  OUTPUT ${capnp-GENERATED_SRC}
+  COMMAND ${CMAKE_COMMAND} -E make_directory ${GENDIR}/include/Surelog/Cache
   COMMAND
-    ${FLATBUFFERS_FLATC_EXECUTABLE} --cpp --binary -o ${GENDIR}/include/Surelog/Cache
-    ${PROJECT_SOURCE_DIR}/src/Cache/header.fbs
-    ${PROJECT_SOURCE_DIR}/src/Cache/parser.fbs
-    ${PROJECT_SOURCE_DIR}/src/Cache/preproc.fbs
-    ${PROJECT_SOURCE_DIR}/src/Cache/python_api.fbs
-  WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
-  DEPENDS ${PROJECT_SOURCE_DIR}/src/Cache/parser.fbs
-          ${PROJECT_SOURCE_DIR}/src/Cache/header.fbs
-          ${PROJECT_SOURCE_DIR}/src/Cache/preproc.fbs)
+    ${CAPNP_EXECUTABLE} compile
+      -o${CAPNPC_CXX_EXECUTABLE}:"${GENDIR}/include/Surelog/Cache"
+      --src-prefix=${PROJECT_SOURCE_DIR}/src/Cache
+      ${PROJECT_SOURCE_DIR}/src/Cache/Cache.capnp
+      ${PROJECT_SOURCE_DIR}/src/Cache/ParseCache.capnp
+      ${PROJECT_SOURCE_DIR}/src/Cache/PPCache.capnp
+      ${PROJECT_SOURCE_DIR}/src/Cache/PythonAPICache.capnp
+  DEPENDS ${PROJECT_SOURCE_DIR}/src/Cache/Cache.capnp
+          ${PROJECT_SOURCE_DIR}/src/Cache/ParseCache.capnp
+          ${PROJECT_SOURCE_DIR}/src/Cache/PPCache.capnp
+          ${PROJECT_SOURCE_DIR}/src/Cache/PythonAPICache.capnp
+)
 
 # Java
 find_package(Java 11 REQUIRED COMPONENTS Runtime)
@@ -297,7 +290,6 @@ add_custom_command(
           ${PROJECT_SOURCE_DIR}/scripts/generate_parser_listener.py
           ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aTreeShapeListener.cpp
           ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aPpTreeShapeListener.cpp
-
   WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
   COMMAND echo "---------- VObjectTypes, Listener generation"
   COMMAND ${Python3_EXECUTABLE} scripts/generate_parser_listener.py --input-dirpath ${PROJECT_SOURCE_DIR} --output-dirpath ${GENDIR}
@@ -339,7 +331,6 @@ if (SURELOG_WITH_PYTHON)
             ${PROJECT_SOURCE_DIR}/scripts/generate_python_listener.py
             ${PROJECT_SOURCE_DIR}/scripts/embed_python_api.py
             ${GENDIR}/src/parser/generated-parsers.tstamp
-
     WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
     COMMAND echo "---------- Python API generation"
     COMMAND ${Python3_EXECUTABLE} scripts/generate_python_listener.py
@@ -550,7 +541,7 @@ if (NOT QUICK_COMP)
   add_executable(roundtrip ${PROJECT_SOURCE_DIR}/src/roundtrip.cpp)
 endif()
 
-if(MSVC OR WIN32)
+if (MSVC OR WIN32)
   # We have two files named "surelog.lib" and both getting generated in the lib folder
   # One is the surelog.lib generated by the surelog target and the other is the one generated
   # becaues of /IMPLIB option when linking the executable. Unfortunately, there is no documented
@@ -564,20 +555,12 @@ if(MSVC OR WIN32)
   endif()
 endif()
 
-target_link_libraries(surelog-bin PUBLIC surelog)
+target_link_libraries(surelog-bin PRIVATE surelog)
 target_link_libraries(surelog PUBLIC ${ANTLR_LIBRARY})
-target_include_directories(surelog PUBLIC ${FLATBUFFERS_INCLUDE_DIRS})
-
-target_link_libraries(surelog PRIVATE ${FLATBUFFERS_LIBRARY})
-if(NOT SURELOG_USE_HOST_FLATBUFFERS)
-  add_dependencies(surelog flatc)
-endif()
-
 target_link_libraries(surelog PUBLIC ${UHDM_LIBRARY})
-target_link_libraries(surelog PRIVATE ${CAPNPROTO_LIBRARY})
 
 if(NOT SURELOG_USE_HOST_UHDM)
-  add_dependencies(GenerateSerializer ${UHDM_LIBRARY})
+  add_dependencies(GenerateCacheSerializers ${UHDM_LIBRARY})
   target_include_directories(surelog PUBLIC
     $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/third_party/UHDM/generated>
     $<INSTALL_INTERFACE:include>)
@@ -588,7 +571,7 @@ if(NOT SURELOG_USE_HOST_ANTLR)
 endif()
 
 add_dependencies(surelog GenerateParser)
-add_dependencies(surelog GenerateSerializer)
+add_dependencies(surelog GenerateCacheSerializers)
 
 if (SURELOG_WITH_PYTHON)
   target_link_libraries(surelog PRIVATE ${Python3_LIBRARIES})
@@ -782,17 +765,6 @@ if(NOT SURELOG_USE_HOST_ANTLR)
     PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog)
 endif()
 
-if(NOT SURELOG_USE_HOST_FLATBUFFERS)
-  # TODO: should we even install these from third_party ? If it is
-  # always a static library, then it is an implementation detail
-  # of surelog.
-  install(
-    TARGETS flatbuffers
-    EXPORT Surelog
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/surelog
-    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog)
-endif()
-
 if(NOT SURELOG_USE_HOST_UHDM)
   # Wouldn't it be cool to delegate install duty to UHDM in that case ?
   # Otherwise we have to replicate the logic of what needs to be installed
@@ -938,7 +910,6 @@ if (WIN32)
   if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
     install(
       FILES ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/surelog.dir/surelog.pdb
-            ${FlatBuffers_BINARY_DIR}/CMakeFiles/flatbuffers.dir/flatbuffers.pdb
             ${LIBANTLR4_BINARY_DIR}/runtime/$<TARGET_FILE_BASE_NAME:antlr4_static>.pdb
       CONFIGURATIONS Debug RelWithDebInfo
       DESTINATION ${CMAKE_INSTALL_LIBDIR}/surelog)

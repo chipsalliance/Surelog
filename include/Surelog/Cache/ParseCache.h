@@ -26,14 +26,15 @@
 #pragma once
 
 #include <Surelog/Cache/Cache.h>
+#include <Surelog/Cache/ParseCache.capnp.h>
 
 namespace SURELOG {
 
 class ParseFile;
 
-class ParseCache : Cache {
+class ParseCache final : Cache {
  public:
-  ParseCache(ParseFile* pp);
+  explicit ParseCache(ParseFile* pp);
 
   bool restore();
   bool save();
@@ -42,12 +43,41 @@ class ParseCache : Cache {
  private:
   ParseCache(const ParseCache& orig) = delete;
 
-  PathId getCacheFileId_(PathId ppFileId) const;
-  bool restore_(PathId cacheFileId, const std::vector<char>& content);
-  bool checkCacheIsValid_(PathId cacheFileId) const;
-  bool checkCacheIsValid_(PathId cacheFileId,
-                          const std::vector<char>& content) const;
+  PathId getCacheFileId(PathId ppFileId) const;
 
+  bool checkCacheIsValid(PathId cacheFileId,
+                         const ::ParseCache::Reader& root) const;
+  bool checkCacheIsValid(PathId cacheFileId) const;
+
+  // Store symbols in cache.
+  void cacheSymbols(::ParseCache::Builder builder, SymbolTable& sourceSymbols);
+
+  // Store errors in cache. Canonicalize strings and store in "targetSymbols".
+  void cacheErrors(::ParseCache::Builder builder, SymbolTable& targetSymbols,
+                   const ErrorContainer* errorContainer,
+                   const SymbolTable& sourceSymbols, PathId subjectId);
+
+  // Convert vobjects from "fcontent" into cachable VObjects.
+  // Uses "sourceSymbols" and "targetSymbols" to map symbols found in "fC"
+  // to IDs used on the cache on disk.
+  // Updates "targetSymbols" if new IDs are needed.
+  void cacheVObjects(::ParseCache::Builder builder, const FileContent* fC,
+                     SymbolTable& targetSymbols, const SymbolTable& sourceSymbols,
+                     PathId fileId);
+
+  void cacheDesignElements(::ParseCache::Builder builder,
+                           const FileContent* fC, SymbolTable& targetSymbols,
+                           const SymbolTable& sourceSymbols);
+
+  bool restore(PathId cacheFileId);
+
+  void restoreDesignElements(
+      FileContent* fC, SymbolTable& targetSymbols,
+      const ::capnp::List< ::DesignElement, ::capnp::Kind::STRUCT>::Reader&
+          sourceDesignElements,
+      const SymbolTable& sourceSymbols);
+
+ private:
   ParseFile* const m_parse = nullptr;
 };
 

@@ -104,7 +104,7 @@ Regression options:
 ## Useful links:
 
 http://ecee.colorado.edu/~mathys/ecen2350/IntelSoftware/pdf/IEEE_Std1800-2017_8299595.pdf
-https://google.github.io/flatbuffers/flatbuffers_guide_use_cpp.html
+https://capnproto.org/
 https://www.csee.umbc.edu/portal/help/VHDL/verilog/command_line_plus_options.html
 https://www.edaplayground.com/
 

@@ -1032,6 +1032,7 @@ TEST(PlatformFileSystemTest, InMemoryTest) {
   clp->setElabUhdm(true);
   clp->setWriteUhdm(false);
   clp->fullSVMode(true);
+  clp->setWriteCache(false);
 
   Compiler *const compiler = new Compiler(clp, errors, symbolTable);
   compiler->compile();

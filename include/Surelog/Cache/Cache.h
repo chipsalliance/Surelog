@@ -25,9 +25,9 @@
 #define SURELOG_CACHE_H
 #pragma once
 
-#include <Surelog/Cache/header_generated.h>
+#include <Surelog/Cache/Cache.capnp.h>
 #include <Surelog/Common/PathId.h>
-#include <flatbuffers/flatbuffers.h>
+#include <Surelog/ErrorReporting/Error.h>
 
 #include <string_view>
 #include <vector>
@@ -39,79 +39,61 @@ class FileContent;
 class SymbolTable;
 class VObject;
 
-// A cache class used as a base for various other cashes persisting
-// things in flatbuffers.
-// All methods are protected as they are ment for derived classes to use.
+// A cache class used as a base for various other caches persisting
+// things in Cap'n'Proto.
+// All methods are protected as they are meant for derived classes to use.
 //
-// The cache is storing a symbol table on disk, which we call "cacheSymbols";
-// these typically only contain all the symbols that are exported.
-// The "localSymbols" in the process will differ from "cacheSymbols" as it
-// typically contains more.
+// The cache is storing a symbol table on disk; these typically only contain
+// all the symbols that are exported.
+
 class Cache {
  public:
   static constexpr uint64_t Capacity = 0x000000000FFFFFFF;
 
  protected:
-  using VectorOffsetError =
-      flatbuffers::Vector<flatbuffers::Offset<SURELOG::CACHE::Error>>;
-  using VectorOffsetString =
-      flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>>;
-
   Cache() = default;
 
   std::string_view getExecutableTimeStamp() const;
 
-  // Open file and read contents into a buffer.
-  bool openFlatBuffers(PathId cacheFileId, std::vector<char>& content) const;
-
-  bool saveFlatbuffers(const flatbuffers::FlatBufferBuilder& builder,
-                       PathId cacheFileId, SymbolTable* symbolTable);
-
-  bool checkIfCacheIsValid(const SURELOG::CACHE::Header* header,
+  bool checkIfCacheIsValid(const Header::Reader& header,
                            std::string_view schemaVersion, PathId cacheFileId,
                            PathId sourceFileId) const;
 
-  flatbuffers::Offset<SURELOG::CACHE::Header> createHeader(
-      flatbuffers::FlatBufferBuilder& builder, std::string_view schemaVersion);
+  void cacheHeader(Header::Builder builder, std::string_view schemaVersion);
 
-  // Store errors in cache. Canonicalize strings and store in "cacheSymbols".
-  flatbuffers::Offset<VectorOffsetError> cacheErrors(
-      flatbuffers::FlatBufferBuilder& builder, SymbolTable* cacheSymbols,
-      const ErrorContainer* errorContainer, const SymbolTable& localSymbols,
-      PathId subjectId);
+  void cacheErrors(
+      ::capnp::List<::Error, ::capnp::Kind::STRUCT>::Builder targetErrors,
+      SymbolTable& targetSymbols, const std::vector<Error>& sourceErrors,
+      const SymbolTable& sourceSymbols);
 
-  void restoreSymbols(const VectorOffsetString* symbolBuf,
-                      SymbolTable* cacheSymbols);
+  void cacheVObjects(
+      ::capnp::List<::VObject, ::capnp::Kind::STRUCT>::Builder targetVObjects,
+      SymbolTable& targetSymbols, const std::vector<VObject>& sourceVObjects,
+      const SymbolTable& sourceSymbols);
+
+  void cacheSymbols(
+      ::capnp::List<::capnp::Text, ::capnp::Kind::BLOB>::Builder targetSymbols,
+      const std::vector<std::string_view>& sourceSymbols);
 
   // Restores errors and the cache symbol table (to be used in other restore
   // operations).
   // References in the error container to local symbols will be entered into
   // the local symbol table.
-  void restoreErrors(const VectorOffsetError* errorsBuf,
-                     SymbolTable* cacheSymbols, ErrorContainer* errorContainer,
-                     SymbolTable* localSymbols);
-
-  // Convert vobjects from "fcontent" into cachable VObjects.
-  // Uses "localSymbols" and "cacheSymbols" to map symbols found in "fcontent"
-  // to IDs used on the cache on disk.
-  // Updates "cacheSymbols" if new IDs are needed.
-  std::vector<CACHE::VObject> cacheVObjects(const FileContent* fcontent,
-                                            SymbolTable* cacheSymbols,
-                                            const SymbolTable& localSymbols,
-                                            PathId fileId);
+  void restoreErrors(ErrorContainer* errorContainer, SymbolTable& targetSymbols,
+                     const ::capnp::List<::Error>::Reader& sourceErrors,
+                     const SymbolTable& sourceSymbols);
 
   // Restore objects coming from the flatbuffer cache and with the corresponding
   // "cacheSymbols" into "fileContent", with IDs relevant in the local
   // symbol table "localSymbols" (which is updated).
-  void restoreVObjects(
-      const flatbuffers::Vector<const SURELOG::CACHE::VObject*>* objects,
-      const SymbolTable& cacheSymbols, SymbolTable* localSymbols, PathId fileId,
-      FileContent* fileContent);
+  void restoreVObjects(std::vector<VObject>& targetVObjects,
+                       SymbolTable& targetSymbols,
+                       const ::capnp::List<::VObject>::Reader& sourceVObjects,
+                       const SymbolTable& sourceSymbols);
 
-  void restoreVObjects(
-      const flatbuffers::Vector<const SURELOG::CACHE::VObject*>* objects,
-      const SymbolTable& cacheSymbols, SymbolTable* localSymbols, PathId fileId,
-      std::vector<SURELOG::VObject>* result);
+  void restoreSymbols(
+      SymbolTable& targetSymbols,
+      const ::capnp::List<::capnp::Text>::Reader& sourceSymbols);
 
  private:
   Cache(const Cache& orig) = delete;

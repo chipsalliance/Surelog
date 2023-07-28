@@ -26,6 +26,7 @@
 #pragma once
 
 #include <Surelog/Cache/Cache.h>
+#include <Surelog/Cache/PythonAPICache.capnp.h>
 
 namespace SURELOG {
 
@@ -33,7 +34,7 @@ class PythonListen;
 
 class PythonAPICache final : Cache {
  public:
-  PythonAPICache(PythonListen* listener);
+  explicit PythonAPICache(PythonListen* listener);
 
   bool restore();
   bool save();
@@ -42,13 +43,22 @@ class PythonAPICache final : Cache {
  private:
   PythonAPICache(const PythonAPICache& orig) = delete;
 
-  PathId getCacheFileId_(PathId sourceFileId) const;
-  bool restore_(PathId cacheFileId, const std::vector<char>& content);
-  bool checkCacheIsValid_(PathId cacheFileId) const;
-  bool checkCacheIsValid_(PathId cacheFileId,
-                          const std::vector<char>& content) const;
+  PathId getCacheFileId(PathId sourceFileId) const;
 
-  PythonListen* m_listener;
+  bool checkCacheIsValid(PathId cacheFileId,
+                         const ::PythonAPICache::Reader& root) const;
+  bool checkCacheIsValid(PathId cacheFileId) const;
+
+  void cacheSymbols(::PythonAPICache::Builder builder,
+                    SymbolTable& sourceSymbols);
+
+  void cacheErrors(::PythonAPICache::Builder builder,
+                   SymbolTable& targetSymbols,
+                   const ErrorContainer* errorContainer,
+                   const SymbolTable& sourceSymbols, PathId subjectId);
+
+ private:
+  PythonListen* const m_listener = nullptr;
 };
 
 };  // namespace SURELOG

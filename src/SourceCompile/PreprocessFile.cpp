@@ -386,9 +386,8 @@ bool PreprocessFile::preprocess() {
       }
       // Remove ^M (DOS) from text file
       std::string text;
-      char nonAscii;
+      char nonAscii = '\0';
       char c = stream.get();
-      bool nonAsciiContent = false;
       int32_t lineNb = 1;
       int32_t columnNb = 0;
       int32_t lineNonAscii = 0;
@@ -402,7 +401,6 @@ bool PreprocessFile::preprocess() {
             lineNonAscii = lineNb;
             columnNonAscii = columnNb;
             text += " ";
-            nonAsciiContent = true;
           }
         }
         if (c == '\n') {
@@ -414,7 +412,7 @@ bool PreprocessFile::preprocess() {
       }
       fileSystem->close(stream);
 
-      if (nonAsciiContent) {
+      if (nonAscii != '\0') {
         std::string symbol;
         if (!clp->pythonAllowed()) symbol = std::string(1, nonAscii);
         if (m_includer == nullptr) {
