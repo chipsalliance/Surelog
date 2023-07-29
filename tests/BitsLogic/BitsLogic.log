@@ -202,8 +202,9 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              21
+constant                                              22
 design                                                 1
+import_typespec                                        1
 int_typespec                                           2
 logic_net                                              1
 logic_typespec                                         7
@@ -222,8 +223,9 @@ typespec_member                                        6
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              21
+constant                                              22
 design                                                 1
+import_typespec                                        1
 int_typespec                                           2
 logic_net                                              1
 logic_typespec                                         7
@@ -260,7 +262,7 @@ design: (work@top)
   |vpiTypedef:
   \_struct_typespec: (SchedulerTypes::IntIssueQueueEntry), line:3:9, endln:6:2
     |vpiParent:
-    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitsLogic/dut.sv, line:12:1, endln:28:10
+    \_package: SchedulerTypes (SchedulerTypes::), file:${SURELOG_DIR}/tests/BitsLogic/dut.sv, line:1:1, endln:8:11
     |vpiName:SchedulerTypes::IntIssueQueueEntry
     |vpiInstance:
     \_package: SchedulerTypes (SchedulerTypes::), file:${SURELOG_DIR}/tests/BitsLogic/dut.sv, line:1:1, endln:8:11
@@ -290,6 +292,28 @@ design: (work@top)
   |vpiFullName:SchedulerTypes::
   |vpiTypedef:
   \_struct_typespec: (SchedulerTypes::IntIssueQueueEntry), line:3:9, endln:6:2
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitsLogic/dut.sv, line:12:1, endln:28:10
+    |vpiName:SchedulerTypes::IntIssueQueueEntry
+    |vpiInstance:
+    \_package: SchedulerTypes (SchedulerTypes::), file:${SURELOG_DIR}/tests/BitsLogic/dut.sv, line:1:1, endln:8:11
+    |vpiPacked:1
+    |vpiTypespecMember:
+    \_typespec_member: (a), line:5:11, endln:5:12
+      |vpiParent:
+      \_struct_typespec: (SchedulerTypes::IntIssueQueueEntry), line:3:9, endln:6:2
+      |vpiName:a
+      |vpiTypespec:
+      \_logic_typespec: , line:5:5, endln:5:10
+        |vpiParent:
+        \_typespec_member: (a), line:5:11, endln:5:12
+        |vpiInstance:
+        \_package: SchedulerTypes (SchedulerTypes::), file:${SURELOG_DIR}/tests/BitsLogic/dut.sv, line:1:1, endln:8:11
+      |vpiRefFile:${SURELOG_DIR}/tests/BitsLogic/dut.sv
+      |vpiRefLineNo:5
+      |vpiRefColumnNo:5
+      |vpiRefEndLineNo:5
+      |vpiRefEndColumnNo:10
   |vpiDefName:SchedulerTypes
   |vpiTop:1
 |uhdmallModules:
@@ -510,6 +534,8 @@ design: (work@top)
     |vpiName:b
     |vpiFullName:work@top.b
     |vpiNetType:36
+|vpiTypedef:
+\_struct_typespec: (SchedulerTypes::IntIssueQueueEntry), line:3:9, endln:6:2
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitsLogic/dut.sv, line:12:1, endln:28:10
   |vpiName:work@top

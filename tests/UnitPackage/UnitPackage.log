@@ -1032,12 +1032,12 @@ Instance tree:
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assignment                                             8
 begin                                                  9
-bit_typespec                                          12
-bit_var                                                3
+bit_typespec                                          13
+bit_var                                                4
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              53
+constant                                              59
 delay_control                                          3
 design                                                 1
 enum_const                                             9
@@ -1049,13 +1049,14 @@ gen_if                                                 1
 gen_scope                                              2
 gen_scope_array                                        2
 if_stmt                                                3
+import_typespec                                        2
 initial                                                1
 int_typespec                                          12
 int_var                                                4
-integer_typespec                                      16
-integer_var                                           14
+integer_typespec                                      18
+integer_var                                           16
 io_decl                                               23
-logic_net                                              6
+logic_net                                             10
 logic_var                                              1
 module_inst                                            7
 named_begin                                            1
@@ -1066,8 +1067,8 @@ parameter                                              6
 range                                                  4
 ref_module                                             2
 ref_obj                                               40
-string_typespec                                       14
-string_var                                             3
+string_typespec                                       15
+string_var                                             4
 struct_typespec                                        2
 sys_func_call                                         21
 task                                                  19
@@ -1079,12 +1080,12 @@ typespec_member                                        6
 === UHDM Object Stats Begin (Elaborated Model) ===
 assignment                                            24
 begin                                                 26
-bit_typespec                                          12
-bit_var                                                3
+bit_typespec                                          13
+bit_var                                                4
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              53
+constant                                              59
 delay_control                                          6
 design                                                 1
 enum_const                                            14
@@ -1096,13 +1097,14 @@ gen_if                                                 1
 gen_scope                                              3
 gen_scope_array                                        3
 if_stmt                                                8
+import_typespec                                        2
 initial                                                2
 int_typespec                                          12
 int_var                                                4
-integer_typespec                                      16
-integer_var                                           14
+integer_typespec                                      18
+integer_var                                           16
 io_decl                                               58
-logic_net                                              6
+logic_net                                             10
 logic_var                                              1
 module_inst                                            8
 named_begin                                            1
@@ -1113,8 +1115,8 @@ parameter                                              6
 range                                                  4
 ref_module                                             2
 ref_obj                                              117
-string_typespec                                       14
-string_var                                             3
+string_typespec                                       15
+string_var                                             4
 struct_typespec                                        2
 sys_func_call                                         62
 task                                                  48
@@ -3403,6 +3405,40 @@ design: (work@simple_package)
     |vpiName:msgName
     |vpiFullName:work@simple_package.msgName
   |vpiNet:
+  \_logic_net: (work@simple_package.errCnt), line:5:12, endln:5:18
+    |vpiParent:
+    \_module_inst: work@simple_package (work@simple_package), file:${SURELOG_DIR}/tests/UnitPackage/simple_pkg.sv, line:11:1, endln:30:10
+    |vpiTypespec:
+    \_integer_typespec: , line:5:3, endln:5:23
+      |vpiSigned:1
+    |vpiName:errCnt
+    |vpiFullName:work@simple_package.errCnt
+  |vpiNet:
+  \_logic_net: (work@simple_package.warnCnt), line:6:12, endln:6:19
+    |vpiParent:
+    \_module_inst: work@simple_package (work@simple_package), file:${SURELOG_DIR}/tests/UnitPackage/simple_pkg.sv, line:11:1, endln:30:10
+    |vpiTypespec:
+    \_integer_typespec: , line:6:3, endln:6:23
+      |vpiSigned:1
+    |vpiName:warnCnt
+    |vpiFullName:work@simple_package.warnCnt
+  |vpiNet:
+  \_logic_net: (work@simple_package.terminate_on_error), line:7:12, endln:7:30
+    |vpiParent:
+    \_module_inst: work@simple_package (work@simple_package), file:${SURELOG_DIR}/tests/UnitPackage/simple_pkg.sv, line:11:1, endln:30:10
+    |vpiTypespec:
+    \_bit_typespec: , line:7:3, endln:7:6
+    |vpiName:terminate_on_error
+    |vpiFullName:work@simple_package.terminate_on_error
+  |vpiNet:
+  \_logic_net: (work@simple_package.msgName), line:8:12, endln:8:19
+    |vpiParent:
+    \_module_inst: work@simple_package (work@simple_package), file:${SURELOG_DIR}/tests/UnitPackage/simple_pkg.sv, line:11:1, endln:30:10
+    |vpiTypespec:
+    \_string_typespec: , line:8:3, endln:8:28
+    |vpiName:msgName
+    |vpiFullName:work@simple_package.msgName
+  |vpiNet:
   \_logic_net: (work@simple_package.value), line:13:8, endln:13:13
     |vpiParent:
     \_module_inst: work@simple_package (work@simple_package), file:${SURELOG_DIR}/tests/UnitPackage/simple_pkg.sv, line:11:1, endln:30:10
@@ -3620,6 +3656,22 @@ design: (work@simple_package)
         \_named_begin: (work@simple_package.inst)
         |vpiName:u1
         |vpiDefName:work@M1
+|vpiTypedef:
+\_enum_typespec: (definesPkg::bool), line:10:3, endln:10:36
+|vpiTaskFunc:
+\_task: (msgPkg::initMsgPkg), line:12:3, endln:15:10
+|vpiTaskFunc:
+\_task: (msgPkg::msg_info), line:19:3, endln:21:10
+|vpiTaskFunc:
+\_task: (msgPkg::msg_warn), line:25:3, endln:28:10
+|vpiTaskFunc:
+\_task: (msgPkg::msg_error), line:32:3, endln:36:10
+|vpiTaskFunc:
+\_task: (msgPkg::msg_fatal), line:40:3, endln:43:10
+|vpiTaskFunc:
+\_function: (msgPkg::getErrCnt), line:47:3, endln:49:14
+|vpiTaskFunc:
+\_function: (msgPkg::getWarnCnt), line:53:3, endln:55:14
 |uhdmtopModules:
 \_module_inst: work@simple_package (work@simple_package), file:${SURELOG_DIR}/tests/UnitPackage/simple_pkg.sv, line:11:1, endln:30:10
   |vpiName:work@simple_package
@@ -3692,6 +3744,77 @@ design: (work@simple_package)
     \_string_typespec: , line:8:3, endln:8:9
       |vpiParent:
       \_string_var: (work@simple_package.msgName), line:8:12, endln:8:28
+    |vpiName:msgName
+    |vpiFullName:work@simple_package.msgName
+    |vpiAutomatic:1
+    |vpiVisibility:1
+    |vpiExpr:
+    \_constant: , line:8:22, endln:8:28
+      |vpiParent:
+      \_string_var: (work@simple_package.msgName), line:8:12, endln:8:28
+      |vpiDecompile:"NULL"
+      |vpiSize:32
+      |STRING:NULL
+      |vpiConstType:6
+  |vpiVariables:
+  \_integer_var: (work@simple_package.errCnt), line:5:12, endln:5:23
+    |vpiParent:
+    \_module_inst: work@simple_package (work@simple_package), file:${SURELOG_DIR}/tests/UnitPackage/simple_pkg.sv, line:11:1, endln:30:10
+    |vpiTypespec:
+    \_integer_typespec: , line:5:3, endln:5:10
+    |vpiName:errCnt
+    |vpiFullName:work@simple_package.errCnt
+    |vpiAutomatic:1
+    |vpiVisibility:1
+    |vpiExpr:
+    \_constant: , line:5:22, endln:5:23
+      |vpiParent:
+      \_integer_var: (work@simple_package.errCnt), line:5:12, endln:5:23
+      |vpiDecompile:0
+      |vpiSize:32
+      |UINT:0
+      |vpiConstType:9
+  |vpiVariables:
+  \_integer_var: (work@simple_package.warnCnt), line:6:12, endln:6:23
+    |vpiParent:
+    \_module_inst: work@simple_package (work@simple_package), file:${SURELOG_DIR}/tests/UnitPackage/simple_pkg.sv, line:11:1, endln:30:10
+    |vpiTypespec:
+    \_integer_typespec: , line:6:3, endln:6:10
+    |vpiName:warnCnt
+    |vpiFullName:work@simple_package.warnCnt
+    |vpiAutomatic:1
+    |vpiVisibility:1
+    |vpiExpr:
+    \_constant: , line:6:22, endln:6:23
+      |vpiParent:
+      \_integer_var: (work@simple_package.warnCnt), line:6:12, endln:6:23
+      |vpiDecompile:0
+      |vpiSize:32
+      |UINT:0
+      |vpiConstType:9
+  |vpiVariables:
+  \_bit_var: (work@simple_package.terminate_on_error), line:7:12, endln:7:30
+    |vpiParent:
+    \_module_inst: work@simple_package (work@simple_package), file:${SURELOG_DIR}/tests/UnitPackage/simple_pkg.sv, line:11:1, endln:30:10
+    |vpiTypespec:
+    \_bit_typespec: , line:7:3, endln:7:6
+    |vpiName:terminate_on_error
+    |vpiFullName:work@simple_package.terminate_on_error
+    |vpiVisibility:1
+    |vpiExpr:
+    \_constant: , line:7:33, endln:7:34
+      |vpiParent:
+      \_bit_var: (work@simple_package.terminate_on_error), line:7:12, endln:7:30
+      |vpiDecompile:0
+      |vpiSize:1
+      |UINT:0
+      |vpiConstType:9
+  |vpiVariables:
+  \_string_var: (work@simple_package.msgName), line:8:12, endln:8:28
+    |vpiParent:
+    \_module_inst: work@simple_package (work@simple_package), file:${SURELOG_DIR}/tests/UnitPackage/simple_pkg.sv, line:11:1, endln:30:10
+    |vpiTypespec:
+    \_string_typespec: , line:8:3, endln:8:9
     |vpiName:msgName
     |vpiFullName:work@simple_package.msgName
     |vpiAutomatic:1

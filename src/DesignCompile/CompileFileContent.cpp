@@ -64,6 +64,10 @@ bool CompileFileContent::collectObjects_() {
     VObjectType type = fC->Type(id);
     switch (type) {
       case VObjectType::slPackage_import_item: {
+        m_helper.importPackage(m_fileContent, m_design, fC, id,
+                               m_compileDesign);
+        m_helper.compileImportDeclaration(m_fileContent, fC, id,
+                                          m_compileDesign);
         FileCNodeId fnid(fC, id);
         m_fileContent->addObject(type, fnid);
         break;
