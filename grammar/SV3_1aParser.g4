@@ -3771,6 +3771,7 @@ interface_identifier
     (OPEN_BRACKET constant_expression CLOSE_BRACKET)* DOT identifier
   )*
   ;
+
 package_scope
   : (
     Simple_identifier

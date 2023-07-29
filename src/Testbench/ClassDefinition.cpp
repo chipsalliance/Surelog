@@ -38,7 +38,7 @@ ClassDefinition::ClassDefinition(std::string_view name, Library* library,
                                  UHDM::class_defn* uhdm_definition)
     : DesignComponent(container ? container : fC, nullptr),
       DataType(fC, nodeId, name,
-               fC ? fC->Type(nodeId) : VObjectType::slClass_declaration),
+               fC ? fC->Type(nodeId) : VObjectType::paClass_declaration),
       m_name(name),
       m_library(library),
       m_container(container),

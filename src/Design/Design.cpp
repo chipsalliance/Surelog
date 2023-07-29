@@ -122,34 +122,34 @@ std::string Design::reportInstanceTree() const {
     std::string type_s;
     Location loc(tmp->getFileId(), tmp->getLineNb(), tmp->getColumnNb(),
                  tmp->getFullPathId(symbols));
-    if (type == VObjectType::slUdp_instantiation) {
+    if (type == VObjectType::paUdp_instantiation) {
       type_s = "[UDP]";
       Error err(ErrorDefinition::ELAB_INSTANCE_PATH, loc);
       m_errors->addError(err);
-    } else if (type == VObjectType::slModule_instantiation) {
+    } else if (type == VObjectType::paModule_instantiation) {
       type_s = "[MOD]";
       Error err(ErrorDefinition::ELAB_INSTANCE_PATH, loc);
       m_errors->addError(err);
-    } else if ((type == VObjectType::slCmos_switch_instance) ||
-               (type == VObjectType::slEnable_gate_instance) ||
-               (type == VObjectType::slMos_switch_instance) ||
-               (type == VObjectType::slN_input_gate_instance) ||
-               (type == VObjectType::slN_output_gate_instance) ||
-               (type == VObjectType::slPass_enable_switch_instance) ||
-               (type == VObjectType::slPass_switch_instance) ||
-               (type == VObjectType::slPull_gate_instance)) {
+    } else if ((type == VObjectType::paCmos_switch_instance) ||
+               (type == VObjectType::paEnable_gate_instance) ||
+               (type == VObjectType::paMos_switch_instance) ||
+               (type == VObjectType::paN_input_gate_instance) ||
+               (type == VObjectType::paN_output_gate_instance) ||
+               (type == VObjectType::paPass_enable_switch_instance) ||
+               (type == VObjectType::paPass_switch_instance) ||
+               (type == VObjectType::paPull_gate_instance)) {
       type_s = "[GAT]";
       Error err(ErrorDefinition::ELAB_INSTANCE_PATH, loc);
       m_errors->addError(err);
-    } else if (type == VObjectType::slInterface_instantiation) {
+    } else if (type == VObjectType::paInterface_instantiation) {
       type_s = "[I/F]";
       Error err(ErrorDefinition::ELAB_INTERFACE_INSTANCE_PATH, loc);
       m_errors->addError(err);
-    } else if (type == VObjectType::slProgram_instantiation) {
+    } else if (type == VObjectType::paProgram_instantiation) {
       type_s = "[PRG]";
       Error err(ErrorDefinition::ELAB_PROGRAM_INSTANCE_PATH, loc);
       m_errors->addError(err);
-    } else if (type == VObjectType::slModule_declaration) {
+    } else if (type == VObjectType::paModule_declaration) {
       type_s = "[TOP]";
       Error err(ErrorDefinition::ELAB_INSTANCE_PATH, loc);
       m_errors->addError(err);

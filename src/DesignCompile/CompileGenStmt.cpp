@@ -77,7 +77,7 @@ UHDM::VectorOfgen_stmt* CompileHelper::compileGenStmt(
   Serializer& s = compileDesign->getSerializer();
   NodeId stmtId = fC->Child(id);
   gen_stmt* genstmt = nullptr;
-  if (fC->Type(id) == VObjectType::slGenerate_region) {
+  if (fC->Type(id) == VObjectType::paGenerate_region) {
     gen_region* genreg = s.MakeGen_region();
     genstmt = genreg;
     ModuleDefinition* subComponent =
@@ -109,14 +109,14 @@ UHDM::VectorOfgen_stmt* CompileHelper::compileGenStmt(
     }
 
   } else if (fC->Type(stmtId) ==
-             VObjectType::slIf_generate_construct) {  // If, If-Else stmt
+             VObjectType::paIf_generate_construct) {  // If, If-Else stmt
     NodeId ifElseId = fC->Child(stmtId);
-    if (fC->Type(ifElseId) == VObjectType::slIF) {
+    if (fC->Type(ifElseId) == VObjectType::paIF) {
       // lookahead
       NodeId tmp = ifElseId;
       bool ifelse = false;
       while (tmp) {
-        if (fC->Type(tmp) == VObjectType::slElse) {
+        if (fC->Type(tmp) == VObjectType::paELSE) {
           ifelse = true;
           break;
         }
@@ -231,7 +231,7 @@ UHDM::VectorOfgen_stmt* CompileHelper::compileGenStmt(
       }
     }
   } else if (fC->Type(stmtId) ==
-             VObjectType::slCase_generate_construct) {  // Case
+             VObjectType::paCase_generate_construct) {  // Case
     NodeId tmp = fC->Child(stmtId);
     gen_case* gencase = s.MakeGen_case();
     genstmt = gencase;
@@ -245,11 +245,11 @@ UHDM::VectorOfgen_stmt* CompileHelper::compileGenStmt(
     gencase->Case_items(items);
     tmp = fC->Sibling(tmp);
     while (tmp) {
-      if (fC->Type(tmp) == VObjectType::slCase_generate_item) {
+      if (fC->Type(tmp) == VObjectType::paCase_generate_item) {
         NodeId itemExp = fC->Child(tmp);
         expr* ex = nullptr;
         NodeId stmtId = itemExp;
-        if (fC->Type(itemExp) == VObjectType::slConstant_expression) {
+        if (fC->Type(itemExp) == VObjectType::paConstant_expression) {
           checkForLoops(true);
           ex = (expr*)compileExpression(component, fC, itemExp, compileDesign,
                                         Reduce::No);
@@ -294,9 +294,9 @@ UHDM::VectorOfgen_stmt* CompileHelper::compileGenStmt(
       }
       tmp = fC->Sibling(tmp);
     }
-  } else if (fC->Type(stmtId) == VObjectType::slGenvar_initialization ||
+  } else if (fC->Type(stmtId) == VObjectType::paGenvar_initialization ||
              fC->Type(stmtId) ==
-                 VObjectType::slGenvar_decl_assignment) {  // For loop stmt
+                 VObjectType::paGenvar_decl_assignment) {  // For loop stmt
     NodeId varInit = stmtId;
     NodeId endLoopTest = fC->Sibling(varInit);
     gen_for* genfor = s.MakeGen_for();

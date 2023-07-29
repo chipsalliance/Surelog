@@ -67,14 +67,14 @@ void ResolveSymbols::createFastLookup() {
   // m_fileData->getChunkFileName () + "\n"; std::cout << fileName;
 
   VObjectTypeUnorderedSet types = {
-      VObjectType::slModule_declaration,    VObjectType::slPackage_declaration,
-      VObjectType::slConfig_declaration,    VObjectType::slUdp_declaration,
-      VObjectType::slInterface_declaration, VObjectType::slProgram_declaration,
-      VObjectType::slClass_declaration};
+      VObjectType::paModule_declaration,    VObjectType::paPackage_declaration,
+      VObjectType::paConfig_declaration,    VObjectType::paUdp_declaration,
+      VObjectType::paInterface_declaration, VObjectType::paProgram_declaration,
+      VObjectType::paClass_declaration};
 
   VObjectTypeUnorderedSet stopPoints = {
-      VObjectType::slModule_declaration, VObjectType::slPackage_declaration,
-      VObjectType::slProgram_declaration, VObjectType::slClass_declaration};
+      VObjectType::paModule_declaration, VObjectType::paPackage_declaration,
+      VObjectType::paProgram_declaration, VObjectType::paClass_declaration};
 
   std::vector<NodeId> objects =
       m_fileData->sl_collect_all(m_fileData->getRootNode(), types, stopPoints);
@@ -82,14 +82,14 @@ void ResolveSymbols::createFastLookup() {
   for (auto object : objects) {
     VObjectType type = m_fileData->Type(object);
     NodeId stId = m_fileData->sl_collect(object, VObjectType::slStringConst,
-                                         VObjectType::slAttr_spec);
+                                         VObjectType::paAttr_spec);
     if (stId) {
       const std::string_view name = SymName(stId);
       m_fileData->insertObjectLookup(name, object, m_errorContainer);
       const std::string fullName = StrCat(libName, "@", name);
 
       switch (type) {
-        case VObjectType::slPackage_declaration: {
+        case VObjectType::paPackage_declaration: {
           // Package names are not prefixed by Library names!
           const std::string_view pkgname = name;
           Package* pdef = new Package(pkgname, lib, m_fileData, object);
@@ -99,13 +99,13 @@ void ResolveSymbols::createFastLookup() {
           m_fileData->populateCoreMembers(object, object, pack);
           m_fileData->addPackageDefinition(pkgname, pdef);
 
-          VObjectTypeUnorderedSet subtypes = {VObjectType::slClass_declaration};
+          VObjectTypeUnorderedSet subtypes = {VObjectType::paClass_declaration};
           std::vector<NodeId> subobjects =
               m_fileData->sl_collect_all(object, subtypes, subtypes);
           for (auto subobject : subobjects) {
             NodeId stId =
                 m_fileData->sl_collect(subobject, VObjectType::slStringConst,
-                                       VObjectType::slAttr_spec);
+                                       VObjectType::paAttr_spec);
             if (stId) {
               const std::string_view name = SymName(stId);
               const std::string fullSubName = StrCat(pkgname, "::", name);
@@ -121,17 +121,17 @@ void ResolveSymbols::createFastLookup() {
           }
           break;
         }
-        case VObjectType::slProgram_declaration: {
+        case VObjectType::paProgram_declaration: {
           Program* mdef = new Program(fullName, lib, m_fileData, object);
           m_fileData->addProgramDefinition(fullName, mdef);
 
-          VObjectTypeUnorderedSet subtypes = {VObjectType::slClass_declaration};
+          VObjectTypeUnorderedSet subtypes = {VObjectType::paClass_declaration};
           std::vector<NodeId> subobjects =
               m_fileData->sl_collect_all(object, subtypes, subtypes);
           for (auto subobject : subobjects) {
             NodeId stId =
                 m_fileData->sl_collect(subobject, VObjectType::slStringConst,
-                                       VObjectType::slAttr_spec);
+                                       VObjectType::paAttr_spec);
             if (stId) {
               const std::string_view name = SymName(stId);
               const std::string fullSubName = StrCat(fullName, "::", name);
@@ -146,27 +146,27 @@ void ResolveSymbols::createFastLookup() {
           }
           break;
         }
-        case VObjectType::slClass_declaration: {
+        case VObjectType::paClass_declaration: {
           ClassDefinition* def =
               new ClassDefinition(fullName, lib, nullptr, m_fileData, object,
                                   nullptr, s.MakeClass_defn());
           m_fileData->addClassDefinition(fullName, def);
           break;
         }
-        case VObjectType::slModule_declaration: {
+        case VObjectType::paModule_declaration: {
           ModuleDefinition* mdef =
               new ModuleDefinition(m_fileData, object, fullName);
           m_fileData->addModuleDefinition(fullName, mdef);
 
           VObjectTypeUnorderedSet subtypes = {
-              VObjectType::slClass_declaration,
-              VObjectType::slModule_declaration};
+              VObjectType::paClass_declaration,
+              VObjectType::paModule_declaration};
           std::vector<NodeId> subobjects =
               m_fileData->sl_collect_all(object, subtypes, subtypes);
           for (auto subobject : subobjects) {
             NodeId stId =
                 m_fileData->sl_collect(subobject, VObjectType::slStringConst,
-                                       VObjectType::slAttr_spec);
+                                       VObjectType::paAttr_spec);
             if (stId) {
               const std::string_view name = SymName(stId);
               const std::string fullSubName = StrCat(fullName, "::", name);
@@ -174,7 +174,7 @@ void ResolveSymbols::createFastLookup() {
                                              m_errorContainer);
 
               if (m_fileData->Type(subobject) ==
-                  VObjectType::slClass_declaration) {
+                  VObjectType::paClass_declaration) {
                 ClassDefinition* def =
                     new ClassDefinition(name, lib, mdef, m_fileData, subobject,
                                         nullptr, s.MakeClass_defn());
@@ -190,9 +190,9 @@ void ResolveSymbols::createFastLookup() {
 
           break;
         }
-        case VObjectType::slConfig_declaration:
-        case VObjectType::slUdp_declaration:
-        case VObjectType::slInterface_declaration:
+        case VObjectType::paConfig_declaration:
+        case VObjectType::paUdp_declaration:
+        case VObjectType::paInterface_declaration:
         default:
           ModuleDefinition* def =
               new ModuleDefinition(m_fileData, object, fullName);
@@ -310,17 +310,17 @@ bool ResolveSymbols::bindDefinition_(NodeId objIndex,
           fcontent->getReferencedObjects().emplace(modName);
         m_fileData->SetDefinitionFile(objIndex, fileId);
         switch (actualType) {
-          case VObjectType::slUdp_declaration:
-            SetType(objIndex, VObjectType::slUdp_instantiation);
+          case VObjectType::paUdp_declaration:
+            SetType(objIndex, VObjectType::paUdp_instantiation);
             break;
-          case VObjectType::slModule_declaration:
-            SetType(objIndex, VObjectType::slModule_instantiation);
+          case VObjectType::paModule_declaration:
+            SetType(objIndex, VObjectType::paModule_instantiation);
             break;
-          case VObjectType::slInterface_declaration:
-            SetType(objIndex, VObjectType::slInterface_instantiation);
+          case VObjectType::paInterface_declaration:
+            SetType(objIndex, VObjectType::paInterface_instantiation);
             break;
-          case VObjectType::slProgram_declaration:
-            SetType(objIndex, VObjectType::slProgram_instantiation);
+          case VObjectType::paProgram_declaration:
+            SetType(objIndex, VObjectType::paProgram_instantiation);
             break;
           default:
             break;
@@ -341,25 +341,25 @@ bool ResolveSymbols::resolve() {
   for (NodeId objIndex(0); objIndex < size; ++objIndex) {
     // ErrorDefinition::ErrorType errorType;
     bool bind = false;
-    if (Type(objIndex) == VObjectType::slUdp_instantiation) {
+    if (Type(objIndex) == VObjectType::paUdp_instantiation) {
       bind = true;
       // errorType = ErrorDefinition::ELAB_NO_UDP_DEFINITION;
-    } else if (Type(objIndex) == VObjectType::slModule_instantiation) {
+    } else if (Type(objIndex) == VObjectType::paModule_instantiation) {
       bind = true;
       // errorType = ErrorDefinition::ELAB_NO_MODULE_DEFINITION;
-    } else if (Type(objIndex) == VObjectType::slInterface_instantiation) {
+    } else if (Type(objIndex) == VObjectType::paInterface_instantiation) {
       bind = true;
       // errorType = ErrorDefinition::ELAB_NO_INTERFACE_DEFINITION;
-    } else if (Type(objIndex) == VObjectType::slProgram_instantiation) {
+    } else if (Type(objIndex) == VObjectType::paProgram_instantiation) {
       bind = true;
       // errorType = ErrorDefinition::ELAB_NO_PROGRAM_DEFINITION;
     }
     if (bind) {
       /*bool found = */
-      bindDefinition_(objIndex, {VObjectType::slUdp_declaration,
-                                 VObjectType::slModule_declaration,
-                                 VObjectType::slInterface_declaration,
-                                 VObjectType::slProgram_declaration});
+      bindDefinition_(objIndex, {VObjectType::paUdp_declaration,
+                                 VObjectType::paModule_declaration,
+                                 VObjectType::paInterface_declaration,
+                                 VObjectType::paProgram_declaration});
       /*
        * This warning is now treated in the elaboration to give the library
       information if (!found)

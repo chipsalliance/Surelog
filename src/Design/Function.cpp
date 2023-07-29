@@ -30,7 +30,7 @@ Procedure::Procedure(DesignComponent* parent, const FileContent* fC, NodeId id,
                      std::string_view name)
     : Scope(name, nullptr),
       Statement(this, nullptr, fC, id,
-                fC ? fC->Type(id) : VObjectType::slFunction_prototype),
+                fC ? fC->Type(id) : VObjectType::paFunction_prototype),
       m_parent(parent),
       m_fileContent(fC),
       m_nodeId(id),
@@ -44,7 +44,7 @@ bool Function::compile(CompileHelper& compile_helper) {
   NodeId tf_port_list;
   NodeId function_statement_or_null;
   switch (function_type) {
-    case VObjectType::slClass_constructor_declaration: {
+    case VObjectType::paClass_constructor_declaration: {
       tf_port_list = fC->Sibling(function_declaration);
       if (tf_port_list)
         function_statement_or_null = fC->Sibling(tf_port_list);
@@ -62,7 +62,7 @@ bool Function::compile(CompileHelper& compile_helper) {
       break;
     }
   }
-  if (fC->Type(tf_port_list) == VObjectType::slTf_port_list) {
+  if (fC->Type(tf_port_list) == VObjectType::paTf_port_list) {
     result &=
         compile_helper.compileTfPortList(this, fC, tf_port_list, m_params);
     function_statement_or_null = fC->Sibling(tf_port_list);
@@ -76,5 +76,5 @@ SeqBlock::SeqBlock(std::string_view name, Scope* parent, Statement* parentStmt,
                    const FileContent* fC, NodeId id)
     : Scope(name, parent),
       Statement(this, parentStmt, fC, id,
-                fC ? fC->Type(id) : VObjectType::slSeq_block) {}
+                fC ? fC->Type(id) : VObjectType::paSeq_block) {}
 }  // namespace SURELOG

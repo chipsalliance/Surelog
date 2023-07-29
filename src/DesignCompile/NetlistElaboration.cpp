@@ -484,22 +484,22 @@ bool NetlistElaboration::elaborate_(ModuleInstance* instance, bool recurse) {
   Netlist* netlist = instance->getNetlist();
   bool elabPortsNets = false;
   VObjectType insttype = instance->getType();
-  if ((insttype != VObjectType::slInterface_instantiation) &&
-      (insttype != VObjectType::slConditional_generate_construct) &&
-      (insttype != VObjectType::slLoop_generate_construct) &&
-      (insttype != VObjectType::slGenerate_item) &&
-      (insttype != VObjectType::slGenerate_region) &&
-      (insttype != VObjectType::slGenerate_module_conditional_statement) &&
-      (insttype != VObjectType::slGenerate_interface_conditional_statement) &&
-      (insttype != VObjectType::slGenerate_module_loop_statement) &&
-      (insttype != VObjectType::slGenerate_interface_loop_statement) &&
-      (insttype != VObjectType::slGenerate_module_named_block) &&
-      (insttype != VObjectType::slGenerate_interface_named_block) &&
-      (insttype != VObjectType::slGenerate_module_block) &&
-      (insttype != VObjectType::slGenerate_interface_block) &&
-      (insttype != VObjectType::slGenerate_module_item) &&
-      (insttype != VObjectType::slGenerate_interface_item) &&
-      (insttype != VObjectType::slGenerate_begin_end_block)) {
+  if ((insttype != VObjectType::paInterface_instantiation) &&
+      (insttype != VObjectType::paConditional_generate_construct) &&
+      (insttype != VObjectType::paLoop_generate_construct) &&
+      (insttype != VObjectType::paGenerate_item) &&
+      (insttype != VObjectType::paGenerate_region) &&
+      (insttype != VObjectType::paGenerate_module_conditional_statement) &&
+      (insttype != VObjectType::paGenerate_interface_conditional_statement) &&
+      (insttype != VObjectType::paGenerate_module_loop_statement) &&
+      (insttype != VObjectType::paGenerate_interface_loop_statement) &&
+      (insttype != VObjectType::paGenerate_module_named_block) &&
+      (insttype != VObjectType::paGenerate_interface_named_block) &&
+      (insttype != VObjectType::paGenerate_module_block) &&
+      (insttype != VObjectType::paGenerate_interface_block) &&
+      (insttype != VObjectType::paGenerate_module_item) &&
+      (insttype != VObjectType::paGenerate_interface_item) &&
+      (insttype != VObjectType::paGenerate_begin_end_block)) {
     elabPortsNets = true;
   }
 
@@ -518,7 +518,7 @@ bool NetlistElaboration::elaborate_(ModuleInstance* instance, bool recurse) {
   if (ModuleDefinition* mm =
           valuedcomponenti_cast<ModuleDefinition*>(childDef)) {
     VObjectType insttype = instance->getType();
-    if (insttype == VObjectType::slInterface_instantiation) {
+    if (insttype == VObjectType::paInterface_instantiation) {
       elab_interface_(
           instance->getParent(), instance, instance->getInstanceName(),
           instance->getModuleName(), mm,
@@ -566,24 +566,24 @@ ModuleInstance* NetlistElaboration::getInterfaceInstance_(
   NodeId Udp_instantiation = instance->getNodeId();
   VObjectType inst_type = fC->Type(Udp_instantiation);
 
-  if ((inst_type == VObjectType::slUdp_instantiation) ||
-      (inst_type == VObjectType::slModule_instantiation) ||
-      (inst_type == VObjectType::slProgram_instantiation) ||
-      (inst_type == VObjectType::slInterface_instantiation) ||
-      (inst_type == VObjectType::slCmos_switch_instance) ||
-      (inst_type == VObjectType::slEnable_gate_instance) ||
-      (inst_type == VObjectType::slMos_switch_instance) ||
-      (inst_type == VObjectType::slN_input_gate_instance) ||
-      (inst_type == VObjectType::slN_output_gate_instance) ||
-      (inst_type == VObjectType::slPass_enable_switch_instance) ||
-      (inst_type == VObjectType::slPass_switch_instance) ||
-      (inst_type == VObjectType::slPull_gate_instance)) {
+  if ((inst_type == VObjectType::paUdp_instantiation) ||
+      (inst_type == VObjectType::paModule_instantiation) ||
+      (inst_type == VObjectType::paProgram_instantiation) ||
+      (inst_type == VObjectType::paInterface_instantiation) ||
+      (inst_type == VObjectType::paCmos_switch_instance) ||
+      (inst_type == VObjectType::paEnable_gate_instance) ||
+      (inst_type == VObjectType::paMos_switch_instance) ||
+      (inst_type == VObjectType::paN_input_gate_instance) ||
+      (inst_type == VObjectType::paN_output_gate_instance) ||
+      (inst_type == VObjectType::paPass_enable_switch_instance) ||
+      (inst_type == VObjectType::paPass_switch_instance) ||
+      (inst_type == VObjectType::paPull_gate_instance)) {
     NodeId modId = fC->Child(Udp_instantiation);
     NodeId Udp_instance = fC->Sibling(modId);
-    if (fC->Type(Udp_instance) == VObjectType::slParameter_value_assignment) {
+    if (fC->Type(Udp_instance) == VObjectType::paParameter_value_assignment) {
       Udp_instance = fC->Sibling(Udp_instance);
-    } else if (fC->Type(Udp_instance) == VObjectType::slDelay2 ||
-               fC->Type(Udp_instance) == VObjectType::slDelay3) {
+    } else if (fC->Type(Udp_instance) == VObjectType::paDelay2 ||
+               fC->Type(Udp_instance) == VObjectType::paDelay3) {
       Udp_instance = fC->Sibling(Udp_instance);
       if (Udp_instance == InvalidNodeId) {
         Udp_instance = fC->Child(Udp_instance);
@@ -591,24 +591,24 @@ ModuleInstance* NetlistElaboration::getInterfaceInstance_(
     }
     NodeId Net_lvalue;
     if (const NodeId Name_of_instance = fC->Child(Udp_instance);
-        fC->Type(Name_of_instance) == VObjectType::slName_of_instance) {
+        fC->Type(Name_of_instance) == VObjectType::paName_of_instance) {
       Net_lvalue = fC->Sibling(Name_of_instance);
     } else {
       Net_lvalue = Name_of_instance;
     }
-    if (fC->Type(Net_lvalue) == VObjectType::slNet_lvalue) {
+    if (fC->Type(Net_lvalue) == VObjectType::paNet_lvalue) {
       uint32_t index = 0;
       while (Net_lvalue) {
         std::string sigName;
         NodeId sigId;
-        if (fC->Type(Net_lvalue) == VObjectType::slNet_lvalue) {
+        if (fC->Type(Net_lvalue) == VObjectType::paNet_lvalue) {
           NodeId Hierarchical_identifier = fC->Child(Net_lvalue);
           if (fC->Type(fC->Child(Hierarchical_identifier)) ==
-              VObjectType::slHierarchical_identifier) {
+              VObjectType::paHierarchical_identifier) {
             Hierarchical_identifier =
                 fC->Child(fC->Child(Hierarchical_identifier));
           } else if (fC->Type(Hierarchical_identifier) !=
-                     VObjectType::slPs_or_hierarchical_identifier) {
+                     VObjectType::paPs_or_hierarchical_identifier) {
             Hierarchical_identifier = Net_lvalue;
           }
           sigId = Hierarchical_identifier;
@@ -616,7 +616,7 @@ ModuleInstance* NetlistElaboration::getInterfaceInstance_(
             sigId = fC->Child(sigId);
           }
           sigName = fC->SymName(sigId);
-        } else if (fC->Type(Net_lvalue) == VObjectType::slExpression) {
+        } else if (fC->Type(Net_lvalue) == VObjectType::paExpression) {
           NodeId Primary = fC->Child(Net_lvalue);
           NodeId Primary_literal = fC->Child(Primary);
           sigId = fC->Child(Primary_literal);
@@ -626,19 +626,19 @@ ModuleInstance* NetlistElaboration::getInterfaceInstance_(
         index++;
       }
     } else if (fC->Type(Net_lvalue) ==
-               VObjectType::slList_of_port_connections) {
+               VObjectType::paList_of_port_connections) {
       NodeId Named_port_connection = fC->Child(Net_lvalue);
       uint32_t index = 0;
       bool orderedConnection = false;
       if (fC->Type(Named_port_connection) ==
-          VObjectType::slOrdered_port_connection) {
+          VObjectType::paOrdered_port_connection) {
         orderedConnection = true;
       }
 
       NodeId MemNamed_port_connection = Named_port_connection;
       while (Named_port_connection) {
         NodeId formalId = fC->Child(Named_port_connection);
-        if (fC->Type(formalId) == VObjectType::slDotStar) {
+        if (fC->Type(formalId) == VObjectType::paDOTSTAR) {
           // .* connection
           break;
         }
@@ -649,7 +649,7 @@ ModuleInstance* NetlistElaboration::getInterfaceInstance_(
       while (Named_port_connection) {
         NodeId formalId = fC->Child(Named_port_connection);
         if (!formalId) break;
-        if (fC->Type(formalId) == VObjectType::slDotStar) {
+        if (fC->Type(formalId) == VObjectType::paDOTSTAR) {
           // .* connection
           Named_port_connection = fC->Sibling(Named_port_connection);
           continue;
@@ -665,23 +665,23 @@ ModuleInstance* NetlistElaboration::getInterfaceInstance_(
           formalName = fC->SymName(formalNameId);
         } else {
           NodeId tmp = Expression;
-          if (fC->Type(tmp) == VObjectType::slOpenParens) {
+          if (fC->Type(tmp) == VObjectType::paOPEN_PARENS) {
             tmp = fC->Sibling(tmp);
             if (fC->Type(tmp) ==
-                VObjectType::slCloseParens) {  // .p()  explicit disconnect
+                VObjectType::paCLOSE_PARENS) {  // .p()  explicit disconnect
               Named_port_connection = fC->Sibling(Named_port_connection);
               index++;
               continue;
             } else if (fC->Type(tmp) ==
-                       VObjectType::slExpression) {  // .p(s) connection by name
+                       VObjectType::paExpression) {  // .p(s) connection by name
               formalId = tmp;
               Expression = tmp;
             }
           }  // else .p implicit connection
         }
         NodeId sigId = formalId;
-        if (fC->Type(Expression) == VObjectType::slAttribute_instance) {
-          while (fC->Type(Expression) == VObjectType::slAttribute_instance)
+        if (fC->Type(Expression) == VObjectType::paAttribute_instance) {
+          while (fC->Type(Expression) == VObjectType::paAttribute_instance)
             Expression = fC->Sibling(Expression);
         }
         if (Expression) {
@@ -762,18 +762,18 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
       allSignals.emplace(s->getName(), s);
     }
   }
-  if ((inst_type == VObjectType::slUdp_instantiation) ||
-      (inst_type == VObjectType::slModule_instantiation) ||
-      (inst_type == VObjectType::slProgram_instantiation) ||
-      (inst_type == VObjectType::slInterface_instantiation) ||
-      (inst_type == VObjectType::slCmos_switch_instance) ||
-      (inst_type == VObjectType::slEnable_gate_instance) ||
-      (inst_type == VObjectType::slMos_switch_instance) ||
-      (inst_type == VObjectType::slN_input_gate_instance) ||
-      (inst_type == VObjectType::slN_output_gate_instance) ||
-      (inst_type == VObjectType::slPass_enable_switch_instance) ||
-      (inst_type == VObjectType::slPass_switch_instance) ||
-      (inst_type == VObjectType::slPull_gate_instance)) {
+  if ((inst_type == VObjectType::paUdp_instantiation) ||
+      (inst_type == VObjectType::paModule_instantiation) ||
+      (inst_type == VObjectType::paProgram_instantiation) ||
+      (inst_type == VObjectType::paInterface_instantiation) ||
+      (inst_type == VObjectType::paCmos_switch_instance) ||
+      (inst_type == VObjectType::paEnable_gate_instance) ||
+      (inst_type == VObjectType::paMos_switch_instance) ||
+      (inst_type == VObjectType::paN_input_gate_instance) ||
+      (inst_type == VObjectType::paN_output_gate_instance) ||
+      (inst_type == VObjectType::paPass_enable_switch_instance) ||
+      (inst_type == VObjectType::paPass_switch_instance) ||
+      (inst_type == VObjectType::paPull_gate_instance)) {
     /*
     n<DUT> u<178> t<StringConst> p<191> s<190> l<20>
     n<dut> u<179> t<StringConst> p<180> l<20>
@@ -792,28 +792,28 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
     */
     NodeId modId = fC->Child(Udp_instantiation);
     NodeId Udp_instance = fC->Sibling(modId);
-    if ((inst_type == VObjectType::slCmos_switch_instance) ||
-        (inst_type == VObjectType::slEnable_gate_instance) ||
-        (inst_type == VObjectType::slMos_switch_instance) ||
-        (inst_type == VObjectType::slN_input_gate_instance) ||
-        (inst_type == VObjectType::slN_output_gate_instance) ||
-        (inst_type == VObjectType::slPass_enable_switch_instance) ||
-        (inst_type == VObjectType::slPass_switch_instance) ||
-        (inst_type == VObjectType::slPull_gate_instance)) {
+    if ((inst_type == VObjectType::paCmos_switch_instance) ||
+        (inst_type == VObjectType::paEnable_gate_instance) ||
+        (inst_type == VObjectType::paMos_switch_instance) ||
+        (inst_type == VObjectType::paN_input_gate_instance) ||
+        (inst_type == VObjectType::paN_output_gate_instance) ||
+        (inst_type == VObjectType::paPass_enable_switch_instance) ||
+        (inst_type == VObjectType::paPass_switch_instance) ||
+        (inst_type == VObjectType::paPull_gate_instance)) {
       modId = fC->Child(fC->Parent(Udp_instantiation));
       Udp_instance = Udp_instantiation;
       // In the case of single instance, point to the delay or parameter
       NodeId tmp = fC->Sibling(modId);
-      if ((fC->Type(tmp) == VObjectType::slParameter_value_assignment) ||
-          (fC->Type(tmp) == VObjectType::slDelay2) ||
-          (fC->Type(tmp) == VObjectType::slDelay3)) {
+      if ((fC->Type(tmp) == VObjectType::paParameter_value_assignment) ||
+          (fC->Type(tmp) == VObjectType::paDelay2) ||
+          (fC->Type(tmp) == VObjectType::paDelay3)) {
         Udp_instance = tmp;
       }
     }
-    if (fC->Type(Udp_instance) == VObjectType::slParameter_value_assignment) {
+    if (fC->Type(Udp_instance) == VObjectType::paParameter_value_assignment) {
       Udp_instance = fC->Sibling(Udp_instance);
-    } else if (fC->Type(Udp_instance) == VObjectType::slDelay2 ||
-               fC->Type(Udp_instance) == VObjectType::slDelay3) {
+    } else if (fC->Type(Udp_instance) == VObjectType::paDelay2 ||
+               fC->Type(Udp_instance) == VObjectType::paDelay3) {
       m_helper.checkForLoops(true);
       expr* delay_expr = (expr*)m_helper.compileExpression(
           parent_comp, fC, Udp_instance, m_compileDesign, Reduce::Yes, nullptr,
@@ -826,7 +826,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
     }
     NodeId Net_lvalue;
     if (const NodeId Name_of_instance = fC->Child(Udp_instance);
-        fC->Type(Name_of_instance) == VObjectType::slName_of_instance) {
+        fC->Type(Name_of_instance) == VObjectType::paName_of_instance) {
       Net_lvalue = fC->Sibling(Name_of_instance);
       NodeId Name = fC->Child(Name_of_instance);
       NodeId Unpacked_dimension = fC->Sibling(Name);
@@ -842,20 +842,20 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
     } else {
       Net_lvalue = Name_of_instance;
     }
-    if (fC->Type(Net_lvalue) == VObjectType::slNet_lvalue) {
+    if (fC->Type(Net_lvalue) == VObjectType::paNet_lvalue) {
       uint32_t index = 0;
       while (Net_lvalue) {
         std::string sigName;
         NodeId sigId;
         bool bit_or_part_select = false;
-        if (fC->Type(Net_lvalue) == VObjectType::slNet_lvalue) {
+        if (fC->Type(Net_lvalue) == VObjectType::paNet_lvalue) {
           NodeId Hierarchical_identifier = fC->Child(Net_lvalue);
           if (fC->Type(fC->Child(Hierarchical_identifier)) ==
-              VObjectType::slHierarchical_identifier) {
+              VObjectType::paHierarchical_identifier) {
             Hierarchical_identifier =
                 fC->Child(fC->Child(Hierarchical_identifier));
           } else if (fC->Type(Hierarchical_identifier) !=
-                     VObjectType::slPs_or_hierarchical_identifier) {
+                     VObjectType::paPs_or_hierarchical_identifier) {
             Hierarchical_identifier = Net_lvalue;
           }
           if (m_helper.isSelected(fC, Hierarchical_identifier))
@@ -865,10 +865,10 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
             sigId = fC->Child(sigId);
           }
           sigName = fC->SymName(sigId);
-        } else if (fC->Type(Net_lvalue) == VObjectType::slExpression) {
+        } else if (fC->Type(Net_lvalue) == VObjectType::paExpression) {
           NodeId Primary = fC->Child(Net_lvalue);
           NodeId Primary_literal = fC->Child(Primary);
-          if (fC->Type(Primary_literal) == VObjectType::slComplex_func_call)
+          if (fC->Type(Primary_literal) == VObjectType::paComplex_func_call)
             bit_or_part_select = true;
           sigId = fC->Child(Primary_literal);
           sigName = fC->SymName(sigId);
@@ -931,14 +931,14 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
               }
             } else {
               any* exp = nullptr;
-              if (fC->Type(Net_lvalue) == VObjectType::slNet_lvalue) {
+              if (fC->Type(Net_lvalue) == VObjectType::paNet_lvalue) {
                 NodeId Hierarchical_identifier = fC->Child(Net_lvalue);
                 if (fC->Type(fC->Child(Hierarchical_identifier)) ==
-                    VObjectType::slHierarchical_identifier) {
+                    VObjectType::paHierarchical_identifier) {
                   Hierarchical_identifier =
                       fC->Child(fC->Child(Hierarchical_identifier));
                 } else if (fC->Type(Hierarchical_identifier) !=
-                           VObjectType::slPs_or_hierarchical_identifier) {
+                           VObjectType::paPs_or_hierarchical_identifier) {
                   Hierarchical_identifier = Net_lvalue;
                 }
                 m_helper.checkForLoops(true);
@@ -960,15 +960,15 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
             }
           }
         }
-        if ((inst_type == VObjectType::slCmos_switch_instance) ||
-            (inst_type == VObjectType::slEnable_gate_instance) ||
-            (inst_type == VObjectType::slMos_switch_instance) ||
-            (inst_type == VObjectType::slN_input_gate_instance) ||
-            (inst_type == VObjectType::slN_output_gate_instance) ||
-            (inst_type == VObjectType::slPass_enable_switch_instance) ||
-            (inst_type == VObjectType::slPass_switch_instance) ||
-            (inst_type == VObjectType::slPull_gate_instance) ||
-            (inst_type == VObjectType::slUdp_instantiation)) {
+        if ((inst_type == VObjectType::paCmos_switch_instance) ||
+            (inst_type == VObjectType::paEnable_gate_instance) ||
+            (inst_type == VObjectType::paMos_switch_instance) ||
+            (inst_type == VObjectType::paN_input_gate_instance) ||
+            (inst_type == VObjectType::paN_output_gate_instance) ||
+            (inst_type == VObjectType::paPass_enable_switch_instance) ||
+            (inst_type == VObjectType::paPass_switch_instance) ||
+            (inst_type == VObjectType::paPull_gate_instance) ||
+            (inst_type == VObjectType::paUdp_instantiation)) {
           port* p = s.MakePort();
           if (ports == nullptr) {
             ports = s.MakePortVec();
@@ -993,11 +993,11 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
           } else {
             NodeId Hierarchical_identifier = fC->Child(Net_lvalue);
             if (fC->Type(fC->Child(Hierarchical_identifier)) ==
-                VObjectType::slHierarchical_identifier) {
+                VObjectType::paHierarchical_identifier) {
               Hierarchical_identifier =
                   fC->Child(fC->Child(Hierarchical_identifier));
             } else if (fC->Type(Hierarchical_identifier) !=
-                       VObjectType::slPs_or_hierarchical_identifier) {
+                       VObjectType::paPs_or_hierarchical_identifier) {
               Hierarchical_identifier = Net_lvalue;
             }
             m_helper.checkForLoops(true);
@@ -1022,7 +1022,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
         index++;
       }
     } else if (fC->Type(Net_lvalue) ==
-               VObjectType::slList_of_port_connections) {
+               VObjectType::paList_of_port_connections) {
       /*
       n<TESTBENCH> u<195> t<StringConst> p<212> s<211> l<21>
       n<tb> u<196> t<StringConst> p<197> l<21>
@@ -1047,7 +1047,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
       uint32_t index = 0;
       bool orderedConnection = false;
       if (fC->Type(Named_port_connection) ==
-          VObjectType::slOrdered_port_connection) {
+          VObjectType::paOrdered_port_connection) {
         orderedConnection = true;
       }
 
@@ -1057,7 +1057,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
       uint16_t wildcardColumnNumber = 0;
       while (Named_port_connection) {
         NodeId formalId = fC->Child(Named_port_connection);
-        if (fC->Type(formalId) == VObjectType::slDotStar) {
+        if (fC->Type(formalId) == VObjectType::paDOTSTAR) {
           // .* connection
           wildcard = true;
           wildcardLineNumber = fC->Line(formalId);
@@ -1076,14 +1076,14 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
           continue;
         }
         UHDM::VectorOfattribute* attributes = nullptr;
-        if (fC->Type(formalId) == VObjectType::slAttribute_instance) {
+        if (fC->Type(formalId) == VObjectType::paAttribute_instance) {
           attributes = m_helper.compileAttributes(parent_comp, fC, formalId,
                                                   m_compileDesign, nullptr);
-          while (fC->Type(formalId) == VObjectType::slAttribute_instance) {
+          while (fC->Type(formalId) == VObjectType::paAttribute_instance) {
             formalId = fC->Sibling(formalId);
           }
         }
-        if (fC->Type(formalId) == VObjectType::slDotStar) {
+        if (fC->Type(formalId) == VObjectType::paDOTSTAR) {
           // .* connection
           Named_port_connection = fC->Sibling(Named_port_connection);
           continue;
@@ -1100,10 +1100,10 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
           formalName = fC->SymName(formalNameId);
         } else {
           NodeId tmp = Expression;
-          if (fC->Type(tmp) == VObjectType::slOpenParens) {
+          if (fC->Type(tmp) == VObjectType::paOPEN_PARENS) {
             tmp = fC->Sibling(tmp);
             if (fC->Type(tmp) ==
-                VObjectType::slCloseParens) {  // .p()  explicit disconnect
+                VObjectType::paCLOSE_PARENS) {  // .p()  explicit disconnect
               Named_port_connection = fC->Sibling(Named_port_connection);
               port* p = nullptr;
               if (ports) {
@@ -1141,17 +1141,17 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
               index++;
               continue;
             } else if (fC->Type(tmp) ==
-                       VObjectType::slExpression) {  // .p(s) connection by name
+                       VObjectType::paExpression) {  // .p(s) connection by name
               sigId = tmp;
               Expression = tmp;
             }
           }  // else .p implicit connection
         }
         expr* hexpr = nullptr;
-        if (fC->Type(Expression) == VObjectType::slAttribute_instance) {
+        if (fC->Type(Expression) == VObjectType::paAttribute_instance) {
           attributes = m_helper.compileAttributes(comp, fC, Expression,
                                                   m_compileDesign, nullptr);
-          while (fC->Type(Expression) == VObjectType::slAttribute_instance)
+          while (fC->Type(Expression) == VObjectType::paAttribute_instance)
             Expression = fC->Sibling(Expression);
         }
         if (Expression) {
@@ -1607,21 +1607,21 @@ bool NetlistElaboration::elab_generates_(ModuleInstance* instance) {
   if (ModuleDefinition* mm =
           valuedcomponenti_cast<ModuleDefinition*>(comp_def)) {
     VObjectType insttype = instance->getType();
-    if (insttype == VObjectType::slConditional_generate_construct ||
-        insttype == VObjectType::slLoop_generate_construct ||
-        insttype == VObjectType::slGenerate_begin_end_block ||
-        insttype == VObjectType::slGenerate_item ||
-        insttype == VObjectType::slGenerate_region ||
-        insttype == VObjectType::slGenerate_module_conditional_statement ||
-        insttype == VObjectType::slGenerate_interface_conditional_statement ||
-        insttype == VObjectType::slGenerate_module_loop_statement ||
-        insttype == VObjectType::slGenerate_interface_loop_statement ||
-        insttype == VObjectType::slGenerate_module_named_block ||
-        insttype == VObjectType::slGenerate_interface_named_block ||
-        insttype == VObjectType::slGenerate_module_block ||
-        insttype == VObjectType::slGenerate_interface_block ||
-        insttype == VObjectType::slGenerate_module_item ||
-        insttype == VObjectType::slGenerate_interface_item) {
+    if (insttype == VObjectType::paConditional_generate_construct ||
+        insttype == VObjectType::paLoop_generate_construct ||
+        insttype == VObjectType::paGenerate_begin_end_block ||
+        insttype == VObjectType::paGenerate_item ||
+        insttype == VObjectType::paGenerate_region ||
+        insttype == VObjectType::paGenerate_module_conditional_statement ||
+        insttype == VObjectType::paGenerate_interface_conditional_statement ||
+        insttype == VObjectType::paGenerate_module_loop_statement ||
+        insttype == VObjectType::paGenerate_interface_loop_statement ||
+        insttype == VObjectType::paGenerate_module_named_block ||
+        insttype == VObjectType::paGenerate_interface_named_block ||
+        insttype == VObjectType::paGenerate_module_block ||
+        insttype == VObjectType::paGenerate_interface_block ||
+        insttype == VObjectType::paGenerate_module_item ||
+        insttype == VObjectType::paGenerate_interface_item) {
       std::vector<gen_scope_array*>* gen_scopes = netlist->gen_scopes();
       if (gen_scopes == nullptr) {
         gen_scopes = s.MakeGen_scope_arrayVec();
@@ -1669,7 +1669,7 @@ bool NetlistElaboration::elab_interfaces_(ModuleInstance* instance) {
     if (ModuleDefinition* mm =
             valuedcomponenti_cast<ModuleDefinition*>(childDef)) {
       VObjectType insttype = child->getType();
-      if (insttype == VObjectType::slInterface_instantiation) {
+      if (insttype == VObjectType::paInterface_instantiation) {
         elab_interface_(instance, child, child->getInstanceName(),
                         child->getModuleName(), mm, child->getFileId(),
                         child->getLineNb(), nullptr, "");
@@ -1713,28 +1713,28 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
   bool isNet = true;
   if ((dtype && (subnettype == VObjectType::slNoType)) || sig->isConst() ||
       sig->isVar() || (!sig->isStatic()) ||
-      (subnettype == VObjectType::slClass_scope) ||
+      (subnettype == VObjectType::paClass_scope) ||
       (subnettype == VObjectType::slStringConst) ||
-      (subnettype == VObjectType::slIntegerAtomType_Int) ||
-      (subnettype == VObjectType::slIntegerAtomType_Integer) ||
-      (subnettype == VObjectType::slIntegerAtomType_Byte) ||
-      (subnettype == VObjectType::slIntegerAtomType_LongInt) ||
-      (subnettype == VObjectType::slIntegerAtomType_Shortint) ||
-      (subnettype == VObjectType::slString_type) ||
-      (subnettype == VObjectType::slNonIntType_Real) ||
-      (subnettype == VObjectType::slNonIntType_RealTime) ||
-      (subnettype == VObjectType::slNonIntType_ShortReal) ||
-      (subnettype == VObjectType::slEvent_type) ||
-      (subnettype == VObjectType::slChandle_type) ||
-      (subnettype == VObjectType::slIntVec_TypeBit) ||
-      (subnettype == VObjectType::slEnum_base_type) ||
-      ((!sig->isVar()) && (subnettype == VObjectType::slIntVec_TypeLogic))) {
+      (subnettype == VObjectType::paIntegerAtomType_Int) ||
+      (subnettype == VObjectType::paIntegerAtomType_Integer) ||
+      (subnettype == VObjectType::paIntegerAtomType_Byte) ||
+      (subnettype == VObjectType::paIntegerAtomType_LongInt) ||
+      (subnettype == VObjectType::paIntegerAtomType_Shortint) ||
+      (subnettype == VObjectType::paString_type) ||
+      (subnettype == VObjectType::paNonIntType_Real) ||
+      (subnettype == VObjectType::paNonIntType_RealTime) ||
+      (subnettype == VObjectType::paNonIntType_ShortReal) ||
+      (subnettype == VObjectType::paEvent_type) ||
+      (subnettype == VObjectType::paChandle_type) ||
+      (subnettype == VObjectType::paIntVec_TypeBit) ||
+      (subnettype == VObjectType::paEnum_base_type) ||
+      ((!sig->isVar()) && (subnettype == VObjectType::paIntVec_TypeLogic))) {
     isNet = false;
   }
-  if (sig->getDirection() == VObjectType::slPortDir_Out ||
-      sig->getDirection() == VObjectType::slPortDir_Inp ||
-      sig->getDirection() == VObjectType::slPortDir_Inout) {
-    if ((!sig->isVar()) && (subnettype == VObjectType::slIntVec_TypeLogic)) {
+  if (sig->getDirection() == VObjectType::paPortDir_Out ||
+      sig->getDirection() == VObjectType::paPortDir_Inp ||
+      sig->getDirection() == VObjectType::paPortDir_Inout) {
+    if ((!sig->isVar()) && (subnettype == VObjectType::paIntVec_TypeLogic)) {
       isNet = true;
     }
   }
@@ -2139,7 +2139,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
         }
         nets->push_back((net*)obj);
       }
-    } else if (subnettype == VObjectType::slStruct_union) {
+    } else if (subnettype == VObjectType::paStruct_union) {
       // Implicit type
       struct_net* stv = s.MakeStruct_net();
       stv->VpiName(signame);
@@ -2303,24 +2303,24 @@ bool NetlistElaboration::elab_ports_nets_(
   std::set<std::string_view> portInterf;
   for (int32_t pass = 0; pass < 3; pass++) {
     std::vector<Signal*>* signals = nullptr;
-    if (compType == VObjectType::slModule_declaration ||
-        compType == VObjectType::slConditional_generate_construct ||
-        compType == VObjectType::slLoop_generate_construct ||
-        compType == VObjectType::slGenerate_item ||
-        compType == VObjectType::slGenerate_region ||
-        compType == VObjectType::slGenerate_module_conditional_statement ||
-        compType == VObjectType::slGenerate_interface_conditional_statement ||
-        compType == VObjectType::slGenerate_module_loop_statement ||
-        compType == VObjectType::slGenerate_interface_loop_statement ||
-        compType == VObjectType::slGenerate_module_named_block ||
-        compType == VObjectType::slGenerate_interface_named_block ||
-        compType == VObjectType::slGenerate_module_block ||
-        compType == VObjectType::slGenerate_interface_block ||
-        compType == VObjectType::slGenerate_module_item ||
-        compType == VObjectType::slGenerate_interface_item ||
-        compType == VObjectType::slGenerate_begin_end_block ||
-        compType == VObjectType::slInterface_declaration ||
-        compType == VObjectType::slProgram_declaration) {
+    if (compType == VObjectType::paModule_declaration ||
+        compType == VObjectType::paConditional_generate_construct ||
+        compType == VObjectType::paLoop_generate_construct ||
+        compType == VObjectType::paGenerate_item ||
+        compType == VObjectType::paGenerate_region ||
+        compType == VObjectType::paGenerate_module_conditional_statement ||
+        compType == VObjectType::paGenerate_interface_conditional_statement ||
+        compType == VObjectType::paGenerate_module_loop_statement ||
+        compType == VObjectType::paGenerate_interface_loop_statement ||
+        compType == VObjectType::paGenerate_module_named_block ||
+        compType == VObjectType::paGenerate_interface_named_block ||
+        compType == VObjectType::paGenerate_module_block ||
+        compType == VObjectType::paGenerate_interface_block ||
+        compType == VObjectType::paGenerate_module_item ||
+        compType == VObjectType::paGenerate_interface_item ||
+        compType == VObjectType::paGenerate_begin_end_block ||
+        compType == VObjectType::paInterface_declaration ||
+        compType == VObjectType::paProgram_declaration) {
       if (pass == 1)
         signals = &comp->getSignals();
       else
@@ -2346,12 +2346,12 @@ bool NetlistElaboration::elab_ports_nets_(
         if (nodeIdType == VObjectType::slStringConst) {
           signame = sig->getName();
           dest_port->VpiName(signame);
-        } else if (nodeIdType == VObjectType::slPort) {
+        } else if (nodeIdType == VObjectType::paPort) {
           NodeId PortName = fC->Child(sig->getNodeId());
           signame = fC->SymName(PortName);
           dest_port->VpiName(signame);
           NodeId Port_expr = fC->Sibling(PortName);
-          if (fC->Type(Port_expr) == VObjectType::slPort_expression) {
+          if (fC->Type(Port_expr) == VObjectType::paPort_expression) {
             any* exp =
                 m_helper.compileExpression(comp, fC, Port_expr, m_compileDesign,
                                            Reduce::Yes, nullptr, child, false);
@@ -2568,7 +2568,7 @@ bool NetlistElaboration::elab_ports_nets_(
         } else {
           if (any* n = bind_net_(netlist->getParent(), signame)) {
             NodeId typeSpecId = sig->getTypeSpecId();
-            if (fC->Type(typeSpecId) == VObjectType::slImplicit_data_type) {
+            if (fC->Type(typeSpecId) == VObjectType::paImplicit_data_type) {
               // interconnect
               if (n->UhdmType() == uhdmlogic_net) {
                 logic_net* net = (logic_net*)n;
@@ -2610,21 +2610,21 @@ UHDM::any* NetlistElaboration::bind_net_(const FileContent* origfC, NodeId id,
 
     result = bind_net_(itrInst, name);
 
-    if ((insttype != VObjectType::slConditional_generate_construct) &&
-        (insttype != VObjectType::slLoop_generate_construct) &&
-        (insttype != VObjectType::slGenerate_item) &&
-        (insttype != VObjectType::slGenerate_region) &&
-        (insttype != VObjectType::slGenerate_module_conditional_statement) &&
-        (insttype != VObjectType::slGenerate_interface_conditional_statement) &&
-        (insttype != VObjectType::slGenerate_module_loop_statement) &&
-        (insttype != VObjectType::slGenerate_interface_loop_statement) &&
-        (insttype != VObjectType::slGenerate_module_named_block) &&
-        (insttype != VObjectType::slGenerate_interface_named_block) &&
-        (insttype != VObjectType::slGenerate_module_block) &&
-        (insttype != VObjectType::slGenerate_interface_block) &&
-        (insttype != VObjectType::slGenerate_module_item) &&
-        (insttype != VObjectType::slGenerate_interface_item) &&
-        (insttype != VObjectType::slGenerate_begin_end_block)) {
+    if ((insttype != VObjectType::paConditional_generate_construct) &&
+        (insttype != VObjectType::paLoop_generate_construct) &&
+        (insttype != VObjectType::paGenerate_item) &&
+        (insttype != VObjectType::paGenerate_region) &&
+        (insttype != VObjectType::paGenerate_module_conditional_statement) &&
+        (insttype != VObjectType::paGenerate_interface_conditional_statement) &&
+        (insttype != VObjectType::paGenerate_module_loop_statement) &&
+        (insttype != VObjectType::paGenerate_interface_loop_statement) &&
+        (insttype != VObjectType::paGenerate_module_named_block) &&
+        (insttype != VObjectType::paGenerate_interface_named_block) &&
+        (insttype != VObjectType::paGenerate_module_block) &&
+        (insttype != VObjectType::paGenerate_interface_block) &&
+        (insttype != VObjectType::paGenerate_module_item) &&
+        (insttype != VObjectType::paGenerate_interface_item) &&
+        (insttype != VObjectType::paGenerate_begin_end_block)) {
       break;
     }
     itrInst = itrInst->getParent();
@@ -2671,7 +2671,7 @@ UHDM::any* NetlistElaboration::bind_net_(const FileContent* origfC, NodeId id,
         VObjectType implicitNetType =
             component->getDesignElement()
                 ? component->getDesignElement()->m_defaultNetType
-                : VObjectType::slNetType_Wire;
+                : VObjectType::paNetType_Wire;
         if (implicitNetType == VObjectType::slNoType) {
           SymbolTable* symbols =
               m_compileDesign->getCompiler()->getSymbolTable();

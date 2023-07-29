@@ -50,7 +50,7 @@
 #include <limits>
 
 namespace SURELOG {
-static constexpr char kSchemaVersion[] = "1.3";
+static constexpr char kSchemaVersion[] = "1.4";
 static constexpr std::string_view UnknownRawPath = "<unknown>";
 
 ParseCache::ParseCache(ParseFile* parser) : m_parse(parser) {}

@@ -39,7 +39,7 @@ bool CompileHelper::compileAssertionItem(DesignComponent* component,
                                          CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   NodeId item = fC->Child(nodeId);
-  if (fC->Type(item) == VObjectType::slConcurrent_assertion_item) {
+  if (fC->Type(item) == VObjectType::paConcurrent_assertion_item) {
     NodeId Concurrent_assertion_statement = fC->Child(item);
     UHDM::VectorOfany* stmts =
         compileStmt(component, fC, Concurrent_assertion_statement,
@@ -113,10 +113,10 @@ UHDM::any* CompileHelper::compileConcurrentAssertion(
   NodeId Action_block = fC->Sibling(Property_spec);
   UHDM::any* if_stmt = nullptr;
   UHDM::any* else_stmt = nullptr;
-  if (fC->Type(Action_block) == VObjectType::slAction_block) {
+  if (fC->Type(Action_block) == VObjectType::paAction_block) {
     NodeId if_stmt_id = fC->Child(Action_block);
     NodeId else_stmt_id;
-    if (fC->Type(if_stmt_id) == VObjectType::slElse) {
+    if (fC->Type(if_stmt_id) == VObjectType::paELSE) {
       else_stmt_id = fC->Sibling(if_stmt_id);
       if_stmt_id = InvalidNodeId;
     } else if (NodeId else_keyword = fC->Sibling(if_stmt_id)) {
@@ -138,7 +138,7 @@ UHDM::any* CompileHelper::compileConcurrentAssertion(
 
   UHDM::any* stmt = nullptr;
   switch (fC->Type(the_stmt)) {
-    case VObjectType::slAssert_property_statement: {
+    case VObjectType::paAssert_property_statement: {
       NodeId Property_expr = fC->Child(Property_spec);
       UHDM::property_spec* prop_spec = s.MakeProperty_spec();
       if (UHDM::any* property_expr =
@@ -161,10 +161,10 @@ UHDM::any* CompileHelper::compileConcurrentAssertion(
       stmt = assert_stmt;
       break;
     }
-    case VObjectType::slAssume_property_statement: {
+    case VObjectType::paAssume_property_statement: {
       NodeId Property_expr = fC->Child(Property_spec);
       UHDM::property_spec* prop_spec = s.MakeProperty_spec();
-      if (fC->Type(Property_expr) == VObjectType::slClocking_event) {
+      if (fC->Type(Property_expr) == VObjectType::paClocking_event) {
         if (UHDM::expr* clocking_event = (UHDM::expr*)compileExpression(
                 component, fC, Property_expr, compileDesign, Reduce::No,
                 prop_spec, instance)) {
@@ -192,7 +192,7 @@ UHDM::any* CompileHelper::compileConcurrentAssertion(
       stmt = assume_stmt;
       break;
     }
-    case VObjectType::slCover_property_statement: {
+    case VObjectType::paCover_property_statement: {
       NodeId Property_expr = fC->Child(Property_spec);
       UHDM::property_spec* prop_spec = s.MakeProperty_spec();
       if (UHDM::any* property_expr =
@@ -212,7 +212,7 @@ UHDM::any* CompileHelper::compileConcurrentAssertion(
       stmt = cover_stmt;
       break;
     }
-    case VObjectType::slCover_sequence_statement: {
+    case VObjectType::paCover_sequence_statement: {
       NodeId Property_expr = fC->Child(Property_spec);
       UHDM::property_spec* prop_spec = s.MakeProperty_spec();
       if (UHDM::any* property_expr =
@@ -233,7 +233,7 @@ UHDM::any* CompileHelper::compileConcurrentAssertion(
       stmt = cover_stmt;
       break;
     }
-    case VObjectType::slRestrict_property_statement: {
+    case VObjectType::paRestrict_property_statement: {
       NodeId Property_expr = fC->Child(Property_spec);
       UHDM::property_spec* prop_spec = s.MakeProperty_spec();
       if (UHDM::any* property_expr =
@@ -269,7 +269,7 @@ UHDM::any* CompileHelper::compileSimpleImmediateAssertion(
   NodeId Action_block = fC->Sibling(Expression);
   NodeId if_stmt_id = fC->Child(Action_block);
   NodeId else_stmt_id;
-  if (fC->Type(if_stmt_id) == VObjectType::slElse) {
+  if (fC->Type(if_stmt_id) == VObjectType::paELSE) {
     else_stmt_id = fC->Sibling(if_stmt_id);
     if_stmt_id = InvalidNodeId;
   } else {
@@ -292,7 +292,7 @@ UHDM::any* CompileHelper::compileSimpleImmediateAssertion(
   if (else_stmts) else_stmt = (*else_stmts)[0];
   UHDM::any* stmt = nullptr;
   switch (fC->Type(the_stmt)) {
-    case VObjectType::slSimple_immediate_assert_statement: {
+    case VObjectType::paSimple_immediate_assert_statement: {
       UHDM::immediate_assert* astmt = s.MakeImmediate_assert();
       astmt->VpiParent(pstmt);
       astmt->Expr((UHDM::expr*)expr);
@@ -304,7 +304,7 @@ UHDM::any* CompileHelper::compileSimpleImmediateAssertion(
       stmt = astmt;
       break;
     }
-    case VObjectType::slSimple_immediate_assume_statement: {
+    case VObjectType::paSimple_immediate_assume_statement: {
       UHDM::immediate_assume* astmt = s.MakeImmediate_assume();
       astmt->VpiParent(pstmt);
       astmt->Expr((UHDM::expr*)expr);
@@ -316,7 +316,7 @@ UHDM::any* CompileHelper::compileSimpleImmediateAssertion(
       stmt = astmt;
       break;
     }
-    case VObjectType::slSimple_immediate_cover_statement: {
+    case VObjectType::paSimple_immediate_cover_statement: {
       UHDM::immediate_cover* astmt = s.MakeImmediate_cover();
       astmt->VpiParent(pstmt);
       astmt->Expr((UHDM::expr*)expr);
@@ -355,12 +355,12 @@ UHDM::any* CompileHelper::compileDeferredImmediateAssertion(
   UHDM::Serializer& s = compileDesign->getSerializer();
   NodeId the_stmt_child = fC->Child(the_stmt);
   int32_t isFinal =
-      fC->Type(the_stmt_child) == VObjectType::slPound_delay ? 0 : 1;
+      fC->Type(the_stmt_child) == VObjectType::paPound_delay ? 0 : 1;
   NodeId Expression = isFinal ? the_stmt_child : fC->Sibling(the_stmt_child);
   NodeId Action_block = fC->Sibling(Expression);
   NodeId if_stmt_id = fC->Child(Action_block);
   NodeId else_stmt_id;
-  if (fC->Type(if_stmt_id) == VObjectType::slElse) {
+  if (fC->Type(if_stmt_id) == VObjectType::paELSE) {
     else_stmt_id = fC->Sibling(if_stmt_id);
     if_stmt_id = InvalidNodeId;
   } else {
@@ -383,7 +383,7 @@ UHDM::any* CompileHelper::compileDeferredImmediateAssertion(
   if (else_stmts) else_stmt = (*else_stmts)[0];
   UHDM::any* stmt = nullptr;
   switch (fC->Type(the_stmt)) {
-    case VObjectType::slDeferred_immediate_assert_statement: {
+    case VObjectType::paDeferred_immediate_assert_statement: {
       UHDM::immediate_assert* astmt = s.MakeImmediate_assert();
       astmt->VpiParent(pstmt);
       astmt->Expr((UHDM::expr*)expr);
@@ -397,7 +397,7 @@ UHDM::any* CompileHelper::compileDeferredImmediateAssertion(
       stmt = astmt;
       break;
     }
-    case VObjectType::slDeferred_immediate_assume_statement: {
+    case VObjectType::paDeferred_immediate_assume_statement: {
       UHDM::immediate_assume* astmt = s.MakeImmediate_assume();
       astmt->VpiParent(pstmt);
       astmt->Expr((UHDM::expr*)expr);
@@ -411,7 +411,7 @@ UHDM::any* CompileHelper::compileDeferredImmediateAssertion(
       stmt = astmt;
       break;
     }
-    case VObjectType::slDeferred_immediate_cover_statement: {
+    case VObjectType::paDeferred_immediate_cover_statement: {
       UHDM::immediate_cover* astmt = s.MakeImmediate_cover();
       astmt->VpiParent(pstmt);
       astmt->Expr((UHDM::expr*)expr);

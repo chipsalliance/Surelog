@@ -51,7 +51,7 @@
 #include <limits>
 
 namespace SURELOG {
-static constexpr std::string_view kSchemaVersion = "1.5";
+static constexpr std::string_view kSchemaVersion = "1.6";
 static constexpr std::string_view UnknownRawPath = "<unknown>";
 
 PPCache::PPCache(PreprocessFile* pp) : m_pp(pp) {}

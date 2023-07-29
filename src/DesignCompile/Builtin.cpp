@@ -51,9 +51,9 @@ namespace SURELOG {
 static VObjectType convert(std::string_view type) {
   VObjectType result = VObjectType::slNoType;
   if (type == "int")
-    result = VObjectType::slIntegerAtomType_Int;
+    result = VObjectType::paIntegerAtomType_Int;
   else if (type == "generic")
-    result = VObjectType::slGenericElementType;
+    result = VObjectType::paGenericElementType;
   return result;
 }
 
@@ -370,11 +370,11 @@ void Builtin::addBuiltinClasses() {
       m_compiler->getCompiler(), fileId);
 
   std::vector<NodeId> classes =
-      fC1->sl_collect_all(fC1->getRootNode(), VObjectType::slClass_declaration);
+      fC1->sl_collect_all(fC1->getRootNode(), VObjectType::paClass_declaration);
   m_compiler->getCompiler()->getDesign()->addFileContent(fC1->getFileId(), fC1);
   for (const auto& classId : classes) {
     NodeId stId = fC1->sl_collect(classId, VObjectType::slStringConst,
-                                  VObjectType::slAttr_spec);
+                                  VObjectType::paAttr_spec);
     const std::string_view libName = fC1->getLibrary()->getName();
     if (stId) {
       const std::string_view name = fC1->SymName(stId);

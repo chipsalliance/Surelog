@@ -82,26 +82,26 @@ void SV3_1aTreeShapeListener::enterModule_declaration(
   }
   ident = std::regex_replace(ident, std::regex(EscapeSequence), "");
   addNestedDesignElement(ctx, ident, DesignElement::Module,
-                         VObjectType::slModule);
+                         VObjectType::paMODULE);
 }
 
 void SV3_1aTreeShapeListener::exitModule_declaration(
     SV3_1aParser::Module_declarationContext *ctx) {
   if (ctx->ENDMODULE() != nullptr) {
     addVObject((antlr4::ParserRuleContext *)ctx->ENDMODULE(),
-               VObjectType::slEndmodule);
+               VObjectType::paENDMODULE);
   }
-  addVObject(ctx, VObjectType::slModule_declaration);
+  addVObject(ctx, VObjectType::paModule_declaration);
   m_nestedElements.pop();
 }
 
 void SV3_1aTreeShapeListener::exitModule_keyword(
     SV3_1aParser::Module_keywordContext *ctx) {
   if (ctx->MODULE() != nullptr) {
-    addVObject(ctx, ctx->MODULE()->getText(), VObjectType::slModule_keyword);
+    addVObject(ctx, ctx->MODULE()->getText(), VObjectType::paModule_keyword);
   } else if (ctx->MACROMODULE() != nullptr) {
     addVObject(ctx, ctx->MACROMODULE()->getText(),
-               VObjectType::slModule_keyword);
+               VObjectType::paModule_keyword);
   }
 }
 
@@ -109,80 +109,79 @@ void SV3_1aTreeShapeListener::exitClass_constructor_declaration(
     SV3_1aParser::Class_constructor_declarationContext *ctx) {
   if (ctx->ENDFUNCTION())
     addVObject((antlr4::ParserRuleContext *)ctx->ENDFUNCTION(),
-               VObjectType::slEndfunction);
-  addVObject(ctx, VObjectType::slClass_constructor_declaration);
+               VObjectType::paENDFUNCTION);
+  addVObject(ctx, VObjectType::paClass_constructor_declaration);
 }
 
 void SV3_1aTreeShapeListener::exitFunction_body_declaration(
     SV3_1aParser::Function_body_declarationContext *ctx) {
   if (ctx->ENDFUNCTION())
     addVObject((antlr4::ParserRuleContext *)ctx->ENDFUNCTION(),
-               VObjectType::slEndfunction);
-  addVObject(ctx, VObjectType::slFunction_body_declaration);
+               VObjectType::paENDFUNCTION);
+  addVObject(ctx, VObjectType::paFunction_body_declaration);
 }
 
 void SV3_1aTreeShapeListener::exitTask_body_declaration(
     SV3_1aParser::Task_body_declarationContext *ctx) {
   if (ctx->ENDTASK())
     addVObject((antlr4::ParserRuleContext *)ctx->ENDTASK(),
-               VObjectType::slEndtask);
-  addVObject(ctx, VObjectType::slTask_body_declaration);
+               VObjectType::paENDTASK);
+  addVObject(ctx, VObjectType::paTask_body_declaration);
 }
 
 void SV3_1aTreeShapeListener::exitJump_statement(
     SV3_1aParser::Jump_statementContext *ctx) {
   if (ctx->BREAK()) {
-    addVObject((antlr4::ParserRuleContext *)ctx->BREAK(),
-               VObjectType::slBreakStmt);
+    addVObject((antlr4::ParserRuleContext *)ctx->BREAK(), VObjectType::paBREAK);
   } else if (ctx->CONTINUE()) {
     addVObject((antlr4::ParserRuleContext *)ctx->CONTINUE(),
-               VObjectType::slContinueStmt);
+               VObjectType::paCONTINUE);
   } else if (ctx->RETURN()) {
     addVObject((antlr4::ParserRuleContext *)ctx->RETURN(),
-               VObjectType::slReturnStmt);
+               VObjectType::paRETURN);
   }
-  addVObject(ctx, VObjectType::slJump_statement);
+  addVObject(ctx, VObjectType::paJump_statement);
 }
 
 void SV3_1aTreeShapeListener::exitClass_declaration(
     SV3_1aParser::Class_declarationContext *ctx) {
   if (ctx->CLASS())
-    addVObject((antlr4::ParserRuleContext *)ctx->CLASS(), VObjectType::slClass);
+    addVObject((antlr4::ParserRuleContext *)ctx->CLASS(), VObjectType::paCLASS);
   if (ctx->VIRTUAL())
     addVObject((antlr4::ParserRuleContext *)ctx->VIRTUAL(),
-               VObjectType::slVirtual);
+               VObjectType::paVIRTUAL);
   if (ctx->IMPLEMENTS())
     addVObject((antlr4::ParserRuleContext *)ctx->IMPLEMENTS(),
-               VObjectType::slImplements);
+               VObjectType::paIMPLEMENTS);
   if (ctx->EXTENDS())
     addVObject((antlr4::ParserRuleContext *)ctx->EXTENDS(),
-               VObjectType::slExtends);
+               VObjectType::paEXTENDS);
   if (ctx->ENDCLASS())
     addVObject((antlr4::ParserRuleContext *)ctx->ENDCLASS(),
-               VObjectType::slEndclass);
-  addVObject(ctx, VObjectType::slClass_declaration);
+               VObjectType::paENDCLASS);
+  addVObject(ctx, VObjectType::paClass_declaration);
 }
 
 void SV3_1aTreeShapeListener::exitInterface_class_declaration(
     SV3_1aParser::Interface_class_declarationContext *ctx) {
   if (ctx->INTERFACE())
     addVObject((antlr4::ParserRuleContext *)ctx->INTERFACE(),
-               VObjectType::slInterface);
+               VObjectType::paINTERFACE);
   if (ctx->EXTENDS())
     addVObject((antlr4::ParserRuleContext *)ctx->EXTENDS(),
-               VObjectType::slExtends);
+               VObjectType::paEXTENDS);
   if (ctx->ENDCLASS())
     addVObject((antlr4::ParserRuleContext *)ctx->ENDCLASS(),
-               VObjectType::slEndclass);
-  addVObject(ctx, VObjectType::slInterface_class_declaration);
+               VObjectType::paENDCLASS);
+  addVObject(ctx, VObjectType::paInterface_class_declaration);
 }
 
 void SV3_1aTreeShapeListener::exitChecker_declaration(
     SV3_1aParser::Checker_declarationContext *ctx) {
   if (ctx->ENDCHECKER())
     addVObject((antlr4::ParserRuleContext *)ctx->ENDCHECKER(),
-               VObjectType::slEndchecker);
-  addVObject(ctx, VObjectType::slChecker_declaration);
+               VObjectType::paENDCHECKER);
+  addVObject(ctx, VObjectType::paChecker_declaration);
 }
 
 void SV3_1aTreeShapeListener::enterSlline(
@@ -234,14 +233,14 @@ void SV3_1aTreeShapeListener::enterInterface_declaration(
     if (ctx->interface_ansi_header()->INTERFACE()) {
       addVObject((antlr4::ParserRuleContext *)ctx->interface_ansi_header()
                      ->INTERFACE(),
-                 VObjectType::slInterface);
+                 VObjectType::paINTERFACE);
     }
   } else if (ctx->interface_nonansi_header()) {
     ident = ctx->interface_nonansi_header()->interface_identifier()->getText();
     if (ctx->interface_nonansi_header()->INTERFACE()) {
       addVObject((antlr4::ParserRuleContext *)ctx->interface_nonansi_header()
                      ->INTERFACE(),
-                 VObjectType::slInterface);
+                 VObjectType::paINTERFACE);
     }
   } else {
     if (ctx->interface_identifier(0))
@@ -250,12 +249,12 @@ void SV3_1aTreeShapeListener::enterInterface_declaration(
       ident = "INTERFACE NAME UNKNOWN";
     if (ctx->INTERFACE()) {
       addVObject((antlr4::ParserRuleContext *)ctx->INTERFACE(),
-                 VObjectType::slInterface);
+                 VObjectType::paINTERFACE);
     }
   }
   ident = std::regex_replace(ident, std::regex(EscapeSequence), "");
   addNestedDesignElement(ctx, ident, DesignElement::Interface,
-                         VObjectType::slInterface);
+                         VObjectType::paINTERFACE);
 }
 
 void SV3_1aTreeShapeListener::exitInterface_declaration(
@@ -263,337 +262,337 @@ void SV3_1aTreeShapeListener::exitInterface_declaration(
   if (ctx->EXTERN() == nullptr)
     if (ctx->ENDINTERFACE())
       addVObject((antlr4::ParserRuleContext *)ctx->ENDINTERFACE(),
-                 VObjectType::slEndinterface);
-  addVObject(ctx, VObjectType::slInterface_declaration);
+                 VObjectType::paENDINTERFACE);
+  addVObject(ctx, VObjectType::paInterface_declaration);
   m_nestedElements.pop();
 }
 
 void SV3_1aTreeShapeListener::exitProperty_expr(
     SV3_1aParser::Property_exprContext *ctx) {
   if (ctx->CASE()) {
-    addVObject((antlr4::ParserRuleContext *)ctx->CASE(), VObjectType::slCase);
+    addVObject((antlr4::ParserRuleContext *)ctx->CASE(), VObjectType::paCASE);
   }
   if (ctx->ENDCASE()) {
     addVObject((antlr4::ParserRuleContext *)ctx->ENDCASE(),
-               VObjectType::slEndcase);
+               VObjectType::paENDCASE);
   } else if (ctx->OR()) {
-    addVObject((antlr4::ParserRuleContext *)ctx->OR(), VObjectType::slOR);
+    addVObject((antlr4::ParserRuleContext *)ctx->OR(), VObjectType::paOR);
   } else if (ctx->AND()) {
-    addVObject((antlr4::ParserRuleContext *)ctx->AND(), VObjectType::slAND);
+    addVObject((antlr4::ParserRuleContext *)ctx->AND(), VObjectType::paAND);
   } else if (ctx->IF()) {
-    addVObject((antlr4::ParserRuleContext *)ctx->IF(), VObjectType::slIF);
+    addVObject((antlr4::ParserRuleContext *)ctx->IF(), VObjectType::paIF);
   } else if (ctx->STRONG()) {
     addVObject((antlr4::ParserRuleContext *)ctx->STRONG(),
-               VObjectType::slSTRONG);
+               VObjectType::paSTRONG);
   } else if (ctx->WEAK()) {
-    addVObject((antlr4::ParserRuleContext *)ctx->WEAK(), VObjectType::slWEAK);
+    addVObject((antlr4::ParserRuleContext *)ctx->WEAK(), VObjectType::paWEAK);
   } else if (ctx->NOT()) {
-    addVObject((antlr4::ParserRuleContext *)ctx->NOT(), VObjectType::slNOT);
+    addVObject((antlr4::ParserRuleContext *)ctx->NOT(), VObjectType::paNOT);
   } else if (ctx->OVERLAP_IMPLY()) {
     addVObject((antlr4::ParserRuleContext *)ctx->OVERLAP_IMPLY(),
-               VObjectType::slOVERLAP_IMPLY);
+               VObjectType::paOVERLAP_IMPLY);
   } else if (ctx->NON_OVERLAP_IMPLY()) {
     addVObject((antlr4::ParserRuleContext *)ctx->NON_OVERLAP_IMPLY(),
-               VObjectType::slNON_OVERLAP_IMPLY);
+               VObjectType::paNON_OVERLAP_IMPLY);
   } else if (ctx->OVERLAPPED()) {
     addVObject((antlr4::ParserRuleContext *)ctx->OVERLAPPED(),
-               VObjectType::slOVERLAPPED);
+               VObjectType::paOVERLAPPED);
   } else if (ctx->NONOVERLAPPED()) {
     addVObject((antlr4::ParserRuleContext *)ctx->NONOVERLAPPED(),
-               VObjectType::slNONOVERLAPPED);
+               VObjectType::paNONOVERLAPPED);
   } else if (ctx->S_NEXTTIME()) {
     addVObject((antlr4::ParserRuleContext *)ctx->S_NEXTTIME(),
-               VObjectType::slS_NEXTTIME);
+               VObjectType::paS_NEXTTIME);
   } else if (ctx->ALWAYS()) {
     addVObject((antlr4::ParserRuleContext *)ctx->ALWAYS(),
-               VObjectType::slALWAYS);
+               VObjectType::paALWAYS);
   } else if (ctx->S_ALWAYS()) {
     addVObject((antlr4::ParserRuleContext *)ctx->S_ALWAYS(),
-               VObjectType::slS_ALWAYS);
+               VObjectType::paS_ALWAYS);
   } else if (ctx->S_EVENTUALLY()) {
     addVObject((antlr4::ParserRuleContext *)ctx->S_EVENTUALLY(),
-               VObjectType::slS_EVENTUALLY);
+               VObjectType::paS_EVENTUALLY);
   } else if (ctx->EVENTUALLY()) {
     addVObject((antlr4::ParserRuleContext *)ctx->EVENTUALLY(),
-               VObjectType::slEVENTUALLY);
+               VObjectType::paEVENTUALLY);
   } else if (ctx->UNTIL()) {
-    addVObject((antlr4::ParserRuleContext *)ctx->UNTIL(), VObjectType::slUNTIL);
+    addVObject((antlr4::ParserRuleContext *)ctx->UNTIL(), VObjectType::paUNTIL);
   } else if (ctx->S_UNTIL()) {
     addVObject((antlr4::ParserRuleContext *)ctx->S_UNTIL(),
-               VObjectType::slS_UNTIL);
+               VObjectType::paS_UNTIL);
   } else if (ctx->IMPLIES()) {
     addVObject((antlr4::ParserRuleContext *)ctx->IMPLIES(),
-               VObjectType::slIMPLIES);
+               VObjectType::paIMPLIES);
   } else if (ctx->IFF()) {
-    addVObject((antlr4::ParserRuleContext *)ctx->IFF(), VObjectType::slIFF);
+    addVObject((antlr4::ParserRuleContext *)ctx->IFF(), VObjectType::paIFF);
   } else if (ctx->ACCEPT_ON()) {
     addVObject((antlr4::ParserRuleContext *)ctx->ACCEPT_ON(),
-               VObjectType::slACCEPT_ON);
+               VObjectType::paACCEPT_ON);
   } else if (ctx->REJECT_ON()) {
     addVObject((antlr4::ParserRuleContext *)ctx->REJECT_ON(),
-               VObjectType::slREJECT_ON);
+               VObjectType::paREJECT_ON);
   } else if (ctx->SYNC_ACCEPT_ON()) {
     addVObject((antlr4::ParserRuleContext *)ctx->SYNC_ACCEPT_ON(),
-               VObjectType::slSYNC_ACCEPT_ON);
+               VObjectType::paSYNC_ACCEPT_ON);
   } else if (ctx->SYNC_REJECT_ON()) {
     addVObject((antlr4::ParserRuleContext *)ctx->SYNC_REJECT_ON(),
-               VObjectType::slSYNC_REJECT_ON);
+               VObjectType::paSYNC_REJECT_ON);
   }
-  addVObject(ctx, VObjectType::slProperty_expr);
+  addVObject(ctx, VObjectType::paProperty_expr);
 }
 
 void SV3_1aTreeShapeListener::exitGenerate_module_case_statement(
     SV3_1aParser::Generate_module_case_statementContext *ctx) {
   if (ctx->ENDCASE())
     addVObject((antlr4::ParserRuleContext *)ctx->ENDCASE(),
-               VObjectType::slEndcase);
-  addVObject(ctx, VObjectType::slGenerate_module_case_statement);
+               VObjectType::paENDCASE);
+  addVObject(ctx, VObjectType::paGenerate_module_case_statement);
 }
 
 void SV3_1aTreeShapeListener::exitIf_generate_construct(
     SV3_1aParser::If_generate_constructContext *ctx) {
   if (ctx->IF())
-    addVObject((antlr4::ParserRuleContext *)ctx->IF(), VObjectType::slIF);
+    addVObject((antlr4::ParserRuleContext *)ctx->IF(), VObjectType::paIF);
   if (ctx->ELSE())
-    addVObject((antlr4::ParserRuleContext *)ctx->ELSE(), VObjectType::slElse);
-  addVObject(ctx, VObjectType::slIf_generate_construct);
+    addVObject((antlr4::ParserRuleContext *)ctx->ELSE(), VObjectType::paELSE);
+  addVObject(ctx, VObjectType::paIf_generate_construct);
 }
 
 void SV3_1aTreeShapeListener::exitGenerate_interface_case_statement(
     SV3_1aParser::Generate_interface_case_statementContext *ctx) {
   if (ctx->ENDCASE())
     addVObject((antlr4::ParserRuleContext *)ctx->ENDCASE(),
-               VObjectType::slEndcase);
-  addVObject(ctx, VObjectType::slGenerate_interface_case_statement);
+               VObjectType::paENDCASE);
+  addVObject(ctx, VObjectType::paGenerate_interface_case_statement);
 }
 
 void SV3_1aTreeShapeListener::exitCase_generate_construct(
     SV3_1aParser::Case_generate_constructContext *ctx) {
   if (ctx->ENDCASE())
     addVObject((antlr4::ParserRuleContext *)ctx->ENDCASE(),
-               VObjectType::slEndcase);
-  addVObject(ctx, VObjectType::slCase_generate_construct);
+               VObjectType::paENDCASE);
+  addVObject(ctx, VObjectType::paCase_generate_construct);
 }
 
 void SV3_1aTreeShapeListener::exitCase_statement(
     SV3_1aParser::Case_statementContext *ctx) {
   if (ctx->ENDCASE())
     addVObject((antlr4::ParserRuleContext *)ctx->ENDCASE(),
-               VObjectType::slEndcase);
-  addVObject(ctx, VObjectType::slCase_statement);
+               VObjectType::paENDCASE);
+  addVObject(ctx, VObjectType::paCase_statement);
 }
 
 void SV3_1aTreeShapeListener::exitRandcase_statement(
     SV3_1aParser::Randcase_statementContext *ctx) {
   if (ctx->ENDCASE())
     addVObject((antlr4::ParserRuleContext *)ctx->ENDCASE(),
-               VObjectType::slEndcase);
-  addVObject(ctx, VObjectType::slRandcase_statement);
+               VObjectType::paENDCASE);
+  addVObject(ctx, VObjectType::paRandcase_statement);
 }
 
 void SV3_1aTreeShapeListener::exitRs_case(SV3_1aParser::Rs_caseContext *ctx) {
   if (ctx->ENDCASE())
     addVObject((antlr4::ParserRuleContext *)ctx->ENDCASE(),
-               VObjectType::slEndcase);
-  addVObject(ctx, VObjectType::slRs_case);
+               VObjectType::paENDCASE);
+  addVObject(ctx, VObjectType::paRs_case);
 }
 
 void SV3_1aTreeShapeListener::exitSequence_declaration(
     SV3_1aParser::Sequence_declarationContext *ctx) {
   if (ctx->ENDSEQUENCE())
     addVObject((antlr4::ParserRuleContext *)ctx->ENDSEQUENCE(),
-               VObjectType::slEndsequence);
-  addVObject(ctx, VObjectType::slSequence_declaration);
+               VObjectType::paENDSEQUENCE);
+  addVObject(ctx, VObjectType::paSequence_declaration);
 }
 
 void SV3_1aTreeShapeListener::exitRandsequence_statement(
     SV3_1aParser::Randsequence_statementContext *ctx) {
   if (ctx->ENDSEQUENCE())
     addVObject((antlr4::ParserRuleContext *)ctx->ENDSEQUENCE(),
-               VObjectType::slEndsequence);
-  addVObject(ctx, VObjectType::slRandsequence_statement);
+               VObjectType::paENDSEQUENCE);
+  addVObject(ctx, VObjectType::paRandsequence_statement);
 }
 
 void SV3_1aTreeShapeListener::exitSeq_block(
     SV3_1aParser::Seq_blockContext *ctx) {
   if (ctx->END())
-    addVObject((antlr4::ParserRuleContext *)ctx->END(), VObjectType::slEnd);
-  addVObject(ctx, VObjectType::slSeq_block);
+    addVObject((antlr4::ParserRuleContext *)ctx->END(), VObjectType::paEND);
+  addVObject(ctx, VObjectType::paSeq_block);
 }
 
 void SV3_1aTreeShapeListener::exitGenerate_module_named_block(
     SV3_1aParser::Generate_module_named_blockContext *ctx) {
   if (ctx->END())
-    addVObject((antlr4::ParserRuleContext *)ctx->END(), VObjectType::slEnd);
-  addVObject(ctx, VObjectType::slGenerate_module_named_block);
+    addVObject((antlr4::ParserRuleContext *)ctx->END(), VObjectType::paEND);
+  addVObject(ctx, VObjectType::paGenerate_module_named_block);
 }
 
 void SV3_1aTreeShapeListener::exitGenerate_module_block(
     SV3_1aParser::Generate_module_blockContext *ctx) {
   if (ctx->END())
-    addVObject((antlr4::ParserRuleContext *)ctx->END(), VObjectType::slEnd);
-  addVObject(ctx, VObjectType::slGenerate_module_block);
+    addVObject((antlr4::ParserRuleContext *)ctx->END(), VObjectType::paEND);
+  addVObject(ctx, VObjectType::paGenerate_module_block);
 }
 
 void SV3_1aTreeShapeListener::exitGenerate_interface_named_block(
     SV3_1aParser::Generate_interface_named_blockContext *ctx) {
   if (ctx->END())
-    addVObject((antlr4::ParserRuleContext *)ctx->END(), VObjectType::slEnd);
-  addVObject(ctx, VObjectType::slGenerate_interface_named_block);
+    addVObject((antlr4::ParserRuleContext *)ctx->END(), VObjectType::paEND);
+  addVObject(ctx, VObjectType::paGenerate_interface_named_block);
 }
 
 void SV3_1aTreeShapeListener::exitGenerate_interface_block(
     SV3_1aParser::Generate_interface_blockContext *ctx) {
   if (ctx->END())
-    addVObject((antlr4::ParserRuleContext *)ctx->END(), VObjectType::slEnd);
-  addVObject(ctx, VObjectType::slGenerate_interface_block);
+    addVObject((antlr4::ParserRuleContext *)ctx->END(), VObjectType::paEND);
+  addVObject(ctx, VObjectType::paGenerate_interface_block);
 }
 
 void SV3_1aTreeShapeListener::exitGenerate_begin_end_block(
     SV3_1aParser::Generate_begin_end_blockContext *ctx) {
   if (ctx->END())
-    addVObject((antlr4::ParserRuleContext *)ctx->END(), VObjectType::slEnd);
-  addVObject(ctx, VObjectType::slGenerate_begin_end_block);
+    addVObject((antlr4::ParserRuleContext *)ctx->END(), VObjectType::paEND);
+  addVObject(ctx, VObjectType::paGenerate_begin_end_block);
 }
 
 void SV3_1aTreeShapeListener::exitNamed_port_connection(
     SV3_1aParser::Named_port_connectionContext *ctx) {
   if (ctx->DOTSTAR())
     addVObject((antlr4::ParserRuleContext *)ctx->DOTSTAR(),
-               VObjectType::slDotStar);
+               VObjectType::paDOTSTAR);
   if (ctx->OPEN_PARENS())
     addVObject((antlr4::ParserRuleContext *)ctx->OPEN_PARENS(),
-               VObjectType::slOpenParens);
+               VObjectType::paOPEN_PARENS);
   if (ctx->CLOSE_PARENS())
     addVObject((antlr4::ParserRuleContext *)ctx->CLOSE_PARENS(),
-               VObjectType::slCloseParens);
-  addVObject(ctx, VObjectType::slNamed_port_connection);
+               VObjectType::paCLOSE_PARENS);
+  addVObject(ctx, VObjectType::paNamed_port_connection);
 }
 
 void SV3_1aTreeShapeListener::exitPattern(SV3_1aParser::PatternContext *ctx) {
   if (ctx->DOT())
-    addVObject((antlr4::ParserRuleContext *)ctx->DOT(), VObjectType::slDot);
+    addVObject((antlr4::ParserRuleContext *)ctx->DOT(), VObjectType::paDOT);
   else if (ctx->DOTSTAR())
     addVObject((antlr4::ParserRuleContext *)ctx->DOTSTAR(),
-               VObjectType::slDotStar);
+               VObjectType::paDOTSTAR);
   else if (ctx->TAGGED())
     addVObject((antlr4::ParserRuleContext *)ctx->TAGGED(),
-               VObjectType::slTagged);
+               VObjectType::paTAGGED);
 
-  addVObject(ctx, VObjectType::slPattern);
+  addVObject(ctx, VObjectType::paPattern);
 }
 
 void SV3_1aTreeShapeListener::exitSpecify_block(
     SV3_1aParser::Specify_blockContext *ctx) {
   if (ctx->ENDSPECIFY())
     addVObject((antlr4::ParserRuleContext *)ctx->ENDSPECIFY(),
-               VObjectType::slEndspecify);
-  addVObject(ctx, VObjectType::slSpecify_block);
+               VObjectType::paENDSPECIFY);
+  addVObject(ctx, VObjectType::paSpecify_block);
 }
 
 void SV3_1aTreeShapeListener::exitConfig_declaration(
     SV3_1aParser::Config_declarationContext *ctx) {
   if (ctx->ENDCONFIG())
     addVObject((antlr4::ParserRuleContext *)ctx->ENDCONFIG(),
-               VObjectType::slEndconfig);
-  addVObject(ctx, VObjectType::slConfig_declaration);
+               VObjectType::paENDCONFIG);
+  addVObject(ctx, VObjectType::paConfig_declaration);
 }
 
 void SV3_1aTreeShapeListener::exitDpi_import_export(
     SV3_1aParser::Dpi_import_exportContext *ctx) {
   if (ctx->IMPORT())
     addVObject((antlr4::ParserRuleContext *)ctx->IMPORT(),
-               VObjectType::slImport);
+               VObjectType::paIMPORT);
   if (ctx->EXPORT())
     addVObject((antlr4::ParserRuleContext *)ctx->EXPORT(),
-               VObjectType::slExport);
-  addVObject(ctx, VObjectType::slDpi_import_export);
+               VObjectType::paEXPORT);
+  addVObject(ctx, VObjectType::paDpi_import_export);
 }
 
 void SV3_1aTreeShapeListener::exitProperty_declaration(
     SV3_1aParser::Property_declarationContext *ctx) {
   if (ctx->ENDPROPERTY())
     addVObject((antlr4::ParserRuleContext *)ctx->ENDPROPERTY(),
-               VObjectType::slEndproperty);
-  addVObject(ctx, VObjectType::slProperty_declaration);
+               VObjectType::paENDPROPERTY);
+  addVObject(ctx, VObjectType::paProperty_declaration);
 }
 
 void SV3_1aTreeShapeListener::exitCovergroup_declaration(
     SV3_1aParser::Covergroup_declarationContext *ctx) {
   if (ctx->ENDGROUP())
     addVObject((antlr4::ParserRuleContext *)ctx->ENDGROUP(),
-               VObjectType::slEndgroup);
-  addVObject(ctx, VObjectType::slCovergroup_declaration);
+               VObjectType::paENDGROUP);
+  addVObject(ctx, VObjectType::paCovergroup_declaration);
 }
 
 void SV3_1aTreeShapeListener::exitGenerated_module_instantiation(
     SV3_1aParser::Generated_module_instantiationContext *ctx) {
   if (ctx->ENDGENERATE())
     addVObject((antlr4::ParserRuleContext *)ctx->ENDGENERATE(),
-               VObjectType::slEndgenerate);
-  addVObject(ctx, VObjectType::slGenerated_module_instantiation);
+               VObjectType::paENDGENERATE);
+  addVObject(ctx, VObjectType::paGenerated_module_instantiation);
 }
 
 void SV3_1aTreeShapeListener::exitGenerated_interface_instantiation(
     SV3_1aParser::Generated_interface_instantiationContext *ctx) {
   if (ctx->ENDGENERATE())
     addVObject((antlr4::ParserRuleContext *)ctx->ENDGENERATE(),
-               VObjectType::slEndgenerate);
-  addVObject(ctx, VObjectType::slGenerated_interface_instantiation);
+               VObjectType::paENDGENERATE);
+  addVObject(ctx, VObjectType::paGenerated_interface_instantiation);
 }
 
 void SV3_1aTreeShapeListener::exitGenerate_region(
     SV3_1aParser::Generate_regionContext *ctx) {
   if (ctx->ENDGENERATE())
     addVObject((antlr4::ParserRuleContext *)ctx->ENDGENERATE(),
-               VObjectType::slEndgenerate);
-  addVObject(ctx, VObjectType::slGenerate_region);
+               VObjectType::paENDGENERATE);
+  addVObject(ctx, VObjectType::paGenerate_region);
 }
 
 void SV3_1aTreeShapeListener::exitUdp_declaration(
     SV3_1aParser::Udp_declarationContext *ctx) {
   if (ctx->ENDPRIMITIVE())
     addVObject((antlr4::ParserRuleContext *)ctx->ENDPRIMITIVE(),
-               VObjectType::slEndprimitive);
-  addVObject(ctx, VObjectType::slUdp_declaration);
+               VObjectType::paENDPRIMITIVE);
+  addVObject(ctx, VObjectType::paUdp_declaration);
 }
 
 void SV3_1aTreeShapeListener::exitCombinational_body(
     SV3_1aParser::Combinational_bodyContext *ctx) {
   if (ctx->ENDTABLE())
     addVObject((antlr4::ParserRuleContext *)ctx->ENDTABLE(),
-               VObjectType::slEndtable);
-  addVObject(ctx, VObjectType::slCombinational_body);
+               VObjectType::paENDTABLE);
+  addVObject(ctx, VObjectType::paCombinational_body);
 }
 
 void SV3_1aTreeShapeListener::exitSequential_body(
     SV3_1aParser::Sequential_bodyContext *ctx) {
   if (ctx->ENDTABLE())
     addVObject((antlr4::ParserRuleContext *)ctx->ENDTABLE(),
-               VObjectType::slEndtable);
-  addVObject(ctx, VObjectType::slSequential_body);
+               VObjectType::paENDTABLE);
+  addVObject(ctx, VObjectType::paSequential_body);
 }
 
 void SV3_1aTreeShapeListener::exitClocking_declaration(
     SV3_1aParser::Clocking_declarationContext *ctx) {
   if (ctx->DEFAULT())
     addVObject((antlr4::ParserRuleContext *)ctx->DEFAULT(),
-               VObjectType::slDefault);
+               VObjectType::paDEFAULT);
   if (ctx->GLOBAL())
     addVObject((antlr4::ParserRuleContext *)ctx->GLOBAL(),
-               VObjectType::slGlobal);
+               VObjectType::paGLOBAL);
   if (ctx->ENDCLOCKING())
     addVObject((antlr4::ParserRuleContext *)ctx->ENDCLOCKING(),
-               VObjectType::slEndclocking);
-  addVObject(ctx, VObjectType::slClocking_declaration);
+               VObjectType::paENDCLOCKING);
+  addVObject(ctx, VObjectType::paClocking_declaration);
 }
 
 void SV3_1aTreeShapeListener::exitPackage_declaration(
     SV3_1aParser::Package_declarationContext *ctx) {
   if (ctx->ENDPACKAGE())
     addVObject((antlr4::ParserRuleContext *)ctx->ENDPACKAGE(),
-               VObjectType::slEndpackage);
-  addVObject(ctx, VObjectType::slPackage_declaration);
+               VObjectType::paENDPACKAGE);
+  addVObject(ctx, VObjectType::paPackage_declaration);
 }
 
 void SV3_1aTreeShapeListener::enterProgram_declaration(
@@ -604,14 +603,14 @@ void SV3_1aTreeShapeListener::enterProgram_declaration(
     if (ctx->program_ansi_header()->PROGRAM()) {
       addVObject(
           (antlr4::ParserRuleContext *)ctx->program_ansi_header()->PROGRAM(),
-          VObjectType::slProgram);
+          VObjectType::paPROGRAM);
     }
   } else if (ctx->program_nonansi_header()) {
     ident = ctx->program_nonansi_header()->identifier()->getText();
     if (ctx->program_nonansi_header()->PROGRAM()) {
       addVObject(
           (antlr4::ParserRuleContext *)ctx->program_nonansi_header()->PROGRAM(),
-          VObjectType::slProgram);
+          VObjectType::paPROGRAM);
     }
   } else {
     if (ctx->identifier(0))
@@ -620,11 +619,11 @@ void SV3_1aTreeShapeListener::enterProgram_declaration(
       ident = "PROGRAM NAME UNKNOWN";
     if (ctx->PROGRAM()) {
       addVObject((antlr4::ParserRuleContext *)ctx->PROGRAM(),
-                 VObjectType::slProgram);
+                 VObjectType::paPROGRAM);
     }
   }
   ident = std::regex_replace(ident, std::regex(EscapeSequence), "");
-  addDesignElement(ctx, ident, DesignElement::Program, VObjectType::slProgram);
+  addDesignElement(ctx, ident, DesignElement::Program, VObjectType::paPROGRAM);
 }
 
 void SV3_1aTreeShapeListener::enterClass_declaration(
@@ -633,10 +632,10 @@ void SV3_1aTreeShapeListener::enterClass_declaration(
   if (ctx->identifier(0)) {
     ident = ctx->identifier(0)->getText();
     ident = std::regex_replace(ident, std::regex(EscapeSequence), "");
-    addDesignElement(ctx, ident, DesignElement::Class, VObjectType::slClass);
+    addDesignElement(ctx, ident, DesignElement::Class, VObjectType::paCLASS);
   } else
     addDesignElement(ctx, "UNNAMED_CLASS", DesignElement::Class,
-                     VObjectType::slClass);
+                     VObjectType::paCLASS);
 }
 
 SV3_1aTreeShapeListener::SV3_1aTreeShapeListener(
@@ -649,11 +648,11 @@ void SV3_1aTreeShapeListener::enterPackage_declaration(
     SV3_1aParser::Package_declarationContext *ctx) {
   if (ctx->PACKAGE()) {
     addVObject((antlr4::ParserRuleContext *)ctx->PACKAGE(),
-               VObjectType::slPackage);
+               VObjectType::paPACKAGE);
   }
   std::string ident = ctx->identifier(0)->getText();
   ident = std::regex_replace(ident, std::regex(EscapeSequence), "");
-  addDesignElement(ctx, ident, DesignElement::Package, VObjectType::slPackage);
+  addDesignElement(ctx, ident, DesignElement::Package, VObjectType::paPACKAGE);
 }
 
 void SV3_1aTreeShapeListener::enterTimeUnitsDecl_TimeUnit(
@@ -735,8 +734,8 @@ void SV3_1aTreeShapeListener::exitTime_literal(
   } else {
     logError(ErrorDefinition::COMP_ILLEGAL_TIMESCALE, ctx, s);
   }
-  addVObject(ctx->time_unit(), s, VObjectType::slTime_unit);
-  addVObject(ctx, VObjectType::slTime_literal);
+  addVObject(ctx->time_unit(), s, VObjectType::paTime_unit);
+  addVObject(ctx, VObjectType::paTime_literal);
 }
 
 void SV3_1aTreeShapeListener::exitTime_unit(
@@ -744,11 +743,11 @@ void SV3_1aTreeShapeListener::exitTime_unit(
   const std::string &s = ctx->getText();
   if ((s == "s") || (s == "ms") || (s == "us") || (s == "ns") || (s == "ps") ||
       (s == "fs")) {
-    addVObject(ctx, ctx->getText(), VObjectType::slTime_unit);
+    addVObject(ctx, ctx->getText(), VObjectType::paTime_unit);
   } else {
     addVObject((antlr4::ParserRuleContext *)ctx->Simple_identifier(),
                ctx->getText(), VObjectType::slStringConst);
-    addVObject(ctx, VObjectType::slName_of_instance);
+    addVObject(ctx, VObjectType::paName_of_instance);
   }
 }
 
@@ -799,14 +798,14 @@ void SV3_1aTreeShapeListener::enterUdp_declaration(
     if (ctx->udp_ansi_declaration()->PRIMITIVE()) {
       addVObject(
           (antlr4::ParserRuleContext *)ctx->udp_ansi_declaration()->PRIMITIVE(),
-          VObjectType::slPrimitive);
+          VObjectType::paPRIMITIVE);
     }
   } else if (ctx->udp_nonansi_declaration()) {
     ident = ctx->udp_nonansi_declaration()->identifier()->getText();
     if (ctx->udp_nonansi_declaration()->PRIMITIVE()) {
       addVObject((antlr4::ParserRuleContext *)ctx->udp_nonansi_declaration()
                      ->PRIMITIVE(),
-                 VObjectType::slPrimitive);
+                 VObjectType::paPRIMITIVE);
     }
   } else {
     if (ctx->identifier(0)) {
@@ -816,12 +815,12 @@ void SV3_1aTreeShapeListener::enterUdp_declaration(
     }
     if (ctx->PRIMITIVE()) {
       addVObject((antlr4::ParserRuleContext *)ctx->PRIMITIVE(),
-                 VObjectType::slPrimitive);
+                 VObjectType::paPRIMITIVE);
     }
   }
   ident = std::regex_replace(ident, std::regex(EscapeSequence), "");
   addDesignElement(ctx, ident, DesignElement::Primitive,
-                   VObjectType::slPrimitive);
+                   VObjectType::paPRIMITIVE);
 }
 
 void SV3_1aTreeShapeListener::enterSurelog_macro_not_defined(
@@ -849,11 +848,11 @@ void SV3_1aTreeShapeListener::exitScalar_Integral(
 void SV3_1aTreeShapeListener::exitUnbased_unsized_literal(
     SV3_1aParser::Unbased_unsized_literalContext *ctx) {
   std::string s = ctx->Simple_identifier()->getText();
-  VObjectType type = VObjectType::slZ;
+  VObjectType type = VObjectType::paZ;
   if (s == "z" || s == "Z") {
-    type = VObjectType::slZ;
+    type = VObjectType::paZ;
   } else if (s == "x" || s == "X") {
-    type = VObjectType::slX;
+    type = VObjectType::paX;
   }
   addVObject(ctx, s, type);
 }
@@ -864,14 +863,14 @@ SV3_1aTreeShapeListener::exitComment_OneLine
 (SV3_1aParser::Comment_OneLineContext *ctx)
 {
   addVObject (ctx, ctx->One_line_comment ()->getText (),
-VObjectType::slComments);
+VObjectType::paComments);
 }
 
 void
 SV3_1aTreeShapeListener::exitComment_Block (SV3_1aParser::Comment_BlockContext
 *ctx)
 {
-  addVObject (ctx, ctx->Block_comment ()->getText (), VObjectType::slComments);
+  addVObject (ctx, ctx->Block_comment ()->getText (), VObjectType::paComments);
 }
 */
 
@@ -881,7 +880,7 @@ void SV3_1aTreeShapeListener::exitPound_delay_value(
     addVObject(ctx, ctx->Pound_delay()->getText(), VObjectType::slIntConst);
   } else if (ctx->Pound_Pound_delay()) {
     addVObject(ctx, ctx->Pound_Pound_delay()->getText(),
-               VObjectType::slPound_pound_delay);
+               VObjectType::paPound_Pound_delay);
   } else if (ctx->delay_value()) {
     const std::string text = ctx->delay_value()->getText();
     if (std::isdigit(text[0])) {
@@ -896,9 +895,9 @@ void SV3_1aTreeShapeListener::exitData_type(
     SV3_1aParser::Data_typeContext *ctx) {
   if (ctx->VIRTUAL()) {
     addVObject((antlr4::ParserRuleContext *)ctx->VIRTUAL(),
-               VObjectType::slVirtual);
+               VObjectType::paVIRTUAL);
   }
-  addVObject(ctx, VObjectType::slData_type);
+  addVObject(ctx, VObjectType::paData_type);
 }
 
 void SV3_1aTreeShapeListener::exitString_value(
@@ -951,46 +950,46 @@ void SV3_1aTreeShapeListener::exitUnique_priority(
     SV3_1aParser::Unique_priorityContext *ctx) {
   if (ctx->PRIORITY()) {
     addVObject((antlr4::ParserRuleContext *)ctx->PRIORITY(),
-               VObjectType::slPriority);
+               VObjectType::paPRIORITY);
   } else if (ctx->UNIQUE()) {
     addVObject((antlr4::ParserRuleContext *)ctx->UNIQUE(),
-               VObjectType::slUnique);
+               VObjectType::paUNIQUE);
   } else if (ctx->UNIQUE0()) {
     addVObject((antlr4::ParserRuleContext *)ctx->UNIQUE0(),
-               VObjectType::slUnique0);
+               VObjectType::paUNIQUE0);
   }
-  addVObject(ctx, VObjectType::slUnique_priority);
+  addVObject(ctx, VObjectType::paUnique_priority);
 }
 
 void SV3_1aTreeShapeListener::exitCase_keyword(
     SV3_1aParser::Case_keywordContext *ctx) {
   if (ctx->CASE()) {
-    addVObject((antlr4::ParserRuleContext *)ctx->CASE(), VObjectType::slCase);
+    addVObject((antlr4::ParserRuleContext *)ctx->CASE(), VObjectType::paCASE);
   } else if (ctx->CASEX()) {
-    addVObject((antlr4::ParserRuleContext *)ctx->CASEX(), VObjectType::slCaseX);
+    addVObject((antlr4::ParserRuleContext *)ctx->CASEX(), VObjectType::paCASEX);
   } else if (ctx->CASEZ()) {
-    addVObject((antlr4::ParserRuleContext *)ctx->CASEZ(), VObjectType::slCaseZ);
+    addVObject((antlr4::ParserRuleContext *)ctx->CASEZ(), VObjectType::paCASEZ);
   }
-  addVObject(ctx, VObjectType::slCase_keyword);
+  addVObject(ctx, VObjectType::paCase_keyword);
 }
 
 void SV3_1aTreeShapeListener::exitPart_select_op_colon(
     SV3_1aParser::Part_select_op_colonContext *ctx) {
   if (ctx->INC_PART_SELECT_OP()) {
-    addVObject(ctx, VObjectType::slIncPartSelectOp);
+    addVObject(ctx, VObjectType::paIncPartSelectOp);
   } else if (ctx->DEC_PART_SELECT_OP()) {
-    addVObject(ctx, VObjectType::slDecPartSelectOp);
+    addVObject(ctx, VObjectType::paDecPartSelectOp);
   } else if (ctx->COLON()) {
-    addVObject(ctx, VObjectType::slColonPartSelectOp);
+    addVObject(ctx, VObjectType::paColonPartSelectOp);
   }
 }
 
 void SV3_1aTreeShapeListener::exitPart_select_op(
     SV3_1aParser::Part_select_opContext *ctx) {
   if (ctx->INC_PART_SELECT_OP()) {
-    addVObject(ctx, VObjectType::slIncPartSelectOp);
+    addVObject(ctx, VObjectType::paIncPartSelectOp);
   } else if (ctx->DEC_PART_SELECT_OP()) {
-    addVObject(ctx, VObjectType::slDecPartSelectOp);
+    addVObject(ctx, VObjectType::paDecPartSelectOp);
   }
 }
 
@@ -1015,7 +1014,7 @@ void SV3_1aTreeShapeListener::exitSystem_task_names(
   else if (ctx->UNSIGNED())
     addVObject((antlr4::ParserRuleContext *)ctx->UNSIGNED(), ident,
                VObjectType::slStringConst);
-  addVObject(ctx, VObjectType::slSystem_task_names);
+  addVObject(ctx, VObjectType::paSystem_task_names);
 }
 
 void SV3_1aTreeShapeListener::exitClass_type(
@@ -1044,7 +1043,7 @@ void SV3_1aTreeShapeListener::exitClass_type(
     ident = ctx->DOLLAR_UNIT()->getText();
   }
   addVObject(childCtx, ident, VObjectType::slStringConst);
-  addVObject(ctx, VObjectType::slClass_type);
+  addVObject(ctx, VObjectType::paClass_type);
 
   if (ident.size() > SV_MAX_IDENTIFIER_SIZE) {
     logError(ErrorDefinition::PA_MAX_LENGTH_IDENTIFIER, ctx, ident);
@@ -1076,7 +1075,7 @@ void SV3_1aTreeShapeListener::exitHierarchical_identifier(
     }
   }
 
-  addVObject(ctx, VObjectType::slHierarchical_identifier);
+  addVObject(ctx, VObjectType::paHierarchical_identifier);
   if (ident.size() > SV_MAX_IDENTIFIER_SIZE) {
     logError(ErrorDefinition::PA_MAX_LENGTH_IDENTIFIER, ctx, ident);
   }
@@ -1098,166 +1097,166 @@ void SV3_1aTreeShapeListener::exitAnonymous_program(
     SV3_1aParser::Anonymous_programContext *ctx) {
   if (ctx->ENDPROGRAM())
     addVObject((antlr4::ParserRuleContext *)ctx->ENDPROGRAM(),
-               VObjectType::slEndprogram);
-  addVObject(ctx, VObjectType::slAnonymous_program);
+               VObjectType::paENDPROGRAM);
+  addVObject(ctx, VObjectType::paAnonymous_program);
 }
 
 void SV3_1aTreeShapeListener::exitProgram_declaration(
     SV3_1aParser::Program_declarationContext *ctx) {
   if (ctx->ENDPROGRAM())
     addVObject((antlr4::ParserRuleContext *)ctx->ENDPROGRAM(),
-               VObjectType::slEndprogram);
-  addVObject(ctx, VObjectType::slProgram_declaration);
+               VObjectType::paENDPROGRAM);
+  addVObject(ctx, VObjectType::paProgram_declaration);
 }
 
 void SV3_1aTreeShapeListener::exitProcedural_continuous_assignment(
     SV3_1aParser::Procedural_continuous_assignmentContext *ctx) {
   if (ctx->ASSIGN()) {
     addVObject((antlr4::ParserRuleContext *)ctx->ASSIGN(),
-               VObjectType::slAssign);
+               VObjectType::paASSIGN);
   } else if (ctx->DEASSIGN()) {
     addVObject((antlr4::ParserRuleContext *)ctx->DEASSIGN(),
-               VObjectType::slDeassign);
+               VObjectType::paDEASSIGN);
   } else if (ctx->FORCE()) {
-    addVObject((antlr4::ParserRuleContext *)ctx->FORCE(), VObjectType::slForce);
+    addVObject((antlr4::ParserRuleContext *)ctx->FORCE(), VObjectType::paFORCE);
   } else if (ctx->RELEASE()) {
     addVObject((antlr4::ParserRuleContext *)ctx->RELEASE(),
-               VObjectType::slRelease);
+               VObjectType::paRELEASE);
   }
-  addVObject(ctx, VObjectType::slProcedural_continuous_assignment);
+  addVObject(ctx, VObjectType::paProcedural_continuous_assignment);
 }
 
 void SV3_1aTreeShapeListener::exitDrive_strength(
     SV3_1aParser::Drive_strengthContext *ctx) {
   if (ctx->SUPPLY0()) {
     addVObject((antlr4::ParserRuleContext *)ctx->SUPPLY0(),
-               VObjectType::slSupply0);
+               VObjectType::paSUPPLY0);
   } else if (ctx->STRONG0()) {
     addVObject((antlr4::ParserRuleContext *)ctx->STRONG0(),
-               VObjectType::slStrong0);
+               VObjectType::paSTRONG0);
   } else if (ctx->PULL0()) {
-    addVObject((antlr4::ParserRuleContext *)ctx->PULL0(), VObjectType::slPull0);
+    addVObject((antlr4::ParserRuleContext *)ctx->PULL0(), VObjectType::paPULL0);
   } else if (ctx->WEAK0()) {
-    addVObject((antlr4::ParserRuleContext *)ctx->WEAK0(), VObjectType::slWeak0);
+    addVObject((antlr4::ParserRuleContext *)ctx->WEAK0(), VObjectType::paWEAK0);
   }
   if (ctx->SUPPLY1()) {
     addVObject((antlr4::ParserRuleContext *)ctx->SUPPLY1(),
-               VObjectType::slSupply1);
+               VObjectType::paSUPPLY1);
   } else if (ctx->STRONG1()) {
     addVObject((antlr4::ParserRuleContext *)ctx->STRONG1(),
-               VObjectType::slStrong1);
+               VObjectType::paSTRONG1);
   } else if (ctx->PULL1()) {
-    addVObject((antlr4::ParserRuleContext *)ctx->PULL1(), VObjectType::slPull1);
+    addVObject((antlr4::ParserRuleContext *)ctx->PULL1(), VObjectType::paPULL1);
   } else if (ctx->WEAK1()) {
-    addVObject((antlr4::ParserRuleContext *)ctx->WEAK1(), VObjectType::slWeak1);
+    addVObject((antlr4::ParserRuleContext *)ctx->WEAK1(), VObjectType::paWEAK1);
   }
 
   if (ctx->HIGHZ0()) {
     addVObject((antlr4::ParserRuleContext *)ctx->HIGHZ0(),
-               VObjectType::slHighZ0);
+               VObjectType::paHIGHZ0);
   } else if (ctx->HIGHZ1()) {
     addVObject((antlr4::ParserRuleContext *)ctx->HIGHZ1(),
-               VObjectType::slHighZ1);
+               VObjectType::paHIGHZ1);
   }
-  addVObject(ctx, VObjectType::slDrive_strength);
+  addVObject(ctx, VObjectType::paDrive_strength);
 }
 
 void SV3_1aTreeShapeListener::exitStrength0(
     SV3_1aParser::Strength0Context *ctx) {
   if (ctx->SUPPLY0()) {
     addVObject((antlr4::ParserRuleContext *)ctx->SUPPLY0(),
-               VObjectType::slSupply0);
+               VObjectType::paSUPPLY0);
   } else if (ctx->STRONG0()) {
     addVObject((antlr4::ParserRuleContext *)ctx->STRONG0(),
-               VObjectType::slStrong0);
+               VObjectType::paSTRONG0);
   } else if (ctx->PULL0()) {
-    addVObject((antlr4::ParserRuleContext *)ctx->PULL0(), VObjectType::slPull0);
+    addVObject((antlr4::ParserRuleContext *)ctx->PULL0(), VObjectType::paPULL0);
   } else if (ctx->WEAK0()) {
-    addVObject((antlr4::ParserRuleContext *)ctx->WEAK0(), VObjectType::slWeak0);
+    addVObject((antlr4::ParserRuleContext *)ctx->WEAK0(), VObjectType::paWEAK0);
   }
-  addVObject(ctx, VObjectType::slStrength0);
+  addVObject(ctx, VObjectType::paStrength0);
 }
 
 void SV3_1aTreeShapeListener::exitAction_block(
     SV3_1aParser::Action_blockContext *ctx) {
   if (ctx->ELSE()) {
-    addVObject((antlr4::ParserRuleContext *)ctx->ELSE(), VObjectType::slElse);
+    addVObject((antlr4::ParserRuleContext *)ctx->ELSE(), VObjectType::paELSE);
   }
-  addVObject(ctx, VObjectType::slAction_block);
+  addVObject(ctx, VObjectType::paAction_block);
 }
 
 void SV3_1aTreeShapeListener::exitEvent_trigger(
     SV3_1aParser::Event_triggerContext *ctx) {
   if (ctx->IMPLY())
     addVObject((antlr4::ParserRuleContext *)ctx->IMPLY(),
-               VObjectType::slBinOp_Imply);
+               VObjectType::paBinOp_Imply);
   if (ctx->NON_BLOCKING_TRIGGER_EVENT_OP())
     addVObject(
         (antlr4::ParserRuleContext *)ctx->NON_BLOCKING_TRIGGER_EVENT_OP(),
-        VObjectType::slNonBlockingTriggerEvent);
-  addVObject(ctx, VObjectType::slEvent_trigger);
+        VObjectType::paNON_BLOCKING_TRIGGER_EVENT_OP);
+  addVObject(ctx, VObjectType::paEvent_trigger);
 }
 
 void SV3_1aTreeShapeListener::exitStrength1(
     SV3_1aParser::Strength1Context *ctx) {
   if (ctx->SUPPLY1()) {
     addVObject((antlr4::ParserRuleContext *)ctx->SUPPLY1(),
-               VObjectType::slSupply1);
+               VObjectType::paSUPPLY1);
   } else if (ctx->STRONG1()) {
     addVObject((antlr4::ParserRuleContext *)ctx->STRONG1(),
-               VObjectType::slStrong1);
+               VObjectType::paSTRONG1);
   } else if (ctx->PULL1()) {
-    addVObject((antlr4::ParserRuleContext *)ctx->PULL1(), VObjectType::slPull1);
+    addVObject((antlr4::ParserRuleContext *)ctx->PULL1(), VObjectType::paPULL1);
   } else if (ctx->WEAK1()) {
-    addVObject((antlr4::ParserRuleContext *)ctx->WEAK1(), VObjectType::slWeak1);
+    addVObject((antlr4::ParserRuleContext *)ctx->WEAK1(), VObjectType::paWEAK1);
   }
-  addVObject(ctx, VObjectType::slStrength1);
+  addVObject(ctx, VObjectType::paStrength1);
 }
 
 void SV3_1aTreeShapeListener::exitCharge_strength(
     SV3_1aParser::Charge_strengthContext *ctx) {
   if (ctx->SMALL()) {
-    addVObject((antlr4::ParserRuleContext *)ctx->SMALL(), VObjectType::slSmall);
+    addVObject((antlr4::ParserRuleContext *)ctx->SMALL(), VObjectType::paSMALL);
   } else if (ctx->MEDIUM()) {
     addVObject((antlr4::ParserRuleContext *)ctx->MEDIUM(),
-               VObjectType::slMedium);
+               VObjectType::paMEDIUM);
   } else if (ctx->LARGE()) {
-    addVObject((antlr4::ParserRuleContext *)ctx->LARGE(), VObjectType::slLarge);
+    addVObject((antlr4::ParserRuleContext *)ctx->LARGE(), VObjectType::paLARGE);
   }
-  addVObject(ctx, VObjectType::slCharge_strength);
+  addVObject(ctx, VObjectType::paCharge_strength);
 }
 
 void SV3_1aTreeShapeListener::exitStream_operator(
     SV3_1aParser::Stream_operatorContext *ctx) {
   if (ctx->SHIFT_RIGHT()) {
     addVObject((antlr4::ParserRuleContext *)ctx->SHIFT_RIGHT(),
-               VObjectType::slBinOp_ShiftRight);
+               VObjectType::paBinOp_ShiftRight);
   } else if (ctx->SHIFT_LEFT()) {
     addVObject((antlr4::ParserRuleContext *)ctx->SHIFT_LEFT(),
-               VObjectType::slBinOp_ShiftLeft);
+               VObjectType::paBinOp_ShiftLeft);
   }
-  addVObject(ctx, VObjectType::slStream_operator);
+  addVObject(ctx, VObjectType::paStream_operator);
 }
 
 void SV3_1aTreeShapeListener::exitLoop_statement(
     SV3_1aParser::Loop_statementContext *ctx) {
   if (ctx->DO()) {
-    addVObject((antlr4::ParserRuleContext *)ctx->DO(), VObjectType::slDo);
+    addVObject((antlr4::ParserRuleContext *)ctx->DO(), VObjectType::paDO);
   } else if (ctx->FOREVER()) {
     addVObject((antlr4::ParserRuleContext *)ctx->FOREVER(),
-               VObjectType::slForever);
+               VObjectType::paFOREVER);
   } else if (ctx->REPEAT()) {
     addVObject((antlr4::ParserRuleContext *)ctx->REPEAT(),
-               VObjectType::slRepeat);
+               VObjectType::paREPEAT);
   } else if (ctx->WHILE()) {
-    addVObject((antlr4::ParserRuleContext *)ctx->WHILE(), VObjectType::slWhile);
+    addVObject((antlr4::ParserRuleContext *)ctx->WHILE(), VObjectType::paWHILE);
   } else if (ctx->FOR()) {
-    addVObject((antlr4::ParserRuleContext *)ctx->FOR(), VObjectType::slFor);
+    addVObject((antlr4::ParserRuleContext *)ctx->FOR(), VObjectType::paFOR);
   } else if (ctx->FOREACH()) {
     addVObject((antlr4::ParserRuleContext *)ctx->FOREACH(),
-               VObjectType::slForeach);
+               VObjectType::paFOREACH);
   }
-  addVObject(ctx, VObjectType::slLoop_statement);
+  addVObject(ctx, VObjectType::paLoop_statement);
 }
 
 void SV3_1aTreeShapeListener::exitPackage_scope(
@@ -1291,7 +1290,7 @@ void SV3_1aTreeShapeListener::exitPackage_scope(
     ident = ctx->DOLLAR_UNIT()->getText();
   }
   addVObject(childCtx, ident, VObjectType::slStringConst);
-  addVObject(ctx, VObjectType::slPackage_scope);
+  addVObject(ctx, VObjectType::paPackage_scope);
 
   if (ident.size() > SV_MAX_IDENTIFIER_SIZE) {
     logError(ErrorDefinition::PA_MAX_LENGTH_IDENTIFIER, ctx, ident);
@@ -1332,7 +1331,7 @@ void SV3_1aTreeShapeListener::exitPs_identifier(
     ident = ctx->DOLLAR_UNIT()->getText();
   }
   addVObject(childCtx, ident, VObjectType::slStringConst);
-  addVObject(ctx, VObjectType::slPs_identifier);
+  addVObject(ctx, VObjectType::paPs_identifier);
 
   if (ident.size() > SV_MAX_IDENTIFIER_SIZE) {
     logError(ErrorDefinition::PA_MAX_LENGTH_IDENTIFIER, ctx, ident);
@@ -1343,177 +1342,177 @@ void SV3_1aTreeShapeListener::exitExpression(
     SV3_1aParser::ExpressionContext *ctx) {
   if (ctx->MATCHES()) {
     addVObject((antlr4::ParserRuleContext *)ctx->MATCHES(),
-               VObjectType::slMatches);
+               VObjectType::paMatches);
   }
   if (ctx->PLUS()) {
     if (ctx->expression().size() == 1)
       addVObject((antlr4::ParserRuleContext *)ctx->PLUS(),
-                 VObjectType::slUnary_Plus);
+                 VObjectType::paUnary_Plus);
     else
       addVObject((antlr4::ParserRuleContext *)ctx->PLUS(),
-                 VObjectType::slBinOp_Plus);
+                 VObjectType::paBinOp_Plus);
   } else if (ctx->MINUS()) {
     if (ctx->expression().size() == 1)
       addVObject((antlr4::ParserRuleContext *)ctx->MINUS(),
-                 VObjectType::slUnary_Minus);
+                 VObjectType::paUnary_Minus);
     else
       addVObject((antlr4::ParserRuleContext *)ctx->MINUS(),
-                 VObjectType::slBinOp_Minus);
+                 VObjectType::paBinOp_Minus);
   } else if (ctx->BANG()) {
     addVObject((antlr4::ParserRuleContext *)ctx->BANG(),
-               VObjectType::slUnary_Not);
+               VObjectType::paUnary_Not);
   } else if (ctx->TILDA()) {
     addVObject((antlr4::ParserRuleContext *)ctx->TILDA(),
-               VObjectType::slUnary_Tilda);
+               VObjectType::paUnary_Tilda);
   } else if (ctx->BITW_AND()) {
     if (ctx->expression().size() == 1)
       addVObject((antlr4::ParserRuleContext *)ctx->BITW_AND(),
-                 VObjectType::slUnary_BitwAnd);
+                 VObjectType::paUnary_BitwAnd);
     else
       addVObject((antlr4::ParserRuleContext *)ctx->BITW_AND(),
-                 VObjectType::slBinOp_BitwAnd);
+                 VObjectType::paBinOp_BitwAnd);
   } else if (ctx->BITW_OR()) {
     if (ctx->expression().size() == 1)
       addVObject((antlr4::ParserRuleContext *)ctx->BITW_OR(),
-                 VObjectType::slUnary_BitwOr);
+                 VObjectType::paUnary_BitwOr);
     else
       addVObject((antlr4::ParserRuleContext *)ctx->BITW_OR(),
-                 VObjectType::slBinOp_BitwOr);
+                 VObjectType::paBinOp_BitwOr);
   } else if (ctx->BITW_XOR()) {
     if (ctx->expression().size() == 1)
       addVObject((antlr4::ParserRuleContext *)ctx->BITW_XOR(),
-                 VObjectType::slUnary_BitwXor);
+                 VObjectType::paUnary_BitwXor);
     else
       addVObject((antlr4::ParserRuleContext *)ctx->BITW_XOR(),
-                 VObjectType::slBinOp_BitwXor);
+                 VObjectType::paBinOp_BitwXor);
   } else if (ctx->REDUCTION_NAND()) {
     if (ctx->expression().size() == 1)
       addVObject((antlr4::ParserRuleContext *)ctx->REDUCTION_NAND(),
-                 VObjectType::slUnary_ReductNand);
+                 VObjectType::paUnary_ReductNand);
     else
       addVObject((antlr4::ParserRuleContext *)ctx->REDUCTION_NAND(),
-                 VObjectType::slBinOp_ReductNand);
+                 VObjectType::paBinOp_ReductNand);
   } else if (ctx->REDUCTION_NOR()) {
     addVObject((antlr4::ParserRuleContext *)ctx->REDUCTION_NOR(),
-               VObjectType::slUnary_ReductNor);
+               VObjectType::paUnary_ReductNor);
   } else if (ctx->REDUCTION_XNOR1()) {
     if (ctx->expression().size() == 1)
       addVObject((antlr4::ParserRuleContext *)ctx->REDUCTION_XNOR1(),
-                 VObjectType::slUnary_ReductXnor1);
+                 VObjectType::paUnary_ReductXnor1);
     else
       addVObject((antlr4::ParserRuleContext *)ctx->REDUCTION_XNOR1(),
-                 VObjectType::slBinOp_ReductXnor1);
+                 VObjectType::paBinOp_ReductXnor1);
   } else if (ctx->REDUCTION_XNOR2()) {
     if (ctx->expression().size() == 1)
       addVObject((antlr4::ParserRuleContext *)ctx->REDUCTION_XNOR2(),
-                 VObjectType::slUnary_ReductXnor2);
+                 VObjectType::paUnary_ReductXnor2);
     else
       addVObject((antlr4::ParserRuleContext *)ctx->REDUCTION_XNOR2(),
-                 VObjectType::slBinOp_ReductXnor2);
+                 VObjectType::paBinOp_ReductXnor2);
   } else if (ctx->STARSTAR()) {
     addVObject((antlr4::ParserRuleContext *)ctx->STARSTAR(),
-               VObjectType::slBinOp_MultMult);
+               VObjectType::paBinOp_MultMult);
   } else if (ctx->STAR()) {
     addVObject((antlr4::ParserRuleContext *)ctx->STAR(),
-               VObjectType::slBinOp_Mult);
+               VObjectType::paBinOp_Mult);
   } else if (ctx->DIV()) {
     addVObject((antlr4::ParserRuleContext *)ctx->DIV(),
-               VObjectType::slBinOp_Div);
+               VObjectType::paBinOp_Div);
   } else if (ctx->PERCENT()) {
     addVObject((antlr4::ParserRuleContext *)ctx->PERCENT(),
-               VObjectType::slBinOp_Percent);
+               VObjectType::paBinOp_Percent);
   } else if (ctx->SHIFT_RIGHT()) {
     addVObject((antlr4::ParserRuleContext *)ctx->SHIFT_RIGHT(),
-               VObjectType::slBinOp_ShiftRight);
+               VObjectType::paBinOp_ShiftRight);
   } else if (ctx->SHIFT_LEFT()) {
     addVObject((antlr4::ParserRuleContext *)ctx->SHIFT_LEFT(),
-               VObjectType::slBinOp_ShiftLeft);
+               VObjectType::paBinOp_ShiftLeft);
   } else if (ctx->ARITH_SHIFT_RIGHT()) {
     addVObject((antlr4::ParserRuleContext *)ctx->ARITH_SHIFT_RIGHT(),
-               VObjectType::slBinOp_ArithShiftRight);
+               VObjectType::paBinOp_ArithShiftRight);
   } else if (ctx->ARITH_SHIFT_LEFT()) {
     addVObject((antlr4::ParserRuleContext *)ctx->ARITH_SHIFT_LEFT(),
-               VObjectType::slBinOp_ArithShiftLeft);
+               VObjectType::paBinOp_ArithShiftLeft);
   } else if (ctx->LESS()) {
     addVObject((antlr4::ParserRuleContext *)ctx->LESS(),
-               VObjectType::slBinOp_Less);
+               VObjectType::paBinOp_Less);
   } else if (ctx->LESS_EQUAL()) {
     addVObject((antlr4::ParserRuleContext *)ctx->LESS_EQUAL(),
-               VObjectType::slBinOp_LessEqual);
+               VObjectType::paBinOp_LessEqual);
   } else if (ctx->PLUSPLUS()) {
     addVObject((antlr4::ParserRuleContext *)ctx->PLUSPLUS(),
-               VObjectType::slIncDec_PlusPlus);
+               VObjectType::paIncDec_PlusPlus);
   } else if (ctx->MINUSMINUS()) {
     addVObject((antlr4::ParserRuleContext *)ctx->MINUSMINUS(),
-               VObjectType::slIncDec_MinusMinus);
+               VObjectType::paIncDec_MinusMinus);
   } else if (ctx->GREATER()) {
     addVObject((antlr4::ParserRuleContext *)ctx->GREATER(),
-               VObjectType::slBinOp_Great);
+               VObjectType::paBinOp_Great);
   } else if (ctx->GREATER_EQUAL()) {
     addVObject((antlr4::ParserRuleContext *)ctx->GREATER_EQUAL(),
-               VObjectType::slBinOp_GreatEqual);
+               VObjectType::paBinOp_GreatEqual);
   } else if (ctx->INSIDE()) {
     addVObject((antlr4::ParserRuleContext *)ctx->INSIDE(),
-               VObjectType::slInsideOp);
+               VObjectType::paINSIDE);
   } else if (ctx->EQUIV()) {
     addVObject((antlr4::ParserRuleContext *)ctx->EQUIV(),
-               VObjectType::slBinOp_Equiv);
+               VObjectType::paBinOp_Equiv);
   } else if (ctx->NOTEQUAL()) {
     addVObject((antlr4::ParserRuleContext *)ctx->NOTEQUAL(),
-               VObjectType::slBinOp_Not);
+               VObjectType::paBinOp_Not);
   } else if (ctx->BINARY_WILDCARD_EQUAL()) {
     addVObject((antlr4::ParserRuleContext *)ctx->BINARY_WILDCARD_EQUAL(),
-               VObjectType::slBinOp_WildcardEqual);
+               VObjectType::paBinOp_WildcardEqual);
   } else if (ctx->BINARY_WILDCARD_NOTEQUAL()) {
     addVObject((antlr4::ParserRuleContext *)ctx->BINARY_WILDCARD_NOTEQUAL(),
-               VObjectType::slBinOp_WildcardNotEqual);
+               VObjectType::paBinOp_WildcardNotEqual);
   } else if (ctx->FOUR_STATE_LOGIC_EQUAL()) {
     addVObject((antlr4::ParserRuleContext *)ctx->FOUR_STATE_LOGIC_EQUAL(),
-               VObjectType::slBinOp_FourStateLogicEqual);
+               VObjectType::paBinOp_FourStateLogicEqual);
   } else if (ctx->FOUR_STATE_LOGIC_NOTEQUAL()) {
     addVObject((antlr4::ParserRuleContext *)ctx->FOUR_STATE_LOGIC_NOTEQUAL(),
-               VObjectType::slBinOp_FourStateLogicNotEqual);
+               VObjectType::paBinOp_FourStateLogicNotEqual);
   } else if (ctx->WILD_EQUAL_OP()) {
     addVObject((antlr4::ParserRuleContext *)ctx->WILD_EQUAL_OP(),
-               VObjectType::slBinOp_WildEqual);
+               VObjectType::paBinOp_WildEqual);
   } else if (ctx->WILD_NOTEQUAL_OP()) {
     addVObject((antlr4::ParserRuleContext *)ctx->WILD_NOTEQUAL_OP(),
-               VObjectType::slBinOp_WildEqual);
+               VObjectType::paBinOp_WildEqual);
   } else if (ctx->BITW_AND()) {
     if (ctx->expression().size() == 1)
       addVObject((antlr4::ParserRuleContext *)ctx->BITW_AND(),
-                 VObjectType::slUnary_BitwAnd);
+                 VObjectType::paUnary_BitwAnd);
     else
       addVObject((antlr4::ParserRuleContext *)ctx->BITW_AND(),
-                 VObjectType::slBinOp_BitwAnd);
+                 VObjectType::paBinOp_BitwAnd);
   } else if (!ctx->LOGICAL_AND().empty()) {
     addVObject((antlr4::ParserRuleContext *)ctx->LOGICAL_AND()[0],
-               VObjectType::slBinOp_LogicAnd);
+               VObjectType::paBinOp_LogicAnd);
   } else if (ctx->LOGICAL_OR()) {
     addVObject((antlr4::ParserRuleContext *)ctx->LOGICAL_OR(),
-               VObjectType::slBinOp_LogicOr);
+               VObjectType::paBinOp_LogicOr);
   } else if (ctx->IMPLY()) {
     addVObject((antlr4::ParserRuleContext *)ctx->IMPLY(),
-               VObjectType::slBinOp_Imply);
+               VObjectType::paBinOp_Imply);
   } else if (ctx->EQUIVALENCE()) {
     addVObject((antlr4::ParserRuleContext *)ctx->EQUIVALENCE(),
-               VObjectType::slBinOp_Equivalence);
+               VObjectType::paBinOp_Equivalence);
   } else if (ctx->TAGGED()) {
     addVObject((antlr4::ParserRuleContext *)ctx->TAGGED(),
-               VObjectType::slTagged);
+               VObjectType::paTAGGED);
   }
   if (ctx->QMARK()) {
-    addVObject((antlr4::ParserRuleContext *)ctx->QMARK(), VObjectType::slQmark);
+    addVObject((antlr4::ParserRuleContext *)ctx->QMARK(), VObjectType::paQMARK);
   }
-  addVObject(ctx, VObjectType::slExpression);
+  addVObject(ctx, VObjectType::paExpression);
 }
 
 void SV3_1aTreeShapeListener::exitEvent_expression(
     SV3_1aParser::Event_expressionContext *ctx) {
   if (ctx->IFF()) {
-    addVObject((antlr4::ParserRuleContext *)ctx->IFF(), VObjectType::slIFF);
+    addVObject((antlr4::ParserRuleContext *)ctx->IFF(), VObjectType::paIFF);
   }
-  addVObject(ctx, VObjectType::slEvent_expression);
+  addVObject(ctx, VObjectType::paEvent_expression);
 }
 
 void SV3_1aTreeShapeListener::exitConstant_expression(
@@ -1521,231 +1520,231 @@ void SV3_1aTreeShapeListener::exitConstant_expression(
   if (ctx->PLUS()) {
     if (ctx->constant_primary())
       addVObject((antlr4::ParserRuleContext *)ctx->PLUS(),
-                 VObjectType::slUnary_Plus);
+                 VObjectType::paUnary_Plus);
     else
       addVObject((antlr4::ParserRuleContext *)ctx->PLUS(),
-                 VObjectType::slBinOp_Plus);
+                 VObjectType::paBinOp_Plus);
   } else if (ctx->MINUS()) {
     if (ctx->constant_primary())
       addVObject((antlr4::ParserRuleContext *)ctx->MINUS(),
-                 VObjectType::slUnary_Minus);
+                 VObjectType::paUnary_Minus);
     else
       addVObject((antlr4::ParserRuleContext *)ctx->MINUS(),
-                 VObjectType::slBinOp_Minus);
+                 VObjectType::paBinOp_Minus);
   } else if (ctx->BANG()) {
     addVObject((antlr4::ParserRuleContext *)ctx->BANG(),
-               VObjectType::slUnary_Not);
+               VObjectType::paUnary_Not);
   } else if (ctx->TILDA()) {
     addVObject((antlr4::ParserRuleContext *)ctx->TILDA(),
-               VObjectType::slUnary_Tilda);
+               VObjectType::paUnary_Tilda);
   } else if (ctx->BITW_AND()) {
     if (ctx->constant_primary())
       addVObject((antlr4::ParserRuleContext *)ctx->BITW_AND(),
-                 VObjectType::slUnary_BitwAnd);
+                 VObjectType::paUnary_BitwAnd);
     else
       addVObject((antlr4::ParserRuleContext *)ctx->BITW_AND(),
-                 VObjectType::slBinOp_BitwAnd);
+                 VObjectType::paBinOp_BitwAnd);
   } else if (ctx->BITW_OR()) {
     if (ctx->constant_primary())
       addVObject((antlr4::ParserRuleContext *)ctx->BITW_OR(),
-                 VObjectType::slUnary_BitwOr);
+                 VObjectType::paUnary_BitwOr);
     else
       addVObject((antlr4::ParserRuleContext *)ctx->BITW_OR(),
-                 VObjectType::slBinOp_BitwOr);
+                 VObjectType::paBinOp_BitwOr);
   } else if (ctx->BITW_XOR()) {
     if (ctx->constant_primary())
       addVObject((antlr4::ParserRuleContext *)ctx->BITW_XOR(),
-                 VObjectType::slUnary_BitwXor);
+                 VObjectType::paUnary_BitwXor);
     else
       addVObject((antlr4::ParserRuleContext *)ctx->BITW_XOR(),
-                 VObjectType::slBinOp_BitwXor);
+                 VObjectType::paBinOp_BitwXor);
   } else if (ctx->REDUCTION_NAND()) {
     if (ctx->constant_primary())
       addVObject((antlr4::ParserRuleContext *)ctx->REDUCTION_NAND(),
-                 VObjectType::slUnary_ReductNand);
+                 VObjectType::paUnary_ReductNand);
     else
       addVObject((antlr4::ParserRuleContext *)ctx->REDUCTION_NAND(),
-                 VObjectType::slBinOp_ReductNand);
+                 VObjectType::paBinOp_ReductNand);
   } else if (ctx->REDUCTION_NOR()) {
     addVObject((antlr4::ParserRuleContext *)ctx->REDUCTION_NOR(),
-               VObjectType::slUnary_ReductNor);
+               VObjectType::paUnary_ReductNor);
   } else if (ctx->REDUCTION_XNOR1()) {
     if (ctx->constant_primary())
       addVObject((antlr4::ParserRuleContext *)ctx->REDUCTION_XNOR1(),
-                 VObjectType::slUnary_ReductXnor1);
+                 VObjectType::paUnary_ReductXnor1);
     else
       addVObject((antlr4::ParserRuleContext *)ctx->REDUCTION_XNOR1(),
-                 VObjectType::slBinOp_ReductXnor1);
+                 VObjectType::paBinOp_ReductXnor1);
   } else if (ctx->REDUCTION_XNOR2()) {
     if (ctx->constant_primary())
       addVObject((antlr4::ParserRuleContext *)ctx->REDUCTION_XNOR2(),
-                 VObjectType::slUnary_ReductXnor2);
+                 VObjectType::paUnary_ReductXnor2);
     else
       addVObject((antlr4::ParserRuleContext *)ctx->REDUCTION_XNOR2(),
-                 VObjectType::slBinOp_ReductXnor2);
+                 VObjectType::paBinOp_ReductXnor2);
   } else if (ctx->STARSTAR()) {
     addVObject((antlr4::ParserRuleContext *)ctx->STARSTAR(),
-               VObjectType::slBinOp_MultMult);
+               VObjectType::paBinOp_MultMult);
   } else if (ctx->STAR()) {
     addVObject((antlr4::ParserRuleContext *)ctx->STAR(),
-               VObjectType::slBinOp_Mult);
+               VObjectType::paBinOp_Mult);
   } else if (ctx->DIV()) {
     addVObject((antlr4::ParserRuleContext *)ctx->DIV(),
-               VObjectType::slBinOp_Div);
+               VObjectType::paBinOp_Div);
   } else if (ctx->PERCENT()) {
     addVObject((antlr4::ParserRuleContext *)ctx->PERCENT(),
-               VObjectType::slBinOp_Percent);
+               VObjectType::paBinOp_Percent);
   } else if (ctx->SHIFT_RIGHT()) {
     addVObject((antlr4::ParserRuleContext *)ctx->SHIFT_RIGHT(),
-               VObjectType::slBinOp_ShiftRight);
+               VObjectType::paBinOp_ShiftRight);
   } else if (ctx->SHIFT_LEFT()) {
     addVObject((antlr4::ParserRuleContext *)ctx->SHIFT_LEFT(),
-               VObjectType::slBinOp_ShiftLeft);
+               VObjectType::paBinOp_ShiftLeft);
   } else if (ctx->ARITH_SHIFT_RIGHT()) {
     addVObject((antlr4::ParserRuleContext *)ctx->ARITH_SHIFT_RIGHT(),
-               VObjectType::slBinOp_ArithShiftRight);
+               VObjectType::paBinOp_ArithShiftRight);
   } else if (ctx->ARITH_SHIFT_LEFT()) {
     addVObject((antlr4::ParserRuleContext *)ctx->ARITH_SHIFT_LEFT(),
-               VObjectType::slBinOp_ArithShiftLeft);
+               VObjectType::paBinOp_ArithShiftLeft);
   } else if (ctx->LESS()) {
     addVObject((antlr4::ParserRuleContext *)ctx->LESS(),
-               VObjectType::slBinOp_Less);
+               VObjectType::paBinOp_Less);
   } else if (ctx->LESS_EQUAL()) {
     addVObject((antlr4::ParserRuleContext *)ctx->LESS_EQUAL(),
-               VObjectType::slBinOp_LessEqual);
+               VObjectType::paBinOp_LessEqual);
   } else if (ctx->GREATER()) {
     addVObject((antlr4::ParserRuleContext *)ctx->GREATER(),
-               VObjectType::slBinOp_Great);
+               VObjectType::paBinOp_Great);
   } else if (ctx->GREATER_EQUAL()) {
     addVObject((antlr4::ParserRuleContext *)ctx->GREATER_EQUAL(),
-               VObjectType::slBinOp_GreatEqual);
+               VObjectType::paBinOp_GreatEqual);
   } else if (ctx->INSIDE()) {
     addVObject((antlr4::ParserRuleContext *)ctx->INSIDE(),
-               VObjectType::slInsideOp);
+               VObjectType::paINSIDE);
   } else if (ctx->EQUIV()) {
     addVObject((antlr4::ParserRuleContext *)ctx->EQUIV(),
-               VObjectType::slBinOp_Equiv);
+               VObjectType::paBinOp_Equiv);
   } else if (ctx->NOTEQUAL()) {
     addVObject((antlr4::ParserRuleContext *)ctx->NOTEQUAL(),
-               VObjectType::slBinOp_Not);
+               VObjectType::paBinOp_Not);
   } else if (ctx->BINARY_WILDCARD_EQUAL()) {
     addVObject((antlr4::ParserRuleContext *)ctx->BINARY_WILDCARD_EQUAL(),
-               VObjectType::slBinOp_WildcardEqual);
+               VObjectType::paBinOp_WildcardEqual);
   } else if (ctx->BINARY_WILDCARD_NOTEQUAL()) {
     addVObject((antlr4::ParserRuleContext *)ctx->BINARY_WILDCARD_NOTEQUAL(),
-               VObjectType::slBinOp_WildcardNotEqual);
+               VObjectType::paBinOp_WildcardNotEqual);
   } else if (ctx->FOUR_STATE_LOGIC_EQUAL()) {
     addVObject((antlr4::ParserRuleContext *)ctx->FOUR_STATE_LOGIC_EQUAL(),
-               VObjectType::slBinOp_FourStateLogicEqual);
+               VObjectType::paBinOp_FourStateLogicEqual);
   } else if (ctx->FOUR_STATE_LOGIC_NOTEQUAL()) {
     addVObject((antlr4::ParserRuleContext *)ctx->FOUR_STATE_LOGIC_NOTEQUAL(),
-               VObjectType::slBinOp_FourStateLogicNotEqual);
+               VObjectType::paBinOp_FourStateLogicNotEqual);
   } else if (ctx->WILD_EQUAL_OP()) {
     addVObject((antlr4::ParserRuleContext *)ctx->WILD_EQUAL_OP(),
-               VObjectType::slBinOp_WildEqual);
+               VObjectType::paBinOp_WildEqual);
   } else if (ctx->WILD_NOTEQUAL_OP()) {
     addVObject((antlr4::ParserRuleContext *)ctx->WILD_NOTEQUAL_OP(),
-               VObjectType::slBinOp_WildEqual);
+               VObjectType::paBinOp_WildEqual);
   } else if (ctx->BITW_AND()) {
     if (ctx->constant_primary())
       addVObject((antlr4::ParserRuleContext *)ctx->BITW_AND(),
-                 VObjectType::slUnary_BitwAnd);
+                 VObjectType::paUnary_BitwAnd);
     else
       addVObject((antlr4::ParserRuleContext *)ctx->BITW_AND(),
-                 VObjectType::slBinOp_BitwAnd);
+                 VObjectType::paBinOp_BitwAnd);
   } else if (!ctx->LOGICAL_AND().empty()) {
     addVObject((antlr4::ParserRuleContext *)ctx->LOGICAL_AND()[0],
-               VObjectType::slBinOp_LogicAnd);
+               VObjectType::paBinOp_LogicAnd);
   } else if (ctx->LOGICAL_OR()) {
     addVObject((antlr4::ParserRuleContext *)ctx->LOGICAL_OR(),
-               VObjectType::slBinOp_LogicOr);
+               VObjectType::paBinOp_LogicOr);
   } else if (ctx->IMPLY()) {
     addVObject((antlr4::ParserRuleContext *)ctx->IMPLY(),
-               VObjectType::slBinOp_Imply);
+               VObjectType::paBinOp_Imply);
   } else if (ctx->EQUIVALENCE()) {
     addVObject((antlr4::ParserRuleContext *)ctx->EQUIVALENCE(),
-               VObjectType::slBinOp_Equivalence);
+               VObjectType::paBinOp_Equivalence);
   }
-  addVObject(ctx, VObjectType::slConstant_expression);
+  addVObject(ctx, VObjectType::paConstant_expression);
 }
 
 void SV3_1aTreeShapeListener::exitNet_type(SV3_1aParser::Net_typeContext *ctx) {
   if (ctx->SUPPLY0()) {
-    addVObject(ctx, VObjectType::slNetType_Supply0);
+    addVObject(ctx, VObjectType::paNetType_Supply0);
   } else if (ctx->SUPPLY1()) {
-    addVObject(ctx, VObjectType::slNetType_Supply1);
+    addVObject(ctx, VObjectType::paNetType_Supply1);
   } else if (ctx->TRI()) {
-    addVObject(ctx, VObjectType::slNetType_Tri);
+    addVObject(ctx, VObjectType::paNetType_Tri);
   } else if (ctx->TRIAND()) {
-    addVObject(ctx, VObjectType::slNetType_TriAnd);
+    addVObject(ctx, VObjectType::paNetType_TriAnd);
   } else if (ctx->TRIOR()) {
-    addVObject(ctx, VObjectType::slNetType_TriOr);
+    addVObject(ctx, VObjectType::paNetType_TriOr);
   } else if (ctx->TRIREG()) {
-    addVObject(ctx, VObjectType::slNetType_TriReg);
+    addVObject(ctx, VObjectType::paNetType_TriReg);
   } else if (ctx->TRI0()) {
-    addVObject(ctx, VObjectType::slNetType_Tri0);
+    addVObject(ctx, VObjectType::paNetType_Tri0);
   } else if (ctx->TRI1()) {
-    addVObject(ctx, VObjectType::slNetType_Tri1);
+    addVObject(ctx, VObjectType::paNetType_Tri1);
   } else if (ctx->UWIRE()) {
-    addVObject(ctx, VObjectType::slNetType_Uwire);
+    addVObject(ctx, VObjectType::paNetType_Uwire);
   } else if (ctx->WIRE()) {
-    addVObject(ctx, VObjectType::slNetType_Wire);
+    addVObject(ctx, VObjectType::paNetType_Wire);
   } else if (ctx->WAND()) {
-    addVObject(ctx, VObjectType::slNetType_Wand);
+    addVObject(ctx, VObjectType::paNetType_Wand);
   } else if (ctx->WOR()) {
-    addVObject(ctx, VObjectType::slNetType_Wor);
+    addVObject(ctx, VObjectType::paNetType_Wor);
   }
 }
 
 void SV3_1aTreeShapeListener::exitAssignment_operator(
     SV3_1aParser::Assignment_operatorContext *ctx) {
   if (ctx->ASSIGN_OP()) {
-    addVObject(ctx, VObjectType::slAssignOp_Assign);
+    addVObject(ctx, VObjectType::paAssignOp_Assign);
   } else if (ctx->ADD_ASSIGN()) {
-    addVObject(ctx, VObjectType::slAssignOp_Add);
+    addVObject(ctx, VObjectType::paAssignOp_Add);
   } else if (ctx->SUB_ASSIGN()) {
-    addVObject(ctx, VObjectType::slAssignOp_Sub);
+    addVObject(ctx, VObjectType::paAssignOp_Sub);
   } else if (ctx->MULT_ASSIGN()) {
-    addVObject(ctx, VObjectType::slAssignOp_Mult);
+    addVObject(ctx, VObjectType::paAssignOp_Mult);
   } else if (ctx->DIV_ASSIGN()) {
-    addVObject(ctx, VObjectType::slAssignOp_Div);
+    addVObject(ctx, VObjectType::paAssignOp_Div);
   } else if (ctx->MODULO_ASSIGN()) {
-    addVObject(ctx, VObjectType::slAssignOp_Modulo);
+    addVObject(ctx, VObjectType::paAssignOp_Modulo);
   } else if (ctx->BITW_AND_ASSIGN()) {
-    addVObject(ctx, VObjectType::slAssignOp_BitwAnd);
+    addVObject(ctx, VObjectType::paAssignOp_BitwAnd);
   } else if (ctx->BITW_OR_ASSIGN()) {
-    addVObject(ctx, VObjectType::slAssignOp_BitwOr);
+    addVObject(ctx, VObjectType::paAssignOp_BitwOr);
   } else if (ctx->BITW_XOR_ASSIGN()) {
-    addVObject(ctx, VObjectType::slAssignOp_BitwXor);
+    addVObject(ctx, VObjectType::paAssignOp_BitwXor);
   } else if (ctx->BITW_LEFT_SHIFT_ASSIGN()) {
-    addVObject(ctx, VObjectType::slAssignOp_BitwLeftShift);
+    addVObject(ctx, VObjectType::paAssignOp_BitwLeftShift);
   } else if (ctx->BITW_RIGHT_SHIFT_ASSIGN()) {
-    addVObject(ctx, VObjectType::slAssignOp_BitwRightShift);
+    addVObject(ctx, VObjectType::paAssignOp_BitwRightShift);
   } else if (ctx->ARITH_SHIFT_LEFT_ASSIGN()) {
-    addVObject(ctx, VObjectType::slAssignOp_ArithShiftLeft);
+    addVObject(ctx, VObjectType::paAssignOp_ArithShiftLeft);
   } else if (ctx->ARITH_SHIFT_RIGHT_ASSIGN()) {
-    addVObject(ctx, VObjectType::slAssignOp_ArithShiftRight);
+    addVObject(ctx, VObjectType::paAssignOp_ArithShiftRight);
   }
 }
 
 void SV3_1aTreeShapeListener::exitInc_or_dec_operator(
     SV3_1aParser::Inc_or_dec_operatorContext *ctx) {
   if (ctx->PLUSPLUS())
-    addVObject(ctx, VObjectType::slIncDec_PlusPlus);
+    addVObject(ctx, VObjectType::paIncDec_PlusPlus);
   else
-    addVObject(ctx, VObjectType::slIncDec_MinusMinus);
+    addVObject(ctx, VObjectType::paIncDec_MinusMinus);
 }
 
 void SV3_1aTreeShapeListener::exitGate_instantiation(
     SV3_1aParser::Gate_instantiationContext *ctx) {
   if (ctx->PULLUP()) {
     addVObject((antlr4::ParserRuleContext *)ctx->PULLUP(),
-               VObjectType::slPullup);
+               VObjectType::paPULLUP);
   } else if (ctx->PULLDOWN()) {
     addVObject((antlr4::ParserRuleContext *)ctx->PULLDOWN(),
-               VObjectType::slPulldown);
+               VObjectType::paPULLDOWN);
   }
-  addVObject(ctx, VObjectType::slGate_instantiation);
+  addVObject(ctx, VObjectType::paGate_instantiation);
 }
 
 void SV3_1aTreeShapeListener::exitOutput_symbol(
@@ -1759,7 +1758,7 @@ void SV3_1aTreeShapeListener::exitOutput_symbol(
     addVObject((antlr4::ParserRuleContext *)ctx->Simple_identifier(), ident,
                VObjectType::slStringConst);
   }
-  addVObject(ctx, VObjectType::slOutput_symbol);
+  addVObject(ctx, VObjectType::paOutput_symbol);
 }
 
 void SV3_1aTreeShapeListener::exitCycle_delay(
@@ -1772,9 +1771,9 @@ void SV3_1aTreeShapeListener::exitCycle_delay(
   if (ctx->Pound_Pound_delay()) {
     addVObject((antlr4::ParserRuleContext *)ctx->Pound_Pound_delay(),
                ctx->Pound_Pound_delay()->getText(),
-               VObjectType::slPound_pound_delay);
+               VObjectType::paPound_Pound_delay);
   }
-  addVObject(ctx, VObjectType::slCycle_delay);
+  addVObject(ctx, VObjectType::paCycle_delay);
 }
 
 void SV3_1aTreeShapeListener::exitCycle_delay_range(
@@ -1782,42 +1781,42 @@ void SV3_1aTreeShapeListener::exitCycle_delay_range(
   if (ctx->Pound_Pound_delay()) {
     addVObject((antlr4::ParserRuleContext *)ctx->Pound_Pound_delay(),
                ctx->Pound_Pound_delay()->getText(),
-               VObjectType::slPound_pound_delay);
+               VObjectType::paPound_Pound_delay);
   }
   if (ctx->POUNDPOUND()) {
     addVObject((antlr4::ParserRuleContext *)ctx->POUNDPOUND(),
-               ctx->POUNDPOUND()->getText(), VObjectType::slPound_pound_delay);
+               ctx->POUNDPOUND()->getText(), VObjectType::paPound_Pound_delay);
   }
   if (ctx->PLUS()) {
     addVObject((antlr4::ParserRuleContext *)ctx->PLUS(),
-               VObjectType::slUnary_Plus);
+               VObjectType::paUnary_Plus);
   }
   if (ctx->ASSOCIATIVE_UNSPECIFIED()) {
     addVObject((antlr4::ParserRuleContext *)ctx->ASSOCIATIVE_UNSPECIFIED(),
-               VObjectType::slAssociative_dimension);
+               VObjectType::paAssociative_dimension);
   }
-  addVObject(ctx, VObjectType::slCycle_delay_range);
+  addVObject(ctx, VObjectType::paCycle_delay_range);
 }
 
 void SV3_1aTreeShapeListener::exitSequence_expr(
     SV3_1aParser::Sequence_exprContext *ctx) {
   if (ctx->WITHIN()) {
     addVObject((antlr4::ParserRuleContext *)ctx->WITHIN(),
-               VObjectType::slWithin);
+               VObjectType::paWITHIN);
   }
   if (ctx->THROUGHOUT()) {
     addVObject((antlr4::ParserRuleContext *)ctx->THROUGHOUT(),
-               VObjectType::slThroughout);
+               VObjectType::paTHROUGHOUT);
   }
   if (ctx->FIRST_MATCH()) {
     addVObject((antlr4::ParserRuleContext *)ctx->FIRST_MATCH(),
-               VObjectType::slFirstMatch);
+               VObjectType::paFIRST_MATCH);
   }
   if (ctx->INTERSECT()) {
     addVObject((antlr4::ParserRuleContext *)ctx->INTERSECT(),
-               VObjectType::slIntersect);
+               VObjectType::paINTERSECT);
   }
-  addVObject(ctx, VObjectType::slSequence_expr);
+  addVObject(ctx, VObjectType::paSequence_expr);
 }
 
 void SV3_1aTreeShapeListener::exitLevel_symbol(
@@ -1831,9 +1830,9 @@ void SV3_1aTreeShapeListener::exitLevel_symbol(
     addVObject((antlr4::ParserRuleContext *)ctx->Simple_identifier(), ident,
                VObjectType::slStringConst);
   } else if (ctx->QMARK()) {
-    addVObject((antlr4::ParserRuleContext *)ctx->QMARK(), VObjectType::slQmark);
+    addVObject((antlr4::ParserRuleContext *)ctx->QMARK(), VObjectType::paQMARK);
   }
-  addVObject(ctx, VObjectType::slLevel_symbol);
+  addVObject(ctx, VObjectType::paLevel_symbol);
 }
 
 void SV3_1aTreeShapeListener::exitEdge_symbol(
@@ -1844,9 +1843,9 @@ void SV3_1aTreeShapeListener::exitEdge_symbol(
                VObjectType::slStringConst);
   } else if (ctx->STAR()) {
     addVObject((antlr4::ParserRuleContext *)ctx->STAR(),
-               VObjectType::slBinOp_Mult);
+               VObjectType::paBinOp_Mult);
   }
-  addVObject(ctx, VObjectType::slEdge_symbol);
+  addVObject(ctx, VObjectType::paEdge_symbol);
 }
 
 void SV3_1aTreeShapeListener::enterUnconnected_drive_directive(
@@ -1878,136 +1877,136 @@ void SV3_1aTreeShapeListener::exitRandomize_call(
                VObjectType::slNull);
   }
   if (ctx->WITH()) {
-    addVObject((antlr4::ParserRuleContext *)ctx->WITH(), VObjectType::slWith);
+    addVObject((antlr4::ParserRuleContext *)ctx->WITH(), VObjectType::paWITH);
   }
-  addVObject(ctx, VObjectType::slRandomize_call);
+  addVObject(ctx, VObjectType::paRandomize_call);
 }
 
 void SV3_1aTreeShapeListener::exitDeferred_immediate_assert_statement(
     SV3_1aParser::Deferred_immediate_assert_statementContext *ctx) {
   if (ctx->Pound_delay()) {
     addVObject((antlr4::ParserRuleContext *)ctx->Pound_delay(),
-               ctx->Pound_delay()->getText(), VObjectType::slPound_delay);
+               ctx->Pound_delay()->getText(), VObjectType::paPound_delay);
   } else if (ctx->Pound_Pound_delay()) {
     addVObject((antlr4::ParserRuleContext *)ctx->Pound_Pound_delay(),
                ctx->Pound_Pound_delay()->getText(),
-               VObjectType::slPound_pound_delay);
+               VObjectType::paPound_Pound_delay);
   }
-  addVObject(ctx, VObjectType::slDeferred_immediate_assert_statement);
+  addVObject(ctx, VObjectType::paDeferred_immediate_assert_statement);
 }
 
 void SV3_1aTreeShapeListener::exitDeferred_immediate_assume_statement(
     SV3_1aParser::Deferred_immediate_assume_statementContext *ctx) {
   if (ctx->Pound_delay()) {
     addVObject((antlr4::ParserRuleContext *)ctx->Pound_delay(),
-               ctx->Pound_delay()->getText(), VObjectType::slPound_delay);
+               ctx->Pound_delay()->getText(), VObjectType::paPound_delay);
   } else if (ctx->Pound_Pound_delay()) {
     addVObject((antlr4::ParserRuleContext *)ctx->Pound_Pound_delay(),
                ctx->Pound_Pound_delay()->getText(),
-               VObjectType::slPound_pound_delay);
+               VObjectType::paPound_Pound_delay);
   }
-  addVObject(ctx, VObjectType::slDeferred_immediate_assume_statement);
+  addVObject(ctx, VObjectType::paDeferred_immediate_assume_statement);
 }
 
 void SV3_1aTreeShapeListener::exitDeferred_immediate_cover_statement(
     SV3_1aParser::Deferred_immediate_cover_statementContext *ctx) {
   if (ctx->Pound_delay()) {
     addVObject((antlr4::ParserRuleContext *)ctx->Pound_delay(),
-               ctx->Pound_delay()->getText(), VObjectType::slPound_delay);
+               ctx->Pound_delay()->getText(), VObjectType::paPound_delay);
   } else if (ctx->Pound_Pound_delay()) {
     addVObject((antlr4::ParserRuleContext *)ctx->Pound_Pound_delay(),
                ctx->Pound_Pound_delay()->getText(),
-               VObjectType::slPound_pound_delay);
+               VObjectType::paPound_Pound_delay);
   }
-  addVObject(ctx, VObjectType::slDeferred_immediate_cover_statement);
+  addVObject(ctx, VObjectType::paDeferred_immediate_cover_statement);
 }
 
 void SV3_1aTreeShapeListener::exitLocal_parameter_declaration(
     SV3_1aParser::Local_parameter_declarationContext *ctx) {
   if (ctx->TYPE()) {
-    addVObject((antlr4::ParserRuleContext *)ctx->TYPE(), VObjectType::slType);
+    addVObject((antlr4::ParserRuleContext *)ctx->TYPE(), VObjectType::paTYPE);
   }
-  addVObject(ctx, VObjectType::slLocal_parameter_declaration);
+  addVObject(ctx, VObjectType::paLocal_parameter_declaration);
 }
 
 void SV3_1aTreeShapeListener::exitParameter_declaration(
     SV3_1aParser::Parameter_declarationContext *ctx) {
   if (ctx->TYPE()) {
-    addVObject((antlr4::ParserRuleContext *)ctx->TYPE(), VObjectType::slType);
+    addVObject((antlr4::ParserRuleContext *)ctx->TYPE(), VObjectType::paTYPE);
   }
-  addVObject(ctx, VObjectType::slParameter_declaration);
+  addVObject(ctx, VObjectType::paParameter_declaration);
 }
 
 void SV3_1aTreeShapeListener::exitPort_direction(
     SV3_1aParser::Port_directionContext *ctx) {
   if (ctx->INPUT()) {
-    addVObject(ctx, VObjectType::slPortDir_Inp);
+    addVObject(ctx, VObjectType::paPortDir_Inp);
   } else if (ctx->OUTPUT()) {
-    addVObject(ctx, VObjectType::slPortDir_Out);
+    addVObject(ctx, VObjectType::paPortDir_Out);
   } else if (ctx->INOUT()) {
-    addVObject(ctx, VObjectType::slPortDir_Inout);
+    addVObject(ctx, VObjectType::paPortDir_Inout);
   } else if (ctx->REF()) {
-    addVObject(ctx, VObjectType::slPortDir_Ref);
+    addVObject(ctx, VObjectType::paPortDir_Ref);
   }
 }
 
 void SV3_1aTreeShapeListener::exitInteger_atom_type(
     SV3_1aParser::Integer_atom_typeContext *ctx) {
   if (ctx->INT())
-    addVObject(ctx, VObjectType::slIntegerAtomType_Int);
+    addVObject(ctx, VObjectType::paIntegerAtomType_Int);
   else if (ctx->BYTE())
-    addVObject(ctx, VObjectType::slIntegerAtomType_Byte);
+    addVObject(ctx, VObjectType::paIntegerAtomType_Byte);
   else if (ctx->SHORTINT())
-    addVObject(ctx, VObjectType::slIntegerAtomType_Shortint);
+    addVObject(ctx, VObjectType::paIntegerAtomType_Shortint);
   else if (ctx->LONGINT())
-    addVObject(ctx, VObjectType::slIntegerAtomType_LongInt);
+    addVObject(ctx, VObjectType::paIntegerAtomType_LongInt);
   else if (ctx->INTEGER())
-    addVObject(ctx, VObjectType::slIntegerAtomType_Integer);
+    addVObject(ctx, VObjectType::paIntegerAtomType_Integer);
   else if (ctx->TIME())
-    addVObject(ctx, VObjectType::slIntegerAtomType_Time);
+    addVObject(ctx, VObjectType::paIntegerAtomType_Time);
 }
 
 void SV3_1aTreeShapeListener::exitInteger_vector_type(
     SV3_1aParser::Integer_vector_typeContext *ctx) {
   if (ctx->LOGIC())
-    addVObject(ctx, VObjectType::slIntVec_TypeLogic);
+    addVObject(ctx, VObjectType::paIntVec_TypeLogic);
   else if (ctx->REG())
-    addVObject(ctx, VObjectType::slIntVec_TypeReg);
+    addVObject(ctx, VObjectType::paIntVec_TypeReg);
   else if (ctx->BIT())
-    addVObject(ctx, VObjectType::slIntVec_TypeBit);
+    addVObject(ctx, VObjectType::paIntVec_TypeBit);
 }
 
 void SV3_1aTreeShapeListener::exitNon_integer_type(
     SV3_1aParser::Non_integer_typeContext *ctx) {
   if (ctx->SHORTREAL())
-    addVObject(ctx, VObjectType::slNonIntType_ShortReal);
+    addVObject(ctx, VObjectType::paNonIntType_ShortReal);
   else if (ctx->REAL())
-    addVObject(ctx, VObjectType::slNonIntType_Real);
+    addVObject(ctx, VObjectType::paNonIntType_Real);
   else if (ctx->REALTIME())
-    addVObject(ctx, VObjectType::slNonIntType_RealTime);
+    addVObject(ctx, VObjectType::paNonIntType_RealTime);
 }
 
 void SV3_1aTreeShapeListener::exitAlways_keyword(
     SV3_1aParser::Always_keywordContext *ctx) {
   if (ctx->ALWAYS_COMB()) {
-    addVObject(ctx, VObjectType::slAlwaysKeywd_Comb);
+    addVObject(ctx, VObjectType::paALWAYS_COMB);
   } else if (ctx->ALWAYS_FF()) {
-    addVObject(ctx, VObjectType::slAlwaysKeywd_FF);
+    addVObject(ctx, VObjectType::paALWAYS_FF);
   } else if (ctx->ALWAYS_LATCH()) {
-    addVObject(ctx, VObjectType::slAlwaysKeywd_Latch);
+    addVObject(ctx, VObjectType::paALWAYS_LATCH);
   } else if (ctx->ALWAYS()) {
-    addVObject(ctx, VObjectType::slAlwaysKeywd_Always);
+    addVObject(ctx, VObjectType::paALWAYS);
   }
 }
 
 void SV3_1aTreeShapeListener::exitEdge_identifier(
     SV3_1aParser::Edge_identifierContext *ctx) {
   if (ctx->POSEDGE())
-    addVObject(ctx, VObjectType::slEdge_Posedge);
+    addVObject(ctx, VObjectType::paEdge_Posedge);
   else if (ctx->NEGEDGE())
-    addVObject(ctx, VObjectType::slEdge_Negedge);
+    addVObject(ctx, VObjectType::paEdge_Negedge);
   else if (ctx->EDGE())
-    addVObject(ctx, VObjectType::slEdge_Edge);
+    addVObject(ctx, VObjectType::paEdge_Edge);
 }
 
 void SV3_1aTreeShapeListener::exitNumber(SV3_1aParser::NumberContext *ctx) {
@@ -2017,60 +2016,60 @@ void SV3_1aTreeShapeListener::exitNumber(SV3_1aParser::NumberContext *ctx) {
   } else if (ctx->Real_number())
     addVObject(ctx, ctx->Real_number()->getText(), VObjectType::slRealConst);
   else if (ctx->ONE_TICK_b0())
-    addVObject(ctx, VObjectType::slNumber_1Tickb0);
+    addVObject(ctx, VObjectType::paNumber_1Tickb0);
   else if (ctx->ONE_TICK_b1())
-    addVObject(ctx, VObjectType::slNumber_1Tickb1);
+    addVObject(ctx, VObjectType::paNumber_1Tickb1);
   else if (ctx->ONE_TICK_B0())
-    addVObject(ctx, VObjectType::slNumber_1TickB0);
+    addVObject(ctx, VObjectType::paNumber_1TickB0);
   else if (ctx->ONE_TICK_B1())
-    addVObject(ctx, VObjectType::slNumber_1TickB1);
+    addVObject(ctx, VObjectType::paNumber_1TickB1);
   else if (ctx->TICK_b0())
-    addVObject(ctx, VObjectType::slNumber_Tickb0);
+    addVObject(ctx, VObjectType::paNumber_Tickb0);
   else if (ctx->TICK_b1())
-    addVObject(ctx, VObjectType::slNumber_Tickb1);
+    addVObject(ctx, VObjectType::paNumber_Tickb1);
   else if (ctx->TICK_B0())
-    addVObject(ctx, VObjectType::slNumber_TickB0);
+    addVObject(ctx, VObjectType::paNumber_TickB0);
   else if (ctx->TICK_B1())
-    addVObject(ctx, VObjectType::slNumber_TickB1);
+    addVObject(ctx, VObjectType::paNumber_TickB1);
   else if (ctx->TICK_0())
-    addVObject(ctx, VObjectType::slNumber_Tick0);
+    addVObject(ctx, VObjectType::paNumber_Tick0);
   else if (ctx->TICK_1())
-    addVObject(ctx, VObjectType::slNumber_Tick1);
+    addVObject(ctx, VObjectType::paNumber_Tick1);
   else if (ctx->ONE_TICK_bx())
-    addVObject(ctx, VObjectType::slNumber_1Tickbx);
+    addVObject(ctx, VObjectType::paNumber_1Tickbx);
   else if (ctx->ONE_TICK_bX())
-    addVObject(ctx, VObjectType::slNumber_1TickbX);
+    addVObject(ctx, VObjectType::paNumber_1TickbX);
   else if (ctx->ONE_TICK_Bx())
-    addVObject(ctx, VObjectType::slNumber_1TickBx);
+    addVObject(ctx, VObjectType::paNumber_1TickBx);
   else if (ctx->ONE_TICK_BX())
-    addVObject(ctx, VObjectType::slNumber_1TickbX);
+    addVObject(ctx, VObjectType::paNumber_1TickbX);
 }
 
 void SV3_1aTreeShapeListener::exitSigning(SV3_1aParser::SigningContext *ctx) {
   if (ctx->SIGNED())
-    addVObject(ctx, VObjectType::slSigning_Signed);
+    addVObject(ctx, VObjectType::paSigning_Signed);
   else if (ctx->UNSIGNED())
-    addVObject(ctx, VObjectType::slSigning_Unsigned);
+    addVObject(ctx, VObjectType::paSigning_Unsigned);
 }
 
 void SV3_1aTreeShapeListener::exitTf_port_direction(
     SV3_1aParser::Tf_port_directionContext *ctx) {
   if (ctx->INPUT())
-    addVObject(ctx, VObjectType::slTfPortDir_Inp);
+    addVObject(ctx, VObjectType::paTfPortDir_Inp);
   else if (ctx->OUTPUT())
-    addVObject(ctx, VObjectType::slTfPortDir_Out);
+    addVObject(ctx, VObjectType::paTfPortDir_Out);
   else if (ctx->INOUT())
-    addVObject(ctx, VObjectType::slTfPortDir_Inout);
+    addVObject(ctx, VObjectType::paTfPortDir_Inout);
   else if (ctx->REF())
-    addVObject(ctx, VObjectType::slTfPortDir_Ref);
+    addVObject(ctx, VObjectType::paTfPortDir_Ref);
   else if (ctx->CONST())
-    addVObject(ctx, VObjectType::slTfPortDir_ConstRef);
+    addVObject(ctx, VObjectType::paTfPortDir_ConstRef);
 }
 
 void SV3_1aTreeShapeListener::exitDefault_nettype_directive(
     SV3_1aParser::Default_nettype_directiveContext *ctx) {
   NetTypeInfo info;
-  info.m_type = VObjectType::slNetType_Wire;
+  info.m_type = VObjectType::paNetType_Wire;
   info.m_fileId = m_pf->getFileId(0);
   ParseUtils::LineColumn lineCol = ParseUtils::getLineColumn(m_tokens, ctx);
   info.m_line = lineCol.first;
@@ -2080,31 +2079,31 @@ void SV3_1aTreeShapeListener::exitDefault_nettype_directive(
     info.m_type = VObjectType::slNoType;
   } else if (ctx->net_type()) {
     if (ctx->net_type()->SUPPLY0())
-      info.m_type = VObjectType::slSupply0;
+      info.m_type = VObjectType::paSUPPLY0;
     else if (ctx->net_type()->SUPPLY1())
-      info.m_type = VObjectType::slSupply1;
+      info.m_type = VObjectType::paSUPPLY1;
     else if (ctx->net_type()->WIRE())
-      info.m_type = VObjectType::slNetType_Wire;
+      info.m_type = VObjectType::paNetType_Wire;
     else if (ctx->net_type()->UWIRE())
-      info.m_type = VObjectType::slNetType_Uwire;
+      info.m_type = VObjectType::paNetType_Uwire;
     else if (ctx->net_type()->WAND())
-      info.m_type = VObjectType::slNetType_Wand;
+      info.m_type = VObjectType::paNetType_Wand;
     else if (ctx->net_type()->WOR())
-      info.m_type = VObjectType::slNetType_Wor;
+      info.m_type = VObjectType::paNetType_Wor;
     else if (ctx->net_type()->TRI())
-      info.m_type = VObjectType::slNetType_Tri;
+      info.m_type = VObjectType::paNetType_Tri;
     else if (ctx->net_type()->TRIREG())
-      info.m_type = VObjectType::slNetType_TriReg;
+      info.m_type = VObjectType::paNetType_TriReg;
     else if (ctx->net_type()->TRIOR())
-      info.m_type = VObjectType::slNetType_TriOr;
+      info.m_type = VObjectType::paNetType_TriOr;
     else if (ctx->net_type()->TRIAND())
-      info.m_type = VObjectType::slNetType_TriAnd;
+      info.m_type = VObjectType::paNetType_TriAnd;
     else if (ctx->net_type()->TRI0())
-      info.m_type = VObjectType::slNetType_Tri0;
+      info.m_type = VObjectType::paNetType_Tri0;
     else if (ctx->net_type()->TRI1())
-      info.m_type = VObjectType::slNetType_Tri1;
+      info.m_type = VObjectType::paNetType_Tri1;
   }
-  addVObject(ctx, VObjectType::slDefault_nettype_directive);
+  addVObject(ctx, VObjectType::paDefault_nettype_directive);
   m_pf->getCompilationUnit()->recordDefaultNetType(info);
 }
 
@@ -2113,7 +2112,7 @@ void SV3_1aTreeShapeListener::exitParameter_value_assignment(
   if (ctx->Pound_delay()) {
     addVObject(ctx, ctx->Pound_delay()->getText(), VObjectType::slIntConst);
   }
-  addVObject(ctx, VObjectType::slParameter_value_assignment);
+  addVObject(ctx, VObjectType::paParameter_value_assignment);
 }
 
 void SV3_1aTreeShapeListener::exitElaboration_system_task(
@@ -2124,7 +2123,7 @@ void SV3_1aTreeShapeListener::exitElaboration_system_task(
   }
   addVObject((antlr4::ParserRuleContext *)ctx->Simple_identifier(),
              ctx->Simple_identifier()->getText(), VObjectType::slStringConst);
-  addVObject(ctx, VObjectType::slElaboration_system_task);
+  addVObject(ctx, VObjectType::paElaboration_system_task);
 }
 
 }  // namespace SURELOG

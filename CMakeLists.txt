@@ -227,10 +227,6 @@ add_custom_command(
 find_package(Java 11 REQUIRED COMPONENTS Runtime)
 message(STATUS "Java_JAVA_EXECUTABLE = ${Java_JAVA_EXECUTABLE}")
 
-add_custom_target(GenerateParser DEPENDS
-  ${GENDIR}/src/parser/generated-parsers.tstamp
-  ${GENDIR}/src/SourceCompile/VObjectTypes.cpp)
-
 set(surelog_grammars
   ${PROJECT_SOURCE_DIR}/grammar/SV3_1aLexer.g4
   ${PROJECT_SOURCE_DIR}/grammar/SV3_1aParser.g4
@@ -278,41 +274,44 @@ add_custom_command(
   COMMAND ${CMAKE_COMMAND} -E touch ${GENDIR}/src/parser/generated-parsers.tstamp
 )
 
-add_custom_command(
-  OUTPUT ${GENDIR}/include/Surelog/SourceCompile/VObjectTypes.h
-         ${GENDIR}/include/Surelog/API/VObjectTypes_py.h
-         ${GENDIR}/include/Surelog/SourceCompile/SV3_1aTreeShapeListener.h
-         ${GENDIR}/include/Surelog/SourceCompile/SV3_1aPpTreeShapeListener.h
-         ${GENDIR}/src/SourceCompile/VObjectTypes.cpp
-  DEPENDS ${GENDIR}/src/parser/generated-parsers.tstamp
-          ${GENDIR}/src/parser/SV3_1aParserBaseListener.h
-          ${GENDIR}/src/parser/SV3_1aPpParserBaseListener.h
-          ${PROJECT_SOURCE_DIR}/scripts/generate_parser_listener.py
-          ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aTreeShapeListener.cpp
-          ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aPpTreeShapeListener.cpp
-  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-  COMMAND echo "---------- VObjectTypes, Listener generation"
-  COMMAND ${Python3_EXECUTABLE} scripts/generate_parser_listener.py --input-dirpath ${PROJECT_SOURCE_DIR} --output-dirpath ${GENDIR}
-)
+add_custom_target(GenerateParser DEPENDS
+  ${GENDIR}/src/parser/generated-parsers.tstamp
+  ${surelog_grammars-GENERATED_SRC})
 
 add_custom_command(
-  OUTPUT ${GENDIR}/include/Surelog/SourceCompile/AstListener.h
-         ${GENDIR}/include/Surelog/SourceCompile/AstTraceListener.h
-         ${GENDIR}/src/SourceCompile/AstListener.cpp
+  OUTPUT ${GENDIR}/src/parser/generated-listeners.tstamp
+         ${GENDIR}/include/Surelog/API/VObjectTypes_py.h
+         ${GENDIR}/include/Surelog/SourceCompile/ParseTreeListener.h
+         ${GENDIR}/include/Surelog/SourceCompile/ParseTreeTraceListener.h
+         ${GENDIR}/include/Surelog/SourceCompile/SV3_1aPpTreeShapeListener.h
+         ${GENDIR}/include/Surelog/SourceCompile/SV3_1aTreeShapeListener.h
+         ${GENDIR}/include/Surelog/SourceCompile/VObjectTypes.h
+         ${GENDIR}/src/SourceCompile/ParseTreeListener.cpp
+         ${GENDIR}/src/SourceCompile/VObjectTypes.cpp
   DEPENDS ${GENDIR}/src/parser/generated-parsers.tstamp
-          ${GENDIR}/src/parser/SV3_1aParserBaseListener.h
-          ${PROJECT_SOURCE_DIR}/scripts/generate_ast_listener.py
-          ${PROJECT_SOURCE_DIR}/include/Surelog/SourceCompile/AstListener.template.hpp
-          ${PROJECT_SOURCE_DIR}/include/Surelog/SourceCompile/AstTraceListener.template.hpp
-          ${PROJECT_SOURCE_DIR}/src/SourceCompile/AstListener.template.cxx
+          ${surelog_grammars-GENERATED_SRC}
+          ${PROJECT_SOURCE_DIR}/include/Surelog/SourceCompile/ParseTreeListener.template.hpp
+          ${PROJECT_SOURCE_DIR}/include/Surelog/SourceCompile/ParseTreeTraceListener.template.hpp
+          ${PROJECT_SOURCE_DIR}/scripts/generate_parser_listener.py
+          ${PROJECT_SOURCE_DIR}/src/SourceCompile/ParseTreeListener.template.cxx
+          ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aPpTreeShapeListener.cpp
+          ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aTreeShapeListener.cpp
   WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-  COMMAND echo "---------- Generating AST Listener"
-  COMMAND ${Python3_EXECUTABLE} scripts/generate_ast_listener.py --workspace-dirpath ${PROJECT_SOURCE_DIR} --output-dirpath ${GENDIR}
+  COMMAND ${Python3_EXECUTABLE} scripts/generate_parser_listener.py --input-dirpath ${PROJECT_SOURCE_DIR} --output-dirpath ${GENDIR}
+  COMMAND ${CMAKE_COMMAND} -E touch ${GENDIR}/src/parser/generated-listeners.tstamp
 )
-add_custom_target(GenerateListeners DEPENDS
-  ${GENDIR}/include/Surelog/SourceCompile/AstListener.h
-  ${GENDIR}/include/Surelog/SourceCompile/AstTraceListener.h
-  ${GENDIR}/src/SourceCompile/AstListener.cpp)
+
+add_custom_target(GenerateParserListeners DEPENDS
+  ${GENDIR}/src/parser/generated-listeners.tstamp
+  ${surelog_grammars-GENERATED_SRC}
+  ${GENDIR}/include/Surelog/API/VObjectTypes_py.h
+  ${GENDIR}/include/Surelog/SourceCompile/ParseTreeListener.h
+  ${GENDIR}/include/Surelog/SourceCompile/ParseTreeTraceListener.h
+  ${GENDIR}/include/Surelog/SourceCompile/SV3_1aPpTreeShapeListener.h
+  ${GENDIR}/include/Surelog/SourceCompile/SV3_1aTreeShapeListener.h
+  ${GENDIR}/include/Surelog/SourceCompile/VObjectTypes.h
+  ${GENDIR}/src/SourceCompile/ParseTreeListener.cpp
+  ${GENDIR}/src/SourceCompile/VObjectTypes.cpp)
 
 if (SURELOG_WITH_PYTHON)
   set(surelog_python-GENERATED_SRC
@@ -479,9 +478,7 @@ set(surelog_generated_SRC
 
   # Derived from parser generation.
   ${GENDIR}/src/SourceCompile/VObjectTypes.cpp
-
-  # Derived from ast listener generation.
-  ${GENDIR}/src/SourceCompile/AstListener.cpp)
+  ${GENDIR}/src/SourceCompile/ParseTreeListener.cpp)
 
 foreach(gen_src ${surelog_generated_SRC})
   set_source_files_properties(${gen_src} PROPERTIES GENERATED TRUE)
@@ -555,7 +552,7 @@ if (MSVC OR WIN32)
   endif()
 endif()
 
-target_link_libraries(surelog-bin PRIVATE surelog)
+target_link_libraries(surelog-bin PUBLIC surelog)
 target_link_libraries(surelog PUBLIC ${ANTLR_LIBRARY})
 target_link_libraries(surelog PUBLIC ${UHDM_LIBRARY})
 
@@ -800,8 +797,8 @@ install(
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog/CommandLine)
 install(
   FILES ${PROJECT_SOURCE_DIR}/include/Surelog/SourceCompile/SymbolTable.h
-        ${GENDIR}/include/Surelog/SourceCompile/AstListener.h
-        ${GENDIR}/include/Surelog/SourceCompile/AstTraceListener.h
+        ${GENDIR}/include/Surelog/SourceCompile/ParseTreeListener.h
+        ${GENDIR}/include/Surelog/SourceCompile/ParseTreeTraceListener.h
         ${GENDIR}/include/Surelog/SourceCompile/VObjectTypes.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog/SourceCompile)
 install(
