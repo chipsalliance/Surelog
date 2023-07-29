@@ -311,8 +311,6 @@ bool CompileDesign::compilation_() {
   compileMT_<FileContent, Design::FileIdDesignContentMap, FunctorResolve>(
       all_files, maxThreadCount);
 
-  compileMT_<FileContent, Design::FileIdDesignContentMap,
-             FunctorCompileFileContent>(all_files, maxThreadCount);
   collectObjects_(all_files, design, false);
   m_compiler->getDesign()->orderPackages();
 
@@ -322,6 +320,9 @@ bool CompileDesign::compilation_() {
                                 m_symbolTables[0], m_errorContainers[0]);
     funct.operator()();
   }
+
+  compileMT_<FileContent, Design::FileIdDesignContentMap,
+             FunctorCompileFileContent>(all_files, maxThreadCount);
 
   // Compile modules
   compileMT_<ModuleDefinition, ModuleNameModuleDefinitionMap,

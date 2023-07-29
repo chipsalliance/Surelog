@@ -2313,13 +2313,15 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
                     tps = n->Typespec();
                     break;
                   }
-                  const std::string pname = StrCat(m->VpiName(), "::", name);
-                  if (n->VpiName() == pname) {
-                    if (n->UhdmType() == uhdmref_var) continue;
-                    if (n->UhdmType() == uhdmref_obj) continue;
-                    found = true;
-                    tps = n->Typespec();
-                    break;
+                  if (m) {
+                    const std::string pname = StrCat(m->VpiName(), "::", name);
+                    if (n->VpiName() == pname) {
+                      if (n->UhdmType() == uhdmref_var) continue;
+                      if (n->UhdmType() == uhdmref_obj) continue;
+                      found = true;
+                      tps = n->Typespec();
+                      break;
+                    }
                   }
                 }
               }
@@ -2362,13 +2364,15 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
                     tps = n->Typespec();
                     break;
                   }
-                  const std::string pname = StrCat(m->VpiName(), "::", name);
-                  if (n->VpiName() == pname) {
-                    if (n->UhdmType() == uhdmref_var) continue;
-                    if (n->UhdmType() == uhdmref_obj) continue;
-                    found = true;
-                    tps = n->Typespec();
-                    break;
+                  if (m) {
+                    const std::string pname = StrCat(m->VpiName(), "::", name);
+                    if (n->VpiName() == pname) {
+                      if (n->UhdmType() == uhdmref_var) continue;
+                      if (n->UhdmType() == uhdmref_obj) continue;
+                      found = true;
+                      tps = n->Typespec();
+                      break;
+                    }
                   }
                 }
               }
@@ -2448,32 +2452,34 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
             }
           }
           if (found) break;
-          VectorOfport* ports = m->Ports();
-          if (ports) {
-            for (auto port : *ports) {
-              if (port->VpiName() == name) {
-                if (typespec* tmp = port->Typespec()) {
-                  found = true;
-                  tps = tmp;
-                  break;
+          if (m) {
+            VectorOfport* ports = m->Ports();
+            if (ports) {
+              for (auto port : *ports) {
+                if (port->VpiName() == name) {
+                  if (typespec* tmp = port->Typespec()) {
+                    found = true;
+                    tps = tmp;
+                    break;
+                  }
                 }
               }
             }
-          }
-          if (found) break;
-          VectorOfnet* nets = m->Nets();
-          if (nets) {
-            for (auto net : *nets) {
-              if (net->VpiName() == name) {
-                if (typespec* tmp = net->Typespec()) {
-                  found = true;
-                  tps = tmp;
-                  break;
+            if (found) break;
+            VectorOfnet* nets = m->Nets();
+            if (nets) {
+              for (auto net : *nets) {
+                if (net->VpiName() == name) {
+                  if (typespec* tmp = net->Typespec()) {
+                    found = true;
+                    tps = tmp;
+                    break;
+                  }
                 }
               }
             }
+            if (found) break;
           }
-          if (found) break;
         } else if (parent->UhdmType() == uhdmbegin) {
           begin* b = (begin*)parent;
           if (auto vars = b->Variables()) {
@@ -2815,12 +2821,15 @@ void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod, scope* m) {
                   ref->Actual_group(n);
                   break;
                 }
-                const std::string pname = StrCat(m->VpiName(), "::", typeName);
-                if (n->VpiName() == pname) {
-                  if (n->UhdmType() == uhdmref_var) continue;
-                  if (n->UhdmType() == uhdmref_obj) continue;
-                  ref->Actual_group(n);
-                  break;
+                if (m) {
+                  const std::string pname =
+                      StrCat(m->VpiName(), "::", typeName);
+                  if (n->VpiName() == pname) {
+                    if (n->UhdmType() == uhdmref_var) continue;
+                    if (n->UhdmType() == uhdmref_obj) continue;
+                    ref->Actual_group(n);
+                    break;
+                  }
                 }
               }
             }
@@ -2832,12 +2841,15 @@ void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod, scope* m) {
                   ref->Actual_group(n);
                   break;
                 }
-                const std::string pname = StrCat(m->VpiName(), "::", typeName);
-                if (n->VpiName() == pname) {
-                  if (n->UhdmType() == uhdmref_var) continue;
-                  if (n->UhdmType() == uhdmref_obj) continue;
-                  ref->Actual_group(n);
-                  break;
+                if (m) {
+                  const std::string pname =
+                      StrCat(m->VpiName(), "::", typeName);
+                  if (n->VpiName() == pname) {
+                    if (n->UhdmType() == uhdmref_var) continue;
+                    if (n->UhdmType() == uhdmref_obj) continue;
+                    ref->Actual_group(n);
+                    break;
+                  }
                 }
               }
             }
@@ -2902,12 +2914,14 @@ void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod, scope* m) {
                   ref->Actual_group(n);
                   break;
                 }
-                const std::string pname = StrCat(m->VpiName(), "::", name);
-                if (n->VpiName() == pname) {
-                  if (n->UhdmType() == uhdmref_var) continue;
-                  if (n->UhdmType() == uhdmref_obj) continue;
-                  ref->Actual_group(n);
-                  break;
+                if (m) {
+                  const std::string pname = StrCat(m->VpiName(), "::", name);
+                  if (n->VpiName() == pname) {
+                    if (n->UhdmType() == uhdmref_var) continue;
+                    if (n->UhdmType() == uhdmref_obj) continue;
+                    ref->Actual_group(n);
+                    break;
+                  }
                 }
               }
             }
@@ -2947,12 +2961,14 @@ void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod, scope* m) {
                   ref->Actual_group(n);
                   break;
                 }
-                const std::string pname = StrCat(m->VpiName(), "::", name);
-                if (n->VpiName() == pname) {
-                  if (n->UhdmType() == uhdmref_var) continue;
-                  if (n->UhdmType() == uhdmref_obj) continue;
-                  ref->Actual_group(n);
-                  break;
+                if (m) {
+                  const std::string pname = StrCat(m->VpiName(), "::", name);
+                  if (n->VpiName() == pname) {
+                    if (n->UhdmType() == uhdmref_var) continue;
+                    if (n->UhdmType() == uhdmref_obj) continue;
+                    ref->Actual_group(n);
+                    break;
+                  }
                 }
               }
             }
@@ -3142,7 +3158,7 @@ void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod, scope* m) {
       parent = parent->VpiParent();
     }
     if (ref->Actual_group()) continue;
-    if (m->UhdmType() == uhdmmodule_inst) {
+    if (m && (m->UhdmType() == uhdmmodule_inst)) {
       module_inst* minst = (module_inst*)m;
       if (minst->Interfaces()) {
         for (auto n : *minst->Interfaces()) {
@@ -3163,8 +3179,9 @@ void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod, scope* m) {
         if (ref->Actual_group()) continue;
       }
     }
-    if (m->UhdmType() == uhdmmodule_inst ||
-        m->UhdmType() == uhdminterface_inst || m->UhdmType() == uhdmprogram) {
+    if (m &&
+        (m->UhdmType() == uhdmmodule_inst ||
+         m->UhdmType() == uhdminterface_inst || m->UhdmType() == uhdmprogram)) {
       instance* inst = (instance*)m;
       if (inst->Nets()) {
         for (auto n : *inst->Nets()) {
@@ -3185,7 +3202,7 @@ void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod, scope* m) {
         if (ref->Actual_group()) continue;
       }
     }
-    if (m->Variables()) {
+    if (m && m->Variables()) {
       for (auto n : *m->Variables()) {
         if (n->VpiName() == name) {
           ref->Actual_group(n);
@@ -3200,7 +3217,7 @@ void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod, scope* m) {
       if (ref->Actual_group()) continue;
     }
 
-    if (m->Param_assigns()) {
+    if (m && m->Param_assigns()) {
       bool isParam = false;
       for (auto p : *m->Param_assigns()) {
         const any* lhs = p->Lhs();
@@ -3213,7 +3230,7 @@ void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod, scope* m) {
       }
       if (isParam) continue;
     }
-    if (m->Parameters()) {
+    if (m && m->Parameters()) {
       bool isParam = false;
       for (auto p : *m->Parameters()) {
         if (p->VpiName() == name) {
@@ -3224,7 +3241,7 @@ void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod, scope* m) {
       if (isParam) continue;
     }
 
-    if (m->Typespecs()) {
+    if (m && m->Typespecs()) {
       bool isTypespec = false;
       std::vector<std::string> importedPackages;
       for (auto n : *m->Typespecs()) {
@@ -3283,7 +3300,7 @@ void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod, scope* m) {
       if (ref->Actual_group()) break;
     }
 
-    if (m->Variables()) {
+    if (m && m->Variables()) {
       for (auto var : *m->Variables()) {
         if (var->UhdmType() == uhdmenum_var) {
           const enum_typespec* tps =
@@ -3318,9 +3335,9 @@ void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod, scope* m) {
                     ->getCommandLineParser()
                     ->muteStdout());
           } else {
-            if (m->UhdmType() == uhdmmodule_inst ||
-                m->UhdmType() == uhdminterface_inst ||
-                m->UhdmType() == uhdmprogram) {
+            if (m && (m->UhdmType() == uhdmmodule_inst ||
+                      m->UhdmType() == uhdminterface_inst ||
+                      m->UhdmType() == uhdmprogram)) {
               instance* inst = (instance*)m;
               logic_net* net = s.MakeLogic_net();
               net->VpiName(name);
