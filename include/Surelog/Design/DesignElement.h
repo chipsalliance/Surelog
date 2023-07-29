@@ -68,7 +68,7 @@ class DesignElement final {
 
   TimeInfo m_timeInfo;
   NodeId m_node;
-  VObjectType m_defaultNetType = VObjectType::slNetType_Wire;
+  VObjectType m_defaultNetType = VObjectType::paNetType_Wire;
   void* m_context;  // Not persisted field, only used to build the DesignElement
                     // -> VNode relation
 };

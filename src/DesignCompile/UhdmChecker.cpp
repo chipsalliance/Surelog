@@ -81,7 +81,7 @@ bool UhdmChecker::registerFile(const FileContent* fC,
     const VObject& current = fC->Object(id);
     bool skip = false;
     VObjectType type = current.m_type;
-    if (type == VObjectType::slEnd) skip = true;
+    if (type == VObjectType::paEND) skip = true;
 
     // Skip macro expansion which resides in another file (header)
     PathId fid = fC->getFileId(id);
@@ -90,9 +90,9 @@ bool UhdmChecker::registerFile(const FileContent* fC,
       continue;
     }
 
-    if (type == VObjectType::slModule_declaration) {
+    if (type == VObjectType::paModule_declaration) {
       NodeId stId = fC->sl_collect(id, VObjectType::slStringConst,
-                                   VObjectType::slAttr_spec);
+                                   VObjectType::paAttr_spec);
       if (stId) {
         std::string name =
             StrCat(fC->getLibrary()->getName(), "@", fC->SymName(stId));
@@ -103,48 +103,48 @@ bool UhdmChecker::registerFile(const FileContent* fC,
       endModuleNode = fC->Parent(id);
       endModuleNode = fC->Sibling(endModuleNode);
     }
-    if (type == VObjectType::slDescription || type == VObjectType::slEndcase ||
-        type == VObjectType::slEndtask || type == VObjectType::slEndfunction ||
-        type == VObjectType::slEndmodule ||
-        type == VObjectType::slEndinterface ||
-        type == VObjectType::slEndpackage ||
-        type == VObjectType::slEndclocking || type == VObjectType::slEndclass ||
-        type == VObjectType::slEndgenerate ||
-        type == VObjectType::slEndconfig ||
-        type == VObjectType::slEndcelldefine_directive ||
-        type == VObjectType::slEndgroup ||
-        type == VObjectType::slEndprimitive ||
-        type == VObjectType::slEndtable || type == VObjectType::slEndprogram ||
-        type == VObjectType::slEndchecker ||
-        type == VObjectType::slEndproperty ||
-        type == VObjectType::slEndspecify ||
-        type == VObjectType::slEndsequence ||
-        type == VObjectType::slPort_declaration ||
-        type == VObjectType::slList_of_ports || type == VObjectType::slPort ||
-        type == VObjectType::slConditional_generate_construct ||
-        type == VObjectType::slGenerate_module_conditional_statement ||
-        type == VObjectType::slGenerate_interface_conditional_statement ||
-        type == VObjectType::slLoop_generate_construct ||
-        type == VObjectType::slGenerate_module_loop_statement ||
-        type == VObjectType::slGenerate_interface_loop_statement ||
-        type == VObjectType::slGenerate_region ||
-        ((type == VObjectType::slPackage_or_generate_item_declaration) &&
+    if (type == VObjectType::paDescription || type == VObjectType::paENDCASE ||
+        type == VObjectType::paENDTASK || type == VObjectType::paENDFUNCTION ||
+        type == VObjectType::paENDMODULE ||
+        type == VObjectType::paENDINTERFACE ||
+        type == VObjectType::paENDPACKAGE ||
+        type == VObjectType::paENDCLOCKING || type == VObjectType::paENDCLASS ||
+        type == VObjectType::paENDGENERATE ||
+        type == VObjectType::paENDCONFIG ||
+        type == VObjectType::paEndcelldefine_directive ||
+        type == VObjectType::paENDGROUP ||
+        type == VObjectType::paENDPRIMITIVE ||
+        type == VObjectType::paENDTABLE || type == VObjectType::paENDPROGRAM ||
+        type == VObjectType::paENDCHECKER ||
+        type == VObjectType::paENDPROPERTY ||
+        type == VObjectType::paENDSPECIFY ||
+        type == VObjectType::paENDSEQUENCE ||
+        type == VObjectType::paPort_declaration ||
+        type == VObjectType::paList_of_ports || type == VObjectType::paPort ||
+        type == VObjectType::paConditional_generate_construct ||
+        type == VObjectType::paGenerate_module_conditional_statement ||
+        type == VObjectType::paGenerate_interface_conditional_statement ||
+        type == VObjectType::paLoop_generate_construct ||
+        type == VObjectType::paGenerate_module_loop_statement ||
+        type == VObjectType::paGenerate_interface_loop_statement ||
+        type == VObjectType::paGenerate_region ||
+        ((type == VObjectType::paPackage_or_generate_item_declaration) &&
          !current.m_child) ||  // SEMICOLUMN ALONE ;
-        type == VObjectType::slGenerate_begin_end_block) {
+        type == VObjectType::paGenerate_begin_end_block) {
       RangesMap::iterator lineItr = uhdmCover.find(current.m_line);
       if (lineItr != uhdmCover.end()) {
         uhdmCover.erase(lineItr);
       }
       skip = true;  // Only skip the item itself
     }
-    if (type == VObjectType::slList_of_port_declarations ||
-        type == VObjectType::slBit_select || type == VObjectType::slSelect ||
-        type == VObjectType::slIF || type == VObjectType::slElse ||
-        type == VObjectType::slOpenParens ||
-        type == VObjectType::slCloseParens) {
+    if (type == VObjectType::paList_of_port_declarations ||
+        type == VObjectType::paBit_select || type == VObjectType::paSelect ||
+        type == VObjectType::paIF || type == VObjectType::paELSE ||
+        type == VObjectType::paOPEN_PARENS ||
+        type == VObjectType::paCLOSE_PARENS) {
       skip = true;  // Only skip the item itself
     }
-    if (type == VObjectType::slGenvar_declaration) {
+    if (type == VObjectType::paGenvar_declaration) {
       // Skip the item and its' children
       RangesMap::iterator lineItr = uhdmCover.find(current.m_line);
       if (lineItr != uhdmCover.end()) {
@@ -155,20 +155,20 @@ bool UhdmChecker::registerFile(const FileContent* fC,
     SURELOG::VObjectType parentType = fC->Type(current.m_parent);
     if ((type == VObjectType::slStringConst) &&
         ((parentType ==
-          VObjectType::slModule_declaration) ||  // endmodule : name
+          VObjectType::paModule_declaration) ||  // endmodule : name
          (parentType ==
-          VObjectType::slPackage_declaration) ||  // endpackage : name
+          VObjectType::paPackage_declaration) ||  // endpackage : name
          (parentType ==
-          VObjectType::slFunction_body_declaration) ||  // endfunction  : name
-         (parentType == VObjectType::slTask_declaration) ||   // endtask : name
-         (parentType == VObjectType::slClass_declaration) ||  // endclass : name
+          VObjectType::paFunction_body_declaration) ||  // endfunction  : name
+         (parentType == VObjectType::paTask_declaration) ||   // endtask : name
+         (parentType == VObjectType::paClass_declaration) ||  // endclass : name
          (parentType ==
-          VObjectType::slName_of_instance) ||  // instance name, slight problem,
+          VObjectType::paName_of_instance) ||  // instance name, slight problem,
                                                // the isntance name will be
                                                // "covered" even in generate
                                                // branches that are not covered.
-         (parentType == VObjectType::slModule_nonansi_header) ||  // module name
-         (parentType == VObjectType::slType_declaration)))        // struct name
+         (parentType == VObjectType::paModule_nonansi_header) ||  // module name
+         (parentType == VObjectType::paType_declaration)))        // struct name
     {
       RangesMap::iterator lineItr = uhdmCover.find(current.m_line);
       if (skipModule == false) {

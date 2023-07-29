@@ -54,19 +54,19 @@ class SVLibShapeListener : public SV3_1aParserBaseListener,
 
   void exitTop_level_library_rule(
       SV3_1aParser::Top_level_library_ruleContext* ctx) final {
-    addVObject(ctx, VObjectType::slTop_level_library_rule);
+    addVObject(ctx, VObjectType::paTop_level_library_rule);
   }
 
   void enterNull_rule(SV3_1aParser::Null_ruleContext* /*ctx*/) final {}
 
   void exitNull_rule(SV3_1aParser::Null_ruleContext* ctx) final {
-    addVObject(ctx, VObjectType::slNull_rule);
+    addVObject(ctx, VObjectType::paNull_rule);
   }
 
   void enterLibrary_text(SV3_1aParser::Library_textContext* /*ctx*/) final {}
 
   void exitLibrary_text(SV3_1aParser::Library_textContext* ctx) final {
-    addVObject(ctx, VObjectType::slLibrary_text);
+    addVObject(ctx, VObjectType::paLibrary_text);
   }
 
   void enterLibrary_descriptions(
@@ -74,7 +74,7 @@ class SVLibShapeListener : public SV3_1aParserBaseListener,
 
   void exitLibrary_descriptions(
       SV3_1aParser::Library_descriptionsContext* ctx) final {
-    addVObject(ctx, VObjectType::slLibrary_descriptions);
+    addVObject(ctx, VObjectType::paLibrary_descriptions);
   }
 
   void enterLibrary_declaration(
@@ -82,7 +82,7 @@ class SVLibShapeListener : public SV3_1aParserBaseListener,
 
   void exitLibrary_declaration(
       SV3_1aParser::Library_declarationContext* ctx) final {
-    addVObject(ctx, VObjectType::slLibrary_declaration);
+    addVObject(ctx, VObjectType::paLibrary_declaration);
   }
 
   void enterInclude_statement(
@@ -90,7 +90,7 @@ class SVLibShapeListener : public SV3_1aParserBaseListener,
 
   void exitInclude_statement(
       SV3_1aParser::Include_statementContext* ctx) final {
-    addVObject(ctx, VObjectType::slInclude_statement);
+    addVObject(ctx, VObjectType::paInclude_statement);
   }
 
   // *** CONFIG DEFINITION PARSING ***
@@ -121,45 +121,45 @@ class SVLibShapeListener : public SV3_1aParserBaseListener,
 
   void exitConfig_declaration(
       SV3_1aParser::Config_declarationContext* ctx) final {
-    addVObject(ctx, VObjectType::slConfig_declaration);
+    addVObject(ctx, VObjectType::paConfig_declaration);
   }
 
   void exitDesign_statement(SV3_1aParser::Design_statementContext* ctx) final {
-    addVObject(ctx, VObjectType::slDesign_statement);
+    addVObject(ctx, VObjectType::paDesign_statement);
   }
 
   void exitConfig_rule_statement(
       SV3_1aParser::Config_rule_statementContext* ctx) final {
-    addVObject(ctx, VObjectType::slConfig_rule_statement);
+    addVObject(ctx, VObjectType::paConfig_rule_statement);
   }
 
   void exitDefault_clause(SV3_1aParser::Default_clauseContext* ctx) final {
-    addVObject(ctx, VObjectType::slDefault_clause);
+    addVObject(ctx, VObjectType::paDefault_clause);
   }
 
   void exitInst_clause(SV3_1aParser::Inst_clauseContext* ctx) final {
-    addVObject(ctx, VObjectType::slInst_clause);
+    addVObject(ctx, VObjectType::paInst_clause);
   }
 
   void exitInst_name(SV3_1aParser::Inst_nameContext* ctx) final {
-    addVObject(ctx, VObjectType::slInst_name);
+    addVObject(ctx, VObjectType::paInst_name);
   }
 
   void exitCell_clause(SV3_1aParser::Cell_clauseContext* ctx) final {
-    addVObject(ctx, VObjectType::slCell_clause);
+    addVObject(ctx, VObjectType::paCell_clause);
   }
 
   void exitLiblist_clause(SV3_1aParser::Liblist_clauseContext* ctx) final {
-    addVObject(ctx, VObjectType::slLiblist_clause);
+    addVObject(ctx, VObjectType::paLiblist_clause);
   }
 
   void exitUse_clause_config(
       SV3_1aParser::Use_clause_configContext* ctx) final {
-    addVObject(ctx, VObjectType::slUse_clause_config);
+    addVObject(ctx, VObjectType::paUse_clause_config);
   }
 
   void exitUse_clause(SV3_1aParser::Use_clauseContext* ctx) final {
-    addVObject(ctx, VObjectType::slUse_clause);
+    addVObject(ctx, VObjectType::paUse_clause);
   }
 
   void exitString_value(SV3_1aParser::String_valueContext* ctx) final;

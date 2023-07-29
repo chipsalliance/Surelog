@@ -20,10 +20,10 @@
 #include <Surelog/Design/Design.h>
 #include <Surelog/Design/FileContent.h>
 #include <Surelog/DesignCompile/CompileDesign.h>
-#include <Surelog/SourceCompile/AstListener.h>
 #include <Surelog/SourceCompile/CompileSourceFile.h>
 #include <Surelog/SourceCompile/Compiler.h>
 #include <Surelog/SourceCompile/ParseFile.h>
+#include <Surelog/SourceCompile/ParseTreeListener.h>
 
 namespace SURELOG {
 
@@ -58,7 +58,7 @@ vpiHandle get_uhdm_design(scompiler* compiler) {
   return design_handle;
 }
 
-void walk_ast(scompiler* compiler, AstListener* listener) {
+void walk_parsetree(scompiler* compiler, ParseTreeListener* listener) {
   if (!compiler || !listener) return;
   Compiler* the_compiler = (Compiler*)compiler;
   for (const CompileSourceFile* csf : the_compiler->getCompileSourceFiles()) {

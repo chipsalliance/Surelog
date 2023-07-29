@@ -187,7 +187,7 @@ void SVLibShapeListener::exitHierarchical_identifier(
   ident = ctx->getText();
   ident = std::regex_replace(ident, std::regex(EscapeSequence), "");
   addVObject(childCtx, ident, VObjectType::slStringConst);
-  addVObject(ctx, VObjectType::slHierarchical_identifier);
+  addVObject(ctx, VObjectType::paHierarchical_identifier);
 
   if (ident.size() > SV_MAX_IDENTIFIER_SIZE) {
     logError(ErrorDefinition::PA_MAX_LENGTH_IDENTIFIER, ctx, ident);

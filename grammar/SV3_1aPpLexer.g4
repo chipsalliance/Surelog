@@ -16,7 +16,7 @@
 
 lexer grammar SV3_1aPpLexer;
 
-Escaped_identifier: '\\' ~[WS\r\t\n]*? WS;
+ESCAPED_IDENTIFIER: '\\' ~[WS\r\t\n]*? WS;
 
 // A.9.2 Comments
 
@@ -158,7 +158,7 @@ Macro_identifier: '`' [a-zA-Z_] [a-zA-Z0-9_$]*;
 
 Macro_Escaped_identifier: '`\\' ~[WS\r\t\n]*? WS;
 
-String
+STRING
   : '"' // a opening quote
   (
     // start group
@@ -180,7 +180,7 @@ Spaces: (WS | TAB)+;
 
 Pound_Pound_delay: '##' WS* [0-9] [0-9_.]*;
 
-Pound_delay: '#' WS* [0-9] [0-9_.]*;
+POUND_DELAY: '#' WS* [0-9] [0-9_.]*;
 
 TIMESCALE
   : (WS | TAB)* [0-9]+ (WS | TAB)* (
@@ -229,7 +229,7 @@ fragment Hex_number
   : (Non_zero_unsigned_number WS*)? Hex_base WS* Hex_value
   ;
 
-Number
+INTEGRAL_NUMBER
   : Decimal_number
   | Octal_number
   | Binary_number
@@ -342,20 +342,18 @@ TICK_BACKSLASH_TICK_QUOTE: '`\\`"';
 
 TICK_TICK: '``';
 
-PARENS_OPEN: '(';
-
-PARENS_CLOSE: ')';
-
 COMMA: ',';
 
-EQUAL_OP: '=';
+ASSIGN_OP: '=';
 
 DOUBLE_QUOTE: '"';
 
-CURLY_OPEN: '{';
-CURLY_CLOSE: '}';
-SQUARE_OPEN: '[';
-SQUARE_CLOSE: ']';
+OPEN_PARENS: '(';
+CLOSE_PARENS: ')';
+OPEN_CURLY: '{';
+CLOSE_CURLY: '}';
+OPEN_BRACKET: '[';
+CLOSE_BRACKET: ']';
 
 Special: [~!@#$%^&*+|:;'<>.?/-]+?;
 

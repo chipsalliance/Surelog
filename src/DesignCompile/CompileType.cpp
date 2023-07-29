@@ -206,24 +206,24 @@ UHDM::any* CompileHelper::compileVariable(
   UHDM::any* result = nullptr;
   NodeId variable = declarationId;
   VObjectType the_type = fC->Type(variable);
-  if (the_type == VObjectType::slData_type ||
-      the_type == VObjectType::slPs_or_hierarchical_identifier) {
+  if (the_type == VObjectType::paData_type ||
+      the_type == VObjectType::paPs_or_hierarchical_identifier) {
     variable = fC->Child(variable);
     the_type = fC->Type(variable);
-    if (the_type == VObjectType::slVirtual) {
+    if (the_type == VObjectType::paVIRTUAL) {
       variable = fC->Sibling(variable);
       the_type = fC->Type(variable);
     }
-  } else if (the_type == VObjectType::slImplicit_class_handle) {
+  } else if (the_type == VObjectType::paImplicit_class_handle) {
     NodeId Handle = fC->Child(variable);
-    if (fC->Type(Handle) == VObjectType::slThis_keyword) {
+    if (fC->Type(Handle) == VObjectType::paThis_keyword) {
       variable = fC->Sibling(variable);
       the_type = fC->Type(variable);
     }
   } else if (the_type == VObjectType::sl_INVALID_) {
     return nullptr;
   }
-  if (the_type == VObjectType::slComplex_func_call) {
+  if (the_type == VObjectType::paComplex_func_call) {
     variable = fC->Child(variable);
     the_type = fC->Type(variable);
   }
@@ -231,7 +231,7 @@ UHDM::any* CompileHelper::compileVariable(
   if (!Packed_dimension) {
     // Implicit return value:
     // function [1:0] fct();
-    if (fC->Type(variable) == VObjectType::slConstant_range) {
+    if (fC->Type(variable) == VObjectType::paConstant_range) {
       Packed_dimension = variable;
     }
   }
@@ -266,19 +266,19 @@ UHDM::any* CompileHelper::compileVariable(
                     pstmt, instance, size, muteErrors);
   typespec* ts = nullptr;
   VObjectType decl_type = fC->Type(declarationId);
-  if (decl_type != VObjectType::slPs_or_hierarchical_identifier &&
-      decl_type != VObjectType::slImplicit_class_handle) {
+  if (decl_type != VObjectType::paPs_or_hierarchical_identifier &&
+      decl_type != VObjectType::paImplicit_class_handle) {
     ts = compileTypespec(component, fC, declarationId, compileDesign, reduce,
                          pstmt, instance, true);
   }
   bool isSigned = true;
   const NodeId signId = fC->Sibling(variable);
-  if (signId && (fC->Type(signId) == VObjectType::slSigning_Unsigned)) {
+  if (signId && (fC->Type(signId) == VObjectType::paSigning_Unsigned)) {
     isSigned = false;
   }
   switch (the_type) {
     case VObjectType::slStringConst:
-    case VObjectType::slChandle_type: {
+    case VObjectType::paChandle_type: {
       const std::string_view typeName = fC->SymName(variable);
 
       if (const DataType* dt = component->getDataType(typeName)) {
@@ -330,7 +330,7 @@ UHDM::any* CompileHelper::compileVariable(
         }
       }
       if (result == nullptr) {
-        if (the_type == VObjectType::slChandle_type) {
+        if (the_type == VObjectType::paChandle_type) {
           chandle_var* var = s.MakeChandle_var();
           var->Typespec(ts);
           result = var;
@@ -346,88 +346,88 @@ UHDM::any* CompileHelper::compileVariable(
       }
       break;
     }
-    case VObjectType::slIntVec_TypeLogic:
-    case VObjectType::slIntVec_TypeReg: {
+    case VObjectType::paIntVec_TypeLogic:
+    case VObjectType::paIntVec_TypeReg: {
       logic_var* var = s.MakeLogic_var();
       var->Typespec(ts);
       fC->populateCoreMembers(declarationId, declarationId, var);
       result = var;
       break;
     }
-    case VObjectType::slIntegerAtomType_Int: {
+    case VObjectType::paIntegerAtomType_Int: {
       int_var* var = s.MakeInt_var();
       var->Typespec(ts);
       var->VpiSigned(isSigned);
       result = var;
       break;
     }
-    case VObjectType::slIntegerAtomType_Integer: {
+    case VObjectType::paIntegerAtomType_Integer: {
       integer_var* var = s.MakeInteger_var();
       var->Typespec(ts);
       var->VpiSigned(isSigned);
       result = var;
       break;
     }
-    case VObjectType::slSigning_Unsigned: {
+    case VObjectType::paSigning_Unsigned: {
       int_var* var = s.MakeInt_var();
       var->Typespec(ts);
       var->VpiSigned(isSigned);
       result = var;
       break;
     }
-    case VObjectType::slSigning_Signed: {
+    case VObjectType::paSigning_Signed: {
       int_var* var = s.MakeInt_var();
       var->Typespec(ts);
       var->VpiSigned(isSigned);
       result = var;
       break;
     }
-    case VObjectType::slIntegerAtomType_Byte: {
+    case VObjectType::paIntegerAtomType_Byte: {
       byte_var* var = s.MakeByte_var();
       var->Typespec(ts);
       var->VpiSigned(isSigned);
       result = var;
       break;
     }
-    case VObjectType::slIntegerAtomType_LongInt: {
+    case VObjectType::paIntegerAtomType_LongInt: {
       long_int_var* var = s.MakeLong_int_var();
       var->Typespec(ts);
       var->VpiSigned(isSigned);
       result = var;
       break;
     }
-    case VObjectType::slIntegerAtomType_Shortint: {
+    case VObjectType::paIntegerAtomType_Shortint: {
       short_int_var* var = s.MakeShort_int_var();
       var->Typespec(ts);
       var->VpiSigned(isSigned);
       result = var;
       break;
     }
-    case VObjectType::slIntegerAtomType_Time: {
+    case VObjectType::paIntegerAtomType_Time: {
       time_var* var = s.MakeTime_var();
       var->Typespec(ts);
       result = var;
       break;
     }
-    case VObjectType::slIntVec_TypeBit: {
+    case VObjectType::paIntVec_TypeBit: {
       bit_var* var = s.MakeBit_var();
       var->Typespec(ts);
       result = var;
       break;
     }
-    case VObjectType::slNonIntType_ShortReal: {
+    case VObjectType::paNonIntType_ShortReal: {
       short_real_var* var = s.MakeShort_real_var();
       var->Typespec(ts);
       result = var;
       break;
     }
-    case VObjectType::slNonIntType_Real: {
+    case VObjectType::paNonIntType_Real: {
       real_var* var = s.MakeReal_var();
       var->Typespec(ts);
       result = var;
       break;
     }
-    case VObjectType::slClass_scope: {
+    case VObjectType::paClass_scope: {
       NodeId class_type = fC->Child(variable);
       NodeId class_name = fC->Child(class_type);
       const std::string_view packageName = fC->SymName(class_name);
@@ -486,13 +486,13 @@ UHDM::any* CompileHelper::compileVariable(
       result = var;
       break;
     }
-    case VObjectType::slString_type: {
+    case VObjectType::paString_type: {
       string_var* var = s.MakeString_var();
       var->Typespec(ts);
       result = var;
       break;
     }
-    case VObjectType::slVariable_lvalue: {
+    case VObjectType::paVariable_lvalue: {
       NodeId hier_ident = fC->Child(variable);
       NodeId nameid = fC->Child(hier_ident);
       int_var* var = s.MakeInt_var();
@@ -645,7 +645,7 @@ typespec* CompileHelper::compileDatastructureTypespec(
               if (fC->Type(suffixNode) == VObjectType::slStringConst) {
                 suffixname = fC->SymName(suffixNode);
               } else if (fC->Type(suffixNode) ==
-                         VObjectType::slConstant_bit_select) {
+                         VObjectType::paConstant_bit_select) {
                 suffixNode = fC->Sibling(suffixNode);
                 if (fC->Type(suffixNode) == VObjectType::slStringConst) {
                   suffixname = fC->SymName(suffixNode);
@@ -757,7 +757,7 @@ typespec* CompileHelper::compileDatastructureTypespec(
           param = actualFC->Sibling(n);
         }
         if (param && (actualFC->Type(param) !=
-                      VObjectType::slList_of_net_decl_assignments)) {
+                      VObjectType::paList_of_net_decl_assignments)) {
           VectorOfany* params = s.MakeAnyVec();
           ref->Parameters(params);
           VectorOfparam_assign* assigns = s.MakeParam_assignVec();
@@ -770,7 +770,7 @@ typespec* CompileHelper::compileDatastructureTypespec(
               actualFC->Child(List_of_parameter_assignments);
           if (Ordered_parameter_assignment &&
               (actualFC->Type(Ordered_parameter_assignment) ==
-               VObjectType::slOrdered_parameter_assignment)) {
+               VObjectType::paOrdered_parameter_assignment)) {
             while (Ordered_parameter_assignment) {
               NodeId Param_expression =
                   actualFC->Child(Ordered_parameter_assignment);
@@ -784,7 +784,7 @@ typespec* CompileHelper::compileDatastructureTypespec(
                 fName = p->getName();
                 fparam = p->getUhdmParam();
 
-                if (actualFC->Type(Data_type) == VObjectType::slData_type) {
+                if (actualFC->Type(Data_type) == VObjectType::paData_type) {
                   typespec* tps = compileTypespec(
                       component, actualFC, Data_type, compileDesign, reduce,
                       result, instance, false);
@@ -848,7 +848,7 @@ typespec* CompileHelper::compileDatastructureTypespec(
       ModuleDefinition* def =
           design->getModuleDefinition(StrCat(libName, "@", typeName));
       if (def) {
-        if (def->getType() == VObjectType::slInterface_declaration) {
+        if (def->getType() == VObjectType::paInterface_declaration) {
           interface_typespec* tps = s.MakeInterface_typespec();
           tps->VpiName(typeName);
           fC->populateCoreMembers(type, type, tps);
@@ -969,16 +969,16 @@ UHDM::typespec* CompileHelper::compileBuiltinTypespec(
   // The byte, shortint, int, integer, and longint types are signed types by
   // default.
   bool isSigned = true;
-  if (sign && (fC->Type(sign) == VObjectType::slSigning_Unsigned)) {
+  if (sign && (fC->Type(sign) == VObjectType::paSigning_Unsigned)) {
     isSigned = false;
   }
   switch (the_type) {
-    case VObjectType::slIntVec_TypeLogic:
-    case VObjectType::slIntVec_TypeReg: {
+    case VObjectType::paIntVec_TypeLogic:
+    case VObjectType::paIntVec_TypeReg: {
       // 6.8 Variable declarations
       // Other net and variable types can be explicitly declared as signed.
       isSigned = false;
-      if (sign && (fC->Type(sign) == VObjectType::slSigning_Signed)) {
+      if (sign && (fC->Type(sign) == VObjectType::paSigning_Signed)) {
         isSigned = true;
       }
       logic_typespec* var = s.MakeLogic_typespec();
@@ -988,52 +988,52 @@ UHDM::typespec* CompileHelper::compileBuiltinTypespec(
       result = var;
       break;
     }
-    case VObjectType::slIntegerAtomType_Int: {
+    case VObjectType::paIntegerAtomType_Int: {
       int_typespec* var = s.MakeInt_typespec();
       var->VpiSigned(isSigned);
       fC->populateCoreMembers(type, isSigned ? type : sign, var);
       result = var;
       break;
     }
-    case VObjectType::slIntegerAtomType_Integer: {
+    case VObjectType::paIntegerAtomType_Integer: {
       integer_typespec* var = s.MakeInteger_typespec();
       var->VpiSigned(isSigned);
       fC->populateCoreMembers(type, isSigned ? type : sign, var);
       result = var;
       break;
     }
-    case VObjectType::slIntegerAtomType_Byte: {
+    case VObjectType::paIntegerAtomType_Byte: {
       byte_typespec* var = s.MakeByte_typespec();
       var->VpiSigned(isSigned);
       fC->populateCoreMembers(type, isSigned ? type : sign, var);
       result = var;
       break;
     }
-    case VObjectType::slIntegerAtomType_LongInt: {
+    case VObjectType::paIntegerAtomType_LongInt: {
       long_int_typespec* var = s.MakeLong_int_typespec();
       var->VpiSigned(isSigned);
       fC->populateCoreMembers(type, isSigned ? type : sign, var);
       result = var;
       break;
     }
-    case VObjectType::slIntegerAtomType_Shortint: {
+    case VObjectType::paIntegerAtomType_Shortint: {
       short_int_typespec* var = s.MakeShort_int_typespec();
       var->VpiSigned(isSigned);
       fC->populateCoreMembers(type, isSigned ? type : sign, var);
       result = var;
       break;
     }
-    case VObjectType::slIntegerAtomType_Time: {
+    case VObjectType::paIntegerAtomType_Time: {
       time_typespec* var = s.MakeTime_typespec();
       fC->populateCoreMembers(type, type, var);
       result = var;
       break;
     }
-    case VObjectType::slIntVec_TypeBit: {
+    case VObjectType::paIntVec_TypeBit: {
       bit_typespec* var = s.MakeBit_typespec();
       var->Ranges(ranges);
       isSigned = false;
-      if (sign && (fC->Type(sign) == VObjectType::slSigning_Signed)) {
+      if (sign && (fC->Type(sign) == VObjectType::paSigning_Signed)) {
         isSigned = true;
       }
       var->VpiSigned(isSigned);
@@ -1041,19 +1041,19 @@ UHDM::typespec* CompileHelper::compileBuiltinTypespec(
       result = var;
       break;
     }
-    case VObjectType::slNonIntType_ShortReal: {
+    case VObjectType::paNonIntType_ShortReal: {
       short_real_typespec* var = s.MakeShort_real_typespec();
       fC->populateCoreMembers(type, type, var);
       result = var;
       break;
     }
-    case VObjectType::slNonIntType_Real: {
+    case VObjectType::paNonIntType_Real: {
       real_typespec* var = s.MakeReal_typespec();
       fC->populateCoreMembers(type, type, var);
       result = var;
       break;
     }
-    case VObjectType::slString_type: {
+    case VObjectType::paString_type: {
       UHDM::string_typespec* tps = s.MakeString_typespec();
       fC->populateCoreMembers(type, type, tps);
       result = tps;
@@ -1077,45 +1077,45 @@ UHDM::typespec* CompileHelper::compileTypespec(
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::typespec* result = nullptr;
   VObjectType the_type = fC->Type(type);
-  if ((the_type == VObjectType::slData_type_or_implicit) ||
-      (the_type == VObjectType::slData_type)) {
+  if ((the_type == VObjectType::paData_type_or_implicit) ||
+      (the_type == VObjectType::paData_type)) {
     if (fC->Child(type)) {
       type = fC->Child(type);
-      if (fC->Type(type) == VObjectType::slVirtual) type = fC->Sibling(type);
+      if (fC->Type(type) == VObjectType::paVIRTUAL) type = fC->Sibling(type);
     } else {
       // Implicit type
     }
     the_type = fC->Type(type);
   }
   NodeId Packed_dimension;
-  if (the_type == VObjectType::slPacked_dimension) {
+  if (the_type == VObjectType::paPacked_dimension) {
     Packed_dimension = type;
   } else if (the_type == VObjectType::slStringConst) {
     // Class parameter or struct reference
     Packed_dimension = fC->Sibling(type);
-    if (fC->Type(Packed_dimension) != VObjectType::slPacked_dimension)
+    if (fC->Type(Packed_dimension) != VObjectType::paPacked_dimension)
       Packed_dimension = InvalidNodeId;
   } else {
     Packed_dimension = fC->Sibling(type);
-    if (fC->Type(Packed_dimension) == VObjectType::slData_type_or_implicit) {
+    if (fC->Type(Packed_dimension) == VObjectType::paData_type_or_implicit) {
       Packed_dimension = fC->Child(Packed_dimension);
     }
   }
   bool isPacked = false;
-  if (fC->Type(Packed_dimension) == VObjectType::slPacked_keyword) {
+  if (fC->Type(Packed_dimension) == VObjectType::paPacked_keyword) {
     Packed_dimension = fC->Sibling(Packed_dimension);
     isPacked = true;
   }
-  if (fC->Type(Packed_dimension) == VObjectType::slStruct_union_member ||
+  if (fC->Type(Packed_dimension) == VObjectType::paStruct_union_member ||
       fC->Type(Packed_dimension) == VObjectType::slStringConst) {
     Packed_dimension = fC->Sibling(Packed_dimension);
   }
 
-  if (fC->Type(Packed_dimension) == VObjectType::slSigning_Signed ||
-      fC->Type(Packed_dimension) == VObjectType::slSigning_Unsigned) {
+  if (fC->Type(Packed_dimension) == VObjectType::paSigning_Signed ||
+      fC->Type(Packed_dimension) == VObjectType::paSigning_Unsigned) {
     Packed_dimension = fC->Sibling(Packed_dimension);
   }
-  if (fC->Type(Packed_dimension) == VObjectType::slPacked_dimension) {
+  if (fC->Type(Packed_dimension) == VObjectType::paPacked_dimension) {
     isPacked = true;
   }
   int32_t size;
@@ -1123,12 +1123,12 @@ UHDM::typespec* CompileHelper::compileTypespec(
       compileRanges(component, fC, Packed_dimension, compileDesign, reduce,
                     pstmt, instance, size, false);
   switch (the_type) {
-    case VObjectType::slConstant_mintypmax_expression:
-    case VObjectType::slConstant_primary: {
+    case VObjectType::paConstant_mintypmax_expression:
+    case VObjectType::paConstant_primary: {
       return compileTypespec(component, fC, fC->Child(type), compileDesign,
                              reduce, pstmt, instance, false);
     }
-    case VObjectType::slSystem_task: {
+    case VObjectType::paSystem_task: {
       if (UHDM::any* res = compileExpression(component, fC, type, compileDesign,
                                              reduce, pstmt, instance)) {
         integer_typespec* var = s.MakeInteger_typespec();
@@ -1147,11 +1147,11 @@ UHDM::typespec* CompileHelper::compileTypespec(
       }
       break;
     }
-    case VObjectType::slEnum_base_type:
-    case VObjectType::slEnum_name_declaration: {
+    case VObjectType::paEnum_base_type:
+    case VObjectType::paEnum_name_declaration: {
       typespec* baseType = nullptr;
       uint64_t baseSize = 64;
-      if (the_type == VObjectType::slEnum_base_type) {
+      if (the_type == VObjectType::paEnum_base_type) {
         baseType =
             compileTypespec(component, fC, fC->Child(type), compileDesign,
                             reduce, pstmt, instance, isVariable);
@@ -1208,7 +1208,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
       result = en;
       break;
     }
-    case VObjectType::slInterface_identifier: {
+    case VObjectType::paInterface_identifier: {
       interface_typespec* tps = s.MakeInterface_typespec();
       NodeId Name = fC->Child(type);
       const std::string_view name = fC->SymName(Name);
@@ -1217,7 +1217,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
       result = tps;
       break;
     }
-    case VObjectType::slSigning_Signed: {
+    case VObjectType::paSigning_Signed: {
       if (isVariable) {
         // 6.8 Variable declarations, implicit type
         logic_typespec* tps = s.MakeLogic_typespec();
@@ -1240,7 +1240,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
       fC->populateCoreMembers(type, type, result);
       break;
     }
-    case VObjectType::slSigning_Unsigned: {
+    case VObjectType::paSigning_Unsigned: {
       if (isVariable) {
         // 6.8 Variable declarations, implicit type
         logic_typespec* tps = s.MakeLogic_typespec();
@@ -1261,7 +1261,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
       fC->populateCoreMembers(type, type, result);
       break;
     }
-    case VObjectType::slPacked_dimension: {
+    case VObjectType::paPacked_dimension: {
       if (isVariable) {
         // 6.8 Variable declarations, implicit type
         logic_typespec* tps = s.MakeLogic_typespec();
@@ -1282,11 +1282,11 @@ UHDM::typespec* CompileHelper::compileTypespec(
       fC->populateCoreMembers(type, type, result);
       break;
     }
-    case VObjectType::slExpression: {
+    case VObjectType::paExpression: {
       NodeId Primary = fC->Child(type);
       NodeId Primary_literal = fC->Child(Primary);
       NodeId Name = fC->Child(Primary_literal);
-      if (fC->Type(Name) == VObjectType::slClass_scope) {
+      if (fC->Type(Name) == VObjectType::paClass_scope) {
         return compileTypespec(component, fC, Name, compileDesign, reduce,
                                pstmt, instance, isVariable);
       }
@@ -1296,7 +1296,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
       }
       break;
     }
-    case VObjectType::slPrimary_literal: {
+    case VObjectType::paPrimary_literal: {
       NodeId literal = fC->Child(type);
       if (fC->Type(literal) == VObjectType::slStringConst) {
         const std::string_view typeName = fC->SymName(literal);
@@ -1310,30 +1310,30 @@ UHDM::typespec* CompileHelper::compileTypespec(
       }
       break;
     }
-    case VObjectType::slIntVec_TypeLogic:
-    case VObjectType::slNetType_Wire:
-    case VObjectType::slNetType_Supply0:
-    case VObjectType::slNetType_Supply1:
-    case VObjectType::slNetType_Tri0:
-    case VObjectType::slNetType_Tri1:
-    case VObjectType::slNetType_Tri:
-    case VObjectType::slNetType_TriAnd:
-    case VObjectType::slNetType_TriOr:
-    case VObjectType::slNetType_TriReg:
-    case VObjectType::slNetType_Uwire:
-    case VObjectType::slNetType_Wand:
-    case VObjectType::slNetType_Wor:
-    case VObjectType::slIntVec_TypeReg:
-    case VObjectType::slIntegerAtomType_Int:
-    case VObjectType::slIntegerAtomType_Integer:
-    case VObjectType::slIntegerAtomType_Byte:
-    case VObjectType::slIntegerAtomType_LongInt:
-    case VObjectType::slIntegerAtomType_Shortint:
-    case VObjectType::slIntegerAtomType_Time:
-    case VObjectType::slIntVec_TypeBit:
-    case VObjectType::slNonIntType_ShortReal:
-    case VObjectType::slNonIntType_Real:
-    case VObjectType::slString_type: {
+    case VObjectType::paIntVec_TypeLogic:
+    case VObjectType::paNetType_Wire:
+    case VObjectType::paNetType_Supply0:
+    case VObjectType::paNetType_Supply1:
+    case VObjectType::paNetType_Tri0:
+    case VObjectType::paNetType_Tri1:
+    case VObjectType::paNetType_Tri:
+    case VObjectType::paNetType_TriAnd:
+    case VObjectType::paNetType_TriOr:
+    case VObjectType::paNetType_TriReg:
+    case VObjectType::paNetType_Uwire:
+    case VObjectType::paNetType_Wand:
+    case VObjectType::paNetType_Wor:
+    case VObjectType::paIntVec_TypeReg:
+    case VObjectType::paIntegerAtomType_Int:
+    case VObjectType::paIntegerAtomType_Integer:
+    case VObjectType::paIntegerAtomType_Byte:
+    case VObjectType::paIntegerAtomType_LongInt:
+    case VObjectType::paIntegerAtomType_Shortint:
+    case VObjectType::paIntegerAtomType_Time:
+    case VObjectType::paIntVec_TypeBit:
+    case VObjectType::paNonIntType_ShortReal:
+    case VObjectType::paNonIntType_Real:
+    case VObjectType::paString_type: {
       result = compileBuiltinTypespec(component, fC, type, the_type,
                                       compileDesign, ranges);
       if ((result != nullptr) && (ranges != nullptr)) {
@@ -1347,12 +1347,12 @@ UHDM::typespec* CompileHelper::compileTypespec(
       }
       break;
     }
-    case VObjectType::slPackage_scope:
-    case VObjectType::slClass_scope: {
+    case VObjectType::paPackage_scope:
+    case VObjectType::paClass_scope: {
       std::string typeName;
       NodeId class_type = fC->Child(type);
       NodeId class_name;
-      if (the_type == VObjectType::slClass_scope)
+      if (the_type == VObjectType::paClass_scope)
         class_name = fC->Child(class_type);
       else
         class_name = class_type;
@@ -1457,18 +1457,18 @@ UHDM::typespec* CompileHelper::compileTypespec(
       }
       break;
     }
-    case VObjectType::slStruct_union: {
+    case VObjectType::paStruct_union: {
       NodeId struct_or_union = fC->Child(type);
       VObjectType struct_or_union_type = fC->Type(struct_or_union);
       VectorOftypespec_member* members = s.MakeTypespec_memberVec();
 
       NodeId struct_or_union_member = fC->Sibling(type);
-      if (fC->Type(struct_or_union_member) == VObjectType::slPacked_keyword) {
+      if (fC->Type(struct_or_union_member) == VObjectType::paPacked_keyword) {
         struct_or_union_member = fC->Sibling(struct_or_union_member);
         isPacked = true;
       }
 
-      if (struct_or_union_type == VObjectType::slStruct_keyword) {
+      if (struct_or_union_type == VObjectType::paStruct_keyword) {
         struct_typespec* ts = s.MakeStruct_typespec();
         ts->VpiPacked(isPacked);
         ts->Members(members);
@@ -1496,8 +1496,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
         // Include the ranges in the location information
         NodeId packedDims = fC->Sibling(type);
         NodeId last_Packed_dimension = packedDims;
-        while ((fC->Type(packedDims) == VObjectType::slUnpacked_dimension) ||
-               (fC->Type(packedDims) == VObjectType::slPacked_dimension)) {
+        while ((fC->Type(packedDims) == VObjectType::paUnpacked_dimension) ||
+               (fC->Type(packedDims) == VObjectType::paPacked_dimension)) {
           packedDims = fC->Sibling(packedDims);
           if (packedDims) last_Packed_dimension = packedDims;
         }
@@ -1543,7 +1543,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
             member_ts->VpiParent(m);
           }
           if (Expression &&
-              (fC->Type(Expression) != VObjectType::slVariable_dimension)) {
+              (fC->Type(Expression) != VObjectType::paVariable_dimension)) {
             any* ex =
                 compileExpression(component, fC, Expression, compileDesign,
                                   reduce, nullptr, instance, false);
@@ -1560,9 +1560,9 @@ UHDM::typespec* CompileHelper::compileTypespec(
       }
       break;
     }
-    case VObjectType::slSimple_type:
-    case VObjectType::slPs_type_identifier:
-    case VObjectType::slInteger_type: {
+    case VObjectType::paSimple_type:
+    case VObjectType::paPs_type_identifier:
+    case VObjectType::paInteger_type: {
       return compileTypespec(component, fC, fC->Child(type), compileDesign,
                              reduce, pstmt, instance, false);
     }
@@ -1742,8 +1742,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
           // Include the ranges in the location information
           NodeId packedDims = fC->Sibling(type);
           NodeId last_Packed_dimension = packedDims;
-          while ((fC->Type(packedDims) == VObjectType::slUnpacked_dimension) ||
-                 (fC->Type(packedDims) == VObjectType::slPacked_dimension)) {
+          while ((fC->Type(packedDims) == VObjectType::paUnpacked_dimension) ||
+                 (fC->Type(packedDims) == VObjectType::paPacked_dimension)) {
             packedDims = fC->Sibling(packedDims);
             if (packedDims) last_Packed_dimension = packedDims;
           }
@@ -1772,7 +1772,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
 
       break;
     }
-    case VObjectType::slConstant_expression: {
+    case VObjectType::paConstant_expression: {
       if (expr* exp = (expr*)compileExpression(
               component, fC, type, compileDesign, reduce, pstmt, instance,
               reduce == Reduce::No)) {
@@ -1792,13 +1792,13 @@ UHDM::typespec* CompileHelper::compileTypespec(
       }
       break;
     }
-    case VObjectType::slChandle_type: {
+    case VObjectType::paChandle_type: {
       UHDM::chandle_typespec* tps = s.MakeChandle_typespec();
       fC->populateCoreMembers(type, type, tps);
       result = tps;
       break;
     }
-    case VObjectType::slConstant_range: {
+    case VObjectType::paConstant_range: {
       UHDM::logic_typespec* tps = s.MakeLogic_typespec();
       fC->populateCoreMembers(type, type, tps);
       VectorOfrange* ranges =
@@ -1808,21 +1808,21 @@ UHDM::typespec* CompileHelper::compileTypespec(
       result = tps;
       break;
     }
-    case VObjectType::slEvent_type: {
+    case VObjectType::paEvent_type: {
       UHDM::event_typespec* tps = s.MakeEvent_typespec();
       fC->populateCoreMembers(type, type, tps);
       result = tps;
       break;
     }
-    case VObjectType::slNonIntType_RealTime: {
+    case VObjectType::paNonIntType_RealTime: {
       UHDM::time_typespec* tps = s.MakeTime_typespec();
       fC->populateCoreMembers(type, type, tps);
       result = tps;
       break;
     }
-    case VObjectType::slType_reference: {
+    case VObjectType::paType_reference: {
       NodeId child = fC->Child(type);
-      if (fC->Type(child) == VObjectType::slExpression) {
+      if (fC->Type(child) == VObjectType::paExpression) {
         expr* exp = (expr*)compileExpression(component, fC, child,
                                              compileDesign, reduce, nullptr,
                                              instance, reduce == Reduce::Yes);
@@ -1872,7 +1872,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
       }
       break;
     }
-    case VObjectType::slData_type_or_implicit: {
+    case VObjectType::paData_type_or_implicit: {
       logic_typespec* tps = s.MakeLogic_typespec();
       fC->populateCoreMembers(type, type, tps);
       VectorOfrange* ranges =
@@ -1882,7 +1882,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
       result = tps;
       break;
     }
-    case VObjectType::slImplicit_data_type: {
+    case VObjectType::paImplicit_data_type: {
       // Interconnect
       logic_typespec* tps = s.MakeLogic_typespec();
       fC->populateCoreMembers(type, type, tps);

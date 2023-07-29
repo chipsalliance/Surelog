@@ -47,7 +47,7 @@
 #include <limits>
 
 namespace SURELOG {
-static std::string_view kSchemaVersion = "1.0";
+static std::string_view kSchemaVersion = "1.1";
 
 PythonAPICache::PythonAPICache(PythonListen* listener) : m_listener(listener) {}
 

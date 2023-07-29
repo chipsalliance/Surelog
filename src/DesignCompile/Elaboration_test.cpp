@@ -77,7 +77,7 @@ TEST(Elaboration, ExprFromPpTree) {
   EXPECT_NE(top, nullptr);
 
   std::vector<NodeId> assigns =
-      fC->sl_collect_all(root, VObjectType::slParam_assignment);
+      fC->sl_collect_all(root, VObjectType::paParam_assignment);
   EXPECT_EQ(assigns.size(), 2);
   for (NodeId param_assign : assigns) {
     NodeId param = fC->Child(param_assign);
@@ -125,7 +125,7 @@ TEST(Elaboration, ExprFromText) {
   EXPECT_NE(top, nullptr);
 
   std::vector<NodeId> assigns =
-      fC->sl_collect_all(root, VObjectType::slParam_assignment);
+      fC->sl_collect_all(root, VObjectType::paParam_assignment);
   EXPECT_EQ(assigns.size(), 3);
   for (NodeId param_assign : assigns) {
     NodeId param = fC->Child(param_assign);
@@ -169,11 +169,11 @@ TEST(Elaboration, ExprUsePackage) {
   }
   EXPECT_NE(top, nullptr);
   NodeId root = fC->getRootNode();
-  NodeId moduleRoot = fC->sl_collect(root, VObjectType::slModule_declaration);
+  NodeId moduleRoot = fC->sl_collect(root, VObjectType::paModule_declaration);
   EXPECT_TRUE(moduleRoot);
 
   std::vector<NodeId> assigns =
-      fC->sl_collect_all(moduleRoot, VObjectType::slParam_assignment);
+      fC->sl_collect_all(moduleRoot, VObjectType::paParam_assignment);
   EXPECT_EQ(assigns.size(), 3);
   for (NodeId param_assign : assigns) {
     NodeId param = fC->Child(param_assign);

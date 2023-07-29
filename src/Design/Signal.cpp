@@ -97,7 +97,7 @@ Signal::Signal(const FileContent* fileContent, NodeId nodeId, VObjectType type,
 std::string Signal::getInterfaceTypeName() const {
   std::string type_name;
   if (m_fileContent->Type(m_interfaceTypeNameId) ==
-      VObjectType::slClass_scope) {
+      VObjectType::paClass_scope) {
     NodeId Class_type = m_fileContent->Child(m_interfaceTypeNameId);
     NodeId Pack_name = m_fileContent->Child(Class_type);
     type_name.assign(m_fileContent->SymName(Pack_name)).append("::");

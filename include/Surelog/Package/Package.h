@@ -56,7 +56,7 @@ class Package : public DesignComponent {
 
   uint32_t getSize() const override;
   VObjectType getType() const override {
-    return VObjectType::slPackage_declaration;
+    return VObjectType::paPackage_declaration;
   }
   bool isInstance() const override { return false; }
   std::string_view getName() const override { return m_name; }

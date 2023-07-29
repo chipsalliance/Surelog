@@ -29,11 +29,11 @@ namespace SURELOG {
 std::string_view SubRoutineCallStmt::getVarName(NodeId base_name) const {
   const FileContent* const fC = getFileContent();
   switch (fC->Type(base_name)) {
-    case VObjectType::slSuper_keyword:
-    case VObjectType::slThis_dot_super:
-    case VObjectType::slSuper_dot_new:
+    case VObjectType::paSuper_keyword:
+    case VObjectType::paThis_dot_super:
+    case VObjectType::paSuper_dot_new:
       return "super";
-    case VObjectType::slThis_keyword:
+    case VObjectType::paThis_keyword:
       return "this";
     case VObjectType::slStringConst:
       return fC->SymName(base_name);

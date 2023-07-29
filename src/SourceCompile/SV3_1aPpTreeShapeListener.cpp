@@ -55,8 +55,8 @@ void SV3_1aPpTreeShapeListener::enterTop_level_rule(
   }
 }
 
-void SV3_1aPpTreeShapeListener::enterComments(
-    SV3_1aPpParser::CommentsContext *ctx) {
+void SV3_1aPpTreeShapeListener::enterComment(
+    SV3_1aPpParser::CommentContext *ctx) {
   if (m_pp->getCompileSourceFile()
           ->getCommandLineParser()
           ->reportNonSynthesizable()) {
@@ -101,14 +101,14 @@ void SV3_1aPpTreeShapeListener::enterComments(
   }
 }
 
-void SV3_1aPpTreeShapeListener::enterNumber(
-    SV3_1aPpParser::NumberContext *ctx) {
+void SV3_1aPpTreeShapeListener::enterIntegral_number(
+    SV3_1aPpParser::Integral_numberContext *ctx) {
   if (m_inActiveBranch &&
       (!(m_filterProtectedRegions && m_inProtectedRegion))) {
     if (!m_inMacroDefinitionParsing) {
       std::string text;
-      if (ctx->Number()) {
-        text = ctx->Number()->getText();
+      if (ctx->INTEGRAL_NUMBER()) {
+        text = ctx->INTEGRAL_NUMBER()->getText();
       } else {
         text = ctx->getText();
       }
@@ -135,28 +135,28 @@ void SV3_1aPpTreeShapeListener::exitDescription(
     SV3_1aPpParser::DescriptionContext *ctx) {
   if (ctx->text_blob()) {
     if (ctx->text_blob()->CR())
-      addVObject(ctx, VObjectType::slText_blob);
+      addVObject(ctx, VObjectType::ppText_blob);
     else if (ctx->text_blob()->Spaces())
-      addVObject(ctx, VObjectType::slText_blob);
+      addVObject(ctx, VObjectType::ppText_blob);
     else
-      addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
+      addVObject(ctx, ctx->getText(), VObjectType::ppText_blob);
   } else {
-    addVObject(ctx, ctx->getText(), VObjectType::slDescription);
+    addVObject(ctx, ctx->getText(), VObjectType::ppDescription);
   }
 }
 
-void SV3_1aPpTreeShapeListener::exitComments(
-    SV3_1aPpParser::CommentsContext *ctx) {
+void SV3_1aPpTreeShapeListener::exitComment(
+    SV3_1aPpParser::CommentContext *ctx) {
   if (!m_pp->getCompileSourceFile()->getCommandLineParser()->filterComments()) {
     if (m_inActiveBranch &&
         (!(m_filterProtectedRegions && m_inProtectedRegion)) &&
         (!m_inMacroDefinitionParsing)) {
       if (ctx->Block_comment()) {
         addVObject(ctx, ctx->Block_comment()->getText(),
-                   VObjectType::slComments);
+                   VObjectType::ppComment);
       } else if (ctx->One_line_comment()) {
         addVObject(ctx, ctx->One_line_comment()->getText(),
-                   VObjectType::slComments);
+                   VObjectType::ppComment);
       }
     } else {
       addLineFiller(ctx);
@@ -164,48 +164,49 @@ void SV3_1aPpTreeShapeListener::exitComments(
   }
 }
 
-void SV3_1aPpTreeShapeListener::exitNumber(SV3_1aPpParser::NumberContext *ctx) {
+void SV3_1aPpTreeShapeListener::exitIntegral_number(
+    SV3_1aPpParser::Integral_numberContext *ctx) {
   if (m_inActiveBranch &&
       (!(m_filterProtectedRegions && m_inProtectedRegion))) {
     if (!m_inMacroDefinitionParsing) {
       std::string text;
-      if (ctx->Number())
-        text = ctx->Number()->getText();
+      if (ctx->INTEGRAL_NUMBER())
+        text = ctx->INTEGRAL_NUMBER()->getText();
       else
         text = ctx->getText();
-      addVObject(ctx, text, VObjectType::slNumber);
+      addVObject(ctx, text, VObjectType::ppNumber);
     }
   }
 }
 
 void SV3_1aPpTreeShapeListener::exitEscaped_macro_definition_body(
     SV3_1aPpParser::Escaped_macro_definition_bodyContext *ctx) {
-  addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
+  addVObject(ctx, ctx->getText(), VObjectType::ppText_blob);
 }
 
 void SV3_1aPpTreeShapeListener::exitSimple_macro_definition_body(
     SV3_1aPpParser::Simple_macro_definition_bodyContext *ctx) {
-  addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
+  addVObject(ctx, ctx->getText(), VObjectType::ppText_blob);
 }
 
 void SV3_1aPpTreeShapeListener::exitPragma_expression(
     SV3_1aPpParser::Pragma_expressionContext *ctx) {
-  addVObject(ctx, ctx->getText(), VObjectType::slPragma_expression);
+  addVObject(ctx, ctx->getText(), VObjectType::ppPragma_expression);
 }
 
 void SV3_1aPpTreeShapeListener::exitMacro_arg(
     SV3_1aPpParser::Macro_argContext *ctx) {
-  addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
+  addVObject(ctx, ctx->getText(), VObjectType::ppText_blob);
 }
 
 void SV3_1aPpTreeShapeListener::exitString_blob(
     SV3_1aPpParser::String_blobContext *ctx) {
-  addVObject(ctx, ctx->getText(), VObjectType::slString);
+  addVObject(ctx, ctx->getText(), VObjectType::ppString);
 }
 
 void SV3_1aPpTreeShapeListener::exitDefault_value(
     SV3_1aPpParser::Default_valueContext *ctx) {
-  addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
+  addVObject(ctx, ctx->getText(), VObjectType::ppText_blob);
 }
 
 void SV3_1aPpTreeShapeListener::enterUnterminated_string(
@@ -226,10 +227,10 @@ void SV3_1aPpTreeShapeListener::enterInclude_directive(
         ParseUtils::getEndLineColumn(m_pp->getTokenStream(), ctx);
     int32_t openingIndex = -1;
     std::string fileName;
-    if (ctx->String()) {
-      fileName = ctx->String()->getText();
-      startLineCol = ParseUtils::getLineColumn(ctx->String());
-      endLineCol = ParseUtils::getEndLineColumn(ctx->String());
+    if (ctx->STRING()) {
+      fileName = ctx->STRING()->getText();
+      startLineCol = ParseUtils::getLineColumn(ctx->STRING());
+      endLineCol = ParseUtils::getEndLineColumn(ctx->STRING());
     } else if (ctx->macro_instance()) {
       startLineCol = ParseUtils::getLineColumn(m_pp->getTokenStream(),
                                                ctx->macro_instance());
@@ -246,7 +247,7 @@ void SV3_1aPpTreeShapeListener::enterInclude_directive(
       return;
     }
 
-    fileName = StringUtils::unquoted(fileName);
+    fileName = StringUtils::unquoted(StringUtils::trim(fileName));
     if (m_pp->m_debugPP)
       std::cout << "PP INCLUDE DIRECTIVE " << fileName << std::endl;
 
@@ -370,20 +371,20 @@ void SV3_1aPpTreeShapeListener::exitInclude_directive(
     m_pp->resumeAppend();
   }
   std::string text;
-  if (ctx->Escaped_identifier()) {
-    text = ctx->Escaped_identifier()->getText();
-    addVObject((antlr4::ParserRuleContext *)ctx->Escaped_identifier(), text,
-               VObjectType::slEscaped_identifier);
+  if (ctx->ESCAPED_IDENTIFIER()) {
+    text = ctx->ESCAPED_IDENTIFIER()->getText();
+    addVObject((antlr4::ParserRuleContext *)ctx->ESCAPED_IDENTIFIER(), text,
+               VObjectType::ppEscaped_identifier);
   } else if (ctx->Simple_identifier()) {
     text = ctx->Simple_identifier()->getText();
     addVObject((antlr4::ParserRuleContext *)ctx->Simple_identifier(), text,
-               VObjectType::slPs_identifier);
-  } else if (ctx->String()) {
-    text = ctx->String()->getText();
-    addVObject((antlr4::ParserRuleContext *)ctx->String(), text,
-               VObjectType::slString);
+               VObjectType::ppPs_identifier);
+  } else if (ctx->STRING()) {
+    text = ctx->STRING()->getText();
+    addVObject((antlr4::ParserRuleContext *)ctx->STRING(), text,
+               VObjectType::ppString);
   }
-  addVObject(ctx, VObjectType::slInclude_statement);
+  addVObject(ctx, VObjectType::ppInclude_directive);
 }
 
 void SV3_1aPpTreeShapeListener::enterSimple_no_args_macro_definition(
@@ -392,8 +393,8 @@ void SV3_1aPpTreeShapeListener::enterSimple_no_args_macro_definition(
     std::string macroName;
     if (ctx->Simple_identifier())
       macroName = ctx->Simple_identifier()->getText();
-    else if (ctx->Escaped_identifier()) {
-      macroName = ctx->Escaped_identifier()->getText();
+    else if (ctx->ESCAPED_IDENTIFIER()) {
+      macroName = ctx->ESCAPED_IDENTIFIER()->getText();
       macroName.erase(0, 1);
       macroName = StringUtils::rtrim(macroName);
     }
@@ -407,7 +408,7 @@ void SV3_1aPpTreeShapeListener::enterSimple_no_args_macro_definition(
 
     antlr4::tree::TerminalNode *const identifier =
         ctx->Simple_identifier() ? ctx->Simple_identifier()
-                                 : ctx->Escaped_identifier();
+                                 : ctx->ESCAPED_IDENTIFIER();
     ParseUtils::LineColumn startLineCol = ParseUtils::getLineColumn(identifier);
     ParseUtils::LineColumn endLineCol =
         ParseUtils::getEndLineColumn(identifier);
@@ -433,7 +434,7 @@ void SV3_1aPpTreeShapeListener::enterSimple_no_args_macro_definition(
 void SV3_1aPpTreeShapeListener::exitSimple_no_args_macro_definition(
     SV3_1aPpParser::Simple_no_args_macro_definitionContext *ctx) {
   m_inMacroDefinitionParsing = false;
-  addVObject(ctx, VObjectType::slMacro_definition);
+  addVObject(ctx, VObjectType::ppMacro_definition);
 }
 
 void SV3_1aPpTreeShapeListener::enterMacroInstanceWithArgs(
@@ -583,7 +584,7 @@ void SV3_1aPpTreeShapeListener::exitMacroInstanceWithArgs(
   if (m_append_paused_context == ctx) {
     m_append_paused_context = nullptr;
     m_pp->resumeAppend();
-    addVObject(ctx, VObjectType::slMacroInstanceWithArgs);
+    addVObject(ctx, VObjectType::ppMacroInstanceWithArgs);
   }
 }
 
@@ -795,8 +796,8 @@ void SV3_1aPpTreeShapeListener::enterLine_directive(
   ParseUtils::LineColumn lineCol =
       ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
   PathId newFileId;
-  if (ctx->String()) {
-    std::string fileName(StringUtils::unquoted(ctx->String()->getText()));
+  if (ctx->STRING()) {
+    std::string fileName(StringUtils::unquoted(ctx->STRING()->getText()));
     newFileId = fileSystem->locate(
         fileName,
         m_pp->getCompileSourceFile()->getCommandLineParser()->getIncludePaths(),
@@ -810,9 +811,10 @@ void SV3_1aPpTreeShapeListener::enterLine_directive(
     }
   }
   std::string number;
-  if (!ctx->number().empty()) number = ctx->number()[0]->getText();
-  if (ctx->number().size() > 1) {
-    std::string type = ctx->number()[1]->getText();
+  if (!ctx->integral_number().empty())
+    number = ctx->integral_number()[0]->getText();
+  if (ctx->integral_number().size() > 1) {
+    std::string type = ctx->integral_number()[1]->getText();
     int32_t newType = atoi(type.c_str());
     if (newType < 0 || newType > 2) {
       Location loc(m_pp->getFileId(lineCol.first),
@@ -834,8 +836,8 @@ void SV3_1aPpTreeShapeListener::enterDefine_directive(
     std::string macroName;
     if (ctx->Simple_identifier())
       macroName = ctx->Simple_identifier()->getText();
-    else if (ctx->Escaped_identifier()) {
-      macroName = ctx->Escaped_identifier()->getText();
+    else if (ctx->ESCAPED_IDENTIFIER()) {
+      macroName = ctx->ESCAPED_IDENTIFIER()->getText();
       macroName.erase(0, 1);
       macroName = StringUtils::rtrim(macroName);
     }
@@ -852,8 +854,8 @@ void SV3_1aPpTreeShapeListener::exitDefine_directive(
     std::string macroName;
     if (ctx->Simple_identifier())
       macroName = ctx->Simple_identifier()->getText();
-    else if (ctx->Escaped_identifier()) {
-      macroName = ctx->Escaped_identifier()->getText();
+    else if (ctx->ESCAPED_IDENTIFIER()) {
+      macroName = ctx->ESCAPED_IDENTIFIER()->getText();
       macroName.erase(0, 1);
       macroName = StringUtils::rtrim(macroName);
     }
@@ -861,7 +863,7 @@ void SV3_1aPpTreeShapeListener::exitDefine_directive(
     if (macroInf == nullptr) {
       antlr4::tree::TerminalNode *const identifier =
           ctx->Simple_identifier() ? ctx->Simple_identifier()
-                                   : ctx->Escaped_identifier();
+                                   : ctx->ESCAPED_IDENTIFIER();
       ParseUtils::LineColumn startLineCol =
           ParseUtils::getLineColumn(identifier);
       ParseUtils::LineColumn endLineCol =
@@ -1030,9 +1032,9 @@ void SV3_1aPpTreeShapeListener::enterUndef_directive(
   if (ctx->Simple_identifier()) {
     lineCol = ParseUtils::getLineColumn(ctx->Simple_identifier());
     macroName = ctx->Simple_identifier()->getText();
-  } else if (ctx->Escaped_identifier()) {
-    lineCol = ParseUtils::getLineColumn(ctx->Escaped_identifier());
-    macroName = ctx->Escaped_identifier()->getText();
+  } else if (ctx->ESCAPED_IDENTIFIER()) {
+    lineCol = ParseUtils::getLineColumn(ctx->ESCAPED_IDENTIFIER());
+    macroName = ctx->ESCAPED_IDENTIFIER()->getText();
     macroName.erase(0, 1);
     macroName = StringUtils::rtrim(macroName);
   } else if (ctx->macro_instance()) {
@@ -1067,9 +1069,9 @@ void SV3_1aPpTreeShapeListener::enterIfdef_directive(
   if (ctx->Simple_identifier()) {
     lineCol = ParseUtils::getLineColumn(ctx->Simple_identifier());
     macroName = ctx->Simple_identifier()->getText();
-  } else if (ctx->Escaped_identifier()) {
-    lineCol = ParseUtils::getLineColumn(ctx->Escaped_identifier());
-    macroName = ctx->Escaped_identifier()->getText();
+  } else if (ctx->ESCAPED_IDENTIFIER()) {
+    lineCol = ParseUtils::getLineColumn(ctx->ESCAPED_IDENTIFIER());
+    macroName = ctx->ESCAPED_IDENTIFIER()->getText();
     macroName.erase(0, 1);
     macroName = StringUtils::rtrim(macroName);
   } else if (ctx->macro_instance()) {
@@ -1106,9 +1108,9 @@ void SV3_1aPpTreeShapeListener::enterIfndef_directive(
   if (ctx->Simple_identifier()) {
     lineCol = ParseUtils::getLineColumn(ctx->Simple_identifier());
     macroName = ctx->Simple_identifier()->getText();
-  } else if (ctx->Escaped_identifier()) {
-    lineCol = ParseUtils::getLineColumn(ctx->Escaped_identifier());
-    macroName = ctx->Escaped_identifier()->getText();
+  } else if (ctx->ESCAPED_IDENTIFIER()) {
+    lineCol = ParseUtils::getLineColumn(ctx->ESCAPED_IDENTIFIER());
+    macroName = ctx->ESCAPED_IDENTIFIER()->getText();
     macroName.erase(0, 1);
     macroName = StringUtils::rtrim(macroName);
   } else if (ctx->macro_instance()) {
@@ -1145,9 +1147,9 @@ void SV3_1aPpTreeShapeListener::enterElsif_directive(
   if (ctx->Simple_identifier()) {
     lineCol = ParseUtils::getLineColumn(ctx->Simple_identifier());
     macroName = ctx->Simple_identifier()->getText();
-  } else if (ctx->Escaped_identifier()) {
-    lineCol = ParseUtils::getLineColumn(ctx->Escaped_identifier());
-    macroName = ctx->Escaped_identifier()->getText();
+  } else if (ctx->ESCAPED_IDENTIFIER()) {
+    lineCol = ParseUtils::getLineColumn(ctx->ESCAPED_IDENTIFIER());
+    macroName = ctx->ESCAPED_IDENTIFIER()->getText();
     macroName.erase(0, 1);
     macroName = StringUtils::rtrim(macroName);
   } else if (ctx->macro_instance()) {
@@ -1233,7 +1235,7 @@ void SV3_1aPpTreeShapeListener::enterResetall_directive(
 
 void SV3_1aPpTreeShapeListener::enterBegin_keywords_directive(
     SV3_1aPpParser::Begin_keywords_directiveContext *ctx) {
-  std::string version = ctx->String()->getText();
+  std::string version = ctx->STRING()->getText();
   if (version == "\"1364-1995\"") {
     m_pp->setVerilogVersion(Verilog1995);
   } else if (version == "\"1364-2001\"") {
@@ -1380,8 +1382,8 @@ void SV3_1aPpTreeShapeListener::enterNoaccelerate_directive(
   forwardToParser(ctx);
 }
 
-void SV3_1aPpTreeShapeListener::enterDefault_trireg_strenght_directive(
-    SV3_1aPpParser::Default_trireg_strenght_directiveContext *ctx) {
+void SV3_1aPpTreeShapeListener::enterDefault_trireg_strength_directive(
+    SV3_1aPpParser::Default_trireg_strength_directiveContext *ctx) {
   forwardToParser(ctx);
 }
 
@@ -1439,8 +1441,8 @@ void SV3_1aPpTreeShapeListener::enterMultiline_no_args_macro_definition(
     std::string macroName;
     if (ctx->Simple_identifier())
       macroName = ctx->Simple_identifier()->getText();
-    else if (ctx->Escaped_identifier()) {
-      macroName = ctx->Escaped_identifier()->getText();
+    else if (ctx->ESCAPED_IDENTIFIER()) {
+      macroName = ctx->ESCAPED_IDENTIFIER()->getText();
       macroName.erase(0, 1);
       macroName = StringUtils::rtrim(macroName);
     }
@@ -1450,7 +1452,7 @@ void SV3_1aPpTreeShapeListener::enterMultiline_no_args_macro_definition(
     }
     antlr4::tree::TerminalNode *const identifier =
         ctx->Simple_identifier() ? ctx->Simple_identifier()
-                                 : ctx->Escaped_identifier();
+                                 : ctx->ESCAPED_IDENTIFIER();
     ParseUtils::LineColumn startLineCol = ParseUtils::getLineColumn(identifier);
     ParseUtils::LineColumn endLineCol =
         ParseUtils::getEndLineColumn(identifier);
@@ -1483,7 +1485,7 @@ void SV3_1aPpTreeShapeListener::enterMultiline_no_args_macro_definition(
 void SV3_1aPpTreeShapeListener::exitMultiline_no_args_macro_definition(
     SV3_1aPpParser::Multiline_no_args_macro_definitionContext *ctx) {
   m_inMacroDefinitionParsing = false;
-  addVObject(ctx, VObjectType::slMacro_definition);
+  addVObject(ctx, VObjectType::ppMacro_definition);
 }
 
 void SV3_1aPpTreeShapeListener::enterMultiline_args_macro_definition(
@@ -1492,8 +1494,8 @@ void SV3_1aPpTreeShapeListener::enterMultiline_args_macro_definition(
     std::string macroName;
     if (ctx->Simple_identifier())
       macroName = ctx->Simple_identifier()->getText();
-    else if (ctx->Escaped_identifier()) {
-      macroName = ctx->Escaped_identifier()->getText();
+    else if (ctx->ESCAPED_IDENTIFIER()) {
+      macroName = ctx->ESCAPED_IDENTIFIER()->getText();
       macroName.erase(0, 1);
       macroName = StringUtils::rtrim(macroName);
     }
@@ -1515,7 +1517,7 @@ void SV3_1aPpTreeShapeListener::enterMultiline_args_macro_definition(
     }
     antlr4::tree::TerminalNode *const identifier =
         ctx->Simple_identifier() ? ctx->Simple_identifier()
-                                 : ctx->Escaped_identifier();
+                                 : ctx->ESCAPED_IDENTIFIER();
     ParseUtils::LineColumn startLineCol = ParseUtils::getLineColumn(identifier);
     ParseUtils::LineColumn endLineCol =
         ParseUtils::getEndLineColumn(identifier);
@@ -1535,7 +1537,7 @@ void SV3_1aPpTreeShapeListener::enterMultiline_args_macro_definition(
 void SV3_1aPpTreeShapeListener::exitMultiline_args_macro_definition(
     SV3_1aPpParser::Multiline_args_macro_definitionContext *ctx) {
   m_inMacroDefinitionParsing = false;
-  addVObject(ctx, VObjectType::slMacro_definition);
+  addVObject(ctx, VObjectType::ppMacro_definition);
 }
 
 void SV3_1aPpTreeShapeListener::enterSimple_args_macro_definition(
@@ -1544,8 +1546,8 @@ void SV3_1aPpTreeShapeListener::enterSimple_args_macro_definition(
     std::string macroName;
     if (ctx->Simple_identifier())
       macroName = ctx->Simple_identifier()->getText();
-    else if (ctx->Escaped_identifier()) {
-      macroName = ctx->Escaped_identifier()->getText();
+    else if (ctx->ESCAPED_IDENTIFIER()) {
+      macroName = ctx->ESCAPED_IDENTIFIER()->getText();
       macroName.erase(0, 1);
       macroName = StringUtils::rtrim(macroName);
     }
@@ -1568,7 +1570,7 @@ void SV3_1aPpTreeShapeListener::enterSimple_args_macro_definition(
     }
     antlr4::tree::TerminalNode *const identifier =
         ctx->Simple_identifier() ? ctx->Simple_identifier()
-                                 : ctx->Escaped_identifier();
+                                 : ctx->ESCAPED_IDENTIFIER();
     ParseUtils::LineColumn startLineCol = ParseUtils::getLineColumn(identifier);
     ParseUtils::LineColumn endLineCol =
         ParseUtils::getEndLineColumn(identifier);
@@ -1587,7 +1589,7 @@ void SV3_1aPpTreeShapeListener::enterSimple_args_macro_definition(
 void SV3_1aPpTreeShapeListener::exitSimple_args_macro_definition(
     SV3_1aPpParser::Simple_args_macro_definitionContext *ctx) {
   m_inMacroDefinitionParsing = false;
-  addVObject(ctx, VObjectType::slMacro_definition);
+  addVObject(ctx, VObjectType::ppMacro_definition);
 }
 
 void SV3_1aPpTreeShapeListener::enterText_blob(
@@ -1607,56 +1609,56 @@ void SV3_1aPpTreeShapeListener::exitText_blob(
       (!(m_filterProtectedRegions && m_inProtectedRegion))) {
     if (ctx->Simple_identifier()) {
       addVObject(ctx, ctx->Simple_identifier()->getText(),
-                 VObjectType::slPs_identifier);
+                 VObjectType::ppPs_identifier);
     } else if (ctx->CR()) {
-      addVObject(ctx, VObjectType::slCR);
+      addVObject(ctx, VObjectType::ppCR);
     } else if (ctx->Spaces()) {
-      addVObject(ctx, VObjectType::slSpaces);
+      addVObject(ctx, VObjectType::ppSpaces);
     } else if (ctx->Fixed_point_number()) {
       addVObject(ctx, ctx->Fixed_point_number()->getText(),
-                 VObjectType::slNumber);
+                 VObjectType::ppNumber);
     } else if (ctx->ESCAPED_CR()) {
-      addVObject(ctx, VObjectType::slEscapedCR);
-    } else if (ctx->String()) {
-      addVObject(ctx, ctx->ESCAPED_CR()->getText(), VObjectType::slString);
-    } else if (ctx->PARENS_OPEN()) {
-      addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
-    } else if (ctx->PARENS_CLOSE()) {
-      addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
+      addVObject(ctx, VObjectType::ppESCAPED_CR);
+    } else if (ctx->STRING()) {
+      addVObject(ctx, ctx->ESCAPED_CR()->getText(), VObjectType::ppString);
+    } else if (ctx->OPEN_PARENS()) {
+      addVObject(ctx, ctx->getText(), VObjectType::ppText_blob);
+    } else if (ctx->CLOSE_PARENS()) {
+      addVObject(ctx, ctx->getText(), VObjectType::ppText_blob);
     } else if (ctx->COMMA()) {
-      addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
-    } else if (ctx->EQUAL_OP()) {
-      addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
+      addVObject(ctx, ctx->getText(), VObjectType::ppText_blob);
+    } else if (ctx->ASSIGN_OP()) {
+      addVObject(ctx, ctx->getText(), VObjectType::ppText_blob);
     } else if (ctx->DOUBLE_QUOTE()) {
-      addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
+      addVObject(ctx, ctx->getText(), VObjectType::ppText_blob);
     } else if (ctx->Special()) {
-      addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
-    } else if (ctx->CURLY_OPEN()) {
-      addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
-    } else if (ctx->CURLY_CLOSE()) {
-      addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
-    } else if (ctx->SQUARE_OPEN()) {
-      addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
-    } else if (ctx->SQUARE_CLOSE()) {
-      addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
+      addVObject(ctx, ctx->getText(), VObjectType::ppText_blob);
+    } else if (ctx->OPEN_CURLY()) {
+      addVObject(ctx, ctx->getText(), VObjectType::ppText_blob);
+    } else if (ctx->CLOSE_CURLY()) {
+      addVObject(ctx, ctx->getText(), VObjectType::ppText_blob);
+    } else if (ctx->OPEN_BRACKET()) {
+      addVObject(ctx, ctx->getText(), VObjectType::ppText_blob);
+    } else if (ctx->CLOSE_BRACKET()) {
+      addVObject(ctx, ctx->getText(), VObjectType::ppText_blob);
     } else if (ctx->TICK_TICK()) {
-      addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
+      addVObject(ctx, ctx->getText(), VObjectType::ppText_blob);
     } else if (ctx->TICK_VARIABLE()) {
-      addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
+      addVObject(ctx, ctx->getText(), VObjectType::ppText_blob);
     } else if (ctx->TIMESCALE()) {
-      addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
+      addVObject(ctx, ctx->getText(), VObjectType::ppText_blob);
     } else if (ctx->ANY()) {
-      addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
+      addVObject(ctx, ctx->getText(), VObjectType::ppText_blob);
     } else if (ctx->pound_delay()) {
-      addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
+      addVObject(ctx, ctx->getText(), VObjectType::ppText_blob);
     } else if (ctx->pound_pound_delay()) {
-      addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
+      addVObject(ctx, ctx->getText(), VObjectType::ppText_blob);
     } else if (ctx->TICK_QUOTE()) {
-      addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
+      addVObject(ctx, ctx->getText(), VObjectType::ppText_blob);
     } else if (ctx->TICK_BACKSLASH_TICK_QUOTE()) {
-      addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
+      addVObject(ctx, ctx->getText(), VObjectType::ppText_blob);
     } else if (ctx->TEXT_CR()) {
-      addVObject(ctx, VObjectType::slCR);
+      addVObject(ctx, VObjectType::ppCR);
     }
   }
 }

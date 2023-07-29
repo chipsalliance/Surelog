@@ -28,7 +28,7 @@
 namespace SURELOG {
 
 VObjectType ModuleDefinition::getType() const {
-  return (m_fileContents.empty()) ? VObjectType::slN_input_gate_instance
+  return (m_fileContents.empty()) ? VObjectType::paN_input_gate_instance
                                   : m_fileContents[0]->Type(m_nodeIds[0]);
 }
 
@@ -42,9 +42,9 @@ ModuleDefinition::ModuleDefinition(const FileContent* fileContent,
 
 bool ModuleDefinition::isInstance() const {
   const VObjectType type = getType();
-  return ((type == VObjectType::slN_input_gate_instance) ||
-          (type == VObjectType::slModule_declaration) ||
-          (type == VObjectType::slUdp_declaration));
+  return ((type == VObjectType::paN_input_gate_instance) ||
+          (type == VObjectType::paModule_declaration) ||
+          (type == VObjectType::paUdp_declaration));
 }
 
 ModuleDefinition* ModuleDefinitionFactory::newModuleDefinition(

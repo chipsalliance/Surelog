@@ -80,7 +80,7 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
   const FileContent* fC = m_program->m_fileContents[0];
   NodeId nodeId = m_program->m_nodeIds[0];
   std::vector<VObjectType> stopPoints = {
-      VObjectType::slClass_declaration,
+      VObjectType::paClass_declaration,
   };
 
   NodeId programId = m_program->m_nodeIds[0];
@@ -88,7 +88,7 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
     VObject current = fC->Object(programId);
     programId = current.m_child;
   } while (programId &&
-           (fC->Type(programId) != VObjectType::slAttribute_instance));
+           (fC->Type(programId) != VObjectType::paAttribute_instance));
   if (programId) {
     if (UHDM::VectorOfattribute* attributes = m_helper.compileAttributes(
             m_program, fC, programId, m_compileDesign, nullptr)) {
@@ -106,7 +106,7 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
     // Package imports
     std::vector<FileCNodeId> pack_imports;
     // - Local file imports
-    for (auto import : fC->getObjects(VObjectType::slPackage_import_item)) {
+    for (auto import : fC->getObjects(VObjectType::paPackage_import_item)) {
       pack_imports.push_back(import);
     }
 
@@ -131,13 +131,13 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
     current = fC->Object(id);
     VObjectType type = fC->Type(id);
     switch (type) {
-      case VObjectType::slPackage_import_item: {
+      case VObjectType::paPackage_import_item: {
         if (collectType != CollectType::FUNCTION) break;
         m_helper.importPackage(m_program, m_design, fC, id, m_compileDesign);
         m_helper.compileImportDeclaration(m_program, fC, id, m_compileDesign);
         break;
       }
-      case VObjectType::slParameter_port_list: {
+      case VObjectType::paParameter_port_list: {
         if (collectType != CollectType::DEFINITION) break;
         ParameterPortListId = id;
         NodeId list_of_param_assignments = fC->Child(id);
@@ -147,12 +147,12 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
               Reduce::No, false, nullptr, false, false);
         break;
       }
-      case VObjectType::slAnsi_port_declaration: {
+      case VObjectType::paAnsi_port_declaration: {
         if (collectType != CollectType::DEFINITION) break;
         m_helper.compileAnsiPortDeclaration(m_program, fC, id, port_direction);
         break;
       }
-      case VObjectType::slPort: {
+      case VObjectType::paPort: {
         if (fC->Child(id)) {
           m_hasNonNullPort = true;
         }
@@ -163,56 +163,56 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
                                         m_hasNonNullPort || (m_nbPorts > 1));
         break;
       }
-      case VObjectType::slTask_declaration: {
+      case VObjectType::paTask_declaration: {
         // Called twice, placeholder first, then definition
         if (collectType == CollectType::OTHER) break;
         m_helper.compileTask(m_program, fC, id, m_compileDesign, Reduce::No,
                              nullptr, false);
         break;
       }
-      case VObjectType::slFunction_declaration: {
+      case VObjectType::paFunction_declaration: {
         // Called twice, placeholder first, then definition
         if (collectType == CollectType::OTHER) break;
         m_helper.compileFunction(m_program, fC, id, m_compileDesign, Reduce::No,
                                  nullptr, false);
         break;
       }
-      case VObjectType::slLet_declaration: {
+      case VObjectType::paLet_declaration: {
         if (collectType != CollectType::FUNCTION) break;
         m_helper.compileLetDeclaration(m_program, fC, id, m_compileDesign);
         break;
       }
-      case VObjectType::slInput_declaration:
-      case VObjectType::slOutput_declaration:
-      case VObjectType::slInout_declaration: {
+      case VObjectType::paInput_declaration:
+      case VObjectType::paOutput_declaration:
+      case VObjectType::paInout_declaration: {
         if (collectType != CollectType::DEFINITION) break;
         m_helper.compilePortDeclaration(m_program, fC, id, m_compileDesign,
                                         port_direction, m_hasNonNullPort);
         break;
       }
-      case VObjectType::slPort_declaration: {
+      case VObjectType::paPort_declaration: {
         if (collectType != CollectType::DEFINITION) break;
         m_helper.compilePortDeclaration(m_program, fC, id, m_compileDesign,
                                         port_direction, m_hasNonNullPort);
         break;
       }
-      case VObjectType::slAssertion_item: {
+      case VObjectType::paAssertion_item: {
         if (collectType != CollectType::OTHER) break;
         m_helper.compileAssertionItem(m_program, fC, id, m_compileDesign);
         break;
       }
-      case VObjectType::slContinuous_assign: {
+      case VObjectType::paContinuous_assign: {
         if (collectType != CollectType::OTHER) break;
         m_helper.compileContinuousAssignment(m_program, fC, fC->Child(id),
                                              m_compileDesign, nullptr);
         break;
       }
-      case VObjectType::slParameter_declaration: {
+      case VObjectType::paParameter_declaration: {
         if (collectType != CollectType::DEFINITION) break;
         NodeId list_of_type_assignments = fC->Child(id);
         if (fC->Type(list_of_type_assignments) ==
-                VObjectType::slList_of_type_assignments ||
-            fC->Type(list_of_type_assignments) == VObjectType::slType) {
+                VObjectType::paList_of_type_assignments ||
+            fC->Type(list_of_type_assignments) == VObjectType::paTYPE) {
           // Type param
           m_helper.compileParameterDeclaration(
               m_program, fC, list_of_type_assignments, m_compileDesign,
@@ -225,12 +225,12 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
         }
         break;
       }
-      case VObjectType::slLocal_parameter_declaration: {
+      case VObjectType::paLocal_parameter_declaration: {
         if (collectType != CollectType::DEFINITION) break;
         NodeId list_of_type_assignments = fC->Child(id);
         if (fC->Type(list_of_type_assignments) ==
-                VObjectType::slList_of_type_assignments ||
-            fC->Type(list_of_type_assignments) == VObjectType::slType) {
+                VObjectType::paList_of_type_assignments ||
+            fC->Type(list_of_type_assignments) == VObjectType::paTYPE) {
           // Type param
           m_helper.compileParameterDeclaration(
               m_program, fC, list_of_type_assignments, m_compileDesign,
@@ -243,10 +243,10 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
         }
         break;
       }
-      case VObjectType::slClass_declaration: {
+      case VObjectType::paClass_declaration: {
         if (collectType != CollectType::OTHER) break;
         NodeId nameId = fC->Child(id);
-        if (fC->Type(nameId) == VObjectType::slVirtual) {
+        if (fC->Type(nameId) == VObjectType::paVIRTUAL) {
           nameId = fC->Sibling(nameId);
         }
         const std::string_view name = fC->SymName(nameId);
@@ -260,14 +260,14 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
         m_program->addNamedObject(name, fnid, comp);
         break;
       }
-      case VObjectType::slNet_declaration: {
+      case VObjectType::paNet_declaration: {
         if (collectType != CollectType::DEFINITION) break;
         m_helper.compileNetDeclaration(m_program, fC, id, false,
                                        m_compileDesign);
         m_attributes = nullptr;
         break;
       }
-      case VObjectType::slData_declaration: {
+      case VObjectType::paData_declaration: {
         if (collectType != CollectType::DEFINITION) break;
         m_helper.compileDataDeclaration(m_program, fC, id, false,
                                         m_compileDesign, Reduce::No,
@@ -275,13 +275,13 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
         m_attributes = nullptr;
         break;
       }
-      case VObjectType::slAttribute_instance: {
+      case VObjectType::paAttribute_instance: {
         if (collectType != CollectType::DEFINITION) break;
         m_attributes = m_helper.compileAttributes(m_program, fC, id,
                                                   m_compileDesign, nullptr);
         break;
       }
-      case VObjectType::slInitial_construct: {
+      case VObjectType::paInitial_construct: {
         if (collectType != CollectType::OTHER) break;
         UHDM::initial* init =
             m_helper.compileInitialBlock(m_program, fC, id, m_compileDesign);
@@ -294,7 +294,7 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
         processes->push_back(init);
         break;
       }
-      case VObjectType::slFinal_construct: {
+      case VObjectType::paFinal_construct: {
         if (collectType != CollectType::OTHER) break;
         UHDM::final_stmt* final =
             m_helper.compileFinalBlock(m_program, fC, id, m_compileDesign);
@@ -307,24 +307,24 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
         processes->push_back(final);
         break;
       }
-      case VObjectType::slParam_assignment:
-      case VObjectType::slDefparam_assignment: {
+      case VObjectType::paParam_assignment:
+      case VObjectType::paDefparam_assignment: {
         if (collectType != CollectType::DEFINITION) break;
         FileCNodeId fnid(fC, id);
         m_program->addObject(type, fnid);
         break;
       }
-      case VObjectType::slDpi_import_export: {
+      case VObjectType::paDpi_import_export: {
         if (collectType != CollectType::FUNCTION) break;
         NodeId Import = fC->Child(id);
         NodeId StringLiteral = fC->Sibling(Import);
         NodeId Context_keyword = fC->Sibling(StringLiteral);
         NodeId Task_prototype;
-        if (fC->Type(Context_keyword) == VObjectType::slContext_keyword)
+        if (fC->Type(Context_keyword) == VObjectType::paContext_keyword)
           Task_prototype = fC->Sibling(Context_keyword);
         else
           Task_prototype = Context_keyword;
-        if (fC->Type(Task_prototype) == VObjectType::slTask_prototype) {
+        if (fC->Type(Task_prototype) == VObjectType::paTask_prototype) {
           Task* task =
               m_helper.compileTaskPrototype(m_program, fC, id, m_compileDesign);
           m_program->insertTask(task);
@@ -339,7 +339,7 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
         if (collectType != CollectType::DEFINITION) break;
         NodeId sibling = fC->Sibling(id);
         if (!sibling) {
-          if (fC->Type(fC->Parent(id)) != VObjectType::slProgram_declaration)
+          if (fC->Type(fC->Parent(id)) != VObjectType::paProgram_declaration)
             break;
           const std::string_view endLabel = fC->SymName(id);
           std::string_view moduleName =

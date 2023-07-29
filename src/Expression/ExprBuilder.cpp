@@ -66,7 +66,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
   NodeId child = fC->Child(parent);
   VObjectType type = fC->Type(parent);
   switch (type) {
-    case VObjectType::slPackage_scope: {
+    case VObjectType::paPackage_scope: {
       Value* sval = nullptr;
       const std::string_view packageName = fC->SymName(child);
       const std::string_view name = fC->SymName(fC->Sibling(parent));
@@ -110,7 +110,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
   if (child) {
     VObjectType childType = fC->Type(child);
     switch (childType) {
-      case VObjectType::slIncDec_PlusPlus: {
+      case VObjectType::paIncDec_PlusPlus: {
         // Pre increment
         NodeId sibling = fC->Sibling(child);
         Value* tmp = evalExpr(fC, sibling, instance, muteErrors);
@@ -119,7 +119,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         m_valueFactory.deleteValue(tmp);
         break;
       }
-      case VObjectType::slIncDec_MinusMinus: {
+      case VObjectType::paIncDec_MinusMinus: {
         // Pre decrement
         NodeId sibling = fC->Sibling(child);
         Value* tmp = evalExpr(fC, sibling, instance, muteErrors);
@@ -128,95 +128,95 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         m_valueFactory.deleteValue(tmp);
         break;
       }
-      case VObjectType::slUnary_Minus: {
+      case VObjectType::paUnary_Minus: {
         NodeId sibling = fC->Sibling(child);
         Value* tmp = evalExpr(fC, sibling, instance, muteErrors);
         value->u_minus(tmp);
         m_valueFactory.deleteValue(tmp);
         break;
       }
-      case VObjectType::slUnary_Plus: {
+      case VObjectType::paUnary_Plus: {
         NodeId sibling = fC->Sibling(child);
         Value* tmp = evalExpr(fC, sibling, instance, muteErrors);
         value->u_plus(tmp);
         m_valueFactory.deleteValue(tmp);
         break;
       }
-      case VObjectType::slUnary_Not: {
+      case VObjectType::paUnary_Not: {
         NodeId sibling = fC->Sibling(child);
         Value* tmp = evalExpr(fC, sibling, instance, muteErrors);
         value->u_not(tmp);
         m_valueFactory.deleteValue(tmp);
         break;
       }
-      case VObjectType::slUnary_Tilda: {
+      case VObjectType::paUnary_Tilda: {
         NodeId sibling = fC->Sibling(child);
         Value* tmp = evalExpr(fC, sibling, instance, muteErrors);
         value->u_tilda(tmp);
         m_valueFactory.deleteValue(tmp);
         break;
       }
-      case VObjectType::slUnary_BitwAnd: {
+      case VObjectType::paUnary_BitwAnd: {
         NodeId sibling = fC->Sibling(child);
         Value* tmp = evalExpr(fC, sibling, instance, muteErrors);
         value->u_bitwAnd(tmp);
         m_valueFactory.deleteValue(tmp);
         break;
       }
-      case VObjectType::slUnary_BitwOr: {
+      case VObjectType::paUnary_BitwOr: {
         NodeId sibling = fC->Sibling(child);
         Value* tmp = evalExpr(fC, sibling, instance, muteErrors);
         value->u_bitwOr(tmp);
         m_valueFactory.deleteValue(tmp);
         break;
       }
-      case VObjectType::slUnary_BitwXor: {
+      case VObjectType::paUnary_BitwXor: {
         NodeId sibling = fC->Sibling(child);
         Value* tmp = evalExpr(fC, sibling, instance, muteErrors);
         value->u_bitwXor(tmp);
         m_valueFactory.deleteValue(tmp);
         break;
       }
-      case VObjectType::slConstant_primary:
+      case VObjectType::paConstant_primary:
         m_valueFactory.deleteValue(value);
         value = evalExpr(fC, child, instance, muteErrors);
         break;
-      case VObjectType::slPrimary_literal:
+      case VObjectType::paPrimary_literal:
         m_valueFactory.deleteValue(value);
         value = evalExpr(fC, child, instance, muteErrors);
         break;
-      case VObjectType::slPrimary:
+      case VObjectType::paPrimary:
         m_valueFactory.deleteValue(value);
         value = evalExpr(fC, child, instance, muteErrors);
         break;
-      case VObjectType::slUnpacked_dimension:
+      case VObjectType::paUnpacked_dimension:
         // Only works for the case of constant_expression, not range
         m_valueFactory.deleteValue(value);
         value = evalExpr(fC, child, instance, muteErrors);
         break;
-      case VObjectType::slInc_or_dec_expression:
+      case VObjectType::paInc_or_dec_expression:
         m_valueFactory.deleteValue(value);
         value = evalExpr(fC, child, instance, muteErrors);
         break;
-      case VObjectType::slConstant_mintypmax_expression:
+      case VObjectType::paConstant_mintypmax_expression:
         m_valueFactory.deleteValue(value);
         value = evalExpr(fC, child, instance, muteErrors);
         break;
-      case VObjectType::slMintypmax_expression:
+      case VObjectType::paMintypmax_expression:
         m_valueFactory.deleteValue(value);
         value = evalExpr(fC, child, instance, muteErrors);
         break;
-      case VObjectType::slParam_expression:
+      case VObjectType::paParam_expression:
         m_valueFactory.deleteValue(value);
         value = evalExpr(fC, child, instance, muteErrors);
         break;
-      case VObjectType::slHierarchical_identifier: {
+      case VObjectType::paHierarchical_identifier: {
         m_valueFactory.deleteValue(value);
         value = evalExpr(fC, child, instance, muteErrors);
         break;
       }
-      case VObjectType::slExpression:
-      case VObjectType::slConstant_expression: {
+      case VObjectType::paExpression:
+      case VObjectType::paConstant_expression: {
         Value* valueL = evalExpr(fC, child, instance, muteErrors);
         NodeId op = fC->Sibling(child);
         if (!op) {
@@ -226,7 +226,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         }
         VObjectType opType = fC->Type(op);
         switch (opType) {
-          case VObjectType::slBinOp_Plus: {
+          case VObjectType::paBinOp_Plus: {
             NodeId rval = fC->Sibling(op);
             Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->plus(valueL, valueR);
@@ -234,7 +234,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             m_valueFactory.deleteValue(valueR);
             break;
           }
-          case VObjectType::slBinOp_Minus: {
+          case VObjectType::paBinOp_Minus: {
             NodeId rval = fC->Sibling(op);
             Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->minus(valueL, valueR);
@@ -242,7 +242,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             m_valueFactory.deleteValue(valueR);
             break;
           }
-          case VObjectType::slBinOp_Mult: {
+          case VObjectType::paBinOp_Mult: {
             NodeId rval = fC->Sibling(op);
             Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->mult(valueL, valueR);
@@ -250,7 +250,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             m_valueFactory.deleteValue(valueR);
             break;
           }
-          case VObjectType::slBinOp_MultMult: {
+          case VObjectType::paBinOp_MultMult: {
             NodeId rval = fC->Sibling(op);
             Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->power(valueL, valueR);
@@ -258,8 +258,8 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             m_valueFactory.deleteValue(valueR);
             break;
           }
-          case VObjectType::slQmark:
-          case VObjectType::slConditional_operator: {
+          case VObjectType::paQMARK:
+          case VObjectType::paConditional_operator: {
             int64_t v = valueL->getValueL();
             m_valueFactory.deleteValue(valueL);
             NodeId Expression = fC->Sibling(op);
@@ -271,7 +271,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             }
             break;
           }
-          case VObjectType::slBinOp_Div: {
+          case VObjectType::paBinOp_Div: {
             NodeId rval = fC->Sibling(op);
             Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->div(valueL, valueR);
@@ -279,7 +279,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             m_valueFactory.deleteValue(valueR);
             break;
           }
-          case VObjectType::slBinOp_Great: {
+          case VObjectType::paBinOp_Great: {
             NodeId rval = fC->Sibling(op);
             Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->greater(valueL, valueR);
@@ -287,7 +287,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             m_valueFactory.deleteValue(valueR);
             break;
           }
-          case VObjectType::slBinOp_GreatEqual: {
+          case VObjectType::paBinOp_GreatEqual: {
             NodeId rval = fC->Sibling(op);
             Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->greater_equal(valueL, valueR);
@@ -295,7 +295,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             m_valueFactory.deleteValue(valueR);
             break;
           }
-          case VObjectType::slBinOp_Less: {
+          case VObjectType::paBinOp_Less: {
             NodeId rval = fC->Sibling(op);
             Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->lesser(valueL, valueR);
@@ -303,7 +303,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             m_valueFactory.deleteValue(valueR);
             break;
           }
-          case VObjectType::slBinOp_LessEqual: {
+          case VObjectType::paBinOp_LessEqual: {
             NodeId rval = fC->Sibling(op);
             Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->lesser_equal(valueL, valueR);
@@ -311,7 +311,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             m_valueFactory.deleteValue(valueR);
             break;
           }
-          case VObjectType::slBinOp_Equiv: {
+          case VObjectType::paBinOp_Equiv: {
             NodeId rval = fC->Sibling(op);
             Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             if ((valueL->getType() == Value::Type::String) &&
@@ -324,7 +324,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             m_valueFactory.deleteValue(valueR);
             break;
           }
-          case VObjectType::slBinOp_Not: {
+          case VObjectType::paBinOp_Not: {
             NodeId rval = fC->Sibling(op);
             Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             if ((valueL->getType() == Value::Type::String) &&
@@ -337,7 +337,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             m_valueFactory.deleteValue(valueR);
             break;
           }
-          case VObjectType::slBinOp_Percent: {
+          case VObjectType::paBinOp_Percent: {
             NodeId rval = fC->Sibling(op);
             Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->mod(valueL, valueR);
@@ -345,7 +345,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             m_valueFactory.deleteValue(valueR);
             break;
           }
-          case VObjectType::slBinOp_LogicAnd: {
+          case VObjectType::paBinOp_LogicAnd: {
             NodeId rval = fC->Sibling(op);
             Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->logAnd(valueL, valueR);
@@ -353,7 +353,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             m_valueFactory.deleteValue(valueR);
             break;
           }
-          case VObjectType::slBinOp_LogicOr: {
+          case VObjectType::paBinOp_LogicOr: {
             NodeId rval = fC->Sibling(op);
             Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->logOr(valueL, valueR);
@@ -361,7 +361,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             m_valueFactory.deleteValue(valueR);
             break;
           }
-          case VObjectType::slBinOp_BitwAnd: {
+          case VObjectType::paBinOp_BitwAnd: {
             NodeId rval = fC->Sibling(op);
             Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->bitwAnd(valueL, valueR);
@@ -369,7 +369,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             m_valueFactory.deleteValue(valueR);
             break;
           }
-          case VObjectType::slBinOp_BitwOr: {
+          case VObjectType::paBinOp_BitwOr: {
             NodeId rval = fC->Sibling(op);
             Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->bitwOr(valueL, valueR);
@@ -377,7 +377,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             m_valueFactory.deleteValue(valueR);
             break;
           }
-          case VObjectType::slBinOp_BitwXor: {
+          case VObjectType::paBinOp_BitwXor: {
             NodeId rval = fC->Sibling(op);
             Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->bitwXor(valueL, valueR);
@@ -385,7 +385,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             m_valueFactory.deleteValue(valueR);
             break;
           }
-          case VObjectType::slBinOp_ShiftLeft: {
+          case VObjectType::paBinOp_ShiftLeft: {
             NodeId rval = fC->Sibling(op);
             Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->shiftLeft(valueL, valueR);
@@ -393,7 +393,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             m_valueFactory.deleteValue(valueR);
             break;
           }
-          case VObjectType::slBinOp_ShiftRight: {
+          case VObjectType::paBinOp_ShiftRight: {
             NodeId rval = fC->Sibling(op);
             Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->shiftRight(valueL, valueR);
@@ -498,15 +498,15 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         value->set(NumUtils::parseDouble(fC->SymName(child), &d) ? d : 0);
         break;
       }
-      case VObjectType::slNull_keyword: {
+      case VObjectType::paNull_keyword: {
         value->set((uint64_t)0);
         break;
       }
-      case VObjectType::slPackage_scope:
+      case VObjectType::paPackage_scope:
       case VObjectType::slStringConst: {
         Value* sval = nullptr;
         std::string fullName;
-        if (childType == VObjectType::slPackage_scope) {
+        if (childType == VObjectType::paPackage_scope) {
           const std::string_view packageName = fC->SymName(fC->Child(child));
           const std::string_view name = fC->SymName(fC->Sibling(child));
           if (m_design) {
@@ -563,57 +563,57 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         value->set(name);
         break;
       }
-      case VObjectType::slNumber_1Tickb0:
-      case VObjectType::slNumber_1TickB0:
-      case VObjectType::slInitVal_1Tickb0:
-      case VObjectType::slInitVal_1TickB0:
-      case VObjectType::slScalar_1Tickb0:
-      case VObjectType::slScalar_1TickB0: {
+      case VObjectType::paNumber_1Tickb0:
+      case VObjectType::paNumber_1TickB0:
+      case VObjectType::paInitVal_1Tickb0:
+      case VObjectType::paInitVal_1TickB0:
+      case VObjectType::paScalar_1Tickb0:
+      case VObjectType::paScalar_1TickB0: {
         value->set(0, Value::Type::Scalar, 1);
         break;
       }
-      case VObjectType::slNumber_Tickb0:
-      case VObjectType::slNumber_TickB0:
-      case VObjectType::slNumber_Tick0:
-      case VObjectType::slScalar_Tickb0:
-      case VObjectType::slScalar_TickB0:
-      case VObjectType::sl0: {
+      case VObjectType::paNumber_Tickb0:
+      case VObjectType::paNumber_TickB0:
+      case VObjectType::paNumber_Tick0:
+      case VObjectType::paScalar_Tickb0:
+      case VObjectType::paScalar_TickB0:
+      case VObjectType::pa0: {
         value->set(0, Value::Type::Scalar, 0);
         break;
       }
-      case VObjectType::slNumber_1Tickb1:
-      case VObjectType::slNumber_1TickB1:
-      case VObjectType::slInitVal_1Tickb1:
-      case VObjectType::slInitVal_1TickB1:
-      case VObjectType::slScalar_1Tickb1:
-      case VObjectType::slScalar_1TickB1: {
+      case VObjectType::paNumber_1Tickb1:
+      case VObjectType::paNumber_1TickB1:
+      case VObjectType::paInitVal_1Tickb1:
+      case VObjectType::paInitVal_1TickB1:
+      case VObjectType::paScalar_1Tickb1:
+      case VObjectType::paScalar_1TickB1: {
         value->set(1, Value::Type::Scalar, 1);
         break;
       }
-      case VObjectType::slNumber_Tickb1:
-      case VObjectType::slNumber_TickB1:
-      case VObjectType::slNumber_Tick1:
-      case VObjectType::slScalar_Tickb1:
-      case VObjectType::slScalar_TickB1:
-      case VObjectType::sl1: {
+      case VObjectType::paNumber_Tickb1:
+      case VObjectType::paNumber_TickB1:
+      case VObjectType::paNumber_Tick1:
+      case VObjectType::paScalar_Tickb1:
+      case VObjectType::paScalar_TickB1:
+      case VObjectType::pa1: {
         value->set(1, Value::Type::Scalar, 0);
         break;
       }
-      case VObjectType::slVariable_lvalue: {
+      case VObjectType::paVariable_lvalue: {
         Value* variableVal = evalExpr(fC, child, instance, muteErrors);
         NodeId sibling = fC->Sibling(child);
         if (sibling) {
           VObjectType opType = fC->Type(sibling);
-          if (opType == VObjectType::slIncDec_PlusPlus)
+          if (opType == VObjectType::paIncDec_PlusPlus)
             variableVal->incr();
-          else if (opType == VObjectType::slIncDec_MinusMinus)
+          else if (opType == VObjectType::paIncDec_MinusMinus)
             variableVal->decr();
         }
         m_valueFactory.deleteValue(value);
         value = variableVal;
         break;
       }
-      case VObjectType::slSubroutine_call: {
+      case VObjectType::paSubroutine_call: {
         NodeId dollar = fC->Child(child);
         NodeId function = fC->Sibling(dollar);
         NodeId List_of_arguments = fC->Sibling(function);
@@ -656,7 +656,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         }
         break;
       }
-      case VObjectType::slConstant_concatenation: {
+      case VObjectType::paConstant_concatenation: {
         NodeId Constant_expression = fC->Child(child);
         char base = 'h';
         std::string svalue;
@@ -771,92 +771,92 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         NodeId op = fC->Sibling(parent);
         VObjectType op_type = fC->Type(op);
         switch (op_type) {
-          case VObjectType::slIncDec_PlusPlus:
+          case VObjectType::paIncDec_PlusPlus:
             value->u_plus(sval);
             value->incr();
             return value;
-          case VObjectType::slIncDec_MinusMinus:
+          case VObjectType::paIncDec_MinusMinus:
             value->u_plus(sval);
             value->decr();
             return value;
-          case VObjectType::slAssignOp_Add: {
+          case VObjectType::paAssignOp_Add: {
             NodeId rval = fC->Sibling(op);
             Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->plus(sval, valueR);
             m_valueFactory.deleteValue(valueR);
             return value;
           }
-          case VObjectType::slAssignOp_Mult: {
+          case VObjectType::paAssignOp_Mult: {
             NodeId rval = fC->Sibling(op);
             Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->mult(sval, valueR);
             m_valueFactory.deleteValue(valueR);
             return value;
           }
-          case VObjectType::slAssignOp_Sub: {
+          case VObjectType::paAssignOp_Sub: {
             NodeId rval = fC->Sibling(op);
             Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->minus(sval, valueR);
             m_valueFactory.deleteValue(valueR);
             return value;
           }
-          case VObjectType::slAssignOp_Div: {
+          case VObjectType::paAssignOp_Div: {
             NodeId rval = fC->Sibling(op);
             Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->div(sval, valueR);
             m_valueFactory.deleteValue(valueR);
             return value;
           }
-          case VObjectType::slAssignOp_Modulo: {
+          case VObjectType::paAssignOp_Modulo: {
             NodeId rval = fC->Sibling(op);
             Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->mod(sval, valueR);
             m_valueFactory.deleteValue(valueR);
             return value;
           }
-          case VObjectType::slAssignOp_ArithShiftLeft: {
+          case VObjectType::paAssignOp_ArithShiftLeft: {
             NodeId rval = fC->Sibling(op);
             Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->shiftLeft(sval, valueR);
             m_valueFactory.deleteValue(valueR);
             return value;
           }
-          case VObjectType::slAssignOp_ArithShiftRight: {
+          case VObjectType::paAssignOp_ArithShiftRight: {
             NodeId rval = fC->Sibling(op);
             Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->shiftRight(sval, valueR);
             m_valueFactory.deleteValue(valueR);
             return value;
           }
-          case VObjectType::slAssignOp_BitwAnd: {
+          case VObjectType::paAssignOp_BitwAnd: {
             NodeId rval = fC->Sibling(op);
             Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->bitwAnd(sval, valueR);
             m_valueFactory.deleteValue(valueR);
             return value;
           }
-          case VObjectType::slAssignOp_BitwOr: {
+          case VObjectType::paAssignOp_BitwOr: {
             NodeId rval = fC->Sibling(op);
             Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->bitwOr(sval, valueR);
             m_valueFactory.deleteValue(valueR);
             return value;
           }
-          case VObjectType::slAssignOp_BitwXor: {
+          case VObjectType::paAssignOp_BitwXor: {
             NodeId rval = fC->Sibling(op);
             Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->bitwXor(sval, valueR);
             m_valueFactory.deleteValue(valueR);
             return value;
           }
-          case VObjectType::slAssignOp_BitwLeftShift: {
+          case VObjectType::paAssignOp_BitwLeftShift: {
             NodeId rval = fC->Sibling(op);
             Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->shiftLeft(sval, valueR);
             m_valueFactory.deleteValue(valueR);
             return value;
           }
-          case VObjectType::slAssignOp_BitwRightShift: {
+          case VObjectType::paAssignOp_BitwRightShift: {
             NodeId rval = fC->Sibling(op);
             Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->shiftRight(sval, valueR);
@@ -868,7 +868,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         }
         break;
       }
-      case VObjectType::slIncDec_PlusPlus: {
+      case VObjectType::paIncDec_PlusPlus: {
         const std::string_view name = fC->SymName(fC->Sibling(parent));
         Value* sval = nullptr;
         if (instance) {
@@ -885,7 +885,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         }
         break;
       }
-      case VObjectType::slIncDec_MinusMinus: {
+      case VObjectType::paIncDec_MinusMinus: {
         const std::string_view name = fC->SymName(fC->Sibling(parent));
         Value* sval = nullptr;
         if (instance) {

@@ -51,7 +51,7 @@ bool checkValidFunction(const DataType* dtype, std::string_view function,
   bool validFunction = true;
   VObjectType type = dtype->getType();
   const DataType* def = dtype->getDefinition();
-  if (type == VObjectType::slClass_declaration) {
+  if (type == VObjectType::paClass_declaration) {
     const ClassDefinition* the_class =
         datatype_cast<const ClassDefinition*>(dtype);
     if (the_class) {
@@ -120,12 +120,12 @@ std::vector<std::string_view> computeVarChain(const FileContent* fC,
         var_chain.emplace_back(fC->SymName(nodeId));
         break;
       }
-      case VObjectType::slImplicit_class_handle: {
+      case VObjectType::paImplicit_class_handle: {
         NodeId child = fC->Child(nodeId);
         VObjectType childType = fC->Type(child);
-        if (childType == VObjectType::slThis_keyword)
+        if (childType == VObjectType::paThis_keyword)
           var_chain.emplace_back("this");
-        else if (childType == VObjectType::slSuper_keyword)
+        else if (childType == VObjectType::paSuper_keyword)
           var_chain.emplace_back("super");
         else
           var_chain.emplace_back("UNKNOWN_TYPE");
@@ -244,7 +244,7 @@ bool TestbenchElaboration::bindBaseClasses_() {
         // Super
         DataType* thisdt = new DataType(
             class_def.second->getFileContent(), class_def.second->getNodeId(),
-            class_def.second->getName(), VObjectType::slClass_declaration);
+            class_def.second->getName(), VObjectType::paClass_declaration);
         thisdt->setDefinition(class_def.second);
         Property* prop =
             new Property(thisdt, classDefinition->getFileContent(),
@@ -276,7 +276,7 @@ bool TestbenchElaboration::bindBaseClasses_() {
           // Super
           DataType* thisdt = new DataType(
               class_def.second->getFileContent(), class_def.second->getNodeId(),
-              class_def.second->getName(), VObjectType::slClass_declaration);
+              class_def.second->getName(), VObjectType::paClass_declaration);
           thisdt->setDefinition(class_def.second);
           Property* prop =
               new Property(thisdt, classDefinition->getFileContent(),
@@ -311,8 +311,8 @@ bool TestbenchElaboration::bindDataTypes_() {
       if (dtype->getDefinition()) continue;
       VObjectType type = dtype->getType();
       if (type == VObjectType::slStringConst ||
-          type == VObjectType::slNull_rule ||
-          type == VObjectType::slClass_scope) {
+          type == VObjectType::paNull_rule ||
+          type == VObjectType::paClass_scope) {
         const DataType* the_def = bindDataType_(
             dataTypeName, dtype->getFileContent(), dtype->getNodeId(),
             classDefinition, ErrorDefinition::COMP_UNDEFINED_TYPE);
@@ -326,8 +326,8 @@ bool TestbenchElaboration::bindDataTypes_() {
         if (dtype->getDefinition()) continue;
         VObjectType type = dtype->getType();
         if (type == VObjectType::slStringConst ||
-            type == VObjectType::slNull_rule ||
-            type == VObjectType::slClass_scope) {
+            type == VObjectType::paNull_rule ||
+            type == VObjectType::paClass_scope) {
           const DataType* the_def = bindDataType_(
               dataTypeName, dtype->getFileContent(), dtype->getNodeId(),
               classDefinition, ErrorDefinition::COMP_UNDEFINED_TYPE);
@@ -431,7 +431,7 @@ bool TestbenchElaboration::bindSubRoutineCall_(ClassDefinition* classDefinition,
     VObjectType type = dtype->getType();
     const DataType* def = dtype->getDefinition();
 
-    if (type == VObjectType::slClass_declaration) {
+    if (type == VObjectType::paClass_declaration) {
       validFunction =
           checkValidFunction(dtype, function, stmt, design, datatypeName);
     } else if (DataType::isNumber(type) || DataType::isInteger_type(type) ||
@@ -446,15 +446,15 @@ bool TestbenchElaboration::bindSubRoutineCall_(ClassDefinition* classDefinition,
       if (range) {
         VObjectType rangeType = the_obj->getFileContent()->Type(range);
 
-        if (rangeType == VObjectType::slUnsized_dimension) {
+        if (rangeType == VObjectType::paUnsized_dimension) {
           // Vector
           validFunction = checkValidBuiltinClass_("array", function, stmt,
                                                   design, datatypeName);
-        } else if (rangeType == VObjectType::slVariable_dimension) {
+        } else if (rangeType == VObjectType::paVariable_dimension) {
           const FileContent* sfC = the_obj->getFileContent();
           NodeId subRange = sfC->Child(range);
           VObjectType the_type = sfC->Type(subRange);
-          if (the_type == VObjectType::slQueue_dimension) {
+          if (the_type == VObjectType::paQueue_dimension) {
             // Queue
 
             // foreach (darray[id]) darray[id].func()
@@ -462,9 +462,9 @@ bool TestbenchElaboration::bindSubRoutineCall_(ClassDefinition* classDefinition,
             tmp = sfC->Child(tmp);
             tmp = sfC->Sibling(tmp);
             VObjectType t = sfC->Type(tmp);
-            if ((t == VObjectType::slConstant_bit_select) && sfC->Child(tmp)) {
+            if ((t == VObjectType::paConstant_bit_select) && sfC->Child(tmp)) {
               // there is an actual array index
-              if (type == VObjectType::slClass_declaration) {
+              if (type == VObjectType::paClass_declaration) {
                 validFunction = checkValidFunction(dtype, function, stmt,
                                                    design, datatypeName);
               }
@@ -472,14 +472,14 @@ bool TestbenchElaboration::bindSubRoutineCall_(ClassDefinition* classDefinition,
               validFunction = checkValidBuiltinClass_("queue", function, stmt,
                                                       design, datatypeName);
             }
-          } else if (the_type == VObjectType::slUnpacked_dimension) {
+          } else if (the_type == VObjectType::paUnpacked_dimension) {
             // foreach (darray[id]) darray[id].func()
             NodeId subroutine_call = stmt->getNodeId();
             NodeId var_id = sfC->Child(subroutine_call);
             NodeId constant_bit_select = sfC->Sibling(var_id);
             VObjectType t = sfC->Type(constant_bit_select);
             NodeId select_id = sfC->Child(constant_bit_select);
-            if ((t == VObjectType::slConstant_bit_select) && select_id) {
+            if ((t == VObjectType::paConstant_bit_select) && select_id) {
               validFunction = checkValidFunction(dtype, function, stmt, design,
                                                  datatypeName);
             } else {
@@ -592,11 +592,11 @@ bool TestbenchElaboration::bindForeachLoop_(ClassDefinition* classDefinition,
       itrDataType =
           bindDataType_(dataTypeName, sfC, rangeTypeId, classDefinition,
                         ErrorDefinition::COMP_UNDEFINED_TYPE);
-    } else if (rangeType == VObjectType::slAssociative_dimension ||
-               rangeType == VObjectType::slQueue_dimension) {
+    } else if (rangeType == VObjectType::paAssociative_dimension ||
+               rangeType == VObjectType::paQueue_dimension) {
       // Integer Type
       itrDataType = new DataType(sfC, arrayId, "integer",
-                                 VObjectType::slIntegerAtomType_Int);
+                                 VObjectType::paIntegerAtomType_Int);
     }
 
     for (auto itrId : st->getIteratorIds()) {
@@ -630,7 +630,7 @@ bool TestbenchElaboration::bindFunctionBodies_() {
         for (Statement* stmt1 : stmt->getStatements()) stmts.push(stmt1);
         VObjectType stmt_type = stmt->getType();
         switch (stmt_type) {
-          case VObjectType::slPs_or_hierarchical_array_identifier: {
+          case VObjectType::paPs_or_hierarchical_array_identifier: {
             // Foreach loop
             ForeachLoopStmt* st = statement_cast<ForeachLoopStmt*>(stmt);
             if (st) {
@@ -638,7 +638,7 @@ bool TestbenchElaboration::bindFunctionBodies_() {
             }
             break;
           }
-          case VObjectType::slFor_initialization: {
+          case VObjectType::paFor_initialization: {
             // For loop
             ForLoopStmt* st = statement_cast<ForLoopStmt*>(stmt);
             if (st) {
@@ -646,7 +646,7 @@ bool TestbenchElaboration::bindFunctionBodies_() {
             }
             break;
           }
-          case VObjectType::slSubroutine_call_statement:
+          case VObjectType::paSubroutine_call_statement:
             bindSubRoutineCall_(classDefinition, stmt, design, symbols, errors);
             break;
           default:
@@ -716,7 +716,7 @@ bool TestbenchElaboration::bindProperties_() {
           classDefinition, fC, packedDimension, m_compileDesign, Reduce::Yes,
           nullptr, nullptr, packedSize, false);
       std::vector<UHDM::range*>* unpackedDimensions = nullptr;
-      if (fC->Type(unpackedDimension) == VObjectType::slClass_new) {
+      if (fC->Type(unpackedDimension) == VObjectType::paClass_new) {
       } else {
         unpackedDimensions = m_helper.compileRanges(
             classDefinition, fC, unpackedDimension, m_compileDesign,

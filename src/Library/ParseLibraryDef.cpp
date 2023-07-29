@@ -155,7 +155,7 @@ bool ParseLibraryDef::parseConfigDefinition() {
   FileContent* fC = m_fileContent;
   if (!fC) return false;
 
-  VObjectTypeUnorderedSet types = {VObjectType::slConfig_declaration};
+  VObjectTypeUnorderedSet types = {VObjectType::paConfig_declaration};
   std::vector<NodeId> configs = fC->sl_collect_all(fC->getRootNode(), types);
   for (auto config : configs) {
     NodeId ident = fC->Child(config);
@@ -165,7 +165,7 @@ bool ParseLibraryDef::parseConfigDefinition() {
     Config conf(name, fC, config);
 
     // Design clause
-    VObjectTypeUnorderedSet designStmt = {VObjectType::slDesign_statement};
+    VObjectTypeUnorderedSet designStmt = {VObjectType::paDesign_statement};
     std::vector<NodeId> designs = fC->sl_collect_all(config, designStmt);
     if (designs.empty()) {
       // TODO: Error
@@ -185,12 +185,12 @@ bool ParseLibraryDef::parseConfigDefinition() {
     }
 
     // Default clause
-    VObjectTypeUnorderedSet defaultStmt = {VObjectType::slDefault_clause};
+    VObjectTypeUnorderedSet defaultStmt = {VObjectType::paDefault_clause};
     std::vector<NodeId> defaults = fC->sl_collect_all(config, defaultStmt);
     if (!defaults.empty()) {
       NodeId defaultClause = defaults[0];
       NodeId libList = fC->Sibling(defaultClause);
-      if (fC->Type(libList) == VObjectType::slLiblist_clause) {
+      if (fC->Type(libList) == VObjectType::paLiblist_clause) {
         NodeId lib = fC->Child(libList);
         while (lib) {
           conf.addDefaultLib(fC->SymName(lib));
@@ -200,13 +200,13 @@ bool ParseLibraryDef::parseConfigDefinition() {
     }
 
     // Instance and Cell clauses
-    VObjectTypeUnorderedSet instanceStmt = {VObjectType::slInst_clause,
-                                            VObjectType::slCell_clause};
+    VObjectTypeUnorderedSet instanceStmt = {VObjectType::paInst_clause,
+                                            VObjectType::paCell_clause};
     std::vector<NodeId> instances = fC->sl_collect_all(config, instanceStmt);
     for (auto inst : instances) {
       VObjectType type = fC->Type(inst);
       NodeId instName = fC->Child(inst);
-      if (type == VObjectType::slInst_clause) instName = fC->Child(instName);
+      if (type == VObjectType::paInst_clause) instName = fC->Child(instName);
       std::string instNameS;
       while (instName) {
         if (instNameS.empty())
@@ -216,7 +216,7 @@ bool ParseLibraryDef::parseConfigDefinition() {
         instName = fC->Sibling(instName);
       }
       NodeId instClause = fC->Sibling(inst);
-      if (fC->Type(instClause) == VObjectType::slLiblist_clause) {
+      if (fC->Type(instClause) == VObjectType::paLiblist_clause) {
         NodeId libList = fC->Child(instClause);
         std::vector<std::string> libs;
         while (libList) {
@@ -225,15 +225,15 @@ bool ParseLibraryDef::parseConfigDefinition() {
         }
 
         UseClause usec(UseClause::UseLib, libs, fC, instClause);
-        if (type == VObjectType::slInst_clause)
+        if (type == VObjectType::paInst_clause)
           conf.addInstanceUseClause(instNameS, usec);
         else
           conf.addCellUseClause(instNameS, usec);
-      } else if (fC->Type(instClause) == VObjectType::slUse_clause) {
+      } else if (fC->Type(instClause) == VObjectType::paUse_clause) {
         NodeId use = fC->Child(instClause);
         std::string useName;
         VObjectType useType = fC->Type(use);
-        if (useType == VObjectType::slParameter_value_assignment) {
+        if (useType == VObjectType::paParameter_value_assignment) {
           UseClause usec(UseClause::UseParam, fC, use);
           conf.addInstanceUseClause(instNameS, usec);
         } else {
@@ -247,12 +247,12 @@ bool ParseLibraryDef::parseConfigDefinition() {
           }
           useName = StringUtils::replaceAll(useName, ".", "@");
           UseClause usec(UseClause::UseModule, useName, fC, mem);
-          if (type == VObjectType::slInst_clause)
+          if (type == VObjectType::paInst_clause)
             conf.addInstanceUseClause(instNameS, usec);
           else
             conf.addCellUseClause(instNameS, usec);
         }
-      } else if (fC->Type(instClause) == VObjectType::slUse_clause_config) {
+      } else if (fC->Type(instClause) == VObjectType::paUse_clause_config) {
         NodeId use = fC->Child(instClause);
         std::string useName;
         NodeId mem = use;
@@ -264,7 +264,7 @@ bool ParseLibraryDef::parseConfigDefinition() {
           use = fC->Sibling(use);
         }
         UseClause usec(UseClause::UseConfig, useName, fC, mem);
-        if (type == VObjectType::slInst_clause)
+        if (type == VObjectType::paInst_clause)
           conf.addInstanceUseClause(instNameS, usec);
         else
           conf.addCellUseClause(instNameS, usec);

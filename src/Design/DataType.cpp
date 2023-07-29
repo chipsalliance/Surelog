@@ -41,72 +41,72 @@ bool DataType::isInteger_type(VObjectType type) {
 }
 
 bool DataType::isInteger_atom_type(VObjectType type) {
-  return (type == VObjectType::slIntegerAtomType_Byte ||
-          type == VObjectType::slIntegerAtomType_Shortint ||
-          type == VObjectType::slIntegerAtomType_Integer ||
-          type == VObjectType::slIntegerAtomType_LongInt ||
-          type == VObjectType::slIntegerAtomType_Int ||
-          type == VObjectType::slIntegerAtomType_Time);
+  return (type == VObjectType::paIntegerAtomType_Byte ||
+          type == VObjectType::paIntegerAtomType_Shortint ||
+          type == VObjectType::paIntegerAtomType_Integer ||
+          type == VObjectType::paIntegerAtomType_LongInt ||
+          type == VObjectType::paIntegerAtomType_Int ||
+          type == VObjectType::paIntegerAtomType_Time);
 }
 
 bool DataType::isInteger_vector_type(VObjectType type) {
-  return (type == VObjectType::slIntVec_TypeBit ||
-          type == VObjectType::slIntVec_TypeLogic ||
-          type == VObjectType::slIntVec_TypeReg);
+  return (type == VObjectType::paIntVec_TypeBit ||
+          type == VObjectType::paIntVec_TypeLogic ||
+          type == VObjectType::paIntVec_TypeReg);
 }
 
 bool DataType::isNon_integer_type(VObjectType type) {
-  return (type == VObjectType::slNonIntType_ShortReal ||
-          type == VObjectType::slNonIntType_Real ||
-          type == VObjectType::slNonIntType_RealTime);
+  return (type == VObjectType::paNonIntType_ShortReal ||
+          type == VObjectType::paNonIntType_Real ||
+          type == VObjectType::paNonIntType_RealTime);
 }
 
 bool DataType::isNet_type(VObjectType type) {
-  return (type == VObjectType::slNetType_Supply0 ||
-          type == VObjectType::slNetType_Supply1 ||
-          type == VObjectType::slNetType_Tri ||
-          type == VObjectType::slNetType_TriAnd ||
-          type == VObjectType::slNetType_TriOr ||
-          type == VObjectType::slNetType_TriReg ||
-          type == VObjectType::slNetType_Tri0 ||
-          type == VObjectType::slNetType_Tri1 ||
-          type == VObjectType::slNetType_Uwire ||
-          type == VObjectType::slNetType_Wire ||
-          type == VObjectType::slNetType_Wand ||
-          type == VObjectType::slNetType_Wor);
+  return (type == VObjectType::paNetType_Supply0 ||
+          type == VObjectType::paNetType_Supply1 ||
+          type == VObjectType::paNetType_Tri ||
+          type == VObjectType::paNetType_TriAnd ||
+          type == VObjectType::paNetType_TriOr ||
+          type == VObjectType::paNetType_TriReg ||
+          type == VObjectType::paNetType_Tri0 ||
+          type == VObjectType::paNetType_Tri1 ||
+          type == VObjectType::paNetType_Uwire ||
+          type == VObjectType::paNetType_Wire ||
+          type == VObjectType::paNetType_Wand ||
+          type == VObjectType::paNetType_Wor);
 }
 
 bool DataType::isData_type(VObjectType type) {
   return (isInteger_vector_type(type) || isInteger_atom_type(type) ||
-          isNon_integer_type(type) || type == VObjectType::slString_type ||
-          type == VObjectType::slChandle_type ||
-          type == VObjectType::slEvent_type ||
-          type == VObjectType::slType_reference);
+          isNon_integer_type(type) || type == VObjectType::paString_type ||
+          type == VObjectType::paChandle_type ||
+          type == VObjectType::paEvent_type ||
+          type == VObjectType::paType_reference);
 }
 
 bool DataType::isString_type(VObjectType type) {
-  return (type == VObjectType::slString_type ||
+  return (type == VObjectType::paString_type ||
           type == VObjectType::slStringConst ||
           type == VObjectType::slStringLiteral);
 }
 
 bool DataType::isNumber(VObjectType type) {
   return (type == VObjectType::slRealConst ||
-          type == VObjectType::slInteger_type ||
-          type == VObjectType::slNumber_1Tickb0 ||
-          type == VObjectType::slNumber_1Tickb1 ||
-          type == VObjectType::slNumber_1TickB0 ||
-          type == VObjectType::slNumber_1TickB1 ||
-          type == VObjectType::slNumber_Tickb0 ||
-          type == VObjectType::slNumber_Tickb1 ||
-          type == VObjectType::slNumber_TickB0 ||
-          type == VObjectType::slNumber_TickB1 ||
-          type == VObjectType::slNumber_Tick0 ||
-          type == VObjectType::slNumber_Tick1 ||
-          type == VObjectType::slNumber_1Tickbx ||
-          type == VObjectType::slNumber_1TickbX ||
-          type == VObjectType::slNumber_1TickBx ||
-          type == VObjectType::slNumber_1TickBX);
+          type == VObjectType::paInteger_type ||
+          type == VObjectType::paNumber_1Tickb0 ||
+          type == VObjectType::paNumber_1Tickb1 ||
+          type == VObjectType::paNumber_1TickB0 ||
+          type == VObjectType::paNumber_1TickB1 ||
+          type == VObjectType::paNumber_Tickb0 ||
+          type == VObjectType::paNumber_Tickb1 ||
+          type == VObjectType::paNumber_TickB0 ||
+          type == VObjectType::paNumber_TickB1 ||
+          type == VObjectType::paNumber_Tick0 ||
+          type == VObjectType::paNumber_Tick1 ||
+          type == VObjectType::paNumber_1Tickbx ||
+          type == VObjectType::paNumber_1TickbX ||
+          type == VObjectType::paNumber_1TickBx ||
+          type == VObjectType::paNumber_1TickBX);
 }
 
 bool DataType::isCompatible(const Value* value) const {

@@ -26,13 +26,13 @@ TEST(ParserTest, BasicParse) {
   {
     auto fC = harness.parse("module top(); assign a = b; endmodule");
     NodeId root = fC->getRootNode();
-    NodeId assign = fC->sl_collect(root, VObjectType::slContinuous_assign);
+    NodeId assign = fC->sl_collect(root, VObjectType::paContinuous_assign);
     EXPECT_TRUE(assign);
   }
   {
     auto fC = harness.parse("module top(); assign a = !b; endmodule");
     NodeId root = fC->getRootNode();
-    NodeId assign = fC->sl_collect(root, VObjectType::slContinuous_assign);
+    NodeId assign = fC->sl_collect(root, VObjectType::paContinuous_assign);
     /*
     n<> u<10> t<Net_lvalue> p<17> c<7> s<16> l<1:22> el<1:23>
     n<b> u<11> t<StringConst> p<12> l<1:27> el<1:28>
@@ -50,7 +50,7 @@ TEST(ParserTest, BasicParse) {
     NodeId Net_lvalue = fC->Child(Net_assignment);
     NodeId Expression = fC->Sibling(Net_lvalue);
     NodeId Unary_Not = fC->Child(Expression);
-    EXPECT_EQ(fC->Type(Unary_Not), VObjectType::slUnary_Not);
+    EXPECT_EQ(fC->Type(Unary_Not), VObjectType::paUnary_Not);
   }
 }
 }  // namespace
