@@ -1,0 +1,326 @@
+- register_block:
+  - name: uart_csr
+    byte_size:  32
+
+################################################################
+  - register:
+    - name: rbr
+      offset_address: 0x00
+      type: [indirect, [lcr.dlab, 0]]
+      comment: |
+        Receiver Buffer Register
+      bit_fields:
+      - { bit_assignment: { lsb: 0, width: 8 }, type: rotrg }
+
+################################################################
+  - register:
+    - name: thr
+      offset_address: 0x00
+      type: [indirect, [lcr.dlab, 0]]
+      comment: |
+        Transmitter Holding Register
+      bit_fields:
+      - { bit_assignment: { lsb: 0, width: 8 }, type: wotrg, initial_value: 0xFF }
+
+################################################################
+  - register:
+    - name: ier
+      offset_address: 0x04
+      type: [indirect, [lcr.dlab, 0]]
+      comment: |
+        Interrupt Enable Register
+      bit_fields:
+      - <<:
+        - { name: erbfi, bit_assignment: { lsb: 0, width: 1 }, type: rw, initial_value: 0 }
+        - comment: |
+            Enable Received Data Available Interrupt
+            0: Disables Received Data Available Interrupts
+            1: Enables Received Data Available Interrupts
+      - <<:
+        - { name: etbei, bit_assignment: { lsb: 1, width: 1 }, type: rw, initial_value: 0 }
+        - comment: |
+            Enable Transmitter Holding Register Empty Interrupt
+            0: Disables Transmitter Holding Register Empty Interrupts
+            1: Enables Transmitter Holding Register Interrupts
+      - <<:
+        - { name: elsi, bit_assignment: { lsb: 2, width: 1 }, type: rw, initial_value: 0 }
+        - comment: |
+            Enable Receiver Line Status Interrupt
+            0: Disables Receiver Line Status Interrupts
+            1: Enables Receiver Line Status Interrupts
+      - <<:
+        - { name: edssi, bit_assignment: { lsb: 3, width: 1 }, type: rw, initial_value: 0 }
+        - comment: |
+            Enable Modem Status Interrupt
+            0: Disables Modem Status Interrupts
+            1: Enables Modem Status Interrupts
+
+################################################################
+  - register:
+    - name: iir
+      offset_address: 0x08
+      comment: |
+        Interrupt Identification Register
+      bit_fields:
+      - <<:
+        - { name: intpend, bit_assignment: { lsb: 0, width: 1 }, type: ro, initial_value: 1 }
+        - comment: |
+            0: Interrupt is pending
+            1: No interrupt is pending
+      - <<:
+        - { name: intid2, bit_assignment: { lsb: 1, width: 3 }, type: ro, initial_value: 0b000 }
+        - comment: |
+            Interrupt ID
+            011: Receiver Line Status (Highest)
+            010: Received Data Available (Second)
+            110: Character Timeout (Second)
+            001: Transmitter Holding Register Empty (Third)
+            000: Modem Status (Fourth)
+
+################################################################
+  - register:
+    - name: fcr
+      offset_address: 0x08
+      comment: |
+        FIFO Control Register
+      bit_fields:
+      - <<:
+        - { name: fifoen, bit_assignment: { lsb: 0, width: 1 }, type: wo, initial_value: 0 }
+        - comment: |
+            FIFO Enable
+            1: Enables FIFOs
+      - <<:
+        - { name: rcvr_fifo_reset, bit_assignment: { lsb: 1, width: 1 }, type: w1trg }
+        - comment: |
+            Receiver FIFO Reset
+            1: Resets RCVR FIFO
+      - <<:
+        - { name: xmit_fifo_reset, bit_assignment: { lsb: 2, width: 1 }, type: w1trg }
+        - comment: |
+            Transmitter FIFO Reset
+            1: Resets XMIT FIFO
+      - <<:
+        - { name: dma_mode_select, bit_assignment: { lsb: 3, width: 1 }, type: wo, initial_value: 0 }
+        - comment: |
+            DMA Mode Select
+            0: Mode 0
+            1: Mode 1
+      - <<:
+        - { name: rcvr_fifo_trigger_level, bit_assignment: { lsb: 6, width: 2 }, type: wo, initial_value: 0b00 }
+        - comment: |
+            RCVR FIFO Trigger Level
+            0b00: 1 byte
+            0b01: 4 bytes
+            0b10: 8 bytes
+            0b11: 14 bytes
+
+################################################################
+  - register:
+    - name: lcr
+      offset_address: 0x0C
+      comment: |
+        line control register
+      bit_fields:
+      - <<:
+        - { name: wls, bit_assignment: { lsb: 0, width: 2 }, type: rw, initial_value: 0b11 }
+        - comment: |
+            Word Length Select
+            0b00: 5 bits/character
+            0b01: 6 bits/character
+            0b10: 7 bits/character
+            0b11: 8 bits/character
+      - <<:
+        - { name: stb, bit_assignment: { lsb: 2, width: 1 }, type: rw, initial_value: 0 }
+        - comment: |
+            Number of Stop Bits
+            0: 1 Stop bit
+            1: 2 Stop bits or 1.5, if 5 bits/character selected
+      - <<:
+        - { name: pen, bit_assignment: { lsb: 3, width: 1 }, type: rw, initial_value: 0 }
+        - comment: |
+            Parity Enable
+            1: Enables parity
+            0: Disables parity
+      - <<:
+        - { name: eps, bit_assignment: { lsb: 4, width: 1 }, type: rw, initial_value: 0 }
+        - comment: |
+            Even Parity Select
+            1: Selects Even parity
+            0: Selects Odd parity
+      - <<:
+        - { name: stick_parity, bit_assignment: { lsb: 5, width: 1 }, type: rw, initial_value: 0 }
+        - comment: |
+            Stick Parity
+            1: Stick Parity is enabled
+            0: Stick Parity is disabled
+      - <<:
+        - { name: set_break, bit_assignment: { lsb: 6, width: 1 }, type: rw, initial_value: 0 }
+        - comment: |
+            Set Break
+            1: Enables break condition
+            0: Disables break condition
+      - <<:
+        - { name: dlab, bit_assignment: { lsb: 7, width: 1 }, type: rw, initial_value: 0 }
+        - comment: |
+            Divisor Latch Access Bit.
+            1: Allows access to the Divisor Latch Registers and reading of the FIFO Control Register
+            0: Allows access to RBR, THR, IER and IIR registers
+
+################################################################
+  - register:
+    - name: mrc
+      offset_address: 0x10
+      comment: |
+        Modem Control Register
+      bit_fields:
+      - <<:
+        - { name: dtr, bit_assignment: { lsb: 0, width: 1 }, type: rw, initial_value: 0 }
+        - comment: |
+            Data Terminal Ready
+            1: Drives DTRN Low
+            0: Drives DTRN High
+      - <<:
+        - { name: rts, bit_assignment: { lsb: 1, width: 1 }, type: rw, initial_value: 0 }
+        - comment: |
+            Request To Send
+            1: Drives RTSN Low
+            0: Drives RTSN High
+      - <<:
+        - { name: out1, bit_assignment: { lsb: 2, width: 1 }, type: rw, initial_value: 0 }
+        - comment: |
+            User Output 1
+            1: Drives OUT1N Low
+            0: Drives OUT1N High
+      - <<:
+        - { name: out2, bit_assignment: { lsb: 3, width: 1 }, type: rw, initial_value: 0 }
+        - comment: |
+            User Output 2
+            1: Drives OUT1N Low
+            0: Drives OUT1N High
+      - <<:
+        - { name: loop, bit_assignment: { lsb: 4, width: 1 }, type: rw, initial_value: 0 }
+        - comment: |
+            Loop Back
+            1: Enables loop back
+
+################################################################
+  - register:
+    - name: lsr
+      offset_address: 0x14
+      comment: |
+        Line Status Register
+      bit_fields:
+      - <<:
+        - { name: dr, bit_assignment: { lsb: 0, width: 1 }, type: ro, initial_value: 0 }
+        - comment: |
+            Data Ready
+            0: All the data in RBR or FIFO is read
+            1: Complete incoming character has been received and transferred into the RBR of FIFO
+      - <<:
+        - { name: oe, bit_assignment: { lsb: 1, width: 1 }, type: rotrg, initial_value: 0 }
+        - comment: |
+            Overrun Error
+      - <<:
+        - { name: pe, bit_assignment: { lsb: 2, width: 1 }, type: rotrg, initial_value: 0 }
+        - comment: |
+            Parity Error
+      - <<:
+        - { name: fe, bit_assignment: { lsb: 3, width: 1 }, type: rotrg, initial_value: 0 }
+        - comment: |
+            Framing Error
+      - <<:
+        - { name: bi, bit_assignment: { lsb: 4, width: 1 }, type: rotrg, initial_value: 0 }
+        - comment: |
+            Break Interrupt
+      - <<:
+        - { name: thre, bit_assignment: { lsb: 5, width: 1 }, type: ro, initial_value: 0 }
+        - comment: |
+            Transmitter Holding Register Empty
+            0: THR or Transmitter FIFO has data to transmit
+            1: THR and Transmitter FIFO are empty
+      - <<:
+        - { name: temt, bit_assignment: { lsb: 6, width: 1 }, type: ro, initial_value: 0 }
+        - comment: |
+            Transmitter Empty:
+            0: THR or Transmitter shift register contains data
+            1: THR, Transmitter FIFO and Transmitter shift register are empty
+      - <<:
+        - { name: error_in_rcvr_fifo, bit_assignment: { lsb: 7, width: 1 }, type: ro, initial_value: 0 }
+        - comment: |
+            RCVR FIFO contains at least one receiver error (Parity, Framing, Break condition)
+
+################################################################
+  - register:
+    - name: msr
+      offset_address: 0x18
+      comment: |
+        Modem Status Register
+      bit_fields:
+        - <<:
+          - { name: dcts, bit_assignment: { lsb: 0, width: 1 }, type: rotrg, initial_value: 0 }
+          - comment: |
+              Delta Clear To Send
+              Change in CTSN after last MSR read
+        - <<:
+          - { name: ddsr, bit_assignment: { lsb: 1, width: 1 }, type: rotrg, initial_value: 0 }
+          - comment: |
+              Delta Data Set Ready
+              Change in DSRN after last MSR read
+        - <<:
+          - { name: teri, bit_assignment: { lsb: 2, width: 1 }, type: ro, initial_value: 0 }
+          - comment: |
+              Trailing Edge Ring Indicator
+              RIN has changed from a Low to a High
+        - <<:
+          - { name: ddcd, bit_assignment: { lsb: 3, width: 1 }, type: rotrg, initial_value: 0 }
+          - comment: |
+              Delta Data Carrier Detect
+              Change in DCDN after last MSR read
+        - <<:
+          - { name: cts, bit_assignment: { lsb: 4, width: 1 }, type: ro }
+          - comment: |
+              Clear To Send
+              Complement of CTSN input
+        - <<:
+          - { name: dsr, bit_assignment: { lsb: 5, width: 1 }, type: ro }
+          - comment: |
+              Data Set Ready
+              Complement of DSRN input
+        - <<:
+          - { name: ri, bit_assignment: { lsb: 6, width: 1 }, type: ro }
+          - comment: |
+              Ring Indicator
+              Complement of RIN input
+        - <<:
+          - { name: dcd, bit_assignment: { lsb: 7, width: 1 }, type: ro }
+          - comment: |
+              Data Carrier Detect
+              Complement of DCDN input
+
+################################################################
+  - register:
+    - name: scratch
+      offset_address: 0x1c
+      comment: |
+        Scratch Register
+      bit_fields:
+      - { bit_assignment: { lsb: 0, width: 8 }, type: rw, initial_value: 0 }
+
+################################################################
+  - register:
+    - name: dll
+      offset_address: 0x00
+      type: [indirect, [lcr.dlab, 1]]
+      comment: |
+        Divisor Latch (Least Significant Byte) Register
+      bit_fields:
+      - { bit_assignment: { lsb: 0, width: 8 }, type: rw, initial_value: { default: 0 }}
+
+  - register:
+    - name: dlm
+      offset_address: 0x04
+      type: [indirect, [lcr.dlab, 1]]
+      comment: |
+        Divisor Latch (Most Significant Byte) Register
+      bit_fields:
+      - { bit_assignment: { lsb: 0, width: 8 }, type: rw, initial_value: { default: 0 }}
