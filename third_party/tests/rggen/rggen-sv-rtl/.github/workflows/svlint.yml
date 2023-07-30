@@ -1,0 +1,18 @@
+name: svlint
+
+on: [push, pull_request]
+
+jobs:
+  svlint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run svlint
+        uses: dalance/svlint-action@v1
+        with:
+          filelists: |
+            compile.f
+        env:
+          RGGEN_SV_RTL_ROOT: ${{ github.workspace }}
