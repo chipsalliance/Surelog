@@ -737,7 +737,7 @@ Processing: -cd ../SimpleClass1 +incdir+.+../../third_party/UVM/uvm-1.2/src/ ../
 
 [INF:CP0302] ${SURELOG_DIR}/tests/SimpleClass1/top.v:27:1: Compile class "work@uvm_pkg::uvm_component".
 
-[ERR:CP0329] ${SURELOG_DIR}/third_party/UVM/uvm-1.2/src/uvm_pkg.sv:28:1: Multiply defined package: "uvm_pkg",
+[WRN:CP0329] ${SURELOG_DIR}/third_party/UVM/uvm-1.2/src/uvm_pkg.sv:28:1: Multiply defined package: "uvm_pkg",
              ${SURELOG_DIR}/tests/SimpleClass1/top.v:13:1: previous definition.
 
 [WRN:CP0334] ${SURELOG_DIR}/tests/SimpleClass1/top.v:23:1: Colliding compilation unit name: "uvm_pkg",
@@ -775,7 +775,7 @@ Instance tree:
 
 [ERR:CP0317] ${SURELOG_DIR}/tests/SimpleClass1/top.v:102:5: Undefined type "T".
 
-[ERR:CP0332] ${SURELOG_DIR}/tests/SimpleClass1/top.v:111:3: Function "get_current_item" is not defined for variable "ar" of type slIntegerAtomType_Int,
+[ERR:CP0332] ${SURELOG_DIR}/tests/SimpleClass1/top.v:111:3: Function "get_current_item" is not defined for variable "ar" of type paIntegerAtomType_Int,
              ${SURELOG_DIR}/tests/SimpleClass1/top.v:107:20: type definition.
 
 [ERR:CP0332] ${SURELOG_DIR}/tests/SimpleClass1/top.v:139:3: Function "toto" is not defined for variable "byte_data" of type array,
@@ -792,8 +792,8 @@ Instance tree:
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 6
-[WARNING] : 17
+[  ERROR] : 5
+[WARNING] : 18
 [   NOTE] : 9
 Running list file ${SURELOG_DIR}/build/build/regression/TestBatchMode/slpp_all/class1/slpp_all/file.lst...
 Command result: 0
@@ -1516,6 +1516,6 @@ Instance tree:
 Processed 2 tests.
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 8
-[WARNING] : 21
+[  ERROR] : 7
+[WARNING] : 22
 [   NOTE] : 13

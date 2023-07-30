@@ -326,7 +326,7 @@ bool ErrorDefinition::init() {
   rec(COMP_UNDEFINED_VARIABLE, ERROR, COMP, "Undefined variable \"%s\"");
   rec(COMP_UNDEFINED_BASE_CLASS, ERROR, COMP,
       R"(Undefined base class "%s" extended by "%exobj")");
-  rec(COMP_MULTIPLY_DEFINED_PACKAGE, ERROR, COMP,
+  rec(COMP_MULTIPLY_DEFINED_PACKAGE, WARNING, COMP,
       "Multiply defined package: \"%s\"", "%exloc previous definition");
   rec(COMP_INCOMPATIBLE_TYPES, ERROR, COMP,
       R"(Incompatible types: "%s" is assigned "%exobj")");
