@@ -1165,8 +1165,20 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
           sigId = fC->Child(Primary_literal);
         }
         std::string sigName;
-        if (fC->Type(sigId) == VObjectType::slStringConst)
-          sigName = fC->SymName(sigId);
+        bool modPort = true;
+        if (hexpr && hexpr->UhdmType() == uhdmhier_path) {
+          hier_path* hier = (hier_path*)hexpr;
+          for (auto p : *hier->Path_elems()) {
+            if (p->UhdmType() != uhdmref_obj) {
+              modPort = false;
+              break;
+            }
+          }
+        }
+        if (modPort) {
+          if (fC->Type(sigId) == VObjectType::slStringConst)
+            sigName = fC->SymName(sigId);
+        }
         std::string baseName = sigName;
         std::string selectName;
         if (NodeId subId = fC->Sibling(sigId)) {
@@ -2777,6 +2789,20 @@ any* NetlistElaboration::bind_net_(ModuleInstance* instance,
         if (netlist->array_vars()) {
           for (variables* var : *netlist->array_vars()) {
             if (var->VpiName() == name) {
+              return var;
+            }
+          }
+        }
+        if (netlist->interfaces()) {
+          for (interface_inst* var : *netlist->interfaces()) {
+            if (var->VpiName() == name) {
+              return var;
+            }
+          }
+          for (interface_inst* var : *netlist->interfaces()) {
+            std::string_view basename =
+                StringUtils::rtrim_until(var->VpiName(), '[');
+            if (basename == name) {
               return var;
             }
           }

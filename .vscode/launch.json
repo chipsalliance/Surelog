@@ -1575,6 +1575,25 @@
             ]
         },
         {
+            "name": "Rggen",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-f", "Rggen.sl", "-parse", "-elabuhdm"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/third_party/tests/rggen",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
             "name": "SimpleClass2",
             "type": "cppdbg",
             "request": "launch",
