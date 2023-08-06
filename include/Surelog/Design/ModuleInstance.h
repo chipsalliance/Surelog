@@ -32,6 +32,7 @@
 #include <Surelog/SourceCompile/VObjectTypes.h>
 
 #include <string_view>
+#include <uhdm/Serializer.h>
 
 namespace SURELOG {
 
@@ -93,7 +94,7 @@ class ModuleInstance : public ValuedComponentI {
 
   void setNodeId(NodeId id) { m_nodeId = id; }  // Used for generate stmt
   void overrideParentChild(ModuleInstance* parent, ModuleInstance* interm,
-                           ModuleInstance* child);
+                           ModuleInstance* child, UHDM::Serializer& s);
   Netlist* getNetlist() { return m_netlist; }
   void setNetlist(Netlist* netlist) { m_netlist = netlist; }
 

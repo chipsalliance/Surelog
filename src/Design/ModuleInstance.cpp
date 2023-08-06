@@ -34,6 +34,7 @@
 #include <uhdm/param_assign.h>
 #include <uhdm/ref_obj.h>
 #include <uhdm/vpi_visitor.h>
+#include <uhdm/uhdm.h>
 
 namespace SURELOG {
 using UHDM::any;
@@ -297,16 +298,50 @@ std::string_view ModuleInstance::getModuleName() const {
 
 void ModuleInstance::overrideParentChild(ModuleInstance* parent,
                                          ModuleInstance* interm,
-                                         ModuleInstance* child) {
+                                         ModuleInstance* child, UHDM::Serializer& s) {
   if (parent != this) return;
   Netlist* netlist = interm->getNetlist();
   if (netlist) {
     if (netlist->cont_assigns() || netlist->process_stmts() ||
-        netlist->array_nets() || netlist->array_vars() ||
-        netlist->param_assigns() || netlist->nets() || netlist->variables() ||
+        netlist->array_nets() || netlist->array_vars() || netlist->param_assigns() || netlist->nets() || netlist->variables() ||
         netlist->interface_arrays() || netlist->interfaces())
       return;
   }
+
+  // Loop indexes
+  Netlist* child_netlist = child->getNetlist();
+  for (auto& param : interm->getMappedValues()) {
+    const std::string_view name = param.first;
+    Value* val = param.second.first;
+    auto params = child_netlist->param_assigns();
+    if (params == nullptr) {
+      params = s.MakeParam_assignVec();
+    }
+    child_netlist->param_assigns(params);
+    bool found = false;
+    for (auto p : *params) {
+      if (p->VpiName() == name) {
+        found = true;
+        break;
+      }
+    }
+    if (!found) {
+      UHDM::parameter* p = s.MakeParameter();
+      p->VpiName(name);
+      if (val && val->isValid()) p->VpiValue(val->uhdmValue());
+      p->VpiLineNo(param.second.second);
+      p->VpiLocalParam(true);
+      UHDM::int_typespec* ts = s.MakeInt_typespec();
+      p->Typespec(ts);
+      UHDM::param_assign* pass = s.MakeParam_assign();
+      pass->Lhs(p);
+      UHDM::constant* c = s.MakeConstant();
+      c->VpiValue(val->uhdmValue());
+      pass->Rhs(c);
+      params->push_back(pass);
+    }
+  }
+
   child->m_parent = this;
   std::vector<ModuleInstance*> children;
 

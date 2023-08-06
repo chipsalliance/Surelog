@@ -470,6 +470,23 @@ bool writeElabParameters(Serializer& s, ModuleInstance* instance,
   }
 
   if (netlist->param_assigns()) {
+    VectorOfany* params = m->Parameters();
+    if (params == nullptr) params = s.MakeAnyVec();
+    m->Parameters(params);
+    for (auto p : *netlist->param_assigns()) {
+      bool found = false;
+      for (auto pt : *params) {
+        if (pt->VpiName() == p->Lhs()->VpiName()) {
+          found = true;
+          break;
+        }
+      }
+      if (!found)
+        params->push_back(p->Lhs());
+    }
+  }
+
+  if (netlist->param_assigns()) {
     for (auto ps : *m->Param_assigns()) {
       ps->VpiParent(m);
       const std::string_view name = ps->Lhs()->VpiName();

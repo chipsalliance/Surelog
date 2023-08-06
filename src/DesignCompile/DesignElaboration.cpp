@@ -2476,6 +2476,7 @@ void DesignElaboration::checkConfigurations_() {
 
 void DesignElaboration::reduceUnnamedBlocks_() {
   Design* design = m_compileDesign->getCompiler()->getDesign();
+  UHDM::Serializer& s = m_compileDesign->getSerializer();
   std::queue<ModuleInstance*> queue;
   for (auto instance : design->getTopLevelModuleInstances()) {
     queue.push(instance);
@@ -2519,18 +2520,18 @@ void DesignElaboration::reduceUnnamedBlocks_() {
             StringUtils::leaf(parent->getModuleName());
         if (typeP == VObjectType::paGenerate_region) {
           parent->getParent()->overrideParentChild(parent->getParent(), parent,
-                                                   current);
+                                                   current,s);
         } else if (fullModName.find("genblk") != std::string::npos) {
           if (fullModName == fullModNameP)
             parent->getParent()->overrideParentChild(parent->getParent(),
-                                                     parent, current);
+                                                     parent, current,s);
         } else {
           if (type == VObjectType::paGenerate_item &&
               typeP == VObjectType::paGenerate_item) {
           } else {
             if (fullModNameP.find("genblk") != std::string::npos)
               parent->getParent()->overrideParentChild(parent->getParent(),
-                                                       parent, current);
+                                                       parent, current,s);
           }
         }
       }
