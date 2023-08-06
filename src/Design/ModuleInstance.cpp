@@ -33,8 +33,8 @@
 #include <uhdm/constant.h>
 #include <uhdm/param_assign.h>
 #include <uhdm/ref_obj.h>
-#include <uhdm/vpi_visitor.h>
 #include <uhdm/uhdm.h>
+#include <uhdm/vpi_visitor.h>
 
 namespace SURELOG {
 using UHDM::any;
@@ -298,12 +298,14 @@ std::string_view ModuleInstance::getModuleName() const {
 
 void ModuleInstance::overrideParentChild(ModuleInstance* parent,
                                          ModuleInstance* interm,
-                                         ModuleInstance* child, UHDM::Serializer& s) {
+                                         ModuleInstance* child,
+                                         UHDM::Serializer& s) {
   if (parent != this) return;
   Netlist* netlist = interm->getNetlist();
   if (netlist) {
     if (netlist->cont_assigns() || netlist->process_stmts() ||
-        netlist->array_nets() || netlist->array_vars() || netlist->param_assigns() || netlist->nets() || netlist->variables() ||
+        netlist->array_nets() || netlist->array_vars() ||
+        netlist->param_assigns() || netlist->nets() || netlist->variables() ||
         netlist->interface_arrays() || netlist->interfaces())
       return;
   }

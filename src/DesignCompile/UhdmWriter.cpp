@@ -481,8 +481,7 @@ bool writeElabParameters(Serializer& s, ModuleInstance* instance,
           break;
         }
       }
-      if (!found)
-        params->push_back(p->Lhs());
+      if (!found) params->push_back(p->Lhs());
     }
   }
 

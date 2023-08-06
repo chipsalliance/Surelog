@@ -2520,18 +2520,18 @@ void DesignElaboration::reduceUnnamedBlocks_() {
             StringUtils::leaf(parent->getModuleName());
         if (typeP == VObjectType::paGenerate_region) {
           parent->getParent()->overrideParentChild(parent->getParent(), parent,
-                                                   current,s);
+                                                   current, s);
         } else if (fullModName.find("genblk") != std::string::npos) {
           if (fullModName == fullModNameP)
             parent->getParent()->overrideParentChild(parent->getParent(),
-                                                     parent, current,s);
+                                                     parent, current, s);
         } else {
           if (type == VObjectType::paGenerate_item &&
               typeP == VObjectType::paGenerate_item) {
           } else {
             if (fullModNameP.find("genblk") != std::string::npos)
               parent->getParent()->overrideParentChild(parent->getParent(),
-                                                       parent, current,s);
+                                                       parent, current, s);
           }
         }
       }
