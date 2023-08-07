@@ -35,6 +35,25 @@ class Design;
 class SymbolTable;
 class ErrorContainer;
 
+struct FunctorCompileFileContentDecl {
+  FunctorCompileFileContentDecl(CompileDesign* compiler, FileContent* file,
+                            Design* design, SymbolTable* symbols,
+                            ErrorContainer* errors)
+      : m_compileDesign(compiler),
+        m_fileContent(file),
+        m_design(design),
+        m_symbols(symbols),
+        m_errors(errors) {}
+  int32_t operator()() const;
+
+ private:
+  CompileDesign* const m_compileDesign;
+  FileContent* const m_fileContent;
+  Design* const m_design;
+  SymbolTable* const m_symbols;
+  ErrorContainer* const m_errors;
+};
+
 struct FunctorCompileFileContent {
   FunctorCompileFileContent(CompileDesign* compiler, FileContent* file,
                             Design* design, SymbolTable* symbols,
@@ -58,9 +77,10 @@ class CompileFileContent final {
  public:
   CompileFileContent(CompileDesign* compiler, FileContent* file,
                      Design* design,
+                     bool declOnly,
                      [[maybe_unused]] SymbolTable* symbols,
                      [[maybe_unused]] ErrorContainer* errors)
-      : m_compileDesign(compiler), m_fileContent(file), m_design(design) {
+      : m_compileDesign(compiler), m_fileContent(file), m_design(design), m_declOnly(declOnly) {
     m_helper.seterrorReporting(errors, symbols);
   }
 
@@ -75,6 +95,7 @@ class CompileFileContent final {
   Design* const m_design;
 
   CompileHelper m_helper;
+  bool m_declOnly = false;
 };
 
 }  // namespace SURELOG

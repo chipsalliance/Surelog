@@ -28,9 +28,17 @@
 
 namespace SURELOG {
 
+int32_t FunctorCompileFileContentDecl::operator()() const {
+  CompileFileContent* instance = new CompileFileContent(
+      m_compileDesign, m_fileContent, m_design, true, m_symbols, m_errors);
+  instance->compile();
+  delete instance;
+  return 0;
+}
+
 int32_t FunctorCompileFileContent::operator()() const {
   CompileFileContent* instance = new CompileFileContent(
-      m_compileDesign, m_fileContent, m_design, m_symbols, m_errors);
+      m_compileDesign, m_fileContent, m_design, false, m_symbols, m_errors);
   instance->compile();
   delete instance;
   return 0;
@@ -64,61 +72,75 @@ bool CompileFileContent::collectObjects_() {
     VObjectType type = fC->Type(id);
     switch (type) {
       case VObjectType::paPackage_import_item: {
-        m_helper.importPackage(m_fileContent, m_design, fC, id,
-                               m_compileDesign);
-        m_helper.compileImportDeclaration(m_fileContent, fC, id,
-                                          m_compileDesign);
-        FileCNodeId fnid(fC, id);
-        m_fileContent->addObject(type, fnid);
+        if (m_declOnly == false) {
+          m_helper.importPackage(m_fileContent, m_design, fC, id,
+                                 m_compileDesign);
+          m_helper.compileImportDeclaration(m_fileContent, fC, id,
+                                            m_compileDesign);
+          FileCNodeId fnid(fC, id);
+          m_fileContent->addObject(type, fnid);
+        }
         break;
       }
       case VObjectType::paFunction_declaration: {
-        m_helper.compileFunction(m_fileContent, fC, id, m_compileDesign,
-                                 Reduce::No, nullptr, true);
-        m_helper.compileFunction(m_fileContent, fC, id, m_compileDesign,
-                                 Reduce::No, nullptr, true);
+        if (m_declOnly == false) {
+          m_helper.compileFunction(m_fileContent, fC, id, m_compileDesign,
+                                   Reduce::No, nullptr, true);
+          m_helper.compileFunction(m_fileContent, fC, id, m_compileDesign,
+                                   Reduce::No, nullptr, true);
+        }
         break;
       }
       case VObjectType::paData_declaration: {
-        m_helper.compileDataDeclaration(m_fileContent, fC, id, false,
-                                        m_compileDesign, Reduce::Yes, nullptr);
+        if (m_declOnly) {
+          m_helper.compileDataDeclaration(m_fileContent, fC, id, false,
+                                          m_compileDesign, Reduce::Yes,
+                                          nullptr);
+        }
         break;
       }
       case VObjectType::paParameter_declaration: {
-        NodeId list_of_type_assignments = fC->Child(id);
-        if (fC->Type(list_of_type_assignments) ==
-                VObjectType::paList_of_type_assignments ||
-            fC->Type(list_of_type_assignments) == VObjectType::paTYPE) {
-          // Type param
-          m_helper.compileParameterDeclaration(
-              m_fileContent, fC, list_of_type_assignments, m_compileDesign,
-              Reduce::Yes, false, nullptr, false, false);
+        if (m_declOnly) {
+          NodeId list_of_type_assignments = fC->Child(id);
+          if (fC->Type(list_of_type_assignments) ==
+                  VObjectType::paList_of_type_assignments ||
+              fC->Type(list_of_type_assignments) == VObjectType::paTYPE) {
+            // Type param
+            m_helper.compileParameterDeclaration(
+                m_fileContent, fC, list_of_type_assignments, m_compileDesign,
+                Reduce::Yes, false, nullptr, false, false);
 
-        } else {
-          m_helper.compileParameterDeclaration(m_fileContent, fC, id,
-                                               m_compileDesign, Reduce::Yes,
-                                               false, nullptr, false, false);
+          } else {
+            m_helper.compileParameterDeclaration(m_fileContent, fC, id,
+                                                 m_compileDesign, Reduce::Yes,
+                                                 false, nullptr, false, false);
+          }
         }
         break;
       }
       case VObjectType::paLet_declaration: {
-        m_helper.compileLetDeclaration(m_fileContent, fC, id, m_compileDesign);
+        if (m_declOnly) {
+          m_helper.compileLetDeclaration(m_fileContent, fC, id,
+                                         m_compileDesign);
+        }
         break;
       }
       case VObjectType::paLocal_parameter_declaration: {
-        NodeId list_of_type_assignments = fC->Child(id);
-        if (fC->Type(list_of_type_assignments) ==
-                VObjectType::paList_of_type_assignments ||
-            fC->Type(list_of_type_assignments) == VObjectType::paTYPE) {
-          // Type param
-          m_helper.compileParameterDeclaration(
-              m_fileContent, fC, list_of_type_assignments, m_compileDesign,
-              Reduce::Yes, true, nullptr, false, false);
+        if (m_declOnly) {
+          NodeId list_of_type_assignments = fC->Child(id);
+          if (fC->Type(list_of_type_assignments) ==
+                  VObjectType::paList_of_type_assignments ||
+              fC->Type(list_of_type_assignments) == VObjectType::paTYPE) {
+            // Type param
+            m_helper.compileParameterDeclaration(
+                m_fileContent, fC, list_of_type_assignments, m_compileDesign,
+                Reduce::Yes, true, nullptr, false, false);
 
-        } else {
-          m_helper.compileParameterDeclaration(m_fileContent, fC, id,
-                                               m_compileDesign, Reduce::Yes,
-                                               true, nullptr, false, false);
+          } else {
+            m_helper.compileParameterDeclaration(m_fileContent, fC, id,
+                                                 m_compileDesign, Reduce::Yes,
+                                                 true, nullptr, false, false);
+          }
         }
         break;
       }
