@@ -311,6 +311,9 @@ bool CompileDesign::compilation_() {
   compileMT_<FileContent, Design::FileIdDesignContentMap, FunctorResolve>(
       all_files, maxThreadCount);
 
+  compileMT_<FileContent, Design::FileIdDesignContentMap,
+             FunctorCompileFileContentDecl>(all_files, maxThreadCount);
+
   collectObjects_(all_files, design, false);
   m_compiler->getDesign()->orderPackages();
 
