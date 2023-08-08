@@ -2512,6 +2512,7 @@ void DesignElaboration::reduceUnnamedBlocks_() {
            typeP == VObjectType::paLoop_generate_construct ||
            typeP == VObjectType::paGenerate_module_loop_statement ||
            typeP == VObjectType::paGenerate_interface_loop_statement ||
+           typeP == VObjectType::paGenerate_begin_end_block ||
            typeP == VObjectType::paGenerate_region ||
            typeP == VObjectType::paGenerate_item)) {
         std::string_view fullModName =
@@ -2522,16 +2523,22 @@ void DesignElaboration::reduceUnnamedBlocks_() {
           parent->getParent()->overrideParentChild(parent->getParent(), parent,
                                                    current, s);
         } else if (fullModName.find("genblk") != std::string::npos) {
-          if (fullModName == fullModNameP)
-            parent->getParent()->overrideParentChild(parent->getParent(),
-                                                     parent, current, s);
+          if (fullModName == fullModNameP) {
+            if (fullModNameP.find("[") == std::string::npos) {
+              parent->getParent()->overrideParentChild(parent->getParent(),
+                                                       parent, current, s);
+            }
+          }
         } else {
           if (type == VObjectType::paGenerate_item &&
               typeP == VObjectType::paGenerate_item) {
           } else {
-            if (fullModNameP.find("genblk") != std::string::npos)
-              parent->getParent()->overrideParentChild(parent->getParent(),
-                                                       parent, current, s);
+            if (fullModNameP.find("genblk") != std::string::npos) {
+              if (fullModNameP.find("[") == std::string::npos) {
+                parent->getParent()->overrideParentChild(parent->getParent(),
+                                                         parent, current, s);
+              }
+            }
           }
         }
       }

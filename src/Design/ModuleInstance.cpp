@@ -304,14 +304,25 @@ void ModuleInstance::overrideParentChild(ModuleInstance* parent,
   Netlist* netlist = interm->getNetlist();
   if (netlist) {
     if (netlist->cont_assigns() || netlist->process_stmts() ||
-        netlist->array_nets() || netlist->array_vars() ||
-        netlist->param_assigns() || netlist->nets() || netlist->variables() ||
+        netlist->array_nets() || netlist->param_assigns() ||
+        netlist->array_vars() || netlist->nets() || netlist->variables() ||
         netlist->interface_arrays() || netlist->interfaces())
       return;
   }
 
-  // Loop indexes
   Netlist* child_netlist = child->getNetlist();
+  if (netlist->param_assigns()) {
+    auto params = child_netlist->param_assigns();
+    if (params == nullptr) {
+      params = s.MakeParam_assignVec();
+    }
+    child_netlist->param_assigns(params);
+    for (auto p : *netlist->param_assigns()) {
+      params->push_back(p);
+    }
+  }
+
+  // Loop indexes
   for (auto& param : interm->getMappedValues()) {
     const std::string_view name = param.first;
     Value* val = param.second.first;

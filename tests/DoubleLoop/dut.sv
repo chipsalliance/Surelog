@@ -1,5 +1,5 @@
 
-module constpower(ys, yu);
+module constpower1(ys, yu);
 
 output [2:0] ys, yu;
 
@@ -16,45 +16,73 @@ endgenerate
 
 endmodule
 
-/*
+module constpower2(ys, yu);
 
-interface rggen_register_if #(
-);
- 
+output [2:0] ys, yu;
 
-  logic                     valid;
-  logic [31:0]   value;
+genvar i, j;
 
-  modport register (
-    input   valid,
-    output  value
-  );
+generate
+	for (i = 0; i < 2; i = i+1) 
+	for (j = 0; j < 2; j = j+1) begin
+		assign ys= i + j;
+		
+	end
 
-  modport monitor (
-    input valid,
-    input value
-  );
-endinterface
-
-
-module rggen_bit_field (input logic [31:0] o_value);
-endmodule
-
-module top();
-  rggen_register_if  register_if[1]();
-
-
-  // assign o = register_if[0].value[8+:1];
-  
-  rggen_bit_field i1 (
-    .o_value            (register_if)
-  );
-
-   rggen_bit_field  u_bit_field (
-    .o_value            (register_if[0].value[8+:1])
-  );
-  
+endgenerate
 
 endmodule
 
-*/
+module constpower3(ys, yu);
+
+output [2:0] ys, yu;
+
+genvar i, j;
+
+generate
+	for (i = 0; i < 2; i = i+1) begin
+	for (j = 0; j < 2; j = j+1) 
+		assign ys= i + j;
+		
+	end
+
+endgenerate
+
+endmodule // constpower3
+
+module constpower4(ys, yu);
+
+output [2:0] ys, yu;
+
+genvar i, j;
+
+generate
+	for (i = 0; i < 2; i = i+1) begin
+	for (j = 0; j < 2; j = j+1) begin
+		assign ys= i + j;
+		
+	end
+        end
+
+endgenerate
+
+endmodule // constpower4
+
+
+module constpower5(ys, yu);
+
+output [2:0] ys, yu;
+
+genvar i, j;
+
+generate
+	for (i = 0; i < 2; i = i+1) 
+	for (j = 0; j < 2; j = j+1) 
+		assign ys= i + j;
+		
+	
+        
+
+endgenerate
+
+endmodule // constpower5
