@@ -32,6 +32,9 @@ option(
 option(
   SURELOG_USE_HOST_UHDM
   "Use UHDM library from host instead of third_party" OFF)
+option(SURELOG_USE_HOST_CAPNP
+  "Use capnproto from host system, not UHDM (if OFF, requires SURELOG_USE_HOST_UHDM=OFF)"
+  OFF)
 option(
   SURELOG_USE_HOST_GTEST
   "Use googletest library from host instead of third_party" OFF)
@@ -101,12 +104,13 @@ else()
   set(ANTLR_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/third_party/antlr4/runtime/Cpp/runtime/src)
 endif()
 
-set(UHDM_BUILD_TESTS OFF CACHE BOOL "Skip UHDM tests")
 if(SURELOG_USE_HOST_UHDM)
   find_package(UHDM REQUIRED)
   find_package(CapnProto)
   set(UHDM_LIBRARY uhdm::uhdm)
 else()
+  set(UHDM_USE_HOST_CAPNP ${SURELOG_USE_HOST_CAPNP})
+  set(UHDM_BUILD_TESTS OFF CACHE BOOL "Skip UHDM tests")
   add_subdirectory(third_party/UHDM)
   set(UHDM_LIBRARY uhdm)
   get_target_property(UHDM_INCLUDE_DIRS uhdm INCLUDE_DIRECTORIES)
@@ -117,6 +121,13 @@ if(SURELOG_USE_HOST_GTEST)
 else()
   add_subdirectory(third_party/googletest EXCLUDE_FROM_ALL)
   set(GTEST_INCLUDE_DIRS third_party/googletest/googletest/include third_party/googletest/googlemock/include)
+endif()
+
+if(SURELOG_USE_HOST_CAPNP)
+  find_package(CapnProto)
+else()
+  # rely on UHDM_USE_HOST_CAPNP to have set up variables correctly
+  # Requires SURELOG_USE_HOST_UHDM=Off
 endif()
 
 # NOTE: Set the global output directories after the subprojects have had their go at it
