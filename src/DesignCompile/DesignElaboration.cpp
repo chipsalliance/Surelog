@@ -2524,7 +2524,7 @@ void DesignElaboration::reduceUnnamedBlocks_() {
                                                    current, s);
         } else if (fullModName.find("genblk") != std::string::npos) {
           if (fullModName == fullModNameP) {
-            if (fullModNameP.find("[") == std::string::npos) {
+            if (fullModNameP.find('[') == std::string::npos) {
               parent->getParent()->overrideParentChild(parent->getParent(),
                                                        parent, current, s);
             }
@@ -2534,7 +2534,7 @@ void DesignElaboration::reduceUnnamedBlocks_() {
               typeP == VObjectType::paGenerate_item) {
           } else {
             if (fullModNameP.find("genblk") != std::string::npos) {
-              if (fullModNameP.find("[") == std::string::npos) {
+              if (fullModNameP.find('[') == std::string::npos) {
                 parent->getParent()->overrideParentChild(parent->getParent(),
                                                          parent, current, s);
               }
