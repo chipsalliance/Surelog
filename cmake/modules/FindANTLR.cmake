@@ -13,7 +13,7 @@ find_package(Java QUIET COMPONENTS Runtime)
 if(NOT ANTLR_JAR_LOCATION)
   find_file(ANTLR_JAR_LOCATION
             NAMES antlr-4.12.0-complete.jar antlr.jar antlr4.jar antlr-4.jar 
-            HINTS /usr /usr/local /usr/local/lib/ /usr/share /usr/share/java /usr/local/Homebrew ~/homebrew /usr/local/homebrew/Cellar /opt/homebrew/Cellar
+            HINTS /usr /usr/local /usr/local/share /usr/local/share/java /usr/local/lib/ /usr/share /usr/share/java /usr/local/Homebrew ~/homebrew /usr/local/homebrew/Cellar /opt/homebrew/Cellar
             PATH_SUFFIXES antlr 4.12.0 antlr/4.12.0 
             NO_CMAKE_SYSTEM_PATH
             NO_SYSTEM_ENVIRONMENT_PATH)
