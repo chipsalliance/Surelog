@@ -843,7 +843,8 @@ void DesignElaboration::elaborateInstance_(
       VObjectType::paBind_directive,
       VObjectType::paGenerate_region,
       VObjectType::paGenerate_begin_end_block,
-      VObjectType::paFunction_declaration};
+      VObjectType::paFunction_declaration,
+      VObjectType::paTask_declaration};
 
   std::vector<NodeId> subInstances =
       fC->sl_collect_all(nodeId, types, stopPoints);
