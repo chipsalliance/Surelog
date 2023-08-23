@@ -4589,6 +4589,29 @@ bool CompileHelper::isSelected(const FileContent* fC,
   return false;
 }
 
+static void adjustUnsized(constant* c, int32_t size) {
+  if (c == nullptr) return;
+  int32_t csize = c->VpiSize();
+  if (csize == -1) {
+    UHDM::ExprEval eval;
+    bool invalidValue = false;
+    uint64_t lv = eval.get_uvalue(invalidValue, c);
+    if (lv == 1) {
+      if (size <= 64) {
+        uint64_t mask = NumUtils::getMask(size);
+        c->VpiValue("UINT:" + std::to_string(mask));
+        c->VpiDecompile(std::to_string(mask));
+        c->VpiConstType(vpiUIntConst);
+      } else {
+        std::string mask(size, '1');
+        c->VpiValue("BIN:" + mask);
+        c->VpiDecompile(mask);
+        c->VpiConstType(vpiBinaryConst);
+      }
+    }
+  }
+}
+
 int32_t CompileHelper::adjustOpSize(const typespec* tps, expr* cop,
                                     int32_t opIndex, UHDM::expr* rhs,
                                     DesignComponent* component,
@@ -4615,28 +4638,31 @@ int32_t CompileHelper::adjustOpSize(const typespec* tps, expr* cop,
     int32_t index = 0;
     for (typespec_member* member : *stps->Members()) {
       if (index == opIndex) {
-        csize = Bits(member->Typespec(), invalidValue, component, compileDesign,
-                     Reduce::Yes, instance,
-                     fileSystem->toPathId(
-                         member->VpiFile(),
-                         compileDesign->getCompiler()->getSymbolTable()),
-                     member->VpiLineNo(), false);
+        int32_t ncsize =
+            Bits(member->Typespec(), invalidValue, component, compileDesign,
+                 Reduce::Yes, instance,
+                 fileSystem->toPathId(
+                     member->VpiFile(),
+                     compileDesign->getCompiler()->getSymbolTable()),
+                 member->VpiLineNo(), false);
         // Fix the size of the member:
-        cop->VpiSize(csize);
+        adjustUnsized(any_cast<constant*>(cop), ncsize);
+        cop->VpiSize(ncsize);
         break;
       }
       index++;
     }
   } else if (rtps->UhdmType() == uhdmarray_typespec) {
     array_typespec* atps = (array_typespec*)rtps;
-    csize = Bits(
+    int32_t ncsize = Bits(
         atps->Elem_typespec(), invalidValue, component, compileDesign,
         Reduce::Yes, instance,
         fileSystem->toPathId(rtps->VpiFile(),
                              compileDesign->getCompiler()->getSymbolTable()),
         rtps->VpiLineNo(), false);
     // Fix the size of the member:
-    cop->VpiSize(csize);
+    adjustUnsized(any_cast<constant*>(cop), ncsize);
+    cop->VpiSize(ncsize);
   } else if (rtps->UhdmType() == uhdmlogic_typespec) {
     uint64_t fullSize = Bits(
         rtps, invalidValue, component, compileDesign, Reduce::Yes, instance,
@@ -4648,20 +4674,22 @@ int32_t CompileHelper::adjustOpSize(const typespec* tps, expr* cop,
         fileSystem->toPathId(rtps->VpiFile(),
                              compileDesign->getCompiler()->getSymbolTable()),
         rtps->VpiLineNo(), true);
-    csize = fullSize / innerSize;
+    int32_t ncsize = fullSize / innerSize;
     // Fix the size of the member:
-    cop->VpiSize(csize);
+    adjustUnsized(any_cast<constant*>(cop), ncsize);
+    cop->VpiSize(ncsize);
   } else {
-    csize = Bits(
+    int32_t ncsize = Bits(
         rtps, invalidValue, component, compileDesign, Reduce::Yes, instance,
         fileSystem->toPathId(rtps->VpiFile(),
                              compileDesign->getCompiler()->getSymbolTable()),
         rtps->VpiLineNo(), false);
     // Fix the size of the member:
-    cop->VpiSize(csize);
+    adjustUnsized(any_cast<constant*>(cop), ncsize);
+    cop->VpiSize(ncsize);
   }
 
-  return csize;
+  return cop->VpiSize();
 }
 
 UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
