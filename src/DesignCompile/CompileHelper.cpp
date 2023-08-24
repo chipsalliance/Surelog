@@ -3068,6 +3068,7 @@ UHDM::any* CompileHelper::defaultPatternAssignment(const UHDM::typespec* tps,
     return result;
   }
   UHDM::Serializer& s = compileDesign->getSerializer();
+  FileSystem* const fileSystem = FileSystem::getInstance();
   if (exp->UhdmType() == uhdmoperation) {
     operation* op = (operation*)exp;
     VectorOfany* operands = op->Operands();
@@ -3136,12 +3137,10 @@ UHDM::any* CompileHelper::defaultPatternAssignment(const UHDM::typespec* tps,
           if (ptps->VpiName() == "default") {
             bool invalidValue = false;
             UHDM::ExprEval eval;
-            uint64_t val0 =
-                eval.get_value(invalidValue, (expr*)pattern->Pattern());
-            constant* c = s.MakeConstant();
-            c->VpiValue("UINT:" + std::to_string(val0));
-            c->VpiDecompile(std::to_string(val0));
-            c->VpiConstType(vpiUIntConst);
+            expr* expat = (expr*)pattern->Pattern();
+            constant* c = any_cast<constant*>(expat);
+            int32_t psize = expat->VpiSize();
+            int32_t ncsize = 32;
             range* r = nullptr;
             UHDM_OBJECT_TYPE ttps = tps->UhdmType();
             UHDM_OBJECT_TYPE baseType = uhdmint_typespec;
@@ -3151,6 +3150,7 @@ UHDM::any* CompileHelper::defaultPatternAssignment(const UHDM::typespec* tps,
               if (lts->Ranges() && !lts->Ranges()->empty()) {
                 r = (*lts->Ranges())[0];
               }
+              ncsize = 1;
             } else if (ttps == uhdmarray_typespec) {
               array_typespec* lts = (array_typespec*)tps;
               if (lts->Elem_typespec()) {
@@ -3158,12 +3158,28 @@ UHDM::any* CompileHelper::defaultPatternAssignment(const UHDM::typespec* tps,
                 if (lts->Ranges() && !lts->Ranges()->empty()) {
                   r = (*lts->Ranges())[0];
                 }
+                ncsize =
+                  Bits(lts->Elem_typespec(), invalidValue, component,
+                       compileDesign, Reduce::Yes, instance,
+                       fileSystem->toPathId(
+                           lts->Elem_typespec()->VpiFile(),
+                           compileDesign->getCompiler()->getSymbolTable()),
+                       lts->Elem_typespec()->VpiLineNo(), false);
               }
             } else if (ttps == uhdmpacked_array_typespec) {
               packed_array_typespec* lts = (packed_array_typespec*)tps;
-              baseType = lts->Elem_typespec()->UhdmType();
-              if (lts->Ranges() && !lts->Ranges()->empty()) {
-                r = (*lts->Ranges())[0];
+              if (lts->Elem_typespec()) {
+                baseType = lts->Elem_typespec()->UhdmType();
+                if (lts->Ranges() && !lts->Ranges()->empty()) {
+                  r = (*lts->Ranges())[0];
+                }
+                ncsize =
+                  Bits(lts->Elem_typespec(), invalidValue, component,
+                       compileDesign, Reduce::Yes, instance,
+                       fileSystem->toPathId(
+                           lts->Elem_typespec()->VpiFile(),
+                           compileDesign->getCompiler()->getSymbolTable()),
+                       lts->Elem_typespec()->VpiLineNo(), false);
               }
             } else if (ttps == uhdmbit_typespec) {
               bit_typespec* lts = (bit_typespec*)tps;
@@ -3171,6 +3187,19 @@ UHDM::any* CompileHelper::defaultPatternAssignment(const UHDM::typespec* tps,
               if (lts->Ranges() && !lts->Ranges()->empty()) {
                 r = (*lts->Ranges())[0];
               }
+              ncsize = 1;
+            } else if (ttps == uhdmint_typespec) {
+              ncsize = 32;
+            } else if (ttps == uhdminteger_typespec) {
+              ncsize = 32;
+            } else if (ttps == uhdmshort_int_typespec) {
+              ncsize = 16;
+            } else if (ttps == uhdmbyte_typespec) {
+              ncsize = 8;
+            }
+            if (psize == -1) {
+              adjustUnsized(c, ncsize);
+              c->VpiSize(ncsize);
             }
             if (r) {
               bool invalidValue = false;
@@ -4589,7 +4618,7 @@ bool CompileHelper::isSelected(const FileContent* fC,
   return false;
 }
 
-static void adjustUnsized(constant* c, int32_t size) {
+void CompileHelper::adjustUnsized(constant* c, int32_t size) {
   if (c == nullptr) return;
   int32_t csize = c->VpiSize();
   if (csize == -1) {
