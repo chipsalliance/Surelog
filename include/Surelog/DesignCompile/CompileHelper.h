@@ -493,6 +493,8 @@ class CompileHelper final {
                        int32_t opIndex, UHDM::expr* rhs,
                        DesignComponent* component, CompileDesign* compileDesign,
                        ValuedComponentI* instance);
+  
+  void adjustUnsized(UHDM::constant* c, int32_t size);
 
   UHDM::any* defaultPatternAssignment(const UHDM::typespec* tps, UHDM::any* exp,
                                       DesignComponent* component,
