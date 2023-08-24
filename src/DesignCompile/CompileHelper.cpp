@@ -3159,12 +3159,12 @@ UHDM::any* CompileHelper::defaultPatternAssignment(const UHDM::typespec* tps,
                   r = (*lts->Ranges())[0];
                 }
                 ncsize =
-                  Bits(lts->Elem_typespec(), invalidValue, component,
-                       compileDesign, Reduce::Yes, instance,
-                       fileSystem->toPathId(
-                           lts->Elem_typespec()->VpiFile(),
-                           compileDesign->getCompiler()->getSymbolTable()),
-                       lts->Elem_typespec()->VpiLineNo(), false);
+                    Bits(lts->Elem_typespec(), invalidValue, component,
+                         compileDesign, Reduce::Yes, instance,
+                         fileSystem->toPathId(
+                             lts->Elem_typespec()->VpiFile(),
+                             compileDesign->getCompiler()->getSymbolTable()),
+                         lts->Elem_typespec()->VpiLineNo(), false);
               }
             } else if (ttps == uhdmpacked_array_typespec) {
               packed_array_typespec* lts = (packed_array_typespec*)tps;
@@ -3174,12 +3174,12 @@ UHDM::any* CompileHelper::defaultPatternAssignment(const UHDM::typespec* tps,
                   r = (*lts->Ranges())[0];
                 }
                 ncsize =
-                  Bits(lts->Elem_typespec(), invalidValue, component,
-                       compileDesign, Reduce::Yes, instance,
-                       fileSystem->toPathId(
-                           lts->Elem_typespec()->VpiFile(),
-                           compileDesign->getCompiler()->getSymbolTable()),
-                       lts->Elem_typespec()->VpiLineNo(), false);
+                    Bits(lts->Elem_typespec(), invalidValue, component,
+                         compileDesign, Reduce::Yes, instance,
+                         fileSystem->toPathId(
+                             lts->Elem_typespec()->VpiFile(),
+                             compileDesign->getCompiler()->getSymbolTable()),
+                         lts->Elem_typespec()->VpiLineNo(), false);
               }
             } else if (ttps == uhdmbit_typespec) {
               bit_typespec* lts = (bit_typespec*)tps;
