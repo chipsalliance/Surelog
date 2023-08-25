@@ -216,51 +216,46 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
                 (param_assign*)UHDM::clone_tree(mod_assign, &elaboratorContext);
             pclone->VpiParent((any*)mod_assign->VpiParent());
             pclone->VpiOverriden(instance->isOverridenParam(paramName));
-            if (opType == vpiAssignmentPatternOp) {
-              const any* lhs = pclone->Lhs();
-              any* rhs = (any*)pclone->Rhs();
-              if (complexVal) {
-                rhs = UHDM::clone_tree(complexVal, &elaboratorContext);
-                rhs->VpiParent(pclone);
-              }
-              const typespec* ts = nullptr;
-              if (lhs->UhdmType() == uhdmparameter) {
-                ts = ((parameter*)lhs)->Typespec();
-              }
-              if (m_helper.substituteAssignedValue(rhs, m_compileDesign)) {
-                rhs = m_helper.expandPatternAssignment(
-                    ts, (expr*)rhs, mod, m_compileDesign, instance);
-              }
-              rhs = (expr*)m_helper.defaultPatternAssignment(
-                  ts, rhs, mod, m_compileDesign, instance);
-              pclone->Rhs(rhs);
-              m_helper.reorderAssignmentPattern(mod, lhs, rhs, m_compileDesign,
-                                                instance, 0);
+            const any* lhs = pclone->Lhs();
+            any* rhs = (any*)pclone->Rhs();
+            if (complexVal) {
+              rhs = UHDM::clone_tree(complexVal, &elaboratorContext);
+              rhs->VpiParent(pclone);
+            }
+            const typespec* ts = nullptr;
+            if (lhs->UhdmType() == uhdmparameter) {
+              ts = ((parameter*)lhs)->Typespec();
+            }
+            if (m_helper.substituteAssignedValue(rhs, m_compileDesign)) {
+              rhs = m_helper.expandPatternAssignment(ts, (expr*)rhs, mod,
+                                                     m_compileDesign, instance);
+            }
+            rhs = (expr*)m_helper.defaultPatternAssignment(
+                ts, rhs, mod, m_compileDesign, instance);
+            pclone->Rhs(rhs);
+            m_helper.reorderAssignmentPattern(mod, lhs, rhs, m_compileDesign,
+                                              instance, 0);
 
-              if (lhs->UhdmType() == uhdmparameter) {
-                parameter* p = (parameter*)lhs;
-                if (const typespec* tps = p->Typespec()) {
+            if (lhs->UhdmType() == uhdmparameter) {
+              parameter* p = (parameter*)lhs;
+              if (const typespec* tps = p->Typespec()) {
+                UHDM::ExprEval eval;
+                expr* tmp = eval.flattenPatternAssignments(s, tps, (expr*)rhs);
+                if (tmp->UhdmType() == uhdmoperation) {
+                  ((operation*)rhs)->Operands(((operation*)tmp)->Operands());
+                }
+              } else if (rhs->UhdmType() == uhdmoperation) {
+                operation* op = (operation*)rhs;
+                if (const typespec* tps = op->Typespec()) {
                   UHDM::ExprEval eval;
                   expr* tmp =
                       eval.flattenPatternAssignments(s, tps, (expr*)rhs);
                   if (tmp->UhdmType() == uhdmoperation) {
                     ((operation*)rhs)->Operands(((operation*)tmp)->Operands());
                   }
-                } else if (rhs->UhdmType() == uhdmoperation) {
-                  operation* op = (operation*)rhs;
-                  if (const typespec* tps = op->Typespec()) {
-                    UHDM::ExprEval eval;
-                    expr* tmp =
-                        eval.flattenPatternAssignments(s, tps, (expr*)rhs);
-                    if (tmp->UhdmType() == uhdmoperation) {
-                      ((operation*)rhs)
-                          ->Operands(((operation*)tmp)->Operands());
-                    }
-                  }
                 }
               }
             }
-
             assigns->push_back(pclone);
             continue;
           }
@@ -2364,9 +2359,11 @@ bool NetlistElaboration::elab_ports_nets_(
           dest_port->VpiName(signame);
           NodeId Port_expr = fC->Sibling(PortName);
           if (fC->Type(Port_expr) == VObjectType::paPort_expression) {
+            m_helper.checkForLoops(true);
             any* exp =
                 m_helper.compileExpression(comp, fC, Port_expr, m_compileDesign,
                                            Reduce::Yes, nullptr, child, false);
+            m_helper.checkForLoops(false);
             dest_port->Low_conn(exp);
           }
         }

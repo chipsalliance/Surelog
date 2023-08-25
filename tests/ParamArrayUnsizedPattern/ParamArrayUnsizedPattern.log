@@ -138,16 +138,16 @@ AST_DEBUG_END
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_expr                                             1
-array_typespec                                         9
-constant                                              56
+array_typespec                                        10
+constant                                              61
 design                                                 1
-int_typespec                                          12
+int_typespec                                          14
 module_inst                                            4
-operation                                             26
+operation                                             29
 param_assign                                           8
 parameter                                             10
-range                                                 14
-ref_obj                                               16
+range                                                 15
+ref_obj                                               17
 string_typespec                                        2
 tagged_pattern                                         2
 === UHDM Object Stats End ===
@@ -155,16 +155,16 @@ tagged_pattern                                         2
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 array_expr                                             1
-array_typespec                                         9
-constant                                              56
+array_typespec                                        10
+constant                                              61
 design                                                 1
-int_typespec                                          12
+int_typespec                                          14
 module_inst                                            4
-operation                                             26
+operation                                             29
 param_assign                                           8
 parameter                                             10
-range                                                 14
-ref_obj                                               16
+range                                                 15
+ref_obj                                               17
 string_typespec                                        2
 tagged_pattern                                         2
 === UHDM Object Stats End ===
@@ -787,15 +787,60 @@ design: (work@test)
     \_operation: , line:6:60, endln:6:76
       |vpiParent:
       \_param_assign: , line:6:26, endln:6:76
-      |vpiOpType:76
-      |vpiOperand:
-      \_ref_obj: (work@test.BobaCount), line:6:62, endln:6:71
+      |vpiTypespec:
+      \_array_typespec: , line:6:13, endln:6:57
         |vpiParent:
         \_operation: , line:6:60, endln:6:76
-        |vpiName:BobaCount
-        |vpiFullName:work@test.BobaCount
-        |vpiActual:
-        \_parameter: (work@test.BobaCount), line:3:17, endln:3:26
+        |vpiRange:
+        \_range: , line:6:47, endln:6:56
+          |vpiParent:
+          \_array_typespec: , line:6:13, endln:6:57
+          |vpiLeftRange:
+          \_constant: 
+            |vpiParent:
+            \_range: , line:6:47, endln:6:56
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+          |vpiRightRange:
+          \_operation: , line:6:47, endln:6:56
+            |vpiParent:
+            \_range: , line:6:47, endln:6:56
+            |vpiOpType:11
+            |vpiOperand:
+            \_ref_obj: (work@test.BobaCount), line:6:47, endln:6:56
+              |vpiParent:
+              \_operation: , line:6:47, endln:6:56
+              |vpiName:BobaCount
+              |vpiFullName:work@test.BobaCount
+              |vpiActual:
+              \_parameter: (work@test.BobaCount), line:3:17, endln:3:26
+            |vpiOperand:
+            \_constant: 
+              |vpiParent:
+              \_operation: , line:6:47, endln:6:56
+              |vpiSize:64
+              |INT:1
+              |vpiConstType:7
+        |vpiElemTypespec:
+        \_int_typespec: , line:6:13, endln:6:25
+          |vpiParent:
+          \_array_typespec: , line:6:13, endln:6:57
+      |vpiOpType:76
+      |vpiOperand:
+      \_constant: , line:6:62, endln:6:71
+        |vpiParent:
+        \_operation: , line:6:60, endln:6:76
+        |vpiDecompile:2
+        |vpiSize:32
+        |UINT:2
+        |vpiTypespec:
+        \_int_typespec: 
+          |vpiParent:
+          \_constant: , line:6:62, endln:6:71
+          |vpiSigned:1
+        |vpiConstType:9
       |vpiOperand:
       \_operation: , line:6:72, endln:6:74
         |vpiParent:
@@ -805,10 +850,10 @@ design: (work@test)
         \_constant: , line:6:72, endln:6:74
           |vpiParent:
           \_operation: , line:6:72, endln:6:74
-          |vpiDecompile:'1
-          |vpiSize:-1
-          |BIN:1
-          |vpiConstType:3
+          |vpiDecompile:4294967295
+          |vpiSize:32
+          |UINT:4294967295
+          |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test.NumBobaDrinkersMulti), line:6:26, endln:6:46
   |vpiDefName:work@test
