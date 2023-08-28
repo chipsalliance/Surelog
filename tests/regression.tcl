@@ -454,6 +454,7 @@ proc initialize_reg { file } {
     regsub -all {1'hx} $content "1'h0" content
     regsub -all {\(\* src = \"[a-zA-Z0-9_/|:\.-]*\" \*\)} $content "" content
     regsub -all {\(\* keep =  1  \*\)\n} $content "" content
+    regsub -all {\(\* [a-zA-Z0-9= ]* \*\)\n} $content "" content
     set fid [open $file "w"]
     puts $fid $content
     close $fid
