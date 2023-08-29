@@ -38,7 +38,7 @@ class Signal;
 
 class NetlistElaboration : public TestbenchElaboration {
  public:
-  NetlistElaboration(CompileDesign* compileDesign);
+  explicit NetlistElaboration(CompileDesign* compileDesign);
   NetlistElaboration(const NetlistElaboration& orig) = delete;
 
   bool elaborate() override;

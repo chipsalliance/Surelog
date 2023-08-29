@@ -36,7 +36,7 @@ class ModuleInstanceFactory;
 
 class DesignElaboration : public TestbenchElaboration {
  public:
-  DesignElaboration(CompileDesign* compileDesign);
+  explicit DesignElaboration(CompileDesign* compileDesign);
   DesignElaboration(const DesignElaboration& orig) = delete;
   ~DesignElaboration() override;
 

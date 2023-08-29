@@ -197,11 +197,11 @@ class PlatformFileSystem : public FileSystem {
       T *ptr = nullptr;
       Helper() : ptr(nullptr) {}
       Helper(Helper const &) = default;
-      Helper(T *p) : ptr(p) {}
+      Helper(T *p) : ptr(p) {}  // NOLINT
       template <class U>
-      Helper(std::shared_ptr<U> const &sp) : ptr(sp.get()) {}
+      Helper(std::shared_ptr<U> const &sp) : ptr(sp.get()) {}  // NOLINT
       template <class U, class... Ts>
-      Helper(std::unique_ptr<U, Ts...> const &up) : ptr(up.get()) {}
+      Helper(std::unique_ptr<U, Ts...> const &up) : ptr(up.get()) {}  // NOLINT
       // && optional: enforces rvalue use only
       bool operator<(const Helper &o) const {
         return std::less<T *>()(ptr, o.ptr);

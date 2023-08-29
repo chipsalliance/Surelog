@@ -40,13 +40,13 @@ class NodeId final {
   constexpr explicit NodeId(RawNodeId id) : id(id) {}
   constexpr NodeId(const NodeId &rhs) : id(rhs.id) {}
 
-  operator RawNodeId() const { return id; }
+  operator RawNodeId() const { return id; }  // NOLINT
 
   // Don't include size_t conversion on 32Bit machines where sizeof(size_t)==32
   template <typename T = std::size_t,
             typename std::enable_if<!std::is_same<T, RawNodeId>::value>::type
                 * = nullptr>
-  operator std::size_t() const {
+  operator std::size_t() const {  // NOLINT
     return id;
   }
 

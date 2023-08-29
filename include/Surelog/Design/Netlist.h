@@ -39,7 +39,7 @@ class ModPort;
 
 class Netlist {
  public:
-  Netlist(ModuleInstance* parent) : m_parent(parent) {}
+  explicit Netlist(ModuleInstance* parent) : m_parent(parent) {}
   ~Netlist();
 
   typedef std::map<std::string, std::pair<ModPort*, UHDM::modport*>,

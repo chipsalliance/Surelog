@@ -51,6 +51,7 @@ Checks: >
     clang-diagnostic-overloaded-virtual
     clang-diagnostic-unused-private-field,
     google-build-using-namespace,
+    google-explicit-constructor,
     modernize-loop-convert,
     modernize-raw-string-literal,
     modernize-use-override,

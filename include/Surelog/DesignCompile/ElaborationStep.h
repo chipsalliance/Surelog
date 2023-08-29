@@ -49,7 +49,7 @@ class Variable;
 
 class ElaborationStep {
  public:
-  ElaborationStep(CompileDesign* compileDesign);
+  explicit ElaborationStep(CompileDesign* compileDesign);
   ElaborationStep(const ElaborationStep& orig) = delete;
 
   virtual bool elaborate() = 0;

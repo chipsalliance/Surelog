@@ -31,7 +31,7 @@ namespace SURELOG {
 
 class PackageAndRootElaboration : public ElaborationStep {
  public:
-  PackageAndRootElaboration(CompileDesign* compileDesign)
+  explicit PackageAndRootElaboration(CompileDesign* compileDesign)
       : ElaborationStep(compileDesign) {}
 
   ~PackageAndRootElaboration() override = default;

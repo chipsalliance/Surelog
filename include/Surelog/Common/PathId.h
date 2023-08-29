@@ -120,7 +120,7 @@ inline std::ostream &operator<<(std::ostream &strm, const PathId &pathId) {
 struct PathIdPP final { // Pretty Printer
   const PathId &m_id;
 
-  PathIdPP(const PathId &id) : m_id(id) {}
+  explicit PathIdPP(const PathId &id) : m_id(id) {}
 };
 
 std::ostream &operator<<(std::ostream &strm, const PathIdPP &id);
