@@ -31,7 +31,7 @@ class Compiler;
 
 class CheckCompile {
  public:
-  CheckCompile(Compiler* compiler) : m_compiler(compiler) {}
+  explicit CheckCompile(Compiler* compiler) : m_compiler(compiler) {}
   bool check();
   virtual ~CheckCompile() = default;
 

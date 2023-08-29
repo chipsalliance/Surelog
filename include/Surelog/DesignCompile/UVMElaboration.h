@@ -33,7 +33,7 @@ class CompileDesign;
 
 class UVMElaboration : public TestbenchElaboration {
  public:
-  UVMElaboration(CompileDesign* compileDesign);
+  explicit UVMElaboration(CompileDesign* compileDesign);
   UVMElaboration(const UVMElaboration& orig) = delete;
   ~UVMElaboration() override = default;
 

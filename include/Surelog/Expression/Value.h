@@ -174,11 +174,11 @@ class SValue final : public Value {
         m_signed(true) {
     m_value.s_int = val;
   }
-  SValue(uint64_t val)
+  explicit SValue(uint64_t val)
       : m_type(Value::Type::Unsigned), m_size(64), m_valid(1), m_negative(0) {
     m_value.u_int = val;
   }
-  SValue(int64_t val)
+  explicit SValue(int64_t val)
       : m_type(Value::Type::Integer),
         m_size(64),
         m_valid(1),
@@ -186,7 +186,7 @@ class SValue final : public Value {
         m_signed(true) {
     m_value.s_int = val;
   }
-  SValue(double val)
+  explicit SValue(double val)
       : m_type(Value::Type::Double),
         m_size(64),
         m_valid(1),

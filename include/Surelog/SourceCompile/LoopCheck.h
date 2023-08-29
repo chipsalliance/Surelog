@@ -50,7 +50,7 @@ class LoopCheck {
 
   class Node {
    public:
-    Node(SymbolId objId) : m_objId(objId), m_visited(false) {}
+    explicit Node(SymbolId objId) : m_objId(objId), m_visited(false) {}
     const SymbolId m_objId;
     std::set<Node*> m_toList;
     bool m_visited;

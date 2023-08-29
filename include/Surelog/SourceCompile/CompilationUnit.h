@@ -35,7 +35,7 @@ class MacroInfo;
 
 class CompilationUnit {
  public:
-  CompilationUnit(bool fileunit);
+  explicit CompilationUnit(bool fileunit);
   CompilationUnit(const CompilationUnit& orig) = delete;
   virtual ~CompilationUnit() = default;
 

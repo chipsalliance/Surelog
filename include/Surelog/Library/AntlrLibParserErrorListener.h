@@ -36,7 +36,7 @@ class ParseLibraryDef;
 
 class AntlrLibParserErrorListener : public antlr4::ANTLRErrorListener {
  public:
-  AntlrLibParserErrorListener(ParseLibraryDef *parser) : m_parser(parser) {}
+  explicit AntlrLibParserErrorListener(ParseLibraryDef *parser) : m_parser(parser) {}
 
   ~AntlrLibParserErrorListener() override{};
 

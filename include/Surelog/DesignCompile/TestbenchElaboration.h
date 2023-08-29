@@ -38,7 +38,7 @@ class Variable;
 
 class TestbenchElaboration : public ElaborationStep {
  public:
-  TestbenchElaboration(CompileDesign* compileDesign)
+  explicit TestbenchElaboration(CompileDesign* compileDesign)
       : ElaborationStep(compileDesign) {}
 
   TestbenchElaboration(const TestbenchElaboration& orig);
