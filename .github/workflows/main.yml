@@ -339,7 +339,7 @@ jobs:
       with:
         msystem: MSYS
         update: true
-        install: make cmake ninja gcc git diffutils
+        install: make cmake ninja gcc git diffutils zlib-devel
       env:
         MSYS2_PATH_TYPE: inherit
 
@@ -581,6 +581,7 @@ jobs:
     - name: Install Core Dependencies
       run: |
         choco install -y make
+        vcpkg install zlib zlib:x64-windows
 
     - name: Setup Python
       uses: actions/setup-python@v4
@@ -646,7 +647,7 @@ jobs:
 
         set MAKE_DIR=C:\make\bin
         set PATH=%pythonLocation%;%JAVA_HOME%\bin;%MAKE_DIR%;%PATH%
-        set ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=%pythonLocation% -DSURELOG_WITH_TCMALLOC=Off
+        set ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=%pythonLocation% -DSURELOG_WITH_TCMALLOC=Off -DCMAKE_TOOLCHAIN_FILE=%VCPKG_INSTALLATION_ROOT%/scripts/buildsystems/vcpkg.cmake.
 
         set
         where cmake && cmake --version
@@ -676,7 +677,7 @@ jobs:
 
         set MAKE_DIR=C:\make\bin
         set PATH=%pythonLocation%;%JAVA_HOME%\bin;%MAKE_DIR%;%PATH%
-        set ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=%pythonLocation% -DSURELOG_WITH_TCMALLOC=Off
+        set ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=%pythonLocation% -DSURELOG_WITH_TCMALLOC=Off -DCMAKE_TOOLCHAIN_FILE=%VCPKG_INSTALLATION_ROOT%/scripts/buildsystems/vcpkg.cmake.
 
         set
         where cmake && cmake --version
