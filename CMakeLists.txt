@@ -42,9 +42,6 @@ option(
    SURELOG_WITH_TCMALLOC
    "Use tcmalloc if installed" ON)
 option(
-  SURELOG_SYMBOLID_DEBUG_ENABLED
-  "Enable SymbolId debugging" OFF)
-option(
   SURELOG_PATHID_DEBUG_ENABLED
   "Enable PathId debugging" OFF)
 
@@ -58,11 +55,6 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-
-# Make sure both SURELOG_SYMBOLID_DEBUG_ENABLED & UHDM_SYMBOLID_DEBUG_ENABLED
-# are set the same
-set(UHDM_SYMBOLID_DEBUG_ENABLED ${SURELOG_SYMBOLID_DEBUG_ENABLED}
-  CACHE BOOL "Enforcing" FORCE)
 
 # Setup code generation directory
 set(GENDIR ${CMAKE_CURRENT_BINARY_DIR}/generated)

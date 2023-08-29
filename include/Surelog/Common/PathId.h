@@ -18,6 +18,8 @@
 #define SURELOG_PATHID_H
 #pragma once
 
+#include "Surelog/config.h"
+
 #include <Surelog/Common/SymbolId.h>
 
 #include <cstdint>

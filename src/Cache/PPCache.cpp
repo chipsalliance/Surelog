@@ -41,6 +41,8 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
+#include "Surelog/config.h"
+
 #if defined(_MSC_VER)
 #include <io.h>
 #else
