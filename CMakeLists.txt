@@ -44,6 +44,9 @@ option(
 option(
   SURELOG_PATHID_DEBUG_ENABLED
   "Enable PathId debugging" OFF)
+option(
+    SURELOG_WITH_ZLIB
+    "Use zlib if installed" ON)
 
 option(SURELOG_BUILD_TESTS "Enable testing." ON)
 
@@ -153,6 +156,14 @@ if(SURELOG_WITH_TCMALLOC)
     message("-- Found tcmalloc: ${TCMALLOC_LIBRARY}")
     set(TCMALLOC_COMPILE_OPTIONS
         "-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free")
+  endif()
+endif()
+
+# Use zlib if requested and found on system.
+if(SURELOG_WITH_ZLIB)
+  find_package(ZLIB)
+  if(ZLIB_LIBRARY)
+    message("-- Found zlib: ${ZLIB_LIBRARY}")
   endif()
 endif()
 
@@ -579,6 +590,16 @@ endif()
 
 if (TCMALLOC_LIBRARY)
    target_link_libraries(surelog PRIVATE ${TCMALLOC_LIBRARY})
+endif()
+
+
+if (SURELOG_WITH_ZLIB AND ZLIB_LIBRARY)
+  target_compile_definitions(surelog PRIVATE SURELOG_WITH_ZLIB)
+  target_include_directories(surelog PRIVATE ${ZLIB_INCLUDE_DIRS})
+  target_link_libraries(surelog PUBLIC ${ZLIB_LIBRARY})
+  set(ZLIB_PC_LINK "-lz")
+else()
+  set(ZLIB_PC_LINK "")
 endif()
 
 if (UNIX)

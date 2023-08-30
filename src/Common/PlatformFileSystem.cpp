@@ -29,6 +29,9 @@
 #include <fstream>
 #include <iostream>
 #include <mutex>
+#ifdef SURELOG_WITH_ZLIB
+#include <zlib.h>
+#endif
 
 namespace SURELOG {
 static constexpr bool kEnableLogs = false;
@@ -128,6 +131,41 @@ std::istream &PlatformFileSystem::openInput(
   if (!filepath.is_absolute()) return m_nullInputStream;
 
   std::scoped_lock<std::mutex> lock(m_inputStreamsMutex);
+#ifdef SURELOG_WITH_ZLIB
+  if (filepath.extension() == ".gz") {
+    std::pair<InputStreams::iterator, bool> it =
+        m_inputStreams.emplace(new std::istringstream);
+    std::istringstream &strm =
+        *static_cast<std::istringstream *>(it.first->get());
+
+    const std::string file_path = filepath.string();
+
+    gzFile zipped_file = gzopen(file_path.c_str(), "rb");
+    if (zipped_file != nullptr) {
+      unsigned char unzipBuffer[8192];
+      unsigned int unzippedBytes;
+      std::vector<unsigned char> unzippedData;
+      while (true) {
+        unzippedBytes = gzread(zipped_file, unzipBuffer, 8192);
+        if (unzippedBytes > 0) {
+          unzippedData.insert(unzippedData.end(), unzipBuffer,
+                              unzipBuffer + unzippedBytes);
+        } else {
+          break;
+        }
+      }
+      gzclose(zipped_file);
+      const std::string unzippedContent(unzippedData.begin(),
+                                        unzippedData.end());
+      strm.str(unzippedContent);
+    } else {
+      strm.setstate(std::istringstream::badbit);
+    }
+
+    return strm;
+  }
+#endif
+
   std::pair<InputStreams::iterator, bool> it =
       m_inputStreams.emplace(new std::ifstream);
 
