@@ -1,0 +1,1 @@
+-parse -synth -d uhdm -elabuhdm -d ast dut.sv -nobuiltin -y lib
