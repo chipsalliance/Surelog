@@ -44,6 +44,8 @@
 #include <Surelog/Utils/StringUtils.h>
 #include <Surelog/Utils/Timer.h>
 
+#include <nlohmann/json.hpp>
+
 #include <climits>
 #include <filesystem>
 #include <thread>
@@ -327,19 +329,39 @@ bool Compiler::createFileList_() {
         concatFiles << fileSystem->toPath(sourceFileId) << "|";
       }
       std::size_t val = std::hash<std::string>{}(concatFiles.str());
-      std::string hashedName = std::to_string(val) + ".sep_lst";
-      PathId fileId = fileSystem->getChild(
-          m_commandLineParser->getCompileDirId(), hashedName,
-          m_commandLineParser->getSymbolTable());
-      std::ostream& ofs = fileSystem->openForWrite(fileId);
-      if (ofs.good()) {
-        for (CompileSourceFile* sourceFile : m_compilers) {
-          ofs << fileSystem->toPath(sourceFile->getFileId()) << " ";
+      {
+        std::string hashedName = std::to_string(val) + ".sep_lst";
+        PathId fileId = fileSystem->getChild(
+            m_commandLineParser->getCompileDirId(), hashedName,
+            m_commandLineParser->getSymbolTable());
+        std::ostream& ofs = fileSystem->openForWrite(fileId);
+        if (ofs.good()) {
+          for (CompileSourceFile* sourceFile : m_compilers) {
+            ofs << fileSystem->toPath(sourceFile->getFileId()) << " ";
+          }
+          fileSystem->close(ofs);
+        } else {
+          std::cerr << "Could not create filelist: " << PathIdPP(fileId)
+                    << std::endl;
         }
-        fileSystem->close(ofs);
-      } else {
-        std::cerr << "Could not create filelist: " << PathIdPP(fileId)
-                  << std::endl;
+      }
+      {
+        std::string hashedName = std::to_string(val) + ".sepcmd.json";
+        PathId fileId = fileSystem->getChild(
+            m_commandLineParser->getCompileDirId(), hashedName,
+            m_commandLineParser->getSymbolTable());
+        std::ostream& ofs = fileSystem->openForWrite(fileId);
+        if (ofs.good()) {
+
+
+          for (CompileSourceFile* sourceFile : m_compilers) {
+            ofs << fileSystem->toPath(sourceFile->getFileId()) << " ";
+          }
+          fileSystem->close(ofs);
+        } else {
+          std::cerr << "Could not create filelist: " << PathIdPP(fileId)
+                    << std::endl;
+        }
       }
     }
   }
