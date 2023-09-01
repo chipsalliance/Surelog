@@ -350,13 +350,28 @@ bool Compiler::createFileList_() {
         PathId fileId = fileSystem->getChild(
             m_commandLineParser->getCompileDirId(), hashedName,
             m_commandLineParser->getSymbolTable());
+        nlohmann::json sources;
+        for (CompileSourceFile* sourceFile : m_compilers) {
+          auto [prefix, suffix] =
+              fileSystem->toSplitPlatformPath(sourceFile->getFileId());
+          nlohmann::json entry;
+          entry["base_directory"] = prefix;
+          entry["relative_filepath"] = suffix;
+          sources.emplace_back(entry);
+        }
+
+        nlohmann::json workingDirectories;
+        for (const auto& wd : fileSystem->getWorkingDirs()) {
+          workingDirectories.emplace_back(wd);
+        }
+
         std::ostream& ofs = fileSystem->openForWrite(fileId);
         if (ofs.good()) {
-
-
-          for (CompileSourceFile* sourceFile : m_compilers) {
-            ofs << fileSystem->toPath(sourceFile->getFileId()) << " ";
-          }
+          nlohmann::json table;
+          table["sources"] = sources;
+          table["working_directories"] = fileSystem->getWorkingDirs();
+          //workingDirectories;
+          ofs << std::setw(2) << table << std::endl;
           fileSystem->close(ofs);
         } else {
           std::cerr << "Could not create filelist: " << PathIdPP(fileId)
