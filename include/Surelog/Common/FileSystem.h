@@ -30,6 +30,7 @@
 #include <cstdint>
 #include <filesystem>
 #include <istream>
+#include <map>
 #include <regex>
 #include <sstream>
 #include <string>
@@ -100,6 +101,9 @@ class FileSystem {
   static constexpr std::string_view kParserCacheDirName = kCacheDirName;
   static constexpr std::string_view kPythonCacheDirName = kCacheDirName;
 
+  typedef std::map<std::string, std::string, std::less<>>
+      filepath_to_working_directories_cache_t;
+
  public:
   static FileSystem *getInstance();
   static FileSystem *setInstance(FileSystem *fileSystem);
@@ -124,6 +128,9 @@ class FileSystem {
   // and can be used for, say, system commands.
   virtual std::filesystem::path toPlatformAbsPath(PathId id) = 0;
   virtual std::filesystem::path toPlatformRelPath(PathId id) = 0;
+  // Returns base and relative paths 
+  virtual std::pair<std::filesystem::path, std::filesystem::path>
+  toSplitPlatformPath(PathId id) = 0;
 
   // Returns the current working directory as either the native filesystem
   // path or as a PathId registered in the input SymbolTable.
@@ -182,6 +189,11 @@ class FileSystem {
   // after relocation.
   virtual bool addMapping(std::string_view what, std::string_view with) = 0;
   virtual std::string remap(std::string_view what) = 0;
+
+  // Adds a working directory cache entry
+  // This is used primarily for use with _sepcmd_ command.
+  virtual bool addWorkingDirectoryCacheEntry(std::string_view prefix,
+                                             std::string_view suffix) = 0;
 
   // Path computation APIs for different contexts
   virtual PathId getProgramFile(std::string_view hint,
@@ -336,6 +348,8 @@ class FileSystem {
  protected:
   std::istringstream m_nullInputStream;
   std::ostringstream m_nullOutputStream;
+
+  filepath_to_working_directories_cache_t m_filepathToWorkingDirectoriesCache;
 
  private:
   static FileSystem *sInstance;

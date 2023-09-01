@@ -76,11 +76,20 @@ std::filesystem::path PlatformFileSystem::toPlatformAbsPath(PathId id) {
   return toPath(id);
 }
 
-std::filesystem::path PlatformFileSystem::toPlatformRelPath(PathId id) {
+std::pair<std::filesystem::path, std::filesystem::path>
+PlatformFileSystem::toSplitPlatformPath(PathId id) {
+  std::filesystem::path path = toPath(id);
+  const std::string pathstr = path.string();
+  filepath_to_working_directories_cache_t::const_iterator it =
+      m_filepathToWorkingDirectoriesCache.find(pathstr);
+  if (it != m_filepathToWorkingDirectoriesCache.end()) {
+    std::filesystem::path suffix = path.lexically_relative(it->second);
+    return std::make_pair(it->second, suffix);
+  }
+
   int32_t minUpDirs = std::numeric_limits<int32_t>::max();
   std::filesystem::path bestPrefix;
   std::filesystem::path bestSuffix;
-  std::filesystem::path path = toPath(id);
 
   for (const Configuration &configuration : m_configurations) {
     const std::filesystem::path &prefix = configuration.m_sourceDir;
@@ -109,7 +118,13 @@ std::filesystem::path PlatformFileSystem::toPlatformRelPath(PathId id) {
     }
   }
 
-  return (minUpDirs == std::numeric_limits<int32_t>::max()) ? path : bestSuffix;
+  return (minUpDirs == std::numeric_limits<int32_t>::max())
+             ? std::make_pair("", path)
+             : std::make_pair(bestPrefix, bestSuffix);
+}
+
+std::filesystem::path PlatformFileSystem::toPlatformRelPath(PathId id) {
+  return toSplitPlatformPath(id).second;
 }
 
 std::string PlatformFileSystem::getWorkingDir() {
@@ -281,6 +296,16 @@ std::string PlatformFileSystem::remap(std::string_view what) {
     }
   }
   return std::string(what);
+}
+
+bool PlatformFileSystem::addWorkingDirectoryCacheEntry(
+    std::string_view prefix, std::string_view suffix) {
+  const std::string filepath = (std::filesystem::path(prefix) / suffix).string();
+  filepath_to_working_directories_cache_t::const_iterator it =
+      m_filepathToWorkingDirectoriesCache.find(filepath);
+  if (it != m_filepathToWorkingDirectoriesCache.end()) return false;
+  m_filepathToWorkingDirectoriesCache.emplace(filepath, prefix);
+  return true;
 }
 
 struct ConfigurationComparer final {
@@ -914,7 +939,8 @@ PathIdVector &PlatformFileSystem::collect(PathId dirId,
     for (const std::filesystem::directory_entry &entry :
          std::filesystem::directory_iterator(dirpath)) {
       const std::filesystem::path &filepath = entry.path();
-      if (extension.empty() || (filepath.extension() == extension)) {
+      if (extension.empty() ||
+          StringUtils::endsWith(filepath.string(), extension)) {
         if (std::filesystem::is_regular_file(filepath, ec) && !ec) {
           container.emplace_back(toPathId(filepath.string(), symbolTable));
         }
