@@ -44,6 +44,7 @@
 #include <Surelog/Utils/StringUtils.h>
 
 #include <cstring>
+#include <queue>
 
 // UHDM
 #include <uhdm/ElaboratorListener.h>
@@ -4155,6 +4156,35 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
 
   m_helper.setElabMode(false);
 
+  // Compute list of design components that are part of the instance tree
+  std::set<DesignComponent*> designComponents;
+  {
+    std::queue<ModuleInstance*> queue;
+    for (const auto& pack : m_design->getPackageDefinitions()) {
+      if (!pack.second->getFileContents().empty()) {
+        if (pack.second->getFileContents()[0] != nullptr)
+          designComponents.insert(pack.second);
+      }
+    }
+    for (auto instance : m_design->getTopLevelModuleInstances()) {
+      queue.push(instance);
+    }
+
+    while (!queue.empty()) {
+      ModuleInstance* current = queue.front();
+      DesignComponent* def = current->getDefinition();
+      queue.pop();
+      if (current == nullptr) continue;
+      for (ModuleInstance* sub : current->getAllSubInstances()) {
+        queue.push(sub);
+      }
+      const FileContent* fC = current->getFileContent();
+      if (fC) {
+        designComponents.insert(def);
+      }
+    }
+  }
+
   vpiHandle designHandle = 0;
   std::vector<vpiHandle> designs;
   design* d = nullptr;
@@ -4380,6 +4410,9 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
         if (m_compileDesign->getCompiler()->isLibraryFile(
                 mod->getFileContents()[0]->getFileId())) {
           m->VpiCellInstance(true);
+          // Don't list library cells unused in the design
+          if (mod && (designComponents.find(mod) == designComponents.end()))
+            continue;
         }
         m_componentMap.emplace(mod, m);
         std::string_view modName = mod->getName();
