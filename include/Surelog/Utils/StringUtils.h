@@ -146,6 +146,12 @@ void registerEnvVar(std::string_view var, std::string_view value);
 
 // Strip quotes, if any. "abc" => abc
 [[nodiscard]] std::string_view unquoted(std::string_view text);
+
+// Returns true if string 'text' starts with 'prefix'
+[[nodiscard]] bool startsWith(std::string_view text, std::string_view prefix);
+
+// Returns true if string 'text' ends with 'suffix'
+[[nodiscard]] bool endsWith(std::string_view text, std::string_view suffix);
 }  // namespace StringUtils
 }  // namespace SURELOG
 
