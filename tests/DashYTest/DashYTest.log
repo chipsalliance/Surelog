@@ -142,8 +142,6 @@ initial                                                1
 module_inst                                            6
 ref_module                                             1
 === UHDM Object Stats End ===
-[WRN:UH0720] ${SURELOG_DIR}/tests/DashYTest/lib/SIM.v:3:7: Non-synthesizable construct "".
-
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/DashYTest/slpp_all/surelog.uhdm ...
 
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/DashYTest/slpp_all/checker/surelog.chk.html ...
@@ -163,34 +161,6 @@ design: (work@top)
   |vpiFullName:work@AND
   |vpiDefName:work@AND
   |vpiCellInstance:1
-|uhdmallModules:
-\_module_inst: work@OR (work@OR), file:${SURELOG_DIR}/tests/DashYTest/lib/OR.v, line:1:1, endln:2:10
-  |vpiParent:
-  \_design: (work@top)
-  |vpiFullName:work@OR
-  |vpiDefName:work@OR
-  |vpiCellInstance:1
-|uhdmallModules:
-\_module_inst: work@SIM (work@SIM), file:${SURELOG_DIR}/tests/DashYTest/lib/SIM.v, line:1:1, endln:6:10
-  |vpiParent:
-  \_design: (work@top)
-  |vpiFullName:work@SIM
-  |vpiDefName:work@SIM
-  |vpiCellInstance:1
-  |vpiProcess:
-  \_initial: , line:2:4, endln:5:7
-    |vpiParent:
-    \_module_inst: work@SIM (work@SIM), file:${SURELOG_DIR}/tests/DashYTest/lib/SIM.v, line:1:1, endln:6:10
-    |vpiStmt:
-    \_begin: (work@SIM), line:2:12, endln:5:7
-      |vpiParent:
-      \_initial: , line:2:4, endln:5:7
-      |vpiFullName:work@SIM
-      |vpiStmt:
-      \_delay_control: , line:3:7, endln:3:9
-        |vpiParent:
-        \_begin: (work@SIM), line:2:12, endln:5:7
-        |#1
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DashYTest/dut.sv, line:1:1, endln:3:10
   |vpiParent:
@@ -227,11 +197,8 @@ design: (work@top)
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 0
-[WARNING] : 5
+[WARNING] : 4
 [   NOTE] : 5
 
 
-[roundtrip]: ${SURELOG_DIR}/tests/DashYTest/dut.sv    | ${SURELOG_DIR}/build/regression/DashYTest/roundtrip/dut_000.sv | 1 | 3 |
-[roundtrip]: ${SURELOG_DIR}/tests/DashYTest/lib/AND.v | ${SURELOG_DIR}/build/regression/DashYTest/roundtrip/AND_000.v  | 0 | 2 |
-[roundtrip]: ${SURELOG_DIR}/tests/DashYTest/lib/OR.v  | ${SURELOG_DIR}/build/regression/DashYTest/roundtrip/OR_000.v   | 0 | 2 |
-[roundtrip]: ${SURELOG_DIR}/tests/DashYTest/lib/SIM.v | ${SURELOG_DIR}/build/regression/DashYTest/roundtrip/SIM_000.v  | 0 | 6 |
+[roundtrip]: ${SURELOG_DIR}/tests/DashYTest/dut.sv | ${SURELOG_DIR}/build/regression/DashYTest/roundtrip/dut_000.sv | 1 | 3 |
