@@ -687,7 +687,8 @@ void CommandLineParser::processArgs_(const std::vector<std::string>& args,
       PathId compileDirId =
           fileSystem->getCompileDir(m_fileUnit, m_symbolTable);
       PathIdVector fileList;
-      fileSystem->collect(compileDirId, ".sepcmd.json", m_symbolTable, fileList);
+      fileSystem->collect(compileDirId, ".sepcmd.json", m_symbolTable,
+                          fileList);
       for (const auto& fileId : fileList) {
         nlohmann::json fileContent;
         std::istream& ifs = fileSystem->openForRead(fileId);

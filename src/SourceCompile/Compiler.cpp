@@ -44,10 +44,9 @@
 #include <Surelog/Utils/StringUtils.h>
 #include <Surelog/Utils/Timer.h>
 
-#include <nlohmann/json.hpp>
-
 #include <climits>
 #include <filesystem>
+#include <nlohmann/json.hpp>
 #include <thread>
 
 #if defined(_MSC_VER)
@@ -370,7 +369,7 @@ bool Compiler::createFileList_() {
           nlohmann::json table;
           table["sources"] = sources;
           table["working_directories"] = fileSystem->getWorkingDirs();
-          //workingDirectories;
+          // workingDirectories;
           ofs << std::setw(2) << table << std::endl;
           fileSystem->close(ofs);
         } else {
