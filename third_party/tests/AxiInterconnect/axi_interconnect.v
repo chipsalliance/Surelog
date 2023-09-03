@@ -227,7 +227,10 @@ integer i, j;
     end
 
     for (i = 0; i < M_COUNT*M_REGIONS; i = i + 1) begin
-        if (M_ADDR_WIDTH[i*32 +: 32] && (M_ADDR_WIDTH[i*32 +: 32] < 12 || M_ADDR_WIDTH[i*32 +: 32] > ADDR_WIDTH)) begin
+        if (M_ADDR_WIDTH[i*32 +: 32] && (M_ADDR_WIDTH[i*32 +: 32] < 12 || M_ADDR_WIDTH[i*32 +: 32] > ADDR_WIDTH)) begin : my_checker
+           localparam DEBUG_ADDR_WIDTH = ADDR_WIDTH;
+           localparam DEBUG_M_ADDR_WIDTH = M_ADDR_WIDTH;
+           localparam DEBUG_M_ADDR_WIDTH_RANGE =  M_ADDR_WIDTH[i*32 +: 32];
             $error("Error: address width out of range (instance %m)");
             $finish;
         end
