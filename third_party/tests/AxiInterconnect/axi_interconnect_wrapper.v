@@ -7,11 +7,10 @@
 //                   https://github.com/enjoy-digital/litex
 //
 // Filename   : axi_interconnect_wrapper.v
-// Device     : gemini
 // LiteX sha1 : 08cc00e5
 // Date       : 2023-09-02 11:05:54
 //------------------------------------------------------------------------------
-// This file is Copyright (c) 2022 RapidSilicon
+
 //--------------------------------------------------------------------------------
 
 `timescale 1ns / 1ps
@@ -1107,7 +1106,7 @@ assign m03_axi_rready = axiinterface3_r_ready1;
 //------------------------------------------------------------------------------
 
 axi_interconnect #(
-	.ADDR_WIDTH(8),
+	.ADDR_WIDTH(32),
 	.ARUSER_ENABLE(1'd1),
 	.ARUSER_WIDTH(1),
 	.AWUSER_ENABLE(1'd1),
