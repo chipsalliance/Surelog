@@ -300,8 +300,7 @@ std::string PlatformFileSystem::remap(std::string_view what) {
 
 bool PlatformFileSystem::addWorkingDirectoryCacheEntry(
     std::string_view prefix, std::string_view suffix) {
-  const std::string filepath =
-      (std::filesystem::path(prefix) / suffix).string();
+  const std::string filepath = (std::filesystem::path(prefix) / suffix).string();
   filepath_to_working_directories_cache_t::const_iterator it =
       m_filepathToWorkingDirectoriesCache.find(filepath);
   if (it != m_filepathToWorkingDirectoriesCache.end()) return false;
