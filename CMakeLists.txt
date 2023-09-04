@@ -125,8 +125,6 @@ else()
   # Requires SURELOG_USE_HOST_UHDM=Off
 endif()
 
-add_subdirectory(third_party/json)
-
 # NOTE: Set the global output directories after the subprojects have had their go at it
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
@@ -522,9 +520,6 @@ target_include_directories(surelog PUBLIC
   $<INSTALL_INTERFACE:include>)
 target_include_directories(surelog PUBLIC
   $<BUILD_INTERFACE:${UHDM_INCLUDE_DIRS}>
-  $<INSTALL_INTERFACE:include>)
-target_include_directories(surelog PUBLIC
-  $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/third_party/json/single_include>
   $<INSTALL_INTERFACE:include>)
 
 if (SURELOG_WITH_PYTHON)

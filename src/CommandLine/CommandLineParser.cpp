@@ -29,8 +29,6 @@
 #include <Surelog/Utils/StringUtils.h>
 #include <Surelog/surelog-version.h>
 
-#include <nlohmann/json.hpp>
-
 #if defined(_MSC_VER)
 #include <direct.h>
 #endif
@@ -687,22 +685,19 @@ void CommandLineParser::processArgs_(const std::vector<std::string>& args,
       PathId compileDirId =
           fileSystem->getCompileDir(m_fileUnit, m_symbolTable);
       PathIdVector fileList;
-      fileSystem->collect(compileDirId, ".sepcmd.json", m_symbolTable, fileList);
+      fileSystem->collect(compileDirId, ".sep_lst", m_symbolTable, fileList);
       for (const auto& fileId : fileList) {
-        nlohmann::json fileContent;
-        std::istream& ifs = fileSystem->openForRead(fileId);
-        if (ifs.good()) ifs >> fileContent;
-        fileSystem->close(ifs);
-
-        for (const auto& entry : fileContent["sources"]) {
-          const std::string baseDirectory = entry["base_directory"];
-          const std::string relativeFilepath = entry["relative_filepath"];
-          fileSystem->addWorkingDirectoryCacheEntry(baseDirectory,
-                                                    relativeFilepath);
-
-          std::filesystem::path absFilepath =
-              std::filesystem::path(baseDirectory) / relativeFilepath;
-          container.emplace_back(absFilepath.string());
+        std::string fileContent;
+        if (fileSystem->readContent(fileId, fileContent)) {
+          fileContent = StringUtils::removeComments(fileContent);
+          fileContent = StringUtils::evaluateEnvVars(fileContent);
+          std::vector<std::string> argsInFile;
+          StringUtils::tokenize(fileContent, " \n\t\r", argsInFile);
+          processArgs_(argsInFile, wd, cd, container);
+        } else {
+          Location loc(fileId);
+          Error err(ErrorDefinition::CMD_DASH_F_FILE_DOES_NOT_EXIST, loc);
+          m_errors->addError(err);
         }
       }
     } else if (!arg.empty()) {

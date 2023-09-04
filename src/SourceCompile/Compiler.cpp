@@ -44,8 +44,6 @@
 #include <Surelog/Utils/StringUtils.h>
 #include <Surelog/Utils/Timer.h>
 
-#include <nlohmann/json.hpp>
-
 #include <climits>
 #include <filesystem>
 #include <thread>
@@ -329,54 +327,19 @@ bool Compiler::createFileList_() {
         concatFiles << fileSystem->toPath(sourceFileId) << "|";
       }
       std::size_t val = std::hash<std::string>{}(concatFiles.str());
-      {
-        std::string hashedName = std::to_string(val) + ".sep_lst";
-        PathId fileId = fileSystem->getChild(
-            m_commandLineParser->getCompileDirId(), hashedName,
-            m_commandLineParser->getSymbolTable());
-        std::ostream& ofs = fileSystem->openForWrite(fileId);
-        if (ofs.good()) {
-          for (CompileSourceFile* sourceFile : m_compilers) {
-            ofs << fileSystem->toPath(sourceFile->getFileId()) << " ";
-          }
-          fileSystem->close(ofs);
-        } else {
-          std::cerr << "Could not create filelist: " << PathIdPP(fileId)
-                    << std::endl;
-        }
-      }
-      {
-        std::string hashedName = std::to_string(val) + ".sepcmd.json";
-        PathId fileId = fileSystem->getChild(
-            m_commandLineParser->getCompileDirId(), hashedName,
-            m_commandLineParser->getSymbolTable());
-        nlohmann::json sources;
+      std::string hashedName = std::to_string(val) + ".sep_lst";
+      PathId fileId = fileSystem->getChild(
+          m_commandLineParser->getCompileDirId(), hashedName,
+          m_commandLineParser->getSymbolTable());
+      std::ostream& ofs = fileSystem->openForWrite(fileId);
+      if (ofs.good()) {
         for (CompileSourceFile* sourceFile : m_compilers) {
-          auto [prefix, suffix] =
-              fileSystem->toSplitPlatformPath(sourceFile->getFileId());
-          nlohmann::json entry;
-          entry["base_directory"] = prefix;
-          entry["relative_filepath"] = suffix;
-          sources.emplace_back(entry);
+          ofs << fileSystem->toPath(sourceFile->getFileId()) << " ";
         }
-
-        nlohmann::json workingDirectories;
-        for (const auto& wd : fileSystem->getWorkingDirs()) {
-          workingDirectories.emplace_back(wd);
-        }
-
-        std::ostream& ofs = fileSystem->openForWrite(fileId);
-        if (ofs.good()) {
-          nlohmann::json table;
-          table["sources"] = sources;
-          table["working_directories"] = fileSystem->getWorkingDirs();
-          //workingDirectories;
-          ofs << std::setw(2) << table << std::endl;
-          fileSystem->close(ofs);
-        } else {
-          std::cerr << "Could not create filelist: " << PathIdPP(fileId)
-                    << std::endl;
-        }
+        fileSystem->close(ofs);
+      } else {
+        std::cerr << "Could not create filelist: " << PathIdPP(fileId)
+                  << std::endl;
       }
     }
   }

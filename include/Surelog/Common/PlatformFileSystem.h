@@ -59,9 +59,6 @@ class PlatformFileSystem : public FileSystem {
   std::filesystem::path toPlatformAbsPath(PathId id) override;
   std::filesystem::path toPlatformRelPath(PathId id) override;
 
-  std::pair<std::filesystem::path, std::filesystem::path> toSplitPlatformPath(
-      PathId id) override;
-
   std::string getWorkingDir() override;
   std::set<std::string> getWorkingDirs() override;
 
@@ -80,9 +77,6 @@ class PlatformFileSystem : public FileSystem {
 
   bool addMapping(std::string_view what, std::string_view with) override;
   std::string remap(std::string_view what) override;
-
-  bool addWorkingDirectoryCacheEntry(std::string_view prefix,
-                                     std::string_view suffix) override;
 
   PathId getProgramFile(std::string_view hint,
                         SymbolTable *symbolTable) override;

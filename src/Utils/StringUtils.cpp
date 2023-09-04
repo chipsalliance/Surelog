@@ -371,14 +371,4 @@ std::string_view StringUtils::unquoted(std::string_view text) {
   return text;
 }
 
-bool StringUtils::startsWith(std::string_view text, std::string_view prefix) {
-  return (text.size() >= prefix.size()) &&
-         (text.compare(0, prefix.size(), prefix) == 0);
-}
-
-bool StringUtils::endsWith(std::string_view text, std::string_view suffix) {
-  return (text.size() >= suffix.size()) &&
-         (text.compare(text.size() - suffix.size(), suffix.size(), suffix) ==
-          0);
-}
 }  // namespace SURELOG
