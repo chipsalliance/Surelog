@@ -27,17 +27,22 @@ option(
   OFF)
 
 option(
+    SURELOG_USE_HOST_ALL
+    "Default to using libraries from host instead of third_party" OFF)
+option(
   SURELOG_USE_HOST_ANTLR
-  "Use Antlr library from host instead of third_party" OFF)
+  "Use Antlr library from host instead of third_party" ${SURELOG_USE_HOST_ALL})
 option(
   SURELOG_USE_HOST_UHDM
-  "Use UHDM library from host instead of third_party" OFF)
+  "Use UHDM library from host instead of third_party" ${SURELOG_USE_HOST_ALL})
+option(SURELOG_USE_HOST_JSON
+  "Use nlohmann json from host instead of third_party" ${SURELOG_USE_HOST_ALL})
 option(SURELOG_USE_HOST_CAPNP
   "Use capnproto from host system, not UHDM (if OFF, requires SURELOG_USE_HOST_UHDM=OFF)"
   OFF)
 option(
   SURELOG_USE_HOST_GTEST
-  "Use googletest library from host instead of third_party" OFF)
+  "Use googletest library from host instead of third_party" ${SURELOG_USE_HOST_ALL})
 option(
    SURELOG_WITH_TCMALLOC
    "Use tcmalloc if installed" ON)
@@ -125,7 +130,28 @@ else()
   # Requires SURELOG_USE_HOST_UHDM=Off
 endif()
 
-add_subdirectory(third_party/json)
+if (SURELOG_USE_HOST_JSON)
+  find_package(nlohmann_json)
+  get_target_property(JSON_INCLUDE_DIR nlohmann_json::nlohmann_json INTERFACE_INCLUDE_DIRECTORIES)
+else()
+  # https://json.nlohmann.me/integration/cmake/#supporting-both
+  set(JSON_BuildTests OFF CACHE INTERNAL "")
+  add_subdirectory(third_party/json)
+  set(JSON_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/third_party/json/single_include)
+endif()
+
+#  _   _  ____ _______ ______
+# | \ | |/ __ \__   __|  ____|
+# |  \| | |  | | | |  | |__
+# | . ` | |  | | | |  |  __|
+# | |\  | |__| | | |  | |____
+# |_| \_|\____/  |_|  |______|
+# Do not expliclty rely on a third party module,
+# e.g. add_subdirectory(third_party/...)
+# as this is not acceptable for several registries
+# and distribution systems. Instead, follow the pattern
+# above to have optionality, which can be tested
+# in .github/workflows/non_vendored.yml
 
 # NOTE: Set the global output directories after the subprojects have had their go at it
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/lib)
@@ -524,7 +550,7 @@ target_include_directories(surelog PUBLIC
   $<BUILD_INTERFACE:${UHDM_INCLUDE_DIRS}>
   $<INSTALL_INTERFACE:include>)
 target_include_directories(surelog PUBLIC
-  $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/third_party/json/single_include>
+  $<BUILD_INTERFACE:${JSON_INCLUDE_DIR}>
   $<INSTALL_INTERFACE:include>)
 
 if (SURELOG_WITH_PYTHON)
