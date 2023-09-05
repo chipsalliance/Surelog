@@ -4574,6 +4574,7 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
                                 ->getCommandLineParser()
                                 ->reportNonSynthesizableWithFormal())) {
       annotate->listenDesigns(designs);
+      annotate->filterNonSynthesizable();
       delete annotate;
     }
   }
