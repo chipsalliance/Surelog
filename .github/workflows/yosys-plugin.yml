@@ -74,8 +74,8 @@ jobs:
       run: |
         cd yosys-uhdm-plugin-integration
         pip install virtualenv
-        make -C UHDM-integration-tests TEST=tests/ibex env
-        ./UHDM-integration-tests/.github/ci.sh
+        make -C tests TEST=tests/ibex env
+        ./tests/.github/ci.sh
       env:
         TARGET: uhdm/yosys/synth-ibex-symbiflow
         TEST_CASE: tests/ibex
@@ -83,7 +83,7 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: top_artya7.bit
-        path: ./yosys-uhdm-plugin-integration/UHDM-integration-tests/build/lowrisc_ibex_top_artya7_surelog_0.1/synth-symbiflow/top_artya7.bit
+        path: ./yosys-uhdm-plugin-integration/tests/build/lowrisc_ibex_top_artya7_surelog_0.1/synth-symbiflow/top_artya7.bit
 
     - name: Upload load graphs
       uses: actions/upload-artifact@v2
