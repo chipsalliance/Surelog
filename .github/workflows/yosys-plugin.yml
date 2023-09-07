@@ -35,22 +35,26 @@ jobs:
         update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1
         pip install orderedmultidict
 
-    - name: Setup integration repository
+    - name: Setup plugin repository
       run: |
         # Github dropped support for unauthorized git: https://github.blog/2021-09-01-improving-git-protocol-security-github/
         # Make sure we always use https:// instead of git://
         git config --global url.https://github.com/.insteadOf git://github.com/
-        # Use current main of the integration repository...
-        git clone https://github.com/antmicro/yosys-uhdm-plugin-integration.git
-        cd yosys-uhdm-plugin-integration
-        git submodule update --init --recursive .
+        # Use current main of the plugin repository...
+        git clone https://github.com/chipsalliance/systemverilog-plugin.git
+        cd systemverilog-plugin
+        git submodule update --depth 1 --init --recursive \
+              third_party/yosys \
+              third_party/yosys_f4pga_plugins \
+              third_party/make_env \
+              third_party/ibex \
 
     - name: Setup Surelog
       uses: actions/checkout@v2
       with:
         submodules: recursive
         fetch-depth: 0
-        path: 'yosys-uhdm-plugin-integration/Surelog'
+        path: 'systemverilog-plugin/third_party/surelog'
 
     - name: Create Cache Timestamp
       id: cache_timestamp
@@ -67,23 +71,21 @@ jobs:
 
     - name: Build binaries
       run: |
-        cd yosys-uhdm-plugin-integration
-        ./build_binaries.sh
+        cd systemverilog-plugin
+        make -rR -j $(nproc) -Oline -f build_binaries.mk SYSTEMVERILOG_PLUGIN_ONLY:=0 \
+              install-surelog install-yosys install-plugins
 
     - name: Build & Test Ibex
       run: |
-        cd yosys-uhdm-plugin-integration
         pip install virtualenv
-        make -C UHDM-integration-tests TEST=tests/ibex env
-        ./UHDM-integration-tests/.github/ci.sh
-      env:
-        TARGET: uhdm/yosys/synth-ibex-symbiflow
-        TEST_CASE: tests/ibex
+        cd systemverilog-plugin/tests
+        make -j 1 env TEST=ibex
+        make -j $(nproc) uhdm/yosys/synth-ibex-f4pga TEST=ibex ENABLE_READLINE=0 PRETTY=0
 
     - uses: actions/upload-artifact@v2
       with:
         name: top_artya7.bit
-        path: ./yosys-uhdm-plugin-integration/UHDM-integration-tests/build/lowrisc_ibex_top_artya7_surelog_0.1/synth-symbiflow/top_artya7.bit
+        path: ./systemverilog-plugin/tests/build/lowrisc_ibex_top_artya7_surelog_0.1/synth-symbiflow/top_artya7.bit
 
     - name: Upload load graphs
       uses: actions/upload-artifact@v2
