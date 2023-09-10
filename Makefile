@@ -150,5 +150,5 @@ test_install_pkgconfig:
 
 uninstall:
 	$(RM) -r $(PREFIX)/bin/surelog
-	$(RM) -r $(PREFIX)/lib/surelog
+	$(RM) -r $(PREFIX)/lib/libsurelog*
 	$(RM) -r $(PREFIX)/include/Surelog

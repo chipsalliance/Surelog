@@ -52,7 +52,7 @@ or
 or
   make release_with_python
   
-make install (/usr/local/bin and /usr/local/lib/surelog by default,
+make install (/usr/local/bin and /usr/local/lib by default,
               use PREFIX= for alternative location)
 ```
 
@@ -250,7 +250,7 @@ target_link_libraries(<your project name> surelog)
  * By default Surelog does not build the Python API, See  [`src/README`](src/README.md)
  * The Python API is operating on the Preprocessor and Parser ASTs. It is not supporting elaboration. Post-elaborated API seekers need to the use UHDM C/C++ API.
  * The file [`slformatmsg.py`](src/API/slformatmsg.py) illustrates how messages can be reformated.
-   * Place a modified version of this file either in the execution directory, or install directory /usr/local/lib/surelog/python
+   * Place a modified version of this file either in the execution directory, or install directory /usr/local/lib/surelog-python
 
  * A simple example of creating a new error message and generating errors can be found here: [`python_listener.py`](src/API/python_listener.py)
 
@@ -258,7 +258,7 @@ target_link_libraries(<your project name> surelog)
 
  * The complete Python API is described in the following files: [`SLAPI.h`](src/API/SLAPI.h) [`vobjecttypes`](src/API/vobjecttypes.py)
 
- * Waivers can be installed in slwaivers.py files in the execution directory or install directory /usr/local/lib/surelog/python
+ * Waivers can be installed in slwaivers.py files in the execution directory or install directory /usr/local/lib/surelog-python
 
 ### Large design compilation on Linux
  * It is recommanded to use the -lowmem -mp <nb processor> options in conjunction for large designs.

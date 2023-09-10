@@ -156,9 +156,16 @@ endif()
 # in .github/workflows/non_vendored.yml
 
 # NOTE: Set the global output directories after the subprojects have had their go at it
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/lib)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
+if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+  # Force all .lib and .dll into bin for windows
+  set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/lib)
+  set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
+  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
+else()
+  set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/lib)
+  set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/lib)
+  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
+endif()
 
 # Python
 if (SURELOG_WITH_PYTHON)
@@ -529,7 +536,10 @@ foreach(gen_src ${surelog_generated_SRC})
 endforeach()
 
 add_library(surelog ${surelog_SRC} ${surelog_generated_SRC})
-set_target_properties(surelog PROPERTIES PUBLIC_HEADER include/Surelog/surelog.h)
+set_target_properties(surelog PROPERTIES
+  PUBLIC_HEADER include/Surelog/surelog.h
+  SOVERSION "${SURELOG_VERSION_MAJOR}.${SURELOG_VERSION_MINOR}"
+)
 
 configure_file(${PROJECT_SOURCE_DIR}/include/Surelog/config.h.in ${GENDIR}/include/Surelog/config.h)
 target_compile_options(surelog PUBLIC
@@ -807,15 +817,15 @@ endif()
 install(
   TARGETS surelog
   EXPORT Surelog
-  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/surelog
-  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/surelog
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog)
 
 if(NOT SURELOG_USE_HOST_ANTLR)
   install(
     TARGETS antlr4_static
     EXPORT Surelog
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/surelog
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
     PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog)
 endif()
 
@@ -828,20 +838,20 @@ if(NOT SURELOG_USE_HOST_UHDM)
     install(
       TARGETS capnp kj
       EXPORT Surelog
-      ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/uhdm
+      ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
       PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/uhdm)
   endif()
   install(
     TARGETS uhdm
     EXPORT Surelog
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/uhdm
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
     PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/uhdm)
 endif()
 
 if (SURELOG_WITH_PYTHON)
   install(
     DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/python
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/surelog)
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/surelog-python)
 endif()
 
 install(DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/pkg DESTINATION share/surelog)
@@ -966,13 +976,13 @@ if (WIN32)
       FILES ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/surelog.dir/surelog.pdb
             ${LIBANTLR4_BINARY_DIR}/runtime/$<TARGET_FILE_BASE_NAME:antlr4_static>.pdb
       CONFIGURATIONS Debug RelWithDebInfo
-      DESTINATION ${CMAKE_INSTALL_LIBDIR}/surelog)
+      DESTINATION ${CMAKE_INSTALL_LIBDIR})
     install(
       FILES ${UHDM_BINARY_DIR}/CMakeFiles/uhdm.dir/uhdm.pdb
             ${Cap\'n\ Proto_BINARY_DIR}/src/capnp/CMakeFiles/capnp.dir/capnp.pdb
             ${Cap\'n\ Proto_BINARY_DIR}/src/kj/CMakeFiles/kj.dir/kj.pdb
       CONFIGURATIONS Debug RelWithDebInfo
-      DESTINATION ${CMAKE_INSTALL_LIBDIR}/uhdm)
+      DESTINATION ${CMAKE_INSTALL_LIBDIR})
   endif()
 endif()
 
