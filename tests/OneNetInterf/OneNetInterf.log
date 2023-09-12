@@ -67,7 +67,7 @@ operation                                              2
 port                                                  37
 program                                                2
 ref_module                                             6
-ref_obj                                               69
+ref_obj                                              112
 sys_func_call                                          9
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -91,7 +91,7 @@ operation                                              2
 port                                                  45
 program                                                2
 ref_module                                             6
-ref_obj                                               91
+ref_obj                                              142
 sys_func_call                                          9
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/OneNetInterf/slpp_unit/surelog.uhdm ...
@@ -481,7 +481,12 @@ design: (work@dut)
       |vpiActual:
       \_logic_net: (work@SUB.inp), line:14:24, endln:14:27
     |vpiTypedef:
-    \_logic_typespec: , line:14:19, endln:14:23
+    \_ref_obj: (work@SUB.inp)
+      |vpiParent:
+      \_port: (inp), line:14:24, endln:14:27
+      |vpiFullName:work@SUB.inp
+      |vpiActual:
+      \_logic_typespec: , line:14:19, endln:14:23
   |vpiPort:
   \_port: (out), line:14:40, endln:14:43
     |vpiParent:
@@ -497,7 +502,12 @@ design: (work@dut)
       |vpiActual:
       \_logic_net: (work@SUB.out), line:14:40, endln:14:43
     |vpiTypedef:
-    \_logic_typespec: , line:14:36, endln:14:39
+    \_ref_obj: (work@SUB.out)
+      |vpiParent:
+      \_port: (out), line:14:40, endln:14:43
+      |vpiFullName:work@SUB.out
+      |vpiActual:
+      \_logic_typespec: , line:14:36, endln:14:39
   |vpiContAssign:
   \_cont_assign: , line:15:10, endln:15:19
     |vpiParent:
@@ -560,7 +570,12 @@ design: (work@dut)
       |vpiActual:
       \_logic_net: (work@dut.i), line:2:24, endln:2:25
     |vpiTypedef:
-    \_logic_typespec: , line:2:19, endln:2:23
+    \_ref_obj: (work@dut.i)
+      |vpiParent:
+      \_port: (i), line:2:24, endln:2:25
+      |vpiFullName:work@dut.i
+      |vpiActual:
+      \_logic_typespec: , line:2:19, endln:2:23
   |vpiPort:
   \_port: (o), line:2:38, endln:2:39
     |vpiParent:
@@ -576,7 +591,12 @@ design: (work@dut)
       |vpiActual:
       \_logic_net: (work@dut.o), line:2:38, endln:2:39
     |vpiTypedef:
-    \_logic_typespec: , line:2:34, endln:2:37
+    \_ref_obj: (work@dut.o)
+      |vpiParent:
+      \_port: (o), line:2:38, endln:2:39
+      |vpiFullName:work@dut.o
+      |vpiActual:
+      \_logic_typespec: , line:2:34, endln:2:37
   |vpiRefModule:
   \_ref_module: work@ConnectTB (conntb), line:3:13, endln:3:19
     |vpiParent:
@@ -658,8 +678,12 @@ design: (work@dut)
       |vpiActual:
       \_interface_inst: work@ConnectTB (work@ConnectTB), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:7:1, endln:8:13
     |vpiTypedef:
-    \_interface_typespec: (ConnectTB), line:10:16, endln:10:25
-      |vpiName:ConnectTB
+    \_ref_obj: (work@middle.conn)
+      |vpiParent:
+      \_port: (conn), line:10:26, endln:10:30
+      |vpiFullName:work@middle.conn
+      |vpiActual:
+      \_interface_typespec: (ConnectTB), line:10:16, endln:10:25
   |vpiRefModule:
   \_ref_module: work@SUB (sub1), line:11:7, endln:11:11
     |vpiParent:
@@ -721,7 +745,12 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@tb (work@tb), file:${SURELOG_DIR}/tests/OneNetInterf/tb.v, line:14:1, endln:19:10
     |vpiTypespec:
-    \_logic_typespec: , line:15:3, endln:15:7
+    \_ref_obj: (work@tb.i)
+      |vpiParent:
+      \_logic_net: (work@tb.i), line:15:8, endln:15:9
+      |vpiFullName:work@tb.i
+      |vpiActual:
+      \_logic_typespec: , line:15:3, endln:15:7
     |vpiName:i
     |vpiFullName:work@tb.i
     |vpiNetType:1
@@ -730,7 +759,12 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@tb (work@tb), file:${SURELOG_DIR}/tests/OneNetInterf/tb.v, line:14:1, endln:19:10
     |vpiTypespec:
-    \_logic_typespec: , line:15:3, endln:15:7
+    \_ref_obj: (work@tb.o)
+      |vpiParent:
+      \_logic_net: (work@tb.o), line:15:10, endln:15:11
+      |vpiFullName:work@tb.o
+      |vpiActual:
+      \_logic_typespec: , line:15:3, endln:15:7
     |vpiName:o
     |vpiFullName:work@tb.o
     |vpiNetType:1
@@ -855,9 +889,12 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:2:1, endln:5:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:19, endln:2:23
+    \_ref_obj: (work@dut.i)
       |vpiParent:
       \_logic_net: (work@dut.i), line:2:24, endln:2:25
+      |vpiFullName:work@dut.i
+      |vpiActual:
+      \_logic_typespec: , line:2:19, endln:2:23
     |vpiName:i
     |vpiFullName:work@dut.i
     |vpiNetType:1
@@ -866,9 +903,12 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:2:1, endln:5:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:34, endln:2:37
+    \_ref_obj: (work@dut.o)
       |vpiParent:
       \_logic_net: (work@dut.o), line:2:38, endln:2:39
+      |vpiFullName:work@dut.o
+      |vpiActual:
+      \_logic_typespec: , line:2:34, endln:2:37
     |vpiName:o
     |vpiFullName:work@dut.o
     |vpiNetType:48
@@ -888,7 +928,12 @@ design: (work@dut)
       |vpiActual:
       \_logic_net: (work@dut.i), line:2:24, endln:2:25
     |vpiTypedef:
-    \_logic_typespec: , line:2:19, endln:2:23
+    \_ref_obj: (work@dut.i)
+      |vpiParent:
+      \_port: (i), line:2:24, endln:2:25
+      |vpiFullName:work@dut.i
+      |vpiActual:
+      \_logic_typespec: , line:2:19, endln:2:23
     |vpiInstance:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:2:1, endln:5:10
   |vpiPort:
@@ -906,7 +951,12 @@ design: (work@dut)
       |vpiActual:
       \_logic_net: (work@dut.o), line:2:38, endln:2:39
     |vpiTypedef:
-    \_logic_typespec: , line:2:34, endln:2:37
+    \_ref_obj: (work@dut.o)
+      |vpiParent:
+      \_port: (o), line:2:38, endln:2:39
+      |vpiFullName:work@dut.o
+      |vpiActual:
+      \_logic_typespec: , line:2:34, endln:2:37
     |vpiInstance:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:2:1, endln:5:10
   |vpiInterface:
@@ -923,9 +973,12 @@ design: (work@dut)
       |vpiParent:
       \_interface_inst: work@ConnectTB (work@dut.conntb), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:3:3, endln:3:41
       |vpiTypespec:
-      \_logic_typespec: , line:7:28, endln:7:32
+      \_ref_obj: (work@dut.conntb.con_i)
         |vpiParent:
         \_logic_net: (work@dut.conntb.con_i), line:7:33, endln:7:38
+        |vpiFullName:work@dut.conntb.con_i
+        |vpiActual:
+        \_logic_typespec: , line:7:28, endln:7:32
       |vpiName:con_i
       |vpiFullName:work@dut.conntb.con_i
       |vpiNetType:1
@@ -934,9 +987,12 @@ design: (work@dut)
       |vpiParent:
       \_interface_inst: work@ConnectTB (work@dut.conntb), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:3:3, endln:3:41
       |vpiTypespec:
-      \_logic_typespec: , line:7:47, endln:7:50
+      \_ref_obj: (work@dut.conntb.con_o)
         |vpiParent:
         \_logic_net: (work@dut.conntb.con_o), line:7:51, endln:7:56
+        |vpiFullName:work@dut.conntb.con_o
+        |vpiActual:
+        \_logic_typespec: , line:7:47, endln:7:50
       |vpiName:con_o
       |vpiFullName:work@dut.conntb.con_o
       |vpiNetType:48
@@ -965,7 +1021,12 @@ design: (work@dut)
         |vpiActual:
         \_logic_net: (work@dut.conntb.con_i), line:7:33, endln:7:38
       |vpiTypedef:
-      \_logic_typespec: , line:7:28, endln:7:32
+      \_ref_obj: (work@dut.conntb.con_i)
+        |vpiParent:
+        \_port: (con_i), line:7:33, endln:7:38
+        |vpiFullName:work@dut.conntb.con_i
+        |vpiActual:
+        \_logic_typespec: , line:7:28, endln:7:32
     |vpiPort:
     \_port: (con_o), line:7:51, endln:7:56
       |vpiParent:
@@ -989,7 +1050,12 @@ design: (work@dut)
         |vpiActual:
         \_logic_net: (work@dut.conntb.con_o), line:7:51, endln:7:56
       |vpiTypedef:
-      \_logic_typespec: , line:7:47, endln:7:50
+      \_ref_obj: (work@dut.conntb.con_o)
+        |vpiParent:
+        \_port: (con_o), line:7:51, endln:7:56
+        |vpiFullName:work@dut.conntb.con_o
+        |vpiActual:
+        \_logic_typespec: , line:7:47, endln:7:50
   |vpiModule:
   \_module_inst: work@middle (work@dut.middle1), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:4:3, endln:4:26
     |vpiParent:
@@ -1023,8 +1089,12 @@ design: (work@dut)
         |vpiActual:
         \_interface_inst: work@ConnectTB (work@dut.middle1.conn), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:4:0
       |vpiTypedef:
-      \_interface_typespec: (ConnectTB), line:10:16, endln:10:25
-        |vpiName:ConnectTB
+      \_ref_obj: (work@dut.middle1.conn)
+        |vpiParent:
+        \_port: (conn), line:10:26, endln:10:30
+        |vpiFullName:work@dut.middle1.conn
+        |vpiActual:
+        \_interface_typespec: (ConnectTB), line:10:16, endln:10:25
       |vpiInstance:
       \_module_inst: work@middle (work@dut.middle1), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:4:3, endln:4:26
     |vpiInterface:
@@ -1049,7 +1119,12 @@ design: (work@dut)
           |vpiActual:
           \_logic_net: (con_i), line:7:33, endln:7:38
         |vpiTypedef:
-        \_logic_typespec: , line:7:28, endln:7:32
+        \_ref_obj: (work@dut.middle1.conn.con_i)
+          |vpiParent:
+          \_port: (con_i), line:7:33, endln:7:38
+          |vpiFullName:work@dut.middle1.conn.con_i
+          |vpiActual:
+          \_logic_typespec: , line:7:28, endln:7:32
       |vpiPort:
       \_port: (con_o), line:7:51, endln:7:56
         |vpiParent:
@@ -1065,7 +1140,12 @@ design: (work@dut)
           |vpiActual:
           \_logic_net: (con_o), line:7:51, endln:7:56
         |vpiTypedef:
-        \_logic_typespec: , line:7:47, endln:7:50
+        \_ref_obj: (work@dut.middle1.conn.con_o)
+          |vpiParent:
+          \_port: (con_o), line:7:51, endln:7:56
+          |vpiFullName:work@dut.middle1.conn.con_o
+          |vpiActual:
+          \_logic_typespec: , line:7:47, endln:7:50
     |vpiInterface:
     \_interface_inst: work@ConnectTB (work@dut.middle1.conn), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:4:0
     |vpiModule:
@@ -1082,9 +1162,12 @@ design: (work@dut)
         |vpiParent:
         \_module_inst: work@SUB (work@dut.middle1.sub1), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:11:3, endln:11:47
         |vpiTypespec:
-        \_logic_typespec: , line:14:19, endln:14:23
+        \_ref_obj: (work@dut.middle1.sub1.inp)
           |vpiParent:
           \_logic_net: (work@dut.middle1.sub1.inp), line:14:24, endln:14:27
+          |vpiFullName:work@dut.middle1.sub1.inp
+          |vpiActual:
+          \_logic_typespec: , line:14:19, endln:14:23
         |vpiName:inp
         |vpiFullName:work@dut.middle1.sub1.inp
         |vpiNetType:1
@@ -1093,7 +1176,12 @@ design: (work@dut)
         |vpiParent:
         \_module_inst: work@SUB (work@dut.middle1.sub1), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:11:3, endln:11:47
         |vpiTypespec:
-        \_logic_typespec: , line:14:36, endln:14:39
+        \_ref_obj: (work@dut.middle1.sub1.out)
+          |vpiParent:
+          \_logic_net: (work@dut.middle1.sub1.out), line:14:40, endln:14:43
+          |vpiFullName:work@dut.middle1.sub1.out
+          |vpiActual:
+          \_logic_typespec: , line:14:36, endln:14:39
         |vpiName:out
         |vpiFullName:work@dut.middle1.sub1.out
         |vpiNetType:48
@@ -1141,7 +1229,12 @@ design: (work@dut)
           |vpiActual:
           \_logic_net: (work@dut.middle1.sub1.inp), line:14:24, endln:14:27
         |vpiTypedef:
-        \_logic_typespec: , line:14:19, endln:14:23
+        \_ref_obj: (work@dut.middle1.sub1.inp)
+          |vpiParent:
+          \_port: (inp), line:14:24, endln:14:27
+          |vpiFullName:work@dut.middle1.sub1.inp
+          |vpiActual:
+          \_logic_typespec: , line:14:19, endln:14:23
         |vpiInstance:
         \_module_inst: work@SUB (work@dut.middle1.sub1), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:11:3, endln:11:47
       |vpiPort:
@@ -1183,7 +1276,12 @@ design: (work@dut)
           |vpiActual:
           \_logic_net: (work@dut.middle1.sub1.out), line:14:40, endln:14:43
         |vpiTypedef:
-        \_logic_typespec: , line:14:36, endln:14:39
+        \_ref_obj: (work@dut.middle1.sub1.out)
+          |vpiParent:
+          \_port: (out), line:14:40, endln:14:43
+          |vpiFullName:work@dut.middle1.sub1.out
+          |vpiActual:
+          \_logic_typespec: , line:14:36, endln:14:39
         |vpiInstance:
         \_module_inst: work@SUB (work@dut.middle1.sub1), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:11:3, endln:11:47
       |vpiContAssign:
@@ -1225,9 +1323,12 @@ design: (work@dut)
       |vpiParent:
       \_program: work@TESTBENCH (work@tb.tb), file:${SURELOG_DIR}/tests/OneNetInterf/tb.v, line:18:3, endln:18:61
       |vpiTypespec:
-      \_logic_typespec: , line:1:25, endln:1:29
+      \_ref_obj: (work@tb.tb.observe)
         |vpiParent:
         \_logic_net: (work@tb.tb.observe), line:1:30, endln:1:37
+        |vpiFullName:work@tb.tb.observe
+        |vpiActual:
+        \_logic_typespec: , line:1:25, endln:1:29
       |vpiName:observe
       |vpiFullName:work@tb.tb.observe
       |vpiNetType:1
@@ -1236,9 +1337,12 @@ design: (work@dut)
       |vpiParent:
       \_program: work@TESTBENCH (work@tb.tb), file:${SURELOG_DIR}/tests/OneNetInterf/tb.v, line:18:3, endln:18:61
       |vpiTypespec:
-      \_logic_typespec: , line:1:46, endln:1:49
+      \_ref_obj: (work@tb.tb.drive)
         |vpiParent:
         \_logic_net: (work@tb.tb.drive), line:1:50, endln:1:55
+        |vpiFullName:work@tb.tb.drive
+        |vpiActual:
+        \_logic_typespec: , line:1:46, endln:1:49
       |vpiName:drive
       |vpiFullName:work@tb.tb.drive
       |vpiNetType:48
@@ -1279,7 +1383,12 @@ design: (work@dut)
         |vpiActual:
         \_logic_net: (work@tb.tb.observe), line:1:30, endln:1:37
       |vpiTypedef:
-      \_logic_typespec: , line:1:25, endln:1:29
+      \_ref_obj: (work@tb.tb.observe)
+        |vpiParent:
+        \_port: (observe), line:1:30, endln:1:37
+        |vpiFullName:work@tb.tb.observe
+        |vpiActual:
+        \_logic_typespec: , line:1:25, endln:1:29
     |vpiPort:
     \_port: (drive), line:1:50, endln:1:55
       |vpiParent:
@@ -1313,15 +1422,23 @@ design: (work@dut)
         |vpiActual:
         \_logic_net: (work@tb.tb.drive), line:1:50, endln:1:55
       |vpiTypedef:
-      \_logic_typespec: , line:1:46, endln:1:49
+      \_ref_obj: (work@tb.tb.drive)
+        |vpiParent:
+        \_port: (drive), line:1:50, endln:1:55
+        |vpiFullName:work@tb.tb.drive
+        |vpiActual:
+        \_logic_typespec: , line:1:46, endln:1:49
   |vpiNet:
   \_logic_net: (work@tb.i), line:15:8, endln:15:9
     |vpiParent:
     \_module_inst: work@tb (work@tb), file:${SURELOG_DIR}/tests/OneNetInterf/tb.v, line:14:1, endln:19:10
     |vpiTypespec:
-    \_logic_typespec: , line:15:3, endln:15:7
+    \_ref_obj: (work@tb.i)
       |vpiParent:
-      \_logic_net: (work@tb.o), line:15:10, endln:15:11
+      \_logic_net: (work@tb.i), line:15:8, endln:15:9
+      |vpiFullName:work@tb.i
+      |vpiActual:
+      \_logic_typespec: , line:15:3, endln:15:7
     |vpiName:i
     |vpiFullName:work@tb.i
     |vpiNetType:1
@@ -1330,7 +1447,12 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@tb (work@tb), file:${SURELOG_DIR}/tests/OneNetInterf/tb.v, line:14:1, endln:19:10
     |vpiTypespec:
-    \_logic_typespec: , line:15:3, endln:15:7
+    \_ref_obj: (work@tb.o)
+      |vpiParent:
+      \_logic_net: (work@tb.o), line:15:10, endln:15:11
+      |vpiFullName:work@tb.o
+      |vpiActual:
+      \_logic_typespec: , line:15:3, endln:15:7
     |vpiName:o
     |vpiFullName:work@tb.o
     |vpiNetType:1
@@ -1349,9 +1471,12 @@ design: (work@dut)
       |vpiParent:
       \_interface_inst: work@ConnectTB (work@tb.conntb), file:${SURELOG_DIR}/tests/OneNetInterf/tb.v, line:16:3, endln:16:41
       |vpiTypespec:
-      \_logic_typespec: , line:7:28, endln:7:32
+      \_ref_obj: (work@tb.conntb.con_i)
         |vpiParent:
         \_logic_net: (work@tb.conntb.con_i), line:7:33, endln:7:38
+        |vpiFullName:work@tb.conntb.con_i
+        |vpiActual:
+        \_logic_typespec: , line:7:28, endln:7:32
       |vpiName:con_i
       |vpiFullName:work@tb.conntb.con_i
       |vpiNetType:1
@@ -1360,9 +1485,12 @@ design: (work@dut)
       |vpiParent:
       \_interface_inst: work@ConnectTB (work@tb.conntb), file:${SURELOG_DIR}/tests/OneNetInterf/tb.v, line:16:3, endln:16:41
       |vpiTypespec:
-      \_logic_typespec: , line:7:47, endln:7:50
+      \_ref_obj: (work@tb.conntb.con_o)
         |vpiParent:
         \_logic_net: (work@tb.conntb.con_o), line:7:51, endln:7:56
+        |vpiFullName:work@tb.conntb.con_o
+        |vpiActual:
+        \_logic_typespec: , line:7:47, endln:7:50
       |vpiName:con_o
       |vpiFullName:work@tb.conntb.con_o
       |vpiNetType:48
@@ -1391,7 +1519,12 @@ design: (work@dut)
         |vpiActual:
         \_logic_net: (work@tb.conntb.con_i), line:7:33, endln:7:38
       |vpiTypedef:
-      \_logic_typespec: , line:7:28, endln:7:32
+      \_ref_obj: (work@tb.conntb.con_i)
+        |vpiParent:
+        \_port: (con_i), line:7:33, endln:7:38
+        |vpiFullName:work@tb.conntb.con_i
+        |vpiActual:
+        \_logic_typespec: , line:7:28, endln:7:32
     |vpiPort:
     \_port: (con_o), line:7:51, endln:7:56
       |vpiParent:
@@ -1415,7 +1548,12 @@ design: (work@dut)
         |vpiActual:
         \_logic_net: (work@tb.conntb.con_o), line:7:51, endln:7:56
       |vpiTypedef:
-      \_logic_typespec: , line:7:47, endln:7:50
+      \_ref_obj: (work@tb.conntb.con_o)
+        |vpiParent:
+        \_port: (con_o), line:7:51, endln:7:56
+        |vpiFullName:work@tb.conntb.con_o
+        |vpiActual:
+        \_logic_typespec: , line:7:47, endln:7:50
   |vpiModule:
   \_module_inst: work@middle (work@tb.dut1), file:${SURELOG_DIR}/tests/OneNetInterf/tb.v, line:17:3, endln:17:23
     |vpiParent:
@@ -1449,8 +1587,12 @@ design: (work@dut)
         |vpiActual:
         \_interface_inst: work@ConnectTB (work@tb.dut1.conn), file:${SURELOG_DIR}/tests/OneNetInterf/tb.v, line:17:0
       |vpiTypedef:
-      \_interface_typespec: (ConnectTB), line:10:16, endln:10:25
-        |vpiName:ConnectTB
+      \_ref_obj: (work@tb.dut1.conn)
+        |vpiParent:
+        \_port: (conn), line:10:26, endln:10:30
+        |vpiFullName:work@tb.dut1.conn
+        |vpiActual:
+        \_interface_typespec: (ConnectTB), line:10:16, endln:10:25
       |vpiInstance:
       \_module_inst: work@middle (work@tb.dut1), file:${SURELOG_DIR}/tests/OneNetInterf/tb.v, line:17:3, endln:17:23
     |vpiInterface:
@@ -1475,7 +1617,12 @@ design: (work@dut)
           |vpiActual:
           \_logic_net: (con_i), line:7:33, endln:7:38
         |vpiTypedef:
-        \_logic_typespec: , line:7:28, endln:7:32
+        \_ref_obj: (work@tb.dut1.conn.con_i)
+          |vpiParent:
+          \_port: (con_i), line:7:33, endln:7:38
+          |vpiFullName:work@tb.dut1.conn.con_i
+          |vpiActual:
+          \_logic_typespec: , line:7:28, endln:7:32
       |vpiPort:
       \_port: (con_o), line:7:51, endln:7:56
         |vpiParent:
@@ -1491,7 +1638,12 @@ design: (work@dut)
           |vpiActual:
           \_logic_net: (con_o), line:7:51, endln:7:56
         |vpiTypedef:
-        \_logic_typespec: , line:7:47, endln:7:50
+        \_ref_obj: (work@tb.dut1.conn.con_o)
+          |vpiParent:
+          \_port: (con_o), line:7:51, endln:7:56
+          |vpiFullName:work@tb.dut1.conn.con_o
+          |vpiActual:
+          \_logic_typespec: , line:7:47, endln:7:50
     |vpiInterface:
     \_interface_inst: work@ConnectTB (work@tb.dut1.conn), file:${SURELOG_DIR}/tests/OneNetInterf/tb.v, line:17:0
     |vpiModule:
@@ -1508,9 +1660,12 @@ design: (work@dut)
         |vpiParent:
         \_module_inst: work@SUB (work@tb.dut1.sub1), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:11:3, endln:11:47
         |vpiTypespec:
-        \_logic_typespec: , line:14:19, endln:14:23
+        \_ref_obj: (work@tb.dut1.sub1.inp)
           |vpiParent:
           \_logic_net: (work@tb.dut1.sub1.inp), line:14:24, endln:14:27
+          |vpiFullName:work@tb.dut1.sub1.inp
+          |vpiActual:
+          \_logic_typespec: , line:14:19, endln:14:23
         |vpiName:inp
         |vpiFullName:work@tb.dut1.sub1.inp
         |vpiNetType:1
@@ -1519,7 +1674,12 @@ design: (work@dut)
         |vpiParent:
         \_module_inst: work@SUB (work@tb.dut1.sub1), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:11:3, endln:11:47
         |vpiTypespec:
-        \_logic_typespec: , line:14:36, endln:14:39
+        \_ref_obj: (work@tb.dut1.sub1.out)
+          |vpiParent:
+          \_logic_net: (work@tb.dut1.sub1.out), line:14:40, endln:14:43
+          |vpiFullName:work@tb.dut1.sub1.out
+          |vpiActual:
+          \_logic_typespec: , line:14:36, endln:14:39
         |vpiName:out
         |vpiFullName:work@tb.dut1.sub1.out
         |vpiNetType:48
@@ -1567,7 +1727,12 @@ design: (work@dut)
           |vpiActual:
           \_logic_net: (work@tb.dut1.sub1.inp), line:14:24, endln:14:27
         |vpiTypedef:
-        \_logic_typespec: , line:14:19, endln:14:23
+        \_ref_obj: (work@tb.dut1.sub1.inp)
+          |vpiParent:
+          \_port: (inp), line:14:24, endln:14:27
+          |vpiFullName:work@tb.dut1.sub1.inp
+          |vpiActual:
+          \_logic_typespec: , line:14:19, endln:14:23
         |vpiInstance:
         \_module_inst: work@SUB (work@tb.dut1.sub1), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:11:3, endln:11:47
       |vpiPort:
@@ -1609,7 +1774,12 @@ design: (work@dut)
           |vpiActual:
           \_logic_net: (work@tb.dut1.sub1.out), line:14:40, endln:14:43
         |vpiTypedef:
-        \_logic_typespec: , line:14:36, endln:14:39
+        \_ref_obj: (work@tb.dut1.sub1.out)
+          |vpiParent:
+          \_port: (out), line:14:40, endln:14:43
+          |vpiFullName:work@tb.dut1.sub1.out
+          |vpiActual:
+          \_logic_typespec: , line:14:36, endln:14:39
         |vpiInstance:
         \_module_inst: work@SUB (work@tb.dut1.sub1), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:11:3, endln:11:47
       |vpiContAssign:
@@ -1632,6 +1802,122 @@ design: (work@dut)
           |vpiFullName:work@tb.dut1.sub1.out
           |vpiActual:
           \_logic_net: (work@tb.dut1.sub1.out), line:14:40, endln:14:43
+\_weaklyReferenced:
+\_logic_typespec: , line:2:19, endln:2:23
+\_logic_typespec: , line:2:34, endln:2:37
+\_logic_typespec: , line:2:19, endln:2:23
+  |vpiParent:
+  \_logic_net: (work@dut.i), line:2:24, endln:2:25
+\_logic_typespec: , line:2:34, endln:2:37
+  |vpiParent:
+  \_logic_net: (work@dut.o), line:2:38, endln:2:39
+\_logic_typespec: , line:7:28, endln:7:32
+\_logic_typespec: , line:7:47, endln:7:50
+\_logic_typespec: , line:7:28, endln:7:32
+  |vpiParent:
+  \_logic_net: (work@dut.conntb.con_i), line:7:33, endln:7:38
+\_logic_typespec: , line:7:47, endln:7:50
+  |vpiParent:
+  \_logic_net: (work@dut.conntb.con_o), line:7:51, endln:7:56
+\_interface_typespec: (ConnectTB), line:10:16, endln:10:25
+  |vpiName:ConnectTB
+\_logic_typespec: , line:7:28, endln:7:32
+\_logic_typespec: , line:7:47, endln:7:50
+\_logic_net: (con_i), line:7:33, endln:7:38
+  |vpiTypespec:
+  \_ref_obj: (con_i)
+    |vpiParent:
+    \_logic_net: (con_i), line:7:33, endln:7:38
+    |vpiFullName:con_i
+    |vpiActual:
+    \_logic_typespec: , line:7:28, endln:7:32
+  |vpiName:con_i
+  |vpiNetType:1
+\_logic_typespec: , line:7:28, endln:7:32
+  |vpiParent:
+  \_logic_net: (con_i), line:7:33, endln:7:38
+\_logic_net: (con_o), line:7:51, endln:7:56
+  |vpiTypespec:
+  \_ref_obj: (con_o)
+    |vpiParent:
+    \_logic_net: (con_o), line:7:51, endln:7:56
+    |vpiFullName:con_o
+    |vpiActual:
+    \_logic_typespec: , line:7:47, endln:7:50
+  |vpiName:con_o
+  |vpiNetType:48
+\_logic_typespec: , line:7:47, endln:7:50
+  |vpiParent:
+  \_logic_net: (con_o), line:7:51, endln:7:56
+\_logic_typespec: , line:14:19, endln:14:23
+\_logic_typespec: , line:14:36, endln:14:39
+\_logic_typespec: , line:14:19, endln:14:23
+  |vpiParent:
+  \_logic_net: (work@dut.middle1.sub1.inp), line:14:24, endln:14:27
+\_logic_typespec: , line:14:36, endln:14:39
+\_logic_typespec: , line:15:3, endln:15:7
+  |vpiParent:
+  \_logic_net: (work@tb.o), line:15:10, endln:15:11
+\_logic_typespec: , line:7:28, endln:7:32
+\_logic_typespec: , line:7:47, endln:7:50
+\_logic_typespec: , line:7:28, endln:7:32
+  |vpiParent:
+  \_logic_net: (work@tb.conntb.con_i), line:7:33, endln:7:38
+\_logic_typespec: , line:7:47, endln:7:50
+  |vpiParent:
+  \_logic_net: (work@tb.conntb.con_o), line:7:51, endln:7:56
+\_interface_typespec: (ConnectTB), line:10:16, endln:10:25
+  |vpiName:ConnectTB
+\_logic_typespec: , line:7:28, endln:7:32
+\_logic_typespec: , line:7:47, endln:7:50
+\_logic_net: (con_i), line:7:33, endln:7:38
+  |vpiTypespec:
+  \_ref_obj: (con_i)
+    |vpiParent:
+    \_logic_net: (con_i), line:7:33, endln:7:38
+    |vpiFullName:con_i
+    |vpiActual:
+    \_logic_typespec: , line:7:28, endln:7:32
+  |vpiName:con_i
+  |vpiNetType:1
+\_logic_typespec: , line:7:28, endln:7:32
+  |vpiParent:
+  \_logic_net: (con_i), line:7:33, endln:7:38
+\_logic_net: (con_o), line:7:51, endln:7:56
+  |vpiTypespec:
+  \_ref_obj: (con_o)
+    |vpiParent:
+    \_logic_net: (con_o), line:7:51, endln:7:56
+    |vpiFullName:con_o
+    |vpiActual:
+    \_logic_typespec: , line:7:47, endln:7:50
+  |vpiName:con_o
+  |vpiNetType:48
+\_logic_typespec: , line:7:47, endln:7:50
+  |vpiParent:
+  \_logic_net: (con_o), line:7:51, endln:7:56
+\_logic_typespec: , line:14:19, endln:14:23
+\_logic_typespec: , line:14:36, endln:14:39
+\_logic_typespec: , line:14:19, endln:14:23
+  |vpiParent:
+  \_logic_net: (work@tb.dut1.sub1.inp), line:14:24, endln:14:27
+\_logic_typespec: , line:14:36, endln:14:39
+\_logic_typespec: , line:1:25, endln:1:29
+\_logic_typespec: , line:1:46, endln:1:49
+\_logic_typespec: , line:1:25, endln:1:29
+  |vpiParent:
+  \_logic_net: (work@tb.tb.observe), line:1:30, endln:1:37
+\_logic_typespec: , line:1:46, endln:1:49
+  |vpiParent:
+  \_logic_net: (work@tb.tb.drive), line:1:50, endln:1:55
+\_logic_typespec: , line:14:19, endln:14:23
+\_logic_typespec: , line:14:36, endln:14:39
+\_logic_typespec: , line:2:19, endln:2:23
+\_logic_typespec: , line:2:34, endln:2:37
+\_interface_typespec: (ConnectTB), line:10:16, endln:10:25
+  |vpiName:ConnectTB
+\_logic_typespec: , line:15:3, endln:15:7
+\_logic_typespec: , line:15:3, endln:15:7
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -172,7 +172,7 @@ operation                                              5
 param_assign                                           7
 parameter                                              7
 ref_module                                             9
-ref_obj                                                1
+ref_obj                                               17
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -189,7 +189,7 @@ operation                                              5
 param_assign                                          64
 parameter                                              7
 ref_module                                             9
-ref_obj                                                1
+ref_obj                                              131
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/Loop/slpp_all/surelog.uhdm ...
 
@@ -228,7 +228,12 @@ design: (work@top)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:10:1, endln:16:10
     |UINT:10
     |vpiTypespec:
-    \_int_typespec: , line:12:4, endln:12:34
+    \_ref_obj: (work@test.bht_row_width_p)
+      |vpiParent:
+      \_parameter: (work@test.bht_row_width_p), line:12:14, endln:12:29
+      |vpiFullName:work@test.bht_row_width_p
+      |vpiActual:
+      \_int_typespec: , line:12:4, endln:12:34
     |vpiName:bht_row_width_p
     |vpiFullName:work@test.bht_row_width_p
   |vpiParamAssign:
@@ -243,7 +248,12 @@ design: (work@top)
       |vpiSize:64
       |UINT:10
       |vpiTypespec:
-      \_int_typespec: , line:12:4, endln:12:34
+      \_ref_obj: (work@test)
+        |vpiParent:
+        \_constant: , line:12:32, endln:12:34
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:12:4, endln:12:34
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test.bht_row_width_p), line:12:14, endln:12:29
@@ -309,9 +319,12 @@ design: (work@top)
       \_module_inst: work@test (work@top.u1), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:2:4, endln:2:14
       |UINT:10
       |vpiTypespec:
-      \_int_typespec: , line:12:4, endln:12:34
+      \_ref_obj: (work@top.u1.bht_row_width_p)
         |vpiParent:
         \_parameter: (work@top.u1.bht_row_width_p), line:12:14, endln:12:29
+        |vpiFullName:work@top.u1.bht_row_width_p
+        |vpiActual:
+        \_int_typespec: , line:12:4, endln:12:34
       |vpiName:bht_row_width_p
       |vpiFullName:work@top.u1.bht_row_width_p
     |vpiParamAssign:
@@ -326,7 +339,12 @@ design: (work@top)
         |vpiSize:32
         |UINT:10
         |vpiTypespec:
-        \_int_typespec: , line:12:4, endln:12:34
+        \_ref_obj: (work@top.u1)
+          |vpiParent:
+          \_constant: , line:12:32, endln:12:34
+          |vpiFullName:work@top.u1
+          |vpiActual:
+          \_int_typespec: , line:12:4, endln:12:34
         |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@top.u1.bht_row_width_p), line:12:14, endln:12:29
@@ -358,9 +376,12 @@ design: (work@top)
             \_param_assign: , line:12:14, endln:12:34
             |UINT:10
             |vpiTypespec:
-            \_int_typespec: , line:12:4, endln:12:34
+            \_ref_obj: (work@top.u1.genblk1.u.bht_row_width_p)
               |vpiParent:
               \_parameter: (work@top.u1.genblk1.u.bht_row_width_p), line:12:14, endln:12:29
+              |vpiFullName:work@top.u1.genblk1.u.bht_row_width_p
+              |vpiActual:
+              \_int_typespec: , line:12:4, endln:12:34
             |vpiName:bht_row_width_p
             |vpiFullName:work@top.u1.genblk1.u.bht_row_width_p
           |vpiParamAssign:
@@ -376,7 +397,12 @@ design: (work@top)
               |vpiSize:32
               |INT:8
               |vpiTypespec:
-              \_int_typespec: , line:12:4, endln:12:34
+              \_ref_obj: (work@top.u1.genblk1.u)
+                |vpiParent:
+                \_constant: , line:12:32, endln:12:34
+                |vpiFullName:work@top.u1.genblk1.u
+                |vpiActual:
+                \_int_typespec: , line:12:4, endln:12:34
               |vpiConstType:7
             |vpiLhs:
             \_parameter: (work@top.u1.genblk1.u.bht_row_width_p), line:12:14, endln:12:29
@@ -406,9 +432,12 @@ design: (work@top)
                   \_param_assign: , line:12:14, endln:12:34
                   |UINT:10
                   |vpiTypespec:
-                  \_int_typespec: , line:12:4, endln:12:34
+                  \_ref_obj: (work@top.u1.genblk1.u.genblk1.u.bht_row_width_p)
                     |vpiParent:
                     \_parameter: (work@top.u1.genblk1.u.genblk1.u.bht_row_width_p), line:12:14, endln:12:29
+                    |vpiFullName:work@top.u1.genblk1.u.genblk1.u.bht_row_width_p
+                    |vpiActual:
+                    \_int_typespec: , line:12:4, endln:12:34
                   |vpiName:bht_row_width_p
                   |vpiFullName:work@top.u1.genblk1.u.genblk1.u.bht_row_width_p
                 |vpiParamAssign:
@@ -424,7 +453,12 @@ design: (work@top)
                     |vpiSize:32
                     |INT:6
                     |vpiTypespec:
-                    \_int_typespec: , line:12:4, endln:12:34
+                    \_ref_obj: (work@top.u1.genblk1.u.genblk1.u)
+                      |vpiParent:
+                      \_constant: , line:12:32, endln:12:34
+                      |vpiFullName:work@top.u1.genblk1.u.genblk1.u
+                      |vpiActual:
+                      \_int_typespec: , line:12:4, endln:12:34
                     |vpiConstType:7
                   |vpiLhs:
                   \_parameter: (work@top.u1.genblk1.u.genblk1.u.bht_row_width_p), line:12:14, endln:12:29
@@ -454,9 +488,12 @@ design: (work@top)
                         \_param_assign: , line:12:14, endln:12:34
                         |UINT:10
                         |vpiTypespec:
-                        \_int_typespec: , line:12:4, endln:12:34
+                        \_ref_obj: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.bht_row_width_p)
                           |vpiParent:
                           \_parameter: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.bht_row_width_p), line:12:14, endln:12:29
+                          |vpiFullName:work@top.u1.genblk1.u.genblk1.u.genblk1.u.bht_row_width_p
+                          |vpiActual:
+                          \_int_typespec: , line:12:4, endln:12:34
                         |vpiName:bht_row_width_p
                         |vpiFullName:work@top.u1.genblk1.u.genblk1.u.genblk1.u.bht_row_width_p
                       |vpiParamAssign:
@@ -472,7 +509,12 @@ design: (work@top)
                           |vpiSize:32
                           |INT:4
                           |vpiTypespec:
-                          \_int_typespec: , line:12:4, endln:12:34
+                          \_ref_obj: (work@top.u1.genblk1.u.genblk1.u.genblk1.u)
+                            |vpiParent:
+                            \_constant: , line:12:32, endln:12:34
+                            |vpiFullName:work@top.u1.genblk1.u.genblk1.u.genblk1.u
+                            |vpiActual:
+                            \_int_typespec: , line:12:4, endln:12:34
                           |vpiConstType:7
                         |vpiLhs:
                         \_parameter: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.bht_row_width_p), line:12:14, endln:12:29
@@ -502,9 +544,12 @@ design: (work@top)
                               \_param_assign: , line:12:14, endln:12:34
                               |UINT:10
                               |vpiTypespec:
-                              \_int_typespec: , line:12:4, endln:12:34
+                              \_ref_obj: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.bht_row_width_p)
                                 |vpiParent:
                                 \_parameter: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.bht_row_width_p), line:12:14, endln:12:29
+                                |vpiFullName:work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.bht_row_width_p
+                                |vpiActual:
+                                \_int_typespec: , line:12:4, endln:12:34
                               |vpiName:bht_row_width_p
                               |vpiFullName:work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.bht_row_width_p
                             |vpiParamAssign:
@@ -520,7 +565,12 @@ design: (work@top)
                                 |vpiSize:32
                                 |INT:2
                                 |vpiTypespec:
-                                \_int_typespec: , line:12:4, endln:12:34
+                                \_ref_obj: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u)
+                                  |vpiParent:
+                                  \_constant: , line:12:32, endln:12:34
+                                  |vpiFullName:work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u
+                                  |vpiActual:
+                                  \_int_typespec: , line:12:4, endln:12:34
                                 |vpiConstType:7
                               |vpiLhs:
                               \_parameter: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.bht_row_width_p), line:12:14, endln:12:29
@@ -550,9 +600,12 @@ design: (work@top)
                                     \_param_assign: , line:12:14, endln:12:34
                                     |UINT:10
                                     |vpiTypespec:
-                                    \_int_typespec: , line:12:4, endln:12:34
+                                    \_ref_obj: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1.u.bht_row_width_p)
                                       |vpiParent:
                                       \_parameter: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1.u.bht_row_width_p), line:12:14, endln:12:29
+                                      |vpiFullName:work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1.u.bht_row_width_p
+                                      |vpiActual:
+                                      \_int_typespec: , line:12:4, endln:12:34
                                     |vpiName:bht_row_width_p
                                     |vpiFullName:work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1.u.bht_row_width_p
                                   |vpiParamAssign:
@@ -568,7 +621,12 @@ design: (work@top)
                                       |vpiSize:32
                                       |INT:0
                                       |vpiTypespec:
-                                      \_int_typespec: , line:12:4, endln:12:34
+                                      \_ref_obj: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1.u)
+                                        |vpiParent:
+                                        \_constant: , line:12:32, endln:12:34
+                                        |vpiFullName:work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1.u
+                                        |vpiActual:
+                                        \_int_typespec: , line:12:4, endln:12:34
                                       |vpiConstType:7
                                     |vpiLhs:
                                     \_parameter: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1.u.bht_row_width_p), line:12:14, endln:12:29
@@ -597,6 +655,212 @@ design: (work@top)
       |vpiDefLineNo:6
       |vpiInstance:
       \_module_inst: work@loop (work@top.u2), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:3:4, endln:3:14
+\_weaklyReferenced:
+\_int_typespec: , line:12:4, endln:12:34
+\_param_assign: , line:12:14, endln:12:34
+  |vpiParent:
+  \_module_inst: work@test (work@top.u1.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
+  |vpiOverriden:1
+  |vpiRhs:
+  \_constant: , line:12:32, endln:12:34
+  |vpiLhs:
+  \_parameter: (work@top.u1.genblk1.u.bht_row_width_p), line:12:14, endln:12:29
+\_param_assign: , line:12:14, endln:12:34
+  |vpiParent:
+  \_module_inst: work@test (work@top.u1.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
+  |vpiOverriden:1
+  |vpiRhs:
+  \_constant: , line:12:32, endln:12:34
+  |vpiLhs:
+  \_parameter: (work@top.u1.genblk1.u.genblk1.u.bht_row_width_p), line:12:14, endln:12:29
+\_param_assign: , line:12:14, endln:12:34
+  |vpiParent:
+  \_module_inst: work@test (work@top.u1.genblk1.u.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
+  |vpiOverriden:1
+  |vpiRhs:
+  \_constant: , line:12:32, endln:12:34
+  |vpiLhs:
+  \_parameter: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.bht_row_width_p), line:12:14, endln:12:29
+\_param_assign: , line:12:14, endln:12:34
+  |vpiParent:
+  \_module_inst: work@test (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
+  |vpiOverriden:1
+  |vpiRhs:
+  \_constant: , line:12:32, endln:12:34
+  |vpiLhs:
+  \_parameter: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.bht_row_width_p), line:12:14, endln:12:29
+\_param_assign: , line:12:14, endln:12:34
+  |vpiParent:
+  \_module_inst: work@test (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
+  |vpiOverriden:1
+  |vpiRhs:
+  \_constant: , line:12:32, endln:12:34
+  |vpiLhs:
+  \_parameter: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1.u.bht_row_width_p), line:12:14, endln:12:29
+\_int_typespec: , line:12:4, endln:12:34
+  |vpiParent:
+  \_ref_obj: (work@top.u1.bht_row_width_p)
+\_module_inst: work@test (work@top.u1.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
+  |vpiParent:
+  \_gen_scope: (work@top.u1.genblk1), line:14:6, endln:14:54
+  |vpiName:u
+  |vpiFullName:work@top.u1.genblk1.u
+  |vpiParameter:
+  \_parameter: (work@top.u1.genblk1.u.bht_row_width_p), line:12:14, endln:12:29
+  |vpiParamAssign:
+  \_param_assign: , line:12:14, endln:12:34
+  |vpiDefName:work@test
+  |vpiDefFile:${SURELOG_DIR}/tests/Loop/dut.sv
+  |vpiDefLineNo:10
+  |vpiGenScopeArray:
+  \_gen_scope_array: (work@top.u1.genblk1.u.genblk1), line:14:6, endln:14:54
+    |vpiParent:
+    \_module_inst: work@test (work@top.u1.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
+    |vpiName:genblk1
+    |vpiFullName:work@top.u1.genblk1.u.genblk1
+    |vpiGenScope:
+    \_gen_scope: (work@top.u1.genblk1.u.genblk1), line:14:6, endln:14:54
+      |vpiParent:
+      \_gen_scope_array: (work@top.u1.genblk1.u.genblk1), line:14:6, endln:14:54
+      |vpiFullName:work@top.u1.genblk1.u.genblk1
+      |vpiModule:
+      \_module_inst: work@test (work@top.u1.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
+        |vpiParent:
+        \_gen_scope: (work@top.u1.genblk1.u.genblk1), line:14:6, endln:14:54
+        |vpiName:u
+        |vpiFullName:work@top.u1.genblk1.u.genblk1.u
+        |vpiParameter:
+        \_parameter: (work@top.u1.genblk1.u.genblk1.u.bht_row_width_p), line:12:14, endln:12:29
+        |vpiParamAssign:
+        \_param_assign: , line:12:14, endln:12:34
+        |vpiDefName:work@test
+        |vpiDefFile:${SURELOG_DIR}/tests/Loop/dut.sv
+        |vpiDefLineNo:10
+        |vpiGenScopeArray:
+        \_gen_scope_array: (work@top.u1.genblk1.u.genblk1.u.genblk1), line:14:6, endln:14:54
+          |vpiParent:
+          \_module_inst: work@test (work@top.u1.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
+          |vpiName:genblk1
+          |vpiFullName:work@top.u1.genblk1.u.genblk1.u.genblk1
+          |vpiGenScope:
+          \_gen_scope: (work@top.u1.genblk1.u.genblk1.u.genblk1), line:14:6, endln:14:54
+            |vpiParent:
+            \_gen_scope_array: (work@top.u1.genblk1.u.genblk1.u.genblk1), line:14:6, endln:14:54
+            |vpiFullName:work@top.u1.genblk1.u.genblk1.u.genblk1
+            |vpiModule:
+            \_module_inst: work@test (work@top.u1.genblk1.u.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
+              |vpiParent:
+              \_gen_scope: (work@top.u1.genblk1.u.genblk1.u.genblk1), line:14:6, endln:14:54
+              |vpiName:u
+              |vpiFullName:work@top.u1.genblk1.u.genblk1.u.genblk1.u
+              |vpiParameter:
+              \_parameter: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.bht_row_width_p), line:12:14, endln:12:29
+              |vpiParamAssign:
+              \_param_assign: , line:12:14, endln:12:34
+              |vpiDefName:work@test
+              |vpiDefFile:${SURELOG_DIR}/tests/Loop/dut.sv
+              |vpiDefLineNo:10
+              |vpiGenScopeArray:
+              \_gen_scope_array: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1), line:14:6, endln:14:54
+                |vpiParent:
+                \_module_inst: work@test (work@top.u1.genblk1.u.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
+                |vpiName:genblk1
+                |vpiFullName:work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1
+                |vpiGenScope:
+                \_gen_scope: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1), line:14:6, endln:14:54
+                  |vpiParent:
+                  \_gen_scope_array: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1), line:14:6, endln:14:54
+                  |vpiFullName:work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1
+                  |vpiModule:
+                  \_module_inst: work@test (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
+                    |vpiParent:
+                    \_gen_scope: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1), line:14:6, endln:14:54
+                    |vpiName:u
+                    |vpiFullName:work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u
+                    |vpiParameter:
+                    \_parameter: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.bht_row_width_p), line:12:14, endln:12:29
+                    |vpiParamAssign:
+                    \_param_assign: , line:12:14, endln:12:34
+                    |vpiDefName:work@test
+                    |vpiDefFile:${SURELOG_DIR}/tests/Loop/dut.sv
+                    |vpiDefLineNo:10
+                    |vpiGenScopeArray:
+                    \_gen_scope_array: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1), line:14:6, endln:14:54
+                      |vpiParent:
+                      \_module_inst: work@test (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
+                      |vpiName:genblk1
+                      |vpiFullName:work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1
+                      |vpiGenScope:
+                      \_gen_scope: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1), line:14:6, endln:14:54
+                        |vpiParent:
+                        \_gen_scope_array: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1), line:14:6, endln:14:54
+                        |vpiFullName:work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1
+                        |vpiModule:
+                        \_module_inst: work@test (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
+                          |vpiParent:
+                          \_gen_scope: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1), line:14:6, endln:14:54
+                          |vpiName:u
+                          |vpiFullName:work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1.u
+                          |vpiParameter:
+                          \_parameter: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1.u.bht_row_width_p), line:12:14, endln:12:29
+                          |vpiParamAssign:
+                          \_param_assign: , line:12:14, endln:12:34
+                          |vpiDefName:work@test
+                          |vpiDefFile:${SURELOG_DIR}/tests/Loop/dut.sv
+                          |vpiDefLineNo:10
+\_gen_scope: (work@top.u1.genblk1), line:14:6, endln:14:54
+  |vpiParent:
+  \_gen_scope_array: (work@top.u1.genblk1), line:14:6, endln:14:54
+  |vpiFullName:work@top.u1.genblk1
+  |vpiModule:
+  \_module_inst: work@test (work@top.u1.genblk1.u), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:14:6, endln:14:54
+\_gen_scope_array: (work@top.u1.genblk1), line:14:6, endln:14:54
+  |vpiParent:
+  \_module_inst: work@test (work@top.u1), file:${SURELOG_DIR}/tests/Loop/dut.sv, line:2:4, endln:2:14
+  |vpiName:genblk1
+  |vpiFullName:work@top.u1.genblk1
+  |vpiGenScope:
+  \_gen_scope: (work@top.u1.genblk1), line:14:6, endln:14:54
+\_int_typespec: , line:12:4, endln:12:34
+  |vpiParent:
+  \_ref_obj: (work@top.u1.genblk1.u.bht_row_width_p)
+    |vpiParent:
+    \_parameter: (work@top.u1.genblk1.u.bht_row_width_p), line:12:14, endln:12:29
+    |vpiFullName:work@top.u1.genblk1.u.bht_row_width_p
+    |vpiActual:
+    \_int_typespec: , line:12:4, endln:12:34
+\_int_typespec: , line:12:4, endln:12:34
+  |vpiParent:
+  \_ref_obj: (work@top.u1.genblk1.u.genblk1.u.bht_row_width_p)
+    |vpiParent:
+    \_parameter: (work@top.u1.genblk1.u.genblk1.u.bht_row_width_p), line:12:14, endln:12:29
+    |vpiFullName:work@top.u1.genblk1.u.genblk1.u.bht_row_width_p
+    |vpiActual:
+    \_int_typespec: , line:12:4, endln:12:34
+\_int_typespec: , line:12:4, endln:12:34
+  |vpiParent:
+  \_ref_obj: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.bht_row_width_p)
+    |vpiParent:
+    \_parameter: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.bht_row_width_p), line:12:14, endln:12:29
+    |vpiFullName:work@top.u1.genblk1.u.genblk1.u.genblk1.u.bht_row_width_p
+    |vpiActual:
+    \_int_typespec: , line:12:4, endln:12:34
+\_int_typespec: , line:12:4, endln:12:34
+  |vpiParent:
+  \_ref_obj: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.bht_row_width_p)
+    |vpiParent:
+    \_parameter: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.bht_row_width_p), line:12:14, endln:12:29
+    |vpiFullName:work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.bht_row_width_p
+    |vpiActual:
+    \_int_typespec: , line:12:4, endln:12:34
+\_int_typespec: , line:12:4, endln:12:34
+  |vpiParent:
+  \_ref_obj: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1.u.bht_row_width_p)
+    |vpiParent:
+    \_parameter: (work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1.u.bht_row_width_p), line:12:14, endln:12:29
+    |vpiFullName:work@top.u1.genblk1.u.genblk1.u.genblk1.u.genblk1.u.genblk1.u.bht_row_width_p
+    |vpiActual:
+    \_int_typespec: , line:12:4, endln:12:34
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

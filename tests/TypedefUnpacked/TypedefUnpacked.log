@@ -51,7 +51,7 @@ module_inst                                            4
 package                                                2
 port                                                   2
 range                                                  2
-ref_obj                                                6
+ref_obj                                               16
 struct_typespec                                        3
 typespec_member                                        3
 === UHDM Object Stats End ===
@@ -86,11 +86,12 @@ design: (work@dut)
       \_struct_typespec: (pkg::a), line:2:12, endln:4:5
       |vpiName:x
       |vpiTypespec:
-      \_logic_typespec: , line:3:7, endln:3:12
+      \_ref_obj: (pkg::pkg::a::x)
         |vpiParent:
         \_typespec_member: (x), line:3:16, endln:3:17
-        |vpiInstance:
-        \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/TypedefUnpacked/dut.sv, line:1:1, endln:6:11
+        |vpiFullName:pkg::pkg::a::x
+        |vpiActual:
+        \_logic_typespec: , line:3:7, endln:3:12
       |vpiRefFile:${SURELOG_DIR}/tests/TypedefUnpacked/dut.sv
       |vpiRefLineNo:3
       |vpiRefColumnNo:7
@@ -117,11 +118,12 @@ design: (work@dut)
       \_struct_typespec: (pkg::a), line:2:12, endln:4:5
       |vpiName:x
       |vpiTypespec:
-      \_logic_typespec: , line:3:7, endln:3:12
+      \_ref_obj: (pkg::pkg::a::x)
         |vpiParent:
         \_typespec_member: (x), line:3:16, endln:3:17
-        |vpiInstance:
-        \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/TypedefUnpacked/dut.sv, line:1:1, endln:6:11
+        |vpiFullName:pkg::pkg::a::x
+        |vpiActual:
+        \_logic_typespec: , line:3:7, endln:3:12
       |vpiRefFile:${SURELOG_DIR}/tests/TypedefUnpacked/dut.sv
       |vpiRefLineNo:3
       |vpiRefColumnNo:7
@@ -155,29 +157,12 @@ design: (work@dut)
         |UINT:0
         |vpiConstType:9
     |vpiElemTypespec:
-    \_struct_typespec: (pkg::a), line:2:12, endln:4:5
-      |vpiName:pkg::a
-      |vpiTypedefAlias:
+    \_ref_obj: (pkg::pkg::b)
+      |vpiParent:
+      \_array_typespec: (pkg::b), line:5:12, endln:5:20
+      |vpiFullName:pkg::pkg::b
+      |vpiActual:
       \_struct_typespec: (pkg::a), line:2:12, endln:4:5
-      |vpiInstance:
-      \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/TypedefUnpacked/dut.sv, line:1:1, endln:6:11
-      |vpiPacked:1
-      |vpiTypespecMember:
-      \_typespec_member: (x), line:3:16, endln:3:17
-        |vpiParent:
-        \_struct_typespec: (pkg::a), line:2:12, endln:4:5
-        |vpiName:x
-        |vpiTypespec:
-        \_logic_typespec: , line:3:7, endln:3:12
-          |vpiParent:
-          \_typespec_member: (x), line:3:16, endln:3:17
-          |vpiInstance:
-          \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/TypedefUnpacked/dut.sv, line:1:1, endln:6:11
-        |vpiRefFile:${SURELOG_DIR}/tests/TypedefUnpacked/dut.sv
-        |vpiRefLineNo:3
-        |vpiRefColumnNo:7
-        |vpiRefEndLineNo:3
-        |vpiRefEndColumnNo:12
   |vpiDefName:pkg
   |vpiTop:1
 |uhdmallModules:
@@ -197,7 +182,12 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/TypedefUnpacked/dut.sv, line:8:1, endln:12:10
     |vpiTypespec:
-    \_array_typespec: (pkg::b), line:5:12, endln:5:20
+    \_ref_obj: (work@dut.c)
+      |vpiParent:
+      \_logic_net: (work@dut.c), line:9:11, endln:9:12
+      |vpiFullName:work@dut.c
+      |vpiActual:
+      \_array_typespec: (pkg::b), line:5:12, endln:5:20
     |vpiName:c
     |vpiFullName:work@dut.c
   |vpiPort:
@@ -215,7 +205,12 @@ design: (work@dut)
       |vpiActual:
       \_logic_net: (work@dut.o), line:8:19, endln:8:20
     |vpiTypedef:
-    \_logic_typespec: , line:8:19, endln:8:19
+    \_ref_obj: (work@dut.o)
+      |vpiParent:
+      \_port: (o), line:8:19, endln:8:20
+      |vpiFullName:work@dut.o
+      |vpiActual:
+      \_logic_typespec: , line:8:19, endln:8:19
   |vpiContAssign:
   \_cont_assign: , line:10:11, endln:10:21
     |vpiParent:
@@ -294,7 +289,12 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/TypedefUnpacked/dut.sv, line:8:1, endln:12:10
     |vpiTypespec:
-    \_array_typespec: (pkg::b), line:5:12, endln:5:20
+    \_ref_obj: (work@dut.c)
+      |vpiParent:
+      \_array_var: (work@dut.c), line:9:11, endln:9:12
+      |vpiFullName:work@dut.c
+      |vpiActual:
+      \_array_typespec: (pkg::b), line:5:12, endln:5:20
     |vpiName:c
     |vpiFullName:work@dut.c
     |vpiVisibility:1
@@ -305,7 +305,12 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/TypedefUnpacked/dut.sv, line:8:1, endln:12:10
     |vpiTypespec:
-    \_logic_typespec: , line:8:19, endln:8:19
+    \_ref_obj: (work@dut.o)
+      |vpiParent:
+      \_logic_net: (work@dut.o), line:8:19, endln:8:20
+      |vpiFullName:work@dut.o
+      |vpiActual:
+      \_logic_typespec: , line:8:19, endln:8:19
     |vpiName:o
     |vpiFullName:work@dut.o
   |vpiTopModule:1
@@ -324,7 +329,12 @@ design: (work@dut)
       |vpiActual:
       \_logic_net: (work@dut.o), line:8:19, endln:8:20
     |vpiTypedef:
-    \_logic_typespec: , line:8:19, endln:8:19
+    \_ref_obj: (work@dut.o)
+      |vpiParent:
+      \_port: (o), line:8:19, endln:8:20
+      |vpiFullName:work@dut.o
+      |vpiActual:
+      \_logic_typespec: , line:8:19, endln:8:19
   |vpiContAssign:
   \_cont_assign: , line:10:11, endln:10:21
     |vpiParent:
@@ -358,6 +368,54 @@ design: (work@dut)
         |vpiFullName:c[1].x
   |vpiContAssign:
   \_cont_assign: , line:11:11, endln:11:21
+\_weaklyReferenced:
+\_logic_typespec: , line:3:7, endln:3:12
+  |vpiParent:
+  \_typespec_member: (x), line:3:16, endln:3:17
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/TypedefUnpacked/dut.sv, line:1:1, endln:6:11
+\_struct_typespec: (pkg::a), line:2:12, endln:4:5
+  |vpiName:pkg::a
+  |vpiTypedefAlias:
+  \_ref_obj: (pkg::a)
+    |vpiParent:
+    \_struct_typespec: (pkg::a), line:2:12, endln:4:5
+    |vpiFullName:pkg::a
+    |vpiActual:
+    \_struct_typespec: (pkg::a), line:2:12, endln:4:5
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/TypedefUnpacked/dut.sv, line:1:1, endln:6:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (x), line:3:16, endln:3:17
+    |vpiParent:
+    \_struct_typespec: (pkg::a), line:2:12, endln:4:5
+    |vpiName:x
+    |vpiTypespec:
+    \_ref_obj: (pkg::a.x)
+      |vpiParent:
+      \_typespec_member: (x), line:3:16, endln:3:17
+      |vpiFullName:pkg::a.x
+      |vpiActual:
+      \_logic_typespec: , line:3:7, endln:3:12
+    |vpiRefFile:${SURELOG_DIR}/tests/TypedefUnpacked/dut.sv
+    |vpiRefLineNo:3
+    |vpiRefColumnNo:7
+    |vpiRefEndLineNo:3
+    |vpiRefEndColumnNo:12
+\_logic_typespec: , line:3:7, endln:3:12
+  |vpiParent:
+  \_ref_obj: (pkg::a.x)
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/TypedefUnpacked/dut.sv, line:1:1, endln:6:11
+\_logic_typespec: , line:3:7, endln:3:12
+  |vpiParent:
+  \_typespec_member: (x), line:3:16, endln:3:17
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/TypedefUnpacked/dut.sv, line:1:1, endln:6:11
+\_logic_typespec: , line:8:19, endln:8:19
+\_logic_typespec: , line:8:19, endln:8:19
+\_logic_typespec: , line:8:19, endln:8:19
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

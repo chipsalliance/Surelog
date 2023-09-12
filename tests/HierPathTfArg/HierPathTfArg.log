@@ -403,7 +403,7 @@ io_decl                                                4
 method_func_call                                       7
 module_inst                                            3
 named_begin                                            2
-ref_obj                                               16
+ref_obj                                               24
 sys_func_call                                          8
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -427,7 +427,7 @@ io_decl                                                8
 method_func_call                                      14
 module_inst                                            3
 named_begin                                            2
-ref_obj                                               32
+ref_obj                                               40
 sys_func_call                                         16
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/HierPathTfArg/slpp_all/surelog.uhdm ...
@@ -461,8 +461,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@top.f3), line:15:9, endln:18:20
       |vpiTypespec:
-      \_integer_typespec: , line:15:28, endln:15:35
-        |vpiSigned:1
+      \_ref_obj: (work@top.f3)
+        |vpiParent:
+        \_integer_var: (work@top.f3), line:15:28, endln:15:35
+        |vpiFullName:work@top.f3
+        |vpiActual:
+        \_integer_typespec: , line:15:28, endln:15:35
       |vpiFullName:work@top.f3
       |vpiSigned:1
     |vpiIODecl:
@@ -1099,8 +1103,12 @@ design: (work@top)
               |vpiParent:
               \_function: (work@top.i.blk.f), line:9:17, endln:12:28
               |vpiTypespec:
-              \_integer_typespec: , line:9:36, endln:9:43
-                |vpiSigned:1
+              \_ref_obj: (work@top.i.blk.f)
+                |vpiParent:
+                \_integer_var: (work@top.i.blk.f), line:9:36, endln:9:43
+                |vpiFullName:work@top.i.blk.f
+                |vpiActual:
+                \_integer_typespec: , line:9:36, endln:9:43
               |vpiFullName:work@top.i.blk.f
               |vpiSigned:1
             |vpiIODecl:
@@ -1142,8 +1150,12 @@ design: (work@top)
           |vpiParent:
           \_function: (work@top.i.f), line:4:13, endln:7:24
           |vpiTypespec:
-          \_integer_typespec: , line:4:32, endln:4:39
-            |vpiSigned:1
+          \_ref_obj: (work@top.i.f)
+            |vpiParent:
+            \_integer_var: (work@top.i.f), line:4:32, endln:4:39
+            |vpiFullName:work@top.i.f
+            |vpiActual:
+            \_integer_typespec: , line:4:32, endln:4:39
           |vpiFullName:work@top.i.f
           |vpiSigned:1
         |vpiIODecl:
@@ -1196,8 +1208,12 @@ design: (work@top)
           |vpiParent:
           \_function: (work@top.blk.f), line:20:13, endln:23:24
           |vpiTypespec:
-          \_integer_typespec: , line:20:32, endln:20:39
-            |vpiSigned:1
+          \_ref_obj: (work@top.blk.f)
+            |vpiParent:
+            \_integer_var: (work@top.blk.f), line:20:32, endln:20:39
+            |vpiFullName:work@top.blk.f
+            |vpiActual:
+            \_integer_typespec: , line:20:32, endln:20:39
           |vpiFullName:work@top.blk.f
           |vpiSigned:1
         |vpiIODecl:
@@ -1226,6 +1242,147 @@ design: (work@top)
             |vpiFullName:work@top.blk.f.f
             |vpiActual:
             \_integer_var: (work@top.blk.f), line:20:32, endln:20:39
+\_weaklyReferenced:
+\_integer_typespec: , line:15:28, endln:15:35
+  |vpiSigned:1
+\_function: (work@top.i.f), line:4:13, endln:7:24
+  |vpiParent:
+  \_gen_scope: (work@top.i), line:3:16, endln:14:12
+  |vpiName:f
+  |vpiFullName:work@top.i.f
+  |vpiVisibility:1
+  |vpiAutomatic:1
+  |vpiReturn:
+  \_integer_var: (work@top.i.f), line:4:32, endln:4:39
+  |vpiIODecl:
+  \_io_decl: (unused), line:5:23, endln:5:29
+    |vpiParent:
+    \_function: (work@top.i.f), line:4:13, endln:7:24
+    |vpiDirection:1
+    |vpiName:unused
+  |vpiStmt:
+  \_assignment: , line:6:17, endln:6:22
+    |vpiParent:
+    \_function: (work@top.i.f), line:4:13, endln:7:24
+    |vpiOpType:82
+    |vpiBlocking:1
+    |vpiRhs:
+    \_constant: , line:6:21, endln:6:22
+    |vpiLhs:
+    \_ref_obj: (work@top.i.f.f), line:6:17, endln:6:18
+      |vpiParent:
+      \_assignment: , line:6:17, endln:6:22
+      |vpiName:f
+      |vpiFullName:work@top.i.f.f
+      |vpiActual:
+      \_integer_var: (work@top.i.f), line:4:32, endln:4:39
+\_integer_typespec: , line:4:32, endln:4:39
+  |vpiSigned:1
+\_function: (work@top.i.blk.f), line:9:17, endln:12:28
+  |vpiParent:
+  \_gen_scope: (work@top.i.blk), line:8:20, endln:13:16
+  |vpiName:f
+  |vpiFullName:work@top.i.blk.f
+  |vpiVisibility:1
+  |vpiAutomatic:1
+  |vpiReturn:
+  \_integer_var: (work@top.i.blk.f), line:9:36, endln:9:43
+  |vpiIODecl:
+  \_io_decl: (unused), line:10:27, endln:10:33
+    |vpiParent:
+    \_function: (work@top.i.blk.f), line:9:17, endln:12:28
+    |vpiDirection:1
+    |vpiName:unused
+  |vpiStmt:
+  \_assignment: , line:11:21, endln:11:26
+    |vpiParent:
+    \_function: (work@top.i.blk.f), line:9:17, endln:12:28
+    |vpiOpType:82
+    |vpiBlocking:1
+    |vpiRhs:
+    \_constant: , line:11:25, endln:11:26
+    |vpiLhs:
+    \_ref_obj: (work@top.i.blk.f.f), line:11:21, endln:11:22
+      |vpiParent:
+      \_assignment: , line:11:21, endln:11:26
+      |vpiName:f
+      |vpiFullName:work@top.i.blk.f.f
+      |vpiActual:
+      \_integer_var: (work@top.i.blk.f), line:9:36, endln:9:43
+\_integer_typespec: , line:9:36, endln:9:43
+  |vpiSigned:1
+\_function: (work@top.blk.f), line:20:13, endln:23:24
+  |vpiParent:
+  \_gen_scope: (work@top.blk), line:19:16, endln:24:12
+  |vpiName:f
+  |vpiFullName:work@top.blk.f
+  |vpiVisibility:1
+  |vpiAutomatic:1
+  |vpiReturn:
+  \_integer_var: (work@top.blk.f), line:20:32, endln:20:39
+  |vpiIODecl:
+  \_io_decl: (unused), line:21:23, endln:21:29
+    |vpiParent:
+    \_function: (work@top.blk.f), line:20:13, endln:23:24
+    |vpiDirection:1
+    |vpiName:unused
+  |vpiStmt:
+  \_assignment: , line:22:17, endln:22:22
+    |vpiParent:
+    \_function: (work@top.blk.f), line:20:13, endln:23:24
+    |vpiOpType:82
+    |vpiBlocking:1
+    |vpiRhs:
+    \_constant: , line:22:21, endln:22:22
+    |vpiLhs:
+    \_ref_obj: (work@top.blk.f.f), line:22:17, endln:22:18
+      |vpiParent:
+      \_assignment: , line:22:17, endln:22:22
+      |vpiName:f
+      |vpiFullName:work@top.blk.f.f
+      |vpiActual:
+      \_integer_var: (work@top.blk.f), line:20:32, endln:20:39
+\_integer_typespec: , line:20:32, endln:20:39
+  |vpiSigned:1
+\_gen_scope: (work@top.i), line:3:16, endln:14:12
+  |vpiParent:
+  \_gen_scope_array: (work@top.i), line:3:16, endln:14:12
+  |vpiFullName:work@top.i
+  |vpiGenScopeArray:
+  \_gen_scope_array: (work@top.i.blk), line:8:20, endln:13:16
+    |vpiParent:
+    \_gen_scope: (work@top.i), line:3:16, endln:14:12
+    |vpiName:blk
+    |vpiFullName:work@top.i.blk
+    |vpiGenScope:
+    \_gen_scope: (work@top.i.blk), line:8:20, endln:13:16
+      |vpiParent:
+      \_gen_scope_array: (work@top.i.blk), line:8:20, endln:13:16
+      |vpiFullName:work@top.i.blk
+      |vpiTaskFunc:
+      \_function: (work@top.i.blk.f), line:9:17, endln:12:28
+  |vpiTaskFunc:
+  \_function: (work@top.i.f), line:4:13, endln:7:24
+\_gen_scope_array: (work@top.i), line:3:16, endln:14:12
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathTfArg/dut.sv, line:1:1, endln:36:10
+  |vpiName:i
+  |vpiFullName:work@top.i
+  |vpiGenScope:
+  \_gen_scope: (work@top.i), line:3:16, endln:14:12
+\_gen_scope: (work@top.blk), line:19:16, endln:24:12
+  |vpiParent:
+  \_gen_scope_array: (work@top.blk), line:19:16, endln:24:12
+  |vpiFullName:work@top.blk
+  |vpiTaskFunc:
+  \_function: (work@top.blk.f), line:20:13, endln:23:24
+\_gen_scope_array: (work@top.blk), line:19:16, endln:24:12
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathTfArg/dut.sv, line:1:1, endln:36:10
+  |vpiName:blk
+  |vpiFullName:work@top.blk
+  |vpiGenScope:
+  \_gen_scope: (work@top.blk), line:19:16, endln:24:12
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

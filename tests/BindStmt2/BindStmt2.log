@@ -612,7 +612,7 @@ param_assign                                           8
 parameter                                              8
 port                                                  52
 range                                                 30
-ref_obj                                               71
+ref_obj                                              184
 string_typespec                                        2
 unsupported_typespec                                  25
 === UHDM Object Stats End ===
@@ -634,7 +634,7 @@ param_assign                                           8
 parameter                                              8
 port                                                  78
 range                                                 30
-ref_obj                                              108
+ref_obj                                              247
 string_typespec                                        2
 unsupported_typespec                                  25
 === UHDM Object Stats End ===
@@ -671,9 +671,12 @@ design: (work@rv_dm)
     \_module_inst: work@dmidpi (work@dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:36:1, endln:54:10
     |STRING:dmi0
     |vpiTypespec:
-    \_string_typespec: , line:37:13, endln:37:19
+    \_ref_obj: (work@dmidpi.Name)
       |vpiParent:
       \_parameter: (work@dmidpi.Name), line:37:20, endln:37:24
+      |vpiFullName:work@dmidpi.Name
+      |vpiActual:
+      \_string_typespec: , line:37:13, endln:37:19
     |vpiName:Name
     |vpiFullName:work@dmidpi.Name
   |vpiParameter:
@@ -682,10 +685,12 @@ design: (work@rv_dm)
     \_module_inst: work@dmidpi (work@dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:36:1, endln:54:10
     |UINT:44853
     |vpiTypespec:
-    \_int_typespec: , line:38:13, endln:38:16
+    \_ref_obj: (work@dmidpi.ListenPort)
       |vpiParent:
       \_parameter: (work@dmidpi.ListenPort), line:38:17, endln:38:27
-      |vpiSigned:1
+      |vpiFullName:work@dmidpi.ListenPort
+      |vpiActual:
+      \_int_typespec: , line:38:13, endln:38:16
     |vpiSigned:1
     |vpiName:ListenPort
     |vpiFullName:work@dmidpi.ListenPort
@@ -701,7 +706,12 @@ design: (work@rv_dm)
       |vpiSize:32
       |STRING:dmi0
       |vpiTypespec:
-      \_string_typespec: , line:37:13, endln:37:19
+      \_ref_obj: (work@dmidpi)
+        |vpiParent:
+        \_constant: , line:37:27, endln:37:33
+        |vpiFullName:work@dmidpi
+        |vpiActual:
+        \_string_typespec: , line:37:13, endln:37:19
       |vpiConstType:6
     |vpiLhs:
     \_parameter: (work@dmidpi.Name), line:37:20, endln:37:24
@@ -717,7 +727,12 @@ design: (work@rv_dm)
       |vpiSize:64
       |UINT:44853
       |vpiTypespec:
-      \_int_typespec: , line:38:13, endln:38:16
+      \_ref_obj: (work@dmidpi)
+        |vpiParent:
+        \_constant: , line:38:30, endln:38:35
+        |vpiFullName:work@dmidpi
+        |vpiActual:
+        \_int_typespec: , line:38:13, endln:38:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@dmidpi.ListenPort), line:38:17, endln:38:27
@@ -809,7 +824,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_net: (work@dmidpi.clk_i), line:40:21, endln:40:26
     |vpiTypedef:
-    \_bit_typespec: , line:40:10, endln:40:13
+    \_ref_obj: (work@dmidpi.clk_i)
+      |vpiParent:
+      \_port: (clk_i), line:40:21, endln:40:26
+      |vpiFullName:work@dmidpi.clk_i
+      |vpiActual:
+      \_bit_typespec: , line:40:10, endln:40:13
   |vpiPort:
   \_port: (rst_ni), line:41:21, endln:41:27
     |vpiParent:
@@ -825,7 +845,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_net: (work@dmidpi.rst_ni), line:41:21, endln:41:27
     |vpiTypedef:
-    \_bit_typespec: , line:41:10, endln:41:13
+    \_ref_obj: (work@dmidpi.rst_ni)
+      |vpiParent:
+      \_port: (rst_ni), line:41:21, endln:41:27
+      |vpiFullName:work@dmidpi.rst_ni
+      |vpiActual:
+      \_bit_typespec: , line:41:10, endln:41:13
   |vpiPort:
   \_port: (dmi_req_valid), line:43:21, endln:43:34
     |vpiParent:
@@ -841,7 +866,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_net: (work@dmidpi.dmi_req_valid), line:43:21, endln:43:34
     |vpiTypedef:
-    \_bit_typespec: , line:43:10, endln:43:13
+    \_ref_obj: (work@dmidpi.dmi_req_valid)
+      |vpiParent:
+      \_port: (dmi_req_valid), line:43:21, endln:43:34
+      |vpiFullName:work@dmidpi.dmi_req_valid
+      |vpiActual:
+      \_bit_typespec: , line:43:10, endln:43:13
   |vpiPort:
   \_port: (dmi_req_ready), line:44:21, endln:44:34
     |vpiParent:
@@ -857,7 +887,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_net: (work@dmidpi.dmi_req_ready), line:44:21, endln:44:34
     |vpiTypedef:
-    \_bit_typespec: , line:44:10, endln:44:13
+    \_ref_obj: (work@dmidpi.dmi_req_ready)
+      |vpiParent:
+      \_port: (dmi_req_ready), line:44:21, endln:44:34
+      |vpiFullName:work@dmidpi.dmi_req_ready
+      |vpiActual:
+      \_bit_typespec: , line:44:10, endln:44:13
   |vpiPort:
   \_port: (dmi_req_addr), line:45:21, endln:45:33
     |vpiParent:
@@ -873,27 +908,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_net: (work@dmidpi.dmi_req_addr), line:45:21, endln:45:33
     |vpiTypedef:
-    \_bit_typespec: , line:45:10, endln:45:19
-      |vpiRange:
-      \_range: , line:45:14, endln:45:19
-        |vpiParent:
-        \_bit_typespec: , line:45:10, endln:45:19
-        |vpiLeftRange:
-        \_constant: , line:45:15, endln:45:16
-          |vpiParent:
-          \_range: , line:45:14, endln:45:19
-          |vpiDecompile:6
-          |vpiSize:64
-          |UINT:6
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:45:17, endln:45:18
-          |vpiParent:
-          \_range: , line:45:14, endln:45:19
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@dmidpi.dmi_req_addr)
+      |vpiParent:
+      \_port: (dmi_req_addr), line:45:21, endln:45:33
+      |vpiFullName:work@dmidpi.dmi_req_addr
+      |vpiActual:
+      \_bit_typespec: , line:45:10, endln:45:19
   |vpiPort:
   \_port: (dmi_req_op), line:46:21, endln:46:31
     |vpiParent:
@@ -909,27 +929,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_net: (work@dmidpi.dmi_req_op), line:46:21, endln:46:31
     |vpiTypedef:
-    \_bit_typespec: , line:46:10, endln:46:19
-      |vpiRange:
-      \_range: , line:46:14, endln:46:19
-        |vpiParent:
-        \_bit_typespec: , line:46:10, endln:46:19
-        |vpiLeftRange:
-        \_constant: , line:46:15, endln:46:16
-          |vpiParent:
-          \_range: , line:46:14, endln:46:19
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:46:17, endln:46:18
-          |vpiParent:
-          \_range: , line:46:14, endln:46:19
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@dmidpi.dmi_req_op)
+      |vpiParent:
+      \_port: (dmi_req_op), line:46:21, endln:46:31
+      |vpiFullName:work@dmidpi.dmi_req_op
+      |vpiActual:
+      \_bit_typespec: , line:46:10, endln:46:19
   |vpiPort:
   \_port: (dmi_req_data), line:47:21, endln:47:33
     |vpiParent:
@@ -945,27 +950,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_net: (work@dmidpi.dmi_req_data), line:47:21, endln:47:33
     |vpiTypedef:
-    \_bit_typespec: , line:47:10, endln:47:20
-      |vpiRange:
-      \_range: , line:47:14, endln:47:20
-        |vpiParent:
-        \_bit_typespec: , line:47:10, endln:47:20
-        |vpiLeftRange:
-        \_constant: , line:47:15, endln:47:17
-          |vpiParent:
-          \_range: , line:47:14, endln:47:20
-          |vpiDecompile:31
-          |vpiSize:64
-          |UINT:31
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:47:18, endln:47:19
-          |vpiParent:
-          \_range: , line:47:14, endln:47:20
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@dmidpi.dmi_req_data)
+      |vpiParent:
+      \_port: (dmi_req_data), line:47:21, endln:47:33
+      |vpiFullName:work@dmidpi.dmi_req_data
+      |vpiActual:
+      \_bit_typespec: , line:47:10, endln:47:20
   |vpiPort:
   \_port: (dmi_rsp_valid), line:48:21, endln:48:34
     |vpiParent:
@@ -981,7 +971,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_net: (work@dmidpi.dmi_rsp_valid), line:48:21, endln:48:34
     |vpiTypedef:
-    \_bit_typespec: , line:48:10, endln:48:13
+    \_ref_obj: (work@dmidpi.dmi_rsp_valid)
+      |vpiParent:
+      \_port: (dmi_rsp_valid), line:48:21, endln:48:34
+      |vpiFullName:work@dmidpi.dmi_rsp_valid
+      |vpiActual:
+      \_bit_typespec: , line:48:10, endln:48:13
   |vpiPort:
   \_port: (dmi_rsp_ready), line:49:21, endln:49:34
     |vpiParent:
@@ -997,7 +992,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_net: (work@dmidpi.dmi_rsp_ready), line:49:21, endln:49:34
     |vpiTypedef:
-    \_bit_typespec: , line:49:10, endln:49:13
+    \_ref_obj: (work@dmidpi.dmi_rsp_ready)
+      |vpiParent:
+      \_port: (dmi_rsp_ready), line:49:21, endln:49:34
+      |vpiFullName:work@dmidpi.dmi_rsp_ready
+      |vpiActual:
+      \_bit_typespec: , line:49:10, endln:49:13
   |vpiPort:
   \_port: (dmi_rsp_data), line:50:21, endln:50:33
     |vpiParent:
@@ -1013,27 +1013,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_net: (work@dmidpi.dmi_rsp_data), line:50:21, endln:50:33
     |vpiTypedef:
-    \_bit_typespec: , line:50:10, endln:50:20
-      |vpiRange:
-      \_range: , line:50:14, endln:50:20
-        |vpiParent:
-        \_bit_typespec: , line:50:10, endln:50:20
-        |vpiLeftRange:
-        \_constant: , line:50:15, endln:50:17
-          |vpiParent:
-          \_range: , line:50:14, endln:50:20
-          |vpiDecompile:31
-          |vpiSize:64
-          |UINT:31
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:50:18, endln:50:19
-          |vpiParent:
-          \_range: , line:50:14, endln:50:20
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@dmidpi.dmi_rsp_data)
+      |vpiParent:
+      \_port: (dmi_rsp_data), line:50:21, endln:50:33
+      |vpiFullName:work@dmidpi.dmi_rsp_data
+      |vpiActual:
+      \_bit_typespec: , line:50:10, endln:50:20
   |vpiPort:
   \_port: (dmi_rsp_resp), line:51:21, endln:51:33
     |vpiParent:
@@ -1049,27 +1034,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_net: (work@dmidpi.dmi_rsp_resp), line:51:21, endln:51:33
     |vpiTypedef:
-    \_bit_typespec: , line:51:10, endln:51:19
-      |vpiRange:
-      \_range: , line:51:14, endln:51:19
-        |vpiParent:
-        \_bit_typespec: , line:51:10, endln:51:19
-        |vpiLeftRange:
-        \_constant: , line:51:15, endln:51:16
-          |vpiParent:
-          \_range: , line:51:14, endln:51:19
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:51:17, endln:51:18
-          |vpiParent:
-          \_range: , line:51:14, endln:51:19
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@dmidpi.dmi_rsp_resp)
+      |vpiParent:
+      \_port: (dmi_rsp_resp), line:51:21, endln:51:33
+      |vpiFullName:work@dmidpi.dmi_rsp_resp
+      |vpiActual:
+      \_bit_typespec: , line:51:10, endln:51:19
   |vpiPort:
   \_port: (dmi_rst_n), line:52:21, endln:52:30
     |vpiParent:
@@ -1085,7 +1055,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_net: (work@dmidpi.dmi_rst_n), line:52:21, endln:52:30
     |vpiTypedef:
-    \_bit_typespec: , line:52:10, endln:52:13
+    \_ref_obj: (work@dmidpi.dmi_rst_n)
+      |vpiParent:
+      \_port: (dmi_rst_n), line:52:21, endln:52:30
+      |vpiFullName:work@dmidpi.dmi_rst_n
+      |vpiActual:
+      \_bit_typespec: , line:52:10, endln:52:13
 |uhdmallModules:
 \_module_inst: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
   |vpiParent:
@@ -1097,10 +1072,12 @@ design: (work@rv_dm)
     \_module_inst: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: , line:2:13, endln:2:16
+    \_ref_obj: (work@rv_dm.NrHarts)
       |vpiParent:
       \_parameter: (work@rv_dm.NrHarts), line:2:30, endln:2:37
-      |vpiSigned:1
+      |vpiFullName:work@rv_dm.NrHarts
+      |vpiActual:
+      \_int_typespec: , line:2:13, endln:2:16
     |vpiSigned:1
     |vpiName:NrHarts
     |vpiFullName:work@rv_dm.NrHarts
@@ -1110,29 +1087,12 @@ design: (work@rv_dm)
     \_module_inst: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |HEX:00000001
     |vpiTypespec:
-    \_logic_typespec: , line:3:13, endln:3:25
+    \_ref_obj: (work@rv_dm.IdcodeValue)
       |vpiParent:
       \_parameter: (work@rv_dm.IdcodeValue), line:3:30, endln:3:41
-      |vpiRange:
-      \_range: , line:3:19, endln:3:25
-        |vpiParent:
-        \_logic_typespec: , line:3:13, endln:3:25
-        |vpiLeftRange:
-        \_constant: , line:3:20, endln:3:22
-          |vpiParent:
-          \_range: , line:3:19, endln:3:25
-          |vpiDecompile:31
-          |vpiSize:64
-          |UINT:31
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:3:23, endln:3:24
-          |vpiParent:
-          \_range: , line:3:19, endln:3:25
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@rv_dm.IdcodeValue
+      |vpiActual:
+      \_logic_typespec: , line:3:13, endln:3:25
     |vpiName:IdcodeValue
     |vpiFullName:work@rv_dm.IdcodeValue
   |vpiParamAssign:
@@ -1147,7 +1107,12 @@ design: (work@rv_dm)
       |vpiSize:64
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: , line:2:13, endln:2:16
+      \_ref_obj: (work@rv_dm)
+        |vpiParent:
+        \_constant: , line:2:40, endln:2:41
+        |vpiFullName:work@rv_dm
+        |vpiActual:
+        \_int_typespec: , line:2:13, endln:2:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@rv_dm.NrHarts), line:2:30, endln:2:37
@@ -1163,7 +1128,12 @@ design: (work@rv_dm)
       |vpiSize:32
       |HEX:00000001
       |vpiTypespec:
-      \_logic_typespec: , line:3:13, endln:3:25
+      \_ref_obj: (work@rv_dm)
+        |vpiParent:
+        \_constant: , line:3:44, endln:3:57
+        |vpiFullName:work@rv_dm
+        |vpiActual:
+        \_logic_typespec: , line:3:13, endln:3:25
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (work@rv_dm.IdcodeValue), line:3:30, endln:3:41
@@ -1264,8 +1234,12 @@ design: (work@rv_dm)
     |vpiParent:
     \_module_inst: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiTypespec:
-    \_unsupported_typespec: (dm::dmi_req_t), line:28:3, endln:28:7
-      |vpiName:dm::dmi_req_t
+    \_ref_obj: (work@rv_dm.dmi_req)
+      |vpiParent:
+      \_logic_net: (work@rv_dm.dmi_req), line:28:18, endln:28:25
+      |vpiFullName:work@rv_dm.dmi_req
+      |vpiActual:
+      \_unsupported_typespec: (dm::dmi_req_t), line:28:3, endln:28:7
     |vpiName:dmi_req
     |vpiFullName:work@rv_dm.dmi_req
   |vpiNet:
@@ -1273,8 +1247,12 @@ design: (work@rv_dm)
     |vpiParent:
     \_module_inst: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiTypespec:
-    \_unsupported_typespec: (dm::dmi_resp_t), line:29:3, endln:29:7
-      |vpiName:dm::dmi_resp_t
+    \_ref_obj: (work@rv_dm.dmi_rsp)
+      |vpiParent:
+      \_logic_net: (work@rv_dm.dmi_rsp), line:29:18, endln:29:25
+      |vpiFullName:work@rv_dm.dmi_rsp
+      |vpiActual:
+      \_unsupported_typespec: (dm::dmi_resp_t), line:29:3, endln:29:7
     |vpiName:dmi_rsp
     |vpiFullName:work@rv_dm.dmi_rsp
   |vpiNet:
@@ -1282,7 +1260,12 @@ design: (work@rv_dm)
     |vpiParent:
     \_module_inst: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiTypespec:
-    \_logic_typespec: , line:30:3, endln:30:8
+    \_ref_obj: (work@rv_dm.dmi_req_valid)
+      |vpiParent:
+      \_logic_net: (work@rv_dm.dmi_req_valid), line:30:9, endln:30:22
+      |vpiFullName:work@rv_dm.dmi_req_valid
+      |vpiActual:
+      \_logic_typespec: , line:30:3, endln:30:8
     |vpiName:dmi_req_valid
     |vpiFullName:work@rv_dm.dmi_req_valid
     |vpiNetType:36
@@ -1291,7 +1274,12 @@ design: (work@rv_dm)
     |vpiParent:
     \_module_inst: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiTypespec:
-    \_logic_typespec: , line:30:3, endln:30:8
+    \_ref_obj: (work@rv_dm.dmi_req_ready)
+      |vpiParent:
+      \_logic_net: (work@rv_dm.dmi_req_ready), line:30:24, endln:30:37
+      |vpiFullName:work@rv_dm.dmi_req_ready
+      |vpiActual:
+      \_logic_typespec: , line:30:3, endln:30:8
     |vpiName:dmi_req_ready
     |vpiFullName:work@rv_dm.dmi_req_ready
     |vpiNetType:36
@@ -1300,7 +1288,12 @@ design: (work@rv_dm)
     |vpiParent:
     \_module_inst: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiTypespec:
-    \_logic_typespec: , line:31:3, endln:31:8
+    \_ref_obj: (work@rv_dm.dmi_rsp_valid)
+      |vpiParent:
+      \_logic_net: (work@rv_dm.dmi_rsp_valid), line:31:9, endln:31:22
+      |vpiFullName:work@rv_dm.dmi_rsp_valid
+      |vpiActual:
+      \_logic_typespec: , line:31:3, endln:31:8
     |vpiName:dmi_rsp_valid
     |vpiFullName:work@rv_dm.dmi_rsp_valid
     |vpiNetType:36
@@ -1309,7 +1302,12 @@ design: (work@rv_dm)
     |vpiParent:
     \_module_inst: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiTypespec:
-    \_logic_typespec: , line:31:3, endln:31:8
+    \_ref_obj: (work@rv_dm.dmi_rsp_ready)
+      |vpiParent:
+      \_logic_net: (work@rv_dm.dmi_rsp_ready), line:31:24, endln:31:37
+      |vpiFullName:work@rv_dm.dmi_rsp_ready
+      |vpiActual:
+      \_logic_typespec: , line:31:3, endln:31:8
     |vpiName:dmi_rsp_ready
     |vpiFullName:work@rv_dm.dmi_rsp_ready
     |vpiNetType:36
@@ -1318,7 +1316,12 @@ design: (work@rv_dm)
     |vpiParent:
     \_module_inst: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiTypespec:
-    \_logic_typespec: , line:32:3, endln:32:8
+    \_ref_obj: (work@rv_dm.dmi_rst_n)
+      |vpiParent:
+      \_logic_net: (work@rv_dm.dmi_rst_n), line:32:9, endln:32:18
+      |vpiFullName:work@rv_dm.dmi_rst_n
+      |vpiActual:
+      \_logic_typespec: , line:32:3, endln:32:8
     |vpiName:dmi_rst_n
     |vpiFullName:work@rv_dm.dmi_rst_n
     |vpiNetType:36
@@ -1337,7 +1340,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_net: (work@rv_dm.clk_i), line:5:30, endln:5:35
     |vpiTypedef:
-    \_logic_typespec: , line:5:10, endln:5:15
+    \_ref_obj: (work@rv_dm.clk_i)
+      |vpiParent:
+      \_port: (clk_i), line:5:30, endln:5:35
+      |vpiFullName:work@rv_dm.clk_i
+      |vpiActual:
+      \_logic_typespec: , line:5:10, endln:5:15
   |vpiPort:
   \_port: (rst_ni), line:6:30, endln:6:36
     |vpiParent:
@@ -1353,7 +1361,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_net: (work@rv_dm.rst_ni), line:6:30, endln:6:36
     |vpiTypedef:
-    \_logic_typespec: , line:6:10, endln:6:15
+    \_ref_obj: (work@rv_dm.rst_ni)
+      |vpiParent:
+      \_port: (rst_ni), line:6:30, endln:6:36
+      |vpiFullName:work@rv_dm.rst_ni
+      |vpiActual:
+      \_logic_typespec: , line:6:10, endln:6:15
   |vpiPort:
   \_port: (hw_debug_en_i), line:8:31, endln:8:44
     |vpiParent:
@@ -1369,8 +1382,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_net: (work@rv_dm.hw_debug_en_i), line:8:31, endln:8:44
     |vpiTypedef:
-    \_unsupported_typespec: (lc_ctrl_pkg::lc_tx_t), line:8:10, endln:8:23
-      |vpiName:lc_ctrl_pkg::lc_tx_t
+    \_ref_obj: (work@rv_dm.hw_debug_en_i)
+      |vpiParent:
+      \_port: (hw_debug_en_i), line:8:31, endln:8:44
+      |vpiFullName:work@rv_dm.hw_debug_en_i
+      |vpiActual:
+      \_unsupported_typespec: (lc_ctrl_pkg::lc_tx_t), line:8:10, endln:8:23
   |vpiPort:
   \_port: (testmode_i), line:9:30, endln:9:40
     |vpiParent:
@@ -1386,7 +1403,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_net: (work@rv_dm.testmode_i), line:9:30, endln:9:40
     |vpiTypedef:
-    \_logic_typespec: , line:9:10, endln:9:15
+    \_ref_obj: (work@rv_dm.testmode_i)
+      |vpiParent:
+      \_port: (testmode_i), line:9:30, endln:9:40
+      |vpiFullName:work@rv_dm.testmode_i
+      |vpiActual:
+      \_logic_typespec: , line:9:10, endln:9:15
   |vpiPort:
   \_port: (ndmreset_o), line:10:30, endln:10:40
     |vpiParent:
@@ -1402,7 +1424,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_net: (work@rv_dm.ndmreset_o), line:10:30, endln:10:40
     |vpiTypedef:
-    \_logic_typespec: , line:10:10, endln:10:15
+    \_ref_obj: (work@rv_dm.ndmreset_o)
+      |vpiParent:
+      \_port: (ndmreset_o), line:10:30, endln:10:40
+      |vpiFullName:work@rv_dm.ndmreset_o
+      |vpiActual:
+      \_logic_typespec: , line:10:10, endln:10:15
   |vpiPort:
   \_port: (dmactive_o), line:11:30, endln:11:40
     |vpiParent:
@@ -1418,7 +1445,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_net: (work@rv_dm.dmactive_o), line:11:30, endln:11:40
     |vpiTypedef:
-    \_logic_typespec: , line:11:10, endln:11:15
+    \_ref_obj: (work@rv_dm.dmactive_o)
+      |vpiParent:
+      \_port: (dmactive_o), line:11:30, endln:11:40
+      |vpiFullName:work@rv_dm.dmactive_o
+      |vpiActual:
+      \_logic_typespec: , line:11:10, endln:11:15
   |vpiPort:
   \_port: (debug_req_o), line:12:30, endln:12:41
     |vpiParent:
@@ -1434,37 +1466,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_net: (work@rv_dm.debug_req_o), line:12:30, endln:12:41
     |vpiTypedef:
-    \_logic_typespec: , line:12:10, endln:12:29
-      |vpiRange:
-      \_range: , line:12:16, endln:12:29
-        |vpiParent:
-        \_logic_typespec: , line:12:10, endln:12:29
-        |vpiLeftRange:
-        \_operation: , line:12:17, endln:12:26
-          |vpiParent:
-          \_range: , line:12:16, endln:12:29
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (NrHarts), line:12:17, endln:12:24
-            |vpiParent:
-            \_operation: , line:12:17, endln:12:26
-            |vpiName:NrHarts
-          |vpiOperand:
-          \_constant: , line:12:25, endln:12:26
-            |vpiParent:
-            \_operation: , line:12:17, endln:12:26
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:12:27, endln:12:28
-          |vpiParent:
-          \_range: , line:12:16, endln:12:29
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@rv_dm.debug_req_o)
+      |vpiParent:
+      \_port: (debug_req_o), line:12:30, endln:12:41
+      |vpiFullName:work@rv_dm.debug_req_o
+      |vpiActual:
+      \_logic_typespec: , line:12:10, endln:12:29
   |vpiPort:
   \_port: (unavailable_i), line:13:30, endln:13:43
     |vpiParent:
@@ -1480,37 +1487,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_net: (work@rv_dm.unavailable_i), line:13:30, endln:13:43
     |vpiTypedef:
-    \_logic_typespec: , line:13:10, endln:13:29
-      |vpiRange:
-      \_range: , line:13:16, endln:13:29
-        |vpiParent:
-        \_logic_typespec: , line:13:10, endln:13:29
-        |vpiLeftRange:
-        \_operation: , line:13:17, endln:13:26
-          |vpiParent:
-          \_range: , line:13:16, endln:13:29
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (NrHarts), line:13:17, endln:13:24
-            |vpiParent:
-            \_operation: , line:13:17, endln:13:26
-            |vpiName:NrHarts
-          |vpiOperand:
-          \_constant: , line:13:25, endln:13:26
-            |vpiParent:
-            \_operation: , line:13:17, endln:13:26
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:13:27, endln:13:28
-          |vpiParent:
-          \_range: , line:13:16, endln:13:29
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@rv_dm.unavailable_i)
+      |vpiParent:
+      \_port: (unavailable_i), line:13:30, endln:13:43
+      |vpiFullName:work@rv_dm.unavailable_i
+      |vpiActual:
+      \_logic_typespec: , line:13:10, endln:13:29
   |vpiPort:
   \_port: (tl_d_i), line:17:30, endln:17:36
     |vpiParent:
@@ -1526,8 +1508,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_net: (work@rv_dm.tl_d_i), line:17:30, endln:17:36
     |vpiTypedef:
-    \_unsupported_typespec: (tlul_pkg::tl_h2d_t), line:17:10, endln:17:20
-      |vpiName:tlul_pkg::tl_h2d_t
+    \_ref_obj: (work@rv_dm.tl_d_i)
+      |vpiParent:
+      \_port: (tl_d_i), line:17:30, endln:17:36
+      |vpiFullName:work@rv_dm.tl_d_i
+      |vpiActual:
+      \_unsupported_typespec: (tlul_pkg::tl_h2d_t), line:17:10, endln:17:20
   |vpiPort:
   \_port: (tl_d_o), line:18:30, endln:18:36
     |vpiParent:
@@ -1543,8 +1529,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_net: (work@rv_dm.tl_d_o), line:18:30, endln:18:36
     |vpiTypedef:
-    \_unsupported_typespec: (tlul_pkg::tl_d2h_t), line:18:10, endln:18:20
-      |vpiName:tlul_pkg::tl_d2h_t
+    \_ref_obj: (work@rv_dm.tl_d_o)
+      |vpiParent:
+      \_port: (tl_d_o), line:18:30, endln:18:36
+      |vpiFullName:work@rv_dm.tl_d_o
+      |vpiActual:
+      \_unsupported_typespec: (tlul_pkg::tl_d2h_t), line:18:10, endln:18:20
   |vpiPort:
   \_port: (tl_h_o), line:21:30, endln:21:36
     |vpiParent:
@@ -1560,8 +1550,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_net: (work@rv_dm.tl_h_o), line:21:30, endln:21:36
     |vpiTypedef:
-    \_unsupported_typespec: (tlul_pkg::tl_h2d_t), line:21:10, endln:21:20
-      |vpiName:tlul_pkg::tl_h2d_t
+    \_ref_obj: (work@rv_dm.tl_h_o)
+      |vpiParent:
+      \_port: (tl_h_o), line:21:30, endln:21:36
+      |vpiFullName:work@rv_dm.tl_h_o
+      |vpiActual:
+      \_unsupported_typespec: (tlul_pkg::tl_h2d_t), line:21:10, endln:21:20
   |vpiPort:
   \_port: (tl_h_i), line:22:30, endln:22:36
     |vpiParent:
@@ -1577,8 +1571,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_net: (work@rv_dm.tl_h_i), line:22:30, endln:22:36
     |vpiTypedef:
-    \_unsupported_typespec: (tlul_pkg::tl_d2h_t), line:22:10, endln:22:20
-      |vpiName:tlul_pkg::tl_d2h_t
+    \_ref_obj: (work@rv_dm.tl_h_i)
+      |vpiParent:
+      \_port: (tl_h_i), line:22:30, endln:22:36
+      |vpiFullName:work@rv_dm.tl_h_i
+      |vpiActual:
+      \_unsupported_typespec: (tlul_pkg::tl_d2h_t), line:22:10, endln:22:20
   |vpiPort:
   \_port: (jtag_req_i), line:24:31, endln:24:41
     |vpiParent:
@@ -1594,8 +1592,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_net: (work@rv_dm.jtag_req_i), line:24:31, endln:24:41
     |vpiTypedef:
-    \_unsupported_typespec: (jtag_pkg::jtag_req_t), line:24:10, endln:24:20
-      |vpiName:jtag_pkg::jtag_req_t
+    \_ref_obj: (work@rv_dm.jtag_req_i)
+      |vpiParent:
+      \_port: (jtag_req_i), line:24:31, endln:24:41
+      |vpiFullName:work@rv_dm.jtag_req_i
+      |vpiActual:
+      \_unsupported_typespec: (jtag_pkg::jtag_req_t), line:24:10, endln:24:20
   |vpiPort:
   \_port: (jtag_rsp_o), line:25:31, endln:25:41
     |vpiParent:
@@ -1611,8 +1613,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_net: (work@rv_dm.jtag_rsp_o), line:25:31, endln:25:41
     |vpiTypedef:
-    \_unsupported_typespec: (jtag_pkg::jtag_rsp_t), line:25:10, endln:25:20
-      |vpiName:jtag_pkg::jtag_rsp_t
+    \_ref_obj: (work@rv_dm.jtag_rsp_o)
+      |vpiParent:
+      \_port: (jtag_rsp_o), line:25:31, endln:25:41
+      |vpiFullName:work@rv_dm.jtag_rsp_o
+      |vpiActual:
+      \_unsupported_typespec: (jtag_pkg::jtag_rsp_t), line:25:10, endln:25:20
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:56:1, endln:71:10
   |vpiParent:
@@ -1690,9 +1696,12 @@ design: (work@rv_dm)
     |vpiParent:
     \_module_inst: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiTypespec:
-    \_logic_typespec: , line:30:3, endln:30:8
+    \_ref_obj: (work@rv_dm.dmi_req_valid)
       |vpiParent:
-      \_logic_var: (work@rv_dm.dmi_req_ready), line:30:24, endln:30:37
+      \_logic_var: (work@rv_dm.dmi_req_valid), line:30:9, endln:30:22
+      |vpiFullName:work@rv_dm.dmi_req_valid
+      |vpiActual:
+      \_logic_typespec: , line:30:3, endln:30:8
     |vpiName:dmi_req_valid
     |vpiFullName:work@rv_dm.dmi_req_valid
     |vpiVisibility:1
@@ -1701,7 +1710,12 @@ design: (work@rv_dm)
     |vpiParent:
     \_module_inst: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiTypespec:
-    \_logic_typespec: , line:30:3, endln:30:8
+    \_ref_obj: (work@rv_dm.dmi_req_ready)
+      |vpiParent:
+      \_logic_var: (work@rv_dm.dmi_req_ready), line:30:24, endln:30:37
+      |vpiFullName:work@rv_dm.dmi_req_ready
+      |vpiActual:
+      \_logic_typespec: , line:30:3, endln:30:8
     |vpiName:dmi_req_ready
     |vpiFullName:work@rv_dm.dmi_req_ready
     |vpiVisibility:1
@@ -1710,9 +1724,12 @@ design: (work@rv_dm)
     |vpiParent:
     \_module_inst: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiTypespec:
-    \_logic_typespec: , line:31:3, endln:31:8
+    \_ref_obj: (work@rv_dm.dmi_rsp_valid)
       |vpiParent:
-      \_logic_var: (work@rv_dm.dmi_rsp_ready), line:31:24, endln:31:37
+      \_logic_var: (work@rv_dm.dmi_rsp_valid), line:31:9, endln:31:22
+      |vpiFullName:work@rv_dm.dmi_rsp_valid
+      |vpiActual:
+      \_logic_typespec: , line:31:3, endln:31:8
     |vpiName:dmi_rsp_valid
     |vpiFullName:work@rv_dm.dmi_rsp_valid
     |vpiVisibility:1
@@ -1721,7 +1738,12 @@ design: (work@rv_dm)
     |vpiParent:
     \_module_inst: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiTypespec:
-    \_logic_typespec: , line:31:3, endln:31:8
+    \_ref_obj: (work@rv_dm.dmi_rsp_ready)
+      |vpiParent:
+      \_logic_var: (work@rv_dm.dmi_rsp_ready), line:31:24, endln:31:37
+      |vpiFullName:work@rv_dm.dmi_rsp_ready
+      |vpiActual:
+      \_logic_typespec: , line:31:3, endln:31:8
     |vpiName:dmi_rsp_ready
     |vpiFullName:work@rv_dm.dmi_rsp_ready
     |vpiVisibility:1
@@ -1730,9 +1752,12 @@ design: (work@rv_dm)
     |vpiParent:
     \_module_inst: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiTypespec:
-    \_logic_typespec: , line:32:3, endln:32:8
+    \_ref_obj: (work@rv_dm.dmi_rst_n)
       |vpiParent:
       \_logic_var: (work@rv_dm.dmi_rst_n), line:32:9, endln:32:18
+      |vpiFullName:work@rv_dm.dmi_rst_n
+      |vpiActual:
+      \_logic_typespec: , line:32:3, endln:32:8
     |vpiName:dmi_rst_n
     |vpiFullName:work@rv_dm.dmi_rst_n
     |vpiVisibility:1
@@ -1742,10 +1767,12 @@ design: (work@rv_dm)
     \_module_inst: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: , line:2:13, endln:2:16
+    \_ref_obj: (work@rv_dm.NrHarts)
       |vpiParent:
       \_parameter: (work@rv_dm.NrHarts), line:2:30, endln:2:37
-      |vpiSigned:1
+      |vpiFullName:work@rv_dm.NrHarts
+      |vpiActual:
+      \_int_typespec: , line:2:13, endln:2:16
     |vpiSigned:1
     |vpiName:NrHarts
     |vpiFullName:work@rv_dm.NrHarts
@@ -1755,29 +1782,12 @@ design: (work@rv_dm)
     \_module_inst: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |HEX:00000001
     |vpiTypespec:
-    \_logic_typespec: , line:3:13, endln:3:25
+    \_ref_obj: (work@rv_dm.IdcodeValue)
       |vpiParent:
       \_parameter: (work@rv_dm.IdcodeValue), line:3:30, endln:3:41
-      |vpiRange:
-      \_range: , line:3:19, endln:3:25
-        |vpiParent:
-        \_logic_typespec: , line:3:13, endln:3:25
-        |vpiLeftRange:
-        \_constant: , line:3:20, endln:3:22
-          |vpiParent:
-          \_range: , line:3:19, endln:3:25
-          |vpiDecompile:31
-          |vpiSize:64
-          |UINT:31
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:3:23, endln:3:24
-          |vpiParent:
-          \_range: , line:3:19, endln:3:25
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@rv_dm.IdcodeValue
+      |vpiActual:
+      \_logic_typespec: , line:3:13, endln:3:25
     |vpiName:IdcodeValue
     |vpiFullName:work@rv_dm.IdcodeValue
   |vpiParamAssign:
@@ -1792,7 +1802,12 @@ design: (work@rv_dm)
       |vpiSize:32
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: , line:2:13, endln:2:16
+      \_ref_obj: (work@rv_dm)
+        |vpiParent:
+        \_constant: , line:2:40, endln:2:41
+        |vpiFullName:work@rv_dm
+        |vpiActual:
+        \_int_typespec: , line:2:13, endln:2:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@rv_dm.NrHarts), line:2:30, endln:2:37
@@ -1808,7 +1823,12 @@ design: (work@rv_dm)
       |vpiSize:32
       |HEX:00000001
       |vpiTypespec:
-      \_logic_typespec: , line:3:13, endln:3:25
+      \_ref_obj: (work@rv_dm)
+        |vpiParent:
+        \_constant: , line:3:44, endln:3:57
+        |vpiFullName:work@rv_dm
+        |vpiActual:
+        \_logic_typespec: , line:3:13, endln:3:25
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (work@rv_dm.IdcodeValue), line:3:30, endln:3:41
@@ -1819,9 +1839,12 @@ design: (work@rv_dm)
     |vpiParent:
     \_module_inst: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiTypespec:
-    \_logic_typespec: , line:5:10, endln:5:15
+    \_ref_obj: (work@rv_dm.clk_i)
       |vpiParent:
       \_logic_net: (work@rv_dm.clk_i), line:5:30, endln:5:35
+      |vpiFullName:work@rv_dm.clk_i
+      |vpiActual:
+      \_logic_typespec: , line:5:10, endln:5:15
     |vpiName:clk_i
     |vpiFullName:work@rv_dm.clk_i
     |vpiNetType:36
@@ -1830,9 +1853,12 @@ design: (work@rv_dm)
     |vpiParent:
     \_module_inst: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiTypespec:
-    \_logic_typespec: , line:6:10, endln:6:15
+    \_ref_obj: (work@rv_dm.rst_ni)
       |vpiParent:
       \_logic_net: (work@rv_dm.rst_ni), line:6:30, endln:6:36
+      |vpiFullName:work@rv_dm.rst_ni
+      |vpiActual:
+      \_logic_typespec: , line:6:10, endln:6:15
     |vpiName:rst_ni
     |vpiFullName:work@rv_dm.rst_ni
     |vpiNetType:36
@@ -1841,9 +1867,12 @@ design: (work@rv_dm)
     |vpiParent:
     \_module_inst: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiTypespec:
-    \_logic_typespec: , line:9:10, endln:9:15
+    \_ref_obj: (work@rv_dm.testmode_i)
       |vpiParent:
       \_logic_net: (work@rv_dm.testmode_i), line:9:30, endln:9:40
+      |vpiFullName:work@rv_dm.testmode_i
+      |vpiActual:
+      \_logic_typespec: , line:9:10, endln:9:15
     |vpiName:testmode_i
     |vpiFullName:work@rv_dm.testmode_i
     |vpiNetType:36
@@ -1852,9 +1881,12 @@ design: (work@rv_dm)
     |vpiParent:
     \_module_inst: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiTypespec:
-    \_logic_typespec: , line:10:10, endln:10:15
+    \_ref_obj: (work@rv_dm.ndmreset_o)
       |vpiParent:
       \_logic_net: (work@rv_dm.ndmreset_o), line:10:30, endln:10:40
+      |vpiFullName:work@rv_dm.ndmreset_o
+      |vpiActual:
+      \_logic_typespec: , line:10:10, endln:10:15
     |vpiName:ndmreset_o
     |vpiFullName:work@rv_dm.ndmreset_o
     |vpiNetType:36
@@ -1863,9 +1895,12 @@ design: (work@rv_dm)
     |vpiParent:
     \_module_inst: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiTypespec:
-    \_logic_typespec: , line:11:10, endln:11:15
+    \_ref_obj: (work@rv_dm.dmactive_o)
       |vpiParent:
       \_logic_net: (work@rv_dm.dmactive_o), line:11:30, endln:11:40
+      |vpiFullName:work@rv_dm.dmactive_o
+      |vpiActual:
+      \_logic_typespec: , line:11:10, endln:11:15
     |vpiName:dmactive_o
     |vpiFullName:work@rv_dm.dmactive_o
     |vpiNetType:36
@@ -1874,29 +1909,12 @@ design: (work@rv_dm)
     |vpiParent:
     \_module_inst: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiTypespec:
-    \_logic_typespec: , line:12:10, endln:12:29
+    \_ref_obj: (work@rv_dm.debug_req_o)
       |vpiParent:
       \_logic_net: (work@rv_dm.debug_req_o), line:12:30, endln:12:41
-      |vpiRange:
-      \_range: , line:12:16, endln:12:29
-        |vpiParent:
-        \_logic_typespec: , line:12:10, endln:12:29
-        |vpiLeftRange:
-        \_constant: , line:12:17, endln:12:24
-          |vpiParent:
-          \_range: , line:12:16, endln:12:29
-          |vpiDecompile:0
-          |vpiSize:64
-          |INT:0
-          |vpiConstType:7
-        |vpiRightRange:
-        \_constant: , line:12:27, endln:12:28
-          |vpiParent:
-          \_range: , line:12:16, endln:12:29
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@rv_dm.debug_req_o
+      |vpiActual:
+      \_logic_typespec: , line:12:10, endln:12:29
     |vpiName:debug_req_o
     |vpiFullName:work@rv_dm.debug_req_o
     |vpiNetType:36
@@ -1905,29 +1923,12 @@ design: (work@rv_dm)
     |vpiParent:
     \_module_inst: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
     |vpiTypespec:
-    \_logic_typespec: , line:13:10, endln:13:29
+    \_ref_obj: (work@rv_dm.unavailable_i)
       |vpiParent:
       \_logic_net: (work@rv_dm.unavailable_i), line:13:30, endln:13:43
-      |vpiRange:
-      \_range: , line:13:16, endln:13:29
-        |vpiParent:
-        \_logic_typespec: , line:13:10, endln:13:29
-        |vpiLeftRange:
-        \_constant: , line:13:17, endln:13:24
-          |vpiParent:
-          \_range: , line:13:16, endln:13:29
-          |vpiDecompile:0
-          |vpiSize:64
-          |INT:0
-          |vpiConstType:7
-        |vpiRightRange:
-        \_constant: , line:13:27, endln:13:28
-          |vpiParent:
-          \_range: , line:13:16, endln:13:29
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@rv_dm.unavailable_i
+      |vpiActual:
+      \_logic_typespec: , line:13:10, endln:13:29
     |vpiName:unavailable_i
     |vpiFullName:work@rv_dm.unavailable_i
     |vpiNetType:36
@@ -1947,7 +1948,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_net: (work@rv_dm.clk_i), line:5:30, endln:5:35
     |vpiTypedef:
-    \_logic_typespec: , line:5:10, endln:5:15
+    \_ref_obj: (work@rv_dm.clk_i)
+      |vpiParent:
+      \_port: (clk_i), line:5:30, endln:5:35
+      |vpiFullName:work@rv_dm.clk_i
+      |vpiActual:
+      \_logic_typespec: , line:5:10, endln:5:15
     |vpiInstance:
     \_module_inst: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
   |vpiPort:
@@ -1965,7 +1971,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_net: (work@rv_dm.rst_ni), line:6:30, endln:6:36
     |vpiTypedef:
-    \_logic_typespec: , line:6:10, endln:6:15
+    \_ref_obj: (work@rv_dm.rst_ni)
+      |vpiParent:
+      \_port: (rst_ni), line:6:30, endln:6:36
+      |vpiFullName:work@rv_dm.rst_ni
+      |vpiActual:
+      \_logic_typespec: , line:6:10, endln:6:15
     |vpiInstance:
     \_module_inst: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
   |vpiPort:
@@ -1983,8 +1994,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_var: (work@rv_dm.hw_debug_en_i), line:8:31, endln:8:44
     |vpiTypedef:
-    \_unsupported_typespec: (lc_ctrl_pkg::lc_tx_t), line:8:10, endln:8:23
-      |vpiName:lc_ctrl_pkg::lc_tx_t
+    \_ref_obj: (work@rv_dm.hw_debug_en_i)
+      |vpiParent:
+      \_port: (hw_debug_en_i), line:8:31, endln:8:44
+      |vpiFullName:work@rv_dm.hw_debug_en_i
+      |vpiActual:
+      \_unsupported_typespec: (lc_ctrl_pkg::lc_tx_t), line:8:10, endln:8:23
     |vpiInstance:
     \_module_inst: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
   |vpiPort:
@@ -2002,7 +2017,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_net: (work@rv_dm.testmode_i), line:9:30, endln:9:40
     |vpiTypedef:
-    \_logic_typespec: , line:9:10, endln:9:15
+    \_ref_obj: (work@rv_dm.testmode_i)
+      |vpiParent:
+      \_port: (testmode_i), line:9:30, endln:9:40
+      |vpiFullName:work@rv_dm.testmode_i
+      |vpiActual:
+      \_logic_typespec: , line:9:10, endln:9:15
     |vpiInstance:
     \_module_inst: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
   |vpiPort:
@@ -2020,7 +2040,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_net: (work@rv_dm.ndmreset_o), line:10:30, endln:10:40
     |vpiTypedef:
-    \_logic_typespec: , line:10:10, endln:10:15
+    \_ref_obj: (work@rv_dm.ndmreset_o)
+      |vpiParent:
+      \_port: (ndmreset_o), line:10:30, endln:10:40
+      |vpiFullName:work@rv_dm.ndmreset_o
+      |vpiActual:
+      \_logic_typespec: , line:10:10, endln:10:15
     |vpiInstance:
     \_module_inst: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
   |vpiPort:
@@ -2038,7 +2063,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_net: (work@rv_dm.dmactive_o), line:11:30, endln:11:40
     |vpiTypedef:
-    \_logic_typespec: , line:11:10, endln:11:15
+    \_ref_obj: (work@rv_dm.dmactive_o)
+      |vpiParent:
+      \_port: (dmactive_o), line:11:30, endln:11:40
+      |vpiFullName:work@rv_dm.dmactive_o
+      |vpiActual:
+      \_logic_typespec: , line:11:10, endln:11:15
     |vpiInstance:
     \_module_inst: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
   |vpiPort:
@@ -2056,27 +2086,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_net: (work@rv_dm.debug_req_o), line:12:30, endln:12:41
     |vpiTypedef:
-    \_logic_typespec: , line:12:10, endln:12:29
-      |vpiRange:
-      \_range: , line:12:16, endln:12:29
-        |vpiParent:
-        \_logic_typespec: , line:12:10, endln:12:29
-        |vpiLeftRange:
-        \_constant: , line:12:17, endln:12:24
-          |vpiParent:
-          \_range: , line:12:16, endln:12:29
-          |vpiDecompile:0
-          |vpiSize:64
-          |INT:0
-          |vpiConstType:7
-        |vpiRightRange:
-        \_constant: , line:12:27, endln:12:28
-          |vpiParent:
-          \_range: , line:12:16, endln:12:29
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@rv_dm.debug_req_o)
+      |vpiParent:
+      \_port: (debug_req_o), line:12:30, endln:12:41
+      |vpiFullName:work@rv_dm.debug_req_o
+      |vpiActual:
+      \_logic_typespec: , line:12:10, endln:12:29
     |vpiInstance:
     \_module_inst: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
   |vpiPort:
@@ -2094,27 +2109,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_net: (work@rv_dm.unavailable_i), line:13:30, endln:13:43
     |vpiTypedef:
-    \_logic_typespec: , line:13:10, endln:13:29
-      |vpiRange:
-      \_range: , line:13:16, endln:13:29
-        |vpiParent:
-        \_logic_typespec: , line:13:10, endln:13:29
-        |vpiLeftRange:
-        \_constant: , line:13:17, endln:13:24
-          |vpiParent:
-          \_range: , line:13:16, endln:13:29
-          |vpiDecompile:0
-          |vpiSize:64
-          |INT:0
-          |vpiConstType:7
-        |vpiRightRange:
-        \_constant: , line:13:27, endln:13:28
-          |vpiParent:
-          \_range: , line:13:16, endln:13:29
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@rv_dm.unavailable_i)
+      |vpiParent:
+      \_port: (unavailable_i), line:13:30, endln:13:43
+      |vpiFullName:work@rv_dm.unavailable_i
+      |vpiActual:
+      \_logic_typespec: , line:13:10, endln:13:29
     |vpiInstance:
     \_module_inst: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
   |vpiPort:
@@ -2132,8 +2132,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_var: (work@rv_dm.tl_d_i), line:17:30, endln:17:36
     |vpiTypedef:
-    \_unsupported_typespec: (tlul_pkg::tl_h2d_t), line:17:10, endln:17:20
-      |vpiName:tlul_pkg::tl_h2d_t
+    \_ref_obj: (work@rv_dm.tl_d_i)
+      |vpiParent:
+      \_port: (tl_d_i), line:17:30, endln:17:36
+      |vpiFullName:work@rv_dm.tl_d_i
+      |vpiActual:
+      \_unsupported_typespec: (tlul_pkg::tl_h2d_t), line:17:10, endln:17:20
     |vpiInstance:
     \_module_inst: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
   |vpiPort:
@@ -2151,8 +2155,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_var: (work@rv_dm.tl_d_o), line:18:30, endln:18:36
     |vpiTypedef:
-    \_unsupported_typespec: (tlul_pkg::tl_d2h_t), line:18:10, endln:18:20
-      |vpiName:tlul_pkg::tl_d2h_t
+    \_ref_obj: (work@rv_dm.tl_d_o)
+      |vpiParent:
+      \_port: (tl_d_o), line:18:30, endln:18:36
+      |vpiFullName:work@rv_dm.tl_d_o
+      |vpiActual:
+      \_unsupported_typespec: (tlul_pkg::tl_d2h_t), line:18:10, endln:18:20
     |vpiInstance:
     \_module_inst: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
   |vpiPort:
@@ -2170,8 +2178,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_var: (work@rv_dm.tl_h_o), line:21:30, endln:21:36
     |vpiTypedef:
-    \_unsupported_typespec: (tlul_pkg::tl_h2d_t), line:21:10, endln:21:20
-      |vpiName:tlul_pkg::tl_h2d_t
+    \_ref_obj: (work@rv_dm.tl_h_o)
+      |vpiParent:
+      \_port: (tl_h_o), line:21:30, endln:21:36
+      |vpiFullName:work@rv_dm.tl_h_o
+      |vpiActual:
+      \_unsupported_typespec: (tlul_pkg::tl_h2d_t), line:21:10, endln:21:20
     |vpiInstance:
     \_module_inst: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
   |vpiPort:
@@ -2189,8 +2201,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_var: (work@rv_dm.tl_h_i), line:22:30, endln:22:36
     |vpiTypedef:
-    \_unsupported_typespec: (tlul_pkg::tl_d2h_t), line:22:10, endln:22:20
-      |vpiName:tlul_pkg::tl_d2h_t
+    \_ref_obj: (work@rv_dm.tl_h_i)
+      |vpiParent:
+      \_port: (tl_h_i), line:22:30, endln:22:36
+      |vpiFullName:work@rv_dm.tl_h_i
+      |vpiActual:
+      \_unsupported_typespec: (tlul_pkg::tl_d2h_t), line:22:10, endln:22:20
     |vpiInstance:
     \_module_inst: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
   |vpiPort:
@@ -2208,8 +2224,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_var: (work@rv_dm.jtag_req_i), line:24:31, endln:24:41
     |vpiTypedef:
-    \_unsupported_typespec: (jtag_pkg::jtag_req_t), line:24:10, endln:24:20
-      |vpiName:jtag_pkg::jtag_req_t
+    \_ref_obj: (work@rv_dm.jtag_req_i)
+      |vpiParent:
+      \_port: (jtag_req_i), line:24:31, endln:24:41
+      |vpiFullName:work@rv_dm.jtag_req_i
+      |vpiActual:
+      \_unsupported_typespec: (jtag_pkg::jtag_req_t), line:24:10, endln:24:20
     |vpiInstance:
     \_module_inst: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
   |vpiPort:
@@ -2227,8 +2247,12 @@ design: (work@rv_dm)
       |vpiActual:
       \_logic_var: (work@rv_dm.jtag_rsp_o), line:25:31, endln:25:41
     |vpiTypedef:
-    \_unsupported_typespec: (jtag_pkg::jtag_rsp_t), line:25:10, endln:25:20
-      |vpiName:jtag_pkg::jtag_rsp_t
+    \_ref_obj: (work@rv_dm.jtag_rsp_o)
+      |vpiParent:
+      \_port: (jtag_rsp_o), line:25:31, endln:25:41
+      |vpiFullName:work@rv_dm.jtag_rsp_o
+      |vpiActual:
+      \_unsupported_typespec: (jtag_pkg::jtag_rsp_t), line:25:10, endln:25:20
     |vpiInstance:
     \_module_inst: work@rv_dm (work@rv_dm), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:1:1, endln:34:10
   |vpiModule:
@@ -2241,9 +2265,12 @@ design: (work@rv_dm)
       |vpiParent:
       \_module_inst: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |vpiTypespec:
-      \_bit_typespec: , line:40:10, endln:40:13
+      \_ref_obj: (work@rv_dm.u_dmidpi.clk_i)
         |vpiParent:
         \_bit_var: (work@rv_dm.u_dmidpi.clk_i), line:40:21, endln:40:26
+        |vpiFullName:work@rv_dm.u_dmidpi.clk_i
+        |vpiActual:
+        \_bit_typespec: , line:40:10, endln:40:13
       |vpiName:clk_i
       |vpiFullName:work@rv_dm.u_dmidpi.clk_i
       |vpiVisibility:1
@@ -2252,9 +2279,12 @@ design: (work@rv_dm)
       |vpiParent:
       \_module_inst: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |vpiTypespec:
-      \_bit_typespec: , line:41:10, endln:41:13
+      \_ref_obj: (work@rv_dm.u_dmidpi.rst_ni)
         |vpiParent:
         \_bit_var: (work@rv_dm.u_dmidpi.rst_ni), line:41:21, endln:41:27
+        |vpiFullName:work@rv_dm.u_dmidpi.rst_ni
+        |vpiActual:
+        \_bit_typespec: , line:41:10, endln:41:13
       |vpiName:rst_ni
       |vpiFullName:work@rv_dm.u_dmidpi.rst_ni
       |vpiVisibility:1
@@ -2263,9 +2293,12 @@ design: (work@rv_dm)
       |vpiParent:
       \_module_inst: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |vpiTypespec:
-      \_bit_typespec: , line:43:10, endln:43:13
+      \_ref_obj: (work@rv_dm.u_dmidpi.dmi_req_valid)
         |vpiParent:
         \_bit_var: (work@rv_dm.u_dmidpi.dmi_req_valid), line:43:21, endln:43:34
+        |vpiFullName:work@rv_dm.u_dmidpi.dmi_req_valid
+        |vpiActual:
+        \_bit_typespec: , line:43:10, endln:43:13
       |vpiName:dmi_req_valid
       |vpiFullName:work@rv_dm.u_dmidpi.dmi_req_valid
       |vpiVisibility:1
@@ -2274,9 +2307,12 @@ design: (work@rv_dm)
       |vpiParent:
       \_module_inst: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |vpiTypespec:
-      \_bit_typespec: , line:44:10, endln:44:13
+      \_ref_obj: (work@rv_dm.u_dmidpi.dmi_req_ready)
         |vpiParent:
         \_bit_var: (work@rv_dm.u_dmidpi.dmi_req_ready), line:44:21, endln:44:34
+        |vpiFullName:work@rv_dm.u_dmidpi.dmi_req_ready
+        |vpiActual:
+        \_bit_typespec: , line:44:10, endln:44:13
       |vpiName:dmi_req_ready
       |vpiFullName:work@rv_dm.u_dmidpi.dmi_req_ready
       |vpiVisibility:1
@@ -2285,29 +2321,12 @@ design: (work@rv_dm)
       |vpiParent:
       \_module_inst: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |vpiTypespec:
-      \_bit_typespec: , line:45:10, endln:45:19
+      \_ref_obj: (work@rv_dm.u_dmidpi.dmi_req_addr)
         |vpiParent:
         \_bit_var: (work@rv_dm.u_dmidpi.dmi_req_addr), line:45:21, endln:45:33
-        |vpiRange:
-        \_range: , line:45:14, endln:45:19
-          |vpiParent:
-          \_bit_typespec: , line:45:10, endln:45:19
-          |vpiLeftRange:
-          \_constant: , line:45:15, endln:45:16
-            |vpiParent:
-            \_range: , line:45:14, endln:45:19
-            |vpiDecompile:6
-            |vpiSize:64
-            |UINT:6
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:45:17, endln:45:18
-            |vpiParent:
-            \_range: , line:45:14, endln:45:19
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@rv_dm.u_dmidpi.dmi_req_addr
+        |vpiActual:
+        \_bit_typespec: , line:45:10, endln:45:19
       |vpiName:dmi_req_addr
       |vpiFullName:work@rv_dm.u_dmidpi.dmi_req_addr
       |vpiVisibility:1
@@ -2316,29 +2335,12 @@ design: (work@rv_dm)
       |vpiParent:
       \_module_inst: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |vpiTypespec:
-      \_bit_typespec: , line:46:10, endln:46:19
+      \_ref_obj: (work@rv_dm.u_dmidpi.dmi_req_op)
         |vpiParent:
         \_bit_var: (work@rv_dm.u_dmidpi.dmi_req_op), line:46:21, endln:46:31
-        |vpiRange:
-        \_range: , line:46:14, endln:46:19
-          |vpiParent:
-          \_bit_typespec: , line:46:10, endln:46:19
-          |vpiLeftRange:
-          \_constant: , line:46:15, endln:46:16
-            |vpiParent:
-            \_range: , line:46:14, endln:46:19
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:46:17, endln:46:18
-            |vpiParent:
-            \_range: , line:46:14, endln:46:19
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@rv_dm.u_dmidpi.dmi_req_op
+        |vpiActual:
+        \_bit_typespec: , line:46:10, endln:46:19
       |vpiName:dmi_req_op
       |vpiFullName:work@rv_dm.u_dmidpi.dmi_req_op
       |vpiVisibility:1
@@ -2347,29 +2349,12 @@ design: (work@rv_dm)
       |vpiParent:
       \_module_inst: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |vpiTypespec:
-      \_bit_typespec: , line:47:10, endln:47:20
+      \_ref_obj: (work@rv_dm.u_dmidpi.dmi_req_data)
         |vpiParent:
         \_bit_var: (work@rv_dm.u_dmidpi.dmi_req_data), line:47:21, endln:47:33
-        |vpiRange:
-        \_range: , line:47:14, endln:47:20
-          |vpiParent:
-          \_bit_typespec: , line:47:10, endln:47:20
-          |vpiLeftRange:
-          \_constant: , line:47:15, endln:47:17
-            |vpiParent:
-            \_range: , line:47:14, endln:47:20
-            |vpiDecompile:31
-            |vpiSize:64
-            |UINT:31
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:47:18, endln:47:19
-            |vpiParent:
-            \_range: , line:47:14, endln:47:20
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@rv_dm.u_dmidpi.dmi_req_data
+        |vpiActual:
+        \_bit_typespec: , line:47:10, endln:47:20
       |vpiName:dmi_req_data
       |vpiFullName:work@rv_dm.u_dmidpi.dmi_req_data
       |vpiVisibility:1
@@ -2378,9 +2363,12 @@ design: (work@rv_dm)
       |vpiParent:
       \_module_inst: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |vpiTypespec:
-      \_bit_typespec: , line:48:10, endln:48:13
+      \_ref_obj: (work@rv_dm.u_dmidpi.dmi_rsp_valid)
         |vpiParent:
         \_bit_var: (work@rv_dm.u_dmidpi.dmi_rsp_valid), line:48:21, endln:48:34
+        |vpiFullName:work@rv_dm.u_dmidpi.dmi_rsp_valid
+        |vpiActual:
+        \_bit_typespec: , line:48:10, endln:48:13
       |vpiName:dmi_rsp_valid
       |vpiFullName:work@rv_dm.u_dmidpi.dmi_rsp_valid
       |vpiVisibility:1
@@ -2389,9 +2377,12 @@ design: (work@rv_dm)
       |vpiParent:
       \_module_inst: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |vpiTypespec:
-      \_bit_typespec: , line:49:10, endln:49:13
+      \_ref_obj: (work@rv_dm.u_dmidpi.dmi_rsp_ready)
         |vpiParent:
         \_bit_var: (work@rv_dm.u_dmidpi.dmi_rsp_ready), line:49:21, endln:49:34
+        |vpiFullName:work@rv_dm.u_dmidpi.dmi_rsp_ready
+        |vpiActual:
+        \_bit_typespec: , line:49:10, endln:49:13
       |vpiName:dmi_rsp_ready
       |vpiFullName:work@rv_dm.u_dmidpi.dmi_rsp_ready
       |vpiVisibility:1
@@ -2400,29 +2391,12 @@ design: (work@rv_dm)
       |vpiParent:
       \_module_inst: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |vpiTypespec:
-      \_bit_typespec: , line:50:10, endln:50:20
+      \_ref_obj: (work@rv_dm.u_dmidpi.dmi_rsp_data)
         |vpiParent:
         \_bit_var: (work@rv_dm.u_dmidpi.dmi_rsp_data), line:50:21, endln:50:33
-        |vpiRange:
-        \_range: , line:50:14, endln:50:20
-          |vpiParent:
-          \_bit_typespec: , line:50:10, endln:50:20
-          |vpiLeftRange:
-          \_constant: , line:50:15, endln:50:17
-            |vpiParent:
-            \_range: , line:50:14, endln:50:20
-            |vpiDecompile:31
-            |vpiSize:64
-            |UINT:31
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:50:18, endln:50:19
-            |vpiParent:
-            \_range: , line:50:14, endln:50:20
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@rv_dm.u_dmidpi.dmi_rsp_data
+        |vpiActual:
+        \_bit_typespec: , line:50:10, endln:50:20
       |vpiName:dmi_rsp_data
       |vpiFullName:work@rv_dm.u_dmidpi.dmi_rsp_data
       |vpiVisibility:1
@@ -2431,29 +2405,12 @@ design: (work@rv_dm)
       |vpiParent:
       \_module_inst: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |vpiTypespec:
-      \_bit_typespec: , line:51:10, endln:51:19
+      \_ref_obj: (work@rv_dm.u_dmidpi.dmi_rsp_resp)
         |vpiParent:
         \_bit_var: (work@rv_dm.u_dmidpi.dmi_rsp_resp), line:51:21, endln:51:33
-        |vpiRange:
-        \_range: , line:51:14, endln:51:19
-          |vpiParent:
-          \_bit_typespec: , line:51:10, endln:51:19
-          |vpiLeftRange:
-          \_constant: , line:51:15, endln:51:16
-            |vpiParent:
-            \_range: , line:51:14, endln:51:19
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:51:17, endln:51:18
-            |vpiParent:
-            \_range: , line:51:14, endln:51:19
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@rv_dm.u_dmidpi.dmi_rsp_resp
+        |vpiActual:
+        \_bit_typespec: , line:51:10, endln:51:19
       |vpiName:dmi_rsp_resp
       |vpiFullName:work@rv_dm.u_dmidpi.dmi_rsp_resp
       |vpiVisibility:1
@@ -2462,9 +2419,12 @@ design: (work@rv_dm)
       |vpiParent:
       \_module_inst: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |vpiTypespec:
-      \_bit_typespec: , line:52:10, endln:52:13
+      \_ref_obj: (work@rv_dm.u_dmidpi.dmi_rst_n)
         |vpiParent:
         \_bit_var: (work@rv_dm.u_dmidpi.dmi_rst_n), line:52:21, endln:52:30
+        |vpiFullName:work@rv_dm.u_dmidpi.dmi_rst_n
+        |vpiActual:
+        \_bit_typespec: , line:52:10, endln:52:13
       |vpiName:dmi_rst_n
       |vpiFullName:work@rv_dm.u_dmidpi.dmi_rst_n
       |vpiVisibility:1
@@ -2474,9 +2434,12 @@ design: (work@rv_dm)
       \_module_inst: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |STRING:dmi0
       |vpiTypespec:
-      \_string_typespec: , line:37:13, endln:37:19
+      \_ref_obj: (work@rv_dm.u_dmidpi.Name)
         |vpiParent:
         \_parameter: (work@rv_dm.u_dmidpi.Name), line:37:20, endln:37:24
+        |vpiFullName:work@rv_dm.u_dmidpi.Name
+        |vpiActual:
+        \_string_typespec: , line:37:13, endln:37:19
       |vpiName:Name
       |vpiFullName:work@rv_dm.u_dmidpi.Name
     |vpiParameter:
@@ -2485,10 +2448,12 @@ design: (work@rv_dm)
       \_module_inst: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
       |UINT:44853
       |vpiTypespec:
-      \_int_typespec: , line:38:13, endln:38:16
+      \_ref_obj: (work@rv_dm.u_dmidpi.ListenPort)
         |vpiParent:
         \_parameter: (work@rv_dm.u_dmidpi.ListenPort), line:38:17, endln:38:27
-        |vpiSigned:1
+        |vpiFullName:work@rv_dm.u_dmidpi.ListenPort
+        |vpiActual:
+        \_int_typespec: , line:38:13, endln:38:16
       |vpiSigned:1
       |vpiName:ListenPort
       |vpiFullName:work@rv_dm.u_dmidpi.ListenPort
@@ -2504,7 +2469,12 @@ design: (work@rv_dm)
         |vpiSize:32
         |STRING:dmi0
         |vpiTypespec:
-        \_string_typespec: , line:37:13, endln:37:19
+        \_ref_obj: (work@rv_dm.u_dmidpi)
+          |vpiParent:
+          \_constant: , line:37:27, endln:37:33
+          |vpiFullName:work@rv_dm.u_dmidpi
+          |vpiActual:
+          \_string_typespec: , line:37:13, endln:37:19
         |vpiConstType:6
       |vpiLhs:
       \_parameter: (work@rv_dm.u_dmidpi.Name), line:37:20, endln:37:24
@@ -2520,7 +2490,12 @@ design: (work@rv_dm)
         |vpiSize:32
         |UINT:44853
         |vpiTypespec:
-        \_int_typespec: , line:38:13, endln:38:16
+        \_ref_obj: (work@rv_dm.u_dmidpi)
+          |vpiParent:
+          \_constant: , line:38:30, endln:38:35
+          |vpiFullName:work@rv_dm.u_dmidpi
+          |vpiActual:
+          \_int_typespec: , line:38:13, endln:38:16
         |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@rv_dm.u_dmidpi.ListenPort), line:38:17, endln:38:27
@@ -2544,7 +2519,12 @@ design: (work@rv_dm)
         |vpiActual:
         \_bit_var: (work@rv_dm.u_dmidpi.clk_i), line:40:21, endln:40:26
       |vpiTypedef:
-      \_bit_typespec: , line:40:10, endln:40:13
+      \_ref_obj: (work@rv_dm.u_dmidpi.clk_i)
+        |vpiParent:
+        \_port: (clk_i), line:40:21, endln:40:26
+        |vpiFullName:work@rv_dm.u_dmidpi.clk_i
+        |vpiActual:
+        \_bit_typespec: , line:40:10, endln:40:13
       |vpiInstance:
       \_module_inst: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
     |vpiPort:
@@ -2562,7 +2542,12 @@ design: (work@rv_dm)
         |vpiActual:
         \_bit_var: (work@rv_dm.u_dmidpi.rst_ni), line:41:21, endln:41:27
       |vpiTypedef:
-      \_bit_typespec: , line:41:10, endln:41:13
+      \_ref_obj: (work@rv_dm.u_dmidpi.rst_ni)
+        |vpiParent:
+        \_port: (rst_ni), line:41:21, endln:41:27
+        |vpiFullName:work@rv_dm.u_dmidpi.rst_ni
+        |vpiActual:
+        \_bit_typespec: , line:41:10, endln:41:13
       |vpiInstance:
       \_module_inst: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
     |vpiPort:
@@ -2580,7 +2565,12 @@ design: (work@rv_dm)
         |vpiActual:
         \_bit_var: (work@rv_dm.u_dmidpi.dmi_req_valid), line:43:21, endln:43:34
       |vpiTypedef:
-      \_bit_typespec: , line:43:10, endln:43:13
+      \_ref_obj: (work@rv_dm.u_dmidpi.dmi_req_valid)
+        |vpiParent:
+        \_port: (dmi_req_valid), line:43:21, endln:43:34
+        |vpiFullName:work@rv_dm.u_dmidpi.dmi_req_valid
+        |vpiActual:
+        \_bit_typespec: , line:43:10, endln:43:13
       |vpiInstance:
       \_module_inst: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
     |vpiPort:
@@ -2598,7 +2588,12 @@ design: (work@rv_dm)
         |vpiActual:
         \_bit_var: (work@rv_dm.u_dmidpi.dmi_req_ready), line:44:21, endln:44:34
       |vpiTypedef:
-      \_bit_typespec: , line:44:10, endln:44:13
+      \_ref_obj: (work@rv_dm.u_dmidpi.dmi_req_ready)
+        |vpiParent:
+        \_port: (dmi_req_ready), line:44:21, endln:44:34
+        |vpiFullName:work@rv_dm.u_dmidpi.dmi_req_ready
+        |vpiActual:
+        \_bit_typespec: , line:44:10, endln:44:13
       |vpiInstance:
       \_module_inst: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
     |vpiPort:
@@ -2634,27 +2629,12 @@ design: (work@rv_dm)
         |vpiActual:
         \_bit_var: (work@rv_dm.u_dmidpi.dmi_req_addr), line:45:21, endln:45:33
       |vpiTypedef:
-      \_bit_typespec: , line:45:10, endln:45:19
-        |vpiRange:
-        \_range: , line:45:14, endln:45:19
-          |vpiParent:
-          \_bit_typespec: , line:45:10, endln:45:19
-          |vpiLeftRange:
-          \_constant: , line:45:15, endln:45:16
-            |vpiParent:
-            \_range: , line:45:14, endln:45:19
-            |vpiDecompile:6
-            |vpiSize:64
-            |UINT:6
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:45:17, endln:45:18
-            |vpiParent:
-            \_range: , line:45:14, endln:45:19
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_obj: (work@rv_dm.u_dmidpi.dmi_req_addr)
+        |vpiParent:
+        \_port: (dmi_req_addr), line:45:21, endln:45:33
+        |vpiFullName:work@rv_dm.u_dmidpi.dmi_req_addr
+        |vpiActual:
+        \_bit_typespec: , line:45:10, endln:45:19
       |vpiInstance:
       \_module_inst: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
     |vpiPort:
@@ -2690,27 +2670,12 @@ design: (work@rv_dm)
         |vpiActual:
         \_bit_var: (work@rv_dm.u_dmidpi.dmi_req_op), line:46:21, endln:46:31
       |vpiTypedef:
-      \_bit_typespec: , line:46:10, endln:46:19
-        |vpiRange:
-        \_range: , line:46:14, endln:46:19
-          |vpiParent:
-          \_bit_typespec: , line:46:10, endln:46:19
-          |vpiLeftRange:
-          \_constant: , line:46:15, endln:46:16
-            |vpiParent:
-            \_range: , line:46:14, endln:46:19
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:46:17, endln:46:18
-            |vpiParent:
-            \_range: , line:46:14, endln:46:19
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_obj: (work@rv_dm.u_dmidpi.dmi_req_op)
+        |vpiParent:
+        \_port: (dmi_req_op), line:46:21, endln:46:31
+        |vpiFullName:work@rv_dm.u_dmidpi.dmi_req_op
+        |vpiActual:
+        \_bit_typespec: , line:46:10, endln:46:19
       |vpiInstance:
       \_module_inst: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
     |vpiPort:
@@ -2746,27 +2711,12 @@ design: (work@rv_dm)
         |vpiActual:
         \_bit_var: (work@rv_dm.u_dmidpi.dmi_req_data), line:47:21, endln:47:33
       |vpiTypedef:
-      \_bit_typespec: , line:47:10, endln:47:20
-        |vpiRange:
-        \_range: , line:47:14, endln:47:20
-          |vpiParent:
-          \_bit_typespec: , line:47:10, endln:47:20
-          |vpiLeftRange:
-          \_constant: , line:47:15, endln:47:17
-            |vpiParent:
-            \_range: , line:47:14, endln:47:20
-            |vpiDecompile:31
-            |vpiSize:64
-            |UINT:31
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:47:18, endln:47:19
-            |vpiParent:
-            \_range: , line:47:14, endln:47:20
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_obj: (work@rv_dm.u_dmidpi.dmi_req_data)
+        |vpiParent:
+        \_port: (dmi_req_data), line:47:21, endln:47:33
+        |vpiFullName:work@rv_dm.u_dmidpi.dmi_req_data
+        |vpiActual:
+        \_bit_typespec: , line:47:10, endln:47:20
       |vpiInstance:
       \_module_inst: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
     |vpiPort:
@@ -2784,7 +2734,12 @@ design: (work@rv_dm)
         |vpiActual:
         \_bit_var: (work@rv_dm.u_dmidpi.dmi_rsp_valid), line:48:21, endln:48:34
       |vpiTypedef:
-      \_bit_typespec: , line:48:10, endln:48:13
+      \_ref_obj: (work@rv_dm.u_dmidpi.dmi_rsp_valid)
+        |vpiParent:
+        \_port: (dmi_rsp_valid), line:48:21, endln:48:34
+        |vpiFullName:work@rv_dm.u_dmidpi.dmi_rsp_valid
+        |vpiActual:
+        \_bit_typespec: , line:48:10, endln:48:13
       |vpiInstance:
       \_module_inst: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
     |vpiPort:
@@ -2802,7 +2757,12 @@ design: (work@rv_dm)
         |vpiActual:
         \_bit_var: (work@rv_dm.u_dmidpi.dmi_rsp_ready), line:49:21, endln:49:34
       |vpiTypedef:
-      \_bit_typespec: , line:49:10, endln:49:13
+      \_ref_obj: (work@rv_dm.u_dmidpi.dmi_rsp_ready)
+        |vpiParent:
+        \_port: (dmi_rsp_ready), line:49:21, endln:49:34
+        |vpiFullName:work@rv_dm.u_dmidpi.dmi_rsp_ready
+        |vpiActual:
+        \_bit_typespec: , line:49:10, endln:49:13
       |vpiInstance:
       \_module_inst: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
     |vpiPort:
@@ -2838,27 +2798,12 @@ design: (work@rv_dm)
         |vpiActual:
         \_bit_var: (work@rv_dm.u_dmidpi.dmi_rsp_data), line:50:21, endln:50:33
       |vpiTypedef:
-      \_bit_typespec: , line:50:10, endln:50:20
-        |vpiRange:
-        \_range: , line:50:14, endln:50:20
-          |vpiParent:
-          \_bit_typespec: , line:50:10, endln:50:20
-          |vpiLeftRange:
-          \_constant: , line:50:15, endln:50:17
-            |vpiParent:
-            \_range: , line:50:14, endln:50:20
-            |vpiDecompile:31
-            |vpiSize:64
-            |UINT:31
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:50:18, endln:50:19
-            |vpiParent:
-            \_range: , line:50:14, endln:50:20
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_obj: (work@rv_dm.u_dmidpi.dmi_rsp_data)
+        |vpiParent:
+        \_port: (dmi_rsp_data), line:50:21, endln:50:33
+        |vpiFullName:work@rv_dm.u_dmidpi.dmi_rsp_data
+        |vpiActual:
+        \_bit_typespec: , line:50:10, endln:50:20
       |vpiInstance:
       \_module_inst: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
     |vpiPort:
@@ -2894,27 +2839,12 @@ design: (work@rv_dm)
         |vpiActual:
         \_bit_var: (work@rv_dm.u_dmidpi.dmi_rsp_resp), line:51:21, endln:51:33
       |vpiTypedef:
-      \_bit_typespec: , line:51:10, endln:51:19
-        |vpiRange:
-        \_range: , line:51:14, endln:51:19
-          |vpiParent:
-          \_bit_typespec: , line:51:10, endln:51:19
-          |vpiLeftRange:
-          \_constant: , line:51:15, endln:51:16
-            |vpiParent:
-            \_range: , line:51:14, endln:51:19
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:51:17, endln:51:18
-            |vpiParent:
-            \_range: , line:51:14, endln:51:19
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_obj: (work@rv_dm.u_dmidpi.dmi_rsp_resp)
+        |vpiParent:
+        \_port: (dmi_rsp_resp), line:51:21, endln:51:33
+        |vpiFullName:work@rv_dm.u_dmidpi.dmi_rsp_resp
+        |vpiActual:
+        \_bit_typespec: , line:51:10, endln:51:19
       |vpiInstance:
       \_module_inst: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
     |vpiPort:
@@ -2940,7 +2870,12 @@ design: (work@rv_dm)
         |vpiActual:
         \_bit_var: (work@rv_dm.u_dmidpi.dmi_rst_n), line:52:21, endln:52:30
       |vpiTypedef:
-      \_bit_typespec: , line:52:10, endln:52:13
+      \_ref_obj: (work@rv_dm.u_dmidpi.dmi_rst_n)
+        |vpiParent:
+        \_port: (dmi_rst_n), line:52:21, endln:52:30
+        |vpiFullName:work@rv_dm.u_dmidpi.dmi_rst_n
+        |vpiActual:
+        \_bit_typespec: , line:52:10, endln:52:13
       |vpiInstance:
       \_module_inst: work@dmidpi (u_dmidpi), file:${SURELOG_DIR}/tests/BindStmt2/dut.sv, line:57:14, endln:70:5
 |uhdmtopModules:
@@ -2949,6 +2884,656 @@ design: (work@rv_dm)
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
+\_weaklyReferenced:
+\_string_typespec: , line:37:13, endln:37:19
+  |vpiParent:
+  \_parameter: (work@dmidpi.Name), line:37:20, endln:37:24
+\_int_typespec: , line:38:13, endln:38:16
+  |vpiParent:
+  \_parameter: (work@dmidpi.ListenPort), line:38:17, endln:38:27
+  |vpiSigned:1
+\_int_typespec: , line:2:13, endln:2:16
+  |vpiParent:
+  \_parameter: (work@rv_dm.NrHarts), line:2:30, endln:2:37
+  |vpiSigned:1
+\_logic_typespec: , line:3:13, endln:3:25
+  |vpiParent:
+  \_parameter: (work@rv_dm.IdcodeValue), line:3:30, endln:3:41
+  |vpiRange:
+  \_range: , line:3:19, endln:3:25
+    |vpiParent:
+    \_logic_typespec: , line:3:13, endln:3:25
+    |vpiLeftRange:
+    \_constant: , line:3:20, endln:3:22
+      |vpiParent:
+      \_range: , line:3:19, endln:3:25
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:23, endln:3:24
+      |vpiParent:
+      \_range: , line:3:19, endln:3:25
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:5:10, endln:5:15
+\_logic_typespec: , line:6:10, endln:6:15
+\_unsupported_typespec: (lc_ctrl_pkg::lc_tx_t), line:8:10, endln:8:23
+  |vpiName:lc_ctrl_pkg::lc_tx_t
+\_logic_typespec: , line:9:10, endln:9:15
+\_logic_typespec: , line:10:10, endln:10:15
+\_logic_typespec: , line:11:10, endln:11:15
+\_logic_typespec: , line:12:10, endln:12:29
+  |vpiRange:
+  \_range: , line:12:16, endln:12:29
+    |vpiParent:
+    \_logic_typespec: , line:12:10, endln:12:29
+    |vpiLeftRange:
+    \_constant: , line:12:17, endln:12:24
+      |vpiParent:
+      \_range: , line:12:16, endln:12:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |INT:0
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:12:27, endln:12:28
+      |vpiParent:
+      \_range: , line:12:16, endln:12:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:13:10, endln:13:29
+  |vpiRange:
+  \_range: , line:13:16, endln:13:29
+    |vpiParent:
+    \_logic_typespec: , line:13:10, endln:13:29
+    |vpiLeftRange:
+    \_constant: , line:13:17, endln:13:24
+      |vpiParent:
+      \_range: , line:13:16, endln:13:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |INT:0
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:13:27, endln:13:28
+      |vpiParent:
+      \_range: , line:13:16, endln:13:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_unsupported_typespec: (tlul_pkg::tl_h2d_t), line:17:10, endln:17:20
+  |vpiName:tlul_pkg::tl_h2d_t
+\_unsupported_typespec: (tlul_pkg::tl_d2h_t), line:18:10, endln:18:20
+  |vpiName:tlul_pkg::tl_d2h_t
+\_unsupported_typespec: (tlul_pkg::tl_h2d_t), line:21:10, endln:21:20
+  |vpiName:tlul_pkg::tl_h2d_t
+\_unsupported_typespec: (tlul_pkg::tl_d2h_t), line:22:10, endln:22:20
+  |vpiName:tlul_pkg::tl_d2h_t
+\_unsupported_typespec: (jtag_pkg::jtag_req_t), line:24:10, endln:24:20
+  |vpiName:jtag_pkg::jtag_req_t
+\_unsupported_typespec: (jtag_pkg::jtag_rsp_t), line:25:10, endln:25:20
+  |vpiName:jtag_pkg::jtag_rsp_t
+\_logic_typespec: , line:5:10, endln:5:15
+  |vpiParent:
+  \_logic_net: (work@rv_dm.clk_i), line:5:30, endln:5:35
+\_logic_typespec: , line:6:10, endln:6:15
+  |vpiParent:
+  \_logic_net: (work@rv_dm.rst_ni), line:6:30, endln:6:36
+\_logic_typespec: , line:9:10, endln:9:15
+  |vpiParent:
+  \_logic_net: (work@rv_dm.testmode_i), line:9:30, endln:9:40
+\_logic_typespec: , line:10:10, endln:10:15
+  |vpiParent:
+  \_logic_net: (work@rv_dm.ndmreset_o), line:10:30, endln:10:40
+\_logic_typespec: , line:11:10, endln:11:15
+  |vpiParent:
+  \_logic_net: (work@rv_dm.dmactive_o), line:11:30, endln:11:40
+\_logic_typespec: , line:12:10, endln:12:29
+  |vpiParent:
+  \_logic_net: (work@rv_dm.debug_req_o), line:12:30, endln:12:41
+  |vpiRange:
+  \_range: , line:12:16, endln:12:29
+    |vpiParent:
+    \_logic_typespec: , line:12:10, endln:12:29
+    |vpiLeftRange:
+    \_constant: , line:12:17, endln:12:24
+      |vpiParent:
+      \_range: , line:12:16, endln:12:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |INT:0
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:12:27, endln:12:28
+      |vpiParent:
+      \_range: , line:12:16, endln:12:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:13:10, endln:13:29
+  |vpiParent:
+  \_logic_net: (work@rv_dm.unavailable_i), line:13:30, endln:13:43
+  |vpiRange:
+  \_range: , line:13:16, endln:13:29
+    |vpiParent:
+    \_logic_typespec: , line:13:10, endln:13:29
+    |vpiLeftRange:
+    \_constant: , line:13:17, endln:13:24
+      |vpiParent:
+      \_range: , line:13:16, endln:13:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |INT:0
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:13:27, endln:13:28
+      |vpiParent:
+      \_range: , line:13:16, endln:13:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:30:3, endln:30:8
+  |vpiParent:
+  \_logic_var: (work@rv_dm.dmi_req_ready), line:30:24, endln:30:37
+\_logic_typespec: , line:31:3, endln:31:8
+  |vpiParent:
+  \_logic_var: (work@rv_dm.dmi_rsp_ready), line:31:24, endln:31:37
+\_logic_typespec: , line:32:3, endln:32:8
+  |vpiParent:
+  \_logic_var: (work@rv_dm.dmi_rst_n), line:32:9, endln:32:18
+\_bit_typespec: , line:40:10, endln:40:13
+\_bit_typespec: , line:41:10, endln:41:13
+\_bit_typespec: , line:43:10, endln:43:13
+\_bit_typespec: , line:44:10, endln:44:13
+\_bit_typespec: , line:45:10, endln:45:19
+  |vpiRange:
+  \_range: , line:45:14, endln:45:19
+    |vpiParent:
+    \_bit_typespec: , line:45:10, endln:45:19
+    |vpiLeftRange:
+    \_constant: , line:45:15, endln:45:16
+      |vpiParent:
+      \_range: , line:45:14, endln:45:19
+      |vpiDecompile:6
+      |vpiSize:64
+      |UINT:6
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:45:17, endln:45:18
+      |vpiParent:
+      \_range: , line:45:14, endln:45:19
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_bit_typespec: , line:46:10, endln:46:19
+  |vpiRange:
+  \_range: , line:46:14, endln:46:19
+    |vpiParent:
+    \_bit_typespec: , line:46:10, endln:46:19
+    |vpiLeftRange:
+    \_constant: , line:46:15, endln:46:16
+      |vpiParent:
+      \_range: , line:46:14, endln:46:19
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:46:17, endln:46:18
+      |vpiParent:
+      \_range: , line:46:14, endln:46:19
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_bit_typespec: , line:47:10, endln:47:20
+  |vpiRange:
+  \_range: , line:47:14, endln:47:20
+    |vpiParent:
+    \_bit_typespec: , line:47:10, endln:47:20
+    |vpiLeftRange:
+    \_constant: , line:47:15, endln:47:17
+      |vpiParent:
+      \_range: , line:47:14, endln:47:20
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:47:18, endln:47:19
+      |vpiParent:
+      \_range: , line:47:14, endln:47:20
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_bit_typespec: , line:48:10, endln:48:13
+\_bit_typespec: , line:49:10, endln:49:13
+\_bit_typespec: , line:50:10, endln:50:20
+  |vpiRange:
+  \_range: , line:50:14, endln:50:20
+    |vpiParent:
+    \_bit_typespec: , line:50:10, endln:50:20
+    |vpiLeftRange:
+    \_constant: , line:50:15, endln:50:17
+      |vpiParent:
+      \_range: , line:50:14, endln:50:20
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:50:18, endln:50:19
+      |vpiParent:
+      \_range: , line:50:14, endln:50:20
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_bit_typespec: , line:51:10, endln:51:19
+  |vpiRange:
+  \_range: , line:51:14, endln:51:19
+    |vpiParent:
+    \_bit_typespec: , line:51:10, endln:51:19
+    |vpiLeftRange:
+    \_constant: , line:51:15, endln:51:16
+      |vpiParent:
+      \_range: , line:51:14, endln:51:19
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:51:17, endln:51:18
+      |vpiParent:
+      \_range: , line:51:14, endln:51:19
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_bit_typespec: , line:52:10, endln:52:13
+\_bit_typespec: , line:40:10, endln:40:13
+  |vpiParent:
+  \_bit_var: (work@rv_dm.u_dmidpi.clk_i), line:40:21, endln:40:26
+\_bit_typespec: , line:41:10, endln:41:13
+  |vpiParent:
+  \_bit_var: (work@rv_dm.u_dmidpi.rst_ni), line:41:21, endln:41:27
+\_bit_typespec: , line:43:10, endln:43:13
+  |vpiParent:
+  \_bit_var: (work@rv_dm.u_dmidpi.dmi_req_valid), line:43:21, endln:43:34
+\_bit_typespec: , line:44:10, endln:44:13
+  |vpiParent:
+  \_bit_var: (work@rv_dm.u_dmidpi.dmi_req_ready), line:44:21, endln:44:34
+\_bit_typespec: , line:45:10, endln:45:19
+  |vpiParent:
+  \_bit_var: (work@rv_dm.u_dmidpi.dmi_req_addr), line:45:21, endln:45:33
+  |vpiRange:
+  \_range: , line:45:14, endln:45:19
+    |vpiParent:
+    \_bit_typespec: , line:45:10, endln:45:19
+    |vpiLeftRange:
+    \_constant: , line:45:15, endln:45:16
+      |vpiParent:
+      \_range: , line:45:14, endln:45:19
+      |vpiDecompile:6
+      |vpiSize:64
+      |UINT:6
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:45:17, endln:45:18
+      |vpiParent:
+      \_range: , line:45:14, endln:45:19
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_bit_typespec: , line:46:10, endln:46:19
+  |vpiParent:
+  \_bit_var: (work@rv_dm.u_dmidpi.dmi_req_op), line:46:21, endln:46:31
+  |vpiRange:
+  \_range: , line:46:14, endln:46:19
+    |vpiParent:
+    \_bit_typespec: , line:46:10, endln:46:19
+    |vpiLeftRange:
+    \_constant: , line:46:15, endln:46:16
+      |vpiParent:
+      \_range: , line:46:14, endln:46:19
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:46:17, endln:46:18
+      |vpiParent:
+      \_range: , line:46:14, endln:46:19
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_bit_typespec: , line:47:10, endln:47:20
+  |vpiParent:
+  \_bit_var: (work@rv_dm.u_dmidpi.dmi_req_data), line:47:21, endln:47:33
+  |vpiRange:
+  \_range: , line:47:14, endln:47:20
+    |vpiParent:
+    \_bit_typespec: , line:47:10, endln:47:20
+    |vpiLeftRange:
+    \_constant: , line:47:15, endln:47:17
+      |vpiParent:
+      \_range: , line:47:14, endln:47:20
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:47:18, endln:47:19
+      |vpiParent:
+      \_range: , line:47:14, endln:47:20
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_bit_typespec: , line:48:10, endln:48:13
+  |vpiParent:
+  \_bit_var: (work@rv_dm.u_dmidpi.dmi_rsp_valid), line:48:21, endln:48:34
+\_bit_typespec: , line:49:10, endln:49:13
+  |vpiParent:
+  \_bit_var: (work@rv_dm.u_dmidpi.dmi_rsp_ready), line:49:21, endln:49:34
+\_bit_typespec: , line:50:10, endln:50:20
+  |vpiParent:
+  \_bit_var: (work@rv_dm.u_dmidpi.dmi_rsp_data), line:50:21, endln:50:33
+  |vpiRange:
+  \_range: , line:50:14, endln:50:20
+    |vpiParent:
+    \_bit_typespec: , line:50:10, endln:50:20
+    |vpiLeftRange:
+    \_constant: , line:50:15, endln:50:17
+      |vpiParent:
+      \_range: , line:50:14, endln:50:20
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:50:18, endln:50:19
+      |vpiParent:
+      \_range: , line:50:14, endln:50:20
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_bit_typespec: , line:51:10, endln:51:19
+  |vpiParent:
+  \_bit_var: (work@rv_dm.u_dmidpi.dmi_rsp_resp), line:51:21, endln:51:33
+  |vpiRange:
+  \_range: , line:51:14, endln:51:19
+    |vpiParent:
+    \_bit_typespec: , line:51:10, endln:51:19
+    |vpiLeftRange:
+    \_constant: , line:51:15, endln:51:16
+      |vpiParent:
+      \_range: , line:51:14, endln:51:19
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:51:17, endln:51:18
+      |vpiParent:
+      \_range: , line:51:14, endln:51:19
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_bit_typespec: , line:52:10, endln:52:13
+  |vpiParent:
+  \_bit_var: (work@rv_dm.u_dmidpi.dmi_rst_n), line:52:21, endln:52:30
+\_bit_typespec: , line:40:10, endln:40:13
+\_bit_typespec: , line:41:10, endln:41:13
+\_bit_typespec: , line:43:10, endln:43:13
+\_bit_typespec: , line:44:10, endln:44:13
+\_bit_typespec: , line:45:10, endln:45:19
+  |vpiRange:
+  \_range: , line:45:14, endln:45:19
+    |vpiParent:
+    \_bit_typespec: , line:45:10, endln:45:19
+    |vpiLeftRange:
+    \_constant: , line:45:15, endln:45:16
+      |vpiParent:
+      \_range: , line:45:14, endln:45:19
+      |vpiDecompile:6
+      |vpiSize:64
+      |UINT:6
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:45:17, endln:45:18
+      |vpiParent:
+      \_range: , line:45:14, endln:45:19
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_bit_typespec: , line:46:10, endln:46:19
+  |vpiRange:
+  \_range: , line:46:14, endln:46:19
+    |vpiParent:
+    \_bit_typespec: , line:46:10, endln:46:19
+    |vpiLeftRange:
+    \_constant: , line:46:15, endln:46:16
+      |vpiParent:
+      \_range: , line:46:14, endln:46:19
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:46:17, endln:46:18
+      |vpiParent:
+      \_range: , line:46:14, endln:46:19
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_bit_typespec: , line:47:10, endln:47:20
+  |vpiRange:
+  \_range: , line:47:14, endln:47:20
+    |vpiParent:
+    \_bit_typespec: , line:47:10, endln:47:20
+    |vpiLeftRange:
+    \_constant: , line:47:15, endln:47:17
+      |vpiParent:
+      \_range: , line:47:14, endln:47:20
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:47:18, endln:47:19
+      |vpiParent:
+      \_range: , line:47:14, endln:47:20
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_bit_typespec: , line:48:10, endln:48:13
+\_bit_typespec: , line:49:10, endln:49:13
+\_bit_typespec: , line:50:10, endln:50:20
+  |vpiRange:
+  \_range: , line:50:14, endln:50:20
+    |vpiParent:
+    \_bit_typespec: , line:50:10, endln:50:20
+    |vpiLeftRange:
+    \_constant: , line:50:15, endln:50:17
+      |vpiParent:
+      \_range: , line:50:14, endln:50:20
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:50:18, endln:50:19
+      |vpiParent:
+      \_range: , line:50:14, endln:50:20
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_bit_typespec: , line:51:10, endln:51:19
+  |vpiRange:
+  \_range: , line:51:14, endln:51:19
+    |vpiParent:
+    \_bit_typespec: , line:51:10, endln:51:19
+    |vpiLeftRange:
+    \_constant: , line:51:15, endln:51:16
+      |vpiParent:
+      \_range: , line:51:14, endln:51:19
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:51:17, endln:51:18
+      |vpiParent:
+      \_range: , line:51:14, endln:51:19
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_bit_typespec: , line:52:10, endln:52:13
+\_logic_typespec: , line:5:10, endln:5:15
+\_logic_typespec: , line:6:10, endln:6:15
+\_unsupported_typespec: (lc_ctrl_pkg::lc_tx_t), line:8:10, endln:8:23
+  |vpiName:lc_ctrl_pkg::lc_tx_t
+\_logic_typespec: , line:9:10, endln:9:15
+\_logic_typespec: , line:10:10, endln:10:15
+\_logic_typespec: , line:11:10, endln:11:15
+\_logic_typespec: , line:12:10, endln:12:29
+  |vpiRange:
+  \_range: , line:12:16, endln:12:29
+    |vpiParent:
+    \_logic_typespec: , line:12:10, endln:12:29
+    |vpiLeftRange:
+    \_operation: , line:12:17, endln:12:26
+      |vpiParent:
+      \_range: , line:12:16, endln:12:29
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (NrHarts), line:12:17, endln:12:24
+        |vpiParent:
+        \_operation: , line:12:17, endln:12:26
+        |vpiName:NrHarts
+      |vpiOperand:
+      \_constant: , line:12:25, endln:12:26
+        |vpiParent:
+        \_operation: , line:12:17, endln:12:26
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:12:27, endln:12:28
+      |vpiParent:
+      \_range: , line:12:16, endln:12:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:13:10, endln:13:29
+  |vpiRange:
+  \_range: , line:13:16, endln:13:29
+    |vpiParent:
+    \_logic_typespec: , line:13:10, endln:13:29
+    |vpiLeftRange:
+    \_operation: , line:13:17, endln:13:26
+      |vpiParent:
+      \_range: , line:13:16, endln:13:29
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (NrHarts), line:13:17, endln:13:24
+        |vpiParent:
+        \_operation: , line:13:17, endln:13:26
+        |vpiName:NrHarts
+      |vpiOperand:
+      \_constant: , line:13:25, endln:13:26
+        |vpiParent:
+        \_operation: , line:13:17, endln:13:26
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:13:27, endln:13:28
+      |vpiParent:
+      \_range: , line:13:16, endln:13:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_unsupported_typespec: (tlul_pkg::tl_h2d_t), line:17:10, endln:17:20
+  |vpiName:tlul_pkg::tl_h2d_t
+\_unsupported_typespec: (tlul_pkg::tl_d2h_t), line:18:10, endln:18:20
+  |vpiName:tlul_pkg::tl_d2h_t
+\_unsupported_typespec: (tlul_pkg::tl_h2d_t), line:21:10, endln:21:20
+  |vpiName:tlul_pkg::tl_h2d_t
+\_unsupported_typespec: (tlul_pkg::tl_d2h_t), line:22:10, endln:22:20
+  |vpiName:tlul_pkg::tl_d2h_t
+\_unsupported_typespec: (jtag_pkg::jtag_req_t), line:24:10, endln:24:20
+  |vpiName:jtag_pkg::jtag_req_t
+\_unsupported_typespec: (jtag_pkg::jtag_rsp_t), line:25:10, endln:25:20
+  |vpiName:jtag_pkg::jtag_rsp_t
+\_unsupported_typespec: (dm::dmi_req_t), line:28:3, endln:28:7
+  |vpiName:dm::dmi_req_t
+\_unsupported_typespec: (dm::dmi_resp_t), line:29:3, endln:29:7
+  |vpiName:dm::dmi_resp_t
+\_logic_typespec: , line:30:3, endln:30:8
+\_logic_typespec: , line:30:3, endln:30:8
+\_logic_typespec: , line:31:3, endln:31:8
+\_logic_typespec: , line:31:3, endln:31:8
+\_logic_typespec: , line:32:3, endln:32:8
+\_int_typespec: , line:2:13, endln:2:16
+  |vpiParent:
+  \_ref_obj: (work@rv_dm.NrHarts)
+  |vpiSigned:1
+\_logic_typespec: , line:3:13, endln:3:25
+  |vpiParent:
+  \_ref_obj: (work@rv_dm.IdcodeValue)
+  |vpiRange:
+  \_range: , line:3:19, endln:3:25
+    |vpiParent:
+    \_logic_typespec: , line:3:13, endln:3:25
+    |vpiLeftRange:
+    \_constant: , line:3:20, endln:3:22
+      |vpiParent:
+      \_range: , line:3:19, endln:3:25
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:23, endln:3:24
+      |vpiParent:
+      \_range: , line:3:19, endln:3:25
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_string_typespec: , line:37:13, endln:37:19
+  |vpiParent:
+  \_ref_obj: (work@rv_dm.u_dmidpi.Name)
+\_int_typespec: , line:38:13, endln:38:16
+  |vpiParent:
+  \_ref_obj: (work@rv_dm.u_dmidpi.ListenPort)
+  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

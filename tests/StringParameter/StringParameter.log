@@ -33,6 +33,7 @@ module_inst                                            6
 param_assign                                           4
 parameter                                              4
 ref_module                                             1
+ref_obj                                                8
 string_typespec                                        4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -44,6 +45,7 @@ module_inst                                            6
 param_assign                                           4
 parameter                                              4
 ref_module                                             1
+ref_obj                                                8
 string_typespec                                        4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/StringParameter/slpp_unit/surelog.uhdm ...
@@ -69,7 +71,12 @@ design: (work@top)
     \_module_inst: work@parameter_module (work@parameter_module), file:${SURELOG_DIR}/tests/StringParameter/dut.sv, line:8:1, endln:11:10
     |STRING:FIRSTVALUE
     |vpiTypespec:
-    \_string_typespec: 
+    \_ref_obj: (work@parameter_module.FIRSTPARAMETER)
+      |vpiParent:
+      \_parameter: (work@parameter_module.FIRSTPARAMETER), line:9:11, endln:9:25
+      |vpiFullName:work@parameter_module.FIRSTPARAMETER
+      |vpiActual:
+      \_string_typespec: 
     |vpiName:FIRSTPARAMETER
     |vpiFullName:work@parameter_module.FIRSTPARAMETER
   |vpiParameter:
@@ -78,7 +85,12 @@ design: (work@top)
     \_module_inst: work@parameter_module (work@parameter_module), file:${SURELOG_DIR}/tests/StringParameter/dut.sv, line:8:1, endln:11:10
     |STRING:SECONDVALUE
     |vpiTypespec:
-    \_string_typespec: 
+    \_ref_obj: (work@parameter_module.SECONDPARAMETER)
+      |vpiParent:
+      \_parameter: (work@parameter_module.SECONDPARAMETER), line:10:11, endln:10:26
+      |vpiFullName:work@parameter_module.SECONDPARAMETER
+      |vpiActual:
+      \_string_typespec: 
     |vpiName:SECONDPARAMETER
     |vpiFullName:work@parameter_module.SECONDPARAMETER
   |vpiParamAssign:
@@ -93,7 +105,12 @@ design: (work@top)
       |vpiSize:80
       |STRING:FIRSTVALUE
       |vpiTypespec:
-      \_string_typespec: 
+      \_ref_obj: (work@parameter_module)
+        |vpiParent:
+        \_constant: , line:9:28, endln:9:40
+        |vpiFullName:work@parameter_module
+        |vpiActual:
+        \_string_typespec: 
       |vpiConstType:6
     |vpiLhs:
     \_parameter: (work@parameter_module.FIRSTPARAMETER), line:9:11, endln:9:25
@@ -109,7 +126,12 @@ design: (work@top)
       |vpiSize:88
       |STRING:SECONDVALUE
       |vpiTypespec:
-      \_string_typespec: 
+      \_ref_obj: (work@parameter_module)
+        |vpiParent:
+        \_constant: , line:10:29, endln:10:42
+        |vpiFullName:work@parameter_module
+        |vpiActual:
+        \_string_typespec: 
       |vpiConstType:6
     |vpiLhs:
     \_parameter: (work@parameter_module.SECONDPARAMETER), line:10:11, endln:10:26
@@ -146,9 +168,12 @@ design: (work@top)
       \_module_inst: work@parameter_module (work@top.test_module), file:${SURELOG_DIR}/tests/StringParameter/dut.sv, line:2:9, endln:5:26
       |STRING:FIRSTVALUE
       |vpiTypespec:
-      \_string_typespec: 
+      \_ref_obj: (work@top.test_module.FIRSTPARAMETER)
         |vpiParent:
         \_parameter: (work@top.test_module.FIRSTPARAMETER), line:9:11, endln:9:25
+        |vpiFullName:work@top.test_module.FIRSTPARAMETER
+        |vpiActual:
+        \_string_typespec: 
       |vpiName:FIRSTPARAMETER
       |vpiFullName:work@top.test_module.FIRSTPARAMETER
     |vpiParameter:
@@ -157,9 +182,12 @@ design: (work@top)
       \_module_inst: work@parameter_module (work@top.test_module), file:${SURELOG_DIR}/tests/StringParameter/dut.sv, line:2:9, endln:5:26
       |STRING:SECONDVALUE
       |vpiTypespec:
-      \_string_typespec: 
+      \_ref_obj: (work@top.test_module.SECONDPARAMETER)
         |vpiParent:
         \_parameter: (work@top.test_module.SECONDPARAMETER), line:10:11, endln:10:26
+        |vpiFullName:work@top.test_module.SECONDPARAMETER
+        |vpiActual:
+        \_string_typespec: 
       |vpiName:SECONDPARAMETER
       |vpiFullName:work@top.test_module.SECONDPARAMETER
     |vpiParamAssign:
@@ -175,7 +203,12 @@ design: (work@top)
         |vpiSize:104
         |STRING:TOPFIRSTVALUE
         |vpiTypespec:
-        \_string_typespec: 
+        \_ref_obj: (work@top.test_module)
+          |vpiParent:
+          \_constant: , line:9:28, endln:9:40
+          |vpiFullName:work@top.test_module
+          |vpiActual:
+          \_string_typespec: 
         |vpiConstType:6
       |vpiLhs:
       \_parameter: (work@top.test_module.FIRSTPARAMETER), line:9:11, endln:9:25
@@ -192,7 +225,12 @@ design: (work@top)
         |vpiSize:112
         |STRING:TOPSECONDVALUE
         |vpiTypespec:
-        \_string_typespec: 
+        \_ref_obj: (work@top.test_module)
+          |vpiParent:
+          \_constant: , line:10:29, endln:10:42
+          |vpiFullName:work@top.test_module
+          |vpiActual:
+          \_string_typespec: 
         |vpiConstType:6
       |vpiLhs:
       \_parameter: (work@top.test_module.SECONDPARAMETER), line:10:11, endln:10:26
@@ -201,6 +239,15 @@ design: (work@top)
     |vpiDefLineNo:8
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StringParameter/dut.sv, line:1:1, endln:6:10
+\_weaklyReferenced:
+\_string_typespec: 
+\_string_typespec: 
+\_string_typespec: 
+  |vpiParent:
+  \_ref_obj: (work@top.test_module.FIRSTPARAMETER)
+\_string_typespec: 
+  |vpiParent:
+  \_ref_obj: (work@top.test_module.SECONDPARAMETER)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -146,7 +146,7 @@ module_inst                                            4
 operation                                              9
 param_assign                                           6
 parameter                                              6
-ref_obj                                                4
+ref_obj                                               18
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -158,7 +158,7 @@ module_inst                                            4
 operation                                              9
 param_assign                                           6
 parameter                                              6
-ref_obj                                                4
+ref_obj                                               18
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/CondOpLazyEval/slpp_all/surelog.uhdm ...
 
@@ -183,10 +183,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CondOpLazyEval/dut.sv, line:1:1, endln:5:10
     |UINT:0
     |vpiTypespec:
-    \_integer_typespec: , line:2:15, endln:2:22
+    \_ref_obj: (work@top.A)
       |vpiParent:
       \_parameter: (work@top.A), line:2:23, endln:2:24
-      |vpiSigned:1
+      |vpiFullName:work@top.A
+      |vpiActual:
+      \_integer_typespec: , line:2:15, endln:2:22
     |vpiSigned:1
     |vpiName:A
     |vpiFullName:work@top.A
@@ -195,10 +197,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CondOpLazyEval/dut.sv, line:1:1, endln:5:10
     |vpiTypespec:
-    \_integer_typespec: , line:3:15, endln:3:22
+    \_ref_obj: (work@top.B)
       |vpiParent:
       \_parameter: (work@top.B), line:3:23, endln:3:24
-      |vpiSigned:1
+      |vpiFullName:work@top.B
+      |vpiActual:
+      \_integer_typespec: , line:3:15, endln:3:22
     |vpiSigned:1
     |vpiName:B
     |vpiFullName:work@top.B
@@ -207,10 +211,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CondOpLazyEval/dut.sv, line:1:1, endln:5:10
     |vpiTypespec:
-    \_integer_typespec: , line:4:15, endln:4:22
+    \_ref_obj: (work@top.C)
       |vpiParent:
       \_parameter: (work@top.C), line:4:23, endln:4:24
-      |vpiSigned:1
+      |vpiFullName:work@top.C
+      |vpiActual:
+      \_integer_typespec: , line:4:15, endln:4:22
     |vpiSigned:1
     |vpiName:C
     |vpiFullName:work@top.C
@@ -226,7 +232,12 @@ design: (work@top)
       |vpiSize:64
       |UINT:0
       |vpiTypespec:
-      \_integer_typespec: , line:2:15, endln:2:22
+      \_ref_obj: (work@top)
+        |vpiParent:
+        \_constant: , line:2:27, endln:2:28
+        |vpiFullName:work@top
+        |vpiActual:
+        \_integer_typespec: , line:2:15, endln:2:22
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.A), line:2:23, endln:2:24
@@ -354,10 +365,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CondOpLazyEval/dut.sv, line:1:1, endln:5:10
     |UINT:0
     |vpiTypespec:
-    \_integer_typespec: , line:2:15, endln:2:22
+    \_ref_obj: (work@top.A)
       |vpiParent:
       \_parameter: (work@top.A), line:2:23, endln:2:24
-      |vpiSigned:1
+      |vpiFullName:work@top.A
+      |vpiActual:
+      \_integer_typespec: , line:2:15, endln:2:22
     |vpiSigned:1
     |vpiName:A
     |vpiFullName:work@top.A
@@ -366,10 +379,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CondOpLazyEval/dut.sv, line:1:1, endln:5:10
     |vpiTypespec:
-    \_integer_typespec: , line:3:15, endln:3:22
+    \_ref_obj: (work@top.B)
       |vpiParent:
       \_parameter: (work@top.B), line:3:23, endln:3:24
-      |vpiSigned:1
+      |vpiFullName:work@top.B
+      |vpiActual:
+      \_integer_typespec: , line:3:15, endln:3:22
     |vpiSigned:1
     |vpiName:B
     |vpiFullName:work@top.B
@@ -378,10 +393,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CondOpLazyEval/dut.sv, line:1:1, endln:5:10
     |vpiTypespec:
-    \_integer_typespec: , line:4:15, endln:4:22
+    \_ref_obj: (work@top.C)
       |vpiParent:
       \_parameter: (work@top.C), line:4:23, endln:4:24
-      |vpiSigned:1
+      |vpiFullName:work@top.C
+      |vpiActual:
+      \_integer_typespec: , line:4:15, endln:4:22
     |vpiSigned:1
     |vpiName:C
     |vpiFullName:work@top.C
@@ -397,7 +414,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:0
       |vpiTypespec:
-      \_integer_typespec: , line:2:15, endln:2:22
+      \_ref_obj: (work@top)
+        |vpiParent:
+        \_constant: , line:2:27, endln:2:28
+        |vpiFullName:work@top
+        |vpiActual:
+        \_integer_typespec: , line:2:15, endln:2:22
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.A), line:2:23, endln:2:24
@@ -410,7 +432,12 @@ design: (work@top)
       |vpiParent:
       \_param_assign: , line:3:23, endln:3:45
       |vpiTypespec:
-      \_integer_typespec: , line:3:15, endln:3:22
+      \_ref_obj: (work@top)
+        |vpiParent:
+        \_operation: , line:3:38, endln:3:41
+        |vpiFullName:work@top
+        |vpiActual:
+        \_integer_typespec: , line:3:15, endln:3:22
       |vpiOpType:12
       |vpiOperand:
       \_constant: , line:3:38, endln:3:39
@@ -442,13 +469,43 @@ design: (work@top)
       |vpiSize:32
       |UINT:1
       |vpiTypespec:
-      \_integer_typespec: , line:4:15, endln:4:22
+      \_ref_obj: (work@top)
+        |vpiParent:
+        \_constant: , line:4:27, endln:4:44
+        |vpiFullName:work@top
+        |vpiActual:
+        \_integer_typespec: , line:4:15, endln:4:22
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.C), line:4:23, endln:4:24
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
+\_weaklyReferenced:
+\_integer_typespec: , line:2:15, endln:2:22
+  |vpiParent:
+  \_parameter: (work@top.A), line:2:23, endln:2:24
+  |vpiSigned:1
+\_integer_typespec: , line:3:15, endln:3:22
+  |vpiParent:
+  \_parameter: (work@top.B), line:3:23, endln:3:24
+  |vpiSigned:1
+\_integer_typespec: , line:4:15, endln:4:22
+  |vpiParent:
+  \_parameter: (work@top.C), line:4:23, endln:4:24
+  |vpiSigned:1
+\_integer_typespec: , line:2:15, endln:2:22
+  |vpiParent:
+  \_ref_obj: (work@top.A)
+  |vpiSigned:1
+\_integer_typespec: , line:3:15, endln:3:22
+  |vpiParent:
+  \_ref_obj: (work@top.B)
+  |vpiSigned:1
+\_integer_typespec: , line:4:15, endln:4:22
+  |vpiParent:
+  \_ref_obj: (work@top.C)
+  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

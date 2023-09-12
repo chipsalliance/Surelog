@@ -1043,7 +1043,7 @@ operation                                             37
 param_assign                                          42
 parameter                                             42
 range                                                 38
-ref_obj                                               62
+ref_obj                                              117
 return_stmt                                            3
 while_stmt                                             1
 === UHDM Object Stats End ===
@@ -1074,7 +1074,7 @@ operation                                             54
 param_assign                                          42
 parameter                                             42
 range                                                 38
-ref_obj                                               97
+ref_obj                                              170
 return_stmt                                            6
 while_stmt                                             2
 === UHDM Object Stats End ===
@@ -1101,10 +1101,12 @@ design: (work@rggen_or_reducer)
     \_module_inst: work@rggen_or_reducer (work@rggen_or_reducer), file:${SURELOG_DIR}/tests/FuncInModule/dut.sv, line:2:1, endln:71:10
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: , line:3:13, endln:3:16
+    \_ref_obj: (work@rggen_or_reducer.WIDTH)
       |vpiParent:
       \_parameter: (work@rggen_or_reducer.WIDTH), line:3:17, endln:3:22
-      |vpiSigned:1
+      |vpiFullName:work@rggen_or_reducer.WIDTH
+      |vpiActual:
+      \_int_typespec: , line:3:13, endln:3:16
     |vpiSigned:1
     |vpiName:WIDTH
     |vpiFullName:work@rggen_or_reducer.WIDTH
@@ -1114,10 +1116,12 @@ design: (work@rggen_or_reducer)
     \_module_inst: work@rggen_or_reducer (work@rggen_or_reducer), file:${SURELOG_DIR}/tests/FuncInModule/dut.sv, line:2:1, endln:71:10
     |UINT:4
     |vpiTypespec:
-    \_int_typespec: , line:4:13, endln:4:16
+    \_ref_obj: (work@rggen_or_reducer.N)
       |vpiParent:
       \_parameter: (work@rggen_or_reducer.N), line:4:17, endln:4:18
-      |vpiSigned:1
+      |vpiFullName:work@rggen_or_reducer.N
+      |vpiActual:
+      \_int_typespec: , line:4:13, endln:4:16
     |vpiSigned:1
     |vpiName:N
     |vpiFullName:work@rggen_or_reducer.N
@@ -1126,60 +1130,12 @@ design: (work@rggen_or_reducer)
     |vpiParent:
     \_module_inst: work@rggen_or_reducer (work@rggen_or_reducer), file:${SURELOG_DIR}/tests/FuncInModule/dut.sv, line:2:1, endln:71:10
     |vpiTypespec:
-    \_bit_typespec: , line:65:15, endln:65:32
+    \_ref_obj: (work@rggen_or_reducer.SUB_N_LIST_P)
       |vpiParent:
       \_parameter: (work@rggen_or_reducer.SUB_N_LIST_P), line:65:33, endln:65:45
-      |vpiRange:
-      \_range: , line:65:19, endln:65:26
-        |vpiParent:
-        \_bit_typespec: , line:65:15, endln:65:32
-        |vpiLeftRange:
-        \_operation: , line:65:20, endln:65:23
-          |vpiParent:
-          \_range: , line:65:19, endln:65:26
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (work@rggen_or_reducer.SUB_N_LIST_P.N), line:65:20, endln:65:21
-            |vpiParent:
-            \_operation: , line:65:20, endln:65:23
-            |vpiName:N
-            |vpiFullName:work@rggen_or_reducer.SUB_N_LIST_P.N
-          |vpiOperand:
-          \_constant: , line:65:22, endln:65:23
-            |vpiParent:
-            \_operation: , line:65:20, endln:65:23
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:65:24, endln:65:25
-          |vpiParent:
-          \_range: , line:65:19, endln:65:26
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-      |vpiRange:
-      \_range: , line:65:26, endln:65:32
-        |vpiParent:
-        \_bit_typespec: , line:65:15, endln:65:32
-        |vpiLeftRange:
-        \_constant: , line:65:27, endln:65:29
-          |vpiParent:
-          \_range: , line:65:26, endln:65:32
-          |vpiDecompile:15
-          |vpiSize:64
-          |UINT:15
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:65:30, endln:65:31
-          |vpiParent:
-          \_range: , line:65:26, endln:65:32
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@rggen_or_reducer.SUB_N_LIST_P
+      |vpiActual:
+      \_bit_typespec: , line:65:15, endln:65:32
     |vpiLocalParam:1
     |vpiName:SUB_N_LIST_P
     |vpiFullName:work@rggen_or_reducer.SUB_N_LIST_P
@@ -1188,60 +1144,12 @@ design: (work@rggen_or_reducer)
     |vpiParent:
     \_module_inst: work@rggen_or_reducer (work@rggen_or_reducer), file:${SURELOG_DIR}/tests/FuncInModule/dut.sv, line:2:1, endln:71:10
     |vpiTypespec:
-    \_bit_typespec: , line:66:15, endln:66:32
+    \_ref_obj: (work@rggen_or_reducer.OFFSET_LIST)
       |vpiParent:
       \_parameter: (work@rggen_or_reducer.OFFSET_LIST), line:66:33, endln:66:44
-      |vpiRange:
-      \_range: , line:66:19, endln:66:26
-        |vpiParent:
-        \_bit_typespec: , line:66:15, endln:66:32
-        |vpiLeftRange:
-        \_operation: , line:66:20, endln:66:23
-          |vpiParent:
-          \_range: , line:66:19, endln:66:26
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (work@rggen_or_reducer.OFFSET_LIST.N), line:66:20, endln:66:21
-            |vpiParent:
-            \_operation: , line:66:20, endln:66:23
-            |vpiName:N
-            |vpiFullName:work@rggen_or_reducer.OFFSET_LIST.N
-          |vpiOperand:
-          \_constant: , line:66:22, endln:66:23
-            |vpiParent:
-            \_operation: , line:66:20, endln:66:23
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:66:24, endln:66:25
-          |vpiParent:
-          \_range: , line:66:19, endln:66:26
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-      |vpiRange:
-      \_range: , line:66:26, endln:66:32
-        |vpiParent:
-        \_bit_typespec: , line:66:15, endln:66:32
-        |vpiLeftRange:
-        \_constant: , line:66:27, endln:66:29
-          |vpiParent:
-          \_range: , line:66:26, endln:66:32
-          |vpiDecompile:15
-          |vpiSize:64
-          |UINT:15
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:66:30, endln:66:31
-          |vpiParent:
-          \_range: , line:66:26, endln:66:32
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@rggen_or_reducer.OFFSET_LIST
+      |vpiActual:
+      \_bit_typespec: , line:66:15, endln:66:32
     |vpiLocalParam:1
     |vpiName:OFFSET_LIST
     |vpiFullName:work@rggen_or_reducer.OFFSET_LIST
@@ -1250,10 +1158,12 @@ design: (work@rggen_or_reducer)
     |vpiParent:
     \_module_inst: work@rggen_or_reducer (work@rggen_or_reducer), file:${SURELOG_DIR}/tests/FuncInModule/dut.sv, line:2:1, endln:71:10
     |vpiTypespec:
-    \_int_typespec: , line:67:15, endln:67:18
+    \_ref_obj: (work@rggen_or_reducer.NEXT_N)
       |vpiParent:
       \_parameter: (work@rggen_or_reducer.NEXT_N), line:67:33, endln:67:39
-      |vpiSigned:1
+      |vpiFullName:work@rggen_or_reducer.NEXT_N
+      |vpiActual:
+      \_int_typespec: , line:67:15, endln:67:18
     |vpiSigned:1
     |vpiLocalParam:1
     |vpiName:NEXT_N
@@ -1270,7 +1180,12 @@ design: (work@rggen_or_reducer)
       |vpiSize:64
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:3:13, endln:3:16
+      \_ref_obj: (work@rggen_or_reducer)
+        |vpiParent:
+        \_constant: , line:3:25, endln:3:26
+        |vpiFullName:work@rggen_or_reducer
+        |vpiActual:
+        \_int_typespec: , line:3:13, endln:3:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@rggen_or_reducer.WIDTH), line:3:17, endln:3:22
@@ -1286,7 +1201,12 @@ design: (work@rggen_or_reducer)
       |vpiSize:64
       |UINT:4
       |vpiTypespec:
-      \_int_typespec: , line:4:13, endln:4:16
+      \_ref_obj: (work@rggen_or_reducer)
+        |vpiParent:
+        \_constant: , line:4:25, endln:4:26
+        |vpiFullName:work@rggen_or_reducer
+        |vpiActual:
+        \_int_typespec: , line:4:13, endln:4:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@rggen_or_reducer.N), line:4:17, endln:4:18
@@ -1359,59 +1279,12 @@ design: (work@rggen_or_reducer)
       |vpiParent:
       \_begin: (work@rggen_or_reducer.get_sub_n_list), line:12:5, endln:12:34
       |vpiTypespec:
-      \_bit_typespec: , line:11:5, endln:11:22
-        |vpiRange:
-        \_range: , line:11:9, endln:11:16
-          |vpiParent:
-          \_bit_typespec: , line:11:5, endln:11:22
-          |vpiLeftRange:
-          \_operation: , line:11:10, endln:11:13
-            |vpiParent:
-            \_range: , line:11:9, endln:11:16
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (N), line:11:10, endln:11:11
-              |vpiParent:
-              \_operation: , line:11:10, endln:11:13
-              |vpiName:N
-              |vpiActual:
-              \_parameter: (work@rggen_or_reducer.N), line:4:17, endln:4:18
-            |vpiOperand:
-            \_constant: , line:11:12, endln:11:13
-              |vpiParent:
-              \_operation: , line:11:10, endln:11:13
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:11:14, endln:11:15
-            |vpiParent:
-            \_range: , line:11:9, endln:11:16
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-        |vpiRange:
-        \_range: , line:11:16, endln:11:22
-          |vpiParent:
-          \_bit_typespec: , line:11:5, endln:11:22
-          |vpiLeftRange:
-          \_constant: , line:11:17, endln:11:19
-            |vpiParent:
-            \_range: , line:11:16, endln:11:22
-            |vpiDecompile:15
-            |vpiSize:64
-            |UINT:15
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:11:20, endln:11:21
-            |vpiParent:
-            \_range: , line:11:16, endln:11:22
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_obj: (work@rggen_or_reducer.get_sub_n_list.list)
+        |vpiParent:
+        \_bit_var: (work@rggen_or_reducer.get_sub_n_list.list), line:11:23, endln:11:27
+        |vpiFullName:work@rggen_or_reducer.get_sub_n_list.list
+        |vpiActual:
+        \_bit_typespec: , line:11:5, endln:11:22
       |vpiName:list
       |vpiFullName:work@rggen_or_reducer.get_sub_n_list.list
     |vpiVariables:
@@ -1419,8 +1292,12 @@ design: (work@rggen_or_reducer)
       |vpiParent:
       \_begin: (work@rggen_or_reducer.get_sub_n_list), line:12:5, endln:12:34
       |vpiTypespec:
-      \_int_typespec: , line:12:5, endln:12:8
-        |vpiSigned:1
+      \_ref_obj: (work@rggen_or_reducer.get_sub_n_list.list_index)
+        |vpiParent:
+        \_int_var: (work@rggen_or_reducer.get_sub_n_list.list_index), line:12:23, endln:12:33
+        |vpiFullName:work@rggen_or_reducer.get_sub_n_list.list_index
+        |vpiActual:
+        \_int_typespec: , line:12:5, endln:12:8
       |vpiName:list_index
       |vpiFullName:work@rggen_or_reducer.get_sub_n_list.list_index
       |vpiSigned:1
@@ -1429,27 +1306,12 @@ design: (work@rggen_or_reducer)
       |vpiParent:
       \_begin: (work@rggen_or_reducer.get_sub_n_list), line:12:5, endln:12:34
       |vpiTypespec:
-      \_bit_typespec: , line:13:5, endln:13:15
-        |vpiRange:
-        \_range: , line:13:9, endln:13:15
-          |vpiParent:
-          \_bit_typespec: , line:13:5, endln:13:15
-          |vpiLeftRange:
-          \_constant: , line:13:10, endln:13:12
-            |vpiParent:
-            \_range: , line:13:9, endln:13:15
-            |vpiDecompile:15
-            |vpiSize:64
-            |UINT:15
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:13:13, endln:13:14
-            |vpiParent:
-            \_range: , line:13:9, endln:13:15
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_obj: (work@rggen_or_reducer.get_sub_n_list.current_n)
+        |vpiParent:
+        \_bit_var: (work@rggen_or_reducer.get_sub_n_list.current_n), line:13:23, endln:13:32
+        |vpiFullName:work@rggen_or_reducer.get_sub_n_list.current_n
+        |vpiActual:
+        \_bit_typespec: , line:13:5, endln:13:15
       |vpiName:current_n
       |vpiFullName:work@rggen_or_reducer.get_sub_n_list.current_n
     |vpiVariables:
@@ -1457,27 +1319,12 @@ design: (work@rggen_or_reducer)
       |vpiParent:
       \_begin: (work@rggen_or_reducer.get_sub_n_list), line:12:5, endln:12:34
       |vpiTypespec:
-      \_bit_typespec: , line:14:5, endln:14:15
-        |vpiRange:
-        \_range: , line:14:9, endln:14:15
-          |vpiParent:
-          \_bit_typespec: , line:14:5, endln:14:15
-          |vpiLeftRange:
-          \_constant: , line:14:10, endln:14:12
-            |vpiParent:
-            \_range: , line:14:9, endln:14:15
-            |vpiDecompile:15
-            |vpiSize:64
-            |UINT:15
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:14:13, endln:14:14
-            |vpiParent:
-            \_range: , line:14:9, endln:14:15
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_obj: (work@rggen_or_reducer.get_sub_n_list.half_n)
+        |vpiParent:
+        \_bit_var: (work@rggen_or_reducer.get_sub_n_list.half_n), line:14:23, endln:14:29
+        |vpiFullName:work@rggen_or_reducer.get_sub_n_list.half_n
+        |vpiActual:
+        \_bit_typespec: , line:14:5, endln:14:15
       |vpiName:half_n
       |vpiFullName:work@rggen_or_reducer.get_sub_n_list.half_n
     |vpiVisibility:1
@@ -1487,59 +1334,12 @@ design: (work@rggen_or_reducer)
       |vpiParent:
       \_function: (work@rggen_or_reducer.get_sub_n_list), line:10:3, endln:36:14
       |vpiTypespec:
-      \_bit_typespec: , line:10:22, endln:10:39
-        |vpiRange:
-        \_range: , line:10:26, endln:10:33
-          |vpiParent:
-          \_bit_typespec: , line:10:22, endln:10:39
-          |vpiLeftRange:
-          \_operation: , line:10:27, endln:10:30
-            |vpiParent:
-            \_range: , line:10:26, endln:10:33
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (N), line:10:27, endln:10:28
-              |vpiParent:
-              \_operation: , line:10:27, endln:10:30
-              |vpiName:N
-              |vpiActual:
-              \_parameter: (work@rggen_or_reducer.N), line:4:17, endln:4:18
-            |vpiOperand:
-            \_constant: , line:10:29, endln:10:30
-              |vpiParent:
-              \_operation: , line:10:27, endln:10:30
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:10:31, endln:10:32
-            |vpiParent:
-            \_range: , line:10:26, endln:10:33
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-        |vpiRange:
-        \_range: , line:10:33, endln:10:39
-          |vpiParent:
-          \_bit_typespec: , line:10:22, endln:10:39
-          |vpiLeftRange:
-          \_constant: , line:10:34, endln:10:36
-            |vpiParent:
-            \_range: , line:10:33, endln:10:39
-            |vpiDecompile:15
-            |vpiSize:64
-            |UINT:15
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:10:37, endln:10:38
-            |vpiParent:
-            \_range: , line:10:33, endln:10:39
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_obj: (work@rggen_or_reducer.get_sub_n_list)
+        |vpiParent:
+        \_bit_var: (work@rggen_or_reducer.get_sub_n_list), line:10:22, endln:10:39
+        |vpiFullName:work@rggen_or_reducer.get_sub_n_list
+        |vpiActual:
+        \_bit_typespec: , line:10:22, endln:10:39
       |vpiFullName:work@rggen_or_reducer.get_sub_n_list
     |vpiIODecl:
     \_io_decl: (n), line:10:59, endln:10:60
@@ -1548,8 +1348,12 @@ design: (work@rggen_or_reducer)
       |vpiDirection:1
       |vpiName:n
       |vpiTypedef:
-      \_int_typespec: , line:10:55, endln:10:58
-        |vpiSigned:1
+      \_ref_obj: (work@rggen_or_reducer.get_sub_n_list.n)
+        |vpiParent:
+        \_io_decl: (n), line:10:59, endln:10:60
+        |vpiFullName:work@rggen_or_reducer.get_sub_n_list.n
+        |vpiActual:
+        \_int_typespec: , line:10:55, endln:10:58
     |vpiStmt:
     \_begin: (work@rggen_or_reducer.get_sub_n_list), line:12:5, endln:12:34
       |vpiParent:
@@ -1614,8 +1418,12 @@ design: (work@rggen_or_reducer)
           |vpiParent:
           \_assignment: , line:18:5, endln:18:25
           |vpiTypespec:
-          \_integer_typespec: , line:18:19, endln:18:21
-            |INT:16
+          \_ref_obj: (work@rggen_or_reducer.get_sub_n_list)
+            |vpiParent:
+            \_operation: , line:18:19, endln:18:25
+            |vpiFullName:work@rggen_or_reducer.get_sub_n_list
+            |vpiActual:
+            \_integer_typespec: , line:18:19, endln:18:21
           |vpiOpType:67
           |vpiOperand:
           \_ref_obj: (work@rggen_or_reducer.get_sub_n_list.n), line:18:23, endln:18:24
@@ -1952,59 +1760,12 @@ design: (work@rggen_or_reducer)
       |vpiParent:
       \_begin: (work@rggen_or_reducer.get_offset_list), line:42:5, endln:49:8
       |vpiTypespec:
-      \_bit_typespec: , line:40:5, endln:40:22
-        |vpiRange:
-        \_range: , line:40:9, endln:40:16
-          |vpiParent:
-          \_bit_typespec: , line:40:5, endln:40:22
-          |vpiLeftRange:
-          \_operation: , line:40:10, endln:40:13
-            |vpiParent:
-            \_range: , line:40:9, endln:40:16
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (N), line:40:10, endln:40:11
-              |vpiParent:
-              \_operation: , line:40:10, endln:40:13
-              |vpiName:N
-              |vpiActual:
-              \_parameter: (work@rggen_or_reducer.N), line:4:17, endln:4:18
-            |vpiOperand:
-            \_constant: , line:40:12, endln:40:13
-              |vpiParent:
-              \_operation: , line:40:10, endln:40:13
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:40:14, endln:40:15
-            |vpiParent:
-            \_range: , line:40:9, endln:40:16
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-        |vpiRange:
-        \_range: , line:40:16, endln:40:22
-          |vpiParent:
-          \_bit_typespec: , line:40:5, endln:40:22
-          |vpiLeftRange:
-          \_constant: , line:40:17, endln:40:19
-            |vpiParent:
-            \_range: , line:40:16, endln:40:22
-            |vpiDecompile:15
-            |vpiSize:64
-            |UINT:15
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:40:20, endln:40:21
-            |vpiParent:
-            \_range: , line:40:16, endln:40:22
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_obj: (work@rggen_or_reducer.get_offset_list.list)
+        |vpiParent:
+        \_bit_var: (work@rggen_or_reducer.get_offset_list.list), line:40:23, endln:40:27
+        |vpiFullName:work@rggen_or_reducer.get_offset_list.list
+        |vpiActual:
+        \_bit_typespec: , line:40:5, endln:40:22
       |vpiName:list
       |vpiFullName:work@rggen_or_reducer.get_offset_list.list
     |vpiVisibility:1
@@ -2014,59 +1775,12 @@ design: (work@rggen_or_reducer)
       |vpiParent:
       \_function: (work@rggen_or_reducer.get_offset_list), line:39:3, endln:52:14
       |vpiTypespec:
-      \_bit_typespec: , line:39:22, endln:39:39
-        |vpiRange:
-        \_range: , line:39:26, endln:39:33
-          |vpiParent:
-          \_bit_typespec: , line:39:22, endln:39:39
-          |vpiLeftRange:
-          \_operation: , line:39:27, endln:39:30
-            |vpiParent:
-            \_range: , line:39:26, endln:39:33
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (N), line:39:27, endln:39:28
-              |vpiParent:
-              \_operation: , line:39:27, endln:39:30
-              |vpiName:N
-              |vpiActual:
-              \_parameter: (work@rggen_or_reducer.N), line:4:17, endln:4:18
-            |vpiOperand:
-            \_constant: , line:39:29, endln:39:30
-              |vpiParent:
-              \_operation: , line:39:27, endln:39:30
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:39:31, endln:39:32
-            |vpiParent:
-            \_range: , line:39:26, endln:39:33
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-        |vpiRange:
-        \_range: , line:39:33, endln:39:39
-          |vpiParent:
-          \_bit_typespec: , line:39:22, endln:39:39
-          |vpiLeftRange:
-          \_constant: , line:39:34, endln:39:36
-            |vpiParent:
-            \_range: , line:39:33, endln:39:39
-            |vpiDecompile:15
-            |vpiSize:64
-            |UINT:15
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:39:37, endln:39:38
-            |vpiParent:
-            \_range: , line:39:33, endln:39:39
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_obj: (work@rggen_or_reducer.get_offset_list)
+        |vpiParent:
+        \_bit_var: (work@rggen_or_reducer.get_offset_list), line:39:22, endln:39:39
+        |vpiFullName:work@rggen_or_reducer.get_offset_list
+        |vpiActual:
+        \_bit_typespec: , line:39:22, endln:39:39
       |vpiFullName:work@rggen_or_reducer.get_offset_list
     |vpiIODecl:
     \_io_decl: (sub_n_list), line:39:74, endln:39:84
@@ -2075,59 +1789,12 @@ design: (work@rggen_or_reducer)
       |vpiDirection:1
       |vpiName:sub_n_list
       |vpiTypedef:
-      \_bit_typespec: , line:39:56, endln:39:59
-        |vpiRange:
-        \_range: , line:39:60, endln:39:67
-          |vpiParent:
-          \_bit_typespec: , line:39:56, endln:39:59
-          |vpiLeftRange:
-          \_operation: , line:39:61, endln:39:64
-            |vpiParent:
-            \_range: , line:39:60, endln:39:67
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (N), line:39:61, endln:39:62
-              |vpiParent:
-              \_operation: , line:39:61, endln:39:64
-              |vpiName:N
-              |vpiActual:
-              \_parameter: (work@rggen_or_reducer.N), line:4:17, endln:4:18
-            |vpiOperand:
-            \_constant: , line:39:63, endln:39:64
-              |vpiParent:
-              \_operation: , line:39:61, endln:39:64
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:39:65, endln:39:66
-            |vpiParent:
-            \_range: , line:39:60, endln:39:67
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-        |vpiRange:
-        \_range: , line:39:67, endln:39:73
-          |vpiParent:
-          \_bit_typespec: , line:39:56, endln:39:59
-          |vpiLeftRange:
-          \_constant: , line:39:68, endln:39:70
-            |vpiParent:
-            \_range: , line:39:67, endln:39:73
-            |vpiDecompile:15
-            |vpiSize:64
-            |UINT:15
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:39:71, endln:39:72
-            |vpiParent:
-            \_range: , line:39:67, endln:39:73
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_obj: (work@rggen_or_reducer.get_offset_list.sub_n_list)
+        |vpiParent:
+        \_io_decl: (sub_n_list), line:39:74, endln:39:84
+        |vpiFullName:work@rggen_or_reducer.get_offset_list.sub_n_list
+        |vpiActual:
+        \_bit_typespec: , line:39:56, endln:39:59
     |vpiStmt:
     \_begin: (work@rggen_or_reducer.get_offset_list), line:42:5, endln:49:8
       |vpiParent:
@@ -2157,8 +1824,12 @@ design: (work@rggen_or_reducer)
             |vpiParent:
             \_assign_stmt: , line:42:10, endln:42:19
             |vpiTypespec:
-            \_int_typespec: , line:42:10, endln:42:13
-              |vpiSigned:1
+            \_ref_obj: (work@rggen_or_reducer.get_offset_list.i)
+              |vpiParent:
+              \_int_var: (work@rggen_or_reducer.get_offset_list.i), line:42:14, endln:42:15
+              |vpiFullName:work@rggen_or_reducer.get_offset_list.i
+              |vpiActual:
+              \_int_typespec: , line:42:10, endln:42:13
             |vpiName:i
             |vpiFullName:work@rggen_or_reducer.get_offset_list.i
             |vpiSigned:1
@@ -2372,8 +2043,12 @@ design: (work@rggen_or_reducer)
       |vpiParent:
       \_begin: (work@rggen_or_reducer.get_next_n), line:57:5, endln:57:17
       |vpiTypespec:
-      \_int_typespec: , line:55:5, endln:55:8
-        |vpiSigned:1
+      \_ref_obj: (work@rggen_or_reducer.get_next_n.next_n)
+        |vpiParent:
+        \_int_var: (work@rggen_or_reducer.get_next_n.next_n), line:55:9, endln:55:15
+        |vpiFullName:work@rggen_or_reducer.get_next_n.next_n
+        |vpiActual:
+        \_int_typespec: , line:55:5, endln:55:8
       |vpiName:next_n
       |vpiFullName:work@rggen_or_reducer.get_next_n.next_n
       |vpiSigned:1
@@ -2384,8 +2059,12 @@ design: (work@rggen_or_reducer)
       |vpiParent:
       \_function: (work@rggen_or_reducer.get_next_n), line:54:3, endln:63:14
       |vpiTypespec:
-      \_int_typespec: , line:54:22, endln:54:25
-        |vpiSigned:1
+      \_ref_obj: (work@rggen_or_reducer.get_next_n)
+        |vpiParent:
+        \_int_var: (work@rggen_or_reducer.get_next_n), line:54:22, endln:54:25
+        |vpiFullName:work@rggen_or_reducer.get_next_n
+        |vpiActual:
+        \_int_typespec: , line:54:22, endln:54:25
       |vpiFullName:work@rggen_or_reducer.get_next_n
       |vpiSigned:1
     |vpiIODecl:
@@ -2395,59 +2074,12 @@ design: (work@rggen_or_reducer)
       |vpiDirection:1
       |vpiName:sub_n_list
       |vpiTypedef:
-      \_bit_typespec: , line:54:37, endln:54:40
-        |vpiRange:
-        \_range: , line:54:41, endln:54:48
-          |vpiParent:
-          \_bit_typespec: , line:54:37, endln:54:40
-          |vpiLeftRange:
-          \_operation: , line:54:42, endln:54:45
-            |vpiParent:
-            \_range: , line:54:41, endln:54:48
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (N), line:54:42, endln:54:43
-              |vpiParent:
-              \_operation: , line:54:42, endln:54:45
-              |vpiName:N
-              |vpiActual:
-              \_parameter: (work@rggen_or_reducer.N), line:4:17, endln:4:18
-            |vpiOperand:
-            \_constant: , line:54:44, endln:54:45
-              |vpiParent:
-              \_operation: , line:54:42, endln:54:45
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:54:46, endln:54:47
-            |vpiParent:
-            \_range: , line:54:41, endln:54:48
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-        |vpiRange:
-        \_range: , line:54:48, endln:54:54
-          |vpiParent:
-          \_bit_typespec: , line:54:37, endln:54:40
-          |vpiLeftRange:
-          \_constant: , line:54:49, endln:54:51
-            |vpiParent:
-            \_range: , line:54:48, endln:54:54
-            |vpiDecompile:15
-            |vpiSize:64
-            |UINT:15
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:54:52, endln:54:53
-            |vpiParent:
-            \_range: , line:54:48, endln:54:54
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_obj: (work@rggen_or_reducer.get_next_n.sub_n_list)
+        |vpiParent:
+        \_io_decl: (sub_n_list), line:54:55, endln:54:65
+        |vpiFullName:work@rggen_or_reducer.get_next_n.sub_n_list
+        |vpiActual:
+        \_bit_typespec: , line:54:37, endln:54:40
     |vpiStmt:
     \_begin: (work@rggen_or_reducer.get_next_n), line:57:5, endln:57:17
       |vpiParent:
@@ -2497,8 +2129,12 @@ design: (work@rggen_or_reducer)
             |vpiParent:
             \_assign_stmt: , line:58:10, endln:58:19
             |vpiTypespec:
-            \_int_typespec: , line:58:10, endln:58:13
-              |vpiSigned:1
+            \_ref_obj: (work@rggen_or_reducer.get_next_n.i)
+              |vpiParent:
+              \_int_var: (work@rggen_or_reducer.get_next_n.i), line:58:14, endln:58:15
+              |vpiFullName:work@rggen_or_reducer.get_next_n.i
+              |vpiActual:
+              \_int_typespec: , line:58:10, endln:58:13
             |vpiName:i
             |vpiFullName:work@rggen_or_reducer.get_next_n.i
             |vpiSigned:1
@@ -2622,67 +2258,12 @@ design: (work@rggen_or_reducer)
     |vpiParent:
     \_module_inst: work@rggen_or_reducer (work@rggen_or_reducer), file:${SURELOG_DIR}/tests/FuncInModule/dut.sv, line:2:1, endln:71:10
     |vpiTypespec:
-    \_logic_typespec: , line:69:3, endln:69:21
-      |vpiRange:
-      \_range: , line:69:9, endln:69:21
-        |vpiParent:
-        \_logic_typespec: , line:69:3, endln:69:21
-        |vpiLeftRange:
-        \_operation: , line:69:10, endln:69:18
-          |vpiParent:
-          \_range: , line:69:9, endln:69:21
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (NEXT_N), line:69:10, endln:69:16
-            |vpiParent:
-            \_operation: , line:69:10, endln:69:18
-            |vpiName:NEXT_N
-          |vpiOperand:
-          \_constant: , line:69:17, endln:69:18
-            |vpiParent:
-            \_operation: , line:69:10, endln:69:18
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:69:19, endln:69:20
-          |vpiParent:
-          \_range: , line:69:9, endln:69:21
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-      |vpiRange:
-      \_range: , line:69:21, endln:69:32
-        |vpiParent:
-        \_logic_typespec: , line:69:3, endln:69:21
-        |vpiLeftRange:
-        \_operation: , line:69:22, endln:69:29
-          |vpiParent:
-          \_range: , line:69:21, endln:69:32
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (WIDTH), line:69:22, endln:69:27
-            |vpiParent:
-            \_operation: , line:69:22, endln:69:29
-            |vpiName:WIDTH
-          |vpiOperand:
-          \_constant: , line:69:28, endln:69:29
-            |vpiParent:
-            \_operation: , line:69:22, endln:69:29
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:69:30, endln:69:31
-          |vpiParent:
-          \_range: , line:69:21, endln:69:32
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@rggen_or_reducer.next_data)
+      |vpiParent:
+      \_logic_net: (work@rggen_or_reducer.next_data), line:69:33, endln:69:42
+      |vpiFullName:work@rggen_or_reducer.next_data
+      |vpiActual:
+      \_logic_typespec: , line:69:3, endln:69:21
     |vpiName:next_data
     |vpiFullName:work@rggen_or_reducer.next_data
     |vpiNetType:36
@@ -2694,49 +2275,12 @@ design: (work@rggen_or_reducer)
     |vpiParent:
     \_module_inst: work@rggen_or_reducer (work@rggen_or_reducer), file:${SURELOG_DIR}/tests/FuncInModule/dut.sv, line:2:1, endln:71:10
     |vpiTypespec:
-    \_logic_typespec: , line:69:3, endln:69:32
+    \_ref_obj: (work@rggen_or_reducer.next_data)
       |vpiParent:
       \_logic_var: (work@rggen_or_reducer.next_data), line:69:33, endln:69:42
-      |vpiRange:
-      \_range: , line:69:9, endln:69:21
-        |vpiParent:
-        \_logic_typespec: , line:69:3, endln:69:32
-        |vpiLeftRange:
-        \_constant: , line:69:10, endln:69:16
-          |vpiParent:
-          \_range: , line:69:9, endln:69:21
-          |vpiDecompile:2
-          |vpiSize:64
-          |INT:2
-          |vpiConstType:7
-        |vpiRightRange:
-        \_constant: , line:69:19, endln:69:20
-          |vpiParent:
-          \_range: , line:69:9, endln:69:21
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-      |vpiRange:
-      \_range: , line:69:21, endln:69:32
-        |vpiParent:
-        \_logic_typespec: , line:69:3, endln:69:32
-        |vpiLeftRange:
-        \_constant: , line:69:22, endln:69:27
-          |vpiParent:
-          \_range: , line:69:21, endln:69:32
-          |vpiDecompile:1
-          |vpiSize:64
-          |INT:1
-          |vpiConstType:7
-        |vpiRightRange:
-        \_constant: , line:69:30, endln:69:31
-          |vpiParent:
-          \_range: , line:69:21, endln:69:32
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@rggen_or_reducer.next_data
+      |vpiActual:
+      \_logic_typespec: , line:69:3, endln:69:32
     |vpiName:next_data
     |vpiFullName:work@rggen_or_reducer.next_data
     |vpiVisibility:1
@@ -2746,10 +2290,12 @@ design: (work@rggen_or_reducer)
     \_module_inst: work@rggen_or_reducer (work@rggen_or_reducer), file:${SURELOG_DIR}/tests/FuncInModule/dut.sv, line:2:1, endln:71:10
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: , line:3:13, endln:3:16
+    \_ref_obj: (work@rggen_or_reducer.WIDTH)
       |vpiParent:
       \_parameter: (work@rggen_or_reducer.WIDTH), line:3:17, endln:3:22
-      |vpiSigned:1
+      |vpiFullName:work@rggen_or_reducer.WIDTH
+      |vpiActual:
+      \_int_typespec: , line:3:13, endln:3:16
     |vpiSigned:1
     |vpiName:WIDTH
     |vpiFullName:work@rggen_or_reducer.WIDTH
@@ -2759,10 +2305,12 @@ design: (work@rggen_or_reducer)
     \_module_inst: work@rggen_or_reducer (work@rggen_or_reducer), file:${SURELOG_DIR}/tests/FuncInModule/dut.sv, line:2:1, endln:71:10
     |UINT:4
     |vpiTypespec:
-    \_int_typespec: , line:4:13, endln:4:16
+    \_ref_obj: (work@rggen_or_reducer.N)
       |vpiParent:
       \_parameter: (work@rggen_or_reducer.N), line:4:17, endln:4:18
-      |vpiSigned:1
+      |vpiFullName:work@rggen_or_reducer.N
+      |vpiActual:
+      \_int_typespec: , line:4:13, endln:4:16
     |vpiSigned:1
     |vpiName:N
     |vpiFullName:work@rggen_or_reducer.N
@@ -2771,62 +2319,12 @@ design: (work@rggen_or_reducer)
     |vpiParent:
     \_module_inst: work@rggen_or_reducer (work@rggen_or_reducer), file:${SURELOG_DIR}/tests/FuncInModule/dut.sv, line:2:1, endln:71:10
     |vpiTypespec:
-    \_bit_typespec: , line:65:15, endln:65:32
+    \_ref_obj: (work@rggen_or_reducer.SUB_N_LIST_P)
       |vpiParent:
       \_parameter: (work@rggen_or_reducer.SUB_N_LIST_P), line:65:33, endln:65:45
-      |vpiRange:
-      \_range: , line:65:19, endln:65:26
-        |vpiParent:
-        \_bit_typespec: , line:65:15, endln:65:32
-        |vpiLeftRange:
-        \_operation: , line:65:20, endln:65:23
-          |vpiParent:
-          \_range: , line:65:19, endln:65:26
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (work@rggen_or_reducer.SUB_N_LIST_P.N), line:65:20, endln:65:21
-            |vpiParent:
-            \_operation: , line:65:20, endln:65:23
-            |vpiName:N
-            |vpiFullName:work@rggen_or_reducer.SUB_N_LIST_P.N
-            |vpiActual:
-            \_parameter: (work@rggen_or_reducer.N), line:4:17, endln:4:18
-          |vpiOperand:
-          \_constant: , line:65:22, endln:65:23
-            |vpiParent:
-            \_operation: , line:65:20, endln:65:23
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:65:24, endln:65:25
-          |vpiParent:
-          \_range: , line:65:19, endln:65:26
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-      |vpiRange:
-      \_range: , line:65:26, endln:65:32
-        |vpiParent:
-        \_bit_typespec: , line:65:15, endln:65:32
-        |vpiLeftRange:
-        \_constant: , line:65:27, endln:65:29
-          |vpiParent:
-          \_range: , line:65:26, endln:65:32
-          |vpiDecompile:15
-          |vpiSize:64
-          |UINT:15
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:65:30, endln:65:31
-          |vpiParent:
-          \_range: , line:65:26, endln:65:32
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@rggen_or_reducer.SUB_N_LIST_P
+      |vpiActual:
+      \_bit_typespec: , line:65:15, endln:65:32
     |vpiLocalParam:1
     |vpiName:SUB_N_LIST_P
     |vpiFullName:work@rggen_or_reducer.SUB_N_LIST_P
@@ -2835,62 +2333,12 @@ design: (work@rggen_or_reducer)
     |vpiParent:
     \_module_inst: work@rggen_or_reducer (work@rggen_or_reducer), file:${SURELOG_DIR}/tests/FuncInModule/dut.sv, line:2:1, endln:71:10
     |vpiTypespec:
-    \_bit_typespec: , line:66:15, endln:66:32
+    \_ref_obj: (work@rggen_or_reducer.OFFSET_LIST)
       |vpiParent:
       \_parameter: (work@rggen_or_reducer.OFFSET_LIST), line:66:33, endln:66:44
-      |vpiRange:
-      \_range: , line:66:19, endln:66:26
-        |vpiParent:
-        \_bit_typespec: , line:66:15, endln:66:32
-        |vpiLeftRange:
-        \_operation: , line:66:20, endln:66:23
-          |vpiParent:
-          \_range: , line:66:19, endln:66:26
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (work@rggen_or_reducer.OFFSET_LIST.N), line:66:20, endln:66:21
-            |vpiParent:
-            \_operation: , line:66:20, endln:66:23
-            |vpiName:N
-            |vpiFullName:work@rggen_or_reducer.OFFSET_LIST.N
-            |vpiActual:
-            \_parameter: (work@rggen_or_reducer.N), line:4:17, endln:4:18
-          |vpiOperand:
-          \_constant: , line:66:22, endln:66:23
-            |vpiParent:
-            \_operation: , line:66:20, endln:66:23
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:66:24, endln:66:25
-          |vpiParent:
-          \_range: , line:66:19, endln:66:26
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-      |vpiRange:
-      \_range: , line:66:26, endln:66:32
-        |vpiParent:
-        \_bit_typespec: , line:66:15, endln:66:32
-        |vpiLeftRange:
-        \_constant: , line:66:27, endln:66:29
-          |vpiParent:
-          \_range: , line:66:26, endln:66:32
-          |vpiDecompile:15
-          |vpiSize:64
-          |UINT:15
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:66:30, endln:66:31
-          |vpiParent:
-          \_range: , line:66:26, endln:66:32
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@rggen_or_reducer.OFFSET_LIST
+      |vpiActual:
+      \_bit_typespec: , line:66:15, endln:66:32
     |vpiLocalParam:1
     |vpiName:OFFSET_LIST
     |vpiFullName:work@rggen_or_reducer.OFFSET_LIST
@@ -2899,10 +2347,12 @@ design: (work@rggen_or_reducer)
     |vpiParent:
     \_module_inst: work@rggen_or_reducer (work@rggen_or_reducer), file:${SURELOG_DIR}/tests/FuncInModule/dut.sv, line:2:1, endln:71:10
     |vpiTypespec:
-    \_int_typespec: , line:67:15, endln:67:18
+    \_ref_obj: (work@rggen_or_reducer.NEXT_N)
       |vpiParent:
       \_parameter: (work@rggen_or_reducer.NEXT_N), line:67:33, endln:67:39
-      |vpiSigned:1
+      |vpiFullName:work@rggen_or_reducer.NEXT_N
+      |vpiActual:
+      \_int_typespec: , line:67:15, endln:67:18
     |vpiSigned:1
     |vpiLocalParam:1
     |vpiName:NEXT_N
@@ -2919,7 +2369,12 @@ design: (work@rggen_or_reducer)
       |vpiSize:32
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:3:13, endln:3:16
+      \_ref_obj: (work@rggen_or_reducer)
+        |vpiParent:
+        \_constant: , line:3:25, endln:3:26
+        |vpiFullName:work@rggen_or_reducer
+        |vpiActual:
+        \_int_typespec: , line:3:13, endln:3:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@rggen_or_reducer.WIDTH), line:3:17, endln:3:22
@@ -2935,7 +2390,12 @@ design: (work@rggen_or_reducer)
       |vpiSize:32
       |UINT:4
       |vpiTypespec:
-      \_int_typespec: , line:4:13, endln:4:16
+      \_ref_obj: (work@rggen_or_reducer)
+        |vpiParent:
+        \_constant: , line:4:25, endln:4:26
+        |vpiFullName:work@rggen_or_reducer
+        |vpiActual:
+        \_int_typespec: , line:4:13, endln:4:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@rggen_or_reducer.N), line:4:17, endln:4:18
@@ -2955,10 +2415,12 @@ design: (work@rggen_or_reducer)
         |vpiSize:32
         |UINT:4
         |vpiTypespec:
-        \_int_typespec: , line:4:13, endln:4:16
+        \_ref_obj: (work@rggen_or_reducer)
           |vpiParent:
           \_constant: , line:65:64, endln:65:65
-          |vpiSigned:1
+          |vpiFullName:work@rggen_or_reducer
+          |vpiActual:
+          \_int_typespec: , line:4:13, endln:4:16
         |vpiConstType:9
       |vpiName:get_sub_n_list
       |vpiFunction:
@@ -2998,7 +2460,12 @@ design: (work@rggen_or_reducer)
       |vpiSize:32
       |UINT:3
       |vpiTypespec:
-      \_int_typespec: , line:67:15, endln:67:18
+      \_ref_obj: (work@rggen_or_reducer)
+        |vpiParent:
+        \_constant: , line:67:47, endln:67:70
+        |vpiFullName:work@rggen_or_reducer
+        |vpiActual:
+        \_int_typespec: , line:67:15, endln:67:18
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@rggen_or_reducer.NEXT_N), line:67:33, endln:67:39
@@ -3015,7 +2482,12 @@ design: (work@rggen_or_reducer)
       |vpiParent:
       \_function: (work@rggen_or_reducer.get_sub_n_list), line:10:3, endln:36:14
       |vpiTypespec:
-      \_bit_typespec: , line:11:5, endln:11:22
+      \_ref_obj: (work@rggen_or_reducer.get_sub_n_list.list)
+        |vpiParent:
+        \_bit_var: (work@rggen_or_reducer.get_sub_n_list.list), line:11:23, endln:11:27
+        |vpiFullName:work@rggen_or_reducer.get_sub_n_list.list
+        |vpiActual:
+        \_bit_typespec: , line:11:5, endln:11:22
       |vpiName:list
       |vpiFullName:work@rggen_or_reducer.get_sub_n_list.list
     |vpiVariables:
@@ -3023,7 +2495,12 @@ design: (work@rggen_or_reducer)
       |vpiParent:
       \_function: (work@rggen_or_reducer.get_sub_n_list), line:10:3, endln:36:14
       |vpiTypespec:
-      \_int_typespec: , line:12:5, endln:12:8
+      \_ref_obj: (work@rggen_or_reducer.get_sub_n_list.list_index)
+        |vpiParent:
+        \_int_var: (work@rggen_or_reducer.get_sub_n_list.list_index), line:12:23, endln:12:33
+        |vpiFullName:work@rggen_or_reducer.get_sub_n_list.list_index
+        |vpiActual:
+        \_int_typespec: , line:12:5, endln:12:8
       |vpiName:list_index
       |vpiFullName:work@rggen_or_reducer.get_sub_n_list.list_index
       |vpiSigned:1
@@ -3032,7 +2509,12 @@ design: (work@rggen_or_reducer)
       |vpiParent:
       \_function: (work@rggen_or_reducer.get_sub_n_list), line:10:3, endln:36:14
       |vpiTypespec:
-      \_bit_typespec: , line:13:5, endln:13:15
+      \_ref_obj: (work@rggen_or_reducer.get_sub_n_list.current_n)
+        |vpiParent:
+        \_bit_var: (work@rggen_or_reducer.get_sub_n_list.current_n), line:13:23, endln:13:32
+        |vpiFullName:work@rggen_or_reducer.get_sub_n_list.current_n
+        |vpiActual:
+        \_bit_typespec: , line:13:5, endln:13:15
       |vpiName:current_n
       |vpiFullName:work@rggen_or_reducer.get_sub_n_list.current_n
     |vpiVariables:
@@ -3040,7 +2522,12 @@ design: (work@rggen_or_reducer)
       |vpiParent:
       \_function: (work@rggen_or_reducer.get_sub_n_list), line:10:3, endln:36:14
       |vpiTypespec:
-      \_bit_typespec: , line:14:5, endln:14:15
+      \_ref_obj: (work@rggen_or_reducer.get_sub_n_list.half_n)
+        |vpiParent:
+        \_bit_var: (work@rggen_or_reducer.get_sub_n_list.half_n), line:14:23, endln:14:29
+        |vpiFullName:work@rggen_or_reducer.get_sub_n_list.half_n
+        |vpiActual:
+        \_bit_typespec: , line:14:5, endln:14:15
       |vpiName:half_n
       |vpiFullName:work@rggen_or_reducer.get_sub_n_list.half_n
     |vpiVisibility:1
@@ -3054,7 +2541,12 @@ design: (work@rggen_or_reducer)
       |vpiDirection:1
       |vpiName:n
       |vpiTypedef:
-      \_int_typespec: , line:10:55, endln:10:58
+      \_ref_obj: (work@rggen_or_reducer.get_sub_n_list.n)
+        |vpiParent:
+        \_io_decl: (n), line:10:59, endln:10:60
+        |vpiFullName:work@rggen_or_reducer.get_sub_n_list.n
+        |vpiActual:
+        \_int_typespec: , line:10:55, endln:10:58
     |vpiStmt:
     \_begin: (work@rggen_or_reducer.get_sub_n_list), line:12:5, endln:12:34
       |vpiParent:
@@ -3065,7 +2557,12 @@ design: (work@rggen_or_reducer)
         |vpiParent:
         \_begin: (work@rggen_or_reducer.get_sub_n_list), line:12:5, endln:12:34
         |vpiTypespec:
-        \_bit_typespec: , line:11:5, endln:11:22
+        \_ref_obj: (work@rggen_or_reducer.get_sub_n_list.list)
+          |vpiParent:
+          \_bit_var: (work@rggen_or_reducer.get_sub_n_list.list), line:11:23, endln:11:27
+          |vpiFullName:work@rggen_or_reducer.get_sub_n_list.list
+          |vpiActual:
+          \_bit_typespec: , line:11:5, endln:11:22
         |vpiName:list
         |vpiFullName:work@rggen_or_reducer.get_sub_n_list.list
       |vpiVariables:
@@ -3073,7 +2570,12 @@ design: (work@rggen_or_reducer)
         |vpiParent:
         \_begin: (work@rggen_or_reducer.get_sub_n_list), line:12:5, endln:12:34
         |vpiTypespec:
-        \_int_typespec: , line:12:5, endln:12:8
+        \_ref_obj: (work@rggen_or_reducer.get_sub_n_list.list_index)
+          |vpiParent:
+          \_int_var: (work@rggen_or_reducer.get_sub_n_list.list_index), line:12:23, endln:12:33
+          |vpiFullName:work@rggen_or_reducer.get_sub_n_list.list_index
+          |vpiActual:
+          \_int_typespec: , line:12:5, endln:12:8
         |vpiName:list_index
         |vpiFullName:work@rggen_or_reducer.get_sub_n_list.list_index
         |vpiSigned:1
@@ -3082,7 +2584,12 @@ design: (work@rggen_or_reducer)
         |vpiParent:
         \_begin: (work@rggen_or_reducer.get_sub_n_list), line:12:5, endln:12:34
         |vpiTypespec:
-        \_bit_typespec: , line:13:5, endln:13:15
+        \_ref_obj: (work@rggen_or_reducer.get_sub_n_list.current_n)
+          |vpiParent:
+          \_bit_var: (work@rggen_or_reducer.get_sub_n_list.current_n), line:13:23, endln:13:32
+          |vpiFullName:work@rggen_or_reducer.get_sub_n_list.current_n
+          |vpiActual:
+          \_bit_typespec: , line:13:5, endln:13:15
         |vpiName:current_n
         |vpiFullName:work@rggen_or_reducer.get_sub_n_list.current_n
       |vpiVariables:
@@ -3090,7 +2597,12 @@ design: (work@rggen_or_reducer)
         |vpiParent:
         \_begin: (work@rggen_or_reducer.get_sub_n_list), line:12:5, endln:12:34
         |vpiTypespec:
-        \_bit_typespec: , line:14:5, endln:14:15
+        \_ref_obj: (work@rggen_or_reducer.get_sub_n_list.half_n)
+          |vpiParent:
+          \_bit_var: (work@rggen_or_reducer.get_sub_n_list.half_n), line:14:23, endln:14:29
+          |vpiFullName:work@rggen_or_reducer.get_sub_n_list.half_n
+          |vpiActual:
+          \_bit_typespec: , line:14:5, endln:14:15
         |vpiName:half_n
         |vpiFullName:work@rggen_or_reducer.get_sub_n_list.half_n
       |vpiStmt:
@@ -3136,7 +2648,12 @@ design: (work@rggen_or_reducer)
           |vpiParent:
           \_assignment: , line:18:5, endln:18:25
           |vpiTypespec:
-          \_integer_typespec: , line:18:19, endln:18:21
+          \_ref_obj: (work@rggen_or_reducer.get_sub_n_list)
+            |vpiParent:
+            \_operation: , line:18:19, endln:18:25
+            |vpiFullName:work@rggen_or_reducer.get_sub_n_list
+            |vpiActual:
+            \_integer_typespec: , line:18:19, endln:18:21
           |vpiOpType:67
           |vpiOperand:
           \_ref_obj: (work@rggen_or_reducer.get_sub_n_list.n), line:18:23, endln:18:24
@@ -3435,7 +2952,12 @@ design: (work@rggen_or_reducer)
       |vpiParent:
       \_function: (work@rggen_or_reducer.get_offset_list), line:39:3, endln:52:14
       |vpiTypespec:
-      \_bit_typespec: , line:40:5, endln:40:22
+      \_ref_obj: (work@rggen_or_reducer.get_offset_list.list)
+        |vpiParent:
+        \_bit_var: (work@rggen_or_reducer.get_offset_list.list), line:40:23, endln:40:27
+        |vpiFullName:work@rggen_or_reducer.get_offset_list.list
+        |vpiActual:
+        \_bit_typespec: , line:40:5, endln:40:22
       |vpiName:list
       |vpiFullName:work@rggen_or_reducer.get_offset_list.list
     |vpiVisibility:1
@@ -3449,7 +2971,12 @@ design: (work@rggen_or_reducer)
       |vpiDirection:1
       |vpiName:sub_n_list
       |vpiTypedef:
-      \_bit_typespec: , line:39:56, endln:39:59
+      \_ref_obj: (work@rggen_or_reducer.get_offset_list.sub_n_list)
+        |vpiParent:
+        \_io_decl: (sub_n_list), line:39:74, endln:39:84
+        |vpiFullName:work@rggen_or_reducer.get_offset_list.sub_n_list
+        |vpiActual:
+        \_bit_typespec: , line:39:56, endln:39:59
     |vpiStmt:
     \_begin: (work@rggen_or_reducer.get_offset_list), line:42:5, endln:49:8
       |vpiParent:
@@ -3460,7 +2987,12 @@ design: (work@rggen_or_reducer)
         |vpiParent:
         \_begin: (work@rggen_or_reducer.get_offset_list), line:42:5, endln:49:8
         |vpiTypespec:
-        \_bit_typespec: , line:40:5, endln:40:22
+        \_ref_obj: (work@rggen_or_reducer.get_offset_list.list)
+          |vpiParent:
+          \_bit_var: (work@rggen_or_reducer.get_offset_list.list), line:40:23, endln:40:27
+          |vpiFullName:work@rggen_or_reducer.get_offset_list.list
+          |vpiActual:
+          \_bit_typespec: , line:40:5, endln:40:22
         |vpiName:list
         |vpiFullName:work@rggen_or_reducer.get_offset_list.list
       |vpiStmt:
@@ -3479,7 +3011,12 @@ design: (work@rggen_or_reducer)
             |vpiParent:
             \_assign_stmt: , line:42:10, endln:42:19
             |vpiTypespec:
-            \_int_typespec: , line:42:10, endln:42:13
+            \_ref_obj: (work@rggen_or_reducer.get_offset_list.i)
+              |vpiParent:
+              \_int_var: (work@rggen_or_reducer.get_offset_list.i), line:42:14, endln:42:15
+              |vpiFullName:work@rggen_or_reducer.get_offset_list.i
+              |vpiActual:
+              \_int_typespec: , line:42:10, endln:42:13
             |vpiName:i
             |vpiFullName:work@rggen_or_reducer.get_offset_list.i
             |vpiSigned:1
@@ -3673,7 +3210,12 @@ design: (work@rggen_or_reducer)
       |vpiParent:
       \_function: (work@rggen_or_reducer.get_next_n), line:54:3, endln:63:14
       |vpiTypespec:
-      \_int_typespec: , line:55:5, endln:55:8
+      \_ref_obj: (work@rggen_or_reducer.get_next_n.next_n)
+        |vpiParent:
+        \_int_var: (work@rggen_or_reducer.get_next_n.next_n), line:55:9, endln:55:15
+        |vpiFullName:work@rggen_or_reducer.get_next_n.next_n
+        |vpiActual:
+        \_int_typespec: , line:55:5, endln:55:8
       |vpiName:next_n
       |vpiFullName:work@rggen_or_reducer.get_next_n.next_n
       |vpiSigned:1
@@ -3688,7 +3230,12 @@ design: (work@rggen_or_reducer)
       |vpiDirection:1
       |vpiName:sub_n_list
       |vpiTypedef:
-      \_bit_typespec: , line:54:37, endln:54:40
+      \_ref_obj: (work@rggen_or_reducer.get_next_n.sub_n_list)
+        |vpiParent:
+        \_io_decl: (sub_n_list), line:54:55, endln:54:65
+        |vpiFullName:work@rggen_or_reducer.get_next_n.sub_n_list
+        |vpiActual:
+        \_bit_typespec: , line:54:37, endln:54:40
     |vpiStmt:
     \_begin: (work@rggen_or_reducer.get_next_n), line:57:5, endln:57:17
       |vpiParent:
@@ -3699,7 +3246,12 @@ design: (work@rggen_or_reducer)
         |vpiParent:
         \_begin: (work@rggen_or_reducer.get_next_n), line:57:5, endln:57:17
         |vpiTypespec:
-        \_int_typespec: , line:55:5, endln:55:8
+        \_ref_obj: (work@rggen_or_reducer.get_next_n.next_n)
+          |vpiParent:
+          \_int_var: (work@rggen_or_reducer.get_next_n.next_n), line:55:9, endln:55:15
+          |vpiFullName:work@rggen_or_reducer.get_next_n.next_n
+          |vpiActual:
+          \_int_typespec: , line:55:5, endln:55:8
         |vpiName:next_n
         |vpiFullName:work@rggen_or_reducer.get_next_n.next_n
         |vpiSigned:1
@@ -3735,7 +3287,12 @@ design: (work@rggen_or_reducer)
             |vpiParent:
             \_assign_stmt: , line:58:10, endln:58:19
             |vpiTypespec:
-            \_int_typespec: , line:58:10, endln:58:13
+            \_ref_obj: (work@rggen_or_reducer.get_next_n.i)
+              |vpiParent:
+              \_int_var: (work@rggen_or_reducer.get_next_n.i), line:58:14, endln:58:15
+              |vpiFullName:work@rggen_or_reducer.get_next_n.i
+              |vpiActual:
+              \_int_typespec: , line:58:10, endln:58:13
             |vpiName:i
             |vpiFullName:work@rggen_or_reducer.get_next_n.i
             |vpiSigned:1
@@ -3839,6 +3396,733 @@ design: (work@rggen_or_reducer)
     |vpiInstance:
     \_module_inst: work@rggen_or_reducer (work@rggen_or_reducer), file:${SURELOG_DIR}/tests/FuncInModule/dut.sv, line:2:1, endln:71:10
   |vpiTopModule:1
+\_weaklyReferenced:
+\_int_typespec: , line:3:13, endln:3:16
+  |vpiParent:
+  \_parameter: (work@rggen_or_reducer.WIDTH), line:3:17, endln:3:22
+  |vpiSigned:1
+\_int_typespec: , line:4:13, endln:4:16
+  |vpiParent:
+  \_parameter: (work@rggen_or_reducer.N), line:4:17, endln:4:18
+  |vpiSigned:1
+\_bit_typespec: , line:10:22, endln:10:39
+  |vpiRange:
+  \_range: , line:10:26, endln:10:33
+    |vpiParent:
+    \_bit_typespec: , line:10:22, endln:10:39
+    |vpiLeftRange:
+    \_operation: , line:10:27, endln:10:30
+      |vpiParent:
+      \_range: , line:10:26, endln:10:33
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (N), line:10:27, endln:10:28
+        |vpiParent:
+        \_operation: , line:10:27, endln:10:30
+        |vpiName:N
+        |vpiActual:
+        \_parameter: (work@rggen_or_reducer.N), line:4:17, endln:4:18
+      |vpiOperand:
+      \_constant: , line:10:29, endln:10:30
+        |vpiParent:
+        \_operation: , line:10:27, endln:10:30
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:10:31, endln:10:32
+      |vpiParent:
+      \_range: , line:10:26, endln:10:33
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:10:33, endln:10:39
+    |vpiParent:
+    \_bit_typespec: , line:10:22, endln:10:39
+    |vpiLeftRange:
+    \_constant: , line:10:34, endln:10:36
+      |vpiParent:
+      \_range: , line:10:33, endln:10:39
+      |vpiDecompile:15
+      |vpiSize:64
+      |UINT:15
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:10:37, endln:10:38
+      |vpiParent:
+      \_range: , line:10:33, endln:10:39
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:10:55, endln:10:58
+  |vpiSigned:1
+\_bit_typespec: , line:11:5, endln:11:22
+  |vpiRange:
+  \_range: , line:11:9, endln:11:16
+    |vpiParent:
+    \_bit_typespec: , line:11:5, endln:11:22
+    |vpiLeftRange:
+    \_operation: , line:11:10, endln:11:13
+      |vpiParent:
+      \_range: , line:11:9, endln:11:16
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (N), line:11:10, endln:11:11
+        |vpiParent:
+        \_operation: , line:11:10, endln:11:13
+        |vpiName:N
+        |vpiActual:
+        \_parameter: (work@rggen_or_reducer.N), line:4:17, endln:4:18
+      |vpiOperand:
+      \_constant: , line:11:12, endln:11:13
+        |vpiParent:
+        \_operation: , line:11:10, endln:11:13
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:11:14, endln:11:15
+      |vpiParent:
+      \_range: , line:11:9, endln:11:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:11:16, endln:11:22
+    |vpiParent:
+    \_bit_typespec: , line:11:5, endln:11:22
+    |vpiLeftRange:
+    \_constant: , line:11:17, endln:11:19
+      |vpiParent:
+      \_range: , line:11:16, endln:11:22
+      |vpiDecompile:15
+      |vpiSize:64
+      |UINT:15
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:11:20, endln:11:21
+      |vpiParent:
+      \_range: , line:11:16, endln:11:22
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:12:5, endln:12:8
+  |vpiSigned:1
+\_bit_typespec: , line:13:5, endln:13:15
+  |vpiRange:
+  \_range: , line:13:9, endln:13:15
+    |vpiParent:
+    \_bit_typespec: , line:13:5, endln:13:15
+    |vpiLeftRange:
+    \_constant: , line:13:10, endln:13:12
+      |vpiParent:
+      \_range: , line:13:9, endln:13:15
+      |vpiDecompile:15
+      |vpiSize:64
+      |UINT:15
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:13:13, endln:13:14
+      |vpiParent:
+      \_range: , line:13:9, endln:13:15
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_bit_typespec: , line:14:5, endln:14:15
+  |vpiRange:
+  \_range: , line:14:9, endln:14:15
+    |vpiParent:
+    \_bit_typespec: , line:14:5, endln:14:15
+    |vpiLeftRange:
+    \_constant: , line:14:10, endln:14:12
+      |vpiParent:
+      \_range: , line:14:9, endln:14:15
+      |vpiDecompile:15
+      |vpiSize:64
+      |UINT:15
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:14:13, endln:14:14
+      |vpiParent:
+      \_range: , line:14:9, endln:14:15
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_integer_typespec: , line:18:19, endln:18:21
+  |INT:16
+\_bit_typespec: , line:39:22, endln:39:39
+  |vpiRange:
+  \_range: , line:39:26, endln:39:33
+    |vpiParent:
+    \_bit_typespec: , line:39:22, endln:39:39
+    |vpiLeftRange:
+    \_operation: , line:39:27, endln:39:30
+      |vpiParent:
+      \_range: , line:39:26, endln:39:33
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (N), line:39:27, endln:39:28
+        |vpiParent:
+        \_operation: , line:39:27, endln:39:30
+        |vpiName:N
+        |vpiActual:
+        \_parameter: (work@rggen_or_reducer.N), line:4:17, endln:4:18
+      |vpiOperand:
+      \_constant: , line:39:29, endln:39:30
+        |vpiParent:
+        \_operation: , line:39:27, endln:39:30
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:39:31, endln:39:32
+      |vpiParent:
+      \_range: , line:39:26, endln:39:33
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:39:33, endln:39:39
+    |vpiParent:
+    \_bit_typespec: , line:39:22, endln:39:39
+    |vpiLeftRange:
+    \_constant: , line:39:34, endln:39:36
+      |vpiParent:
+      \_range: , line:39:33, endln:39:39
+      |vpiDecompile:15
+      |vpiSize:64
+      |UINT:15
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:39:37, endln:39:38
+      |vpiParent:
+      \_range: , line:39:33, endln:39:39
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_bit_typespec: , line:39:56, endln:39:59
+  |vpiRange:
+  \_range: , line:39:60, endln:39:67
+    |vpiParent:
+    \_bit_typespec: , line:39:56, endln:39:59
+    |vpiLeftRange:
+    \_operation: , line:39:61, endln:39:64
+      |vpiParent:
+      \_range: , line:39:60, endln:39:67
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (N), line:39:61, endln:39:62
+        |vpiParent:
+        \_operation: , line:39:61, endln:39:64
+        |vpiName:N
+        |vpiActual:
+        \_parameter: (work@rggen_or_reducer.N), line:4:17, endln:4:18
+      |vpiOperand:
+      \_constant: , line:39:63, endln:39:64
+        |vpiParent:
+        \_operation: , line:39:61, endln:39:64
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:39:65, endln:39:66
+      |vpiParent:
+      \_range: , line:39:60, endln:39:67
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:39:67, endln:39:73
+    |vpiParent:
+    \_bit_typespec: , line:39:56, endln:39:59
+    |vpiLeftRange:
+    \_constant: , line:39:68, endln:39:70
+      |vpiParent:
+      \_range: , line:39:67, endln:39:73
+      |vpiDecompile:15
+      |vpiSize:64
+      |UINT:15
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:39:71, endln:39:72
+      |vpiParent:
+      \_range: , line:39:67, endln:39:73
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_bit_typespec: , line:40:5, endln:40:22
+  |vpiRange:
+  \_range: , line:40:9, endln:40:16
+    |vpiParent:
+    \_bit_typespec: , line:40:5, endln:40:22
+    |vpiLeftRange:
+    \_operation: , line:40:10, endln:40:13
+      |vpiParent:
+      \_range: , line:40:9, endln:40:16
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (N), line:40:10, endln:40:11
+        |vpiParent:
+        \_operation: , line:40:10, endln:40:13
+        |vpiName:N
+        |vpiActual:
+        \_parameter: (work@rggen_or_reducer.N), line:4:17, endln:4:18
+      |vpiOperand:
+      \_constant: , line:40:12, endln:40:13
+        |vpiParent:
+        \_operation: , line:40:10, endln:40:13
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:40:14, endln:40:15
+      |vpiParent:
+      \_range: , line:40:9, endln:40:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:40:16, endln:40:22
+    |vpiParent:
+    \_bit_typespec: , line:40:5, endln:40:22
+    |vpiLeftRange:
+    \_constant: , line:40:17, endln:40:19
+      |vpiParent:
+      \_range: , line:40:16, endln:40:22
+      |vpiDecompile:15
+      |vpiSize:64
+      |UINT:15
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:40:20, endln:40:21
+      |vpiParent:
+      \_range: , line:40:16, endln:40:22
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:42:10, endln:42:13
+  |vpiSigned:1
+\_int_typespec: , line:54:22, endln:54:25
+  |vpiSigned:1
+\_bit_typespec: , line:54:37, endln:54:40
+  |vpiRange:
+  \_range: , line:54:41, endln:54:48
+    |vpiParent:
+    \_bit_typespec: , line:54:37, endln:54:40
+    |vpiLeftRange:
+    \_operation: , line:54:42, endln:54:45
+      |vpiParent:
+      \_range: , line:54:41, endln:54:48
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (N), line:54:42, endln:54:43
+        |vpiParent:
+        \_operation: , line:54:42, endln:54:45
+        |vpiName:N
+        |vpiActual:
+        \_parameter: (work@rggen_or_reducer.N), line:4:17, endln:4:18
+      |vpiOperand:
+      \_constant: , line:54:44, endln:54:45
+        |vpiParent:
+        \_operation: , line:54:42, endln:54:45
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:54:46, endln:54:47
+      |vpiParent:
+      \_range: , line:54:41, endln:54:48
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:54:48, endln:54:54
+    |vpiParent:
+    \_bit_typespec: , line:54:37, endln:54:40
+    |vpiLeftRange:
+    \_constant: , line:54:49, endln:54:51
+      |vpiParent:
+      \_range: , line:54:48, endln:54:54
+      |vpiDecompile:15
+      |vpiSize:64
+      |UINT:15
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:54:52, endln:54:53
+      |vpiParent:
+      \_range: , line:54:48, endln:54:54
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:55:5, endln:55:8
+  |vpiSigned:1
+\_int_typespec: , line:58:10, endln:58:13
+  |vpiSigned:1
+\_bit_typespec: , line:65:15, endln:65:32
+  |vpiParent:
+  \_parameter: (work@rggen_or_reducer.SUB_N_LIST_P), line:65:33, endln:65:45
+  |vpiRange:
+  \_range: , line:65:19, endln:65:26
+    |vpiParent:
+    \_bit_typespec: , line:65:15, endln:65:32
+    |vpiLeftRange:
+    \_operation: , line:65:20, endln:65:23
+      |vpiParent:
+      \_range: , line:65:19, endln:65:26
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@rggen_or_reducer.SUB_N_LIST_P.N), line:65:20, endln:65:21
+        |vpiParent:
+        \_operation: , line:65:20, endln:65:23
+        |vpiName:N
+        |vpiFullName:work@rggen_or_reducer.SUB_N_LIST_P.N
+      |vpiOperand:
+      \_constant: , line:65:22, endln:65:23
+        |vpiParent:
+        \_operation: , line:65:20, endln:65:23
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:65:24, endln:65:25
+      |vpiParent:
+      \_range: , line:65:19, endln:65:26
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:65:26, endln:65:32
+    |vpiParent:
+    \_bit_typespec: , line:65:15, endln:65:32
+    |vpiLeftRange:
+    \_constant: , line:65:27, endln:65:29
+      |vpiParent:
+      \_range: , line:65:26, endln:65:32
+      |vpiDecompile:15
+      |vpiSize:64
+      |UINT:15
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:65:30, endln:65:31
+      |vpiParent:
+      \_range: , line:65:26, endln:65:32
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_bit_typespec: , line:66:15, endln:66:32
+  |vpiParent:
+  \_parameter: (work@rggen_or_reducer.OFFSET_LIST), line:66:33, endln:66:44
+  |vpiRange:
+  \_range: , line:66:19, endln:66:26
+    |vpiParent:
+    \_bit_typespec: , line:66:15, endln:66:32
+    |vpiLeftRange:
+    \_operation: , line:66:20, endln:66:23
+      |vpiParent:
+      \_range: , line:66:19, endln:66:26
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@rggen_or_reducer.OFFSET_LIST.N), line:66:20, endln:66:21
+        |vpiParent:
+        \_operation: , line:66:20, endln:66:23
+        |vpiName:N
+        |vpiFullName:work@rggen_or_reducer.OFFSET_LIST.N
+      |vpiOperand:
+      \_constant: , line:66:22, endln:66:23
+        |vpiParent:
+        \_operation: , line:66:20, endln:66:23
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:66:24, endln:66:25
+      |vpiParent:
+      \_range: , line:66:19, endln:66:26
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:66:26, endln:66:32
+    |vpiParent:
+    \_bit_typespec: , line:66:15, endln:66:32
+    |vpiLeftRange:
+    \_constant: , line:66:27, endln:66:29
+      |vpiParent:
+      \_range: , line:66:26, endln:66:32
+      |vpiDecompile:15
+      |vpiSize:64
+      |UINT:15
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:66:30, endln:66:31
+      |vpiParent:
+      \_range: , line:66:26, endln:66:32
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:67:15, endln:67:18
+  |vpiParent:
+  \_parameter: (work@rggen_or_reducer.NEXT_N), line:67:33, endln:67:39
+  |vpiSigned:1
+\_int_typespec: , line:4:13, endln:4:16
+  |vpiParent:
+  \_ref_obj: (work@rggen_or_reducer)
+  |vpiSigned:1
+\_logic_typespec: , line:69:3, endln:69:32
+  |vpiParent:
+  \_logic_var: (work@rggen_or_reducer.next_data), line:69:33, endln:69:42
+  |vpiRange:
+  \_range: , line:69:9, endln:69:21
+    |vpiParent:
+    \_logic_typespec: , line:69:3, endln:69:32
+    |vpiLeftRange:
+    \_constant: , line:69:10, endln:69:16
+      |vpiParent:
+      \_range: , line:69:9, endln:69:21
+      |vpiDecompile:2
+      |vpiSize:64
+      |INT:2
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:69:19, endln:69:20
+      |vpiParent:
+      \_range: , line:69:9, endln:69:21
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:69:21, endln:69:32
+    |vpiParent:
+    \_logic_typespec: , line:69:3, endln:69:32
+    |vpiLeftRange:
+    \_constant: , line:69:22, endln:69:27
+      |vpiParent:
+      \_range: , line:69:21, endln:69:32
+      |vpiDecompile:1
+      |vpiSize:64
+      |INT:1
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:69:30, endln:69:31
+      |vpiParent:
+      \_range: , line:69:21, endln:69:32
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:69:3, endln:69:21
+  |vpiRange:
+  \_range: , line:69:9, endln:69:21
+    |vpiParent:
+    \_logic_typespec: , line:69:3, endln:69:21
+    |vpiLeftRange:
+    \_operation: , line:69:10, endln:69:18
+      |vpiParent:
+      \_range: , line:69:9, endln:69:21
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (NEXT_N), line:69:10, endln:69:16
+        |vpiParent:
+        \_operation: , line:69:10, endln:69:18
+        |vpiName:NEXT_N
+      |vpiOperand:
+      \_constant: , line:69:17, endln:69:18
+        |vpiParent:
+        \_operation: , line:69:10, endln:69:18
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:69:19, endln:69:20
+      |vpiParent:
+      \_range: , line:69:9, endln:69:21
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:69:21, endln:69:32
+    |vpiParent:
+    \_logic_typespec: , line:69:3, endln:69:21
+    |vpiLeftRange:
+    \_operation: , line:69:22, endln:69:29
+      |vpiParent:
+      \_range: , line:69:21, endln:69:32
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (WIDTH), line:69:22, endln:69:27
+        |vpiParent:
+        \_operation: , line:69:22, endln:69:29
+        |vpiName:WIDTH
+      |vpiOperand:
+      \_constant: , line:69:28, endln:69:29
+        |vpiParent:
+        \_operation: , line:69:22, endln:69:29
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:69:30, endln:69:31
+      |vpiParent:
+      \_range: , line:69:21, endln:69:32
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:3:13, endln:3:16
+  |vpiParent:
+  \_ref_obj: (work@rggen_or_reducer.WIDTH)
+  |vpiSigned:1
+\_int_typespec: , line:4:13, endln:4:16
+  |vpiParent:
+  \_ref_obj: (work@rggen_or_reducer.N)
+  |vpiSigned:1
+\_bit_typespec: , line:65:15, endln:65:32
+  |vpiParent:
+  \_ref_obj: (work@rggen_or_reducer.SUB_N_LIST_P)
+  |vpiRange:
+  \_range: , line:65:19, endln:65:26
+    |vpiParent:
+    \_bit_typespec: , line:65:15, endln:65:32
+    |vpiLeftRange:
+    \_operation: , line:65:20, endln:65:23
+      |vpiParent:
+      \_range: , line:65:19, endln:65:26
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@rggen_or_reducer.SUB_N_LIST_P.N), line:65:20, endln:65:21
+        |vpiParent:
+        \_operation: , line:65:20, endln:65:23
+        |vpiName:N
+        |vpiFullName:work@rggen_or_reducer.SUB_N_LIST_P.N
+        |vpiActual:
+        \_parameter: (work@rggen_or_reducer.N), line:4:17, endln:4:18
+      |vpiOperand:
+      \_constant: , line:65:22, endln:65:23
+        |vpiParent:
+        \_operation: , line:65:20, endln:65:23
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:65:24, endln:65:25
+      |vpiParent:
+      \_range: , line:65:19, endln:65:26
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:65:26, endln:65:32
+    |vpiParent:
+    \_bit_typespec: , line:65:15, endln:65:32
+    |vpiLeftRange:
+    \_constant: , line:65:27, endln:65:29
+      |vpiParent:
+      \_range: , line:65:26, endln:65:32
+      |vpiDecompile:15
+      |vpiSize:64
+      |UINT:15
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:65:30, endln:65:31
+      |vpiParent:
+      \_range: , line:65:26, endln:65:32
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_bit_typespec: , line:66:15, endln:66:32
+  |vpiParent:
+  \_ref_obj: (work@rggen_or_reducer.OFFSET_LIST)
+  |vpiRange:
+  \_range: , line:66:19, endln:66:26
+    |vpiParent:
+    \_bit_typespec: , line:66:15, endln:66:32
+    |vpiLeftRange:
+    \_operation: , line:66:20, endln:66:23
+      |vpiParent:
+      \_range: , line:66:19, endln:66:26
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@rggen_or_reducer.OFFSET_LIST.N), line:66:20, endln:66:21
+        |vpiParent:
+        \_operation: , line:66:20, endln:66:23
+        |vpiName:N
+        |vpiFullName:work@rggen_or_reducer.OFFSET_LIST.N
+        |vpiActual:
+        \_parameter: (work@rggen_or_reducer.N), line:4:17, endln:4:18
+      |vpiOperand:
+      \_constant: , line:66:22, endln:66:23
+        |vpiParent:
+        \_operation: , line:66:20, endln:66:23
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:66:24, endln:66:25
+      |vpiParent:
+      \_range: , line:66:19, endln:66:26
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:66:26, endln:66:32
+    |vpiParent:
+    \_bit_typespec: , line:66:15, endln:66:32
+    |vpiLeftRange:
+    \_constant: , line:66:27, endln:66:29
+      |vpiParent:
+      \_range: , line:66:26, endln:66:32
+      |vpiDecompile:15
+      |vpiSize:64
+      |UINT:15
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:66:30, endln:66:31
+      |vpiParent:
+      \_range: , line:66:26, endln:66:32
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:67:15, endln:67:18
+  |vpiParent:
+  \_ref_obj: (work@rggen_or_reducer.NEXT_N)
+  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

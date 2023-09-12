@@ -495,7 +495,7 @@ param_assign                                           6
 parameter                                              7
 range                                                 10
 ref_module                                             1
-ref_obj                                                3
+ref_obj                                               63
 string_typespec                                       14
 struct_typespec                                        8
 tagged_pattern                                        14
@@ -527,7 +527,7 @@ param_assign                                           6
 parameter                                              7
 range                                                 10
 ref_module                                             1
-ref_obj                                                3
+ref_obj                                               68
 string_typespec                                       14
 struct_typespec                                        8
 tagged_pattern                                        14
@@ -573,11 +573,12 @@ design: (work@top)
       \_struct_typespec: (pkg::complex_t), line:2:11, endln:5:4
       |vpiName:a
       |vpiTypespec:
-      \_logic_typespec: , line:3:5, endln:3:10
+      \_ref_obj: (pkg::pkg::complex_t::a)
         |vpiParent:
         \_typespec_member: (a), line:3:11, endln:3:12
-        |vpiInstance:
-        \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
+        |vpiFullName:pkg::pkg::complex_t::a
+        |vpiActual:
+        \_logic_typespec: , line:3:5, endln:3:10
       |vpiRefFile:${SURELOG_DIR}/tests/ParamComplex/dut.sv
       |vpiRefLineNo:3
       |vpiRefColumnNo:5
@@ -589,31 +590,12 @@ design: (work@top)
       \_struct_typespec: (pkg::complex_t), line:2:11, endln:5:4
       |vpiName:b
       |vpiTypespec:
-      \_logic_typespec: , line:4:5, endln:4:16
+      \_ref_obj: (pkg::pkg::complex_t::b)
         |vpiParent:
         \_typespec_member: (b), line:4:17, endln:4:18
-        |vpiInstance:
-        \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
-        |vpiRange:
-        \_range: , line:4:11, endln:4:16
-          |vpiParent:
-          \_logic_typespec: , line:4:5, endln:4:16
-          |vpiLeftRange:
-          \_constant: , line:4:12, endln:4:13
-            |vpiParent:
-            \_range: , line:4:11, endln:4:16
-            |vpiDecompile:2
-            |vpiSize:64
-            |UINT:2
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:4:14, endln:4:15
-            |vpiParent:
-            \_range: , line:4:11, endln:4:16
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:pkg::pkg::complex_t::b
+        |vpiActual:
+        \_logic_typespec: , line:4:5, endln:4:16
       |vpiRefFile:${SURELOG_DIR}/tests/ParamComplex/dut.sv
       |vpiRefLineNo:4
       |vpiRefColumnNo:5
@@ -678,11 +660,12 @@ design: (work@top)
       \_struct_typespec: (pkg::complex_t), line:2:11, endln:5:4
       |vpiName:a
       |vpiTypespec:
-      \_logic_typespec: , line:3:5, endln:3:10
+      \_ref_obj: (pkg::pkg::complex_t::a)
         |vpiParent:
         \_typespec_member: (a), line:3:11, endln:3:12
-        |vpiInstance:
-        \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
+        |vpiFullName:pkg::pkg::complex_t::a
+        |vpiActual:
+        \_logic_typespec: , line:3:5, endln:3:10
       |vpiRefFile:${SURELOG_DIR}/tests/ParamComplex/dut.sv
       |vpiRefLineNo:3
       |vpiRefColumnNo:5
@@ -694,31 +677,12 @@ design: (work@top)
       \_struct_typespec: (pkg::complex_t), line:2:11, endln:5:4
       |vpiName:b
       |vpiTypespec:
-      \_logic_typespec: , line:4:5, endln:4:16
+      \_ref_obj: (pkg::pkg::complex_t::b)
         |vpiParent:
         \_typespec_member: (b), line:4:17, endln:4:18
-        |vpiInstance:
-        \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
-        |vpiRange:
-        \_range: , line:4:11, endln:4:16
-          |vpiParent:
-          \_logic_typespec: , line:4:5, endln:4:16
-          |vpiLeftRange:
-          \_constant: , line:4:12, endln:4:13
-            |vpiParent:
-            \_range: , line:4:11, endln:4:16
-            |vpiDecompile:2
-            |vpiSize:64
-            |UINT:2
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:4:14, endln:4:15
-            |vpiParent:
-            \_range: , line:4:11, endln:4:16
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:pkg::pkg::complex_t::b
+        |vpiActual:
+        \_logic_typespec: , line:4:5, endln:4:16
       |vpiRefFile:${SURELOG_DIR}/tests/ParamComplex/dut.sv
       |vpiRefLineNo:4
       |vpiRefColumnNo:5
@@ -743,9 +707,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@mailbox::new), line:3:5, endln:4:16
       |vpiTypespec:
-      \_class_typespec: 
-        |vpiClassDefn:
-        \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/ParamComplex/builtin.sv, line:1:3, endln:27:11
+      \_ref_obj: (work@mailbox::new)
+        |vpiParent:
+        \_class_var: (work@mailbox::new), line:3:23, endln:3:28
+        |vpiFullName:work@mailbox::new
+        |vpiActual:
+        \_class_typespec: 
       |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound), line:3:23, endln:3:28
@@ -760,8 +727,12 @@ design: (work@top)
         |UINT:0
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:3:19, endln:3:22
-        |vpiSigned:1
+      \_ref_obj: (work@mailbox::new::bound)
+        |vpiParent:
+        \_io_decl: (bound), line:3:23, endln:3:28
+        |vpiFullName:work@mailbox::new::bound
+        |vpiActual:
+        \_int_typespec: , line:3:19, endln:3:22
   |vpiMethod:
   \_function: (work@mailbox::num), line:6:5, endln:7:16
     |vpiParent:
@@ -775,8 +746,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@mailbox::num), line:6:5, endln:7:16
       |vpiTypespec:
-      \_int_typespec: , line:6:14, endln:6:17
-        |vpiSigned:1
+      \_ref_obj: (work@mailbox::num)
+        |vpiParent:
+        \_int_var: (work@mailbox::num), line:6:14, endln:6:17
+        |vpiFullName:work@mailbox::num
+        |vpiActual:
+        \_int_typespec: , line:6:14, endln:6:17
       |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
@@ -839,8 +814,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@mailbox::try_get), line:18:5, endln:19:16
       |vpiTypespec:
-      \_int_typespec: , line:18:14, endln:18:17
-        |vpiSigned:1
+      \_ref_obj: (work@mailbox::try_get)
+        |vpiParent:
+        \_int_var: (work@mailbox::try_get), line:18:14, endln:18:17
+        |vpiFullName:work@mailbox::try_get
+        |vpiActual:
+        \_int_typespec: , line:18:14, endln:18:17
       |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
@@ -876,8 +855,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@mailbox::try_peek), line:24:5, endln:25:16
       |vpiTypespec:
-      \_int_typespec: , line:24:14, endln:24:17
-        |vpiSigned:1
+      \_ref_obj: (work@mailbox::try_peek)
+        |vpiParent:
+        \_int_var: (work@mailbox::try_peek), line:24:14, endln:24:17
+        |vpiFullName:work@mailbox::try_peek
+        |vpiActual:
+        \_int_typespec: , line:24:14, endln:24:17
       |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
@@ -949,9 +932,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@process::self), line:34:5, endln:34:11
       |vpiTypespec:
-      \_class_typespec: , line:34:21, endln:34:28
-        |vpiClassDefn:
-        \_class_defn: (work@process), file:${SURELOG_DIR}/tests/ParamComplex/builtin.sv, line:30:3, endln:52:11
+      \_ref_obj: (work@process::self)
+        |vpiParent:
+        \_class_var: (work@process::self), line:34:21, endln:34:28
+        |vpiFullName:work@process::self
+        |vpiActual:
+        \_class_typespec: , line:34:21, endln:34:28
       |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status), line:37:5, endln:38:16
@@ -966,50 +952,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@process::status), line:37:5, endln:38:16
       |vpiTypespec:
-      \_enum_typespec: (state), line:32:5, endln:32:74
+      \_ref_obj: (work@process::status)
         |vpiParent:
-        \_class_defn: (work@process), file:${SURELOG_DIR}/tests/ParamComplex/builtin.sv, line:30:3, endln:52:11
-        |vpiName:state
-        |vpiEnumConst:
-        \_enum_const: (FINISHED), line:32:20, endln:32:28
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:FINISHED
-          |INT:0
-          |vpiDecompile:0
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (RUNNING), line:32:30, endln:32:37
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:RUNNING
-          |INT:1
-          |vpiDecompile:1
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (WAITING), line:32:39, endln:32:46
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:WAITING
-          |INT:2
-          |vpiDecompile:2
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (SUSPENDED), line:32:48, endln:32:57
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:SUSPENDED
-          |INT:3
-          |vpiDecompile:3
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (KILLED), line:32:59, endln:32:65
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:KILLED
-          |INT:4
-          |vpiDecompile:4
-          |vpiSize:64
+        \_enum_var: (work@process::status), line:37:14, endln:37:19
+        |vpiFullName:work@process::status
+        |vpiActual:
+        \_enum_typespec: (state), line:32:5, endln:32:74
       |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill), line:40:5, endln:41:12
@@ -1060,9 +1008,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@semaphore::new), line:57:5, endln:58:16
       |vpiTypespec:
-      \_class_typespec: 
-        |vpiClassDefn:
-        \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/ParamComplex/builtin.sv, line:55:3, endln:69:11
+      \_ref_obj: (work@semaphore::new)
+        |vpiParent:
+        \_class_var: (work@semaphore::new), line:57:22, endln:57:30
+        |vpiFullName:work@semaphore::new
+        |vpiActual:
+        \_class_typespec: 
       |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount), line:57:22, endln:57:30
@@ -1077,8 +1028,12 @@ design: (work@top)
         |UINT:0
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:57:18, endln:57:21
-        |vpiSigned:1
+      \_ref_obj: (work@semaphore::new::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:57:22, endln:57:30
+        |vpiFullName:work@semaphore::new::keyCount
+        |vpiActual:
+        \_int_typespec: , line:57:18, endln:57:21
   |vpiMethod:
   \_task: (work@semaphore::put), line:60:5, endln:61:12
     |vpiParent:
@@ -1100,8 +1055,12 @@ design: (work@top)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:60:14, endln:60:17
-        |vpiSigned:1
+      \_ref_obj: (work@semaphore::put::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:60:18, endln:60:26
+        |vpiFullName:work@semaphore::put::keyCount
+        |vpiActual:
+        \_int_typespec: , line:60:14, endln:60:17
   |vpiMethod:
   \_task: (work@semaphore::get), line:63:5, endln:64:12
     |vpiParent:
@@ -1123,8 +1082,12 @@ design: (work@top)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:63:14, endln:63:17
-        |vpiSigned:1
+      \_ref_obj: (work@semaphore::get::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:63:18, endln:63:26
+        |vpiFullName:work@semaphore::get::keyCount
+        |vpiActual:
+        \_int_typespec: , line:63:14, endln:63:17
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:66:5, endln:67:16
     |vpiParent:
@@ -1138,8 +1101,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@semaphore::try_get), line:66:5, endln:67:16
       |vpiTypespec:
-      \_int_typespec: , line:66:14, endln:66:17
-        |vpiSigned:1
+      \_ref_obj: (work@semaphore::try_get)
+        |vpiParent:
+        \_int_var: (work@semaphore::try_get), line:66:14, endln:66:17
+        |vpiFullName:work@semaphore::try_get
+        |vpiActual:
+        \_int_typespec: , line:66:14, endln:66:17
       |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
@@ -1155,8 +1122,12 @@ design: (work@top)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:66:26, endln:66:29
-        |vpiSigned:1
+      \_ref_obj: (work@semaphore::try_get::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:66:30, endln:66:38
+        |vpiFullName:work@semaphore::try_get::keyCount
+        |vpiActual:
+        \_int_typespec: , line:66:26, endln:66:29
 |uhdmallModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:17:1, endln:22:10
   |vpiParent:
@@ -1168,10 +1139,12 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:17:1, endln:22:10
     |UINT:0
     |vpiTypespec:
-    \_int_typespec: , line:18:15, endln:18:18
+    \_ref_obj: (work@dut.size)
       |vpiParent:
       \_parameter: (work@dut.size), line:18:19, endln:18:23
-      |vpiSigned:1
+      |vpiFullName:work@dut.size
+      |vpiActual:
+      \_int_typespec: , line:18:15, endln:18:18
     |vpiSigned:1
     |vpiName:size
     |vpiFullName:work@dut.size
@@ -1181,40 +1154,12 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:17:1, endln:22:10
     |BIN:0
     |vpiTypespec:
-    \_bit_typespec: , line:19:15, endln:19:29
+    \_ref_obj: (work@dut.init)
       |vpiParent:
       \_parameter: (work@dut.init), line:19:30, endln:19:34
-      |vpiRange:
-      \_range: , line:19:19, endln:19:29
-        |vpiParent:
-        \_bit_typespec: , line:19:15, endln:19:29
-        |vpiLeftRange:
-        \_operation: , line:19:20, endln:19:26
-          |vpiParent:
-          \_range: , line:19:19, endln:19:29
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (work@dut.init.size), line:19:20, endln:19:24
-            |vpiParent:
-            \_operation: , line:19:20, endln:19:26
-            |vpiName:size
-            |vpiFullName:work@dut.init.size
-          |vpiOperand:
-          \_constant: , line:19:25, endln:19:26
-            |vpiParent:
-            \_operation: , line:19:20, endln:19:26
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:19:27, endln:19:28
-          |vpiParent:
-          \_range: , line:19:19, endln:19:29
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@dut.init
+      |vpiActual:
+      \_bit_typespec: , line:19:15, endln:19:29
     |vpiName:init
     |vpiFullName:work@dut.init
   |vpiParamAssign:
@@ -1229,7 +1174,12 @@ design: (work@top)
       |vpiSize:64
       |UINT:0
       |vpiTypespec:
-      \_int_typespec: , line:18:15, endln:18:18
+      \_ref_obj: (work@dut)
+        |vpiParent:
+        \_constant: , line:18:26, endln:18:27
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_int_typespec: , line:18:15, endln:18:18
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@dut.size), line:18:19, endln:18:23
@@ -1245,7 +1195,12 @@ design: (work@top)
       |vpiSize:-1
       |BIN:0
       |vpiTypespec:
-      \_bit_typespec: , line:19:15, endln:19:29
+      \_ref_obj: (work@dut)
+        |vpiParent:
+        \_constant: , line:19:37, endln:19:39
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_bit_typespec: , line:19:15, endln:19:29
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@dut.init), line:19:30, endln:19:34
@@ -1260,7 +1215,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:9:1, endln:15:10
     |vpiTypespec:
-    \_struct_typespec: (pkg::complex_t), line:2:11, endln:5:4
+    \_ref_obj: (work@top.init_val)
+      |vpiParent:
+      \_parameter: (work@top.init_val), line:10:30, endln:10:38
+      |vpiFullName:work@top.init_val
+      |vpiActual:
+      \_struct_typespec: (pkg::complex_t), line:2:11, endln:5:4
     |vpiLocalParam:1
     |vpiName:init_val
     |vpiFullName:work@top.init_val
@@ -1284,10 +1244,12 @@ design: (work@top)
           |BIN:0
           |vpiConstType:3
         |vpiTypespec:
-        \_string_typespec: (a), line:10:43, endln:10:44
+        \_ref_obj: (work@top)
           |vpiParent:
           \_tagged_pattern: , line:10:46, endln:10:50
-          |vpiName:a
+          |vpiFullName:work@top
+          |vpiActual:
+          \_string_typespec: (a), line:10:43, endln:10:44
       |vpiOperand:
       \_tagged_pattern: , line:10:55, endln:10:57
         |vpiParent:
@@ -1299,10 +1261,12 @@ design: (work@top)
           |BIN:1
           |vpiConstType:3
         |vpiTypespec:
-        \_string_typespec: (b), line:10:52, endln:10:53
+        \_ref_obj: (work@top)
           |vpiParent:
           \_tagged_pattern: , line:10:55, endln:10:57
-          |vpiName:b
+          |vpiFullName:work@top
+          |vpiActual:
+          \_string_typespec: (b), line:10:52, endln:10:53
     |vpiLhs:
     \_parameter: (work@top.init_val), line:10:30, endln:10:38
   |vpiDefName:work@top
@@ -1322,65 +1286,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:9:1, endln:15:10
     |vpiTypespec:
-    \_struct_typespec: (pkg::complex_t), line:2:11, endln:5:4
+    \_ref_obj: (work@top.init_val)
       |vpiParent:
       \_parameter: (work@top.init_val), line:10:30, endln:10:38
-      |vpiName:pkg::complex_t
-      |vpiInstance:
-      \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
-      |vpiPacked:1
-      |vpiTypespecMember:
-      \_typespec_member: (a), line:3:11, endln:3:12
-        |vpiParent:
-        \_struct_typespec: (pkg::complex_t), line:2:11, endln:5:4
-        |vpiName:a
-        |vpiTypespec:
-        \_logic_typespec: , line:3:5, endln:3:10
-          |vpiParent:
-          \_typespec_member: (a), line:3:11, endln:3:12
-          |vpiInstance:
-          \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
-        |vpiRefFile:${SURELOG_DIR}/tests/ParamComplex/dut.sv
-        |vpiRefLineNo:3
-        |vpiRefColumnNo:5
-        |vpiRefEndLineNo:3
-        |vpiRefEndColumnNo:10
-      |vpiTypespecMember:
-      \_typespec_member: (b), line:4:17, endln:4:18
-        |vpiParent:
-        \_struct_typespec: (pkg::complex_t), line:2:11, endln:5:4
-        |vpiName:b
-        |vpiTypespec:
-        \_logic_typespec: , line:4:5, endln:4:16
-          |vpiParent:
-          \_typespec_member: (b), line:4:17, endln:4:18
-          |vpiInstance:
-          \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
-          |vpiRange:
-          \_range: , line:4:11, endln:4:16
-            |vpiParent:
-            \_logic_typespec: , line:4:5, endln:4:16
-            |vpiLeftRange:
-            \_constant: , line:4:12, endln:4:13
-              |vpiParent:
-              \_range: , line:4:11, endln:4:16
-              |vpiDecompile:2
-              |vpiSize:64
-              |UINT:2
-              |vpiConstType:9
-            |vpiRightRange:
-            \_constant: , line:4:14, endln:4:15
-              |vpiParent:
-              \_range: , line:4:11, endln:4:16
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
-        |vpiRefFile:${SURELOG_DIR}/tests/ParamComplex/dut.sv
-        |vpiRefLineNo:4
-        |vpiRefColumnNo:5
-        |vpiRefEndLineNo:4
-        |vpiRefEndColumnNo:16
+      |vpiFullName:work@top.init_val
+      |vpiActual:
+      \_struct_typespec: (pkg::complex_t), line:2:11, endln:5:4
     |vpiLocalParam:1
     |vpiName:init_val
     |vpiFullName:work@top.init_val
@@ -1393,65 +1304,12 @@ design: (work@top)
       |vpiParent:
       \_param_assign: , line:10:30, endln:10:58
       |vpiTypespec:
-      \_struct_typespec: (pkg::complex_t), line:2:11, endln:5:4
+      \_ref_obj: (work@top)
         |vpiParent:
         \_operation: , line:10:41, endln:10:58
-        |vpiName:pkg::complex_t
-        |vpiInstance:
-        \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
-        |vpiPacked:1
-        |vpiTypespecMember:
-        \_typespec_member: (a), line:3:11, endln:3:12
-          |vpiParent:
-          \_struct_typespec: (pkg::complex_t), line:2:11, endln:5:4
-          |vpiName:a
-          |vpiTypespec:
-          \_logic_typespec: , line:3:5, endln:3:10
-            |vpiParent:
-            \_typespec_member: (a), line:3:11, endln:3:12
-            |vpiInstance:
-            \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
-          |vpiRefFile:${SURELOG_DIR}/tests/ParamComplex/dut.sv
-          |vpiRefLineNo:3
-          |vpiRefColumnNo:5
-          |vpiRefEndLineNo:3
-          |vpiRefEndColumnNo:10
-        |vpiTypespecMember:
-        \_typespec_member: (b), line:4:17, endln:4:18
-          |vpiParent:
-          \_struct_typespec: (pkg::complex_t), line:2:11, endln:5:4
-          |vpiName:b
-          |vpiTypespec:
-          \_logic_typespec: , line:4:5, endln:4:16
-            |vpiParent:
-            \_typespec_member: (b), line:4:17, endln:4:18
-            |vpiInstance:
-            \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
-            |vpiRange:
-            \_range: , line:4:11, endln:4:16
-              |vpiParent:
-              \_logic_typespec: , line:4:5, endln:4:16
-              |vpiLeftRange:
-              \_constant: , line:4:12, endln:4:13
-                |vpiParent:
-                \_range: , line:4:11, endln:4:16
-                |vpiDecompile:2
-                |vpiSize:64
-                |UINT:2
-                |vpiConstType:9
-              |vpiRightRange:
-              \_constant: , line:4:14, endln:4:15
-                |vpiParent:
-                \_range: , line:4:11, endln:4:16
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
-                |vpiConstType:9
-          |vpiRefFile:${SURELOG_DIR}/tests/ParamComplex/dut.sv
-          |vpiRefLineNo:4
-          |vpiRefColumnNo:5
-          |vpiRefEndLineNo:4
-          |vpiRefEndColumnNo:16
+        |vpiFullName:work@top
+        |vpiActual:
+        \_struct_typespec: (pkg::complex_t), line:2:11, endln:5:4
       |vpiOpType:75
       |vpiOperand:
       \_constant: , line:10:46, endln:10:50
@@ -1486,10 +1344,12 @@ design: (work@top)
       \_module_inst: work@dut (work@top.asgn0), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:11:4, endln:14:16
       |UINT:0
       |vpiTypespec:
-      \_int_typespec: , line:18:15, endln:18:18
+      \_ref_obj: (work@top.asgn0.size)
         |vpiParent:
         \_parameter: (work@top.asgn0.size), line:18:19, endln:18:23
-        |vpiSigned:1
+        |vpiFullName:work@top.asgn0.size
+        |vpiActual:
+        \_int_typespec: , line:18:15, endln:18:18
       |vpiSigned:1
       |vpiName:size
       |vpiFullName:work@top.asgn0.size
@@ -1499,42 +1359,12 @@ design: (work@top)
       \_module_inst: work@dut (work@top.asgn0), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:11:4, endln:14:16
       |BIN:0
       |vpiTypespec:
-      \_bit_typespec: , line:19:15, endln:19:29
+      \_ref_obj: (work@top.asgn0.init)
         |vpiParent:
         \_parameter: (work@top.asgn0.init), line:19:30, endln:19:34
-        |vpiRange:
-        \_range: , line:19:19, endln:19:29
-          |vpiParent:
-          \_bit_typespec: , line:19:15, endln:19:29
-          |vpiLeftRange:
-          \_operation: , line:19:20, endln:19:26
-            |vpiParent:
-            \_range: , line:19:19, endln:19:29
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (work@top.asgn0.init.size), line:19:20, endln:19:24
-              |vpiParent:
-              \_operation: , line:19:20, endln:19:26
-              |vpiName:size
-              |vpiFullName:work@top.asgn0.init.size
-              |vpiActual:
-              \_parameter: (work@top.asgn0.size), line:18:19, endln:18:23
-            |vpiOperand:
-            \_constant: , line:19:25, endln:19:26
-              |vpiParent:
-              \_operation: , line:19:20, endln:19:26
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:19:27, endln:19:28
-            |vpiParent:
-            \_range: , line:19:19, endln:19:29
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@top.asgn0.init
+        |vpiActual:
+        \_bit_typespec: , line:19:15, endln:19:29
       |vpiName:init
       |vpiFullName:work@top.asgn0.init
     |vpiParamAssign:
@@ -1550,7 +1380,12 @@ design: (work@top)
         |vpiSize:32
         |UINT:4
         |vpiTypespec:
-        \_int_typespec: , line:18:15, endln:18:18
+        \_ref_obj: (work@top.asgn0)
+          |vpiParent:
+          \_constant: , line:18:26, endln:18:27
+          |vpiFullName:work@top.asgn0
+          |vpiActual:
+          \_int_typespec: , line:18:15, endln:18:18
         |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@top.asgn0.size), line:18:19, endln:18:23
@@ -1569,65 +1404,12 @@ design: (work@top)
           |vpiParent:
           \_param_assign: , line:10:30, endln:10:58
           |vpiTypespec:
-          \_struct_typespec: (pkg::complex_t), line:2:11, endln:5:4
+          \_ref_obj: (work@top)
             |vpiParent:
             \_operation: , line:13:16, endln:13:24
-            |vpiName:pkg::complex_t
-            |vpiInstance:
-            \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
-            |vpiPacked:1
-            |vpiTypespecMember:
-            \_typespec_member: (a), line:3:11, endln:3:12
-              |vpiParent:
-              \_struct_typespec: (pkg::complex_t), line:2:11, endln:5:4
-              |vpiName:a
-              |vpiTypespec:
-              \_logic_typespec: , line:3:5, endln:3:10
-                |vpiParent:
-                \_typespec_member: (a), line:3:11, endln:3:12
-                |vpiInstance:
-                \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
-              |vpiRefFile:${SURELOG_DIR}/tests/ParamComplex/dut.sv
-              |vpiRefLineNo:3
-              |vpiRefColumnNo:5
-              |vpiRefEndLineNo:3
-              |vpiRefEndColumnNo:10
-            |vpiTypespecMember:
-            \_typespec_member: (b), line:4:17, endln:4:18
-              |vpiParent:
-              \_struct_typespec: (pkg::complex_t), line:2:11, endln:5:4
-              |vpiName:b
-              |vpiTypespec:
-              \_logic_typespec: , line:4:5, endln:4:16
-                |vpiParent:
-                \_typespec_member: (b), line:4:17, endln:4:18
-                |vpiInstance:
-                \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
-                |vpiRange:
-                \_range: , line:4:11, endln:4:16
-                  |vpiParent:
-                  \_logic_typespec: , line:4:5, endln:4:16
-                  |vpiLeftRange:
-                  \_constant: , line:4:12, endln:4:13
-                    |vpiParent:
-                    \_range: , line:4:11, endln:4:16
-                    |vpiDecompile:2
-                    |vpiSize:64
-                    |UINT:2
-                    |vpiConstType:9
-                  |vpiRightRange:
-                  \_constant: , line:4:14, endln:4:15
-                    |vpiParent:
-                    \_range: , line:4:11, endln:4:16
-                    |vpiDecompile:0
-                    |vpiSize:64
-                    |UINT:0
-                    |vpiConstType:9
-              |vpiRefFile:${SURELOG_DIR}/tests/ParamComplex/dut.sv
-              |vpiRefLineNo:4
-              |vpiRefColumnNo:5
-              |vpiRefEndLineNo:4
-              |vpiRefEndColumnNo:16
+            |vpiFullName:work@top
+            |vpiActual:
+            \_struct_typespec: (pkg::complex_t), line:2:11, endln:5:4
           |vpiOpType:75
           |vpiOperand:
           \_constant: , line:10:46, endln:10:50
@@ -1652,6 +1434,665 @@ design: (work@top)
     |vpiDefLineNo:17
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:9:1, endln:15:10
+\_weaklyReferenced:
+\_logic_typespec: , line:3:5, endln:3:10
+  |vpiParent:
+  \_typespec_member: (a), line:3:11, endln:3:12
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
+\_logic_typespec: , line:4:5, endln:4:16
+  |vpiParent:
+  \_typespec_member: (b), line:4:17, endln:4:18
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
+  |vpiRange:
+  \_range: , line:4:11, endln:4:16
+    |vpiParent:
+    \_logic_typespec: , line:4:5, endln:4:16
+    |vpiLeftRange:
+    \_constant: , line:4:12, endln:4:13
+      |vpiParent:
+      \_range: , line:4:11, endln:4:16
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:4:14, endln:4:15
+      |vpiParent:
+      \_range: , line:4:11, endln:4:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:3:5, endln:3:10
+  |vpiParent:
+  \_typespec_member: (a), line:3:11, endln:3:12
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
+\_logic_typespec: , line:4:5, endln:4:16
+  |vpiParent:
+  \_typespec_member: (b), line:4:17, endln:4:18
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
+  |vpiRange:
+  \_range: , line:4:11, endln:4:16
+    |vpiParent:
+    \_logic_typespec: , line:4:5, endln:4:16
+    |vpiLeftRange:
+    \_constant: , line:4:12, endln:4:13
+      |vpiParent:
+      \_range: , line:4:11, endln:4:16
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:4:14, endln:4:15
+      |vpiParent:
+      \_range: , line:4:11, endln:4:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:18:15, endln:18:18
+  |vpiParent:
+  \_parameter: (work@dut.size), line:18:19, endln:18:23
+  |vpiSigned:1
+\_bit_typespec: , line:19:15, endln:19:29
+  |vpiParent:
+  \_parameter: (work@dut.init), line:19:30, endln:19:34
+  |vpiRange:
+  \_range: , line:19:19, endln:19:29
+    |vpiParent:
+    \_bit_typespec: , line:19:15, endln:19:29
+    |vpiLeftRange:
+    \_operation: , line:19:20, endln:19:26
+      |vpiParent:
+      \_range: , line:19:19, endln:19:29
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@dut.init.size), line:19:20, endln:19:24
+        |vpiParent:
+        \_operation: , line:19:20, endln:19:26
+        |vpiName:size
+        |vpiFullName:work@dut.init.size
+      |vpiOperand:
+      \_constant: , line:19:25, endln:19:26
+        |vpiParent:
+        \_operation: , line:19:20, endln:19:26
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:19:27, endln:19:28
+      |vpiParent:
+      \_range: , line:19:19, endln:19:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_string_typespec: (a), line:10:43, endln:10:44
+  |vpiParent:
+  \_tagged_pattern: , line:10:46, endln:10:50
+  |vpiName:a
+\_string_typespec: (b), line:10:52, endln:10:53
+  |vpiParent:
+  \_tagged_pattern: , line:10:55, endln:10:57
+  |vpiName:b
+\_function: (work@mailbox::new), line:3:5, endln:4:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/ParamComplex/builtin.sv, line:1:3, endln:27:11
+  |vpiName:new
+  |vpiFullName:work@mailbox::new
+  |vpiMethod:1
+  |vpiReturn:
+  \_class_var: (work@mailbox::new), line:3:23, endln:3:28
+  |vpiIODecl:
+  \_io_decl: (bound), line:3:23, endln:3:28
+    |vpiParent:
+    \_function: (work@mailbox::new), line:3:5, endln:4:16
+    |vpiDirection:1
+    |vpiName:bound
+    |vpiExpr:
+    \_constant: , line:3:31, endln:3:32
+    |vpiTypedef:
+    \_ref_obj: (work@mailbox::new::bound)
+      |vpiParent:
+      \_io_decl: (bound), line:3:23, endln:3:28
+      |vpiFullName:work@mailbox::new::bound
+      |vpiActual:
+      \_int_typespec: , line:3:19, endln:3:22
+\_class_typespec: 
+  |vpiClassDefn:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/ParamComplex/builtin.sv, line:1:3, endln:27:11
+\_int_typespec: , line:3:19, endln:3:22
+  |vpiSigned:1
+\_function: (work@mailbox::num), line:6:5, endln:7:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/ParamComplex/builtin.sv, line:1:3, endln:27:11
+  |vpiName:num
+  |vpiFullName:work@mailbox::num
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::num), line:6:14, endln:6:17
+\_int_typespec: , line:6:14, endln:6:17
+  |vpiSigned:1
+\_function: (work@mailbox::try_put), line:12:5, endln:13:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/ParamComplex/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_put
+  |vpiFullName:work@mailbox::try_put
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_logic_var: (work@mailbox::try_put)
+  |vpiIODecl:
+  \_io_decl: (message), line:12:23, endln:12:30
+    |vpiParent:
+    \_function: (work@mailbox::try_put), line:12:5, endln:13:16
+    |vpiDirection:1
+    |vpiName:message
+\_function: (work@mailbox::try_get), line:18:5, endln:19:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/ParamComplex/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_get
+  |vpiFullName:work@mailbox::try_get
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::try_get), line:18:14, endln:18:17
+  |vpiIODecl:
+  \_io_decl: (message), line:18:31, endln:18:38
+    |vpiParent:
+    \_function: (work@mailbox::try_get), line:18:5, endln:19:16
+    |vpiDirection:6
+    |vpiName:message
+\_int_typespec: , line:18:14, endln:18:17
+  |vpiSigned:1
+\_function: (work@mailbox::try_peek), line:24:5, endln:25:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/ParamComplex/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_peek
+  |vpiFullName:work@mailbox::try_peek
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::try_peek), line:24:14, endln:24:17
+  |vpiIODecl:
+  \_io_decl: (message), line:24:31, endln:24:38
+    |vpiParent:
+    \_function: (work@mailbox::try_peek), line:24:5, endln:25:16
+    |vpiDirection:6
+    |vpiName:message
+\_int_typespec: , line:24:14, endln:24:17
+  |vpiSigned:1
+\_enum_typespec: (state), line:32:5, endln:32:74
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/ParamComplex/builtin.sv, line:30:3, endln:52:11
+  |vpiName:state
+  |vpiEnumConst:
+  \_enum_const: (FINISHED), line:32:20, endln:32:28
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:FINISHED
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (RUNNING), line:32:30, endln:32:37
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:RUNNING
+    |INT:1
+    |vpiDecompile:1
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (WAITING), line:32:39, endln:32:46
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:WAITING
+    |INT:2
+    |vpiDecompile:2
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (SUSPENDED), line:32:48, endln:32:57
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:SUSPENDED
+    |INT:3
+    |vpiDecompile:3
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (KILLED), line:32:59, endln:32:65
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:KILLED
+    |INT:4
+    |vpiDecompile:4
+    |vpiSize:64
+\_function: (work@process::self), line:34:5, endln:34:11
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/ParamComplex/builtin.sv, line:30:3, endln:52:11
+  |vpiName:self
+  |vpiFullName:work@process::self
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_class_var: (work@process::self), line:34:21, endln:34:28
+\_class_typespec: , line:34:21, endln:34:28
+  |vpiClassDefn:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/ParamComplex/builtin.sv, line:30:3, endln:52:11
+\_function: (work@process::status), line:37:5, endln:38:16
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/ParamComplex/builtin.sv, line:30:3, endln:52:11
+  |vpiName:status
+  |vpiFullName:work@process::status
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_enum_var: (work@process::status), line:37:14, endln:37:19
+\_function: (work@semaphore::new), line:57:5, endln:58:16
+  |vpiParent:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/ParamComplex/builtin.sv, line:55:3, endln:69:11
+  |vpiName:new
+  |vpiFullName:work@semaphore::new
+  |vpiMethod:1
+  |vpiReturn:
+  \_class_var: (work@semaphore::new), line:57:22, endln:57:30
+  |vpiIODecl:
+  \_io_decl: (keyCount), line:57:22, endln:57:30
+    |vpiParent:
+    \_function: (work@semaphore::new), line:57:5, endln:58:16
+    |vpiDirection:1
+    |vpiName:keyCount
+    |vpiExpr:
+    \_constant: , line:57:33, endln:57:34
+    |vpiTypedef:
+    \_ref_obj: (work@semaphore::new::keyCount)
+      |vpiParent:
+      \_io_decl: (keyCount), line:57:22, endln:57:30
+      |vpiFullName:work@semaphore::new::keyCount
+      |vpiActual:
+      \_int_typespec: , line:57:18, endln:57:21
+\_class_typespec: 
+  |vpiClassDefn:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/ParamComplex/builtin.sv, line:55:3, endln:69:11
+\_int_typespec: , line:57:18, endln:57:21
+  |vpiSigned:1
+\_int_typespec: , line:60:14, endln:60:17
+  |vpiSigned:1
+\_int_typespec: , line:63:14, endln:63:17
+  |vpiSigned:1
+\_function: (work@semaphore::try_get), line:66:5, endln:67:16
+  |vpiParent:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/ParamComplex/builtin.sv, line:55:3, endln:69:11
+  |vpiName:try_get
+  |vpiFullName:work@semaphore::try_get
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@semaphore::try_get), line:66:14, endln:66:17
+  |vpiIODecl:
+  \_io_decl: (keyCount), line:66:30, endln:66:38
+    |vpiParent:
+    \_function: (work@semaphore::try_get), line:66:5, endln:67:16
+    |vpiDirection:1
+    |vpiName:keyCount
+    |vpiExpr:
+    \_constant: , line:66:41, endln:66:42
+    |vpiTypedef:
+    \_ref_obj: (work@semaphore::try_get::keyCount)
+      |vpiParent:
+      \_io_decl: (keyCount), line:66:30, endln:66:38
+      |vpiFullName:work@semaphore::try_get::keyCount
+      |vpiActual:
+      \_int_typespec: , line:66:26, endln:66:29
+\_int_typespec: , line:66:14, endln:66:17
+  |vpiSigned:1
+\_int_typespec: , line:66:26, endln:66:29
+  |vpiSigned:1
+\_struct_typespec: (pkg::complex_t), line:2:11, endln:5:4
+  |vpiParent:
+  \_ref_obj: (work@top)
+  |vpiName:pkg::complex_t
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), line:3:11, endln:3:12
+    |vpiParent:
+    \_struct_typespec: (pkg::complex_t), line:2:11, endln:5:4
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_obj: (work@top.a)
+      |vpiParent:
+      \_typespec_member: (a), line:3:11, endln:3:12
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_logic_typespec: , line:3:5, endln:3:10
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamComplex/dut.sv
+    |vpiRefLineNo:3
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:3
+    |vpiRefEndColumnNo:10
+  |vpiTypespecMember:
+  \_typespec_member: (b), line:4:17, endln:4:18
+    |vpiParent:
+    \_struct_typespec: (pkg::complex_t), line:2:11, endln:5:4
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_obj: (work@top.b)
+      |vpiParent:
+      \_typespec_member: (b), line:4:17, endln:4:18
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_logic_typespec: , line:4:5, endln:4:16
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamComplex/dut.sv
+    |vpiRefLineNo:4
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:4
+    |vpiRefEndColumnNo:16
+\_logic_typespec: , line:3:5, endln:3:10
+  |vpiParent:
+  \_ref_obj: (work@top.a)
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
+\_logic_typespec: , line:4:5, endln:4:16
+  |vpiParent:
+  \_ref_obj: (work@top.b)
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
+  |vpiRange:
+  \_range: , line:4:11, endln:4:16
+    |vpiParent:
+    \_logic_typespec: , line:4:5, endln:4:16
+    |vpiLeftRange:
+    \_constant: , line:4:12, endln:4:13
+      |vpiParent:
+      \_range: , line:4:11, endln:4:16
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:4:14, endln:4:15
+      |vpiParent:
+      \_range: , line:4:11, endln:4:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_operation: , line:10:41, endln:10:58
+  |vpiParent:
+  \_param_assign: , line:10:30, endln:10:58
+  |vpiTypespec:
+  \_ref_obj: (work@top)
+    |vpiParent:
+    \_operation: , line:10:41, endln:10:58
+    |vpiFullName:work@top
+    |vpiActual:
+    \_struct_typespec: (pkg::complex_t), line:2:11, endln:5:4
+  |vpiOpType:75
+  |vpiOperand:
+  \_constant: , line:10:46, endln:10:50
+  |vpiOperand:
+  \_constant: , line:10:55, endln:10:57
+\_struct_typespec: (pkg::complex_t), line:2:11, endln:5:4
+  |vpiParent:
+  \_ref_obj: (work@top)
+  |vpiName:pkg::complex_t
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), line:3:11, endln:3:12
+    |vpiParent:
+    \_struct_typespec: (pkg::complex_t), line:2:11, endln:5:4
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_obj: (work@top.a)
+      |vpiParent:
+      \_typespec_member: (a), line:3:11, endln:3:12
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_logic_typespec: , line:3:5, endln:3:10
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamComplex/dut.sv
+    |vpiRefLineNo:3
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:3
+    |vpiRefEndColumnNo:10
+  |vpiTypespecMember:
+  \_typespec_member: (b), line:4:17, endln:4:18
+    |vpiParent:
+    \_struct_typespec: (pkg::complex_t), line:2:11, endln:5:4
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_obj: (work@top.b)
+      |vpiParent:
+      \_typespec_member: (b), line:4:17, endln:4:18
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_logic_typespec: , line:4:5, endln:4:16
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamComplex/dut.sv
+    |vpiRefLineNo:4
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:4
+    |vpiRefEndColumnNo:16
+\_logic_typespec: , line:3:5, endln:3:10
+  |vpiParent:
+  \_ref_obj: (work@top.a)
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
+\_logic_typespec: , line:4:5, endln:4:16
+  |vpiParent:
+  \_ref_obj: (work@top.b)
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
+  |vpiRange:
+  \_range: , line:4:11, endln:4:16
+    |vpiParent:
+    \_logic_typespec: , line:4:5, endln:4:16
+    |vpiLeftRange:
+    \_constant: , line:4:12, endln:4:13
+      |vpiParent:
+      \_range: , line:4:11, endln:4:16
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:4:14, endln:4:15
+      |vpiParent:
+      \_range: , line:4:11, endln:4:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_struct_typespec: (pkg::complex_t), line:2:11, endln:5:4
+  |vpiParent:
+  \_ref_obj: (work@top)
+  |vpiName:pkg::complex_t
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), line:3:11, endln:3:12
+    |vpiParent:
+    \_struct_typespec: (pkg::complex_t), line:2:11, endln:5:4
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_obj: (work@top.a)
+      |vpiParent:
+      \_typespec_member: (a), line:3:11, endln:3:12
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_logic_typespec: , line:3:5, endln:3:10
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamComplex/dut.sv
+    |vpiRefLineNo:3
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:3
+    |vpiRefEndColumnNo:10
+  |vpiTypespecMember:
+  \_typespec_member: (b), line:4:17, endln:4:18
+    |vpiParent:
+    \_struct_typespec: (pkg::complex_t), line:2:11, endln:5:4
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_obj: (work@top.b)
+      |vpiParent:
+      \_typespec_member: (b), line:4:17, endln:4:18
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_logic_typespec: , line:4:5, endln:4:16
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamComplex/dut.sv
+    |vpiRefLineNo:4
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:4
+    |vpiRefEndColumnNo:16
+\_logic_typespec: , line:3:5, endln:3:10
+  |vpiParent:
+  \_ref_obj: (work@top.a)
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
+\_logic_typespec: , line:4:5, endln:4:16
+  |vpiParent:
+  \_ref_obj: (work@top.b)
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
+  |vpiRange:
+  \_range: , line:4:11, endln:4:16
+    |vpiParent:
+    \_logic_typespec: , line:4:5, endln:4:16
+    |vpiLeftRange:
+    \_constant: , line:4:12, endln:4:13
+      |vpiParent:
+      \_range: , line:4:11, endln:4:16
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:4:14, endln:4:15
+      |vpiParent:
+      \_range: , line:4:11, endln:4:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_struct_typespec: (pkg::complex_t), line:2:11, endln:5:4
+  |vpiParent:
+  \_ref_obj: (work@top.init_val)
+  |vpiName:pkg::complex_t
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), line:3:11, endln:3:12
+    |vpiParent:
+    \_struct_typespec: (pkg::complex_t), line:2:11, endln:5:4
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_obj: (work@top.init_val.a)
+      |vpiParent:
+      \_typespec_member: (a), line:3:11, endln:3:12
+      |vpiFullName:work@top.init_val.a
+      |vpiActual:
+      \_logic_typespec: , line:3:5, endln:3:10
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamComplex/dut.sv
+    |vpiRefLineNo:3
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:3
+    |vpiRefEndColumnNo:10
+  |vpiTypespecMember:
+  \_typespec_member: (b), line:4:17, endln:4:18
+    |vpiParent:
+    \_struct_typespec: (pkg::complex_t), line:2:11, endln:5:4
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_obj: (work@top.init_val.b)
+      |vpiParent:
+      \_typespec_member: (b), line:4:17, endln:4:18
+      |vpiFullName:work@top.init_val.b
+      |vpiActual:
+      \_logic_typespec: , line:4:5, endln:4:16
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamComplex/dut.sv
+    |vpiRefLineNo:4
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:4
+    |vpiRefEndColumnNo:16
+\_logic_typespec: , line:3:5, endln:3:10
+  |vpiParent:
+  \_ref_obj: (work@top.init_val.a)
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
+\_logic_typespec: , line:4:5, endln:4:16
+  |vpiParent:
+  \_ref_obj: (work@top.init_val.b)
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplex/dut.sv, line:1:1, endln:6:11
+  |vpiRange:
+  \_range: , line:4:11, endln:4:16
+    |vpiParent:
+    \_logic_typespec: , line:4:5, endln:4:16
+    |vpiLeftRange:
+    \_constant: , line:4:12, endln:4:13
+      |vpiParent:
+      \_range: , line:4:11, endln:4:16
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:4:14, endln:4:15
+      |vpiParent:
+      \_range: , line:4:11, endln:4:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:18:15, endln:18:18
+  |vpiParent:
+  \_ref_obj: (work@top.asgn0.size)
+  |vpiSigned:1
+\_bit_typespec: , line:19:15, endln:19:29
+  |vpiParent:
+  \_ref_obj: (work@top.asgn0.init)
+  |vpiRange:
+  \_range: , line:19:19, endln:19:29
+    |vpiParent:
+    \_bit_typespec: , line:19:15, endln:19:29
+    |vpiLeftRange:
+    \_operation: , line:19:20, endln:19:26
+      |vpiParent:
+      \_range: , line:19:19, endln:19:29
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@top.asgn0.init.size), line:19:20, endln:19:24
+        |vpiParent:
+        \_operation: , line:19:20, endln:19:26
+        |vpiName:size
+        |vpiFullName:work@top.asgn0.init.size
+        |vpiActual:
+        \_parameter: (work@top.asgn0.size), line:18:19, endln:18:23
+      |vpiOperand:
+      \_constant: , line:19:25, endln:19:26
+        |vpiParent:
+        \_operation: , line:19:20, endln:19:26
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:19:27, endln:19:28
+      |vpiParent:
+      \_range: , line:19:19, endln:19:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

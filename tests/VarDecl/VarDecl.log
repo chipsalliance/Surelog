@@ -120,7 +120,7 @@ logic_var                                              1
 module_inst                                            2
 operation                                              2
 port                                                   2
-ref_obj                                                4
+ref_obj                                               10
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -139,7 +139,7 @@ logic_var                                              1
 module_inst                                            2
 operation                                              4
 port                                                   3
-ref_obj                                                7
+ref_obj                                               16
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/VarDecl/slpp_all/surelog.uhdm ...
 
@@ -172,7 +172,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@top.theta), line:2:4, endln:6:23
       |vpiTypespec:
-      \_logic_typespec: , line:2:23, endln:2:28
+      \_ref_obj: (work@top.theta)
+        |vpiParent:
+        \_logic_var: (work@top.theta), line:2:23, endln:2:28
+        |vpiFullName:work@top.theta
+        |vpiActual:
+        \_logic_typespec: , line:2:23, endln:2:28
       |vpiFullName:work@top.theta
     |vpiStmt:
     \_for_stmt: (work@top.theta), line:3:7, endln:3:10
@@ -196,8 +201,12 @@ design: (work@top)
           |vpiParent:
           \_assign_stmt: , line:3:12, endln:3:21
           |vpiTypespec:
-          \_int_typespec: , line:3:12, endln:3:15
-            |vpiSigned:1
+          \_ref_obj: (work@top.theta.x)
+            |vpiParent:
+            \_int_var: (work@top.theta.x), line:3:16, endln:3:17
+            |vpiFullName:work@top.theta.x
+            |vpiActual:
+            \_int_typespec: , line:3:12, endln:3:15
           |vpiName:x
           |vpiFullName:work@top.theta.x
           |vpiSigned:1
@@ -245,8 +254,12 @@ design: (work@top)
           |vpiParent:
           \_begin: (work@top.theta), line:3:37, endln:5:10
           |vpiTypespec:
-          \_int_typespec: , line:4:8, endln:4:11
-            |vpiSigned:1
+          \_ref_obj: (work@top.theta.a)
+            |vpiParent:
+            \_int_var: (work@top.theta.a), line:4:12, endln:4:13
+            |vpiFullName:work@top.theta.a
+            |vpiActual:
+            \_int_typespec: , line:4:8, endln:4:11
           |vpiName:a
           |vpiFullName:work@top.theta.a
           |vpiSigned:1
@@ -274,7 +287,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.o), line:1:25, endln:1:26
     |vpiTypedef:
-    \_logic_typespec: , line:1:19, endln:1:24
+    \_ref_obj: (work@top.o)
+      |vpiParent:
+      \_port: (o), line:1:25, endln:1:26
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_logic_typespec: , line:1:19, endln:1:24
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/VarDecl/dut.sv, line:1:1, endln:7:16
   |vpiName:work@top
@@ -306,7 +324,12 @@ design: (work@top)
           |vpiParent:
           \_assign_stmt: , line:3:12, endln:3:21
           |vpiTypespec:
-          \_int_typespec: , line:3:12, endln:3:15
+          \_ref_obj: (work@top.theta.x)
+            |vpiParent:
+            \_int_var: (work@top.theta.x), line:3:16, endln:3:17
+            |vpiFullName:work@top.theta.x
+            |vpiActual:
+            \_int_typespec: , line:3:12, endln:3:15
           |vpiName:x
           |vpiFullName:work@top.theta.x
           |vpiSigned:1
@@ -348,7 +371,12 @@ design: (work@top)
           |vpiParent:
           \_begin: (work@top.theta), line:3:37, endln:5:10
           |vpiTypespec:
-          \_int_typespec: , line:4:8, endln:4:11
+          \_ref_obj: (work@top.theta.a)
+            |vpiParent:
+            \_int_var: (work@top.theta.a), line:4:12, endln:4:13
+            |vpiFullName:work@top.theta.a
+            |vpiActual:
+            \_int_typespec: , line:4:8, endln:4:11
           |vpiName:a
           |vpiFullName:work@top.theta.a
           |vpiSigned:1
@@ -359,9 +387,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/VarDecl/dut.sv, line:1:1, endln:7:16
     |vpiTypespec:
-    \_logic_typespec: , line:1:19, endln:1:24
+    \_ref_obj: (work@top.o)
       |vpiParent:
       \_logic_net: (work@top.o), line:1:25, endln:1:26
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_logic_typespec: , line:1:19, endln:1:24
     |vpiName:o
     |vpiFullName:work@top.o
     |vpiNetType:36
@@ -381,9 +412,25 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.o), line:1:25, endln:1:26
     |vpiTypedef:
-    \_logic_typespec: , line:1:19, endln:1:24
+    \_ref_obj: (work@top.o)
+      |vpiParent:
+      \_port: (o), line:1:25, endln:1:26
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_logic_typespec: , line:1:19, endln:1:24
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/VarDecl/dut.sv, line:1:1, endln:7:16
+\_weaklyReferenced:
+\_logic_typespec: , line:2:23, endln:2:28
+\_int_typespec: , line:3:12, endln:3:15
+  |vpiSigned:1
+\_int_typespec: , line:4:8, endln:4:11
+  |vpiSigned:1
+\_logic_typespec: , line:1:19, endln:1:24
+\_logic_typespec: , line:1:19, endln:1:24
+  |vpiParent:
+  \_logic_net: (work@top.o), line:1:25, endln:1:26
+\_logic_typespec: , line:1:19, endln:1:24
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

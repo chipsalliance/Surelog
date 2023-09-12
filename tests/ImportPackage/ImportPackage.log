@@ -200,7 +200,7 @@ param_assign                                           6
 parameter                                              6
 range                                                  4
 ref_module                                             2
-ref_obj                                                7
+ref_obj                                               27
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -225,7 +225,7 @@ param_assign                                           6
 parameter                                              6
 range                                                  4
 ref_module                                             2
-ref_obj                                                8
+ref_obj                                               28
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ImportPackage/slpp_all/surelog.uhdm ...
 
@@ -251,12 +251,12 @@ design: (work@top)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportPackage/dut.sv, line:4:1, endln:7:25
     |UINT:4
     |vpiTypespec:
-    \_int_typespec: , line:5:14, endln:5:17
+    \_ref_obj: (lc_ctrl_pkg::TxWidth)
       |vpiParent:
       \_parameter: (lc_ctrl_pkg::TxWidth), line:5:18, endln:5:25
-      |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportPackage/dut.sv, line:4:1, endln:7:25
-      |vpiSigned:1
+      |vpiFullName:lc_ctrl_pkg::TxWidth
+      |vpiActual:
+      \_int_typespec: , line:5:14, endln:5:17
     |vpiSigned:1
     |vpiName:TxWidth
     |vpiFullName:lc_ctrl_pkg::TxWidth
@@ -272,7 +272,12 @@ design: (work@top)
       |vpiSize:64
       |UINT:4
       |vpiTypespec:
-      \_int_typespec: , line:5:14, endln:5:17
+      \_ref_obj: (lc_ctrl_pkg)
+        |vpiParent:
+        \_constant: , line:5:28, endln:5:29
+        |vpiFullName:lc_ctrl_pkg
+        |vpiActual:
+        \_int_typespec: , line:5:14, endln:5:17
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (lc_ctrl_pkg::TxWidth), line:5:18, endln:5:25
@@ -329,12 +334,12 @@ design: (work@top)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportPackage/dut.sv, line:4:1, endln:7:25
     |UINT:4
     |vpiTypespec:
-    \_int_typespec: , line:5:14, endln:5:17
+    \_ref_obj: (lc_ctrl_pkg::TxWidth)
       |vpiParent:
       \_parameter: (lc_ctrl_pkg::TxWidth), line:5:18, endln:5:25
-      |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportPackage/dut.sv, line:4:1, endln:7:25
-      |vpiSigned:1
+      |vpiFullName:lc_ctrl_pkg::TxWidth
+      |vpiActual:
+      \_int_typespec: , line:5:14, endln:5:17
     |vpiSigned:1
     |vpiName:TxWidth
     |vpiFullName:lc_ctrl_pkg::TxWidth
@@ -350,7 +355,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:4
       |vpiTypespec:
-      \_int_typespec: , line:5:14, endln:5:17
+      \_ref_obj: (lc_ctrl_pkg)
+        |vpiParent:
+        \_constant: , line:5:28, endln:5:29
+        |vpiFullName:lc_ctrl_pkg
+        |vpiActual:
+        \_int_typespec: , line:5:14, endln:5:17
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (lc_ctrl_pkg::TxWidth), line:5:18, endln:5:25
@@ -400,10 +410,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ImportPackage/dut.sv, line:9:1, endln:19:10
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: , line:11:14, endln:11:17
+    \_ref_obj: (work@top.TxWidth)
       |vpiParent:
       \_parameter: (work@top.TxWidth), line:11:18, endln:11:25
-      |vpiSigned:1
+      |vpiFullName:work@top.TxWidth
+      |vpiActual:
+      \_int_typespec: , line:11:14, endln:11:17
     |vpiSigned:1
     |vpiName:TxWidth
     |vpiFullName:work@top.TxWidth
@@ -419,7 +431,12 @@ design: (work@top)
       |vpiSize:64
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: , line:11:14, endln:11:17
+      \_ref_obj: (work@top)
+        |vpiParent:
+        \_constant: , line:11:28, endln:11:29
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:11:14, endln:11:17
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.TxWidth), line:11:18, endln:11:25
@@ -433,8 +450,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ImportPackage/dut.sv, line:9:1, endln:19:10
     |vpiTypespec:
-    \_int_typespec: , line:12:4, endln:12:7
-      |vpiSigned:1
+    \_ref_obj: (work@top.o)
+      |vpiParent:
+      \_logic_net: (work@top.o), line:12:18, endln:12:19
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_int_typespec: , line:12:4, endln:12:7
     |vpiName:o
     |vpiFullName:work@top.o
   |vpiContAssign:
@@ -497,8 +518,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ImportPackage/dut.sv, line:9:1, endln:19:10
     |vpiTypespec:
-    \_int_typespec: , line:12:4, endln:12:7
-      |vpiSigned:1
+    \_ref_obj: (work@top.o)
+      |vpiParent:
+      \_int_var: (work@top.o), line:12:18, endln:12:19
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_int_typespec: , line:12:4, endln:12:7
     |vpiName:o
     |vpiFullName:work@top.o
     |vpiVisibility:1
@@ -508,10 +533,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ImportPackage/dut.sv, line:9:1, endln:19:10
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: , line:11:14, endln:11:17
+    \_ref_obj: (work@top.TxWidth)
       |vpiParent:
       \_parameter: (work@top.TxWidth), line:11:18, endln:11:25
-      |vpiSigned:1
+      |vpiFullName:work@top.TxWidth
+      |vpiActual:
+      \_int_typespec: , line:11:14, endln:11:17
     |vpiSigned:1
     |vpiName:TxWidth
     |vpiFullName:work@top.TxWidth
@@ -527,7 +554,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: , line:11:14, endln:11:17
+      \_ref_obj: (work@top)
+        |vpiParent:
+        \_constant: , line:11:28, endln:11:29
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:11:14, endln:11:17
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.TxWidth), line:11:18, endln:11:25
@@ -570,10 +602,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: , line:11:14, endln:11:17
+      \_ref_obj: (work@top)
         |vpiParent:
         \_constant: , line:11:28, endln:11:29
-        |vpiSigned:1
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:11:14, endln:11:17
       |vpiConstType:9
     |vpiLhs:
     \_ref_obj: (work@top.o), line:13:11, endln:13:12
@@ -583,6 +617,48 @@ design: (work@top)
       |vpiFullName:work@top.o
       |vpiActual:
       \_int_var: (work@top.o), line:12:18, endln:12:19
+\_weaklyReferenced:
+\_int_typespec: , line:5:14, endln:5:17
+  |vpiParent:
+  \_parameter: (lc_ctrl_pkg::TxWidth), line:5:18, endln:5:25
+  |vpiInstance:
+  \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportPackage/dut.sv, line:4:1, endln:7:25
+  |vpiSigned:1
+\_int_typespec: , line:5:14, endln:5:17
+  |vpiParent:
+  \_parameter: (lc_ctrl_pkg::TxWidth), line:5:18, endln:5:25
+  |vpiInstance:
+  \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/ImportPackage/dut.sv, line:4:1, endln:7:25
+  |vpiSigned:1
+\_int_typespec: , line:11:14, endln:11:17
+  |vpiParent:
+  \_parameter: (work@top.TxWidth), line:11:18, endln:11:25
+  |vpiSigned:1
+\_int_typespec: , line:12:4, endln:12:7
+  |vpiSigned:1
+\_int_typespec: , line:12:4, endln:12:7
+  |vpiSigned:1
+\_int_typespec: , line:11:14, endln:11:17
+  |vpiParent:
+  \_ref_obj: (work@top.TxWidth)
+  |vpiSigned:1
+\_cont_assign: , line:13:11, endln:13:22
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ImportPackage/dut.sv, line:9:1, endln:19:10
+  |vpiRhs:
+  \_constant: , line:11:28, endln:11:29
+  |vpiLhs:
+  \_ref_obj: (work@top.o), line:13:11, endln:13:12
+    |vpiParent:
+    \_cont_assign: , line:13:11, endln:13:22
+    |vpiName:o
+    |vpiFullName:work@top.o
+    |vpiActual:
+    \_logic_net: (work@top.o), line:12:18, endln:12:19
+\_int_typespec: , line:11:14, endln:11:17
+  |vpiParent:
+  \_ref_obj: (work@top)
+  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

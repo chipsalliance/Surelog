@@ -217,7 +217,7 @@ param_assign                                           2
 parameter                                              6
 range                                                  6
 ref_module                                             7
-ref_obj                                                5
+ref_obj                                               22
 ref_var                                                1
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
@@ -244,7 +244,7 @@ param_assign                                           2
 parameter                                              6
 range                                                  6
 ref_module                                             7
-ref_obj                                                5
+ref_obj                                               26
 ref_var                                                1
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
@@ -277,17 +277,12 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamBitSelect/dut.sv, line:5:1, endln:21:10
     |BIN:0011
     |vpiTypespec:
-    \_int_typespec: , line:7:1, endln:7:25
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:7:1, endln:7:25
-        |vpiLeftRange:
-        \_constant: 
-          |INT:3
-        |vpiRightRange:
-        \_constant: 
-          |INT:0
+    \_ref_obj: (work@dut.test)
+      |vpiParent:
+      \_parameter: (work@dut.test), line:7:11, endln:7:15
+      |vpiFullName:work@dut.test
+      |vpiActual:
+      \_int_typespec: , line:7:1, endln:7:25
     |vpiName:test
     |vpiFullName:work@dut.test
   |vpiParamAssign:
@@ -302,7 +297,12 @@ design: (work@dut)
       |vpiSize:4
       |BIN:0011
       |vpiTypespec:
-      \_int_typespec: , line:7:1, endln:7:25
+      \_ref_obj: (work@dut)
+        |vpiParent:
+        \_constant: , line:7:18, endln:7:25
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_int_typespec: , line:7:1, endln:7:25
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@dut.test), line:7:11, endln:7:15
@@ -333,7 +333,12 @@ design: (work@dut)
         |vpiParent:
         \_assign_stmt: , line:9:6, endln:9:18
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_obj: (work@dut.k)
+          |vpiParent:
+          \_int_var: (work@dut.k), line:9:13, endln:9:14
+          |vpiFullName:work@dut.k
+          |vpiActual:
+          \_int_typespec: 
         |vpiName:k
         |vpiFullName:work@dut.k
     |vpiCondition:
@@ -480,23 +485,12 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamBitSelect/dut.sv, line:5:1, endln:21:10
     |BIN:0011
     |vpiTypespec:
-    \_int_typespec: , line:7:1, endln:7:25
+    \_ref_obj: (work@dut.test)
       |vpiParent:
       \_parameter: (work@dut.test), line:7:11, endln:7:15
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:7:1, endln:7:25
-        |vpiLeftRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:3
-        |vpiRightRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:0
+      |vpiFullName:work@dut.test
+      |vpiActual:
+      \_int_typespec: , line:7:1, endln:7:25
     |vpiName:test
     |vpiFullName:work@dut.test
   |vpiParamAssign:
@@ -511,17 +505,12 @@ design: (work@dut)
       |vpiSize:4
       |BIN:0011
       |vpiTypespec:
-      \_logic_typespec: 
-        |vpiRange:
-        \_range: 
-          |vpiParent:
-          \_logic_typespec: 
-          |vpiLeftRange:
-          \_constant: 
-            |UINT:3
-          |vpiRightRange:
-          \_constant: 
-            |UINT:0
+      \_ref_obj: (work@dut)
+        |vpiParent:
+        \_constant: , line:7:18, endln:7:25
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_logic_typespec: 
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@dut.test), line:7:11, endln:7:15
@@ -545,7 +534,12 @@ design: (work@dut)
         \_gen_scope: (work@dut.genblk1[0]), line:9:32, endln:19:4
         |UINT:0
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_obj: (work@dut.genblk1[0].k)
+          |vpiParent:
+          \_parameter: (work@dut.genblk1[0].k), line:9:0
+          |vpiFullName:work@dut.genblk1[0].k
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:k
         |vpiFullName:work@dut.genblk1[0].k
@@ -593,7 +587,12 @@ design: (work@dut)
         \_gen_scope: (work@dut.genblk1[1]), line:9:32, endln:19:4
         |UINT:1
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_obj: (work@dut.genblk1[1].k)
+          |vpiParent:
+          \_parameter: (work@dut.genblk1[1].k), line:9:0
+          |vpiFullName:work@dut.genblk1[1].k
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:k
         |vpiFullName:work@dut.genblk1[1].k
@@ -641,7 +640,12 @@ design: (work@dut)
         \_gen_scope: (work@dut.genblk1[2]), line:9:32, endln:19:4
         |UINT:2
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_obj: (work@dut.genblk1[2].k)
+          |vpiParent:
+          \_parameter: (work@dut.genblk1[2].k), line:9:0
+          |vpiFullName:work@dut.genblk1[2].k
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:k
         |vpiFullName:work@dut.genblk1[2].k
@@ -662,10 +666,60 @@ design: (work@dut)
         \_gen_scope: (work@dut.genblk1[3]), line:9:32, endln:19:4
         |UINT:3
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_obj: (work@dut.genblk1[3].k)
+          |vpiParent:
+          \_parameter: (work@dut.genblk1[3].k), line:9:0
+          |vpiFullName:work@dut.genblk1[3].k
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:k
         |vpiFullName:work@dut.genblk1[3].k
+\_weaklyReferenced:
+\_int_typespec: , line:7:1, endln:7:25
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:7:1, endln:7:25
+    |vpiLeftRange:
+    \_constant: 
+      |INT:3
+    |vpiRightRange:
+    \_constant: 
+      |INT:0
+\_logic_typespec: 
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_logic_typespec: 
+    |vpiLeftRange:
+    \_constant: 
+      |UINT:3
+    |vpiRightRange:
+    \_constant: 
+      |UINT:0
+\_int_typespec: , line:7:1, endln:7:25
+  |vpiParent:
+  \_ref_obj: (work@dut.test)
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:7:1, endln:7:25
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:3
+    |vpiRightRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:0
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

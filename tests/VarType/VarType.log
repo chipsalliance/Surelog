@@ -103,7 +103,7 @@ module_inst                                            3
 operation                                              2
 real_typespec                                          5
 real_var                                               3
-ref_obj                                                4
+ref_obj                                                9
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -115,7 +115,7 @@ module_inst                                            3
 operation                                              2
 real_typespec                                          5
 real_var                                               3
-ref_obj                                                4
+ref_obj                                                9
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/VarType/slpp_all/surelog.uhdm ...
 
@@ -140,7 +140,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/VarType/dut.sv, line:1:1, endln:5:10
     |vpiTypespec:
-    \_real_typespec: , line:2:1, endln:2:14
+    \_ref_obj: (work@top.a)
+      |vpiParent:
+      \_logic_net: (work@top.a), line:2:6, endln:2:7
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_real_typespec: , line:2:1, endln:2:14
     |vpiName:a
     |vpiFullName:work@top.a
   |vpiNet:
@@ -148,7 +153,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/VarType/dut.sv, line:1:1, endln:5:10
     |vpiTypespec:
-    \_real_typespec: , line:3:1, endln:3:14
+    \_ref_obj: (work@top.b)
+      |vpiParent:
+      \_logic_net: (work@top.b), line:3:6, endln:3:7
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_real_typespec: , line:3:1, endln:3:14
     |vpiName:b
     |vpiFullName:work@top.b
   |vpiNet:
@@ -165,9 +175,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/VarType/dut.sv, line:1:1, endln:5:10
     |vpiTypespec:
-    \_real_typespec: , line:2:1, endln:2:5
+    \_ref_obj: (work@top.a)
       |vpiParent:
       \_real_var: (work@top.a), line:2:6, endln:2:14
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_real_typespec: , line:2:1, endln:2:5
     |vpiName:a
     |vpiFullName:work@top.a
     |vpiVisibility:1
@@ -184,9 +197,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/VarType/dut.sv, line:1:1, endln:5:10
     |vpiTypespec:
-    \_real_typespec: , line:3:1, endln:3:5
+    \_ref_obj: (work@top.b)
       |vpiParent:
       \_real_var: (work@top.b), line:3:6, endln:3:14
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_real_typespec: , line:3:1, endln:3:5
     |vpiName:b
     |vpiFullName:work@top.b
     |vpiVisibility:1
@@ -203,15 +219,36 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/VarType/dut.sv, line:1:1, endln:5:10
     |vpiTypespec:
-    \_real_typespec: , line:4:5, endln:4:14
+    \_ref_obj: (work@top.c)
       |vpiParent:
       \_real_var: (work@top.c), line:4:15, endln:4:16
+      |vpiFullName:work@top.c
+      |vpiActual:
+      \_real_typespec: , line:4:5, endln:4:14
     |vpiName:c
     |vpiFullName:work@top.c
     |vpiVisibility:1
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
+\_weaklyReferenced:
+\_real_typespec: , line:2:1, endln:2:5
+  |vpiParent:
+  \_real_var: (work@top.a), line:2:6, endln:2:14
+\_real_typespec: , line:3:1, endln:3:5
+  |vpiParent:
+  \_real_var: (work@top.b), line:3:6, endln:3:14
+\_operation: , line:4:10, endln:4:13
+  |vpiOpType:24
+  |vpiOperand:
+  \_constant: , line:2:10, endln:2:14
+  |vpiOperand:
+  \_constant: , line:3:10, endln:3:14
+\_real_typespec: , line:4:5, endln:4:14
+  |vpiParent:
+  \_real_var: (work@top.c), line:4:15, endln:4:16
+\_real_typespec: , line:2:1, endln:2:14
+\_real_typespec: , line:3:1, endln:3:14
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -96,6 +96,7 @@ module_inst                                            1
 package                                                2
 packed_array_typespec                                  1
 range                                                  2
+ref_obj                                                5
 struct_typespec                                        2
 typespec_member                                        3
 union_typespec                                         1
@@ -111,6 +112,7 @@ module_inst                                            1
 package                                                2
 packed_array_typespec                                  1
 range                                                  2
+ref_obj                                                5
 struct_typespec                                        2
 typespec_member                                        3
 union_typespec                                         1
@@ -148,11 +150,12 @@ design: (unnamed)
       \_struct_typespec: (foo_flags_pkg::common_flags_t), line:2:11, endln:4:4
       |vpiName:a
       |vpiTypespec:
-      \_logic_typespec: , line:3:5, endln:3:10
+      \_ref_obj: (foo_flags_pkg::foo_flags_pkg::common_flags_t::a)
         |vpiParent:
         \_typespec_member: (a), line:3:11, endln:3:12
-        |vpiInstance:
-        \_package: foo_flags_pkg (foo_flags_pkg::), file:${SURELOG_DIR}/tests/UnsupportedTypespecRange/dut.sv, line:1:1, endln:6:27
+        |vpiFullName:foo_flags_pkg::foo_flags_pkg::common_flags_t::a
+        |vpiActual:
+        \_logic_typespec: , line:3:5, endln:3:10
       |vpiRefFile:${SURELOG_DIR}/tests/UnsupportedTypespecRange/dut.sv
       |vpiRefLineNo:3
       |vpiRefColumnNo:5
@@ -179,11 +182,12 @@ design: (unnamed)
       \_struct_typespec: (foo_flags_pkg::common_flags_t), line:2:11, endln:4:4
       |vpiName:a
       |vpiTypespec:
-      \_logic_typespec: , line:3:5, endln:3:10
+      \_ref_obj: (foo_flags_pkg::foo_flags_pkg::common_flags_t::a)
         |vpiParent:
         \_typespec_member: (a), line:3:11, endln:3:12
-        |vpiInstance:
-        \_package: foo_flags_pkg (foo_flags_pkg::), file:${SURELOG_DIR}/tests/UnsupportedTypespecRange/dut.sv, line:1:1, endln:6:27
+        |vpiFullName:foo_flags_pkg::foo_flags_pkg::common_flags_t::a
+        |vpiActual:
+        \_logic_typespec: , line:3:5, endln:3:10
       |vpiRefFile:${SURELOG_DIR}/tests/UnsupportedTypespecRange/dut.sv
       |vpiRefLineNo:3
       |vpiRefColumnNo:5
@@ -205,54 +209,75 @@ design: (unnamed)
     \_union_typespec: (top_flag_t), line:9:9, endln:11:2
     |vpiName:atype_t
     |vpiTypespec:
-    \_packed_array_typespec: 
-      |vpiRange:
-      \_range: , line:10:36, endln:10:41
-        |vpiParent:
-        \_packed_array_typespec: 
-        |vpiLeftRange:
-        \_constant: , line:10:37, endln:10:38
-          |vpiParent:
-          \_range: , line:10:36, endln:10:41
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:10:39, endln:10:40
-          |vpiParent:
-          \_range: , line:10:36, endln:10:41
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-      |vpiRange:
-      \_range: , line:10:41, endln:10:46
-        |vpiParent:
-        \_packed_array_typespec: 
-        |vpiLeftRange:
-        \_constant: , line:10:42, endln:10:43
-          |vpiParent:
-          \_range: , line:10:41, endln:10:46
-          |vpiDecompile:7
-          |vpiSize:64
-          |UINT:7
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:10:44, endln:10:45
-          |vpiParent:
-          \_range: , line:10:41, endln:10:46
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-      |vpiElemTypespec:
-      \_struct_typespec: (foo_flags_pkg::common_flags_t), line:2:11, endln:4:4
+    \_ref_obj: (top_flag_t.atype_t)
+      |vpiParent:
+      \_typespec_member: (atype_t), line:10:47, endln:10:54
+      |vpiFullName:top_flag_t.atype_t
+      |vpiActual:
+      \_packed_array_typespec: 
     |vpiRefFile:${SURELOG_DIR}/tests/UnsupportedTypespecRange/dut.sv
     |vpiRefLineNo:10
     |vpiRefColumnNo:5
     |vpiRefEndLineNo:10
     |vpiRefEndColumnNo:46
+\_weaklyReferenced:
+\_logic_typespec: , line:3:5, endln:3:10
+  |vpiParent:
+  \_typespec_member: (a), line:3:11, endln:3:12
+  |vpiInstance:
+  \_package: foo_flags_pkg (foo_flags_pkg::), file:${SURELOG_DIR}/tests/UnsupportedTypespecRange/dut.sv, line:1:1, endln:6:27
+\_logic_typespec: , line:3:5, endln:3:10
+  |vpiParent:
+  \_typespec_member: (a), line:3:11, endln:3:12
+  |vpiInstance:
+  \_package: foo_flags_pkg (foo_flags_pkg::), file:${SURELOG_DIR}/tests/UnsupportedTypespecRange/dut.sv, line:1:1, endln:6:27
+\_packed_array_typespec: 
+  |vpiRange:
+  \_range: , line:10:36, endln:10:41
+    |vpiParent:
+    \_packed_array_typespec: 
+    |vpiLeftRange:
+    \_constant: , line:10:37, endln:10:38
+      |vpiParent:
+      \_range: , line:10:36, endln:10:41
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:10:39, endln:10:40
+      |vpiParent:
+      \_range: , line:10:36, endln:10:41
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:10:41, endln:10:46
+    |vpiParent:
+    \_packed_array_typespec: 
+    |vpiLeftRange:
+    \_constant: , line:10:42, endln:10:43
+      |vpiParent:
+      \_range: , line:10:41, endln:10:46
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:10:44, endln:10:45
+      |vpiParent:
+      \_range: , line:10:41, endln:10:46
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_obj: 
+    |vpiParent:
+    \_packed_array_typespec: 
+    |vpiActual:
+    \_struct_typespec: (foo_flags_pkg::common_flags_t), line:2:11, endln:4:4
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

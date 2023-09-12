@@ -102,7 +102,7 @@ logic_typespec                                         6
 module_inst                                            6
 port                                                   5
 ref_module                                             1
-ref_obj                                                6
+ref_obj                                               12
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -115,7 +115,7 @@ logic_typespec                                         6
 module_inst                                            6
 port                                                   7
 ref_module                                             1
-ref_obj                                                9
+ref_obj                                               17
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ConstHighConn/slpp_all/surelog.uhdm ...
 
@@ -157,7 +157,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@dut.o), line:1:26, endln:1:27
     |vpiTypedef:
-    \_logic_typespec: , line:1:20, endln:1:25
+    \_ref_obj: (work@dut.o)
+      |vpiParent:
+      \_port: (o), line:1:26, endln:1:27
+      |vpiFullName:work@dut.o
+      |vpiActual:
+      \_logic_typespec: , line:1:20, endln:1:25
   |vpiContAssign:
   \_cont_assign: , line:2:11, endln:2:19
     |vpiParent:
@@ -206,7 +211,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.o), line:5:26, endln:5:27
     |vpiTypedef:
-    \_logic_typespec: , line:5:20, endln:5:25
+    \_ref_obj: (work@top.o)
+      |vpiParent:
+      \_port: (o), line:5:26, endln:5:27
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_logic_typespec: , line:5:20, endln:5:25
   |vpiRefModule:
   \_ref_module: work@dut (d), line:7:8, endln:7:9
     |vpiParent:
@@ -236,9 +246,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ConstHighConn/dut.sv, line:5:1, endln:9:10
     |vpiTypespec:
-    \_logic_typespec: , line:5:20, endln:5:25
+    \_ref_obj: (work@top.o)
       |vpiParent:
       \_logic_net: (work@top.o), line:5:26, endln:5:27
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_logic_typespec: , line:5:20, endln:5:25
     |vpiName:o
     |vpiFullName:work@top.o
     |vpiNetType:36
@@ -258,7 +271,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.o), line:5:26, endln:5:27
     |vpiTypedef:
-    \_logic_typespec: , line:5:20, endln:5:25
+    \_ref_obj: (work@top.o)
+      |vpiParent:
+      \_port: (o), line:5:26, endln:5:27
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_logic_typespec: , line:5:20, endln:5:25
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ConstHighConn/dut.sv, line:5:1, endln:9:10
   |vpiModule:
@@ -275,7 +293,12 @@ design: (work@top)
       |vpiParent:
       \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/ConstHighConn/dut.sv, line:7:4, endln:7:21
       |vpiTypespec:
-      \_logic_typespec: , line:1:20, endln:1:25
+      \_ref_obj: (work@top.d.o)
+        |vpiParent:
+        \_logic_net: (work@top.d.o), line:1:26, endln:1:27
+        |vpiFullName:work@top.d.o
+        |vpiActual:
+        \_logic_typespec: , line:1:20, endln:1:25
       |vpiName:o
       |vpiFullName:work@top.d.o
       |vpiNetType:36
@@ -304,7 +327,12 @@ design: (work@top)
         |vpiActual:
         \_logic_net: (work@top.d.o), line:1:26, endln:1:27
       |vpiTypedef:
-      \_logic_typespec: , line:1:20, endln:1:25
+      \_ref_obj: (work@top.d.o)
+        |vpiParent:
+        \_port: (o), line:1:26, endln:1:27
+        |vpiFullName:work@top.d.o
+        |vpiActual:
+        \_logic_typespec: , line:1:20, endln:1:25
       |vpiInstance:
       \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/ConstHighConn/dut.sv, line:7:4, endln:7:21
     |vpiContAssign:
@@ -321,6 +349,50 @@ design: (work@top)
         |vpiFullName:work@top.d.o
         |vpiActual:
         \_logic_net: (work@top.d.o), line:1:26, endln:1:27
+\_weaklyReferenced:
+\_logic_typespec: , line:5:20, endln:5:25
+\_logic_typespec: , line:5:20, endln:5:25
+  |vpiParent:
+  \_logic_net: (work@top.o), line:5:26, endln:5:27
+\_port: (o), line:1:26, endln:1:27
+  |vpiParent:
+  \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/ConstHighConn/dut.sv, line:7:4, endln:7:21
+  |vpiName:o
+  |vpiDirection:2
+  |vpiHighConn:
+  \_constant: , line:7:13, endln:7:18
+  |vpiLowConn:
+  \_ref_obj: (work@top.d.o), line:7:11, endln:7:12
+    |vpiParent:
+    \_port: (o), line:1:26, endln:1:27
+    |vpiName:o
+    |vpiFullName:work@top.d.o
+    |vpiActual:
+    \_logic_net: (work@top.d.o), line:1:26, endln:1:27
+  |vpiTypedef:
+  \_ref_obj: (work@top.d.o)
+    |vpiParent:
+    \_port: (o), line:1:26, endln:1:27
+    |vpiFullName:work@top.d.o
+    |vpiActual:
+    \_logic_typespec: , line:1:20, endln:1:25
+\_logic_typespec: , line:1:20, endln:1:25
+\_logic_typespec: , line:1:20, endln:1:25
+\_logic_typespec: , line:1:20, endln:1:25
+\_logic_typespec: , line:5:20, endln:5:25
+\_cont_assign: , line:2:11, endln:2:19
+  |vpiParent:
+  \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/ConstHighConn/dut.sv, line:7:4, endln:7:21
+  |vpiRhs:
+  \_constant: , line:2:15, endln:2:19
+  |vpiLhs:
+  \_ref_obj: (work@top.d.o), line:2:11, endln:2:12
+    |vpiParent:
+    \_cont_assign: , line:2:11, endln:2:19
+    |vpiName:o
+    |vpiFullName:work@top.d.o
+    |vpiActual:
+    \_logic_net: (work@dut.o), line:1:26, endln:1:27
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

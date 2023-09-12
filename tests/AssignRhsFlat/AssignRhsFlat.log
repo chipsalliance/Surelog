@@ -147,7 +147,7 @@ logic_net                                              1
 logic_typespec                                         2
 module_inst                                            3
 operation                                             11
-ref_obj                                                2
+ref_obj                                               25
 string_typespec                                       12
 struct_typespec                                        3
 struct_var                                             1
@@ -165,7 +165,7 @@ logic_net                                              1
 logic_typespec                                         2
 module_inst                                            3
 operation                                             14
-ref_obj                                                3
+ref_obj                                               26
 string_typespec                                       12
 struct_typespec                                        3
 struct_var                                             1
@@ -200,10 +200,12 @@ design: (work@dut)
       \_struct_typespec: (ABC), line:2:9, endln:8:2
       |vpiName:A
       |vpiTypespec:
-      \_int_typespec: , line:3:3, endln:3:6
+      \_ref_obj: (ABC.A)
         |vpiParent:
         \_typespec_member: (A), line:3:7, endln:3:8
-        |vpiSigned:1
+        |vpiFullName:ABC.A
+        |vpiActual:
+        \_int_typespec: , line:3:3, endln:3:6
       |vpiRefFile:${SURELOG_DIR}/tests/AssignRhsFlat/dut.sv
       |vpiRefLineNo:3
       |vpiRefColumnNo:3
@@ -215,38 +217,12 @@ design: (work@dut)
       \_struct_typespec: (ABC), line:2:9, endln:8:2
       |vpiName:BC1
       |vpiTypespec:
-      \_struct_typespec: , line:4:3, endln:4:9
+      \_ref_obj: (ABC.BC1)
         |vpiParent:
         \_typespec_member: (BC1), line:7:5, endln:7:8
-        |vpiTypespecMember:
-        \_typespec_member: (B), line:5:11, endln:5:12
-          |vpiParent:
-          \_struct_typespec: , line:4:3, endln:4:9
-          |vpiName:B
-          |vpiTypespec:
-          \_logic_typespec: , line:5:5, endln:5:10
-            |vpiParent:
-            \_typespec_member: (B), line:5:11, endln:5:12
-          |vpiRefFile:${SURELOG_DIR}/tests/AssignRhsFlat/dut.sv
-          |vpiRefLineNo:5
-          |vpiRefColumnNo:5
-          |vpiRefEndLineNo:5
-          |vpiRefEndColumnNo:10
-        |vpiTypespecMember:
-        \_typespec_member: (C), line:6:9, endln:6:10
-          |vpiParent:
-          \_struct_typespec: , line:4:3, endln:4:9
-          |vpiName:C
-          |vpiTypespec:
-          \_int_typespec: , line:6:5, endln:6:8
-            |vpiParent:
-            \_typespec_member: (C), line:6:9, endln:6:10
-            |vpiSigned:1
-          |vpiRefFile:${SURELOG_DIR}/tests/AssignRhsFlat/dut.sv
-          |vpiRefLineNo:6
-          |vpiRefColumnNo:5
-          |vpiRefEndLineNo:6
-          |vpiRefEndColumnNo:8
+        |vpiFullName:ABC.BC1
+        |vpiActual:
+        \_struct_typespec: , line:4:3, endln:4:9
       |vpiRefFile:${SURELOG_DIR}/tests/AssignRhsFlat/dut.sv
       |vpiRefLineNo:4
       |vpiRefColumnNo:3
@@ -258,38 +234,12 @@ design: (work@dut)
       \_struct_typespec: (ABC), line:2:9, endln:8:2
       |vpiName:BC2
       |vpiTypespec:
-      \_struct_typespec: , line:4:3, endln:4:9
+      \_ref_obj: (ABC.BC2)
         |vpiParent:
         \_typespec_member: (BC2), line:7:10, endln:7:13
-        |vpiTypespecMember:
-        \_typespec_member: (B), line:5:11, endln:5:12
-          |vpiParent:
-          \_struct_typespec: , line:4:3, endln:4:9
-          |vpiName:B
-          |vpiTypespec:
-          \_logic_typespec: , line:5:5, endln:5:10
-            |vpiParent:
-            \_typespec_member: (B), line:5:11, endln:5:12
-          |vpiRefFile:${SURELOG_DIR}/tests/AssignRhsFlat/dut.sv
-          |vpiRefLineNo:5
-          |vpiRefColumnNo:5
-          |vpiRefEndLineNo:5
-          |vpiRefEndColumnNo:10
-        |vpiTypespecMember:
-        \_typespec_member: (C), line:6:9, endln:6:10
-          |vpiParent:
-          \_struct_typespec: , line:4:3, endln:4:9
-          |vpiName:C
-          |vpiTypespec:
-          \_int_typespec: , line:6:5, endln:6:8
-            |vpiParent:
-            \_typespec_member: (C), line:6:9, endln:6:10
-            |vpiSigned:1
-          |vpiRefFile:${SURELOG_DIR}/tests/AssignRhsFlat/dut.sv
-          |vpiRefLineNo:6
-          |vpiRefColumnNo:5
-          |vpiRefEndLineNo:6
-          |vpiRefEndColumnNo:8
+        |vpiFullName:ABC.BC2
+        |vpiActual:
+        \_struct_typespec: , line:4:3, endln:4:9
       |vpiRefFile:${SURELOG_DIR}/tests/AssignRhsFlat/dut.sv
       |vpiRefLineNo:4
       |vpiRefColumnNo:3
@@ -333,10 +283,12 @@ design: (work@dut)
             |UINT:1
             |vpiConstType:9
         |vpiTypespec:
-        \_string_typespec: (BC1), line:12:17, endln:12:20
+        \_ref_obj: (work@dut)
           |vpiParent:
           \_tagged_pattern: , line:12:22, endln:12:32
-          |vpiName:BC1
+          |vpiFullName:work@dut
+          |vpiActual:
+          \_string_typespec: (BC1), line:12:17, endln:12:20
       |vpiOperand:
       \_tagged_pattern: , line:12:39, endln:12:40
         |vpiParent:
@@ -348,8 +300,12 @@ design: (work@dut)
           |UINT:0
           |vpiConstType:9
         |vpiTypespec:
-        \_int_typespec: , line:12:34, endln:12:37
-          |vpiSigned:1
+        \_ref_obj: (work@dut)
+          |vpiParent:
+          \_tagged_pattern: , line:12:39, endln:12:40
+          |vpiFullName:work@dut
+          |vpiActual:
+          \_int_typespec: , line:12:34, endln:12:37
       |vpiOperand:
       \_tagged_pattern: , line:12:47, endln:12:60
         |vpiParent:
@@ -370,15 +326,19 @@ design: (work@dut)
               |UINT:0
               |vpiConstType:9
             |vpiTypespec:
-            \_string_typespec: (default), line:12:49, endln:12:56
+            \_ref_obj: (work@dut)
               |vpiParent:
               \_tagged_pattern: , line:12:58, endln:12:59
-              |vpiName:default
+              |vpiFullName:work@dut
+              |vpiActual:
+              \_string_typespec: (default), line:12:49, endln:12:56
         |vpiTypespec:
-        \_string_typespec: (BC2), line:12:42, endln:12:45
+        \_ref_obj: (work@dut)
           |vpiParent:
           \_tagged_pattern: , line:12:47, endln:12:60
-          |vpiName:BC2
+          |vpiFullName:work@dut
+          |vpiActual:
+          \_string_typespec: (BC2), line:12:42, endln:12:45
     |vpiLhs:
     \_ref_obj: (work@dut.test), line:12:8, endln:12:12
       |vpiParent:
@@ -395,7 +355,12 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/AssignRhsFlat/dut.sv, line:1:1, endln:13:10
     |vpiTypespec:
-    \_struct_typespec: (ABC), line:2:9, endln:8:2
+    \_ref_obj: (work@dut.test)
+      |vpiParent:
+      \_struct_var: (work@dut.test), line:10:5, endln:10:9
+      |vpiFullName:work@dut.test
+      |vpiActual:
+      \_struct_typespec: (ABC), line:2:9, endln:8:2
     |vpiName:test
     |vpiFullName:work@dut.test
     |vpiVisibility:1
@@ -472,6 +437,151 @@ design: (work@dut)
       |vpiFullName:work@dut.test
       |vpiActual:
       \_struct_var: (work@dut.test), line:10:5, endln:10:9
+\_weaklyReferenced:
+\_int_typespec: , line:3:3, endln:3:6
+  |vpiParent:
+  \_typespec_member: (A), line:3:7, endln:3:8
+  |vpiSigned:1
+\_struct_typespec: , line:4:3, endln:4:9
+  |vpiParent:
+  \_typespec_member: (BC1), line:7:5, endln:7:8
+  |vpiTypespecMember:
+  \_typespec_member: (B), line:5:11, endln:5:12
+    |vpiParent:
+    \_struct_typespec: , line:4:3, endln:4:9
+    |vpiName:B
+    |vpiTypespec:
+    \_ref_obj: (ABC.BC1.B)
+      |vpiParent:
+      \_typespec_member: (B), line:5:11, endln:5:12
+      |vpiFullName:ABC.BC1.B
+      |vpiActual:
+      \_logic_typespec: , line:5:5, endln:5:10
+    |vpiRefFile:${SURELOG_DIR}/tests/AssignRhsFlat/dut.sv
+    |vpiRefLineNo:5
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:5
+    |vpiRefEndColumnNo:10
+  |vpiTypespecMember:
+  \_typespec_member: (C), line:6:9, endln:6:10
+    |vpiParent:
+    \_struct_typespec: , line:4:3, endln:4:9
+    |vpiName:C
+    |vpiTypespec:
+    \_ref_obj: (ABC.BC1.C)
+      |vpiParent:
+      \_typespec_member: (C), line:6:9, endln:6:10
+      |vpiFullName:ABC.BC1.C
+      |vpiActual:
+      \_int_typespec: , line:6:5, endln:6:8
+    |vpiRefFile:${SURELOG_DIR}/tests/AssignRhsFlat/dut.sv
+    |vpiRefLineNo:6
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:6
+    |vpiRefEndColumnNo:8
+\_logic_typespec: , line:5:5, endln:5:10
+  |vpiParent:
+  \_typespec_member: (B), line:5:11, endln:5:12
+\_int_typespec: , line:6:5, endln:6:8
+  |vpiParent:
+  \_typespec_member: (C), line:6:9, endln:6:10
+  |vpiSigned:1
+\_struct_typespec: , line:4:3, endln:4:9
+  |vpiParent:
+  \_typespec_member: (BC2), line:7:10, endln:7:13
+  |vpiTypespecMember:
+  \_typespec_member: (B), line:5:11, endln:5:12
+    |vpiParent:
+    \_struct_typespec: , line:4:3, endln:4:9
+    |vpiName:B
+    |vpiTypespec:
+    \_ref_obj: (ABC.BC2.B)
+      |vpiParent:
+      \_typespec_member: (B), line:5:11, endln:5:12
+      |vpiFullName:ABC.BC2.B
+      |vpiActual:
+      \_logic_typespec: , line:5:5, endln:5:10
+    |vpiRefFile:${SURELOG_DIR}/tests/AssignRhsFlat/dut.sv
+    |vpiRefLineNo:5
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:5
+    |vpiRefEndColumnNo:10
+  |vpiTypespecMember:
+  \_typespec_member: (C), line:6:9, endln:6:10
+    |vpiParent:
+    \_struct_typespec: , line:4:3, endln:4:9
+    |vpiName:C
+    |vpiTypespec:
+    \_ref_obj: (ABC.BC2.C)
+      |vpiParent:
+      \_typespec_member: (C), line:6:9, endln:6:10
+      |vpiFullName:ABC.BC2.C
+      |vpiActual:
+      \_int_typespec: , line:6:5, endln:6:8
+    |vpiRefFile:${SURELOG_DIR}/tests/AssignRhsFlat/dut.sv
+    |vpiRefLineNo:6
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:6
+    |vpiRefEndColumnNo:8
+\_logic_typespec: , line:5:5, endln:5:10
+  |vpiParent:
+  \_typespec_member: (B), line:5:11, endln:5:12
+\_int_typespec: , line:6:5, endln:6:8
+  |vpiParent:
+  \_typespec_member: (C), line:6:9, endln:6:10
+  |vpiSigned:1
+\_string_typespec: (BC1), line:12:17, endln:12:20
+  |vpiParent:
+  \_tagged_pattern: , line:12:22, endln:12:32
+  |vpiName:BC1
+\_int_typespec: , line:12:34, endln:12:37
+  |vpiSigned:1
+\_string_typespec: (default), line:12:49, endln:12:56
+  |vpiParent:
+  \_tagged_pattern: , line:12:58, endln:12:59
+  |vpiName:default
+\_string_typespec: (BC2), line:12:42, endln:12:45
+  |vpiParent:
+  \_tagged_pattern: , line:12:47, endln:12:60
+  |vpiName:BC2
+\_operation: , line:12:15, endln:12:61
+  |vpiParent:
+  \_cont_assign: , line:12:8, endln:12:61
+  |vpiOpType:75
+  |vpiOperand:
+  \_constant: , line:12:39, endln:12:40
+  |vpiOperand:
+  \_operation: , line:12:22, endln:12:32
+    |vpiParent:
+    \_operation: , line:12:15, endln:12:61
+    |vpiSize:33
+    |vpiOpType:75
+    |vpiOperand:
+    \_constant: , line:12:24, endln:12:28
+    |vpiOperand:
+    \_constant: , line:12:30, endln:12:31
+  |vpiOperand:
+  \_operation: , line:12:47, endln:12:60
+    |vpiParent:
+    \_operation: , line:12:15, endln:12:61
+    |vpiOpType:75
+    |vpiOperand:
+    \_constant: , line:12:58, endln:12:59
+    |vpiOperand:
+    \_constant: , line:12:58, endln:12:59
+\_cont_assign: , line:12:8, endln:12:61
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/AssignRhsFlat/dut.sv, line:1:1, endln:13:10
+  |vpiRhs:
+  \_operation: , line:12:15, endln:12:61
+  |vpiLhs:
+  \_ref_obj: (work@dut.test), line:12:8, endln:12:12
+    |vpiParent:
+    \_cont_assign: , line:12:8, endln:12:61
+    |vpiName:test
+    |vpiFullName:work@dut.test
+    |vpiActual:
+    \_struct_var: (work@dut.test), line:10:5, endln:10:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -40,7 +40,7 @@ param_assign                                           2
 parameter                                              2
 port                                                   2
 range                                                  5
-ref_obj                                                3
+ref_obj                                               21
 struct_net                                             1
 struct_typespec                                        2
 typespec_member                                        4
@@ -61,7 +61,7 @@ param_assign                                           2
 parameter                                              2
 port                                                   3
 range                                                  5
-ref_obj                                                4
+ref_obj                                               23
 struct_net                                             1
 struct_typespec                                        2
 typespec_member                                        4
@@ -98,31 +98,12 @@ design: (work@dm_top)
       \_struct_typespec: (dm::hartinfo_t), line:3:10, endln:6:6
       |vpiName:zero1
       |vpiTypespec:
-      \_logic_typespec: , line:4:9, endln:4:22
+      \_ref_obj: (dm::dm::hartinfo_t::zero1)
         |vpiParent:
         \_typespec_member: (zero1), line:4:23, endln:4:28
-        |vpiInstance:
-        \_package: dm (dm::), file:${SURELOG_DIR}/tests/PortPackage/dut.sv, line:1:1, endln:8:11
-        |vpiRange:
-        \_range: , line:4:15, endln:4:22
-          |vpiParent:
-          \_logic_typespec: , line:4:9, endln:4:22
-          |vpiLeftRange:
-          \_constant: , line:4:16, endln:4:18
-            |vpiParent:
-            \_range: , line:4:15, endln:4:22
-            |vpiDecompile:31
-            |vpiSize:64
-            |UINT:31
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:4:19, endln:4:21
-            |vpiParent:
-            \_range: , line:4:15, endln:4:22
-            |vpiDecompile:24
-            |vpiSize:64
-            |UINT:24
-            |vpiConstType:9
+        |vpiFullName:dm::dm::hartinfo_t::zero1
+        |vpiActual:
+        \_logic_typespec: , line:4:9, endln:4:22
       |vpiRefFile:${SURELOG_DIR}/tests/PortPackage/dut.sv
       |vpiRefLineNo:4
       |vpiRefColumnNo:9
@@ -134,11 +115,12 @@ design: (work@dm_top)
       \_struct_typespec: (dm::hartinfo_t), line:3:10, endln:6:6
       |vpiName:dataaccess
       |vpiTypespec:
-      \_logic_typespec: , line:5:9, endln:5:14
+      \_ref_obj: (dm::dm::hartinfo_t::dataaccess)
         |vpiParent:
         \_typespec_member: (dataaccess), line:5:23, endln:5:33
-        |vpiInstance:
-        \_package: dm (dm::), file:${SURELOG_DIR}/tests/PortPackage/dut.sv, line:1:1, endln:8:11
+        |vpiFullName:dm::dm::hartinfo_t::dataaccess
+        |vpiActual:
+        \_logic_typespec: , line:5:9, endln:5:14
       |vpiRefFile:${SURELOG_DIR}/tests/PortPackage/dut.sv
       |vpiRefLineNo:5
       |vpiRefColumnNo:9
@@ -165,31 +147,12 @@ design: (work@dm_top)
       \_struct_typespec: (dm::hartinfo_t), line:3:10, endln:6:6
       |vpiName:zero1
       |vpiTypespec:
-      \_logic_typespec: , line:4:9, endln:4:22
+      \_ref_obj: (dm::dm::hartinfo_t::zero1)
         |vpiParent:
         \_typespec_member: (zero1), line:4:23, endln:4:28
-        |vpiInstance:
-        \_package: dm (dm::), file:${SURELOG_DIR}/tests/PortPackage/dut.sv, line:1:1, endln:8:11
-        |vpiRange:
-        \_range: , line:4:15, endln:4:22
-          |vpiParent:
-          \_logic_typespec: , line:4:9, endln:4:22
-          |vpiLeftRange:
-          \_constant: , line:4:16, endln:4:18
-            |vpiParent:
-            \_range: , line:4:15, endln:4:22
-            |vpiDecompile:31
-            |vpiSize:64
-            |UINT:31
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:4:19, endln:4:21
-            |vpiParent:
-            \_range: , line:4:15, endln:4:22
-            |vpiDecompile:24
-            |vpiSize:64
-            |UINT:24
-            |vpiConstType:9
+        |vpiFullName:dm::dm::hartinfo_t::zero1
+        |vpiActual:
+        \_logic_typespec: , line:4:9, endln:4:22
       |vpiRefFile:${SURELOG_DIR}/tests/PortPackage/dut.sv
       |vpiRefLineNo:4
       |vpiRefColumnNo:9
@@ -201,11 +164,12 @@ design: (work@dm_top)
       \_struct_typespec: (dm::hartinfo_t), line:3:10, endln:6:6
       |vpiName:dataaccess
       |vpiTypespec:
-      \_logic_typespec: , line:5:9, endln:5:14
+      \_ref_obj: (dm::dm::hartinfo_t::dataaccess)
         |vpiParent:
         \_typespec_member: (dataaccess), line:5:23, endln:5:33
-        |vpiInstance:
-        \_package: dm (dm::), file:${SURELOG_DIR}/tests/PortPackage/dut.sv, line:1:1, endln:8:11
+        |vpiFullName:dm::dm::hartinfo_t::dataaccess
+        |vpiActual:
+        \_logic_typespec: , line:5:9, endln:5:14
       |vpiRefFile:${SURELOG_DIR}/tests/PortPackage/dut.sv
       |vpiRefLineNo:5
       |vpiRefColumnNo:9
@@ -224,10 +188,12 @@ design: (work@dm_top)
     \_module_inst: work@dm_top (work@dm_top), file:${SURELOG_DIR}/tests/PortPackage/dut.sv, line:10:1, endln:17:10
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: , line:11:15, endln:11:18
+    \_ref_obj: (work@dm_top.NrHarts)
       |vpiParent:
       \_parameter: (work@dm_top.NrHarts), line:11:35, endln:11:42
-      |vpiSigned:1
+      |vpiFullName:work@dm_top.NrHarts
+      |vpiActual:
+      \_int_typespec: , line:11:15, endln:11:18
     |vpiSigned:1
     |vpiName:NrHarts
     |vpiFullName:work@dm_top.NrHarts
@@ -243,7 +209,12 @@ design: (work@dm_top)
       |vpiSize:64
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: , line:11:15, endln:11:18
+      \_ref_obj: (work@dm_top)
+        |vpiParent:
+        \_constant: , line:11:54, endln:11:55
+        |vpiFullName:work@dm_top
+        |vpiActual:
+        \_int_typespec: , line:11:15, endln:11:18
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@dm_top.NrHarts), line:11:35, endln:11:42
@@ -270,39 +241,12 @@ design: (work@dm_top)
       |vpiActual:
       \_logic_net: (work@dm_top.hartinfo_i), line:13:35, endln:13:45
     |vpiTypedef:
-    \_packed_array_typespec: 
-      |vpiRange:
-      \_range: , line:13:20, endln:13:33
-        |vpiParent:
-        \_packed_array_typespec: 
-        |vpiLeftRange:
-        \_operation: , line:13:21, endln:13:30
-          |vpiParent:
-          \_range: , line:13:20, endln:13:33
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (NrHarts), line:13:21, endln:13:28
-            |vpiParent:
-            \_operation: , line:13:21, endln:13:30
-            |vpiName:NrHarts
-          |vpiOperand:
-          \_constant: , line:13:29, endln:13:30
-            |vpiParent:
-            \_operation: , line:13:21, endln:13:30
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:13:31, endln:13:32
-          |vpiParent:
-          \_range: , line:13:20, endln:13:33
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-      |vpiElemTypespec:
-      \_struct_typespec: (dm::hartinfo_t), line:3:10, endln:6:6
+    \_ref_obj: (work@dm_top.hartinfo_i)
+      |vpiParent:
+      \_port: (hartinfo_i), line:13:35, endln:13:45
+      |vpiFullName:work@dm_top.hartinfo_i
+      |vpiActual:
+      \_packed_array_typespec: 
 |uhdmtopModules:
 \_module_inst: work@dm_top (work@dm_top), file:${SURELOG_DIR}/tests/PortPackage/dut.sv, line:10:1, endln:17:10
   |vpiName:work@dm_top
@@ -312,10 +256,12 @@ design: (work@dm_top)
     \_module_inst: work@dm_top (work@dm_top), file:${SURELOG_DIR}/tests/PortPackage/dut.sv, line:10:1, endln:17:10
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: , line:11:15, endln:11:18
+    \_ref_obj: (work@dm_top.NrHarts)
       |vpiParent:
       \_parameter: (work@dm_top.NrHarts), line:11:35, endln:11:42
-      |vpiSigned:1
+      |vpiFullName:work@dm_top.NrHarts
+      |vpiActual:
+      \_int_typespec: , line:11:15, endln:11:18
     |vpiSigned:1
     |vpiName:NrHarts
     |vpiFullName:work@dm_top.NrHarts
@@ -331,7 +277,12 @@ design: (work@dm_top)
       |vpiSize:32
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: , line:11:15, endln:11:18
+      \_ref_obj: (work@dm_top)
+        |vpiParent:
+        \_constant: , line:11:54, endln:11:55
+        |vpiFullName:work@dm_top
+        |vpiActual:
+        \_int_typespec: , line:11:15, endln:11:18
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@dm_top.NrHarts), line:11:35, endln:11:42
@@ -342,7 +293,12 @@ design: (work@dm_top)
     |vpiParent:
     \_module_inst: work@dm_top (work@dm_top), file:${SURELOG_DIR}/tests/PortPackage/dut.sv, line:10:1, endln:17:10
     |vpiTypespec:
-    \_struct_typespec: (dm::hartinfo_t), line:3:10, endln:6:6
+    \_ref_obj: (work@dm_top.hartinfo_i)
+      |vpiParent:
+      \_struct_net: (work@dm_top.hartinfo_i), line:13:35, endln:13:45
+      |vpiFullName:work@dm_top.hartinfo_i
+      |vpiActual:
+      \_struct_typespec: (dm::hartinfo_t), line:3:10, endln:6:6
     |vpiName:hartinfo_i
     |vpiFullName:work@dm_top.hartinfo_i
     |vpiNetType:1
@@ -362,31 +318,147 @@ design: (work@dm_top)
       |vpiActual:
       \_struct_net: (work@dm_top.hartinfo_i), line:13:35, endln:13:45
     |vpiTypedef:
-    \_packed_array_typespec: 
-      |vpiRange:
-      \_range: , line:13:20, endln:13:33
-        |vpiParent:
-        \_packed_array_typespec: 
-        |vpiLeftRange:
-        \_constant: , line:13:21, endln:13:28
-          |vpiParent:
-          \_range: , line:13:20, endln:13:33
-          |vpiDecompile:0
-          |vpiSize:64
-          |INT:0
-          |vpiConstType:7
-        |vpiRightRange:
-        \_constant: , line:13:31, endln:13:32
-          |vpiParent:
-          \_range: , line:13:20, endln:13:33
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-      |vpiElemTypespec:
-      \_struct_typespec: (dm::hartinfo_t), line:3:10, endln:6:6
+    \_ref_obj: (work@dm_top.hartinfo_i)
+      |vpiParent:
+      \_port: (hartinfo_i), line:13:35, endln:13:45
+      |vpiFullName:work@dm_top.hartinfo_i
+      |vpiActual:
+      \_packed_array_typespec: 
     |vpiInstance:
     \_module_inst: work@dm_top (work@dm_top), file:${SURELOG_DIR}/tests/PortPackage/dut.sv, line:10:1, endln:17:10
+\_weaklyReferenced:
+\_logic_typespec: , line:4:9, endln:4:22
+  |vpiParent:
+  \_typespec_member: (zero1), line:4:23, endln:4:28
+  |vpiInstance:
+  \_package: dm (dm::), file:${SURELOG_DIR}/tests/PortPackage/dut.sv, line:1:1, endln:8:11
+  |vpiRange:
+  \_range: , line:4:15, endln:4:22
+    |vpiParent:
+    \_logic_typespec: , line:4:9, endln:4:22
+    |vpiLeftRange:
+    \_constant: , line:4:16, endln:4:18
+      |vpiParent:
+      \_range: , line:4:15, endln:4:22
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:4:19, endln:4:21
+      |vpiParent:
+      \_range: , line:4:15, endln:4:22
+      |vpiDecompile:24
+      |vpiSize:64
+      |UINT:24
+      |vpiConstType:9
+\_logic_typespec: , line:5:9, endln:5:14
+  |vpiParent:
+  \_typespec_member: (dataaccess), line:5:23, endln:5:33
+  |vpiInstance:
+  \_package: dm (dm::), file:${SURELOG_DIR}/tests/PortPackage/dut.sv, line:1:1, endln:8:11
+\_logic_typespec: , line:4:9, endln:4:22
+  |vpiParent:
+  \_typespec_member: (zero1), line:4:23, endln:4:28
+  |vpiInstance:
+  \_package: dm (dm::), file:${SURELOG_DIR}/tests/PortPackage/dut.sv, line:1:1, endln:8:11
+  |vpiRange:
+  \_range: , line:4:15, endln:4:22
+    |vpiParent:
+    \_logic_typespec: , line:4:9, endln:4:22
+    |vpiLeftRange:
+    \_constant: , line:4:16, endln:4:18
+      |vpiParent:
+      \_range: , line:4:15, endln:4:22
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:4:19, endln:4:21
+      |vpiParent:
+      \_range: , line:4:15, endln:4:22
+      |vpiDecompile:24
+      |vpiSize:64
+      |UINT:24
+      |vpiConstType:9
+\_logic_typespec: , line:5:9, endln:5:14
+  |vpiParent:
+  \_typespec_member: (dataaccess), line:5:23, endln:5:33
+  |vpiInstance:
+  \_package: dm (dm::), file:${SURELOG_DIR}/tests/PortPackage/dut.sv, line:1:1, endln:8:11
+\_int_typespec: , line:11:15, endln:11:18
+  |vpiParent:
+  \_parameter: (work@dm_top.NrHarts), line:11:35, endln:11:42
+  |vpiSigned:1
+\_packed_array_typespec: 
+  |vpiRange:
+  \_range: , line:13:20, endln:13:33
+    |vpiParent:
+    \_packed_array_typespec: 
+    |vpiLeftRange:
+    \_constant: , line:13:21, endln:13:28
+      |vpiParent:
+      \_range: , line:13:20, endln:13:33
+      |vpiDecompile:0
+      |vpiSize:64
+      |INT:0
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:13:31, endln:13:32
+      |vpiParent:
+      \_range: , line:13:20, endln:13:33
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_obj: 
+    |vpiParent:
+    \_packed_array_typespec: 
+    |vpiActual:
+    \_struct_typespec: (dm::hartinfo_t), line:3:10, endln:6:6
+\_packed_array_typespec: 
+  |vpiRange:
+  \_range: , line:13:20, endln:13:33
+    |vpiParent:
+    \_packed_array_typespec: 
+    |vpiLeftRange:
+    \_operation: , line:13:21, endln:13:30
+      |vpiParent:
+      \_range: , line:13:20, endln:13:33
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (NrHarts), line:13:21, endln:13:28
+        |vpiParent:
+        \_operation: , line:13:21, endln:13:30
+        |vpiName:NrHarts
+      |vpiOperand:
+      \_constant: , line:13:29, endln:13:30
+        |vpiParent:
+        \_operation: , line:13:21, endln:13:30
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:13:31, endln:13:32
+      |vpiParent:
+      \_range: , line:13:20, endln:13:33
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_obj: 
+    |vpiParent:
+    \_packed_array_typespec: 
+    |vpiActual:
+    \_struct_typespec: (dm::hartinfo_t), line:3:10, endln:6:6
+\_int_typespec: , line:11:15, endln:11:18
+  |vpiParent:
+  \_ref_obj: (work@dm_top.NrHarts)
+  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

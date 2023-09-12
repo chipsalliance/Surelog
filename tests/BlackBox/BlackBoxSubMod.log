@@ -168,7 +168,7 @@ int_typespec                                           1
 logic_net                                              2
 module_inst                                            6
 ref_module                                             1
-ref_obj                                                4
+ref_obj                                                5
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -182,7 +182,7 @@ int_typespec                                           1
 logic_net                                              2
 module_inst                                            6
 ref_module                                             1
-ref_obj                                                7
+ref_obj                                                8
 === UHDM Object Stats End ===
 [ERR:UH0725] ${SURELOG_DIR}/tests/BlackBox/dut.sv:31:16: Unresolved hierarchical reference "nyuzi.core_gen[0].core.wb_writeback_en".
 
@@ -209,8 +209,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@core (work@core), file:${SURELOG_DIR}/tests/BlackBox/dut.sv, line:5:1, endln:9:10
     |vpiTypespec:
-    \_int_typespec: , line:7:1, endln:7:4
-      |vpiSigned:1
+    \_ref_obj: (work@core.wb_writeback_en)
+      |vpiParent:
+      \_logic_net: (work@core.wb_writeback_en), line:7:5, endln:7:20
+      |vpiFullName:work@core.wb_writeback_en
+      |vpiActual:
+      \_int_typespec: , line:7:1, endln:7:4
     |vpiName:wb_writeback_en
     |vpiFullName:work@core.wb_writeback_en
 |uhdmallModules:
@@ -339,6 +343,9 @@ design: (work@top)
       |vpiFullName:work@top.o
       |vpiActual:
       \_logic_net: (work@top.o), line:31:12, endln:31:13
+\_weaklyReferenced:
+\_int_typespec: , line:7:1, endln:7:4
+  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -115,6 +115,7 @@ logic_typespec                                         1
 module_inst                                            4
 packed_array_typespec                                  4
 range                                                  5
+ref_obj                                                3
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -127,6 +128,7 @@ logic_typespec                                         1
 module_inst                                            4
 packed_array_typespec                                  4
 range                                                  5
+ref_obj                                                3
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PackedArrayTypespec/slpp_all/surelog.uhdm ...
 
@@ -173,58 +175,12 @@ design: (work@top)
         |UINT:4
         |vpiConstType:9
     |vpiElemTypespec:
-    \_enum_typespec: (unit_type_t), line:3:4, endln:7:17
+    \_ref_obj: (work@top.fmt_unit_types_t)
       |vpiParent:
-      \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PackedArrayTypespec/dut.sv, line:1:1, endln:13:10
-      |vpiName:unit_type_t
-      |vpiInstance:
-      \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PackedArrayTypespec/dut.sv, line:1:1, endln:13:10
-      |vpiBaseTypespec:
-      \_logic_typespec: , line:3:17, endln:3:28
-        |vpiRange:
-        \_range: , line:3:23, endln:3:28
-          |vpiParent:
-          \_logic_typespec: , line:3:17, endln:3:28
-          |vpiLeftRange:
-          \_constant: , line:3:24, endln:3:25
-            |vpiParent:
-            \_range: , line:3:23, endln:3:28
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:3:26, endln:3:27
-            |vpiParent:
-            \_range: , line:3:23, endln:3:28
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-      |vpiEnumConst:
-      \_enum_const: (DISABLED), line:4:5, endln:4:13
-        |vpiParent:
-        \_enum_typespec: (unit_type_t), line:3:4, endln:7:17
-        |vpiName:DISABLED
-        |INT:0
-        |vpiDecompile:0
-        |vpiSize:2
-      |vpiEnumConst:
-      \_enum_const: (PARALLEL), line:5:5, endln:5:13
-        |vpiParent:
-        \_enum_typespec: (unit_type_t), line:3:4, endln:7:17
-        |vpiName:PARALLEL
-        |INT:1
-        |vpiDecompile:1
-        |vpiSize:2
-      |vpiEnumConst:
-      \_enum_const: (MERGED), line:6:5, endln:6:11
-        |vpiParent:
-        \_enum_typespec: (unit_type_t), line:3:4, endln:7:17
-        |vpiName:MERGED
-        |INT:2
-        |vpiDecompile:2
-        |vpiSize:2
+      \_packed_array_typespec: (fmt_unit_types_t), line:9:11, endln:9:28
+      |vpiFullName:work@top.fmt_unit_types_t
+      |vpiActual:
+      \_enum_typespec: (unit_type_t), line:3:4, endln:7:17
   |vpiTypedef:
   \_packed_array_typespec: (opgrp_fmt_unit_types_t), line:11:11, endln:11:33
     |vpiParent:
@@ -253,9 +209,50 @@ design: (work@top)
         |UINT:1
         |vpiConstType:9
     |vpiElemTypespec:
-    \_packed_array_typespec: (fmt_unit_types_t), line:9:11, endln:9:28
+    \_ref_obj: (work@top.opgrp_fmt_unit_types_t)
+      |vpiParent:
+      \_packed_array_typespec: (opgrp_fmt_unit_types_t), line:11:11, endln:11:33
+      |vpiFullName:work@top.opgrp_fmt_unit_types_t
+      |vpiActual:
+      \_packed_array_typespec: (fmt_unit_types_t), line:9:11, endln:9:28
   |vpiTypedef:
   \_enum_typespec: (unit_type_t), line:3:4, endln:7:17
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PackedArrayTypespec/dut.sv, line:1:1, endln:13:10
+    |vpiName:unit_type_t
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PackedArrayTypespec/dut.sv, line:1:1, endln:13:10
+    |vpiBaseTypespec:
+    \_ref_obj: (work@top.unit_type_t)
+      |vpiParent:
+      \_enum_typespec: (unit_type_t), line:3:4, endln:7:17
+      |vpiFullName:work@top.unit_type_t
+      |vpiActual:
+      \_logic_typespec: , line:3:17, endln:3:28
+    |vpiEnumConst:
+    \_enum_const: (DISABLED), line:4:5, endln:4:13
+      |vpiParent:
+      \_enum_typespec: (unit_type_t), line:3:4, endln:7:17
+      |vpiName:DISABLED
+      |INT:0
+      |vpiDecompile:0
+      |vpiSize:2
+    |vpiEnumConst:
+    \_enum_const: (PARALLEL), line:5:5, endln:5:13
+      |vpiParent:
+      \_enum_typespec: (unit_type_t), line:3:4, endln:7:17
+      |vpiName:PARALLEL
+      |INT:1
+      |vpiDecompile:1
+      |vpiSize:2
+    |vpiEnumConst:
+    \_enum_const: (MERGED), line:6:5, endln:6:11
+      |vpiParent:
+      \_enum_typespec: (unit_type_t), line:3:4, endln:7:17
+      |vpiName:MERGED
+      |INT:2
+      |vpiDecompile:2
+      |vpiSize:2
   |vpiDefName:work@top
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PackedArrayTypespec/dut.sv, line:1:1, endln:13:10
@@ -269,6 +266,28 @@ design: (work@top)
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
+\_weaklyReferenced:
+\_logic_typespec: , line:3:17, endln:3:28
+  |vpiRange:
+  \_range: , line:3:23, endln:3:28
+    |vpiParent:
+    \_logic_typespec: , line:3:17, endln:3:28
+    |vpiLeftRange:
+    \_constant: , line:3:24, endln:3:25
+      |vpiParent:
+      \_range: , line:3:23, endln:3:28
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:26, endln:3:27
+      |vpiParent:
+      \_range: , line:3:23, endln:3:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

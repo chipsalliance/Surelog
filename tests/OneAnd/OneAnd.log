@@ -607,7 +607,7 @@ logic_var                                              2
 module_inst                                            5
 operation                                             10
 port                                                   8
-ref_obj                                               40
+ref_obj                                               56
 sys_func_call                                         11
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -627,7 +627,7 @@ logic_var                                              2
 module_inst                                            5
 operation                                             19
 port                                                  12
-ref_obj                                               73
+ref_obj                                               93
 sys_func_call                                         22
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/OneAnd/slpp_unit/surelog.uhdm ...
@@ -660,7 +660,12 @@ design: (work@and_tb)
     |vpiParent:
     \_module_inst: work@and_tb (work@and_tb), file:${SURELOG_DIR}/tests/OneAnd/tb.v, line:1:1, endln:30:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:3, endln:2:10
+    \_ref_obj: (work@and_tb.a)
+      |vpiParent:
+      \_logic_net: (work@and_tb.a), line:2:9, endln:2:10
+      |vpiFullName:work@and_tb.a
+      |vpiActual:
+      \_logic_typespec: , line:2:3, endln:2:10
     |vpiName:a
     |vpiFullName:work@and_tb.a
     |vpiNetType:36
@@ -669,7 +674,12 @@ design: (work@and_tb)
     |vpiParent:
     \_module_inst: work@and_tb (work@and_tb), file:${SURELOG_DIR}/tests/OneAnd/tb.v, line:1:1, endln:30:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:3, endln:2:10
+    \_ref_obj: (work@and_tb.b)
+      |vpiParent:
+      \_logic_net: (work@and_tb.b), line:2:12, endln:2:13
+      |vpiFullName:work@and_tb.b
+      |vpiActual:
+      \_logic_typespec: , line:2:3, endln:2:10
     |vpiName:b
     |vpiFullName:work@and_tb.b
     |vpiNetType:36
@@ -688,7 +698,12 @@ design: (work@and_tb)
       |vpiActual:
       \_logic_net: (work@and_tb.o), line:1:28, endln:1:29
     |vpiTypedef:
-    \_logic_typespec: , line:1:22, endln:1:27
+    \_ref_obj: (work@and_tb.o)
+      |vpiParent:
+      \_port: (o), line:1:28, endln:1:29
+      |vpiFullName:work@and_tb.o
+      |vpiActual:
+      \_logic_typespec: , line:1:22, endln:1:27
   |vpiProcess:
   \_initial: , line:4:3, endln:7:6
     |vpiParent:
@@ -1284,7 +1299,12 @@ design: (work@and_tb)
       |vpiActual:
       \_logic_net: (work@dut.a), line:1:24, endln:1:25
     |vpiTypedef:
-    \_logic_typespec: , line:1:18, endln:1:23
+    \_ref_obj: (work@dut.a)
+      |vpiParent:
+      \_port: (a), line:1:24, endln:1:25
+      |vpiFullName:work@dut.a
+      |vpiActual:
+      \_logic_typespec: , line:1:18, endln:1:23
   |vpiPort:
   \_port: (b), line:1:39, endln:1:40
     |vpiParent:
@@ -1300,7 +1320,12 @@ design: (work@and_tb)
       |vpiActual:
       \_logic_net: (work@dut.b), line:1:39, endln:1:40
     |vpiTypedef:
-    \_logic_typespec: , line:1:33, endln:1:38
+    \_ref_obj: (work@dut.b)
+      |vpiParent:
+      \_port: (b), line:1:39, endln:1:40
+      |vpiFullName:work@dut.b
+      |vpiActual:
+      \_logic_typespec: , line:1:33, endln:1:38
   |vpiPort:
   \_port: (o), line:1:55, endln:1:56
     |vpiParent:
@@ -1316,7 +1341,12 @@ design: (work@and_tb)
       |vpiActual:
       \_logic_net: (work@dut.o), line:1:55, endln:1:56
     |vpiTypedef:
-    \_logic_typespec: , line:1:49, endln:1:54
+    \_ref_obj: (work@dut.o)
+      |vpiParent:
+      \_port: (o), line:1:55, endln:1:56
+      |vpiFullName:work@dut.o
+      |vpiActual:
+      \_logic_typespec: , line:1:49, endln:1:54
   |vpiContAssign:
   \_cont_assign: , line:3:10, endln:3:19
     |vpiParent:
@@ -1358,9 +1388,12 @@ design: (work@and_tb)
     |vpiParent:
     \_module_inst: work@and_tb (work@and_tb), file:${SURELOG_DIR}/tests/OneAnd/tb.v, line:1:1, endln:30:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:3, endln:2:8
+    \_ref_obj: (work@and_tb.a)
       |vpiParent:
-      \_logic_var: (work@and_tb.b), line:2:12, endln:2:13
+      \_logic_var: (work@and_tb.a), line:2:9, endln:2:10
+      |vpiFullName:work@and_tb.a
+      |vpiActual:
+      \_logic_typespec: , line:2:3, endln:2:8
     |vpiName:a
     |vpiFullName:work@and_tb.a
     |vpiVisibility:1
@@ -1369,7 +1402,12 @@ design: (work@and_tb)
     |vpiParent:
     \_module_inst: work@and_tb (work@and_tb), file:${SURELOG_DIR}/tests/OneAnd/tb.v, line:1:1, endln:30:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:3, endln:2:8
+    \_ref_obj: (work@and_tb.b)
+      |vpiParent:
+      \_logic_var: (work@and_tb.b), line:2:12, endln:2:13
+      |vpiFullName:work@and_tb.b
+      |vpiActual:
+      \_logic_typespec: , line:2:3, endln:2:8
     |vpiName:b
     |vpiFullName:work@and_tb.b
     |vpiVisibility:1
@@ -1380,9 +1418,12 @@ design: (work@and_tb)
     |vpiParent:
     \_module_inst: work@and_tb (work@and_tb), file:${SURELOG_DIR}/tests/OneAnd/tb.v, line:1:1, endln:30:10
     |vpiTypespec:
-    \_logic_typespec: , line:1:22, endln:1:27
+    \_ref_obj: (work@and_tb.o)
       |vpiParent:
       \_logic_net: (work@and_tb.o), line:1:28, endln:1:29
+      |vpiFullName:work@and_tb.o
+      |vpiActual:
+      \_logic_typespec: , line:1:22, endln:1:27
     |vpiName:o
     |vpiFullName:work@and_tb.o
     |vpiNetType:36
@@ -1402,7 +1443,12 @@ design: (work@and_tb)
       |vpiActual:
       \_logic_net: (work@and_tb.o), line:1:28, endln:1:29
     |vpiTypedef:
-    \_logic_typespec: , line:1:22, endln:1:27
+    \_ref_obj: (work@and_tb.o)
+      |vpiParent:
+      \_port: (o), line:1:28, endln:1:29
+      |vpiFullName:work@and_tb.o
+      |vpiActual:
+      \_logic_typespec: , line:1:22, endln:1:27
     |vpiInstance:
     \_module_inst: work@and_tb (work@and_tb), file:${SURELOG_DIR}/tests/OneAnd/tb.v, line:1:1, endln:30:10
   |vpiProcess:
@@ -1862,9 +1908,12 @@ design: (work@and_tb)
       |vpiParent:
       \_module_inst: work@dut (work@and_tb.dut1), file:${SURELOG_DIR}/tests/OneAnd/tb.v, line:28:3, endln:28:19
       |vpiTypespec:
-      \_logic_typespec: , line:1:18, endln:1:23
+      \_ref_obj: (work@and_tb.dut1.a)
         |vpiParent:
         \_logic_net: (work@and_tb.dut1.a), line:1:24, endln:1:25
+        |vpiFullName:work@and_tb.dut1.a
+        |vpiActual:
+        \_logic_typespec: , line:1:18, endln:1:23
       |vpiName:a
       |vpiFullName:work@and_tb.dut1.a
       |vpiNetType:36
@@ -1873,9 +1922,12 @@ design: (work@and_tb)
       |vpiParent:
       \_module_inst: work@dut (work@and_tb.dut1), file:${SURELOG_DIR}/tests/OneAnd/tb.v, line:28:3, endln:28:19
       |vpiTypespec:
-      \_logic_typespec: , line:1:33, endln:1:38
+      \_ref_obj: (work@and_tb.dut1.b)
         |vpiParent:
         \_logic_net: (work@and_tb.dut1.b), line:1:39, endln:1:40
+        |vpiFullName:work@and_tb.dut1.b
+        |vpiActual:
+        \_logic_typespec: , line:1:33, endln:1:38
       |vpiName:b
       |vpiFullName:work@and_tb.dut1.b
       |vpiNetType:36
@@ -1884,7 +1936,12 @@ design: (work@and_tb)
       |vpiParent:
       \_module_inst: work@dut (work@and_tb.dut1), file:${SURELOG_DIR}/tests/OneAnd/tb.v, line:28:3, endln:28:19
       |vpiTypespec:
-      \_logic_typespec: , line:1:49, endln:1:54
+      \_ref_obj: (work@and_tb.dut1.o)
+        |vpiParent:
+        \_logic_net: (work@and_tb.dut1.o), line:1:55, endln:1:56
+        |vpiFullName:work@and_tb.dut1.o
+        |vpiActual:
+        \_logic_typespec: , line:1:49, endln:1:54
       |vpiName:o
       |vpiFullName:work@and_tb.dut1.o
       |vpiNetType:36
@@ -1913,7 +1970,12 @@ design: (work@and_tb)
         |vpiActual:
         \_logic_net: (work@and_tb.dut1.a), line:1:24, endln:1:25
       |vpiTypedef:
-      \_logic_typespec: , line:1:18, endln:1:23
+      \_ref_obj: (work@and_tb.dut1.a)
+        |vpiParent:
+        \_port: (a), line:1:24, endln:1:25
+        |vpiFullName:work@and_tb.dut1.a
+        |vpiActual:
+        \_logic_typespec: , line:1:18, endln:1:23
       |vpiInstance:
       \_module_inst: work@dut (work@and_tb.dut1), file:${SURELOG_DIR}/tests/OneAnd/tb.v, line:28:3, endln:28:19
     |vpiPort:
@@ -1939,7 +2001,12 @@ design: (work@and_tb)
         |vpiActual:
         \_logic_net: (work@and_tb.dut1.b), line:1:39, endln:1:40
       |vpiTypedef:
-      \_logic_typespec: , line:1:33, endln:1:38
+      \_ref_obj: (work@and_tb.dut1.b)
+        |vpiParent:
+        \_port: (b), line:1:39, endln:1:40
+        |vpiFullName:work@and_tb.dut1.b
+        |vpiActual:
+        \_logic_typespec: , line:1:33, endln:1:38
       |vpiInstance:
       \_module_inst: work@dut (work@and_tb.dut1), file:${SURELOG_DIR}/tests/OneAnd/tb.v, line:28:3, endln:28:19
     |vpiPort:
@@ -1965,7 +2032,12 @@ design: (work@and_tb)
         |vpiActual:
         \_logic_net: (work@and_tb.dut1.o), line:1:55, endln:1:56
       |vpiTypedef:
-      \_logic_typespec: , line:1:49, endln:1:54
+      \_ref_obj: (work@and_tb.dut1.o)
+        |vpiParent:
+        \_port: (o), line:1:55, endln:1:56
+        |vpiFullName:work@and_tb.dut1.o
+        |vpiActual:
+        \_logic_typespec: , line:1:49, endln:1:54
       |vpiInstance:
       \_module_inst: work@dut (work@and_tb.dut1), file:${SURELOG_DIR}/tests/OneAnd/tb.v, line:28:3, endln:28:19
     |vpiContAssign:
@@ -2001,6 +2073,30 @@ design: (work@and_tb)
         |vpiFullName:work@and_tb.dut1.o
         |vpiActual:
         \_logic_net: (work@and_tb.dut1.o), line:1:55, endln:1:56
+\_weaklyReferenced:
+\_logic_typespec: , line:1:22, endln:1:27
+\_logic_typespec: , line:1:22, endln:1:27
+  |vpiParent:
+  \_logic_net: (work@and_tb.o), line:1:28, endln:1:29
+\_logic_typespec: , line:2:3, endln:2:8
+  |vpiParent:
+  \_logic_var: (work@and_tb.b), line:2:12, endln:2:13
+\_logic_typespec: , line:1:18, endln:1:23
+\_logic_typespec: , line:1:33, endln:1:38
+\_logic_typespec: , line:1:49, endln:1:54
+\_logic_typespec: , line:1:18, endln:1:23
+  |vpiParent:
+  \_logic_net: (work@and_tb.dut1.a), line:1:24, endln:1:25
+\_logic_typespec: , line:1:33, endln:1:38
+  |vpiParent:
+  \_logic_net: (work@and_tb.dut1.b), line:1:39, endln:1:40
+\_logic_typespec: , line:1:49, endln:1:54
+\_logic_typespec: , line:1:22, endln:1:27
+\_logic_typespec: , line:2:3, endln:2:10
+\_logic_typespec: , line:2:3, endln:2:10
+\_logic_typespec: , line:1:18, endln:1:23
+\_logic_typespec: , line:1:33, endln:1:38
+\_logic_typespec: , line:1:49, endln:1:54
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

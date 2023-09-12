@@ -121,6 +121,7 @@ logic_net                                             16
 logic_typespec                                        12
 module_inst                                            3
 range                                                  8
+ref_obj                                               16
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -131,6 +132,7 @@ logic_net                                             16
 logic_typespec                                        12
 module_inst                                            3
 range                                                  8
+ref_obj                                               16
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/1364_2005/slpp_all/surelog.uhdm ...
 
@@ -155,27 +157,12 @@ design: (work@main)
     |vpiParent:
     \_module_inst: work@main (work@main), file:${SURELOG_DIR}/tests/1364_2005/dut.v, line:3:1, endln:11:10
     |vpiTypespec:
-    \_logic_typespec: , line:5:4, endln:5:13
-      |vpiRange:
-      \_range: , line:5:8, endln:5:13
-        |vpiParent:
-        \_logic_typespec: , line:5:4, endln:5:13
-        |vpiLeftRange:
-        \_constant: , line:5:9, endln:5:10
-          |vpiParent:
-          \_range: , line:5:8, endln:5:13
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:5:11, endln:5:12
-          |vpiParent:
-          \_range: , line:5:8, endln:5:13
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@main.foo)
+      |vpiParent:
+      \_logic_net: (work@main.foo), line:5:14, endln:5:17
+      |vpiFullName:work@main.foo
+      |vpiActual:
+      \_logic_typespec: , line:5:4, endln:5:13
     |vpiName:foo
     |vpiFullName:work@main.foo
     |vpiNetType:48
@@ -184,27 +171,12 @@ design: (work@main)
     |vpiParent:
     \_module_inst: work@main (work@main), file:${SURELOG_DIR}/tests/1364_2005/dut.v, line:3:1, endln:11:10
     |vpiTypespec:
-    \_logic_typespec: , line:5:4, endln:5:13
-      |vpiRange:
-      \_range: , line:5:8, endln:5:13
-        |vpiParent:
-        \_logic_typespec: , line:5:4, endln:5:13
-        |vpiLeftRange:
-        \_constant: , line:5:9, endln:5:10
-          |vpiParent:
-          \_range: , line:5:8, endln:5:13
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:5:11, endln:5:12
-          |vpiParent:
-          \_range: , line:5:8, endln:5:13
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@main.bar)
+      |vpiParent:
+      \_logic_net: (work@main.bar), line:5:19, endln:5:22
+      |vpiFullName:work@main.bar
+      |vpiActual:
+      \_logic_typespec: , line:5:4, endln:5:13
     |vpiName:bar
     |vpiFullName:work@main.bar
     |vpiNetType:48
@@ -213,27 +185,12 @@ design: (work@main)
     |vpiParent:
     \_module_inst: work@main (work@main), file:${SURELOG_DIR}/tests/1364_2005/dut.v, line:3:1, endln:11:10
     |vpiTypespec:
-    \_logic_typespec: , line:6:4, endln:6:13
-      |vpiRange:
-      \_range: , line:6:8, endln:6:13
-        |vpiParent:
-        \_logic_typespec: , line:6:4, endln:6:13
-        |vpiLeftRange:
-        \_constant: , line:6:9, endln:6:10
-          |vpiParent:
-          \_range: , line:6:8, endln:6:13
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:6:11, endln:6:12
-          |vpiParent:
-          \_range: , line:6:8, endln:6:13
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@main.adr)
+      |vpiParent:
+      \_logic_net: (work@main.adr), line:6:14, endln:6:17
+      |vpiFullName:work@main.adr
+      |vpiActual:
+      \_logic_typespec: , line:6:4, endln:6:13
     |vpiName:adr
     |vpiFullName:work@main.adr
     |vpiNetType:48
@@ -242,7 +199,12 @@ design: (work@main)
     |vpiParent:
     \_module_inst: work@main (work@main), file:${SURELOG_DIR}/tests/1364_2005/dut.v, line:3:1, endln:11:10
     |vpiTypespec:
-    \_logic_typespec: , line:8:4, endln:8:7
+    \_ref_obj: (work@main.bit)
+      |vpiParent:
+      \_logic_net: (work@main.bit), line:8:13, endln:8:16
+      |vpiFullName:work@main.bit
+      |vpiActual:
+      \_logic_typespec: , line:8:4, endln:8:7
     |vpiName:bit
     |vpiFullName:work@main.bit
     |vpiNetType:48
@@ -251,7 +213,12 @@ design: (work@main)
     |vpiParent:
     \_module_inst: work@main (work@main), file:${SURELOG_DIR}/tests/1364_2005/dut.v, line:3:1, endln:11:10
     |vpiTypespec:
-    \_logic_typespec: , line:8:4, endln:8:7
+    \_ref_obj: (work@main.rst)
+      |vpiParent:
+      \_logic_net: (work@main.rst), line:8:18, endln:8:21
+      |vpiFullName:work@main.rst
+      |vpiActual:
+      \_logic_typespec: , line:8:4, endln:8:7
     |vpiName:rst
     |vpiFullName:work@main.rst
     |vpiNetType:48
@@ -260,7 +227,12 @@ design: (work@main)
     |vpiParent:
     \_module_inst: work@main (work@main), file:${SURELOG_DIR}/tests/1364_2005/dut.v, line:3:1, endln:11:10
     |vpiTypespec:
-    \_logic_typespec: , line:8:4, endln:8:7
+    \_ref_obj: (work@main.clk)
+      |vpiParent:
+      \_logic_net: (work@main.clk), line:8:23, endln:8:26
+      |vpiFullName:work@main.clk
+      |vpiActual:
+      \_logic_typespec: , line:8:4, endln:8:7
     |vpiName:clk
     |vpiFullName:work@main.clk
     |vpiNetType:48
@@ -269,7 +241,12 @@ design: (work@main)
     |vpiParent:
     \_module_inst: work@main (work@main), file:${SURELOG_DIR}/tests/1364_2005/dut.v, line:3:1, endln:11:10
     |vpiTypespec:
-    \_logic_typespec: , line:9:4, endln:9:7
+    \_ref_obj: (work@main.load_enable)
+      |vpiParent:
+      \_logic_net: (work@main.load_enable), line:9:13, endln:9:24
+      |vpiFullName:work@main.load_enable
+      |vpiActual:
+      \_logic_typespec: , line:9:4, endln:9:7
     |vpiName:load_enable
     |vpiFullName:work@main.load_enable
     |vpiNetType:48
@@ -278,7 +255,12 @@ design: (work@main)
     |vpiParent:
     \_module_inst: work@main (work@main), file:${SURELOG_DIR}/tests/1364_2005/dut.v, line:3:1, endln:11:10
     |vpiTypespec:
-    \_logic_typespec: , line:9:4, endln:9:7
+    \_ref_obj: (work@main.write_enable)
+      |vpiParent:
+      \_logic_net: (work@main.write_enable), line:9:26, endln:9:38
+      |vpiFullName:work@main.write_enable
+      |vpiActual:
+      \_logic_typespec: , line:9:4, endln:9:7
     |vpiName:write_enable
     |vpiFullName:work@main.write_enable
     |vpiNetType:48
@@ -292,29 +274,12 @@ design: (work@main)
     |vpiParent:
     \_module_inst: work@main (work@main), file:${SURELOG_DIR}/tests/1364_2005/dut.v, line:3:1, endln:11:10
     |vpiTypespec:
-    \_logic_typespec: , line:5:4, endln:5:13
+    \_ref_obj: (work@main.foo)
       |vpiParent:
-      \_logic_net: (work@main.bar), line:5:19, endln:5:22
-      |vpiRange:
-      \_range: , line:5:8, endln:5:13
-        |vpiParent:
-        \_logic_typespec: , line:5:4, endln:5:13
-        |vpiLeftRange:
-        \_constant: , line:5:9, endln:5:10
-          |vpiParent:
-          \_range: , line:5:8, endln:5:13
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:5:11, endln:5:12
-          |vpiParent:
-          \_range: , line:5:8, endln:5:13
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      \_logic_net: (work@main.foo), line:5:14, endln:5:17
+      |vpiFullName:work@main.foo
+      |vpiActual:
+      \_logic_typespec: , line:5:4, endln:5:13
     |vpiName:foo
     |vpiFullName:work@main.foo
     |vpiNetType:48
@@ -323,7 +288,12 @@ design: (work@main)
     |vpiParent:
     \_module_inst: work@main (work@main), file:${SURELOG_DIR}/tests/1364_2005/dut.v, line:3:1, endln:11:10
     |vpiTypespec:
-    \_logic_typespec: , line:5:4, endln:5:13
+    \_ref_obj: (work@main.bar)
+      |vpiParent:
+      \_logic_net: (work@main.bar), line:5:19, endln:5:22
+      |vpiFullName:work@main.bar
+      |vpiActual:
+      \_logic_typespec: , line:5:4, endln:5:13
     |vpiName:bar
     |vpiFullName:work@main.bar
     |vpiNetType:48
@@ -332,29 +302,12 @@ design: (work@main)
     |vpiParent:
     \_module_inst: work@main (work@main), file:${SURELOG_DIR}/tests/1364_2005/dut.v, line:3:1, endln:11:10
     |vpiTypespec:
-    \_logic_typespec: , line:6:4, endln:6:13
+    \_ref_obj: (work@main.adr)
       |vpiParent:
       \_logic_net: (work@main.adr), line:6:14, endln:6:17
-      |vpiRange:
-      \_range: , line:6:8, endln:6:13
-        |vpiParent:
-        \_logic_typespec: , line:6:4, endln:6:13
-        |vpiLeftRange:
-        \_constant: , line:6:9, endln:6:10
-          |vpiParent:
-          \_range: , line:6:8, endln:6:13
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:6:11, endln:6:12
-          |vpiParent:
-          \_range: , line:6:8, endln:6:13
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@main.adr
+      |vpiActual:
+      \_logic_typespec: , line:6:4, endln:6:13
     |vpiName:adr
     |vpiFullName:work@main.adr
     |vpiNetType:48
@@ -363,9 +316,12 @@ design: (work@main)
     |vpiParent:
     \_module_inst: work@main (work@main), file:${SURELOG_DIR}/tests/1364_2005/dut.v, line:3:1, endln:11:10
     |vpiTypespec:
-    \_logic_typespec: , line:8:4, endln:8:7
+    \_ref_obj: (work@main.bit)
       |vpiParent:
-      \_logic_net: (work@main.clk), line:8:23, endln:8:26
+      \_logic_net: (work@main.bit), line:8:13, endln:8:16
+      |vpiFullName:work@main.bit
+      |vpiActual:
+      \_logic_typespec: , line:8:4, endln:8:7
     |vpiName:bit
     |vpiFullName:work@main.bit
     |vpiNetType:48
@@ -374,7 +330,12 @@ design: (work@main)
     |vpiParent:
     \_module_inst: work@main (work@main), file:${SURELOG_DIR}/tests/1364_2005/dut.v, line:3:1, endln:11:10
     |vpiTypespec:
-    \_logic_typespec: , line:8:4, endln:8:7
+    \_ref_obj: (work@main.rst)
+      |vpiParent:
+      \_logic_net: (work@main.rst), line:8:18, endln:8:21
+      |vpiFullName:work@main.rst
+      |vpiActual:
+      \_logic_typespec: , line:8:4, endln:8:7
     |vpiName:rst
     |vpiFullName:work@main.rst
     |vpiNetType:48
@@ -383,7 +344,12 @@ design: (work@main)
     |vpiParent:
     \_module_inst: work@main (work@main), file:${SURELOG_DIR}/tests/1364_2005/dut.v, line:3:1, endln:11:10
     |vpiTypespec:
-    \_logic_typespec: , line:8:4, endln:8:7
+    \_ref_obj: (work@main.clk)
+      |vpiParent:
+      \_logic_net: (work@main.clk), line:8:23, endln:8:26
+      |vpiFullName:work@main.clk
+      |vpiActual:
+      \_logic_typespec: , line:8:4, endln:8:7
     |vpiName:clk
     |vpiFullName:work@main.clk
     |vpiNetType:48
@@ -392,9 +358,12 @@ design: (work@main)
     |vpiParent:
     \_module_inst: work@main (work@main), file:${SURELOG_DIR}/tests/1364_2005/dut.v, line:3:1, endln:11:10
     |vpiTypespec:
-    \_logic_typespec: , line:9:4, endln:9:7
+    \_ref_obj: (work@main.load_enable)
       |vpiParent:
-      \_logic_net: (work@main.write_enable), line:9:26, endln:9:38
+      \_logic_net: (work@main.load_enable), line:9:13, endln:9:24
+      |vpiFullName:work@main.load_enable
+      |vpiActual:
+      \_logic_typespec: , line:9:4, endln:9:7
     |vpiName:load_enable
     |vpiFullName:work@main.load_enable
     |vpiNetType:48
@@ -403,11 +372,137 @@ design: (work@main)
     |vpiParent:
     \_module_inst: work@main (work@main), file:${SURELOG_DIR}/tests/1364_2005/dut.v, line:3:1, endln:11:10
     |vpiTypespec:
-    \_logic_typespec: , line:9:4, endln:9:7
+    \_ref_obj: (work@main.write_enable)
+      |vpiParent:
+      \_logic_net: (work@main.write_enable), line:9:26, endln:9:38
+      |vpiFullName:work@main.write_enable
+      |vpiActual:
+      \_logic_typespec: , line:9:4, endln:9:7
     |vpiName:write_enable
     |vpiFullName:work@main.write_enable
     |vpiNetType:48
   |vpiTopModule:1
+\_weaklyReferenced:
+\_logic_typespec: , line:5:4, endln:5:13
+  |vpiParent:
+  \_logic_net: (work@main.bar), line:5:19, endln:5:22
+  |vpiRange:
+  \_range: , line:5:8, endln:5:13
+    |vpiParent:
+    \_logic_typespec: , line:5:4, endln:5:13
+    |vpiLeftRange:
+    \_constant: , line:5:9, endln:5:10
+      |vpiParent:
+      \_range: , line:5:8, endln:5:13
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:11, endln:5:12
+      |vpiParent:
+      \_range: , line:5:8, endln:5:13
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:6:4, endln:6:13
+  |vpiParent:
+  \_logic_net: (work@main.adr), line:6:14, endln:6:17
+  |vpiRange:
+  \_range: , line:6:8, endln:6:13
+    |vpiParent:
+    \_logic_typespec: , line:6:4, endln:6:13
+    |vpiLeftRange:
+    \_constant: , line:6:9, endln:6:10
+      |vpiParent:
+      \_range: , line:6:8, endln:6:13
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:11, endln:6:12
+      |vpiParent:
+      \_range: , line:6:8, endln:6:13
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:8:4, endln:8:7
+  |vpiParent:
+  \_logic_net: (work@main.clk), line:8:23, endln:8:26
+\_logic_typespec: , line:9:4, endln:9:7
+  |vpiParent:
+  \_logic_net: (work@main.write_enable), line:9:26, endln:9:38
+\_logic_typespec: , line:5:4, endln:5:13
+  |vpiRange:
+  \_range: , line:5:8, endln:5:13
+    |vpiParent:
+    \_logic_typespec: , line:5:4, endln:5:13
+    |vpiLeftRange:
+    \_constant: , line:5:9, endln:5:10
+      |vpiParent:
+      \_range: , line:5:8, endln:5:13
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:11, endln:5:12
+      |vpiParent:
+      \_range: , line:5:8, endln:5:13
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:5:4, endln:5:13
+  |vpiRange:
+  \_range: , line:5:8, endln:5:13
+    |vpiParent:
+    \_logic_typespec: , line:5:4, endln:5:13
+    |vpiLeftRange:
+    \_constant: , line:5:9, endln:5:10
+      |vpiParent:
+      \_range: , line:5:8, endln:5:13
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:11, endln:5:12
+      |vpiParent:
+      \_range: , line:5:8, endln:5:13
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:6:4, endln:6:13
+  |vpiRange:
+  \_range: , line:6:8, endln:6:13
+    |vpiParent:
+    \_logic_typespec: , line:6:4, endln:6:13
+    |vpiLeftRange:
+    \_constant: , line:6:9, endln:6:10
+      |vpiParent:
+      \_range: , line:6:8, endln:6:13
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:11, endln:6:12
+      |vpiParent:
+      \_range: , line:6:8, endln:6:13
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:8:4, endln:8:7
+\_logic_typespec: , line:8:4, endln:8:7
+\_logic_typespec: , line:8:4, endln:8:7
+\_logic_typespec: , line:9:4, endln:9:7
+\_logic_typespec: , line:9:4, endln:9:7
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

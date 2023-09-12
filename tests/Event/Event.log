@@ -52,6 +52,7 @@ event_typespec                                         2
 logic_net                                              1
 module_inst                                            2
 named_event                                            1
+ref_obj                                                1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -61,6 +62,7 @@ event_typespec                                         2
 logic_net                                              1
 module_inst                                            2
 named_event                                            1
+ref_obj                                                1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/Event/slpp_all/surelog.uhdm ...
 
@@ -85,7 +87,12 @@ design: (work@t)
     |vpiParent:
     \_module_inst: work@t (work@t), file:${SURELOG_DIR}/tests/Event/dut.sv, line:1:1, endln:3:10
     |vpiTypespec:
-    \_event_typespec: , line:2:5, endln:2:10
+    \_ref_obj: (work@t.e)
+      |vpiParent:
+      \_logic_net: (work@t.e), line:2:11, endln:2:12
+      |vpiFullName:work@t.e
+      |vpiActual:
+      \_event_typespec: , line:2:5, endln:2:10
     |vpiName:e
     |vpiFullName:work@t.e
 |uhdmtopModules:
@@ -100,6 +107,8 @@ design: (work@t)
   |vpiDefName:work@t
   |vpiTop:1
   |vpiTopModule:1
+\_weaklyReferenced:
+\_event_typespec: , line:2:5, endln:2:10
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

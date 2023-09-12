@@ -155,7 +155,7 @@ module_inst                                            5
 port                                                  16
 prim_term                                             12
 range                                                  4
-ref_obj                                               18
+ref_obj                                               33
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -170,7 +170,7 @@ module_inst                                            5
 port                                                  21
 prim_term                                             18
 range                                                  4
-ref_obj                                               27
+ref_obj                                               47
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PrimTermExpr/slpp_all/surelog.uhdm ...
 
@@ -235,7 +235,12 @@ design: (work@encoder_4to2_gates)
       |vpiActual:
       \_logic_net: (work@encoder_4to2_gates.i0), line:1:28, endln:1:30
     |vpiTypedef:
-    \_logic_typespec: , line:2:7, endln:2:7
+    \_ref_obj: (work@encoder_4to2_gates.i0)
+      |vpiParent:
+      \_port: (i0), line:1:28, endln:1:30
+      |vpiFullName:work@encoder_4to2_gates.i0
+      |vpiActual:
+      \_logic_typespec: , line:2:7, endln:2:7
   |vpiPort:
   \_port: (i1), line:1:31, endln:1:33
     |vpiParent:
@@ -251,7 +256,12 @@ design: (work@encoder_4to2_gates)
       |vpiActual:
       \_logic_net: (work@encoder_4to2_gates.i1), line:1:31, endln:1:33
     |vpiTypedef:
-    \_logic_typespec: , line:2:7, endln:2:7
+    \_ref_obj: (work@encoder_4to2_gates.i1)
+      |vpiParent:
+      \_port: (i1), line:1:31, endln:1:33
+      |vpiFullName:work@encoder_4to2_gates.i1
+      |vpiActual:
+      \_logic_typespec: , line:2:7, endln:2:7
   |vpiPort:
   \_port: (i2), line:1:34, endln:1:36
     |vpiParent:
@@ -267,7 +277,12 @@ design: (work@encoder_4to2_gates)
       |vpiActual:
       \_logic_net: (work@encoder_4to2_gates.i2), line:1:34, endln:1:36
     |vpiTypedef:
-    \_logic_typespec: , line:2:7, endln:2:7
+    \_ref_obj: (work@encoder_4to2_gates.i2)
+      |vpiParent:
+      \_port: (i2), line:1:34, endln:1:36
+      |vpiFullName:work@encoder_4to2_gates.i2
+      |vpiActual:
+      \_logic_typespec: , line:2:7, endln:2:7
   |vpiPort:
   \_port: (i3), line:1:37, endln:1:39
     |vpiParent:
@@ -283,7 +298,12 @@ design: (work@encoder_4to2_gates)
       |vpiActual:
       \_logic_net: (work@encoder_4to2_gates.i3), line:1:37, endln:1:39
     |vpiTypedef:
-    \_logic_typespec: , line:2:7, endln:2:7
+    \_ref_obj: (work@encoder_4to2_gates.i3)
+      |vpiParent:
+      \_port: (i3), line:1:37, endln:1:39
+      |vpiFullName:work@encoder_4to2_gates.i3
+      |vpiActual:
+      \_logic_typespec: , line:2:7, endln:2:7
   |vpiPort:
   \_port: (y), line:1:40, endln:1:41
     |vpiParent:
@@ -299,27 +319,12 @@ design: (work@encoder_4to2_gates)
       |vpiActual:
       \_logic_net: (work@encoder_4to2_gates.y), line:1:40, endln:1:41
     |vpiTypedef:
-    \_logic_typespec: , line:3:8, endln:3:13
-      |vpiRange:
-      \_range: , line:3:8, endln:3:13
-        |vpiParent:
-        \_logic_typespec: , line:3:8, endln:3:13
-        |vpiLeftRange:
-        \_constant: , line:3:9, endln:3:10
-          |vpiParent:
-          \_range: , line:3:8, endln:3:13
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:3:11, endln:3:12
-          |vpiParent:
-          \_range: , line:3:8, endln:3:13
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@encoder_4to2_gates.y)
+      |vpiParent:
+      \_port: (y), line:1:40, endln:1:41
+      |vpiFullName:work@encoder_4to2_gates.y
+      |vpiActual:
+      \_logic_typespec: , line:3:8, endln:3:13
   |vpiPrimitive:
   \_gate: work@or (work@encoder_4to2_gates.o1), line:5:4, endln:5:19
     |vpiParent:
@@ -440,9 +445,12 @@ design: (work@encoder_4to2_gates)
     |vpiParent:
     \_module_inst: work@encoder_4to2_gates (work@encoder_4to2_gates), file:${SURELOG_DIR}/tests/PrimTermExpr/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:7, endln:2:7
+    \_ref_obj: (work@encoder_4to2_gates.i0)
       |vpiParent:
-      \_logic_net: (work@encoder_4to2_gates.i3), line:1:37, endln:1:39
+      \_logic_net: (work@encoder_4to2_gates.i0), line:1:28, endln:1:30
+      |vpiFullName:work@encoder_4to2_gates.i0
+      |vpiActual:
+      \_logic_typespec: , line:2:7, endln:2:7
     |vpiName:i0
     |vpiFullName:work@encoder_4to2_gates.i0
   |vpiNet:
@@ -450,7 +458,12 @@ design: (work@encoder_4to2_gates)
     |vpiParent:
     \_module_inst: work@encoder_4to2_gates (work@encoder_4to2_gates), file:${SURELOG_DIR}/tests/PrimTermExpr/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:7, endln:2:7
+    \_ref_obj: (work@encoder_4to2_gates.i1)
+      |vpiParent:
+      \_logic_net: (work@encoder_4to2_gates.i1), line:1:31, endln:1:33
+      |vpiFullName:work@encoder_4to2_gates.i1
+      |vpiActual:
+      \_logic_typespec: , line:2:7, endln:2:7
     |vpiName:i1
     |vpiFullName:work@encoder_4to2_gates.i1
   |vpiNet:
@@ -458,7 +471,12 @@ design: (work@encoder_4to2_gates)
     |vpiParent:
     \_module_inst: work@encoder_4to2_gates (work@encoder_4to2_gates), file:${SURELOG_DIR}/tests/PrimTermExpr/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:7, endln:2:7
+    \_ref_obj: (work@encoder_4to2_gates.i2)
+      |vpiParent:
+      \_logic_net: (work@encoder_4to2_gates.i2), line:1:34, endln:1:36
+      |vpiFullName:work@encoder_4to2_gates.i2
+      |vpiActual:
+      \_logic_typespec: , line:2:7, endln:2:7
     |vpiName:i2
     |vpiFullName:work@encoder_4to2_gates.i2
   |vpiNet:
@@ -466,7 +484,12 @@ design: (work@encoder_4to2_gates)
     |vpiParent:
     \_module_inst: work@encoder_4to2_gates (work@encoder_4to2_gates), file:${SURELOG_DIR}/tests/PrimTermExpr/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:7, endln:2:7
+    \_ref_obj: (work@encoder_4to2_gates.i3)
+      |vpiParent:
+      \_logic_net: (work@encoder_4to2_gates.i3), line:1:37, endln:1:39
+      |vpiFullName:work@encoder_4to2_gates.i3
+      |vpiActual:
+      \_logic_typespec: , line:2:7, endln:2:7
     |vpiName:i3
     |vpiFullName:work@encoder_4to2_gates.i3
   |vpiNet:
@@ -474,29 +497,12 @@ design: (work@encoder_4to2_gates)
     |vpiParent:
     \_module_inst: work@encoder_4to2_gates (work@encoder_4to2_gates), file:${SURELOG_DIR}/tests/PrimTermExpr/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:8, endln:3:13
+    \_ref_obj: (work@encoder_4to2_gates.y)
       |vpiParent:
       \_logic_net: (work@encoder_4to2_gates.y), line:1:40, endln:1:41
-      |vpiRange:
-      \_range: , line:3:8, endln:3:13
-        |vpiParent:
-        \_logic_typespec: , line:3:8, endln:3:13
-        |vpiLeftRange:
-        \_constant: , line:3:9, endln:3:10
-          |vpiParent:
-          \_range: , line:3:8, endln:3:13
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:3:11, endln:3:12
-          |vpiParent:
-          \_range: , line:3:8, endln:3:13
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@encoder_4to2_gates.y
+      |vpiActual:
+      \_logic_typespec: , line:3:8, endln:3:13
     |vpiName:y
     |vpiFullName:work@encoder_4to2_gates.y
   |vpiTopModule:1
@@ -515,7 +521,12 @@ design: (work@encoder_4to2_gates)
       |vpiActual:
       \_logic_net: (work@encoder_4to2_gates.i0), line:1:28, endln:1:30
     |vpiTypedef:
-    \_logic_typespec: , line:2:7, endln:2:7
+    \_ref_obj: (work@encoder_4to2_gates.i0)
+      |vpiParent:
+      \_port: (i0), line:1:28, endln:1:30
+      |vpiFullName:work@encoder_4to2_gates.i0
+      |vpiActual:
+      \_logic_typespec: , line:2:7, endln:2:7
     |vpiInstance:
     \_module_inst: work@encoder_4to2_gates (work@encoder_4to2_gates), file:${SURELOG_DIR}/tests/PrimTermExpr/dut.sv, line:1:1, endln:8:10
   |vpiPort:
@@ -533,7 +544,12 @@ design: (work@encoder_4to2_gates)
       |vpiActual:
       \_logic_net: (work@encoder_4to2_gates.i1), line:1:31, endln:1:33
     |vpiTypedef:
-    \_logic_typespec: , line:2:7, endln:2:7
+    \_ref_obj: (work@encoder_4to2_gates.i1)
+      |vpiParent:
+      \_port: (i1), line:1:31, endln:1:33
+      |vpiFullName:work@encoder_4to2_gates.i1
+      |vpiActual:
+      \_logic_typespec: , line:2:7, endln:2:7
     |vpiInstance:
     \_module_inst: work@encoder_4to2_gates (work@encoder_4to2_gates), file:${SURELOG_DIR}/tests/PrimTermExpr/dut.sv, line:1:1, endln:8:10
   |vpiPort:
@@ -551,7 +567,12 @@ design: (work@encoder_4to2_gates)
       |vpiActual:
       \_logic_net: (work@encoder_4to2_gates.i2), line:1:34, endln:1:36
     |vpiTypedef:
-    \_logic_typespec: , line:2:7, endln:2:7
+    \_ref_obj: (work@encoder_4to2_gates.i2)
+      |vpiParent:
+      \_port: (i2), line:1:34, endln:1:36
+      |vpiFullName:work@encoder_4to2_gates.i2
+      |vpiActual:
+      \_logic_typespec: , line:2:7, endln:2:7
     |vpiInstance:
     \_module_inst: work@encoder_4to2_gates (work@encoder_4to2_gates), file:${SURELOG_DIR}/tests/PrimTermExpr/dut.sv, line:1:1, endln:8:10
   |vpiPort:
@@ -569,7 +590,12 @@ design: (work@encoder_4to2_gates)
       |vpiActual:
       \_logic_net: (work@encoder_4to2_gates.i3), line:1:37, endln:1:39
     |vpiTypedef:
-    \_logic_typespec: , line:2:7, endln:2:7
+    \_ref_obj: (work@encoder_4to2_gates.i3)
+      |vpiParent:
+      \_port: (i3), line:1:37, endln:1:39
+      |vpiFullName:work@encoder_4to2_gates.i3
+      |vpiActual:
+      \_logic_typespec: , line:2:7, endln:2:7
     |vpiInstance:
     \_module_inst: work@encoder_4to2_gates (work@encoder_4to2_gates), file:${SURELOG_DIR}/tests/PrimTermExpr/dut.sv, line:1:1, endln:8:10
   |vpiPort:
@@ -587,27 +613,12 @@ design: (work@encoder_4to2_gates)
       |vpiActual:
       \_logic_net: (work@encoder_4to2_gates.y), line:1:40, endln:1:41
     |vpiTypedef:
-    \_logic_typespec: , line:3:8, endln:3:13
-      |vpiRange:
-      \_range: , line:3:8, endln:3:13
-        |vpiParent:
-        \_logic_typespec: , line:3:8, endln:3:13
-        |vpiLeftRange:
-        \_constant: , line:3:9, endln:3:10
-          |vpiParent:
-          \_range: , line:3:8, endln:3:13
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:3:11, endln:3:12
-          |vpiParent:
-          \_range: , line:3:8, endln:3:13
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@encoder_4to2_gates.y)
+      |vpiParent:
+      \_port: (y), line:1:40, endln:1:41
+      |vpiFullName:work@encoder_4to2_gates.y
+      |vpiActual:
+      \_logic_typespec: , line:3:8, endln:3:13
     |vpiInstance:
     \_module_inst: work@encoder_4to2_gates (work@encoder_4to2_gates), file:${SURELOG_DIR}/tests/PrimTermExpr/dut.sv, line:1:1, endln:8:10
   |vpiPrimitive:
@@ -724,6 +735,178 @@ design: (work@encoder_4to2_gates)
         |vpiFullName:work@encoder_4to2_gates.i3
         |vpiActual:
         \_logic_net: (work@encoder_4to2_gates.i3), line:1:37, endln:1:39
+\_weaklyReferenced:
+\_logic_typespec: , line:2:7, endln:2:7
+\_logic_typespec: , line:3:8, endln:3:13
+  |vpiRange:
+  \_range: , line:3:8, endln:3:13
+    |vpiParent:
+    \_logic_typespec: , line:3:8, endln:3:13
+    |vpiLeftRange:
+    \_constant: , line:3:9, endln:3:10
+      |vpiParent:
+      \_range: , line:3:8, endln:3:13
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:11, endln:3:12
+      |vpiParent:
+      \_range: , line:3:8, endln:3:13
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:2:7, endln:2:7
+  |vpiParent:
+  \_logic_net: (work@encoder_4to2_gates.i3), line:1:37, endln:1:39
+\_logic_typespec: , line:3:8, endln:3:13
+  |vpiParent:
+  \_logic_net: (work@encoder_4to2_gates.y), line:1:40, endln:1:41
+  |vpiRange:
+  \_range: , line:3:8, endln:3:13
+    |vpiParent:
+    \_logic_typespec: , line:3:8, endln:3:13
+    |vpiLeftRange:
+    \_constant: , line:3:9, endln:3:10
+      |vpiParent:
+      \_range: , line:3:8, endln:3:13
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:11, endln:3:12
+      |vpiParent:
+      \_range: , line:3:8, endln:3:13
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_bit_select: (work@encoder_4to2_gates.o1.y), line:5:8, endln:5:12
+  |vpiParent:
+  \_gate: work@or (work@encoder_4to2_gates.o1), line:5:4, endln:5:19
+  |vpiName:y
+  |vpiFullName:work@encoder_4to2_gates.o1.y
+  |vpiIndex:
+  \_constant: , line:5:10, endln:5:11
+\_bit_select: (work@encoder_4to2_gates.o2.y), line:6:8, endln:6:12
+  |vpiParent:
+  \_gate: work@or (work@encoder_4to2_gates.o2), line:6:4, endln:6:19
+  |vpiName:y
+  |vpiFullName:work@encoder_4to2_gates.o2.y
+  |vpiIndex:
+  \_constant: , line:6:10, endln:6:11
+\_logic_typespec: , line:2:7, endln:2:7
+\_logic_typespec: , line:2:7, endln:2:7
+\_logic_typespec: , line:2:7, endln:2:7
+\_logic_typespec: , line:2:7, endln:2:7
+\_logic_typespec: , line:3:8, endln:3:13
+  |vpiRange:
+  \_range: , line:3:8, endln:3:13
+    |vpiParent:
+    \_logic_typespec: , line:3:8, endln:3:13
+    |vpiLeftRange:
+    \_constant: , line:3:9, endln:3:10
+      |vpiParent:
+      \_range: , line:3:8, endln:3:13
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:11, endln:3:12
+      |vpiParent:
+      \_range: , line:3:8, endln:3:13
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_gate: work@or (work@encoder_4to2_gates.o1), line:5:4, endln:5:19
+  |vpiParent:
+  \_module_inst: work@encoder_4to2_gates (work@encoder_4to2_gates), file:${SURELOG_DIR}/tests/PrimTermExpr/dut.sv, line:1:1, endln:8:10
+  |vpiDefName:work@or
+  |vpiName:o1
+  |vpiFullName:work@encoder_4to2_gates.o1
+  |vpiPrimType:4
+  |vpiPrimTerm:
+  \_prim_term: , line:5:8, endln:5:12
+    |vpiParent:
+    \_gate: work@or (work@encoder_4to2_gates.o1), line:5:4, endln:5:19
+    |vpiDirection:2
+    |vpiExpr:
+    \_bit_select: (work@encoder_4to2_gates.o1.y), line:5:8, endln:5:12
+  |vpiPrimTerm:
+  \_prim_term: , line:5:13, endln:5:15
+    |vpiParent:
+    \_gate: work@or (work@encoder_4to2_gates.o1), line:5:4, endln:5:19
+    |vpiDirection:1
+    |vpiTermIndex:1
+    |vpiExpr:
+    \_ref_obj: (work@encoder_4to2_gates.i1), line:5:13, endln:5:15
+      |vpiParent:
+      \_gate: work@or (work@encoder_4to2_gates.o1), line:5:4, endln:5:19
+      |vpiName:i1
+      |vpiFullName:work@encoder_4to2_gates.i1
+      |vpiActual:
+      \_logic_net: (work@encoder_4to2_gates.i1), line:1:31, endln:1:33
+  |vpiPrimTerm:
+  \_prim_term: , line:5:16, endln:5:18
+    |vpiParent:
+    \_gate: work@or (work@encoder_4to2_gates.o1), line:5:4, endln:5:19
+    |vpiDirection:1
+    |vpiTermIndex:2
+    |vpiExpr:
+    \_ref_obj: (work@encoder_4to2_gates.i3), line:5:16, endln:5:18
+      |vpiParent:
+      \_gate: work@or (work@encoder_4to2_gates.o1), line:5:4, endln:5:19
+      |vpiName:i3
+      |vpiFullName:work@encoder_4to2_gates.i3
+      |vpiActual:
+      \_logic_net: (work@encoder_4to2_gates.i3), line:1:37, endln:1:39
+\_gate: work@or (work@encoder_4to2_gates.o2), line:6:4, endln:6:19
+  |vpiParent:
+  \_module_inst: work@encoder_4to2_gates (work@encoder_4to2_gates), file:${SURELOG_DIR}/tests/PrimTermExpr/dut.sv, line:1:1, endln:8:10
+  |vpiDefName:work@or
+  |vpiName:o2
+  |vpiFullName:work@encoder_4to2_gates.o2
+  |vpiPrimType:4
+  |vpiPrimTerm:
+  \_prim_term: , line:6:8, endln:6:12
+    |vpiParent:
+    \_gate: work@or (work@encoder_4to2_gates.o2), line:6:4, endln:6:19
+    |vpiDirection:2
+    |vpiExpr:
+    \_bit_select: (work@encoder_4to2_gates.o2.y), line:6:8, endln:6:12
+  |vpiPrimTerm:
+  \_prim_term: , line:6:13, endln:6:15
+    |vpiParent:
+    \_gate: work@or (work@encoder_4to2_gates.o2), line:6:4, endln:6:19
+    |vpiDirection:1
+    |vpiTermIndex:1
+    |vpiExpr:
+    \_ref_obj: (work@encoder_4to2_gates.i2), line:6:13, endln:6:15
+      |vpiParent:
+      \_gate: work@or (work@encoder_4to2_gates.o2), line:6:4, endln:6:19
+      |vpiName:i2
+      |vpiFullName:work@encoder_4to2_gates.i2
+      |vpiActual:
+      \_logic_net: (work@encoder_4to2_gates.i2), line:1:34, endln:1:36
+  |vpiPrimTerm:
+  \_prim_term: , line:6:16, endln:6:18
+    |vpiParent:
+    \_gate: work@or (work@encoder_4to2_gates.o2), line:6:4, endln:6:19
+    |vpiDirection:1
+    |vpiTermIndex:2
+    |vpiExpr:
+    \_ref_obj: (work@encoder_4to2_gates.i3), line:6:16, endln:6:18
+      |vpiParent:
+      \_gate: work@or (work@encoder_4to2_gates.o2), line:6:4, endln:6:19
+      |vpiName:i3
+      |vpiFullName:work@encoder_4to2_gates.i3
+      |vpiActual:
+      \_logic_net: (work@encoder_4to2_gates.i3), line:1:37, endln:1:39
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

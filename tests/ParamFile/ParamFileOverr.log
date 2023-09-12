@@ -247,7 +247,7 @@ param_assign                                           4
 parameter                                              4
 port                                                   5
 ref_module                                             1
-ref_obj                                               11
+ref_obj                                               23
 string_typespec                                        3
 sys_func_call                                          2
 === UHDM Object Stats End ===
@@ -285,7 +285,12 @@ design: (work@dut)
       |vpiDecompile:""
       |STRING:
       |vpiTypespec:
-      \_string_typespec: 
+      \_ref_obj: (work@dut)
+        |vpiParent:
+        \_constant: , line:4:29, endln:4:31
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_string_typespec: 
       |vpiConstType:6
     |vpiLhs:
     \_parameter: (work@dut.SRAMInitFile), line:4:14, endln:4:26
@@ -312,7 +317,12 @@ design: (work@dut)
       |vpiActual:
       \_logic_net: (work@dut.o), line:3:26, endln:3:27
     |vpiTypedef:
-    \_logic_typespec: , line:3:20, endln:3:25
+    \_ref_obj: (work@dut.o)
+      |vpiParent:
+      \_port: (o), line:3:26, endln:3:27
+      |vpiFullName:work@dut.o
+      |vpiActual:
+      \_logic_typespec: , line:3:20, endln:3:25
   |vpiRefModule:
   \_ref_module: work@ram_1p (u_ram), line:7:6, endln:7:11
     |vpiParent:
@@ -345,7 +355,12 @@ design: (work@dut)
     \_module_inst: work@ram_1p (work@ram_1p), file:${SURELOG_DIR}/tests/ParamFile/dut.sv, line:12:1, endln:30:10
     |STRING:
     |vpiTypespec:
-    \_string_typespec: 
+    \_ref_obj: (work@ram_1p.MemInitFile)
+      |vpiParent:
+      \_parameter: (work@ram_1p.MemInitFile), line:13:23, endln:13:34
+      |vpiFullName:work@ram_1p.MemInitFile
+      |vpiActual:
+      \_string_typespec: 
     |vpiName:MemInitFile
     |vpiFullName:work@ram_1p.MemInitFile
   |vpiParamAssign:
@@ -359,7 +374,12 @@ design: (work@dut)
       |vpiDecompile:""
       |STRING:
       |vpiTypespec:
-      \_string_typespec: 
+      \_ref_obj: (work@ram_1p)
+        |vpiParent:
+        \_constant: , line:13:37, endln:13:39
+        |vpiFullName:work@ram_1p
+        |vpiActual:
+        \_string_typespec: 
       |vpiConstType:6
     |vpiLhs:
     \_parameter: (work@ram_1p.MemInitFile), line:13:23, endln:13:34
@@ -386,7 +406,12 @@ design: (work@dut)
       |vpiActual:
       \_logic_net: (work@ram_1p.out), line:15:22, endln:15:25
     |vpiTypedef:
-    \_logic_typespec: , line:15:16, endln:15:21
+    \_ref_obj: (work@ram_1p.out)
+      |vpiParent:
+      \_port: (out), line:15:22, endln:15:25
+      |vpiFullName:work@ram_1p.out
+      |vpiActual:
+      \_logic_typespec: , line:15:16, endln:15:21
   |vpiProcess:
   \_initial: , line:18:1, endln:28:4
     |vpiParent:
@@ -555,9 +580,12 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamFile/dut.sv, line:3:1, endln:10:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:20, endln:3:25
+    \_ref_obj: (work@dut.o)
       |vpiParent:
       \_logic_net: (work@dut.o), line:3:26, endln:3:27
+      |vpiFullName:work@dut.o
+      |vpiActual:
+      \_logic_typespec: , line:3:20, endln:3:25
     |vpiName:o
     |vpiFullName:work@dut.o
     |vpiNetType:36
@@ -577,7 +605,12 @@ design: (work@dut)
       |vpiActual:
       \_logic_net: (work@dut.o), line:3:26, endln:3:27
     |vpiTypedef:
-    \_logic_typespec: , line:3:20, endln:3:25
+    \_ref_obj: (work@dut.o)
+      |vpiParent:
+      \_port: (o), line:3:26, endln:3:27
+      |vpiFullName:work@dut.o
+      |vpiActual:
+      \_logic_typespec: , line:3:20, endln:3:25
   |vpiModule:
   \_module_inst: work@ram_1p (work@dut.u_ram), file:${SURELOG_DIR}/tests/ParamFile/dut.sv, line:5:4, endln:9:6
     |vpiParent:
@@ -590,9 +623,12 @@ design: (work@dut)
       \_module_inst: work@ram_1p (work@dut.u_ram), file:${SURELOG_DIR}/tests/ParamFile/dut.sv, line:5:4, endln:9:6
       |STRING:
       |vpiTypespec:
-      \_string_typespec: 
+      \_ref_obj: (work@dut.u_ram.MemInitFile)
         |vpiParent:
         \_parameter: (work@dut.u_ram.MemInitFile), line:13:23, endln:13:34
+        |vpiFullName:work@dut.u_ram.MemInitFile
+        |vpiActual:
+        \_string_typespec: 
       |vpiName:MemInitFile
       |vpiFullName:work@dut.u_ram.MemInitFile
     |vpiParamAssign:
@@ -608,7 +644,12 @@ design: (work@dut)
         |vpiSize:40
         |STRING:/blah
         |vpiTypespec:
-        \_string_typespec: 
+        \_ref_obj: (work@dut.u_ram)
+          |vpiParent:
+          \_constant: , line:13:37, endln:13:39
+          |vpiFullName:work@dut.u_ram
+          |vpiActual:
+          \_string_typespec: 
         |vpiConstType:6
       |vpiLhs:
       \_parameter: (work@dut.u_ram.MemInitFile), line:13:23, endln:13:34
@@ -620,9 +661,12 @@ design: (work@dut)
       |vpiParent:
       \_module_inst: work@ram_1p (work@dut.u_ram), file:${SURELOG_DIR}/tests/ParamFile/dut.sv, line:5:4, endln:9:6
       |vpiTypespec:
-      \_logic_typespec: , line:15:16, endln:15:21
+      \_ref_obj: (work@dut.u_ram.out)
         |vpiParent:
         \_logic_net: (work@dut.u_ram.out), line:15:22, endln:15:25
+        |vpiFullName:work@dut.u_ram.out
+        |vpiActual:
+        \_logic_typespec: , line:15:16, endln:15:21
       |vpiName:out
       |vpiFullName:work@dut.u_ram.out
       |vpiNetType:36
@@ -651,9 +695,30 @@ design: (work@dut)
         |vpiActual:
         \_logic_net: (work@dut.u_ram.out), line:15:22, endln:15:25
       |vpiTypedef:
-      \_logic_typespec: , line:15:16, endln:15:21
+      \_ref_obj: (work@dut.u_ram.out)
+        |vpiParent:
+        \_port: (out), line:15:22, endln:15:25
+        |vpiFullName:work@dut.u_ram.out
+        |vpiActual:
+        \_logic_typespec: , line:15:16, endln:15:21
     |vpiProcess:
     \_initial: , line:18:1, endln:28:4
+\_weaklyReferenced:
+\_string_typespec: 
+\_string_typespec: 
+\_logic_typespec: , line:3:20, endln:3:25
+\_logic_typespec: , line:3:20, endln:3:25
+  |vpiParent:
+  \_logic_net: (work@dut.o), line:3:26, endln:3:27
+\_logic_typespec: , line:15:16, endln:15:21
+\_logic_typespec: , line:15:16, endln:15:21
+  |vpiParent:
+  \_logic_net: (work@dut.u_ram.out), line:15:22, endln:15:25
+\_logic_typespec: , line:3:20, endln:3:25
+\_logic_typespec: , line:15:16, endln:15:21
+\_string_typespec: 
+  |vpiParent:
+  \_ref_obj: (work@dut.u_ram.MemInitFile)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

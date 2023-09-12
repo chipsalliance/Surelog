@@ -132,6 +132,7 @@ module_array                                          13
 module_inst                                           53
 module_typespec                                       13
 range                                                 39
+ref_obj                                               13
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -142,6 +143,7 @@ module_array                                          13
 module_inst                                           53
 module_typespec                                       13
 range                                                 39
+ref_obj                                               13
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ArrayInst/slpp_all/surelog.uhdm ...
 
@@ -188,10 +190,12 @@ design: (work@top)
         |UINT:0
         |vpiConstType:9
     |vpiElemTypespec:
-    \_module_typespec: (qq), line:5:3, endln:5:5
+    \_ref_obj: (work@flop.q)
       |vpiParent:
       \_module_array: (work@qq), line:5:6, endln:5:7
-      |vpiName:qq
+      |vpiFullName:work@flop.q
+      |vpiActual:
+      \_module_typespec: (qq), line:5:3, endln:5:5
 |uhdmallModules:
 \_module_inst: work@qq (work@qq), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:1:1, endln:2:10
   |vpiParent:
@@ -231,10 +235,12 @@ design: (work@top)
         |UINT:0
         |vpiConstType:9
     |vpiElemTypespec:
-    \_module_typespec: (flop), line:9:3, endln:9:7
+    \_ref_obj: (work@top.flop_instances1)
       |vpiParent:
       \_module_array: (work@flop), line:9:8, endln:9:23
-      |vpiName:flop
+      |vpiFullName:work@top.flop_instances1
+      |vpiActual:
+      \_module_typespec: (flop), line:9:3, endln:9:7
   |vpiModuleArray:
   \_module_array: (work@flop), line:9:32, endln:9:47
     |vpiParent:
@@ -282,10 +288,12 @@ design: (work@top)
         |UINT:0
         |vpiConstType:9
     |vpiElemTypespec:
-    \_module_typespec: (flop), line:9:3, endln:9:7
+    \_ref_obj: (work@top.flop_instances2)
       |vpiParent:
       \_module_array: (work@flop), line:9:32, endln:9:47
-      |vpiName:flop
+      |vpiFullName:work@top.flop_instances2
+      |vpiActual:
+      \_module_typespec: (flop), line:9:3, endln:9:7
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:8:1, endln:10:10
   |vpiName:work@top
@@ -354,8 +362,12 @@ design: (work@top)
       |vpiModule:
       \_module_inst: work@qq (work@top.flop_instances1[0].q[1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiElemTypespec:
-      \_module_typespec: (qq), line:5:3, endln:5:5
-        |vpiName:qq
+      \_ref_obj: (work@top.flop_instances1[0].q)
+        |vpiParent:
+        \_module_array: (work@qq), line:5:6, endln:5:7
+        |vpiFullName:work@top.flop_instances1[0].q
+        |vpiActual:
+        \_module_typespec: (qq), line:5:3, endln:5:5
   |vpiModule:
   \_module_inst: work@flop (work@top.flop_instances1[1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiParent:
@@ -418,8 +430,12 @@ design: (work@top)
       |vpiModule:
       \_module_inst: work@qq (work@top.flop_instances1[1].q[1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiElemTypespec:
-      \_module_typespec: (qq), line:5:3, endln:5:5
-        |vpiName:qq
+      \_ref_obj: (work@top.flop_instances1[1].q)
+        |vpiParent:
+        \_module_array: (work@qq), line:5:6, endln:5:7
+        |vpiFullName:work@top.flop_instances1[1].q
+        |vpiActual:
+        \_module_typespec: (qq), line:5:3, endln:5:5
   |vpiModule:
   \_module_inst: work@flop (work@top.flop_instances2[0][0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiParent:
@@ -482,8 +498,12 @@ design: (work@top)
       |vpiModule:
       \_module_inst: work@qq (work@top.flop_instances2[0][0].q[1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiElemTypespec:
-      \_module_typespec: (qq), line:5:3, endln:5:5
-        |vpiName:qq
+      \_ref_obj: (work@top.flop_instances2[0][0].q)
+        |vpiParent:
+        \_module_array: (work@qq), line:5:6, endln:5:7
+        |vpiFullName:work@top.flop_instances2[0][0].q
+        |vpiActual:
+        \_module_typespec: (qq), line:5:3, endln:5:5
   |vpiModule:
   \_module_inst: work@flop (work@top.flop_instances2[0][1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiParent:
@@ -546,8 +566,12 @@ design: (work@top)
       |vpiModule:
       \_module_inst: work@qq (work@top.flop_instances2[0][1].q[1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiElemTypespec:
-      \_module_typespec: (qq), line:5:3, endln:5:5
-        |vpiName:qq
+      \_ref_obj: (work@top.flop_instances2[0][1].q)
+        |vpiParent:
+        \_module_array: (work@qq), line:5:6, endln:5:7
+        |vpiFullName:work@top.flop_instances2[0][1].q
+        |vpiActual:
+        \_module_typespec: (qq), line:5:3, endln:5:5
   |vpiModule:
   \_module_inst: work@flop (work@top.flop_instances2[1][0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiParent:
@@ -610,8 +634,12 @@ design: (work@top)
       |vpiModule:
       \_module_inst: work@qq (work@top.flop_instances2[1][0].q[1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiElemTypespec:
-      \_module_typespec: (qq), line:5:3, endln:5:5
-        |vpiName:qq
+      \_ref_obj: (work@top.flop_instances2[1][0].q)
+        |vpiParent:
+        \_module_array: (work@qq), line:5:6, endln:5:7
+        |vpiFullName:work@top.flop_instances2[1][0].q
+        |vpiActual:
+        \_module_typespec: (qq), line:5:3, endln:5:5
   |vpiModule:
   \_module_inst: work@flop (work@top.flop_instances2[1][1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiParent:
@@ -674,8 +702,12 @@ design: (work@top)
       |vpiModule:
       \_module_inst: work@qq (work@top.flop_instances2[1][1].q[1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiElemTypespec:
-      \_module_typespec: (qq), line:5:3, endln:5:5
-        |vpiName:qq
+      \_ref_obj: (work@top.flop_instances2[1][1].q)
+        |vpiParent:
+        \_module_array: (work@qq), line:5:6, endln:5:7
+        |vpiFullName:work@top.flop_instances2[1][1].q
+        |vpiActual:
+        \_module_typespec: (qq), line:5:3, endln:5:5
   |vpiModule:
   \_module_inst: work@flop (work@top.flop_instances2[2][0]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiParent:
@@ -738,8 +770,12 @@ design: (work@top)
       |vpiModule:
       \_module_inst: work@qq (work@top.flop_instances2[2][0].q[1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiElemTypespec:
-      \_module_typespec: (qq), line:5:3, endln:5:5
-        |vpiName:qq
+      \_ref_obj: (work@top.flop_instances2[2][0].q)
+        |vpiParent:
+        \_module_array: (work@qq), line:5:6, endln:5:7
+        |vpiFullName:work@top.flop_instances2[2][0].q
+        |vpiActual:
+        \_module_typespec: (qq), line:5:3, endln:5:5
   |vpiModule:
   \_module_inst: work@flop (work@top.flop_instances2[2][1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiParent:
@@ -802,8 +838,12 @@ design: (work@top)
       |vpiModule:
       \_module_inst: work@qq (work@top.flop_instances2[2][1].q[1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:5:3, endln:5:15
       |vpiElemTypespec:
-      \_module_typespec: (qq), line:5:3, endln:5:5
-        |vpiName:qq
+      \_ref_obj: (work@top.flop_instances2[2][1].q)
+        |vpiParent:
+        \_module_array: (work@qq), line:5:6, endln:5:7
+        |vpiFullName:work@top.flop_instances2[2][1].q
+        |vpiActual:
+        \_module_typespec: (qq), line:5:3, endln:5:5
   |vpiModuleArray:
   \_module_array: (work@flop), line:9:8, endln:9:23
     |vpiParent:
@@ -833,8 +873,12 @@ design: (work@top)
     |vpiModule:
     \_module_inst: work@flop (work@top.flop_instances1[1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiElemTypespec:
-    \_module_typespec: (flop), line:9:3, endln:9:7
-      |vpiName:flop
+    \_ref_obj: (work@top.flop_instances1)
+      |vpiParent:
+      \_module_array: (work@flop), line:9:8, endln:9:23
+      |vpiFullName:work@top.flop_instances1
+      |vpiActual:
+      \_module_typespec: (flop), line:9:3, endln:9:7
   |vpiModuleArray:
   \_module_array: (work@flop), line:9:32, endln:9:47
     |vpiParent:
@@ -890,8 +934,45 @@ design: (work@top)
     |vpiModule:
     \_module_inst: work@flop (work@top.flop_instances2[2][1]), file:${SURELOG_DIR}/tests/ArrayInst/dut.sv, line:9:3, endln:9:60
     |vpiElemTypespec:
-    \_module_typespec: (flop), line:9:3, endln:9:7
-      |vpiName:flop
+    \_ref_obj: (work@top.flop_instances2)
+      |vpiParent:
+      \_module_array: (work@flop), line:9:32, endln:9:47
+      |vpiFullName:work@top.flop_instances2
+      |vpiActual:
+      \_module_typespec: (flop), line:9:3, endln:9:7
+\_weaklyReferenced:
+\_module_typespec: (qq), line:5:3, endln:5:5
+  |vpiParent:
+  \_module_array: (work@qq), line:5:6, endln:5:7
+  |vpiName:qq
+\_module_typespec: (flop), line:9:3, endln:9:7
+  |vpiParent:
+  \_module_array: (work@flop), line:9:8, endln:9:23
+  |vpiName:flop
+\_module_typespec: (flop), line:9:3, endln:9:7
+  |vpiParent:
+  \_module_array: (work@flop), line:9:32, endln:9:47
+  |vpiName:flop
+\_module_typespec: (qq), line:5:3, endln:5:5
+  |vpiName:qq
+\_module_typespec: (qq), line:5:3, endln:5:5
+  |vpiName:qq
+\_module_typespec: (flop), line:9:3, endln:9:7
+  |vpiName:flop
+\_module_typespec: (qq), line:5:3, endln:5:5
+  |vpiName:qq
+\_module_typespec: (qq), line:5:3, endln:5:5
+  |vpiName:qq
+\_module_typespec: (qq), line:5:3, endln:5:5
+  |vpiName:qq
+\_module_typespec: (qq), line:5:3, endln:5:5
+  |vpiName:qq
+\_module_typespec: (qq), line:5:3, endln:5:5
+  |vpiName:qq
+\_module_typespec: (qq), line:5:3, endln:5:5
+  |vpiName:qq
+\_module_typespec: (flop), line:9:3, endln:9:7
+  |vpiName:flop
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

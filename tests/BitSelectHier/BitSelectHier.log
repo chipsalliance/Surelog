@@ -221,7 +221,7 @@ io_decl                                                3
 module_inst                                            1
 package                                                2
 range                                                  9
-ref_obj                                                8
+ref_obj                                               20
 ref_var                                                3
 unsupported_typespec                                   6
 === UHDM Object Stats End ===
@@ -244,7 +244,7 @@ io_decl                                                8
 module_inst                                            1
 package                                                2
 range                                                  9
-ref_obj                                               20
+ref_obj                                               43
 ref_var                                                3
 unsupported_typespec                                   6
 === UHDM Object Stats End ===
@@ -279,10 +279,12 @@ design: (unnamed)
       |vpiParent:
       \_function: (pack::uvm_mem_mam::reconfigure), line:41:1, endln:45:25
       |vpiTypespec:
-      \_unsupported_typespec: (uvm_mem_mam_cfg), line:41:10, endln:41:25
-        |vpiName:uvm_mem_mam_cfg
-        |vpiInstance:
-        \_package: pack (pack::), file:${SURELOG_DIR}/tests/BitSelectHier/dut.sv, line:1:1, endln:47:11
+      \_ref_obj: (pack::uvm_mem_mam::reconfigure)
+        |vpiParent:
+        \_ref_var: (pack::uvm_mem_mam::reconfigure), line:41:10, endln:41:25
+        |vpiFullName:pack::uvm_mem_mam::reconfigure
+        |vpiActual:
+        \_unsupported_typespec: (uvm_mem_mam_cfg), line:41:10, endln:41:25
       |vpiFullName:pack::uvm_mem_mam::reconfigure
     |vpiIODecl:
     \_io_decl: (cfg), line:41:67, endln:41:70
@@ -291,10 +293,12 @@ design: (unnamed)
       |vpiDirection:1
       |vpiName:cfg
       |vpiTypedef:
-      \_unsupported_typespec: (uvm_mem_mam_cfg), line:41:51, endln:41:66
-        |vpiName:uvm_mem_mam_cfg
-        |vpiInstance:
-        \_package: pack (pack::), file:${SURELOG_DIR}/tests/BitSelectHier/dut.sv, line:1:1, endln:47:11
+      \_ref_obj: (pack::uvm_mem_mam::reconfigure::cfg)
+        |vpiParent:
+        \_io_decl: (cfg), line:41:67, endln:41:70
+        |vpiFullName:pack::uvm_mem_mam::reconfigure::cfg
+        |vpiActual:
+        \_unsupported_typespec: (uvm_mem_mam_cfg), line:41:51, endln:41:66
     |vpiStmt:
     \_assignment: , line:43:4, endln:43:43
       |vpiParent:
@@ -349,7 +353,12 @@ design: (unnamed)
       \_class_defn: (pack::uvm_mem_mam), file:${SURELOG_DIR}/tests/BitSelectHier/dut.sv, line:34:1, endln:39:9
       |vpiSize:1
       |vpiTypespec:
-      \_array_typespec: 
+      \_ref_obj: (pack::uvm_mem_mam::in_use)
+        |vpiParent:
+        \_array_var: (pack::uvm_mem_mam::in_use), line:36:16, endln:36:22
+        |vpiFullName:pack::uvm_mem_mam::in_use
+        |vpiActual:
+        \_array_typespec: 
       |vpiName:in_use
       |vpiFullName:pack::uvm_mem_mam::in_use
       |vpiAutomatic:1
@@ -361,12 +370,12 @@ design: (unnamed)
         |vpiParent:
         \_array_var: (pack::uvm_mem_mam::in_use), line:36:16, endln:36:22
         |vpiTypespec:
-        \_class_typespec: (uvm_mem_region), line:36:1, endln:36:15
+        \_ref_obj: (pack::uvm_mem_mam::in_use)
           |vpiParent:
           \_class_var: (pack::uvm_mem_mam::in_use), line:36:16, endln:36:22
-          |vpiName:uvm_mem_region
-          |vpiClassDefn:
-          \_class_defn: (pack::uvm_mem_region), file:${SURELOG_DIR}/tests/BitSelectHier/dut.sv, line:3:1, endln:29:9
+          |vpiFullName:pack::uvm_mem_mam::in_use
+          |vpiActual:
+          \_class_typespec: (uvm_mem_region), line:36:1, endln:36:15
         |vpiFullName:pack::uvm_mem_mam::in_use
     |vpiMethod:
     \_function: (pack::uvm_mem_mam::reconfigure), line:37:1, endln:37:7
@@ -382,8 +391,12 @@ design: (unnamed)
         |vpiParent:
         \_function: (pack::uvm_mem_mam::reconfigure), line:37:1, endln:37:7
         |vpiTypespec:
-        \_unsupported_typespec: (uvm_mem_mam_cfg), line:37:17, endln:37:32
-          |vpiName:uvm_mem_mam_cfg
+        \_ref_obj: (pack::uvm_mem_mam::reconfigure)
+          |vpiParent:
+          \_ref_var: (pack::uvm_mem_mam::reconfigure), line:37:17, endln:37:32
+          |vpiFullName:pack::uvm_mem_mam::reconfigure
+          |vpiActual:
+          \_unsupported_typespec: (uvm_mem_mam_cfg), line:37:17, endln:37:32
         |vpiFullName:pack::uvm_mem_mam::reconfigure
       |vpiIODecl:
       \_io_decl: (cfg), line:37:61, endln:37:64
@@ -392,8 +405,12 @@ design: (unnamed)
         |vpiDirection:1
         |vpiName:cfg
         |vpiTypedef:
-        \_unsupported_typespec: (uvm_mem_mam_cfg), line:37:45, endln:37:60
-          |vpiName:uvm_mem_mam_cfg
+        \_ref_obj: (pack::uvm_mem_mam::reconfigure::cfg)
+          |vpiParent:
+          \_io_decl: (cfg), line:37:61, endln:37:64
+          |vpiFullName:pack::uvm_mem_mam::reconfigure::cfg
+          |vpiActual:
+          \_unsupported_typespec: (uvm_mem_mam_cfg), line:37:45, endln:37:60
     |vpiMethod:
     \_function: (pack::uvm_mem_mam::reconfigure), line:41:1, endln:45:25
       |vpiParent:
@@ -406,10 +423,12 @@ design: (unnamed)
         |vpiParent:
         \_function: (pack::uvm_mem_mam::reconfigure), line:41:1, endln:45:25
         |vpiTypespec:
-        \_unsupported_typespec: (uvm_mem_mam_cfg), line:41:10, endln:41:25
-          |vpiName:uvm_mem_mam_cfg
-          |vpiInstance:
-          \_package: pack (pack::), file:${SURELOG_DIR}/tests/BitSelectHier/dut.sv, line:1:1, endln:47:11
+        \_ref_obj: (pack::uvm_mem_mam::reconfigure)
+          |vpiParent:
+          \_ref_var: (pack::uvm_mem_mam::reconfigure), line:41:10, endln:41:25
+          |vpiFullName:pack::uvm_mem_mam::reconfigure
+          |vpiActual:
+          \_unsupported_typespec: (uvm_mem_mam_cfg), line:41:10, endln:41:25
         |vpiFullName:pack::uvm_mem_mam::reconfigure
       |vpiIODecl:
       \_io_decl: (cfg), line:41:67, endln:41:70
@@ -418,10 +437,12 @@ design: (unnamed)
         |vpiDirection:1
         |vpiName:cfg
         |vpiTypedef:
-        \_unsupported_typespec: (uvm_mem_mam_cfg), line:41:51, endln:41:66
-          |vpiName:uvm_mem_mam_cfg
-          |vpiInstance:
-          \_package: pack (pack::), file:${SURELOG_DIR}/tests/BitSelectHier/dut.sv, line:1:1, endln:47:11
+        \_ref_obj: (pack::uvm_mem_mam::reconfigure::cfg)
+          |vpiParent:
+          \_io_decl: (cfg), line:41:67, endln:41:70
+          |vpiFullName:pack::uvm_mem_mam::reconfigure::cfg
+          |vpiActual:
+          \_unsupported_typespec: (uvm_mem_mam_cfg), line:41:51, endln:41:66
       |vpiStmt:
       \_assignment: , line:43:4, endln:43:43
         |vpiParent:
@@ -473,29 +494,12 @@ design: (unnamed)
       |vpiParent:
       \_class_defn: (pack::uvm_mem_region), file:${SURELOG_DIR}/tests/BitSelectHier/dut.sv, line:3:1, endln:29:9
       |vpiTypespec:
-      \_bit_typespec: , line:5:14, endln:5:24
+      \_ref_obj: (pack::uvm_mem_region::Xstart_offsetX)
         |vpiParent:
         \_bit_var: (pack::uvm_mem_region::Xstart_offsetX), line:5:25, endln:5:39
-        |vpiRange:
-        \_range: , line:5:18, endln:5:24
-          |vpiParent:
-          \_bit_typespec: , line:5:14, endln:5:24
-          |vpiLeftRange:
-          \_constant: , line:5:19, endln:5:21
-            |vpiParent:
-            \_range: , line:5:18, endln:5:24
-            |vpiDecompile:63
-            |vpiSize:64
-            |UINT:63
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:5:22, endln:5:23
-            |vpiParent:
-            \_range: , line:5:18, endln:5:24
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:pack::uvm_mem_region::Xstart_offsetX
+        |vpiActual:
+        \_bit_typespec: , line:5:14, endln:5:24
       |vpiName:Xstart_offsetX
       |vpiFullName:pack::uvm_mem_region::Xstart_offsetX
       |vpiAutomatic:1
@@ -505,29 +509,12 @@ design: (unnamed)
       |vpiParent:
       \_class_defn: (pack::uvm_mem_region), file:${SURELOG_DIR}/tests/BitSelectHier/dut.sv, line:3:1, endln:29:9
       |vpiTypespec:
-      \_bit_typespec: , line:6:14, endln:6:24
+      \_ref_obj: (pack::uvm_mem_region::Xend_offsetX)
         |vpiParent:
         \_bit_var: (pack::uvm_mem_region::Xend_offsetX), line:6:25, endln:6:37
-        |vpiRange:
-        \_range: , line:6:18, endln:6:24
-          |vpiParent:
-          \_bit_typespec: , line:6:14, endln:6:24
-          |vpiLeftRange:
-          \_constant: , line:6:19, endln:6:21
-            |vpiParent:
-            \_range: , line:6:18, endln:6:24
-            |vpiDecompile:63
-            |vpiSize:64
-            |UINT:63
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:6:22, endln:6:23
-            |vpiParent:
-            \_range: , line:6:18, endln:6:24
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:pack::uvm_mem_region::Xend_offsetX
+        |vpiActual:
+        \_bit_typespec: , line:6:14, endln:6:24
       |vpiName:Xend_offsetX
       |vpiFullName:pack::uvm_mem_region::Xend_offsetX
       |vpiAutomatic:1
@@ -546,27 +533,12 @@ design: (unnamed)
         |vpiParent:
         \_function: (pack::uvm_mem_region::get_start_offset), line:16:4, endln:16:10
         |vpiTypespec:
-        \_bit_typespec: , line:16:20, endln:16:30
-          |vpiRange:
-          \_range: , line:16:24, endln:16:30
-            |vpiParent:
-            \_bit_typespec: , line:16:20, endln:16:30
-            |vpiLeftRange:
-            \_constant: , line:16:25, endln:16:27
-              |vpiParent:
-              \_range: , line:16:24, endln:16:30
-              |vpiDecompile:63
-              |vpiSize:64
-              |UINT:63
-              |vpiConstType:9
-            |vpiRightRange:
-            \_constant: , line:16:28, endln:16:29
-              |vpiParent:
-              \_range: , line:16:24, endln:16:30
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
+        \_ref_obj: (pack::uvm_mem_region::get_start_offset)
+          |vpiParent:
+          \_bit_var: (pack::uvm_mem_region::get_start_offset), line:16:20, endln:16:30
+          |vpiFullName:pack::uvm_mem_region::get_start_offset
+          |vpiActual:
+          \_bit_typespec: , line:16:20, endln:16:30
         |vpiFullName:pack::uvm_mem_region::get_start_offset
     |vpiMethod:
     \_function: (pack::uvm_mem_region::get_end_offset), line:26:4, endln:26:10
@@ -582,28 +554,369 @@ design: (unnamed)
         |vpiParent:
         \_function: (pack::uvm_mem_region::get_end_offset), line:26:4, endln:26:10
         |vpiTypespec:
-        \_bit_typespec: , line:26:20, endln:26:30
-          |vpiRange:
-          \_range: , line:26:24, endln:26:30
-            |vpiParent:
-            \_bit_typespec: , line:26:20, endln:26:30
-            |vpiLeftRange:
-            \_constant: , line:26:25, endln:26:27
-              |vpiParent:
-              \_range: , line:26:24, endln:26:30
-              |vpiDecompile:63
-              |vpiSize:64
-              |UINT:63
-              |vpiConstType:9
-            |vpiRightRange:
-            \_constant: , line:26:28, endln:26:29
-              |vpiParent:
-              \_range: , line:26:24, endln:26:30
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
+        \_ref_obj: (pack::uvm_mem_region::get_end_offset)
+          |vpiParent:
+          \_bit_var: (pack::uvm_mem_region::get_end_offset), line:26:20, endln:26:30
+          |vpiFullName:pack::uvm_mem_region::get_end_offset
+          |vpiActual:
+          \_bit_typespec: , line:26:20, endln:26:30
         |vpiFullName:pack::uvm_mem_region::get_end_offset
+\_weaklyReferenced:
+\_function: (pack::uvm_mem_mam::reconfigure), line:41:1, endln:45:25
+  |vpiParent:
+  \_class_defn: (pack::uvm_mem_mam), file:${SURELOG_DIR}/tests/BitSelectHier/dut.sv, line:34:1, endln:39:9
+  |vpiName:reconfigure
+  |vpiFullName:pack::uvm_mem_mam::reconfigure
+  |vpiVisibility:1
+  |vpiReturn:
+  \_ref_var: (pack::uvm_mem_mam::reconfigure), line:41:10, endln:41:25
+  |vpiIODecl:
+  \_io_decl: (cfg), line:41:67, endln:41:70
+    |vpiParent:
+    \_function: (pack::uvm_mem_mam::reconfigure), line:41:1, endln:45:25
+    |vpiDirection:1
+    |vpiName:cfg
+    |vpiTypedef:
+    \_ref_obj: (pack::uvm_mem_mam::reconfigure::cfg)
+      |vpiParent:
+      \_io_decl: (cfg), line:41:67, endln:41:70
+      |vpiFullName:pack::uvm_mem_mam::reconfigure::cfg
+      |vpiActual:
+      \_unsupported_typespec: (uvm_mem_mam_cfg), line:41:51, endln:41:66
+  |vpiStmt:
+  \_assignment: , line:43:4, endln:43:43
+    |vpiParent:
+    \_function: (pack::uvm_mem_mam::reconfigure), line:41:1, endln:45:25
+    |vpiOpType:82
+    |vpiBlocking:1
+    |vpiRhs:
+    \_hier_path: (this.in_use.get_start_offset), line:43:10, endln:43:43
+      |vpiParent:
+      \_assignment: , line:43:4, endln:43:43
+      |vpiName:this.in_use.get_start_offset
+      |vpiActual:
+      \_ref_obj: (this), line:43:15, endln:43:21
+        |vpiParent:
+        \_hier_path: (this.in_use.get_start_offset), line:43:10, endln:43:43
+        |vpiName:this
+      |vpiActual:
+      \_ref_obj: (in_use), line:43:15, endln:43:21
+        |vpiParent:
+        \_hier_path: (this.in_use.get_start_offset), line:43:10, endln:43:43
+        |vpiName:in_use
+      |vpiActual:
+      \_ref_obj: (get_start_offset), line:43:25, endln:43:41
+        |vpiParent:
+        \_hier_path: (this.in_use.get_start_offset), line:43:10, endln:43:43
+        |vpiName:get_start_offset
+    |vpiLhs:
+    \_ref_obj: (pack::uvm_mem_mam::reconfigure::top), line:43:4, endln:43:7
+      |vpiParent:
+      \_assignment: , line:43:4, endln:43:43
+      |vpiName:top
+      |vpiFullName:pack::uvm_mem_mam::reconfigure::top
+  |vpiInstance:
+  \_package: pack (pack::), file:${SURELOG_DIR}/tests/BitSelectHier/dut.sv, line:1:1, endln:47:11
+\_unsupported_typespec: (uvm_mem_mam_cfg), line:41:10, endln:41:25
+  |vpiName:uvm_mem_mam_cfg
+  |vpiInstance:
+  \_package: pack (pack::), file:${SURELOG_DIR}/tests/BitSelectHier/dut.sv, line:1:1, endln:47:11
+\_unsupported_typespec: (uvm_mem_mam_cfg), line:41:51, endln:41:66
+  |vpiName:uvm_mem_mam_cfg
+  |vpiInstance:
+  \_package: pack (pack::), file:${SURELOG_DIR}/tests/BitSelectHier/dut.sv, line:1:1, endln:47:11
+\_function: (pack::uvm_mem_mam::reconfigure), line:41:1, endln:45:25
+  |vpiParent:
+  \_package: pack (pack::), file:${SURELOG_DIR}/tests/BitSelectHier/dut.sv, line:1:1, endln:47:11
+  |vpiName:uvm_mem_mam::reconfigure
+  |vpiFullName:pack::uvm_mem_mam::reconfigure
+  |vpiVisibility:1
+  |vpiReturn:
+  \_ref_var: (pack::uvm_mem_mam::reconfigure), line:41:10, endln:41:25
+  |vpiIODecl:
+  \_io_decl: (cfg), line:41:67, endln:41:70
+    |vpiParent:
+    \_function: (pack::uvm_mem_mam::reconfigure), line:41:1, endln:45:25
+    |vpiDirection:1
+    |vpiName:cfg
+    |vpiTypedef:
+    \_ref_obj: (pack::uvm_mem_mam::reconfigure::cfg)
+      |vpiParent:
+      \_io_decl: (cfg), line:41:67, endln:41:70
+      |vpiFullName:pack::uvm_mem_mam::reconfigure::cfg
+      |vpiActual:
+      \_unsupported_typespec: (uvm_mem_mam_cfg), line:41:51, endln:41:66
+  |vpiStmt:
+  \_assignment: , line:43:4, endln:43:43
+    |vpiParent:
+    \_function: (pack::uvm_mem_mam::reconfigure), line:41:1, endln:45:25
+    |vpiOpType:82
+    |vpiBlocking:1
+    |vpiRhs:
+    \_hier_path: (this.in_use.get_start_offset), line:43:10, endln:43:43
+      |vpiParent:
+      \_assignment: , line:43:4, endln:43:43
+      |vpiName:this.in_use.get_start_offset
+      |vpiActual:
+      \_ref_obj: (this), line:43:15, endln:43:21
+        |vpiParent:
+        \_hier_path: (this.in_use.get_start_offset), line:43:10, endln:43:43
+        |vpiName:this
+      |vpiActual:
+      \_ref_obj: (in_use), line:43:15, endln:43:21
+        |vpiParent:
+        \_hier_path: (this.in_use.get_start_offset), line:43:10, endln:43:43
+        |vpiName:in_use
+      |vpiActual:
+      \_ref_obj: (get_start_offset), line:43:25, endln:43:41
+        |vpiParent:
+        \_hier_path: (this.in_use.get_start_offset), line:43:10, endln:43:43
+        |vpiName:get_start_offset
+    |vpiLhs:
+    \_ref_obj: (pack::uvm_mem_mam::reconfigure::top), line:43:4, endln:43:7
+      |vpiParent:
+      \_assignment: , line:43:4, endln:43:43
+      |vpiName:top
+      |vpiFullName:pack::uvm_mem_mam::reconfigure::top
+  |vpiInstance:
+  \_package: pack (pack::), file:${SURELOG_DIR}/tests/BitSelectHier/dut.sv, line:1:1, endln:47:11
+\_unsupported_typespec: (uvm_mem_mam_cfg), line:41:10, endln:41:25
+  |vpiName:uvm_mem_mam_cfg
+  |vpiInstance:
+  \_package: pack (pack::), file:${SURELOG_DIR}/tests/BitSelectHier/dut.sv, line:1:1, endln:47:11
+\_unsupported_typespec: (uvm_mem_mam_cfg), line:41:51, endln:41:66
+  |vpiName:uvm_mem_mam_cfg
+  |vpiInstance:
+  \_package: pack (pack::), file:${SURELOG_DIR}/tests/BitSelectHier/dut.sv, line:1:1, endln:47:11
+\_function: (pack::uvm_mem_mam::reconfigure), line:37:1, endln:37:7
+  |vpiParent:
+  \_class_defn: (pack::uvm_mem_mam), file:${SURELOG_DIR}/tests/BitSelectHier/dut.sv, line:34:1, endln:39:9
+  |vpiName:reconfigure
+  |vpiFullName:pack::uvm_mem_mam::reconfigure
+  |vpiMethod:1
+  |vpiAccessType:2
+  |vpiVisibility:1
+  |vpiReturn:
+  \_ref_var: (pack::uvm_mem_mam::reconfigure), line:37:17, endln:37:32
+  |vpiIODecl:
+  \_io_decl: (cfg), line:37:61, endln:37:64
+    |vpiParent:
+    \_function: (pack::uvm_mem_mam::reconfigure), line:37:1, endln:37:7
+    |vpiDirection:1
+    |vpiName:cfg
+    |vpiTypedef:
+    \_ref_obj: (pack::uvm_mem_mam::reconfigure::cfg)
+      |vpiParent:
+      \_io_decl: (cfg), line:37:61, endln:37:64
+      |vpiFullName:pack::uvm_mem_mam::reconfigure::cfg
+      |vpiActual:
+      \_unsupported_typespec: (uvm_mem_mam_cfg), line:37:45, endln:37:60
+\_unsupported_typespec: (uvm_mem_mam_cfg), line:37:17, endln:37:32
+  |vpiName:uvm_mem_mam_cfg
+\_unsupported_typespec: (uvm_mem_mam_cfg), line:37:45, endln:37:60
+  |vpiName:uvm_mem_mam_cfg
+\_function: (pack::uvm_mem_region::get_start_offset), line:16:4, endln:16:10
+  |vpiParent:
+  \_class_defn: (pack::uvm_mem_region), file:${SURELOG_DIR}/tests/BitSelectHier/dut.sv, line:3:1, endln:29:9
+  |vpiName:get_start_offset
+  |vpiFullName:pack::uvm_mem_region::get_start_offset
+  |vpiMethod:1
+  |vpiAccessType:2
+  |vpiVisibility:1
+  |vpiReturn:
+  \_bit_var: (pack::uvm_mem_region::get_start_offset), line:16:20, endln:16:30
+\_bit_typespec: , line:16:20, endln:16:30
+  |vpiRange:
+  \_range: , line:16:24, endln:16:30
+    |vpiParent:
+    \_bit_typespec: , line:16:20, endln:16:30
+    |vpiLeftRange:
+    \_constant: , line:16:25, endln:16:27
+      |vpiParent:
+      \_range: , line:16:24, endln:16:30
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:16:28, endln:16:29
+      |vpiParent:
+      \_range: , line:16:24, endln:16:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_function: (pack::uvm_mem_region::get_end_offset), line:26:4, endln:26:10
+  |vpiParent:
+  \_class_defn: (pack::uvm_mem_region), file:${SURELOG_DIR}/tests/BitSelectHier/dut.sv, line:3:1, endln:29:9
+  |vpiName:get_end_offset
+  |vpiFullName:pack::uvm_mem_region::get_end_offset
+  |vpiMethod:1
+  |vpiAccessType:2
+  |vpiVisibility:1
+  |vpiReturn:
+  \_bit_var: (pack::uvm_mem_region::get_end_offset), line:26:20, endln:26:30
+\_bit_typespec: , line:26:20, endln:26:30
+  |vpiRange:
+  \_range: , line:26:24, endln:26:30
+    |vpiParent:
+    \_bit_typespec: , line:26:20, endln:26:30
+    |vpiLeftRange:
+    \_constant: , line:26:25, endln:26:27
+      |vpiParent:
+      \_range: , line:26:24, endln:26:30
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:26:28, endln:26:29
+      |vpiParent:
+      \_range: , line:26:24, endln:26:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_class_typespec: (uvm_mem_region), line:36:1, endln:36:15
+  |vpiParent:
+  \_class_var: (pack::uvm_mem_mam::in_use), line:36:16, endln:36:22
+  |vpiName:uvm_mem_region
+  |vpiClassDefn:
+  \_class_defn: (pack::uvm_mem_region), file:${SURELOG_DIR}/tests/BitSelectHier/dut.sv, line:3:1, endln:29:9
+\_class_var: (pack::uvm_mem_mam::in_use), line:36:16, endln:36:22
+  |vpiParent:
+  \_array_var: (pack::uvm_mem_mam::in_use), line:36:16, endln:36:22
+  |vpiTypespec:
+  \_ref_obj: (pack::uvm_mem_mam::in_use)
+    |vpiParent:
+    \_class_var: (pack::uvm_mem_mam::in_use), line:36:16, endln:36:22
+    |vpiFullName:pack::uvm_mem_mam::in_use
+    |vpiActual:
+    \_class_typespec: (uvm_mem_region), line:36:1, endln:36:15
+  |vpiFullName:pack::uvm_mem_mam::in_use
+\_array_var: (pack::uvm_mem_mam::in_use), line:36:16, endln:36:22
+  |vpiParent:
+  \_class_defn: (pack::uvm_mem_mam), file:${SURELOG_DIR}/tests/BitSelectHier/dut.sv, line:34:1, endln:39:9
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_obj: (pack::uvm_mem_mam::in_use)
+    |vpiParent:
+    \_array_var: (pack::uvm_mem_mam::in_use), line:36:16, endln:36:22
+    |vpiFullName:pack::uvm_mem_mam::in_use
+    |vpiActual:
+    \_array_typespec: 
+  |vpiName:in_use
+  |vpiFullName:pack::uvm_mem_mam::in_use
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:4
+  |vpiReg:
+  \_class_var: (pack::uvm_mem_mam::in_use), line:36:16, endln:36:22
+\_array_typespec: 
+\_bit_typespec: , line:5:14, endln:5:24
+  |vpiParent:
+  \_bit_var: (pack::uvm_mem_region::Xstart_offsetX), line:5:25, endln:5:39
+  |vpiRange:
+  \_range: , line:5:18, endln:5:24
+    |vpiParent:
+    \_bit_typespec: , line:5:14, endln:5:24
+    |vpiLeftRange:
+    \_constant: , line:5:19, endln:5:21
+      |vpiParent:
+      \_range: , line:5:18, endln:5:24
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:22, endln:5:23
+      |vpiParent:
+      \_range: , line:5:18, endln:5:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_bit_var: (pack::uvm_mem_region::Xstart_offsetX), line:5:25, endln:5:39
+  |vpiParent:
+  \_class_defn: (pack::uvm_mem_region), file:${SURELOG_DIR}/tests/BitSelectHier/dut.sv, line:3:1, endln:29:9
+  |vpiTypespec:
+  \_ref_obj: (pack::uvm_mem_region::Xstart_offsetX)
+    |vpiParent:
+    \_bit_var: (pack::uvm_mem_region::Xstart_offsetX), line:5:25, endln:5:39
+    |vpiFullName:pack::uvm_mem_region::Xstart_offsetX
+    |vpiActual:
+    \_bit_typespec: , line:5:14, endln:5:24
+  |vpiName:Xstart_offsetX
+  |vpiFullName:pack::uvm_mem_region::Xstart_offsetX
+  |vpiAutomatic:1
+  |vpiVisibility:1
+\_bit_typespec: , line:6:14, endln:6:24
+  |vpiParent:
+  \_bit_var: (pack::uvm_mem_region::Xend_offsetX), line:6:25, endln:6:37
+  |vpiRange:
+  \_range: , line:6:18, endln:6:24
+    |vpiParent:
+    \_bit_typespec: , line:6:14, endln:6:24
+    |vpiLeftRange:
+    \_constant: , line:6:19, endln:6:21
+      |vpiParent:
+      \_range: , line:6:18, endln:6:24
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:22, endln:6:23
+      |vpiParent:
+      \_range: , line:6:18, endln:6:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_bit_var: (pack::uvm_mem_region::Xend_offsetX), line:6:25, endln:6:37
+  |vpiParent:
+  \_class_defn: (pack::uvm_mem_region), file:${SURELOG_DIR}/tests/BitSelectHier/dut.sv, line:3:1, endln:29:9
+  |vpiTypespec:
+  \_ref_obj: (pack::uvm_mem_region::Xend_offsetX)
+    |vpiParent:
+    \_bit_var: (pack::uvm_mem_region::Xend_offsetX), line:6:25, endln:6:37
+    |vpiFullName:pack::uvm_mem_region::Xend_offsetX
+    |vpiActual:
+    \_bit_typespec: , line:6:14, endln:6:24
+  |vpiName:Xend_offsetX
+  |vpiFullName:pack::uvm_mem_region::Xend_offsetX
+  |vpiAutomatic:1
+  |vpiVisibility:1
+\_array_var: (pack::uvm_mem_mam::in_use), line:36:16, endln:36:22
+  |vpiParent:
+  \_class_defn: (pack::uvm_mem_mam), file:${SURELOG_DIR}/tests/BitSelectHier/dut.sv, line:34:1, endln:39:9
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_obj: (pack::uvm_mem_mam::in_use)
+    |vpiParent:
+    \_array_var: (pack::uvm_mem_mam::in_use), line:36:16, endln:36:22
+    |vpiFullName:pack::uvm_mem_mam::in_use
+    |vpiActual:
+    \_array_typespec: 
+  |vpiName:in_use
+  |vpiFullName:pack::uvm_mem_mam::in_use
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:4
+  |vpiReg:
+  \_class_var: (pack::uvm_mem_mam::in_use), line:36:16, endln:36:22
+    |vpiParent:
+    \_array_var: (pack::uvm_mem_mam::in_use), line:36:16, endln:36:22
+    |vpiTypespec:
+    \_ref_obj: (pack::uvm_mem_mam::in_use)
+      |vpiParent:
+      \_class_var: (pack::uvm_mem_mam::in_use), line:36:16, endln:36:22
+      |vpiFullName:pack::uvm_mem_mam::in_use
+      |vpiActual:
+      \_class_typespec: (uvm_mem_region), line:36:1, endln:36:15
+    |vpiFullName:pack::uvm_mem_mam::in_use
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

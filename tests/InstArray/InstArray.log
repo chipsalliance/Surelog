@@ -108,7 +108,7 @@ module_inst                                            9
 module_typespec                                        2
 port                                                   6
 range                                                  8
-ref_obj                                                8
+ref_obj                                               18
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -122,7 +122,7 @@ module_inst                                            9
 module_typespec                                        2
 port                                                  11
 range                                                  8
-ref_obj                                               17
+ref_obj                                               32
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/InstArray/slpp_all/surelog.uhdm ...
 
@@ -169,7 +169,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@bus_conn.datain), line:7:7, endln:7:13
     |vpiTypedef:
-    \_logic_typespec: , line:7:7, endln:7:7
+    \_ref_obj: (work@bus_conn.datain)
+      |vpiParent:
+      \_port: (datain), line:7:7, endln:7:13
+      |vpiFullName:work@bus_conn.datain
+      |vpiActual:
+      \_logic_typespec: , line:7:7, endln:7:7
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InstArray/dut.sv, line:2:1, endln:4:10
   |vpiParent:
@@ -197,27 +202,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.inp), line:2:24, endln:2:27
     |vpiTypedef:
-    \_logic_typespec: , line:2:18, endln:2:23
-      |vpiRange:
-      \_range: , line:2:18, endln:2:23
-        |vpiParent:
-        \_logic_typespec: , line:2:18, endln:2:23
-        |vpiLeftRange:
-        \_constant: , line:2:19, endln:2:20
-          |vpiParent:
-          \_range: , line:2:18, endln:2:23
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:21, endln:2:22
-          |vpiParent:
-          \_range: , line:2:18, endln:2:23
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@top.inp)
+      |vpiParent:
+      \_port: (inp), line:2:24, endln:2:27
+      |vpiFullName:work@top.inp
+      |vpiActual:
+      \_logic_typespec: , line:2:18, endln:2:23
   |vpiModuleArray:
   \_module_array: (work@bus_conn), line:3:13, endln:3:15
     |vpiParent:
@@ -245,10 +235,12 @@ design: (work@top)
         |UINT:0
         |vpiConstType:9
     |vpiElemTypespec:
-    \_module_typespec: (bus_conn), line:3:3, endln:3:11
+    \_ref_obj: (work@top.u1)
       |vpiParent:
       \_module_array: (work@bus_conn), line:3:13, endln:3:15
-      |vpiName:bus_conn
+      |vpiFullName:work@top.u1
+      |vpiActual:
+      \_module_typespec: (bus_conn), line:3:3, endln:3:11
     |vpiPort:
     \_port: (datain), line:3:23, endln:3:35
       |vpiParent:
@@ -272,29 +264,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InstArray/dut.sv, line:2:1, endln:4:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:18, endln:2:23
+    \_ref_obj: (work@top.inp)
       |vpiParent:
       \_logic_net: (work@top.inp), line:2:24, endln:2:27
-      |vpiRange:
-      \_range: , line:2:18, endln:2:23
-        |vpiParent:
-        \_logic_typespec: , line:2:18, endln:2:23
-        |vpiLeftRange:
-        \_constant: , line:2:19, endln:2:20
-          |vpiParent:
-          \_range: , line:2:18, endln:2:23
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:21, endln:2:22
-          |vpiParent:
-          \_range: , line:2:18, endln:2:23
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@top.inp
+      |vpiActual:
+      \_logic_typespec: , line:2:18, endln:2:23
     |vpiName:inp
     |vpiFullName:work@top.inp
   |vpiTopModule:1
@@ -313,27 +288,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.inp), line:2:24, endln:2:27
     |vpiTypedef:
-    \_logic_typespec: , line:2:18, endln:2:23
-      |vpiRange:
-      \_range: , line:2:18, endln:2:23
-        |vpiParent:
-        \_logic_typespec: , line:2:18, endln:2:23
-        |vpiLeftRange:
-        \_constant: , line:2:19, endln:2:20
-          |vpiParent:
-          \_range: , line:2:18, endln:2:23
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:21, endln:2:22
-          |vpiParent:
-          \_range: , line:2:18, endln:2:23
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@top.inp)
+      |vpiParent:
+      \_port: (inp), line:2:24, endln:2:27
+      |vpiFullName:work@top.inp
+      |vpiActual:
+      \_logic_typespec: , line:2:18, endln:2:23
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InstArray/dut.sv, line:2:1, endln:4:10
   |vpiModule:
@@ -350,9 +310,12 @@ design: (work@top)
       |vpiParent:
       \_module_inst: work@bus_conn (work@top.u1[0]), file:${SURELOG_DIR}/tests/InstArray/dut.sv, line:3:3, endln:3:37
       |vpiTypespec:
-      \_logic_typespec: , line:7:7, endln:7:7
+      \_ref_obj: (work@top.u1[0].datain)
         |vpiParent:
         \_logic_net: (work@top.u1[0].datain), line:7:7, endln:7:13
+        |vpiFullName:work@top.u1[0].datain
+        |vpiActual:
+        \_logic_typespec: , line:7:7, endln:7:7
       |vpiName:datain
       |vpiFullName:work@top.u1[0].datain
     |vpiInstance:
@@ -380,7 +343,12 @@ design: (work@top)
         |vpiActual:
         \_logic_net: (work@top.u1[0].datain), line:7:7, endln:7:13
       |vpiTypedef:
-      \_logic_typespec: , line:7:7, endln:7:7
+      \_ref_obj: (work@top.u1[0].datain)
+        |vpiParent:
+        \_port: (datain), line:7:7, endln:7:13
+        |vpiFullName:work@top.u1[0].datain
+        |vpiActual:
+        \_logic_typespec: , line:7:7, endln:7:7
       |vpiInstance:
       \_module_inst: work@bus_conn (work@top.u1[0]), file:${SURELOG_DIR}/tests/InstArray/dut.sv, line:3:3, endln:3:37
   |vpiModule:
@@ -397,9 +365,12 @@ design: (work@top)
       |vpiParent:
       \_module_inst: work@bus_conn (work@top.u1[1]), file:${SURELOG_DIR}/tests/InstArray/dut.sv, line:3:3, endln:3:37
       |vpiTypespec:
-      \_logic_typespec: , line:7:7, endln:7:7
+      \_ref_obj: (work@top.u1[1].datain)
         |vpiParent:
         \_logic_net: (work@top.u1[1].datain), line:7:7, endln:7:13
+        |vpiFullName:work@top.u1[1].datain
+        |vpiActual:
+        \_logic_typespec: , line:7:7, endln:7:7
       |vpiName:datain
       |vpiFullName:work@top.u1[1].datain
     |vpiInstance:
@@ -427,7 +398,12 @@ design: (work@top)
         |vpiActual:
         \_logic_net: (work@top.u1[1].datain), line:7:7, endln:7:13
       |vpiTypedef:
-      \_logic_typespec: , line:7:7, endln:7:7
+      \_ref_obj: (work@top.u1[1].datain)
+        |vpiParent:
+        \_port: (datain), line:7:7, endln:7:13
+        |vpiFullName:work@top.u1[1].datain
+        |vpiActual:
+        \_logic_typespec: , line:7:7, endln:7:7
       |vpiInstance:
       \_module_inst: work@bus_conn (work@top.u1[1]), file:${SURELOG_DIR}/tests/InstArray/dut.sv, line:3:3, endln:3:37
   |vpiModuleArray:
@@ -459,8 +435,93 @@ design: (work@top)
     |vpiModule:
     \_module_inst: work@bus_conn (work@top.u1[1]), file:${SURELOG_DIR}/tests/InstArray/dut.sv, line:3:3, endln:3:37
     |vpiElemTypespec:
-    \_module_typespec: (bus_conn), line:3:3, endln:3:11
-      |vpiName:bus_conn
+    \_ref_obj: (work@top.u1)
+      |vpiParent:
+      \_module_array: (work@bus_conn), line:3:13, endln:3:15
+      |vpiFullName:work@top.u1
+      |vpiActual:
+      \_module_typespec: (bus_conn), line:3:3, endln:3:11
+\_weaklyReferenced:
+\_module_typespec: (bus_conn), line:3:3, endln:3:11
+  |vpiParent:
+  \_module_array: (work@bus_conn), line:3:13, endln:3:15
+  |vpiName:bus_conn
+\_logic_typespec: , line:2:18, endln:2:23
+  |vpiRange:
+  \_range: , line:2:18, endln:2:23
+    |vpiParent:
+    \_logic_typespec: , line:2:18, endln:2:23
+    |vpiLeftRange:
+    \_constant: , line:2:19, endln:2:20
+      |vpiParent:
+      \_range: , line:2:18, endln:2:23
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:21, endln:2:22
+      |vpiParent:
+      \_range: , line:2:18, endln:2:23
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:2:18, endln:2:23
+  |vpiParent:
+  \_logic_net: (work@top.inp), line:2:24, endln:2:27
+  |vpiRange:
+  \_range: , line:2:18, endln:2:23
+    |vpiParent:
+    \_logic_typespec: , line:2:18, endln:2:23
+    |vpiLeftRange:
+    \_constant: , line:2:19, endln:2:20
+      |vpiParent:
+      \_range: , line:2:18, endln:2:23
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:21, endln:2:22
+      |vpiParent:
+      \_range: , line:2:18, endln:2:23
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:7:7, endln:7:7
+\_logic_typespec: , line:7:7, endln:7:7
+  |vpiParent:
+  \_logic_net: (work@top.u1[0].datain), line:7:7, endln:7:13
+\_logic_typespec: , line:7:7, endln:7:7
+\_logic_typespec: , line:7:7, endln:7:7
+  |vpiParent:
+  \_logic_net: (work@top.u1[1].datain), line:7:7, endln:7:13
+\_module_typespec: (bus_conn), line:3:3, endln:3:11
+  |vpiName:bus_conn
+\_logic_typespec: , line:7:7, endln:7:7
+\_logic_typespec: , line:2:18, endln:2:23
+  |vpiRange:
+  \_range: , line:2:18, endln:2:23
+    |vpiParent:
+    \_logic_typespec: , line:2:18, endln:2:23
+    |vpiLeftRange:
+    \_constant: , line:2:19, endln:2:20
+      |vpiParent:
+      \_range: , line:2:18, endln:2:23
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:21, endln:2:22
+      |vpiParent:
+      \_range: , line:2:18, endln:2:23
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

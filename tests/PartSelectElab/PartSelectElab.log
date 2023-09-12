@@ -36,7 +36,7 @@ operation                                              2
 part_select                                            2
 port                                                   4
 range                                                  3
-ref_obj                                                5
+ref_obj                                               13
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -54,7 +54,7 @@ operation                                              4
 part_select                                            4
 port                                                   6
 range                                                  3
-ref_obj                                                8
+ref_obj                                               18
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PartSelectElab/slpp_unit/surelog.uhdm ...
 
@@ -92,27 +92,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PartSelectElab/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:1, endln:2:11
-      |vpiRange:
-      \_range: , line:2:5, endln:2:11
-        |vpiParent:
-        \_logic_typespec: , line:2:1, endln:2:11
-        |vpiLeftRange:
-        \_constant: , line:2:6, endln:2:8
-          |vpiParent:
-          \_range: , line:2:5, endln:2:11
-          |vpiDecompile:15
-          |vpiSize:64
-          |UINT:15
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:9, endln:2:10
-          |vpiParent:
-          \_range: , line:2:5, endln:2:11
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@test.data)
+      |vpiParent:
+      \_logic_net: (work@test.data), line:2:12, endln:2:16
+      |vpiFullName:work@test.data
+      |vpiActual:
+      \_logic_typespec: , line:2:1, endln:2:11
     |vpiName:data
     |vpiFullName:work@test.data
     |vpiNetType:48
@@ -131,7 +116,12 @@ design: (work@test)
       |vpiActual:
       \_logic_net: (work@test.state), line:1:24, endln:1:29
     |vpiTypedef:
-    \_logic_typespec: , line:1:20, endln:1:23
+    \_ref_obj: (work@test.state)
+      |vpiParent:
+      \_port: (state), line:1:24, endln:1:29
+      |vpiFullName:work@test.state
+      |vpiActual:
+      \_logic_typespec: , line:1:20, endln:1:23
   |vpiPort:
   \_port: (clk), line:1:37, endln:1:40
     |vpiParent:
@@ -147,7 +137,12 @@ design: (work@test)
       |vpiActual:
       \_logic_net: (work@test.clk), line:1:37, endln:1:40
     |vpiTypedef:
-    \_logic_typespec: , line:1:37, endln:1:37
+    \_ref_obj: (work@test.clk)
+      |vpiParent:
+      \_port: (clk), line:1:37, endln:1:40
+      |vpiFullName:work@test.clk
+      |vpiActual:
+      \_logic_typespec: , line:1:37, endln:1:37
   |vpiProcess:
   \_always: , line:4:1, endln:6:4
     |vpiParent:
@@ -243,9 +238,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PartSelectElab/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
-    \_logic_typespec: , line:1:20, endln:1:23
+    \_ref_obj: (work@test.state)
       |vpiParent:
       \_logic_net: (work@test.state), line:1:24, endln:1:29
+      |vpiFullName:work@test.state
+      |vpiActual:
+      \_logic_typespec: , line:1:20, endln:1:23
     |vpiName:state
     |vpiFullName:work@test.state
     |vpiNetType:48
@@ -254,9 +252,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PartSelectElab/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
-    \_logic_typespec: , line:1:37, endln:1:37
+    \_ref_obj: (work@test.clk)
       |vpiParent:
       \_logic_net: (work@test.clk), line:1:37, endln:1:40
+      |vpiFullName:work@test.clk
+      |vpiActual:
+      \_logic_typespec: , line:1:37, endln:1:37
     |vpiName:clk
     |vpiFullName:work@test.clk
   |vpiNet:
@@ -264,29 +265,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PartSelectElab/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:1, endln:2:11
+    \_ref_obj: (work@test.data)
       |vpiParent:
       \_logic_net: (work@test.data), line:2:12, endln:2:16
-      |vpiRange:
-      \_range: , line:2:5, endln:2:11
-        |vpiParent:
-        \_logic_typespec: , line:2:1, endln:2:11
-        |vpiLeftRange:
-        \_constant: , line:2:6, endln:2:8
-          |vpiParent:
-          \_range: , line:2:5, endln:2:11
-          |vpiDecompile:15
-          |vpiSize:64
-          |UINT:15
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:9, endln:2:10
-          |vpiParent:
-          \_range: , line:2:5, endln:2:11
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@test.data
+      |vpiActual:
+      \_logic_typespec: , line:2:1, endln:2:11
     |vpiName:data
     |vpiFullName:work@test.data
     |vpiNetType:48
@@ -306,7 +290,12 @@ design: (work@test)
       |vpiActual:
       \_logic_net: (work@test.state), line:1:24, endln:1:29
     |vpiTypedef:
-    \_logic_typespec: , line:1:20, endln:1:23
+    \_ref_obj: (work@test.state)
+      |vpiParent:
+      \_port: (state), line:1:24, endln:1:29
+      |vpiFullName:work@test.state
+      |vpiActual:
+      \_logic_typespec: , line:1:20, endln:1:23
     |vpiInstance:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PartSelectElab/dut.sv, line:1:1, endln:8:10
   |vpiPort:
@@ -324,7 +313,12 @@ design: (work@test)
       |vpiActual:
       \_logic_net: (work@test.clk), line:1:37, endln:1:40
     |vpiTypedef:
-    \_logic_typespec: , line:1:37, endln:1:37
+    \_ref_obj: (work@test.clk)
+      |vpiParent:
+      \_port: (clk), line:1:37, endln:1:40
+      |vpiFullName:work@test.clk
+      |vpiActual:
+      \_logic_typespec: , line:1:37, endln:1:37
     |vpiInstance:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PartSelectElab/dut.sv, line:1:1, endln:8:10
   |vpiProcess:
@@ -394,6 +388,61 @@ design: (work@test)
             |vpiRightRange:
             \_constant: , line:5:10, endln:5:11
     |vpiAlwaysType:1
+\_weaklyReferenced:
+\_logic_typespec: , line:1:20, endln:1:23
+\_logic_typespec: , line:1:37, endln:1:37
+\_logic_typespec: , line:1:20, endln:1:23
+  |vpiParent:
+  \_logic_net: (work@test.state), line:1:24, endln:1:29
+\_logic_typespec: , line:1:37, endln:1:37
+  |vpiParent:
+  \_logic_net: (work@test.clk), line:1:37, endln:1:40
+\_logic_typespec: , line:2:1, endln:2:11
+  |vpiParent:
+  \_logic_net: (work@test.data), line:2:12, endln:2:16
+  |vpiRange:
+  \_range: , line:2:5, endln:2:11
+    |vpiParent:
+    \_logic_typespec: , line:2:1, endln:2:11
+    |vpiLeftRange:
+    \_constant: , line:2:6, endln:2:8
+      |vpiParent:
+      \_range: , line:2:5, endln:2:11
+      |vpiDecompile:15
+      |vpiSize:64
+      |UINT:15
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:9, endln:2:10
+      |vpiParent:
+      \_range: , line:2:5, endln:2:11
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:1:20, endln:1:23
+\_logic_typespec: , line:1:37, endln:1:37
+\_logic_typespec: , line:2:1, endln:2:11
+  |vpiRange:
+  \_range: , line:2:5, endln:2:11
+    |vpiParent:
+    \_logic_typespec: , line:2:1, endln:2:11
+    |vpiLeftRange:
+    \_constant: , line:2:6, endln:2:8
+      |vpiParent:
+      \_range: , line:2:5, endln:2:11
+      |vpiDecompile:15
+      |vpiSize:64
+      |UINT:15
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:9, endln:2:10
+      |vpiParent:
+      \_range: , line:2:5, endln:2:11
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

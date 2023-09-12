@@ -699,7 +699,7 @@ param_assign                                          14
 parameter                                             14
 port                                                  10
 range                                                 18
-ref_obj                                               36
+ref_obj                                              114
 task                                                   9
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -736,7 +736,7 @@ param_assign                                          14
 parameter                                             14
 port                                                  15
 range                                                 18
-ref_obj                                               62
+ref_obj                                              150
 task                                                  18
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/CaseFullElab/slpp_unit/surelog.uhdm ...
@@ -813,9 +813,12 @@ design: (work@FSM)
       |vpiParent:
       \_function: (work@mailbox::new), line:3:5, endln:4:16
       |vpiTypespec:
-      \_class_typespec: 
-        |vpiClassDefn:
-        \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/CaseFullElab/builtin.sv, line:1:3, endln:27:11
+      \_ref_obj: (work@mailbox::new)
+        |vpiParent:
+        \_class_var: (work@mailbox::new), line:3:23, endln:3:28
+        |vpiFullName:work@mailbox::new
+        |vpiActual:
+        \_class_typespec: 
       |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound), line:3:23, endln:3:28
@@ -830,8 +833,12 @@ design: (work@FSM)
         |UINT:0
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:3:19, endln:3:22
-        |vpiSigned:1
+      \_ref_obj: (work@mailbox::new::bound)
+        |vpiParent:
+        \_io_decl: (bound), line:3:23, endln:3:28
+        |vpiFullName:work@mailbox::new::bound
+        |vpiActual:
+        \_int_typespec: , line:3:19, endln:3:22
   |vpiMethod:
   \_function: (work@mailbox::num), line:6:5, endln:7:16
     |vpiParent:
@@ -845,8 +852,12 @@ design: (work@FSM)
       |vpiParent:
       \_function: (work@mailbox::num), line:6:5, endln:7:16
       |vpiTypespec:
-      \_int_typespec: , line:6:14, endln:6:17
-        |vpiSigned:1
+      \_ref_obj: (work@mailbox::num)
+        |vpiParent:
+        \_int_var: (work@mailbox::num), line:6:14, endln:6:17
+        |vpiFullName:work@mailbox::num
+        |vpiActual:
+        \_int_typespec: , line:6:14, endln:6:17
       |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
@@ -909,8 +920,12 @@ design: (work@FSM)
       |vpiParent:
       \_function: (work@mailbox::try_get), line:18:5, endln:19:16
       |vpiTypespec:
-      \_int_typespec: , line:18:14, endln:18:17
-        |vpiSigned:1
+      \_ref_obj: (work@mailbox::try_get)
+        |vpiParent:
+        \_int_var: (work@mailbox::try_get), line:18:14, endln:18:17
+        |vpiFullName:work@mailbox::try_get
+        |vpiActual:
+        \_int_typespec: , line:18:14, endln:18:17
       |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
@@ -946,8 +961,12 @@ design: (work@FSM)
       |vpiParent:
       \_function: (work@mailbox::try_peek), line:24:5, endln:25:16
       |vpiTypespec:
-      \_int_typespec: , line:24:14, endln:24:17
-        |vpiSigned:1
+      \_ref_obj: (work@mailbox::try_peek)
+        |vpiParent:
+        \_int_var: (work@mailbox::try_peek), line:24:14, endln:24:17
+        |vpiFullName:work@mailbox::try_peek
+        |vpiActual:
+        \_int_typespec: , line:24:14, endln:24:17
       |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
@@ -1019,9 +1038,12 @@ design: (work@FSM)
       |vpiParent:
       \_function: (work@process::self), line:34:5, endln:34:11
       |vpiTypespec:
-      \_class_typespec: , line:34:21, endln:34:28
-        |vpiClassDefn:
-        \_class_defn: (work@process), file:${SURELOG_DIR}/tests/CaseFullElab/builtin.sv, line:30:3, endln:52:11
+      \_ref_obj: (work@process::self)
+        |vpiParent:
+        \_class_var: (work@process::self), line:34:21, endln:34:28
+        |vpiFullName:work@process::self
+        |vpiActual:
+        \_class_typespec: , line:34:21, endln:34:28
       |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status), line:37:5, endln:38:16
@@ -1036,50 +1058,12 @@ design: (work@FSM)
       |vpiParent:
       \_function: (work@process::status), line:37:5, endln:38:16
       |vpiTypespec:
-      \_enum_typespec: (state), line:32:5, endln:32:74
+      \_ref_obj: (work@process::status)
         |vpiParent:
-        \_class_defn: (work@process), file:${SURELOG_DIR}/tests/CaseFullElab/builtin.sv, line:30:3, endln:52:11
-        |vpiName:state
-        |vpiEnumConst:
-        \_enum_const: (FINISHED), line:32:20, endln:32:28
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:FINISHED
-          |INT:0
-          |vpiDecompile:0
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (RUNNING), line:32:30, endln:32:37
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:RUNNING
-          |INT:1
-          |vpiDecompile:1
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (WAITING), line:32:39, endln:32:46
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:WAITING
-          |INT:2
-          |vpiDecompile:2
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (SUSPENDED), line:32:48, endln:32:57
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:SUSPENDED
-          |INT:3
-          |vpiDecompile:3
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (KILLED), line:32:59, endln:32:65
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:KILLED
-          |INT:4
-          |vpiDecompile:4
-          |vpiSize:64
+        \_enum_var: (work@process::status), line:37:14, endln:37:19
+        |vpiFullName:work@process::status
+        |vpiActual:
+        \_enum_typespec: (state), line:32:5, endln:32:74
       |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill), line:40:5, endln:41:12
@@ -1130,9 +1114,12 @@ design: (work@FSM)
       |vpiParent:
       \_function: (work@semaphore::new), line:57:5, endln:58:16
       |vpiTypespec:
-      \_class_typespec: 
-        |vpiClassDefn:
-        \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/CaseFullElab/builtin.sv, line:55:3, endln:69:11
+      \_ref_obj: (work@semaphore::new)
+        |vpiParent:
+        \_class_var: (work@semaphore::new), line:57:22, endln:57:30
+        |vpiFullName:work@semaphore::new
+        |vpiActual:
+        \_class_typespec: 
       |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount), line:57:22, endln:57:30
@@ -1147,8 +1134,12 @@ design: (work@FSM)
         |UINT:0
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:57:18, endln:57:21
-        |vpiSigned:1
+      \_ref_obj: (work@semaphore::new::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:57:22, endln:57:30
+        |vpiFullName:work@semaphore::new::keyCount
+        |vpiActual:
+        \_int_typespec: , line:57:18, endln:57:21
   |vpiMethod:
   \_task: (work@semaphore::put), line:60:5, endln:61:12
     |vpiParent:
@@ -1170,8 +1161,12 @@ design: (work@FSM)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:60:14, endln:60:17
-        |vpiSigned:1
+      \_ref_obj: (work@semaphore::put::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:60:18, endln:60:26
+        |vpiFullName:work@semaphore::put::keyCount
+        |vpiActual:
+        \_int_typespec: , line:60:14, endln:60:17
   |vpiMethod:
   \_task: (work@semaphore::get), line:63:5, endln:64:12
     |vpiParent:
@@ -1193,8 +1188,12 @@ design: (work@FSM)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:63:14, endln:63:17
-        |vpiSigned:1
+      \_ref_obj: (work@semaphore::get::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:63:18, endln:63:26
+        |vpiFullName:work@semaphore::get::keyCount
+        |vpiActual:
+        \_int_typespec: , line:63:14, endln:63:17
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:66:5, endln:67:16
     |vpiParent:
@@ -1208,8 +1207,12 @@ design: (work@FSM)
       |vpiParent:
       \_function: (work@semaphore::try_get), line:66:5, endln:67:16
       |vpiTypespec:
-      \_int_typespec: , line:66:14, endln:66:17
-        |vpiSigned:1
+      \_ref_obj: (work@semaphore::try_get)
+        |vpiParent:
+        \_int_var: (work@semaphore::try_get), line:66:14, endln:66:17
+        |vpiFullName:work@semaphore::try_get
+        |vpiActual:
+        \_int_typespec: , line:66:14, endln:66:17
       |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
@@ -1225,8 +1228,12 @@ design: (work@FSM)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:66:26, endln:66:29
-        |vpiSigned:1
+      \_ref_obj: (work@semaphore::try_get::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:66:30, endln:66:38
+        |vpiFullName:work@semaphore::try_get::keyCount
+        |vpiActual:
+        \_int_typespec: , line:66:26, endln:66:29
 |uhdmallModules:
 \_module_inst: work@FSM (work@FSM), file:${SURELOG_DIR}/tests/CaseFullElab/top.sv, line:1:1, endln:42:12
   |vpiParent:
@@ -1238,17 +1245,12 @@ design: (work@FSM)
     \_module_inst: work@FSM (work@FSM), file:${SURELOG_DIR}/tests/CaseFullElab/top.sv, line:1:1, endln:42:12
     |BIN:0000
     |vpiTypespec:
-    \_int_typespec: , line:9:3, endln:15:30
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:9:3, endln:15:30
-        |vpiLeftRange:
-        \_constant: 
-          |INT:3
-        |vpiRightRange:
-        \_constant: 
-          |INT:0
+    \_ref_obj: (work@FSM.Stop)
+      |vpiParent:
+      \_parameter: (work@FSM.Stop), line:9:13, endln:9:17
+      |vpiFullName:work@FSM.Stop
+      |vpiActual:
+      \_int_typespec: , line:9:3, endln:15:30
     |vpiName:Stop
     |vpiFullName:work@FSM.Stop
   |vpiParameter:
@@ -1257,17 +1259,12 @@ design: (work@FSM)
     \_module_inst: work@FSM (work@FSM), file:${SURELOG_DIR}/tests/CaseFullElab/top.sv, line:1:1, endln:42:12
     |BIN:0001
     |vpiTypespec:
-    \_int_typespec: , line:9:3, endln:15:30
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:9:3, endln:15:30
-        |vpiLeftRange:
-        \_constant: 
-          |INT:3
-        |vpiRightRange:
-        \_constant: 
-          |INT:0
+    \_ref_obj: (work@FSM.Move)
+      |vpiParent:
+      \_parameter: (work@FSM.Move), line:10:13, endln:10:17
+      |vpiFullName:work@FSM.Move
+      |vpiActual:
+      \_int_typespec: , line:9:3, endln:15:30
     |vpiName:Move
     |vpiFullName:work@FSM.Move
   |vpiParameter:
@@ -1276,17 +1273,12 @@ design: (work@FSM)
     \_module_inst: work@FSM (work@FSM), file:${SURELOG_DIR}/tests/CaseFullElab/top.sv, line:1:1, endln:42:12
     |BIN:0010
     |vpiTypespec:
-    \_int_typespec: , line:9:3, endln:15:30
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:9:3, endln:15:30
-        |vpiLeftRange:
-        \_constant: 
-          |INT:3
-        |vpiRightRange:
-        \_constant: 
-          |INT:0
+    \_ref_obj: (work@FSM.Turn)
+      |vpiParent:
+      \_parameter: (work@FSM.Turn), line:11:13, endln:11:17
+      |vpiFullName:work@FSM.Turn
+      |vpiActual:
+      \_int_typespec: , line:9:3, endln:15:30
     |vpiName:Turn
     |vpiFullName:work@FSM.Turn
   |vpiParameter:
@@ -1295,17 +1287,12 @@ design: (work@FSM)
     \_module_inst: work@FSM (work@FSM), file:${SURELOG_DIR}/tests/CaseFullElab/top.sv, line:1:1, endln:42:12
     |BIN:0011
     |vpiTypespec:
-    \_int_typespec: , line:9:3, endln:15:30
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:9:3, endln:15:30
-        |vpiLeftRange:
-        \_constant: 
-          |INT:3
-        |vpiRightRange:
-        \_constant: 
-          |INT:0
+    \_ref_obj: (work@FSM.Slow)
+      |vpiParent:
+      \_parameter: (work@FSM.Slow), line:12:13, endln:12:17
+      |vpiFullName:work@FSM.Slow
+      |vpiActual:
+      \_int_typespec: , line:9:3, endln:15:30
     |vpiName:Slow
     |vpiFullName:work@FSM.Slow
   |vpiParameter:
@@ -1314,17 +1301,12 @@ design: (work@FSM)
     \_module_inst: work@FSM (work@FSM), file:${SURELOG_DIR}/tests/CaseFullElab/top.sv, line:1:1, endln:42:12
     |BIN:0100
     |vpiTypespec:
-    \_int_typespec: , line:9:3, endln:15:30
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:9:3, endln:15:30
-        |vpiLeftRange:
-        \_constant: 
-          |INT:3
-        |vpiRightRange:
-        \_constant: 
-          |INT:0
+    \_ref_obj: (work@FSM.Medium)
+      |vpiParent:
+      \_parameter: (work@FSM.Medium), line:13:13, endln:13:19
+      |vpiFullName:work@FSM.Medium
+      |vpiActual:
+      \_int_typespec: , line:9:3, endln:15:30
     |vpiName:Medium
     |vpiFullName:work@FSM.Medium
   |vpiParameter:
@@ -1333,17 +1315,12 @@ design: (work@FSM)
     \_module_inst: work@FSM (work@FSM), file:${SURELOG_DIR}/tests/CaseFullElab/top.sv, line:1:1, endln:42:12
     |BIN:0101
     |vpiTypespec:
-    \_int_typespec: , line:9:3, endln:15:30
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:9:3, endln:15:30
-        |vpiLeftRange:
-        \_constant: 
-          |INT:3
-        |vpiRightRange:
-        \_constant: 
-          |INT:0
+    \_ref_obj: (work@FSM.Fast)
+      |vpiParent:
+      \_parameter: (work@FSM.Fast), line:14:13, endln:14:17
+      |vpiFullName:work@FSM.Fast
+      |vpiActual:
+      \_int_typespec: , line:9:3, endln:15:30
     |vpiName:Fast
     |vpiFullName:work@FSM.Fast
   |vpiParameter:
@@ -1352,17 +1329,12 @@ design: (work@FSM)
     \_module_inst: work@FSM (work@FSM), file:${SURELOG_DIR}/tests/CaseFullElab/top.sv, line:1:1, endln:42:12
     |BIN:0110
     |vpiTypespec:
-    \_int_typespec: , line:9:3, endln:15:30
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:9:3, endln:15:30
-        |vpiLeftRange:
-        \_constant: 
-          |INT:3
-        |vpiRightRange:
-        \_constant: 
-          |INT:0
+    \_ref_obj: (work@FSM.Faster)
+      |vpiParent:
+      \_parameter: (work@FSM.Faster), line:15:13, endln:15:19
+      |vpiFullName:work@FSM.Faster
+      |vpiActual:
+      \_int_typespec: , line:9:3, endln:15:30
     |vpiName:Faster
     |vpiFullName:work@FSM.Faster
   |vpiParamAssign:
@@ -1377,7 +1349,12 @@ design: (work@FSM)
       |vpiSize:4
       |BIN:0000
       |vpiTypespec:
-      \_int_typespec: , line:9:3, endln:15:30
+      \_ref_obj: (work@FSM)
+        |vpiParent:
+        \_constant: , line:9:23, endln:9:30
+        |vpiFullName:work@FSM
+        |vpiActual:
+        \_int_typespec: , line:9:3, endln:15:30
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@FSM.Stop), line:9:13, endln:9:17
@@ -1393,7 +1370,12 @@ design: (work@FSM)
       |vpiSize:4
       |BIN:0001
       |vpiTypespec:
-      \_int_typespec: , line:9:3, endln:15:30
+      \_ref_obj: (work@FSM)
+        |vpiParent:
+        \_constant: , line:10:23, endln:10:30
+        |vpiFullName:work@FSM
+        |vpiActual:
+        \_int_typespec: , line:9:3, endln:15:30
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@FSM.Move), line:10:13, endln:10:17
@@ -1409,7 +1391,12 @@ design: (work@FSM)
       |vpiSize:4
       |BIN:0010
       |vpiTypespec:
-      \_int_typespec: , line:9:3, endln:15:30
+      \_ref_obj: (work@FSM)
+        |vpiParent:
+        \_constant: , line:11:23, endln:11:30
+        |vpiFullName:work@FSM
+        |vpiActual:
+        \_int_typespec: , line:9:3, endln:15:30
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@FSM.Turn), line:11:13, endln:11:17
@@ -1425,7 +1412,12 @@ design: (work@FSM)
       |vpiSize:4
       |BIN:0011
       |vpiTypespec:
-      \_int_typespec: , line:9:3, endln:15:30
+      \_ref_obj: (work@FSM)
+        |vpiParent:
+        \_constant: , line:12:23, endln:12:30
+        |vpiFullName:work@FSM
+        |vpiActual:
+        \_int_typespec: , line:9:3, endln:15:30
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@FSM.Slow), line:12:13, endln:12:17
@@ -1441,7 +1433,12 @@ design: (work@FSM)
       |vpiSize:4
       |BIN:0100
       |vpiTypespec:
-      \_int_typespec: , line:9:3, endln:15:30
+      \_ref_obj: (work@FSM)
+        |vpiParent:
+        \_constant: , line:13:23, endln:13:30
+        |vpiFullName:work@FSM
+        |vpiActual:
+        \_int_typespec: , line:9:3, endln:15:30
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@FSM.Medium), line:13:13, endln:13:19
@@ -1457,7 +1454,12 @@ design: (work@FSM)
       |vpiSize:4
       |BIN:0101
       |vpiTypespec:
-      \_int_typespec: , line:9:3, endln:15:30
+      \_ref_obj: (work@FSM)
+        |vpiParent:
+        \_constant: , line:14:23, endln:14:30
+        |vpiFullName:work@FSM
+        |vpiActual:
+        \_int_typespec: , line:9:3, endln:15:30
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@FSM.Fast), line:14:13, endln:14:17
@@ -1473,7 +1475,12 @@ design: (work@FSM)
       |vpiSize:4
       |BIN:0110
       |vpiTypespec:
-      \_int_typespec: , line:9:3, endln:15:30
+      \_ref_obj: (work@FSM)
+        |vpiParent:
+        \_constant: , line:15:23, endln:15:30
+        |vpiFullName:work@FSM
+        |vpiActual:
+        \_int_typespec: , line:9:3, endln:15:30
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@FSM.Faster), line:15:13, endln:15:19
@@ -1518,7 +1525,12 @@ design: (work@FSM)
     |vpiParent:
     \_module_inst: work@FSM (work@FSM), file:${SURELOG_DIR}/tests/CaseFullElab/top.sv, line:1:1, endln:42:12
     |vpiTypespec:
-    \_logic_typespec: , line:7:3, endln:7:6
+    \_ref_obj: (work@FSM.Ctrl1)
+      |vpiParent:
+      \_logic_net: (work@FSM.Ctrl1), line:7:7, endln:7:12
+      |vpiFullName:work@FSM.Ctrl1
+      |vpiActual:
+      \_logic_typespec: , line:7:3, endln:7:6
     |vpiName:Ctrl1
     |vpiFullName:work@FSM.Ctrl1
     |vpiNetType:48
@@ -1527,7 +1539,12 @@ design: (work@FSM)
     |vpiParent:
     \_module_inst: work@FSM (work@FSM), file:${SURELOG_DIR}/tests/CaseFullElab/top.sv, line:1:1, endln:42:12
     |vpiTypespec:
-    \_logic_typespec: , line:7:3, endln:7:6
+    \_ref_obj: (work@FSM.Ctrl2)
+      |vpiParent:
+      \_logic_net: (work@FSM.Ctrl2), line:7:14, endln:7:19
+      |vpiFullName:work@FSM.Ctrl2
+      |vpiActual:
+      \_logic_typespec: , line:7:3, endln:7:6
     |vpiName:Ctrl2
     |vpiFullName:work@FSM.Ctrl2
     |vpiNetType:48
@@ -1536,7 +1553,12 @@ design: (work@FSM)
     |vpiParent:
     \_module_inst: work@FSM (work@FSM), file:${SURELOG_DIR}/tests/CaseFullElab/top.sv, line:1:1, endln:42:12
     |vpiTypespec:
-    \_logic_typespec: , line:7:3, endln:7:6
+    \_ref_obj: (work@FSM.Ctrl3)
+      |vpiParent:
+      \_logic_net: (work@FSM.Ctrl3), line:7:21, endln:7:26
+      |vpiFullName:work@FSM.Ctrl3
+      |vpiActual:
+      \_logic_typespec: , line:7:3, endln:7:6
     |vpiName:Ctrl3
     |vpiFullName:work@FSM.Ctrl3
     |vpiNetType:48
@@ -1554,7 +1576,12 @@ design: (work@FSM)
       |vpiActual:
       \_logic_net: (work@FSM.clock), line:3:8, endln:3:13
     |vpiTypedef:
-    \_logic_typespec: , line:2:9, endln:2:9
+    \_ref_obj: (work@FSM.clock)
+      |vpiParent:
+      \_port: (clock), line:1:12, endln:1:17
+      |vpiFullName:work@FSM.clock
+      |vpiActual:
+      \_logic_typespec: , line:2:9, endln:2:9
   |vpiPort:
   \_port: (keys), line:1:19, endln:1:23
     |vpiParent:
@@ -1569,7 +1596,12 @@ design: (work@FSM)
       |vpiActual:
       \_logic_net: (work@FSM.keys), line:3:15, endln:3:19
     |vpiTypedef:
-    \_logic_typespec: , line:2:9, endln:2:9
+    \_ref_obj: (work@FSM.keys)
+      |vpiParent:
+      \_port: (keys), line:1:19, endln:1:23
+      |vpiFullName:work@FSM.keys
+      |vpiActual:
+      \_logic_typespec: , line:2:9, endln:2:9
   |vpiPort:
   \_port: (brake), line:1:25, endln:1:30
     |vpiParent:
@@ -1584,7 +1616,12 @@ design: (work@FSM)
       |vpiActual:
       \_logic_net: (work@FSM.brake), line:3:21, endln:3:26
     |vpiTypedef:
-    \_logic_typespec: , line:2:9, endln:2:9
+    \_ref_obj: (work@FSM.brake)
+      |vpiParent:
+      \_port: (brake), line:1:25, endln:1:30
+      |vpiFullName:work@FSM.brake
+      |vpiActual:
+      \_logic_typespec: , line:2:9, endln:2:9
   |vpiPort:
   \_port: (accelerate), line:1:32, endln:1:42
     |vpiParent:
@@ -1599,7 +1636,12 @@ design: (work@FSM)
       |vpiActual:
       \_logic_net: (work@FSM.accelerate), line:3:28, endln:3:38
     |vpiTypedef:
-    \_logic_typespec: , line:2:9, endln:2:9
+    \_ref_obj: (work@FSM.accelerate)
+      |vpiParent:
+      \_port: (accelerate), line:1:32, endln:1:42
+      |vpiFullName:work@FSM.accelerate
+      |vpiActual:
+      \_logic_typespec: , line:2:9, endln:2:9
   |vpiPort:
   \_port: (Speed), line:1:44, endln:1:49
     |vpiParent:
@@ -1614,27 +1656,12 @@ design: (work@FSM)
       |vpiActual:
       \_logic_net: (work@FSM.Speed), line:5:13, endln:5:18
     |vpiTypedef:
-    \_logic_typespec: , line:4:10, endln:4:15
-      |vpiRange:
-      \_range: , line:4:10, endln:4:15
-        |vpiParent:
-        \_logic_typespec: , line:4:10, endln:4:15
-        |vpiLeftRange:
-        \_constant: , line:4:11, endln:4:12
-          |vpiParent:
-          \_range: , line:4:10, endln:4:15
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:4:13, endln:4:14
-          |vpiParent:
-          \_range: , line:4:10, endln:4:15
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@FSM.Speed)
+      |vpiParent:
+      \_port: (Speed), line:1:44, endln:1:49
+      |vpiFullName:work@FSM.Speed
+      |vpiActual:
+      \_logic_typespec: , line:4:10, endln:4:15
   |vpiProcess:
   \_always: , line:17:3, endln:40:6
     |vpiParent:
@@ -1917,23 +1944,12 @@ design: (work@FSM)
     \_module_inst: work@FSM (work@FSM), file:${SURELOG_DIR}/tests/CaseFullElab/top.sv, line:1:1, endln:42:12
     |BIN:0000
     |vpiTypespec:
-    \_int_typespec: , line:9:3, endln:15:30
+    \_ref_obj: (work@FSM.Stop)
       |vpiParent:
       \_parameter: (work@FSM.Stop), line:9:13, endln:9:17
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:9:3, endln:15:30
-        |vpiLeftRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:3
-        |vpiRightRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:0
+      |vpiFullName:work@FSM.Stop
+      |vpiActual:
+      \_int_typespec: , line:9:3, endln:15:30
     |vpiName:Stop
     |vpiFullName:work@FSM.Stop
   |vpiParameter:
@@ -1942,23 +1958,12 @@ design: (work@FSM)
     \_module_inst: work@FSM (work@FSM), file:${SURELOG_DIR}/tests/CaseFullElab/top.sv, line:1:1, endln:42:12
     |BIN:0001
     |vpiTypespec:
-    \_int_typespec: , line:9:3, endln:15:30
+    \_ref_obj: (work@FSM.Move)
       |vpiParent:
       \_parameter: (work@FSM.Move), line:10:13, endln:10:17
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:9:3, endln:15:30
-        |vpiLeftRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:3
-        |vpiRightRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:0
+      |vpiFullName:work@FSM.Move
+      |vpiActual:
+      \_int_typespec: , line:9:3, endln:15:30
     |vpiName:Move
     |vpiFullName:work@FSM.Move
   |vpiParameter:
@@ -1967,23 +1972,12 @@ design: (work@FSM)
     \_module_inst: work@FSM (work@FSM), file:${SURELOG_DIR}/tests/CaseFullElab/top.sv, line:1:1, endln:42:12
     |BIN:0010
     |vpiTypespec:
-    \_int_typespec: , line:9:3, endln:15:30
+    \_ref_obj: (work@FSM.Turn)
       |vpiParent:
       \_parameter: (work@FSM.Turn), line:11:13, endln:11:17
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:9:3, endln:15:30
-        |vpiLeftRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:3
-        |vpiRightRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:0
+      |vpiFullName:work@FSM.Turn
+      |vpiActual:
+      \_int_typespec: , line:9:3, endln:15:30
     |vpiName:Turn
     |vpiFullName:work@FSM.Turn
   |vpiParameter:
@@ -1992,23 +1986,12 @@ design: (work@FSM)
     \_module_inst: work@FSM (work@FSM), file:${SURELOG_DIR}/tests/CaseFullElab/top.sv, line:1:1, endln:42:12
     |BIN:0011
     |vpiTypespec:
-    \_int_typespec: , line:9:3, endln:15:30
+    \_ref_obj: (work@FSM.Slow)
       |vpiParent:
       \_parameter: (work@FSM.Slow), line:12:13, endln:12:17
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:9:3, endln:15:30
-        |vpiLeftRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:3
-        |vpiRightRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:0
+      |vpiFullName:work@FSM.Slow
+      |vpiActual:
+      \_int_typespec: , line:9:3, endln:15:30
     |vpiName:Slow
     |vpiFullName:work@FSM.Slow
   |vpiParameter:
@@ -2017,23 +2000,12 @@ design: (work@FSM)
     \_module_inst: work@FSM (work@FSM), file:${SURELOG_DIR}/tests/CaseFullElab/top.sv, line:1:1, endln:42:12
     |BIN:0100
     |vpiTypespec:
-    \_int_typespec: , line:9:3, endln:15:30
+    \_ref_obj: (work@FSM.Medium)
       |vpiParent:
       \_parameter: (work@FSM.Medium), line:13:13, endln:13:19
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:9:3, endln:15:30
-        |vpiLeftRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:3
-        |vpiRightRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:0
+      |vpiFullName:work@FSM.Medium
+      |vpiActual:
+      \_int_typespec: , line:9:3, endln:15:30
     |vpiName:Medium
     |vpiFullName:work@FSM.Medium
   |vpiParameter:
@@ -2042,23 +2014,12 @@ design: (work@FSM)
     \_module_inst: work@FSM (work@FSM), file:${SURELOG_DIR}/tests/CaseFullElab/top.sv, line:1:1, endln:42:12
     |BIN:0101
     |vpiTypespec:
-    \_int_typespec: , line:9:3, endln:15:30
+    \_ref_obj: (work@FSM.Fast)
       |vpiParent:
       \_parameter: (work@FSM.Fast), line:14:13, endln:14:17
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:9:3, endln:15:30
-        |vpiLeftRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:3
-        |vpiRightRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:0
+      |vpiFullName:work@FSM.Fast
+      |vpiActual:
+      \_int_typespec: , line:9:3, endln:15:30
     |vpiName:Fast
     |vpiFullName:work@FSM.Fast
   |vpiParameter:
@@ -2067,23 +2028,12 @@ design: (work@FSM)
     \_module_inst: work@FSM (work@FSM), file:${SURELOG_DIR}/tests/CaseFullElab/top.sv, line:1:1, endln:42:12
     |BIN:0110
     |vpiTypespec:
-    \_int_typespec: , line:9:3, endln:15:30
+    \_ref_obj: (work@FSM.Faster)
       |vpiParent:
       \_parameter: (work@FSM.Faster), line:15:13, endln:15:19
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:9:3, endln:15:30
-        |vpiLeftRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:3
-        |vpiRightRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:0
+      |vpiFullName:work@FSM.Faster
+      |vpiActual:
+      \_int_typespec: , line:9:3, endln:15:30
     |vpiName:Faster
     |vpiFullName:work@FSM.Faster
   |vpiParamAssign:
@@ -2098,7 +2048,12 @@ design: (work@FSM)
       |vpiSize:4
       |BIN:0000
       |vpiTypespec:
-      \_int_typespec: , line:9:3, endln:15:30
+      \_ref_obj: (work@FSM)
+        |vpiParent:
+        \_constant: , line:9:23, endln:9:30
+        |vpiFullName:work@FSM
+        |vpiActual:
+        \_int_typespec: , line:9:3, endln:15:30
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@FSM.Stop), line:9:13, endln:9:17
@@ -2114,7 +2069,12 @@ design: (work@FSM)
       |vpiSize:4
       |BIN:0001
       |vpiTypespec:
-      \_int_typespec: , line:9:3, endln:15:30
+      \_ref_obj: (work@FSM)
+        |vpiParent:
+        \_constant: , line:10:23, endln:10:30
+        |vpiFullName:work@FSM
+        |vpiActual:
+        \_int_typespec: , line:9:3, endln:15:30
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@FSM.Move), line:10:13, endln:10:17
@@ -2130,7 +2090,12 @@ design: (work@FSM)
       |vpiSize:4
       |BIN:0010
       |vpiTypespec:
-      \_int_typespec: , line:9:3, endln:15:30
+      \_ref_obj: (work@FSM)
+        |vpiParent:
+        \_constant: , line:11:23, endln:11:30
+        |vpiFullName:work@FSM
+        |vpiActual:
+        \_int_typespec: , line:9:3, endln:15:30
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@FSM.Turn), line:11:13, endln:11:17
@@ -2146,7 +2111,12 @@ design: (work@FSM)
       |vpiSize:4
       |BIN:0011
       |vpiTypespec:
-      \_int_typespec: , line:9:3, endln:15:30
+      \_ref_obj: (work@FSM)
+        |vpiParent:
+        \_constant: , line:12:23, endln:12:30
+        |vpiFullName:work@FSM
+        |vpiActual:
+        \_int_typespec: , line:9:3, endln:15:30
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@FSM.Slow), line:12:13, endln:12:17
@@ -2162,7 +2132,12 @@ design: (work@FSM)
       |vpiSize:4
       |BIN:0100
       |vpiTypespec:
-      \_int_typespec: , line:9:3, endln:15:30
+      \_ref_obj: (work@FSM)
+        |vpiParent:
+        \_constant: , line:13:23, endln:13:30
+        |vpiFullName:work@FSM
+        |vpiActual:
+        \_int_typespec: , line:9:3, endln:15:30
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@FSM.Medium), line:13:13, endln:13:19
@@ -2178,7 +2153,12 @@ design: (work@FSM)
       |vpiSize:4
       |BIN:0101
       |vpiTypespec:
-      \_int_typespec: , line:9:3, endln:15:30
+      \_ref_obj: (work@FSM)
+        |vpiParent:
+        \_constant: , line:14:23, endln:14:30
+        |vpiFullName:work@FSM
+        |vpiActual:
+        \_int_typespec: , line:9:3, endln:15:30
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@FSM.Fast), line:14:13, endln:14:17
@@ -2194,7 +2174,12 @@ design: (work@FSM)
       |vpiSize:4
       |BIN:0110
       |vpiTypespec:
-      \_int_typespec: , line:9:3, endln:15:30
+      \_ref_obj: (work@FSM)
+        |vpiParent:
+        \_constant: , line:15:23, endln:15:30
+        |vpiFullName:work@FSM
+        |vpiActual:
+        \_int_typespec: , line:9:3, endln:15:30
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@FSM.Faster), line:15:13, endln:15:19
@@ -2205,9 +2190,12 @@ design: (work@FSM)
     |vpiParent:
     \_module_inst: work@FSM (work@FSM), file:${SURELOG_DIR}/tests/CaseFullElab/top.sv, line:1:1, endln:42:12
     |vpiTypespec:
-    \_logic_typespec: , line:3:3, endln:3:7
+    \_ref_obj: (work@FSM.clock)
       |vpiParent:
-      \_logic_net: (work@FSM.accelerate), line:3:28, endln:3:38
+      \_logic_net: (work@FSM.clock), line:3:8, endln:3:13
+      |vpiFullName:work@FSM.clock
+      |vpiActual:
+      \_logic_typespec: , line:3:3, endln:3:7
     |vpiName:clock
     |vpiFullName:work@FSM.clock
     |vpiNetType:1
@@ -2216,7 +2204,12 @@ design: (work@FSM)
     |vpiParent:
     \_module_inst: work@FSM (work@FSM), file:${SURELOG_DIR}/tests/CaseFullElab/top.sv, line:1:1, endln:42:12
     |vpiTypespec:
-    \_logic_typespec: , line:3:3, endln:3:7
+    \_ref_obj: (work@FSM.keys)
+      |vpiParent:
+      \_logic_net: (work@FSM.keys), line:3:15, endln:3:19
+      |vpiFullName:work@FSM.keys
+      |vpiActual:
+      \_logic_typespec: , line:3:3, endln:3:7
     |vpiName:keys
     |vpiFullName:work@FSM.keys
     |vpiNetType:1
@@ -2225,7 +2218,12 @@ design: (work@FSM)
     |vpiParent:
     \_module_inst: work@FSM (work@FSM), file:${SURELOG_DIR}/tests/CaseFullElab/top.sv, line:1:1, endln:42:12
     |vpiTypespec:
-    \_logic_typespec: , line:3:3, endln:3:7
+    \_ref_obj: (work@FSM.brake)
+      |vpiParent:
+      \_logic_net: (work@FSM.brake), line:3:21, endln:3:26
+      |vpiFullName:work@FSM.brake
+      |vpiActual:
+      \_logic_typespec: , line:3:3, endln:3:7
     |vpiName:brake
     |vpiFullName:work@FSM.brake
     |vpiNetType:1
@@ -2234,7 +2232,12 @@ design: (work@FSM)
     |vpiParent:
     \_module_inst: work@FSM (work@FSM), file:${SURELOG_DIR}/tests/CaseFullElab/top.sv, line:1:1, endln:42:12
     |vpiTypespec:
-    \_logic_typespec: , line:3:3, endln:3:7
+    \_ref_obj: (work@FSM.accelerate)
+      |vpiParent:
+      \_logic_net: (work@FSM.accelerate), line:3:28, endln:3:38
+      |vpiFullName:work@FSM.accelerate
+      |vpiActual:
+      \_logic_typespec: , line:3:3, endln:3:7
     |vpiName:accelerate
     |vpiFullName:work@FSM.accelerate
     |vpiNetType:1
@@ -2243,29 +2246,12 @@ design: (work@FSM)
     |vpiParent:
     \_module_inst: work@FSM (work@FSM), file:${SURELOG_DIR}/tests/CaseFullElab/top.sv, line:1:1, endln:42:12
     |vpiTypespec:
-    \_logic_typespec: , line:5:3, endln:5:12
+    \_ref_obj: (work@FSM.Speed)
       |vpiParent:
       \_logic_net: (work@FSM.Speed), line:5:13, endln:5:18
-      |vpiRange:
-      \_range: , line:5:7, endln:5:12
-        |vpiParent:
-        \_logic_typespec: , line:5:3, endln:5:12
-        |vpiLeftRange:
-        \_constant: , line:5:8, endln:5:9
-          |vpiParent:
-          \_range: , line:5:7, endln:5:12
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:5:10, endln:5:11
-          |vpiParent:
-          \_range: , line:5:7, endln:5:12
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@FSM.Speed
+      |vpiActual:
+      \_logic_typespec: , line:5:3, endln:5:12
     |vpiName:Speed
     |vpiFullName:work@FSM.Speed
     |vpiNetType:48
@@ -2274,9 +2260,12 @@ design: (work@FSM)
     |vpiParent:
     \_module_inst: work@FSM (work@FSM), file:${SURELOG_DIR}/tests/CaseFullElab/top.sv, line:1:1, endln:42:12
     |vpiTypespec:
-    \_logic_typespec: , line:7:3, endln:7:6
+    \_ref_obj: (work@FSM.Ctrl1)
       |vpiParent:
-      \_logic_net: (work@FSM.Ctrl3), line:7:21, endln:7:26
+      \_logic_net: (work@FSM.Ctrl1), line:7:7, endln:7:12
+      |vpiFullName:work@FSM.Ctrl1
+      |vpiActual:
+      \_logic_typespec: , line:7:3, endln:7:6
     |vpiName:Ctrl1
     |vpiFullName:work@FSM.Ctrl1
     |vpiNetType:48
@@ -2285,7 +2274,12 @@ design: (work@FSM)
     |vpiParent:
     \_module_inst: work@FSM (work@FSM), file:${SURELOG_DIR}/tests/CaseFullElab/top.sv, line:1:1, endln:42:12
     |vpiTypespec:
-    \_logic_typespec: , line:7:3, endln:7:6
+    \_ref_obj: (work@FSM.Ctrl2)
+      |vpiParent:
+      \_logic_net: (work@FSM.Ctrl2), line:7:14, endln:7:19
+      |vpiFullName:work@FSM.Ctrl2
+      |vpiActual:
+      \_logic_typespec: , line:7:3, endln:7:6
     |vpiName:Ctrl2
     |vpiFullName:work@FSM.Ctrl2
     |vpiNetType:48
@@ -2294,7 +2288,12 @@ design: (work@FSM)
     |vpiParent:
     \_module_inst: work@FSM (work@FSM), file:${SURELOG_DIR}/tests/CaseFullElab/top.sv, line:1:1, endln:42:12
     |vpiTypespec:
-    \_logic_typespec: , line:7:3, endln:7:6
+    \_ref_obj: (work@FSM.Ctrl3)
+      |vpiParent:
+      \_logic_net: (work@FSM.Ctrl3), line:7:21, endln:7:26
+      |vpiFullName:work@FSM.Ctrl3
+      |vpiActual:
+      \_logic_typespec: , line:7:3, endln:7:6
     |vpiName:Ctrl3
     |vpiFullName:work@FSM.Ctrl3
     |vpiNetType:48
@@ -2314,7 +2313,12 @@ design: (work@FSM)
       |vpiActual:
       \_logic_net: (work@FSM.clock), line:3:8, endln:3:13
     |vpiTypedef:
-    \_logic_typespec: , line:2:9, endln:2:9
+    \_ref_obj: (work@FSM.clock)
+      |vpiParent:
+      \_port: (clock), line:1:12, endln:1:17
+      |vpiFullName:work@FSM.clock
+      |vpiActual:
+      \_logic_typespec: , line:2:9, endln:2:9
     |vpiInstance:
     \_module_inst: work@FSM (work@FSM), file:${SURELOG_DIR}/tests/CaseFullElab/top.sv, line:1:1, endln:42:12
   |vpiPort:
@@ -2332,7 +2336,12 @@ design: (work@FSM)
       |vpiActual:
       \_logic_net: (work@FSM.keys), line:3:15, endln:3:19
     |vpiTypedef:
-    \_logic_typespec: , line:2:9, endln:2:9
+    \_ref_obj: (work@FSM.keys)
+      |vpiParent:
+      \_port: (keys), line:1:19, endln:1:23
+      |vpiFullName:work@FSM.keys
+      |vpiActual:
+      \_logic_typespec: , line:2:9, endln:2:9
     |vpiInstance:
     \_module_inst: work@FSM (work@FSM), file:${SURELOG_DIR}/tests/CaseFullElab/top.sv, line:1:1, endln:42:12
   |vpiPort:
@@ -2350,7 +2359,12 @@ design: (work@FSM)
       |vpiActual:
       \_logic_net: (work@FSM.brake), line:3:21, endln:3:26
     |vpiTypedef:
-    \_logic_typespec: , line:2:9, endln:2:9
+    \_ref_obj: (work@FSM.brake)
+      |vpiParent:
+      \_port: (brake), line:1:25, endln:1:30
+      |vpiFullName:work@FSM.brake
+      |vpiActual:
+      \_logic_typespec: , line:2:9, endln:2:9
     |vpiInstance:
     \_module_inst: work@FSM (work@FSM), file:${SURELOG_DIR}/tests/CaseFullElab/top.sv, line:1:1, endln:42:12
   |vpiPort:
@@ -2368,7 +2382,12 @@ design: (work@FSM)
       |vpiActual:
       \_logic_net: (work@FSM.accelerate), line:3:28, endln:3:38
     |vpiTypedef:
-    \_logic_typespec: , line:2:9, endln:2:9
+    \_ref_obj: (work@FSM.accelerate)
+      |vpiParent:
+      \_port: (accelerate), line:1:32, endln:1:42
+      |vpiFullName:work@FSM.accelerate
+      |vpiActual:
+      \_logic_typespec: , line:2:9, endln:2:9
     |vpiInstance:
     \_module_inst: work@FSM (work@FSM), file:${SURELOG_DIR}/tests/CaseFullElab/top.sv, line:1:1, endln:42:12
   |vpiPort:
@@ -2386,27 +2405,12 @@ design: (work@FSM)
       |vpiActual:
       \_logic_net: (work@FSM.Speed), line:5:13, endln:5:18
     |vpiTypedef:
-    \_logic_typespec: , line:4:10, endln:4:15
-      |vpiRange:
-      \_range: , line:4:10, endln:4:15
-        |vpiParent:
-        \_logic_typespec: , line:4:10, endln:4:15
-        |vpiLeftRange:
-        \_constant: , line:4:11, endln:4:12
-          |vpiParent:
-          \_range: , line:4:10, endln:4:15
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:4:13, endln:4:14
-          |vpiParent:
-          \_range: , line:4:10, endln:4:15
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@FSM.Speed)
+      |vpiParent:
+      \_port: (Speed), line:1:44, endln:1:49
+      |vpiFullName:work@FSM.Speed
+      |vpiActual:
+      \_logic_typespec: , line:4:10, endln:4:15
     |vpiInstance:
     \_module_inst: work@FSM (work@FSM), file:${SURELOG_DIR}/tests/CaseFullElab/top.sv, line:1:1, endln:42:12
   |vpiProcess:
@@ -2698,6 +2702,495 @@ design: (work@FSM)
                   |vpiActual:
                   \_logic_net: (work@FSM.Speed), line:5:13, endln:5:18
     |vpiAlwaysType:1
+\_weaklyReferenced:
+\_int_typespec: , line:9:3, endln:15:30
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:9:3, endln:15:30
+    |vpiLeftRange:
+    \_constant: 
+      |INT:3
+    |vpiRightRange:
+    \_constant: 
+      |INT:0
+\_int_typespec: , line:9:3, endln:15:30
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:9:3, endln:15:30
+    |vpiLeftRange:
+    \_constant: 
+      |INT:3
+    |vpiRightRange:
+    \_constant: 
+      |INT:0
+\_int_typespec: , line:9:3, endln:15:30
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:9:3, endln:15:30
+    |vpiLeftRange:
+    \_constant: 
+      |INT:3
+    |vpiRightRange:
+    \_constant: 
+      |INT:0
+\_int_typespec: , line:9:3, endln:15:30
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:9:3, endln:15:30
+    |vpiLeftRange:
+    \_constant: 
+      |INT:3
+    |vpiRightRange:
+    \_constant: 
+      |INT:0
+\_int_typespec: , line:9:3, endln:15:30
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:9:3, endln:15:30
+    |vpiLeftRange:
+    \_constant: 
+      |INT:3
+    |vpiRightRange:
+    \_constant: 
+      |INT:0
+\_int_typespec: , line:9:3, endln:15:30
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:9:3, endln:15:30
+    |vpiLeftRange:
+    \_constant: 
+      |INT:3
+    |vpiRightRange:
+    \_constant: 
+      |INT:0
+\_int_typespec: , line:9:3, endln:15:30
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:9:3, endln:15:30
+    |vpiLeftRange:
+    \_constant: 
+      |INT:3
+    |vpiRightRange:
+    \_constant: 
+      |INT:0
+\_function: (work@mailbox::new), line:3:5, endln:4:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/CaseFullElab/builtin.sv, line:1:3, endln:27:11
+  |vpiName:new
+  |vpiFullName:work@mailbox::new
+  |vpiMethod:1
+  |vpiReturn:
+  \_class_var: (work@mailbox::new), line:3:23, endln:3:28
+  |vpiIODecl:
+  \_io_decl: (bound), line:3:23, endln:3:28
+    |vpiParent:
+    \_function: (work@mailbox::new), line:3:5, endln:4:16
+    |vpiDirection:1
+    |vpiName:bound
+    |vpiExpr:
+    \_constant: , line:3:31, endln:3:32
+    |vpiTypedef:
+    \_ref_obj: (work@mailbox::new::bound)
+      |vpiParent:
+      \_io_decl: (bound), line:3:23, endln:3:28
+      |vpiFullName:work@mailbox::new::bound
+      |vpiActual:
+      \_int_typespec: , line:3:19, endln:3:22
+\_class_typespec: 
+  |vpiClassDefn:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/CaseFullElab/builtin.sv, line:1:3, endln:27:11
+\_int_typespec: , line:3:19, endln:3:22
+  |vpiSigned:1
+\_function: (work@mailbox::num), line:6:5, endln:7:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/CaseFullElab/builtin.sv, line:1:3, endln:27:11
+  |vpiName:num
+  |vpiFullName:work@mailbox::num
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::num), line:6:14, endln:6:17
+\_int_typespec: , line:6:14, endln:6:17
+  |vpiSigned:1
+\_function: (work@mailbox::try_put), line:12:5, endln:13:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/CaseFullElab/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_put
+  |vpiFullName:work@mailbox::try_put
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_logic_var: (work@mailbox::try_put)
+  |vpiIODecl:
+  \_io_decl: (message), line:12:23, endln:12:30
+    |vpiParent:
+    \_function: (work@mailbox::try_put), line:12:5, endln:13:16
+    |vpiDirection:1
+    |vpiName:message
+\_function: (work@mailbox::try_get), line:18:5, endln:19:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/CaseFullElab/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_get
+  |vpiFullName:work@mailbox::try_get
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::try_get), line:18:14, endln:18:17
+  |vpiIODecl:
+  \_io_decl: (message), line:18:31, endln:18:38
+    |vpiParent:
+    \_function: (work@mailbox::try_get), line:18:5, endln:19:16
+    |vpiDirection:6
+    |vpiName:message
+\_int_typespec: , line:18:14, endln:18:17
+  |vpiSigned:1
+\_function: (work@mailbox::try_peek), line:24:5, endln:25:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/CaseFullElab/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_peek
+  |vpiFullName:work@mailbox::try_peek
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::try_peek), line:24:14, endln:24:17
+  |vpiIODecl:
+  \_io_decl: (message), line:24:31, endln:24:38
+    |vpiParent:
+    \_function: (work@mailbox::try_peek), line:24:5, endln:25:16
+    |vpiDirection:6
+    |vpiName:message
+\_int_typespec: , line:24:14, endln:24:17
+  |vpiSigned:1
+\_enum_typespec: (state), line:32:5, endln:32:74
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/CaseFullElab/builtin.sv, line:30:3, endln:52:11
+  |vpiName:state
+  |vpiEnumConst:
+  \_enum_const: (FINISHED), line:32:20, endln:32:28
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:FINISHED
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (RUNNING), line:32:30, endln:32:37
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:RUNNING
+    |INT:1
+    |vpiDecompile:1
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (WAITING), line:32:39, endln:32:46
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:WAITING
+    |INT:2
+    |vpiDecompile:2
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (SUSPENDED), line:32:48, endln:32:57
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:SUSPENDED
+    |INT:3
+    |vpiDecompile:3
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (KILLED), line:32:59, endln:32:65
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:KILLED
+    |INT:4
+    |vpiDecompile:4
+    |vpiSize:64
+\_function: (work@process::self), line:34:5, endln:34:11
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/CaseFullElab/builtin.sv, line:30:3, endln:52:11
+  |vpiName:self
+  |vpiFullName:work@process::self
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_class_var: (work@process::self), line:34:21, endln:34:28
+\_class_typespec: , line:34:21, endln:34:28
+  |vpiClassDefn:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/CaseFullElab/builtin.sv, line:30:3, endln:52:11
+\_function: (work@process::status), line:37:5, endln:38:16
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/CaseFullElab/builtin.sv, line:30:3, endln:52:11
+  |vpiName:status
+  |vpiFullName:work@process::status
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_enum_var: (work@process::status), line:37:14, endln:37:19
+\_function: (work@semaphore::new), line:57:5, endln:58:16
+  |vpiParent:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/CaseFullElab/builtin.sv, line:55:3, endln:69:11
+  |vpiName:new
+  |vpiFullName:work@semaphore::new
+  |vpiMethod:1
+  |vpiReturn:
+  \_class_var: (work@semaphore::new), line:57:22, endln:57:30
+  |vpiIODecl:
+  \_io_decl: (keyCount), line:57:22, endln:57:30
+    |vpiParent:
+    \_function: (work@semaphore::new), line:57:5, endln:58:16
+    |vpiDirection:1
+    |vpiName:keyCount
+    |vpiExpr:
+    \_constant: , line:57:33, endln:57:34
+    |vpiTypedef:
+    \_ref_obj: (work@semaphore::new::keyCount)
+      |vpiParent:
+      \_io_decl: (keyCount), line:57:22, endln:57:30
+      |vpiFullName:work@semaphore::new::keyCount
+      |vpiActual:
+      \_int_typespec: , line:57:18, endln:57:21
+\_class_typespec: 
+  |vpiClassDefn:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/CaseFullElab/builtin.sv, line:55:3, endln:69:11
+\_int_typespec: , line:57:18, endln:57:21
+  |vpiSigned:1
+\_int_typespec: , line:60:14, endln:60:17
+  |vpiSigned:1
+\_int_typespec: , line:63:14, endln:63:17
+  |vpiSigned:1
+\_function: (work@semaphore::try_get), line:66:5, endln:67:16
+  |vpiParent:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/CaseFullElab/builtin.sv, line:55:3, endln:69:11
+  |vpiName:try_get
+  |vpiFullName:work@semaphore::try_get
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@semaphore::try_get), line:66:14, endln:66:17
+  |vpiIODecl:
+  \_io_decl: (keyCount), line:66:30, endln:66:38
+    |vpiParent:
+    \_function: (work@semaphore::try_get), line:66:5, endln:67:16
+    |vpiDirection:1
+    |vpiName:keyCount
+    |vpiExpr:
+    \_constant: , line:66:41, endln:66:42
+    |vpiTypedef:
+    \_ref_obj: (work@semaphore::try_get::keyCount)
+      |vpiParent:
+      \_io_decl: (keyCount), line:66:30, endln:66:38
+      |vpiFullName:work@semaphore::try_get::keyCount
+      |vpiActual:
+      \_int_typespec: , line:66:26, endln:66:29
+\_int_typespec: , line:66:14, endln:66:17
+  |vpiSigned:1
+\_int_typespec: , line:66:26, endln:66:29
+  |vpiSigned:1
+\_logic_typespec: , line:2:9, endln:2:9
+\_logic_typespec: , line:4:10, endln:4:15
+  |vpiRange:
+  \_range: , line:4:10, endln:4:15
+    |vpiParent:
+    \_logic_typespec: , line:4:10, endln:4:15
+    |vpiLeftRange:
+    \_constant: , line:4:11, endln:4:12
+      |vpiParent:
+      \_range: , line:4:10, endln:4:15
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:4:13, endln:4:14
+      |vpiParent:
+      \_range: , line:4:10, endln:4:15
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:3:3, endln:3:7
+  |vpiParent:
+  \_logic_net: (work@FSM.accelerate), line:3:28, endln:3:38
+\_logic_typespec: , line:5:3, endln:5:12
+  |vpiParent:
+  \_logic_net: (work@FSM.Speed), line:5:13, endln:5:18
+  |vpiRange:
+  \_range: , line:5:7, endln:5:12
+    |vpiParent:
+    \_logic_typespec: , line:5:3, endln:5:12
+    |vpiLeftRange:
+    \_constant: , line:5:8, endln:5:9
+      |vpiParent:
+      \_range: , line:5:7, endln:5:12
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:10, endln:5:11
+      |vpiParent:
+      \_range: , line:5:7, endln:5:12
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:7:3, endln:7:6
+  |vpiParent:
+  \_logic_net: (work@FSM.Ctrl3), line:7:21, endln:7:26
+\_logic_typespec: , line:2:9, endln:2:9
+\_logic_typespec: , line:2:9, endln:2:9
+\_logic_typespec: , line:2:9, endln:2:9
+\_logic_typespec: , line:2:9, endln:2:9
+\_logic_typespec: , line:4:10, endln:4:15
+  |vpiRange:
+  \_range: , line:4:10, endln:4:15
+    |vpiParent:
+    \_logic_typespec: , line:4:10, endln:4:15
+    |vpiLeftRange:
+    \_constant: , line:4:11, endln:4:12
+      |vpiParent:
+      \_range: , line:4:10, endln:4:15
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:4:13, endln:4:14
+      |vpiParent:
+      \_range: , line:4:10, endln:4:15
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:7:3, endln:7:6
+\_logic_typespec: , line:7:3, endln:7:6
+\_logic_typespec: , line:7:3, endln:7:6
+\_int_typespec: , line:9:3, endln:15:30
+  |vpiParent:
+  \_ref_obj: (work@FSM.Stop)
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:9:3, endln:15:30
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:3
+    |vpiRightRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:0
+\_int_typespec: , line:9:3, endln:15:30
+  |vpiParent:
+  \_ref_obj: (work@FSM.Move)
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:9:3, endln:15:30
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:3
+    |vpiRightRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:0
+\_int_typespec: , line:9:3, endln:15:30
+  |vpiParent:
+  \_ref_obj: (work@FSM.Turn)
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:9:3, endln:15:30
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:3
+    |vpiRightRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:0
+\_int_typespec: , line:9:3, endln:15:30
+  |vpiParent:
+  \_ref_obj: (work@FSM.Slow)
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:9:3, endln:15:30
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:3
+    |vpiRightRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:0
+\_int_typespec: , line:9:3, endln:15:30
+  |vpiParent:
+  \_ref_obj: (work@FSM.Medium)
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:9:3, endln:15:30
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:3
+    |vpiRightRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:0
+\_int_typespec: , line:9:3, endln:15:30
+  |vpiParent:
+  \_ref_obj: (work@FSM.Fast)
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:9:3, endln:15:30
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:3
+    |vpiRightRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:0
+\_int_typespec: , line:9:3, endln:15:30
+  |vpiParent:
+  \_ref_obj: (work@FSM.Faster)
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:9:3, endln:15:30
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:3
+    |vpiRightRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:0
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

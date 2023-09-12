@@ -1152,7 +1152,7 @@ parameter                                             43
 port                                                  10
 real_typespec                                          4
 ref_module                                            29
-ref_obj                                               41
+ref_obj                                               72
 return_stmt                                            1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -1180,7 +1180,7 @@ parameter                                             43
 port                                                  14
 real_typespec                                          4
 ref_module                                            29
-ref_obj                                               50
+ref_obj                                               86
 return_stmt                                            2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/DoublePres/slpp_all/surelog.uhdm ...
@@ -1206,9 +1206,12 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
     |REAL:1142.500000
     |vpiTypespec:
-    \_real_typespec: , line:9:13, endln:9:17
+    \_ref_obj: (work@dut.CLKFBOUT_PHASE)
       |vpiParent:
       \_parameter: (work@dut.CLKFBOUT_PHASE), line:9:18, endln:9:32
+      |vpiFullName:work@dut.CLKFBOUT_PHASE
+      |vpiActual:
+      \_real_typespec: , line:9:13, endln:9:17
     |vpiName:CLKFBOUT_PHASE
     |vpiFullName:work@dut.CLKFBOUT_PHASE
   |vpiParameter:
@@ -1223,7 +1226,12 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
     |UINT:9
     |vpiTypespec:
-    \_int_typespec: , line:14:1, endln:14:16
+    \_ref_obj: (work@dut.f)
+      |vpiParent:
+      \_parameter: (work@dut.f), line:14:11, endln:14:12
+      |vpiFullName:work@dut.f
+      |vpiActual:
+      \_int_typespec: , line:14:1, endln:14:16
     |vpiName:f
     |vpiFullName:work@dut.f
   |vpiParameter:
@@ -1232,7 +1240,12 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:8:1, endln:111:10
     |REAL:5.700000
     |vpiTypespec:
-    \_real_typespec: 
+    \_ref_obj: (work@dut.r)
+      |vpiParent:
+      \_parameter: (work@dut.r), line:15:11, endln:15:12
+      |vpiFullName:work@dut.r
+      |vpiActual:
+      \_real_typespec: 
     |vpiName:r
     |vpiFullName:work@dut.r
   |vpiParameter:
@@ -1343,7 +1356,12 @@ design: (work@top)
       |vpiSize:64
       |REAL:1142.500000
       |vpiTypespec:
-      \_real_typespec: , line:9:13, endln:9:17
+      \_ref_obj: (work@dut)
+        |vpiParent:
+        \_constant: , line:9:35, endln:9:43
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_real_typespec: , line:9:13, endln:9:17
       |vpiConstType:2
     |vpiLhs:
     \_parameter: (work@dut.CLKFBOUT_PHASE), line:9:18, endln:9:32
@@ -1384,7 +1402,12 @@ design: (work@top)
       |vpiSize:64
       |UINT:9
       |vpiTypespec:
-      \_int_typespec: , line:14:1, endln:14:16
+      \_ref_obj: (work@dut)
+        |vpiParent:
+        \_constant: , line:14:15, endln:14:16
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_int_typespec: , line:14:1, endln:14:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@dut.f), line:14:11, endln:14:12
@@ -1400,7 +1423,12 @@ design: (work@top)
       |vpiSize:64
       |REAL:5.700000
       |vpiTypespec:
-      \_real_typespec: 
+      \_ref_obj: (work@dut)
+        |vpiParent:
+        \_constant: , line:15:15, endln:15:18
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_real_typespec: 
       |vpiConstType:2
     |vpiLhs:
     \_parameter: (work@dut.r), line:15:11, endln:15:12
@@ -1835,8 +1863,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@dut.incr_d), line:46:1, endln:51:12
       |vpiTypespec:
-      \_integer_typespec: , line:47:4, endln:47:11
-        |vpiSigned:1
+      \_ref_obj: (work@dut.incr_d.incr_d)
+        |vpiParent:
+        \_integer_var: (work@dut.incr_d.incr_d), line:47:4, endln:47:11
+        |vpiFullName:work@dut.incr_d.incr_d
+        |vpiActual:
+        \_integer_typespec: , line:47:4, endln:47:11
       |vpiName:incr_d
       |vpiFullName:work@dut.incr_d.incr_d
       |vpiSigned:1
@@ -1926,7 +1958,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@dut.a), line:10:10, endln:10:11
     |vpiTypedef:
-    \_logic_typespec: , line:10:10, endln:10:10
+    \_ref_obj: (work@dut.a)
+      |vpiParent:
+      \_port: (a), line:10:10, endln:10:11
+      |vpiFullName:work@dut.a
+      |vpiActual:
+      \_logic_typespec: , line:10:10, endln:10:10
   |vpiPort:
   \_port: (b), line:10:20, endln:10:21
     |vpiParent:
@@ -1942,7 +1979,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@dut.b), line:10:20, endln:10:21
     |vpiTypedef:
-    \_logic_typespec: , line:10:20, endln:10:20
+    \_ref_obj: (work@dut.b)
+      |vpiParent:
+      \_port: (b), line:10:20, endln:10:21
+      |vpiFullName:work@dut.b
+      |vpiActual:
+      \_logic_typespec: , line:10:20, endln:10:20
   |vpiGenStmt:
   \_gen_if: , line:55:4, endln:55:6
     |vpiParent:
@@ -2581,7 +2623,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.clk_i), line:1:18, endln:1:23
     |vpiTypedef:
-    \_logic_typespec: , line:1:18, endln:1:18
+    \_ref_obj: (work@top.clk_i)
+      |vpiParent:
+      \_port: (clk_i), line:1:18, endln:1:23
+      |vpiFullName:work@top.clk_i
+      |vpiActual:
+      \_logic_typespec: , line:1:18, endln:1:18
   |vpiPort:
   \_port: (b), line:1:32, endln:1:33
     |vpiParent:
@@ -2597,7 +2644,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.b), line:1:32, endln:1:33
     |vpiTypedef:
-    \_logic_typespec: , line:1:32, endln:1:32
+    \_ref_obj: (work@top.b)
+      |vpiParent:
+      \_port: (b), line:1:32, endln:1:33
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_logic_typespec: , line:1:32, endln:1:32
   |vpiRefModule:
   \_ref_module: work@dut (d), line:3:37, endln:3:38
     |vpiParent:
@@ -2642,9 +2694,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:1:1, endln:6:10
     |vpiTypespec:
-    \_logic_typespec: , line:1:18, endln:1:18
+    \_ref_obj: (work@top.clk_i)
       |vpiParent:
       \_logic_net: (work@top.clk_i), line:1:18, endln:1:23
+      |vpiFullName:work@top.clk_i
+      |vpiActual:
+      \_logic_typespec: , line:1:18, endln:1:18
     |vpiName:clk_i
     |vpiFullName:work@top.clk_i
   |vpiNet:
@@ -2652,9 +2707,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:1:1, endln:6:10
     |vpiTypespec:
-    \_logic_typespec: , line:1:32, endln:1:32
+    \_ref_obj: (work@top.b)
       |vpiParent:
       \_logic_net: (work@top.b), line:1:32, endln:1:33
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_logic_typespec: , line:1:32, endln:1:32
     |vpiName:b
     |vpiFullName:work@top.b
   |vpiTopModule:1
@@ -2673,7 +2731,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.clk_i), line:1:18, endln:1:23
     |vpiTypedef:
-    \_logic_typespec: , line:1:18, endln:1:18
+    \_ref_obj: (work@top.clk_i)
+      |vpiParent:
+      \_port: (clk_i), line:1:18, endln:1:23
+      |vpiFullName:work@top.clk_i
+      |vpiActual:
+      \_logic_typespec: , line:1:18, endln:1:18
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:1:1, endln:6:10
   |vpiPort:
@@ -2691,7 +2754,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.b), line:1:32, endln:1:33
     |vpiTypedef:
-    \_logic_typespec: , line:1:32, endln:1:32
+    \_ref_obj: (work@top.b)
+      |vpiParent:
+      \_port: (b), line:1:32, endln:1:33
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_logic_typespec: , line:1:32, endln:1:32
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:1:1, endln:6:10
   |vpiModule:
@@ -2706,9 +2774,12 @@ design: (work@top)
       \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:3:3, endln:5:10
       |REAL:1142.500000
       |vpiTypespec:
-      \_real_typespec: , line:9:13, endln:9:17
+      \_ref_obj: (work@top.d.CLKFBOUT_PHASE)
         |vpiParent:
         \_parameter: (work@top.d.CLKFBOUT_PHASE), line:9:18, endln:9:32
+        |vpiFullName:work@top.d.CLKFBOUT_PHASE
+        |vpiActual:
+        \_real_typespec: , line:9:13, endln:9:17
       |vpiName:CLKFBOUT_PHASE
       |vpiFullName:work@top.d.CLKFBOUT_PHASE
     |vpiParameter:
@@ -2723,9 +2794,12 @@ design: (work@top)
       \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:3:3, endln:5:10
       |UINT:9
       |vpiTypespec:
-      \_int_typespec: , line:14:1, endln:14:16
+      \_ref_obj: (work@top.d.f)
         |vpiParent:
         \_parameter: (work@top.d.f), line:14:11, endln:14:12
+        |vpiFullName:work@top.d.f
+        |vpiActual:
+        \_int_typespec: , line:14:1, endln:14:16
       |vpiName:f
       |vpiFullName:work@top.d.f
     |vpiParameter:
@@ -2734,9 +2808,12 @@ design: (work@top)
       \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:3:3, endln:5:10
       |REAL:5.700000
       |vpiTypespec:
-      \_real_typespec: 
+      \_ref_obj: (work@top.d.r)
         |vpiParent:
         \_parameter: (work@top.d.r), line:15:11, endln:15:12
+        |vpiFullName:work@top.d.r
+        |vpiActual:
+        \_real_typespec: 
       |vpiName:r
       |vpiFullName:work@top.d.r
     |vpiParameter:
@@ -2848,7 +2925,12 @@ design: (work@top)
         |vpiSize:64
         |REAL:4.166667
         |vpiTypespec:
-        \_real_typespec: , line:9:13, endln:9:17
+        \_ref_obj: (work@top.d)
+          |vpiParent:
+          \_constant: , line:9:35, endln:9:43
+          |vpiFullName:work@top.d
+          |vpiActual:
+          \_real_typespec: , line:9:13, endln:9:17
         |vpiConstType:2
       |vpiLhs:
       \_parameter: (work@top.d.CLKFBOUT_PHASE), line:9:18, endln:9:32
@@ -2891,7 +2973,12 @@ design: (work@top)
         |vpiSize:32
         |UINT:9
         |vpiTypespec:
-        \_int_typespec: , line:14:1, endln:14:16
+        \_ref_obj: (work@top.d)
+          |vpiParent:
+          \_constant: , line:14:15, endln:14:16
+          |vpiFullName:work@top.d
+          |vpiActual:
+          \_int_typespec: , line:14:1, endln:14:16
         |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@top.d.f), line:14:11, endln:14:12
@@ -2907,7 +2994,12 @@ design: (work@top)
         |vpiSize:64
         |REAL:5.700000
         |vpiTypespec:
-        \_real_typespec: 
+        \_ref_obj: (work@top.d)
+          |vpiParent:
+          \_constant: , line:15:15, endln:15:18
+          |vpiFullName:work@top.d
+          |vpiActual:
+          \_real_typespec: 
         |vpiConstType:2
       |vpiLhs:
       \_parameter: (work@top.d.r), line:15:11, endln:15:12
@@ -3162,7 +3254,12 @@ design: (work@top)
         |vpiParent:
         \_function: (work@top.d.incr_d), line:46:1, endln:51:12
         |vpiTypespec:
-        \_integer_typespec: , line:47:4, endln:47:11
+        \_ref_obj: (work@top.d.incr_d.incr_d)
+          |vpiParent:
+          \_integer_var: (work@top.d.incr_d.incr_d), line:47:4, endln:47:11
+          |vpiFullName:work@top.d.incr_d.incr_d
+          |vpiActual:
+          \_integer_typespec: , line:47:4, endln:47:11
         |vpiName:incr_d
         |vpiFullName:work@top.d.incr_d.incr_d
         |vpiSigned:1
@@ -3223,9 +3320,12 @@ design: (work@top)
       |vpiParent:
       \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:3:3, endln:5:10
       |vpiTypespec:
-      \_logic_typespec: , line:10:10, endln:10:10
+      \_ref_obj: (work@top.d.a)
         |vpiParent:
         \_logic_net: (work@top.d.a), line:10:10, endln:10:11
+        |vpiFullName:work@top.d.a
+        |vpiActual:
+        \_logic_typespec: , line:10:10, endln:10:10
       |vpiName:a
       |vpiFullName:work@top.d.a
     |vpiNet:
@@ -3233,9 +3333,12 @@ design: (work@top)
       |vpiParent:
       \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:3:3, endln:5:10
       |vpiTypespec:
-      \_logic_typespec: , line:10:20, endln:10:20
+      \_ref_obj: (work@top.d.b)
         |vpiParent:
         \_logic_net: (work@top.d.b), line:10:20, endln:10:21
+        |vpiFullName:work@top.d.b
+        |vpiActual:
+        \_logic_typespec: , line:10:20, endln:10:20
       |vpiName:b
       |vpiFullName:work@top.d.b
     |vpiInstance:
@@ -3263,7 +3366,12 @@ design: (work@top)
         |vpiActual:
         \_logic_net: (work@top.d.a), line:10:10, endln:10:11
       |vpiTypedef:
-      \_logic_typespec: , line:10:10, endln:10:10
+      \_ref_obj: (work@top.d.a)
+        |vpiParent:
+        \_port: (a), line:10:10, endln:10:11
+        |vpiFullName:work@top.d.a
+        |vpiActual:
+        \_logic_typespec: , line:10:10, endln:10:10
       |vpiInstance:
       \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:3:3, endln:5:10
     |vpiPort:
@@ -3289,7 +3397,12 @@ design: (work@top)
         |vpiActual:
         \_logic_net: (work@top.d.b), line:10:20, endln:10:21
       |vpiTypedef:
-      \_logic_typespec: , line:10:20, endln:10:20
+      \_ref_obj: (work@top.d.b)
+        |vpiParent:
+        \_port: (b), line:10:20, endln:10:21
+        |vpiFullName:work@top.d.b
+        |vpiActual:
+        \_logic_typespec: , line:10:20, endln:10:20
       |vpiInstance:
       \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/DoublePres/dut.sv, line:3:3, endln:5:10
     |vpiGenScopeArray:
@@ -3544,6 +3657,43 @@ design: (work@top)
           |vpiName:good15
           |vpiFullName:work@top.d.genblk14.good15
           |vpiDefName:work@top.d.genblk14::GOOD
+\_weaklyReferenced:
+\_real_typespec: , line:9:13, endln:9:17
+  |vpiParent:
+  \_parameter: (work@dut.CLKFBOUT_PHASE), line:9:18, endln:9:32
+\_int_typespec: , line:14:1, endln:14:16
+\_real_typespec: 
+\_integer_typespec: , line:47:4, endln:47:11
+  |vpiSigned:1
+\_logic_typespec: , line:1:18, endln:1:18
+\_logic_typespec: , line:1:32, endln:1:32
+\_logic_typespec: , line:1:18, endln:1:18
+  |vpiParent:
+  \_logic_net: (work@top.clk_i), line:1:18, endln:1:23
+\_logic_typespec: , line:1:32, endln:1:32
+  |vpiParent:
+  \_logic_net: (work@top.b), line:1:32, endln:1:33
+\_logic_typespec: , line:10:10, endln:10:10
+\_logic_typespec: , line:10:20, endln:10:20
+\_logic_typespec: , line:10:10, endln:10:10
+  |vpiParent:
+  \_logic_net: (work@top.d.a), line:10:10, endln:10:11
+\_logic_typespec: , line:10:20, endln:10:20
+  |vpiParent:
+  \_logic_net: (work@top.d.b), line:10:20, endln:10:21
+\_logic_typespec: , line:10:10, endln:10:10
+\_logic_typespec: , line:10:20, endln:10:20
+\_logic_typespec: , line:1:18, endln:1:18
+\_logic_typespec: , line:1:32, endln:1:32
+\_real_typespec: , line:9:13, endln:9:17
+  |vpiParent:
+  \_ref_obj: (work@top.d.CLKFBOUT_PHASE)
+\_int_typespec: , line:14:1, endln:14:16
+  |vpiParent:
+  \_ref_obj: (work@top.d.f)
+\_real_typespec: 
+  |vpiParent:
+  \_ref_obj: (work@top.d.r)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -33,6 +33,7 @@ module_inst                                            4
 operation                                              2
 param_assign                                           2
 parameter                                              2
+ref_obj                                                5
 string_typespec                                        2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -44,6 +45,7 @@ module_inst                                            4
 operation                                              2
 param_assign                                           2
 parameter                                              2
+ref_obj                                                5
 string_typespec                                        2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/StringConcat/slpp_unit/surelog.uhdm ...
@@ -68,9 +70,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StringConcat/dut.sv, line:1:1, endln:3:10
     |vpiTypespec:
-    \_string_typespec: , line:2:15, endln:2:21
+    \_ref_obj: (work@top.X)
       |vpiParent:
       \_parameter: (work@top.X), line:2:22, endln:2:23
+      |vpiFullName:work@top.X
+      |vpiActual:
+      \_string_typespec: , line:2:15, endln:2:21
     |vpiLocalParam:1
     |vpiName:X
     |vpiFullName:work@top.X
@@ -106,9 +111,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StringConcat/dut.sv, line:1:1, endln:3:10
     |vpiTypespec:
-    \_string_typespec: , line:2:15, endln:2:21
+    \_ref_obj: (work@top.X)
       |vpiParent:
       \_parameter: (work@top.X), line:2:22, endln:2:23
+      |vpiFullName:work@top.X
+      |vpiActual:
+      \_string_typespec: , line:2:15, endln:2:21
     |vpiLocalParam:1
     |vpiName:X
     |vpiFullName:work@top.X
@@ -124,13 +132,25 @@ design: (work@top)
       |vpiSize:64
       |STRING:abcdefgh
       |vpiTypespec:
-      \_string_typespec: , line:2:15, endln:2:21
+      \_ref_obj: (work@top)
+        |vpiParent:
+        \_constant: , line:2:26, endln:2:42
+        |vpiFullName:work@top
+        |vpiActual:
+        \_string_typespec: , line:2:15, endln:2:21
       |vpiConstType:6
     |vpiLhs:
     \_parameter: (work@top.X), line:2:22, endln:2:23
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
+\_weaklyReferenced:
+\_string_typespec: , line:2:15, endln:2:21
+  |vpiParent:
+  \_parameter: (work@top.X), line:2:22, endln:2:23
+\_string_typespec: , line:2:15, endln:2:21
+  |vpiParent:
+  \_ref_obj: (work@top.X)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

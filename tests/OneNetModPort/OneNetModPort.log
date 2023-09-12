@@ -66,7 +66,7 @@ operation                                              2
 port                                                  16
 program                                                2
 ref_module                                             5
-ref_obj                                               52
+ref_obj                                               77
 sys_func_call                                          9
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/OneNetModPort/slpp_unit/surelog.uhdm ...
@@ -91,7 +91,12 @@ design: (work@TOP)
     |vpiParent:
     \_interface_inst: work@ConnectTB (work@ConnectTB), file:${SURELOG_DIR}/tests/OneNetModPort/dut.v, line:9:1, endln:20:13
     |vpiTypespec:
-    \_logic_typespec: , line:10:3, endln:10:14
+    \_ref_obj: (work@ConnectTB.drive)
+      |vpiParent:
+      \_logic_net: (work@ConnectTB.drive), line:10:9, endln:10:14
+      |vpiFullName:work@ConnectTB.drive
+      |vpiActual:
+      \_logic_typespec: , line:10:3, endln:10:14
     |vpiName:drive
     |vpiFullName:work@ConnectTB.drive
     |vpiNetType:36
@@ -100,7 +105,12 @@ design: (work@TOP)
     |vpiParent:
     \_interface_inst: work@ConnectTB (work@ConnectTB), file:${SURELOG_DIR}/tests/OneNetModPort/dut.v, line:9:1, endln:20:13
     |vpiTypespec:
-    \_logic_typespec: , line:11:3, endln:11:16
+    \_ref_obj: (work@ConnectTB.observe)
+      |vpiParent:
+      \_logic_net: (work@ConnectTB.observe), line:11:9, endln:11:16
+      |vpiFullName:work@ConnectTB.observe
+      |vpiActual:
+      \_logic_typespec: , line:11:3, endln:11:16
     |vpiName:observe
     |vpiFullName:work@ConnectTB.observe
     |vpiNetType:36
@@ -497,7 +507,12 @@ design: (work@TOP)
       |vpiActual:
       \_logic_net: (work@SUB.inp), line:26:24, endln:26:27
     |vpiTypedef:
-    \_logic_typespec: , line:26:19, endln:26:23
+    \_ref_obj: (work@SUB.inp)
+      |vpiParent:
+      \_port: (inp), line:26:24, endln:26:27
+      |vpiFullName:work@SUB.inp
+      |vpiActual:
+      \_logic_typespec: , line:26:19, endln:26:23
   |vpiPort:
   \_port: (out), line:26:40, endln:26:43
     |vpiParent:
@@ -513,7 +528,12 @@ design: (work@TOP)
       |vpiActual:
       \_logic_net: (work@SUB.out), line:26:40, endln:26:43
     |vpiTypedef:
-    \_logic_typespec: , line:26:36, endln:26:39
+    \_ref_obj: (work@SUB.out)
+      |vpiParent:
+      \_port: (out), line:26:40, endln:26:43
+      |vpiFullName:work@SUB.out
+      |vpiActual:
+      \_logic_typespec: , line:26:36, endln:26:39
   |vpiContAssign:
   \_cont_assign: , line:27:10, endln:27:19
     |vpiParent:
@@ -617,7 +637,12 @@ design: (work@TOP)
       |vpiActual:
       \_logic_net: (work@dut.i), line:2:24, endln:2:25
     |vpiTypedef:
-    \_logic_typespec: , line:2:19, endln:2:23
+    \_ref_obj: (work@dut.i)
+      |vpiParent:
+      \_port: (i), line:2:24, endln:2:25
+      |vpiFullName:work@dut.i
+      |vpiActual:
+      \_logic_typespec: , line:2:19, endln:2:23
   |vpiPort:
   \_port: (o), line:2:38, endln:2:39
     |vpiParent:
@@ -633,7 +658,12 @@ design: (work@TOP)
       |vpiActual:
       \_logic_net: (work@dut.o), line:2:38, endln:2:39
     |vpiTypedef:
-    \_logic_typespec: , line:2:34, endln:2:37
+    \_ref_obj: (work@dut.o)
+      |vpiParent:
+      \_port: (o), line:2:38, endln:2:39
+      |vpiFullName:work@dut.o
+      |vpiActual:
+      \_logic_typespec: , line:2:34, endln:2:37
   |vpiContAssign:
   \_cont_assign: , line:3:10, endln:3:26
     |vpiParent:
@@ -744,11 +774,12 @@ design: (work@TOP)
       |vpiActual:
       \_modport: (dut), line:12:11, endln:12:14
     |vpiTypedef:
-    \_interface_typespec: (dut), line:22:26, endln:22:29
+    \_ref_obj: (work@middle.intf)
       |vpiParent:
-      \_interface_typespec: (ConnectTB), line:22:16, endln:22:25
-      |vpiName:dut
-      |vpiIsModPort:1
+      \_port: (intf), line:22:30, endln:22:34
+      |vpiFullName:work@middle.intf
+      |vpiActual:
+      \_interface_typespec: (dut), line:22:26, endln:22:29
   |vpiRefModule:
   \_ref_module: work@SUB (sub1), line:23:7, endln:23:11
     |vpiParent:
@@ -839,11 +870,12 @@ design: (work@TOP)
         |vpiActual:
         \_modport: (tb), line:16:11, endln:16:13
       |vpiTypedef:
-      \_interface_typespec: (tb), line:1:31, endln:1:33
+      \_ref_obj: (work@TOP.tb.intf)
         |vpiParent:
-        \_interface_typespec: (ConnectTB), line:1:21, endln:1:30
-        |vpiName:tb
-        |vpiIsModPort:1
+        \_port: (intf), line:1:34, endln:1:38
+        |vpiFullName:work@TOP.tb.intf
+        |vpiActual:
+        \_interface_typespec: (tb), line:1:31, endln:1:33
   |vpiTopModule:1
   |vpiInterface:
   \_interface_inst: work@ConnectTB (work@TOP.conntb), file:${SURELOG_DIR}/tests/OneNetModPort/tb.v, line:16:3, endln:16:22
@@ -856,9 +888,12 @@ design: (work@TOP)
       |vpiParent:
       \_interface_inst: work@ConnectTB (work@TOP.conntb), file:${SURELOG_DIR}/tests/OneNetModPort/tb.v, line:16:3, endln:16:22
       |vpiTypespec:
-      \_logic_typespec: , line:10:3, endln:10:8
+      \_ref_obj: (work@TOP.conntb.drive)
         |vpiParent:
         \_logic_var: (work@TOP.conntb.drive), line:10:9, endln:10:14
+        |vpiFullName:work@TOP.conntb.drive
+        |vpiActual:
+        \_logic_typespec: , line:10:3, endln:10:8
       |vpiName:drive
       |vpiFullName:work@TOP.conntb.drive
       |vpiVisibility:1
@@ -867,9 +902,12 @@ design: (work@TOP)
       |vpiParent:
       \_interface_inst: work@ConnectTB (work@TOP.conntb), file:${SURELOG_DIR}/tests/OneNetModPort/tb.v, line:16:3, endln:16:22
       |vpiTypespec:
-      \_logic_typespec: , line:11:3, endln:11:8
+      \_ref_obj: (work@TOP.conntb.observe)
         |vpiParent:
         \_logic_var: (work@TOP.conntb.observe), line:11:9, endln:11:16
+        |vpiFullName:work@TOP.conntb.observe
+        |vpiActual:
+        \_logic_typespec: , line:11:3, endln:11:8
       |vpiName:observe
       |vpiFullName:work@TOP.conntb.observe
       |vpiVisibility:1
@@ -930,9 +968,12 @@ design: (work@TOP)
       |vpiParent:
       \_module_inst: work@dut (work@TOP.dut1), file:${SURELOG_DIR}/tests/OneNetModPort/tb.v, line:17:3, endln:17:42
       |vpiTypespec:
-      \_logic_typespec: , line:2:19, endln:2:23
+      \_ref_obj: (work@TOP.dut1.i)
         |vpiParent:
         \_logic_net: (work@TOP.dut1.i), line:2:24, endln:2:25
+        |vpiFullName:work@TOP.dut1.i
+        |vpiActual:
+        \_logic_typespec: , line:2:19, endln:2:23
       |vpiName:i
       |vpiFullName:work@TOP.dut1.i
       |vpiNetType:1
@@ -941,7 +982,12 @@ design: (work@TOP)
       |vpiParent:
       \_module_inst: work@dut (work@TOP.dut1), file:${SURELOG_DIR}/tests/OneNetModPort/tb.v, line:17:3, endln:17:42
       |vpiTypespec:
-      \_logic_typespec: , line:2:34, endln:2:37
+      \_ref_obj: (work@TOP.dut1.o)
+        |vpiParent:
+        \_logic_net: (work@TOP.dut1.o), line:2:38, endln:2:39
+        |vpiFullName:work@TOP.dut1.o
+        |vpiActual:
+        \_logic_typespec: , line:2:34, endln:2:37
       |vpiName:o
       |vpiFullName:work@TOP.dut1.o
       |vpiNetType:48
@@ -977,7 +1023,12 @@ design: (work@TOP)
         |vpiActual:
         \_logic_net: (work@TOP.dut1.i), line:2:24, endln:2:25
       |vpiTypedef:
-      \_logic_typespec: , line:2:19, endln:2:23
+      \_ref_obj: (work@TOP.dut1.i)
+        |vpiParent:
+        \_port: (i), line:2:24, endln:2:25
+        |vpiFullName:work@TOP.dut1.i
+        |vpiActual:
+        \_logic_typespec: , line:2:19, endln:2:23
     |vpiPort:
     \_port: (o), line:2:38, endln:2:39
       |vpiParent:
@@ -1009,7 +1060,12 @@ design: (work@TOP)
         |vpiActual:
         \_logic_net: (work@TOP.dut1.o), line:2:38, endln:2:39
       |vpiTypedef:
-      \_logic_typespec: , line:2:34, endln:2:37
+      \_ref_obj: (work@TOP.dut1.o)
+        |vpiParent:
+        \_port: (o), line:2:38, endln:2:39
+        |vpiFullName:work@TOP.dut1.o
+        |vpiActual:
+        \_logic_typespec: , line:2:34, endln:2:37
     |vpiInterface:
     \_interface_inst: work@ConnectTB (work@TOP.dut1.conntb), file:${SURELOG_DIR}/tests/OneNetModPort/dut.v, line:5:3, endln:5:22
       |vpiParent:
@@ -1021,9 +1077,12 @@ design: (work@TOP)
         |vpiParent:
         \_interface_inst: work@ConnectTB (work@TOP.dut1.conntb), file:${SURELOG_DIR}/tests/OneNetModPort/dut.v, line:5:3, endln:5:22
         |vpiTypespec:
-        \_logic_typespec: , line:10:3, endln:10:8
+        \_ref_obj: (work@TOP.dut1.conntb.drive)
           |vpiParent:
           \_logic_var: (work@TOP.dut1.conntb.drive), line:10:9, endln:10:14
+          |vpiFullName:work@TOP.dut1.conntb.drive
+          |vpiActual:
+          \_logic_typespec: , line:10:3, endln:10:8
         |vpiName:drive
         |vpiFullName:work@TOP.dut1.conntb.drive
         |vpiVisibility:1
@@ -1032,9 +1091,12 @@ design: (work@TOP)
         |vpiParent:
         \_interface_inst: work@ConnectTB (work@TOP.dut1.conntb), file:${SURELOG_DIR}/tests/OneNetModPort/dut.v, line:5:3, endln:5:22
         |vpiTypespec:
-        \_logic_typespec: , line:11:3, endln:11:8
+        \_ref_obj: (work@TOP.dut1.conntb.observe)
           |vpiParent:
           \_logic_var: (work@TOP.dut1.conntb.observe), line:11:9, endln:11:16
+          |vpiFullName:work@TOP.dut1.conntb.observe
+          |vpiActual:
+          \_logic_typespec: , line:11:3, endln:11:8
         |vpiName:observe
         |vpiFullName:work@TOP.dut1.conntb.observe
         |vpiVisibility:1
@@ -1114,11 +1176,12 @@ design: (work@TOP)
           |vpiActual:
           \_modport: (dut), line:12:11, endln:12:14
         |vpiTypedef:
-        \_interface_typespec: (dut), line:22:26, endln:22:29
+        \_ref_obj: (work@TOP.dut1.middle1.intf)
           |vpiParent:
-          \_interface_typespec: (ConnectTB), line:22:16, endln:22:25
-          |vpiName:dut
-          |vpiIsModPort:1
+          \_port: (intf), line:22:30, endln:22:34
+          |vpiFullName:work@TOP.dut1.middle1.intf
+          |vpiActual:
+          \_interface_typespec: (dut), line:22:26, endln:22:29
       |vpiInterface:
       \_interface_inst: work@ConnectTB (work@TOP.dut1.middle1.intf), file:${SURELOG_DIR}/tests/OneNetModPort/dut.v, line:6:0
         |vpiParent:
@@ -1130,9 +1193,12 @@ design: (work@TOP)
           |vpiParent:
           \_interface_inst: work@ConnectTB (work@TOP.dut1.middle1.intf), file:${SURELOG_DIR}/tests/OneNetModPort/dut.v, line:6:0
           |vpiTypespec:
-          \_logic_typespec: , line:10:3, endln:10:8
+          \_ref_obj: (work@TOP.dut1.middle1.intf.drive)
             |vpiParent:
             \_logic_var: (work@TOP.dut1.middle1.intf.drive), line:10:9, endln:10:14
+            |vpiFullName:work@TOP.dut1.middle1.intf.drive
+            |vpiActual:
+            \_logic_typespec: , line:10:3, endln:10:8
           |vpiName:drive
           |vpiFullName:work@TOP.dut1.middle1.intf.drive
           |vpiVisibility:1
@@ -1141,9 +1207,12 @@ design: (work@TOP)
           |vpiParent:
           \_interface_inst: work@ConnectTB (work@TOP.dut1.middle1.intf), file:${SURELOG_DIR}/tests/OneNetModPort/dut.v, line:6:0
           |vpiTypespec:
-          \_logic_typespec: , line:11:3, endln:11:8
+          \_ref_obj: (work@TOP.dut1.middle1.intf.observe)
             |vpiParent:
             \_logic_var: (work@TOP.dut1.middle1.intf.observe), line:11:9, endln:11:16
+            |vpiFullName:work@TOP.dut1.middle1.intf.observe
+            |vpiActual:
+            \_logic_typespec: , line:11:3, endln:11:8
           |vpiName:observe
           |vpiFullName:work@TOP.dut1.middle1.intf.observe
           |vpiVisibility:1
@@ -1185,9 +1254,12 @@ design: (work@TOP)
           |vpiParent:
           \_module_inst: work@SUB (work@TOP.dut1.middle1.sub1), file:${SURELOG_DIR}/tests/OneNetModPort/dut.v, line:23:3, endln:23:50
           |vpiTypespec:
-          \_logic_typespec: , line:26:19, endln:26:23
+          \_ref_obj: (work@TOP.dut1.middle1.sub1.inp)
             |vpiParent:
             \_logic_net: (work@TOP.dut1.middle1.sub1.inp), line:26:24, endln:26:27
+            |vpiFullName:work@TOP.dut1.middle1.sub1.inp
+            |vpiActual:
+            \_logic_typespec: , line:26:19, endln:26:23
           |vpiName:inp
           |vpiFullName:work@TOP.dut1.middle1.sub1.inp
           |vpiNetType:1
@@ -1196,7 +1268,12 @@ design: (work@TOP)
           |vpiParent:
           \_module_inst: work@SUB (work@TOP.dut1.middle1.sub1), file:${SURELOG_DIR}/tests/OneNetModPort/dut.v, line:23:3, endln:23:50
           |vpiTypespec:
-          \_logic_typespec: , line:26:36, endln:26:39
+          \_ref_obj: (work@TOP.dut1.middle1.sub1.out)
+            |vpiParent:
+            \_logic_net: (work@TOP.dut1.middle1.sub1.out), line:26:40, endln:26:43
+            |vpiFullName:work@TOP.dut1.middle1.sub1.out
+            |vpiActual:
+            \_logic_typespec: , line:26:36, endln:26:39
           |vpiName:out
           |vpiFullName:work@TOP.dut1.middle1.sub1.out
           |vpiNetType:48
@@ -1237,7 +1314,12 @@ design: (work@TOP)
             |vpiActual:
             \_logic_net: (work@TOP.dut1.middle1.sub1.inp), line:26:24, endln:26:27
           |vpiTypedef:
-          \_logic_typespec: , line:26:19, endln:26:23
+          \_ref_obj: (work@TOP.dut1.middle1.sub1.inp)
+            |vpiParent:
+            \_port: (inp), line:26:24, endln:26:27
+            |vpiFullName:work@TOP.dut1.middle1.sub1.inp
+            |vpiActual:
+            \_logic_typespec: , line:26:19, endln:26:23
         |vpiPort:
         \_port: (out), line:26:40, endln:26:43
           |vpiParent:
@@ -1273,13 +1355,188 @@ design: (work@TOP)
             |vpiActual:
             \_logic_net: (work@TOP.dut1.middle1.sub1.out), line:26:40, endln:26:43
           |vpiTypedef:
-          \_logic_typespec: , line:26:36, endln:26:39
+          \_ref_obj: (work@TOP.dut1.middle1.sub1.out)
+            |vpiParent:
+            \_port: (out), line:26:40, endln:26:43
+            |vpiFullName:work@TOP.dut1.middle1.sub1.out
+            |vpiActual:
+            \_logic_typespec: , line:26:36, endln:26:39
         |vpiContAssign:
         \_cont_assign: , line:27:10, endln:27:19
     |vpiContAssign:
     \_cont_assign: , line:3:10, endln:3:26
     |vpiContAssign:
     \_cont_assign: , line:4:10, endln:4:28
+\_weaklyReferenced:
+\_interface_inst: work@ConnectTB (work@TOP.conntb), file:${SURELOG_DIR}/tests/OneNetModPort/tb.v, line:16:0
+  |vpiParent:
+  \_module_inst: work@TOP (work@TOP), file:${SURELOG_DIR}/tests/OneNetModPort/tb.v, line:15:1, endln:19:10
+  |vpiName:conntb
+  |vpiFullName:work@TOP.conntb
+  |vpiVariables:
+  \_logic_var: (work@TOP.conntb.drive), line:10:9, endln:10:14
+  |vpiVariables:
+  \_logic_var: (work@TOP.conntb.observe), line:11:9, endln:11:16
+  |vpiDefName:work@ConnectTB
+  |vpiModport:
+  \_modport: (dut), line:12:11, endln:12:14
+    |vpiParent:
+    \_interface_inst: work@ConnectTB (work@TOP.conntb), file:${SURELOG_DIR}/tests/OneNetModPort/tb.v, line:16:0
+    |vpiName:dut
+    |vpiIODecl:
+    \_io_decl: (drive), line:13:11, endln:13:16
+      |vpiParent:
+      \_modport: (dut), line:12:11, endln:12:14
+      |vpiDirection:1
+      |vpiName:drive
+      |vpiExpr:
+      \_logic_var: (work@TOP.conntb.drive), line:10:9, endln:10:14
+    |vpiIODecl:
+    \_io_decl: (observe), line:14:12, endln:14:19
+      |vpiParent:
+      \_modport: (dut), line:12:11, endln:12:14
+      |vpiDirection:2
+      |vpiName:observe
+      |vpiExpr:
+      \_logic_var: (work@TOP.conntb.observe), line:11:9, endln:11:16
+    |vpiInterface:
+    \_interface_inst: work@ConnectTB (work@TOP.conntb), file:${SURELOG_DIR}/tests/OneNetModPort/tb.v, line:16:0
+  |vpiModport:
+  \_modport: (tb), line:16:11, endln:16:13
+    |vpiParent:
+    \_interface_inst: work@ConnectTB (work@TOP.conntb), file:${SURELOG_DIR}/tests/OneNetModPort/tb.v, line:16:0
+    |vpiName:tb
+    |vpiIODecl:
+    \_io_decl: (drive), line:17:12, endln:17:17
+      |vpiParent:
+      \_modport: (tb), line:16:11, endln:16:13
+      |vpiDirection:2
+      |vpiName:drive
+      |vpiExpr:
+      \_logic_var: (work@TOP.conntb.drive), line:10:9, endln:10:14
+    |vpiIODecl:
+    \_io_decl: (observe), line:18:11, endln:18:18
+      |vpiParent:
+      \_modport: (tb), line:16:11, endln:16:13
+      |vpiDirection:1
+      |vpiName:observe
+      |vpiExpr:
+      \_logic_var: (work@TOP.conntb.observe), line:11:9, endln:11:16
+    |vpiInterface:
+    \_interface_inst: work@ConnectTB (work@TOP.conntb), file:${SURELOG_DIR}/tests/OneNetModPort/tb.v, line:16:0
+\_logic_typespec: , line:10:3, endln:10:8
+  |vpiParent:
+  \_logic_var: (work@TOP.conntb.drive), line:10:9, endln:10:14
+\_logic_typespec: , line:11:3, endln:11:8
+  |vpiParent:
+  \_logic_var: (work@TOP.conntb.observe), line:11:9, endln:11:16
+\_logic_typespec: , line:2:19, endln:2:23
+\_logic_typespec: , line:2:34, endln:2:37
+\_logic_typespec: , line:2:19, endln:2:23
+  |vpiParent:
+  \_logic_net: (work@TOP.dut1.i), line:2:24, endln:2:25
+\_logic_typespec: , line:2:34, endln:2:37
+\_interface_inst: work@ConnectTB (work@TOP.dut1.conntb), file:${SURELOG_DIR}/tests/OneNetModPort/dut.v, line:5:0
+  |vpiParent:
+  \_module_inst: work@dut (work@TOP.dut1), file:${SURELOG_DIR}/tests/OneNetModPort/tb.v, line:17:3, endln:17:42
+  |vpiName:conntb
+  |vpiFullName:work@TOP.dut1.conntb
+  |vpiVariables:
+  \_logic_var: (work@TOP.dut1.conntb.drive), line:10:9, endln:10:14
+  |vpiVariables:
+  \_logic_var: (work@TOP.dut1.conntb.observe), line:11:9, endln:11:16
+  |vpiDefName:work@ConnectTB
+  |vpiModport:
+  \_modport: (dut), line:12:11, endln:12:14
+    |vpiParent:
+    \_interface_inst: work@ConnectTB (work@TOP.dut1.conntb), file:${SURELOG_DIR}/tests/OneNetModPort/dut.v, line:5:0
+    |vpiName:dut
+    |vpiIODecl:
+    \_io_decl: (drive), line:13:11, endln:13:16
+      |vpiParent:
+      \_modport: (dut), line:12:11, endln:12:14
+      |vpiDirection:1
+      |vpiName:drive
+      |vpiExpr:
+      \_logic_var: (work@TOP.dut1.conntb.drive), line:10:9, endln:10:14
+    |vpiIODecl:
+    \_io_decl: (observe), line:14:12, endln:14:19
+      |vpiParent:
+      \_modport: (dut), line:12:11, endln:12:14
+      |vpiDirection:2
+      |vpiName:observe
+      |vpiExpr:
+      \_logic_var: (work@TOP.dut1.conntb.observe), line:11:9, endln:11:16
+    |vpiInterface:
+    \_interface_inst: work@ConnectTB (work@TOP.dut1.conntb), file:${SURELOG_DIR}/tests/OneNetModPort/dut.v, line:5:0
+  |vpiModport:
+  \_modport: (tb), line:16:11, endln:16:13
+    |vpiParent:
+    \_interface_inst: work@ConnectTB (work@TOP.dut1.conntb), file:${SURELOG_DIR}/tests/OneNetModPort/dut.v, line:5:0
+    |vpiName:tb
+    |vpiIODecl:
+    \_io_decl: (drive), line:17:12, endln:17:17
+      |vpiParent:
+      \_modport: (tb), line:16:11, endln:16:13
+      |vpiDirection:2
+      |vpiName:drive
+      |vpiExpr:
+      \_logic_var: (work@TOP.dut1.conntb.drive), line:10:9, endln:10:14
+    |vpiIODecl:
+    \_io_decl: (observe), line:18:11, endln:18:18
+      |vpiParent:
+      \_modport: (tb), line:16:11, endln:16:13
+      |vpiDirection:1
+      |vpiName:observe
+      |vpiExpr:
+      \_logic_var: (work@TOP.dut1.conntb.observe), line:11:9, endln:11:16
+    |vpiInterface:
+    \_interface_inst: work@ConnectTB (work@TOP.dut1.conntb), file:${SURELOG_DIR}/tests/OneNetModPort/dut.v, line:5:0
+\_logic_typespec: , line:10:3, endln:10:8
+  |vpiParent:
+  \_logic_var: (work@TOP.dut1.conntb.drive), line:10:9, endln:10:14
+\_logic_typespec: , line:11:3, endln:11:8
+  |vpiParent:
+  \_logic_var: (work@TOP.dut1.conntb.observe), line:11:9, endln:11:16
+\_interface_typespec: (dut), line:22:26, endln:22:29
+  |vpiParent:
+  \_interface_typespec: (ConnectTB), line:22:16, endln:22:25
+  |vpiName:dut
+  |vpiIsModPort:1
+\_interface_typespec: (ConnectTB), line:22:16, endln:22:25
+  |vpiName:ConnectTB
+\_logic_typespec: , line:10:3, endln:10:8
+  |vpiParent:
+  \_logic_var: (work@TOP.dut1.middle1.intf.drive), line:10:9, endln:10:14
+\_logic_typespec: , line:11:3, endln:11:8
+  |vpiParent:
+  \_logic_var: (work@TOP.dut1.middle1.intf.observe), line:11:9, endln:11:16
+\_logic_typespec: , line:26:19, endln:26:23
+\_logic_typespec: , line:26:36, endln:26:39
+\_logic_typespec: , line:26:19, endln:26:23
+  |vpiParent:
+  \_logic_net: (work@TOP.dut1.middle1.sub1.inp), line:26:24, endln:26:27
+\_logic_typespec: , line:26:36, endln:26:39
+\_interface_typespec: (tb), line:1:31, endln:1:33
+  |vpiParent:
+  \_interface_typespec: (ConnectTB), line:1:21, endln:1:30
+  |vpiName:tb
+  |vpiIsModPort:1
+\_interface_typespec: (ConnectTB), line:1:21, endln:1:30
+  |vpiName:ConnectTB
+\_logic_typespec: , line:10:3, endln:10:14
+\_logic_typespec: , line:11:3, endln:11:16
+\_logic_typespec: , line:26:19, endln:26:23
+\_logic_typespec: , line:26:36, endln:26:39
+\_logic_typespec: , line:2:19, endln:2:23
+\_logic_typespec: , line:2:34, endln:2:37
+\_interface_typespec: (dut), line:22:26, endln:22:29
+  |vpiParent:
+  \_interface_typespec: (ConnectTB), line:22:16, endln:22:25
+  |vpiName:dut
+  |vpiIsModPort:1
+\_interface_typespec: (ConnectTB), line:22:16, endln:22:25
+  |vpiName:ConnectTB
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

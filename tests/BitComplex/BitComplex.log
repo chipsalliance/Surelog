@@ -219,7 +219,7 @@ param_assign                                          10
 parameter                                             10
 port                                                   2
 range                                                  4
-ref_obj                                                9
+ref_obj                                               40
 struct_net                                             1
 struct_typespec                                        2
 typespec_member                                        2
@@ -243,7 +243,7 @@ param_assign                                          10
 parameter                                             10
 port                                                   3
 range                                                  4
-ref_obj                                               11
+ref_obj                                               43
 struct_net                                             1
 struct_typespec                                        2
 typespec_member                                        2
@@ -272,12 +272,12 @@ design: (work@top)
     \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/BitComplex/dut.sv, line:1:1, endln:8:11
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: , line:2:14, endln:2:17
+    \_ref_obj: (keymgr_pkg::Shares)
       |vpiParent:
       \_parameter: (keymgr_pkg::Shares), line:2:18, endln:2:24
-      |vpiInstance:
-      \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/BitComplex/dut.sv, line:1:1, endln:8:11
-      |vpiSigned:1
+      |vpiFullName:keymgr_pkg::Shares
+      |vpiActual:
+      \_int_typespec: , line:2:14, endln:2:17
     |vpiSigned:1
     |vpiName:Shares
     |vpiFullName:keymgr_pkg::Shares
@@ -287,12 +287,12 @@ design: (work@top)
     \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/BitComplex/dut.sv, line:1:1, endln:8:11
     |UINT:16
     |vpiTypespec:
-    \_int_typespec: , line:3:14, endln:3:17
+    \_ref_obj: (keymgr_pkg::KeyWidth)
       |vpiParent:
       \_parameter: (keymgr_pkg::KeyWidth), line:3:18, endln:3:26
-      |vpiInstance:
-      \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/BitComplex/dut.sv, line:1:1, endln:8:11
-      |vpiSigned:1
+      |vpiFullName:keymgr_pkg::KeyWidth
+      |vpiActual:
+      \_int_typespec: , line:3:14, endln:3:17
     |vpiSigned:1
     |vpiName:KeyWidth
     |vpiFullName:keymgr_pkg::KeyWidth
@@ -308,7 +308,12 @@ design: (work@top)
       |vpiSize:64
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:2:14, endln:2:17
+      \_ref_obj: (keymgr_pkg)
+        |vpiParent:
+        \_constant: , line:2:27, endln:2:28
+        |vpiFullName:keymgr_pkg
+        |vpiActual:
+        \_int_typespec: , line:2:14, endln:2:17
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (keymgr_pkg::Shares), line:2:18, endln:2:24
@@ -324,7 +329,12 @@ design: (work@top)
       |vpiSize:64
       |UINT:16
       |vpiTypespec:
-      \_int_typespec: , line:3:14, endln:3:17
+      \_ref_obj: (keymgr_pkg)
+        |vpiParent:
+        \_constant: , line:3:29, endln:3:31
+        |vpiFullName:keymgr_pkg
+        |vpiActual:
+        \_int_typespec: , line:3:14, endln:3:17
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (keymgr_pkg::KeyWidth), line:3:18, endln:3:26
@@ -342,77 +352,12 @@ design: (work@top)
       \_struct_typespec: (keymgr_pkg::hw_key_req_t), line:5:12, endln:7:5
       |vpiName:key
       |vpiTypespec:
-      \_logic_typespec: , line:6:7, endln:6:39
+      \_ref_obj: (keymgr_pkg::keymgr_pkg::hw_key_req_t::key)
         |vpiParent:
         \_typespec_member: (key), line:6:40, endln:6:43
-        |vpiInstance:
-        \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/BitComplex/dut.sv, line:1:1, endln:8:11
-        |vpiRange:
-        \_range: , line:6:13, endln:6:25
-          |vpiParent:
-          \_logic_typespec: , line:6:7, endln:6:39
-          |vpiLeftRange:
-          \_operation: , line:6:14, endln:6:22
-            |vpiParent:
-            \_range: , line:6:13, endln:6:25
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (keymgr_pkg::keymgr_pkg::hw_key_req_t::key::Shares), line:6:14, endln:6:20
-              |vpiParent:
-              \_operation: , line:6:14, endln:6:22
-              |vpiName:Shares
-              |vpiFullName:keymgr_pkg::keymgr_pkg::hw_key_req_t::key::Shares
-              |vpiActual:
-              \_parameter: (keymgr_pkg::Shares), line:2:18, endln:2:24
-            |vpiOperand:
-            \_constant: , line:6:21, endln:6:22
-              |vpiParent:
-              \_operation: , line:6:14, endln:6:22
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:6:23, endln:6:24
-            |vpiParent:
-            \_range: , line:6:13, endln:6:25
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-        |vpiRange:
-        \_range: , line:6:25, endln:6:39
-          |vpiParent:
-          \_logic_typespec: , line:6:7, endln:6:39
-          |vpiLeftRange:
-          \_operation: , line:6:26, endln:6:36
-            |vpiParent:
-            \_range: , line:6:25, endln:6:39
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (keymgr_pkg::keymgr_pkg::hw_key_req_t::key::KeyWidth), line:6:26, endln:6:34
-              |vpiParent:
-              \_operation: , line:6:26, endln:6:36
-              |vpiName:KeyWidth
-              |vpiFullName:keymgr_pkg::keymgr_pkg::hw_key_req_t::key::KeyWidth
-              |vpiActual:
-              \_parameter: (keymgr_pkg::KeyWidth), line:3:18, endln:3:26
-            |vpiOperand:
-            \_constant: , line:6:35, endln:6:36
-              |vpiParent:
-              \_operation: , line:6:26, endln:6:36
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:6:37, endln:6:38
-            |vpiParent:
-            \_range: , line:6:25, endln:6:39
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:keymgr_pkg::keymgr_pkg::hw_key_req_t::key
+        |vpiActual:
+        \_logic_typespec: , line:6:7, endln:6:39
       |vpiRefFile:${SURELOG_DIR}/tests/BitComplex/dut.sv
       |vpiRefLineNo:6
       |vpiRefColumnNo:7
@@ -431,12 +376,12 @@ design: (work@top)
     \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/BitComplex/dut.sv, line:1:1, endln:8:11
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: , line:2:14, endln:2:17
+    \_ref_obj: (keymgr_pkg::Shares)
       |vpiParent:
       \_parameter: (keymgr_pkg::Shares), line:2:18, endln:2:24
-      |vpiInstance:
-      \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/BitComplex/dut.sv, line:1:1, endln:8:11
-      |vpiSigned:1
+      |vpiFullName:keymgr_pkg::Shares
+      |vpiActual:
+      \_int_typespec: , line:2:14, endln:2:17
     |vpiSigned:1
     |vpiName:Shares
     |vpiFullName:keymgr_pkg::Shares
@@ -446,12 +391,12 @@ design: (work@top)
     \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/BitComplex/dut.sv, line:1:1, endln:8:11
     |UINT:16
     |vpiTypespec:
-    \_int_typespec: , line:3:14, endln:3:17
+    \_ref_obj: (keymgr_pkg::KeyWidth)
       |vpiParent:
       \_parameter: (keymgr_pkg::KeyWidth), line:3:18, endln:3:26
-      |vpiInstance:
-      \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/BitComplex/dut.sv, line:1:1, endln:8:11
-      |vpiSigned:1
+      |vpiFullName:keymgr_pkg::KeyWidth
+      |vpiActual:
+      \_int_typespec: , line:3:14, endln:3:17
     |vpiSigned:1
     |vpiName:KeyWidth
     |vpiFullName:keymgr_pkg::KeyWidth
@@ -467,7 +412,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:2:14, endln:2:17
+      \_ref_obj: (keymgr_pkg)
+        |vpiParent:
+        \_constant: , line:2:27, endln:2:28
+        |vpiFullName:keymgr_pkg
+        |vpiActual:
+        \_int_typespec: , line:2:14, endln:2:17
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (keymgr_pkg::Shares), line:2:18, endln:2:24
@@ -483,7 +433,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:16
       |vpiTypespec:
-      \_int_typespec: , line:3:14, endln:3:17
+      \_ref_obj: (keymgr_pkg)
+        |vpiParent:
+        \_constant: , line:3:29, endln:3:31
+        |vpiFullName:keymgr_pkg
+        |vpiActual:
+        \_int_typespec: , line:3:14, endln:3:17
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (keymgr_pkg::KeyWidth), line:3:18, endln:3:26
@@ -501,51 +456,12 @@ design: (work@top)
       \_struct_typespec: (keymgr_pkg::hw_key_req_t), line:5:12, endln:7:5
       |vpiName:key
       |vpiTypespec:
-      \_logic_typespec: , line:6:7, endln:6:39
+      \_ref_obj: (keymgr_pkg::keymgr_pkg::hw_key_req_t::key)
         |vpiParent:
         \_typespec_member: (key), line:6:40, endln:6:43
-        |vpiInstance:
-        \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/BitComplex/dut.sv, line:1:1, endln:8:11
-        |vpiRange:
-        \_range: , line:6:13, endln:6:25
-          |vpiParent:
-          \_logic_typespec: , line:6:7, endln:6:39
-          |vpiLeftRange:
-          \_constant: , line:6:14, endln:6:20
-            |vpiParent:
-            \_range: , line:6:13, endln:6:25
-            |vpiDecompile:1
-            |vpiSize:64
-            |INT:1
-            |vpiConstType:7
-          |vpiRightRange:
-          \_constant: , line:6:23, endln:6:24
-            |vpiParent:
-            \_range: , line:6:13, endln:6:25
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-        |vpiRange:
-        \_range: , line:6:25, endln:6:39
-          |vpiParent:
-          \_logic_typespec: , line:6:7, endln:6:39
-          |vpiLeftRange:
-          \_constant: , line:6:26, endln:6:34
-            |vpiParent:
-            \_range: , line:6:25, endln:6:39
-            |vpiDecompile:15
-            |vpiSize:64
-            |INT:15
-            |vpiConstType:7
-          |vpiRightRange:
-          \_constant: , line:6:37, endln:6:38
-            |vpiParent:
-            \_range: , line:6:25, endln:6:39
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:keymgr_pkg::keymgr_pkg::hw_key_req_t::key
+        |vpiActual:
+        \_logic_typespec: , line:6:7, endln:6:39
       |vpiRefFile:${SURELOG_DIR}/tests/BitComplex/dut.sv
       |vpiRefLineNo:6
       |vpiRefColumnNo:7
@@ -564,7 +480,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitComplex/dut.sv, line:10:1, endln:14:10
     |UINT:16
     |vpiTypespec:
-    \_int_typespec: , line:12:4, endln:12:46
+    \_ref_obj: (work@top.PP)
+      |vpiParent:
+      \_parameter: (work@top.PP), line:12:14, endln:12:16
+      |vpiFullName:work@top.PP
+      |vpiActual:
+      \_int_typespec: , line:12:4, endln:12:46
     |vpiName:PP
     |vpiFullName:work@top.PP
   |vpiParamAssign:
@@ -579,7 +500,12 @@ design: (work@top)
       |vpiSize:64
       |UINT:16
       |vpiTypespec:
-      \_int_typespec: , line:12:4, endln:12:46
+      \_ref_obj: (work@top)
+        |vpiParent:
+        \_constant: , line:12:20, endln:12:46
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:12:4, endln:12:46
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.PP), line:12:14, endln:12:16
@@ -595,7 +521,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitComplex/dut.sv, line:10:1, endln:14:10
     |vpiTypespec:
-    \_struct_typespec: (keymgr_pkg::hw_key_req_t), line:5:12, endln:7:5
+    \_ref_obj: (work@top.keymgr_key_i)
+      |vpiParent:
+      \_logic_net: (work@top.keymgr_key_i), line:11:29, endln:11:41
+      |vpiFullName:work@top.keymgr_key_i
+      |vpiActual:
+      \_struct_typespec: (keymgr_pkg::hw_key_req_t), line:5:12, endln:7:5
     |vpiName:keymgr_key_i
     |vpiFullName:work@top.keymgr_key_i
     |vpiNetType:1
@@ -614,8 +545,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.o), line:10:23, endln:10:24
     |vpiTypedef:
-    \_int_typespec: , line:10:19, endln:10:22
-      |vpiSigned:1
+    \_ref_obj: (work@top.o)
+      |vpiParent:
+      \_port: (o), line:10:23, endln:10:24
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_int_typespec: , line:10:19, endln:10:22
   |vpiContAssign:
   \_cont_assign: , line:13:11, endln:13:41
     |vpiParent:
@@ -644,8 +579,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitComplex/dut.sv, line:10:1, endln:14:10
     |vpiTypespec:
-    \_int_typespec: , line:10:19, endln:10:22
-      |vpiSigned:1
+    \_ref_obj: (work@top.o)
+      |vpiParent:
+      \_int_var: (work@top.o), line:10:23, endln:10:24
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_int_typespec: , line:10:19, endln:10:22
     |vpiName:o
     |vpiFullName:work@top.o
     |vpiSigned:1
@@ -656,9 +595,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitComplex/dut.sv, line:10:1, endln:14:10
     |UINT:16
     |vpiTypespec:
-    \_int_typespec: , line:12:4, endln:12:46
+    \_ref_obj: (work@top.PP)
       |vpiParent:
       \_parameter: (work@top.PP), line:12:14, endln:12:16
+      |vpiFullName:work@top.PP
+      |vpiActual:
+      \_int_typespec: , line:12:4, endln:12:46
     |vpiName:PP
     |vpiFullName:work@top.PP
   |vpiParamAssign:
@@ -673,7 +615,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:16
       |vpiTypespec:
-      \_int_typespec: , line:12:4, endln:12:46
+      \_ref_obj: (work@top)
+        |vpiParent:
+        \_constant: , line:12:20, endln:12:46
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:12:4, endln:12:46
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.PP), line:12:14, endln:12:16
@@ -684,7 +631,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitComplex/dut.sv, line:10:1, endln:14:10
     |vpiTypespec:
-    \_struct_typespec: (keymgr_pkg::hw_key_req_t), line:5:12, endln:7:5
+    \_ref_obj: (work@top.keymgr_key_i)
+      |vpiParent:
+      \_struct_net: (work@top.keymgr_key_i), line:11:29, endln:11:41
+      |vpiFullName:work@top.keymgr_key_i
+      |vpiActual:
+      \_struct_typespec: (keymgr_pkg::hw_key_req_t), line:5:12, endln:7:5
     |vpiName:keymgr_key_i
     |vpiFullName:work@top.keymgr_key_i
     |vpiNetType:1
@@ -704,8 +656,12 @@ design: (work@top)
       |vpiActual:
       \_int_var: (work@top.o), line:10:23, endln:10:24
     |vpiTypedef:
-    \_int_typespec: , line:10:19, endln:10:22
-      |vpiSigned:1
+    \_ref_obj: (work@top.o)
+      |vpiParent:
+      \_port: (o), line:10:23, endln:10:24
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_int_typespec: , line:10:19, endln:10:22
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitComplex/dut.sv, line:10:1, endln:14:10
   |vpiContAssign:
@@ -728,6 +684,170 @@ design: (work@top)
       |vpiFullName:work@top.o
       |vpiActual:
       \_int_var: (work@top.o), line:10:23, endln:10:24
+\_weaklyReferenced:
+\_int_typespec: , line:2:14, endln:2:17
+  |vpiParent:
+  \_parameter: (keymgr_pkg::Shares), line:2:18, endln:2:24
+  |vpiInstance:
+  \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/BitComplex/dut.sv, line:1:1, endln:8:11
+  |vpiSigned:1
+\_int_typespec: , line:3:14, endln:3:17
+  |vpiParent:
+  \_parameter: (keymgr_pkg::KeyWidth), line:3:18, endln:3:26
+  |vpiInstance:
+  \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/BitComplex/dut.sv, line:1:1, endln:8:11
+  |vpiSigned:1
+\_logic_typespec: , line:6:7, endln:6:39
+  |vpiParent:
+  \_typespec_member: (key), line:6:40, endln:6:43
+  |vpiInstance:
+  \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/BitComplex/dut.sv, line:1:1, endln:8:11
+  |vpiRange:
+  \_range: , line:6:13, endln:6:25
+    |vpiParent:
+    \_logic_typespec: , line:6:7, endln:6:39
+    |vpiLeftRange:
+    \_constant: , line:6:14, endln:6:20
+      |vpiParent:
+      \_range: , line:6:13, endln:6:25
+      |vpiDecompile:1
+      |vpiSize:64
+      |INT:1
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:6:23, endln:6:24
+      |vpiParent:
+      \_range: , line:6:13, endln:6:25
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:6:25, endln:6:39
+    |vpiParent:
+    \_logic_typespec: , line:6:7, endln:6:39
+    |vpiLeftRange:
+    \_constant: , line:6:26, endln:6:34
+      |vpiParent:
+      \_range: , line:6:25, endln:6:39
+      |vpiDecompile:15
+      |vpiSize:64
+      |INT:15
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:6:37, endln:6:38
+      |vpiParent:
+      \_range: , line:6:25, endln:6:39
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:2:14, endln:2:17
+  |vpiParent:
+  \_parameter: (keymgr_pkg::Shares), line:2:18, endln:2:24
+  |vpiInstance:
+  \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/BitComplex/dut.sv, line:1:1, endln:8:11
+  |vpiSigned:1
+\_int_typespec: , line:3:14, endln:3:17
+  |vpiParent:
+  \_parameter: (keymgr_pkg::KeyWidth), line:3:18, endln:3:26
+  |vpiInstance:
+  \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/BitComplex/dut.sv, line:1:1, endln:8:11
+  |vpiSigned:1
+\_logic_typespec: , line:6:7, endln:6:39
+  |vpiParent:
+  \_typespec_member: (key), line:6:40, endln:6:43
+  |vpiInstance:
+  \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/BitComplex/dut.sv, line:1:1, endln:8:11
+  |vpiRange:
+  \_range: , line:6:13, endln:6:25
+    |vpiParent:
+    \_logic_typespec: , line:6:7, endln:6:39
+    |vpiLeftRange:
+    \_operation: , line:6:14, endln:6:22
+      |vpiParent:
+      \_range: , line:6:13, endln:6:25
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (keymgr_pkg::keymgr_pkg::hw_key_req_t::key::Shares), line:6:14, endln:6:20
+        |vpiParent:
+        \_operation: , line:6:14, endln:6:22
+        |vpiName:Shares
+        |vpiFullName:keymgr_pkg::keymgr_pkg::hw_key_req_t::key::Shares
+        |vpiActual:
+        \_parameter: (keymgr_pkg::Shares), line:2:18, endln:2:24
+      |vpiOperand:
+      \_constant: , line:6:21, endln:6:22
+        |vpiParent:
+        \_operation: , line:6:14, endln:6:22
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:23, endln:6:24
+      |vpiParent:
+      \_range: , line:6:13, endln:6:25
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:6:25, endln:6:39
+    |vpiParent:
+    \_logic_typespec: , line:6:7, endln:6:39
+    |vpiLeftRange:
+    \_operation: , line:6:26, endln:6:36
+      |vpiParent:
+      \_range: , line:6:25, endln:6:39
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (keymgr_pkg::keymgr_pkg::hw_key_req_t::key::KeyWidth), line:6:26, endln:6:34
+        |vpiParent:
+        \_operation: , line:6:26, endln:6:36
+        |vpiName:KeyWidth
+        |vpiFullName:keymgr_pkg::keymgr_pkg::hw_key_req_t::key::KeyWidth
+        |vpiActual:
+        \_parameter: (keymgr_pkg::KeyWidth), line:3:18, endln:3:26
+      |vpiOperand:
+      \_constant: , line:6:35, endln:6:36
+        |vpiParent:
+        \_operation: , line:6:26, endln:6:36
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:37, endln:6:38
+      |vpiParent:
+      \_range: , line:6:25, endln:6:39
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:12:4, endln:12:46
+\_int_typespec: , line:10:19, endln:10:22
+  |vpiSigned:1
+\_int_typespec: , line:10:19, endln:10:22
+  |vpiSigned:1
+\_int_typespec: , line:10:19, endln:10:22
+  |vpiSigned:1
+\_int_typespec: , line:12:4, endln:12:46
+  |vpiParent:
+  \_ref_obj: (work@top.PP)
+\_cont_assign: , line:13:11, endln:13:41
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitComplex/dut.sv, line:10:1, endln:14:10
+  |vpiRhs:
+  \_constant: , line:13:15, endln:13:41
+  |vpiLhs:
+  \_ref_obj: (work@top.o), line:13:11, endln:13:12
+    |vpiParent:
+    \_cont_assign: , line:13:11, endln:13:41
+    |vpiName:o
+    |vpiFullName:work@top.o
+    |vpiActual:
+    \_logic_net: (work@top.o), line:10:23, endln:10:24
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

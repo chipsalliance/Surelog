@@ -1178,7 +1178,7 @@ part_select                                            8
 port                                                   9
 range                                                 28
 ref_module                                             6
-ref_obj                                               65
+ref_obj                                              167
 string_typespec                                        4
 sys_func_call                                          1
 === UHDM Object Stats End ===
@@ -1214,7 +1214,7 @@ part_select                                           12
 port                                                  12
 range                                                 28
 ref_module                                             6
-ref_obj                                               92
+ref_obj                                              204
 string_typespec                                        4
 sys_func_call                                          1
 === UHDM Object Stats End ===
@@ -1255,27 +1255,12 @@ design: (work@oh_delay)
     |vpiParent:
     \_module_inst: work@gen_test9 (work@gen_test9), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:46:1, endln:64:10
     |vpiTypespec:
-    \_logic_typespec: , line:47:9, endln:47:19
-      |vpiRange:
-      \_range: , line:47:14, endln:47:19
-        |vpiParent:
-        \_logic_typespec: , line:47:9, endln:47:19
-        |vpiLeftRange:
-        \_constant: , line:47:15, endln:47:16
-          |vpiParent:
-          \_range: , line:47:14, endln:47:19
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:47:17, endln:47:18
-          |vpiParent:
-          \_range: , line:47:14, endln:47:19
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@gen_test9.w)
+      |vpiParent:
+      \_logic_net: (work@gen_test9.w), line:47:20, endln:47:21
+      |vpiFullName:work@gen_test9.w
+      |vpiActual:
+      \_logic_typespec: , line:47:9, endln:47:19
     |vpiName:w
     |vpiFullName:work@gen_test9.w
     |vpiNetType:1
@@ -1384,7 +1369,12 @@ design: (work@oh_delay)
     \_module_inst: work@oh_delay (work@oh_delay), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:1:1, endln:20:10
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: , line:2:3, endln:2:25
+    \_ref_obj: (work@oh_delay.N)
+      |vpiParent:
+      \_parameter: (work@oh_delay.N), line:2:13, endln:2:14
+      |vpiFullName:work@oh_delay.N
+      |vpiActual:
+      \_int_typespec: , line:2:3, endln:2:25
     |vpiName:N
     |vpiFullName:work@oh_delay.N
   |vpiParameter:
@@ -1393,7 +1383,12 @@ design: (work@oh_delay)
     \_module_inst: work@oh_delay (work@oh_delay), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:1:1, endln:20:10
     |UINT:4
     |vpiTypespec:
-    \_int_typespec: , line:3:3, endln:3:25
+    \_ref_obj: (work@oh_delay.MAXDELAY)
+      |vpiParent:
+      \_parameter: (work@oh_delay.MAXDELAY), line:3:13, endln:3:21
+      |vpiFullName:work@oh_delay.MAXDELAY
+      |vpiActual:
+      \_int_typespec: , line:3:3, endln:3:25
     |vpiName:MAXDELAY
     |vpiFullName:work@oh_delay.MAXDELAY
   |vpiParameter:
@@ -1414,7 +1409,12 @@ design: (work@oh_delay)
       |vpiSize:64
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: , line:2:3, endln:2:25
+      \_ref_obj: (work@oh_delay)
+        |vpiParent:
+        \_constant: , line:2:24, endln:2:25
+        |vpiFullName:work@oh_delay
+        |vpiActual:
+        \_int_typespec: , line:2:3, endln:2:25
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@oh_delay.N), line:2:13, endln:2:14
@@ -1430,7 +1430,12 @@ design: (work@oh_delay)
       |vpiSize:64
       |UINT:4
       |vpiTypespec:
-      \_int_typespec: , line:3:3, endln:3:25
+      \_ref_obj: (work@oh_delay)
+        |vpiParent:
+        \_constant: , line:3:24, endln:3:25
+        |vpiFullName:work@oh_delay
+        |vpiActual:
+        \_int_typespec: , line:3:3, endln:3:25
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@oh_delay.MAXDELAY), line:3:13, endln:3:21
@@ -1625,7 +1630,12 @@ design: (work@oh_delay)
     \_module_inst: work@oh_rsync (work@oh_rsync), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:93:1, endln:123:10
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: , line:94:5, endln:94:27
+    \_ref_obj: (work@oh_rsync.SYNCPIPE)
+      |vpiParent:
+      \_parameter: (work@oh_rsync.SYNCPIPE), line:94:15, endln:94:23
+      |vpiFullName:work@oh_rsync.SYNCPIPE
+      |vpiActual:
+      \_int_typespec: , line:94:5, endln:94:27
     |vpiName:SYNCPIPE
     |vpiFullName:work@oh_rsync.SYNCPIPE
   |vpiParameter:
@@ -1634,7 +1644,12 @@ design: (work@oh_delay)
     \_module_inst: work@oh_rsync (work@oh_rsync), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:93:1, endln:123:10
     |STRING:TRUE
     |vpiTypespec:
-    \_string_typespec: 
+    \_ref_obj: (work@oh_rsync.SYN)
+      |vpiParent:
+      \_parameter: (work@oh_rsync.SYN), line:95:15, endln:95:18
+      |vpiFullName:work@oh_rsync.SYN
+      |vpiActual:
+      \_string_typespec: 
     |vpiName:SYN
     |vpiFullName:work@oh_rsync.SYN
   |vpiParameter:
@@ -1643,7 +1658,12 @@ design: (work@oh_delay)
     \_module_inst: work@oh_rsync (work@oh_rsync), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:93:1, endln:123:10
     |STRING:DEFAULT
     |vpiTypespec:
-    \_string_typespec: 
+    \_ref_obj: (work@oh_rsync.TYPE)
+      |vpiParent:
+      \_parameter: (work@oh_rsync.TYPE), line:96:15, endln:96:19
+      |vpiFullName:work@oh_rsync.TYPE
+      |vpiActual:
+      \_string_typespec: 
     |vpiName:TYPE
     |vpiFullName:work@oh_rsync.TYPE
   |vpiParamAssign:
@@ -1658,7 +1678,12 @@ design: (work@oh_delay)
       |vpiSize:64
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:94:5, endln:94:27
+      \_ref_obj: (work@oh_rsync)
+        |vpiParent:
+        \_constant: , line:94:26, endln:94:27
+        |vpiFullName:work@oh_rsync
+        |vpiActual:
+        \_int_typespec: , line:94:5, endln:94:27
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@oh_rsync.SYNCPIPE), line:94:15, endln:94:23
@@ -1674,7 +1699,12 @@ design: (work@oh_delay)
       |vpiSize:32
       |STRING:TRUE
       |vpiTypespec:
-      \_string_typespec: 
+      \_ref_obj: (work@oh_rsync)
+        |vpiParent:
+        \_constant: , line:95:26, endln:95:32
+        |vpiFullName:work@oh_rsync
+        |vpiActual:
+        \_string_typespec: 
       |vpiConstType:6
     |vpiLhs:
     \_parameter: (work@oh_rsync.SYN), line:95:15, endln:95:18
@@ -1690,7 +1720,12 @@ design: (work@oh_delay)
       |vpiSize:56
       |STRING:DEFAULT
       |vpiTypespec:
-      \_string_typespec: 
+      \_ref_obj: (work@oh_rsync)
+        |vpiParent:
+        \_constant: , line:96:26, endln:96:35
+        |vpiFullName:work@oh_rsync
+        |vpiActual:
+        \_string_typespec: 
       |vpiConstType:6
     |vpiLhs:
     \_parameter: (work@oh_rsync.TYPE), line:96:15, endln:96:19
@@ -1741,37 +1776,12 @@ design: (work@oh_delay)
               |vpiParent:
               \_assign_stmt: , line:105:24, endln:105:33
               |vpiTypespec:
-              \_logic_typespec: , line:105:5, endln:105:23
-                |vpiRange:
-                \_range: , line:105:9, endln:105:23
-                  |vpiParent:
-                  \_logic_typespec: , line:105:5, endln:105:23
-                  |vpiLeftRange:
-                  \_operation: , line:105:10, endln:105:20
-                    |vpiParent:
-                    \_range: , line:105:9, endln:105:23
-                    |vpiOpType:11
-                    |vpiOperand:
-                    \_ref_obj: (SYNCPIPE), line:105:10, endln:105:18
-                      |vpiParent:
-                      \_operation: , line:105:10, endln:105:20
-                      |vpiName:SYNCPIPE
-                    |vpiOperand:
-                    \_constant: , line:105:19, endln:105:20
-                      |vpiParent:
-                      \_operation: , line:105:10, endln:105:20
-                      |vpiDecompile:1
-                      |vpiSize:64
-                      |UINT:1
-                      |vpiConstType:9
-                  |vpiRightRange:
-                  \_constant: , line:105:21, endln:105:22
-                    |vpiParent:
-                    \_range: , line:105:9, endln:105:23
-                    |vpiDecompile:0
-                    |vpiSize:64
-                    |UINT:0
-                    |vpiConstType:9
+              \_ref_obj: (work@oh_rsync.sync_pipe)
+                |vpiParent:
+                \_logic_var: (work@oh_rsync.sync_pipe), line:105:24, endln:105:33
+                |vpiFullName:work@oh_rsync.sync_pipe
+                |vpiActual:
+                \_logic_typespec: , line:105:5, endln:105:23
               |vpiName:sync_pipe
               |vpiFullName:work@oh_rsync.sync_pipe
           |vpiStmt:
@@ -2040,7 +2050,12 @@ design: (work@oh_delay)
     \_module_inst: work@shift (work@shift), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:24:1, endln:43:10
     |UINT:4
     |vpiTypespec:
-    \_int_typespec: , line:25:1, endln:25:25
+    \_ref_obj: (work@shift.width_a)
+      |vpiParent:
+      \_parameter: (work@shift.width_a), line:25:14, endln:25:21
+      |vpiFullName:work@shift.width_a
+      |vpiActual:
+      \_int_typespec: , line:25:1, endln:25:25
     |vpiName:width_a
     |vpiFullName:work@shift.width_a
   |vpiParameter:
@@ -2049,7 +2064,12 @@ design: (work@oh_delay)
     \_module_inst: work@shift (work@shift), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:24:1, endln:43:10
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: , line:26:1, endln:26:25
+    \_ref_obj: (work@shift.signd_a)
+      |vpiParent:
+      \_parameter: (work@shift.signd_a), line:26:14, endln:26:21
+      |vpiFullName:work@shift.signd_a
+      |vpiActual:
+      \_int_typespec: , line:26:1, endln:26:25
     |vpiName:signd_a
     |vpiFullName:work@shift.signd_a
   |vpiParameter:
@@ -2058,7 +2078,12 @@ design: (work@oh_delay)
     \_module_inst: work@shift (work@shift), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:24:1, endln:43:10
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: , line:27:1, endln:27:25
+    \_ref_obj: (work@shift.width_s)
+      |vpiParent:
+      \_parameter: (work@shift.width_s), line:27:14, endln:27:21
+      |vpiFullName:work@shift.width_s
+      |vpiActual:
+      \_int_typespec: , line:27:1, endln:27:25
     |vpiName:width_s
     |vpiFullName:work@shift.width_s
   |vpiParameter:
@@ -2067,7 +2092,12 @@ design: (work@oh_delay)
     \_module_inst: work@shift (work@shift), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:24:1, endln:43:10
     |UINT:8
     |vpiTypespec:
-    \_int_typespec: , line:28:1, endln:28:25
+    \_ref_obj: (work@shift.width_z)
+      |vpiParent:
+      \_parameter: (work@shift.width_z), line:28:14, endln:28:21
+      |vpiFullName:work@shift.width_z
+      |vpiActual:
+      \_int_typespec: , line:28:1, endln:28:25
     |vpiName:width_z
     |vpiFullName:work@shift.width_z
   |vpiParamAssign:
@@ -2082,7 +2112,12 @@ design: (work@oh_delay)
       |vpiSize:64
       |UINT:4
       |vpiTypespec:
-      \_int_typespec: , line:25:1, endln:25:25
+      \_ref_obj: (work@shift)
+        |vpiParent:
+        \_constant: , line:25:24, endln:25:25
+        |vpiFullName:work@shift
+        |vpiActual:
+        \_int_typespec: , line:25:1, endln:25:25
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@shift.width_a), line:25:14, endln:25:21
@@ -2098,7 +2133,12 @@ design: (work@oh_delay)
       |vpiSize:64
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: , line:26:1, endln:26:25
+      \_ref_obj: (work@shift)
+        |vpiParent:
+        \_constant: , line:26:24, endln:26:25
+        |vpiFullName:work@shift
+        |vpiActual:
+        \_int_typespec: , line:26:1, endln:26:25
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@shift.signd_a), line:26:14, endln:26:21
@@ -2114,7 +2154,12 @@ design: (work@oh_delay)
       |vpiSize:64
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:27:1, endln:27:25
+      \_ref_obj: (work@shift)
+        |vpiParent:
+        \_constant: , line:27:24, endln:27:25
+        |vpiFullName:work@shift
+        |vpiActual:
+        \_int_typespec: , line:27:1, endln:27:25
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@shift.width_s), line:27:14, endln:27:21
@@ -2130,7 +2175,12 @@ design: (work@oh_delay)
       |vpiSize:64
       |UINT:8
       |vpiTypespec:
-      \_int_typespec: , line:28:1, endln:28:25
+      \_ref_obj: (work@shift)
+        |vpiParent:
+        \_constant: , line:28:24, endln:28:25
+        |vpiFullName:work@shift
+        |vpiActual:
+        \_int_typespec: , line:28:1, endln:28:25
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@shift.width_z), line:28:14, endln:28:21
@@ -2168,37 +2218,12 @@ design: (work@oh_delay)
       |vpiActual:
       \_logic_net: (work@shift.a), line:24:14, endln:24:15
     |vpiTypedef:
-    \_logic_typespec: , line:30:7, endln:30:20
-      |vpiRange:
-      \_range: , line:30:7, endln:30:20
-        |vpiParent:
-        \_logic_typespec: , line:30:7, endln:30:20
-        |vpiLeftRange:
-        \_operation: , line:30:8, endln:30:17
-          |vpiParent:
-          \_range: , line:30:7, endln:30:20
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (width_a), line:30:8, endln:30:15
-            |vpiParent:
-            \_operation: , line:30:8, endln:30:17
-            |vpiName:width_a
-          |vpiOperand:
-          \_constant: , line:30:16, endln:30:17
-            |vpiParent:
-            \_operation: , line:30:8, endln:30:17
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:30:18, endln:30:19
-          |vpiParent:
-          \_range: , line:30:7, endln:30:20
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@shift.a)
+      |vpiParent:
+      \_port: (a), line:24:14, endln:24:15
+      |vpiFullName:work@shift.a
+      |vpiActual:
+      \_logic_typespec: , line:30:7, endln:30:20
   |vpiPort:
   \_port: (s), line:24:16, endln:24:17
     |vpiParent:
@@ -2214,37 +2239,12 @@ design: (work@oh_delay)
       |vpiActual:
       \_logic_net: (work@shift.s), line:24:16, endln:24:17
     |vpiTypedef:
-    \_logic_typespec: , line:31:7, endln:31:20
-      |vpiRange:
-      \_range: , line:31:7, endln:31:20
-        |vpiParent:
-        \_logic_typespec: , line:31:7, endln:31:20
-        |vpiLeftRange:
-        \_operation: , line:31:8, endln:31:17
-          |vpiParent:
-          \_range: , line:31:7, endln:31:20
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (width_s), line:31:8, endln:31:15
-            |vpiParent:
-            \_operation: , line:31:8, endln:31:17
-            |vpiName:width_s
-          |vpiOperand:
-          \_constant: , line:31:16, endln:31:17
-            |vpiParent:
-            \_operation: , line:31:8, endln:31:17
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:31:18, endln:31:19
-          |vpiParent:
-          \_range: , line:31:7, endln:31:20
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@shift.s)
+      |vpiParent:
+      \_port: (s), line:24:16, endln:24:17
+      |vpiFullName:work@shift.s
+      |vpiActual:
+      \_logic_typespec: , line:31:7, endln:31:20
   |vpiPort:
   \_port: (z), line:24:18, endln:24:19
     |vpiParent:
@@ -2260,37 +2260,12 @@ design: (work@oh_delay)
       |vpiActual:
       \_logic_net: (work@shift.z), line:24:18, endln:24:19
     |vpiTypedef:
-    \_logic_typespec: , line:32:8, endln:32:22
-      |vpiRange:
-      \_range: , line:32:8, endln:32:22
-        |vpiParent:
-        \_logic_typespec: , line:32:8, endln:32:22
-        |vpiLeftRange:
-        \_operation: , line:32:9, endln:32:19
-          |vpiParent:
-          \_range: , line:32:8, endln:32:22
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (width_z), line:32:9, endln:32:16
-            |vpiParent:
-            \_operation: , line:32:9, endln:32:19
-            |vpiName:width_z
-          |vpiOperand:
-          \_constant: , line:32:18, endln:32:19
-            |vpiParent:
-            \_operation: , line:32:9, endln:32:19
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:32:20, endln:32:21
-          |vpiParent:
-          \_range: , line:32:8, endln:32:22
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@shift.z)
+      |vpiParent:
+      \_port: (z), line:24:18, endln:24:19
+      |vpiFullName:work@shift.z
+      |vpiActual:
+      \_logic_typespec: , line:32:8, endln:32:22
   |vpiGenStmt:
   \_gen_region: 
     |vpiParent:
@@ -2420,10 +2395,12 @@ design: (work@oh_delay)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:76:1, endln:88:10
     |UINT:32
     |vpiTypespec:
-    \_int_typespec: , line:77:12, endln:77:15
+    \_ref_obj: (work@test.Width)
       |vpiParent:
       \_parameter: (work@test.Width), line:77:16, endln:77:21
-      |vpiSigned:1
+      |vpiFullName:work@test.Width
+      |vpiActual:
+      \_int_typespec: , line:77:12, endln:77:15
     |vpiSigned:1
     |vpiName:Width
     |vpiFullName:work@test.Width
@@ -2433,10 +2410,12 @@ design: (work@oh_delay)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:76:1, endln:88:10
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: , line:78:12, endln:78:15
+    \_ref_obj: (work@test.DataBitsPerMask)
       |vpiParent:
       \_parameter: (work@test.DataBitsPerMask), line:78:16, endln:78:31
-      |vpiSigned:1
+      |vpiFullName:work@test.DataBitsPerMask
+      |vpiActual:
+      \_int_typespec: , line:78:12, endln:78:15
     |vpiSigned:1
     |vpiName:DataBitsPerMask
     |vpiFullName:work@test.DataBitsPerMask
@@ -2445,10 +2424,12 @@ design: (work@oh_delay)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:76:1, endln:88:10
     |vpiTypespec:
-    \_int_typespec: , line:80:20, endln:80:23
+    \_ref_obj: (work@test.MaskWidth)
       |vpiParent:
       \_parameter: (work@test.MaskWidth), line:80:24, endln:80:33
-      |vpiSigned:1
+      |vpiFullName:work@test.MaskWidth
+      |vpiActual:
+      \_int_typespec: , line:80:20, endln:80:23
     |vpiSigned:1
     |vpiLocalParam:1
     |vpiName:MaskWidth
@@ -2465,7 +2446,12 @@ design: (work@oh_delay)
       |vpiSize:64
       |UINT:32
       |vpiTypespec:
-      \_int_typespec: , line:77:12, endln:77:15
+      \_ref_obj: (work@test)
+        |vpiParent:
+        \_constant: , line:77:34, endln:77:36
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:77:12, endln:77:15
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test.Width), line:77:16, endln:77:21
@@ -2481,7 +2467,12 @@ design: (work@oh_delay)
       |vpiSize:64
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:78:12, endln:78:15
+      \_ref_obj: (work@test)
+        |vpiParent:
+        \_constant: , line:78:34, endln:78:35
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:78:12, endln:78:15
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test.DataBitsPerMask), line:78:16, endln:78:31
@@ -2527,9 +2518,12 @@ design: (work@oh_delay)
     \_module_inst: work@oh_delay (work@oh_delay), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:1:1, endln:20:10
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: , line:2:3, endln:2:25
+    \_ref_obj: (work@oh_delay.N)
       |vpiParent:
       \_parameter: (work@oh_delay.N), line:2:13, endln:2:14
+      |vpiFullName:work@oh_delay.N
+      |vpiActual:
+      \_int_typespec: , line:2:3, endln:2:25
     |vpiName:N
     |vpiFullName:work@oh_delay.N
   |vpiParameter:
@@ -2538,9 +2532,12 @@ design: (work@oh_delay)
     \_module_inst: work@oh_delay (work@oh_delay), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:1:1, endln:20:10
     |UINT:4
     |vpiTypespec:
-    \_int_typespec: , line:3:3, endln:3:25
+    \_ref_obj: (work@oh_delay.MAXDELAY)
       |vpiParent:
       \_parameter: (work@oh_delay.MAXDELAY), line:3:13, endln:3:21
+      |vpiFullName:work@oh_delay.MAXDELAY
+      |vpiActual:
+      \_int_typespec: , line:3:3, endln:3:25
     |vpiName:MAXDELAY
     |vpiFullName:work@oh_delay.MAXDELAY
   |vpiParameter:
@@ -2561,7 +2558,12 @@ design: (work@oh_delay)
       |vpiSize:32
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: , line:2:3, endln:2:25
+      \_ref_obj: (work@oh_delay)
+        |vpiParent:
+        \_constant: , line:2:24, endln:2:25
+        |vpiFullName:work@oh_delay
+        |vpiActual:
+        \_int_typespec: , line:2:3, endln:2:25
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@oh_delay.N), line:2:13, endln:2:14
@@ -2577,7 +2579,12 @@ design: (work@oh_delay)
       |vpiSize:32
       |UINT:4
       |vpiTypespec:
-      \_int_typespec: , line:3:3, endln:3:25
+      \_ref_obj: (work@oh_delay)
+        |vpiParent:
+        \_constant: , line:3:24, endln:3:25
+        |vpiFullName:work@oh_delay
+        |vpiActual:
+        \_int_typespec: , line:3:3, endln:3:25
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@oh_delay.MAXDELAY), line:3:13, endln:3:21
@@ -2675,7 +2682,12 @@ design: (work@oh_delay)
         \_gen_scope: (work@oh_delay.gen_pipe[1]), line:14:31, endln:17:8
         |UINT:1
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_obj: (work@oh_delay.gen_pipe[1].i)
+          |vpiParent:
+          \_parameter: (work@oh_delay.gen_pipe[1].i), line:14:0
+          |vpiFullName:work@oh_delay.gen_pipe[1].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@oh_delay.gen_pipe[1].i
@@ -2762,7 +2774,12 @@ design: (work@oh_delay)
         \_gen_scope: (work@oh_delay.gen_pipe[2]), line:14:31, endln:17:8
         |UINT:2
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_obj: (work@oh_delay.gen_pipe[2].i)
+          |vpiParent:
+          \_parameter: (work@oh_delay.gen_pipe[2].i), line:14:0
+          |vpiFullName:work@oh_delay.gen_pipe[2].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@oh_delay.gen_pipe[2].i
@@ -2849,7 +2866,12 @@ design: (work@oh_delay)
         \_gen_scope: (work@oh_delay.gen_pipe[3]), line:14:31, endln:17:8
         |UINT:3
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_obj: (work@oh_delay.gen_pipe[3].i)
+          |vpiParent:
+          \_parameter: (work@oh_delay.gen_pipe[3].i), line:14:0
+          |vpiFullName:work@oh_delay.gen_pipe[3].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@oh_delay.gen_pipe[3].i
@@ -2928,9 +2950,12 @@ design: (work@oh_delay)
     \_module_inst: work@shift (work@shift), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:24:1, endln:43:10
     |UINT:4
     |vpiTypespec:
-    \_int_typespec: , line:25:1, endln:25:25
+    \_ref_obj: (work@shift.width_a)
       |vpiParent:
       \_parameter: (work@shift.width_a), line:25:14, endln:25:21
+      |vpiFullName:work@shift.width_a
+      |vpiActual:
+      \_int_typespec: , line:25:1, endln:25:25
     |vpiName:width_a
     |vpiFullName:work@shift.width_a
   |vpiParameter:
@@ -2939,9 +2964,12 @@ design: (work@oh_delay)
     \_module_inst: work@shift (work@shift), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:24:1, endln:43:10
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: , line:26:1, endln:26:25
+    \_ref_obj: (work@shift.signd_a)
       |vpiParent:
       \_parameter: (work@shift.signd_a), line:26:14, endln:26:21
+      |vpiFullName:work@shift.signd_a
+      |vpiActual:
+      \_int_typespec: , line:26:1, endln:26:25
     |vpiName:signd_a
     |vpiFullName:work@shift.signd_a
   |vpiParameter:
@@ -2950,9 +2978,12 @@ design: (work@oh_delay)
     \_module_inst: work@shift (work@shift), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:24:1, endln:43:10
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: , line:27:1, endln:27:25
+    \_ref_obj: (work@shift.width_s)
       |vpiParent:
       \_parameter: (work@shift.width_s), line:27:14, endln:27:21
+      |vpiFullName:work@shift.width_s
+      |vpiActual:
+      \_int_typespec: , line:27:1, endln:27:25
     |vpiName:width_s
     |vpiFullName:work@shift.width_s
   |vpiParameter:
@@ -2961,9 +2992,12 @@ design: (work@oh_delay)
     \_module_inst: work@shift (work@shift), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:24:1, endln:43:10
     |UINT:8
     |vpiTypespec:
-    \_int_typespec: , line:28:1, endln:28:25
+    \_ref_obj: (work@shift.width_z)
       |vpiParent:
       \_parameter: (work@shift.width_z), line:28:14, endln:28:21
+      |vpiFullName:work@shift.width_z
+      |vpiActual:
+      \_int_typespec: , line:28:1, endln:28:25
     |vpiName:width_z
     |vpiFullName:work@shift.width_z
   |vpiParamAssign:
@@ -2978,7 +3012,12 @@ design: (work@oh_delay)
       |vpiSize:32
       |UINT:4
       |vpiTypespec:
-      \_int_typespec: , line:25:1, endln:25:25
+      \_ref_obj: (work@shift)
+        |vpiParent:
+        \_constant: , line:25:24, endln:25:25
+        |vpiFullName:work@shift
+        |vpiActual:
+        \_int_typespec: , line:25:1, endln:25:25
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@shift.width_a), line:25:14, endln:25:21
@@ -2994,7 +3033,12 @@ design: (work@oh_delay)
       |vpiSize:32
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: , line:26:1, endln:26:25
+      \_ref_obj: (work@shift)
+        |vpiParent:
+        \_constant: , line:26:24, endln:26:25
+        |vpiFullName:work@shift
+        |vpiActual:
+        \_int_typespec: , line:26:1, endln:26:25
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@shift.signd_a), line:26:14, endln:26:21
@@ -3010,7 +3054,12 @@ design: (work@oh_delay)
       |vpiSize:32
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:27:1, endln:27:25
+      \_ref_obj: (work@shift)
+        |vpiParent:
+        \_constant: , line:27:24, endln:27:25
+        |vpiFullName:work@shift
+        |vpiActual:
+        \_int_typespec: , line:27:1, endln:27:25
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@shift.width_s), line:27:14, endln:27:21
@@ -3026,7 +3075,12 @@ design: (work@oh_delay)
       |vpiSize:32
       |UINT:8
       |vpiTypespec:
-      \_int_typespec: , line:28:1, endln:28:25
+      \_ref_obj: (work@shift)
+        |vpiParent:
+        \_constant: , line:28:24, endln:28:25
+        |vpiFullName:work@shift
+        |vpiActual:
+        \_int_typespec: , line:28:1, endln:28:25
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@shift.width_z), line:28:14, endln:28:21
@@ -3037,29 +3091,12 @@ design: (work@oh_delay)
     |vpiParent:
     \_module_inst: work@shift (work@shift), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:24:1, endln:43:10
     |vpiTypespec:
-    \_logic_typespec: , line:30:7, endln:30:20
+    \_ref_obj: (work@shift.a)
       |vpiParent:
       \_logic_net: (work@shift.a), line:24:14, endln:24:15
-      |vpiRange:
-      \_range: , line:30:7, endln:30:20
-        |vpiParent:
-        \_logic_typespec: , line:30:7, endln:30:20
-        |vpiLeftRange:
-        \_constant: , line:30:8, endln:30:15
-          |vpiParent:
-          \_range: , line:30:7, endln:30:20
-          |vpiDecompile:3
-          |vpiSize:64
-          |INT:3
-          |vpiConstType:7
-        |vpiRightRange:
-        \_constant: , line:30:18, endln:30:19
-          |vpiParent:
-          \_range: , line:30:7, endln:30:20
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@shift.a
+      |vpiActual:
+      \_logic_typespec: , line:30:7, endln:30:20
     |vpiName:a
     |vpiFullName:work@shift.a
   |vpiNet:
@@ -3067,29 +3104,12 @@ design: (work@oh_delay)
     |vpiParent:
     \_module_inst: work@shift (work@shift), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:24:1, endln:43:10
     |vpiTypespec:
-    \_logic_typespec: , line:31:7, endln:31:20
+    \_ref_obj: (work@shift.s)
       |vpiParent:
       \_logic_net: (work@shift.s), line:24:16, endln:24:17
-      |vpiRange:
-      \_range: , line:31:7, endln:31:20
-        |vpiParent:
-        \_logic_typespec: , line:31:7, endln:31:20
-        |vpiLeftRange:
-        \_constant: , line:31:8, endln:31:15
-          |vpiParent:
-          \_range: , line:31:7, endln:31:20
-          |vpiDecompile:1
-          |vpiSize:64
-          |INT:1
-          |vpiConstType:7
-        |vpiRightRange:
-        \_constant: , line:31:18, endln:31:19
-          |vpiParent:
-          \_range: , line:31:7, endln:31:20
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@shift.s
+      |vpiActual:
+      \_logic_typespec: , line:31:7, endln:31:20
     |vpiName:s
     |vpiFullName:work@shift.s
   |vpiNet:
@@ -3097,27 +3117,12 @@ design: (work@oh_delay)
     |vpiParent:
     \_module_inst: work@shift (work@shift), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:24:1, endln:43:10
     |vpiTypespec:
-    \_logic_typespec: , line:32:8, endln:32:22
-      |vpiRange:
-      \_range: , line:32:8, endln:32:22
-        |vpiParent:
-        \_logic_typespec: , line:32:8, endln:32:22
-        |vpiLeftRange:
-        \_constant: , line:32:9, endln:32:16
-          |vpiParent:
-          \_range: , line:32:8, endln:32:22
-          |vpiDecompile:7
-          |vpiSize:64
-          |INT:7
-          |vpiConstType:7
-        |vpiRightRange:
-        \_constant: , line:32:20, endln:32:21
-          |vpiParent:
-          \_range: , line:32:8, endln:32:22
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@shift.z)
+      |vpiParent:
+      \_logic_net: (work@shift.z), line:24:18, endln:24:19
+      |vpiFullName:work@shift.z
+      |vpiActual:
+      \_logic_typespec: , line:32:8, endln:32:22
     |vpiName:z
     |vpiFullName:work@shift.z
   |vpiTopModule:1
@@ -3136,27 +3141,12 @@ design: (work@oh_delay)
       |vpiActual:
       \_logic_net: (work@shift.a), line:24:14, endln:24:15
     |vpiTypedef:
-    \_logic_typespec: , line:30:7, endln:30:20
-      |vpiRange:
-      \_range: , line:30:7, endln:30:20
-        |vpiParent:
-        \_logic_typespec: , line:30:7, endln:30:20
-        |vpiLeftRange:
-        \_constant: , line:30:8, endln:30:15
-          |vpiParent:
-          \_range: , line:30:7, endln:30:20
-          |vpiDecompile:3
-          |vpiSize:64
-          |INT:3
-          |vpiConstType:7
-        |vpiRightRange:
-        \_constant: , line:30:18, endln:30:19
-          |vpiParent:
-          \_range: , line:30:7, endln:30:20
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@shift.a)
+      |vpiParent:
+      \_port: (a), line:24:14, endln:24:15
+      |vpiFullName:work@shift.a
+      |vpiActual:
+      \_logic_typespec: , line:30:7, endln:30:20
     |vpiInstance:
     \_module_inst: work@shift (work@shift), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:24:1, endln:43:10
   |vpiPort:
@@ -3174,27 +3164,12 @@ design: (work@oh_delay)
       |vpiActual:
       \_logic_net: (work@shift.s), line:24:16, endln:24:17
     |vpiTypedef:
-    \_logic_typespec: , line:31:7, endln:31:20
-      |vpiRange:
-      \_range: , line:31:7, endln:31:20
-        |vpiParent:
-        \_logic_typespec: , line:31:7, endln:31:20
-        |vpiLeftRange:
-        \_constant: , line:31:8, endln:31:15
-          |vpiParent:
-          \_range: , line:31:7, endln:31:20
-          |vpiDecompile:1
-          |vpiSize:64
-          |INT:1
-          |vpiConstType:7
-        |vpiRightRange:
-        \_constant: , line:31:18, endln:31:19
-          |vpiParent:
-          \_range: , line:31:7, endln:31:20
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@shift.s)
+      |vpiParent:
+      \_port: (s), line:24:16, endln:24:17
+      |vpiFullName:work@shift.s
+      |vpiActual:
+      \_logic_typespec: , line:31:7, endln:31:20
     |vpiInstance:
     \_module_inst: work@shift (work@shift), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:24:1, endln:43:10
   |vpiPort:
@@ -3212,27 +3187,12 @@ design: (work@oh_delay)
       |vpiActual:
       \_logic_net: (work@shift.z), line:24:18, endln:24:19
     |vpiTypedef:
-    \_logic_typespec: , line:32:8, endln:32:22
-      |vpiRange:
-      \_range: , line:32:8, endln:32:22
-        |vpiParent:
-        \_logic_typespec: , line:32:8, endln:32:22
-        |vpiLeftRange:
-        \_constant: , line:32:9, endln:32:16
-          |vpiParent:
-          \_range: , line:32:8, endln:32:22
-          |vpiDecompile:7
-          |vpiSize:64
-          |INT:7
-          |vpiConstType:7
-        |vpiRightRange:
-        \_constant: , line:32:20, endln:32:21
-          |vpiParent:
-          \_range: , line:32:8, endln:32:22
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@shift.z)
+      |vpiParent:
+      \_port: (z), line:24:18, endln:24:19
+      |vpiFullName:work@shift.z
+      |vpiActual:
+      \_logic_typespec: , line:32:8, endln:32:22
     |vpiInstance:
     \_module_inst: work@shift (work@shift), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:24:1, endln:43:10
   |vpiGenScopeArray:
@@ -3318,27 +3278,12 @@ design: (work@oh_delay)
     |vpiParent:
     \_module_inst: work@gen_test9 (work@gen_test9), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:46:1, endln:64:10
     |vpiTypespec:
-    \_logic_typespec: , line:47:9, endln:47:19
-      |vpiRange:
-      \_range: , line:47:14, endln:47:19
-        |vpiParent:
-        \_logic_typespec: , line:47:9, endln:47:19
-        |vpiLeftRange:
-        \_constant: , line:47:15, endln:47:16
-          |vpiParent:
-          \_range: , line:47:14, endln:47:19
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:47:17, endln:47:18
-          |vpiParent:
-          \_range: , line:47:14, endln:47:19
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@gen_test9.w)
+      |vpiParent:
+      \_logic_net: (work@gen_test9.w), line:47:20, endln:47:21
+      |vpiFullName:work@gen_test9.w
+      |vpiActual:
+      \_logic_typespec: , line:47:9, endln:47:19
     |vpiName:w
     |vpiFullName:work@gen_test9.w
     |vpiNetType:1
@@ -3359,29 +3304,12 @@ design: (work@oh_delay)
         |vpiParent:
         \_gen_scope: (work@gen_test9.A), line:49:17, endln:62:20
         |vpiTypespec:
-        \_logic_typespec: , line:50:25, endln:50:35
+        \_ref_obj: (work@gen_test9.A.x)
           |vpiParent:
           \_logic_net: (work@gen_test9.A.x), line:50:36, endln:50:37
-          |vpiRange:
-          \_range: , line:50:30, endln:50:35
-            |vpiParent:
-            \_logic_typespec: , line:50:25, endln:50:35
-            |vpiLeftRange:
-            \_constant: , line:50:31, endln:50:32
-              |vpiParent:
-              \_range: , line:50:30, endln:50:35
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-            |vpiRightRange:
-            \_constant: , line:50:33, endln:50:34
-              |vpiParent:
-              \_range: , line:50:30, endln:50:35
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
+          |vpiFullName:work@gen_test9.A.x
+          |vpiActual:
+          \_logic_typespec: , line:50:25, endln:50:35
         |vpiName:x
         |vpiFullName:work@gen_test9.A.x
         |vpiNetType:1
@@ -3471,27 +3399,12 @@ design: (work@oh_delay)
             |vpiParent:
             \_gen_scope: (work@gen_test9.A.B), line:52:25, endln:54:28
             |vpiTypespec:
-            \_logic_typespec: , line:53:33, endln:53:43
-              |vpiRange:
-              \_range: , line:53:38, endln:53:43
-                |vpiParent:
-                \_logic_typespec: , line:53:33, endln:53:43
-                |vpiLeftRange:
-                \_constant: , line:53:39, endln:53:40
-                  |vpiParent:
-                  \_range: , line:53:38, endln:53:43
-                  |vpiDecompile:1
-                  |vpiSize:64
-                  |UINT:1
-                  |vpiConstType:9
-                |vpiRightRange:
-                \_constant: , line:53:41, endln:53:42
-                  |vpiParent:
-                  \_range: , line:53:38, endln:53:43
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
-                  |vpiConstType:9
+            \_ref_obj: (work@gen_test9.A.B.y)
+              |vpiParent:
+              \_logic_net: (work@gen_test9.A.B.y), line:53:44, endln:53:45
+              |vpiFullName:work@gen_test9.A.B.y
+              |vpiActual:
+              \_logic_typespec: , line:53:33, endln:53:43
             |vpiName:y
             |vpiFullName:work@gen_test9.A.B.y
             |vpiNetType:1
@@ -3526,27 +3439,12 @@ design: (work@oh_delay)
             |vpiParent:
             \_gen_scope: (work@gen_test9.A.C), line:57:25, endln:59:28
             |vpiTypespec:
-            \_logic_typespec: , line:58:33, endln:58:43
-              |vpiRange:
-              \_range: , line:58:38, endln:58:43
-                |vpiParent:
-                \_logic_typespec: , line:58:33, endln:58:43
-                |vpiLeftRange:
-                \_constant: , line:58:39, endln:58:40
-                  |vpiParent:
-                  \_range: , line:58:38, endln:58:43
-                  |vpiDecompile:1
-                  |vpiSize:64
-                  |UINT:1
-                  |vpiConstType:9
-                |vpiRightRange:
-                \_constant: , line:58:41, endln:58:42
-                  |vpiParent:
-                  \_range: , line:58:38, endln:58:43
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
-                  |vpiConstType:9
+            \_ref_obj: (work@gen_test9.A.C.z)
+              |vpiParent:
+              \_logic_net: (work@gen_test9.A.C.z), line:58:44, endln:58:45
+              |vpiFullName:work@gen_test9.A.C.z
+              |vpiActual:
+              \_logic_typespec: , line:58:33, endln:58:43
             |vpiName:z
             |vpiFullName:work@gen_test9.A.C.z
             |vpiNetType:1
@@ -3598,10 +3496,12 @@ design: (work@oh_delay)
       \_module_inst: work@test (work@dut.t), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:70:9, endln:73:16
       |UINT:32
       |vpiTypespec:
-      \_int_typespec: , line:77:12, endln:77:15
+      \_ref_obj: (work@dut.t.Width)
         |vpiParent:
         \_parameter: (work@dut.t.Width), line:77:16, endln:77:21
-        |vpiSigned:1
+        |vpiFullName:work@dut.t.Width
+        |vpiActual:
+        \_int_typespec: , line:77:12, endln:77:15
       |vpiSigned:1
       |vpiName:Width
       |vpiFullName:work@dut.t.Width
@@ -3611,10 +3511,12 @@ design: (work@oh_delay)
       \_module_inst: work@test (work@dut.t), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:70:9, endln:73:16
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:78:12, endln:78:15
+      \_ref_obj: (work@dut.t.DataBitsPerMask)
         |vpiParent:
         \_parameter: (work@dut.t.DataBitsPerMask), line:78:16, endln:78:31
-        |vpiSigned:1
+        |vpiFullName:work@dut.t.DataBitsPerMask
+        |vpiActual:
+        \_int_typespec: , line:78:12, endln:78:15
       |vpiSigned:1
       |vpiName:DataBitsPerMask
       |vpiFullName:work@dut.t.DataBitsPerMask
@@ -3623,10 +3525,12 @@ design: (work@oh_delay)
       |vpiParent:
       \_module_inst: work@test (work@dut.t), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:70:9, endln:73:16
       |vpiTypespec:
-      \_int_typespec: , line:80:20, endln:80:23
+      \_ref_obj: (work@dut.t.MaskWidth)
         |vpiParent:
         \_parameter: (work@dut.t.MaskWidth), line:80:24, endln:80:33
-        |vpiSigned:1
+        |vpiFullName:work@dut.t.MaskWidth
+        |vpiActual:
+        \_int_typespec: , line:80:20, endln:80:23
       |vpiSigned:1
       |vpiLocalParam:1
       |vpiName:MaskWidth
@@ -3644,7 +3548,12 @@ design: (work@oh_delay)
         |vpiSize:32
         |UINT:32
         |vpiTypespec:
-        \_int_typespec: , line:77:12, endln:77:15
+        \_ref_obj: (work@dut.t)
+          |vpiParent:
+          \_constant: , line:77:34, endln:77:36
+          |vpiFullName:work@dut.t
+          |vpiActual:
+          \_int_typespec: , line:77:12, endln:77:15
         |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@dut.t.Width), line:77:16, endln:77:21
@@ -3661,7 +3570,12 @@ design: (work@oh_delay)
         |vpiSize:32
         |UINT:8
         |vpiTypespec:
-        \_int_typespec: , line:78:12, endln:78:15
+        \_ref_obj: (work@dut.t)
+          |vpiParent:
+          \_constant: , line:78:34, endln:78:35
+          |vpiFullName:work@dut.t
+          |vpiActual:
+          \_int_typespec: , line:78:12, endln:78:15
         |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@dut.t.DataBitsPerMask), line:78:16, endln:78:31
@@ -3677,7 +3591,12 @@ design: (work@oh_delay)
         |vpiSize:32
         |INT:4
         |vpiTypespec:
-        \_int_typespec: , line:80:20, endln:80:23
+        \_ref_obj: (work@dut.t)
+          |vpiParent:
+          \_constant: , line:80:36, endln:80:59
+          |vpiFullName:work@dut.t
+          |vpiActual:
+          \_int_typespec: , line:80:20, endln:80:23
         |vpiConstType:7
       |vpiLhs:
       \_parameter: (work@dut.t.MaskWidth), line:80:24, endln:80:33
@@ -3703,7 +3622,12 @@ design: (work@oh_delay)
           \_gen_scope: (work@dut.t.genblk1[0]), line:83:36, endln:85:7
           |UINT:0
           |vpiTypespec:
-          \_int_typespec: 
+          \_ref_obj: (work@dut.t.genblk1[0].i)
+            |vpiParent:
+            \_parameter: (work@dut.t.genblk1[0].i), line:83:0
+            |vpiFullName:work@dut.t.genblk1[0].i
+            |vpiActual:
+            \_int_typespec: 
           |vpiLocalParam:1
           |vpiName:i
           |vpiFullName:work@dut.t.genblk1[0].i
@@ -3731,7 +3655,12 @@ design: (work@oh_delay)
           \_gen_scope: (work@dut.t.genblk1[1]), line:83:36, endln:85:7
           |UINT:1
           |vpiTypespec:
-          \_int_typespec: 
+          \_ref_obj: (work@dut.t.genblk1[1].i)
+            |vpiParent:
+            \_parameter: (work@dut.t.genblk1[1].i), line:83:0
+            |vpiFullName:work@dut.t.genblk1[1].i
+            |vpiActual:
+            \_int_typespec: 
           |vpiLocalParam:1
           |vpiName:i
           |vpiFullName:work@dut.t.genblk1[1].i
@@ -3759,7 +3688,12 @@ design: (work@oh_delay)
           \_gen_scope: (work@dut.t.genblk1[2]), line:83:36, endln:85:7
           |UINT:2
           |vpiTypespec:
-          \_int_typespec: 
+          \_ref_obj: (work@dut.t.genblk1[2].i)
+            |vpiParent:
+            \_parameter: (work@dut.t.genblk1[2].i), line:83:0
+            |vpiFullName:work@dut.t.genblk1[2].i
+            |vpiActual:
+            \_int_typespec: 
           |vpiLocalParam:1
           |vpiName:i
           |vpiFullName:work@dut.t.genblk1[2].i
@@ -3787,7 +3721,12 @@ design: (work@oh_delay)
           \_gen_scope: (work@dut.t.genblk1[3]), line:83:36, endln:85:7
           |UINT:3
           |vpiTypespec:
-          \_int_typespec: 
+          \_ref_obj: (work@dut.t.genblk1[3].i)
+            |vpiParent:
+            \_parameter: (work@dut.t.genblk1[3].i), line:83:0
+            |vpiFullName:work@dut.t.genblk1[3].i
+            |vpiActual:
+            \_int_typespec: 
           |vpiLocalParam:1
           |vpiName:i
           |vpiFullName:work@dut.t.genblk1[3].i
@@ -3807,9 +3746,12 @@ design: (work@oh_delay)
     \_module_inst: work@oh_rsync (work@oh_rsync), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:93:1, endln:123:10
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: , line:94:5, endln:94:27
+    \_ref_obj: (work@oh_rsync.SYNCPIPE)
       |vpiParent:
       \_parameter: (work@oh_rsync.SYNCPIPE), line:94:15, endln:94:23
+      |vpiFullName:work@oh_rsync.SYNCPIPE
+      |vpiActual:
+      \_int_typespec: , line:94:5, endln:94:27
     |vpiName:SYNCPIPE
     |vpiFullName:work@oh_rsync.SYNCPIPE
   |vpiParameter:
@@ -3818,9 +3760,12 @@ design: (work@oh_delay)
     \_module_inst: work@oh_rsync (work@oh_rsync), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:93:1, endln:123:10
     |STRING:TRUE
     |vpiTypespec:
-    \_string_typespec: 
+    \_ref_obj: (work@oh_rsync.SYN)
       |vpiParent:
       \_parameter: (work@oh_rsync.SYN), line:95:15, endln:95:18
+      |vpiFullName:work@oh_rsync.SYN
+      |vpiActual:
+      \_string_typespec: 
     |vpiName:SYN
     |vpiFullName:work@oh_rsync.SYN
   |vpiParameter:
@@ -3829,9 +3774,12 @@ design: (work@oh_delay)
     \_module_inst: work@oh_rsync (work@oh_rsync), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:93:1, endln:123:10
     |STRING:DEFAULT
     |vpiTypespec:
-    \_string_typespec: 
+    \_ref_obj: (work@oh_rsync.TYPE)
       |vpiParent:
       \_parameter: (work@oh_rsync.TYPE), line:96:15, endln:96:19
+      |vpiFullName:work@oh_rsync.TYPE
+      |vpiActual:
+      \_string_typespec: 
     |vpiName:TYPE
     |vpiFullName:work@oh_rsync.TYPE
   |vpiParamAssign:
@@ -3846,7 +3794,12 @@ design: (work@oh_delay)
       |vpiSize:32
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:94:5, endln:94:27
+      \_ref_obj: (work@oh_rsync)
+        |vpiParent:
+        \_constant: , line:94:26, endln:94:27
+        |vpiFullName:work@oh_rsync
+        |vpiActual:
+        \_int_typespec: , line:94:5, endln:94:27
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@oh_rsync.SYNCPIPE), line:94:15, endln:94:23
@@ -3862,7 +3815,12 @@ design: (work@oh_delay)
       |vpiSize:32
       |STRING:TRUE
       |vpiTypespec:
-      \_string_typespec: 
+      \_ref_obj: (work@oh_rsync)
+        |vpiParent:
+        \_constant: , line:95:26, endln:95:32
+        |vpiFullName:work@oh_rsync
+        |vpiActual:
+        \_string_typespec: 
       |vpiConstType:6
     |vpiLhs:
     \_parameter: (work@oh_rsync.SYN), line:95:15, endln:95:18
@@ -3878,7 +3836,12 @@ design: (work@oh_delay)
       |vpiSize:56
       |STRING:DEFAULT
       |vpiTypespec:
-      \_string_typespec: 
+      \_ref_obj: (work@oh_rsync)
+        |vpiParent:
+        \_constant: , line:96:26, endln:96:35
+        |vpiFullName:work@oh_rsync
+        |vpiActual:
+        \_string_typespec: 
       |vpiConstType:6
     |vpiLhs:
     \_parameter: (work@oh_rsync.TYPE), line:96:15, endln:96:19
@@ -3901,29 +3864,12 @@ design: (work@oh_delay)
         |vpiParent:
         \_gen_scope: (work@oh_rsync.genblk1), line:105:5, endln:105:34
         |vpiTypespec:
-        \_logic_typespec: , line:105:5, endln:105:23
+        \_ref_obj: (work@oh_rsync.genblk1.sync_pipe)
           |vpiParent:
           \_logic_net: (work@oh_rsync.genblk1.sync_pipe), line:105:24, endln:105:33
-          |vpiRange:
-          \_range: , line:105:9, endln:105:23
-            |vpiParent:
-            \_logic_typespec: , line:105:5, endln:105:23
-            |vpiLeftRange:
-            \_constant: , line:105:10, endln:105:18
-              |vpiParent:
-              \_range: , line:105:9, endln:105:23
-              |vpiDecompile:1
-              |vpiSize:64
-              |INT:1
-              |vpiConstType:7
-            |vpiRightRange:
-            \_constant: , line:105:21, endln:105:22
-              |vpiParent:
-              \_range: , line:105:9, endln:105:23
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
+          |vpiFullName:work@oh_rsync.genblk1.sync_pipe
+          |vpiActual:
+          \_logic_typespec: , line:105:5, endln:105:23
         |vpiName:sync_pipe
         |vpiFullName:work@oh_rsync.genblk1.sync_pipe
         |vpiNetType:48
@@ -4010,9 +3956,12 @@ design: (work@oh_delay)
                     |vpiSize:32
                     |UINT:2
                     |vpiTypespec:
-                    \_int_typespec: , line:94:5, endln:94:27
+                    \_ref_obj: (work@oh_rsync.genblk1.sync_pipe)
                       |vpiParent:
                       \_constant: , line:108:19, endln:108:27
+                      |vpiFullName:work@oh_rsync.genblk1.sync_pipe
+                      |vpiActual:
+                      \_int_typespec: , line:94:5, endln:94:27
                     |vpiConstType:9
                   |vpiOperand:
                   \_constant: , line:108:28, endln:108:29
@@ -4061,9 +4010,12 @@ design: (work@oh_delay)
                       |vpiSize:32
                       |UINT:2
                       |vpiTypespec:
-                      \_int_typespec: , line:94:5, endln:94:27
+                      \_ref_obj: (work@oh_rsync.genblk1.sync_pipe)
                         |vpiParent:
                         \_constant: , line:110:47, endln:110:55
+                        |vpiFullName:work@oh_rsync.genblk1.sync_pipe
+                        |vpiActual:
+                        \_int_typespec: , line:94:5, endln:94:27
                       |vpiConstType:9
                     |vpiOperand:
                     \_constant: , line:110:56, endln:110:57
@@ -4108,9 +4060,12 @@ design: (work@oh_delay)
                     |vpiSize:32
                     |UINT:2
                     |vpiTypespec:
-                    \_int_typespec: , line:94:5, endln:94:27
+                    \_ref_obj: (work@oh_rsync.genblk1.sync_pipe)
                       |vpiParent:
                       \_constant: , line:110:19, endln:110:27
+                      |vpiFullName:work@oh_rsync.genblk1.sync_pipe
+                      |vpiActual:
+                      \_int_typespec: , line:94:5, endln:94:27
                     |vpiConstType:9
                   |vpiOperand:
                   \_constant: , line:110:28, endln:110:29
@@ -4152,9 +4107,12 @@ design: (work@oh_delay)
               |vpiSize:32
               |UINT:2
               |vpiTypespec:
-              \_int_typespec: , line:94:5, endln:94:27
+              \_ref_obj: (work@oh_rsync.genblk1.sync_pipe)
                 |vpiParent:
                 \_constant: , line:111:33, endln:111:41
+                |vpiFullName:work@oh_rsync.genblk1.sync_pipe
+                |vpiActual:
+                \_int_typespec: , line:94:5, endln:94:27
               |vpiConstType:9
             |vpiOperand:
             \_constant: , line:111:42, endln:111:43
@@ -4170,6 +4128,1156 @@ design: (work@oh_delay)
           \_cont_assign: , line:111:12, endln:111:44
           |vpiName:nrst_out
           |vpiFullName:work@oh_rsync.genblk1.nrst_out
+\_weaklyReferenced:
+\_int_typespec: , line:2:3, endln:2:25
+\_int_typespec: , line:3:3, endln:3:25
+\_int_typespec: , line:94:5, endln:94:27
+\_string_typespec: 
+\_string_typespec: 
+\_logic_typespec: , line:105:5, endln:105:23
+  |vpiRange:
+  \_range: , line:105:9, endln:105:23
+    |vpiParent:
+    \_logic_typespec: , line:105:5, endln:105:23
+    |vpiLeftRange:
+    \_operation: , line:105:10, endln:105:20
+      |vpiParent:
+      \_range: , line:105:9, endln:105:23
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (SYNCPIPE), line:105:10, endln:105:18
+        |vpiParent:
+        \_operation: , line:105:10, endln:105:20
+        |vpiName:SYNCPIPE
+      |vpiOperand:
+      \_constant: , line:105:19, endln:105:20
+        |vpiParent:
+        \_operation: , line:105:10, endln:105:20
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:105:21, endln:105:22
+      |vpiParent:
+      \_range: , line:105:9, endln:105:23
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:25:1, endln:25:25
+\_int_typespec: , line:26:1, endln:26:25
+\_int_typespec: , line:27:1, endln:27:25
+\_int_typespec: , line:28:1, endln:28:25
+\_int_typespec: , line:77:12, endln:77:15
+  |vpiParent:
+  \_parameter: (work@test.Width), line:77:16, endln:77:21
+  |vpiSigned:1
+\_int_typespec: , line:78:12, endln:78:15
+  |vpiParent:
+  \_parameter: (work@test.DataBitsPerMask), line:78:16, endln:78:31
+  |vpiSigned:1
+\_int_typespec: , line:80:20, endln:80:23
+  |vpiParent:
+  \_parameter: (work@test.MaskWidth), line:80:24, endln:80:33
+  |vpiSigned:1
+\_operation: , line:16:34, endln:16:37
+  |vpiParent:
+  \_bit_select: (work@oh_delay.gen_pipe[1].sync_pipe), line:16:34, endln:16:37
+  |vpiOpType:11
+  |vpiOperand:
+  \_ref_obj: (work@oh_delay.gen_pipe[1].sync_pipe.i), line:16:34, endln:16:35
+    |vpiParent:
+    \_operation: , line:16:34, endln:16:37
+    |vpiName:i
+    |vpiFullName:work@oh_delay.gen_pipe[1].sync_pipe.i
+  |vpiOperand:
+  \_constant: , line:16:36, endln:16:37
+\_bit_select: (work@oh_delay.gen_pipe[1].sync_pipe), line:16:34, endln:16:37
+  |vpiParent:
+  \_assignment: , line:16:10, endln:16:38
+  |vpiName:sync_pipe
+  |vpiFullName:work@oh_delay.gen_pipe[1].sync_pipe
+  |vpiIndex:
+  \_operation: , line:16:34, endln:16:37
+\_assignment: , line:16:10, endln:16:38
+  |vpiParent:
+  \_event_control: , line:15:15, endln:15:30
+  |vpiOpType:82
+  |vpiRhs:
+  \_bit_select: (work@oh_delay.gen_pipe[1].sync_pipe), line:16:34, endln:16:37
+  |vpiLhs:
+  \_bit_select: (work@oh_delay.gen_pipe[1].sync_pipe), line:16:10, endln:16:22
+    |vpiParent:
+    \_assignment: , line:16:10, endln:16:38
+    |vpiName:sync_pipe
+    |vpiFullName:work@oh_delay.gen_pipe[1].sync_pipe
+    |vpiIndex:
+    \_ref_obj: (work@oh_delay.gen_pipe[1].i), line:16:20, endln:16:21
+      |vpiParent:
+      \_bit_select: (work@oh_delay.gen_pipe[1].sync_pipe), line:16:10, endln:16:22
+      |vpiName:i
+      |vpiFullName:work@oh_delay.gen_pipe[1].i
+\_event_control: , line:15:15, endln:15:30
+  |vpiParent:
+  \_always: , line:15:8, endln:16:39
+  |vpiCondition:
+  \_operation: , line:15:18, endln:15:29
+    |vpiParent:
+    \_event_control: , line:15:15, endln:15:30
+    |vpiOpType:39
+    |vpiOperand:
+    \_ref_obj: (work@oh_delay.gen_pipe[1].clk), line:15:26, endln:15:29
+      |vpiParent:
+      \_operation: , line:15:18, endln:15:29
+      |vpiName:clk
+      |vpiFullName:work@oh_delay.gen_pipe[1].clk
+  |vpiStmt:
+  \_assignment: , line:16:10, endln:16:38
+\_always: , line:15:8, endln:16:39
+  |vpiParent:
+  \_gen_scope: (work@oh_delay.gen_pipe[1]), line:14:31, endln:17:8
+  |vpiStmt:
+  \_event_control: , line:15:15, endln:15:30
+  |vpiAlwaysType:1
+\_operation: , line:16:34, endln:16:37
+  |vpiParent:
+  \_bit_select: (work@oh_delay.gen_pipe[2].sync_pipe), line:16:34, endln:16:37
+  |vpiOpType:11
+  |vpiOperand:
+  \_ref_obj: (work@oh_delay.gen_pipe[2].sync_pipe.i), line:16:34, endln:16:35
+    |vpiParent:
+    \_operation: , line:16:34, endln:16:37
+    |vpiName:i
+    |vpiFullName:work@oh_delay.gen_pipe[2].sync_pipe.i
+  |vpiOperand:
+  \_constant: , line:16:36, endln:16:37
+\_bit_select: (work@oh_delay.gen_pipe[2].sync_pipe), line:16:34, endln:16:37
+  |vpiParent:
+  \_assignment: , line:16:10, endln:16:38
+  |vpiName:sync_pipe
+  |vpiFullName:work@oh_delay.gen_pipe[2].sync_pipe
+  |vpiIndex:
+  \_operation: , line:16:34, endln:16:37
+\_assignment: , line:16:10, endln:16:38
+  |vpiParent:
+  \_event_control: , line:15:15, endln:15:30
+  |vpiOpType:82
+  |vpiRhs:
+  \_bit_select: (work@oh_delay.gen_pipe[2].sync_pipe), line:16:34, endln:16:37
+  |vpiLhs:
+  \_bit_select: (work@oh_delay.gen_pipe[2].sync_pipe), line:16:10, endln:16:22
+    |vpiParent:
+    \_assignment: , line:16:10, endln:16:38
+    |vpiName:sync_pipe
+    |vpiFullName:work@oh_delay.gen_pipe[2].sync_pipe
+    |vpiIndex:
+    \_ref_obj: (work@oh_delay.gen_pipe[2].i), line:16:20, endln:16:21
+      |vpiParent:
+      \_bit_select: (work@oh_delay.gen_pipe[2].sync_pipe), line:16:10, endln:16:22
+      |vpiName:i
+      |vpiFullName:work@oh_delay.gen_pipe[2].i
+\_event_control: , line:15:15, endln:15:30
+  |vpiParent:
+  \_always: , line:15:8, endln:16:39
+  |vpiCondition:
+  \_operation: , line:15:18, endln:15:29
+    |vpiParent:
+    \_event_control: , line:15:15, endln:15:30
+    |vpiOpType:39
+    |vpiOperand:
+    \_ref_obj: (work@oh_delay.gen_pipe[2].clk), line:15:26, endln:15:29
+      |vpiParent:
+      \_operation: , line:15:18, endln:15:29
+      |vpiName:clk
+      |vpiFullName:work@oh_delay.gen_pipe[2].clk
+  |vpiStmt:
+  \_assignment: , line:16:10, endln:16:38
+\_always: , line:15:8, endln:16:39
+  |vpiParent:
+  \_gen_scope: (work@oh_delay.gen_pipe[2]), line:14:31, endln:17:8
+  |vpiStmt:
+  \_event_control: , line:15:15, endln:15:30
+  |vpiAlwaysType:1
+\_operation: , line:16:34, endln:16:37
+  |vpiParent:
+  \_bit_select: (work@oh_delay.gen_pipe[3].sync_pipe), line:16:34, endln:16:37
+  |vpiOpType:11
+  |vpiOperand:
+  \_ref_obj: (work@oh_delay.gen_pipe[3].sync_pipe.i), line:16:34, endln:16:35
+    |vpiParent:
+    \_operation: , line:16:34, endln:16:37
+    |vpiName:i
+    |vpiFullName:work@oh_delay.gen_pipe[3].sync_pipe.i
+  |vpiOperand:
+  \_constant: , line:16:36, endln:16:37
+\_bit_select: (work@oh_delay.gen_pipe[3].sync_pipe), line:16:34, endln:16:37
+  |vpiParent:
+  \_assignment: , line:16:10, endln:16:38
+  |vpiName:sync_pipe
+  |vpiFullName:work@oh_delay.gen_pipe[3].sync_pipe
+  |vpiIndex:
+  \_operation: , line:16:34, endln:16:37
+\_assignment: , line:16:10, endln:16:38
+  |vpiParent:
+  \_event_control: , line:15:15, endln:15:30
+  |vpiOpType:82
+  |vpiRhs:
+  \_bit_select: (work@oh_delay.gen_pipe[3].sync_pipe), line:16:34, endln:16:37
+  |vpiLhs:
+  \_bit_select: (work@oh_delay.gen_pipe[3].sync_pipe), line:16:10, endln:16:22
+    |vpiParent:
+    \_assignment: , line:16:10, endln:16:38
+    |vpiName:sync_pipe
+    |vpiFullName:work@oh_delay.gen_pipe[3].sync_pipe
+    |vpiIndex:
+    \_ref_obj: (work@oh_delay.gen_pipe[3].i), line:16:20, endln:16:21
+      |vpiParent:
+      \_bit_select: (work@oh_delay.gen_pipe[3].sync_pipe), line:16:10, endln:16:22
+      |vpiName:i
+      |vpiFullName:work@oh_delay.gen_pipe[3].i
+\_event_control: , line:15:15, endln:15:30
+  |vpiParent:
+  \_always: , line:15:8, endln:16:39
+  |vpiCondition:
+  \_operation: , line:15:18, endln:15:29
+    |vpiParent:
+    \_event_control: , line:15:15, endln:15:30
+    |vpiOpType:39
+    |vpiOperand:
+    \_ref_obj: (work@oh_delay.gen_pipe[3].clk), line:15:26, endln:15:29
+      |vpiParent:
+      \_operation: , line:15:18, endln:15:29
+      |vpiName:clk
+      |vpiFullName:work@oh_delay.gen_pipe[3].clk
+  |vpiStmt:
+  \_assignment: , line:16:10, endln:16:38
+\_always: , line:15:8, endln:16:39
+  |vpiParent:
+  \_gen_scope: (work@oh_delay.gen_pipe[3]), line:14:31, endln:17:8
+  |vpiStmt:
+  \_event_control: , line:15:15, endln:15:30
+  |vpiAlwaysType:1
+\_logic_typespec: , line:30:7, endln:30:20
+  |vpiRange:
+  \_range: , line:30:7, endln:30:20
+    |vpiParent:
+    \_logic_typespec: , line:30:7, endln:30:20
+    |vpiLeftRange:
+    \_constant: , line:30:8, endln:30:15
+      |vpiParent:
+      \_range: , line:30:7, endln:30:20
+      |vpiDecompile:3
+      |vpiSize:64
+      |INT:3
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:30:18, endln:30:19
+      |vpiParent:
+      \_range: , line:30:7, endln:30:20
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:31:7, endln:31:20
+  |vpiRange:
+  \_range: , line:31:7, endln:31:20
+    |vpiParent:
+    \_logic_typespec: , line:31:7, endln:31:20
+    |vpiLeftRange:
+    \_constant: , line:31:8, endln:31:15
+      |vpiParent:
+      \_range: , line:31:7, endln:31:20
+      |vpiDecompile:1
+      |vpiSize:64
+      |INT:1
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:31:18, endln:31:19
+      |vpiParent:
+      \_range: , line:31:7, endln:31:20
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:32:8, endln:32:22
+  |vpiRange:
+  \_range: , line:32:8, endln:32:22
+    |vpiParent:
+    \_logic_typespec: , line:32:8, endln:32:22
+    |vpiLeftRange:
+    \_constant: , line:32:9, endln:32:16
+      |vpiParent:
+      \_range: , line:32:8, endln:32:22
+      |vpiDecompile:7
+      |vpiSize:64
+      |INT:7
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:32:20, endln:32:21
+      |vpiParent:
+      \_range: , line:32:8, endln:32:22
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:30:7, endln:30:20
+  |vpiParent:
+  \_logic_net: (work@shift.a), line:24:14, endln:24:15
+  |vpiRange:
+  \_range: , line:30:7, endln:30:20
+    |vpiParent:
+    \_logic_typespec: , line:30:7, endln:30:20
+    |vpiLeftRange:
+    \_constant: , line:30:8, endln:30:15
+      |vpiParent:
+      \_range: , line:30:7, endln:30:20
+      |vpiDecompile:3
+      |vpiSize:64
+      |INT:3
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:30:18, endln:30:19
+      |vpiParent:
+      \_range: , line:30:7, endln:30:20
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:31:7, endln:31:20
+  |vpiParent:
+  \_logic_net: (work@shift.s), line:24:16, endln:24:17
+  |vpiRange:
+  \_range: , line:31:7, endln:31:20
+    |vpiParent:
+    \_logic_typespec: , line:31:7, endln:31:20
+    |vpiLeftRange:
+    \_constant: , line:31:8, endln:31:15
+      |vpiParent:
+      \_range: , line:31:7, endln:31:20
+      |vpiDecompile:1
+      |vpiSize:64
+      |INT:1
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:31:18, endln:31:19
+      |vpiParent:
+      \_range: , line:31:7, endln:31:20
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:32:8, endln:32:22
+  |vpiRange:
+  \_range: , line:32:8, endln:32:22
+    |vpiParent:
+    \_logic_typespec: , line:32:8, endln:32:22
+    |vpiLeftRange:
+    \_constant: , line:32:9, endln:32:16
+      |vpiParent:
+      \_range: , line:32:8, endln:32:22
+      |vpiDecompile:7
+      |vpiSize:64
+      |INT:7
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:32:20, endln:32:21
+      |vpiParent:
+      \_range: , line:32:8, endln:32:22
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_operation: , line:36:27, endln:36:36
+  |vpiParent:
+  \_bit_select: (work@shift.SGNED.a), line:36:27, endln:36:36
+  |vpiOpType:11
+  |vpiOperand:
+  \_ref_obj: (work@shift.SGNED.a.width_a), line:36:27, endln:36:34
+    |vpiParent:
+    \_operation: , line:36:27, endln:36:36
+    |vpiName:width_a
+    |vpiFullName:work@shift.SGNED.a.width_a
+  |vpiOperand:
+  \_constant: , line:36:35, endln:36:36
+\_bit_select: (work@shift.SGNED.a), line:36:27, endln:36:36
+  |vpiParent:
+  \_func_call: (fshl_s), line:36:14, endln:36:38
+  |vpiName:a
+  |vpiFullName:work@shift.SGNED.a
+  |vpiIndex:
+  \_operation: , line:36:27, endln:36:36
+\_func_call: (fshl_s), line:36:14, endln:36:38
+  |vpiParent:
+  \_cont_assign: , line:36:10, endln:36:38
+  |vpiArgument:
+  \_ref_obj: (work@shift.SGNED.a), line:36:21, endln:36:22
+    |vpiParent:
+    \_func_call: (fshl_s), line:36:14, endln:36:38
+    |vpiName:a
+    |vpiFullName:work@shift.SGNED.a
+  |vpiArgument:
+  \_ref_obj: (work@shift.SGNED.s), line:36:23, endln:36:24
+    |vpiParent:
+    \_func_call: (fshl_s), line:36:14, endln:36:38
+    |vpiName:s
+    |vpiFullName:work@shift.SGNED.s
+  |vpiArgument:
+  \_bit_select: (work@shift.SGNED.a), line:36:27, endln:36:36
+  |vpiName:fshl_s
+\_cont_assign: , line:36:10, endln:36:38
+  |vpiParent:
+  \_gen_scope: (work@shift.SGNED), line:35:1, endln:37:4
+  |vpiRhs:
+  \_func_call: (fshl_s), line:36:14, endln:36:38
+  |vpiLhs:
+  \_ref_obj: (work@shift.SGNED.z), line:36:10, endln:36:11
+    |vpiParent:
+    \_cont_assign: , line:36:10, endln:36:38
+    |vpiName:z
+    |vpiFullName:work@shift.SGNED.z
+    |vpiActual:
+    \_logic_net: (work@shift.z), line:24:18, endln:24:19
+\_logic_typespec: , line:47:9, endln:47:19
+  |vpiRange:
+  \_range: , line:47:14, endln:47:19
+    |vpiParent:
+    \_logic_typespec: , line:47:9, endln:47:19
+    |vpiLeftRange:
+    \_constant: , line:47:15, endln:47:16
+      |vpiParent:
+      \_range: , line:47:14, endln:47:19
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:47:17, endln:47:18
+      |vpiParent:
+      \_range: , line:47:14, endln:47:19
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_operation: , line:61:36, endln:61:47
+  |vpiParent:
+  \_operation: , line:61:36, endln:61:53
+  |vpiOpType:30
+  |vpiOperand:
+  \_hier_path: (B.y), line:61:36, endln:61:39
+    |vpiParent:
+    \_operation: , line:61:36, endln:61:47
+    |vpiName:B.y
+    |vpiActual:
+    \_ref_obj: (B), line:61:36, endln:61:37
+      |vpiParent:
+      \_hier_path: (B.y), line:61:36, endln:61:39
+      |vpiName:B
+    |vpiActual:
+    \_ref_obj: (work@gen_test9.A.y), line:61:38, endln:61:39
+      |vpiParent:
+      \_hier_path: (B.y), line:61:36, endln:61:39
+      |vpiName:y
+      |vpiFullName:work@gen_test9.A.y
+  |vpiOperand:
+  \_constant: , line:61:42, endln:61:47
+\_operation: , line:61:36, endln:61:53
+  |vpiParent:
+  \_cont_assign: , line:61:32, endln:61:53
+  |vpiOpType:30
+  |vpiOperand:
+  \_operation: , line:61:36, endln:61:47
+  |vpiOperand:
+  \_hier_path: (C.z), line:61:50, endln:61:53
+    |vpiParent:
+    \_operation: , line:61:36, endln:61:53
+    |vpiName:C.z
+    |vpiActual:
+    \_ref_obj: (C), line:61:50, endln:61:51
+      |vpiParent:
+      \_hier_path: (C.z), line:61:50, endln:61:53
+      |vpiName:C
+    |vpiActual:
+    \_ref_obj: (work@gen_test9.A.z), line:61:52, endln:61:53
+      |vpiParent:
+      \_hier_path: (C.z), line:61:50, endln:61:53
+      |vpiName:z
+      |vpiFullName:work@gen_test9.A.z
+\_cont_assign: , line:61:32, endln:61:53
+  |vpiParent:
+  \_gen_scope: (work@gen_test9.A), line:49:17, endln:62:20
+  |vpiRhs:
+  \_operation: , line:61:36, endln:61:53
+  |vpiLhs:
+  \_ref_obj: (work@gen_test9.A.x), line:61:32, endln:61:33
+    |vpiParent:
+    \_cont_assign: , line:61:32, endln:61:53
+    |vpiName:x
+    |vpiFullName:work@gen_test9.A.x
+\_logic_typespec: , line:50:25, endln:50:35
+  |vpiParent:
+  \_logic_net: (work@gen_test9.A.x), line:50:36, endln:50:37
+  |vpiRange:
+  \_range: , line:50:30, endln:50:35
+    |vpiParent:
+    \_logic_typespec: , line:50:25, endln:50:35
+    |vpiLeftRange:
+    \_constant: , line:50:31, endln:50:32
+      |vpiParent:
+      \_range: , line:50:30, endln:50:35
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:50:33, endln:50:34
+      |vpiParent:
+      \_range: , line:50:30, endln:50:35
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:53:33, endln:53:43
+  |vpiRange:
+  \_range: , line:53:38, endln:53:43
+    |vpiParent:
+    \_logic_typespec: , line:53:33, endln:53:43
+    |vpiLeftRange:
+    \_constant: , line:53:39, endln:53:40
+      |vpiParent:
+      \_range: , line:53:38, endln:53:43
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:53:41, endln:53:42
+      |vpiParent:
+      \_range: , line:53:38, endln:53:43
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:58:33, endln:58:43
+  |vpiRange:
+  \_range: , line:58:38, endln:58:43
+    |vpiParent:
+    \_logic_typespec: , line:58:33, endln:58:43
+    |vpiLeftRange:
+    \_constant: , line:58:39, endln:58:40
+      |vpiParent:
+      \_range: , line:58:38, endln:58:43
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:58:41, endln:58:42
+      |vpiParent:
+      \_range: , line:58:38, endln:58:43
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:94:5, endln:94:27
+  |vpiParent:
+  \_ref_obj: (work@oh_rsync.genblk1.sync_pipe)
+\_operation: , line:108:19, endln:108:29
+  |vpiParent:
+  \_part_select: sync_pipe (work@oh_rsync.genblk1.sync_pipe), line:108:9, endln:108:32
+  |vpiOpType:11
+  |vpiOperand:
+  \_constant: , line:108:19, endln:108:27
+  |vpiOperand:
+  \_constant: , line:108:28, endln:108:29
+\_part_select: sync_pipe (work@oh_rsync.genblk1.sync_pipe), line:108:9, endln:108:32
+  |vpiParent:
+  \_assignment: , line:108:9, endln:108:39
+  |vpiName:sync_pipe
+  |vpiFullName:work@oh_rsync.genblk1.sync_pipe
+  |vpiDefName:sync_pipe
+  |vpiConstantSelect:1
+  |vpiLeftRange:
+  \_operation: , line:108:19, endln:108:29
+  |vpiRightRange:
+  \_constant: , line:108:30, endln:108:31
+\_assignment: , line:108:9, endln:108:39
+  |vpiParent:
+  \_if_else: , line:107:7, endln:110:67
+  |vpiOpType:82
+  |vpiRhs:
+  \_constant: , line:108:36, endln:108:39
+  |vpiLhs:
+  \_part_select: sync_pipe (work@oh_rsync.genblk1.sync_pipe), line:108:9, endln:108:32
+\_if_else: , line:107:7, endln:110:67
+  |vpiParent:
+  \_event_control: , line:106:12, endln:106:46
+  |vpiCondition:
+  \_operation: , line:107:10, endln:107:18
+    |vpiParent:
+    \_event_control: , line:106:12, endln:106:46
+    |vpiOpType:3
+    |vpiOperand:
+    \_ref_obj: (work@oh_rsync.genblk1.nrst_in), line:107:11, endln:107:18
+      |vpiParent:
+      \_operation: , line:107:10, endln:107:18
+      |vpiName:nrst_in
+      |vpiFullName:work@oh_rsync.genblk1.nrst_in
+  |vpiStmt:
+  \_assignment: , line:108:9, endln:108:39
+  |vpiElseStmt:
+  \_assignment: , line:110:9, endln:110:66
+    |vpiParent:
+    \_if_else: , line:107:7, endln:110:67
+    |vpiOpType:82
+    |vpiRhs:
+    \_operation: , line:110:36, endln:110:66
+      |vpiParent:
+      \_assignment: , line:110:9, endln:110:66
+      |vpiOpType:33
+      |vpiOperand:
+      \_part_select: sync_pipe (work@oh_rsync.genblk1.sync_pipe), line:110:37, endln:110:60
+        |vpiParent:
+        \_operation: , line:110:36, endln:110:66
+        |vpiName:sync_pipe
+        |vpiFullName:work@oh_rsync.genblk1.sync_pipe
+        |vpiDefName:sync_pipe
+        |vpiConstantSelect:1
+        |vpiLeftRange:
+        \_operation: , line:110:47, endln:110:57
+          |vpiParent:
+          \_part_select: sync_pipe (work@oh_rsync.genblk1.sync_pipe), line:110:37, endln:110:60
+          |vpiOpType:11
+          |vpiOperand:
+          \_constant: , line:110:47, endln:110:55
+          |vpiOperand:
+          \_constant: , line:110:56, endln:110:57
+        |vpiRightRange:
+        \_constant: , line:110:58, endln:110:59
+      |vpiOperand:
+      \_constant: , line:110:61, endln:110:65
+    |vpiLhs:
+    \_part_select: sync_pipe (work@oh_rsync.genblk1.sync_pipe), line:110:9, endln:110:32
+      |vpiParent:
+      \_assignment: , line:110:9, endln:110:66
+      |vpiName:sync_pipe
+      |vpiFullName:work@oh_rsync.genblk1.sync_pipe
+      |vpiDefName:sync_pipe
+      |vpiConstantSelect:1
+      |vpiLeftRange:
+      \_operation: , line:110:19, endln:110:29
+        |vpiParent:
+        \_part_select: sync_pipe (work@oh_rsync.genblk1.sync_pipe), line:110:9, endln:110:32
+        |vpiOpType:11
+        |vpiOperand:
+        \_constant: , line:110:19, endln:110:27
+        |vpiOperand:
+        \_constant: , line:110:28, endln:110:29
+      |vpiRightRange:
+      \_constant: , line:110:30, endln:110:31
+\_event_control: , line:106:12, endln:106:46
+  |vpiParent:
+  \_always: , line:106:5, endln:110:67
+  |vpiCondition:
+  \_operation: , line:106:15, endln:106:45
+    |vpiParent:
+    \_event_control: , line:106:12, endln:106:46
+    |vpiOpType:35
+    |vpiOperand:
+    \_operation: , line:106:15, endln:106:26
+      |vpiParent:
+      \_operation: , line:106:15, endln:106:45
+      |vpiOpType:39
+      |vpiOperand:
+      \_ref_obj: (work@oh_rsync.genblk1.clk), line:106:23, endln:106:26
+        |vpiParent:
+        \_operation: , line:106:15, endln:106:26
+        |vpiName:clk
+        |vpiFullName:work@oh_rsync.genblk1.clk
+    |vpiOperand:
+    \_operation: , line:106:30, endln:106:45
+      |vpiParent:
+      \_operation: , line:106:15, endln:106:45
+      |vpiOpType:40
+      |vpiOperand:
+      \_ref_obj: (work@oh_rsync.genblk1.nrst_in), line:106:38, endln:106:45
+        |vpiParent:
+        \_operation: , line:106:30, endln:106:45
+        |vpiName:nrst_in
+        |vpiFullName:work@oh_rsync.genblk1.nrst_in
+  |vpiStmt:
+  \_if_else: , line:107:7, endln:110:67
+\_always: , line:106:5, endln:110:67
+  |vpiParent:
+  \_gen_scope: (work@oh_rsync.genblk1), line:105:5, endln:105:34
+  |vpiStmt:
+  \_event_control: , line:106:12, endln:106:46
+  |vpiAlwaysType:1
+\_int_typespec: , line:94:5, endln:94:27
+  |vpiParent:
+  \_ref_obj: (work@oh_rsync.genblk1.sync_pipe)
+\_int_typespec: , line:94:5, endln:94:27
+  |vpiParent:
+  \_ref_obj: (work@oh_rsync.genblk1.sync_pipe)
+\_int_typespec: , line:94:5, endln:94:27
+  |vpiParent:
+  \_ref_obj: (work@oh_rsync.genblk1.sync_pipe)
+\_operation: , line:111:33, endln:111:43
+  |vpiParent:
+  \_bit_select: (work@oh_rsync.genblk1.sync_pipe), line:111:33, endln:111:43
+  |vpiOpType:11
+  |vpiOperand:
+  \_constant: , line:111:33, endln:111:41
+  |vpiOperand:
+  \_constant: , line:111:42, endln:111:43
+\_bit_select: (work@oh_rsync.genblk1.sync_pipe), line:111:33, endln:111:43
+  |vpiParent:
+  \_cont_assign: , line:111:12, endln:111:44
+  |vpiName:sync_pipe
+  |vpiFullName:work@oh_rsync.genblk1.sync_pipe
+  |vpiIndex:
+  \_operation: , line:111:33, endln:111:43
+\_cont_assign: , line:111:12, endln:111:44
+  |vpiParent:
+  \_gen_scope: (work@oh_rsync.genblk1), line:105:5, endln:105:34
+  |vpiRhs:
+  \_bit_select: (work@oh_rsync.genblk1.sync_pipe), line:111:33, endln:111:43
+  |vpiLhs:
+  \_ref_obj: (work@oh_rsync.genblk1.nrst_out), line:111:12, endln:111:20
+    |vpiParent:
+    \_cont_assign: , line:111:12, endln:111:44
+    |vpiName:nrst_out
+    |vpiFullName:work@oh_rsync.genblk1.nrst_out
+\_logic_typespec: , line:105:5, endln:105:23
+  |vpiParent:
+  \_logic_net: (work@oh_rsync.genblk1.sync_pipe), line:105:24, endln:105:33
+  |vpiRange:
+  \_range: , line:105:9, endln:105:23
+    |vpiParent:
+    \_logic_typespec: , line:105:5, endln:105:23
+    |vpiLeftRange:
+    \_constant: , line:105:10, endln:105:18
+      |vpiParent:
+      \_range: , line:105:9, endln:105:23
+      |vpiDecompile:1
+      |vpiSize:64
+      |INT:1
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:105:21, endln:105:22
+      |vpiParent:
+      \_range: , line:105:9, endln:105:23
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:47:9, endln:47:19
+  |vpiRange:
+  \_range: , line:47:14, endln:47:19
+    |vpiParent:
+    \_logic_typespec: , line:47:9, endln:47:19
+    |vpiLeftRange:
+    \_constant: , line:47:15, endln:47:16
+      |vpiParent:
+      \_range: , line:47:14, endln:47:19
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:47:17, endln:47:18
+      |vpiParent:
+      \_range: , line:47:14, endln:47:19
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:30:7, endln:30:20
+  |vpiRange:
+  \_range: , line:30:7, endln:30:20
+    |vpiParent:
+    \_logic_typespec: , line:30:7, endln:30:20
+    |vpiLeftRange:
+    \_operation: , line:30:8, endln:30:17
+      |vpiParent:
+      \_range: , line:30:7, endln:30:20
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (width_a), line:30:8, endln:30:15
+        |vpiParent:
+        \_operation: , line:30:8, endln:30:17
+        |vpiName:width_a
+      |vpiOperand:
+      \_constant: , line:30:16, endln:30:17
+        |vpiParent:
+        \_operation: , line:30:8, endln:30:17
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:30:18, endln:30:19
+      |vpiParent:
+      \_range: , line:30:7, endln:30:20
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:31:7, endln:31:20
+  |vpiRange:
+  \_range: , line:31:7, endln:31:20
+    |vpiParent:
+    \_logic_typespec: , line:31:7, endln:31:20
+    |vpiLeftRange:
+    \_operation: , line:31:8, endln:31:17
+      |vpiParent:
+      \_range: , line:31:7, endln:31:20
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (width_s), line:31:8, endln:31:15
+        |vpiParent:
+        \_operation: , line:31:8, endln:31:17
+        |vpiName:width_s
+      |vpiOperand:
+      \_constant: , line:31:16, endln:31:17
+        |vpiParent:
+        \_operation: , line:31:8, endln:31:17
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:31:18, endln:31:19
+      |vpiParent:
+      \_range: , line:31:7, endln:31:20
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:32:8, endln:32:22
+  |vpiRange:
+  \_range: , line:32:8, endln:32:22
+    |vpiParent:
+    \_logic_typespec: , line:32:8, endln:32:22
+    |vpiLeftRange:
+    \_operation: , line:32:9, endln:32:19
+      |vpiParent:
+      \_range: , line:32:8, endln:32:22
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (width_z), line:32:9, endln:32:16
+        |vpiParent:
+        \_operation: , line:32:9, endln:32:19
+        |vpiName:width_z
+      |vpiOperand:
+      \_constant: , line:32:18, endln:32:19
+        |vpiParent:
+        \_operation: , line:32:9, endln:32:19
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:32:20, endln:32:21
+      |vpiParent:
+      \_range: , line:32:8, endln:32:22
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:2:3, endln:2:25
+  |vpiParent:
+  \_ref_obj: (work@oh_delay.N)
+\_int_typespec: , line:3:3, endln:3:25
+  |vpiParent:
+  \_ref_obj: (work@oh_delay.MAXDELAY)
+\_gen_scope: (work@oh_delay.gen_pipe[1]), line:14:31, endln:17:8
+  |vpiParent:
+  \_gen_scope_array: (work@oh_delay.gen_pipe[1]), line:14:31, endln:17:8
+  |vpiFullName:work@oh_delay.gen_pipe[1]
+  |vpiParameter:
+  \_parameter: (work@oh_delay.gen_pipe[1].i), line:14:0
+  |vpiProcess:
+  \_always: , line:15:8, endln:16:39
+\_gen_scope_array: (work@oh_delay.gen_pipe[1]), line:14:31, endln:17:8
+  |vpiParent:
+  \_module_inst: work@oh_delay (work@oh_delay), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:1:1, endln:20:10
+  |vpiName:gen_pipe[1]
+  |vpiFullName:work@oh_delay.gen_pipe[1]
+  |vpiGenScope:
+  \_gen_scope: (work@oh_delay.gen_pipe[1]), line:14:31, endln:17:8
+\_int_typespec: 
+\_gen_scope: (work@oh_delay.gen_pipe[2]), line:14:31, endln:17:8
+  |vpiParent:
+  \_gen_scope_array: (work@oh_delay.gen_pipe[2]), line:14:31, endln:17:8
+  |vpiFullName:work@oh_delay.gen_pipe[2]
+  |vpiParameter:
+  \_parameter: (work@oh_delay.gen_pipe[2].i), line:14:0
+  |vpiProcess:
+  \_always: , line:15:8, endln:16:39
+\_gen_scope_array: (work@oh_delay.gen_pipe[2]), line:14:31, endln:17:8
+  |vpiParent:
+  \_module_inst: work@oh_delay (work@oh_delay), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:1:1, endln:20:10
+  |vpiName:gen_pipe[2]
+  |vpiFullName:work@oh_delay.gen_pipe[2]
+  |vpiGenScope:
+  \_gen_scope: (work@oh_delay.gen_pipe[2]), line:14:31, endln:17:8
+\_int_typespec: 
+\_gen_scope: (work@oh_delay.gen_pipe[3]), line:14:31, endln:17:8
+  |vpiParent:
+  \_gen_scope_array: (work@oh_delay.gen_pipe[3]), line:14:31, endln:17:8
+  |vpiFullName:work@oh_delay.gen_pipe[3]
+  |vpiParameter:
+  \_parameter: (work@oh_delay.gen_pipe[3].i), line:14:0
+  |vpiProcess:
+  \_always: , line:15:8, endln:16:39
+\_gen_scope_array: (work@oh_delay.gen_pipe[3]), line:14:31, endln:17:8
+  |vpiParent:
+  \_module_inst: work@oh_delay (work@oh_delay), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:1:1, endln:20:10
+  |vpiName:gen_pipe[3]
+  |vpiFullName:work@oh_delay.gen_pipe[3]
+  |vpiGenScope:
+  \_gen_scope: (work@oh_delay.gen_pipe[3]), line:14:31, endln:17:8
+\_int_typespec: 
+\_int_typespec: , line:25:1, endln:25:25
+  |vpiParent:
+  \_ref_obj: (work@shift.width_a)
+\_int_typespec: , line:26:1, endln:26:25
+  |vpiParent:
+  \_ref_obj: (work@shift.signd_a)
+\_int_typespec: , line:27:1, endln:27:25
+  |vpiParent:
+  \_ref_obj: (work@shift.width_s)
+\_int_typespec: , line:28:1, endln:28:25
+  |vpiParent:
+  \_ref_obj: (work@shift.width_z)
+\_gen_scope: (work@shift.SGNED), line:35:1, endln:37:4
+  |vpiParent:
+  \_gen_scope_array: (work@shift.SGNED), line:35:1, endln:37:4
+  |vpiFullName:work@shift.SGNED
+  |vpiContAssign:
+  \_cont_assign: , line:36:10, endln:36:38
+\_gen_scope_array: (work@shift.SGNED), line:35:1, endln:37:4
+  |vpiParent:
+  \_module_inst: work@shift (work@shift), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:24:1, endln:43:10
+  |vpiName:SGNED
+  |vpiFullName:work@shift.SGNED
+  |vpiGenScope:
+  \_gen_scope: (work@shift.SGNED), line:35:1, endln:37:4
+\_cont_assign: , line:47:20, endln:47:21
+  |vpiParent:
+  \_module_inst: work@gen_test9 (work@gen_test9), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:46:1, endln:64:10
+  |vpiNetDeclAssign:1
+  |vpiRhs:
+  \_constant: , line:47:24, endln:47:29
+  |vpiLhs:
+  \_logic_net: (work@gen_test9.w), line:47:20, endln:47:21
+    |vpiParent:
+    \_cont_assign: , line:47:20, endln:47:21
+    |vpiTypespec:
+    \_ref_obj: (work@gen_test9.w)
+      |vpiParent:
+      \_logic_net: (work@gen_test9.w), line:47:20, endln:47:21
+      |vpiFullName:work@gen_test9.w
+      |vpiActual:
+      \_logic_typespec: , line:47:9, endln:47:19
+    |vpiName:w
+    |vpiFullName:work@gen_test9.w
+    |vpiNetType:1
+\_logic_typespec: , line:47:9, endln:47:19
+  |vpiParent:
+  \_ref_obj: (work@gen_test9.w)
+  |vpiRange:
+  \_range: , line:47:14, endln:47:19
+    |vpiParent:
+    \_logic_typespec: , line:47:9, endln:47:19
+    |vpiLeftRange:
+    \_constant: , line:47:15, endln:47:16
+      |vpiParent:
+      \_range: , line:47:14, endln:47:19
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:47:17, endln:47:18
+      |vpiParent:
+      \_range: , line:47:14, endln:47:19
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_gen_scope: (work@gen_test9.A), line:49:17, endln:62:20
+  |vpiParent:
+  \_gen_scope_array: (work@gen_test9.A), line:49:17, endln:62:20
+  |vpiFullName:work@gen_test9.A
+  |vpiNet:
+  \_logic_net: (work@gen_test9.A.x), line:50:36, endln:50:37
+  |vpiContAssign:
+  \_cont_assign: , line:61:32, endln:61:53
+  |vpiGenScopeArray:
+  \_gen_scope_array: (work@gen_test9.A.B), line:52:25, endln:54:28
+    |vpiParent:
+    \_gen_scope: (work@gen_test9.A), line:49:17, endln:62:20
+    |vpiName:B
+    |vpiFullName:work@gen_test9.A.B
+    |vpiGenScope:
+    \_gen_scope: (work@gen_test9.A.B), line:52:25, endln:54:28
+      |vpiParent:
+      \_gen_scope_array: (work@gen_test9.A.B), line:52:25, endln:54:28
+      |vpiFullName:work@gen_test9.A.B
+      |vpiNet:
+      \_logic_net: (work@gen_test9.A.B.y), line:53:44, endln:53:45
+      |vpiContAssign:
+      \_cont_assign: , line:53:44, endln:53:45
+        |vpiParent:
+        \_gen_scope: (work@gen_test9.A.B), line:52:25, endln:54:28
+        |vpiNetDeclAssign:1
+        |vpiRhs:
+        \_constant: , line:53:48, endln:53:53
+        |vpiLhs:
+        \_logic_net: (work@gen_test9.A.B.y), line:53:44, endln:53:45
+          |vpiParent:
+          \_cont_assign: , line:53:44, endln:53:45
+          |vpiTypespec:
+          \_ref_obj: (work@gen_test9.A.B.y)
+            |vpiParent:
+            \_logic_net: (work@gen_test9.A.B.y), line:53:44, endln:53:45
+            |vpiFullName:work@gen_test9.A.B.y
+            |vpiActual:
+            \_logic_typespec: , line:53:33, endln:53:43
+          |vpiName:y
+          |vpiFullName:work@gen_test9.A.B.y
+          |vpiNetType:1
+  |vpiGenScopeArray:
+  \_gen_scope_array: (work@gen_test9.A.C), line:57:25, endln:59:28
+    |vpiParent:
+    \_gen_scope: (work@gen_test9.A), line:49:17, endln:62:20
+    |vpiName:C
+    |vpiFullName:work@gen_test9.A.C
+    |vpiGenScope:
+    \_gen_scope: (work@gen_test9.A.C), line:57:25, endln:59:28
+      |vpiParent:
+      \_gen_scope_array: (work@gen_test9.A.C), line:57:25, endln:59:28
+      |vpiFullName:work@gen_test9.A.C
+      |vpiNet:
+      \_logic_net: (work@gen_test9.A.C.z), line:58:44, endln:58:45
+      |vpiContAssign:
+      \_cont_assign: , line:58:44, endln:58:45
+        |vpiParent:
+        \_gen_scope: (work@gen_test9.A.C), line:57:25, endln:59:28
+        |vpiNetDeclAssign:1
+        |vpiRhs:
+        \_constant: , line:58:48, endln:58:53
+        |vpiLhs:
+        \_logic_net: (work@gen_test9.A.C.z), line:58:44, endln:58:45
+          |vpiParent:
+          \_cont_assign: , line:58:44, endln:58:45
+          |vpiTypespec:
+          \_ref_obj: (work@gen_test9.A.C.z)
+            |vpiParent:
+            \_logic_net: (work@gen_test9.A.C.z), line:58:44, endln:58:45
+            |vpiFullName:work@gen_test9.A.C.z
+            |vpiActual:
+            \_logic_typespec: , line:58:33, endln:58:43
+          |vpiName:z
+          |vpiFullName:work@gen_test9.A.C.z
+          |vpiNetType:1
+\_gen_scope_array: (work@gen_test9.A), line:49:17, endln:62:20
+  |vpiParent:
+  \_module_inst: work@gen_test9 (work@gen_test9), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:46:1, endln:64:10
+  |vpiName:A
+  |vpiFullName:work@gen_test9.A
+  |vpiGenScope:
+  \_gen_scope: (work@gen_test9.A), line:49:17, endln:62:20
+\_logic_typespec: , line:53:33, endln:53:43
+  |vpiParent:
+  \_ref_obj: (work@gen_test9.A.B.y)
+  |vpiRange:
+  \_range: , line:53:38, endln:53:43
+    |vpiParent:
+    \_logic_typespec: , line:53:33, endln:53:43
+    |vpiLeftRange:
+    \_constant: , line:53:39, endln:53:40
+      |vpiParent:
+      \_range: , line:53:38, endln:53:43
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:53:41, endln:53:42
+      |vpiParent:
+      \_range: , line:53:38, endln:53:43
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:58:33, endln:58:43
+  |vpiParent:
+  \_ref_obj: (work@gen_test9.A.C.z)
+  |vpiRange:
+  \_range: , line:58:38, endln:58:43
+    |vpiParent:
+    \_logic_typespec: , line:58:33, endln:58:43
+    |vpiLeftRange:
+    \_constant: , line:58:39, endln:58:40
+      |vpiParent:
+      \_range: , line:58:38, endln:58:43
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:58:41, endln:58:42
+      |vpiParent:
+      \_range: , line:58:38, endln:58:43
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:77:12, endln:77:15
+  |vpiParent:
+  \_ref_obj: (work@dut.t.Width)
+  |vpiSigned:1
+\_int_typespec: , line:78:12, endln:78:15
+  |vpiParent:
+  \_ref_obj: (work@dut.t.DataBitsPerMask)
+  |vpiSigned:1
+\_int_typespec: , line:80:20, endln:80:23
+  |vpiParent:
+  \_ref_obj: (work@dut.t.MaskWidth)
+  |vpiSigned:1
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: , line:94:5, endln:94:27
+  |vpiParent:
+  \_ref_obj: (work@oh_rsync.SYNCPIPE)
+\_string_typespec: 
+  |vpiParent:
+  \_ref_obj: (work@oh_rsync.SYN)
+\_string_typespec: 
+  |vpiParent:
+  \_ref_obj: (work@oh_rsync.TYPE)
+\_gen_scope: (work@oh_rsync.genblk1), line:105:5, endln:105:34
+  |vpiParent:
+  \_gen_scope_array: (work@oh_rsync.genblk1), line:105:5, endln:105:34
+  |vpiFullName:work@oh_rsync.genblk1
+  |vpiNet:
+  \_logic_net: (work@oh_rsync.genblk1.sync_pipe), line:105:24, endln:105:33
+  |vpiProcess:
+  \_always: , line:106:5, endln:110:67
+  |vpiContAssign:
+  \_cont_assign: , line:111:12, endln:111:44
+\_gen_scope_array: (work@oh_rsync.genblk1), line:105:5, endln:105:34
+  |vpiParent:
+  \_module_inst: work@oh_rsync (work@oh_rsync), file:${SURELOG_DIR}/tests/GenerateRegion/dut.sv, line:93:1, endln:123:10
+  |vpiName:genblk1
+  |vpiFullName:work@oh_rsync.genblk1
+  |vpiGenScope:
+  \_gen_scope: (work@oh_rsync.genblk1), line:105:5, endln:105:34
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -112,7 +112,7 @@ modport                                                4
 module_inst                                            5
 port                                                   3
 ref_module                                             2
-ref_obj                                                5
+ref_obj                                                7
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -126,7 +126,7 @@ modport                                                4
 module_inst                                            5
 port                                                   4
 ref_module                                             2
-ref_obj                                                7
+ref_obj                                               10
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ModPortParam/slpp_all/surelog.uhdm ...
 
@@ -184,11 +184,12 @@ design: (work@Core)
       |vpiActual:
       \_modport: (CSR), line:2:13, endln:2:16
     |vpiTypedef:
-    \_interface_typespec: (CSR), line:9:26, endln:9:29
+    \_ref_obj: (work@CSR_Unit.perfCounter)
       |vpiParent:
-      \_interface_typespec: (PerformanceCounterIF), line:9:5, endln:9:25
-      |vpiName:CSR
-      |vpiIsModPort:1
+      \_port: (perfCounter), line:9:30, endln:9:41
+      |vpiFullName:work@CSR_Unit.perfCounter
+      |vpiActual:
+      \_interface_typespec: (CSR), line:9:26, endln:9:29
 |uhdmallModules:
 \_module_inst: work@Core (work@Core), file:${SURELOG_DIR}/tests/ModPortParam/dut.sv, line:13:1, endln:17:10
   |vpiParent:
@@ -293,11 +294,12 @@ design: (work@Core)
         |vpiActual:
         \_modport: (CSR), line:2:13, endln:2:16
       |vpiTypedef:
-      \_interface_typespec: (CSR), line:9:26, endln:9:29
+      \_ref_obj: (work@Core.csrUnit.perfCounter)
         |vpiParent:
-        \_interface_typespec: (PerformanceCounterIF), line:9:5, endln:9:25
-        |vpiName:CSR
-        |vpiIsModPort:1
+        \_port: (perfCounter), line:9:30, endln:9:41
+        |vpiFullName:work@Core.csrUnit.perfCounter
+        |vpiActual:
+        \_interface_typespec: (CSR), line:9:26, endln:9:29
       |vpiInstance:
       \_module_inst: work@CSR_Unit (work@Core.csrUnit), file:${SURELOG_DIR}/tests/ModPortParam/dut.sv, line:16:2, endln:16:34
     |vpiInterface:
@@ -326,6 +328,21 @@ design: (work@Core)
             \_interface_inst: work@PerformanceCounterIF (work@Core.csrUnit.perfCounter), file:${SURELOG_DIR}/tests/ModPortParam/dut.sv, line:16:0
         |vpiInterface:
         \_interface_inst: work@PerformanceCounterIF (work@Core.csrUnit.perfCounter), file:${SURELOG_DIR}/tests/ModPortParam/dut.sv, line:16:0
+\_weaklyReferenced:
+\_interface_typespec: (CSR), line:9:26, endln:9:29
+  |vpiParent:
+  \_interface_typespec: (PerformanceCounterIF), line:9:5, endln:9:25
+  |vpiName:CSR
+  |vpiIsModPort:1
+\_interface_typespec: (PerformanceCounterIF), line:9:5, endln:9:25
+  |vpiName:PerformanceCounterIF
+\_interface_typespec: (CSR), line:9:26, endln:9:29
+  |vpiParent:
+  \_interface_typespec: (PerformanceCounterIF), line:9:5, endln:9:25
+  |vpiName:CSR
+  |vpiIsModPort:1
+\_interface_typespec: (PerformanceCounterIF), line:9:5, endln:9:25
+  |vpiName:PerformanceCounterIF
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

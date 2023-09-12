@@ -119,7 +119,7 @@ logic_net                                              3
 logic_typespec                                         2
 module_inst                                            7
 ref_module                                             2
-ref_obj                                                3
+ref_obj                                                5
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -131,7 +131,7 @@ logic_net                                              3
 logic_typespec                                         2
 module_inst                                            7
 ref_module                                             2
-ref_obj                                                6
+ref_obj                                                8
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/HierPathModule/slpp_all/surelog.uhdm ...
 
@@ -197,7 +197,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@medium (work@medium), file:${SURELOG_DIR}/tests/HierPathModule/dut.sv, line:6:1, endln:9:10
     |vpiTypespec:
-    \_logic_typespec: , line:7:3, endln:7:7
+    \_ref_obj: (work@medium.c)
+      |vpiParent:
+      \_logic_net: (work@medium.c), line:7:8, endln:7:9
+      |vpiFullName:work@medium.c
+      |vpiActual:
+      \_logic_typespec: , line:7:3, endln:7:7
     |vpiName:c
     |vpiFullName:work@medium.c
     |vpiNetType:1
@@ -243,9 +248,12 @@ design: (work@top)
       |vpiParent:
       \_module_inst: work@medium (work@top.u1), file:${SURELOG_DIR}/tests/HierPathModule/dut.sv, line:12:4, endln:12:16
       |vpiTypespec:
-      \_logic_typespec: , line:7:3, endln:7:7
+      \_ref_obj: (work@top.u1.c)
         |vpiParent:
         \_logic_net: (work@top.u1.c), line:7:8, endln:7:9
+        |vpiFullName:work@top.u1.c
+        |vpiActual:
+        \_logic_typespec: , line:7:3, endln:7:7
       |vpiName:c
       |vpiFullName:work@top.u1.c
       |vpiNetType:1
@@ -294,6 +302,11 @@ design: (work@top)
           |vpiFullName:work@top.u1.b1.o
           |vpiActual:
           \_logic_net: (work@bottom.o), line:3:10, endln:3:11
+\_weaklyReferenced:
+\_logic_typespec: , line:7:3, endln:7:7
+  |vpiParent:
+  \_logic_net: (work@top.u1.c), line:7:8, endln:7:9
+\_logic_typespec: , line:7:3, endln:7:7
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

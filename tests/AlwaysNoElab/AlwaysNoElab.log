@@ -456,7 +456,7 @@ package                                                2
 param_assign                                           4
 parameter                                              4
 range                                                  3
-ref_obj                                                6
+ref_obj                                               33
 sys_func_call                                          1
 task                                                   9
 === UHDM Object Stats End ===
@@ -487,7 +487,7 @@ package                                                2
 param_assign                                           4
 parameter                                              4
 range                                                  3
-ref_obj                                                8
+ref_obj                                               41
 sys_func_call                                          1
 task                                                  18
 === UHDM Object Stats End ===
@@ -565,9 +565,12 @@ design: (work@dut)
       |vpiParent:
       \_function: (work@mailbox::new), line:3:5, endln:4:16
       |vpiTypespec:
-      \_class_typespec: 
-        |vpiClassDefn:
-        \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/AlwaysNoElab/builtin.sv, line:1:3, endln:27:11
+      \_ref_obj: (work@mailbox::new)
+        |vpiParent:
+        \_class_var: (work@mailbox::new), line:3:23, endln:3:28
+        |vpiFullName:work@mailbox::new
+        |vpiActual:
+        \_class_typespec: 
       |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound), line:3:23, endln:3:28
@@ -582,8 +585,12 @@ design: (work@dut)
         |UINT:0
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:3:19, endln:3:22
-        |vpiSigned:1
+      \_ref_obj: (work@mailbox::new::bound)
+        |vpiParent:
+        \_io_decl: (bound), line:3:23, endln:3:28
+        |vpiFullName:work@mailbox::new::bound
+        |vpiActual:
+        \_int_typespec: , line:3:19, endln:3:22
   |vpiMethod:
   \_function: (work@mailbox::num), line:6:5, endln:7:16
     |vpiParent:
@@ -597,8 +604,12 @@ design: (work@dut)
       |vpiParent:
       \_function: (work@mailbox::num), line:6:5, endln:7:16
       |vpiTypespec:
-      \_int_typespec: , line:6:14, endln:6:17
-        |vpiSigned:1
+      \_ref_obj: (work@mailbox::num)
+        |vpiParent:
+        \_int_var: (work@mailbox::num), line:6:14, endln:6:17
+        |vpiFullName:work@mailbox::num
+        |vpiActual:
+        \_int_typespec: , line:6:14, endln:6:17
       |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
@@ -661,8 +672,12 @@ design: (work@dut)
       |vpiParent:
       \_function: (work@mailbox::try_get), line:18:5, endln:19:16
       |vpiTypespec:
-      \_int_typespec: , line:18:14, endln:18:17
-        |vpiSigned:1
+      \_ref_obj: (work@mailbox::try_get)
+        |vpiParent:
+        \_int_var: (work@mailbox::try_get), line:18:14, endln:18:17
+        |vpiFullName:work@mailbox::try_get
+        |vpiActual:
+        \_int_typespec: , line:18:14, endln:18:17
       |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
@@ -698,8 +713,12 @@ design: (work@dut)
       |vpiParent:
       \_function: (work@mailbox::try_peek), line:24:5, endln:25:16
       |vpiTypespec:
-      \_int_typespec: , line:24:14, endln:24:17
-        |vpiSigned:1
+      \_ref_obj: (work@mailbox::try_peek)
+        |vpiParent:
+        \_int_var: (work@mailbox::try_peek), line:24:14, endln:24:17
+        |vpiFullName:work@mailbox::try_peek
+        |vpiActual:
+        \_int_typespec: , line:24:14, endln:24:17
       |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
@@ -771,9 +790,12 @@ design: (work@dut)
       |vpiParent:
       \_function: (work@process::self), line:34:5, endln:34:11
       |vpiTypespec:
-      \_class_typespec: , line:34:21, endln:34:28
-        |vpiClassDefn:
-        \_class_defn: (work@process), file:${SURELOG_DIR}/tests/AlwaysNoElab/builtin.sv, line:30:3, endln:52:11
+      \_ref_obj: (work@process::self)
+        |vpiParent:
+        \_class_var: (work@process::self), line:34:21, endln:34:28
+        |vpiFullName:work@process::self
+        |vpiActual:
+        \_class_typespec: , line:34:21, endln:34:28
       |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status), line:37:5, endln:38:16
@@ -788,50 +810,12 @@ design: (work@dut)
       |vpiParent:
       \_function: (work@process::status), line:37:5, endln:38:16
       |vpiTypespec:
-      \_enum_typespec: (state), line:32:5, endln:32:74
+      \_ref_obj: (work@process::status)
         |vpiParent:
-        \_class_defn: (work@process), file:${SURELOG_DIR}/tests/AlwaysNoElab/builtin.sv, line:30:3, endln:52:11
-        |vpiName:state
-        |vpiEnumConst:
-        \_enum_const: (FINISHED), line:32:20, endln:32:28
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:FINISHED
-          |INT:0
-          |vpiDecompile:0
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (RUNNING), line:32:30, endln:32:37
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:RUNNING
-          |INT:1
-          |vpiDecompile:1
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (WAITING), line:32:39, endln:32:46
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:WAITING
-          |INT:2
-          |vpiDecompile:2
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (SUSPENDED), line:32:48, endln:32:57
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:SUSPENDED
-          |INT:3
-          |vpiDecompile:3
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (KILLED), line:32:59, endln:32:65
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:KILLED
-          |INT:4
-          |vpiDecompile:4
-          |vpiSize:64
+        \_enum_var: (work@process::status), line:37:14, endln:37:19
+        |vpiFullName:work@process::status
+        |vpiActual:
+        \_enum_typespec: (state), line:32:5, endln:32:74
       |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill), line:40:5, endln:41:12
@@ -882,9 +866,12 @@ design: (work@dut)
       |vpiParent:
       \_function: (work@semaphore::new), line:57:5, endln:58:16
       |vpiTypespec:
-      \_class_typespec: 
-        |vpiClassDefn:
-        \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/AlwaysNoElab/builtin.sv, line:55:3, endln:69:11
+      \_ref_obj: (work@semaphore::new)
+        |vpiParent:
+        \_class_var: (work@semaphore::new), line:57:22, endln:57:30
+        |vpiFullName:work@semaphore::new
+        |vpiActual:
+        \_class_typespec: 
       |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount), line:57:22, endln:57:30
@@ -899,8 +886,12 @@ design: (work@dut)
         |UINT:0
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:57:18, endln:57:21
-        |vpiSigned:1
+      \_ref_obj: (work@semaphore::new::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:57:22, endln:57:30
+        |vpiFullName:work@semaphore::new::keyCount
+        |vpiActual:
+        \_int_typespec: , line:57:18, endln:57:21
   |vpiMethod:
   \_task: (work@semaphore::put), line:60:5, endln:61:12
     |vpiParent:
@@ -922,8 +913,12 @@ design: (work@dut)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:60:14, endln:60:17
-        |vpiSigned:1
+      \_ref_obj: (work@semaphore::put::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:60:18, endln:60:26
+        |vpiFullName:work@semaphore::put::keyCount
+        |vpiActual:
+        \_int_typespec: , line:60:14, endln:60:17
   |vpiMethod:
   \_task: (work@semaphore::get), line:63:5, endln:64:12
     |vpiParent:
@@ -945,8 +940,12 @@ design: (work@dut)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:63:14, endln:63:17
-        |vpiSigned:1
+      \_ref_obj: (work@semaphore::get::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:63:18, endln:63:26
+        |vpiFullName:work@semaphore::get::keyCount
+        |vpiActual:
+        \_int_typespec: , line:63:14, endln:63:17
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:66:5, endln:67:16
     |vpiParent:
@@ -960,8 +959,12 @@ design: (work@dut)
       |vpiParent:
       \_function: (work@semaphore::try_get), line:66:5, endln:67:16
       |vpiTypespec:
-      \_int_typespec: , line:66:14, endln:66:17
-        |vpiSigned:1
+      \_ref_obj: (work@semaphore::try_get)
+        |vpiParent:
+        \_int_var: (work@semaphore::try_get), line:66:14, endln:66:17
+        |vpiFullName:work@semaphore::try_get
+        |vpiActual:
+        \_int_typespec: , line:66:14, endln:66:17
       |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
@@ -977,8 +980,12 @@ design: (work@dut)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:66:26, endln:66:29
-        |vpiSigned:1
+      \_ref_obj: (work@semaphore::try_get::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:66:30, endln:66:38
+        |vpiFullName:work@semaphore::try_get::keyCount
+        |vpiActual:
+        \_int_typespec: , line:66:26, endln:66:29
 |uhdmallModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/AlwaysNoElab/dut.sv, line:1:1, endln:12:10
   |vpiParent:
@@ -997,17 +1004,12 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/AlwaysNoElab/dut.sv, line:1:1, endln:12:10
     |vpiTypespec:
-    \_int_typespec: , line:5:14, endln:5:26
+    \_ref_obj: (work@dut.NumBitsDeviceSel)
       |vpiParent:
       \_parameter: (work@dut.NumBitsDeviceSel), line:5:27, endln:5:43
-      |vpiExpr:
-      \_ref_obj: (work@dut.NumBitsDeviceSel.NumBitsDeviceSel)
-        |vpiParent:
-        \_int_typespec: , line:5:14, endln:5:26
-        |vpiName:NumBitsDeviceSel
-        |vpiFullName:work@dut.NumBitsDeviceSel.NumBitsDeviceSel
-        |vpiActual:
-        \_parameter: (work@dut.NumBitsDeviceSel), line:5:27, endln:5:43
+      |vpiFullName:work@dut.NumBitsDeviceSel
+      |vpiActual:
+      \_int_typespec: , line:5:14, endln:5:26
     |vpiLocalParam:1
     |vpiName:NumBitsDeviceSel
     |vpiFullName:work@dut.NumBitsDeviceSel
@@ -1023,10 +1025,12 @@ design: (work@dut)
       |vpiSize:64
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: , line:2:13, endln:2:16
+      \_ref_obj: (work@dut)
         |vpiParent:
-        \_parameter: (work@dut.NrDevices), line:2:17, endln:2:26
-        |vpiSigned:1
+        \_constant: , line:2:29, endln:2:30
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_int_typespec: , line:2:13, endln:2:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@dut.NrDevices), line:2:17, endln:2:26
@@ -1085,37 +1089,12 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/AlwaysNoElab/dut.sv, line:1:1, endln:12:10
     |vpiTypespec:
-    \_logic_typespec: , line:6:3, endln:6:31
-      |vpiRange:
-      \_range: , line:6:9, endln:6:31
-        |vpiParent:
-        \_logic_typespec: , line:6:3, endln:6:31
-        |vpiLeftRange:
-        \_operation: , line:6:10, endln:6:28
-          |vpiParent:
-          \_range: , line:6:9, endln:6:31
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (NumBitsDeviceSel), line:6:10, endln:6:26
-            |vpiParent:
-            \_operation: , line:6:10, endln:6:28
-            |vpiName:NumBitsDeviceSel
-          |vpiOperand:
-          \_constant: , line:6:27, endln:6:28
-            |vpiParent:
-            \_operation: , line:6:10, endln:6:28
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:6:29, endln:6:30
-          |vpiParent:
-          \_range: , line:6:9, endln:6:31
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@dut.device_sel_req)
+      |vpiParent:
+      \_logic_net: (work@dut.device_sel_req), line:6:32, endln:6:46
+      |vpiFullName:work@dut.device_sel_req
+      |vpiActual:
+      \_logic_typespec: , line:6:3, endln:6:31
     |vpiName:device_sel_req
     |vpiFullName:work@dut.device_sel_req
     |vpiNetType:36
@@ -1124,8 +1103,12 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/AlwaysNoElab/dut.sv, line:1:1, endln:12:10
     |vpiTypespec:
-    \_int_typespec: , line:7:3, endln:7:17
-      |vpiSigned:1
+    \_ref_obj: (work@dut.device)
+      |vpiParent:
+      \_logic_net: (work@dut.device), line:7:7, endln:7:13
+      |vpiFullName:work@dut.device
+      |vpiActual:
+      \_int_typespec: , line:7:3, endln:7:17
     |vpiName:device
     |vpiFullName:work@dut.device
   |vpiProcess:
@@ -1148,7 +1131,12 @@ design: (work@dut)
           |vpiParent:
           \_assignment: , line:9:5, endln:9:47
           |vpiTypespec:
-          \_int_typespec: , line:5:14, endln:5:26
+          \_ref_obj: (work@dut)
+            |vpiParent:
+            \_operation: , line:9:22, endln:9:47
+            |vpiFullName:work@dut
+            |vpiActual:
+            \_int_typespec: , line:5:14, endln:5:26
           |vpiOpType:67
           |vpiOperand:
           \_ref_obj: (work@dut.device), line:9:40, endln:9:46
@@ -1175,29 +1163,12 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/AlwaysNoElab/dut.sv, line:1:1, endln:12:10
     |vpiTypespec:
-    \_logic_typespec: , line:6:3, endln:6:31
+    \_ref_obj: (work@dut.device_sel_req)
       |vpiParent:
       \_logic_var: (work@dut.device_sel_req), line:6:32, endln:6:46
-      |vpiRange:
-      \_range: , line:6:9, endln:6:31
-        |vpiParent:
-        \_logic_typespec: , line:6:3, endln:6:31
-        |vpiLeftRange:
-        \_constant: , line:6:10, endln:6:26
-          |vpiParent:
-          \_range: , line:6:9, endln:6:31
-          |vpiDecompile:1
-          |vpiSize:64
-          |INT:1
-          |vpiConstType:7
-        |vpiRightRange:
-        \_constant: , line:6:29, endln:6:30
-          |vpiParent:
-          \_range: , line:6:9, endln:6:31
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@dut.device_sel_req
+      |vpiActual:
+      \_logic_typespec: , line:6:3, endln:6:31
     |vpiName:device_sel_req
     |vpiFullName:work@dut.device_sel_req
     |vpiVisibility:1
@@ -1206,10 +1177,12 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/AlwaysNoElab/dut.sv, line:1:1, endln:12:10
     |vpiTypespec:
-    \_int_typespec: , line:7:3, endln:7:6
+    \_ref_obj: (work@dut.device)
       |vpiParent:
       \_int_var: (work@dut.device), line:7:7, endln:7:17
-      |vpiSigned:1
+      |vpiFullName:work@dut.device
+      |vpiActual:
+      \_int_typespec: , line:7:3, endln:7:6
     |vpiName:device
     |vpiFullName:work@dut.device
     |vpiVisibility:1
@@ -1234,11 +1207,12 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/AlwaysNoElab/dut.sv, line:1:1, endln:12:10
     |vpiTypespec:
-    \_int_typespec: , line:5:14, endln:5:26
+    \_ref_obj: (work@dut.NumBitsDeviceSel)
       |vpiParent:
       \_parameter: (work@dut.NumBitsDeviceSel), line:5:27, endln:5:43
-      |vpiExpr:
-      \_ref_obj: (work@dut.NumBitsDeviceSel.NumBitsDeviceSel)
+      |vpiFullName:work@dut.NumBitsDeviceSel
+      |vpiActual:
+      \_int_typespec: , line:5:14, endln:5:26
     |vpiLocalParam:1
     |vpiName:NumBitsDeviceSel
     |vpiFullName:work@dut.NumBitsDeviceSel
@@ -1268,7 +1242,12 @@ design: (work@dut)
       |vpiSize:32
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:5:14, endln:5:26
+      \_ref_obj: (work@dut)
+        |vpiParent:
+        \_constant: , line:5:46, endln:5:83
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_int_typespec: , line:5:14, endln:5:26
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@dut.NumBitsDeviceSel), line:5:27, endln:5:43
@@ -1295,7 +1274,12 @@ design: (work@dut)
           |vpiParent:
           \_assignment: , line:9:5, endln:9:47
           |vpiTypespec:
-          \_int_typespec: , line:5:14, endln:5:26
+          \_ref_obj: (work@dut)
+            |vpiParent:
+            \_operation: , line:9:22, endln:9:47
+            |vpiFullName:work@dut
+            |vpiActual:
+            \_int_typespec: , line:5:14, endln:5:26
           |vpiOpType:67
           |vpiOperand:
           \_ref_obj: (work@dut.device), line:9:40, endln:9:46
@@ -1314,6 +1298,300 @@ design: (work@dut)
           |vpiActual:
           \_logic_var: (work@dut.device_sel_req), line:6:32, endln:6:46
     |vpiAlwaysType:2
+\_weaklyReferenced:
+\_int_typespec: , line:2:13, endln:2:16
+  |vpiParent:
+  \_parameter: (work@dut.NrDevices), line:2:17, endln:2:26
+  |vpiSigned:1
+\_int_typespec: , line:5:14, endln:5:26
+  |vpiParent:
+  \_parameter: (work@dut.NumBitsDeviceSel), line:5:27, endln:5:43
+  |vpiExpr:
+  \_ref_obj: (work@dut.NumBitsDeviceSel.NumBitsDeviceSel)
+    |vpiParent:
+    \_int_typespec: , line:5:14, endln:5:26
+    |vpiName:NumBitsDeviceSel
+    |vpiFullName:work@dut.NumBitsDeviceSel.NumBitsDeviceSel
+    |vpiActual:
+    \_parameter: (work@dut.NumBitsDeviceSel), line:5:27, endln:5:43
+\_function: (work@mailbox::new), line:3:5, endln:4:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/AlwaysNoElab/builtin.sv, line:1:3, endln:27:11
+  |vpiName:new
+  |vpiFullName:work@mailbox::new
+  |vpiMethod:1
+  |vpiReturn:
+  \_class_var: (work@mailbox::new), line:3:23, endln:3:28
+  |vpiIODecl:
+  \_io_decl: (bound), line:3:23, endln:3:28
+    |vpiParent:
+    \_function: (work@mailbox::new), line:3:5, endln:4:16
+    |vpiDirection:1
+    |vpiName:bound
+    |vpiExpr:
+    \_constant: , line:3:31, endln:3:32
+    |vpiTypedef:
+    \_ref_obj: (work@mailbox::new::bound)
+      |vpiParent:
+      \_io_decl: (bound), line:3:23, endln:3:28
+      |vpiFullName:work@mailbox::new::bound
+      |vpiActual:
+      \_int_typespec: , line:3:19, endln:3:22
+\_class_typespec: 
+  |vpiClassDefn:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/AlwaysNoElab/builtin.sv, line:1:3, endln:27:11
+\_int_typespec: , line:3:19, endln:3:22
+  |vpiSigned:1
+\_function: (work@mailbox::num), line:6:5, endln:7:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/AlwaysNoElab/builtin.sv, line:1:3, endln:27:11
+  |vpiName:num
+  |vpiFullName:work@mailbox::num
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::num), line:6:14, endln:6:17
+\_int_typespec: , line:6:14, endln:6:17
+  |vpiSigned:1
+\_function: (work@mailbox::try_put), line:12:5, endln:13:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/AlwaysNoElab/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_put
+  |vpiFullName:work@mailbox::try_put
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_logic_var: (work@mailbox::try_put)
+  |vpiIODecl:
+  \_io_decl: (message), line:12:23, endln:12:30
+    |vpiParent:
+    \_function: (work@mailbox::try_put), line:12:5, endln:13:16
+    |vpiDirection:1
+    |vpiName:message
+\_function: (work@mailbox::try_get), line:18:5, endln:19:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/AlwaysNoElab/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_get
+  |vpiFullName:work@mailbox::try_get
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::try_get), line:18:14, endln:18:17
+  |vpiIODecl:
+  \_io_decl: (message), line:18:31, endln:18:38
+    |vpiParent:
+    \_function: (work@mailbox::try_get), line:18:5, endln:19:16
+    |vpiDirection:6
+    |vpiName:message
+\_int_typespec: , line:18:14, endln:18:17
+  |vpiSigned:1
+\_function: (work@mailbox::try_peek), line:24:5, endln:25:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/AlwaysNoElab/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_peek
+  |vpiFullName:work@mailbox::try_peek
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::try_peek), line:24:14, endln:24:17
+  |vpiIODecl:
+  \_io_decl: (message), line:24:31, endln:24:38
+    |vpiParent:
+    \_function: (work@mailbox::try_peek), line:24:5, endln:25:16
+    |vpiDirection:6
+    |vpiName:message
+\_int_typespec: , line:24:14, endln:24:17
+  |vpiSigned:1
+\_enum_typespec: (state), line:32:5, endln:32:74
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/AlwaysNoElab/builtin.sv, line:30:3, endln:52:11
+  |vpiName:state
+  |vpiEnumConst:
+  \_enum_const: (FINISHED), line:32:20, endln:32:28
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:FINISHED
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (RUNNING), line:32:30, endln:32:37
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:RUNNING
+    |INT:1
+    |vpiDecompile:1
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (WAITING), line:32:39, endln:32:46
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:WAITING
+    |INT:2
+    |vpiDecompile:2
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (SUSPENDED), line:32:48, endln:32:57
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:SUSPENDED
+    |INT:3
+    |vpiDecompile:3
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (KILLED), line:32:59, endln:32:65
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:KILLED
+    |INT:4
+    |vpiDecompile:4
+    |vpiSize:64
+\_function: (work@process::self), line:34:5, endln:34:11
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/AlwaysNoElab/builtin.sv, line:30:3, endln:52:11
+  |vpiName:self
+  |vpiFullName:work@process::self
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_class_var: (work@process::self), line:34:21, endln:34:28
+\_class_typespec: , line:34:21, endln:34:28
+  |vpiClassDefn:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/AlwaysNoElab/builtin.sv, line:30:3, endln:52:11
+\_function: (work@process::status), line:37:5, endln:38:16
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/AlwaysNoElab/builtin.sv, line:30:3, endln:52:11
+  |vpiName:status
+  |vpiFullName:work@process::status
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_enum_var: (work@process::status), line:37:14, endln:37:19
+\_function: (work@semaphore::new), line:57:5, endln:58:16
+  |vpiParent:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/AlwaysNoElab/builtin.sv, line:55:3, endln:69:11
+  |vpiName:new
+  |vpiFullName:work@semaphore::new
+  |vpiMethod:1
+  |vpiReturn:
+  \_class_var: (work@semaphore::new), line:57:22, endln:57:30
+  |vpiIODecl:
+  \_io_decl: (keyCount), line:57:22, endln:57:30
+    |vpiParent:
+    \_function: (work@semaphore::new), line:57:5, endln:58:16
+    |vpiDirection:1
+    |vpiName:keyCount
+    |vpiExpr:
+    \_constant: , line:57:33, endln:57:34
+    |vpiTypedef:
+    \_ref_obj: (work@semaphore::new::keyCount)
+      |vpiParent:
+      \_io_decl: (keyCount), line:57:22, endln:57:30
+      |vpiFullName:work@semaphore::new::keyCount
+      |vpiActual:
+      \_int_typespec: , line:57:18, endln:57:21
+\_class_typespec: 
+  |vpiClassDefn:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/AlwaysNoElab/builtin.sv, line:55:3, endln:69:11
+\_int_typespec: , line:57:18, endln:57:21
+  |vpiSigned:1
+\_int_typespec: , line:60:14, endln:60:17
+  |vpiSigned:1
+\_int_typespec: , line:63:14, endln:63:17
+  |vpiSigned:1
+\_function: (work@semaphore::try_get), line:66:5, endln:67:16
+  |vpiParent:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/AlwaysNoElab/builtin.sv, line:55:3, endln:69:11
+  |vpiName:try_get
+  |vpiFullName:work@semaphore::try_get
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@semaphore::try_get), line:66:14, endln:66:17
+  |vpiIODecl:
+  \_io_decl: (keyCount), line:66:30, endln:66:38
+    |vpiParent:
+    \_function: (work@semaphore::try_get), line:66:5, endln:67:16
+    |vpiDirection:1
+    |vpiName:keyCount
+    |vpiExpr:
+    \_constant: , line:66:41, endln:66:42
+    |vpiTypedef:
+    \_ref_obj: (work@semaphore::try_get::keyCount)
+      |vpiParent:
+      \_io_decl: (keyCount), line:66:30, endln:66:38
+      |vpiFullName:work@semaphore::try_get::keyCount
+      |vpiActual:
+      \_int_typespec: , line:66:26, endln:66:29
+\_int_typespec: , line:66:14, endln:66:17
+  |vpiSigned:1
+\_int_typespec: , line:66:26, endln:66:29
+  |vpiSigned:1
+\_logic_typespec: , line:6:3, endln:6:31
+  |vpiParent:
+  \_logic_var: (work@dut.device_sel_req), line:6:32, endln:6:46
+  |vpiRange:
+  \_range: , line:6:9, endln:6:31
+    |vpiParent:
+    \_logic_typespec: , line:6:3, endln:6:31
+    |vpiLeftRange:
+    \_constant: , line:6:10, endln:6:26
+      |vpiParent:
+      \_range: , line:6:9, endln:6:31
+      |vpiDecompile:1
+      |vpiSize:64
+      |INT:1
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:6:29, endln:6:30
+      |vpiParent:
+      \_range: , line:6:9, endln:6:31
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:7:3, endln:7:6
+  |vpiParent:
+  \_int_var: (work@dut.device), line:7:7, endln:7:17
+  |vpiSigned:1
+\_logic_typespec: , line:6:3, endln:6:31
+  |vpiRange:
+  \_range: , line:6:9, endln:6:31
+    |vpiParent:
+    \_logic_typespec: , line:6:3, endln:6:31
+    |vpiLeftRange:
+    \_operation: , line:6:10, endln:6:28
+      |vpiParent:
+      \_range: , line:6:9, endln:6:31
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (NumBitsDeviceSel), line:6:10, endln:6:26
+        |vpiParent:
+        \_operation: , line:6:10, endln:6:28
+        |vpiName:NumBitsDeviceSel
+      |vpiOperand:
+      \_constant: , line:6:27, endln:6:28
+        |vpiParent:
+        \_operation: , line:6:10, endln:6:28
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:29, endln:6:30
+      |vpiParent:
+      \_range: , line:6:9, endln:6:31
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:7:3, endln:7:17
+  |vpiSigned:1
+\_int_typespec: , line:5:14, endln:5:26
+  |vpiParent:
+  \_ref_obj: (work@dut.NumBitsDeviceSel)
+  |vpiExpr:
+  \_ref_obj: (work@dut.NumBitsDeviceSel.NumBitsDeviceSel)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

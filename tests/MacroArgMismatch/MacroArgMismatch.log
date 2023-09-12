@@ -99,7 +99,7 @@ logic_typespec                                         5
 module_inst                                            2
 operation                                              2
 port                                                   2
-ref_obj                                                5
+ref_obj                                               10
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -114,7 +114,7 @@ logic_typespec                                         5
 module_inst                                            2
 operation                                              4
 port                                                   3
-ref_obj                                                9
+ref_obj                                               15
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/MacroArgMismatch/slpp_all/surelog.uhdm ...
 
@@ -145,7 +145,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/MacroArgMismatch/dut.sv, line:2:1, endln:6:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:1, endln:3:4
+    \_ref_obj: (work@test.d)
+      |vpiParent:
+      \_logic_net: (work@test.d), line:3:5, endln:3:6
+      |vpiFullName:work@test.d
+      |vpiActual:
+      \_logic_typespec: , line:3:1, endln:3:4
     |vpiName:d
     |vpiFullName:work@test.d
     |vpiNetType:48
@@ -164,7 +169,12 @@ design: (work@test)
       |vpiActual:
       \_logic_net: (work@test.clk), line:2:19, endln:2:22
     |vpiTypedef:
-    \_logic_typespec: , line:2:19, endln:2:19
+    \_ref_obj: (work@test.clk)
+      |vpiParent:
+      \_port: (clk), line:2:19, endln:2:22
+      |vpiFullName:work@test.clk
+      |vpiActual:
+      \_logic_typespec: , line:2:19, endln:2:19
   |vpiProcess:
   \_always: , line:4:1, endln:5:17
     |vpiParent:
@@ -228,9 +238,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/MacroArgMismatch/dut.sv, line:2:1, endln:6:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:19, endln:2:19
+    \_ref_obj: (work@test.clk)
       |vpiParent:
       \_logic_net: (work@test.clk), line:2:19, endln:2:22
+      |vpiFullName:work@test.clk
+      |vpiActual:
+      \_logic_typespec: , line:2:19, endln:2:19
     |vpiName:clk
     |vpiFullName:work@test.clk
   |vpiNet:
@@ -238,9 +251,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/MacroArgMismatch/dut.sv, line:2:1, endln:6:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:1, endln:3:4
+    \_ref_obj: (work@test.d)
       |vpiParent:
       \_logic_net: (work@test.d), line:3:5, endln:3:6
+      |vpiFullName:work@test.d
+      |vpiActual:
+      \_logic_typespec: , line:3:1, endln:3:4
     |vpiName:d
     |vpiFullName:work@test.d
     |vpiNetType:48
@@ -260,7 +276,12 @@ design: (work@test)
       |vpiActual:
       \_logic_net: (work@test.clk), line:2:19, endln:2:22
     |vpiTypedef:
-    \_logic_typespec: , line:2:19, endln:2:19
+    \_ref_obj: (work@test.clk)
+      |vpiParent:
+      \_port: (clk), line:2:19, endln:2:22
+      |vpiFullName:work@test.clk
+      |vpiActual:
+      \_logic_typespec: , line:2:19, endln:2:19
     |vpiInstance:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/MacroArgMismatch/dut.sv, line:2:1, endln:6:10
   |vpiProcess:
@@ -316,6 +337,16 @@ design: (work@test)
           \_assignment: , line:5:5, endln:5:16
           |#1
     |vpiAlwaysType:1
+\_weaklyReferenced:
+\_logic_typespec: , line:2:19, endln:2:19
+\_logic_typespec: , line:2:19, endln:2:19
+  |vpiParent:
+  \_logic_net: (work@test.clk), line:2:19, endln:2:22
+\_logic_typespec: , line:3:1, endln:3:4
+  |vpiParent:
+  \_logic_net: (work@test.d), line:3:5, endln:3:6
+\_logic_typespec: , line:2:19, endln:2:19
+\_logic_typespec: , line:3:1, endln:3:4
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

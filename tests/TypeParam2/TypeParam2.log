@@ -47,7 +47,7 @@ module_inst                                            5
 operation                                              1
 range                                                  3
 ref_module                                             1
-ref_obj                                                2
+ref_obj                                               14
 struct_typespec                                        2
 struct_var                                             1
 type_parameter                                         2
@@ -76,42 +76,12 @@ design: (work@top)
     |vpiName:DataType
     |vpiFullName:work@rr_arb_tree.DataType
     |vpiTypespec:
-    \_logic_typespec: , line:2:39, endln:2:60
+    \_ref_obj: (work@rr_arb_tree.DataType)
       |vpiParent:
       \_type_parameter: (work@rr_arb_tree.DataType), line:2:26, endln:2:34
-      |vpiRange:
-      \_range: , line:2:45, endln:2:60
-        |vpiParent:
-        \_logic_typespec: , line:2:39, endln:2:60
-        |vpiLeftRange:
-        \_operation: , line:2:46, endln:2:57
-          |vpiParent:
-          \_range: , line:2:45, endln:2:60
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (work@rr_arb_tree.DataType.DataWidth), line:2:46, endln:2:55
-            |vpiParent:
-            \_operation: , line:2:46, endln:2:57
-            |vpiName:DataWidth
-            |vpiFullName:work@rr_arb_tree.DataType.DataWidth
-            |vpiActual:
-            \_logic_net: (work@rr_arb_tree.DataWidth), line:2:46, endln:2:55
-          |vpiOperand:
-          \_constant: , line:2:56, endln:2:57
-            |vpiParent:
-            \_operation: , line:2:46, endln:2:57
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:58, endln:2:59
-          |vpiParent:
-          \_range: , line:2:45, endln:2:60
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@rr_arb_tree.DataType
+      |vpiActual:
+      \_logic_typespec: , line:2:39, endln:2:60
   |vpiDefName:work@rr_arb_tree
   |vpiNet:
   \_logic_net: (work@rr_arb_tree.data), line:3:12, endln:3:16
@@ -145,29 +115,12 @@ design: (work@top)
       \_struct_typespec: (output_t), line:9:10, endln:13:4
       |vpiName:result
       |vpiTypespec:
-      \_logic_typespec: , line:10:5, endln:10:16
+      \_ref_obj: (work@top.output_t.result)
         |vpiParent:
         \_typespec_member: (result), line:10:19, endln:10:25
-        |vpiRange:
-        \_range: , line:10:11, endln:10:16
-          |vpiParent:
-          \_logic_typespec: , line:10:5, endln:10:16
-          |vpiLeftRange:
-          \_constant: , line:10:12, endln:10:13
-            |vpiParent:
-            \_range: , line:10:11, endln:10:16
-            |vpiDecompile:2
-            |vpiSize:64
-            |UINT:2
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:10:14, endln:10:15
-            |vpiParent:
-            \_range: , line:10:11, endln:10:16
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@top.output_t.result
+        |vpiActual:
+        \_logic_typespec: , line:10:5, endln:10:16
       |vpiRefFile:${SURELOG_DIR}/tests/TypeParam2/dut.sv
       |vpiRefLineNo:10
       |vpiRefColumnNo:5
@@ -179,9 +132,12 @@ design: (work@top)
       \_struct_typespec: (output_t), line:9:10, endln:13:4
       |vpiName:status
       |vpiTypespec:
-      \_logic_typespec: , line:11:5, endln:11:10
+      \_ref_obj: (work@top.output_t.status)
         |vpiParent:
         \_typespec_member: (status), line:11:11, endln:11:17
+        |vpiFullName:work@top.output_t.status
+        |vpiActual:
+        \_logic_typespec: , line:11:5, endln:11:10
       |vpiRefFile:${SURELOG_DIR}/tests/TypeParam2/dut.sv
       |vpiRefLineNo:11
       |vpiRefColumnNo:5
@@ -193,9 +149,12 @@ design: (work@top)
       \_struct_typespec: (output_t), line:9:10, endln:13:4
       |vpiName:tag
       |vpiTypespec:
-      \_logic_typespec: , line:12:5, endln:12:10
+      \_ref_obj: (work@top.output_t.tag)
         |vpiParent:
         \_typespec_member: (tag), line:12:22, endln:12:25
+        |vpiFullName:work@top.output_t.tag
+        |vpiActual:
+        \_logic_typespec: , line:12:5, endln:12:10
       |vpiRefFile:${SURELOG_DIR}/tests/TypeParam2/dut.sv
       |vpiRefLineNo:12
       |vpiRefColumnNo:5
@@ -229,73 +188,12 @@ design: (work@top)
       |vpiParent:
       \_module_inst: work@rr_arb_tree (work@top.i_arbiter), file:${SURELOG_DIR}/tests/TypeParam2/dut.sv, line:15:2, endln:17:18
       |vpiTypespec:
-      \_struct_typespec: (output_t), line:9:10, endln:13:4
+      \_ref_obj: (work@top.i_arbiter.data)
         |vpiParent:
-        \_type_parameter: (work@top.i_arbiter.DataType)
-        |vpiName:output_t
-        |vpiPacked:1
-        |vpiTypespecMember:
-        \_typespec_member: (result), line:10:19, endln:10:25
-          |vpiParent:
-          \_struct_typespec: (output_t), line:9:10, endln:13:4
-          |vpiName:result
-          |vpiTypespec:
-          \_logic_typespec: , line:10:5, endln:10:16
-            |vpiParent:
-            \_typespec_member: (result), line:10:19, endln:10:25
-            |vpiRange:
-            \_range: , line:10:11, endln:10:16
-              |vpiParent:
-              \_logic_typespec: , line:10:5, endln:10:16
-              |vpiLeftRange:
-              \_constant: , line:10:12, endln:10:13
-                |vpiParent:
-                \_range: , line:10:11, endln:10:16
-                |vpiDecompile:2
-                |vpiSize:64
-                |UINT:2
-                |vpiConstType:9
-              |vpiRightRange:
-              \_constant: , line:10:14, endln:10:15
-                |vpiParent:
-                \_range: , line:10:11, endln:10:16
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
-                |vpiConstType:9
-          |vpiRefFile:${SURELOG_DIR}/tests/TypeParam2/dut.sv
-          |vpiRefLineNo:10
-          |vpiRefColumnNo:5
-          |vpiRefEndLineNo:10
-          |vpiRefEndColumnNo:16
-        |vpiTypespecMember:
-        \_typespec_member: (status), line:11:11, endln:11:17
-          |vpiParent:
-          \_struct_typespec: (output_t), line:9:10, endln:13:4
-          |vpiName:status
-          |vpiTypespec:
-          \_logic_typespec: , line:11:5, endln:11:10
-            |vpiParent:
-            \_typespec_member: (status), line:11:11, endln:11:17
-          |vpiRefFile:${SURELOG_DIR}/tests/TypeParam2/dut.sv
-          |vpiRefLineNo:11
-          |vpiRefColumnNo:5
-          |vpiRefEndLineNo:11
-          |vpiRefEndColumnNo:10
-        |vpiTypespecMember:
-        \_typespec_member: (tag), line:12:22, endln:12:25
-          |vpiParent:
-          \_struct_typespec: (output_t), line:9:10, endln:13:4
-          |vpiName:tag
-          |vpiTypespec:
-          \_logic_typespec: , line:12:5, endln:12:10
-            |vpiParent:
-            \_typespec_member: (tag), line:12:22, endln:12:25
-          |vpiRefFile:${SURELOG_DIR}/tests/TypeParam2/dut.sv
-          |vpiRefLineNo:12
-          |vpiRefColumnNo:5
-          |vpiRefEndLineNo:12
-          |vpiRefEndColumnNo:10
+        \_struct_var: (work@top.i_arbiter.data), line:3:12, endln:3:16
+        |vpiFullName:work@top.i_arbiter.data
+        |vpiActual:
+        \_struct_typespec: (output_t), line:9:10, endln:13:4
       |vpiName:data
       |vpiFullName:work@top.i_arbiter.data
       |vpiVisibility:1
@@ -306,12 +204,168 @@ design: (work@top)
       |vpiName:DataType
       |vpiFullName:work@top.i_arbiter.DataType
       |vpiTypespec:
-      \_struct_typespec: (output_t), line:9:10, endln:13:4
+      \_ref_obj: (work@top.i_arbiter.DataType)
+        |vpiParent:
+        \_type_parameter: (work@top.i_arbiter.DataType)
+        |vpiFullName:work@top.i_arbiter.DataType
+        |vpiActual:
+        \_struct_typespec: (output_t), line:9:10, endln:13:4
     |vpiDefName:work@rr_arb_tree
     |vpiDefFile:${SURELOG_DIR}/tests/TypeParam2/dut.sv
     |vpiDefLineNo:1
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TypeParam2/dut.sv, line:8:1, endln:20:10
+\_weaklyReferenced:
+\_logic_typespec: , line:2:39, endln:2:60
+  |vpiParent:
+  \_type_parameter: (work@rr_arb_tree.DataType), line:2:26, endln:2:34
+  |vpiRange:
+  \_range: , line:2:45, endln:2:60
+    |vpiParent:
+    \_logic_typespec: , line:2:39, endln:2:60
+    |vpiLeftRange:
+    \_operation: , line:2:46, endln:2:57
+      |vpiParent:
+      \_range: , line:2:45, endln:2:60
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@rr_arb_tree.DataType.DataWidth), line:2:46, endln:2:55
+        |vpiParent:
+        \_operation: , line:2:46, endln:2:57
+        |vpiName:DataWidth
+        |vpiFullName:work@rr_arb_tree.DataType.DataWidth
+        |vpiActual:
+        \_logic_net: (work@rr_arb_tree.DataWidth), line:2:46, endln:2:55
+      |vpiOperand:
+      \_constant: , line:2:56, endln:2:57
+        |vpiParent:
+        \_operation: , line:2:46, endln:2:57
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:58, endln:2:59
+      |vpiParent:
+      \_range: , line:2:45, endln:2:60
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:10:5, endln:10:16
+  |vpiParent:
+  \_typespec_member: (result), line:10:19, endln:10:25
+  |vpiRange:
+  \_range: , line:10:11, endln:10:16
+    |vpiParent:
+    \_logic_typespec: , line:10:5, endln:10:16
+    |vpiLeftRange:
+    \_constant: , line:10:12, endln:10:13
+      |vpiParent:
+      \_range: , line:10:11, endln:10:16
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:10:14, endln:10:15
+      |vpiParent:
+      \_range: , line:10:11, endln:10:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:11:5, endln:11:10
+  |vpiParent:
+  \_typespec_member: (status), line:11:11, endln:11:17
+\_logic_typespec: , line:12:5, endln:12:10
+  |vpiParent:
+  \_typespec_member: (tag), line:12:22, endln:12:25
+\_struct_typespec: (output_t), line:9:10, endln:13:4
+  |vpiParent:
+  \_type_parameter: (work@top.i_arbiter.DataType)
+  |vpiName:output_t
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (result), line:10:19, endln:10:25
+    |vpiParent:
+    \_struct_typespec: (output_t), line:9:10, endln:13:4
+    |vpiName:result
+    |vpiTypespec:
+    \_ref_obj: (work@top.i_arbiter.DataType.output_t.result)
+      |vpiParent:
+      \_typespec_member: (result), line:10:19, endln:10:25
+      |vpiFullName:work@top.i_arbiter.DataType.output_t.result
+      |vpiActual:
+      \_logic_typespec: , line:10:5, endln:10:16
+    |vpiRefFile:${SURELOG_DIR}/tests/TypeParam2/dut.sv
+    |vpiRefLineNo:10
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:10
+    |vpiRefEndColumnNo:16
+  |vpiTypespecMember:
+  \_typespec_member: (status), line:11:11, endln:11:17
+    |vpiParent:
+    \_struct_typespec: (output_t), line:9:10, endln:13:4
+    |vpiName:status
+    |vpiTypespec:
+    \_ref_obj: (work@top.i_arbiter.DataType.output_t.status)
+      |vpiParent:
+      \_typespec_member: (status), line:11:11, endln:11:17
+      |vpiFullName:work@top.i_arbiter.DataType.output_t.status
+      |vpiActual:
+      \_logic_typespec: , line:11:5, endln:11:10
+    |vpiRefFile:${SURELOG_DIR}/tests/TypeParam2/dut.sv
+    |vpiRefLineNo:11
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:11
+    |vpiRefEndColumnNo:10
+  |vpiTypespecMember:
+  \_typespec_member: (tag), line:12:22, endln:12:25
+    |vpiParent:
+    \_struct_typespec: (output_t), line:9:10, endln:13:4
+    |vpiName:tag
+    |vpiTypespec:
+    \_ref_obj: (work@top.i_arbiter.DataType.output_t.tag)
+      |vpiParent:
+      \_typespec_member: (tag), line:12:22, endln:12:25
+      |vpiFullName:work@top.i_arbiter.DataType.output_t.tag
+      |vpiActual:
+      \_logic_typespec: , line:12:5, endln:12:10
+    |vpiRefFile:${SURELOG_DIR}/tests/TypeParam2/dut.sv
+    |vpiRefLineNo:12
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:12
+    |vpiRefEndColumnNo:10
+\_logic_typespec: , line:10:5, endln:10:16
+  |vpiParent:
+  \_ref_obj: (work@top.i_arbiter.DataType.output_t.result)
+  |vpiRange:
+  \_range: , line:10:11, endln:10:16
+    |vpiParent:
+    \_logic_typespec: , line:10:5, endln:10:16
+    |vpiLeftRange:
+    \_constant: , line:10:12, endln:10:13
+      |vpiParent:
+      \_range: , line:10:11, endln:10:16
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:10:14, endln:10:15
+      |vpiParent:
+      \_range: , line:10:11, endln:10:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:11:5, endln:11:10
+  |vpiParent:
+  \_ref_obj: (work@top.i_arbiter.DataType.output_t.status)
+\_logic_typespec: , line:12:5, endln:12:10
+  |vpiParent:
+  \_ref_obj: (work@top.i_arbiter.DataType.output_t.tag)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

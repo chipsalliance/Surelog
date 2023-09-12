@@ -95,6 +95,7 @@ int_typespec                                           4
 module_inst                                            5
 param_assign                                           2
 parameter                                              2
+ref_obj                                                6
 sys_func_call                                          1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -109,6 +110,7 @@ int_typespec                                           4
 module_inst                                            5
 param_assign                                           2
 parameter                                              2
+ref_obj                                                6
 sys_func_call                                          2
 === UHDM Object Stats End ===
 [WRN:UH0720] ${SURELOG_DIR}/tests/NonSynthError/dut.sv:10:1: Non-synthesizable construct "A".
@@ -136,7 +138,12 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/NonSynthError/dut.sv, line:2:1, endln:13:10
     |UINT:32
     |vpiTypespec:
-    \_int_typespec: , line:4:1, endln:4:25
+    \_ref_obj: (work@dut.S)
+      |vpiParent:
+      \_parameter: (work@dut.S), line:4:11, endln:4:12
+      |vpiFullName:work@dut.S
+      |vpiActual:
+      \_int_typespec: , line:4:1, endln:4:25
     |vpiName:S
     |vpiFullName:work@dut.S
   |vpiParamAssign:
@@ -151,7 +158,12 @@ design: (work@dut)
       |vpiSize:64
       |UINT:32
       |vpiTypespec:
-      \_int_typespec: , line:4:1, endln:4:25
+      \_ref_obj: (work@dut)
+        |vpiParent:
+        \_constant: , line:4:15, endln:4:20
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_int_typespec: , line:4:1, endln:4:25
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@dut.S), line:4:11, endln:4:12
@@ -180,9 +192,12 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/NonSynthError/dut.sv, line:2:1, endln:13:10
     |UINT:32
     |vpiTypespec:
-    \_int_typespec: , line:4:1, endln:4:25
+    \_ref_obj: (work@dut.S)
       |vpiParent:
       \_parameter: (work@dut.S), line:4:11, endln:4:12
+      |vpiFullName:work@dut.S
+      |vpiActual:
+      \_int_typespec: , line:4:1, endln:4:25
     |vpiName:S
     |vpiFullName:work@dut.S
   |vpiParamAssign:
@@ -197,7 +212,12 @@ design: (work@dut)
       |vpiSize:32
       |UINT:32
       |vpiTypespec:
-      \_int_typespec: , line:4:1, endln:4:25
+      \_ref_obj: (work@dut)
+        |vpiParent:
+        \_constant: , line:4:15, endln:4:25
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_int_typespec: , line:4:1, endln:4:25
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@dut.S), line:4:11, endln:4:12
@@ -219,6 +239,11 @@ design: (work@dut)
       |vpiParent:
       \_initial: , line:6:1, endln:8:4
       |vpiFullName:work@dut
+\_weaklyReferenced:
+\_int_typespec: , line:4:1, endln:4:25
+\_int_typespec: , line:4:1, endln:4:25
+  |vpiParent:
+  \_ref_obj: (work@dut.S)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

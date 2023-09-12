@@ -40,7 +40,7 @@ logic_typespec                                         7
 module_inst                                            5
 operation                                              2
 port                                                   4
-ref_obj                                               18
+ref_obj                                               26
 sys_func_call                                          9
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/OneNetNonAnsi/slpp_unit/surelog.uhdm ...
@@ -88,7 +88,12 @@ design: (work@tb)
       |vpiActual:
       \_logic_net: (work@dut.i), line:4:8, endln:4:9
     |vpiTypedef:
-    \_logic_typespec: , line:2:9, endln:2:9
+    \_ref_obj: (work@dut.i)
+      |vpiParent:
+      \_port: (i), line:1:13, endln:1:14
+      |vpiFullName:work@dut.i
+      |vpiActual:
+      \_logic_typespec: , line:2:9, endln:2:9
   |vpiPort:
   \_port: (o), line:1:16, endln:1:17
     |vpiParent:
@@ -103,7 +108,12 @@ design: (work@tb)
       |vpiActual:
       \_logic_net: (work@dut.o), line:5:7, endln:5:8
     |vpiTypedef:
-    \_logic_typespec: , line:3:10, endln:3:10
+    \_ref_obj: (work@dut.o)
+      |vpiParent:
+      \_port: (o), line:1:16, endln:1:17
+      |vpiFullName:work@dut.o
+      |vpiActual:
+      \_logic_typespec: , line:3:10, endln:3:10
   |vpiContAssign:
   \_cont_assign: , line:6:10, endln:6:15
     |vpiParent:
@@ -405,9 +415,12 @@ design: (work@tb)
     |vpiParent:
     \_module_inst: work@tb (work@tb), file:${SURELOG_DIR}/tests/OneNetNonAnsi/tb.v, line:1:1, endln:21:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:3, endln:2:8
+    \_ref_obj: (work@tb.i)
       |vpiParent:
-      \_logic_net: (work@tb.o), line:2:12, endln:2:13
+      \_logic_net: (work@tb.i), line:2:9, endln:2:10
+      |vpiFullName:work@tb.i
+      |vpiActual:
+      \_logic_typespec: , line:2:3, endln:2:8
     |vpiName:i
     |vpiFullName:work@tb.i
   |vpiNet:
@@ -415,7 +428,12 @@ design: (work@tb)
     |vpiParent:
     \_module_inst: work@tb (work@tb), file:${SURELOG_DIR}/tests/OneNetNonAnsi/tb.v, line:1:1, endln:21:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:3, endln:2:8
+    \_ref_obj: (work@tb.o)
+      |vpiParent:
+      \_logic_net: (work@tb.o), line:2:12, endln:2:13
+      |vpiFullName:work@tb.o
+      |vpiActual:
+      \_logic_typespec: , line:2:3, endln:2:8
     |vpiName:o
     |vpiFullName:work@tb.o
   |vpiTopModule:1
@@ -437,9 +455,12 @@ design: (work@tb)
       |vpiParent:
       \_module_inst: work@dut (work@tb.dut1), file:${SURELOG_DIR}/tests/OneNetNonAnsi/tb.v, line:19:3, endln:19:17
       |vpiTypespec:
-      \_logic_typespec: , line:4:3, endln:4:7
+      \_ref_obj: (work@tb.dut1.i)
         |vpiParent:
         \_logic_net: (work@tb.dut1.i), line:4:8, endln:4:9
+        |vpiFullName:work@tb.dut1.i
+        |vpiActual:
+        \_logic_typespec: , line:4:3, endln:4:7
       |vpiName:i
       |vpiFullName:work@tb.dut1.i
       |vpiNetType:1
@@ -448,7 +469,12 @@ design: (work@tb)
       |vpiParent:
       \_module_inst: work@dut (work@tb.dut1), file:${SURELOG_DIR}/tests/OneNetNonAnsi/tb.v, line:19:3, endln:19:17
       |vpiTypespec:
-      \_logic_typespec: , line:5:3, endln:5:6
+      \_ref_obj: (work@tb.dut1.o)
+        |vpiParent:
+        \_logic_net: (work@tb.dut1.o), line:5:7, endln:5:8
+        |vpiFullName:work@tb.dut1.o
+        |vpiActual:
+        \_logic_typespec: , line:5:3, endln:5:6
       |vpiName:o
       |vpiFullName:work@tb.dut1.o
       |vpiNetType:48
@@ -477,7 +503,12 @@ design: (work@tb)
         |vpiActual:
         \_logic_net: (work@tb.dut1.i), line:4:8, endln:4:9
       |vpiTypedef:
-      \_logic_typespec: , line:2:9, endln:2:9
+      \_ref_obj: (work@tb.dut1.i)
+        |vpiParent:
+        \_port: (i), line:1:13, endln:1:14
+        |vpiFullName:work@tb.dut1.i
+        |vpiActual:
+        \_logic_typespec: , line:2:9, endln:2:9
     |vpiPort:
     \_port: (o), line:1:16, endln:1:17
       |vpiParent:
@@ -501,9 +532,26 @@ design: (work@tb)
         |vpiActual:
         \_logic_net: (work@tb.dut1.o), line:5:7, endln:5:8
       |vpiTypedef:
-      \_logic_typespec: , line:3:10, endln:3:10
+      \_ref_obj: (work@tb.dut1.o)
+        |vpiParent:
+        \_port: (o), line:1:16, endln:1:17
+        |vpiFullName:work@tb.dut1.o
+        |vpiActual:
+        \_logic_typespec: , line:3:10, endln:3:10
     |vpiContAssign:
     \_cont_assign: , line:6:10, endln:6:15
+\_weaklyReferenced:
+\_logic_typespec: , line:2:3, endln:2:8
+  |vpiParent:
+  \_logic_net: (work@tb.o), line:2:12, endln:2:13
+\_logic_typespec: , line:2:9, endln:2:9
+\_logic_typespec: , line:3:10, endln:3:10
+\_logic_typespec: , line:4:3, endln:4:7
+  |vpiParent:
+  \_logic_net: (work@tb.dut1.i), line:4:8, endln:4:9
+\_logic_typespec: , line:5:3, endln:5:6
+\_logic_typespec: , line:2:9, endln:2:9
+\_logic_typespec: , line:3:10, endln:3:10
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

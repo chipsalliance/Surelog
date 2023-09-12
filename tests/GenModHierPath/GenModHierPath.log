@@ -145,7 +145,7 @@ named_begin                                            1
 operation                                              1
 range                                                  1
 ref_module                                             2
-ref_obj                                                3
+ref_obj                                                6
 sys_func_call                                          1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -170,7 +170,7 @@ named_begin                                            1
 operation                                              2
 range                                                  2
 ref_module                                             2
-ref_obj                                                6
+ref_obj                                               11
 sys_func_call                                          2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/GenModHierPath/slpp_all/surelog.uhdm ...
@@ -196,8 +196,12 @@ design: (work@InitializedBlockRAM)
     |vpiParent:
     \_module_inst: work@ForNarrowRequest (work@ForNarrowRequest), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:1:1, endln:5:10
     |vpiTypespec:
-    \_int_typespec: , line:3:3, endln:3:16
-      |vpiSigned:1
+    \_ref_obj: (work@ForNarrowRequest.array)
+      |vpiParent:
+      \_logic_net: (work@ForNarrowRequest.array), line:3:7, endln:3:12
+      |vpiFullName:work@ForNarrowRequest.array
+      |vpiActual:
+      \_int_typespec: , line:3:3, endln:3:16
     |vpiName:array
     |vpiFullName:work@ForNarrowRequest.array
 |uhdmallModules:
@@ -346,7 +350,12 @@ design: (work@InitializedBlockRAM)
           \_module_inst: work@ForNarrowRequest (work@InitializedBlockRAM.body.ram), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:12:9, endln:12:33
           |vpiSize:10
           |vpiTypespec:
-          \_array_typespec: 
+          \_ref_obj: (work@InitializedBlockRAM.body.ram.array)
+            |vpiParent:
+            \_array_var: (work@InitializedBlockRAM.body.ram.array), line:3:7, endln:3:12
+            |vpiFullName:work@InitializedBlockRAM.body.ram.array
+            |vpiActual:
+            \_array_typespec: 
           |vpiName:array
           |vpiFullName:work@InitializedBlockRAM.body.ram.array
           |vpiRandType:1
@@ -389,14 +398,91 @@ design: (work@InitializedBlockRAM)
             |vpiParent:
             \_array_var: (work@InitializedBlockRAM.body.ram.array), line:3:7, endln:3:12
             |vpiTypespec:
-            \_int_typespec: , line:3:3, endln:3:6
+            \_ref_obj: (work@InitializedBlockRAM.body.ram.array)
               |vpiParent:
               \_int_var: (work@InitializedBlockRAM.body.ram.array), line:3:7, endln:3:12
-              |vpiSigned:1
+              |vpiFullName:work@InitializedBlockRAM.body.ram.array
+              |vpiActual:
+              \_int_typespec: , line:3:3, endln:3:6
             |vpiFullName:work@InitializedBlockRAM.body.ram.array
         |vpiDefName:work@ForNarrowRequest
         |vpiDefFile:${SURELOG_DIR}/tests/GenModHierPath/dut.sv
         |vpiDefLineNo:1
+\_weaklyReferenced:
+\_int_typespec: , line:3:3, endln:3:6
+  |vpiParent:
+  \_int_var: (work@InitializedBlockRAM.body.ram.array), line:3:7, endln:3:12
+  |vpiSigned:1
+\_range: , line:3:13, endln:3:15
+  |vpiParent:
+  \_array_var: (work@InitializedBlockRAM.body.ram.array), line:3:7, endln:3:12
+  |vpiLeftRange:
+  \_constant: 
+  |vpiRightRange:
+  \_operation: , line:3:13, endln:3:15
+    |vpiParent:
+    \_range: , line:3:13, endln:3:15
+    |vpiOpType:11
+    |vpiOperand:
+    \_constant: , line:3:13, endln:3:15
+    |vpiOperand:
+    \_constant: 
+\_int_var: (work@InitializedBlockRAM.body.ram.array), line:3:7, endln:3:12
+  |vpiParent:
+  \_array_var: (work@InitializedBlockRAM.body.ram.array), line:3:7, endln:3:12
+  |vpiTypespec:
+  \_ref_obj: (work@InitializedBlockRAM.body.ram.array)
+    |vpiParent:
+    \_int_var: (work@InitializedBlockRAM.body.ram.array), line:3:7, endln:3:12
+    |vpiFullName:work@InitializedBlockRAM.body.ram.array
+    |vpiActual:
+    \_int_typespec: , line:3:3, endln:3:6
+  |vpiFullName:work@InitializedBlockRAM.body.ram.array
+\_array_var: (work@InitializedBlockRAM.body.ram.array), line:3:7, endln:3:12
+  |vpiParent:
+  \_module_inst: work@ForNarrowRequest (work@InitializedBlockRAM.body.ram), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:12:9, endln:12:33
+  |vpiSize:10
+  |vpiTypespec:
+  \_ref_obj: (work@InitializedBlockRAM.body.ram.array)
+    |vpiParent:
+    \_array_var: (work@InitializedBlockRAM.body.ram.array), line:3:7, endln:3:12
+    |vpiFullName:work@InitializedBlockRAM.body.ram.array
+    |vpiActual:
+    \_array_typespec: 
+  |vpiName:array
+  |vpiFullName:work@InitializedBlockRAM.body.ram.array
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , line:3:13, endln:3:15
+  |vpiReg:
+  \_int_var: (work@InitializedBlockRAM.body.ram.array), line:3:7, endln:3:12
+\_array_typespec: 
+\_int_typespec: , line:3:3, endln:3:16
+  |vpiSigned:1
+\_gen_scope: (work@InitializedBlockRAM.body), line:11:12, endln:13:8
+  |vpiParent:
+  \_gen_scope_array: (work@InitializedBlockRAM.body), line:11:12, endln:13:8
+  |vpiFullName:work@InitializedBlockRAM.body
+  |vpiModule:
+  \_module_inst: work@ForNarrowRequest (work@InitializedBlockRAM.body.ram), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:12:9, endln:12:33
+    |vpiParent:
+    \_gen_scope: (work@InitializedBlockRAM.body), line:11:12, endln:13:8
+    |vpiName:ram
+    |vpiFullName:work@InitializedBlockRAM.body.ram
+    |vpiVariables:
+    \_array_var: (work@InitializedBlockRAM.body.ram.array), line:3:7, endln:3:12
+    |vpiDefName:work@ForNarrowRequest
+    |vpiDefFile:${SURELOG_DIR}/tests/GenModHierPath/dut.sv
+    |vpiDefLineNo:1
+\_gen_scope_array: (work@InitializedBlockRAM.body), line:11:12, endln:13:8
+  |vpiParent:
+  \_module_inst: work@InitializedBlockRAM (work@InitializedBlockRAM), file:${SURELOG_DIR}/tests/GenModHierPath/dut.sv, line:8:1, endln:20:10
+  |vpiName:body
+  |vpiFullName:work@InitializedBlockRAM.body
+  |vpiGenScope:
+  \_gen_scope: (work@InitializedBlockRAM.body), line:11:12, endln:13:8
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

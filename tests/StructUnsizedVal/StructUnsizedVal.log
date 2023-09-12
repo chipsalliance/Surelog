@@ -286,7 +286,7 @@ param_assign                                          18
 parameter                                             20
 range                                                 32
 ref_module                                             3
-ref_obj                                                7
+ref_obj                                               75
 struct_typespec                                       13
 typespec_member                                       13
 === UHDM Object Stats End ===
@@ -307,7 +307,7 @@ param_assign                                          18
 parameter                                             20
 range                                                 32
 ref_module                                             3
-ref_obj                                                7
+ref_obj                                               75
 struct_typespec                                       13
 typespec_member                                       13
 === UHDM Object Stats End ===
@@ -335,12 +335,12 @@ design: (work@top)
     \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
     |UINT:64
     |vpiTypespec:
-    \_int_typespec: , line:2:13, endln:2:16
+    \_ref_obj: (pkg::Width)
       |vpiParent:
       \_parameter: (pkg::Width), line:2:17, endln:2:22
-      |vpiInstance:
-      \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
-      |vpiSigned:1
+      |vpiFullName:pkg::Width
+      |vpiActual:
+      \_int_typespec: , line:2:13, endln:2:16
     |vpiSigned:1
     |vpiName:Width
     |vpiFullName:pkg::Width
@@ -350,103 +350,12 @@ design: (work@top)
     \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
     |BIN:1
     |vpiTypespec:
-    \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
+    \_ref_obj: (pkg::InitDefault)
       |vpiParent:
-      \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
-      |vpiName:pkg::init_t
-      |vpiInstance:
-      \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
-      |vpiPacked:1
-      |vpiTypespecMember:
-      \_typespec_member: (key), line:5:11, endln:5:14
-        |vpiParent:
-        \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
-        |vpiName:key
-        |vpiTypespec:
-        \_logic_typespec: (key), line:3:11, endln:3:28
-          |vpiParent:
-          \_typespec_member: (key), line:5:11, endln:5:14
-          |vpiName:key
-          |vpiTypedefAlias:
-          \_logic_typespec: (pkg::key), line:3:11, endln:3:28
-            |vpiParent:
-            \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
-            |vpiName:pkg::key
-            |vpiInstance:
-            \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
-            |vpiRange:
-            \_range: , line:3:17, endln:3:28
-              |vpiParent:
-              \_logic_typespec: (pkg::key), line:3:11, endln:3:28
-              |vpiLeftRange:
-              \_operation: , line:3:18, endln:3:25
-                |vpiParent:
-                \_range: , line:3:17, endln:3:28
-                |vpiOpType:11
-                |vpiOperand:
-                \_ref_obj: (pkg::pkg::key::Width), line:3:18, endln:3:23
-                  |vpiParent:
-                  \_operation: , line:3:18, endln:3:25
-                  |vpiName:Width
-                  |vpiFullName:pkg::pkg::key::Width
-                  |vpiActual:
-                  \_parameter: (pkg::Width), line:2:17, endln:2:22
-                |vpiOperand:
-                \_constant: , line:3:24, endln:3:25
-                  |vpiParent:
-                  \_operation: , line:3:18, endln:3:25
-                  |vpiDecompile:1
-                  |vpiSize:64
-                  |UINT:1
-                  |vpiConstType:9
-              |vpiRightRange:
-              \_constant: , line:3:26, endln:3:27
-                |vpiParent:
-                \_range: , line:3:17, endln:3:28
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
-                |vpiConstType:9
-          |vpiInstance:
-          \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
-          |vpiRange:
-          \_range: , line:3:17, endln:3:28
-            |vpiParent:
-            \_logic_typespec: (key), line:3:11, endln:3:28
-            |vpiLeftRange:
-            \_operation: , line:3:18, endln:3:25
-              |vpiParent:
-              \_range: , line:3:17, endln:3:28
-              |vpiOpType:11
-              |vpiOperand:
-              \_ref_obj: (pkg::pkg::init_t::key::key::Width), line:3:18, endln:3:23
-                |vpiParent:
-                \_operation: , line:3:18, endln:3:25
-                |vpiName:Width
-                |vpiFullName:pkg::pkg::init_t::key::key::Width
-                |vpiActual:
-                \_parameter: (pkg::Width), line:2:17, endln:2:22
-              |vpiOperand:
-              \_constant: , line:3:24, endln:3:25
-                |vpiParent:
-                \_operation: , line:3:18, endln:3:25
-                |vpiDecompile:1
-                |vpiSize:64
-                |UINT:1
-                |vpiConstType:9
-            |vpiRightRange:
-            \_constant: , line:3:26, endln:3:27
-              |vpiParent:
-              \_range: , line:3:17, endln:3:28
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
-        |vpiRefFile:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv
-        |vpiRefLineNo:5
-        |vpiRefColumnNo:5
-        |vpiRefEndLineNo:5
-        |vpiRefEndColumnNo:8
+      \_parameter: (pkg::InitDefault), line:7:21, endln:7:32
+      |vpiFullName:pkg::InitDefault
+      |vpiActual:
+      \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
     |vpiLocalParam:1
     |vpiName:InitDefault
     |vpiFullName:pkg::InitDefault
@@ -462,7 +371,12 @@ design: (work@top)
       |vpiSize:64
       |UINT:64
       |vpiTypespec:
-      \_int_typespec: , line:2:13, endln:2:16
+      \_ref_obj: (pkg)
+        |vpiParent:
+        \_constant: , line:2:30, endln:2:32
+        |vpiFullName:pkg
+        |vpiActual:
+        \_int_typespec: , line:2:13, endln:2:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (pkg::Width), line:2:17, endln:2:22
@@ -478,14 +392,80 @@ design: (work@top)
       |vpiSize:-1
       |BIN:1
       |vpiTypespec:
-      \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
+      \_ref_obj: (pkg)
+        |vpiParent:
+        \_constant: , line:7:35, endln:7:37
+        |vpiFullName:pkg
+        |vpiActual:
+        \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (pkg::InitDefault), line:7:21, endln:7:32
   |vpiTypedef:
   \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
+    |vpiParent:
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
+    |vpiName:pkg::init_t
+    |vpiInstance:
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
+    |vpiPacked:1
+    |vpiTypespecMember:
+    \_typespec_member: (key), line:5:11, endln:5:14
+      |vpiParent:
+      \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
+      |vpiName:key
+      |vpiTypespec:
+      \_ref_obj: (pkg::pkg::init_t::key)
+        |vpiParent:
+        \_typespec_member: (key), line:5:11, endln:5:14
+        |vpiFullName:pkg::pkg::init_t::key
+        |vpiActual:
+        \_logic_typespec: (key), line:3:11, endln:3:28
+      |vpiRefFile:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv
+      |vpiRefLineNo:5
+      |vpiRefColumnNo:5
+      |vpiRefEndLineNo:5
+      |vpiRefEndColumnNo:8
   |vpiTypedef:
   \_logic_typespec: (pkg::key), line:3:11, endln:3:28
+    |vpiParent:
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
+    |vpiName:pkg::key
+    |vpiInstance:
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
+    |vpiRange:
+    \_range: , line:3:17, endln:3:28
+      |vpiParent:
+      \_logic_typespec: (pkg::key), line:3:11, endln:3:28
+      |vpiLeftRange:
+      \_operation: , line:3:18, endln:3:25
+        |vpiParent:
+        \_range: , line:3:17, endln:3:28
+        |vpiOpType:11
+        |vpiOperand:
+        \_ref_obj: (pkg::pkg::key::Width), line:3:18, endln:3:23
+          |vpiParent:
+          \_operation: , line:3:18, endln:3:25
+          |vpiName:Width
+          |vpiFullName:pkg::pkg::key::Width
+          |vpiActual:
+          \_parameter: (pkg::Width), line:2:17, endln:2:22
+        |vpiOperand:
+        \_constant: , line:3:24, endln:3:25
+          |vpiParent:
+          \_operation: , line:3:18, endln:3:25
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:3:26, endln:3:27
+        |vpiParent:
+        \_range: , line:3:17, endln:3:28
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
   |vpiDefName:pkg
 |uhdmtopPackages:
 \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
@@ -499,12 +479,12 @@ design: (work@top)
     \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
     |UINT:64
     |vpiTypespec:
-    \_int_typespec: , line:2:13, endln:2:16
+    \_ref_obj: (pkg::Width)
       |vpiParent:
       \_parameter: (pkg::Width), line:2:17, endln:2:22
-      |vpiInstance:
-      \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
-      |vpiSigned:1
+      |vpiFullName:pkg::Width
+      |vpiActual:
+      \_int_typespec: , line:2:13, endln:2:16
     |vpiSigned:1
     |vpiName:Width
     |vpiFullName:pkg::Width
@@ -514,77 +494,12 @@ design: (work@top)
     \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
     |UINT:18446744073709551615
     |vpiTypespec:
-    \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
+    \_ref_obj: (pkg::InitDefault)
       |vpiParent:
-      \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:17:1, endln:19:10
-      |vpiName:pkg::init_t
-      |vpiInstance:
-      \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
-      |vpiPacked:1
-      |vpiTypespecMember:
-      \_typespec_member: (key), line:5:11, endln:5:14
-        |vpiParent:
-        \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
-        |vpiName:key
-        |vpiTypespec:
-        \_logic_typespec: (key), line:3:11, endln:3:28
-          |vpiParent:
-          \_typespec_member: (key), line:5:11, endln:5:14
-          |vpiName:key
-          |vpiTypedefAlias:
-          \_logic_typespec: (pkg::key), line:3:11, endln:3:28
-            |vpiParent:
-            \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:17:1, endln:19:10
-            |vpiName:pkg::key
-            |vpiInstance:
-            \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
-            |vpiRange:
-            \_range: , line:3:17, endln:3:28
-              |vpiParent:
-              \_logic_typespec: (pkg::key), line:3:11, endln:3:28
-              |vpiLeftRange:
-              \_constant: , line:3:18, endln:3:23
-                |vpiParent:
-                \_range: , line:3:17, endln:3:28
-                |vpiDecompile:63
-                |vpiSize:64
-                |INT:63
-                |vpiConstType:7
-              |vpiRightRange:
-              \_constant: , line:3:26, endln:3:27
-                |vpiParent:
-                \_range: , line:3:17, endln:3:28
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
-                |vpiConstType:9
-          |vpiInstance:
-          \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
-          |vpiRange:
-          \_range: , line:3:17, endln:3:28
-            |vpiParent:
-            \_logic_typespec: (key), line:3:11, endln:3:28
-            |vpiLeftRange:
-            \_constant: , line:3:18, endln:3:23
-              |vpiParent:
-              \_range: , line:3:17, endln:3:28
-              |vpiDecompile:63
-              |vpiSize:64
-              |INT:63
-              |vpiConstType:7
-            |vpiRightRange:
-            \_constant: , line:3:26, endln:3:27
-              |vpiParent:
-              \_range: , line:3:17, endln:3:28
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
-        |vpiRefFile:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv
-        |vpiRefLineNo:5
-        |vpiRefColumnNo:5
-        |vpiRefEndLineNo:5
-        |vpiRefEndColumnNo:8
+      \_parameter: (pkg::InitDefault), line:7:21, endln:7:32
+      |vpiFullName:pkg::InitDefault
+      |vpiActual:
+      \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
     |vpiLocalParam:1
     |vpiName:InitDefault
     |vpiFullName:pkg::InitDefault
@@ -600,7 +515,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:64
       |vpiTypespec:
-      \_int_typespec: , line:2:13, endln:2:16
+      \_ref_obj: (pkg)
+        |vpiParent:
+        \_constant: , line:2:30, endln:2:32
+        |vpiFullName:pkg
+        |vpiActual:
+        \_int_typespec: , line:2:13, endln:2:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (pkg::Width), line:2:17, endln:2:22
@@ -616,14 +536,67 @@ design: (work@top)
       |vpiSize:64
       |UINT:18446744073709551615
       |vpiTypespec:
-      \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
+      \_ref_obj: (pkg)
+        |vpiParent:
+        \_constant: , line:7:35, endln:7:37
+        |vpiFullName:pkg
+        |vpiActual:
+        \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (pkg::InitDefault), line:7:21, endln:7:32
   |vpiTypedef:
   \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:17:1, endln:19:10
+    |vpiName:pkg::init_t
+    |vpiInstance:
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
+    |vpiPacked:1
+    |vpiTypespecMember:
+    \_typespec_member: (key), line:5:11, endln:5:14
+      |vpiParent:
+      \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
+      |vpiName:key
+      |vpiTypespec:
+      \_ref_obj: (work@dut.pkg::init_t.key)
+        |vpiParent:
+        \_typespec_member: (key), line:5:11, endln:5:14
+        |vpiFullName:work@dut.pkg::init_t.key
+        |vpiActual:
+        \_logic_typespec: (key), line:3:11, endln:3:28
+      |vpiRefFile:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv
+      |vpiRefLineNo:5
+      |vpiRefColumnNo:5
+      |vpiRefEndLineNo:5
+      |vpiRefEndColumnNo:8
   |vpiTypedef:
   \_logic_typespec: (pkg::key), line:3:11, endln:3:28
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:17:1, endln:19:10
+    |vpiName:pkg::key
+    |vpiInstance:
+    \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
+    |vpiRange:
+    \_range: , line:3:17, endln:3:28
+      |vpiParent:
+      \_logic_typespec: (pkg::key), line:3:11, endln:3:28
+      |vpiLeftRange:
+      \_constant: , line:3:18, endln:3:23
+        |vpiParent:
+        \_range: , line:3:17, endln:3:28
+        |vpiDecompile:63
+        |vpiSize:64
+        |INT:63
+        |vpiConstType:7
+      |vpiRightRange:
+      \_constant: , line:3:26, endln:3:27
+        |vpiParent:
+        \_range: , line:3:17, endln:3:28
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
   |vpiDefName:pkg
   |vpiTop:1
 |uhdmallModules:
@@ -637,77 +610,12 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:17:1, endln:19:10
     |UINT:18446744073709551615
     |vpiTypespec:
-    \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
+    \_ref_obj: (work@dut.InitDefault)
       |vpiParent:
       \_parameter: (work@dut.InitDefault), line:7:21, endln:7:32
-      |vpiName:pkg::init_t
-      |vpiInstance:
-      \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
-      |vpiPacked:1
-      |vpiTypespecMember:
-      \_typespec_member: (key), line:5:11, endln:5:14
-        |vpiParent:
-        \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
-        |vpiName:key
-        |vpiTypespec:
-        \_logic_typespec: (key), line:3:11, endln:3:28
-          |vpiParent:
-          \_typespec_member: (key), line:5:11, endln:5:14
-          |vpiName:key
-          |vpiTypedefAlias:
-          \_logic_typespec: (key), line:3:11, endln:3:28
-            |vpiParent:
-            \_logic_typespec: (key), line:3:11, endln:3:28
-            |vpiName:key
-            |vpiInstance:
-            \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
-            |vpiRange:
-            \_range: , line:3:17, endln:3:28
-              |vpiParent:
-              \_logic_typespec: (key), line:3:11, endln:3:28
-              |vpiLeftRange:
-              \_constant: , line:3:18, endln:3:23
-                |vpiParent:
-                \_range: , line:3:17, endln:3:28
-                |vpiDecompile:63
-                |vpiSize:64
-                |INT:63
-                |vpiConstType:7
-              |vpiRightRange:
-              \_constant: , line:3:26, endln:3:27
-                |vpiParent:
-                \_range: , line:3:17, endln:3:28
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
-                |vpiConstType:9
-          |vpiInstance:
-          \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
-          |vpiRange:
-          \_range: , line:3:17, endln:3:28
-            |vpiParent:
-            \_logic_typespec: (key), line:3:11, endln:3:28
-            |vpiLeftRange:
-            \_constant: , line:3:18, endln:3:23
-              |vpiParent:
-              \_range: , line:3:17, endln:3:28
-              |vpiDecompile:63
-              |vpiSize:64
-              |INT:63
-              |vpiConstType:7
-            |vpiRightRange:
-            \_constant: , line:3:26, endln:3:27
-              |vpiParent:
-              \_range: , line:3:17, endln:3:28
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
-        |vpiRefFile:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv
-        |vpiRefLineNo:5
-        |vpiRefColumnNo:5
-        |vpiRefEndLineNo:5
-        |vpiRefEndColumnNo:8
+      |vpiFullName:work@dut.InitDefault
+      |vpiActual:
+      \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
     |vpiLocalParam:1
     |vpiName:InitDefault
     |vpiFullName:work@dut.InitDefault
@@ -718,12 +626,12 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:17:1, endln:19:10
     |UINT:64
     |vpiTypespec:
-    \_int_typespec: , line:2:13, endln:2:16
+    \_ref_obj: (work@dut.Width)
       |vpiParent:
       \_parameter: (work@dut.Width), line:2:17, endln:2:22
-      |vpiInstance:
-      \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
-      |vpiSigned:1
+      |vpiFullName:work@dut.Width
+      |vpiActual:
+      \_int_typespec: , line:2:13, endln:2:16
     |vpiSigned:1
     |vpiName:Width
     |vpiFullName:work@dut.Width
@@ -734,7 +642,12 @@ design: (work@top)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:17:1, endln:19:10
     |UINT:18446744073709551615
     |vpiTypespec:
-    \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
+    \_ref_obj: (work@dut.Init)
+      |vpiParent:
+      \_parameter: (work@dut.Init), line:17:46, endln:17:50
+      |vpiFullName:work@dut.Init
+      |vpiActual:
+      \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
     |vpiName:Init
     |vpiFullName:work@dut.Init
   |vpiParamAssign:
@@ -749,12 +662,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:64
       |vpiTypespec:
-      \_int_typespec: , line:2:13, endln:2:16
+      \_ref_obj: (work@dut)
         |vpiParent:
         \_constant: , line:2:30, endln:2:32
-        |vpiInstance:
-        \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
-        |vpiSigned:1
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_int_typespec: , line:2:13, endln:2:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@dut.Width), line:2:17, endln:2:22
@@ -762,12 +675,12 @@ design: (work@top)
       \_param_assign: , line:2:17, endln:2:32
       |UINT:64
       |vpiTypespec:
-      \_int_typespec: , line:2:13, endln:2:16
+      \_ref_obj: (work@dut.Width)
         |vpiParent:
         \_parameter: (work@dut.Width), line:2:17, endln:2:22
-        |vpiInstance:
-        \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
-        |vpiSigned:1
+        |vpiFullName:work@dut.Width
+        |vpiActual:
+        \_int_typespec: , line:2:13, endln:2:16
       |vpiSigned:1
       |vpiName:Width
       |vpiFullName:work@dut.Width
@@ -784,77 +697,12 @@ design: (work@top)
       |vpiSize:64
       |UINT:18446744073709551615
       |vpiTypespec:
-      \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
+      \_ref_obj: (work@dut)
         |vpiParent:
         \_constant: , line:7:35, endln:7:37
-        |vpiName:pkg::init_t
-        |vpiInstance:
-        \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
-        |vpiPacked:1
-        |vpiTypespecMember:
-        \_typespec_member: (key), line:5:11, endln:5:14
-          |vpiParent:
-          \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
-          |vpiName:key
-          |vpiTypespec:
-          \_logic_typespec: (key), line:3:11, endln:3:28
-            |vpiParent:
-            \_typespec_member: (key), line:5:11, endln:5:14
-            |vpiName:key
-            |vpiTypedefAlias:
-            \_logic_typespec: (key), line:3:11, endln:3:28
-              |vpiParent:
-              \_logic_typespec: (key), line:3:11, endln:3:28
-              |vpiName:key
-              |vpiInstance:
-              \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
-              |vpiRange:
-              \_range: , line:3:17, endln:3:28
-                |vpiParent:
-                \_logic_typespec: (key), line:3:11, endln:3:28
-                |vpiLeftRange:
-                \_constant: , line:3:18, endln:3:23
-                  |vpiParent:
-                  \_range: , line:3:17, endln:3:28
-                  |vpiDecompile:63
-                  |vpiSize:64
-                  |INT:63
-                  |vpiConstType:7
-                |vpiRightRange:
-                \_constant: , line:3:26, endln:3:27
-                  |vpiParent:
-                  \_range: , line:3:17, endln:3:28
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
-                  |vpiConstType:9
-            |vpiInstance:
-            \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
-            |vpiRange:
-            \_range: , line:3:17, endln:3:28
-              |vpiParent:
-              \_logic_typespec: (key), line:3:11, endln:3:28
-              |vpiLeftRange:
-              \_constant: , line:3:18, endln:3:23
-                |vpiParent:
-                \_range: , line:3:17, endln:3:28
-                |vpiDecompile:63
-                |vpiSize:64
-                |INT:63
-                |vpiConstType:7
-              |vpiRightRange:
-              \_constant: , line:3:26, endln:3:27
-                |vpiParent:
-                \_range: , line:3:17, endln:3:28
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
-                |vpiConstType:9
-          |vpiRefFile:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv
-          |vpiRefLineNo:5
-          |vpiRefColumnNo:5
-          |vpiRefEndLineNo:5
-          |vpiRefEndColumnNo:8
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@dut.InitDefault), line:7:21, endln:7:32
@@ -862,77 +710,12 @@ design: (work@top)
       \_param_assign: , line:7:21, endln:7:37
       |UINT:18446744073709551615
       |vpiTypespec:
-      \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
+      \_ref_obj: (work@dut.InitDefault)
         |vpiParent:
         \_parameter: (work@dut.InitDefault), line:7:21, endln:7:32
-        |vpiName:pkg::init_t
-        |vpiInstance:
-        \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
-        |vpiPacked:1
-        |vpiTypespecMember:
-        \_typespec_member: (key), line:5:11, endln:5:14
-          |vpiParent:
-          \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
-          |vpiName:key
-          |vpiTypespec:
-          \_logic_typespec: (key), line:3:11, endln:3:28
-            |vpiParent:
-            \_typespec_member: (key), line:5:11, endln:5:14
-            |vpiName:key
-            |vpiTypedefAlias:
-            \_logic_typespec: (key), line:3:11, endln:3:28
-              |vpiParent:
-              \_logic_typespec: (key), line:3:11, endln:3:28
-              |vpiName:key
-              |vpiInstance:
-              \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
-              |vpiRange:
-              \_range: , line:3:17, endln:3:28
-                |vpiParent:
-                \_logic_typespec: (key), line:3:11, endln:3:28
-                |vpiLeftRange:
-                \_constant: , line:3:18, endln:3:23
-                  |vpiParent:
-                  \_range: , line:3:17, endln:3:28
-                  |vpiDecompile:63
-                  |vpiSize:64
-                  |INT:63
-                  |vpiConstType:7
-                |vpiRightRange:
-                \_constant: , line:3:26, endln:3:27
-                  |vpiParent:
-                  \_range: , line:3:17, endln:3:28
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
-                  |vpiConstType:9
-            |vpiInstance:
-            \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
-            |vpiRange:
-            \_range: , line:3:17, endln:3:28
-              |vpiParent:
-              \_logic_typespec: (key), line:3:11, endln:3:28
-              |vpiLeftRange:
-              \_constant: , line:3:18, endln:3:23
-                |vpiParent:
-                \_range: , line:3:17, endln:3:28
-                |vpiDecompile:63
-                |vpiSize:64
-                |INT:63
-                |vpiConstType:7
-              |vpiRightRange:
-              \_constant: , line:3:26, endln:3:27
-                |vpiParent:
-                \_range: , line:3:17, endln:3:28
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
-                |vpiConstType:9
-          |vpiRefFile:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv
-          |vpiRefLineNo:5
-          |vpiRefColumnNo:5
-          |vpiRefEndLineNo:5
-          |vpiRefEndColumnNo:8
+        |vpiFullName:work@dut.InitDefault
+        |vpiActual:
+        \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
       |vpiLocalParam:1
       |vpiName:InitDefault
       |vpiFullName:work@dut.InitDefault
@@ -949,7 +732,12 @@ design: (work@top)
       |vpiSize:64
       |UINT:18446744073709551615
       |vpiTypespec:
-      \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
+      \_ref_obj: (work@dut)
+        |vpiParent:
+        \_constant: , line:17:53, endln:17:64
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@dut.Init), line:17:46, endln:17:50
@@ -979,29 +767,12 @@ design: (work@top)
     \_module_inst: work@foo (work@foo), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:13:1, endln:15:10
     |BIN:0
     |vpiTypespec:
-    \_logic_typespec: , line:13:24, endln:13:36
+    \_ref_obj: (work@foo.ResetValue)
       |vpiParent:
       \_parameter: (work@foo.ResetValue), line:13:37, endln:13:47
-      |vpiRange:
-      \_range: , line:13:30, endln:13:36
-        |vpiParent:
-        \_logic_typespec: , line:13:24, endln:13:36
-        |vpiLeftRange:
-        \_constant: , line:13:31, endln:13:33
-          |vpiParent:
-          \_range: , line:13:30, endln:13:36
-          |vpiDecompile:63
-          |vpiSize:64
-          |UINT:63
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:13:34, endln:13:35
-          |vpiParent:
-          \_range: , line:13:30, endln:13:36
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@foo.ResetValue
+      |vpiActual:
+      \_logic_typespec: , line:13:24, endln:13:36
     |vpiName:ResetValue
     |vpiFullName:work@foo.ResetValue
   |vpiParamAssign:
@@ -1016,7 +787,12 @@ design: (work@top)
       |vpiSize:-1
       |BIN:0
       |vpiTypespec:
-      \_logic_typespec: , line:13:24, endln:13:36
+      \_ref_obj: (work@foo)
+        |vpiParent:
+        \_constant: , line:13:50, endln:13:52
+        |vpiFullName:work@foo
+        |vpiActual:
+        \_logic_typespec: , line:13:24, endln:13:36
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@foo.ResetValue), line:13:37, endln:13:47
@@ -1040,29 +816,12 @@ design: (work@top)
     \_module_inst: work@foo2 (work@foo2), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:10:1, endln:11:10
     |BIN:0
     |vpiTypespec:
-    \_logic_typespec: , line:10:25, endln:10:37
+    \_ref_obj: (work@foo2.ResetValue)
       |vpiParent:
       \_parameter: (work@foo2.ResetValue), line:10:38, endln:10:48
-      |vpiRange:
-      \_range: , line:10:31, endln:10:37
-        |vpiParent:
-        \_logic_typespec: , line:10:25, endln:10:37
-        |vpiLeftRange:
-        \_constant: , line:10:32, endln:10:34
-          |vpiParent:
-          \_range: , line:10:31, endln:10:37
-          |vpiDecompile:63
-          |vpiSize:64
-          |UINT:63
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:10:35, endln:10:36
-          |vpiParent:
-          \_range: , line:10:31, endln:10:37
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@foo2.ResetValue
+      |vpiActual:
+      \_logic_typespec: , line:10:25, endln:10:37
     |vpiName:ResetValue
     |vpiFullName:work@foo2.ResetValue
   |vpiParamAssign:
@@ -1077,7 +836,12 @@ design: (work@top)
       |vpiSize:-1
       |BIN:0
       |vpiTypespec:
-      \_logic_typespec: , line:10:25, endln:10:37
+      \_ref_obj: (work@foo2)
+        |vpiParent:
+        \_constant: , line:10:51, endln:10:53
+        |vpiFullName:work@foo2
+        |vpiActual:
+        \_logic_typespec: , line:10:25, endln:10:37
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@foo2.ResetValue), line:10:38, endln:10:48
@@ -1114,77 +878,12 @@ design: (work@top)
       \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:22:3, endln:22:11
       |UINT:18446744073709551615
       |vpiTypespec:
-      \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
+      \_ref_obj: (work@top.d.InitDefault)
         |vpiParent:
         \_parameter: (work@top.d.InitDefault), line:7:21, endln:7:32
-        |vpiName:pkg::init_t
-        |vpiInstance:
-        \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
-        |vpiPacked:1
-        |vpiTypespecMember:
-        \_typespec_member: (key), line:5:11, endln:5:14
-          |vpiParent:
-          \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
-          |vpiName:key
-          |vpiTypespec:
-          \_logic_typespec: (key), line:3:11, endln:3:28
-            |vpiParent:
-            \_typespec_member: (key), line:5:11, endln:5:14
-            |vpiName:key
-            |vpiTypedefAlias:
-            \_logic_typespec: (key), line:3:11, endln:3:28
-              |vpiParent:
-              \_logic_typespec: (key), line:3:11, endln:3:28
-              |vpiName:key
-              |vpiInstance:
-              \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
-              |vpiRange:
-              \_range: , line:3:17, endln:3:28
-                |vpiParent:
-                \_logic_typespec: (key), line:3:11, endln:3:28
-                |vpiLeftRange:
-                \_constant: , line:3:18, endln:3:23
-                  |vpiParent:
-                  \_range: , line:3:17, endln:3:28
-                  |vpiDecompile:63
-                  |vpiSize:64
-                  |INT:63
-                  |vpiConstType:7
-                |vpiRightRange:
-                \_constant: , line:3:26, endln:3:27
-                  |vpiParent:
-                  \_range: , line:3:17, endln:3:28
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
-                  |vpiConstType:9
-            |vpiInstance:
-            \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
-            |vpiRange:
-            \_range: , line:3:17, endln:3:28
-              |vpiParent:
-              \_logic_typespec: (key), line:3:11, endln:3:28
-              |vpiLeftRange:
-              \_constant: , line:3:18, endln:3:23
-                |vpiParent:
-                \_range: , line:3:17, endln:3:28
-                |vpiDecompile:63
-                |vpiSize:64
-                |INT:63
-                |vpiConstType:7
-              |vpiRightRange:
-              \_constant: , line:3:26, endln:3:27
-                |vpiParent:
-                \_range: , line:3:17, endln:3:28
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
-                |vpiConstType:9
-          |vpiRefFile:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv
-          |vpiRefLineNo:5
-          |vpiRefColumnNo:5
-          |vpiRefEndLineNo:5
-          |vpiRefEndColumnNo:8
+        |vpiFullName:work@top.d.InitDefault
+        |vpiActual:
+        \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
       |vpiLocalParam:1
       |vpiName:InitDefault
       |vpiFullName:work@top.d.InitDefault
@@ -1195,12 +894,12 @@ design: (work@top)
       \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:22:3, endln:22:11
       |UINT:64
       |vpiTypespec:
-      \_int_typespec: , line:2:13, endln:2:16
+      \_ref_obj: (work@top.d.Width)
         |vpiParent:
         \_parameter: (work@top.d.Width), line:2:17, endln:2:22
-        |vpiInstance:
-        \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
-        |vpiSigned:1
+        |vpiFullName:work@top.d.Width
+        |vpiActual:
+        \_int_typespec: , line:2:13, endln:2:16
       |vpiSigned:1
       |vpiName:Width
       |vpiFullName:work@top.d.Width
@@ -1211,77 +910,12 @@ design: (work@top)
       \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:22:3, endln:22:11
       |UINT:18446744073709551615
       |vpiTypespec:
-      \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
+      \_ref_obj: (work@top.d.Init)
         |vpiParent:
         \_parameter: (work@top.d.Init), line:17:46, endln:17:50
-        |vpiName:pkg::init_t
-        |vpiInstance:
-        \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
-        |vpiPacked:1
-        |vpiTypespecMember:
-        \_typespec_member: (key), line:5:11, endln:5:14
-          |vpiParent:
-          \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
-          |vpiName:key
-          |vpiTypespec:
-          \_logic_typespec: (key), line:3:11, endln:3:28
-            |vpiParent:
-            \_typespec_member: (key), line:5:11, endln:5:14
-            |vpiName:key
-            |vpiTypedefAlias:
-            \_logic_typespec: (pkg::key), line:3:11, endln:3:28
-              |vpiParent:
-              \_logic_typespec: (key), line:3:11, endln:3:28
-              |vpiName:pkg::key
-              |vpiInstance:
-              \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
-              |vpiRange:
-              \_range: , line:3:17, endln:3:28
-                |vpiParent:
-                \_logic_typespec: (pkg::key), line:3:11, endln:3:28
-                |vpiLeftRange:
-                \_constant: , line:3:18, endln:3:23
-                  |vpiParent:
-                  \_range: , line:3:17, endln:3:28
-                  |vpiDecompile:63
-                  |vpiSize:64
-                  |INT:63
-                  |vpiConstType:7
-                |vpiRightRange:
-                \_constant: , line:3:26, endln:3:27
-                  |vpiParent:
-                  \_range: , line:3:17, endln:3:28
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
-                  |vpiConstType:9
-            |vpiInstance:
-            \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
-            |vpiRange:
-            \_range: , line:3:17, endln:3:28
-              |vpiParent:
-              \_logic_typespec: (key), line:3:11, endln:3:28
-              |vpiLeftRange:
-              \_constant: , line:3:18, endln:3:23
-                |vpiParent:
-                \_range: , line:3:17, endln:3:28
-                |vpiDecompile:63
-                |vpiSize:64
-                |INT:63
-                |vpiConstType:7
-              |vpiRightRange:
-              \_constant: , line:3:26, endln:3:27
-                |vpiParent:
-                \_range: , line:3:17, endln:3:28
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
-                |vpiConstType:9
-          |vpiRefFile:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv
-          |vpiRefLineNo:5
-          |vpiRefColumnNo:5
-          |vpiRefEndLineNo:5
-          |vpiRefEndColumnNo:8
+        |vpiFullName:work@top.d.Init
+        |vpiActual:
+        \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
       |vpiName:Init
       |vpiFullName:work@top.d.Init
     |vpiParamAssign:
@@ -1296,77 +930,12 @@ design: (work@top)
         |vpiSize:64
         |UINT:18446744073709551615
         |vpiTypespec:
-        \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
+        \_ref_obj: (work@dut)
           |vpiParent:
           \_constant: , line:17:53, endln:17:64
-          |vpiName:pkg::init_t
-          |vpiInstance:
-          \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
-          |vpiPacked:1
-          |vpiTypespecMember:
-          \_typespec_member: (key), line:5:11, endln:5:14
-            |vpiParent:
-            \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
-            |vpiName:key
-            |vpiTypespec:
-            \_logic_typespec: (key), line:3:11, endln:3:28
-              |vpiParent:
-              \_typespec_member: (key), line:5:11, endln:5:14
-              |vpiName:key
-              |vpiTypedefAlias:
-              \_logic_typespec: (key), line:3:11, endln:3:28
-                |vpiParent:
-                \_logic_typespec: (key), line:3:11, endln:3:28
-                |vpiName:key
-                |vpiInstance:
-                \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
-                |vpiRange:
-                \_range: , line:3:17, endln:3:28
-                  |vpiParent:
-                  \_logic_typespec: (key), line:3:11, endln:3:28
-                  |vpiLeftRange:
-                  \_constant: , line:3:18, endln:3:23
-                    |vpiParent:
-                    \_range: , line:3:17, endln:3:28
-                    |vpiDecompile:63
-                    |vpiSize:64
-                    |INT:63
-                    |vpiConstType:7
-                  |vpiRightRange:
-                  \_constant: , line:3:26, endln:3:27
-                    |vpiParent:
-                    \_range: , line:3:17, endln:3:28
-                    |vpiDecompile:0
-                    |vpiSize:64
-                    |UINT:0
-                    |vpiConstType:9
-              |vpiInstance:
-              \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
-              |vpiRange:
-              \_range: , line:3:17, endln:3:28
-                |vpiParent:
-                \_logic_typespec: (key), line:3:11, endln:3:28
-                |vpiLeftRange:
-                \_constant: , line:3:18, endln:3:23
-                  |vpiParent:
-                  \_range: , line:3:17, endln:3:28
-                  |vpiDecompile:63
-                  |vpiSize:64
-                  |INT:63
-                  |vpiConstType:7
-                |vpiRightRange:
-                \_constant: , line:3:26, endln:3:27
-                  |vpiParent:
-                  \_range: , line:3:17, endln:3:28
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
-                  |vpiConstType:9
-            |vpiRefFile:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv
-            |vpiRefLineNo:5
-            |vpiRefColumnNo:5
-            |vpiRefEndLineNo:5
-            |vpiRefEndColumnNo:8
+          |vpiFullName:work@dut
+          |vpiActual:
+          \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
         |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@top.d.Init), line:17:46, endln:17:50
@@ -1382,7 +951,12 @@ design: (work@top)
         |vpiSize:32
         |UINT:64
         |vpiTypespec:
-        \_int_typespec: , line:2:13, endln:2:16
+        \_ref_obj: (work@top.d)
+          |vpiParent:
+          \_constant: , line:2:30, endln:2:32
+          |vpiFullName:work@top.d
+          |vpiActual:
+          \_int_typespec: , line:2:13, endln:2:16
         |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@top.d.Width), line:2:17, endln:2:22
@@ -1421,29 +995,12 @@ design: (work@top)
         \_module_inst: work@foo (work@top.d.f), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:18:3, endln:18:37
         |BIN:0
         |vpiTypespec:
-        \_logic_typespec: , line:13:24, endln:13:36
+        \_ref_obj: (work@top.d.f.ResetValue)
           |vpiParent:
           \_parameter: (work@top.d.f.ResetValue), line:13:37, endln:13:47
-          |vpiRange:
-          \_range: , line:13:30, endln:13:36
-            |vpiParent:
-            \_logic_typespec: , line:13:24, endln:13:36
-            |vpiLeftRange:
-            \_constant: , line:13:31, endln:13:33
-              |vpiParent:
-              \_range: , line:13:30, endln:13:36
-              |vpiDecompile:63
-              |vpiSize:64
-              |UINT:63
-              |vpiConstType:9
-            |vpiRightRange:
-            \_constant: , line:13:34, endln:13:35
-              |vpiParent:
-              \_range: , line:13:30, endln:13:36
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
+          |vpiFullName:work@top.d.f.ResetValue
+          |vpiActual:
+          \_logic_typespec: , line:13:24, endln:13:36
         |vpiName:ResetValue
         |vpiFullName:work@top.d.f.ResetValue
       |vpiParamAssign:
@@ -1459,7 +1016,12 @@ design: (work@top)
           |vpiSize:64
           |UINT:18446744073709551615
           |vpiTypespec:
-          \_logic_typespec: , line:13:24, endln:13:36
+          \_ref_obj: (work@top.d.f)
+            |vpiParent:
+            \_constant: , line:13:50, endln:13:52
+            |vpiFullName:work@top.d.f
+            |vpiActual:
+            \_logic_typespec: , line:13:24, endln:13:36
           |vpiConstType:9
         |vpiLhs:
         \_parameter: (work@top.d.f.ResetValue), line:13:37, endln:13:47
@@ -1480,29 +1042,12 @@ design: (work@top)
           \_module_inst: work@foo2 (work@top.d.f.f), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:14:3, endln:14:39
           |BIN:0
           |vpiTypespec:
-          \_logic_typespec: , line:10:25, endln:10:37
+          \_ref_obj: (work@top.d.f.f.ResetValue)
             |vpiParent:
             \_parameter: (work@top.d.f.f.ResetValue), line:10:38, endln:10:48
-            |vpiRange:
-            \_range: , line:10:31, endln:10:37
-              |vpiParent:
-              \_logic_typespec: , line:10:25, endln:10:37
-              |vpiLeftRange:
-              \_constant: , line:10:32, endln:10:34
-                |vpiParent:
-                \_range: , line:10:31, endln:10:37
-                |vpiDecompile:63
-                |vpiSize:64
-                |UINT:63
-                |vpiConstType:9
-              |vpiRightRange:
-              \_constant: , line:10:35, endln:10:36
-                |vpiParent:
-                \_range: , line:10:31, endln:10:37
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
-                |vpiConstType:9
+            |vpiFullName:work@top.d.f.f.ResetValue
+            |vpiActual:
+            \_logic_typespec: , line:10:25, endln:10:37
           |vpiName:ResetValue
           |vpiFullName:work@top.d.f.f.ResetValue
         |vpiParamAssign:
@@ -1518,7 +1063,12 @@ design: (work@top)
             |vpiSize:64
             |UINT:18446744073709551615
             |vpiTypespec:
-            \_logic_typespec: , line:10:25, endln:10:37
+            \_ref_obj: (work@top.d.f.f)
+              |vpiParent:
+              \_constant: , line:10:51, endln:10:53
+              |vpiFullName:work@top.d.f.f
+              |vpiActual:
+              \_logic_typespec: , line:10:25, endln:10:37
             |vpiConstType:9
           |vpiLhs:
           \_parameter: (work@top.d.f.f.ResetValue), line:10:38, endln:10:48
@@ -1527,6 +1077,795 @@ design: (work@top)
         |vpiDefLineNo:10
         |vpiInstance:
         \_module_inst: work@foo (work@top.d.f), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:18:3, endln:18:37
+\_weaklyReferenced:
+\_int_typespec: , line:2:13, endln:2:16
+  |vpiParent:
+  \_parameter: (pkg::Width), line:2:17, endln:2:22
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
+  |vpiSigned:1
+\_logic_typespec: (key), line:3:11, endln:3:28
+  |vpiParent:
+  \_typespec_member: (key), line:5:11, endln:5:14
+  |vpiName:key
+  |vpiTypedefAlias:
+  \_ref_obj: (work@dut.pkg::init_t.key.key)
+    |vpiParent:
+    \_logic_typespec: (key), line:3:11, endln:3:28
+    |vpiFullName:work@dut.pkg::init_t.key.key
+    |vpiActual:
+    \_logic_typespec: (pkg::key), line:3:11, endln:3:28
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
+  |vpiRange:
+  \_range: , line:3:17, endln:3:28
+    |vpiParent:
+    \_logic_typespec: (key), line:3:11, endln:3:28
+    |vpiLeftRange:
+    \_constant: , line:3:18, endln:3:23
+      |vpiParent:
+      \_range: , line:3:17, endln:3:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |INT:63
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:3:26, endln:3:27
+      |vpiParent:
+      \_range: , line:3:17, endln:3:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:2:13, endln:2:16
+  |vpiParent:
+  \_parameter: (pkg::Width), line:2:17, endln:2:22
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
+  |vpiSigned:1
+\_logic_typespec: (key), line:3:11, endln:3:28
+  |vpiParent:
+  \_typespec_member: (key), line:5:11, endln:5:14
+  |vpiName:key
+  |vpiTypedefAlias:
+  \_ref_obj: (pkg::pkg::init_t::key::key)
+    |vpiParent:
+    \_logic_typespec: (key), line:3:11, endln:3:28
+    |vpiFullName:pkg::pkg::init_t::key::key
+    |vpiActual:
+    \_logic_typespec: (pkg::key), line:3:11, endln:3:28
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
+  |vpiRange:
+  \_range: , line:3:17, endln:3:28
+    |vpiParent:
+    \_logic_typespec: (key), line:3:11, endln:3:28
+    |vpiLeftRange:
+    \_operation: , line:3:18, endln:3:25
+      |vpiParent:
+      \_range: , line:3:17, endln:3:28
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (pkg::pkg::init_t::key::key::Width), line:3:18, endln:3:23
+        |vpiParent:
+        \_operation: , line:3:18, endln:3:25
+        |vpiName:Width
+        |vpiFullName:pkg::pkg::init_t::key::key::Width
+        |vpiActual:
+        \_parameter: (pkg::Width), line:2:17, endln:2:22
+      |vpiOperand:
+      \_constant: , line:3:24, endln:3:25
+        |vpiParent:
+        \_operation: , line:3:18, endln:3:25
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:26, endln:3:27
+      |vpiParent:
+      \_range: , line:3:17, endln:3:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
+  |vpiParent:
+  \_ref_obj: (work@dut.InitDefault)
+  |vpiName:pkg::init_t
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (key), line:5:11, endln:5:14
+    |vpiParent:
+    \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
+    |vpiName:key
+    |vpiTypespec:
+    \_ref_obj: (work@dut.InitDefault.key)
+      |vpiParent:
+      \_typespec_member: (key), line:5:11, endln:5:14
+      |vpiFullName:work@dut.InitDefault.key
+      |vpiActual:
+      \_logic_typespec: (key), line:3:11, endln:3:28
+    |vpiRefFile:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv
+    |vpiRefLineNo:5
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:5
+    |vpiRefEndColumnNo:8
+\_logic_typespec: (key), line:3:11, endln:3:28
+  |vpiParent:
+  \_ref_obj: (work@dut.InitDefault.key)
+  |vpiName:key
+  |vpiTypedefAlias:
+  \_ref_obj: (work@dut.InitDefault.key)
+    |vpiParent:
+    \_logic_typespec: (key), line:3:11, endln:3:28
+    |vpiFullName:work@dut.InitDefault.key
+    |vpiActual:
+    \_logic_typespec: (key), line:3:11, endln:3:28
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
+  |vpiRange:
+  \_range: , line:3:17, endln:3:28
+    |vpiParent:
+    \_logic_typespec: (key), line:3:11, endln:3:28
+    |vpiLeftRange:
+    \_constant: , line:3:18, endln:3:23
+      |vpiParent:
+      \_range: , line:3:17, endln:3:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |INT:63
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:3:26, endln:3:27
+      |vpiParent:
+      \_range: , line:3:17, endln:3:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: (key), line:3:11, endln:3:28
+  |vpiParent:
+  \_ref_obj: (work@dut.InitDefault.key)
+  |vpiName:key
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
+  |vpiRange:
+  \_range: , line:3:17, endln:3:28
+    |vpiParent:
+    \_logic_typespec: (key), line:3:11, endln:3:28
+    |vpiLeftRange:
+    \_constant: , line:3:18, endln:3:23
+      |vpiParent:
+      \_range: , line:3:17, endln:3:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |INT:63
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:3:26, endln:3:27
+      |vpiParent:
+      \_range: , line:3:17, endln:3:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:2:13, endln:2:16
+  |vpiParent:
+  \_ref_obj: (work@dut.Width)
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
+  |vpiSigned:1
+\_int_typespec: , line:2:13, endln:2:16
+  |vpiParent:
+  \_ref_obj: (work@dut)
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
+  |vpiSigned:1
+\_int_typespec: , line:2:13, endln:2:16
+  |vpiParent:
+  \_ref_obj: (work@dut.Width)
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
+  |vpiSigned:1
+\_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
+  |vpiParent:
+  \_ref_obj: (work@dut)
+  |vpiName:pkg::init_t
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (key), line:5:11, endln:5:14
+    |vpiParent:
+    \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
+    |vpiName:key
+    |vpiTypespec:
+    \_ref_obj: (work@dut.key)
+      |vpiParent:
+      \_typespec_member: (key), line:5:11, endln:5:14
+      |vpiFullName:work@dut.key
+      |vpiActual:
+      \_logic_typespec: (key), line:3:11, endln:3:28
+    |vpiRefFile:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv
+    |vpiRefLineNo:5
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:5
+    |vpiRefEndColumnNo:8
+\_logic_typespec: (key), line:3:11, endln:3:28
+  |vpiParent:
+  \_ref_obj: (work@dut.key)
+  |vpiName:key
+  |vpiTypedefAlias:
+  \_ref_obj: (work@dut.key)
+    |vpiParent:
+    \_logic_typespec: (key), line:3:11, endln:3:28
+    |vpiFullName:work@dut.key
+    |vpiActual:
+    \_logic_typespec: (key), line:3:11, endln:3:28
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
+  |vpiRange:
+  \_range: , line:3:17, endln:3:28
+    |vpiParent:
+    \_logic_typespec: (key), line:3:11, endln:3:28
+    |vpiLeftRange:
+    \_constant: , line:3:18, endln:3:23
+      |vpiParent:
+      \_range: , line:3:17, endln:3:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |INT:63
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:3:26, endln:3:27
+      |vpiParent:
+      \_range: , line:3:17, endln:3:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: (key), line:3:11, endln:3:28
+  |vpiParent:
+  \_ref_obj: (work@dut.key)
+  |vpiName:key
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
+  |vpiRange:
+  \_range: , line:3:17, endln:3:28
+    |vpiParent:
+    \_logic_typespec: (key), line:3:11, endln:3:28
+    |vpiLeftRange:
+    \_constant: , line:3:18, endln:3:23
+      |vpiParent:
+      \_range: , line:3:17, endln:3:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |INT:63
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:3:26, endln:3:27
+      |vpiParent:
+      \_range: , line:3:17, endln:3:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
+  |vpiParent:
+  \_ref_obj: (work@dut.InitDefault)
+  |vpiName:pkg::init_t
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (key), line:5:11, endln:5:14
+    |vpiParent:
+    \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
+    |vpiName:key
+    |vpiTypespec:
+    \_ref_obj: (work@dut.InitDefault.key)
+      |vpiParent:
+      \_typespec_member: (key), line:5:11, endln:5:14
+      |vpiFullName:work@dut.InitDefault.key
+      |vpiActual:
+      \_logic_typespec: (key), line:3:11, endln:3:28
+    |vpiRefFile:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv
+    |vpiRefLineNo:5
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:5
+    |vpiRefEndColumnNo:8
+\_logic_typespec: (key), line:3:11, endln:3:28
+  |vpiParent:
+  \_ref_obj: (work@dut.InitDefault.key)
+  |vpiName:key
+  |vpiTypedefAlias:
+  \_ref_obj: (work@dut.InitDefault.key)
+    |vpiParent:
+    \_logic_typespec: (key), line:3:11, endln:3:28
+    |vpiFullName:work@dut.InitDefault.key
+    |vpiActual:
+    \_logic_typespec: (key), line:3:11, endln:3:28
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
+  |vpiRange:
+  \_range: , line:3:17, endln:3:28
+    |vpiParent:
+    \_logic_typespec: (key), line:3:11, endln:3:28
+    |vpiLeftRange:
+    \_constant: , line:3:18, endln:3:23
+      |vpiParent:
+      \_range: , line:3:17, endln:3:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |INT:63
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:3:26, endln:3:27
+      |vpiParent:
+      \_range: , line:3:17, endln:3:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: (key), line:3:11, endln:3:28
+  |vpiParent:
+  \_ref_obj: (work@dut.InitDefault.key)
+  |vpiName:key
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
+  |vpiRange:
+  \_range: , line:3:17, endln:3:28
+    |vpiParent:
+    \_logic_typespec: (key), line:3:11, endln:3:28
+    |vpiLeftRange:
+    \_constant: , line:3:18, endln:3:23
+      |vpiParent:
+      \_range: , line:3:17, endln:3:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |INT:63
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:3:26, endln:3:27
+      |vpiParent:
+      \_range: , line:3:17, endln:3:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
+  |vpiParent:
+  \_ref_obj: (work@dut)
+  |vpiName:pkg::init_t
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (key), line:5:11, endln:5:14
+    |vpiParent:
+    \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
+    |vpiName:key
+    |vpiTypespec:
+    \_ref_obj: (work@dut.key)
+      |vpiParent:
+      \_typespec_member: (key), line:5:11, endln:5:14
+      |vpiFullName:work@dut.key
+      |vpiActual:
+      \_logic_typespec: (key), line:3:11, endln:3:28
+    |vpiRefFile:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv
+    |vpiRefLineNo:5
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:5
+    |vpiRefEndColumnNo:8
+\_logic_typespec: (key), line:3:11, endln:3:28
+  |vpiParent:
+  \_ref_obj: (work@dut.key)
+  |vpiName:key
+  |vpiTypedefAlias:
+  \_ref_obj: (work@dut.key)
+    |vpiParent:
+    \_logic_typespec: (key), line:3:11, endln:3:28
+    |vpiFullName:work@dut.key
+    |vpiActual:
+    \_logic_typespec: (key), line:3:11, endln:3:28
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
+  |vpiRange:
+  \_range: , line:3:17, endln:3:28
+    |vpiParent:
+    \_logic_typespec: (key), line:3:11, endln:3:28
+    |vpiLeftRange:
+    \_constant: , line:3:18, endln:3:23
+      |vpiParent:
+      \_range: , line:3:17, endln:3:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |INT:63
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:3:26, endln:3:27
+      |vpiParent:
+      \_range: , line:3:17, endln:3:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: (key), line:3:11, endln:3:28
+  |vpiParent:
+  \_ref_obj: (work@dut.key)
+  |vpiName:key
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
+  |vpiRange:
+  \_range: , line:3:17, endln:3:28
+    |vpiParent:
+    \_logic_typespec: (key), line:3:11, endln:3:28
+    |vpiLeftRange:
+    \_constant: , line:3:18, endln:3:23
+      |vpiParent:
+      \_range: , line:3:17, endln:3:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |INT:63
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:3:26, endln:3:27
+      |vpiParent:
+      \_range: , line:3:17, endln:3:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:13:24, endln:13:36
+  |vpiParent:
+  \_parameter: (work@foo.ResetValue), line:13:37, endln:13:47
+  |vpiRange:
+  \_range: , line:13:30, endln:13:36
+    |vpiParent:
+    \_logic_typespec: , line:13:24, endln:13:36
+    |vpiLeftRange:
+    \_constant: , line:13:31, endln:13:33
+      |vpiParent:
+      \_range: , line:13:30, endln:13:36
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:13:34, endln:13:35
+      |vpiParent:
+      \_range: , line:13:30, endln:13:36
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:10:25, endln:10:37
+  |vpiParent:
+  \_parameter: (work@foo2.ResetValue), line:10:38, endln:10:48
+  |vpiRange:
+  \_range: , line:10:31, endln:10:37
+    |vpiParent:
+    \_logic_typespec: , line:10:25, endln:10:37
+    |vpiLeftRange:
+    \_constant: , line:10:32, endln:10:34
+      |vpiParent:
+      \_range: , line:10:31, endln:10:37
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:10:35, endln:10:36
+      |vpiParent:
+      \_range: , line:10:31, endln:10:37
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
+  |vpiParent:
+  \_ref_obj: (work@dut)
+  |vpiName:pkg::init_t
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (key), line:5:11, endln:5:14
+    |vpiParent:
+    \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
+    |vpiName:key
+    |vpiTypespec:
+    \_ref_obj: (work@dut.key)
+      |vpiParent:
+      \_typespec_member: (key), line:5:11, endln:5:14
+      |vpiFullName:work@dut.key
+      |vpiActual:
+      \_logic_typespec: (key), line:3:11, endln:3:28
+    |vpiRefFile:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv
+    |vpiRefLineNo:5
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:5
+    |vpiRefEndColumnNo:8
+\_logic_typespec: (key), line:3:11, endln:3:28
+  |vpiParent:
+  \_ref_obj: (work@dut.key)
+  |vpiName:key
+  |vpiTypedefAlias:
+  \_ref_obj: (work@dut.key)
+    |vpiParent:
+    \_logic_typespec: (key), line:3:11, endln:3:28
+    |vpiFullName:work@dut.key
+    |vpiActual:
+    \_logic_typespec: (key), line:3:11, endln:3:28
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
+  |vpiRange:
+  \_range: , line:3:17, endln:3:28
+    |vpiParent:
+    \_logic_typespec: (key), line:3:11, endln:3:28
+    |vpiLeftRange:
+    \_constant: , line:3:18, endln:3:23
+      |vpiParent:
+      \_range: , line:3:17, endln:3:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |INT:63
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:3:26, endln:3:27
+      |vpiParent:
+      \_range: , line:3:17, endln:3:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: (key), line:3:11, endln:3:28
+  |vpiParent:
+  \_ref_obj: (work@dut.key)
+  |vpiName:key
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
+  |vpiRange:
+  \_range: , line:3:17, endln:3:28
+    |vpiParent:
+    \_logic_typespec: (key), line:3:11, endln:3:28
+    |vpiLeftRange:
+    \_constant: , line:3:18, endln:3:23
+      |vpiParent:
+      \_range: , line:3:17, endln:3:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |INT:63
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:3:26, endln:3:27
+      |vpiParent:
+      \_range: , line:3:17, endln:3:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
+  |vpiParent:
+  \_ref_obj: (work@top.d.InitDefault)
+  |vpiName:pkg::init_t
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (key), line:5:11, endln:5:14
+    |vpiParent:
+    \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
+    |vpiName:key
+    |vpiTypespec:
+    \_ref_obj: (work@top.d.InitDefault.key)
+      |vpiParent:
+      \_typespec_member: (key), line:5:11, endln:5:14
+      |vpiFullName:work@top.d.InitDefault.key
+      |vpiActual:
+      \_logic_typespec: (key), line:3:11, endln:3:28
+    |vpiRefFile:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv
+    |vpiRefLineNo:5
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:5
+    |vpiRefEndColumnNo:8
+\_logic_typespec: (key), line:3:11, endln:3:28
+  |vpiParent:
+  \_ref_obj: (work@top.d.InitDefault.key)
+  |vpiName:key
+  |vpiTypedefAlias:
+  \_ref_obj: (work@top.d.InitDefault.key)
+    |vpiParent:
+    \_logic_typespec: (key), line:3:11, endln:3:28
+    |vpiFullName:work@top.d.InitDefault.key
+    |vpiActual:
+    \_logic_typespec: (key), line:3:11, endln:3:28
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
+  |vpiRange:
+  \_range: , line:3:17, endln:3:28
+    |vpiParent:
+    \_logic_typespec: (key), line:3:11, endln:3:28
+    |vpiLeftRange:
+    \_constant: , line:3:18, endln:3:23
+      |vpiParent:
+      \_range: , line:3:17, endln:3:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |INT:63
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:3:26, endln:3:27
+      |vpiParent:
+      \_range: , line:3:17, endln:3:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: (key), line:3:11, endln:3:28
+  |vpiParent:
+  \_ref_obj: (work@top.d.InitDefault.key)
+  |vpiName:key
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
+  |vpiRange:
+  \_range: , line:3:17, endln:3:28
+    |vpiParent:
+    \_logic_typespec: (key), line:3:11, endln:3:28
+    |vpiLeftRange:
+    \_constant: , line:3:18, endln:3:23
+      |vpiParent:
+      \_range: , line:3:17, endln:3:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |INT:63
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:3:26, endln:3:27
+      |vpiParent:
+      \_range: , line:3:17, endln:3:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:2:13, endln:2:16
+  |vpiParent:
+  \_ref_obj: (work@top.d.Width)
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
+  |vpiSigned:1
+\_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
+  |vpiParent:
+  \_ref_obj: (work@top.d.Init)
+  |vpiName:pkg::init_t
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (key), line:5:11, endln:5:14
+    |vpiParent:
+    \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
+    |vpiName:key
+    |vpiTypespec:
+    \_ref_obj: (work@top.d.Init.key)
+      |vpiParent:
+      \_typespec_member: (key), line:5:11, endln:5:14
+      |vpiFullName:work@top.d.Init.key
+      |vpiActual:
+      \_logic_typespec: (key), line:3:11, endln:3:28
+    |vpiRefFile:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv
+    |vpiRefLineNo:5
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:5
+    |vpiRefEndColumnNo:8
+\_logic_typespec: (key), line:3:11, endln:3:28
+  |vpiParent:
+  \_ref_obj: (work@top.d.Init.key)
+  |vpiName:key
+  |vpiTypedefAlias:
+  \_ref_obj: (work@top.d.Init.key)
+    |vpiParent:
+    \_logic_typespec: (key), line:3:11, endln:3:28
+    |vpiFullName:work@top.d.Init.key
+    |vpiActual:
+    \_logic_typespec: (pkg::key), line:3:11, endln:3:28
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
+  |vpiRange:
+  \_range: , line:3:17, endln:3:28
+    |vpiParent:
+    \_logic_typespec: (key), line:3:11, endln:3:28
+    |vpiLeftRange:
+    \_constant: , line:3:18, endln:3:23
+      |vpiParent:
+      \_range: , line:3:17, endln:3:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |INT:63
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:3:26, endln:3:27
+      |vpiParent:
+      \_range: , line:3:17, endln:3:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: (pkg::key), line:3:11, endln:3:28
+  |vpiParent:
+  \_ref_obj: (work@top.d.Init.key)
+  |vpiName:pkg::key
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
+  |vpiRange:
+  \_range: , line:3:17, endln:3:28
+    |vpiParent:
+    \_logic_typespec: (pkg::key), line:3:11, endln:3:28
+    |vpiLeftRange:
+    \_constant: , line:3:18, endln:3:23
+      |vpiParent:
+      \_range: , line:3:17, endln:3:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |INT:63
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:3:26, endln:3:27
+      |vpiParent:
+      \_range: , line:3:17, endln:3:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:13:24, endln:13:36
+  |vpiParent:
+  \_ref_obj: (work@top.d.f.ResetValue)
+  |vpiRange:
+  \_range: , line:13:30, endln:13:36
+    |vpiParent:
+    \_logic_typespec: , line:13:24, endln:13:36
+    |vpiLeftRange:
+    \_constant: , line:13:31, endln:13:33
+      |vpiParent:
+      \_range: , line:13:30, endln:13:36
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:13:34, endln:13:35
+      |vpiParent:
+      \_range: , line:13:30, endln:13:36
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:10:25, endln:10:37
+  |vpiParent:
+  \_ref_obj: (work@top.d.f.f.ResetValue)
+  |vpiRange:
+  \_range: , line:10:31, endln:10:37
+    |vpiParent:
+    \_logic_typespec: , line:10:25, endln:10:37
+    |vpiLeftRange:
+    \_constant: , line:10:32, endln:10:34
+      |vpiParent:
+      \_range: , line:10:31, endln:10:37
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:10:35, endln:10:36
+      |vpiParent:
+      \_range: , line:10:31, endln:10:37
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

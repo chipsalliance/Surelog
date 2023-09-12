@@ -121,7 +121,7 @@ initial                                                1
 logic_net                                              1
 module_inst                                            2
 port                                                   2
-ref_obj                                                3
+ref_obj                                                6
 string_typespec                                        3
 string_var                                             1
 === UHDM Object Stats End ===
@@ -136,7 +136,7 @@ initial                                                2
 logic_net                                              1
 module_inst                                            2
 port                                                   3
-ref_obj                                                5
+ref_obj                                                9
 string_typespec                                        3
 string_var                                             1
 === UHDM Object Stats End ===
@@ -179,7 +179,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.o), line:1:26, endln:1:27
     |vpiTypedef:
-    \_string_typespec: , line:1:19, endln:1:25
+    \_ref_obj: (work@top.o)
+      |vpiParent:
+      \_port: (o), line:1:26, endln:1:27
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_string_typespec: , line:1:19, endln:1:25
   |vpiProcess:
   \_initial: , line:2:4, endln:4:7
     |vpiParent:
@@ -217,9 +222,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ComplexEscaped/dut.sv, line:1:1, endln:5:10
     |vpiTypespec:
-    \_string_typespec: , line:1:19, endln:1:25
+    \_ref_obj: (work@top.o)
       |vpiParent:
       \_string_var: (work@top.o), line:1:26, endln:1:27
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_string_typespec: , line:1:19, endln:1:25
     |vpiName:o
     |vpiFullName:work@top.o
     |vpiVisibility:1
@@ -241,7 +249,12 @@ design: (work@top)
       |vpiActual:
       \_string_var: (work@top.o), line:1:26, endln:1:27
     |vpiTypedef:
-    \_string_typespec: , line:1:19, endln:1:25
+    \_ref_obj: (work@top.o)
+      |vpiParent:
+      \_port: (o), line:1:26, endln:1:27
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_string_typespec: , line:1:19, endln:1:25
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ComplexEscaped/dut.sv, line:1:1, endln:5:10
   |vpiProcess:
@@ -269,6 +282,12 @@ design: (work@top)
           |vpiFullName:work@top.o
           |vpiActual:
           \_string_var: (work@top.o), line:1:26, endln:1:27
+\_weaklyReferenced:
+\_string_typespec: , line:1:19, endln:1:25
+\_string_typespec: , line:1:19, endln:1:25
+  |vpiParent:
+  \_string_var: (work@top.o), line:1:26, endln:1:27
+\_string_typespec: , line:1:19, endln:1:25
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

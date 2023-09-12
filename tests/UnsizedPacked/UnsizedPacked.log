@@ -73,6 +73,7 @@ logic_net                                              4
 logic_typespec                                         4
 module_inst                                            2
 range                                                  4
+ref_obj                                                4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -84,6 +85,7 @@ logic_net                                              4
 logic_typespec                                         4
 module_inst                                            2
 range                                                  4
+ref_obj                                                4
 === UHDM Object Stats End ===
 [ERR:UH0719] ${SURELOG_DIR}/tests/UnsizedPacked/dut.sv:5:5: Illegal dynamic packed dimension "illegal".
 
@@ -110,7 +112,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/UnsizedPacked/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:1, endln:3:13
+    \_ref_obj: (work@test.legal)
+      |vpiParent:
+      \_logic_net: (work@test.legal), line:3:5, endln:3:10
+      |vpiFullName:work@test.legal
+      |vpiActual:
+      \_logic_typespec: , line:3:1, endln:3:13
     |vpiName:legal
     |vpiFullName:work@test.legal
     |vpiNetType:48
@@ -119,26 +126,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/UnsizedPacked/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_logic_typespec: , line:5:1, endln:5:7
-      |vpiRange:
-      \_range: , line:5:5, endln:5:7
-        |vpiParent:
-        \_logic_typespec: , line:5:1, endln:5:7
-        |vpiLeftRange:
-        \_constant: , line:5:5, endln:5:6
-          |vpiParent:
-          \_range: , line:5:5, endln:5:7
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:5:5, endln:5:6
-          |vpiParent:
-          \_range: , line:5:5, endln:5:7
-          |vpiDecompile:unsized
-          |STRING:unsized
-          |vpiConstType:6
+    \_ref_obj: (work@test.illegal)
+      |vpiParent:
+      \_logic_net: (work@test.illegal), line:5:8, endln:5:15
+      |vpiFullName:work@test.illegal
+      |vpiActual:
+      \_logic_typespec: , line:5:1, endln:5:7
     |vpiName:illegal
     |vpiFullName:work@test.illegal
     |vpiNetType:48
@@ -152,28 +145,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/UnsizedPacked/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_logic_typespec: , line:5:1, endln:5:7
+    \_ref_obj: (work@test.illegal)
       |vpiParent:
       \_logic_net: (work@test.illegal), line:5:8, endln:5:15
-      |vpiRange:
-      \_range: , line:5:5, endln:5:7
-        |vpiParent:
-        \_logic_typespec: , line:5:1, endln:5:7
-        |vpiLeftRange:
-        \_constant: , line:5:5, endln:5:6
-          |vpiParent:
-          \_range: , line:5:5, endln:5:7
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:5:5, endln:5:6
-          |vpiParent:
-          \_range: , line:5:5, endln:5:7
-          |vpiDecompile:unsized
-          |STRING:unsized
-          |vpiConstType:6
+      |vpiFullName:work@test.illegal
+      |vpiActual:
+      \_logic_typespec: , line:5:1, endln:5:7
     |vpiName:illegal
     |vpiFullName:work@test.illegal
     |vpiNetType:48
@@ -208,12 +185,62 @@ design: (work@test)
       |vpiParent:
       \_array_net: (work@test.legal), line:3:5, endln:3:10
       |vpiTypespec:
-      \_logic_typespec: , line:3:1, endln:3:4
+      \_ref_obj: (work@test.legal)
         |vpiParent:
         \_logic_net: (work@test.legal), line:3:5, endln:3:10
+        |vpiFullName:work@test.legal
+        |vpiActual:
+        \_logic_typespec: , line:3:1, endln:3:4
       |vpiFullName:work@test.legal
       |vpiNetType:48
   |vpiTopModule:1
+\_weaklyReferenced:
+\_logic_typespec: , line:3:1, endln:3:4
+  |vpiParent:
+  \_logic_net: (work@test.legal), line:3:5, endln:3:10
+\_logic_typespec: , line:5:1, endln:5:7
+  |vpiParent:
+  \_logic_net: (work@test.illegal), line:5:8, endln:5:15
+  |vpiRange:
+  \_range: , line:5:5, endln:5:7
+    |vpiParent:
+    \_logic_typespec: , line:5:1, endln:5:7
+    |vpiLeftRange:
+    \_constant: , line:5:5, endln:5:6
+      |vpiParent:
+      \_range: , line:5:5, endln:5:7
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:5, endln:5:6
+      |vpiParent:
+      \_range: , line:5:5, endln:5:7
+      |vpiDecompile:unsized
+      |STRING:unsized
+      |vpiConstType:6
+\_logic_typespec: , line:3:1, endln:3:13
+\_logic_typespec: , line:5:1, endln:5:7
+  |vpiRange:
+  \_range: , line:5:5, endln:5:7
+    |vpiParent:
+    \_logic_typespec: , line:5:1, endln:5:7
+    |vpiLeftRange:
+    \_constant: , line:5:5, endln:5:6
+      |vpiParent:
+      \_range: , line:5:5, endln:5:7
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:5, endln:5:6
+      |vpiParent:
+      \_range: , line:5:5, endln:5:7
+      |vpiDecompile:unsized
+      |STRING:unsized
+      |vpiConstType:6
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

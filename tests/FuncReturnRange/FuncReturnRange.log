@@ -314,7 +314,7 @@ param_assign                                           8
 parameter                                              8
 port                                                   6
 range                                                 15
-ref_obj                                               19
+ref_obj                                               51
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -336,7 +336,7 @@ param_assign                                           8
 parameter                                              8
 port                                                   9
 range                                                 15
-ref_obj                                               31
+ref_obj                                               68
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FuncReturnRange/slpp_all/surelog.uhdm ...
 
@@ -361,7 +361,12 @@ design: (work@func_width_scope_top)
     \_module_inst: work@func_width_scope_top (work@func_width_scope_top), file:${SURELOG_DIR}/tests/FuncReturnRange/dut.sv, line:1:1, endln:18:10
     |UINT:5
     |vpiTypespec:
-    \_int_typespec: , line:4:5, endln:4:27
+    \_ref_obj: (work@func_width_scope_top.WIDTH_A)
+      |vpiParent:
+      \_parameter: (work@func_width_scope_top.WIDTH_A), line:4:16, endln:4:23
+      |vpiFullName:work@func_width_scope_top.WIDTH_A
+      |vpiActual:
+      \_int_typespec: , line:4:5, endln:4:27
     |vpiLocalParam:1
     |vpiName:WIDTH_A
     |vpiFullName:work@func_width_scope_top.WIDTH_A
@@ -377,7 +382,12 @@ design: (work@func_width_scope_top)
       |vpiSize:64
       |UINT:5
       |vpiTypespec:
-      \_int_typespec: , line:4:5, endln:4:27
+      \_ref_obj: (work@func_width_scope_top)
+        |vpiParent:
+        \_constant: , line:4:26, endln:4:27
+        |vpiFullName:work@func_width_scope_top
+        |vpiActual:
+        \_int_typespec: , line:4:5, endln:4:27
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@func_width_scope_top.WIDTH_A), line:4:16, endln:4:23
@@ -395,39 +405,12 @@ design: (work@func_width_scope_top)
       |vpiParent:
       \_function: (work@func_width_scope_top.func1), line:5:5, endln:8:16
       |vpiTypespec:
-      \_logic_typespec: , line:5:24, endln:5:37
-        |vpiRange:
-        \_range: , line:5:24, endln:5:37
-          |vpiParent:
-          \_logic_typespec: , line:5:24, endln:5:37
-          |vpiLeftRange:
-          \_operation: , line:5:25, endln:5:34
-            |vpiParent:
-            \_range: , line:5:24, endln:5:37
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (WIDTH_A), line:5:25, endln:5:32
-              |vpiParent:
-              \_operation: , line:5:25, endln:5:34
-              |vpiName:WIDTH_A
-              |vpiActual:
-              \_parameter: (work@func_width_scope_top.WIDTH_A), line:4:16, endln:4:23
-            |vpiOperand:
-            \_constant: , line:5:33, endln:5:34
-              |vpiParent:
-              \_operation: , line:5:25, endln:5:34
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:5:35, endln:5:36
-            |vpiParent:
-            \_range: , line:5:24, endln:5:37
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_obj: (work@func_width_scope_top.func1)
+        |vpiParent:
+        \_logic_var: (work@func_width_scope_top.func1), line:5:24, endln:5:37
+        |vpiFullName:work@func_width_scope_top.func1
+        |vpiActual:
+        \_logic_typespec: , line:5:24, endln:5:37
       |vpiFullName:work@func_width_scope_top.func1
     |vpiIODecl:
     \_io_decl: (s), line:6:33, endln:6:34
@@ -436,27 +419,12 @@ design: (work@func_width_scope_top)
       |vpiDirection:1
       |vpiName:s
       |vpiTypedef:
-      \_logic_typespec: , line:6:15, endln:6:32
-        |vpiRange:
-        \_range: , line:6:19, endln:6:32
-          |vpiParent:
-          \_logic_typespec: , line:6:15, endln:6:32
-          |vpiLeftRange:
-          \_constant: , line:6:20, endln:6:27
-            |vpiParent:
-            \_range: , line:6:19, endln:6:32
-            |vpiDecompile:4
-            |vpiSize:64
-            |INT:4
-            |vpiConstType:7
-          |vpiRightRange:
-          \_constant: , line:6:30, endln:6:31
-            |vpiParent:
-            \_range: , line:6:19, endln:6:32
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_obj: (work@func_width_scope_top.func1.s)
+        |vpiParent:
+        \_io_decl: (s), line:6:33, endln:6:34
+        |vpiFullName:work@func_width_scope_top.func1.s
+        |vpiActual:
+        \_logic_typespec: , line:6:15, endln:6:32
     |vpiStmt:
     \_assignment: , line:7:9, endln:7:19
       |vpiParent:
@@ -491,47 +459,12 @@ design: (work@func_width_scope_top)
     |vpiParent:
     \_module_inst: work@func_width_scope_top (work@func_width_scope_top), file:${SURELOG_DIR}/tests/FuncReturnRange/dut.sv, line:1:1, endln:18:10
     |vpiTypespec:
-    \_logic_typespec: , line:9:5, endln:9:24
-      |vpiRange:
-      \_range: , line:9:10, endln:9:24
-        |vpiParent:
-        \_logic_typespec: , line:9:5, endln:9:24
-        |vpiLeftRange:
-        \_operation: , line:9:11, endln:9:21
-          |vpiParent:
-          \_range: , line:9:10, endln:9:24
-          |vpiOpType:11
-          |vpiOperand:
-          \_func_call: (func1), line:9:11, endln:9:16
-            |vpiParent:
-            \_operation: , line:9:11, endln:9:21
-            |vpiArgument:
-            \_constant: , line:9:17, endln:9:18
-              |vpiParent:
-              \_func_call: (func1), line:9:11, endln:9:16
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
-            |vpiName:func1
-            |vpiFunction:
-            \_function: (work@func_width_scope_top.func1), line:5:5, endln:8:16
-          |vpiOperand:
-          \_constant: , line:9:20, endln:9:21
-            |vpiParent:
-            \_operation: , line:9:11, endln:9:21
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:9:22, endln:9:23
-          |vpiParent:
-          \_range: , line:9:10, endln:9:24
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@func_width_scope_top.xc)
+      |vpiParent:
+      \_logic_net: (work@func_width_scope_top.xc), line:9:25, endln:9:27
+      |vpiFullName:work@func_width_scope_top.xc
+      |vpiActual:
+      \_logic_typespec: , line:9:5, endln:9:24
     |vpiName:xc
     |vpiFullName:work@func_width_scope_top.xc
     |vpiNetType:1
@@ -540,37 +473,12 @@ design: (work@func_width_scope_top)
     |vpiParent:
     \_module_inst: work@func_width_scope_top (work@func_width_scope_top), file:${SURELOG_DIR}/tests/FuncReturnRange/dut.sv, line:1:1, endln:18:10
     |vpiTypespec:
-    \_logic_typespec: , line:13:5, endln:13:23
-      |vpiRange:
-      \_range: , line:13:10, endln:13:23
-        |vpiParent:
-        \_logic_typespec: , line:13:5, endln:13:23
-        |vpiLeftRange:
-        \_operation: , line:13:11, endln:13:20
-          |vpiParent:
-          \_range: , line:13:10, endln:13:23
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (WIDTH_A), line:13:11, endln:13:18
-            |vpiParent:
-            \_operation: , line:13:11, endln:13:20
-            |vpiName:WIDTH_A
-          |vpiOperand:
-          \_constant: , line:13:19, endln:13:20
-            |vpiParent:
-            \_operation: , line:13:11, endln:13:20
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:13:21, endln:13:22
-          |vpiParent:
-          \_range: , line:13:10, endln:13:23
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@func_width_scope_top.xn)
+      |vpiParent:
+      \_logic_net: (work@func_width_scope_top.xn), line:13:24, endln:13:26
+      |vpiFullName:work@func_width_scope_top.xn
+      |vpiActual:
+      \_logic_typespec: , line:13:5, endln:13:23
     |vpiName:xn
     |vpiFullName:work@func_width_scope_top.xn
     |vpiNetType:1
@@ -610,7 +518,12 @@ design: (work@func_width_scope_top)
       |vpiActual:
       \_logic_net: (work@func_width_scope_top.inp), line:1:29, endln:1:32
     |vpiTypedef:
-    \_logic_typespec: , line:2:11, endln:2:15
+    \_ref_obj: (work@func_width_scope_top.inp)
+      |vpiParent:
+      \_port: (inp), line:1:29, endln:1:32
+      |vpiFullName:work@func_width_scope_top.inp
+      |vpiActual:
+      \_logic_typespec: , line:2:11, endln:2:15
   |vpiPort:
   \_port: (out1), line:1:34, endln:1:38
     |vpiParent:
@@ -626,27 +539,12 @@ design: (work@func_width_scope_top)
       |vpiActual:
       \_logic_net: (work@func_width_scope_top.out1), line:1:34, endln:1:38
     |vpiTypedef:
-    \_logic_typespec: , line:12:12, endln:12:25
-      |vpiRange:
-      \_range: , line:12:17, endln:12:25
-        |vpiParent:
-        \_logic_typespec: , line:12:12, endln:12:25
-        |vpiLeftRange:
-        \_constant: , line:12:18, endln:12:22
-          |vpiParent:
-          \_range: , line:12:17, endln:12:25
-          |vpiDecompile:1023
-          |vpiSize:64
-          |UINT:1023
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:12:23, endln:12:24
-          |vpiParent:
-          \_range: , line:12:17, endln:12:25
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@func_width_scope_top.out1)
+      |vpiParent:
+      \_port: (out1), line:1:34, endln:1:38
+      |vpiFullName:work@func_width_scope_top.out1
+      |vpiActual:
+      \_logic_typespec: , line:12:12, endln:12:25
   |vpiPort:
   \_port: (out2), line:1:40, endln:1:44
     |vpiParent:
@@ -662,27 +560,12 @@ design: (work@func_width_scope_top)
       |vpiActual:
       \_logic_net: (work@func_width_scope_top.out2), line:1:40, endln:1:44
     |vpiTypedef:
-    \_logic_typespec: , line:12:12, endln:12:25
-      |vpiRange:
-      \_range: , line:12:17, endln:12:25
-        |vpiParent:
-        \_logic_typespec: , line:12:12, endln:12:25
-        |vpiLeftRange:
-        \_constant: , line:12:18, endln:12:22
-          |vpiParent:
-          \_range: , line:12:17, endln:12:25
-          |vpiDecompile:1023
-          |vpiSize:64
-          |UINT:1023
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:12:23, endln:12:24
-          |vpiParent:
-          \_range: , line:12:17, endln:12:25
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@func_width_scope_top.out2)
+      |vpiParent:
+      \_port: (out2), line:1:40, endln:1:44
+      |vpiFullName:work@func_width_scope_top.out2
+      |vpiActual:
+      \_logic_typespec: , line:12:12, endln:12:25
   |vpiContAssign:
   \_cont_assign: , line:10:12, endln:10:22
     |vpiParent:
@@ -695,7 +578,12 @@ design: (work@func_width_scope_top)
       |vpiSize:1
       |BIN:1
       |vpiTypespec:
-      \_int_typespec: 
+      \_ref_obj: (work@func_width_scope_top)
+        |vpiParent:
+        \_constant: , line:10:17, endln:10:22
+        |vpiFullName:work@func_width_scope_top
+        |vpiActual:
+        \_int_typespec: 
       |vpiConstType:3
     |vpiLhs:
     \_ref_obj: (work@func_width_scope_top.xc), line:10:12, endln:10:14
@@ -718,7 +606,12 @@ design: (work@func_width_scope_top)
         |vpiParent:
         \_func_call: (func1), line:14:17, endln:14:27
         |vpiTypespec:
-        \_logic_typespec: , line:6:15, endln:6:32
+        \_ref_obj: (work@func_width_scope_top.inp)
+          |vpiParent:
+          \_ref_obj: (work@func_width_scope_top.inp), line:14:23, endln:14:26
+          |vpiFullName:work@func_width_scope_top.inp
+          |vpiActual:
+          \_logic_typespec: , line:6:15, endln:6:32
         |vpiName:inp
         |vpiFullName:work@func_width_scope_top.inp
         |vpiActual:
@@ -783,9 +676,12 @@ design: (work@func_width_scope_top)
     \_module_inst: work@func_width_scope_top (work@func_width_scope_top), file:${SURELOG_DIR}/tests/FuncReturnRange/dut.sv, line:1:1, endln:18:10
     |UINT:5
     |vpiTypespec:
-    \_int_typespec: , line:4:5, endln:4:27
+    \_ref_obj: (work@func_width_scope_top.WIDTH_A)
       |vpiParent:
       \_parameter: (work@func_width_scope_top.WIDTH_A), line:4:16, endln:4:23
+      |vpiFullName:work@func_width_scope_top.WIDTH_A
+      |vpiActual:
+      \_int_typespec: , line:4:5, endln:4:27
     |vpiLocalParam:1
     |vpiName:WIDTH_A
     |vpiFullName:work@func_width_scope_top.WIDTH_A
@@ -801,7 +697,12 @@ design: (work@func_width_scope_top)
       |vpiSize:32
       |UINT:5
       |vpiTypespec:
-      \_int_typespec: , line:4:5, endln:4:27
+      \_ref_obj: (work@func_width_scope_top)
+        |vpiParent:
+        \_constant: , line:4:26, endln:4:27
+        |vpiFullName:work@func_width_scope_top
+        |vpiActual:
+        \_int_typespec: , line:4:5, endln:4:27
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@func_width_scope_top.WIDTH_A), line:4:16, endln:4:23
@@ -824,7 +725,12 @@ design: (work@func_width_scope_top)
       |vpiDirection:1
       |vpiName:s
       |vpiTypedef:
-      \_logic_typespec: , line:6:15, endln:6:32
+      \_ref_obj: (work@func_width_scope_top.func1.s)
+        |vpiParent:
+        \_io_decl: (s), line:6:33, endln:6:34
+        |vpiFullName:work@func_width_scope_top.func1.s
+        |vpiActual:
+        \_logic_typespec: , line:6:15, endln:6:32
     |vpiStmt:
     \_assignment: , line:7:9, endln:7:19
       |vpiParent:
@@ -859,27 +765,12 @@ design: (work@func_width_scope_top)
     |vpiParent:
     \_module_inst: work@func_width_scope_top (work@func_width_scope_top), file:${SURELOG_DIR}/tests/FuncReturnRange/dut.sv, line:1:1, endln:18:10
     |vpiTypespec:
-    \_logic_typespec: , line:9:5, endln:9:24
-      |vpiRange:
-      \_range: , line:9:10, endln:9:24
-        |vpiParent:
-        \_logic_typespec: , line:9:5, endln:9:24
-        |vpiLeftRange:
-        \_constant: , line:9:11, endln:9:19
-          |vpiParent:
-          \_range: , line:9:10, endln:9:24
-          |vpiDecompile:30
-          |vpiSize:64
-          |INT:30
-          |vpiConstType:7
-        |vpiRightRange:
-        \_constant: , line:9:22, endln:9:23
-          |vpiParent:
-          \_range: , line:9:10, endln:9:24
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@func_width_scope_top.xc)
+      |vpiParent:
+      \_logic_net: (work@func_width_scope_top.xc), line:9:25, endln:9:27
+      |vpiFullName:work@func_width_scope_top.xc
+      |vpiActual:
+      \_logic_typespec: , line:9:5, endln:9:24
     |vpiName:xc
     |vpiFullName:work@func_width_scope_top.xc
     |vpiNetType:1
@@ -888,27 +779,12 @@ design: (work@func_width_scope_top)
     |vpiParent:
     \_module_inst: work@func_width_scope_top (work@func_width_scope_top), file:${SURELOG_DIR}/tests/FuncReturnRange/dut.sv, line:1:1, endln:18:10
     |vpiTypespec:
-    \_logic_typespec: , line:13:5, endln:13:23
-      |vpiRange:
-      \_range: , line:13:10, endln:13:23
-        |vpiParent:
-        \_logic_typespec: , line:13:5, endln:13:23
-        |vpiLeftRange:
-        \_constant: , line:13:11, endln:13:18
-          |vpiParent:
-          \_range: , line:13:10, endln:13:23
-          |vpiDecompile:4
-          |vpiSize:64
-          |INT:4
-          |vpiConstType:7
-        |vpiRightRange:
-        \_constant: , line:13:21, endln:13:22
-          |vpiParent:
-          \_range: , line:13:10, endln:13:23
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@func_width_scope_top.xn)
+      |vpiParent:
+      \_logic_net: (work@func_width_scope_top.xn), line:13:24, endln:13:26
+      |vpiFullName:work@func_width_scope_top.xn
+      |vpiActual:
+      \_logic_typespec: , line:13:5, endln:13:23
     |vpiName:xn
     |vpiFullName:work@func_width_scope_top.xn
     |vpiNetType:1
@@ -917,9 +793,12 @@ design: (work@func_width_scope_top)
     |vpiParent:
     \_module_inst: work@func_width_scope_top (work@func_width_scope_top), file:${SURELOG_DIR}/tests/FuncReturnRange/dut.sv, line:1:1, endln:18:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:11, endln:2:15
+    \_ref_obj: (work@func_width_scope_top.inp)
       |vpiParent:
       \_logic_net: (work@func_width_scope_top.inp), line:1:29, endln:1:32
+      |vpiFullName:work@func_width_scope_top.inp
+      |vpiActual:
+      \_logic_typespec: , line:2:11, endln:2:15
     |vpiName:inp
     |vpiFullName:work@func_width_scope_top.inp
     |vpiNetType:1
@@ -928,27 +807,12 @@ design: (work@func_width_scope_top)
     |vpiParent:
     \_module_inst: work@func_width_scope_top (work@func_width_scope_top), file:${SURELOG_DIR}/tests/FuncReturnRange/dut.sv, line:1:1, endln:18:10
     |vpiTypespec:
-    \_logic_typespec: , line:12:12, endln:12:25
-      |vpiRange:
-      \_range: , line:12:17, endln:12:25
-        |vpiParent:
-        \_logic_typespec: , line:12:12, endln:12:25
-        |vpiLeftRange:
-        \_constant: , line:12:18, endln:12:22
-          |vpiParent:
-          \_range: , line:12:17, endln:12:25
-          |vpiDecompile:1023
-          |vpiSize:64
-          |UINT:1023
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:12:23, endln:12:24
-          |vpiParent:
-          \_range: , line:12:17, endln:12:25
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@func_width_scope_top.out1)
+      |vpiParent:
+      \_logic_net: (work@func_width_scope_top.out1), line:1:34, endln:1:38
+      |vpiFullName:work@func_width_scope_top.out1
+      |vpiActual:
+      \_logic_typespec: , line:12:12, endln:12:25
     |vpiName:out1
     |vpiFullName:work@func_width_scope_top.out1
     |vpiNetType:1
@@ -957,7 +821,12 @@ design: (work@func_width_scope_top)
     |vpiParent:
     \_module_inst: work@func_width_scope_top (work@func_width_scope_top), file:${SURELOG_DIR}/tests/FuncReturnRange/dut.sv, line:1:1, endln:18:10
     |vpiTypespec:
-    \_logic_typespec: , line:12:12, endln:12:25
+    \_ref_obj: (work@func_width_scope_top.out2)
+      |vpiParent:
+      \_logic_net: (work@func_width_scope_top.out2), line:1:40, endln:1:44
+      |vpiFullName:work@func_width_scope_top.out2
+      |vpiActual:
+      \_logic_typespec: , line:12:12, endln:12:25
     |vpiName:out2
     |vpiFullName:work@func_width_scope_top.out2
     |vpiNetType:1
@@ -977,7 +846,12 @@ design: (work@func_width_scope_top)
       |vpiActual:
       \_logic_net: (work@func_width_scope_top.inp), line:1:29, endln:1:32
     |vpiTypedef:
-    \_logic_typespec: , line:2:11, endln:2:15
+    \_ref_obj: (work@func_width_scope_top.inp)
+      |vpiParent:
+      \_port: (inp), line:1:29, endln:1:32
+      |vpiFullName:work@func_width_scope_top.inp
+      |vpiActual:
+      \_logic_typespec: , line:2:11, endln:2:15
     |vpiInstance:
     \_module_inst: work@func_width_scope_top (work@func_width_scope_top), file:${SURELOG_DIR}/tests/FuncReturnRange/dut.sv, line:1:1, endln:18:10
   |vpiPort:
@@ -995,27 +869,12 @@ design: (work@func_width_scope_top)
       |vpiActual:
       \_logic_net: (work@func_width_scope_top.out1), line:1:34, endln:1:38
     |vpiTypedef:
-    \_logic_typespec: , line:12:12, endln:12:25
-      |vpiRange:
-      \_range: , line:12:17, endln:12:25
-        |vpiParent:
-        \_logic_typespec: , line:12:12, endln:12:25
-        |vpiLeftRange:
-        \_constant: , line:12:18, endln:12:22
-          |vpiParent:
-          \_range: , line:12:17, endln:12:25
-          |vpiDecompile:1023
-          |vpiSize:64
-          |UINT:1023
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:12:23, endln:12:24
-          |vpiParent:
-          \_range: , line:12:17, endln:12:25
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@func_width_scope_top.out1)
+      |vpiParent:
+      \_port: (out1), line:1:34, endln:1:38
+      |vpiFullName:work@func_width_scope_top.out1
+      |vpiActual:
+      \_logic_typespec: , line:12:12, endln:12:25
     |vpiInstance:
     \_module_inst: work@func_width_scope_top (work@func_width_scope_top), file:${SURELOG_DIR}/tests/FuncReturnRange/dut.sv, line:1:1, endln:18:10
   |vpiPort:
@@ -1033,7 +892,12 @@ design: (work@func_width_scope_top)
       |vpiActual:
       \_logic_net: (work@func_width_scope_top.out2), line:1:40, endln:1:44
     |vpiTypedef:
-    \_logic_typespec: , line:12:12, endln:12:25
+    \_ref_obj: (work@func_width_scope_top.out2)
+      |vpiParent:
+      \_port: (out2), line:1:40, endln:1:44
+      |vpiFullName:work@func_width_scope_top.out2
+      |vpiActual:
+      \_logic_typespec: , line:12:12, endln:12:25
     |vpiInstance:
     \_module_inst: work@func_width_scope_top (work@func_width_scope_top), file:${SURELOG_DIR}/tests/FuncReturnRange/dut.sv, line:1:1, endln:18:10
   |vpiContAssign:
@@ -1048,9 +912,12 @@ design: (work@func_width_scope_top)
       |vpiSize:31
       |INT:2147483647
       |vpiTypespec:
-      \_int_typespec: 
+      \_ref_obj: (work@func_width_scope_top)
         |vpiParent:
         \_constant: , line:10:17, endln:10:22
+        |vpiFullName:work@func_width_scope_top
+        |vpiActual:
+        \_int_typespec: 
       |vpiConstType:7
     |vpiLhs:
     \_ref_obj: (work@func_width_scope_top.xc), line:10:12, endln:10:14
@@ -1073,7 +940,12 @@ design: (work@func_width_scope_top)
         |vpiParent:
         \_func_call: (func1), line:14:17, endln:14:27
         |vpiTypespec:
-        \_logic_typespec: , line:6:15, endln:6:32
+        \_ref_obj: (work@func_width_scope_top.inp)
+          |vpiParent:
+          \_ref_obj: (work@func_width_scope_top.inp), line:14:23, endln:14:26
+          |vpiFullName:work@func_width_scope_top.inp
+          |vpiActual:
+          \_logic_typespec: , line:6:15, endln:6:32
         |vpiName:inp
         |vpiFullName:work@func_width_scope_top.inp
         |vpiActual:
@@ -1129,6 +1001,285 @@ design: (work@func_width_scope_top)
       |vpiFullName:work@func_width_scope_top.out2
       |vpiActual:
       \_logic_net: (work@func_width_scope_top.out2), line:1:40, endln:1:44
+\_weaklyReferenced:
+\_int_typespec: , line:4:5, endln:4:27
+\_logic_typespec: , line:5:24, endln:5:37
+  |vpiRange:
+  \_range: , line:5:24, endln:5:37
+    |vpiParent:
+    \_logic_typespec: , line:5:24, endln:5:37
+    |vpiLeftRange:
+    \_operation: , line:5:25, endln:5:34
+      |vpiParent:
+      \_range: , line:5:24, endln:5:37
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (WIDTH_A), line:5:25, endln:5:32
+        |vpiParent:
+        \_operation: , line:5:25, endln:5:34
+        |vpiName:WIDTH_A
+        |vpiActual:
+        \_parameter: (work@func_width_scope_top.WIDTH_A), line:4:16, endln:4:23
+      |vpiOperand:
+      \_constant: , line:5:33, endln:5:34
+        |vpiParent:
+        \_operation: , line:5:25, endln:5:34
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:35, endln:5:36
+      |vpiParent:
+      \_range: , line:5:24, endln:5:37
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:6:15, endln:6:32
+  |vpiRange:
+  \_range: , line:6:19, endln:6:32
+    |vpiParent:
+    \_logic_typespec: , line:6:15, endln:6:32
+    |vpiLeftRange:
+    \_constant: , line:6:20, endln:6:27
+      |vpiParent:
+      \_range: , line:6:19, endln:6:32
+      |vpiDecompile:4
+      |vpiSize:64
+      |INT:4
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:6:30, endln:6:31
+      |vpiParent:
+      \_range: , line:6:19, endln:6:32
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: 
+\_logic_typespec: , line:2:11, endln:2:15
+\_logic_typespec: , line:12:12, endln:12:25
+  |vpiRange:
+  \_range: , line:12:17, endln:12:25
+    |vpiParent:
+    \_logic_typespec: , line:12:12, endln:12:25
+    |vpiLeftRange:
+    \_constant: , line:12:18, endln:12:22
+      |vpiParent:
+      \_range: , line:12:17, endln:12:25
+      |vpiDecompile:1023
+      |vpiSize:64
+      |UINT:1023
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:12:23, endln:12:24
+      |vpiParent:
+      \_range: , line:12:17, endln:12:25
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:9:5, endln:9:24
+  |vpiRange:
+  \_range: , line:9:10, endln:9:24
+    |vpiParent:
+    \_logic_typespec: , line:9:5, endln:9:24
+    |vpiLeftRange:
+    \_constant: , line:9:11, endln:9:19
+      |vpiParent:
+      \_range: , line:9:10, endln:9:24
+      |vpiDecompile:30
+      |vpiSize:64
+      |INT:30
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:9:22, endln:9:23
+      |vpiParent:
+      \_range: , line:9:10, endln:9:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:13:5, endln:13:23
+  |vpiRange:
+  \_range: , line:13:10, endln:13:23
+    |vpiParent:
+    \_logic_typespec: , line:13:5, endln:13:23
+    |vpiLeftRange:
+    \_constant: , line:13:11, endln:13:18
+      |vpiParent:
+      \_range: , line:13:10, endln:13:23
+      |vpiDecompile:4
+      |vpiSize:64
+      |INT:4
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:13:21, endln:13:22
+      |vpiParent:
+      \_range: , line:13:10, endln:13:23
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:2:11, endln:2:15
+  |vpiParent:
+  \_logic_net: (work@func_width_scope_top.inp), line:1:29, endln:1:32
+\_logic_typespec: , line:12:12, endln:12:25
+  |vpiRange:
+  \_range: , line:12:17, endln:12:25
+    |vpiParent:
+    \_logic_typespec: , line:12:12, endln:12:25
+    |vpiLeftRange:
+    \_constant: , line:12:18, endln:12:22
+      |vpiParent:
+      \_range: , line:12:17, endln:12:25
+      |vpiDecompile:1023
+      |vpiSize:64
+      |UINT:1023
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:12:23, endln:12:24
+      |vpiParent:
+      \_range: , line:12:17, endln:12:25
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:2:11, endln:2:15
+\_logic_typespec: , line:12:12, endln:12:25
+  |vpiRange:
+  \_range: , line:12:17, endln:12:25
+    |vpiParent:
+    \_logic_typespec: , line:12:12, endln:12:25
+    |vpiLeftRange:
+    \_constant: , line:12:18, endln:12:22
+      |vpiParent:
+      \_range: , line:12:17, endln:12:25
+      |vpiDecompile:1023
+      |vpiSize:64
+      |UINT:1023
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:12:23, endln:12:24
+      |vpiParent:
+      \_range: , line:12:17, endln:12:25
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:12:12, endln:12:25
+  |vpiRange:
+  \_range: , line:12:17, endln:12:25
+    |vpiParent:
+    \_logic_typespec: , line:12:12, endln:12:25
+    |vpiLeftRange:
+    \_constant: , line:12:18, endln:12:22
+      |vpiParent:
+      \_range: , line:12:17, endln:12:25
+      |vpiDecompile:1023
+      |vpiSize:64
+      |UINT:1023
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:12:23, endln:12:24
+      |vpiParent:
+      \_range: , line:12:17, endln:12:25
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:9:5, endln:9:24
+  |vpiRange:
+  \_range: , line:9:10, endln:9:24
+    |vpiParent:
+    \_logic_typespec: , line:9:5, endln:9:24
+    |vpiLeftRange:
+    \_operation: , line:9:11, endln:9:21
+      |vpiParent:
+      \_range: , line:9:10, endln:9:24
+      |vpiOpType:11
+      |vpiOperand:
+      \_func_call: (func1), line:9:11, endln:9:16
+        |vpiParent:
+        \_operation: , line:9:11, endln:9:21
+        |vpiArgument:
+        \_constant: , line:9:17, endln:9:18
+          |vpiParent:
+          \_func_call: (func1), line:9:11, endln:9:16
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+        |vpiName:func1
+        |vpiFunction:
+        \_function: (work@func_width_scope_top.func1), line:5:5, endln:8:16
+      |vpiOperand:
+      \_constant: , line:9:20, endln:9:21
+        |vpiParent:
+        \_operation: , line:9:11, endln:9:21
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:9:22, endln:9:23
+      |vpiParent:
+      \_range: , line:9:10, endln:9:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:13:5, endln:13:23
+  |vpiRange:
+  \_range: , line:13:10, endln:13:23
+    |vpiParent:
+    \_logic_typespec: , line:13:5, endln:13:23
+    |vpiLeftRange:
+    \_operation: , line:13:11, endln:13:20
+      |vpiParent:
+      \_range: , line:13:10, endln:13:23
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (WIDTH_A), line:13:11, endln:13:18
+        |vpiParent:
+        \_operation: , line:13:11, endln:13:20
+        |vpiName:WIDTH_A
+      |vpiOperand:
+      \_constant: , line:13:19, endln:13:20
+        |vpiParent:
+        \_operation: , line:13:11, endln:13:20
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:13:21, endln:13:22
+      |vpiParent:
+      \_range: , line:13:10, endln:13:23
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:4:5, endln:4:27
+  |vpiParent:
+  \_ref_obj: (work@func_width_scope_top.WIDTH_A)
+\_cont_assign: , line:10:12, endln:10:22
+  |vpiParent:
+  \_module_inst: work@func_width_scope_top (work@func_width_scope_top), file:${SURELOG_DIR}/tests/FuncReturnRange/dut.sv, line:1:1, endln:18:10
+  |vpiRhs:
+  \_constant: , line:10:17, endln:10:22
+  |vpiLhs:
+  \_ref_obj: (work@func_width_scope_top.xc), line:10:12, endln:10:14
+    |vpiParent:
+    \_cont_assign: , line:10:12, endln:10:22
+    |vpiName:xc
+    |vpiFullName:work@func_width_scope_top.xc
+    |vpiActual:
+    \_logic_net: (work@func_width_scope_top.xc), line:9:25, endln:9:27
+\_int_typespec: 
+  |vpiParent:
+  \_ref_obj: (work@func_width_scope_top)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

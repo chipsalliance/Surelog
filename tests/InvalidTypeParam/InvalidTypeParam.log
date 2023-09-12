@@ -92,6 +92,7 @@ interface_inst                                         3
 logic_net                                              1
 module_inst                                            3
 ref_module                                             1
+ref_obj                                                1
 type_parameter                                         1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -105,6 +106,7 @@ interface_inst                                         3
 logic_net                                              1
 module_inst                                            3
 ref_module                                             1
+ref_obj                                                1
 type_parameter                                         1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/InvalidTypeParam/slpp_all/surelog.uhdm ...
@@ -168,10 +170,12 @@ design: (work@top)
       |vpiParent:
       \_interface_inst: work@Interface (work@top.intf), file:${SURELOG_DIR}/tests/InvalidTypeParam/dut.sv, line:6:5, endln:6:27
       |vpiTypespec:
-      \_integer_typespec: , line:3:5, endln:3:6
+      \_ref_obj: (work@top.intf.x)
         |vpiParent:
         \_integer_var: (work@top.intf.x), line:3:7, endln:3:8
-        |UINT:1
+        |vpiFullName:work@top.intf.x
+        |vpiActual:
+        \_integer_typespec: , line:3:5, endln:3:6
       |vpiName:x
       |vpiFullName:work@top.intf.x
       |vpiVisibility:1
@@ -182,6 +186,11 @@ design: (work@top)
     |vpiDefLineNo:1
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InvalidTypeParam/dut.sv, line:5:1, endln:7:10
+\_weaklyReferenced:
+\_integer_typespec: , line:3:5, endln:3:6
+  |vpiParent:
+  \_integer_var: (work@top.intf.x), line:3:7, endln:3:8
+  |UINT:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

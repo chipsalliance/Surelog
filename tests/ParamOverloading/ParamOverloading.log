@@ -338,7 +338,7 @@ param_assign                                          10
 parameter                                             13
 range                                                 36
 ref_module                                             2
-ref_obj                                                4
+ref_obj                                               78
 string_typespec                                        4
 struct_typespec                                       16
 tagged_pattern                                         4
@@ -359,7 +359,7 @@ param_assign                                          10
 parameter                                             13
 range                                                 36
 ref_module                                             2
-ref_obj                                                4
+ref_obj                                               78
 string_typespec                                        4
 struct_typespec                                       16
 tagged_pattern                                         4
@@ -388,29 +388,12 @@ design: (work@top)
     \_module_inst: work@prim_subreg (work@prim_subreg), file:${SURELOG_DIR}/tests/ParamOverloading/dut.sv, line:2:1, endln:5:10
     |BIN:0
     |vpiTypespec:
-    \_logic_typespec: , line:3:14, endln:3:25
+    \_ref_obj: (work@prim_subreg.RESVAL)
       |vpiParent:
       \_parameter: (work@prim_subreg.RESVAL), line:3:26, endln:3:32
-      |vpiRange:
-      \_range: , line:3:20, endln:3:25
-        |vpiParent:
-        \_logic_typespec: , line:3:14, endln:3:25
-        |vpiLeftRange:
-        \_constant: , line:3:21, endln:3:22
-          |vpiParent:
-          \_range: , line:3:20, endln:3:25
-          |vpiDecompile:4
-          |vpiSize:64
-          |UINT:4
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:3:23, endln:3:24
-          |vpiParent:
-          \_range: , line:3:20, endln:3:25
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@prim_subreg.RESVAL
+      |vpiActual:
+      \_logic_typespec: , line:3:14, endln:3:25
     |vpiName:RESVAL
     |vpiFullName:work@prim_subreg.RESVAL
   |vpiParamAssign:
@@ -425,7 +408,12 @@ design: (work@top)
       |vpiSize:-1
       |BIN:0
       |vpiTypespec:
-      \_logic_typespec: , line:3:14, endln:3:25
+      \_ref_obj: (work@prim_subreg)
+        |vpiParent:
+        \_constant: , line:3:35, endln:3:37
+        |vpiFullName:work@prim_subreg
+        |vpiActual:
+        \_logic_typespec: , line:3:14, endln:3:25
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@prim_subreg.RESVAL), line:3:26, endln:3:32
@@ -435,8 +423,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@prim_subreg (work@prim_subreg), file:${SURELOG_DIR}/tests/ParamOverloading/dut.sv, line:2:1, endln:5:10
     |vpiTypespec:
-    \_int_typespec: , line:4:4, endln:4:24
-      |vpiSigned:1
+    \_ref_obj: (work@prim_subreg.a)
+      |vpiParent:
+      \_logic_net: (work@prim_subreg.a), line:4:8, endln:4:9
+      |vpiFullName:work@prim_subreg.a
+      |vpiActual:
+      \_int_typespec: , line:4:4, endln:4:24
     |vpiName:a
     |vpiFullName:work@prim_subreg.a
 |uhdmallModules:
@@ -449,81 +441,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@prim_subreg_shadow (work@prim_subreg_shadow), file:${SURELOG_DIR}/tests/ParamOverloading/dut.sv, line:7:1, endln:22:10
     |vpiTypespec:
-    \_struct_typespec: (struct_ab), line:8:12, endln:11:5
+    \_ref_obj: (work@prim_subreg_shadow.RESVAL)
       |vpiParent:
-      \_module_inst: work@prim_subreg_shadow (work@prim_subreg_shadow), file:${SURELOG_DIR}/tests/ParamOverloading/dut.sv, line:7:1, endln:22:10
-      |vpiName:struct_ab
-      |vpiInstance:
-      \_module_inst: work@prim_subreg_shadow (work@prim_subreg_shadow), file:${SURELOG_DIR}/tests/ParamOverloading/dut.sv, line:7:1, endln:22:10
-      |vpiPacked:1
-      |vpiTypespecMember:
-      \_typespec_member: (a), line:9:19, endln:9:20
-        |vpiParent:
-        \_struct_typespec: (struct_ab), line:8:12, endln:11:5
-        |vpiName:a
-        |vpiTypespec:
-        \_logic_typespec: , line:9:7, endln:9:18
-          |vpiParent:
-          \_typespec_member: (a), line:9:19, endln:9:20
-          |vpiRange:
-          \_range: , line:9:13, endln:9:18
-            |vpiParent:
-            \_logic_typespec: , line:9:7, endln:9:18
-            |vpiLeftRange:
-            \_constant: , line:9:14, endln:9:15
-              |vpiParent:
-              \_range: , line:9:13, endln:9:18
-              |vpiDecompile:2
-              |vpiSize:64
-              |UINT:2
-              |vpiConstType:9
-            |vpiRightRange:
-            \_constant: , line:9:16, endln:9:17
-              |vpiParent:
-              \_range: , line:9:13, endln:9:18
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
-        |vpiRefFile:${SURELOG_DIR}/tests/ParamOverloading/dut.sv
-        |vpiRefLineNo:9
-        |vpiRefColumnNo:7
-        |vpiRefEndLineNo:9
-        |vpiRefEndColumnNo:18
-      |vpiTypespecMember:
-      \_typespec_member: (b), line:10:19, endln:10:20
-        |vpiParent:
-        \_struct_typespec: (struct_ab), line:8:12, endln:11:5
-        |vpiName:b
-        |vpiTypespec:
-        \_logic_typespec: , line:10:7, endln:10:18
-          |vpiParent:
-          \_typespec_member: (b), line:10:19, endln:10:20
-          |vpiRange:
-          \_range: , line:10:13, endln:10:18
-            |vpiParent:
-            \_logic_typespec: , line:10:7, endln:10:18
-            |vpiLeftRange:
-            \_constant: , line:10:14, endln:10:15
-              |vpiParent:
-              \_range: , line:10:13, endln:10:18
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-            |vpiRightRange:
-            \_constant: , line:10:16, endln:10:17
-              |vpiParent:
-              \_range: , line:10:13, endln:10:18
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
-        |vpiRefFile:${SURELOG_DIR}/tests/ParamOverloading/dut.sv
-        |vpiRefLineNo:10
-        |vpiRefColumnNo:7
-        |vpiRefEndLineNo:10
-        |vpiRefEndColumnNo:18
+      \_parameter: (work@prim_subreg_shadow.RESVAL), line:13:24, endln:13:30
+      |vpiFullName:work@prim_subreg_shadow.RESVAL
+      |vpiActual:
+      \_struct_typespec: (struct_ab), line:8:12, endln:11:5
     |vpiName:RESVAL
     |vpiFullName:work@prim_subreg_shadow.RESVAL
   |vpiParamAssign:
@@ -546,10 +469,12 @@ design: (work@top)
           |BIN:0
           |vpiConstType:3
         |vpiTypespec:
-        \_string_typespec: (a), line:14:7, endln:14:8
+        \_ref_obj: (work@prim_subreg_shadow)
           |vpiParent:
           \_tagged_pattern: , line:14:10, endln:14:12
-          |vpiName:a
+          |vpiFullName:work@prim_subreg_shadow
+          |vpiActual:
+          \_string_typespec: (a), line:14:7, endln:14:8
       |vpiOperand:
       \_tagged_pattern: , line:15:10, endln:15:12
         |vpiParent:
@@ -561,14 +486,56 @@ design: (work@top)
           |BIN:1
           |vpiConstType:3
         |vpiTypespec:
-        \_string_typespec: (b), line:15:7, endln:15:8
+        \_ref_obj: (work@prim_subreg_shadow)
           |vpiParent:
           \_tagged_pattern: , line:15:10, endln:15:12
-          |vpiName:b
+          |vpiFullName:work@prim_subreg_shadow
+          |vpiActual:
+          \_string_typespec: (b), line:15:7, endln:15:8
     |vpiLhs:
     \_parameter: (work@prim_subreg_shadow.RESVAL), line:13:24, endln:13:30
   |vpiTypedef:
   \_struct_typespec: (struct_ab), line:8:12, endln:11:5
+    |vpiParent:
+    \_module_inst: work@prim_subreg_shadow (work@prim_subreg_shadow), file:${SURELOG_DIR}/tests/ParamOverloading/dut.sv, line:7:1, endln:22:10
+    |vpiName:struct_ab
+    |vpiInstance:
+    \_module_inst: work@prim_subreg_shadow (work@prim_subreg_shadow), file:${SURELOG_DIR}/tests/ParamOverloading/dut.sv, line:7:1, endln:22:10
+    |vpiPacked:1
+    |vpiTypespecMember:
+    \_typespec_member: (a), line:9:19, endln:9:20
+      |vpiParent:
+      \_struct_typespec: (struct_ab), line:8:12, endln:11:5
+      |vpiName:a
+      |vpiTypespec:
+      \_ref_obj: (work@prim_subreg_shadow.struct_ab.a)
+        |vpiParent:
+        \_typespec_member: (a), line:9:19, endln:9:20
+        |vpiFullName:work@prim_subreg_shadow.struct_ab.a
+        |vpiActual:
+        \_logic_typespec: , line:9:7, endln:9:18
+      |vpiRefFile:${SURELOG_DIR}/tests/ParamOverloading/dut.sv
+      |vpiRefLineNo:9
+      |vpiRefColumnNo:7
+      |vpiRefEndLineNo:9
+      |vpiRefEndColumnNo:18
+    |vpiTypespecMember:
+    \_typespec_member: (b), line:10:19, endln:10:20
+      |vpiParent:
+      \_struct_typespec: (struct_ab), line:8:12, endln:11:5
+      |vpiName:b
+      |vpiTypespec:
+      \_ref_obj: (work@prim_subreg_shadow.struct_ab.b)
+        |vpiParent:
+        \_typespec_member: (b), line:10:19, endln:10:20
+        |vpiFullName:work@prim_subreg_shadow.struct_ab.b
+        |vpiActual:
+        \_logic_typespec: , line:10:7, endln:10:18
+      |vpiRefFile:${SURELOG_DIR}/tests/ParamOverloading/dut.sv
+      |vpiRefLineNo:10
+      |vpiRefColumnNo:7
+      |vpiRefEndLineNo:10
+      |vpiRefEndColumnNo:18
   |vpiDefName:work@prim_subreg_shadow
   |vpiRefModule:
   \_ref_module: work@prim_subreg (staged_reg), line:20:6, endln:20:16
@@ -589,7 +556,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverloading/dut.sv, line:24:1, endln:41:10
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: , line:29:4, endln:29:20
+    \_ref_obj: (work@top.v1)
+      |vpiParent:
+      \_parameter: (work@top.v1), line:29:14, endln:29:16
+      |vpiFullName:work@top.v1
+      |vpiActual:
+      \_int_typespec: , line:29:4, endln:29:20
     |vpiName:v1
     |vpiFullName:work@top.v1
   |vpiParameter:
@@ -598,7 +570,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverloading/dut.sv, line:24:1, endln:41:10
     |UINT:0
     |vpiTypespec:
-    \_int_typespec: , line:30:4, endln:30:20
+    \_ref_obj: (work@top.v2)
+      |vpiParent:
+      \_parameter: (work@top.v2), line:30:14, endln:30:16
+      |vpiFullName:work@top.v2
+      |vpiActual:
+      \_int_typespec: , line:30:4, endln:30:20
     |vpiName:v2
     |vpiFullName:work@top.v2
   |vpiParameter:
@@ -606,81 +583,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverloading/dut.sv, line:24:1, endln:41:10
     |vpiTypespec:
-    \_struct_typespec: (struct_ab), line:25:12, endln:28:5
+    \_ref_obj: (work@top.CTRL_RESET)
       |vpiParent:
-      \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverloading/dut.sv, line:24:1, endln:41:10
-      |vpiName:struct_ab
-      |vpiInstance:
-      \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverloading/dut.sv, line:24:1, endln:41:10
-      |vpiPacked:1
-      |vpiTypespecMember:
-      \_typespec_member: (a), line:26:19, endln:26:20
-        |vpiParent:
-        \_struct_typespec: (struct_ab), line:25:12, endln:28:5
-        |vpiName:a
-        |vpiTypespec:
-        \_logic_typespec: , line:26:7, endln:26:18
-          |vpiParent:
-          \_typespec_member: (a), line:26:19, endln:26:20
-          |vpiRange:
-          \_range: , line:26:13, endln:26:18
-            |vpiParent:
-            \_logic_typespec: , line:26:7, endln:26:18
-            |vpiLeftRange:
-            \_constant: , line:26:14, endln:26:15
-              |vpiParent:
-              \_range: , line:26:13, endln:26:18
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-            |vpiRightRange:
-            \_constant: , line:26:16, endln:26:17
-              |vpiParent:
-              \_range: , line:26:13, endln:26:18
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
-        |vpiRefFile:${SURELOG_DIR}/tests/ParamOverloading/dut.sv
-        |vpiRefLineNo:26
-        |vpiRefColumnNo:7
-        |vpiRefEndLineNo:26
-        |vpiRefEndColumnNo:18
-      |vpiTypespecMember:
-      \_typespec_member: (b), line:27:19, endln:27:20
-        |vpiParent:
-        \_struct_typespec: (struct_ab), line:25:12, endln:28:5
-        |vpiName:b
-        |vpiTypespec:
-        \_logic_typespec: , line:27:7, endln:27:18
-          |vpiParent:
-          \_typespec_member: (b), line:27:19, endln:27:20
-          |vpiRange:
-          \_range: , line:27:13, endln:27:18
-            |vpiParent:
-            \_logic_typespec: , line:27:7, endln:27:18
-            |vpiLeftRange:
-            \_constant: , line:27:14, endln:27:15
-              |vpiParent:
-              \_range: , line:27:13, endln:27:18
-              |vpiDecompile:2
-              |vpiSize:64
-              |UINT:2
-              |vpiConstType:9
-            |vpiRightRange:
-            \_constant: , line:27:16, endln:27:17
-              |vpiParent:
-              \_range: , line:27:13, endln:27:18
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
-        |vpiRefFile:${SURELOG_DIR}/tests/ParamOverloading/dut.sv
-        |vpiRefLineNo:27
-        |vpiRefColumnNo:7
-        |vpiRefEndLineNo:27
-        |vpiRefEndColumnNo:18
+      \_parameter: (work@top.CTRL_RESET), line:32:24, endln:32:34
+      |vpiFullName:work@top.CTRL_RESET
+      |vpiActual:
+      \_struct_typespec: (struct_ab), line:25:12, endln:28:5
     |vpiName:CTRL_RESET
     |vpiFullName:work@top.CTRL_RESET
   |vpiParamAssign:
@@ -695,7 +603,12 @@ design: (work@top)
       |vpiSize:64
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: , line:29:4, endln:29:20
+      \_ref_obj: (work@top)
+        |vpiParent:
+        \_constant: , line:29:19, endln:29:20
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:29:4, endln:29:20
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.v1), line:29:14, endln:29:16
@@ -711,7 +624,12 @@ design: (work@top)
       |vpiSize:64
       |UINT:0
       |vpiTypespec:
-      \_int_typespec: , line:30:4, endln:30:20
+      \_ref_obj: (work@top)
+        |vpiParent:
+        \_constant: , line:30:19, endln:30:20
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:30:4, endln:30:20
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.v2), line:30:14, endln:30:16
@@ -740,6 +658,46 @@ design: (work@top)
     \_parameter: (work@top.CTRL_RESET), line:32:24, endln:32:34
   |vpiTypedef:
   \_struct_typespec: (struct_ab), line:25:12, endln:28:5
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverloading/dut.sv, line:24:1, endln:41:10
+    |vpiName:struct_ab
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverloading/dut.sv, line:24:1, endln:41:10
+    |vpiPacked:1
+    |vpiTypespecMember:
+    \_typespec_member: (a), line:26:19, endln:26:20
+      |vpiParent:
+      \_struct_typespec: (struct_ab), line:25:12, endln:28:5
+      |vpiName:a
+      |vpiTypespec:
+      \_ref_obj: (work@top.struct_ab.a)
+        |vpiParent:
+        \_typespec_member: (a), line:26:19, endln:26:20
+        |vpiFullName:work@top.struct_ab.a
+        |vpiActual:
+        \_logic_typespec: , line:26:7, endln:26:18
+      |vpiRefFile:${SURELOG_DIR}/tests/ParamOverloading/dut.sv
+      |vpiRefLineNo:26
+      |vpiRefColumnNo:7
+      |vpiRefEndLineNo:26
+      |vpiRefEndColumnNo:18
+    |vpiTypespecMember:
+    \_typespec_member: (b), line:27:19, endln:27:20
+      |vpiParent:
+      \_struct_typespec: (struct_ab), line:25:12, endln:28:5
+      |vpiName:b
+      |vpiTypespec:
+      \_ref_obj: (work@top.struct_ab.b)
+        |vpiParent:
+        \_typespec_member: (b), line:27:19, endln:27:20
+        |vpiFullName:work@top.struct_ab.b
+        |vpiActual:
+        \_logic_typespec: , line:27:7, endln:27:18
+      |vpiRefFile:${SURELOG_DIR}/tests/ParamOverloading/dut.sv
+      |vpiRefLineNo:27
+      |vpiRefColumnNo:7
+      |vpiRefEndLineNo:27
+      |vpiRefEndColumnNo:18
   |vpiDefName:work@top
   |vpiRefModule:
   \_ref_module: work@prim_subreg_shadow (u_ctrl_reg_shadowed), line:40:6, endln:40:25
@@ -758,9 +716,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverloading/dut.sv, line:24:1, endln:41:10
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: , line:29:4, endln:29:20
+    \_ref_obj: (work@top.v1)
       |vpiParent:
       \_parameter: (work@top.v1), line:29:14, endln:29:16
+      |vpiFullName:work@top.v1
+      |vpiActual:
+      \_int_typespec: , line:29:4, endln:29:20
     |vpiName:v1
     |vpiFullName:work@top.v1
   |vpiParameter:
@@ -769,9 +730,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverloading/dut.sv, line:24:1, endln:41:10
     |UINT:0
     |vpiTypespec:
-    \_int_typespec: , line:30:4, endln:30:20
+    \_ref_obj: (work@top.v2)
       |vpiParent:
       \_parameter: (work@top.v2), line:30:14, endln:30:16
+      |vpiFullName:work@top.v2
+      |vpiActual:
+      \_int_typespec: , line:30:4, endln:30:20
     |vpiName:v2
     |vpiFullName:work@top.v2
   |vpiParameter:
@@ -779,81 +743,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverloading/dut.sv, line:24:1, endln:41:10
     |vpiTypespec:
-    \_struct_typespec: (struct_ab), line:25:12, endln:28:5
+    \_ref_obj: (work@top.CTRL_RESET)
       |vpiParent:
       \_parameter: (work@top.CTRL_RESET), line:32:24, endln:32:34
-      |vpiName:struct_ab
-      |vpiInstance:
-      \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverloading/dut.sv, line:24:1, endln:41:10
-      |vpiPacked:1
-      |vpiTypespecMember:
-      \_typespec_member: (a), line:26:19, endln:26:20
-        |vpiParent:
-        \_struct_typespec: (struct_ab), line:25:12, endln:28:5
-        |vpiName:a
-        |vpiTypespec:
-        \_logic_typespec: , line:26:7, endln:26:18
-          |vpiParent:
-          \_typespec_member: (a), line:26:19, endln:26:20
-          |vpiRange:
-          \_range: , line:26:13, endln:26:18
-            |vpiParent:
-            \_logic_typespec: , line:26:7, endln:26:18
-            |vpiLeftRange:
-            \_constant: , line:26:14, endln:26:15
-              |vpiParent:
-              \_range: , line:26:13, endln:26:18
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-            |vpiRightRange:
-            \_constant: , line:26:16, endln:26:17
-              |vpiParent:
-              \_range: , line:26:13, endln:26:18
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
-        |vpiRefFile:${SURELOG_DIR}/tests/ParamOverloading/dut.sv
-        |vpiRefLineNo:26
-        |vpiRefColumnNo:7
-        |vpiRefEndLineNo:26
-        |vpiRefEndColumnNo:18
-      |vpiTypespecMember:
-      \_typespec_member: (b), line:27:19, endln:27:20
-        |vpiParent:
-        \_struct_typespec: (struct_ab), line:25:12, endln:28:5
-        |vpiName:b
-        |vpiTypespec:
-        \_logic_typespec: , line:27:7, endln:27:18
-          |vpiParent:
-          \_typespec_member: (b), line:27:19, endln:27:20
-          |vpiRange:
-          \_range: , line:27:13, endln:27:18
-            |vpiParent:
-            \_logic_typespec: , line:27:7, endln:27:18
-            |vpiLeftRange:
-            \_constant: , line:27:14, endln:27:15
-              |vpiParent:
-              \_range: , line:27:13, endln:27:18
-              |vpiDecompile:2
-              |vpiSize:64
-              |UINT:2
-              |vpiConstType:9
-            |vpiRightRange:
-            \_constant: , line:27:16, endln:27:17
-              |vpiParent:
-              \_range: , line:27:13, endln:27:18
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
-        |vpiRefFile:${SURELOG_DIR}/tests/ParamOverloading/dut.sv
-        |vpiRefLineNo:27
-        |vpiRefColumnNo:7
-        |vpiRefEndLineNo:27
-        |vpiRefEndColumnNo:18
+      |vpiFullName:work@top.CTRL_RESET
+      |vpiActual:
+      \_struct_typespec: (struct_ab), line:25:12, endln:28:5
     |vpiName:CTRL_RESET
     |vpiFullName:work@top.CTRL_RESET
   |vpiParamAssign:
@@ -868,7 +763,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: , line:29:4, endln:29:20
+      \_ref_obj: (work@top)
+        |vpiParent:
+        \_constant: , line:29:19, endln:29:20
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:29:4, endln:29:20
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.v1), line:29:14, endln:29:16
@@ -884,7 +784,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:0
       |vpiTypespec:
-      \_int_typespec: , line:30:4, endln:30:20
+      \_ref_obj: (work@top)
+        |vpiParent:
+        \_constant: , line:30:19, endln:30:20
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:30:4, endln:30:20
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.v2), line:30:14, endln:30:16
@@ -897,79 +802,12 @@ design: (work@top)
       |vpiParent:
       \_param_assign: , line:32:24, endln:36:5
       |vpiTypespec:
-      \_struct_typespec: (struct_ab), line:25:12, endln:28:5
+      \_ref_obj: (work@top)
         |vpiParent:
         \_operation: , line:32:37, endln:36:5
-        |vpiName:struct_ab
-        |vpiPacked:1
-        |vpiTypespecMember:
-        \_typespec_member: (a), line:26:19, endln:26:20
-          |vpiParent:
-          \_struct_typespec: (struct_ab), line:25:12, endln:28:5
-          |vpiName:a
-          |vpiTypespec:
-          \_logic_typespec: , line:26:7, endln:26:18
-            |vpiParent:
-            \_typespec_member: (a), line:26:19, endln:26:20
-            |vpiRange:
-            \_range: , line:26:13, endln:26:18
-              |vpiParent:
-              \_logic_typespec: , line:26:7, endln:26:18
-              |vpiLeftRange:
-              \_constant: , line:26:14, endln:26:15
-                |vpiParent:
-                \_range: , line:26:13, endln:26:18
-                |vpiDecompile:1
-                |vpiSize:64
-                |UINT:1
-                |vpiConstType:9
-              |vpiRightRange:
-              \_constant: , line:26:16, endln:26:17
-                |vpiParent:
-                \_range: , line:26:13, endln:26:18
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
-                |vpiConstType:9
-          |vpiRefFile:${SURELOG_DIR}/tests/ParamOverloading/dut.sv
-          |vpiRefLineNo:26
-          |vpiRefColumnNo:7
-          |vpiRefEndLineNo:26
-          |vpiRefEndColumnNo:18
-        |vpiTypespecMember:
-        \_typespec_member: (b), line:27:19, endln:27:20
-          |vpiParent:
-          \_struct_typespec: (struct_ab), line:25:12, endln:28:5
-          |vpiName:b
-          |vpiTypespec:
-          \_logic_typespec: , line:27:7, endln:27:18
-            |vpiParent:
-            \_typespec_member: (b), line:27:19, endln:27:20
-            |vpiRange:
-            \_range: , line:27:13, endln:27:18
-              |vpiParent:
-              \_logic_typespec: , line:27:7, endln:27:18
-              |vpiLeftRange:
-              \_constant: , line:27:14, endln:27:15
-                |vpiParent:
-                \_range: , line:27:13, endln:27:18
-                |vpiDecompile:2
-                |vpiSize:64
-                |UINT:2
-                |vpiConstType:9
-              |vpiRightRange:
-              \_constant: , line:27:16, endln:27:17
-                |vpiParent:
-                \_range: , line:27:13, endln:27:18
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
-                |vpiConstType:9
-          |vpiRefFile:${SURELOG_DIR}/tests/ParamOverloading/dut.sv
-          |vpiRefLineNo:27
-          |vpiRefColumnNo:7
-          |vpiRefEndLineNo:27
-          |vpiRefEndColumnNo:18
+        |vpiFullName:work@top
+        |vpiActual:
+        \_struct_typespec: (struct_ab), line:25:12, endln:28:5
       |vpiOpType:75
       |vpiOperand:
       \_constant: , line:35:5, endln:35:7
@@ -1005,81 +843,12 @@ design: (work@top)
       |vpiParent:
       \_module_inst: work@prim_subreg_shadow (work@top.u_ctrl_reg_shadowed), file:${SURELOG_DIR}/tests/ParamOverloading/dut.sv, line:38:4, endln:40:28
       |vpiTypespec:
-      \_struct_typespec: (struct_ab), line:8:12, endln:11:5
+      \_ref_obj: (work@top.u_ctrl_reg_shadowed.RESVAL)
         |vpiParent:
         \_parameter: (work@top.u_ctrl_reg_shadowed.RESVAL), line:13:24, endln:13:30
-        |vpiName:struct_ab
-        |vpiInstance:
-        \_module_inst: work@prim_subreg_shadow (work@prim_subreg_shadow), file:${SURELOG_DIR}/tests/ParamOverloading/dut.sv, line:7:1, endln:22:10
-        |vpiPacked:1
-        |vpiTypespecMember:
-        \_typespec_member: (a), line:9:19, endln:9:20
-          |vpiParent:
-          \_struct_typespec: (struct_ab), line:8:12, endln:11:5
-          |vpiName:a
-          |vpiTypespec:
-          \_logic_typespec: , line:9:7, endln:9:18
-            |vpiParent:
-            \_typespec_member: (a), line:9:19, endln:9:20
-            |vpiRange:
-            \_range: , line:9:13, endln:9:18
-              |vpiParent:
-              \_logic_typespec: , line:9:7, endln:9:18
-              |vpiLeftRange:
-              \_constant: , line:9:14, endln:9:15
-                |vpiParent:
-                \_range: , line:9:13, endln:9:18
-                |vpiDecompile:2
-                |vpiSize:64
-                |UINT:2
-                |vpiConstType:9
-              |vpiRightRange:
-              \_constant: , line:9:16, endln:9:17
-                |vpiParent:
-                \_range: , line:9:13, endln:9:18
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
-                |vpiConstType:9
-          |vpiRefFile:${SURELOG_DIR}/tests/ParamOverloading/dut.sv
-          |vpiRefLineNo:9
-          |vpiRefColumnNo:7
-          |vpiRefEndLineNo:9
-          |vpiRefEndColumnNo:18
-        |vpiTypespecMember:
-        \_typespec_member: (b), line:10:19, endln:10:20
-          |vpiParent:
-          \_struct_typespec: (struct_ab), line:8:12, endln:11:5
-          |vpiName:b
-          |vpiTypespec:
-          \_logic_typespec: , line:10:7, endln:10:18
-            |vpiParent:
-            \_typespec_member: (b), line:10:19, endln:10:20
-            |vpiRange:
-            \_range: , line:10:13, endln:10:18
-              |vpiParent:
-              \_logic_typespec: , line:10:7, endln:10:18
-              |vpiLeftRange:
-              \_constant: , line:10:14, endln:10:15
-                |vpiParent:
-                \_range: , line:10:13, endln:10:18
-                |vpiDecompile:1
-                |vpiSize:64
-                |UINT:1
-                |vpiConstType:9
-              |vpiRightRange:
-              \_constant: , line:10:16, endln:10:17
-                |vpiParent:
-                \_range: , line:10:13, endln:10:18
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
-                |vpiConstType:9
-          |vpiRefFile:${SURELOG_DIR}/tests/ParamOverloading/dut.sv
-          |vpiRefLineNo:10
-          |vpiRefColumnNo:7
-          |vpiRefEndLineNo:10
-          |vpiRefEndColumnNo:18
+        |vpiFullName:work@top.u_ctrl_reg_shadowed.RESVAL
+        |vpiActual:
+        \_struct_typespec: (struct_ab), line:8:12, endln:11:5
       |vpiName:RESVAL
       |vpiFullName:work@top.u_ctrl_reg_shadowed.RESVAL
     |vpiParamAssign:
@@ -1092,79 +861,12 @@ design: (work@top)
         |vpiParent:
         \_param_assign: , line:13:24, endln:16:5
         |vpiTypespec:
-        \_struct_typespec: (struct_ab), line:25:12, endln:28:5
+        \_ref_obj: (work@top.u_ctrl_reg_shadowed)
           |vpiParent:
           \_operation: , line:39:15, endln:39:25
-          |vpiName:struct_ab
-          |vpiPacked:1
-          |vpiTypespecMember:
-          \_typespec_member: (a), line:26:19, endln:26:20
-            |vpiParent:
-            \_struct_typespec: (struct_ab), line:25:12, endln:28:5
-            |vpiName:a
-            |vpiTypespec:
-            \_logic_typespec: , line:26:7, endln:26:18
-              |vpiParent:
-              \_typespec_member: (a), line:26:19, endln:26:20
-              |vpiRange:
-              \_range: , line:26:13, endln:26:18
-                |vpiParent:
-                \_logic_typespec: , line:26:7, endln:26:18
-                |vpiLeftRange:
-                \_constant: , line:26:14, endln:26:15
-                  |vpiParent:
-                  \_range: , line:26:13, endln:26:18
-                  |vpiDecompile:1
-                  |vpiSize:64
-                  |UINT:1
-                  |vpiConstType:9
-                |vpiRightRange:
-                \_constant: , line:26:16, endln:26:17
-                  |vpiParent:
-                  \_range: , line:26:13, endln:26:18
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
-                  |vpiConstType:9
-            |vpiRefFile:${SURELOG_DIR}/tests/ParamOverloading/dut.sv
-            |vpiRefLineNo:26
-            |vpiRefColumnNo:7
-            |vpiRefEndLineNo:26
-            |vpiRefEndColumnNo:18
-          |vpiTypespecMember:
-          \_typespec_member: (b), line:27:19, endln:27:20
-            |vpiParent:
-            \_struct_typespec: (struct_ab), line:25:12, endln:28:5
-            |vpiName:b
-            |vpiTypespec:
-            \_logic_typespec: , line:27:7, endln:27:18
-              |vpiParent:
-              \_typespec_member: (b), line:27:19, endln:27:20
-              |vpiRange:
-              \_range: , line:27:13, endln:27:18
-                |vpiParent:
-                \_logic_typespec: , line:27:7, endln:27:18
-                |vpiLeftRange:
-                \_constant: , line:27:14, endln:27:15
-                  |vpiParent:
-                  \_range: , line:27:13, endln:27:18
-                  |vpiDecompile:2
-                  |vpiSize:64
-                  |UINT:2
-                  |vpiConstType:9
-                |vpiRightRange:
-                \_constant: , line:27:16, endln:27:17
-                  |vpiParent:
-                  \_range: , line:27:13, endln:27:18
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
-                  |vpiConstType:9
-            |vpiRefFile:${SURELOG_DIR}/tests/ParamOverloading/dut.sv
-            |vpiRefLineNo:27
-            |vpiRefColumnNo:7
-            |vpiRefEndLineNo:27
-            |vpiRefEndColumnNo:18
+          |vpiFullName:work@top.u_ctrl_reg_shadowed
+          |vpiActual:
+          \_struct_typespec: (struct_ab), line:25:12, endln:28:5
         |vpiOpType:75
         |vpiOperand:
         \_constant: , line:35:5, endln:35:7
@@ -1202,10 +904,12 @@ design: (work@top)
         |vpiParent:
         \_module_inst: work@prim_subreg (work@top.u_ctrl_reg_shadowed.staged_reg), file:${SURELOG_DIR}/tests/ParamOverloading/dut.sv, line:18:4, endln:20:19
         |vpiTypespec:
-        \_int_typespec: , line:4:4, endln:4:7
+        \_ref_obj: (work@top.u_ctrl_reg_shadowed.staged_reg.a)
           |vpiParent:
           \_int_var: (work@top.u_ctrl_reg_shadowed.staged_reg.a), line:4:8, endln:4:24
-          |vpiSigned:1
+          |vpiFullName:work@top.u_ctrl_reg_shadowed.staged_reg.a
+          |vpiActual:
+          \_int_typespec: , line:4:4, endln:4:7
         |vpiName:a
         |vpiFullName:work@top.u_ctrl_reg_shadowed.staged_reg.a
         |vpiVisibility:1
@@ -1214,8 +918,12 @@ design: (work@top)
           |vpiParent:
           \_int_var: (work@top.u_ctrl_reg_shadowed.staged_reg.a), line:4:8, endln:4:24
           |vpiTypespec:
-          \_int_typespec: , line:4:12, endln:4:15
-            |vpiSigned:1
+          \_ref_obj: (work@top.u_ctrl_reg_shadowed.staged_reg.a)
+            |vpiParent:
+            \_operation: , line:4:12, endln:4:24
+            |vpiFullName:work@top.u_ctrl_reg_shadowed.staged_reg.a
+            |vpiActual:
+            \_int_typespec: , line:4:12, endln:4:15
           |vpiOpType:67
           |vpiOperand:
           \_constant: , line:4:17, endln:4:23
@@ -1225,58 +933,24 @@ design: (work@top)
             |vpiSize:32
             |UINT:8
             |vpiTypespec:
-            \_logic_typespec: , line:3:14, endln:3:25
+            \_ref_obj: (work@top.u_ctrl_reg_shadowed.staged_reg.a)
               |vpiParent:
-              \_parameter: (work@top.u_ctrl_reg_shadowed.staged_reg.RESVAL), line:3:26, endln:3:32
-              |vpiRange:
-              \_range: , line:3:20, endln:3:25
-                |vpiParent:
-                \_logic_typespec: , line:3:14, endln:3:25
-                |vpiLeftRange:
-                \_constant: , line:3:21, endln:3:22
-                  |vpiParent:
-                  \_range: , line:3:20, endln:3:25
-                  |vpiDecompile:4
-                  |vpiSize:64
-                  |UINT:4
-                  |vpiConstType:9
-                |vpiRightRange:
-                \_constant: , line:3:23, endln:3:24
-                  |vpiParent:
-                  \_range: , line:3:20, endln:3:25
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
-                  |vpiConstType:9
+              \_constant: , line:4:17, endln:4:23
+              |vpiFullName:work@top.u_ctrl_reg_shadowed.staged_reg.a
+              |vpiActual:
+              \_logic_typespec: , line:3:14, endln:3:25
       |vpiParameter:
       \_parameter: (work@top.u_ctrl_reg_shadowed.staged_reg.RESVAL), line:3:26, endln:3:32
         |vpiParent:
         \_module_inst: work@prim_subreg (work@top.u_ctrl_reg_shadowed.staged_reg), file:${SURELOG_DIR}/tests/ParamOverloading/dut.sv, line:18:4, endln:20:19
         |BIN:0
         |vpiTypespec:
-        \_logic_typespec: , line:3:14, endln:3:25
+        \_ref_obj: (work@top.u_ctrl_reg_shadowed.staged_reg.RESVAL)
           |vpiParent:
           \_parameter: (work@top.u_ctrl_reg_shadowed.staged_reg.RESVAL), line:3:26, endln:3:32
-          |vpiRange:
-          \_range: , line:3:20, endln:3:25
-            |vpiParent:
-            \_logic_typespec: , line:3:14, endln:3:25
-            |vpiLeftRange:
-            \_constant: , line:3:21, endln:3:22
-              |vpiParent:
-              \_range: , line:3:20, endln:3:25
-              |vpiDecompile:4
-              |vpiSize:64
-              |UINT:4
-              |vpiConstType:9
-            |vpiRightRange:
-            \_constant: , line:3:23, endln:3:24
-              |vpiParent:
-              \_range: , line:3:20, endln:3:25
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
+          |vpiFullName:work@top.u_ctrl_reg_shadowed.staged_reg.RESVAL
+          |vpiActual:
+          \_logic_typespec: , line:3:14, endln:3:25
         |vpiName:RESVAL
         |vpiFullName:work@top.u_ctrl_reg_shadowed.staged_reg.RESVAL
       |vpiParamAssign:
@@ -1296,6 +970,754 @@ design: (work@top)
       |vpiDefLineNo:2
       |vpiInstance:
       \_module_inst: work@prim_subreg_shadow (work@top.u_ctrl_reg_shadowed), file:${SURELOG_DIR}/tests/ParamOverloading/dut.sv, line:38:4, endln:40:28
+\_weaklyReferenced:
+\_logic_typespec: , line:3:14, endln:3:25
+  |vpiParent:
+  \_parameter: (work@prim_subreg.RESVAL), line:3:26, endln:3:32
+  |vpiRange:
+  \_range: , line:3:20, endln:3:25
+    |vpiParent:
+    \_logic_typespec: , line:3:14, endln:3:25
+    |vpiLeftRange:
+    \_constant: , line:3:21, endln:3:22
+      |vpiParent:
+      \_range: , line:3:20, endln:3:25
+      |vpiDecompile:4
+      |vpiSize:64
+      |UINT:4
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:23, endln:3:24
+      |vpiParent:
+      \_range: , line:3:20, endln:3:25
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:9:7, endln:9:18
+  |vpiParent:
+  \_typespec_member: (a), line:9:19, endln:9:20
+  |vpiRange:
+  \_range: , line:9:13, endln:9:18
+    |vpiParent:
+    \_logic_typespec: , line:9:7, endln:9:18
+    |vpiLeftRange:
+    \_constant: , line:9:14, endln:9:15
+      |vpiParent:
+      \_range: , line:9:13, endln:9:18
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:9:16, endln:9:17
+      |vpiParent:
+      \_range: , line:9:13, endln:9:18
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:10:7, endln:10:18
+  |vpiParent:
+  \_typespec_member: (b), line:10:19, endln:10:20
+  |vpiRange:
+  \_range: , line:10:13, endln:10:18
+    |vpiParent:
+    \_logic_typespec: , line:10:7, endln:10:18
+    |vpiLeftRange:
+    \_constant: , line:10:14, endln:10:15
+      |vpiParent:
+      \_range: , line:10:13, endln:10:18
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:10:16, endln:10:17
+      |vpiParent:
+      \_range: , line:10:13, endln:10:18
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_string_typespec: (a), line:14:7, endln:14:8
+  |vpiParent:
+  \_tagged_pattern: , line:14:10, endln:14:12
+  |vpiName:a
+\_string_typespec: (b), line:15:7, endln:15:8
+  |vpiParent:
+  \_tagged_pattern: , line:15:10, endln:15:12
+  |vpiName:b
+\_logic_typespec: , line:26:7, endln:26:18
+  |vpiParent:
+  \_typespec_member: (a), line:26:19, endln:26:20
+  |vpiRange:
+  \_range: , line:26:13, endln:26:18
+    |vpiParent:
+    \_logic_typespec: , line:26:7, endln:26:18
+    |vpiLeftRange:
+    \_constant: , line:26:14, endln:26:15
+      |vpiParent:
+      \_range: , line:26:13, endln:26:18
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:26:16, endln:26:17
+      |vpiParent:
+      \_range: , line:26:13, endln:26:18
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:27:7, endln:27:18
+  |vpiParent:
+  \_typespec_member: (b), line:27:19, endln:27:20
+  |vpiRange:
+  \_range: , line:27:13, endln:27:18
+    |vpiParent:
+    \_logic_typespec: , line:27:7, endln:27:18
+    |vpiLeftRange:
+    \_constant: , line:27:14, endln:27:15
+      |vpiParent:
+      \_range: , line:27:13, endln:27:18
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:27:16, endln:27:17
+      |vpiParent:
+      \_range: , line:27:13, endln:27:18
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:29:4, endln:29:20
+\_int_typespec: , line:30:4, endln:30:20
+\_struct_typespec: (struct_ab), line:25:12, endln:28:5
+  |vpiParent:
+  \_ref_obj: (work@top)
+  |vpiName:struct_ab
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), line:26:19, endln:26:20
+    |vpiParent:
+    \_struct_typespec: (struct_ab), line:25:12, endln:28:5
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_obj: (work@top.a)
+      |vpiParent:
+      \_typespec_member: (a), line:26:19, endln:26:20
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_logic_typespec: , line:26:7, endln:26:18
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamOverloading/dut.sv
+    |vpiRefLineNo:26
+    |vpiRefColumnNo:7
+    |vpiRefEndLineNo:26
+    |vpiRefEndColumnNo:18
+  |vpiTypespecMember:
+  \_typespec_member: (b), line:27:19, endln:27:20
+    |vpiParent:
+    \_struct_typespec: (struct_ab), line:25:12, endln:28:5
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_obj: (work@top.b)
+      |vpiParent:
+      \_typespec_member: (b), line:27:19, endln:27:20
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_logic_typespec: , line:27:7, endln:27:18
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamOverloading/dut.sv
+    |vpiRefLineNo:27
+    |vpiRefColumnNo:7
+    |vpiRefEndLineNo:27
+    |vpiRefEndColumnNo:18
+\_logic_typespec: , line:26:7, endln:26:18
+  |vpiParent:
+  \_ref_obj: (work@top.a)
+  |vpiRange:
+  \_range: , line:26:13, endln:26:18
+    |vpiParent:
+    \_logic_typespec: , line:26:7, endln:26:18
+    |vpiLeftRange:
+    \_constant: , line:26:14, endln:26:15
+      |vpiParent:
+      \_range: , line:26:13, endln:26:18
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:26:16, endln:26:17
+      |vpiParent:
+      \_range: , line:26:13, endln:26:18
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:27:7, endln:27:18
+  |vpiParent:
+  \_ref_obj: (work@top.b)
+  |vpiRange:
+  \_range: , line:27:13, endln:27:18
+    |vpiParent:
+    \_logic_typespec: , line:27:7, endln:27:18
+    |vpiLeftRange:
+    \_constant: , line:27:14, endln:27:15
+      |vpiParent:
+      \_range: , line:27:13, endln:27:18
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:27:16, endln:27:17
+      |vpiParent:
+      \_range: , line:27:13, endln:27:18
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_operation: , line:32:37, endln:36:5
+  |vpiParent:
+  \_param_assign: , line:32:24, endln:36:5
+  |vpiTypespec:
+  \_ref_obj: (work@top)
+    |vpiParent:
+    \_operation: , line:32:37, endln:36:5
+    |vpiFullName:work@top
+    |vpiActual:
+    \_struct_typespec: (struct_ab), line:25:12, endln:28:5
+  |vpiOpType:75
+  |vpiOperand:
+  \_constant: , line:35:5, endln:35:7
+  |vpiOperand:
+  \_constant: , line:35:9, endln:35:11
+\_struct_typespec: (struct_ab), line:25:12, endln:28:5
+  |vpiParent:
+  \_ref_obj: (work@top)
+  |vpiName:struct_ab
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), line:26:19, endln:26:20
+    |vpiParent:
+    \_struct_typespec: (struct_ab), line:25:12, endln:28:5
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_obj: (work@top.a)
+      |vpiParent:
+      \_typespec_member: (a), line:26:19, endln:26:20
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_logic_typespec: , line:26:7, endln:26:18
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamOverloading/dut.sv
+    |vpiRefLineNo:26
+    |vpiRefColumnNo:7
+    |vpiRefEndLineNo:26
+    |vpiRefEndColumnNo:18
+  |vpiTypespecMember:
+  \_typespec_member: (b), line:27:19, endln:27:20
+    |vpiParent:
+    \_struct_typespec: (struct_ab), line:25:12, endln:28:5
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_obj: (work@top.b)
+      |vpiParent:
+      \_typespec_member: (b), line:27:19, endln:27:20
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_logic_typespec: , line:27:7, endln:27:18
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamOverloading/dut.sv
+    |vpiRefLineNo:27
+    |vpiRefColumnNo:7
+    |vpiRefEndLineNo:27
+    |vpiRefEndColumnNo:18
+\_logic_typespec: , line:26:7, endln:26:18
+  |vpiParent:
+  \_ref_obj: (work@top.a)
+  |vpiRange:
+  \_range: , line:26:13, endln:26:18
+    |vpiParent:
+    \_logic_typespec: , line:26:7, endln:26:18
+    |vpiLeftRange:
+    \_constant: , line:26:14, endln:26:15
+      |vpiParent:
+      \_range: , line:26:13, endln:26:18
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:26:16, endln:26:17
+      |vpiParent:
+      \_range: , line:26:13, endln:26:18
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:27:7, endln:27:18
+  |vpiParent:
+  \_ref_obj: (work@top.b)
+  |vpiRange:
+  \_range: , line:27:13, endln:27:18
+    |vpiParent:
+    \_logic_typespec: , line:27:7, endln:27:18
+    |vpiLeftRange:
+    \_constant: , line:27:14, endln:27:15
+      |vpiParent:
+      \_range: , line:27:13, endln:27:18
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:27:16, endln:27:17
+      |vpiParent:
+      \_range: , line:27:13, endln:27:18
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_struct_typespec: (struct_ab), line:25:12, endln:28:5
+  |vpiParent:
+  \_ref_obj: (work@top.u_ctrl_reg_shadowed)
+  |vpiName:struct_ab
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), line:26:19, endln:26:20
+    |vpiParent:
+    \_struct_typespec: (struct_ab), line:25:12, endln:28:5
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_obj: (work@top.u_ctrl_reg_shadowed.a)
+      |vpiParent:
+      \_typespec_member: (a), line:26:19, endln:26:20
+      |vpiFullName:work@top.u_ctrl_reg_shadowed.a
+      |vpiActual:
+      \_logic_typespec: , line:26:7, endln:26:18
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamOverloading/dut.sv
+    |vpiRefLineNo:26
+    |vpiRefColumnNo:7
+    |vpiRefEndLineNo:26
+    |vpiRefEndColumnNo:18
+  |vpiTypespecMember:
+  \_typespec_member: (b), line:27:19, endln:27:20
+    |vpiParent:
+    \_struct_typespec: (struct_ab), line:25:12, endln:28:5
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_obj: (work@top.u_ctrl_reg_shadowed.b)
+      |vpiParent:
+      \_typespec_member: (b), line:27:19, endln:27:20
+      |vpiFullName:work@top.u_ctrl_reg_shadowed.b
+      |vpiActual:
+      \_logic_typespec: , line:27:7, endln:27:18
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamOverloading/dut.sv
+    |vpiRefLineNo:27
+    |vpiRefColumnNo:7
+    |vpiRefEndLineNo:27
+    |vpiRefEndColumnNo:18
+\_logic_typespec: , line:26:7, endln:26:18
+  |vpiParent:
+  \_ref_obj: (work@top.u_ctrl_reg_shadowed.a)
+  |vpiRange:
+  \_range: , line:26:13, endln:26:18
+    |vpiParent:
+    \_logic_typespec: , line:26:7, endln:26:18
+    |vpiLeftRange:
+    \_constant: , line:26:14, endln:26:15
+      |vpiParent:
+      \_range: , line:26:13, endln:26:18
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:26:16, endln:26:17
+      |vpiParent:
+      \_range: , line:26:13, endln:26:18
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:27:7, endln:27:18
+  |vpiParent:
+  \_ref_obj: (work@top.u_ctrl_reg_shadowed.b)
+  |vpiRange:
+  \_range: , line:27:13, endln:27:18
+    |vpiParent:
+    \_logic_typespec: , line:27:7, endln:27:18
+    |vpiLeftRange:
+    \_constant: , line:27:14, endln:27:15
+      |vpiParent:
+      \_range: , line:27:13, endln:27:18
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:27:16, endln:27:17
+      |vpiParent:
+      \_range: , line:27:13, endln:27:18
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_operation: , line:39:15, endln:39:25
+  |vpiParent:
+  \_param_assign: , line:13:24, endln:16:5
+  |vpiTypespec:
+  \_ref_obj: (work@top.u_ctrl_reg_shadowed)
+    |vpiParent:
+    \_operation: , line:39:15, endln:39:25
+    |vpiFullName:work@top.u_ctrl_reg_shadowed
+    |vpiActual:
+    \_struct_typespec: (struct_ab), line:25:12, endln:28:5
+  |vpiOpType:75
+  |vpiOperand:
+  \_constant: , line:35:5, endln:35:7
+  |vpiOperand:
+  \_constant: , line:35:9, endln:35:11
+\_struct_typespec: (struct_ab), line:25:12, endln:28:5
+  |vpiParent:
+  \_ref_obj: (work@top.u_ctrl_reg_shadowed)
+  |vpiName:struct_ab
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), line:26:19, endln:26:20
+    |vpiParent:
+    \_struct_typespec: (struct_ab), line:25:12, endln:28:5
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_obj: (work@top.u_ctrl_reg_shadowed.a)
+      |vpiParent:
+      \_typespec_member: (a), line:26:19, endln:26:20
+      |vpiFullName:work@top.u_ctrl_reg_shadowed.a
+      |vpiActual:
+      \_logic_typespec: , line:26:7, endln:26:18
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamOverloading/dut.sv
+    |vpiRefLineNo:26
+    |vpiRefColumnNo:7
+    |vpiRefEndLineNo:26
+    |vpiRefEndColumnNo:18
+  |vpiTypespecMember:
+  \_typespec_member: (b), line:27:19, endln:27:20
+    |vpiParent:
+    \_struct_typespec: (struct_ab), line:25:12, endln:28:5
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_obj: (work@top.u_ctrl_reg_shadowed.b)
+      |vpiParent:
+      \_typespec_member: (b), line:27:19, endln:27:20
+      |vpiFullName:work@top.u_ctrl_reg_shadowed.b
+      |vpiActual:
+      \_logic_typespec: , line:27:7, endln:27:18
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamOverloading/dut.sv
+    |vpiRefLineNo:27
+    |vpiRefColumnNo:7
+    |vpiRefEndLineNo:27
+    |vpiRefEndColumnNo:18
+\_logic_typespec: , line:26:7, endln:26:18
+  |vpiParent:
+  \_ref_obj: (work@top.u_ctrl_reg_shadowed.a)
+  |vpiRange:
+  \_range: , line:26:13, endln:26:18
+    |vpiParent:
+    \_logic_typespec: , line:26:7, endln:26:18
+    |vpiLeftRange:
+    \_constant: , line:26:14, endln:26:15
+      |vpiParent:
+      \_range: , line:26:13, endln:26:18
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:26:16, endln:26:17
+      |vpiParent:
+      \_range: , line:26:13, endln:26:18
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:27:7, endln:27:18
+  |vpiParent:
+  \_ref_obj: (work@top.u_ctrl_reg_shadowed.b)
+  |vpiRange:
+  \_range: , line:27:13, endln:27:18
+    |vpiParent:
+    \_logic_typespec: , line:27:7, endln:27:18
+    |vpiLeftRange:
+    \_constant: , line:27:14, endln:27:15
+      |vpiParent:
+      \_range: , line:27:13, endln:27:18
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:27:16, endln:27:17
+      |vpiParent:
+      \_range: , line:27:13, endln:27:18
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:3:14, endln:3:25
+  |vpiParent:
+  \_ref_obj: (work@top.u_ctrl_reg_shadowed.staged_reg.RESVAL)
+    |vpiParent:
+    \_parameter: (work@top.u_ctrl_reg_shadowed.staged_reg.RESVAL), line:3:26, endln:3:32
+    |vpiFullName:work@top.u_ctrl_reg_shadowed.staged_reg.RESVAL
+    |vpiActual:
+    \_logic_typespec: , line:3:14, endln:3:25
+  |vpiRange:
+  \_range: , line:3:20, endln:3:25
+    |vpiParent:
+    \_logic_typespec: , line:3:14, endln:3:25
+    |vpiLeftRange:
+    \_constant: , line:3:21, endln:3:22
+      |vpiParent:
+      \_range: , line:3:20, endln:3:25
+      |vpiDecompile:4
+      |vpiSize:64
+      |UINT:4
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:23, endln:3:24
+      |vpiParent:
+      \_range: , line:3:20, endln:3:25
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_parameter: (work@top.u_ctrl_reg_shadowed.staged_reg.RESVAL), line:3:26, endln:3:32
+  |vpiParent:
+  \_param_assign: , line:3:26, endln:3:37
+  |BIN:0
+  |vpiTypespec:
+  \_ref_obj: (work@top.u_ctrl_reg_shadowed.staged_reg.RESVAL)
+    |vpiParent:
+    \_parameter: (work@top.u_ctrl_reg_shadowed.staged_reg.RESVAL), line:3:26, endln:3:32
+    |vpiFullName:work@top.u_ctrl_reg_shadowed.staged_reg.RESVAL
+    |vpiActual:
+    \_logic_typespec: , line:3:14, endln:3:25
+  |vpiName:RESVAL
+  |vpiFullName:work@top.u_ctrl_reg_shadowed.staged_reg.RESVAL
+\_int_typespec: , line:4:4, endln:4:7
+  |vpiParent:
+  \_int_var: (work@top.u_ctrl_reg_shadowed.staged_reg.a), line:4:8, endln:4:24
+  |vpiSigned:1
+\_int_typespec: , line:4:12, endln:4:15
+  |vpiSigned:1
+\_int_typespec: , line:4:4, endln:4:24
+  |vpiSigned:1
+\_int_typespec: , line:29:4, endln:29:20
+  |vpiParent:
+  \_ref_obj: (work@top.v1)
+\_int_typespec: , line:30:4, endln:30:20
+  |vpiParent:
+  \_ref_obj: (work@top.v2)
+\_struct_typespec: (struct_ab), line:25:12, endln:28:5
+  |vpiParent:
+  \_ref_obj: (work@top.CTRL_RESET)
+  |vpiName:struct_ab
+  |vpiInstance:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverloading/dut.sv, line:24:1, endln:41:10
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), line:26:19, endln:26:20
+    |vpiParent:
+    \_struct_typespec: (struct_ab), line:25:12, endln:28:5
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_obj: (work@top.CTRL_RESET.a)
+      |vpiParent:
+      \_typespec_member: (a), line:26:19, endln:26:20
+      |vpiFullName:work@top.CTRL_RESET.a
+      |vpiActual:
+      \_logic_typespec: , line:26:7, endln:26:18
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamOverloading/dut.sv
+    |vpiRefLineNo:26
+    |vpiRefColumnNo:7
+    |vpiRefEndLineNo:26
+    |vpiRefEndColumnNo:18
+  |vpiTypespecMember:
+  \_typespec_member: (b), line:27:19, endln:27:20
+    |vpiParent:
+    \_struct_typespec: (struct_ab), line:25:12, endln:28:5
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_obj: (work@top.CTRL_RESET.b)
+      |vpiParent:
+      \_typespec_member: (b), line:27:19, endln:27:20
+      |vpiFullName:work@top.CTRL_RESET.b
+      |vpiActual:
+      \_logic_typespec: , line:27:7, endln:27:18
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamOverloading/dut.sv
+    |vpiRefLineNo:27
+    |vpiRefColumnNo:7
+    |vpiRefEndLineNo:27
+    |vpiRefEndColumnNo:18
+\_logic_typespec: , line:26:7, endln:26:18
+  |vpiParent:
+  \_ref_obj: (work@top.CTRL_RESET.a)
+  |vpiRange:
+  \_range: , line:26:13, endln:26:18
+    |vpiParent:
+    \_logic_typespec: , line:26:7, endln:26:18
+    |vpiLeftRange:
+    \_constant: , line:26:14, endln:26:15
+      |vpiParent:
+      \_range: , line:26:13, endln:26:18
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:26:16, endln:26:17
+      |vpiParent:
+      \_range: , line:26:13, endln:26:18
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:27:7, endln:27:18
+  |vpiParent:
+  \_ref_obj: (work@top.CTRL_RESET.b)
+  |vpiRange:
+  \_range: , line:27:13, endln:27:18
+    |vpiParent:
+    \_logic_typespec: , line:27:7, endln:27:18
+    |vpiLeftRange:
+    \_constant: , line:27:14, endln:27:15
+      |vpiParent:
+      \_range: , line:27:13, endln:27:18
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:27:16, endln:27:17
+      |vpiParent:
+      \_range: , line:27:13, endln:27:18
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_struct_typespec: (struct_ab), line:8:12, endln:11:5
+  |vpiParent:
+  \_ref_obj: (work@top.u_ctrl_reg_shadowed.RESVAL)
+  |vpiName:struct_ab
+  |vpiInstance:
+  \_module_inst: work@prim_subreg_shadow (work@prim_subreg_shadow), file:${SURELOG_DIR}/tests/ParamOverloading/dut.sv, line:7:1, endln:22:10
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (a), line:9:19, endln:9:20
+    |vpiParent:
+    \_struct_typespec: (struct_ab), line:8:12, endln:11:5
+    |vpiName:a
+    |vpiTypespec:
+    \_ref_obj: (work@top.u_ctrl_reg_shadowed.RESVAL.a)
+      |vpiParent:
+      \_typespec_member: (a), line:9:19, endln:9:20
+      |vpiFullName:work@top.u_ctrl_reg_shadowed.RESVAL.a
+      |vpiActual:
+      \_logic_typespec: , line:9:7, endln:9:18
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamOverloading/dut.sv
+    |vpiRefLineNo:9
+    |vpiRefColumnNo:7
+    |vpiRefEndLineNo:9
+    |vpiRefEndColumnNo:18
+  |vpiTypespecMember:
+  \_typespec_member: (b), line:10:19, endln:10:20
+    |vpiParent:
+    \_struct_typespec: (struct_ab), line:8:12, endln:11:5
+    |vpiName:b
+    |vpiTypespec:
+    \_ref_obj: (work@top.u_ctrl_reg_shadowed.RESVAL.b)
+      |vpiParent:
+      \_typespec_member: (b), line:10:19, endln:10:20
+      |vpiFullName:work@top.u_ctrl_reg_shadowed.RESVAL.b
+      |vpiActual:
+      \_logic_typespec: , line:10:7, endln:10:18
+    |vpiRefFile:${SURELOG_DIR}/tests/ParamOverloading/dut.sv
+    |vpiRefLineNo:10
+    |vpiRefColumnNo:7
+    |vpiRefEndLineNo:10
+    |vpiRefEndColumnNo:18
+\_logic_typespec: , line:9:7, endln:9:18
+  |vpiParent:
+  \_ref_obj: (work@top.u_ctrl_reg_shadowed.RESVAL.a)
+  |vpiRange:
+  \_range: , line:9:13, endln:9:18
+    |vpiParent:
+    \_logic_typespec: , line:9:7, endln:9:18
+    |vpiLeftRange:
+    \_constant: , line:9:14, endln:9:15
+      |vpiParent:
+      \_range: , line:9:13, endln:9:18
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:9:16, endln:9:17
+      |vpiParent:
+      \_range: , line:9:13, endln:9:18
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:10:7, endln:10:18
+  |vpiParent:
+  \_ref_obj: (work@top.u_ctrl_reg_shadowed.RESVAL.b)
+  |vpiRange:
+  \_range: , line:10:13, endln:10:18
+    |vpiParent:
+    \_logic_typespec: , line:10:7, endln:10:18
+    |vpiLeftRange:
+    \_constant: , line:10:14, endln:10:15
+      |vpiParent:
+      \_range: , line:10:13, endln:10:18
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:10:16, endln:10:17
+      |vpiParent:
+      \_range: , line:10:13, endln:10:18
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:3:14, endln:3:25
+  |vpiParent:
+  \_ref_obj: (work@top.u_ctrl_reg_shadowed.staged_reg.RESVAL)
+  |vpiRange:
+  \_range: , line:3:20, endln:3:25
+    |vpiParent:
+    \_logic_typespec: , line:3:14, endln:3:25
+    |vpiLeftRange:
+    \_constant: , line:3:21, endln:3:22
+      |vpiParent:
+      \_range: , line:3:20, endln:3:25
+      |vpiDecompile:4
+      |vpiSize:64
+      |UINT:4
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:23, endln:3:24
+      |vpiParent:
+      \_range: , line:3:20, endln:3:25
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

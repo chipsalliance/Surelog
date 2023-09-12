@@ -180,7 +180,7 @@ module_inst                                            4
 named_begin                                            3
 operation                                              6
 parameter                                              3
-ref_obj                                               12
+ref_obj                                               18
 ref_var                                                1
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
@@ -204,7 +204,7 @@ module_inst                                            4
 named_begin                                            3
 operation                                              6
 parameter                                              3
-ref_obj                                               15
+ref_obj                                               24
 ref_var                                                1
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
@@ -252,7 +252,12 @@ design: (work@top)
         |vpiParent:
         \_assign_stmt: , line:4:8, endln:4:13
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_obj: (work@top.i)
+          |vpiParent:
+          \_int_var: (work@top.i), line:4:8, endln:4:9
+          |vpiFullName:work@top.i
+          |vpiActual:
+          \_int_typespec: 
         |vpiName:i
         |vpiFullName:work@top.i
     |vpiCondition:
@@ -435,7 +440,12 @@ design: (work@top)
         \_gen_scope: (work@top.tag1[0]), line:4:34, endln:11:6
         |UINT:0
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_obj: (work@top.tag1[0].i)
+          |vpiParent:
+          \_parameter: (work@top.tag1[0].i), line:4:0
+          |vpiFullName:work@top.tag1[0].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@top.tag1[0].i
@@ -493,7 +503,12 @@ design: (work@top)
         \_gen_scope: (work@top.tag1[1]), line:4:34, endln:11:6
         |UINT:1
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_obj: (work@top.tag1[1].i)
+          |vpiParent:
+          \_parameter: (work@top.tag1[1].i), line:4:0
+          |vpiFullName:work@top.tag1[1].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@top.tag1[1].i
@@ -551,7 +566,12 @@ design: (work@top)
         \_gen_scope: (work@top.tag1[2]), line:4:34, endln:11:6
         |UINT:2
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_obj: (work@top.tag1[2].i)
+          |vpiParent:
+          \_parameter: (work@top.tag1[2].i), line:4:0
+          |vpiFullName:work@top.tag1[2].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@top.tag1[2].i
@@ -592,6 +612,146 @@ design: (work@top)
                 |vpiFullName:work@top.tag1[2].tag2.i
                 |vpiActual:
                 \_parameter: (work@top.tag1[2].i), line:4:0
+\_weaklyReferenced:
+\_int_typespec: 
+\_cont_assign: , line:6:16, endln:6:29
+  |vpiParent:
+  \_gen_scope: (work@top.tag1[0].tag2), line:5:13, endln:7:9
+  |vpiRhs:
+  \_constant: , line:6:25, endln:6:29
+  |vpiLhs:
+  \_bit_select: (work@top.tag1[0].tag2.tmp), line:6:16, endln:6:22
+    |vpiParent:
+    \_cont_assign: , line:6:16, endln:6:29
+    |vpiName:tmp
+    |vpiFullName:work@top.tag1[0].tag2.tmp
+    |vpiIndex:
+    \_ref_obj: (work@top.tag1[0].tag2.i), line:6:20, endln:6:21
+      |vpiParent:
+      \_bit_select: (work@top.tag1[0].tag2.tmp), line:6:16, endln:6:22
+      |vpiName:i
+      |vpiFullName:work@top.tag1[0].tag2.i
+\_gen_scope: (work@top.tag1[0].tag2), line:5:13, endln:7:9
+  |vpiParent:
+  \_gen_scope_array: (work@top.tag1[0].tag2), line:5:13, endln:7:9
+  |vpiFullName:work@top.tag1[0].tag2
+  |vpiContAssign:
+  \_cont_assign: , line:6:16, endln:6:29
+\_gen_scope_array: (work@top.tag1[0].tag2), line:5:13, endln:7:9
+  |vpiParent:
+  \_gen_scope: (work@top.tag1[0]), line:4:34, endln:11:6
+  |vpiName:tag2
+  |vpiFullName:work@top.tag1[0].tag2
+  |vpiGenScope:
+  \_gen_scope: (work@top.tag1[0].tag2), line:5:13, endln:7:9
+\_gen_scope: (work@top.tag1[0]), line:4:34, endln:11:6
+  |vpiParent:
+  \_gen_scope_array: (work@top.tag1[0]), line:4:34, endln:11:6
+  |vpiFullName:work@top.tag1[0]
+  |vpiParameter:
+  \_parameter: (work@top.tag1[0].i), line:4:0
+  |vpiGenScopeArray:
+  \_gen_scope_array: (work@top.tag1[0].tag2), line:5:13, endln:7:9
+\_gen_scope_array: (work@top.tag1[0]), line:4:34, endln:11:6
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenIfNamed/dut.sv, line:2:1, endln:13:10
+  |vpiName:tag1[0]
+  |vpiFullName:work@top.tag1[0]
+  |vpiGenScope:
+  \_gen_scope: (work@top.tag1[0]), line:4:34, endln:11:6
+\_int_typespec: 
+\_cont_assign: , line:6:16, endln:6:29
+  |vpiParent:
+  \_gen_scope: (work@top.tag1[1].tag2), line:5:13, endln:7:9
+  |vpiRhs:
+  \_constant: , line:6:25, endln:6:29
+  |vpiLhs:
+  \_bit_select: (work@top.tag1[1].tag2.tmp), line:6:16, endln:6:22
+    |vpiParent:
+    \_cont_assign: , line:6:16, endln:6:29
+    |vpiName:tmp
+    |vpiFullName:work@top.tag1[1].tag2.tmp
+    |vpiIndex:
+    \_ref_obj: (work@top.tag1[1].tag2.i), line:6:20, endln:6:21
+      |vpiParent:
+      \_bit_select: (work@top.tag1[1].tag2.tmp), line:6:16, endln:6:22
+      |vpiName:i
+      |vpiFullName:work@top.tag1[1].tag2.i
+\_gen_scope: (work@top.tag1[1].tag2), line:5:13, endln:7:9
+  |vpiParent:
+  \_gen_scope_array: (work@top.tag1[1].tag2), line:5:13, endln:7:9
+  |vpiFullName:work@top.tag1[1].tag2
+  |vpiContAssign:
+  \_cont_assign: , line:6:16, endln:6:29
+\_gen_scope_array: (work@top.tag1[1].tag2), line:5:13, endln:7:9
+  |vpiParent:
+  \_gen_scope: (work@top.tag1[1]), line:4:34, endln:11:6
+  |vpiName:tag2
+  |vpiFullName:work@top.tag1[1].tag2
+  |vpiGenScope:
+  \_gen_scope: (work@top.tag1[1].tag2), line:5:13, endln:7:9
+\_gen_scope: (work@top.tag1[1]), line:4:34, endln:11:6
+  |vpiParent:
+  \_gen_scope_array: (work@top.tag1[1]), line:4:34, endln:11:6
+  |vpiFullName:work@top.tag1[1]
+  |vpiParameter:
+  \_parameter: (work@top.tag1[1].i), line:4:0
+  |vpiGenScopeArray:
+  \_gen_scope_array: (work@top.tag1[1].tag2), line:5:13, endln:7:9
+\_gen_scope_array: (work@top.tag1[1]), line:4:34, endln:11:6
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenIfNamed/dut.sv, line:2:1, endln:13:10
+  |vpiName:tag1[1]
+  |vpiFullName:work@top.tag1[1]
+  |vpiGenScope:
+  \_gen_scope: (work@top.tag1[1]), line:4:34, endln:11:6
+\_int_typespec: 
+\_cont_assign: , line:6:16, endln:6:29
+  |vpiParent:
+  \_gen_scope: (work@top.tag1[2].tag2), line:5:13, endln:7:9
+  |vpiRhs:
+  \_constant: , line:6:25, endln:6:29
+  |vpiLhs:
+  \_bit_select: (work@top.tag1[2].tag2.tmp), line:6:16, endln:6:22
+    |vpiParent:
+    \_cont_assign: , line:6:16, endln:6:29
+    |vpiName:tmp
+    |vpiFullName:work@top.tag1[2].tag2.tmp
+    |vpiIndex:
+    \_ref_obj: (work@top.tag1[2].tag2.i), line:6:20, endln:6:21
+      |vpiParent:
+      \_bit_select: (work@top.tag1[2].tag2.tmp), line:6:16, endln:6:22
+      |vpiName:i
+      |vpiFullName:work@top.tag1[2].tag2.i
+\_gen_scope: (work@top.tag1[2].tag2), line:5:13, endln:7:9
+  |vpiParent:
+  \_gen_scope_array: (work@top.tag1[2].tag2), line:5:13, endln:7:9
+  |vpiFullName:work@top.tag1[2].tag2
+  |vpiContAssign:
+  \_cont_assign: , line:6:16, endln:6:29
+\_gen_scope_array: (work@top.tag1[2].tag2), line:5:13, endln:7:9
+  |vpiParent:
+  \_gen_scope: (work@top.tag1[2]), line:4:34, endln:11:6
+  |vpiName:tag2
+  |vpiFullName:work@top.tag1[2].tag2
+  |vpiGenScope:
+  \_gen_scope: (work@top.tag1[2].tag2), line:5:13, endln:7:9
+\_gen_scope: (work@top.tag1[2]), line:4:34, endln:11:6
+  |vpiParent:
+  \_gen_scope_array: (work@top.tag1[2]), line:4:34, endln:11:6
+  |vpiFullName:work@top.tag1[2]
+  |vpiParameter:
+  \_parameter: (work@top.tag1[2].i), line:4:0
+  |vpiGenScopeArray:
+  \_gen_scope_array: (work@top.tag1[2].tag2), line:5:13, endln:7:9
+\_gen_scope_array: (work@top.tag1[2]), line:4:34, endln:11:6
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenIfNamed/dut.sv, line:2:1, endln:13:10
+  |vpiName:tag1[2]
+  |vpiFullName:work@top.tag1[2]
+  |vpiGenScope:
+  \_gen_scope: (work@top.tag1[2]), line:4:34, endln:11:6
+\_int_typespec: 
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

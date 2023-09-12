@@ -207,7 +207,7 @@ parameter                                              2
 port                                                   7
 range                                                  5
 ref_module                                             3
-ref_obj                                               10
+ref_obj                                               22
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -229,7 +229,7 @@ parameter                                              2
 port                                                   8
 range                                                  5
 ref_module                                             3
-ref_obj                                               12
+ref_obj                                               25
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/InterfaceElab/slpp_all/surelog.uhdm ...
 
@@ -253,10 +253,12 @@ design: (work@testharness)
     |vpiParent:
     \_interface_inst: work@REG_BUS (work@REG_BUS), file:${SURELOG_DIR}/tests/InterfaceElab/dut.sv, line:2:1, endln:13:13
     |vpiTypespec:
-    \_int_typespec: , line:4:13, endln:4:16
+    \_ref_obj: (work@REG_BUS.ADDR_WIDTH)
       |vpiParent:
       \_parameter: (work@REG_BUS.ADDR_WIDTH), line:4:17, endln:4:27
-      |vpiSigned:1
+      |vpiFullName:work@REG_BUS.ADDR_WIDTH
+      |vpiActual:
+      \_int_typespec: , line:4:13, endln:4:16
     |vpiSigned:1
     |vpiName:ADDR_WIDTH
     |vpiFullName:work@REG_BUS.ADDR_WIDTH
@@ -290,37 +292,12 @@ design: (work@testharness)
     |vpiParent:
     \_interface_inst: work@REG_BUS (work@REG_BUS), file:${SURELOG_DIR}/tests/InterfaceElab/dut.sv, line:2:1, endln:13:13
     |vpiTypespec:
-    \_logic_typespec: , line:9:3, endln:9:25
-      |vpiRange:
-      \_range: , line:9:9, endln:9:25
-        |vpiParent:
-        \_logic_typespec: , line:9:3, endln:9:25
-        |vpiLeftRange:
-        \_operation: , line:9:10, endln:9:22
-          |vpiParent:
-          \_range: , line:9:9, endln:9:25
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (ADDR_WIDTH), line:9:10, endln:9:20
-            |vpiParent:
-            \_operation: , line:9:10, endln:9:22
-            |vpiName:ADDR_WIDTH
-          |vpiOperand:
-          \_constant: , line:9:21, endln:9:22
-            |vpiParent:
-            \_operation: , line:9:10, endln:9:22
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:9:23, endln:9:24
-          |vpiParent:
-          \_range: , line:9:9, endln:9:25
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@REG_BUS.addr)
+      |vpiParent:
+      \_logic_net: (work@REG_BUS.addr), line:9:28, endln:9:32
+      |vpiFullName:work@REG_BUS.addr
+      |vpiActual:
+      \_logic_typespec: , line:9:3, endln:9:25
     |vpiName:addr
     |vpiFullName:work@REG_BUS.addr
     |vpiNetType:36
@@ -376,11 +353,12 @@ design: (work@testharness)
       |vpiActual:
       \_modport: (out), line:11:11, endln:11:14
     |vpiTypedef:
-    \_interface_typespec: (out), line:16:11, endln:16:14
+    \_ref_obj: (work@apb_to_reg.reg_o)
       |vpiParent:
-      \_interface_typespec: (REG_BUS), line:16:3, endln:16:10
-      |vpiName:out
-      |vpiIsModPort:1
+      \_port: (reg_o), line:16:16, endln:16:21
+      |vpiFullName:work@apb_to_reg.reg_o
+      |vpiActual:
+      \_interface_typespec: (out), line:16:11, endln:16:14
 |uhdmallModules:
 \_module_inst: work@peripherals (work@peripherals), file:${SURELOG_DIR}/tests/InterfaceElab/dut.sv, line:21:1, endln:29:10
   |vpiParent:
@@ -491,29 +469,12 @@ design: (work@testharness)
         |vpiParent:
         \_interface_inst: work@REG_BUS (work@testharness.i_peripherals.reg_bus), file:${SURELOG_DIR}/tests/InterfaceElab/dut.sv, line:23:4, endln:25:23
         |vpiTypespec:
-        \_logic_typespec: , line:9:3, endln:9:25
+        \_ref_obj: (work@testharness.i_peripherals.reg_bus.addr)
           |vpiParent:
           \_logic_var: (work@testharness.i_peripherals.reg_bus.addr), line:9:28, endln:9:32
-          |vpiRange:
-          \_range: , line:9:9, endln:9:25
-            |vpiParent:
-            \_logic_typespec: , line:9:3, endln:9:25
-            |vpiLeftRange:
-            \_constant: , line:9:10, endln:9:20
-              |vpiParent:
-              \_range: , line:9:9, endln:9:25
-              |vpiDecompile:31
-              |vpiSize:64
-              |INT:31
-              |vpiConstType:7
-            |vpiRightRange:
-            \_constant: , line:9:23, endln:9:24
-              |vpiParent:
-              \_range: , line:9:9, endln:9:25
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
+          |vpiFullName:work@testharness.i_peripherals.reg_bus.addr
+          |vpiActual:
+          \_logic_typespec: , line:9:3, endln:9:25
         |vpiName:addr
         |vpiFullName:work@testharness.i_peripherals.reg_bus.addr
         |vpiVisibility:1
@@ -522,10 +483,12 @@ design: (work@testharness)
         |vpiParent:
         \_interface_inst: work@REG_BUS (work@testharness.i_peripherals.reg_bus), file:${SURELOG_DIR}/tests/InterfaceElab/dut.sv, line:23:4, endln:25:23
         |vpiTypespec:
-        \_int_typespec: , line:4:13, endln:4:16
+        \_ref_obj: (work@testharness.i_peripherals.reg_bus.ADDR_WIDTH)
           |vpiParent:
           \_parameter: (work@testharness.i_peripherals.reg_bus.ADDR_WIDTH), line:4:17, endln:4:27
-          |vpiSigned:1
+          |vpiFullName:work@testharness.i_peripherals.reg_bus.ADDR_WIDTH
+          |vpiActual:
+          \_int_typespec: , line:4:13, endln:4:16
         |vpiSigned:1
         |vpiName:ADDR_WIDTH
         |vpiFullName:work@testharness.i_peripherals.reg_bus.ADDR_WIDTH
@@ -542,7 +505,12 @@ design: (work@testharness)
           |vpiSize:32
           |UINT:32
           |vpiTypespec:
-          \_int_typespec: , line:4:13, endln:4:16
+          \_ref_obj: (work@testharness.i_peripherals.reg_bus)
+            |vpiParent:
+            \_constant: , line:4:30, endln:4:32
+            |vpiFullName:work@testharness.i_peripherals.reg_bus
+            |vpiActual:
+            \_int_typespec: , line:4:13, endln:4:16
           |vpiConstType:9
         |vpiLhs:
         \_parameter: (work@testharness.i_peripherals.reg_bus.ADDR_WIDTH), line:4:17, endln:4:27
@@ -554,9 +522,12 @@ design: (work@testharness)
         |vpiParent:
         \_interface_inst: work@REG_BUS (work@testharness.i_peripherals.reg_bus), file:${SURELOG_DIR}/tests/InterfaceElab/dut.sv, line:23:4, endln:25:23
         |vpiTypespec:
-        \_logic_typespec: , line:6:9, endln:6:14
+        \_ref_obj: (work@testharness.i_peripherals.reg_bus.clk_i)
           |vpiParent:
           \_logic_net: (work@testharness.i_peripherals.reg_bus.clk_i), line:6:15, endln:6:20
+          |vpiFullName:work@testharness.i_peripherals.reg_bus.clk_i
+          |vpiActual:
+          \_logic_typespec: , line:6:9, endln:6:14
         |vpiName:clk_i
         |vpiFullName:work@testharness.i_peripherals.reg_bus.clk_i
         |vpiNetType:36
@@ -598,7 +569,12 @@ design: (work@testharness)
           |vpiActual:
           \_logic_net: (work@testharness.i_peripherals.reg_bus.clk_i), line:6:15, endln:6:20
         |vpiTypedef:
-        \_logic_typespec: , line:6:9, endln:6:14
+        \_ref_obj: (work@testharness.i_peripherals.reg_bus.clk_i)
+          |vpiParent:
+          \_port: (clk_i), line:6:15, endln:6:20
+          |vpiFullName:work@testharness.i_peripherals.reg_bus.clk_i
+          |vpiActual:
+          \_logic_typespec: , line:6:9, endln:6:14
     |vpiModule:
     \_module_inst: work@apb_to_reg (work@testharness.i_peripherals.i_apb_to_reg), file:${SURELOG_DIR}/tests/InterfaceElab/dut.sv, line:27:1, endln:27:44
       |vpiParent:
@@ -632,11 +608,12 @@ design: (work@testharness)
           |vpiActual:
           \_modport: (out), line:11:11, endln:11:14
         |vpiTypedef:
-        \_interface_typespec: (out), line:16:11, endln:16:14
+        \_ref_obj: (work@testharness.i_peripherals.i_apb_to_reg.reg_o)
           |vpiParent:
-          \_interface_typespec: (REG_BUS), line:16:3, endln:16:10
-          |vpiName:out
-          |vpiIsModPort:1
+          \_port: (reg_o), line:16:16, endln:16:21
+          |vpiFullName:work@testharness.i_peripherals.i_apb_to_reg.reg_o
+          |vpiActual:
+          \_interface_typespec: (out), line:16:11, endln:16:14
         |vpiInstance:
         \_module_inst: work@apb_to_reg (work@testharness.i_peripherals.i_apb_to_reg), file:${SURELOG_DIR}/tests/InterfaceElab/dut.sv, line:27:1, endln:27:44
       |vpiInterface:
@@ -650,29 +627,12 @@ design: (work@testharness)
           |vpiParent:
           \_interface_inst: work@REG_BUS (work@testharness.i_peripherals.i_apb_to_reg.reg_o), file:${SURELOG_DIR}/tests/InterfaceElab/dut.sv, line:27:0
           |vpiTypespec:
-          \_logic_typespec: , line:9:3, endln:9:25
+          \_ref_obj: (work@testharness.i_peripherals.i_apb_to_reg.reg_o.addr)
             |vpiParent:
             \_logic_var: (work@testharness.i_peripherals.i_apb_to_reg.reg_o.addr), line:9:28, endln:9:32
-            |vpiRange:
-            \_range: , line:9:9, endln:9:25
-              |vpiParent:
-              \_logic_typespec: , line:9:3, endln:9:25
-              |vpiLeftRange:
-              \_constant: , line:9:10, endln:9:20
-                |vpiParent:
-                \_range: , line:9:9, endln:9:25
-                |vpiDecompile:31
-                |vpiSize:64
-                |INT:31
-                |vpiConstType:7
-              |vpiRightRange:
-              \_constant: , line:9:23, endln:9:24
-                |vpiParent:
-                \_range: , line:9:9, endln:9:25
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
-                |vpiConstType:9
+            |vpiFullName:work@testharness.i_peripherals.i_apb_to_reg.reg_o.addr
+            |vpiActual:
+            \_logic_typespec: , line:9:3, endln:9:25
           |vpiName:addr
           |vpiFullName:work@testharness.i_peripherals.i_apb_to_reg.reg_o.addr
           |vpiVisibility:1
@@ -707,7 +667,117 @@ design: (work@testharness)
             |vpiActual:
             \_logic_net: (work@testharness.i_peripherals.clk_i), line:25:16, endln:25:21
           |vpiTypedef:
-          \_logic_typespec: , line:6:9, endln:6:14
+          \_ref_obj: (work@testharness.i_peripherals.i_apb_to_reg.reg_o.clk_i)
+            |vpiParent:
+            \_port: (clk_i), line:6:15, endln:6:20
+            |vpiFullName:work@testharness.i_peripherals.i_apb_to_reg.reg_o.clk_i
+            |vpiActual:
+            \_logic_typespec: , line:6:9, endln:6:14
+\_weaklyReferenced:
+\_int_typespec: , line:4:13, endln:4:16
+  |vpiParent:
+  \_parameter: (work@REG_BUS.ADDR_WIDTH), line:4:17, endln:4:27
+  |vpiSigned:1
+\_logic_typespec: , line:6:9, endln:6:14
+\_logic_typespec: , line:6:9, endln:6:14
+  |vpiParent:
+  \_logic_net: (work@testharness.i_peripherals.reg_bus.clk_i), line:6:15, endln:6:20
+\_logic_typespec: , line:9:3, endln:9:25
+  |vpiParent:
+  \_logic_var: (work@testharness.i_peripherals.reg_bus.addr), line:9:28, endln:9:32
+  |vpiRange:
+  \_range: , line:9:9, endln:9:25
+    |vpiParent:
+    \_logic_typespec: , line:9:3, endln:9:25
+    |vpiLeftRange:
+    \_constant: , line:9:10, endln:9:20
+      |vpiParent:
+      \_range: , line:9:9, endln:9:25
+      |vpiDecompile:31
+      |vpiSize:64
+      |INT:31
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:9:23, endln:9:24
+      |vpiParent:
+      \_range: , line:9:9, endln:9:25
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_interface_typespec: (out), line:16:11, endln:16:14
+  |vpiParent:
+  \_interface_typespec: (REG_BUS), line:16:3, endln:16:10
+  |vpiName:out
+  |vpiIsModPort:1
+\_interface_typespec: (REG_BUS), line:16:3, endln:16:10
+  |vpiName:REG_BUS
+\_logic_typespec: , line:6:9, endln:6:14
+\_logic_typespec: , line:9:3, endln:9:25
+  |vpiParent:
+  \_logic_var: (work@testharness.i_peripherals.i_apb_to_reg.reg_o.addr), line:9:28, endln:9:32
+  |vpiRange:
+  \_range: , line:9:9, endln:9:25
+    |vpiParent:
+    \_logic_typespec: , line:9:3, endln:9:25
+    |vpiLeftRange:
+    \_constant: , line:9:10, endln:9:20
+      |vpiParent:
+      \_range: , line:9:9, endln:9:25
+      |vpiDecompile:31
+      |vpiSize:64
+      |INT:31
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:9:23, endln:9:24
+      |vpiParent:
+      \_range: , line:9:9, endln:9:25
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:9:3, endln:9:25
+  |vpiRange:
+  \_range: , line:9:9, endln:9:25
+    |vpiParent:
+    \_logic_typespec: , line:9:3, endln:9:25
+    |vpiLeftRange:
+    \_operation: , line:9:10, endln:9:22
+      |vpiParent:
+      \_range: , line:9:9, endln:9:25
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (ADDR_WIDTH), line:9:10, endln:9:20
+        |vpiParent:
+        \_operation: , line:9:10, endln:9:22
+        |vpiName:ADDR_WIDTH
+      |vpiOperand:
+      \_constant: , line:9:21, endln:9:22
+        |vpiParent:
+        \_operation: , line:9:10, endln:9:22
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:9:23, endln:9:24
+      |vpiParent:
+      \_range: , line:9:9, endln:9:25
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_interface_typespec: (out), line:16:11, endln:16:14
+  |vpiParent:
+  \_interface_typespec: (REG_BUS), line:16:3, endln:16:10
+  |vpiName:out
+  |vpiIsModPort:1
+\_interface_typespec: (REG_BUS), line:16:3, endln:16:10
+  |vpiName:REG_BUS
+\_int_typespec: , line:4:13, endln:4:16
+  |vpiParent:
+  \_ref_obj: (work@testharness.i_peripherals.reg_bus.ADDR_WIDTH)
+  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

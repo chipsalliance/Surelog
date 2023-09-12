@@ -70,7 +70,7 @@ logic_typespec                                         6
 module_inst                                            3
 operation                                              1
 port                                                   6
-ref_obj                                                6
+ref_obj                                               14
 unsupported_typespec                                   2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PortExpr/slpp_all/surelog.uhdm ...
@@ -122,7 +122,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.op[79]), line:4:11, endln:4:23
     |vpiTypedef:
-    \_logic_typespec: , line:4:11, endln:4:11
+    \_ref_obj: (work@top.op[79])
+      |vpiParent:
+      \_port: (op[79]), line:4:11, endln:4:23
+      |vpiFullName:work@top.op[79]
+      |vpiActual:
+      \_logic_typespec: , line:4:11, endln:4:11
   |vpiPort:
   \_port: (op[78]), line:5:11, endln:5:23
     |vpiParent:
@@ -138,7 +143,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.op[78]), line:5:11, endln:5:23
     |vpiTypedef:
-    \_logic_typespec: , line:5:11, endln:5:11
+    \_ref_obj: (work@top.op[78])
+      |vpiParent:
+      \_port: (op[78]), line:5:11, endln:5:23
+      |vpiFullName:work@top.op[78]
+      |vpiActual:
+      \_logic_typespec: , line:5:11, endln:5:11
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PortExpr/dut.sv, line:1:1, endln:6:10
   |vpiName:work@top
@@ -149,9 +159,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PortExpr/dut.sv, line:1:1, endln:6:10
     |vpiTypespec:
-    \_logic_typespec: , line:4:11, endln:4:11
+    \_ref_obj: (work@top.op[79])
       |vpiParent:
       \_logic_net: (work@top.op[79]), line:4:11, endln:4:23
+      |vpiFullName:work@top.op[79]
+      |vpiActual:
+      \_logic_typespec: , line:4:11, endln:4:11
     |vpiName:op[79]
     |vpiFullName:work@top.op[79]
   |vpiNet:
@@ -159,9 +172,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PortExpr/dut.sv, line:1:1, endln:6:10
     |vpiTypespec:
-    \_logic_typespec: , line:5:11, endln:5:11
+    \_ref_obj: (work@top.op[78])
       |vpiParent:
       \_logic_net: (work@top.op[78]), line:5:11, endln:5:23
+      |vpiFullName:work@top.op[78]
+      |vpiActual:
+      \_logic_typespec: , line:5:11, endln:5:11
     |vpiName:op[78]
     |vpiFullName:work@top.op[78]
   |vpiTopModule:1
@@ -174,7 +190,11 @@ design: (work@top)
     |vpiLowConn:
     \_operation: , line:2:8, endln:2:35
       |vpiTypespec:
-      \_unsupported_typespec: 
+      \_ref_obj: 
+        |vpiParent:
+        \_operation: , line:2:8, endln:2:35
+        |vpiActual:
+        \_unsupported_typespec: 
       |vpiOpType:33
       |vpiOperand:
       \_ref_obj: (op[79]), line:2:9, endln:2:21
@@ -205,7 +225,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.op[79]), line:4:11, endln:4:23
     |vpiTypedef:
-    \_logic_typespec: , line:4:11, endln:4:11
+    \_ref_obj: (work@top.op[79])
+      |vpiParent:
+      \_port: (op[79]), line:4:11, endln:4:23
+      |vpiFullName:work@top.op[79]
+      |vpiActual:
+      \_logic_typespec: , line:4:11, endln:4:11
   |vpiPort:
   \_port: (op[78]), line:5:11, endln:5:23
     |vpiParent:
@@ -221,7 +246,24 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.op[78]), line:5:11, endln:5:23
     |vpiTypedef:
-    \_logic_typespec: , line:5:11, endln:5:11
+    \_ref_obj: (work@top.op[78])
+      |vpiParent:
+      \_port: (op[78]), line:5:11, endln:5:23
+      |vpiFullName:work@top.op[78]
+      |vpiActual:
+      \_logic_typespec: , line:5:11, endln:5:11
+\_weaklyReferenced:
+\_unsupported_typespec: 
+\_logic_typespec: , line:4:11, endln:4:11
+\_logic_typespec: , line:5:11, endln:5:11
+\_logic_typespec: , line:4:11, endln:4:11
+  |vpiParent:
+  \_logic_net: (work@top.op[79]), line:4:11, endln:4:23
+\_logic_typespec: , line:5:11, endln:5:11
+  |vpiParent:
+  \_logic_net: (work@top.op[78]), line:5:11, endln:5:23
+\_logic_typespec: , line:4:11, endln:4:11
+\_logic_typespec: , line:5:11, endln:5:11
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

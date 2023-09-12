@@ -107,7 +107,7 @@ module_inst                                            4
 operation                                              6
 port                                                   2
 range                                                  5
-ref_obj                                                4
+ref_obj                                                9
 sys_func_call                                          4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -122,7 +122,7 @@ module_inst                                            4
 operation                                              6
 port                                                   3
 range                                                  5
-ref_obj                                                6
+ref_obj                                               12
 sys_func_call                                          4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ComplexExprSize/slpp_all/surelog.uhdm ...
@@ -165,27 +165,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.out), line:1:13, endln:1:16
     |vpiTypedef:
-    \_logic_typespec: , line:2:10, endln:2:21
-      |vpiRange:
-      \_range: , line:2:15, endln:2:21
-        |vpiParent:
-        \_logic_typespec: , line:2:10, endln:2:21
-        |vpiLeftRange:
-        \_constant: , line:2:16, endln:2:18
-          |vpiParent:
-          \_range: , line:2:15, endln:2:21
-          |vpiDecompile:31
-          |vpiSize:64
-          |UINT:31
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:19, endln:2:20
-          |vpiParent:
-          \_range: , line:2:15, endln:2:21
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@top.out)
+      |vpiParent:
+      \_port: (out), line:1:13, endln:1:16
+      |vpiFullName:work@top.out
+      |vpiActual:
+      \_logic_typespec: , line:2:10, endln:2:21
   |vpiContAssign:
   \_cont_assign: , line:4:10, endln:4:55
     |vpiParent:
@@ -195,27 +180,12 @@ design: (work@top)
       |vpiParent:
       \_cont_assign: , line:4:10, endln:4:55
       |vpiTypespec:
-      \_logic_typespec: , line:2:10, endln:2:21
-        |vpiRange:
-        \_range: , line:2:15, endln:2:21
-          |vpiParent:
-          \_logic_typespec: , line:2:10, endln:2:21
-          |vpiLeftRange:
-          \_constant: , line:2:16, endln:2:18
-            |vpiParent:
-            \_range: , line:2:15, endln:2:21
-            |vpiDecompile:31
-            |vpiSize:64
-            |UINT:31
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:2:19, endln:2:20
-            |vpiParent:
-            \_range: , line:2:15, endln:2:21
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_obj: (work@top)
+        |vpiParent:
+        \_sys_func_call: ($unsigned), line:4:16, endln:4:25
+        |vpiFullName:work@top
+        |vpiActual:
+        \_logic_typespec: , line:2:10, endln:2:21
       |vpiArgument:
       \_operation: , line:4:26, endln:4:54
         |vpiParent:
@@ -261,7 +231,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ComplexExprSize/dut.sv, line:1:1, endln:5:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:10, endln:2:21
+    \_ref_obj: (work@top.out)
+      |vpiParent:
+      \_logic_net: (work@top.out), line:1:13, endln:1:16
+      |vpiFullName:work@top.out
+      |vpiActual:
+      \_logic_typespec: , line:2:10, endln:2:21
     |vpiName:out
     |vpiFullName:work@top.out
     |vpiNetType:1
@@ -281,27 +256,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.out), line:1:13, endln:1:16
     |vpiTypedef:
-    \_logic_typespec: , line:2:10, endln:2:21
-      |vpiRange:
-      \_range: , line:2:15, endln:2:21
-        |vpiParent:
-        \_logic_typespec: , line:2:10, endln:2:21
-        |vpiLeftRange:
-        \_constant: , line:2:16, endln:2:18
-          |vpiParent:
-          \_range: , line:2:15, endln:2:21
-          |vpiDecompile:31
-          |vpiSize:64
-          |UINT:31
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:19, endln:2:20
-          |vpiParent:
-          \_range: , line:2:15, endln:2:21
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@top.out)
+      |vpiParent:
+      \_port: (out), line:1:13, endln:1:16
+      |vpiFullName:work@top.out
+      |vpiActual:
+      \_logic_typespec: , line:2:10, endln:2:21
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ComplexExprSize/dut.sv, line:1:1, endln:5:10
   |vpiContAssign:
@@ -324,6 +284,83 @@ design: (work@top)
       |vpiFullName:work@top.out
       |vpiActual:
       \_logic_net: (work@top.out), line:1:13, endln:1:16
+\_weaklyReferenced:
+\_logic_typespec: , line:2:10, endln:2:21
+  |vpiRange:
+  \_range: , line:2:15, endln:2:21
+    |vpiParent:
+    \_logic_typespec: , line:2:10, endln:2:21
+    |vpiLeftRange:
+    \_constant: , line:2:16, endln:2:18
+      |vpiParent:
+      \_range: , line:2:15, endln:2:21
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:19, endln:2:20
+      |vpiParent:
+      \_range: , line:2:15, endln:2:21
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:2:10, endln:2:21
+  |vpiRange:
+  \_range: , line:2:15, endln:2:21
+    |vpiParent:
+    \_logic_typespec: , line:2:10, endln:2:21
+    |vpiLeftRange:
+    \_constant: , line:2:16, endln:2:18
+      |vpiParent:
+      \_range: , line:2:15, endln:2:21
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:19, endln:2:20
+      |vpiParent:
+      \_range: , line:2:15, endln:2:21
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:2:10, endln:2:21
+  |vpiRange:
+  \_range: , line:2:15, endln:2:21
+    |vpiParent:
+    \_logic_typespec: , line:2:10, endln:2:21
+    |vpiLeftRange:
+    \_constant: , line:2:16, endln:2:18
+      |vpiParent:
+      \_range: , line:2:15, endln:2:21
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:19, endln:2:20
+      |vpiParent:
+      \_range: , line:2:15, endln:2:21
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_cont_assign: , line:4:10, endln:4:55
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ComplexExprSize/dut.sv, line:1:1, endln:5:10
+  |vpiRhs:
+  \_constant: 
+  |vpiLhs:
+  \_ref_obj: (work@top.out), line:4:10, endln:4:13
+    |vpiParent:
+    \_cont_assign: , line:4:10, endln:4:55
+    |vpiName:out
+    |vpiFullName:work@top.out
+    |vpiActual:
+    \_logic_net: (work@top.out), line:1:13, endln:1:16
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

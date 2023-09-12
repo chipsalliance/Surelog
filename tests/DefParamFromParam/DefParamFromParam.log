@@ -137,7 +137,7 @@ module_inst                                            7
 param_assign                                           8
 parameter                                              8
 ref_module                                             1
-ref_obj                                                1
+ref_obj                                               17
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -149,7 +149,7 @@ module_inst                                            7
 param_assign                                           8
 parameter                                              8
 ref_module                                             1
-ref_obj                                                1
+ref_obj                                               17
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/DefParamFromParam/slpp_all/surelog.uhdm ...
 
@@ -174,7 +174,12 @@ design: (work@top)
     \_module_inst: work@fifo (work@fifo), file:${SURELOG_DIR}/tests/DefParamFromParam/dut.sv, line:1:1, endln:5:10
     |UINT:9
     |vpiTypespec:
-    \_int_typespec: , line:2:5, endln:2:25
+    \_ref_obj: (work@fifo.width1)
+      |vpiParent:
+      \_parameter: (work@fifo.width1), line:2:15, endln:2:21
+      |vpiFullName:work@fifo.width1
+      |vpiActual:
+      \_int_typespec: , line:2:5, endln:2:25
     |vpiName:width1
     |vpiFullName:work@fifo.width1
   |vpiParameter:
@@ -183,7 +188,12 @@ design: (work@top)
     \_module_inst: work@fifo (work@fifo), file:${SURELOG_DIR}/tests/DefParamFromParam/dut.sv, line:1:1, endln:5:10
     |UINT:8
     |vpiTypespec:
-    \_int_typespec: , line:3:5, endln:3:25
+    \_ref_obj: (work@fifo.width2)
+      |vpiParent:
+      \_parameter: (work@fifo.width2), line:3:15, endln:3:21
+      |vpiFullName:work@fifo.width2
+      |vpiActual:
+      \_int_typespec: , line:3:5, endln:3:25
     |vpiName:width2
     |vpiFullName:work@fifo.width2
   |vpiParamAssign:
@@ -198,7 +208,12 @@ design: (work@top)
       |vpiSize:64
       |UINT:9
       |vpiTypespec:
-      \_int_typespec: , line:2:5, endln:2:25
+      \_ref_obj: (work@fifo)
+        |vpiParent:
+        \_constant: , line:2:24, endln:2:25
+        |vpiFullName:work@fifo
+        |vpiActual:
+        \_int_typespec: , line:2:5, endln:2:25
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@fifo.width1), line:2:15, endln:2:21
@@ -214,7 +229,12 @@ design: (work@top)
       |vpiSize:64
       |UINT:8
       |vpiTypespec:
-      \_int_typespec: , line:3:5, endln:3:25
+      \_ref_obj: (work@fifo)
+        |vpiParent:
+        \_constant: , line:3:24, endln:3:25
+        |vpiFullName:work@fifo
+        |vpiActual:
+        \_int_typespec: , line:3:5, endln:3:25
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@fifo.width2), line:3:15, endln:3:21
@@ -230,7 +250,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DefParamFromParam/dut.sv, line:6:1, endln:13:10
     |UINT:10
     |vpiTypespec:
-    \_int_typespec: , line:7:5, endln:7:27
+    \_ref_obj: (work@top.width_a)
+      |vpiParent:
+      \_parameter: (work@top.width_a), line:7:15, endln:7:22
+      |vpiFullName:work@top.width_a
+      |vpiActual:
+      \_int_typespec: , line:7:5, endln:7:27
     |vpiName:width_a
     |vpiFullName:work@top.width_a
   |vpiParameter:
@@ -251,7 +276,12 @@ design: (work@top)
       |vpiSize:64
       |UINT:10
       |vpiTypespec:
-      \_int_typespec: , line:7:5, endln:7:27
+      \_ref_obj: (work@top)
+        |vpiParent:
+        \_constant: , line:7:25, endln:7:27
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:7:5, endln:7:27
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.width_a), line:7:15, endln:7:22
@@ -285,9 +315,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DefParamFromParam/dut.sv, line:6:1, endln:13:10
     |UINT:10
     |vpiTypespec:
-    \_int_typespec: , line:7:5, endln:7:27
+    \_ref_obj: (work@top.width_a)
       |vpiParent:
       \_parameter: (work@top.width_a), line:7:15, endln:7:22
+      |vpiFullName:work@top.width_a
+      |vpiActual:
+      \_int_typespec: , line:7:5, endln:7:27
     |vpiName:width_a
     |vpiFullName:work@top.width_a
   |vpiParameter:
@@ -308,7 +341,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:10
       |vpiTypespec:
-      \_int_typespec: , line:7:5, endln:7:27
+      \_ref_obj: (work@top)
+        |vpiParent:
+        \_constant: , line:7:25, endln:7:27
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:7:5, endln:7:27
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.width_a), line:7:15, endln:7:22
@@ -341,9 +379,12 @@ design: (work@top)
       \_module_inst: work@fifo (work@top.fifo_inst), file:${SURELOG_DIR}/tests/DefParamFromParam/dut.sv, line:10:5, endln:10:23
       |UINT:9
       |vpiTypespec:
-      \_int_typespec: , line:2:5, endln:2:25
+      \_ref_obj: (work@top.fifo_inst.width1)
         |vpiParent:
         \_parameter: (work@top.fifo_inst.width1), line:2:15, endln:2:21
+        |vpiFullName:work@top.fifo_inst.width1
+        |vpiActual:
+        \_int_typespec: , line:2:5, endln:2:25
       |vpiName:width1
       |vpiFullName:work@top.fifo_inst.width1
     |vpiParameter:
@@ -352,9 +393,12 @@ design: (work@top)
       \_module_inst: work@fifo (work@top.fifo_inst), file:${SURELOG_DIR}/tests/DefParamFromParam/dut.sv, line:10:5, endln:10:23
       |UINT:8
       |vpiTypespec:
-      \_int_typespec: , line:3:5, endln:3:25
+      \_ref_obj: (work@top.fifo_inst.width2)
         |vpiParent:
         \_parameter: (work@top.fifo_inst.width2), line:3:15, endln:3:21
+        |vpiFullName:work@top.fifo_inst.width2
+        |vpiActual:
+        \_int_typespec: , line:3:5, endln:3:25
       |vpiName:width2
       |vpiFullName:work@top.fifo_inst.width2
     |vpiParamAssign:
@@ -369,7 +413,12 @@ design: (work@top)
         |vpiSize:32
         |UINT:10
         |vpiTypespec:
-        \_int_typespec: , line:2:5, endln:2:25
+        \_ref_obj: (work@top.fifo_inst)
+          |vpiParent:
+          \_constant: , line:2:24, endln:2:25
+          |vpiFullName:work@top.fifo_inst
+          |vpiActual:
+          \_int_typespec: , line:2:5, endln:2:25
         |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@top.fifo_inst.width1), line:2:15, endln:2:21
@@ -385,7 +434,12 @@ design: (work@top)
         |vpiSize:32
         |UINT:10
         |vpiTypespec:
-        \_int_typespec: , line:3:5, endln:3:25
+        \_ref_obj: (work@top.fifo_inst)
+          |vpiParent:
+          \_constant: , line:3:24, endln:3:25
+          |vpiFullName:work@top.fifo_inst
+          |vpiActual:
+          \_int_typespec: , line:3:5, endln:3:25
         |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@top.fifo_inst.width2), line:3:15, endln:3:21
@@ -394,6 +448,19 @@ design: (work@top)
     |vpiDefLineNo:1
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DefParamFromParam/dut.sv, line:6:1, endln:13:10
+\_weaklyReferenced:
+\_int_typespec: , line:2:5, endln:2:25
+\_int_typespec: , line:3:5, endln:3:25
+\_int_typespec: , line:7:5, endln:7:27
+\_int_typespec: , line:7:5, endln:7:27
+  |vpiParent:
+  \_ref_obj: (work@top.width_a)
+\_int_typespec: , line:2:5, endln:2:25
+  |vpiParent:
+  \_ref_obj: (work@top.fifo_inst.width1)
+\_int_typespec: , line:3:5, endln:3:25
+  |vpiParent:
+  \_ref_obj: (work@top.fifo_inst.width2)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

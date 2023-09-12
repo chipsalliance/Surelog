@@ -124,7 +124,7 @@ operation                                              2
 param_assign                                           4
 parameter                                              4
 range                                                  1
-ref_obj                                                4
+ref_obj                                               18
 return_stmt                                            1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -141,7 +141,7 @@ operation                                              3
 param_assign                                           4
 parameter                                              4
 range                                                  1
-ref_obj                                                5
+ref_obj                                               20
 return_stmt                                            2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/CastToParam/slpp_all/surelog.uhdm ...
@@ -167,9 +167,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CastToParam/dut.sv, line:1:1, endln:11:10
     |UINT:3
     |vpiTypespec:
-    \_int_typespec: , line:2:14, endln:2:26
+    \_ref_obj: (work@top.Depth)
       |vpiParent:
       \_parameter: (work@top.Depth), line:2:27, endln:2:32
+      |vpiFullName:work@top.Depth
+      |vpiActual:
+      \_int_typespec: , line:2:14, endln:2:26
     |vpiName:Depth
     |vpiFullName:work@top.Depth
   |vpiParameter:
@@ -178,17 +181,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CastToParam/dut.sv, line:1:1, endln:11:10
     |UINT:15
     |vpiTypespec:
-    \_int_typespec: , line:3:14, endln:3:26
+    \_ref_obj: (work@top.PTR_WIDTH)
       |vpiParent:
       \_parameter: (work@top.PTR_WIDTH), line:3:27, endln:3:36
-      |vpiExpr:
-      \_ref_obj: (work@top.PTR_WIDTH.PTR_WIDTH)
-        |vpiParent:
-        \_int_typespec: , line:3:14, endln:3:26
-        |vpiName:PTR_WIDTH
-        |vpiFullName:work@top.PTR_WIDTH.PTR_WIDTH
-        |vpiActual:
-        \_parameter: (work@top.PTR_WIDTH), line:3:27, endln:3:36
+      |vpiFullName:work@top.PTR_WIDTH
+      |vpiActual:
+      \_int_typespec: , line:3:14, endln:3:26
     |vpiName:PTR_WIDTH
     |vpiFullName:work@top.PTR_WIDTH
   |vpiParamAssign:
@@ -203,7 +201,12 @@ design: (work@top)
       |vpiSize:64
       |UINT:3
       |vpiTypespec:
-      \_int_typespec: , line:2:14, endln:2:26
+      \_ref_obj: (work@top)
+        |vpiParent:
+        \_constant: , line:2:35, endln:2:36
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:2:14, endln:2:26
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.Depth), line:2:27, endln:2:32
@@ -219,7 +222,12 @@ design: (work@top)
       |vpiSize:64
       |UINT:15
       |vpiTypespec:
-      \_int_typespec: , line:3:14, endln:3:26
+      \_ref_obj: (work@top)
+        |vpiParent:
+        \_constant: , line:3:39, endln:3:41
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:3:14, endln:3:26
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.PTR_WIDTH), line:3:27, endln:3:36
@@ -237,39 +245,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@top.get_casted_depth), line:8:4, endln:10:15
       |vpiTypespec:
-      \_logic_typespec: , line:8:23, endln:8:38
-        |vpiRange:
-        \_range: , line:8:23, endln:8:38
-          |vpiParent:
-          \_logic_typespec: , line:8:23, endln:8:38
-          |vpiLeftRange:
-          \_operation: , line:8:24, endln:8:35
-            |vpiParent:
-            \_range: , line:8:23, endln:8:38
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (PTR_WIDTH), line:8:24, endln:8:33
-              |vpiParent:
-              \_operation: , line:8:24, endln:8:35
-              |vpiName:PTR_WIDTH
-              |vpiActual:
-              \_parameter: (work@top.PTR_WIDTH), line:3:27, endln:3:36
-            |vpiOperand:
-            \_constant: , line:8:34, endln:8:35
-              |vpiParent:
-              \_operation: , line:8:24, endln:8:35
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:8:36, endln:8:37
-            |vpiParent:
-            \_range: , line:8:23, endln:8:38
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_obj: (work@top.get_casted_depth)
+        |vpiParent:
+        \_logic_var: (work@top.get_casted_depth), line:8:23, endln:8:38
+        |vpiFullName:work@top.get_casted_depth
+        |vpiActual:
+        \_logic_typespec: , line:8:23, endln:8:38
       |vpiFullName:work@top.get_casted_depth
     |vpiStmt:
     \_return_stmt: , line:9:7, endln:9:13
@@ -280,7 +261,12 @@ design: (work@top)
         |vpiParent:
         \_return_stmt: , line:9:7, endln:9:13
         |vpiTypespec:
-        \_int_typespec: , line:3:14, endln:3:26
+        \_ref_obj: (work@top.get_casted_depth)
+          |vpiParent:
+          \_operation: , line:9:14, endln:9:33
+          |vpiFullName:work@top.get_casted_depth
+          |vpiActual:
+          \_int_typespec: , line:3:14, endln:3:26
         |vpiOpType:67
         |vpiOperand:
         \_ref_obj: (work@top.get_casted_depth.Depth), line:9:27, endln:9:32
@@ -299,9 +285,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CastToParam/dut.sv, line:1:1, endln:11:10
     |UINT:3
     |vpiTypespec:
-    \_int_typespec: , line:2:14, endln:2:26
+    \_ref_obj: (work@top.Depth)
       |vpiParent:
       \_parameter: (work@top.Depth), line:2:27, endln:2:32
+      |vpiFullName:work@top.Depth
+      |vpiActual:
+      \_int_typespec: , line:2:14, endln:2:26
     |vpiName:Depth
     |vpiFullName:work@top.Depth
   |vpiParameter:
@@ -310,11 +299,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CastToParam/dut.sv, line:1:1, endln:11:10
     |UINT:15
     |vpiTypespec:
-    \_int_typespec: , line:3:14, endln:3:26
+    \_ref_obj: (work@top.PTR_WIDTH)
       |vpiParent:
       \_parameter: (work@top.PTR_WIDTH), line:3:27, endln:3:36
-      |vpiExpr:
-      \_ref_obj: (work@top.PTR_WIDTH.PTR_WIDTH)
+      |vpiFullName:work@top.PTR_WIDTH
+      |vpiActual:
+      \_int_typespec: , line:3:14, endln:3:26
     |vpiName:PTR_WIDTH
     |vpiFullName:work@top.PTR_WIDTH
   |vpiParamAssign:
@@ -329,7 +319,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:3
       |vpiTypespec:
-      \_int_typespec: , line:2:14, endln:2:26
+      \_ref_obj: (work@top)
+        |vpiParent:
+        \_constant: , line:2:35, endln:2:36
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:2:14, endln:2:26
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.Depth), line:2:27, endln:2:32
@@ -345,7 +340,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:15
       |vpiTypespec:
-      \_int_typespec: , line:3:14, endln:3:26
+      \_ref_obj: (work@top)
+        |vpiParent:
+        \_constant: , line:3:39, endln:3:41
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:3:14, endln:3:26
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.PTR_WIDTH), line:3:27, endln:3:36
@@ -370,7 +370,12 @@ design: (work@top)
         |vpiParent:
         \_return_stmt: , line:9:7, endln:9:13
         |vpiTypespec:
-        \_int_typespec: , line:3:14, endln:3:26
+        \_ref_obj: (work@top.get_casted_depth)
+          |vpiParent:
+          \_operation: , line:9:14, endln:9:33
+          |vpiFullName:work@top.get_casted_depth
+          |vpiActual:
+          \_int_typespec: , line:3:14, endln:3:26
         |vpiOpType:67
         |vpiOperand:
         \_ref_obj: (work@top.get_casted_depth.Depth), line:9:27, endln:9:32
@@ -383,6 +388,62 @@ design: (work@top)
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CastToParam/dut.sv, line:1:1, endln:11:10
   |vpiTopModule:1
+\_weaklyReferenced:
+\_int_typespec: , line:2:14, endln:2:26
+  |vpiParent:
+  \_parameter: (work@top.Depth), line:2:27, endln:2:32
+\_int_typespec: , line:3:14, endln:3:26
+  |vpiParent:
+  \_parameter: (work@top.PTR_WIDTH), line:3:27, endln:3:36
+  |vpiExpr:
+  \_ref_obj: (work@top.PTR_WIDTH.PTR_WIDTH)
+    |vpiParent:
+    \_int_typespec: , line:3:14, endln:3:26
+    |vpiName:PTR_WIDTH
+    |vpiFullName:work@top.PTR_WIDTH.PTR_WIDTH
+    |vpiActual:
+    \_parameter: (work@top.PTR_WIDTH), line:3:27, endln:3:36
+\_logic_typespec: , line:8:23, endln:8:38
+  |vpiRange:
+  \_range: , line:8:23, endln:8:38
+    |vpiParent:
+    \_logic_typespec: , line:8:23, endln:8:38
+    |vpiLeftRange:
+    \_operation: , line:8:24, endln:8:35
+      |vpiParent:
+      \_range: , line:8:23, endln:8:38
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (PTR_WIDTH), line:8:24, endln:8:33
+        |vpiParent:
+        \_operation: , line:8:24, endln:8:35
+        |vpiName:PTR_WIDTH
+        |vpiActual:
+        \_parameter: (work@top.PTR_WIDTH), line:3:27, endln:3:36
+      |vpiOperand:
+      \_constant: , line:8:34, endln:8:35
+        |vpiParent:
+        \_operation: , line:8:24, endln:8:35
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:8:36, endln:8:37
+      |vpiParent:
+      \_range: , line:8:23, endln:8:38
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:2:14, endln:2:26
+  |vpiParent:
+  \_ref_obj: (work@top.Depth)
+\_int_typespec: , line:3:14, endln:3:26
+  |vpiParent:
+  \_ref_obj: (work@top.PTR_WIDTH)
+  |vpiExpr:
+  \_ref_obj: (work@top.PTR_WIDTH.PTR_WIDTH)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

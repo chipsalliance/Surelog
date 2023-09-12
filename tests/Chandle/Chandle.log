@@ -52,6 +52,7 @@ chandle_var                                            1
 design                                                 1
 logic_net                                              1
 module_inst                                            2
+ref_obj                                                1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -61,6 +62,7 @@ chandle_var                                            1
 design                                                 1
 logic_net                                              1
 module_inst                                            2
+ref_obj                                                1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/Chandle/slpp_all/surelog.uhdm ...
 
@@ -85,7 +87,12 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/Chandle/dut.sv, line:1:1, endln:3:10
     |vpiTypespec:
-    \_chandle_typespec: , line:2:4, endln:2:11
+    \_ref_obj: (work@dut.c)
+      |vpiParent:
+      \_logic_net: (work@dut.c), line:2:12, endln:2:13
+      |vpiFullName:work@dut.c
+      |vpiActual:
+      \_chandle_typespec: , line:2:4, endln:2:11
     |vpiName:c
     |vpiFullName:work@dut.c
 |uhdmtopModules:
@@ -101,6 +108,8 @@ design: (work@dut)
   |vpiDefName:work@dut
   |vpiTop:1
   |vpiTopModule:1
+\_weaklyReferenced:
+\_chandle_typespec: , line:2:4, endln:2:11
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

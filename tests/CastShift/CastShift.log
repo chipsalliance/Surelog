@@ -644,7 +644,7 @@ param_assign                                           8
 parameter                                              8
 range                                                  4
 ref_module                                             2
-ref_obj                                                5
+ref_obj                                               51
 task                                                   9
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -677,7 +677,7 @@ param_assign                                           8
 parameter                                              8
 range                                                  4
 ref_module                                             2
-ref_obj                                                5
+ref_obj                                               56
 task                                                  18
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/CastShift/slpp_all/surelog.uhdm ...
@@ -754,9 +754,12 @@ design: (work@dut)
       |vpiParent:
       \_function: (work@mailbox::new), line:3:5, endln:4:16
       |vpiTypespec:
-      \_class_typespec: 
-        |vpiClassDefn:
-        \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/CastShift/builtin.sv, line:1:3, endln:27:11
+      \_ref_obj: (work@mailbox::new)
+        |vpiParent:
+        \_class_var: (work@mailbox::new), line:3:23, endln:3:28
+        |vpiFullName:work@mailbox::new
+        |vpiActual:
+        \_class_typespec: 
       |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound), line:3:23, endln:3:28
@@ -771,8 +774,12 @@ design: (work@dut)
         |UINT:0
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:3:19, endln:3:22
-        |vpiSigned:1
+      \_ref_obj: (work@mailbox::new::bound)
+        |vpiParent:
+        \_io_decl: (bound), line:3:23, endln:3:28
+        |vpiFullName:work@mailbox::new::bound
+        |vpiActual:
+        \_int_typespec: , line:3:19, endln:3:22
   |vpiMethod:
   \_function: (work@mailbox::num), line:6:5, endln:7:16
     |vpiParent:
@@ -786,8 +793,12 @@ design: (work@dut)
       |vpiParent:
       \_function: (work@mailbox::num), line:6:5, endln:7:16
       |vpiTypespec:
-      \_int_typespec: , line:6:14, endln:6:17
-        |vpiSigned:1
+      \_ref_obj: (work@mailbox::num)
+        |vpiParent:
+        \_int_var: (work@mailbox::num), line:6:14, endln:6:17
+        |vpiFullName:work@mailbox::num
+        |vpiActual:
+        \_int_typespec: , line:6:14, endln:6:17
       |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
@@ -850,8 +861,12 @@ design: (work@dut)
       |vpiParent:
       \_function: (work@mailbox::try_get), line:18:5, endln:19:16
       |vpiTypespec:
-      \_int_typespec: , line:18:14, endln:18:17
-        |vpiSigned:1
+      \_ref_obj: (work@mailbox::try_get)
+        |vpiParent:
+        \_int_var: (work@mailbox::try_get), line:18:14, endln:18:17
+        |vpiFullName:work@mailbox::try_get
+        |vpiActual:
+        \_int_typespec: , line:18:14, endln:18:17
       |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
@@ -887,8 +902,12 @@ design: (work@dut)
       |vpiParent:
       \_function: (work@mailbox::try_peek), line:24:5, endln:25:16
       |vpiTypespec:
-      \_int_typespec: , line:24:14, endln:24:17
-        |vpiSigned:1
+      \_ref_obj: (work@mailbox::try_peek)
+        |vpiParent:
+        \_int_var: (work@mailbox::try_peek), line:24:14, endln:24:17
+        |vpiFullName:work@mailbox::try_peek
+        |vpiActual:
+        \_int_typespec: , line:24:14, endln:24:17
       |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
@@ -960,9 +979,12 @@ design: (work@dut)
       |vpiParent:
       \_function: (work@process::self), line:34:5, endln:34:11
       |vpiTypespec:
-      \_class_typespec: , line:34:21, endln:34:28
-        |vpiClassDefn:
-        \_class_defn: (work@process), file:${SURELOG_DIR}/tests/CastShift/builtin.sv, line:30:3, endln:52:11
+      \_ref_obj: (work@process::self)
+        |vpiParent:
+        \_class_var: (work@process::self), line:34:21, endln:34:28
+        |vpiFullName:work@process::self
+        |vpiActual:
+        \_class_typespec: , line:34:21, endln:34:28
       |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status), line:37:5, endln:38:16
@@ -977,50 +999,12 @@ design: (work@dut)
       |vpiParent:
       \_function: (work@process::status), line:37:5, endln:38:16
       |vpiTypespec:
-      \_enum_typespec: (state), line:32:5, endln:32:74
+      \_ref_obj: (work@process::status)
         |vpiParent:
-        \_class_defn: (work@process), file:${SURELOG_DIR}/tests/CastShift/builtin.sv, line:30:3, endln:52:11
-        |vpiName:state
-        |vpiEnumConst:
-        \_enum_const: (FINISHED), line:32:20, endln:32:28
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:FINISHED
-          |INT:0
-          |vpiDecompile:0
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (RUNNING), line:32:30, endln:32:37
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:RUNNING
-          |INT:1
-          |vpiDecompile:1
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (WAITING), line:32:39, endln:32:46
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:WAITING
-          |INT:2
-          |vpiDecompile:2
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (SUSPENDED), line:32:48, endln:32:57
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:SUSPENDED
-          |INT:3
-          |vpiDecompile:3
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (KILLED), line:32:59, endln:32:65
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:KILLED
-          |INT:4
-          |vpiDecompile:4
-          |vpiSize:64
+        \_enum_var: (work@process::status), line:37:14, endln:37:19
+        |vpiFullName:work@process::status
+        |vpiActual:
+        \_enum_typespec: (state), line:32:5, endln:32:74
       |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill), line:40:5, endln:41:12
@@ -1071,9 +1055,12 @@ design: (work@dut)
       |vpiParent:
       \_function: (work@semaphore::new), line:57:5, endln:58:16
       |vpiTypespec:
-      \_class_typespec: 
-        |vpiClassDefn:
-        \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/CastShift/builtin.sv, line:55:3, endln:69:11
+      \_ref_obj: (work@semaphore::new)
+        |vpiParent:
+        \_class_var: (work@semaphore::new), line:57:22, endln:57:30
+        |vpiFullName:work@semaphore::new
+        |vpiActual:
+        \_class_typespec: 
       |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount), line:57:22, endln:57:30
@@ -1088,8 +1075,12 @@ design: (work@dut)
         |UINT:0
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:57:18, endln:57:21
-        |vpiSigned:1
+      \_ref_obj: (work@semaphore::new::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:57:22, endln:57:30
+        |vpiFullName:work@semaphore::new::keyCount
+        |vpiActual:
+        \_int_typespec: , line:57:18, endln:57:21
   |vpiMethod:
   \_task: (work@semaphore::put), line:60:5, endln:61:12
     |vpiParent:
@@ -1111,8 +1102,12 @@ design: (work@dut)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:60:14, endln:60:17
-        |vpiSigned:1
+      \_ref_obj: (work@semaphore::put::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:60:18, endln:60:26
+        |vpiFullName:work@semaphore::put::keyCount
+        |vpiActual:
+        \_int_typespec: , line:60:14, endln:60:17
   |vpiMethod:
   \_task: (work@semaphore::get), line:63:5, endln:64:12
     |vpiParent:
@@ -1134,8 +1129,12 @@ design: (work@dut)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:63:14, endln:63:17
-        |vpiSigned:1
+      \_ref_obj: (work@semaphore::get::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:63:18, endln:63:26
+        |vpiFullName:work@semaphore::get::keyCount
+        |vpiActual:
+        \_int_typespec: , line:63:14, endln:63:17
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:66:5, endln:67:16
     |vpiParent:
@@ -1149,8 +1148,12 @@ design: (work@dut)
       |vpiParent:
       \_function: (work@semaphore::try_get), line:66:5, endln:67:16
       |vpiTypespec:
-      \_int_typespec: , line:66:14, endln:66:17
-        |vpiSigned:1
+      \_ref_obj: (work@semaphore::try_get)
+        |vpiParent:
+        \_int_var: (work@semaphore::try_get), line:66:14, endln:66:17
+        |vpiFullName:work@semaphore::try_get
+        |vpiActual:
+        \_int_typespec: , line:66:14, endln:66:17
       |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
@@ -1166,8 +1169,12 @@ design: (work@dut)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:66:26, endln:66:29
-        |vpiSigned:1
+      \_ref_obj: (work@semaphore::try_get::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:66:30, endln:66:38
+        |vpiFullName:work@semaphore::try_get::keyCount
+        |vpiActual:
+        \_int_typespec: , line:66:26, endln:66:29
 |uhdmallModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastShift/dut.sv, line:1:1, endln:23:10
   |vpiParent:
@@ -1179,29 +1186,12 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastShift/dut.sv, line:1:1, endln:23:10
     |DEC:1
     |vpiTypespec:
-    \_logic_typespec: , line:2:11, endln:2:22
+    \_ref_obj: (work@dut.CSR_MISA_MXL)
       |vpiParent:
       \_parameter: (work@dut.CSR_MISA_MXL), line:2:24, endln:2:36
-      |vpiRange:
-      \_range: , line:2:17, endln:2:22
-        |vpiParent:
-        \_logic_typespec: , line:2:11, endln:2:22
-        |vpiLeftRange:
-        \_constant: , line:2:18, endln:2:19
-          |vpiParent:
-          \_range: , line:2:17, endln:2:22
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:20, endln:2:21
-          |vpiParent:
-          \_range: , line:2:17, endln:2:22
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@dut.CSR_MISA_MXL
+      |vpiActual:
+      \_logic_typespec: , line:2:11, endln:2:22
     |vpiName:CSR_MISA_MXL
     |vpiFullName:work@dut.CSR_MISA_MXL
   |vpiParameter:
@@ -1210,9 +1200,12 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastShift/dut.sv, line:1:1, endln:23:10
     |UINT:1
     |vpiTypespec:
-    \_bit_typespec: , line:3:11, endln:3:14
+    \_ref_obj: (work@dut.RV32M)
       |vpiParent:
       \_parameter: (work@dut.RV32M), line:3:15, endln:3:20
+      |vpiFullName:work@dut.RV32M
+      |vpiActual:
+      \_bit_typespec: , line:3:11, endln:3:14
     |vpiName:RV32M
     |vpiFullName:work@dut.RV32M
   |vpiParameter:
@@ -1221,9 +1214,12 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastShift/dut.sv, line:1:1, endln:23:10
     |UINT:0
     |vpiTypespec:
-    \_bit_typespec: , line:4:11, endln:4:14
+    \_ref_obj: (work@dut.RV32E)
       |vpiParent:
       \_parameter: (work@dut.RV32E), line:4:15, endln:4:20
+      |vpiFullName:work@dut.RV32E
+      |vpiActual:
+      \_bit_typespec: , line:4:11, endln:4:14
     |vpiName:RV32E
     |vpiFullName:work@dut.RV32E
   |vpiParameter:
@@ -1231,29 +1227,12 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastShift/dut.sv, line:1:1, endln:23:10
     |vpiTypespec:
-    \_logic_typespec: , line:5:12, endln:5:24
+    \_ref_obj: (work@dut.MISA_VALUE)
       |vpiParent:
       \_parameter: (work@dut.MISA_VALUE), line:5:25, endln:5:35
-      |vpiRange:
-      \_range: , line:5:18, endln:5:24
-        |vpiParent:
-        \_logic_typespec: , line:5:12, endln:5:24
-        |vpiLeftRange:
-        \_constant: , line:5:19, endln:5:21
-          |vpiParent:
-          \_range: , line:5:18, endln:5:24
-          |vpiDecompile:31
-          |vpiSize:64
-          |UINT:31
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:5:22, endln:5:23
-          |vpiParent:
-          \_range: , line:5:18, endln:5:24
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@dut.MISA_VALUE
+      |vpiActual:
+      \_logic_typespec: , line:5:12, endln:5:24
     |vpiLocalParam:1
     |vpiName:MISA_VALUE
     |vpiFullName:work@dut.MISA_VALUE
@@ -1269,7 +1248,12 @@ design: (work@dut)
       |vpiSize:2
       |DEC:1
       |vpiTypespec:
-      \_logic_typespec: , line:2:11, endln:2:22
+      \_ref_obj: (work@dut)
+        |vpiParent:
+        \_constant: , line:2:39, endln:2:43
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_logic_typespec: , line:2:11, endln:2:22
       |vpiConstType:1
     |vpiLhs:
     \_parameter: (work@dut.CSR_MISA_MXL), line:2:24, endln:2:36
@@ -1285,7 +1269,12 @@ design: (work@dut)
       |vpiSize:64
       |UINT:1
       |vpiTypespec:
-      \_bit_typespec: , line:3:11, endln:3:14
+      \_ref_obj: (work@dut)
+        |vpiParent:
+        \_constant: , line:3:30, endln:3:31
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_bit_typespec: , line:3:11, endln:3:14
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@dut.RV32M), line:3:15, endln:3:20
@@ -1301,7 +1290,12 @@ design: (work@dut)
       |vpiSize:64
       |UINT:0
       |vpiTypespec:
-      \_bit_typespec: , line:4:11, endln:4:14
+      \_ref_obj: (work@dut)
+        |vpiParent:
+        \_constant: , line:4:30, endln:4:31
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_bit_typespec: , line:4:11, endln:4:14
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@dut.RV32E), line:4:15, endln:4:20
@@ -1437,8 +1431,12 @@ design: (work@dut)
                           |vpiParent:
                           \_operation: , line:9:4, endln:9:27
                           |vpiTypespec:
-                          \_integer_typespec: , line:9:4, endln:9:6
-                            |INT:32
+                          \_ref_obj: (work@dut)
+                            |vpiParent:
+                            \_operation: , line:9:4, endln:9:14
+                            |vpiFullName:work@dut
+                            |vpiActual:
+                            \_integer_typespec: , line:9:4, endln:9:6
                           |vpiOpType:67
                           |vpiOperand:
                           \_ref_obj: (work@dut.RV32E), line:9:8, endln:9:13
@@ -1485,8 +1483,12 @@ design: (work@dut)
                       |vpiParent:
                       \_operation: , line:11:4, endln:11:27
                       |vpiTypespec:
-                      \_integer_typespec: , line:11:4, endln:11:6
-                        |INT:32
+                      \_ref_obj: (work@dut)
+                        |vpiParent:
+                        \_operation: , line:11:4, endln:11:15
+                        |vpiFullName:work@dut
+                        |vpiActual:
+                        \_integer_typespec: , line:11:4, endln:11:6
                       |vpiOpType:67
                       |vpiOperand:
                       \_operation: , line:11:8, endln:11:14
@@ -1517,8 +1519,12 @@ design: (work@dut)
                     |vpiParent:
                     \_operation: , line:12:4, endln:12:27
                     |vpiTypespec:
-                    \_integer_typespec: , line:12:4, endln:12:6
-                      |INT:32
+                    \_ref_obj: (work@dut)
+                      |vpiParent:
+                      \_operation: , line:12:4, endln:12:14
+                      |vpiFullName:work@dut
+                      |vpiActual:
+                      \_integer_typespec: , line:12:4, endln:12:6
                     |vpiOpType:67
                     |vpiOperand:
                     \_ref_obj: (work@dut.RV32M), line:12:8, endln:12:13
@@ -1628,8 +1634,12 @@ design: (work@dut)
           |vpiParent:
           \_operation: , line:17:4, endln:17:27
           |vpiTypespec:
-          \_integer_typespec: , line:17:4, endln:17:6
-            |INT:32
+          \_ref_obj: (work@dut)
+            |vpiParent:
+            \_operation: , line:17:4, endln:17:21
+            |vpiFullName:work@dut
+            |vpiActual:
+            \_integer_typespec: , line:17:4, endln:17:6
           |vpiOpType:67
           |vpiOperand:
           \_ref_obj: (work@dut.CSR_MISA_MXL), line:17:8, endln:17:20
@@ -1691,29 +1701,12 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastShift/dut.sv, line:1:1, endln:23:10
     |DEC:1
     |vpiTypespec:
-    \_logic_typespec: , line:2:11, endln:2:22
+    \_ref_obj: (work@dut.CSR_MISA_MXL)
       |vpiParent:
       \_parameter: (work@dut.CSR_MISA_MXL), line:2:24, endln:2:36
-      |vpiRange:
-      \_range: , line:2:17, endln:2:22
-        |vpiParent:
-        \_logic_typespec: , line:2:11, endln:2:22
-        |vpiLeftRange:
-        \_constant: , line:2:18, endln:2:19
-          |vpiParent:
-          \_range: , line:2:17, endln:2:22
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:20, endln:2:21
-          |vpiParent:
-          \_range: , line:2:17, endln:2:22
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@dut.CSR_MISA_MXL
+      |vpiActual:
+      \_logic_typespec: , line:2:11, endln:2:22
     |vpiName:CSR_MISA_MXL
     |vpiFullName:work@dut.CSR_MISA_MXL
   |vpiParameter:
@@ -1722,9 +1715,12 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastShift/dut.sv, line:1:1, endln:23:10
     |UINT:1
     |vpiTypespec:
-    \_bit_typespec: , line:3:11, endln:3:14
+    \_ref_obj: (work@dut.RV32M)
       |vpiParent:
       \_parameter: (work@dut.RV32M), line:3:15, endln:3:20
+      |vpiFullName:work@dut.RV32M
+      |vpiActual:
+      \_bit_typespec: , line:3:11, endln:3:14
     |vpiName:RV32M
     |vpiFullName:work@dut.RV32M
   |vpiParameter:
@@ -1733,9 +1729,12 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastShift/dut.sv, line:1:1, endln:23:10
     |UINT:0
     |vpiTypespec:
-    \_bit_typespec: , line:4:11, endln:4:14
+    \_ref_obj: (work@dut.RV32E)
       |vpiParent:
       \_parameter: (work@dut.RV32E), line:4:15, endln:4:20
+      |vpiFullName:work@dut.RV32E
+      |vpiActual:
+      \_bit_typespec: , line:4:11, endln:4:14
     |vpiName:RV32E
     |vpiFullName:work@dut.RV32E
   |vpiParameter:
@@ -1743,29 +1742,12 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastShift/dut.sv, line:1:1, endln:23:10
     |vpiTypespec:
-    \_logic_typespec: , line:5:12, endln:5:24
+    \_ref_obj: (work@dut.MISA_VALUE)
       |vpiParent:
       \_parameter: (work@dut.MISA_VALUE), line:5:25, endln:5:35
-      |vpiRange:
-      \_range: , line:5:18, endln:5:24
-        |vpiParent:
-        \_logic_typespec: , line:5:12, endln:5:24
-        |vpiLeftRange:
-        \_constant: , line:5:19, endln:5:21
-          |vpiParent:
-          \_range: , line:5:18, endln:5:24
-          |vpiDecompile:31
-          |vpiSize:64
-          |UINT:31
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:5:22, endln:5:23
-          |vpiParent:
-          \_range: , line:5:18, endln:5:24
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@dut.MISA_VALUE
+      |vpiActual:
+      \_logic_typespec: , line:5:12, endln:5:24
     |vpiLocalParam:1
     |vpiName:MISA_VALUE
     |vpiFullName:work@dut.MISA_VALUE
@@ -1781,7 +1763,12 @@ design: (work@dut)
       |vpiSize:2
       |INT:1
       |vpiTypespec:
-      \_logic_typespec: , line:2:11, endln:2:22
+      \_ref_obj: (work@dut)
+        |vpiParent:
+        \_constant: , line:2:39, endln:2:43
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_logic_typespec: , line:2:11, endln:2:22
       |vpiConstType:7
     |vpiLhs:
     \_parameter: (work@dut.CSR_MISA_MXL), line:2:24, endln:2:36
@@ -1797,7 +1784,12 @@ design: (work@dut)
       |vpiSize:1
       |UINT:1
       |vpiTypespec:
-      \_bit_typespec: , line:3:11, endln:3:14
+      \_ref_obj: (work@dut)
+        |vpiParent:
+        \_constant: , line:3:30, endln:3:31
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_bit_typespec: , line:3:11, endln:3:14
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@dut.RV32M), line:3:15, endln:3:20
@@ -1813,7 +1805,12 @@ design: (work@dut)
       |vpiSize:1
       |UINT:0
       |vpiTypespec:
-      \_bit_typespec: , line:4:11, endln:4:14
+      \_ref_obj: (work@dut)
+        |vpiParent:
+        \_constant: , line:4:30, endln:4:31
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_bit_typespec: , line:4:11, endln:4:14
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@dut.RV32E), line:4:15, endln:4:20
@@ -1829,7 +1826,12 @@ design: (work@dut)
       |vpiSize:32
       |UINT:1074794756
       |vpiTypespec:
-      \_logic_typespec: , line:5:12, endln:5:24
+      \_ref_obj: (work@dut)
+        |vpiParent:
+        \_constant: , line:6:3, endln:17:28
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_logic_typespec: , line:5:12, endln:5:24
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@dut.MISA_VALUE), line:5:25, endln:5:35
@@ -1854,6 +1856,332 @@ design: (work@dut)
         |vpiName:ok
         |vpiFullName:work@dut.genblk1.ok
         |vpiDefName:work@dut.genblk1::OK
+\_weaklyReferenced:
+\_logic_typespec: , line:2:11, endln:2:22
+  |vpiParent:
+  \_parameter: (work@dut.CSR_MISA_MXL), line:2:24, endln:2:36
+  |vpiRange:
+  \_range: , line:2:17, endln:2:22
+    |vpiParent:
+    \_logic_typespec: , line:2:11, endln:2:22
+    |vpiLeftRange:
+    \_constant: , line:2:18, endln:2:19
+      |vpiParent:
+      \_range: , line:2:17, endln:2:22
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:20, endln:2:21
+      |vpiParent:
+      \_range: , line:2:17, endln:2:22
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_bit_typespec: , line:3:11, endln:3:14
+  |vpiParent:
+  \_parameter: (work@dut.RV32M), line:3:15, endln:3:20
+\_bit_typespec: , line:4:11, endln:4:14
+  |vpiParent:
+  \_parameter: (work@dut.RV32E), line:4:15, endln:4:20
+\_logic_typespec: , line:5:12, endln:5:24
+  |vpiParent:
+  \_parameter: (work@dut.MISA_VALUE), line:5:25, endln:5:35
+  |vpiRange:
+  \_range: , line:5:18, endln:5:24
+    |vpiParent:
+    \_logic_typespec: , line:5:12, endln:5:24
+    |vpiLeftRange:
+    \_constant: , line:5:19, endln:5:21
+      |vpiParent:
+      \_range: , line:5:18, endln:5:24
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:22, endln:5:23
+      |vpiParent:
+      \_range: , line:5:18, endln:5:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_integer_typespec: , line:9:4, endln:9:6
+  |INT:32
+\_integer_typespec: , line:11:4, endln:11:6
+  |INT:32
+\_integer_typespec: , line:12:4, endln:12:6
+  |INT:32
+\_integer_typespec: , line:17:4, endln:17:6
+  |INT:32
+\_function: (work@mailbox::new), line:3:5, endln:4:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/CastShift/builtin.sv, line:1:3, endln:27:11
+  |vpiName:new
+  |vpiFullName:work@mailbox::new
+  |vpiMethod:1
+  |vpiReturn:
+  \_class_var: (work@mailbox::new), line:3:23, endln:3:28
+  |vpiIODecl:
+  \_io_decl: (bound), line:3:23, endln:3:28
+    |vpiParent:
+    \_function: (work@mailbox::new), line:3:5, endln:4:16
+    |vpiDirection:1
+    |vpiName:bound
+    |vpiExpr:
+    \_constant: , line:3:31, endln:3:32
+    |vpiTypedef:
+    \_ref_obj: (work@mailbox::new::bound)
+      |vpiParent:
+      \_io_decl: (bound), line:3:23, endln:3:28
+      |vpiFullName:work@mailbox::new::bound
+      |vpiActual:
+      \_int_typespec: , line:3:19, endln:3:22
+\_class_typespec: 
+  |vpiClassDefn:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/CastShift/builtin.sv, line:1:3, endln:27:11
+\_int_typespec: , line:3:19, endln:3:22
+  |vpiSigned:1
+\_function: (work@mailbox::num), line:6:5, endln:7:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/CastShift/builtin.sv, line:1:3, endln:27:11
+  |vpiName:num
+  |vpiFullName:work@mailbox::num
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::num), line:6:14, endln:6:17
+\_int_typespec: , line:6:14, endln:6:17
+  |vpiSigned:1
+\_function: (work@mailbox::try_put), line:12:5, endln:13:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/CastShift/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_put
+  |vpiFullName:work@mailbox::try_put
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_logic_var: (work@mailbox::try_put)
+  |vpiIODecl:
+  \_io_decl: (message), line:12:23, endln:12:30
+    |vpiParent:
+    \_function: (work@mailbox::try_put), line:12:5, endln:13:16
+    |vpiDirection:1
+    |vpiName:message
+\_function: (work@mailbox::try_get), line:18:5, endln:19:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/CastShift/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_get
+  |vpiFullName:work@mailbox::try_get
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::try_get), line:18:14, endln:18:17
+  |vpiIODecl:
+  \_io_decl: (message), line:18:31, endln:18:38
+    |vpiParent:
+    \_function: (work@mailbox::try_get), line:18:5, endln:19:16
+    |vpiDirection:6
+    |vpiName:message
+\_int_typespec: , line:18:14, endln:18:17
+  |vpiSigned:1
+\_function: (work@mailbox::try_peek), line:24:5, endln:25:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/CastShift/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_peek
+  |vpiFullName:work@mailbox::try_peek
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::try_peek), line:24:14, endln:24:17
+  |vpiIODecl:
+  \_io_decl: (message), line:24:31, endln:24:38
+    |vpiParent:
+    \_function: (work@mailbox::try_peek), line:24:5, endln:25:16
+    |vpiDirection:6
+    |vpiName:message
+\_int_typespec: , line:24:14, endln:24:17
+  |vpiSigned:1
+\_enum_typespec: (state), line:32:5, endln:32:74
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/CastShift/builtin.sv, line:30:3, endln:52:11
+  |vpiName:state
+  |vpiEnumConst:
+  \_enum_const: (FINISHED), line:32:20, endln:32:28
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:FINISHED
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (RUNNING), line:32:30, endln:32:37
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:RUNNING
+    |INT:1
+    |vpiDecompile:1
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (WAITING), line:32:39, endln:32:46
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:WAITING
+    |INT:2
+    |vpiDecompile:2
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (SUSPENDED), line:32:48, endln:32:57
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:SUSPENDED
+    |INT:3
+    |vpiDecompile:3
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (KILLED), line:32:59, endln:32:65
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:KILLED
+    |INT:4
+    |vpiDecompile:4
+    |vpiSize:64
+\_function: (work@process::self), line:34:5, endln:34:11
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/CastShift/builtin.sv, line:30:3, endln:52:11
+  |vpiName:self
+  |vpiFullName:work@process::self
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_class_var: (work@process::self), line:34:21, endln:34:28
+\_class_typespec: , line:34:21, endln:34:28
+  |vpiClassDefn:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/CastShift/builtin.sv, line:30:3, endln:52:11
+\_function: (work@process::status), line:37:5, endln:38:16
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/CastShift/builtin.sv, line:30:3, endln:52:11
+  |vpiName:status
+  |vpiFullName:work@process::status
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_enum_var: (work@process::status), line:37:14, endln:37:19
+\_function: (work@semaphore::new), line:57:5, endln:58:16
+  |vpiParent:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/CastShift/builtin.sv, line:55:3, endln:69:11
+  |vpiName:new
+  |vpiFullName:work@semaphore::new
+  |vpiMethod:1
+  |vpiReturn:
+  \_class_var: (work@semaphore::new), line:57:22, endln:57:30
+  |vpiIODecl:
+  \_io_decl: (keyCount), line:57:22, endln:57:30
+    |vpiParent:
+    \_function: (work@semaphore::new), line:57:5, endln:58:16
+    |vpiDirection:1
+    |vpiName:keyCount
+    |vpiExpr:
+    \_constant: , line:57:33, endln:57:34
+    |vpiTypedef:
+    \_ref_obj: (work@semaphore::new::keyCount)
+      |vpiParent:
+      \_io_decl: (keyCount), line:57:22, endln:57:30
+      |vpiFullName:work@semaphore::new::keyCount
+      |vpiActual:
+      \_int_typespec: , line:57:18, endln:57:21
+\_class_typespec: 
+  |vpiClassDefn:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/CastShift/builtin.sv, line:55:3, endln:69:11
+\_int_typespec: , line:57:18, endln:57:21
+  |vpiSigned:1
+\_int_typespec: , line:60:14, endln:60:17
+  |vpiSigned:1
+\_int_typespec: , line:63:14, endln:63:17
+  |vpiSigned:1
+\_function: (work@semaphore::try_get), line:66:5, endln:67:16
+  |vpiParent:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/CastShift/builtin.sv, line:55:3, endln:69:11
+  |vpiName:try_get
+  |vpiFullName:work@semaphore::try_get
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@semaphore::try_get), line:66:14, endln:66:17
+  |vpiIODecl:
+  \_io_decl: (keyCount), line:66:30, endln:66:38
+    |vpiParent:
+    \_function: (work@semaphore::try_get), line:66:5, endln:67:16
+    |vpiDirection:1
+    |vpiName:keyCount
+    |vpiExpr:
+    \_constant: , line:66:41, endln:66:42
+    |vpiTypedef:
+    \_ref_obj: (work@semaphore::try_get::keyCount)
+      |vpiParent:
+      \_io_decl: (keyCount), line:66:30, endln:66:38
+      |vpiFullName:work@semaphore::try_get::keyCount
+      |vpiActual:
+      \_int_typespec: , line:66:26, endln:66:29
+\_int_typespec: , line:66:14, endln:66:17
+  |vpiSigned:1
+\_int_typespec: , line:66:26, endln:66:29
+  |vpiSigned:1
+\_logic_typespec: , line:2:11, endln:2:22
+  |vpiParent:
+  \_ref_obj: (work@dut.CSR_MISA_MXL)
+  |vpiRange:
+  \_range: , line:2:17, endln:2:22
+    |vpiParent:
+    \_logic_typespec: , line:2:11, endln:2:22
+    |vpiLeftRange:
+    \_constant: , line:2:18, endln:2:19
+      |vpiParent:
+      \_range: , line:2:17, endln:2:22
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:20, endln:2:21
+      |vpiParent:
+      \_range: , line:2:17, endln:2:22
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_bit_typespec: , line:3:11, endln:3:14
+  |vpiParent:
+  \_ref_obj: (work@dut.RV32M)
+\_bit_typespec: , line:4:11, endln:4:14
+  |vpiParent:
+  \_ref_obj: (work@dut.RV32E)
+\_logic_typespec: , line:5:12, endln:5:24
+  |vpiParent:
+  \_ref_obj: (work@dut.MISA_VALUE)
+  |vpiRange:
+  \_range: , line:5:18, endln:5:24
+    |vpiParent:
+    \_logic_typespec: , line:5:12, endln:5:24
+    |vpiLeftRange:
+    \_constant: , line:5:19, endln:5:21
+      |vpiParent:
+      \_range: , line:5:18, endln:5:24
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:22, endln:5:23
+      |vpiParent:
+      \_range: , line:5:18, endln:5:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

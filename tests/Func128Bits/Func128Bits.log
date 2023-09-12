@@ -708,7 +708,7 @@ param_assign                                          38
 parameter                                             38
 range                                                 11
 ref_module                                             2
-ref_obj                                               50
+ref_obj                                               86
 ref_var                                                1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -739,7 +739,7 @@ param_assign                                          38
 parameter                                             38
 range                                                 11
 ref_module                                             2
-ref_obj                                               83
+ref_obj                                              130
 ref_var                                                2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/Func128Bits/slpp_all/surelog.uhdm ...
@@ -771,7 +771,12 @@ design: (work@ScratchPad)
     \_module_inst: work@ScratchPad (work@ScratchPad), file:${SURELOG_DIR}/tests/Func128Bits/dut.sv, line:9:1, endln:46:10
     |UINT:4
     |vpiTypespec:
-    \_int_typespec: , line:10:1, endln:10:22
+    \_ref_obj: (work@ScratchPad.M_COUNT)
+      |vpiParent:
+      \_parameter: (work@ScratchPad.M_COUNT), line:10:11, endln:10:18
+      |vpiFullName:work@ScratchPad.M_COUNT
+      |vpiActual:
+      \_int_typespec: , line:10:1, endln:10:22
     |vpiName:M_COUNT
     |vpiFullName:work@ScratchPad.M_COUNT
   |vpiParameter:
@@ -780,7 +785,12 @@ design: (work@ScratchPad)
     \_module_inst: work@ScratchPad (work@ScratchPad), file:${SURELOG_DIR}/tests/Func128Bits/dut.sv, line:9:1, endln:46:10
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: , line:11:1, endln:11:24
+    \_ref_obj: (work@ScratchPad.M_REGIONS)
+      |vpiParent:
+      \_parameter: (work@ScratchPad.M_REGIONS), line:11:11, endln:11:20
+      |vpiFullName:work@ScratchPad.M_REGIONS
+      |vpiActual:
+      \_int_typespec: , line:11:1, endln:11:24
     |vpiName:M_REGIONS
     |vpiFullName:work@ScratchPad.M_REGIONS
   |vpiParameter:
@@ -789,7 +799,12 @@ design: (work@ScratchPad)
     \_module_inst: work@ScratchPad (work@ScratchPad), file:${SURELOG_DIR}/tests/Func128Bits/dut.sv, line:9:1, endln:46:10
     |UINT:32
     |vpiTypespec:
-    \_int_typespec: , line:12:1, endln:12:26
+    \_ref_obj: (work@ScratchPad.ADDR_WIDTH)
+      |vpiParent:
+      \_parameter: (work@ScratchPad.ADDR_WIDTH), line:12:11, endln:12:21
+      |vpiFullName:work@ScratchPad.ADDR_WIDTH
+      |vpiActual:
+      \_int_typespec: , line:12:1, endln:12:26
     |vpiName:ADDR_WIDTH
     |vpiFullName:work@ScratchPad.ADDR_WIDTH
   |vpiParameter:
@@ -816,7 +831,12 @@ design: (work@ScratchPad)
       |vpiSize:64
       |UINT:4
       |vpiTypespec:
-      \_int_typespec: , line:10:1, endln:10:22
+      \_ref_obj: (work@ScratchPad)
+        |vpiParent:
+        \_constant: , line:10:21, endln:10:22
+        |vpiFullName:work@ScratchPad
+        |vpiActual:
+        \_int_typespec: , line:10:1, endln:10:22
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@ScratchPad.M_COUNT), line:10:11, endln:10:18
@@ -832,7 +852,12 @@ design: (work@ScratchPad)
       |vpiSize:64
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: , line:11:1, endln:11:24
+      \_ref_obj: (work@ScratchPad)
+        |vpiParent:
+        \_constant: , line:11:23, endln:11:24
+        |vpiFullName:work@ScratchPad
+        |vpiActual:
+        \_int_typespec: , line:11:1, endln:11:24
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@ScratchPad.M_REGIONS), line:11:11, endln:11:20
@@ -848,7 +873,12 @@ design: (work@ScratchPad)
       |vpiSize:64
       |UINT:32
       |vpiTypespec:
-      \_int_typespec: , line:12:1, endln:12:26
+      \_ref_obj: (work@ScratchPad)
+        |vpiParent:
+        \_constant: , line:12:24, endln:12:26
+        |vpiFullName:work@ScratchPad
+        |vpiActual:
+        \_int_typespec: , line:12:1, endln:12:26
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@ScratchPad.ADDR_WIDTH), line:12:11, endln:12:21
@@ -929,8 +959,12 @@ design: (work@ScratchPad)
       |vpiParent:
       \_begin: (work@ScratchPad.calcBaseAddrs), line:16:5, endln:16:31
       |vpiTypespec:
-      \_integer_typespec: , line:15:5, endln:15:12
-        |vpiSigned:1
+      \_ref_obj: (work@ScratchPad.calcBaseAddrs.i)
+        |vpiParent:
+        \_integer_var: (work@ScratchPad.calcBaseAddrs.i), line:15:13, endln:15:14
+        |vpiFullName:work@ScratchPad.calcBaseAddrs.i
+        |vpiActual:
+        \_integer_typespec: , line:15:5, endln:15:12
       |vpiName:i
       |vpiFullName:work@ScratchPad.calcBaseAddrs.i
       |vpiSigned:1
@@ -939,39 +973,12 @@ design: (work@ScratchPad)
       |vpiParent:
       \_begin: (work@ScratchPad.calcBaseAddrs), line:16:5, endln:16:31
       |vpiTypespec:
-      \_logic_typespec: , line:16:5, endln:16:25
-        |vpiRange:
-        \_range: , line:16:9, endln:16:25
-          |vpiParent:
-          \_logic_typespec: , line:16:5, endln:16:25
-          |vpiLeftRange:
-          \_operation: , line:16:10, endln:16:22
-            |vpiParent:
-            \_range: , line:16:9, endln:16:25
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (ADDR_WIDTH), line:16:10, endln:16:20
-              |vpiParent:
-              \_operation: , line:16:10, endln:16:22
-              |vpiName:ADDR_WIDTH
-              |vpiActual:
-              \_parameter: (work@ScratchPad.ADDR_WIDTH), line:12:11, endln:12:21
-            |vpiOperand:
-            \_constant: , line:16:21, endln:16:22
-              |vpiParent:
-              \_operation: , line:16:10, endln:16:22
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:16:23, endln:16:24
-            |vpiParent:
-            \_range: , line:16:9, endln:16:25
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_obj: (work@ScratchPad.calcBaseAddrs.base)
+        |vpiParent:
+        \_logic_var: (work@ScratchPad.calcBaseAddrs.base), line:16:26, endln:16:30
+        |vpiFullName:work@ScratchPad.calcBaseAddrs.base
+        |vpiActual:
+        \_logic_typespec: , line:16:5, endln:16:25
       |vpiName:base
       |vpiFullName:work@ScratchPad.calcBaseAddrs.base
     |vpiVariables:
@@ -979,39 +986,12 @@ design: (work@ScratchPad)
       |vpiParent:
       \_begin: (work@ScratchPad.calcBaseAddrs), line:16:5, endln:16:31
       |vpiTypespec:
-      \_logic_typespec: , line:17:5, endln:17:25
-        |vpiRange:
-        \_range: , line:17:9, endln:17:25
-          |vpiParent:
-          \_logic_typespec: , line:17:5, endln:17:25
-          |vpiLeftRange:
-          \_operation: , line:17:10, endln:17:22
-            |vpiParent:
-            \_range: , line:17:9, endln:17:25
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (ADDR_WIDTH), line:17:10, endln:17:20
-              |vpiParent:
-              \_operation: , line:17:10, endln:17:22
-              |vpiName:ADDR_WIDTH
-              |vpiActual:
-              \_parameter: (work@ScratchPad.ADDR_WIDTH), line:12:11, endln:12:21
-            |vpiOperand:
-            \_constant: , line:17:21, endln:17:22
-              |vpiParent:
-              \_operation: , line:17:10, endln:17:22
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:17:23, endln:17:24
-            |vpiParent:
-            \_range: , line:17:9, endln:17:25
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_obj: (work@ScratchPad.calcBaseAddrs.width)
+        |vpiParent:
+        \_logic_var: (work@ScratchPad.calcBaseAddrs.width), line:17:26, endln:17:31
+        |vpiFullName:work@ScratchPad.calcBaseAddrs.width
+        |vpiActual:
+        \_logic_typespec: , line:17:5, endln:17:25
       |vpiName:width
       |vpiFullName:work@ScratchPad.calcBaseAddrs.width
     |vpiVariables:
@@ -1019,39 +999,12 @@ design: (work@ScratchPad)
       |vpiParent:
       \_begin: (work@ScratchPad.calcBaseAddrs), line:16:5, endln:16:31
       |vpiTypespec:
-      \_logic_typespec: , line:18:5, endln:18:25
-        |vpiRange:
-        \_range: , line:18:9, endln:18:25
-          |vpiParent:
-          \_logic_typespec: , line:18:5, endln:18:25
-          |vpiLeftRange:
-          \_operation: , line:18:10, endln:18:22
-            |vpiParent:
-            \_range: , line:18:9, endln:18:25
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (ADDR_WIDTH), line:18:10, endln:18:20
-              |vpiParent:
-              \_operation: , line:18:10, endln:18:22
-              |vpiName:ADDR_WIDTH
-              |vpiActual:
-              \_parameter: (work@ScratchPad.ADDR_WIDTH), line:12:11, endln:12:21
-            |vpiOperand:
-            \_constant: , line:18:21, endln:18:22
-              |vpiParent:
-              \_operation: , line:18:10, endln:18:22
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:18:23, endln:18:24
-            |vpiParent:
-            \_range: , line:18:9, endln:18:25
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_obj: (work@ScratchPad.calcBaseAddrs.size)
+        |vpiParent:
+        \_logic_var: (work@ScratchPad.calcBaseAddrs.size), line:18:26, endln:18:30
+        |vpiFullName:work@ScratchPad.calcBaseAddrs.size
+        |vpiActual:
+        \_logic_typespec: , line:18:5, endln:18:25
       |vpiName:size
       |vpiFullName:work@ScratchPad.calcBaseAddrs.size
     |vpiVariables:
@@ -1059,39 +1012,12 @@ design: (work@ScratchPad)
       |vpiParent:
       \_begin: (work@ScratchPad.calcBaseAddrs), line:16:5, endln:16:31
       |vpiTypespec:
-      \_logic_typespec: , line:19:5, endln:19:25
-        |vpiRange:
-        \_range: , line:19:9, endln:19:25
-          |vpiParent:
-          \_logic_typespec: , line:19:5, endln:19:25
-          |vpiLeftRange:
-          \_operation: , line:19:10, endln:19:22
-            |vpiParent:
-            \_range: , line:19:9, endln:19:25
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (ADDR_WIDTH), line:19:10, endln:19:20
-              |vpiParent:
-              \_operation: , line:19:10, endln:19:22
-              |vpiName:ADDR_WIDTH
-              |vpiActual:
-              \_parameter: (work@ScratchPad.ADDR_WIDTH), line:12:11, endln:12:21
-            |vpiOperand:
-            \_constant: , line:19:21, endln:19:22
-              |vpiParent:
-              \_operation: , line:19:10, endln:19:22
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:19:23, endln:19:24
-            |vpiParent:
-            \_range: , line:19:9, endln:19:25
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_obj: (work@ScratchPad.calcBaseAddrs.mask)
+        |vpiParent:
+        \_logic_var: (work@ScratchPad.calcBaseAddrs.mask), line:19:26, endln:19:30
+        |vpiFullName:work@ScratchPad.calcBaseAddrs.mask
+        |vpiActual:
+        \_logic_typespec: , line:19:5, endln:19:25
       |vpiName:mask
       |vpiFullName:work@ScratchPad.calcBaseAddrs.mask
     |vpiVisibility:1
@@ -1100,63 +1026,12 @@ design: (work@ScratchPad)
       |vpiParent:
       \_function: (work@ScratchPad.calcBaseAddrs), line:14:1, endln:36:12
       |vpiTypespec:
-      \_logic_typespec: , line:14:10, endln:14:44
-        |vpiRange:
-        \_range: , line:14:10, endln:14:44
-          |vpiParent:
-          \_logic_typespec: , line:14:10, endln:14:44
-          |vpiLeftRange:
-          \_operation: , line:14:11, endln:14:41
-            |vpiParent:
-            \_range: , line:14:10, endln:14:44
-            |vpiOpType:11
-            |vpiOperand:
-            \_operation: , line:14:11, endln:14:39
-              |vpiParent:
-              \_operation: , line:14:11, endln:14:41
-              |vpiOpType:25
-              |vpiOperand:
-              \_operation: , line:14:11, endln:14:28
-                |vpiParent:
-                \_operation: , line:14:11, endln:14:39
-                |vpiOpType:25
-                |vpiOperand:
-                \_ref_obj: (M_COUNT), line:14:11, endln:14:18
-                  |vpiParent:
-                  \_operation: , line:14:11, endln:14:28
-                  |vpiName:M_COUNT
-                  |vpiActual:
-                  \_parameter: (work@ScratchPad.M_COUNT), line:10:11, endln:10:18
-                |vpiOperand:
-                \_ref_obj: (M_REGIONS), line:14:19, endln:14:28
-                  |vpiParent:
-                  \_operation: , line:14:11, endln:14:28
-                  |vpiName:M_REGIONS
-                  |vpiActual:
-                  \_parameter: (work@ScratchPad.M_REGIONS), line:11:11, endln:11:20
-              |vpiOperand:
-              \_ref_obj: (ADDR_WIDTH), line:14:29, endln:14:39
-                |vpiParent:
-                \_operation: , line:14:11, endln:14:39
-                |vpiName:ADDR_WIDTH
-                |vpiActual:
-                \_parameter: (work@ScratchPad.ADDR_WIDTH), line:12:11, endln:12:21
-            |vpiOperand:
-            \_constant: , line:14:40, endln:14:41
-              |vpiParent:
-              \_operation: , line:14:11, endln:14:41
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:14:42, endln:14:43
-            |vpiParent:
-            \_range: , line:14:10, endln:14:44
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_obj: (work@ScratchPad.calcBaseAddrs)
+        |vpiParent:
+        \_logic_var: (work@ScratchPad.calcBaseAddrs), line:14:10, endln:14:44
+        |vpiFullName:work@ScratchPad.calcBaseAddrs
+        |vpiActual:
+        \_logic_typespec: , line:14:10, endln:14:44
       |vpiFullName:work@ScratchPad.calcBaseAddrs
     |vpiIODecl:
     \_io_decl: (dummy), line:14:72, endln:14:77
@@ -1165,27 +1040,12 @@ design: (work@ScratchPad)
       |vpiDirection:1
       |vpiName:dummy
       |vpiTypedef:
-      \_logic_typespec: , line:14:65, endln:14:71
-        |vpiRange:
-        \_range: , line:14:65, endln:14:71
-          |vpiParent:
-          \_logic_typespec: , line:14:65, endln:14:71
-          |vpiLeftRange:
-          \_constant: , line:14:66, endln:14:68
-            |vpiParent:
-            \_range: , line:14:65, endln:14:71
-            |vpiDecompile:31
-            |vpiSize:64
-            |UINT:31
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:14:69, endln:14:70
-            |vpiParent:
-            \_range: , line:14:65, endln:14:71
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_obj: (work@ScratchPad.calcBaseAddrs.dummy)
+        |vpiParent:
+        \_io_decl: (dummy), line:14:72, endln:14:77
+        |vpiFullName:work@ScratchPad.calcBaseAddrs.dummy
+        |vpiActual:
+        \_logic_typespec: , line:14:65, endln:14:71
     |vpiStmt:
     \_begin: (work@ScratchPad.calcBaseAddrs), line:16:5, endln:16:31
       |vpiParent:
@@ -1786,9 +1646,12 @@ design: (work@ScratchPad)
     \_module_inst: work@ScratchPad (work@ScratchPad), file:${SURELOG_DIR}/tests/Func128Bits/dut.sv, line:9:1, endln:46:10
     |UINT:4
     |vpiTypespec:
-    \_int_typespec: , line:10:1, endln:10:22
+    \_ref_obj: (work@ScratchPad.M_COUNT)
       |vpiParent:
       \_parameter: (work@ScratchPad.M_COUNT), line:10:11, endln:10:18
+      |vpiFullName:work@ScratchPad.M_COUNT
+      |vpiActual:
+      \_int_typespec: , line:10:1, endln:10:22
     |vpiName:M_COUNT
     |vpiFullName:work@ScratchPad.M_COUNT
   |vpiParameter:
@@ -1797,9 +1660,12 @@ design: (work@ScratchPad)
     \_module_inst: work@ScratchPad (work@ScratchPad), file:${SURELOG_DIR}/tests/Func128Bits/dut.sv, line:9:1, endln:46:10
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: , line:11:1, endln:11:24
+    \_ref_obj: (work@ScratchPad.M_REGIONS)
       |vpiParent:
       \_parameter: (work@ScratchPad.M_REGIONS), line:11:11, endln:11:20
+      |vpiFullName:work@ScratchPad.M_REGIONS
+      |vpiActual:
+      \_int_typespec: , line:11:1, endln:11:24
     |vpiName:M_REGIONS
     |vpiFullName:work@ScratchPad.M_REGIONS
   |vpiParameter:
@@ -1808,9 +1674,12 @@ design: (work@ScratchPad)
     \_module_inst: work@ScratchPad (work@ScratchPad), file:${SURELOG_DIR}/tests/Func128Bits/dut.sv, line:9:1, endln:46:10
     |UINT:32
     |vpiTypespec:
-    \_int_typespec: , line:12:1, endln:12:26
+    \_ref_obj: (work@ScratchPad.ADDR_WIDTH)
       |vpiParent:
       \_parameter: (work@ScratchPad.ADDR_WIDTH), line:12:11, endln:12:21
+      |vpiFullName:work@ScratchPad.ADDR_WIDTH
+      |vpiActual:
+      \_int_typespec: , line:12:1, endln:12:26
     |vpiName:ADDR_WIDTH
     |vpiFullName:work@ScratchPad.ADDR_WIDTH
   |vpiParameter:
@@ -1837,7 +1706,12 @@ design: (work@ScratchPad)
       |vpiSize:32
       |UINT:4
       |vpiTypespec:
-      \_int_typespec: , line:10:1, endln:10:22
+      \_ref_obj: (work@ScratchPad)
+        |vpiParent:
+        \_constant: , line:10:21, endln:10:22
+        |vpiFullName:work@ScratchPad
+        |vpiActual:
+        \_int_typespec: , line:10:1, endln:10:22
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@ScratchPad.M_COUNT), line:10:11, endln:10:18
@@ -1853,7 +1727,12 @@ design: (work@ScratchPad)
       |vpiSize:32
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: , line:11:1, endln:11:24
+      \_ref_obj: (work@ScratchPad)
+        |vpiParent:
+        \_constant: , line:11:23, endln:11:24
+        |vpiFullName:work@ScratchPad
+        |vpiActual:
+        \_int_typespec: , line:11:1, endln:11:24
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@ScratchPad.M_REGIONS), line:11:11, endln:11:20
@@ -1869,7 +1748,12 @@ design: (work@ScratchPad)
       |vpiSize:32
       |UINT:32
       |vpiTypespec:
-      \_int_typespec: , line:12:1, endln:12:26
+      \_ref_obj: (work@ScratchPad)
+        |vpiParent:
+        \_constant: , line:12:24, endln:12:26
+        |vpiFullName:work@ScratchPad
+        |vpiActual:
+        \_int_typespec: , line:12:1, endln:12:26
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@ScratchPad.ADDR_WIDTH), line:12:11, endln:12:21
@@ -1885,8 +1769,12 @@ design: (work@ScratchPad)
       |vpiSize:128
       |BIN:00000000000000000000000000011000000000000000000000000000000110000000000000000000000000000001100000000000000000000000000000011000
       |vpiTypespec:
-      \_int_typespec: 
-        |UINT:32
+      \_ref_obj: (work@ScratchPad)
+        |vpiParent:
+        \_constant: , line:13:26, endln:13:56
+        |vpiFullName:work@ScratchPad
+        |vpiActual:
+        \_int_typespec: 
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@ScratchPad.M_ADDR_WIDTH), line:13:11, endln:13:23
@@ -1917,7 +1805,12 @@ design: (work@ScratchPad)
       |vpiParent:
       \_function: (work@ScratchPad.calcBaseAddrs), line:14:1, endln:36:12
       |vpiTypespec:
-      \_integer_typespec: , line:15:5, endln:15:12
+      \_ref_obj: (work@ScratchPad.calcBaseAddrs.i)
+        |vpiParent:
+        \_integer_var: (work@ScratchPad.calcBaseAddrs.i), line:15:13, endln:15:14
+        |vpiFullName:work@ScratchPad.calcBaseAddrs.i
+        |vpiActual:
+        \_integer_typespec: , line:15:5, endln:15:12
       |vpiName:i
       |vpiFullName:work@ScratchPad.calcBaseAddrs.i
       |vpiSigned:1
@@ -1926,7 +1819,12 @@ design: (work@ScratchPad)
       |vpiParent:
       \_function: (work@ScratchPad.calcBaseAddrs), line:14:1, endln:36:12
       |vpiTypespec:
-      \_logic_typespec: , line:16:5, endln:16:25
+      \_ref_obj: (work@ScratchPad.calcBaseAddrs.base)
+        |vpiParent:
+        \_logic_var: (work@ScratchPad.calcBaseAddrs.base), line:16:26, endln:16:30
+        |vpiFullName:work@ScratchPad.calcBaseAddrs.base
+        |vpiActual:
+        \_logic_typespec: , line:16:5, endln:16:25
       |vpiName:base
       |vpiFullName:work@ScratchPad.calcBaseAddrs.base
     |vpiVariables:
@@ -1934,7 +1832,12 @@ design: (work@ScratchPad)
       |vpiParent:
       \_function: (work@ScratchPad.calcBaseAddrs), line:14:1, endln:36:12
       |vpiTypespec:
-      \_logic_typespec: , line:17:5, endln:17:25
+      \_ref_obj: (work@ScratchPad.calcBaseAddrs.width)
+        |vpiParent:
+        \_logic_var: (work@ScratchPad.calcBaseAddrs.width), line:17:26, endln:17:31
+        |vpiFullName:work@ScratchPad.calcBaseAddrs.width
+        |vpiActual:
+        \_logic_typespec: , line:17:5, endln:17:25
       |vpiName:width
       |vpiFullName:work@ScratchPad.calcBaseAddrs.width
     |vpiVariables:
@@ -1942,7 +1845,12 @@ design: (work@ScratchPad)
       |vpiParent:
       \_function: (work@ScratchPad.calcBaseAddrs), line:14:1, endln:36:12
       |vpiTypespec:
-      \_logic_typespec: , line:18:5, endln:18:25
+      \_ref_obj: (work@ScratchPad.calcBaseAddrs.size)
+        |vpiParent:
+        \_logic_var: (work@ScratchPad.calcBaseAddrs.size), line:18:26, endln:18:30
+        |vpiFullName:work@ScratchPad.calcBaseAddrs.size
+        |vpiActual:
+        \_logic_typespec: , line:18:5, endln:18:25
       |vpiName:size
       |vpiFullName:work@ScratchPad.calcBaseAddrs.size
     |vpiVariables:
@@ -1950,7 +1858,12 @@ design: (work@ScratchPad)
       |vpiParent:
       \_function: (work@ScratchPad.calcBaseAddrs), line:14:1, endln:36:12
       |vpiTypespec:
-      \_logic_typespec: , line:19:5, endln:19:25
+      \_ref_obj: (work@ScratchPad.calcBaseAddrs.mask)
+        |vpiParent:
+        \_logic_var: (work@ScratchPad.calcBaseAddrs.mask), line:19:26, endln:19:30
+        |vpiFullName:work@ScratchPad.calcBaseAddrs.mask
+        |vpiActual:
+        \_logic_typespec: , line:19:5, endln:19:25
       |vpiName:mask
       |vpiFullName:work@ScratchPad.calcBaseAddrs.mask
     |vpiVisibility:1
@@ -1963,7 +1876,12 @@ design: (work@ScratchPad)
       |vpiDirection:1
       |vpiName:dummy
       |vpiTypedef:
-      \_logic_typespec: , line:14:65, endln:14:71
+      \_ref_obj: (work@ScratchPad.calcBaseAddrs.dummy)
+        |vpiParent:
+        \_io_decl: (dummy), line:14:72, endln:14:77
+        |vpiFullName:work@ScratchPad.calcBaseAddrs.dummy
+        |vpiActual:
+        \_logic_typespec: , line:14:65, endln:14:71
     |vpiStmt:
     \_begin: (work@ScratchPad.calcBaseAddrs), line:16:5, endln:16:31
       |vpiParent:
@@ -1974,7 +1892,12 @@ design: (work@ScratchPad)
         |vpiParent:
         \_begin: (work@ScratchPad.calcBaseAddrs), line:16:5, endln:16:31
         |vpiTypespec:
-        \_integer_typespec: , line:15:5, endln:15:12
+        \_ref_obj: (work@ScratchPad.calcBaseAddrs.i)
+          |vpiParent:
+          \_integer_var: (work@ScratchPad.calcBaseAddrs.i), line:15:13, endln:15:14
+          |vpiFullName:work@ScratchPad.calcBaseAddrs.i
+          |vpiActual:
+          \_integer_typespec: , line:15:5, endln:15:12
         |vpiName:i
         |vpiFullName:work@ScratchPad.calcBaseAddrs.i
         |vpiSigned:1
@@ -1983,7 +1906,12 @@ design: (work@ScratchPad)
         |vpiParent:
         \_begin: (work@ScratchPad.calcBaseAddrs), line:16:5, endln:16:31
         |vpiTypespec:
-        \_logic_typespec: , line:16:5, endln:16:25
+        \_ref_obj: (work@ScratchPad.calcBaseAddrs.base)
+          |vpiParent:
+          \_logic_var: (work@ScratchPad.calcBaseAddrs.base), line:16:26, endln:16:30
+          |vpiFullName:work@ScratchPad.calcBaseAddrs.base
+          |vpiActual:
+          \_logic_typespec: , line:16:5, endln:16:25
         |vpiName:base
         |vpiFullName:work@ScratchPad.calcBaseAddrs.base
       |vpiVariables:
@@ -1991,7 +1919,12 @@ design: (work@ScratchPad)
         |vpiParent:
         \_begin: (work@ScratchPad.calcBaseAddrs), line:16:5, endln:16:31
         |vpiTypespec:
-        \_logic_typespec: , line:17:5, endln:17:25
+        \_ref_obj: (work@ScratchPad.calcBaseAddrs.width)
+          |vpiParent:
+          \_logic_var: (work@ScratchPad.calcBaseAddrs.width), line:17:26, endln:17:31
+          |vpiFullName:work@ScratchPad.calcBaseAddrs.width
+          |vpiActual:
+          \_logic_typespec: , line:17:5, endln:17:25
         |vpiName:width
         |vpiFullName:work@ScratchPad.calcBaseAddrs.width
       |vpiVariables:
@@ -1999,7 +1932,12 @@ design: (work@ScratchPad)
         |vpiParent:
         \_begin: (work@ScratchPad.calcBaseAddrs), line:16:5, endln:16:31
         |vpiTypespec:
-        \_logic_typespec: , line:18:5, endln:18:25
+        \_ref_obj: (work@ScratchPad.calcBaseAddrs.size)
+          |vpiParent:
+          \_logic_var: (work@ScratchPad.calcBaseAddrs.size), line:18:26, endln:18:30
+          |vpiFullName:work@ScratchPad.calcBaseAddrs.size
+          |vpiActual:
+          \_logic_typespec: , line:18:5, endln:18:25
         |vpiName:size
         |vpiFullName:work@ScratchPad.calcBaseAddrs.size
       |vpiVariables:
@@ -2007,7 +1945,12 @@ design: (work@ScratchPad)
         |vpiParent:
         \_begin: (work@ScratchPad.calcBaseAddrs), line:16:5, endln:16:31
         |vpiTypespec:
-        \_logic_typespec: , line:19:5, endln:19:25
+        \_ref_obj: (work@ScratchPad.calcBaseAddrs.mask)
+          |vpiParent:
+          \_logic_var: (work@ScratchPad.calcBaseAddrs.mask), line:19:26, endln:19:30
+          |vpiFullName:work@ScratchPad.calcBaseAddrs.mask
+          |vpiActual:
+          \_logic_typespec: , line:19:5, endln:19:25
         |vpiName:mask
         |vpiFullName:work@ScratchPad.calcBaseAddrs.mask
       |vpiStmt:
@@ -2543,6 +2486,233 @@ design: (work@ScratchPad)
         |vpiDefName:work@GOOD
         |vpiDefFile:${SURELOG_DIR}/tests/Func128Bits/dut.sv
         |vpiDefLineNo:5
+\_weaklyReferenced:
+\_int_typespec: , line:10:1, endln:10:22
+\_int_typespec: , line:11:1, endln:11:24
+\_int_typespec: , line:12:1, endln:12:26
+\_logic_typespec: , line:14:10, endln:14:44
+  |vpiRange:
+  \_range: , line:14:10, endln:14:44
+    |vpiParent:
+    \_logic_typespec: , line:14:10, endln:14:44
+    |vpiLeftRange:
+    \_operation: , line:14:11, endln:14:41
+      |vpiParent:
+      \_range: , line:14:10, endln:14:44
+      |vpiOpType:11
+      |vpiOperand:
+      \_operation: , line:14:11, endln:14:39
+        |vpiParent:
+        \_operation: , line:14:11, endln:14:41
+        |vpiOpType:25
+        |vpiOperand:
+        \_operation: , line:14:11, endln:14:28
+          |vpiParent:
+          \_operation: , line:14:11, endln:14:39
+          |vpiOpType:25
+          |vpiOperand:
+          \_ref_obj: (M_COUNT), line:14:11, endln:14:18
+            |vpiParent:
+            \_operation: , line:14:11, endln:14:28
+            |vpiName:M_COUNT
+            |vpiActual:
+            \_parameter: (work@ScratchPad.M_COUNT), line:10:11, endln:10:18
+          |vpiOperand:
+          \_ref_obj: (M_REGIONS), line:14:19, endln:14:28
+            |vpiParent:
+            \_operation: , line:14:11, endln:14:28
+            |vpiName:M_REGIONS
+            |vpiActual:
+            \_parameter: (work@ScratchPad.M_REGIONS), line:11:11, endln:11:20
+        |vpiOperand:
+        \_ref_obj: (ADDR_WIDTH), line:14:29, endln:14:39
+          |vpiParent:
+          \_operation: , line:14:11, endln:14:39
+          |vpiName:ADDR_WIDTH
+          |vpiActual:
+          \_parameter: (work@ScratchPad.ADDR_WIDTH), line:12:11, endln:12:21
+      |vpiOperand:
+      \_constant: , line:14:40, endln:14:41
+        |vpiParent:
+        \_operation: , line:14:11, endln:14:41
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:14:42, endln:14:43
+      |vpiParent:
+      \_range: , line:14:10, endln:14:44
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:14:65, endln:14:71
+  |vpiRange:
+  \_range: , line:14:65, endln:14:71
+    |vpiParent:
+    \_logic_typespec: , line:14:65, endln:14:71
+    |vpiLeftRange:
+    \_constant: , line:14:66, endln:14:68
+      |vpiParent:
+      \_range: , line:14:65, endln:14:71
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:14:69, endln:14:70
+      |vpiParent:
+      \_range: , line:14:65, endln:14:71
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_integer_typespec: , line:15:5, endln:15:12
+  |vpiSigned:1
+\_logic_typespec: , line:16:5, endln:16:25
+  |vpiRange:
+  \_range: , line:16:9, endln:16:25
+    |vpiParent:
+    \_logic_typespec: , line:16:5, endln:16:25
+    |vpiLeftRange:
+    \_operation: , line:16:10, endln:16:22
+      |vpiParent:
+      \_range: , line:16:9, endln:16:25
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (ADDR_WIDTH), line:16:10, endln:16:20
+        |vpiParent:
+        \_operation: , line:16:10, endln:16:22
+        |vpiName:ADDR_WIDTH
+        |vpiActual:
+        \_parameter: (work@ScratchPad.ADDR_WIDTH), line:12:11, endln:12:21
+      |vpiOperand:
+      \_constant: , line:16:21, endln:16:22
+        |vpiParent:
+        \_operation: , line:16:10, endln:16:22
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:16:23, endln:16:24
+      |vpiParent:
+      \_range: , line:16:9, endln:16:25
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:17:5, endln:17:25
+  |vpiRange:
+  \_range: , line:17:9, endln:17:25
+    |vpiParent:
+    \_logic_typespec: , line:17:5, endln:17:25
+    |vpiLeftRange:
+    \_operation: , line:17:10, endln:17:22
+      |vpiParent:
+      \_range: , line:17:9, endln:17:25
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (ADDR_WIDTH), line:17:10, endln:17:20
+        |vpiParent:
+        \_operation: , line:17:10, endln:17:22
+        |vpiName:ADDR_WIDTH
+        |vpiActual:
+        \_parameter: (work@ScratchPad.ADDR_WIDTH), line:12:11, endln:12:21
+      |vpiOperand:
+      \_constant: , line:17:21, endln:17:22
+        |vpiParent:
+        \_operation: , line:17:10, endln:17:22
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:17:23, endln:17:24
+      |vpiParent:
+      \_range: , line:17:9, endln:17:25
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:18:5, endln:18:25
+  |vpiRange:
+  \_range: , line:18:9, endln:18:25
+    |vpiParent:
+    \_logic_typespec: , line:18:5, endln:18:25
+    |vpiLeftRange:
+    \_operation: , line:18:10, endln:18:22
+      |vpiParent:
+      \_range: , line:18:9, endln:18:25
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (ADDR_WIDTH), line:18:10, endln:18:20
+        |vpiParent:
+        \_operation: , line:18:10, endln:18:22
+        |vpiName:ADDR_WIDTH
+        |vpiActual:
+        \_parameter: (work@ScratchPad.ADDR_WIDTH), line:12:11, endln:12:21
+      |vpiOperand:
+      \_constant: , line:18:21, endln:18:22
+        |vpiParent:
+        \_operation: , line:18:10, endln:18:22
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:18:23, endln:18:24
+      |vpiParent:
+      \_range: , line:18:9, endln:18:25
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:19:5, endln:19:25
+  |vpiRange:
+  \_range: , line:19:9, endln:19:25
+    |vpiParent:
+    \_logic_typespec: , line:19:5, endln:19:25
+    |vpiLeftRange:
+    \_operation: , line:19:10, endln:19:22
+      |vpiParent:
+      \_range: , line:19:9, endln:19:25
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (ADDR_WIDTH), line:19:10, endln:19:20
+        |vpiParent:
+        \_operation: , line:19:10, endln:19:22
+        |vpiName:ADDR_WIDTH
+        |vpiActual:
+        \_parameter: (work@ScratchPad.ADDR_WIDTH), line:12:11, endln:12:21
+      |vpiOperand:
+      \_constant: , line:19:21, endln:19:22
+        |vpiParent:
+        \_operation: , line:19:10, endln:19:22
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:19:23, endln:19:24
+      |vpiParent:
+      \_range: , line:19:9, endln:19:25
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: 
+  |UINT:32
+\_int_typespec: , line:10:1, endln:10:22
+  |vpiParent:
+  \_ref_obj: (work@ScratchPad.M_COUNT)
+\_int_typespec: , line:11:1, endln:11:24
+  |vpiParent:
+  \_ref_obj: (work@ScratchPad.M_REGIONS)
+\_int_typespec: , line:12:1, endln:12:26
+  |vpiParent:
+  \_ref_obj: (work@ScratchPad.ADDR_WIDTH)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

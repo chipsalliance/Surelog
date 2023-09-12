@@ -93,7 +93,7 @@ integer_typespec                                       3
 integer_var                                            2
 io_decl                                                1
 module_inst                                            2
-ref_obj                                                2
+ref_obj                                                5
 sys_func_call                                          2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -106,7 +106,7 @@ integer_typespec                                       3
 integer_var                                            2
 io_decl                                                2
 module_inst                                            2
-ref_obj                                                4
+ref_obj                                                8
 sys_func_call                                          4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/LateBindingFuncArg/slpp_all/surelog.uhdm ...
@@ -139,8 +139,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@top.doFoo), line:4:5, endln:6:16
       |vpiTypespec:
-      \_integer_typespec: , line:4:14, endln:4:21
-        |vpiSigned:1
+      \_ref_obj: (work@top.doFoo)
+        |vpiParent:
+        \_integer_var: (work@top.doFoo), line:4:14, endln:4:21
+        |vpiFullName:work@top.doFoo
+        |vpiActual:
+        \_integer_typespec: , line:4:14, endln:4:21
       |vpiFullName:work@top.doFoo
       |vpiSigned:1
     |vpiIODecl:
@@ -150,8 +154,12 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:depth
       |vpiTypedef:
-      \_integer_typespec: , line:4:34, endln:4:41
-        |vpiSigned:1
+      \_ref_obj: (work@top.doFoo.depth)
+        |vpiParent:
+        \_io_decl: (depth), line:4:42, endln:4:47
+        |vpiFullName:work@top.doFoo.depth
+        |vpiActual:
+        \_integer_typespec: , line:4:34, endln:4:41
     |vpiStmt:
     \_assignment: , line:5:9, endln:5:37
       |vpiParent:
@@ -207,7 +215,12 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:depth
       |vpiTypedef:
-      \_integer_typespec: , line:4:34, endln:4:41
+      \_ref_obj: (work@top.doFoo.depth)
+        |vpiParent:
+        \_io_decl: (depth), line:4:42, endln:4:47
+        |vpiFullName:work@top.doFoo.depth
+        |vpiActual:
+        \_integer_typespec: , line:4:34, endln:4:41
     |vpiStmt:
     \_assignment: , line:5:9, endln:5:37
       |vpiParent:
@@ -243,6 +256,11 @@ design: (work@top)
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LateBindingFuncArg/dut.sv, line:3:1, endln:7:10
   |vpiTopModule:1
+\_weaklyReferenced:
+\_integer_typespec: , line:4:14, endln:4:21
+  |vpiSigned:1
+\_integer_typespec: , line:4:34, endln:4:41
+  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

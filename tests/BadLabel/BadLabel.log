@@ -381,7 +381,7 @@ named_begin                                            1
 named_fork                                             3
 operation                                              1
 package                                                2
-ref_obj                                                2
+ref_obj                                                7
 sys_func_call                                          1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -408,7 +408,7 @@ named_begin                                            2
 named_fork                                             6
 operation                                              2
 package                                                2
-ref_obj                                                4
+ref_obj                                                9
 sys_func_call                                          2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/BadLabel/slpp_all/surelog.uhdm ...
@@ -493,7 +493,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@block_tb (work@block_tb), file:${SURELOG_DIR}/tests/BadLabel/dut.sv, line:60:1, endln:66:10
     |vpiTypespec:
-    \_logic_typespec: , line:61:2, endln:61:11
+    \_ref_obj: (work@block_tb.a)
+      |vpiParent:
+      \_logic_net: (work@block_tb.a), line:61:6, endln:61:7
+      |vpiFullName:work@block_tb.a
+      |vpiActual:
+      \_logic_typespec: , line:61:2, endln:61:11
     |vpiName:a
     |vpiFullName:work@block_tb.a
     |vpiNetType:48
@@ -538,7 +543,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/BadLabel/dut.sv, line:23:1, endln:57:21
     |vpiTypespec:
-    \_bit_typespec: , line:27:4, endln:27:15
+    \_ref_obj: (work@test.err)
+      |vpiParent:
+      \_logic_net: (work@test.err), line:27:8, endln:27:11
+      |vpiFullName:work@test.err
+      |vpiActual:
+      \_bit_typespec: , line:27:4, endln:27:15
     |vpiName:err
     |vpiFullName:work@test.err
   |vpiProcess:
@@ -663,9 +673,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/BadLabel/dut.sv, line:23:1, endln:57:21
     |vpiTypespec:
-    \_bit_typespec: , line:27:4, endln:27:7
+    \_ref_obj: (work@test.err)
       |vpiParent:
       \_bit_var: (work@test.err), line:27:8, endln:27:15
+      |vpiFullName:work@test.err
+      |vpiActual:
+      \_bit_typespec: , line:27:4, endln:27:7
     |vpiName:err
     |vpiFullName:work@test.err
     |vpiVisibility:1
@@ -771,7 +784,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@block_tb (work@block_tb), file:${SURELOG_DIR}/tests/BadLabel/dut.sv, line:60:1, endln:66:10
     |vpiTypespec:
-    \_logic_typespec: , line:61:2, endln:61:5
+    \_ref_obj: (work@block_tb.a)
+      |vpiParent:
+      \_logic_net: (work@block_tb.a), line:61:6, endln:61:11
+      |vpiFullName:work@block_tb.a
+      |vpiActual:
+      \_logic_typespec: , line:61:2, endln:61:5
     |vpiName:a
     |vpiFullName:work@block_tb.a
     |vpiNetType:48
@@ -817,6 +835,36 @@ design: (work@test)
       |vpiConstType:9
     |vpiLhs:
     \_logic_net: (work@block_tb.a), line:61:6, endln:61:11
+\_weaklyReferenced:
+\_bit_typespec: , line:27:4, endln:27:7
+  |vpiParent:
+  \_bit_var: (work@test.err), line:27:8, endln:27:15
+\_logic_typespec: , line:61:2, endln:61:5
+\_logic_typespec: , line:61:2, endln:61:11
+\_bit_typespec: , line:27:4, endln:27:15
+\_cont_assign: , line:61:6, endln:61:7
+  |vpiParent:
+  \_module_inst: work@block_tb (work@block_tb), file:${SURELOG_DIR}/tests/BadLabel/dut.sv, line:60:1, endln:66:10
+  |vpiNetDeclAssign:1
+  |vpiRhs:
+  \_constant: , line:61:10, endln:61:11
+  |vpiLhs:
+  \_logic_net: (work@block_tb.a), line:61:6, endln:61:11
+    |vpiParent:
+    \_cont_assign: , line:61:6, endln:61:7
+    |vpiTypespec:
+    \_ref_obj: (work@block_tb.a)
+      |vpiParent:
+      \_logic_net: (work@block_tb.a), line:61:6, endln:61:11
+      |vpiFullName:work@block_tb.a
+      |vpiActual:
+      \_logic_typespec: , line:61:2, endln:61:5
+    |vpiName:a
+    |vpiFullName:work@block_tb.a
+    |vpiNetType:48
+\_logic_typespec: , line:61:2, endln:61:5
+  |vpiParent:
+  \_ref_obj: (work@block_tb.a)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

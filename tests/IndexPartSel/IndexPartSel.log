@@ -182,6 +182,7 @@ logic_typespec                                         6
 module_inst                                            4
 operation                                              2
 range                                                  9
+ref_obj                                                6
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -196,6 +197,7 @@ logic_typespec                                         6
 module_inst                                            4
 operation                                              4
 range                                                  9
+ref_obj                                                6
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/IndexPartSel/slpp_all/surelog.uhdm ...
 
@@ -220,27 +222,12 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IndexPartSel/dut.sv, line:2:1, endln:8:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:1, endln:3:13
-      |vpiRange:
-      \_range: , line:3:6, endln:3:13
-        |vpiParent:
-        \_logic_typespec: , line:3:1, endln:3:13
-        |vpiLeftRange:
-        \_constant: , line:3:7, endln:3:10
-          |vpiParent:
-          \_range: , line:3:6, endln:3:13
-          |vpiDecompile:220
-          |vpiSize:64
-          |UINT:220
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:3:11, endln:3:12
-          |vpiParent:
-          \_range: , line:3:6, endln:3:13
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@dut.hw2reg_wrap)
+      |vpiParent:
+      \_logic_net: (work@dut.hw2reg_wrap), line:3:14, endln:3:25
+      |vpiFullName:work@dut.hw2reg_wrap
+      |vpiActual:
+      \_logic_typespec: , line:3:1, endln:3:13
     |vpiName:hw2reg_wrap
     |vpiFullName:work@dut.hw2reg_wrap
     |vpiNetType:1
@@ -249,27 +236,12 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IndexPartSel/dut.sv, line:2:1, endln:8:10
     |vpiTypespec:
-    \_logic_typespec: , line:4:1, endln:4:13
-      |vpiRange:
-      \_range: , line:4:6, endln:4:13
-        |vpiParent:
-        \_logic_typespec: , line:4:1, endln:4:13
-        |vpiLeftRange:
-        \_constant: , line:4:7, endln:4:10
-          |vpiParent:
-          \_range: , line:4:6, endln:4:13
-          |vpiDecompile:237
-          |vpiSize:64
-          |UINT:237
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:4:11, endln:4:12
-          |vpiParent:
-          \_range: , line:4:6, endln:4:13
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@dut.notworking_indexed_part_select)
+      |vpiParent:
+      \_logic_net: (work@dut.notworking_indexed_part_select), line:4:14, endln:4:44
+      |vpiFullName:work@dut.notworking_indexed_part_select
+      |vpiActual:
+      \_logic_typespec: , line:4:1, endln:4:13
     |vpiName:notworking_indexed_part_select
     |vpiFullName:work@dut.notworking_indexed_part_select
     |vpiNetType:1
@@ -278,27 +250,12 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IndexPartSel/dut.sv, line:2:1, endln:8:10
     |vpiTypespec:
-    \_logic_typespec: , line:5:1, endln:5:12
-      |vpiRange:
-      \_range: , line:5:6, endln:5:12
-        |vpiParent:
-        \_logic_typespec: , line:5:1, endln:5:12
-        |vpiLeftRange:
-        \_constant: , line:5:7, endln:5:9
-          |vpiParent:
-          \_range: , line:5:6, endln:5:12
-          |vpiDecompile:10
-          |vpiSize:64
-          |UINT:10
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:5:10, endln:5:11
-          |vpiParent:
-          \_range: , line:5:6, endln:5:12
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@dut.working_bitselect)
+      |vpiParent:
+      \_logic_net: (work@dut.working_bitselect), line:5:13, endln:5:30
+      |vpiFullName:work@dut.working_bitselect
+      |vpiActual:
+      \_logic_typespec: , line:5:1, endln:5:12
     |vpiName:working_bitselect
     |vpiFullName:work@dut.working_bitselect
     |vpiNetType:1
@@ -400,29 +357,12 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IndexPartSel/dut.sv, line:2:1, endln:8:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:1, endln:3:13
+    \_ref_obj: (work@dut.hw2reg_wrap)
       |vpiParent:
       \_logic_net: (work@dut.hw2reg_wrap), line:3:14, endln:3:25
-      |vpiRange:
-      \_range: , line:3:6, endln:3:13
-        |vpiParent:
-        \_logic_typespec: , line:3:1, endln:3:13
-        |vpiLeftRange:
-        \_constant: , line:3:7, endln:3:10
-          |vpiParent:
-          \_range: , line:3:6, endln:3:13
-          |vpiDecompile:220
-          |vpiSize:64
-          |UINT:220
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:3:11, endln:3:12
-          |vpiParent:
-          \_range: , line:3:6, endln:3:13
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@dut.hw2reg_wrap
+      |vpiActual:
+      \_logic_typespec: , line:3:1, endln:3:13
     |vpiName:hw2reg_wrap
     |vpiFullName:work@dut.hw2reg_wrap
     |vpiNetType:1
@@ -431,29 +371,12 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IndexPartSel/dut.sv, line:2:1, endln:8:10
     |vpiTypespec:
-    \_logic_typespec: , line:4:1, endln:4:13
+    \_ref_obj: (work@dut.notworking_indexed_part_select)
       |vpiParent:
       \_logic_net: (work@dut.notworking_indexed_part_select), line:4:14, endln:4:44
-      |vpiRange:
-      \_range: , line:4:6, endln:4:13
-        |vpiParent:
-        \_logic_typespec: , line:4:1, endln:4:13
-        |vpiLeftRange:
-        \_constant: , line:4:7, endln:4:10
-          |vpiParent:
-          \_range: , line:4:6, endln:4:13
-          |vpiDecompile:237
-          |vpiSize:64
-          |UINT:237
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:4:11, endln:4:12
-          |vpiParent:
-          \_range: , line:4:6, endln:4:13
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@dut.notworking_indexed_part_select
+      |vpiActual:
+      \_logic_typespec: , line:4:1, endln:4:13
     |vpiName:notworking_indexed_part_select
     |vpiFullName:work@dut.notworking_indexed_part_select
     |vpiNetType:1
@@ -462,29 +385,12 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IndexPartSel/dut.sv, line:2:1, endln:8:10
     |vpiTypespec:
-    \_logic_typespec: , line:5:1, endln:5:12
+    \_ref_obj: (work@dut.working_bitselect)
       |vpiParent:
       \_logic_net: (work@dut.working_bitselect), line:5:13, endln:5:30
-      |vpiRange:
-      \_range: , line:5:6, endln:5:12
-        |vpiParent:
-        \_logic_typespec: , line:5:1, endln:5:12
-        |vpiLeftRange:
-        \_constant: , line:5:7, endln:5:9
-          |vpiParent:
-          \_range: , line:5:6, endln:5:12
-          |vpiDecompile:10
-          |vpiSize:64
-          |UINT:10
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:5:10, endln:5:11
-          |vpiParent:
-          \_range: , line:5:6, endln:5:12
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@dut.working_bitselect
+      |vpiActual:
+      \_logic_typespec: , line:5:1, endln:5:12
     |vpiName:working_bitselect
     |vpiFullName:work@dut.working_bitselect
     |vpiNetType:1
@@ -557,6 +463,139 @@ design: (work@dut)
         \_constant: , line:7:40, endln:7:42
         |vpiWidthExpr:
         \_constant: , line:7:44, endln:7:46
+\_weaklyReferenced:
+\_logic_typespec: , line:3:1, endln:3:13
+  |vpiParent:
+  \_logic_net: (work@dut.hw2reg_wrap), line:3:14, endln:3:25
+  |vpiRange:
+  \_range: , line:3:6, endln:3:13
+    |vpiParent:
+    \_logic_typespec: , line:3:1, endln:3:13
+    |vpiLeftRange:
+    \_constant: , line:3:7, endln:3:10
+      |vpiParent:
+      \_range: , line:3:6, endln:3:13
+      |vpiDecompile:220
+      |vpiSize:64
+      |UINT:220
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:11, endln:3:12
+      |vpiParent:
+      \_range: , line:3:6, endln:3:13
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:4:1, endln:4:13
+  |vpiParent:
+  \_logic_net: (work@dut.notworking_indexed_part_select), line:4:14, endln:4:44
+  |vpiRange:
+  \_range: , line:4:6, endln:4:13
+    |vpiParent:
+    \_logic_typespec: , line:4:1, endln:4:13
+    |vpiLeftRange:
+    \_constant: , line:4:7, endln:4:10
+      |vpiParent:
+      \_range: , line:4:6, endln:4:13
+      |vpiDecompile:237
+      |vpiSize:64
+      |UINT:237
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:4:11, endln:4:12
+      |vpiParent:
+      \_range: , line:4:6, endln:4:13
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:5:1, endln:5:12
+  |vpiParent:
+  \_logic_net: (work@dut.working_bitselect), line:5:13, endln:5:30
+  |vpiRange:
+  \_range: , line:5:6, endln:5:12
+    |vpiParent:
+    \_logic_typespec: , line:5:1, endln:5:12
+    |vpiLeftRange:
+    \_constant: , line:5:7, endln:5:9
+      |vpiParent:
+      \_range: , line:5:6, endln:5:12
+      |vpiDecompile:10
+      |vpiSize:64
+      |UINT:10
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:10, endln:5:11
+      |vpiParent:
+      \_range: , line:5:6, endln:5:12
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:3:1, endln:3:13
+  |vpiRange:
+  \_range: , line:3:6, endln:3:13
+    |vpiParent:
+    \_logic_typespec: , line:3:1, endln:3:13
+    |vpiLeftRange:
+    \_constant: , line:3:7, endln:3:10
+      |vpiParent:
+      \_range: , line:3:6, endln:3:13
+      |vpiDecompile:220
+      |vpiSize:64
+      |UINT:220
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:11, endln:3:12
+      |vpiParent:
+      \_range: , line:3:6, endln:3:13
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:4:1, endln:4:13
+  |vpiRange:
+  \_range: , line:4:6, endln:4:13
+    |vpiParent:
+    \_logic_typespec: , line:4:1, endln:4:13
+    |vpiLeftRange:
+    \_constant: , line:4:7, endln:4:10
+      |vpiParent:
+      \_range: , line:4:6, endln:4:13
+      |vpiDecompile:237
+      |vpiSize:64
+      |UINT:237
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:4:11, endln:4:12
+      |vpiParent:
+      \_range: , line:4:6, endln:4:13
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:5:1, endln:5:12
+  |vpiRange:
+  \_range: , line:5:6, endln:5:12
+    |vpiParent:
+    \_logic_typespec: , line:5:1, endln:5:12
+    |vpiLeftRange:
+    \_constant: , line:5:7, endln:5:9
+      |vpiParent:
+      \_range: , line:5:6, endln:5:12
+      |vpiDecompile:10
+      |vpiSize:64
+      |UINT:10
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:10, endln:5:11
+      |vpiParent:
+      \_range: , line:5:6, endln:5:12
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

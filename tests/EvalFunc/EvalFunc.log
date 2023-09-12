@@ -770,7 +770,7 @@ package                                                2
 param_assign                                          64
 parameter                                             64
 range                                                  3
-ref_obj                                               52
+ref_obj                                              103
 ref_var                                                3
 return_stmt                                            6
 sys_func_call                                          1
@@ -800,7 +800,7 @@ package                                                2
 param_assign                                          64
 parameter                                             64
 range                                                  3
-ref_obj                                               96
+ref_obj                                              162
 ref_var                                                6
 return_stmt                                           12
 sys_func_call                                          2
@@ -835,10 +835,12 @@ design: (work@top)
       |vpiParent:
       \_function: (prim_util_pkg::_clog2), line:3:3, endln:10:14
       |vpiTypespec:
-      \_integer_typespec: , line:4:5, endln:4:12
-        |vpiInstance:
-        \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:1:1, endln:18:11
-        |vpiSigned:1
+      \_ref_obj: (prim_util_pkg::_clog2::result)
+        |vpiParent:
+        \_integer_var: (prim_util_pkg::_clog2::result), line:4:13, endln:4:19
+        |vpiFullName:prim_util_pkg::_clog2::result
+        |vpiActual:
+        \_integer_typespec: , line:4:5, endln:4:12
       |vpiName:result
       |vpiFullName:prim_util_pkg::_clog2::result
       |vpiSigned:1
@@ -849,10 +851,12 @@ design: (work@top)
       |vpiParent:
       \_function: (prim_util_pkg::_clog2), line:3:3, endln:10:14
       |vpiTypespec:
-      \_integer_typespec: , line:3:22, endln:3:29
-        |vpiInstance:
-        \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:1:1, endln:18:11
-        |vpiSigned:1
+      \_ref_obj: (prim_util_pkg::_clog2)
+        |vpiParent:
+        \_integer_var: (prim_util_pkg::_clog2), line:3:22, endln:3:29
+        |vpiFullName:prim_util_pkg::_clog2
+        |vpiActual:
+        \_integer_typespec: , line:3:22, endln:3:29
       |vpiFullName:prim_util_pkg::_clog2
       |vpiSigned:1
     |vpiIODecl:
@@ -862,10 +866,12 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:value
       |vpiTypedef:
-      \_integer_typespec: , line:3:37, endln:3:44
-        |vpiInstance:
-        \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:1:1, endln:18:11
-        |vpiSigned:1
+      \_ref_obj: (prim_util_pkg::_clog2::value)
+        |vpiParent:
+        \_io_decl: (value), line:3:45, endln:3:50
+        |vpiFullName:prim_util_pkg::_clog2::value
+        |vpiActual:
+        \_integer_typespec: , line:3:37, endln:3:44
     |vpiStmt:
     \_begin: (prim_util_pkg::_clog2), line:5:5, endln:5:23
       |vpiParent:
@@ -876,7 +882,12 @@ design: (work@top)
         |vpiParent:
         \_begin: (prim_util_pkg::_clog2), line:5:5, endln:5:23
         |vpiTypespec:
-        \_integer_typespec: , line:4:5, endln:4:12
+        \_ref_obj: (prim_util_pkg::_clog2::result)
+          |vpiParent:
+          \_integer_var: (prim_util_pkg::_clog2::result), line:4:13, endln:4:19
+          |vpiFullName:prim_util_pkg::_clog2::result
+          |vpiActual:
+          \_integer_typespec: , line:4:5, endln:4:12
         |vpiName:result
         |vpiFullName:prim_util_pkg::_clog2::result
         |vpiSigned:1
@@ -1063,10 +1074,12 @@ design: (work@top)
       |vpiParent:
       \_function: (prim_util_pkg::vbits), line:12:3, endln:16:14
       |vpiTypespec:
-      \_integer_typespec: , line:12:22, endln:12:29
-        |vpiInstance:
-        \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:1:1, endln:18:11
-        |vpiSigned:1
+      \_ref_obj: (prim_util_pkg::vbits)
+        |vpiParent:
+        \_integer_var: (prim_util_pkg::vbits), line:12:22, endln:12:29
+        |vpiFullName:prim_util_pkg::vbits
+        |vpiActual:
+        \_integer_typespec: , line:12:22, endln:12:29
       |vpiFullName:prim_util_pkg::vbits
       |vpiSigned:1
     |vpiIODecl:
@@ -1076,10 +1089,12 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:value
       |vpiTypedef:
-      \_integer_typespec: , line:12:36, endln:12:43
-        |vpiInstance:
-        \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:1:1, endln:18:11
-        |vpiSigned:1
+      \_ref_obj: (prim_util_pkg::vbits::value)
+        |vpiParent:
+        \_io_decl: (value), line:12:44, endln:12:49
+        |vpiFullName:prim_util_pkg::vbits::value
+        |vpiActual:
+        \_integer_typespec: , line:12:36, endln:12:43
     |vpiStmt:
     \_return_stmt: , line:14:5, endln:14:11
       |vpiParent:
@@ -1154,10 +1169,12 @@ design: (work@top)
       |vpiParent:
       \_function: (prim_util_pkg::_clog2), line:3:3, endln:10:14
       |vpiTypespec:
-      \_integer_typespec: , line:4:5, endln:4:12
-        |vpiInstance:
-        \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:1:1, endln:18:11
-        |vpiSigned:1
+      \_ref_obj: (prim_util_pkg::_clog2::result)
+        |vpiParent:
+        \_integer_var: (prim_util_pkg::_clog2::result), line:4:13, endln:4:19
+        |vpiFullName:prim_util_pkg::_clog2::result
+        |vpiActual:
+        \_integer_typespec: , line:4:5, endln:4:12
       |vpiName:result
       |vpiFullName:prim_util_pkg::_clog2::result
       |vpiSigned:1
@@ -1168,10 +1185,12 @@ design: (work@top)
       |vpiParent:
       \_function: (prim_util_pkg::_clog2), line:3:3, endln:10:14
       |vpiTypespec:
-      \_integer_typespec: , line:3:22, endln:3:29
-        |vpiInstance:
-        \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:1:1, endln:18:11
-        |vpiSigned:1
+      \_ref_obj: (prim_util_pkg::_clog2)
+        |vpiParent:
+        \_integer_var: (prim_util_pkg::_clog2), line:3:22, endln:3:29
+        |vpiFullName:prim_util_pkg::_clog2
+        |vpiActual:
+        \_integer_typespec: , line:3:22, endln:3:29
       |vpiFullName:prim_util_pkg::_clog2
       |vpiSigned:1
     |vpiIODecl:
@@ -1181,10 +1200,12 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:value
       |vpiTypedef:
-      \_integer_typespec: , line:3:37, endln:3:44
-        |vpiInstance:
-        \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:1:1, endln:18:11
-        |vpiSigned:1
+      \_ref_obj: (prim_util_pkg::_clog2::value)
+        |vpiParent:
+        \_io_decl: (value), line:3:45, endln:3:50
+        |vpiFullName:prim_util_pkg::_clog2::value
+        |vpiActual:
+        \_integer_typespec: , line:3:37, endln:3:44
     |vpiStmt:
     \_begin: (prim_util_pkg::_clog2), line:5:5, endln:5:23
       |vpiParent:
@@ -1195,7 +1216,12 @@ design: (work@top)
         |vpiParent:
         \_begin: (prim_util_pkg::_clog2), line:5:5, endln:5:23
         |vpiTypespec:
-        \_integer_typespec: , line:4:5, endln:4:12
+        \_ref_obj: (prim_util_pkg::_clog2::result)
+          |vpiParent:
+          \_integer_var: (prim_util_pkg::_clog2::result), line:4:13, endln:4:19
+          |vpiFullName:prim_util_pkg::_clog2::result
+          |vpiActual:
+          \_integer_typespec: , line:4:5, endln:4:12
         |vpiName:result
         |vpiFullName:prim_util_pkg::_clog2::result
         |vpiSigned:1
@@ -1382,10 +1408,12 @@ design: (work@top)
       |vpiParent:
       \_function: (prim_util_pkg::vbits), line:12:3, endln:16:14
       |vpiTypespec:
-      \_integer_typespec: , line:12:22, endln:12:29
-        |vpiInstance:
-        \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:1:1, endln:18:11
-        |vpiSigned:1
+      \_ref_obj: (prim_util_pkg::vbits)
+        |vpiParent:
+        \_integer_var: (prim_util_pkg::vbits), line:12:22, endln:12:29
+        |vpiFullName:prim_util_pkg::vbits
+        |vpiActual:
+        \_integer_typespec: , line:12:22, endln:12:29
       |vpiFullName:prim_util_pkg::vbits
       |vpiSigned:1
     |vpiIODecl:
@@ -1395,10 +1423,12 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:value
       |vpiTypedef:
-      \_integer_typespec: , line:12:36, endln:12:43
-        |vpiInstance:
-        \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:1:1, endln:18:11
-        |vpiSigned:1
+      \_ref_obj: (prim_util_pkg::vbits::value)
+        |vpiParent:
+        \_io_decl: (value), line:12:44, endln:12:49
+        |vpiFullName:prim_util_pkg::vbits::value
+        |vpiActual:
+        \_integer_typespec: , line:12:36, endln:12:43
     |vpiStmt:
     \_return_stmt: , line:14:5, endln:14:11
       |vpiParent:
@@ -1446,7 +1476,12 @@ design: (work@top)
             |vpiParent:
             \_func_call: (prim_util_pkg::_clog2), line:14:31, endln:14:44
             |vpiTypespec:
-            \_integer_typespec: , line:3:37, endln:3:44
+            \_ref_obj: (prim_util_pkg::vbits::value)
+              |vpiParent:
+              \_ref_obj: (prim_util_pkg::vbits::value), line:14:53, endln:14:58
+              |vpiFullName:prim_util_pkg::vbits::value
+              |vpiActual:
+              \_integer_typespec: , line:3:37, endln:3:44
             |vpiName:value
             |vpiFullName:prim_util_pkg::vbits::value
             |vpiActual:
@@ -1467,7 +1502,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:22:1, endln:68:10
     |UINT:30
     |vpiTypespec:
-    \_int_typespec: , line:63:1, endln:63:22
+    \_ref_obj: (work@top.RATIO)
+      |vpiParent:
+      \_parameter: (work@top.RATIO), line:63:12, endln:63:17
+      |vpiFullName:work@top.RATIO
+      |vpiActual:
+      \_int_typespec: , line:63:1, endln:63:22
     |vpiLocalParam:1
     |vpiName:RATIO
     |vpiFullName:work@top.RATIO
@@ -1511,7 +1551,12 @@ design: (work@top)
       |vpiSize:64
       |UINT:30
       |vpiTypespec:
-      \_int_typespec: , line:63:1, endln:63:22
+      \_ref_obj: (work@top)
+        |vpiParent:
+        \_constant: , line:63:20, endln:63:22
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:63:1, endln:63:22
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.RATIO), line:63:12, endln:63:17
@@ -1605,8 +1650,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@top.vbits), line:24:1, endln:26:12
       |vpiTypespec:
-      \_integer_typespec: , line:24:20, endln:24:27
-        |vpiSigned:1
+      \_ref_obj: (work@top.vbits)
+        |vpiParent:
+        \_integer_var: (work@top.vbits), line:24:20, endln:24:27
+        |vpiFullName:work@top.vbits
+        |vpiActual:
+        \_integer_typespec: , line:24:20, endln:24:27
       |vpiFullName:work@top.vbits
       |vpiSigned:1
     |vpiIODecl:
@@ -1616,8 +1665,12 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:value
       |vpiTypedef:
-      \_integer_typespec: , line:24:34, endln:24:41
-        |vpiSigned:1
+      \_ref_obj: (work@top.vbits.value)
+        |vpiParent:
+        \_io_decl: (value), line:24:42, endln:24:47
+        |vpiFullName:work@top.vbits.value
+        |vpiActual:
+        \_integer_typespec: , line:24:34, endln:24:41
     |vpiStmt:
     \_return_stmt: , line:25:3, endln:25:9
       |vpiParent:
@@ -1683,8 +1736,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@top.foo), line:28:1, endln:31:12
       |vpiTypespec:
-      \_integer_typespec: , line:28:10, endln:28:17
-        |vpiSigned:1
+      \_ref_obj: (work@top.foo)
+        |vpiParent:
+        \_integer_var: (work@top.foo), line:28:10, endln:28:17
+        |vpiFullName:work@top.foo
+        |vpiActual:
+        \_integer_typespec: , line:28:10, endln:28:17
       |vpiFullName:work@top.foo
       |vpiSigned:1
     |vpiIODecl:
@@ -1694,8 +1751,12 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:value
       |vpiTypedef:
-      \_integer_typespec: , line:29:7, endln:29:14
-        |vpiSigned:1
+      \_ref_obj: (work@top.foo.value)
+        |vpiParent:
+        \_io_decl: (value), line:29:15, endln:29:20
+        |vpiFullName:work@top.foo.value
+        |vpiActual:
+        \_integer_typespec: , line:29:7, endln:29:14
     |vpiStmt:
     \_return_stmt: , line:30:1, endln:30:7
       |vpiParent:
@@ -1721,27 +1782,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@top.log2), line:33:1, endln:48:12
       |vpiTypespec:
-      \_logic_typespec: , line:35:1, endln:35:11
-        |vpiRange:
-        \_range: , line:35:5, endln:35:11
-          |vpiParent:
-          \_logic_typespec: , line:35:1, endln:35:11
-          |vpiLeftRange:
-          \_constant: , line:35:6, endln:35:8
-            |vpiParent:
-            \_range: , line:35:5, endln:35:11
-            |vpiDecompile:31
-            |vpiSize:64
-            |UINT:31
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:35:9, endln:35:10
-            |vpiParent:
-            \_range: , line:35:5, endln:35:11
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_obj: (work@top.log2.shifted)
+        |vpiParent:
+        \_logic_var: (work@top.log2.shifted), line:35:1, endln:35:11
+        |vpiFullName:work@top.log2.shifted
+        |vpiActual:
+        \_logic_typespec: , line:35:1, endln:35:11
       |vpiName:shifted
       |vpiFullName:work@top.log2.shifted
       |vpiAutomatic:1
@@ -1750,8 +1796,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@top.log2), line:33:1, endln:48:12
       |vpiTypespec:
-      \_integer_typespec: , line:36:1, endln:36:8
-        |vpiSigned:1
+      \_ref_obj: (work@top.log2.res)
+        |vpiParent:
+        \_integer_var: (work@top.log2.res), line:36:1, endln:36:8
+        |vpiFullName:work@top.log2.res
+        |vpiActual:
+        \_integer_typespec: , line:36:1, endln:36:8
       |vpiName:res
       |vpiFullName:work@top.log2.res
       |vpiSigned:1
@@ -1762,8 +1812,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@top.log2), line:33:1, endln:48:12
       |vpiTypespec:
-      \_integer_typespec: , line:33:10, endln:33:17
-        |vpiSigned:1
+      \_ref_obj: (work@top.log2)
+        |vpiParent:
+        \_integer_var: (work@top.log2), line:33:10, endln:33:17
+        |vpiFullName:work@top.log2
+        |vpiActual:
+        \_integer_typespec: , line:33:10, endln:33:17
       |vpiFullName:work@top.log2
       |vpiSigned:1
     |vpiIODecl:
@@ -1773,8 +1827,12 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:value
       |vpiTypedef:
-      \_integer_typespec: , line:34:7, endln:34:14
-        |vpiSigned:1
+      \_ref_obj: (work@top.log2.value)
+        |vpiParent:
+        \_io_decl: (value), line:34:15, endln:34:20
+        |vpiFullName:work@top.log2.value
+        |vpiActual:
+        \_integer_typespec: , line:34:7, endln:34:14
     |vpiStmt:
     \_begin: (work@top.log2), line:37:1, endln:47:4
       |vpiParent:
@@ -2017,8 +2075,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@top.log2_2), line:51:1, endln:61:12
       |vpiTypespec:
-      \_integer_typespec: , line:51:10, endln:51:17
-        |vpiSigned:1
+      \_ref_obj: (work@top.log2_2)
+        |vpiParent:
+        \_integer_var: (work@top.log2_2), line:51:10, endln:51:17
+        |vpiFullName:work@top.log2_2
+        |vpiActual:
+        \_integer_typespec: , line:51:10, endln:51:17
       |vpiFullName:work@top.log2_2
       |vpiSigned:1
     |vpiIODecl:
@@ -2028,8 +2090,12 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:value
       |vpiTypedef:
-      \_integer_typespec: , line:52:7, endln:52:14
-        |vpiSigned:1
+      \_ref_obj: (work@top.log2_2.value)
+        |vpiParent:
+        \_io_decl: (value), line:52:15, endln:52:20
+        |vpiFullName:work@top.log2_2.value
+        |vpiActual:
+        \_integer_typespec: , line:52:7, endln:52:14
     |vpiStmt:
     \_begin: (work@top.log2_2), line:53:1, endln:60:4
       |vpiParent:
@@ -2221,9 +2287,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:22:1, endln:68:10
     |UINT:30
     |vpiTypespec:
-    \_int_typespec: , line:63:1, endln:63:22
+    \_ref_obj: (work@top.RATIO)
       |vpiParent:
       \_parameter: (work@top.RATIO), line:63:12, endln:63:17
+      |vpiFullName:work@top.RATIO
+      |vpiActual:
+      \_int_typespec: , line:63:1, endln:63:22
     |vpiLocalParam:1
     |vpiName:RATIO
     |vpiFullName:work@top.RATIO
@@ -2267,7 +2336,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:30
       |vpiTypespec:
-      \_int_typespec: , line:63:1, endln:63:22
+      \_ref_obj: (work@top)
+        |vpiParent:
+        \_constant: , line:63:20, endln:63:22
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:63:1, endln:63:22
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.RATIO), line:63:12, endln:63:17
@@ -2346,7 +2420,12 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:value
       |vpiTypedef:
-      \_integer_typespec: , line:24:34, endln:24:41
+      \_ref_obj: (work@top.vbits.value)
+        |vpiParent:
+        \_io_decl: (value), line:24:42, endln:24:47
+        |vpiFullName:work@top.vbits.value
+        |vpiActual:
+        \_integer_typespec: , line:24:34, endln:24:41
     |vpiStmt:
     \_return_stmt: , line:25:3, endln:25:9
       |vpiParent:
@@ -2404,7 +2483,12 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:value
       |vpiTypedef:
-      \_integer_typespec: , line:29:7, endln:29:14
+      \_ref_obj: (work@top.foo.value)
+        |vpiParent:
+        \_io_decl: (value), line:29:15, endln:29:20
+        |vpiFullName:work@top.foo.value
+        |vpiActual:
+        \_integer_typespec: , line:29:7, endln:29:14
     |vpiStmt:
     \_return_stmt: , line:30:1, endln:30:7
       |vpiParent:
@@ -2430,7 +2514,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@top.log2), line:33:1, endln:48:12
       |vpiTypespec:
-      \_logic_typespec: , line:35:1, endln:35:11
+      \_ref_obj: (work@top.log2.shifted)
+        |vpiParent:
+        \_logic_var: (work@top.log2.shifted), line:35:1, endln:35:11
+        |vpiFullName:work@top.log2.shifted
+        |vpiActual:
+        \_logic_typespec: , line:35:1, endln:35:11
       |vpiName:shifted
       |vpiFullName:work@top.log2.shifted
       |vpiAutomatic:1
@@ -2439,7 +2528,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@top.log2), line:33:1, endln:48:12
       |vpiTypespec:
-      \_integer_typespec: , line:36:1, endln:36:8
+      \_ref_obj: (work@top.log2.res)
+        |vpiParent:
+        \_integer_var: (work@top.log2.res), line:36:1, endln:36:8
+        |vpiFullName:work@top.log2.res
+        |vpiActual:
+        \_integer_typespec: , line:36:1, endln:36:8
       |vpiName:res
       |vpiFullName:work@top.log2.res
       |vpiSigned:1
@@ -2454,7 +2548,12 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:value
       |vpiTypedef:
-      \_integer_typespec: , line:34:7, endln:34:14
+      \_ref_obj: (work@top.log2.value)
+        |vpiParent:
+        \_io_decl: (value), line:34:15, endln:34:20
+        |vpiFullName:work@top.log2.value
+        |vpiActual:
+        \_integer_typespec: , line:34:7, endln:34:14
     |vpiStmt:
     \_begin: (work@top.log2), line:37:1, endln:47:4
       |vpiParent:
@@ -2667,7 +2766,12 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:value
       |vpiTypedef:
-      \_integer_typespec: , line:52:7, endln:52:14
+      \_ref_obj: (work@top.log2_2.value)
+        |vpiParent:
+        \_io_decl: (value), line:52:15, endln:52:20
+        |vpiFullName:work@top.log2_2.value
+        |vpiActual:
+        \_integer_typespec: , line:52:7, endln:52:14
     |vpiStmt:
     \_begin: (work@top.log2_2), line:53:1, endln:60:4
       |vpiParent:
@@ -2823,6 +2927,589 @@ design: (work@top)
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:22:1, endln:68:10
   |vpiTopModule:1
+\_weaklyReferenced:
+\_function: (prim_util_pkg::_clog2), line:3:3, endln:10:14
+  |vpiParent:
+  \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:1:1, endln:18:11
+  |vpiName:_clog2
+  |vpiFullName:prim_util_pkg::_clog2
+  |vpiVariables:
+  \_integer_var: (prim_util_pkg::_clog2::result), line:4:13, endln:4:19
+    |vpiParent:
+    \_begin: (prim_util_pkg::_clog2), line:5:5, endln:5:23
+    |vpiTypespec:
+    \_ref_obj: (prim_util_pkg::_clog2::result)
+      |vpiParent:
+      \_integer_var: (prim_util_pkg::_clog2::result), line:4:13, endln:4:19
+      |vpiFullName:prim_util_pkg::_clog2::result
+      |vpiActual:
+      \_integer_typespec: , line:4:5, endln:4:12
+    |vpiName:result
+    |vpiFullName:prim_util_pkg::_clog2::result
+    |vpiSigned:1
+  |vpiVisibility:1
+  |vpiAutomatic:1
+  |vpiReturn:
+  \_integer_var: (prim_util_pkg::_clog2), line:3:22, endln:3:29
+  |vpiIODecl:
+  \_io_decl: (value), line:3:45, endln:3:50
+    |vpiParent:
+    \_function: (prim_util_pkg::_clog2), line:3:3, endln:10:14
+    |vpiDirection:1
+    |vpiName:value
+    |vpiTypedef:
+    \_ref_obj: (prim_util_pkg::_clog2::value)
+      |vpiParent:
+      \_io_decl: (value), line:3:45, endln:3:50
+      |vpiFullName:prim_util_pkg::_clog2::value
+      |vpiActual:
+      \_integer_typespec: , line:3:37, endln:3:44
+  |vpiStmt:
+  \_begin: (prim_util_pkg::_clog2), line:5:5, endln:5:23
+    |vpiParent:
+    \_function: (prim_util_pkg::_clog2), line:3:3, endln:10:14
+    |vpiFullName:prim_util_pkg::_clog2
+    |vpiVariables:
+    \_integer_var: (prim_util_pkg::_clog2::result), line:4:13, endln:4:19
+    |vpiStmt:
+    \_assignment: , line:5:5, endln:5:22
+      |vpiParent:
+      \_begin: (prim_util_pkg::_clog2), line:5:5, endln:5:23
+      |vpiOpType:82
+      |vpiBlocking:1
+      |vpiRhs:
+      \_operation: , line:5:13, endln:5:22
+        |vpiParent:
+        \_assignment: , line:5:5, endln:5:22
+        |vpiOpType:11
+        |vpiOperand:
+        \_ref_obj: (prim_util_pkg::_clog2::value), line:5:13, endln:5:18
+          |vpiParent:
+          \_operation: , line:5:13, endln:5:22
+          |vpiName:value
+          |vpiFullName:prim_util_pkg::_clog2::value
+          |vpiActual:
+          \_io_decl: (value), line:3:45, endln:3:50
+        |vpiOperand:
+        \_constant: , line:5:21, endln:5:22
+      |vpiLhs:
+      \_ref_obj: (prim_util_pkg::_clog2::value), line:5:5, endln:5:10
+        |vpiParent:
+        \_assignment: , line:5:5, endln:5:22
+        |vpiName:value
+        |vpiFullName:prim_util_pkg::_clog2::value
+        |vpiActual:
+        \_io_decl: (value), line:3:45, endln:3:50
+    |vpiStmt:
+    \_for_stmt: (prim_util_pkg::_clog2), line:6:5, endln:6:8
+      |vpiParent:
+      \_begin: (prim_util_pkg::_clog2), line:5:5, endln:5:23
+      |vpiFullName:prim_util_pkg::_clog2
+      |vpiForInitStmt:
+      \_assign_stmt: , line:6:10, endln:6:20
+        |vpiParent:
+        \_for_stmt: (prim_util_pkg::_clog2), line:6:5, endln:6:8
+        |vpiRhs:
+        \_constant: , line:6:19, endln:6:20
+        |vpiLhs:
+        \_ref_var: (prim_util_pkg::_clog2::result), line:6:10, endln:6:16
+          |vpiParent:
+          \_assign_stmt: , line:6:10, endln:6:20
+          |vpiName:result
+          |vpiFullName:prim_util_pkg::_clog2::result
+      |vpiForIncStmt:
+      \_assignment: , line:6:33, endln:6:52
+        |vpiParent:
+        \_for_stmt: (prim_util_pkg::_clog2), line:6:5, endln:6:8
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiRhs:
+        \_operation: , line:6:42, endln:6:52
+          |vpiParent:
+          \_assignment: , line:6:33, endln:6:52
+          |vpiOpType:24
+          |vpiOperand:
+          \_ref_obj: (prim_util_pkg::_clog2::result), line:6:42, endln:6:48
+            |vpiParent:
+            \_operation: , line:6:42, endln:6:52
+            |vpiName:result
+            |vpiFullName:prim_util_pkg::_clog2::result
+            |vpiActual:
+            \_integer_var: (prim_util_pkg::_clog2::result), line:4:13, endln:4:19
+          |vpiOperand:
+          \_constant: , line:6:51, endln:6:52
+        |vpiLhs:
+        \_ref_obj: (prim_util_pkg::_clog2::result), line:6:33, endln:6:39
+          |vpiParent:
+          \_assignment: , line:6:33, endln:6:52
+          |vpiName:result
+          |vpiFullName:prim_util_pkg::_clog2::result
+          |vpiActual:
+          \_integer_var: (prim_util_pkg::_clog2::result), line:4:13, endln:4:19
+      |vpiCondition:
+      \_operation: , line:6:22, endln:6:31
+        |vpiParent:
+        \_for_stmt: (prim_util_pkg::_clog2), line:6:5, endln:6:8
+        |vpiOpType:18
+        |vpiOperand:
+        \_ref_obj: (prim_util_pkg::_clog2::value), line:6:22, endln:6:27
+          |vpiParent:
+          \_operation: , line:6:22, endln:6:31
+          |vpiName:value
+          |vpiFullName:prim_util_pkg::_clog2::value
+          |vpiActual:
+          \_io_decl: (value), line:3:45, endln:3:50
+        |vpiOperand:
+        \_constant: , line:6:30, endln:6:31
+      |vpiStmt:
+      \_begin: (prim_util_pkg::_clog2), line:6:54, endln:8:8
+        |vpiParent:
+        \_for_stmt: (prim_util_pkg::_clog2), line:6:5, endln:6:8
+        |vpiFullName:prim_util_pkg::_clog2
+        |vpiStmt:
+        \_assignment: , line:7:7, endln:7:25
+          |vpiParent:
+          \_begin: (prim_util_pkg::_clog2), line:6:54, endln:8:8
+          |vpiOpType:82
+          |vpiBlocking:1
+          |vpiRhs:
+          \_operation: , line:7:15, endln:7:25
+            |vpiParent:
+            \_assignment: , line:7:7, endln:7:25
+            |vpiOpType:23
+            |vpiOperand:
+            \_ref_obj: (prim_util_pkg::_clog2::value), line:7:15, endln:7:20
+              |vpiParent:
+              \_operation: , line:7:15, endln:7:25
+              |vpiName:value
+              |vpiFullName:prim_util_pkg::_clog2::value
+              |vpiActual:
+              \_io_decl: (value), line:3:45, endln:3:50
+            |vpiOperand:
+            \_constant: , line:7:24, endln:7:25
+          |vpiLhs:
+          \_ref_obj: (prim_util_pkg::_clog2::value), line:7:7, endln:7:12
+            |vpiParent:
+            \_assignment: , line:7:7, endln:7:25
+            |vpiName:value
+            |vpiFullName:prim_util_pkg::_clog2::value
+            |vpiActual:
+            \_io_decl: (value), line:3:45, endln:3:50
+    |vpiStmt:
+    \_return_stmt: , line:9:5, endln:9:11
+      |vpiParent:
+      \_begin: (prim_util_pkg::_clog2), line:5:5, endln:5:23
+      |vpiCondition:
+      \_ref_obj: (prim_util_pkg::_clog2::result), line:9:12, endln:9:18
+        |vpiParent:
+        \_return_stmt: , line:9:5, endln:9:11
+        |vpiName:result
+        |vpiFullName:prim_util_pkg::_clog2::result
+        |vpiActual:
+        \_integer_var: (prim_util_pkg::_clog2::result), line:4:13, endln:4:19
+  |vpiInstance:
+  \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:1:1, endln:18:11
+\_function: (prim_util_pkg::vbits), line:12:3, endln:16:14
+  |vpiParent:
+  \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:1:1, endln:18:11
+  |vpiName:vbits
+  |vpiFullName:prim_util_pkg::vbits
+  |vpiVisibility:1
+  |vpiAutomatic:1
+  |vpiReturn:
+  \_integer_var: (prim_util_pkg::vbits), line:12:22, endln:12:29
+  |vpiIODecl:
+  \_io_decl: (value), line:12:44, endln:12:49
+    |vpiParent:
+    \_function: (prim_util_pkg::vbits), line:12:3, endln:16:14
+    |vpiDirection:1
+    |vpiName:value
+    |vpiTypedef:
+    \_ref_obj: (prim_util_pkg::vbits::value)
+      |vpiParent:
+      \_io_decl: (value), line:12:44, endln:12:49
+      |vpiFullName:prim_util_pkg::vbits::value
+      |vpiActual:
+      \_integer_typespec: , line:12:36, endln:12:43
+  |vpiStmt:
+  \_return_stmt: , line:14:5, endln:14:11
+    |vpiParent:
+    \_function: (prim_util_pkg::vbits), line:12:3, endln:16:14
+    |vpiCondition:
+    \_operation: , line:14:12, endln:14:59
+      |vpiParent:
+      \_return_stmt: , line:14:5, endln:14:11
+      |vpiOpType:32
+      |vpiOperand:
+      \_operation: , line:14:13, endln:14:23
+        |vpiParent:
+        \_operation: , line:14:12, endln:14:59
+        |vpiOpType:14
+        |vpiOperand:
+        \_ref_obj: (prim_util_pkg::vbits::value), line:14:13, endln:14:18
+          |vpiParent:
+          \_operation: , line:14:13, endln:14:23
+          |vpiName:value
+          |vpiFullName:prim_util_pkg::vbits::value
+          |vpiActual:
+          \_io_decl: (value), line:12:44, endln:12:49
+        |vpiOperand:
+        \_constant: , line:14:22, endln:14:23
+      |vpiOperand:
+      \_constant: , line:14:27, endln:14:28
+      |vpiOperand:
+      \_func_call: (prim_util_pkg::_clog2), line:14:31, endln:14:44
+        |vpiParent:
+        \_operation: , line:14:12, endln:14:59
+        |vpiArgument:
+        \_ref_obj: (prim_util_pkg::vbits::value), line:14:53, endln:14:58
+          |vpiParent:
+          \_func_call: (prim_util_pkg::_clog2), line:14:31, endln:14:44
+          |vpiTypespec:
+          \_ref_obj: (prim_util_pkg::vbits::value)
+            |vpiParent:
+            \_ref_obj: (prim_util_pkg::vbits::value), line:14:53, endln:14:58
+            |vpiFullName:prim_util_pkg::vbits::value
+            |vpiActual:
+            \_integer_typespec: , line:3:37, endln:3:44
+          |vpiName:value
+          |vpiFullName:prim_util_pkg::vbits::value
+          |vpiActual:
+          \_io_decl: (value), line:12:44, endln:12:49
+        |vpiName:prim_util_pkg::_clog2
+        |vpiFunction:
+        \_function: (prim_util_pkg::_clog2), line:3:3, endln:10:14
+  |vpiInstance:
+  \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:1:1, endln:18:11
+\_integer_typespec: , line:3:22, endln:3:29
+  |vpiInstance:
+  \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:1:1, endln:18:11
+  |vpiSigned:1
+\_integer_typespec: , line:3:37, endln:3:44
+  |vpiInstance:
+  \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:1:1, endln:18:11
+  |vpiSigned:1
+\_integer_typespec: , line:4:5, endln:4:12
+  |vpiInstance:
+  \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:1:1, endln:18:11
+  |vpiSigned:1
+\_integer_typespec: , line:12:22, endln:12:29
+  |vpiInstance:
+  \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:1:1, endln:18:11
+  |vpiSigned:1
+\_integer_typespec: , line:12:36, endln:12:43
+  |vpiInstance:
+  \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:1:1, endln:18:11
+  |vpiSigned:1
+\_function: (prim_util_pkg::_clog2), line:3:3, endln:10:14
+  |vpiParent:
+  \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:1:1, endln:18:11
+  |vpiName:_clog2
+  |vpiFullName:prim_util_pkg::_clog2
+  |vpiVariables:
+  \_integer_var: (prim_util_pkg::_clog2::result), line:4:13, endln:4:19
+    |vpiParent:
+    \_begin: (prim_util_pkg::_clog2), line:5:5, endln:5:23
+    |vpiTypespec:
+    \_ref_obj: (prim_util_pkg::_clog2::result)
+      |vpiParent:
+      \_integer_var: (prim_util_pkg::_clog2::result), line:4:13, endln:4:19
+      |vpiFullName:prim_util_pkg::_clog2::result
+      |vpiActual:
+      \_integer_typespec: , line:4:5, endln:4:12
+    |vpiName:result
+    |vpiFullName:prim_util_pkg::_clog2::result
+    |vpiSigned:1
+  |vpiVisibility:1
+  |vpiAutomatic:1
+  |vpiReturn:
+  \_integer_var: (prim_util_pkg::_clog2), line:3:22, endln:3:29
+  |vpiIODecl:
+  \_io_decl: (value), line:3:45, endln:3:50
+    |vpiParent:
+    \_function: (prim_util_pkg::_clog2), line:3:3, endln:10:14
+    |vpiDirection:1
+    |vpiName:value
+    |vpiTypedef:
+    \_ref_obj: (prim_util_pkg::_clog2::value)
+      |vpiParent:
+      \_io_decl: (value), line:3:45, endln:3:50
+      |vpiFullName:prim_util_pkg::_clog2::value
+      |vpiActual:
+      \_integer_typespec: , line:3:37, endln:3:44
+  |vpiStmt:
+  \_begin: (prim_util_pkg::_clog2), line:5:5, endln:5:23
+    |vpiParent:
+    \_function: (prim_util_pkg::_clog2), line:3:3, endln:10:14
+    |vpiFullName:prim_util_pkg::_clog2
+    |vpiVariables:
+    \_integer_var: (prim_util_pkg::_clog2::result), line:4:13, endln:4:19
+    |vpiStmt:
+    \_assignment: , line:5:5, endln:5:22
+      |vpiParent:
+      \_begin: (prim_util_pkg::_clog2), line:5:5, endln:5:23
+      |vpiOpType:82
+      |vpiBlocking:1
+      |vpiRhs:
+      \_operation: , line:5:13, endln:5:22
+        |vpiParent:
+        \_assignment: , line:5:5, endln:5:22
+        |vpiOpType:11
+        |vpiOperand:
+        \_ref_obj: (prim_util_pkg::_clog2::value), line:5:13, endln:5:18
+          |vpiParent:
+          \_operation: , line:5:13, endln:5:22
+          |vpiName:value
+          |vpiFullName:prim_util_pkg::_clog2::value
+          |vpiActual:
+          \_io_decl: (value), line:3:45, endln:3:50
+        |vpiOperand:
+        \_constant: , line:5:21, endln:5:22
+      |vpiLhs:
+      \_ref_obj: (prim_util_pkg::_clog2::value), line:5:5, endln:5:10
+        |vpiParent:
+        \_assignment: , line:5:5, endln:5:22
+        |vpiName:value
+        |vpiFullName:prim_util_pkg::_clog2::value
+        |vpiActual:
+        \_io_decl: (value), line:3:45, endln:3:50
+    |vpiStmt:
+    \_for_stmt: (prim_util_pkg::_clog2), line:6:5, endln:6:8
+      |vpiParent:
+      \_begin: (prim_util_pkg::_clog2), line:5:5, endln:5:23
+      |vpiFullName:prim_util_pkg::_clog2
+      |vpiForInitStmt:
+      \_assign_stmt: , line:6:10, endln:6:20
+        |vpiParent:
+        \_for_stmt: (prim_util_pkg::_clog2), line:6:5, endln:6:8
+        |vpiRhs:
+        \_constant: , line:6:19, endln:6:20
+        |vpiLhs:
+        \_ref_var: (prim_util_pkg::_clog2::result), line:6:10, endln:6:16
+          |vpiParent:
+          \_assign_stmt: , line:6:10, endln:6:20
+          |vpiName:result
+          |vpiFullName:prim_util_pkg::_clog2::result
+      |vpiForIncStmt:
+      \_assignment: , line:6:33, endln:6:52
+        |vpiParent:
+        \_for_stmt: (prim_util_pkg::_clog2), line:6:5, endln:6:8
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiRhs:
+        \_operation: , line:6:42, endln:6:52
+          |vpiParent:
+          \_assignment: , line:6:33, endln:6:52
+          |vpiOpType:24
+          |vpiOperand:
+          \_ref_obj: (prim_util_pkg::_clog2::result), line:6:42, endln:6:48
+            |vpiParent:
+            \_operation: , line:6:42, endln:6:52
+            |vpiName:result
+            |vpiFullName:prim_util_pkg::_clog2::result
+            |vpiActual:
+            \_integer_var: (prim_util_pkg::_clog2::result), line:4:13, endln:4:19
+          |vpiOperand:
+          \_constant: , line:6:51, endln:6:52
+        |vpiLhs:
+        \_ref_obj: (prim_util_pkg::_clog2::result), line:6:33, endln:6:39
+          |vpiParent:
+          \_assignment: , line:6:33, endln:6:52
+          |vpiName:result
+          |vpiFullName:prim_util_pkg::_clog2::result
+          |vpiActual:
+          \_integer_var: (prim_util_pkg::_clog2::result), line:4:13, endln:4:19
+      |vpiCondition:
+      \_operation: , line:6:22, endln:6:31
+        |vpiParent:
+        \_for_stmt: (prim_util_pkg::_clog2), line:6:5, endln:6:8
+        |vpiOpType:18
+        |vpiOperand:
+        \_ref_obj: (prim_util_pkg::_clog2::value), line:6:22, endln:6:27
+          |vpiParent:
+          \_operation: , line:6:22, endln:6:31
+          |vpiName:value
+          |vpiFullName:prim_util_pkg::_clog2::value
+          |vpiActual:
+          \_io_decl: (value), line:3:45, endln:3:50
+        |vpiOperand:
+        \_constant: , line:6:30, endln:6:31
+      |vpiStmt:
+      \_begin: (prim_util_pkg::_clog2), line:6:54, endln:8:8
+        |vpiParent:
+        \_for_stmt: (prim_util_pkg::_clog2), line:6:5, endln:6:8
+        |vpiFullName:prim_util_pkg::_clog2
+        |vpiStmt:
+        \_assignment: , line:7:7, endln:7:25
+          |vpiParent:
+          \_begin: (prim_util_pkg::_clog2), line:6:54, endln:8:8
+          |vpiOpType:82
+          |vpiBlocking:1
+          |vpiRhs:
+          \_operation: , line:7:15, endln:7:25
+            |vpiParent:
+            \_assignment: , line:7:7, endln:7:25
+            |vpiOpType:23
+            |vpiOperand:
+            \_ref_obj: (prim_util_pkg::_clog2::value), line:7:15, endln:7:20
+              |vpiParent:
+              \_operation: , line:7:15, endln:7:25
+              |vpiName:value
+              |vpiFullName:prim_util_pkg::_clog2::value
+              |vpiActual:
+              \_io_decl: (value), line:3:45, endln:3:50
+            |vpiOperand:
+            \_constant: , line:7:24, endln:7:25
+          |vpiLhs:
+          \_ref_obj: (prim_util_pkg::_clog2::value), line:7:7, endln:7:12
+            |vpiParent:
+            \_assignment: , line:7:7, endln:7:25
+            |vpiName:value
+            |vpiFullName:prim_util_pkg::_clog2::value
+            |vpiActual:
+            \_io_decl: (value), line:3:45, endln:3:50
+    |vpiStmt:
+    \_return_stmt: , line:9:5, endln:9:11
+      |vpiParent:
+      \_begin: (prim_util_pkg::_clog2), line:5:5, endln:5:23
+      |vpiCondition:
+      \_ref_obj: (prim_util_pkg::_clog2::result), line:9:12, endln:9:18
+        |vpiParent:
+        \_return_stmt: , line:9:5, endln:9:11
+        |vpiName:result
+        |vpiFullName:prim_util_pkg::_clog2::result
+        |vpiActual:
+        \_integer_var: (prim_util_pkg::_clog2::result), line:4:13, endln:4:19
+  |vpiInstance:
+  \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:1:1, endln:18:11
+\_function: (prim_util_pkg::vbits), line:12:3, endln:16:14
+  |vpiParent:
+  \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:1:1, endln:18:11
+  |vpiName:vbits
+  |vpiFullName:prim_util_pkg::vbits
+  |vpiVisibility:1
+  |vpiAutomatic:1
+  |vpiReturn:
+  \_integer_var: (prim_util_pkg::vbits), line:12:22, endln:12:29
+  |vpiIODecl:
+  \_io_decl: (value), line:12:44, endln:12:49
+    |vpiParent:
+    \_function: (prim_util_pkg::vbits), line:12:3, endln:16:14
+    |vpiDirection:1
+    |vpiName:value
+    |vpiTypedef:
+    \_ref_obj: (prim_util_pkg::vbits::value)
+      |vpiParent:
+      \_io_decl: (value), line:12:44, endln:12:49
+      |vpiFullName:prim_util_pkg::vbits::value
+      |vpiActual:
+      \_integer_typespec: , line:12:36, endln:12:43
+  |vpiStmt:
+  \_return_stmt: , line:14:5, endln:14:11
+    |vpiParent:
+    \_function: (prim_util_pkg::vbits), line:12:3, endln:16:14
+    |vpiCondition:
+    \_operation: , line:14:12, endln:14:59
+      |vpiParent:
+      \_return_stmt: , line:14:5, endln:14:11
+      |vpiOpType:32
+      |vpiOperand:
+      \_operation: , line:14:13, endln:14:23
+        |vpiParent:
+        \_operation: , line:14:12, endln:14:59
+        |vpiOpType:14
+        |vpiOperand:
+        \_ref_obj: (prim_util_pkg::vbits::value), line:14:13, endln:14:18
+          |vpiParent:
+          \_operation: , line:14:13, endln:14:23
+          |vpiName:value
+          |vpiFullName:prim_util_pkg::vbits::value
+          |vpiActual:
+          \_io_decl: (value), line:12:44, endln:12:49
+        |vpiOperand:
+        \_constant: , line:14:22, endln:14:23
+      |vpiOperand:
+      \_constant: , line:14:27, endln:14:28
+      |vpiOperand:
+      \_func_call: (prim_util_pkg::_clog2), line:14:31, endln:14:44
+        |vpiParent:
+        \_operation: , line:14:12, endln:14:59
+        |vpiArgument:
+        \_ref_obj: (prim_util_pkg::vbits::value), line:14:53, endln:14:58
+          |vpiParent:
+          \_func_call: (prim_util_pkg::_clog2), line:14:31, endln:14:44
+          |vpiName:value
+          |vpiFullName:prim_util_pkg::vbits::value
+          |vpiActual:
+          \_io_decl: (value), line:12:44, endln:12:49
+        |vpiName:prim_util_pkg::_clog2
+        |vpiFunction:
+        \_function: (prim_util_pkg::_clog2), line:3:3, endln:10:14
+  |vpiInstance:
+  \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:1:1, endln:18:11
+\_integer_typespec: , line:3:22, endln:3:29
+  |vpiInstance:
+  \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:1:1, endln:18:11
+  |vpiSigned:1
+\_integer_typespec: , line:3:37, endln:3:44
+  |vpiInstance:
+  \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:1:1, endln:18:11
+  |vpiSigned:1
+\_integer_typespec: , line:4:5, endln:4:12
+  |vpiInstance:
+  \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:1:1, endln:18:11
+  |vpiSigned:1
+\_integer_typespec: , line:12:22, endln:12:29
+  |vpiInstance:
+  \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:1:1, endln:18:11
+  |vpiSigned:1
+\_integer_typespec: , line:12:36, endln:12:43
+  |vpiInstance:
+  \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFunc/dut.sv, line:1:1, endln:18:11
+  |vpiSigned:1
+\_integer_typespec: , line:24:20, endln:24:27
+  |vpiSigned:1
+\_integer_typespec: , line:24:34, endln:24:41
+  |vpiSigned:1
+\_integer_typespec: , line:28:10, endln:28:17
+  |vpiSigned:1
+\_integer_typespec: , line:29:7, endln:29:14
+  |vpiSigned:1
+\_integer_typespec: , line:33:10, endln:33:17
+  |vpiSigned:1
+\_integer_typespec: , line:34:7, endln:34:14
+  |vpiSigned:1
+\_logic_typespec: , line:35:1, endln:35:11
+  |vpiRange:
+  \_range: , line:35:5, endln:35:11
+    |vpiParent:
+    \_logic_typespec: , line:35:1, endln:35:11
+    |vpiLeftRange:
+    \_constant: , line:35:6, endln:35:8
+      |vpiParent:
+      \_range: , line:35:5, endln:35:11
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:35:9, endln:35:10
+      |vpiParent:
+      \_range: , line:35:5, endln:35:11
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_integer_typespec: , line:36:1, endln:36:8
+  |vpiSigned:1
+\_integer_typespec: , line:51:10, endln:51:17
+  |vpiSigned:1
+\_integer_typespec: , line:52:7, endln:52:14
+  |vpiSigned:1
+\_int_typespec: , line:63:1, endln:63:22
+\_int_typespec: , line:63:1, endln:63:22
+  |vpiParent:
+  \_ref_obj: (work@top.RATIO)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

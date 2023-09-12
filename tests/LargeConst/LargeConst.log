@@ -126,7 +126,7 @@ int_typespec                                           2
 logic_net                                              5
 module_inst                                            3
 operation                                              2
-ref_obj                                               10
+ref_obj                                               12
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -134,11 +134,11 @@ ref_obj                                               10
 constant                                              14
 cont_assign                                           15
 design                                                 1
-int_typespec                                           3
+int_typespec                                           2
 logic_net                                              5
 module_inst                                            3
 operation                                              3
-ref_obj                                               15
+ref_obj                                               18
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/LargeConst/slpp_all/surelog.uhdm ...
 
@@ -225,8 +225,12 @@ design: (work@dut)
       |vpiSize:-1
       |DEC:147573952589676412928
       |vpiTypespec:
-      \_int_typespec: 
-        |vpiSigned:1
+      \_ref_obj: (work@dut)
+        |vpiParent:
+        \_constant: , line:3:15, endln:3:39
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_int_typespec: 
       |vpiConstType:1
     |vpiLhs:
     \_ref_obj: (work@dut.b), line:3:11, endln:3:12
@@ -337,10 +341,12 @@ design: (work@dut)
       |vpiSize:-1
       |DEC:147573952589676412928
       |vpiTypespec:
-      \_int_typespec: 
+      \_ref_obj: (work@dut)
         |vpiParent:
         \_constant: , line:3:15, endln:3:39
-        |vpiSigned:1
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_int_typespec: 
       |vpiConstType:1
     |vpiLhs:
     \_ref_obj: (work@dut.b), line:3:11, endln:3:12
@@ -409,6 +415,61 @@ design: (work@dut)
       |vpiFullName:work@dut.e
       |vpiActual:
       \_logic_net: (work@dut.e), line:6:11, endln:6:12
+\_weaklyReferenced:
+\_int_typespec: 
+  |vpiSigned:1
+\_cont_assign: , line:2:11, endln:2:39
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/LargeConst/dut.sv, line:1:1, endln:8:10
+  |vpiRhs:
+  \_constant: , line:2:18, endln:2:39
+  |vpiLhs:
+  \_ref_obj: (work@dut.a), line:2:11, endln:2:12
+    |vpiParent:
+    \_cont_assign: , line:2:11, endln:2:39
+    |vpiName:a
+    |vpiFullName:work@dut.a
+    |vpiActual:
+    \_logic_net: (work@dut.a), line:2:11, endln:2:12
+\_cont_assign: , line:3:11, endln:3:39
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/LargeConst/dut.sv, line:1:1, endln:8:10
+  |vpiRhs:
+  \_constant: , line:3:15, endln:3:39
+  |vpiLhs:
+  \_ref_obj: (work@dut.b), line:3:11, endln:3:12
+    |vpiParent:
+    \_cont_assign: , line:3:11, endln:3:39
+    |vpiName:b
+    |vpiFullName:work@dut.b
+    |vpiActual:
+    \_logic_net: (work@dut.b), line:3:11, endln:3:12
+\_cont_assign: , line:4:11, endln:4:39
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/LargeConst/dut.sv, line:1:1, endln:8:10
+  |vpiRhs:
+  \_constant: , line:4:19, endln:4:39
+  |vpiLhs:
+  \_ref_obj: (work@dut.c), line:4:11, endln:4:12
+    |vpiParent:
+    \_cont_assign: , line:4:11, endln:4:39
+    |vpiName:c
+    |vpiFullName:work@dut.c
+    |vpiActual:
+    \_logic_net: (work@dut.c), line:4:11, endln:4:12
+\_cont_assign: , line:5:11, endln:5:39
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/LargeConst/dut.sv, line:1:1, endln:8:10
+  |vpiRhs:
+  \_constant: , line:5:19, endln:5:39
+  |vpiLhs:
+  \_ref_obj: (work@dut.d), line:5:11, endln:5:12
+    |vpiParent:
+    \_cont_assign: , line:5:11, endln:5:39
+    |vpiName:d
+    |vpiFullName:work@dut.d
+    |vpiActual:
+    \_logic_net: (work@dut.d), line:5:11, endln:5:12
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

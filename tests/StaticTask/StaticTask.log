@@ -115,7 +115,7 @@ integer_typespec                                       1
 integer_var                                            1
 module_inst                                            2
 operation                                              1
-ref_obj                                                3
+ref_obj                                                4
 sys_func_call                                          1
 task                                                   1
 task_call                                              1
@@ -133,7 +133,7 @@ integer_typespec                                       1
 integer_var                                            4
 module_inst                                            2
 operation                                              2
-ref_obj                                                6
+ref_obj                                               10
 sys_func_call                                          2
 task                                                   2
 task_call                                              2
@@ -167,8 +167,12 @@ design: (work@tb)
       |vpiParent:
       \_assign_stmt: , line:6:10, endln:6:15
       |vpiTypespec:
-      \_integer_typespec: , line:6:2, endln:6:9
-        |vpiSigned:1
+      \_ref_obj: (work@tb.display.i)
+        |vpiParent:
+        \_integer_var: (work@tb.display.i), line:6:10, endln:6:11
+        |vpiFullName:work@tb.display.i
+        |vpiActual:
+        \_integer_typespec: , line:6:2, endln:6:9
       |vpiName:i
       |vpiFullName:work@tb.display.i
       |vpiSigned:1
@@ -277,7 +281,12 @@ design: (work@tb)
       |vpiParent:
       \_task: (work@tb.display), line:5:2, endln:9:9
       |vpiTypespec:
-      \_integer_typespec: , line:6:2, endln:6:9
+      \_ref_obj: (work@tb.display.i)
+        |vpiParent:
+        \_integer_var: (work@tb.display.i), line:6:10, endln:6:11
+        |vpiFullName:work@tb.display.i
+        |vpiActual:
+        \_integer_typespec: , line:6:2, endln:6:9
       |vpiName:i
       |vpiFullName:work@tb.display.i
       |vpiSigned:1
@@ -292,7 +301,12 @@ design: (work@tb)
         |vpiParent:
         \_begin: (work@tb.display), line:7:2, endln:7:12
         |vpiTypespec:
-        \_integer_typespec: , line:6:2, endln:6:9
+        \_ref_obj: (work@tb.display.i)
+          |vpiParent:
+          \_integer_var: (work@tb.display.i), line:6:10, endln:6:11
+          |vpiFullName:work@tb.display.i
+          |vpiActual:
+          \_integer_typespec: , line:6:2, endln:6:9
         |vpiName:i
         |vpiFullName:work@tb.display.i
         |vpiSigned:1
@@ -307,7 +321,12 @@ design: (work@tb)
           |vpiParent:
           \_assign_stmt: , line:6:10, endln:6:15
           |vpiTypespec:
-          \_integer_typespec: , line:6:2, endln:6:9
+          \_ref_obj: (work@tb.display.i)
+            |vpiParent:
+            \_integer_var: (work@tb.display.i), line:6:10, endln:6:11
+            |vpiFullName:work@tb.display.i
+            |vpiActual:
+            \_integer_typespec: , line:6:2, endln:6:9
           |vpiName:i
           |vpiFullName:work@tb.display.i
           |vpiSigned:1
@@ -369,6 +388,9 @@ design: (work@tb)
       |vpiName:display
       |vpiTask:
       \_task: (work@tb.display), line:5:2, endln:9:9
+\_weaklyReferenced:
+\_integer_typespec: , line:6:2, endln:6:9
+  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

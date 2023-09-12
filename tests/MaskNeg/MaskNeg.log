@@ -98,6 +98,7 @@ param_assign                                           2
 parameter                                              2
 range                                                  2
 ref_module                                             1
+ref_obj                                                3
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -111,6 +112,7 @@ param_assign                                           2
 parameter                                              2
 range                                                  2
 ref_module                                             1
+ref_obj                                                3
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/MaskNeg/slpp_all/surelog.uhdm ...
 
@@ -134,29 +136,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/MaskNeg/dut.sv, line:1:1, endln:3:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:14, endln:2:25
+    \_ref_obj: (work@dut.RESVAL)
       |vpiParent:
       \_parameter: (work@dut.RESVAL), line:2:26, endln:2:32
-      |vpiRange:
-      \_range: , line:2:20, endln:2:25
-        |vpiParent:
-        \_logic_typespec: , line:2:14, endln:2:25
-        |vpiLeftRange:
-        \_constant: , line:2:21, endln:2:22
-          |vpiParent:
-          \_range: , line:2:20, endln:2:25
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:23, endln:2:24
-          |vpiParent:
-          \_range: , line:2:20, endln:2:25
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@dut.RESVAL
+      |vpiActual:
+      \_logic_typespec: , line:2:14, endln:2:25
     |vpiName:RESVAL
     |vpiFullName:work@dut.RESVAL
   |vpiParamAssign:
@@ -197,29 +182,12 @@ design: (work@top)
       |vpiParent:
       \_module_inst: work@dut (work@top.u_dut), file:${SURELOG_DIR}/tests/MaskNeg/dut.sv, line:6:4, endln:8:14
       |vpiTypespec:
-      \_logic_typespec: , line:2:14, endln:2:25
+      \_ref_obj: (work@top.u_dut.RESVAL)
         |vpiParent:
         \_parameter: (work@top.u_dut.RESVAL), line:2:26, endln:2:32
-        |vpiRange:
-        \_range: , line:2:20, endln:2:25
-          |vpiParent:
-          \_logic_typespec: , line:2:14, endln:2:25
-          |vpiLeftRange:
-          \_constant: , line:2:21, endln:2:22
-            |vpiParent:
-            \_range: , line:2:20, endln:2:25
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:2:23, endln:2:24
-            |vpiParent:
-            \_range: , line:2:20, endln:2:25
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@top.u_dut.RESVAL
+        |vpiActual:
+        \_logic_typespec: , line:2:14, endln:2:25
       |vpiName:RESVAL
       |vpiFullName:work@top.u_dut.RESVAL
     |vpiParamAssign:
@@ -235,7 +203,12 @@ design: (work@top)
         |vpiSize:2
         |UINT:3
         |vpiTypespec:
-        \_logic_typespec: , line:2:14, endln:2:25
+        \_ref_obj: (work@top.u_dut)
+          |vpiParent:
+          \_constant: 
+          |vpiFullName:work@top.u_dut
+          |vpiActual:
+          \_logic_typespec: , line:2:14, endln:2:25
         |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@top.u_dut.RESVAL), line:2:26, endln:2:32
@@ -244,6 +217,53 @@ design: (work@top)
     |vpiDefLineNo:1
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/MaskNeg/dut.sv, line:5:1, endln:9:10
+\_weaklyReferenced:
+\_logic_typespec: , line:2:14, endln:2:25
+  |vpiParent:
+  \_parameter: (work@dut.RESVAL), line:2:26, endln:2:32
+  |vpiRange:
+  \_range: , line:2:20, endln:2:25
+    |vpiParent:
+    \_logic_typespec: , line:2:14, endln:2:25
+    |vpiLeftRange:
+    \_constant: , line:2:21, endln:2:22
+      |vpiParent:
+      \_range: , line:2:20, endln:2:25
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:23, endln:2:24
+      |vpiParent:
+      \_range: , line:2:20, endln:2:25
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:2:14, endln:2:25
+  |vpiParent:
+  \_ref_obj: (work@top.u_dut.RESVAL)
+  |vpiRange:
+  \_range: , line:2:20, endln:2:25
+    |vpiParent:
+    \_logic_typespec: , line:2:14, endln:2:25
+    |vpiLeftRange:
+    \_constant: , line:2:21, endln:2:22
+      |vpiParent:
+      \_range: , line:2:20, endln:2:25
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:23, endln:2:24
+      |vpiParent:
+      \_range: , line:2:20, endln:2:25
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

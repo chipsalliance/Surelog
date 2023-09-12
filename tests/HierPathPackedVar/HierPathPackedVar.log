@@ -308,7 +308,7 @@ param_assign                                           2
 parameter                                              2
 port                                                   2
 range                                                 14
-ref_obj                                                9
+ref_obj                                               40
 struct_typespec                                        2
 struct_var                                             1
 type_parameter                                         1
@@ -337,7 +337,7 @@ param_assign                                           2
 parameter                                              2
 port                                                   3
 range                                                 14
-ref_obj                                               14
+ref_obj                                               46
 struct_typespec                                        2
 struct_var                                             1
 type_parameter                                         1
@@ -376,11 +376,12 @@ design: (work@axi_adapter_arbiter)
       \_struct_typespec: (std_cache_pkg::bypass_req_t), line:2:12, endln:12:2
       |vpiName:req
       |vpiTypespec:
-      \_logic_typespec: , line:3:5, endln:3:10
+      \_ref_obj: (std_cache_pkg::std_cache_pkg::bypass_req_t::req)
         |vpiParent:
         \_typespec_member: (req), line:3:26, endln:3:29
-        |vpiInstance:
-        \_package: std_cache_pkg (std_cache_pkg::), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:1:1, endln:14:11
+        |vpiFullName:std_cache_pkg::std_cache_pkg::bypass_req_t::req
+        |vpiActual:
+        \_logic_typespec: , line:3:5, endln:3:10
       |vpiRefFile:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv
       |vpiRefLineNo:3
       |vpiRefColumnNo:5
@@ -392,12 +393,12 @@ design: (work@axi_adapter_arbiter)
       \_struct_typespec: (std_cache_pkg::bypass_req_t), line:2:12, endln:12:2
       |vpiName:reqtype
       |vpiTypespec:
-      \_unsupported_typespec: (ariane_axi::ad_req_t), line:4:5, endln:4:17
+      \_ref_obj: (std_cache_pkg::std_cache_pkg::bypass_req_t::reqtype)
         |vpiParent:
         \_typespec_member: (reqtype), line:4:26, endln:4:33
-        |vpiName:ariane_axi::ad_req_t
-        |vpiInstance:
-        \_package: std_cache_pkg (std_cache_pkg::), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:1:1, endln:14:11
+        |vpiFullName:std_cache_pkg::std_cache_pkg::bypass_req_t::reqtype
+        |vpiActual:
+        \_unsupported_typespec: (ariane_axi::ad_req_t), line:4:5, endln:4:17
       |vpiRefFile:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv
       |vpiRefLineNo:4
       |vpiRefColumnNo:5
@@ -409,12 +410,12 @@ design: (work@axi_adapter_arbiter)
       \_struct_typespec: (std_cache_pkg::bypass_req_t), line:2:12, endln:12:2
       |vpiName:amo
       |vpiTypespec:
-      \_unsupported_typespec: (ariane_pkg::amo_t), line:5:5, endln:5:17
+      \_ref_obj: (std_cache_pkg::std_cache_pkg::bypass_req_t::amo)
         |vpiParent:
         \_typespec_member: (amo), line:5:26, endln:5:29
-        |vpiName:ariane_pkg::amo_t
-        |vpiInstance:
-        \_package: std_cache_pkg (std_cache_pkg::), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:1:1, endln:14:11
+        |vpiFullName:std_cache_pkg::std_cache_pkg::bypass_req_t::amo
+        |vpiActual:
+        \_unsupported_typespec: (ariane_pkg::amo_t), line:5:5, endln:5:17
       |vpiRefFile:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv
       |vpiRefLineNo:5
       |vpiRefColumnNo:5
@@ -426,31 +427,12 @@ design: (work@axi_adapter_arbiter)
       \_struct_typespec: (std_cache_pkg::bypass_req_t), line:2:12, endln:12:2
       |vpiName:id
       |vpiTypespec:
-      \_logic_typespec: , line:6:5, endln:6:16
+      \_ref_obj: (std_cache_pkg::std_cache_pkg::bypass_req_t::id)
         |vpiParent:
         \_typespec_member: (id), line:6:26, endln:6:28
-        |vpiInstance:
-        \_package: std_cache_pkg (std_cache_pkg::), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:1:1, endln:14:11
-        |vpiRange:
-        \_range: , line:6:11, endln:6:16
-          |vpiParent:
-          \_logic_typespec: , line:6:5, endln:6:16
-          |vpiLeftRange:
-          \_constant: , line:6:12, endln:6:13
-            |vpiParent:
-            \_range: , line:6:11, endln:6:16
-            |vpiDecompile:3
-            |vpiSize:64
-            |UINT:3
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:6:14, endln:6:15
-            |vpiParent:
-            \_range: , line:6:11, endln:6:16
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:std_cache_pkg::std_cache_pkg::bypass_req_t::id
+        |vpiActual:
+        \_logic_typespec: , line:6:5, endln:6:16
       |vpiRefFile:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv
       |vpiRefLineNo:6
       |vpiRefColumnNo:5
@@ -462,31 +444,12 @@ design: (work@axi_adapter_arbiter)
       \_struct_typespec: (std_cache_pkg::bypass_req_t), line:2:12, endln:12:2
       |vpiName:addr
       |vpiTypespec:
-      \_logic_typespec: , line:7:5, endln:7:17
+      \_ref_obj: (std_cache_pkg::std_cache_pkg::bypass_req_t::addr)
         |vpiParent:
         \_typespec_member: (addr), line:7:26, endln:7:30
-        |vpiInstance:
-        \_package: std_cache_pkg (std_cache_pkg::), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:1:1, endln:14:11
-        |vpiRange:
-        \_range: , line:7:11, endln:7:17
-          |vpiParent:
-          \_logic_typespec: , line:7:5, endln:7:17
-          |vpiLeftRange:
-          \_constant: , line:7:12, endln:7:14
-            |vpiParent:
-            \_range: , line:7:11, endln:7:17
-            |vpiDecompile:63
-            |vpiSize:64
-            |UINT:63
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:7:15, endln:7:16
-            |vpiParent:
-            \_range: , line:7:11, endln:7:17
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:std_cache_pkg::std_cache_pkg::bypass_req_t::addr
+        |vpiActual:
+        \_logic_typespec: , line:7:5, endln:7:17
       |vpiRefFile:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv
       |vpiRefLineNo:7
       |vpiRefColumnNo:5
@@ -498,31 +461,12 @@ design: (work@axi_adapter_arbiter)
       \_struct_typespec: (std_cache_pkg::bypass_req_t), line:2:12, endln:12:2
       |vpiName:wdata
       |vpiTypespec:
-      \_logic_typespec: , line:8:5, endln:8:17
+      \_ref_obj: (std_cache_pkg::std_cache_pkg::bypass_req_t::wdata)
         |vpiParent:
         \_typespec_member: (wdata), line:8:26, endln:8:31
-        |vpiInstance:
-        \_package: std_cache_pkg (std_cache_pkg::), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:1:1, endln:14:11
-        |vpiRange:
-        \_range: , line:8:11, endln:8:17
-          |vpiParent:
-          \_logic_typespec: , line:8:5, endln:8:17
-          |vpiLeftRange:
-          \_constant: , line:8:12, endln:8:14
-            |vpiParent:
-            \_range: , line:8:11, endln:8:17
-            |vpiDecompile:63
-            |vpiSize:64
-            |UINT:63
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:8:15, endln:8:16
-            |vpiParent:
-            \_range: , line:8:11, endln:8:17
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:std_cache_pkg::std_cache_pkg::bypass_req_t::wdata
+        |vpiActual:
+        \_logic_typespec: , line:8:5, endln:8:17
       |vpiRefFile:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv
       |vpiRefLineNo:8
       |vpiRefColumnNo:5
@@ -534,11 +478,12 @@ design: (work@axi_adapter_arbiter)
       \_struct_typespec: (std_cache_pkg::bypass_req_t), line:2:12, endln:12:2
       |vpiName:we
       |vpiTypespec:
-      \_logic_typespec: , line:9:5, endln:9:10
+      \_ref_obj: (std_cache_pkg::std_cache_pkg::bypass_req_t::we)
         |vpiParent:
         \_typespec_member: (we), line:9:26, endln:9:28
-        |vpiInstance:
-        \_package: std_cache_pkg (std_cache_pkg::), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:1:1, endln:14:11
+        |vpiFullName:std_cache_pkg::std_cache_pkg::bypass_req_t::we
+        |vpiActual:
+        \_logic_typespec: , line:9:5, endln:9:10
       |vpiRefFile:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv
       |vpiRefLineNo:9
       |vpiRefColumnNo:5
@@ -550,31 +495,12 @@ design: (work@axi_adapter_arbiter)
       \_struct_typespec: (std_cache_pkg::bypass_req_t), line:2:12, endln:12:2
       |vpiName:be
       |vpiTypespec:
-      \_logic_typespec: , line:10:5, endln:10:16
+      \_ref_obj: (std_cache_pkg::std_cache_pkg::bypass_req_t::be)
         |vpiParent:
         \_typespec_member: (be), line:10:26, endln:10:28
-        |vpiInstance:
-        \_package: std_cache_pkg (std_cache_pkg::), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:1:1, endln:14:11
-        |vpiRange:
-        \_range: , line:10:11, endln:10:16
-          |vpiParent:
-          \_logic_typespec: , line:10:5, endln:10:16
-          |vpiLeftRange:
-          \_constant: , line:10:12, endln:10:13
-            |vpiParent:
-            \_range: , line:10:11, endln:10:16
-            |vpiDecompile:7
-            |vpiSize:64
-            |UINT:7
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:10:14, endln:10:15
-            |vpiParent:
-            \_range: , line:10:11, endln:10:16
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:std_cache_pkg::std_cache_pkg::bypass_req_t::be
+        |vpiActual:
+        \_logic_typespec: , line:10:5, endln:10:16
       |vpiRefFile:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv
       |vpiRefLineNo:10
       |vpiRefColumnNo:5
@@ -586,31 +512,12 @@ design: (work@axi_adapter_arbiter)
       \_struct_typespec: (std_cache_pkg::bypass_req_t), line:2:12, endln:12:2
       |vpiName:size
       |vpiTypespec:
-      \_logic_typespec: , line:11:5, endln:11:16
+      \_ref_obj: (std_cache_pkg::std_cache_pkg::bypass_req_t::size)
         |vpiParent:
         \_typespec_member: (size), line:11:26, endln:11:30
-        |vpiInstance:
-        \_package: std_cache_pkg (std_cache_pkg::), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:1:1, endln:14:11
-        |vpiRange:
-        \_range: , line:11:11, endln:11:16
-          |vpiParent:
-          \_logic_typespec: , line:11:5, endln:11:16
-          |vpiLeftRange:
-          \_constant: , line:11:12, endln:11:13
-            |vpiParent:
-            \_range: , line:11:11, endln:11:16
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:11:14, endln:11:15
-            |vpiParent:
-            \_range: , line:11:11, endln:11:16
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:std_cache_pkg::std_cache_pkg::bypass_req_t::size
+        |vpiActual:
+        \_logic_typespec: , line:11:5, endln:11:16
       |vpiRefFile:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv
       |vpiRefLineNo:11
       |vpiRefColumnNo:5
@@ -637,11 +544,12 @@ design: (work@axi_adapter_arbiter)
       \_struct_typespec: (std_cache_pkg::bypass_req_t), line:2:12, endln:12:2
       |vpiName:req
       |vpiTypespec:
-      \_logic_typespec: , line:3:5, endln:3:10
+      \_ref_obj: (std_cache_pkg::std_cache_pkg::bypass_req_t::req)
         |vpiParent:
         \_typespec_member: (req), line:3:26, endln:3:29
-        |vpiInstance:
-        \_package: std_cache_pkg (std_cache_pkg::), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:1:1, endln:14:11
+        |vpiFullName:std_cache_pkg::std_cache_pkg::bypass_req_t::req
+        |vpiActual:
+        \_logic_typespec: , line:3:5, endln:3:10
       |vpiRefFile:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv
       |vpiRefLineNo:3
       |vpiRefColumnNo:5
@@ -653,12 +561,12 @@ design: (work@axi_adapter_arbiter)
       \_struct_typespec: (std_cache_pkg::bypass_req_t), line:2:12, endln:12:2
       |vpiName:reqtype
       |vpiTypespec:
-      \_unsupported_typespec: (ariane_axi::ad_req_t), line:4:5, endln:4:17
+      \_ref_obj: (std_cache_pkg::std_cache_pkg::bypass_req_t::reqtype)
         |vpiParent:
         \_typespec_member: (reqtype), line:4:26, endln:4:33
-        |vpiName:ariane_axi::ad_req_t
-        |vpiInstance:
-        \_package: std_cache_pkg (std_cache_pkg::), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:1:1, endln:14:11
+        |vpiFullName:std_cache_pkg::std_cache_pkg::bypass_req_t::reqtype
+        |vpiActual:
+        \_unsupported_typespec: (ariane_axi::ad_req_t), line:4:5, endln:4:17
       |vpiRefFile:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv
       |vpiRefLineNo:4
       |vpiRefColumnNo:5
@@ -670,12 +578,12 @@ design: (work@axi_adapter_arbiter)
       \_struct_typespec: (std_cache_pkg::bypass_req_t), line:2:12, endln:12:2
       |vpiName:amo
       |vpiTypespec:
-      \_unsupported_typespec: (ariane_pkg::amo_t), line:5:5, endln:5:17
+      \_ref_obj: (std_cache_pkg::std_cache_pkg::bypass_req_t::amo)
         |vpiParent:
         \_typespec_member: (amo), line:5:26, endln:5:29
-        |vpiName:ariane_pkg::amo_t
-        |vpiInstance:
-        \_package: std_cache_pkg (std_cache_pkg::), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:1:1, endln:14:11
+        |vpiFullName:std_cache_pkg::std_cache_pkg::bypass_req_t::amo
+        |vpiActual:
+        \_unsupported_typespec: (ariane_pkg::amo_t), line:5:5, endln:5:17
       |vpiRefFile:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv
       |vpiRefLineNo:5
       |vpiRefColumnNo:5
@@ -687,31 +595,12 @@ design: (work@axi_adapter_arbiter)
       \_struct_typespec: (std_cache_pkg::bypass_req_t), line:2:12, endln:12:2
       |vpiName:id
       |vpiTypespec:
-      \_logic_typespec: , line:6:5, endln:6:16
+      \_ref_obj: (std_cache_pkg::std_cache_pkg::bypass_req_t::id)
         |vpiParent:
         \_typespec_member: (id), line:6:26, endln:6:28
-        |vpiInstance:
-        \_package: std_cache_pkg (std_cache_pkg::), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:1:1, endln:14:11
-        |vpiRange:
-        \_range: , line:6:11, endln:6:16
-          |vpiParent:
-          \_logic_typespec: , line:6:5, endln:6:16
-          |vpiLeftRange:
-          \_constant: , line:6:12, endln:6:13
-            |vpiParent:
-            \_range: , line:6:11, endln:6:16
-            |vpiDecompile:3
-            |vpiSize:64
-            |UINT:3
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:6:14, endln:6:15
-            |vpiParent:
-            \_range: , line:6:11, endln:6:16
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:std_cache_pkg::std_cache_pkg::bypass_req_t::id
+        |vpiActual:
+        \_logic_typespec: , line:6:5, endln:6:16
       |vpiRefFile:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv
       |vpiRefLineNo:6
       |vpiRefColumnNo:5
@@ -723,31 +612,12 @@ design: (work@axi_adapter_arbiter)
       \_struct_typespec: (std_cache_pkg::bypass_req_t), line:2:12, endln:12:2
       |vpiName:addr
       |vpiTypespec:
-      \_logic_typespec: , line:7:5, endln:7:17
+      \_ref_obj: (std_cache_pkg::std_cache_pkg::bypass_req_t::addr)
         |vpiParent:
         \_typespec_member: (addr), line:7:26, endln:7:30
-        |vpiInstance:
-        \_package: std_cache_pkg (std_cache_pkg::), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:1:1, endln:14:11
-        |vpiRange:
-        \_range: , line:7:11, endln:7:17
-          |vpiParent:
-          \_logic_typespec: , line:7:5, endln:7:17
-          |vpiLeftRange:
-          \_constant: , line:7:12, endln:7:14
-            |vpiParent:
-            \_range: , line:7:11, endln:7:17
-            |vpiDecompile:63
-            |vpiSize:64
-            |UINT:63
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:7:15, endln:7:16
-            |vpiParent:
-            \_range: , line:7:11, endln:7:17
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:std_cache_pkg::std_cache_pkg::bypass_req_t::addr
+        |vpiActual:
+        \_logic_typespec: , line:7:5, endln:7:17
       |vpiRefFile:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv
       |vpiRefLineNo:7
       |vpiRefColumnNo:5
@@ -759,31 +629,12 @@ design: (work@axi_adapter_arbiter)
       \_struct_typespec: (std_cache_pkg::bypass_req_t), line:2:12, endln:12:2
       |vpiName:wdata
       |vpiTypespec:
-      \_logic_typespec: , line:8:5, endln:8:17
+      \_ref_obj: (std_cache_pkg::std_cache_pkg::bypass_req_t::wdata)
         |vpiParent:
         \_typespec_member: (wdata), line:8:26, endln:8:31
-        |vpiInstance:
-        \_package: std_cache_pkg (std_cache_pkg::), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:1:1, endln:14:11
-        |vpiRange:
-        \_range: , line:8:11, endln:8:17
-          |vpiParent:
-          \_logic_typespec: , line:8:5, endln:8:17
-          |vpiLeftRange:
-          \_constant: , line:8:12, endln:8:14
-            |vpiParent:
-            \_range: , line:8:11, endln:8:17
-            |vpiDecompile:63
-            |vpiSize:64
-            |UINT:63
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:8:15, endln:8:16
-            |vpiParent:
-            \_range: , line:8:11, endln:8:17
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:std_cache_pkg::std_cache_pkg::bypass_req_t::wdata
+        |vpiActual:
+        \_logic_typespec: , line:8:5, endln:8:17
       |vpiRefFile:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv
       |vpiRefLineNo:8
       |vpiRefColumnNo:5
@@ -795,11 +646,12 @@ design: (work@axi_adapter_arbiter)
       \_struct_typespec: (std_cache_pkg::bypass_req_t), line:2:12, endln:12:2
       |vpiName:we
       |vpiTypespec:
-      \_logic_typespec: , line:9:5, endln:9:10
+      \_ref_obj: (std_cache_pkg::std_cache_pkg::bypass_req_t::we)
         |vpiParent:
         \_typespec_member: (we), line:9:26, endln:9:28
-        |vpiInstance:
-        \_package: std_cache_pkg (std_cache_pkg::), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:1:1, endln:14:11
+        |vpiFullName:std_cache_pkg::std_cache_pkg::bypass_req_t::we
+        |vpiActual:
+        \_logic_typespec: , line:9:5, endln:9:10
       |vpiRefFile:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv
       |vpiRefLineNo:9
       |vpiRefColumnNo:5
@@ -811,31 +663,12 @@ design: (work@axi_adapter_arbiter)
       \_struct_typespec: (std_cache_pkg::bypass_req_t), line:2:12, endln:12:2
       |vpiName:be
       |vpiTypespec:
-      \_logic_typespec: , line:10:5, endln:10:16
+      \_ref_obj: (std_cache_pkg::std_cache_pkg::bypass_req_t::be)
         |vpiParent:
         \_typespec_member: (be), line:10:26, endln:10:28
-        |vpiInstance:
-        \_package: std_cache_pkg (std_cache_pkg::), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:1:1, endln:14:11
-        |vpiRange:
-        \_range: , line:10:11, endln:10:16
-          |vpiParent:
-          \_logic_typespec: , line:10:5, endln:10:16
-          |vpiLeftRange:
-          \_constant: , line:10:12, endln:10:13
-            |vpiParent:
-            \_range: , line:10:11, endln:10:16
-            |vpiDecompile:7
-            |vpiSize:64
-            |UINT:7
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:10:14, endln:10:15
-            |vpiParent:
-            \_range: , line:10:11, endln:10:16
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:std_cache_pkg::std_cache_pkg::bypass_req_t::be
+        |vpiActual:
+        \_logic_typespec: , line:10:5, endln:10:16
       |vpiRefFile:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv
       |vpiRefLineNo:10
       |vpiRefColumnNo:5
@@ -847,31 +680,12 @@ design: (work@axi_adapter_arbiter)
       \_struct_typespec: (std_cache_pkg::bypass_req_t), line:2:12, endln:12:2
       |vpiName:size
       |vpiTypespec:
-      \_logic_typespec: , line:11:5, endln:11:16
+      \_ref_obj: (std_cache_pkg::std_cache_pkg::bypass_req_t::size)
         |vpiParent:
         \_typespec_member: (size), line:11:26, endln:11:30
-        |vpiInstance:
-        \_package: std_cache_pkg (std_cache_pkg::), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:1:1, endln:14:11
-        |vpiRange:
-        \_range: , line:11:11, endln:11:16
-          |vpiParent:
-          \_logic_typespec: , line:11:5, endln:11:16
-          |vpiLeftRange:
-          \_constant: , line:11:12, endln:11:13
-            |vpiParent:
-            \_range: , line:11:11, endln:11:16
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:11:14, endln:11:15
-            |vpiParent:
-            \_range: , line:11:11, endln:11:16
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:std_cache_pkg::std_cache_pkg::bypass_req_t::size
+        |vpiActual:
+        \_logic_typespec: , line:11:5, endln:11:16
       |vpiRefFile:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv
       |vpiRefLineNo:11
       |vpiRefColumnNo:5
@@ -890,7 +704,12 @@ design: (work@axi_adapter_arbiter)
     \_module_inst: work@axi_adapter_arbiter (work@axi_adapter_arbiter), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:16:1, endln:26:10
     |UINT:4
     |vpiTypespec:
-    \_int_typespec: , line:17:5, endln:17:27
+    \_ref_obj: (work@axi_adapter_arbiter.NR_PORTS)
+      |vpiParent:
+      \_parameter: (work@axi_adapter_arbiter.NR_PORTS), line:17:15, endln:17:23
+      |vpiFullName:work@axi_adapter_arbiter.NR_PORTS
+      |vpiActual:
+      \_int_typespec: , line:17:5, endln:17:27
     |vpiName:NR_PORTS
     |vpiFullName:work@axi_adapter_arbiter.NR_PORTS
   |vpiParameter:
@@ -900,7 +719,12 @@ design: (work@axi_adapter_arbiter)
     |vpiName:req_t
     |vpiFullName:work@axi_adapter_arbiter.req_t
     |vpiTypespec:
-    \_struct_typespec: (std_cache_pkg::bypass_req_t), line:2:12, endln:12:2
+    \_ref_obj: (work@axi_adapter_arbiter.req_t)
+      |vpiParent:
+      \_type_parameter: (work@axi_adapter_arbiter.req_t), line:18:20, endln:18:25
+      |vpiFullName:work@axi_adapter_arbiter.req_t
+      |vpiActual:
+      \_struct_typespec: (std_cache_pkg::bypass_req_t), line:2:12, endln:12:2
   |vpiParamAssign:
   \_param_assign: , line:17:15, endln:17:27
     |vpiParent:
@@ -913,7 +737,12 @@ design: (work@axi_adapter_arbiter)
       |vpiSize:64
       |UINT:4
       |vpiTypespec:
-      \_int_typespec: , line:17:5, endln:17:27
+      \_ref_obj: (work@axi_adapter_arbiter)
+        |vpiParent:
+        \_constant: , line:17:26, endln:17:27
+        |vpiFullName:work@axi_adapter_arbiter
+        |vpiActual:
+        \_int_typespec: , line:17:5, endln:17:27
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@axi_adapter_arbiter.NR_PORTS), line:17:15, endln:17:23
@@ -929,7 +758,12 @@ design: (work@axi_adapter_arbiter)
     |vpiParent:
     \_module_inst: work@axi_adapter_arbiter (work@axi_adapter_arbiter), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:16:1, endln:26:10
     |vpiTypespec:
-    \_logic_typespec: , line:20:5, endln:20:8
+    \_ref_obj: (work@axi_adapter_arbiter.state_d)
+      |vpiParent:
+      \_logic_net: (work@axi_adapter_arbiter.state_d), line:20:9, endln:20:16
+      |vpiFullName:work@axi_adapter_arbiter.state_d
+      |vpiActual:
+      \_logic_typespec: , line:20:5, endln:20:8
     |vpiName:state_d
     |vpiFullName:work@axi_adapter_arbiter.state_d
     |vpiNetType:48
@@ -962,7 +796,12 @@ design: (work@axi_adapter_arbiter)
       |vpiActual:
       \_logic_net: (work@axi_adapter_arbiter.req_i), line:19:34, endln:19:39
     |vpiTypedef:
-    \_struct_typespec: (std_cache_pkg::bypass_req_t), line:2:12, endln:12:2
+    \_ref_obj: (work@axi_adapter_arbiter.req_i)
+      |vpiParent:
+      \_port: (req_i), line:19:34, endln:19:39
+      |vpiFullName:work@axi_adapter_arbiter.req_i
+      |vpiActual:
+      \_struct_typespec: (std_cache_pkg::bypass_req_t), line:2:12, endln:12:2
   |vpiProcess:
   \_always: , line:21:5, endln:25:8
     |vpiParent:
@@ -1050,7 +889,12 @@ design: (work@axi_adapter_arbiter)
     |vpiParent:
     \_module_inst: work@axi_adapter_arbiter (work@axi_adapter_arbiter), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:16:1, endln:26:10
     |vpiTypespec:
-    \_struct_typespec: (std_cache_pkg::bypass_req_t), line:2:12, endln:12:2
+    \_ref_obj: (work@axi_adapter_arbiter.req_i)
+      |vpiParent:
+      \_packed_array_var: (work@axi_adapter_arbiter.req_i), line:19:34, endln:19:39
+      |vpiFullName:work@axi_adapter_arbiter.req_i
+      |vpiActual:
+      \_struct_typespec: (std_cache_pkg::bypass_req_t), line:2:12, endln:12:2
     |vpiName:req_i
     |vpiFullName:work@axi_adapter_arbiter.req_i
     |vpiVisibility:1
@@ -1079,7 +923,12 @@ design: (work@axi_adapter_arbiter)
       |vpiParent:
       \_packed_array_var: (work@axi_adapter_arbiter.req_i), line:19:34, endln:19:39
       |vpiTypespec:
-      \_struct_typespec: (std_cache_pkg::bypass_req_t), line:2:12, endln:12:2
+      \_ref_obj: (work@axi_adapter_arbiter.req_i)
+        |vpiParent:
+        \_struct_var: (work@axi_adapter_arbiter.req_i)
+        |vpiFullName:work@axi_adapter_arbiter.req_i
+        |vpiActual:
+        \_struct_typespec: (std_cache_pkg::bypass_req_t), line:2:12, endln:12:2
       |vpiFullName:work@axi_adapter_arbiter.req_i
   |vpiParameter:
   \_parameter: (work@axi_adapter_arbiter.NR_PORTS), line:17:15, endln:17:23
@@ -1087,9 +936,12 @@ design: (work@axi_adapter_arbiter)
     \_module_inst: work@axi_adapter_arbiter (work@axi_adapter_arbiter), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:16:1, endln:26:10
     |UINT:4
     |vpiTypespec:
-    \_int_typespec: , line:17:5, endln:17:27
+    \_ref_obj: (work@axi_adapter_arbiter.NR_PORTS)
       |vpiParent:
       \_parameter: (work@axi_adapter_arbiter.NR_PORTS), line:17:15, endln:17:23
+      |vpiFullName:work@axi_adapter_arbiter.NR_PORTS
+      |vpiActual:
+      \_int_typespec: , line:17:5, endln:17:27
     |vpiName:NR_PORTS
     |vpiFullName:work@axi_adapter_arbiter.NR_PORTS
   |vpiParameter:
@@ -1106,7 +958,12 @@ design: (work@axi_adapter_arbiter)
       |vpiSize:32
       |UINT:4
       |vpiTypespec:
-      \_int_typespec: , line:17:5, endln:17:27
+      \_ref_obj: (work@axi_adapter_arbiter)
+        |vpiParent:
+        \_constant: , line:17:26, endln:17:27
+        |vpiFullName:work@axi_adapter_arbiter
+        |vpiActual:
+        \_int_typespec: , line:17:5, endln:17:27
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@axi_adapter_arbiter.NR_PORTS), line:17:15, endln:17:23
@@ -1117,9 +974,12 @@ design: (work@axi_adapter_arbiter)
     |vpiParent:
     \_module_inst: work@axi_adapter_arbiter (work@axi_adapter_arbiter), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:16:1, endln:26:10
     |vpiTypespec:
-    \_logic_typespec: , line:20:5, endln:20:8
+    \_ref_obj: (work@axi_adapter_arbiter.state_d)
       |vpiParent:
       \_logic_net: (work@axi_adapter_arbiter.state_d), line:20:9, endln:20:16
+      |vpiFullName:work@axi_adapter_arbiter.state_d
+      |vpiActual:
+      \_logic_typespec: , line:20:5, endln:20:8
     |vpiName:state_d
     |vpiFullName:work@axi_adapter_arbiter.state_d
     |vpiNetType:48
@@ -1139,7 +999,12 @@ design: (work@axi_adapter_arbiter)
       |vpiActual:
       \_packed_array_var: (work@axi_adapter_arbiter.req_i), line:19:34, endln:19:39
     |vpiTypedef:
-    \_struct_typespec: (std_cache_pkg::bypass_req_t), line:2:12, endln:12:2
+    \_ref_obj: (work@axi_adapter_arbiter.req_i)
+      |vpiParent:
+      \_port: (req_i), line:19:34, endln:19:39
+      |vpiFullName:work@axi_adapter_arbiter.req_i
+      |vpiActual:
+      \_struct_typespec: (std_cache_pkg::bypass_req_t), line:2:12, endln:12:2
     |vpiInstance:
     \_module_inst: work@axi_adapter_arbiter (work@axi_adapter_arbiter), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:16:1, endln:26:10
   |vpiProcess:
@@ -1219,6 +1084,309 @@ design: (work@axi_adapter_arbiter)
               |vpiActual:
               \_logic_net: (work@axi_adapter_arbiter.state_d), line:20:9, endln:20:16
     |vpiAlwaysType:2
+\_weaklyReferenced:
+\_logic_typespec: , line:3:5, endln:3:10
+  |vpiParent:
+  \_typespec_member: (req), line:3:26, endln:3:29
+  |vpiInstance:
+  \_package: std_cache_pkg (std_cache_pkg::), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:1:1, endln:14:11
+\_unsupported_typespec: (ariane_axi::ad_req_t), line:4:5, endln:4:17
+  |vpiParent:
+  \_typespec_member: (reqtype), line:4:26, endln:4:33
+  |vpiName:ariane_axi::ad_req_t
+  |vpiInstance:
+  \_package: std_cache_pkg (std_cache_pkg::), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:1:1, endln:14:11
+\_unsupported_typespec: (ariane_pkg::amo_t), line:5:5, endln:5:17
+  |vpiParent:
+  \_typespec_member: (amo), line:5:26, endln:5:29
+  |vpiName:ariane_pkg::amo_t
+  |vpiInstance:
+  \_package: std_cache_pkg (std_cache_pkg::), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:1:1, endln:14:11
+\_logic_typespec: , line:6:5, endln:6:16
+  |vpiParent:
+  \_typespec_member: (id), line:6:26, endln:6:28
+  |vpiInstance:
+  \_package: std_cache_pkg (std_cache_pkg::), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:1:1, endln:14:11
+  |vpiRange:
+  \_range: , line:6:11, endln:6:16
+    |vpiParent:
+    \_logic_typespec: , line:6:5, endln:6:16
+    |vpiLeftRange:
+    \_constant: , line:6:12, endln:6:13
+      |vpiParent:
+      \_range: , line:6:11, endln:6:16
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:14, endln:6:15
+      |vpiParent:
+      \_range: , line:6:11, endln:6:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:7:5, endln:7:17
+  |vpiParent:
+  \_typespec_member: (addr), line:7:26, endln:7:30
+  |vpiInstance:
+  \_package: std_cache_pkg (std_cache_pkg::), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:1:1, endln:14:11
+  |vpiRange:
+  \_range: , line:7:11, endln:7:17
+    |vpiParent:
+    \_logic_typespec: , line:7:5, endln:7:17
+    |vpiLeftRange:
+    \_constant: , line:7:12, endln:7:14
+      |vpiParent:
+      \_range: , line:7:11, endln:7:17
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:7:15, endln:7:16
+      |vpiParent:
+      \_range: , line:7:11, endln:7:17
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:8:5, endln:8:17
+  |vpiParent:
+  \_typespec_member: (wdata), line:8:26, endln:8:31
+  |vpiInstance:
+  \_package: std_cache_pkg (std_cache_pkg::), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:1:1, endln:14:11
+  |vpiRange:
+  \_range: , line:8:11, endln:8:17
+    |vpiParent:
+    \_logic_typespec: , line:8:5, endln:8:17
+    |vpiLeftRange:
+    \_constant: , line:8:12, endln:8:14
+      |vpiParent:
+      \_range: , line:8:11, endln:8:17
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:8:15, endln:8:16
+      |vpiParent:
+      \_range: , line:8:11, endln:8:17
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:9:5, endln:9:10
+  |vpiParent:
+  \_typespec_member: (we), line:9:26, endln:9:28
+  |vpiInstance:
+  \_package: std_cache_pkg (std_cache_pkg::), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:1:1, endln:14:11
+\_logic_typespec: , line:10:5, endln:10:16
+  |vpiParent:
+  \_typespec_member: (be), line:10:26, endln:10:28
+  |vpiInstance:
+  \_package: std_cache_pkg (std_cache_pkg::), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:1:1, endln:14:11
+  |vpiRange:
+  \_range: , line:10:11, endln:10:16
+    |vpiParent:
+    \_logic_typespec: , line:10:5, endln:10:16
+    |vpiLeftRange:
+    \_constant: , line:10:12, endln:10:13
+      |vpiParent:
+      \_range: , line:10:11, endln:10:16
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:10:14, endln:10:15
+      |vpiParent:
+      \_range: , line:10:11, endln:10:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:11:5, endln:11:16
+  |vpiParent:
+  \_typespec_member: (size), line:11:26, endln:11:30
+  |vpiInstance:
+  \_package: std_cache_pkg (std_cache_pkg::), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:1:1, endln:14:11
+  |vpiRange:
+  \_range: , line:11:11, endln:11:16
+    |vpiParent:
+    \_logic_typespec: , line:11:5, endln:11:16
+    |vpiLeftRange:
+    \_constant: , line:11:12, endln:11:13
+      |vpiParent:
+      \_range: , line:11:11, endln:11:16
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:11:14, endln:11:15
+      |vpiParent:
+      \_range: , line:11:11, endln:11:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:3:5, endln:3:10
+  |vpiParent:
+  \_typespec_member: (req), line:3:26, endln:3:29
+  |vpiInstance:
+  \_package: std_cache_pkg (std_cache_pkg::), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:1:1, endln:14:11
+\_unsupported_typespec: (ariane_axi::ad_req_t), line:4:5, endln:4:17
+  |vpiParent:
+  \_typespec_member: (reqtype), line:4:26, endln:4:33
+  |vpiName:ariane_axi::ad_req_t
+  |vpiInstance:
+  \_package: std_cache_pkg (std_cache_pkg::), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:1:1, endln:14:11
+\_unsupported_typespec: (ariane_pkg::amo_t), line:5:5, endln:5:17
+  |vpiParent:
+  \_typespec_member: (amo), line:5:26, endln:5:29
+  |vpiName:ariane_pkg::amo_t
+  |vpiInstance:
+  \_package: std_cache_pkg (std_cache_pkg::), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:1:1, endln:14:11
+\_logic_typespec: , line:6:5, endln:6:16
+  |vpiParent:
+  \_typespec_member: (id), line:6:26, endln:6:28
+  |vpiInstance:
+  \_package: std_cache_pkg (std_cache_pkg::), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:1:1, endln:14:11
+  |vpiRange:
+  \_range: , line:6:11, endln:6:16
+    |vpiParent:
+    \_logic_typespec: , line:6:5, endln:6:16
+    |vpiLeftRange:
+    \_constant: , line:6:12, endln:6:13
+      |vpiParent:
+      \_range: , line:6:11, endln:6:16
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:14, endln:6:15
+      |vpiParent:
+      \_range: , line:6:11, endln:6:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:7:5, endln:7:17
+  |vpiParent:
+  \_typespec_member: (addr), line:7:26, endln:7:30
+  |vpiInstance:
+  \_package: std_cache_pkg (std_cache_pkg::), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:1:1, endln:14:11
+  |vpiRange:
+  \_range: , line:7:11, endln:7:17
+    |vpiParent:
+    \_logic_typespec: , line:7:5, endln:7:17
+    |vpiLeftRange:
+    \_constant: , line:7:12, endln:7:14
+      |vpiParent:
+      \_range: , line:7:11, endln:7:17
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:7:15, endln:7:16
+      |vpiParent:
+      \_range: , line:7:11, endln:7:17
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:8:5, endln:8:17
+  |vpiParent:
+  \_typespec_member: (wdata), line:8:26, endln:8:31
+  |vpiInstance:
+  \_package: std_cache_pkg (std_cache_pkg::), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:1:1, endln:14:11
+  |vpiRange:
+  \_range: , line:8:11, endln:8:17
+    |vpiParent:
+    \_logic_typespec: , line:8:5, endln:8:17
+    |vpiLeftRange:
+    \_constant: , line:8:12, endln:8:14
+      |vpiParent:
+      \_range: , line:8:11, endln:8:17
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:8:15, endln:8:16
+      |vpiParent:
+      \_range: , line:8:11, endln:8:17
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:9:5, endln:9:10
+  |vpiParent:
+  \_typespec_member: (we), line:9:26, endln:9:28
+  |vpiInstance:
+  \_package: std_cache_pkg (std_cache_pkg::), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:1:1, endln:14:11
+\_logic_typespec: , line:10:5, endln:10:16
+  |vpiParent:
+  \_typespec_member: (be), line:10:26, endln:10:28
+  |vpiInstance:
+  \_package: std_cache_pkg (std_cache_pkg::), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:1:1, endln:14:11
+  |vpiRange:
+  \_range: , line:10:11, endln:10:16
+    |vpiParent:
+    \_logic_typespec: , line:10:5, endln:10:16
+    |vpiLeftRange:
+    \_constant: , line:10:12, endln:10:13
+      |vpiParent:
+      \_range: , line:10:11, endln:10:16
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:10:14, endln:10:15
+      |vpiParent:
+      \_range: , line:10:11, endln:10:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:11:5, endln:11:16
+  |vpiParent:
+  \_typespec_member: (size), line:11:26, endln:11:30
+  |vpiInstance:
+  \_package: std_cache_pkg (std_cache_pkg::), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:1:1, endln:14:11
+  |vpiRange:
+  \_range: , line:11:11, endln:11:16
+    |vpiParent:
+    \_logic_typespec: , line:11:5, endln:11:16
+    |vpiLeftRange:
+    \_constant: , line:11:12, endln:11:13
+      |vpiParent:
+      \_range: , line:11:11, endln:11:16
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:11:14, endln:11:15
+      |vpiParent:
+      \_range: , line:11:11, endln:11:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:17:5, endln:17:27
+\_logic_typespec: , line:20:5, endln:20:8
+  |vpiParent:
+  \_logic_net: (work@axi_adapter_arbiter.state_d), line:20:9, endln:20:16
+\_logic_typespec: , line:20:5, endln:20:8
+\_int_typespec: , line:17:5, endln:17:27
+  |vpiParent:
+  \_ref_obj: (work@axi_adapter_arbiter.NR_PORTS)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

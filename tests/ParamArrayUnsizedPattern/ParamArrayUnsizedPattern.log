@@ -147,7 +147,7 @@ operation                                             29
 param_assign                                           8
 parameter                                             10
 range                                                 15
-ref_obj                                               17
+ref_obj                                               53
 string_typespec                                        2
 tagged_pattern                                         2
 === UHDM Object Stats End ===
@@ -164,7 +164,7 @@ operation                                             29
 param_assign                                           8
 parameter                                             10
 range                                                 15
-ref_obj                                               17
+ref_obj                                               53
 string_typespec                                        2
 tagged_pattern                                         2
 === UHDM Object Stats End ===
@@ -191,10 +191,12 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ParamArrayUnsizedPattern/dut.sv, line:2:1, endln:8:10
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: , line:3:13, endln:3:16
+    \_ref_obj: (work@test.BobaCount)
       |vpiParent:
       \_parameter: (work@test.BobaCount), line:3:17, endln:3:26
-      |vpiSigned:1
+      |vpiFullName:work@test.BobaCount
+      |vpiActual:
+      \_int_typespec: , line:3:13, endln:3:16
     |vpiSigned:1
     |vpiName:BobaCount
     |vpiFullName:work@test.BobaCount
@@ -204,43 +206,42 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ParamArrayUnsizedPattern/dut.sv, line:2:1, endln:8:10
     |vpiSize:1
     |vpiTypespec:
-    \_array_typespec: , line:4:13, endln:4:59
+    \_ref_obj: (work@test.NumBobaDrinkersDefault)
       |vpiParent:
       \_parameter: (work@test.NumBobaDrinkersDefault), line:4:26, endln:4:48
-      |vpiRange:
-      \_range: , line:4:49, endln:4:58
-        |vpiParent:
-        \_parameter: (work@test.NumBobaDrinkersDefault), line:4:26, endln:4:48
-        |vpiLeftRange:
-        \_constant: 
-          |vpiParent:
-          \_range: , line:4:49, endln:4:58
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-        |vpiRightRange:
-        \_operation: , line:4:49, endln:4:58
-          |vpiParent:
-          \_range: , line:4:49, endln:4:58
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (work@test.NumBobaDrinkersDefault.BobaCount), line:4:49, endln:4:58
-            |vpiParent:
-            \_operation: , line:4:49, endln:4:58
-            |vpiName:BobaCount
-            |vpiFullName:work@test.NumBobaDrinkersDefault.BobaCount
-            |vpiActual:
-            \_parameter: (work@test.BobaCount), line:3:17, endln:3:26
-          |vpiOperand:
-          \_constant: 
-            |vpiSize:64
-            |INT:1
-            |vpiConstType:7
-      |vpiElemTypespec:
-      \_int_typespec: , line:4:13, endln:4:25
+      |vpiFullName:work@test.NumBobaDrinkersDefault
+      |vpiActual:
+      \_array_typespec: , line:4:13, endln:4:59
     |vpiRange:
     \_range: , line:4:49, endln:4:58
+      |vpiParent:
+      \_parameter: (work@test.NumBobaDrinkersDefault), line:4:26, endln:4:48
+      |vpiLeftRange:
+      \_constant: 
+        |vpiParent:
+        \_range: , line:4:49, endln:4:58
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiRightRange:
+      \_operation: , line:4:49, endln:4:58
+        |vpiParent:
+        \_range: , line:4:49, endln:4:58
+        |vpiOpType:11
+        |vpiOperand:
+        \_ref_obj: (work@test.NumBobaDrinkersDefault.BobaCount), line:4:49, endln:4:58
+          |vpiParent:
+          \_operation: , line:4:49, endln:4:58
+          |vpiName:BobaCount
+          |vpiFullName:work@test.NumBobaDrinkersDefault.BobaCount
+          |vpiActual:
+          \_parameter: (work@test.BobaCount), line:3:17, endln:3:26
+        |vpiOperand:
+        \_constant: 
+          |vpiSize:64
+          |INT:1
+          |vpiConstType:7
     |vpiName:NumBobaDrinkersDefault
     |vpiFullName:work@test.NumBobaDrinkersDefault
   |vpiParameter:
@@ -249,41 +250,40 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ParamArrayUnsizedPattern/dut.sv, line:2:1, endln:8:10
     |vpiSize:1
     |vpiTypespec:
-    \_array_typespec: , line:5:13, endln:5:52
+    \_ref_obj: (work@test.NumBobaDrinkers)
       |vpiParent:
       \_parameter: (work@test.NumBobaDrinkers), line:5:26, endln:5:41
-      |vpiRange:
-      \_range: , line:5:42, endln:5:51
-        |vpiParent:
-        \_parameter: (work@test.NumBobaDrinkers), line:5:26, endln:5:41
-        |vpiLeftRange:
-        \_constant: 
-          |vpiParent:
-          \_range: , line:5:42, endln:5:51
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-        |vpiRightRange:
-        \_operation: , line:5:42, endln:5:51
-          |vpiParent:
-          \_range: , line:5:42, endln:5:51
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (work@test.NumBobaDrinkers.BobaCount), line:5:42, endln:5:51
-            |vpiParent:
-            \_operation: , line:5:42, endln:5:51
-            |vpiName:BobaCount
-            |vpiFullName:work@test.NumBobaDrinkers.BobaCount
-          |vpiOperand:
-          \_constant: 
-            |vpiSize:64
-            |INT:1
-            |vpiConstType:7
-      |vpiElemTypespec:
-      \_int_typespec: , line:5:13, endln:5:25
+      |vpiFullName:work@test.NumBobaDrinkers
+      |vpiActual:
+      \_array_typespec: , line:5:13, endln:5:52
     |vpiRange:
     \_range: , line:5:42, endln:5:51
+      |vpiParent:
+      \_parameter: (work@test.NumBobaDrinkers), line:5:26, endln:5:41
+      |vpiLeftRange:
+      \_constant: 
+        |vpiParent:
+        \_range: , line:5:42, endln:5:51
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiRightRange:
+      \_operation: , line:5:42, endln:5:51
+        |vpiParent:
+        \_range: , line:5:42, endln:5:51
+        |vpiOpType:11
+        |vpiOperand:
+        \_ref_obj: (work@test.NumBobaDrinkers.BobaCount), line:5:42, endln:5:51
+          |vpiParent:
+          \_operation: , line:5:42, endln:5:51
+          |vpiName:BobaCount
+          |vpiFullName:work@test.NumBobaDrinkers.BobaCount
+        |vpiOperand:
+        \_constant: 
+          |vpiSize:64
+          |INT:1
+          |vpiConstType:7
     |vpiName:NumBobaDrinkers
     |vpiFullName:work@test.NumBobaDrinkers
   |vpiParameter:
@@ -292,41 +292,40 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ParamArrayUnsizedPattern/dut.sv, line:2:1, endln:8:10
     |vpiSize:1
     |vpiTypespec:
-    \_array_typespec: , line:6:13, endln:6:57
+    \_ref_obj: (work@test.NumBobaDrinkersMulti)
       |vpiParent:
       \_parameter: (work@test.NumBobaDrinkersMulti), line:6:26, endln:6:46
-      |vpiRange:
-      \_range: , line:6:47, endln:6:56
-        |vpiParent:
-        \_parameter: (work@test.NumBobaDrinkersMulti), line:6:26, endln:6:46
-        |vpiLeftRange:
-        \_constant: 
-          |vpiParent:
-          \_range: , line:6:47, endln:6:56
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-        |vpiRightRange:
-        \_operation: , line:6:47, endln:6:56
-          |vpiParent:
-          \_range: , line:6:47, endln:6:56
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (work@test.NumBobaDrinkersMulti.BobaCount), line:6:47, endln:6:56
-            |vpiParent:
-            \_operation: , line:6:47, endln:6:56
-            |vpiName:BobaCount
-            |vpiFullName:work@test.NumBobaDrinkersMulti.BobaCount
-          |vpiOperand:
-          \_constant: 
-            |vpiSize:64
-            |INT:1
-            |vpiConstType:7
-      |vpiElemTypespec:
-      \_int_typespec: , line:6:13, endln:6:25
+      |vpiFullName:work@test.NumBobaDrinkersMulti
+      |vpiActual:
+      \_array_typespec: , line:6:13, endln:6:57
     |vpiRange:
     \_range: , line:6:47, endln:6:56
+      |vpiParent:
+      \_parameter: (work@test.NumBobaDrinkersMulti), line:6:26, endln:6:46
+      |vpiLeftRange:
+      \_constant: 
+        |vpiParent:
+        \_range: , line:6:47, endln:6:56
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiRightRange:
+      \_operation: , line:6:47, endln:6:56
+        |vpiParent:
+        \_range: , line:6:47, endln:6:56
+        |vpiOpType:11
+        |vpiOperand:
+        \_ref_obj: (work@test.NumBobaDrinkersMulti.BobaCount), line:6:47, endln:6:56
+          |vpiParent:
+          \_operation: , line:6:47, endln:6:56
+          |vpiName:BobaCount
+          |vpiFullName:work@test.NumBobaDrinkersMulti.BobaCount
+        |vpiOperand:
+        \_constant: 
+          |vpiSize:64
+          |INT:1
+          |vpiConstType:7
     |vpiName:NumBobaDrinkersMulti
     |vpiFullName:work@test.NumBobaDrinkersMulti
   |vpiParamAssign:
@@ -341,7 +340,12 @@ design: (work@test)
       |vpiSize:64
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:3:13, endln:3:16
+      \_ref_obj: (work@test)
+        |vpiParent:
+        \_constant: , line:3:29, endln:3:30
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:3:13, endln:3:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test.BobaCount), line:3:17, endln:3:26
@@ -365,10 +369,12 @@ design: (work@test)
           |BIN:1
           |vpiConstType:3
         |vpiTypespec:
-        \_string_typespec: (default), line:4:64, endln:4:71
+        \_ref_obj: (work@test)
           |vpiParent:
           \_tagged_pattern: , line:4:73, endln:4:75
-          |vpiName:default
+          |vpiFullName:work@test
+          |vpiActual:
+          \_string_typespec: (default), line:4:64, endln:4:71
     |vpiLhs:
     \_parameter: (work@test.NumBobaDrinkersDefault), line:4:26, endln:4:48
   |vpiParamAssign:
@@ -432,10 +438,12 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ParamArrayUnsizedPattern/dut.sv, line:2:1, endln:8:10
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: , line:3:13, endln:3:16
+    \_ref_obj: (work@test.BobaCount)
       |vpiParent:
       \_parameter: (work@test.BobaCount), line:3:17, endln:3:26
-      |vpiSigned:1
+      |vpiFullName:work@test.BobaCount
+      |vpiActual:
+      \_int_typespec: , line:3:13, endln:3:16
     |vpiSigned:1
     |vpiName:BobaCount
     |vpiFullName:work@test.BobaCount
@@ -445,45 +453,12 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ParamArrayUnsizedPattern/dut.sv, line:2:1, endln:8:10
     |vpiSize:1
     |vpiTypespec:
-    \_array_typespec: , line:4:13, endln:4:59
+    \_ref_obj: (work@test.NumBobaDrinkersDefault)
       |vpiParent:
       \_parameter: (work@test.NumBobaDrinkersDefault), line:4:26, endln:4:48
-      |vpiRange:
-      \_range: , line:4:49, endln:4:58
-        |vpiParent:
-        \_array_typespec: , line:4:13, endln:4:59
-        |vpiLeftRange:
-        \_constant: 
-          |vpiParent:
-          \_range: , line:4:49, endln:4:58
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-        |vpiRightRange:
-        \_operation: , line:4:49, endln:4:58
-          |vpiParent:
-          \_range: , line:4:49, endln:4:58
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (work@test.NumBobaDrinkersDefault.BobaCount), line:4:49, endln:4:58
-            |vpiParent:
-            \_operation: , line:4:49, endln:4:58
-            |vpiName:BobaCount
-            |vpiFullName:work@test.NumBobaDrinkersDefault.BobaCount
-            |vpiActual:
-            \_parameter: (work@test.BobaCount), line:3:17, endln:3:26
-          |vpiOperand:
-          \_constant: 
-            |vpiParent:
-            \_operation: , line:4:49, endln:4:58
-            |vpiSize:64
-            |INT:1
-            |vpiConstType:7
-      |vpiElemTypespec:
-      \_int_typespec: , line:4:13, endln:4:25
-        |vpiParent:
-        \_array_typespec: , line:4:13, endln:4:59
+      |vpiFullName:work@test.NumBobaDrinkersDefault
+      |vpiActual:
+      \_array_typespec: , line:4:13, endln:4:59
     |vpiRange:
     \_range: , line:4:49, endln:4:58
       |vpiParent:
@@ -524,45 +499,12 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ParamArrayUnsizedPattern/dut.sv, line:2:1, endln:8:10
     |vpiSize:1
     |vpiTypespec:
-    \_array_typespec: , line:5:13, endln:5:52
+    \_ref_obj: (work@test.NumBobaDrinkers)
       |vpiParent:
       \_parameter: (work@test.NumBobaDrinkers), line:5:26, endln:5:41
-      |vpiRange:
-      \_range: , line:5:42, endln:5:51
-        |vpiParent:
-        \_array_typespec: , line:5:13, endln:5:52
-        |vpiLeftRange:
-        \_constant: 
-          |vpiParent:
-          \_range: , line:5:42, endln:5:51
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-        |vpiRightRange:
-        \_operation: , line:5:42, endln:5:51
-          |vpiParent:
-          \_range: , line:5:42, endln:5:51
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (work@test.NumBobaDrinkers.BobaCount), line:5:42, endln:5:51
-            |vpiParent:
-            \_operation: , line:5:42, endln:5:51
-            |vpiName:BobaCount
-            |vpiFullName:work@test.NumBobaDrinkers.BobaCount
-            |vpiActual:
-            \_parameter: (work@test.BobaCount), line:3:17, endln:3:26
-          |vpiOperand:
-          \_constant: 
-            |vpiParent:
-            \_operation: , line:5:42, endln:5:51
-            |vpiSize:64
-            |INT:1
-            |vpiConstType:7
-      |vpiElemTypespec:
-      \_int_typespec: , line:5:13, endln:5:25
-        |vpiParent:
-        \_array_typespec: , line:5:13, endln:5:52
+      |vpiFullName:work@test.NumBobaDrinkers
+      |vpiActual:
+      \_array_typespec: , line:5:13, endln:5:52
     |vpiRange:
     \_range: , line:5:42, endln:5:51
       |vpiParent:
@@ -603,45 +545,12 @@ design: (work@test)
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ParamArrayUnsizedPattern/dut.sv, line:2:1, endln:8:10
     |vpiSize:1
     |vpiTypespec:
-    \_array_typespec: , line:6:13, endln:6:57
+    \_ref_obj: (work@test.NumBobaDrinkersMulti)
       |vpiParent:
       \_parameter: (work@test.NumBobaDrinkersMulti), line:6:26, endln:6:46
-      |vpiRange:
-      \_range: , line:6:47, endln:6:56
-        |vpiParent:
-        \_array_typespec: , line:6:13, endln:6:57
-        |vpiLeftRange:
-        \_constant: 
-          |vpiParent:
-          \_range: , line:6:47, endln:6:56
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-        |vpiRightRange:
-        \_operation: , line:6:47, endln:6:56
-          |vpiParent:
-          \_range: , line:6:47, endln:6:56
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (work@test.NumBobaDrinkersMulti.BobaCount), line:6:47, endln:6:56
-            |vpiParent:
-            \_operation: , line:6:47, endln:6:56
-            |vpiName:BobaCount
-            |vpiFullName:work@test.NumBobaDrinkersMulti.BobaCount
-            |vpiActual:
-            \_parameter: (work@test.BobaCount), line:3:17, endln:3:26
-          |vpiOperand:
-          \_constant: 
-            |vpiParent:
-            \_operation: , line:6:47, endln:6:56
-            |vpiSize:64
-            |INT:1
-            |vpiConstType:7
-      |vpiElemTypespec:
-      \_int_typespec: , line:6:13, endln:6:25
-        |vpiParent:
-        \_array_typespec: , line:6:13, endln:6:57
+      |vpiFullName:work@test.NumBobaDrinkersMulti
+      |vpiActual:
+      \_array_typespec: , line:6:13, endln:6:57
     |vpiRange:
     \_range: , line:6:47, endln:6:56
       |vpiParent:
@@ -688,7 +597,12 @@ design: (work@test)
       |vpiSize:32
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:3:13, endln:3:16
+      \_ref_obj: (work@test)
+        |vpiParent:
+        \_constant: , line:3:29, endln:3:30
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:3:13, endln:3:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test.BobaCount), line:3:17, endln:3:26
@@ -701,7 +615,12 @@ design: (work@test)
       |vpiParent:
       \_param_assign: , line:4:26, endln:4:76
       |vpiTypespec:
-      \_array_typespec: , line:4:13, endln:4:59
+      \_ref_obj: (work@test)
+        |vpiParent:
+        \_array_expr: 
+        |vpiFullName:work@test
+        |vpiActual:
+        \_array_typespec: , line:4:13, endln:4:59
       |vpiExpr:
       \_constant: , line:4:73, endln:4:75
         |vpiDecompile:4294967295
@@ -721,45 +640,12 @@ design: (work@test)
       |vpiParent:
       \_param_assign: , line:5:26, endln:5:64
       |vpiTypespec:
-      \_array_typespec: , line:5:13, endln:5:52
+      \_ref_obj: (work@test)
         |vpiParent:
         \_operation: , line:5:55, endln:5:64
-        |vpiRange:
-        \_range: , line:5:42, endln:5:51
-          |vpiParent:
-          \_array_typespec: , line:5:13, endln:5:52
-          |vpiLeftRange:
-          \_constant: 
-            |vpiParent:
-            \_range: , line:5:42, endln:5:51
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-          |vpiRightRange:
-          \_operation: , line:5:42, endln:5:51
-            |vpiParent:
-            \_range: , line:5:42, endln:5:51
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (work@test.BobaCount), line:5:42, endln:5:51
-              |vpiParent:
-              \_operation: , line:5:42, endln:5:51
-              |vpiName:BobaCount
-              |vpiFullName:work@test.BobaCount
-              |vpiActual:
-              \_parameter: (work@test.BobaCount), line:3:17, endln:3:26
-            |vpiOperand:
-            \_constant: 
-              |vpiParent:
-              \_operation: , line:5:42, endln:5:51
-              |vpiSize:64
-              |INT:1
-              |vpiConstType:7
-        |vpiElemTypespec:
-        \_int_typespec: , line:5:13, endln:5:25
-          |vpiParent:
-          \_array_typespec: , line:5:13, endln:5:52
+        |vpiFullName:work@test
+        |vpiActual:
+        \_array_typespec: , line:5:13, endln:5:52
       |vpiOpType:75
       |vpiOperand:
       \_constant: , line:5:57, endln:5:59
@@ -788,45 +674,12 @@ design: (work@test)
       |vpiParent:
       \_param_assign: , line:6:26, endln:6:76
       |vpiTypespec:
-      \_array_typespec: , line:6:13, endln:6:57
+      \_ref_obj: (work@test)
         |vpiParent:
         \_operation: , line:6:60, endln:6:76
-        |vpiRange:
-        \_range: , line:6:47, endln:6:56
-          |vpiParent:
-          \_array_typespec: , line:6:13, endln:6:57
-          |vpiLeftRange:
-          \_constant: 
-            |vpiParent:
-            \_range: , line:6:47, endln:6:56
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-          |vpiRightRange:
-          \_operation: , line:6:47, endln:6:56
-            |vpiParent:
-            \_range: , line:6:47, endln:6:56
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (work@test.BobaCount), line:6:47, endln:6:56
-              |vpiParent:
-              \_operation: , line:6:47, endln:6:56
-              |vpiName:BobaCount
-              |vpiFullName:work@test.BobaCount
-              |vpiActual:
-              \_parameter: (work@test.BobaCount), line:3:17, endln:3:26
-            |vpiOperand:
-            \_constant: 
-              |vpiParent:
-              \_operation: , line:6:47, endln:6:56
-              |vpiSize:64
-              |INT:1
-              |vpiConstType:7
-        |vpiElemTypespec:
-        \_int_typespec: , line:6:13, endln:6:25
-          |vpiParent:
-          \_array_typespec: , line:6:13, endln:6:57
+        |vpiFullName:work@test
+        |vpiActual:
+        \_array_typespec: , line:6:13, endln:6:57
       |vpiOpType:76
       |vpiOperand:
       \_constant: , line:6:62, endln:6:71
@@ -836,10 +689,12 @@ design: (work@test)
         |vpiSize:32
         |UINT:2
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_obj: (work@test)
           |vpiParent:
           \_constant: , line:6:62, endln:6:71
-          |vpiSigned:1
+          |vpiFullName:work@test
+          |vpiActual:
+          \_int_typespec: 
         |vpiConstType:9
       |vpiOperand:
       \_operation: , line:6:72, endln:6:74
@@ -859,6 +714,287 @@ design: (work@test)
   |vpiDefName:work@test
   |vpiTop:1
   |vpiTopModule:1
+\_weaklyReferenced:
+\_int_typespec: , line:3:13, endln:3:16
+  |vpiParent:
+  \_parameter: (work@test.BobaCount), line:3:17, endln:3:26
+  |vpiSigned:1
+\_array_typespec: , line:4:13, endln:4:59
+  |vpiParent:
+  \_parameter: (work@test.NumBobaDrinkersDefault), line:4:26, endln:4:48
+  |vpiRange:
+  \_range: , line:4:49, endln:4:58
+  |vpiElemTypespec:
+  \_ref_obj: (work@test.NumBobaDrinkersDefault)
+    |vpiParent:
+    \_array_typespec: , line:4:13, endln:4:59
+    |vpiFullName:work@test.NumBobaDrinkersDefault
+    |vpiActual:
+    \_int_typespec: , line:4:13, endln:4:25
+\_int_typespec: , line:4:13, endln:4:25
+\_string_typespec: (default), line:4:64, endln:4:71
+  |vpiParent:
+  \_tagged_pattern: , line:4:73, endln:4:75
+  |vpiName:default
+\_array_typespec: , line:5:13, endln:5:52
+  |vpiParent:
+  \_parameter: (work@test.NumBobaDrinkers), line:5:26, endln:5:41
+  |vpiRange:
+  \_range: , line:5:42, endln:5:51
+  |vpiElemTypespec:
+  \_ref_obj: (work@test.NumBobaDrinkers)
+    |vpiParent:
+    \_array_typespec: , line:5:13, endln:5:52
+    |vpiFullName:work@test.NumBobaDrinkers
+    |vpiActual:
+    \_int_typespec: , line:5:13, endln:5:25
+\_int_typespec: , line:5:13, endln:5:25
+\_array_typespec: , line:6:13, endln:6:57
+  |vpiParent:
+  \_parameter: (work@test.NumBobaDrinkersMulti), line:6:26, endln:6:46
+  |vpiRange:
+  \_range: , line:6:47, endln:6:56
+  |vpiElemTypespec:
+  \_ref_obj: (work@test.NumBobaDrinkersMulti)
+    |vpiParent:
+    \_array_typespec: , line:6:13, endln:6:57
+    |vpiFullName:work@test.NumBobaDrinkersMulti
+    |vpiActual:
+    \_int_typespec: , line:6:13, endln:6:25
+\_int_typespec: , line:6:13, endln:6:25
+\_array_typespec: , line:5:13, endln:5:52
+  |vpiParent:
+  \_ref_obj: (work@test)
+  |vpiRange:
+  \_range: , line:5:42, endln:5:51
+    |vpiParent:
+    \_array_typespec: , line:5:13, endln:5:52
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: , line:5:42, endln:5:51
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_operation: , line:5:42, endln:5:51
+      |vpiParent:
+      \_range: , line:5:42, endln:5:51
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@test.BobaCount), line:5:42, endln:5:51
+        |vpiParent:
+        \_operation: , line:5:42, endln:5:51
+        |vpiName:BobaCount
+        |vpiFullName:work@test.BobaCount
+        |vpiActual:
+        \_parameter: (work@test.BobaCount), line:3:17, endln:3:26
+      |vpiOperand:
+      \_constant: 
+        |vpiParent:
+        \_operation: , line:5:42, endln:5:51
+        |vpiSize:64
+        |INT:1
+        |vpiConstType:7
+  |vpiElemTypespec:
+  \_ref_obj: (work@test)
+    |vpiParent:
+    \_array_typespec: , line:5:13, endln:5:52
+    |vpiFullName:work@test
+    |vpiActual:
+    \_int_typespec: , line:5:13, endln:5:25
+\_int_typespec: , line:5:13, endln:5:25
+  |vpiParent:
+  \_ref_obj: (work@test)
+\_array_typespec: , line:6:13, endln:6:57
+  |vpiParent:
+  \_ref_obj: (work@test)
+  |vpiRange:
+  \_range: , line:6:47, endln:6:56
+    |vpiParent:
+    \_array_typespec: , line:6:13, endln:6:57
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: , line:6:47, endln:6:56
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_operation: , line:6:47, endln:6:56
+      |vpiParent:
+      \_range: , line:6:47, endln:6:56
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@test.BobaCount), line:6:47, endln:6:56
+        |vpiParent:
+        \_operation: , line:6:47, endln:6:56
+        |vpiName:BobaCount
+        |vpiFullName:work@test.BobaCount
+        |vpiActual:
+        \_parameter: (work@test.BobaCount), line:3:17, endln:3:26
+      |vpiOperand:
+      \_constant: 
+        |vpiParent:
+        \_operation: , line:6:47, endln:6:56
+        |vpiSize:64
+        |INT:1
+        |vpiConstType:7
+  |vpiElemTypespec:
+  \_ref_obj: (work@test)
+    |vpiParent:
+    \_array_typespec: , line:6:13, endln:6:57
+    |vpiFullName:work@test
+    |vpiActual:
+    \_int_typespec: , line:6:13, endln:6:25
+\_int_typespec: , line:6:13, endln:6:25
+  |vpiParent:
+  \_ref_obj: (work@test)
+\_int_typespec: 
+  |vpiParent:
+  \_ref_obj: (work@test)
+  |vpiSigned:1
+\_int_typespec: , line:3:13, endln:3:16
+  |vpiParent:
+  \_ref_obj: (work@test.BobaCount)
+  |vpiSigned:1
+\_array_typespec: , line:4:13, endln:4:59
+  |vpiParent:
+  \_ref_obj: (work@test.NumBobaDrinkersDefault)
+  |vpiRange:
+  \_range: , line:4:49, endln:4:58
+    |vpiParent:
+    \_array_typespec: , line:4:13, endln:4:59
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: , line:4:49, endln:4:58
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_operation: , line:4:49, endln:4:58
+      |vpiParent:
+      \_range: , line:4:49, endln:4:58
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@test.NumBobaDrinkersDefault.BobaCount), line:4:49, endln:4:58
+        |vpiParent:
+        \_operation: , line:4:49, endln:4:58
+        |vpiName:BobaCount
+        |vpiFullName:work@test.NumBobaDrinkersDefault.BobaCount
+        |vpiActual:
+        \_parameter: (work@test.BobaCount), line:3:17, endln:3:26
+      |vpiOperand:
+      \_constant: 
+        |vpiParent:
+        \_operation: , line:4:49, endln:4:58
+        |vpiSize:64
+        |INT:1
+        |vpiConstType:7
+  |vpiElemTypespec:
+  \_ref_obj: (work@test.NumBobaDrinkersDefault)
+    |vpiParent:
+    \_array_typespec: , line:4:13, endln:4:59
+    |vpiFullName:work@test.NumBobaDrinkersDefault
+    |vpiActual:
+    \_int_typespec: , line:4:13, endln:4:25
+\_int_typespec: , line:4:13, endln:4:25
+  |vpiParent:
+  \_ref_obj: (work@test.NumBobaDrinkersDefault)
+\_array_typespec: , line:5:13, endln:5:52
+  |vpiParent:
+  \_ref_obj: (work@test.NumBobaDrinkers)
+  |vpiRange:
+  \_range: , line:5:42, endln:5:51
+    |vpiParent:
+    \_array_typespec: , line:5:13, endln:5:52
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: , line:5:42, endln:5:51
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_operation: , line:5:42, endln:5:51
+      |vpiParent:
+      \_range: , line:5:42, endln:5:51
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@test.NumBobaDrinkers.BobaCount), line:5:42, endln:5:51
+        |vpiParent:
+        \_operation: , line:5:42, endln:5:51
+        |vpiName:BobaCount
+        |vpiFullName:work@test.NumBobaDrinkers.BobaCount
+        |vpiActual:
+        \_parameter: (work@test.BobaCount), line:3:17, endln:3:26
+      |vpiOperand:
+      \_constant: 
+        |vpiParent:
+        \_operation: , line:5:42, endln:5:51
+        |vpiSize:64
+        |INT:1
+        |vpiConstType:7
+  |vpiElemTypespec:
+  \_ref_obj: (work@test.NumBobaDrinkers)
+    |vpiParent:
+    \_array_typespec: , line:5:13, endln:5:52
+    |vpiFullName:work@test.NumBobaDrinkers
+    |vpiActual:
+    \_int_typespec: , line:5:13, endln:5:25
+\_int_typespec: , line:5:13, endln:5:25
+  |vpiParent:
+  \_ref_obj: (work@test.NumBobaDrinkers)
+\_array_typespec: , line:6:13, endln:6:57
+  |vpiParent:
+  \_ref_obj: (work@test.NumBobaDrinkersMulti)
+  |vpiRange:
+  \_range: , line:6:47, endln:6:56
+    |vpiParent:
+    \_array_typespec: , line:6:13, endln:6:57
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: , line:6:47, endln:6:56
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_operation: , line:6:47, endln:6:56
+      |vpiParent:
+      \_range: , line:6:47, endln:6:56
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@test.NumBobaDrinkersMulti.BobaCount), line:6:47, endln:6:56
+        |vpiParent:
+        \_operation: , line:6:47, endln:6:56
+        |vpiName:BobaCount
+        |vpiFullName:work@test.NumBobaDrinkersMulti.BobaCount
+        |vpiActual:
+        \_parameter: (work@test.BobaCount), line:3:17, endln:3:26
+      |vpiOperand:
+      \_constant: 
+        |vpiParent:
+        \_operation: , line:6:47, endln:6:56
+        |vpiSize:64
+        |INT:1
+        |vpiConstType:7
+  |vpiElemTypespec:
+  \_ref_obj: (work@test.NumBobaDrinkersMulti)
+    |vpiParent:
+    \_array_typespec: , line:6:13, endln:6:57
+    |vpiFullName:work@test.NumBobaDrinkersMulti
+    |vpiActual:
+    \_int_typespec: , line:6:13, endln:6:25
+\_int_typespec: , line:6:13, endln:6:25
+  |vpiParent:
+  \_ref_obj: (work@test.NumBobaDrinkersMulti)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

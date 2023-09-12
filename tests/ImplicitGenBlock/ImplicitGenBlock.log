@@ -306,7 +306,7 @@ hier_path                                             14
 logic_net                                              9
 logic_typespec                                         9
 module_inst                                            4
-ref_obj                                               34
+ref_obj                                               43
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -323,7 +323,7 @@ hier_path                                             21
 logic_net                                              9
 logic_typespec                                         9
 module_inst                                            4
-ref_obj                                               51
+ref_obj                                               60
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ImplicitGenBlock/slpp_all/surelog.uhdm ...
 
@@ -595,9 +595,12 @@ design: (work@top)
         |vpiParent:
         \_gen_scope: (work@top.genblk1), line:35:25, endln:35:32
         |vpiTypespec:
-        \_logic_typespec: , line:35:25, endln:35:29
+        \_ref_obj: (work@top.genblk1.t)
           |vpiParent:
           \_logic_net: (work@top.genblk1.t), line:35:30, endln:35:31
+          |vpiFullName:work@top.genblk1.t
+          |vpiActual:
+          \_logic_typespec: , line:35:25, endln:35:29
         |vpiName:t
         |vpiFullName:work@top.genblk1.t
         |vpiNetType:1
@@ -606,9 +609,12 @@ design: (work@top)
         |vpiParent:
         \_gen_scope: (work@top.genblk1), line:35:25, endln:35:32
         |vpiTypespec:
-        \_logic_typespec: , line:47:25, endln:47:29
+        \_ref_obj: (work@top.genblk1.u)
           |vpiParent:
           \_logic_net: (work@top.genblk1.u), line:47:30, endln:47:31
+          |vpiFullName:work@top.genblk1.u
+          |vpiActual:
+          \_logic_typespec: , line:47:25, endln:47:29
         |vpiName:u
         |vpiFullName:work@top.genblk1.u
         |vpiNetType:1
@@ -628,9 +634,12 @@ design: (work@top)
             |vpiParent:
             \_gen_scope: (work@top.genblk1.foo), line:37:25, endln:45:28
             |vpiTypespec:
-            \_logic_typespec: , line:38:33, endln:38:37
+            \_ref_obj: (work@top.genblk1.foo.x1)
               |vpiParent:
               \_logic_net: (work@top.genblk1.foo.x1), line:38:38, endln:38:40
+              |vpiFullName:work@top.genblk1.foo.x1
+              |vpiActual:
+              \_logic_typespec: , line:38:33, endln:38:37
             |vpiName:x1
             |vpiFullName:work@top.genblk1.foo.x1
             |vpiNetType:1
@@ -639,9 +648,12 @@ design: (work@top)
             |vpiParent:
             \_gen_scope: (work@top.genblk1.foo), line:37:25, endln:45:28
             |vpiTypespec:
-            \_logic_typespec: , line:39:33, endln:39:37
+            \_ref_obj: (work@top.genblk1.foo.y1)
               |vpiParent:
               \_logic_net: (work@top.genblk1.foo.y1), line:39:38, endln:39:40
+              |vpiFullName:work@top.genblk1.foo.y1
+              |vpiActual:
+              \_logic_typespec: , line:39:33, endln:39:37
             |vpiName:y1
             |vpiFullName:work@top.genblk1.foo.y1
             |vpiNetType:1
@@ -661,9 +673,12 @@ design: (work@top)
                 |vpiParent:
                 \_gen_scope: (work@top.genblk1.foo.bar1), line:41:33, endln:43:36
                 |vpiTypespec:
-                \_logic_typespec: , line:42:35, endln:42:39
+                \_ref_obj: (work@top.genblk1.foo.bar1.z1)
                   |vpiParent:
                   \_logic_net: (work@top.genblk1.foo.bar1.z1), line:42:40, endln:42:42
+                  |vpiFullName:work@top.genblk1.foo.bar1.z1
+                  |vpiActual:
+                  \_logic_typespec: , line:42:35, endln:42:39
                 |vpiName:z1
                 |vpiFullName:work@top.genblk1.foo.bar1.z1
                 |vpiNetType:1
@@ -683,9 +698,12 @@ design: (work@top)
         |vpiParent:
         \_gen_scope: (work@top.bar2), line:53:17, endln:62:20
         |vpiTypespec:
-        \_logic_typespec: , line:54:25, endln:54:29
+        \_ref_obj: (work@top.bar2.x2)
           |vpiParent:
           \_logic_net: (work@top.bar2.x2), line:54:30, endln:54:32
+          |vpiFullName:work@top.bar2.x2
+          |vpiActual:
+          \_logic_typespec: , line:54:25, endln:54:29
         |vpiName:x2
         |vpiFullName:work@top.bar2.x2
         |vpiNetType:1
@@ -694,9 +712,12 @@ design: (work@top)
         |vpiParent:
         \_gen_scope: (work@top.bar2), line:53:17, endln:62:20
         |vpiTypespec:
-        \_logic_typespec: , line:56:25, endln:56:29
+        \_ref_obj: (work@top.bar2.y2)
           |vpiParent:
           \_logic_net: (work@top.bar2.y2), line:56:30, endln:56:32
+          |vpiFullName:work@top.bar2.y2
+          |vpiActual:
+          \_logic_typespec: , line:56:25, endln:56:29
         |vpiName:y2
         |vpiFullName:work@top.bar2.y2
         |vpiNetType:1
@@ -716,9 +737,12 @@ design: (work@top)
             |vpiParent:
             \_gen_scope: (work@top.bar2.baz), line:57:25, endln:60:28
             |vpiTypespec:
-            \_logic_typespec: , line:58:33, endln:58:37
+            \_ref_obj: (work@top.bar2.baz.x3)
               |vpiParent:
               \_logic_net: (work@top.bar2.baz.x3), line:58:38, endln:58:40
+              |vpiFullName:work@top.bar2.baz.x3
+              |vpiActual:
+              \_logic_typespec: , line:58:33, endln:58:37
             |vpiName:x3
             |vpiFullName:work@top.bar2.baz.x3
             |vpiNetType:1
@@ -727,9 +751,12 @@ design: (work@top)
             |vpiParent:
             \_gen_scope: (work@top.bar2.baz), line:57:25, endln:60:28
             |vpiTypespec:
-            \_logic_typespec: , line:59:32, endln:59:36
+            \_ref_obj: (work@top.bar2.baz.z3)
               |vpiParent:
               \_logic_net: (work@top.bar2.baz.z3), line:59:37, endln:59:39
+              |vpiFullName:work@top.bar2.baz.z3
+              |vpiActual:
+              \_logic_typespec: , line:59:32, endln:59:36
             |vpiName:z3
             |vpiFullName:work@top.bar2.baz.z3
             |vpiNetType:1
@@ -923,6 +950,262 @@ design: (work@top)
         |vpiParent:
         \_hier_path: (bar2.baz.z3), line:72:16, endln:72:27
         |vpiName:z3
+\_weaklyReferenced:
+\_logic_typespec: , line:35:25, endln:35:29
+  |vpiParent:
+  \_logic_net: (work@top.genblk1.t), line:35:30, endln:35:31
+\_logic_typespec: , line:47:25, endln:47:29
+  |vpiParent:
+  \_logic_net: (work@top.genblk1.u), line:47:30, endln:47:31
+\_logic_typespec: , line:38:33, endln:38:37
+  |vpiParent:
+  \_logic_net: (work@top.genblk1.foo.x1), line:38:38, endln:38:40
+\_logic_typespec: , line:39:33, endln:39:37
+  |vpiParent:
+  \_logic_net: (work@top.genblk1.foo.y1), line:39:38, endln:39:40
+\_logic_typespec: , line:42:35, endln:42:39
+  |vpiParent:
+  \_logic_net: (work@top.genblk1.foo.bar1.z1), line:42:40, endln:42:42
+\_logic_typespec: , line:54:25, endln:54:29
+  |vpiParent:
+  \_logic_net: (work@top.bar2.x2), line:54:30, endln:54:32
+\_logic_typespec: , line:56:25, endln:56:29
+  |vpiParent:
+  \_logic_net: (work@top.bar2.y2), line:56:30, endln:56:32
+\_logic_typespec: , line:58:33, endln:58:37
+  |vpiParent:
+  \_logic_net: (work@top.bar2.baz.x3), line:58:38, endln:58:40
+\_logic_typespec: , line:59:32, endln:59:36
+  |vpiParent:
+  \_logic_net: (work@top.bar2.baz.z3), line:59:37, endln:59:39
+\_cont_assign: , line:66:16, endln:66:29
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ImplicitGenBlock/dut.sv, line:30:1, endln:74:10
+  |vpiRhs:
+  \_constant: , line:66:28, endln:66:29
+  |vpiLhs:
+  \_hier_path: (genblk1.t), line:66:16, endln:66:25
+    |vpiParent:
+    \_cont_assign: , line:66:16, endln:66:29
+    |vpiName:genblk1.t
+    |vpiActual:
+    \_ref_obj: (genblk1), line:66:24, endln:66:25
+      |vpiParent:
+      \_hier_path: (genblk1.t), line:66:16, endln:66:25
+      |vpiName:genblk1
+    |vpiActual:
+    \_ref_obj: (t), line:66:24, endln:66:25
+      |vpiParent:
+      \_hier_path: (genblk1.t), line:66:16, endln:66:25
+      |vpiName:t
+\_cont_assign: , line:67:16, endln:67:34
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ImplicitGenBlock/dut.sv, line:30:1, endln:74:10
+  |vpiRhs:
+  \_constant: , line:67:33, endln:67:34
+  |vpiLhs:
+  \_hier_path: (genblk1.foo.x1), line:67:16, endln:67:30
+    |vpiParent:
+    \_cont_assign: , line:67:16, endln:67:34
+    |vpiName:genblk1.foo.x1
+    |vpiActual:
+    \_ref_obj: (genblk1), line:67:24, endln:67:27
+      |vpiParent:
+      \_hier_path: (genblk1.foo.x1), line:67:16, endln:67:30
+      |vpiName:genblk1
+    |vpiActual:
+    \_ref_obj: (foo), line:67:24, endln:67:27
+      |vpiParent:
+      \_hier_path: (genblk1.foo.x1), line:67:16, endln:67:30
+      |vpiName:foo
+    |vpiActual:
+    \_ref_obj: (x1), line:67:28, endln:67:30
+      |vpiParent:
+      \_hier_path: (genblk1.foo.x1), line:67:16, endln:67:30
+      |vpiName:x1
+\_cont_assign: , line:68:16, endln:68:29
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ImplicitGenBlock/dut.sv, line:30:1, endln:74:10
+  |vpiRhs:
+  \_constant: , line:68:28, endln:68:29
+  |vpiLhs:
+  \_hier_path: (genblk1.u), line:68:16, endln:68:25
+    |vpiParent:
+    \_cont_assign: , line:68:16, endln:68:29
+    |vpiName:genblk1.u
+    |vpiActual:
+    \_ref_obj: (genblk1), line:68:24, endln:68:25
+      |vpiParent:
+      \_hier_path: (genblk1.u), line:68:16, endln:68:25
+      |vpiName:genblk1
+    |vpiActual:
+    \_ref_obj: (u), line:68:24, endln:68:25
+      |vpiParent:
+      \_hier_path: (genblk1.u), line:68:16, endln:68:25
+      |vpiName:u
+\_cont_assign: , line:69:16, endln:69:27
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ImplicitGenBlock/dut.sv, line:30:1, endln:74:10
+  |vpiRhs:
+  \_constant: , line:69:26, endln:69:27
+  |vpiLhs:
+  \_hier_path: (bar2.x2), line:69:16, endln:69:23
+    |vpiParent:
+    \_cont_assign: , line:69:16, endln:69:27
+    |vpiName:bar2.x2
+    |vpiActual:
+    \_ref_obj: (bar2), line:69:21, endln:69:23
+      |vpiParent:
+      \_hier_path: (bar2.x2), line:69:16, endln:69:23
+      |vpiName:bar2
+    |vpiActual:
+    \_ref_obj: (x2), line:69:21, endln:69:23
+      |vpiParent:
+      \_hier_path: (bar2.x2), line:69:16, endln:69:23
+      |vpiName:x2
+\_cont_assign: , line:70:16, endln:70:27
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ImplicitGenBlock/dut.sv, line:30:1, endln:74:10
+  |vpiRhs:
+  \_constant: , line:70:26, endln:70:27
+  |vpiLhs:
+  \_hier_path: (bar2.y2), line:70:16, endln:70:23
+    |vpiParent:
+    \_cont_assign: , line:70:16, endln:70:27
+    |vpiName:bar2.y2
+    |vpiActual:
+    \_ref_obj: (bar2), line:70:21, endln:70:23
+      |vpiParent:
+      \_hier_path: (bar2.y2), line:70:16, endln:70:23
+      |vpiName:bar2
+    |vpiActual:
+    \_ref_obj: (y2), line:70:21, endln:70:23
+      |vpiParent:
+      \_hier_path: (bar2.y2), line:70:16, endln:70:23
+      |vpiName:y2
+\_cont_assign: , line:71:16, endln:71:31
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ImplicitGenBlock/dut.sv, line:30:1, endln:74:10
+  |vpiRhs:
+  \_constant: , line:71:30, endln:71:31
+  |vpiLhs:
+  \_hier_path: (bar2.baz.x3), line:71:16, endln:71:27
+    |vpiParent:
+    \_cont_assign: , line:71:16, endln:71:31
+    |vpiName:bar2.baz.x3
+    |vpiActual:
+    \_ref_obj: (bar2), line:71:21, endln:71:24
+      |vpiParent:
+      \_hier_path: (bar2.baz.x3), line:71:16, endln:71:27
+      |vpiName:bar2
+    |vpiActual:
+    \_ref_obj: (baz), line:71:21, endln:71:24
+      |vpiParent:
+      \_hier_path: (bar2.baz.x3), line:71:16, endln:71:27
+      |vpiName:baz
+    |vpiActual:
+    \_ref_obj: (x3), line:71:25, endln:71:27
+      |vpiParent:
+      \_hier_path: (bar2.baz.x3), line:71:16, endln:71:27
+      |vpiName:x3
+\_cont_assign: , line:72:16, endln:72:31
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ImplicitGenBlock/dut.sv, line:30:1, endln:74:10
+  |vpiRhs:
+  \_constant: , line:72:30, endln:72:31
+  |vpiLhs:
+  \_hier_path: (bar2.baz.z3), line:72:16, endln:72:27
+    |vpiParent:
+    \_cont_assign: , line:72:16, endln:72:31
+    |vpiName:bar2.baz.z3
+    |vpiActual:
+    \_ref_obj: (bar2), line:72:21, endln:72:24
+      |vpiParent:
+      \_hier_path: (bar2.baz.z3), line:72:16, endln:72:27
+      |vpiName:bar2
+    |vpiActual:
+    \_ref_obj: (baz), line:72:21, endln:72:24
+      |vpiParent:
+      \_hier_path: (bar2.baz.z3), line:72:16, endln:72:27
+      |vpiName:baz
+    |vpiActual:
+    \_ref_obj: (z3), line:72:25, endln:72:27
+      |vpiParent:
+      \_hier_path: (bar2.baz.z3), line:72:16, endln:72:27
+      |vpiName:z3
+\_gen_scope: (work@top.genblk1), line:35:25, endln:35:32
+  |vpiParent:
+  \_gen_scope_array: (work@top.genblk1), line:35:25, endln:35:32
+  |vpiFullName:work@top.genblk1
+  |vpiNet:
+  \_logic_net: (work@top.genblk1.t), line:35:30, endln:35:31
+  |vpiNet:
+  \_logic_net: (work@top.genblk1.u), line:47:30, endln:47:31
+  |vpiGenScopeArray:
+  \_gen_scope_array: (work@top.genblk1.foo), line:37:25, endln:45:28
+    |vpiParent:
+    \_gen_scope: (work@top.genblk1), line:35:25, endln:35:32
+    |vpiName:foo
+    |vpiFullName:work@top.genblk1.foo
+    |vpiGenScope:
+    \_gen_scope: (work@top.genblk1.foo), line:37:25, endln:45:28
+      |vpiParent:
+      \_gen_scope_array: (work@top.genblk1.foo), line:37:25, endln:45:28
+      |vpiFullName:work@top.genblk1.foo
+      |vpiNet:
+      \_logic_net: (work@top.genblk1.foo.x1), line:38:38, endln:38:40
+      |vpiNet:
+      \_logic_net: (work@top.genblk1.foo.y1), line:39:38, endln:39:40
+      |vpiGenScopeArray:
+      \_gen_scope_array: (work@top.genblk1.foo.bar1), line:41:33, endln:43:36
+        |vpiParent:
+        \_gen_scope: (work@top.genblk1.foo), line:37:25, endln:45:28
+        |vpiName:bar1
+        |vpiFullName:work@top.genblk1.foo.bar1
+        |vpiGenScope:
+        \_gen_scope: (work@top.genblk1.foo.bar1), line:41:33, endln:43:36
+          |vpiParent:
+          \_gen_scope_array: (work@top.genblk1.foo.bar1), line:41:33, endln:43:36
+          |vpiFullName:work@top.genblk1.foo.bar1
+          |vpiNet:
+          \_logic_net: (work@top.genblk1.foo.bar1.z1), line:42:40, endln:42:42
+\_gen_scope_array: (work@top.genblk1), line:35:25, endln:35:32
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ImplicitGenBlock/dut.sv, line:30:1, endln:74:10
+  |vpiName:genblk1
+  |vpiFullName:work@top.genblk1
+  |vpiGenScope:
+  \_gen_scope: (work@top.genblk1), line:35:25, endln:35:32
+\_gen_scope: (work@top.bar2), line:53:17, endln:62:20
+  |vpiParent:
+  \_gen_scope_array: (work@top.bar2), line:53:17, endln:62:20
+  |vpiFullName:work@top.bar2
+  |vpiNet:
+  \_logic_net: (work@top.bar2.x2), line:54:30, endln:54:32
+  |vpiNet:
+  \_logic_net: (work@top.bar2.y2), line:56:30, endln:56:32
+  |vpiGenScopeArray:
+  \_gen_scope_array: (work@top.bar2.baz), line:57:25, endln:60:28
+    |vpiParent:
+    \_gen_scope: (work@top.bar2), line:53:17, endln:62:20
+    |vpiName:baz
+    |vpiFullName:work@top.bar2.baz
+    |vpiGenScope:
+    \_gen_scope: (work@top.bar2.baz), line:57:25, endln:60:28
+      |vpiParent:
+      \_gen_scope_array: (work@top.bar2.baz), line:57:25, endln:60:28
+      |vpiFullName:work@top.bar2.baz
+      |vpiNet:
+      \_logic_net: (work@top.bar2.baz.x3), line:58:38, endln:58:40
+      |vpiNet:
+      \_logic_net: (work@top.bar2.baz.z3), line:59:37, endln:59:39
+\_gen_scope_array: (work@top.bar2), line:53:17, endln:62:20
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ImplicitGenBlock/dut.sv, line:30:1, endln:74:10
+  |vpiName:bar2
+  |vpiFullName:work@top.bar2
+  |vpiGenScope:
+  \_gen_scope: (work@top.bar2), line:53:17, endln:62:20
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

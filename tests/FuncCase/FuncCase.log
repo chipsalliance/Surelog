@@ -73,7 +73,7 @@ param_assign                                           4
 parameter                                              4
 range                                                  2
 ref_module                                             2
-ref_obj                                               13
+ref_obj                                               21
 return_stmt                                           10
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FuncCase/slpp_unit/surelog.uhdm ...
@@ -101,29 +101,12 @@ design: (work@top)
     |vpiInstance:
     \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/FuncCase/dut.sv, line:1:1, endln:17:11
     |vpiBaseTypespec:
-    \_logic_typespec: , line:2:14, endln:2:25
-      |vpiInstance:
-      \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/FuncCase/dut.sv, line:1:1, endln:17:11
-      |vpiRange:
-      \_range: , line:2:20, endln:2:25
-        |vpiParent:
-        \_logic_typespec: , line:2:14, endln:2:25
-        |vpiLeftRange:
-        \_constant: , line:2:21, endln:2:22
-          |vpiParent:
-          \_range: , line:2:20, endln:2:25
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:23, endln:2:24
-          |vpiParent:
-          \_range: , line:2:20, endln:2:25
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (fpnew_pkg::fpnew_pkg::opgroup_e)
+      |vpiParent:
+      \_enum_typespec: (fpnew_pkg::opgroup_e), line:7:46, endln:7:55
+      |vpiFullName:fpnew_pkg::fpnew_pkg::opgroup_e
+      |vpiActual:
+      \_logic_typespec: , line:2:14, endln:2:25
     |vpiEnumConst:
     \_enum_const: (ADDMUL), line:3:5, endln:3:11
       |vpiParent:
@@ -170,9 +153,12 @@ design: (work@top)
       |vpiParent:
       \_function: (fpnew_pkg::num_operands), line:7:1, endln:15:14
       |vpiTypespec:
-      \_int_typespec: , line:7:20, endln:7:32
-        |vpiInstance:
-        \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/FuncCase/dut.sv, line:1:1, endln:17:11
+      \_ref_obj: (fpnew_pkg::num_operands)
+        |vpiParent:
+        \_int_var: (fpnew_pkg::num_operands), line:7:20, endln:7:32
+        |vpiFullName:fpnew_pkg::num_operands
+        |vpiActual:
+        \_int_typespec: , line:7:20, endln:7:32
       |vpiFullName:fpnew_pkg::num_operands
     |vpiIODecl:
     \_io_decl: (grp), line:7:56, endln:7:59
@@ -181,7 +167,12 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:grp
       |vpiTypedef:
-      \_enum_typespec: (fpnew_pkg::opgroup_e), line:7:46, endln:7:55
+      \_ref_obj: (fpnew_pkg::num_operands::grp)
+        |vpiParent:
+        \_io_decl: (grp), line:7:56, endln:7:59
+        |vpiFullName:fpnew_pkg::num_operands::grp
+        |vpiActual:
+        \_enum_typespec: (fpnew_pkg::opgroup_e), line:7:46, endln:7:55
     |vpiStmt:
     \_case_stmt: , line:8:5, endln:14:12
       |vpiParent:
@@ -314,29 +305,12 @@ design: (work@top)
     |vpiInstance:
     \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/FuncCase/dut.sv, line:1:1, endln:17:11
     |vpiBaseTypespec:
-    \_logic_typespec: , line:2:14, endln:2:25
-      |vpiInstance:
-      \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/FuncCase/dut.sv, line:1:1, endln:17:11
-      |vpiRange:
-      \_range: , line:2:20, endln:2:25
-        |vpiParent:
-        \_logic_typespec: , line:2:14, endln:2:25
-        |vpiLeftRange:
-        \_constant: , line:2:21, endln:2:22
-          |vpiParent:
-          \_range: , line:2:20, endln:2:25
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:23, endln:2:24
-          |vpiParent:
-          \_range: , line:2:20, endln:2:25
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_obj: (work@top.fpnew_pkg::opgroup_e)
+      |vpiParent:
+      \_enum_typespec: (fpnew_pkg::opgroup_e), line:7:46, endln:7:55
+      |vpiFullName:work@top.fpnew_pkg::opgroup_e
+      |vpiActual:
+      \_logic_typespec: , line:2:14, endln:2:25
     |vpiEnumConst:
     \_enum_const: (ADDMUL), line:3:5, endln:3:11
       |vpiParent:
@@ -384,9 +358,12 @@ design: (work@top)
       |vpiParent:
       \_function: (fpnew_pkg::num_operands), line:7:1, endln:15:14
       |vpiTypespec:
-      \_int_typespec: , line:7:20, endln:7:32
-        |vpiInstance:
-        \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/FuncCase/dut.sv, line:1:1, endln:17:11
+      \_ref_obj: (fpnew_pkg::num_operands)
+        |vpiParent:
+        \_int_var: (fpnew_pkg::num_operands), line:7:20, endln:7:32
+        |vpiFullName:fpnew_pkg::num_operands
+        |vpiActual:
+        \_int_typespec: , line:7:20, endln:7:32
       |vpiFullName:fpnew_pkg::num_operands
     |vpiIODecl:
     \_io_decl: (grp), line:7:56, endln:7:59
@@ -395,7 +372,12 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:grp
       |vpiTypedef:
-      \_enum_typespec: (fpnew_pkg::opgroup_e), line:7:46, endln:7:55
+      \_ref_obj: (fpnew_pkg::num_operands::grp)
+        |vpiParent:
+        \_io_decl: (grp), line:7:56, endln:7:59
+        |vpiFullName:fpnew_pkg::num_operands::grp
+        |vpiActual:
+        \_enum_typespec: (fpnew_pkg::opgroup_e), line:7:46, endln:7:55
     |vpiStmt:
     \_case_stmt: , line:8:5, endln:14:12
       |vpiParent:
@@ -645,6 +627,59 @@ design: (work@top)
         |vpiDefName:work@GOOD
         |vpiDefFile:${SURELOG_DIR}/tests/FuncCase/dut.sv
         |vpiDefLineNo:19
+\_weaklyReferenced:
+\_logic_typespec: , line:2:14, endln:2:25
+  |vpiInstance:
+  \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/FuncCase/dut.sv, line:1:1, endln:17:11
+  |vpiRange:
+  \_range: , line:2:20, endln:2:25
+    |vpiParent:
+    \_logic_typespec: , line:2:14, endln:2:25
+    |vpiLeftRange:
+    \_constant: , line:2:21, endln:2:22
+      |vpiParent:
+      \_range: , line:2:20, endln:2:25
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:23, endln:2:24
+      |vpiParent:
+      \_range: , line:2:20, endln:2:25
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:7:20, endln:7:32
+  |vpiInstance:
+  \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/FuncCase/dut.sv, line:1:1, endln:17:11
+\_logic_typespec: , line:2:14, endln:2:25
+  |vpiInstance:
+  \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/FuncCase/dut.sv, line:1:1, endln:17:11
+  |vpiRange:
+  \_range: , line:2:20, endln:2:25
+    |vpiParent:
+    \_logic_typespec: , line:2:14, endln:2:25
+    |vpiLeftRange:
+    \_constant: , line:2:21, endln:2:22
+      |vpiParent:
+      \_range: , line:2:20, endln:2:25
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:23, endln:2:24
+      |vpiParent:
+      \_range: , line:2:20, endln:2:25
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:7:20, endln:7:32
+  |vpiInstance:
+  \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/FuncCase/dut.sv, line:1:1, endln:17:11
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

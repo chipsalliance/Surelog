@@ -214,7 +214,7 @@ module_inst                                            5
 operation                                              1
 param_assign                                           3
 parameter                                              3
-ref_obj                                                7
+ref_obj                                                9
 seq_formal_decl                                        3
 sys_func_call                                          3
 === UHDM Object Stats End ===
@@ -236,7 +236,7 @@ module_inst                                            5
 operation                                              3
 param_assign                                           3
 parameter                                              3
-ref_obj                                               15
+ref_obj                                               17
 seq_formal_decl                                        3
 sys_func_call                                          9
 === UHDM Object Stats End ===
@@ -334,7 +334,12 @@ design: (work@m)
     |vpiParent:
     \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/LetInlined/dut.sv, line:2:1, endln:16:14
     |vpiTypespec:
-    \_logic_typespec: , line:3:1, endln:3:6
+    \_ref_obj: (work@m.a)
+      |vpiParent:
+      \_logic_net: (work@m.a), line:3:7, endln:3:8
+      |vpiFullName:work@m.a
+      |vpiActual:
+      \_logic_typespec: , line:3:1, endln:3:6
     |vpiName:a
     |vpiFullName:work@m.a
     |vpiNetType:36
@@ -377,9 +382,12 @@ design: (work@m)
     |vpiParent:
     \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/LetInlined/dut.sv, line:2:1, endln:16:14
     |vpiTypespec:
-    \_logic_typespec: , line:3:1, endln:3:6
+    \_ref_obj: (work@m.a)
       |vpiParent:
       \_logic_var: (work@m.a), line:3:7, endln:3:8
+      |vpiFullName:work@m.a
+      |vpiActual:
+      \_logic_typespec: , line:3:1, endln:3:6
     |vpiName:a
     |vpiFullName:work@m.a
     |vpiVisibility:1
@@ -522,6 +530,11 @@ design: (work@m)
             |vpiFullName:work@m.a3.x
           |vpiName:$sampled
     |vpiAlwaysType:2
+\_weaklyReferenced:
+\_logic_typespec: , line:3:1, endln:3:6
+  |vpiParent:
+  \_logic_var: (work@m.a), line:3:7, endln:3:8
+\_logic_typespec: , line:3:1, endln:3:6
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
