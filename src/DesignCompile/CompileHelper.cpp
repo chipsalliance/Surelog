@@ -3200,8 +3200,7 @@ UHDM::any* CompileHelper::defaultPatternAssignment(const UHDM::typespec* tps,
               adjustUnsized(c, ncsize);
               c->VpiSize(ncsize);
             } else {
-              if (ncsize < c->VpiSize())
-                c->VpiSize(ncsize);
+              if (ncsize < c->VpiSize()) c->VpiSize(ncsize);
             }
             if (r) {
               bool invalidValue = false;
