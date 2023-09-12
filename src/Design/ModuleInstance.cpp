@@ -345,7 +345,10 @@ void ModuleInstance::overrideParentChild(ModuleInstance* parent,
       p->VpiLineNo(param.second.second);
       p->VpiLocalParam(true);
       UHDM::int_typespec* ts = s.MakeInt_typespec();
-      p->Typespec(ts);
+      UHDM::ref_obj* ro = s.MakeRef_obj();
+      ro->Actual_group(ts);
+      ro->VpiParent(p);
+      p->Typespec(ro);
       UHDM::param_assign* pass = s.MakeParam_assign();
       pass->Lhs(p);
       UHDM::constant* c = s.MakeConstant();

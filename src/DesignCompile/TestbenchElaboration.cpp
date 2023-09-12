@@ -40,6 +40,7 @@
 #include <uhdm/class_defn.h>
 #include <uhdm/class_typespec.h>
 #include <uhdm/extends.h>
+#include <uhdm/ref_obj.h>
 
 #include <queue>
 
@@ -260,7 +261,10 @@ bool TestbenchElaboration::bindBaseClasses_() {
         UHDM::class_typespec* tps = s.MakeClass_typespec();
         fCDef->populateCoreMembers(placeHolder->getNodeId(),
                                    placeHolder->getNodeId(), tps);
-        extends->Class_typespec(tps);
+        UHDM::ref_obj* extends_ts = s.MakeRef_obj();
+        extends_ts->VpiParent(extends);
+        extends_ts->Actual_group(tps);
+        extends->Class_typespec(extends_ts);
         tps->Class_defn(parent);
         tps->VpiName(placeHolder->getName());
         derived->Extends(extends);
@@ -288,7 +292,10 @@ bool TestbenchElaboration::bindBaseClasses_() {
                                      placeHolder->getNodeId(), extends);
           UHDM::class_typespec* tps = s.MakeClass_typespec();
           tps->VpiName(class_def.second->getName());
-          extends->Class_typespec(tps);
+          UHDM::ref_obj* extends_ts = s.MakeRef_obj();
+          extends_ts->VpiParent(extends);
+          extends_ts->Actual_group(tps);
+          extends->Class_typespec(extends_ts);
           UHDM::class_defn* def = classDefinition->getUhdmDefinition();
           def->Extends(extends);
         }

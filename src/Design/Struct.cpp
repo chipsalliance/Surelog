@@ -25,6 +25,7 @@
 #include <Surelog/Design/Struct.h>
 
 // UHDM
+#include <uhdm/ref_obj.h>
 #include <uhdm/struct_typespec.h>
 #include <uhdm/typespec_member.h>
 
@@ -44,10 +45,17 @@ bool Struct::isNet() const {
   const UHDM::struct_typespec* tps = (const UHDM::struct_typespec*)m_typespec;
   if (tps->Members()) {
     for (UHDM::typespec_member* member : *tps->Members()) {
-      const UHDM::typespec* tm = member->Typespec();
-      if (!tm) return false;
-      UHDM::UHDM_OBJECT_TYPE type = tm->UhdmType();
-      if (type != UHDM::uhdmlogic_typespec) return false;
+      if (const UHDM::ref_obj* ro = member->Typespec()) {
+        if (const UHDM::any* ag = ro->Actual_group()) {
+          if (ag->UhdmType() != UHDM::uhdmlogic_typespec) {
+            return false;
+          }
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
     }
   }
   return true;
