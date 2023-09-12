@@ -295,7 +295,7 @@ bool ParseCache::restore(PathId cacheFileId) {
 
     restoreSymbols(sourceSymbols, root.getSymbols());
     restoreErrors(m_parse->getCompileSourceFile()->getErrorContainer(),
-                  sourceSymbols, root.getErrors(), targetSymbols);
+                  targetSymbols, root.getErrors(), sourceSymbols);
 
     // Restore design content (Verilog Design Elements)
     FileContent* fC = m_parse->getFileContent();
