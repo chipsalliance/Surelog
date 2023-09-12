@@ -392,14 +392,14 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-array_expr                                             4
+array_expr                                             1
 array_typespec                                         7
 array_var                                              1
 assign_stmt                                            1
 assignment                                             1
 begin                                                  4
 bit_select                                             8
-constant                                              56
+constant                                              71
 design                                                 1
 for_stmt                                               1
 func_call                                              3
@@ -409,10 +409,11 @@ gen_scope                                              2
 gen_scope_array                                        2
 int_typespec                                           9
 int_var                                                1
+logic_var                                              3
 module_inst                                            9
 operation                                             18
-param_assign                                          18
-parameter                                             18
+param_assign                                          21
+parameter                                             21
 range                                                  8
 ref_module                                             1
 ref_obj                                               13
@@ -423,14 +424,14 @@ tagged_pattern                                         2
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-array_expr                                             4
+array_expr                                             1
 array_typespec                                         7
 array_var                                              1
 assign_stmt                                            2
 assignment                                             2
 begin                                                  5
 bit_select                                            10
-constant                                              56
+constant                                              71
 design                                                 1
 for_stmt                                               2
 func_call                                              3
@@ -440,10 +441,11 @@ gen_scope                                              3
 gen_scope_array                                        3
 int_typespec                                           9
 int_var                                                2
+logic_var                                              3
 module_inst                                            9
 operation                                             20
-param_assign                                          18
-parameter                                             18
+param_assign                                          21
+parameter                                             21
 range                                                  8
 ref_module                                             1
 ref_obj                                               18
@@ -1154,10 +1156,8 @@ design: (work@main)
         \_array_typespec: , line:5:12, endln:5:31
         |vpiExpr:
         \_constant: , line:5:45, endln:5:46
-          |vpiParent:
-          \_operation: , line:23:5, endln:23:18
           |vpiDecompile:3
-          |vpiSize:64
+          |vpiSize:32
           |UINT:3
           |vpiConstType:9
         |vpiExpr:

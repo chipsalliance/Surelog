@@ -349,7 +349,7 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assignment                                             4
 begin                                                  2
-constant                                              76
+constant                                             123
 cont_assign                                            3
 design                                                 1
 func_call                                              5
@@ -357,22 +357,22 @@ function                                               2
 if_stmt                                                2
 io_decl                                                4
 logic_net                                              6
-logic_typespec                                        21
-logic_var                                              6
-module_inst                                            8
+logic_typespec                                        33
+logic_var                                             16
+module_inst                                           14
 operation                                              6
-param_assign                                          19
-parameter                                             19
+param_assign                                          56
+parameter                                             56
 port                                                   6
-range                                                 24
-ref_obj                                               22
+range                                                 36
+ref_obj                                               28
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
 assignment                                             8
 begin                                                  4
-constant                                              76
+constant                                             123
 cont_assign                                            5
 design                                                 1
 func_call                                              8
@@ -380,15 +380,15 @@ function                                               4
 if_stmt                                                4
 io_decl                                                8
 logic_net                                              6
-logic_typespec                                        21
-logic_var                                              6
-module_inst                                            8
+logic_typespec                                        33
+logic_var                                             16
+module_inst                                           14
 operation                                             12
-param_assign                                          19
-parameter                                             19
+param_assign                                          56
+parameter                                             56
 port                                                   9
-range                                                 24
-ref_obj                                               40
+range                                                 36
+ref_obj                                               46
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FuncArgs/slpp_all/surelog.uhdm ...
 
@@ -564,6 +564,8 @@ design: (work@dut)
               \_operation: , line:10:60, endln:10:67
                 |vpiParent:
                 \_func_call: (pow_a), line:10:48, endln:10:68
+                |vpiTypespec:
+                \_logic_typespec: , line:6:23, endln:6:28
                 |vpiOpType:11
                 |vpiOperand:
                 \_ref_obj: (work@dut.pow_a.exp), line:10:60, endln:10:63
@@ -1093,6 +1095,8 @@ design: (work@dut)
               \_operation: , line:10:60, endln:10:67
                 |vpiParent:
                 \_func_call: (pow_a), line:10:48, endln:10:68
+                |vpiTypespec:
+                \_logic_typespec: , line:6:23, endln:6:28
                 |vpiOpType:11
                 |vpiOperand:
                 \_ref_obj: (work@dut.pow_a.exp), line:10:60, endln:10:63

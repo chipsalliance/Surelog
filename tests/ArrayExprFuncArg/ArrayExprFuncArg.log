@@ -580,14 +580,13 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-array_expr                                             3
 array_typespec                                         9
 array_var                                              1
 assign_stmt                                            2
 assignment                                             3
 begin                                                  9
 bit_select                                             8
-constant                                             117
+constant                                             148
 design                                                 1
 for_stmt                                               2
 func_call                                              6
@@ -596,13 +595,14 @@ gen_if                                                 5
 gen_scope                                              8
 gen_scope_array                                        8
 if_stmt                                                1
-int_typespec                                          21
+int_typespec                                          20
 int_var                                                6
 io_decl                                                2
+logic_var                                              4
 module_inst                                           10
 operation                                             31
-param_assign                                          32
-parameter                                             33
+param_assign                                          38
+parameter                                             39
 range                                                 12
 ref_module                                             1
 ref_obj                                               30
@@ -611,14 +611,13 @@ sys_task_call                                          4
 [INF:UH0707] Elaborating UHDM...
 
 === UHDM Object Stats Begin (Elaborated Model) ===
-array_expr                                             3
 array_typespec                                         9
 array_var                                              1
 assign_stmt                                            4
 assignment                                             6
 begin                                                 13
 bit_select                                            12
-constant                                             117
+constant                                             148
 design                                                 1
 for_stmt                                               4
 func_call                                              6
@@ -627,13 +626,14 @@ gen_if                                                 5
 gen_scope                                             12
 gen_scope_array                                       12
 if_stmt                                                2
-int_typespec                                          21
+int_typespec                                          20
 int_var                                                8
 io_decl                                                4
+logic_var                                              4
 module_inst                                           10
 operation                                             37
-param_assign                                          32
-parameter                                             33
+param_assign                                          38
+parameter                                             39
 range                                                 13
 ref_module                                             1
 ref_obj                                               44
@@ -1709,10 +1709,6 @@ design: (work@main)
           |vpiDecompile:5
           |vpiSize:32
           |UINT:5
-          |vpiTypespec:
-          \_int_typespec: , line:34:12, endln:34:24
-            |vpiParent:
-            \_constant: , line:7:39, endln:7:40
           |vpiConstType:9
         |vpiOperand:
         \_constant: , line:7:41, endln:7:42
@@ -1745,12 +1741,12 @@ design: (work@main)
       \_constant: , line:34:37, endln:34:62
         |vpiParent:
         \_param_assign: , line:34:25, endln:34:62
-        |vpiDecompile:5
+        |vpiDecompile:32'b00000000000000000000000000000101
         |vpiSize:32
-        |UINT:5
+        |BIN:00000000000000000000000000000101
         |vpiTypespec:
         \_int_typespec: , line:34:12, endln:34:24
-        |vpiConstType:9
+        |vpiConstType:3
       |vpiLhs:
       \_parameter: (work@main.top1.MAX_VADDR), line:34:25, endln:34:34
     |vpiTypedef:
