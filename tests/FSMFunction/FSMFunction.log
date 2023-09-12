@@ -1175,7 +1175,7 @@ case_stmt                                              2
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              85
+constant                                              87
 cont_assign                                            1
 delay_control                                         12
 design                                                 1
@@ -1190,8 +1190,8 @@ int_typespec                                          17
 int_var                                                4
 io_decl                                               14
 logic_net                                             16
-logic_typespec                                        26
-logic_var                                             10
+logic_typespec                                        27
+logic_var                                             11
 module_inst                                            6
 named_begin                                            2
 operation                                             24
@@ -1199,7 +1199,7 @@ package                                                2
 param_assign                                          11
 parameter                                             11
 port                                                  12
-range                                                 22
+range                                                 23
 ref_obj                                               80
 task                                                   9
 === UHDM Object Stats End ===
@@ -1214,7 +1214,7 @@ case_stmt                                              4
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              85
+constant                                              87
 cont_assign                                            2
 delay_control                                         24
 design                                                 1
@@ -1229,8 +1229,8 @@ int_typespec                                          17
 int_var                                                4
 io_decl                                               28
 logic_net                                             16
-logic_typespec                                        26
-logic_var                                             10
+logic_typespec                                        27
+logic_var                                             11
 module_inst                                            6
 named_begin                                            4
 operation                                             32
@@ -1238,7 +1238,7 @@ package                                                2
 param_assign                                          11
 parameter                                             11
 port                                                  18
-range                                                 22
+range                                                 23
 ref_obj                                              136
 task                                                  18
 === UHDM Object Stats End ===
@@ -3163,7 +3163,17 @@ design: (work@fsm_using_function)
       |vpiSize:3
       |BIN:001
       |vpiTypespec:
-      \_int_typespec: , line:24:1, endln:24:53
+      \_logic_typespec: 
+        |vpiRange:
+        \_range: 
+          |vpiParent:
+          \_logic_typespec: 
+          |vpiLeftRange:
+          \_constant: 
+            |UINT:2
+          |vpiRightRange:
+          \_constant: 
+            |UINT:0
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@fsm_using_function.IDLE), line:24:11, endln:24:15
