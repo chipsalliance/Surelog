@@ -1790,7 +1790,9 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
       obj = stv;
     } else if (tpstype == uhdmlogic_typespec) {
       logic_var* stv = s.MakeLogic_var();
-      stv->Ranges(packedDimensions);
+      // Do not set packedDimensions, it is a repeat of the typespec packed
+      // dimension.
+      // stv->Ranges(packedDimensions);
       obj = stv;
     } else if (tpstype == uhdmenum_typespec) {
       enum_var* stv = s.MakeEnum_var();
