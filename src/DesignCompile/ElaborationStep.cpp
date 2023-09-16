@@ -527,7 +527,7 @@ void ElaborationStep::swapTypespecPointersInUhdm(
     } else if (ports* ex = any_cast<ports*>(var)) {
       ex->Typespec(replace(ex->Typespec(), typespecSwapMap));
     } else if (prop_formal_decl* ex = any_cast<prop_formal_decl*>(var)) {
-      ex->VpiTypespec(replace(ex->VpiTypespec(), typespecSwapMap));
+      ex->Typespec(replace(ex->Typespec(), typespecSwapMap));
     } else if (class_obj* ex = any_cast<class_obj*>(var)) {
       if (ex->Typespecs()) {
         for (auto& tps : *ex->Typespecs()) {
