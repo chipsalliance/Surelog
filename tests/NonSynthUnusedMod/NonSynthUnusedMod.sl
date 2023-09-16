@@ -1,0 +1,1 @@
+-parse -d uhdm -d coveruhdm -synth -elabuhdm -d ast dut.sv -y . +libext+.v -nobuiltin
