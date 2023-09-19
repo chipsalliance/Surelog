@@ -234,17 +234,17 @@ constant                                               5
 design                                                 1
 foreach_stmt                                           1
 function                                               3
-hier_path                                              5
+hier_path                                              4
 io_decl                                                2
 logic_net                                              1
 module_inst                                            3
 range                                                  2
 real_typespec                                          8
 real_var                                               2
-ref_obj                                                8
+ref_obj                                                7
 ref_var                                                2
 struct_typespec                                        3
-struct_var                                             1
+struct_var                                             2
 typespec_member                                        6
 unsupported_typespec                                   4
 === UHDM Object Stats End ===
@@ -260,17 +260,17 @@ constant                                               5
 design                                                 1
 foreach_stmt                                           1
 function                                               3
-hier_path                                              5
+hier_path                                              4
 io_decl                                                2
 logic_net                                              1
 module_inst                                            3
 range                                                  2
 real_typespec                                          8
 real_var                                               2
-ref_obj                                                8
+ref_obj                                                7
 ref_var                                                2
 struct_typespec                                        3
-struct_var                                             1
+struct_var                                             2
 typespec_member                                        6
 unsupported_typespec                                   4
 === UHDM Object Stats End ===
@@ -533,14 +533,11 @@ design: (work@dut)
           |vpiName:driver
           |vpiFullName:Tsum.driver
         |vpiLoopVars:
-        \_ref_var: (Tsum.i), line:30:19, endln:30:20
+        \_struct_var: (Tsum.i), line:30:19, endln:30:20
           |vpiParent:
           \_foreach_stmt: (Tsum), line:30:3, endln:30:10
           |vpiTypespec:
-          \_unsupported_typespec: (i), line:30:19, endln:30:20
-            |vpiParent:
-            \_ref_var: (Tsum.i), line:30:19, endln:30:20
-            |vpiName:i
+          \_struct_typespec: (T), line:28:34, endln:28:35
           |vpiName:i
           |vpiFullName:Tsum.i
         |vpiStmt:
@@ -569,7 +566,7 @@ design: (work@dut)
                 |vpiName:i
                 |vpiFullName:Tsum.i
                 |vpiActual:
-                \_ref_var: (Tsum.i), line:30:19, endln:30:20
+                \_struct_var: (Tsum.i), line:30:19, endln:30:20
             |vpiActual:
             \_ref_obj: (Tsum.field1), line:31:30, endln:31:36
               |vpiParent:
