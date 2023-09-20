@@ -2,7 +2,7 @@
 
 [WRN:CM0010] Command line argument "-Wno-UNOPTFLAT" ignored.
 
-Running: cd ${SURELOG_DIR}/build/regression/CoresSweRVMP/slpp_all/mp_parser; cmake -G "Unix Makefiles" .; make -j 16
+Running: cd ${SURELOG_DIR}/build/regression/CoresSweRVMP/slpp_all/mp_parser; cmake -G "Unix Makefiles" .; make -j 2
 CMake Deprecation Warning at CMakeLists.txt:1 (cmake_minimum_required):
   Compatibility with CMake < 3.5 will be removed from a future version of
   CMake.
@@ -122,7 +122,7 @@ PP CACHE USED FOR: ${SURELOG_DIR}/third_party/UVM/1800.2-2017-1.0/src/uvm_pkg.sv
 
 [INF:PP0122] Preprocessing source file "${SURELOG_DIR}/third_party/tests/CoresSweRVMP/design/lib/axi4_to_ahb.sv".
 
-Running: cd ${SURELOG_DIR}/build/regression/CoresSweRVMP/slpp_all/mp_preprocess; cmake -G "Unix Makefiles" .; make -j 16
+Running: cd ${SURELOG_DIR}/build/regression/CoresSweRVMP/slpp_all/mp_preprocess; cmake -G "Unix Makefiles" .; make -j 2
 CMake Deprecation Warning at CMakeLists.txt:1 (cmake_minimum_required):
   Compatibility with CMake < 3.5 will be removed from a future version of
   CMake.
@@ -131,25 +131,11 @@ CMake Deprecation Warning at CMakeLists.txt:1 (cmake_minimum_required):
   CMake that the project does not need compatibility with older versions.
 
 
--- Configuring done (0.1s)
+-- Configuring done (0.0s)
 -- Generating done (0.0s)
 -- Build files have been written to: ${SURELOG_DIR}/build/regression/CoresSweRVMP/slpp_all/mp_preprocess
-[  6%] Generating 10_lsu_bus_intf.sv
-[ 12%] Generating 11_ifu_bp_ctl.sv
-[ 18%] Generating 12_beh_lib.sv
-[ 25%] Generating 13_ifu_mem_ctl.sv
-[ 31%] Generating 14_mem_lib.sv
-[ 37%] Generating 15_exu.sv
-[ 43%] Generating 16_dec_decode_ctl.sv
-[ 50%] Generating 1_lsu_stbuf.sv
-[ 56%] Generating 2_ahb_to_axi4.sv
-[ 62%] Generating 3_rvjtag_tap.sv
-[ 68%] Generating 4_dec_tlu_ctl.sv
-[ 75%] Generating 5_lsu_bus_buffer.sv
-[ 81%] Generating 8_ifu_aln_ctl.sv
-[ 87%] Generating 7_axi4_to_ahb.sv
-[ 93%] Generating 6_dbg.sv
-[100%] Generating 9_tb_top.sv
+[ 50%] Generating 1_axi4_to_ahb.sv
+[100%] Generating 2_mem_lib.sv
 [100%] Built target Parse
 Surelog parsing status: 0
 [INF:PA0201] Parsing source file "${SURELOG_DIR}/third_party/UVM/1800.2-2017-1.0/src/uvm_pkg.sv".
@@ -4905,17 +4891,17 @@ assignment                                          7737
 begin                                               7196
 bit_select                                         20124
 bit_typespec                                        2219
-bit_var                                             1213
+bit_var                                             1216
 break_stmt                                            53
 byte_typespec                                        120
-byte_var                                              36
+byte_var                                              38
 case_item                                            826
 case_stmt                                            122
 chandle_typespec                                       6
 chandle_var                                            2
 class_defn                                           613
 class_typespec                                      8456
-class_var                                           3302
+class_var                                           3308
 constant                                          216868
 constraint                                             4
 cont_assign                                         7074
@@ -4950,7 +4936,7 @@ include_file_info                                    177
 indexed_part_select                                  141
 initial                                                1
 int_typespec                                       12184
-int_var                                             1338
+int_var                                             1340
 integer_typespec                                      28
 integer_var                                            3
 io_decl                                             6982
@@ -4958,7 +4944,7 @@ logic_net                                          28824
 logic_typespec                                     53948
 logic_var                                           4331
 long_int_typespec                                     99
-long_int_var                                          18
+long_int_var                                          20
 method_func_call                                    7996
 module_inst                                         7724
 named_begin                                           72
@@ -4981,10 +4967,10 @@ ref_var                                             1830
 repeat                                                26
 return_stmt                                         3379
 string_typespec                                     3206
-string_var                                          1400
+string_var                                          1405
 struct_net                                           199
 struct_typespec                                       52
-struct_var                                            54
+struct_var                                            55
 sys_func_call                                       1383
 tagged_pattern                                         3
 task                                                 587
@@ -5012,17 +4998,17 @@ assignment                                         43769
 begin                                              46172
 bit_select                                         25897
 bit_typespec                                        2222
-bit_var                                             8524
+bit_var                                             8535
 break_stmt                                           258
 byte_typespec                                        120
-byte_var                                             100
+byte_var                                             106
 case_item                                           2044
 case_stmt                                            298
 chandle_typespec                                       6
 chandle_var                                            2
 class_defn                                           613
 class_typespec                                      9905
-class_var                                          21999
+class_var                                          22226
 constant                                          216967
 constraint                                            10
 cont_assign                                         7123
@@ -5057,7 +5043,7 @@ include_file_info                                    177
 indexed_part_select                                  207
 initial                                                2
 int_typespec                                       12196
-int_var                                             8693
+int_var                                             8699
 integer_typespec                                      28
 integer_var                                            3
 io_decl                                            55673
@@ -5065,7 +5051,7 @@ logic_net                                          28824
 logic_typespec                                     53948
 logic_var                                           4456
 long_int_typespec                                     99
-long_int_var                                         161
+long_int_var                                         167
 method_func_call                                   45424
 method_task_call                                    3598
 module_inst                                         7724
@@ -5085,14 +5071,14 @@ real_typespec                                         33
 real_var                                              10
 ref_module                                          2139
 ref_obj                                           383727
-ref_var                                             8953
+ref_var                                             8701
 repeat                                               207
 return_stmt                                        19618
 string_typespec                                     3206
-string_var                                          5157
+string_var                                          5171
 struct_net                                           199
 struct_typespec                                       66
-struct_var                                           181
+struct_var                                           184
 sys_func_call                                      10631
 tagged_pattern                                         3
 task                                                4747
@@ -5107,12 +5093,14 @@ wait_fork                                              3
 wait_stmt                                            140
 while_stmt                                           353
 === UHDM Object Stats End ===
+[ERR:UH0725] Unresolved hierarchical reference "".
+
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/CoresSweRVMP/slpp_all/surelog.uhdm ...
 
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/CoresSweRVMP/slpp_all/checker/surelog.chk.html ...
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 117
 [   NOTE] : 15
