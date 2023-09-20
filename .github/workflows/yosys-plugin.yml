@@ -2,9 +2,8 @@ name: 'yosys-systemverilog-plugin'
 
 on:
   push:
-    branches:
-      - master
   pull_request:
+  workflow_dispatch:
 
 jobs:
 
@@ -41,7 +40,7 @@ jobs:
         # Make sure we always use https:// instead of git://
         git config --global url.https://github.com/.insteadOf git://github.com/
         # Use current main of the plugin repository...
-        git clone https://github.com/chipsalliance/systemverilog-plugin.git
+        git clone --depth 1 https://github.com/Apotell/synlig.git systemverilog-plugin
         cd systemverilog-plugin
         git submodule update --depth 1 --init --recursive \
               third_party/yosys \
@@ -52,6 +51,8 @@ jobs:
     - name: Setup Surelog
       uses: actions/checkout@v2
       with:
+        repository: 'Apotell/Surelog'
+        ref: rtts
         submodules: recursive
         fetch-depth: 0
         path: 'systemverilog-plugin/third_party/surelog'
