@@ -224,6 +224,7 @@ operation                                              3
 part_select                                            1
 range                                                  7
 ref_obj                                               11
+ref_typespec                                           5
 string_typespec                                        2
 string_var                                             2
 var_select                                             1
@@ -249,6 +250,7 @@ operation                                              5
 part_select                                            2
 range                                                  7
 ref_obj                                               22
+ref_typespec                                           5
 string_typespec                                        2
 string_var                                             2
 var_select                                             2
@@ -283,7 +285,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@top.dasm), line:5:1, endln:8:12
       |vpiTypespec:
-      \_string_typespec: , line:5:10, endln:5:16
+      \_ref_typespec: (work@top.dasm)
+        |vpiParent:
+        \_string_var: (work@top.dasm), line:5:10, endln:5:16
+        |vpiFullName:work@top.dasm
+        |vpiActual:
+        \_string_typespec: , line:5:10, endln:5:16
       |vpiFullName:work@top.dasm
     |vpiIODecl:
     \_io_decl: (tid), line:5:29, endln:5:32
@@ -467,47 +474,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDefaultVal/dut.sv, line:1:1, endln:10:10
     |vpiTypespec:
-    \_bit_typespec: , line:3:1, endln:3:24
-      |vpiRange:
-      \_range: , line:3:4, endln:3:10
-        |vpiParent:
-        \_bit_typespec: , line:3:1, endln:3:24
-        |vpiLeftRange:
-        \_constant: , line:3:5, endln:3:7
-          |vpiParent:
-          \_range: , line:3:4, endln:3:10
-          |vpiDecompile:31
-          |vpiSize:64
-          |UINT:31
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:3:8, endln:3:9
-          |vpiParent:
-          \_range: , line:3:4, endln:3:10
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-      |vpiRange:
-      \_range: , line:3:11, endln:3:17
-        |vpiParent:
-        \_bit_typespec: , line:3:1, endln:3:24
-        |vpiLeftRange:
-        \_constant: , line:3:12, endln:3:14
-          |vpiParent:
-          \_range: , line:3:11, endln:3:17
-          |vpiDecompile:31
-          |vpiSize:64
-          |UINT:31
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:3:15, endln:3:16
-          |vpiParent:
-          \_range: , line:3:11, endln:3:17
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@top.gpr)
+      |vpiParent:
+      \_logic_net: (work@top.gpr), line:3:18, endln:3:21
+      |vpiFullName:work@top.gpr
+      |vpiActual:
+      \_bit_typespec: , line:3:1, endln:3:24
     |vpiName:gpr
     |vpiFullName:work@top.gpr
   |vpiNet:
@@ -547,7 +519,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDefaultVal/dut.sv, line:1:1, endln:10:10
     |vpiSize:2
     |vpiTypespec:
-    \_array_typespec: 
+    \_ref_typespec: (work@top.gpr)
+      |vpiParent:
+      \_array_var: (work@top.gpr), line:3:18, endln:3:21
+      |vpiFullName:work@top.gpr
+      |vpiActual:
+      \_array_typespec: 
     |vpiName:gpr
     |vpiFullName:work@top.gpr
     |vpiRandType:1
@@ -588,49 +565,12 @@ design: (work@top)
       |vpiParent:
       \_array_var: (work@top.gpr), line:3:18, endln:3:21
       |vpiTypespec:
-      \_bit_typespec: , line:3:1, endln:3:17
+      \_ref_typespec: (work@top.gpr)
         |vpiParent:
         \_bit_var: (work@top.gpr), line:3:18, endln:3:21
-        |vpiRange:
-        \_range: , line:3:4, endln:3:10
-          |vpiParent:
-          \_bit_typespec: , line:3:1, endln:3:17
-          |vpiLeftRange:
-          \_constant: , line:3:5, endln:3:7
-            |vpiParent:
-            \_range: , line:3:4, endln:3:10
-            |vpiDecompile:31
-            |vpiSize:64
-            |UINT:31
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:3:8, endln:3:9
-            |vpiParent:
-            \_range: , line:3:4, endln:3:10
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-        |vpiRange:
-        \_range: , line:3:11, endln:3:17
-          |vpiParent:
-          \_bit_typespec: , line:3:1, endln:3:17
-          |vpiLeftRange:
-          \_constant: , line:3:12, endln:3:14
-            |vpiParent:
-            \_range: , line:3:11, endln:3:17
-            |vpiDecompile:31
-            |vpiSize:64
-            |UINT:31
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:3:15, endln:3:16
-            |vpiParent:
-            \_range: , line:3:11, endln:3:17
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@top.gpr
+        |vpiActual:
+        \_bit_typespec: , line:3:1, endln:3:17
       |vpiFullName:work@top.gpr
       |vpiRange:
       \_range: , line:3:22, endln:3:23
@@ -807,6 +747,93 @@ design: (work@top)
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDefaultVal/dut.sv, line:1:1, endln:10:10
   |vpiTopModule:1
+\_weaklyReferenced:
+\_string_typespec: , line:5:10, endln:5:16
+\_bit_typespec: , line:3:1, endln:3:17
+  |vpiParent:
+  \_bit_var: (work@top.gpr), line:3:18, endln:3:21
+  |vpiRange:
+  \_range: , line:3:4, endln:3:10
+    |vpiParent:
+    \_bit_typespec: , line:3:1, endln:3:17
+    |vpiLeftRange:
+    \_constant: , line:3:5, endln:3:7
+      |vpiParent:
+      \_range: , line:3:4, endln:3:10
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:8, endln:3:9
+      |vpiParent:
+      \_range: , line:3:4, endln:3:10
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:3:11, endln:3:17
+    |vpiParent:
+    \_bit_typespec: , line:3:1, endln:3:17
+    |vpiLeftRange:
+    \_constant: , line:3:12, endln:3:14
+      |vpiParent:
+      \_range: , line:3:11, endln:3:17
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:15, endln:3:16
+      |vpiParent:
+      \_range: , line:3:11, endln:3:17
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_array_typespec: 
+\_bit_typespec: , line:3:1, endln:3:24
+  |vpiRange:
+  \_range: , line:3:4, endln:3:10
+    |vpiParent:
+    \_bit_typespec: , line:3:1, endln:3:24
+    |vpiLeftRange:
+    \_constant: , line:3:5, endln:3:7
+      |vpiParent:
+      \_range: , line:3:4, endln:3:10
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:8, endln:3:9
+      |vpiParent:
+      \_range: , line:3:4, endln:3:10
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:3:11, endln:3:17
+    |vpiParent:
+    \_bit_typespec: , line:3:1, endln:3:24
+    |vpiLeftRange:
+    \_constant: , line:3:12, endln:3:14
+      |vpiParent:
+      \_range: , line:3:11, endln:3:17
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:15, endln:3:16
+      |vpiParent:
+      \_range: , line:3:11, endln:3:17
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

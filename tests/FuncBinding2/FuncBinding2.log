@@ -47,6 +47,7 @@ parameter                                              2
 port                                                   4
 range                                                  5
 ref_obj                                               14
+ref_typespec                                          15
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -75,6 +76,7 @@ parameter                                              2
 port                                                   6
 range                                                  5
 ref_obj                                               25
+ref_typespec                                          19
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FuncBinding2/slpp_unit/surelog.uhdm ...
 
@@ -99,17 +101,12 @@ design: (work@vend)
     \_module_inst: work@vend (work@vend), file:${SURELOG_DIR}/tests/FuncBinding2/dut.sv, line:1:1, endln:33:10
     |BIN:00
     |vpiTypespec:
-    \_int_typespec: , line:7:1, endln:7:21
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:7:1, endln:7:21
-        |vpiLeftRange:
-        \_constant: 
-          |INT:1
-        |vpiRightRange:
-        \_constant: 
-          |INT:0
+    \_ref_typespec: (work@vend.s0)
+      |vpiParent:
+      \_parameter: (work@vend.s0), line:7:11, endln:7:13
+      |vpiFullName:work@vend.s0
+      |vpiActual:
+      \_int_typespec: , line:7:1, endln:7:21
     |vpiName:s0
     |vpiFullName:work@vend.s0
   |vpiParamAssign:
@@ -124,7 +121,12 @@ design: (work@vend)
       |vpiSize:2
       |BIN:00
       |vpiTypespec:
-      \_int_typespec: , line:7:1, endln:7:21
+      \_ref_typespec: (work@vend)
+        |vpiParent:
+        \_constant: , line:7:16, endln:7:21
+        |vpiFullName:work@vend
+        |vpiActual:
+        \_int_typespec: , line:7:1, endln:7:21
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@vend.s0), line:7:11, endln:7:13
@@ -140,7 +142,12 @@ design: (work@vend)
       |vpiParent:
       \_function: (work@vend.fsm), line:10:1, endln:26:12
       |vpiTypespec:
-      \_logic_typespec: , line:12:1, endln:12:4
+      \_ref_typespec: (work@vend.fsm.fsm_newspaper)
+        |vpiParent:
+        \_logic_var: (work@vend.fsm.fsm_newspaper), line:12:1, endln:12:4
+        |vpiFullName:work@vend.fsm.fsm_newspaper
+        |vpiActual:
+        \_logic_typespec: , line:12:1, endln:12:4
       |vpiName:fsm_newspaper
       |vpiFullName:work@vend.fsm.fsm_newspaper
       |vpiAutomatic:1
@@ -150,27 +157,12 @@ design: (work@vend)
       |vpiParent:
       \_function: (work@vend.fsm), line:10:1, endln:26:12
       |vpiTypespec:
-      \_logic_typespec: , line:10:10, endln:10:15
-        |vpiRange:
-        \_range: , line:10:10, endln:10:15
-          |vpiParent:
-          \_logic_typespec: , line:10:10, endln:10:15
-          |vpiLeftRange:
-          \_constant: , line:10:11, endln:10:12
-            |vpiParent:
-            \_range: , line:10:10, endln:10:15
-            |vpiDecompile:2
-            |vpiSize:64
-            |UINT:2
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:10:13, endln:10:14
-            |vpiParent:
-            \_range: , line:10:10, endln:10:15
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_typespec: (work@vend.fsm)
+        |vpiParent:
+        \_logic_var: (work@vend.fsm), line:10:10, endln:10:15
+        |vpiFullName:work@vend.fsm
+        |vpiActual:
+        \_logic_typespec: , line:10:10, endln:10:15
       |vpiFullName:work@vend.fsm
     |vpiIODecl:
     \_io_decl: (fsm_PRES_STATE), line:11:13, endln:11:27
@@ -179,27 +171,12 @@ design: (work@vend)
       |vpiDirection:1
       |vpiName:fsm_PRES_STATE
       |vpiTypedef:
-      \_logic_typespec: , line:11:7, endln:11:12
-        |vpiRange:
-        \_range: , line:11:7, endln:11:12
-          |vpiParent:
-          \_logic_typespec: , line:11:7, endln:11:12
-          |vpiLeftRange:
-          \_constant: , line:11:8, endln:11:9
-            |vpiParent:
-            \_range: , line:11:7, endln:11:12
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:11:10, endln:11:11
-            |vpiParent:
-            \_range: , line:11:7, endln:11:12
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_typespec: (work@vend.fsm.fsm_PRES_STATE)
+        |vpiParent:
+        \_io_decl: (fsm_PRES_STATE), line:11:13, endln:11:27
+        |vpiFullName:work@vend.fsm.fsm_PRES_STATE
+        |vpiActual:
+        \_logic_typespec: , line:11:7, endln:11:12
     |vpiStmt:
     \_begin: (work@vend.fsm), line:14:1, endln:25:4
       |vpiParent:
@@ -349,7 +326,12 @@ design: (work@vend)
       |vpiActual:
       \_logic_net: (work@vend.clock), line:1:13, endln:1:18
     |vpiTypedef:
-    \_logic_typespec: , line:3:7, endln:3:7
+    \_ref_typespec: (work@vend.clock)
+      |vpiParent:
+      \_port: (clock), line:1:13, endln:1:18
+      |vpiFullName:work@vend.clock
+      |vpiActual:
+      \_logic_typespec: , line:3:7, endln:3:7
   |vpiPort:
   \_port: (newspaper), line:1:20, endln:1:29
     |vpiParent:
@@ -364,7 +346,12 @@ design: (work@vend)
       |vpiActual:
       \_logic_net: (work@vend.newspaper), line:5:6, endln:5:15
     |vpiTypedef:
-    \_logic_typespec: , line:4:8, endln:4:8
+    \_ref_typespec: (work@vend.newspaper)
+      |vpiParent:
+      \_port: (newspaper), line:1:20, endln:1:29
+      |vpiFullName:work@vend.newspaper
+      |vpiActual:
+      \_logic_typespec: , line:4:8, endln:4:8
   |vpiProcess:
   \_always: , line:28:1, endln:31:4
     |vpiParent:
@@ -428,23 +415,12 @@ design: (work@vend)
     \_module_inst: work@vend (work@vend), file:${SURELOG_DIR}/tests/FuncBinding2/dut.sv, line:1:1, endln:33:10
     |BIN:00
     |vpiTypespec:
-    \_int_typespec: , line:7:1, endln:7:21
+    \_ref_typespec: (work@vend.s0)
       |vpiParent:
       \_parameter: (work@vend.s0), line:7:11, endln:7:13
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:7:1, endln:7:21
-        |vpiLeftRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:1
-        |vpiRightRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:0
+      |vpiFullName:work@vend.s0
+      |vpiActual:
+      \_int_typespec: , line:7:1, endln:7:21
     |vpiName:s0
     |vpiFullName:work@vend.s0
   |vpiParamAssign:
@@ -459,7 +435,12 @@ design: (work@vend)
       |vpiSize:2
       |BIN:00
       |vpiTypespec:
-      \_int_typespec: , line:7:1, endln:7:21
+      \_ref_typespec: (work@vend)
+        |vpiParent:
+        \_constant: , line:7:16, endln:7:21
+        |vpiFullName:work@vend
+        |vpiActual:
+        \_int_typespec: , line:7:1, endln:7:21
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@vend.s0), line:7:11, endln:7:13
@@ -476,7 +457,12 @@ design: (work@vend)
       |vpiParent:
       \_function: (work@vend.fsm), line:10:1, endln:26:12
       |vpiTypespec:
-      \_logic_typespec: , line:12:1, endln:12:4
+      \_ref_typespec: (work@vend.fsm.fsm_newspaper)
+        |vpiParent:
+        \_logic_var: (work@vend.fsm.fsm_newspaper), line:12:1, endln:12:4
+        |vpiFullName:work@vend.fsm.fsm_newspaper
+        |vpiActual:
+        \_logic_typespec: , line:12:1, endln:12:4
       |vpiName:fsm_newspaper
       |vpiFullName:work@vend.fsm.fsm_newspaper
       |vpiAutomatic:1
@@ -490,7 +476,12 @@ design: (work@vend)
       |vpiDirection:1
       |vpiName:fsm_PRES_STATE
       |vpiTypedef:
-      \_logic_typespec: , line:11:7, endln:11:12
+      \_ref_typespec: (work@vend.fsm.fsm_PRES_STATE)
+        |vpiParent:
+        \_io_decl: (fsm_PRES_STATE), line:11:13, endln:11:27
+        |vpiFullName:work@vend.fsm.fsm_PRES_STATE
+        |vpiActual:
+        \_logic_typespec: , line:11:7, endln:11:12
     |vpiStmt:
     \_begin: (work@vend.fsm), line:14:1, endln:25:4
       |vpiParent:
@@ -595,9 +586,12 @@ design: (work@vend)
     |vpiParent:
     \_module_inst: work@vend (work@vend), file:${SURELOG_DIR}/tests/FuncBinding2/dut.sv, line:1:1, endln:33:10
     |vpiTypespec:
-    \_logic_typespec: , line:5:1, endln:5:5
+    \_ref_typespec: (work@vend.newspaper)
       |vpiParent:
       \_logic_net: (work@vend.newspaper), line:5:6, endln:5:15
+      |vpiFullName:work@vend.newspaper
+      |vpiActual:
+      \_logic_typespec: , line:5:1, endln:5:5
     |vpiName:newspaper
     |vpiFullName:work@vend.newspaper
     |vpiNetType:1
@@ -606,9 +600,12 @@ design: (work@vend)
     |vpiParent:
     \_module_inst: work@vend (work@vend), file:${SURELOG_DIR}/tests/FuncBinding2/dut.sv, line:1:1, endln:33:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:7, endln:3:7
+    \_ref_typespec: (work@vend.clock)
       |vpiParent:
       \_logic_net: (work@vend.clock), line:1:13, endln:1:18
+      |vpiFullName:work@vend.clock
+      |vpiActual:
+      \_logic_typespec: , line:3:7, endln:3:7
     |vpiName:clock
     |vpiFullName:work@vend.clock
   |vpiTopModule:1
@@ -627,7 +624,12 @@ design: (work@vend)
       |vpiActual:
       \_logic_net: (work@vend.clock), line:1:13, endln:1:18
     |vpiTypedef:
-    \_logic_typespec: , line:3:7, endln:3:7
+    \_ref_typespec: (work@vend.clock)
+      |vpiParent:
+      \_port: (clock), line:1:13, endln:1:18
+      |vpiFullName:work@vend.clock
+      |vpiActual:
+      \_logic_typespec: , line:3:7, endln:3:7
     |vpiInstance:
     \_module_inst: work@vend (work@vend), file:${SURELOG_DIR}/tests/FuncBinding2/dut.sv, line:1:1, endln:33:10
   |vpiPort:
@@ -645,7 +647,12 @@ design: (work@vend)
       |vpiActual:
       \_logic_net: (work@vend.newspaper), line:5:6, endln:5:15
     |vpiTypedef:
-    \_logic_typespec: , line:4:8, endln:4:8
+    \_ref_typespec: (work@vend.newspaper)
+      |vpiParent:
+      \_port: (newspaper), line:1:20, endln:1:29
+      |vpiFullName:work@vend.newspaper
+      |vpiActual:
+      \_logic_typespec: , line:4:8, endln:4:8
     |vpiInstance:
     \_module_inst: work@vend (work@vend), file:${SURELOG_DIR}/tests/FuncBinding2/dut.sv, line:1:1, endln:33:10
   |vpiProcess:
@@ -702,6 +709,88 @@ design: (work@vend)
             |vpiActual:
             \_logic_net: (work@vend.newspaper), line:5:6, endln:5:15
     |vpiAlwaysType:1
+\_weaklyReferenced:
+\_int_typespec: , line:7:1, endln:7:21
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:7:1, endln:7:21
+    |vpiLeftRange:
+    \_constant: 
+      |INT:1
+    |vpiRightRange:
+    \_constant: 
+      |INT:0
+\_logic_typespec: , line:10:10, endln:10:15
+  |vpiRange:
+  \_range: , line:10:10, endln:10:15
+    |vpiParent:
+    \_logic_typespec: , line:10:10, endln:10:15
+    |vpiLeftRange:
+    \_constant: , line:10:11, endln:10:12
+      |vpiParent:
+      \_range: , line:10:10, endln:10:15
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:10:13, endln:10:14
+      |vpiParent:
+      \_range: , line:10:10, endln:10:15
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:11:7, endln:11:12
+  |vpiRange:
+  \_range: , line:11:7, endln:11:12
+    |vpiParent:
+    \_logic_typespec: , line:11:7, endln:11:12
+    |vpiLeftRange:
+    \_constant: , line:11:8, endln:11:9
+      |vpiParent:
+      \_range: , line:11:7, endln:11:12
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:11:10, endln:11:11
+      |vpiParent:
+      \_range: , line:11:7, endln:11:12
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:12:1, endln:12:4
+\_logic_typespec: , line:3:7, endln:3:7
+\_logic_typespec: , line:4:8, endln:4:8
+\_logic_typespec: , line:5:1, endln:5:5
+  |vpiParent:
+  \_logic_net: (work@vend.newspaper), line:5:6, endln:5:15
+\_logic_typespec: , line:3:7, endln:3:7
+  |vpiParent:
+  \_logic_net: (work@vend.clock), line:1:13, endln:1:18
+\_logic_typespec: , line:3:7, endln:3:7
+\_logic_typespec: , line:4:8, endln:4:8
+\_int_typespec: , line:7:1, endln:7:21
+  |vpiParent:
+  \_ref_typespec: (work@vend.s0)
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:7:1, endln:7:21
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:1
+    |vpiRightRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:0
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

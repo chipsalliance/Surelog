@@ -160,6 +160,7 @@ parameter                                              6
 range                                                  2
 ref_module                                             1
 ref_obj                                                3
+ref_typespec                                          11
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -180,6 +181,7 @@ parameter                                              6
 range                                                  2
 ref_module                                             1
 ref_obj                                                5
+ref_typespec                                          12
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ImplicitFuncArgAndReturn/slpp_all/surelog.uhdm ...
 
@@ -204,17 +206,12 @@ design: (work@ScratchPad)
     \_module_inst: work@ScratchPad (work@ScratchPad), file:${SURELOG_DIR}/tests/ImplicitFuncArgAndReturn/dut.sv, line:9:1, endln:24:10
     |BIN:0
     |vpiTypespec:
-    \_int_typespec: , line:12:4, endln:12:31
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:12:4, endln:12:31
-        |vpiLeftRange:
-        \_constant: 
-          |INT:0
-        |vpiRightRange:
-        \_constant: 
-          |INT:0
+    \_ref_typespec: (work@ScratchPad.M00_SECURE)
+      |vpiParent:
+      \_parameter: (work@ScratchPad.M00_SECURE), line:12:14, endln:12:24
+      |vpiFullName:work@ScratchPad.M00_SECURE
+      |vpiActual:
+      \_int_typespec: , line:12:4, endln:12:31
     |vpiName:M00_SECURE
     |vpiFullName:work@ScratchPad.M00_SECURE
   |vpiParamAssign:
@@ -229,7 +226,12 @@ design: (work@ScratchPad)
       |vpiSize:1
       |BIN:0
       |vpiTypespec:
-      \_int_typespec: , line:12:4, endln:12:31
+      \_ref_typespec: (work@ScratchPad)
+        |vpiParent:
+        \_constant: , line:12:27, endln:12:31
+        |vpiFullName:work@ScratchPad
+        |vpiActual:
+        \_int_typespec: , line:12:4, endln:12:31
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@ScratchPad.M00_SECURE), line:12:14, endln:12:24
@@ -253,7 +255,12 @@ design: (work@ScratchPad)
       |vpiDirection:1
       |vpiName:val
       |vpiTypedef:
-      \_logic_typespec: 
+      \_ref_typespec: (work@ScratchPad.w_1.val)
+        |vpiParent:
+        \_io_decl: (val), line:15:20, endln:15:23
+        |vpiFullName:work@ScratchPad.w_1.val
+        |vpiActual:
+        \_logic_typespec: 
     |vpiStmt:
     \_assignment: , line:16:5, endln:16:14
       |vpiParent:
@@ -297,10 +304,12 @@ design: (work@ScratchPad)
     \_module_inst: work@sub (work@sub), file:${SURELOG_DIR}/tests/ImplicitFuncArgAndReturn/dut.sv, line:3:1, endln:6:10
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: , line:4:14, endln:4:17
+    \_ref_typespec: (work@sub.M_SECURE)
       |vpiParent:
       \_parameter: (work@sub.M_SECURE), line:4:18, endln:4:26
-      |vpiSigned:1
+      |vpiFullName:work@sub.M_SECURE
+      |vpiActual:
+      \_int_typespec: , line:4:14, endln:4:17
     |vpiSigned:1
     |vpiName:M_SECURE
     |vpiFullName:work@sub.M_SECURE
@@ -316,7 +325,12 @@ design: (work@ScratchPad)
       |vpiSize:64
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: , line:4:14, endln:4:17
+      \_ref_typespec: (work@sub)
+        |vpiParent:
+        \_constant: , line:4:29, endln:4:30
+        |vpiFullName:work@sub
+        |vpiActual:
+        \_int_typespec: , line:4:14, endln:4:17
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@sub.M_SECURE), line:4:18, endln:4:26
@@ -330,23 +344,12 @@ design: (work@ScratchPad)
     \_module_inst: work@ScratchPad (work@ScratchPad), file:${SURELOG_DIR}/tests/ImplicitFuncArgAndReturn/dut.sv, line:9:1, endln:24:10
     |BIN:0
     |vpiTypespec:
-    \_int_typespec: , line:12:4, endln:12:31
+    \_ref_typespec: (work@ScratchPad.M00_SECURE)
       |vpiParent:
       \_parameter: (work@ScratchPad.M00_SECURE), line:12:14, endln:12:24
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:12:4, endln:12:31
-        |vpiLeftRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:0
-        |vpiRightRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:0
+      |vpiFullName:work@ScratchPad.M00_SECURE
+      |vpiActual:
+      \_int_typespec: , line:12:4, endln:12:31
     |vpiName:M00_SECURE
     |vpiFullName:work@ScratchPad.M00_SECURE
   |vpiParamAssign:
@@ -361,7 +364,12 @@ design: (work@ScratchPad)
       |vpiSize:1
       |BIN:0
       |vpiTypespec:
-      \_logic_typespec: 
+      \_ref_typespec: (work@ScratchPad)
+        |vpiParent:
+        \_constant: , line:12:27, endln:12:31
+        |vpiFullName:work@ScratchPad
+        |vpiActual:
+        \_logic_typespec: 
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@ScratchPad.M00_SECURE), line:12:14, endln:12:24
@@ -383,7 +391,12 @@ design: (work@ScratchPad)
       |vpiDirection:1
       |vpiName:val
       |vpiTypedef:
-      \_logic_typespec: 
+      \_ref_typespec: (work@ScratchPad.w_1.val)
+        |vpiParent:
+        \_io_decl: (val), line:15:20, endln:15:23
+        |vpiFullName:work@ScratchPad.w_1.val
+        |vpiActual:
+        \_logic_typespec: 
     |vpiStmt:
     \_assignment: , line:16:5, endln:16:14
       |vpiParent:
@@ -421,10 +434,12 @@ design: (work@ScratchPad)
       \_module_inst: work@sub (work@ScratchPad.m1), file:${SURELOG_DIR}/tests/ImplicitFuncArgAndReturn/dut.sv, line:21:4, endln:21:48
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: , line:4:14, endln:4:17
+      \_ref_typespec: (work@ScratchPad.m1.M_SECURE)
         |vpiParent:
         \_parameter: (work@ScratchPad.m1.M_SECURE), line:4:18, endln:4:26
-        |vpiSigned:1
+        |vpiFullName:work@ScratchPad.m1.M_SECURE
+        |vpiActual:
+        \_int_typespec: , line:4:14, endln:4:17
       |vpiSigned:1
       |vpiName:M_SECURE
       |vpiFullName:work@ScratchPad.m1.M_SECURE
@@ -441,7 +456,12 @@ design: (work@ScratchPad)
         |vpiSize:1
         |BIN:0
         |vpiTypespec:
-        \_int_typespec: , line:4:14, endln:4:17
+        \_ref_typespec: (work@ScratchPad.m1)
+          |vpiParent:
+          \_constant: , line:4:29, endln:4:30
+          |vpiFullName:work@ScratchPad.m1
+          |vpiActual:
+          \_int_typespec: , line:4:14, endln:4:17
         |vpiConstType:3
       |vpiLhs:
       \_parameter: (work@ScratchPad.m1.M_SECURE), line:4:18, endln:4:26
@@ -450,6 +470,44 @@ design: (work@ScratchPad)
     |vpiDefLineNo:3
     |vpiInstance:
     \_module_inst: work@ScratchPad (work@ScratchPad), file:${SURELOG_DIR}/tests/ImplicitFuncArgAndReturn/dut.sv, line:9:1, endln:24:10
+\_weaklyReferenced:
+\_int_typespec: , line:12:4, endln:12:31
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:12:4, endln:12:31
+    |vpiLeftRange:
+    \_constant: 
+      |INT:0
+    |vpiRightRange:
+    \_constant: 
+      |INT:0
+\_int_typespec: , line:4:14, endln:4:17
+  |vpiParent:
+  \_parameter: (work@sub.M_SECURE), line:4:18, endln:4:26
+  |vpiSigned:1
+\_logic_typespec: 
+\_int_typespec: , line:12:4, endln:12:31
+  |vpiParent:
+  \_ref_typespec: (work@ScratchPad.M00_SECURE)
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:12:4, endln:12:31
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:0
+    |vpiRightRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:0
+\_int_typespec: , line:4:14, endln:4:17
+  |vpiParent:
+  \_ref_typespec: (work@ScratchPad.m1.M_SECURE)
+  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

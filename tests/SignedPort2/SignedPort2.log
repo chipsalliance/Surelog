@@ -101,6 +101,7 @@ module_inst                                            4
 port                                                   4
 range                                                  4
 ref_obj                                                6
+ref_typespec                                           6
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -114,6 +115,7 @@ module_inst                                            4
 port                                                   6
 range                                                  4
 ref_obj                                               10
+ref_typespec                                           8
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/SignedPort2/slpp_all/surelog.uhdm ...
 
@@ -162,7 +164,12 @@ design: (work@wire_top)
       |vpiActual:
       \_logic_net: (work@wire_top.inp), line:1:17, endln:1:20
     |vpiTypedef:
-    \_logic_typespec: , line:2:11, endln:2:15
+    \_ref_typespec: (work@wire_top.inp)
+      |vpiParent:
+      \_port: (inp), line:1:17, endln:1:20
+      |vpiFullName:work@wire_top.inp
+      |vpiActual:
+      \_logic_typespec: , line:2:11, endln:2:15
   |vpiPort:
   \_port: (xn), line:1:22, endln:1:24
     |vpiParent:
@@ -178,27 +185,12 @@ design: (work@wire_top)
       |vpiActual:
       \_logic_net: (work@wire_top.xn), line:1:22, endln:1:24
     |vpiTypedef:
-    \_logic_typespec: , line:3:12, endln:3:21
-      |vpiRange:
-      \_range: , line:3:16, endln:3:21
-        |vpiParent:
-        \_logic_typespec: , line:3:12, endln:3:21
-        |vpiLeftRange:
-        \_constant: , line:3:17, endln:3:18
-          |vpiParent:
-          \_range: , line:3:16, endln:3:21
-          |vpiDecompile:4
-          |vpiSize:64
-          |UINT:4
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:3:19, endln:3:20
-          |vpiParent:
-          \_range: , line:3:16, endln:3:21
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@wire_top.xn)
+      |vpiParent:
+      \_port: (xn), line:1:22, endln:1:24
+      |vpiFullName:work@wire_top.xn
+      |vpiActual:
+      \_logic_typespec: , line:3:12, endln:3:21
   |vpiContAssign:
   \_cont_assign: , line:5:12, endln:5:20
     |vpiParent:
@@ -229,9 +221,12 @@ design: (work@wire_top)
     |vpiParent:
     \_module_inst: work@wire_top (work@wire_top), file:${SURELOG_DIR}/tests/SignedPort2/dut.sv, line:1:1, endln:6:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:11, endln:2:15
+    \_ref_typespec: (work@wire_top.inp)
       |vpiParent:
       \_logic_net: (work@wire_top.inp), line:1:17, endln:1:20
+      |vpiFullName:work@wire_top.inp
+      |vpiActual:
+      \_logic_typespec: , line:2:11, endln:2:15
     |vpiName:inp
     |vpiFullName:work@wire_top.inp
     |vpiNetType:1
@@ -241,27 +236,12 @@ design: (work@wire_top)
     |vpiParent:
     \_module_inst: work@wire_top (work@wire_top), file:${SURELOG_DIR}/tests/SignedPort2/dut.sv, line:1:1, endln:6:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:12, endln:3:21
-      |vpiRange:
-      \_range: , line:3:16, endln:3:21
-        |vpiParent:
-        \_logic_typespec: , line:3:12, endln:3:21
-        |vpiLeftRange:
-        \_constant: , line:3:17, endln:3:18
-          |vpiParent:
-          \_range: , line:3:16, endln:3:21
-          |vpiDecompile:4
-          |vpiSize:64
-          |UINT:4
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:3:19, endln:3:20
-          |vpiParent:
-          \_range: , line:3:16, endln:3:21
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@wire_top.xn)
+      |vpiParent:
+      \_logic_net: (work@wire_top.xn), line:1:22, endln:1:24
+      |vpiFullName:work@wire_top.xn
+      |vpiActual:
+      \_logic_typespec: , line:3:12, endln:3:21
     |vpiName:xn
     |vpiFullName:work@wire_top.xn
     |vpiNetType:48
@@ -281,7 +261,12 @@ design: (work@wire_top)
       |vpiActual:
       \_logic_net: (work@wire_top.inp), line:1:17, endln:1:20
     |vpiTypedef:
-    \_logic_typespec: , line:2:11, endln:2:15
+    \_ref_typespec: (work@wire_top.inp)
+      |vpiParent:
+      \_port: (inp), line:1:17, endln:1:20
+      |vpiFullName:work@wire_top.inp
+      |vpiActual:
+      \_logic_typespec: , line:2:11, endln:2:15
     |vpiInstance:
     \_module_inst: work@wire_top (work@wire_top), file:${SURELOG_DIR}/tests/SignedPort2/dut.sv, line:1:1, endln:6:10
   |vpiPort:
@@ -299,27 +284,12 @@ design: (work@wire_top)
       |vpiActual:
       \_logic_net: (work@wire_top.xn), line:1:22, endln:1:24
     |vpiTypedef:
-    \_logic_typespec: , line:3:12, endln:3:21
-      |vpiRange:
-      \_range: , line:3:16, endln:3:21
-        |vpiParent:
-        \_logic_typespec: , line:3:12, endln:3:21
-        |vpiLeftRange:
-        \_constant: , line:3:17, endln:3:18
-          |vpiParent:
-          \_range: , line:3:16, endln:3:21
-          |vpiDecompile:4
-          |vpiSize:64
-          |UINT:4
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:3:19, endln:3:20
-          |vpiParent:
-          \_range: , line:3:16, endln:3:21
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@wire_top.xn)
+      |vpiParent:
+      \_port: (xn), line:1:22, endln:1:24
+      |vpiFullName:work@wire_top.xn
+      |vpiActual:
+      \_logic_typespec: , line:3:12, endln:3:21
     |vpiInstance:
     \_module_inst: work@wire_top (work@wire_top), file:${SURELOG_DIR}/tests/SignedPort2/dut.sv, line:1:1, endln:6:10
   |vpiContAssign:
@@ -342,6 +312,75 @@ design: (work@wire_top)
       |vpiFullName:work@wire_top.xn
       |vpiActual:
       \_logic_net: (work@wire_top.xn), line:1:22, endln:1:24
+\_weaklyReferenced:
+\_logic_typespec: , line:2:11, endln:2:15
+\_logic_typespec: , line:3:12, endln:3:21
+  |vpiRange:
+  \_range: , line:3:16, endln:3:21
+    |vpiParent:
+    \_logic_typespec: , line:3:12, endln:3:21
+    |vpiLeftRange:
+    \_constant: , line:3:17, endln:3:18
+      |vpiParent:
+      \_range: , line:3:16, endln:3:21
+      |vpiDecompile:4
+      |vpiSize:64
+      |UINT:4
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:19, endln:3:20
+      |vpiParent:
+      \_range: , line:3:16, endln:3:21
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:2:11, endln:2:15
+  |vpiParent:
+  \_logic_net: (work@wire_top.inp), line:1:17, endln:1:20
+\_logic_typespec: , line:3:12, endln:3:21
+  |vpiRange:
+  \_range: , line:3:16, endln:3:21
+    |vpiParent:
+    \_logic_typespec: , line:3:12, endln:3:21
+    |vpiLeftRange:
+    \_constant: , line:3:17, endln:3:18
+      |vpiParent:
+      \_range: , line:3:16, endln:3:21
+      |vpiDecompile:4
+      |vpiSize:64
+      |UINT:4
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:19, endln:3:20
+      |vpiParent:
+      \_range: , line:3:16, endln:3:21
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:2:11, endln:2:15
+\_logic_typespec: , line:3:12, endln:3:21
+  |vpiRange:
+  \_range: , line:3:16, endln:3:21
+    |vpiParent:
+    \_logic_typespec: , line:3:12, endln:3:21
+    |vpiLeftRange:
+    \_constant: , line:3:17, endln:3:18
+      |vpiParent:
+      \_range: , line:3:16, endln:3:21
+      |vpiDecompile:4
+      |vpiSize:64
+      |UINT:4
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:19, endln:3:20
+      |vpiParent:
+      \_range: , line:3:16, endln:3:21
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

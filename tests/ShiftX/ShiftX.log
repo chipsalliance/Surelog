@@ -88,6 +88,7 @@ module_inst                                            4
 operation                                              2
 range                                                  3
 ref_obj                                                2
+ref_typespec                                           2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -102,6 +103,7 @@ module_inst                                            4
 operation                                              3
 range                                                  3
 ref_obj                                                3
+ref_typespec                                           2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ShiftX/slpp_all/surelog.uhdm ...
 
@@ -126,27 +128,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ShiftX/dut.sv, line:2:1, endln:7:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:5, endln:3:17
-      |vpiRange:
-      \_range: , line:3:11, endln:3:17
-        |vpiParent:
-        \_logic_typespec: , line:3:5, endln:3:17
-        |vpiLeftRange:
-        \_constant: , line:3:12, endln:3:14
-          |vpiParent:
-          \_range: , line:3:11, endln:3:17
-          |vpiDecompile:63
-          |vpiSize:64
-          |UINT:63
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:3:15, endln:3:16
-          |vpiParent:
-          \_range: , line:3:11, endln:3:17
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@top.sxc)
+      |vpiParent:
+      \_logic_net: (work@top.sxc), line:3:18, endln:3:21
+      |vpiFullName:work@top.sxc
+      |vpiActual:
+      \_logic_typespec: , line:3:5, endln:3:17
     |vpiName:sxc
     |vpiFullName:work@top.sxc
     |vpiNetType:36
@@ -191,27 +178,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ShiftX/dut.sv, line:2:1, endln:7:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:5, endln:3:17
-      |vpiRange:
-      \_range: , line:3:11, endln:3:17
-        |vpiParent:
-        \_logic_typespec: , line:3:5, endln:3:17
-        |vpiLeftRange:
-        \_constant: , line:3:12, endln:3:14
-          |vpiParent:
-          \_range: , line:3:11, endln:3:17
-          |vpiDecompile:63
-          |vpiSize:64
-          |UINT:63
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:3:15, endln:3:16
-          |vpiParent:
-          \_range: , line:3:11, endln:3:17
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@top.sxc)
+      |vpiParent:
+      \_logic_var: (work@top.sxc), line:3:18, endln:3:21
+      |vpiFullName:work@top.sxc
+      |vpiActual:
+      \_logic_typespec: , line:3:5, endln:3:17
     |vpiName:sxc
     |vpiFullName:work@top.sxc
     |vpiVisibility:1
@@ -249,6 +221,76 @@ design: (work@top)
       |vpiFullName:work@top.sxc
       |vpiActual:
       \_logic_var: (work@top.sxc), line:3:18, endln:3:21
+\_weaklyReferenced:
+\_logic_typespec: , line:3:5, endln:3:17
+  |vpiRange:
+  \_range: , line:3:11, endln:3:17
+    |vpiParent:
+    \_logic_typespec: , line:3:5, endln:3:17
+    |vpiLeftRange:
+    \_constant: , line:3:12, endln:3:14
+      |vpiParent:
+      \_range: , line:3:11, endln:3:17
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:15, endln:3:16
+      |vpiParent:
+      \_range: , line:3:11, endln:3:17
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:3:5, endln:3:17
+  |vpiRange:
+  \_range: , line:3:11, endln:3:17
+    |vpiParent:
+    \_logic_typespec: , line:3:5, endln:3:17
+    |vpiLeftRange:
+    \_constant: , line:3:12, endln:3:14
+      |vpiParent:
+      \_range: , line:3:11, endln:3:17
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:15, endln:3:16
+      |vpiParent:
+      \_range: , line:3:11, endln:3:17
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_operation: , line:5:18, endln:5:25
+  |vpiParent:
+  \_cont_assign: , line:5:12, endln:5:25
+  |vpiOpType:22
+  |vpiOperand:
+  \_constant: , line:5:18, endln:5:20
+    |vpiParent:
+    \_operation: , line:5:18, endln:5:25
+    |vpiDecompile:'X
+    |vpiSize:-1
+    |BIN:X
+    |vpiConstType:3
+  |vpiOperand:
+  \_constant: , line:5:24, endln:5:25
+\_cont_assign: , line:5:12, endln:5:25
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ShiftX/dut.sv, line:2:1, endln:7:10
+  |vpiRhs:
+  \_operation: , line:5:18, endln:5:25
+  |vpiLhs:
+  \_ref_obj: (work@top.sxc), line:5:12, endln:5:15
+    |vpiParent:
+    \_cont_assign: , line:5:12, endln:5:25
+    |vpiName:sxc
+    |vpiFullName:work@top.sxc
+    |vpiActual:
+    \_logic_var: (work@top.sxc), line:3:18, endln:3:21
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

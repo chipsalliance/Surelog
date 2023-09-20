@@ -214,6 +214,7 @@ parameter                                              8
 range                                                  5
 ref_module                                             2
 ref_obj                                                5
+ref_typespec                                           7
 repeat                                                 1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -239,6 +240,7 @@ parameter                                              8
 range                                                  5
 ref_module                                             2
 ref_obj                                                9
+ref_typespec                                           8
 repeat                                                 2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/RepeatStmt/slpp_all/surelog.uhdm ...
@@ -305,27 +307,12 @@ design: (work@constfunc11)
       |vpiParent:
       \_function: (work@constfunc11.pow2), line:6:1, endln:15:12
       |vpiTypespec:
-      \_logic_typespec: , line:6:10, endln:6:16
-        |vpiRange:
-        \_range: , line:6:10, endln:6:16
-          |vpiParent:
-          \_logic_typespec: , line:6:10, endln:6:16
-          |vpiLeftRange:
-          \_constant: , line:6:11, endln:6:13
-            |vpiParent:
-            \_range: , line:6:10, endln:6:16
-            |vpiDecompile:31
-            |vpiSize:64
-            |UINT:31
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:6:14, endln:6:15
-            |vpiParent:
-            \_range: , line:6:10, endln:6:16
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_typespec: (work@constfunc11.pow2)
+        |vpiParent:
+        \_logic_var: (work@constfunc11.pow2), line:6:10, endln:6:16
+        |vpiFullName:work@constfunc11.pow2
+        |vpiActual:
+        \_logic_typespec: , line:6:10, endln:6:16
       |vpiFullName:work@constfunc11.pow2
     |vpiIODecl:
     \_io_decl: (x), line:6:34, endln:6:35
@@ -334,27 +321,12 @@ design: (work@constfunc11)
       |vpiDirection:1
       |vpiName:x
       |vpiTypedef:
-      \_logic_typespec: , line:6:28, endln:6:33
-        |vpiRange:
-        \_range: , line:6:28, endln:6:33
-          |vpiParent:
-          \_logic_typespec: , line:6:28, endln:6:33
-          |vpiLeftRange:
-          \_constant: , line:6:29, endln:6:30
-            |vpiParent:
-            \_range: , line:6:28, endln:6:33
-            |vpiDecompile:5
-            |vpiSize:64
-            |UINT:5
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:6:31, endln:6:32
-            |vpiParent:
-            \_range: , line:6:28, endln:6:33
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_typespec: (work@constfunc11.pow2.x)
+        |vpiParent:
+        \_io_decl: (x), line:6:34, endln:6:35
+        |vpiFullName:work@constfunc11.pow2.x
+        |vpiActual:
+        \_logic_typespec: , line:6:28, endln:6:33
     |vpiStmt:
     \_named_begin: (work@constfunc11.pow2.body), line:8:7, endln:8:11
       |vpiParent:
@@ -511,7 +483,12 @@ design: (work@constfunc11)
       |vpiDirection:1
       |vpiName:x
       |vpiTypedef:
-      \_logic_typespec: , line:6:28, endln:6:33
+      \_ref_typespec: (work@constfunc11.pow2.x)
+        |vpiParent:
+        \_io_decl: (x), line:6:34, endln:6:35
+        |vpiFullName:work@constfunc11.pow2.x
+        |vpiActual:
+        \_logic_typespec: , line:6:28, endln:6:33
     |vpiStmt:
     \_named_begin: (work@constfunc11.pow2.body), line:8:7, endln:8:11
       |vpiParent:
@@ -603,6 +580,49 @@ design: (work@constfunc11)
         |vpiDefName:work@GOOD
         |vpiDefFile:${SURELOG_DIR}/tests/RepeatStmt/dut.sv
         |vpiDefLineNo:1
+\_weaklyReferenced:
+\_logic_typespec: , line:6:10, endln:6:16
+  |vpiRange:
+  \_range: , line:6:10, endln:6:16
+    |vpiParent:
+    \_logic_typespec: , line:6:10, endln:6:16
+    |vpiLeftRange:
+    \_constant: , line:6:11, endln:6:13
+      |vpiParent:
+      \_range: , line:6:10, endln:6:16
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:14, endln:6:15
+      |vpiParent:
+      \_range: , line:6:10, endln:6:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:6:28, endln:6:33
+  |vpiRange:
+  \_range: , line:6:28, endln:6:33
+    |vpiParent:
+    \_logic_typespec: , line:6:28, endln:6:33
+    |vpiLeftRange:
+    \_constant: , line:6:29, endln:6:30
+      |vpiParent:
+      \_range: , line:6:28, endln:6:33
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:31, endln:6:32
+      |vpiParent:
+      \_range: , line:6:28, endln:6:33
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

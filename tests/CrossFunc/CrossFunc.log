@@ -375,6 +375,7 @@ module_inst                                            4
 operation                                              8
 range                                                  8
 ref_obj                                               12
+ref_typespec                                          11
 ref_var                                                2
 unsupported_typespec                                   4
 === UHDM Object Stats End ===
@@ -398,6 +399,7 @@ module_inst                                            4
 operation                                             16
 range                                                  8
 ref_obj                                               22
+ref_typespec                                          15
 ref_var                                                2
 unsupported_typespec                                   4
 === UHDM Object Stats End ===
@@ -431,8 +433,12 @@ design: (work@mod_m)
       |vpiParent:
       \_function: (work@mod_m.myFunc1), line:9:3, endln:12:14
       |vpiTypespec:
-      \_unsupported_typespec: (CrossQueueType), line:9:12, endln:9:26
-        |vpiName:CrossQueueType
+      \_ref_typespec: (work@mod_m.myFunc1)
+        |vpiParent:
+        \_ref_var: (work@mod_m.myFunc1), line:9:12, endln:9:26
+        |vpiFullName:work@mod_m.myFunc1
+        |vpiActual:
+        \_unsupported_typespec: (CrossQueueType), line:9:12, endln:9:26
       |vpiFullName:work@mod_m.myFunc1
     |vpiIODecl:
     \_io_decl: (f_lim), line:9:39, endln:9:44
@@ -441,8 +447,12 @@ design: (work@mod_m)
       |vpiDirection:1
       |vpiName:f_lim
       |vpiTypedef:
-      \_int_typespec: , line:9:35, endln:9:38
-        |vpiSigned:1
+      \_ref_typespec: (work@mod_m.myFunc1.f_lim)
+        |vpiParent:
+        \_io_decl: (f_lim), line:9:39, endln:9:44
+        |vpiFullName:work@mod_m.myFunc1.f_lim
+        |vpiActual:
+        \_int_typespec: , line:9:35, endln:9:38
     |vpiStmt:
     \_for_stmt: (work@mod_m.myFunc1), line:10:4, endln:10:7
       |vpiParent:
@@ -465,8 +475,12 @@ design: (work@mod_m)
           |vpiParent:
           \_assign_stmt: , line:10:9, endln:10:18
           |vpiTypespec:
-          \_int_typespec: , line:10:9, endln:10:12
-            |vpiSigned:1
+          \_ref_typespec: (work@mod_m.myFunc1.i)
+            |vpiParent:
+            \_int_var: (work@mod_m.myFunc1.i), line:10:13, endln:10:14
+            |vpiFullName:work@mod_m.myFunc1.i
+            |vpiActual:
+            \_int_typespec: , line:10:9, endln:10:12
           |vpiName:i
           |vpiFullName:work@mod_m.myFunc1.i
           |vpiSigned:1
@@ -546,8 +560,12 @@ design: (work@mod_m)
       |vpiParent:
       \_function: (work@mod_m.myFunc2), line:17:3, endln:20:14
       |vpiTypespec:
-      \_unsupported_typespec: (CrossQueueType), line:17:12, endln:17:26
-        |vpiName:CrossQueueType
+      \_ref_typespec: (work@mod_m.myFunc2)
+        |vpiParent:
+        \_ref_var: (work@mod_m.myFunc2), line:17:12, endln:17:26
+        |vpiFullName:work@mod_m.myFunc2
+        |vpiActual:
+        \_unsupported_typespec: (CrossQueueType), line:17:12, endln:17:26
       |vpiFullName:work@mod_m.myFunc2
     |vpiIODecl:
     \_io_decl: (f_lim), line:17:48, endln:17:53
@@ -556,27 +574,12 @@ design: (work@mod_m)
       |vpiDirection:1
       |vpiName:f_lim
       |vpiTypedef:
-      \_logic_typespec: , line:17:35, endln:17:40
-        |vpiRange:
-        \_range: , line:17:41, endln:17:47
-          |vpiParent:
-          \_logic_typespec: , line:17:35, endln:17:40
-          |vpiLeftRange:
-          \_constant: , line:17:42, endln:17:44
-            |vpiParent:
-            \_range: , line:17:41, endln:17:47
-            |vpiDecompile:31
-            |vpiSize:64
-            |UINT:31
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:17:45, endln:17:46
-            |vpiParent:
-            \_range: , line:17:41, endln:17:47
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_typespec: (work@mod_m.myFunc2.f_lim)
+        |vpiParent:
+        \_io_decl: (f_lim), line:17:48, endln:17:53
+        |vpiFullName:work@mod_m.myFunc2.f_lim
+        |vpiActual:
+        \_logic_typespec: , line:17:35, endln:17:40
     |vpiStmt:
     \_for_stmt: (work@mod_m.myFunc2), line:18:4, endln:18:7
       |vpiParent:
@@ -599,27 +602,12 @@ design: (work@mod_m)
           |vpiParent:
           \_assign_stmt: , line:18:9, endln:18:27
           |vpiTypespec:
-          \_logic_typespec: , line:18:9, endln:18:21
-            |vpiRange:
-            \_range: , line:18:15, endln:18:21
-              |vpiParent:
-              \_logic_typespec: , line:18:9, endln:18:21
-              |vpiLeftRange:
-              \_constant: , line:18:16, endln:18:18
-                |vpiParent:
-                \_range: , line:18:15, endln:18:21
-                |vpiDecompile:31
-                |vpiSize:64
-                |UINT:31
-                |vpiConstType:9
-              |vpiRightRange:
-              \_constant: , line:18:19, endln:18:20
-                |vpiParent:
-                \_range: , line:18:15, endln:18:21
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
-                |vpiConstType:9
+          \_ref_typespec: (work@mod_m.myFunc2.i)
+            |vpiParent:
+            \_logic_var: (work@mod_m.myFunc2.i), line:18:22, endln:18:23
+            |vpiFullName:work@mod_m.myFunc2.i
+            |vpiActual:
+            \_logic_typespec: , line:18:9, endln:18:21
           |vpiName:i
           |vpiFullName:work@mod_m.myFunc2.i
       |vpiForIncStmt:
@@ -717,27 +705,12 @@ design: (work@mod_m)
     |vpiParent:
     \_module_inst: work@mod_m (work@mod_m), file:${SURELOG_DIR}/tests/CrossFunc/dut.sv, line:1:1, endln:32:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:2, endln:2:14
-      |vpiRange:
-      \_range: , line:2:8, endln:2:14
-        |vpiParent:
-        \_logic_typespec: , line:2:2, endln:2:14
-        |vpiLeftRange:
-        \_constant: , line:2:9, endln:2:11
-          |vpiParent:
-          \_range: , line:2:8, endln:2:14
-          |vpiDecompile:31
-          |vpiSize:64
-          |UINT:31
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:12, endln:2:13
-          |vpiParent:
-          \_range: , line:2:8, endln:2:14
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@mod_m.a)
+      |vpiParent:
+      \_logic_net: (work@mod_m.a), line:2:15, endln:2:16
+      |vpiFullName:work@mod_m.a
+      |vpiActual:
+      \_logic_typespec: , line:2:2, endln:2:14
     |vpiName:a
     |vpiFullName:work@mod_m.a
     |vpiNetType:36
@@ -746,27 +719,12 @@ design: (work@mod_m)
     |vpiParent:
     \_module_inst: work@mod_m (work@mod_m), file:${SURELOG_DIR}/tests/CrossFunc/dut.sv, line:1:1, endln:32:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:2, endln:2:14
-      |vpiRange:
-      \_range: , line:2:8, endln:2:14
-        |vpiParent:
-        \_logic_typespec: , line:2:2, endln:2:14
-        |vpiLeftRange:
-        \_constant: , line:2:9, endln:2:11
-          |vpiParent:
-          \_range: , line:2:8, endln:2:14
-          |vpiDecompile:31
-          |vpiSize:64
-          |UINT:31
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:12, endln:2:13
-          |vpiParent:
-          \_range: , line:2:8, endln:2:14
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@mod_m.b)
+      |vpiParent:
+      \_logic_net: (work@mod_m.b), line:2:18, endln:2:19
+      |vpiFullName:work@mod_m.b
+      |vpiActual:
+      \_logic_typespec: , line:2:2, endln:2:14
     |vpiName:b
     |vpiFullName:work@mod_m.b
     |vpiNetType:36
@@ -775,8 +733,12 @@ design: (work@mod_m)
     |vpiParent:
     \_module_inst: work@mod_m (work@mod_m), file:${SURELOG_DIR}/tests/CrossFunc/dut.sv, line:1:1, endln:32:10
     |vpiTypespec:
-    \_unsupported_typespec: (cg), line:24:2, endln:24:21
-      |vpiName:cg
+    \_ref_typespec: (work@mod_m.cg_inst)
+      |vpiParent:
+      \_logic_net: (work@mod_m.cg_inst), line:24:5, endln:24:12
+      |vpiFullName:work@mod_m.cg_inst
+      |vpiActual:
+      \_unsupported_typespec: (cg), line:24:2, endln:24:21
     |vpiName:cg_inst
     |vpiFullName:work@mod_m.cg_inst
 |uhdmtopModules:
@@ -787,29 +749,12 @@ design: (work@mod_m)
     |vpiParent:
     \_module_inst: work@mod_m (work@mod_m), file:${SURELOG_DIR}/tests/CrossFunc/dut.sv, line:1:1, endln:32:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:2, endln:2:14
+    \_ref_typespec: (work@mod_m.a)
       |vpiParent:
-      \_logic_var: (work@mod_m.b), line:2:18, endln:2:19
-      |vpiRange:
-      \_range: , line:2:8, endln:2:14
-        |vpiParent:
-        \_logic_typespec: , line:2:2, endln:2:14
-        |vpiLeftRange:
-        \_constant: , line:2:9, endln:2:11
-          |vpiParent:
-          \_range: , line:2:8, endln:2:14
-          |vpiDecompile:31
-          |vpiSize:64
-          |UINT:31
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:12, endln:2:13
-          |vpiParent:
-          \_range: , line:2:8, endln:2:14
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      \_logic_var: (work@mod_m.a), line:2:15, endln:2:16
+      |vpiFullName:work@mod_m.a
+      |vpiActual:
+      \_logic_typespec: , line:2:2, endln:2:14
     |vpiName:a
     |vpiFullName:work@mod_m.a
     |vpiVisibility:1
@@ -818,7 +763,12 @@ design: (work@mod_m)
     |vpiParent:
     \_module_inst: work@mod_m (work@mod_m), file:${SURELOG_DIR}/tests/CrossFunc/dut.sv, line:1:1, endln:32:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:2, endln:2:14
+    \_ref_typespec: (work@mod_m.b)
+      |vpiParent:
+      \_logic_var: (work@mod_m.b), line:2:18, endln:2:19
+      |vpiFullName:work@mod_m.b
+      |vpiActual:
+      \_logic_typespec: , line:2:2, endln:2:14
     |vpiName:b
     |vpiFullName:work@mod_m.b
     |vpiVisibility:1
@@ -858,7 +808,12 @@ design: (work@mod_m)
       |vpiDirection:1
       |vpiName:f_lim
       |vpiTypedef:
-      \_int_typespec: , line:9:35, endln:9:38
+      \_ref_typespec: (work@mod_m.myFunc1.f_lim)
+        |vpiParent:
+        \_io_decl: (f_lim), line:9:39, endln:9:44
+        |vpiFullName:work@mod_m.myFunc1.f_lim
+        |vpiActual:
+        \_int_typespec: , line:9:35, endln:9:38
     |vpiStmt:
     \_for_stmt: (work@mod_m.myFunc1), line:10:4, endln:10:7
       |vpiParent:
@@ -875,7 +830,12 @@ design: (work@mod_m)
           |vpiParent:
           \_assign_stmt: , line:10:9, endln:10:18
           |vpiTypespec:
-          \_int_typespec: , line:10:9, endln:10:12
+          \_ref_typespec: (work@mod_m.myFunc1.i)
+            |vpiParent:
+            \_int_var: (work@mod_m.myFunc1.i), line:10:13, endln:10:14
+            |vpiFullName:work@mod_m.myFunc1.i
+            |vpiActual:
+            \_int_typespec: , line:10:9, endln:10:12
           |vpiName:i
           |vpiFullName:work@mod_m.myFunc1.i
           |vpiSigned:1
@@ -959,7 +919,12 @@ design: (work@mod_m)
       |vpiDirection:1
       |vpiName:f_lim
       |vpiTypedef:
-      \_logic_typespec: , line:17:35, endln:17:40
+      \_ref_typespec: (work@mod_m.myFunc2.f_lim)
+        |vpiParent:
+        \_io_decl: (f_lim), line:17:48, endln:17:53
+        |vpiFullName:work@mod_m.myFunc2.f_lim
+        |vpiActual:
+        \_logic_typespec: , line:17:35, endln:17:40
     |vpiStmt:
     \_for_stmt: (work@mod_m.myFunc2), line:18:4, endln:18:7
       |vpiParent:
@@ -976,7 +941,12 @@ design: (work@mod_m)
           |vpiParent:
           \_assign_stmt: , line:18:9, endln:18:27
           |vpiTypespec:
-          \_logic_typespec: , line:18:9, endln:18:21
+          \_ref_typespec: (work@mod_m.myFunc2.i)
+            |vpiParent:
+            \_logic_var: (work@mod_m.myFunc2.i), line:18:22, endln:18:23
+            |vpiFullName:work@mod_m.myFunc2.i
+            |vpiActual:
+            \_logic_typespec: , line:18:9, endln:18:21
           |vpiName:i
           |vpiFullName:work@mod_m.myFunc2.i
       |vpiForIncStmt:
@@ -1058,6 +1028,124 @@ design: (work@mod_m)
     |vpiInstance:
     \_module_inst: work@mod_m (work@mod_m), file:${SURELOG_DIR}/tests/CrossFunc/dut.sv, line:1:1, endln:32:10
   |vpiTopModule:1
+\_weaklyReferenced:
+\_unsupported_typespec: (CrossQueueType), line:9:12, endln:9:26
+  |vpiName:CrossQueueType
+\_int_typespec: , line:9:35, endln:9:38
+  |vpiSigned:1
+\_int_typespec: , line:10:9, endln:10:12
+  |vpiSigned:1
+\_unsupported_typespec: (CrossQueueType), line:17:12, endln:17:26
+  |vpiName:CrossQueueType
+\_logic_typespec: , line:17:35, endln:17:40
+  |vpiRange:
+  \_range: , line:17:41, endln:17:47
+    |vpiParent:
+    \_logic_typespec: , line:17:35, endln:17:40
+    |vpiLeftRange:
+    \_constant: , line:17:42, endln:17:44
+      |vpiParent:
+      \_range: , line:17:41, endln:17:47
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:17:45, endln:17:46
+      |vpiParent:
+      \_range: , line:17:41, endln:17:47
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:18:9, endln:18:21
+  |vpiRange:
+  \_range: , line:18:15, endln:18:21
+    |vpiParent:
+    \_logic_typespec: , line:18:9, endln:18:21
+    |vpiLeftRange:
+    \_constant: , line:18:16, endln:18:18
+      |vpiParent:
+      \_range: , line:18:15, endln:18:21
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:18:19, endln:18:20
+      |vpiParent:
+      \_range: , line:18:15, endln:18:21
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:2:2, endln:2:14
+  |vpiParent:
+  \_logic_var: (work@mod_m.b), line:2:18, endln:2:19
+  |vpiRange:
+  \_range: , line:2:8, endln:2:14
+    |vpiParent:
+    \_logic_typespec: , line:2:2, endln:2:14
+    |vpiLeftRange:
+    \_constant: , line:2:9, endln:2:11
+      |vpiParent:
+      \_range: , line:2:8, endln:2:14
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:12, endln:2:13
+      |vpiParent:
+      \_range: , line:2:8, endln:2:14
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:2:2, endln:2:14
+  |vpiRange:
+  \_range: , line:2:8, endln:2:14
+    |vpiParent:
+    \_logic_typespec: , line:2:2, endln:2:14
+    |vpiLeftRange:
+    \_constant: , line:2:9, endln:2:11
+      |vpiParent:
+      \_range: , line:2:8, endln:2:14
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:12, endln:2:13
+      |vpiParent:
+      \_range: , line:2:8, endln:2:14
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:2:2, endln:2:14
+  |vpiRange:
+  \_range: , line:2:8, endln:2:14
+    |vpiParent:
+    \_logic_typespec: , line:2:2, endln:2:14
+    |vpiLeftRange:
+    \_constant: , line:2:9, endln:2:11
+      |vpiParent:
+      \_range: , line:2:8, endln:2:14
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:12, endln:2:13
+      |vpiParent:
+      \_range: , line:2:8, endln:2:14
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_unsupported_typespec: (cg), line:24:2, endln:24:21
+  |vpiName:cg
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

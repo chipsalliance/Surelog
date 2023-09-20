@@ -33,6 +33,7 @@ logic_var                                              1
 module_inst                                            3
 operation                                              1
 ref_obj                                                1
+ref_typespec                                           2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -47,6 +48,7 @@ logic_var                                              1
 module_inst                                            3
 operation                                              2
 ref_obj                                                2
+ref_typespec                                           2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/DeferAssert/slpp_unit/surelog.uhdm ...
 
@@ -71,7 +73,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DeferAssert/dut.sv, line:1:1, endln:4:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:3, endln:2:14
+    \_ref_typespec: (work@top.a)
+      |vpiParent:
+      \_logic_net: (work@top.a), line:2:9, endln:2:10
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_logic_typespec: , line:2:3, endln:2:14
     |vpiName:a
     |vpiFullName:work@top.a
     |vpiNetType:36
@@ -113,9 +120,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DeferAssert/dut.sv, line:1:1, endln:4:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:3, endln:2:8
+    \_ref_typespec: (work@top.a)
       |vpiParent:
       \_logic_var: (work@top.a), line:2:9, endln:2:14
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_logic_typespec: , line:2:3, endln:2:8
     |vpiName:a
     |vpiFullName:work@top.a
     |vpiVisibility:1
@@ -154,6 +164,11 @@ design: (work@top)
           \_logic_var: (work@top.a), line:2:9, endln:2:14
         |vpiOperand:
         \_constant: , line:3:28, endln:3:29
+\_weaklyReferenced:
+\_logic_typespec: , line:2:3, endln:2:8
+  |vpiParent:
+  \_logic_var: (work@top.a), line:2:9, endln:2:14
+\_logic_typespec: , line:2:3, endln:2:14
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

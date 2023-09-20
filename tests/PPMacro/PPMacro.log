@@ -105,6 +105,7 @@ logic_net                                              2
 module_inst                                            5
 operation                                              2
 ref_obj                                                4
+ref_typespec                                           2
 sys_func_call                                          2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -117,6 +118,7 @@ logic_net                                              2
 module_inst                                            5
 operation                                              2
 ref_obj                                                6
+ref_typespec                                           2
 sys_func_call                                          2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PPMacro/slpp_all/surelog.uhdm ...
@@ -152,6 +154,11 @@ design: (work@top1)
     \_sys_func_call: ($clog2), line:3:14, endln:3:25
       |vpiParent:
       \_cont_assign: , line:3:10, endln:3:25
+      |vpiTypespec:
+      \_ref_typespec: (work@top1)
+        |vpiParent:
+        \_sys_func_call: ($clog2), line:3:14, endln:3:25
+        |vpiFullName:work@top1
       |vpiArgument:
       \_constant: , line:3:21, endln:3:24
         |vpiParent:
@@ -267,6 +274,33 @@ design: (work@top1)
       |vpiFullName:work@top2.a
       |vpiActual:
       \_logic_net: (work@top2.a), line:8:10, endln:8:11
+\_weaklyReferenced:
+\_cont_assign: , line:3:10, endln:3:25
+  |vpiParent:
+  \_module_inst: work@top1 (work@top1), file:${SURELOG_DIR}/tests/PPMacro/dut.sv, line:2:1, endln:4:10
+  |vpiRhs:
+  \_constant: 
+  |vpiLhs:
+  \_ref_obj: (work@top1.a), line:3:10, endln:3:11
+    |vpiParent:
+    \_cont_assign: , line:3:10, endln:3:25
+    |vpiName:a
+    |vpiFullName:work@top1.a
+    |vpiActual:
+    \_logic_net: (work@top1.a), line:3:10, endln:3:11
+\_cont_assign: , line:8:10, endln:8:24
+  |vpiParent:
+  \_module_inst: work@top2 (work@top2), file:${SURELOG_DIR}/tests/PPMacro/dut.sv, line:7:1, endln:9:10
+  |vpiRhs:
+  \_constant: 
+  |vpiLhs:
+  \_ref_obj: (work@top2.a), line:8:10, endln:8:11
+    |vpiParent:
+    \_cont_assign: , line:8:10, endln:8:24
+    |vpiName:a
+    |vpiFullName:work@top2.a
+    |vpiActual:
+    \_logic_net: (work@top2.a), line:8:10, endln:8:11
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

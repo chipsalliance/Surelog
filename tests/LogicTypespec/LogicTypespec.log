@@ -110,6 +110,7 @@ module_inst                                            4
 package                                                2
 packed_array_typespec                                  2
 range                                                 11
+ref_typespec                                           2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -123,6 +124,7 @@ module_inst                                            4
 package                                                2
 packed_array_typespec                                  2
 range                                                 11
+ref_typespec                                           2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/LogicTypespec/slpp_all/surelog.uhdm ...
 
@@ -216,7 +218,12 @@ design: (work@logic_typespec)
     |vpiParent:
     \_module_inst: work@logic_typespec (work@logic_typespec), file:${SURELOG_DIR}/tests/LogicTypespec/dut.sv, line:5:1, endln:9:27
     |vpiTypespec:
-    \_logic_typespec: (my_package::typedef_logic_typespec), line:2:9, endln:7:44
+    \_ref_typespec: (work@logic_typespec.my_instance)
+      |vpiParent:
+      \_logic_net: (work@logic_typespec.my_instance), line:7:50, endln:7:61
+      |vpiFullName:work@logic_typespec.my_instance
+      |vpiActual:
+      \_logic_typespec: (my_package::typedef_logic_typespec), line:2:9, endln:7:44
     |vpiName:my_instance
     |vpiFullName:work@logic_typespec.my_instance
 |uhdmtopModules:
@@ -227,36 +234,43 @@ design: (work@logic_typespec)
     |vpiParent:
     \_module_inst: work@logic_typespec (work@logic_typespec), file:${SURELOG_DIR}/tests/LogicTypespec/dut.sv, line:5:1, endln:9:27
     |vpiTypespec:
-    \_logic_typespec: (typedef_logic_typespec), line:2:9, endln:2:20
-      |vpiName:typedef_logic_typespec
-      |vpiInstance:
-      \_package: my_package (my_package::), file:${SURELOG_DIR}/tests/LogicTypespec/dut.sv, line:1:1, endln:3:23
-      |vpiRange:
-      \_range: , line:2:15, endln:2:20
-        |vpiParent:
-        \_logic_typespec: (typedef_logic_typespec), line:2:9, endln:2:20
-        |vpiLeftRange:
-        \_constant: , line:2:16, endln:2:17
-          |vpiParent:
-          \_range: , line:2:15, endln:2:20
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:18, endln:2:19
-          |vpiParent:
-          \_range: , line:2:15, endln:2:20
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@logic_typespec.my_instance)
+      |vpiParent:
+      \_logic_var: (work@logic_typespec.my_instance), line:7:50, endln:7:61
+      |vpiFullName:work@logic_typespec.my_instance
+      |vpiActual:
+      \_logic_typespec: (typedef_logic_typespec), line:2:9, endln:2:20
     |vpiName:my_instance
     |vpiFullName:work@logic_typespec.my_instance
     |vpiVisibility:1
   |vpiDefName:work@logic_typespec
   |vpiTop:1
   |vpiTopModule:1
+\_weaklyReferenced:
+\_logic_typespec: (typedef_logic_typespec), line:2:9, endln:2:20
+  |vpiName:typedef_logic_typespec
+  |vpiInstance:
+  \_package: my_package (my_package::), file:${SURELOG_DIR}/tests/LogicTypespec/dut.sv, line:1:1, endln:3:23
+  |vpiRange:
+  \_range: , line:2:15, endln:2:20
+    |vpiParent:
+    \_logic_typespec: (typedef_logic_typespec), line:2:9, endln:2:20
+    |vpiLeftRange:
+    \_constant: , line:2:16, endln:2:17
+      |vpiParent:
+      \_range: , line:2:15, endln:2:20
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:18, endln:2:19
+      |vpiParent:
+      \_range: , line:2:15, endln:2:20
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

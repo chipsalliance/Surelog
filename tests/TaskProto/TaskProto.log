@@ -91,6 +91,7 @@ logic_net                                              1
 module_inst                                            2
 port                                                   2
 ref_obj                                                3
+ref_typespec                                           4
 task                                                   1
 task_call                                              1
 === UHDM Object Stats End ===
@@ -107,6 +108,7 @@ logic_net                                              1
 module_inst                                            2
 port                                                   3
 ref_obj                                                5
+ref_typespec                                           6
 task                                                   2
 task_call                                              2
 === UHDM Object Stats End ===
@@ -144,8 +146,12 @@ design: (work@top)
       |vpiDirection:2
       |vpiName:o
       |vpiTypedef:
-      \_int_typespec: , line:2:52, endln:2:55
-        |vpiSigned:1
+      \_ref_typespec: (work@top.test_output_argument.o)
+        |vpiParent:
+        \_io_decl: (o), line:2:56, endln:2:57
+        |vpiFullName:work@top.test_output_argument.o
+        |vpiActual:
+        \_int_typespec: , line:2:52, endln:2:55
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TaskProto/dut.sv, line:1:1, endln:7:10
   |vpiNet:
@@ -169,8 +175,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.a), line:1:23, endln:1:24
     |vpiTypedef:
-    \_int_typespec: , line:1:19, endln:1:22
-      |vpiSigned:1
+    \_ref_typespec: (work@top.a)
+      |vpiParent:
+      \_port: (a), line:1:23, endln:1:24
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_int_typespec: , line:1:19, endln:1:22
   |vpiProcess:
   \_initial: , line:4:4, endln:6:7
     |vpiParent:
@@ -203,10 +213,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TaskProto/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_int_typespec: , line:1:19, endln:1:22
+    \_ref_typespec: (work@top.a)
       |vpiParent:
       \_int_var: (work@top.a), line:1:23, endln:1:24
-      |vpiSigned:1
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_int_typespec: , line:1:19, endln:1:22
     |vpiName:a
     |vpiFullName:work@top.a
     |vpiSigned:1
@@ -229,7 +241,12 @@ design: (work@top)
       |vpiDirection:2
       |vpiName:o
       |vpiTypedef:
-      \_int_typespec: , line:2:52, endln:2:55
+      \_ref_typespec: (work@top.test_output_argument.o)
+        |vpiParent:
+        \_io_decl: (o), line:2:56, endln:2:57
+        |vpiFullName:work@top.test_output_argument.o
+        |vpiActual:
+        \_int_typespec: , line:2:52, endln:2:55
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TaskProto/dut.sv, line:1:1, endln:7:10
   |vpiTopModule:1
@@ -248,8 +265,12 @@ design: (work@top)
       |vpiActual:
       \_int_var: (work@top.a), line:1:23, endln:1:24
     |vpiTypedef:
-    \_int_typespec: , line:1:19, endln:1:22
-      |vpiSigned:1
+    \_ref_typespec: (work@top.a)
+      |vpiParent:
+      \_port: (a), line:1:23, endln:1:24
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_int_typespec: , line:1:19, endln:1:22
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TaskProto/dut.sv, line:1:1, endln:7:10
   |vpiProcess:
@@ -276,6 +297,17 @@ design: (work@top)
         |vpiName:test_output_argument
         |vpiTask:
         \_task: (work@top.test_output_argument), line:2:4, endln:2:59
+\_weaklyReferenced:
+\_int_typespec: , line:2:52, endln:2:55
+  |vpiSigned:1
+\_int_typespec: , line:1:19, endln:1:22
+  |vpiSigned:1
+\_int_typespec: , line:1:19, endln:1:22
+  |vpiParent:
+  \_int_var: (work@top.a), line:1:23, endln:1:24
+  |vpiSigned:1
+\_int_typespec: , line:1:19, endln:1:22
+  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

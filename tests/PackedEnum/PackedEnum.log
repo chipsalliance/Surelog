@@ -115,6 +115,7 @@ logic_typespec                                         3
 module_inst                                            4
 packed_array_typespec                                  2
 range                                                  4
+ref_typespec                                           9
 struct_typespec                                        2
 struct_var                                             1
 typespec_member                                        4
@@ -131,6 +132,7 @@ logic_typespec                                         3
 module_inst                                            4
 packed_array_typespec                                  2
 range                                                  4
+ref_typespec                                           9
 struct_typespec                                        2
 struct_var                                             1
 typespec_member                                        4
@@ -160,7 +162,12 @@ design: (work@dut)
     |vpiInstance:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/PackedEnum/dut.sv, line:1:1, endln:8:10
     |vpiBaseTypespec:
-    \_logic_typespec: , line:2:17, endln:2:22
+    \_ref_typespec: (work@dut.cstate_e)
+      |vpiParent:
+      \_enum_typespec: (cstate_e), line:2:4, endln:2:47
+      |vpiFullName:work@dut.cstate_e
+      |vpiActual:
+      \_logic_typespec: , line:2:17, endln:2:22
     |vpiEnumConst:
     \_enum_const: (c), line:2:24, endln:2:29
       |vpiParent:
@@ -183,78 +190,12 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/PackedEnum/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
-    \_struct_typespec: , line:4:4, endln:4:17
-      |vpiPacked:1
-      |vpiTypespecMember:
-      \_typespec_member: (class_esc_state), line:5:22, endln:5:37
-        |vpiParent:
-        \_struct_typespec: , line:4:4, endln:4:17
-        |vpiName:class_esc_state
-        |vpiTypespec:
-        \_packed_array_typespec: , line:5:7, endln:5:21
-          |vpiParent:
-          \_typespec_member: (class_esc_state), line:5:22, endln:5:37
-          |vpiRange:
-          \_range: , line:5:16, endln:5:21
-            |vpiParent:
-            \_packed_array_typespec: , line:5:7, endln:5:21
-            |vpiLeftRange:
-            \_constant: , line:5:17, endln:5:18
-              |vpiParent:
-              \_range: , line:5:16, endln:5:21
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-            |vpiRightRange:
-            \_constant: , line:5:19, endln:5:20
-              |vpiParent:
-              \_range: , line:5:16, endln:5:21
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
-          |vpiElemTypespec:
-          \_enum_typespec: (cstate_e), line:2:4, endln:2:47
-        |vpiRefFile:${SURELOG_DIR}/tests/PackedEnum/dut.sv
-        |vpiRefLineNo:5
-        |vpiRefColumnNo:7
-        |vpiRefEndLineNo:5
-        |vpiRefEndColumnNo:21
-      |vpiTypespecMember:
-      \_typespec_member: (blah), line:6:19, endln:6:23
-        |vpiParent:
-        \_struct_typespec: , line:4:4, endln:4:17
-        |vpiName:blah
-        |vpiTypespec:
-        \_logic_typespec: , line:6:7, endln:6:18
-          |vpiParent:
-          \_typespec_member: (blah), line:6:19, endln:6:23
-          |vpiRange:
-          \_range: , line:6:13, endln:6:18
-            |vpiParent:
-            \_logic_typespec: , line:6:7, endln:6:18
-            |vpiLeftRange:
-            \_constant: , line:6:14, endln:6:15
-              |vpiParent:
-              \_range: , line:6:13, endln:6:18
-              |vpiDecompile:3
-              |vpiSize:64
-              |UINT:3
-              |vpiConstType:9
-            |vpiRightRange:
-            \_constant: , line:6:16, endln:6:17
-              |vpiParent:
-              \_range: , line:6:13, endln:6:18
-              |vpiDecompile:2
-              |vpiSize:64
-              |UINT:2
-              |vpiConstType:9
-        |vpiRefFile:${SURELOG_DIR}/tests/PackedEnum/dut.sv
-        |vpiRefLineNo:6
-        |vpiRefColumnNo:7
-        |vpiRefEndLineNo:6
-        |vpiRefEndColumnNo:18
+    \_ref_typespec: (work@dut.hw2reg_wrap_t)
+      |vpiParent:
+      \_logic_net: (work@dut.hw2reg_wrap_t), line:7:6, endln:7:19
+      |vpiFullName:work@dut.hw2reg_wrap_t
+      |vpiActual:
+      \_struct_typespec: , line:4:4, endln:4:17
     |vpiName:hw2reg_wrap_t
     |vpiFullName:work@dut.hw2reg_wrap_t
 |uhdmtopModules:
@@ -265,80 +206,12 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/PackedEnum/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
-    \_struct_typespec: , line:4:4, endln:4:10
+    \_ref_typespec: (work@dut.hw2reg_wrap_t)
       |vpiParent:
       \_struct_var: (work@dut.hw2reg_wrap_t), line:7:6, endln:7:19
-      |vpiPacked:1
-      |vpiTypespecMember:
-      \_typespec_member: (class_esc_state), line:5:22, endln:5:37
-        |vpiParent:
-        \_struct_typespec: , line:4:4, endln:4:10
-        |vpiName:class_esc_state
-        |vpiTypespec:
-        \_packed_array_typespec: , line:5:7, endln:5:21
-          |vpiParent:
-          \_typespec_member: (class_esc_state), line:5:22, endln:5:37
-          |vpiRange:
-          \_range: , line:5:16, endln:5:21
-            |vpiParent:
-            \_packed_array_typespec: , line:5:7, endln:5:21
-            |vpiLeftRange:
-            \_constant: , line:5:17, endln:5:18
-              |vpiParent:
-              \_range: , line:5:16, endln:5:21
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-            |vpiRightRange:
-            \_constant: , line:5:19, endln:5:20
-              |vpiParent:
-              \_range: , line:5:16, endln:5:21
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
-          |vpiElemTypespec:
-          \_enum_typespec: (cstate_e), line:2:4, endln:2:47
-        |vpiRefFile:${SURELOG_DIR}/tests/PackedEnum/dut.sv
-        |vpiRefLineNo:5
-        |vpiRefColumnNo:7
-        |vpiRefEndLineNo:5
-        |vpiRefEndColumnNo:21
-      |vpiTypespecMember:
-      \_typespec_member: (blah), line:6:19, endln:6:23
-        |vpiParent:
-        \_struct_typespec: , line:4:4, endln:4:10
-        |vpiName:blah
-        |vpiTypespec:
-        \_logic_typespec: , line:6:7, endln:6:18
-          |vpiParent:
-          \_typespec_member: (blah), line:6:19, endln:6:23
-          |vpiRange:
-          \_range: , line:6:13, endln:6:18
-            |vpiParent:
-            \_logic_typespec: , line:6:7, endln:6:18
-            |vpiLeftRange:
-            \_constant: , line:6:14, endln:6:15
-              |vpiParent:
-              \_range: , line:6:13, endln:6:18
-              |vpiDecompile:3
-              |vpiSize:64
-              |UINT:3
-              |vpiConstType:9
-            |vpiRightRange:
-            \_constant: , line:6:16, endln:6:17
-              |vpiParent:
-              \_range: , line:6:13, endln:6:18
-              |vpiDecompile:2
-              |vpiSize:64
-              |UINT:2
-              |vpiConstType:9
-        |vpiRefFile:${SURELOG_DIR}/tests/PackedEnum/dut.sv
-        |vpiRefLineNo:6
-        |vpiRefColumnNo:7
-        |vpiRefEndLineNo:6
-        |vpiRefEndColumnNo:18
+      |vpiFullName:work@dut.hw2reg_wrap_t
+      |vpiActual:
+      \_struct_typespec: , line:4:4, endln:4:10
     |vpiName:hw2reg_wrap_t
     |vpiFullName:work@dut.hw2reg_wrap_t
     |vpiVisibility:1
@@ -347,6 +220,188 @@ design: (work@dut)
   |vpiDefName:work@dut
   |vpiTop:1
   |vpiTopModule:1
+\_weaklyReferenced:
+\_logic_typespec: , line:2:17, endln:2:22
+\_struct_typespec: , line:4:4, endln:4:10
+  |vpiParent:
+  \_struct_var: (work@dut.hw2reg_wrap_t), line:7:6, endln:7:19
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (class_esc_state), line:5:22, endln:5:37
+    |vpiParent:
+    \_struct_typespec: , line:4:4, endln:4:10
+    |vpiName:class_esc_state
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.hw2reg_wrap_t.class_esc_state)
+      |vpiParent:
+      \_typespec_member: (class_esc_state), line:5:22, endln:5:37
+      |vpiFullName:work@dut.hw2reg_wrap_t.class_esc_state
+      |vpiActual:
+      \_packed_array_typespec: , line:5:7, endln:5:21
+    |vpiRefFile:${SURELOG_DIR}/tests/PackedEnum/dut.sv
+    |vpiRefLineNo:5
+    |vpiRefColumnNo:7
+    |vpiRefEndLineNo:5
+    |vpiRefEndColumnNo:21
+  |vpiTypespecMember:
+  \_typespec_member: (blah), line:6:19, endln:6:23
+    |vpiParent:
+    \_struct_typespec: , line:4:4, endln:4:10
+    |vpiName:blah
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.hw2reg_wrap_t.blah)
+      |vpiParent:
+      \_typespec_member: (blah), line:6:19, endln:6:23
+      |vpiFullName:work@dut.hw2reg_wrap_t.blah
+      |vpiActual:
+      \_logic_typespec: , line:6:7, endln:6:18
+    |vpiRefFile:${SURELOG_DIR}/tests/PackedEnum/dut.sv
+    |vpiRefLineNo:6
+    |vpiRefColumnNo:7
+    |vpiRefEndLineNo:6
+    |vpiRefEndColumnNo:18
+\_packed_array_typespec: , line:5:7, endln:5:21
+  |vpiParent:
+  \_typespec_member: (class_esc_state), line:5:22, endln:5:37
+  |vpiRange:
+  \_range: , line:5:16, endln:5:21
+    |vpiParent:
+    \_packed_array_typespec: , line:5:7, endln:5:21
+    |vpiLeftRange:
+    \_constant: , line:5:17, endln:5:18
+      |vpiParent:
+      \_range: , line:5:16, endln:5:21
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:19, endln:5:20
+      |vpiParent:
+      \_range: , line:5:16, endln:5:21
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_typespec: (work@dut.hw2reg_wrap_t.class_esc_state)
+    |vpiParent:
+    \_packed_array_typespec: , line:5:7, endln:5:21
+    |vpiFullName:work@dut.hw2reg_wrap_t.class_esc_state
+    |vpiActual:
+    \_enum_typespec: (cstate_e), line:2:4, endln:2:47
+\_logic_typespec: , line:6:7, endln:6:18
+  |vpiParent:
+  \_typespec_member: (blah), line:6:19, endln:6:23
+  |vpiRange:
+  \_range: , line:6:13, endln:6:18
+    |vpiParent:
+    \_logic_typespec: , line:6:7, endln:6:18
+    |vpiLeftRange:
+    \_constant: , line:6:14, endln:6:15
+      |vpiParent:
+      \_range: , line:6:13, endln:6:18
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:16, endln:6:17
+      |vpiParent:
+      \_range: , line:6:13, endln:6:18
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+\_struct_typespec: , line:4:4, endln:4:17
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (class_esc_state), line:5:22, endln:5:37
+    |vpiParent:
+    \_struct_typespec: , line:4:4, endln:4:17
+    |vpiName:class_esc_state
+    |vpiTypespec:
+    \_ref_typespec: (class_esc_state)
+      |vpiParent:
+      \_typespec_member: (class_esc_state), line:5:22, endln:5:37
+      |vpiFullName:class_esc_state
+      |vpiActual:
+      \_packed_array_typespec: , line:5:7, endln:5:21
+    |vpiRefFile:${SURELOG_DIR}/tests/PackedEnum/dut.sv
+    |vpiRefLineNo:5
+    |vpiRefColumnNo:7
+    |vpiRefEndLineNo:5
+    |vpiRefEndColumnNo:21
+  |vpiTypespecMember:
+  \_typespec_member: (blah), line:6:19, endln:6:23
+    |vpiParent:
+    \_struct_typespec: , line:4:4, endln:4:17
+    |vpiName:blah
+    |vpiTypespec:
+    \_ref_typespec: (blah)
+      |vpiParent:
+      \_typespec_member: (blah), line:6:19, endln:6:23
+      |vpiFullName:blah
+      |vpiActual:
+      \_logic_typespec: , line:6:7, endln:6:18
+    |vpiRefFile:${SURELOG_DIR}/tests/PackedEnum/dut.sv
+    |vpiRefLineNo:6
+    |vpiRefColumnNo:7
+    |vpiRefEndLineNo:6
+    |vpiRefEndColumnNo:18
+\_packed_array_typespec: , line:5:7, endln:5:21
+  |vpiParent:
+  \_typespec_member: (class_esc_state), line:5:22, endln:5:37
+  |vpiRange:
+  \_range: , line:5:16, endln:5:21
+    |vpiParent:
+    \_packed_array_typespec: , line:5:7, endln:5:21
+    |vpiLeftRange:
+    \_constant: , line:5:17, endln:5:18
+      |vpiParent:
+      \_range: , line:5:16, endln:5:21
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:19, endln:5:20
+      |vpiParent:
+      \_range: , line:5:16, endln:5:21
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_typespec: (class_esc_state)
+    |vpiParent:
+    \_packed_array_typespec: , line:5:7, endln:5:21
+    |vpiFullName:class_esc_state
+    |vpiActual:
+    \_enum_typespec: (cstate_e), line:2:4, endln:2:47
+\_logic_typespec: , line:6:7, endln:6:18
+  |vpiParent:
+  \_typespec_member: (blah), line:6:19, endln:6:23
+  |vpiRange:
+  \_range: , line:6:13, endln:6:18
+    |vpiParent:
+    \_logic_typespec: , line:6:7, endln:6:18
+    |vpiLeftRange:
+    \_constant: , line:6:14, endln:6:15
+      |vpiParent:
+      \_range: , line:6:13, endln:6:18
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:16, endln:6:17
+      |vpiParent:
+      \_range: , line:6:13, endln:6:18
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

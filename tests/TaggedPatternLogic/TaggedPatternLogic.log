@@ -133,6 +133,7 @@ operation                                             14
 param_assign                                           2
 parameter                                              3
 range                                                  6
+ref_typespec                                          53
 string_typespec                                       28
 struct_typespec                                        6
 tagged_pattern                                        28
@@ -149,6 +150,7 @@ operation                                             14
 param_assign                                           2
 parameter                                              3
 range                                                  6
+ref_typespec                                          53
 string_typespec                                       28
 struct_typespec                                        6
 tagged_pattern                                        28
@@ -176,75 +178,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv, line:1:1, endln:15:10
     |vpiTypespec:
-    \_struct_typespec: (complex_t), line:2:11, endln:6:4
+    \_ref_typespec: (work@top.RSP_DEFAULT)
       |vpiParent:
-      \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv, line:1:1, endln:15:10
-      |vpiName:complex_t
-      |vpiInstance:
-      \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv, line:1:1, endln:15:10
-      |vpiPacked:1
-      |vpiTypespecMember:
-      \_typespec_member: (addr), line:3:17, endln:3:21
-        |vpiParent:
-        \_struct_typespec: (complex_t), line:2:11, endln:6:4
-        |vpiName:addr
-        |vpiTypespec:
-        \_logic_typespec: , line:3:5, endln:3:16
-          |vpiParent:
-          \_typespec_member: (addr), line:3:17, endln:3:21
-          |vpiRange:
-          \_range: , line:3:11, endln:3:16
-            |vpiParent:
-            \_logic_typespec: , line:3:5, endln:3:16
-            |vpiLeftRange:
-            \_constant: , line:3:12, endln:3:13
-              |vpiParent:
-              \_range: , line:3:11, endln:3:16
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-            |vpiRightRange:
-            \_constant: , line:3:14, endln:3:15
-              |vpiParent:
-              \_range: , line:3:11, endln:3:16
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
-        |vpiRefFile:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv
-        |vpiRefLineNo:3
-        |vpiRefColumnNo:5
-        |vpiRefEndLineNo:3
-        |vpiRefEndColumnNo:16
-      |vpiTypespecMember:
-      \_typespec_member: (sel), line:4:11, endln:4:14
-        |vpiParent:
-        \_struct_typespec: (complex_t), line:2:11, endln:6:4
-        |vpiName:sel
-        |vpiTypespec:
-        \_logic_typespec: , line:4:5, endln:4:10
-          |vpiParent:
-          \_typespec_member: (sel), line:4:11, endln:4:14
-        |vpiRefFile:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv
-        |vpiRefLineNo:4
-        |vpiRefColumnNo:5
-        |vpiRefEndLineNo:4
-        |vpiRefEndColumnNo:10
-      |vpiTypespecMember:
-      \_typespec_member: (rd), line:5:11, endln:5:13
-        |vpiParent:
-        \_struct_typespec: (complex_t), line:2:11, endln:6:4
-        |vpiName:rd
-        |vpiTypespec:
-        \_logic_typespec: , line:5:5, endln:5:10
-          |vpiParent:
-          \_typespec_member: (rd), line:5:11, endln:5:13
-        |vpiRefFile:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv
-        |vpiRefLineNo:5
-        |vpiRefColumnNo:5
-        |vpiRefEndLineNo:5
-        |vpiRefEndColumnNo:10
+      \_parameter: (work@top.RSP_DEFAULT), line:8:23, endln:8:34
+      |vpiFullName:work@top.RSP_DEFAULT
+      |vpiActual:
+      \_struct_typespec: (complex_t), line:2:11, endln:6:4
     |vpiName:RSP_DEFAULT
     |vpiFullName:work@top.RSP_DEFAULT
   |vpiParamAssign:
@@ -276,15 +215,19 @@ design: (work@top)
               |BIN:1
               |vpiConstType:3
             |vpiTypespec:
-            \_string_typespec: (default), line:9:13, endln:9:20
+            \_ref_typespec: (work@top)
               |vpiParent:
               \_tagged_pattern: , line:9:22, endln:9:24
-              |vpiName:default
+              |vpiFullName:work@top
+              |vpiActual:
+              \_string_typespec: (default), line:9:13, endln:9:20
         |vpiTypespec:
-        \_string_typespec: (addr), line:9:5, endln:9:9
+        \_ref_typespec: (work@top)
           |vpiParent:
           \_tagged_pattern: , line:9:11, endln:9:25
-          |vpiName:addr
+          |vpiFullName:work@top
+          |vpiActual:
+          \_string_typespec: (addr), line:9:5, endln:9:9
       |vpiOperand:
       \_tagged_pattern: , line:10:10, endln:10:14
         |vpiParent:
@@ -296,10 +239,12 @@ design: (work@top)
           |BIN:0
           |vpiConstType:3
         |vpiTypespec:
-        \_string_typespec: (sel), line:10:5, endln:10:8
+        \_ref_typespec: (work@top)
           |vpiParent:
           \_tagged_pattern: , line:10:10, endln:10:14
-          |vpiName:sel
+          |vpiFullName:work@top
+          |vpiActual:
+          \_string_typespec: (sel), line:10:5, endln:10:8
       |vpiOperand:
       \_tagged_pattern: , line:11:9, endln:11:13
         |vpiParent:
@@ -311,14 +256,73 @@ design: (work@top)
           |BIN:1
           |vpiConstType:3
         |vpiTypespec:
-        \_string_typespec: (rd), line:11:5, endln:11:7
+        \_ref_typespec: (work@top)
           |vpiParent:
           \_tagged_pattern: , line:11:9, endln:11:13
-          |vpiName:rd
+          |vpiFullName:work@top
+          |vpiActual:
+          \_string_typespec: (rd), line:11:5, endln:11:7
     |vpiLhs:
     \_parameter: (work@top.RSP_DEFAULT), line:8:23, endln:8:34
   |vpiTypedef:
   \_struct_typespec: (complex_t), line:2:11, endln:6:4
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv, line:1:1, endln:15:10
+    |vpiName:complex_t
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv, line:1:1, endln:15:10
+    |vpiPacked:1
+    |vpiTypespecMember:
+    \_typespec_member: (addr), line:3:17, endln:3:21
+      |vpiParent:
+      \_struct_typespec: (complex_t), line:2:11, endln:6:4
+      |vpiName:addr
+      |vpiTypespec:
+      \_ref_typespec: (work@top.complex_t.addr)
+        |vpiParent:
+        \_typespec_member: (addr), line:3:17, endln:3:21
+        |vpiFullName:work@top.complex_t.addr
+        |vpiActual:
+        \_logic_typespec: , line:3:5, endln:3:16
+      |vpiRefFile:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv
+      |vpiRefLineNo:3
+      |vpiRefColumnNo:5
+      |vpiRefEndLineNo:3
+      |vpiRefEndColumnNo:16
+    |vpiTypespecMember:
+    \_typespec_member: (sel), line:4:11, endln:4:14
+      |vpiParent:
+      \_struct_typespec: (complex_t), line:2:11, endln:6:4
+      |vpiName:sel
+      |vpiTypespec:
+      \_ref_typespec: (work@top.complex_t.sel)
+        |vpiParent:
+        \_typespec_member: (sel), line:4:11, endln:4:14
+        |vpiFullName:work@top.complex_t.sel
+        |vpiActual:
+        \_logic_typespec: , line:4:5, endln:4:10
+      |vpiRefFile:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv
+      |vpiRefLineNo:4
+      |vpiRefColumnNo:5
+      |vpiRefEndLineNo:4
+      |vpiRefEndColumnNo:10
+    |vpiTypespecMember:
+    \_typespec_member: (rd), line:5:11, endln:5:13
+      |vpiParent:
+      \_struct_typespec: (complex_t), line:2:11, endln:6:4
+      |vpiName:rd
+      |vpiTypespec:
+      \_ref_typespec: (work@top.complex_t.rd)
+        |vpiParent:
+        \_typespec_member: (rd), line:5:11, endln:5:13
+        |vpiFullName:work@top.complex_t.rd
+        |vpiActual:
+        \_logic_typespec: , line:5:5, endln:5:10
+      |vpiRefFile:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv
+      |vpiRefLineNo:5
+      |vpiRefColumnNo:5
+      |vpiRefEndLineNo:5
+      |vpiRefEndColumnNo:10
   |vpiDefName:work@top
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv, line:1:1, endln:15:10
@@ -328,75 +332,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv, line:1:1, endln:15:10
     |vpiTypespec:
-    \_struct_typespec: (complex_t), line:2:11, endln:6:4
+    \_ref_typespec: (work@top.RSP_DEFAULT)
       |vpiParent:
       \_parameter: (work@top.RSP_DEFAULT), line:8:23, endln:8:34
-      |vpiName:complex_t
-      |vpiInstance:
-      \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv, line:1:1, endln:15:10
-      |vpiPacked:1
-      |vpiTypespecMember:
-      \_typespec_member: (addr), line:3:17, endln:3:21
-        |vpiParent:
-        \_struct_typespec: (complex_t), line:2:11, endln:6:4
-        |vpiName:addr
-        |vpiTypespec:
-        \_logic_typespec: , line:3:5, endln:3:16
-          |vpiParent:
-          \_typespec_member: (addr), line:3:17, endln:3:21
-          |vpiRange:
-          \_range: , line:3:11, endln:3:16
-            |vpiParent:
-            \_logic_typespec: , line:3:5, endln:3:16
-            |vpiLeftRange:
-            \_constant: , line:3:12, endln:3:13
-              |vpiParent:
-              \_range: , line:3:11, endln:3:16
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-            |vpiRightRange:
-            \_constant: , line:3:14, endln:3:15
-              |vpiParent:
-              \_range: , line:3:11, endln:3:16
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
-        |vpiRefFile:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv
-        |vpiRefLineNo:3
-        |vpiRefColumnNo:5
-        |vpiRefEndLineNo:3
-        |vpiRefEndColumnNo:16
-      |vpiTypespecMember:
-      \_typespec_member: (sel), line:4:11, endln:4:14
-        |vpiParent:
-        \_struct_typespec: (complex_t), line:2:11, endln:6:4
-        |vpiName:sel
-        |vpiTypespec:
-        \_logic_typespec: , line:4:5, endln:4:10
-          |vpiParent:
-          \_typespec_member: (sel), line:4:11, endln:4:14
-        |vpiRefFile:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv
-        |vpiRefLineNo:4
-        |vpiRefColumnNo:5
-        |vpiRefEndLineNo:4
-        |vpiRefEndColumnNo:10
-      |vpiTypespecMember:
-      \_typespec_member: (rd), line:5:11, endln:5:13
-        |vpiParent:
-        \_struct_typespec: (complex_t), line:2:11, endln:6:4
-        |vpiName:rd
-        |vpiTypespec:
-        \_logic_typespec: , line:5:5, endln:5:10
-          |vpiParent:
-          \_typespec_member: (rd), line:5:11, endln:5:13
-        |vpiRefFile:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv
-        |vpiRefLineNo:5
-        |vpiRefColumnNo:5
-        |vpiRefEndLineNo:5
-        |vpiRefEndColumnNo:10
+      |vpiFullName:work@top.RSP_DEFAULT
+      |vpiActual:
+      \_struct_typespec: (complex_t), line:2:11, endln:6:4
     |vpiName:RSP_DEFAULT
     |vpiFullName:work@top.RSP_DEFAULT
   |vpiParamAssign:
@@ -408,73 +349,12 @@ design: (work@top)
       |vpiParent:
       \_param_assign: , line:8:23, endln:12:4
       |vpiTypespec:
-      \_struct_typespec: (complex_t), line:2:11, endln:6:4
+      \_ref_typespec: (work@top)
         |vpiParent:
         \_operation: , line:8:37, endln:12:4
-        |vpiName:complex_t
-        |vpiPacked:1
-        |vpiTypespecMember:
-        \_typespec_member: (addr), line:3:17, endln:3:21
-          |vpiParent:
-          \_struct_typespec: (complex_t), line:2:11, endln:6:4
-          |vpiName:addr
-          |vpiTypespec:
-          \_logic_typespec: , line:3:5, endln:3:16
-            |vpiParent:
-            \_typespec_member: (addr), line:3:17, endln:3:21
-            |vpiRange:
-            \_range: , line:3:11, endln:3:16
-              |vpiParent:
-              \_logic_typespec: , line:3:5, endln:3:16
-              |vpiLeftRange:
-              \_constant: , line:3:12, endln:3:13
-                |vpiParent:
-                \_range: , line:3:11, endln:3:16
-                |vpiDecompile:1
-                |vpiSize:64
-                |UINT:1
-                |vpiConstType:9
-              |vpiRightRange:
-              \_constant: , line:3:14, endln:3:15
-                |vpiParent:
-                \_range: , line:3:11, endln:3:16
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
-                |vpiConstType:9
-          |vpiRefFile:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv
-          |vpiRefLineNo:3
-          |vpiRefColumnNo:5
-          |vpiRefEndLineNo:3
-          |vpiRefEndColumnNo:16
-        |vpiTypespecMember:
-        \_typespec_member: (sel), line:4:11, endln:4:14
-          |vpiParent:
-          \_struct_typespec: (complex_t), line:2:11, endln:6:4
-          |vpiName:sel
-          |vpiTypespec:
-          \_logic_typespec: , line:4:5, endln:4:10
-            |vpiParent:
-            \_typespec_member: (sel), line:4:11, endln:4:14
-          |vpiRefFile:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv
-          |vpiRefLineNo:4
-          |vpiRefColumnNo:5
-          |vpiRefEndLineNo:4
-          |vpiRefEndColumnNo:10
-        |vpiTypespecMember:
-        \_typespec_member: (rd), line:5:11, endln:5:13
-          |vpiParent:
-          \_struct_typespec: (complex_t), line:2:11, endln:6:4
-          |vpiName:rd
-          |vpiTypespec:
-          \_logic_typespec: , line:5:5, endln:5:10
-            |vpiParent:
-            \_typespec_member: (rd), line:5:11, endln:5:13
-          |vpiRefFile:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv
-          |vpiRefLineNo:5
-          |vpiRefColumnNo:5
-          |vpiRefEndLineNo:5
-          |vpiRefEndColumnNo:10
+        |vpiFullName:work@top
+        |vpiActual:
+        \_struct_typespec: (complex_t), line:2:11, endln:6:4
       |vpiOpType:75
       |vpiOperand:
       \_operation: , line:9:11, endln:9:25
@@ -495,10 +375,12 @@ design: (work@top)
             |BIN:1
             |vpiConstType:3
           |vpiTypespec:
-          \_string_typespec: (default), line:9:13, endln:9:20
+          \_ref_typespec: (work@top)
             |vpiParent:
             \_tagged_pattern: , line:9:22, endln:9:24
-            |vpiName:default
+            |vpiFullName:work@top
+            |vpiActual:
+            \_string_typespec: (default), line:9:13, endln:9:20
       |vpiOperand:
       \_constant: , line:10:10, endln:10:14
         |vpiParent:
@@ -522,6 +404,330 @@ design: (work@top)
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
+\_weaklyReferenced:
+\_logic_typespec: , line:3:5, endln:3:16
+  |vpiParent:
+  \_typespec_member: (addr), line:3:17, endln:3:21
+  |vpiRange:
+  \_range: , line:3:11, endln:3:16
+    |vpiParent:
+    \_logic_typespec: , line:3:5, endln:3:16
+    |vpiLeftRange:
+    \_constant: , line:3:12, endln:3:13
+      |vpiParent:
+      \_range: , line:3:11, endln:3:16
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:14, endln:3:15
+      |vpiParent:
+      \_range: , line:3:11, endln:3:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:4:5, endln:4:10
+  |vpiParent:
+  \_typespec_member: (sel), line:4:11, endln:4:14
+\_logic_typespec: , line:5:5, endln:5:10
+  |vpiParent:
+  \_typespec_member: (rd), line:5:11, endln:5:13
+\_string_typespec: (default), line:9:13, endln:9:20
+  |vpiParent:
+  \_tagged_pattern: , line:9:22, endln:9:24
+  |vpiName:default
+\_string_typespec: (addr), line:9:5, endln:9:9
+  |vpiParent:
+  \_tagged_pattern: , line:9:11, endln:9:25
+  |vpiName:addr
+\_string_typespec: (sel), line:10:5, endln:10:8
+  |vpiParent:
+  \_tagged_pattern: , line:10:10, endln:10:14
+  |vpiName:sel
+\_string_typespec: (rd), line:11:5, endln:11:7
+  |vpiParent:
+  \_tagged_pattern: , line:11:9, endln:11:13
+  |vpiName:rd
+\_struct_typespec: (complex_t), line:2:11, endln:6:4
+  |vpiParent:
+  \_ref_typespec: (work@top)
+  |vpiName:complex_t
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (addr), line:3:17, endln:3:21
+    |vpiParent:
+    \_struct_typespec: (complex_t), line:2:11, endln:6:4
+    |vpiName:addr
+    |vpiTypespec:
+    \_ref_typespec: (work@top.complex_t.addr)
+      |vpiParent:
+      \_typespec_member: (addr), line:3:17, endln:3:21
+      |vpiFullName:work@top.complex_t.addr
+      |vpiActual:
+      \_logic_typespec: , line:3:5, endln:3:16
+    |vpiRefFile:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv
+    |vpiRefLineNo:3
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:3
+    |vpiRefEndColumnNo:16
+  |vpiTypespecMember:
+  \_typespec_member: (sel), line:4:11, endln:4:14
+    |vpiParent:
+    \_struct_typespec: (complex_t), line:2:11, endln:6:4
+    |vpiName:sel
+    |vpiTypespec:
+    \_ref_typespec: (work@top.complex_t.sel)
+      |vpiParent:
+      \_typespec_member: (sel), line:4:11, endln:4:14
+      |vpiFullName:work@top.complex_t.sel
+      |vpiActual:
+      \_logic_typespec: , line:4:5, endln:4:10
+    |vpiRefFile:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv
+    |vpiRefLineNo:4
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:4
+    |vpiRefEndColumnNo:10
+  |vpiTypespecMember:
+  \_typespec_member: (rd), line:5:11, endln:5:13
+    |vpiParent:
+    \_struct_typespec: (complex_t), line:2:11, endln:6:4
+    |vpiName:rd
+    |vpiTypespec:
+    \_ref_typespec: (work@top.complex_t.rd)
+      |vpiParent:
+      \_typespec_member: (rd), line:5:11, endln:5:13
+      |vpiFullName:work@top.complex_t.rd
+      |vpiActual:
+      \_logic_typespec: , line:5:5, endln:5:10
+    |vpiRefFile:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv
+    |vpiRefLineNo:5
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:5
+    |vpiRefEndColumnNo:10
+\_logic_typespec: , line:3:5, endln:3:16
+  |vpiParent:
+  \_ref_typespec: (work@top.complex_t.addr)
+  |vpiRange:
+  \_range: , line:3:11, endln:3:16
+    |vpiParent:
+    \_logic_typespec: , line:3:5, endln:3:16
+    |vpiLeftRange:
+    \_constant: , line:3:12, endln:3:13
+      |vpiParent:
+      \_range: , line:3:11, endln:3:16
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:14, endln:3:15
+      |vpiParent:
+      \_range: , line:3:11, endln:3:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:4:5, endln:4:10
+  |vpiParent:
+  \_ref_typespec: (work@top.complex_t.sel)
+\_logic_typespec: , line:5:5, endln:5:10
+  |vpiParent:
+  \_ref_typespec: (work@top.complex_t.rd)
+\_string_typespec: (default), line:9:13, endln:9:20
+  |vpiParent:
+  \_ref_typespec: (work@top)
+  |vpiName:default
+\_operation: , line:8:37, endln:12:4
+  |vpiParent:
+  \_param_assign: , line:8:23, endln:12:4
+  |vpiTypespec:
+  \_ref_typespec: (work@top)
+    |vpiParent:
+    \_operation: , line:8:37, endln:12:4
+    |vpiFullName:work@top
+    |vpiActual:
+    \_struct_typespec: (complex_t), line:2:11, endln:6:4
+  |vpiOpType:75
+  |vpiOperand:
+  \_operation: , line:9:11, endln:9:25
+  |vpiOperand:
+  \_constant: , line:10:10, endln:10:14
+  |vpiOperand:
+  \_constant: , line:11:9, endln:11:13
+\_struct_typespec: (complex_t), line:2:11, endln:6:4
+  |vpiParent:
+  \_ref_typespec: (work@top)
+  |vpiName:complex_t
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (addr), line:3:17, endln:3:21
+    |vpiParent:
+    \_struct_typespec: (complex_t), line:2:11, endln:6:4
+    |vpiName:addr
+    |vpiTypespec:
+    \_ref_typespec: (work@top.complex_t.addr)
+      |vpiParent:
+      \_typespec_member: (addr), line:3:17, endln:3:21
+      |vpiFullName:work@top.complex_t.addr
+      |vpiActual:
+      \_logic_typespec: , line:3:5, endln:3:16
+    |vpiRefFile:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv
+    |vpiRefLineNo:3
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:3
+    |vpiRefEndColumnNo:16
+  |vpiTypespecMember:
+  \_typespec_member: (sel), line:4:11, endln:4:14
+    |vpiParent:
+    \_struct_typespec: (complex_t), line:2:11, endln:6:4
+    |vpiName:sel
+    |vpiTypespec:
+    \_ref_typespec: (work@top.complex_t.sel)
+      |vpiParent:
+      \_typespec_member: (sel), line:4:11, endln:4:14
+      |vpiFullName:work@top.complex_t.sel
+      |vpiActual:
+      \_logic_typespec: , line:4:5, endln:4:10
+    |vpiRefFile:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv
+    |vpiRefLineNo:4
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:4
+    |vpiRefEndColumnNo:10
+  |vpiTypespecMember:
+  \_typespec_member: (rd), line:5:11, endln:5:13
+    |vpiParent:
+    \_struct_typespec: (complex_t), line:2:11, endln:6:4
+    |vpiName:rd
+    |vpiTypespec:
+    \_ref_typespec: (work@top.complex_t.rd)
+      |vpiParent:
+      \_typespec_member: (rd), line:5:11, endln:5:13
+      |vpiFullName:work@top.complex_t.rd
+      |vpiActual:
+      \_logic_typespec: , line:5:5, endln:5:10
+    |vpiRefFile:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv
+    |vpiRefLineNo:5
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:5
+    |vpiRefEndColumnNo:10
+\_logic_typespec: , line:3:5, endln:3:16
+  |vpiParent:
+  \_ref_typespec: (work@top.complex_t.addr)
+  |vpiRange:
+  \_range: , line:3:11, endln:3:16
+    |vpiParent:
+    \_logic_typespec: , line:3:5, endln:3:16
+    |vpiLeftRange:
+    \_constant: , line:3:12, endln:3:13
+      |vpiParent:
+      \_range: , line:3:11, endln:3:16
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:14, endln:3:15
+      |vpiParent:
+      \_range: , line:3:11, endln:3:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:4:5, endln:4:10
+  |vpiParent:
+  \_ref_typespec: (work@top.complex_t.sel)
+\_logic_typespec: , line:5:5, endln:5:10
+  |vpiParent:
+  \_ref_typespec: (work@top.complex_t.rd)
+\_struct_typespec: (complex_t), line:2:11, endln:6:4
+  |vpiParent:
+  \_ref_typespec: (work@top.RSP_DEFAULT)
+  |vpiName:complex_t
+  |vpiInstance:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv, line:1:1, endln:15:10
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (addr), line:3:17, endln:3:21
+    |vpiParent:
+    \_struct_typespec: (complex_t), line:2:11, endln:6:4
+    |vpiName:addr
+    |vpiTypespec:
+    \_ref_typespec: (work@top.RSP_DEFAULT.complex_t.addr)
+      |vpiParent:
+      \_typespec_member: (addr), line:3:17, endln:3:21
+      |vpiFullName:work@top.RSP_DEFAULT.complex_t.addr
+      |vpiActual:
+      \_logic_typespec: , line:3:5, endln:3:16
+    |vpiRefFile:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv
+    |vpiRefLineNo:3
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:3
+    |vpiRefEndColumnNo:16
+  |vpiTypespecMember:
+  \_typespec_member: (sel), line:4:11, endln:4:14
+    |vpiParent:
+    \_struct_typespec: (complex_t), line:2:11, endln:6:4
+    |vpiName:sel
+    |vpiTypespec:
+    \_ref_typespec: (work@top.RSP_DEFAULT.complex_t.sel)
+      |vpiParent:
+      \_typespec_member: (sel), line:4:11, endln:4:14
+      |vpiFullName:work@top.RSP_DEFAULT.complex_t.sel
+      |vpiActual:
+      \_logic_typespec: , line:4:5, endln:4:10
+    |vpiRefFile:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv
+    |vpiRefLineNo:4
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:4
+    |vpiRefEndColumnNo:10
+  |vpiTypespecMember:
+  \_typespec_member: (rd), line:5:11, endln:5:13
+    |vpiParent:
+    \_struct_typespec: (complex_t), line:2:11, endln:6:4
+    |vpiName:rd
+    |vpiTypespec:
+    \_ref_typespec: (work@top.RSP_DEFAULT.complex_t.rd)
+      |vpiParent:
+      \_typespec_member: (rd), line:5:11, endln:5:13
+      |vpiFullName:work@top.RSP_DEFAULT.complex_t.rd
+      |vpiActual:
+      \_logic_typespec: , line:5:5, endln:5:10
+    |vpiRefFile:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv
+    |vpiRefLineNo:5
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:5
+    |vpiRefEndColumnNo:10
+\_logic_typespec: , line:3:5, endln:3:16
+  |vpiParent:
+  \_ref_typespec: (work@top.RSP_DEFAULT.complex_t.addr)
+  |vpiRange:
+  \_range: , line:3:11, endln:3:16
+    |vpiParent:
+    \_logic_typespec: , line:3:5, endln:3:16
+    |vpiLeftRange:
+    \_constant: , line:3:12, endln:3:13
+      |vpiParent:
+      \_range: , line:3:11, endln:3:16
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:14, endln:3:15
+      |vpiParent:
+      \_range: , line:3:11, endln:3:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:4:5, endln:4:10
+  |vpiParent:
+  \_ref_typespec: (work@top.RSP_DEFAULT.complex_t.sel)
+\_logic_typespec: , line:5:5, endln:5:10
+  |vpiParent:
+  \_ref_typespec: (work@top.RSP_DEFAULT.complex_t.rd)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -204,6 +204,7 @@ logic_var                                              4
 module_inst                                            3
 part_select                                            3
 range                                                 15
+ref_typespec                                           8
 var_select                                             1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -218,6 +219,7 @@ logic_var                                              4
 module_inst                                            3
 part_select                                            3
 range                                                 15
+ref_typespec                                           8
 var_select                                             1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ComplexVarSelect/slpp_all/surelog.uhdm ...
@@ -243,47 +245,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ComplexVarSelect/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:4, endln:2:48
-      |vpiRange:
-      \_range: , line:2:10, endln:2:15
-        |vpiParent:
-        \_logic_typespec: , line:2:4, endln:2:48
-        |vpiLeftRange:
-        \_constant: , line:2:11, endln:2:12
-          |vpiParent:
-          \_range: , line:2:10, endln:2:15
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:13, endln:2:14
-          |vpiParent:
-          \_range: , line:2:10, endln:2:15
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-      |vpiRange:
-      \_range: , line:2:15, endln:2:20
-        |vpiParent:
-        \_logic_typespec: , line:2:4, endln:2:48
-        |vpiLeftRange:
-        \_constant: , line:2:16, endln:2:17
-          |vpiParent:
-          \_range: , line:2:15, endln:2:20
-          |vpiDecompile:5
-          |vpiSize:64
-          |UINT:5
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:18, endln:2:19
-          |vpiParent:
-          \_range: , line:2:15, endln:2:20
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@top.iccm_bank_dout_hi)
+      |vpiParent:
+      \_logic_net: (work@top.iccm_bank_dout_hi), line:2:21, endln:2:38
+      |vpiFullName:work@top.iccm_bank_dout_hi
+      |vpiActual:
+      \_logic_typespec: , line:2:4, endln:2:48
     |vpiName:iccm_bank_dout_hi
     |vpiFullName:work@top.iccm_bank_dout_hi
     |vpiNetType:36
@@ -292,27 +259,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ComplexVarSelect/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:4, endln:3:38
-      |vpiRange:
-      \_range: , line:3:10, endln:3:15
-        |vpiParent:
-        \_logic_typespec: , line:3:4, endln:3:38
-        |vpiLeftRange:
-        \_constant: , line:3:11, endln:3:12
-          |vpiParent:
-          \_range: , line:3:10, endln:3:15
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:3:13, endln:3:14
-          |vpiParent:
-          \_range: , line:3:10, endln:3:15
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@top.iccm_rw_addr_q)
+      |vpiParent:
+      \_logic_net: (work@top.iccm_rw_addr_q), line:3:16, endln:3:30
+      |vpiFullName:work@top.iccm_rw_addr_q
+      |vpiActual:
+      \_logic_typespec: , line:3:4, endln:3:38
     |vpiName:iccm_rw_addr_q
     |vpiFullName:work@top.iccm_rw_addr_q
     |vpiNetType:36
@@ -321,27 +273,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ComplexVarSelect/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_logic_typespec: , line:5:4, endln:5:63
-      |vpiRange:
-      \_range: , line:5:10, endln:5:15
-        |vpiParent:
-        \_logic_typespec: , line:5:4, endln:5:63
-        |vpiLeftRange:
-        \_constant: , line:5:11, endln:5:12
-          |vpiParent:
-          \_range: , line:5:10, endln:5:15
-          |vpiDecompile:5
-          |vpiSize:64
-          |UINT:5
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:5:13, endln:5:14
-          |vpiParent:
-          \_range: , line:5:10, endln:5:15
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@top.x)
+      |vpiParent:
+      \_logic_net: (work@top.x), line:5:16, endln:5:17
+      |vpiFullName:work@top.x
+      |vpiActual:
+      \_logic_typespec: , line:5:4, endln:5:63
     |vpiName:x
     |vpiFullName:work@top.x
     |vpiNetType:36
@@ -350,27 +287,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ComplexVarSelect/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_logic_typespec: , line:6:4, endln:6:58
-      |vpiRange:
-      \_range: , line:6:10, endln:6:15
-        |vpiParent:
-        \_logic_typespec: , line:6:4, endln:6:58
-        |vpiLeftRange:
-        \_constant: , line:6:11, endln:6:12
-          |vpiParent:
-          \_range: , line:6:10, endln:6:15
-          |vpiDecompile:5
-          |vpiSize:64
-          |UINT:5
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:6:13, endln:6:14
-          |vpiParent:
-          \_range: , line:6:10, endln:6:15
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@top.y)
+      |vpiParent:
+      \_logic_net: (work@top.y), line:6:16, endln:6:17
+      |vpiFullName:work@top.y
+      |vpiActual:
+      \_logic_typespec: , line:6:4, endln:6:58
     |vpiName:y
     |vpiFullName:work@top.y
     |vpiNetType:36
@@ -382,49 +304,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ComplexVarSelect/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:4, endln:2:20
+    \_ref_typespec: (work@top.iccm_bank_dout_hi)
       |vpiParent:
       \_logic_var: (work@top.iccm_bank_dout_hi), line:2:21, endln:2:48
-      |vpiRange:
-      \_range: , line:2:10, endln:2:15
-        |vpiParent:
-        \_logic_typespec: , line:2:4, endln:2:20
-        |vpiLeftRange:
-        \_constant: , line:2:11, endln:2:12
-          |vpiParent:
-          \_range: , line:2:10, endln:2:15
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:13, endln:2:14
-          |vpiParent:
-          \_range: , line:2:10, endln:2:15
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-      |vpiRange:
-      \_range: , line:2:15, endln:2:20
-        |vpiParent:
-        \_logic_typespec: , line:2:4, endln:2:20
-        |vpiLeftRange:
-        \_constant: , line:2:16, endln:2:17
-          |vpiParent:
-          \_range: , line:2:15, endln:2:20
-          |vpiDecompile:5
-          |vpiSize:64
-          |UINT:5
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:18, endln:2:19
-          |vpiParent:
-          \_range: , line:2:15, endln:2:20
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@top.iccm_bank_dout_hi
+      |vpiActual:
+      \_logic_typespec: , line:2:4, endln:2:20
     |vpiName:iccm_bank_dout_hi
     |vpiFullName:work@top.iccm_bank_dout_hi
     |vpiVisibility:1
@@ -441,29 +326,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ComplexVarSelect/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:4, endln:3:15
+    \_ref_typespec: (work@top.iccm_rw_addr_q)
       |vpiParent:
       \_logic_var: (work@top.iccm_rw_addr_q), line:3:16, endln:3:38
-      |vpiRange:
-      \_range: , line:3:10, endln:3:15
-        |vpiParent:
-        \_logic_typespec: , line:3:4, endln:3:15
-        |vpiLeftRange:
-        \_constant: , line:3:11, endln:3:12
-          |vpiParent:
-          \_range: , line:3:10, endln:3:15
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:3:13, endln:3:14
-          |vpiParent:
-          \_range: , line:3:10, endln:3:15
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@top.iccm_rw_addr_q
+      |vpiActual:
+      \_logic_typespec: , line:3:4, endln:3:15
     |vpiName:iccm_rw_addr_q
     |vpiFullName:work@top.iccm_rw_addr_q
     |vpiVisibility:1
@@ -480,29 +348,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ComplexVarSelect/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_logic_typespec: , line:5:4, endln:5:15
+    \_ref_typespec: (work@top.x)
       |vpiParent:
       \_logic_var: (work@top.x), line:5:16, endln:5:63
-      |vpiRange:
-      \_range: , line:5:10, endln:5:15
-        |vpiParent:
-        \_logic_typespec: , line:5:4, endln:5:15
-        |vpiLeftRange:
-        \_constant: , line:5:11, endln:5:12
-          |vpiParent:
-          \_range: , line:5:10, endln:5:15
-          |vpiDecompile:5
-          |vpiSize:64
-          |UINT:5
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:5:13, endln:5:14
-          |vpiParent:
-          \_range: , line:5:10, endln:5:15
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@top.x
+      |vpiActual:
+      \_logic_typespec: , line:5:4, endln:5:15
     |vpiName:x
     |vpiFullName:work@top.x
     |vpiVisibility:1
@@ -563,29 +414,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ComplexVarSelect/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_logic_typespec: , line:6:4, endln:6:15
+    \_ref_typespec: (work@top.y)
       |vpiParent:
       \_logic_var: (work@top.y), line:6:16, endln:6:58
-      |vpiRange:
-      \_range: , line:6:10, endln:6:15
-        |vpiParent:
-        \_logic_typespec: , line:6:4, endln:6:15
-        |vpiLeftRange:
-        \_constant: , line:6:11, endln:6:12
-          |vpiParent:
-          \_range: , line:6:10, endln:6:15
-          |vpiDecompile:5
-          |vpiSize:64
-          |UINT:5
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:6:13, endln:6:14
-          |vpiParent:
-          \_range: , line:6:10, endln:6:15
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@top.y
+      |vpiActual:
+      \_logic_typespec: , line:6:4, endln:6:15
     |vpiName:y
     |vpiFullName:work@top.y
     |vpiVisibility:1
@@ -622,6 +456,223 @@ design: (work@top)
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
+\_weaklyReferenced:
+\_logic_typespec: , line:2:4, endln:2:20
+  |vpiParent:
+  \_logic_var: (work@top.iccm_bank_dout_hi), line:2:21, endln:2:48
+  |vpiRange:
+  \_range: , line:2:10, endln:2:15
+    |vpiParent:
+    \_logic_typespec: , line:2:4, endln:2:20
+    |vpiLeftRange:
+    \_constant: , line:2:11, endln:2:12
+      |vpiParent:
+      \_range: , line:2:10, endln:2:15
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:13, endln:2:14
+      |vpiParent:
+      \_range: , line:2:10, endln:2:15
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:2:15, endln:2:20
+    |vpiParent:
+    \_logic_typespec: , line:2:4, endln:2:20
+    |vpiLeftRange:
+    \_constant: , line:2:16, endln:2:17
+      |vpiParent:
+      \_range: , line:2:15, endln:2:20
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:18, endln:2:19
+      |vpiParent:
+      \_range: , line:2:15, endln:2:20
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:3:4, endln:3:15
+  |vpiParent:
+  \_logic_var: (work@top.iccm_rw_addr_q), line:3:16, endln:3:38
+  |vpiRange:
+  \_range: , line:3:10, endln:3:15
+    |vpiParent:
+    \_logic_typespec: , line:3:4, endln:3:15
+    |vpiLeftRange:
+    \_constant: , line:3:11, endln:3:12
+      |vpiParent:
+      \_range: , line:3:10, endln:3:15
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:13, endln:3:14
+      |vpiParent:
+      \_range: , line:3:10, endln:3:15
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:5:4, endln:5:15
+  |vpiParent:
+  \_logic_var: (work@top.x), line:5:16, endln:5:63
+  |vpiRange:
+  \_range: , line:5:10, endln:5:15
+    |vpiParent:
+    \_logic_typespec: , line:5:4, endln:5:15
+    |vpiLeftRange:
+    \_constant: , line:5:11, endln:5:12
+      |vpiParent:
+      \_range: , line:5:10, endln:5:15
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:13, endln:5:14
+      |vpiParent:
+      \_range: , line:5:10, endln:5:15
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:6:4, endln:6:15
+  |vpiParent:
+  \_logic_var: (work@top.y), line:6:16, endln:6:58
+  |vpiRange:
+  \_range: , line:6:10, endln:6:15
+    |vpiParent:
+    \_logic_typespec: , line:6:4, endln:6:15
+    |vpiLeftRange:
+    \_constant: , line:6:11, endln:6:12
+      |vpiParent:
+      \_range: , line:6:10, endln:6:15
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:13, endln:6:14
+      |vpiParent:
+      \_range: , line:6:10, endln:6:15
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:2:4, endln:2:48
+  |vpiRange:
+  \_range: , line:2:10, endln:2:15
+    |vpiParent:
+    \_logic_typespec: , line:2:4, endln:2:48
+    |vpiLeftRange:
+    \_constant: , line:2:11, endln:2:12
+      |vpiParent:
+      \_range: , line:2:10, endln:2:15
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:13, endln:2:14
+      |vpiParent:
+      \_range: , line:2:10, endln:2:15
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:2:15, endln:2:20
+    |vpiParent:
+    \_logic_typespec: , line:2:4, endln:2:48
+    |vpiLeftRange:
+    \_constant: , line:2:16, endln:2:17
+      |vpiParent:
+      \_range: , line:2:15, endln:2:20
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:18, endln:2:19
+      |vpiParent:
+      \_range: , line:2:15, endln:2:20
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:3:4, endln:3:38
+  |vpiRange:
+  \_range: , line:3:10, endln:3:15
+    |vpiParent:
+    \_logic_typespec: , line:3:4, endln:3:38
+    |vpiLeftRange:
+    \_constant: , line:3:11, endln:3:12
+      |vpiParent:
+      \_range: , line:3:10, endln:3:15
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:13, endln:3:14
+      |vpiParent:
+      \_range: , line:3:10, endln:3:15
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:5:4, endln:5:63
+  |vpiRange:
+  \_range: , line:5:10, endln:5:15
+    |vpiParent:
+    \_logic_typespec: , line:5:4, endln:5:63
+    |vpiLeftRange:
+    \_constant: , line:5:11, endln:5:12
+      |vpiParent:
+      \_range: , line:5:10, endln:5:15
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:13, endln:5:14
+      |vpiParent:
+      \_range: , line:5:10, endln:5:15
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:6:4, endln:6:58
+  |vpiRange:
+  \_range: , line:6:10, endln:6:15
+    |vpiParent:
+    \_logic_typespec: , line:6:4, endln:6:58
+    |vpiLeftRange:
+    \_constant: , line:6:11, endln:6:12
+      |vpiParent:
+      \_range: , line:6:10, endln:6:15
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:13, endln:6:14
+      |vpiParent:
+      \_range: , line:6:10, endln:6:15
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

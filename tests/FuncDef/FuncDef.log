@@ -218,6 +218,7 @@ parameter                                              8
 port                                                   2
 prim_term                                              2
 ref_obj                                               12
+ref_typespec                                           9
 ref_var                                                1
 udp                                                    1
 === UHDM Object Stats End ===
@@ -244,6 +245,7 @@ parameter                                              8
 port                                                   2
 prim_term                                              2
 ref_obj                                               19
+ref_typespec                                          10
 ref_var                                                2
 udp                                                    1
 === UHDM Object Stats End ===
@@ -277,8 +279,12 @@ design: (work@mulAddRecFNToRaw_preMul)
       |vpiParent:
       \_function: (work@mulAddRecFNToRaw_preMul.clog2), line:3:1, endln:11:12
       |vpiTypespec:
-      \_integer_typespec: , line:3:10, endln:3:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mulAddRecFNToRaw_preMul.clog2)
+        |vpiParent:
+        \_integer_var: (work@mulAddRecFNToRaw_preMul.clog2), line:3:10, endln:3:17
+        |vpiFullName:work@mulAddRecFNToRaw_preMul.clog2
+        |vpiActual:
+        \_integer_typespec: , line:3:10, endln:3:17
       |vpiFullName:work@mulAddRecFNToRaw_preMul.clog2
       |vpiSigned:1
     |vpiIODecl:
@@ -288,8 +294,12 @@ design: (work@mulAddRecFNToRaw_preMul)
       |vpiDirection:1
       |vpiName:a
       |vpiTypedef:
-      \_integer_typespec: , line:4:11, endln:4:18
-        |vpiSigned:1
+      \_ref_typespec: (work@mulAddRecFNToRaw_preMul.clog2.a)
+        |vpiParent:
+        \_io_decl: (a), line:4:19, endln:4:20
+        |vpiFullName:work@mulAddRecFNToRaw_preMul.clog2.a
+        |vpiActual:
+        \_integer_typespec: , line:4:11, endln:4:18
     |vpiStmt:
     \_begin: (work@mulAddRecFNToRaw_preMul.clog2), line:6:5, endln:9:8
       |vpiParent:
@@ -522,7 +532,12 @@ design: (work@mulAddRecFNToRaw_preMul)
       |vpiDirection:1
       |vpiName:a
       |vpiTypedef:
-      \_integer_typespec: , line:4:11, endln:4:18
+      \_ref_typespec: (work@mulAddRecFNToRaw_preMul.clog2.a)
+        |vpiParent:
+        \_io_decl: (a), line:4:19, endln:4:20
+        |vpiFullName:work@mulAddRecFNToRaw_preMul.clog2.a
+        |vpiActual:
+        \_integer_typespec: , line:4:11, endln:4:18
     |vpiStmt:
     \_begin: (work@mulAddRecFNToRaw_preMul.clog2), line:6:5, endln:9:8
       |vpiParent:
@@ -699,6 +714,11 @@ design: (work@mulAddRecFNToRaw_preMul)
         |vpiFullName:work@mulAddRecFNToRaw_preMul.notCDom_normDistReduced2
         |vpiActual:
         \_logic_net: (work@mulAddRecFNToRaw_preMul.notCDom_normDistReduced2), line:15:40, endln:15:64
+\_weaklyReferenced:
+\_integer_typespec: , line:3:10, endln:3:17
+  |vpiSigned:1
+\_integer_typespec: , line:4:11, endln:4:18
+  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

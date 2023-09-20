@@ -132,6 +132,7 @@ module_inst                                            6
 operation                                              3
 port                                                  10
 ref_obj                                               20
+ref_typespec                                          16
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -144,6 +145,7 @@ module_inst                                            6
 operation                                              5
 port                                                  16
 ref_obj                                               34
+ref_typespec                                          22
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/Inverter/slpp_all/surelog.uhdm ...
 
@@ -192,7 +194,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@inverter.a), line:8:13, endln:8:14
     |vpiTypedef:
-    \_logic_typespec: , line:8:8, endln:8:12
+    \_ref_typespec: (work@inverter.a)
+      |vpiParent:
+      \_port: (a), line:8:13, endln:8:14
+      |vpiFullName:work@inverter.a
+      |vpiActual:
+      \_logic_typespec: , line:8:8, endln:8:12
   |vpiPort:
   \_port: (b), line:9:14, endln:9:15
     |vpiParent:
@@ -208,7 +215,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@inverter.b), line:9:14, endln:9:15
     |vpiTypedef:
-    \_logic_typespec: , line:9:9, endln:9:13
+    \_ref_typespec: (work@inverter.b)
+      |vpiParent:
+      \_port: (b), line:9:14, endln:9:15
+      |vpiFullName:work@inverter.b
+      |vpiActual:
+      \_logic_typespec: , line:9:9, endln:9:13
   |vpiContAssign:
   \_cont_assign: , line:11:8, endln:11:12
     |vpiParent:
@@ -269,7 +281,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.a), line:1:23, endln:1:24
     |vpiTypedef:
-    \_logic_typespec: , line:1:18, endln:1:22
+    \_ref_typespec: (work@top.a)
+      |vpiParent:
+      \_port: (a), line:1:23, endln:1:24
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_logic_typespec: , line:1:18, endln:1:22
   |vpiPort:
   \_port: (b), line:2:14, endln:2:15
     |vpiParent:
@@ -285,7 +302,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.b), line:2:14, endln:2:15
     |vpiTypedef:
-    \_logic_typespec: , line:2:9, endln:2:13
+    \_ref_typespec: (work@top.b)
+      |vpiParent:
+      \_port: (b), line:2:14, endln:2:15
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_logic_typespec: , line:2:9, endln:2:13
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:1:1, endln:5:10
   |vpiName:work@top
@@ -296,9 +318,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:1:1, endln:5:10
     |vpiTypespec:
-    \_logic_typespec: , line:1:18, endln:1:22
+    \_ref_typespec: (work@top.a)
       |vpiParent:
       \_logic_net: (work@top.a), line:1:23, endln:1:24
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_logic_typespec: , line:1:18, endln:1:22
     |vpiName:a
     |vpiFullName:work@top.a
     |vpiNetType:1
@@ -307,9 +332,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:1:1, endln:5:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:9, endln:2:13
+    \_ref_typespec: (work@top.b)
       |vpiParent:
       \_logic_net: (work@top.b), line:2:14, endln:2:15
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_logic_typespec: , line:2:9, endln:2:13
     |vpiName:b
     |vpiFullName:work@top.b
     |vpiNetType:1
@@ -336,7 +364,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.a), line:1:23, endln:1:24
     |vpiTypedef:
-    \_logic_typespec: , line:1:18, endln:1:22
+    \_ref_typespec: (work@top.a)
+      |vpiParent:
+      \_port: (a), line:1:23, endln:1:24
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_logic_typespec: , line:1:18, endln:1:22
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:1:1, endln:5:10
   |vpiPort:
@@ -354,7 +387,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.b), line:2:14, endln:2:15
     |vpiTypedef:
-    \_logic_typespec: , line:2:9, endln:2:13
+    \_ref_typespec: (work@top.b)
+      |vpiParent:
+      \_port: (b), line:2:14, endln:2:15
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_logic_typespec: , line:2:9, endln:2:13
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:1:1, endln:5:10
   |vpiModule:
@@ -371,9 +409,12 @@ design: (work@top)
       |vpiParent:
       \_module_inst: work@inverter (work@top.i1), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:3:3, endln:3:22
       |vpiTypespec:
-      \_logic_typespec: , line:8:8, endln:8:12
+      \_ref_typespec: (work@top.i1.a)
         |vpiParent:
         \_logic_net: (work@top.i1.a), line:8:13, endln:8:14
+        |vpiFullName:work@top.i1.a
+        |vpiActual:
+        \_logic_typespec: , line:8:8, endln:8:12
       |vpiName:a
       |vpiFullName:work@top.i1.a
       |vpiNetType:1
@@ -382,7 +423,12 @@ design: (work@top)
       |vpiParent:
       \_module_inst: work@inverter (work@top.i1), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:3:3, endln:3:22
       |vpiTypespec:
-      \_logic_typespec: , line:9:9, endln:9:13
+      \_ref_typespec: (work@top.i1.b)
+        |vpiParent:
+        \_logic_net: (work@top.i1.b), line:9:14, endln:9:15
+        |vpiFullName:work@top.i1.b
+        |vpiActual:
+        \_logic_typespec: , line:9:9, endln:9:13
       |vpiName:b
       |vpiFullName:work@top.i1.b
       |vpiNetType:1
@@ -411,7 +457,12 @@ design: (work@top)
         |vpiActual:
         \_logic_net: (work@top.i1.a), line:8:13, endln:8:14
       |vpiTypedef:
-      \_logic_typespec: , line:8:8, endln:8:12
+      \_ref_typespec: (work@top.i1.a)
+        |vpiParent:
+        \_port: (a), line:8:13, endln:8:14
+        |vpiFullName:work@top.i1.a
+        |vpiActual:
+        \_logic_typespec: , line:8:8, endln:8:12
       |vpiInstance:
       \_module_inst: work@inverter (work@top.i1), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:3:3, endln:3:22
     |vpiPort:
@@ -437,7 +488,12 @@ design: (work@top)
         |vpiActual:
         \_logic_net: (work@top.i1.b), line:9:14, endln:9:15
       |vpiTypedef:
-      \_logic_typespec: , line:9:9, endln:9:13
+      \_ref_typespec: (work@top.i1.b)
+        |vpiParent:
+        \_port: (b), line:9:14, endln:9:15
+        |vpiFullName:work@top.i1.b
+        |vpiActual:
+        \_logic_typespec: , line:9:9, endln:9:13
       |vpiInstance:
       \_module_inst: work@inverter (work@top.i1), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:3:3, endln:3:22
     |vpiContAssign:
@@ -479,9 +535,12 @@ design: (work@top)
       |vpiParent:
       \_module_inst: work@inverter (work@top.i2), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:4:3, endln:4:22
       |vpiTypespec:
-      \_logic_typespec: , line:8:8, endln:8:12
+      \_ref_typespec: (work@top.i2.a)
         |vpiParent:
         \_logic_net: (work@top.i2.a), line:8:13, endln:8:14
+        |vpiFullName:work@top.i2.a
+        |vpiActual:
+        \_logic_typespec: , line:8:8, endln:8:12
       |vpiName:a
       |vpiFullName:work@top.i2.a
       |vpiNetType:1
@@ -490,7 +549,12 @@ design: (work@top)
       |vpiParent:
       \_module_inst: work@inverter (work@top.i2), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:4:3, endln:4:22
       |vpiTypespec:
-      \_logic_typespec: , line:9:9, endln:9:13
+      \_ref_typespec: (work@top.i2.b)
+        |vpiParent:
+        \_logic_net: (work@top.i2.b), line:9:14, endln:9:15
+        |vpiFullName:work@top.i2.b
+        |vpiActual:
+        \_logic_typespec: , line:9:9, endln:9:13
       |vpiName:b
       |vpiFullName:work@top.i2.b
       |vpiNetType:1
@@ -519,7 +583,12 @@ design: (work@top)
         |vpiActual:
         \_logic_net: (work@top.i2.a), line:8:13, endln:8:14
       |vpiTypedef:
-      \_logic_typespec: , line:8:8, endln:8:12
+      \_ref_typespec: (work@top.i2.a)
+        |vpiParent:
+        \_port: (a), line:8:13, endln:8:14
+        |vpiFullName:work@top.i2.a
+        |vpiActual:
+        \_logic_typespec: , line:8:8, endln:8:12
       |vpiInstance:
       \_module_inst: work@inverter (work@top.i2), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:4:3, endln:4:22
     |vpiPort:
@@ -545,7 +614,12 @@ design: (work@top)
         |vpiActual:
         \_logic_net: (work@top.i2.b), line:9:14, endln:9:15
       |vpiTypedef:
-      \_logic_typespec: , line:9:9, endln:9:13
+      \_ref_typespec: (work@top.i2.b)
+        |vpiParent:
+        \_port: (b), line:9:14, endln:9:15
+        |vpiFullName:work@top.i2.b
+        |vpiActual:
+        \_logic_typespec: , line:9:9, endln:9:13
       |vpiInstance:
       \_module_inst: work@inverter (work@top.i2), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:4:3, endln:4:22
     |vpiContAssign:
@@ -573,6 +647,31 @@ design: (work@top)
         |vpiFullName:work@top.i2.b
         |vpiActual:
         \_logic_net: (work@top.i2.b), line:9:14, endln:9:15
+\_weaklyReferenced:
+\_logic_typespec: , line:1:18, endln:1:22
+\_logic_typespec: , line:2:9, endln:2:13
+\_logic_typespec: , line:1:18, endln:1:22
+  |vpiParent:
+  \_logic_net: (work@top.a), line:1:23, endln:1:24
+\_logic_typespec: , line:2:9, endln:2:13
+  |vpiParent:
+  \_logic_net: (work@top.b), line:2:14, endln:2:15
+\_logic_typespec: , line:8:8, endln:8:12
+\_logic_typespec: , line:9:9, endln:9:13
+\_logic_typespec: , line:8:8, endln:8:12
+  |vpiParent:
+  \_logic_net: (work@top.i1.a), line:8:13, endln:8:14
+\_logic_typespec: , line:9:9, endln:9:13
+\_logic_typespec: , line:8:8, endln:8:12
+\_logic_typespec: , line:9:9, endln:9:13
+\_logic_typespec: , line:8:8, endln:8:12
+  |vpiParent:
+  \_logic_net: (work@top.i2.a), line:8:13, endln:8:14
+\_logic_typespec: , line:9:9, endln:9:13
+\_logic_typespec: , line:8:8, endln:8:12
+\_logic_typespec: , line:9:9, endln:9:13
+\_logic_typespec: , line:1:18, endln:1:22
+\_logic_typespec: , line:2:9, endln:2:13
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

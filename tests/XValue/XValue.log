@@ -121,6 +121,7 @@ module_inst                                            5
 port                                                   4
 range                                                  5
 ref_obj                                                8
+ref_typespec                                           7
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -136,6 +137,7 @@ module_inst                                            5
 port                                                   6
 range                                                  5
 ref_obj                                               11
+ref_typespec                                           9
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/XValue/slpp_all/surelog.uhdm ...
 
@@ -162,27 +164,12 @@ design: (work@top)
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/XValue/dut.sv, line:1:1, endln:8:10
     |vpiBaseTypespec:
-    \_logic_typespec: , line:2:17, endln:2:28
-      |vpiRange:
-      \_range: , line:2:23, endln:2:28
-        |vpiParent:
-        \_logic_typespec: , line:2:17, endln:2:28
-        |vpiLeftRange:
-        \_constant: , line:2:24, endln:2:25
-          |vpiParent:
-          \_range: , line:2:23, endln:2:28
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:26, endln:2:27
-          |vpiParent:
-          \_range: , line:2:23, endln:2:28
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@top.dfi_cmd_e)
+      |vpiParent:
+      \_enum_typespec: (dfi_cmd_e), line:2:4, endln:5:16
+      |vpiFullName:work@top.dfi_cmd_e
+      |vpiActual:
+      \_logic_typespec: , line:2:17, endln:2:28
     |vpiEnumConst:
     \_enum_const: (REF), line:3:9, endln:3:27
       |vpiParent:
@@ -229,7 +216,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.clk), line:1:24, endln:1:27
     |vpiTypedef:
-    \_logic_typespec: , line:1:18, endln:1:23
+    \_ref_typespec: (work@top.clk)
+      |vpiParent:
+      \_port: (clk), line:1:24, endln:1:27
+      |vpiFullName:work@top.clk
+      |vpiActual:
+      \_logic_typespec: , line:1:18, endln:1:23
   |vpiPort:
   \_port: (o), line:1:47, endln:1:48
     |vpiParent:
@@ -245,27 +237,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.o), line:1:47, endln:1:48
     |vpiTypedef:
-    \_logic_typespec: , line:1:36, endln:1:46
-      |vpiRange:
-      \_range: , line:1:41, endln:1:46
-        |vpiParent:
-        \_logic_typespec: , line:1:36, endln:1:46
-        |vpiLeftRange:
-        \_constant: , line:1:42, endln:1:43
-          |vpiParent:
-          \_range: , line:1:41, endln:1:46
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:1:44, endln:1:45
-          |vpiParent:
-          \_range: , line:1:41, endln:1:46
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_port: (o), line:1:47, endln:1:48
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_logic_typespec: , line:1:36, endln:1:46
   |vpiContAssign:
   \_cont_assign: , line:7:11, endln:7:23
     |vpiParent:
@@ -298,9 +275,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/XValue/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
-    \_logic_typespec: , line:1:18, endln:1:23
+    \_ref_typespec: (work@top.clk)
       |vpiParent:
       \_logic_net: (work@top.clk), line:1:24, endln:1:27
+      |vpiFullName:work@top.clk
+      |vpiActual:
+      \_logic_typespec: , line:1:18, endln:1:23
     |vpiName:clk
     |vpiFullName:work@top.clk
     |vpiNetType:36
@@ -309,27 +289,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/XValue/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
-    \_logic_typespec: , line:1:36, endln:1:46
-      |vpiRange:
-      \_range: , line:1:41, endln:1:46
-        |vpiParent:
-        \_logic_typespec: , line:1:36, endln:1:46
-        |vpiLeftRange:
-        \_constant: , line:1:42, endln:1:43
-          |vpiParent:
-          \_range: , line:1:41, endln:1:46
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:1:44, endln:1:45
-          |vpiParent:
-          \_range: , line:1:41, endln:1:46
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_logic_net: (work@top.o), line:1:47, endln:1:48
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_logic_typespec: , line:1:36, endln:1:46
     |vpiName:o
     |vpiFullName:work@top.o
     |vpiNetType:36
@@ -349,7 +314,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.clk), line:1:24, endln:1:27
     |vpiTypedef:
-    \_logic_typespec: , line:1:18, endln:1:23
+    \_ref_typespec: (work@top.clk)
+      |vpiParent:
+      \_port: (clk), line:1:24, endln:1:27
+      |vpiFullName:work@top.clk
+      |vpiActual:
+      \_logic_typespec: , line:1:18, endln:1:23
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/XValue/dut.sv, line:1:1, endln:8:10
   |vpiPort:
@@ -367,27 +337,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.o), line:1:47, endln:1:48
     |vpiTypedef:
-    \_logic_typespec: , line:1:36, endln:1:46
-      |vpiRange:
-      \_range: , line:1:41, endln:1:46
-        |vpiParent:
-        \_logic_typespec: , line:1:36, endln:1:46
-        |vpiLeftRange:
-        \_constant: , line:1:42, endln:1:43
-          |vpiParent:
-          \_range: , line:1:41, endln:1:46
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:1:44, endln:1:45
-          |vpiParent:
-          \_range: , line:1:41, endln:1:46
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_port: (o), line:1:47, endln:1:48
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_logic_typespec: , line:1:36, endln:1:46
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/XValue/dut.sv, line:1:1, endln:8:10
   |vpiContAssign:
@@ -410,6 +365,109 @@ design: (work@top)
       |vpiFullName:work@top.o
       |vpiActual:
       \_logic_net: (work@top.o), line:1:47, endln:1:48
+\_weaklyReferenced:
+\_logic_typespec: , line:2:17, endln:2:28
+  |vpiRange:
+  \_range: , line:2:23, endln:2:28
+    |vpiParent:
+    \_logic_typespec: , line:2:17, endln:2:28
+    |vpiLeftRange:
+    \_constant: , line:2:24, endln:2:25
+      |vpiParent:
+      \_range: , line:2:23, endln:2:28
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:26, endln:2:27
+      |vpiParent:
+      \_range: , line:2:23, endln:2:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:1:18, endln:1:23
+\_logic_typespec: , line:1:36, endln:1:46
+  |vpiRange:
+  \_range: , line:1:41, endln:1:46
+    |vpiParent:
+    \_logic_typespec: , line:1:36, endln:1:46
+    |vpiLeftRange:
+    \_constant: , line:1:42, endln:1:43
+      |vpiParent:
+      \_range: , line:1:41, endln:1:46
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:1:44, endln:1:45
+      |vpiParent:
+      \_range: , line:1:41, endln:1:46
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:1:18, endln:1:23
+  |vpiParent:
+  \_logic_net: (work@top.clk), line:1:24, endln:1:27
+\_logic_typespec: , line:1:36, endln:1:46
+  |vpiRange:
+  \_range: , line:1:41, endln:1:46
+    |vpiParent:
+    \_logic_typespec: , line:1:36, endln:1:46
+    |vpiLeftRange:
+    \_constant: , line:1:42, endln:1:43
+      |vpiParent:
+      \_range: , line:1:41, endln:1:46
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:1:44, endln:1:45
+      |vpiParent:
+      \_range: , line:1:41, endln:1:46
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:1:18, endln:1:23
+\_logic_typespec: , line:1:36, endln:1:46
+  |vpiRange:
+  \_range: , line:1:41, endln:1:46
+    |vpiParent:
+    \_logic_typespec: , line:1:36, endln:1:46
+    |vpiLeftRange:
+    \_constant: , line:1:42, endln:1:43
+      |vpiParent:
+      \_range: , line:1:41, endln:1:46
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:1:44, endln:1:45
+      |vpiParent:
+      \_range: , line:1:41, endln:1:46
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_cont_assign: , line:7:11, endln:7:23
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/XValue/dut.sv, line:1:1, endln:8:10
+  |vpiRhs:
+  \_constant: 
+  |vpiLhs:
+  \_ref_obj: (work@top.o), line:7:11, endln:7:12
+    |vpiParent:
+    \_cont_assign: , line:7:11, endln:7:23
+    |vpiName:o
+    |vpiFullName:work@top.o
+    |vpiActual:
+    \_logic_net: (work@top.o), line:1:47, endln:1:48
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

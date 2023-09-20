@@ -60,6 +60,7 @@ io_decl                                                1
 range                                                  1
 real_typespec                                          3
 real_var                                               1
+ref_typespec                                           2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -71,6 +72,7 @@ io_decl                                                1
 range                                                  1
 real_typespec                                          3
 real_var                                               1
+ref_typespec                                           2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FileResolutionFunction/slpp_all/surelog.uhdm ...
 
@@ -104,7 +106,12 @@ design: (unnamed)
       |vpiParent:
       \_function: (my_function2), line:4:1, endln:5:12
       |vpiTypespec:
-      \_real_typespec: , line:4:20, endln:4:24
+      \_ref_typespec: (my_function2)
+        |vpiParent:
+        \_real_var: (my_function2), line:4:20, endln:4:24
+        |vpiFullName:my_function2
+        |vpiActual:
+        \_real_typespec: , line:4:20, endln:4:24
       |vpiFullName:my_function2
     |vpiIODecl:
     \_io_decl: (driver), line:4:49, endln:4:55
@@ -132,9 +139,17 @@ design: (unnamed)
           |STRING:unsized
           |vpiConstType:6
       |vpiTypedef:
-      \_real_typespec: , line:4:44, endln:4:48
+      \_ref_typespec: (my_function2.driver)
+        |vpiParent:
+        \_io_decl: (driver), line:4:49, endln:4:55
+        |vpiFullName:my_function2.driver
+        |vpiActual:
+        \_real_typespec: , line:4:44, endln:4:48
 |vpiTaskFunc:
 \_function: (my_function2), line:4:1, endln:5:12
+\_weaklyReferenced:
+\_real_typespec: , line:4:20, endln:4:24
+\_real_typespec: , line:4:44, endln:4:48
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

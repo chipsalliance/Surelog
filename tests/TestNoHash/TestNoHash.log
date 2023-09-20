@@ -94,35 +94,12 @@ design: (unnamed)
     |vpiParent:
     \_package: pkg2 (pkg2::), file:${SURELOG_DIR}/tests/TestNoHash/pkg2.sv, line:1:1, endln:16:11
     |vpiTypespec:
-    \_enum_typespec: (pkg2::enum2), line:3:3, endln:5:11
+    \_ref_typespec: (pkg2::P1)
       |vpiParent:
-      \_package: pkg2 (pkg2::), file:${SURELOG_DIR}/tests/TestNoHash/pkg2.sv, line:1:1, endln:16:11
-      |vpiName:pkg2::enum2
-      |vpiTypedefAlias:
-      \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
-        |vpiParent:
-        \_package: pkg1 (pkg1::), file:${SURELOG_DIR}/tests/TestNoHash/pkg1.sv, line:1:1, endln:7:11
-        |vpiName:pkg1::enum1
-        |vpiInstance:
-        \_package: pkg1 (pkg1::), file:${SURELOG_DIR}/tests/TestNoHash/pkg1.sv, line:1:1, endln:7:11
-        |vpiEnumConst:
-        \_enum_const: (HERE), line:4:5, endln:4:9
-          |vpiParent:
-          \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
-          |vpiName:HERE
-          |INT:0
-          |vpiDecompile:0
-          |vpiSize:64
-      |vpiInstance:
-      \_package: pkg2 (pkg2::), file:${SURELOG_DIR}/tests/TestNoHash/pkg2.sv, line:1:1, endln:16:11
-      |vpiEnumConst:
-      \_enum_const: (HERE), line:4:5, endln:4:9
-        |vpiParent:
-        \_enum_typespec: (pkg2::enum2), line:3:3, endln:5:11
-        |vpiName:HERE
-        |INT:0
-        |vpiDecompile:0
-        |vpiSize:64
+      \_parameter: (pkg2::P1), line:4:18, endln:4:20
+      |vpiFullName:pkg2::P1
+      |vpiActual:
+      \_enum_typespec: (pkg2::enum2), line:3:3, endln:5:11
     |vpiName:P1
     |vpiFullName:pkg2::P1
   |vpiParamAssign:
@@ -146,6 +123,19 @@ design: (unnamed)
   |vpiFullName:pkg1::
   |vpiTypedef:
   \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
+    |vpiParent:
+    \_package: pkg1 (pkg1::), file:${SURELOG_DIR}/tests/TestNoHash/pkg1.sv, line:1:1, endln:7:11
+    |vpiName:pkg1::enum1
+    |vpiInstance:
+    \_package: pkg1 (pkg1::), file:${SURELOG_DIR}/tests/TestNoHash/pkg1.sv, line:1:1, endln:7:11
+    |vpiEnumConst:
+    \_enum_const: (HERE), line:4:5, endln:4:9
+      |vpiParent:
+      \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
+      |vpiName:HERE
+      |INT:0
+      |vpiDecompile:0
+      |vpiSize:64
   |vpiDefName:pkg1
   |vpiTop:1
 |uhdmtopPackages:
@@ -160,7 +150,12 @@ design: (unnamed)
     \_package: pkg2 (pkg2::), file:${SURELOG_DIR}/tests/TestNoHash/pkg2.sv, line:1:1, endln:16:11
     |INT:0
     |vpiTypespec:
-    \_enum_typespec: (pkg2::enum2), line:3:3, endln:5:11
+    \_ref_typespec: (pkg2::P1)
+      |vpiParent:
+      \_parameter: (pkg2::P1), line:4:18, endln:4:20
+      |vpiFullName:pkg2::P1
+      |vpiActual:
+      \_enum_typespec: (pkg2::enum2), line:3:3, endln:5:11
     |vpiName:P1
     |vpiFullName:pkg2::P1
   |vpiParamAssign:
@@ -174,12 +169,37 @@ design: (unnamed)
       |vpiDecompile:0
       |INT:0
       |vpiTypespec:
-      \_enum_typespec: (pkg2::enum2), line:3:3, endln:5:11
+      \_ref_typespec: (pkg2)
+        |vpiParent:
+        \_constant: , line:4:23, endln:4:29
+        |vpiFullName:pkg2
+        |vpiActual:
+        \_enum_typespec: (pkg2::enum2), line:3:3, endln:5:11
       |vpiConstType:7
     |vpiLhs:
     \_parameter: (pkg2::P1), line:4:18, endln:4:20
   |vpiTypedef:
   \_enum_typespec: (pkg2::enum2), line:3:3, endln:5:11
+    |vpiParent:
+    \_package: pkg2 (pkg2::), file:${SURELOG_DIR}/tests/TestNoHash/pkg2.sv, line:1:1, endln:16:11
+    |vpiName:pkg2::enum2
+    |vpiTypedefAlias:
+    \_ref_typespec: (pkg2::pkg2::enum2)
+      |vpiParent:
+      \_enum_typespec: (pkg2::enum2), line:3:3, endln:5:11
+      |vpiFullName:pkg2::pkg2::enum2
+      |vpiActual:
+      \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
+    |vpiInstance:
+    \_package: pkg2 (pkg2::), file:${SURELOG_DIR}/tests/TestNoHash/pkg2.sv, line:1:1, endln:16:11
+    |vpiEnumConst:
+    \_enum_const: (HERE), line:4:5, endln:4:9
+      |vpiParent:
+      \_enum_typespec: (pkg2::enum2), line:3:3, endln:5:11
+      |vpiName:HERE
+      |INT:0
+      |vpiDecompile:0
+      |vpiSize:64
   |vpiDefName:pkg2
   |vpiTop:1
 ===================

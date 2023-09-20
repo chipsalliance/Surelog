@@ -769,6 +769,7 @@ operation                                              1
 package                                                4
 range                                                  5
 ref_obj                                               35
+ref_typespec                                          41
 ref_var                                               12
 string_typespec                                        1
 string_var                                             1
@@ -815,10 +816,12 @@ design: (unnamed)
       |vpiDirection:1
       |vpiName:printer
       |vpiTypedef:
-      \_unsupported_typespec: (uvm_printer), line:5:47, endln:5:58
-        |vpiName:uvm_printer
-        |vpiInstance:
-        \_package: uvm_pkg (uvm_pkg::), file:${SURELOG_DIR}/tests/UnitForeach/top2.v, line:3:1, endln:14:11
+      \_ref_typespec: (uvm_pkg::uvm_sequencer_base::do_print::printer)
+        |vpiParent:
+        \_io_decl: (printer), line:5:59, endln:5:66
+        |vpiFullName:uvm_pkg::uvm_sequencer_base::do_print::printer
+        |vpiActual:
+        \_unsupported_typespec: (uvm_printer), line:5:47, endln:5:58
     |vpiStmt:
     \_begin: (uvm_pkg::uvm_sequencer_base::do_print), line:7:5, endln:7:76
       |vpiParent:
@@ -887,10 +890,12 @@ design: (unnamed)
           |vpiParent:
           \_foreach_stmt: (uvm_pkg::uvm_sequencer_base::do_print), line:8:5, endln:8:12
           |vpiTypespec:
-          \_unsupported_typespec: (arb_sequence_q), line:8:14, endln:8:28
-            |vpiName:arb_sequence_q
-            |vpiInstance:
-            \_package: uvm_pkg (uvm_pkg::), file:${SURELOG_DIR}/tests/UnitForeach/top2.v, line:3:1, endln:14:11
+          \_ref_typespec: (uvm_pkg::uvm_sequencer_base::do_print::arb_sequence_q)
+            |vpiParent:
+            \_ref_var: (uvm_pkg::uvm_sequencer_base::do_print::arb_sequence_q), line:8:14, endln:8:28
+            |vpiFullName:uvm_pkg::uvm_sequencer_base::do_print::arb_sequence_q
+            |vpiActual:
+            \_unsupported_typespec: (arb_sequence_q), line:8:14, endln:8:28
           |vpiName:arb_sequence_q
           |vpiFullName:uvm_pkg::uvm_sequencer_base::do_print::arb_sequence_q
         |vpiLoopVars:
@@ -898,10 +903,12 @@ design: (unnamed)
           |vpiParent:
           \_foreach_stmt: (uvm_pkg::uvm_sequencer_base::do_print), line:8:5, endln:8:12
           |vpiTypespec:
-          \_unsupported_typespec: (i), line:8:29, endln:8:30
+          \_ref_typespec: (uvm_pkg::uvm_sequencer_base::do_print::i)
             |vpiParent:
             \_ref_var: (uvm_pkg::uvm_sequencer_base::do_print::i), line:8:29, endln:8:30
-            |vpiName:i
+            |vpiFullName:uvm_pkg::uvm_sequencer_base::do_print::i
+            |vpiActual:
+            \_unsupported_typespec: (i), line:8:29, endln:8:30
           |vpiName:i
           |vpiFullName:uvm_pkg::uvm_sequencer_base::do_print::i
         |vpiStmt:
@@ -1067,10 +1074,12 @@ design: (unnamed)
       |vpiDirection:1
       |vpiName:printer
       |vpiTypedef:
-      \_unsupported_typespec: (uvm_printer), line:5:47, endln:5:58
-        |vpiName:uvm_printer
-        |vpiInstance:
-        \_package: uvm_pkg (uvm_pkg::), file:${SURELOG_DIR}/tests/UnitForeach/top2.v, line:3:1, endln:14:11
+      \_ref_typespec: (uvm_pkg::uvm_sequencer_base::do_print::printer)
+        |vpiParent:
+        \_io_decl: (printer), line:5:59, endln:5:66
+        |vpiFullName:uvm_pkg::uvm_sequencer_base::do_print::printer
+        |vpiActual:
+        \_unsupported_typespec: (uvm_printer), line:5:47, endln:5:58
     |vpiStmt:
     \_begin: (uvm_pkg::uvm_sequencer_base::do_print), line:7:5, endln:7:76
       |vpiParent:
@@ -1139,10 +1148,12 @@ design: (unnamed)
           |vpiParent:
           \_foreach_stmt: (uvm_pkg::uvm_sequencer_base::do_print), line:8:5, endln:8:12
           |vpiTypespec:
-          \_unsupported_typespec: (arb_sequence_q), line:8:14, endln:8:28
-            |vpiName:arb_sequence_q
-            |vpiInstance:
-            \_package: uvm_pkg (uvm_pkg::), file:${SURELOG_DIR}/tests/UnitForeach/top2.v, line:3:1, endln:14:11
+          \_ref_typespec: (uvm_pkg::uvm_sequencer_base::do_print::arb_sequence_q)
+            |vpiParent:
+            \_ref_var: (uvm_pkg::uvm_sequencer_base::do_print::arb_sequence_q), line:8:14, endln:8:28
+            |vpiFullName:uvm_pkg::uvm_sequencer_base::do_print::arb_sequence_q
+            |vpiActual:
+            \_unsupported_typespec: (arb_sequence_q), line:8:14, endln:8:28
           |vpiName:arb_sequence_q
           |vpiFullName:uvm_pkg::uvm_sequencer_base::do_print::arb_sequence_q
         |vpiLoopVars:
@@ -1150,7 +1161,12 @@ design: (unnamed)
           |vpiParent:
           \_foreach_stmt: (uvm_pkg::uvm_sequencer_base::do_print), line:8:5, endln:8:12
           |vpiTypespec:
-          \_int_typespec: 
+          \_ref_typespec: (uvm_pkg::uvm_sequencer_base::do_print::i)
+            |vpiParent:
+            \_int_var: (uvm_pkg::uvm_sequencer_base::do_print::i), line:8:29, endln:8:30
+            |vpiFullName:uvm_pkg::uvm_sequencer_base::do_print::i
+            |vpiActual:
+            \_int_typespec: 
           |vpiName:i
           |vpiFullName:uvm_pkg::uvm_sequencer_base::do_print::i
         |vpiStmt:
@@ -1279,9 +1295,12 @@ design: (unnamed)
       |vpiParent:
       \_function: (work@mailbox::new), line:3:5, endln:4:16
       |vpiTypespec:
-      \_class_typespec: 
-        |vpiClassDefn:
-        \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnitForeach/builtin.sv, line:1:3, endln:27:11
+      \_ref_typespec: (work@mailbox::new)
+        |vpiParent:
+        \_class_var: (work@mailbox::new), line:3:23, endln:3:28
+        |vpiFullName:work@mailbox::new
+        |vpiActual:
+        \_class_typespec: 
       |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound), line:3:23, endln:3:28
@@ -1296,8 +1315,12 @@ design: (unnamed)
         |UINT:0
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:3:19, endln:3:22
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::new::bound)
+        |vpiParent:
+        \_io_decl: (bound), line:3:23, endln:3:28
+        |vpiFullName:work@mailbox::new::bound
+        |vpiActual:
+        \_int_typespec: , line:3:19, endln:3:22
   |vpiMethod:
   \_function: (work@mailbox::num), line:6:5, endln:7:16
     |vpiParent:
@@ -1311,8 +1334,12 @@ design: (unnamed)
       |vpiParent:
       \_function: (work@mailbox::num), line:6:5, endln:7:16
       |vpiTypespec:
-      \_int_typespec: , line:6:14, endln:6:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::num)
+        |vpiParent:
+        \_int_var: (work@mailbox::num), line:6:14, endln:6:17
+        |vpiFullName:work@mailbox::num
+        |vpiActual:
+        \_int_typespec: , line:6:14, endln:6:17
       |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
@@ -1375,8 +1402,12 @@ design: (unnamed)
       |vpiParent:
       \_function: (work@mailbox::try_get), line:18:5, endln:19:16
       |vpiTypespec:
-      \_int_typespec: , line:18:14, endln:18:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::try_get)
+        |vpiParent:
+        \_int_var: (work@mailbox::try_get), line:18:14, endln:18:17
+        |vpiFullName:work@mailbox::try_get
+        |vpiActual:
+        \_int_typespec: , line:18:14, endln:18:17
       |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
@@ -1412,8 +1443,12 @@ design: (unnamed)
       |vpiParent:
       \_function: (work@mailbox::try_peek), line:24:5, endln:25:16
       |vpiTypespec:
-      \_int_typespec: , line:24:14, endln:24:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::try_peek)
+        |vpiParent:
+        \_int_var: (work@mailbox::try_peek), line:24:14, endln:24:17
+        |vpiFullName:work@mailbox::try_peek
+        |vpiActual:
+        \_int_typespec: , line:24:14, endln:24:17
       |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
@@ -1503,9 +1538,12 @@ design: (unnamed)
       |vpiParent:
       \_function: (work@process::self), line:34:5, endln:34:11
       |vpiTypespec:
-      \_class_typespec: , line:34:21, endln:34:28
-        |vpiClassDefn:
-        \_class_defn: (work@process), file:${SURELOG_DIR}/tests/UnitForeach/builtin.sv, line:30:3, endln:52:11
+      \_ref_typespec: (work@process::self)
+        |vpiParent:
+        \_class_var: (work@process::self), line:34:21, endln:34:28
+        |vpiFullName:work@process::self
+        |vpiActual:
+        \_class_typespec: , line:34:21, endln:34:28
       |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status), line:37:5, endln:38:16
@@ -1520,7 +1558,12 @@ design: (unnamed)
       |vpiParent:
       \_function: (work@process::status), line:37:5, endln:38:16
       |vpiTypespec:
-      \_enum_typespec: (state), line:32:5, endln:32:74
+      \_ref_typespec: (work@process::status)
+        |vpiParent:
+        \_enum_var: (work@process::status), line:37:14, endln:37:19
+        |vpiFullName:work@process::status
+        |vpiActual:
+        \_enum_typespec: (state), line:32:5, endln:32:74
       |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill), line:40:5, endln:41:12
@@ -1571,9 +1614,12 @@ design: (unnamed)
       |vpiParent:
       \_function: (work@semaphore::new), line:57:5, endln:58:16
       |vpiTypespec:
-      \_class_typespec: 
-        |vpiClassDefn:
-        \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/UnitForeach/builtin.sv, line:55:3, endln:69:11
+      \_ref_typespec: (work@semaphore::new)
+        |vpiParent:
+        \_class_var: (work@semaphore::new), line:57:22, endln:57:30
+        |vpiFullName:work@semaphore::new
+        |vpiActual:
+        \_class_typespec: 
       |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount), line:57:22, endln:57:30
@@ -1588,8 +1634,12 @@ design: (unnamed)
         |UINT:0
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:57:18, endln:57:21
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::new::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:57:22, endln:57:30
+        |vpiFullName:work@semaphore::new::keyCount
+        |vpiActual:
+        \_int_typespec: , line:57:18, endln:57:21
   |vpiMethod:
   \_task: (work@semaphore::put), line:60:5, endln:61:12
     |vpiParent:
@@ -1611,8 +1661,12 @@ design: (unnamed)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:60:14, endln:60:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::put::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:60:18, endln:60:26
+        |vpiFullName:work@semaphore::put::keyCount
+        |vpiActual:
+        \_int_typespec: , line:60:14, endln:60:17
   |vpiMethod:
   \_task: (work@semaphore::get), line:63:5, endln:64:12
     |vpiParent:
@@ -1634,8 +1688,12 @@ design: (unnamed)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:63:14, endln:63:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::get::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:63:18, endln:63:26
+        |vpiFullName:work@semaphore::get::keyCount
+        |vpiActual:
+        \_int_typespec: , line:63:14, endln:63:17
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:66:5, endln:67:16
     |vpiParent:
@@ -1649,8 +1707,12 @@ design: (unnamed)
       |vpiParent:
       \_function: (work@semaphore::try_get), line:66:5, endln:67:16
       |vpiTypespec:
-      \_int_typespec: , line:66:14, endln:66:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::try_get)
+        |vpiParent:
+        \_int_var: (work@semaphore::try_get), line:66:14, endln:66:17
+        |vpiFullName:work@semaphore::try_get
+        |vpiActual:
+        \_int_typespec: , line:66:14, endln:66:17
       |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
@@ -1666,8 +1728,12 @@ design: (unnamed)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:66:26, endln:66:29
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::try_get::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:66:30, endln:66:38
+        |vpiFullName:work@semaphore::try_get::keyCount
+        |vpiActual:
+        \_int_typespec: , line:66:26, endln:66:29
 |uhdmallClasses:
 \_class_defn: (work@uvm_reg_map), file:${SURELOG_DIR}/tests/UnitForeach/top.v, line:7:1, endln:83:9
   |vpiParent:
@@ -1679,12 +1745,12 @@ design: (unnamed)
     \_class_defn: (work@uvm_reg_map), file:${SURELOG_DIR}/tests/UnitForeach/top.v, line:7:1, endln:83:9
     |vpiSize:1
     |vpiTypespec:
-    \_array_typespec: 
-      |vpiIndexTypespec:
-      \_class_typespec: (uvm_reg_map), line:46:31, endln:46:42
-        |vpiName:uvm_reg_map
-        |vpiClassDefn:
-        \_class_defn: (work@uvm_reg_map), file:${SURELOG_DIR}/tests/UnitForeach/top.v, line:7:1, endln:83:9
+    \_ref_typespec: (work@uvm_reg_map::m_submaps)
+      |vpiParent:
+      \_array_var: (work@uvm_reg_map::m_submaps), line:46:21, endln:46:30
+      |vpiFullName:work@uvm_reg_map::m_submaps
+      |vpiActual:
+      \_array_typespec: 
     |vpiName:m_submaps
     |vpiFullName:work@uvm_reg_map::m_submaps
     |vpiAutomatic:1
@@ -1696,12 +1762,12 @@ design: (unnamed)
       |vpiParent:
       \_array_var: (work@uvm_reg_map::m_submaps), line:46:21, endln:46:30
       |vpiTypespec:
-      \_class_typespec: (moreobj), line:46:9, endln:46:16
+      \_ref_typespec: (work@uvm_reg_map::m_submaps)
         |vpiParent:
         \_class_var: (work@uvm_reg_map::m_submaps), line:46:21, endln:46:30
-        |vpiName:moreobj
-        |vpiClassDefn:
-        \_class_defn: (work@moreobj), file:${SURELOG_DIR}/tests/UnitForeach/top.v, line:1:1, endln:4:9
+        |vpiFullName:work@uvm_reg_map::m_submaps
+        |vpiActual:
+        \_class_typespec: (moreobj), line:46:9, endln:46:16
       |vpiFullName:work@uvm_reg_map::m_submaps
   |vpiVariables:
   \_array_var: (work@uvm_reg_map::m_submaps2), line:47:21, endln:47:31
@@ -1709,7 +1775,12 @@ design: (unnamed)
     \_class_defn: (work@uvm_reg_map), file:${SURELOG_DIR}/tests/UnitForeach/top.v, line:7:1, endln:83:9
     |vpiSize:1
     |vpiTypespec:
-    \_array_typespec: 
+    \_ref_typespec: (work@uvm_reg_map::m_submaps2)
+      |vpiParent:
+      \_array_var: (work@uvm_reg_map::m_submaps2), line:47:21, endln:47:31
+      |vpiFullName:work@uvm_reg_map::m_submaps2
+      |vpiActual:
+      \_array_typespec: 
     |vpiName:m_submaps2
     |vpiFullName:work@uvm_reg_map::m_submaps2
     |vpiAutomatic:1
@@ -1721,12 +1792,12 @@ design: (unnamed)
       |vpiParent:
       \_array_var: (work@uvm_reg_map::m_submaps2), line:47:21, endln:47:31
       |vpiTypespec:
-      \_class_typespec: (moreobj), line:47:9, endln:47:16
+      \_ref_typespec: (work@uvm_reg_map::m_submaps2)
         |vpiParent:
         \_class_var: (work@uvm_reg_map::m_submaps2), line:47:21, endln:47:31
-        |vpiName:moreobj
-        |vpiClassDefn:
-        \_class_defn: (work@moreobj), file:${SURELOG_DIR}/tests/UnitForeach/top.v, line:1:1, endln:4:9
+        |vpiFullName:work@uvm_reg_map::m_submaps2
+        |vpiActual:
+        \_class_typespec: (moreobj), line:47:9, endln:47:16
       |vpiFullName:work@uvm_reg_map::m_submaps2
   |vpiVariables:
   \_array_var: (work@uvm_reg_map::m_submaps3), line:48:21, endln:48:31
@@ -1734,7 +1805,12 @@ design: (unnamed)
     \_class_defn: (work@uvm_reg_map), file:${SURELOG_DIR}/tests/UnitForeach/top.v, line:7:1, endln:83:9
     |vpiSize:1
     |vpiTypespec:
-    \_array_typespec: 
+    \_ref_typespec: (work@uvm_reg_map::m_submaps3)
+      |vpiParent:
+      \_array_var: (work@uvm_reg_map::m_submaps3), line:48:21, endln:48:31
+      |vpiFullName:work@uvm_reg_map::m_submaps3
+      |vpiActual:
+      \_array_typespec: 
     |vpiName:m_submaps3
     |vpiFullName:work@uvm_reg_map::m_submaps3
     |vpiAutomatic:1
@@ -1746,12 +1822,12 @@ design: (unnamed)
       |vpiParent:
       \_array_var: (work@uvm_reg_map::m_submaps3), line:48:21, endln:48:31
       |vpiTypespec:
-      \_class_typespec: (moreobj), line:48:9, endln:48:16
+      \_ref_typespec: (work@uvm_reg_map::m_submaps3)
         |vpiParent:
         \_class_var: (work@uvm_reg_map::m_submaps3), line:48:21, endln:48:31
-        |vpiName:moreobj
-        |vpiClassDefn:
-        \_class_defn: (work@moreobj), file:${SURELOG_DIR}/tests/UnitForeach/top.v, line:1:1, endln:4:9
+        |vpiFullName:work@uvm_reg_map::m_submaps3
+        |vpiActual:
+        \_class_typespec: (moreobj), line:48:9, endln:48:16
       |vpiFullName:work@uvm_reg_map::m_submaps3
   |vpiMethod:
   \_function: (work@uvm_reg_map::set_check_on_read), line:49:3, endln:79:15
@@ -1764,39 +1840,12 @@ design: (unnamed)
       |vpiParent:
       \_begin: (work@uvm_reg_map::set_check_on_read), line:51:6, endln:51:21
       |vpiTypespec:
-      \_array_typespec: , line:50:14, endln:50:23
-        |vpiRange:
-        \_range: , line:50:21, endln:50:23
-          |vpiParent:
-          \_array_typespec: , line:50:14, endln:50:23
-          |vpiLeftRange:
-          \_constant: 
-            |vpiParent:
-            \_range: , line:50:21, endln:50:23
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-          |vpiRightRange:
-          \_operation: , line:50:21, endln:50:23
-            |vpiParent:
-            \_range: , line:50:21, endln:50:23
-            |vpiOpType:11
-            |vpiOperand:
-            \_constant: , line:50:21, endln:50:23
-              |vpiParent:
-              \_operation: , line:50:21, endln:50:23
-              |vpiDecompile:10
-              |vpiSize:64
-              |UINT:10
-              |vpiConstType:9
-            |vpiOperand:
-            \_constant: 
-              |vpiSize:64
-              |INT:1
-              |vpiConstType:7
-        |vpiElemTypespec:
-        \_string_typespec: , line:50:7, endln:50:13
+      \_ref_typespec: (work@uvm_reg_map::set_check_on_read::sarray)
+        |vpiParent:
+        \_array_var: (work@uvm_reg_map::set_check_on_read::sarray), line:50:14, endln:50:20
+        |vpiFullName:work@uvm_reg_map::set_check_on_read::sarray
+        |vpiActual:
+        \_array_typespec: , line:50:14, endln:50:23
       |vpiName:sarray
       |vpiFullName:work@uvm_reg_map::set_check_on_read::sarray
       |vpiArrayType:1
@@ -1805,17 +1854,24 @@ design: (unnamed)
         |vpiParent:
         \_array_var: (work@uvm_reg_map::set_check_on_read::sarray), line:50:14, endln:50:20
         |vpiTypespec:
-        \_string_typespec: , line:50:7, endln:50:13
+        \_ref_typespec: (work@uvm_reg_map::set_check_on_read::sarray)
+          |vpiParent:
+          \_string_var: (work@uvm_reg_map::set_check_on_read::sarray), line:50:14, endln:50:20
+          |vpiFullName:work@uvm_reg_map::set_check_on_read::sarray
+          |vpiActual:
+          \_string_typespec: , line:50:7, endln:50:13
         |vpiFullName:work@uvm_reg_map::set_check_on_read::sarray
     |vpiVariables:
     \_class_var: (work@uvm_reg_map::set_check_on_read::an_obj), line:51:14, endln:51:20
       |vpiParent:
       \_begin: (work@uvm_reg_map::set_check_on_read), line:51:6, endln:51:21
       |vpiTypespec:
-      \_class_typespec: (moreobj), line:51:6, endln:51:13
-        |vpiName:moreobj
-        |vpiClassDefn:
-        \_class_defn: (work@moreobj), file:${SURELOG_DIR}/tests/UnitForeach/top.v, line:1:1, endln:4:9
+      \_ref_typespec: (work@uvm_reg_map::set_check_on_read::an_obj)
+        |vpiParent:
+        \_class_var: (work@uvm_reg_map::set_check_on_read::an_obj), line:51:14, endln:51:20
+        |vpiFullName:work@uvm_reg_map::set_check_on_read::an_obj
+        |vpiActual:
+        \_class_typespec: (moreobj), line:51:6, endln:51:13
       |vpiName:an_obj
       |vpiFullName:work@uvm_reg_map::set_check_on_read::an_obj
     |vpiMethod:1
@@ -1860,8 +1916,12 @@ design: (unnamed)
           |vpiParent:
           \_foreach_stmt: (work@uvm_reg_map::set_check_on_read), line:54:6, endln:54:13
           |vpiTypespec:
-          \_unsupported_typespec: (m_submaps), line:54:15, endln:54:24
-            |vpiName:m_submaps
+          \_ref_typespec: (work@uvm_reg_map::set_check_on_read::m_submaps)
+            |vpiParent:
+            \_ref_var: (work@uvm_reg_map::set_check_on_read::m_submaps), line:54:15, endln:54:24
+            |vpiFullName:work@uvm_reg_map::set_check_on_read::m_submaps
+            |vpiActual:
+            \_unsupported_typespec: (m_submaps), line:54:15, endln:54:24
           |vpiName:m_submaps
           |vpiFullName:work@uvm_reg_map::set_check_on_read::m_submaps
         |vpiLoopVars:
@@ -1869,10 +1929,12 @@ design: (unnamed)
           |vpiParent:
           \_foreach_stmt: (work@uvm_reg_map::set_check_on_read), line:54:6, endln:54:13
           |vpiTypespec:
-          \_unsupported_typespec: (submap), line:54:25, endln:54:31
+          \_ref_typespec: (work@uvm_reg_map::set_check_on_read::submap)
             |vpiParent:
             \_ref_var: (work@uvm_reg_map::set_check_on_read::submap), line:54:25, endln:54:31
-            |vpiName:submap
+            |vpiFullName:work@uvm_reg_map::set_check_on_read::submap
+            |vpiActual:
+            \_unsupported_typespec: (submap), line:54:25, endln:54:31
           |vpiName:submap
           |vpiFullName:work@uvm_reg_map::set_check_on_read::submap
         |vpiStmt:
@@ -1934,8 +1996,12 @@ design: (unnamed)
           |vpiParent:
           \_foreach_stmt: (work@uvm_reg_map::set_check_on_read), line:61:6, endln:61:13
           |vpiTypespec:
-          \_unsupported_typespec: (m_submaps2), line:61:15, endln:61:25
-            |vpiName:m_submaps2
+          \_ref_typespec: (work@uvm_reg_map::set_check_on_read::m_submaps2)
+            |vpiParent:
+            \_ref_var: (work@uvm_reg_map::set_check_on_read::m_submaps2), line:61:15, endln:61:25
+            |vpiFullName:work@uvm_reg_map::set_check_on_read::m_submaps2
+            |vpiActual:
+            \_unsupported_typespec: (m_submaps2), line:61:15, endln:61:25
           |vpiName:m_submaps2
           |vpiFullName:work@uvm_reg_map::set_check_on_read::m_submaps2
         |vpiLoopVars:
@@ -1943,10 +2009,12 @@ design: (unnamed)
           |vpiParent:
           \_foreach_stmt: (work@uvm_reg_map::set_check_on_read), line:61:6, endln:61:13
           |vpiTypespec:
-          \_unsupported_typespec: (i), line:61:26, endln:61:27
+          \_ref_typespec: (work@uvm_reg_map::set_check_on_read::i)
             |vpiParent:
             \_ref_var: (work@uvm_reg_map::set_check_on_read::i), line:61:26, endln:61:27
-            |vpiName:i
+            |vpiFullName:work@uvm_reg_map::set_check_on_read::i
+            |vpiActual:
+            \_unsupported_typespec: (i), line:61:26, endln:61:27
           |vpiName:i
           |vpiFullName:work@uvm_reg_map::set_check_on_read::i
         |vpiStmt:
@@ -1997,8 +2065,12 @@ design: (unnamed)
           |vpiParent:
           \_foreach_stmt: (work@uvm_reg_map::set_check_on_read), line:67:5, endln:67:12
           |vpiTypespec:
-          \_unsupported_typespec: (m_submaps3), line:67:14, endln:67:24
-            |vpiName:m_submaps3
+          \_ref_typespec: (work@uvm_reg_map::set_check_on_read::m_submaps3)
+            |vpiParent:
+            \_ref_var: (work@uvm_reg_map::set_check_on_read::m_submaps3), line:67:14, endln:67:24
+            |vpiFullName:work@uvm_reg_map::set_check_on_read::m_submaps3
+            |vpiActual:
+            \_unsupported_typespec: (m_submaps3), line:67:14, endln:67:24
           |vpiName:m_submaps3
           |vpiFullName:work@uvm_reg_map::set_check_on_read::m_submaps3
         |vpiLoopVars:
@@ -2006,10 +2078,12 @@ design: (unnamed)
           |vpiParent:
           \_foreach_stmt: (work@uvm_reg_map::set_check_on_read), line:67:5, endln:67:12
           |vpiTypespec:
-          \_unsupported_typespec: (i), line:67:25, endln:67:26
+          \_ref_typespec: (work@uvm_reg_map::set_check_on_read::i)
             |vpiParent:
             \_ref_var: (work@uvm_reg_map::set_check_on_read::i), line:67:25, endln:67:26
-            |vpiName:i
+            |vpiFullName:work@uvm_reg_map::set_check_on_read::i
+            |vpiActual:
+            \_unsupported_typespec: (i), line:67:25, endln:67:26
           |vpiName:i
           |vpiFullName:work@uvm_reg_map::set_check_on_read::i
         |vpiStmt:
@@ -2060,8 +2134,12 @@ design: (unnamed)
           |vpiParent:
           \_foreach_stmt: (work@uvm_reg_map::set_check_on_read), line:74:6, endln:74:13
           |vpiTypespec:
-          \_unsupported_typespec: (sarray), line:74:15, endln:74:21
-            |vpiName:sarray
+          \_ref_typespec: (work@uvm_reg_map::set_check_on_read::sarray)
+            |vpiParent:
+            \_ref_var: (work@uvm_reg_map::set_check_on_read::sarray), line:74:15, endln:74:21
+            |vpiFullName:work@uvm_reg_map::set_check_on_read::sarray
+            |vpiActual:
+            \_unsupported_typespec: (sarray), line:74:15, endln:74:21
           |vpiName:sarray
           |vpiFullName:work@uvm_reg_map::set_check_on_read::sarray
         |vpiLoopVars:
@@ -2069,10 +2147,12 @@ design: (unnamed)
           |vpiParent:
           \_foreach_stmt: (work@uvm_reg_map::set_check_on_read), line:74:6, endln:74:13
           |vpiTypespec:
-          \_unsupported_typespec: (submap), line:74:22, endln:74:28
+          \_ref_typespec: (work@uvm_reg_map::set_check_on_read::submap)
             |vpiParent:
             \_ref_var: (work@uvm_reg_map::set_check_on_read::submap), line:74:22, endln:74:28
-            |vpiName:submap
+            |vpiFullName:work@uvm_reg_map::set_check_on_read::submap
+            |vpiActual:
+            \_unsupported_typespec: (submap), line:74:22, endln:74:28
           |vpiName:submap
           |vpiFullName:work@uvm_reg_map::set_check_on_read::submap
         |vpiStmt:
@@ -2102,6 +2182,156 @@ design: (unnamed)
               \_method_func_call: (bad6), line:76:17, endln:76:21
               |vpiName:submap
               |vpiFullName:work@uvm_reg_map::set_check_on_read::submap
+\_weaklyReferenced:
+\_unsupported_typespec: (uvm_printer), line:5:47, endln:5:58
+  |vpiName:uvm_printer
+  |vpiInstance:
+  \_package: uvm_pkg (uvm_pkg::), file:${SURELOG_DIR}/tests/UnitForeach/top2.v, line:3:1, endln:14:11
+\_unsupported_typespec: (arb_sequence_q), line:8:14, endln:8:28
+  |vpiName:arb_sequence_q
+  |vpiInstance:
+  \_package: uvm_pkg (uvm_pkg::), file:${SURELOG_DIR}/tests/UnitForeach/top2.v, line:3:1, endln:14:11
+\_unsupported_typespec: (uvm_printer), line:5:47, endln:5:58
+  |vpiName:uvm_printer
+  |vpiInstance:
+  \_package: uvm_pkg (uvm_pkg::), file:${SURELOG_DIR}/tests/UnitForeach/top2.v, line:3:1, endln:14:11
+\_unsupported_typespec: (arb_sequence_q), line:8:14, endln:8:28
+  |vpiName:arb_sequence_q
+  |vpiInstance:
+  \_package: uvm_pkg (uvm_pkg::), file:${SURELOG_DIR}/tests/UnitForeach/top2.v, line:3:1, endln:14:11
+\_unsupported_typespec: (i), line:8:29, endln:8:30
+  |vpiParent:
+  \_ref_var: (uvm_pkg::uvm_sequencer_base::do_print::i), line:8:29, endln:8:30
+  |vpiName:i
+\_class_typespec: 
+  |vpiClassDefn:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/UnitForeach/builtin.sv, line:1:3, endln:27:11
+\_int_typespec: , line:3:19, endln:3:22
+  |vpiSigned:1
+\_int_typespec: , line:6:14, endln:6:17
+  |vpiSigned:1
+\_int_typespec: , line:18:14, endln:18:17
+  |vpiSigned:1
+\_int_typespec: , line:24:14, endln:24:17
+  |vpiSigned:1
+\_class_typespec: , line:34:21, endln:34:28
+  |vpiClassDefn:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/UnitForeach/builtin.sv, line:30:3, endln:52:11
+\_class_typespec: 
+  |vpiClassDefn:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/UnitForeach/builtin.sv, line:55:3, endln:69:11
+\_int_typespec: , line:57:18, endln:57:21
+  |vpiSigned:1
+\_int_typespec: , line:60:14, endln:60:17
+  |vpiSigned:1
+\_int_typespec: , line:63:14, endln:63:17
+  |vpiSigned:1
+\_int_typespec: , line:66:14, endln:66:17
+  |vpiSigned:1
+\_int_typespec: , line:66:26, endln:66:29
+  |vpiSigned:1
+\_string_typespec: , line:50:7, endln:50:13
+\_array_typespec: , line:50:14, endln:50:23
+  |vpiRange:
+  \_range: , line:50:21, endln:50:23
+    |vpiParent:
+    \_array_typespec: , line:50:14, endln:50:23
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: , line:50:21, endln:50:23
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_operation: , line:50:21, endln:50:23
+      |vpiParent:
+      \_range: , line:50:21, endln:50:23
+      |vpiOpType:11
+      |vpiOperand:
+      \_constant: , line:50:21, endln:50:23
+        |vpiParent:
+        \_operation: , line:50:21, endln:50:23
+        |vpiDecompile:10
+        |vpiSize:64
+        |UINT:10
+        |vpiConstType:9
+      |vpiOperand:
+      \_constant: 
+        |vpiSize:64
+        |INT:1
+        |vpiConstType:7
+  |vpiElemTypespec:
+  \_ref_typespec: 
+    |vpiParent:
+    \_array_typespec: , line:50:14, endln:50:23
+    |vpiActual:
+    \_string_typespec: , line:50:7, endln:50:13
+\_class_typespec: (moreobj), line:51:6, endln:51:13
+  |vpiName:moreobj
+  |vpiClassDefn:
+  \_class_defn: (work@moreobj), file:${SURELOG_DIR}/tests/UnitForeach/top.v, line:1:1, endln:4:9
+\_unsupported_typespec: (m_submaps), line:54:15, endln:54:24
+  |vpiName:m_submaps
+\_unsupported_typespec: (submap), line:54:25, endln:54:31
+  |vpiParent:
+  \_ref_var: (work@uvm_reg_map::set_check_on_read::submap), line:54:25, endln:54:31
+  |vpiName:submap
+\_unsupported_typespec: (m_submaps2), line:61:15, endln:61:25
+  |vpiName:m_submaps2
+\_unsupported_typespec: (i), line:61:26, endln:61:27
+  |vpiParent:
+  \_ref_var: (work@uvm_reg_map::set_check_on_read::i), line:61:26, endln:61:27
+  |vpiName:i
+\_unsupported_typespec: (m_submaps3), line:67:14, endln:67:24
+  |vpiName:m_submaps3
+\_unsupported_typespec: (i), line:67:25, endln:67:26
+  |vpiParent:
+  \_ref_var: (work@uvm_reg_map::set_check_on_read::i), line:67:25, endln:67:26
+  |vpiName:i
+\_unsupported_typespec: (sarray), line:74:15, endln:74:21
+  |vpiName:sarray
+\_unsupported_typespec: (submap), line:74:22, endln:74:28
+  |vpiParent:
+  \_ref_var: (work@uvm_reg_map::set_check_on_read::submap), line:74:22, endln:74:28
+  |vpiName:submap
+\_class_typespec: (moreobj), line:46:9, endln:46:16
+  |vpiParent:
+  \_class_var: (work@uvm_reg_map::m_submaps), line:46:21, endln:46:30
+  |vpiName:moreobj
+  |vpiClassDefn:
+  \_class_defn: (work@moreobj), file:${SURELOG_DIR}/tests/UnitForeach/top.v, line:1:1, endln:4:9
+\_array_typespec: 
+  |vpiIndexTypespec:
+  \_ref_typespec: 
+    |vpiParent:
+    \_array_typespec: 
+    |vpiActual:
+    \_class_typespec: (uvm_reg_map), line:46:31, endln:46:42
+\_class_typespec: (uvm_reg_map), line:46:31, endln:46:42
+  |vpiName:uvm_reg_map
+  |vpiClassDefn:
+  \_class_defn: (work@uvm_reg_map), file:${SURELOG_DIR}/tests/UnitForeach/top.v, line:7:1, endln:83:9
+\_class_typespec: (moreobj), line:47:9, endln:47:16
+  |vpiParent:
+  \_class_var: (work@uvm_reg_map::m_submaps2), line:47:21, endln:47:31
+  |vpiName:moreobj
+  |vpiClassDefn:
+  \_class_defn: (work@moreobj), file:${SURELOG_DIR}/tests/UnitForeach/top.v, line:1:1, endln:4:9
+\_array_typespec: 
+  |vpiIndexTypespec:
+  \_ref_typespec: 
+    |vpiParent:
+    \_array_typespec: 
+\_class_typespec: (moreobj), line:48:9, endln:48:16
+  |vpiParent:
+  \_class_var: (work@uvm_reg_map::m_submaps3), line:48:21, endln:48:31
+  |vpiName:moreobj
+  |vpiClassDefn:
+  \_class_defn: (work@moreobj), file:${SURELOG_DIR}/tests/UnitForeach/top.v, line:1:1, endln:4:9
+\_array_typespec: 
+\_int_typespec: 
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

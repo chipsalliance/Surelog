@@ -130,6 +130,7 @@ module_inst                                            4
 operation                                              3
 range                                                  2
 ref_obj                                                6
+ref_typespec                                          10
 ref_var                                                5
 unsupported_typespec                                   5
 var_select                                             1
@@ -153,6 +154,7 @@ module_inst                                            4
 operation                                              4
 range                                                  2
 ref_obj                                               10
+ref_typespec                                          15
 ref_var                                                7
 unsupported_typespec                                   5
 var_select                                             2
@@ -180,8 +182,12 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ForeachSquare/dut.sv, line:1:1, endln:11:10
     |vpiTypespec:
-    \_int_typespec: , line:3:5, endln:3:18
-      |vpiSigned:1
+    \_ref_typespec: (work@dut.array)
+      |vpiParent:
+      \_logic_net: (work@dut.array), line:3:9, endln:3:14
+      |vpiFullName:work@dut.array
+      |vpiActual:
+      \_int_typespec: , line:3:5, endln:3:18
     |vpiName:array
     |vpiFullName:work@dut.array
   |vpiNet:
@@ -217,7 +223,12 @@ design: (work@dut)
           |vpiParent:
           \_foreach_stmt: (work@dut), line:6:9, endln:6:16
           |vpiTypespec:
-          \_array_typespec: 
+          \_ref_typespec: (work@dut.array)
+            |vpiParent:
+            \_ref_var: (work@dut.array), line:6:17, endln:6:22
+            |vpiFullName:work@dut.array
+            |vpiActual:
+            \_array_typespec: 
           |vpiName:array
           |vpiFullName:work@dut.array
         |vpiLoopVars:
@@ -225,8 +236,12 @@ design: (work@dut)
           |vpiParent:
           \_foreach_stmt: (work@dut), line:6:9, endln:6:16
           |vpiTypespec:
-          \_int_typespec: , line:3:5, endln:3:8
-            |vpiSigned:1
+          \_ref_typespec: (work@dut.i)
+            |vpiParent:
+            \_int_var: (work@dut.i), line:6:23, endln:6:24
+            |vpiFullName:work@dut.i
+            |vpiActual:
+            \_int_typespec: , line:3:5, endln:3:8
           |vpiName:i
           |vpiFullName:work@dut.i
         |vpiStmt:
@@ -239,7 +254,12 @@ design: (work@dut)
             |vpiParent:
             \_foreach_stmt: (work@dut), line:7:13, endln:7:20
             |vpiTypespec:
-            \_array_typespec: 
+            \_ref_typespec: (work@dut.array)
+              |vpiParent:
+              \_ref_var: (work@dut.array), line:7:21, endln:7:26
+              |vpiFullName:work@dut.array
+              |vpiActual:
+              \_array_typespec: 
             |vpiName:array
             |vpiFullName:work@dut.array
           |vpiLoopVars:
@@ -249,8 +269,12 @@ design: (work@dut)
             |vpiParent:
             \_foreach_stmt: (work@dut), line:7:13, endln:7:20
             |vpiTypespec:
-            \_int_typespec: , line:3:5, endln:3:8
-              |vpiSigned:1
+            \_ref_typespec: (work@dut.j)
+              |vpiParent:
+              \_int_var: (work@dut.j), line:7:30, endln:7:31
+              |vpiFullName:work@dut.j
+              |vpiActual:
+              \_int_typespec: , line:3:5, endln:3:8
             |vpiName:j
             |vpiFullName:work@dut.j
           |vpiStmt:
@@ -311,7 +335,12 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ForeachSquare/dut.sv, line:1:1, endln:11:10
     |vpiSize:256
     |vpiTypespec:
-    \_array_typespec: 
+    \_ref_typespec: (work@dut.array)
+      |vpiParent:
+      \_array_var: (work@dut.array), line:3:9, endln:3:14
+      |vpiFullName:work@dut.array
+      |vpiActual:
+      \_array_typespec: 
     |vpiName:array
     |vpiFullName:work@dut.array
     |vpiRandType:1
@@ -382,10 +411,12 @@ design: (work@dut)
       |vpiParent:
       \_array_var: (work@dut.array), line:3:9, endln:3:14
       |vpiTypespec:
-      \_int_typespec: , line:3:5, endln:3:8
+      \_ref_typespec: (work@dut.array)
         |vpiParent:
         \_int_var: (work@dut.array), line:3:9, endln:3:14
-        |vpiSigned:1
+        |vpiFullName:work@dut.array
+        |vpiActual:
+        \_int_typespec: , line:3:5, endln:3:8
       |vpiFullName:work@dut.array
   |vpiDefName:work@dut
   |vpiTop:1
@@ -409,7 +440,12 @@ design: (work@dut)
           |vpiParent:
           \_foreach_stmt: (work@dut), line:6:9, endln:6:16
           |vpiTypespec:
-          \_array_typespec: 
+          \_ref_typespec: (work@dut.array)
+            |vpiParent:
+            \_ref_var: (work@dut.array), line:6:17, endln:6:22
+            |vpiFullName:work@dut.array
+            |vpiActual:
+            \_array_typespec: 
           |vpiName:array
           |vpiFullName:work@dut.array
           |vpiActual:
@@ -419,7 +455,12 @@ design: (work@dut)
           |vpiParent:
           \_foreach_stmt: (work@dut), line:6:9, endln:6:16
           |vpiTypespec:
-          \_int_typespec: , line:3:5, endln:3:8
+          \_ref_typespec: (work@dut.i)
+            |vpiParent:
+            \_int_var: (work@dut.i), line:6:23, endln:6:24
+            |vpiFullName:work@dut.i
+            |vpiActual:
+            \_int_typespec: , line:3:5, endln:3:8
           |vpiName:i
           |vpiFullName:work@dut.i
         |vpiStmt:
@@ -432,7 +473,12 @@ design: (work@dut)
             |vpiParent:
             \_foreach_stmt: (work@dut), line:7:13, endln:7:20
             |vpiTypespec:
-            \_array_typespec: 
+            \_ref_typespec: (work@dut.array)
+              |vpiParent:
+              \_ref_var: (work@dut.array), line:7:21, endln:7:26
+              |vpiFullName:work@dut.array
+              |vpiActual:
+              \_array_typespec: 
             |vpiName:array
             |vpiFullName:work@dut.array
             |vpiActual:
@@ -442,7 +488,12 @@ design: (work@dut)
             |vpiParent:
             \_foreach_stmt: (work@dut), line:7:13, endln:7:20
             |vpiTypespec:
-            \_int_typespec: , line:3:5, endln:3:8
+            \_ref_typespec: (work@dut.i)
+              |vpiParent:
+              \_int_var: (work@dut.i), line:6:23, endln:6:24
+              |vpiFullName:work@dut.i
+              |vpiActual:
+              \_int_typespec: , line:3:5, endln:3:8
             |vpiName:i
             |vpiFullName:work@dut.i
           |vpiLoopVars:
@@ -450,7 +501,12 @@ design: (work@dut)
             |vpiParent:
             \_foreach_stmt: (work@dut), line:7:13, endln:7:20
             |vpiTypespec:
-            \_int_typespec: , line:3:5, endln:3:8
+            \_ref_typespec: (work@dut.j)
+              |vpiParent:
+              \_int_var: (work@dut.j), line:7:30, endln:7:31
+              |vpiFullName:work@dut.j
+              |vpiActual:
+              \_int_typespec: , line:3:5, endln:3:8
             |vpiName:j
             |vpiFullName:work@dut.j
           |vpiStmt:
@@ -504,6 +560,18 @@ design: (work@dut)
                 |vpiFullName:work@dut.array.j
                 |vpiActual:
                 \_int_var: (work@dut.j), line:7:30, endln:7:31
+\_weaklyReferenced:
+\_int_typespec: , line:3:5, endln:3:8
+  |vpiParent:
+  \_int_var: (work@dut.array), line:3:9, endln:3:14
+  |vpiSigned:1
+\_array_typespec: 
+\_int_typespec: , line:3:5, endln:3:18
+  |vpiSigned:1
+\_int_typespec: , line:3:5, endln:3:8
+  |vpiSigned:1
+\_int_typespec: , line:3:5, endln:3:8
+  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

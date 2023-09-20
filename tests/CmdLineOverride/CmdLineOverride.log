@@ -75,6 +75,7 @@ int_typespec                                           1
 module_inst                                            4
 param_assign                                           2
 parameter                                              2
+ref_typespec                                           2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -85,6 +86,7 @@ int_typespec                                           1
 module_inst                                            4
 param_assign                                           2
 parameter                                              2
+ref_typespec                                           2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/CmdLineOverride/slpp_all/surelog.uhdm ...
 
@@ -129,10 +131,12 @@ design: (work@foo)
       |vpiSize:64
       |UINT:0
       |vpiTypespec:
-      \_int_typespec: , line:2:13, endln:2:16
+      \_ref_typespec: (work@foo)
         |vpiParent:
-        \_parameter: (work@foo.bar), line:2:17, endln:2:20
-        |vpiSigned:1
+        \_constant: , line:2:23, endln:2:24
+        |vpiFullName:work@foo
+        |vpiActual:
+        \_int_typespec: , line:2:13, endln:2:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@foo.bar), line:2:17, endln:2:20
@@ -171,6 +175,11 @@ design: (work@foo)
   |vpiDefName:work@baz
   |vpiTop:1
   |vpiTopModule:1
+\_weaklyReferenced:
+\_int_typespec: , line:2:13, endln:2:16
+  |vpiParent:
+  \_parameter: (work@foo.bar), line:2:17, endln:2:20
+  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

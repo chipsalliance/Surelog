@@ -257,6 +257,7 @@ parameter                                             15
 range                                                  4
 ref_module                                             1
 ref_obj                                               12
+ref_typespec                                         120
 string_typespec                                       36
 struct_typespec                                       19
 tagged_pattern                                        36
@@ -279,6 +280,7 @@ parameter                                             15
 range                                                  4
 ref_module                                             1
 ref_obj                                               12
+ref_typespec                                         120
 string_typespec                                       36
 struct_typespec                                       19
 tagged_pattern                                        36
@@ -316,11 +318,12 @@ design: (work@cheshire_soc)
       \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
       |vpiName:NoSlvPorts
       |vpiTypespec:
-      \_int_typespec: , line:3:5, endln:3:17
+      \_ref_typespec: (axi_pkg::axi_pkg::xbar_cfg_t::NoSlvPorts)
         |vpiParent:
         \_typespec_member: (NoSlvPorts), line:3:20, endln:3:30
-        |vpiInstance:
-        \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+        |vpiFullName:axi_pkg::axi_pkg::xbar_cfg_t::NoSlvPorts
+        |vpiActual:
+        \_int_typespec: , line:3:5, endln:3:17
       |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
       |vpiRefLineNo:3
       |vpiRefColumnNo:5
@@ -332,11 +335,12 @@ design: (work@cheshire_soc)
       \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
       |vpiName:NoMstPorts
       |vpiTypespec:
-      \_int_typespec: , line:4:5, endln:4:17
+      \_ref_typespec: (axi_pkg::axi_pkg::xbar_cfg_t::NoMstPorts)
         |vpiParent:
         \_typespec_member: (NoMstPorts), line:4:20, endln:4:30
-        |vpiInstance:
-        \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+        |vpiFullName:axi_pkg::axi_pkg::xbar_cfg_t::NoMstPorts
+        |vpiActual:
+        \_int_typespec: , line:4:5, endln:4:17
       |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
       |vpiRefLineNo:4
       |vpiRefColumnNo:5
@@ -348,11 +352,12 @@ design: (work@cheshire_soc)
       \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
       |vpiName:AxiAddrWidth
       |vpiTypespec:
-      \_int_typespec: , line:5:5, endln:5:17
+      \_ref_typespec: (axi_pkg::axi_pkg::xbar_cfg_t::AxiAddrWidth)
         |vpiParent:
         \_typespec_member: (AxiAddrWidth), line:5:20, endln:5:32
-        |vpiInstance:
-        \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+        |vpiFullName:axi_pkg::axi_pkg::xbar_cfg_t::AxiAddrWidth
+        |vpiActual:
+        \_int_typespec: , line:5:5, endln:5:17
       |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
       |vpiRefLineNo:5
       |vpiRefColumnNo:5
@@ -370,61 +375,12 @@ design: (work@cheshire_soc)
     |vpiParent:
     \_package: cheshire_pkg (cheshire_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:18:1, endln:24:11
     |vpiTypespec:
-    \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+    \_ref_typespec: (cheshire_pkg::AxiXbarCfg)
       |vpiParent:
-      \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
-      |vpiName:axi_pkg::xbar_cfg_t
-      |vpiInstance:
-      \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
-      |vpiPacked:1
-      |vpiTypespecMember:
-      \_typespec_member: (NoSlvPorts), line:3:20, endln:3:30
-        |vpiParent:
-        \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
-        |vpiName:NoSlvPorts
-        |vpiTypespec:
-        \_int_typespec: , line:3:5, endln:3:17
-          |vpiParent:
-          \_typespec_member: (NoSlvPorts), line:3:20, endln:3:30
-          |vpiInstance:
-          \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
-        |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
-        |vpiRefLineNo:3
-        |vpiRefColumnNo:5
-        |vpiRefEndLineNo:3
-        |vpiRefEndColumnNo:17
-      |vpiTypespecMember:
-      \_typespec_member: (NoMstPorts), line:4:20, endln:4:30
-        |vpiParent:
-        \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
-        |vpiName:NoMstPorts
-        |vpiTypespec:
-        \_int_typespec: , line:4:5, endln:4:17
-          |vpiParent:
-          \_typespec_member: (NoMstPorts), line:4:20, endln:4:30
-          |vpiInstance:
-          \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
-        |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
-        |vpiRefLineNo:4
-        |vpiRefColumnNo:5
-        |vpiRefEndLineNo:4
-        |vpiRefEndColumnNo:17
-      |vpiTypespecMember:
-      \_typespec_member: (AxiAddrWidth), line:5:20, endln:5:32
-        |vpiParent:
-        \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
-        |vpiName:AxiAddrWidth
-        |vpiTypespec:
-        \_int_typespec: , line:5:5, endln:5:17
-          |vpiParent:
-          \_typespec_member: (AxiAddrWidth), line:5:20, endln:5:32
-          |vpiInstance:
-          \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
-        |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
-        |vpiRefLineNo:5
-        |vpiRefColumnNo:5
-        |vpiRefEndLineNo:5
-        |vpiRefEndColumnNo:17
+      \_parameter: (cheshire_pkg::AxiXbarCfg), line:19:34, endln:19:44
+      |vpiFullName:cheshire_pkg::AxiXbarCfg
+      |vpiActual:
+      \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
     |vpiLocalParam:1
     |vpiName:AxiXbarCfg
     |vpiFullName:cheshire_pkg::AxiXbarCfg
@@ -448,10 +404,12 @@ design: (work@cheshire_soc)
           |UINT:5
           |vpiConstType:9
         |vpiTypespec:
-        \_string_typespec: (NoSlvPorts), line:20:5, endln:20:15
+        \_ref_typespec: (cheshire_pkg)
           |vpiParent:
           \_tagged_pattern: , line:20:25, endln:20:26
-          |vpiName:NoSlvPorts
+          |vpiFullName:cheshire_pkg
+          |vpiActual:
+          \_string_typespec: (NoSlvPorts), line:20:5, endln:20:15
       |vpiOperand:
       \_tagged_pattern: , line:21:25, endln:21:26
         |vpiParent:
@@ -463,10 +421,12 @@ design: (work@cheshire_soc)
           |UINT:5
           |vpiConstType:9
         |vpiTypespec:
-        \_string_typespec: (NoMstPorts), line:21:5, endln:21:15
+        \_ref_typespec: (cheshire_pkg)
           |vpiParent:
           \_tagged_pattern: , line:21:25, endln:21:26
-          |vpiName:NoMstPorts
+          |vpiFullName:cheshire_pkg
+          |vpiActual:
+          \_string_typespec: (NoMstPorts), line:21:5, endln:21:15
       |vpiOperand:
       \_tagged_pattern: , line:22:25, endln:22:27
         |vpiParent:
@@ -478,10 +438,12 @@ design: (work@cheshire_soc)
           |UINT:48
           |vpiConstType:9
         |vpiTypespec:
-        \_string_typespec: (AxiAddrWidth), line:22:5, endln:22:17
+        \_ref_typespec: (cheshire_pkg)
           |vpiParent:
           \_tagged_pattern: , line:22:25, endln:22:27
-          |vpiName:AxiAddrWidth
+          |vpiFullName:cheshire_pkg
+          |vpiActual:
+          \_string_typespec: (AxiAddrWidth), line:22:5, endln:22:17
     |vpiLhs:
     \_parameter: (cheshire_pkg::AxiXbarCfg), line:19:34, endln:19:44
   |vpiDefName:cheshire_pkg
@@ -493,6 +455,63 @@ design: (work@cheshire_soc)
   |vpiFullName:axi_pkg::
   |vpiTypedef:
   \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+    |vpiParent:
+    \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+    |vpiName:axi_pkg::xbar_cfg_t
+    |vpiInstance:
+    \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+    |vpiPacked:1
+    |vpiTypespecMember:
+    \_typespec_member: (NoSlvPorts), line:3:20, endln:3:30
+      |vpiParent:
+      \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+      |vpiName:NoSlvPorts
+      |vpiTypespec:
+      \_ref_typespec: (axi_pkg::axi_pkg::xbar_cfg_t::NoSlvPorts)
+        |vpiParent:
+        \_typespec_member: (NoSlvPorts), line:3:20, endln:3:30
+        |vpiFullName:axi_pkg::axi_pkg::xbar_cfg_t::NoSlvPorts
+        |vpiActual:
+        \_int_typespec: , line:3:5, endln:3:17
+      |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
+      |vpiRefLineNo:3
+      |vpiRefColumnNo:5
+      |vpiRefEndLineNo:3
+      |vpiRefEndColumnNo:17
+    |vpiTypespecMember:
+    \_typespec_member: (NoMstPorts), line:4:20, endln:4:30
+      |vpiParent:
+      \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+      |vpiName:NoMstPorts
+      |vpiTypespec:
+      \_ref_typespec: (axi_pkg::axi_pkg::xbar_cfg_t::NoMstPorts)
+        |vpiParent:
+        \_typespec_member: (NoMstPorts), line:4:20, endln:4:30
+        |vpiFullName:axi_pkg::axi_pkg::xbar_cfg_t::NoMstPorts
+        |vpiActual:
+        \_int_typespec: , line:4:5, endln:4:17
+      |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
+      |vpiRefLineNo:4
+      |vpiRefColumnNo:5
+      |vpiRefEndLineNo:4
+      |vpiRefEndColumnNo:17
+    |vpiTypespecMember:
+    \_typespec_member: (AxiAddrWidth), line:5:20, endln:5:32
+      |vpiParent:
+      \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+      |vpiName:AxiAddrWidth
+      |vpiTypespec:
+      \_ref_typespec: (axi_pkg::axi_pkg::xbar_cfg_t::AxiAddrWidth)
+        |vpiParent:
+        \_typespec_member: (AxiAddrWidth), line:5:20, endln:5:32
+        |vpiFullName:axi_pkg::axi_pkg::xbar_cfg_t::AxiAddrWidth
+        |vpiActual:
+        \_int_typespec: , line:5:5, endln:5:17
+      |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
+      |vpiRefLineNo:5
+      |vpiRefColumnNo:5
+      |vpiRefEndLineNo:5
+      |vpiRefEndColumnNo:17
   |vpiDefName:axi_pkg
   |vpiTop:1
 |uhdmtopPackages:
@@ -506,7 +525,12 @@ design: (work@cheshire_soc)
     |vpiParent:
     \_package: cheshire_pkg (cheshire_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:18:1, endln:24:11
     |vpiTypespec:
-    \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+    \_ref_typespec: (cheshire_pkg::AxiXbarCfg)
+      |vpiParent:
+      \_parameter: (cheshire_pkg::AxiXbarCfg), line:19:34, endln:19:44
+      |vpiFullName:cheshire_pkg::AxiXbarCfg
+      |vpiActual:
+      \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
     |vpiLocalParam:1
     |vpiName:AxiXbarCfg
     |vpiFullName:cheshire_pkg::AxiXbarCfg
@@ -530,10 +554,12 @@ design: (work@cheshire_soc)
           |UINT:5
           |vpiConstType:9
         |vpiTypespec:
-        \_string_typespec: (NoSlvPorts), line:20:5, endln:20:15
+        \_ref_typespec: (cheshire_pkg)
           |vpiParent:
           \_tagged_pattern: , line:20:25, endln:20:26
-          |vpiName:NoSlvPorts
+          |vpiFullName:cheshire_pkg
+          |vpiActual:
+          \_string_typespec: (NoSlvPorts), line:20:5, endln:20:15
       |vpiOperand:
       \_tagged_pattern: , line:21:25, endln:21:26
         |vpiParent:
@@ -545,10 +571,12 @@ design: (work@cheshire_soc)
           |UINT:5
           |vpiConstType:9
         |vpiTypespec:
-        \_string_typespec: (NoMstPorts), line:21:5, endln:21:15
+        \_ref_typespec: (cheshire_pkg)
           |vpiParent:
           \_tagged_pattern: , line:21:25, endln:21:26
-          |vpiName:NoMstPorts
+          |vpiFullName:cheshire_pkg
+          |vpiActual:
+          \_string_typespec: (NoMstPorts), line:21:5, endln:21:15
       |vpiOperand:
       \_tagged_pattern: , line:22:25, endln:22:27
         |vpiParent:
@@ -560,10 +588,12 @@ design: (work@cheshire_soc)
           |UINT:48
           |vpiConstType:9
         |vpiTypespec:
-        \_string_typespec: (AxiAddrWidth), line:22:5, endln:22:17
+        \_ref_typespec: (cheshire_pkg)
           |vpiParent:
           \_tagged_pattern: , line:22:25, endln:22:27
-          |vpiName:AxiAddrWidth
+          |vpiFullName:cheshire_pkg
+          |vpiActual:
+          \_string_typespec: (AxiAddrWidth), line:22:5, endln:22:17
     |vpiLhs:
     \_parameter: (cheshire_pkg::AxiXbarCfg), line:19:34, endln:19:44
   |vpiDefName:cheshire_pkg
@@ -579,7 +609,12 @@ design: (work@cheshire_soc)
     \_module_inst: work@axi_xbar (work@axi_xbar), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:9:1, endln:16:10
     |BIN:0
     |vpiTypespec:
-    \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+    \_ref_typespec: (work@axi_xbar.Cfg)
+      |vpiParent:
+      \_parameter: (work@axi_xbar.Cfg), line:11:33, endln:11:36
+      |vpiFullName:work@axi_xbar.Cfg
+      |vpiActual:
+      \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
     |vpiName:Cfg
     |vpiFullName:work@axi_xbar.Cfg
   |vpiParameter:
@@ -594,89 +629,12 @@ design: (work@cheshire_soc)
     \_module_inst: work@axi_xbar (work@axi_xbar), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:9:1, endln:16:10
     |BIN:1
     |vpiTypespec:
-    \_bit_typespec: , line:13:13, endln:13:57
+    \_ref_typespec: (work@axi_xbar.Connectivity)
       |vpiParent:
       \_parameter: (work@axi_xbar.Connectivity), line:13:58, endln:13:70
-      |vpiRange:
-      \_range: , line:13:17, endln:13:37
-        |vpiParent:
-        \_bit_typespec: , line:13:13, endln:13:57
-        |vpiLeftRange:
-        \_operation: , line:13:18, endln:13:34
-          |vpiParent:
-          \_range: , line:13:17, endln:13:37
-          |vpiOpType:11
-          |vpiOperand:
-          \_hier_path: (Cfg.NoSlvPorts), line:13:18, endln:13:32
-            |vpiParent:
-            \_operation: , line:13:18, endln:13:34
-            |vpiName:Cfg.NoSlvPorts
-            |vpiActual:
-            \_ref_obj: (Cfg), line:13:22, endln:13:32
-              |vpiParent:
-              \_hier_path: (Cfg.NoSlvPorts), line:13:18, endln:13:32
-              |vpiName:Cfg
-            |vpiActual:
-            \_ref_obj: (NoSlvPorts), line:13:22, endln:13:32
-              |vpiParent:
-              \_hier_path: (Cfg.NoSlvPorts), line:13:18, endln:13:32
-              |vpiName:NoSlvPorts
-          |vpiOperand:
-          \_constant: , line:13:33, endln:13:34
-            |vpiParent:
-            \_operation: , line:13:18, endln:13:34
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:13:35, endln:13:36
-          |vpiParent:
-          \_range: , line:13:17, endln:13:37
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-      |vpiRange:
-      \_range: , line:13:37, endln:13:57
-        |vpiParent:
-        \_bit_typespec: , line:13:13, endln:13:57
-        |vpiLeftRange:
-        \_operation: , line:13:38, endln:13:54
-          |vpiParent:
-          \_range: , line:13:37, endln:13:57
-          |vpiOpType:11
-          |vpiOperand:
-          \_hier_path: (Cfg.NoMstPorts), line:13:38, endln:13:52
-            |vpiParent:
-            \_operation: , line:13:38, endln:13:54
-            |vpiName:Cfg.NoMstPorts
-            |vpiActual:
-            \_ref_obj: (Cfg), line:13:42, endln:13:52
-              |vpiParent:
-              \_hier_path: (Cfg.NoMstPorts), line:13:38, endln:13:52
-              |vpiName:Cfg
-            |vpiActual:
-            \_ref_obj: (NoMstPorts), line:13:42, endln:13:52
-              |vpiParent:
-              \_hier_path: (Cfg.NoMstPorts), line:13:38, endln:13:52
-              |vpiName:NoMstPorts
-          |vpiOperand:
-          \_constant: , line:13:53, endln:13:54
-            |vpiParent:
-            \_operation: , line:13:38, endln:13:54
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:13:55, endln:13:56
-          |vpiParent:
-          \_range: , line:13:37, endln:13:57
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@axi_xbar.Connectivity
+      |vpiActual:
+      \_bit_typespec: , line:13:13, endln:13:57
     |vpiName:Connectivity
     |vpiFullName:work@axi_xbar.Connectivity
   |vpiParamAssign:
@@ -691,7 +649,12 @@ design: (work@cheshire_soc)
       |vpiSize:-1
       |BIN:0
       |vpiTypespec:
-      \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+      \_ref_typespec: (work@axi_xbar)
+        |vpiParent:
+        \_constant: , line:11:73, endln:11:75
+        |vpiFullName:work@axi_xbar
+        |vpiActual:
+        \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@axi_xbar.Cfg), line:11:33, endln:11:36
@@ -728,7 +691,12 @@ design: (work@cheshire_soc)
       |vpiSize:-1
       |BIN:1
       |vpiTypespec:
-      \_bit_typespec: , line:13:13, endln:13:57
+      \_ref_typespec: (work@axi_xbar)
+        |vpiParent:
+        \_constant: , line:13:73, endln:13:75
+        |vpiFullName:work@axi_xbar
+        |vpiActual:
+        \_bit_typespec: , line:13:13, endln:13:57
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@axi_xbar.Connectivity), line:13:58, endln:13:70
@@ -743,61 +711,12 @@ design: (work@cheshire_soc)
     |vpiParent:
     \_module_inst: work@cheshire_soc (work@cheshire_soc), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:26:1, endln:30:10
     |vpiTypespec:
-    \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+    \_ref_typespec: (work@cheshire_soc.AxiXbarCfg)
       |vpiParent:
       \_parameter: (work@cheshire_soc.AxiXbarCfg), line:19:34, endln:19:44
-      |vpiName:axi_pkg::xbar_cfg_t
-      |vpiInstance:
-      \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
-      |vpiPacked:1
-      |vpiTypespecMember:
-      \_typespec_member: (NoSlvPorts), line:3:20, endln:3:30
-        |vpiParent:
-        \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
-        |vpiName:NoSlvPorts
-        |vpiTypespec:
-        \_int_typespec: , line:3:5, endln:3:17
-          |vpiParent:
-          \_typespec_member: (NoSlvPorts), line:3:20, endln:3:30
-          |vpiInstance:
-          \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
-        |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
-        |vpiRefLineNo:3
-        |vpiRefColumnNo:5
-        |vpiRefEndLineNo:3
-        |vpiRefEndColumnNo:17
-      |vpiTypespecMember:
-      \_typespec_member: (NoMstPorts), line:4:20, endln:4:30
-        |vpiParent:
-        \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
-        |vpiName:NoMstPorts
-        |vpiTypespec:
-        \_int_typespec: , line:4:5, endln:4:17
-          |vpiParent:
-          \_typespec_member: (NoMstPorts), line:4:20, endln:4:30
-          |vpiInstance:
-          \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
-        |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
-        |vpiRefLineNo:4
-        |vpiRefColumnNo:5
-        |vpiRefEndLineNo:4
-        |vpiRefEndColumnNo:17
-      |vpiTypespecMember:
-      \_typespec_member: (AxiAddrWidth), line:5:20, endln:5:32
-        |vpiParent:
-        \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
-        |vpiName:AxiAddrWidth
-        |vpiTypespec:
-        \_int_typespec: , line:5:5, endln:5:17
-          |vpiParent:
-          \_typespec_member: (AxiAddrWidth), line:5:20, endln:5:32
-          |vpiInstance:
-          \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
-        |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
-        |vpiRefLineNo:5
-        |vpiRefColumnNo:5
-        |vpiRefEndLineNo:5
-        |vpiRefEndColumnNo:17
+      |vpiFullName:work@cheshire_soc.AxiXbarCfg
+      |vpiActual:
+      \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
     |vpiLocalParam:1
     |vpiName:AxiXbarCfg
     |vpiFullName:work@cheshire_soc.AxiXbarCfg
@@ -824,10 +743,12 @@ design: (work@cheshire_soc)
           |UINT:5
           |vpiConstType:9
         |vpiTypespec:
-        \_string_typespec: (NoSlvPorts), line:20:5, endln:20:15
+        \_ref_typespec: (work@cheshire_soc)
           |vpiParent:
           \_tagged_pattern: , line:20:25, endln:20:26
-          |vpiName:NoSlvPorts
+          |vpiFullName:work@cheshire_soc
+          |vpiActual:
+          \_string_typespec: (NoSlvPorts), line:20:5, endln:20:15
       |vpiOperand:
       \_tagged_pattern: , line:21:25, endln:21:26
         |vpiParent:
@@ -841,10 +762,12 @@ design: (work@cheshire_soc)
           |UINT:5
           |vpiConstType:9
         |vpiTypespec:
-        \_string_typespec: (NoMstPorts), line:21:5, endln:21:15
+        \_ref_typespec: (work@cheshire_soc)
           |vpiParent:
           \_tagged_pattern: , line:21:25, endln:21:26
-          |vpiName:NoMstPorts
+          |vpiFullName:work@cheshire_soc
+          |vpiActual:
+          \_string_typespec: (NoMstPorts), line:21:5, endln:21:15
       |vpiOperand:
       \_tagged_pattern: , line:22:25, endln:22:27
         |vpiParent:
@@ -858,70 +781,23 @@ design: (work@cheshire_soc)
           |UINT:48
           |vpiConstType:9
         |vpiTypespec:
-        \_string_typespec: (AxiAddrWidth), line:22:5, endln:22:17
+        \_ref_typespec: (work@cheshire_soc)
           |vpiParent:
           \_tagged_pattern: , line:22:25, endln:22:27
-          |vpiName:AxiAddrWidth
+          |vpiFullName:work@cheshire_soc
+          |vpiActual:
+          \_string_typespec: (AxiAddrWidth), line:22:5, endln:22:17
     |vpiLhs:
     \_parameter: (work@cheshire_soc.AxiXbarCfg), line:19:34, endln:19:44
       |vpiParent:
       \_param_assign: , line:19:34, endln:23:4
       |vpiTypespec:
-      \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+      \_ref_typespec: (work@cheshire_soc.AxiXbarCfg)
         |vpiParent:
         \_parameter: (work@cheshire_soc.AxiXbarCfg), line:19:34, endln:19:44
-        |vpiName:axi_pkg::xbar_cfg_t
-        |vpiInstance:
-        \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
-        |vpiPacked:1
-        |vpiTypespecMember:
-        \_typespec_member: (NoSlvPorts), line:3:20, endln:3:30
-          |vpiParent:
-          \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
-          |vpiName:NoSlvPorts
-          |vpiTypespec:
-          \_int_typespec: , line:3:5, endln:3:17
-            |vpiParent:
-            \_typespec_member: (NoSlvPorts), line:3:20, endln:3:30
-            |vpiInstance:
-            \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
-          |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
-          |vpiRefLineNo:3
-          |vpiRefColumnNo:5
-          |vpiRefEndLineNo:3
-          |vpiRefEndColumnNo:17
-        |vpiTypespecMember:
-        \_typespec_member: (NoMstPorts), line:4:20, endln:4:30
-          |vpiParent:
-          \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
-          |vpiName:NoMstPorts
-          |vpiTypespec:
-          \_int_typespec: , line:4:5, endln:4:17
-            |vpiParent:
-            \_typespec_member: (NoMstPorts), line:4:20, endln:4:30
-            |vpiInstance:
-            \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
-          |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
-          |vpiRefLineNo:4
-          |vpiRefColumnNo:5
-          |vpiRefEndLineNo:4
-          |vpiRefEndColumnNo:17
-        |vpiTypespecMember:
-        \_typespec_member: (AxiAddrWidth), line:5:20, endln:5:32
-          |vpiParent:
-          \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
-          |vpiName:AxiAddrWidth
-          |vpiTypespec:
-          \_int_typespec: , line:5:5, endln:5:17
-            |vpiParent:
-            \_typespec_member: (AxiAddrWidth), line:5:20, endln:5:32
-            |vpiInstance:
-            \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
-          |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
-          |vpiRefLineNo:5
-          |vpiRefColumnNo:5
-          |vpiRefEndLineNo:5
-          |vpiRefEndColumnNo:17
+        |vpiFullName:work@cheshire_soc.AxiXbarCfg
+        |vpiActual:
+        \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
       |vpiLocalParam:1
       |vpiName:AxiXbarCfg
       |vpiFullName:work@cheshire_soc.AxiXbarCfg
@@ -945,61 +821,12 @@ design: (work@cheshire_soc)
     |vpiParent:
     \_module_inst: work@cheshire_soc (work@cheshire_soc), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:26:1, endln:30:10
     |vpiTypespec:
-    \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+    \_ref_typespec: (work@cheshire_soc.AxiXbarCfg)
       |vpiParent:
       \_parameter: (work@cheshire_soc.AxiXbarCfg), line:19:34, endln:19:44
-      |vpiName:axi_pkg::xbar_cfg_t
-      |vpiInstance:
-      \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
-      |vpiPacked:1
-      |vpiTypespecMember:
-      \_typespec_member: (NoSlvPorts), line:3:20, endln:3:30
-        |vpiParent:
-        \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
-        |vpiName:NoSlvPorts
-        |vpiTypespec:
-        \_int_typespec: , line:3:5, endln:3:17
-          |vpiParent:
-          \_typespec_member: (NoSlvPorts), line:3:20, endln:3:30
-          |vpiInstance:
-          \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
-        |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
-        |vpiRefLineNo:3
-        |vpiRefColumnNo:5
-        |vpiRefEndLineNo:3
-        |vpiRefEndColumnNo:17
-      |vpiTypespecMember:
-      \_typespec_member: (NoMstPorts), line:4:20, endln:4:30
-        |vpiParent:
-        \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
-        |vpiName:NoMstPorts
-        |vpiTypespec:
-        \_int_typespec: , line:4:5, endln:4:17
-          |vpiParent:
-          \_typespec_member: (NoMstPorts), line:4:20, endln:4:30
-          |vpiInstance:
-          \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
-        |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
-        |vpiRefLineNo:4
-        |vpiRefColumnNo:5
-        |vpiRefEndLineNo:4
-        |vpiRefEndColumnNo:17
-      |vpiTypespecMember:
-      \_typespec_member: (AxiAddrWidth), line:5:20, endln:5:32
-        |vpiParent:
-        \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
-        |vpiName:AxiAddrWidth
-        |vpiTypespec:
-        \_int_typespec: , line:5:5, endln:5:17
-          |vpiParent:
-          \_typespec_member: (AxiAddrWidth), line:5:20, endln:5:32
-          |vpiInstance:
-          \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
-        |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
-        |vpiRefLineNo:5
-        |vpiRefColumnNo:5
-        |vpiRefEndLineNo:5
-        |vpiRefEndColumnNo:17
+      |vpiFullName:work@cheshire_soc.AxiXbarCfg
+      |vpiActual:
+      \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
     |vpiLocalParam:1
     |vpiName:AxiXbarCfg
     |vpiFullName:work@cheshire_soc.AxiXbarCfg
@@ -1013,61 +840,12 @@ design: (work@cheshire_soc)
       |vpiParent:
       \_param_assign: , line:19:34, endln:23:4
       |vpiTypespec:
-      \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+      \_ref_typespec: (work@cheshire_soc)
         |vpiParent:
         \_operation: , line:19:47, endln:23:4
-        |vpiName:axi_pkg::xbar_cfg_t
-        |vpiInstance:
-        \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
-        |vpiPacked:1
-        |vpiTypespecMember:
-        \_typespec_member: (NoSlvPorts), line:3:20, endln:3:30
-          |vpiParent:
-          \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
-          |vpiName:NoSlvPorts
-          |vpiTypespec:
-          \_int_typespec: , line:3:5, endln:3:17
-            |vpiParent:
-            \_typespec_member: (NoSlvPorts), line:3:20, endln:3:30
-            |vpiInstance:
-            \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
-          |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
-          |vpiRefLineNo:3
-          |vpiRefColumnNo:5
-          |vpiRefEndLineNo:3
-          |vpiRefEndColumnNo:17
-        |vpiTypespecMember:
-        \_typespec_member: (NoMstPorts), line:4:20, endln:4:30
-          |vpiParent:
-          \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
-          |vpiName:NoMstPorts
-          |vpiTypespec:
-          \_int_typespec: , line:4:5, endln:4:17
-            |vpiParent:
-            \_typespec_member: (NoMstPorts), line:4:20, endln:4:30
-            |vpiInstance:
-            \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
-          |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
-          |vpiRefLineNo:4
-          |vpiRefColumnNo:5
-          |vpiRefEndLineNo:4
-          |vpiRefEndColumnNo:17
-        |vpiTypespecMember:
-        \_typespec_member: (AxiAddrWidth), line:5:20, endln:5:32
-          |vpiParent:
-          \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
-          |vpiName:AxiAddrWidth
-          |vpiTypespec:
-          \_int_typespec: , line:5:5, endln:5:17
-            |vpiParent:
-            \_typespec_member: (AxiAddrWidth), line:5:20, endln:5:32
-            |vpiInstance:
-            \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
-          |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
-          |vpiRefLineNo:5
-          |vpiRefColumnNo:5
-          |vpiRefEndLineNo:5
-          |vpiRefEndColumnNo:17
+        |vpiFullName:work@cheshire_soc
+        |vpiActual:
+        \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
       |vpiOpType:75
       |vpiOperand:
       \_constant: , line:20:25, endln:20:26
@@ -1112,61 +890,12 @@ design: (work@cheshire_soc)
       \_module_inst: work@axi_xbar (work@cheshire_soc.i_axi_xbar), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:27:3, endln:29:19
       |BIN:0
       |vpiTypespec:
-      \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+      \_ref_typespec: (work@cheshire_soc.i_axi_xbar.Cfg)
         |vpiParent:
         \_parameter: (work@cheshire_soc.i_axi_xbar.Cfg), line:11:33, endln:11:36
-        |vpiName:axi_pkg::xbar_cfg_t
-        |vpiInstance:
-        \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
-        |vpiPacked:1
-        |vpiTypespecMember:
-        \_typespec_member: (NoSlvPorts), line:3:20, endln:3:30
-          |vpiParent:
-          \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
-          |vpiName:NoSlvPorts
-          |vpiTypespec:
-          \_int_typespec: , line:3:5, endln:3:17
-            |vpiParent:
-            \_typespec_member: (NoSlvPorts), line:3:20, endln:3:30
-            |vpiInstance:
-            \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
-          |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
-          |vpiRefLineNo:3
-          |vpiRefColumnNo:5
-          |vpiRefEndLineNo:3
-          |vpiRefEndColumnNo:17
-        |vpiTypespecMember:
-        \_typespec_member: (NoMstPorts), line:4:20, endln:4:30
-          |vpiParent:
-          \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
-          |vpiName:NoMstPorts
-          |vpiTypespec:
-          \_int_typespec: , line:4:5, endln:4:17
-            |vpiParent:
-            \_typespec_member: (NoMstPorts), line:4:20, endln:4:30
-            |vpiInstance:
-            \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
-          |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
-          |vpiRefLineNo:4
-          |vpiRefColumnNo:5
-          |vpiRefEndLineNo:4
-          |vpiRefEndColumnNo:17
-        |vpiTypespecMember:
-        \_typespec_member: (AxiAddrWidth), line:5:20, endln:5:32
-          |vpiParent:
-          \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
-          |vpiName:AxiAddrWidth
-          |vpiTypespec:
-          \_int_typespec: , line:5:5, endln:5:17
-            |vpiParent:
-            \_typespec_member: (AxiAddrWidth), line:5:20, endln:5:32
-            |vpiInstance:
-            \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
-          |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
-          |vpiRefLineNo:5
-          |vpiRefColumnNo:5
-          |vpiRefEndLineNo:5
-          |vpiRefEndColumnNo:17
+        |vpiFullName:work@cheshire_soc.i_axi_xbar.Cfg
+        |vpiActual:
+        \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
       |vpiName:Cfg
       |vpiFullName:work@cheshire_soc.i_axi_xbar.Cfg
     |vpiParameter:
@@ -1181,93 +910,12 @@ design: (work@cheshire_soc)
       \_module_inst: work@axi_xbar (work@cheshire_soc.i_axi_xbar), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:27:3, endln:29:19
       |BIN:1
       |vpiTypespec:
-      \_bit_typespec: , line:13:13, endln:13:57
+      \_ref_typespec: (work@cheshire_soc.i_axi_xbar.Connectivity)
         |vpiParent:
         \_parameter: (work@cheshire_soc.i_axi_xbar.Connectivity), line:13:58, endln:13:70
-        |vpiRange:
-        \_range: , line:13:17, endln:13:37
-          |vpiParent:
-          \_bit_typespec: , line:13:13, endln:13:57
-          |vpiLeftRange:
-          \_operation: , line:13:18, endln:13:34
-            |vpiParent:
-            \_range: , line:13:17, endln:13:37
-            |vpiOpType:11
-            |vpiOperand:
-            \_hier_path: (Cfg.NoSlvPorts), line:13:18, endln:13:32
-              |vpiParent:
-              \_operation: , line:13:18, endln:13:34
-              |vpiName:Cfg.NoSlvPorts
-              |vpiActual:
-              \_ref_obj: (Cfg), line:13:22, endln:13:32
-                |vpiParent:
-                \_hier_path: (Cfg.NoSlvPorts), line:13:18, endln:13:32
-                |vpiName:Cfg
-                |vpiActual:
-                \_parameter: (work@cheshire_soc.i_axi_xbar.Cfg), line:11:33, endln:11:36
-              |vpiActual:
-              \_ref_obj: (NoSlvPorts), line:13:22, endln:13:32
-                |vpiParent:
-                \_hier_path: (Cfg.NoSlvPorts), line:13:18, endln:13:32
-                |vpiName:NoSlvPorts
-            |vpiOperand:
-            \_constant: , line:13:33, endln:13:34
-              |vpiParent:
-              \_operation: , line:13:18, endln:13:34
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:13:35, endln:13:36
-            |vpiParent:
-            \_range: , line:13:17, endln:13:37
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-        |vpiRange:
-        \_range: , line:13:37, endln:13:57
-          |vpiParent:
-          \_bit_typespec: , line:13:13, endln:13:57
-          |vpiLeftRange:
-          \_operation: , line:13:38, endln:13:54
-            |vpiParent:
-            \_range: , line:13:37, endln:13:57
-            |vpiOpType:11
-            |vpiOperand:
-            \_hier_path: (Cfg.NoMstPorts), line:13:38, endln:13:52
-              |vpiParent:
-              \_operation: , line:13:38, endln:13:54
-              |vpiName:Cfg.NoMstPorts
-              |vpiActual:
-              \_ref_obj: (Cfg), line:13:42, endln:13:52
-                |vpiParent:
-                \_hier_path: (Cfg.NoMstPorts), line:13:38, endln:13:52
-                |vpiName:Cfg
-                |vpiActual:
-                \_parameter: (work@cheshire_soc.i_axi_xbar.Cfg), line:11:33, endln:11:36
-              |vpiActual:
-              \_ref_obj: (NoMstPorts), line:13:42, endln:13:52
-                |vpiParent:
-                \_hier_path: (Cfg.NoMstPorts), line:13:38, endln:13:52
-                |vpiName:NoMstPorts
-            |vpiOperand:
-            \_constant: , line:13:53, endln:13:54
-              |vpiParent:
-              \_operation: , line:13:38, endln:13:54
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:13:55, endln:13:56
-            |vpiParent:
-            \_range: , line:13:37, endln:13:57
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@cheshire_soc.i_axi_xbar.Connectivity
+        |vpiActual:
+        \_bit_typespec: , line:13:13, endln:13:57
       |vpiName:Connectivity
       |vpiFullName:work@cheshire_soc.i_axi_xbar.Connectivity
     |vpiParamAssign:
@@ -1280,61 +928,12 @@ design: (work@cheshire_soc)
         |vpiParent:
         \_param_assign: , line:11:33, endln:11:75
         |vpiTypespec:
-        \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+        \_ref_typespec: (work@cheshire_soc.i_axi_xbar)
           |vpiParent:
           \_operation: , line:28:23, endln:28:33
-          |vpiName:axi_pkg::xbar_cfg_t
-          |vpiInstance:
-          \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
-          |vpiPacked:1
-          |vpiTypespecMember:
-          \_typespec_member: (NoSlvPorts), line:3:20, endln:3:30
-            |vpiParent:
-            \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
-            |vpiName:NoSlvPorts
-            |vpiTypespec:
-            \_int_typespec: , line:3:5, endln:3:17
-              |vpiParent:
-              \_typespec_member: (NoSlvPorts), line:3:20, endln:3:30
-              |vpiInstance:
-              \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
-            |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
-            |vpiRefLineNo:3
-            |vpiRefColumnNo:5
-            |vpiRefEndLineNo:3
-            |vpiRefEndColumnNo:17
-          |vpiTypespecMember:
-          \_typespec_member: (NoMstPorts), line:4:20, endln:4:30
-            |vpiParent:
-            \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
-            |vpiName:NoMstPorts
-            |vpiTypespec:
-            \_int_typespec: , line:4:5, endln:4:17
-              |vpiParent:
-              \_typespec_member: (NoMstPorts), line:4:20, endln:4:30
-              |vpiInstance:
-              \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
-            |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
-            |vpiRefLineNo:4
-            |vpiRefColumnNo:5
-            |vpiRefEndLineNo:4
-            |vpiRefEndColumnNo:17
-          |vpiTypespecMember:
-          \_typespec_member: (AxiAddrWidth), line:5:20, endln:5:32
-            |vpiParent:
-            \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
-            |vpiName:AxiAddrWidth
-            |vpiTypespec:
-            \_int_typespec: , line:5:5, endln:5:17
-              |vpiParent:
-              \_typespec_member: (AxiAddrWidth), line:5:20, endln:5:32
-              |vpiInstance:
-              \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
-            |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
-            |vpiRefLineNo:5
-            |vpiRefColumnNo:5
-            |vpiRefEndLineNo:5
-            |vpiRefEndColumnNo:17
+          |vpiFullName:work@cheshire_soc.i_axi_xbar
+          |vpiActual:
+          \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
         |vpiOpType:75
         |vpiOperand:
         \_constant: , line:20:25, endln:20:26
@@ -1393,6 +992,861 @@ design: (work@cheshire_soc)
     |vpiDefLineNo:9
     |vpiInstance:
     \_module_inst: work@cheshire_soc (work@cheshire_soc), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:26:1, endln:30:10
+\_weaklyReferenced:
+\_int_typespec: , line:3:5, endln:3:17
+  |vpiParent:
+  \_typespec_member: (NoSlvPorts), line:3:20, endln:3:30
+  |vpiInstance:
+  \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+\_int_typespec: , line:4:5, endln:4:17
+  |vpiParent:
+  \_typespec_member: (NoMstPorts), line:4:20, endln:4:30
+  |vpiInstance:
+  \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+\_int_typespec: , line:5:5, endln:5:17
+  |vpiParent:
+  \_typespec_member: (AxiAddrWidth), line:5:20, endln:5:32
+  |vpiInstance:
+  \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+\_int_typespec: , line:3:5, endln:3:17
+  |vpiParent:
+  \_typespec_member: (NoSlvPorts), line:3:20, endln:3:30
+  |vpiInstance:
+  \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+\_int_typespec: , line:4:5, endln:4:17
+  |vpiParent:
+  \_typespec_member: (NoMstPorts), line:4:20, endln:4:30
+  |vpiInstance:
+  \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+\_int_typespec: , line:5:5, endln:5:17
+  |vpiParent:
+  \_typespec_member: (AxiAddrWidth), line:5:20, endln:5:32
+  |vpiInstance:
+  \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+\_string_typespec: (NoSlvPorts), line:20:5, endln:20:15
+  |vpiParent:
+  \_tagged_pattern: , line:20:25, endln:20:26
+  |vpiName:NoSlvPorts
+\_string_typespec: (NoMstPorts), line:21:5, endln:21:15
+  |vpiParent:
+  \_tagged_pattern: , line:21:25, endln:21:26
+  |vpiName:NoMstPorts
+\_string_typespec: (AxiAddrWidth), line:22:5, endln:22:17
+  |vpiParent:
+  \_tagged_pattern: , line:22:25, endln:22:27
+  |vpiName:AxiAddrWidth
+\_string_typespec: (NoSlvPorts), line:20:5, endln:20:15
+  |vpiParent:
+  \_tagged_pattern: , line:20:25, endln:20:26
+  |vpiName:NoSlvPorts
+\_string_typespec: (NoMstPorts), line:21:5, endln:21:15
+  |vpiParent:
+  \_tagged_pattern: , line:21:25, endln:21:26
+  |vpiName:NoMstPorts
+\_string_typespec: (AxiAddrWidth), line:22:5, endln:22:17
+  |vpiParent:
+  \_tagged_pattern: , line:22:25, endln:22:27
+  |vpiName:AxiAddrWidth
+\_bit_typespec: , line:13:13, endln:13:57
+  |vpiParent:
+  \_parameter: (work@axi_xbar.Connectivity), line:13:58, endln:13:70
+  |vpiRange:
+  \_range: , line:13:17, endln:13:37
+    |vpiParent:
+    \_bit_typespec: , line:13:13, endln:13:57
+    |vpiLeftRange:
+    \_operation: , line:13:18, endln:13:34
+      |vpiParent:
+      \_range: , line:13:17, endln:13:37
+      |vpiOpType:11
+      |vpiOperand:
+      \_hier_path: (Cfg.NoSlvPorts), line:13:18, endln:13:32
+        |vpiParent:
+        \_operation: , line:13:18, endln:13:34
+        |vpiName:Cfg.NoSlvPorts
+        |vpiActual:
+        \_ref_obj: (Cfg), line:13:22, endln:13:32
+          |vpiParent:
+          \_hier_path: (Cfg.NoSlvPorts), line:13:18, endln:13:32
+          |vpiName:Cfg
+        |vpiActual:
+        \_ref_obj: (NoSlvPorts), line:13:22, endln:13:32
+          |vpiParent:
+          \_hier_path: (Cfg.NoSlvPorts), line:13:18, endln:13:32
+          |vpiName:NoSlvPorts
+      |vpiOperand:
+      \_constant: , line:13:33, endln:13:34
+        |vpiParent:
+        \_operation: , line:13:18, endln:13:34
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:13:35, endln:13:36
+      |vpiParent:
+      \_range: , line:13:17, endln:13:37
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:13:37, endln:13:57
+    |vpiParent:
+    \_bit_typespec: , line:13:13, endln:13:57
+    |vpiLeftRange:
+    \_operation: , line:13:38, endln:13:54
+      |vpiParent:
+      \_range: , line:13:37, endln:13:57
+      |vpiOpType:11
+      |vpiOperand:
+      \_hier_path: (Cfg.NoMstPorts), line:13:38, endln:13:52
+        |vpiParent:
+        \_operation: , line:13:38, endln:13:54
+        |vpiName:Cfg.NoMstPorts
+        |vpiActual:
+        \_ref_obj: (Cfg), line:13:42, endln:13:52
+          |vpiParent:
+          \_hier_path: (Cfg.NoMstPorts), line:13:38, endln:13:52
+          |vpiName:Cfg
+        |vpiActual:
+        \_ref_obj: (NoMstPorts), line:13:42, endln:13:52
+          |vpiParent:
+          \_hier_path: (Cfg.NoMstPorts), line:13:38, endln:13:52
+          |vpiName:NoMstPorts
+      |vpiOperand:
+      \_constant: , line:13:53, endln:13:54
+        |vpiParent:
+        \_operation: , line:13:38, endln:13:54
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:13:55, endln:13:56
+      |vpiParent:
+      \_range: , line:13:37, endln:13:57
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+  |vpiParent:
+  \_ref_typespec: (work@cheshire_soc.AxiXbarCfg)
+  |vpiName:axi_pkg::xbar_cfg_t
+  |vpiInstance:
+  \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (NoSlvPorts), line:3:20, endln:3:30
+    |vpiParent:
+    \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+    |vpiName:NoSlvPorts
+    |vpiTypespec:
+    \_ref_typespec: (work@cheshire_soc.AxiXbarCfg.axi_pkg::xbar_cfg_t.NoSlvPorts)
+      |vpiParent:
+      \_typespec_member: (NoSlvPorts), line:3:20, endln:3:30
+      |vpiFullName:work@cheshire_soc.AxiXbarCfg.axi_pkg::xbar_cfg_t.NoSlvPorts
+      |vpiActual:
+      \_int_typespec: , line:3:5, endln:3:17
+    |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
+    |vpiRefLineNo:3
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:3
+    |vpiRefEndColumnNo:17
+  |vpiTypespecMember:
+  \_typespec_member: (NoMstPorts), line:4:20, endln:4:30
+    |vpiParent:
+    \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+    |vpiName:NoMstPorts
+    |vpiTypespec:
+    \_ref_typespec: (work@cheshire_soc.AxiXbarCfg.axi_pkg::xbar_cfg_t.NoMstPorts)
+      |vpiParent:
+      \_typespec_member: (NoMstPorts), line:4:20, endln:4:30
+      |vpiFullName:work@cheshire_soc.AxiXbarCfg.axi_pkg::xbar_cfg_t.NoMstPorts
+      |vpiActual:
+      \_int_typespec: , line:4:5, endln:4:17
+    |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
+    |vpiRefLineNo:4
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:4
+    |vpiRefEndColumnNo:17
+  |vpiTypespecMember:
+  \_typespec_member: (AxiAddrWidth), line:5:20, endln:5:32
+    |vpiParent:
+    \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+    |vpiName:AxiAddrWidth
+    |vpiTypespec:
+    \_ref_typespec: (work@cheshire_soc.AxiXbarCfg.axi_pkg::xbar_cfg_t.AxiAddrWidth)
+      |vpiParent:
+      \_typespec_member: (AxiAddrWidth), line:5:20, endln:5:32
+      |vpiFullName:work@cheshire_soc.AxiXbarCfg.axi_pkg::xbar_cfg_t.AxiAddrWidth
+      |vpiActual:
+      \_int_typespec: , line:5:5, endln:5:17
+    |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
+    |vpiRefLineNo:5
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:5
+    |vpiRefEndColumnNo:17
+\_int_typespec: , line:3:5, endln:3:17
+  |vpiParent:
+  \_ref_typespec: (work@cheshire_soc.AxiXbarCfg.axi_pkg::xbar_cfg_t.NoSlvPorts)
+  |vpiInstance:
+  \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+\_int_typespec: , line:4:5, endln:4:17
+  |vpiParent:
+  \_ref_typespec: (work@cheshire_soc.AxiXbarCfg.axi_pkg::xbar_cfg_t.NoMstPorts)
+  |vpiInstance:
+  \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+\_int_typespec: , line:5:5, endln:5:17
+  |vpiParent:
+  \_ref_typespec: (work@cheshire_soc.AxiXbarCfg.axi_pkg::xbar_cfg_t.AxiAddrWidth)
+  |vpiInstance:
+  \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+\_string_typespec: (NoSlvPorts), line:20:5, endln:20:15
+  |vpiParent:
+  \_ref_typespec: (work@cheshire_soc)
+  |vpiName:NoSlvPorts
+\_string_typespec: (NoMstPorts), line:21:5, endln:21:15
+  |vpiParent:
+  \_ref_typespec: (work@cheshire_soc)
+  |vpiName:NoMstPorts
+\_string_typespec: (AxiAddrWidth), line:22:5, endln:22:17
+  |vpiParent:
+  \_ref_typespec: (work@cheshire_soc)
+  |vpiName:AxiAddrWidth
+\_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+  |vpiParent:
+  \_ref_typespec: (work@cheshire_soc.AxiXbarCfg)
+  |vpiName:axi_pkg::xbar_cfg_t
+  |vpiInstance:
+  \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (NoSlvPorts), line:3:20, endln:3:30
+    |vpiParent:
+    \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+    |vpiName:NoSlvPorts
+    |vpiTypespec:
+    \_ref_typespec: (work@cheshire_soc.AxiXbarCfg.axi_pkg::xbar_cfg_t.NoSlvPorts)
+      |vpiParent:
+      \_typespec_member: (NoSlvPorts), line:3:20, endln:3:30
+      |vpiFullName:work@cheshire_soc.AxiXbarCfg.axi_pkg::xbar_cfg_t.NoSlvPorts
+      |vpiActual:
+      \_int_typespec: , line:3:5, endln:3:17
+    |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
+    |vpiRefLineNo:3
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:3
+    |vpiRefEndColumnNo:17
+  |vpiTypespecMember:
+  \_typespec_member: (NoMstPorts), line:4:20, endln:4:30
+    |vpiParent:
+    \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+    |vpiName:NoMstPorts
+    |vpiTypespec:
+    \_ref_typespec: (work@cheshire_soc.AxiXbarCfg.axi_pkg::xbar_cfg_t.NoMstPorts)
+      |vpiParent:
+      \_typespec_member: (NoMstPorts), line:4:20, endln:4:30
+      |vpiFullName:work@cheshire_soc.AxiXbarCfg.axi_pkg::xbar_cfg_t.NoMstPorts
+      |vpiActual:
+      \_int_typespec: , line:4:5, endln:4:17
+    |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
+    |vpiRefLineNo:4
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:4
+    |vpiRefEndColumnNo:17
+  |vpiTypespecMember:
+  \_typespec_member: (AxiAddrWidth), line:5:20, endln:5:32
+    |vpiParent:
+    \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+    |vpiName:AxiAddrWidth
+    |vpiTypespec:
+    \_ref_typespec: (work@cheshire_soc.AxiXbarCfg.axi_pkg::xbar_cfg_t.AxiAddrWidth)
+      |vpiParent:
+      \_typespec_member: (AxiAddrWidth), line:5:20, endln:5:32
+      |vpiFullName:work@cheshire_soc.AxiXbarCfg.axi_pkg::xbar_cfg_t.AxiAddrWidth
+      |vpiActual:
+      \_int_typespec: , line:5:5, endln:5:17
+    |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
+    |vpiRefLineNo:5
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:5
+    |vpiRefEndColumnNo:17
+\_int_typespec: , line:3:5, endln:3:17
+  |vpiParent:
+  \_ref_typespec: (work@cheshire_soc.AxiXbarCfg.axi_pkg::xbar_cfg_t.NoSlvPorts)
+  |vpiInstance:
+  \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+\_int_typespec: , line:4:5, endln:4:17
+  |vpiParent:
+  \_ref_typespec: (work@cheshire_soc.AxiXbarCfg.axi_pkg::xbar_cfg_t.NoMstPorts)
+  |vpiInstance:
+  \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+\_int_typespec: , line:5:5, endln:5:17
+  |vpiParent:
+  \_ref_typespec: (work@cheshire_soc.AxiXbarCfg.axi_pkg::xbar_cfg_t.AxiAddrWidth)
+  |vpiInstance:
+  \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+\_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+  |vpiParent:
+  \_ref_typespec: (work@cheshire_soc)
+  |vpiName:axi_pkg::xbar_cfg_t
+  |vpiInstance:
+  \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (NoSlvPorts), line:3:20, endln:3:30
+    |vpiParent:
+    \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+    |vpiName:NoSlvPorts
+    |vpiTypespec:
+    \_ref_typespec: (work@cheshire_soc.axi_pkg::xbar_cfg_t.NoSlvPorts)
+      |vpiParent:
+      \_typespec_member: (NoSlvPorts), line:3:20, endln:3:30
+      |vpiFullName:work@cheshire_soc.axi_pkg::xbar_cfg_t.NoSlvPorts
+      |vpiActual:
+      \_int_typespec: , line:3:5, endln:3:17
+    |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
+    |vpiRefLineNo:3
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:3
+    |vpiRefEndColumnNo:17
+  |vpiTypespecMember:
+  \_typespec_member: (NoMstPorts), line:4:20, endln:4:30
+    |vpiParent:
+    \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+    |vpiName:NoMstPorts
+    |vpiTypespec:
+    \_ref_typespec: (work@cheshire_soc.axi_pkg::xbar_cfg_t.NoMstPorts)
+      |vpiParent:
+      \_typespec_member: (NoMstPorts), line:4:20, endln:4:30
+      |vpiFullName:work@cheshire_soc.axi_pkg::xbar_cfg_t.NoMstPorts
+      |vpiActual:
+      \_int_typespec: , line:4:5, endln:4:17
+    |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
+    |vpiRefLineNo:4
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:4
+    |vpiRefEndColumnNo:17
+  |vpiTypespecMember:
+  \_typespec_member: (AxiAddrWidth), line:5:20, endln:5:32
+    |vpiParent:
+    \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+    |vpiName:AxiAddrWidth
+    |vpiTypespec:
+    \_ref_typespec: (work@cheshire_soc.axi_pkg::xbar_cfg_t.AxiAddrWidth)
+      |vpiParent:
+      \_typespec_member: (AxiAddrWidth), line:5:20, endln:5:32
+      |vpiFullName:work@cheshire_soc.axi_pkg::xbar_cfg_t.AxiAddrWidth
+      |vpiActual:
+      \_int_typespec: , line:5:5, endln:5:17
+    |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
+    |vpiRefLineNo:5
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:5
+    |vpiRefEndColumnNo:17
+\_int_typespec: , line:3:5, endln:3:17
+  |vpiParent:
+  \_ref_typespec: (work@cheshire_soc.axi_pkg::xbar_cfg_t.NoSlvPorts)
+  |vpiInstance:
+  \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+\_int_typespec: , line:4:5, endln:4:17
+  |vpiParent:
+  \_ref_typespec: (work@cheshire_soc.axi_pkg::xbar_cfg_t.NoMstPorts)
+  |vpiInstance:
+  \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+\_int_typespec: , line:5:5, endln:5:17
+  |vpiParent:
+  \_ref_typespec: (work@cheshire_soc.axi_pkg::xbar_cfg_t.AxiAddrWidth)
+  |vpiInstance:
+  \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+\_operation: , line:19:47, endln:23:4
+  |vpiParent:
+  \_param_assign: , line:19:34, endln:23:4
+  |vpiTypespec:
+  \_ref_typespec: (work@cheshire_soc)
+    |vpiParent:
+    \_operation: , line:19:47, endln:23:4
+    |vpiFullName:work@cheshire_soc
+    |vpiActual:
+    \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+  |vpiOpType:75
+  |vpiOperand:
+  \_constant: , line:20:25, endln:20:26
+  |vpiOperand:
+  \_constant: , line:21:25, endln:21:26
+  |vpiOperand:
+  \_constant: , line:22:25, endln:22:27
+\_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+  |vpiParent:
+  \_ref_typespec: (work@cheshire_soc)
+  |vpiName:axi_pkg::xbar_cfg_t
+  |vpiInstance:
+  \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (NoSlvPorts), line:3:20, endln:3:30
+    |vpiParent:
+    \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+    |vpiName:NoSlvPorts
+    |vpiTypespec:
+    \_ref_typespec: (work@cheshire_soc.axi_pkg::xbar_cfg_t.NoSlvPorts)
+      |vpiParent:
+      \_typespec_member: (NoSlvPorts), line:3:20, endln:3:30
+      |vpiFullName:work@cheshire_soc.axi_pkg::xbar_cfg_t.NoSlvPorts
+      |vpiActual:
+      \_int_typespec: , line:3:5, endln:3:17
+    |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
+    |vpiRefLineNo:3
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:3
+    |vpiRefEndColumnNo:17
+  |vpiTypespecMember:
+  \_typespec_member: (NoMstPorts), line:4:20, endln:4:30
+    |vpiParent:
+    \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+    |vpiName:NoMstPorts
+    |vpiTypespec:
+    \_ref_typespec: (work@cheshire_soc.axi_pkg::xbar_cfg_t.NoMstPorts)
+      |vpiParent:
+      \_typespec_member: (NoMstPorts), line:4:20, endln:4:30
+      |vpiFullName:work@cheshire_soc.axi_pkg::xbar_cfg_t.NoMstPorts
+      |vpiActual:
+      \_int_typespec: , line:4:5, endln:4:17
+    |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
+    |vpiRefLineNo:4
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:4
+    |vpiRefEndColumnNo:17
+  |vpiTypespecMember:
+  \_typespec_member: (AxiAddrWidth), line:5:20, endln:5:32
+    |vpiParent:
+    \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+    |vpiName:AxiAddrWidth
+    |vpiTypespec:
+    \_ref_typespec: (work@cheshire_soc.axi_pkg::xbar_cfg_t.AxiAddrWidth)
+      |vpiParent:
+      \_typespec_member: (AxiAddrWidth), line:5:20, endln:5:32
+      |vpiFullName:work@cheshire_soc.axi_pkg::xbar_cfg_t.AxiAddrWidth
+      |vpiActual:
+      \_int_typespec: , line:5:5, endln:5:17
+    |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
+    |vpiRefLineNo:5
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:5
+    |vpiRefEndColumnNo:17
+\_int_typespec: , line:3:5, endln:3:17
+  |vpiParent:
+  \_ref_typespec: (work@cheshire_soc.axi_pkg::xbar_cfg_t.NoSlvPorts)
+  |vpiInstance:
+  \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+\_int_typespec: , line:4:5, endln:4:17
+  |vpiParent:
+  \_ref_typespec: (work@cheshire_soc.axi_pkg::xbar_cfg_t.NoMstPorts)
+  |vpiInstance:
+  \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+\_int_typespec: , line:5:5, endln:5:17
+  |vpiParent:
+  \_ref_typespec: (work@cheshire_soc.axi_pkg::xbar_cfg_t.AxiAddrWidth)
+  |vpiInstance:
+  \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+\_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+  |vpiParent:
+  \_ref_typespec: (work@cheshire_soc.i_axi_xbar)
+  |vpiName:axi_pkg::xbar_cfg_t
+  |vpiInstance:
+  \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (NoSlvPorts), line:3:20, endln:3:30
+    |vpiParent:
+    \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+    |vpiName:NoSlvPorts
+    |vpiTypespec:
+    \_ref_typespec: (work@cheshire_soc.i_axi_xbar.axi_pkg::xbar_cfg_t.NoSlvPorts)
+      |vpiParent:
+      \_typespec_member: (NoSlvPorts), line:3:20, endln:3:30
+      |vpiFullName:work@cheshire_soc.i_axi_xbar.axi_pkg::xbar_cfg_t.NoSlvPorts
+      |vpiActual:
+      \_int_typespec: , line:3:5, endln:3:17
+    |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
+    |vpiRefLineNo:3
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:3
+    |vpiRefEndColumnNo:17
+  |vpiTypespecMember:
+  \_typespec_member: (NoMstPorts), line:4:20, endln:4:30
+    |vpiParent:
+    \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+    |vpiName:NoMstPorts
+    |vpiTypespec:
+    \_ref_typespec: (work@cheshire_soc.i_axi_xbar.axi_pkg::xbar_cfg_t.NoMstPorts)
+      |vpiParent:
+      \_typespec_member: (NoMstPorts), line:4:20, endln:4:30
+      |vpiFullName:work@cheshire_soc.i_axi_xbar.axi_pkg::xbar_cfg_t.NoMstPorts
+      |vpiActual:
+      \_int_typespec: , line:4:5, endln:4:17
+    |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
+    |vpiRefLineNo:4
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:4
+    |vpiRefEndColumnNo:17
+  |vpiTypespecMember:
+  \_typespec_member: (AxiAddrWidth), line:5:20, endln:5:32
+    |vpiParent:
+    \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+    |vpiName:AxiAddrWidth
+    |vpiTypespec:
+    \_ref_typespec: (work@cheshire_soc.i_axi_xbar.axi_pkg::xbar_cfg_t.AxiAddrWidth)
+      |vpiParent:
+      \_typespec_member: (AxiAddrWidth), line:5:20, endln:5:32
+      |vpiFullName:work@cheshire_soc.i_axi_xbar.axi_pkg::xbar_cfg_t.AxiAddrWidth
+      |vpiActual:
+      \_int_typespec: , line:5:5, endln:5:17
+    |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
+    |vpiRefLineNo:5
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:5
+    |vpiRefEndColumnNo:17
+\_int_typespec: , line:3:5, endln:3:17
+  |vpiParent:
+  \_ref_typespec: (work@cheshire_soc.i_axi_xbar.axi_pkg::xbar_cfg_t.NoSlvPorts)
+  |vpiInstance:
+  \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+\_int_typespec: , line:4:5, endln:4:17
+  |vpiParent:
+  \_ref_typespec: (work@cheshire_soc.i_axi_xbar.axi_pkg::xbar_cfg_t.NoMstPorts)
+  |vpiInstance:
+  \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+\_int_typespec: , line:5:5, endln:5:17
+  |vpiParent:
+  \_ref_typespec: (work@cheshire_soc.i_axi_xbar.axi_pkg::xbar_cfg_t.AxiAddrWidth)
+  |vpiInstance:
+  \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+\_operation: , line:28:23, endln:28:33
+  |vpiParent:
+  \_param_assign: , line:11:33, endln:11:75
+  |vpiTypespec:
+  \_ref_typespec: (work@cheshire_soc.i_axi_xbar)
+    |vpiParent:
+    \_operation: , line:28:23, endln:28:33
+    |vpiFullName:work@cheshire_soc.i_axi_xbar
+    |vpiActual:
+    \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+  |vpiOpType:75
+  |vpiOperand:
+  \_constant: , line:20:25, endln:20:26
+  |vpiOperand:
+  \_constant: , line:21:25, endln:21:26
+  |vpiOperand:
+  \_constant: , line:22:25, endln:22:27
+\_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+  |vpiParent:
+  \_ref_typespec: (work@cheshire_soc.i_axi_xbar)
+  |vpiName:axi_pkg::xbar_cfg_t
+  |vpiInstance:
+  \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (NoSlvPorts), line:3:20, endln:3:30
+    |vpiParent:
+    \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+    |vpiName:NoSlvPorts
+    |vpiTypespec:
+    \_ref_typespec: (work@cheshire_soc.i_axi_xbar.axi_pkg::xbar_cfg_t.NoSlvPorts)
+      |vpiParent:
+      \_typespec_member: (NoSlvPorts), line:3:20, endln:3:30
+      |vpiFullName:work@cheshire_soc.i_axi_xbar.axi_pkg::xbar_cfg_t.NoSlvPorts
+      |vpiActual:
+      \_int_typespec: , line:3:5, endln:3:17
+    |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
+    |vpiRefLineNo:3
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:3
+    |vpiRefEndColumnNo:17
+  |vpiTypespecMember:
+  \_typespec_member: (NoMstPorts), line:4:20, endln:4:30
+    |vpiParent:
+    \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+    |vpiName:NoMstPorts
+    |vpiTypespec:
+    \_ref_typespec: (work@cheshire_soc.i_axi_xbar.axi_pkg::xbar_cfg_t.NoMstPorts)
+      |vpiParent:
+      \_typespec_member: (NoMstPorts), line:4:20, endln:4:30
+      |vpiFullName:work@cheshire_soc.i_axi_xbar.axi_pkg::xbar_cfg_t.NoMstPorts
+      |vpiActual:
+      \_int_typespec: , line:4:5, endln:4:17
+    |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
+    |vpiRefLineNo:4
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:4
+    |vpiRefEndColumnNo:17
+  |vpiTypespecMember:
+  \_typespec_member: (AxiAddrWidth), line:5:20, endln:5:32
+    |vpiParent:
+    \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+    |vpiName:AxiAddrWidth
+    |vpiTypespec:
+    \_ref_typespec: (work@cheshire_soc.i_axi_xbar.axi_pkg::xbar_cfg_t.AxiAddrWidth)
+      |vpiParent:
+      \_typespec_member: (AxiAddrWidth), line:5:20, endln:5:32
+      |vpiFullName:work@cheshire_soc.i_axi_xbar.axi_pkg::xbar_cfg_t.AxiAddrWidth
+      |vpiActual:
+      \_int_typespec: , line:5:5, endln:5:17
+    |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
+    |vpiRefLineNo:5
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:5
+    |vpiRefEndColumnNo:17
+\_int_typespec: , line:3:5, endln:3:17
+  |vpiParent:
+  \_ref_typespec: (work@cheshire_soc.i_axi_xbar.axi_pkg::xbar_cfg_t.NoSlvPorts)
+  |vpiInstance:
+  \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+\_int_typespec: , line:4:5, endln:4:17
+  |vpiParent:
+  \_ref_typespec: (work@cheshire_soc.i_axi_xbar.axi_pkg::xbar_cfg_t.NoMstPorts)
+  |vpiInstance:
+  \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+\_int_typespec: , line:5:5, endln:5:17
+  |vpiParent:
+  \_ref_typespec: (work@cheshire_soc.i_axi_xbar.axi_pkg::xbar_cfg_t.AxiAddrWidth)
+  |vpiInstance:
+  \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+\_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+  |vpiParent:
+  \_ref_typespec: (work@cheshire_soc.AxiXbarCfg)
+  |vpiName:axi_pkg::xbar_cfg_t
+  |vpiInstance:
+  \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (NoSlvPorts), line:3:20, endln:3:30
+    |vpiParent:
+    \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+    |vpiName:NoSlvPorts
+    |vpiTypespec:
+    \_ref_typespec: (work@cheshire_soc.AxiXbarCfg.axi_pkg::xbar_cfg_t.NoSlvPorts)
+      |vpiParent:
+      \_typespec_member: (NoSlvPorts), line:3:20, endln:3:30
+      |vpiFullName:work@cheshire_soc.AxiXbarCfg.axi_pkg::xbar_cfg_t.NoSlvPorts
+      |vpiActual:
+      \_int_typespec: , line:3:5, endln:3:17
+    |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
+    |vpiRefLineNo:3
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:3
+    |vpiRefEndColumnNo:17
+  |vpiTypespecMember:
+  \_typespec_member: (NoMstPorts), line:4:20, endln:4:30
+    |vpiParent:
+    \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+    |vpiName:NoMstPorts
+    |vpiTypespec:
+    \_ref_typespec: (work@cheshire_soc.AxiXbarCfg.axi_pkg::xbar_cfg_t.NoMstPorts)
+      |vpiParent:
+      \_typespec_member: (NoMstPorts), line:4:20, endln:4:30
+      |vpiFullName:work@cheshire_soc.AxiXbarCfg.axi_pkg::xbar_cfg_t.NoMstPorts
+      |vpiActual:
+      \_int_typespec: , line:4:5, endln:4:17
+    |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
+    |vpiRefLineNo:4
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:4
+    |vpiRefEndColumnNo:17
+  |vpiTypespecMember:
+  \_typespec_member: (AxiAddrWidth), line:5:20, endln:5:32
+    |vpiParent:
+    \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+    |vpiName:AxiAddrWidth
+    |vpiTypespec:
+    \_ref_typespec: (work@cheshire_soc.AxiXbarCfg.axi_pkg::xbar_cfg_t.AxiAddrWidth)
+      |vpiParent:
+      \_typespec_member: (AxiAddrWidth), line:5:20, endln:5:32
+      |vpiFullName:work@cheshire_soc.AxiXbarCfg.axi_pkg::xbar_cfg_t.AxiAddrWidth
+      |vpiActual:
+      \_int_typespec: , line:5:5, endln:5:17
+    |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
+    |vpiRefLineNo:5
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:5
+    |vpiRefEndColumnNo:17
+\_int_typespec: , line:3:5, endln:3:17
+  |vpiParent:
+  \_ref_typespec: (work@cheshire_soc.AxiXbarCfg.axi_pkg::xbar_cfg_t.NoSlvPorts)
+  |vpiInstance:
+  \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+\_int_typespec: , line:4:5, endln:4:17
+  |vpiParent:
+  \_ref_typespec: (work@cheshire_soc.AxiXbarCfg.axi_pkg::xbar_cfg_t.NoMstPorts)
+  |vpiInstance:
+  \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+\_int_typespec: , line:5:5, endln:5:17
+  |vpiParent:
+  \_ref_typespec: (work@cheshire_soc.AxiXbarCfg.axi_pkg::xbar_cfg_t.AxiAddrWidth)
+  |vpiInstance:
+  \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+\_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+  |vpiParent:
+  \_ref_typespec: (work@cheshire_soc.i_axi_xbar.Cfg)
+  |vpiName:axi_pkg::xbar_cfg_t
+  |vpiInstance:
+  \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (NoSlvPorts), line:3:20, endln:3:30
+    |vpiParent:
+    \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+    |vpiName:NoSlvPorts
+    |vpiTypespec:
+    \_ref_typespec: (work@cheshire_soc.i_axi_xbar.Cfg.axi_pkg::xbar_cfg_t.NoSlvPorts)
+      |vpiParent:
+      \_typespec_member: (NoSlvPorts), line:3:20, endln:3:30
+      |vpiFullName:work@cheshire_soc.i_axi_xbar.Cfg.axi_pkg::xbar_cfg_t.NoSlvPorts
+      |vpiActual:
+      \_int_typespec: , line:3:5, endln:3:17
+    |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
+    |vpiRefLineNo:3
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:3
+    |vpiRefEndColumnNo:17
+  |vpiTypespecMember:
+  \_typespec_member: (NoMstPorts), line:4:20, endln:4:30
+    |vpiParent:
+    \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+    |vpiName:NoMstPorts
+    |vpiTypespec:
+    \_ref_typespec: (work@cheshire_soc.i_axi_xbar.Cfg.axi_pkg::xbar_cfg_t.NoMstPorts)
+      |vpiParent:
+      \_typespec_member: (NoMstPorts), line:4:20, endln:4:30
+      |vpiFullName:work@cheshire_soc.i_axi_xbar.Cfg.axi_pkg::xbar_cfg_t.NoMstPorts
+      |vpiActual:
+      \_int_typespec: , line:4:5, endln:4:17
+    |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
+    |vpiRefLineNo:4
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:4
+    |vpiRefEndColumnNo:17
+  |vpiTypespecMember:
+  \_typespec_member: (AxiAddrWidth), line:5:20, endln:5:32
+    |vpiParent:
+    \_struct_typespec: (axi_pkg::xbar_cfg_t), line:2:11, endln:6:4
+    |vpiName:AxiAddrWidth
+    |vpiTypespec:
+    \_ref_typespec: (work@cheshire_soc.i_axi_xbar.Cfg.axi_pkg::xbar_cfg_t.AxiAddrWidth)
+      |vpiParent:
+      \_typespec_member: (AxiAddrWidth), line:5:20, endln:5:32
+      |vpiFullName:work@cheshire_soc.i_axi_xbar.Cfg.axi_pkg::xbar_cfg_t.AxiAddrWidth
+      |vpiActual:
+      \_int_typespec: , line:5:5, endln:5:17
+    |vpiRefFile:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv
+    |vpiRefLineNo:5
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:5
+    |vpiRefEndColumnNo:17
+\_int_typespec: , line:3:5, endln:3:17
+  |vpiParent:
+  \_ref_typespec: (work@cheshire_soc.i_axi_xbar.Cfg.axi_pkg::xbar_cfg_t.NoSlvPorts)
+  |vpiInstance:
+  \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+\_int_typespec: , line:4:5, endln:4:17
+  |vpiParent:
+  \_ref_typespec: (work@cheshire_soc.i_axi_xbar.Cfg.axi_pkg::xbar_cfg_t.NoMstPorts)
+  |vpiInstance:
+  \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+\_int_typespec: , line:5:5, endln:5:17
+  |vpiParent:
+  \_ref_typespec: (work@cheshire_soc.i_axi_xbar.Cfg.axi_pkg::xbar_cfg_t.AxiAddrWidth)
+  |vpiInstance:
+  \_package: axi_pkg (axi_pkg::), file:${SURELOG_DIR}/tests/NoReducTypespec/dut.sv, line:1:1, endln:7:11
+\_bit_typespec: , line:13:13, endln:13:57
+  |vpiParent:
+  \_ref_typespec: (work@cheshire_soc.i_axi_xbar.Connectivity)
+  |vpiRange:
+  \_range: , line:13:17, endln:13:37
+    |vpiParent:
+    \_bit_typespec: , line:13:13, endln:13:57
+    |vpiLeftRange:
+    \_operation: , line:13:18, endln:13:34
+      |vpiParent:
+      \_range: , line:13:17, endln:13:37
+      |vpiOpType:11
+      |vpiOperand:
+      \_hier_path: (Cfg.NoSlvPorts), line:13:18, endln:13:32
+        |vpiParent:
+        \_operation: , line:13:18, endln:13:34
+        |vpiName:Cfg.NoSlvPorts
+        |vpiActual:
+        \_ref_obj: (Cfg), line:13:22, endln:13:32
+          |vpiParent:
+          \_hier_path: (Cfg.NoSlvPorts), line:13:18, endln:13:32
+          |vpiName:Cfg
+          |vpiActual:
+          \_parameter: (work@cheshire_soc.i_axi_xbar.Cfg), line:11:33, endln:11:36
+        |vpiActual:
+        \_ref_obj: (NoSlvPorts), line:13:22, endln:13:32
+          |vpiParent:
+          \_hier_path: (Cfg.NoSlvPorts), line:13:18, endln:13:32
+          |vpiName:NoSlvPorts
+      |vpiOperand:
+      \_constant: , line:13:33, endln:13:34
+        |vpiParent:
+        \_operation: , line:13:18, endln:13:34
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:13:35, endln:13:36
+      |vpiParent:
+      \_range: , line:13:17, endln:13:37
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:13:37, endln:13:57
+    |vpiParent:
+    \_bit_typespec: , line:13:13, endln:13:57
+    |vpiLeftRange:
+    \_operation: , line:13:38, endln:13:54
+      |vpiParent:
+      \_range: , line:13:37, endln:13:57
+      |vpiOpType:11
+      |vpiOperand:
+      \_hier_path: (Cfg.NoMstPorts), line:13:38, endln:13:52
+        |vpiParent:
+        \_operation: , line:13:38, endln:13:54
+        |vpiName:Cfg.NoMstPorts
+        |vpiActual:
+        \_ref_obj: (Cfg), line:13:42, endln:13:52
+          |vpiParent:
+          \_hier_path: (Cfg.NoMstPorts), line:13:38, endln:13:52
+          |vpiName:Cfg
+          |vpiActual:
+          \_parameter: (work@cheshire_soc.i_axi_xbar.Cfg), line:11:33, endln:11:36
+        |vpiActual:
+        \_ref_obj: (NoMstPorts), line:13:42, endln:13:52
+          |vpiParent:
+          \_hier_path: (Cfg.NoMstPorts), line:13:38, endln:13:52
+          |vpiName:NoMstPorts
+      |vpiOperand:
+      \_constant: , line:13:53, endln:13:54
+        |vpiParent:
+        \_operation: , line:13:38, endln:13:54
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:13:55, endln:13:56
+      |vpiParent:
+      \_range: , line:13:37, endln:13:57
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

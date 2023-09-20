@@ -34,6 +34,7 @@ logic_typespec                                         6
 module_inst                                            2
 port                                                   4
 ref_obj                                                5
+ref_typespec                                           6
 sys_func_call                                          1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/TfCalls/slpp_unit/surelog.uhdm ...
@@ -80,7 +81,12 @@ design: (work@m1)
       |vpiActual:
       \_logic_net: (work@m1.clk), line:1:17, endln:1:20
     |vpiTypedef:
-    \_logic_typespec: , line:1:17, endln:1:17
+    \_ref_typespec: (work@m1.clk)
+      |vpiParent:
+      \_port: (clk), line:1:17, endln:1:20
+      |vpiFullName:work@m1.clk
+      |vpiActual:
+      \_logic_typespec: , line:1:17, endln:1:17
   |vpiPort:
   \_port: (out), line:1:29, endln:1:32
     |vpiParent:
@@ -96,7 +102,12 @@ design: (work@m1)
       |vpiActual:
       \_logic_net: (work@m1.out), line:1:29, endln:1:32
     |vpiTypedef:
-    \_logic_typespec: , line:1:29, endln:1:29
+    \_ref_typespec: (work@m1.out)
+      |vpiParent:
+      \_port: (out), line:1:29, endln:1:32
+      |vpiFullName:work@m1.out
+      |vpiActual:
+      \_logic_typespec: , line:1:29, endln:1:29
   |vpiProcess:
   \_initial: , line:2:3, endln:4:6
     |vpiParent:
@@ -137,9 +148,12 @@ design: (work@m1)
     |vpiParent:
     \_module_inst: work@m1 (work@m1), file:${SURELOG_DIR}/tests/TfCalls/top.v, line:1:1, endln:5:10
     |vpiTypespec:
-    \_logic_typespec: , line:1:17, endln:1:17
+    \_ref_typespec: (work@m1.clk)
       |vpiParent:
       \_logic_net: (work@m1.clk), line:1:17, endln:1:20
+      |vpiFullName:work@m1.clk
+      |vpiActual:
+      \_logic_typespec: , line:1:17, endln:1:17
     |vpiName:clk
     |vpiFullName:work@m1.clk
   |vpiNet:
@@ -147,9 +161,12 @@ design: (work@m1)
     |vpiParent:
     \_module_inst: work@m1 (work@m1), file:${SURELOG_DIR}/tests/TfCalls/top.v, line:1:1, endln:5:10
     |vpiTypespec:
-    \_logic_typespec: , line:1:29, endln:1:29
+    \_ref_typespec: (work@m1.out)
       |vpiParent:
       \_logic_net: (work@m1.out), line:1:29, endln:1:32
+      |vpiFullName:work@m1.out
+      |vpiActual:
+      \_logic_typespec: , line:1:29, endln:1:29
     |vpiName:out
     |vpiFullName:work@m1.out
   |vpiTopModule:1
@@ -168,7 +185,12 @@ design: (work@m1)
       |vpiActual:
       \_logic_net: (work@m1.clk), line:1:17, endln:1:20
     |vpiTypedef:
-    \_logic_typespec: , line:1:17, endln:1:17
+    \_ref_typespec: (work@m1.clk)
+      |vpiParent:
+      \_port: (clk), line:1:17, endln:1:20
+      |vpiFullName:work@m1.clk
+      |vpiActual:
+      \_logic_typespec: , line:1:17, endln:1:17
   |vpiPort:
   \_port: (out), line:1:29, endln:1:32
     |vpiParent:
@@ -184,9 +206,25 @@ design: (work@m1)
       |vpiActual:
       \_logic_net: (work@m1.out), line:1:29, endln:1:32
     |vpiTypedef:
-    \_logic_typespec: , line:1:29, endln:1:29
+    \_ref_typespec: (work@m1.out)
+      |vpiParent:
+      \_port: (out), line:1:29, endln:1:32
+      |vpiFullName:work@m1.out
+      |vpiActual:
+      \_logic_typespec: , line:1:29, endln:1:29
   |vpiProcess:
   \_initial: , line:2:3, endln:4:6
+\_weaklyReferenced:
+\_logic_typespec: , line:1:17, endln:1:17
+\_logic_typespec: , line:1:29, endln:1:29
+\_logic_typespec: , line:1:17, endln:1:17
+  |vpiParent:
+  \_logic_net: (work@m1.clk), line:1:17, endln:1:20
+\_logic_typespec: , line:1:29, endln:1:29
+  |vpiParent:
+  \_logic_net: (work@m1.out), line:1:29, endln:1:32
+\_logic_typespec: , line:1:17, endln:1:17
+\_logic_typespec: , line:1:29, endln:1:29
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

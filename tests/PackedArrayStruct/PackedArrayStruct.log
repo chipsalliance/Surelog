@@ -122,6 +122,7 @@ packed_array_typespec                                  1
 port                                                   2
 range                                                  5
 ref_obj                                                4
+ref_typespec                                           7
 struct_typespec                                        1
 struct_var                                             1
 typespec_member                                        1
@@ -139,6 +140,7 @@ packed_array_typespec                                  1
 port                                                   3
 range                                                  5
 ref_obj                                                7
+ref_typespec                                           8
 struct_typespec                                        1
 struct_var                                             1
 typespec_member                                        1
@@ -188,22 +190,12 @@ design: (work@top)
         |UINT:0
         |vpiConstType:9
     |vpiElemTypespec:
-    \_struct_typespec: , line:2:12, endln:2:18
-      |vpiPacked:1
-      |vpiTypespecMember:
-      \_typespec_member: (x), line:3:13, endln:3:14
-        |vpiParent:
-        \_packed_array_typespec: (struct_array_t), line:2:12, endln:4:12
-        |vpiName:x
-        |vpiTypespec:
-        \_logic_typespec: , line:3:7, endln:3:12
-          |vpiParent:
-          \_typespec_member: (x), line:3:13, endln:3:14
-        |vpiRefFile:${SURELOG_DIR}/tests/PackedArrayStruct/dut.sv
-        |vpiRefLineNo:3
-        |vpiRefColumnNo:7
-        |vpiRefEndLineNo:3
-        |vpiRefEndColumnNo:12
+    \_ref_typespec: (work@top.struct_array_t)
+      |vpiParent:
+      \_packed_array_typespec: (struct_array_t), line:2:12, endln:4:12
+      |vpiFullName:work@top.struct_array_t
+      |vpiActual:
+      \_struct_typespec: , line:2:12, endln:2:18
   |vpiDefName:work@top
   |vpiNet:
   \_logic_net: (work@top.o), line:1:32, endln:1:33
@@ -217,7 +209,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PackedArrayStruct/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_packed_array_typespec: (struct_array_t), line:2:12, endln:4:12
+    \_ref_typespec: (work@top.a)
+      |vpiParent:
+      \_logic_net: (work@top.a), line:5:19, endln:5:20
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_packed_array_typespec: (struct_array_t), line:2:12, endln:4:12
     |vpiName:a
     |vpiFullName:work@top.a
   |vpiPort:
@@ -235,27 +232,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.o), line:1:32, endln:1:33
     |vpiTypedef:
-    \_logic_typespec: , line:1:19, endln:1:31
-      |vpiRange:
-      \_range: , line:1:25, endln:1:31
-        |vpiParent:
-        \_logic_typespec: , line:1:19, endln:1:31
-        |vpiLeftRange:
-        \_constant: , line:1:26, endln:1:28
-          |vpiParent:
-          \_range: , line:1:25, endln:1:31
-          |vpiDecompile:31
-          |vpiSize:64
-          |UINT:31
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:1:29, endln:1:30
-          |vpiParent:
-          \_range: , line:1:25, endln:1:31
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_port: (o), line:1:32, endln:1:33
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_logic_typespec: , line:1:19, endln:1:31
   |vpiContAssign:
   \_cont_assign: , line:6:11, endln:6:16
     |vpiParent:
@@ -284,7 +266,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PackedArrayStruct/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_packed_array_typespec: (struct_array_t), line:2:12, endln:4:12
+    \_ref_typespec: (work@top.a)
+      |vpiParent:
+      \_struct_var: (work@top.a), line:5:19, endln:5:20
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_packed_array_typespec: (struct_array_t), line:2:12, endln:4:12
     |vpiName:a
     |vpiFullName:work@top.a
     |vpiVisibility:1
@@ -305,27 +292,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PackedArrayStruct/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_logic_typespec: , line:1:19, endln:1:31
-      |vpiRange:
-      \_range: , line:1:25, endln:1:31
-        |vpiParent:
-        \_logic_typespec: , line:1:19, endln:1:31
-        |vpiLeftRange:
-        \_constant: , line:1:26, endln:1:28
-          |vpiParent:
-          \_range: , line:1:25, endln:1:31
-          |vpiDecompile:31
-          |vpiSize:64
-          |UINT:31
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:1:29, endln:1:30
-          |vpiParent:
-          \_range: , line:1:25, endln:1:31
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_logic_net: (work@top.o), line:1:32, endln:1:33
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_logic_typespec: , line:1:19, endln:1:31
     |vpiName:o
     |vpiFullName:work@top.o
     |vpiNetType:36
@@ -345,27 +317,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.o), line:1:32, endln:1:33
     |vpiTypedef:
-    \_logic_typespec: , line:1:19, endln:1:31
-      |vpiRange:
-      \_range: , line:1:25, endln:1:31
-        |vpiParent:
-        \_logic_typespec: , line:1:19, endln:1:31
-        |vpiLeftRange:
-        \_constant: , line:1:26, endln:1:28
-          |vpiParent:
-          \_range: , line:1:25, endln:1:31
-          |vpiDecompile:31
-          |vpiSize:64
-          |UINT:31
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:1:29, endln:1:30
-          |vpiParent:
-          \_range: , line:1:25, endln:1:31
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_port: (o), line:1:32, endln:1:33
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_logic_typespec: , line:1:19, endln:1:31
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PackedArrayStruct/dut.sv, line:1:1, endln:7:10
   |vpiContAssign:
@@ -388,6 +345,92 @@ design: (work@top)
       |vpiFullName:work@top.o
       |vpiActual:
       \_logic_net: (work@top.o), line:1:32, endln:1:33
+\_weaklyReferenced:
+\_struct_typespec: , line:2:12, endln:2:18
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (x), line:3:13, endln:3:14
+    |vpiParent:
+    \_packed_array_typespec: (struct_array_t), line:2:12, endln:4:12
+    |vpiName:x
+    |vpiTypespec:
+    \_ref_typespec: (work@top.struct_array_t.x)
+      |vpiParent:
+      \_typespec_member: (x), line:3:13, endln:3:14
+      |vpiFullName:work@top.struct_array_t.x
+      |vpiActual:
+      \_logic_typespec: , line:3:7, endln:3:12
+    |vpiRefFile:${SURELOG_DIR}/tests/PackedArrayStruct/dut.sv
+    |vpiRefLineNo:3
+    |vpiRefColumnNo:7
+    |vpiRefEndLineNo:3
+    |vpiRefEndColumnNo:12
+\_logic_typespec: , line:3:7, endln:3:12
+  |vpiParent:
+  \_typespec_member: (x), line:3:13, endln:3:14
+\_logic_typespec: , line:1:19, endln:1:31
+  |vpiRange:
+  \_range: , line:1:25, endln:1:31
+    |vpiParent:
+    \_logic_typespec: , line:1:19, endln:1:31
+    |vpiLeftRange:
+    \_constant: , line:1:26, endln:1:28
+      |vpiParent:
+      \_range: , line:1:25, endln:1:31
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:1:29, endln:1:30
+      |vpiParent:
+      \_range: , line:1:25, endln:1:31
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:1:19, endln:1:31
+  |vpiRange:
+  \_range: , line:1:25, endln:1:31
+    |vpiParent:
+    \_logic_typespec: , line:1:19, endln:1:31
+    |vpiLeftRange:
+    \_constant: , line:1:26, endln:1:28
+      |vpiParent:
+      \_range: , line:1:25, endln:1:31
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:1:29, endln:1:30
+      |vpiParent:
+      \_range: , line:1:25, endln:1:31
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:1:19, endln:1:31
+  |vpiRange:
+  \_range: , line:1:25, endln:1:31
+    |vpiParent:
+    \_logic_typespec: , line:1:19, endln:1:31
+    |vpiLeftRange:
+    \_constant: , line:1:26, endln:1:28
+      |vpiParent:
+      \_range: , line:1:25, endln:1:31
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:1:29, endln:1:30
+      |vpiParent:
+      \_range: , line:1:25, endln:1:31
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

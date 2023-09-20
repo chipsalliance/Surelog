@@ -125,6 +125,7 @@ port                                                   2
 range                                                  7
 ref_module                                             1
 ref_obj                                                5
+ref_typespec                                           5
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -142,6 +143,7 @@ port                                                   3
 range                                                  7
 ref_module                                             1
 ref_obj                                                9
+ref_typespec                                           6
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/InterfHierPath/slpp_all/surelog.uhdm ...
 
@@ -166,27 +168,12 @@ design: (work@or_ex)
     |vpiParent:
     \_interface_inst: work@logic_gate_if (work@logic_gate_if), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:1:1, endln:5:13
     |vpiTypespec:
-    \_logic_typespec: , line:3:1, endln:3:11
-      |vpiRange:
-      \_range: , line:3:6, endln:3:11
-        |vpiParent:
-        \_logic_typespec: , line:3:1, endln:3:11
-        |vpiLeftRange:
-        \_constant: , line:3:7, endln:3:8
-          |vpiParent:
-          \_range: , line:3:6, endln:3:11
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:3:9, endln:3:10
-          |vpiParent:
-          \_range: , line:3:6, endln:3:11
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@logic_gate_if.a)
+      |vpiParent:
+      \_logic_net: (work@logic_gate_if.a), line:3:12, endln:3:13
+      |vpiFullName:work@logic_gate_if.a
+      |vpiActual:
+      \_logic_typespec: , line:3:1, endln:3:11
     |vpiName:a
     |vpiFullName:work@logic_gate_if.a
     |vpiNetType:36
@@ -218,27 +205,12 @@ design: (work@or_ex)
       |vpiActual:
       \_logic_net: (work@or_ex.a), line:9:22, endln:9:23
     |vpiTypedef:
-    \_logic_typespec: , line:9:11, endln:9:21
-      |vpiRange:
-      \_range: , line:9:16, endln:9:21
-        |vpiParent:
-        \_logic_typespec: , line:9:11, endln:9:21
-        |vpiLeftRange:
-        \_constant: , line:9:17, endln:9:18
-          |vpiParent:
-          \_range: , line:9:16, endln:9:21
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:9:19, endln:9:20
-          |vpiParent:
-          \_range: , line:9:16, endln:9:21
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@or_ex.a)
+      |vpiParent:
+      \_port: (a), line:9:22, endln:9:23
+      |vpiFullName:work@or_ex.a
+      |vpiActual:
+      \_logic_typespec: , line:9:11, endln:9:21
   |vpiContAssign:
   \_cont_assign: , line:14:10, endln:14:18
     |vpiParent:
@@ -284,29 +256,12 @@ design: (work@or_ex)
     |vpiParent:
     \_module_inst: work@or_ex (work@or_ex), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:8:1, endln:16:10
     |vpiTypespec:
-    \_logic_typespec: , line:9:11, endln:9:21
+    \_ref_typespec: (work@or_ex.a)
       |vpiParent:
       \_logic_net: (work@or_ex.a), line:9:22, endln:9:23
-      |vpiRange:
-      \_range: , line:9:16, endln:9:21
-        |vpiParent:
-        \_logic_typespec: , line:9:11, endln:9:21
-        |vpiLeftRange:
-        \_constant: , line:9:17, endln:9:18
-          |vpiParent:
-          \_range: , line:9:16, endln:9:21
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:9:19, endln:9:20
-          |vpiParent:
-          \_range: , line:9:16, endln:9:21
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@or_ex.a
+      |vpiActual:
+      \_logic_typespec: , line:9:11, endln:9:21
     |vpiName:a
     |vpiFullName:work@or_ex.a
     |vpiNetType:36
@@ -326,27 +281,12 @@ design: (work@or_ex)
       |vpiActual:
       \_logic_net: (work@or_ex.a), line:9:22, endln:9:23
     |vpiTypedef:
-    \_logic_typespec: , line:9:11, endln:9:21
-      |vpiRange:
-      \_range: , line:9:16, endln:9:21
-        |vpiParent:
-        \_logic_typespec: , line:9:11, endln:9:21
-        |vpiLeftRange:
-        \_constant: , line:9:17, endln:9:18
-          |vpiParent:
-          \_range: , line:9:16, endln:9:21
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:9:19, endln:9:20
-          |vpiParent:
-          \_range: , line:9:16, endln:9:21
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@or_ex.a)
+      |vpiParent:
+      \_port: (a), line:9:22, endln:9:23
+      |vpiFullName:work@or_ex.a
+      |vpiActual:
+      \_logic_typespec: , line:9:11, endln:9:21
     |vpiInstance:
     \_module_inst: work@or_ex (work@or_ex), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:8:1, endln:16:10
   |vpiInterface:
@@ -360,29 +300,12 @@ design: (work@or_ex)
       |vpiParent:
       \_interface_inst: work@logic_gate_if (work@or_ex.lg), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:12:3, endln:12:23
       |vpiTypespec:
-      \_logic_typespec: , line:3:1, endln:3:11
+      \_ref_typespec: (work@or_ex.lg.a)
         |vpiParent:
         \_logic_var: (work@or_ex.lg.a), line:3:12, endln:3:13
-        |vpiRange:
-        \_range: , line:3:6, endln:3:11
-          |vpiParent:
-          \_logic_typespec: , line:3:1, endln:3:11
-          |vpiLeftRange:
-          \_constant: , line:3:7, endln:3:8
-            |vpiParent:
-            \_range: , line:3:6, endln:3:11
-            |vpiDecompile:3
-            |vpiSize:64
-            |UINT:3
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:3:9, endln:3:10
-            |vpiParent:
-            \_range: , line:3:6, endln:3:11
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@or_ex.lg.a
+        |vpiActual:
+        \_logic_typespec: , line:3:1, endln:3:11
       |vpiName:a
       |vpiFullName:work@or_ex.lg.a
       |vpiVisibility:1
@@ -422,6 +345,116 @@ design: (work@or_ex)
         |vpiName:a
         |vpiActual:
         \_logic_net: (work@or_ex.a), line:9:22, endln:9:23
+\_weaklyReferenced:
+\_logic_typespec: , line:9:11, endln:9:21
+  |vpiRange:
+  \_range: , line:9:16, endln:9:21
+    |vpiParent:
+    \_logic_typespec: , line:9:11, endln:9:21
+    |vpiLeftRange:
+    \_constant: , line:9:17, endln:9:18
+      |vpiParent:
+      \_range: , line:9:16, endln:9:21
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:9:19, endln:9:20
+      |vpiParent:
+      \_range: , line:9:16, endln:9:21
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:9:11, endln:9:21
+  |vpiParent:
+  \_logic_net: (work@or_ex.a), line:9:22, endln:9:23
+  |vpiRange:
+  \_range: , line:9:16, endln:9:21
+    |vpiParent:
+    \_logic_typespec: , line:9:11, endln:9:21
+    |vpiLeftRange:
+    \_constant: , line:9:17, endln:9:18
+      |vpiParent:
+      \_range: , line:9:16, endln:9:21
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:9:19, endln:9:20
+      |vpiParent:
+      \_range: , line:9:16, endln:9:21
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:3:1, endln:3:11
+  |vpiParent:
+  \_logic_var: (work@or_ex.lg.a), line:3:12, endln:3:13
+  |vpiRange:
+  \_range: , line:3:6, endln:3:11
+    |vpiParent:
+    \_logic_typespec: , line:3:1, endln:3:11
+    |vpiLeftRange:
+    \_constant: , line:3:7, endln:3:8
+      |vpiParent:
+      \_range: , line:3:6, endln:3:11
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:9, endln:3:10
+      |vpiParent:
+      \_range: , line:3:6, endln:3:11
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:3:1, endln:3:11
+  |vpiRange:
+  \_range: , line:3:6, endln:3:11
+    |vpiParent:
+    \_logic_typespec: , line:3:1, endln:3:11
+    |vpiLeftRange:
+    \_constant: , line:3:7, endln:3:8
+      |vpiParent:
+      \_range: , line:3:6, endln:3:11
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:9, endln:3:10
+      |vpiParent:
+      \_range: , line:3:6, endln:3:11
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:9:11, endln:9:21
+  |vpiRange:
+  \_range: , line:9:16, endln:9:21
+    |vpiParent:
+    \_logic_typespec: , line:9:11, endln:9:21
+    |vpiLeftRange:
+    \_constant: , line:9:17, endln:9:18
+      |vpiParent:
+      \_range: , line:9:16, endln:9:21
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:9:19, endln:9:20
+      |vpiParent:
+      \_range: , line:9:16, endln:9:21
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

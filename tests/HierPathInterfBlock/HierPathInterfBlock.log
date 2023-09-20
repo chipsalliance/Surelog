@@ -322,6 +322,7 @@ module_inst                                            3
 named_begin                                            2
 ref_module                                             1
 ref_obj                                               12
+ref_typespec                                           4
 return_stmt                                            4
 sys_func_call                                          8
 === UHDM Object Stats End ===
@@ -346,6 +347,7 @@ module_inst                                            3
 named_begin                                            2
 ref_module                                             1
 ref_obj                                               24
+ref_typespec                                           4
 return_stmt                                            6
 sys_func_call                                         16
 === UHDM Object Stats End ===
@@ -380,8 +382,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@intf.f), line:2:5, endln:4:16
       |vpiTypespec:
-      \_integer_typespec: , line:2:24, endln:2:31
-        |vpiSigned:1
+      \_ref_typespec: (work@intf.f)
+        |vpiParent:
+        \_integer_var: (work@intf.f), line:2:24, endln:2:31
+        |vpiFullName:work@intf.f
+        |vpiActual:
+        \_integer_typespec: , line:2:24, endln:2:31
       |vpiFullName:work@intf.f
       |vpiSigned:1
     |vpiStmt:
@@ -433,8 +439,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@top.f), line:14:5, endln:16:16
       |vpiTypespec:
-      \_integer_typespec: , line:14:24, endln:14:31
-        |vpiSigned:1
+      \_ref_typespec: (work@top.f)
+        |vpiParent:
+        \_integer_var: (work@top.f), line:14:24, endln:14:31
+        |vpiFullName:work@top.f
+        |vpiActual:
+        \_integer_typespec: , line:14:24, endln:14:31
       |vpiFullName:work@top.f
       |vpiSigned:1
     |vpiStmt:
@@ -722,8 +732,12 @@ design: (work@top)
             |vpiParent:
             \_function: (work@top.i.blk.f), line:6:9, endln:8:20
             |vpiTypespec:
-            \_integer_typespec: , line:6:28, endln:6:35
-              |vpiSigned:1
+            \_ref_typespec: (work@top.i.blk.f)
+              |vpiParent:
+              \_integer_var: (work@top.i.blk.f), line:6:28, endln:6:35
+              |vpiFullName:work@top.i.blk.f
+              |vpiActual:
+              \_integer_typespec: , line:6:28, endln:6:35
             |vpiFullName:work@top.i.blk.f
             |vpiSigned:1
           |vpiStmt:
@@ -984,8 +998,12 @@ design: (work@top)
           |vpiParent:
           \_function: (work@top.blk.f), line:18:9, endln:20:20
           |vpiTypespec:
-          \_integer_typespec: , line:18:28, endln:18:35
-            |vpiSigned:1
+          \_ref_typespec: (work@top.blk.f)
+            |vpiParent:
+            \_integer_var: (work@top.blk.f), line:18:28, endln:18:35
+            |vpiFullName:work@top.blk.f
+            |vpiActual:
+            \_integer_typespec: , line:18:28, endln:18:35
           |vpiFullName:work@top.blk.f
           |vpiSigned:1
         |vpiStmt:
@@ -998,6 +1016,43 @@ design: (work@top)
             |vpiSize:64
             |UINT:4
             |vpiConstType:9
+\_weaklyReferenced:
+\_integer_typespec: , line:2:24, endln:2:31
+  |vpiSigned:1
+\_integer_typespec: , line:14:24, endln:14:31
+  |vpiSigned:1
+\_integer_typespec: , line:6:28, endln:6:35
+  |vpiSigned:1
+\_function: (work@top.blk.f), line:18:9, endln:20:20
+  |vpiParent:
+  \_gen_scope: (work@top.blk), line:17:12, endln:21:8
+  |vpiName:f
+  |vpiFullName:work@top.blk.f
+  |vpiVisibility:1
+  |vpiAutomatic:1
+  |vpiReturn:
+  \_integer_var: (work@top.blk.f), line:18:28, endln:18:35
+  |vpiStmt:
+  \_return_stmt: , line:19:13, endln:19:19
+    |vpiParent:
+    \_function: (work@top.blk.f), line:18:9, endln:20:20
+    |vpiCondition:
+    \_constant: , line:19:20, endln:19:21
+\_integer_typespec: , line:18:28, endln:18:35
+  |vpiSigned:1
+\_gen_scope: (work@top.blk), line:17:12, endln:21:8
+  |vpiParent:
+  \_gen_scope_array: (work@top.blk), line:17:12, endln:21:8
+  |vpiFullName:work@top.blk
+  |vpiTaskFunc:
+  \_function: (work@top.blk.f), line:18:9, endln:20:20
+\_gen_scope_array: (work@top.blk), line:17:12, endln:21:8
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathInterfBlock/dut.sv, line:12:1, endln:32:10
+  |vpiName:blk
+  |vpiFullName:work@top.blk
+  |vpiGenScope:
+  \_gen_scope: (work@top.blk), line:17:12, endln:21:8
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

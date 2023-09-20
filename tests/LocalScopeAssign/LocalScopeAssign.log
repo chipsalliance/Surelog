@@ -100,6 +100,7 @@ module_inst                                            4
 port                                                   4
 range                                                  6
 ref_obj                                                7
+ref_typespec                                           6
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -114,6 +115,7 @@ module_inst                                            4
 port                                                   6
 range                                                  6
 ref_obj                                               12
+ref_typespec                                           8
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/LocalScopeAssign/slpp_all/surelog.uhdm ...
 
@@ -162,27 +164,12 @@ design: (work@module_scope_Example)
       |vpiActual:
       \_logic_net: (work@module_scope_Example.o1), line:3:29, endln:3:31
     |vpiTypedef:
-    \_logic_typespec: , line:4:11, endln:4:22
-      |vpiRange:
-      \_range: , line:4:16, endln:4:22
-        |vpiParent:
-        \_logic_typespec: , line:4:11, endln:4:22
-        |vpiLeftRange:
-        \_constant: , line:4:17, endln:4:19
-          |vpiParent:
-          \_range: , line:4:16, endln:4:22
-          |vpiDecompile:31
-          |vpiSize:64
-          |UINT:31
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:4:20, endln:4:21
-          |vpiParent:
-          \_range: , line:4:16, endln:4:22
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@module_scope_Example.o1)
+      |vpiParent:
+      \_port: (o1), line:3:29, endln:3:31
+      |vpiFullName:work@module_scope_Example.o1
+      |vpiActual:
+      \_logic_typespec: , line:4:11, endln:4:22
   |vpiPort:
   \_port: (o2), line:3:33, endln:3:35
     |vpiParent:
@@ -198,27 +185,12 @@ design: (work@module_scope_Example)
       |vpiActual:
       \_logic_net: (work@module_scope_Example.o2), line:3:33, endln:3:35
     |vpiTypedef:
-    \_logic_typespec: , line:4:11, endln:4:22
-      |vpiRange:
-      \_range: , line:4:16, endln:4:22
-        |vpiParent:
-        \_logic_typespec: , line:4:11, endln:4:22
-        |vpiLeftRange:
-        \_constant: , line:4:17, endln:4:19
-          |vpiParent:
-          \_range: , line:4:16, endln:4:22
-          |vpiDecompile:31
-          |vpiSize:64
-          |UINT:31
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:4:20, endln:4:21
-          |vpiParent:
-          \_range: , line:4:16, endln:4:22
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@module_scope_Example.o2)
+      |vpiParent:
+      \_port: (o2), line:3:33, endln:3:35
+      |vpiFullName:work@module_scope_Example.o2
+      |vpiActual:
+      \_logic_typespec: , line:4:11, endln:4:22
   |vpiContAssign:
   \_cont_assign: , line:7:11, endln:7:39
     |vpiParent:
@@ -254,29 +226,12 @@ design: (work@module_scope_Example)
     |vpiParent:
     \_module_inst: work@module_scope_Example (work@module_scope_Example), file:${SURELOG_DIR}/tests/LocalScopeAssign/dut.sv, line:3:1, endln:8:10
     |vpiTypespec:
-    \_logic_typespec: , line:4:11, endln:4:22
+    \_ref_typespec: (work@module_scope_Example.o1)
       |vpiParent:
-      \_logic_net: (work@module_scope_Example.o2), line:3:33, endln:3:35
-      |vpiRange:
-      \_range: , line:4:16, endln:4:22
-        |vpiParent:
-        \_logic_typespec: , line:4:11, endln:4:22
-        |vpiLeftRange:
-        \_constant: , line:4:17, endln:4:19
-          |vpiParent:
-          \_range: , line:4:16, endln:4:22
-          |vpiDecompile:31
-          |vpiSize:64
-          |UINT:31
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:4:20, endln:4:21
-          |vpiParent:
-          \_range: , line:4:16, endln:4:22
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      \_logic_net: (work@module_scope_Example.o1), line:3:29, endln:3:31
+      |vpiFullName:work@module_scope_Example.o1
+      |vpiActual:
+      \_logic_typespec: , line:4:11, endln:4:22
     |vpiName:o1
     |vpiFullName:work@module_scope_Example.o1
     |vpiNetType:1
@@ -285,7 +240,12 @@ design: (work@module_scope_Example)
     |vpiParent:
     \_module_inst: work@module_scope_Example (work@module_scope_Example), file:${SURELOG_DIR}/tests/LocalScopeAssign/dut.sv, line:3:1, endln:8:10
     |vpiTypespec:
-    \_logic_typespec: , line:4:11, endln:4:22
+    \_ref_typespec: (work@module_scope_Example.o2)
+      |vpiParent:
+      \_logic_net: (work@module_scope_Example.o2), line:3:33, endln:3:35
+      |vpiFullName:work@module_scope_Example.o2
+      |vpiActual:
+      \_logic_typespec: , line:4:11, endln:4:22
     |vpiName:o2
     |vpiFullName:work@module_scope_Example.o2
     |vpiNetType:1
@@ -305,27 +265,12 @@ design: (work@module_scope_Example)
       |vpiActual:
       \_logic_net: (work@module_scope_Example.o1), line:3:29, endln:3:31
     |vpiTypedef:
-    \_logic_typespec: , line:4:11, endln:4:22
-      |vpiRange:
-      \_range: , line:4:16, endln:4:22
-        |vpiParent:
-        \_logic_typespec: , line:4:11, endln:4:22
-        |vpiLeftRange:
-        \_constant: , line:4:17, endln:4:19
-          |vpiParent:
-          \_range: , line:4:16, endln:4:22
-          |vpiDecompile:31
-          |vpiSize:64
-          |UINT:31
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:4:20, endln:4:21
-          |vpiParent:
-          \_range: , line:4:16, endln:4:22
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@module_scope_Example.o1)
+      |vpiParent:
+      \_port: (o1), line:3:29, endln:3:31
+      |vpiFullName:work@module_scope_Example.o1
+      |vpiActual:
+      \_logic_typespec: , line:4:11, endln:4:22
     |vpiInstance:
     \_module_inst: work@module_scope_Example (work@module_scope_Example), file:${SURELOG_DIR}/tests/LocalScopeAssign/dut.sv, line:3:1, endln:8:10
   |vpiPort:
@@ -343,7 +288,12 @@ design: (work@module_scope_Example)
       |vpiActual:
       \_logic_net: (work@module_scope_Example.o2), line:3:33, endln:3:35
     |vpiTypedef:
-    \_logic_typespec: , line:4:11, endln:4:22
+    \_ref_typespec: (work@module_scope_Example.o2)
+      |vpiParent:
+      \_port: (o2), line:3:33, endln:3:35
+      |vpiFullName:work@module_scope_Example.o2
+      |vpiActual:
+      \_logic_typespec: , line:4:11, endln:4:22
     |vpiInstance:
     \_module_inst: work@module_scope_Example (work@module_scope_Example), file:${SURELOG_DIR}/tests/LocalScopeAssign/dut.sv, line:3:1, endln:8:10
   |vpiContAssign:
@@ -375,6 +325,93 @@ design: (work@module_scope_Example)
         |vpiName:o2
         |vpiActual:
         \_logic_net: (work@module_scope_Example.o2), line:3:33, endln:3:35
+\_weaklyReferenced:
+\_logic_typespec: , line:4:11, endln:4:22
+  |vpiRange:
+  \_range: , line:4:16, endln:4:22
+    |vpiParent:
+    \_logic_typespec: , line:4:11, endln:4:22
+    |vpiLeftRange:
+    \_constant: , line:4:17, endln:4:19
+      |vpiParent:
+      \_range: , line:4:16, endln:4:22
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:4:20, endln:4:21
+      |vpiParent:
+      \_range: , line:4:16, endln:4:22
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:4:11, endln:4:22
+  |vpiParent:
+  \_logic_net: (work@module_scope_Example.o2), line:3:33, endln:3:35
+  |vpiRange:
+  \_range: , line:4:16, endln:4:22
+    |vpiParent:
+    \_logic_typespec: , line:4:11, endln:4:22
+    |vpiLeftRange:
+    \_constant: , line:4:17, endln:4:19
+      |vpiParent:
+      \_range: , line:4:16, endln:4:22
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:4:20, endln:4:21
+      |vpiParent:
+      \_range: , line:4:16, endln:4:22
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:4:11, endln:4:22
+  |vpiRange:
+  \_range: , line:4:16, endln:4:22
+    |vpiParent:
+    \_logic_typespec: , line:4:11, endln:4:22
+    |vpiLeftRange:
+    \_constant: , line:4:17, endln:4:19
+      |vpiParent:
+      \_range: , line:4:16, endln:4:22
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:4:20, endln:4:21
+      |vpiParent:
+      \_range: , line:4:16, endln:4:22
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:4:11, endln:4:22
+  |vpiRange:
+  \_range: , line:4:16, endln:4:22
+    |vpiParent:
+    \_logic_typespec: , line:4:11, endln:4:22
+    |vpiLeftRange:
+    \_constant: , line:4:17, endln:4:19
+      |vpiParent:
+      \_range: , line:4:16, endln:4:22
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:4:20, endln:4:21
+      |vpiParent:
+      \_range: , line:4:16, endln:4:22
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

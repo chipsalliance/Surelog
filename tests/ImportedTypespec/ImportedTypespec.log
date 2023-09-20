@@ -139,6 +139,7 @@ parameter                                              7
 port                                                   2
 range                                                  4
 ref_obj                                                6
+ref_typespec                                          18
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -160,6 +161,7 @@ parameter                                              7
 port                                                   3
 range                                                  4
 ref_obj                                                8
+ref_typespec                                          19
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ImportedTypespec/slpp_all/surelog.uhdm ...
 
@@ -185,11 +187,12 @@ design: (work@top)
     \_package: spi_device_pkg (spi_device_pkg::), file:${SURELOG_DIR}/tests/ImportedTypespec/dut.sv, line:1:1, endln:4:11
     |UINT:10
     |vpiTypespec:
-    \_int_typespec: , line:2:14, endln:2:26
+    \_ref_typespec: (spi_device_pkg::SramAw)
       |vpiParent:
       \_parameter: (spi_device_pkg::SramAw), line:2:27, endln:2:33
-      |vpiInstance:
-      \_package: spi_device_pkg (spi_device_pkg::), file:${SURELOG_DIR}/tests/ImportedTypespec/dut.sv, line:1:1, endln:4:11
+      |vpiFullName:spi_device_pkg::SramAw
+      |vpiActual:
+      \_int_typespec: , line:2:14, endln:2:26
     |vpiName:SramAw
     |vpiFullName:spi_device_pkg::SramAw
   |vpiParamAssign:
@@ -204,7 +207,12 @@ design: (work@top)
       |vpiSize:64
       |UINT:10
       |vpiTypespec:
-      \_int_typespec: , line:2:14, endln:2:26
+      \_ref_typespec: (spi_device_pkg)
+        |vpiParent:
+        \_constant: , line:2:36, endln:2:38
+        |vpiFullName:spi_device_pkg
+        |vpiActual:
+        \_int_typespec: , line:2:14, endln:2:26
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (spi_device_pkg::SramAw), line:2:27, endln:2:33
@@ -261,11 +269,12 @@ design: (work@top)
     \_package: spi_device_pkg (spi_device_pkg::), file:${SURELOG_DIR}/tests/ImportedTypespec/dut.sv, line:1:1, endln:4:11
     |UINT:10
     |vpiTypespec:
-    \_int_typespec: , line:2:14, endln:2:26
+    \_ref_typespec: (spi_device_pkg::SramAw)
       |vpiParent:
       \_parameter: (spi_device_pkg::SramAw), line:2:27, endln:2:33
-      |vpiInstance:
-      \_package: spi_device_pkg (spi_device_pkg::), file:${SURELOG_DIR}/tests/ImportedTypespec/dut.sv, line:1:1, endln:4:11
+      |vpiFullName:spi_device_pkg::SramAw
+      |vpiActual:
+      \_int_typespec: , line:2:14, endln:2:26
     |vpiName:SramAw
     |vpiFullName:spi_device_pkg::SramAw
   |vpiParamAssign:
@@ -280,7 +289,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:10
       |vpiTypespec:
-      \_int_typespec: , line:2:14, endln:2:26
+      \_ref_typespec: (spi_device_pkg)
+        |vpiParent:
+        \_constant: , line:2:36, endln:2:38
+        |vpiFullName:spi_device_pkg
+        |vpiActual:
+        \_int_typespec: , line:2:14, endln:2:26
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (spi_device_pkg::SramAw), line:2:27, endln:2:33
@@ -324,11 +338,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ImportedTypespec/dut.sv, line:6:1, endln:10:10
     |UINT:10
     |vpiTypespec:
-    \_int_typespec: , line:2:14, endln:2:26
+    \_ref_typespec: (work@top.SramAw)
       |vpiParent:
       \_parameter: (work@top.SramAw), line:2:27, endln:2:33
-      |vpiInstance:
-      \_package: spi_device_pkg (spi_device_pkg::), file:${SURELOG_DIR}/tests/ImportedTypespec/dut.sv, line:1:1, endln:4:11
+      |vpiFullName:work@top.SramAw
+      |vpiActual:
+      \_int_typespec: , line:2:14, endln:2:26
     |vpiName:SramAw
     |vpiFullName:work@top.SramAw
     |vpiImported:spi_device_pkg
@@ -344,11 +359,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:10
       |vpiTypespec:
-      \_int_typespec: , line:2:14, endln:2:26
+      \_ref_typespec: (work@top)
         |vpiParent:
         \_constant: , line:2:36, endln:2:38
-        |vpiInstance:
-        \_package: spi_device_pkg (spi_device_pkg::), file:${SURELOG_DIR}/tests/ImportedTypespec/dut.sv, line:1:1, endln:4:11
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:2:14, endln:2:26
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.SramAw), line:2:27, endln:2:33
@@ -356,11 +372,12 @@ design: (work@top)
       \_param_assign: , line:2:27, endln:2:38
       |UINT:10
       |vpiTypespec:
-      \_int_typespec: , line:2:14, endln:2:26
+      \_ref_typespec: (work@top.SramAw)
         |vpiParent:
         \_parameter: (work@top.SramAw), line:2:27, endln:2:33
-        |vpiInstance:
-        \_package: spi_device_pkg (spi_device_pkg::), file:${SURELOG_DIR}/tests/ImportedTypespec/dut.sv, line:1:1, endln:4:11
+        |vpiFullName:work@top.SramAw
+        |vpiActual:
+        \_int_typespec: , line:2:14, endln:2:26
       |vpiName:SramAw
       |vpiFullName:work@top.SramAw
       |vpiImported:spi_device_pkg
@@ -390,8 +407,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.o), line:6:23, endln:6:24
     |vpiTypedef:
-    \_int_typespec: , line:6:19, endln:6:22
-      |vpiSigned:1
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_port: (o), line:6:23, endln:6:24
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_int_typespec: , line:6:19, endln:6:22
   |vpiContAssign:
   \_cont_assign: , line:9:11, endln:9:33
     |vpiParent:
@@ -420,8 +441,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ImportedTypespec/dut.sv, line:6:1, endln:10:10
     |vpiTypespec:
-    \_int_typespec: , line:6:19, endln:6:22
-      |vpiSigned:1
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_int_var: (work@top.o), line:6:23, endln:6:24
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_int_typespec: , line:6:19, endln:6:22
     |vpiName:o
     |vpiFullName:work@top.o
     |vpiSigned:1
@@ -432,11 +457,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ImportedTypespec/dut.sv, line:6:1, endln:10:10
     |UINT:10
     |vpiTypespec:
-    \_int_typespec: , line:2:14, endln:2:26
+    \_ref_typespec: (work@top.SramAw)
       |vpiParent:
       \_parameter: (work@top.SramAw), line:2:27, endln:2:33
-      |vpiInstance:
-      \_package: spi_device_pkg (spi_device_pkg::), file:${SURELOG_DIR}/tests/ImportedTypespec/dut.sv, line:1:1, endln:4:11
+      |vpiFullName:work@top.SramAw
+      |vpiActual:
+      \_int_typespec: , line:2:14, endln:2:26
     |vpiName:SramAw
     |vpiFullName:work@top.SramAw
     |vpiImported:spi_device_pkg
@@ -452,7 +478,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:10
       |vpiTypespec:
-      \_int_typespec: , line:2:14, endln:2:26
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:2:36, endln:2:38
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:2:14, endln:2:26
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.SramAw), line:2:27, endln:2:33
@@ -478,8 +509,12 @@ design: (work@top)
       |vpiActual:
       \_int_var: (work@top.o), line:6:23, endln:6:24
     |vpiTypedef:
-    \_int_typespec: , line:6:19, endln:6:22
-      |vpiSigned:1
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_port: (o), line:6:23, endln:6:24
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_int_typespec: , line:6:19, endln:6:22
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ImportedTypespec/dut.sv, line:6:1, endln:10:10
   |vpiContAssign:
@@ -502,6 +537,56 @@ design: (work@top)
       |vpiFullName:work@top.o
       |vpiActual:
       \_int_var: (work@top.o), line:6:23, endln:6:24
+\_weaklyReferenced:
+\_int_typespec: , line:2:14, endln:2:26
+  |vpiParent:
+  \_parameter: (spi_device_pkg::SramAw), line:2:27, endln:2:33
+  |vpiInstance:
+  \_package: spi_device_pkg (spi_device_pkg::), file:${SURELOG_DIR}/tests/ImportedTypespec/dut.sv, line:1:1, endln:4:11
+\_int_typespec: , line:2:14, endln:2:26
+  |vpiParent:
+  \_parameter: (spi_device_pkg::SramAw), line:2:27, endln:2:33
+  |vpiInstance:
+  \_package: spi_device_pkg (spi_device_pkg::), file:${SURELOG_DIR}/tests/ImportedTypespec/dut.sv, line:1:1, endln:4:11
+\_int_typespec: , line:2:14, endln:2:26
+  |vpiParent:
+  \_ref_typespec: (work@top.SramAw)
+  |vpiInstance:
+  \_package: spi_device_pkg (spi_device_pkg::), file:${SURELOG_DIR}/tests/ImportedTypespec/dut.sv, line:1:1, endln:4:11
+\_int_typespec: , line:2:14, endln:2:26
+  |vpiParent:
+  \_ref_typespec: (work@top)
+  |vpiInstance:
+  \_package: spi_device_pkg (spi_device_pkg::), file:${SURELOG_DIR}/tests/ImportedTypespec/dut.sv, line:1:1, endln:4:11
+\_int_typespec: , line:2:14, endln:2:26
+  |vpiParent:
+  \_ref_typespec: (work@top.SramAw)
+  |vpiInstance:
+  \_package: spi_device_pkg (spi_device_pkg::), file:${SURELOG_DIR}/tests/ImportedTypespec/dut.sv, line:1:1, endln:4:11
+\_int_typespec: , line:6:19, endln:6:22
+  |vpiSigned:1
+\_int_typespec: , line:6:19, endln:6:22
+  |vpiSigned:1
+\_int_typespec: , line:6:19, endln:6:22
+  |vpiSigned:1
+\_int_typespec: , line:2:14, endln:2:26
+  |vpiParent:
+  \_ref_typespec: (work@top.SramAw)
+  |vpiInstance:
+  \_package: spi_device_pkg (spi_device_pkg::), file:${SURELOG_DIR}/tests/ImportedTypespec/dut.sv, line:1:1, endln:4:11
+\_cont_assign: , line:9:11, endln:9:33
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ImportedTypespec/dut.sv, line:6:1, endln:10:10
+  |vpiRhs:
+  \_constant: , line:9:15, endln:9:33
+  |vpiLhs:
+  \_ref_obj: (work@top.o), line:9:11, endln:9:12
+    |vpiParent:
+    \_cont_assign: , line:9:11, endln:9:33
+    |vpiName:o
+    |vpiFullName:work@top.o
+    |vpiActual:
+    \_logic_net: (work@top.o), line:6:23, endln:6:24
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -127,6 +127,7 @@ gen_scope_array                                        2
 logic_typespec                                         4
 module_inst                                            3
 named_begin                                            1
+ref_typespec                                           7
 struct_typespec                                        4
 struct_var                                             1
 typespec_member                                        6
@@ -143,6 +144,7 @@ gen_scope_array                                        3
 logic_typespec                                         4
 module_inst                                            3
 named_begin                                            1
+ref_typespec                                           8
 struct_typespec                                        4
 struct_var                                             2
 typespec_member                                        6
@@ -206,66 +208,118 @@ design: (work@dut)
         |vpiParent:
         \_gen_scope: (work@dut.m), line:3:11, endln:21:7
         |vpiTypespec:
-        \_struct_typespec: (bp_bedrock_mem_fwd_header_s), line:13:13, endln:16:6
+        \_ref_typespec: (work@dut.m.mem_fwd_header_cast_i)
           |vpiParent:
-          \_gen_scope: (work@dut.m), line:3:11, endln:21:7
-          |vpiName:bp_bedrock_mem_fwd_header_s
-          |vpiInstance:
-          \_gen_scope: (work@dut.m), line:3:11, endln:21:7
-          |vpiPacked:1
-          |vpiTypespecMember:
-          \_typespec_member: (payload), line:15:68, endln:15:75
-            |vpiParent:
-            \_struct_typespec: (bp_bedrock_mem_fwd_header_s), line:13:13, endln:16:6
-            |vpiName:payload
-            |vpiTypespec:
-            \_struct_typespec: (bp_bedrock_mem_fwd_payload_s), line:5:13, endln:9:6
-              |vpiParent:
-              \_gen_scope: (work@dut.m), line:3:11, endln:21:7
-              |vpiName:bp_bedrock_mem_fwd_payload_s
-              |vpiInstance:
-              \_gen_scope: (work@dut.m), line:3:11, endln:21:7
-              |vpiPacked:1
-              |vpiTypespecMember:
-              \_typespec_member: (uncached), line:7:52, endln:7:60
-                |vpiParent:
-                \_struct_typespec: (bp_bedrock_mem_fwd_payload_s), line:5:13, endln:9:6
-                |vpiName:uncached
-                |vpiTypespec:
-                \_logic_typespec: , line:7:7, endln:7:12
-                  |vpiParent:
-                  \_typespec_member: (uncached), line:7:52, endln:7:60
-                |vpiRefFile:${SURELOG_DIR}/tests/TypeDefGenScope/dut.sv
-                |vpiRefLineNo:7
-                |vpiRefColumnNo:7
-                |vpiRefEndLineNo:7
-                |vpiRefEndColumnNo:12
-              |vpiTypespecMember:
-              \_typespec_member: (speculative), line:8:52, endln:8:63
-                |vpiParent:
-                \_struct_typespec: (bp_bedrock_mem_fwd_payload_s), line:5:13, endln:9:6
-                |vpiName:speculative
-                |vpiTypespec:
-                \_logic_typespec: , line:8:7, endln:8:12
-                  |vpiParent:
-                  \_typespec_member: (speculative), line:8:52, endln:8:63
-                |vpiRefFile:${SURELOG_DIR}/tests/TypeDefGenScope/dut.sv
-                |vpiRefLineNo:8
-                |vpiRefColumnNo:7
-                |vpiRefEndLineNo:8
-                |vpiRefEndColumnNo:12
-            |vpiRefFile:${SURELOG_DIR}/tests/TypeDefGenScope/dut.sv
-            |vpiRefLineNo:15
-            |vpiRefColumnNo:9
-            |vpiRefEndLineNo:15
-            |vpiRefEndColumnNo:37
+          \_struct_var: (work@dut.m.mem_fwd_header_cast_i), line:19:33, endln:19:54
+          |vpiFullName:work@dut.m.mem_fwd_header_cast_i
+          |vpiActual:
+          \_struct_typespec: (bp_bedrock_mem_fwd_header_s), line:13:13, endln:16:6
         |vpiName:mem_fwd_header_cast_i
         |vpiFullName:work@dut.m.mem_fwd_header_cast_i
         |vpiVisibility:1
       |vpiTypedef:
       \_struct_typespec: (bp_bedrock_mem_fwd_header_s), line:13:13, endln:16:6
+        |vpiParent:
+        \_gen_scope: (work@dut.m), line:3:11, endln:21:7
+        |vpiName:bp_bedrock_mem_fwd_header_s
+        |vpiInstance:
+        \_gen_scope: (work@dut.m), line:3:11, endln:21:7
+        |vpiPacked:1
+        |vpiTypespecMember:
+        \_typespec_member: (payload), line:15:68, endln:15:75
+          |vpiParent:
+          \_struct_typespec: (bp_bedrock_mem_fwd_header_s), line:13:13, endln:16:6
+          |vpiName:payload
+          |vpiTypespec:
+          \_ref_typespec: (work@dut.m.bp_bedrock_mem_fwd_header_s.payload)
+            |vpiParent:
+            \_typespec_member: (payload), line:15:68, endln:15:75
+            |vpiFullName:work@dut.m.bp_bedrock_mem_fwd_header_s.payload
+            |vpiActual:
+            \_struct_typespec: (bp_bedrock_mem_fwd_payload_s), line:5:13, endln:9:6
+          |vpiRefFile:${SURELOG_DIR}/tests/TypeDefGenScope/dut.sv
+          |vpiRefLineNo:15
+          |vpiRefColumnNo:9
+          |vpiRefEndLineNo:15
+          |vpiRefEndColumnNo:37
       |vpiTypedef:
       \_struct_typespec: (bp_bedrock_mem_fwd_payload_s), line:5:13, endln:9:6
+        |vpiParent:
+        \_gen_scope: (work@dut.m), line:3:11, endln:21:7
+        |vpiName:bp_bedrock_mem_fwd_payload_s
+        |vpiInstance:
+        \_gen_scope: (work@dut.m), line:3:11, endln:21:7
+        |vpiPacked:1
+        |vpiTypespecMember:
+        \_typespec_member: (uncached), line:7:52, endln:7:60
+          |vpiParent:
+          \_struct_typespec: (bp_bedrock_mem_fwd_payload_s), line:5:13, endln:9:6
+          |vpiName:uncached
+          |vpiTypespec:
+          \_ref_typespec: (work@dut.m.bp_bedrock_mem_fwd_payload_s.uncached)
+            |vpiParent:
+            \_typespec_member: (uncached), line:7:52, endln:7:60
+            |vpiFullName:work@dut.m.bp_bedrock_mem_fwd_payload_s.uncached
+            |vpiActual:
+            \_logic_typespec: , line:7:7, endln:7:12
+          |vpiRefFile:${SURELOG_DIR}/tests/TypeDefGenScope/dut.sv
+          |vpiRefLineNo:7
+          |vpiRefColumnNo:7
+          |vpiRefEndLineNo:7
+          |vpiRefEndColumnNo:12
+        |vpiTypespecMember:
+        \_typespec_member: (speculative), line:8:52, endln:8:63
+          |vpiParent:
+          \_struct_typespec: (bp_bedrock_mem_fwd_payload_s), line:5:13, endln:9:6
+          |vpiName:speculative
+          |vpiTypespec:
+          \_ref_typespec: (work@dut.m.bp_bedrock_mem_fwd_payload_s.speculative)
+            |vpiParent:
+            \_typespec_member: (speculative), line:8:52, endln:8:63
+            |vpiFullName:work@dut.m.bp_bedrock_mem_fwd_payload_s.speculative
+            |vpiActual:
+            \_logic_typespec: , line:8:7, endln:8:12
+          |vpiRefFile:${SURELOG_DIR}/tests/TypeDefGenScope/dut.sv
+          |vpiRefLineNo:8
+          |vpiRefColumnNo:7
+          |vpiRefEndLineNo:8
+          |vpiRefEndColumnNo:12
+\_weaklyReferenced:
+\_logic_typespec: , line:7:7, endln:7:12
+  |vpiParent:
+  \_typespec_member: (uncached), line:7:52, endln:7:60
+\_logic_typespec: , line:8:7, endln:8:12
+  |vpiParent:
+  \_typespec_member: (speculative), line:8:52, endln:8:63
+\_gen_scope: (work@dut.m), line:3:11, endln:21:7
+  |vpiParent:
+  \_gen_scope_array: (work@dut.m), line:3:11, endln:21:7
+  |vpiFullName:work@dut.m
+  |vpiVariables:
+  \_struct_var: (work@dut.m.mem_fwd_header_cast_i), line:19:33, endln:19:54
+    |vpiParent:
+    \_gen_scope: (work@dut.m), line:3:11, endln:21:7
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.m.mem_fwd_header_cast_i)
+      |vpiParent:
+      \_struct_var: (work@dut.m.mem_fwd_header_cast_i), line:19:33, endln:19:54
+      |vpiFullName:work@dut.m.mem_fwd_header_cast_i
+      |vpiActual:
+      \_struct_typespec: (bp_bedrock_mem_fwd_header_s), line:13:13, endln:16:6
+    |vpiName:mem_fwd_header_cast_i
+    |vpiFullName:work@dut.m.mem_fwd_header_cast_i
+    |vpiVisibility:1
+  |vpiTypedef:
+  \_struct_typespec: (bp_bedrock_mem_fwd_header_s), line:13:13, endln:16:6
+  |vpiTypedef:
+  \_struct_typespec: (bp_bedrock_mem_fwd_payload_s), line:5:13, endln:9:6
+\_gen_scope_array: (work@dut.m), line:3:11, endln:21:7
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/TypeDefGenScope/dut.sv, line:1:1, endln:24:10
+  |vpiName:m
+  |vpiFullName:work@dut.m
+  |vpiGenScope:
+  \_gen_scope: (work@dut.m), line:3:11, endln:21:7
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

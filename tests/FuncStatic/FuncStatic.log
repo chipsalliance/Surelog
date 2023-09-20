@@ -272,6 +272,7 @@ operation                                              2
 param_assign                                          24
 parameter                                             24
 ref_obj                                               12
+ref_typespec                                          14
 return_stmt                                            2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -295,6 +296,7 @@ operation                                              4
 param_assign                                          24
 parameter                                             24
 ref_obj                                               20
+ref_typespec                                          22
 return_stmt                                            4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FuncStatic/slpp_all/surelog.uhdm ...
@@ -438,8 +440,12 @@ design: (work@test)
       |vpiParent:
       \_assign_stmt: , line:4:14, endln:4:21
       |vpiTypespec:
-      \_int_typespec: , line:4:10, endln:4:13
-        |vpiSigned:1
+      \_ref_typespec: (work@test.accumulate1.acc)
+        |vpiParent:
+        \_int_var: (work@test.accumulate1.acc), line:4:14, endln:4:17
+        |vpiFullName:work@test.accumulate1.acc
+        |vpiActual:
+        \_int_typespec: , line:4:10, endln:4:13
       |vpiName:acc
       |vpiFullName:work@test.accumulate1.acc
       |vpiSigned:1
@@ -449,8 +455,12 @@ design: (work@test)
       |vpiParent:
       \_function: (work@test.accumulate1), line:3:1, endln:7:12
       |vpiTypespec:
-      \_integer_typespec: , line:3:17, endln:3:24
-        |vpiSigned:1
+      \_ref_typespec: (work@test.accumulate1)
+        |vpiParent:
+        \_integer_var: (work@test.accumulate1), line:3:17, endln:3:24
+        |vpiFullName:work@test.accumulate1
+        |vpiActual:
+        \_integer_typespec: , line:3:17, endln:3:24
       |vpiFullName:work@test.accumulate1
       |vpiSigned:1
     |vpiIODecl:
@@ -460,8 +470,12 @@ design: (work@test)
       |vpiDirection:1
       |vpiName:value
       |vpiTypedef:
-      \_integer_typespec: , line:3:43, endln:3:50
-        |vpiSigned:1
+      \_ref_typespec: (work@test.accumulate1.value)
+        |vpiParent:
+        \_io_decl: (value), line:3:51, endln:3:56
+        |vpiFullName:work@test.accumulate1.value
+        |vpiActual:
+        \_integer_typespec: , line:3:43, endln:3:50
     |vpiStmt:
     \_begin: (work@test.accumulate1), line:5:3, endln:5:21
       |vpiParent:
@@ -541,8 +555,12 @@ design: (work@test)
       |vpiParent:
       \_assign_stmt: , line:10:7, endln:10:14
       |vpiTypespec:
-      \_int_typespec: , line:10:3, endln:10:6
-        |vpiSigned:1
+      \_ref_typespec: (work@test.accumulate2.acc)
+        |vpiParent:
+        \_int_var: (work@test.accumulate2.acc), line:10:7, endln:10:10
+        |vpiFullName:work@test.accumulate2.acc
+        |vpiActual:
+        \_int_typespec: , line:10:3, endln:10:6
       |vpiName:acc
       |vpiFullName:work@test.accumulate2.acc
       |vpiSigned:1
@@ -552,8 +570,12 @@ design: (work@test)
       |vpiParent:
       \_function: (work@test.accumulate2), line:9:1, endln:13:12
       |vpiTypespec:
-      \_integer_typespec: , line:9:10, endln:9:17
-        |vpiSigned:1
+      \_ref_typespec: (work@test.accumulate2)
+        |vpiParent:
+        \_integer_var: (work@test.accumulate2), line:9:10, endln:9:17
+        |vpiFullName:work@test.accumulate2
+        |vpiActual:
+        \_integer_typespec: , line:9:10, endln:9:17
       |vpiFullName:work@test.accumulate2
       |vpiSigned:1
     |vpiIODecl:
@@ -563,8 +585,12 @@ design: (work@test)
       |vpiDirection:1
       |vpiName:value
       |vpiTypedef:
-      \_integer_typespec: , line:9:36, endln:9:43
-        |vpiSigned:1
+      \_ref_typespec: (work@test.accumulate2.value)
+        |vpiParent:
+        \_io_decl: (value), line:9:44, endln:9:49
+        |vpiFullName:work@test.accumulate2.value
+        |vpiActual:
+        \_integer_typespec: , line:9:36, endln:9:43
     |vpiStmt:
     \_begin: (work@test.accumulate2), line:11:3, endln:11:21
       |vpiParent:
@@ -733,7 +759,12 @@ design: (work@test)
       |vpiParent:
       \_function: (work@test.accumulate1), line:3:1, endln:7:12
       |vpiTypespec:
-      \_int_typespec: , line:4:10, endln:4:13
+      \_ref_typespec: (work@test.accumulate1.acc)
+        |vpiParent:
+        \_int_var: (work@test.accumulate1.acc), line:4:14, endln:4:17
+        |vpiFullName:work@test.accumulate1.acc
+        |vpiActual:
+        \_int_typespec: , line:4:10, endln:4:13
       |vpiName:acc
       |vpiFullName:work@test.accumulate1.acc
       |vpiSigned:1
@@ -747,7 +778,12 @@ design: (work@test)
       |vpiDirection:1
       |vpiName:value
       |vpiTypedef:
-      \_integer_typespec: , line:3:43, endln:3:50
+      \_ref_typespec: (work@test.accumulate1.value)
+        |vpiParent:
+        \_io_decl: (value), line:3:51, endln:3:56
+        |vpiFullName:work@test.accumulate1.value
+        |vpiActual:
+        \_integer_typespec: , line:3:43, endln:3:50
     |vpiStmt:
     \_begin: (work@test.accumulate1), line:5:3, endln:5:21
       |vpiParent:
@@ -758,7 +794,12 @@ design: (work@test)
         |vpiParent:
         \_begin: (work@test.accumulate1), line:5:3, endln:5:21
         |vpiTypespec:
-        \_int_typespec: , line:4:10, endln:4:13
+        \_ref_typespec: (work@test.accumulate1.acc)
+          |vpiParent:
+          \_int_var: (work@test.accumulate1.acc), line:4:14, endln:4:17
+          |vpiFullName:work@test.accumulate1.acc
+          |vpiActual:
+          \_int_typespec: , line:4:10, endln:4:13
         |vpiName:acc
         |vpiFullName:work@test.accumulate1.acc
         |vpiSigned:1
@@ -773,7 +814,12 @@ design: (work@test)
           |vpiParent:
           \_assign_stmt: , line:4:14, endln:4:21
           |vpiTypespec:
-          \_int_typespec: , line:4:10, endln:4:13
+          \_ref_typespec: (work@test.accumulate1.acc)
+            |vpiParent:
+            \_int_var: (work@test.accumulate1.acc), line:4:14, endln:4:17
+            |vpiFullName:work@test.accumulate1.acc
+            |vpiActual:
+            \_int_typespec: , line:4:10, endln:4:13
           |vpiName:acc
           |vpiFullName:work@test.accumulate1.acc
           |vpiSigned:1
@@ -837,7 +883,12 @@ design: (work@test)
       |vpiParent:
       \_function: (work@test.accumulate2), line:9:1, endln:13:12
       |vpiTypespec:
-      \_int_typespec: , line:10:3, endln:10:6
+      \_ref_typespec: (work@test.accumulate2.acc)
+        |vpiParent:
+        \_int_var: (work@test.accumulate2.acc), line:10:7, endln:10:10
+        |vpiFullName:work@test.accumulate2.acc
+        |vpiActual:
+        \_int_typespec: , line:10:3, endln:10:6
       |vpiName:acc
       |vpiFullName:work@test.accumulate2.acc
       |vpiSigned:1
@@ -851,7 +902,12 @@ design: (work@test)
       |vpiDirection:1
       |vpiName:value
       |vpiTypedef:
-      \_integer_typespec: , line:9:36, endln:9:43
+      \_ref_typespec: (work@test.accumulate2.value)
+        |vpiParent:
+        \_io_decl: (value), line:9:44, endln:9:49
+        |vpiFullName:work@test.accumulate2.value
+        |vpiActual:
+        \_integer_typespec: , line:9:36, endln:9:43
     |vpiStmt:
     \_begin: (work@test.accumulate2), line:11:3, endln:11:21
       |vpiParent:
@@ -862,7 +918,12 @@ design: (work@test)
         |vpiParent:
         \_begin: (work@test.accumulate2), line:11:3, endln:11:21
         |vpiTypespec:
-        \_int_typespec: , line:10:3, endln:10:6
+        \_ref_typespec: (work@test.accumulate2.acc)
+          |vpiParent:
+          \_int_var: (work@test.accumulate2.acc), line:10:7, endln:10:10
+          |vpiFullName:work@test.accumulate2.acc
+          |vpiActual:
+          \_int_typespec: , line:10:3, endln:10:6
         |vpiName:acc
         |vpiFullName:work@test.accumulate2.acc
         |vpiSigned:1
@@ -877,7 +938,12 @@ design: (work@test)
           |vpiParent:
           \_assign_stmt: , line:10:7, endln:10:14
           |vpiTypespec:
-          \_int_typespec: , line:10:3, endln:10:6
+          \_ref_typespec: (work@test.accumulate2.acc)
+            |vpiParent:
+            \_int_var: (work@test.accumulate2.acc), line:10:7, endln:10:10
+            |vpiFullName:work@test.accumulate2.acc
+            |vpiActual:
+            \_int_typespec: , line:10:3, endln:10:6
           |vpiName:acc
           |vpiFullName:work@test.accumulate2.acc
           |vpiSigned:1
@@ -931,6 +997,19 @@ design: (work@test)
     |vpiInstance:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/FuncStatic/dut.sv, line:1:1, endln:20:10
   |vpiTopModule:1
+\_weaklyReferenced:
+\_integer_typespec: , line:3:17, endln:3:24
+  |vpiSigned:1
+\_integer_typespec: , line:3:43, endln:3:50
+  |vpiSigned:1
+\_int_typespec: , line:4:10, endln:4:13
+  |vpiSigned:1
+\_integer_typespec: , line:9:10, endln:9:17
+  |vpiSigned:1
+\_integer_typespec: , line:9:36, endln:9:43
+  |vpiSigned:1
+\_int_typespec: , line:10:3, endln:10:6
+  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

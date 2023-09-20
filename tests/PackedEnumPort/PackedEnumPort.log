@@ -179,6 +179,7 @@ port                                                   7
 range                                                  6
 ref_module                                             1
 ref_obj                                                6
+ref_typespec                                          17
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -201,6 +202,7 @@ port                                                  10
 range                                                  6
 ref_module                                             1
 ref_obj                                                9
+ref_typespec                                          20
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PackedEnumPort/slpp_all/surelog.uhdm ...
 
@@ -228,29 +230,12 @@ design: (work@top)
     |vpiInstance:
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:2:1, endln:8:25
     |vpiBaseTypespec:
-    \_logic_typespec: , line:3:17, endln:3:28
-      |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:2:1, endln:8:25
-      |vpiRange:
-      \_range: , line:3:23, endln:3:28
-        |vpiParent:
-        \_logic_typespec: , line:3:17, endln:3:28
-        |vpiLeftRange:
-        \_constant: , line:3:24, endln:3:25
-          |vpiParent:
-          \_range: , line:3:23, endln:3:28
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:3:26, endln:3:27
-          |vpiParent:
-          \_range: , line:3:23, endln:3:28
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (lc_ctrl_pkg::lc_ctrl_pkg::lc_tx_e)
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::lc_tx_e), line:3:4, endln:5:14
+      |vpiFullName:lc_ctrl_pkg::lc_ctrl_pkg::lc_tx_e
+      |vpiActual:
+      \_logic_typespec: , line:3:17, endln:3:28
     |vpiEnumConst:
     \_enum_const: (On), line:4:7, endln:4:19
       |vpiParent:
@@ -274,29 +259,12 @@ design: (work@top)
     |vpiInstance:
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:2:1, endln:8:25
     |vpiBaseTypespec:
-    \_logic_typespec: , line:3:17, endln:3:28
-      |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:2:1, endln:8:25
-      |vpiRange:
-      \_range: , line:3:23, endln:3:28
-        |vpiParent:
-        \_logic_typespec: , line:3:17, endln:3:28
-        |vpiLeftRange:
-        \_constant: , line:3:24, endln:3:25
-          |vpiParent:
-          \_range: , line:3:23, endln:3:28
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:3:26, endln:3:27
-          |vpiParent:
-          \_range: , line:3:23, endln:3:28
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (lc_ctrl_pkg::lc_ctrl_pkg::lc_tx_e)
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::lc_tx_e), line:3:4, endln:5:14
+      |vpiFullName:lc_ctrl_pkg::lc_ctrl_pkg::lc_tx_e
+      |vpiActual:
+      \_logic_typespec: , line:3:17, endln:3:28
     |vpiEnumConst:
     \_enum_const: (On), line:4:7, endln:4:19
       |vpiParent:
@@ -311,35 +279,21 @@ design: (work@top)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:2:1, endln:8:25
     |vpiName:lc_ctrl_pkg::lc_tx_t
     |vpiTypedefAlias:
-    \_enum_typespec: (lc_ctrl_pkg::lc_tx_e), line:3:4, endln:5:14
+    \_ref_typespec: (lc_ctrl_pkg::lc_ctrl_pkg::lc_tx_t)
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::lc_tx_t), line:3:4, endln:5:14
+      |vpiFullName:lc_ctrl_pkg::lc_ctrl_pkg::lc_tx_t
+      |vpiActual:
+      \_enum_typespec: (lc_ctrl_pkg::lc_tx_e), line:3:4, endln:5:14
     |vpiInstance:
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:2:1, endln:8:25
     |vpiBaseTypespec:
-    \_logic_typespec: , line:3:17, endln:3:28
+    \_ref_typespec: (lc_ctrl_pkg::lc_ctrl_pkg::lc_tx_t)
       |vpiParent:
       \_enum_typespec: (lc_ctrl_pkg::lc_tx_t), line:3:4, endln:5:14
-      |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:2:1, endln:8:25
-      |vpiRange:
-      \_range: , line:3:23, endln:3:28
-        |vpiParent:
-        \_logic_typespec: , line:3:17, endln:3:28
-        |vpiLeftRange:
-        \_constant: , line:3:24, endln:3:25
-          |vpiParent:
-          \_range: , line:3:23, endln:3:28
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:3:26, endln:3:27
-          |vpiParent:
-          \_range: , line:3:23, endln:3:28
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:lc_ctrl_pkg::lc_ctrl_pkg::lc_tx_t
+      |vpiActual:
+      \_logic_typespec: , line:3:17, endln:3:28
     |vpiEnumConst:
     \_enum_const: (On), line:4:7, endln:4:19
       |vpiParent:
@@ -378,7 +332,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@lc_ctrl_fsm.lc_clk_byp_ack_i), line:13:15, endln:13:31
     |vpiTypedef:
-    \_logic_typespec: , line:13:9, endln:13:14
+    \_ref_typespec: (work@lc_ctrl_fsm.lc_clk_byp_ack_i)
+      |vpiParent:
+      \_port: (lc_clk_byp_ack_i), line:13:15, endln:13:31
+      |vpiFullName:work@lc_ctrl_fsm.lc_clk_byp_ack_i
+      |vpiActual:
+      \_logic_typespec: , line:13:9, endln:13:14
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:24:1, endln:37:16
   |vpiParent:
@@ -402,29 +361,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:24:1, endln:37:16
     |vpiTypespec:
-    \_packed_array_typespec: 
-      |vpiRange:
-      \_range: , line:25:24, endln:25:29
-        |vpiParent:
-        \_packed_array_typespec: 
-        |vpiLeftRange:
-        \_constant: , line:25:25, endln:25:26
-          |vpiParent:
-          \_range: , line:25:24, endln:25:29
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:25:27, endln:25:28
-          |vpiParent:
-          \_range: , line:25:24, endln:25:29
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-      |vpiElemTypespec:
-      \_enum_typespec: (lc_ctrl_pkg::lc_tx_t), line:3:4, endln:5:14
+    \_ref_typespec: (work@top.lc_clk_byp_ack)
+      |vpiParent:
+      \_logic_net: (work@top.lc_clk_byp_ack), line:25:30, endln:25:44
+      |vpiFullName:work@top.lc_clk_byp_ack
+      |vpiActual:
+      \_packed_array_typespec: 
     |vpiName:lc_clk_byp_ack
     |vpiFullName:work@top.lc_clk_byp_ack
   |vpiPort:
@@ -442,8 +384,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.o), line:24:23, endln:24:24
     |vpiTypedef:
-    \_int_typespec: , line:24:19, endln:24:22
-      |vpiSigned:1
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_port: (o), line:24:23, endln:24:24
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_int_typespec: , line:24:19, endln:24:22
   |vpiPort:
   \_port: (p), line:24:37, endln:24:38
     |vpiParent:
@@ -459,8 +405,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.p), line:24:37, endln:24:38
     |vpiTypedef:
-    \_int_typespec: , line:24:33, endln:24:36
-      |vpiSigned:1
+    \_ref_typespec: (work@top.p)
+      |vpiParent:
+      \_port: (p), line:24:37, endln:24:38
+      |vpiFullName:work@top.p
+      |vpiActual:
+      \_int_typespec: , line:24:33, endln:24:36
   |vpiRefModule:
   \_ref_module: work@lc_ctrl_fsm (u_lc_ctrl_fsm), line:34:16, endln:34:29
     |vpiParent:
@@ -496,10 +446,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:24:1, endln:37:16
     |vpiTypespec:
-    \_int_typespec: , line:24:19, endln:24:22
+    \_ref_typespec: (work@top.o)
       |vpiParent:
       \_int_var: (work@top.o), line:24:23, endln:24:24
-      |vpiSigned:1
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_int_typespec: , line:24:19, endln:24:22
     |vpiName:o
     |vpiFullName:work@top.o
     |vpiSigned:1
@@ -509,10 +461,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:24:1, endln:37:16
     |vpiTypespec:
-    \_int_typespec: , line:24:33, endln:24:36
+    \_ref_typespec: (work@top.p)
       |vpiParent:
       \_int_var: (work@top.p), line:24:37, endln:24:38
-      |vpiSigned:1
+      |vpiFullName:work@top.p
+      |vpiActual:
+      \_int_typespec: , line:24:33, endln:24:36
     |vpiName:p
     |vpiFullName:work@top.p
     |vpiSigned:1
@@ -549,7 +503,12 @@ design: (work@top)
       |vpiParent:
       \_packed_array_var: (work@top.lc_clk_byp_ack), line:25:30, endln:25:44
       |vpiTypespec:
-      \_enum_typespec: (lc_ctrl_pkg::lc_tx_t), line:3:4, endln:5:14
+      \_ref_typespec: (work@top.lc_clk_byp_ack.lc_clk_byp_ack)
+        |vpiParent:
+        \_enum_var: (work@top.lc_clk_byp_ack.lc_clk_byp_ack)
+        |vpiFullName:work@top.lc_clk_byp_ack.lc_clk_byp_ack
+        |vpiActual:
+        \_enum_typespec: (lc_ctrl_pkg::lc_tx_t), line:3:4, endln:5:14
       |vpiName:lc_clk_byp_ack
       |vpiFullName:work@top.lc_clk_byp_ack.lc_clk_byp_ack
   |vpiDefName:work@top
@@ -570,8 +529,12 @@ design: (work@top)
       |vpiActual:
       \_int_var: (work@top.o), line:24:23, endln:24:24
     |vpiTypedef:
-    \_int_typespec: , line:24:19, endln:24:22
-      |vpiSigned:1
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_port: (o), line:24:23, endln:24:24
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_int_typespec: , line:24:19, endln:24:22
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:24:1, endln:37:16
   |vpiPort:
@@ -589,8 +552,12 @@ design: (work@top)
       |vpiActual:
       \_int_var: (work@top.p), line:24:37, endln:24:38
     |vpiTypedef:
-    \_int_typespec: , line:24:33, endln:24:36
-      |vpiSigned:1
+    \_ref_typespec: (work@top.p)
+      |vpiParent:
+      \_port: (p), line:24:37, endln:24:38
+      |vpiFullName:work@top.p
+      |vpiActual:
+      \_int_typespec: , line:24:33, endln:24:36
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:24:1, endln:37:16
   |vpiModule:
@@ -607,9 +574,12 @@ design: (work@top)
       |vpiParent:
       \_module_inst: work@lc_ctrl_fsm (work@top.u_lc_ctrl_fsm), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:34:4, endln:36:6
       |vpiTypespec:
-      \_logic_typespec: , line:13:9, endln:13:14
+      \_ref_typespec: (work@top.u_lc_ctrl_fsm.lc_clk_byp_ack_i)
         |vpiParent:
         \_logic_net: (work@top.u_lc_ctrl_fsm.lc_clk_byp_ack_i), line:13:15, endln:13:31
+        |vpiFullName:work@top.u_lc_ctrl_fsm.lc_clk_byp_ack_i
+        |vpiActual:
+        \_logic_typespec: , line:13:9, endln:13:14
       |vpiName:lc_clk_byp_ack_i
       |vpiFullName:work@top.u_lc_ctrl_fsm.lc_clk_byp_ack_i
       |vpiNetType:36
@@ -646,9 +616,163 @@ design: (work@top)
         |vpiActual:
         \_logic_net: (work@top.u_lc_ctrl_fsm.lc_clk_byp_ack_i), line:13:15, endln:13:31
       |vpiTypedef:
-      \_logic_typespec: , line:13:9, endln:13:14
+      \_ref_typespec: (work@top.u_lc_ctrl_fsm.lc_clk_byp_ack_i)
+        |vpiParent:
+        \_port: (lc_clk_byp_ack_i), line:13:15, endln:13:31
+        |vpiFullName:work@top.u_lc_ctrl_fsm.lc_clk_byp_ack_i
+        |vpiActual:
+        \_logic_typespec: , line:13:9, endln:13:14
       |vpiInstance:
       \_module_inst: work@lc_ctrl_fsm (work@top.u_lc_ctrl_fsm), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:34:4, endln:36:6
+\_weaklyReferenced:
+\_logic_typespec: , line:3:17, endln:3:28
+  |vpiInstance:
+  \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:2:1, endln:8:25
+  |vpiRange:
+  \_range: , line:3:23, endln:3:28
+    |vpiParent:
+    \_logic_typespec: , line:3:17, endln:3:28
+    |vpiLeftRange:
+    \_constant: , line:3:24, endln:3:25
+      |vpiParent:
+      \_range: , line:3:23, endln:3:28
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:26, endln:3:27
+      |vpiParent:
+      \_range: , line:3:23, endln:3:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:3:17, endln:3:28
+  |vpiParent:
+  \_ref_typespec: (lc_ctrl_pkg::lc_ctrl_pkg::lc_tx_t)
+  |vpiInstance:
+  \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:2:1, endln:8:25
+  |vpiRange:
+  \_range: , line:3:23, endln:3:28
+    |vpiParent:
+    \_logic_typespec: , line:3:17, endln:3:28
+    |vpiLeftRange:
+    \_constant: , line:3:24, endln:3:25
+      |vpiParent:
+      \_range: , line:3:23, endln:3:28
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:26, endln:3:27
+      |vpiParent:
+      \_range: , line:3:23, endln:3:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:3:17, endln:3:28
+  |vpiInstance:
+  \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:2:1, endln:8:25
+  |vpiRange:
+  \_range: , line:3:23, endln:3:28
+    |vpiParent:
+    \_logic_typespec: , line:3:17, endln:3:28
+    |vpiLeftRange:
+    \_constant: , line:3:24, endln:3:25
+      |vpiParent:
+      \_range: , line:3:23, endln:3:28
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:26, endln:3:27
+      |vpiParent:
+      \_range: , line:3:23, endln:3:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:24:19, endln:24:22
+  |vpiSigned:1
+\_int_typespec: , line:24:33, endln:24:36
+  |vpiSigned:1
+\_int_typespec: , line:24:19, endln:24:22
+  |vpiParent:
+  \_int_var: (work@top.o), line:24:23, endln:24:24
+  |vpiSigned:1
+\_int_typespec: , line:24:33, endln:24:36
+  |vpiParent:
+  \_int_var: (work@top.p), line:24:37, endln:24:38
+  |vpiSigned:1
+\_logic_typespec: , line:13:9, endln:13:14
+\_logic_typespec: , line:13:9, endln:13:14
+  |vpiParent:
+  \_logic_net: (work@top.u_lc_ctrl_fsm.lc_clk_byp_ack_i), line:13:15, endln:13:31
+\_bit_select: (work@top.u_lc_ctrl_fsm.lc_clk_byp_ack), line:35:41, endln:35:42
+  |vpiParent:
+  \_port: (lc_clk_byp_ack_i), line:13:15, endln:13:31
+  |vpiName:lc_clk_byp_ack
+  |vpiFullName:work@top.u_lc_ctrl_fsm.lc_clk_byp_ack
+  |vpiIndex:
+  \_constant: , line:35:41, endln:35:42
+\_port: (lc_clk_byp_ack_i), line:13:15, endln:13:31
+  |vpiParent:
+  \_module_inst: work@lc_ctrl_fsm (work@top.u_lc_ctrl_fsm), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:34:4, endln:36:6
+  |vpiName:lc_clk_byp_ack_i
+  |vpiDirection:1
+  |vpiHighConn:
+  \_bit_select: (work@top.u_lc_ctrl_fsm.lc_clk_byp_ack), line:35:41, endln:35:42
+  |vpiLowConn:
+  \_ref_obj: (work@top.u_lc_ctrl_fsm.lc_clk_byp_ack_i), line:35:8, endln:35:24
+    |vpiParent:
+    \_port: (lc_clk_byp_ack_i), line:13:15, endln:13:31
+    |vpiName:lc_clk_byp_ack_i
+    |vpiFullName:work@top.u_lc_ctrl_fsm.lc_clk_byp_ack_i
+    |vpiActual:
+    \_logic_net: (work@top.u_lc_ctrl_fsm.lc_clk_byp_ack_i), line:13:15, endln:13:31
+  |vpiTypedef:
+  \_ref_typespec: (work@top.u_lc_ctrl_fsm.lc_clk_byp_ack_i)
+    |vpiParent:
+    \_port: (lc_clk_byp_ack_i), line:13:15, endln:13:31
+    |vpiFullName:work@top.u_lc_ctrl_fsm.lc_clk_byp_ack_i
+    |vpiActual:
+    \_logic_typespec: , line:13:9, endln:13:14
+\_logic_typespec: , line:13:9, endln:13:14
+\_int_typespec: , line:24:19, endln:24:22
+  |vpiSigned:1
+\_int_typespec: , line:24:33, endln:24:36
+  |vpiSigned:1
+\_packed_array_typespec: 
+  |vpiRange:
+  \_range: , line:25:24, endln:25:29
+    |vpiParent:
+    \_packed_array_typespec: 
+    |vpiLeftRange:
+    \_constant: , line:25:25, endln:25:26
+      |vpiParent:
+      \_range: , line:25:24, endln:25:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:25:27, endln:25:28
+      |vpiParent:
+      \_range: , line:25:24, endln:25:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_typespec: 
+    |vpiParent:
+    \_packed_array_typespec: 
+    |vpiActual:
+    \_enum_typespec: (lc_ctrl_pkg::lc_tx_t), line:3:4, endln:5:14
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
