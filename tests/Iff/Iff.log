@@ -150,6 +150,7 @@ logic_typespec                                        11
 module_inst                                            3
 operation                                              3
 ref_obj                                                4
+ref_typespec                                          11
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -165,6 +166,7 @@ logic_typespec                                        11
 module_inst                                            3
 operation                                              6
 ref_obj                                                8
+ref_typespec                                          11
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/Iff/slpp_all/surelog.uhdm ...
 
@@ -189,7 +191,12 @@ design: (work@block_tb)
     |vpiParent:
     \_module_inst: work@block_tb (work@block_tb), file:${SURELOG_DIR}/tests/Iff/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:2, endln:2:6
+    \_ref_typespec: (work@block_tb.clk)
+      |vpiParent:
+      \_logic_net: (work@block_tb.clk), line:2:7, endln:2:10
+      |vpiFullName:work@block_tb.clk
+      |vpiActual:
+      \_logic_typespec: , line:2:2, endln:2:6
     |vpiName:clk
     |vpiFullName:work@block_tb.clk
     |vpiNetType:1
@@ -198,7 +205,12 @@ design: (work@block_tb)
     |vpiParent:
     \_module_inst: work@block_tb (work@block_tb), file:${SURELOG_DIR}/tests/Iff/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:2, endln:3:6
+    \_ref_typespec: (work@block_tb.en)
+      |vpiParent:
+      \_logic_net: (work@block_tb.en), line:3:7, endln:3:9
+      |vpiFullName:work@block_tb.en
+      |vpiActual:
+      \_logic_typespec: , line:3:2, endln:3:6
     |vpiName:en
     |vpiFullName:work@block_tb.en
     |vpiNetType:1
@@ -207,7 +219,12 @@ design: (work@block_tb)
     |vpiParent:
     \_module_inst: work@block_tb (work@block_tb), file:${SURELOG_DIR}/tests/Iff/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
-    \_logic_typespec: , line:4:2, endln:4:6
+    \_ref_typespec: (work@block_tb.a)
+      |vpiParent:
+      \_logic_net: (work@block_tb.a), line:4:7, endln:4:8
+      |vpiFullName:work@block_tb.a
+      |vpiActual:
+      \_logic_typespec: , line:4:2, endln:4:6
     |vpiName:a
     |vpiFullName:work@block_tb.a
     |vpiNetType:1
@@ -216,7 +233,12 @@ design: (work@block_tb)
     |vpiParent:
     \_module_inst: work@block_tb (work@block_tb), file:${SURELOG_DIR}/tests/Iff/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
-    \_logic_typespec: , line:5:2, endln:5:5
+    \_ref_typespec: (work@block_tb.y)
+      |vpiParent:
+      \_logic_net: (work@block_tb.y), line:5:6, endln:5:7
+      |vpiFullName:work@block_tb.y
+      |vpiActual:
+      \_logic_typespec: , line:5:2, endln:5:5
     |vpiName:y
     |vpiFullName:work@block_tb.y
     |vpiNetType:48
@@ -299,7 +321,12 @@ design: (work@block_tb)
     |vpiParent:
     \_module_inst: work@block_tb (work@block_tb), file:${SURELOG_DIR}/tests/Iff/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:2, endln:2:6
+    \_ref_typespec: (work@block_tb.clk)
+      |vpiParent:
+      \_logic_net: (work@block_tb.clk), line:2:7, endln:2:10
+      |vpiFullName:work@block_tb.clk
+      |vpiActual:
+      \_logic_typespec: , line:2:2, endln:2:6
     |vpiName:clk
     |vpiFullName:work@block_tb.clk
     |vpiNetType:1
@@ -308,7 +335,12 @@ design: (work@block_tb)
     |vpiParent:
     \_module_inst: work@block_tb (work@block_tb), file:${SURELOG_DIR}/tests/Iff/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:2, endln:3:6
+    \_ref_typespec: (work@block_tb.en)
+      |vpiParent:
+      \_logic_net: (work@block_tb.en), line:3:7, endln:3:9
+      |vpiFullName:work@block_tb.en
+      |vpiActual:
+      \_logic_typespec: , line:3:2, endln:3:6
     |vpiName:en
     |vpiFullName:work@block_tb.en
     |vpiNetType:1
@@ -317,7 +349,12 @@ design: (work@block_tb)
     |vpiParent:
     \_module_inst: work@block_tb (work@block_tb), file:${SURELOG_DIR}/tests/Iff/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
-    \_logic_typespec: , line:4:2, endln:4:6
+    \_ref_typespec: (work@block_tb.a)
+      |vpiParent:
+      \_logic_net: (work@block_tb.a), line:4:7, endln:4:8
+      |vpiFullName:work@block_tb.a
+      |vpiActual:
+      \_logic_typespec: , line:4:2, endln:4:6
     |vpiName:a
     |vpiFullName:work@block_tb.a
     |vpiNetType:1
@@ -326,9 +363,12 @@ design: (work@block_tb)
     |vpiParent:
     \_module_inst: work@block_tb (work@block_tb), file:${SURELOG_DIR}/tests/Iff/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
-    \_logic_typespec: , line:5:2, endln:5:5
+    \_ref_typespec: (work@block_tb.y)
       |vpiParent:
       \_logic_net: (work@block_tb.y), line:5:6, endln:5:7
+      |vpiFullName:work@block_tb.y
+      |vpiActual:
+      \_logic_typespec: , line:5:2, endln:5:5
     |vpiName:y
     |vpiFullName:work@block_tb.y
     |vpiNetType:48
@@ -441,6 +481,86 @@ design: (work@block_tb)
       |vpiConstType:9
     |vpiLhs:
     \_logic_net: (work@block_tb.a), line:4:7, endln:4:8
+\_weaklyReferenced:
+\_logic_typespec: , line:2:2, endln:2:6
+\_logic_typespec: , line:3:2, endln:3:6
+\_logic_typespec: , line:4:2, endln:4:6
+\_logic_typespec: , line:5:2, endln:5:5
+  |vpiParent:
+  \_logic_net: (work@block_tb.y), line:5:6, endln:5:7
+\_logic_typespec: , line:2:2, endln:2:6
+\_logic_typespec: , line:3:2, endln:3:6
+\_logic_typespec: , line:4:2, endln:4:6
+\_logic_typespec: , line:5:2, endln:5:5
+\_cont_assign: , line:2:7, endln:2:10
+  |vpiParent:
+  \_module_inst: work@block_tb (work@block_tb), file:${SURELOG_DIR}/tests/Iff/dut.sv, line:1:1, endln:8:10
+  |vpiNetDeclAssign:1
+  |vpiRhs:
+  \_constant: , line:2:13, endln:2:14
+  |vpiLhs:
+  \_logic_net: (work@block_tb.clk), line:2:7, endln:2:10
+    |vpiParent:
+    \_cont_assign: , line:2:7, endln:2:10
+    |vpiTypespec:
+    \_ref_typespec: (work@block_tb.clk)
+      |vpiParent:
+      \_logic_net: (work@block_tb.clk), line:2:7, endln:2:10
+      |vpiFullName:work@block_tb.clk
+      |vpiActual:
+      \_logic_typespec: , line:2:2, endln:2:6
+    |vpiName:clk
+    |vpiFullName:work@block_tb.clk
+    |vpiNetType:1
+\_logic_typespec: , line:2:2, endln:2:6
+  |vpiParent:
+  \_ref_typespec: (work@block_tb.clk)
+\_cont_assign: , line:3:7, endln:3:9
+  |vpiParent:
+  \_module_inst: work@block_tb (work@block_tb), file:${SURELOG_DIR}/tests/Iff/dut.sv, line:1:1, endln:8:10
+  |vpiNetDeclAssign:1
+  |vpiRhs:
+  \_constant: , line:3:12, endln:3:13
+  |vpiLhs:
+  \_logic_net: (work@block_tb.en), line:3:7, endln:3:9
+    |vpiParent:
+    \_cont_assign: , line:3:7, endln:3:9
+    |vpiTypespec:
+    \_ref_typespec: (work@block_tb.en)
+      |vpiParent:
+      \_logic_net: (work@block_tb.en), line:3:7, endln:3:9
+      |vpiFullName:work@block_tb.en
+      |vpiActual:
+      \_logic_typespec: , line:3:2, endln:3:6
+    |vpiName:en
+    |vpiFullName:work@block_tb.en
+    |vpiNetType:1
+\_logic_typespec: , line:3:2, endln:3:6
+  |vpiParent:
+  \_ref_typespec: (work@block_tb.en)
+\_cont_assign: , line:4:7, endln:4:8
+  |vpiParent:
+  \_module_inst: work@block_tb (work@block_tb), file:${SURELOG_DIR}/tests/Iff/dut.sv, line:1:1, endln:8:10
+  |vpiNetDeclAssign:1
+  |vpiRhs:
+  \_constant: , line:4:11, endln:4:12
+  |vpiLhs:
+  \_logic_net: (work@block_tb.a), line:4:7, endln:4:8
+    |vpiParent:
+    \_cont_assign: , line:4:7, endln:4:8
+    |vpiTypespec:
+    \_ref_typespec: (work@block_tb.a)
+      |vpiParent:
+      \_logic_net: (work@block_tb.a), line:4:7, endln:4:8
+      |vpiFullName:work@block_tb.a
+      |vpiActual:
+      \_logic_typespec: , line:4:2, endln:4:6
+    |vpiName:a
+    |vpiFullName:work@block_tb.a
+    |vpiNetType:1
+\_logic_typespec: , line:4:2, endln:4:6
+  |vpiParent:
+  \_ref_typespec: (work@block_tb.a)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

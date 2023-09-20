@@ -340,6 +340,7 @@ param_assign                                           6
 parameter                                              6
 ref_module                                             1
 ref_obj                                               12
+ref_typespec                                          20
 return_stmt                                            4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -366,6 +367,7 @@ param_assign                                           6
 parameter                                              6
 ref_module                                             1
 ref_obj                                               13
+ref_typespec                                          20
 return_stmt                                            6
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FuncDeclScope/slpp_all/surelog.uhdm ...
@@ -391,9 +393,12 @@ design: (work@top)
     \_interface_inst: work@intf (work@intf), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:1:1, endln:18:13
     |UINT:4
     |vpiTypespec:
-    \_int_typespec: , line:2:14, endln:2:26
+    \_ref_typespec: (work@intf.Depth)
       |vpiParent:
       \_parameter: (work@intf.Depth), line:2:27, endln:2:32
+      |vpiFullName:work@intf.Depth
+      |vpiActual:
+      \_int_typespec: , line:2:14, endln:2:26
     |vpiName:Depth
     |vpiFullName:work@intf.Depth
   |vpiParamAssign:
@@ -408,7 +413,12 @@ design: (work@top)
       |vpiSize:64
       |UINT:4
       |vpiTypespec:
-      \_int_typespec: , line:2:14, endln:2:26
+      \_ref_typespec: (work@intf)
+        |vpiParent:
+        \_constant: , line:2:35, endln:2:36
+        |vpiFullName:work@intf
+        |vpiActual:
+        \_int_typespec: , line:2:14, endln:2:26
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@intf.Depth), line:2:27, endln:2:32
@@ -426,8 +436,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@intf.get2), line:5:4, endln:7:18
       |vpiTypespec:
-      \_int_typespec: , line:5:23, endln:5:26
-        |vpiSigned:1
+      \_ref_typespec: (work@intf.get2)
+        |vpiParent:
+        \_int_var: (work@intf.get2), line:5:23, endln:5:26
+        |vpiFullName:work@intf.get2
+        |vpiActual:
+        \_int_typespec: , line:5:23, endln:5:26
       |vpiFullName:work@intf.get2
       |vpiSigned:1
     |vpiStmt:
@@ -447,8 +461,12 @@ design: (work@top)
     |vpiParent:
     \_interface_inst: work@intf (work@intf), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:1:1, endln:18:13
     |vpiTypespec:
-    \_int_typespec: , line:3:4, endln:3:7
-      |vpiSigned:1
+    \_ref_typespec: (work@intf.o)
+      |vpiParent:
+      \_logic_net: (work@intf.o), line:3:27, endln:3:28
+      |vpiFullName:work@intf.o
+      |vpiActual:
+      \_int_typespec: , line:3:4, endln:3:7
     |vpiName:o
     |vpiFullName:work@intf.o
   |vpiGenStmt:
@@ -529,9 +547,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
     |UINT:4
     |vpiTypespec:
-    \_int_typespec: , line:22:14, endln:22:26
+    \_ref_typespec: (work@top.Depth)
       |vpiParent:
       \_parameter: (work@top.Depth), line:22:27, endln:22:32
+      |vpiFullName:work@top.Depth
+      |vpiActual:
+      \_int_typespec: , line:22:14, endln:22:26
     |vpiName:Depth
     |vpiFullName:work@top.Depth
   |vpiParamAssign:
@@ -546,7 +567,12 @@ design: (work@top)
       |vpiSize:64
       |UINT:4
       |vpiTypespec:
-      \_int_typespec: , line:22:14, endln:22:26
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:22:35, endln:22:36
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:22:14, endln:22:26
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.Depth), line:22:27, endln:22:32
@@ -564,8 +590,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@top.get4), line:25:4, endln:27:18
       |vpiTypespec:
-      \_int_typespec: , line:25:23, endln:25:26
-        |vpiSigned:1
+      \_ref_typespec: (work@top.get4)
+        |vpiParent:
+        \_int_var: (work@top.get4), line:25:23, endln:25:26
+        |vpiFullName:work@top.get4
+        |vpiActual:
+        \_int_typespec: , line:25:23, endln:25:26
       |vpiFullName:work@top.get4
       |vpiSigned:1
     |vpiStmt:
@@ -585,8 +615,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
     |vpiTypespec:
-    \_int_typespec: , line:23:4, endln:23:7
-      |vpiSigned:1
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_logic_net: (work@top.o), line:23:27, endln:23:28
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_int_typespec: , line:23:4, endln:23:7
     |vpiName:o
     |vpiFullName:work@top.o
   |vpiRefModule:
@@ -672,8 +706,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
     |vpiTypespec:
-    \_int_typespec: , line:23:4, endln:23:7
-      |vpiSigned:1
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_int_var: (work@top.o), line:23:27, endln:23:28
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_int_typespec: , line:23:4, endln:23:7
     |vpiName:o
     |vpiFullName:work@top.o
     |vpiVisibility:1
@@ -683,9 +721,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
     |UINT:4
     |vpiTypespec:
-    \_int_typespec: , line:22:14, endln:22:26
+    \_ref_typespec: (work@top.Depth)
       |vpiParent:
       \_parameter: (work@top.Depth), line:22:27, endln:22:32
+      |vpiFullName:work@top.Depth
+      |vpiActual:
+      \_int_typespec: , line:22:14, endln:22:26
     |vpiName:Depth
     |vpiFullName:work@top.Depth
   |vpiParamAssign:
@@ -700,7 +741,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:4
       |vpiTypespec:
-      \_int_typespec: , line:22:14, endln:22:26
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:22:35, endln:22:36
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:22:14, endln:22:26
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.Depth), line:22:27, endln:22:32
@@ -736,10 +782,12 @@ design: (work@top)
       |vpiParent:
       \_interface_inst: work@intf (work@top.interf), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:28:3, endln:28:17
       |vpiTypespec:
-      \_int_typespec: , line:3:4, endln:3:7
+      \_ref_typespec: (work@top.interf.o)
         |vpiParent:
         \_int_var: (work@top.interf.o), line:3:27, endln:3:28
-        |vpiSigned:1
+        |vpiFullName:work@top.interf.o
+        |vpiActual:
+        \_int_typespec: , line:3:4, endln:3:7
       |vpiName:o
       |vpiFullName:work@top.interf.o
       |vpiVisibility:1
@@ -749,9 +797,12 @@ design: (work@top)
       \_interface_inst: work@intf (work@top.interf), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:28:3, endln:28:17
       |UINT:4
       |vpiTypespec:
-      \_int_typespec: , line:2:14, endln:2:26
+      \_ref_typespec: (work@top.interf.Depth)
         |vpiParent:
         \_parameter: (work@top.interf.Depth), line:2:27, endln:2:32
+        |vpiFullName:work@top.interf.Depth
+        |vpiActual:
+        \_int_typespec: , line:2:14, endln:2:26
       |vpiName:Depth
       |vpiFullName:work@top.interf.Depth
     |vpiParamAssign:
@@ -766,7 +817,12 @@ design: (work@top)
         |vpiSize:32
         |UINT:4
         |vpiTypespec:
-        \_int_typespec: , line:2:14, endln:2:26
+        \_ref_typespec: (work@top.interf)
+          |vpiParent:
+          \_constant: , line:2:35, endln:2:36
+          |vpiFullName:work@top.interf
+          |vpiActual:
+          \_int_typespec: , line:2:14, endln:2:26
         |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@top.interf.Depth), line:2:27, endln:2:32
@@ -821,8 +877,12 @@ design: (work@top)
             |vpiParent:
             \_function: (work@top.interf.gen_block.get3), line:10:7, endln:12:18
             |vpiTypespec:
-            \_int_typespec: , line:10:26, endln:10:29
-              |vpiSigned:1
+            \_ref_typespec: (work@top.interf.gen_block.get3)
+              |vpiParent:
+              \_int_var: (work@top.interf.gen_block.get3), line:10:26, endln:10:29
+              |vpiFullName:work@top.interf.gen_block.get3
+              |vpiActual:
+              \_int_typespec: , line:10:26, endln:10:29
             |vpiFullName:work@top.interf.gen_block.get3
             |vpiSigned:1
           |vpiStmt:
@@ -879,8 +939,12 @@ design: (work@top)
           |vpiParent:
           \_function: (work@top.gen_block.get1), line:30:7, endln:32:18
           |vpiTypespec:
-          \_int_typespec: , line:30:26, endln:30:29
-            |vpiSigned:1
+          \_ref_typespec: (work@top.gen_block.get1)
+            |vpiParent:
+            \_int_var: (work@top.gen_block.get1), line:30:26, endln:30:29
+            |vpiFullName:work@top.gen_block.get1
+            |vpiActual:
+            \_int_typespec: , line:30:26, endln:30:29
           |vpiFullName:work@top.gen_block.get1
           |vpiSigned:1
         |vpiStmt:
@@ -893,6 +957,79 @@ design: (work@top)
             |vpiSize:64
             |UINT:1
             |vpiConstType:9
+\_weaklyReferenced:
+\_int_typespec: , line:2:14, endln:2:26
+  |vpiParent:
+  \_parameter: (work@intf.Depth), line:2:27, endln:2:32
+\_int_typespec: , line:5:23, endln:5:26
+  |vpiSigned:1
+\_int_typespec: , line:22:14, endln:22:26
+  |vpiParent:
+  \_parameter: (work@top.Depth), line:22:27, endln:22:32
+\_int_typespec: , line:25:23, endln:25:26
+  |vpiSigned:1
+\_int_typespec: , line:23:4, endln:23:7
+  |vpiSigned:1
+\_int_typespec: , line:3:4, endln:3:7
+  |vpiParent:
+  \_int_var: (work@top.interf.o), line:3:27, endln:3:28
+  |vpiSigned:1
+\_int_typespec: , line:10:26, endln:10:29
+  |vpiSigned:1
+\_function: (work@top.gen_block.get1), line:30:7, endln:32:18
+  |vpiParent:
+  \_gen_scope: (work@top.gen_block), line:29:19, endln:35:19
+  |vpiName:get1
+  |vpiFullName:work@top.gen_block.get1
+  |vpiVisibility:1
+  |vpiAutomatic:1
+  |vpiReturn:
+  \_int_var: (work@top.gen_block.get1), line:30:26, endln:30:29
+  |vpiStmt:
+  \_return_stmt: , line:31:10, endln:31:16
+    |vpiParent:
+    \_function: (work@top.gen_block.get1), line:30:7, endln:32:18
+    |vpiCondition:
+    \_constant: , line:31:17, endln:31:18
+\_int_typespec: , line:30:26, endln:30:29
+  |vpiSigned:1
+\_int_typespec: , line:3:4, endln:3:7
+  |vpiSigned:1
+\_int_typespec: , line:23:4, endln:23:7
+  |vpiSigned:1
+\_int_typespec: , line:22:14, endln:22:26
+  |vpiParent:
+  \_ref_typespec: (work@top.Depth)
+\_int_typespec: , line:2:14, endln:2:26
+  |vpiParent:
+  \_ref_typespec: (work@top.interf.Depth)
+\_gen_scope: (work@top.gen_block), line:29:19, endln:35:19
+  |vpiParent:
+  \_gen_scope_array: (work@top.gen_block), line:29:19, endln:35:19
+  |vpiFullName:work@top.gen_block
+  |vpiContAssign:
+  \_cont_assign: , line:34:14, endln:34:24
+    |vpiParent:
+    \_gen_scope: (work@top.gen_block), line:29:19, endln:35:19
+    |vpiRhs:
+    \_constant: , line:31:17, endln:31:18
+    |vpiLhs:
+    \_ref_obj: (work@top.gen_block.o), line:34:14, endln:34:15
+      |vpiParent:
+      \_cont_assign: , line:34:14, endln:34:24
+      |vpiName:o
+      |vpiFullName:work@top.gen_block.o
+      |vpiActual:
+      \_int_var: (work@top.o), line:23:27, endln:23:28
+  |vpiTaskFunc:
+  \_function: (work@top.gen_block.get1), line:30:7, endln:32:18
+\_gen_scope_array: (work@top.gen_block), line:29:19, endln:35:19
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
+  |vpiName:gen_block
+  |vpiFullName:work@top.gen_block
+  |vpiGenScope:
+  \_gen_scope: (work@top.gen_block), line:29:19, endln:35:19
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

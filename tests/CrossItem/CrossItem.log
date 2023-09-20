@@ -263,6 +263,7 @@ design                                                 1
 logic_net                                              2
 module_inst                                            3
 range                                                  5
+ref_typespec                                           4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -274,6 +275,7 @@ design                                                 1
 logic_net                                              2
 module_inst                                            3
 range                                                  5
+ref_typespec                                           4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/CrossItem/slpp_all/surelog.uhdm ...
 
@@ -298,27 +300,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CrossItem/dut.sv, line:1:1, endln:25:10
     |vpiTypespec:
-    \_bit_typespec: , line:2:2, endln:2:11
-      |vpiRange:
-      \_range: , line:2:6, endln:2:11
-        |vpiParent:
-        \_bit_typespec: , line:2:2, endln:2:11
-        |vpiLeftRange:
-        \_constant: , line:2:7, endln:2:8
-          |vpiParent:
-          \_range: , line:2:6, endln:2:11
-          |vpiDecompile:7
-          |vpiSize:64
-          |UINT:7
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:9, endln:2:10
-          |vpiParent:
-          \_range: , line:2:6, endln:2:11
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@top.v_a)
+      |vpiParent:
+      \_logic_net: (work@top.v_a), line:2:12, endln:2:15
+      |vpiFullName:work@top.v_a
+      |vpiActual:
+      \_bit_typespec: , line:2:2, endln:2:11
     |vpiName:v_a
     |vpiFullName:work@top.v_a
   |vpiNet:
@@ -326,27 +313,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CrossItem/dut.sv, line:1:1, endln:25:10
     |vpiTypespec:
-    \_bit_typespec: , line:2:2, endln:2:11
-      |vpiRange:
-      \_range: , line:2:6, endln:2:11
-        |vpiParent:
-        \_bit_typespec: , line:2:2, endln:2:11
-        |vpiLeftRange:
-        \_constant: , line:2:7, endln:2:8
-          |vpiParent:
-          \_range: , line:2:6, endln:2:11
-          |vpiDecompile:7
-          |vpiSize:64
-          |UINT:7
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:9, endln:2:10
-          |vpiParent:
-          \_range: , line:2:6, endln:2:11
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@top.v_b)
+      |vpiParent:
+      \_logic_net: (work@top.v_b), line:2:17, endln:2:20
+      |vpiFullName:work@top.v_b
+      |vpiActual:
+      \_bit_typespec: , line:2:2, endln:2:11
     |vpiName:v_b
     |vpiFullName:work@top.v_b
 |uhdmtopModules:
@@ -357,29 +329,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CrossItem/dut.sv, line:1:1, endln:25:10
     |vpiTypespec:
-    \_bit_typespec: , line:2:2, endln:2:11
+    \_ref_typespec: (work@top.v_a)
       |vpiParent:
-      \_bit_var: (work@top.v_b), line:2:17, endln:2:20
-      |vpiRange:
-      \_range: , line:2:6, endln:2:11
-        |vpiParent:
-        \_bit_typespec: , line:2:2, endln:2:11
-        |vpiLeftRange:
-        \_constant: , line:2:7, endln:2:8
-          |vpiParent:
-          \_range: , line:2:6, endln:2:11
-          |vpiDecompile:7
-          |vpiSize:64
-          |UINT:7
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:9, endln:2:10
-          |vpiParent:
-          \_range: , line:2:6, endln:2:11
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      \_bit_var: (work@top.v_a), line:2:12, endln:2:15
+      |vpiFullName:work@top.v_a
+      |vpiActual:
+      \_bit_typespec: , line:2:2, endln:2:11
     |vpiName:v_a
     |vpiFullName:work@top.v_a
     |vpiVisibility:1
@@ -388,13 +343,84 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/CrossItem/dut.sv, line:1:1, endln:25:10
     |vpiTypespec:
-    \_bit_typespec: , line:2:2, endln:2:11
+    \_ref_typespec: (work@top.v_b)
+      |vpiParent:
+      \_bit_var: (work@top.v_b), line:2:17, endln:2:20
+      |vpiFullName:work@top.v_b
+      |vpiActual:
+      \_bit_typespec: , line:2:2, endln:2:11
     |vpiName:v_b
     |vpiFullName:work@top.v_b
     |vpiVisibility:1
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
+\_weaklyReferenced:
+\_bit_typespec: , line:2:2, endln:2:11
+  |vpiParent:
+  \_bit_var: (work@top.v_b), line:2:17, endln:2:20
+  |vpiRange:
+  \_range: , line:2:6, endln:2:11
+    |vpiParent:
+    \_bit_typespec: , line:2:2, endln:2:11
+    |vpiLeftRange:
+    \_constant: , line:2:7, endln:2:8
+      |vpiParent:
+      \_range: , line:2:6, endln:2:11
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:9, endln:2:10
+      |vpiParent:
+      \_range: , line:2:6, endln:2:11
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_bit_typespec: , line:2:2, endln:2:11
+  |vpiRange:
+  \_range: , line:2:6, endln:2:11
+    |vpiParent:
+    \_bit_typespec: , line:2:2, endln:2:11
+    |vpiLeftRange:
+    \_constant: , line:2:7, endln:2:8
+      |vpiParent:
+      \_range: , line:2:6, endln:2:11
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:9, endln:2:10
+      |vpiParent:
+      \_range: , line:2:6, endln:2:11
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_bit_typespec: , line:2:2, endln:2:11
+  |vpiRange:
+  \_range: , line:2:6, endln:2:11
+    |vpiParent:
+    \_bit_typespec: , line:2:2, endln:2:11
+    |vpiLeftRange:
+    \_constant: , line:2:7, endln:2:8
+      |vpiParent:
+      \_range: , line:2:6, endln:2:11
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:9, endln:2:10
+      |vpiParent:
+      \_range: , line:2:6, endln:2:11
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

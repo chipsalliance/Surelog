@@ -1697,6 +1697,7 @@ param_assign                                          36
 parameter                                             36
 range                                                 46
 ref_obj                                              615
+ref_typespec                                         107
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -1715,6 +1716,7 @@ param_assign                                          36
 parameter                                             36
 range                                                 46
 ref_obj                                              615
+ref_typespec                                         107
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/MultiConcat/slpp_all/surelog.uhdm ...
 
@@ -1740,12 +1742,12 @@ design: (unnamed)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |UINT:6
     |vpiTypespec:
-    \_int_typespec: , line:8:13, endln:8:16
+    \_ref_typespec: (lc_ctrl_pkg::NumTokens)
       |vpiParent:
       \_parameter: (lc_ctrl_pkg::NumTokens), line:8:17, endln:8:26
-      |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-      |vpiSigned:1
+      |vpiFullName:lc_ctrl_pkg::NumTokens
+      |vpiActual:
+      \_int_typespec: , line:8:13, endln:8:16
     |vpiSigned:1
     |vpiName:NumTokens
     |vpiFullName:lc_ctrl_pkg::NumTokens
@@ -1755,12 +1757,12 @@ design: (unnamed)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |UINT:3
     |vpiTypespec:
-    \_int_typespec: , line:9:13, endln:9:16
+    \_ref_typespec: (lc_ctrl_pkg::TokenIdxWidth)
       |vpiParent:
       \_parameter: (lc_ctrl_pkg::TokenIdxWidth), line:9:17, endln:9:30
-      |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-      |vpiSigned:1
+      |vpiFullName:lc_ctrl_pkg::TokenIdxWidth
+      |vpiActual:
+      \_int_typespec: , line:9:13, endln:9:16
     |vpiSigned:1
     |vpiName:TokenIdxWidth
     |vpiFullName:lc_ctrl_pkg::TokenIdxWidth
@@ -1770,12 +1772,12 @@ design: (unnamed)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |UINT:4
     |vpiTypespec:
-    \_int_typespec: , line:27:13, endln:27:16
+    \_ref_typespec: (lc_ctrl_pkg::TxWidth)
       |vpiParent:
       \_parameter: (lc_ctrl_pkg::TxWidth), line:27:17, endln:27:24
-      |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-      |vpiSigned:1
+      |vpiFullName:lc_ctrl_pkg::TxWidth
+      |vpiActual:
+      \_int_typespec: , line:27:13, endln:27:16
     |vpiSigned:1
     |vpiName:TxWidth
     |vpiFullName:lc_ctrl_pkg::TxWidth
@@ -1784,85 +1786,12 @@ design: (unnamed)
     |vpiParent:
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |vpiTypespec:
-    \_logic_typespec: (lc_tx_t), line:33:11, endln:33:30
+    \_ref_typespec: (lc_ctrl_pkg::LC_TX_DEFAULT)
       |vpiParent:
       \_parameter: (lc_ctrl_pkg::LC_TX_DEFAULT), line:34:21, endln:34:34
-      |vpiName:lc_tx_t
-      |vpiTypedefAlias:
-      \_logic_typespec: (lc_ctrl_pkg::lc_tx_t), line:33:11, endln:33:30
-        |vpiParent:
-        \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-        |vpiName:lc_ctrl_pkg::lc_tx_t
-        |vpiInstance:
-        \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-        |vpiRange:
-        \_range: , line:33:17, endln:33:30
-          |vpiParent:
-          \_logic_typespec: (lc_ctrl_pkg::lc_tx_t), line:33:11, endln:33:30
-          |vpiLeftRange:
-          \_operation: , line:33:18, endln:33:27
-            |vpiParent:
-            \_range: , line:33:17, endln:33:30
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (lc_ctrl_pkg::lc_ctrl_pkg::lc_tx_t::TxWidth), line:33:18, endln:33:25
-              |vpiParent:
-              \_operation: , line:33:18, endln:33:27
-              |vpiName:TxWidth
-              |vpiFullName:lc_ctrl_pkg::lc_ctrl_pkg::lc_tx_t::TxWidth
-              |vpiActual:
-              \_parameter: (lc_ctrl_pkg::TxWidth), line:27:17, endln:27:24
-            |vpiOperand:
-            \_constant: , line:33:26, endln:33:27
-              |vpiParent:
-              \_operation: , line:33:18, endln:33:27
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:33:28, endln:33:29
-            |vpiParent:
-            \_range: , line:33:17, endln:33:30
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-      |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-      |vpiRange:
-      \_range: , line:33:17, endln:33:30
-        |vpiParent:
-        \_logic_typespec: (lc_tx_t), line:33:11, endln:33:30
-        |vpiLeftRange:
-        \_operation: , line:33:18, endln:33:27
-          |vpiParent:
-          \_range: , line:33:17, endln:33:30
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (lc_ctrl_pkg::LC_TX_DEFAULT::lc_tx_t::TxWidth), line:33:18, endln:33:25
-            |vpiParent:
-            \_operation: , line:33:18, endln:33:27
-            |vpiName:TxWidth
-            |vpiFullName:lc_ctrl_pkg::LC_TX_DEFAULT::lc_tx_t::TxWidth
-            |vpiActual:
-            \_parameter: (lc_ctrl_pkg::TxWidth), line:27:17, endln:27:24
-          |vpiOperand:
-          \_constant: , line:33:26, endln:33:27
-            |vpiParent:
-            \_operation: , line:33:18, endln:33:27
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:33:28, endln:33:29
-          |vpiParent:
-          \_range: , line:33:17, endln:33:30
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:lc_ctrl_pkg::LC_TX_DEFAULT
+      |vpiActual:
+      \_logic_typespec: (lc_tx_t), line:33:11, endln:33:30
     |vpiName:LC_TX_DEFAULT
     |vpiFullName:lc_ctrl_pkg::LC_TX_DEFAULT
   |vpiParameter:
@@ -1871,12 +1800,12 @@ design: (unnamed)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |UINT:32
     |vpiTypespec:
-    \_int_typespec: , line:36:13, endln:36:16
+    \_ref_typespec: (lc_ctrl_pkg::RmaSeedWidth)
       |vpiParent:
       \_parameter: (lc_ctrl_pkg::RmaSeedWidth), line:36:17, endln:36:29
-      |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-      |vpiSigned:1
+      |vpiFullName:lc_ctrl_pkg::RmaSeedWidth
+      |vpiActual:
+      \_int_typespec: , line:36:13, endln:36:16
     |vpiSigned:1
     |vpiName:RmaSeedWidth
     |vpiFullName:lc_ctrl_pkg::RmaSeedWidth
@@ -1886,85 +1815,12 @@ design: (unnamed)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |BIN:0
     |vpiTypespec:
-    \_logic_typespec: (lc_flash_rma_seed_t), line:37:11, endln:37:35
+    \_ref_typespec: (lc_ctrl_pkg::LC_FLASH_RMA_SEED_DEFAULT)
       |vpiParent:
       \_parameter: (lc_ctrl_pkg::LC_FLASH_RMA_SEED_DEFAULT), line:38:33, endln:38:58
-      |vpiName:lc_flash_rma_seed_t
-      |vpiTypedefAlias:
-      \_logic_typespec: (lc_ctrl_pkg::lc_flash_rma_seed_t), line:37:11, endln:37:35
-        |vpiParent:
-        \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-        |vpiName:lc_ctrl_pkg::lc_flash_rma_seed_t
-        |vpiInstance:
-        \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-        |vpiRange:
-        \_range: , line:37:17, endln:37:35
-          |vpiParent:
-          \_logic_typespec: (lc_ctrl_pkg::lc_flash_rma_seed_t), line:37:11, endln:37:35
-          |vpiLeftRange:
-          \_operation: , line:37:18, endln:37:32
-            |vpiParent:
-            \_range: , line:37:17, endln:37:35
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (lc_ctrl_pkg::lc_ctrl_pkg::lc_flash_rma_seed_t::RmaSeedWidth), line:37:18, endln:37:30
-              |vpiParent:
-              \_operation: , line:37:18, endln:37:32
-              |vpiName:RmaSeedWidth
-              |vpiFullName:lc_ctrl_pkg::lc_ctrl_pkg::lc_flash_rma_seed_t::RmaSeedWidth
-              |vpiActual:
-              \_parameter: (lc_ctrl_pkg::RmaSeedWidth), line:36:17, endln:36:29
-            |vpiOperand:
-            \_constant: , line:37:31, endln:37:32
-              |vpiParent:
-              \_operation: , line:37:18, endln:37:32
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:37:33, endln:37:34
-            |vpiParent:
-            \_range: , line:37:17, endln:37:35
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-      |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-      |vpiRange:
-      \_range: , line:37:17, endln:37:35
-        |vpiParent:
-        \_logic_typespec: (lc_flash_rma_seed_t), line:37:11, endln:37:35
-        |vpiLeftRange:
-        \_operation: , line:37:18, endln:37:32
-          |vpiParent:
-          \_range: , line:37:17, endln:37:35
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (lc_ctrl_pkg::LC_FLASH_RMA_SEED_DEFAULT::lc_flash_rma_seed_t::RmaSeedWidth), line:37:18, endln:37:30
-            |vpiParent:
-            \_operation: , line:37:18, endln:37:32
-            |vpiName:RmaSeedWidth
-            |vpiFullName:lc_ctrl_pkg::LC_FLASH_RMA_SEED_DEFAULT::lc_flash_rma_seed_t::RmaSeedWidth
-            |vpiActual:
-            \_parameter: (lc_ctrl_pkg::RmaSeedWidth), line:36:17, endln:36:29
-          |vpiOperand:
-          \_constant: , line:37:31, endln:37:32
-            |vpiParent:
-            \_operation: , line:37:18, endln:37:32
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:37:33, endln:37:34
-          |vpiParent:
-          \_range: , line:37:17, endln:37:35
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:lc_ctrl_pkg::LC_FLASH_RMA_SEED_DEFAULT
+      |vpiActual:
+      \_logic_typespec: (lc_flash_rma_seed_t), line:37:11, endln:37:35
     |vpiName:LC_FLASH_RMA_SEED_DEFAULT
     |vpiFullName:lc_ctrl_pkg::LC_FLASH_RMA_SEED_DEFAULT
   |vpiParameter:
@@ -1973,12 +1829,12 @@ design: (unnamed)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |UINT:128
     |vpiTypespec:
-    \_int_typespec: , line:40:13, endln:40:16
+    \_ref_typespec: (lc_ctrl_pkg::LcKeymgrDivWidth)
       |vpiParent:
       \_parameter: (lc_ctrl_pkg::LcKeymgrDivWidth), line:40:17, endln:40:33
-      |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-      |vpiSigned:1
+      |vpiFullName:lc_ctrl_pkg::LcKeymgrDivWidth
+      |vpiActual:
+      \_int_typespec: , line:40:13, endln:40:16
     |vpiSigned:1
     |vpiName:LcKeymgrDivWidth
     |vpiFullName:lc_ctrl_pkg::LcKeymgrDivWidth
@@ -1988,12 +1844,12 @@ design: (unnamed)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |UINT:16
     |vpiTypespec:
-    \_int_typespec: , line:76:14, endln:76:17
+    \_ref_typespec: (lc_ctrl_pkg::FsmStateWidth)
       |vpiParent:
       \_parameter: (lc_ctrl_pkg::FsmStateWidth), line:76:18, endln:76:31
-      |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-      |vpiSigned:1
+      |vpiFullName:lc_ctrl_pkg::FsmStateWidth
+      |vpiActual:
+      \_int_typespec: , line:76:14, endln:76:17
     |vpiSigned:1
     |vpiLocalParam:1
     |vpiName:FsmStateWidth
@@ -2003,164 +1859,12 @@ design: (unnamed)
     |vpiParent:
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |vpiTypespec:
-    \_packed_array_typespec: , line:132:13, endln:132:59
+    \_ref_typespec: (lc_ctrl_pkg::TransTokenIdxMatrix)
       |vpiParent:
       \_parameter: (lc_ctrl_pkg::TransTokenIdxMatrix), line:132:60, endln:132:79
-      |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-      |vpiRange:
-      \_range: , line:132:25, endln:132:42
-        |vpiParent:
-        \_packed_array_typespec: , line:132:13, endln:132:59
-        |vpiLeftRange:
-        \_operation: , line:132:26, endln:132:39
-          |vpiParent:
-          \_range: , line:132:25, endln:132:42
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (lc_ctrl_pkg::TransTokenIdxMatrix::NumLcStates), line:132:26, endln:132:37
-            |vpiParent:
-            \_operation: , line:132:26, endln:132:39
-            |vpiName:NumLcStates
-            |vpiFullName:lc_ctrl_pkg::TransTokenIdxMatrix::NumLcStates
-          |vpiOperand:
-          \_constant: , line:132:38, endln:132:39
-            |vpiParent:
-            \_operation: , line:132:26, endln:132:39
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:132:40, endln:132:41
-          |vpiParent:
-          \_range: , line:132:25, endln:132:42
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-      |vpiRange:
-      \_range: , line:132:42, endln:132:59
-        |vpiParent:
-        \_packed_array_typespec: , line:132:13, endln:132:59
-        |vpiLeftRange:
-        \_operation: , line:132:43, endln:132:56
-          |vpiParent:
-          \_range: , line:132:42, endln:132:59
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (lc_ctrl_pkg::TransTokenIdxMatrix::NumLcStates), line:132:43, endln:132:54
-            |vpiParent:
-            \_operation: , line:132:43, endln:132:56
-            |vpiName:NumLcStates
-            |vpiFullName:lc_ctrl_pkg::TransTokenIdxMatrix::NumLcStates
-          |vpiOperand:
-          \_constant: , line:132:55, endln:132:56
-            |vpiParent:
-            \_operation: , line:132:43, endln:132:56
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:132:57, endln:132:58
-          |vpiParent:
-          \_range: , line:132:42, endln:132:59
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-      |vpiElemTypespec:
-      \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
-        |vpiParent:
-        \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-        |vpiName:lc_ctrl_pkg::token_idx_e
-        |vpiInstance:
-        \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-        |vpiBaseTypespec:
-        \_logic_typespec: , line:10:16, endln:10:41
-          |vpiInstance:
-          \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-          |vpiRange:
-          \_range: , line:10:22, endln:10:41
-            |vpiParent:
-            \_logic_typespec: , line:10:16, endln:10:41
-            |vpiLeftRange:
-            \_operation: , line:10:23, endln:10:38
-              |vpiParent:
-              \_range: , line:10:22, endln:10:41
-              |vpiOpType:11
-              |vpiOperand:
-              \_ref_obj: (TokenIdxWidth), line:10:23, endln:10:36
-                |vpiParent:
-                \_operation: , line:10:23, endln:10:38
-                |vpiName:TokenIdxWidth
-                |vpiActual:
-                \_parameter: (lc_ctrl_pkg::TokenIdxWidth), line:9:17, endln:9:30
-              |vpiOperand:
-              \_constant: , line:10:37, endln:10:38
-                |vpiParent:
-                \_operation: , line:10:23, endln:10:38
-                |vpiDecompile:1
-                |vpiSize:64
-                |UINT:1
-                |vpiConstType:9
-            |vpiRightRange:
-            \_constant: , line:10:39, endln:10:40
-              |vpiParent:
-              \_range: , line:10:22, endln:10:41
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
-        |vpiEnumConst:
-        \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
-          |vpiParent:
-          \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
-          |vpiName:ZeroTokenIdx
-          |HEX:0
-          |vpiDecompile:3'h0
-          |vpiSize:3
-        |vpiEnumConst:
-        \_enum_const: (RawUnlockTokenIdx), line:14:5, endln:14:30
-          |vpiParent:
-          \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
-          |vpiName:RawUnlockTokenIdx
-          |HEX:1
-          |vpiDecompile:3'h1
-          |vpiSize:3
-        |vpiEnumConst:
-        \_enum_const: (TestUnlockTokenIdx), line:15:5, endln:15:30
-          |vpiParent:
-          \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
-          |vpiName:TestUnlockTokenIdx
-          |HEX:2
-          |vpiDecompile:3'h2
-          |vpiSize:3
-        |vpiEnumConst:
-        \_enum_const: (TestExitTokenIdx), line:16:5, endln:16:30
-          |vpiParent:
-          \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
-          |vpiName:TestExitTokenIdx
-          |HEX:3
-          |vpiDecompile:3'h3
-          |vpiSize:3
-        |vpiEnumConst:
-        \_enum_const: (RmaTokenIdx), line:17:5, endln:17:30
-          |vpiParent:
-          \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
-          |vpiName:RmaTokenIdx
-          |HEX:4
-          |vpiDecompile:3'h4
-          |vpiSize:3
-        |vpiEnumConst:
-        \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
-          |vpiParent:
-          \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
-          |vpiName:InvalidTokenIdx
-          |HEX:5
-          |vpiDecompile:3'h5
-          |vpiSize:3
+      |vpiFullName:lc_ctrl_pkg::TransTokenIdxMatrix
+      |vpiActual:
+      \_packed_array_typespec: , line:132:13, endln:132:59
     |vpiName:TransTokenIdxMatrix
     |vpiFullName:lc_ctrl_pkg::TransTokenIdxMatrix
   |vpiParamAssign:
@@ -2175,7 +1879,12 @@ design: (unnamed)
       |vpiSize:64
       |UINT:6
       |vpiTypespec:
-      \_int_typespec: , line:8:13, endln:8:16
+      \_ref_typespec: (lc_ctrl_pkg)
+        |vpiParent:
+        \_constant: , line:8:29, endln:8:30
+        |vpiFullName:lc_ctrl_pkg
+        |vpiActual:
+        \_int_typespec: , line:8:13, endln:8:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (lc_ctrl_pkg::NumTokens), line:8:17, endln:8:26
@@ -2191,7 +1900,12 @@ design: (unnamed)
       |vpiSize:64
       |UINT:3
       |vpiTypespec:
-      \_int_typespec: , line:9:13, endln:9:16
+      \_ref_typespec: (lc_ctrl_pkg)
+        |vpiParent:
+        \_constant: , line:9:33, endln:9:34
+        |vpiFullName:lc_ctrl_pkg
+        |vpiActual:
+        \_int_typespec: , line:9:13, endln:9:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (lc_ctrl_pkg::TokenIdxWidth), line:9:17, endln:9:30
@@ -2207,7 +1921,12 @@ design: (unnamed)
       |vpiSize:64
       |UINT:4
       |vpiTypespec:
-      \_int_typespec: , line:27:13, endln:27:16
+      \_ref_typespec: (lc_ctrl_pkg)
+        |vpiParent:
+        \_constant: , line:27:27, endln:27:28
+        |vpiFullName:lc_ctrl_pkg
+        |vpiActual:
+        \_int_typespec: , line:27:13, endln:27:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (lc_ctrl_pkg::TxWidth), line:27:17, endln:27:24
@@ -2220,45 +1939,12 @@ design: (unnamed)
       |vpiParent:
       \_param_assign: , line:34:21, endln:34:50
       |vpiTypespec:
-      \_logic_typespec: (lc_tx_t), line:33:11, endln:33:30
-        |vpiName:lc_tx_t
-        |vpiTypedefAlias:
-        \_logic_typespec: (lc_ctrl_pkg::lc_tx_t), line:33:11, endln:33:30
-        |vpiInstance:
-        \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-        |vpiRange:
-        \_range: , line:33:17, endln:33:30
-          |vpiParent:
-          \_logic_typespec: (lc_tx_t), line:33:11, endln:33:30
-          |vpiLeftRange:
-          \_operation: , line:33:18, endln:33:27
-            |vpiParent:
-            \_range: , line:33:17, endln:33:30
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (lc_tx_t.TxWidth), line:33:18, endln:33:25
-              |vpiParent:
-              \_operation: , line:33:18, endln:33:27
-              |vpiName:TxWidth
-              |vpiFullName:lc_tx_t.TxWidth
-              |vpiActual:
-              \_parameter: (lc_ctrl_pkg::TxWidth), line:27:17, endln:27:24
-            |vpiOperand:
-            \_constant: , line:33:26, endln:33:27
-              |vpiParent:
-              \_operation: , line:33:18, endln:33:27
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:33:28, endln:33:29
-            |vpiParent:
-            \_range: , line:33:17, endln:33:30
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_typespec: (lc_ctrl_pkg)
+        |vpiParent:
+        \_operation: , line:34:37, endln:34:50
+        |vpiFullName:lc_ctrl_pkg
+        |vpiActual:
+        \_logic_typespec: (lc_tx_t), line:33:11, endln:33:30
       |vpiOpType:67
       |vpiOperand:
       \_ref_obj: (lc_ctrl_pkg::Off), line:34:46, endln:34:49
@@ -2282,7 +1968,12 @@ design: (unnamed)
       |vpiSize:64
       |UINT:32
       |vpiTypespec:
-      \_int_typespec: , line:36:13, endln:36:16
+      \_ref_typespec: (lc_ctrl_pkg)
+        |vpiParent:
+        \_constant: , line:36:32, endln:36:34
+        |vpiFullName:lc_ctrl_pkg
+        |vpiActual:
+        \_int_typespec: , line:36:13, endln:36:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (lc_ctrl_pkg::RmaSeedWidth), line:36:17, endln:36:29
@@ -2298,7 +1989,12 @@ design: (unnamed)
       |vpiSize:-1
       |BIN:0
       |vpiTypespec:
-      \_logic_typespec: (lc_flash_rma_seed_t), line:37:11, endln:37:35
+      \_ref_typespec: (lc_ctrl_pkg)
+        |vpiParent:
+        \_constant: , line:38:61, endln:38:63
+        |vpiFullName:lc_ctrl_pkg
+        |vpiActual:
+        \_logic_typespec: (lc_flash_rma_seed_t), line:37:11, endln:37:35
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (lc_ctrl_pkg::LC_FLASH_RMA_SEED_DEFAULT), line:38:33, endln:38:58
@@ -2314,7 +2010,12 @@ design: (unnamed)
       |vpiSize:64
       |UINT:128
       |vpiTypespec:
-      \_int_typespec: , line:40:13, endln:40:16
+      \_ref_typespec: (lc_ctrl_pkg)
+        |vpiParent:
+        \_constant: , line:40:36, endln:40:39
+        |vpiFullName:lc_ctrl_pkg
+        |vpiActual:
+        \_int_typespec: , line:40:13, endln:40:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (lc_ctrl_pkg::LcKeymgrDivWidth), line:40:17, endln:40:33
@@ -2330,7 +2031,12 @@ design: (unnamed)
       |vpiSize:64
       |UINT:16
       |vpiTypespec:
-      \_int_typespec: , line:76:14, endln:76:17
+      \_ref_typespec: (lc_ctrl_pkg)
+        |vpiParent:
+        \_constant: , line:76:34, endln:76:36
+        |vpiFullName:lc_ctrl_pkg
+        |vpiActual:
+        \_int_typespec: , line:76:14, endln:76:17
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (lc_ctrl_pkg::FsmStateWidth), line:76:18, endln:76:31
@@ -4734,41 +4440,12 @@ design: (unnamed)
     |vpiInstance:
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |vpiBaseTypespec:
-    \_logic_typespec: , line:77:16, endln:77:41
-      |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-      |vpiRange:
-      \_range: , line:77:22, endln:77:41
-        |vpiParent:
-        \_logic_typespec: , line:77:16, endln:77:41
-        |vpiLeftRange:
-        \_operation: , line:77:23, endln:77:38
-          |vpiParent:
-          \_range: , line:77:22, endln:77:41
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (FsmStateWidth), line:77:23, endln:77:36
-            |vpiParent:
-            \_operation: , line:77:23, endln:77:38
-            |vpiName:FsmStateWidth
-            |vpiActual:
-            \_parameter: (lc_ctrl_pkg::FsmStateWidth), line:76:18, endln:76:31
-          |vpiOperand:
-          \_constant: , line:77:37, endln:77:38
-            |vpiParent:
-            \_operation: , line:77:23, endln:77:38
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:77:39, endln:77:40
-          |vpiParent:
-          \_range: , line:77:22, endln:77:41
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (lc_ctrl_pkg::lc_ctrl_pkg::fsm_state_e)
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::fsm_state_e), line:77:3, endln:93:17
+      |vpiFullName:lc_ctrl_pkg::lc_ctrl_pkg::fsm_state_e
+      |vpiActual:
+      \_logic_typespec: , line:77:16, endln:77:41
     |vpiEnumConst:
     \_enum_const: (ResetSt), line:78:5, endln:78:41
       |vpiParent:
@@ -4891,6 +4568,44 @@ design: (unnamed)
       |vpiSize:16
   |vpiTypedef:
   \_logic_typespec: (lc_ctrl_pkg::lc_flash_rma_seed_t), line:37:11, endln:37:35
+    |vpiParent:
+    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+    |vpiName:lc_ctrl_pkg::lc_flash_rma_seed_t
+    |vpiInstance:
+    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+    |vpiRange:
+    \_range: , line:37:17, endln:37:35
+      |vpiParent:
+      \_logic_typespec: (lc_ctrl_pkg::lc_flash_rma_seed_t), line:37:11, endln:37:35
+      |vpiLeftRange:
+      \_operation: , line:37:18, endln:37:32
+        |vpiParent:
+        \_range: , line:37:17, endln:37:35
+        |vpiOpType:11
+        |vpiOperand:
+        \_ref_obj: (lc_ctrl_pkg::lc_ctrl_pkg::lc_flash_rma_seed_t::RmaSeedWidth), line:37:18, endln:37:30
+          |vpiParent:
+          \_operation: , line:37:18, endln:37:32
+          |vpiName:RmaSeedWidth
+          |vpiFullName:lc_ctrl_pkg::lc_ctrl_pkg::lc_flash_rma_seed_t::RmaSeedWidth
+          |vpiActual:
+          \_parameter: (lc_ctrl_pkg::RmaSeedWidth), line:36:17, endln:36:29
+        |vpiOperand:
+        \_constant: , line:37:31, endln:37:32
+          |vpiParent:
+          \_operation: , line:37:18, endln:37:32
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:37:33, endln:37:34
+        |vpiParent:
+        \_range: , line:37:17, endln:37:35
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
   |vpiTypedef:
   \_logic_typespec: (lc_ctrl_pkg::lc_keymgr_div_t), line:41:11, endln:41:39
     |vpiParent:
@@ -4939,41 +4654,12 @@ design: (unnamed)
     |vpiInstance:
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |vpiBaseTypespec:
-    \_logic_typespec: , line:29:16, endln:29:35
-      |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-      |vpiRange:
-      \_range: , line:29:22, endln:29:35
-        |vpiParent:
-        \_logic_typespec: , line:29:16, endln:29:35
-        |vpiLeftRange:
-        \_operation: , line:29:23, endln:29:32
-          |vpiParent:
-          \_range: , line:29:22, endln:29:35
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (TxWidth), line:29:23, endln:29:30
-            |vpiParent:
-            \_operation: , line:29:23, endln:29:32
-            |vpiName:TxWidth
-            |vpiActual:
-            \_parameter: (lc_ctrl_pkg::TxWidth), line:27:17, endln:27:24
-          |vpiOperand:
-          \_constant: , line:29:31, endln:29:32
-            |vpiParent:
-            \_operation: , line:29:23, endln:29:32
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:29:33, endln:29:34
-          |vpiParent:
-          \_range: , line:29:22, endln:29:35
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (lc_ctrl_pkg::lc_ctrl_pkg::lc_tx_e)
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::lc_tx_e), line:29:3, endln:32:13
+      |vpiFullName:lc_ctrl_pkg::lc_ctrl_pkg::lc_tx_e
+      |vpiActual:
+      \_logic_typespec: , line:29:16, endln:29:35
     |vpiEnumConst:
     \_enum_const: (On), line:30:5, endln:30:18
       |vpiParent:
@@ -4992,8 +4678,106 @@ design: (unnamed)
       |vpiSize:4
   |vpiTypedef:
   \_logic_typespec: (lc_ctrl_pkg::lc_tx_t), line:33:11, endln:33:30
+    |vpiParent:
+    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+    |vpiName:lc_ctrl_pkg::lc_tx_t
+    |vpiInstance:
+    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+    |vpiRange:
+    \_range: , line:33:17, endln:33:30
+      |vpiParent:
+      \_logic_typespec: (lc_ctrl_pkg::lc_tx_t), line:33:11, endln:33:30
+      |vpiLeftRange:
+      \_operation: , line:33:18, endln:33:27
+        |vpiParent:
+        \_range: , line:33:17, endln:33:30
+        |vpiOpType:11
+        |vpiOperand:
+        \_ref_obj: (lc_ctrl_pkg::lc_ctrl_pkg::lc_tx_t::TxWidth), line:33:18, endln:33:25
+          |vpiParent:
+          \_operation: , line:33:18, endln:33:27
+          |vpiName:TxWidth
+          |vpiFullName:lc_ctrl_pkg::lc_ctrl_pkg::lc_tx_t::TxWidth
+          |vpiActual:
+          \_parameter: (lc_ctrl_pkg::TxWidth), line:27:17, endln:27:24
+        |vpiOperand:
+        \_constant: , line:33:26, endln:33:27
+          |vpiParent:
+          \_operation: , line:33:18, endln:33:27
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:33:28, endln:33:29
+        |vpiParent:
+        \_range: , line:33:17, endln:33:30
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
   |vpiTypedef:
   \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
+    |vpiParent:
+    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+    |vpiName:lc_ctrl_pkg::token_idx_e
+    |vpiInstance:
+    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+    |vpiBaseTypespec:
+    \_ref_typespec: (lc_ctrl_pkg::lc_ctrl_pkg::token_idx_e)
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
+      |vpiFullName:lc_ctrl_pkg::lc_ctrl_pkg::token_idx_e
+      |vpiActual:
+      \_logic_typespec: , line:10:16, endln:10:41
+    |vpiEnumConst:
+    \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
+      |vpiName:ZeroTokenIdx
+      |HEX:0
+      |vpiDecompile:3'h0
+      |vpiSize:3
+    |vpiEnumConst:
+    \_enum_const: (RawUnlockTokenIdx), line:14:5, endln:14:30
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
+      |vpiName:RawUnlockTokenIdx
+      |HEX:1
+      |vpiDecompile:3'h1
+      |vpiSize:3
+    |vpiEnumConst:
+    \_enum_const: (TestUnlockTokenIdx), line:15:5, endln:15:30
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
+      |vpiName:TestUnlockTokenIdx
+      |HEX:2
+      |vpiDecompile:3'h2
+      |vpiSize:3
+    |vpiEnumConst:
+    \_enum_const: (TestExitTokenIdx), line:16:5, endln:16:30
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
+      |vpiName:TestExitTokenIdx
+      |HEX:3
+      |vpiDecompile:3'h3
+      |vpiSize:3
+    |vpiEnumConst:
+    \_enum_const: (RmaTokenIdx), line:17:5, endln:17:30
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
+      |vpiName:RmaTokenIdx
+      |HEX:4
+      |vpiDecompile:3'h4
+      |vpiSize:3
+    |vpiEnumConst:
+    \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
+      |vpiName:InvalidTokenIdx
+      |HEX:5
+      |vpiDecompile:3'h5
+      |vpiSize:3
   |vpiDefName:lc_ctrl_pkg
 |uhdmtopPackages:
 \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
@@ -5007,12 +4791,12 @@ design: (unnamed)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |UINT:6
     |vpiTypespec:
-    \_int_typespec: , line:8:13, endln:8:16
+    \_ref_typespec: (lc_ctrl_pkg::NumTokens)
       |vpiParent:
       \_parameter: (lc_ctrl_pkg::NumTokens), line:8:17, endln:8:26
-      |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-      |vpiSigned:1
+      |vpiFullName:lc_ctrl_pkg::NumTokens
+      |vpiActual:
+      \_int_typespec: , line:8:13, endln:8:16
     |vpiSigned:1
     |vpiName:NumTokens
     |vpiFullName:lc_ctrl_pkg::NumTokens
@@ -5022,12 +4806,12 @@ design: (unnamed)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |UINT:3
     |vpiTypespec:
-    \_int_typespec: , line:9:13, endln:9:16
+    \_ref_typespec: (lc_ctrl_pkg::TokenIdxWidth)
       |vpiParent:
       \_parameter: (lc_ctrl_pkg::TokenIdxWidth), line:9:17, endln:9:30
-      |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-      |vpiSigned:1
+      |vpiFullName:lc_ctrl_pkg::TokenIdxWidth
+      |vpiActual:
+      \_int_typespec: , line:9:13, endln:9:16
     |vpiSigned:1
     |vpiName:TokenIdxWidth
     |vpiFullName:lc_ctrl_pkg::TokenIdxWidth
@@ -5037,12 +4821,12 @@ design: (unnamed)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |UINT:4
     |vpiTypespec:
-    \_int_typespec: , line:27:13, endln:27:16
+    \_ref_typespec: (lc_ctrl_pkg::TxWidth)
       |vpiParent:
       \_parameter: (lc_ctrl_pkg::TxWidth), line:27:17, endln:27:24
-      |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-      |vpiSigned:1
+      |vpiFullName:lc_ctrl_pkg::TxWidth
+      |vpiActual:
+      \_int_typespec: , line:27:13, endln:27:16
     |vpiSigned:1
     |vpiName:TxWidth
     |vpiFullName:lc_ctrl_pkg::TxWidth
@@ -5051,59 +4835,12 @@ design: (unnamed)
     |vpiParent:
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |vpiTypespec:
-    \_logic_typespec: (lc_tx_t), line:33:11, endln:33:30
+    \_ref_typespec: (lc_ctrl_pkg::LC_TX_DEFAULT)
       |vpiParent:
       \_parameter: (lc_ctrl_pkg::LC_TX_DEFAULT), line:34:21, endln:34:34
-      |vpiName:lc_tx_t
-      |vpiTypedefAlias:
-      \_logic_typespec: (lc_ctrl_pkg::lc_tx_t), line:33:11, endln:33:30
-        |vpiParent:
-        \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-        |vpiName:lc_ctrl_pkg::lc_tx_t
-        |vpiInstance:
-        \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-        |vpiRange:
-        \_range: , line:33:17, endln:33:30
-          |vpiParent:
-          \_logic_typespec: (lc_ctrl_pkg::lc_tx_t), line:33:11, endln:33:30
-          |vpiLeftRange:
-          \_constant: , line:33:18, endln:33:25
-            |vpiParent:
-            \_range: , line:33:17, endln:33:30
-            |vpiDecompile:3
-            |vpiSize:64
-            |INT:3
-            |vpiConstType:7
-          |vpiRightRange:
-          \_constant: , line:33:28, endln:33:29
-            |vpiParent:
-            \_range: , line:33:17, endln:33:30
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-      |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-      |vpiRange:
-      \_range: , line:33:17, endln:33:30
-        |vpiParent:
-        \_logic_typespec: (lc_tx_t), line:33:11, endln:33:30
-        |vpiLeftRange:
-        \_constant: , line:33:18, endln:33:25
-          |vpiParent:
-          \_range: , line:33:17, endln:33:30
-          |vpiDecompile:3
-          |vpiSize:64
-          |INT:3
-          |vpiConstType:7
-        |vpiRightRange:
-        \_constant: , line:33:28, endln:33:29
-          |vpiParent:
-          \_range: , line:33:17, endln:33:30
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:lc_ctrl_pkg::LC_TX_DEFAULT
+      |vpiActual:
+      \_logic_typespec: (lc_tx_t), line:33:11, endln:33:30
     |vpiName:LC_TX_DEFAULT
     |vpiFullName:lc_ctrl_pkg::LC_TX_DEFAULT
   |vpiParameter:
@@ -5112,12 +4849,12 @@ design: (unnamed)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |UINT:32
     |vpiTypespec:
-    \_int_typespec: , line:36:13, endln:36:16
+    \_ref_typespec: (lc_ctrl_pkg::RmaSeedWidth)
       |vpiParent:
       \_parameter: (lc_ctrl_pkg::RmaSeedWidth), line:36:17, endln:36:29
-      |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-      |vpiSigned:1
+      |vpiFullName:lc_ctrl_pkg::RmaSeedWidth
+      |vpiActual:
+      \_int_typespec: , line:36:13, endln:36:16
     |vpiSigned:1
     |vpiName:RmaSeedWidth
     |vpiFullName:lc_ctrl_pkg::RmaSeedWidth
@@ -5127,59 +4864,12 @@ design: (unnamed)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |BIN:0
     |vpiTypespec:
-    \_logic_typespec: (lc_flash_rma_seed_t), line:37:11, endln:37:35
+    \_ref_typespec: (lc_ctrl_pkg::LC_FLASH_RMA_SEED_DEFAULT)
       |vpiParent:
       \_parameter: (lc_ctrl_pkg::LC_FLASH_RMA_SEED_DEFAULT), line:38:33, endln:38:58
-      |vpiName:lc_flash_rma_seed_t
-      |vpiTypedefAlias:
-      \_logic_typespec: (lc_ctrl_pkg::lc_flash_rma_seed_t), line:37:11, endln:37:35
-        |vpiParent:
-        \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-        |vpiName:lc_ctrl_pkg::lc_flash_rma_seed_t
-        |vpiInstance:
-        \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-        |vpiRange:
-        \_range: , line:37:17, endln:37:35
-          |vpiParent:
-          \_logic_typespec: (lc_ctrl_pkg::lc_flash_rma_seed_t), line:37:11, endln:37:35
-          |vpiLeftRange:
-          \_constant: , line:37:18, endln:37:30
-            |vpiParent:
-            \_range: , line:37:17, endln:37:35
-            |vpiDecompile:31
-            |vpiSize:64
-            |INT:31
-            |vpiConstType:7
-          |vpiRightRange:
-          \_constant: , line:37:33, endln:37:34
-            |vpiParent:
-            \_range: , line:37:17, endln:37:35
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-      |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-      |vpiRange:
-      \_range: , line:37:17, endln:37:35
-        |vpiParent:
-        \_logic_typespec: (lc_flash_rma_seed_t), line:37:11, endln:37:35
-        |vpiLeftRange:
-        \_constant: , line:37:18, endln:37:30
-          |vpiParent:
-          \_range: , line:37:17, endln:37:35
-          |vpiDecompile:31
-          |vpiSize:64
-          |INT:31
-          |vpiConstType:7
-        |vpiRightRange:
-        \_constant: , line:37:33, endln:37:34
-          |vpiParent:
-          \_range: , line:37:17, endln:37:35
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:lc_ctrl_pkg::LC_FLASH_RMA_SEED_DEFAULT
+      |vpiActual:
+      \_logic_typespec: (lc_flash_rma_seed_t), line:37:11, endln:37:35
     |vpiName:LC_FLASH_RMA_SEED_DEFAULT
     |vpiFullName:lc_ctrl_pkg::LC_FLASH_RMA_SEED_DEFAULT
   |vpiParameter:
@@ -5188,12 +4878,12 @@ design: (unnamed)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |UINT:128
     |vpiTypespec:
-    \_int_typespec: , line:40:13, endln:40:16
+    \_ref_typespec: (lc_ctrl_pkg::LcKeymgrDivWidth)
       |vpiParent:
       \_parameter: (lc_ctrl_pkg::LcKeymgrDivWidth), line:40:17, endln:40:33
-      |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-      |vpiSigned:1
+      |vpiFullName:lc_ctrl_pkg::LcKeymgrDivWidth
+      |vpiActual:
+      \_int_typespec: , line:40:13, endln:40:16
     |vpiSigned:1
     |vpiName:LcKeymgrDivWidth
     |vpiFullName:lc_ctrl_pkg::LcKeymgrDivWidth
@@ -5203,12 +4893,12 @@ design: (unnamed)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |UINT:16
     |vpiTypespec:
-    \_int_typespec: , line:76:14, endln:76:17
+    \_ref_typespec: (lc_ctrl_pkg::FsmStateWidth)
       |vpiParent:
       \_parameter: (lc_ctrl_pkg::FsmStateWidth), line:76:18, endln:76:31
-      |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-      |vpiSigned:1
+      |vpiFullName:lc_ctrl_pkg::FsmStateWidth
+      |vpiActual:
+      \_int_typespec: , line:76:14, endln:76:17
     |vpiSigned:1
     |vpiLocalParam:1
     |vpiName:FsmStateWidth
@@ -5218,152 +4908,12 @@ design: (unnamed)
     |vpiParent:
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |vpiTypespec:
-    \_packed_array_typespec: , line:132:13, endln:132:59
+    \_ref_typespec: (lc_ctrl_pkg::TransTokenIdxMatrix)
       |vpiParent:
       \_parameter: (lc_ctrl_pkg::TransTokenIdxMatrix), line:132:60, endln:132:79
-      |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-      |vpiRange:
-      \_range: , line:132:25, endln:132:42
-        |vpiParent:
-        \_packed_array_typespec: , line:132:13, endln:132:59
-        |vpiLeftRange:
-        \_operation: , line:132:26, endln:132:39
-          |vpiParent:
-          \_range: , line:132:25, endln:132:42
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (lc_ctrl_pkg::TransTokenIdxMatrix::NumLcStates), line:132:26, endln:132:37
-            |vpiParent:
-            \_operation: , line:132:26, endln:132:39
-            |vpiName:NumLcStates
-            |vpiFullName:lc_ctrl_pkg::TransTokenIdxMatrix::NumLcStates
-          |vpiOperand:
-          \_constant: , line:132:38, endln:132:39
-            |vpiParent:
-            \_operation: , line:132:26, endln:132:39
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:132:40, endln:132:41
-          |vpiParent:
-          \_range: , line:132:25, endln:132:42
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-      |vpiRange:
-      \_range: , line:132:42, endln:132:59
-        |vpiParent:
-        \_packed_array_typespec: , line:132:13, endln:132:59
-        |vpiLeftRange:
-        \_operation: , line:132:43, endln:132:56
-          |vpiParent:
-          \_range: , line:132:42, endln:132:59
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (lc_ctrl_pkg::TransTokenIdxMatrix::NumLcStates), line:132:43, endln:132:54
-            |vpiParent:
-            \_operation: , line:132:43, endln:132:56
-            |vpiName:NumLcStates
-            |vpiFullName:lc_ctrl_pkg::TransTokenIdxMatrix::NumLcStates
-          |vpiOperand:
-          \_constant: , line:132:55, endln:132:56
-            |vpiParent:
-            \_operation: , line:132:43, endln:132:56
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:132:57, endln:132:58
-          |vpiParent:
-          \_range: , line:132:42, endln:132:59
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-      |vpiElemTypespec:
-      \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
-        |vpiParent:
-        \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-        |vpiName:lc_ctrl_pkg::token_idx_e
-        |vpiInstance:
-        \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-        |vpiBaseTypespec:
-        \_logic_typespec: , line:10:16, endln:10:41
-          |vpiInstance:
-          \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-          |vpiRange:
-          \_range: , line:10:22, endln:10:41
-            |vpiParent:
-            \_logic_typespec: , line:10:16, endln:10:41
-            |vpiLeftRange:
-            \_constant: , line:10:23, endln:10:36
-              |vpiParent:
-              \_range: , line:10:22, endln:10:41
-              |vpiDecompile:2
-              |vpiSize:64
-              |INT:2
-              |vpiConstType:7
-            |vpiRightRange:
-            \_constant: , line:10:39, endln:10:40
-              |vpiParent:
-              \_range: , line:10:22, endln:10:41
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
-        |vpiEnumConst:
-        \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
-          |vpiParent:
-          \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
-          |vpiName:ZeroTokenIdx
-          |HEX:0
-          |vpiDecompile:3'h0
-          |vpiSize:3
-        |vpiEnumConst:
-        \_enum_const: (RawUnlockTokenIdx), line:14:5, endln:14:30
-          |vpiParent:
-          \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
-          |vpiName:RawUnlockTokenIdx
-          |HEX:1
-          |vpiDecompile:3'h1
-          |vpiSize:3
-        |vpiEnumConst:
-        \_enum_const: (TestUnlockTokenIdx), line:15:5, endln:15:30
-          |vpiParent:
-          \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
-          |vpiName:TestUnlockTokenIdx
-          |HEX:2
-          |vpiDecompile:3'h2
-          |vpiSize:3
-        |vpiEnumConst:
-        \_enum_const: (TestExitTokenIdx), line:16:5, endln:16:30
-          |vpiParent:
-          \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
-          |vpiName:TestExitTokenIdx
-          |HEX:3
-          |vpiDecompile:3'h3
-          |vpiSize:3
-        |vpiEnumConst:
-        \_enum_const: (RmaTokenIdx), line:17:5, endln:17:30
-          |vpiParent:
-          \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
-          |vpiName:RmaTokenIdx
-          |HEX:4
-          |vpiDecompile:3'h4
-          |vpiSize:3
-        |vpiEnumConst:
-        \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
-          |vpiParent:
-          \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
-          |vpiName:InvalidTokenIdx
-          |HEX:5
-          |vpiDecompile:3'h5
-          |vpiSize:3
+      |vpiFullName:lc_ctrl_pkg::TransTokenIdxMatrix
+      |vpiActual:
+      \_packed_array_typespec: , line:132:13, endln:132:59
     |vpiName:TransTokenIdxMatrix
     |vpiFullName:lc_ctrl_pkg::TransTokenIdxMatrix
   |vpiParamAssign:
@@ -5378,7 +4928,12 @@ design: (unnamed)
       |vpiSize:32
       |UINT:6
       |vpiTypespec:
-      \_int_typespec: , line:8:13, endln:8:16
+      \_ref_typespec: (lc_ctrl_pkg)
+        |vpiParent:
+        \_constant: , line:8:29, endln:8:30
+        |vpiFullName:lc_ctrl_pkg
+        |vpiActual:
+        \_int_typespec: , line:8:13, endln:8:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (lc_ctrl_pkg::NumTokens), line:8:17, endln:8:26
@@ -5394,7 +4949,12 @@ design: (unnamed)
       |vpiSize:32
       |UINT:3
       |vpiTypespec:
-      \_int_typespec: , line:9:13, endln:9:16
+      \_ref_typespec: (lc_ctrl_pkg)
+        |vpiParent:
+        \_constant: , line:9:33, endln:9:34
+        |vpiFullName:lc_ctrl_pkg
+        |vpiActual:
+        \_int_typespec: , line:9:13, endln:9:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (lc_ctrl_pkg::TokenIdxWidth), line:9:17, endln:9:30
@@ -5410,7 +4970,12 @@ design: (unnamed)
       |vpiSize:32
       |UINT:4
       |vpiTypespec:
-      \_int_typespec: , line:27:13, endln:27:16
+      \_ref_typespec: (lc_ctrl_pkg)
+        |vpiParent:
+        \_constant: , line:27:27, endln:27:28
+        |vpiFullName:lc_ctrl_pkg
+        |vpiActual:
+        \_int_typespec: , line:27:13, endln:27:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (lc_ctrl_pkg::TxWidth), line:27:17, endln:27:24
@@ -5423,32 +4988,12 @@ design: (unnamed)
       |vpiParent:
       \_param_assign: , line:34:21, endln:34:50
       |vpiTypespec:
-      \_logic_typespec: (lc_tx_t), line:33:11, endln:33:30
-        |vpiName:lc_tx_t
-        |vpiTypedefAlias:
-        \_logic_typespec: (lc_ctrl_pkg::lc_tx_t), line:33:11, endln:33:30
-        |vpiInstance:
-        \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-        |vpiRange:
-        \_range: , line:33:17, endln:33:30
-          |vpiParent:
-          \_logic_typespec: (lc_tx_t), line:33:11, endln:33:30
-          |vpiLeftRange:
-          \_constant: , line:33:18, endln:33:25
-            |vpiParent:
-            \_range: , line:33:17, endln:33:30
-            |vpiDecompile:3
-            |vpiSize:64
-            |INT:3
-            |vpiConstType:7
-          |vpiRightRange:
-          \_constant: , line:33:28, endln:33:29
-            |vpiParent:
-            \_range: , line:33:17, endln:33:30
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_typespec: (lc_ctrl_pkg)
+        |vpiParent:
+        \_operation: , line:34:37, endln:34:50
+        |vpiFullName:lc_ctrl_pkg
+        |vpiActual:
+        \_logic_typespec: (lc_tx_t), line:33:11, endln:33:30
       |vpiOpType:67
       |vpiOperand:
       \_constant: , line:34:46, endln:34:49
@@ -5472,7 +5017,12 @@ design: (unnamed)
       |vpiSize:32
       |UINT:32
       |vpiTypespec:
-      \_int_typespec: , line:36:13, endln:36:16
+      \_ref_typespec: (lc_ctrl_pkg)
+        |vpiParent:
+        \_constant: , line:36:32, endln:36:34
+        |vpiFullName:lc_ctrl_pkg
+        |vpiActual:
+        \_int_typespec: , line:36:13, endln:36:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (lc_ctrl_pkg::RmaSeedWidth), line:36:17, endln:36:29
@@ -5488,7 +5038,12 @@ design: (unnamed)
       |vpiSize:32
       |BIN:0
       |vpiTypespec:
-      \_logic_typespec: (lc_flash_rma_seed_t), line:37:11, endln:37:35
+      \_ref_typespec: (lc_ctrl_pkg)
+        |vpiParent:
+        \_constant: , line:38:61, endln:38:63
+        |vpiFullName:lc_ctrl_pkg
+        |vpiActual:
+        \_logic_typespec: (lc_flash_rma_seed_t), line:37:11, endln:37:35
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (lc_ctrl_pkg::LC_FLASH_RMA_SEED_DEFAULT), line:38:33, endln:38:58
@@ -5504,7 +5059,12 @@ design: (unnamed)
       |vpiSize:32
       |UINT:128
       |vpiTypespec:
-      \_int_typespec: , line:40:13, endln:40:16
+      \_ref_typespec: (lc_ctrl_pkg)
+        |vpiParent:
+        \_constant: , line:40:36, endln:40:39
+        |vpiFullName:lc_ctrl_pkg
+        |vpiActual:
+        \_int_typespec: , line:40:13, endln:40:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (lc_ctrl_pkg::LcKeymgrDivWidth), line:40:17, endln:40:33
@@ -5520,7 +5080,12 @@ design: (unnamed)
       |vpiSize:32
       |UINT:16
       |vpiTypespec:
-      \_int_typespec: , line:76:14, endln:76:17
+      \_ref_typespec: (lc_ctrl_pkg)
+        |vpiParent:
+        \_constant: , line:76:34, endln:76:36
+        |vpiFullName:lc_ctrl_pkg
+        |vpiActual:
+        \_int_typespec: , line:76:14, endln:76:17
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (lc_ctrl_pkg::FsmStateWidth), line:76:18, endln:76:31
@@ -7279,29 +6844,12 @@ design: (unnamed)
     |vpiInstance:
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |vpiBaseTypespec:
-    \_logic_typespec: , line:77:16, endln:77:41
-      |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-      |vpiRange:
-      \_range: , line:77:22, endln:77:41
-        |vpiParent:
-        \_logic_typespec: , line:77:16, endln:77:41
-        |vpiLeftRange:
-        \_constant: , line:77:23, endln:77:36
-          |vpiParent:
-          \_range: , line:77:22, endln:77:41
-          |vpiDecompile:15
-          |vpiSize:64
-          |INT:15
-          |vpiConstType:7
-        |vpiRightRange:
-        \_constant: , line:77:39, endln:77:40
-          |vpiParent:
-          \_range: , line:77:22, endln:77:41
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (lc_ctrl_pkg::lc_ctrl_pkg::fsm_state_e)
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::fsm_state_e), line:77:3, endln:93:17
+      |vpiFullName:lc_ctrl_pkg::lc_ctrl_pkg::fsm_state_e
+      |vpiActual:
+      \_logic_typespec: , line:77:16, endln:77:41
     |vpiEnumConst:
     \_enum_const: (ResetSt), line:78:5, endln:78:41
       |vpiParent:
@@ -7424,6 +6972,31 @@ design: (unnamed)
       |vpiSize:16
   |vpiTypedef:
   \_logic_typespec: (lc_ctrl_pkg::lc_flash_rma_seed_t), line:37:11, endln:37:35
+    |vpiParent:
+    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+    |vpiName:lc_ctrl_pkg::lc_flash_rma_seed_t
+    |vpiInstance:
+    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+    |vpiRange:
+    \_range: , line:37:17, endln:37:35
+      |vpiParent:
+      \_logic_typespec: (lc_ctrl_pkg::lc_flash_rma_seed_t), line:37:11, endln:37:35
+      |vpiLeftRange:
+      \_constant: , line:37:18, endln:37:30
+        |vpiParent:
+        \_range: , line:37:17, endln:37:35
+        |vpiDecompile:31
+        |vpiSize:64
+        |INT:31
+        |vpiConstType:7
+      |vpiRightRange:
+      \_constant: , line:37:33, endln:37:34
+        |vpiParent:
+        \_range: , line:37:17, endln:37:35
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
   |vpiTypedef:
   \_logic_typespec: (lc_ctrl_pkg::lc_keymgr_div_t), line:41:11, endln:41:39
     |vpiParent:
@@ -7459,29 +7032,12 @@ design: (unnamed)
     |vpiInstance:
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |vpiBaseTypespec:
-    \_logic_typespec: , line:29:16, endln:29:35
-      |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-      |vpiRange:
-      \_range: , line:29:22, endln:29:35
-        |vpiParent:
-        \_logic_typespec: , line:29:16, endln:29:35
-        |vpiLeftRange:
-        \_constant: , line:29:23, endln:29:30
-          |vpiParent:
-          \_range: , line:29:22, endln:29:35
-          |vpiDecompile:3
-          |vpiSize:64
-          |INT:3
-          |vpiConstType:7
-        |vpiRightRange:
-        \_constant: , line:29:33, endln:29:34
-          |vpiParent:
-          \_range: , line:29:22, endln:29:35
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (lc_ctrl_pkg::lc_ctrl_pkg::lc_tx_e)
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::lc_tx_e), line:29:3, endln:32:13
+      |vpiFullName:lc_ctrl_pkg::lc_ctrl_pkg::lc_tx_e
+      |vpiActual:
+      \_logic_typespec: , line:29:16, endln:29:35
     |vpiEnumConst:
     \_enum_const: (On), line:30:5, endln:30:18
       |vpiParent:
@@ -7500,10 +7056,723 @@ design: (unnamed)
       |vpiSize:4
   |vpiTypedef:
   \_logic_typespec: (lc_ctrl_pkg::lc_tx_t), line:33:11, endln:33:30
+    |vpiParent:
+    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+    |vpiName:lc_ctrl_pkg::lc_tx_t
+    |vpiInstance:
+    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+    |vpiRange:
+    \_range: , line:33:17, endln:33:30
+      |vpiParent:
+      \_logic_typespec: (lc_ctrl_pkg::lc_tx_t), line:33:11, endln:33:30
+      |vpiLeftRange:
+      \_constant: , line:33:18, endln:33:25
+        |vpiParent:
+        \_range: , line:33:17, endln:33:30
+        |vpiDecompile:3
+        |vpiSize:64
+        |INT:3
+        |vpiConstType:7
+      |vpiRightRange:
+      \_constant: , line:33:28, endln:33:29
+        |vpiParent:
+        \_range: , line:33:17, endln:33:30
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
   |vpiTypedef:
   \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
+    |vpiParent:
+    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+    |vpiName:lc_ctrl_pkg::token_idx_e
+    |vpiInstance:
+    \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+    |vpiBaseTypespec:
+    \_ref_typespec: (lc_ctrl_pkg::lc_ctrl_pkg::token_idx_e)
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
+      |vpiFullName:lc_ctrl_pkg::lc_ctrl_pkg::token_idx_e
+      |vpiActual:
+      \_logic_typespec: , line:10:16, endln:10:41
+    |vpiEnumConst:
+    \_enum_const: (ZeroTokenIdx), line:13:5, endln:13:30
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
+      |vpiName:ZeroTokenIdx
+      |HEX:0
+      |vpiDecompile:3'h0
+      |vpiSize:3
+    |vpiEnumConst:
+    \_enum_const: (RawUnlockTokenIdx), line:14:5, endln:14:30
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
+      |vpiName:RawUnlockTokenIdx
+      |HEX:1
+      |vpiDecompile:3'h1
+      |vpiSize:3
+    |vpiEnumConst:
+    \_enum_const: (TestUnlockTokenIdx), line:15:5, endln:15:30
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
+      |vpiName:TestUnlockTokenIdx
+      |HEX:2
+      |vpiDecompile:3'h2
+      |vpiSize:3
+    |vpiEnumConst:
+    \_enum_const: (TestExitTokenIdx), line:16:5, endln:16:30
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
+      |vpiName:TestExitTokenIdx
+      |HEX:3
+      |vpiDecompile:3'h3
+      |vpiSize:3
+    |vpiEnumConst:
+    \_enum_const: (RmaTokenIdx), line:17:5, endln:17:30
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
+      |vpiName:RmaTokenIdx
+      |HEX:4
+      |vpiDecompile:3'h4
+      |vpiSize:3
+    |vpiEnumConst:
+    \_enum_const: (InvalidTokenIdx), line:20:5, endln:20:30
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
+      |vpiName:InvalidTokenIdx
+      |HEX:5
+      |vpiDecompile:3'h5
+      |vpiSize:3
   |vpiDefName:lc_ctrl_pkg
   |vpiTop:1
+\_weaklyReferenced:
+\_int_typespec: , line:8:13, endln:8:16
+  |vpiParent:
+  \_parameter: (lc_ctrl_pkg::NumTokens), line:8:17, endln:8:26
+  |vpiInstance:
+  \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+  |vpiSigned:1
+\_int_typespec: , line:9:13, endln:9:16
+  |vpiParent:
+  \_parameter: (lc_ctrl_pkg::TokenIdxWidth), line:9:17, endln:9:30
+  |vpiInstance:
+  \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+  |vpiSigned:1
+\_logic_typespec: , line:10:16, endln:10:41
+  |vpiInstance:
+  \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+  |vpiRange:
+  \_range: , line:10:22, endln:10:41
+    |vpiParent:
+    \_logic_typespec: , line:10:16, endln:10:41
+    |vpiLeftRange:
+    \_constant: , line:10:23, endln:10:36
+      |vpiParent:
+      \_range: , line:10:22, endln:10:41
+      |vpiDecompile:2
+      |vpiSize:64
+      |INT:2
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:10:39, endln:10:40
+      |vpiParent:
+      \_range: , line:10:22, endln:10:41
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:27:13, endln:27:16
+  |vpiParent:
+  \_parameter: (lc_ctrl_pkg::TxWidth), line:27:17, endln:27:24
+  |vpiInstance:
+  \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+  |vpiSigned:1
+\_logic_typespec: , line:29:16, endln:29:35
+  |vpiInstance:
+  \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+  |vpiRange:
+  \_range: , line:29:22, endln:29:35
+    |vpiParent:
+    \_logic_typespec: , line:29:16, endln:29:35
+    |vpiLeftRange:
+    \_constant: , line:29:23, endln:29:30
+      |vpiParent:
+      \_range: , line:29:22, endln:29:35
+      |vpiDecompile:3
+      |vpiSize:64
+      |INT:3
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:29:33, endln:29:34
+      |vpiParent:
+      \_range: , line:29:22, endln:29:35
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: (lc_tx_t), line:33:11, endln:33:30
+  |vpiParent:
+  \_parameter: (lc_ctrl_pkg::LC_TX_DEFAULT), line:34:21, endln:34:34
+  |vpiName:lc_tx_t
+  |vpiTypedefAlias:
+  \_ref_typespec: (lc_ctrl_pkg::LC_TX_DEFAULT::lc_tx_t)
+    |vpiParent:
+    \_logic_typespec: (lc_tx_t), line:33:11, endln:33:30
+    |vpiFullName:lc_ctrl_pkg::LC_TX_DEFAULT::lc_tx_t
+    |vpiActual:
+    \_logic_typespec: (lc_ctrl_pkg::lc_tx_t), line:33:11, endln:33:30
+  |vpiInstance:
+  \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+  |vpiRange:
+  \_range: , line:33:17, endln:33:30
+    |vpiParent:
+    \_logic_typespec: (lc_tx_t), line:33:11, endln:33:30
+    |vpiLeftRange:
+    \_constant: , line:33:18, endln:33:25
+      |vpiParent:
+      \_range: , line:33:17, endln:33:30
+      |vpiDecompile:3
+      |vpiSize:64
+      |INT:3
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:33:28, endln:33:29
+      |vpiParent:
+      \_range: , line:33:17, endln:33:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: (lc_tx_t), line:33:11, endln:33:30
+  |vpiName:lc_tx_t
+  |vpiTypedefAlias:
+  \_ref_typespec: (lc_tx_t)
+    |vpiParent:
+    \_logic_typespec: (lc_tx_t), line:33:11, endln:33:30
+    |vpiFullName:lc_tx_t
+    |vpiActual:
+    \_logic_typespec: (lc_ctrl_pkg::lc_tx_t), line:33:11, endln:33:30
+  |vpiInstance:
+  \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+  |vpiRange:
+  \_range: , line:33:17, endln:33:30
+    |vpiParent:
+    \_logic_typespec: (lc_tx_t), line:33:11, endln:33:30
+    |vpiLeftRange:
+    \_constant: , line:33:18, endln:33:25
+      |vpiParent:
+      \_range: , line:33:17, endln:33:30
+      |vpiDecompile:3
+      |vpiSize:64
+      |INT:3
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:33:28, endln:33:29
+      |vpiParent:
+      \_range: , line:33:17, endln:33:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:36:13, endln:36:16
+  |vpiParent:
+  \_parameter: (lc_ctrl_pkg::RmaSeedWidth), line:36:17, endln:36:29
+  |vpiInstance:
+  \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+  |vpiSigned:1
+\_logic_typespec: (lc_flash_rma_seed_t), line:37:11, endln:37:35
+  |vpiParent:
+  \_parameter: (lc_ctrl_pkg::LC_FLASH_RMA_SEED_DEFAULT), line:38:33, endln:38:58
+  |vpiName:lc_flash_rma_seed_t
+  |vpiTypedefAlias:
+  \_ref_typespec: (lc_ctrl_pkg::LC_FLASH_RMA_SEED_DEFAULT::lc_flash_rma_seed_t)
+    |vpiParent:
+    \_logic_typespec: (lc_flash_rma_seed_t), line:37:11, endln:37:35
+    |vpiFullName:lc_ctrl_pkg::LC_FLASH_RMA_SEED_DEFAULT::lc_flash_rma_seed_t
+    |vpiActual:
+    \_logic_typespec: (lc_ctrl_pkg::lc_flash_rma_seed_t), line:37:11, endln:37:35
+  |vpiInstance:
+  \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+  |vpiRange:
+  \_range: , line:37:17, endln:37:35
+    |vpiParent:
+    \_logic_typespec: (lc_flash_rma_seed_t), line:37:11, endln:37:35
+    |vpiLeftRange:
+    \_constant: , line:37:18, endln:37:30
+      |vpiParent:
+      \_range: , line:37:17, endln:37:35
+      |vpiDecompile:31
+      |vpiSize:64
+      |INT:31
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:37:33, endln:37:34
+      |vpiParent:
+      \_range: , line:37:17, endln:37:35
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:40:13, endln:40:16
+  |vpiParent:
+  \_parameter: (lc_ctrl_pkg::LcKeymgrDivWidth), line:40:17, endln:40:33
+  |vpiInstance:
+  \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+  |vpiSigned:1
+\_int_typespec: , line:76:14, endln:76:17
+  |vpiParent:
+  \_parameter: (lc_ctrl_pkg::FsmStateWidth), line:76:18, endln:76:31
+  |vpiInstance:
+  \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+  |vpiSigned:1
+\_logic_typespec: , line:77:16, endln:77:41
+  |vpiInstance:
+  \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+  |vpiRange:
+  \_range: , line:77:22, endln:77:41
+    |vpiParent:
+    \_logic_typespec: , line:77:16, endln:77:41
+    |vpiLeftRange:
+    \_constant: , line:77:23, endln:77:36
+      |vpiParent:
+      \_range: , line:77:22, endln:77:41
+      |vpiDecompile:15
+      |vpiSize:64
+      |INT:15
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:77:39, endln:77:40
+      |vpiParent:
+      \_range: , line:77:22, endln:77:41
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_packed_array_typespec: , line:132:13, endln:132:59
+  |vpiParent:
+  \_parameter: (lc_ctrl_pkg::TransTokenIdxMatrix), line:132:60, endln:132:79
+  |vpiInstance:
+  \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+  |vpiRange:
+  \_range: , line:132:25, endln:132:42
+    |vpiParent:
+    \_packed_array_typespec: , line:132:13, endln:132:59
+    |vpiLeftRange:
+    \_operation: , line:132:26, endln:132:39
+      |vpiParent:
+      \_range: , line:132:25, endln:132:42
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (lc_ctrl_pkg::TransTokenIdxMatrix::NumLcStates), line:132:26, endln:132:37
+        |vpiParent:
+        \_operation: , line:132:26, endln:132:39
+        |vpiName:NumLcStates
+        |vpiFullName:lc_ctrl_pkg::TransTokenIdxMatrix::NumLcStates
+      |vpiOperand:
+      \_constant: , line:132:38, endln:132:39
+        |vpiParent:
+        \_operation: , line:132:26, endln:132:39
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:132:40, endln:132:41
+      |vpiParent:
+      \_range: , line:132:25, endln:132:42
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:132:42, endln:132:59
+    |vpiParent:
+    \_packed_array_typespec: , line:132:13, endln:132:59
+    |vpiLeftRange:
+    \_operation: , line:132:43, endln:132:56
+      |vpiParent:
+      \_range: , line:132:42, endln:132:59
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (lc_ctrl_pkg::TransTokenIdxMatrix::NumLcStates), line:132:43, endln:132:54
+        |vpiParent:
+        \_operation: , line:132:43, endln:132:56
+        |vpiName:NumLcStates
+        |vpiFullName:lc_ctrl_pkg::TransTokenIdxMatrix::NumLcStates
+      |vpiOperand:
+      \_constant: , line:132:55, endln:132:56
+        |vpiParent:
+        \_operation: , line:132:43, endln:132:56
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:132:57, endln:132:58
+      |vpiParent:
+      \_range: , line:132:42, endln:132:59
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_typespec: (lc_ctrl_pkg::TransTokenIdxMatrix)
+    |vpiParent:
+    \_packed_array_typespec: , line:132:13, endln:132:59
+    |vpiFullName:lc_ctrl_pkg::TransTokenIdxMatrix
+    |vpiActual:
+    \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
+\_int_typespec: , line:8:13, endln:8:16
+  |vpiParent:
+  \_parameter: (lc_ctrl_pkg::NumTokens), line:8:17, endln:8:26
+  |vpiInstance:
+  \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+  |vpiSigned:1
+\_int_typespec: , line:9:13, endln:9:16
+  |vpiParent:
+  \_parameter: (lc_ctrl_pkg::TokenIdxWidth), line:9:17, endln:9:30
+  |vpiInstance:
+  \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+  |vpiSigned:1
+\_logic_typespec: , line:10:16, endln:10:41
+  |vpiInstance:
+  \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+  |vpiRange:
+  \_range: , line:10:22, endln:10:41
+    |vpiParent:
+    \_logic_typespec: , line:10:16, endln:10:41
+    |vpiLeftRange:
+    \_operation: , line:10:23, endln:10:38
+      |vpiParent:
+      \_range: , line:10:22, endln:10:41
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (TokenIdxWidth), line:10:23, endln:10:36
+        |vpiParent:
+        \_operation: , line:10:23, endln:10:38
+        |vpiName:TokenIdxWidth
+        |vpiActual:
+        \_parameter: (lc_ctrl_pkg::TokenIdxWidth), line:9:17, endln:9:30
+      |vpiOperand:
+      \_constant: , line:10:37, endln:10:38
+        |vpiParent:
+        \_operation: , line:10:23, endln:10:38
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:10:39, endln:10:40
+      |vpiParent:
+      \_range: , line:10:22, endln:10:41
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:27:13, endln:27:16
+  |vpiParent:
+  \_parameter: (lc_ctrl_pkg::TxWidth), line:27:17, endln:27:24
+  |vpiInstance:
+  \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+  |vpiSigned:1
+\_logic_typespec: , line:29:16, endln:29:35
+  |vpiInstance:
+  \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+  |vpiRange:
+  \_range: , line:29:22, endln:29:35
+    |vpiParent:
+    \_logic_typespec: , line:29:16, endln:29:35
+    |vpiLeftRange:
+    \_operation: , line:29:23, endln:29:32
+      |vpiParent:
+      \_range: , line:29:22, endln:29:35
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (TxWidth), line:29:23, endln:29:30
+        |vpiParent:
+        \_operation: , line:29:23, endln:29:32
+        |vpiName:TxWidth
+        |vpiActual:
+        \_parameter: (lc_ctrl_pkg::TxWidth), line:27:17, endln:27:24
+      |vpiOperand:
+      \_constant: , line:29:31, endln:29:32
+        |vpiParent:
+        \_operation: , line:29:23, endln:29:32
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:29:33, endln:29:34
+      |vpiParent:
+      \_range: , line:29:22, endln:29:35
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: (lc_tx_t), line:33:11, endln:33:30
+  |vpiParent:
+  \_parameter: (lc_ctrl_pkg::LC_TX_DEFAULT), line:34:21, endln:34:34
+  |vpiName:lc_tx_t
+  |vpiTypedefAlias:
+  \_ref_typespec: (lc_ctrl_pkg::LC_TX_DEFAULT::lc_tx_t)
+    |vpiParent:
+    \_logic_typespec: (lc_tx_t), line:33:11, endln:33:30
+    |vpiFullName:lc_ctrl_pkg::LC_TX_DEFAULT::lc_tx_t
+    |vpiActual:
+    \_logic_typespec: (lc_ctrl_pkg::lc_tx_t), line:33:11, endln:33:30
+  |vpiInstance:
+  \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+  |vpiRange:
+  \_range: , line:33:17, endln:33:30
+    |vpiParent:
+    \_logic_typespec: (lc_tx_t), line:33:11, endln:33:30
+    |vpiLeftRange:
+    \_operation: , line:33:18, endln:33:27
+      |vpiParent:
+      \_range: , line:33:17, endln:33:30
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (lc_ctrl_pkg::LC_TX_DEFAULT::lc_tx_t::TxWidth), line:33:18, endln:33:25
+        |vpiParent:
+        \_operation: , line:33:18, endln:33:27
+        |vpiName:TxWidth
+        |vpiFullName:lc_ctrl_pkg::LC_TX_DEFAULT::lc_tx_t::TxWidth
+        |vpiActual:
+        \_parameter: (lc_ctrl_pkg::TxWidth), line:27:17, endln:27:24
+      |vpiOperand:
+      \_constant: , line:33:26, endln:33:27
+        |vpiParent:
+        \_operation: , line:33:18, endln:33:27
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:33:28, endln:33:29
+      |vpiParent:
+      \_range: , line:33:17, endln:33:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: (lc_tx_t), line:33:11, endln:33:30
+  |vpiName:lc_tx_t
+  |vpiTypedefAlias:
+  \_ref_typespec: (lc_tx_t)
+    |vpiParent:
+    \_logic_typespec: (lc_tx_t), line:33:11, endln:33:30
+    |vpiFullName:lc_tx_t
+    |vpiActual:
+    \_logic_typespec: (lc_ctrl_pkg::lc_tx_t), line:33:11, endln:33:30
+  |vpiInstance:
+  \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+  |vpiRange:
+  \_range: , line:33:17, endln:33:30
+    |vpiParent:
+    \_logic_typespec: (lc_tx_t), line:33:11, endln:33:30
+    |vpiLeftRange:
+    \_operation: , line:33:18, endln:33:27
+      |vpiParent:
+      \_range: , line:33:17, endln:33:30
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (lc_tx_t.TxWidth), line:33:18, endln:33:25
+        |vpiParent:
+        \_operation: , line:33:18, endln:33:27
+        |vpiName:TxWidth
+        |vpiFullName:lc_tx_t.TxWidth
+        |vpiActual:
+        \_parameter: (lc_ctrl_pkg::TxWidth), line:27:17, endln:27:24
+      |vpiOperand:
+      \_constant: , line:33:26, endln:33:27
+        |vpiParent:
+        \_operation: , line:33:18, endln:33:27
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:33:28, endln:33:29
+      |vpiParent:
+      \_range: , line:33:17, endln:33:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:36:13, endln:36:16
+  |vpiParent:
+  \_parameter: (lc_ctrl_pkg::RmaSeedWidth), line:36:17, endln:36:29
+  |vpiInstance:
+  \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+  |vpiSigned:1
+\_logic_typespec: (lc_flash_rma_seed_t), line:37:11, endln:37:35
+  |vpiParent:
+  \_parameter: (lc_ctrl_pkg::LC_FLASH_RMA_SEED_DEFAULT), line:38:33, endln:38:58
+  |vpiName:lc_flash_rma_seed_t
+  |vpiTypedefAlias:
+  \_ref_typespec: (lc_ctrl_pkg::LC_FLASH_RMA_SEED_DEFAULT::lc_flash_rma_seed_t)
+    |vpiParent:
+    \_logic_typespec: (lc_flash_rma_seed_t), line:37:11, endln:37:35
+    |vpiFullName:lc_ctrl_pkg::LC_FLASH_RMA_SEED_DEFAULT::lc_flash_rma_seed_t
+    |vpiActual:
+    \_logic_typespec: (lc_ctrl_pkg::lc_flash_rma_seed_t), line:37:11, endln:37:35
+  |vpiInstance:
+  \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+  |vpiRange:
+  \_range: , line:37:17, endln:37:35
+    |vpiParent:
+    \_logic_typespec: (lc_flash_rma_seed_t), line:37:11, endln:37:35
+    |vpiLeftRange:
+    \_operation: , line:37:18, endln:37:32
+      |vpiParent:
+      \_range: , line:37:17, endln:37:35
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (lc_ctrl_pkg::LC_FLASH_RMA_SEED_DEFAULT::lc_flash_rma_seed_t::RmaSeedWidth), line:37:18, endln:37:30
+        |vpiParent:
+        \_operation: , line:37:18, endln:37:32
+        |vpiName:RmaSeedWidth
+        |vpiFullName:lc_ctrl_pkg::LC_FLASH_RMA_SEED_DEFAULT::lc_flash_rma_seed_t::RmaSeedWidth
+        |vpiActual:
+        \_parameter: (lc_ctrl_pkg::RmaSeedWidth), line:36:17, endln:36:29
+      |vpiOperand:
+      \_constant: , line:37:31, endln:37:32
+        |vpiParent:
+        \_operation: , line:37:18, endln:37:32
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:37:33, endln:37:34
+      |vpiParent:
+      \_range: , line:37:17, endln:37:35
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:40:13, endln:40:16
+  |vpiParent:
+  \_parameter: (lc_ctrl_pkg::LcKeymgrDivWidth), line:40:17, endln:40:33
+  |vpiInstance:
+  \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+  |vpiSigned:1
+\_int_typespec: , line:76:14, endln:76:17
+  |vpiParent:
+  \_parameter: (lc_ctrl_pkg::FsmStateWidth), line:76:18, endln:76:31
+  |vpiInstance:
+  \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+  |vpiSigned:1
+\_logic_typespec: , line:77:16, endln:77:41
+  |vpiInstance:
+  \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+  |vpiRange:
+  \_range: , line:77:22, endln:77:41
+    |vpiParent:
+    \_logic_typespec: , line:77:16, endln:77:41
+    |vpiLeftRange:
+    \_operation: , line:77:23, endln:77:38
+      |vpiParent:
+      \_range: , line:77:22, endln:77:41
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (FsmStateWidth), line:77:23, endln:77:36
+        |vpiParent:
+        \_operation: , line:77:23, endln:77:38
+        |vpiName:FsmStateWidth
+        |vpiActual:
+        \_parameter: (lc_ctrl_pkg::FsmStateWidth), line:76:18, endln:76:31
+      |vpiOperand:
+      \_constant: , line:77:37, endln:77:38
+        |vpiParent:
+        \_operation: , line:77:23, endln:77:38
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:77:39, endln:77:40
+      |vpiParent:
+      \_range: , line:77:22, endln:77:41
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_packed_array_typespec: , line:132:13, endln:132:59
+  |vpiParent:
+  \_parameter: (lc_ctrl_pkg::TransTokenIdxMatrix), line:132:60, endln:132:79
+  |vpiInstance:
+  \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+  |vpiRange:
+  \_range: , line:132:25, endln:132:42
+    |vpiParent:
+    \_packed_array_typespec: , line:132:13, endln:132:59
+    |vpiLeftRange:
+    \_operation: , line:132:26, endln:132:39
+      |vpiParent:
+      \_range: , line:132:25, endln:132:42
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (lc_ctrl_pkg::TransTokenIdxMatrix::NumLcStates), line:132:26, endln:132:37
+        |vpiParent:
+        \_operation: , line:132:26, endln:132:39
+        |vpiName:NumLcStates
+        |vpiFullName:lc_ctrl_pkg::TransTokenIdxMatrix::NumLcStates
+      |vpiOperand:
+      \_constant: , line:132:38, endln:132:39
+        |vpiParent:
+        \_operation: , line:132:26, endln:132:39
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:132:40, endln:132:41
+      |vpiParent:
+      \_range: , line:132:25, endln:132:42
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:132:42, endln:132:59
+    |vpiParent:
+    \_packed_array_typespec: , line:132:13, endln:132:59
+    |vpiLeftRange:
+    \_operation: , line:132:43, endln:132:56
+      |vpiParent:
+      \_range: , line:132:42, endln:132:59
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (lc_ctrl_pkg::TransTokenIdxMatrix::NumLcStates), line:132:43, endln:132:54
+        |vpiParent:
+        \_operation: , line:132:43, endln:132:56
+        |vpiName:NumLcStates
+        |vpiFullName:lc_ctrl_pkg::TransTokenIdxMatrix::NumLcStates
+      |vpiOperand:
+      \_constant: , line:132:55, endln:132:56
+        |vpiParent:
+        \_operation: , line:132:43, endln:132:56
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:132:57, endln:132:58
+      |vpiParent:
+      \_range: , line:132:42, endln:132:59
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_typespec: (lc_ctrl_pkg::TransTokenIdxMatrix)
+    |vpiParent:
+    \_packed_array_typespec: , line:132:13, endln:132:59
+    |vpiFullName:lc_ctrl_pkg::TransTokenIdxMatrix
+    |vpiActual:
+    \_enum_typespec: (lc_ctrl_pkg::token_idx_e), line:10:3, endln:21:17
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

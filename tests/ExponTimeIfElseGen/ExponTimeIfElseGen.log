@@ -990,6 +990,7 @@ operation                                            194
 param_assign                                           2
 parameter                                             20
 ref_obj                                              158
+ref_typespec                                          23
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -1011,6 +1012,7 @@ operation                                            196
 param_assign                                           2
 parameter                                             20
 ref_obj                                              162
+ref_typespec                                          41
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ExponTimeIfElseGen/slpp_all/surelog.uhdm ...
 
@@ -1035,7 +1037,12 @@ design: (work@Foo)
     \_module_inst: work@Foo (work@Foo), file:${SURELOG_DIR}/tests/ExponTimeIfElseGen/dut.sv, line:1:1, endln:91:10
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: , line:2:4, endln:2:36
+    \_ref_typespec: (work@Foo.ADDR_OFFSET_PART_1)
+      |vpiParent:
+      \_parameter: (work@Foo.ADDR_OFFSET_PART_1), line:2:14, endln:2:32
+      |vpiFullName:work@Foo.ADDR_OFFSET_PART_1
+      |vpiActual:
+      \_int_typespec: , line:2:4, endln:2:36
     |vpiName:ADDR_OFFSET_PART_1
     |vpiFullName:work@Foo.ADDR_OFFSET_PART_1
   |vpiParamAssign:
@@ -1050,7 +1057,12 @@ design: (work@Foo)
       |vpiSize:64
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: , line:2:4, endln:2:36
+      \_ref_typespec: (work@Foo)
+        |vpiParent:
+        \_constant: , line:2:35, endln:2:36
+        |vpiFullName:work@Foo
+        |vpiActual:
+        \_int_typespec: , line:2:4, endln:2:36
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@Foo.ADDR_OFFSET_PART_1), line:2:14, endln:2:32
@@ -1073,9 +1085,12 @@ design: (work@Foo)
     \_module_inst: work@Foo (work@Foo), file:${SURELOG_DIR}/tests/ExponTimeIfElseGen/dut.sv, line:1:1, endln:91:10
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: , line:2:4, endln:2:36
+    \_ref_typespec: (work@Foo.ADDR_OFFSET_PART_1)
       |vpiParent:
       \_parameter: (work@Foo.ADDR_OFFSET_PART_1), line:2:14, endln:2:32
+      |vpiFullName:work@Foo.ADDR_OFFSET_PART_1
+      |vpiActual:
+      \_int_typespec: , line:2:4, endln:2:36
     |vpiName:ADDR_OFFSET_PART_1
     |vpiFullName:work@Foo.ADDR_OFFSET_PART_1
   |vpiParamAssign:
@@ -1090,7 +1105,12 @@ design: (work@Foo)
       |vpiSize:32
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: , line:2:4, endln:2:36
+      \_ref_typespec: (work@Foo)
+        |vpiParent:
+        \_constant: , line:2:35, endln:2:36
+        |vpiFullName:work@Foo
+        |vpiActual:
+        \_int_typespec: , line:2:4, endln:2:36
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@Foo.ADDR_OFFSET_PART_1), line:2:14, endln:2:32
@@ -1114,7 +1134,12 @@ design: (work@Foo)
         \_gen_scope: (work@Foo.genblk1[0]), line:5:45, endln:87:12
         |UINT:0
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@Foo.genblk1[0].i)
+          |vpiParent:
+          \_parameter: (work@Foo.genblk1[0].i), line:5:0
+          |vpiFullName:work@Foo.genblk1[0].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@Foo.genblk1[0].i
@@ -1135,7 +1160,12 @@ design: (work@Foo)
         \_gen_scope: (work@Foo.genblk1[1]), line:5:45, endln:87:12
         |UINT:1
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@Foo.genblk1[1].i)
+          |vpiParent:
+          \_parameter: (work@Foo.genblk1[1].i), line:5:0
+          |vpiFullName:work@Foo.genblk1[1].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@Foo.genblk1[1].i
@@ -1253,7 +1283,12 @@ design: (work@Foo)
         \_gen_scope: (work@Foo.genblk1[2]), line:5:45, endln:87:12
         |UINT:2
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@Foo.genblk1[2].i)
+          |vpiParent:
+          \_parameter: (work@Foo.genblk1[2].i), line:5:0
+          |vpiFullName:work@Foo.genblk1[2].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@Foo.genblk1[2].i
@@ -1274,7 +1309,12 @@ design: (work@Foo)
         \_gen_scope: (work@Foo.genblk1[3]), line:5:45, endln:87:12
         |UINT:3
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@Foo.genblk1[3].i)
+          |vpiParent:
+          \_parameter: (work@Foo.genblk1[3].i), line:5:0
+          |vpiFullName:work@Foo.genblk1[3].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@Foo.genblk1[3].i
@@ -1295,7 +1335,12 @@ design: (work@Foo)
         \_gen_scope: (work@Foo.genblk1[4]), line:5:45, endln:87:12
         |UINT:4
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@Foo.genblk1[4].i)
+          |vpiParent:
+          \_parameter: (work@Foo.genblk1[4].i), line:5:0
+          |vpiFullName:work@Foo.genblk1[4].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@Foo.genblk1[4].i
@@ -1316,7 +1361,12 @@ design: (work@Foo)
         \_gen_scope: (work@Foo.genblk1[5]), line:5:45, endln:87:12
         |UINT:5
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@Foo.genblk1[5].i)
+          |vpiParent:
+          \_parameter: (work@Foo.genblk1[5].i), line:5:0
+          |vpiFullName:work@Foo.genblk1[5].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@Foo.genblk1[5].i
@@ -1337,7 +1387,12 @@ design: (work@Foo)
         \_gen_scope: (work@Foo.genblk1[6]), line:5:45, endln:87:12
         |UINT:6
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@Foo.genblk1[6].i)
+          |vpiParent:
+          \_parameter: (work@Foo.genblk1[6].i), line:5:0
+          |vpiFullName:work@Foo.genblk1[6].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@Foo.genblk1[6].i
@@ -1358,7 +1413,12 @@ design: (work@Foo)
         \_gen_scope: (work@Foo.genblk1[7]), line:5:45, endln:87:12
         |UINT:7
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@Foo.genblk1[7].i)
+          |vpiParent:
+          \_parameter: (work@Foo.genblk1[7].i), line:5:0
+          |vpiFullName:work@Foo.genblk1[7].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@Foo.genblk1[7].i
@@ -1379,7 +1439,12 @@ design: (work@Foo)
         \_gen_scope: (work@Foo.genblk1[8]), line:5:45, endln:87:12
         |UINT:8
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@Foo.genblk1[8].i)
+          |vpiParent:
+          \_parameter: (work@Foo.genblk1[8].i), line:5:0
+          |vpiFullName:work@Foo.genblk1[8].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@Foo.genblk1[8].i
@@ -1400,7 +1465,12 @@ design: (work@Foo)
         \_gen_scope: (work@Foo.genblk1[9]), line:5:45, endln:87:12
         |UINT:9
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@Foo.genblk1[9].i)
+          |vpiParent:
+          \_parameter: (work@Foo.genblk1[9].i), line:5:0
+          |vpiFullName:work@Foo.genblk1[9].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@Foo.genblk1[9].i
@@ -1421,7 +1491,12 @@ design: (work@Foo)
         \_gen_scope: (work@Foo.genblk1[10]), line:5:45, endln:87:12
         |UINT:10
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@Foo.genblk1[10].i)
+          |vpiParent:
+          \_parameter: (work@Foo.genblk1[10].i), line:5:0
+          |vpiFullName:work@Foo.genblk1[10].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@Foo.genblk1[10].i
@@ -1442,7 +1517,12 @@ design: (work@Foo)
         \_gen_scope: (work@Foo.genblk1[11]), line:5:45, endln:87:12
         |UINT:11
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@Foo.genblk1[11].i)
+          |vpiParent:
+          \_parameter: (work@Foo.genblk1[11].i), line:5:0
+          |vpiFullName:work@Foo.genblk1[11].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@Foo.genblk1[11].i
@@ -1463,7 +1543,12 @@ design: (work@Foo)
         \_gen_scope: (work@Foo.genblk1[12]), line:5:45, endln:87:12
         |UINT:12
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@Foo.genblk1[12].i)
+          |vpiParent:
+          \_parameter: (work@Foo.genblk1[12].i), line:5:0
+          |vpiFullName:work@Foo.genblk1[12].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@Foo.genblk1[12].i
@@ -1484,7 +1569,12 @@ design: (work@Foo)
         \_gen_scope: (work@Foo.genblk1[13]), line:5:45, endln:87:12
         |UINT:13
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@Foo.genblk1[13].i)
+          |vpiParent:
+          \_parameter: (work@Foo.genblk1[13].i), line:5:0
+          |vpiFullName:work@Foo.genblk1[13].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@Foo.genblk1[13].i
@@ -1505,7 +1595,12 @@ design: (work@Foo)
         \_gen_scope: (work@Foo.genblk1[14]), line:5:45, endln:87:12
         |UINT:14
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@Foo.genblk1[14].i)
+          |vpiParent:
+          \_parameter: (work@Foo.genblk1[14].i), line:5:0
+          |vpiFullName:work@Foo.genblk1[14].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@Foo.genblk1[14].i
@@ -1526,7 +1621,12 @@ design: (work@Foo)
         \_gen_scope: (work@Foo.genblk1[15]), line:5:45, endln:87:12
         |UINT:15
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@Foo.genblk1[15].i)
+          |vpiParent:
+          \_parameter: (work@Foo.genblk1[15].i), line:5:0
+          |vpiFullName:work@Foo.genblk1[15].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@Foo.genblk1[15].i
@@ -1547,7 +1647,12 @@ design: (work@Foo)
         \_gen_scope: (work@Foo.genblk1[16]), line:5:45, endln:87:12
         |UINT:16
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@Foo.genblk1[16].i)
+          |vpiParent:
+          \_parameter: (work@Foo.genblk1[16].i), line:5:0
+          |vpiFullName:work@Foo.genblk1[16].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@Foo.genblk1[16].i
@@ -1568,10 +1673,148 @@ design: (work@Foo)
         \_gen_scope: (work@Foo.genblk1[17]), line:5:45, endln:87:12
         |UINT:17
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@Foo.genblk1[17].i)
+          |vpiParent:
+          \_parameter: (work@Foo.genblk1[17].i), line:5:0
+          |vpiFullName:work@Foo.genblk1[17].i
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:i
         |vpiFullName:work@Foo.genblk1[17].i
+\_weaklyReferenced:
+\_int_typespec: , line:2:4, endln:2:36
+\_operation: , line:17:51, endln:17:54
+  |vpiParent:
+  \_bit_select: (work@Foo.genblk1[1].genblk1.foo_bar_4), line:17:51, endln:17:54
+  |vpiOpType:24
+  |vpiOperand:
+  \_ref_obj: (work@Foo.genblk1[1].genblk1.foo_bar_4.i), line:17:51, endln:17:52
+    |vpiParent:
+    \_operation: , line:17:51, endln:17:54
+    |vpiName:i
+    |vpiFullName:work@Foo.genblk1[1].genblk1.foo_bar_4.i
+  |vpiOperand:
+  \_constant: , line:17:53, endln:17:54
+\_bit_select: (work@Foo.genblk1[1].genblk1.foo_bar_4), line:17:51, endln:17:54
+  |vpiParent:
+  \_assignment: , line:17:25, endln:17:55
+  |vpiName:foo_bar_4
+  |vpiFullName:work@Foo.genblk1[1].genblk1.foo_bar_4
+  |vpiIndex:
+  \_operation: , line:17:51, endln:17:54
+\_assignment: , line:17:25, endln:17:55
+  |vpiParent:
+  \_begin: (work@Foo.genblk1[1].genblk1), line:16:41, endln:18:24
+  |vpiOpType:82
+  |vpiRhs:
+  \_bit_select: (work@Foo.genblk1[1].genblk1.foo_bar_4), line:17:51, endln:17:54
+  |vpiLhs:
+  \_bit_select: (work@Foo.genblk1[1].genblk1.foo_bar_4), line:17:25, endln:17:37
+    |vpiParent:
+    \_assignment: , line:17:25, endln:17:55
+    |vpiName:foo_bar_4
+    |vpiFullName:work@Foo.genblk1[1].genblk1.foo_bar_4
+    |vpiIndex:
+    \_ref_obj: (work@Foo.genblk1[1].genblk1.i), line:17:35, endln:17:36
+      |vpiParent:
+      \_bit_select: (work@Foo.genblk1[1].genblk1.foo_bar_4), line:17:25, endln:17:37
+      |vpiName:i
+      |vpiFullName:work@Foo.genblk1[1].genblk1.i
+\_begin: (work@Foo.genblk1[1].genblk1), line:16:41, endln:18:24
+  |vpiParent:
+  \_if_stmt: , line:16:21, endln:18:24
+  |vpiFullName:work@Foo.genblk1[1].genblk1
+  |vpiStmt:
+  \_assignment: , line:17:25, endln:17:55
+\_if_stmt: , line:16:21, endln:18:24
+  |vpiParent:
+  \_begin: (work@Foo.genblk1[1].genblk1), line:15:42, endln:20:20
+  |vpiCondition:
+  \_ref_obj: (work@Foo.genblk1[1].genblk1.shift_foo_bar), line:16:25, endln:16:38
+    |vpiParent:
+    \_begin: (work@Foo.genblk1[1].genblk1), line:15:42, endln:20:20
+    |vpiName:shift_foo_bar
+    |vpiFullName:work@Foo.genblk1[1].genblk1.shift_foo_bar
+  |vpiStmt:
+  \_begin: (work@Foo.genblk1[1].genblk1), line:16:41, endln:18:24
+\_begin: (work@Foo.genblk1[1].genblk1), line:15:42, endln:20:20
+  |vpiParent:
+  \_event_control: , line:15:27, endln:15:41
+  |vpiFullName:work@Foo.genblk1[1].genblk1
+  |vpiStmt:
+  \_if_stmt: , line:16:21, endln:18:24
+\_event_control: , line:15:27, endln:15:41
+  |vpiParent:
+  \_always: , line:15:17, endln:20:20
+  |vpiCondition:
+  \_operation: , line:15:29, endln:15:40
+    |vpiParent:
+    \_event_control: , line:15:27, endln:15:41
+    |vpiOpType:39
+    |vpiOperand:
+    \_ref_obj: (work@Foo.genblk1[1].genblk1.clk), line:15:37, endln:15:40
+      |vpiParent:
+      \_operation: , line:15:29, endln:15:40
+      |vpiName:clk
+      |vpiFullName:work@Foo.genblk1[1].genblk1.clk
+  |vpiStmt:
+  \_begin: (work@Foo.genblk1[1].genblk1), line:15:42, endln:20:20
+\_always: , line:15:17, endln:20:20
+  |vpiParent:
+  \_gen_scope: (work@Foo.genblk1[1].genblk1), line:15:17, endln:20:20
+  |vpiStmt:
+  \_event_control: , line:15:27, endln:15:41
+  |vpiAlwaysType:3
+\_int_typespec: , line:2:4, endln:2:36
+  |vpiParent:
+  \_ref_typespec: (work@Foo.ADDR_OFFSET_PART_1)
+\_int_typespec: 
+\_int_typespec: 
+\_gen_scope: (work@Foo.genblk1[1].genblk1), line:15:17, endln:20:20
+  |vpiParent:
+  \_gen_scope_array: (work@Foo.genblk1[1].genblk1), line:15:17, endln:20:20
+  |vpiFullName:work@Foo.genblk1[1].genblk1
+  |vpiProcess:
+  \_always: , line:15:17, endln:20:20
+\_gen_scope_array: (work@Foo.genblk1[1].genblk1), line:15:17, endln:20:20
+  |vpiParent:
+  \_gen_scope: (work@Foo.genblk1[1]), line:5:45, endln:87:12
+  |vpiName:genblk1
+  |vpiFullName:work@Foo.genblk1[1].genblk1
+  |vpiGenScope:
+  \_gen_scope: (work@Foo.genblk1[1].genblk1), line:15:17, endln:20:20
+\_gen_scope: (work@Foo.genblk1[1]), line:5:45, endln:87:12
+  |vpiParent:
+  \_gen_scope_array: (work@Foo.genblk1[1]), line:5:45, endln:87:12
+  |vpiFullName:work@Foo.genblk1[1]
+  |vpiParameter:
+  \_parameter: (work@Foo.genblk1[1].i), line:5:0
+  |vpiGenScopeArray:
+  \_gen_scope_array: (work@Foo.genblk1[1].genblk1), line:15:17, endln:20:20
+\_gen_scope_array: (work@Foo.genblk1[1]), line:5:45, endln:87:12
+  |vpiParent:
+  \_module_inst: work@Foo (work@Foo), file:${SURELOG_DIR}/tests/ExponTimeIfElseGen/dut.sv, line:1:1, endln:91:10
+  |vpiName:genblk1[1]
+  |vpiFullName:work@Foo.genblk1[1]
+  |vpiGenScope:
+  \_gen_scope: (work@Foo.genblk1[1]), line:5:45, endln:87:12
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

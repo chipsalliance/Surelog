@@ -35,6 +35,7 @@ logic_typespec                                         2
 module_inst                                            2
 operation                                              1
 ref_obj                                                4
+ref_typespec                                           2
 sys_func_call                                          3
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/OneClock/slpp_unit/surelog.uhdm ...
@@ -59,7 +60,12 @@ design: (work@tb)
     |vpiParent:
     \_module_inst: work@tb (work@tb), file:${SURELOG_DIR}/tests/OneClock/tb.v, line:2:1, endln:19:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:3, endln:3:6
+    \_ref_typespec: (work@tb.clk)
+      |vpiParent:
+      \_logic_net: (work@tb.clk), line:3:7, endln:3:10
+      |vpiFullName:work@tb.clk
+      |vpiActual:
+      \_logic_typespec: , line:3:3, endln:3:6
     |vpiName:clk
     |vpiFullName:work@tb.clk
     |vpiNetType:48
@@ -184,9 +190,12 @@ design: (work@tb)
     |vpiParent:
     \_module_inst: work@tb (work@tb), file:${SURELOG_DIR}/tests/OneClock/tb.v, line:2:1, endln:19:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:3, endln:3:6
+    \_ref_typespec: (work@tb.clk)
       |vpiParent:
       \_logic_net: (work@tb.clk), line:3:7, endln:3:10
+      |vpiFullName:work@tb.clk
+      |vpiActual:
+      \_logic_typespec: , line:3:3, endln:3:6
     |vpiName:clk
     |vpiFullName:work@tb.clk
     |vpiNetType:48
@@ -197,6 +206,11 @@ design: (work@tb)
   \_initial: , line:10:3, endln:13:6
   |vpiProcess:
   \_always: , line:15:3, endln:16:19
+\_weaklyReferenced:
+\_logic_typespec: , line:3:3, endln:3:6
+  |vpiParent:
+  \_logic_net: (work@tb.clk), line:3:7, endln:3:10
+\_logic_typespec: , line:3:3, endln:3:6
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

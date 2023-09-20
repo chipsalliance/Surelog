@@ -85,6 +85,7 @@ package                                                4
 param_assign                                           4
 parameter                                              4
 ref_obj                                                2
+ref_typespec                                          12
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -99,6 +100,7 @@ package                                                4
 param_assign                                           4
 parameter                                              4
 ref_obj                                                2
+ref_typespec                                          12
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PackageConst/slpp_all/surelog.uhdm ...
 
@@ -124,11 +126,12 @@ design: (unnamed)
     \_package: spi_device_reg_pkg (spi_device_reg_pkg::), file:${SURELOG_DIR}/tests/PackageConst/dut.sv, line:1:1, endln:3:11
     |UINT:24
     |vpiTypespec:
-    \_int_typespec: , line:2:14, endln:2:26
+    \_ref_typespec: (spi_device_reg_pkg::NumCmdInfo)
       |vpiParent:
       \_parameter: (spi_device_reg_pkg::NumCmdInfo), line:2:27, endln:2:37
-      |vpiInstance:
-      \_package: spi_device_reg_pkg (spi_device_reg_pkg::), file:${SURELOG_DIR}/tests/PackageConst/dut.sv, line:1:1, endln:3:11
+      |vpiFullName:spi_device_reg_pkg::NumCmdInfo
+      |vpiActual:
+      \_int_typespec: , line:2:14, endln:2:26
     |vpiName:NumCmdInfo
     |vpiFullName:spi_device_reg_pkg::NumCmdInfo
   |vpiParamAssign:
@@ -143,7 +146,12 @@ design: (unnamed)
       |vpiSize:64
       |UINT:24
       |vpiTypespec:
-      \_int_typespec: , line:2:14, endln:2:26
+      \_ref_typespec: (spi_device_reg_pkg)
+        |vpiParent:
+        \_constant: , line:2:40, endln:2:42
+        |vpiFullName:spi_device_reg_pkg
+        |vpiActual:
+        \_int_typespec: , line:2:14, endln:2:26
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (spi_device_reg_pkg::NumCmdInfo), line:2:27, endln:2:37
@@ -162,9 +170,12 @@ design: (unnamed)
     |vpiInstance:
     \_package: spi_device_pkg (spi_device_pkg::), file:${SURELOG_DIR}/tests/PackageConst/dut.sv, line:5:1, endln:9:11
     |vpiBaseTypespec:
-    \_int_typespec: , line:6:17, endln:6:29
-      |vpiInstance:
-      \_package: spi_device_pkg (spi_device_pkg::), file:${SURELOG_DIR}/tests/PackageConst/dut.sv, line:5:1, endln:9:11
+    \_ref_typespec: (spi_device_pkg::spi_device_pkg::cmd_info_index_e)
+      |vpiParent:
+      \_enum_typespec: (spi_device_pkg::cmd_info_index_e), line:6:4, endln:8:23
+      |vpiFullName:spi_device_pkg::spi_device_pkg::cmd_info_index_e
+      |vpiActual:
+      \_int_typespec: , line:6:17, endln:6:29
     |vpiEnumConst:
     \_enum_const: (CmdInfoReserveEnd), line:7:7, endln:7:57
       |vpiParent:
@@ -186,11 +197,12 @@ design: (unnamed)
     \_package: spi_device_reg_pkg (spi_device_reg_pkg::), file:${SURELOG_DIR}/tests/PackageConst/dut.sv, line:1:1, endln:3:11
     |UINT:24
     |vpiTypespec:
-    \_int_typespec: , line:2:14, endln:2:26
+    \_ref_typespec: (spi_device_reg_pkg::NumCmdInfo)
       |vpiParent:
       \_parameter: (spi_device_reg_pkg::NumCmdInfo), line:2:27, endln:2:37
-      |vpiInstance:
-      \_package: spi_device_reg_pkg (spi_device_reg_pkg::), file:${SURELOG_DIR}/tests/PackageConst/dut.sv, line:1:1, endln:3:11
+      |vpiFullName:spi_device_reg_pkg::NumCmdInfo
+      |vpiActual:
+      \_int_typespec: , line:2:14, endln:2:26
     |vpiName:NumCmdInfo
     |vpiFullName:spi_device_reg_pkg::NumCmdInfo
   |vpiParamAssign:
@@ -205,7 +217,12 @@ design: (unnamed)
       |vpiSize:32
       |UINT:24
       |vpiTypespec:
-      \_int_typespec: , line:2:14, endln:2:26
+      \_ref_typespec: (spi_device_reg_pkg)
+        |vpiParent:
+        \_constant: , line:2:40, endln:2:42
+        |vpiFullName:spi_device_reg_pkg
+        |vpiActual:
+        \_int_typespec: , line:2:14, endln:2:26
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (spi_device_reg_pkg::NumCmdInfo), line:2:27, endln:2:37
@@ -225,9 +242,12 @@ design: (unnamed)
     |vpiInstance:
     \_package: spi_device_pkg (spi_device_pkg::), file:${SURELOG_DIR}/tests/PackageConst/dut.sv, line:5:1, endln:9:11
     |vpiBaseTypespec:
-    \_int_typespec: , line:6:17, endln:6:29
-      |vpiInstance:
-      \_package: spi_device_pkg (spi_device_pkg::), file:${SURELOG_DIR}/tests/PackageConst/dut.sv, line:5:1, endln:9:11
+    \_ref_typespec: (spi_device_pkg::spi_device_pkg::cmd_info_index_e)
+      |vpiParent:
+      \_enum_typespec: (spi_device_pkg::cmd_info_index_e), line:6:4, endln:8:23
+      |vpiFullName:spi_device_pkg::spi_device_pkg::cmd_info_index_e
+      |vpiActual:
+      \_int_typespec: , line:6:17, endln:6:29
     |vpiEnumConst:
     \_enum_const: (CmdInfoReserveEnd), line:7:7, endln:7:57
       |vpiParent:
@@ -238,6 +258,23 @@ design: (unnamed)
       |vpiSize:32
   |vpiDefName:spi_device_pkg
   |vpiTop:1
+\_weaklyReferenced:
+\_int_typespec: , line:2:14, endln:2:26
+  |vpiParent:
+  \_parameter: (spi_device_reg_pkg::NumCmdInfo), line:2:27, endln:2:37
+  |vpiInstance:
+  \_package: spi_device_reg_pkg (spi_device_reg_pkg::), file:${SURELOG_DIR}/tests/PackageConst/dut.sv, line:1:1, endln:3:11
+\_int_typespec: , line:2:14, endln:2:26
+  |vpiParent:
+  \_parameter: (spi_device_reg_pkg::NumCmdInfo), line:2:27, endln:2:37
+  |vpiInstance:
+  \_package: spi_device_reg_pkg (spi_device_reg_pkg::), file:${SURELOG_DIR}/tests/PackageConst/dut.sv, line:1:1, endln:3:11
+\_int_typespec: , line:6:17, endln:6:29
+  |vpiInstance:
+  \_package: spi_device_pkg (spi_device_pkg::), file:${SURELOG_DIR}/tests/PackageConst/dut.sv, line:5:1, endln:9:11
+\_int_typespec: , line:6:17, endln:6:29
+  |vpiInstance:
+  \_package: spi_device_pkg (spi_device_pkg::), file:${SURELOG_DIR}/tests/PackageConst/dut.sv, line:5:1, endln:9:11
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

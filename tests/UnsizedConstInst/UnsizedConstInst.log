@@ -181,6 +181,7 @@ part_select                                            3
 range                                                  2
 ref_module                                             2
 ref_obj                                                6
+ref_typespec                                          11
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -202,6 +203,7 @@ part_select                                            5
 range                                                  2
 ref_module                                             2
 ref_obj                                               10
+ref_typespec                                          11
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/UnsizedConstInst/slpp_all/surelog.uhdm ...
 
@@ -226,7 +228,12 @@ design: (work@top)
     \_module_inst: work@bottom (work@bottom), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:1:1, endln:7:10
     |UINT:0
     |vpiTypespec:
-    \_int_typespec: , line:2:3, endln:2:18
+    \_ref_typespec: (work@bottom.P)
+      |vpiParent:
+      \_parameter: (work@bottom.P), line:2:13, endln:2:14
+      |vpiFullName:work@bottom.P
+      |vpiActual:
+      \_int_typespec: , line:2:3, endln:2:18
     |vpiName:P
     |vpiFullName:work@bottom.P
   |vpiParamAssign:
@@ -241,7 +248,12 @@ design: (work@top)
       |vpiSize:64
       |UINT:0
       |vpiTypespec:
-      \_int_typespec: , line:2:3, endln:2:18
+      \_ref_typespec: (work@bottom)
+        |vpiParent:
+        \_constant: , line:2:17, endln:2:18
+        |vpiFullName:work@bottom
+        |vpiActual:
+        \_int_typespec: , line:2:3, endln:2:18
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@bottom.P), line:2:13, endln:2:14
@@ -251,7 +263,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@bottom (work@bottom), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:3, endln:3:31
+    \_ref_typespec: (work@bottom.product_exponent)
+      |vpiParent:
+      \_logic_net: (work@bottom.product_exponent), line:3:9, endln:3:25
+      |vpiFullName:work@bottom.product_exponent
+      |vpiActual:
+      \_logic_typespec: , line:3:3, endln:3:31
     |vpiName:product_exponent
     |vpiFullName:work@bottom.product_exponent
     |vpiNetType:36
@@ -347,7 +364,12 @@ design: (work@top)
       \_module_inst: work@bottom (work@top.u1), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:10:3, endln:10:24
       |vpiSize:11
       |vpiTypespec:
-      \_array_typespec: 
+      \_ref_typespec: (work@top.u1.product_exponent)
+        |vpiParent:
+        \_array_var: (work@top.u1.product_exponent), line:3:9, endln:3:25
+        |vpiFullName:work@top.u1.product_exponent
+        |vpiActual:
+        \_array_typespec: 
       |vpiName:product_exponent
       |vpiFullName:work@top.u1.product_exponent
       |vpiRandType:1
@@ -378,9 +400,12 @@ design: (work@top)
         |vpiParent:
         \_array_var: (work@top.u1.product_exponent), line:3:9, endln:3:25
         |vpiTypespec:
-        \_logic_typespec: , line:3:3, endln:3:8
+        \_ref_typespec: (work@top.u1.product_exponent)
           |vpiParent:
           \_logic_var: (work@top.u1.product_exponent), line:3:9, endln:3:25
+          |vpiFullName:work@top.u1.product_exponent
+          |vpiActual:
+          \_logic_typespec: , line:3:3, endln:3:8
         |vpiFullName:work@top.u1.product_exponent
     |vpiParameter:
     \_parameter: (work@top.u1.P), line:2:13, endln:2:14
@@ -388,9 +413,12 @@ design: (work@top)
       \_module_inst: work@bottom (work@top.u1), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:10:3, endln:10:24
       |UINT:0
       |vpiTypespec:
-      \_int_typespec: , line:2:3, endln:2:18
+      \_ref_typespec: (work@top.u1.P)
         |vpiParent:
         \_parameter: (work@top.u1.P), line:2:13, endln:2:14
+        |vpiFullName:work@top.u1.P
+        |vpiActual:
+        \_int_typespec: , line:2:3, endln:2:18
       |vpiName:P
       |vpiFullName:work@top.u1.P
     |vpiParamAssign:
@@ -406,7 +434,12 @@ design: (work@top)
         |vpiSize:32
         |UINT:5
         |vpiTypespec:
-        \_int_typespec: , line:2:3, endln:2:18
+        \_ref_typespec: (work@top.u1)
+          |vpiParent:
+          \_constant: , line:2:17, endln:2:18
+          |vpiFullName:work@top.u1
+          |vpiActual:
+          \_int_typespec: , line:2:3, endln:2:18
         |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@top.u1.P), line:2:13, endln:2:14
@@ -476,7 +509,12 @@ design: (work@top)
       \_module_inst: work@bottom (work@top.u2), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:11:3, endln:11:24
       |vpiSize:11
       |vpiTypespec:
-      \_array_typespec: 
+      \_ref_typespec: (work@top.u2.product_exponent)
+        |vpiParent:
+        \_array_var: (work@top.u2.product_exponent), line:3:9, endln:3:25
+        |vpiFullName:work@top.u2.product_exponent
+        |vpiActual:
+        \_array_typespec: 
       |vpiName:product_exponent
       |vpiFullName:work@top.u2.product_exponent
       |vpiRandType:1
@@ -507,9 +545,12 @@ design: (work@top)
         |vpiParent:
         \_array_var: (work@top.u2.product_exponent), line:3:9, endln:3:25
         |vpiTypespec:
-        \_logic_typespec: , line:3:3, endln:3:8
+        \_ref_typespec: (work@top.u2.product_exponent)
           |vpiParent:
           \_logic_var: (work@top.u2.product_exponent), line:3:9, endln:3:25
+          |vpiFullName:work@top.u2.product_exponent
+          |vpiActual:
+          \_logic_typespec: , line:3:3, endln:3:8
         |vpiFullName:work@top.u2.product_exponent
     |vpiParameter:
     \_parameter: (work@top.u2.P), line:2:13, endln:2:14
@@ -517,9 +558,12 @@ design: (work@top)
       \_module_inst: work@bottom (work@top.u2), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:11:3, endln:11:24
       |UINT:0
       |vpiTypespec:
-      \_int_typespec: , line:2:3, endln:2:18
+      \_ref_typespec: (work@top.u2.P)
         |vpiParent:
         \_parameter: (work@top.u2.P), line:2:13, endln:2:14
+        |vpiFullName:work@top.u2.P
+        |vpiActual:
+        \_int_typespec: , line:2:3, endln:2:18
       |vpiName:P
       |vpiFullName:work@top.u2.P
     |vpiParamAssign:
@@ -535,7 +579,12 @@ design: (work@top)
         |vpiSize:32
         |UINT:8
         |vpiTypespec:
-        \_int_typespec: , line:2:3, endln:2:18
+        \_ref_typespec: (work@top.u2)
+          |vpiParent:
+          \_constant: , line:2:17, endln:2:18
+          |vpiFullName:work@top.u2
+          |vpiActual:
+          \_int_typespec: , line:2:3, endln:2:18
         |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@top.u2.P), line:2:13, endln:2:14
@@ -593,6 +642,107 @@ design: (work@top)
         |vpiFullName:work@top.u2.p
         |vpiActual:
         \_logic_net: (work@bottom.p), line:5:10, endln:5:11
+\_weaklyReferenced:
+\_int_typespec: , line:2:3, endln:2:18
+\_logic_typespec: , line:3:3, endln:3:8
+  |vpiParent:
+  \_logic_var: (work@top.u1.product_exponent), line:3:9, endln:3:25
+\_array_typespec: 
+\_logic_typespec: , line:3:3, endln:3:8
+  |vpiParent:
+  \_logic_var: (work@top.u2.product_exponent), line:3:9, endln:3:25
+\_array_typespec: 
+\_logic_typespec: , line:3:3, endln:3:31
+\_int_typespec: , line:2:3, endln:2:18
+  |vpiParent:
+  \_ref_typespec: (work@top.u1.P)
+\_part_select: product_exponent (work@top.u1.product_exponent), line:5:14, endln:5:35
+  |vpiParent:
+  \_operation: , line:5:14, endln:5:41
+  |vpiName:product_exponent
+  |vpiFullName:work@top.u1.product_exponent
+  |vpiDefName:product_exponent
+  |vpiConstantSelect:1
+  |vpiLeftRange:
+  \_ref_obj: (work@top.u1.product_exponent.P), line:5:31, endln:5:32
+    |vpiParent:
+    \_part_select: product_exponent (work@top.u1.product_exponent), line:5:14, endln:5:35
+    |vpiName:P
+    |vpiFullName:work@top.u1.product_exponent.P
+  |vpiRightRange:
+  \_constant: , line:5:33, endln:5:34
+\_operation: , line:5:14, endln:5:41
+  |vpiParent:
+  \_cont_assign: , line:5:10, endln:5:41
+  |vpiOpType:14
+  |vpiOperand:
+  \_part_select: product_exponent (work@top.u1.product_exponent), line:5:14, endln:5:35
+  |vpiOperand:
+  \_constant: , line:5:39, endln:5:41
+    |vpiParent:
+    \_operation: , line:5:14, endln:5:41
+    |vpiDecompile:'1
+    |vpiSize:-1
+    |BIN:1
+    |vpiConstType:3
+\_cont_assign: , line:5:10, endln:5:41
+  |vpiParent:
+  \_module_inst: work@bottom (work@top.u1), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:10:3, endln:10:24
+  |vpiRhs:
+  \_operation: , line:5:14, endln:5:41
+  |vpiLhs:
+  \_ref_obj: (work@top.u1.p), line:5:10, endln:5:11
+    |vpiParent:
+    \_cont_assign: , line:5:10, endln:5:41
+    |vpiName:p
+    |vpiFullName:work@top.u1.p
+    |vpiActual:
+    \_logic_net: (work@bottom.p), line:5:10, endln:5:11
+\_int_typespec: , line:2:3, endln:2:18
+  |vpiParent:
+  \_ref_typespec: (work@top.u2.P)
+\_part_select: product_exponent (work@top.u2.product_exponent), line:5:14, endln:5:35
+  |vpiParent:
+  \_operation: , line:5:14, endln:5:41
+  |vpiName:product_exponent
+  |vpiFullName:work@top.u2.product_exponent
+  |vpiDefName:product_exponent
+  |vpiConstantSelect:1
+  |vpiLeftRange:
+  \_ref_obj: (work@top.u2.product_exponent.P), line:5:31, endln:5:32
+    |vpiParent:
+    \_part_select: product_exponent (work@top.u2.product_exponent), line:5:14, endln:5:35
+    |vpiName:P
+    |vpiFullName:work@top.u2.product_exponent.P
+  |vpiRightRange:
+  \_constant: , line:5:33, endln:5:34
+\_operation: , line:5:14, endln:5:41
+  |vpiParent:
+  \_cont_assign: , line:5:10, endln:5:41
+  |vpiOpType:14
+  |vpiOperand:
+  \_part_select: product_exponent (work@top.u2.product_exponent), line:5:14, endln:5:35
+  |vpiOperand:
+  \_constant: , line:5:39, endln:5:41
+    |vpiParent:
+    \_operation: , line:5:14, endln:5:41
+    |vpiDecompile:'1
+    |vpiSize:-1
+    |BIN:1
+    |vpiConstType:3
+\_cont_assign: , line:5:10, endln:5:41
+  |vpiParent:
+  \_module_inst: work@bottom (work@top.u2), file:${SURELOG_DIR}/tests/UnsizedConstInst/dut.sv, line:11:3, endln:11:24
+  |vpiRhs:
+  \_operation: , line:5:14, endln:5:41
+  |vpiLhs:
+  \_ref_obj: (work@top.u2.p), line:5:10, endln:5:11
+    |vpiParent:
+    \_cont_assign: , line:5:10, endln:5:41
+    |vpiName:p
+    |vpiFullName:work@top.u2.p
+    |vpiActual:
+    \_logic_net: (work@bottom.p), line:5:10, endln:5:11
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

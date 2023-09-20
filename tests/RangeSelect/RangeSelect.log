@@ -40,6 +40,7 @@ module_inst                                            3
 operation                                              1
 range                                                  5
 ref_obj                                                1
+ref_typespec                                           9
 struct_net                                             2
 struct_typespec                                        1
 typespec_member                                        1
@@ -60,6 +61,7 @@ module_inst                                            3
 operation                                              1
 range                                                  5
 ref_obj                                                1
+ref_typespec                                           9
 struct_net                                             2
 struct_typespec                                        1
 typespec_member                                        1
@@ -95,29 +97,12 @@ design: (work@top)
       \_struct_typespec: (tl_h2d_t), line:2:12, endln:6:17
       |vpiName:source
       |vpiTypespec:
-      \_logic_typespec: , line:3:7, endln:3:18
+      \_ref_typespec: (work@top.tl_h2d_t.source)
         |vpiParent:
         \_typespec_member: (source), line:3:19, endln:3:25
-        |vpiRange:
-        \_range: , line:3:13, endln:3:18
-          |vpiParent:
-          \_logic_typespec: , line:3:7, endln:3:18
-          |vpiLeftRange:
-          \_constant: , line:3:14, endln:3:15
-            |vpiParent:
-            \_range: , line:3:13, endln:3:18
-            |vpiDecompile:7
-            |vpiSize:64
-            |UINT:7
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:3:16, endln:3:17
-            |vpiParent:
-            \_range: , line:3:13, endln:3:18
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@top.tl_h2d_t.source
+        |vpiActual:
+        \_logic_typespec: , line:3:7, endln:3:18
       |vpiRefFile:${SURELOG_DIR}/tests/RangeSelect/dut.sv
       |vpiRefLineNo:3
       |vpiRefColumnNo:7
@@ -129,7 +114,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/RangeSelect/dut.sv, line:1:1, endln:11:10
     |vpiTypespec:
-    \_struct_typespec: (tl_h2d_t), line:2:12, endln:6:17
+    \_ref_typespec: (work@top.a)
+      |vpiParent:
+      \_logic_net: (work@top.a), line:6:13, endln:6:14
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_struct_typespec: (tl_h2d_t), line:2:12, endln:6:17
     |vpiName:a
     |vpiFullName:work@top.a
   |vpiNet:
@@ -137,7 +127,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/RangeSelect/dut.sv, line:1:1, endln:11:10
     |vpiTypespec:
-    \_struct_typespec: (tl_h2d_t), line:2:12, endln:6:17
+    \_ref_typespec: (work@top.b)
+      |vpiParent:
+      \_logic_net: (work@top.b), line:7:13, endln:7:14
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_struct_typespec: (tl_h2d_t), line:2:12, endln:6:17
     |vpiName:b
     |vpiFullName:work@top.b
   |vpiNet:
@@ -145,7 +140,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/RangeSelect/dut.sv, line:1:1, endln:11:10
     |vpiTypespec:
-    \_logic_typespec: , line:8:4, endln:8:33
+    \_ref_typespec: (work@top.c)
+      |vpiParent:
+      \_logic_net: (work@top.c), line:8:10, endln:8:11
+      |vpiFullName:work@top.c
+      |vpiActual:
+      \_logic_typespec: , line:8:4, endln:8:33
     |vpiName:c
     |vpiFullName:work@top.c
     |vpiNetType:36
@@ -154,27 +154,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/RangeSelect/dut.sv, line:1:1, endln:11:10
     |vpiTypespec:
-    \_logic_typespec: , line:9:4, endln:9:36
-      |vpiRange:
-      \_range: , line:9:10, endln:9:15
-        |vpiParent:
-        \_logic_typespec: , line:9:4, endln:9:36
-        |vpiLeftRange:
-        \_constant: , line:9:11, endln:9:12
-          |vpiParent:
-          \_range: , line:9:10, endln:9:15
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:9:13, endln:9:14
-          |vpiParent:
-          \_range: , line:9:10, endln:9:15
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@top.d)
+      |vpiParent:
+      \_logic_net: (work@top.d), line:9:16, endln:9:17
+      |vpiFullName:work@top.d
+      |vpiActual:
+      \_logic_typespec: , line:9:4, endln:9:36
     |vpiName:d
     |vpiFullName:work@top.d
     |vpiNetType:36
@@ -186,9 +171,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/RangeSelect/dut.sv, line:1:1, endln:11:10
     |vpiTypespec:
-    \_logic_typespec: , line:8:4, endln:8:9
+    \_ref_typespec: (work@top.c)
       |vpiParent:
       \_logic_var: (work@top.c), line:8:10, endln:8:33
+      |vpiFullName:work@top.c
+      |vpiActual:
+      \_logic_typespec: , line:8:4, endln:8:9
     |vpiName:c
     |vpiFullName:work@top.c
     |vpiVisibility:1
@@ -236,29 +224,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/RangeSelect/dut.sv, line:1:1, endln:11:10
     |vpiTypespec:
-    \_logic_typespec: , line:9:4, endln:9:15
+    \_ref_typespec: (work@top.d)
       |vpiParent:
       \_logic_var: (work@top.d), line:9:16, endln:9:36
-      |vpiRange:
-      \_range: , line:9:10, endln:9:15
-        |vpiParent:
-        \_logic_typespec: , line:9:4, endln:9:15
-        |vpiLeftRange:
-        \_constant: , line:9:11, endln:9:12
-          |vpiParent:
-          \_range: , line:9:10, endln:9:15
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:9:13, endln:9:14
-          |vpiParent:
-          \_range: , line:9:10, endln:9:15
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@top.d
+      |vpiActual:
+      \_logic_typespec: , line:9:4, endln:9:15
     |vpiName:d
     |vpiFullName:work@top.d
     |vpiVisibility:1
@@ -303,7 +274,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/RangeSelect/dut.sv, line:1:1, endln:11:10
     |vpiTypespec:
-    \_struct_typespec: (tl_h2d_t), line:2:12, endln:6:17
+    \_ref_typespec: (work@top.b)
+      |vpiParent:
+      \_struct_net: (work@top.b), line:7:13, endln:7:14
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_struct_typespec: (tl_h2d_t), line:2:12, endln:6:17
     |vpiName:b
     |vpiFullName:work@top.b
   |vpiArrayNet:
@@ -348,10 +324,87 @@ design: (work@top)
       |vpiParent:
       \_array_net: (work@top.a), line:6:13, endln:6:14
       |vpiTypespec:
-      \_struct_typespec: (tl_h2d_t), line:2:12, endln:6:17
+      \_ref_typespec: (work@top.a.a)
+        |vpiParent:
+        \_struct_net: (work@top.a.a), line:6:13, endln:6:17
+        |vpiFullName:work@top.a.a
+        |vpiActual:
+        \_struct_typespec: (tl_h2d_t), line:2:12, endln:6:17
       |vpiName:a
       |vpiFullName:work@top.a.a
   |vpiTopModule:1
+\_weaklyReferenced:
+\_logic_typespec: , line:3:7, endln:3:18
+  |vpiParent:
+  \_typespec_member: (source), line:3:19, endln:3:25
+  |vpiRange:
+  \_range: , line:3:13, endln:3:18
+    |vpiParent:
+    \_logic_typespec: , line:3:7, endln:3:18
+    |vpiLeftRange:
+    \_constant: , line:3:14, endln:3:15
+      |vpiParent:
+      \_range: , line:3:13, endln:3:18
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:16, endln:3:17
+      |vpiParent:
+      \_range: , line:3:13, endln:3:18
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:8:4, endln:8:9
+  |vpiParent:
+  \_logic_var: (work@top.c), line:8:10, endln:8:33
+\_logic_typespec: , line:9:4, endln:9:15
+  |vpiParent:
+  \_logic_var: (work@top.d), line:9:16, endln:9:36
+  |vpiRange:
+  \_range: , line:9:10, endln:9:15
+    |vpiParent:
+    \_logic_typespec: , line:9:4, endln:9:15
+    |vpiLeftRange:
+    \_constant: , line:9:11, endln:9:12
+      |vpiParent:
+      \_range: , line:9:10, endln:9:15
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:9:13, endln:9:14
+      |vpiParent:
+      \_range: , line:9:10, endln:9:15
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:8:4, endln:8:33
+\_logic_typespec: , line:9:4, endln:9:36
+  |vpiRange:
+  \_range: , line:9:10, endln:9:15
+    |vpiParent:
+    \_logic_typespec: , line:9:4, endln:9:36
+    |vpiLeftRange:
+    \_constant: , line:9:11, endln:9:12
+      |vpiParent:
+      \_range: , line:9:10, endln:9:15
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:9:13, endln:9:14
+      |vpiParent:
+      \_range: , line:9:10, endln:9:15
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

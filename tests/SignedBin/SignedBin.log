@@ -91,6 +91,7 @@ operation                                              4
 port                                                   3
 ref_module                                             1
 ref_obj                                                2
+ref_typespec                                           6
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -105,6 +106,7 @@ operation                                              4
 port                                                   4
 ref_module                                             1
 ref_obj                                                3
+ref_typespec                                           7
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/SignedBin/slpp_all/surelog.uhdm ...
 
@@ -159,8 +161,11 @@ design: (work@dut)
             |vpiSize:1
             |BIN:0
             |vpiTypespec:
-            \_int_typespec: 
-              |vpiSigned:1
+            \_ref_typespec: 
+              |vpiParent:
+              \_constant: , line:9:26, endln:9:31
+              |vpiActual:
+              \_int_typespec: 
             |vpiConstType:3
 |uhdmallModules:
 \_module_inst: work@prim_subreg (work@prim_subreg), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:1:1, endln:5:10
@@ -190,7 +195,12 @@ design: (work@dut)
       |vpiActual:
       \_logic_net: (work@prim_subreg.test), line:2:13, endln:2:17
     |vpiTypedef:
-    \_logic_typespec: , line:2:7, endln:2:12
+    \_ref_typespec: (work@prim_subreg.test)
+      |vpiParent:
+      \_port: (test), line:2:13, endln:2:17
+      |vpiFullName:work@prim_subreg.test
+      |vpiActual:
+      \_logic_typespec: , line:2:7, endln:2:12
 |uhdmtopModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:7:1, endln:10:10
   |vpiName:work@dut
@@ -211,9 +221,12 @@ design: (work@dut)
       |vpiParent:
       \_module_inst: work@prim_subreg (work@dut.s), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:9:1, endln:9:36
       |vpiTypespec:
-      \_logic_typespec: , line:2:7, endln:2:12
+      \_ref_typespec: (work@dut.s.test)
         |vpiParent:
         \_logic_net: (work@dut.s.test), line:2:13, endln:2:17
+        |vpiFullName:work@dut.s.test
+        |vpiActual:
+        \_logic_typespec: , line:2:7, endln:2:12
       |vpiName:test
       |vpiFullName:work@dut.s.test
       |vpiNetType:36
@@ -233,8 +246,12 @@ design: (work@dut)
         |vpiSize:24
         |BIN:000000000000000000000000
         |vpiTypespec:
-        \_int_typespec: 
-          |UINT:1
+        \_ref_typespec: (work@dut.s.test)
+          |vpiParent:
+          \_constant: , line:9:21, endln:9:33
+          |vpiFullName:work@dut.s.test
+          |vpiActual:
+          \_int_typespec: 
         |vpiConstType:3
       |vpiLowConn:
       \_ref_obj: (work@dut.s.test), line:9:16, endln:9:20
@@ -245,9 +262,46 @@ design: (work@dut)
         |vpiActual:
         \_logic_net: (work@dut.s.test), line:2:13, endln:2:17
       |vpiTypedef:
-      \_logic_typespec: , line:2:7, endln:2:12
+      \_ref_typespec: (work@dut.s.test)
+        |vpiParent:
+        \_port: (test), line:2:13, endln:2:17
+        |vpiFullName:work@dut.s.test
+        |vpiActual:
+        \_logic_typespec: , line:2:7, endln:2:12
       |vpiInstance:
       \_module_inst: work@prim_subreg (work@dut.s), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:9:1, endln:9:36
+\_weaklyReferenced:
+\_int_typespec: 
+  |vpiSigned:1
+\_port: (test), line:2:13, endln:2:17
+  |vpiParent:
+  \_module_inst: work@prim_subreg (work@dut.s), file:${SURELOG_DIR}/tests/SignedBin/dut.sv, line:9:1, endln:9:36
+  |vpiName:test
+  |vpiDirection:1
+  |vpiHighConn:
+  \_constant: , line:9:21, endln:9:33
+  |vpiLowConn:
+  \_ref_obj: (work@dut.s.test), line:9:16, endln:9:20
+    |vpiParent:
+    \_port: (test), line:2:13, endln:2:17
+    |vpiName:test
+    |vpiFullName:work@dut.s.test
+    |vpiActual:
+    \_logic_net: (work@dut.s.test), line:2:13, endln:2:17
+  |vpiTypedef:
+  \_ref_typespec: (work@dut.s.test)
+    |vpiParent:
+    \_port: (test), line:2:13, endln:2:17
+    |vpiFullName:work@dut.s.test
+    |vpiActual:
+    \_logic_typespec: , line:2:7, endln:2:12
+\_logic_typespec: , line:2:7, endln:2:12
+\_logic_typespec: , line:2:7, endln:2:12
+  |vpiParent:
+  \_logic_net: (work@dut.s.test), line:2:13, endln:2:17
+\_int_typespec: 
+  |UINT:1
+\_logic_typespec: , line:2:7, endln:2:12
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

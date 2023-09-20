@@ -362,6 +362,7 @@ parameter                                             19
 range                                                 12
 ref_module                                             1
 ref_obj                                               12
+ref_typespec                                          64
 string_typespec                                        4
 sys_func_call                                          3
 tagged_pattern                                         4
@@ -385,6 +386,7 @@ parameter                                             19
 range                                                 12
 ref_module                                             1
 ref_obj                                               12
+ref_typespec                                          64
 string_typespec                                        4
 sys_func_call                                          3
 tagged_pattern                                         4
@@ -413,10 +415,12 @@ design: (work@top)
     \_module_inst: work@prim_packer (work@prim_packer), file:${SURELOG_DIR}/tests/NegParam/dut.sv, line:11:1, endln:31:10
     |UINT:32
     |vpiTypespec:
-    \_int_typespec: , line:12:13, endln:12:16
+    \_ref_typespec: (work@prim_packer.InW)
       |vpiParent:
       \_parameter: (work@prim_packer.InW), line:12:17, endln:12:20
-      |vpiSigned:1
+      |vpiFullName:work@prim_packer.InW
+      |vpiActual:
+      \_int_typespec: , line:12:13, endln:12:16
     |vpiSigned:1
     |vpiName:InW
     |vpiFullName:work@prim_packer.InW
@@ -426,10 +430,12 @@ design: (work@top)
     \_module_inst: work@prim_packer (work@prim_packer), file:${SURELOG_DIR}/tests/NegParam/dut.sv, line:11:1, endln:31:10
     |UINT:32
     |vpiTypespec:
-    \_int_typespec: , line:13:13, endln:13:16
+    \_ref_typespec: (work@prim_packer.OutW)
       |vpiParent:
       \_parameter: (work@prim_packer.OutW), line:13:17, endln:13:21
-      |vpiSigned:1
+      |vpiFullName:work@prim_packer.OutW
+      |vpiActual:
+      \_int_typespec: , line:13:13, endln:13:16
     |vpiSigned:1
     |vpiName:OutW
     |vpiFullName:work@prim_packer.OutW
@@ -439,10 +445,12 @@ design: (work@top)
     \_module_inst: work@prim_packer (work@prim_packer), file:${SURELOG_DIR}/tests/NegParam/dut.sv, line:11:1, endln:31:10
     |UINT:0
     |vpiTypespec:
-    \_int_typespec: , line:14:13, endln:14:16
+    \_ref_typespec: (work@prim_packer.HintByteData)
       |vpiParent:
       \_parameter: (work@prim_packer.HintByteData), line:14:17, endln:14:29
-      |vpiSigned:1
+      |vpiFullName:work@prim_packer.HintByteData
+      |vpiActual:
+      \_int_typespec: , line:14:13, endln:14:16
     |vpiSigned:1
     |vpiName:HintByteData
     |vpiFullName:work@prim_packer.HintByteData
@@ -451,10 +459,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@prim_packer (work@prim_packer), file:${SURELOG_DIR}/tests/NegParam/dut.sv, line:11:1, endln:31:10
     |vpiTypespec:
-    \_int_typespec: , line:18:14, endln:18:17
+    \_ref_typespec: (work@prim_packer.Width)
       |vpiParent:
       \_parameter: (work@prim_packer.Width), line:18:18, endln:18:23
-      |vpiSigned:1
+      |vpiFullName:work@prim_packer.Width
+      |vpiActual:
+      \_int_typespec: , line:18:14, endln:18:17
     |vpiSigned:1
     |vpiLocalParam:1
     |vpiName:Width
@@ -464,10 +474,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@prim_packer (work@prim_packer), file:${SURELOG_DIR}/tests/NegParam/dut.sv, line:11:1, endln:31:10
     |vpiTypespec:
-    \_int_typespec: , line:19:14, endln:19:17
+    \_ref_typespec: (work@prim_packer.ConcatW)
       |vpiParent:
       \_parameter: (work@prim_packer.ConcatW), line:19:18, endln:19:25
-      |vpiSigned:1
+      |vpiFullName:work@prim_packer.ConcatW
+      |vpiActual:
+      \_int_typespec: , line:19:14, endln:19:17
     |vpiSigned:1
     |vpiLocalParam:1
     |vpiName:ConcatW
@@ -477,10 +489,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@prim_packer (work@prim_packer), file:${SURELOG_DIR}/tests/NegParam/dut.sv, line:11:1, endln:31:10
     |vpiTypespec:
-    \_int_typespec: , line:20:14, endln:20:17
+    \_ref_typespec: (work@prim_packer.PtrW)
       |vpiParent:
       \_parameter: (work@prim_packer.PtrW), line:20:18, endln:20:22
-      |vpiSigned:1
+      |vpiFullName:work@prim_packer.PtrW
+      |vpiActual:
+      \_int_typespec: , line:20:14, endln:20:17
     |vpiSigned:1
     |vpiLocalParam:1
     |vpiName:PtrW
@@ -490,10 +504,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@prim_packer (work@prim_packer), file:${SURELOG_DIR}/tests/NegParam/dut.sv, line:11:1, endln:31:10
     |vpiTypespec:
-    \_int_typespec: , line:21:14, endln:21:17
+    \_ref_typespec: (work@prim_packer.IdxW)
       |vpiParent:
       \_parameter: (work@prim_packer.IdxW), line:21:18, endln:21:22
-      |vpiSigned:1
+      |vpiFullName:work@prim_packer.IdxW
+      |vpiActual:
+      \_int_typespec: , line:21:14, endln:21:17
     |vpiSigned:1
     |vpiLocalParam:1
     |vpiName:IdxW
@@ -510,7 +526,12 @@ design: (work@top)
       |vpiSize:64
       |UINT:32
       |vpiTypespec:
-      \_int_typespec: , line:12:13, endln:12:16
+      \_ref_typespec: (work@prim_packer)
+        |vpiParent:
+        \_constant: , line:12:24, endln:12:26
+        |vpiFullName:work@prim_packer
+        |vpiActual:
+        \_int_typespec: , line:12:13, endln:12:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@prim_packer.InW), line:12:17, endln:12:20
@@ -526,7 +547,12 @@ design: (work@top)
       |vpiSize:64
       |UINT:32
       |vpiTypespec:
-      \_int_typespec: , line:13:13, endln:13:16
+      \_ref_typespec: (work@prim_packer)
+        |vpiParent:
+        \_constant: , line:13:24, endln:13:26
+        |vpiFullName:work@prim_packer
+        |vpiActual:
+        \_int_typespec: , line:13:13, endln:13:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@prim_packer.OutW), line:13:17, endln:13:21
@@ -542,7 +568,12 @@ design: (work@top)
       |vpiSize:64
       |UINT:0
       |vpiTypespec:
-      \_int_typespec: , line:14:13, endln:14:16
+      \_ref_typespec: (work@prim_packer)
+        |vpiParent:
+        \_constant: , line:14:32, endln:14:33
+        |vpiFullName:work@prim_packer
+        |vpiActual:
+        \_int_typespec: , line:14:13, endln:14:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@prim_packer.HintByteData), line:14:17, endln:14:29
@@ -666,37 +697,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@prim_packer (work@prim_packer), file:${SURELOG_DIR}/tests/NegParam/dut.sv, line:11:1, endln:31:10
     |vpiTypespec:
-    \_logic_typespec: , line:22:3, endln:22:19
-      |vpiRange:
-      \_range: , line:22:9, endln:22:19
-        |vpiParent:
-        \_logic_typespec: , line:22:3, endln:22:19
-        |vpiLeftRange:
-        \_operation: , line:22:10, endln:22:16
-          |vpiParent:
-          \_range: , line:22:9, endln:22:19
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (PtrW), line:22:10, endln:22:14
-            |vpiParent:
-            \_operation: , line:22:10, endln:22:16
-            |vpiName:PtrW
-          |vpiOperand:
-          \_constant: , line:22:15, endln:22:16
-            |vpiParent:
-            \_operation: , line:22:10, endln:22:16
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:22:17, endln:22:18
-          |vpiParent:
-          \_range: , line:22:9, endln:22:19
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@prim_packer.pos)
+      |vpiParent:
+      \_logic_net: (work@prim_packer.pos), line:22:29, endln:22:32
+      |vpiFullName:work@prim_packer.pos
+      |vpiActual:
+      \_logic_typespec: , line:22:3, endln:22:19
     |vpiName:pos
     |vpiFullName:work@prim_packer.pos
     |vpiNetType:36
@@ -705,37 +711,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@prim_packer (work@prim_packer), file:${SURELOG_DIR}/tests/NegParam/dut.sv, line:11:1, endln:31:10
     |vpiTypespec:
-    \_logic_typespec: , line:22:3, endln:22:19
-      |vpiRange:
-      \_range: , line:22:9, endln:22:19
-        |vpiParent:
-        \_logic_typespec: , line:22:3, endln:22:19
-        |vpiLeftRange:
-        \_operation: , line:22:10, endln:22:16
-          |vpiParent:
-          \_range: , line:22:9, endln:22:19
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (PtrW), line:22:10, endln:22:14
-            |vpiParent:
-            \_operation: , line:22:10, endln:22:16
-            |vpiName:PtrW
-          |vpiOperand:
-          \_constant: , line:22:15, endln:22:16
-            |vpiParent:
-            \_operation: , line:22:10, endln:22:16
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:22:17, endln:22:18
-          |vpiParent:
-          \_range: , line:22:9, endln:22:19
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@prim_packer.pos_next)
+      |vpiParent:
+      \_logic_net: (work@prim_packer.pos_next), line:22:34, endln:22:42
+      |vpiFullName:work@prim_packer.pos_next
+      |vpiActual:
+      \_logic_typespec: , line:22:3, endln:22:19
     |vpiName:pos_next
     |vpiFullName:work@prim_packer.pos_next
     |vpiNetType:36
@@ -744,37 +725,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@prim_packer (work@prim_packer), file:${SURELOG_DIR}/tests/NegParam/dut.sv, line:11:1, endln:31:10
     |vpiTypespec:
-    \_logic_typespec: , line:23:3, endln:23:19
-      |vpiRange:
-      \_range: , line:23:9, endln:23:19
-        |vpiParent:
-        \_logic_typespec: , line:23:3, endln:23:19
-        |vpiLeftRange:
-        \_operation: , line:23:10, endln:23:16
-          |vpiParent:
-          \_range: , line:23:9, endln:23:19
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (IdxW), line:23:10, endln:23:14
-            |vpiParent:
-            \_operation: , line:23:10, endln:23:16
-            |vpiName:IdxW
-          |vpiOperand:
-          \_constant: , line:23:15, endln:23:16
-            |vpiParent:
-            \_operation: , line:23:10, endln:23:16
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:23:17, endln:23:18
-          |vpiParent:
-          \_range: , line:23:9, endln:23:19
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@prim_packer.lod_idx)
+      |vpiParent:
+      \_logic_net: (work@prim_packer.lod_idx), line:23:29, endln:23:36
+      |vpiFullName:work@prim_packer.lod_idx
+      |vpiActual:
+      \_logic_typespec: , line:23:3, endln:23:19
     |vpiName:lod_idx
     |vpiFullName:work@prim_packer.lod_idx
     |vpiNetType:36
@@ -823,17 +779,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/NegParam/dut.sv, line:1:1, endln:9:10
     |HEX:0080000000
     |vpiTypespec:
-    \_int_typespec: , line:2:2, endln:2:57
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:2:2, endln:2:57
-        |vpiLeftRange:
-        \_constant: 
-          |INT:39
-        |vpiRightRange:
-        \_constant: 
-          |INT:0
+    \_ref_typespec: (work@top.dram_base_addr_gp)
+      |vpiParent:
+      \_parameter: (work@top.dram_base_addr_gp), line:2:13, endln:2:30
+      |vpiFullName:work@top.dram_base_addr_gp
+      |vpiActual:
+      \_int_typespec: , line:2:2, endln:2:57
     |vpiLocalParam:1
     |vpiName:dram_base_addr_gp
     |vpiFullName:work@top.dram_base_addr_gp
@@ -842,10 +793,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/NegParam/dut.sv, line:1:1, endln:9:10
     |vpiTypespec:
-    \_unsupported_typespec: (bp_proc_param_s), line:4:13, endln:4:28
+    \_ref_typespec: (work@top.bp_default_cfg_p)
       |vpiParent:
       \_parameter: (work@top.bp_default_cfg_p), line:4:29, endln:4:45
-      |vpiName:bp_proc_param_s
+      |vpiFullName:work@top.bp_default_cfg_p
+      |vpiActual:
+      \_unsupported_typespec: (bp_proc_param_s), line:4:13, endln:4:28
     |vpiLocalParam:1
     |vpiName:bp_default_cfg_p
     |vpiFullName:work@top.bp_default_cfg_p
@@ -861,7 +814,12 @@ design: (work@top)
       |vpiSize:40
       |HEX:0080000000
       |vpiTypespec:
-      \_int_typespec: , line:2:2, endln:2:57
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:2:41, endln:2:57
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:2:2, endln:2:57
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (work@top.dram_base_addr_gp), line:2:13, endln:2:30
@@ -886,29 +844,20 @@ design: (work@top)
           |vpiSize:40
           |HEX:0080000000
           |vpiTypespec:
-          \_int_typespec: , line:2:2, endln:2:57
+          \_ref_typespec: (work@top)
             |vpiParent:
             \_constant: , line:2:41, endln:2:57
-            |vpiRange:
-            \_range: 
-              |vpiParent:
-              \_int_typespec: , line:2:2, endln:2:57
-              |vpiLeftRange:
-              \_constant: 
-                |vpiParent:
-                \_range: 
-                |INT:39
-              |vpiRightRange:
-              \_constant: 
-                |vpiParent:
-                \_range: 
-                |INT:0
+            |vpiFullName:work@top
+            |vpiActual:
+            \_int_typespec: , line:2:2, endln:2:57
           |vpiConstType:5
         |vpiTypespec:
-        \_string_typespec: (boot_pc), line:6:7, endln:6:14
+        \_ref_typespec: (work@top)
           |vpiParent:
           \_tagged_pattern: , line:6:23, endln:6:40
-          |vpiName:boot_pc
+          |vpiFullName:work@top
+          |vpiActual:
+          \_string_typespec: (boot_pc), line:6:7, endln:6:14
     |vpiLhs:
     \_parameter: (work@top.bp_default_cfg_p), line:4:29, endln:4:45
   |vpiDefName:work@top
@@ -921,23 +870,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/NegParam/dut.sv, line:1:1, endln:9:10
     |HEX:0080000000
     |vpiTypespec:
-    \_int_typespec: , line:2:2, endln:2:57
+    \_ref_typespec: (work@top.dram_base_addr_gp)
       |vpiParent:
       \_parameter: (work@top.dram_base_addr_gp), line:2:13, endln:2:30
-      |vpiRange:
-      \_range: 
-        |vpiParent:
-        \_int_typespec: , line:2:2, endln:2:57
-        |vpiLeftRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:39
-        |vpiRightRange:
-        \_constant: 
-          |vpiParent:
-          \_range: 
-          |INT:0
+      |vpiFullName:work@top.dram_base_addr_gp
+      |vpiActual:
+      \_int_typespec: , line:2:2, endln:2:57
     |vpiLocalParam:1
     |vpiName:dram_base_addr_gp
     |vpiFullName:work@top.dram_base_addr_gp
@@ -946,10 +884,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/NegParam/dut.sv, line:1:1, endln:9:10
     |vpiTypespec:
-    \_unsupported_typespec: (bp_proc_param_s), line:4:13, endln:4:28
+    \_ref_typespec: (work@top.bp_default_cfg_p)
       |vpiParent:
       \_parameter: (work@top.bp_default_cfg_p), line:4:29, endln:4:45
-      |vpiName:bp_proc_param_s
+      |vpiFullName:work@top.bp_default_cfg_p
+      |vpiActual:
+      \_unsupported_typespec: (bp_proc_param_s), line:4:13, endln:4:28
     |vpiLocalParam:1
     |vpiName:bp_default_cfg_p
     |vpiFullName:work@top.bp_default_cfg_p
@@ -965,7 +905,12 @@ design: (work@top)
       |vpiSize:40
       |HEX:0080000000
       |vpiTypespec:
-      \_int_typespec: , line:2:2, endln:2:57
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:2:41, endln:2:57
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:2:2, endln:2:57
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (work@top.dram_base_addr_gp), line:2:13, endln:2:30
@@ -991,10 +936,12 @@ design: (work@top)
           |HEX:0080000000
           |vpiConstType:5
         |vpiTypespec:
-        \_string_typespec: (boot_pc), line:6:7, endln:6:14
+        \_ref_typespec: (work@top)
           |vpiParent:
           \_tagged_pattern: , line:6:23, endln:6:40
-          |vpiName:boot_pc
+          |vpiFullName:work@top
+          |vpiActual:
+          \_string_typespec: (boot_pc), line:6:7, endln:6:14
     |vpiLhs:
     \_parameter: (work@top.bp_default_cfg_p), line:4:29, endln:4:45
   |vpiDefName:work@top
@@ -1008,29 +955,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@prim_packer (work@prim_packer), file:${SURELOG_DIR}/tests/NegParam/dut.sv, line:11:1, endln:31:10
     |vpiTypespec:
-    \_logic_typespec: , line:22:3, endln:22:19
+    \_ref_typespec: (work@prim_packer.pos)
       |vpiParent:
-      \_logic_var: (work@prim_packer.pos_next), line:22:34, endln:22:42
-      |vpiRange:
-      \_range: , line:22:9, endln:22:19
-        |vpiParent:
-        \_logic_typespec: , line:22:3, endln:22:19
-        |vpiLeftRange:
-        \_constant: , line:22:10, endln:22:14
-          |vpiParent:
-          \_range: , line:22:9, endln:22:19
-          |vpiDecompile:6
-          |vpiSize:64
-          |INT:6
-          |vpiConstType:7
-        |vpiRightRange:
-        \_constant: , line:22:17, endln:22:18
-          |vpiParent:
-          \_range: , line:22:9, endln:22:19
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      \_logic_var: (work@prim_packer.pos), line:22:29, endln:22:32
+      |vpiFullName:work@prim_packer.pos
+      |vpiActual:
+      \_logic_typespec: , line:22:3, endln:22:19
     |vpiName:pos
     |vpiFullName:work@prim_packer.pos
     |vpiVisibility:1
@@ -1039,7 +969,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@prim_packer (work@prim_packer), file:${SURELOG_DIR}/tests/NegParam/dut.sv, line:11:1, endln:31:10
     |vpiTypespec:
-    \_logic_typespec: , line:22:3, endln:22:19
+    \_ref_typespec: (work@prim_packer.pos_next)
+      |vpiParent:
+      \_logic_var: (work@prim_packer.pos_next), line:22:34, endln:22:42
+      |vpiFullName:work@prim_packer.pos_next
+      |vpiActual:
+      \_logic_typespec: , line:22:3, endln:22:19
     |vpiName:pos_next
     |vpiFullName:work@prim_packer.pos_next
     |vpiVisibility:1
@@ -1048,29 +983,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@prim_packer (work@prim_packer), file:${SURELOG_DIR}/tests/NegParam/dut.sv, line:11:1, endln:31:10
     |vpiTypespec:
-    \_logic_typespec: , line:23:3, endln:23:19
+    \_ref_typespec: (work@prim_packer.lod_idx)
       |vpiParent:
       \_logic_var: (work@prim_packer.lod_idx), line:23:29, endln:23:36
-      |vpiRange:
-      \_range: , line:23:9, endln:23:19
-        |vpiParent:
-        \_logic_typespec: , line:23:3, endln:23:19
-        |vpiLeftRange:
-        \_constant: , line:23:10, endln:23:14
-          |vpiParent:
-          \_range: , line:23:9, endln:23:19
-          |vpiDecompile:4
-          |vpiSize:64
-          |INT:4
-          |vpiConstType:7
-        |vpiRightRange:
-        \_constant: , line:23:17, endln:23:18
-          |vpiParent:
-          \_range: , line:23:9, endln:23:19
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@prim_packer.lod_idx
+      |vpiActual:
+      \_logic_typespec: , line:23:3, endln:23:19
     |vpiName:lod_idx
     |vpiFullName:work@prim_packer.lod_idx
     |vpiVisibility:1
@@ -1080,10 +998,12 @@ design: (work@top)
     \_module_inst: work@prim_packer (work@prim_packer), file:${SURELOG_DIR}/tests/NegParam/dut.sv, line:11:1, endln:31:10
     |UINT:32
     |vpiTypespec:
-    \_int_typespec: , line:12:13, endln:12:16
+    \_ref_typespec: (work@prim_packer.InW)
       |vpiParent:
       \_parameter: (work@prim_packer.InW), line:12:17, endln:12:20
-      |vpiSigned:1
+      |vpiFullName:work@prim_packer.InW
+      |vpiActual:
+      \_int_typespec: , line:12:13, endln:12:16
     |vpiSigned:1
     |vpiName:InW
     |vpiFullName:work@prim_packer.InW
@@ -1093,10 +1013,12 @@ design: (work@top)
     \_module_inst: work@prim_packer (work@prim_packer), file:${SURELOG_DIR}/tests/NegParam/dut.sv, line:11:1, endln:31:10
     |UINT:32
     |vpiTypespec:
-    \_int_typespec: , line:13:13, endln:13:16
+    \_ref_typespec: (work@prim_packer.OutW)
       |vpiParent:
       \_parameter: (work@prim_packer.OutW), line:13:17, endln:13:21
-      |vpiSigned:1
+      |vpiFullName:work@prim_packer.OutW
+      |vpiActual:
+      \_int_typespec: , line:13:13, endln:13:16
     |vpiSigned:1
     |vpiName:OutW
     |vpiFullName:work@prim_packer.OutW
@@ -1106,10 +1028,12 @@ design: (work@top)
     \_module_inst: work@prim_packer (work@prim_packer), file:${SURELOG_DIR}/tests/NegParam/dut.sv, line:11:1, endln:31:10
     |UINT:0
     |vpiTypespec:
-    \_int_typespec: , line:14:13, endln:14:16
+    \_ref_typespec: (work@prim_packer.HintByteData)
       |vpiParent:
       \_parameter: (work@prim_packer.HintByteData), line:14:17, endln:14:29
-      |vpiSigned:1
+      |vpiFullName:work@prim_packer.HintByteData
+      |vpiActual:
+      \_int_typespec: , line:14:13, endln:14:16
     |vpiSigned:1
     |vpiName:HintByteData
     |vpiFullName:work@prim_packer.HintByteData
@@ -1118,10 +1042,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@prim_packer (work@prim_packer), file:${SURELOG_DIR}/tests/NegParam/dut.sv, line:11:1, endln:31:10
     |vpiTypespec:
-    \_int_typespec: , line:18:14, endln:18:17
+    \_ref_typespec: (work@prim_packer.Width)
       |vpiParent:
       \_parameter: (work@prim_packer.Width), line:18:18, endln:18:23
-      |vpiSigned:1
+      |vpiFullName:work@prim_packer.Width
+      |vpiActual:
+      \_int_typespec: , line:18:14, endln:18:17
     |vpiSigned:1
     |vpiLocalParam:1
     |vpiName:Width
@@ -1131,10 +1057,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@prim_packer (work@prim_packer), file:${SURELOG_DIR}/tests/NegParam/dut.sv, line:11:1, endln:31:10
     |vpiTypespec:
-    \_int_typespec: , line:19:14, endln:19:17
+    \_ref_typespec: (work@prim_packer.ConcatW)
       |vpiParent:
       \_parameter: (work@prim_packer.ConcatW), line:19:18, endln:19:25
-      |vpiSigned:1
+      |vpiFullName:work@prim_packer.ConcatW
+      |vpiActual:
+      \_int_typespec: , line:19:14, endln:19:17
     |vpiSigned:1
     |vpiLocalParam:1
     |vpiName:ConcatW
@@ -1144,10 +1072,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@prim_packer (work@prim_packer), file:${SURELOG_DIR}/tests/NegParam/dut.sv, line:11:1, endln:31:10
     |vpiTypespec:
-    \_int_typespec: , line:20:14, endln:20:17
+    \_ref_typespec: (work@prim_packer.PtrW)
       |vpiParent:
       \_parameter: (work@prim_packer.PtrW), line:20:18, endln:20:22
-      |vpiSigned:1
+      |vpiFullName:work@prim_packer.PtrW
+      |vpiActual:
+      \_int_typespec: , line:20:14, endln:20:17
     |vpiSigned:1
     |vpiLocalParam:1
     |vpiName:PtrW
@@ -1157,10 +1087,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@prim_packer (work@prim_packer), file:${SURELOG_DIR}/tests/NegParam/dut.sv, line:11:1, endln:31:10
     |vpiTypespec:
-    \_int_typespec: , line:21:14, endln:21:17
+    \_ref_typespec: (work@prim_packer.IdxW)
       |vpiParent:
       \_parameter: (work@prim_packer.IdxW), line:21:18, endln:21:22
-      |vpiSigned:1
+      |vpiFullName:work@prim_packer.IdxW
+      |vpiActual:
+      \_int_typespec: , line:21:14, endln:21:17
     |vpiSigned:1
     |vpiLocalParam:1
     |vpiName:IdxW
@@ -1177,7 +1109,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:32
       |vpiTypespec:
-      \_int_typespec: , line:12:13, endln:12:16
+      \_ref_typespec: (work@prim_packer)
+        |vpiParent:
+        \_constant: , line:12:24, endln:12:26
+        |vpiFullName:work@prim_packer
+        |vpiActual:
+        \_int_typespec: , line:12:13, endln:12:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@prim_packer.InW), line:12:17, endln:12:20
@@ -1193,7 +1130,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:32
       |vpiTypespec:
-      \_int_typespec: , line:13:13, endln:13:16
+      \_ref_typespec: (work@prim_packer)
+        |vpiParent:
+        \_constant: , line:13:24, endln:13:26
+        |vpiFullName:work@prim_packer
+        |vpiActual:
+        \_int_typespec: , line:13:13, endln:13:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@prim_packer.OutW), line:13:17, endln:13:21
@@ -1209,7 +1151,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:0
       |vpiTypespec:
-      \_int_typespec: , line:14:13, endln:14:16
+      \_ref_typespec: (work@prim_packer)
+        |vpiParent:
+        \_constant: , line:14:32, endln:14:33
+        |vpiFullName:work@prim_packer
+        |vpiActual:
+        \_int_typespec: , line:14:13, endln:14:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@prim_packer.HintByteData), line:14:17, endln:14:29
@@ -1225,7 +1172,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:64
       |vpiTypespec:
-      \_int_typespec: , line:18:14, endln:18:17
+      \_ref_typespec: (work@prim_packer)
+        |vpiParent:
+        \_constant: , line:18:26, endln:18:36
+        |vpiFullName:work@prim_packer
+        |vpiActual:
+        \_int_typespec: , line:18:14, endln:18:17
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@prim_packer.Width), line:18:18, endln:18:23
@@ -1241,7 +1193,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:96
       |vpiTypespec:
-      \_int_typespec: , line:19:14, endln:19:17
+      \_ref_typespec: (work@prim_packer)
+        |vpiParent:
+        \_constant: , line:19:28, endln:19:39
+        |vpiFullName:work@prim_packer
+        |vpiActual:
+        \_int_typespec: , line:19:14, endln:19:17
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@prim_packer.ConcatW), line:19:18, endln:19:25
@@ -1257,7 +1214,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:7
       |vpiTypespec:
-      \_int_typespec: , line:20:14, endln:20:17
+      \_ref_typespec: (work@prim_packer)
+        |vpiParent:
+        \_constant: , line:20:25, endln:20:42
+        |vpiFullName:work@prim_packer
+        |vpiActual:
+        \_int_typespec: , line:20:14, endln:20:17
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@prim_packer.PtrW), line:20:18, endln:20:22
@@ -1273,13 +1235,275 @@ design: (work@top)
       |vpiSize:32
       |UINT:5
       |vpiTypespec:
-      \_int_typespec: , line:21:14, endln:21:17
+      \_ref_typespec: (work@prim_packer)
+        |vpiParent:
+        \_constant: , line:21:25, endln:21:52
+        |vpiFullName:work@prim_packer
+        |vpiActual:
+        \_int_typespec: , line:21:14, endln:21:17
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@prim_packer.IdxW), line:21:18, endln:21:22
   |vpiDefName:work@prim_packer
   |vpiTop:1
   |vpiTopModule:1
+\_weaklyReferenced:
+\_int_typespec: , line:12:13, endln:12:16
+  |vpiParent:
+  \_parameter: (work@prim_packer.InW), line:12:17, endln:12:20
+  |vpiSigned:1
+\_int_typespec: , line:13:13, endln:13:16
+  |vpiParent:
+  \_parameter: (work@prim_packer.OutW), line:13:17, endln:13:21
+  |vpiSigned:1
+\_int_typespec: , line:14:13, endln:14:16
+  |vpiParent:
+  \_parameter: (work@prim_packer.HintByteData), line:14:17, endln:14:29
+  |vpiSigned:1
+\_int_typespec: , line:18:14, endln:18:17
+  |vpiParent:
+  \_parameter: (work@prim_packer.Width), line:18:18, endln:18:23
+  |vpiSigned:1
+\_int_typespec: , line:19:14, endln:19:17
+  |vpiParent:
+  \_parameter: (work@prim_packer.ConcatW), line:19:18, endln:19:25
+  |vpiSigned:1
+\_int_typespec: , line:20:14, endln:20:17
+  |vpiParent:
+  \_parameter: (work@prim_packer.PtrW), line:20:18, endln:20:22
+  |vpiSigned:1
+\_int_typespec: , line:21:14, endln:21:17
+  |vpiParent:
+  \_parameter: (work@prim_packer.IdxW), line:21:18, endln:21:22
+  |vpiSigned:1
+\_int_typespec: , line:2:2, endln:2:57
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:2:2, endln:2:57
+    |vpiLeftRange:
+    \_constant: 
+      |INT:39
+    |vpiRightRange:
+    \_constant: 
+      |INT:0
+\_unsupported_typespec: (bp_proc_param_s), line:4:13, endln:4:28
+  |vpiParent:
+  \_parameter: (work@top.bp_default_cfg_p), line:4:29, endln:4:45
+  |vpiName:bp_proc_param_s
+\_int_typespec: , line:2:2, endln:2:57
+  |vpiParent:
+  \_ref_typespec: (work@top)
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:2:2, endln:2:57
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:39
+    |vpiRightRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:0
+\_string_typespec: (boot_pc), line:6:7, endln:6:14
+  |vpiParent:
+  \_tagged_pattern: , line:6:23, endln:6:40
+  |vpiName:boot_pc
+\_string_typespec: (boot_pc), line:6:7, endln:6:14
+  |vpiParent:
+  \_ref_typespec: (work@top)
+  |vpiName:boot_pc
+\_logic_typespec: , line:22:3, endln:22:19
+  |vpiParent:
+  \_logic_var: (work@prim_packer.pos_next), line:22:34, endln:22:42
+  |vpiRange:
+  \_range: , line:22:9, endln:22:19
+    |vpiParent:
+    \_logic_typespec: , line:22:3, endln:22:19
+    |vpiLeftRange:
+    \_constant: , line:22:10, endln:22:14
+      |vpiParent:
+      \_range: , line:22:9, endln:22:19
+      |vpiDecompile:6
+      |vpiSize:64
+      |INT:6
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:22:17, endln:22:18
+      |vpiParent:
+      \_range: , line:22:9, endln:22:19
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:23:3, endln:23:19
+  |vpiParent:
+  \_logic_var: (work@prim_packer.lod_idx), line:23:29, endln:23:36
+  |vpiRange:
+  \_range: , line:23:9, endln:23:19
+    |vpiParent:
+    \_logic_typespec: , line:23:3, endln:23:19
+    |vpiLeftRange:
+    \_constant: , line:23:10, endln:23:14
+      |vpiParent:
+      \_range: , line:23:9, endln:23:19
+      |vpiDecompile:4
+      |vpiSize:64
+      |INT:4
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:23:17, endln:23:18
+      |vpiParent:
+      \_range: , line:23:9, endln:23:19
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:22:3, endln:22:19
+  |vpiRange:
+  \_range: , line:22:9, endln:22:19
+    |vpiParent:
+    \_logic_typespec: , line:22:3, endln:22:19
+    |vpiLeftRange:
+    \_operation: , line:22:10, endln:22:16
+      |vpiParent:
+      \_range: , line:22:9, endln:22:19
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (PtrW), line:22:10, endln:22:14
+        |vpiParent:
+        \_operation: , line:22:10, endln:22:16
+        |vpiName:PtrW
+      |vpiOperand:
+      \_constant: , line:22:15, endln:22:16
+        |vpiParent:
+        \_operation: , line:22:10, endln:22:16
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:22:17, endln:22:18
+      |vpiParent:
+      \_range: , line:22:9, endln:22:19
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:22:3, endln:22:19
+  |vpiRange:
+  \_range: , line:22:9, endln:22:19
+    |vpiParent:
+    \_logic_typespec: , line:22:3, endln:22:19
+    |vpiLeftRange:
+    \_operation: , line:22:10, endln:22:16
+      |vpiParent:
+      \_range: , line:22:9, endln:22:19
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (PtrW), line:22:10, endln:22:14
+        |vpiParent:
+        \_operation: , line:22:10, endln:22:16
+        |vpiName:PtrW
+      |vpiOperand:
+      \_constant: , line:22:15, endln:22:16
+        |vpiParent:
+        \_operation: , line:22:10, endln:22:16
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:22:17, endln:22:18
+      |vpiParent:
+      \_range: , line:22:9, endln:22:19
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:23:3, endln:23:19
+  |vpiRange:
+  \_range: , line:23:9, endln:23:19
+    |vpiParent:
+    \_logic_typespec: , line:23:3, endln:23:19
+    |vpiLeftRange:
+    \_operation: , line:23:10, endln:23:16
+      |vpiParent:
+      \_range: , line:23:9, endln:23:19
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (IdxW), line:23:10, endln:23:14
+        |vpiParent:
+        \_operation: , line:23:10, endln:23:16
+        |vpiName:IdxW
+      |vpiOperand:
+      \_constant: , line:23:15, endln:23:16
+        |vpiParent:
+        \_operation: , line:23:10, endln:23:16
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:23:17, endln:23:18
+      |vpiParent:
+      \_range: , line:23:9, endln:23:19
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:2:2, endln:2:57
+  |vpiParent:
+  \_ref_typespec: (work@top.dram_base_addr_gp)
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_int_typespec: , line:2:2, endln:2:57
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:39
+    |vpiRightRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |INT:0
+\_unsupported_typespec: (bp_proc_param_s), line:4:13, endln:4:28
+  |vpiParent:
+  \_ref_typespec: (work@top.bp_default_cfg_p)
+  |vpiName:bp_proc_param_s
+\_int_typespec: , line:12:13, endln:12:16
+  |vpiParent:
+  \_ref_typespec: (work@prim_packer.InW)
+  |vpiSigned:1
+\_int_typespec: , line:13:13, endln:13:16
+  |vpiParent:
+  \_ref_typespec: (work@prim_packer.OutW)
+  |vpiSigned:1
+\_int_typespec: , line:14:13, endln:14:16
+  |vpiParent:
+  \_ref_typespec: (work@prim_packer.HintByteData)
+  |vpiSigned:1
+\_int_typespec: , line:18:14, endln:18:17
+  |vpiParent:
+  \_ref_typespec: (work@prim_packer.Width)
+  |vpiSigned:1
+\_int_typespec: , line:19:14, endln:19:17
+  |vpiParent:
+  \_ref_typespec: (work@prim_packer.ConcatW)
+  |vpiSigned:1
+\_int_typespec: , line:20:14, endln:20:17
+  |vpiParent:
+  \_ref_typespec: (work@prim_packer.PtrW)
+  |vpiSigned:1
+\_int_typespec: , line:21:14, endln:21:17
+  |vpiParent:
+  \_ref_typespec: (work@prim_packer.IdxW)
+  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

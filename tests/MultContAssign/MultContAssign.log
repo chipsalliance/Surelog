@@ -579,6 +579,7 @@ param_assign                                           2
 parameter                                              2
 port                                                   6
 ref_obj                                               48
+ref_typespec                                          18
 sys_func_call                                          1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -606,6 +607,7 @@ param_assign                                           2
 parameter                                              2
 port                                                   9
 ref_obj                                               80
+ref_typespec                                          21
 sys_func_call                                          2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/MultContAssign/slpp_all/surelog.uhdm ...
@@ -631,7 +633,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/MultContAssign/dut.sv, line:3:1, endln:45:10
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: , line:29:1, endln:29:23
+    \_ref_typespec: (work@top.NUM_WAYS)
+      |vpiParent:
+      \_parameter: (work@top.NUM_WAYS), line:29:11, endln:29:19
+      |vpiFullName:work@top.NUM_WAYS
+      |vpiActual:
+      \_int_typespec: , line:29:1, endln:29:23
     |vpiName:NUM_WAYS
     |vpiFullName:work@top.NUM_WAYS
   |vpiParamAssign:
@@ -646,7 +653,12 @@ design: (work@top)
       |vpiSize:64
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: , line:29:1, endln:29:23
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:29:22, endln:29:23
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:29:1, endln:29:23
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.NUM_WAYS), line:29:11, endln:29:19
@@ -656,8 +668,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/MultContAssign/dut.sv, line:3:1, endln:45:10
     |vpiTypespec:
-    \_int_typespec: , line:5:2, endln:5:5
-      |vpiSigned:1
+    \_ref_typespec: (work@top.v)
+      |vpiParent:
+      \_logic_net: (work@top.v), line:5:6, endln:5:7
+      |vpiFullName:work@top.v
+      |vpiActual:
+      \_int_typespec: , line:5:2, endln:5:5
     |vpiName:v
     |vpiFullName:work@top.v
   |vpiNet:
@@ -1211,7 +1227,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top2 (work@top2), file:${SURELOG_DIR}/tests/MultContAssign/dut.sv, line:57:1, endln:64:10
     |vpiTypespec:
-    \_logic_typespec: , line:58:3, endln:58:8
+    \_ref_typespec: (work@top2.two)
+      |vpiParent:
+      \_logic_net: (work@top2.two), line:58:9, endln:58:12
+      |vpiFullName:work@top2.two
+      |vpiActual:
+      \_logic_typespec: , line:58:3, endln:58:8
     |vpiName:two
     |vpiFullName:work@top2.two
     |vpiNetType:13
@@ -1312,7 +1333,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@wandwor_test0.A), line:48:23, endln:48:24
     |vpiTypedef:
-    \_logic_typespec: , line:49:8, endln:49:8
+    \_ref_typespec: (work@wandwor_test0.A)
+      |vpiParent:
+      \_port: (A), line:48:23, endln:48:24
+      |vpiFullName:work@wandwor_test0.A
+      |vpiActual:
+      \_logic_typespec: , line:49:8, endln:49:8
   |vpiPort:
   \_port: (B), line:48:26, endln:48:27
     |vpiParent:
@@ -1328,7 +1354,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@wandwor_test0.B), line:48:26, endln:48:27
     |vpiTypedef:
-    \_logic_typespec: , line:49:8, endln:49:8
+    \_ref_typespec: (work@wandwor_test0.B)
+      |vpiParent:
+      \_port: (B), line:48:26, endln:48:27
+      |vpiFullName:work@wandwor_test0.B
+      |vpiActual:
+      \_logic_typespec: , line:49:8, endln:49:8
   |vpiPort:
   \_port: (X), line:48:29, endln:48:30
     |vpiParent:
@@ -1344,7 +1375,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@wandwor_test0.X), line:48:29, endln:48:30
     |vpiTypedef:
-    \_logic_typespec: , line:50:9, endln:50:12
+    \_ref_typespec: (work@wandwor_test0.X)
+      |vpiParent:
+      \_port: (X), line:48:29, endln:48:30
+      |vpiFullName:work@wandwor_test0.X
+      |vpiActual:
+      \_logic_typespec: , line:50:9, endln:50:12
   |vpiContAssign:
   \_cont_assign: , line:52:9, endln:52:21
     |vpiParent:
@@ -1393,8 +1429,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/MultContAssign/dut.sv, line:3:1, endln:45:10
     |vpiTypespec:
-    \_int_typespec: , line:5:2, endln:5:5
-      |vpiSigned:1
+    \_ref_typespec: (work@top.v)
+      |vpiParent:
+      \_int_var: (work@top.v), line:5:6, endln:5:7
+      |vpiFullName:work@top.v
+      |vpiActual:
+      \_int_typespec: , line:5:2, endln:5:5
     |vpiName:v
     |vpiFullName:work@top.v
     |vpiVisibility:1
@@ -1404,9 +1444,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/MultContAssign/dut.sv, line:3:1, endln:45:10
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: , line:29:1, endln:29:23
+    \_ref_typespec: (work@top.NUM_WAYS)
       |vpiParent:
       \_parameter: (work@top.NUM_WAYS), line:29:11, endln:29:19
+      |vpiFullName:work@top.NUM_WAYS
+      |vpiActual:
+      \_int_typespec: , line:29:1, endln:29:23
     |vpiName:NUM_WAYS
     |vpiFullName:work@top.NUM_WAYS
   |vpiParamAssign:
@@ -1421,7 +1464,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: , line:29:1, endln:29:23
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:29:22, endln:29:23
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:29:1, endln:29:23
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.NUM_WAYS), line:29:11, endln:29:19
@@ -1774,9 +1822,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@wandwor_test0 (work@wandwor_test0), file:${SURELOG_DIR}/tests/MultContAssign/dut.sv, line:48:1, endln:54:10
     |vpiTypespec:
-    \_logic_typespec: , line:49:8, endln:49:8
+    \_ref_typespec: (work@wandwor_test0.A)
       |vpiParent:
-      \_logic_net: (work@wandwor_test0.B), line:48:26, endln:48:27
+      \_logic_net: (work@wandwor_test0.A), line:48:23, endln:48:24
+      |vpiFullName:work@wandwor_test0.A
+      |vpiActual:
+      \_logic_typespec: , line:49:8, endln:49:8
     |vpiName:A
     |vpiFullName:work@wandwor_test0.A
   |vpiNet:
@@ -1784,7 +1835,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@wandwor_test0 (work@wandwor_test0), file:${SURELOG_DIR}/tests/MultContAssign/dut.sv, line:48:1, endln:54:10
     |vpiTypespec:
-    \_logic_typespec: , line:49:8, endln:49:8
+    \_ref_typespec: (work@wandwor_test0.B)
+      |vpiParent:
+      \_logic_net: (work@wandwor_test0.B), line:48:26, endln:48:27
+      |vpiFullName:work@wandwor_test0.B
+      |vpiActual:
+      \_logic_typespec: , line:49:8, endln:49:8
     |vpiName:B
     |vpiFullName:work@wandwor_test0.B
   |vpiNet:
@@ -1792,7 +1848,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@wandwor_test0 (work@wandwor_test0), file:${SURELOG_DIR}/tests/MultContAssign/dut.sv, line:48:1, endln:54:10
     |vpiTypespec:
-    \_logic_typespec: , line:50:9, endln:50:12
+    \_ref_typespec: (work@wandwor_test0.X)
+      |vpiParent:
+      \_logic_net: (work@wandwor_test0.X), line:48:29, endln:48:30
+      |vpiFullName:work@wandwor_test0.X
+      |vpiActual:
+      \_logic_typespec: , line:50:9, endln:50:12
     |vpiName:X
     |vpiFullName:work@wandwor_test0.X
     |vpiNetType:3
@@ -1812,7 +1873,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@wandwor_test0.A), line:48:23, endln:48:24
     |vpiTypedef:
-    \_logic_typespec: , line:49:8, endln:49:8
+    \_ref_typespec: (work@wandwor_test0.A)
+      |vpiParent:
+      \_port: (A), line:48:23, endln:48:24
+      |vpiFullName:work@wandwor_test0.A
+      |vpiActual:
+      \_logic_typespec: , line:49:8, endln:49:8
     |vpiInstance:
     \_module_inst: work@wandwor_test0 (work@wandwor_test0), file:${SURELOG_DIR}/tests/MultContAssign/dut.sv, line:48:1, endln:54:10
   |vpiPort:
@@ -1830,7 +1896,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@wandwor_test0.B), line:48:26, endln:48:27
     |vpiTypedef:
-    \_logic_typespec: , line:49:8, endln:49:8
+    \_ref_typespec: (work@wandwor_test0.B)
+      |vpiParent:
+      \_port: (B), line:48:26, endln:48:27
+      |vpiFullName:work@wandwor_test0.B
+      |vpiActual:
+      \_logic_typespec: , line:49:8, endln:49:8
     |vpiInstance:
     \_module_inst: work@wandwor_test0 (work@wandwor_test0), file:${SURELOG_DIR}/tests/MultContAssign/dut.sv, line:48:1, endln:54:10
   |vpiPort:
@@ -1848,7 +1919,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@wandwor_test0.X), line:48:29, endln:48:30
     |vpiTypedef:
-    \_logic_typespec: , line:50:9, endln:50:12
+    \_ref_typespec: (work@wandwor_test0.X)
+      |vpiParent:
+      \_port: (X), line:48:29, endln:48:30
+      |vpiFullName:work@wandwor_test0.X
+      |vpiActual:
+      \_logic_typespec: , line:50:9, endln:50:12
     |vpiInstance:
     \_module_inst: work@wandwor_test0 (work@wandwor_test0), file:${SURELOG_DIR}/tests/MultContAssign/dut.sv, line:48:1, endln:54:10
   |vpiContAssign:
@@ -1901,7 +1977,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top2 (work@top2), file:${SURELOG_DIR}/tests/MultContAssign/dut.sv, line:57:1, endln:64:10
     |vpiTypespec:
-    \_logic_typespec: , line:58:3, endln:58:8
+    \_ref_typespec: (work@top2.two)
+      |vpiParent:
+      \_logic_net: (work@top2.two), line:58:9, endln:58:12
+      |vpiFullName:work@top2.two
+      |vpiActual:
+      \_logic_typespec: , line:58:3, endln:58:8
     |vpiName:two
     |vpiFullName:work@top2.two
     |vpiNetType:13
@@ -1945,6 +2026,117 @@ design: (work@top)
       |vpiFullName:work@top2.two
       |vpiActual:
       \_logic_net: (work@top2.two), line:58:9, endln:58:12
+\_weaklyReferenced:
+\_int_typespec: , line:29:1, endln:29:23
+\_int_typespec: , line:5:2, endln:5:5
+  |vpiSigned:1
+\_logic_typespec: , line:49:8, endln:49:8
+\_logic_typespec: , line:50:9, endln:50:12
+\_logic_typespec: , line:49:8, endln:49:8
+  |vpiParent:
+  \_logic_net: (work@wandwor_test0.B), line:48:26, endln:48:27
+\_logic_typespec: , line:50:9, endln:50:12
+\_logic_typespec: , line:58:3, endln:58:8
+\_int_typespec: , line:5:2, endln:5:5
+  |vpiSigned:1
+\_logic_typespec: , line:58:3, endln:58:8
+\_logic_typespec: , line:49:8, endln:49:8
+\_logic_typespec: , line:49:8, endln:49:8
+\_logic_typespec: , line:50:9, endln:50:12
+\_int_typespec: , line:29:1, endln:29:23
+  |vpiParent:
+  \_ref_typespec: (work@top.NUM_WAYS)
+\_cont_assign: , line:9:9, endln:9:15
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/MultContAssign/dut.sv, line:3:1, endln:45:10
+  |vpiRhs:
+  \_constant: , line:9:13, endln:9:15
+  |vpiLhs:
+  \_ref_obj: (work@top.v), line:9:9, endln:9:10
+    |vpiParent:
+    \_cont_assign: , line:9:9, endln:9:15
+    |vpiName:v
+    |vpiFullName:work@top.v
+    |vpiActual:
+    \_logic_net: (work@top.v), line:5:6, endln:5:7
+\_cont_assign: , line:10:9, endln:10:15
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/MultContAssign/dut.sv, line:3:1, endln:45:10
+  |vpiRhs:
+  \_constant: , line:10:13, endln:10:15
+  |vpiLhs:
+  \_ref_obj: (work@top.v), line:10:9, endln:10:10
+    |vpiParent:
+    \_cont_assign: , line:10:9, endln:10:15
+    |vpiName:v
+    |vpiFullName:work@top.v
+    |vpiActual:
+    \_logic_net: (work@top.v), line:5:6, endln:5:7
+\_cont_assign: , line:24:33, endln:24:49
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/MultContAssign/dut.sv, line:3:1, endln:45:10
+  |vpiStrength0:32
+  |vpiStrength1:32
+  |vpiRhs:
+  \_constant: , line:24:45, endln:24:49
+  |vpiLhs:
+  \_ref_obj: (work@top.pull_up_1), line:24:33, endln:24:42
+    |vpiParent:
+    \_cont_assign: , line:24:33, endln:24:49
+    |vpiName:pull_up_1
+    |vpiFullName:work@top.pull_up_1
+    |vpiActual:
+    \_logic_net: (work@top.pull_up_1), line:24:33, endln:24:42
+\_cont_assign: , line:34:19, endln:34:31
+  |vpiParent:
+  \_gen_scope: (work@top.genblk2), line:34:12, endln:34:32
+  |vpiRhs:
+  \_constant: , line:34:30, endln:34:31
+  |vpiLhs:
+  \_ref_obj: (work@top.genblk2.fill_way), line:34:19, endln:34:27
+    |vpiParent:
+    \_cont_assign: , line:34:19, endln:34:31
+    |vpiName:fill_way
+    |vpiFullName:work@top.genblk2.fill_way
+\_gen_scope: (work@top.genblk2), line:34:12, endln:34:32
+  |vpiParent:
+  \_gen_scope_array: (work@top.genblk2), line:34:12, endln:34:32
+  |vpiFullName:work@top.genblk2
+  |vpiContAssign:
+  \_cont_assign: , line:34:19, endln:34:31
+\_gen_scope_array: (work@top.genblk2), line:34:12, endln:34:32
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/MultContAssign/dut.sv, line:3:1, endln:45:10
+  |vpiName:genblk2
+  |vpiFullName:work@top.genblk2
+  |vpiGenScope:
+  \_gen_scope: (work@top.genblk2), line:34:12, endln:34:32
+\_cont_assign: , line:60:10, endln:60:20
+  |vpiParent:
+  \_module_inst: work@top2 (work@top2), file:${SURELOG_DIR}/tests/MultContAssign/dut.sv, line:57:1, endln:64:10
+  |vpiRhs:
+  \_constant: , line:60:16, endln:60:20
+  |vpiLhs:
+  \_ref_obj: (work@top2.two), line:60:10, endln:60:13
+    |vpiParent:
+    \_cont_assign: , line:60:10, endln:60:20
+    |vpiName:two
+    |vpiFullName:work@top2.two
+    |vpiActual:
+    \_logic_net: (work@top2.two), line:58:9, endln:58:12
+\_cont_assign: , line:61:10, endln:61:20
+  |vpiParent:
+  \_module_inst: work@top2 (work@top2), file:${SURELOG_DIR}/tests/MultContAssign/dut.sv, line:57:1, endln:64:10
+  |vpiRhs:
+  \_constant: , line:61:16, endln:61:20
+  |vpiLhs:
+  \_ref_obj: (work@top2.two), line:61:10, endln:61:13
+    |vpiParent:
+    \_cont_assign: , line:61:10, endln:61:20
+    |vpiName:two
+    |vpiFullName:work@top2.two
+    |vpiActual:
+    \_logic_net: (work@top2.two), line:58:9, endln:58:12
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

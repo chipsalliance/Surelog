@@ -127,6 +127,7 @@ parameter                                              2
 port                                                   3
 ref_module                                             2
 ref_obj                                                4
+ref_typespec                                           5
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -143,6 +144,7 @@ parameter                                              2
 port                                                   3
 ref_module                                             2
 ref_obj                                                4
+ref_typespec                                           5
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/InterfType/slpp_all/surelog.uhdm ...
 
@@ -193,10 +195,12 @@ design: (work@dut)
     \_interface_inst: work@tnoc_types (work@tnoc_types), file:${SURELOG_DIR}/tests/InterfType/dut.sv, line:1:1, endln:4:13
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: , line:2:13, endln:2:16
+    \_ref_typespec: (work@tnoc_types.PACKET_CONFIG)
       |vpiParent:
       \_parameter: (work@tnoc_types.PACKET_CONFIG), line:2:18, endln:2:31
-      |vpiSigned:1
+      |vpiFullName:work@tnoc_types.PACKET_CONFIG
+      |vpiActual:
+      \_int_typespec: , line:2:13, endln:2:16
     |vpiSigned:1
     |vpiName:PACKET_CONFIG
     |vpiFullName:work@tnoc_types.PACKET_CONFIG
@@ -212,7 +216,12 @@ design: (work@dut)
       |vpiSize:64
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: , line:2:13, endln:2:16
+      \_ref_typespec: (work@tnoc_types)
+        |vpiParent:
+        \_constant: , line:2:34, endln:2:35
+        |vpiFullName:work@tnoc_types
+        |vpiActual:
+        \_int_typespec: , line:2:13, endln:2:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@tnoc_types.PACKET_CONFIG), line:2:18, endln:2:31
@@ -276,10 +285,12 @@ design: (work@dut)
       \_interface_inst: work@tnoc_types (work@dut.i_types), file:${SURELOG_DIR}/tests/InterfType/dut.sv, line:15:1, endln:15:26
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: , line:2:13, endln:2:16
+      \_ref_typespec: (work@dut.i_types.PACKET_CONFIG)
         |vpiParent:
         \_parameter: (work@dut.i_types.PACKET_CONFIG), line:2:18, endln:2:31
-        |vpiSigned:1
+        |vpiFullName:work@dut.i_types.PACKET_CONFIG
+        |vpiActual:
+        \_int_typespec: , line:2:13, endln:2:16
       |vpiSigned:1
       |vpiName:PACKET_CONFIG
       |vpiFullName:work@dut.i_types.PACKET_CONFIG
@@ -296,7 +307,12 @@ design: (work@dut)
         |vpiSize:32
         |UINT:2
         |vpiTypespec:
-        \_int_typespec: , line:2:13, endln:2:16
+        \_ref_typespec: (work@dut.i_types)
+          |vpiParent:
+          \_constant: , line:2:34, endln:2:35
+          |vpiFullName:work@dut.i_types
+          |vpiActual:
+          \_int_typespec: , line:2:13, endln:2:16
         |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@dut.i_types.PACKET_CONFIG), line:2:18, endln:2:31
@@ -343,8 +359,23 @@ design: (work@dut)
         |vpiActual:
         \_interface_inst: work@tnoc_types (work@dut.tnoc.types), file:${SURELOG_DIR}/tests/InterfType/dut.sv, line:13:0
       |vpiTypedef:
-      \_interface_typespec: (tnoc_types), line:7:3, endln:7:13
-        |vpiName:tnoc_types
+      \_ref_typespec: (work@dut.tnoc.types)
+        |vpiParent:
+        \_port: (types), line:7:15, endln:7:20
+        |vpiFullName:work@dut.tnoc.types
+        |vpiActual:
+        \_interface_typespec: (tnoc_types), line:7:3, endln:7:13
+\_weaklyReferenced:
+\_int_typespec: , line:2:13, endln:2:16
+  |vpiParent:
+  \_parameter: (work@tnoc_types.PACKET_CONFIG), line:2:18, endln:2:31
+  |vpiSigned:1
+\_interface_typespec: (tnoc_types), line:7:3, endln:7:13
+  |vpiName:tnoc_types
+\_int_typespec: , line:2:13, endln:2:16
+  |vpiParent:
+  \_ref_typespec: (work@dut.i_types.PACKET_CONFIG)
+  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

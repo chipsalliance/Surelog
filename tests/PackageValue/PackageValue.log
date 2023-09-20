@@ -925,6 +925,7 @@ param_assign                                          54
 parameter                                             54
 range                                                 88
 ref_obj                                               46
+ref_typespec                                         160
 task                                                   9
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -962,6 +963,7 @@ param_assign                                          54
 parameter                                             54
 range                                                 88
 ref_obj                                               50
+ref_typespec                                         165
 task                                                  18
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PackageValue/slpp_all/surelog.uhdm ...
@@ -997,10 +999,12 @@ design: (work@prim_diff_decode)
     |vpiInstance:
     \_package: prim_pkg (prim_pkg::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:1:1, endln:9:11
     |vpiBaseTypespec:
-    \_integer_typespec: , line:4:16, endln:4:23
-      |vpiInstance:
-      \_package: prim_pkg (prim_pkg::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:1:1, endln:9:11
-      |vpiSigned:1
+    \_ref_typespec: (prim_pkg::prim_pkg::impl_e)
+      |vpiParent:
+      \_enum_typespec: (prim_pkg::impl_e), line:4:3, endln:7:12
+      |vpiFullName:prim_pkg::prim_pkg::impl_e
+      |vpiActual:
+      \_integer_typespec: , line:4:16, endln:4:23
     |vpiEnumConst:
     \_enum_const: (ImplGeneric), line:5:5, endln:5:20
       |vpiParent:
@@ -1030,31 +1034,12 @@ design: (work@prim_diff_decode)
     \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:00000001
     |vpiTypespec:
-    \_logic_typespec: , line:39:16, endln:39:28
+    \_ref_typespec: (riscv::SSTATUS_UIE)
       |vpiParent:
       \_parameter: (riscv::SSTATUS_UIE), line:39:29, endln:39:40
-      |vpiInstance:
-      \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
-      |vpiRange:
-      \_range: , line:39:22, endln:39:28
-        |vpiParent:
-        \_logic_typespec: , line:39:16, endln:39:28
-        |vpiLeftRange:
-        \_constant: , line:39:23, endln:39:25
-          |vpiParent:
-          \_range: , line:39:22, endln:39:28
-          |vpiDecompile:63
-          |vpiSize:64
-          |UINT:63
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:39:26, endln:39:27
-          |vpiParent:
-          \_range: , line:39:22, endln:39:28
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:riscv::SSTATUS_UIE
+      |vpiActual:
+      \_logic_typespec: , line:39:16, endln:39:28
     |vpiLocalParam:1
     |vpiName:SSTATUS_UIE
     |vpiFullName:riscv::SSTATUS_UIE
@@ -1064,31 +1049,12 @@ design: (work@prim_diff_decode)
     \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:00000002
     |vpiTypespec:
-    \_logic_typespec: , line:40:16, endln:40:28
+    \_ref_typespec: (riscv::SSTATUS_SIE)
       |vpiParent:
       \_parameter: (riscv::SSTATUS_SIE), line:40:29, endln:40:40
-      |vpiInstance:
-      \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
-      |vpiRange:
-      \_range: , line:40:22, endln:40:28
-        |vpiParent:
-        \_logic_typespec: , line:40:16, endln:40:28
-        |vpiLeftRange:
-        \_constant: , line:40:23, endln:40:25
-          |vpiParent:
-          \_range: , line:40:22, endln:40:28
-          |vpiDecompile:63
-          |vpiSize:64
-          |UINT:63
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:40:26, endln:40:27
-          |vpiParent:
-          \_range: , line:40:22, endln:40:28
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:riscv::SSTATUS_SIE
+      |vpiActual:
+      \_logic_typespec: , line:40:16, endln:40:28
     |vpiLocalParam:1
     |vpiName:SSTATUS_SIE
     |vpiFullName:riscv::SSTATUS_SIE
@@ -1098,31 +1064,12 @@ design: (work@prim_diff_decode)
     \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:00000020
     |vpiTypespec:
-    \_logic_typespec: , line:41:16, endln:41:28
+    \_ref_typespec: (riscv::SSTATUS_SPIE)
       |vpiParent:
       \_parameter: (riscv::SSTATUS_SPIE), line:41:29, endln:41:41
-      |vpiInstance:
-      \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
-      |vpiRange:
-      \_range: , line:41:22, endln:41:28
-        |vpiParent:
-        \_logic_typespec: , line:41:16, endln:41:28
-        |vpiLeftRange:
-        \_constant: , line:41:23, endln:41:25
-          |vpiParent:
-          \_range: , line:41:22, endln:41:28
-          |vpiDecompile:63
-          |vpiSize:64
-          |UINT:63
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:41:26, endln:41:27
-          |vpiParent:
-          \_range: , line:41:22, endln:41:28
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:riscv::SSTATUS_SPIE
+      |vpiActual:
+      \_logic_typespec: , line:41:16, endln:41:28
     |vpiLocalParam:1
     |vpiName:SSTATUS_SPIE
     |vpiFullName:riscv::SSTATUS_SPIE
@@ -1132,31 +1079,12 @@ design: (work@prim_diff_decode)
     \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:00000100
     |vpiTypespec:
-    \_logic_typespec: , line:42:16, endln:42:28
+    \_ref_typespec: (riscv::SSTATUS_SPP)
       |vpiParent:
       \_parameter: (riscv::SSTATUS_SPP), line:42:29, endln:42:40
-      |vpiInstance:
-      \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
-      |vpiRange:
-      \_range: , line:42:22, endln:42:28
-        |vpiParent:
-        \_logic_typespec: , line:42:16, endln:42:28
-        |vpiLeftRange:
-        \_constant: , line:42:23, endln:42:25
-          |vpiParent:
-          \_range: , line:42:22, endln:42:28
-          |vpiDecompile:63
-          |vpiSize:64
-          |UINT:63
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:42:26, endln:42:27
-          |vpiParent:
-          \_range: , line:42:22, endln:42:28
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:riscv::SSTATUS_SPP
+      |vpiActual:
+      \_logic_typespec: , line:42:16, endln:42:28
     |vpiLocalParam:1
     |vpiName:SSTATUS_SPP
     |vpiFullName:riscv::SSTATUS_SPP
@@ -1166,31 +1094,12 @@ design: (work@prim_diff_decode)
     \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:00006000
     |vpiTypespec:
-    \_logic_typespec: , line:43:16, endln:43:28
+    \_ref_typespec: (riscv::SSTATUS_FS)
       |vpiParent:
       \_parameter: (riscv::SSTATUS_FS), line:43:29, endln:43:39
-      |vpiInstance:
-      \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
-      |vpiRange:
-      \_range: , line:43:22, endln:43:28
-        |vpiParent:
-        \_logic_typespec: , line:43:16, endln:43:28
-        |vpiLeftRange:
-        \_constant: , line:43:23, endln:43:25
-          |vpiParent:
-          \_range: , line:43:22, endln:43:28
-          |vpiDecompile:63
-          |vpiSize:64
-          |UINT:63
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:43:26, endln:43:27
-          |vpiParent:
-          \_range: , line:43:22, endln:43:28
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:riscv::SSTATUS_FS
+      |vpiActual:
+      \_logic_typespec: , line:43:16, endln:43:28
     |vpiLocalParam:1
     |vpiName:SSTATUS_FS
     |vpiFullName:riscv::SSTATUS_FS
@@ -1200,31 +1109,12 @@ design: (work@prim_diff_decode)
     \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:00018000
     |vpiTypespec:
-    \_logic_typespec: , line:44:16, endln:44:28
+    \_ref_typespec: (riscv::SSTATUS_XS)
       |vpiParent:
       \_parameter: (riscv::SSTATUS_XS), line:44:29, endln:44:39
-      |vpiInstance:
-      \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
-      |vpiRange:
-      \_range: , line:44:22, endln:44:28
-        |vpiParent:
-        \_logic_typespec: , line:44:16, endln:44:28
-        |vpiLeftRange:
-        \_constant: , line:44:23, endln:44:25
-          |vpiParent:
-          \_range: , line:44:22, endln:44:28
-          |vpiDecompile:63
-          |vpiSize:64
-          |UINT:63
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:44:26, endln:44:27
-          |vpiParent:
-          \_range: , line:44:22, endln:44:28
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:riscv::SSTATUS_XS
+      |vpiActual:
+      \_logic_typespec: , line:44:16, endln:44:28
     |vpiLocalParam:1
     |vpiName:SSTATUS_XS
     |vpiFullName:riscv::SSTATUS_XS
@@ -1234,31 +1124,12 @@ design: (work@prim_diff_decode)
     \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:00040000
     |vpiTypespec:
-    \_logic_typespec: , line:45:16, endln:45:28
+    \_ref_typespec: (riscv::SSTATUS_SUM)
       |vpiParent:
       \_parameter: (riscv::SSTATUS_SUM), line:45:29, endln:45:40
-      |vpiInstance:
-      \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
-      |vpiRange:
-      \_range: , line:45:22, endln:45:28
-        |vpiParent:
-        \_logic_typespec: , line:45:16, endln:45:28
-        |vpiLeftRange:
-        \_constant: , line:45:23, endln:45:25
-          |vpiParent:
-          \_range: , line:45:22, endln:45:28
-          |vpiDecompile:63
-          |vpiSize:64
-          |UINT:63
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:45:26, endln:45:27
-          |vpiParent:
-          \_range: , line:45:22, endln:45:28
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:riscv::SSTATUS_SUM
+      |vpiActual:
+      \_logic_typespec: , line:45:16, endln:45:28
     |vpiLocalParam:1
     |vpiName:SSTATUS_SUM
     |vpiFullName:riscv::SSTATUS_SUM
@@ -1268,31 +1139,12 @@ design: (work@prim_diff_decode)
     \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:00080000
     |vpiTypespec:
-    \_logic_typespec: , line:46:16, endln:46:28
+    \_ref_typespec: (riscv::SSTATUS_MXR)
       |vpiParent:
       \_parameter: (riscv::SSTATUS_MXR), line:46:29, endln:46:40
-      |vpiInstance:
-      \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
-      |vpiRange:
-      \_range: , line:46:22, endln:46:28
-        |vpiParent:
-        \_logic_typespec: , line:46:16, endln:46:28
-        |vpiLeftRange:
-        \_constant: , line:46:23, endln:46:25
-          |vpiParent:
-          \_range: , line:46:22, endln:46:28
-          |vpiDecompile:63
-          |vpiSize:64
-          |UINT:63
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:46:26, endln:46:27
-          |vpiParent:
-          \_range: , line:46:22, endln:46:28
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:riscv::SSTATUS_MXR
+      |vpiActual:
+      \_logic_typespec: , line:46:16, endln:46:28
     |vpiLocalParam:1
     |vpiName:SSTATUS_MXR
     |vpiFullName:riscv::SSTATUS_MXR
@@ -1302,31 +1154,12 @@ design: (work@prim_diff_decode)
     \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:00000010
     |vpiTypespec:
-    \_logic_typespec: , line:47:16, endln:47:28
+    \_ref_typespec: (riscv::SSTATUS_UPIE)
       |vpiParent:
       \_parameter: (riscv::SSTATUS_UPIE), line:47:29, endln:47:41
-      |vpiInstance:
-      \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
-      |vpiRange:
-      \_range: , line:47:22, endln:47:28
-        |vpiParent:
-        \_logic_typespec: , line:47:16, endln:47:28
-        |vpiLeftRange:
-        \_constant: , line:47:23, endln:47:25
-          |vpiParent:
-          \_range: , line:47:22, endln:47:28
-          |vpiDecompile:63
-          |vpiSize:64
-          |UINT:63
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:47:26, endln:47:27
-          |vpiParent:
-          \_range: , line:47:22, endln:47:28
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:riscv::SSTATUS_UPIE
+      |vpiActual:
+      \_logic_typespec: , line:47:16, endln:47:28
     |vpiLocalParam:1
     |vpiName:SSTATUS_UPIE
     |vpiFullName:riscv::SSTATUS_UPIE
@@ -1336,31 +1169,12 @@ design: (work@prim_diff_decode)
     \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:0000000300000000
     |vpiTypespec:
-    \_logic_typespec: , line:48:16, endln:48:28
+    \_ref_typespec: (riscv::SSTATUS_UXL)
       |vpiParent:
       \_parameter: (riscv::SSTATUS_UXL), line:48:29, endln:48:40
-      |vpiInstance:
-      \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
-      |vpiRange:
-      \_range: , line:48:22, endln:48:28
-        |vpiParent:
-        \_logic_typespec: , line:48:16, endln:48:28
-        |vpiLeftRange:
-        \_constant: , line:48:23, endln:48:25
-          |vpiParent:
-          \_range: , line:48:22, endln:48:28
-          |vpiDecompile:63
-          |vpiSize:64
-          |UINT:63
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:48:26, endln:48:27
-          |vpiParent:
-          \_range: , line:48:22, endln:48:28
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:riscv::SSTATUS_UXL
+      |vpiActual:
+      \_logic_typespec: , line:48:16, endln:48:28
     |vpiLocalParam:1
     |vpiName:SSTATUS_UXL
     |vpiFullName:riscv::SSTATUS_UXL
@@ -1370,31 +1184,12 @@ design: (work@prim_diff_decode)
     \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:8000000000000000
     |vpiTypespec:
-    \_logic_typespec: , line:49:16, endln:49:28
+    \_ref_typespec: (riscv::SSTATUS64_SD)
       |vpiParent:
       \_parameter: (riscv::SSTATUS64_SD), line:49:29, endln:49:41
-      |vpiInstance:
-      \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
-      |vpiRange:
-      \_range: , line:49:22, endln:49:28
-        |vpiParent:
-        \_logic_typespec: , line:49:16, endln:49:28
-        |vpiLeftRange:
-        \_constant: , line:49:23, endln:49:25
-          |vpiParent:
-          \_range: , line:49:22, endln:49:28
-          |vpiDecompile:63
-          |vpiSize:64
-          |UINT:63
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:49:26, endln:49:27
-          |vpiParent:
-          \_range: , line:49:22, endln:49:28
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:riscv::SSTATUS64_SD
+      |vpiActual:
+      \_logic_typespec: , line:49:16, endln:49:28
     |vpiLocalParam:1
     |vpiName:SSTATUS64_SD
     |vpiFullName:riscv::SSTATUS64_SD
@@ -1404,31 +1199,12 @@ design: (work@prim_diff_decode)
     \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:80000000
     |vpiTypespec:
-    \_logic_typespec: , line:50:16, endln:50:28
+    \_ref_typespec: (riscv::SSTATUS32_SD)
       |vpiParent:
       \_parameter: (riscv::SSTATUS32_SD), line:50:29, endln:50:41
-      |vpiInstance:
-      \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
-      |vpiRange:
-      \_range: , line:50:22, endln:50:28
-        |vpiParent:
-        \_logic_typespec: , line:50:16, endln:50:28
-        |vpiLeftRange:
-        \_constant: , line:50:23, endln:50:25
-          |vpiParent:
-          \_range: , line:50:22, endln:50:28
-          |vpiDecompile:63
-          |vpiSize:64
-          |UINT:63
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:50:26, endln:50:27
-          |vpiParent:
-          \_range: , line:50:22, endln:50:28
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:riscv::SSTATUS32_SD
+      |vpiActual:
+      \_logic_typespec: , line:50:16, endln:50:28
     |vpiLocalParam:1
     |vpiName:SSTATUS32_SD
     |vpiFullName:riscv::SSTATUS32_SD
@@ -1444,7 +1220,12 @@ design: (work@prim_diff_decode)
       |vpiSize:64
       |HEX:00000001
       |vpiTypespec:
-      \_logic_typespec: , line:39:16, endln:39:28
+      \_ref_typespec: (riscv)
+        |vpiParent:
+        \_constant: , line:39:44, endln:39:56
+        |vpiFullName:riscv
+        |vpiActual:
+        \_logic_typespec: , line:39:16, endln:39:28
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (riscv::SSTATUS_UIE), line:39:29, endln:39:40
@@ -1460,7 +1241,12 @@ design: (work@prim_diff_decode)
       |vpiSize:64
       |HEX:00000002
       |vpiTypespec:
-      \_logic_typespec: , line:40:16, endln:40:28
+      \_ref_typespec: (riscv)
+        |vpiParent:
+        \_constant: , line:40:44, endln:40:56
+        |vpiFullName:riscv
+        |vpiActual:
+        \_logic_typespec: , line:40:16, endln:40:28
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (riscv::SSTATUS_SIE), line:40:29, endln:40:40
@@ -1476,7 +1262,12 @@ design: (work@prim_diff_decode)
       |vpiSize:64
       |HEX:00000020
       |vpiTypespec:
-      \_logic_typespec: , line:41:16, endln:41:28
+      \_ref_typespec: (riscv)
+        |vpiParent:
+        \_constant: , line:41:44, endln:41:56
+        |vpiFullName:riscv
+        |vpiActual:
+        \_logic_typespec: , line:41:16, endln:41:28
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (riscv::SSTATUS_SPIE), line:41:29, endln:41:41
@@ -1492,7 +1283,12 @@ design: (work@prim_diff_decode)
       |vpiSize:64
       |HEX:00000100
       |vpiTypespec:
-      \_logic_typespec: , line:42:16, endln:42:28
+      \_ref_typespec: (riscv)
+        |vpiParent:
+        \_constant: , line:42:44, endln:42:56
+        |vpiFullName:riscv
+        |vpiActual:
+        \_logic_typespec: , line:42:16, endln:42:28
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (riscv::SSTATUS_SPP), line:42:29, endln:42:40
@@ -1508,7 +1304,12 @@ design: (work@prim_diff_decode)
       |vpiSize:64
       |HEX:00006000
       |vpiTypespec:
-      \_logic_typespec: , line:43:16, endln:43:28
+      \_ref_typespec: (riscv)
+        |vpiParent:
+        \_constant: , line:43:44, endln:43:56
+        |vpiFullName:riscv
+        |vpiActual:
+        \_logic_typespec: , line:43:16, endln:43:28
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (riscv::SSTATUS_FS), line:43:29, endln:43:39
@@ -1524,7 +1325,12 @@ design: (work@prim_diff_decode)
       |vpiSize:64
       |HEX:00018000
       |vpiTypespec:
-      \_logic_typespec: , line:44:16, endln:44:28
+      \_ref_typespec: (riscv)
+        |vpiParent:
+        \_constant: , line:44:44, endln:44:56
+        |vpiFullName:riscv
+        |vpiActual:
+        \_logic_typespec: , line:44:16, endln:44:28
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (riscv::SSTATUS_XS), line:44:29, endln:44:39
@@ -1540,7 +1346,12 @@ design: (work@prim_diff_decode)
       |vpiSize:64
       |HEX:00040000
       |vpiTypespec:
-      \_logic_typespec: , line:45:16, endln:45:28
+      \_ref_typespec: (riscv)
+        |vpiParent:
+        \_constant: , line:45:44, endln:45:56
+        |vpiFullName:riscv
+        |vpiActual:
+        \_logic_typespec: , line:45:16, endln:45:28
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (riscv::SSTATUS_SUM), line:45:29, endln:45:40
@@ -1556,7 +1367,12 @@ design: (work@prim_diff_decode)
       |vpiSize:64
       |HEX:00080000
       |vpiTypespec:
-      \_logic_typespec: , line:46:16, endln:46:28
+      \_ref_typespec: (riscv)
+        |vpiParent:
+        \_constant: , line:46:44, endln:46:56
+        |vpiFullName:riscv
+        |vpiActual:
+        \_logic_typespec: , line:46:16, endln:46:28
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (riscv::SSTATUS_MXR), line:46:29, endln:46:40
@@ -1572,7 +1388,12 @@ design: (work@prim_diff_decode)
       |vpiSize:64
       |HEX:00000010
       |vpiTypespec:
-      \_logic_typespec: , line:47:16, endln:47:28
+      \_ref_typespec: (riscv)
+        |vpiParent:
+        \_constant: , line:47:44, endln:47:56
+        |vpiFullName:riscv
+        |vpiActual:
+        \_logic_typespec: , line:47:16, endln:47:28
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (riscv::SSTATUS_UPIE), line:47:29, endln:47:41
@@ -1588,7 +1409,12 @@ design: (work@prim_diff_decode)
       |vpiSize:64
       |HEX:0000000300000000
       |vpiTypespec:
-      \_logic_typespec: , line:48:16, endln:48:28
+      \_ref_typespec: (riscv)
+        |vpiParent:
+        \_constant: , line:48:44, endln:48:64
+        |vpiFullName:riscv
+        |vpiActual:
+        \_logic_typespec: , line:48:16, endln:48:28
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (riscv::SSTATUS_UXL), line:48:29, endln:48:40
@@ -1604,7 +1430,12 @@ design: (work@prim_diff_decode)
       |vpiSize:64
       |HEX:8000000000000000
       |vpiTypespec:
-      \_logic_typespec: , line:49:16, endln:49:28
+      \_ref_typespec: (riscv)
+        |vpiParent:
+        \_constant: , line:49:44, endln:49:64
+        |vpiFullName:riscv
+        |vpiActual:
+        \_logic_typespec: , line:49:16, endln:49:28
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (riscv::SSTATUS64_SD), line:49:29, endln:49:41
@@ -1620,7 +1451,12 @@ design: (work@prim_diff_decode)
       |vpiSize:64
       |HEX:80000000
       |vpiTypespec:
-      \_logic_typespec: , line:50:16, endln:50:28
+      \_ref_typespec: (riscv)
+        |vpiParent:
+        \_constant: , line:50:44, endln:50:56
+        |vpiFullName:riscv
+        |vpiActual:
+        \_logic_typespec: , line:50:16, endln:50:28
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (riscv::SSTATUS32_SD), line:50:29, endln:50:41
@@ -1636,31 +1472,12 @@ design: (work@prim_diff_decode)
     |vpiParent:
     \_package: ariane_pkg (ariane_pkg::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:55:1, endln:72:11
     |vpiTypespec:
-    \_logic_typespec: , line:58:15, endln:58:27
+    \_ref_typespec: (ariane_pkg::SMODE_STATUS_READ_MASK)
       |vpiParent:
       \_parameter: (ariane_pkg::SMODE_STATUS_READ_MASK), line:58:28, endln:58:50
-      |vpiInstance:
-      \_package: ariane_pkg (ariane_pkg::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:55:1, endln:72:11
-      |vpiRange:
-      \_range: , line:58:21, endln:58:27
-        |vpiParent:
-        \_logic_typespec: , line:58:15, endln:58:27
-        |vpiLeftRange:
-        \_constant: , line:58:22, endln:58:24
-          |vpiParent:
-          \_range: , line:58:21, endln:58:27
-          |vpiDecompile:63
-          |vpiSize:64
-          |UINT:63
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:58:25, endln:58:26
-          |vpiParent:
-          \_range: , line:58:21, endln:58:27
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:ariane_pkg::SMODE_STATUS_READ_MASK
+      |vpiActual:
+      \_logic_typespec: , line:58:15, endln:58:27
     |vpiLocalParam:1
     |vpiName:SMODE_STATUS_READ_MASK
     |vpiFullName:ariane_pkg::SMODE_STATUS_READ_MASK
@@ -1874,10 +1691,12 @@ design: (work@prim_diff_decode)
     |vpiInstance:
     \_package: prim_pkg (prim_pkg::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:1:1, endln:9:11
     |vpiBaseTypespec:
-    \_integer_typespec: , line:4:16, endln:4:23
-      |vpiInstance:
-      \_package: prim_pkg (prim_pkg::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:1:1, endln:9:11
-      |vpiSigned:1
+    \_ref_typespec: (work@prim_diff_decode.prim_pkg::impl_e)
+      |vpiParent:
+      \_enum_typespec: (prim_pkg::impl_e), line:4:3, endln:7:12
+      |vpiFullName:work@prim_diff_decode.prim_pkg::impl_e
+      |vpiActual:
+      \_integer_typespec: , line:4:16, endln:4:23
     |vpiEnumConst:
     \_enum_const: (ImplGeneric), line:5:5, endln:5:20
       |vpiParent:
@@ -1908,31 +1727,12 @@ design: (work@prim_diff_decode)
     \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:00000001
     |vpiTypespec:
-    \_logic_typespec: , line:39:16, endln:39:28
+    \_ref_typespec: (riscv::SSTATUS_UIE)
       |vpiParent:
       \_parameter: (riscv::SSTATUS_UIE), line:39:29, endln:39:40
-      |vpiInstance:
-      \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
-      |vpiRange:
-      \_range: , line:39:22, endln:39:28
-        |vpiParent:
-        \_logic_typespec: , line:39:16, endln:39:28
-        |vpiLeftRange:
-        \_constant: , line:39:23, endln:39:25
-          |vpiParent:
-          \_range: , line:39:22, endln:39:28
-          |vpiDecompile:63
-          |vpiSize:64
-          |UINT:63
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:39:26, endln:39:27
-          |vpiParent:
-          \_range: , line:39:22, endln:39:28
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:riscv::SSTATUS_UIE
+      |vpiActual:
+      \_logic_typespec: , line:39:16, endln:39:28
     |vpiLocalParam:1
     |vpiName:SSTATUS_UIE
     |vpiFullName:riscv::SSTATUS_UIE
@@ -1942,31 +1742,12 @@ design: (work@prim_diff_decode)
     \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:00000002
     |vpiTypespec:
-    \_logic_typespec: , line:40:16, endln:40:28
+    \_ref_typespec: (riscv::SSTATUS_SIE)
       |vpiParent:
       \_parameter: (riscv::SSTATUS_SIE), line:40:29, endln:40:40
-      |vpiInstance:
-      \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
-      |vpiRange:
-      \_range: , line:40:22, endln:40:28
-        |vpiParent:
-        \_logic_typespec: , line:40:16, endln:40:28
-        |vpiLeftRange:
-        \_constant: , line:40:23, endln:40:25
-          |vpiParent:
-          \_range: , line:40:22, endln:40:28
-          |vpiDecompile:63
-          |vpiSize:64
-          |UINT:63
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:40:26, endln:40:27
-          |vpiParent:
-          \_range: , line:40:22, endln:40:28
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:riscv::SSTATUS_SIE
+      |vpiActual:
+      \_logic_typespec: , line:40:16, endln:40:28
     |vpiLocalParam:1
     |vpiName:SSTATUS_SIE
     |vpiFullName:riscv::SSTATUS_SIE
@@ -1976,31 +1757,12 @@ design: (work@prim_diff_decode)
     \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:00000020
     |vpiTypespec:
-    \_logic_typespec: , line:41:16, endln:41:28
+    \_ref_typespec: (riscv::SSTATUS_SPIE)
       |vpiParent:
       \_parameter: (riscv::SSTATUS_SPIE), line:41:29, endln:41:41
-      |vpiInstance:
-      \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
-      |vpiRange:
-      \_range: , line:41:22, endln:41:28
-        |vpiParent:
-        \_logic_typespec: , line:41:16, endln:41:28
-        |vpiLeftRange:
-        \_constant: , line:41:23, endln:41:25
-          |vpiParent:
-          \_range: , line:41:22, endln:41:28
-          |vpiDecompile:63
-          |vpiSize:64
-          |UINT:63
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:41:26, endln:41:27
-          |vpiParent:
-          \_range: , line:41:22, endln:41:28
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:riscv::SSTATUS_SPIE
+      |vpiActual:
+      \_logic_typespec: , line:41:16, endln:41:28
     |vpiLocalParam:1
     |vpiName:SSTATUS_SPIE
     |vpiFullName:riscv::SSTATUS_SPIE
@@ -2010,31 +1772,12 @@ design: (work@prim_diff_decode)
     \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:00000100
     |vpiTypespec:
-    \_logic_typespec: , line:42:16, endln:42:28
+    \_ref_typespec: (riscv::SSTATUS_SPP)
       |vpiParent:
       \_parameter: (riscv::SSTATUS_SPP), line:42:29, endln:42:40
-      |vpiInstance:
-      \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
-      |vpiRange:
-      \_range: , line:42:22, endln:42:28
-        |vpiParent:
-        \_logic_typespec: , line:42:16, endln:42:28
-        |vpiLeftRange:
-        \_constant: , line:42:23, endln:42:25
-          |vpiParent:
-          \_range: , line:42:22, endln:42:28
-          |vpiDecompile:63
-          |vpiSize:64
-          |UINT:63
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:42:26, endln:42:27
-          |vpiParent:
-          \_range: , line:42:22, endln:42:28
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:riscv::SSTATUS_SPP
+      |vpiActual:
+      \_logic_typespec: , line:42:16, endln:42:28
     |vpiLocalParam:1
     |vpiName:SSTATUS_SPP
     |vpiFullName:riscv::SSTATUS_SPP
@@ -2044,31 +1787,12 @@ design: (work@prim_diff_decode)
     \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:00006000
     |vpiTypespec:
-    \_logic_typespec: , line:43:16, endln:43:28
+    \_ref_typespec: (riscv::SSTATUS_FS)
       |vpiParent:
       \_parameter: (riscv::SSTATUS_FS), line:43:29, endln:43:39
-      |vpiInstance:
-      \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
-      |vpiRange:
-      \_range: , line:43:22, endln:43:28
-        |vpiParent:
-        \_logic_typespec: , line:43:16, endln:43:28
-        |vpiLeftRange:
-        \_constant: , line:43:23, endln:43:25
-          |vpiParent:
-          \_range: , line:43:22, endln:43:28
-          |vpiDecompile:63
-          |vpiSize:64
-          |UINT:63
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:43:26, endln:43:27
-          |vpiParent:
-          \_range: , line:43:22, endln:43:28
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:riscv::SSTATUS_FS
+      |vpiActual:
+      \_logic_typespec: , line:43:16, endln:43:28
     |vpiLocalParam:1
     |vpiName:SSTATUS_FS
     |vpiFullName:riscv::SSTATUS_FS
@@ -2078,31 +1802,12 @@ design: (work@prim_diff_decode)
     \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:00018000
     |vpiTypespec:
-    \_logic_typespec: , line:44:16, endln:44:28
+    \_ref_typespec: (riscv::SSTATUS_XS)
       |vpiParent:
       \_parameter: (riscv::SSTATUS_XS), line:44:29, endln:44:39
-      |vpiInstance:
-      \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
-      |vpiRange:
-      \_range: , line:44:22, endln:44:28
-        |vpiParent:
-        \_logic_typespec: , line:44:16, endln:44:28
-        |vpiLeftRange:
-        \_constant: , line:44:23, endln:44:25
-          |vpiParent:
-          \_range: , line:44:22, endln:44:28
-          |vpiDecompile:63
-          |vpiSize:64
-          |UINT:63
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:44:26, endln:44:27
-          |vpiParent:
-          \_range: , line:44:22, endln:44:28
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:riscv::SSTATUS_XS
+      |vpiActual:
+      \_logic_typespec: , line:44:16, endln:44:28
     |vpiLocalParam:1
     |vpiName:SSTATUS_XS
     |vpiFullName:riscv::SSTATUS_XS
@@ -2112,31 +1817,12 @@ design: (work@prim_diff_decode)
     \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:00040000
     |vpiTypespec:
-    \_logic_typespec: , line:45:16, endln:45:28
+    \_ref_typespec: (riscv::SSTATUS_SUM)
       |vpiParent:
       \_parameter: (riscv::SSTATUS_SUM), line:45:29, endln:45:40
-      |vpiInstance:
-      \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
-      |vpiRange:
-      \_range: , line:45:22, endln:45:28
-        |vpiParent:
-        \_logic_typespec: , line:45:16, endln:45:28
-        |vpiLeftRange:
-        \_constant: , line:45:23, endln:45:25
-          |vpiParent:
-          \_range: , line:45:22, endln:45:28
-          |vpiDecompile:63
-          |vpiSize:64
-          |UINT:63
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:45:26, endln:45:27
-          |vpiParent:
-          \_range: , line:45:22, endln:45:28
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:riscv::SSTATUS_SUM
+      |vpiActual:
+      \_logic_typespec: , line:45:16, endln:45:28
     |vpiLocalParam:1
     |vpiName:SSTATUS_SUM
     |vpiFullName:riscv::SSTATUS_SUM
@@ -2146,31 +1832,12 @@ design: (work@prim_diff_decode)
     \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:00080000
     |vpiTypespec:
-    \_logic_typespec: , line:46:16, endln:46:28
+    \_ref_typespec: (riscv::SSTATUS_MXR)
       |vpiParent:
       \_parameter: (riscv::SSTATUS_MXR), line:46:29, endln:46:40
-      |vpiInstance:
-      \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
-      |vpiRange:
-      \_range: , line:46:22, endln:46:28
-        |vpiParent:
-        \_logic_typespec: , line:46:16, endln:46:28
-        |vpiLeftRange:
-        \_constant: , line:46:23, endln:46:25
-          |vpiParent:
-          \_range: , line:46:22, endln:46:28
-          |vpiDecompile:63
-          |vpiSize:64
-          |UINT:63
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:46:26, endln:46:27
-          |vpiParent:
-          \_range: , line:46:22, endln:46:28
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:riscv::SSTATUS_MXR
+      |vpiActual:
+      \_logic_typespec: , line:46:16, endln:46:28
     |vpiLocalParam:1
     |vpiName:SSTATUS_MXR
     |vpiFullName:riscv::SSTATUS_MXR
@@ -2180,31 +1847,12 @@ design: (work@prim_diff_decode)
     \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:00000010
     |vpiTypespec:
-    \_logic_typespec: , line:47:16, endln:47:28
+    \_ref_typespec: (riscv::SSTATUS_UPIE)
       |vpiParent:
       \_parameter: (riscv::SSTATUS_UPIE), line:47:29, endln:47:41
-      |vpiInstance:
-      \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
-      |vpiRange:
-      \_range: , line:47:22, endln:47:28
-        |vpiParent:
-        \_logic_typespec: , line:47:16, endln:47:28
-        |vpiLeftRange:
-        \_constant: , line:47:23, endln:47:25
-          |vpiParent:
-          \_range: , line:47:22, endln:47:28
-          |vpiDecompile:63
-          |vpiSize:64
-          |UINT:63
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:47:26, endln:47:27
-          |vpiParent:
-          \_range: , line:47:22, endln:47:28
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:riscv::SSTATUS_UPIE
+      |vpiActual:
+      \_logic_typespec: , line:47:16, endln:47:28
     |vpiLocalParam:1
     |vpiName:SSTATUS_UPIE
     |vpiFullName:riscv::SSTATUS_UPIE
@@ -2214,31 +1862,12 @@ design: (work@prim_diff_decode)
     \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:0000000300000000
     |vpiTypespec:
-    \_logic_typespec: , line:48:16, endln:48:28
+    \_ref_typespec: (riscv::SSTATUS_UXL)
       |vpiParent:
       \_parameter: (riscv::SSTATUS_UXL), line:48:29, endln:48:40
-      |vpiInstance:
-      \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
-      |vpiRange:
-      \_range: , line:48:22, endln:48:28
-        |vpiParent:
-        \_logic_typespec: , line:48:16, endln:48:28
-        |vpiLeftRange:
-        \_constant: , line:48:23, endln:48:25
-          |vpiParent:
-          \_range: , line:48:22, endln:48:28
-          |vpiDecompile:63
-          |vpiSize:64
-          |UINT:63
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:48:26, endln:48:27
-          |vpiParent:
-          \_range: , line:48:22, endln:48:28
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:riscv::SSTATUS_UXL
+      |vpiActual:
+      \_logic_typespec: , line:48:16, endln:48:28
     |vpiLocalParam:1
     |vpiName:SSTATUS_UXL
     |vpiFullName:riscv::SSTATUS_UXL
@@ -2248,31 +1877,12 @@ design: (work@prim_diff_decode)
     \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:8000000000000000
     |vpiTypespec:
-    \_logic_typespec: , line:49:16, endln:49:28
+    \_ref_typespec: (riscv::SSTATUS64_SD)
       |vpiParent:
       \_parameter: (riscv::SSTATUS64_SD), line:49:29, endln:49:41
-      |vpiInstance:
-      \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
-      |vpiRange:
-      \_range: , line:49:22, endln:49:28
-        |vpiParent:
-        \_logic_typespec: , line:49:16, endln:49:28
-        |vpiLeftRange:
-        \_constant: , line:49:23, endln:49:25
-          |vpiParent:
-          \_range: , line:49:22, endln:49:28
-          |vpiDecompile:63
-          |vpiSize:64
-          |UINT:63
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:49:26, endln:49:27
-          |vpiParent:
-          \_range: , line:49:22, endln:49:28
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:riscv::SSTATUS64_SD
+      |vpiActual:
+      \_logic_typespec: , line:49:16, endln:49:28
     |vpiLocalParam:1
     |vpiName:SSTATUS64_SD
     |vpiFullName:riscv::SSTATUS64_SD
@@ -2282,31 +1892,12 @@ design: (work@prim_diff_decode)
     \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
     |HEX:80000000
     |vpiTypespec:
-    \_logic_typespec: , line:50:16, endln:50:28
+    \_ref_typespec: (riscv::SSTATUS32_SD)
       |vpiParent:
       \_parameter: (riscv::SSTATUS32_SD), line:50:29, endln:50:41
-      |vpiInstance:
-      \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
-      |vpiRange:
-      \_range: , line:50:22, endln:50:28
-        |vpiParent:
-        \_logic_typespec: , line:50:16, endln:50:28
-        |vpiLeftRange:
-        \_constant: , line:50:23, endln:50:25
-          |vpiParent:
-          \_range: , line:50:22, endln:50:28
-          |vpiDecompile:63
-          |vpiSize:64
-          |UINT:63
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:50:26, endln:50:27
-          |vpiParent:
-          \_range: , line:50:22, endln:50:28
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:riscv::SSTATUS32_SD
+      |vpiActual:
+      \_logic_typespec: , line:50:16, endln:50:28
     |vpiLocalParam:1
     |vpiName:SSTATUS32_SD
     |vpiFullName:riscv::SSTATUS32_SD
@@ -2322,7 +1913,12 @@ design: (work@prim_diff_decode)
       |vpiSize:64
       |HEX:00000001
       |vpiTypespec:
-      \_logic_typespec: , line:39:16, endln:39:28
+      \_ref_typespec: (riscv)
+        |vpiParent:
+        \_constant: , line:39:44, endln:39:56
+        |vpiFullName:riscv
+        |vpiActual:
+        \_logic_typespec: , line:39:16, endln:39:28
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (riscv::SSTATUS_UIE), line:39:29, endln:39:40
@@ -2338,7 +1934,12 @@ design: (work@prim_diff_decode)
       |vpiSize:64
       |HEX:00000002
       |vpiTypespec:
-      \_logic_typespec: , line:40:16, endln:40:28
+      \_ref_typespec: (riscv)
+        |vpiParent:
+        \_constant: , line:40:44, endln:40:56
+        |vpiFullName:riscv
+        |vpiActual:
+        \_logic_typespec: , line:40:16, endln:40:28
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (riscv::SSTATUS_SIE), line:40:29, endln:40:40
@@ -2354,7 +1955,12 @@ design: (work@prim_diff_decode)
       |vpiSize:64
       |HEX:00000020
       |vpiTypespec:
-      \_logic_typespec: , line:41:16, endln:41:28
+      \_ref_typespec: (riscv)
+        |vpiParent:
+        \_constant: , line:41:44, endln:41:56
+        |vpiFullName:riscv
+        |vpiActual:
+        \_logic_typespec: , line:41:16, endln:41:28
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (riscv::SSTATUS_SPIE), line:41:29, endln:41:41
@@ -2370,7 +1976,12 @@ design: (work@prim_diff_decode)
       |vpiSize:64
       |HEX:00000100
       |vpiTypespec:
-      \_logic_typespec: , line:42:16, endln:42:28
+      \_ref_typespec: (riscv)
+        |vpiParent:
+        \_constant: , line:42:44, endln:42:56
+        |vpiFullName:riscv
+        |vpiActual:
+        \_logic_typespec: , line:42:16, endln:42:28
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (riscv::SSTATUS_SPP), line:42:29, endln:42:40
@@ -2386,7 +1997,12 @@ design: (work@prim_diff_decode)
       |vpiSize:64
       |HEX:00006000
       |vpiTypespec:
-      \_logic_typespec: , line:43:16, endln:43:28
+      \_ref_typespec: (riscv)
+        |vpiParent:
+        \_constant: , line:43:44, endln:43:56
+        |vpiFullName:riscv
+        |vpiActual:
+        \_logic_typespec: , line:43:16, endln:43:28
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (riscv::SSTATUS_FS), line:43:29, endln:43:39
@@ -2402,7 +2018,12 @@ design: (work@prim_diff_decode)
       |vpiSize:64
       |HEX:00018000
       |vpiTypespec:
-      \_logic_typespec: , line:44:16, endln:44:28
+      \_ref_typespec: (riscv)
+        |vpiParent:
+        \_constant: , line:44:44, endln:44:56
+        |vpiFullName:riscv
+        |vpiActual:
+        \_logic_typespec: , line:44:16, endln:44:28
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (riscv::SSTATUS_XS), line:44:29, endln:44:39
@@ -2418,7 +2039,12 @@ design: (work@prim_diff_decode)
       |vpiSize:64
       |HEX:00040000
       |vpiTypespec:
-      \_logic_typespec: , line:45:16, endln:45:28
+      \_ref_typespec: (riscv)
+        |vpiParent:
+        \_constant: , line:45:44, endln:45:56
+        |vpiFullName:riscv
+        |vpiActual:
+        \_logic_typespec: , line:45:16, endln:45:28
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (riscv::SSTATUS_SUM), line:45:29, endln:45:40
@@ -2434,7 +2060,12 @@ design: (work@prim_diff_decode)
       |vpiSize:64
       |HEX:00080000
       |vpiTypespec:
-      \_logic_typespec: , line:46:16, endln:46:28
+      \_ref_typespec: (riscv)
+        |vpiParent:
+        \_constant: , line:46:44, endln:46:56
+        |vpiFullName:riscv
+        |vpiActual:
+        \_logic_typespec: , line:46:16, endln:46:28
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (riscv::SSTATUS_MXR), line:46:29, endln:46:40
@@ -2450,7 +2081,12 @@ design: (work@prim_diff_decode)
       |vpiSize:64
       |HEX:00000010
       |vpiTypespec:
-      \_logic_typespec: , line:47:16, endln:47:28
+      \_ref_typespec: (riscv)
+        |vpiParent:
+        \_constant: , line:47:44, endln:47:56
+        |vpiFullName:riscv
+        |vpiActual:
+        \_logic_typespec: , line:47:16, endln:47:28
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (riscv::SSTATUS_UPIE), line:47:29, endln:47:41
@@ -2466,7 +2102,12 @@ design: (work@prim_diff_decode)
       |vpiSize:64
       |HEX:0000000300000000
       |vpiTypespec:
-      \_logic_typespec: , line:48:16, endln:48:28
+      \_ref_typespec: (riscv)
+        |vpiParent:
+        \_constant: , line:48:44, endln:48:64
+        |vpiFullName:riscv
+        |vpiActual:
+        \_logic_typespec: , line:48:16, endln:48:28
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (riscv::SSTATUS_UXL), line:48:29, endln:48:40
@@ -2482,7 +2123,12 @@ design: (work@prim_diff_decode)
       |vpiSize:64
       |HEX:8000000000000000
       |vpiTypespec:
-      \_logic_typespec: , line:49:16, endln:49:28
+      \_ref_typespec: (riscv)
+        |vpiParent:
+        \_constant: , line:49:44, endln:49:64
+        |vpiFullName:riscv
+        |vpiActual:
+        \_logic_typespec: , line:49:16, endln:49:28
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (riscv::SSTATUS64_SD), line:49:29, endln:49:41
@@ -2498,7 +2144,12 @@ design: (work@prim_diff_decode)
       |vpiSize:64
       |HEX:80000000
       |vpiTypespec:
-      \_logic_typespec: , line:50:16, endln:50:28
+      \_ref_typespec: (riscv)
+        |vpiParent:
+        \_constant: , line:50:44, endln:50:56
+        |vpiFullName:riscv
+        |vpiActual:
+        \_logic_typespec: , line:50:16, endln:50:28
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (riscv::SSTATUS32_SD), line:50:29, endln:50:41
@@ -2516,31 +2167,12 @@ design: (work@prim_diff_decode)
     \_package: ariane_pkg (ariane_pkg::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:55:1, endln:72:11
     |UINT:9223372049740587315
     |vpiTypespec:
-    \_logic_typespec: , line:58:15, endln:58:27
+    \_ref_typespec: (ariane_pkg::SMODE_STATUS_READ_MASK)
       |vpiParent:
       \_parameter: (ariane_pkg::SMODE_STATUS_READ_MASK), line:58:28, endln:58:50
-      |vpiInstance:
-      \_package: ariane_pkg (ariane_pkg::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:55:1, endln:72:11
-      |vpiRange:
-      \_range: , line:58:21, endln:58:27
-        |vpiParent:
-        \_logic_typespec: , line:58:15, endln:58:27
-        |vpiLeftRange:
-        \_constant: , line:58:22, endln:58:24
-          |vpiParent:
-          \_range: , line:58:21, endln:58:27
-          |vpiDecompile:63
-          |vpiSize:64
-          |UINT:63
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:58:25, endln:58:26
-          |vpiParent:
-          \_range: , line:58:21, endln:58:27
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:ariane_pkg::SMODE_STATUS_READ_MASK
+      |vpiActual:
+      \_logic_typespec: , line:58:15, endln:58:27
     |vpiLocalParam:1
     |vpiName:SMODE_STATUS_READ_MASK
     |vpiFullName:ariane_pkg::SMODE_STATUS_READ_MASK
@@ -2556,7 +2188,12 @@ design: (work@prim_diff_decode)
       |vpiSize:64
       |UINT:9223372049740587315
       |vpiTypespec:
-      \_logic_typespec: , line:58:15, endln:58:27
+      \_ref_typespec: (ariane_pkg)
+        |vpiParent:
+        \_constant: , line:58:53, endln:68:72
+        |vpiFullName:ariane_pkg
+        |vpiActual:
+        \_logic_typespec: , line:58:15, endln:58:27
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (ariane_pkg::SMODE_STATUS_READ_MASK), line:58:28, endln:58:50
@@ -2579,9 +2216,12 @@ design: (work@prim_diff_decode)
       |vpiParent:
       \_function: (work@mailbox::new), line:3:5, endln:4:16
       |vpiTypespec:
-      \_class_typespec: 
-        |vpiClassDefn:
-        \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/PackageValue/builtin.sv, line:1:3, endln:27:11
+      \_ref_typespec: (work@mailbox::new)
+        |vpiParent:
+        \_class_var: (work@mailbox::new), line:3:23, endln:3:28
+        |vpiFullName:work@mailbox::new
+        |vpiActual:
+        \_class_typespec: 
       |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound), line:3:23, endln:3:28
@@ -2596,8 +2236,12 @@ design: (work@prim_diff_decode)
         |UINT:0
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:3:19, endln:3:22
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::new::bound)
+        |vpiParent:
+        \_io_decl: (bound), line:3:23, endln:3:28
+        |vpiFullName:work@mailbox::new::bound
+        |vpiActual:
+        \_int_typespec: , line:3:19, endln:3:22
   |vpiMethod:
   \_function: (work@mailbox::num), line:6:5, endln:7:16
     |vpiParent:
@@ -2611,8 +2255,12 @@ design: (work@prim_diff_decode)
       |vpiParent:
       \_function: (work@mailbox::num), line:6:5, endln:7:16
       |vpiTypespec:
-      \_int_typespec: , line:6:14, endln:6:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::num)
+        |vpiParent:
+        \_int_var: (work@mailbox::num), line:6:14, endln:6:17
+        |vpiFullName:work@mailbox::num
+        |vpiActual:
+        \_int_typespec: , line:6:14, endln:6:17
       |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
@@ -2675,8 +2323,12 @@ design: (work@prim_diff_decode)
       |vpiParent:
       \_function: (work@mailbox::try_get), line:18:5, endln:19:16
       |vpiTypespec:
-      \_int_typespec: , line:18:14, endln:18:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::try_get)
+        |vpiParent:
+        \_int_var: (work@mailbox::try_get), line:18:14, endln:18:17
+        |vpiFullName:work@mailbox::try_get
+        |vpiActual:
+        \_int_typespec: , line:18:14, endln:18:17
       |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
@@ -2712,8 +2364,12 @@ design: (work@prim_diff_decode)
       |vpiParent:
       \_function: (work@mailbox::try_peek), line:24:5, endln:25:16
       |vpiTypespec:
-      \_int_typespec: , line:24:14, endln:24:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::try_peek)
+        |vpiParent:
+        \_int_var: (work@mailbox::try_peek), line:24:14, endln:24:17
+        |vpiFullName:work@mailbox::try_peek
+        |vpiActual:
+        \_int_typespec: , line:24:14, endln:24:17
       |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
@@ -2785,9 +2441,12 @@ design: (work@prim_diff_decode)
       |vpiParent:
       \_function: (work@process::self), line:34:5, endln:34:11
       |vpiTypespec:
-      \_class_typespec: , line:34:21, endln:34:28
-        |vpiClassDefn:
-        \_class_defn: (work@process), file:${SURELOG_DIR}/tests/PackageValue/builtin.sv, line:30:3, endln:52:11
+      \_ref_typespec: (work@process::self)
+        |vpiParent:
+        \_class_var: (work@process::self), line:34:21, endln:34:28
+        |vpiFullName:work@process::self
+        |vpiActual:
+        \_class_typespec: , line:34:21, endln:34:28
       |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status), line:37:5, endln:38:16
@@ -2802,50 +2461,12 @@ design: (work@prim_diff_decode)
       |vpiParent:
       \_function: (work@process::status), line:37:5, endln:38:16
       |vpiTypespec:
-      \_enum_typespec: (state), line:32:5, endln:32:74
+      \_ref_typespec: (work@process::status)
         |vpiParent:
-        \_class_defn: (work@process), file:${SURELOG_DIR}/tests/PackageValue/builtin.sv, line:30:3, endln:52:11
-        |vpiName:state
-        |vpiEnumConst:
-        \_enum_const: (FINISHED), line:32:20, endln:32:28
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:FINISHED
-          |INT:0
-          |vpiDecompile:0
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (RUNNING), line:32:30, endln:32:37
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:RUNNING
-          |INT:1
-          |vpiDecompile:1
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (WAITING), line:32:39, endln:32:46
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:WAITING
-          |INT:2
-          |vpiDecompile:2
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (SUSPENDED), line:32:48, endln:32:57
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:SUSPENDED
-          |INT:3
-          |vpiDecompile:3
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (KILLED), line:32:59, endln:32:65
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:KILLED
-          |INT:4
-          |vpiDecompile:4
-          |vpiSize:64
+        \_enum_var: (work@process::status), line:37:14, endln:37:19
+        |vpiFullName:work@process::status
+        |vpiActual:
+        \_enum_typespec: (state), line:32:5, endln:32:74
       |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill), line:40:5, endln:41:12
@@ -2896,9 +2517,12 @@ design: (work@prim_diff_decode)
       |vpiParent:
       \_function: (work@semaphore::new), line:57:5, endln:58:16
       |vpiTypespec:
-      \_class_typespec: 
-        |vpiClassDefn:
-        \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/PackageValue/builtin.sv, line:55:3, endln:69:11
+      \_ref_typespec: (work@semaphore::new)
+        |vpiParent:
+        \_class_var: (work@semaphore::new), line:57:22, endln:57:30
+        |vpiFullName:work@semaphore::new
+        |vpiActual:
+        \_class_typespec: 
       |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount), line:57:22, endln:57:30
@@ -2913,8 +2537,12 @@ design: (work@prim_diff_decode)
         |UINT:0
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:57:18, endln:57:21
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::new::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:57:22, endln:57:30
+        |vpiFullName:work@semaphore::new::keyCount
+        |vpiActual:
+        \_int_typespec: , line:57:18, endln:57:21
   |vpiMethod:
   \_task: (work@semaphore::put), line:60:5, endln:61:12
     |vpiParent:
@@ -2936,8 +2564,12 @@ design: (work@prim_diff_decode)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:60:14, endln:60:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::put::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:60:18, endln:60:26
+        |vpiFullName:work@semaphore::put::keyCount
+        |vpiActual:
+        \_int_typespec: , line:60:14, endln:60:17
   |vpiMethod:
   \_task: (work@semaphore::get), line:63:5, endln:64:12
     |vpiParent:
@@ -2959,8 +2591,12 @@ design: (work@prim_diff_decode)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:63:14, endln:63:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::get::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:63:18, endln:63:26
+        |vpiFullName:work@semaphore::get::keyCount
+        |vpiActual:
+        \_int_typespec: , line:63:14, endln:63:17
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:66:5, endln:67:16
     |vpiParent:
@@ -2974,8 +2610,12 @@ design: (work@prim_diff_decode)
       |vpiParent:
       \_function: (work@semaphore::try_get), line:66:5, endln:67:16
       |vpiTypespec:
-      \_int_typespec: , line:66:14, endln:66:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::try_get)
+        |vpiParent:
+        \_int_var: (work@semaphore::try_get), line:66:14, endln:66:17
+        |vpiFullName:work@semaphore::try_get
+        |vpiActual:
+        \_int_typespec: , line:66:14, endln:66:17
       |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
@@ -2991,8 +2631,12 @@ design: (work@prim_diff_decode)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:66:26, endln:66:29
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::try_get::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:66:30, endln:66:38
+        |vpiFullName:work@semaphore::try_get::keyCount
+        |vpiActual:
+        \_int_typespec: , line:66:26, endln:66:29
 |uhdmallModules:
 \_module_inst: work@prim_diff_decode (work@prim_diff_decode), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:11:1, endln:33:10
   |vpiParent:
@@ -3004,7 +2648,12 @@ design: (work@prim_diff_decode)
     \_module_inst: work@prim_diff_decode (work@prim_diff_decode), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:11:1, endln:33:10
     |UINT:1
     |vpiTypespec:
-    \_enum_typespec: (prim_pkg::impl_e), line:4:3, endln:7:12
+    \_ref_typespec: (work@prim_diff_decode.Impl)
+      |vpiParent:
+      \_parameter: (work@prim_diff_decode.Impl), line:12:30, endln:12:34
+      |vpiFullName:work@prim_diff_decode.Impl
+      |vpiActual:
+      \_enum_typespec: (prim_pkg::impl_e), line:4:3, endln:7:12
     |vpiName:Impl
     |vpiFullName:work@prim_diff_decode.Impl
   |vpiParamAssign:
@@ -3019,7 +2668,12 @@ design: (work@prim_diff_decode)
       |vpiSize:64
       |UINT:1
       |vpiTypespec:
-      \_enum_typespec: (prim_pkg::impl_e), line:4:3, endln:7:12
+      \_ref_typespec: (work@prim_diff_decode)
+        |vpiParent:
+        \_constant: , line:12:37, endln:12:47
+        |vpiFullName:work@prim_diff_decode
+        |vpiActual:
+        \_enum_typespec: (prim_pkg::impl_e), line:4:3, endln:7:12
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@prim_diff_decode.Impl), line:12:30, endln:12:34
@@ -3126,35 +2780,12 @@ design: (work@prim_diff_decode)
     \_module_inst: work@prim_diff_decode (work@prim_diff_decode), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:11:1, endln:33:10
     |UINT:1
     |vpiTypespec:
-    \_enum_typespec: (prim_pkg::impl_e), line:4:3, endln:7:12
+    \_ref_typespec: (work@prim_diff_decode.Impl)
       |vpiParent:
       \_parameter: (work@prim_diff_decode.Impl), line:12:30, endln:12:34
-      |vpiName:prim_pkg::impl_e
-      |vpiInstance:
-      \_package: prim_pkg (prim_pkg::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:1:1, endln:9:11
-      |vpiBaseTypespec:
-      \_integer_typespec: , line:4:16, endln:4:23
-        |vpiParent:
-        \_enum_typespec: (prim_pkg::impl_e), line:4:3, endln:7:12
-        |vpiInstance:
-        \_package: prim_pkg (prim_pkg::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:1:1, endln:9:11
-        |vpiSigned:1
-      |vpiEnumConst:
-      \_enum_const: (ImplGeneric), line:5:5, endln:5:20
-        |vpiParent:
-        \_enum_typespec: (prim_pkg::impl_e), line:4:3, endln:7:12
-        |vpiName:ImplGeneric
-        |UINT:1
-        |vpiDecompile:1
-        |vpiSize:64
-      |vpiEnumConst:
-      \_enum_const: (ImplXilinx), line:6:5, endln:6:20
-        |vpiParent:
-        \_enum_typespec: (prim_pkg::impl_e), line:4:3, endln:7:12
-        |vpiName:ImplXilinx
-        |UINT:0
-        |vpiDecompile:0
-        |vpiSize:64
+      |vpiFullName:work@prim_diff_decode.Impl
+      |vpiActual:
+      \_enum_typespec: (prim_pkg::impl_e), line:4:3, endln:7:12
     |vpiName:Impl
     |vpiFullName:work@prim_diff_decode.Impl
   |vpiParamAssign:
@@ -3169,7 +2800,12 @@ design: (work@prim_diff_decode)
       |vpiSize:32
       |UINT:1
       |vpiTypespec:
-      \_enum_typespec: (prim_pkg::impl_e), line:4:3, endln:7:12
+      \_ref_typespec: (work@prim_diff_decode)
+        |vpiParent:
+        \_constant: , line:12:37, endln:12:58
+        |vpiFullName:work@prim_diff_decode
+        |vpiActual:
+        \_enum_typespec: (prim_pkg::impl_e), line:4:3, endln:7:12
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@prim_diff_decode.Impl), line:12:30, endln:12:34
@@ -3251,6 +2887,913 @@ design: (work@prim_diff_decode)
               |vpiParent:
               \_case_stmt: , line:21:7, endln:28:14
         |vpiAlwaysType:2
+\_weaklyReferenced:
+\_integer_typespec: , line:4:16, endln:4:23
+  |vpiInstance:
+  \_package: prim_pkg (prim_pkg::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:1:1, endln:9:11
+  |vpiSigned:1
+\_integer_typespec: , line:4:16, endln:4:23
+  |vpiInstance:
+  \_package: prim_pkg (prim_pkg::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:1:1, endln:9:11
+  |vpiSigned:1
+\_logic_typespec: , line:39:16, endln:39:28
+  |vpiParent:
+  \_parameter: (riscv::SSTATUS_UIE), line:39:29, endln:39:40
+  |vpiInstance:
+  \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
+  |vpiRange:
+  \_range: , line:39:22, endln:39:28
+    |vpiParent:
+    \_logic_typespec: , line:39:16, endln:39:28
+    |vpiLeftRange:
+    \_constant: , line:39:23, endln:39:25
+      |vpiParent:
+      \_range: , line:39:22, endln:39:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:39:26, endln:39:27
+      |vpiParent:
+      \_range: , line:39:22, endln:39:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:40:16, endln:40:28
+  |vpiParent:
+  \_parameter: (riscv::SSTATUS_SIE), line:40:29, endln:40:40
+  |vpiInstance:
+  \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
+  |vpiRange:
+  \_range: , line:40:22, endln:40:28
+    |vpiParent:
+    \_logic_typespec: , line:40:16, endln:40:28
+    |vpiLeftRange:
+    \_constant: , line:40:23, endln:40:25
+      |vpiParent:
+      \_range: , line:40:22, endln:40:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:40:26, endln:40:27
+      |vpiParent:
+      \_range: , line:40:22, endln:40:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:41:16, endln:41:28
+  |vpiParent:
+  \_parameter: (riscv::SSTATUS_SPIE), line:41:29, endln:41:41
+  |vpiInstance:
+  \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
+  |vpiRange:
+  \_range: , line:41:22, endln:41:28
+    |vpiParent:
+    \_logic_typespec: , line:41:16, endln:41:28
+    |vpiLeftRange:
+    \_constant: , line:41:23, endln:41:25
+      |vpiParent:
+      \_range: , line:41:22, endln:41:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:41:26, endln:41:27
+      |vpiParent:
+      \_range: , line:41:22, endln:41:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:42:16, endln:42:28
+  |vpiParent:
+  \_parameter: (riscv::SSTATUS_SPP), line:42:29, endln:42:40
+  |vpiInstance:
+  \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
+  |vpiRange:
+  \_range: , line:42:22, endln:42:28
+    |vpiParent:
+    \_logic_typespec: , line:42:16, endln:42:28
+    |vpiLeftRange:
+    \_constant: , line:42:23, endln:42:25
+      |vpiParent:
+      \_range: , line:42:22, endln:42:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:42:26, endln:42:27
+      |vpiParent:
+      \_range: , line:42:22, endln:42:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:43:16, endln:43:28
+  |vpiParent:
+  \_parameter: (riscv::SSTATUS_FS), line:43:29, endln:43:39
+  |vpiInstance:
+  \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
+  |vpiRange:
+  \_range: , line:43:22, endln:43:28
+    |vpiParent:
+    \_logic_typespec: , line:43:16, endln:43:28
+    |vpiLeftRange:
+    \_constant: , line:43:23, endln:43:25
+      |vpiParent:
+      \_range: , line:43:22, endln:43:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:43:26, endln:43:27
+      |vpiParent:
+      \_range: , line:43:22, endln:43:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:44:16, endln:44:28
+  |vpiParent:
+  \_parameter: (riscv::SSTATUS_XS), line:44:29, endln:44:39
+  |vpiInstance:
+  \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
+  |vpiRange:
+  \_range: , line:44:22, endln:44:28
+    |vpiParent:
+    \_logic_typespec: , line:44:16, endln:44:28
+    |vpiLeftRange:
+    \_constant: , line:44:23, endln:44:25
+      |vpiParent:
+      \_range: , line:44:22, endln:44:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:44:26, endln:44:27
+      |vpiParent:
+      \_range: , line:44:22, endln:44:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:45:16, endln:45:28
+  |vpiParent:
+  \_parameter: (riscv::SSTATUS_SUM), line:45:29, endln:45:40
+  |vpiInstance:
+  \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
+  |vpiRange:
+  \_range: , line:45:22, endln:45:28
+    |vpiParent:
+    \_logic_typespec: , line:45:16, endln:45:28
+    |vpiLeftRange:
+    \_constant: , line:45:23, endln:45:25
+      |vpiParent:
+      \_range: , line:45:22, endln:45:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:45:26, endln:45:27
+      |vpiParent:
+      \_range: , line:45:22, endln:45:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:46:16, endln:46:28
+  |vpiParent:
+  \_parameter: (riscv::SSTATUS_MXR), line:46:29, endln:46:40
+  |vpiInstance:
+  \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
+  |vpiRange:
+  \_range: , line:46:22, endln:46:28
+    |vpiParent:
+    \_logic_typespec: , line:46:16, endln:46:28
+    |vpiLeftRange:
+    \_constant: , line:46:23, endln:46:25
+      |vpiParent:
+      \_range: , line:46:22, endln:46:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:46:26, endln:46:27
+      |vpiParent:
+      \_range: , line:46:22, endln:46:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:47:16, endln:47:28
+  |vpiParent:
+  \_parameter: (riscv::SSTATUS_UPIE), line:47:29, endln:47:41
+  |vpiInstance:
+  \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
+  |vpiRange:
+  \_range: , line:47:22, endln:47:28
+    |vpiParent:
+    \_logic_typespec: , line:47:16, endln:47:28
+    |vpiLeftRange:
+    \_constant: , line:47:23, endln:47:25
+      |vpiParent:
+      \_range: , line:47:22, endln:47:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:47:26, endln:47:27
+      |vpiParent:
+      \_range: , line:47:22, endln:47:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:48:16, endln:48:28
+  |vpiParent:
+  \_parameter: (riscv::SSTATUS_UXL), line:48:29, endln:48:40
+  |vpiInstance:
+  \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
+  |vpiRange:
+  \_range: , line:48:22, endln:48:28
+    |vpiParent:
+    \_logic_typespec: , line:48:16, endln:48:28
+    |vpiLeftRange:
+    \_constant: , line:48:23, endln:48:25
+      |vpiParent:
+      \_range: , line:48:22, endln:48:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:48:26, endln:48:27
+      |vpiParent:
+      \_range: , line:48:22, endln:48:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:49:16, endln:49:28
+  |vpiParent:
+  \_parameter: (riscv::SSTATUS64_SD), line:49:29, endln:49:41
+  |vpiInstance:
+  \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
+  |vpiRange:
+  \_range: , line:49:22, endln:49:28
+    |vpiParent:
+    \_logic_typespec: , line:49:16, endln:49:28
+    |vpiLeftRange:
+    \_constant: , line:49:23, endln:49:25
+      |vpiParent:
+      \_range: , line:49:22, endln:49:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:49:26, endln:49:27
+      |vpiParent:
+      \_range: , line:49:22, endln:49:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:50:16, endln:50:28
+  |vpiParent:
+  \_parameter: (riscv::SSTATUS32_SD), line:50:29, endln:50:41
+  |vpiInstance:
+  \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
+  |vpiRange:
+  \_range: , line:50:22, endln:50:28
+    |vpiParent:
+    \_logic_typespec: , line:50:16, endln:50:28
+    |vpiLeftRange:
+    \_constant: , line:50:23, endln:50:25
+      |vpiParent:
+      \_range: , line:50:22, endln:50:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:50:26, endln:50:27
+      |vpiParent:
+      \_range: , line:50:22, endln:50:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:39:16, endln:39:28
+  |vpiParent:
+  \_parameter: (riscv::SSTATUS_UIE), line:39:29, endln:39:40
+  |vpiInstance:
+  \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
+  |vpiRange:
+  \_range: , line:39:22, endln:39:28
+    |vpiParent:
+    \_logic_typespec: , line:39:16, endln:39:28
+    |vpiLeftRange:
+    \_constant: , line:39:23, endln:39:25
+      |vpiParent:
+      \_range: , line:39:22, endln:39:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:39:26, endln:39:27
+      |vpiParent:
+      \_range: , line:39:22, endln:39:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:40:16, endln:40:28
+  |vpiParent:
+  \_parameter: (riscv::SSTATUS_SIE), line:40:29, endln:40:40
+  |vpiInstance:
+  \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
+  |vpiRange:
+  \_range: , line:40:22, endln:40:28
+    |vpiParent:
+    \_logic_typespec: , line:40:16, endln:40:28
+    |vpiLeftRange:
+    \_constant: , line:40:23, endln:40:25
+      |vpiParent:
+      \_range: , line:40:22, endln:40:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:40:26, endln:40:27
+      |vpiParent:
+      \_range: , line:40:22, endln:40:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:41:16, endln:41:28
+  |vpiParent:
+  \_parameter: (riscv::SSTATUS_SPIE), line:41:29, endln:41:41
+  |vpiInstance:
+  \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
+  |vpiRange:
+  \_range: , line:41:22, endln:41:28
+    |vpiParent:
+    \_logic_typespec: , line:41:16, endln:41:28
+    |vpiLeftRange:
+    \_constant: , line:41:23, endln:41:25
+      |vpiParent:
+      \_range: , line:41:22, endln:41:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:41:26, endln:41:27
+      |vpiParent:
+      \_range: , line:41:22, endln:41:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:42:16, endln:42:28
+  |vpiParent:
+  \_parameter: (riscv::SSTATUS_SPP), line:42:29, endln:42:40
+  |vpiInstance:
+  \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
+  |vpiRange:
+  \_range: , line:42:22, endln:42:28
+    |vpiParent:
+    \_logic_typespec: , line:42:16, endln:42:28
+    |vpiLeftRange:
+    \_constant: , line:42:23, endln:42:25
+      |vpiParent:
+      \_range: , line:42:22, endln:42:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:42:26, endln:42:27
+      |vpiParent:
+      \_range: , line:42:22, endln:42:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:43:16, endln:43:28
+  |vpiParent:
+  \_parameter: (riscv::SSTATUS_FS), line:43:29, endln:43:39
+  |vpiInstance:
+  \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
+  |vpiRange:
+  \_range: , line:43:22, endln:43:28
+    |vpiParent:
+    \_logic_typespec: , line:43:16, endln:43:28
+    |vpiLeftRange:
+    \_constant: , line:43:23, endln:43:25
+      |vpiParent:
+      \_range: , line:43:22, endln:43:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:43:26, endln:43:27
+      |vpiParent:
+      \_range: , line:43:22, endln:43:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:44:16, endln:44:28
+  |vpiParent:
+  \_parameter: (riscv::SSTATUS_XS), line:44:29, endln:44:39
+  |vpiInstance:
+  \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
+  |vpiRange:
+  \_range: , line:44:22, endln:44:28
+    |vpiParent:
+    \_logic_typespec: , line:44:16, endln:44:28
+    |vpiLeftRange:
+    \_constant: , line:44:23, endln:44:25
+      |vpiParent:
+      \_range: , line:44:22, endln:44:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:44:26, endln:44:27
+      |vpiParent:
+      \_range: , line:44:22, endln:44:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:45:16, endln:45:28
+  |vpiParent:
+  \_parameter: (riscv::SSTATUS_SUM), line:45:29, endln:45:40
+  |vpiInstance:
+  \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
+  |vpiRange:
+  \_range: , line:45:22, endln:45:28
+    |vpiParent:
+    \_logic_typespec: , line:45:16, endln:45:28
+    |vpiLeftRange:
+    \_constant: , line:45:23, endln:45:25
+      |vpiParent:
+      \_range: , line:45:22, endln:45:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:45:26, endln:45:27
+      |vpiParent:
+      \_range: , line:45:22, endln:45:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:46:16, endln:46:28
+  |vpiParent:
+  \_parameter: (riscv::SSTATUS_MXR), line:46:29, endln:46:40
+  |vpiInstance:
+  \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
+  |vpiRange:
+  \_range: , line:46:22, endln:46:28
+    |vpiParent:
+    \_logic_typespec: , line:46:16, endln:46:28
+    |vpiLeftRange:
+    \_constant: , line:46:23, endln:46:25
+      |vpiParent:
+      \_range: , line:46:22, endln:46:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:46:26, endln:46:27
+      |vpiParent:
+      \_range: , line:46:22, endln:46:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:47:16, endln:47:28
+  |vpiParent:
+  \_parameter: (riscv::SSTATUS_UPIE), line:47:29, endln:47:41
+  |vpiInstance:
+  \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
+  |vpiRange:
+  \_range: , line:47:22, endln:47:28
+    |vpiParent:
+    \_logic_typespec: , line:47:16, endln:47:28
+    |vpiLeftRange:
+    \_constant: , line:47:23, endln:47:25
+      |vpiParent:
+      \_range: , line:47:22, endln:47:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:47:26, endln:47:27
+      |vpiParent:
+      \_range: , line:47:22, endln:47:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:48:16, endln:48:28
+  |vpiParent:
+  \_parameter: (riscv::SSTATUS_UXL), line:48:29, endln:48:40
+  |vpiInstance:
+  \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
+  |vpiRange:
+  \_range: , line:48:22, endln:48:28
+    |vpiParent:
+    \_logic_typespec: , line:48:16, endln:48:28
+    |vpiLeftRange:
+    \_constant: , line:48:23, endln:48:25
+      |vpiParent:
+      \_range: , line:48:22, endln:48:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:48:26, endln:48:27
+      |vpiParent:
+      \_range: , line:48:22, endln:48:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:49:16, endln:49:28
+  |vpiParent:
+  \_parameter: (riscv::SSTATUS64_SD), line:49:29, endln:49:41
+  |vpiInstance:
+  \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
+  |vpiRange:
+  \_range: , line:49:22, endln:49:28
+    |vpiParent:
+    \_logic_typespec: , line:49:16, endln:49:28
+    |vpiLeftRange:
+    \_constant: , line:49:23, endln:49:25
+      |vpiParent:
+      \_range: , line:49:22, endln:49:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:49:26, endln:49:27
+      |vpiParent:
+      \_range: , line:49:22, endln:49:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:50:16, endln:50:28
+  |vpiParent:
+  \_parameter: (riscv::SSTATUS32_SD), line:50:29, endln:50:41
+  |vpiInstance:
+  \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:37:1, endln:53:11
+  |vpiRange:
+  \_range: , line:50:22, endln:50:28
+    |vpiParent:
+    \_logic_typespec: , line:50:16, endln:50:28
+    |vpiLeftRange:
+    \_constant: , line:50:23, endln:50:25
+      |vpiParent:
+      \_range: , line:50:22, endln:50:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:50:26, endln:50:27
+      |vpiParent:
+      \_range: , line:50:22, endln:50:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:58:15, endln:58:27
+  |vpiParent:
+  \_parameter: (ariane_pkg::SMODE_STATUS_READ_MASK), line:58:28, endln:58:50
+  |vpiInstance:
+  \_package: ariane_pkg (ariane_pkg::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:55:1, endln:72:11
+  |vpiRange:
+  \_range: , line:58:21, endln:58:27
+    |vpiParent:
+    \_logic_typespec: , line:58:15, endln:58:27
+    |vpiLeftRange:
+    \_constant: , line:58:22, endln:58:24
+      |vpiParent:
+      \_range: , line:58:21, endln:58:27
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:58:25, endln:58:26
+      |vpiParent:
+      \_range: , line:58:21, endln:58:27
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:58:15, endln:58:27
+  |vpiParent:
+  \_parameter: (ariane_pkg::SMODE_STATUS_READ_MASK), line:58:28, endln:58:50
+  |vpiInstance:
+  \_package: ariane_pkg (ariane_pkg::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:55:1, endln:72:11
+  |vpiRange:
+  \_range: , line:58:21, endln:58:27
+    |vpiParent:
+    \_logic_typespec: , line:58:15, endln:58:27
+    |vpiLeftRange:
+    \_constant: , line:58:22, endln:58:24
+      |vpiParent:
+      \_range: , line:58:21, endln:58:27
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:58:25, endln:58:26
+      |vpiParent:
+      \_range: , line:58:21, endln:58:27
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_function: (work@mailbox::new), line:3:5, endln:4:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/PackageValue/builtin.sv, line:1:3, endln:27:11
+  |vpiName:new
+  |vpiFullName:work@mailbox::new
+  |vpiMethod:1
+  |vpiReturn:
+  \_class_var: (work@mailbox::new), line:3:23, endln:3:28
+  |vpiIODecl:
+  \_io_decl: (bound), line:3:23, endln:3:28
+    |vpiParent:
+    \_function: (work@mailbox::new), line:3:5, endln:4:16
+    |vpiDirection:1
+    |vpiName:bound
+    |vpiExpr:
+    \_constant: , line:3:31, endln:3:32
+    |vpiTypedef:
+    \_ref_typespec: (work@mailbox::new::bound)
+      |vpiParent:
+      \_io_decl: (bound), line:3:23, endln:3:28
+      |vpiFullName:work@mailbox::new::bound
+      |vpiActual:
+      \_int_typespec: , line:3:19, endln:3:22
+\_class_typespec: 
+  |vpiClassDefn:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/PackageValue/builtin.sv, line:1:3, endln:27:11
+\_int_typespec: , line:3:19, endln:3:22
+  |vpiSigned:1
+\_function: (work@mailbox::num), line:6:5, endln:7:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/PackageValue/builtin.sv, line:1:3, endln:27:11
+  |vpiName:num
+  |vpiFullName:work@mailbox::num
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::num), line:6:14, endln:6:17
+\_int_typespec: , line:6:14, endln:6:17
+  |vpiSigned:1
+\_function: (work@mailbox::try_put), line:12:5, endln:13:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/PackageValue/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_put
+  |vpiFullName:work@mailbox::try_put
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_logic_var: (work@mailbox::try_put)
+  |vpiIODecl:
+  \_io_decl: (message), line:12:23, endln:12:30
+    |vpiParent:
+    \_function: (work@mailbox::try_put), line:12:5, endln:13:16
+    |vpiDirection:1
+    |vpiName:message
+\_function: (work@mailbox::try_get), line:18:5, endln:19:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/PackageValue/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_get
+  |vpiFullName:work@mailbox::try_get
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::try_get), line:18:14, endln:18:17
+  |vpiIODecl:
+  \_io_decl: (message), line:18:31, endln:18:38
+    |vpiParent:
+    \_function: (work@mailbox::try_get), line:18:5, endln:19:16
+    |vpiDirection:6
+    |vpiName:message
+\_int_typespec: , line:18:14, endln:18:17
+  |vpiSigned:1
+\_function: (work@mailbox::try_peek), line:24:5, endln:25:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/PackageValue/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_peek
+  |vpiFullName:work@mailbox::try_peek
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::try_peek), line:24:14, endln:24:17
+  |vpiIODecl:
+  \_io_decl: (message), line:24:31, endln:24:38
+    |vpiParent:
+    \_function: (work@mailbox::try_peek), line:24:5, endln:25:16
+    |vpiDirection:6
+    |vpiName:message
+\_int_typespec: , line:24:14, endln:24:17
+  |vpiSigned:1
+\_enum_typespec: (state), line:32:5, endln:32:74
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/PackageValue/builtin.sv, line:30:3, endln:52:11
+  |vpiName:state
+  |vpiEnumConst:
+  \_enum_const: (FINISHED), line:32:20, endln:32:28
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:FINISHED
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (RUNNING), line:32:30, endln:32:37
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:RUNNING
+    |INT:1
+    |vpiDecompile:1
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (WAITING), line:32:39, endln:32:46
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:WAITING
+    |INT:2
+    |vpiDecompile:2
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (SUSPENDED), line:32:48, endln:32:57
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:SUSPENDED
+    |INT:3
+    |vpiDecompile:3
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (KILLED), line:32:59, endln:32:65
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:KILLED
+    |INT:4
+    |vpiDecompile:4
+    |vpiSize:64
+\_function: (work@process::self), line:34:5, endln:34:11
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/PackageValue/builtin.sv, line:30:3, endln:52:11
+  |vpiName:self
+  |vpiFullName:work@process::self
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_class_var: (work@process::self), line:34:21, endln:34:28
+\_class_typespec: , line:34:21, endln:34:28
+  |vpiClassDefn:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/PackageValue/builtin.sv, line:30:3, endln:52:11
+\_function: (work@process::status), line:37:5, endln:38:16
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/PackageValue/builtin.sv, line:30:3, endln:52:11
+  |vpiName:status
+  |vpiFullName:work@process::status
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_enum_var: (work@process::status), line:37:14, endln:37:19
+\_function: (work@semaphore::new), line:57:5, endln:58:16
+  |vpiParent:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/PackageValue/builtin.sv, line:55:3, endln:69:11
+  |vpiName:new
+  |vpiFullName:work@semaphore::new
+  |vpiMethod:1
+  |vpiReturn:
+  \_class_var: (work@semaphore::new), line:57:22, endln:57:30
+  |vpiIODecl:
+  \_io_decl: (keyCount), line:57:22, endln:57:30
+    |vpiParent:
+    \_function: (work@semaphore::new), line:57:5, endln:58:16
+    |vpiDirection:1
+    |vpiName:keyCount
+    |vpiExpr:
+    \_constant: , line:57:33, endln:57:34
+    |vpiTypedef:
+    \_ref_typespec: (work@semaphore::new::keyCount)
+      |vpiParent:
+      \_io_decl: (keyCount), line:57:22, endln:57:30
+      |vpiFullName:work@semaphore::new::keyCount
+      |vpiActual:
+      \_int_typespec: , line:57:18, endln:57:21
+\_class_typespec: 
+  |vpiClassDefn:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/PackageValue/builtin.sv, line:55:3, endln:69:11
+\_int_typespec: , line:57:18, endln:57:21
+  |vpiSigned:1
+\_int_typespec: , line:60:14, endln:60:17
+  |vpiSigned:1
+\_int_typespec: , line:63:14, endln:63:17
+  |vpiSigned:1
+\_function: (work@semaphore::try_get), line:66:5, endln:67:16
+  |vpiParent:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/PackageValue/builtin.sv, line:55:3, endln:69:11
+  |vpiName:try_get
+  |vpiFullName:work@semaphore::try_get
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@semaphore::try_get), line:66:14, endln:66:17
+  |vpiIODecl:
+  \_io_decl: (keyCount), line:66:30, endln:66:38
+    |vpiParent:
+    \_function: (work@semaphore::try_get), line:66:5, endln:67:16
+    |vpiDirection:1
+    |vpiName:keyCount
+    |vpiExpr:
+    \_constant: , line:66:41, endln:66:42
+    |vpiTypedef:
+    \_ref_typespec: (work@semaphore::try_get::keyCount)
+      |vpiParent:
+      \_io_decl: (keyCount), line:66:30, endln:66:38
+      |vpiFullName:work@semaphore::try_get::keyCount
+      |vpiActual:
+      \_int_typespec: , line:66:26, endln:66:29
+\_int_typespec: , line:66:14, endln:66:17
+  |vpiSigned:1
+\_int_typespec: , line:66:26, endln:66:29
+  |vpiSigned:1
+\_enum_typespec: (prim_pkg::impl_e), line:4:3, endln:7:12
+  |vpiParent:
+  \_ref_typespec: (work@prim_diff_decode.Impl)
+  |vpiName:prim_pkg::impl_e
+  |vpiInstance:
+  \_package: prim_pkg (prim_pkg::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:1:1, endln:9:11
+  |vpiBaseTypespec:
+  \_ref_typespec: (work@prim_diff_decode.Impl.prim_pkg::impl_e)
+    |vpiParent:
+    \_enum_typespec: (prim_pkg::impl_e), line:4:3, endln:7:12
+    |vpiFullName:work@prim_diff_decode.Impl.prim_pkg::impl_e
+    |vpiActual:
+    \_integer_typespec: , line:4:16, endln:4:23
+  |vpiEnumConst:
+  \_enum_const: (ImplGeneric), line:5:5, endln:5:20
+    |vpiParent:
+    \_enum_typespec: (prim_pkg::impl_e), line:4:3, endln:7:12
+    |vpiName:ImplGeneric
+    |UINT:1
+    |vpiDecompile:1
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (ImplXilinx), line:6:5, endln:6:20
+    |vpiParent:
+    \_enum_typespec: (prim_pkg::impl_e), line:4:3, endln:7:12
+    |vpiName:ImplXilinx
+    |UINT:0
+    |vpiDecompile:0
+    |vpiSize:64
+\_integer_typespec: , line:4:16, endln:4:23
+  |vpiParent:
+  \_ref_typespec: (work@prim_diff_decode.Impl.prim_pkg::impl_e)
+  |vpiInstance:
+  \_package: prim_pkg (prim_pkg::), file:${SURELOG_DIR}/tests/PackageValue/top.sv, line:1:1, endln:9:11
+  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

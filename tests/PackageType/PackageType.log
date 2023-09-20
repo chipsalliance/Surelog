@@ -425,6 +425,7 @@ param_assign                                          16
 parameter                                             16
 range                                                  4
 ref_obj                                               12
+ref_typespec                                          60
 string_typespec                                        6
 struct_typespec                                        6
 sys_func_call                                          4
@@ -457,6 +458,7 @@ param_assign                                          16
 parameter                                             16
 range                                                  4
 ref_obj                                               12
+ref_typespec                                          65
 string_typespec                                        6
 struct_typespec                                        6
 sys_func_call                                          4
@@ -495,7 +497,12 @@ design: (unnamed)
     \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
     |UINT:128
     |vpiTypespec:
-    \_int_typespec: , line:10:3, endln:10:31
+    \_ref_typespec: (bp_common_aviary_pkg::max_cfgs)
+      |vpiParent:
+      \_parameter: (bp_common_aviary_pkg::max_cfgs), line:10:14, endln:10:22
+      |vpiFullName:bp_common_aviary_pkg::max_cfgs
+      |vpiActual:
+      \_int_typespec: , line:10:3, endln:10:31
     |vpiLocalParam:1
     |vpiName:max_cfgs
     |vpiFullName:bp_common_aviary_pkg::max_cfgs
@@ -511,47 +518,12 @@ design: (unnamed)
     |vpiParent:
     \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
     |vpiTypespec:
-    \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:3:9, endln:7:2
+    \_ref_typespec: (bp_common_aviary_pkg::bp_inv_cfg_p)
       |vpiParent:
-      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
-      |vpiName:bp_common_aviary_pkg::bp_proc_param_s
-      |vpiInstance:
-      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
-      |vpiPacked:1
-      |vpiTypespecMember:
-      \_typespec_member: (num_core), line:5:11, endln:5:19
-        |vpiParent:
-        \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:3:9, endln:7:2
-        |vpiName:num_core
-        |vpiTypespec:
-        \_integer_typespec: , line:5:3, endln:5:10
-          |vpiParent:
-          \_typespec_member: (num_core), line:5:11, endln:5:19
-          |vpiInstance:
-          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
-          |vpiSigned:1
-        |vpiRefFile:${SURELOG_DIR}/tests/PackageType/dut.sv
-        |vpiRefLineNo:5
-        |vpiRefColumnNo:3
-        |vpiRefEndLineNo:5
-        |vpiRefEndColumnNo:10
-      |vpiTypespecMember:
-      \_typespec_member: (num_cce), line:6:11, endln:6:18
-        |vpiParent:
-        \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:3:9, endln:7:2
-        |vpiName:num_cce
-        |vpiTypespec:
-        \_integer_typespec: , line:6:3, endln:6:10
-          |vpiParent:
-          \_typespec_member: (num_cce), line:6:11, endln:6:18
-          |vpiInstance:
-          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
-          |vpiSigned:1
-        |vpiRefFile:${SURELOG_DIR}/tests/PackageType/dut.sv
-        |vpiRefLineNo:6
-        |vpiRefColumnNo:3
-        |vpiRefEndLineNo:6
-        |vpiRefEndColumnNo:10
+      \_parameter: (bp_common_aviary_pkg::bp_inv_cfg_p), line:13:30, endln:13:42
+      |vpiFullName:bp_common_aviary_pkg::bp_inv_cfg_p
+      |vpiActual:
+      \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:3:9, endln:7:2
     |vpiLocalParam:1
     |vpiName:bp_inv_cfg_p
     |vpiFullName:bp_common_aviary_pkg::bp_inv_cfg_p
@@ -560,46 +532,12 @@ design: (unnamed)
     |vpiParent:
     \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
     |vpiTypespec:
-    \_packed_array_typespec: , line:18:13, endln:18:43
+    \_ref_typespec: (bp_common_aviary_pkg::all_cfgs_gp)
       |vpiParent:
       \_parameter: (bp_common_aviary_pkg::all_cfgs_gp), line:18:44, endln:18:55
-      |vpiInstance:
-      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
-      |vpiRange:
-      \_range: , line:18:29, endln:18:43
-        |vpiParent:
-        \_packed_array_typespec: , line:18:13, endln:18:43
-        |vpiLeftRange:
-        \_operation: , line:18:30, endln:18:40
-          |vpiParent:
-          \_range: , line:18:29, endln:18:43
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (bp_common_aviary_pkg::all_cfgs_gp::max_cfgs), line:18:30, endln:18:38
-            |vpiParent:
-            \_operation: , line:18:30, endln:18:40
-            |vpiName:max_cfgs
-            |vpiFullName:bp_common_aviary_pkg::all_cfgs_gp::max_cfgs
-            |vpiActual:
-            \_parameter: (bp_common_aviary_pkg::max_cfgs), line:10:14, endln:10:22
-          |vpiOperand:
-          \_constant: , line:18:39, endln:18:40
-            |vpiParent:
-            \_operation: , line:18:30, endln:18:40
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:18:41, endln:18:42
-          |vpiParent:
-          \_range: , line:18:29, endln:18:43
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-      |vpiElemTypespec:
-      \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:3:9, endln:7:2
+      |vpiFullName:bp_common_aviary_pkg::all_cfgs_gp
+      |vpiActual:
+      \_packed_array_typespec: , line:18:13, endln:18:43
     |vpiName:all_cfgs_gp
     |vpiFullName:bp_common_aviary_pkg::all_cfgs_gp
   |vpiParamAssign:
@@ -614,7 +552,12 @@ design: (unnamed)
       |vpiSize:64
       |UINT:128
       |vpiTypespec:
-      \_int_typespec: , line:10:3, endln:10:31
+      \_ref_typespec: (bp_common_aviary_pkg)
+        |vpiParent:
+        \_constant: , line:10:28, endln:10:31
+        |vpiFullName:bp_common_aviary_pkg
+        |vpiActual:
+        \_int_typespec: , line:10:3, endln:10:31
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (bp_common_aviary_pkg::max_cfgs), line:10:14, endln:10:22
@@ -657,10 +600,12 @@ design: (unnamed)
           |STRING:inv
           |vpiConstType:6
         |vpiTypespec:
-        \_string_typespec: (default), line:14:7, endln:14:14
+        \_ref_typespec: (bp_common_aviary_pkg)
           |vpiParent:
           \_tagged_pattern: , line:14:16, endln:14:21
-          |vpiName:default
+          |vpiFullName:bp_common_aviary_pkg
+          |vpiActual:
+          \_string_typespec: (default), line:14:7, endln:14:14
     |vpiLhs:
     \_parameter: (bp_common_aviary_pkg::bp_inv_cfg_p), line:13:30, endln:13:42
   |vpiParamAssign:
@@ -684,6 +629,46 @@ design: (unnamed)
     \_parameter: (bp_common_aviary_pkg::all_cfgs_gp), line:18:44, endln:18:55
   |vpiTypedef:
   \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:3:9, endln:7:2
+    |vpiParent:
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
+    |vpiName:bp_common_aviary_pkg::bp_proc_param_s
+    |vpiInstance:
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
+    |vpiPacked:1
+    |vpiTypespecMember:
+    \_typespec_member: (num_core), line:5:11, endln:5:19
+      |vpiParent:
+      \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:3:9, endln:7:2
+      |vpiName:num_core
+      |vpiTypespec:
+      \_ref_typespec: (bp_common_aviary_pkg::bp_common_aviary_pkg::bp_proc_param_s::num_core)
+        |vpiParent:
+        \_typespec_member: (num_core), line:5:11, endln:5:19
+        |vpiFullName:bp_common_aviary_pkg::bp_common_aviary_pkg::bp_proc_param_s::num_core
+        |vpiActual:
+        \_integer_typespec: , line:5:3, endln:5:10
+      |vpiRefFile:${SURELOG_DIR}/tests/PackageType/dut.sv
+      |vpiRefLineNo:5
+      |vpiRefColumnNo:3
+      |vpiRefEndLineNo:5
+      |vpiRefEndColumnNo:10
+    |vpiTypespecMember:
+    \_typespec_member: (num_cce), line:6:11, endln:6:18
+      |vpiParent:
+      \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:3:9, endln:7:2
+      |vpiName:num_cce
+      |vpiTypespec:
+      \_ref_typespec: (bp_common_aviary_pkg::bp_common_aviary_pkg::bp_proc_param_s::num_cce)
+        |vpiParent:
+        \_typespec_member: (num_cce), line:6:11, endln:6:18
+        |vpiFullName:bp_common_aviary_pkg::bp_common_aviary_pkg::bp_proc_param_s::num_cce
+        |vpiActual:
+        \_integer_typespec: , line:6:3, endln:6:10
+      |vpiRefFile:${SURELOG_DIR}/tests/PackageType/dut.sv
+      |vpiRefLineNo:6
+      |vpiRefColumnNo:3
+      |vpiRefEndLineNo:6
+      |vpiRefEndColumnNo:10
   |vpiDefName:bp_common_aviary_pkg
 |uhdmtopPackages:
 \_package: builtin (builtin::)
@@ -735,7 +720,12 @@ design: (unnamed)
     \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
     |UINT:128
     |vpiTypespec:
-    \_int_typespec: , line:10:3, endln:10:31
+    \_ref_typespec: (bp_common_aviary_pkg::max_cfgs)
+      |vpiParent:
+      \_parameter: (bp_common_aviary_pkg::max_cfgs), line:10:14, endln:10:22
+      |vpiFullName:bp_common_aviary_pkg::max_cfgs
+      |vpiActual:
+      \_int_typespec: , line:10:3, endln:10:31
     |vpiLocalParam:1
     |vpiName:max_cfgs
     |vpiFullName:bp_common_aviary_pkg::max_cfgs
@@ -745,7 +735,12 @@ design: (unnamed)
     \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
     |UINT:7
     |vpiTypespec:
-    \_int_typespec: , line:11:3, endln:11:44
+    \_ref_typespec: (bp_common_aviary_pkg::lg_max_cfgs)
+      |vpiParent:
+      \_parameter: (bp_common_aviary_pkg::lg_max_cfgs), line:11:14, endln:11:25
+      |vpiFullName:bp_common_aviary_pkg::lg_max_cfgs
+      |vpiActual:
+      \_int_typespec: , line:11:3, endln:11:44
     |vpiLocalParam:1
     |vpiName:lg_max_cfgs
     |vpiFullName:bp_common_aviary_pkg::lg_max_cfgs
@@ -754,47 +749,12 @@ design: (unnamed)
     |vpiParent:
     \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
     |vpiTypespec:
-    \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:3:9, endln:7:2
+    \_ref_typespec: (bp_common_aviary_pkg::bp_inv_cfg_p)
       |vpiParent:
-      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
-      |vpiName:bp_common_aviary_pkg::bp_proc_param_s
-      |vpiInstance:
-      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
-      |vpiPacked:1
-      |vpiTypespecMember:
-      \_typespec_member: (num_core), line:5:11, endln:5:19
-        |vpiParent:
-        \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:3:9, endln:7:2
-        |vpiName:num_core
-        |vpiTypespec:
-        \_integer_typespec: , line:5:3, endln:5:10
-          |vpiParent:
-          \_typespec_member: (num_core), line:5:11, endln:5:19
-          |vpiInstance:
-          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
-          |vpiSigned:1
-        |vpiRefFile:${SURELOG_DIR}/tests/PackageType/dut.sv
-        |vpiRefLineNo:5
-        |vpiRefColumnNo:3
-        |vpiRefEndLineNo:5
-        |vpiRefEndColumnNo:10
-      |vpiTypespecMember:
-      \_typespec_member: (num_cce), line:6:11, endln:6:18
-        |vpiParent:
-        \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:3:9, endln:7:2
-        |vpiName:num_cce
-        |vpiTypespec:
-        \_integer_typespec: , line:6:3, endln:6:10
-          |vpiParent:
-          \_typespec_member: (num_cce), line:6:11, endln:6:18
-          |vpiInstance:
-          \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
-          |vpiSigned:1
-        |vpiRefFile:${SURELOG_DIR}/tests/PackageType/dut.sv
-        |vpiRefLineNo:6
-        |vpiRefColumnNo:3
-        |vpiRefEndLineNo:6
-        |vpiRefEndColumnNo:10
+      \_parameter: (bp_common_aviary_pkg::bp_inv_cfg_p), line:13:30, endln:13:42
+      |vpiFullName:bp_common_aviary_pkg::bp_inv_cfg_p
+      |vpiActual:
+      \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:3:9, endln:7:2
     |vpiLocalParam:1
     |vpiName:bp_inv_cfg_p
     |vpiFullName:bp_common_aviary_pkg::bp_inv_cfg_p
@@ -803,33 +763,12 @@ design: (unnamed)
     |vpiParent:
     \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
     |vpiTypespec:
-    \_packed_array_typespec: , line:18:13, endln:18:43
+    \_ref_typespec: (bp_common_aviary_pkg::all_cfgs_gp)
       |vpiParent:
       \_parameter: (bp_common_aviary_pkg::all_cfgs_gp), line:18:44, endln:18:55
-      |vpiInstance:
-      \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
-      |vpiRange:
-      \_range: , line:18:29, endln:18:43
-        |vpiParent:
-        \_packed_array_typespec: , line:18:13, endln:18:43
-        |vpiLeftRange:
-        \_constant: , line:18:30, endln:18:38
-          |vpiParent:
-          \_range: , line:18:29, endln:18:43
-          |vpiDecompile:127
-          |vpiSize:64
-          |INT:127
-          |vpiConstType:7
-        |vpiRightRange:
-        \_constant: , line:18:41, endln:18:42
-          |vpiParent:
-          \_range: , line:18:29, endln:18:43
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-      |vpiElemTypespec:
-      \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:3:9, endln:7:2
+      |vpiFullName:bp_common_aviary_pkg::all_cfgs_gp
+      |vpiActual:
+      \_packed_array_typespec: , line:18:13, endln:18:43
     |vpiName:all_cfgs_gp
     |vpiFullName:bp_common_aviary_pkg::all_cfgs_gp
   |vpiParamAssign:
@@ -844,7 +783,12 @@ design: (unnamed)
       |vpiSize:32
       |UINT:128
       |vpiTypespec:
-      \_int_typespec: , line:10:3, endln:10:31
+      \_ref_typespec: (bp_common_aviary_pkg)
+        |vpiParent:
+        \_constant: , line:10:28, endln:10:31
+        |vpiFullName:bp_common_aviary_pkg
+        |vpiActual:
+        \_int_typespec: , line:10:3, endln:10:31
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (bp_common_aviary_pkg::max_cfgs), line:10:14, endln:10:22
@@ -860,7 +804,12 @@ design: (unnamed)
       |vpiSize:32
       |UINT:7
       |vpiTypespec:
-      \_int_typespec: , line:11:3, endln:11:44
+      \_ref_typespec: (bp_common_aviary_pkg)
+        |vpiParent:
+        \_constant: , line:11:28, endln:11:44
+        |vpiFullName:bp_common_aviary_pkg
+        |vpiActual:
+        \_int_typespec: , line:11:3, endln:11:44
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (bp_common_aviary_pkg::lg_max_cfgs), line:11:14, endln:11:25
@@ -884,10 +833,12 @@ design: (unnamed)
           |STRING:inv
           |vpiConstType:6
         |vpiTypespec:
-        \_string_typespec: (default), line:14:7, endln:14:14
+        \_ref_typespec: (bp_common_aviary_pkg)
           |vpiParent:
           \_tagged_pattern: , line:14:16, endln:14:21
-          |vpiName:default
+          |vpiFullName:bp_common_aviary_pkg
+          |vpiActual:
+          \_string_typespec: (default), line:14:7, endln:14:14
     |vpiLhs:
     \_parameter: (bp_common_aviary_pkg::bp_inv_cfg_p), line:13:30, endln:13:42
   |vpiParamAssign:
@@ -912,6 +863,46 @@ design: (unnamed)
     \_parameter: (bp_common_aviary_pkg::all_cfgs_gp), line:18:44, endln:18:55
   |vpiTypedef:
   \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:3:9, endln:7:2
+    |vpiParent:
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
+    |vpiName:bp_common_aviary_pkg::bp_proc_param_s
+    |vpiInstance:
+    \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
+    |vpiPacked:1
+    |vpiTypespecMember:
+    \_typespec_member: (num_core), line:5:11, endln:5:19
+      |vpiParent:
+      \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:3:9, endln:7:2
+      |vpiName:num_core
+      |vpiTypespec:
+      \_ref_typespec: (bp_common_aviary_pkg::bp_common_aviary_pkg::bp_proc_param_s::num_core)
+        |vpiParent:
+        \_typespec_member: (num_core), line:5:11, endln:5:19
+        |vpiFullName:bp_common_aviary_pkg::bp_common_aviary_pkg::bp_proc_param_s::num_core
+        |vpiActual:
+        \_integer_typespec: , line:5:3, endln:5:10
+      |vpiRefFile:${SURELOG_DIR}/tests/PackageType/dut.sv
+      |vpiRefLineNo:5
+      |vpiRefColumnNo:3
+      |vpiRefEndLineNo:5
+      |vpiRefEndColumnNo:10
+    |vpiTypespecMember:
+    \_typespec_member: (num_cce), line:6:11, endln:6:18
+      |vpiParent:
+      \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:3:9, endln:7:2
+      |vpiName:num_cce
+      |vpiTypespec:
+      \_ref_typespec: (bp_common_aviary_pkg::bp_common_aviary_pkg::bp_proc_param_s::num_cce)
+        |vpiParent:
+        \_typespec_member: (num_cce), line:6:11, endln:6:18
+        |vpiFullName:bp_common_aviary_pkg::bp_common_aviary_pkg::bp_proc_param_s::num_cce
+        |vpiActual:
+        \_integer_typespec: , line:6:3, endln:6:10
+      |vpiRefFile:${SURELOG_DIR}/tests/PackageType/dut.sv
+      |vpiRefLineNo:6
+      |vpiRefColumnNo:3
+      |vpiRefEndLineNo:6
+      |vpiRefEndColumnNo:10
   |vpiDefName:bp_common_aviary_pkg
   |vpiTop:1
 |uhdmallClasses:
@@ -931,9 +922,12 @@ design: (unnamed)
       |vpiParent:
       \_function: (work@mailbox::new), line:3:5, endln:4:16
       |vpiTypespec:
-      \_class_typespec: 
-        |vpiClassDefn:
-        \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/PackageType/builtin.sv, line:1:3, endln:27:11
+      \_ref_typespec: (work@mailbox::new)
+        |vpiParent:
+        \_class_var: (work@mailbox::new), line:3:23, endln:3:28
+        |vpiFullName:work@mailbox::new
+        |vpiActual:
+        \_class_typespec: 
       |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound), line:3:23, endln:3:28
@@ -948,8 +942,12 @@ design: (unnamed)
         |UINT:0
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:3:19, endln:3:22
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::new::bound)
+        |vpiParent:
+        \_io_decl: (bound), line:3:23, endln:3:28
+        |vpiFullName:work@mailbox::new::bound
+        |vpiActual:
+        \_int_typespec: , line:3:19, endln:3:22
   |vpiMethod:
   \_function: (work@mailbox::num), line:6:5, endln:7:16
     |vpiParent:
@@ -963,8 +961,12 @@ design: (unnamed)
       |vpiParent:
       \_function: (work@mailbox::num), line:6:5, endln:7:16
       |vpiTypespec:
-      \_int_typespec: , line:6:14, endln:6:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::num)
+        |vpiParent:
+        \_int_var: (work@mailbox::num), line:6:14, endln:6:17
+        |vpiFullName:work@mailbox::num
+        |vpiActual:
+        \_int_typespec: , line:6:14, endln:6:17
       |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
@@ -1027,8 +1029,12 @@ design: (unnamed)
       |vpiParent:
       \_function: (work@mailbox::try_get), line:18:5, endln:19:16
       |vpiTypespec:
-      \_int_typespec: , line:18:14, endln:18:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::try_get)
+        |vpiParent:
+        \_int_var: (work@mailbox::try_get), line:18:14, endln:18:17
+        |vpiFullName:work@mailbox::try_get
+        |vpiActual:
+        \_int_typespec: , line:18:14, endln:18:17
       |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
@@ -1064,8 +1070,12 @@ design: (unnamed)
       |vpiParent:
       \_function: (work@mailbox::try_peek), line:24:5, endln:25:16
       |vpiTypespec:
-      \_int_typespec: , line:24:14, endln:24:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::try_peek)
+        |vpiParent:
+        \_int_var: (work@mailbox::try_peek), line:24:14, endln:24:17
+        |vpiFullName:work@mailbox::try_peek
+        |vpiActual:
+        \_int_typespec: , line:24:14, endln:24:17
       |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
@@ -1137,9 +1147,12 @@ design: (unnamed)
       |vpiParent:
       \_function: (work@process::self), line:34:5, endln:34:11
       |vpiTypespec:
-      \_class_typespec: , line:34:21, endln:34:28
-        |vpiClassDefn:
-        \_class_defn: (work@process), file:${SURELOG_DIR}/tests/PackageType/builtin.sv, line:30:3, endln:52:11
+      \_ref_typespec: (work@process::self)
+        |vpiParent:
+        \_class_var: (work@process::self), line:34:21, endln:34:28
+        |vpiFullName:work@process::self
+        |vpiActual:
+        \_class_typespec: , line:34:21, endln:34:28
       |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status), line:37:5, endln:38:16
@@ -1154,50 +1167,12 @@ design: (unnamed)
       |vpiParent:
       \_function: (work@process::status), line:37:5, endln:38:16
       |vpiTypespec:
-      \_enum_typespec: (state), line:32:5, endln:32:74
+      \_ref_typespec: (work@process::status)
         |vpiParent:
-        \_class_defn: (work@process), file:${SURELOG_DIR}/tests/PackageType/builtin.sv, line:30:3, endln:52:11
-        |vpiName:state
-        |vpiEnumConst:
-        \_enum_const: (FINISHED), line:32:20, endln:32:28
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:FINISHED
-          |INT:0
-          |vpiDecompile:0
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (RUNNING), line:32:30, endln:32:37
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:RUNNING
-          |INT:1
-          |vpiDecompile:1
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (WAITING), line:32:39, endln:32:46
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:WAITING
-          |INT:2
-          |vpiDecompile:2
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (SUSPENDED), line:32:48, endln:32:57
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:SUSPENDED
-          |INT:3
-          |vpiDecompile:3
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (KILLED), line:32:59, endln:32:65
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:KILLED
-          |INT:4
-          |vpiDecompile:4
-          |vpiSize:64
+        \_enum_var: (work@process::status), line:37:14, endln:37:19
+        |vpiFullName:work@process::status
+        |vpiActual:
+        \_enum_typespec: (state), line:32:5, endln:32:74
       |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill), line:40:5, endln:41:12
@@ -1248,9 +1223,12 @@ design: (unnamed)
       |vpiParent:
       \_function: (work@semaphore::new), line:57:5, endln:58:16
       |vpiTypespec:
-      \_class_typespec: 
-        |vpiClassDefn:
-        \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/PackageType/builtin.sv, line:55:3, endln:69:11
+      \_ref_typespec: (work@semaphore::new)
+        |vpiParent:
+        \_class_var: (work@semaphore::new), line:57:22, endln:57:30
+        |vpiFullName:work@semaphore::new
+        |vpiActual:
+        \_class_typespec: 
       |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount), line:57:22, endln:57:30
@@ -1265,8 +1243,12 @@ design: (unnamed)
         |UINT:0
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:57:18, endln:57:21
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::new::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:57:22, endln:57:30
+        |vpiFullName:work@semaphore::new::keyCount
+        |vpiActual:
+        \_int_typespec: , line:57:18, endln:57:21
   |vpiMethod:
   \_task: (work@semaphore::put), line:60:5, endln:61:12
     |vpiParent:
@@ -1288,8 +1270,12 @@ design: (unnamed)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:60:14, endln:60:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::put::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:60:18, endln:60:26
+        |vpiFullName:work@semaphore::put::keyCount
+        |vpiActual:
+        \_int_typespec: , line:60:14, endln:60:17
   |vpiMethod:
   \_task: (work@semaphore::get), line:63:5, endln:64:12
     |vpiParent:
@@ -1311,8 +1297,12 @@ design: (unnamed)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:63:14, endln:63:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::get::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:63:18, endln:63:26
+        |vpiFullName:work@semaphore::get::keyCount
+        |vpiActual:
+        \_int_typespec: , line:63:14, endln:63:17
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:66:5, endln:67:16
     |vpiParent:
@@ -1326,8 +1316,12 @@ design: (unnamed)
       |vpiParent:
       \_function: (work@semaphore::try_get), line:66:5, endln:67:16
       |vpiTypespec:
-      \_int_typespec: , line:66:14, endln:66:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::try_get)
+        |vpiParent:
+        \_int_var: (work@semaphore::try_get), line:66:14, endln:66:17
+        |vpiFullName:work@semaphore::try_get
+        |vpiActual:
+        \_int_typespec: , line:66:14, endln:66:17
       |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
@@ -1343,8 +1337,338 @@ design: (unnamed)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
+      \_ref_typespec: (work@semaphore::try_get::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:66:30, endln:66:38
+        |vpiFullName:work@semaphore::try_get::keyCount
+        |vpiActual:
+        \_int_typespec: , line:66:26, endln:66:29
+\_weaklyReferenced:
+\_integer_typespec: , line:5:3, endln:5:10
+  |vpiParent:
+  \_typespec_member: (num_core), line:5:11, endln:5:19
+  |vpiInstance:
+  \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
+  |vpiSigned:1
+\_integer_typespec: , line:6:3, endln:6:10
+  |vpiParent:
+  \_typespec_member: (num_cce), line:6:11, endln:6:18
+  |vpiInstance:
+  \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
+  |vpiSigned:1
+\_int_typespec: , line:10:3, endln:10:31
+\_int_typespec: , line:11:3, endln:11:44
+\_string_typespec: (default), line:14:7, endln:14:14
+  |vpiParent:
+  \_tagged_pattern: , line:14:16, endln:14:21
+  |vpiName:default
+\_packed_array_typespec: , line:18:13, endln:18:43
+  |vpiParent:
+  \_parameter: (bp_common_aviary_pkg::all_cfgs_gp), line:18:44, endln:18:55
+  |vpiInstance:
+  \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
+  |vpiRange:
+  \_range: , line:18:29, endln:18:43
+    |vpiParent:
+    \_packed_array_typespec: , line:18:13, endln:18:43
+    |vpiLeftRange:
+    \_constant: , line:18:30, endln:18:38
+      |vpiParent:
+      \_range: , line:18:29, endln:18:43
+      |vpiDecompile:127
+      |vpiSize:64
+      |INT:127
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:18:41, endln:18:42
+      |vpiParent:
+      \_range: , line:18:29, endln:18:43
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_typespec: (bp_common_aviary_pkg::all_cfgs_gp)
+    |vpiParent:
+    \_packed_array_typespec: , line:18:13, endln:18:43
+    |vpiFullName:bp_common_aviary_pkg::all_cfgs_gp
+    |vpiActual:
+    \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:3:9, endln:7:2
+\_integer_typespec: , line:5:3, endln:5:10
+  |vpiParent:
+  \_typespec_member: (num_core), line:5:11, endln:5:19
+  |vpiInstance:
+  \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
+  |vpiSigned:1
+\_integer_typespec: , line:6:3, endln:6:10
+  |vpiParent:
+  \_typespec_member: (num_cce), line:6:11, endln:6:18
+  |vpiInstance:
+  \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
+  |vpiSigned:1
+\_int_typespec: , line:10:3, endln:10:31
+\_string_typespec: (default), line:14:7, endln:14:14
+  |vpiParent:
+  \_tagged_pattern: , line:14:16, endln:14:21
+  |vpiName:default
+\_packed_array_typespec: , line:18:13, endln:18:43
+  |vpiParent:
+  \_parameter: (bp_common_aviary_pkg::all_cfgs_gp), line:18:44, endln:18:55
+  |vpiInstance:
+  \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::), file:${SURELOG_DIR}/tests/PackageType/dut.sv, line:1:1, endln:24:11
+  |vpiRange:
+  \_range: , line:18:29, endln:18:43
+    |vpiParent:
+    \_packed_array_typespec: , line:18:13, endln:18:43
+    |vpiLeftRange:
+    \_operation: , line:18:30, endln:18:40
+      |vpiParent:
+      \_range: , line:18:29, endln:18:43
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (bp_common_aviary_pkg::all_cfgs_gp::max_cfgs), line:18:30, endln:18:38
+        |vpiParent:
+        \_operation: , line:18:30, endln:18:40
+        |vpiName:max_cfgs
+        |vpiFullName:bp_common_aviary_pkg::all_cfgs_gp::max_cfgs
+        |vpiActual:
+        \_parameter: (bp_common_aviary_pkg::max_cfgs), line:10:14, endln:10:22
+      |vpiOperand:
+      \_constant: , line:18:39, endln:18:40
+        |vpiParent:
+        \_operation: , line:18:30, endln:18:40
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:18:41, endln:18:42
+      |vpiParent:
+      \_range: , line:18:29, endln:18:43
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_typespec: (bp_common_aviary_pkg::all_cfgs_gp)
+    |vpiParent:
+    \_packed_array_typespec: , line:18:13, endln:18:43
+    |vpiFullName:bp_common_aviary_pkg::all_cfgs_gp
+    |vpiActual:
+    \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:3:9, endln:7:2
+\_function: (work@mailbox::new), line:3:5, endln:4:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/PackageType/builtin.sv, line:1:3, endln:27:11
+  |vpiName:new
+  |vpiFullName:work@mailbox::new
+  |vpiMethod:1
+  |vpiReturn:
+  \_class_var: (work@mailbox::new), line:3:23, endln:3:28
+  |vpiIODecl:
+  \_io_decl: (bound), line:3:23, endln:3:28
+    |vpiParent:
+    \_function: (work@mailbox::new), line:3:5, endln:4:16
+    |vpiDirection:1
+    |vpiName:bound
+    |vpiExpr:
+    \_constant: , line:3:31, endln:3:32
+    |vpiTypedef:
+    \_ref_typespec: (work@mailbox::new::bound)
+      |vpiParent:
+      \_io_decl: (bound), line:3:23, endln:3:28
+      |vpiFullName:work@mailbox::new::bound
+      |vpiActual:
+      \_int_typespec: , line:3:19, endln:3:22
+\_class_typespec: 
+  |vpiClassDefn:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/PackageType/builtin.sv, line:1:3, endln:27:11
+\_int_typespec: , line:3:19, endln:3:22
+  |vpiSigned:1
+\_function: (work@mailbox::num), line:6:5, endln:7:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/PackageType/builtin.sv, line:1:3, endln:27:11
+  |vpiName:num
+  |vpiFullName:work@mailbox::num
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::num), line:6:14, endln:6:17
+\_int_typespec: , line:6:14, endln:6:17
+  |vpiSigned:1
+\_function: (work@mailbox::try_put), line:12:5, endln:13:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/PackageType/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_put
+  |vpiFullName:work@mailbox::try_put
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_logic_var: (work@mailbox::try_put)
+  |vpiIODecl:
+  \_io_decl: (message), line:12:23, endln:12:30
+    |vpiParent:
+    \_function: (work@mailbox::try_put), line:12:5, endln:13:16
+    |vpiDirection:1
+    |vpiName:message
+\_function: (work@mailbox::try_get), line:18:5, endln:19:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/PackageType/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_get
+  |vpiFullName:work@mailbox::try_get
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::try_get), line:18:14, endln:18:17
+  |vpiIODecl:
+  \_io_decl: (message), line:18:31, endln:18:38
+    |vpiParent:
+    \_function: (work@mailbox::try_get), line:18:5, endln:19:16
+    |vpiDirection:6
+    |vpiName:message
+\_int_typespec: , line:18:14, endln:18:17
+  |vpiSigned:1
+\_function: (work@mailbox::try_peek), line:24:5, endln:25:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/PackageType/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_peek
+  |vpiFullName:work@mailbox::try_peek
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::try_peek), line:24:14, endln:24:17
+  |vpiIODecl:
+  \_io_decl: (message), line:24:31, endln:24:38
+    |vpiParent:
+    \_function: (work@mailbox::try_peek), line:24:5, endln:25:16
+    |vpiDirection:6
+    |vpiName:message
+\_int_typespec: , line:24:14, endln:24:17
+  |vpiSigned:1
+\_enum_typespec: (state), line:32:5, endln:32:74
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/PackageType/builtin.sv, line:30:3, endln:52:11
+  |vpiName:state
+  |vpiEnumConst:
+  \_enum_const: (FINISHED), line:32:20, endln:32:28
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:FINISHED
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (RUNNING), line:32:30, endln:32:37
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:RUNNING
+    |INT:1
+    |vpiDecompile:1
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (WAITING), line:32:39, endln:32:46
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:WAITING
+    |INT:2
+    |vpiDecompile:2
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (SUSPENDED), line:32:48, endln:32:57
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:SUSPENDED
+    |INT:3
+    |vpiDecompile:3
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (KILLED), line:32:59, endln:32:65
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:KILLED
+    |INT:4
+    |vpiDecompile:4
+    |vpiSize:64
+\_function: (work@process::self), line:34:5, endln:34:11
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/PackageType/builtin.sv, line:30:3, endln:52:11
+  |vpiName:self
+  |vpiFullName:work@process::self
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_class_var: (work@process::self), line:34:21, endln:34:28
+\_class_typespec: , line:34:21, endln:34:28
+  |vpiClassDefn:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/PackageType/builtin.sv, line:30:3, endln:52:11
+\_function: (work@process::status), line:37:5, endln:38:16
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/PackageType/builtin.sv, line:30:3, endln:52:11
+  |vpiName:status
+  |vpiFullName:work@process::status
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_enum_var: (work@process::status), line:37:14, endln:37:19
+\_function: (work@semaphore::new), line:57:5, endln:58:16
+  |vpiParent:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/PackageType/builtin.sv, line:55:3, endln:69:11
+  |vpiName:new
+  |vpiFullName:work@semaphore::new
+  |vpiMethod:1
+  |vpiReturn:
+  \_class_var: (work@semaphore::new), line:57:22, endln:57:30
+  |vpiIODecl:
+  \_io_decl: (keyCount), line:57:22, endln:57:30
+    |vpiParent:
+    \_function: (work@semaphore::new), line:57:5, endln:58:16
+    |vpiDirection:1
+    |vpiName:keyCount
+    |vpiExpr:
+    \_constant: , line:57:33, endln:57:34
+    |vpiTypedef:
+    \_ref_typespec: (work@semaphore::new::keyCount)
+      |vpiParent:
+      \_io_decl: (keyCount), line:57:22, endln:57:30
+      |vpiFullName:work@semaphore::new::keyCount
+      |vpiActual:
+      \_int_typespec: , line:57:18, endln:57:21
+\_class_typespec: 
+  |vpiClassDefn:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/PackageType/builtin.sv, line:55:3, endln:69:11
+\_int_typespec: , line:57:18, endln:57:21
+  |vpiSigned:1
+\_int_typespec: , line:60:14, endln:60:17
+  |vpiSigned:1
+\_int_typespec: , line:63:14, endln:63:17
+  |vpiSigned:1
+\_function: (work@semaphore::try_get), line:66:5, endln:67:16
+  |vpiParent:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/PackageType/builtin.sv, line:55:3, endln:69:11
+  |vpiName:try_get
+  |vpiFullName:work@semaphore::try_get
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@semaphore::try_get), line:66:14, endln:66:17
+  |vpiIODecl:
+  \_io_decl: (keyCount), line:66:30, endln:66:38
+    |vpiParent:
+    \_function: (work@semaphore::try_get), line:66:5, endln:67:16
+    |vpiDirection:1
+    |vpiName:keyCount
+    |vpiExpr:
+    \_constant: , line:66:41, endln:66:42
+    |vpiTypedef:
+    \_ref_typespec: (work@semaphore::try_get::keyCount)
+      |vpiParent:
+      \_io_decl: (keyCount), line:66:30, endln:66:38
+      |vpiFullName:work@semaphore::try_get::keyCount
+      |vpiActual:
       \_int_typespec: , line:66:26, endln:66:29
-        |vpiSigned:1
+\_int_typespec: , line:66:14, endln:66:17
+  |vpiSigned:1
+\_int_typespec: , line:66:26, endln:66:29
+  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

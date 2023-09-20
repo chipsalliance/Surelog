@@ -81,6 +81,7 @@ operation                                              2
 param_assign                                           2
 parameter                                              2
 range                                                  2
+ref_typespec                                           5
 string_typespec                                        2
 tagged_pattern                                         2
 === UHDM Object Stats End ===
@@ -95,6 +96,7 @@ operation                                              2
 param_assign                                           2
 parameter                                              2
 range                                                  2
+ref_typespec                                           5
 string_typespec                                        2
 tagged_pattern                                         2
 === UHDM Object Stats End ===
@@ -120,29 +122,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PatternAssignLogic/dut.sv, line:1:1, endln:4:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:14, endln:3:24
+    \_ref_typespec: (work@top.P)
       |vpiParent:
       \_parameter: (work@top.P), line:3:25, endln:3:26
-      |vpiRange:
-      \_range: , line:3:19, endln:3:24
-        |vpiParent:
-        \_logic_typespec: , line:3:14, endln:3:24
-        |vpiLeftRange:
-        \_constant: , line:3:20, endln:3:21
-          |vpiParent:
-          \_range: , line:3:19, endln:3:24
-          |vpiDecompile:7
-          |vpiSize:64
-          |UINT:7
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:3:22, endln:3:23
-          |vpiParent:
-          \_range: , line:3:19, endln:3:24
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@top.P
+      |vpiActual:
+      \_logic_typespec: , line:3:14, endln:3:24
     |vpiName:P
     |vpiFullName:work@top.P
   |vpiParamAssign:
@@ -165,10 +150,12 @@ design: (work@top)
           |UINT:1
           |vpiConstType:9
         |vpiTypespec:
-        \_string_typespec: (default), line:3:31, endln:3:38
+        \_ref_typespec: (work@top)
           |vpiParent:
           \_tagged_pattern: , line:3:40, endln:3:41
-          |vpiName:default
+          |vpiFullName:work@top
+          |vpiActual:
+          \_string_typespec: (default), line:3:31, endln:3:38
     |vpiLhs:
     \_parameter: (work@top.P), line:3:25, endln:3:26
   |vpiDefName:work@top
@@ -180,29 +167,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PatternAssignLogic/dut.sv, line:1:1, endln:4:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:14, endln:3:24
+    \_ref_typespec: (work@top.P)
       |vpiParent:
       \_parameter: (work@top.P), line:3:25, endln:3:26
-      |vpiRange:
-      \_range: , line:3:19, endln:3:24
-        |vpiParent:
-        \_logic_typespec: , line:3:14, endln:3:24
-        |vpiLeftRange:
-        \_constant: , line:3:20, endln:3:21
-          |vpiParent:
-          \_range: , line:3:19, endln:3:24
-          |vpiDecompile:7
-          |vpiSize:64
-          |UINT:7
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:3:22, endln:3:23
-          |vpiParent:
-          \_range: , line:3:19, endln:3:24
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@top.P
+      |vpiActual:
+      \_logic_typespec: , line:3:14, endln:3:24
     |vpiName:P
     |vpiFullName:work@top.P
   |vpiParamAssign:
@@ -221,6 +191,57 @@ design: (work@top)
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
+\_weaklyReferenced:
+\_logic_typespec: , line:3:14, endln:3:24
+  |vpiParent:
+  \_parameter: (work@top.P), line:3:25, endln:3:26
+  |vpiRange:
+  \_range: , line:3:19, endln:3:24
+    |vpiParent:
+    \_logic_typespec: , line:3:14, endln:3:24
+    |vpiLeftRange:
+    \_constant: , line:3:20, endln:3:21
+      |vpiParent:
+      \_range: , line:3:19, endln:3:24
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:22, endln:3:23
+      |vpiParent:
+      \_range: , line:3:19, endln:3:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_string_typespec: (default), line:3:31, endln:3:38
+  |vpiParent:
+  \_tagged_pattern: , line:3:40, endln:3:41
+  |vpiName:default
+\_logic_typespec: , line:3:14, endln:3:24
+  |vpiParent:
+  \_ref_typespec: (work@top.P)
+  |vpiRange:
+  \_range: , line:3:19, endln:3:24
+    |vpiParent:
+    \_logic_typespec: , line:3:14, endln:3:24
+    |vpiLeftRange:
+    \_constant: , line:3:20, endln:3:21
+      |vpiParent:
+      \_range: , line:3:19, endln:3:24
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:22, endln:3:23
+      |vpiParent:
+      \_range: , line:3:19, endln:3:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

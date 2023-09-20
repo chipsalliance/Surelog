@@ -27,17 +27,17 @@
 [   NOTE] : 0
 [INF:CM0023] Creating log file ${SURELOG_DIR}/tests/TestSepCompNoHash/slpp_all/surelog.log.
 
-PP CACHE USED FOR: ${SURELOG_DIR}/tests/TestSepCompNoHash/top.sv
 PP CACHE USED FOR: ${SURELOG_DIR}/tests/TestSepCompNoHash/pkg1.sv
 PP CACHE USED FOR: ${SURELOG_DIR}/tests/TestSepCompNoHash/pkg2.sv
-PARSER CACHE USED FOR: ${SURELOG_DIR}/tests/TestSepCompNoHash/top.sv
+PP CACHE USED FOR: ${SURELOG_DIR}/tests/TestSepCompNoHash/top.sv
 PARSER CACHE USED FOR: ${SURELOG_DIR}/tests/TestSepCompNoHash/pkg1.sv
 PARSER CACHE USED FOR: ${SURELOG_DIR}/tests/TestSepCompNoHash/pkg2.sv
-[WRN:PA0205] ${SURELOG_DIR}/tests/TestSepCompNoHash/top.sv:1:1: No timescale set for "top".
-
+PARSER CACHE USED FOR: ${SURELOG_DIR}/tests/TestSepCompNoHash/top.sv
 [WRN:PA0205] ${SURELOG_DIR}/tests/TestSepCompNoHash/pkg1.sv:1:1: No timescale set for "pkg1".
 
 [WRN:PA0205] ${SURELOG_DIR}/tests/TestSepCompNoHash/pkg2.sv:1:1: No timescale set for "pkg2".
+
+[WRN:PA0205] ${SURELOG_DIR}/tests/TestSepCompNoHash/top.sv:1:1: No timescale set for "top".
 
 [INF:CP0300] Compilation...
 
@@ -105,35 +105,12 @@ design: (work@top)
     |vpiParent:
     \_package: pkg2 (pkg2::), file:${SURELOG_DIR}/tests/TestSepCompNoHash/pkg2.sv, line:1:1, endln:16:11
     |vpiTypespec:
-    \_enum_typespec: (pkg2::enum2), line:3:3, endln:5:11
+    \_ref_typespec: (pkg2::P1)
       |vpiParent:
-      \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TestSepCompNoHash/top.sv, line:1:1, endln:4:10
-      |vpiName:pkg2::enum2
-      |vpiTypedefAlias:
-      \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
-        |vpiParent:
-        \_package: pkg1 (pkg1::), file:${SURELOG_DIR}/tests/TestSepCompNoHash/pkg1.sv, line:1:1, endln:7:11
-        |vpiName:pkg1::enum1
-        |vpiInstance:
-        \_package: pkg1 (pkg1::), file:${SURELOG_DIR}/tests/TestSepCompNoHash/pkg1.sv, line:1:1, endln:7:11
-        |vpiEnumConst:
-        \_enum_const: (HERE), line:4:5, endln:4:9
-          |vpiParent:
-          \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
-          |vpiName:HERE
-          |INT:0
-          |vpiDecompile:0
-          |vpiSize:64
-      |vpiInstance:
-      \_package: pkg2 (pkg2::), file:${SURELOG_DIR}/tests/TestSepCompNoHash/pkg2.sv, line:1:1, endln:16:11
-      |vpiEnumConst:
-      \_enum_const: (HERE), line:4:5, endln:4:9
-        |vpiParent:
-        \_enum_typespec: (pkg2::enum2), line:3:3, endln:5:11
-        |vpiName:HERE
-        |INT:0
-        |vpiDecompile:0
-        |vpiSize:64
+      \_parameter: (pkg2::P1), line:4:18, endln:4:20
+      |vpiFullName:pkg2::P1
+      |vpiActual:
+      \_enum_typespec: (pkg2::enum2), line:3:3, endln:5:11
     |vpiName:P1
     |vpiFullName:pkg2::P1
   |vpiParamAssign:
@@ -157,6 +134,19 @@ design: (work@top)
   |vpiFullName:pkg1::
   |vpiTypedef:
   \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
+    |vpiParent:
+    \_package: pkg1 (pkg1::), file:${SURELOG_DIR}/tests/TestSepCompNoHash/pkg1.sv, line:1:1, endln:7:11
+    |vpiName:pkg1::enum1
+    |vpiInstance:
+    \_package: pkg1 (pkg1::), file:${SURELOG_DIR}/tests/TestSepCompNoHash/pkg1.sv, line:1:1, endln:7:11
+    |vpiEnumConst:
+    \_enum_const: (HERE), line:4:5, endln:4:9
+      |vpiParent:
+      \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
+      |vpiName:HERE
+      |INT:0
+      |vpiDecompile:0
+      |vpiSize:64
   |vpiDefName:pkg1
   |vpiTop:1
 |uhdmtopPackages:
@@ -171,7 +161,12 @@ design: (work@top)
     \_package: pkg2 (pkg2::), file:${SURELOG_DIR}/tests/TestSepCompNoHash/pkg2.sv, line:1:1, endln:16:11
     |INT:0
     |vpiTypespec:
-    \_enum_typespec: (pkg2::enum2), line:3:3, endln:5:11
+    \_ref_typespec: (pkg2::P1)
+      |vpiParent:
+      \_parameter: (pkg2::P1), line:4:18, endln:4:20
+      |vpiFullName:pkg2::P1
+      |vpiActual:
+      \_enum_typespec: (pkg2::enum2), line:3:3, endln:5:11
     |vpiName:P1
     |vpiFullName:pkg2::P1
   |vpiParamAssign:
@@ -185,12 +180,37 @@ design: (work@top)
       |vpiDecompile:0
       |INT:0
       |vpiTypespec:
-      \_enum_typespec: (pkg2::enum2), line:3:3, endln:5:11
+      \_ref_typespec: (pkg2)
+        |vpiParent:
+        \_constant: , line:4:23, endln:4:29
+        |vpiFullName:pkg2
+        |vpiActual:
+        \_enum_typespec: (pkg2::enum2), line:3:3, endln:5:11
       |vpiConstType:7
     |vpiLhs:
     \_parameter: (pkg2::P1), line:4:18, endln:4:20
   |vpiTypedef:
   \_enum_typespec: (pkg2::enum2), line:3:3, endln:5:11
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TestSepCompNoHash/top.sv, line:1:1, endln:4:10
+    |vpiName:pkg2::enum2
+    |vpiTypedefAlias:
+    \_ref_typespec: (work@top.pkg2::enum2)
+      |vpiParent:
+      \_enum_typespec: (pkg2::enum2), line:3:3, endln:5:11
+      |vpiFullName:work@top.pkg2::enum2
+      |vpiActual:
+      \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
+    |vpiInstance:
+    \_package: pkg2 (pkg2::), file:${SURELOG_DIR}/tests/TestSepCompNoHash/pkg2.sv, line:1:1, endln:16:11
+    |vpiEnumConst:
+    \_enum_const: (HERE), line:4:5, endln:4:9
+      |vpiParent:
+      \_enum_typespec: (pkg2::enum2), line:3:3, endln:5:11
+      |vpiName:HERE
+      |INT:0
+      |vpiDecompile:0
+      |vpiSize:64
   |vpiDefName:pkg2
   |vpiTop:1
 |uhdmallModules:
@@ -204,35 +224,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TestSepCompNoHash/top.sv, line:1:1, endln:4:10
     |INT:0
     |vpiTypespec:
-    \_enum_typespec: (enum2), line:3:3, endln:5:11
+    \_ref_typespec: (work@top.P1)
       |vpiParent:
       \_parameter: (work@top.P1), line:4:18, endln:4:20
-      |vpiName:enum2
-      |vpiTypedefAlias:
-      \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
-        |vpiParent:
-        \_enum_typespec: (enum2), line:3:3, endln:5:11
-        |vpiName:pkg1::enum1
-        |vpiInstance:
-        \_package: pkg1 (pkg1::), file:${SURELOG_DIR}/tests/TestSepCompNoHash/pkg1.sv, line:1:1, endln:7:11
-        |vpiEnumConst:
-        \_enum_const: (HERE), line:4:5, endln:4:9
-          |vpiParent:
-          \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
-          |vpiName:HERE
-          |INT:0
-          |vpiDecompile:0
-          |vpiSize:64
-      |vpiInstance:
-      \_package: pkg2 (pkg2::), file:${SURELOG_DIR}/tests/TestSepCompNoHash/pkg2.sv, line:1:1, endln:16:11
-      |vpiEnumConst:
-      \_enum_const: (HERE), line:4:5, endln:4:9
-        |vpiParent:
-        \_enum_typespec: (enum2), line:3:3, endln:5:11
-        |vpiName:HERE
-        |INT:0
-        |vpiDecompile:0
-        |vpiSize:64
+      |vpiFullName:work@top.P1
+      |vpiActual:
+      \_enum_typespec: (enum2), line:3:3, endln:5:11
     |vpiName:P1
     |vpiFullName:work@top.P1
     |vpiImported:pkg2
@@ -247,35 +244,12 @@ design: (work@top)
       |vpiDecompile:0
       |INT:0
       |vpiTypespec:
-      \_enum_typespec: (enum2), line:3:3, endln:5:11
+      \_ref_typespec: (work@top)
         |vpiParent:
         \_constant: , line:4:23, endln:4:29
-        |vpiName:enum2
-        |vpiTypedefAlias:
-        \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
-          |vpiParent:
-          \_enum_typespec: (enum2), line:3:3, endln:5:11
-          |vpiName:pkg1::enum1
-          |vpiInstance:
-          \_package: pkg1 (pkg1::), file:${SURELOG_DIR}/tests/TestSepCompNoHash/pkg1.sv, line:1:1, endln:7:11
-          |vpiEnumConst:
-          \_enum_const: (HERE), line:4:5, endln:4:9
-            |vpiParent:
-            \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
-            |vpiName:HERE
-            |INT:0
-            |vpiDecompile:0
-            |vpiSize:64
-        |vpiInstance:
-        \_package: pkg2 (pkg2::), file:${SURELOG_DIR}/tests/TestSepCompNoHash/pkg2.sv, line:1:1, endln:16:11
-        |vpiEnumConst:
-        \_enum_const: (HERE), line:4:5, endln:4:9
-          |vpiParent:
-          \_enum_typespec: (enum2), line:3:3, endln:5:11
-          |vpiName:HERE
-          |INT:0
-          |vpiDecompile:0
-          |vpiSize:64
+        |vpiFullName:work@top
+        |vpiActual:
+        \_enum_typespec: (enum2), line:3:3, endln:5:11
       |vpiConstType:7
     |vpiLhs:
     \_parameter: (work@top.P1), line:4:18, endln:4:20
@@ -283,35 +257,12 @@ design: (work@top)
       \_param_assign: , line:4:18, endln:4:33
       |INT:0
       |vpiTypespec:
-      \_enum_typespec: (enum2), line:3:3, endln:5:11
+      \_ref_typespec: (work@top.P1)
         |vpiParent:
         \_parameter: (work@top.P1), line:4:18, endln:4:20
-        |vpiName:enum2
-        |vpiTypedefAlias:
-        \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
-          |vpiParent:
-          \_enum_typespec: (enum2), line:3:3, endln:5:11
-          |vpiName:pkg1::enum1
-          |vpiInstance:
-          \_package: pkg1 (pkg1::), file:${SURELOG_DIR}/tests/TestSepCompNoHash/pkg1.sv, line:1:1, endln:7:11
-          |vpiEnumConst:
-          \_enum_const: (HERE), line:4:5, endln:4:9
-            |vpiParent:
-            \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
-            |vpiName:HERE
-            |INT:0
-            |vpiDecompile:0
-            |vpiSize:64
-        |vpiInstance:
-        \_package: pkg2 (pkg2::), file:${SURELOG_DIR}/tests/TestSepCompNoHash/pkg2.sv, line:1:1, endln:16:11
-        |vpiEnumConst:
-        \_enum_const: (HERE), line:4:5, endln:4:9
-          |vpiParent:
-          \_enum_typespec: (enum2), line:3:3, endln:5:11
-          |vpiName:HERE
-          |INT:0
-          |vpiDecompile:0
-          |vpiSize:64
+        |vpiFullName:work@top.P1
+        |vpiActual:
+        \_enum_typespec: (enum2), line:3:3, endln:5:11
       |vpiName:P1
       |vpiFullName:work@top.P1
       |vpiImported:pkg2
@@ -329,35 +280,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TestSepCompNoHash/top.sv, line:1:1, endln:4:10
     |INT:0
     |vpiTypespec:
-    \_enum_typespec: (enum2), line:3:3, endln:5:11
+    \_ref_typespec: (work@top.P1)
       |vpiParent:
       \_parameter: (work@top.P1), line:4:18, endln:4:20
-      |vpiName:enum2
-      |vpiTypedefAlias:
-      \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
-        |vpiParent:
-        \_enum_typespec: (enum2), line:3:3, endln:5:11
-        |vpiName:pkg1::enum1
-        |vpiInstance:
-        \_package: pkg1 (pkg1::), file:${SURELOG_DIR}/tests/TestSepCompNoHash/pkg1.sv, line:1:1, endln:7:11
-        |vpiEnumConst:
-        \_enum_const: (HERE), line:4:5, endln:4:9
-          |vpiParent:
-          \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
-          |vpiName:HERE
-          |INT:0
-          |vpiDecompile:0
-          |vpiSize:64
-      |vpiInstance:
-      \_package: pkg2 (pkg2::), file:${SURELOG_DIR}/tests/TestSepCompNoHash/pkg2.sv, line:1:1, endln:16:11
-      |vpiEnumConst:
-      \_enum_const: (HERE), line:4:5, endln:4:9
-        |vpiParent:
-        \_enum_typespec: (enum2), line:3:3, endln:5:11
-        |vpiName:HERE
-        |INT:0
-        |vpiDecompile:0
-        |vpiSize:64
+      |vpiFullName:work@top.P1
+      |vpiActual:
+      \_enum_typespec: (enum2), line:3:3, endln:5:11
     |vpiName:P1
     |vpiFullName:work@top.P1
     |vpiImported:pkg2
@@ -372,7 +300,12 @@ design: (work@top)
       |vpiDecompile:0
       |INT:0
       |vpiTypespec:
-      \_enum_typespec: (enum2), line:3:3, endln:5:11
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:4:23, endln:4:33
+        |vpiFullName:work@top
+        |vpiActual:
+        \_enum_typespec: (enum2), line:3:3, endln:5:11
       |vpiConstType:7
     |vpiLhs:
     \_parameter: (work@top.P1), line:4:18, endln:4:20
@@ -383,6 +316,147 @@ design: (work@top)
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
+\_weaklyReferenced:
+\_enum_typespec: (enum2), line:3:3, endln:5:11
+  |vpiParent:
+  \_ref_typespec: (work@top.P1)
+  |vpiName:enum2
+  |vpiTypedefAlias:
+  \_ref_typespec: (work@top.P1.enum2)
+    |vpiParent:
+    \_enum_typespec: (enum2), line:3:3, endln:5:11
+    |vpiFullName:work@top.P1.enum2
+    |vpiActual:
+    \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
+  |vpiInstance:
+  \_package: pkg2 (pkg2::), file:${SURELOG_DIR}/tests/TestSepCompNoHash/pkg2.sv, line:1:1, endln:16:11
+  |vpiEnumConst:
+  \_enum_const: (HERE), line:4:5, endln:4:9
+    |vpiParent:
+    \_enum_typespec: (enum2), line:3:3, endln:5:11
+    |vpiName:HERE
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:64
+\_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
+  |vpiParent:
+  \_ref_typespec: (work@top.P1.enum2)
+  |vpiName:pkg1::enum1
+  |vpiInstance:
+  \_package: pkg1 (pkg1::), file:${SURELOG_DIR}/tests/TestSepCompNoHash/pkg1.sv, line:1:1, endln:7:11
+  |vpiEnumConst:
+  \_enum_const: (HERE), line:4:5, endln:4:9
+    |vpiParent:
+    \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
+    |vpiName:HERE
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:64
+\_enum_typespec: (enum2), line:3:3, endln:5:11
+  |vpiParent:
+  \_ref_typespec: (work@top)
+  |vpiName:enum2
+  |vpiTypedefAlias:
+  \_ref_typespec: (work@top.enum2)
+    |vpiParent:
+    \_enum_typespec: (enum2), line:3:3, endln:5:11
+    |vpiFullName:work@top.enum2
+    |vpiActual:
+    \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
+  |vpiInstance:
+  \_package: pkg2 (pkg2::), file:${SURELOG_DIR}/tests/TestSepCompNoHash/pkg2.sv, line:1:1, endln:16:11
+  |vpiEnumConst:
+  \_enum_const: (HERE), line:4:5, endln:4:9
+    |vpiParent:
+    \_enum_typespec: (enum2), line:3:3, endln:5:11
+    |vpiName:HERE
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:64
+\_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
+  |vpiParent:
+  \_ref_typespec: (work@top.enum2)
+  |vpiName:pkg1::enum1
+  |vpiInstance:
+  \_package: pkg1 (pkg1::), file:${SURELOG_DIR}/tests/TestSepCompNoHash/pkg1.sv, line:1:1, endln:7:11
+  |vpiEnumConst:
+  \_enum_const: (HERE), line:4:5, endln:4:9
+    |vpiParent:
+    \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
+    |vpiName:HERE
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:64
+\_enum_typespec: (enum2), line:3:3, endln:5:11
+  |vpiParent:
+  \_ref_typespec: (work@top.P1)
+  |vpiName:enum2
+  |vpiTypedefAlias:
+  \_ref_typespec: (work@top.P1.enum2)
+    |vpiParent:
+    \_enum_typespec: (enum2), line:3:3, endln:5:11
+    |vpiFullName:work@top.P1.enum2
+    |vpiActual:
+    \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
+  |vpiInstance:
+  \_package: pkg2 (pkg2::), file:${SURELOG_DIR}/tests/TestSepCompNoHash/pkg2.sv, line:1:1, endln:16:11
+  |vpiEnumConst:
+  \_enum_const: (HERE), line:4:5, endln:4:9
+    |vpiParent:
+    \_enum_typespec: (enum2), line:3:3, endln:5:11
+    |vpiName:HERE
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:64
+\_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
+  |vpiParent:
+  \_ref_typespec: (work@top.P1.enum2)
+  |vpiName:pkg1::enum1
+  |vpiInstance:
+  \_package: pkg1 (pkg1::), file:${SURELOG_DIR}/tests/TestSepCompNoHash/pkg1.sv, line:1:1, endln:7:11
+  |vpiEnumConst:
+  \_enum_const: (HERE), line:4:5, endln:4:9
+    |vpiParent:
+    \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
+    |vpiName:HERE
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:64
+\_enum_typespec: (enum2), line:3:3, endln:5:11
+  |vpiParent:
+  \_ref_typespec: (work@top.P1)
+  |vpiName:enum2
+  |vpiTypedefAlias:
+  \_ref_typespec: (work@top.P1.enum2)
+    |vpiParent:
+    \_enum_typespec: (enum2), line:3:3, endln:5:11
+    |vpiFullName:work@top.P1.enum2
+    |vpiActual:
+    \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
+  |vpiInstance:
+  \_package: pkg2 (pkg2::), file:${SURELOG_DIR}/tests/TestSepCompNoHash/pkg2.sv, line:1:1, endln:16:11
+  |vpiEnumConst:
+  \_enum_const: (HERE), line:4:5, endln:4:9
+    |vpiParent:
+    \_enum_typespec: (enum2), line:3:3, endln:5:11
+    |vpiName:HERE
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:64
+\_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
+  |vpiParent:
+  \_ref_typespec: (work@top.P1.enum2)
+  |vpiName:pkg1::enum1
+  |vpiInstance:
+  \_package: pkg1 (pkg1::), file:${SURELOG_DIR}/tests/TestSepCompNoHash/pkg1.sv, line:1:1, endln:7:11
+  |vpiEnumConst:
+  \_enum_const: (HERE), line:4:5, endln:4:9
+    |vpiParent:
+    \_enum_typespec: (pkg1::enum1), line:3:3, endln:5:11
+    |vpiName:HERE
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:64
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

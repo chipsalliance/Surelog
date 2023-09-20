@@ -162,6 +162,7 @@ parameter                                              9
 range                                                 42
 ref_module                                             1
 ref_obj                                                1
+ref_typespec                                          23
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -179,6 +180,7 @@ parameter                                              9
 range                                                 42
 ref_module                                             1
 ref_obj                                                1
+ref_typespec                                          23
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamOverload2/slpp_all/surelog.uhdm ...
 
@@ -203,99 +205,12 @@ design: (work@top)
     |vpiParent:
     \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:1:1, endln:7:11
     |vpiTypespec:
-    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+    \_ref_typespec: (keymgr_pkg::RndCnstLfsrPermDefault)
       |vpiParent:
       \_parameter: (keymgr_pkg::RndCnstLfsrPermDefault), line:3:26, endln:3:48
-      |vpiName:lfsr_perm_t
-      |vpiTypedefAlias:
-      \_logic_typespec: (keymgr_pkg::lfsr_perm_t), line:2:12, endln:2:29
-        |vpiParent:
-        \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:1:1, endln:7:11
-        |vpiName:keymgr_pkg::lfsr_perm_t
-        |vpiInstance:
-        \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:1:1, endln:7:11
-        |vpiRange:
-        \_range: , line:2:18, endln:2:24
-          |vpiParent:
-          \_logic_typespec: (keymgr_pkg::lfsr_perm_t), line:2:12, endln:2:29
-          |vpiLeftRange:
-          \_constant: , line:2:19, endln:2:21
-            |vpiParent:
-            \_range: , line:2:18, endln:2:24
-            |vpiDecompile:63
-            |vpiSize:64
-            |UINT:63
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:2:22, endln:2:23
-            |vpiParent:
-            \_range: , line:2:18, endln:2:24
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-        |vpiRange:
-        \_range: , line:2:24, endln:2:29
-          |vpiParent:
-          \_logic_typespec: (keymgr_pkg::lfsr_perm_t), line:2:12, endln:2:29
-          |vpiLeftRange:
-          \_constant: , line:2:25, endln:2:26
-            |vpiParent:
-            \_range: , line:2:24, endln:2:29
-            |vpiDecompile:5
-            |vpiSize:64
-            |UINT:5
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:2:27, endln:2:28
-            |vpiParent:
-            \_range: , line:2:24, endln:2:29
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-      |vpiInstance:
-      \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:1:1, endln:7:11
-      |vpiRange:
-      \_range: , line:2:18, endln:2:24
-        |vpiParent:
-        \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
-        |vpiLeftRange:
-        \_constant: , line:2:19, endln:2:21
-          |vpiParent:
-          \_range: , line:2:18, endln:2:24
-          |vpiDecompile:63
-          |vpiSize:64
-          |UINT:63
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:22, endln:2:23
-          |vpiParent:
-          \_range: , line:2:18, endln:2:24
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-      |vpiRange:
-      \_range: , line:2:24, endln:2:29
-        |vpiParent:
-        \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
-        |vpiLeftRange:
-        \_constant: , line:2:25, endln:2:26
-          |vpiParent:
-          \_range: , line:2:24, endln:2:29
-          |vpiDecompile:5
-          |vpiSize:64
-          |UINT:5
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:27, endln:2:28
-          |vpiParent:
-          \_range: , line:2:24, endln:2:29
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:keymgr_pkg::RndCnstLfsrPermDefault
+      |vpiActual:
+      \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
     |vpiName:RndCnstLfsrPermDefault
     |vpiFullName:keymgr_pkg::RndCnstLfsrPermDefault
   |vpiParamAssign:
@@ -323,6 +238,51 @@ design: (work@top)
     \_parameter: (keymgr_pkg::RndCnstLfsrPermDefault), line:3:26, endln:3:48
   |vpiTypedef:
   \_logic_typespec: (keymgr_pkg::lfsr_perm_t), line:2:12, endln:2:29
+    |vpiParent:
+    \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:1:1, endln:7:11
+    |vpiName:keymgr_pkg::lfsr_perm_t
+    |vpiInstance:
+    \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:1:1, endln:7:11
+    |vpiRange:
+    \_range: , line:2:18, endln:2:24
+      |vpiParent:
+      \_logic_typespec: (keymgr_pkg::lfsr_perm_t), line:2:12, endln:2:29
+      |vpiLeftRange:
+      \_constant: , line:2:19, endln:2:21
+        |vpiParent:
+        \_range: , line:2:18, endln:2:24
+        |vpiDecompile:63
+        |vpiSize:64
+        |UINT:63
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:2:22, endln:2:23
+        |vpiParent:
+        \_range: , line:2:18, endln:2:24
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiRange:
+    \_range: , line:2:24, endln:2:29
+      |vpiParent:
+      \_logic_typespec: (keymgr_pkg::lfsr_perm_t), line:2:12, endln:2:29
+      |vpiLeftRange:
+      \_constant: , line:2:25, endln:2:26
+        |vpiParent:
+        \_range: , line:2:24, endln:2:29
+        |vpiDecompile:5
+        |vpiSize:64
+        |UINT:5
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:2:27, endln:2:28
+        |vpiParent:
+        \_range: , line:2:24, endln:2:29
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
   |vpiDefName:keymgr_pkg
 |uhdmtopPackages:
 \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:1:1, endln:7:11
@@ -335,99 +295,12 @@ design: (work@top)
     |vpiParent:
     \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:1:1, endln:7:11
     |vpiTypespec:
-    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+    \_ref_typespec: (keymgr_pkg::RndCnstLfsrPermDefault)
       |vpiParent:
       \_parameter: (keymgr_pkg::RndCnstLfsrPermDefault), line:3:26, endln:3:48
-      |vpiName:lfsr_perm_t
-      |vpiTypedefAlias:
-      \_logic_typespec: (keymgr_pkg::lfsr_perm_t), line:2:12, endln:2:29
-        |vpiParent:
-        \_module_inst: work@keymgr (work@keymgr), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:9:1, endln:12:10
-        |vpiName:keymgr_pkg::lfsr_perm_t
-        |vpiInstance:
-        \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:1:1, endln:7:11
-        |vpiRange:
-        \_range: , line:2:18, endln:2:24
-          |vpiParent:
-          \_logic_typespec: (keymgr_pkg::lfsr_perm_t), line:2:12, endln:2:29
-          |vpiLeftRange:
-          \_constant: , line:2:19, endln:2:21
-            |vpiParent:
-            \_range: , line:2:18, endln:2:24
-            |vpiDecompile:63
-            |vpiSize:64
-            |UINT:63
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:2:22, endln:2:23
-            |vpiParent:
-            \_range: , line:2:18, endln:2:24
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-        |vpiRange:
-        \_range: , line:2:24, endln:2:29
-          |vpiParent:
-          \_logic_typespec: (keymgr_pkg::lfsr_perm_t), line:2:12, endln:2:29
-          |vpiLeftRange:
-          \_constant: , line:2:25, endln:2:26
-            |vpiParent:
-            \_range: , line:2:24, endln:2:29
-            |vpiDecompile:5
-            |vpiSize:64
-            |UINT:5
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:2:27, endln:2:28
-            |vpiParent:
-            \_range: , line:2:24, endln:2:29
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-      |vpiInstance:
-      \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:1:1, endln:7:11
-      |vpiRange:
-      \_range: , line:2:18, endln:2:24
-        |vpiParent:
-        \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
-        |vpiLeftRange:
-        \_constant: , line:2:19, endln:2:21
-          |vpiParent:
-          \_range: , line:2:18, endln:2:24
-          |vpiDecompile:63
-          |vpiSize:64
-          |UINT:63
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:22, endln:2:23
-          |vpiParent:
-          \_range: , line:2:18, endln:2:24
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-      |vpiRange:
-      \_range: , line:2:24, endln:2:29
-        |vpiParent:
-        \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
-        |vpiLeftRange:
-        \_constant: , line:2:25, endln:2:26
-          |vpiParent:
-          \_range: , line:2:24, endln:2:29
-          |vpiDecompile:5
-          |vpiSize:64
-          |UINT:5
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:27, endln:2:28
-          |vpiParent:
-          \_range: , line:2:24, endln:2:29
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:keymgr_pkg::RndCnstLfsrPermDefault
+      |vpiActual:
+      \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
     |vpiName:RndCnstLfsrPermDefault
     |vpiFullName:keymgr_pkg::RndCnstLfsrPermDefault
   |vpiParamAssign:
@@ -455,6 +328,51 @@ design: (work@top)
     \_parameter: (keymgr_pkg::RndCnstLfsrPermDefault), line:3:26, endln:3:48
   |vpiTypedef:
   \_logic_typespec: (keymgr_pkg::lfsr_perm_t), line:2:12, endln:2:29
+    |vpiParent:
+    \_module_inst: work@keymgr (work@keymgr), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:9:1, endln:12:10
+    |vpiName:keymgr_pkg::lfsr_perm_t
+    |vpiInstance:
+    \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:1:1, endln:7:11
+    |vpiRange:
+    \_range: , line:2:18, endln:2:24
+      |vpiParent:
+      \_logic_typespec: (keymgr_pkg::lfsr_perm_t), line:2:12, endln:2:29
+      |vpiLeftRange:
+      \_constant: , line:2:19, endln:2:21
+        |vpiParent:
+        \_range: , line:2:18, endln:2:24
+        |vpiDecompile:63
+        |vpiSize:64
+        |UINT:63
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:2:22, endln:2:23
+        |vpiParent:
+        \_range: , line:2:18, endln:2:24
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiRange:
+    \_range: , line:2:24, endln:2:29
+      |vpiParent:
+      \_logic_typespec: (keymgr_pkg::lfsr_perm_t), line:2:12, endln:2:29
+      |vpiLeftRange:
+      \_constant: , line:2:25, endln:2:26
+        |vpiParent:
+        \_range: , line:2:24, endln:2:29
+        |vpiDecompile:5
+        |vpiSize:64
+        |UINT:5
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:2:27, endln:2:28
+        |vpiParent:
+        \_range: , line:2:24, endln:2:29
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
   |vpiDefName:keymgr_pkg
   |vpiTop:1
 |uhdmallModules:
@@ -467,99 +385,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@keymgr (work@keymgr), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:9:1, endln:12:10
     |vpiTypespec:
-    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+    \_ref_typespec: (work@keymgr.RndCnstLfsrPermDefault)
       |vpiParent:
       \_parameter: (work@keymgr.RndCnstLfsrPermDefault), line:3:26, endln:3:48
-      |vpiName:lfsr_perm_t
-      |vpiTypedefAlias:
+      |vpiFullName:work@keymgr.RndCnstLfsrPermDefault
+      |vpiActual:
       \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
-        |vpiParent:
-        \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
-        |vpiName:lfsr_perm_t
-        |vpiInstance:
-        \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:1:1, endln:7:11
-        |vpiRange:
-        \_range: , line:2:18, endln:2:24
-          |vpiParent:
-          \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
-          |vpiLeftRange:
-          \_constant: , line:2:19, endln:2:21
-            |vpiParent:
-            \_range: , line:2:18, endln:2:24
-            |vpiDecompile:63
-            |vpiSize:64
-            |UINT:63
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:2:22, endln:2:23
-            |vpiParent:
-            \_range: , line:2:18, endln:2:24
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-        |vpiRange:
-        \_range: , line:2:24, endln:2:29
-          |vpiParent:
-          \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
-          |vpiLeftRange:
-          \_constant: , line:2:25, endln:2:26
-            |vpiParent:
-            \_range: , line:2:24, endln:2:29
-            |vpiDecompile:5
-            |vpiSize:64
-            |UINT:5
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:2:27, endln:2:28
-            |vpiParent:
-            \_range: , line:2:24, endln:2:29
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-      |vpiInstance:
-      \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:1:1, endln:7:11
-      |vpiRange:
-      \_range: , line:2:18, endln:2:24
-        |vpiParent:
-        \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
-        |vpiLeftRange:
-        \_constant: , line:2:19, endln:2:21
-          |vpiParent:
-          \_range: , line:2:18, endln:2:24
-          |vpiDecompile:63
-          |vpiSize:64
-          |UINT:63
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:22, endln:2:23
-          |vpiParent:
-          \_range: , line:2:18, endln:2:24
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-      |vpiRange:
-      \_range: , line:2:24, endln:2:29
-        |vpiParent:
-        \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
-        |vpiLeftRange:
-        \_constant: , line:2:25, endln:2:26
-          |vpiParent:
-          \_range: , line:2:24, endln:2:29
-          |vpiDecompile:5
-          |vpiSize:64
-          |UINT:5
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:27, endln:2:28
-          |vpiParent:
-          \_range: , line:2:24, endln:2:29
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
     |vpiName:RndCnstLfsrPermDefault
     |vpiFullName:work@keymgr.RndCnstLfsrPermDefault
     |vpiImported:keymgr_pkg
@@ -568,54 +399,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@keymgr (work@keymgr), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:9:1, endln:12:10
     |vpiTypespec:
-    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+    \_ref_typespec: (work@keymgr.RndCnstLfsrPerm)
       |vpiParent:
       \_parameter: (work@keymgr.RndCnstLfsrPerm), line:11:26, endln:11:41
-      |vpiName:lfsr_perm_t
-      |vpiTypedefAlias:
-      \_logic_typespec: (keymgr_pkg::lfsr_perm_t), line:2:12, endln:2:29
-      |vpiInstance:
-      \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:1:1, endln:7:11
-      |vpiRange:
-      \_range: , line:2:18, endln:2:24
-        |vpiParent:
-        \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
-        |vpiLeftRange:
-        \_constant: , line:2:19, endln:2:21
-          |vpiParent:
-          \_range: , line:2:18, endln:2:24
-          |vpiDecompile:63
-          |vpiSize:64
-          |UINT:63
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:22, endln:2:23
-          |vpiParent:
-          \_range: , line:2:18, endln:2:24
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-      |vpiRange:
-      \_range: , line:2:24, endln:2:29
-        |vpiParent:
-        \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
-        |vpiLeftRange:
-        \_constant: , line:2:25, endln:2:26
-          |vpiParent:
-          \_range: , line:2:24, endln:2:29
-          |vpiDecompile:5
-          |vpiSize:64
-          |UINT:5
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:27, endln:2:28
-          |vpiParent:
-          \_range: , line:2:24, endln:2:29
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@keymgr.RndCnstLfsrPerm
+      |vpiActual:
+      \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
     |vpiName:RndCnstLfsrPerm
     |vpiFullName:work@keymgr.RndCnstLfsrPerm
   |vpiParamAssign:
@@ -648,99 +437,12 @@ design: (work@top)
       |vpiParent:
       \_param_assign: , line:3:26, endln:6:5
       |vpiTypespec:
-      \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+      \_ref_typespec: (work@keymgr.RndCnstLfsrPermDefault)
         |vpiParent:
         \_parameter: (work@keymgr.RndCnstLfsrPermDefault), line:3:26, endln:3:48
-        |vpiName:lfsr_perm_t
-        |vpiTypedefAlias:
+        |vpiFullName:work@keymgr.RndCnstLfsrPermDefault
+        |vpiActual:
         \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
-          |vpiParent:
-          \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
-          |vpiName:lfsr_perm_t
-          |vpiInstance:
-          \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:1:1, endln:7:11
-          |vpiRange:
-          \_range: , line:2:18, endln:2:24
-            |vpiParent:
-            \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
-            |vpiLeftRange:
-            \_constant: , line:2:19, endln:2:21
-              |vpiParent:
-              \_range: , line:2:18, endln:2:24
-              |vpiDecompile:63
-              |vpiSize:64
-              |UINT:63
-              |vpiConstType:9
-            |vpiRightRange:
-            \_constant: , line:2:22, endln:2:23
-              |vpiParent:
-              \_range: , line:2:18, endln:2:24
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
-          |vpiRange:
-          \_range: , line:2:24, endln:2:29
-            |vpiParent:
-            \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
-            |vpiLeftRange:
-            \_constant: , line:2:25, endln:2:26
-              |vpiParent:
-              \_range: , line:2:24, endln:2:29
-              |vpiDecompile:5
-              |vpiSize:64
-              |UINT:5
-              |vpiConstType:9
-            |vpiRightRange:
-            \_constant: , line:2:27, endln:2:28
-              |vpiParent:
-              \_range: , line:2:24, endln:2:29
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
-        |vpiInstance:
-        \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:1:1, endln:7:11
-        |vpiRange:
-        \_range: , line:2:18, endln:2:24
-          |vpiParent:
-          \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
-          |vpiLeftRange:
-          \_constant: , line:2:19, endln:2:21
-            |vpiParent:
-            \_range: , line:2:18, endln:2:24
-            |vpiDecompile:63
-            |vpiSize:64
-            |UINT:63
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:2:22, endln:2:23
-            |vpiParent:
-            \_range: , line:2:18, endln:2:24
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-        |vpiRange:
-        \_range: , line:2:24, endln:2:29
-          |vpiParent:
-          \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
-          |vpiLeftRange:
-          \_constant: , line:2:25, endln:2:26
-            |vpiParent:
-            \_range: , line:2:24, endln:2:29
-            |vpiDecompile:5
-            |vpiSize:64
-            |UINT:5
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:2:27, endln:2:28
-            |vpiParent:
-            \_range: , line:2:24, endln:2:29
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
       |vpiName:RndCnstLfsrPermDefault
       |vpiFullName:work@keymgr.RndCnstLfsrPermDefault
       |vpiImported:keymgr_pkg
@@ -792,99 +494,12 @@ design: (work@top)
       |vpiParent:
       \_module_inst: work@keymgr (work@top.u_keymgr), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:15:4, endln:17:18
       |vpiTypespec:
-      \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+      \_ref_typespec: (work@top.u_keymgr.RndCnstLfsrPermDefault)
         |vpiParent:
         \_parameter: (work@top.u_keymgr.RndCnstLfsrPermDefault), line:3:26, endln:3:48
-        |vpiName:lfsr_perm_t
-        |vpiTypedefAlias:
+        |vpiFullName:work@top.u_keymgr.RndCnstLfsrPermDefault
+        |vpiActual:
         \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
-          |vpiParent:
-          \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
-          |vpiName:lfsr_perm_t
-          |vpiInstance:
-          \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:1:1, endln:7:11
-          |vpiRange:
-          \_range: , line:2:18, endln:2:24
-            |vpiParent:
-            \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
-            |vpiLeftRange:
-            \_constant: , line:2:19, endln:2:21
-              |vpiParent:
-              \_range: , line:2:18, endln:2:24
-              |vpiDecompile:63
-              |vpiSize:64
-              |UINT:63
-              |vpiConstType:9
-            |vpiRightRange:
-            \_constant: , line:2:22, endln:2:23
-              |vpiParent:
-              \_range: , line:2:18, endln:2:24
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
-          |vpiRange:
-          \_range: , line:2:24, endln:2:29
-            |vpiParent:
-            \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
-            |vpiLeftRange:
-            \_constant: , line:2:25, endln:2:26
-              |vpiParent:
-              \_range: , line:2:24, endln:2:29
-              |vpiDecompile:5
-              |vpiSize:64
-              |UINT:5
-              |vpiConstType:9
-            |vpiRightRange:
-            \_constant: , line:2:27, endln:2:28
-              |vpiParent:
-              \_range: , line:2:24, endln:2:29
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
-        |vpiInstance:
-        \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:1:1, endln:7:11
-        |vpiRange:
-        \_range: , line:2:18, endln:2:24
-          |vpiParent:
-          \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
-          |vpiLeftRange:
-          \_constant: , line:2:19, endln:2:21
-            |vpiParent:
-            \_range: , line:2:18, endln:2:24
-            |vpiDecompile:63
-            |vpiSize:64
-            |UINT:63
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:2:22, endln:2:23
-            |vpiParent:
-            \_range: , line:2:18, endln:2:24
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-        |vpiRange:
-        \_range: , line:2:24, endln:2:29
-          |vpiParent:
-          \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
-          |vpiLeftRange:
-          \_constant: , line:2:25, endln:2:26
-            |vpiParent:
-            \_range: , line:2:24, endln:2:29
-            |vpiDecompile:5
-            |vpiSize:64
-            |UINT:5
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:2:27, endln:2:28
-            |vpiParent:
-            \_range: , line:2:24, endln:2:29
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
       |vpiName:RndCnstLfsrPermDefault
       |vpiFullName:work@top.u_keymgr.RndCnstLfsrPermDefault
       |vpiImported:keymgr_pkg
@@ -893,99 +508,12 @@ design: (work@top)
       |vpiParent:
       \_module_inst: work@keymgr (work@top.u_keymgr), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:15:4, endln:17:18
       |vpiTypespec:
-      \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+      \_ref_typespec: (work@top.u_keymgr.RndCnstLfsrPerm)
         |vpiParent:
         \_parameter: (work@top.u_keymgr.RndCnstLfsrPerm), line:11:26, endln:11:41
-        |vpiName:lfsr_perm_t
-        |vpiTypedefAlias:
-        \_logic_typespec: (keymgr_pkg::lfsr_perm_t), line:2:12, endln:2:29
-          |vpiParent:
-          \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
-          |vpiName:keymgr_pkg::lfsr_perm_t
-          |vpiInstance:
-          \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:1:1, endln:7:11
-          |vpiRange:
-          \_range: , line:2:18, endln:2:24
-            |vpiParent:
-            \_logic_typespec: (keymgr_pkg::lfsr_perm_t), line:2:12, endln:2:29
-            |vpiLeftRange:
-            \_constant: , line:2:19, endln:2:21
-              |vpiParent:
-              \_range: , line:2:18, endln:2:24
-              |vpiDecompile:63
-              |vpiSize:64
-              |UINT:63
-              |vpiConstType:9
-            |vpiRightRange:
-            \_constant: , line:2:22, endln:2:23
-              |vpiParent:
-              \_range: , line:2:18, endln:2:24
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
-          |vpiRange:
-          \_range: , line:2:24, endln:2:29
-            |vpiParent:
-            \_logic_typespec: (keymgr_pkg::lfsr_perm_t), line:2:12, endln:2:29
-            |vpiLeftRange:
-            \_constant: , line:2:25, endln:2:26
-              |vpiParent:
-              \_range: , line:2:24, endln:2:29
-              |vpiDecompile:5
-              |vpiSize:64
-              |UINT:5
-              |vpiConstType:9
-            |vpiRightRange:
-            \_constant: , line:2:27, endln:2:28
-              |vpiParent:
-              \_range: , line:2:24, endln:2:29
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
-        |vpiInstance:
-        \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:1:1, endln:7:11
-        |vpiRange:
-        \_range: , line:2:18, endln:2:24
-          |vpiParent:
-          \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
-          |vpiLeftRange:
-          \_constant: , line:2:19, endln:2:21
-            |vpiParent:
-            \_range: , line:2:18, endln:2:24
-            |vpiDecompile:63
-            |vpiSize:64
-            |UINT:63
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:2:22, endln:2:23
-            |vpiParent:
-            \_range: , line:2:18, endln:2:24
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-        |vpiRange:
-        \_range: , line:2:24, endln:2:29
-          |vpiParent:
-          \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
-          |vpiLeftRange:
-          \_constant: , line:2:25, endln:2:26
-            |vpiParent:
-            \_range: , line:2:24, endln:2:29
-            |vpiDecompile:5
-            |vpiSize:64
-            |UINT:5
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:2:27, endln:2:28
-            |vpiParent:
-            \_range: , line:2:24, endln:2:29
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@top.u_keymgr.RndCnstLfsrPerm
+        |vpiActual:
+        \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
       |vpiName:RndCnstLfsrPerm
       |vpiFullName:work@top.u_keymgr.RndCnstLfsrPerm
     |vpiParamAssign:
@@ -997,99 +525,12 @@ design: (work@top)
         |vpiParent:
         \_param_assign: , line:3:26, endln:6:5
         |vpiTypespec:
-        \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+        \_ref_typespec: (work@top.u_keymgr)
           |vpiParent:
           \_operation: , line:3:51, endln:6:5
-          |vpiName:lfsr_perm_t
-          |vpiTypedefAlias:
+          |vpiFullName:work@top.u_keymgr
+          |vpiActual:
           \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
-            |vpiParent:
-            \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
-            |vpiName:lfsr_perm_t
-            |vpiInstance:
-            \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:1:1, endln:7:11
-            |vpiRange:
-            \_range: , line:2:18, endln:2:24
-              |vpiParent:
-              \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
-              |vpiLeftRange:
-              \_constant: , line:2:19, endln:2:21
-                |vpiParent:
-                \_range: , line:2:18, endln:2:24
-                |vpiDecompile:63
-                |vpiSize:64
-                |UINT:63
-                |vpiConstType:9
-              |vpiRightRange:
-              \_constant: , line:2:22, endln:2:23
-                |vpiParent:
-                \_range: , line:2:18, endln:2:24
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
-                |vpiConstType:9
-            |vpiRange:
-            \_range: , line:2:24, endln:2:29
-              |vpiParent:
-              \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
-              |vpiLeftRange:
-              \_constant: , line:2:25, endln:2:26
-                |vpiParent:
-                \_range: , line:2:24, endln:2:29
-                |vpiDecompile:5
-                |vpiSize:64
-                |UINT:5
-                |vpiConstType:9
-              |vpiRightRange:
-              \_constant: , line:2:27, endln:2:28
-                |vpiParent:
-                \_range: , line:2:24, endln:2:29
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
-                |vpiConstType:9
-          |vpiInstance:
-          \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:1:1, endln:7:11
-          |vpiRange:
-          \_range: , line:2:18, endln:2:24
-            |vpiParent:
-            \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
-            |vpiLeftRange:
-            \_constant: , line:2:19, endln:2:21
-              |vpiParent:
-              \_range: , line:2:18, endln:2:24
-              |vpiDecompile:63
-              |vpiSize:64
-              |UINT:63
-              |vpiConstType:9
-            |vpiRightRange:
-            \_constant: , line:2:22, endln:2:23
-              |vpiParent:
-              \_range: , line:2:18, endln:2:24
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
-          |vpiRange:
-          \_range: , line:2:24, endln:2:29
-            |vpiParent:
-            \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
-            |vpiLeftRange:
-            \_constant: , line:2:25, endln:2:26
-              |vpiParent:
-              \_range: , line:2:24, endln:2:29
-              |vpiDecompile:5
-              |vpiSize:64
-              |UINT:5
-              |vpiConstType:9
-            |vpiRightRange:
-            \_constant: , line:2:27, endln:2:28
-              |vpiParent:
-              \_range: , line:2:24, endln:2:29
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
         |vpiOpType:33
         |vpiOperand:
         \_constant: , line:4:7, endln:4:44
@@ -1120,7 +561,11 @@ design: (work@top)
         |vpiSize:384
         |BIN:1
         |vpiTypespec:
-        \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+        \_ref_typespec: 
+          |vpiParent:
+          \_constant: , line:11:44, endln:11:66
+          |vpiActual:
+          \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
         |vpiConstType:3
       |vpiLhs:
       \_parameter: (work@top.u_keymgr.RndCnstLfsrPerm), line:11:26, endln:11:41
@@ -1133,6 +578,661 @@ design: (work@top)
     |vpiDefLineNo:9
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:14:1, endln:18:10
+\_weaklyReferenced:
+\_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+  |vpiParent:
+  \_parameter: (keymgr_pkg::RndCnstLfsrPermDefault), line:3:26, endln:3:48
+  |vpiName:lfsr_perm_t
+  |vpiTypedefAlias:
+  \_ref_typespec: (keymgr_pkg::RndCnstLfsrPermDefault::lfsr_perm_t)
+    |vpiParent:
+    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+    |vpiFullName:keymgr_pkg::RndCnstLfsrPermDefault::lfsr_perm_t
+    |vpiActual:
+    \_logic_typespec: (keymgr_pkg::lfsr_perm_t), line:2:12, endln:2:29
+  |vpiInstance:
+  \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:1:1, endln:7:11
+  |vpiRange:
+  \_range: , line:2:18, endln:2:24
+    |vpiParent:
+    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+    |vpiLeftRange:
+    \_constant: , line:2:19, endln:2:21
+      |vpiParent:
+      \_range: , line:2:18, endln:2:24
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:22, endln:2:23
+      |vpiParent:
+      \_range: , line:2:18, endln:2:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:2:24, endln:2:29
+    |vpiParent:
+    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+    |vpiLeftRange:
+    \_constant: , line:2:25, endln:2:26
+      |vpiParent:
+      \_range: , line:2:24, endln:2:29
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:27, endln:2:28
+      |vpiParent:
+      \_range: , line:2:24, endln:2:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+  |vpiParent:
+  \_parameter: (keymgr_pkg::RndCnstLfsrPermDefault), line:3:26, endln:3:48
+  |vpiName:lfsr_perm_t
+  |vpiTypedefAlias:
+  \_ref_typespec: (keymgr_pkg::RndCnstLfsrPermDefault::lfsr_perm_t)
+    |vpiParent:
+    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+    |vpiFullName:keymgr_pkg::RndCnstLfsrPermDefault::lfsr_perm_t
+    |vpiActual:
+    \_logic_typespec: (keymgr_pkg::lfsr_perm_t), line:2:12, endln:2:29
+  |vpiInstance:
+  \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:1:1, endln:7:11
+  |vpiRange:
+  \_range: , line:2:18, endln:2:24
+    |vpiParent:
+    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+    |vpiLeftRange:
+    \_constant: , line:2:19, endln:2:21
+      |vpiParent:
+      \_range: , line:2:18, endln:2:24
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:22, endln:2:23
+      |vpiParent:
+      \_range: , line:2:18, endln:2:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:2:24, endln:2:29
+    |vpiParent:
+    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+    |vpiLeftRange:
+    \_constant: , line:2:25, endln:2:26
+      |vpiParent:
+      \_range: , line:2:24, endln:2:29
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:27, endln:2:28
+      |vpiParent:
+      \_range: , line:2:24, endln:2:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+  |vpiParent:
+  \_ref_typespec: (work@keymgr.RndCnstLfsrPermDefault)
+  |vpiName:lfsr_perm_t
+  |vpiTypedefAlias:
+  \_ref_typespec: (work@keymgr.RndCnstLfsrPermDefault.lfsr_perm_t)
+    |vpiParent:
+    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+    |vpiFullName:work@keymgr.RndCnstLfsrPermDefault.lfsr_perm_t
+    |vpiActual:
+    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+  |vpiInstance:
+  \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:1:1, endln:7:11
+  |vpiRange:
+  \_range: , line:2:18, endln:2:24
+    |vpiParent:
+    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+    |vpiLeftRange:
+    \_constant: , line:2:19, endln:2:21
+      |vpiParent:
+      \_range: , line:2:18, endln:2:24
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:22, endln:2:23
+      |vpiParent:
+      \_range: , line:2:18, endln:2:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:2:24, endln:2:29
+    |vpiParent:
+    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+    |vpiLeftRange:
+    \_constant: , line:2:25, endln:2:26
+      |vpiParent:
+      \_range: , line:2:24, endln:2:29
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:27, endln:2:28
+      |vpiParent:
+      \_range: , line:2:24, endln:2:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+  |vpiParent:
+  \_ref_typespec: (work@keymgr.RndCnstLfsrPermDefault.lfsr_perm_t)
+  |vpiName:lfsr_perm_t
+  |vpiInstance:
+  \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:1:1, endln:7:11
+  |vpiRange:
+  \_range: , line:2:18, endln:2:24
+    |vpiParent:
+    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+    |vpiLeftRange:
+    \_constant: , line:2:19, endln:2:21
+      |vpiParent:
+      \_range: , line:2:18, endln:2:24
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:22, endln:2:23
+      |vpiParent:
+      \_range: , line:2:18, endln:2:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:2:24, endln:2:29
+    |vpiParent:
+    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+    |vpiLeftRange:
+    \_constant: , line:2:25, endln:2:26
+      |vpiParent:
+      \_range: , line:2:24, endln:2:29
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:27, endln:2:28
+      |vpiParent:
+      \_range: , line:2:24, endln:2:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+  |vpiParent:
+  \_ref_typespec: (work@keymgr.RndCnstLfsrPermDefault)
+  |vpiName:lfsr_perm_t
+  |vpiTypedefAlias:
+  \_ref_typespec: (work@keymgr.RndCnstLfsrPermDefault.lfsr_perm_t)
+    |vpiParent:
+    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+    |vpiFullName:work@keymgr.RndCnstLfsrPermDefault.lfsr_perm_t
+    |vpiActual:
+    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+  |vpiInstance:
+  \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:1:1, endln:7:11
+  |vpiRange:
+  \_range: , line:2:18, endln:2:24
+    |vpiParent:
+    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+    |vpiLeftRange:
+    \_constant: , line:2:19, endln:2:21
+      |vpiParent:
+      \_range: , line:2:18, endln:2:24
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:22, endln:2:23
+      |vpiParent:
+      \_range: , line:2:18, endln:2:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:2:24, endln:2:29
+    |vpiParent:
+    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+    |vpiLeftRange:
+    \_constant: , line:2:25, endln:2:26
+      |vpiParent:
+      \_range: , line:2:24, endln:2:29
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:27, endln:2:28
+      |vpiParent:
+      \_range: , line:2:24, endln:2:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+  |vpiParent:
+  \_ref_typespec: (work@keymgr.RndCnstLfsrPermDefault.lfsr_perm_t)
+  |vpiName:lfsr_perm_t
+  |vpiInstance:
+  \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:1:1, endln:7:11
+  |vpiRange:
+  \_range: , line:2:18, endln:2:24
+    |vpiParent:
+    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+    |vpiLeftRange:
+    \_constant: , line:2:19, endln:2:21
+      |vpiParent:
+      \_range: , line:2:18, endln:2:24
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:22, endln:2:23
+      |vpiParent:
+      \_range: , line:2:18, endln:2:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:2:24, endln:2:29
+    |vpiParent:
+    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+    |vpiLeftRange:
+    \_constant: , line:2:25, endln:2:26
+      |vpiParent:
+      \_range: , line:2:24, endln:2:29
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:27, endln:2:28
+      |vpiParent:
+      \_range: , line:2:24, endln:2:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+  |vpiParent:
+  \_parameter: (work@keymgr.RndCnstLfsrPerm), line:11:26, endln:11:41
+  |vpiName:lfsr_perm_t
+  |vpiTypedefAlias:
+  \_ref_typespec: (work@keymgr.RndCnstLfsrPerm.lfsr_perm_t)
+    |vpiParent:
+    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+    |vpiFullName:work@keymgr.RndCnstLfsrPerm.lfsr_perm_t
+    |vpiActual:
+    \_logic_typespec: (keymgr_pkg::lfsr_perm_t), line:2:12, endln:2:29
+  |vpiInstance:
+  \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:1:1, endln:7:11
+  |vpiRange:
+  \_range: , line:2:18, endln:2:24
+    |vpiParent:
+    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+    |vpiLeftRange:
+    \_constant: , line:2:19, endln:2:21
+      |vpiParent:
+      \_range: , line:2:18, endln:2:24
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:22, endln:2:23
+      |vpiParent:
+      \_range: , line:2:18, endln:2:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:2:24, endln:2:29
+    |vpiParent:
+    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+    |vpiLeftRange:
+    \_constant: , line:2:25, endln:2:26
+      |vpiParent:
+      \_range: , line:2:24, endln:2:29
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:27, endln:2:28
+      |vpiParent:
+      \_range: , line:2:24, endln:2:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+  |vpiParent:
+  \_ref_typespec: (work@top.u_keymgr)
+  |vpiName:lfsr_perm_t
+  |vpiTypedefAlias:
+  \_ref_typespec: (work@top.u_keymgr.lfsr_perm_t)
+    |vpiParent:
+    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+    |vpiFullName:work@top.u_keymgr.lfsr_perm_t
+    |vpiActual:
+    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+  |vpiInstance:
+  \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:1:1, endln:7:11
+  |vpiRange:
+  \_range: , line:2:18, endln:2:24
+    |vpiParent:
+    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+    |vpiLeftRange:
+    \_constant: , line:2:19, endln:2:21
+      |vpiParent:
+      \_range: , line:2:18, endln:2:24
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:22, endln:2:23
+      |vpiParent:
+      \_range: , line:2:18, endln:2:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:2:24, endln:2:29
+    |vpiParent:
+    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+    |vpiLeftRange:
+    \_constant: , line:2:25, endln:2:26
+      |vpiParent:
+      \_range: , line:2:24, endln:2:29
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:27, endln:2:28
+      |vpiParent:
+      \_range: , line:2:24, endln:2:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+  |vpiParent:
+  \_ref_typespec: (work@top.u_keymgr.lfsr_perm_t)
+  |vpiName:lfsr_perm_t
+  |vpiInstance:
+  \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:1:1, endln:7:11
+  |vpiRange:
+  \_range: , line:2:18, endln:2:24
+    |vpiParent:
+    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+    |vpiLeftRange:
+    \_constant: , line:2:19, endln:2:21
+      |vpiParent:
+      \_range: , line:2:18, endln:2:24
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:22, endln:2:23
+      |vpiParent:
+      \_range: , line:2:18, endln:2:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:2:24, endln:2:29
+    |vpiParent:
+    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+    |vpiLeftRange:
+    \_constant: , line:2:25, endln:2:26
+      |vpiParent:
+      \_range: , line:2:24, endln:2:29
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:27, endln:2:28
+      |vpiParent:
+      \_range: , line:2:24, endln:2:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+  |vpiParent:
+  \_ref_typespec: (work@top.u_keymgr.RndCnstLfsrPermDefault)
+  |vpiName:lfsr_perm_t
+  |vpiTypedefAlias:
+  \_ref_typespec: (work@top.u_keymgr.RndCnstLfsrPermDefault.lfsr_perm_t)
+    |vpiParent:
+    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+    |vpiFullName:work@top.u_keymgr.RndCnstLfsrPermDefault.lfsr_perm_t
+    |vpiActual:
+    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+  |vpiInstance:
+  \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:1:1, endln:7:11
+  |vpiRange:
+  \_range: , line:2:18, endln:2:24
+    |vpiParent:
+    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+    |vpiLeftRange:
+    \_constant: , line:2:19, endln:2:21
+      |vpiParent:
+      \_range: , line:2:18, endln:2:24
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:22, endln:2:23
+      |vpiParent:
+      \_range: , line:2:18, endln:2:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:2:24, endln:2:29
+    |vpiParent:
+    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+    |vpiLeftRange:
+    \_constant: , line:2:25, endln:2:26
+      |vpiParent:
+      \_range: , line:2:24, endln:2:29
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:27, endln:2:28
+      |vpiParent:
+      \_range: , line:2:24, endln:2:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+  |vpiParent:
+  \_ref_typespec: (work@top.u_keymgr.RndCnstLfsrPermDefault.lfsr_perm_t)
+  |vpiName:lfsr_perm_t
+  |vpiInstance:
+  \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:1:1, endln:7:11
+  |vpiRange:
+  \_range: , line:2:18, endln:2:24
+    |vpiParent:
+    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+    |vpiLeftRange:
+    \_constant: , line:2:19, endln:2:21
+      |vpiParent:
+      \_range: , line:2:18, endln:2:24
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:22, endln:2:23
+      |vpiParent:
+      \_range: , line:2:18, endln:2:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:2:24, endln:2:29
+    |vpiParent:
+    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+    |vpiLeftRange:
+    \_constant: , line:2:25, endln:2:26
+      |vpiParent:
+      \_range: , line:2:24, endln:2:29
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:27, endln:2:28
+      |vpiParent:
+      \_range: , line:2:24, endln:2:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+  |vpiParent:
+  \_ref_typespec: (work@top.u_keymgr.RndCnstLfsrPerm)
+  |vpiName:lfsr_perm_t
+  |vpiTypedefAlias:
+  \_ref_typespec: (work@top.u_keymgr.RndCnstLfsrPerm.lfsr_perm_t)
+    |vpiParent:
+    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+    |vpiFullName:work@top.u_keymgr.RndCnstLfsrPerm.lfsr_perm_t
+    |vpiActual:
+    \_logic_typespec: (keymgr_pkg::lfsr_perm_t), line:2:12, endln:2:29
+  |vpiInstance:
+  \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:1:1, endln:7:11
+  |vpiRange:
+  \_range: , line:2:18, endln:2:24
+    |vpiParent:
+    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+    |vpiLeftRange:
+    \_constant: , line:2:19, endln:2:21
+      |vpiParent:
+      \_range: , line:2:18, endln:2:24
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:22, endln:2:23
+      |vpiParent:
+      \_range: , line:2:18, endln:2:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:2:24, endln:2:29
+    |vpiParent:
+    \_logic_typespec: (lfsr_perm_t), line:2:12, endln:2:29
+    |vpiLeftRange:
+    \_constant: , line:2:25, endln:2:26
+      |vpiParent:
+      \_range: , line:2:24, endln:2:29
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:27, endln:2:28
+      |vpiParent:
+      \_range: , line:2:24, endln:2:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: (keymgr_pkg::lfsr_perm_t), line:2:12, endln:2:29
+  |vpiParent:
+  \_ref_typespec: (work@top.u_keymgr.RndCnstLfsrPerm.lfsr_perm_t)
+  |vpiName:keymgr_pkg::lfsr_perm_t
+  |vpiInstance:
+  \_package: keymgr_pkg (keymgr_pkg::), file:${SURELOG_DIR}/tests/ParamOverload2/dut.sv, line:1:1, endln:7:11
+  |vpiRange:
+  \_range: , line:2:18, endln:2:24
+    |vpiParent:
+    \_logic_typespec: (keymgr_pkg::lfsr_perm_t), line:2:12, endln:2:29
+    |vpiLeftRange:
+    \_constant: , line:2:19, endln:2:21
+      |vpiParent:
+      \_range: , line:2:18, endln:2:24
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:22, endln:2:23
+      |vpiParent:
+      \_range: , line:2:18, endln:2:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:2:24, endln:2:29
+    |vpiParent:
+    \_logic_typespec: (keymgr_pkg::lfsr_perm_t), line:2:12, endln:2:29
+    |vpiLeftRange:
+    \_constant: , line:2:25, endln:2:26
+      |vpiParent:
+      \_range: , line:2:24, endln:2:29
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:27, endln:2:28
+      |vpiParent:
+      \_range: , line:2:24, endln:2:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

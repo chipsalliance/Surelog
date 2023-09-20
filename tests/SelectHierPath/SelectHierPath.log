@@ -120,6 +120,7 @@ module_inst                                            4
 operation                                              1
 range                                                  1
 ref_obj                                                3
+ref_typespec                                           3
 struct_net                                             1
 struct_typespec                                        2
 typespec_member                                        2
@@ -139,6 +140,7 @@ module_inst                                            4
 operation                                              1
 range                                                  1
 ref_obj                                                6
+ref_typespec                                           3
 struct_net                                             1
 struct_typespec                                        2
 typespec_member                                        2
@@ -228,10 +230,12 @@ design: (work@IntegerRegisterWriteStage)
     \_struct_typespec: (BranchResult), line:1:9, endln:3:2
     |vpiName:nextAddr
     |vpiTypespec:
-    \_int_typespec: , line:2:5, endln:2:8
+    \_ref_typespec: (BranchResult.nextAddr)
       |vpiParent:
       \_typespec_member: (nextAddr), line:2:9, endln:2:17
-      |vpiSigned:1
+      |vpiFullName:BranchResult.nextAddr
+      |vpiActual:
+      \_int_typespec: , line:2:5, endln:2:8
     |vpiRefFile:${SURELOG_DIR}/tests/SelectHierPath/dut.sv
     |vpiRefLineNo:2
     |vpiRefColumnNo:5
@@ -251,7 +255,12 @@ design: (work@IntegerRegisterWriteStage)
     \_struct_typespec: (IntegerRegisterWriteStageRegPath), line:5:9, endln:7:2
     |vpiName:brResult
     |vpiTypespec:
-    \_struct_typespec: (BranchResult), line:1:9, endln:3:2
+    \_ref_typespec: (IntegerRegisterWriteStageRegPath.brResult)
+      |vpiParent:
+      \_typespec_member: (brResult), line:6:18, endln:6:26
+      |vpiFullName:IntegerRegisterWriteStageRegPath.brResult
+      |vpiActual:
+      \_struct_typespec: (BranchResult), line:1:9, endln:3:2
     |vpiRefFile:${SURELOG_DIR}/tests/SelectHierPath/dut.sv
     |vpiRefLineNo:6
     |vpiRefColumnNo:5
@@ -304,7 +313,12 @@ design: (work@IntegerRegisterWriteStage)
       |vpiParent:
       \_array_net: (work@IntegerRegisterWriteStage.pipeReg), line:12:34, endln:12:41
       |vpiTypespec:
-      \_struct_typespec: (IntegerRegisterWriteStageRegPath), line:5:9, endln:7:2
+      \_ref_typespec: (work@IntegerRegisterWriteStage.pipeReg.pipeReg)
+        |vpiParent:
+        \_struct_net: (work@IntegerRegisterWriteStage.pipeReg.pipeReg), line:12:34, endln:12:45
+        |vpiFullName:work@IntegerRegisterWriteStage.pipeReg.pipeReg
+        |vpiActual:
+        \_struct_typespec: (IntegerRegisterWriteStageRegPath), line:5:9, endln:7:2
       |vpiName:pipeReg
       |vpiFullName:work@IntegerRegisterWriteStage.pipeReg.pipeReg
   |vpiTopModule:1
@@ -350,6 +364,11 @@ design: (work@IntegerRegisterWriteStage)
       |vpiFullName:work@IntegerRegisterWriteStage.o
       |vpiActual:
       \_logic_net: (work@IntegerRegisterWriteStage.o), line:14:8, endln:14:9
+\_weaklyReferenced:
+\_int_typespec: , line:2:5, endln:2:8
+  |vpiParent:
+  \_typespec_member: (nextAddr), line:2:9, endln:2:17
+  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

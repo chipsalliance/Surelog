@@ -128,6 +128,7 @@ module_inst                                            2
 operation                                              2
 property_spec                                          1
 ref_obj                                                3
+ref_typespec                                           6
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -144,6 +145,7 @@ module_inst                                            2
 operation                                              4
 property_spec                                          2
 ref_obj                                                6
+ref_typespec                                           6
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ExpectStmt/slpp_all/surelog.uhdm ...
 
@@ -168,7 +170,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ExpectStmt/dut.sv, line:1:1, endln:11:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:1, endln:3:6
+    \_ref_typespec: (work@top.clk)
+      |vpiParent:
+      \_logic_net: (work@top.clk), line:3:7, endln:3:10
+      |vpiFullName:work@top.clk
+      |vpiActual:
+      \_logic_typespec: , line:3:1, endln:3:6
     |vpiName:clk
     |vpiFullName:work@top.clk
     |vpiNetType:36
@@ -177,7 +184,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ExpectStmt/dut.sv, line:1:1, endln:11:10
     |vpiTypespec:
-    \_logic_typespec: , line:4:1, endln:4:6
+    \_ref_typespec: (work@top.a)
+      |vpiParent:
+      \_logic_net: (work@top.a), line:4:7, endln:4:8
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_logic_typespec: , line:4:1, endln:4:6
     |vpiName:a
     |vpiFullName:work@top.a
     |vpiNetType:36
@@ -186,7 +198,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ExpectStmt/dut.sv, line:1:1, endln:11:10
     |vpiTypespec:
-    \_logic_typespec: , line:5:1, endln:5:6
+    \_ref_typespec: (work@top.b)
+      |vpiParent:
+      \_logic_net: (work@top.b), line:5:7, endln:5:8
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_logic_typespec: , line:5:1, endln:5:6
     |vpiName:b
     |vpiFullName:work@top.b
     |vpiNetType:36
@@ -255,9 +272,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ExpectStmt/dut.sv, line:1:1, endln:11:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:1, endln:3:6
+    \_ref_typespec: (work@top.clk)
       |vpiParent:
       \_logic_var: (work@top.clk), line:3:7, endln:3:10
+      |vpiFullName:work@top.clk
+      |vpiActual:
+      \_logic_typespec: , line:3:1, endln:3:6
     |vpiName:clk
     |vpiFullName:work@top.clk
     |vpiVisibility:1
@@ -266,9 +286,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ExpectStmt/dut.sv, line:1:1, endln:11:10
     |vpiTypespec:
-    \_logic_typespec: , line:4:1, endln:4:6
+    \_ref_typespec: (work@top.a)
       |vpiParent:
       \_logic_var: (work@top.a), line:4:7, endln:4:8
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_logic_typespec: , line:4:1, endln:4:6
     |vpiName:a
     |vpiFullName:work@top.a
     |vpiVisibility:1
@@ -277,9 +300,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ExpectStmt/dut.sv, line:1:1, endln:11:10
     |vpiTypespec:
-    \_logic_typespec: , line:5:1, endln:5:6
+    \_ref_typespec: (work@top.b)
       |vpiParent:
       \_logic_var: (work@top.b), line:5:7, endln:5:8
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_logic_typespec: , line:5:1, endln:5:6
     |vpiName:b
     |vpiFullName:work@top.b
     |vpiVisibility:1
@@ -339,6 +365,19 @@ design: (work@top)
               |vpiFullName:work@top.b
               |vpiActual:
               \_logic_var: (work@top.b), line:5:7, endln:5:8
+\_weaklyReferenced:
+\_logic_typespec: , line:3:1, endln:3:6
+  |vpiParent:
+  \_logic_var: (work@top.clk), line:3:7, endln:3:10
+\_logic_typespec: , line:4:1, endln:4:6
+  |vpiParent:
+  \_logic_var: (work@top.a), line:4:7, endln:4:8
+\_logic_typespec: , line:5:1, endln:5:6
+  |vpiParent:
+  \_logic_var: (work@top.b), line:5:7, endln:5:8
+\_logic_typespec: , line:3:1, endln:3:6
+\_logic_typespec: , line:4:1, endln:4:6
+\_logic_typespec: , line:5:1, endln:5:6
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

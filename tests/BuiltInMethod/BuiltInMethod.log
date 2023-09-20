@@ -169,6 +169,7 @@ module_inst                                            3
 operation                                              1
 range                                                  1
 ref_obj                                                4
+ref_typespec                                          11
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -186,6 +187,7 @@ module_inst                                            3
 operation                                              1
 range                                                  1
 ref_obj                                                4
+ref_typespec                                          11
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/BuiltInMethod/slpp_all/surelog.uhdm ...
 
@@ -210,8 +212,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BuiltInMethod/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_byte_typespec: , line:2:5, endln:2:13
-      |vpiSigned:1
+    \_ref_typespec: (work@top.b)
+      |vpiParent:
+      \_logic_net: (work@top.b), line:2:10, endln:2:11
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_byte_typespec: , line:2:5, endln:2:13
     |vpiName:b
     |vpiFullName:work@top.b
   |vpiNet:
@@ -219,8 +225,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BuiltInMethod/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_byte_typespec: , line:3:5, endln:3:19
-      |vpiSigned:1
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_logic_net: (work@top.o), line:3:10, endln:3:11
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_byte_typespec: , line:3:5, endln:3:19
     |vpiName:o
     |vpiFullName:work@top.o
   |vpiNet:
@@ -228,8 +238,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BuiltInMethod/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_byte_typespec: , line:4:5, endln:4:18
-      |vpiSigned:1
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_logic_net: (work@top.o), line:4:10, endln:4:11
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_byte_typespec: , line:4:5, endln:4:18
     |vpiName:o
     |vpiFullName:work@top.o
   |vpiNet:
@@ -237,8 +251,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BuiltInMethod/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_byte_typespec: , line:5:5, endln:5:19
-      |vpiSigned:1
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_logic_net: (work@top.o), line:5:10, endln:5:11
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_byte_typespec: , line:5:5, endln:5:19
     |vpiName:o
     |vpiFullName:work@top.o
   |vpiNet:
@@ -246,8 +264,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BuiltInMethod/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_byte_typespec: , line:6:5, endln:6:22
-      |vpiSigned:1
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_logic_net: (work@top.o), line:6:10, endln:6:11
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_byte_typespec: , line:6:5, endln:6:22
     |vpiName:o
     |vpiFullName:work@top.o
 |uhdmtopModules:
@@ -259,7 +281,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BuiltInMethod/dut.sv, line:1:1, endln:7:10
     |vpiSize:1
     |vpiTypespec:
-    \_array_typespec: 
+    \_ref_typespec: (work@top.b)
+      |vpiParent:
+      \_array_var: (work@top.b), line:2:10, endln:2:11
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_array_typespec: 
     |vpiName:b
     |vpiFullName:work@top.b
     |vpiRandType:1
@@ -293,10 +320,12 @@ design: (work@top)
       |vpiParent:
       \_array_var: (work@top.b), line:2:10, endln:2:11
       |vpiTypespec:
-      \_byte_typespec: , line:2:5, endln:2:9
+      \_ref_typespec: (work@top.b)
         |vpiParent:
         \_byte_var: (work@top.b), line:2:10, endln:2:11
-        |vpiSigned:1
+        |vpiFullName:work@top.b
+        |vpiActual:
+        \_byte_typespec: , line:2:5, endln:2:9
       |vpiFullName:work@top.b
       |vpiExpr:
       \_operation: , line:2:16, endln:2:25
@@ -305,10 +334,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BuiltInMethod/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_byte_typespec: , line:3:5, endln:3:9
+    \_ref_typespec: (work@top.o)
       |vpiParent:
       \_byte_var: (work@top.o), line:3:10, endln:3:19
-      |vpiSigned:1
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_byte_typespec: , line:3:5, endln:3:9
     |vpiName:o
     |vpiFullName:work@top.o
     |vpiVisibility:1
@@ -335,10 +366,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BuiltInMethod/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_byte_typespec: , line:4:5, endln:4:9
+    \_ref_typespec: (work@top.o)
       |vpiParent:
       \_byte_var: (work@top.o), line:4:10, endln:4:18
-      |vpiSigned:1
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_byte_typespec: , line:4:5, endln:4:9
     |vpiName:o
     |vpiFullName:work@top.o
     |vpiVisibility:1
@@ -365,10 +398,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BuiltInMethod/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_byte_typespec: , line:5:5, endln:5:9
+    \_ref_typespec: (work@top.o)
       |vpiParent:
       \_byte_var: (work@top.o), line:5:10, endln:5:19
-      |vpiSigned:1
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_byte_typespec: , line:5:5, endln:5:9
     |vpiName:o
     |vpiFullName:work@top.o
     |vpiVisibility:1
@@ -395,10 +430,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BuiltInMethod/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
-    \_byte_typespec: , line:6:5, endln:6:9
+    \_ref_typespec: (work@top.o)
       |vpiParent:
       \_byte_var: (work@top.o), line:6:10, endln:6:22
-      |vpiSigned:1
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_byte_typespec: , line:6:5, endln:6:9
     |vpiName:o
     |vpiFullName:work@top.o
     |vpiVisibility:1
@@ -423,6 +460,38 @@ design: (work@top)
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
+\_weaklyReferenced:
+\_byte_typespec: , line:2:5, endln:2:9
+  |vpiParent:
+  \_byte_var: (work@top.b), line:2:10, endln:2:11
+  |vpiSigned:1
+\_array_typespec: 
+\_byte_typespec: , line:3:5, endln:3:9
+  |vpiParent:
+  \_byte_var: (work@top.o), line:3:10, endln:3:19
+  |vpiSigned:1
+\_byte_typespec: , line:4:5, endln:4:9
+  |vpiParent:
+  \_byte_var: (work@top.o), line:4:10, endln:4:18
+  |vpiSigned:1
+\_byte_typespec: , line:5:5, endln:5:9
+  |vpiParent:
+  \_byte_var: (work@top.o), line:5:10, endln:5:19
+  |vpiSigned:1
+\_byte_typespec: , line:6:5, endln:6:9
+  |vpiParent:
+  \_byte_var: (work@top.o), line:6:10, endln:6:22
+  |vpiSigned:1
+\_byte_typespec: , line:2:5, endln:2:13
+  |vpiSigned:1
+\_byte_typespec: , line:3:5, endln:3:19
+  |vpiSigned:1
+\_byte_typespec: , line:4:5, endln:4:18
+  |vpiSigned:1
+\_byte_typespec: , line:5:5, endln:5:19
+  |vpiSigned:1
+\_byte_typespec: , line:6:5, endln:6:22
+  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

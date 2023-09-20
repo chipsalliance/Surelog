@@ -159,6 +159,7 @@ package                                                2
 port                                                   2
 range                                                  2
 ref_obj                                                6
+ref_typespec                                          10
 struct_typespec                                        3
 typespec_member                                        3
 === UHDM Object Stats End ===
@@ -179,6 +180,7 @@ package                                                2
 port                                                   3
 range                                                  2
 ref_obj                                               10
+ref_typespec                                          11
 struct_typespec                                        3
 typespec_member                                        3
 === UHDM Object Stats End ===
@@ -214,11 +216,12 @@ design: (work@top)
       \_struct_typespec: (pkg::a), line:3:12, endln:5:5
       |vpiName:x
       |vpiTypespec:
-      \_logic_typespec: , line:4:7, endln:4:12
+      \_ref_typespec: (pkg::pkg::a::x)
         |vpiParent:
         \_typespec_member: (x), line:4:16, endln:4:17
-        |vpiInstance:
-        \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/HierPathVarArray/dut.sv, line:2:1, endln:7:11
+        |vpiFullName:pkg::pkg::a::x
+        |vpiActual:
+        \_logic_typespec: , line:4:7, endln:4:12
       |vpiRefFile:${SURELOG_DIR}/tests/HierPathVarArray/dut.sv
       |vpiRefLineNo:4
       |vpiRefColumnNo:7
@@ -245,11 +248,12 @@ design: (work@top)
       \_struct_typespec: (pkg::a), line:3:12, endln:5:5
       |vpiName:x
       |vpiTypespec:
-      \_logic_typespec: , line:4:7, endln:4:12
+      \_ref_typespec: (pkg::pkg::a::x)
         |vpiParent:
         \_typespec_member: (x), line:4:16, endln:4:17
-        |vpiInstance:
-        \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/HierPathVarArray/dut.sv, line:2:1, endln:7:11
+        |vpiFullName:pkg::pkg::a::x
+        |vpiActual:
+        \_logic_typespec: , line:4:7, endln:4:12
       |vpiRefFile:${SURELOG_DIR}/tests/HierPathVarArray/dut.sv
       |vpiRefLineNo:4
       |vpiRefColumnNo:7
@@ -283,29 +287,12 @@ design: (work@top)
         |UINT:0
         |vpiConstType:9
     |vpiElemTypespec:
-    \_struct_typespec: (pkg::a), line:3:12, endln:5:5
-      |vpiName:pkg::a
-      |vpiTypedefAlias:
+    \_ref_typespec: (pkg::pkg::b)
+      |vpiParent:
+      \_array_typespec: (pkg::b), line:6:12, endln:6:20
+      |vpiFullName:pkg::pkg::b
+      |vpiActual:
       \_struct_typespec: (pkg::a), line:3:12, endln:5:5
-      |vpiInstance:
-      \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/HierPathVarArray/dut.sv, line:2:1, endln:7:11
-      |vpiPacked:1
-      |vpiTypespecMember:
-      \_typespec_member: (x), line:4:16, endln:4:17
-        |vpiParent:
-        \_struct_typespec: (pkg::a), line:3:12, endln:5:5
-        |vpiName:x
-        |vpiTypespec:
-        \_logic_typespec: , line:4:7, endln:4:12
-          |vpiParent:
-          \_typespec_member: (x), line:4:16, endln:4:17
-          |vpiInstance:
-          \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/HierPathVarArray/dut.sv, line:2:1, endln:7:11
-        |vpiRefFile:${SURELOG_DIR}/tests/HierPathVarArray/dut.sv
-        |vpiRefLineNo:4
-        |vpiRefColumnNo:7
-        |vpiRefEndLineNo:4
-        |vpiRefEndColumnNo:12
   |vpiDefName:pkg
   |vpiTop:1
 |uhdmallModules:
@@ -325,7 +312,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathVarArray/dut.sv, line:9:1, endln:13:10
     |vpiTypespec:
-    \_array_typespec: (pkg::b), line:6:12, endln:6:20
+    \_ref_typespec: (work@top.c)
+      |vpiParent:
+      \_logic_net: (work@top.c), line:10:11, endln:10:12
+      |vpiFullName:work@top.c
+      |vpiActual:
+      \_array_typespec: (pkg::b), line:6:12, endln:6:20
     |vpiName:c
     |vpiFullName:work@top.c
   |vpiPort:
@@ -343,7 +335,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.o), line:9:19, endln:9:20
     |vpiTypedef:
-    \_logic_typespec: , line:9:19, endln:9:19
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_port: (o), line:9:19, endln:9:20
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_logic_typespec: , line:9:19, endln:9:19
   |vpiContAssign:
   \_cont_assign: , line:11:11, endln:11:21
     |vpiParent:
@@ -422,7 +419,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathVarArray/dut.sv, line:9:1, endln:13:10
     |vpiTypespec:
-    \_array_typespec: (pkg::b), line:6:12, endln:6:20
+    \_ref_typespec: (work@top.c)
+      |vpiParent:
+      \_array_var: (work@top.c), line:10:11, endln:10:12
+      |vpiFullName:work@top.c
+      |vpiActual:
+      \_array_typespec: (pkg::b), line:6:12, endln:6:20
     |vpiName:c
     |vpiFullName:work@top.c
     |vpiVisibility:1
@@ -433,7 +435,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathVarArray/dut.sv, line:9:1, endln:13:10
     |vpiTypespec:
-    \_logic_typespec: , line:9:19, endln:9:19
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_logic_net: (work@top.o), line:9:19, endln:9:20
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_logic_typespec: , line:9:19, endln:9:19
     |vpiName:o
     |vpiFullName:work@top.o
   |vpiTopModule:1
@@ -452,7 +459,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.o), line:9:19, endln:9:20
     |vpiTypedef:
-    \_logic_typespec: , line:9:19, endln:9:19
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_port: (o), line:9:19, endln:9:20
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_logic_typespec: , line:9:19, endln:9:19
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathVarArray/dut.sv, line:9:1, endln:13:10
   |vpiContAssign:
@@ -525,6 +537,78 @@ design: (work@top)
       |vpiFullName:work@top.o
       |vpiActual:
       \_logic_net: (work@top.o), line:9:19, endln:9:20
+\_weaklyReferenced:
+\_logic_typespec: , line:4:7, endln:4:12
+  |vpiParent:
+  \_typespec_member: (x), line:4:16, endln:4:17
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/HierPathVarArray/dut.sv, line:2:1, endln:7:11
+\_struct_typespec: (pkg::a), line:3:12, endln:5:5
+  |vpiName:pkg::a
+  |vpiTypedefAlias:
+  \_ref_typespec: (pkg::a)
+    |vpiParent:
+    \_struct_typespec: (pkg::a), line:3:12, endln:5:5
+    |vpiFullName:pkg::a
+    |vpiActual:
+    \_struct_typespec: (pkg::a), line:3:12, endln:5:5
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/HierPathVarArray/dut.sv, line:2:1, endln:7:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (x), line:4:16, endln:4:17
+    |vpiParent:
+    \_struct_typespec: (pkg::a), line:3:12, endln:5:5
+    |vpiName:x
+    |vpiTypespec:
+    \_ref_typespec: (pkg::a.x)
+      |vpiParent:
+      \_typespec_member: (x), line:4:16, endln:4:17
+      |vpiFullName:pkg::a.x
+      |vpiActual:
+      \_logic_typespec: , line:4:7, endln:4:12
+    |vpiRefFile:${SURELOG_DIR}/tests/HierPathVarArray/dut.sv
+    |vpiRefLineNo:4
+    |vpiRefColumnNo:7
+    |vpiRefEndLineNo:4
+    |vpiRefEndColumnNo:12
+\_logic_typespec: , line:4:7, endln:4:12
+  |vpiParent:
+  \_ref_typespec: (pkg::a.x)
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/HierPathVarArray/dut.sv, line:2:1, endln:7:11
+\_logic_typespec: , line:4:7, endln:4:12
+  |vpiParent:
+  \_typespec_member: (x), line:4:16, endln:4:17
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/HierPathVarArray/dut.sv, line:2:1, endln:7:11
+\_logic_typespec: , line:9:19, endln:9:19
+\_logic_typespec: , line:9:19, endln:9:19
+\_logic_typespec: , line:9:19, endln:9:19
+\_cont_assign: , line:11:11, endln:11:21
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathVarArray/dut.sv, line:9:1, endln:13:10
+  |vpiRhs:
+  \_constant: , line:11:20, endln:11:21
+  |vpiLhs:
+  \_hier_path: (c[1].x), line:11:11, endln:11:12
+    |vpiParent:
+    \_cont_assign: , line:11:11, endln:11:21
+    |vpiName:c[1].x
+    |vpiActual:
+    \_bit_select: (c[1]), line:11:11, endln:11:12
+      |vpiParent:
+      \_hier_path: (c[1].x), line:11:11, endln:11:12
+      |vpiName:c
+      |vpiFullName:c[1]
+      |vpiIndex:
+      \_constant: , line:11:13, endln:11:14
+    |vpiActual:
+    \_ref_obj: (c[1].x), line:11:16, endln:11:17
+      |vpiParent:
+      \_hier_path: (c[1].x), line:11:11, endln:11:12
+      |vpiName:x
+      |vpiFullName:c[1].x
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

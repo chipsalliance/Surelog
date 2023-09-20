@@ -798,6 +798,7 @@ package                                                2
 port                                                  64
 prim_term                                             63
 ref_obj                                               88
+ref_typespec                                          46
 switch_tran                                            1
 task                                                   9
 === UHDM Object Stats End ===
@@ -826,6 +827,7 @@ package                                                2
 port                                                  76
 prim_term                                            103
 ref_obj                                              141
+ref_typespec                                          62
 switch_tran                                            2
 task                                                  18
 === UHDM Object Stats End ===
@@ -903,9 +905,12 @@ design: (work@LogicGates)
       |vpiParent:
       \_function: (work@mailbox::new), line:3:5, endln:4:16
       |vpiTypespec:
-      \_class_typespec: 
-        |vpiClassDefn:
-        \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/GateLevel/builtin.sv, line:1:3, endln:27:11
+      \_ref_typespec: (work@mailbox::new)
+        |vpiParent:
+        \_class_var: (work@mailbox::new), line:3:23, endln:3:28
+        |vpiFullName:work@mailbox::new
+        |vpiActual:
+        \_class_typespec: 
       |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound), line:3:23, endln:3:28
@@ -920,8 +925,12 @@ design: (work@LogicGates)
         |UINT:0
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:3:19, endln:3:22
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::new::bound)
+        |vpiParent:
+        \_io_decl: (bound), line:3:23, endln:3:28
+        |vpiFullName:work@mailbox::new::bound
+        |vpiActual:
+        \_int_typespec: , line:3:19, endln:3:22
   |vpiMethod:
   \_function: (work@mailbox::num), line:6:5, endln:7:16
     |vpiParent:
@@ -935,8 +944,12 @@ design: (work@LogicGates)
       |vpiParent:
       \_function: (work@mailbox::num), line:6:5, endln:7:16
       |vpiTypespec:
-      \_int_typespec: , line:6:14, endln:6:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::num)
+        |vpiParent:
+        \_int_var: (work@mailbox::num), line:6:14, endln:6:17
+        |vpiFullName:work@mailbox::num
+        |vpiActual:
+        \_int_typespec: , line:6:14, endln:6:17
       |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
@@ -999,8 +1012,12 @@ design: (work@LogicGates)
       |vpiParent:
       \_function: (work@mailbox::try_get), line:18:5, endln:19:16
       |vpiTypespec:
-      \_int_typespec: , line:18:14, endln:18:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::try_get)
+        |vpiParent:
+        \_int_var: (work@mailbox::try_get), line:18:14, endln:18:17
+        |vpiFullName:work@mailbox::try_get
+        |vpiActual:
+        \_int_typespec: , line:18:14, endln:18:17
       |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
@@ -1036,8 +1053,12 @@ design: (work@LogicGates)
       |vpiParent:
       \_function: (work@mailbox::try_peek), line:24:5, endln:25:16
       |vpiTypespec:
-      \_int_typespec: , line:24:14, endln:24:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::try_peek)
+        |vpiParent:
+        \_int_var: (work@mailbox::try_peek), line:24:14, endln:24:17
+        |vpiFullName:work@mailbox::try_peek
+        |vpiActual:
+        \_int_typespec: , line:24:14, endln:24:17
       |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
@@ -1109,9 +1130,12 @@ design: (work@LogicGates)
       |vpiParent:
       \_function: (work@process::self), line:34:5, endln:34:11
       |vpiTypespec:
-      \_class_typespec: , line:34:21, endln:34:28
-        |vpiClassDefn:
-        \_class_defn: (work@process), file:${SURELOG_DIR}/tests/GateLevel/builtin.sv, line:30:3, endln:52:11
+      \_ref_typespec: (work@process::self)
+        |vpiParent:
+        \_class_var: (work@process::self), line:34:21, endln:34:28
+        |vpiFullName:work@process::self
+        |vpiActual:
+        \_class_typespec: , line:34:21, endln:34:28
       |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status), line:37:5, endln:38:16
@@ -1126,50 +1150,12 @@ design: (work@LogicGates)
       |vpiParent:
       \_function: (work@process::status), line:37:5, endln:38:16
       |vpiTypespec:
-      \_enum_typespec: (state), line:32:5, endln:32:74
+      \_ref_typespec: (work@process::status)
         |vpiParent:
-        \_class_defn: (work@process), file:${SURELOG_DIR}/tests/GateLevel/builtin.sv, line:30:3, endln:52:11
-        |vpiName:state
-        |vpiEnumConst:
-        \_enum_const: (FINISHED), line:32:20, endln:32:28
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:FINISHED
-          |INT:0
-          |vpiDecompile:0
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (RUNNING), line:32:30, endln:32:37
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:RUNNING
-          |INT:1
-          |vpiDecompile:1
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (WAITING), line:32:39, endln:32:46
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:WAITING
-          |INT:2
-          |vpiDecompile:2
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (SUSPENDED), line:32:48, endln:32:57
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:SUSPENDED
-          |INT:3
-          |vpiDecompile:3
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (KILLED), line:32:59, endln:32:65
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:KILLED
-          |INT:4
-          |vpiDecompile:4
-          |vpiSize:64
+        \_enum_var: (work@process::status), line:37:14, endln:37:19
+        |vpiFullName:work@process::status
+        |vpiActual:
+        \_enum_typespec: (state), line:32:5, endln:32:74
       |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill), line:40:5, endln:41:12
@@ -1220,9 +1206,12 @@ design: (work@LogicGates)
       |vpiParent:
       \_function: (work@semaphore::new), line:57:5, endln:58:16
       |vpiTypespec:
-      \_class_typespec: 
-        |vpiClassDefn:
-        \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/GateLevel/builtin.sv, line:55:3, endln:69:11
+      \_ref_typespec: (work@semaphore::new)
+        |vpiParent:
+        \_class_var: (work@semaphore::new), line:57:22, endln:57:30
+        |vpiFullName:work@semaphore::new
+        |vpiActual:
+        \_class_typespec: 
       |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount), line:57:22, endln:57:30
@@ -1237,8 +1226,12 @@ design: (work@LogicGates)
         |UINT:0
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:57:18, endln:57:21
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::new::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:57:22, endln:57:30
+        |vpiFullName:work@semaphore::new::keyCount
+        |vpiActual:
+        \_int_typespec: , line:57:18, endln:57:21
   |vpiMethod:
   \_task: (work@semaphore::put), line:60:5, endln:61:12
     |vpiParent:
@@ -1260,8 +1253,12 @@ design: (work@LogicGates)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:60:14, endln:60:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::put::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:60:18, endln:60:26
+        |vpiFullName:work@semaphore::put::keyCount
+        |vpiActual:
+        \_int_typespec: , line:60:14, endln:60:17
   |vpiMethod:
   \_task: (work@semaphore::get), line:63:5, endln:64:12
     |vpiParent:
@@ -1283,8 +1280,12 @@ design: (work@LogicGates)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:63:14, endln:63:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::get::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:63:18, endln:63:26
+        |vpiFullName:work@semaphore::get::keyCount
+        |vpiActual:
+        \_int_typespec: , line:63:14, endln:63:17
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:66:5, endln:67:16
     |vpiParent:
@@ -1298,8 +1299,12 @@ design: (work@LogicGates)
       |vpiParent:
       \_function: (work@semaphore::try_get), line:66:5, endln:67:16
       |vpiTypespec:
-      \_int_typespec: , line:66:14, endln:66:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::try_get)
+        |vpiParent:
+        \_int_var: (work@semaphore::try_get), line:66:14, endln:66:17
+        |vpiFullName:work@semaphore::try_get
+        |vpiActual:
+        \_int_typespec: , line:66:14, endln:66:17
       |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
@@ -1315,8 +1320,12 @@ design: (work@LogicGates)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:66:26, endln:66:29
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::try_get::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:66:30, endln:66:38
+        |vpiFullName:work@semaphore::try_get::keyCount
+        |vpiActual:
+        \_int_typespec: , line:66:26, endln:66:29
 |uhdmallModules:
 \_module_inst: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
   |vpiParent:
@@ -1417,7 +1426,12 @@ design: (work@LogicGates)
       |vpiActual:
       \_logic_net: (work@LogicGates.a), line:1:19, endln:1:20
     |vpiTypedef:
-    \_logic_typespec: , line:2:9, endln:2:9
+    \_ref_typespec: (work@LogicGates.a)
+      |vpiParent:
+      \_port: (a), line:1:19, endln:1:20
+      |vpiFullName:work@LogicGates.a
+      |vpiActual:
+      \_logic_typespec: , line:2:9, endln:2:9
   |vpiPort:
   \_port: (b), line:1:21, endln:1:22
     |vpiParent:
@@ -1433,7 +1447,12 @@ design: (work@LogicGates)
       |vpiActual:
       \_logic_net: (work@LogicGates.b), line:1:21, endln:1:22
     |vpiTypedef:
-    \_logic_typespec: , line:2:9, endln:2:9
+    \_ref_typespec: (work@LogicGates.b)
+      |vpiParent:
+      \_port: (b), line:1:21, endln:1:22
+      |vpiFullName:work@LogicGates.b
+      |vpiActual:
+      \_logic_typespec: , line:2:9, endln:2:9
   |vpiPort:
   \_port: (y1), line:1:23, endln:1:25
     |vpiParent:
@@ -1449,7 +1468,12 @@ design: (work@LogicGates)
       |vpiActual:
       \_logic_net: (work@LogicGates.y1), line:1:23, endln:1:25
     |vpiTypedef:
-    \_logic_typespec: , line:3:10, endln:3:10
+    \_ref_typespec: (work@LogicGates.y1)
+      |vpiParent:
+      \_port: (y1), line:1:23, endln:1:25
+      |vpiFullName:work@LogicGates.y1
+      |vpiActual:
+      \_logic_typespec: , line:3:10, endln:3:10
   |vpiPort:
   \_port: (y2), line:1:26, endln:1:28
     |vpiParent:
@@ -1465,7 +1489,12 @@ design: (work@LogicGates)
       |vpiActual:
       \_logic_net: (work@LogicGates.y2), line:1:26, endln:1:28
     |vpiTypedef:
-    \_logic_typespec: , line:3:10, endln:3:10
+    \_ref_typespec: (work@LogicGates.y2)
+      |vpiParent:
+      \_port: (y2), line:1:26, endln:1:28
+      |vpiFullName:work@LogicGates.y2
+      |vpiActual:
+      \_logic_typespec: , line:3:10, endln:3:10
   |vpiPort:
   \_port: (y3), line:1:29, endln:1:31
     |vpiParent:
@@ -1481,7 +1510,12 @@ design: (work@LogicGates)
       |vpiActual:
       \_logic_net: (work@LogicGates.y3), line:1:29, endln:1:31
     |vpiTypedef:
-    \_logic_typespec: , line:3:10, endln:3:10
+    \_ref_typespec: (work@LogicGates.y3)
+      |vpiParent:
+      \_port: (y3), line:1:29, endln:1:31
+      |vpiFullName:work@LogicGates.y3
+      |vpiActual:
+      \_logic_typespec: , line:3:10, endln:3:10
   |vpiPort:
   \_port: (y4), line:1:32, endln:1:34
     |vpiParent:
@@ -1497,7 +1531,12 @@ design: (work@LogicGates)
       |vpiActual:
       \_logic_net: (work@LogicGates.y4), line:1:32, endln:1:34
     |vpiTypedef:
-    \_logic_typespec: , line:3:10, endln:3:10
+    \_ref_typespec: (work@LogicGates.y4)
+      |vpiParent:
+      \_port: (y4), line:1:32, endln:1:34
+      |vpiFullName:work@LogicGates.y4
+      |vpiActual:
+      \_logic_typespec: , line:3:10, endln:3:10
   |vpiPort:
   \_port: (y5), line:1:35, endln:1:37
     |vpiParent:
@@ -1513,7 +1552,12 @@ design: (work@LogicGates)
       |vpiActual:
       \_logic_net: (work@LogicGates.y5), line:1:35, endln:1:37
     |vpiTypedef:
-    \_logic_typespec: , line:3:10, endln:3:10
+    \_ref_typespec: (work@LogicGates.y5)
+      |vpiParent:
+      \_port: (y5), line:1:35, endln:1:37
+      |vpiFullName:work@LogicGates.y5
+      |vpiActual:
+      \_logic_typespec: , line:3:10, endln:3:10
   |vpiPort:
   \_port: (y6), line:1:38, endln:1:40
     |vpiParent:
@@ -1529,7 +1573,12 @@ design: (work@LogicGates)
       |vpiActual:
       \_logic_net: (work@LogicGates.y6), line:1:38, endln:1:40
     |vpiTypedef:
-    \_logic_typespec: , line:3:10, endln:3:10
+    \_ref_typespec: (work@LogicGates.y6)
+      |vpiParent:
+      \_port: (y6), line:1:38, endln:1:40
+      |vpiFullName:work@LogicGates.y6
+      |vpiActual:
+      \_logic_typespec: , line:3:10, endln:3:10
   |vpiPort:
   \_port: (y7), line:1:41, endln:1:43
     |vpiParent:
@@ -1545,7 +1594,12 @@ design: (work@LogicGates)
       |vpiActual:
       \_logic_net: (work@LogicGates.y7), line:1:41, endln:1:43
     |vpiTypedef:
-    \_logic_typespec: , line:3:10, endln:3:10
+    \_ref_typespec: (work@LogicGates.y7)
+      |vpiParent:
+      \_port: (y7), line:1:41, endln:1:43
+      |vpiFullName:work@LogicGates.y7
+      |vpiActual:
+      \_logic_typespec: , line:3:10, endln:3:10
   |vpiPort:
   \_port: (y8), line:1:45, endln:1:47
     |vpiParent:
@@ -1561,7 +1615,12 @@ design: (work@LogicGates)
       |vpiActual:
       \_logic_net: (work@LogicGates.y8), line:1:45, endln:1:47
     |vpiTypedef:
-    \_logic_typespec: , line:3:10, endln:3:10
+    \_ref_typespec: (work@LogicGates.y8)
+      |vpiParent:
+      \_port: (y8), line:1:45, endln:1:47
+      |vpiFullName:work@LogicGates.y8
+      |vpiActual:
+      \_logic_typespec: , line:3:10, endln:3:10
   |vpiPort:
   \_port: (y9), line:1:49, endln:1:51
     |vpiParent:
@@ -1577,7 +1636,12 @@ design: (work@LogicGates)
       |vpiActual:
       \_logic_net: (work@LogicGates.y9), line:1:49, endln:1:51
     |vpiTypedef:
-    \_logic_typespec: , line:3:10, endln:3:10
+    \_ref_typespec: (work@LogicGates.y9)
+      |vpiParent:
+      \_port: (y9), line:1:49, endln:1:51
+      |vpiFullName:work@LogicGates.y9
+      |vpiActual:
+      \_logic_typespec: , line:3:10, endln:3:10
   |vpiPort:
   \_port: (y10), line:1:53, endln:1:56
     |vpiParent:
@@ -1987,9 +2051,12 @@ design: (work@LogicGates)
     |vpiParent:
     \_module_inst: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:9, endln:2:9
+    \_ref_typespec: (work@LogicGates.a)
       |vpiParent:
-      \_logic_net: (work@LogicGates.b), line:1:21, endln:1:22
+      \_logic_net: (work@LogicGates.a), line:1:19, endln:1:20
+      |vpiFullName:work@LogicGates.a
+      |vpiActual:
+      \_logic_typespec: , line:2:9, endln:2:9
     |vpiName:a
     |vpiFullName:work@LogicGates.a
   |vpiNet:
@@ -1997,7 +2064,12 @@ design: (work@LogicGates)
     |vpiParent:
     \_module_inst: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:9, endln:2:9
+    \_ref_typespec: (work@LogicGates.b)
+      |vpiParent:
+      \_logic_net: (work@LogicGates.b), line:1:21, endln:1:22
+      |vpiFullName:work@LogicGates.b
+      |vpiActual:
+      \_logic_typespec: , line:2:9, endln:2:9
     |vpiName:b
     |vpiFullName:work@LogicGates.b
   |vpiNet:
@@ -2005,9 +2077,12 @@ design: (work@LogicGates)
     |vpiParent:
     \_module_inst: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:10, endln:3:10
+    \_ref_typespec: (work@LogicGates.y1)
       |vpiParent:
-      \_logic_net: (work@LogicGates.y9), line:1:49, endln:1:51
+      \_logic_net: (work@LogicGates.y1), line:1:23, endln:1:25
+      |vpiFullName:work@LogicGates.y1
+      |vpiActual:
+      \_logic_typespec: , line:3:10, endln:3:10
     |vpiName:y1
     |vpiFullName:work@LogicGates.y1
   |vpiNet:
@@ -2015,7 +2090,12 @@ design: (work@LogicGates)
     |vpiParent:
     \_module_inst: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:10, endln:3:10
+    \_ref_typespec: (work@LogicGates.y2)
+      |vpiParent:
+      \_logic_net: (work@LogicGates.y2), line:1:26, endln:1:28
+      |vpiFullName:work@LogicGates.y2
+      |vpiActual:
+      \_logic_typespec: , line:3:10, endln:3:10
     |vpiName:y2
     |vpiFullName:work@LogicGates.y2
   |vpiNet:
@@ -2023,7 +2103,12 @@ design: (work@LogicGates)
     |vpiParent:
     \_module_inst: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:10, endln:3:10
+    \_ref_typespec: (work@LogicGates.y3)
+      |vpiParent:
+      \_logic_net: (work@LogicGates.y3), line:1:29, endln:1:31
+      |vpiFullName:work@LogicGates.y3
+      |vpiActual:
+      \_logic_typespec: , line:3:10, endln:3:10
     |vpiName:y3
     |vpiFullName:work@LogicGates.y3
   |vpiNet:
@@ -2031,7 +2116,12 @@ design: (work@LogicGates)
     |vpiParent:
     \_module_inst: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:10, endln:3:10
+    \_ref_typespec: (work@LogicGates.y4)
+      |vpiParent:
+      \_logic_net: (work@LogicGates.y4), line:1:32, endln:1:34
+      |vpiFullName:work@LogicGates.y4
+      |vpiActual:
+      \_logic_typespec: , line:3:10, endln:3:10
     |vpiName:y4
     |vpiFullName:work@LogicGates.y4
   |vpiNet:
@@ -2039,7 +2129,12 @@ design: (work@LogicGates)
     |vpiParent:
     \_module_inst: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:10, endln:3:10
+    \_ref_typespec: (work@LogicGates.y5)
+      |vpiParent:
+      \_logic_net: (work@LogicGates.y5), line:1:35, endln:1:37
+      |vpiFullName:work@LogicGates.y5
+      |vpiActual:
+      \_logic_typespec: , line:3:10, endln:3:10
     |vpiName:y5
     |vpiFullName:work@LogicGates.y5
   |vpiNet:
@@ -2047,7 +2142,12 @@ design: (work@LogicGates)
     |vpiParent:
     \_module_inst: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:10, endln:3:10
+    \_ref_typespec: (work@LogicGates.y6)
+      |vpiParent:
+      \_logic_net: (work@LogicGates.y6), line:1:38, endln:1:40
+      |vpiFullName:work@LogicGates.y6
+      |vpiActual:
+      \_logic_typespec: , line:3:10, endln:3:10
     |vpiName:y6
     |vpiFullName:work@LogicGates.y6
   |vpiNet:
@@ -2055,7 +2155,12 @@ design: (work@LogicGates)
     |vpiParent:
     \_module_inst: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:10, endln:3:10
+    \_ref_typespec: (work@LogicGates.y7)
+      |vpiParent:
+      \_logic_net: (work@LogicGates.y7), line:1:41, endln:1:43
+      |vpiFullName:work@LogicGates.y7
+      |vpiActual:
+      \_logic_typespec: , line:3:10, endln:3:10
     |vpiName:y7
     |vpiFullName:work@LogicGates.y7
   |vpiNet:
@@ -2063,7 +2168,12 @@ design: (work@LogicGates)
     |vpiParent:
     \_module_inst: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:10, endln:3:10
+    \_ref_typespec: (work@LogicGates.y8)
+      |vpiParent:
+      \_logic_net: (work@LogicGates.y8), line:1:45, endln:1:47
+      |vpiFullName:work@LogicGates.y8
+      |vpiActual:
+      \_logic_typespec: , line:3:10, endln:3:10
     |vpiName:y8
     |vpiFullName:work@LogicGates.y8
   |vpiNet:
@@ -2071,7 +2181,12 @@ design: (work@LogicGates)
     |vpiParent:
     \_module_inst: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:10, endln:3:10
+    \_ref_typespec: (work@LogicGates.y9)
+      |vpiParent:
+      \_logic_net: (work@LogicGates.y9), line:1:49, endln:1:51
+      |vpiFullName:work@LogicGates.y9
+      |vpiActual:
+      \_logic_typespec: , line:3:10, endln:3:10
     |vpiName:y9
     |vpiFullName:work@LogicGates.y9
   |vpiNet:
@@ -2138,7 +2253,12 @@ design: (work@LogicGates)
       |vpiActual:
       \_logic_net: (work@LogicGates.a), line:1:19, endln:1:20
     |vpiTypedef:
-    \_logic_typespec: , line:2:9, endln:2:9
+    \_ref_typespec: (work@LogicGates.a)
+      |vpiParent:
+      \_port: (a), line:1:19, endln:1:20
+      |vpiFullName:work@LogicGates.a
+      |vpiActual:
+      \_logic_typespec: , line:2:9, endln:2:9
     |vpiInstance:
     \_module_inst: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
   |vpiPort:
@@ -2156,7 +2276,12 @@ design: (work@LogicGates)
       |vpiActual:
       \_logic_net: (work@LogicGates.b), line:1:21, endln:1:22
     |vpiTypedef:
-    \_logic_typespec: , line:2:9, endln:2:9
+    \_ref_typespec: (work@LogicGates.b)
+      |vpiParent:
+      \_port: (b), line:1:21, endln:1:22
+      |vpiFullName:work@LogicGates.b
+      |vpiActual:
+      \_logic_typespec: , line:2:9, endln:2:9
     |vpiInstance:
     \_module_inst: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
   |vpiPort:
@@ -2174,7 +2299,12 @@ design: (work@LogicGates)
       |vpiActual:
       \_logic_net: (work@LogicGates.y1), line:1:23, endln:1:25
     |vpiTypedef:
-    \_logic_typespec: , line:3:10, endln:3:10
+    \_ref_typespec: (work@LogicGates.y1)
+      |vpiParent:
+      \_port: (y1), line:1:23, endln:1:25
+      |vpiFullName:work@LogicGates.y1
+      |vpiActual:
+      \_logic_typespec: , line:3:10, endln:3:10
     |vpiInstance:
     \_module_inst: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
   |vpiPort:
@@ -2192,7 +2322,12 @@ design: (work@LogicGates)
       |vpiActual:
       \_logic_net: (work@LogicGates.y2), line:1:26, endln:1:28
     |vpiTypedef:
-    \_logic_typespec: , line:3:10, endln:3:10
+    \_ref_typespec: (work@LogicGates.y2)
+      |vpiParent:
+      \_port: (y2), line:1:26, endln:1:28
+      |vpiFullName:work@LogicGates.y2
+      |vpiActual:
+      \_logic_typespec: , line:3:10, endln:3:10
     |vpiInstance:
     \_module_inst: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
   |vpiPort:
@@ -2210,7 +2345,12 @@ design: (work@LogicGates)
       |vpiActual:
       \_logic_net: (work@LogicGates.y3), line:1:29, endln:1:31
     |vpiTypedef:
-    \_logic_typespec: , line:3:10, endln:3:10
+    \_ref_typespec: (work@LogicGates.y3)
+      |vpiParent:
+      \_port: (y3), line:1:29, endln:1:31
+      |vpiFullName:work@LogicGates.y3
+      |vpiActual:
+      \_logic_typespec: , line:3:10, endln:3:10
     |vpiInstance:
     \_module_inst: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
   |vpiPort:
@@ -2228,7 +2368,12 @@ design: (work@LogicGates)
       |vpiActual:
       \_logic_net: (work@LogicGates.y4), line:1:32, endln:1:34
     |vpiTypedef:
-    \_logic_typespec: , line:3:10, endln:3:10
+    \_ref_typespec: (work@LogicGates.y4)
+      |vpiParent:
+      \_port: (y4), line:1:32, endln:1:34
+      |vpiFullName:work@LogicGates.y4
+      |vpiActual:
+      \_logic_typespec: , line:3:10, endln:3:10
     |vpiInstance:
     \_module_inst: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
   |vpiPort:
@@ -2246,7 +2391,12 @@ design: (work@LogicGates)
       |vpiActual:
       \_logic_net: (work@LogicGates.y5), line:1:35, endln:1:37
     |vpiTypedef:
-    \_logic_typespec: , line:3:10, endln:3:10
+    \_ref_typespec: (work@LogicGates.y5)
+      |vpiParent:
+      \_port: (y5), line:1:35, endln:1:37
+      |vpiFullName:work@LogicGates.y5
+      |vpiActual:
+      \_logic_typespec: , line:3:10, endln:3:10
     |vpiInstance:
     \_module_inst: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
   |vpiPort:
@@ -2264,7 +2414,12 @@ design: (work@LogicGates)
       |vpiActual:
       \_logic_net: (work@LogicGates.y6), line:1:38, endln:1:40
     |vpiTypedef:
-    \_logic_typespec: , line:3:10, endln:3:10
+    \_ref_typespec: (work@LogicGates.y6)
+      |vpiParent:
+      \_port: (y6), line:1:38, endln:1:40
+      |vpiFullName:work@LogicGates.y6
+      |vpiActual:
+      \_logic_typespec: , line:3:10, endln:3:10
     |vpiInstance:
     \_module_inst: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
   |vpiPort:
@@ -2282,7 +2437,12 @@ design: (work@LogicGates)
       |vpiActual:
       \_logic_net: (work@LogicGates.y7), line:1:41, endln:1:43
     |vpiTypedef:
-    \_logic_typespec: , line:3:10, endln:3:10
+    \_ref_typespec: (work@LogicGates.y7)
+      |vpiParent:
+      \_port: (y7), line:1:41, endln:1:43
+      |vpiFullName:work@LogicGates.y7
+      |vpiActual:
+      \_logic_typespec: , line:3:10, endln:3:10
     |vpiInstance:
     \_module_inst: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
   |vpiPort:
@@ -2300,7 +2460,12 @@ design: (work@LogicGates)
       |vpiActual:
       \_logic_net: (work@LogicGates.y8), line:1:45, endln:1:47
     |vpiTypedef:
-    \_logic_typespec: , line:3:10, endln:3:10
+    \_ref_typespec: (work@LogicGates.y8)
+      |vpiParent:
+      \_port: (y8), line:1:45, endln:1:47
+      |vpiFullName:work@LogicGates.y8
+      |vpiActual:
+      \_logic_typespec: , line:3:10, endln:3:10
     |vpiInstance:
     \_module_inst: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
   |vpiPort:
@@ -2318,7 +2483,12 @@ design: (work@LogicGates)
       |vpiActual:
       \_logic_net: (work@LogicGates.y9), line:1:49, endln:1:51
     |vpiTypedef:
-    \_logic_typespec: , line:3:10, endln:3:10
+    \_ref_typespec: (work@LogicGates.y9)
+      |vpiParent:
+      \_port: (y9), line:1:49, endln:1:51
+      |vpiFullName:work@LogicGates.y9
+      |vpiActual:
+      \_logic_typespec: , line:3:10, endln:3:10
     |vpiInstance:
     \_module_inst: work@LogicGates (work@LogicGates), file:${SURELOG_DIR}/tests/GateLevel/dut.sv, line:1:1, endln:20:10
   |vpiPort:
@@ -3197,6 +3367,239 @@ design: (work@LogicGates)
         |vpiFullName:work@LogicGates.p1
         |vpiActual:
         \_logic_net: (work@LogicGates.p1), line:18:12, endln:18:14
+\_weaklyReferenced:
+\_function: (work@mailbox::new), line:3:5, endln:4:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/GateLevel/builtin.sv, line:1:3, endln:27:11
+  |vpiName:new
+  |vpiFullName:work@mailbox::new
+  |vpiMethod:1
+  |vpiReturn:
+  \_class_var: (work@mailbox::new), line:3:23, endln:3:28
+  |vpiIODecl:
+  \_io_decl: (bound), line:3:23, endln:3:28
+    |vpiParent:
+    \_function: (work@mailbox::new), line:3:5, endln:4:16
+    |vpiDirection:1
+    |vpiName:bound
+    |vpiExpr:
+    \_constant: , line:3:31, endln:3:32
+    |vpiTypedef:
+    \_ref_typespec: (work@mailbox::new::bound)
+      |vpiParent:
+      \_io_decl: (bound), line:3:23, endln:3:28
+      |vpiFullName:work@mailbox::new::bound
+      |vpiActual:
+      \_int_typespec: , line:3:19, endln:3:22
+\_class_typespec: 
+  |vpiClassDefn:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/GateLevel/builtin.sv, line:1:3, endln:27:11
+\_int_typespec: , line:3:19, endln:3:22
+  |vpiSigned:1
+\_function: (work@mailbox::num), line:6:5, endln:7:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/GateLevel/builtin.sv, line:1:3, endln:27:11
+  |vpiName:num
+  |vpiFullName:work@mailbox::num
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::num), line:6:14, endln:6:17
+\_int_typespec: , line:6:14, endln:6:17
+  |vpiSigned:1
+\_function: (work@mailbox::try_put), line:12:5, endln:13:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/GateLevel/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_put
+  |vpiFullName:work@mailbox::try_put
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_logic_var: (work@mailbox::try_put)
+  |vpiIODecl:
+  \_io_decl: (message), line:12:23, endln:12:30
+    |vpiParent:
+    \_function: (work@mailbox::try_put), line:12:5, endln:13:16
+    |vpiDirection:1
+    |vpiName:message
+\_function: (work@mailbox::try_get), line:18:5, endln:19:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/GateLevel/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_get
+  |vpiFullName:work@mailbox::try_get
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::try_get), line:18:14, endln:18:17
+  |vpiIODecl:
+  \_io_decl: (message), line:18:31, endln:18:38
+    |vpiParent:
+    \_function: (work@mailbox::try_get), line:18:5, endln:19:16
+    |vpiDirection:6
+    |vpiName:message
+\_int_typespec: , line:18:14, endln:18:17
+  |vpiSigned:1
+\_function: (work@mailbox::try_peek), line:24:5, endln:25:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/GateLevel/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_peek
+  |vpiFullName:work@mailbox::try_peek
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::try_peek), line:24:14, endln:24:17
+  |vpiIODecl:
+  \_io_decl: (message), line:24:31, endln:24:38
+    |vpiParent:
+    \_function: (work@mailbox::try_peek), line:24:5, endln:25:16
+    |vpiDirection:6
+    |vpiName:message
+\_int_typespec: , line:24:14, endln:24:17
+  |vpiSigned:1
+\_enum_typespec: (state), line:32:5, endln:32:74
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/GateLevel/builtin.sv, line:30:3, endln:52:11
+  |vpiName:state
+  |vpiEnumConst:
+  \_enum_const: (FINISHED), line:32:20, endln:32:28
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:FINISHED
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (RUNNING), line:32:30, endln:32:37
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:RUNNING
+    |INT:1
+    |vpiDecompile:1
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (WAITING), line:32:39, endln:32:46
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:WAITING
+    |INT:2
+    |vpiDecompile:2
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (SUSPENDED), line:32:48, endln:32:57
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:SUSPENDED
+    |INT:3
+    |vpiDecompile:3
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (KILLED), line:32:59, endln:32:65
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:KILLED
+    |INT:4
+    |vpiDecompile:4
+    |vpiSize:64
+\_function: (work@process::self), line:34:5, endln:34:11
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/GateLevel/builtin.sv, line:30:3, endln:52:11
+  |vpiName:self
+  |vpiFullName:work@process::self
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_class_var: (work@process::self), line:34:21, endln:34:28
+\_class_typespec: , line:34:21, endln:34:28
+  |vpiClassDefn:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/GateLevel/builtin.sv, line:30:3, endln:52:11
+\_function: (work@process::status), line:37:5, endln:38:16
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/GateLevel/builtin.sv, line:30:3, endln:52:11
+  |vpiName:status
+  |vpiFullName:work@process::status
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_enum_var: (work@process::status), line:37:14, endln:37:19
+\_function: (work@semaphore::new), line:57:5, endln:58:16
+  |vpiParent:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/GateLevel/builtin.sv, line:55:3, endln:69:11
+  |vpiName:new
+  |vpiFullName:work@semaphore::new
+  |vpiMethod:1
+  |vpiReturn:
+  \_class_var: (work@semaphore::new), line:57:22, endln:57:30
+  |vpiIODecl:
+  \_io_decl: (keyCount), line:57:22, endln:57:30
+    |vpiParent:
+    \_function: (work@semaphore::new), line:57:5, endln:58:16
+    |vpiDirection:1
+    |vpiName:keyCount
+    |vpiExpr:
+    \_constant: , line:57:33, endln:57:34
+    |vpiTypedef:
+    \_ref_typespec: (work@semaphore::new::keyCount)
+      |vpiParent:
+      \_io_decl: (keyCount), line:57:22, endln:57:30
+      |vpiFullName:work@semaphore::new::keyCount
+      |vpiActual:
+      \_int_typespec: , line:57:18, endln:57:21
+\_class_typespec: 
+  |vpiClassDefn:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/GateLevel/builtin.sv, line:55:3, endln:69:11
+\_int_typespec: , line:57:18, endln:57:21
+  |vpiSigned:1
+\_int_typespec: , line:60:14, endln:60:17
+  |vpiSigned:1
+\_int_typespec: , line:63:14, endln:63:17
+  |vpiSigned:1
+\_function: (work@semaphore::try_get), line:66:5, endln:67:16
+  |vpiParent:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/GateLevel/builtin.sv, line:55:3, endln:69:11
+  |vpiName:try_get
+  |vpiFullName:work@semaphore::try_get
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@semaphore::try_get), line:66:14, endln:66:17
+  |vpiIODecl:
+  \_io_decl: (keyCount), line:66:30, endln:66:38
+    |vpiParent:
+    \_function: (work@semaphore::try_get), line:66:5, endln:67:16
+    |vpiDirection:1
+    |vpiName:keyCount
+    |vpiExpr:
+    \_constant: , line:66:41, endln:66:42
+    |vpiTypedef:
+    \_ref_typespec: (work@semaphore::try_get::keyCount)
+      |vpiParent:
+      \_io_decl: (keyCount), line:66:30, endln:66:38
+      |vpiFullName:work@semaphore::try_get::keyCount
+      |vpiActual:
+      \_int_typespec: , line:66:26, endln:66:29
+\_int_typespec: , line:66:14, endln:66:17
+  |vpiSigned:1
+\_int_typespec: , line:66:26, endln:66:29
+  |vpiSigned:1
+\_logic_typespec: , line:2:9, endln:2:9
+\_logic_typespec: , line:3:10, endln:3:10
+\_logic_typespec: , line:2:9, endln:2:9
+  |vpiParent:
+  \_logic_net: (work@LogicGates.b), line:1:21, endln:1:22
+\_logic_typespec: , line:3:10, endln:3:10
+  |vpiParent:
+  \_logic_net: (work@LogicGates.y9), line:1:49, endln:1:51
+\_logic_typespec: , line:2:9, endln:2:9
+\_logic_typespec: , line:2:9, endln:2:9
+\_logic_typespec: , line:3:10, endln:3:10
+\_logic_typespec: , line:3:10, endln:3:10
+\_logic_typespec: , line:3:10, endln:3:10
+\_logic_typespec: , line:3:10, endln:3:10
+\_logic_typespec: , line:3:10, endln:3:10
+\_logic_typespec: , line:3:10, endln:3:10
+\_logic_typespec: , line:3:10, endln:3:10
+\_logic_typespec: , line:3:10, endln:3:10
+\_logic_typespec: , line:3:10, endln:3:10
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

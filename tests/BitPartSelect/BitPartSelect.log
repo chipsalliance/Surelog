@@ -255,6 +255,7 @@ parameter                                              6
 part_select                                            1
 range                                                 12
 ref_obj                                                6
+ref_typespec                                          21
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -274,6 +275,7 @@ parameter                                              6
 part_select                                            2
 range                                                 12
 ref_obj                                                8
+ref_typespec                                          21
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/BitPartSelect/slpp_all/surelog.uhdm ...
 
@@ -298,9 +300,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
     |UINT:16
     |vpiTypespec:
-    \_int_typespec: , line:2:14, endln:2:26
+    \_ref_typespec: (work@top.Width)
       |vpiParent:
       \_parameter: (work@top.Width), line:2:27, endln:2:32
+      |vpiFullName:work@top.Width
+      |vpiActual:
+      \_int_typespec: , line:2:14, endln:2:26
     |vpiName:Width
     |vpiFullName:work@top.Width
   |vpiParameter:
@@ -309,9 +314,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
     |UINT:4
     |vpiTypespec:
-    \_int_typespec: , line:3:14, endln:3:26
+    \_ref_typespec: (work@top.Depth)
       |vpiParent:
       \_parameter: (work@top.Depth), line:3:27, endln:3:32
+      |vpiFullName:work@top.Depth
+      |vpiActual:
+      \_int_typespec: , line:3:14, endln:3:26
     |vpiName:Depth
     |vpiFullName:work@top.Depth
   |vpiParameter:
@@ -320,9 +328,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: , line:4:15, endln:4:27
+    \_ref_typespec: (work@top.PTR_WIDTH)
       |vpiParent:
       \_parameter: (work@top.PTR_WIDTH), line:4:28, endln:4:37
+      |vpiFullName:work@top.PTR_WIDTH
+      |vpiActual:
+      \_int_typespec: , line:4:15, endln:4:27
     |vpiLocalParam:1
     |vpiName:PTR_WIDTH
     |vpiFullName:work@top.PTR_WIDTH
@@ -338,7 +349,12 @@ design: (work@top)
       |vpiSize:64
       |UINT:16
       |vpiTypespec:
-      \_int_typespec: , line:2:14, endln:2:26
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:2:41, endln:2:43
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:2:14, endln:2:26
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.Width), line:2:27, endln:2:32
@@ -354,7 +370,12 @@ design: (work@top)
       |vpiSize:64
       |UINT:4
       |vpiTypespec:
-      \_int_typespec: , line:3:14, endln:3:26
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:3:40, endln:3:41
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:3:14, endln:3:26
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.Depth), line:3:27, endln:3:32
@@ -370,7 +391,12 @@ design: (work@top)
       |vpiSize:64
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:4:15, endln:4:27
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:4:40, endln:4:41
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:4:15, endln:4:27
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.PTR_WIDTH), line:4:28, endln:4:37
@@ -380,67 +406,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
     |vpiTypespec:
-    \_logic_typespec: , line:5:4, endln:5:21
-      |vpiRange:
-      \_range: , line:5:10, endln:5:21
-        |vpiParent:
-        \_logic_typespec: , line:5:4, endln:5:21
-        |vpiLeftRange:
-        \_operation: , line:5:11, endln:5:18
-          |vpiParent:
-          \_range: , line:5:10, endln:5:21
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (Depth), line:5:11, endln:5:16
-            |vpiParent:
-            \_operation: , line:5:11, endln:5:18
-            |vpiName:Depth
-          |vpiOperand:
-          \_constant: , line:5:17, endln:5:18
-            |vpiParent:
-            \_operation: , line:5:11, endln:5:18
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:5:19, endln:5:20
-          |vpiParent:
-          \_range: , line:5:10, endln:5:21
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-      |vpiRange:
-      \_range: , line:5:21, endln:5:32
-        |vpiParent:
-        \_logic_typespec: , line:5:4, endln:5:21
-        |vpiLeftRange:
-        \_operation: , line:5:22, endln:5:29
-          |vpiParent:
-          \_range: , line:5:21, endln:5:32
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (Width), line:5:22, endln:5:27
-            |vpiParent:
-            \_operation: , line:5:22, endln:5:29
-            |vpiName:Width
-          |vpiOperand:
-          \_constant: , line:5:28, endln:5:29
-            |vpiParent:
-            \_operation: , line:5:22, endln:5:29
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:5:30, endln:5:31
-          |vpiParent:
-          \_range: , line:5:21, endln:5:32
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@top.storage)
+      |vpiParent:
+      \_logic_net: (work@top.storage), line:5:33, endln:5:40
+      |vpiFullName:work@top.storage
+      |vpiActual:
+      \_logic_typespec: , line:5:4, endln:5:21
     |vpiName:storage
     |vpiFullName:work@top.storage
     |vpiNetType:36
@@ -449,37 +420,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
     |vpiTypespec:
-    \_logic_typespec: , line:6:4, endln:6:21
-      |vpiRange:
-      \_range: , line:6:10, endln:6:21
-        |vpiParent:
-        \_logic_typespec: , line:6:4, endln:6:21
-        |vpiLeftRange:
-        \_operation: , line:6:11, endln:6:18
-          |vpiParent:
-          \_range: , line:6:10, endln:6:21
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (Width), line:6:11, endln:6:16
-            |vpiParent:
-            \_operation: , line:6:11, endln:6:18
-            |vpiName:Width
-          |vpiOperand:
-          \_constant: , line:6:17, endln:6:18
-            |vpiParent:
-            \_operation: , line:6:11, endln:6:18
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:6:19, endln:6:20
-          |vpiParent:
-          \_range: , line:6:10, endln:6:21
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@top.storage_rdata)
+      |vpiParent:
+      \_logic_net: (work@top.storage_rdata), line:6:22, endln:6:35
+      |vpiFullName:work@top.storage_rdata
+      |vpiActual:
+      \_logic_typespec: , line:6:4, endln:6:21
     |vpiName:storage_rdata
     |vpiFullName:work@top.storage_rdata
     |vpiNetType:36
@@ -488,37 +434,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
     |vpiTypespec:
-    \_logic_typespec: , line:7:3, endln:7:24
-      |vpiRange:
-      \_range: , line:7:9, endln:7:24
-        |vpiParent:
-        \_logic_typespec: , line:7:3, endln:7:24
-        |vpiLeftRange:
-        \_operation: , line:7:10, endln:7:21
-          |vpiParent:
-          \_range: , line:7:9, endln:7:24
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (PTR_WIDTH), line:7:10, endln:7:19
-            |vpiParent:
-            \_operation: , line:7:10, endln:7:21
-            |vpiName:PTR_WIDTH
-          |vpiOperand:
-          \_constant: , line:7:20, endln:7:21
-            |vpiParent:
-            \_operation: , line:7:10, endln:7:21
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:7:22, endln:7:23
-          |vpiParent:
-          \_range: , line:7:9, endln:7:24
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@top.fifo_rptr)
+      |vpiParent:
+      \_logic_net: (work@top.fifo_rptr), line:7:25, endln:7:34
+      |vpiFullName:work@top.fifo_rptr
+      |vpiActual:
+      \_logic_typespec: , line:7:3, endln:7:24
     |vpiName:fifo_rptr
     |vpiFullName:work@top.fifo_rptr
     |vpiNetType:36
@@ -581,49 +502,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
     |vpiTypespec:
-    \_logic_typespec: , line:5:4, endln:5:32
+    \_ref_typespec: (work@top.storage)
       |vpiParent:
       \_logic_var: (work@top.storage), line:5:33, endln:5:40
-      |vpiRange:
-      \_range: , line:5:10, endln:5:21
-        |vpiParent:
-        \_logic_typespec: , line:5:4, endln:5:32
-        |vpiLeftRange:
-        \_constant: , line:5:11, endln:5:16
-          |vpiParent:
-          \_range: , line:5:10, endln:5:21
-          |vpiDecompile:3
-          |vpiSize:64
-          |INT:3
-          |vpiConstType:7
-        |vpiRightRange:
-        \_constant: , line:5:19, endln:5:20
-          |vpiParent:
-          \_range: , line:5:10, endln:5:21
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-      |vpiRange:
-      \_range: , line:5:21, endln:5:32
-        |vpiParent:
-        \_logic_typespec: , line:5:4, endln:5:32
-        |vpiLeftRange:
-        \_constant: , line:5:22, endln:5:27
-          |vpiParent:
-          \_range: , line:5:21, endln:5:32
-          |vpiDecompile:15
-          |vpiSize:64
-          |INT:15
-          |vpiConstType:7
-        |vpiRightRange:
-        \_constant: , line:5:30, endln:5:31
-          |vpiParent:
-          \_range: , line:5:21, endln:5:32
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@top.storage
+      |vpiActual:
+      \_logic_typespec: , line:5:4, endln:5:32
     |vpiName:storage
     |vpiFullName:work@top.storage
     |vpiVisibility:1
@@ -632,27 +516,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
     |vpiTypespec:
-    \_logic_typespec: , line:6:4, endln:6:21
-      |vpiRange:
-      \_range: , line:6:10, endln:6:21
-        |vpiParent:
-        \_logic_typespec: , line:6:4, endln:6:21
-        |vpiLeftRange:
-        \_constant: , line:6:11, endln:6:16
-          |vpiParent:
-          \_range: , line:6:10, endln:6:21
-          |vpiDecompile:15
-          |vpiSize:64
-          |INT:15
-          |vpiConstType:7
-        |vpiRightRange:
-        \_constant: , line:6:19, endln:6:20
-          |vpiParent:
-          \_range: , line:6:10, endln:6:21
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@top.storage_rdata)
+      |vpiParent:
+      \_logic_var: (work@top.storage_rdata), line:6:22, endln:6:35
+      |vpiFullName:work@top.storage_rdata
+      |vpiActual:
+      \_logic_typespec: , line:6:4, endln:6:21
     |vpiName:storage_rdata
     |vpiFullName:work@top.storage_rdata
     |vpiVisibility:1
@@ -661,29 +530,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
     |vpiTypespec:
-    \_logic_typespec: , line:7:3, endln:7:24
+    \_ref_typespec: (work@top.fifo_rptr)
       |vpiParent:
       \_logic_var: (work@top.fifo_rptr), line:7:25, endln:7:34
-      |vpiRange:
-      \_range: , line:7:9, endln:7:24
-        |vpiParent:
-        \_logic_typespec: , line:7:3, endln:7:24
-        |vpiLeftRange:
-        \_constant: , line:7:10, endln:7:19
-          |vpiParent:
-          \_range: , line:7:9, endln:7:24
-          |vpiDecompile:1
-          |vpiSize:64
-          |INT:1
-          |vpiConstType:7
-        |vpiRightRange:
-        \_constant: , line:7:22, endln:7:23
-          |vpiParent:
-          \_range: , line:7:9, endln:7:24
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@top.fifo_rptr
+      |vpiActual:
+      \_logic_typespec: , line:7:3, endln:7:24
     |vpiName:fifo_rptr
     |vpiFullName:work@top.fifo_rptr
     |vpiVisibility:1
@@ -693,9 +545,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
     |UINT:16
     |vpiTypespec:
-    \_int_typespec: , line:2:14, endln:2:26
+    \_ref_typespec: (work@top.Width)
       |vpiParent:
       \_parameter: (work@top.Width), line:2:27, endln:2:32
+      |vpiFullName:work@top.Width
+      |vpiActual:
+      \_int_typespec: , line:2:14, endln:2:26
     |vpiName:Width
     |vpiFullName:work@top.Width
   |vpiParameter:
@@ -704,9 +559,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
     |UINT:4
     |vpiTypespec:
-    \_int_typespec: , line:3:14, endln:3:26
+    \_ref_typespec: (work@top.Depth)
       |vpiParent:
       \_parameter: (work@top.Depth), line:3:27, endln:3:32
+      |vpiFullName:work@top.Depth
+      |vpiActual:
+      \_int_typespec: , line:3:14, endln:3:26
     |vpiName:Depth
     |vpiFullName:work@top.Depth
   |vpiParameter:
@@ -715,9 +573,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitPartSelect/dut.sv, line:1:1, endln:10:10
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: , line:4:15, endln:4:27
+    \_ref_typespec: (work@top.PTR_WIDTH)
       |vpiParent:
       \_parameter: (work@top.PTR_WIDTH), line:4:28, endln:4:37
+      |vpiFullName:work@top.PTR_WIDTH
+      |vpiActual:
+      \_int_typespec: , line:4:15, endln:4:27
     |vpiLocalParam:1
     |vpiName:PTR_WIDTH
     |vpiFullName:work@top.PTR_WIDTH
@@ -733,7 +594,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:16
       |vpiTypespec:
-      \_int_typespec: , line:2:14, endln:2:26
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:2:41, endln:2:43
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:2:14, endln:2:26
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.Width), line:2:27, endln:2:32
@@ -749,7 +615,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:4
       |vpiTypespec:
-      \_int_typespec: , line:3:14, endln:3:26
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:3:40, endln:3:41
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:3:14, endln:3:26
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.Depth), line:3:27, endln:3:32
@@ -765,7 +636,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:4:15, endln:4:27
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:4:40, endln:4:41
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:4:15, endln:4:27
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.PTR_WIDTH), line:4:28, endln:4:37
@@ -819,6 +695,235 @@ design: (work@top)
       |vpiFullName:work@top.storage_rdata
       |vpiActual:
       \_logic_var: (work@top.storage_rdata), line:6:22, endln:6:35
+\_weaklyReferenced:
+\_int_typespec: , line:2:14, endln:2:26
+  |vpiParent:
+  \_parameter: (work@top.Width), line:2:27, endln:2:32
+\_int_typespec: , line:3:14, endln:3:26
+  |vpiParent:
+  \_parameter: (work@top.Depth), line:3:27, endln:3:32
+\_int_typespec: , line:4:15, endln:4:27
+  |vpiParent:
+  \_parameter: (work@top.PTR_WIDTH), line:4:28, endln:4:37
+\_logic_typespec: , line:5:4, endln:5:32
+  |vpiParent:
+  \_logic_var: (work@top.storage), line:5:33, endln:5:40
+  |vpiRange:
+  \_range: , line:5:10, endln:5:21
+    |vpiParent:
+    \_logic_typespec: , line:5:4, endln:5:32
+    |vpiLeftRange:
+    \_constant: , line:5:11, endln:5:16
+      |vpiParent:
+      \_range: , line:5:10, endln:5:21
+      |vpiDecompile:3
+      |vpiSize:64
+      |INT:3
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:5:19, endln:5:20
+      |vpiParent:
+      \_range: , line:5:10, endln:5:21
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:5:21, endln:5:32
+    |vpiParent:
+    \_logic_typespec: , line:5:4, endln:5:32
+    |vpiLeftRange:
+    \_constant: , line:5:22, endln:5:27
+      |vpiParent:
+      \_range: , line:5:21, endln:5:32
+      |vpiDecompile:15
+      |vpiSize:64
+      |INT:15
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:5:30, endln:5:31
+      |vpiParent:
+      \_range: , line:5:21, endln:5:32
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:6:4, endln:6:21
+  |vpiRange:
+  \_range: , line:6:10, endln:6:21
+    |vpiParent:
+    \_logic_typespec: , line:6:4, endln:6:21
+    |vpiLeftRange:
+    \_constant: , line:6:11, endln:6:16
+      |vpiParent:
+      \_range: , line:6:10, endln:6:21
+      |vpiDecompile:15
+      |vpiSize:64
+      |INT:15
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:6:19, endln:6:20
+      |vpiParent:
+      \_range: , line:6:10, endln:6:21
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:7:3, endln:7:24
+  |vpiParent:
+  \_logic_var: (work@top.fifo_rptr), line:7:25, endln:7:34
+  |vpiRange:
+  \_range: , line:7:9, endln:7:24
+    |vpiParent:
+    \_logic_typespec: , line:7:3, endln:7:24
+    |vpiLeftRange:
+    \_constant: , line:7:10, endln:7:19
+      |vpiParent:
+      \_range: , line:7:9, endln:7:24
+      |vpiDecompile:1
+      |vpiSize:64
+      |INT:1
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:7:22, endln:7:23
+      |vpiParent:
+      \_range: , line:7:9, endln:7:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:5:4, endln:5:21
+  |vpiRange:
+  \_range: , line:5:10, endln:5:21
+    |vpiParent:
+    \_logic_typespec: , line:5:4, endln:5:21
+    |vpiLeftRange:
+    \_operation: , line:5:11, endln:5:18
+      |vpiParent:
+      \_range: , line:5:10, endln:5:21
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (Depth), line:5:11, endln:5:16
+        |vpiParent:
+        \_operation: , line:5:11, endln:5:18
+        |vpiName:Depth
+      |vpiOperand:
+      \_constant: , line:5:17, endln:5:18
+        |vpiParent:
+        \_operation: , line:5:11, endln:5:18
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:19, endln:5:20
+      |vpiParent:
+      \_range: , line:5:10, endln:5:21
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:5:21, endln:5:32
+    |vpiParent:
+    \_logic_typespec: , line:5:4, endln:5:21
+    |vpiLeftRange:
+    \_operation: , line:5:22, endln:5:29
+      |vpiParent:
+      \_range: , line:5:21, endln:5:32
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (Width), line:5:22, endln:5:27
+        |vpiParent:
+        \_operation: , line:5:22, endln:5:29
+        |vpiName:Width
+      |vpiOperand:
+      \_constant: , line:5:28, endln:5:29
+        |vpiParent:
+        \_operation: , line:5:22, endln:5:29
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:30, endln:5:31
+      |vpiParent:
+      \_range: , line:5:21, endln:5:32
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:6:4, endln:6:21
+  |vpiRange:
+  \_range: , line:6:10, endln:6:21
+    |vpiParent:
+    \_logic_typespec: , line:6:4, endln:6:21
+    |vpiLeftRange:
+    \_operation: , line:6:11, endln:6:18
+      |vpiParent:
+      \_range: , line:6:10, endln:6:21
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (Width), line:6:11, endln:6:16
+        |vpiParent:
+        \_operation: , line:6:11, endln:6:18
+        |vpiName:Width
+      |vpiOperand:
+      \_constant: , line:6:17, endln:6:18
+        |vpiParent:
+        \_operation: , line:6:11, endln:6:18
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:19, endln:6:20
+      |vpiParent:
+      \_range: , line:6:10, endln:6:21
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:7:3, endln:7:24
+  |vpiRange:
+  \_range: , line:7:9, endln:7:24
+    |vpiParent:
+    \_logic_typespec: , line:7:3, endln:7:24
+    |vpiLeftRange:
+    \_operation: , line:7:10, endln:7:21
+      |vpiParent:
+      \_range: , line:7:9, endln:7:24
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (PTR_WIDTH), line:7:10, endln:7:19
+        |vpiParent:
+        \_operation: , line:7:10, endln:7:21
+        |vpiName:PTR_WIDTH
+      |vpiOperand:
+      \_constant: , line:7:20, endln:7:21
+        |vpiParent:
+        \_operation: , line:7:10, endln:7:21
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:7:22, endln:7:23
+      |vpiParent:
+      \_range: , line:7:9, endln:7:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:2:14, endln:2:26
+  |vpiParent:
+  \_ref_typespec: (work@top.Width)
+\_int_typespec: , line:3:14, endln:3:26
+  |vpiParent:
+  \_ref_typespec: (work@top.Depth)
+\_int_typespec: , line:4:15, endln:4:27
+  |vpiParent:
+  \_ref_typespec: (work@top.PTR_WIDTH)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

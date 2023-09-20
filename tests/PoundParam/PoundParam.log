@@ -663,6 +663,7 @@ port                                                  47
 range                                                 36
 ref_module                                             2
 ref_obj                                               53
+ref_typespec                                          59
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -685,6 +686,7 @@ port                                                  67
 range                                                 36
 ref_module                                             2
 ref_obj                                               91
+ref_typespec                                          79
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PoundParam/slpp_all/surelog.uhdm ...
 
@@ -709,7 +711,12 @@ design: (work@test)
     \_module_inst: work@dffr (work@dffr), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:2:1, endln:33:10
     |UINT:1
     |vpiTypespec:
-    \_int_typespec: , line:5:1, endln:5:19
+    \_ref_typespec: (work@dffr.SIZE)
+      |vpiParent:
+      \_parameter: (work@dffr.SIZE), line:5:11, endln:5:15
+      |vpiFullName:work@dffr.SIZE
+      |vpiActual:
+      \_int_typespec: , line:5:1, endln:5:19
     |vpiName:SIZE
     |vpiFullName:work@dffr.SIZE
   |vpiParamAssign:
@@ -724,7 +731,12 @@ design: (work@test)
       |vpiSize:64
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: , line:5:1, endln:5:19
+      \_ref_typespec: (work@dffr)
+        |vpiParent:
+        \_constant: , line:5:18, endln:5:19
+        |vpiFullName:work@dffr
+        |vpiActual:
+        \_int_typespec: , line:5:1, endln:5:19
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@dffr.SIZE), line:5:11, endln:5:15
@@ -787,37 +799,12 @@ design: (work@test)
       |vpiActual:
       \_logic_net: (work@dffr.din), line:2:14, endln:2:17
     |vpiTypedef:
-    \_logic_typespec: , line:7:7, endln:7:17
-      |vpiRange:
-      \_range: , line:7:7, endln:7:17
-        |vpiParent:
-        \_logic_typespec: , line:7:7, endln:7:17
-        |vpiLeftRange:
-        \_operation: , line:7:8, endln:7:14
-          |vpiParent:
-          \_range: , line:7:7, endln:7:17
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (SIZE), line:7:8, endln:7:12
-            |vpiParent:
-            \_operation: , line:7:8, endln:7:14
-            |vpiName:SIZE
-          |vpiOperand:
-          \_constant: , line:7:13, endln:7:14
-            |vpiParent:
-            \_operation: , line:7:8, endln:7:14
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:7:15, endln:7:16
-          |vpiParent:
-          \_range: , line:7:7, endln:7:17
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@dffr.din)
+      |vpiParent:
+      \_port: (din), line:2:14, endln:2:17
+      |vpiFullName:work@dffr.din
+      |vpiActual:
+      \_logic_typespec: , line:7:7, endln:7:17
   |vpiPort:
   \_port: (clk), line:2:19, endln:2:22
     |vpiParent:
@@ -833,7 +820,12 @@ design: (work@test)
       |vpiActual:
       \_logic_net: (work@dffr.clk), line:2:19, endln:2:22
     |vpiTypedef:
-    \_logic_typespec: , line:9:9, endln:9:9
+    \_ref_typespec: (work@dffr.clk)
+      |vpiParent:
+      \_port: (clk), line:2:19, endln:2:22
+      |vpiFullName:work@dffr.clk
+      |vpiActual:
+      \_logic_typespec: , line:9:9, endln:9:9
   |vpiPort:
   \_port: (rst), line:2:24, endln:2:27
     |vpiParent:
@@ -849,7 +841,12 @@ design: (work@test)
       |vpiActual:
       \_logic_net: (work@dffr.rst), line:2:24, endln:2:27
     |vpiTypedef:
-    \_logic_typespec: , line:10:9, endln:10:9
+    \_ref_typespec: (work@dffr.rst)
+      |vpiParent:
+      \_port: (rst), line:2:24, endln:2:27
+      |vpiFullName:work@dffr.rst
+      |vpiActual:
+      \_logic_typespec: , line:10:9, endln:10:9
   |vpiPort:
   \_port: (q), line:2:29, endln:2:30
     |vpiParent:
@@ -864,37 +861,12 @@ design: (work@test)
       |vpiActual:
       \_logic_net: (work@dffr.q), line:18:17, endln:18:18
     |vpiTypedef:
-    \_logic_typespec: , line:12:8, endln:12:18
-      |vpiRange:
-      \_range: , line:12:8, endln:12:18
-        |vpiParent:
-        \_logic_typespec: , line:12:8, endln:12:18
-        |vpiLeftRange:
-        \_operation: , line:12:9, endln:12:15
-          |vpiParent:
-          \_range: , line:12:8, endln:12:18
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (SIZE), line:12:9, endln:12:13
-            |vpiParent:
-            \_operation: , line:12:9, endln:12:15
-            |vpiName:SIZE
-          |vpiOperand:
-          \_constant: , line:12:14, endln:12:15
-            |vpiParent:
-            \_operation: , line:12:9, endln:12:15
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:12:16, endln:12:17
-          |vpiParent:
-          \_range: , line:12:8, endln:12:18
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@dffr.q)
+      |vpiParent:
+      \_port: (q), line:2:29, endln:2:30
+      |vpiFullName:work@dffr.q
+      |vpiActual:
+      \_logic_typespec: , line:12:8, endln:12:18
   |vpiPort:
   \_port: (se), line:2:32, endln:2:34
     |vpiParent:
@@ -910,7 +882,12 @@ design: (work@test)
       |vpiActual:
       \_logic_net: (work@dffr.se), line:2:32, endln:2:34
     |vpiTypedef:
-    \_logic_typespec: , line:14:9, endln:14:9
+    \_ref_typespec: (work@dffr.se)
+      |vpiParent:
+      \_port: (se), line:2:32, endln:2:34
+      |vpiFullName:work@dffr.se
+      |vpiActual:
+      \_logic_typespec: , line:14:9, endln:14:9
   |vpiPort:
   \_port: (si), line:2:36, endln:2:38
     |vpiParent:
@@ -926,37 +903,12 @@ design: (work@test)
       |vpiActual:
       \_logic_net: (work@dffr.si), line:2:36, endln:2:38
     |vpiTypedef:
-    \_logic_typespec: , line:15:7, endln:15:17
-      |vpiRange:
-      \_range: , line:15:7, endln:15:17
-        |vpiParent:
-        \_logic_typespec: , line:15:7, endln:15:17
-        |vpiLeftRange:
-        \_operation: , line:15:8, endln:15:14
-          |vpiParent:
-          \_range: , line:15:7, endln:15:17
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (SIZE), line:15:8, endln:15:12
-            |vpiParent:
-            \_operation: , line:15:8, endln:15:14
-            |vpiName:SIZE
-          |vpiOperand:
-          \_constant: , line:15:13, endln:15:14
-            |vpiParent:
-            \_operation: , line:15:8, endln:15:14
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:15:15, endln:15:16
-          |vpiParent:
-          \_range: , line:15:7, endln:15:17
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@dffr.si)
+      |vpiParent:
+      \_port: (si), line:2:36, endln:2:38
+      |vpiFullName:work@dffr.si
+      |vpiActual:
+      \_logic_typespec: , line:15:7, endln:15:17
   |vpiPort:
   \_port: (so), line:2:40, endln:2:42
     |vpiParent:
@@ -972,37 +924,12 @@ design: (work@test)
       |vpiActual:
       \_logic_net: (work@dffr.so), line:2:40, endln:2:42
     |vpiTypedef:
-    \_logic_typespec: , line:16:8, endln:16:18
-      |vpiRange:
-      \_range: , line:16:8, endln:16:18
-        |vpiParent:
-        \_logic_typespec: , line:16:8, endln:16:18
-        |vpiLeftRange:
-        \_operation: , line:16:9, endln:16:15
-          |vpiParent:
-          \_range: , line:16:8, endln:16:18
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (SIZE), line:16:9, endln:16:13
-            |vpiParent:
-            \_operation: , line:16:9, endln:16:15
-            |vpiName:SIZE
-          |vpiOperand:
-          \_constant: , line:16:14, endln:16:15
-            |vpiParent:
-            \_operation: , line:16:9, endln:16:15
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:16:16, endln:16:17
-          |vpiParent:
-          \_range: , line:16:8, endln:16:18
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@dffr.so)
+      |vpiParent:
+      \_port: (so), line:2:40, endln:2:42
+      |vpiFullName:work@dffr.so
+      |vpiActual:
+      \_logic_typespec: , line:16:8, endln:16:18
   |vpiProcess:
   \_always: , line:26:1, endln:28:79
     |vpiParent:
@@ -1304,27 +1231,12 @@ design: (work@test)
       |vpiActual:
       \_logic_net: (work@test.pv1), line:35:13, endln:35:16
     |vpiTypedef:
-    \_logic_typespec: , line:36:8, endln:36:13
-      |vpiRange:
-      \_range: , line:36:8, endln:36:13
-        |vpiParent:
-        \_logic_typespec: , line:36:8, endln:36:13
-        |vpiLeftRange:
-        \_constant: , line:36:9, endln:36:10
-          |vpiParent:
-          \_range: , line:36:8, endln:36:13
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:36:11, endln:36:12
-          |vpiParent:
-          \_range: , line:36:8, endln:36:13
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@test.pv1)
+      |vpiParent:
+      \_port: (pv1), line:35:13, endln:35:16
+      |vpiFullName:work@test.pv1
+      |vpiActual:
+      \_logic_typespec: , line:36:8, endln:36:13
   |vpiPort:
   \_port: (pv2), line:35:17, endln:35:20
     |vpiParent:
@@ -1340,27 +1252,12 @@ design: (work@test)
       |vpiActual:
       \_logic_net: (work@test.pv2), line:35:17, endln:35:20
     |vpiTypedef:
-    \_logic_typespec: , line:36:8, endln:36:13
-      |vpiRange:
-      \_range: , line:36:8, endln:36:13
-        |vpiParent:
-        \_logic_typespec: , line:36:8, endln:36:13
-        |vpiLeftRange:
-        \_constant: , line:36:9, endln:36:10
-          |vpiParent:
-          \_range: , line:36:8, endln:36:13
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:36:11, endln:36:12
-          |vpiParent:
-          \_range: , line:36:8, endln:36:13
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@test.pv2)
+      |vpiParent:
+      \_port: (pv2), line:35:17, endln:35:20
+      |vpiFullName:work@test.pv2
+      |vpiActual:
+      \_logic_typespec: , line:36:8, endln:36:13
   |vpiPort:
   \_port: (next_pv), line:35:21, endln:35:28
     |vpiParent:
@@ -1376,27 +1273,12 @@ design: (work@test)
       |vpiActual:
       \_logic_net: (work@test.next_pv), line:35:21, endln:35:28
     |vpiTypedef:
-    \_logic_typespec: , line:36:8, endln:36:13
-      |vpiRange:
-      \_range: , line:36:8, endln:36:13
-        |vpiParent:
-        \_logic_typespec: , line:36:8, endln:36:13
-        |vpiLeftRange:
-        \_constant: , line:36:9, endln:36:10
-          |vpiParent:
-          \_range: , line:36:8, endln:36:13
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:36:11, endln:36:12
-          |vpiParent:
-          \_range: , line:36:8, endln:36:13
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@test.next_pv)
+      |vpiParent:
+      \_port: (next_pv), line:35:21, endln:35:28
+      |vpiFullName:work@test.next_pv
+      |vpiActual:
+      \_logic_typespec: , line:36:8, endln:36:13
   |vpiPort:
   \_port: (clk), line:35:29, endln:35:32
     |vpiParent:
@@ -1412,7 +1294,12 @@ design: (work@test)
       |vpiActual:
       \_logic_net: (work@test.clk), line:35:29, endln:35:32
     |vpiTypedef:
-    \_logic_typespec: , line:37:7, endln:37:7
+    \_ref_typespec: (work@test.clk)
+      |vpiParent:
+      \_port: (clk), line:35:29, endln:35:32
+      |vpiFullName:work@test.clk
+      |vpiActual:
+      \_logic_typespec: , line:37:7, endln:37:7
   |vpiPort:
   \_port: (reset), line:35:33, endln:35:38
     |vpiParent:
@@ -1428,7 +1315,12 @@ design: (work@test)
       |vpiActual:
       \_logic_net: (work@test.reset), line:35:33, endln:35:38
     |vpiTypedef:
-    \_logic_typespec: , line:37:7, endln:37:7
+    \_ref_typespec: (work@test.reset)
+      |vpiParent:
+      \_port: (reset), line:35:33, endln:35:38
+      |vpiFullName:work@test.reset
+      |vpiActual:
+      \_logic_typespec: , line:37:7, endln:37:7
   |vpiPort:
   \_port: (se), line:35:39, endln:35:41
     |vpiParent:
@@ -1444,7 +1336,12 @@ design: (work@test)
       |vpiActual:
       \_logic_net: (work@test.se), line:35:39, endln:35:41
     |vpiTypedef:
-    \_logic_typespec: , line:37:7, endln:37:7
+    \_ref_typespec: (work@test.se)
+      |vpiParent:
+      \_port: (se), line:35:39, endln:35:41
+      |vpiFullName:work@test.se
+      |vpiActual:
+      \_logic_typespec: , line:37:7, endln:37:7
   |vpiRefModule:
   \_ref_module: work@dffr (park_reg), line:39:11, endln:39:19
     |vpiParent:
@@ -1665,29 +1562,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:35:1, endln:51:10
     |vpiTypespec:
-    \_logic_typespec: , line:36:8, endln:36:13
+    \_ref_typespec: (work@test.pv1)
       |vpiParent:
-      \_logic_net: (work@test.next_pv), line:35:21, endln:35:28
-      |vpiRange:
-      \_range: , line:36:8, endln:36:13
-        |vpiParent:
-        \_logic_typespec: , line:36:8, endln:36:13
-        |vpiLeftRange:
-        \_constant: , line:36:9, endln:36:10
-          |vpiParent:
-          \_range: , line:36:8, endln:36:13
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:36:11, endln:36:12
-          |vpiParent:
-          \_range: , line:36:8, endln:36:13
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      \_logic_net: (work@test.pv1), line:35:13, endln:35:16
+      |vpiFullName:work@test.pv1
+      |vpiActual:
+      \_logic_typespec: , line:36:8, endln:36:13
     |vpiName:pv1
     |vpiFullName:work@test.pv1
   |vpiNet:
@@ -1695,7 +1575,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:35:1, endln:51:10
     |vpiTypespec:
-    \_logic_typespec: , line:36:8, endln:36:13
+    \_ref_typespec: (work@test.pv2)
+      |vpiParent:
+      \_logic_net: (work@test.pv2), line:35:17, endln:35:20
+      |vpiFullName:work@test.pv2
+      |vpiActual:
+      \_logic_typespec: , line:36:8, endln:36:13
     |vpiName:pv2
     |vpiFullName:work@test.pv2
   |vpiNet:
@@ -1703,7 +1588,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:35:1, endln:51:10
     |vpiTypespec:
-    \_logic_typespec: , line:36:8, endln:36:13
+    \_ref_typespec: (work@test.next_pv)
+      |vpiParent:
+      \_logic_net: (work@test.next_pv), line:35:21, endln:35:28
+      |vpiFullName:work@test.next_pv
+      |vpiActual:
+      \_logic_typespec: , line:36:8, endln:36:13
     |vpiName:next_pv
     |vpiFullName:work@test.next_pv
   |vpiNet:
@@ -1711,9 +1601,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:35:1, endln:51:10
     |vpiTypespec:
-    \_logic_typespec: , line:37:7, endln:37:7
+    \_ref_typespec: (work@test.clk)
       |vpiParent:
-      \_logic_net: (work@test.se), line:35:39, endln:35:41
+      \_logic_net: (work@test.clk), line:35:29, endln:35:32
+      |vpiFullName:work@test.clk
+      |vpiActual:
+      \_logic_typespec: , line:37:7, endln:37:7
     |vpiName:clk
     |vpiFullName:work@test.clk
   |vpiNet:
@@ -1721,7 +1614,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:35:1, endln:51:10
     |vpiTypespec:
-    \_logic_typespec: , line:37:7, endln:37:7
+    \_ref_typespec: (work@test.reset)
+      |vpiParent:
+      \_logic_net: (work@test.reset), line:35:33, endln:35:38
+      |vpiFullName:work@test.reset
+      |vpiActual:
+      \_logic_typespec: , line:37:7, endln:37:7
     |vpiName:reset
     |vpiFullName:work@test.reset
   |vpiNet:
@@ -1729,7 +1627,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:35:1, endln:51:10
     |vpiTypespec:
-    \_logic_typespec: , line:37:7, endln:37:7
+    \_ref_typespec: (work@test.se)
+      |vpiParent:
+      \_logic_net: (work@test.se), line:35:39, endln:35:41
+      |vpiFullName:work@test.se
+      |vpiActual:
+      \_logic_typespec: , line:37:7, endln:37:7
     |vpiName:se
     |vpiFullName:work@test.se
   |vpiTopModule:1
@@ -1748,27 +1651,12 @@ design: (work@test)
       |vpiActual:
       \_logic_net: (work@test.pv1), line:35:13, endln:35:16
     |vpiTypedef:
-    \_logic_typespec: , line:36:8, endln:36:13
-      |vpiRange:
-      \_range: , line:36:8, endln:36:13
-        |vpiParent:
-        \_logic_typespec: , line:36:8, endln:36:13
-        |vpiLeftRange:
-        \_constant: , line:36:9, endln:36:10
-          |vpiParent:
-          \_range: , line:36:8, endln:36:13
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:36:11, endln:36:12
-          |vpiParent:
-          \_range: , line:36:8, endln:36:13
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@test.pv1)
+      |vpiParent:
+      \_port: (pv1), line:35:13, endln:35:16
+      |vpiFullName:work@test.pv1
+      |vpiActual:
+      \_logic_typespec: , line:36:8, endln:36:13
     |vpiInstance:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:35:1, endln:51:10
   |vpiPort:
@@ -1786,7 +1674,12 @@ design: (work@test)
       |vpiActual:
       \_logic_net: (work@test.pv2), line:35:17, endln:35:20
     |vpiTypedef:
-    \_logic_typespec: , line:36:8, endln:36:13
+    \_ref_typespec: (work@test.pv2)
+      |vpiParent:
+      \_port: (pv2), line:35:17, endln:35:20
+      |vpiFullName:work@test.pv2
+      |vpiActual:
+      \_logic_typespec: , line:36:8, endln:36:13
     |vpiInstance:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:35:1, endln:51:10
   |vpiPort:
@@ -1804,7 +1697,12 @@ design: (work@test)
       |vpiActual:
       \_logic_net: (work@test.next_pv), line:35:21, endln:35:28
     |vpiTypedef:
-    \_logic_typespec: , line:36:8, endln:36:13
+    \_ref_typespec: (work@test.next_pv)
+      |vpiParent:
+      \_port: (next_pv), line:35:21, endln:35:28
+      |vpiFullName:work@test.next_pv
+      |vpiActual:
+      \_logic_typespec: , line:36:8, endln:36:13
     |vpiInstance:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:35:1, endln:51:10
   |vpiPort:
@@ -1822,7 +1720,12 @@ design: (work@test)
       |vpiActual:
       \_logic_net: (work@test.clk), line:35:29, endln:35:32
     |vpiTypedef:
-    \_logic_typespec: , line:37:7, endln:37:7
+    \_ref_typespec: (work@test.clk)
+      |vpiParent:
+      \_port: (clk), line:35:29, endln:35:32
+      |vpiFullName:work@test.clk
+      |vpiActual:
+      \_logic_typespec: , line:37:7, endln:37:7
     |vpiInstance:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:35:1, endln:51:10
   |vpiPort:
@@ -1840,7 +1743,12 @@ design: (work@test)
       |vpiActual:
       \_logic_net: (work@test.reset), line:35:33, endln:35:38
     |vpiTypedef:
-    \_logic_typespec: , line:37:7, endln:37:7
+    \_ref_typespec: (work@test.reset)
+      |vpiParent:
+      \_port: (reset), line:35:33, endln:35:38
+      |vpiFullName:work@test.reset
+      |vpiActual:
+      \_logic_typespec: , line:37:7, endln:37:7
     |vpiInstance:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:35:1, endln:51:10
   |vpiPort:
@@ -1858,7 +1766,12 @@ design: (work@test)
       |vpiActual:
       \_logic_net: (work@test.se), line:35:39, endln:35:41
     |vpiTypedef:
-    \_logic_typespec: , line:37:7, endln:37:7
+    \_ref_typespec: (work@test.se)
+      |vpiParent:
+      \_port: (se), line:35:39, endln:35:41
+      |vpiFullName:work@test.se
+      |vpiActual:
+      \_logic_typespec: , line:37:7, endln:37:7
     |vpiInstance:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:35:1, endln:51:10
   |vpiModule:
@@ -1873,9 +1786,12 @@ design: (work@test)
       \_module_inst: work@dffr (work@test.park_reg), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:39:2, endln:43:47
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: , line:5:1, endln:5:19
+      \_ref_typespec: (work@test.park_reg.SIZE)
         |vpiParent:
         \_parameter: (work@test.park_reg.SIZE), line:5:11, endln:5:15
+        |vpiFullName:work@test.park_reg.SIZE
+        |vpiActual:
+        \_int_typespec: , line:5:1, endln:5:19
       |vpiName:SIZE
       |vpiFullName:work@test.park_reg.SIZE
     |vpiParamAssign:
@@ -1891,7 +1807,12 @@ design: (work@test)
         |vpiSize:32
         |UINT:4
         |vpiTypespec:
-        \_int_typespec: , line:5:1, endln:5:19
+        \_ref_typespec: (work@test.park_reg)
+          |vpiParent:
+          \_constant: , line:5:18, endln:5:19
+          |vpiFullName:work@test.park_reg
+          |vpiActual:
+          \_int_typespec: , line:5:1, endln:5:19
         |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@test.park_reg.SIZE), line:5:11, endln:5:15
@@ -1903,29 +1824,12 @@ design: (work@test)
       |vpiParent:
       \_module_inst: work@dffr (work@test.park_reg), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:39:2, endln:43:47
       |vpiTypespec:
-      \_logic_typespec: , line:18:1, endln:18:16
+      \_ref_typespec: (work@test.park_reg.q)
         |vpiParent:
         \_logic_net: (work@test.park_reg.q), line:18:17, endln:18:18
-        |vpiRange:
-        \_range: , line:18:6, endln:18:16
-          |vpiParent:
-          \_logic_typespec: , line:18:1, endln:18:16
-          |vpiLeftRange:
-          \_constant: , line:18:7, endln:18:11
-            |vpiParent:
-            \_range: , line:18:6, endln:18:16
-            |vpiDecompile:3
-            |vpiSize:64
-            |INT:3
-            |vpiConstType:7
-          |vpiRightRange:
-          \_constant: , line:18:14, endln:18:15
-            |vpiParent:
-            \_range: , line:18:6, endln:18:16
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@test.park_reg.q
+        |vpiActual:
+        \_logic_typespec: , line:18:1, endln:18:16
       |vpiName:q
       |vpiFullName:work@test.park_reg.q
       |vpiNetType:48
@@ -1934,29 +1838,12 @@ design: (work@test)
       |vpiParent:
       \_module_inst: work@dffr (work@test.park_reg), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:39:2, endln:43:47
       |vpiTypespec:
-      \_logic_typespec: , line:7:7, endln:7:17
+      \_ref_typespec: (work@test.park_reg.din)
         |vpiParent:
         \_logic_net: (work@test.park_reg.din), line:2:14, endln:2:17
-        |vpiRange:
-        \_range: , line:7:7, endln:7:17
-          |vpiParent:
-          \_logic_typespec: , line:7:7, endln:7:17
-          |vpiLeftRange:
-          \_constant: , line:7:8, endln:7:12
-            |vpiParent:
-            \_range: , line:7:7, endln:7:17
-            |vpiDecompile:3
-            |vpiSize:64
-            |INT:3
-            |vpiConstType:7
-          |vpiRightRange:
-          \_constant: , line:7:15, endln:7:16
-            |vpiParent:
-            \_range: , line:7:7, endln:7:17
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@test.park_reg.din
+        |vpiActual:
+        \_logic_typespec: , line:7:7, endln:7:17
       |vpiName:din
       |vpiFullName:work@test.park_reg.din
     |vpiNet:
@@ -1964,9 +1851,12 @@ design: (work@test)
       |vpiParent:
       \_module_inst: work@dffr (work@test.park_reg), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:39:2, endln:43:47
       |vpiTypespec:
-      \_logic_typespec: , line:9:9, endln:9:9
+      \_ref_typespec: (work@test.park_reg.clk)
         |vpiParent:
         \_logic_net: (work@test.park_reg.clk), line:2:19, endln:2:22
+        |vpiFullName:work@test.park_reg.clk
+        |vpiActual:
+        \_logic_typespec: , line:9:9, endln:9:9
       |vpiName:clk
       |vpiFullName:work@test.park_reg.clk
     |vpiNet:
@@ -1974,9 +1864,12 @@ design: (work@test)
       |vpiParent:
       \_module_inst: work@dffr (work@test.park_reg), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:39:2, endln:43:47
       |vpiTypespec:
-      \_logic_typespec: , line:10:9, endln:10:9
+      \_ref_typespec: (work@test.park_reg.rst)
         |vpiParent:
         \_logic_net: (work@test.park_reg.rst), line:2:24, endln:2:27
+        |vpiFullName:work@test.park_reg.rst
+        |vpiActual:
+        \_logic_typespec: , line:10:9, endln:10:9
       |vpiName:rst
       |vpiFullName:work@test.park_reg.rst
     |vpiNet:
@@ -1984,9 +1877,12 @@ design: (work@test)
       |vpiParent:
       \_module_inst: work@dffr (work@test.park_reg), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:39:2, endln:43:47
       |vpiTypespec:
-      \_logic_typespec: , line:14:9, endln:14:9
+      \_ref_typespec: (work@test.park_reg.se)
         |vpiParent:
         \_logic_net: (work@test.park_reg.se), line:2:32, endln:2:34
+        |vpiFullName:work@test.park_reg.se
+        |vpiActual:
+        \_logic_typespec: , line:14:9, endln:14:9
       |vpiName:se
       |vpiFullName:work@test.park_reg.se
     |vpiNet:
@@ -1994,29 +1890,12 @@ design: (work@test)
       |vpiParent:
       \_module_inst: work@dffr (work@test.park_reg), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:39:2, endln:43:47
       |vpiTypespec:
-      \_logic_typespec: , line:15:7, endln:15:17
+      \_ref_typespec: (work@test.park_reg.si)
         |vpiParent:
         \_logic_net: (work@test.park_reg.si), line:2:36, endln:2:38
-        |vpiRange:
-        \_range: , line:15:7, endln:15:17
-          |vpiParent:
-          \_logic_typespec: , line:15:7, endln:15:17
-          |vpiLeftRange:
-          \_constant: , line:15:8, endln:15:12
-            |vpiParent:
-            \_range: , line:15:7, endln:15:17
-            |vpiDecompile:3
-            |vpiSize:64
-            |INT:3
-            |vpiConstType:7
-          |vpiRightRange:
-          \_constant: , line:15:15, endln:15:16
-            |vpiParent:
-            \_range: , line:15:7, endln:15:17
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@test.park_reg.si
+        |vpiActual:
+        \_logic_typespec: , line:15:7, endln:15:17
       |vpiName:si
       |vpiFullName:work@test.park_reg.si
     |vpiNet:
@@ -2024,29 +1903,12 @@ design: (work@test)
       |vpiParent:
       \_module_inst: work@dffr (work@test.park_reg), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:39:2, endln:43:47
       |vpiTypespec:
-      \_logic_typespec: , line:16:8, endln:16:18
+      \_ref_typespec: (work@test.park_reg.so)
         |vpiParent:
         \_logic_net: (work@test.park_reg.so), line:2:40, endln:2:42
-        |vpiRange:
-        \_range: , line:16:8, endln:16:18
-          |vpiParent:
-          \_logic_typespec: , line:16:8, endln:16:18
-          |vpiLeftRange:
-          \_constant: , line:16:9, endln:16:13
-            |vpiParent:
-            \_range: , line:16:8, endln:16:18
-            |vpiDecompile:3
-            |vpiSize:64
-            |INT:3
-            |vpiConstType:7
-          |vpiRightRange:
-          \_constant: , line:16:16, endln:16:17
-            |vpiParent:
-            \_range: , line:16:8, endln:16:18
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@test.park_reg.so
+        |vpiActual:
+        \_logic_typespec: , line:16:8, endln:16:18
       |vpiName:so
       |vpiFullName:work@test.park_reg.so
     |vpiInstance:
@@ -2066,27 +1928,12 @@ design: (work@test)
         |vpiActual:
         \_logic_net: (work@test.park_reg.din), line:2:14, endln:2:17
       |vpiTypedef:
-      \_logic_typespec: , line:7:7, endln:7:17
-        |vpiRange:
-        \_range: , line:7:7, endln:7:17
-          |vpiParent:
-          \_logic_typespec: , line:7:7, endln:7:17
-          |vpiLeftRange:
-          \_constant: , line:7:8, endln:7:12
-            |vpiParent:
-            \_range: , line:7:7, endln:7:17
-            |vpiDecompile:3
-            |vpiSize:64
-            |INT:3
-            |vpiConstType:7
-          |vpiRightRange:
-          \_constant: , line:7:15, endln:7:16
-            |vpiParent:
-            \_range: , line:7:7, endln:7:17
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_typespec: (work@test.park_reg.din)
+        |vpiParent:
+        \_port: (din), line:2:14, endln:2:17
+        |vpiFullName:work@test.park_reg.din
+        |vpiActual:
+        \_logic_typespec: , line:7:7, endln:7:17
       |vpiInstance:
       \_module_inst: work@dffr (work@test.park_reg), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:39:2, endln:43:47
     |vpiPort:
@@ -2104,7 +1951,12 @@ design: (work@test)
         |vpiActual:
         \_logic_net: (work@test.park_reg.clk), line:2:19, endln:2:22
       |vpiTypedef:
-      \_logic_typespec: , line:9:9, endln:9:9
+      \_ref_typespec: (work@test.park_reg.clk)
+        |vpiParent:
+        \_port: (clk), line:2:19, endln:2:22
+        |vpiFullName:work@test.park_reg.clk
+        |vpiActual:
+        \_logic_typespec: , line:9:9, endln:9:9
       |vpiInstance:
       \_module_inst: work@dffr (work@test.park_reg), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:39:2, endln:43:47
     |vpiPort:
@@ -2122,7 +1974,12 @@ design: (work@test)
         |vpiActual:
         \_logic_net: (work@test.park_reg.rst), line:2:24, endln:2:27
       |vpiTypedef:
-      \_logic_typespec: , line:10:9, endln:10:9
+      \_ref_typespec: (work@test.park_reg.rst)
+        |vpiParent:
+        \_port: (rst), line:2:24, endln:2:27
+        |vpiFullName:work@test.park_reg.rst
+        |vpiActual:
+        \_logic_typespec: , line:10:9, endln:10:9
       |vpiInstance:
       \_module_inst: work@dffr (work@test.park_reg), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:39:2, endln:43:47
     |vpiPort:
@@ -2140,27 +1997,12 @@ design: (work@test)
         |vpiActual:
         \_logic_net: (work@test.park_reg.q), line:18:17, endln:18:18
       |vpiTypedef:
-      \_logic_typespec: , line:12:8, endln:12:18
-        |vpiRange:
-        \_range: , line:12:8, endln:12:18
-          |vpiParent:
-          \_logic_typespec: , line:12:8, endln:12:18
-          |vpiLeftRange:
-          \_constant: , line:12:9, endln:12:13
-            |vpiParent:
-            \_range: , line:12:8, endln:12:18
-            |vpiDecompile:3
-            |vpiSize:64
-            |INT:3
-            |vpiConstType:7
-          |vpiRightRange:
-          \_constant: , line:12:16, endln:12:17
-            |vpiParent:
-            \_range: , line:12:8, endln:12:18
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_typespec: (work@test.park_reg.q)
+        |vpiParent:
+        \_port: (q), line:2:29, endln:2:30
+        |vpiFullName:work@test.park_reg.q
+        |vpiActual:
+        \_logic_typespec: , line:12:8, endln:12:18
       |vpiInstance:
       \_module_inst: work@dffr (work@test.park_reg), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:39:2, endln:43:47
     |vpiPort:
@@ -2178,7 +2020,12 @@ design: (work@test)
         |vpiActual:
         \_logic_net: (work@test.park_reg.se), line:2:32, endln:2:34
       |vpiTypedef:
-      \_logic_typespec: , line:14:9, endln:14:9
+      \_ref_typespec: (work@test.park_reg.se)
+        |vpiParent:
+        \_port: (se), line:2:32, endln:2:34
+        |vpiFullName:work@test.park_reg.se
+        |vpiActual:
+        \_logic_typespec: , line:14:9, endln:14:9
       |vpiInstance:
       \_module_inst: work@dffr (work@test.park_reg), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:39:2, endln:43:47
     |vpiPort:
@@ -2196,27 +2043,12 @@ design: (work@test)
         |vpiActual:
         \_logic_net: (work@test.park_reg.si), line:2:36, endln:2:38
       |vpiTypedef:
-      \_logic_typespec: , line:15:7, endln:15:17
-        |vpiRange:
-        \_range: , line:15:7, endln:15:17
-          |vpiParent:
-          \_logic_typespec: , line:15:7, endln:15:17
-          |vpiLeftRange:
-          \_constant: , line:15:8, endln:15:12
-            |vpiParent:
-            \_range: , line:15:7, endln:15:17
-            |vpiDecompile:3
-            |vpiSize:64
-            |INT:3
-            |vpiConstType:7
-          |vpiRightRange:
-          \_constant: , line:15:15, endln:15:16
-            |vpiParent:
-            \_range: , line:15:7, endln:15:17
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_typespec: (work@test.park_reg.si)
+        |vpiParent:
+        \_port: (si), line:2:36, endln:2:38
+        |vpiFullName:work@test.park_reg.si
+        |vpiActual:
+        \_logic_typespec: , line:15:7, endln:15:17
       |vpiInstance:
       \_module_inst: work@dffr (work@test.park_reg), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:39:2, endln:43:47
     |vpiPort:
@@ -2234,27 +2066,12 @@ design: (work@test)
         |vpiActual:
         \_logic_net: (work@test.park_reg.so), line:2:40, endln:2:42
       |vpiTypedef:
-      \_logic_typespec: , line:16:8, endln:16:18
-        |vpiRange:
-        \_range: , line:16:8, endln:16:18
-          |vpiParent:
-          \_logic_typespec: , line:16:8, endln:16:18
-          |vpiLeftRange:
-          \_constant: , line:16:9, endln:16:13
-            |vpiParent:
-            \_range: , line:16:8, endln:16:18
-            |vpiDecompile:3
-            |vpiSize:64
-            |INT:3
-            |vpiConstType:7
-          |vpiRightRange:
-          \_constant: , line:16:16, endln:16:17
-            |vpiParent:
-            \_range: , line:16:8, endln:16:18
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_typespec: (work@test.park_reg.so)
+        |vpiParent:
+        \_port: (so), line:2:40, endln:2:42
+        |vpiFullName:work@test.park_reg.so
+        |vpiActual:
+        \_logic_typespec: , line:16:8, endln:16:18
       |vpiInstance:
       \_module_inst: work@dffr (work@test.park_reg), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:39:2, endln:43:47
     |vpiProcess:
@@ -2481,9 +2298,12 @@ design: (work@test)
       \_module_inst: work@dffr (work@test.logic), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:45:2, endln:49:47
       |UINT:1
       |vpiTypespec:
-      \_int_typespec: , line:5:1, endln:5:19
+      \_ref_typespec: (work@test.logic.SIZE)
         |vpiParent:
         \_parameter: (work@test.logic.SIZE), line:5:11, endln:5:15
+        |vpiFullName:work@test.logic.SIZE
+        |vpiActual:
+        \_int_typespec: , line:5:1, endln:5:19
       |vpiName:SIZE
       |vpiFullName:work@test.logic.SIZE
     |vpiParamAssign:
@@ -2499,7 +2319,12 @@ design: (work@test)
         |vpiSize:32
         |UINT:4
         |vpiTypespec:
-        \_int_typespec: , line:5:1, endln:5:19
+        \_ref_typespec: (work@test.logic)
+          |vpiParent:
+          \_constant: , line:5:18, endln:5:19
+          |vpiFullName:work@test.logic
+          |vpiActual:
+          \_int_typespec: , line:5:1, endln:5:19
         |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@test.logic.SIZE), line:5:11, endln:5:15
@@ -2511,29 +2336,12 @@ design: (work@test)
       |vpiParent:
       \_module_inst: work@dffr (work@test.logic), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:45:2, endln:49:47
       |vpiTypespec:
-      \_logic_typespec: , line:18:1, endln:18:16
+      \_ref_typespec: (work@test.logic.q)
         |vpiParent:
         \_logic_net: (work@test.logic.q), line:18:17, endln:18:18
-        |vpiRange:
-        \_range: , line:18:6, endln:18:16
-          |vpiParent:
-          \_logic_typespec: , line:18:1, endln:18:16
-          |vpiLeftRange:
-          \_constant: , line:18:7, endln:18:11
-            |vpiParent:
-            \_range: , line:18:6, endln:18:16
-            |vpiDecompile:3
-            |vpiSize:64
-            |INT:3
-            |vpiConstType:7
-          |vpiRightRange:
-          \_constant: , line:18:14, endln:18:15
-            |vpiParent:
-            \_range: , line:18:6, endln:18:16
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@test.logic.q
+        |vpiActual:
+        \_logic_typespec: , line:18:1, endln:18:16
       |vpiName:q
       |vpiFullName:work@test.logic.q
       |vpiNetType:48
@@ -2542,29 +2350,12 @@ design: (work@test)
       |vpiParent:
       \_module_inst: work@dffr (work@test.logic), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:45:2, endln:49:47
       |vpiTypespec:
-      \_logic_typespec: , line:7:7, endln:7:17
+      \_ref_typespec: (work@test.logic.din)
         |vpiParent:
         \_logic_net: (work@test.logic.din), line:2:14, endln:2:17
-        |vpiRange:
-        \_range: , line:7:7, endln:7:17
-          |vpiParent:
-          \_logic_typespec: , line:7:7, endln:7:17
-          |vpiLeftRange:
-          \_constant: , line:7:8, endln:7:12
-            |vpiParent:
-            \_range: , line:7:7, endln:7:17
-            |vpiDecompile:3
-            |vpiSize:64
-            |INT:3
-            |vpiConstType:7
-          |vpiRightRange:
-          \_constant: , line:7:15, endln:7:16
-            |vpiParent:
-            \_range: , line:7:7, endln:7:17
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@test.logic.din
+        |vpiActual:
+        \_logic_typespec: , line:7:7, endln:7:17
       |vpiName:din
       |vpiFullName:work@test.logic.din
     |vpiNet:
@@ -2572,9 +2363,12 @@ design: (work@test)
       |vpiParent:
       \_module_inst: work@dffr (work@test.logic), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:45:2, endln:49:47
       |vpiTypespec:
-      \_logic_typespec: , line:9:9, endln:9:9
+      \_ref_typespec: (work@test.logic.clk)
         |vpiParent:
         \_logic_net: (work@test.logic.clk), line:2:19, endln:2:22
+        |vpiFullName:work@test.logic.clk
+        |vpiActual:
+        \_logic_typespec: , line:9:9, endln:9:9
       |vpiName:clk
       |vpiFullName:work@test.logic.clk
     |vpiNet:
@@ -2582,9 +2376,12 @@ design: (work@test)
       |vpiParent:
       \_module_inst: work@dffr (work@test.logic), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:45:2, endln:49:47
       |vpiTypespec:
-      \_logic_typespec: , line:10:9, endln:10:9
+      \_ref_typespec: (work@test.logic.rst)
         |vpiParent:
         \_logic_net: (work@test.logic.rst), line:2:24, endln:2:27
+        |vpiFullName:work@test.logic.rst
+        |vpiActual:
+        \_logic_typespec: , line:10:9, endln:10:9
       |vpiName:rst
       |vpiFullName:work@test.logic.rst
     |vpiNet:
@@ -2592,9 +2389,12 @@ design: (work@test)
       |vpiParent:
       \_module_inst: work@dffr (work@test.logic), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:45:2, endln:49:47
       |vpiTypespec:
-      \_logic_typespec: , line:14:9, endln:14:9
+      \_ref_typespec: (work@test.logic.se)
         |vpiParent:
         \_logic_net: (work@test.logic.se), line:2:32, endln:2:34
+        |vpiFullName:work@test.logic.se
+        |vpiActual:
+        \_logic_typespec: , line:14:9, endln:14:9
       |vpiName:se
       |vpiFullName:work@test.logic.se
     |vpiNet:
@@ -2602,29 +2402,12 @@ design: (work@test)
       |vpiParent:
       \_module_inst: work@dffr (work@test.logic), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:45:2, endln:49:47
       |vpiTypespec:
-      \_logic_typespec: , line:15:7, endln:15:17
+      \_ref_typespec: (work@test.logic.si)
         |vpiParent:
         \_logic_net: (work@test.logic.si), line:2:36, endln:2:38
-        |vpiRange:
-        \_range: , line:15:7, endln:15:17
-          |vpiParent:
-          \_logic_typespec: , line:15:7, endln:15:17
-          |vpiLeftRange:
-          \_constant: , line:15:8, endln:15:12
-            |vpiParent:
-            \_range: , line:15:7, endln:15:17
-            |vpiDecompile:3
-            |vpiSize:64
-            |INT:3
-            |vpiConstType:7
-          |vpiRightRange:
-          \_constant: , line:15:15, endln:15:16
-            |vpiParent:
-            \_range: , line:15:7, endln:15:17
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@test.logic.si
+        |vpiActual:
+        \_logic_typespec: , line:15:7, endln:15:17
       |vpiName:si
       |vpiFullName:work@test.logic.si
     |vpiNet:
@@ -2632,29 +2415,12 @@ design: (work@test)
       |vpiParent:
       \_module_inst: work@dffr (work@test.logic), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:45:2, endln:49:47
       |vpiTypespec:
-      \_logic_typespec: , line:16:8, endln:16:18
+      \_ref_typespec: (work@test.logic.so)
         |vpiParent:
         \_logic_net: (work@test.logic.so), line:2:40, endln:2:42
-        |vpiRange:
-        \_range: , line:16:8, endln:16:18
-          |vpiParent:
-          \_logic_typespec: , line:16:8, endln:16:18
-          |vpiLeftRange:
-          \_constant: , line:16:9, endln:16:13
-            |vpiParent:
-            \_range: , line:16:8, endln:16:18
-            |vpiDecompile:3
-            |vpiSize:64
-            |INT:3
-            |vpiConstType:7
-          |vpiRightRange:
-          \_constant: , line:16:16, endln:16:17
-            |vpiParent:
-            \_range: , line:16:8, endln:16:18
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@test.logic.so
+        |vpiActual:
+        \_logic_typespec: , line:16:8, endln:16:18
       |vpiName:so
       |vpiFullName:work@test.logic.so
     |vpiInstance:
@@ -2674,27 +2440,12 @@ design: (work@test)
         |vpiActual:
         \_logic_net: (work@test.logic.din), line:2:14, endln:2:17
       |vpiTypedef:
-      \_logic_typespec: , line:7:7, endln:7:17
-        |vpiRange:
-        \_range: , line:7:7, endln:7:17
-          |vpiParent:
-          \_logic_typespec: , line:7:7, endln:7:17
-          |vpiLeftRange:
-          \_constant: , line:7:8, endln:7:12
-            |vpiParent:
-            \_range: , line:7:7, endln:7:17
-            |vpiDecompile:3
-            |vpiSize:64
-            |INT:3
-            |vpiConstType:7
-          |vpiRightRange:
-          \_constant: , line:7:15, endln:7:16
-            |vpiParent:
-            \_range: , line:7:7, endln:7:17
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_typespec: (work@test.logic.din)
+        |vpiParent:
+        \_port: (din), line:2:14, endln:2:17
+        |vpiFullName:work@test.logic.din
+        |vpiActual:
+        \_logic_typespec: , line:7:7, endln:7:17
       |vpiInstance:
       \_module_inst: work@dffr (work@test.logic), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:45:2, endln:49:47
     |vpiPort:
@@ -2712,7 +2463,12 @@ design: (work@test)
         |vpiActual:
         \_logic_net: (work@test.logic.clk), line:2:19, endln:2:22
       |vpiTypedef:
-      \_logic_typespec: , line:9:9, endln:9:9
+      \_ref_typespec: (work@test.logic.clk)
+        |vpiParent:
+        \_port: (clk), line:2:19, endln:2:22
+        |vpiFullName:work@test.logic.clk
+        |vpiActual:
+        \_logic_typespec: , line:9:9, endln:9:9
       |vpiInstance:
       \_module_inst: work@dffr (work@test.logic), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:45:2, endln:49:47
     |vpiPort:
@@ -2730,7 +2486,12 @@ design: (work@test)
         |vpiActual:
         \_logic_net: (work@test.logic.rst), line:2:24, endln:2:27
       |vpiTypedef:
-      \_logic_typespec: , line:10:9, endln:10:9
+      \_ref_typespec: (work@test.logic.rst)
+        |vpiParent:
+        \_port: (rst), line:2:24, endln:2:27
+        |vpiFullName:work@test.logic.rst
+        |vpiActual:
+        \_logic_typespec: , line:10:9, endln:10:9
       |vpiInstance:
       \_module_inst: work@dffr (work@test.logic), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:45:2, endln:49:47
     |vpiPort:
@@ -2748,27 +2509,12 @@ design: (work@test)
         |vpiActual:
         \_logic_net: (work@test.logic.q), line:18:17, endln:18:18
       |vpiTypedef:
-      \_logic_typespec: , line:12:8, endln:12:18
-        |vpiRange:
-        \_range: , line:12:8, endln:12:18
-          |vpiParent:
-          \_logic_typespec: , line:12:8, endln:12:18
-          |vpiLeftRange:
-          \_constant: , line:12:9, endln:12:13
-            |vpiParent:
-            \_range: , line:12:8, endln:12:18
-            |vpiDecompile:3
-            |vpiSize:64
-            |INT:3
-            |vpiConstType:7
-          |vpiRightRange:
-          \_constant: , line:12:16, endln:12:17
-            |vpiParent:
-            \_range: , line:12:8, endln:12:18
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_typespec: (work@test.logic.q)
+        |vpiParent:
+        \_port: (q), line:2:29, endln:2:30
+        |vpiFullName:work@test.logic.q
+        |vpiActual:
+        \_logic_typespec: , line:12:8, endln:12:18
       |vpiInstance:
       \_module_inst: work@dffr (work@test.logic), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:45:2, endln:49:47
     |vpiPort:
@@ -2786,7 +2532,12 @@ design: (work@test)
         |vpiActual:
         \_logic_net: (work@test.logic.se), line:2:32, endln:2:34
       |vpiTypedef:
-      \_logic_typespec: , line:14:9, endln:14:9
+      \_ref_typespec: (work@test.logic.se)
+        |vpiParent:
+        \_port: (se), line:2:32, endln:2:34
+        |vpiFullName:work@test.logic.se
+        |vpiActual:
+        \_logic_typespec: , line:14:9, endln:14:9
       |vpiInstance:
       \_module_inst: work@dffr (work@test.logic), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:45:2, endln:49:47
     |vpiPort:
@@ -2804,27 +2555,12 @@ design: (work@test)
         |vpiActual:
         \_logic_net: (work@test.logic.si), line:2:36, endln:2:38
       |vpiTypedef:
-      \_logic_typespec: , line:15:7, endln:15:17
-        |vpiRange:
-        \_range: , line:15:7, endln:15:17
-          |vpiParent:
-          \_logic_typespec: , line:15:7, endln:15:17
-          |vpiLeftRange:
-          \_constant: , line:15:8, endln:15:12
-            |vpiParent:
-            \_range: , line:15:7, endln:15:17
-            |vpiDecompile:3
-            |vpiSize:64
-            |INT:3
-            |vpiConstType:7
-          |vpiRightRange:
-          \_constant: , line:15:15, endln:15:16
-            |vpiParent:
-            \_range: , line:15:7, endln:15:17
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_typespec: (work@test.logic.si)
+        |vpiParent:
+        \_port: (si), line:2:36, endln:2:38
+        |vpiFullName:work@test.logic.si
+        |vpiActual:
+        \_logic_typespec: , line:15:7, endln:15:17
       |vpiInstance:
       \_module_inst: work@dffr (work@test.logic), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:45:2, endln:49:47
     |vpiPort:
@@ -2842,27 +2578,12 @@ design: (work@test)
         |vpiActual:
         \_logic_net: (work@test.logic.so), line:2:40, endln:2:42
       |vpiTypedef:
-      \_logic_typespec: , line:16:8, endln:16:18
-        |vpiRange:
-        \_range: , line:16:8, endln:16:18
-          |vpiParent:
-          \_logic_typespec: , line:16:8, endln:16:18
-          |vpiLeftRange:
-          \_constant: , line:16:9, endln:16:13
-            |vpiParent:
-            \_range: , line:16:8, endln:16:18
-            |vpiDecompile:3
-            |vpiSize:64
-            |INT:3
-            |vpiConstType:7
-          |vpiRightRange:
-          \_constant: , line:16:16, endln:16:17
-            |vpiParent:
-            \_range: , line:16:8, endln:16:18
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_typespec: (work@test.logic.so)
+        |vpiParent:
+        \_port: (so), line:2:40, endln:2:42
+        |vpiFullName:work@test.logic.so
+        |vpiActual:
+        \_logic_typespec: , line:16:8, endln:16:18
       |vpiInstance:
       \_module_inst: work@dffr (work@test.logic), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:45:2, endln:49:47
     |vpiProcess:
@@ -3077,6 +2798,631 @@ design: (work@test)
           \_constant: , line:30:16, endln:30:17
         |vpiRightRange:
         \_constant: , line:30:18, endln:30:19
+\_weaklyReferenced:
+\_int_typespec: , line:5:1, endln:5:19
+\_logic_typespec: , line:36:8, endln:36:13
+  |vpiRange:
+  \_range: , line:36:8, endln:36:13
+    |vpiParent:
+    \_logic_typespec: , line:36:8, endln:36:13
+    |vpiLeftRange:
+    \_constant: , line:36:9, endln:36:10
+      |vpiParent:
+      \_range: , line:36:8, endln:36:13
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:36:11, endln:36:12
+      |vpiParent:
+      \_range: , line:36:8, endln:36:13
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:37:7, endln:37:7
+\_logic_typespec: , line:36:8, endln:36:13
+  |vpiParent:
+  \_logic_net: (work@test.next_pv), line:35:21, endln:35:28
+  |vpiRange:
+  \_range: , line:36:8, endln:36:13
+    |vpiParent:
+    \_logic_typespec: , line:36:8, endln:36:13
+    |vpiLeftRange:
+    \_constant: , line:36:9, endln:36:10
+      |vpiParent:
+      \_range: , line:36:8, endln:36:13
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:36:11, endln:36:12
+      |vpiParent:
+      \_range: , line:36:8, endln:36:13
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:37:7, endln:37:7
+  |vpiParent:
+  \_logic_net: (work@test.se), line:35:39, endln:35:41
+\_logic_typespec: , line:7:7, endln:7:17
+  |vpiRange:
+  \_range: , line:7:7, endln:7:17
+    |vpiParent:
+    \_logic_typespec: , line:7:7, endln:7:17
+    |vpiLeftRange:
+    \_constant: , line:7:8, endln:7:12
+      |vpiParent:
+      \_range: , line:7:7, endln:7:17
+      |vpiDecompile:3
+      |vpiSize:64
+      |INT:3
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:7:15, endln:7:16
+      |vpiParent:
+      \_range: , line:7:7, endln:7:17
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:9:9, endln:9:9
+\_logic_typespec: , line:10:9, endln:10:9
+\_logic_typespec: , line:12:8, endln:12:18
+  |vpiRange:
+  \_range: , line:12:8, endln:12:18
+    |vpiParent:
+    \_logic_typespec: , line:12:8, endln:12:18
+    |vpiLeftRange:
+    \_constant: , line:12:9, endln:12:13
+      |vpiParent:
+      \_range: , line:12:8, endln:12:18
+      |vpiDecompile:3
+      |vpiSize:64
+      |INT:3
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:12:16, endln:12:17
+      |vpiParent:
+      \_range: , line:12:8, endln:12:18
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:14:9, endln:14:9
+\_logic_typespec: , line:15:7, endln:15:17
+  |vpiRange:
+  \_range: , line:15:7, endln:15:17
+    |vpiParent:
+    \_logic_typespec: , line:15:7, endln:15:17
+    |vpiLeftRange:
+    \_constant: , line:15:8, endln:15:12
+      |vpiParent:
+      \_range: , line:15:7, endln:15:17
+      |vpiDecompile:3
+      |vpiSize:64
+      |INT:3
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:15:15, endln:15:16
+      |vpiParent:
+      \_range: , line:15:7, endln:15:17
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:16:8, endln:16:18
+  |vpiRange:
+  \_range: , line:16:8, endln:16:18
+    |vpiParent:
+    \_logic_typespec: , line:16:8, endln:16:18
+    |vpiLeftRange:
+    \_constant: , line:16:9, endln:16:13
+      |vpiParent:
+      \_range: , line:16:8, endln:16:18
+      |vpiDecompile:3
+      |vpiSize:64
+      |INT:3
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:16:16, endln:16:17
+      |vpiParent:
+      \_range: , line:16:8, endln:16:18
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:18:1, endln:18:16
+  |vpiParent:
+  \_logic_net: (work@test.park_reg.q), line:18:17, endln:18:18
+  |vpiRange:
+  \_range: , line:18:6, endln:18:16
+    |vpiParent:
+    \_logic_typespec: , line:18:1, endln:18:16
+    |vpiLeftRange:
+    \_constant: , line:18:7, endln:18:11
+      |vpiParent:
+      \_range: , line:18:6, endln:18:16
+      |vpiDecompile:3
+      |vpiSize:64
+      |INT:3
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:18:14, endln:18:15
+      |vpiParent:
+      \_range: , line:18:6, endln:18:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:7:7, endln:7:17
+  |vpiParent:
+  \_logic_net: (work@test.park_reg.din), line:2:14, endln:2:17
+  |vpiRange:
+  \_range: , line:7:7, endln:7:17
+    |vpiParent:
+    \_logic_typespec: , line:7:7, endln:7:17
+    |vpiLeftRange:
+    \_constant: , line:7:8, endln:7:12
+      |vpiParent:
+      \_range: , line:7:7, endln:7:17
+      |vpiDecompile:3
+      |vpiSize:64
+      |INT:3
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:7:15, endln:7:16
+      |vpiParent:
+      \_range: , line:7:7, endln:7:17
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:9:9, endln:9:9
+  |vpiParent:
+  \_logic_net: (work@test.park_reg.clk), line:2:19, endln:2:22
+\_logic_typespec: , line:10:9, endln:10:9
+  |vpiParent:
+  \_logic_net: (work@test.park_reg.rst), line:2:24, endln:2:27
+\_logic_typespec: , line:14:9, endln:14:9
+  |vpiParent:
+  \_logic_net: (work@test.park_reg.se), line:2:32, endln:2:34
+\_logic_typespec: , line:15:7, endln:15:17
+  |vpiParent:
+  \_logic_net: (work@test.park_reg.si), line:2:36, endln:2:38
+  |vpiRange:
+  \_range: , line:15:7, endln:15:17
+    |vpiParent:
+    \_logic_typespec: , line:15:7, endln:15:17
+    |vpiLeftRange:
+    \_constant: , line:15:8, endln:15:12
+      |vpiParent:
+      \_range: , line:15:7, endln:15:17
+      |vpiDecompile:3
+      |vpiSize:64
+      |INT:3
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:15:15, endln:15:16
+      |vpiParent:
+      \_range: , line:15:7, endln:15:17
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:16:8, endln:16:18
+  |vpiParent:
+  \_logic_net: (work@test.park_reg.so), line:2:40, endln:2:42
+  |vpiRange:
+  \_range: , line:16:8, endln:16:18
+    |vpiParent:
+    \_logic_typespec: , line:16:8, endln:16:18
+    |vpiLeftRange:
+    \_constant: , line:16:9, endln:16:13
+      |vpiParent:
+      \_range: , line:16:8, endln:16:18
+      |vpiDecompile:3
+      |vpiSize:64
+      |INT:3
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:16:16, endln:16:17
+      |vpiParent:
+      \_range: , line:16:8, endln:16:18
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:7:7, endln:7:17
+  |vpiRange:
+  \_range: , line:7:7, endln:7:17
+    |vpiParent:
+    \_logic_typespec: , line:7:7, endln:7:17
+    |vpiLeftRange:
+    \_constant: , line:7:8, endln:7:12
+      |vpiParent:
+      \_range: , line:7:7, endln:7:17
+      |vpiDecompile:3
+      |vpiSize:64
+      |INT:3
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:7:15, endln:7:16
+      |vpiParent:
+      \_range: , line:7:7, endln:7:17
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:9:9, endln:9:9
+\_logic_typespec: , line:10:9, endln:10:9
+\_logic_typespec: , line:12:8, endln:12:18
+  |vpiRange:
+  \_range: , line:12:8, endln:12:18
+    |vpiParent:
+    \_logic_typespec: , line:12:8, endln:12:18
+    |vpiLeftRange:
+    \_constant: , line:12:9, endln:12:13
+      |vpiParent:
+      \_range: , line:12:8, endln:12:18
+      |vpiDecompile:3
+      |vpiSize:64
+      |INT:3
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:12:16, endln:12:17
+      |vpiParent:
+      \_range: , line:12:8, endln:12:18
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:14:9, endln:14:9
+\_logic_typespec: , line:15:7, endln:15:17
+  |vpiRange:
+  \_range: , line:15:7, endln:15:17
+    |vpiParent:
+    \_logic_typespec: , line:15:7, endln:15:17
+    |vpiLeftRange:
+    \_constant: , line:15:8, endln:15:12
+      |vpiParent:
+      \_range: , line:15:7, endln:15:17
+      |vpiDecompile:3
+      |vpiSize:64
+      |INT:3
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:15:15, endln:15:16
+      |vpiParent:
+      \_range: , line:15:7, endln:15:17
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:16:8, endln:16:18
+  |vpiRange:
+  \_range: , line:16:8, endln:16:18
+    |vpiParent:
+    \_logic_typespec: , line:16:8, endln:16:18
+    |vpiLeftRange:
+    \_constant: , line:16:9, endln:16:13
+      |vpiParent:
+      \_range: , line:16:8, endln:16:18
+      |vpiDecompile:3
+      |vpiSize:64
+      |INT:3
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:16:16, endln:16:17
+      |vpiParent:
+      \_range: , line:16:8, endln:16:18
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:18:1, endln:18:16
+  |vpiParent:
+  \_logic_net: (work@test.logic.q), line:18:17, endln:18:18
+  |vpiRange:
+  \_range: , line:18:6, endln:18:16
+    |vpiParent:
+    \_logic_typespec: , line:18:1, endln:18:16
+    |vpiLeftRange:
+    \_constant: , line:18:7, endln:18:11
+      |vpiParent:
+      \_range: , line:18:6, endln:18:16
+      |vpiDecompile:3
+      |vpiSize:64
+      |INT:3
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:18:14, endln:18:15
+      |vpiParent:
+      \_range: , line:18:6, endln:18:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:7:7, endln:7:17
+  |vpiParent:
+  \_logic_net: (work@test.logic.din), line:2:14, endln:2:17
+  |vpiRange:
+  \_range: , line:7:7, endln:7:17
+    |vpiParent:
+    \_logic_typespec: , line:7:7, endln:7:17
+    |vpiLeftRange:
+    \_constant: , line:7:8, endln:7:12
+      |vpiParent:
+      \_range: , line:7:7, endln:7:17
+      |vpiDecompile:3
+      |vpiSize:64
+      |INT:3
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:7:15, endln:7:16
+      |vpiParent:
+      \_range: , line:7:7, endln:7:17
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:9:9, endln:9:9
+  |vpiParent:
+  \_logic_net: (work@test.logic.clk), line:2:19, endln:2:22
+\_logic_typespec: , line:10:9, endln:10:9
+  |vpiParent:
+  \_logic_net: (work@test.logic.rst), line:2:24, endln:2:27
+\_logic_typespec: , line:14:9, endln:14:9
+  |vpiParent:
+  \_logic_net: (work@test.logic.se), line:2:32, endln:2:34
+\_logic_typespec: , line:15:7, endln:15:17
+  |vpiParent:
+  \_logic_net: (work@test.logic.si), line:2:36, endln:2:38
+  |vpiRange:
+  \_range: , line:15:7, endln:15:17
+    |vpiParent:
+    \_logic_typespec: , line:15:7, endln:15:17
+    |vpiLeftRange:
+    \_constant: , line:15:8, endln:15:12
+      |vpiParent:
+      \_range: , line:15:7, endln:15:17
+      |vpiDecompile:3
+      |vpiSize:64
+      |INT:3
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:15:15, endln:15:16
+      |vpiParent:
+      \_range: , line:15:7, endln:15:17
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:16:8, endln:16:18
+  |vpiParent:
+  \_logic_net: (work@test.logic.so), line:2:40, endln:2:42
+  |vpiRange:
+  \_range: , line:16:8, endln:16:18
+    |vpiParent:
+    \_logic_typespec: , line:16:8, endln:16:18
+    |vpiLeftRange:
+    \_constant: , line:16:9, endln:16:13
+      |vpiParent:
+      \_range: , line:16:8, endln:16:18
+      |vpiDecompile:3
+      |vpiSize:64
+      |INT:3
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:16:16, endln:16:17
+      |vpiParent:
+      \_range: , line:16:8, endln:16:18
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:7:7, endln:7:17
+  |vpiRange:
+  \_range: , line:7:7, endln:7:17
+    |vpiParent:
+    \_logic_typespec: , line:7:7, endln:7:17
+    |vpiLeftRange:
+    \_operation: , line:7:8, endln:7:14
+      |vpiParent:
+      \_range: , line:7:7, endln:7:17
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (SIZE), line:7:8, endln:7:12
+        |vpiParent:
+        \_operation: , line:7:8, endln:7:14
+        |vpiName:SIZE
+      |vpiOperand:
+      \_constant: , line:7:13, endln:7:14
+        |vpiParent:
+        \_operation: , line:7:8, endln:7:14
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:7:15, endln:7:16
+      |vpiParent:
+      \_range: , line:7:7, endln:7:17
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:9:9, endln:9:9
+\_logic_typespec: , line:10:9, endln:10:9
+\_logic_typespec: , line:12:8, endln:12:18
+  |vpiRange:
+  \_range: , line:12:8, endln:12:18
+    |vpiParent:
+    \_logic_typespec: , line:12:8, endln:12:18
+    |vpiLeftRange:
+    \_operation: , line:12:9, endln:12:15
+      |vpiParent:
+      \_range: , line:12:8, endln:12:18
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (SIZE), line:12:9, endln:12:13
+        |vpiParent:
+        \_operation: , line:12:9, endln:12:15
+        |vpiName:SIZE
+      |vpiOperand:
+      \_constant: , line:12:14, endln:12:15
+        |vpiParent:
+        \_operation: , line:12:9, endln:12:15
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:12:16, endln:12:17
+      |vpiParent:
+      \_range: , line:12:8, endln:12:18
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:14:9, endln:14:9
+\_logic_typespec: , line:15:7, endln:15:17
+  |vpiRange:
+  \_range: , line:15:7, endln:15:17
+    |vpiParent:
+    \_logic_typespec: , line:15:7, endln:15:17
+    |vpiLeftRange:
+    \_operation: , line:15:8, endln:15:14
+      |vpiParent:
+      \_range: , line:15:7, endln:15:17
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (SIZE), line:15:8, endln:15:12
+        |vpiParent:
+        \_operation: , line:15:8, endln:15:14
+        |vpiName:SIZE
+      |vpiOperand:
+      \_constant: , line:15:13, endln:15:14
+        |vpiParent:
+        \_operation: , line:15:8, endln:15:14
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:15:15, endln:15:16
+      |vpiParent:
+      \_range: , line:15:7, endln:15:17
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:16:8, endln:16:18
+  |vpiRange:
+  \_range: , line:16:8, endln:16:18
+    |vpiParent:
+    \_logic_typespec: , line:16:8, endln:16:18
+    |vpiLeftRange:
+    \_operation: , line:16:9, endln:16:15
+      |vpiParent:
+      \_range: , line:16:8, endln:16:18
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (SIZE), line:16:9, endln:16:13
+        |vpiParent:
+        \_operation: , line:16:9, endln:16:15
+        |vpiName:SIZE
+      |vpiOperand:
+      \_constant: , line:16:14, endln:16:15
+        |vpiParent:
+        \_operation: , line:16:9, endln:16:15
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:16:16, endln:16:17
+      |vpiParent:
+      \_range: , line:16:8, endln:16:18
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:36:8, endln:36:13
+  |vpiRange:
+  \_range: , line:36:8, endln:36:13
+    |vpiParent:
+    \_logic_typespec: , line:36:8, endln:36:13
+    |vpiLeftRange:
+    \_constant: , line:36:9, endln:36:10
+      |vpiParent:
+      \_range: , line:36:8, endln:36:13
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:36:11, endln:36:12
+      |vpiParent:
+      \_range: , line:36:8, endln:36:13
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:36:8, endln:36:13
+  |vpiRange:
+  \_range: , line:36:8, endln:36:13
+    |vpiParent:
+    \_logic_typespec: , line:36:8, endln:36:13
+    |vpiLeftRange:
+    \_constant: , line:36:9, endln:36:10
+      |vpiParent:
+      \_range: , line:36:8, endln:36:13
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:36:11, endln:36:12
+      |vpiParent:
+      \_range: , line:36:8, endln:36:13
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:36:8, endln:36:13
+  |vpiRange:
+  \_range: , line:36:8, endln:36:13
+    |vpiParent:
+    \_logic_typespec: , line:36:8, endln:36:13
+    |vpiLeftRange:
+    \_constant: , line:36:9, endln:36:10
+      |vpiParent:
+      \_range: , line:36:8, endln:36:13
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:36:11, endln:36:12
+      |vpiParent:
+      \_range: , line:36:8, endln:36:13
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:37:7, endln:37:7
+\_logic_typespec: , line:37:7, endln:37:7
+\_logic_typespec: , line:37:7, endln:37:7
+\_int_typespec: , line:5:1, endln:5:19
+  |vpiParent:
+  \_ref_typespec: (work@test.park_reg.SIZE)
+\_int_typespec: , line:5:1, endln:5:19
+  |vpiParent:
+  \_ref_typespec: (work@test.logic.SIZE)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -196,6 +196,7 @@ parameter                                              2
 port                                                   2
 range                                                  5
 ref_obj                                                7
+ref_typespec                                          14
 return_stmt                                            1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -227,6 +228,7 @@ parameter                                              2
 port                                                   3
 range                                                  7
 ref_obj                                               11
+ref_typespec                                          20
 return_stmt                                            2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/IncompFunc/slpp_all/surelog.uhdm ...
@@ -254,27 +256,12 @@ design: (work@top)
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/IncompFunc/dut.sv, line:1:1, endln:14:10
     |vpiBaseTypespec:
-    \_logic_typespec: , line:2:17, endln:2:28
-      |vpiRange:
-      \_range: , line:2:23, endln:2:28
-        |vpiParent:
-        \_logic_typespec: , line:2:17, endln:2:28
-        |vpiLeftRange:
-        \_constant: , line:2:24, endln:2:25
-          |vpiParent:
-          \_range: , line:2:23, endln:2:28
-          |vpiDecompile:2
-          |vpiSize:64
-          |UINT:2
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:2:26, endln:2:27
-          |vpiParent:
-          \_range: , line:2:23, endln:2:28
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@top.sp2v_e)
+      |vpiParent:
+      \_enum_typespec: (sp2v_e), line:2:4, endln:5:13
+      |vpiFullName:work@top.sp2v_e
+      |vpiActual:
+      \_logic_typespec: , line:2:17, endln:2:28
     |vpiEnumConst:
     \_enum_const: (A), line:3:7, endln:3:17
       |vpiParent:
@@ -303,29 +290,12 @@ design: (work@top)
       |vpiParent:
       \_begin: (work@top.get_BA), line:9:7, endln:9:18
       |vpiTypespec:
-      \_packed_array_typespec: , line:8:7, endln:8:19
-        |vpiRange:
-        \_range: , line:8:14, endln:8:19
-          |vpiParent:
-          \_packed_array_typespec: , line:8:7, endln:8:19
-          |vpiLeftRange:
-          \_constant: , line:8:15, endln:8:16
-            |vpiParent:
-            \_range: , line:8:14, endln:8:19
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:8:17, endln:8:18
-            |vpiParent:
-            \_range: , line:8:14, endln:8:19
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-        |vpiElemTypespec:
-        \_enum_typespec: (sp2v_e), line:2:4, endln:5:13
+      \_ref_typespec: (work@top.get_BA.out)
+        |vpiParent:
+        \_packed_array_var: (work@top.get_BA.out), line:8:20, endln:8:23
+        |vpiFullName:work@top.get_BA.out
+        |vpiActual:
+        \_packed_array_typespec: , line:8:7, endln:8:19
       |vpiName:out
       |vpiFullName:work@top.get_BA.out
       |vpiRange:
@@ -353,7 +323,12 @@ design: (work@top)
         |vpiParent:
         \_packed_array_var: (work@top.get_BA.out), line:8:20, endln:8:23
         |vpiTypespec:
-        \_enum_typespec: (sp2v_e), line:2:4, endln:5:13
+        \_ref_typespec: (work@top.get_BA.out)
+          |vpiParent:
+          \_enum_var: (work@top.get_BA.out)
+          |vpiFullName:work@top.get_BA.out
+          |vpiActual:
+          \_enum_typespec: (sp2v_e), line:2:4, endln:5:13
         |vpiFullName:work@top.get_BA.out
     |vpiVisibility:1
     |vpiAutomatic:1
@@ -362,29 +337,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@top.get_BA), line:7:4, endln:11:15
       |vpiTypespec:
-      \_packed_array_typespec: , line:7:23, endln:7:35
-        |vpiRange:
-        \_range: , line:7:30, endln:7:35
-          |vpiParent:
-          \_packed_array_typespec: , line:7:23, endln:7:35
-          |vpiLeftRange:
-          \_constant: , line:7:31, endln:7:32
-            |vpiParent:
-            \_range: , line:7:30, endln:7:35
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:7:33, endln:7:34
-            |vpiParent:
-            \_range: , line:7:30, endln:7:35
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-        |vpiElemTypespec:
-        \_enum_typespec: (sp2v_e), line:2:4, endln:5:13
+      \_ref_typespec: (work@top.get_BA)
+        |vpiParent:
+        \_packed_array_var: (work@top.get_BA), line:7:23, endln:7:35
+        |vpiFullName:work@top.get_BA
+        |vpiActual:
+        \_packed_array_typespec: , line:7:23, endln:7:35
       |vpiFullName:work@top.get_BA
       |vpiRange:
       \_range: , line:7:30, endln:7:35
@@ -411,7 +369,12 @@ design: (work@top)
         |vpiParent:
         \_packed_array_var: (work@top.get_BA), line:7:23, endln:7:35
         |vpiTypespec:
-        \_enum_typespec: (sp2v_e), line:2:4, endln:5:13
+        \_ref_typespec: (work@top.get_BA)
+          |vpiParent:
+          \_enum_var: (work@top.get_BA)
+          |vpiFullName:work@top.get_BA
+          |vpiActual:
+          \_enum_typespec: (sp2v_e), line:2:4, endln:5:13
         |vpiFullName:work@top.get_BA
     |vpiStmt:
     \_begin: (work@top.get_BA), line:9:7, endln:9:18
@@ -485,8 +448,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.o), line:1:23, endln:1:24
     |vpiTypedef:
-    \_int_typespec: , line:1:19, endln:1:22
-      |vpiSigned:1
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_port: (o), line:1:23, endln:1:24
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_int_typespec: , line:1:19, endln:1:22
   |vpiContAssign:
   \_cont_assign: , line:13:11, endln:13:29
     |vpiParent:
@@ -496,8 +463,12 @@ design: (work@top)
       |vpiParent:
       \_cont_assign: , line:13:11, endln:13:29
       |vpiTypespec:
-      \_int_typespec: , line:13:15, endln:13:18
-        |vpiSigned:1
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_operation: , line:13:15, endln:13:29
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:13:15, endln:13:18
       |vpiOpType:67
       |vpiOperand:
       \_func_call: (get_BA), line:13:20, endln:13:28
@@ -522,8 +493,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/IncompFunc/dut.sv, line:1:1, endln:14:10
     |vpiTypespec:
-    \_int_typespec: , line:1:19, endln:1:22
-      |vpiSigned:1
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_int_var: (work@top.o), line:1:23, endln:1:24
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_int_typespec: , line:1:19, endln:1:22
     |vpiName:o
     |vpiFullName:work@top.o
     |vpiSigned:1
@@ -543,7 +518,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@top.get_BA), line:7:4, endln:11:15
       |vpiTypespec:
-      \_packed_array_typespec: , line:8:7, endln:8:19
+      \_ref_typespec: (work@top.get_BA.out)
+        |vpiParent:
+        \_packed_array_var: (work@top.get_BA.out), line:8:20, endln:8:23
+        |vpiFullName:work@top.get_BA.out
+        |vpiActual:
+        \_packed_array_typespec: , line:8:7, endln:8:19
       |vpiName:out
       |vpiFullName:work@top.get_BA.out
       |vpiRange:
@@ -559,7 +539,12 @@ design: (work@top)
         |vpiParent:
         \_packed_array_var: (work@top.get_BA.out), line:8:20, endln:8:23
         |vpiTypespec:
-        \_enum_typespec: (sp2v_e), line:2:4, endln:5:13
+        \_ref_typespec: (work@top.get_BA.out)
+          |vpiParent:
+          \_enum_var: (work@top.get_BA.out)
+          |vpiFullName:work@top.get_BA.out
+          |vpiActual:
+          \_enum_typespec: (sp2v_e), line:2:4, endln:5:13
         |vpiFullName:work@top.get_BA.out
     |vpiVisibility:1
     |vpiAutomatic:1
@@ -575,7 +560,12 @@ design: (work@top)
         |vpiParent:
         \_begin: (work@top.get_BA), line:9:7, endln:9:18
         |vpiTypespec:
-        \_packed_array_typespec: , line:8:7, endln:8:19
+        \_ref_typespec: (work@top.get_BA.out)
+          |vpiParent:
+          \_packed_array_var: (work@top.get_BA.out), line:8:20, endln:8:23
+          |vpiFullName:work@top.get_BA.out
+          |vpiActual:
+          \_packed_array_typespec: , line:8:7, endln:8:19
         |vpiName:out
         |vpiFullName:work@top.get_BA.out
         |vpiRange:
@@ -591,7 +581,12 @@ design: (work@top)
           |vpiParent:
           \_packed_array_var: (work@top.get_BA.out), line:8:20, endln:8:23
           |vpiTypespec:
-          \_enum_typespec: (sp2v_e), line:2:4, endln:5:13
+          \_ref_typespec: (work@top.get_BA.out)
+            |vpiParent:
+            \_enum_var: (work@top.get_BA.out)
+            |vpiFullName:work@top.get_BA.out
+            |vpiActual:
+            \_enum_typespec: (sp2v_e), line:2:4, endln:5:13
           |vpiFullName:work@top.get_BA.out
       |vpiStmt:
       \_assignment: , line:9:7, endln:9:17
@@ -647,8 +642,12 @@ design: (work@top)
       |vpiActual:
       \_int_var: (work@top.o), line:1:23, endln:1:24
     |vpiTypedef:
-    \_int_typespec: , line:1:19, endln:1:22
-      |vpiSigned:1
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_port: (o), line:1:23, endln:1:24
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_int_typespec: , line:1:19, endln:1:22
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/IncompFunc/dut.sv, line:1:1, endln:14:10
   |vpiContAssign:
@@ -660,10 +659,12 @@ design: (work@top)
       |vpiParent:
       \_cont_assign: , line:13:11, endln:13:29
       |vpiTypespec:
-      \_int_typespec: , line:13:15, endln:13:18
+      \_ref_typespec: (work@top)
         |vpiParent:
         \_operation: , line:13:15, endln:13:29
-        |vpiSigned:1
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:13:15, endln:13:18
       |vpiOpType:67
       |vpiOperand:
       \_func_call: (get_BA), line:13:20, endln:13:28
@@ -680,6 +681,126 @@ design: (work@top)
       |vpiFullName:work@top.o
       |vpiActual:
       \_int_var: (work@top.o), line:1:23, endln:1:24
+\_weaklyReferenced:
+\_logic_typespec: , line:2:17, endln:2:28
+  |vpiRange:
+  \_range: , line:2:23, endln:2:28
+    |vpiParent:
+    \_logic_typespec: , line:2:17, endln:2:28
+    |vpiLeftRange:
+    \_constant: , line:2:24, endln:2:25
+      |vpiParent:
+      \_range: , line:2:23, endln:2:28
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:26, endln:2:27
+      |vpiParent:
+      \_range: , line:2:23, endln:2:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_packed_array_typespec: , line:7:23, endln:7:35
+  |vpiRange:
+  \_range: , line:7:30, endln:7:35
+    |vpiParent:
+    \_packed_array_typespec: , line:7:23, endln:7:35
+    |vpiLeftRange:
+    \_constant: , line:7:31, endln:7:32
+      |vpiParent:
+      \_range: , line:7:30, endln:7:35
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:7:33, endln:7:34
+      |vpiParent:
+      \_range: , line:7:30, endln:7:35
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_typespec: 
+    |vpiParent:
+    \_packed_array_typespec: , line:7:23, endln:7:35
+    |vpiActual:
+    \_enum_typespec: (sp2v_e), line:2:4, endln:5:13
+\_packed_array_typespec: , line:8:7, endln:8:19
+  |vpiRange:
+  \_range: , line:8:14, endln:8:19
+    |vpiParent:
+    \_packed_array_typespec: , line:8:7, endln:8:19
+    |vpiLeftRange:
+    \_constant: , line:8:15, endln:8:16
+      |vpiParent:
+      \_range: , line:8:14, endln:8:19
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:8:17, endln:8:18
+      |vpiParent:
+      \_range: , line:8:14, endln:8:19
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_typespec: 
+    |vpiParent:
+    \_packed_array_typespec: , line:8:7, endln:8:19
+    |vpiActual:
+    \_enum_typespec: (sp2v_e), line:2:4, endln:5:13
+\_int_typespec: , line:13:15, endln:13:18
+  |vpiSigned:1
+\_int_typespec: , line:1:19, endln:1:22
+  |vpiSigned:1
+\_int_typespec: , line:1:19, endln:1:22
+  |vpiSigned:1
+\_int_typespec: , line:1:19, endln:1:22
+  |vpiSigned:1
+\_int_typespec: , line:13:15, endln:13:18
+  |vpiParent:
+  \_ref_typespec: (work@top)
+  |vpiSigned:1
+\_ref_typespec: (work@top)
+  |vpiParent:
+  \_operation: , line:13:15, endln:13:29
+  |vpiFullName:work@top
+  |vpiActual:
+  \_int_typespec: , line:13:15, endln:13:18
+\_operation: , line:13:15, endln:13:29
+  |vpiParent:
+  \_cont_assign: , line:13:11, endln:13:29
+  |vpiTypespec:
+  \_ref_typespec: (work@top)
+  |vpiOpType:67
+  |vpiOperand:
+  \_func_call: (get_BA), line:13:20, endln:13:28
+    |vpiParent:
+    \_operation: , line:13:15, endln:13:29
+    |vpiName:get_BA
+    |vpiFunction:
+    \_function: (work@top.get_BA), line:7:4, endln:11:15
+\_cont_assign: , line:13:11, endln:13:29
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/IncompFunc/dut.sv, line:1:1, endln:14:10
+  |vpiRhs:
+  \_operation: , line:13:15, endln:13:29
+  |vpiLhs:
+  \_ref_obj: (work@top.o), line:13:11, endln:13:12
+    |vpiParent:
+    \_cont_assign: , line:13:11, endln:13:29
+    |vpiName:o
+    |vpiFullName:work@top.o
+    |vpiActual:
+    \_int_var: (work@top.o), line:1:23, endln:1:24
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

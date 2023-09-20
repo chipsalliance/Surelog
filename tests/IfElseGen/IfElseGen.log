@@ -207,6 +207,7 @@ param_assign                                           4
 parameter                                              4
 ref_module                                             6
 ref_obj                                                2
+ref_typespec                                          10
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -223,6 +224,7 @@ param_assign                                           4
 parameter                                              4
 ref_module                                             6
 ref_obj                                                2
+ref_typespec                                          10
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/IfElseGen/slpp_all/surelog.uhdm ...
 
@@ -259,9 +261,12 @@ design: (work@dut1)
     \_module_inst: work@dut1 (work@dut1), file:${SURELOG_DIR}/tests/IfElseGen/dut.sv, line:7:1, endln:14:10
     |BIN:1
     |vpiTypespec:
-    \_bit_typespec: , line:8:12, endln:8:15
+    \_ref_typespec: (work@dut1.HasSndScratch)
       |vpiParent:
       \_parameter: (work@dut1.HasSndScratch), line:8:25, endln:8:38
+      |vpiFullName:work@dut1.HasSndScratch
+      |vpiActual:
+      \_bit_typespec: , line:8:12, endln:8:15
     |vpiLocalParam:1
     |vpiName:HasSndScratch
     |vpiFullName:work@dut1.HasSndScratch
@@ -277,7 +282,12 @@ design: (work@dut1)
       |vpiSize:1
       |BIN:1
       |vpiTypespec:
-      \_bit_typespec: , line:8:12, endln:8:15
+      \_ref_typespec: (work@dut1)
+        |vpiParent:
+        \_constant: , line:8:42, endln:8:46
+        |vpiFullName:work@dut1
+        |vpiActual:
+        \_bit_typespec: , line:8:12, endln:8:15
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@dut1.HasSndScratch), line:8:25, endln:8:38
@@ -327,9 +337,12 @@ design: (work@dut1)
     \_module_inst: work@dut2 (work@dut2), file:${SURELOG_DIR}/tests/IfElseGen/dut.sv, line:17:1, endln:24:10
     |BIN:0
     |vpiTypespec:
-    \_bit_typespec: , line:18:12, endln:18:15
+    \_ref_typespec: (work@dut2.HasSndScratch)
       |vpiParent:
       \_parameter: (work@dut2.HasSndScratch), line:18:25, endln:18:38
+      |vpiFullName:work@dut2.HasSndScratch
+      |vpiActual:
+      \_bit_typespec: , line:18:12, endln:18:15
     |vpiLocalParam:1
     |vpiName:HasSndScratch
     |vpiFullName:work@dut2.HasSndScratch
@@ -345,7 +358,12 @@ design: (work@dut1)
       |vpiSize:1
       |BIN:0
       |vpiTypespec:
-      \_bit_typespec: , line:18:12, endln:18:15
+      \_ref_typespec: (work@dut2)
+        |vpiParent:
+        \_constant: , line:18:42, endln:18:46
+        |vpiFullName:work@dut2
+        |vpiActual:
+        \_bit_typespec: , line:18:12, endln:18:15
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@dut2.HasSndScratch), line:18:25, endln:18:38
@@ -393,9 +411,12 @@ design: (work@dut1)
     \_module_inst: work@dut1 (work@dut1), file:${SURELOG_DIR}/tests/IfElseGen/dut.sv, line:7:1, endln:14:10
     |BIN:1
     |vpiTypespec:
-    \_bit_typespec: , line:8:12, endln:8:15
+    \_ref_typespec: (work@dut1.HasSndScratch)
       |vpiParent:
       \_parameter: (work@dut1.HasSndScratch), line:8:25, endln:8:38
+      |vpiFullName:work@dut1.HasSndScratch
+      |vpiActual:
+      \_bit_typespec: , line:8:12, endln:8:15
     |vpiLocalParam:1
     |vpiName:HasSndScratch
     |vpiFullName:work@dut1.HasSndScratch
@@ -411,7 +432,12 @@ design: (work@dut1)
       |vpiSize:1
       |BIN:1
       |vpiTypespec:
-      \_bit_typespec: , line:8:12, endln:8:15
+      \_ref_typespec: (work@dut1)
+        |vpiParent:
+        \_constant: , line:8:42, endln:8:46
+        |vpiFullName:work@dut1
+        |vpiActual:
+        \_bit_typespec: , line:8:12, endln:8:15
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@dut1.HasSndScratch), line:8:25, endln:8:38
@@ -447,9 +473,12 @@ design: (work@dut1)
     \_module_inst: work@dut2 (work@dut2), file:${SURELOG_DIR}/tests/IfElseGen/dut.sv, line:17:1, endln:24:10
     |BIN:0
     |vpiTypespec:
-    \_bit_typespec: , line:18:12, endln:18:15
+    \_ref_typespec: (work@dut2.HasSndScratch)
       |vpiParent:
       \_parameter: (work@dut2.HasSndScratch), line:18:25, endln:18:38
+      |vpiFullName:work@dut2.HasSndScratch
+      |vpiActual:
+      \_bit_typespec: , line:18:12, endln:18:15
     |vpiLocalParam:1
     |vpiName:HasSndScratch
     |vpiFullName:work@dut2.HasSndScratch
@@ -465,7 +494,12 @@ design: (work@dut1)
       |vpiSize:1
       |BIN:0
       |vpiTypespec:
-      \_bit_typespec: , line:18:12, endln:18:15
+      \_ref_typespec: (work@dut2)
+        |vpiParent:
+        \_constant: , line:18:42, endln:18:46
+        |vpiFullName:work@dut2
+        |vpiActual:
+        \_bit_typespec: , line:18:12, endln:18:15
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@dut2.HasSndScratch), line:18:25, endln:18:38
@@ -492,6 +526,19 @@ design: (work@dut1)
         |vpiDefName:work@GOOD2
         |vpiDefFile:${SURELOG_DIR}/tests/IfElseGen/dut.sv
         |vpiDefLineNo:4
+\_weaklyReferenced:
+\_bit_typespec: , line:8:12, endln:8:15
+  |vpiParent:
+  \_parameter: (work@dut1.HasSndScratch), line:8:25, endln:8:38
+\_bit_typespec: , line:18:12, endln:18:15
+  |vpiParent:
+  \_parameter: (work@dut2.HasSndScratch), line:18:25, endln:18:38
+\_bit_typespec: , line:8:12, endln:8:15
+  |vpiParent:
+  \_ref_typespec: (work@dut1.HasSndScratch)
+\_bit_typespec: , line:18:12, endln:18:15
+  |vpiParent:
+  \_ref_typespec: (work@dut2.HasSndScratch)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

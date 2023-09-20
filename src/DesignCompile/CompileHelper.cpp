@@ -80,7 +80,7 @@ void CompileHelper::checkForLoops(bool on) {
 bool CompileHelper::loopDetected(PathId fileId, uint32_t lineNumber,
                                  CompileDesign* compileDesign,
                                  ValuedComponentI* instance) {
-#if defined(_WIN32)
+#if defined(_WIN32) || defined(__MINGW32__) || defined(__CYGWIN__)
   constexpr int32_t kMaxAllowedStackDepth = 100;
 #else
   constexpr int32_t kMaxAllowedStackDepth = 1000;
@@ -197,16 +197,16 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
         if (pclone->UhdmType() == uhdmtype_parameter) {
           type_parameter* the_p = (type_parameter*)pclone;
           the_p->VpiImported(pack_name);
-          if (const typespec* tps = the_p->Typespec()) {
-            if (tps->UhdmType() == uhdmunsupported_typespec) {
+          if (const ref_typespec* rt = the_p->Typespec()) {
+            if (rt->Actual_typespec<unsupported_typespec>() != nullptr) {
               scope->needLateTypedefBinding(the_p);
             }
           }
         } else {
           parameter* the_p = (parameter*)pclone;
           the_p->VpiImported(pack_name);
-          if (const typespec* tps = the_p->Typespec()) {
-            if (tps->UhdmType() == uhdmunsupported_typespec) {
+          if (const ref_typespec* rt = the_p->Typespec()) {
+            if (rt->Actual_typespec<unsupported_typespec>() != nullptr) {
               scope->needLateTypedefBinding(the_p);
             }
           }
@@ -250,8 +250,8 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
       if (pclone->UhdmType() == uhdmparameter) {
         parameter* the_p = (parameter*)pclone;
         the_p->VpiImported(pack_name);
-        if (const typespec* tps = the_p->Typespec()) {
-          if (tps->UhdmType() == uhdmunsupported_typespec) {
+        if (const ref_typespec* rt = the_p->Typespec()) {
+          if (rt->Actual_typespec<unsupported_typespec>() != nullptr) {
             scope->needLateTypedefBinding(the_p);
           }
         }
@@ -656,12 +656,22 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       }
       if (array_tps) {
         st->setTypespec(array_tps);
-        array_tps->Elem_typespec(ts);
+        if (array_tps->Elem_typespec() == nullptr) {
+          ref_typespec* rt = s.MakeRef_typespec();
+          rt->VpiParent(array_tps);
+          array_tps->Elem_typespec(rt);
+        }
+        array_tps->Elem_typespec()->Actual_typespec(ts);
         array_tps->VpiName(fullName);
         if (typespecs) typespecs->push_back(array_tps);
       } else if (packed_array_tps) {
         st->setTypespec(packed_array_tps);
-        packed_array_tps->Elem_typespec(ts);
+        if (packed_array_tps->Elem_typespec() == nullptr) {
+          ref_typespec* rt = s.MakeRef_typespec();
+          rt->VpiParent(packed_array_tps);
+          packed_array_tps->Elem_typespec(rt);
+        }
+        packed_array_tps->Elem_typespec()->Actual_typespec(ts);
         packed_array_tps->VpiName(fullName);
         if (typespecs) typespecs->push_back(packed_array_tps);
       } else {
@@ -682,12 +692,22 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       }
       if (array_tps) {
         st->setTypespec(array_tps);
-        array_tps->Elem_typespec(ts);
+        if (array_tps->Elem_typespec() == nullptr) {
+          ref_typespec* rt = s.MakeRef_typespec();
+          rt->VpiParent(array_tps);
+          array_tps->Elem_typespec(rt);
+        }
+        array_tps->Elem_typespec()->Actual_typespec(ts);
         array_tps->VpiName(fullName);
         if (typespecs) typespecs->push_back(array_tps);
       } else if (packed_array_tps) {
         st->setTypespec(packed_array_tps);
-        packed_array_tps->Elem_typespec(ts);
+        if (packed_array_tps->Elem_typespec() == nullptr) {
+          ref_typespec* rt = s.MakeRef_typespec();
+          rt->VpiParent(packed_array_tps);
+          packed_array_tps->Elem_typespec(rt);
+        }
+        packed_array_tps->Elem_typespec()->Actual_typespec(ts);
         packed_array_tps->VpiName(fullName);
         if (typespecs) typespecs->push_back(packed_array_tps);
       } else {
@@ -724,12 +744,22 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
 
     if (array_tps) {
       the_enum->setTypespec(array_tps);
-      array_tps->Elem_typespec(enum_t);
+      if (array_tps->Elem_typespec() == nullptr) {
+        ref_typespec* rt = s.MakeRef_typespec();
+        rt->VpiParent(array_tps);
+        array_tps->Elem_typespec(rt);
+      }
+      array_tps->Elem_typespec()->Actual_typespec(enum_t);
       array_tps->VpiName(name);
       if (typespecs) typespecs->push_back(array_tps);
     } else if (packed_array_tps) {
       the_enum->setTypespec(packed_array_tps);
-      packed_array_tps->Elem_typespec(enum_t);
+      if (packed_array_tps->Elem_typespec() == nullptr) {
+        ref_typespec* rt = s.MakeRef_typespec();
+        rt->VpiParent(packed_array_tps);
+        packed_array_tps->Elem_typespec(rt);
+      }
+      packed_array_tps->Elem_typespec()->Actual_typespec(enum_t);
       packed_array_tps->VpiName(name);
       if (typespecs) typespecs->push_back(packed_array_tps);
     } else {
@@ -742,7 +772,14 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
                                                     type_declaration, enum_t);
 
     // Enum basetype
-    enum_t->Base_typespec(the_enum->getBaseTypespec());
+    if (UHDM::typespec* basets = the_enum->getBaseTypespec()) {
+      if (enum_t->Base_typespec() == nullptr) {
+        ref_typespec* rt = s.MakeRef_typespec();
+        rt->VpiParent(enum_t);
+        enum_t->Base_typespec(rt);
+      }
+      enum_t->Base_typespec()->Actual_typespec(basets);
+    }
     if ((reduce == Reduce::Yes) && (valuedcomponenti_cast<Package*>(scope))) {
       enum_t->Instance(scope->getUhdmInstance());
     }
@@ -750,10 +787,12 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
     VectorOfenum_const* econsts = s.MakeEnum_constVec();
     enum_t->Enum_consts(econsts);
     uint64_t baseSize = 64;
-    if (const typespec* base = enum_t->Base_typespec()) {
-      bool invalidValue = false;
-      baseSize = Bits(base, invalidValue, scope, compileDesign, reduce, nullptr,
-                      fC->getFileId(), base->VpiLineNo(), true);
+    if (const ref_typespec* rt = enum_t->Base_typespec()) {
+      if (const typespec* ts = rt->Actual_typespec()) {
+        bool invalidValue = false;
+        baseSize = Bits(ts, invalidValue, scope, compileDesign, reduce, nullptr,
+                        fC->getFileId(), ts->VpiLineNo(), true);
+      }
     }
     while (enum_name_declaration) {
       NodeId enumNameId = fC->Child(enum_name_declaration);
@@ -843,8 +882,19 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
           if (array_tps) {
             array_tps->Instance(scope->getUhdmInstance());
             array_tps->VpiName(name);
-            array_tps->Elem_typespec(tpclone);
-            tpclone->Typedef_alias(ts);
+            if (array_tps->Elem_typespec() == nullptr) {
+              ref_typespec* tpcloneRef = s.MakeRef_typespec();
+              tpcloneRef->VpiParent(array_tps);
+              array_tps->Elem_typespec(tpcloneRef);
+            }
+            array_tps->Elem_typespec()->Actual_typespec(tpclone);
+
+            if (tpclone->Typedef_alias() == nullptr) {
+              ref_typespec* tsRef = s.MakeRef_typespec();
+              tsRef->VpiParent(tpclone);
+              tpclone->Typedef_alias(tsRef);
+            }
+            tpclone->Typedef_alias()->Actual_typespec(ts);
             if (typespecs) typespecs->push_back(array_tps);
             newTypeDef->setTypespec(array_tps);
             dummy->setTypespec(array_tps);
@@ -860,14 +910,24 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
               logic_array_tps->Ranges(packed_array_tps->Ranges());
               logic_array_tps->Instance(scope->getUhdmInstance());
               logic_array_tps->VpiName(name);
-              logic_array_tps->Logic_typespec((logic_typespec*)tpclone);
+              if (logic_array_tps->Elem_typespec() == nullptr) {
+                ref_typespec* tpcloneRef = s.MakeRef_typespec();
+                tpcloneRef->VpiParent(logic_array_tps);
+                logic_array_tps->Elem_typespec(tpcloneRef);
+              }
+              logic_array_tps->Elem_typespec()->Actual_typespec(tpclone);
               if (resolution_func) {
                 logic_array_tps->Resolution_func(resolution_func);
               } else if (!resolutionFunctionName.empty()) {
                 scope->needLateResolutionFunction(resolutionFunctionName,
                                                   logic_array_tps);
               }
-              tpclone->Typedef_alias(ts);
+              if (tpclone->Typedef_alias() == nullptr) {
+                ref_typespec* tsRef = s.MakeRef_typespec();
+                tsRef->VpiParent(tpclone);
+                tpclone->Typedef_alias(tsRef);
+              }
+              tpclone->Typedef_alias()->Actual_typespec(ts);
               if (typespecs) typespecs->push_back(logic_array_tps);
               newTypeDef->setTypespec(logic_array_tps);
               dummy->setTypespec(logic_array_tps);
@@ -875,7 +935,12 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
               if (ts->UhdmType() == uhdmpacked_array_typespec) {
                 tpclone->Instance(scope->getUhdmInstance());
                 tpclone->VpiName(name);
-                tpclone->Typedef_alias(ts);
+                if (tpclone->Typedef_alias() == nullptr) {
+                  ref_typespec* tsRef = s.MakeRef_typespec();
+                  tsRef->VpiParent(tpclone);
+                  tpclone->Typedef_alias(tsRef);
+                }
+                tpclone->Typedef_alias()->Actual_typespec(ts);
                 if (resolution_func) {
                   if (tpclone->UhdmType() == uhdmbit_typespec) {
                     bit_typespec* btps = (bit_typespec*)tpclone;
@@ -897,8 +962,18 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
               } else {
                 packed_array_tps->Instance(scope->getUhdmInstance());
                 packed_array_tps->VpiName(name);
-                packed_array_tps->Elem_typespec(tpclone);
-                tpclone->Typedef_alias(ts);
+                if (packed_array_tps->Elem_typespec() == nullptr) {
+                  ref_typespec* tpcloneRef = s.MakeRef_typespec();
+                  tpcloneRef->VpiParent(packed_array_tps);
+                  packed_array_tps->Elem_typespec(tpcloneRef);
+                }
+                packed_array_tps->Elem_typespec()->Actual_typespec(tpclone);
+                if (tpclone->Typedef_alias() == nullptr) {
+                  ref_typespec* tsRef = s.MakeRef_typespec();
+                  tsRef->VpiParent(tpclone);
+                  tpclone->Typedef_alias(tsRef);
+                }
+                tpclone->Typedef_alias()->Actual_typespec(ts);
                 if (resolution_func) {
                   packed_array_tps->Resolution_func(resolution_func);
                 } else if (!resolutionFunctionName.empty()) {
@@ -913,7 +988,12 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
           } else {
             tpclone->Instance(scope->getUhdmInstance());
             tpclone->VpiName(name);
-            tpclone->Typedef_alias(ts);
+            if (tpclone->Typedef_alias() == nullptr) {
+              ref_typespec* tsRef = s.MakeRef_typespec();
+              tsRef->VpiParent(tpclone);
+              tpclone->Typedef_alias(tsRef);
+            }
+            tpclone->Typedef_alias()->Actual_typespec(ts);
             if (resolution_func) {
               if (tpclone->UhdmType() == uhdmbit_typespec) {
                 bit_typespec* btps = (bit_typespec*)tpclone;
@@ -951,7 +1031,12 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
               compileTypespec(scope, fC, stype, compileDesign, reduce,
                               array_tps, nullptr, false)) {
         if (array_tps) {
-          array_tps->Elem_typespec(ts);
+          if (array_tps->Elem_typespec() == nullptr) {
+            ref_typespec* tsRef = s.MakeRef_typespec();
+            tsRef->VpiParent(array_tps);
+            array_tps->Elem_typespec(tsRef);
+          }
+          array_tps->Elem_typespec()->Actual_typespec(ts);
           ts = array_tps;
         }
         if (resolution_func) {
@@ -2473,7 +2558,12 @@ CompileHelper::compileInstantiation(ModuleDefinition* mod,
         module_typespec* tps = s.MakeModule_typespec();
         tps->VpiName(fC->SymName(typespecId));
         fC->populateCoreMembers(typespecId, typespecId, tps);
-        mod_array->Elem_typespec(tps);
+        if (mod_array->Elem_typespec() == nullptr) {
+          ref_typespec* tpsRef = s.MakeRef_typespec();
+          tpsRef->VpiParent(mod_array);
+          mod_array->Elem_typespec(tpsRef);
+        }
+        mod_array->Elem_typespec()->Actual_typespec(tps);
         tps->VpiParent(mod_array);
         VectorOfport* ports = s.MakePortVec();
         mod_array->Ports(ports);
@@ -3002,8 +3092,9 @@ bool CompileHelper::isMultidimensional(UHDM::typespec* ts,
       if (lts->Ranges() && lts->Ranges()->size() > 1) isMultiDimension = true;
     } else if (ttps == uhdmpacked_array_typespec) {
       packed_array_typespec* lts = (packed_array_typespec*)ts;
-      if (lts->Elem_typespec() &&
-          (lts->Elem_typespec()->UhdmType() == uhdmstruct_typespec)) {
+      if (lts->Elem_typespec() && lts->Elem_typespec()->Actual_typespec() &&
+          (lts->Elem_typespec()->Actual_typespec()->UhdmType() ==
+           uhdmstruct_typespec)) {
         isMultiDimension = true;
       } else {
         if (lts->Ranges() && lts->Ranges()->size() > 1) isMultiDimension = true;
@@ -3083,31 +3174,37 @@ UHDM::any* CompileHelper::defaultPatternAssignment(const UHDM::typespec* tps,
     ncsize = 1;
   } else if (ttps == uhdmarray_typespec) {
     array_typespec* lts = (array_typespec*)tps;
-    if (lts->Elem_typespec()) {
-      baseType = lts->Elem_typespec()->UhdmType();
+    typespec* ets = nullptr;
+    if (ref_typespec* rt = lts->Elem_typespec()) {
+      ets = rt->Actual_typespec();
+    }
+    if (ets != nullptr) {
+      baseType = ets->UhdmType();
       if (lts->Ranges() && !lts->Ranges()->empty()) {
         r = (*lts->Ranges())[0];
       }
       ncsize = Bits(
-          lts->Elem_typespec(), invalidValue, component, compileDesign,
-          Reduce::Yes, instance,
-          fileSystem->toPathId(lts->Elem_typespec()->VpiFile(),
+          ets, invalidValue, component, compileDesign, Reduce::Yes, instance,
+          fileSystem->toPathId(ets->VpiFile(),
                                compileDesign->getCompiler()->getSymbolTable()),
-          lts->Elem_typespec()->VpiLineNo(), false);
+          ets->VpiLineNo(), false);
     }
   } else if (ttps == uhdmpacked_array_typespec) {
     packed_array_typespec* lts = (packed_array_typespec*)tps;
-    if (lts->Elem_typespec()) {
-      baseType = lts->Elem_typespec()->UhdmType();
+    typespec* ets = nullptr;
+    if (ref_typespec* rt = lts->Elem_typespec()) {
+      ets = rt->Actual_typespec();
+    }
+    if (ets != nullptr) {
+      baseType = ets->UhdmType();
       if (lts->Ranges() && !lts->Ranges()->empty()) {
         r = (*lts->Ranges())[0];
       }
       ncsize = Bits(
-          lts->Elem_typespec(), invalidValue, component, compileDesign,
-          Reduce::Yes, instance,
-          fileSystem->toPathId(lts->Elem_typespec()->VpiFile(),
+          ets, invalidValue, component, compileDesign, Reduce::Yes, instance,
+          fileSystem->toPathId(ets->VpiFile(),
                                compileDesign->getCompiler()->getSymbolTable()),
-          lts->Elem_typespec()->VpiLineNo(), false);
+          ets->VpiLineNo(), false);
     }
   } else if (ttps == uhdmbit_typespec) {
     bit_typespec* lts = (bit_typespec*)tps;
@@ -3132,52 +3229,54 @@ UHDM::any* CompileHelper::defaultPatternAssignment(const UHDM::typespec* tps,
     int32_t opType = op->VpiOpType();
     switch (opType) {
       case vpiCastOp: {
-        const typespec* optps = op->Typespec();
-        if (optps) {
-          UHDM_OBJECT_TYPE ottps = optps->UhdmType();
-          any* op0 = (*operands)[0];
-          if (op0->UhdmType() == uhdmoperation) {
-            operation* oper0 = (operation*)op0;
-            int32_t op0Type = oper0->VpiOpType();
-            if (op0Type == vpiConcatOp) {
-              VectorOfany* operandsConcat = oper0->Operands();
-              any* op0Concat = (*operandsConcat)[0];
-              if (op0Concat->VpiName() == "default") {
-                bool invalidValue = false;
-                UHDM::ExprEval eval;
-                uint64_t val0 =
-                    eval.get_value(invalidValue, (expr*)(*operandsConcat)[1]);
-                constant* c = s.MakeConstant();
-                if (ottps == uhdmint_typespec) {
-                  int_typespec* itps = (int_typespec*)optps;
-                  if (itps->VpiSigned()) {
-                    if (val0 == 1) {
-                      c->VpiDecompile(std::to_string(-1));
-                      c->VpiValue("INT:" + std::to_string(-1));
-                      c->VpiSize(32);
-                      c->VpiConstType(vpiIntConst);
-                      result = c;
-                    } else {
-                      c->VpiDecompile(std::to_string(0));
-                      c->VpiValue("INT:" + std::to_string(0));
-                      c->VpiSize(32);
-                      c->VpiConstType(vpiIntConst);
-                      result = c;
-                    }
+        const typespec* optps = nullptr;
+        if (const ref_typespec* rt = op->Typespec()) {
+          optps = rt->Actual_typespec();
+        }
+        if (optps == nullptr) break;
+        UHDM_OBJECT_TYPE ottps = optps->UhdmType();
+        any* op0 = (*operands)[0];
+        if (op0->UhdmType() == uhdmoperation) {
+          operation* oper0 = (operation*)op0;
+          int32_t op0Type = oper0->VpiOpType();
+          if (op0Type == vpiConcatOp) {
+            VectorOfany* operandsConcat = oper0->Operands();
+            any* op0Concat = (*operandsConcat)[0];
+            if (op0Concat->VpiName() == "default") {
+              bool invalidValue = false;
+              UHDM::ExprEval eval;
+              uint64_t val0 =
+                  eval.get_value(invalidValue, (expr*)(*operandsConcat)[1]);
+              constant* c = s.MakeConstant();
+              if (ottps == uhdmint_typespec) {
+                int_typespec* itps = (int_typespec*)optps;
+                if (itps->VpiSigned()) {
+                  if (val0 == 1) {
+                    c->VpiDecompile(std::to_string(-1));
+                    c->VpiValue("INT:" + std::to_string(-1));
+                    c->VpiSize(32);
+                    c->VpiConstType(vpiIntConst);
+                    result = c;
                   } else {
-                    if (val0 == 1) {
-                      c->VpiDecompile(std::to_string(UINT_MAX));
-                      c->VpiValue("UINT:" + std::to_string(UINT_MAX));
-                      c->VpiSize(32);
-                      c->VpiConstType(vpiUIntConst);
-                      result = c;
-                    } else {
-                      c->VpiDecompile(std::to_string(0));
-                      c->VpiValue("UINT:" + std::to_string(0));
-                      c->VpiSize(32);
-                      c->VpiConstType(vpiUIntConst);
-                      result = c;
-                    }
+                    c->VpiDecompile(std::to_string(0));
+                    c->VpiValue("INT:" + std::to_string(0));
+                    c->VpiSize(32);
+                    c->VpiConstType(vpiIntConst);
+                    result = c;
+                  }
+                } else {
+                  if (val0 == 1) {
+                    c->VpiDecompile(std::to_string(UINT_MAX));
+                    c->VpiValue("UINT:" + std::to_string(UINT_MAX));
+                    c->VpiSize(32);
+                    c->VpiConstType(vpiUIntConst);
+                    result = c;
+                  } else {
+                    c->VpiDecompile(std::to_string(0));
+                    c->VpiValue("UINT:" + std::to_string(0));
+                    c->VpiSize(32);
+                    c->VpiConstType(vpiUIntConst);
+                    result = c;
                   }
                 }
               }
@@ -3190,7 +3289,10 @@ UHDM::any* CompileHelper::defaultPatternAssignment(const UHDM::typespec* tps,
         any* op0 = (*operands)[0];
         if (op0->UhdmType() == uhdmtagged_pattern) {
           tagged_pattern* pattern = (tagged_pattern*)op0;
-          const typespec* ptps = pattern->Typespec();
+          const typespec* ptps = nullptr;
+          if (const UHDM::ref_typespec* rt = pattern->Typespec()) {
+            ptps = rt->Actual_typespec();
+          }
           if (ptps->VpiName() == "default") {
             UHDM::ExprEval eval;
             expr* expat = (expr*)pattern->Pattern();
@@ -3299,10 +3401,16 @@ bool CompileHelper::compileParameterDeclaration(
       UHDM::type_parameter* p = s.MakeType_parameter();
       p->VpiName(fC->SymName(typeNameId));
       fC->populateCoreMembers(typeNameId, typeNameId, p);
-      typespec* tps = compileTypespec(component, fC, ntype, compileDesign,
-                                      Reduce::No, p, nullptr, false);
-      p->Typespec(tps);
-      if (tps) tps->VpiParent(p);
+      if (typespec* tps = compileTypespec(component, fC, ntype, compileDesign,
+                                          Reduce::No, p, nullptr, false)) {
+        if (p->Typespec() == nullptr) {
+          ref_typespec* tpsRef = s.MakeRef_typespec();
+          tpsRef->VpiParent(p);
+          p->Typespec(tpsRef);
+        }
+        p->Typespec()->Actual_typespec(tps);
+        tps->VpiParent(p);
+      }
       if (localParam) {
         p->VpiLocalParam(true);
       }
@@ -3327,10 +3435,17 @@ bool CompileHelper::compileParameterDeclaration(
       p->VpiName(fC->SymName(Identifier));
       fC->populateCoreMembers(Identifier, Identifier, p);
       NodeId Data_type = fC->Child(Constant_param_expression);
-      typespec* tps = compileTypespec(component, fC, Data_type, compileDesign,
-                                      Reduce::No, p, nullptr, false);
-      p->Typespec(tps);
-      if (tps) tps->VpiParent(p);
+      if (typespec* tps =
+              compileTypespec(component, fC, Data_type, compileDesign,
+                              Reduce::No, p, nullptr, false)) {
+        if (p->Typespec() == nullptr) {
+          ref_typespec* tpsRef = s.MakeRef_typespec();
+          tpsRef->VpiParent(p);
+          p->Typespec(tpsRef);
+        }
+        p->Typespec()->Actual_typespec(tps);
+        tps->VpiParent(p);
+      }
       if (localParam) {
         p->VpiLocalParam(true);
       }
@@ -3399,8 +3514,14 @@ bool CompileHelper::compileParameterDeclaration(
         param->Ranges(unpackedDimensions);
         param->VpiSize(unpackedSize);
         array_typespec* atps = s.MakeArray_typespec();
-        atps->Elem_typespec(ts);
-        param->Typespec(atps);
+        ref_typespec* tsRef = s.MakeRef_typespec();
+        tsRef->VpiParent(atps);
+        tsRef->Actual_typespec(ts);
+        atps->Elem_typespec(tsRef);
+        ref_typespec* atpsRef = s.MakeRef_typespec();
+        atpsRef->VpiParent(param);
+        atpsRef->Actual_typespec(atps);
+        param->Typespec(atpsRef);
         p->setTypespec(atps);
         fC->populateCoreMembers(Data_type_or_implicit,
                                 value ? value : Data_type_or_implicit, atps);
@@ -3439,7 +3560,12 @@ bool CompileHelper::compileParameterDeclaration(
           component->setComplexValue(the_name, (UHDM::expr*)expr);
         } else if (expr && exprtype == UHDM::uhdmconstant) {
           UHDM::constant* c = (UHDM::constant*)expr;
-          if (c->Typespec() == nullptr) c->Typespec(ts);
+          if (c->Typespec() == nullptr) {
+            ref_typespec* tsRef = s.MakeRef_typespec();
+            tsRef->VpiParent(c);
+            tsRef->Actual_typespec(ts);
+            c->Typespec(tsRef);
+          }
           int32_t size = c->VpiSize();
           if (ts) {
             bool invalidValue = false;
@@ -3453,7 +3579,12 @@ bool CompileHelper::compileParameterDeclaration(
           component->setValue(the_name, val, m_exprBuilder);
         } else if ((reduce == Reduce::Yes) && (!isMultiDimension)) {
           UHDM::expr* the_expr = (UHDM::expr*)expr;
-          if (the_expr->Typespec() == nullptr) the_expr->Typespec(ts);
+          if (the_expr->Typespec() == nullptr) {
+            ref_typespec* tsRef = s.MakeRef_typespec();
+            tsRef->VpiParent(the_expr);
+            tsRef->Actual_typespec(ts);
+            the_expr->Typespec(tsRef);
+          }
           ExprEval expr_eval(the_expr, instance, fC->getFileId(),
                              fC->Line(name), nullptr);
           component->scheduleParamExprEval(the_name, expr_eval);
@@ -3462,7 +3593,12 @@ bool CompileHelper::compileParameterDeclaration(
                             (exprtype == uhdmsys_func_call))) {
           component->setComplexValue(the_name, (UHDM::expr*)expr);
           UHDM::expr* the_expr = (UHDM::expr*)expr;
-          if (the_expr->Typespec() == nullptr) the_expr->Typespec(ts);
+          if (the_expr->Typespec() == nullptr) {
+            ref_typespec* tsRef = s.MakeRef_typespec();
+            tsRef->VpiParent(the_expr);
+            tsRef->Actual_typespec(ts);
+            the_expr->Typespec(tsRef);
+          }
           if (isDecreasing && (expr->UhdmType() == uhdmoperation)) {
             operation* op = (operation*)expr;
             int32_t optype = op->VpiOpType();
@@ -3488,7 +3624,12 @@ bool CompileHelper::compileParameterDeclaration(
       component->insertParameter(p);
 
       if (ts) {
-        param->Typespec(ts);
+        if (param->Typespec() == nullptr) {
+          ref_typespec* tsRef = s.MakeRef_typespec();
+          tsRef->VpiParent(param);
+          param->Typespec(tsRef);
+        }
+        param->Typespec()->Actual_typespec(ts);
         ts->VpiParent(param);
         if (ts->UhdmType() == uhdmunsupported_typespec) {
           component->needLateTypedefBinding(param);
@@ -3573,7 +3714,12 @@ bool CompileHelper::compileParameterDeclaration(
               case vpiRealConst: {
                 ts = s.MakeReal_typespec();
                 p->setTypespec(ts);
-                param->Typespec(ts);
+                if (param->Typespec() == nullptr) {
+                  ref_typespec* tsRef = s.MakeRef_typespec();
+                  tsRef->VpiParent(param);
+                  param->Typespec(tsRef);
+                }
+                param->Typespec()->Actual_typespec(ts);
                 break;
               }
               case vpiDecConst:
@@ -3587,7 +3733,12 @@ bool CompileHelper::compileParameterDeclaration(
                 }
                 ts = its;
                 p->setTypespec(ts);
-                param->Typespec(ts);
+                if (param->Typespec() == nullptr) {
+                  ref_typespec* tsRef = s.MakeRef_typespec();
+                  tsRef->VpiParent(param);
+                  param->Typespec(tsRef);
+                }
+                param->Typespec()->Actual_typespec(ts);
                 break;
               }
               case vpiHexConst:
@@ -3611,7 +3762,13 @@ bool CompileHelper::compileParameterDeclaration(
 
                   ts = its;
                   p->setTypespec(ts);
-                  param->Typespec(ts);
+
+                  if (param->Typespec() == nullptr) {
+                    ref_typespec* tsRef = s.MakeRef_typespec();
+                    tsRef->VpiParent(param);
+                    param->Typespec(tsRef);
+                  }
+                  param->Typespec()->Actual_typespec(ts);
                 }
                 break;
               }
@@ -3621,13 +3778,23 @@ bool CompileHelper::compileParameterDeclaration(
                 its->VpiSigned(false);
                 ts = its;
                 p->setTypespec(ts);
-                param->Typespec(ts);
+                if (param->Typespec() == nullptr) {
+                  ref_typespec* tsRef = s.MakeRef_typespec();
+                  tsRef->VpiParent(param);
+                  param->Typespec(tsRef);
+                }
+                param->Typespec()->Actual_typespec(ts);
                 break;
               }
               case vpiStringConst: {
                 ts = s.MakeString_typespec();
                 p->setTypespec(ts);
-                param->Typespec(ts);
+                if (param->Typespec() == nullptr) {
+                  ref_typespec* tsRef = s.MakeRef_typespec();
+                  tsRef->VpiParent(param);
+                  param->Typespec(tsRef);
+                }
+                param->Typespec()->Actual_typespec(ts);
                 break;
               }
               default:
@@ -3636,17 +3803,30 @@ bool CompileHelper::compileParameterDeclaration(
           }
           if (reduce == Reduce::Yes)
             adjustSize(ts, component, compileDesign, instance, c);
-          c->Typespec(ts);
 
           int32_t size = c->VpiSize();
-          if (ts && (reduce == Reduce::Yes)) {
-            bool invalidValue = false;
-            int32_t sizetmp =
-                Bits(ts, invalidValue, component, compileDesign, Reduce::Yes,
-                     instance, fC->getFileId(), fC->Line(actual_value), false);
-            if (!invalidValue) size = sizetmp;
+          if (ts) {
+            if (c->Typespec() == nullptr) {
+              ref_typespec* tsRef = s.MakeRef_typespec();
+              tsRef->VpiParent(c);
+              c->Typespec(tsRef);
+            }
+            c->Typespec()->Actual_typespec(ts);
+
+            if (reduce == Reduce::Yes) {
+              bool invalidValue = false;
+              int32_t sizetmp = Bits(ts, invalidValue, component, compileDesign,
+                                     Reduce::Yes, instance, fC->getFileId(),
+                                     fC->Line(actual_value), false);
+              if (!invalidValue) size = sizetmp;
+            }
           }
-          if (rhs->Typespec() == nullptr) rhs->Typespec(ts);
+          if (rhs->Typespec() == nullptr) {
+            ref_typespec* tsRef = s.MakeRef_typespec();
+            tsRef->VpiParent(rhs);
+            rhs->Typespec(tsRef);
+            rhs->Typespec()->Actual_typespec(ts);
+          }
           c->VpiSize(size);
         }
         param_assign->Rhs(rhs);
@@ -3740,17 +3920,19 @@ UHDM::constant* CompileHelper::adjustSize(const UHDM::typespec* ts,
       c->VpiConstType(vpiUIntConst);
       c->VpiSize(size);
     } else if (c->VpiConstType() == vpiBinaryConst) {
-      if (const typespec* tstmp = c->Typespec()) {
-        if (tstmp->UhdmType() == uhdmint_typespec) {
-          int_typespec* itps = (int_typespec*)tstmp;
-          if (itps->VpiSigned()) {
-            constantIsSigned = true;
+      if (const ref_typespec* tstmp_rt = c->Typespec()) {
+        if (const typespec* tstmp = tstmp_rt->Actual_typespec()) {
+          if (tstmp->UhdmType() == uhdmint_typespec) {
+            int_typespec* itps = (int_typespec*)tstmp;
+            if (itps->VpiSigned()) {
+              constantIsSigned = true;
+            }
+            if (!signedLhs) {
+              itps->VpiSigned(false);
+            }
           }
-          if (!signedLhs) {
-            itps->VpiSigned(false);
-          }
+          ts = tstmp;
         }
-        ts = tstmp;
       }
       if (ts) {
         UHDM_OBJECT_TYPE ttype = ts->UhdmType();
@@ -4676,7 +4858,10 @@ int32_t CompileHelper::adjustOpSize(const typespec* tps, expr* cop,
     if (invalidValue == false && vexp) csize = vexp->VpiSize();
   }
 
-  const typespec* rtps = rhs->Typespec();
+  const typespec* rtps = nullptr;
+  if (const UHDM::ref_typespec* rt = rhs->Typespec()) {
+    rtps = rt->Actual_typespec();
+  }
   if (rtps == nullptr) {
     rtps = tps;
   }
@@ -4685,13 +4870,16 @@ int32_t CompileHelper::adjustOpSize(const typespec* tps, expr* cop,
     int32_t index = 0;
     for (typespec_member* member : *stps->Members()) {
       if (index == opIndex) {
-        int32_t ncsize =
-            Bits(member->Typespec(), invalidValue, component, compileDesign,
-                 Reduce::Yes, instance,
-                 fileSystem->toPathId(
-                     member->VpiFile(),
-                     compileDesign->getCompiler()->getSymbolTable()),
-                 member->VpiLineNo(), false);
+        const UHDM::typespec* mtps = nullptr;
+        if (const UHDM::ref_typespec* rt = member->Typespec()) {
+          mtps = rt->Actual_typespec();
+        }
+        int32_t ncsize = Bits(
+            mtps, invalidValue, component, compileDesign, Reduce::Yes, instance,
+            fileSystem->toPathId(
+                member->VpiFile(),
+                compileDesign->getCompiler()->getSymbolTable()),
+            member->VpiLineNo(), false);
         // Fix the size of the member:
         adjustUnsized(any_cast<constant*>(cop), ncsize);
         cop->VpiSize(ncsize);
@@ -4701,15 +4889,17 @@ int32_t CompileHelper::adjustOpSize(const typespec* tps, expr* cop,
     }
   } else if (rtps->UhdmType() == uhdmarray_typespec) {
     array_typespec* atps = (array_typespec*)rtps;
-    int32_t ncsize = Bits(
-        atps->Elem_typespec(), invalidValue, component, compileDesign,
-        Reduce::Yes, instance,
-        fileSystem->toPathId(rtps->VpiFile(),
-                             compileDesign->getCompiler()->getSymbolTable()),
-        rtps->VpiLineNo(), false);
-    // Fix the size of the member:
-    adjustUnsized(any_cast<constant*>(cop), ncsize);
-    cop->VpiSize(ncsize);
+    if (const ref_typespec* ert = atps->Elem_typespec()) {
+      int32_t ncsize = Bits(
+          ert->Actual_typespec(), invalidValue, component, compileDesign,
+          Reduce::Yes, instance,
+          fileSystem->toPathId(rtps->VpiFile(),
+                               compileDesign->getCompiler()->getSymbolTable()),
+          rtps->VpiLineNo(), false);
+      // Fix the size of the member:
+      adjustUnsized(any_cast<constant*>(cop), ncsize);
+      cop->VpiSize(ncsize);
+    }
   } else if (rtps->UhdmType() == uhdmlogic_typespec) {
     uint64_t fullSize = Bits(
         rtps, invalidValue, component, compileDesign, Reduce::Yes, instance,
@@ -4788,26 +4978,32 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
           if (op->UhdmType() == uhdmtagged_pattern) {
             taggedPattern = true;
             tagged_pattern* tp = (tagged_pattern*)op;
-            const typespec* tpsi = tp->Typespec();
-            if (tpsi->VpiName() == "default") {
-              bool invalidValue = false;
-              UHDM::ExprEval eval;
-              defaultval = eval.get_value(
-                  invalidValue,
-                  reduceExpr(
-                      (any*)tp->Pattern(), invalidValue, component,
-                      compileDesign, instance,
-                      fileSystem->toPathId(
-                          tp->Pattern()->VpiFile(),
-                          compileDesign->getCompiler()->getSymbolTable()),
-                      tp->Pattern()->VpiLineNo(), nullptr));
+            if (const UHDM::ref_typespec* rt = tp->Typespec()) {
+              if (const typespec* tpsi = rt->Actual_typespec()) {
+                if (tpsi->VpiName() == "default") {
+                  bool invalidValue = false;
+                  UHDM::ExprEval eval;
+                  defaultval = eval.get_value(
+                      invalidValue,
+                      reduceExpr(
+                          (any*)tp->Pattern(), invalidValue, component,
+                          compileDesign, instance,
+                          fileSystem->toPathId(
+                              tp->Pattern()->VpiFile(),
+                              compileDesign->getCompiler()->getSymbolTable()),
+                          tp->Pattern()->VpiLineNo(), nullptr));
 
-              break;
+                  break;
+                }
+              }
             }
           }
         }
         if (taggedPattern) {
-          const typespec* rtps = rhs->Typespec();
+          const typespec* rtps = nullptr;
+          if (const ref_typespec* rt = rhs->Typespec()) {
+            rtps = rt->Actual_typespec();
+          }
           if (rtps == nullptr) {
             rtps = tps;
           }
@@ -4858,22 +5054,25 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
                 if (op->UhdmType() == uhdmtagged_pattern) {
                   taggedPattern = true;
                   tagged_pattern* tp = (tagged_pattern*)op;
-                  const typespec* tpsi = tp->Typespec();
-                  if (tpsi->VpiName() == member->VpiName()) {
-                    bool invalidValue = false;
-                    UHDM::ExprEval eval;
-                    val = eval.get_value(
-                        invalidValue,
-                        reduceExpr(
-                            (any*)tp->Pattern(), invalidValue, component,
-                            compileDesign, instance,
-                            fileSystem->toPathId(
-                                tp->Pattern()->VpiFile(),
-                                compileDesign->getCompiler()->getSymbolTable()),
-                            tp->Pattern()->VpiLineNo(), nullptr));
-                    found = true;
-                    if (invalidValue) {
-                      return result;
+                  if (const UHDM::ref_typespec* rt = tp->Typespec()) {
+                    if (const typespec* tpsi = rt->Actual_typespec()) {
+                      if (tpsi->VpiName() == member->VpiName()) {
+                        bool invalidValue = false;
+                        UHDM::ExprEval eval;
+                        val = eval.get_value(
+                            invalidValue,
+                            reduceExpr((any*)tp->Pattern(), invalidValue,
+                                       component, compileDesign, instance,
+                                       fileSystem->toPathId(
+                                           tp->Pattern()->VpiFile(),
+                                           compileDesign->getCompiler()
+                                               ->getSymbolTable()),
+                                       tp->Pattern()->VpiLineNo(), nullptr));
+                        found = true;
+                        if (invalidValue) {
+                          return result;
+                        }
+                      }
                     }
                   }
                 }
@@ -4949,18 +5148,23 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
 
   if (tps->UhdmType() == uhdmpacked_array_typespec) {
     const packed_array_typespec* atps = (const packed_array_typespec*)tps;
-    typespec* etps = (typespec*)atps->Elem_typespec();
-    UHDM_OBJECT_TYPE etps_type = etps->UhdmType();
-    if (size > 1) {
-      if (etps_type == uhdmenum_typespec) {
-        packed_array_var* array = s.MakePacked_array_var();
-        array->VpiSize(size);
-        array->Ranges(atps->Ranges());
-        array->Elements(vars);
-        for (uint32_t i = 0; i < size; i++) {
-          vars->push_back(s.MakeEnum_var());
+    const typespec* etps = nullptr;
+    if (const ref_typespec* rt = atps->Elem_typespec()) {
+      etps = rt->Actual_typespec();
+    }
+    if (etps != nullptr) {
+      UHDM_OBJECT_TYPE etps_type = etps->UhdmType();
+      if (size > 1) {
+        if (etps_type == uhdmenum_typespec) {
+          packed_array_var* array = s.MakePacked_array_var();
+          array->VpiSize(size);
+          array->Ranges(atps->Ranges());
+          array->Elements(vars);
+          for (uint32_t i = 0; i < size; i++) {
+            vars->push_back(s.MakeEnum_var());
+          }
+          result = array;
         }
-        result = array;
       }
     }
   } else if (tps->UhdmType() == uhdmlogic_typespec) {
@@ -5078,7 +5282,10 @@ void CompileHelper::setRange(UHDM::constant* c, Value* val,
   uint16_t rr = val->getRRange();
   if (lr || rr) {
     logic_typespec* tps = s.MakeLogic_typespec();
-    c->Typespec(tps);
+    ref_typespec* tpsRef = s.MakeRef_typespec();
+    tpsRef->VpiParent(c);
+    tpsRef->Actual_typespec(tps);
+    c->Typespec(tpsRef);
     range* r = s.MakeRange();
     r->VpiParent(tps);
     VectorOfrange* ranges = s.MakeRangeVec();

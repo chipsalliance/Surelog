@@ -224,6 +224,7 @@ part_select                                            2
 port                                                   2
 range                                                 10
 ref_obj                                                5
+ref_typespec                                          12
 return_stmt                                            1
 var_select                                             2
 === UHDM Object Stats End ===
@@ -254,6 +255,7 @@ part_select                                            4
 port                                                   3
 range                                                 10
 ref_obj                                                7
+ref_typespec                                          17
 return_stmt                                            2
 var_select                                             4
 === UHDM Object Stats End ===
@@ -333,50 +335,12 @@ design: (work@top)
       |vpiParent:
       \_begin: (work@top.iota), line:8:7, endln:8:38
       |vpiTypespec:
-      \_logic_typespec: (box_t), line:2:12, endln:2:28
-        |vpiName:box_t
-        |vpiTypedefAlias:
+      \_ref_typespec: (work@top.iota.result)
+        |vpiParent:
+        \_logic_var: (work@top.iota.result), line:7:13, endln:7:19
+        |vpiFullName:work@top.iota.result
+        |vpiActual:
         \_logic_typespec: (box_t), line:2:12, endln:2:28
-        |vpiRange:
-        \_range: , line:2:18, endln:2:23
-          |vpiParent:
-          \_logic_typespec: (box_t), line:2:12, endln:2:28
-          |vpiLeftRange:
-          \_constant: , line:2:19, endln:2:20
-            |vpiParent:
-            \_range: , line:2:18, endln:2:23
-            |vpiDecompile:4
-            |vpiSize:64
-            |UINT:4
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:2:21, endln:2:22
-            |vpiParent:
-            \_range: , line:2:18, endln:2:23
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-        |vpiRange:
-        \_range: , line:2:23, endln:2:28
-          |vpiParent:
-          \_logic_typespec: (box_t), line:2:12, endln:2:28
-          |vpiLeftRange:
-          \_constant: , line:2:24, endln:2:25
-            |vpiParent:
-            \_range: , line:2:23, endln:2:28
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:2:26, endln:2:27
-            |vpiParent:
-            \_range: , line:2:23, endln:2:28
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
       |vpiName:result
       |vpiFullName:work@top.iota.result
     |vpiVisibility:1
@@ -386,27 +350,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@top.iota), line:6:4, endln:10:22
       |vpiTypespec:
-      \_logic_typespec: , line:6:23, endln:6:34
-        |vpiRange:
-        \_range: , line:6:29, endln:6:34
-          |vpiParent:
-          \_logic_typespec: , line:6:23, endln:6:34
-          |vpiLeftRange:
-          \_constant: , line:6:30, endln:6:31
-            |vpiParent:
-            \_range: , line:6:29, endln:6:34
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:6:32, endln:6:33
-            |vpiParent:
-            \_range: , line:6:29, endln:6:34
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_typespec: (work@top.iota)
+        |vpiParent:
+        \_logic_var: (work@top.iota), line:6:23, endln:6:34
+        |vpiFullName:work@top.iota
+        |vpiActual:
+        \_logic_typespec: , line:6:23, endln:6:34
       |vpiFullName:work@top.iota
     |vpiIODecl:
     \_io_decl: (state), line:6:46, endln:6:51
@@ -415,50 +364,12 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:state
       |vpiTypedef:
-      \_logic_typespec: (box_t), line:6:40, endln:6:45
-        |vpiName:box_t
-        |vpiTypedefAlias:
-        \_logic_typespec: (box_t), line:2:12, endln:2:28
-        |vpiRange:
-        \_range: , line:2:18, endln:2:23
-          |vpiParent:
-          \_logic_typespec: (box_t), line:6:40, endln:6:45
-          |vpiLeftRange:
-          \_constant: , line:2:19, endln:2:20
-            |vpiParent:
-            \_range: , line:2:18, endln:2:23
-            |vpiDecompile:4
-            |vpiSize:64
-            |UINT:4
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:2:21, endln:2:22
-            |vpiParent:
-            \_range: , line:2:18, endln:2:23
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-        |vpiRange:
-        \_range: , line:2:23, endln:2:28
-          |vpiParent:
-          \_logic_typespec: (box_t), line:6:40, endln:6:45
-          |vpiLeftRange:
-          \_constant: , line:2:24, endln:2:25
-            |vpiParent:
-            \_range: , line:2:23, endln:2:28
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:2:26, endln:2:27
-            |vpiParent:
-            \_range: , line:2:23, endln:2:28
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+      \_ref_typespec: (work@top.iota.state)
+        |vpiParent:
+        \_io_decl: (state), line:6:46, endln:6:51
+        |vpiFullName:work@top.iota.state
+        |vpiActual:
+        \_logic_typespec: (box_t), line:6:40, endln:6:45
     |vpiStmt:
     \_begin: (work@top.iota), line:8:7, endln:8:38
       |vpiParent:
@@ -591,8 +502,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.o), line:1:23, endln:1:24
     |vpiTypedef:
-    \_int_typespec: , line:1:19, endln:1:22
-      |vpiSigned:1
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_port: (o), line:1:23, endln:1:24
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_int_typespec: , line:1:19, endln:1:22
   |vpiContAssign:
   \_cont_assign: , line:4:11, endln:4:29
     |vpiParent:
@@ -602,8 +517,12 @@ design: (work@top)
       |vpiParent:
       \_cont_assign: , line:4:11, endln:4:29
       |vpiTypespec:
-      \_int_typespec: , line:4:15, endln:4:18
-        |vpiSigned:1
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_operation: , line:4:15, endln:4:29
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:4:15, endln:4:18
       |vpiOpType:67
       |vpiOperand:
       \_func_call: (iota), line:4:20, endln:4:28
@@ -636,8 +555,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectPartSelectInFunction/dut.sv, line:1:1, endln:12:10
     |vpiTypespec:
-    \_int_typespec: , line:1:19, endln:1:22
-      |vpiSigned:1
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_int_var: (work@top.o), line:1:23, endln:1:24
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_int_typespec: , line:1:19, endln:1:22
     |vpiName:o
     |vpiFullName:work@top.o
     |vpiSigned:1
@@ -657,7 +580,12 @@ design: (work@top)
       |vpiParent:
       \_function: (work@top.iota), line:6:4, endln:10:22
       |vpiTypespec:
-      \_logic_typespec: (box_t), line:2:12, endln:2:28
+      \_ref_typespec: (work@top.iota.result)
+        |vpiParent:
+        \_logic_var: (work@top.iota.result), line:7:13, endln:7:19
+        |vpiFullName:work@top.iota.result
+        |vpiActual:
+        \_logic_typespec: (box_t), line:2:12, endln:2:28
       |vpiName:result
       |vpiFullName:work@top.iota.result
     |vpiVisibility:1
@@ -671,7 +599,12 @@ design: (work@top)
       |vpiDirection:1
       |vpiName:state
       |vpiTypedef:
-      \_logic_typespec: (box_t), line:6:40, endln:6:45
+      \_ref_typespec: (work@top.iota.state)
+        |vpiParent:
+        \_io_decl: (state), line:6:46, endln:6:51
+        |vpiFullName:work@top.iota.state
+        |vpiActual:
+        \_logic_typespec: (box_t), line:6:40, endln:6:45
     |vpiStmt:
     \_begin: (work@top.iota), line:8:7, endln:8:38
       |vpiParent:
@@ -682,7 +615,12 @@ design: (work@top)
         |vpiParent:
         \_begin: (work@top.iota), line:8:7, endln:8:38
         |vpiTypespec:
-        \_logic_typespec: (box_t), line:2:12, endln:2:28
+        \_ref_typespec: (work@top.iota.result)
+          |vpiParent:
+          \_logic_var: (work@top.iota.result), line:7:13, endln:7:19
+          |vpiFullName:work@top.iota.result
+          |vpiActual:
+          \_logic_typespec: (box_t), line:2:12, endln:2:28
         |vpiName:result
         |vpiFullName:work@top.iota.result
       |vpiStmt:
@@ -771,8 +709,12 @@ design: (work@top)
       |vpiActual:
       \_int_var: (work@top.o), line:1:23, endln:1:24
     |vpiTypedef:
-    \_int_typespec: , line:1:19, endln:1:22
-      |vpiSigned:1
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_port: (o), line:1:23, endln:1:24
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_int_typespec: , line:1:19, endln:1:22
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectPartSelectInFunction/dut.sv, line:1:1, endln:12:10
   |vpiContAssign:
@@ -784,10 +726,12 @@ design: (work@top)
       |vpiParent:
       \_cont_assign: , line:4:11, endln:4:29
       |vpiTypespec:
-      \_int_typespec: , line:4:15, endln:4:18
+      \_ref_typespec: (work@top)
         |vpiParent:
         \_operation: , line:4:15, endln:4:29
-        |vpiSigned:1
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:4:15, endln:4:18
       |vpiOpType:67
       |vpiOperand:
       \_func_call: (iota), line:4:20, endln:4:28
@@ -801,7 +745,12 @@ design: (work@top)
           |vpiSize:10
           |BIN:1111111111
           |vpiTypespec:
-          \_logic_typespec: (box_t), line:6:40, endln:6:45
+          \_ref_typespec: (work@top)
+            |vpiParent:
+            \_constant: , line:4:25, endln:4:27
+            |vpiFullName:work@top
+            |vpiActual:
+            \_logic_typespec: (box_t), line:6:40, endln:6:45
           |vpiConstType:3
         |vpiName:iota
         |vpiFunction:
@@ -814,6 +763,172 @@ design: (work@top)
       |vpiFullName:work@top.o
       |vpiActual:
       \_int_var: (work@top.o), line:1:23, endln:1:24
+\_weaklyReferenced:
+\_logic_typespec: , line:6:23, endln:6:34
+  |vpiRange:
+  \_range: , line:6:29, endln:6:34
+    |vpiParent:
+    \_logic_typespec: , line:6:23, endln:6:34
+    |vpiLeftRange:
+    \_constant: , line:6:30, endln:6:31
+      |vpiParent:
+      \_range: , line:6:29, endln:6:34
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:32, endln:6:33
+      |vpiParent:
+      \_range: , line:6:29, endln:6:34
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: (box_t), line:6:40, endln:6:45
+  |vpiName:box_t
+  |vpiTypedefAlias:
+  \_ref_typespec: (box_t)
+    |vpiParent:
+    \_logic_typespec: (box_t), line:6:40, endln:6:45
+    |vpiFullName:box_t
+    |vpiActual:
+    \_logic_typespec: (box_t), line:2:12, endln:2:28
+  |vpiRange:
+  \_range: , line:2:18, endln:2:23
+    |vpiParent:
+    \_logic_typespec: (box_t), line:6:40, endln:6:45
+    |vpiLeftRange:
+    \_constant: , line:2:19, endln:2:20
+      |vpiParent:
+      \_range: , line:2:18, endln:2:23
+      |vpiDecompile:4
+      |vpiSize:64
+      |UINT:4
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:21, endln:2:22
+      |vpiParent:
+      \_range: , line:2:18, endln:2:23
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:2:23, endln:2:28
+    |vpiParent:
+    \_logic_typespec: (box_t), line:6:40, endln:6:45
+    |vpiLeftRange:
+    \_constant: , line:2:24, endln:2:25
+      |vpiParent:
+      \_range: , line:2:23, endln:2:28
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:26, endln:2:27
+      |vpiParent:
+      \_range: , line:2:23, endln:2:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: (box_t), line:2:12, endln:2:28
+  |vpiName:box_t
+  |vpiTypedefAlias:
+  \_ref_typespec: (box_t)
+    |vpiParent:
+    \_logic_typespec: (box_t), line:2:12, endln:2:28
+    |vpiFullName:box_t
+    |vpiActual:
+    \_logic_typespec: (box_t), line:2:12, endln:2:28
+  |vpiRange:
+  \_range: , line:2:18, endln:2:23
+    |vpiParent:
+    \_logic_typespec: (box_t), line:2:12, endln:2:28
+    |vpiLeftRange:
+    \_constant: , line:2:19, endln:2:20
+      |vpiParent:
+      \_range: , line:2:18, endln:2:23
+      |vpiDecompile:4
+      |vpiSize:64
+      |UINT:4
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:21, endln:2:22
+      |vpiParent:
+      \_range: , line:2:18, endln:2:23
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:2:23, endln:2:28
+    |vpiParent:
+    \_logic_typespec: (box_t), line:2:12, endln:2:28
+    |vpiLeftRange:
+    \_constant: , line:2:24, endln:2:25
+      |vpiParent:
+      \_range: , line:2:23, endln:2:28
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:2:26, endln:2:27
+      |vpiParent:
+      \_range: , line:2:23, endln:2:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:4:15, endln:4:18
+  |vpiSigned:1
+\_int_typespec: , line:1:19, endln:1:22
+  |vpiSigned:1
+\_int_typespec: , line:1:19, endln:1:22
+  |vpiSigned:1
+\_int_typespec: , line:1:19, endln:1:22
+  |vpiSigned:1
+\_int_typespec: , line:4:15, endln:4:18
+  |vpiParent:
+  \_ref_typespec: (work@top)
+  |vpiSigned:1
+\_ref_typespec: (work@top)
+  |vpiParent:
+  \_operation: , line:4:15, endln:4:29
+  |vpiFullName:work@top
+  |vpiActual:
+  \_int_typespec: , line:4:15, endln:4:18
+\_operation: , line:4:15, endln:4:29
+  |vpiParent:
+  \_cont_assign: , line:4:11, endln:4:29
+  |vpiTypespec:
+  \_ref_typespec: (work@top)
+  |vpiOpType:67
+  |vpiOperand:
+  \_func_call: (iota), line:4:20, endln:4:28
+    |vpiParent:
+    \_operation: , line:4:15, endln:4:29
+    |vpiArgument:
+    \_constant: , line:4:25, endln:4:27
+    |vpiName:iota
+    |vpiFunction:
+    \_function: (work@top.iota), line:6:4, endln:10:22
+\_cont_assign: , line:4:11, endln:4:29
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectPartSelectInFunction/dut.sv, line:1:1, endln:12:10
+  |vpiRhs:
+  \_operation: , line:4:15, endln:4:29
+  |vpiLhs:
+  \_ref_obj: (work@top.o), line:4:11, endln:4:12
+    |vpiParent:
+    \_cont_assign: , line:4:11, endln:4:29
+    |vpiName:o
+    |vpiFullName:work@top.o
+    |vpiActual:
+    \_int_var: (work@top.o), line:1:23, endln:1:24
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -176,6 +176,7 @@ param_assign                                           4
 parameter                                              4
 ref_module                                             2
 ref_obj                                                3
+ref_typespec                                          10
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -195,6 +196,7 @@ param_assign                                           4
 parameter                                              4
 ref_module                                             2
 ref_obj                                                3
+ref_typespec                                          10
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/IfElseIf3/slpp_all/surelog.uhdm ...
 
@@ -225,7 +227,12 @@ design: (work@axi)
     \_module_inst: work@axi (work@axi), file:${SURELOG_DIR}/tests/IfElseIf/test3/dut.sv, line:4:1, endln:19:10
     |UINT:0
     |vpiTypespec:
-    \_int_typespec: , line:6:5, endln:6:20
+    \_ref_typespec: (work@axi.j)
+      |vpiParent:
+      \_parameter: (work@axi.j), line:6:15, endln:6:16
+      |vpiFullName:work@axi.j
+      |vpiActual:
+      \_int_typespec: , line:6:5, endln:6:20
     |vpiName:j
     |vpiFullName:work@axi.j
   |vpiParameter:
@@ -234,7 +241,12 @@ design: (work@axi)
     \_module_inst: work@axi (work@axi), file:${SURELOG_DIR}/tests/IfElseIf/test3/dut.sv, line:4:1, endln:19:10
     |UINT:5
     |vpiTypespec:
-    \_int_typespec: , line:7:5, endln:7:34
+    \_ref_typespec: (work@axi.LOG_MASTER)
+      |vpiParent:
+      \_parameter: (work@axi.LOG_MASTER), line:7:15, endln:7:25
+      |vpiFullName:work@axi.LOG_MASTER
+      |vpiActual:
+      \_int_typespec: , line:7:5, endln:7:34
     |vpiName:LOG_MASTER
     |vpiFullName:work@axi.LOG_MASTER
   |vpiParamAssign:
@@ -249,7 +261,12 @@ design: (work@axi)
       |vpiSize:64
       |UINT:0
       |vpiTypespec:
-      \_int_typespec: , line:6:5, endln:6:20
+      \_ref_typespec: (work@axi)
+        |vpiParent:
+        \_constant: , line:6:19, endln:6:20
+        |vpiFullName:work@axi
+        |vpiActual:
+        \_int_typespec: , line:6:5, endln:6:20
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@axi.j), line:6:15, endln:6:16
@@ -265,7 +282,12 @@ design: (work@axi)
       |vpiSize:64
       |UINT:5
       |vpiTypespec:
-      \_int_typespec: , line:7:5, endln:7:34
+      \_ref_typespec: (work@axi)
+        |vpiParent:
+        \_constant: , line:7:33, endln:7:34
+        |vpiFullName:work@axi
+        |vpiActual:
+        \_int_typespec: , line:7:5, endln:7:34
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@axi.LOG_MASTER), line:7:15, endln:7:25
@@ -374,9 +396,12 @@ design: (work@axi)
     \_module_inst: work@axi (work@axi), file:${SURELOG_DIR}/tests/IfElseIf/test3/dut.sv, line:4:1, endln:19:10
     |UINT:0
     |vpiTypespec:
-    \_int_typespec: , line:6:5, endln:6:20
+    \_ref_typespec: (work@axi.j)
       |vpiParent:
       \_parameter: (work@axi.j), line:6:15, endln:6:16
+      |vpiFullName:work@axi.j
+      |vpiActual:
+      \_int_typespec: , line:6:5, endln:6:20
     |vpiName:j
     |vpiFullName:work@axi.j
   |vpiParameter:
@@ -385,9 +410,12 @@ design: (work@axi)
     \_module_inst: work@axi (work@axi), file:${SURELOG_DIR}/tests/IfElseIf/test3/dut.sv, line:4:1, endln:19:10
     |UINT:5
     |vpiTypespec:
-    \_int_typespec: , line:7:5, endln:7:34
+    \_ref_typespec: (work@axi.LOG_MASTER)
       |vpiParent:
       \_parameter: (work@axi.LOG_MASTER), line:7:15, endln:7:25
+      |vpiFullName:work@axi.LOG_MASTER
+      |vpiActual:
+      \_int_typespec: , line:7:5, endln:7:34
     |vpiName:LOG_MASTER
     |vpiFullName:work@axi.LOG_MASTER
   |vpiParamAssign:
@@ -402,7 +430,12 @@ design: (work@axi)
       |vpiSize:32
       |UINT:0
       |vpiTypespec:
-      \_int_typespec: , line:6:5, endln:6:20
+      \_ref_typespec: (work@axi)
+        |vpiParent:
+        \_constant: , line:6:19, endln:6:20
+        |vpiFullName:work@axi
+        |vpiActual:
+        \_int_typespec: , line:6:5, endln:6:20
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@axi.j), line:6:15, endln:6:16
@@ -418,7 +451,12 @@ design: (work@axi)
       |vpiSize:32
       |UINT:5
       |vpiTypespec:
-      \_int_typespec: , line:7:5, endln:7:34
+      \_ref_typespec: (work@axi)
+        |vpiParent:
+        \_constant: , line:7:33, endln:7:34
+        |vpiFullName:work@axi
+        |vpiActual:
+        \_int_typespec: , line:7:5, endln:7:34
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@axi.LOG_MASTER), line:7:15, endln:7:25
@@ -445,6 +483,15 @@ design: (work@axi)
         |vpiDefName:work@GOOD
         |vpiDefFile:${SURELOG_DIR}/tests/IfElseIf/test3/dut.sv
         |vpiDefLineNo:1
+\_weaklyReferenced:
+\_int_typespec: , line:6:5, endln:6:20
+\_int_typespec: , line:7:5, endln:7:34
+\_int_typespec: , line:6:5, endln:6:20
+  |vpiParent:
+  \_ref_typespec: (work@axi.j)
+\_int_typespec: , line:7:5, endln:7:34
+  |vpiParent:
+  \_ref_typespec: (work@axi.LOG_MASTER)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

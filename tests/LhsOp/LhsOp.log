@@ -163,6 +163,7 @@ packed_array_typespec                                  1
 port                                                   4
 range                                                  1
 ref_obj                                               10
+ref_typespec                                          11
 struct_typespec                                        1
 struct_var                                             1
 typespec_member                                        1
@@ -184,6 +185,7 @@ packed_array_typespec                                  1
 port                                                   6
 range                                                  1
 ref_obj                                               16
+ref_typespec                                          13
 struct_typespec                                        1
 struct_var                                             1
 typespec_member                                        1
@@ -213,7 +215,12 @@ design: (work@top)
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LhsOp/dut.sv, line:2:1, endln:14:10
     |vpiBaseTypespec:
-    \_logic_typespec: , line:3:16, endln:3:21
+    \_ref_typespec: (work@top.cstate_e)
+      |vpiParent:
+      \_enum_typespec: (cstate_e), line:3:3, endln:3:46
+      |vpiFullName:work@top.cstate_e
+      |vpiActual:
+      \_logic_typespec: , line:3:16, endln:3:21
     |vpiEnumConst:
     \_enum_const: (c), line:3:23, endln:3:28
       |vpiParent:
@@ -244,31 +251,12 @@ design: (work@top)
       \_struct_typespec: (hw2reg_wrap_t), line:5:12, endln:7:5
       |vpiName:class_esc_state
       |vpiTypespec:
-      \_packed_array_typespec: , line:6:7, endln:6:21
+      \_ref_typespec: (work@top.hw2reg_wrap_t.class_esc_state)
         |vpiParent:
         \_typespec_member: (class_esc_state), line:6:22, endln:6:37
-        |vpiRange:
-        \_range: , line:6:16, endln:6:21
-          |vpiParent:
-          \_packed_array_typespec: , line:6:7, endln:6:21
-          |vpiLeftRange:
-          \_constant: , line:6:17, endln:6:18
-            |vpiParent:
-            \_range: , line:6:16, endln:6:21
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:6:19, endln:6:20
-            |vpiParent:
-            \_range: , line:6:16, endln:6:21
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-        |vpiElemTypespec:
-        \_enum_typespec: (cstate_e), line:3:3, endln:3:46
+        |vpiFullName:work@top.hw2reg_wrap_t.class_esc_state
+        |vpiActual:
+        \_packed_array_typespec: , line:6:7, endln:6:21
       |vpiRefFile:${SURELOG_DIR}/tests/LhsOp/dut.sv
       |vpiRefLineNo:6
       |vpiRefColumnNo:7
@@ -294,7 +282,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LhsOp/dut.sv, line:2:1, endln:14:10
     |vpiTypespec:
-    \_struct_typespec: (hw2reg_wrap_t), line:5:12, endln:7:5
+    \_ref_typespec: (work@top.hw2reg_wrap)
+      |vpiParent:
+      \_logic_net: (work@top.hw2reg_wrap), line:9:18, endln:9:29
+      |vpiFullName:work@top.hw2reg_wrap
+      |vpiActual:
+      \_struct_typespec: (hw2reg_wrap_t), line:5:12, endln:7:5
     |vpiName:hw2reg_wrap
     |vpiFullName:work@top.hw2reg_wrap
   |vpiPort:
@@ -312,7 +305,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.a), line:2:25, endln:2:26
     |vpiTypedef:
-    \_logic_typespec: , line:2:19, endln:2:24
+    \_ref_typespec: (work@top.a)
+      |vpiParent:
+      \_port: (a), line:2:25, endln:2:26
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_logic_typespec: , line:2:19, endln:2:24
   |vpiPort:
   \_port: (b), line:2:41, endln:2:42
     |vpiParent:
@@ -328,7 +326,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.b), line:2:41, endln:2:42
     |vpiTypedef:
-    \_logic_typespec: , line:2:35, endln:2:40
+    \_ref_typespec: (work@top.b)
+      |vpiParent:
+      \_port: (b), line:2:41, endln:2:42
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_logic_typespec: , line:2:35, endln:2:40
   |vpiContAssign:
   \_cont_assign: , line:11:11, endln:12:46
     |vpiParent:
@@ -378,7 +381,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LhsOp/dut.sv, line:2:1, endln:14:10
     |vpiTypespec:
-    \_struct_typespec: (hw2reg_wrap_t), line:5:12, endln:7:5
+    \_ref_typespec: (work@top.hw2reg_wrap)
+      |vpiParent:
+      \_struct_var: (work@top.hw2reg_wrap), line:9:18, endln:9:29
+      |vpiFullName:work@top.hw2reg_wrap
+      |vpiActual:
+      \_struct_typespec: (hw2reg_wrap_t), line:5:12, endln:7:5
     |vpiName:hw2reg_wrap
     |vpiFullName:work@top.hw2reg_wrap
     |vpiVisibility:1
@@ -414,9 +422,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LhsOp/dut.sv, line:2:1, endln:14:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:19, endln:2:24
+    \_ref_typespec: (work@top.a)
       |vpiParent:
       \_logic_net: (work@top.a), line:2:25, endln:2:26
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_logic_typespec: , line:2:19, endln:2:24
     |vpiName:a
     |vpiFullName:work@top.a
     |vpiNetType:36
@@ -425,9 +436,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LhsOp/dut.sv, line:2:1, endln:14:10
     |vpiTypespec:
-    \_logic_typespec: , line:2:35, endln:2:40
+    \_ref_typespec: (work@top.b)
       |vpiParent:
       \_logic_net: (work@top.b), line:2:41, endln:2:42
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_logic_typespec: , line:2:35, endln:2:40
     |vpiName:b
     |vpiFullName:work@top.b
     |vpiNetType:36
@@ -447,7 +461,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.a), line:2:25, endln:2:26
     |vpiTypedef:
-    \_logic_typespec: , line:2:19, endln:2:24
+    \_ref_typespec: (work@top.a)
+      |vpiParent:
+      \_port: (a), line:2:25, endln:2:26
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_logic_typespec: , line:2:19, endln:2:24
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LhsOp/dut.sv, line:2:1, endln:14:10
   |vpiPort:
@@ -465,7 +484,12 @@ design: (work@top)
       |vpiActual:
       \_logic_net: (work@top.b), line:2:41, endln:2:42
     |vpiTypedef:
-    \_logic_typespec: , line:2:35, endln:2:40
+    \_ref_typespec: (work@top.b)
+      |vpiParent:
+      \_port: (b), line:2:41, endln:2:42
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_logic_typespec: , line:2:35, endln:2:40
     |vpiInstance:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LhsOp/dut.sv, line:2:1, endln:14:10
   |vpiContAssign:
@@ -513,6 +537,48 @@ design: (work@top)
         |vpiFullName:work@top.b
         |vpiActual:
         \_logic_net: (work@top.b), line:2:41, endln:2:42
+\_weaklyReferenced:
+\_logic_typespec: , line:3:16, endln:3:21
+\_packed_array_typespec: , line:6:7, endln:6:21
+  |vpiParent:
+  \_typespec_member: (class_esc_state), line:6:22, endln:6:37
+  |vpiRange:
+  \_range: , line:6:16, endln:6:21
+    |vpiParent:
+    \_packed_array_typespec: , line:6:7, endln:6:21
+    |vpiLeftRange:
+    \_constant: , line:6:17, endln:6:18
+      |vpiParent:
+      \_range: , line:6:16, endln:6:21
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:19, endln:6:20
+      |vpiParent:
+      \_range: , line:6:16, endln:6:21
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_typespec: (work@top.hw2reg_wrap_t.class_esc_state)
+    |vpiParent:
+    \_packed_array_typespec: , line:6:7, endln:6:21
+    |vpiFullName:work@top.hw2reg_wrap_t.class_esc_state
+    |vpiActual:
+    \_enum_typespec: (cstate_e), line:3:3, endln:3:46
+\_logic_typespec: , line:2:19, endln:2:24
+\_logic_typespec: , line:2:35, endln:2:40
+\_logic_typespec: , line:2:19, endln:2:24
+  |vpiParent:
+  \_logic_net: (work@top.a), line:2:25, endln:2:26
+\_logic_typespec: , line:2:35, endln:2:40
+  |vpiParent:
+  \_logic_net: (work@top.b), line:2:41, endln:2:42
+\_logic_typespec: , line:2:19, endln:2:24
+\_logic_typespec: , line:2:35, endln:2:40
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

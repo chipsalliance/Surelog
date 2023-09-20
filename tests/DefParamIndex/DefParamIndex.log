@@ -330,6 +330,7 @@ parameter                                              5
 range                                                  3
 ref_module                                             9
 ref_obj                                                3
+ref_typespec                                          10
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -350,6 +351,7 @@ parameter                                              5
 range                                                  3
 ref_module                                             9
 ref_obj                                                3
+ref_typespec                                          28
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/DefParamIndex/slpp_all/surelog.uhdm ...
 
@@ -395,29 +397,12 @@ design: (work@hierdefparam_top)
     \_module_inst: work@hierdefparam_b (work@hierdefparam_b), file:${SURELOG_DIR}/tests/DefParamIndex/dut.sv, line:22:1, endln:33:10
     |UINT:44
     |vpiTypespec:
-    \_int_typespec: , line:23:13, endln:23:18
+    \_ref_typespec: (work@hierdefparam_b.addvalue)
       |vpiParent:
       \_parameter: (work@hierdefparam_b.addvalue), line:23:19, endln:23:27
-      |vpiRange:
-      \_range: , line:23:13, endln:23:18
-        |vpiParent:
-        \_int_typespec: , line:23:13, endln:23:18
-        |vpiLeftRange:
-        \_constant: , line:23:14, endln:23:15
-          |vpiParent:
-          \_range: , line:23:13, endln:23:18
-          |vpiDecompile:7
-          |vpiSize:64
-          |UINT:7
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:23:16, endln:23:17
-          |vpiParent:
-          \_range: , line:23:13, endln:23:18
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@hierdefparam_b.addvalue
+      |vpiActual:
+      \_int_typespec: , line:23:13, endln:23:18
     |vpiName:addvalue
     |vpiFullName:work@hierdefparam_b.addvalue
   |vpiParamAssign:
@@ -432,7 +417,12 @@ design: (work@hierdefparam_top)
       |vpiSize:64
       |UINT:44
       |vpiTypespec:
-      \_int_typespec: , line:23:13, endln:23:18
+      \_ref_typespec: (work@hierdefparam_b)
+        |vpiParent:
+        \_constant: , line:23:30, endln:23:32
+        |vpiFullName:work@hierdefparam_b
+        |vpiActual:
+        \_int_typespec: , line:23:13, endln:23:18
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@hierdefparam_b.addvalue), line:23:19, endln:23:27
@@ -604,7 +594,12 @@ design: (work@hierdefparam_top)
               \_gen_scope: (work@hierdefparam_top.foo.mod_a.bar[0]), line:15:31, endln:17:8
               |UINT:0
               |vpiTypespec:
-              \_int_typespec: 
+              \_ref_typespec: (work@hierdefparam_top.foo.mod_a.bar[0].i)
+                |vpiParent:
+                \_parameter: (work@hierdefparam_top.foo.mod_a.bar[0].i), line:15:0
+                |vpiFullName:work@hierdefparam_top.foo.mod_a.bar[0].i
+                |vpiActual:
+                \_int_typespec: 
               |vpiLocalParam:1
               |vpiName:i
               |vpiFullName:work@hierdefparam_top.foo.mod_a.bar[0].i
@@ -620,29 +615,12 @@ design: (work@hierdefparam_top)
                 \_param_assign: , line:23:19, endln:23:32
                 |UINT:44
                 |vpiTypespec:
-                \_int_typespec: , line:23:13, endln:23:18
+                \_ref_typespec: (work@hierdefparam_top.foo.mod_a.bar[0].mod_b.addvalue)
                   |vpiParent:
                   \_parameter: (work@hierdefparam_top.foo.mod_a.bar[0].mod_b.addvalue), line:23:19, endln:23:27
-                  |vpiRange:
-                  \_range: , line:23:13, endln:23:18
-                    |vpiParent:
-                    \_int_typespec: , line:23:13, endln:23:18
-                    |vpiLeftRange:
-                    \_constant: , line:23:14, endln:23:15
-                      |vpiParent:
-                      \_range: , line:23:13, endln:23:18
-                      |vpiDecompile:7
-                      |vpiSize:64
-                      |UINT:7
-                      |vpiConstType:9
-                    |vpiRightRange:
-                    \_constant: , line:23:16, endln:23:17
-                      |vpiParent:
-                      \_range: , line:23:13, endln:23:18
-                      |vpiDecompile:0
-                      |vpiSize:64
-                      |UINT:0
-                      |vpiConstType:9
+                  |vpiFullName:work@hierdefparam_top.foo.mod_a.bar[0].mod_b.addvalue
+                  |vpiActual:
+                  \_int_typespec: , line:23:13, endln:23:18
                 |vpiName:addvalue
                 |vpiFullName:work@hierdefparam_top.foo.mod_a.bar[0].mod_b.addvalue
               |vpiParamAssign:
@@ -657,7 +635,12 @@ design: (work@hierdefparam_top)
                   |vpiSize:8
                   |UINT:42
                   |vpiTypespec:
-                  \_int_typespec: , line:23:13, endln:23:18
+                  \_ref_typespec: (work@hierdefparam_top.foo.mod_a.bar[0].mod_b)
+                    |vpiParent:
+                    \_constant: , line:23:30, endln:23:32
+                    |vpiFullName:work@hierdefparam_top.foo.mod_a.bar[0].mod_b
+                    |vpiActual:
+                    \_int_typespec: , line:23:13, endln:23:18
                   |vpiConstType:9
                 |vpiLhs:
                 \_parameter: (work@hierdefparam_top.foo.mod_a.bar[0].mod_b.addvalue), line:23:19, endln:23:27
@@ -701,7 +684,12 @@ design: (work@hierdefparam_top)
               \_gen_scope: (work@hierdefparam_top.foo.mod_a.bar[1]), line:15:31, endln:17:8
               |UINT:1
               |vpiTypespec:
-              \_int_typespec: 
+              \_ref_typespec: (work@hierdefparam_top.foo.mod_a.bar[1].i)
+                |vpiParent:
+                \_parameter: (work@hierdefparam_top.foo.mod_a.bar[1].i), line:15:0
+                |vpiFullName:work@hierdefparam_top.foo.mod_a.bar[1].i
+                |vpiActual:
+                \_int_typespec: 
               |vpiLocalParam:1
               |vpiName:i
               |vpiFullName:work@hierdefparam_top.foo.mod_a.bar[1].i
@@ -717,29 +705,12 @@ design: (work@hierdefparam_top)
                 \_param_assign: , line:23:19, endln:23:32
                 |UINT:44
                 |vpiTypespec:
-                \_int_typespec: , line:23:13, endln:23:18
+                \_ref_typespec: (work@hierdefparam_top.foo.mod_a.bar[1].mod_b.addvalue)
                   |vpiParent:
                   \_parameter: (work@hierdefparam_top.foo.mod_a.bar[1].mod_b.addvalue), line:23:19, endln:23:27
-                  |vpiRange:
-                  \_range: , line:23:13, endln:23:18
-                    |vpiParent:
-                    \_int_typespec: , line:23:13, endln:23:18
-                    |vpiLeftRange:
-                    \_constant: , line:23:14, endln:23:15
-                      |vpiParent:
-                      \_range: , line:23:13, endln:23:18
-                      |vpiDecompile:7
-                      |vpiSize:64
-                      |UINT:7
-                      |vpiConstType:9
-                    |vpiRightRange:
-                    \_constant: , line:23:16, endln:23:17
-                      |vpiParent:
-                      \_range: , line:23:13, endln:23:18
-                      |vpiDecompile:0
-                      |vpiSize:64
-                      |UINT:0
-                      |vpiConstType:9
+                  |vpiFullName:work@hierdefparam_top.foo.mod_a.bar[1].mod_b.addvalue
+                  |vpiActual:
+                  \_int_typespec: , line:23:13, endln:23:18
                 |vpiName:addvalue
                 |vpiFullName:work@hierdefparam_top.foo.mod_a.bar[1].mod_b.addvalue
               |vpiParamAssign:
@@ -754,7 +725,12 @@ design: (work@hierdefparam_top)
                   |vpiSize:8
                   |UINT:43
                   |vpiTypespec:
-                  \_int_typespec: , line:23:13, endln:23:18
+                  \_ref_typespec: (work@hierdefparam_top.foo.mod_a.bar[1].mod_b)
+                    |vpiParent:
+                    \_constant: , line:23:30, endln:23:32
+                    |vpiFullName:work@hierdefparam_top.foo.mod_a.bar[1].mod_b
+                    |vpiActual:
+                    \_int_typespec: , line:23:13, endln:23:18
                   |vpiConstType:9
                 |vpiLhs:
                 \_parameter: (work@hierdefparam_top.foo.mod_a.bar[1].mod_b.addvalue), line:23:19, endln:23:27
@@ -781,6 +757,220 @@ design: (work@hierdefparam_top)
                     |vpiDefName:work@GOOD
                     |vpiDefFile:${SURELOG_DIR}/tests/DefParamIndex/dut.sv
                     |vpiDefLineNo:1
+\_weaklyReferenced:
+\_int_typespec: , line:23:13, endln:23:18
+  |vpiParent:
+  \_parameter: (work@hierdefparam_b.addvalue), line:23:19, endln:23:27
+  |vpiRange:
+  \_range: , line:23:13, endln:23:18
+    |vpiParent:
+    \_int_typespec: , line:23:13, endln:23:18
+    |vpiLeftRange:
+    \_constant: , line:23:14, endln:23:15
+      |vpiParent:
+      \_range: , line:23:13, endln:23:18
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:23:16, endln:23:17
+      |vpiParent:
+      \_range: , line:23:13, endln:23:18
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_param_assign: , line:23:19, endln:23:32
+  |vpiParent:
+  \_module_inst: work@hierdefparam_b (work@hierdefparam_top.foo.mod_a.bar[0].mod_b), file:${SURELOG_DIR}/tests/DefParamIndex/dut.sv, line:16:7, endln:16:30
+  |vpiRhs:
+  \_constant: , line:23:30, endln:23:32
+  |vpiLhs:
+  \_parameter: (work@hierdefparam_top.foo.mod_a.bar[0].mod_b.addvalue), line:23:19, endln:23:27
+\_param_assign: , line:23:19, endln:23:32
+  |vpiParent:
+  \_module_inst: work@hierdefparam_b (work@hierdefparam_top.foo.mod_a.bar[1].mod_b), file:${SURELOG_DIR}/tests/DefParamIndex/dut.sv, line:16:7, endln:16:30
+  |vpiRhs:
+  \_constant: , line:23:30, endln:23:32
+  |vpiLhs:
+  \_parameter: (work@hierdefparam_top.foo.mod_a.bar[1].mod_b.addvalue), line:23:19, endln:23:27
+\_int_typespec: 
+\_module_inst: work@hierdefparam_b (work@hierdefparam_top.foo.mod_a.bar[0].mod_b), file:${SURELOG_DIR}/tests/DefParamIndex/dut.sv, line:16:7, endln:16:30
+  |vpiParent:
+  \_gen_scope: (work@hierdefparam_top.foo.mod_a.bar[0]), line:15:31, endln:17:8
+  |vpiName:mod_b
+  |vpiFullName:work@hierdefparam_top.foo.mod_a.bar[0].mod_b
+  |vpiParameter:
+  \_parameter: (work@hierdefparam_top.foo.mod_a.bar[0].mod_b.addvalue), line:23:19, endln:23:27
+  |vpiParamAssign:
+  \_param_assign: , line:23:19, endln:23:32
+  |vpiDefName:work@hierdefparam_b
+  |vpiDefFile:${SURELOG_DIR}/tests/DefParamIndex/dut.sv
+  |vpiDefLineNo:22
+  |vpiGenScopeArray:
+  \_gen_scope_array: (work@hierdefparam_top.foo.mod_a.bar[0].mod_b.genblk1), line:25:2, endln:25:15
+    |vpiParent:
+    \_module_inst: work@hierdefparam_b (work@hierdefparam_top.foo.mod_a.bar[0].mod_b), file:${SURELOG_DIR}/tests/DefParamIndex/dut.sv, line:16:7, endln:16:30
+    |vpiName:genblk1
+    |vpiFullName:work@hierdefparam_top.foo.mod_a.bar[0].mod_b.genblk1
+    |vpiGenScope:
+    \_gen_scope: (work@hierdefparam_top.foo.mod_a.bar[0].mod_b.genblk1), line:25:2, endln:25:15
+      |vpiParent:
+      \_gen_scope_array: (work@hierdefparam_top.foo.mod_a.bar[0].mod_b.genblk1), line:25:2, endln:25:15
+      |vpiFullName:work@hierdefparam_top.foo.mod_a.bar[0].mod_b.genblk1
+      |vpiModule:
+      \_module_inst: work@GOOD (work@hierdefparam_top.foo.mod_a.bar[0].mod_b.genblk1.good0), file:${SURELOG_DIR}/tests/DefParamIndex/dut.sv, line:25:2, endln:25:15
+        |vpiParent:
+        \_gen_scope: (work@hierdefparam_top.foo.mod_a.bar[0].mod_b.genblk1), line:25:2, endln:25:15
+        |vpiName:good0
+        |vpiFullName:work@hierdefparam_top.foo.mod_a.bar[0].mod_b.genblk1.good0
+        |vpiDefName:work@GOOD
+        |vpiDefFile:${SURELOG_DIR}/tests/DefParamIndex/dut.sv
+        |vpiDefLineNo:1
+\_gen_scope: (work@hierdefparam_top.foo.mod_a.bar[0]), line:15:31, endln:17:8
+  |vpiParent:
+  \_gen_scope_array: (work@hierdefparam_top.foo.mod_a.bar[0]), line:15:31, endln:17:8
+  |vpiFullName:work@hierdefparam_top.foo.mod_a.bar[0]
+  |vpiParameter:
+  \_parameter: (work@hierdefparam_top.foo.mod_a.bar[0].i), line:15:0
+  |vpiModule:
+  \_module_inst: work@hierdefparam_b (work@hierdefparam_top.foo.mod_a.bar[0].mod_b), file:${SURELOG_DIR}/tests/DefParamIndex/dut.sv, line:16:7, endln:16:30
+\_gen_scope_array: (work@hierdefparam_top.foo.mod_a.bar[0]), line:15:31, endln:17:8
+  |vpiParent:
+  \_module_inst: work@hierdefparam_a (work@hierdefparam_top.foo.mod_a), file:${SURELOG_DIR}/tests/DefParamIndex/dut.sv, line:6:5, endln:6:28
+  |vpiName:bar[0]
+  |vpiFullName:work@hierdefparam_top.foo.mod_a.bar[0]
+  |vpiGenScope:
+  \_gen_scope: (work@hierdefparam_top.foo.mod_a.bar[0]), line:15:31, endln:17:8
+\_module_inst: work@hierdefparam_a (work@hierdefparam_top.foo.mod_a), file:${SURELOG_DIR}/tests/DefParamIndex/dut.sv, line:6:5, endln:6:28
+  |vpiParent:
+  \_gen_scope: (work@hierdefparam_top.foo), line:5:12, endln:7:6
+  |vpiName:mod_a
+  |vpiFullName:work@hierdefparam_top.foo.mod_a
+  |vpiDefName:work@hierdefparam_a
+  |vpiDefFile:${SURELOG_DIR}/tests/DefParamIndex/dut.sv
+  |vpiDefLineNo:12
+  |vpiGenScopeArray:
+  \_gen_scope_array: (work@hierdefparam_top.foo.mod_a.bar[0]), line:15:31, endln:17:8
+  |vpiGenScopeArray:
+  \_gen_scope_array: (work@hierdefparam_top.foo.mod_a.bar[1]), line:15:31, endln:17:8
+    |vpiParent:
+    \_module_inst: work@hierdefparam_a (work@hierdefparam_top.foo.mod_a), file:${SURELOG_DIR}/tests/DefParamIndex/dut.sv, line:6:5, endln:6:28
+    |vpiName:bar[1]
+    |vpiFullName:work@hierdefparam_top.foo.mod_a.bar[1]
+    |vpiGenScope:
+    \_gen_scope: (work@hierdefparam_top.foo.mod_a.bar[1]), line:15:31, endln:17:8
+      |vpiParent:
+      \_gen_scope_array: (work@hierdefparam_top.foo.mod_a.bar[1]), line:15:31, endln:17:8
+      |vpiFullName:work@hierdefparam_top.foo.mod_a.bar[1]
+      |vpiParameter:
+      \_parameter: (work@hierdefparam_top.foo.mod_a.bar[1].i), line:15:0
+      |vpiModule:
+      \_module_inst: work@hierdefparam_b (work@hierdefparam_top.foo.mod_a.bar[1].mod_b), file:${SURELOG_DIR}/tests/DefParamIndex/dut.sv, line:16:7, endln:16:30
+        |vpiParent:
+        \_gen_scope: (work@hierdefparam_top.foo.mod_a.bar[1]), line:15:31, endln:17:8
+        |vpiName:mod_b
+        |vpiFullName:work@hierdefparam_top.foo.mod_a.bar[1].mod_b
+        |vpiParameter:
+        \_parameter: (work@hierdefparam_top.foo.mod_a.bar[1].mod_b.addvalue), line:23:19, endln:23:27
+        |vpiParamAssign:
+        \_param_assign: , line:23:19, endln:23:32
+        |vpiDefName:work@hierdefparam_b
+        |vpiDefFile:${SURELOG_DIR}/tests/DefParamIndex/dut.sv
+        |vpiDefLineNo:22
+        |vpiGenScopeArray:
+        \_gen_scope_array: (work@hierdefparam_top.foo.mod_a.bar[1].mod_b.genblk2), line:28:6, endln:28:19
+          |vpiParent:
+          \_module_inst: work@hierdefparam_b (work@hierdefparam_top.foo.mod_a.bar[1].mod_b), file:${SURELOG_DIR}/tests/DefParamIndex/dut.sv, line:16:7, endln:16:30
+          |vpiName:genblk2
+          |vpiFullName:work@hierdefparam_top.foo.mod_a.bar[1].mod_b.genblk2
+          |vpiGenScope:
+          \_gen_scope: (work@hierdefparam_top.foo.mod_a.bar[1].mod_b.genblk2), line:28:6, endln:28:19
+            |vpiParent:
+            \_gen_scope_array: (work@hierdefparam_top.foo.mod_a.bar[1].mod_b.genblk2), line:28:6, endln:28:19
+            |vpiFullName:work@hierdefparam_top.foo.mod_a.bar[1].mod_b.genblk2
+            |vpiModule:
+            \_module_inst: work@GOOD (work@hierdefparam_top.foo.mod_a.bar[1].mod_b.genblk2.good1), file:${SURELOG_DIR}/tests/DefParamIndex/dut.sv, line:28:6, endln:28:19
+              |vpiParent:
+              \_gen_scope: (work@hierdefparam_top.foo.mod_a.bar[1].mod_b.genblk2), line:28:6, endln:28:19
+              |vpiName:good1
+              |vpiFullName:work@hierdefparam_top.foo.mod_a.bar[1].mod_b.genblk2.good1
+              |vpiDefName:work@GOOD
+              |vpiDefFile:${SURELOG_DIR}/tests/DefParamIndex/dut.sv
+              |vpiDefLineNo:1
+\_gen_scope: (work@hierdefparam_top.foo), line:5:12, endln:7:6
+  |vpiParent:
+  \_gen_scope_array: (work@hierdefparam_top.foo), line:5:12, endln:7:6
+  |vpiFullName:work@hierdefparam_top.foo
+  |vpiModule:
+  \_module_inst: work@hierdefparam_a (work@hierdefparam_top.foo.mod_a), file:${SURELOG_DIR}/tests/DefParamIndex/dut.sv, line:6:5, endln:6:28
+\_gen_scope_array: (work@hierdefparam_top.foo), line:5:12, endln:7:6
+  |vpiParent:
+  \_module_inst: work@hierdefparam_top (work@hierdefparam_top), file:${SURELOG_DIR}/tests/DefParamIndex/dut.sv, line:4:1, endln:10:10
+  |vpiName:foo
+  |vpiFullName:work@hierdefparam_top.foo
+  |vpiGenScope:
+  \_gen_scope: (work@hierdefparam_top.foo), line:5:12, endln:7:6
+\_int_typespec: , line:23:13, endln:23:18
+  |vpiParent:
+  \_ref_typespec: (work@hierdefparam_top.foo.mod_a.bar[0].mod_b.addvalue)
+  |vpiRange:
+  \_range: , line:23:13, endln:23:18
+    |vpiParent:
+    \_int_typespec: , line:23:13, endln:23:18
+    |vpiLeftRange:
+    \_constant: , line:23:14, endln:23:15
+      |vpiParent:
+      \_range: , line:23:13, endln:23:18
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:23:16, endln:23:17
+      |vpiParent:
+      \_range: , line:23:13, endln:23:18
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_ref_typespec: (work@hierdefparam_top.foo.mod_a.bar[0].mod_b.addvalue)
+  |vpiParent:
+  \_parameter: (work@hierdefparam_top.foo.mod_a.bar[0].mod_b.addvalue), line:23:19, endln:23:27
+  |vpiFullName:work@hierdefparam_top.foo.mod_a.bar[0].mod_b.addvalue
+  |vpiActual:
+  \_int_typespec: , line:23:13, endln:23:18
+\_int_typespec: 
+\_int_typespec: , line:23:13, endln:23:18
+  |vpiParent:
+  \_ref_typespec: (work@hierdefparam_top.foo.mod_a.bar[1].mod_b.addvalue)
+  |vpiRange:
+  \_range: , line:23:13, endln:23:18
+    |vpiParent:
+    \_int_typespec: , line:23:13, endln:23:18
+    |vpiLeftRange:
+    \_constant: , line:23:14, endln:23:15
+      |vpiParent:
+      \_range: , line:23:13, endln:23:18
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:23:16, endln:23:17
+      |vpiParent:
+      \_range: , line:23:13, endln:23:18
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_ref_typespec: (work@hierdefparam_top.foo.mod_a.bar[1].mod_b.addvalue)
+  |vpiParent:
+  \_parameter: (work@hierdefparam_top.foo.mod_a.bar[1].mod_b.addvalue), line:23:19, endln:23:27
+  |vpiFullName:work@hierdefparam_top.foo.mod_a.bar[1].mod_b.addvalue
+  |vpiActual:
+  \_int_typespec: , line:23:13, endln:23:18
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

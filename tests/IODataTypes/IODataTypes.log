@@ -105,6 +105,7 @@ long_int_var                                           1
 module_inst                                            2
 port                                                  12
 ref_obj                                               12
+ref_typespec                                          18
 short_int_typespec                                     6
 short_int_var                                          2
 === UHDM Object Stats End ===
@@ -124,6 +125,7 @@ long_int_var                                           1
 module_inst                                            2
 port                                                  18
 ref_obj                                               18
+ref_typespec                                          24
 short_int_typespec                                     6
 short_int_var                                          2
 === UHDM Object Stats End ===
@@ -196,8 +198,12 @@ design: (work@dff_diffDataTypes)
       |vpiActual:
       \_logic_net: (work@dff_diffDataTypes.a), line:2:11, endln:2:12
     |vpiTypedef:
-    \_int_typespec: , line:2:7, endln:2:10
-      |vpiSigned:1
+    \_ref_typespec: (work@dff_diffDataTypes.a)
+      |vpiParent:
+      \_port: (a), line:2:11, endln:2:12
+      |vpiFullName:work@dff_diffDataTypes.a
+      |vpiActual:
+      \_int_typespec: , line:2:7, endln:2:10
   |vpiPort:
   \_port: (b), line:3:12, endln:3:13
     |vpiParent:
@@ -213,8 +219,12 @@ design: (work@dff_diffDataTypes)
       |vpiActual:
       \_logic_net: (work@dff_diffDataTypes.b), line:3:12, endln:3:13
     |vpiTypedef:
-    \_byte_typespec: , line:3:7, endln:3:11
-      |vpiSigned:1
+    \_ref_typespec: (work@dff_diffDataTypes.b)
+      |vpiParent:
+      \_port: (b), line:3:12, endln:3:13
+      |vpiFullName:work@dff_diffDataTypes.b
+      |vpiActual:
+      \_byte_typespec: , line:3:7, endln:3:11
   |vpiPort:
   \_port: (c), line:4:16, endln:4:17
     |vpiParent:
@@ -230,8 +240,12 @@ design: (work@dff_diffDataTypes)
       |vpiActual:
       \_logic_net: (work@dff_diffDataTypes.c), line:4:16, endln:4:17
     |vpiTypedef:
-    \_short_int_typespec: , line:4:7, endln:4:15
-      |vpiSigned:1
+    \_ref_typespec: (work@dff_diffDataTypes.c)
+      |vpiParent:
+      \_port: (c), line:4:16, endln:4:17
+      |vpiFullName:work@dff_diffDataTypes.c
+      |vpiActual:
+      \_short_int_typespec: , line:4:7, endln:4:15
   |vpiPort:
   \_port: (d), line:5:15, endln:5:16
     |vpiParent:
@@ -247,8 +261,12 @@ design: (work@dff_diffDataTypes)
       |vpiActual:
       \_logic_net: (work@dff_diffDataTypes.d), line:5:15, endln:5:16
     |vpiTypedef:
-    \_long_int_typespec: , line:5:7, endln:5:14
-      |vpiSigned:1
+    \_ref_typespec: (work@dff_diffDataTypes.d)
+      |vpiParent:
+      \_port: (d), line:5:15, endln:5:16
+      |vpiFullName:work@dff_diffDataTypes.d
+      |vpiActual:
+      \_long_int_typespec: , line:5:7, endln:5:14
   |vpiPort:
   \_port: (e), line:6:15, endln:6:16
     |vpiParent:
@@ -264,8 +282,12 @@ design: (work@dff_diffDataTypes)
       |vpiActual:
       \_logic_net: (work@dff_diffDataTypes.e), line:6:15, endln:6:16
     |vpiTypedef:
-    \_integer_typespec: , line:6:7, endln:6:14
-      |vpiSigned:1
+    \_ref_typespec: (work@dff_diffDataTypes.e)
+      |vpiParent:
+      \_port: (e), line:6:15, endln:6:16
+      |vpiFullName:work@dff_diffDataTypes.e
+      |vpiActual:
+      \_integer_typespec: , line:6:7, endln:6:14
   |vpiPort:
   \_port: (f), line:7:23, endln:7:24
     |vpiParent:
@@ -281,8 +303,12 @@ design: (work@dff_diffDataTypes)
       |vpiActual:
       \_logic_net: (work@dff_diffDataTypes.f), line:7:23, endln:7:24
     |vpiTypedef:
-    \_short_int_typespec: , line:7:7, endln:7:15
-      |vpiSigned:1
+    \_ref_typespec: (work@dff_diffDataTypes.f)
+      |vpiParent:
+      \_port: (f), line:7:23, endln:7:24
+      |vpiFullName:work@dff_diffDataTypes.f
+      |vpiActual:
+      \_short_int_typespec: , line:7:7, endln:7:15
 |uhdmtopModules:
 \_module_inst: work@dff_diffDataTypes (work@dff_diffDataTypes), file:${SURELOG_DIR}/tests/IODataTypes/dut.sv, line:1:1, endln:9:10
   |vpiName:work@dff_diffDataTypes
@@ -291,10 +317,12 @@ design: (work@dff_diffDataTypes)
     |vpiParent:
     \_module_inst: work@dff_diffDataTypes (work@dff_diffDataTypes), file:${SURELOG_DIR}/tests/IODataTypes/dut.sv, line:1:1, endln:9:10
     |vpiTypespec:
-    \_int_typespec: , line:2:7, endln:2:10
+    \_ref_typespec: (work@dff_diffDataTypes.a)
       |vpiParent:
       \_int_var: (work@dff_diffDataTypes.a), line:2:11, endln:2:12
-      |vpiSigned:1
+      |vpiFullName:work@dff_diffDataTypes.a
+      |vpiActual:
+      \_int_typespec: , line:2:7, endln:2:10
     |vpiName:a
     |vpiFullName:work@dff_diffDataTypes.a
     |vpiSigned:1
@@ -304,10 +332,12 @@ design: (work@dff_diffDataTypes)
     |vpiParent:
     \_module_inst: work@dff_diffDataTypes (work@dff_diffDataTypes), file:${SURELOG_DIR}/tests/IODataTypes/dut.sv, line:1:1, endln:9:10
     |vpiTypespec:
-    \_byte_typespec: , line:3:7, endln:3:11
+    \_ref_typespec: (work@dff_diffDataTypes.b)
       |vpiParent:
       \_byte_var: (work@dff_diffDataTypes.b), line:3:12, endln:3:13
-      |vpiSigned:1
+      |vpiFullName:work@dff_diffDataTypes.b
+      |vpiActual:
+      \_byte_typespec: , line:3:7, endln:3:11
     |vpiName:b
     |vpiFullName:work@dff_diffDataTypes.b
     |vpiSigned:1
@@ -317,10 +347,12 @@ design: (work@dff_diffDataTypes)
     |vpiParent:
     \_module_inst: work@dff_diffDataTypes (work@dff_diffDataTypes), file:${SURELOG_DIR}/tests/IODataTypes/dut.sv, line:1:1, endln:9:10
     |vpiTypespec:
-    \_short_int_typespec: , line:4:7, endln:4:15
+    \_ref_typespec: (work@dff_diffDataTypes.c)
       |vpiParent:
       \_short_int_var: (work@dff_diffDataTypes.c), line:4:16, endln:4:17
-      |vpiSigned:1
+      |vpiFullName:work@dff_diffDataTypes.c
+      |vpiActual:
+      \_short_int_typespec: , line:4:7, endln:4:15
     |vpiName:c
     |vpiFullName:work@dff_diffDataTypes.c
     |vpiSigned:1
@@ -330,10 +362,12 @@ design: (work@dff_diffDataTypes)
     |vpiParent:
     \_module_inst: work@dff_diffDataTypes (work@dff_diffDataTypes), file:${SURELOG_DIR}/tests/IODataTypes/dut.sv, line:1:1, endln:9:10
     |vpiTypespec:
-    \_long_int_typespec: , line:5:7, endln:5:14
+    \_ref_typespec: (work@dff_diffDataTypes.d)
       |vpiParent:
       \_long_int_var: (work@dff_diffDataTypes.d), line:5:15, endln:5:16
-      |vpiSigned:1
+      |vpiFullName:work@dff_diffDataTypes.d
+      |vpiActual:
+      \_long_int_typespec: , line:5:7, endln:5:14
     |vpiName:d
     |vpiFullName:work@dff_diffDataTypes.d
     |vpiSigned:1
@@ -343,10 +377,12 @@ design: (work@dff_diffDataTypes)
     |vpiParent:
     \_module_inst: work@dff_diffDataTypes (work@dff_diffDataTypes), file:${SURELOG_DIR}/tests/IODataTypes/dut.sv, line:1:1, endln:9:10
     |vpiTypespec:
-    \_integer_typespec: , line:6:7, endln:6:14
+    \_ref_typespec: (work@dff_diffDataTypes.e)
       |vpiParent:
       \_integer_var: (work@dff_diffDataTypes.e), line:6:15, endln:6:16
-      |vpiSigned:1
+      |vpiFullName:work@dff_diffDataTypes.e
+      |vpiActual:
+      \_integer_typespec: , line:6:7, endln:6:14
     |vpiName:e
     |vpiFullName:work@dff_diffDataTypes.e
     |vpiSigned:1
@@ -356,10 +392,12 @@ design: (work@dff_diffDataTypes)
     |vpiParent:
     \_module_inst: work@dff_diffDataTypes (work@dff_diffDataTypes), file:${SURELOG_DIR}/tests/IODataTypes/dut.sv, line:1:1, endln:9:10
     |vpiTypespec:
-    \_short_int_typespec: , line:7:7, endln:7:15
+    \_ref_typespec: (work@dff_diffDataTypes.f)
       |vpiParent:
       \_short_int_var: (work@dff_diffDataTypes.f), line:7:23, endln:7:24
-      |vpiSigned:1
+      |vpiFullName:work@dff_diffDataTypes.f
+      |vpiActual:
+      \_short_int_typespec: , line:7:7, endln:7:15
     |vpiName:f
     |vpiFullName:work@dff_diffDataTypes.f
     |vpiSigned:1
@@ -382,8 +420,12 @@ design: (work@dff_diffDataTypes)
       |vpiActual:
       \_int_var: (work@dff_diffDataTypes.a), line:2:11, endln:2:12
     |vpiTypedef:
-    \_int_typespec: , line:2:7, endln:2:10
-      |vpiSigned:1
+    \_ref_typespec: (work@dff_diffDataTypes.a)
+      |vpiParent:
+      \_port: (a), line:2:11, endln:2:12
+      |vpiFullName:work@dff_diffDataTypes.a
+      |vpiActual:
+      \_int_typespec: , line:2:7, endln:2:10
     |vpiInstance:
     \_module_inst: work@dff_diffDataTypes (work@dff_diffDataTypes), file:${SURELOG_DIR}/tests/IODataTypes/dut.sv, line:1:1, endln:9:10
   |vpiPort:
@@ -401,8 +443,12 @@ design: (work@dff_diffDataTypes)
       |vpiActual:
       \_byte_var: (work@dff_diffDataTypes.b), line:3:12, endln:3:13
     |vpiTypedef:
-    \_byte_typespec: , line:3:7, endln:3:11
-      |vpiSigned:1
+    \_ref_typespec: (work@dff_diffDataTypes.b)
+      |vpiParent:
+      \_port: (b), line:3:12, endln:3:13
+      |vpiFullName:work@dff_diffDataTypes.b
+      |vpiActual:
+      \_byte_typespec: , line:3:7, endln:3:11
     |vpiInstance:
     \_module_inst: work@dff_diffDataTypes (work@dff_diffDataTypes), file:${SURELOG_DIR}/tests/IODataTypes/dut.sv, line:1:1, endln:9:10
   |vpiPort:
@@ -420,8 +466,12 @@ design: (work@dff_diffDataTypes)
       |vpiActual:
       \_short_int_var: (work@dff_diffDataTypes.c), line:4:16, endln:4:17
     |vpiTypedef:
-    \_short_int_typespec: , line:4:7, endln:4:15
-      |vpiSigned:1
+    \_ref_typespec: (work@dff_diffDataTypes.c)
+      |vpiParent:
+      \_port: (c), line:4:16, endln:4:17
+      |vpiFullName:work@dff_diffDataTypes.c
+      |vpiActual:
+      \_short_int_typespec: , line:4:7, endln:4:15
     |vpiInstance:
     \_module_inst: work@dff_diffDataTypes (work@dff_diffDataTypes), file:${SURELOG_DIR}/tests/IODataTypes/dut.sv, line:1:1, endln:9:10
   |vpiPort:
@@ -439,8 +489,12 @@ design: (work@dff_diffDataTypes)
       |vpiActual:
       \_long_int_var: (work@dff_diffDataTypes.d), line:5:15, endln:5:16
     |vpiTypedef:
-    \_long_int_typespec: , line:5:7, endln:5:14
-      |vpiSigned:1
+    \_ref_typespec: (work@dff_diffDataTypes.d)
+      |vpiParent:
+      \_port: (d), line:5:15, endln:5:16
+      |vpiFullName:work@dff_diffDataTypes.d
+      |vpiActual:
+      \_long_int_typespec: , line:5:7, endln:5:14
     |vpiInstance:
     \_module_inst: work@dff_diffDataTypes (work@dff_diffDataTypes), file:${SURELOG_DIR}/tests/IODataTypes/dut.sv, line:1:1, endln:9:10
   |vpiPort:
@@ -458,8 +512,12 @@ design: (work@dff_diffDataTypes)
       |vpiActual:
       \_integer_var: (work@dff_diffDataTypes.e), line:6:15, endln:6:16
     |vpiTypedef:
-    \_integer_typespec: , line:6:7, endln:6:14
-      |vpiSigned:1
+    \_ref_typespec: (work@dff_diffDataTypes.e)
+      |vpiParent:
+      \_port: (e), line:6:15, endln:6:16
+      |vpiFullName:work@dff_diffDataTypes.e
+      |vpiActual:
+      \_integer_typespec: , line:6:7, endln:6:14
     |vpiInstance:
     \_module_inst: work@dff_diffDataTypes (work@dff_diffDataTypes), file:${SURELOG_DIR}/tests/IODataTypes/dut.sv, line:1:1, endln:9:10
   |vpiPort:
@@ -477,10 +535,63 @@ design: (work@dff_diffDataTypes)
       |vpiActual:
       \_short_int_var: (work@dff_diffDataTypes.f), line:7:23, endln:7:24
     |vpiTypedef:
-    \_short_int_typespec: , line:7:7, endln:7:15
-      |vpiSigned:1
+    \_ref_typespec: (work@dff_diffDataTypes.f)
+      |vpiParent:
+      \_port: (f), line:7:23, endln:7:24
+      |vpiFullName:work@dff_diffDataTypes.f
+      |vpiActual:
+      \_short_int_typespec: , line:7:7, endln:7:15
     |vpiInstance:
     \_module_inst: work@dff_diffDataTypes (work@dff_diffDataTypes), file:${SURELOG_DIR}/tests/IODataTypes/dut.sv, line:1:1, endln:9:10
+\_weaklyReferenced:
+\_int_typespec: , line:2:7, endln:2:10
+  |vpiSigned:1
+\_byte_typespec: , line:3:7, endln:3:11
+  |vpiSigned:1
+\_short_int_typespec: , line:4:7, endln:4:15
+  |vpiSigned:1
+\_long_int_typespec: , line:5:7, endln:5:14
+  |vpiSigned:1
+\_integer_typespec: , line:6:7, endln:6:14
+  |vpiSigned:1
+\_short_int_typespec: , line:7:7, endln:7:15
+  |vpiSigned:1
+\_int_typespec: , line:2:7, endln:2:10
+  |vpiParent:
+  \_int_var: (work@dff_diffDataTypes.a), line:2:11, endln:2:12
+  |vpiSigned:1
+\_byte_typespec: , line:3:7, endln:3:11
+  |vpiParent:
+  \_byte_var: (work@dff_diffDataTypes.b), line:3:12, endln:3:13
+  |vpiSigned:1
+\_short_int_typespec: , line:4:7, endln:4:15
+  |vpiParent:
+  \_short_int_var: (work@dff_diffDataTypes.c), line:4:16, endln:4:17
+  |vpiSigned:1
+\_long_int_typespec: , line:5:7, endln:5:14
+  |vpiParent:
+  \_long_int_var: (work@dff_diffDataTypes.d), line:5:15, endln:5:16
+  |vpiSigned:1
+\_integer_typespec: , line:6:7, endln:6:14
+  |vpiParent:
+  \_integer_var: (work@dff_diffDataTypes.e), line:6:15, endln:6:16
+  |vpiSigned:1
+\_short_int_typespec: , line:7:7, endln:7:15
+  |vpiParent:
+  \_short_int_var: (work@dff_diffDataTypes.f), line:7:23, endln:7:24
+  |vpiSigned:1
+\_int_typespec: , line:2:7, endln:2:10
+  |vpiSigned:1
+\_byte_typespec: , line:3:7, endln:3:11
+  |vpiSigned:1
+\_short_int_typespec: , line:4:7, endln:4:15
+  |vpiSigned:1
+\_long_int_typespec: , line:5:7, endln:5:14
+  |vpiSigned:1
+\_integer_typespec: , line:6:7, endln:6:14
+  |vpiSigned:1
+\_short_int_typespec: , line:7:7, endln:7:15
+  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -128,6 +128,7 @@ param_assign                                           6
 parameter                                              6
 range                                                  4
 ref_obj                                                2
+ref_typespec                                          14
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -142,6 +143,7 @@ param_assign                                           6
 parameter                                              6
 range                                                  4
 ref_obj                                                2
+ref_typespec                                          14
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/TypespecMask/slpp_all/surelog.uhdm ...
 
@@ -165,29 +167,12 @@ design: (work@flash_ctrl_erase)
     |vpiParent:
     \_module_inst: work@flash_ctrl_erase (work@flash_ctrl_erase), file:${SURELOG_DIR}/tests/TypespecMask/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:14, endln:3:25
+    \_ref_typespec: (work@flash_ctrl_erase.BankAddrMask)
       |vpiParent:
       \_parameter: (work@flash_ctrl_erase.BankAddrMask), line:3:26, endln:3:38
-      |vpiRange:
-      \_range: , line:3:19, endln:3:25
-        |vpiParent:
-        \_logic_typespec: , line:3:14, endln:3:25
-        |vpiLeftRange:
-        \_constant: , line:3:20, endln:3:22
-          |vpiParent:
-          \_range: , line:3:19, endln:3:25
-          |vpiDecompile:17
-          |vpiSize:64
-          |UINT:17
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:3:23, endln:3:24
-          |vpiParent:
-          \_range: , line:3:19, endln:3:25
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@flash_ctrl_erase.BankAddrMask
+      |vpiActual:
+      \_logic_typespec: , line:3:14, endln:3:25
     |vpiLocalParam:1
     |vpiName:BankAddrMask
     |vpiFullName:work@flash_ctrl_erase.BankAddrMask
@@ -197,10 +182,12 @@ design: (work@flash_ctrl_erase)
     \_module_inst: work@flash_ctrl_erase (work@flash_ctrl_erase), file:${SURELOG_DIR}/tests/TypespecMask/dut.sv, line:1:1, endln:8:10
     |UINT:8
     |vpiTypespec:
-    \_int_typespec: , line:5:13, endln:5:16
+    \_ref_typespec: (work@flash_ctrl_erase.NMioPads)
       |vpiParent:
       \_parameter: (work@flash_ctrl_erase.NMioPads), line:5:17, endln:5:25
-      |vpiSigned:1
+      |vpiFullName:work@flash_ctrl_erase.NMioPads
+      |vpiActual:
+      \_int_typespec: , line:5:13, endln:5:16
     |vpiSigned:1
     |vpiName:NMioPads
     |vpiFullName:work@flash_ctrl_erase.NMioPads
@@ -210,42 +197,12 @@ design: (work@flash_ctrl_erase)
     \_module_inst: work@flash_ctrl_erase (work@flash_ctrl_erase), file:${SURELOG_DIR}/tests/TypespecMask/dut.sv, line:1:1, endln:8:10
     |BIN:11110000
     |vpiTypespec:
-    \_logic_typespec: , line:6:13, endln:6:35
+    \_ref_typespec: (work@flash_ctrl_erase.ConnectDioIn)
       |vpiParent:
       \_parameter: (work@flash_ctrl_erase.ConnectDioIn), line:6:36, endln:6:48
-      |vpiRange:
-      \_range: , line:6:19, endln:6:35
-        |vpiParent:
-        \_logic_typespec: , line:6:13, endln:6:35
-        |vpiLeftRange:
-        \_operation: , line:6:20, endln:6:32
-          |vpiParent:
-          \_range: , line:6:19, endln:6:35
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (work@flash_ctrl_erase.ConnectDioIn.NMioPads), line:6:20, endln:6:28
-            |vpiParent:
-            \_operation: , line:6:20, endln:6:32
-            |vpiName:NMioPads
-            |vpiFullName:work@flash_ctrl_erase.ConnectDioIn.NMioPads
-            |vpiActual:
-            \_parameter: (work@flash_ctrl_erase.NMioPads), line:5:17, endln:5:25
-          |vpiOperand:
-          \_constant: , line:6:31, endln:6:32
-            |vpiParent:
-            \_operation: , line:6:20, endln:6:32
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:6:33, endln:6:34
-          |vpiParent:
-          \_range: , line:6:19, endln:6:35
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@flash_ctrl_erase.ConnectDioIn
+      |vpiActual:
+      \_logic_typespec: , line:6:13, endln:6:35
     |vpiName:ConnectDioIn
     |vpiFullName:work@flash_ctrl_erase.ConnectDioIn
   |vpiParamAssign:
@@ -277,7 +234,12 @@ design: (work@flash_ctrl_erase)
       |vpiSize:64
       |UINT:8
       |vpiTypespec:
-      \_int_typespec: , line:5:13, endln:5:16
+      \_ref_typespec: (work@flash_ctrl_erase)
+        |vpiParent:
+        \_constant: , line:5:28, endln:5:29
+        |vpiFullName:work@flash_ctrl_erase
+        |vpiActual:
+        \_int_typespec: , line:5:13, endln:5:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@flash_ctrl_erase.NMioPads), line:5:17, endln:5:25
@@ -293,7 +255,12 @@ design: (work@flash_ctrl_erase)
       |vpiSize:8
       |BIN:11110000
       |vpiTypespec:
-      \_logic_typespec: , line:6:13, endln:6:35
+      \_ref_typespec: (work@flash_ctrl_erase)
+        |vpiParent:
+        \_constant: , line:6:51, endln:6:62
+        |vpiFullName:work@flash_ctrl_erase
+        |vpiActual:
+        \_logic_typespec: , line:6:13, endln:6:35
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@flash_ctrl_erase.ConnectDioIn), line:6:36, endln:6:48
@@ -306,29 +273,12 @@ design: (work@flash_ctrl_erase)
     |vpiParent:
     \_module_inst: work@flash_ctrl_erase (work@flash_ctrl_erase), file:${SURELOG_DIR}/tests/TypespecMask/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
-    \_logic_typespec: , line:3:14, endln:3:25
+    \_ref_typespec: (work@flash_ctrl_erase.BankAddrMask)
       |vpiParent:
       \_parameter: (work@flash_ctrl_erase.BankAddrMask), line:3:26, endln:3:38
-      |vpiRange:
-      \_range: , line:3:19, endln:3:25
-        |vpiParent:
-        \_logic_typespec: , line:3:14, endln:3:25
-        |vpiLeftRange:
-        \_constant: , line:3:20, endln:3:22
-          |vpiParent:
-          \_range: , line:3:19, endln:3:25
-          |vpiDecompile:17
-          |vpiSize:64
-          |UINT:17
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:3:23, endln:3:24
-          |vpiParent:
-          \_range: , line:3:19, endln:3:25
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@flash_ctrl_erase.BankAddrMask
+      |vpiActual:
+      \_logic_typespec: , line:3:14, endln:3:25
     |vpiLocalParam:1
     |vpiName:BankAddrMask
     |vpiFullName:work@flash_ctrl_erase.BankAddrMask
@@ -338,10 +288,12 @@ design: (work@flash_ctrl_erase)
     \_module_inst: work@flash_ctrl_erase (work@flash_ctrl_erase), file:${SURELOG_DIR}/tests/TypespecMask/dut.sv, line:1:1, endln:8:10
     |UINT:8
     |vpiTypespec:
-    \_int_typespec: , line:5:13, endln:5:16
+    \_ref_typespec: (work@flash_ctrl_erase.NMioPads)
       |vpiParent:
       \_parameter: (work@flash_ctrl_erase.NMioPads), line:5:17, endln:5:25
-      |vpiSigned:1
+      |vpiFullName:work@flash_ctrl_erase.NMioPads
+      |vpiActual:
+      \_int_typespec: , line:5:13, endln:5:16
     |vpiSigned:1
     |vpiName:NMioPads
     |vpiFullName:work@flash_ctrl_erase.NMioPads
@@ -351,42 +303,12 @@ design: (work@flash_ctrl_erase)
     \_module_inst: work@flash_ctrl_erase (work@flash_ctrl_erase), file:${SURELOG_DIR}/tests/TypespecMask/dut.sv, line:1:1, endln:8:10
     |BIN:11110000
     |vpiTypespec:
-    \_logic_typespec: , line:6:13, endln:6:35
+    \_ref_typespec: (work@flash_ctrl_erase.ConnectDioIn)
       |vpiParent:
       \_parameter: (work@flash_ctrl_erase.ConnectDioIn), line:6:36, endln:6:48
-      |vpiRange:
-      \_range: , line:6:19, endln:6:35
-        |vpiParent:
-        \_logic_typespec: , line:6:13, endln:6:35
-        |vpiLeftRange:
-        \_operation: , line:6:20, endln:6:32
-          |vpiParent:
-          \_range: , line:6:19, endln:6:35
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (work@flash_ctrl_erase.ConnectDioIn.NMioPads), line:6:20, endln:6:28
-            |vpiParent:
-            \_operation: , line:6:20, endln:6:32
-            |vpiName:NMioPads
-            |vpiFullName:work@flash_ctrl_erase.ConnectDioIn.NMioPads
-            |vpiActual:
-            \_parameter: (work@flash_ctrl_erase.NMioPads), line:5:17, endln:5:25
-          |vpiOperand:
-          \_constant: , line:6:31, endln:6:32
-            |vpiParent:
-            \_operation: , line:6:20, endln:6:32
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:6:33, endln:6:34
-          |vpiParent:
-          \_range: , line:6:19, endln:6:35
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@flash_ctrl_erase.ConnectDioIn
+      |vpiActual:
+      \_logic_typespec: , line:6:13, endln:6:35
     |vpiName:ConnectDioIn
     |vpiFullName:work@flash_ctrl_erase.ConnectDioIn
   |vpiParamAssign:
@@ -401,7 +323,12 @@ design: (work@flash_ctrl_erase)
       |vpiSize:18
       |UINT:262128
       |vpiTypespec:
-      \_logic_typespec: , line:3:14, endln:3:25
+      \_ref_typespec: (work@flash_ctrl_erase)
+        |vpiParent:
+        \_constant: , line:3:41, endln:3:46
+        |vpiFullName:work@flash_ctrl_erase
+        |vpiActual:
+        \_logic_typespec: , line:3:14, endln:3:25
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@flash_ctrl_erase.BankAddrMask), line:3:26, endln:3:38
@@ -417,7 +344,12 @@ design: (work@flash_ctrl_erase)
       |vpiSize:32
       |UINT:8
       |vpiTypespec:
-      \_int_typespec: , line:5:13, endln:5:16
+      \_ref_typespec: (work@flash_ctrl_erase)
+        |vpiParent:
+        \_constant: , line:5:28, endln:5:29
+        |vpiFullName:work@flash_ctrl_erase
+        |vpiActual:
+        \_int_typespec: , line:5:13, endln:5:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@flash_ctrl_erase.NMioPads), line:5:17, endln:5:25
@@ -433,13 +365,145 @@ design: (work@flash_ctrl_erase)
       |vpiSize:8
       |BIN:11110000
       |vpiTypespec:
-      \_logic_typespec: , line:6:13, endln:6:35
+      \_ref_typespec: (work@flash_ctrl_erase)
+        |vpiParent:
+        \_constant: , line:6:51, endln:6:62
+        |vpiFullName:work@flash_ctrl_erase
+        |vpiActual:
+        \_logic_typespec: , line:6:13, endln:6:35
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@flash_ctrl_erase.ConnectDioIn), line:6:36, endln:6:48
   |vpiDefName:work@flash_ctrl_erase
   |vpiTop:1
   |vpiTopModule:1
+\_weaklyReferenced:
+\_logic_typespec: , line:3:14, endln:3:25
+  |vpiParent:
+  \_parameter: (work@flash_ctrl_erase.BankAddrMask), line:3:26, endln:3:38
+  |vpiRange:
+  \_range: , line:3:19, endln:3:25
+    |vpiParent:
+    \_logic_typespec: , line:3:14, endln:3:25
+    |vpiLeftRange:
+    \_constant: , line:3:20, endln:3:22
+      |vpiParent:
+      \_range: , line:3:19, endln:3:25
+      |vpiDecompile:17
+      |vpiSize:64
+      |UINT:17
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:23, endln:3:24
+      |vpiParent:
+      \_range: , line:3:19, endln:3:25
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:5:13, endln:5:16
+  |vpiParent:
+  \_parameter: (work@flash_ctrl_erase.NMioPads), line:5:17, endln:5:25
+  |vpiSigned:1
+\_logic_typespec: , line:6:13, endln:6:35
+  |vpiParent:
+  \_parameter: (work@flash_ctrl_erase.ConnectDioIn), line:6:36, endln:6:48
+  |vpiRange:
+  \_range: , line:6:19, endln:6:35
+    |vpiParent:
+    \_logic_typespec: , line:6:13, endln:6:35
+    |vpiLeftRange:
+    \_operation: , line:6:20, endln:6:32
+      |vpiParent:
+      \_range: , line:6:19, endln:6:35
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@flash_ctrl_erase.ConnectDioIn.NMioPads), line:6:20, endln:6:28
+        |vpiParent:
+        \_operation: , line:6:20, endln:6:32
+        |vpiName:NMioPads
+        |vpiFullName:work@flash_ctrl_erase.ConnectDioIn.NMioPads
+        |vpiActual:
+        \_parameter: (work@flash_ctrl_erase.NMioPads), line:5:17, endln:5:25
+      |vpiOperand:
+      \_constant: , line:6:31, endln:6:32
+        |vpiParent:
+        \_operation: , line:6:20, endln:6:32
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:33, endln:6:34
+      |vpiParent:
+      \_range: , line:6:19, endln:6:35
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:3:14, endln:3:25
+  |vpiParent:
+  \_ref_typespec: (work@flash_ctrl_erase.BankAddrMask)
+  |vpiRange:
+  \_range: , line:3:19, endln:3:25
+    |vpiParent:
+    \_logic_typespec: , line:3:14, endln:3:25
+    |vpiLeftRange:
+    \_constant: , line:3:20, endln:3:22
+      |vpiParent:
+      \_range: , line:3:19, endln:3:25
+      |vpiDecompile:17
+      |vpiSize:64
+      |UINT:17
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:23, endln:3:24
+      |vpiParent:
+      \_range: , line:3:19, endln:3:25
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:5:13, endln:5:16
+  |vpiParent:
+  \_ref_typespec: (work@flash_ctrl_erase.NMioPads)
+  |vpiSigned:1
+\_logic_typespec: , line:6:13, endln:6:35
+  |vpiParent:
+  \_ref_typespec: (work@flash_ctrl_erase.ConnectDioIn)
+  |vpiRange:
+  \_range: , line:6:19, endln:6:35
+    |vpiParent:
+    \_logic_typespec: , line:6:13, endln:6:35
+    |vpiLeftRange:
+    \_operation: , line:6:20, endln:6:32
+      |vpiParent:
+      \_range: , line:6:19, endln:6:35
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@flash_ctrl_erase.ConnectDioIn.NMioPads), line:6:20, endln:6:28
+        |vpiParent:
+        \_operation: , line:6:20, endln:6:32
+        |vpiName:NMioPads
+        |vpiFullName:work@flash_ctrl_erase.ConnectDioIn.NMioPads
+        |vpiActual:
+        \_parameter: (work@flash_ctrl_erase.NMioPads), line:5:17, endln:5:25
+      |vpiOperand:
+      \_constant: , line:6:31, endln:6:32
+        |vpiParent:
+        \_operation: , line:6:20, endln:6:32
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:33, endln:6:34
+      |vpiParent:
+      \_range: , line:6:19, endln:6:35
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

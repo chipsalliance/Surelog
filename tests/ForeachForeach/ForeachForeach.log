@@ -147,6 +147,7 @@ operation                                              1
 package                                                2
 range                                                  5
 ref_obj                                               12
+ref_typespec                                          20
 ref_var                                                6
 unsupported_typespec                                   6
 === UHDM Object Stats End ===
@@ -174,6 +175,7 @@ operation                                              1
 package                                                2
 range                                                  5
 ref_obj                                               18
+ref_typespec                                          38
 ref_var                                               10
 unsupported_typespec                                   6
 === UHDM Object Stats End ===
@@ -207,38 +209,12 @@ design: (unnamed)
       |vpiParent:
       \_function: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:8:3, endln:20:14
       |vpiTypespec:
-      \_array_typespec: , line:11:10, endln:11:32
-        |vpiRange:
-        \_range: , line:11:23, endln:11:32
-          |vpiParent:
-          \_array_typespec: , line:11:10, endln:11:32
-          |vpiLeftRange:
-          \_constant: 
-            |vpiParent:
-            \_range: , line:11:23, endln:11:32
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-          |vpiRightRange:
-          \_operation: , line:11:23, endln:11:32
-            |vpiParent:
-            \_range: , line:11:23, endln:11:32
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (uvm_phase), line:11:23, endln:11:32
-              |vpiParent:
-              \_operation: , line:11:23, endln:11:32
-              |vpiName:uvm_phase
-            |vpiOperand:
-            \_constant: 
-              |vpiSize:64
-              |INT:1
-              |vpiConstType:7
-        |vpiElemTypespec:
-        \_bit_typespec: , line:11:6, endln:11:9
-          |vpiInstance:
-          \_package: uvm (uvm::), file:${SURELOG_DIR}/tests/ForeachForeach/dut.sv, line:1:1, endln:23:11
+      \_ref_typespec: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors)
+        |vpiParent:
+        \_array_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:11:10, endln:11:22
+        |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors
+        |vpiActual:
+        \_array_typespec: , line:11:10, endln:11:32
       |vpiName:predecessors
       |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors
       |vpiArrayType:1
@@ -247,7 +223,12 @@ design: (unnamed)
         |vpiParent:
         \_array_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:11:10, endln:11:22
         |vpiTypespec:
-        \_bit_typespec: , line:11:6, endln:11:9
+        \_ref_typespec: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors)
+          |vpiParent:
+          \_bit_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:11:10, endln:11:22
+          |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors
+          |vpiActual:
+          \_bit_typespec: , line:11:6, endln:11:9
         |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors
     |vpiVisibility:1
     |vpiStmt:
@@ -260,14 +241,24 @@ design: (unnamed)
         |vpiParent:
         \_begin: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:13:6, endln:17:9
         |vpiTypespec:
-        \_bit_typespec: , line:11:6, endln:11:9
+        \_ref_typespec: (uvm::uvm_phase::get_adjacent_predecessor_nodes)
+          |vpiParent:
+          \_bit_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:11:10, endln:11:22
+          |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes
+          |vpiActual:
+          \_bit_typespec: , line:11:6, endln:11:9
         |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes
       |vpiVariables:
       \_array_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:11:10, endln:11:22
         |vpiParent:
         \_begin: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:13:6, endln:17:9
         |vpiTypespec:
-        \_array_typespec: , line:11:10, endln:11:32
+        \_ref_typespec: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors)
+          |vpiParent:
+          \_array_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:11:10, endln:11:22
+          |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors
+          |vpiActual:
+          \_array_typespec: , line:11:10, endln:11:32
         |vpiName:predecessors
         |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors
         |vpiArrayType:1
@@ -276,7 +267,12 @@ design: (unnamed)
           |vpiParent:
           \_array_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:11:10, endln:11:22
           |vpiTypespec:
-          \_bit_typespec: , line:11:6, endln:11:9
+          \_ref_typespec: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors)
+            |vpiParent:
+            \_bit_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:11:10, endln:11:22
+            |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors
+            |vpiActual:
+            \_bit_typespec: , line:11:6, endln:11:9
           |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors
       |vpiStmt:
       \_foreach_stmt: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:13:6, endln:13:13
@@ -288,10 +284,12 @@ design: (unnamed)
           |vpiParent:
           \_foreach_stmt: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:13:6, endln:13:13
           |vpiTypespec:
-          \_unsupported_typespec: (predecessors), line:13:15, endln:13:27
-            |vpiName:predecessors
-            |vpiInstance:
-            \_package: uvm (uvm::), file:${SURELOG_DIR}/tests/ForeachForeach/dut.sv, line:1:1, endln:23:11
+          \_ref_typespec: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors)
+            |vpiParent:
+            \_ref_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:13:15, endln:13:27
+            |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors
+            |vpiActual:
+            \_unsupported_typespec: (predecessors), line:13:15, endln:13:27
           |vpiName:predecessors
           |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors
           |vpiActual:
@@ -301,10 +299,12 @@ design: (unnamed)
           |vpiParent:
           \_foreach_stmt: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:13:6, endln:13:13
           |vpiTypespec:
-          \_unsupported_typespec: (p), line:13:28, endln:13:29
+          \_ref_typespec: (uvm::uvm_phase::get_adjacent_predecessor_nodes::p)
             |vpiParent:
             \_ref_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::p), line:13:28, endln:13:29
-            |vpiName:p
+            |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::p
+            |vpiActual:
+            \_unsupported_typespec: (p), line:13:28, endln:13:29
           |vpiName:p
           |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::p
           |vpiActual:
@@ -343,10 +343,12 @@ design: (unnamed)
               |vpiParent:
               \_foreach_stmt: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:14:12, endln:14:19
               |vpiTypespec:
-              \_unsupported_typespec: (next_p), line:14:38, endln:14:44
+              \_ref_typespec: (uvm::uvm_phase::get_adjacent_predecessor_nodes::next_p)
                 |vpiParent:
                 \_ref_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::next_p), line:14:38, endln:14:44
-                |vpiName:next_p
+                |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::next_p
+                |vpiActual:
+                \_unsupported_typespec: (next_p), line:14:38, endln:14:44
               |vpiName:next_p
               |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::next_p
               |vpiActual:
@@ -406,12 +408,12 @@ design: (unnamed)
       \_class_defn: (uvm::uvm_phase), file:${SURELOG_DIR}/tests/ForeachForeach/dut.sv, line:3:1, endln:5:9
       |vpiSize:1
       |vpiTypespec:
-      \_array_typespec: 
-        |vpiIndexTypespec:
-        \_class_typespec: (uvm_phase), line:4:23, endln:4:32
-          |vpiName:uvm_phase
-          |vpiClassDefn:
-          \_class_defn: (uvm::uvm_phase), file:${SURELOG_DIR}/tests/ForeachForeach/dut.sv, line:3:1, endln:5:9
+      \_ref_typespec: (uvm::uvm_phase::m_predecessors)
+        |vpiParent:
+        \_array_var: (uvm::uvm_phase::m_predecessors), line:4:8, endln:4:22
+        |vpiFullName:uvm::uvm_phase::m_predecessors
+        |vpiActual:
+        \_array_typespec: 
       |vpiName:m_predecessors
       |vpiFullName:uvm::uvm_phase::m_predecessors
       |vpiAutomatic:1
@@ -423,9 +425,12 @@ design: (unnamed)
         |vpiParent:
         \_array_var: (uvm::uvm_phase::m_predecessors), line:4:8, endln:4:22
         |vpiTypespec:
-        \_bit_typespec: , line:4:3, endln:4:6
+        \_ref_typespec: (uvm::uvm_phase::m_predecessors)
           |vpiParent:
           \_bit_var: (uvm::uvm_phase::m_predecessors), line:4:8, endln:4:22
+          |vpiFullName:uvm::uvm_phase::m_predecessors
+          |vpiActual:
+          \_bit_typespec: , line:4:3, endln:4:6
         |vpiFullName:uvm::uvm_phase::m_predecessors
     |vpiMethod:
     \_function: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:8:3, endln:20:14
@@ -438,39 +443,12 @@ design: (unnamed)
         |vpiParent:
         \_function: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:8:3, endln:20:14
         |vpiTypespec:
-        \_array_typespec: , line:11:10, endln:11:33
-          |vpiRange:
-          \_range: , line:11:22, endln:11:33
-            |vpiParent:
-            \_array_typespec: , line:11:10, endln:11:33
-            |vpiLeftRange:
-            \_constant: , line:11:22, endln:11:23
-              |vpiParent:
-              \_range: , line:11:22, endln:11:33
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
-            |vpiRightRange:
-            \_constant: , line:11:22, endln:11:23
-              |vpiParent:
-              \_range: , line:11:22, endln:11:33
-              |vpiDecompile:associative
-              |STRING:associative
-              |vpiTypespec:
-              \_class_typespec: (uvm_phase), line:11:23, endln:11:32
-                |vpiName:uvm_phase
-                |vpiInstance:
-                \_package: uvm (uvm::), file:${SURELOG_DIR}/tests/ForeachForeach/dut.sv, line:1:1, endln:23:11
-                |vpiClassDefn:
-                \_class_defn: (uvm::uvm_phase), file:${SURELOG_DIR}/tests/ForeachForeach/dut.sv, line:3:1, endln:5:9
-              |vpiConstType:6
-          |vpiIndexTypespec:
-          \_class_typespec: (uvm_phase), line:11:23, endln:11:32
-          |vpiElemTypespec:
-          \_bit_typespec: , line:11:6, endln:11:9
-            |vpiInstance:
-            \_package: uvm (uvm::), file:${SURELOG_DIR}/tests/ForeachForeach/dut.sv, line:1:1, endln:23:11
+        \_ref_typespec: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors)
+          |vpiParent:
+          \_array_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:11:10, endln:11:22
+          |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors
+          |vpiActual:
+          \_array_typespec: , line:11:10, endln:11:33
         |vpiName:predecessors
         |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors
         |vpiArrayType:3
@@ -479,7 +457,12 @@ design: (unnamed)
           |vpiParent:
           \_array_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:11:10, endln:11:22
           |vpiTypespec:
-          \_bit_typespec: , line:11:6, endln:11:9
+          \_ref_typespec: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors)
+            |vpiParent:
+            \_bit_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:11:10, endln:11:22
+            |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors
+            |vpiActual:
+            \_bit_typespec: , line:11:6, endln:11:9
           |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors
       |vpiVisibility:1
       |vpiStmt:
@@ -492,14 +475,24 @@ design: (unnamed)
           |vpiParent:
           \_begin: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:13:6, endln:17:9
           |vpiTypespec:
-          \_bit_typespec: , line:11:6, endln:11:9
+          \_ref_typespec: (uvm::uvm_phase::get_adjacent_predecessor_nodes)
+            |vpiParent:
+            \_bit_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:11:10, endln:11:22
+            |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes
+            |vpiActual:
+            \_bit_typespec: , line:11:6, endln:11:9
           |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes
         |vpiVariables:
         \_array_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:11:10, endln:11:22
           |vpiParent:
           \_begin: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:13:6, endln:17:9
           |vpiTypespec:
-          \_array_typespec: , line:11:10, endln:11:33
+          \_ref_typespec: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors)
+            |vpiParent:
+            \_array_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:11:10, endln:11:22
+            |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors
+            |vpiActual:
+            \_array_typespec: , line:11:10, endln:11:33
           |vpiName:predecessors
           |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors
           |vpiArrayType:3
@@ -508,7 +501,12 @@ design: (unnamed)
             |vpiParent:
             \_array_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:11:10, endln:11:22
             |vpiTypespec:
-            \_bit_typespec: , line:11:6, endln:11:9
+            \_ref_typespec: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors)
+              |vpiParent:
+              \_bit_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:11:10, endln:11:22
+              |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors
+              |vpiActual:
+              \_bit_typespec: , line:11:6, endln:11:9
             |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors
         |vpiStmt:
         \_foreach_stmt: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:13:6, endln:13:13
@@ -520,7 +518,12 @@ design: (unnamed)
             |vpiParent:
             \_foreach_stmt: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:13:6, endln:13:13
             |vpiTypespec:
-            \_array_typespec: , line:11:10, endln:11:33
+            \_ref_typespec: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors)
+              |vpiParent:
+              \_ref_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:13:15, endln:13:27
+              |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors
+              |vpiActual:
+              \_array_typespec: , line:11:10, endln:11:33
             |vpiName:predecessors
             |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors
             |vpiActual:
@@ -530,7 +533,12 @@ design: (unnamed)
             |vpiParent:
             \_foreach_stmt: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:13:6, endln:13:13
             |vpiTypespec:
-            \_class_typespec: (uvm_phase), line:11:23, endln:11:32
+            \_ref_typespec: (uvm::uvm_phase::get_adjacent_predecessor_nodes::p)
+              |vpiParent:
+              \_class_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::p), line:13:28, endln:13:29
+              |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::p
+              |vpiActual:
+              \_class_typespec: (uvm_phase), line:11:23, endln:11:32
             |vpiName:p
             |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::p
           |vpiStmt:
@@ -569,7 +577,12 @@ design: (unnamed)
                 |vpiParent:
                 \_foreach_stmt: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:14:12, endln:14:19
                 |vpiTypespec:
-                \_class_typespec: (uvm_phase), line:4:23, endln:4:32
+                \_ref_typespec: (uvm::uvm_phase::get_adjacent_predecessor_nodes::next_p)
+                  |vpiParent:
+                  \_class_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::next_p), line:14:38, endln:14:44
+                  |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::next_p
+                  |vpiActual:
+                  \_class_typespec: (uvm_phase), line:4:23, endln:4:32
                 |vpiName:next_p
                 |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::next_p
               |vpiStmt:
@@ -607,6 +620,437 @@ design: (unnamed)
                       \_class_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::next_p), line:14:38, endln:14:44
       |vpiInstance:
       \_package: uvm (uvm::), file:${SURELOG_DIR}/tests/ForeachForeach/dut.sv, line:1:1, endln:23:11
+\_weaklyReferenced:
+\_class_typespec: (uvm_phase), line:11:23, endln:11:32
+  |vpiName:uvm_phase
+  |vpiInstance:
+  \_package: uvm (uvm::), file:${SURELOG_DIR}/tests/ForeachForeach/dut.sv, line:1:1, endln:23:11
+  |vpiClassDefn:
+  \_class_defn: (uvm::uvm_phase), file:${SURELOG_DIR}/tests/ForeachForeach/dut.sv, line:3:1, endln:5:9
+\_bit_typespec: , line:11:6, endln:11:9
+  |vpiInstance:
+  \_package: uvm (uvm::), file:${SURELOG_DIR}/tests/ForeachForeach/dut.sv, line:1:1, endln:23:11
+\_array_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:11:10, endln:11:22
+  |vpiParent:
+  \_begin: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:13:6, endln:17:9
+  |vpiTypespec:
+  \_ref_typespec: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors)
+    |vpiParent:
+    \_array_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:11:10, endln:11:22
+    |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors
+    |vpiActual:
+    \_array_typespec: , line:11:10, endln:11:33
+  |vpiName:predecessors
+  |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors
+  |vpiArrayType:3
+  |vpiReg:
+  \_bit_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:11:10, endln:11:22
+    |vpiParent:
+    \_array_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:11:10, endln:11:22
+    |vpiTypespec:
+    \_ref_typespec: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors)
+      |vpiParent:
+      \_bit_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:11:10, endln:11:22
+      |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors
+      |vpiActual:
+      \_bit_typespec: , line:11:6, endln:11:9
+    |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors
+\_begin: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:13:6, endln:17:9
+  |vpiParent:
+  \_function: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:8:3, endln:20:14
+  |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes
+  |vpiVariables:
+  \_bit_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:11:10, endln:11:22
+  |vpiVariables:
+  \_array_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:11:10, endln:11:22
+  |vpiStmt:
+  \_foreach_stmt: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:13:6, endln:13:13
+    |vpiParent:
+    \_begin: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:13:6, endln:17:9
+    |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes
+    |vpiVariables:
+    \_ref_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:13:15, endln:13:27
+      |vpiParent:
+      \_foreach_stmt: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:13:6, endln:13:13
+      |vpiTypespec:
+      \_ref_typespec: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors)
+        |vpiParent:
+        \_ref_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:13:15, endln:13:27
+        |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors
+        |vpiActual:
+        \_array_typespec: , line:11:10, endln:11:33
+      |vpiName:predecessors
+      |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors
+    |vpiLoopVars:
+    \_class_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::p), line:13:28, endln:13:29
+      |vpiParent:
+      \_foreach_stmt: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:13:6, endln:13:13
+      |vpiTypespec:
+      \_ref_typespec: (uvm::uvm_phase::get_adjacent_predecessor_nodes::p)
+        |vpiParent:
+        \_class_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::p), line:13:28, endln:13:29
+        |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::p
+        |vpiActual:
+        \_class_typespec: (uvm_phase), line:11:23, endln:11:32
+      |vpiName:p
+      |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::p
+    |vpiStmt:
+    \_begin: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:13:32, endln:17:9
+      |vpiParent:
+      \_foreach_stmt: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:13:6, endln:13:13
+      |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes
+      |vpiStmt:
+      \_foreach_stmt: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:14:12, endln:14:19
+        |vpiParent:
+        \_begin: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:13:32, endln:17:9
+        |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes
+        |vpiVariables:
+        \_hier_path: (p.m_predecessors)
+          |vpiParent:
+          \_foreach_stmt: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:14:12, endln:14:19
+          |vpiFullName:p.m_predecessors
+          |vpiActual:
+          \_ref_obj: (uvm::uvm_phase::get_adjacent_predecessor_nodes::p), line:14:21, endln:14:22
+            |vpiParent:
+            \_hier_path: (p.m_predecessors)
+            |vpiName:p
+            |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::p
+          |vpiActual:
+          \_ref_obj: (uvm::uvm_phase::get_adjacent_predecessor_nodes::m_predecessors)
+            |vpiParent:
+            \_hier_path: (p.m_predecessors)
+            |vpiName:m_predecessors
+            |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::m_predecessors
+        |vpiLoopVars:
+        \_class_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::next_p), line:14:38, endln:14:44
+          |vpiParent:
+          \_foreach_stmt: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:14:12, endln:14:19
+          |vpiTypespec:
+          \_ref_typespec: (uvm::uvm_phase::get_adjacent_predecessor_nodes::next_p)
+            |vpiParent:
+            \_class_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::next_p), line:14:38, endln:14:44
+            |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::next_p
+            |vpiActual:
+            \_class_typespec: (uvm_phase), line:4:23, endln:4:32
+          |vpiName:next_p
+          |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::next_p
+        |vpiStmt:
+        \_begin: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:14:47, endln:16:15
+          |vpiParent:
+          \_foreach_stmt: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:14:12, endln:14:19
+          |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes
+          |vpiStmt:
+          \_assignment: , line:15:14, endln:15:38
+            |vpiParent:
+            \_begin: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:14:47, endln:16:15
+            |vpiOpType:82
+            |vpiBlocking:1
+            |vpiRhs:
+            \_constant: , line:15:37, endln:15:38
+            |vpiLhs:
+            \_bit_select: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:15:14, endln:15:34
+              |vpiParent:
+              \_assignment: , line:15:14, endln:15:38
+              |vpiName:predecessors
+              |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors
+              |vpiIndex:
+              \_ref_obj: (uvm::uvm_phase::get_adjacent_predecessor_nodes::next_p), line:15:27, endln:15:33
+                |vpiParent:
+                \_bit_select: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:15:14, endln:15:34
+                |vpiName:next_p
+                |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::next_p
+                |vpiActual:
+                \_class_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::next_p), line:14:38, endln:14:44
+\_function: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:8:3, endln:20:14
+  |vpiParent:
+  \_class_defn: (uvm::uvm_phase), file:${SURELOG_DIR}/tests/ForeachForeach/dut.sv, line:3:1, endln:5:9
+  |vpiName:get_adjacent_predecessor_nodes
+  |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes
+  |vpiVariables:
+  \_array_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:11:10, endln:11:22
+  |vpiVisibility:1
+  |vpiStmt:
+  \_begin: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:13:6, endln:17:9
+  |vpiInstance:
+  \_package: uvm (uvm::), file:${SURELOG_DIR}/tests/ForeachForeach/dut.sv, line:1:1, endln:23:11
+\_array_typespec: , line:11:10, endln:11:33
+  |vpiRange:
+  \_range: , line:11:22, endln:11:33
+    |vpiParent:
+    \_array_typespec: , line:11:10, endln:11:33
+    |vpiLeftRange:
+    \_constant: , line:11:22, endln:11:23
+      |vpiParent:
+      \_range: , line:11:22, endln:11:33
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:11:22, endln:11:23
+      |vpiParent:
+      \_range: , line:11:22, endln:11:33
+      |vpiDecompile:associative
+      |STRING:associative
+      |vpiTypespec:
+      \_ref_typespec: 
+        |vpiParent:
+        \_constant: , line:11:22, endln:11:23
+        |vpiActual:
+        \_class_typespec: (uvm_phase), line:11:23, endln:11:32
+      |vpiConstType:6
+  |vpiIndexTypespec:
+  \_ref_typespec: 
+    |vpiParent:
+    \_array_typespec: , line:11:10, endln:11:33
+    |vpiActual:
+    \_class_typespec: (uvm_phase), line:11:23, endln:11:32
+  |vpiElemTypespec:
+  \_ref_typespec: 
+    |vpiParent:
+    \_array_typespec: , line:11:10, endln:11:33
+    |vpiActual:
+    \_bit_typespec: , line:11:6, endln:11:9
+\_bit_typespec: , line:11:6, endln:11:9
+  |vpiInstance:
+  \_package: uvm (uvm::), file:${SURELOG_DIR}/tests/ForeachForeach/dut.sv, line:1:1, endln:23:11
+\_array_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:11:10, endln:11:22
+  |vpiParent:
+  \_begin: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:13:6, endln:17:9
+  |vpiTypespec:
+  \_ref_typespec: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors)
+    |vpiParent:
+    \_array_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:11:10, endln:11:22
+    |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors
+    |vpiActual:
+    \_array_typespec: , line:11:10, endln:11:32
+  |vpiName:predecessors
+  |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors
+  |vpiArrayType:1
+  |vpiReg:
+  \_bit_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:11:10, endln:11:22
+    |vpiParent:
+    \_array_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:11:10, endln:11:22
+    |vpiTypespec:
+    \_ref_typespec: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors)
+      |vpiParent:
+      \_bit_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:11:10, endln:11:22
+      |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors
+      |vpiActual:
+      \_bit_typespec: , line:11:6, endln:11:9
+    |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors
+\_begin: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:13:6, endln:17:9
+  |vpiParent:
+  \_function: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:8:3, endln:20:14
+  |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes
+  |vpiVariables:
+  \_bit_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:11:10, endln:11:22
+  |vpiVariables:
+  \_array_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:11:10, endln:11:22
+  |vpiStmt:
+  \_foreach_stmt: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:13:6, endln:13:13
+    |vpiParent:
+    \_begin: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:13:6, endln:17:9
+    |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes
+    |vpiVariables:
+    \_ref_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:13:15, endln:13:27
+      |vpiParent:
+      \_foreach_stmt: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:13:6, endln:13:13
+      |vpiTypespec:
+      \_ref_typespec: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors)
+        |vpiParent:
+        \_ref_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:13:15, endln:13:27
+        |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors
+        |vpiActual:
+        \_unsupported_typespec: (predecessors), line:13:15, endln:13:27
+      |vpiName:predecessors
+      |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors
+    |vpiLoopVars:
+    \_ref_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::p), line:13:28, endln:13:29
+      |vpiParent:
+      \_foreach_stmt: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:13:6, endln:13:13
+      |vpiTypespec:
+      \_ref_typespec: (uvm::uvm_phase::get_adjacent_predecessor_nodes::p)
+        |vpiParent:
+        \_ref_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::p), line:13:28, endln:13:29
+        |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::p
+        |vpiActual:
+        \_unsupported_typespec: (p), line:13:28, endln:13:29
+      |vpiName:p
+      |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::p
+    |vpiStmt:
+    \_begin: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:13:32, endln:17:9
+      |vpiParent:
+      \_foreach_stmt: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:13:6, endln:13:13
+      |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes
+      |vpiStmt:
+      \_foreach_stmt: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:14:12, endln:14:19
+        |vpiParent:
+        \_begin: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:13:32, endln:17:9
+        |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes
+        |vpiVariables:
+        \_hier_path: (p.m_predecessors)
+          |vpiParent:
+          \_foreach_stmt: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:14:12, endln:14:19
+          |vpiFullName:p.m_predecessors
+          |vpiActual:
+          \_ref_obj: (uvm::uvm_phase::get_adjacent_predecessor_nodes::p), line:14:21, endln:14:22
+            |vpiParent:
+            \_hier_path: (p.m_predecessors)
+            |vpiName:p
+            |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::p
+            |vpiActual:
+            \_ref_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::p), line:13:28, endln:13:29
+          |vpiActual:
+          \_ref_obj: (uvm::uvm_phase::get_adjacent_predecessor_nodes::m_predecessors)
+            |vpiParent:
+            \_hier_path: (p.m_predecessors)
+            |vpiName:m_predecessors
+            |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::m_predecessors
+        |vpiLoopVars:
+        \_ref_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::next_p), line:14:38, endln:14:44
+          |vpiParent:
+          \_foreach_stmt: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:14:12, endln:14:19
+          |vpiTypespec:
+          \_ref_typespec: (uvm::uvm_phase::get_adjacent_predecessor_nodes::next_p)
+            |vpiParent:
+            \_ref_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::next_p), line:14:38, endln:14:44
+            |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::next_p
+            |vpiActual:
+            \_unsupported_typespec: (next_p), line:14:38, endln:14:44
+          |vpiName:next_p
+          |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::next_p
+        |vpiStmt:
+        \_begin: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:14:47, endln:16:15
+          |vpiParent:
+          \_foreach_stmt: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:14:12, endln:14:19
+          |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes
+          |vpiStmt:
+          \_assignment: , line:15:14, endln:15:38
+            |vpiParent:
+            \_begin: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:14:47, endln:16:15
+            |vpiOpType:82
+            |vpiBlocking:1
+            |vpiRhs:
+            \_constant: , line:15:37, endln:15:38
+            |vpiLhs:
+            \_bit_select: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:15:14, endln:15:34
+              |vpiParent:
+              \_assignment: , line:15:14, endln:15:38
+              |vpiName:predecessors
+              |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors
+              |vpiActual:
+              \_array_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:11:10, endln:11:22
+              |vpiIndex:
+              \_ref_obj: (uvm::uvm_phase::get_adjacent_predecessor_nodes::next_p), line:15:27, endln:15:33
+                |vpiParent:
+                \_bit_select: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:15:14, endln:15:34
+                |vpiName:next_p
+                |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::next_p
+                |vpiActual:
+                \_ref_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::next_p), line:14:38, endln:14:44
+\_function: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:8:3, endln:20:14
+  |vpiParent:
+  \_package: uvm (uvm::), file:${SURELOG_DIR}/tests/ForeachForeach/dut.sv, line:1:1, endln:23:11
+  |vpiName:uvm_phase::get_adjacent_predecessor_nodes
+  |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes
+  |vpiVariables:
+  \_array_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::predecessors), line:11:10, endln:11:22
+  |vpiVisibility:1
+  |vpiStmt:
+  \_begin: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:13:6, endln:17:9
+  |vpiInstance:
+  \_package: uvm (uvm::), file:${SURELOG_DIR}/tests/ForeachForeach/dut.sv, line:1:1, endln:23:11
+\_array_typespec: , line:11:10, endln:11:32
+  |vpiRange:
+  \_range: , line:11:23, endln:11:32
+    |vpiParent:
+    \_array_typespec: , line:11:10, endln:11:32
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: , line:11:23, endln:11:32
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_operation: , line:11:23, endln:11:32
+      |vpiParent:
+      \_range: , line:11:23, endln:11:32
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (uvm_phase), line:11:23, endln:11:32
+        |vpiParent:
+        \_operation: , line:11:23, endln:11:32
+        |vpiName:uvm_phase
+      |vpiOperand:
+      \_constant: 
+        |vpiSize:64
+        |INT:1
+        |vpiConstType:7
+  |vpiElemTypespec:
+  \_ref_typespec: 
+    |vpiParent:
+    \_array_typespec: , line:11:10, endln:11:32
+    |vpiActual:
+    \_bit_typespec: , line:11:6, endln:11:9
+\_unsupported_typespec: (predecessors), line:13:15, endln:13:27
+  |vpiName:predecessors
+  |vpiInstance:
+  \_package: uvm (uvm::), file:${SURELOG_DIR}/tests/ForeachForeach/dut.sv, line:1:1, endln:23:11
+\_unsupported_typespec: (p), line:13:28, endln:13:29
+  |vpiParent:
+  \_ref_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::p), line:13:28, endln:13:29
+  |vpiName:p
+\_unsupported_typespec: (next_p), line:14:38, endln:14:44
+  |vpiParent:
+  \_ref_var: (uvm::uvm_phase::get_adjacent_predecessor_nodes::next_p), line:14:38, endln:14:44
+  |vpiName:next_p
+\_class_typespec: (uvm_phase), line:4:23, endln:4:32
+  |vpiName:uvm_phase
+  |vpiClassDefn:
+  \_class_defn: (uvm::uvm_phase), file:${SURELOG_DIR}/tests/ForeachForeach/dut.sv, line:3:1, endln:5:9
+\_bit_typespec: , line:4:3, endln:4:6
+  |vpiParent:
+  \_bit_var: (uvm::uvm_phase::m_predecessors), line:4:8, endln:4:22
+\_bit_var: (uvm::uvm_phase::m_predecessors), line:4:8, endln:4:22
+  |vpiParent:
+  \_array_var: (uvm::uvm_phase::m_predecessors), line:4:8, endln:4:22
+  |vpiTypespec:
+  \_ref_typespec: (uvm::uvm_phase::m_predecessors)
+    |vpiParent:
+    \_bit_var: (uvm::uvm_phase::m_predecessors), line:4:8, endln:4:22
+    |vpiFullName:uvm::uvm_phase::m_predecessors
+    |vpiActual:
+    \_bit_typespec: , line:4:3, endln:4:6
+  |vpiFullName:uvm::uvm_phase::m_predecessors
+\_array_var: (uvm::uvm_phase::m_predecessors), line:4:8, endln:4:22
+  |vpiParent:
+  \_class_defn: (uvm::uvm_phase), file:${SURELOG_DIR}/tests/ForeachForeach/dut.sv, line:3:1, endln:5:9
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (uvm::uvm_phase::m_predecessors)
+    |vpiParent:
+    \_array_var: (uvm::uvm_phase::m_predecessors), line:4:8, endln:4:22
+    |vpiFullName:uvm::uvm_phase::m_predecessors
+    |vpiActual:
+    \_array_typespec: 
+  |vpiName:m_predecessors
+  |vpiFullName:uvm::uvm_phase::m_predecessors
+  |vpiAutomatic:1
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:3
+  |vpiReg:
+  \_bit_var: (uvm::uvm_phase::m_predecessors), line:4:8, endln:4:22
+\_array_typespec: 
+  |vpiIndexTypespec:
+  \_ref_typespec: 
+    |vpiParent:
+    \_array_typespec: 
+    |vpiActual:
+    \_class_typespec: (uvm_phase), line:4:23, endln:4:32
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

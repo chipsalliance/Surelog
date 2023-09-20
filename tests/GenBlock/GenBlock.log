@@ -177,6 +177,7 @@ param_assign                                           6
 parameter                                              6
 ref_module                                             2
 ref_obj                                                4
+ref_typespec                                           5
 sys_func_call                                          1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -197,6 +198,7 @@ param_assign                                           6
 parameter                                              6
 ref_module                                             2
 ref_obj                                                4
+ref_typespec                                           5
 sys_func_call                                          1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/GenBlock/slpp_all/surelog.uhdm ...
@@ -228,7 +230,12 @@ design: (work@axi)
     \_module_inst: work@axi (work@axi), file:${SURELOG_DIR}/tests/GenBlock/dut.sv, line:4:1, endln:22:10
     |UINT:8
     |vpiTypespec:
-    \_int_typespec: , line:6:5, endln:6:34
+    \_ref_typespec: (work@axi.N_MASTER)
+      |vpiParent:
+      \_parameter: (work@axi.N_MASTER), line:6:15, endln:6:23
+      |vpiFullName:work@axi.N_MASTER
+      |vpiActual:
+      \_int_typespec: , line:6:5, endln:6:34
     |vpiName:N_MASTER
     |vpiFullName:work@axi.N_MASTER
   |vpiParameter:
@@ -256,7 +263,12 @@ design: (work@axi)
       |vpiSize:64
       |UINT:8
       |vpiTypespec:
-      \_int_typespec: , line:6:5, endln:6:34
+      \_ref_typespec: (work@axi)
+        |vpiParent:
+        \_constant: , line:6:33, endln:6:34
+        |vpiFullName:work@axi
+        |vpiActual:
+        \_int_typespec: , line:6:5, endln:6:34
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@axi.N_MASTER), line:6:15, endln:6:23
@@ -359,9 +371,12 @@ design: (work@axi)
     \_module_inst: work@axi (work@axi), file:${SURELOG_DIR}/tests/GenBlock/dut.sv, line:4:1, endln:22:10
     |UINT:8
     |vpiTypespec:
-    \_int_typespec: , line:6:5, endln:6:34
+    \_ref_typespec: (work@axi.N_MASTER)
       |vpiParent:
       \_parameter: (work@axi.N_MASTER), line:6:15, endln:6:23
+      |vpiFullName:work@axi.N_MASTER
+      |vpiActual:
+      \_int_typespec: , line:6:5, endln:6:34
     |vpiName:N_MASTER
     |vpiFullName:work@axi.N_MASTER
   |vpiParameter:
@@ -389,7 +404,12 @@ design: (work@axi)
       |vpiSize:32
       |UINT:8
       |vpiTypespec:
-      \_int_typespec: , line:6:5, endln:6:34
+      \_ref_typespec: (work@axi)
+        |vpiParent:
+        \_constant: , line:6:33, endln:6:34
+        |vpiFullName:work@axi
+        |vpiActual:
+        \_int_typespec: , line:6:5, endln:6:34
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@axi.N_MASTER), line:6:15, endln:6:23
@@ -444,6 +464,11 @@ design: (work@axi)
         |vpiDefName:work@GOOD
         |vpiDefFile:${SURELOG_DIR}/tests/GenBlock/dut.sv
         |vpiDefLineNo:1
+\_weaklyReferenced:
+\_int_typespec: , line:6:5, endln:6:34
+\_int_typespec: , line:6:5, endln:6:34
+  |vpiParent:
+  \_ref_typespec: (work@axi.N_MASTER)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

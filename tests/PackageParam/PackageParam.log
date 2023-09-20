@@ -533,6 +533,7 @@ param_assign                                          34
 parameter                                             40
 range                                                 14
 ref_obj                                               10
+ref_typespec                                         100
 sys_func_call                                          4
 task                                                   9
 === UHDM Object Stats End ===
@@ -561,6 +562,7 @@ param_assign                                          34
 parameter                                             40
 range                                                 14
 ref_obj                                               10
+ref_typespec                                         105
 sys_func_call                                          4
 task                                                  18
 === UHDM Object Stats End ===
@@ -595,31 +597,12 @@ design: (unnamed)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:2:1, endln:15:11
     |HEX:0000
     |vpiTypespec:
-    \_logic_typespec: , line:4:13, endln:4:25
+    \_ref_typespec: (lc_ctrl_pkg::A10)
       |vpiParent:
       \_parameter: (lc_ctrl_pkg::A10), line:4:26, endln:4:29
-      |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:2:1, endln:15:11
-      |vpiRange:
-      \_range: , line:4:19, endln:4:25
-        |vpiParent:
-        \_logic_typespec: , line:4:13, endln:4:25
-        |vpiLeftRange:
-        \_constant: , line:4:20, endln:4:22
-          |vpiParent:
-          \_range: , line:4:19, endln:4:25
-          |vpiDecompile:15
-          |vpiSize:64
-          |UINT:15
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:4:23, endln:4:24
-          |vpiParent:
-          \_range: , line:4:19, endln:4:25
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:lc_ctrl_pkg::A10
+      |vpiActual:
+      \_logic_typespec: , line:4:13, endln:4:25
     |vpiName:A10
     |vpiFullName:lc_ctrl_pkg::A10
   |vpiParameter:
@@ -628,31 +611,12 @@ design: (unnamed)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:2:1, endln:15:11
     |HEX:0000
     |vpiTypespec:
-    \_logic_typespec: , line:5:13, endln:5:25
+    \_ref_typespec: (lc_ctrl_pkg::A11)
       |vpiParent:
       \_parameter: (lc_ctrl_pkg::A11), line:5:26, endln:5:29
-      |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:2:1, endln:15:11
-      |vpiRange:
-      \_range: , line:5:19, endln:5:25
-        |vpiParent:
-        \_logic_typespec: , line:5:13, endln:5:25
-        |vpiLeftRange:
-        \_constant: , line:5:20, endln:5:22
-          |vpiParent:
-          \_range: , line:5:19, endln:5:25
-          |vpiDecompile:15
-          |vpiSize:64
-          |UINT:15
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:5:23, endln:5:24
-          |vpiParent:
-          \_range: , line:5:19, endln:5:25
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:lc_ctrl_pkg::A11
+      |vpiActual:
+      \_logic_typespec: , line:5:13, endln:5:25
     |vpiName:A11
     |vpiFullName:lc_ctrl_pkg::A11
   |vpiParamAssign:
@@ -667,7 +631,12 @@ design: (unnamed)
       |vpiSize:16
       |HEX:0000
       |vpiTypespec:
-      \_logic_typespec: , line:4:13, endln:4:25
+      \_ref_typespec: (lc_ctrl_pkg)
+        |vpiParent:
+        \_constant: , line:4:32, endln:4:40
+        |vpiFullName:lc_ctrl_pkg
+        |vpiActual:
+        \_logic_typespec: , line:4:13, endln:4:25
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (lc_ctrl_pkg::A10), line:4:26, endln:4:29
@@ -683,7 +652,12 @@ design: (unnamed)
       |vpiSize:16
       |HEX:0000
       |vpiTypespec:
-      \_logic_typespec: , line:5:13, endln:5:25
+      \_ref_typespec: (lc_ctrl_pkg)
+        |vpiParent:
+        \_constant: , line:5:32, endln:5:40
+        |vpiFullName:lc_ctrl_pkg
+        |vpiActual:
+        \_logic_typespec: , line:5:13, endln:5:25
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (lc_ctrl_pkg::A11), line:5:26, endln:5:29
@@ -695,39 +669,12 @@ design: (unnamed)
     |vpiInstance:
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:2:1, endln:15:11
     |vpiBaseTypespec:
-    \_logic_typespec: , line:10:16, endln:10:40
-      |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:2:1, endln:15:11
-      |vpiRange:
-      \_range: , line:10:22, endln:10:40
-        |vpiParent:
-        \_logic_typespec: , line:10:16, endln:10:40
-        |vpiLeftRange:
-        \_operation: , line:10:23, endln:10:37
-          |vpiParent:
-          \_range: , line:10:22, endln:10:40
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (LcStateWidth), line:10:23, endln:10:35
-            |vpiParent:
-            \_operation: , line:10:23, endln:10:37
-            |vpiName:LcStateWidth
-          |vpiOperand:
-          \_constant: , line:10:36, endln:10:37
-            |vpiParent:
-            \_operation: , line:10:23, endln:10:37
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:10:38, endln:10:39
-          |vpiParent:
-          \_range: , line:10:22, endln:10:40
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (lc_ctrl_pkg::lc_ctrl_pkg::lc_state_e)
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::lc_state_e), line:10:3, endln:14:16
+      |vpiFullName:lc_ctrl_pkg::lc_ctrl_pkg::lc_state_e
+      |vpiActual:
+      \_logic_typespec: , line:10:16, endln:10:40
     |vpiEnumConst:
     \_enum_const: (LcStRaw), line:12:5, endln:12:27
       |vpiParent:
@@ -757,12 +704,12 @@ design: (unnamed)
     \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: , line:22:13, endln:22:16
+    \_ref_typespec: (otp_ctrl_reg_pkg::NumSramKeyReqSlots)
       |vpiParent:
       \_parameter: (otp_ctrl_reg_pkg::NumSramKeyReqSlots), line:22:17, endln:22:35
-      |vpiInstance:
-      \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
-      |vpiSigned:1
+      |vpiFullName:otp_ctrl_reg_pkg::NumSramKeyReqSlots
+      |vpiActual:
+      \_int_typespec: , line:22:13, endln:22:16
     |vpiSigned:1
     |vpiName:NumSramKeyReqSlots
     |vpiFullName:otp_ctrl_reg_pkg::NumSramKeyReqSlots
@@ -772,12 +719,12 @@ design: (unnamed)
     \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
     |UINT:11
     |vpiTypespec:
-    \_int_typespec: , line:23:13, endln:23:16
+    \_ref_typespec: (otp_ctrl_reg_pkg::OtpByteAddrWidth)
       |vpiParent:
       \_parameter: (otp_ctrl_reg_pkg::OtpByteAddrWidth), line:23:17, endln:23:33
-      |vpiInstance:
-      \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
-      |vpiSigned:1
+      |vpiFullName:otp_ctrl_reg_pkg::OtpByteAddrWidth
+      |vpiActual:
+      \_int_typespec: , line:23:13, endln:23:16
     |vpiSigned:1
     |vpiName:OtpByteAddrWidth
     |vpiFullName:otp_ctrl_reg_pkg::OtpByteAddrWidth
@@ -787,12 +734,12 @@ design: (unnamed)
     \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
     |UINT:9
     |vpiTypespec:
-    \_int_typespec: , line:24:13, endln:24:16
+    \_ref_typespec: (otp_ctrl_reg_pkg::NumErrorEntries)
       |vpiParent:
       \_parameter: (otp_ctrl_reg_pkg::NumErrorEntries), line:24:17, endln:24:32
-      |vpiInstance:
-      \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
-      |vpiSigned:1
+      |vpiFullName:otp_ctrl_reg_pkg::NumErrorEntries
+      |vpiActual:
+      \_int_typespec: , line:24:13, endln:24:16
     |vpiSigned:1
     |vpiName:NumErrorEntries
     |vpiFullName:otp_ctrl_reg_pkg::NumErrorEntries
@@ -808,7 +755,12 @@ design: (unnamed)
       |vpiSize:64
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:22:13, endln:22:16
+      \_ref_typespec: (otp_ctrl_reg_pkg)
+        |vpiParent:
+        \_constant: , line:22:38, endln:22:39
+        |vpiFullName:otp_ctrl_reg_pkg
+        |vpiActual:
+        \_int_typespec: , line:22:13, endln:22:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (otp_ctrl_reg_pkg::NumSramKeyReqSlots), line:22:17, endln:22:35
@@ -824,7 +776,12 @@ design: (unnamed)
       |vpiSize:64
       |UINT:11
       |vpiTypespec:
-      \_int_typespec: , line:23:13, endln:23:16
+      \_ref_typespec: (otp_ctrl_reg_pkg)
+        |vpiParent:
+        \_constant: , line:23:36, endln:23:38
+        |vpiFullName:otp_ctrl_reg_pkg
+        |vpiActual:
+        \_int_typespec: , line:23:13, endln:23:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (otp_ctrl_reg_pkg::OtpByteAddrWidth), line:23:17, endln:23:33
@@ -840,7 +797,12 @@ design: (unnamed)
       |vpiSize:64
       |UINT:9
       |vpiTypespec:
-      \_int_typespec: , line:24:13, endln:24:16
+      \_ref_typespec: (otp_ctrl_reg_pkg)
+        |vpiParent:
+        \_constant: , line:24:35, endln:24:36
+        |vpiFullName:otp_ctrl_reg_pkg
+        |vpiActual:
+        \_int_typespec: , line:24:13, endln:24:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (otp_ctrl_reg_pkg::NumErrorEntries), line:24:17, endln:24:32
@@ -857,12 +819,12 @@ design: (unnamed)
     \_package: otp_ctrl_pkg (otp_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:28:1, endln:37:11
     |UINT:9
     |vpiTypespec:
-    \_int_typespec: , line:24:13, endln:24:16
+    \_ref_typespec: (otp_ctrl_pkg::NumErrorEntries)
       |vpiParent:
       \_parameter: (otp_ctrl_pkg::NumErrorEntries), line:24:17, endln:24:32
-      |vpiInstance:
-      \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
-      |vpiSigned:1
+      |vpiFullName:otp_ctrl_pkg::NumErrorEntries
+      |vpiActual:
+      \_int_typespec: , line:24:13, endln:24:16
     |vpiSigned:1
     |vpiName:NumErrorEntries
     |vpiFullName:otp_ctrl_pkg::NumErrorEntries
@@ -873,12 +835,12 @@ design: (unnamed)
     \_package: otp_ctrl_pkg (otp_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:28:1, endln:37:11
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: , line:22:13, endln:22:16
+    \_ref_typespec: (otp_ctrl_pkg::NumSramKeyReqSlots)
       |vpiParent:
       \_parameter: (otp_ctrl_pkg::NumSramKeyReqSlots), line:22:17, endln:22:35
-      |vpiInstance:
-      \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
-      |vpiSigned:1
+      |vpiFullName:otp_ctrl_pkg::NumSramKeyReqSlots
+      |vpiActual:
+      \_int_typespec: , line:22:13, endln:22:16
     |vpiSigned:1
     |vpiName:NumSramKeyReqSlots
     |vpiFullName:otp_ctrl_pkg::NumSramKeyReqSlots
@@ -889,12 +851,12 @@ design: (unnamed)
     \_package: otp_ctrl_pkg (otp_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:28:1, endln:37:11
     |UINT:11
     |vpiTypespec:
-    \_int_typespec: , line:23:13, endln:23:16
+    \_ref_typespec: (otp_ctrl_pkg::OtpByteAddrWidth)
       |vpiParent:
       \_parameter: (otp_ctrl_pkg::OtpByteAddrWidth), line:23:17, endln:23:33
-      |vpiInstance:
-      \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
-      |vpiSigned:1
+      |vpiFullName:otp_ctrl_pkg::OtpByteAddrWidth
+      |vpiActual:
+      \_int_typespec: , line:23:13, endln:23:16
     |vpiSigned:1
     |vpiName:OtpByteAddrWidth
     |vpiFullName:otp_ctrl_pkg::OtpByteAddrWidth
@@ -905,12 +867,12 @@ design: (unnamed)
     \_package: otp_ctrl_pkg (otp_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:28:1, endln:37:11
     |UINT:16
     |vpiTypespec:
-    \_int_typespec: , line:34:13, endln:34:16
+    \_ref_typespec: (otp_ctrl_pkg::OtpWidth)
       |vpiParent:
       \_parameter: (otp_ctrl_pkg::OtpWidth), line:34:17, endln:34:25
-      |vpiInstance:
-      \_package: otp_ctrl_pkg (otp_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:28:1, endln:37:11
-      |vpiSigned:1
+      |vpiFullName:otp_ctrl_pkg::OtpWidth
+      |vpiActual:
+      \_int_typespec: , line:34:13, endln:34:16
     |vpiSigned:1
     |vpiName:OtpWidth
     |vpiFullName:otp_ctrl_pkg::OtpWidth
@@ -919,12 +881,12 @@ design: (unnamed)
     |vpiParent:
     \_package: otp_ctrl_pkg (otp_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:28:1, endln:37:11
     |vpiTypespec:
-    \_int_typespec: , line:35:13, endln:35:16
+    \_ref_typespec: (otp_ctrl_pkg::OtpAddrWidth)
       |vpiParent:
       \_parameter: (otp_ctrl_pkg::OtpAddrWidth), line:35:17, endln:35:29
-      |vpiInstance:
-      \_package: otp_ctrl_pkg (otp_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:28:1, endln:37:11
-      |vpiSigned:1
+      |vpiFullName:otp_ctrl_pkg::OtpAddrWidth
+      |vpiActual:
+      \_int_typespec: , line:35:13, endln:35:16
     |vpiSigned:1
     |vpiName:OtpAddrWidth
     |vpiFullName:otp_ctrl_pkg::OtpAddrWidth
@@ -940,12 +902,12 @@ design: (unnamed)
       |vpiSize:32
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:22:13, endln:22:16
+      \_ref_typespec: (otp_ctrl_pkg)
         |vpiParent:
         \_constant: , line:22:38, endln:22:39
-        |vpiInstance:
-        \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
-        |vpiSigned:1
+        |vpiFullName:otp_ctrl_pkg
+        |vpiActual:
+        \_int_typespec: , line:22:13, endln:22:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (otp_ctrl_pkg::NumSramKeyReqSlots), line:22:17, endln:22:35
@@ -953,12 +915,12 @@ design: (unnamed)
       \_param_assign: , line:22:17, endln:22:39
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:22:13, endln:22:16
+      \_ref_typespec: (otp_ctrl_pkg::NumSramKeyReqSlots)
         |vpiParent:
         \_parameter: (otp_ctrl_pkg::NumSramKeyReqSlots), line:22:17, endln:22:35
-        |vpiInstance:
-        \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
-        |vpiSigned:1
+        |vpiFullName:otp_ctrl_pkg::NumSramKeyReqSlots
+        |vpiActual:
+        \_int_typespec: , line:22:13, endln:22:16
       |vpiSigned:1
       |vpiName:NumSramKeyReqSlots
       |vpiFullName:otp_ctrl_pkg::NumSramKeyReqSlots
@@ -975,12 +937,12 @@ design: (unnamed)
       |vpiSize:32
       |UINT:11
       |vpiTypespec:
-      \_int_typespec: , line:23:13, endln:23:16
+      \_ref_typespec: (otp_ctrl_pkg)
         |vpiParent:
         \_constant: , line:23:36, endln:23:38
-        |vpiInstance:
-        \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
-        |vpiSigned:1
+        |vpiFullName:otp_ctrl_pkg
+        |vpiActual:
+        \_int_typespec: , line:23:13, endln:23:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (otp_ctrl_pkg::OtpByteAddrWidth), line:23:17, endln:23:33
@@ -988,12 +950,12 @@ design: (unnamed)
       \_param_assign: , line:23:17, endln:23:38
       |UINT:11
       |vpiTypespec:
-      \_int_typespec: , line:23:13, endln:23:16
+      \_ref_typespec: (otp_ctrl_pkg::OtpByteAddrWidth)
         |vpiParent:
         \_parameter: (otp_ctrl_pkg::OtpByteAddrWidth), line:23:17, endln:23:33
-        |vpiInstance:
-        \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
-        |vpiSigned:1
+        |vpiFullName:otp_ctrl_pkg::OtpByteAddrWidth
+        |vpiActual:
+        \_int_typespec: , line:23:13, endln:23:16
       |vpiSigned:1
       |vpiName:OtpByteAddrWidth
       |vpiFullName:otp_ctrl_pkg::OtpByteAddrWidth
@@ -1010,12 +972,12 @@ design: (unnamed)
       |vpiSize:32
       |UINT:9
       |vpiTypespec:
-      \_int_typespec: , line:24:13, endln:24:16
+      \_ref_typespec: (otp_ctrl_pkg)
         |vpiParent:
         \_constant: , line:24:35, endln:24:36
-        |vpiInstance:
-        \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
-        |vpiSigned:1
+        |vpiFullName:otp_ctrl_pkg
+        |vpiActual:
+        \_int_typespec: , line:24:13, endln:24:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (otp_ctrl_pkg::NumErrorEntries), line:24:17, endln:24:32
@@ -1023,12 +985,12 @@ design: (unnamed)
       \_param_assign: , line:24:17, endln:24:36
       |UINT:9
       |vpiTypespec:
-      \_int_typespec: , line:24:13, endln:24:16
+      \_ref_typespec: (otp_ctrl_pkg::NumErrorEntries)
         |vpiParent:
         \_parameter: (otp_ctrl_pkg::NumErrorEntries), line:24:17, endln:24:32
-        |vpiInstance:
-        \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
-        |vpiSigned:1
+        |vpiFullName:otp_ctrl_pkg::NumErrorEntries
+        |vpiActual:
+        \_int_typespec: , line:24:13, endln:24:16
       |vpiSigned:1
       |vpiName:NumErrorEntries
       |vpiFullName:otp_ctrl_pkg::NumErrorEntries
@@ -1045,7 +1007,12 @@ design: (unnamed)
       |vpiSize:64
       |UINT:16
       |vpiTypespec:
-      \_int_typespec: , line:34:13, endln:34:16
+      \_ref_typespec: (otp_ctrl_pkg)
+        |vpiParent:
+        \_constant: , line:34:36, endln:34:38
+        |vpiFullName:otp_ctrl_pkg
+        |vpiActual:
+        \_int_typespec: , line:34:13, endln:34:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (otp_ctrl_pkg::OtpWidth), line:34:17, endln:34:25
@@ -1066,12 +1033,12 @@ design: (unnamed)
         |vpiSize:32
         |UINT:11
         |vpiTypespec:
-        \_int_typespec: , line:23:13, endln:23:16
+        \_ref_typespec: (otp_ctrl_pkg)
           |vpiParent:
           \_constant: , line:35:36, endln:35:52
-          |vpiInstance:
-          \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
-          |vpiSigned:1
+          |vpiFullName:otp_ctrl_pkg
+          |vpiActual:
+          \_int_typespec: , line:23:13, endln:23:16
         |vpiConstType:9
       |vpiOperand:
       \_sys_func_call: ($clog2), line:35:55, endln:35:73
@@ -1156,31 +1123,12 @@ design: (unnamed)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:2:1, endln:15:11
     |HEX:0000
     |vpiTypespec:
-    \_logic_typespec: , line:4:13, endln:4:25
+    \_ref_typespec: (lc_ctrl_pkg::A10)
       |vpiParent:
       \_parameter: (lc_ctrl_pkg::A10), line:4:26, endln:4:29
-      |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:2:1, endln:15:11
-      |vpiRange:
-      \_range: , line:4:19, endln:4:25
-        |vpiParent:
-        \_logic_typespec: , line:4:13, endln:4:25
-        |vpiLeftRange:
-        \_constant: , line:4:20, endln:4:22
-          |vpiParent:
-          \_range: , line:4:19, endln:4:25
-          |vpiDecompile:15
-          |vpiSize:64
-          |UINT:15
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:4:23, endln:4:24
-          |vpiParent:
-          \_range: , line:4:19, endln:4:25
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:lc_ctrl_pkg::A10
+      |vpiActual:
+      \_logic_typespec: , line:4:13, endln:4:25
     |vpiName:A10
     |vpiFullName:lc_ctrl_pkg::A10
   |vpiParameter:
@@ -1189,31 +1137,12 @@ design: (unnamed)
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:2:1, endln:15:11
     |HEX:0000
     |vpiTypespec:
-    \_logic_typespec: , line:5:13, endln:5:25
+    \_ref_typespec: (lc_ctrl_pkg::A11)
       |vpiParent:
       \_parameter: (lc_ctrl_pkg::A11), line:5:26, endln:5:29
-      |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:2:1, endln:15:11
-      |vpiRange:
-      \_range: , line:5:19, endln:5:25
-        |vpiParent:
-        \_logic_typespec: , line:5:13, endln:5:25
-        |vpiLeftRange:
-        \_constant: , line:5:20, endln:5:22
-          |vpiParent:
-          \_range: , line:5:19, endln:5:25
-          |vpiDecompile:15
-          |vpiSize:64
-          |UINT:15
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:5:23, endln:5:24
-          |vpiParent:
-          \_range: , line:5:19, endln:5:25
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:lc_ctrl_pkg::A11
+      |vpiActual:
+      \_logic_typespec: , line:5:13, endln:5:25
     |vpiName:A11
     |vpiFullName:lc_ctrl_pkg::A11
   |vpiParamAssign:
@@ -1228,7 +1157,12 @@ design: (unnamed)
       |vpiSize:16
       |HEX:0000
       |vpiTypespec:
-      \_logic_typespec: , line:4:13, endln:4:25
+      \_ref_typespec: (lc_ctrl_pkg)
+        |vpiParent:
+        \_constant: , line:4:32, endln:4:40
+        |vpiFullName:lc_ctrl_pkg
+        |vpiActual:
+        \_logic_typespec: , line:4:13, endln:4:25
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (lc_ctrl_pkg::A10), line:4:26, endln:4:29
@@ -1244,7 +1178,12 @@ design: (unnamed)
       |vpiSize:16
       |HEX:0000
       |vpiTypespec:
-      \_logic_typespec: , line:5:13, endln:5:25
+      \_ref_typespec: (lc_ctrl_pkg)
+        |vpiParent:
+        \_constant: , line:5:32, endln:5:40
+        |vpiFullName:lc_ctrl_pkg
+        |vpiActual:
+        \_logic_typespec: , line:5:13, endln:5:25
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (lc_ctrl_pkg::A11), line:5:26, endln:5:29
@@ -1256,39 +1195,12 @@ design: (unnamed)
     |vpiInstance:
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:2:1, endln:15:11
     |vpiBaseTypespec:
-    \_logic_typespec: , line:10:16, endln:10:40
-      |vpiInstance:
-      \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:2:1, endln:15:11
-      |vpiRange:
-      \_range: , line:10:22, endln:10:40
-        |vpiParent:
-        \_logic_typespec: , line:10:16, endln:10:40
-        |vpiLeftRange:
-        \_operation: , line:10:23, endln:10:37
-          |vpiParent:
-          \_range: , line:10:22, endln:10:40
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (LcStateWidth), line:10:23, endln:10:35
-            |vpiParent:
-            \_operation: , line:10:23, endln:10:37
-            |vpiName:LcStateWidth
-          |vpiOperand:
-          \_constant: , line:10:36, endln:10:37
-            |vpiParent:
-            \_operation: , line:10:23, endln:10:37
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:10:38, endln:10:39
-          |vpiParent:
-          \_range: , line:10:22, endln:10:40
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (lc_ctrl_pkg::lc_ctrl_pkg::lc_state_e)
+      |vpiParent:
+      \_enum_typespec: (lc_ctrl_pkg::lc_state_e), line:10:3, endln:14:16
+      |vpiFullName:lc_ctrl_pkg::lc_ctrl_pkg::lc_state_e
+      |vpiActual:
+      \_logic_typespec: , line:10:16, endln:10:40
     |vpiEnumConst:
     \_enum_const: (LcStRaw), line:12:5, endln:12:27
       |vpiParent:
@@ -1318,12 +1230,12 @@ design: (unnamed)
     \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: , line:22:13, endln:22:16
+    \_ref_typespec: (otp_ctrl_reg_pkg::NumSramKeyReqSlots)
       |vpiParent:
       \_parameter: (otp_ctrl_reg_pkg::NumSramKeyReqSlots), line:22:17, endln:22:35
-      |vpiInstance:
-      \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
-      |vpiSigned:1
+      |vpiFullName:otp_ctrl_reg_pkg::NumSramKeyReqSlots
+      |vpiActual:
+      \_int_typespec: , line:22:13, endln:22:16
     |vpiSigned:1
     |vpiName:NumSramKeyReqSlots
     |vpiFullName:otp_ctrl_reg_pkg::NumSramKeyReqSlots
@@ -1333,12 +1245,12 @@ design: (unnamed)
     \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
     |UINT:11
     |vpiTypespec:
-    \_int_typespec: , line:23:13, endln:23:16
+    \_ref_typespec: (otp_ctrl_reg_pkg::OtpByteAddrWidth)
       |vpiParent:
       \_parameter: (otp_ctrl_reg_pkg::OtpByteAddrWidth), line:23:17, endln:23:33
-      |vpiInstance:
-      \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
-      |vpiSigned:1
+      |vpiFullName:otp_ctrl_reg_pkg::OtpByteAddrWidth
+      |vpiActual:
+      \_int_typespec: , line:23:13, endln:23:16
     |vpiSigned:1
     |vpiName:OtpByteAddrWidth
     |vpiFullName:otp_ctrl_reg_pkg::OtpByteAddrWidth
@@ -1348,12 +1260,12 @@ design: (unnamed)
     \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
     |UINT:9
     |vpiTypespec:
-    \_int_typespec: , line:24:13, endln:24:16
+    \_ref_typespec: (otp_ctrl_reg_pkg::NumErrorEntries)
       |vpiParent:
       \_parameter: (otp_ctrl_reg_pkg::NumErrorEntries), line:24:17, endln:24:32
-      |vpiInstance:
-      \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
-      |vpiSigned:1
+      |vpiFullName:otp_ctrl_reg_pkg::NumErrorEntries
+      |vpiActual:
+      \_int_typespec: , line:24:13, endln:24:16
     |vpiSigned:1
     |vpiName:NumErrorEntries
     |vpiFullName:otp_ctrl_reg_pkg::NumErrorEntries
@@ -1369,7 +1281,12 @@ design: (unnamed)
       |vpiSize:32
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:22:13, endln:22:16
+      \_ref_typespec: (otp_ctrl_reg_pkg)
+        |vpiParent:
+        \_constant: , line:22:38, endln:22:39
+        |vpiFullName:otp_ctrl_reg_pkg
+        |vpiActual:
+        \_int_typespec: , line:22:13, endln:22:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (otp_ctrl_reg_pkg::NumSramKeyReqSlots), line:22:17, endln:22:35
@@ -1385,7 +1302,12 @@ design: (unnamed)
       |vpiSize:32
       |UINT:11
       |vpiTypespec:
-      \_int_typespec: , line:23:13, endln:23:16
+      \_ref_typespec: (otp_ctrl_reg_pkg)
+        |vpiParent:
+        \_constant: , line:23:36, endln:23:38
+        |vpiFullName:otp_ctrl_reg_pkg
+        |vpiActual:
+        \_int_typespec: , line:23:13, endln:23:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (otp_ctrl_reg_pkg::OtpByteAddrWidth), line:23:17, endln:23:33
@@ -1401,7 +1323,12 @@ design: (unnamed)
       |vpiSize:32
       |UINT:9
       |vpiTypespec:
-      \_int_typespec: , line:24:13, endln:24:16
+      \_ref_typespec: (otp_ctrl_reg_pkg)
+        |vpiParent:
+        \_constant: , line:24:35, endln:24:36
+        |vpiFullName:otp_ctrl_reg_pkg
+        |vpiActual:
+        \_int_typespec: , line:24:13, endln:24:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (otp_ctrl_reg_pkg::NumErrorEntries), line:24:17, endln:24:32
@@ -1419,12 +1346,12 @@ design: (unnamed)
     \_package: otp_ctrl_pkg (otp_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:28:1, endln:37:11
     |UINT:9
     |vpiTypespec:
-    \_int_typespec: , line:24:13, endln:24:16
+    \_ref_typespec: (otp_ctrl_pkg::NumErrorEntries)
       |vpiParent:
       \_parameter: (otp_ctrl_pkg::NumErrorEntries), line:24:17, endln:24:32
-      |vpiInstance:
-      \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
-      |vpiSigned:1
+      |vpiFullName:otp_ctrl_pkg::NumErrorEntries
+      |vpiActual:
+      \_int_typespec: , line:24:13, endln:24:16
     |vpiSigned:1
     |vpiName:NumErrorEntries
     |vpiFullName:otp_ctrl_pkg::NumErrorEntries
@@ -1435,12 +1362,12 @@ design: (unnamed)
     \_package: otp_ctrl_pkg (otp_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:28:1, endln:37:11
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: , line:22:13, endln:22:16
+    \_ref_typespec: (otp_ctrl_pkg::NumSramKeyReqSlots)
       |vpiParent:
       \_parameter: (otp_ctrl_pkg::NumSramKeyReqSlots), line:22:17, endln:22:35
-      |vpiInstance:
-      \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
-      |vpiSigned:1
+      |vpiFullName:otp_ctrl_pkg::NumSramKeyReqSlots
+      |vpiActual:
+      \_int_typespec: , line:22:13, endln:22:16
     |vpiSigned:1
     |vpiName:NumSramKeyReqSlots
     |vpiFullName:otp_ctrl_pkg::NumSramKeyReqSlots
@@ -1451,12 +1378,12 @@ design: (unnamed)
     \_package: otp_ctrl_pkg (otp_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:28:1, endln:37:11
     |UINT:11
     |vpiTypespec:
-    \_int_typespec: , line:23:13, endln:23:16
+    \_ref_typespec: (otp_ctrl_pkg::OtpByteAddrWidth)
       |vpiParent:
       \_parameter: (otp_ctrl_pkg::OtpByteAddrWidth), line:23:17, endln:23:33
-      |vpiInstance:
-      \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
-      |vpiSigned:1
+      |vpiFullName:otp_ctrl_pkg::OtpByteAddrWidth
+      |vpiActual:
+      \_int_typespec: , line:23:13, endln:23:16
     |vpiSigned:1
     |vpiName:OtpByteAddrWidth
     |vpiFullName:otp_ctrl_pkg::OtpByteAddrWidth
@@ -1467,12 +1394,12 @@ design: (unnamed)
     \_package: otp_ctrl_pkg (otp_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:28:1, endln:37:11
     |UINT:16
     |vpiTypespec:
-    \_int_typespec: , line:34:13, endln:34:16
+    \_ref_typespec: (otp_ctrl_pkg::OtpWidth)
       |vpiParent:
       \_parameter: (otp_ctrl_pkg::OtpWidth), line:34:17, endln:34:25
-      |vpiInstance:
-      \_package: otp_ctrl_pkg (otp_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:28:1, endln:37:11
-      |vpiSigned:1
+      |vpiFullName:otp_ctrl_pkg::OtpWidth
+      |vpiActual:
+      \_int_typespec: , line:34:13, endln:34:16
     |vpiSigned:1
     |vpiName:OtpWidth
     |vpiFullName:otp_ctrl_pkg::OtpWidth
@@ -1482,12 +1409,12 @@ design: (unnamed)
     \_package: otp_ctrl_pkg (otp_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:28:1, endln:37:11
     |INT:10
     |vpiTypespec:
-    \_int_typespec: , line:35:13, endln:35:16
+    \_ref_typespec: (otp_ctrl_pkg::OtpAddrWidth)
       |vpiParent:
       \_parameter: (otp_ctrl_pkg::OtpAddrWidth), line:35:17, endln:35:29
-      |vpiInstance:
-      \_package: otp_ctrl_pkg (otp_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:28:1, endln:37:11
-      |vpiSigned:1
+      |vpiFullName:otp_ctrl_pkg::OtpAddrWidth
+      |vpiActual:
+      \_int_typespec: , line:35:13, endln:35:16
     |vpiSigned:1
     |vpiName:OtpAddrWidth
     |vpiFullName:otp_ctrl_pkg::OtpAddrWidth
@@ -1503,12 +1430,12 @@ design: (unnamed)
       |vpiSize:32
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:22:13, endln:22:16
+      \_ref_typespec: (otp_ctrl_pkg)
         |vpiParent:
         \_constant: , line:22:38, endln:22:39
-        |vpiInstance:
-        \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
-        |vpiSigned:1
+        |vpiFullName:otp_ctrl_pkg
+        |vpiActual:
+        \_int_typespec: , line:22:13, endln:22:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (otp_ctrl_pkg::NumSramKeyReqSlots), line:22:17, endln:22:35
@@ -1516,12 +1443,12 @@ design: (unnamed)
       \_param_assign: , line:22:17, endln:22:39
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: , line:22:13, endln:22:16
+      \_ref_typespec: (otp_ctrl_pkg::NumSramKeyReqSlots)
         |vpiParent:
         \_parameter: (otp_ctrl_pkg::NumSramKeyReqSlots), line:22:17, endln:22:35
-        |vpiInstance:
-        \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
-        |vpiSigned:1
+        |vpiFullName:otp_ctrl_pkg::NumSramKeyReqSlots
+        |vpiActual:
+        \_int_typespec: , line:22:13, endln:22:16
       |vpiSigned:1
       |vpiName:NumSramKeyReqSlots
       |vpiFullName:otp_ctrl_pkg::NumSramKeyReqSlots
@@ -1538,12 +1465,12 @@ design: (unnamed)
       |vpiSize:32
       |UINT:11
       |vpiTypespec:
-      \_int_typespec: , line:23:13, endln:23:16
+      \_ref_typespec: (otp_ctrl_pkg)
         |vpiParent:
         \_constant: , line:23:36, endln:23:38
-        |vpiInstance:
-        \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
-        |vpiSigned:1
+        |vpiFullName:otp_ctrl_pkg
+        |vpiActual:
+        \_int_typespec: , line:23:13, endln:23:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (otp_ctrl_pkg::OtpByteAddrWidth), line:23:17, endln:23:33
@@ -1551,12 +1478,12 @@ design: (unnamed)
       \_param_assign: , line:23:17, endln:23:38
       |UINT:11
       |vpiTypespec:
-      \_int_typespec: , line:23:13, endln:23:16
+      \_ref_typespec: (otp_ctrl_pkg::OtpByteAddrWidth)
         |vpiParent:
         \_parameter: (otp_ctrl_pkg::OtpByteAddrWidth), line:23:17, endln:23:33
-        |vpiInstance:
-        \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
-        |vpiSigned:1
+        |vpiFullName:otp_ctrl_pkg::OtpByteAddrWidth
+        |vpiActual:
+        \_int_typespec: , line:23:13, endln:23:16
       |vpiSigned:1
       |vpiName:OtpByteAddrWidth
       |vpiFullName:otp_ctrl_pkg::OtpByteAddrWidth
@@ -1573,12 +1500,12 @@ design: (unnamed)
       |vpiSize:32
       |UINT:9
       |vpiTypespec:
-      \_int_typespec: , line:24:13, endln:24:16
+      \_ref_typespec: (otp_ctrl_pkg)
         |vpiParent:
         \_constant: , line:24:35, endln:24:36
-        |vpiInstance:
-        \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
-        |vpiSigned:1
+        |vpiFullName:otp_ctrl_pkg
+        |vpiActual:
+        \_int_typespec: , line:24:13, endln:24:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (otp_ctrl_pkg::NumErrorEntries), line:24:17, endln:24:32
@@ -1586,12 +1513,12 @@ design: (unnamed)
       \_param_assign: , line:24:17, endln:24:36
       |UINT:9
       |vpiTypespec:
-      \_int_typespec: , line:24:13, endln:24:16
+      \_ref_typespec: (otp_ctrl_pkg::NumErrorEntries)
         |vpiParent:
         \_parameter: (otp_ctrl_pkg::NumErrorEntries), line:24:17, endln:24:32
-        |vpiInstance:
-        \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
-        |vpiSigned:1
+        |vpiFullName:otp_ctrl_pkg::NumErrorEntries
+        |vpiActual:
+        \_int_typespec: , line:24:13, endln:24:16
       |vpiSigned:1
       |vpiName:NumErrorEntries
       |vpiFullName:otp_ctrl_pkg::NumErrorEntries
@@ -1608,7 +1535,12 @@ design: (unnamed)
       |vpiSize:32
       |UINT:16
       |vpiTypespec:
-      \_int_typespec: , line:34:13, endln:34:16
+      \_ref_typespec: (otp_ctrl_pkg)
+        |vpiParent:
+        \_constant: , line:34:36, endln:34:38
+        |vpiFullName:otp_ctrl_pkg
+        |vpiActual:
+        \_int_typespec: , line:34:13, endln:34:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (otp_ctrl_pkg::OtpWidth), line:34:17, endln:34:25
@@ -1624,7 +1556,12 @@ design: (unnamed)
       |vpiSize:32
       |INT:10
       |vpiTypespec:
-      \_int_typespec: , line:35:13, endln:35:16
+      \_ref_typespec: (otp_ctrl_pkg)
+        |vpiParent:
+        \_constant: , line:35:36, endln:35:52
+        |vpiFullName:otp_ctrl_pkg
+        |vpiActual:
+        \_int_typespec: , line:35:13, endln:35:16
       |vpiConstType:7
     |vpiLhs:
     \_parameter: (otp_ctrl_pkg::OtpAddrWidth), line:35:17, endln:35:29
@@ -1651,9 +1588,12 @@ design: (unnamed)
       |vpiParent:
       \_function: (work@mailbox::new), line:3:5, endln:4:16
       |vpiTypespec:
-      \_class_typespec: 
-        |vpiClassDefn:
-        \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/PackageParam/builtin.sv, line:1:3, endln:27:11
+      \_ref_typespec: (work@mailbox::new)
+        |vpiParent:
+        \_class_var: (work@mailbox::new), line:3:23, endln:3:28
+        |vpiFullName:work@mailbox::new
+        |vpiActual:
+        \_class_typespec: 
       |vpiFullName:work@mailbox::new
     |vpiIODecl:
     \_io_decl: (bound), line:3:23, endln:3:28
@@ -1668,8 +1608,12 @@ design: (unnamed)
         |UINT:0
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:3:19, endln:3:22
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::new::bound)
+        |vpiParent:
+        \_io_decl: (bound), line:3:23, endln:3:28
+        |vpiFullName:work@mailbox::new::bound
+        |vpiActual:
+        \_int_typespec: , line:3:19, endln:3:22
   |vpiMethod:
   \_function: (work@mailbox::num), line:6:5, endln:7:16
     |vpiParent:
@@ -1683,8 +1627,12 @@ design: (unnamed)
       |vpiParent:
       \_function: (work@mailbox::num), line:6:5, endln:7:16
       |vpiTypespec:
-      \_int_typespec: , line:6:14, endln:6:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::num)
+        |vpiParent:
+        \_int_var: (work@mailbox::num), line:6:14, endln:6:17
+        |vpiFullName:work@mailbox::num
+        |vpiActual:
+        \_int_typespec: , line:6:14, endln:6:17
       |vpiFullName:work@mailbox::num
       |vpiSigned:1
   |vpiMethod:
@@ -1747,8 +1695,12 @@ design: (unnamed)
       |vpiParent:
       \_function: (work@mailbox::try_get), line:18:5, endln:19:16
       |vpiTypespec:
-      \_int_typespec: , line:18:14, endln:18:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::try_get)
+        |vpiParent:
+        \_int_var: (work@mailbox::try_get), line:18:14, endln:18:17
+        |vpiFullName:work@mailbox::try_get
+        |vpiActual:
+        \_int_typespec: , line:18:14, endln:18:17
       |vpiFullName:work@mailbox::try_get
       |vpiSigned:1
     |vpiIODecl:
@@ -1784,8 +1736,12 @@ design: (unnamed)
       |vpiParent:
       \_function: (work@mailbox::try_peek), line:24:5, endln:25:16
       |vpiTypespec:
-      \_int_typespec: , line:24:14, endln:24:17
-        |vpiSigned:1
+      \_ref_typespec: (work@mailbox::try_peek)
+        |vpiParent:
+        \_int_var: (work@mailbox::try_peek), line:24:14, endln:24:17
+        |vpiFullName:work@mailbox::try_peek
+        |vpiActual:
+        \_int_typespec: , line:24:14, endln:24:17
       |vpiFullName:work@mailbox::try_peek
       |vpiSigned:1
     |vpiIODecl:
@@ -1857,9 +1813,12 @@ design: (unnamed)
       |vpiParent:
       \_function: (work@process::self), line:34:5, endln:34:11
       |vpiTypespec:
-      \_class_typespec: , line:34:21, endln:34:28
-        |vpiClassDefn:
-        \_class_defn: (work@process), file:${SURELOG_DIR}/tests/PackageParam/builtin.sv, line:30:3, endln:52:11
+      \_ref_typespec: (work@process::self)
+        |vpiParent:
+        \_class_var: (work@process::self), line:34:21, endln:34:28
+        |vpiFullName:work@process::self
+        |vpiActual:
+        \_class_typespec: , line:34:21, endln:34:28
       |vpiFullName:work@process::self
   |vpiMethod:
   \_function: (work@process::status), line:37:5, endln:38:16
@@ -1874,50 +1833,12 @@ design: (unnamed)
       |vpiParent:
       \_function: (work@process::status), line:37:5, endln:38:16
       |vpiTypespec:
-      \_enum_typespec: (state), line:32:5, endln:32:74
+      \_ref_typespec: (work@process::status)
         |vpiParent:
-        \_class_defn: (work@process), file:${SURELOG_DIR}/tests/PackageParam/builtin.sv, line:30:3, endln:52:11
-        |vpiName:state
-        |vpiEnumConst:
-        \_enum_const: (FINISHED), line:32:20, endln:32:28
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:FINISHED
-          |INT:0
-          |vpiDecompile:0
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (RUNNING), line:32:30, endln:32:37
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:RUNNING
-          |INT:1
-          |vpiDecompile:1
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (WAITING), line:32:39, endln:32:46
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:WAITING
-          |INT:2
-          |vpiDecompile:2
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (SUSPENDED), line:32:48, endln:32:57
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:SUSPENDED
-          |INT:3
-          |vpiDecompile:3
-          |vpiSize:64
-        |vpiEnumConst:
-        \_enum_const: (KILLED), line:32:59, endln:32:65
-          |vpiParent:
-          \_enum_typespec: (state), line:32:5, endln:32:74
-          |vpiName:KILLED
-          |INT:4
-          |vpiDecompile:4
-          |vpiSize:64
+        \_enum_var: (work@process::status), line:37:14, endln:37:19
+        |vpiFullName:work@process::status
+        |vpiActual:
+        \_enum_typespec: (state), line:32:5, endln:32:74
       |vpiFullName:work@process::status
   |vpiMethod:
   \_task: (work@process::kill), line:40:5, endln:41:12
@@ -1968,9 +1889,12 @@ design: (unnamed)
       |vpiParent:
       \_function: (work@semaphore::new), line:57:5, endln:58:16
       |vpiTypespec:
-      \_class_typespec: 
-        |vpiClassDefn:
-        \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/PackageParam/builtin.sv, line:55:3, endln:69:11
+      \_ref_typespec: (work@semaphore::new)
+        |vpiParent:
+        \_class_var: (work@semaphore::new), line:57:22, endln:57:30
+        |vpiFullName:work@semaphore::new
+        |vpiActual:
+        \_class_typespec: 
       |vpiFullName:work@semaphore::new
     |vpiIODecl:
     \_io_decl: (keyCount), line:57:22, endln:57:30
@@ -1985,8 +1909,12 @@ design: (unnamed)
         |UINT:0
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:57:18, endln:57:21
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::new::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:57:22, endln:57:30
+        |vpiFullName:work@semaphore::new::keyCount
+        |vpiActual:
+        \_int_typespec: , line:57:18, endln:57:21
   |vpiMethod:
   \_task: (work@semaphore::put), line:60:5, endln:61:12
     |vpiParent:
@@ -2008,8 +1936,12 @@ design: (unnamed)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:60:14, endln:60:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::put::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:60:18, endln:60:26
+        |vpiFullName:work@semaphore::put::keyCount
+        |vpiActual:
+        \_int_typespec: , line:60:14, endln:60:17
   |vpiMethod:
   \_task: (work@semaphore::get), line:63:5, endln:64:12
     |vpiParent:
@@ -2031,8 +1963,12 @@ design: (unnamed)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
-      \_int_typespec: , line:63:14, endln:63:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::get::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:63:18, endln:63:26
+        |vpiFullName:work@semaphore::get::keyCount
+        |vpiActual:
+        \_int_typespec: , line:63:14, endln:63:17
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:66:5, endln:67:16
     |vpiParent:
@@ -2046,8 +1982,12 @@ design: (unnamed)
       |vpiParent:
       \_function: (work@semaphore::try_get), line:66:5, endln:67:16
       |vpiTypespec:
-      \_int_typespec: , line:66:14, endln:66:17
-        |vpiSigned:1
+      \_ref_typespec: (work@semaphore::try_get)
+        |vpiParent:
+        \_int_var: (work@semaphore::try_get), line:66:14, endln:66:17
+        |vpiFullName:work@semaphore::try_get
+        |vpiActual:
+        \_int_typespec: , line:66:14, endln:66:17
       |vpiFullName:work@semaphore::try_get
       |vpiSigned:1
     |vpiIODecl:
@@ -2063,8 +2003,566 @@ design: (unnamed)
         |UINT:1
         |vpiConstType:9
       |vpiTypedef:
+      \_ref_typespec: (work@semaphore::try_get::keyCount)
+        |vpiParent:
+        \_io_decl: (keyCount), line:66:30, endln:66:38
+        |vpiFullName:work@semaphore::try_get::keyCount
+        |vpiActual:
+        \_int_typespec: , line:66:26, endln:66:29
+\_weaklyReferenced:
+\_logic_typespec: , line:4:13, endln:4:25
+  |vpiParent:
+  \_parameter: (lc_ctrl_pkg::A10), line:4:26, endln:4:29
+  |vpiInstance:
+  \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:2:1, endln:15:11
+  |vpiRange:
+  \_range: , line:4:19, endln:4:25
+    |vpiParent:
+    \_logic_typespec: , line:4:13, endln:4:25
+    |vpiLeftRange:
+    \_constant: , line:4:20, endln:4:22
+      |vpiParent:
+      \_range: , line:4:19, endln:4:25
+      |vpiDecompile:15
+      |vpiSize:64
+      |UINT:15
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:4:23, endln:4:24
+      |vpiParent:
+      \_range: , line:4:19, endln:4:25
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:5:13, endln:5:25
+  |vpiParent:
+  \_parameter: (lc_ctrl_pkg::A11), line:5:26, endln:5:29
+  |vpiInstance:
+  \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:2:1, endln:15:11
+  |vpiRange:
+  \_range: , line:5:19, endln:5:25
+    |vpiParent:
+    \_logic_typespec: , line:5:13, endln:5:25
+    |vpiLeftRange:
+    \_constant: , line:5:20, endln:5:22
+      |vpiParent:
+      \_range: , line:5:19, endln:5:25
+      |vpiDecompile:15
+      |vpiSize:64
+      |UINT:15
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:23, endln:5:24
+      |vpiParent:
+      \_range: , line:5:19, endln:5:25
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:10:16, endln:10:40
+  |vpiInstance:
+  \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:2:1, endln:15:11
+  |vpiRange:
+  \_range: , line:10:22, endln:10:40
+    |vpiParent:
+    \_logic_typespec: , line:10:16, endln:10:40
+    |vpiLeftRange:
+    \_operation: , line:10:23, endln:10:37
+      |vpiParent:
+      \_range: , line:10:22, endln:10:40
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (LcStateWidth), line:10:23, endln:10:35
+        |vpiParent:
+        \_operation: , line:10:23, endln:10:37
+        |vpiName:LcStateWidth
+      |vpiOperand:
+      \_constant: , line:10:36, endln:10:37
+        |vpiParent:
+        \_operation: , line:10:23, endln:10:37
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:10:38, endln:10:39
+      |vpiParent:
+      \_range: , line:10:22, endln:10:40
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:4:13, endln:4:25
+  |vpiParent:
+  \_parameter: (lc_ctrl_pkg::A10), line:4:26, endln:4:29
+  |vpiInstance:
+  \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:2:1, endln:15:11
+  |vpiRange:
+  \_range: , line:4:19, endln:4:25
+    |vpiParent:
+    \_logic_typespec: , line:4:13, endln:4:25
+    |vpiLeftRange:
+    \_constant: , line:4:20, endln:4:22
+      |vpiParent:
+      \_range: , line:4:19, endln:4:25
+      |vpiDecompile:15
+      |vpiSize:64
+      |UINT:15
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:4:23, endln:4:24
+      |vpiParent:
+      \_range: , line:4:19, endln:4:25
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:5:13, endln:5:25
+  |vpiParent:
+  \_parameter: (lc_ctrl_pkg::A11), line:5:26, endln:5:29
+  |vpiInstance:
+  \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:2:1, endln:15:11
+  |vpiRange:
+  \_range: , line:5:19, endln:5:25
+    |vpiParent:
+    \_logic_typespec: , line:5:13, endln:5:25
+    |vpiLeftRange:
+    \_constant: , line:5:20, endln:5:22
+      |vpiParent:
+      \_range: , line:5:19, endln:5:25
+      |vpiDecompile:15
+      |vpiSize:64
+      |UINT:15
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:23, endln:5:24
+      |vpiParent:
+      \_range: , line:5:19, endln:5:25
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:10:16, endln:10:40
+  |vpiInstance:
+  \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:2:1, endln:15:11
+  |vpiRange:
+  \_range: , line:10:22, endln:10:40
+    |vpiParent:
+    \_logic_typespec: , line:10:16, endln:10:40
+    |vpiLeftRange:
+    \_operation: , line:10:23, endln:10:37
+      |vpiParent:
+      \_range: , line:10:22, endln:10:40
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (LcStateWidth), line:10:23, endln:10:35
+        |vpiParent:
+        \_operation: , line:10:23, endln:10:37
+        |vpiName:LcStateWidth
+      |vpiOperand:
+      \_constant: , line:10:36, endln:10:37
+        |vpiParent:
+        \_operation: , line:10:23, endln:10:37
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:10:38, endln:10:39
+      |vpiParent:
+      \_range: , line:10:22, endln:10:40
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:22:13, endln:22:16
+  |vpiParent:
+  \_parameter: (otp_ctrl_reg_pkg::NumSramKeyReqSlots), line:22:17, endln:22:35
+  |vpiInstance:
+  \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
+  |vpiSigned:1
+\_int_typespec: , line:23:13, endln:23:16
+  |vpiParent:
+  \_parameter: (otp_ctrl_reg_pkg::OtpByteAddrWidth), line:23:17, endln:23:33
+  |vpiInstance:
+  \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
+  |vpiSigned:1
+\_int_typespec: , line:24:13, endln:24:16
+  |vpiParent:
+  \_parameter: (otp_ctrl_reg_pkg::NumErrorEntries), line:24:17, endln:24:32
+  |vpiInstance:
+  \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
+  |vpiSigned:1
+\_int_typespec: , line:22:13, endln:22:16
+  |vpiParent:
+  \_parameter: (otp_ctrl_reg_pkg::NumSramKeyReqSlots), line:22:17, endln:22:35
+  |vpiInstance:
+  \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
+  |vpiSigned:1
+\_int_typespec: , line:23:13, endln:23:16
+  |vpiParent:
+  \_parameter: (otp_ctrl_reg_pkg::OtpByteAddrWidth), line:23:17, endln:23:33
+  |vpiInstance:
+  \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
+  |vpiSigned:1
+\_int_typespec: , line:24:13, endln:24:16
+  |vpiParent:
+  \_parameter: (otp_ctrl_reg_pkg::NumErrorEntries), line:24:17, endln:24:32
+  |vpiInstance:
+  \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
+  |vpiSigned:1
+\_int_typespec: , line:24:13, endln:24:16
+  |vpiParent:
+  \_ref_typespec: (otp_ctrl_pkg::NumErrorEntries)
+  |vpiInstance:
+  \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
+  |vpiSigned:1
+\_int_typespec: , line:22:13, endln:22:16
+  |vpiParent:
+  \_ref_typespec: (otp_ctrl_pkg::NumSramKeyReqSlots)
+  |vpiInstance:
+  \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
+  |vpiSigned:1
+\_int_typespec: , line:23:13, endln:23:16
+  |vpiParent:
+  \_ref_typespec: (otp_ctrl_pkg::OtpByteAddrWidth)
+  |vpiInstance:
+  \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
+  |vpiSigned:1
+\_int_typespec: , line:22:13, endln:22:16
+  |vpiParent:
+  \_ref_typespec: (otp_ctrl_pkg)
+  |vpiInstance:
+  \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
+  |vpiSigned:1
+\_int_typespec: , line:22:13, endln:22:16
+  |vpiParent:
+  \_ref_typespec: (otp_ctrl_pkg::NumSramKeyReqSlots)
+  |vpiInstance:
+  \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
+  |vpiSigned:1
+\_int_typespec: , line:23:13, endln:23:16
+  |vpiParent:
+  \_ref_typespec: (otp_ctrl_pkg)
+  |vpiInstance:
+  \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
+  |vpiSigned:1
+\_int_typespec: , line:23:13, endln:23:16
+  |vpiParent:
+  \_ref_typespec: (otp_ctrl_pkg::OtpByteAddrWidth)
+  |vpiInstance:
+  \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
+  |vpiSigned:1
+\_int_typespec: , line:24:13, endln:24:16
+  |vpiParent:
+  \_ref_typespec: (otp_ctrl_pkg)
+  |vpiInstance:
+  \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
+  |vpiSigned:1
+\_int_typespec: , line:24:13, endln:24:16
+  |vpiParent:
+  \_ref_typespec: (otp_ctrl_pkg::NumErrorEntries)
+  |vpiInstance:
+  \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
+  |vpiSigned:1
+\_int_typespec: , line:34:13, endln:34:16
+  |vpiParent:
+  \_parameter: (otp_ctrl_pkg::OtpWidth), line:34:17, endln:34:25
+  |vpiInstance:
+  \_package: otp_ctrl_pkg (otp_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:28:1, endln:37:11
+  |vpiSigned:1
+\_int_typespec: , line:35:13, endln:35:16
+  |vpiParent:
+  \_parameter: (otp_ctrl_pkg::OtpAddrWidth), line:35:17, endln:35:29
+  |vpiInstance:
+  \_package: otp_ctrl_pkg (otp_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:28:1, endln:37:11
+  |vpiSigned:1
+\_int_typespec: , line:24:13, endln:24:16
+  |vpiParent:
+  \_ref_typespec: (otp_ctrl_pkg::NumErrorEntries)
+  |vpiInstance:
+  \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
+  |vpiSigned:1
+\_int_typespec: , line:22:13, endln:22:16
+  |vpiParent:
+  \_ref_typespec: (otp_ctrl_pkg::NumSramKeyReqSlots)
+  |vpiInstance:
+  \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
+  |vpiSigned:1
+\_int_typespec: , line:23:13, endln:23:16
+  |vpiParent:
+  \_ref_typespec: (otp_ctrl_pkg::OtpByteAddrWidth)
+  |vpiInstance:
+  \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
+  |vpiSigned:1
+\_int_typespec: , line:22:13, endln:22:16
+  |vpiParent:
+  \_ref_typespec: (otp_ctrl_pkg)
+  |vpiInstance:
+  \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
+  |vpiSigned:1
+\_int_typespec: , line:22:13, endln:22:16
+  |vpiParent:
+  \_ref_typespec: (otp_ctrl_pkg::NumSramKeyReqSlots)
+  |vpiInstance:
+  \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
+  |vpiSigned:1
+\_int_typespec: , line:23:13, endln:23:16
+  |vpiParent:
+  \_ref_typespec: (otp_ctrl_pkg)
+  |vpiInstance:
+  \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
+  |vpiSigned:1
+\_int_typespec: , line:23:13, endln:23:16
+  |vpiParent:
+  \_ref_typespec: (otp_ctrl_pkg::OtpByteAddrWidth)
+  |vpiInstance:
+  \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
+  |vpiSigned:1
+\_int_typespec: , line:24:13, endln:24:16
+  |vpiParent:
+  \_ref_typespec: (otp_ctrl_pkg)
+  |vpiInstance:
+  \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
+  |vpiSigned:1
+\_int_typespec: , line:24:13, endln:24:16
+  |vpiParent:
+  \_ref_typespec: (otp_ctrl_pkg::NumErrorEntries)
+  |vpiInstance:
+  \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
+  |vpiSigned:1
+\_int_typespec: , line:34:13, endln:34:16
+  |vpiParent:
+  \_parameter: (otp_ctrl_pkg::OtpWidth), line:34:17, endln:34:25
+  |vpiInstance:
+  \_package: otp_ctrl_pkg (otp_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:28:1, endln:37:11
+  |vpiSigned:1
+\_int_typespec: , line:35:13, endln:35:16
+  |vpiParent:
+  \_parameter: (otp_ctrl_pkg::OtpAddrWidth), line:35:17, endln:35:29
+  |vpiInstance:
+  \_package: otp_ctrl_pkg (otp_ctrl_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:28:1, endln:37:11
+  |vpiSigned:1
+\_int_typespec: , line:23:13, endln:23:16
+  |vpiParent:
+  \_ref_typespec: (otp_ctrl_pkg)
+  |vpiInstance:
+  \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg::), file:${SURELOG_DIR}/tests/PackageParam/dut.sv, line:19:1, endln:26:11
+  |vpiSigned:1
+\_function: (work@mailbox::new), line:3:5, endln:4:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/PackageParam/builtin.sv, line:1:3, endln:27:11
+  |vpiName:new
+  |vpiFullName:work@mailbox::new
+  |vpiMethod:1
+  |vpiReturn:
+  \_class_var: (work@mailbox::new), line:3:23, endln:3:28
+  |vpiIODecl:
+  \_io_decl: (bound), line:3:23, endln:3:28
+    |vpiParent:
+    \_function: (work@mailbox::new), line:3:5, endln:4:16
+    |vpiDirection:1
+    |vpiName:bound
+    |vpiExpr:
+    \_constant: , line:3:31, endln:3:32
+    |vpiTypedef:
+    \_ref_typespec: (work@mailbox::new::bound)
+      |vpiParent:
+      \_io_decl: (bound), line:3:23, endln:3:28
+      |vpiFullName:work@mailbox::new::bound
+      |vpiActual:
+      \_int_typespec: , line:3:19, endln:3:22
+\_class_typespec: 
+  |vpiClassDefn:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/PackageParam/builtin.sv, line:1:3, endln:27:11
+\_int_typespec: , line:3:19, endln:3:22
+  |vpiSigned:1
+\_function: (work@mailbox::num), line:6:5, endln:7:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/PackageParam/builtin.sv, line:1:3, endln:27:11
+  |vpiName:num
+  |vpiFullName:work@mailbox::num
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::num), line:6:14, endln:6:17
+\_int_typespec: , line:6:14, endln:6:17
+  |vpiSigned:1
+\_function: (work@mailbox::try_put), line:12:5, endln:13:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/PackageParam/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_put
+  |vpiFullName:work@mailbox::try_put
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_logic_var: (work@mailbox::try_put)
+  |vpiIODecl:
+  \_io_decl: (message), line:12:23, endln:12:30
+    |vpiParent:
+    \_function: (work@mailbox::try_put), line:12:5, endln:13:16
+    |vpiDirection:1
+    |vpiName:message
+\_function: (work@mailbox::try_get), line:18:5, endln:19:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/PackageParam/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_get
+  |vpiFullName:work@mailbox::try_get
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::try_get), line:18:14, endln:18:17
+  |vpiIODecl:
+  \_io_decl: (message), line:18:31, endln:18:38
+    |vpiParent:
+    \_function: (work@mailbox::try_get), line:18:5, endln:19:16
+    |vpiDirection:6
+    |vpiName:message
+\_int_typespec: , line:18:14, endln:18:17
+  |vpiSigned:1
+\_function: (work@mailbox::try_peek), line:24:5, endln:25:16
+  |vpiParent:
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/PackageParam/builtin.sv, line:1:3, endln:27:11
+  |vpiName:try_peek
+  |vpiFullName:work@mailbox::try_peek
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@mailbox::try_peek), line:24:14, endln:24:17
+  |vpiIODecl:
+  \_io_decl: (message), line:24:31, endln:24:38
+    |vpiParent:
+    \_function: (work@mailbox::try_peek), line:24:5, endln:25:16
+    |vpiDirection:6
+    |vpiName:message
+\_int_typespec: , line:24:14, endln:24:17
+  |vpiSigned:1
+\_enum_typespec: (state), line:32:5, endln:32:74
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/PackageParam/builtin.sv, line:30:3, endln:52:11
+  |vpiName:state
+  |vpiEnumConst:
+  \_enum_const: (FINISHED), line:32:20, endln:32:28
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:FINISHED
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (RUNNING), line:32:30, endln:32:37
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:RUNNING
+    |INT:1
+    |vpiDecompile:1
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (WAITING), line:32:39, endln:32:46
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:WAITING
+    |INT:2
+    |vpiDecompile:2
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (SUSPENDED), line:32:48, endln:32:57
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:SUSPENDED
+    |INT:3
+    |vpiDecompile:3
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (KILLED), line:32:59, endln:32:65
+    |vpiParent:
+    \_enum_typespec: (state), line:32:5, endln:32:74
+    |vpiName:KILLED
+    |INT:4
+    |vpiDecompile:4
+    |vpiSize:64
+\_function: (work@process::self), line:34:5, endln:34:11
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/PackageParam/builtin.sv, line:30:3, endln:52:11
+  |vpiName:self
+  |vpiFullName:work@process::self
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_class_var: (work@process::self), line:34:21, endln:34:28
+\_class_typespec: , line:34:21, endln:34:28
+  |vpiClassDefn:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/PackageParam/builtin.sv, line:30:3, endln:52:11
+\_function: (work@process::status), line:37:5, endln:38:16
+  |vpiParent:
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/PackageParam/builtin.sv, line:30:3, endln:52:11
+  |vpiName:status
+  |vpiFullName:work@process::status
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_enum_var: (work@process::status), line:37:14, endln:37:19
+\_function: (work@semaphore::new), line:57:5, endln:58:16
+  |vpiParent:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/PackageParam/builtin.sv, line:55:3, endln:69:11
+  |vpiName:new
+  |vpiFullName:work@semaphore::new
+  |vpiMethod:1
+  |vpiReturn:
+  \_class_var: (work@semaphore::new), line:57:22, endln:57:30
+  |vpiIODecl:
+  \_io_decl: (keyCount), line:57:22, endln:57:30
+    |vpiParent:
+    \_function: (work@semaphore::new), line:57:5, endln:58:16
+    |vpiDirection:1
+    |vpiName:keyCount
+    |vpiExpr:
+    \_constant: , line:57:33, endln:57:34
+    |vpiTypedef:
+    \_ref_typespec: (work@semaphore::new::keyCount)
+      |vpiParent:
+      \_io_decl: (keyCount), line:57:22, endln:57:30
+      |vpiFullName:work@semaphore::new::keyCount
+      |vpiActual:
+      \_int_typespec: , line:57:18, endln:57:21
+\_class_typespec: 
+  |vpiClassDefn:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/PackageParam/builtin.sv, line:55:3, endln:69:11
+\_int_typespec: , line:57:18, endln:57:21
+  |vpiSigned:1
+\_int_typespec: , line:60:14, endln:60:17
+  |vpiSigned:1
+\_int_typespec: , line:63:14, endln:63:17
+  |vpiSigned:1
+\_function: (work@semaphore::try_get), line:66:5, endln:67:16
+  |vpiParent:
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/PackageParam/builtin.sv, line:55:3, endln:69:11
+  |vpiName:try_get
+  |vpiFullName:work@semaphore::try_get
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_int_var: (work@semaphore::try_get), line:66:14, endln:66:17
+  |vpiIODecl:
+  \_io_decl: (keyCount), line:66:30, endln:66:38
+    |vpiParent:
+    \_function: (work@semaphore::try_get), line:66:5, endln:67:16
+    |vpiDirection:1
+    |vpiName:keyCount
+    |vpiExpr:
+    \_constant: , line:66:41, endln:66:42
+    |vpiTypedef:
+    \_ref_typespec: (work@semaphore::try_get::keyCount)
+      |vpiParent:
+      \_io_decl: (keyCount), line:66:30, endln:66:38
+      |vpiFullName:work@semaphore::try_get::keyCount
+      |vpiActual:
       \_int_typespec: , line:66:26, endln:66:29
-        |vpiSigned:1
+\_int_typespec: , line:66:14, endln:66:17
+  |vpiSigned:1
+\_int_typespec: , line:66:26, endln:66:29
+  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -133,6 +133,7 @@ parameter                                              2
 range                                                  2
 ref_module                                             2
 ref_obj                                                1
+ref_typespec                                           4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -151,6 +152,7 @@ parameter                                              2
 range                                                  2
 ref_module                                             2
 ref_obj                                                1
+ref_typespec                                           4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ConcatRadix/slpp_all/surelog.uhdm ...
 
@@ -174,29 +176,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ConcatRadix/dut.sv, line:1:1, endln:9:10
     |vpiTypespec:
-    \_int_typespec: , line:3:11, endln:3:16
+    \_ref_typespec: (work@test.foo)
       |vpiParent:
       \_parameter: (work@test.foo), line:3:17, endln:3:20
-      |vpiRange:
-      \_range: , line:3:11, endln:3:16
-        |vpiParent:
-        \_int_typespec: , line:3:11, endln:3:16
-        |vpiLeftRange:
-        \_constant: , line:3:12, endln:3:13
-          |vpiParent:
-          \_range: , line:3:11, endln:3:16
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:3:14, endln:3:15
-          |vpiParent:
-          \_range: , line:3:11, endln:3:16
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@test.foo
+      |vpiActual:
+      \_int_typespec: , line:3:11, endln:3:16
     |vpiName:foo
     |vpiFullName:work@test.foo
   |vpiParamAssign:
@@ -265,29 +250,12 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@test (work@test), file:${SURELOG_DIR}/tests/ConcatRadix/dut.sv, line:1:1, endln:9:10
     |vpiTypespec:
-    \_int_typespec: , line:3:11, endln:3:16
+    \_ref_typespec: (work@test.foo)
       |vpiParent:
       \_parameter: (work@test.foo), line:3:17, endln:3:20
-      |vpiRange:
-      \_range: , line:3:11, endln:3:16
-        |vpiParent:
-        \_int_typespec: , line:3:11, endln:3:16
-        |vpiLeftRange:
-        \_constant: , line:3:12, endln:3:13
-          |vpiParent:
-          \_range: , line:3:11, endln:3:16
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:3:14, endln:3:15
-          |vpiParent:
-          \_range: , line:3:11, endln:3:16
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@test.foo
+      |vpiActual:
+      \_int_typespec: , line:3:11, endln:3:16
     |vpiName:foo
     |vpiFullName:work@test.foo
   |vpiParamAssign:
@@ -302,7 +270,12 @@ design: (work@test)
       |vpiSize:2
       |BIN:01
       |vpiTypespec:
-      \_int_typespec: , line:3:11, endln:3:16
+      \_ref_typespec: (work@test)
+        |vpiParent:
+        \_constant: , line:3:23, endln:3:35
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:3:11, endln:3:16
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@test.foo), line:3:17, endln:3:20
@@ -327,6 +300,53 @@ design: (work@test)
         |vpiName:mybar
         |vpiFullName:work@test.genblk1.mybar
         |vpiDefName:work@test.genblk1::bar
+\_weaklyReferenced:
+\_int_typespec: , line:3:11, endln:3:16
+  |vpiParent:
+  \_parameter: (work@test.foo), line:3:17, endln:3:20
+  |vpiRange:
+  \_range: , line:3:11, endln:3:16
+    |vpiParent:
+    \_int_typespec: , line:3:11, endln:3:16
+    |vpiLeftRange:
+    \_constant: , line:3:12, endln:3:13
+      |vpiParent:
+      \_range: , line:3:11, endln:3:16
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:14, endln:3:15
+      |vpiParent:
+      \_range: , line:3:11, endln:3:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:3:11, endln:3:16
+  |vpiParent:
+  \_ref_typespec: (work@test.foo)
+  |vpiRange:
+  \_range: , line:3:11, endln:3:16
+    |vpiParent:
+    \_int_typespec: , line:3:11, endln:3:16
+    |vpiLeftRange:
+    \_constant: , line:3:12, endln:3:13
+      |vpiParent:
+      \_range: , line:3:11, endln:3:16
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:14, endln:3:15
+      |vpiParent:
+      \_range: , line:3:11, endln:3:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

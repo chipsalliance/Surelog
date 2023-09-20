@@ -1414,6 +1414,7 @@ parameter                                             16
 range                                                 39
 ref_module                                             2
 ref_obj                                               31
+ref_typespec                                          80
 struct_typespec                                        7
 sys_func_call                                          8
 typespec_member                                       25
@@ -1443,6 +1444,7 @@ parameter                                             16
 range                                                 39
 ref_module                                             2
 ref_obj                                               33
+ref_typespec                                          80
 struct_typespec                                        7
 sys_func_call                                          9
 typespec_member                                       25
@@ -1476,7 +1478,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackConst/dut.sv, line:142:1, endln:164:10
     |UINT:48
     |vpiTypespec:
-    \_int_typespec: , line:143:3, endln:143:32
+    \_ref_typespec: (work@top.dword_width_gp)
+      |vpiParent:
+      \_parameter: (work@top.dword_width_gp), line:143:13, endln:143:27
+      |vpiFullName:work@top.dword_width_gp
+      |vpiActual:
+      \_int_typespec: , line:143:3, endln:143:32
     |vpiName:dword_width_gp
     |vpiFullName:work@top.dword_width_gp
   |vpiParameter:
@@ -1485,10 +1492,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackConst/dut.sv, line:142:1, endln:164:10
     |UINT:12
     |vpiTypespec:
-    \_int_typespec: , line:147:13, endln:147:16
+    \_ref_typespec: (work@top.paddr_width_p)
       |vpiParent:
       \_parameter: (work@top.paddr_width_p), line:147:17, endln:147:30
-      |vpiSigned:1
+      |vpiFullName:work@top.paddr_width_p
+      |vpiActual:
+      \_int_typespec: , line:147:13, endln:147:16
     |vpiSigned:1
     |vpiName:paddr_width_p
     |vpiFullName:work@top.paddr_width_p
@@ -1498,10 +1507,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackConst/dut.sv, line:142:1, endln:164:10
     |UINT:13
     |vpiTypespec:
-    \_int_typespec: , line:148:13, endln:148:16
+    \_ref_typespec: (work@top.assoc_p)
       |vpiParent:
       \_parameter: (work@top.assoc_p), line:148:17, endln:148:24
-      |vpiSigned:1
+      |vpiFullName:work@top.assoc_p
+      |vpiActual:
+      \_int_typespec: , line:148:13, endln:148:16
     |vpiSigned:1
     |vpiName:assoc_p
     |vpiFullName:work@top.assoc_p
@@ -1511,10 +1522,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackConst/dut.sv, line:142:1, endln:164:10
     |UINT:14
     |vpiTypespec:
-    \_int_typespec: , line:149:13, endln:149:16
+    \_ref_typespec: (work@top.sets_p)
       |vpiParent:
       \_parameter: (work@top.sets_p), line:149:17, endln:149:23
-      |vpiSigned:1
+      |vpiFullName:work@top.sets_p
+      |vpiActual:
+      \_int_typespec: , line:149:13, endln:149:16
     |vpiSigned:1
     |vpiName:sets_p
     |vpiFullName:work@top.sets_p
@@ -1524,10 +1537,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackConst/dut.sv, line:142:1, endln:164:10
     |UINT:15
     |vpiTypespec:
-    \_int_typespec: , line:150:13, endln:150:16
+    \_ref_typespec: (work@top.fill_width_p)
       |vpiParent:
       \_parameter: (work@top.fill_width_p), line:150:17, endln:150:29
-      |vpiSigned:1
+      |vpiFullName:work@top.fill_width_p
+      |vpiActual:
+      \_int_typespec: , line:150:13, endln:150:16
     |vpiSigned:1
     |vpiName:fill_width_p
     |vpiFullName:work@top.fill_width_p
@@ -1537,10 +1552,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackConst/dut.sv, line:142:1, endln:164:10
     |UINT:16
     |vpiTypespec:
-    \_int_typespec: , line:151:13, endln:151:16
+    \_ref_typespec: (work@top.block_width_p)
       |vpiParent:
       \_parameter: (work@top.block_width_p), line:151:17, endln:151:30
-      |vpiSigned:1
+      |vpiFullName:work@top.block_width_p
+      |vpiActual:
+      \_int_typespec: , line:151:13, endln:151:16
     |vpiSigned:1
     |vpiName:block_width_p
     |vpiFullName:work@top.block_width_p
@@ -1550,10 +1567,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackConst/dut.sv, line:142:1, endln:164:10
     |UINT:17
     |vpiTypespec:
-    \_int_typespec: , line:152:13, endln:152:16
+    \_ref_typespec: (work@top.ctag_width_p)
       |vpiParent:
       \_parameter: (work@top.ctag_width_p), line:152:18, endln:152:30
-      |vpiSigned:1
+      |vpiFullName:work@top.ctag_width_p
+      |vpiActual:
+      \_int_typespec: , line:152:13, endln:152:16
     |vpiSigned:1
     |vpiName:ctag_width_p
     |vpiFullName:work@top.ctag_width_p
@@ -1575,7 +1594,12 @@ design: (work@top)
       |vpiSize:64
       |UINT:48
       |vpiTypespec:
-      \_int_typespec: , line:143:3, endln:143:32
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:143:30, endln:143:32
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:143:3, endln:143:32
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.dword_width_gp), line:143:13, endln:143:27
@@ -1591,7 +1615,12 @@ design: (work@top)
       |vpiSize:64
       |UINT:12
       |vpiTypespec:
-      \_int_typespec: , line:147:13, endln:147:16
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:147:33, endln:147:35
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:147:13, endln:147:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.paddr_width_p), line:147:17, endln:147:30
@@ -1607,7 +1636,12 @@ design: (work@top)
       |vpiSize:64
       |UINT:13
       |vpiTypespec:
-      \_int_typespec: , line:148:13, endln:148:16
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:148:27, endln:148:29
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:148:13, endln:148:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.assoc_p), line:148:17, endln:148:24
@@ -1623,7 +1657,12 @@ design: (work@top)
       |vpiSize:64
       |UINT:14
       |vpiTypespec:
-      \_int_typespec: , line:149:13, endln:149:16
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:149:26, endln:149:28
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:149:13, endln:149:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.sets_p), line:149:17, endln:149:23
@@ -1639,7 +1678,12 @@ design: (work@top)
       |vpiSize:64
       |UINT:15
       |vpiTypespec:
-      \_int_typespec: , line:150:13, endln:150:16
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:150:32, endln:150:34
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:150:13, endln:150:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.fill_width_p), line:150:17, endln:150:29
@@ -1655,7 +1699,12 @@ design: (work@top)
       |vpiSize:64
       |UINT:16
       |vpiTypespec:
-      \_int_typespec: , line:151:13, endln:151:16
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:151:33, endln:151:35
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:151:13, endln:151:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.block_width_p), line:151:17, endln:151:30
@@ -1671,7 +1720,12 @@ design: (work@top)
       |vpiSize:64
       |UINT:17
       |vpiTypespec:
-      \_int_typespec: , line:152:13, endln:152:16
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:152:33, endln:152:35
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:152:13, endln:152:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.ctag_width_p), line:152:18, endln:152:30
@@ -1775,81 +1829,12 @@ design: (work@top)
       \_struct_typespec: (bp_icache_data_mem_pkt_s), line:74:11, endln:81:4
       |vpiName:index
       |vpiTypespec:
-      \_logic_typespec: , line:76:5, endln:76:56
+      \_ref_typespec: (work@top.bp_icache_data_mem_pkt_s.index)
         |vpiParent:
         \_typespec_member: (index), line:76:68, endln:76:73
-        |vpiRange:
-        \_range: , line:76:11, endln:76:56
-          |vpiParent:
-          \_logic_typespec: , line:76:5, endln:76:56
-          |vpiLeftRange:
-          \_operation: , line:76:12, endln:76:53
-            |vpiParent:
-            \_range: , line:76:11, endln:76:56
-            |vpiOpType:11
-            |vpiOperand:
-            \_operation: , line:76:14, endln:76:50
-              |vpiParent:
-              \_operation: , line:76:12, endln:76:53
-              |vpiOpType:32
-              |vpiOperand:
-              \_operation: , line:76:15, endln:76:26
-                |vpiParent:
-                \_operation: , line:76:14, endln:76:50
-                |vpiOpType:14
-                |vpiOperand:
-                \_ref_obj: (work@top.bp_icache_data_mem_pkt_s.index.sets_p), line:76:16, endln:76:22
-                  |vpiParent:
-                  \_operation: , line:76:15, endln:76:26
-                  |vpiName:sets_p
-                  |vpiFullName:work@top.bp_icache_data_mem_pkt_s.index.sets_p
-                  |vpiActual:
-                  \_parameter: (work@top.sets_p), line:149:17, endln:149:23
-                |vpiOperand:
-                \_constant: , line:76:25, endln:76:26
-                  |vpiParent:
-                  \_operation: , line:76:15, endln:76:26
-                  |vpiDecompile:1
-                  |vpiSize:64
-                  |UINT:1
-                  |vpiConstType:9
-              |vpiOperand:
-              \_constant: , line:76:30, endln:76:31
-                |vpiParent:
-                \_operation: , line:76:14, endln:76:50
-                |vpiDecompile:1
-                |vpiSize:64
-                |UINT:1
-                |vpiConstType:9
-              |vpiOperand:
-              \_sys_func_call: ($clog2), line:76:34, endln:76:50
-                |vpiParent:
-                \_operation: , line:76:14, endln:76:50
-                |vpiArgument:
-                \_ref_obj: (work@top.bp_icache_data_mem_pkt_s.index.sets_p), line:76:42, endln:76:48
-                  |vpiParent:
-                  \_sys_func_call: ($clog2), line:76:34, endln:76:50
-                  |vpiName:sets_p
-                  |vpiFullName:work@top.bp_icache_data_mem_pkt_s.index.sets_p
-                  |vpiActual:
-                  \_parameter: (work@top.sets_p), line:149:17, endln:149:23
-                |vpiName:$clog2
-            |vpiOperand:
-            \_constant: , line:76:52, endln:76:53
-              |vpiParent:
-              \_operation: , line:76:12, endln:76:53
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:76:54, endln:76:55
-            |vpiParent:
-            \_range: , line:76:11, endln:76:56
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@top.bp_icache_data_mem_pkt_s.index
+        |vpiActual:
+        \_logic_typespec: , line:76:5, endln:76:56
       |vpiRefFile:${SURELOG_DIR}/tests/BlackConst/dut.sv
       |vpiRefLineNo:76
       |vpiRefColumnNo:5
@@ -1861,81 +1846,12 @@ design: (work@top)
       \_struct_typespec: (bp_icache_data_mem_pkt_s), line:74:11, endln:81:4
       |vpiName:way_id
       |vpiTypespec:
-      \_logic_typespec: , line:77:5, endln:77:58
+      \_ref_typespec: (work@top.bp_icache_data_mem_pkt_s.way_id)
         |vpiParent:
         \_typespec_member: (way_id), line:77:70, endln:77:76
-        |vpiRange:
-        \_range: , line:77:11, endln:77:58
-          |vpiParent:
-          \_logic_typespec: , line:77:5, endln:77:58
-          |vpiLeftRange:
-          \_operation: , line:77:12, endln:77:55
-            |vpiParent:
-            \_range: , line:77:11, endln:77:58
-            |vpiOpType:11
-            |vpiOperand:
-            \_operation: , line:77:14, endln:77:52
-              |vpiParent:
-              \_operation: , line:77:12, endln:77:55
-              |vpiOpType:32
-              |vpiOperand:
-              \_operation: , line:77:15, endln:77:27
-                |vpiParent:
-                \_operation: , line:77:14, endln:77:52
-                |vpiOpType:14
-                |vpiOperand:
-                \_ref_obj: (work@top.bp_icache_data_mem_pkt_s.way_id.assoc_p), line:77:16, endln:77:23
-                  |vpiParent:
-                  \_operation: , line:77:15, endln:77:27
-                  |vpiName:assoc_p
-                  |vpiFullName:work@top.bp_icache_data_mem_pkt_s.way_id.assoc_p
-                  |vpiActual:
-                  \_parameter: (work@top.assoc_p), line:148:17, endln:148:24
-                |vpiOperand:
-                \_constant: , line:77:26, endln:77:27
-                  |vpiParent:
-                  \_operation: , line:77:15, endln:77:27
-                  |vpiDecompile:1
-                  |vpiSize:64
-                  |UINT:1
-                  |vpiConstType:9
-              |vpiOperand:
-              \_constant: , line:77:31, endln:77:32
-                |vpiParent:
-                \_operation: , line:77:14, endln:77:52
-                |vpiDecompile:1
-                |vpiSize:64
-                |UINT:1
-                |vpiConstType:9
-              |vpiOperand:
-              \_sys_func_call: ($clog2), line:77:35, endln:77:52
-                |vpiParent:
-                \_operation: , line:77:14, endln:77:52
-                |vpiArgument:
-                \_ref_obj: (work@top.bp_icache_data_mem_pkt_s.way_id.assoc_p), line:77:43, endln:77:50
-                  |vpiParent:
-                  \_sys_func_call: ($clog2), line:77:35, endln:77:52
-                  |vpiName:assoc_p
-                  |vpiFullName:work@top.bp_icache_data_mem_pkt_s.way_id.assoc_p
-                  |vpiActual:
-                  \_parameter: (work@top.assoc_p), line:148:17, endln:148:24
-                |vpiName:$clog2
-            |vpiOperand:
-            \_constant: , line:77:54, endln:77:55
-              |vpiParent:
-              \_operation: , line:77:12, endln:77:55
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:77:56, endln:77:57
-            |vpiParent:
-            \_range: , line:77:11, endln:77:58
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@top.bp_icache_data_mem_pkt_s.way_id
+        |vpiActual:
+        \_logic_typespec: , line:77:5, endln:77:58
       |vpiRefFile:${SURELOG_DIR}/tests/BlackConst/dut.sv
       |vpiRefLineNo:77
       |vpiRefColumnNo:5
@@ -1947,42 +1863,12 @@ design: (work@top)
       \_struct_typespec: (bp_icache_data_mem_pkt_s), line:74:11, endln:81:4
       |vpiName:data
       |vpiTypespec:
-      \_logic_typespec: , line:78:5, endln:78:29
+      \_ref_typespec: (work@top.bp_icache_data_mem_pkt_s.data)
         |vpiParent:
         \_typespec_member: (data), line:78:52, endln:78:56
-        |vpiRange:
-        \_range: , line:78:11, endln:78:29
-          |vpiParent:
-          \_logic_typespec: , line:78:5, endln:78:29
-          |vpiLeftRange:
-          \_operation: , line:78:12, endln:78:26
-            |vpiParent:
-            \_range: , line:78:11, endln:78:29
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (work@top.bp_icache_data_mem_pkt_s.data.fill_width_p), line:78:12, endln:78:24
-              |vpiParent:
-              \_operation: , line:78:12, endln:78:26
-              |vpiName:fill_width_p
-              |vpiFullName:work@top.bp_icache_data_mem_pkt_s.data.fill_width_p
-              |vpiActual:
-              \_parameter: (work@top.fill_width_p), line:150:17, endln:150:29
-            |vpiOperand:
-            \_constant: , line:78:25, endln:78:26
-              |vpiParent:
-              \_operation: , line:78:12, endln:78:26
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:78:27, endln:78:28
-            |vpiParent:
-            \_range: , line:78:11, endln:78:29
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@top.bp_icache_data_mem_pkt_s.data
+        |vpiActual:
+        \_logic_typespec: , line:78:5, endln:78:29
       |vpiRefFile:${SURELOG_DIR}/tests/BlackConst/dut.sv
       |vpiRefLineNo:78
       |vpiRefColumnNo:5
@@ -1994,55 +1880,12 @@ design: (work@top)
       \_struct_typespec: (bp_icache_data_mem_pkt_s), line:74:11, endln:81:4
       |vpiName:fill_index
       |vpiTypespec:
-      \_logic_typespec: , line:79:5, endln:79:45
+      \_ref_typespec: (work@top.bp_icache_data_mem_pkt_s.fill_index)
         |vpiParent:
         \_typespec_member: (fill_index), line:79:46, endln:79:56
-        |vpiRange:
-        \_range: , line:79:11, endln:79:45
-          |vpiParent:
-          \_logic_typespec: , line:79:5, endln:79:45
-          |vpiLeftRange:
-          \_operation: , line:79:12, endln:79:42
-            |vpiParent:
-            \_range: , line:79:11, endln:79:45
-            |vpiOpType:11
-            |vpiOperand:
-            \_operation: , line:79:13, endln:79:39
-              |vpiParent:
-              \_operation: , line:79:12, endln:79:42
-              |vpiOpType:12
-              |vpiOperand:
-              \_ref_obj: (work@top.bp_icache_data_mem_pkt_s.fill_index.block_width_p), line:79:13, endln:79:26
-                |vpiParent:
-                \_operation: , line:79:13, endln:79:39
-                |vpiName:block_width_p
-                |vpiFullName:work@top.bp_icache_data_mem_pkt_s.fill_index.block_width_p
-                |vpiActual:
-                \_parameter: (work@top.block_width_p), line:151:17, endln:151:30
-              |vpiOperand:
-              \_ref_obj: (work@top.bp_icache_data_mem_pkt_s.fill_index.fill_width_p), line:79:27, endln:79:39
-                |vpiParent:
-                \_operation: , line:79:13, endln:79:39
-                |vpiName:fill_width_p
-                |vpiFullName:work@top.bp_icache_data_mem_pkt_s.fill_index.fill_width_p
-                |vpiActual:
-                \_parameter: (work@top.fill_width_p), line:150:17, endln:150:29
-            |vpiOperand:
-            \_constant: , line:79:41, endln:79:42
-              |vpiParent:
-              \_operation: , line:79:12, endln:79:42
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:79:43, endln:79:44
-            |vpiParent:
-            \_range: , line:79:11, endln:79:45
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@top.bp_icache_data_mem_pkt_s.fill_index
+        |vpiActual:
+        \_logic_typespec: , line:79:5, endln:79:45
       |vpiRefFile:${SURELOG_DIR}/tests/BlackConst/dut.sv
       |vpiRefLineNo:79
       |vpiRefColumnNo:5
@@ -2054,58 +1897,12 @@ design: (work@top)
       \_struct_typespec: (bp_icache_data_mem_pkt_s), line:74:11, endln:81:4
       |vpiName:opcode
       |vpiTypespec:
-      \_enum_typespec: (bp_cache_data_mem_opcode_e), line:42:3, endln:49:32
+      \_ref_typespec: (work@top.bp_icache_data_mem_pkt_s.opcode)
         |vpiParent:
-        \_design: (work@top)
-        |vpiName:bp_cache_data_mem_opcode_e
-        |vpiInstance:
-        \_design: (work@top)
-        |vpiBaseTypespec:
-        \_logic_typespec: , line:42:16, endln:42:27
-          |vpiRange:
-          \_range: , line:42:22, endln:42:27
-            |vpiParent:
-            \_logic_typespec: , line:42:16, endln:42:27
-            |vpiLeftRange:
-            \_constant: , line:42:23, endln:42:24
-              |vpiParent:
-              \_range: , line:42:22, endln:42:27
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-            |vpiRightRange:
-            \_constant: , line:42:25, endln:42:26
-              |vpiParent:
-              \_range: , line:42:22, endln:42:27
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
-        |vpiEnumConst:
-        \_enum_const: (e_cache_data_mem_write), line:44:4, endln:44:26
-          |vpiParent:
-          \_enum_typespec: (bp_cache_data_mem_opcode_e), line:42:3, endln:49:32
-          |vpiName:e_cache_data_mem_write
-          |INT:0
-          |vpiDecompile:0
-          |vpiSize:2
-        |vpiEnumConst:
-        \_enum_const: (e_cache_data_mem_read), line:46:5, endln:46:26
-          |vpiParent:
-          \_enum_typespec: (bp_cache_data_mem_opcode_e), line:42:3, endln:49:32
-          |vpiName:e_cache_data_mem_read
-          |INT:1
-          |vpiDecompile:1
-          |vpiSize:2
-        |vpiEnumConst:
-        \_enum_const: (e_cache_data_mem_uncached), line:48:5, endln:48:30
-          |vpiParent:
-          \_enum_typespec: (bp_cache_data_mem_opcode_e), line:42:3, endln:49:32
-          |vpiName:e_cache_data_mem_uncached
-          |INT:2
-          |vpiDecompile:2
-          |vpiSize:2
+        \_typespec_member: (opcode), line:80:53, endln:80:59
+        |vpiFullName:work@top.bp_icache_data_mem_pkt_s.opcode
+        |vpiActual:
+        \_enum_typespec: (bp_cache_data_mem_opcode_e), line:42:3, endln:49:32
       |vpiRefFile:${SURELOG_DIR}/tests/BlackConst/dut.sv
       |vpiRefLineNo:80
       |vpiRefColumnNo:5
@@ -2125,81 +1922,12 @@ design: (work@top)
       \_struct_typespec: (bp_icache_req_metadata_s), line:33:11, endln:37:4
       |vpiName:hit_or_repl_way
       |vpiTypespec:
-      \_logic_typespec: , line:35:5, endln:35:58
+      \_ref_typespec: (work@top.bp_icache_req_metadata_s.hit_or_repl_way)
         |vpiParent:
         \_typespec_member: (hit_or_repl_way), line:35:59, endln:35:74
-        |vpiRange:
-        \_range: , line:35:11, endln:35:58
-          |vpiParent:
-          \_logic_typespec: , line:35:5, endln:35:58
-          |vpiLeftRange:
-          \_operation: , line:35:12, endln:35:55
-            |vpiParent:
-            \_range: , line:35:11, endln:35:58
-            |vpiOpType:11
-            |vpiOperand:
-            \_operation: , line:35:14, endln:35:52
-              |vpiParent:
-              \_operation: , line:35:12, endln:35:55
-              |vpiOpType:32
-              |vpiOperand:
-              \_operation: , line:35:15, endln:35:27
-                |vpiParent:
-                \_operation: , line:35:14, endln:35:52
-                |vpiOpType:14
-                |vpiOperand:
-                \_ref_obj: (work@top.bp_icache_req_metadata_s.hit_or_repl_way.assoc_p), line:35:16, endln:35:23
-                  |vpiParent:
-                  \_operation: , line:35:15, endln:35:27
-                  |vpiName:assoc_p
-                  |vpiFullName:work@top.bp_icache_req_metadata_s.hit_or_repl_way.assoc_p
-                  |vpiActual:
-                  \_parameter: (work@top.assoc_p), line:148:17, endln:148:24
-                |vpiOperand:
-                \_constant: , line:35:26, endln:35:27
-                  |vpiParent:
-                  \_operation: , line:35:15, endln:35:27
-                  |vpiDecompile:1
-                  |vpiSize:64
-                  |UINT:1
-                  |vpiConstType:9
-              |vpiOperand:
-              \_constant: , line:35:31, endln:35:32
-                |vpiParent:
-                \_operation: , line:35:14, endln:35:52
-                |vpiDecompile:1
-                |vpiSize:64
-                |UINT:1
-                |vpiConstType:9
-              |vpiOperand:
-              \_sys_func_call: ($clog2), line:35:35, endln:35:52
-                |vpiParent:
-                \_operation: , line:35:14, endln:35:52
-                |vpiArgument:
-                \_ref_obj: (work@top.bp_icache_req_metadata_s.hit_or_repl_way.assoc_p), line:35:43, endln:35:50
-                  |vpiParent:
-                  \_sys_func_call: ($clog2), line:35:35, endln:35:52
-                  |vpiName:assoc_p
-                  |vpiFullName:work@top.bp_icache_req_metadata_s.hit_or_repl_way.assoc_p
-                  |vpiActual:
-                  \_parameter: (work@top.assoc_p), line:148:17, endln:148:24
-                |vpiName:$clog2
-            |vpiOperand:
-            \_constant: , line:35:54, endln:35:55
-              |vpiParent:
-              \_operation: , line:35:12, endln:35:55
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:35:56, endln:35:57
-            |vpiParent:
-            \_range: , line:35:11, endln:35:58
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@top.bp_icache_req_metadata_s.hit_or_repl_way
+        |vpiActual:
+        \_logic_typespec: , line:35:5, endln:35:58
       |vpiRefFile:${SURELOG_DIR}/tests/BlackConst/dut.sv
       |vpiRefLineNo:35
       |vpiRefColumnNo:5
@@ -2211,9 +1939,12 @@ design: (work@top)
       \_struct_typespec: (bp_icache_req_metadata_s), line:33:11, endln:37:4
       |vpiName:dirty
       |vpiTypespec:
-      \_logic_typespec: , line:36:5, endln:36:10
+      \_ref_typespec: (work@top.bp_icache_req_metadata_s.dirty)
         |vpiParent:
         \_typespec_member: (dirty), line:36:11, endln:36:16
+        |vpiFullName:work@top.bp_icache_req_metadata_s.dirty
+        |vpiActual:
+        \_logic_typespec: , line:36:5, endln:36:10
       |vpiRefFile:${SURELOG_DIR}/tests/BlackConst/dut.sv
       |vpiRefLineNo:36
       |vpiRefColumnNo:5
@@ -2233,9 +1964,12 @@ design: (work@top)
       \_struct_typespec: (bp_icache_req_s), line:19:11, endln:27:4
       |vpiName:hit
       |vpiTypespec:
-      \_logic_typespec: , line:21:5, endln:21:10
+      \_ref_typespec: (work@top.bp_icache_req_s.hit)
         |vpiParent:
         \_typespec_member: (hit), line:21:11, endln:21:14
+        |vpiFullName:work@top.bp_icache_req_s.hit
+        |vpiActual:
+        \_logic_typespec: , line:21:5, endln:21:10
       |vpiRefFile:${SURELOG_DIR}/tests/BlackConst/dut.sv
       |vpiRefLineNo:21
       |vpiRefColumnNo:5
@@ -2247,42 +1981,12 @@ design: (work@top)
       \_struct_typespec: (bp_icache_req_s), line:19:11, endln:27:4
       |vpiName:data
       |vpiTypespec:
-      \_logic_typespec: , line:22:5, endln:22:31
+      \_ref_typespec: (work@top.bp_icache_req_s.data)
         |vpiParent:
         \_typespec_member: (data), line:22:32, endln:22:36
-        |vpiRange:
-        \_range: , line:22:11, endln:22:31
-          |vpiParent:
-          \_logic_typespec: , line:22:5, endln:22:31
-          |vpiLeftRange:
-          \_operation: , line:22:12, endln:22:28
-            |vpiParent:
-            \_range: , line:22:11, endln:22:31
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (work@top.bp_icache_req_s.data.dword_width_gp), line:22:12, endln:22:26
-              |vpiParent:
-              \_operation: , line:22:12, endln:22:28
-              |vpiName:dword_width_gp
-              |vpiFullName:work@top.bp_icache_req_s.data.dword_width_gp
-              |vpiActual:
-              \_parameter: (work@top.dword_width_gp), line:143:13, endln:143:27
-            |vpiOperand:
-            \_constant: , line:22:27, endln:22:28
-              |vpiParent:
-              \_operation: , line:22:12, endln:22:28
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:22:29, endln:22:30
-            |vpiParent:
-            \_range: , line:22:11, endln:22:31
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@top.bp_icache_req_s.data
+        |vpiActual:
+        \_logic_typespec: , line:22:5, endln:22:31
       |vpiRefFile:${SURELOG_DIR}/tests/BlackConst/dut.sv
       |vpiRefLineNo:22
       |vpiRefColumnNo:5
@@ -2294,10 +1998,12 @@ design: (work@top)
       \_struct_typespec: (bp_icache_req_s), line:19:11, endln:27:4
       |vpiName:size
       |vpiTypespec:
-      \_int_typespec: , line:23:5, endln:23:8
+      \_ref_typespec: (work@top.bp_icache_req_s.size)
         |vpiParent:
         \_typespec_member: (size), line:23:9, endln:23:13
-        |vpiSigned:1
+        |vpiFullName:work@top.bp_icache_req_s.size
+        |vpiActual:
+        \_int_typespec: , line:23:5, endln:23:8
       |vpiRefFile:${SURELOG_DIR}/tests/BlackConst/dut.sv
       |vpiRefLineNo:23
       |vpiRefColumnNo:5
@@ -2309,42 +2015,12 @@ design: (work@top)
       \_struct_typespec: (bp_icache_req_s), line:19:11, endln:27:4
       |vpiName:addr
       |vpiTypespec:
-      \_logic_typespec: , line:24:5, endln:24:30
+      \_ref_typespec: (work@top.bp_icache_req_s.addr)
         |vpiParent:
         \_typespec_member: (addr), line:24:31, endln:24:35
-        |vpiRange:
-        \_range: , line:24:11, endln:24:30
-          |vpiParent:
-          \_logic_typespec: , line:24:5, endln:24:30
-          |vpiLeftRange:
-          \_operation: , line:24:12, endln:24:27
-            |vpiParent:
-            \_range: , line:24:11, endln:24:30
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (work@top.bp_icache_req_s.addr.paddr_width_p), line:24:12, endln:24:25
-              |vpiParent:
-              \_operation: , line:24:12, endln:24:27
-              |vpiName:paddr_width_p
-              |vpiFullName:work@top.bp_icache_req_s.addr.paddr_width_p
-              |vpiActual:
-              \_parameter: (work@top.paddr_width_p), line:147:17, endln:147:30
-            |vpiOperand:
-            \_constant: , line:24:26, endln:24:27
-              |vpiParent:
-              \_operation: , line:24:12, endln:24:27
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:24:28, endln:24:29
-            |vpiParent:
-            \_range: , line:24:11, endln:24:30
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@top.bp_icache_req_s.addr
+        |vpiActual:
+        \_logic_typespec: , line:24:5, endln:24:30
       |vpiRefFile:${SURELOG_DIR}/tests/BlackConst/dut.sv
       |vpiRefLineNo:24
       |vpiRefColumnNo:5
@@ -2356,10 +2032,12 @@ design: (work@top)
       \_struct_typespec: (bp_icache_req_s), line:19:11, endln:27:4
       |vpiName:msg_type
       |vpiTypespec:
-      \_int_typespec: , line:25:5, endln:25:8
+      \_ref_typespec: (work@top.bp_icache_req_s.msg_type)
         |vpiParent:
         \_typespec_member: (msg_type), line:25:9, endln:25:17
-        |vpiSigned:1
+        |vpiFullName:work@top.bp_icache_req_s.msg_type
+        |vpiActual:
+        \_int_typespec: , line:25:5, endln:25:8
       |vpiRefFile:${SURELOG_DIR}/tests/BlackConst/dut.sv
       |vpiRefLineNo:25
       |vpiRefColumnNo:5
@@ -2371,10 +2049,12 @@ design: (work@top)
       \_struct_typespec: (bp_icache_req_s), line:19:11, endln:27:4
       |vpiName:subop
       |vpiTypespec:
-      \_int_typespec: , line:26:5, endln:26:8
+      \_ref_typespec: (work@top.bp_icache_req_s.subop)
         |vpiParent:
         \_typespec_member: (subop), line:26:9, endln:26:14
-        |vpiSigned:1
+        |vpiFullName:work@top.bp_icache_req_s.subop
+        |vpiActual:
+        \_int_typespec: , line:26:5, endln:26:8
       |vpiRefFile:${SURELOG_DIR}/tests/BlackConst/dut.sv
       |vpiRefLineNo:26
       |vpiRefColumnNo:5
@@ -2394,76 +2074,12 @@ design: (work@top)
       \_struct_typespec: (bp_icache_stat_info_s), line:121:11, endln:125:4
       |vpiName:lru
       |vpiTypespec:
-      \_logic_typespec: , line:123:5, endln:123:54
+      \_ref_typespec: (work@top.bp_icache_stat_info_s.lru)
         |vpiParent:
         \_typespec_member: (lru), line:123:55, endln:123:58
-        |vpiRange:
-        \_range: , line:123:11, endln:123:54
-          |vpiParent:
-          \_logic_typespec: , line:123:5, endln:123:54
-          |vpiLeftRange:
-          \_operation: , line:123:12, endln:123:51
-            |vpiParent:
-            \_range: , line:123:11, endln:123:54
-            |vpiOpType:32
-            |vpiOperand:
-            \_operation: , line:123:14, endln:123:27
-              |vpiParent:
-              \_operation: , line:123:12, endln:123:51
-              |vpiOpType:20
-              |vpiOperand:
-              \_ref_obj: (work@top.bp_icache_stat_info_s.lru.assoc_p), line:123:15, endln:123:22
-                |vpiParent:
-                \_operation: , line:123:14, endln:123:27
-                |vpiName:assoc_p
-                |vpiFullName:work@top.bp_icache_stat_info_s.lru.assoc_p
-                |vpiActual:
-                \_parameter: (work@top.assoc_p), line:148:17, endln:148:24
-              |vpiOperand:
-              \_constant: , line:123:25, endln:123:26
-                |vpiParent:
-                \_operation: , line:123:14, endln:123:27
-                |vpiDecompile:2
-                |vpiSize:64
-                |UINT:2
-                |vpiConstType:9
-            |vpiOperand:
-            \_constant: , line:123:32, endln:123:33
-              |vpiParent:
-              \_operation: , line:123:12, endln:123:51
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
-            |vpiOperand:
-            \_operation: , line:123:37, endln:123:50
-              |vpiParent:
-              \_operation: , line:123:12, endln:123:51
-              |vpiOpType:11
-              |vpiOperand:
-              \_ref_obj: (work@top.bp_icache_stat_info_s.lru.assoc_p), line:123:38, endln:123:45
-                |vpiParent:
-                \_operation: , line:123:37, endln:123:50
-                |vpiName:assoc_p
-                |vpiFullName:work@top.bp_icache_stat_info_s.lru.assoc_p
-                |vpiActual:
-                \_parameter: (work@top.assoc_p), line:148:17, endln:148:24
-              |vpiOperand:
-              \_constant: , line:123:48, endln:123:49
-                |vpiParent:
-                \_operation: , line:123:37, endln:123:50
-                |vpiDecompile:2
-                |vpiSize:64
-                |UINT:2
-                |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:123:52, endln:123:53
-            |vpiParent:
-            \_range: , line:123:11, endln:123:54
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@top.bp_icache_stat_info_s.lru
+        |vpiActual:
+        \_logic_typespec: , line:123:5, endln:123:54
       |vpiRefFile:${SURELOG_DIR}/tests/BlackConst/dut.sv
       |vpiRefLineNo:123
       |vpiRefColumnNo:5
@@ -2475,42 +2091,12 @@ design: (work@top)
       \_struct_typespec: (bp_icache_stat_info_s), line:121:11, endln:125:4
       |vpiName:dirty
       |vpiTypespec:
-      \_logic_typespec: , line:124:5, endln:124:24
+      \_ref_typespec: (work@top.bp_icache_stat_info_s.dirty)
         |vpiParent:
         \_typespec_member: (dirty), line:124:43, endln:124:48
-        |vpiRange:
-        \_range: , line:124:11, endln:124:24
-          |vpiParent:
-          \_logic_typespec: , line:124:5, endln:124:24
-          |vpiLeftRange:
-          \_operation: , line:124:12, endln:124:21
-            |vpiParent:
-            \_range: , line:124:11, endln:124:24
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (work@top.bp_icache_stat_info_s.dirty.assoc_p), line:124:12, endln:124:19
-              |vpiParent:
-              \_operation: , line:124:12, endln:124:21
-              |vpiName:assoc_p
-              |vpiFullName:work@top.bp_icache_stat_info_s.dirty.assoc_p
-              |vpiActual:
-              \_parameter: (work@top.assoc_p), line:148:17, endln:148:24
-            |vpiOperand:
-            \_constant: , line:124:20, endln:124:21
-              |vpiParent:
-              \_operation: , line:124:12, endln:124:21
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:124:22, endln:124:23
-            |vpiParent:
-            \_range: , line:124:11, endln:124:24
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@top.bp_icache_stat_info_s.dirty
+        |vpiActual:
+        \_logic_typespec: , line:124:5, endln:124:24
       |vpiRefFile:${SURELOG_DIR}/tests/BlackConst/dut.sv
       |vpiRefLineNo:124
       |vpiRefColumnNo:5
@@ -2530,81 +2116,12 @@ design: (work@top)
       \_struct_typespec: (bp_icache_stat_mem_pkt_s), line:110:11, endln:115:4
       |vpiName:index
       |vpiTypespec:
-      \_logic_typespec: , line:112:5, endln:112:56
+      \_ref_typespec: (work@top.bp_icache_stat_mem_pkt_s.index)
         |vpiParent:
         \_typespec_member: (index), line:112:60, endln:112:65
-        |vpiRange:
-        \_range: , line:112:11, endln:112:56
-          |vpiParent:
-          \_logic_typespec: , line:112:5, endln:112:56
-          |vpiLeftRange:
-          \_operation: , line:112:12, endln:112:53
-            |vpiParent:
-            \_range: , line:112:11, endln:112:56
-            |vpiOpType:11
-            |vpiOperand:
-            \_operation: , line:112:14, endln:112:50
-              |vpiParent:
-              \_operation: , line:112:12, endln:112:53
-              |vpiOpType:32
-              |vpiOperand:
-              \_operation: , line:112:15, endln:112:26
-                |vpiParent:
-                \_operation: , line:112:14, endln:112:50
-                |vpiOpType:14
-                |vpiOperand:
-                \_ref_obj: (work@top.bp_icache_stat_mem_pkt_s.index.sets_p), line:112:16, endln:112:22
-                  |vpiParent:
-                  \_operation: , line:112:15, endln:112:26
-                  |vpiName:sets_p
-                  |vpiFullName:work@top.bp_icache_stat_mem_pkt_s.index.sets_p
-                  |vpiActual:
-                  \_parameter: (work@top.sets_p), line:149:17, endln:149:23
-                |vpiOperand:
-                \_constant: , line:112:25, endln:112:26
-                  |vpiParent:
-                  \_operation: , line:112:15, endln:112:26
-                  |vpiDecompile:1
-                  |vpiSize:64
-                  |UINT:1
-                  |vpiConstType:9
-              |vpiOperand:
-              \_constant: , line:112:30, endln:112:31
-                |vpiParent:
-                \_operation: , line:112:14, endln:112:50
-                |vpiDecompile:1
-                |vpiSize:64
-                |UINT:1
-                |vpiConstType:9
-              |vpiOperand:
-              \_sys_func_call: ($clog2), line:112:34, endln:112:50
-                |vpiParent:
-                \_operation: , line:112:14, endln:112:50
-                |vpiArgument:
-                \_ref_obj: (work@top.bp_icache_stat_mem_pkt_s.index.sets_p), line:112:42, endln:112:48
-                  |vpiParent:
-                  \_sys_func_call: ($clog2), line:112:34, endln:112:50
-                  |vpiName:sets_p
-                  |vpiFullName:work@top.bp_icache_stat_mem_pkt_s.index.sets_p
-                  |vpiActual:
-                  \_parameter: (work@top.sets_p), line:149:17, endln:149:23
-                |vpiName:$clog2
-            |vpiOperand:
-            \_constant: , line:112:52, endln:112:53
-              |vpiParent:
-              \_operation: , line:112:12, endln:112:53
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:112:54, endln:112:55
-            |vpiParent:
-            \_range: , line:112:11, endln:112:56
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@top.bp_icache_stat_mem_pkt_s.index
+        |vpiActual:
+        \_logic_typespec: , line:112:5, endln:112:56
       |vpiRefFile:${SURELOG_DIR}/tests/BlackConst/dut.sv
       |vpiRefLineNo:112
       |vpiRefColumnNo:5
@@ -2616,81 +2133,12 @@ design: (work@top)
       \_struct_typespec: (bp_icache_stat_mem_pkt_s), line:110:11, endln:115:4
       |vpiName:way_id
       |vpiTypespec:
-      \_logic_typespec: , line:113:5, endln:113:58
+      \_ref_typespec: (work@top.bp_icache_stat_mem_pkt_s.way_id)
         |vpiParent:
         \_typespec_member: (way_id), line:113:62, endln:113:68
-        |vpiRange:
-        \_range: , line:113:11, endln:113:58
-          |vpiParent:
-          \_logic_typespec: , line:113:5, endln:113:58
-          |vpiLeftRange:
-          \_operation: , line:113:12, endln:113:55
-            |vpiParent:
-            \_range: , line:113:11, endln:113:58
-            |vpiOpType:11
-            |vpiOperand:
-            \_operation: , line:113:14, endln:113:52
-              |vpiParent:
-              \_operation: , line:113:12, endln:113:55
-              |vpiOpType:32
-              |vpiOperand:
-              \_operation: , line:113:15, endln:113:27
-                |vpiParent:
-                \_operation: , line:113:14, endln:113:52
-                |vpiOpType:14
-                |vpiOperand:
-                \_ref_obj: (work@top.bp_icache_stat_mem_pkt_s.way_id.assoc_p), line:113:16, endln:113:23
-                  |vpiParent:
-                  \_operation: , line:113:15, endln:113:27
-                  |vpiName:assoc_p
-                  |vpiFullName:work@top.bp_icache_stat_mem_pkt_s.way_id.assoc_p
-                  |vpiActual:
-                  \_parameter: (work@top.assoc_p), line:148:17, endln:148:24
-                |vpiOperand:
-                \_constant: , line:113:26, endln:113:27
-                  |vpiParent:
-                  \_operation: , line:113:15, endln:113:27
-                  |vpiDecompile:1
-                  |vpiSize:64
-                  |UINT:1
-                  |vpiConstType:9
-              |vpiOperand:
-              \_constant: , line:113:31, endln:113:32
-                |vpiParent:
-                \_operation: , line:113:14, endln:113:52
-                |vpiDecompile:1
-                |vpiSize:64
-                |UINT:1
-                |vpiConstType:9
-              |vpiOperand:
-              \_sys_func_call: ($clog2), line:113:35, endln:113:52
-                |vpiParent:
-                \_operation: , line:113:14, endln:113:52
-                |vpiArgument:
-                \_ref_obj: (work@top.bp_icache_stat_mem_pkt_s.way_id.assoc_p), line:113:43, endln:113:50
-                  |vpiParent:
-                  \_sys_func_call: ($clog2), line:113:35, endln:113:52
-                  |vpiName:assoc_p
-                  |vpiFullName:work@top.bp_icache_stat_mem_pkt_s.way_id.assoc_p
-                  |vpiActual:
-                  \_parameter: (work@top.assoc_p), line:148:17, endln:148:24
-                |vpiName:$clog2
-            |vpiOperand:
-            \_constant: , line:113:54, endln:113:55
-              |vpiParent:
-              \_operation: , line:113:12, endln:113:55
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:113:56, endln:113:57
-            |vpiParent:
-            \_range: , line:113:11, endln:113:58
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@top.bp_icache_stat_mem_pkt_s.way_id
+        |vpiActual:
+        \_logic_typespec: , line:113:5, endln:113:58
       |vpiRefFile:${SURELOG_DIR}/tests/BlackConst/dut.sv
       |vpiRefLineNo:113
       |vpiRefColumnNo:5
@@ -2702,10 +2150,12 @@ design: (work@top)
       \_struct_typespec: (bp_icache_stat_mem_pkt_s), line:110:11, endln:115:4
       |vpiName:opcode
       |vpiTypespec:
-      \_int_typespec: , line:114:5, endln:114:8
+      \_ref_typespec: (work@top.bp_icache_stat_mem_pkt_s.opcode)
         |vpiParent:
         \_typespec_member: (opcode), line:114:22, endln:114:28
-        |vpiSigned:1
+        |vpiFullName:work@top.bp_icache_stat_mem_pkt_s.opcode
+        |vpiActual:
+        \_int_typespec: , line:114:5, endln:114:8
       |vpiRefFile:${SURELOG_DIR}/tests/BlackConst/dut.sv
       |vpiRefLineNo:114
       |vpiRefColumnNo:5
@@ -2725,42 +2175,12 @@ design: (work@top)
       \_struct_typespec: (bp_icache_tag_info_s), line:101:11, endln:104:4
       |vpiName:state
       |vpiTypespec:
-      \_logic_typespec: , line:102:5, endln:102:39
+      \_ref_typespec: (work@top.bp_icache_tag_info_s.state)
         |vpiParent:
         \_typespec_member: (state), line:102:40, endln:102:45
-        |vpiRange:
-        \_range: , line:102:11, endln:102:39
-          |vpiParent:
-          \_logic_typespec: , line:102:5, endln:102:39
-          |vpiLeftRange:
-          \_operation: , line:102:12, endln:102:36
-            |vpiParent:
-            \_range: , line:102:11, endln:102:39
-            |vpiOpType:11
-            |vpiOperand:
-            \_constant: , line:102:12, endln:102:34
-              |vpiParent:
-              \_operation: , line:102:12, endln:102:36
-              |vpiDecompile:13
-              |vpiSize:64
-              |UINT:13
-              |vpiConstType:9
-            |vpiOperand:
-            \_constant: , line:102:35, endln:102:36
-              |vpiParent:
-              \_operation: , line:102:12, endln:102:36
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:102:37, endln:102:38
-            |vpiParent:
-            \_range: , line:102:11, endln:102:39
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@top.bp_icache_tag_info_s.state
+        |vpiActual:
+        \_logic_typespec: , line:102:5, endln:102:39
       |vpiRefFile:${SURELOG_DIR}/tests/BlackConst/dut.sv
       |vpiRefLineNo:102
       |vpiRefColumnNo:5
@@ -2772,42 +2192,12 @@ design: (work@top)
       \_struct_typespec: (bp_icache_tag_info_s), line:101:11, endln:104:4
       |vpiName:tag
       |vpiTypespec:
-      \_logic_typespec: , line:103:5, endln:103:29
+      \_ref_typespec: (work@top.bp_icache_tag_info_s.tag)
         |vpiParent:
         \_typespec_member: (tag), line:103:40, endln:103:43
-        |vpiRange:
-        \_range: , line:103:11, endln:103:29
-          |vpiParent:
-          \_logic_typespec: , line:103:5, endln:103:29
-          |vpiLeftRange:
-          \_operation: , line:103:12, endln:103:26
-            |vpiParent:
-            \_range: , line:103:11, endln:103:29
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (work@top.bp_icache_tag_info_s.tag.ctag_width_p), line:103:12, endln:103:24
-              |vpiParent:
-              \_operation: , line:103:12, endln:103:26
-              |vpiName:ctag_width_p
-              |vpiFullName:work@top.bp_icache_tag_info_s.tag.ctag_width_p
-              |vpiActual:
-              \_parameter: (work@top.ctag_width_p), line:152:18, endln:152:30
-            |vpiOperand:
-            \_constant: , line:103:25, endln:103:26
-              |vpiParent:
-              \_operation: , line:103:12, endln:103:26
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:103:27, endln:103:28
-            |vpiParent:
-            \_range: , line:103:11, endln:103:29
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@top.bp_icache_tag_info_s.tag
+        |vpiActual:
+        \_logic_typespec: , line:103:5, endln:103:29
       |vpiRefFile:${SURELOG_DIR}/tests/BlackConst/dut.sv
       |vpiRefLineNo:103
       |vpiRefColumnNo:5
@@ -2827,81 +2217,12 @@ design: (work@top)
       \_struct_typespec: (bp_icache_tag_mem_pkt_s), line:88:11, endln:95:4
       |vpiName:index
       |vpiTypespec:
-      \_logic_typespec: , line:90:5, endln:90:56
+      \_ref_typespec: (work@top.bp_icache_tag_mem_pkt_s.index)
         |vpiParent:
         \_typespec_member: (index), line:90:64, endln:90:69
-        |vpiRange:
-        \_range: , line:90:11, endln:90:56
-          |vpiParent:
-          \_logic_typespec: , line:90:5, endln:90:56
-          |vpiLeftRange:
-          \_operation: , line:90:12, endln:90:53
-            |vpiParent:
-            \_range: , line:90:11, endln:90:56
-            |vpiOpType:11
-            |vpiOperand:
-            \_operation: , line:90:14, endln:90:50
-              |vpiParent:
-              \_operation: , line:90:12, endln:90:53
-              |vpiOpType:32
-              |vpiOperand:
-              \_operation: , line:90:15, endln:90:26
-                |vpiParent:
-                \_operation: , line:90:14, endln:90:50
-                |vpiOpType:14
-                |vpiOperand:
-                \_ref_obj: (work@top.bp_icache_tag_mem_pkt_s.index.sets_p), line:90:16, endln:90:22
-                  |vpiParent:
-                  \_operation: , line:90:15, endln:90:26
-                  |vpiName:sets_p
-                  |vpiFullName:work@top.bp_icache_tag_mem_pkt_s.index.sets_p
-                  |vpiActual:
-                  \_parameter: (work@top.sets_p), line:149:17, endln:149:23
-                |vpiOperand:
-                \_constant: , line:90:25, endln:90:26
-                  |vpiParent:
-                  \_operation: , line:90:15, endln:90:26
-                  |vpiDecompile:1
-                  |vpiSize:64
-                  |UINT:1
-                  |vpiConstType:9
-              |vpiOperand:
-              \_constant: , line:90:30, endln:90:31
-                |vpiParent:
-                \_operation: , line:90:14, endln:90:50
-                |vpiDecompile:1
-                |vpiSize:64
-                |UINT:1
-                |vpiConstType:9
-              |vpiOperand:
-              \_sys_func_call: ($clog2), line:90:34, endln:90:50
-                |vpiParent:
-                \_operation: , line:90:14, endln:90:50
-                |vpiArgument:
-                \_ref_obj: (work@top.bp_icache_tag_mem_pkt_s.index.sets_p), line:90:42, endln:90:48
-                  |vpiParent:
-                  \_sys_func_call: ($clog2), line:90:34, endln:90:50
-                  |vpiName:sets_p
-                  |vpiFullName:work@top.bp_icache_tag_mem_pkt_s.index.sets_p
-                  |vpiActual:
-                  \_parameter: (work@top.sets_p), line:149:17, endln:149:23
-                |vpiName:$clog2
-            |vpiOperand:
-            \_constant: , line:90:52, endln:90:53
-              |vpiParent:
-              \_operation: , line:90:12, endln:90:53
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:90:54, endln:90:55
-            |vpiParent:
-            \_range: , line:90:11, endln:90:56
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@top.bp_icache_tag_mem_pkt_s.index
+        |vpiActual:
+        \_logic_typespec: , line:90:5, endln:90:56
       |vpiRefFile:${SURELOG_DIR}/tests/BlackConst/dut.sv
       |vpiRefLineNo:90
       |vpiRefColumnNo:5
@@ -2913,81 +2234,12 @@ design: (work@top)
       \_struct_typespec: (bp_icache_tag_mem_pkt_s), line:88:11, endln:95:4
       |vpiName:way_id
       |vpiTypespec:
-      \_logic_typespec: , line:91:4, endln:91:57
+      \_ref_typespec: (work@top.bp_icache_tag_mem_pkt_s.way_id)
         |vpiParent:
         \_typespec_member: (way_id), line:91:65, endln:91:71
-        |vpiRange:
-        \_range: , line:91:10, endln:91:57
-          |vpiParent:
-          \_logic_typespec: , line:91:4, endln:91:57
-          |vpiLeftRange:
-          \_operation: , line:91:11, endln:91:54
-            |vpiParent:
-            \_range: , line:91:10, endln:91:57
-            |vpiOpType:11
-            |vpiOperand:
-            \_operation: , line:91:13, endln:91:51
-              |vpiParent:
-              \_operation: , line:91:11, endln:91:54
-              |vpiOpType:32
-              |vpiOperand:
-              \_operation: , line:91:14, endln:91:26
-                |vpiParent:
-                \_operation: , line:91:13, endln:91:51
-                |vpiOpType:14
-                |vpiOperand:
-                \_ref_obj: (work@top.bp_icache_tag_mem_pkt_s.way_id.assoc_p), line:91:15, endln:91:22
-                  |vpiParent:
-                  \_operation: , line:91:14, endln:91:26
-                  |vpiName:assoc_p
-                  |vpiFullName:work@top.bp_icache_tag_mem_pkt_s.way_id.assoc_p
-                  |vpiActual:
-                  \_parameter: (work@top.assoc_p), line:148:17, endln:148:24
-                |vpiOperand:
-                \_constant: , line:91:25, endln:91:26
-                  |vpiParent:
-                  \_operation: , line:91:14, endln:91:26
-                  |vpiDecompile:1
-                  |vpiSize:64
-                  |UINT:1
-                  |vpiConstType:9
-              |vpiOperand:
-              \_constant: , line:91:30, endln:91:31
-                |vpiParent:
-                \_operation: , line:91:13, endln:91:51
-                |vpiDecompile:1
-                |vpiSize:64
-                |UINT:1
-                |vpiConstType:9
-              |vpiOperand:
-              \_sys_func_call: ($clog2), line:91:34, endln:91:51
-                |vpiParent:
-                \_operation: , line:91:13, endln:91:51
-                |vpiArgument:
-                \_ref_obj: (work@top.bp_icache_tag_mem_pkt_s.way_id.assoc_p), line:91:42, endln:91:49
-                  |vpiParent:
-                  \_sys_func_call: ($clog2), line:91:34, endln:91:51
-                  |vpiName:assoc_p
-                  |vpiFullName:work@top.bp_icache_tag_mem_pkt_s.way_id.assoc_p
-                  |vpiActual:
-                  \_parameter: (work@top.assoc_p), line:148:17, endln:148:24
-                |vpiName:$clog2
-            |vpiOperand:
-            \_constant: , line:91:53, endln:91:54
-              |vpiParent:
-              \_operation: , line:91:11, endln:91:54
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:91:55, endln:91:56
-            |vpiParent:
-            \_range: , line:91:10, endln:91:57
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@top.bp_icache_tag_mem_pkt_s.way_id
+        |vpiActual:
+        \_logic_typespec: , line:91:4, endln:91:57
       |vpiRefFile:${SURELOG_DIR}/tests/BlackConst/dut.sv
       |vpiRefLineNo:91
       |vpiRefColumnNo:4
@@ -2999,10 +2251,12 @@ design: (work@top)
       \_struct_typespec: (bp_icache_tag_mem_pkt_s), line:88:11, endln:95:4
       |vpiName:state
       |vpiTypespec:
-      \_int_typespec: , line:92:5, endln:92:8
+      \_ref_typespec: (work@top.bp_icache_tag_mem_pkt_s.state)
         |vpiParent:
         \_typespec_member: (state), line:92:37, endln:92:42
-        |vpiSigned:1
+        |vpiFullName:work@top.bp_icache_tag_mem_pkt_s.state
+        |vpiActual:
+        \_int_typespec: , line:92:5, endln:92:8
       |vpiRefFile:${SURELOG_DIR}/tests/BlackConst/dut.sv
       |vpiRefLineNo:92
       |vpiRefColumnNo:5
@@ -3014,42 +2268,12 @@ design: (work@top)
       \_struct_typespec: (bp_icache_tag_mem_pkt_s), line:88:11, endln:95:4
       |vpiName:tag
       |vpiTypespec:
-      \_logic_typespec: , line:93:5, endln:93:29
+      \_ref_typespec: (work@top.bp_icache_tag_mem_pkt_s.tag)
         |vpiParent:
         \_typespec_member: (tag), line:93:49, endln:93:52
-        |vpiRange:
-        \_range: , line:93:11, endln:93:29
-          |vpiParent:
-          \_logic_typespec: , line:93:5, endln:93:29
-          |vpiLeftRange:
-          \_operation: , line:93:12, endln:93:26
-            |vpiParent:
-            \_range: , line:93:11, endln:93:29
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (work@top.bp_icache_tag_mem_pkt_s.tag.ctag_width_p), line:93:12, endln:93:24
-              |vpiParent:
-              \_operation: , line:93:12, endln:93:26
-              |vpiName:ctag_width_p
-              |vpiFullName:work@top.bp_icache_tag_mem_pkt_s.tag.ctag_width_p
-              |vpiActual:
-              \_parameter: (work@top.ctag_width_p), line:152:18, endln:152:30
-            |vpiOperand:
-            \_constant: , line:93:25, endln:93:26
-              |vpiParent:
-              \_operation: , line:93:12, endln:93:26
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:93:27, endln:93:28
-            |vpiParent:
-            \_range: , line:93:11, endln:93:29
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@top.bp_icache_tag_mem_pkt_s.tag
+        |vpiActual:
+        \_logic_typespec: , line:93:5, endln:93:29
       |vpiRefFile:${SURELOG_DIR}/tests/BlackConst/dut.sv
       |vpiRefLineNo:93
       |vpiRefColumnNo:5
@@ -3061,10 +2285,12 @@ design: (work@top)
       \_struct_typespec: (bp_icache_tag_mem_pkt_s), line:88:11, endln:95:4
       |vpiName:opcode
       |vpiTypespec:
-      \_int_typespec: , line:94:5, endln:94:8
+      \_ref_typespec: (work@top.bp_icache_tag_mem_pkt_s.opcode)
         |vpiParent:
         \_typespec_member: (opcode), line:94:27, endln:94:33
-        |vpiSigned:1
+        |vpiFullName:work@top.bp_icache_tag_mem_pkt_s.opcode
+        |vpiActual:
+        \_int_typespec: , line:94:5, endln:94:8
       |vpiRefFile:${SURELOG_DIR}/tests/BlackConst/dut.sv
       |vpiRefLineNo:94
       |vpiRefColumnNo:5
@@ -3076,27 +2302,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackConst/dut.sv, line:142:1, endln:164:10
     |vpiTypespec:
-    \_logic_typespec: , line:144:3, endln:144:14
-      |vpiRange:
-      \_range: , line:144:8, endln:144:14
-        |vpiParent:
-        \_logic_typespec: , line:144:3, endln:144:14
-        |vpiLeftRange:
-        \_constant: , line:144:9, endln:144:11
-          |vpiParent:
-          \_range: , line:144:8, endln:144:14
-          |vpiDecompile:12
-          |vpiSize:64
-          |UINT:12
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:144:12, endln:144:13
-          |vpiParent:
-          \_range: , line:144:8, endln:144:14
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@top.pc)
+      |vpiParent:
+      \_logic_net: (work@top.pc), line:144:15, endln:144:17
+      |vpiFullName:work@top.pc
+      |vpiActual:
+      \_logic_typespec: , line:144:3, endln:144:14
     |vpiName:pc
     |vpiFullName:work@top.pc
     |vpiNetType:1
@@ -3105,27 +2316,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackConst/dut.sv, line:142:1, endln:164:10
     |vpiTypespec:
-    \_logic_typespec: , line:145:3, endln:145:13
-      |vpiRange:
-      \_range: , line:145:7, endln:145:13
-        |vpiParent:
-        \_logic_typespec: , line:145:3, endln:145:13
-        |vpiLeftRange:
-        \_constant: , line:145:8, endln:145:10
-          |vpiParent:
-          \_range: , line:145:7, endln:145:13
-          |vpiDecompile:12
-          |vpiSize:64
-          |UINT:12
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:145:11, endln:145:12
-          |vpiParent:
-          \_range: , line:145:7, endln:145:13
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@top.bp_coh_states_e)
+      |vpiParent:
+      \_logic_net: (work@top.bp_coh_states_e), line:145:14, endln:145:29
+      |vpiFullName:work@top.bp_coh_states_e
+      |vpiActual:
+      \_logic_typespec: , line:145:3, endln:145:13
     |vpiName:bp_coh_states_e
     |vpiFullName:work@top.bp_coh_states_e
     |vpiNetType:48
@@ -3134,37 +2330,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackConst/dut.sv, line:142:1, endln:164:10
     |vpiTypespec:
-    \_logic_typespec: , line:9:1, endln:9:26
-      |vpiRange:
-      \_range: , line:9:6, endln:9:26
-        |vpiParent:
-        \_logic_typespec: , line:9:1, endln:9:26
-        |vpiLeftRange:
-        \_operation: , line:9:7, endln:9:23
-          |vpiParent:
-          \_range: , line:9:6, endln:9:26
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (dword_width_gp), line:9:7, endln:9:21
-            |vpiParent:
-            \_operation: , line:9:7, endln:9:23
-            |vpiName:dword_width_gp
-          |vpiOperand:
-          \_constant: , line:9:22, endln:9:23
-            |vpiParent:
-            \_operation: , line:9:7, endln:9:23
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:9:24, endln:9:25
-          |vpiParent:
-          \_range: , line:9:6, endln:9:26
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@top.pc_sext_li)
+      |vpiParent:
+      \_logic_net: (work@top.pc_sext_li), line:9:27, endln:9:37
+      |vpiFullName:work@top.pc_sext_li
+      |vpiActual:
+      \_logic_typespec: , line:9:1, endln:9:26
     |vpiName:pc_sext_li
     |vpiFullName:work@top.pc_sext_li
     |vpiNetType:1
@@ -3247,6 +2418,42 @@ design: (work@top)
         |vpiDefName:work@GOOD
 |vpiTypedef:
 \_enum_typespec: (bp_cache_data_mem_opcode_e), line:42:3, endln:49:32
+  |vpiParent:
+  \_design: (work@top)
+  |vpiName:bp_cache_data_mem_opcode_e
+  |vpiInstance:
+  \_design: (work@top)
+  |vpiBaseTypespec:
+  \_ref_typespec: (bp_cache_data_mem_opcode_e)
+    |vpiParent:
+    \_enum_typespec: (bp_cache_data_mem_opcode_e), line:42:3, endln:49:32
+    |vpiFullName:bp_cache_data_mem_opcode_e
+    |vpiActual:
+    \_logic_typespec: , line:42:16, endln:42:27
+  |vpiEnumConst:
+  \_enum_const: (e_cache_data_mem_write), line:44:4, endln:44:26
+    |vpiParent:
+    \_enum_typespec: (bp_cache_data_mem_opcode_e), line:42:3, endln:49:32
+    |vpiName:e_cache_data_mem_write
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:2
+  |vpiEnumConst:
+  \_enum_const: (e_cache_data_mem_read), line:46:5, endln:46:26
+    |vpiParent:
+    \_enum_typespec: (bp_cache_data_mem_opcode_e), line:42:3, endln:49:32
+    |vpiName:e_cache_data_mem_read
+    |INT:1
+    |vpiDecompile:1
+    |vpiSize:2
+  |vpiEnumConst:
+  \_enum_const: (e_cache_data_mem_uncached), line:48:5, endln:48:30
+    |vpiParent:
+    \_enum_typespec: (bp_cache_data_mem_opcode_e), line:42:3, endln:49:32
+    |vpiName:e_cache_data_mem_uncached
+    |INT:2
+    |vpiDecompile:2
+    |vpiSize:2
 |vpiTypedef:
 \_enum_typespec: (bp_cache_stat_mem_opcode_e), line:64:3, endln:71:32
   |vpiParent:
@@ -3255,27 +2462,12 @@ design: (work@top)
   |vpiInstance:
   \_design: (work@top)
   |vpiBaseTypespec:
-  \_logic_typespec: , line:64:16, endln:64:27
-    |vpiRange:
-    \_range: , line:64:22, endln:64:27
-      |vpiParent:
-      \_logic_typespec: , line:64:16, endln:64:27
-      |vpiLeftRange:
-      \_constant: , line:64:23, endln:64:24
-        |vpiParent:
-        \_range: , line:64:22, endln:64:27
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-      |vpiRightRange:
-      \_constant: , line:64:25, endln:64:26
-        |vpiParent:
-        \_range: , line:64:22, endln:64:27
-        |vpiDecompile:0
-        |vpiSize:64
-        |UINT:0
-        |vpiConstType:9
+  \_ref_typespec: (bp_cache_stat_mem_opcode_e)
+    |vpiParent:
+    \_enum_typespec: (bp_cache_stat_mem_opcode_e), line:64:3, endln:71:32
+    |vpiFullName:bp_cache_stat_mem_opcode_e
+    |vpiActual:
+    \_logic_typespec: , line:64:16, endln:64:27
   |vpiEnumConst:
   \_enum_const: (e_cache_stat_mem_set_clear), line:66:4, endln:66:30
     |vpiParent:
@@ -3308,27 +2500,12 @@ design: (work@top)
   |vpiInstance:
   \_design: (work@top)
   |vpiBaseTypespec:
-  \_logic_typespec: , line:52:16, endln:52:27
-    |vpiRange:
-    \_range: , line:52:22, endln:52:27
-      |vpiParent:
-      \_logic_typespec: , line:52:16, endln:52:27
-      |vpiLeftRange:
-      \_constant: , line:52:23, endln:52:24
-        |vpiParent:
-        \_range: , line:52:22, endln:52:27
-        |vpiDecompile:2
-        |vpiSize:64
-        |UINT:2
-        |vpiConstType:9
-      |vpiRightRange:
-      \_constant: , line:52:25, endln:52:26
-        |vpiParent:
-        \_range: , line:52:22, endln:52:27
-        |vpiDecompile:0
-        |vpiSize:64
-        |UINT:0
-        |vpiConstType:9
+  \_ref_typespec: (bp_cache_tag_mem_opcode_e)
+    |vpiParent:
+    \_enum_typespec: (bp_cache_tag_mem_opcode_e), line:52:3, endln:61:31
+    |vpiFullName:bp_cache_tag_mem_opcode_e
+    |vpiActual:
+    \_logic_typespec: , line:52:16, endln:52:27
   |vpiEnumConst:
   \_enum_const: (e_cache_tag_mem_set_clear), line:54:4, endln:54:29
     |vpiParent:
@@ -3370,9 +2547,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackConst/dut.sv, line:142:1, endln:164:10
     |UINT:48
     |vpiTypespec:
-    \_int_typespec: , line:143:3, endln:143:32
+    \_ref_typespec: (work@top.dword_width_gp)
       |vpiParent:
       \_parameter: (work@top.dword_width_gp), line:143:13, endln:143:27
+      |vpiFullName:work@top.dword_width_gp
+      |vpiActual:
+      \_int_typespec: , line:143:3, endln:143:32
     |vpiName:dword_width_gp
     |vpiFullName:work@top.dword_width_gp
   |vpiParameter:
@@ -3381,10 +2561,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackConst/dut.sv, line:142:1, endln:164:10
     |UINT:12
     |vpiTypespec:
-    \_int_typespec: , line:147:13, endln:147:16
+    \_ref_typespec: (work@top.paddr_width_p)
       |vpiParent:
       \_parameter: (work@top.paddr_width_p), line:147:17, endln:147:30
-      |vpiSigned:1
+      |vpiFullName:work@top.paddr_width_p
+      |vpiActual:
+      \_int_typespec: , line:147:13, endln:147:16
     |vpiSigned:1
     |vpiName:paddr_width_p
     |vpiFullName:work@top.paddr_width_p
@@ -3394,10 +2576,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackConst/dut.sv, line:142:1, endln:164:10
     |UINT:13
     |vpiTypespec:
-    \_int_typespec: , line:148:13, endln:148:16
+    \_ref_typespec: (work@top.assoc_p)
       |vpiParent:
       \_parameter: (work@top.assoc_p), line:148:17, endln:148:24
-      |vpiSigned:1
+      |vpiFullName:work@top.assoc_p
+      |vpiActual:
+      \_int_typespec: , line:148:13, endln:148:16
     |vpiSigned:1
     |vpiName:assoc_p
     |vpiFullName:work@top.assoc_p
@@ -3407,10 +2591,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackConst/dut.sv, line:142:1, endln:164:10
     |UINT:14
     |vpiTypespec:
-    \_int_typespec: , line:149:13, endln:149:16
+    \_ref_typespec: (work@top.sets_p)
       |vpiParent:
       \_parameter: (work@top.sets_p), line:149:17, endln:149:23
-      |vpiSigned:1
+      |vpiFullName:work@top.sets_p
+      |vpiActual:
+      \_int_typespec: , line:149:13, endln:149:16
     |vpiSigned:1
     |vpiName:sets_p
     |vpiFullName:work@top.sets_p
@@ -3420,10 +2606,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackConst/dut.sv, line:142:1, endln:164:10
     |UINT:15
     |vpiTypespec:
-    \_int_typespec: , line:150:13, endln:150:16
+    \_ref_typespec: (work@top.fill_width_p)
       |vpiParent:
       \_parameter: (work@top.fill_width_p), line:150:17, endln:150:29
-      |vpiSigned:1
+      |vpiFullName:work@top.fill_width_p
+      |vpiActual:
+      \_int_typespec: , line:150:13, endln:150:16
     |vpiSigned:1
     |vpiName:fill_width_p
     |vpiFullName:work@top.fill_width_p
@@ -3433,10 +2621,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackConst/dut.sv, line:142:1, endln:164:10
     |UINT:16
     |vpiTypespec:
-    \_int_typespec: , line:151:13, endln:151:16
+    \_ref_typespec: (work@top.block_width_p)
       |vpiParent:
       \_parameter: (work@top.block_width_p), line:151:17, endln:151:30
-      |vpiSigned:1
+      |vpiFullName:work@top.block_width_p
+      |vpiActual:
+      \_int_typespec: , line:151:13, endln:151:16
     |vpiSigned:1
     |vpiName:block_width_p
     |vpiFullName:work@top.block_width_p
@@ -3446,10 +2636,12 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackConst/dut.sv, line:142:1, endln:164:10
     |UINT:17
     |vpiTypespec:
-    \_int_typespec: , line:152:13, endln:152:16
+    \_ref_typespec: (work@top.ctag_width_p)
       |vpiParent:
       \_parameter: (work@top.ctag_width_p), line:152:18, endln:152:30
-      |vpiSigned:1
+      |vpiFullName:work@top.ctag_width_p
+      |vpiActual:
+      \_int_typespec: , line:152:13, endln:152:16
     |vpiSigned:1
     |vpiName:ctag_width_p
     |vpiFullName:work@top.ctag_width_p
@@ -3471,7 +2663,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:48
       |vpiTypespec:
-      \_int_typespec: , line:143:3, endln:143:32
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:143:30, endln:143:32
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:143:3, endln:143:32
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.dword_width_gp), line:143:13, endln:143:27
@@ -3487,7 +2684,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:12
       |vpiTypespec:
-      \_int_typespec: , line:147:13, endln:147:16
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:147:33, endln:147:35
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:147:13, endln:147:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.paddr_width_p), line:147:17, endln:147:30
@@ -3503,7 +2705,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:13
       |vpiTypespec:
-      \_int_typespec: , line:148:13, endln:148:16
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:148:27, endln:148:29
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:148:13, endln:148:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.assoc_p), line:148:17, endln:148:24
@@ -3519,7 +2726,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:14
       |vpiTypespec:
-      \_int_typespec: , line:149:13, endln:149:16
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:149:26, endln:149:28
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:149:13, endln:149:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.sets_p), line:149:17, endln:149:23
@@ -3535,7 +2747,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:15
       |vpiTypespec:
-      \_int_typespec: , line:150:13, endln:150:16
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:150:32, endln:150:34
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:150:13, endln:150:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.fill_width_p), line:150:17, endln:150:29
@@ -3551,7 +2768,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:16
       |vpiTypespec:
-      \_int_typespec: , line:151:13, endln:151:16
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:151:33, endln:151:35
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:151:13, endln:151:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.block_width_p), line:151:17, endln:151:30
@@ -3567,7 +2789,12 @@ design: (work@top)
       |vpiSize:32
       |UINT:17
       |vpiTypespec:
-      \_int_typespec: , line:152:13, endln:152:16
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:152:33, endln:152:35
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:152:13, endln:152:16
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.ctag_width_p), line:152:18, endln:152:30
@@ -3583,8 +2810,12 @@ design: (work@top)
       |vpiSize:32
       |BIN:11111111111111111111111111111111111
       |vpiTypespec:
-      \_int_typespec: 
-        |UINT:1
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:13:3, endln:13:80
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: 
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@top.easy), line:12:11, endln:12:15
@@ -3609,27 +2840,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackConst/dut.sv, line:142:1, endln:164:10
     |vpiTypespec:
-    \_logic_typespec: , line:144:3, endln:144:14
-      |vpiRange:
-      \_range: , line:144:8, endln:144:14
-        |vpiParent:
-        \_logic_typespec: , line:144:3, endln:144:14
-        |vpiLeftRange:
-        \_constant: , line:144:9, endln:144:11
-          |vpiParent:
-          \_range: , line:144:8, endln:144:14
-          |vpiDecompile:12
-          |vpiSize:64
-          |UINT:12
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:144:12, endln:144:13
-          |vpiParent:
-          \_range: , line:144:8, endln:144:14
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+    \_ref_typespec: (work@top.pc)
+      |vpiParent:
+      \_logic_net: (work@top.pc), line:144:15, endln:144:17
+      |vpiFullName:work@top.pc
+      |vpiActual:
+      \_logic_typespec: , line:144:3, endln:144:14
     |vpiName:pc
     |vpiFullName:work@top.pc
     |vpiNetType:1
@@ -3638,29 +2854,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackConst/dut.sv, line:142:1, endln:164:10
     |vpiTypespec:
-    \_logic_typespec: , line:145:3, endln:145:13
+    \_ref_typespec: (work@top.bp_coh_states_e)
       |vpiParent:
       \_logic_net: (work@top.bp_coh_states_e), line:145:14, endln:145:29
-      |vpiRange:
-      \_range: , line:145:7, endln:145:13
-        |vpiParent:
-        \_logic_typespec: , line:145:3, endln:145:13
-        |vpiLeftRange:
-        \_constant: , line:145:8, endln:145:10
-          |vpiParent:
-          \_range: , line:145:7, endln:145:13
-          |vpiDecompile:12
-          |vpiSize:64
-          |UINT:12
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:145:11, endln:145:12
-          |vpiParent:
-          \_range: , line:145:7, endln:145:13
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@top.bp_coh_states_e
+      |vpiActual:
+      \_logic_typespec: , line:145:3, endln:145:13
     |vpiName:bp_coh_states_e
     |vpiFullName:work@top.bp_coh_states_e
     |vpiNetType:48
@@ -3669,29 +2868,12 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackConst/dut.sv, line:142:1, endln:164:10
     |vpiTypespec:
-    \_logic_typespec: , line:9:1, endln:9:26
+    \_ref_typespec: (work@top.pc_sext_li)
       |vpiParent:
       \_logic_net: (work@top.pc_sext_li), line:9:27, endln:9:37
-      |vpiRange:
-      \_range: , line:9:6, endln:9:26
-        |vpiParent:
-        \_logic_typespec: , line:9:1, endln:9:26
-        |vpiLeftRange:
-        \_constant: , line:9:7, endln:9:21
-          |vpiParent:
-          \_range: , line:9:6, endln:9:26
-          |vpiDecompile:47
-          |vpiSize:64
-          |INT:47
-          |vpiConstType:7
-        |vpiRightRange:
-        \_constant: , line:9:24, endln:9:25
-          |vpiParent:
-          \_range: , line:9:6, endln:9:26
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@top.pc_sext_li
+      |vpiActual:
+      \_logic_typespec: , line:9:1, endln:9:26
     |vpiName:pc_sext_li
     |vpiFullName:work@top.pc_sext_li
     |vpiNetType:1
@@ -3826,9 +3008,12 @@ design: (work@top)
             |vpiSize:32
             |UINT:48
             |vpiTypespec:
-            \_int_typespec: , line:143:3, endln:143:32
+            \_ref_typespec: (work@top.pc)
               |vpiParent:
               \_constant: , line:10:136, endln:10:150
+              |vpiFullName:work@top.pc
+              |vpiActual:
+              \_int_typespec: , line:143:3, endln:143:32
             |vpiConstType:9
           |vpiOperand:
           \_constant: , line:10:155, endln:10:164
@@ -3860,6 +3045,1421 @@ design: (work@top)
       |vpiFullName:work@top.pc
       |vpiActual:
       \_logic_net: (work@top.pc), line:144:15, endln:144:17
+\_weaklyReferenced:
+\_logic_typespec: , line:42:16, endln:42:27
+  |vpiRange:
+  \_range: , line:42:22, endln:42:27
+    |vpiParent:
+    \_logic_typespec: , line:42:16, endln:42:27
+    |vpiLeftRange:
+    \_constant: , line:42:23, endln:42:24
+      |vpiParent:
+      \_range: , line:42:22, endln:42:27
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:42:25, endln:42:26
+      |vpiParent:
+      \_range: , line:42:22, endln:42:27
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:52:16, endln:52:27
+  |vpiRange:
+  \_range: , line:52:22, endln:52:27
+    |vpiParent:
+    \_logic_typespec: , line:52:16, endln:52:27
+    |vpiLeftRange:
+    \_constant: , line:52:23, endln:52:24
+      |vpiParent:
+      \_range: , line:52:22, endln:52:27
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:52:25, endln:52:26
+      |vpiParent:
+      \_range: , line:52:22, endln:52:27
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:64:16, endln:64:27
+  |vpiRange:
+  \_range: , line:64:22, endln:64:27
+    |vpiParent:
+    \_logic_typespec: , line:64:16, endln:64:27
+    |vpiLeftRange:
+    \_constant: , line:64:23, endln:64:24
+      |vpiParent:
+      \_range: , line:64:22, endln:64:27
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:64:25, endln:64:26
+      |vpiParent:
+      \_range: , line:64:22, endln:64:27
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:143:3, endln:143:32
+\_int_typespec: , line:147:13, endln:147:16
+  |vpiParent:
+  \_parameter: (work@top.paddr_width_p), line:147:17, endln:147:30
+  |vpiSigned:1
+\_int_typespec: , line:148:13, endln:148:16
+  |vpiParent:
+  \_parameter: (work@top.assoc_p), line:148:17, endln:148:24
+  |vpiSigned:1
+\_int_typespec: , line:149:13, endln:149:16
+  |vpiParent:
+  \_parameter: (work@top.sets_p), line:149:17, endln:149:23
+  |vpiSigned:1
+\_int_typespec: , line:150:13, endln:150:16
+  |vpiParent:
+  \_parameter: (work@top.fill_width_p), line:150:17, endln:150:29
+  |vpiSigned:1
+\_int_typespec: , line:151:13, endln:151:16
+  |vpiParent:
+  \_parameter: (work@top.block_width_p), line:151:17, endln:151:30
+  |vpiSigned:1
+\_int_typespec: , line:152:13, endln:152:16
+  |vpiParent:
+  \_parameter: (work@top.ctag_width_p), line:152:18, endln:152:30
+  |vpiSigned:1
+\_logic_typespec: , line:21:5, endln:21:10
+  |vpiParent:
+  \_typespec_member: (hit), line:21:11, endln:21:14
+\_logic_typespec: , line:22:5, endln:22:31
+  |vpiParent:
+  \_typespec_member: (data), line:22:32, endln:22:36
+  |vpiRange:
+  \_range: , line:22:11, endln:22:31
+    |vpiParent:
+    \_logic_typespec: , line:22:5, endln:22:31
+    |vpiLeftRange:
+    \_operation: , line:22:12, endln:22:28
+      |vpiParent:
+      \_range: , line:22:11, endln:22:31
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@top.bp_icache_req_s.data.dword_width_gp), line:22:12, endln:22:26
+        |vpiParent:
+        \_operation: , line:22:12, endln:22:28
+        |vpiName:dword_width_gp
+        |vpiFullName:work@top.bp_icache_req_s.data.dword_width_gp
+        |vpiActual:
+        \_parameter: (work@top.dword_width_gp), line:143:13, endln:143:27
+      |vpiOperand:
+      \_constant: , line:22:27, endln:22:28
+        |vpiParent:
+        \_operation: , line:22:12, endln:22:28
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:22:29, endln:22:30
+      |vpiParent:
+      \_range: , line:22:11, endln:22:31
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:23:5, endln:23:8
+  |vpiParent:
+  \_typespec_member: (size), line:23:9, endln:23:13
+  |vpiSigned:1
+\_logic_typespec: , line:24:5, endln:24:30
+  |vpiParent:
+  \_typespec_member: (addr), line:24:31, endln:24:35
+  |vpiRange:
+  \_range: , line:24:11, endln:24:30
+    |vpiParent:
+    \_logic_typespec: , line:24:5, endln:24:30
+    |vpiLeftRange:
+    \_operation: , line:24:12, endln:24:27
+      |vpiParent:
+      \_range: , line:24:11, endln:24:30
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@top.bp_icache_req_s.addr.paddr_width_p), line:24:12, endln:24:25
+        |vpiParent:
+        \_operation: , line:24:12, endln:24:27
+        |vpiName:paddr_width_p
+        |vpiFullName:work@top.bp_icache_req_s.addr.paddr_width_p
+        |vpiActual:
+        \_parameter: (work@top.paddr_width_p), line:147:17, endln:147:30
+      |vpiOperand:
+      \_constant: , line:24:26, endln:24:27
+        |vpiParent:
+        \_operation: , line:24:12, endln:24:27
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:24:28, endln:24:29
+      |vpiParent:
+      \_range: , line:24:11, endln:24:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:25:5, endln:25:8
+  |vpiParent:
+  \_typespec_member: (msg_type), line:25:9, endln:25:17
+  |vpiSigned:1
+\_int_typespec: , line:26:5, endln:26:8
+  |vpiParent:
+  \_typespec_member: (subop), line:26:9, endln:26:14
+  |vpiSigned:1
+\_logic_typespec: , line:35:5, endln:35:58
+  |vpiParent:
+  \_typespec_member: (hit_or_repl_way), line:35:59, endln:35:74
+  |vpiRange:
+  \_range: , line:35:11, endln:35:58
+    |vpiParent:
+    \_logic_typespec: , line:35:5, endln:35:58
+    |vpiLeftRange:
+    \_operation: , line:35:12, endln:35:55
+      |vpiParent:
+      \_range: , line:35:11, endln:35:58
+      |vpiOpType:11
+      |vpiOperand:
+      \_operation: , line:35:14, endln:35:52
+        |vpiParent:
+        \_operation: , line:35:12, endln:35:55
+        |vpiOpType:32
+        |vpiOperand:
+        \_operation: , line:35:15, endln:35:27
+          |vpiParent:
+          \_operation: , line:35:14, endln:35:52
+          |vpiOpType:14
+          |vpiOperand:
+          \_ref_obj: (work@top.bp_icache_req_metadata_s.hit_or_repl_way.assoc_p), line:35:16, endln:35:23
+            |vpiParent:
+            \_operation: , line:35:15, endln:35:27
+            |vpiName:assoc_p
+            |vpiFullName:work@top.bp_icache_req_metadata_s.hit_or_repl_way.assoc_p
+            |vpiActual:
+            \_parameter: (work@top.assoc_p), line:148:17, endln:148:24
+          |vpiOperand:
+          \_constant: , line:35:26, endln:35:27
+            |vpiParent:
+            \_operation: , line:35:15, endln:35:27
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiOperand:
+        \_constant: , line:35:31, endln:35:32
+          |vpiParent:
+          \_operation: , line:35:14, endln:35:52
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiOperand:
+        \_sys_func_call: ($clog2), line:35:35, endln:35:52
+          |vpiParent:
+          \_operation: , line:35:14, endln:35:52
+          |vpiArgument:
+          \_ref_obj: (work@top.bp_icache_req_metadata_s.hit_or_repl_way.assoc_p), line:35:43, endln:35:50
+            |vpiParent:
+            \_sys_func_call: ($clog2), line:35:35, endln:35:52
+            |vpiName:assoc_p
+            |vpiFullName:work@top.bp_icache_req_metadata_s.hit_or_repl_way.assoc_p
+            |vpiActual:
+            \_parameter: (work@top.assoc_p), line:148:17, endln:148:24
+          |vpiName:$clog2
+      |vpiOperand:
+      \_constant: , line:35:54, endln:35:55
+        |vpiParent:
+        \_operation: , line:35:12, endln:35:55
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:35:56, endln:35:57
+      |vpiParent:
+      \_range: , line:35:11, endln:35:58
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:36:5, endln:36:10
+  |vpiParent:
+  \_typespec_member: (dirty), line:36:11, endln:36:16
+\_logic_typespec: , line:76:5, endln:76:56
+  |vpiParent:
+  \_typespec_member: (index), line:76:68, endln:76:73
+  |vpiRange:
+  \_range: , line:76:11, endln:76:56
+    |vpiParent:
+    \_logic_typespec: , line:76:5, endln:76:56
+    |vpiLeftRange:
+    \_operation: , line:76:12, endln:76:53
+      |vpiParent:
+      \_range: , line:76:11, endln:76:56
+      |vpiOpType:11
+      |vpiOperand:
+      \_operation: , line:76:14, endln:76:50
+        |vpiParent:
+        \_operation: , line:76:12, endln:76:53
+        |vpiOpType:32
+        |vpiOperand:
+        \_operation: , line:76:15, endln:76:26
+          |vpiParent:
+          \_operation: , line:76:14, endln:76:50
+          |vpiOpType:14
+          |vpiOperand:
+          \_ref_obj: (work@top.bp_icache_data_mem_pkt_s.index.sets_p), line:76:16, endln:76:22
+            |vpiParent:
+            \_operation: , line:76:15, endln:76:26
+            |vpiName:sets_p
+            |vpiFullName:work@top.bp_icache_data_mem_pkt_s.index.sets_p
+            |vpiActual:
+            \_parameter: (work@top.sets_p), line:149:17, endln:149:23
+          |vpiOperand:
+          \_constant: , line:76:25, endln:76:26
+            |vpiParent:
+            \_operation: , line:76:15, endln:76:26
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiOperand:
+        \_constant: , line:76:30, endln:76:31
+          |vpiParent:
+          \_operation: , line:76:14, endln:76:50
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiOperand:
+        \_sys_func_call: ($clog2), line:76:34, endln:76:50
+          |vpiParent:
+          \_operation: , line:76:14, endln:76:50
+          |vpiArgument:
+          \_ref_obj: (work@top.bp_icache_data_mem_pkt_s.index.sets_p), line:76:42, endln:76:48
+            |vpiParent:
+            \_sys_func_call: ($clog2), line:76:34, endln:76:50
+            |vpiName:sets_p
+            |vpiFullName:work@top.bp_icache_data_mem_pkt_s.index.sets_p
+            |vpiActual:
+            \_parameter: (work@top.sets_p), line:149:17, endln:149:23
+          |vpiName:$clog2
+      |vpiOperand:
+      \_constant: , line:76:52, endln:76:53
+        |vpiParent:
+        \_operation: , line:76:12, endln:76:53
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:76:54, endln:76:55
+      |vpiParent:
+      \_range: , line:76:11, endln:76:56
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:77:5, endln:77:58
+  |vpiParent:
+  \_typespec_member: (way_id), line:77:70, endln:77:76
+  |vpiRange:
+  \_range: , line:77:11, endln:77:58
+    |vpiParent:
+    \_logic_typespec: , line:77:5, endln:77:58
+    |vpiLeftRange:
+    \_operation: , line:77:12, endln:77:55
+      |vpiParent:
+      \_range: , line:77:11, endln:77:58
+      |vpiOpType:11
+      |vpiOperand:
+      \_operation: , line:77:14, endln:77:52
+        |vpiParent:
+        \_operation: , line:77:12, endln:77:55
+        |vpiOpType:32
+        |vpiOperand:
+        \_operation: , line:77:15, endln:77:27
+          |vpiParent:
+          \_operation: , line:77:14, endln:77:52
+          |vpiOpType:14
+          |vpiOperand:
+          \_ref_obj: (work@top.bp_icache_data_mem_pkt_s.way_id.assoc_p), line:77:16, endln:77:23
+            |vpiParent:
+            \_operation: , line:77:15, endln:77:27
+            |vpiName:assoc_p
+            |vpiFullName:work@top.bp_icache_data_mem_pkt_s.way_id.assoc_p
+            |vpiActual:
+            \_parameter: (work@top.assoc_p), line:148:17, endln:148:24
+          |vpiOperand:
+          \_constant: , line:77:26, endln:77:27
+            |vpiParent:
+            \_operation: , line:77:15, endln:77:27
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiOperand:
+        \_constant: , line:77:31, endln:77:32
+          |vpiParent:
+          \_operation: , line:77:14, endln:77:52
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiOperand:
+        \_sys_func_call: ($clog2), line:77:35, endln:77:52
+          |vpiParent:
+          \_operation: , line:77:14, endln:77:52
+          |vpiArgument:
+          \_ref_obj: (work@top.bp_icache_data_mem_pkt_s.way_id.assoc_p), line:77:43, endln:77:50
+            |vpiParent:
+            \_sys_func_call: ($clog2), line:77:35, endln:77:52
+            |vpiName:assoc_p
+            |vpiFullName:work@top.bp_icache_data_mem_pkt_s.way_id.assoc_p
+            |vpiActual:
+            \_parameter: (work@top.assoc_p), line:148:17, endln:148:24
+          |vpiName:$clog2
+      |vpiOperand:
+      \_constant: , line:77:54, endln:77:55
+        |vpiParent:
+        \_operation: , line:77:12, endln:77:55
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:77:56, endln:77:57
+      |vpiParent:
+      \_range: , line:77:11, endln:77:58
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:78:5, endln:78:29
+  |vpiParent:
+  \_typespec_member: (data), line:78:52, endln:78:56
+  |vpiRange:
+  \_range: , line:78:11, endln:78:29
+    |vpiParent:
+    \_logic_typespec: , line:78:5, endln:78:29
+    |vpiLeftRange:
+    \_operation: , line:78:12, endln:78:26
+      |vpiParent:
+      \_range: , line:78:11, endln:78:29
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@top.bp_icache_data_mem_pkt_s.data.fill_width_p), line:78:12, endln:78:24
+        |vpiParent:
+        \_operation: , line:78:12, endln:78:26
+        |vpiName:fill_width_p
+        |vpiFullName:work@top.bp_icache_data_mem_pkt_s.data.fill_width_p
+        |vpiActual:
+        \_parameter: (work@top.fill_width_p), line:150:17, endln:150:29
+      |vpiOperand:
+      \_constant: , line:78:25, endln:78:26
+        |vpiParent:
+        \_operation: , line:78:12, endln:78:26
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:78:27, endln:78:28
+      |vpiParent:
+      \_range: , line:78:11, endln:78:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:79:5, endln:79:45
+  |vpiParent:
+  \_typespec_member: (fill_index), line:79:46, endln:79:56
+  |vpiRange:
+  \_range: , line:79:11, endln:79:45
+    |vpiParent:
+    \_logic_typespec: , line:79:5, endln:79:45
+    |vpiLeftRange:
+    \_operation: , line:79:12, endln:79:42
+      |vpiParent:
+      \_range: , line:79:11, endln:79:45
+      |vpiOpType:11
+      |vpiOperand:
+      \_operation: , line:79:13, endln:79:39
+        |vpiParent:
+        \_operation: , line:79:12, endln:79:42
+        |vpiOpType:12
+        |vpiOperand:
+        \_ref_obj: (work@top.bp_icache_data_mem_pkt_s.fill_index.block_width_p), line:79:13, endln:79:26
+          |vpiParent:
+          \_operation: , line:79:13, endln:79:39
+          |vpiName:block_width_p
+          |vpiFullName:work@top.bp_icache_data_mem_pkt_s.fill_index.block_width_p
+          |vpiActual:
+          \_parameter: (work@top.block_width_p), line:151:17, endln:151:30
+        |vpiOperand:
+        \_ref_obj: (work@top.bp_icache_data_mem_pkt_s.fill_index.fill_width_p), line:79:27, endln:79:39
+          |vpiParent:
+          \_operation: , line:79:13, endln:79:39
+          |vpiName:fill_width_p
+          |vpiFullName:work@top.bp_icache_data_mem_pkt_s.fill_index.fill_width_p
+          |vpiActual:
+          \_parameter: (work@top.fill_width_p), line:150:17, endln:150:29
+      |vpiOperand:
+      \_constant: , line:79:41, endln:79:42
+        |vpiParent:
+        \_operation: , line:79:12, endln:79:42
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:79:43, endln:79:44
+      |vpiParent:
+      \_range: , line:79:11, endln:79:45
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:90:5, endln:90:56
+  |vpiParent:
+  \_typespec_member: (index), line:90:64, endln:90:69
+  |vpiRange:
+  \_range: , line:90:11, endln:90:56
+    |vpiParent:
+    \_logic_typespec: , line:90:5, endln:90:56
+    |vpiLeftRange:
+    \_operation: , line:90:12, endln:90:53
+      |vpiParent:
+      \_range: , line:90:11, endln:90:56
+      |vpiOpType:11
+      |vpiOperand:
+      \_operation: , line:90:14, endln:90:50
+        |vpiParent:
+        \_operation: , line:90:12, endln:90:53
+        |vpiOpType:32
+        |vpiOperand:
+        \_operation: , line:90:15, endln:90:26
+          |vpiParent:
+          \_operation: , line:90:14, endln:90:50
+          |vpiOpType:14
+          |vpiOperand:
+          \_ref_obj: (work@top.bp_icache_tag_mem_pkt_s.index.sets_p), line:90:16, endln:90:22
+            |vpiParent:
+            \_operation: , line:90:15, endln:90:26
+            |vpiName:sets_p
+            |vpiFullName:work@top.bp_icache_tag_mem_pkt_s.index.sets_p
+            |vpiActual:
+            \_parameter: (work@top.sets_p), line:149:17, endln:149:23
+          |vpiOperand:
+          \_constant: , line:90:25, endln:90:26
+            |vpiParent:
+            \_operation: , line:90:15, endln:90:26
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiOperand:
+        \_constant: , line:90:30, endln:90:31
+          |vpiParent:
+          \_operation: , line:90:14, endln:90:50
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiOperand:
+        \_sys_func_call: ($clog2), line:90:34, endln:90:50
+          |vpiParent:
+          \_operation: , line:90:14, endln:90:50
+          |vpiArgument:
+          \_ref_obj: (work@top.bp_icache_tag_mem_pkt_s.index.sets_p), line:90:42, endln:90:48
+            |vpiParent:
+            \_sys_func_call: ($clog2), line:90:34, endln:90:50
+            |vpiName:sets_p
+            |vpiFullName:work@top.bp_icache_tag_mem_pkt_s.index.sets_p
+            |vpiActual:
+            \_parameter: (work@top.sets_p), line:149:17, endln:149:23
+          |vpiName:$clog2
+      |vpiOperand:
+      \_constant: , line:90:52, endln:90:53
+        |vpiParent:
+        \_operation: , line:90:12, endln:90:53
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:90:54, endln:90:55
+      |vpiParent:
+      \_range: , line:90:11, endln:90:56
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:91:4, endln:91:57
+  |vpiParent:
+  \_typespec_member: (way_id), line:91:65, endln:91:71
+  |vpiRange:
+  \_range: , line:91:10, endln:91:57
+    |vpiParent:
+    \_logic_typespec: , line:91:4, endln:91:57
+    |vpiLeftRange:
+    \_operation: , line:91:11, endln:91:54
+      |vpiParent:
+      \_range: , line:91:10, endln:91:57
+      |vpiOpType:11
+      |vpiOperand:
+      \_operation: , line:91:13, endln:91:51
+        |vpiParent:
+        \_operation: , line:91:11, endln:91:54
+        |vpiOpType:32
+        |vpiOperand:
+        \_operation: , line:91:14, endln:91:26
+          |vpiParent:
+          \_operation: , line:91:13, endln:91:51
+          |vpiOpType:14
+          |vpiOperand:
+          \_ref_obj: (work@top.bp_icache_tag_mem_pkt_s.way_id.assoc_p), line:91:15, endln:91:22
+            |vpiParent:
+            \_operation: , line:91:14, endln:91:26
+            |vpiName:assoc_p
+            |vpiFullName:work@top.bp_icache_tag_mem_pkt_s.way_id.assoc_p
+            |vpiActual:
+            \_parameter: (work@top.assoc_p), line:148:17, endln:148:24
+          |vpiOperand:
+          \_constant: , line:91:25, endln:91:26
+            |vpiParent:
+            \_operation: , line:91:14, endln:91:26
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiOperand:
+        \_constant: , line:91:30, endln:91:31
+          |vpiParent:
+          \_operation: , line:91:13, endln:91:51
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiOperand:
+        \_sys_func_call: ($clog2), line:91:34, endln:91:51
+          |vpiParent:
+          \_operation: , line:91:13, endln:91:51
+          |vpiArgument:
+          \_ref_obj: (work@top.bp_icache_tag_mem_pkt_s.way_id.assoc_p), line:91:42, endln:91:49
+            |vpiParent:
+            \_sys_func_call: ($clog2), line:91:34, endln:91:51
+            |vpiName:assoc_p
+            |vpiFullName:work@top.bp_icache_tag_mem_pkt_s.way_id.assoc_p
+            |vpiActual:
+            \_parameter: (work@top.assoc_p), line:148:17, endln:148:24
+          |vpiName:$clog2
+      |vpiOperand:
+      \_constant: , line:91:53, endln:91:54
+        |vpiParent:
+        \_operation: , line:91:11, endln:91:54
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:91:55, endln:91:56
+      |vpiParent:
+      \_range: , line:91:10, endln:91:57
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:92:5, endln:92:8
+  |vpiParent:
+  \_typespec_member: (state), line:92:37, endln:92:42
+  |vpiSigned:1
+\_logic_typespec: , line:93:5, endln:93:29
+  |vpiParent:
+  \_typespec_member: (tag), line:93:49, endln:93:52
+  |vpiRange:
+  \_range: , line:93:11, endln:93:29
+    |vpiParent:
+    \_logic_typespec: , line:93:5, endln:93:29
+    |vpiLeftRange:
+    \_operation: , line:93:12, endln:93:26
+      |vpiParent:
+      \_range: , line:93:11, endln:93:29
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@top.bp_icache_tag_mem_pkt_s.tag.ctag_width_p), line:93:12, endln:93:24
+        |vpiParent:
+        \_operation: , line:93:12, endln:93:26
+        |vpiName:ctag_width_p
+        |vpiFullName:work@top.bp_icache_tag_mem_pkt_s.tag.ctag_width_p
+        |vpiActual:
+        \_parameter: (work@top.ctag_width_p), line:152:18, endln:152:30
+      |vpiOperand:
+      \_constant: , line:93:25, endln:93:26
+        |vpiParent:
+        \_operation: , line:93:12, endln:93:26
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:93:27, endln:93:28
+      |vpiParent:
+      \_range: , line:93:11, endln:93:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:94:5, endln:94:8
+  |vpiParent:
+  \_typespec_member: (opcode), line:94:27, endln:94:33
+  |vpiSigned:1
+\_logic_typespec: , line:102:5, endln:102:39
+  |vpiParent:
+  \_typespec_member: (state), line:102:40, endln:102:45
+  |vpiRange:
+  \_range: , line:102:11, endln:102:39
+    |vpiParent:
+    \_logic_typespec: , line:102:5, endln:102:39
+    |vpiLeftRange:
+    \_operation: , line:102:12, endln:102:36
+      |vpiParent:
+      \_range: , line:102:11, endln:102:39
+      |vpiOpType:11
+      |vpiOperand:
+      \_constant: , line:102:12, endln:102:34
+        |vpiParent:
+        \_operation: , line:102:12, endln:102:36
+        |vpiDecompile:13
+        |vpiSize:64
+        |UINT:13
+        |vpiConstType:9
+      |vpiOperand:
+      \_constant: , line:102:35, endln:102:36
+        |vpiParent:
+        \_operation: , line:102:12, endln:102:36
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:102:37, endln:102:38
+      |vpiParent:
+      \_range: , line:102:11, endln:102:39
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:103:5, endln:103:29
+  |vpiParent:
+  \_typespec_member: (tag), line:103:40, endln:103:43
+  |vpiRange:
+  \_range: , line:103:11, endln:103:29
+    |vpiParent:
+    \_logic_typespec: , line:103:5, endln:103:29
+    |vpiLeftRange:
+    \_operation: , line:103:12, endln:103:26
+      |vpiParent:
+      \_range: , line:103:11, endln:103:29
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@top.bp_icache_tag_info_s.tag.ctag_width_p), line:103:12, endln:103:24
+        |vpiParent:
+        \_operation: , line:103:12, endln:103:26
+        |vpiName:ctag_width_p
+        |vpiFullName:work@top.bp_icache_tag_info_s.tag.ctag_width_p
+        |vpiActual:
+        \_parameter: (work@top.ctag_width_p), line:152:18, endln:152:30
+      |vpiOperand:
+      \_constant: , line:103:25, endln:103:26
+        |vpiParent:
+        \_operation: , line:103:12, endln:103:26
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:103:27, endln:103:28
+      |vpiParent:
+      \_range: , line:103:11, endln:103:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:112:5, endln:112:56
+  |vpiParent:
+  \_typespec_member: (index), line:112:60, endln:112:65
+  |vpiRange:
+  \_range: , line:112:11, endln:112:56
+    |vpiParent:
+    \_logic_typespec: , line:112:5, endln:112:56
+    |vpiLeftRange:
+    \_operation: , line:112:12, endln:112:53
+      |vpiParent:
+      \_range: , line:112:11, endln:112:56
+      |vpiOpType:11
+      |vpiOperand:
+      \_operation: , line:112:14, endln:112:50
+        |vpiParent:
+        \_operation: , line:112:12, endln:112:53
+        |vpiOpType:32
+        |vpiOperand:
+        \_operation: , line:112:15, endln:112:26
+          |vpiParent:
+          \_operation: , line:112:14, endln:112:50
+          |vpiOpType:14
+          |vpiOperand:
+          \_ref_obj: (work@top.bp_icache_stat_mem_pkt_s.index.sets_p), line:112:16, endln:112:22
+            |vpiParent:
+            \_operation: , line:112:15, endln:112:26
+            |vpiName:sets_p
+            |vpiFullName:work@top.bp_icache_stat_mem_pkt_s.index.sets_p
+            |vpiActual:
+            \_parameter: (work@top.sets_p), line:149:17, endln:149:23
+          |vpiOperand:
+          \_constant: , line:112:25, endln:112:26
+            |vpiParent:
+            \_operation: , line:112:15, endln:112:26
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiOperand:
+        \_constant: , line:112:30, endln:112:31
+          |vpiParent:
+          \_operation: , line:112:14, endln:112:50
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiOperand:
+        \_sys_func_call: ($clog2), line:112:34, endln:112:50
+          |vpiParent:
+          \_operation: , line:112:14, endln:112:50
+          |vpiArgument:
+          \_ref_obj: (work@top.bp_icache_stat_mem_pkt_s.index.sets_p), line:112:42, endln:112:48
+            |vpiParent:
+            \_sys_func_call: ($clog2), line:112:34, endln:112:50
+            |vpiName:sets_p
+            |vpiFullName:work@top.bp_icache_stat_mem_pkt_s.index.sets_p
+            |vpiActual:
+            \_parameter: (work@top.sets_p), line:149:17, endln:149:23
+          |vpiName:$clog2
+      |vpiOperand:
+      \_constant: , line:112:52, endln:112:53
+        |vpiParent:
+        \_operation: , line:112:12, endln:112:53
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:112:54, endln:112:55
+      |vpiParent:
+      \_range: , line:112:11, endln:112:56
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:113:5, endln:113:58
+  |vpiParent:
+  \_typespec_member: (way_id), line:113:62, endln:113:68
+  |vpiRange:
+  \_range: , line:113:11, endln:113:58
+    |vpiParent:
+    \_logic_typespec: , line:113:5, endln:113:58
+    |vpiLeftRange:
+    \_operation: , line:113:12, endln:113:55
+      |vpiParent:
+      \_range: , line:113:11, endln:113:58
+      |vpiOpType:11
+      |vpiOperand:
+      \_operation: , line:113:14, endln:113:52
+        |vpiParent:
+        \_operation: , line:113:12, endln:113:55
+        |vpiOpType:32
+        |vpiOperand:
+        \_operation: , line:113:15, endln:113:27
+          |vpiParent:
+          \_operation: , line:113:14, endln:113:52
+          |vpiOpType:14
+          |vpiOperand:
+          \_ref_obj: (work@top.bp_icache_stat_mem_pkt_s.way_id.assoc_p), line:113:16, endln:113:23
+            |vpiParent:
+            \_operation: , line:113:15, endln:113:27
+            |vpiName:assoc_p
+            |vpiFullName:work@top.bp_icache_stat_mem_pkt_s.way_id.assoc_p
+            |vpiActual:
+            \_parameter: (work@top.assoc_p), line:148:17, endln:148:24
+          |vpiOperand:
+          \_constant: , line:113:26, endln:113:27
+            |vpiParent:
+            \_operation: , line:113:15, endln:113:27
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiOperand:
+        \_constant: , line:113:31, endln:113:32
+          |vpiParent:
+          \_operation: , line:113:14, endln:113:52
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiOperand:
+        \_sys_func_call: ($clog2), line:113:35, endln:113:52
+          |vpiParent:
+          \_operation: , line:113:14, endln:113:52
+          |vpiArgument:
+          \_ref_obj: (work@top.bp_icache_stat_mem_pkt_s.way_id.assoc_p), line:113:43, endln:113:50
+            |vpiParent:
+            \_sys_func_call: ($clog2), line:113:35, endln:113:52
+            |vpiName:assoc_p
+            |vpiFullName:work@top.bp_icache_stat_mem_pkt_s.way_id.assoc_p
+            |vpiActual:
+            \_parameter: (work@top.assoc_p), line:148:17, endln:148:24
+          |vpiName:$clog2
+      |vpiOperand:
+      \_constant: , line:113:54, endln:113:55
+        |vpiParent:
+        \_operation: , line:113:12, endln:113:55
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:113:56, endln:113:57
+      |vpiParent:
+      \_range: , line:113:11, endln:113:58
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:114:5, endln:114:8
+  |vpiParent:
+  \_typespec_member: (opcode), line:114:22, endln:114:28
+  |vpiSigned:1
+\_logic_typespec: , line:123:5, endln:123:54
+  |vpiParent:
+  \_typespec_member: (lru), line:123:55, endln:123:58
+  |vpiRange:
+  \_range: , line:123:11, endln:123:54
+    |vpiParent:
+    \_logic_typespec: , line:123:5, endln:123:54
+    |vpiLeftRange:
+    \_operation: , line:123:12, endln:123:51
+      |vpiParent:
+      \_range: , line:123:11, endln:123:54
+      |vpiOpType:32
+      |vpiOperand:
+      \_operation: , line:123:14, endln:123:27
+        |vpiParent:
+        \_operation: , line:123:12, endln:123:51
+        |vpiOpType:20
+        |vpiOperand:
+        \_ref_obj: (work@top.bp_icache_stat_info_s.lru.assoc_p), line:123:15, endln:123:22
+          |vpiParent:
+          \_operation: , line:123:14, endln:123:27
+          |vpiName:assoc_p
+          |vpiFullName:work@top.bp_icache_stat_info_s.lru.assoc_p
+          |vpiActual:
+          \_parameter: (work@top.assoc_p), line:148:17, endln:148:24
+        |vpiOperand:
+        \_constant: , line:123:25, endln:123:26
+          |vpiParent:
+          \_operation: , line:123:14, endln:123:27
+          |vpiDecompile:2
+          |vpiSize:64
+          |UINT:2
+          |vpiConstType:9
+      |vpiOperand:
+      \_constant: , line:123:32, endln:123:33
+        |vpiParent:
+        \_operation: , line:123:12, endln:123:51
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiOperand:
+      \_operation: , line:123:37, endln:123:50
+        |vpiParent:
+        \_operation: , line:123:12, endln:123:51
+        |vpiOpType:11
+        |vpiOperand:
+        \_ref_obj: (work@top.bp_icache_stat_info_s.lru.assoc_p), line:123:38, endln:123:45
+          |vpiParent:
+          \_operation: , line:123:37, endln:123:50
+          |vpiName:assoc_p
+          |vpiFullName:work@top.bp_icache_stat_info_s.lru.assoc_p
+          |vpiActual:
+          \_parameter: (work@top.assoc_p), line:148:17, endln:148:24
+        |vpiOperand:
+        \_constant: , line:123:48, endln:123:49
+          |vpiParent:
+          \_operation: , line:123:37, endln:123:50
+          |vpiDecompile:2
+          |vpiSize:64
+          |UINT:2
+          |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:123:52, endln:123:53
+      |vpiParent:
+      \_range: , line:123:11, endln:123:54
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:124:5, endln:124:24
+  |vpiParent:
+  \_typespec_member: (dirty), line:124:43, endln:124:48
+  |vpiRange:
+  \_range: , line:124:11, endln:124:24
+    |vpiParent:
+    \_logic_typespec: , line:124:5, endln:124:24
+    |vpiLeftRange:
+    \_operation: , line:124:12, endln:124:21
+      |vpiParent:
+      \_range: , line:124:11, endln:124:24
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@top.bp_icache_stat_info_s.dirty.assoc_p), line:124:12, endln:124:19
+        |vpiParent:
+        \_operation: , line:124:12, endln:124:21
+        |vpiName:assoc_p
+        |vpiFullName:work@top.bp_icache_stat_info_s.dirty.assoc_p
+        |vpiActual:
+        \_parameter: (work@top.assoc_p), line:148:17, endln:148:24
+      |vpiOperand:
+      \_constant: , line:124:20, endln:124:21
+        |vpiParent:
+        \_operation: , line:124:12, endln:124:21
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:124:22, endln:124:23
+      |vpiParent:
+      \_range: , line:124:11, endln:124:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: 
+  |UINT:1
+\_logic_typespec: , line:144:3, endln:144:14
+  |vpiRange:
+  \_range: , line:144:8, endln:144:14
+    |vpiParent:
+    \_logic_typespec: , line:144:3, endln:144:14
+    |vpiLeftRange:
+    \_constant: , line:144:9, endln:144:11
+      |vpiParent:
+      \_range: , line:144:8, endln:144:14
+      |vpiDecompile:12
+      |vpiSize:64
+      |UINT:12
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:144:12, endln:144:13
+      |vpiParent:
+      \_range: , line:144:8, endln:144:14
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:145:3, endln:145:13
+  |vpiParent:
+  \_logic_net: (work@top.bp_coh_states_e), line:145:14, endln:145:29
+  |vpiRange:
+  \_range: , line:145:7, endln:145:13
+    |vpiParent:
+    \_logic_typespec: , line:145:3, endln:145:13
+    |vpiLeftRange:
+    \_constant: , line:145:8, endln:145:10
+      |vpiParent:
+      \_range: , line:145:7, endln:145:13
+      |vpiDecompile:12
+      |vpiSize:64
+      |UINT:12
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:145:11, endln:145:12
+      |vpiParent:
+      \_range: , line:145:7, endln:145:13
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:9:1, endln:9:26
+  |vpiParent:
+  \_logic_net: (work@top.pc_sext_li), line:9:27, endln:9:37
+  |vpiRange:
+  \_range: , line:9:6, endln:9:26
+    |vpiParent:
+    \_logic_typespec: , line:9:1, endln:9:26
+    |vpiLeftRange:
+    \_constant: , line:9:7, endln:9:21
+      |vpiParent:
+      \_range: , line:9:6, endln:9:26
+      |vpiDecompile:47
+      |vpiSize:64
+      |INT:47
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:9:24, endln:9:25
+      |vpiParent:
+      \_range: , line:9:6, endln:9:26
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_operation: , line:10:79, endln:10:90
+  |vpiParent:
+  \_bit_select: (work@top.pc), line:10:79, endln:10:90
+  |vpiOpType:11
+  |vpiOperand:
+  \_constant: , line:10:79, endln:10:88
+  |vpiOperand:
+  \_constant: , line:10:89, endln:10:90
+\_bit_select: (work@top.pc), line:10:79, endln:10:90
+  |vpiParent:
+  \_operation: , line:10:75, endln:10:92
+  |vpiName:pc
+  |vpiFullName:work@top.pc
+  |vpiIndex:
+  \_operation: , line:10:79, endln:10:90
+\_operation: , line:10:75, endln:10:92
+  |vpiParent:
+  \_operation: , line:10:5, endln:10:93
+  |vpiOpType:33
+  |vpiOperand:
+  \_bit_select: (work@top.pc), line:10:79, endln:10:90
+\_operation: , line:10:5, endln:10:93
+  |vpiParent:
+  \_operation: , line:10:4, endln:10:168
+  |vpiOpType:34
+  |vpiOperand:
+  \_operation: , line:10:7, endln:10:74
+    |vpiParent:
+    \_operation: , line:10:5, endln:10:93
+    |vpiOpType:32
+    |vpiOperand:
+    \_operation: , line:10:8, endln:10:38
+      |vpiParent:
+      \_operation: , line:10:7, endln:10:74
+      |vpiOpType:18
+      |vpiOperand:
+      \_operation: , line:10:9, endln:10:33
+        |vpiParent:
+        \_operation: , line:10:8, endln:10:38
+        |vpiOpType:11
+        |vpiOperand:
+        \_constant: , line:10:9, endln:10:23
+          |vpiParent:
+          \_operation: , line:10:9, endln:10:33
+          |vpiDecompile:48
+          |vpiSize:32
+          |UINT:48
+          |vpiTypespec:
+          \_ref_typespec: (work@top)
+            |vpiParent:
+            \_constant: , line:10:9, endln:10:23
+            |vpiFullName:work@top
+            |vpiActual:
+            \_int_typespec: , line:143:3, endln:143:32
+          |vpiConstType:9
+        |vpiOperand:
+        \_constant: , line:10:24, endln:10:33
+          |vpiParent:
+          \_operation: , line:10:9, endln:10:33
+          |vpiDecompile:13
+          |vpiSize:64
+          |UINT:13
+          |vpiConstType:9
+      |vpiOperand:
+      \_constant: , line:10:36, endln:10:37
+        |vpiParent:
+        \_operation: , line:10:8, endln:10:38
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiOperand:
+    \_operation: , line:10:43, endln:10:67
+      |vpiParent:
+      \_operation: , line:10:7, endln:10:74
+      |vpiOpType:11
+      |vpiOperand:
+      \_constant: , line:10:43, endln:10:57
+        |vpiParent:
+        \_operation: , line:10:43, endln:10:67
+        |vpiDecompile:48
+        |vpiSize:32
+        |UINT:48
+        |vpiTypespec:
+        \_ref_typespec: (work@top)
+          |vpiParent:
+          \_constant: , line:10:43, endln:10:57
+          |vpiFullName:work@top
+          |vpiActual:
+          \_int_typespec: , line:143:3, endln:143:32
+        |vpiConstType:9
+      |vpiOperand:
+      \_constant: , line:10:58, endln:10:67
+        |vpiParent:
+        \_operation: , line:10:43, endln:10:67
+        |vpiDecompile:13
+        |vpiSize:64
+        |UINT:13
+        |vpiConstType:9
+    |vpiOperand:
+    \_constant: , line:10:72, endln:10:73
+      |vpiParent:
+      \_operation: , line:10:7, endln:10:74
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiOperand:
+  \_operation: , line:10:75, endln:10:92
+\_int_typespec: , line:143:3, endln:143:32
+  |vpiParent:
+  \_ref_typespec: (work@top)
+\_int_typespec: , line:143:3, endln:143:32
+  |vpiParent:
+  \_ref_typespec: (work@top)
+\_operation: , line:10:102, endln:10:165
+  |vpiParent:
+  \_indexed_part_select: pc (work@top.pc), line:10:98, endln:10:166
+  |vpiOpType:32
+  |vpiOperand:
+  \_operation: , line:10:103, endln:10:131
+    |vpiParent:
+    \_operation: , line:10:102, endln:10:165
+    |vpiOpType:20
+    |vpiOperand:
+    \_constant: , line:10:104, endln:10:118
+      |vpiParent:
+      \_operation: , line:10:103, endln:10:131
+      |vpiDecompile:48
+      |vpiSize:32
+      |UINT:48
+      |vpiTypespec:
+      \_ref_typespec: (work@top.pc)
+        |vpiParent:
+        \_constant: , line:10:104, endln:10:118
+        |vpiFullName:work@top.pc
+        |vpiActual:
+        \_int_typespec: , line:143:3, endln:143:32
+      |vpiConstType:9
+    |vpiOperand:
+    \_constant: , line:10:121, endln:10:130
+      |vpiParent:
+      \_operation: , line:10:103, endln:10:131
+      |vpiDecompile:13
+      |vpiSize:64
+      |UINT:13
+      |vpiConstType:9
+  |vpiOperand:
+  \_constant: , line:10:136, endln:10:150
+  |vpiOperand:
+  \_constant: , line:10:155, endln:10:164
+\_indexed_part_select: pc (work@top.pc), line:10:98, endln:10:166
+  |vpiParent:
+  \_operation: , line:10:4, endln:10:168
+  |vpiName:pc
+  |vpiFullName:work@top.pc
+  |vpiDefName:pc
+  |vpiConstantSelect:1
+  |vpiIndexedPartSelectType:1
+  |vpiBaseExpr:
+  \_constant: , line:10:98, endln:10:99
+  |vpiWidthExpr:
+  \_operation: , line:10:102, endln:10:165
+\_int_typespec: , line:143:3, endln:143:32
+  |vpiParent:
+  \_ref_typespec: (work@top.pc)
+\_int_typespec: , line:143:3, endln:143:32
+  |vpiParent:
+  \_ref_typespec: (work@top.pc)
+\_logic_typespec: , line:144:3, endln:144:14
+  |vpiRange:
+  \_range: , line:144:8, endln:144:14
+    |vpiParent:
+    \_logic_typespec: , line:144:3, endln:144:14
+    |vpiLeftRange:
+    \_constant: , line:144:9, endln:144:11
+      |vpiParent:
+      \_range: , line:144:8, endln:144:14
+      |vpiDecompile:12
+      |vpiSize:64
+      |UINT:12
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:144:12, endln:144:13
+      |vpiParent:
+      \_range: , line:144:8, endln:144:14
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:145:3, endln:145:13
+  |vpiRange:
+  \_range: , line:145:7, endln:145:13
+    |vpiParent:
+    \_logic_typespec: , line:145:3, endln:145:13
+    |vpiLeftRange:
+    \_constant: , line:145:8, endln:145:10
+      |vpiParent:
+      \_range: , line:145:7, endln:145:13
+      |vpiDecompile:12
+      |vpiSize:64
+      |UINT:12
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:145:11, endln:145:12
+      |vpiParent:
+      \_range: , line:145:7, endln:145:13
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:9:1, endln:9:26
+  |vpiRange:
+  \_range: , line:9:6, endln:9:26
+    |vpiParent:
+    \_logic_typespec: , line:9:1, endln:9:26
+    |vpiLeftRange:
+    \_operation: , line:9:7, endln:9:23
+      |vpiParent:
+      \_range: , line:9:6, endln:9:26
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (dword_width_gp), line:9:7, endln:9:21
+        |vpiParent:
+        \_operation: , line:9:7, endln:9:23
+        |vpiName:dword_width_gp
+      |vpiOperand:
+      \_constant: , line:9:22, endln:9:23
+        |vpiParent:
+        \_operation: , line:9:7, endln:9:23
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:9:24, endln:9:25
+      |vpiParent:
+      \_range: , line:9:6, endln:9:26
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:143:3, endln:143:32
+  |vpiParent:
+  \_ref_typespec: (work@top.dword_width_gp)
+\_int_typespec: , line:147:13, endln:147:16
+  |vpiParent:
+  \_ref_typespec: (work@top.paddr_width_p)
+  |vpiSigned:1
+\_int_typespec: , line:148:13, endln:148:16
+  |vpiParent:
+  \_ref_typespec: (work@top.assoc_p)
+  |vpiSigned:1
+\_int_typespec: , line:149:13, endln:149:16
+  |vpiParent:
+  \_ref_typespec: (work@top.sets_p)
+  |vpiSigned:1
+\_int_typespec: , line:150:13, endln:150:16
+  |vpiParent:
+  \_ref_typespec: (work@top.fill_width_p)
+  |vpiSigned:1
+\_int_typespec: , line:151:13, endln:151:16
+  |vpiParent:
+  \_ref_typespec: (work@top.block_width_p)
+  |vpiSigned:1
+\_int_typespec: , line:152:13, endln:152:16
+  |vpiParent:
+  \_ref_typespec: (work@top.ctag_width_p)
+  |vpiSigned:1
+\_operation: , line:10:4, endln:10:168
+  |vpiParent:
+  \_cont_assign: , line:9:27, endln:9:37
+  |vpiOpType:33
+  |vpiOperand:
+  \_operation: , line:10:5, endln:10:93
+  |vpiOperand:
+  \_indexed_part_select: pc (work@top.pc), line:10:98, endln:10:166
+\_cont_assign: , line:9:27, endln:9:37
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackConst/dut.sv, line:142:1, endln:164:10
+  |vpiNetDeclAssign:1
+  |vpiRhs:
+  \_operation: , line:10:4, endln:10:168
+  |vpiLhs:
+  \_logic_net: (work@top.pc_sext_li), line:9:27, endln:9:37
+    |vpiParent:
+    \_cont_assign: , line:9:27, endln:9:37
+    |vpiTypespec:
+    \_ref_typespec: (work@top.pc_sext_li)
+      |vpiParent:
+      \_logic_net: (work@top.pc_sext_li), line:9:27, endln:9:37
+      |vpiFullName:work@top.pc_sext_li
+      |vpiActual:
+      \_logic_typespec: , line:9:1, endln:9:26
+    |vpiName:pc_sext_li
+    |vpiFullName:work@top.pc_sext_li
+    |vpiNetType:1
+\_logic_typespec: , line:9:1, endln:9:26
+  |vpiRange:
+  \_range: , line:9:6, endln:9:26
+    |vpiParent:
+    \_logic_typespec: , line:9:1, endln:9:26
+    |vpiLeftRange:
+    \_constant: , line:9:7, endln:9:21
+      |vpiParent:
+      \_range: , line:9:6, endln:9:26
+      |vpiDecompile:47
+      |vpiSize:64
+      |INT:47
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:9:24, endln:9:25
+      |vpiParent:
+      \_range: , line:9:6, endln:9:26
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_cont_assign: , line:146:10, endln:146:17
+  |vpiParent:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BlackConst/dut.sv, line:142:1, endln:164:10
+  |vpiRhs:
+  \_constant: , line:146:15, endln:146:17
+  |vpiLhs:
+  \_ref_obj: (work@top.pc), line:146:10, endln:146:12
+    |vpiParent:
+    \_cont_assign: , line:146:10, endln:146:17
+    |vpiName:pc
+    |vpiFullName:work@top.pc
+    |vpiActual:
+    \_logic_net: (work@top.pc), line:144:15, endln:144:17
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

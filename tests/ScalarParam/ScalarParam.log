@@ -154,6 +154,7 @@ parameter                                              2
 range                                                  2
 ref_module                                             3
 ref_obj                                                1
+ref_typespec                                           4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 
@@ -172,6 +173,7 @@ parameter                                              2
 range                                                  2
 ref_module                                             3
 ref_obj                                                1
+ref_typespec                                           4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ScalarParam/slpp_all/surelog.uhdm ...
 
@@ -216,29 +218,12 @@ design: (work@dut)
     \_module_inst: work@param_test (work@param_test), file:${SURELOG_DIR}/tests/ScalarParam/dut.sv, line:4:1, endln:10:10
     |HEX:2
     |vpiTypespec:
-    \_bit_typespec: , line:5:11, endln:5:20
+    \_ref_typespec: (work@param_test.DRspDepth)
       |vpiParent:
       \_parameter: (work@param_test.DRspDepth), line:5:25, endln:5:34
-      |vpiRange:
-      \_range: , line:5:15, endln:5:20
-        |vpiParent:
-        \_bit_typespec: , line:5:11, endln:5:20
-        |vpiLeftRange:
-        \_constant: , line:5:16, endln:5:17
-          |vpiParent:
-          \_range: , line:5:15, endln:5:20
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:5:18, endln:5:19
-          |vpiParent:
-          \_range: , line:5:15, endln:5:20
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@param_test.DRspDepth
+      |vpiActual:
+      \_bit_typespec: , line:5:11, endln:5:20
     |vpiName:DRspDepth
     |vpiFullName:work@param_test.DRspDepth
   |vpiParamAssign:
@@ -253,7 +238,12 @@ design: (work@dut)
       |vpiSize:4
       |HEX:2
       |vpiTypespec:
-      \_bit_typespec: , line:5:11, endln:5:20
+      \_ref_typespec: (work@param_test)
+        |vpiParent:
+        \_constant: , line:5:37, endln:5:41
+        |vpiFullName:work@param_test
+        |vpiActual:
+        \_bit_typespec: , line:5:11, endln:5:20
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (work@param_test.DRspDepth), line:5:25, endln:5:34
@@ -310,29 +300,12 @@ design: (work@dut)
       \_module_inst: work@param_test (work@dut.t1), file:${SURELOG_DIR}/tests/ScalarParam/dut.sv, line:14:3, endln:16:11
       |HEX:2
       |vpiTypespec:
-      \_bit_typespec: , line:5:11, endln:5:20
+      \_ref_typespec: (work@dut.t1.DRspDepth)
         |vpiParent:
         \_parameter: (work@dut.t1.DRspDepth), line:5:25, endln:5:34
-        |vpiRange:
-        \_range: , line:5:15, endln:5:20
-          |vpiParent:
-          \_bit_typespec: , line:5:11, endln:5:20
-          |vpiLeftRange:
-          \_constant: , line:5:16, endln:5:17
-            |vpiParent:
-            \_range: , line:5:15, endln:5:20
-            |vpiDecompile:3
-            |vpiSize:64
-            |UINT:3
-            |vpiConstType:9
-          |vpiRightRange:
-          \_constant: , line:5:18, endln:5:19
-            |vpiParent:
-            \_range: , line:5:15, endln:5:20
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
+        |vpiFullName:work@dut.t1.DRspDepth
+        |vpiActual:
+        \_bit_typespec: , line:5:11, endln:5:20
       |vpiName:DRspDepth
       |vpiFullName:work@dut.t1.DRspDepth
     |vpiParamAssign:
@@ -348,7 +321,12 @@ design: (work@dut)
         |vpiSize:4
         |HEX:0
         |vpiTypespec:
-        \_bit_typespec: , line:5:11, endln:5:20
+        \_ref_typespec: (work@dut.t1)
+          |vpiParent:
+          \_constant: , line:5:37, endln:5:41
+          |vpiFullName:work@dut.t1
+          |vpiActual:
+          \_bit_typespec: , line:5:11, endln:5:20
         |vpiConstType:5
       |vpiLhs:
       \_parameter: (work@dut.t1.DRspDepth), line:5:25, endln:5:34
@@ -377,6 +355,53 @@ design: (work@dut)
           |vpiDefName:work@GOOD
           |vpiDefFile:${SURELOG_DIR}/tests/ScalarParam/dut.sv
           |vpiDefLineNo:1
+\_weaklyReferenced:
+\_bit_typespec: , line:5:11, endln:5:20
+  |vpiParent:
+  \_parameter: (work@param_test.DRspDepth), line:5:25, endln:5:34
+  |vpiRange:
+  \_range: , line:5:15, endln:5:20
+    |vpiParent:
+    \_bit_typespec: , line:5:11, endln:5:20
+    |vpiLeftRange:
+    \_constant: , line:5:16, endln:5:17
+      |vpiParent:
+      \_range: , line:5:15, endln:5:20
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:18, endln:5:19
+      |vpiParent:
+      \_range: , line:5:15, endln:5:20
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_bit_typespec: , line:5:11, endln:5:20
+  |vpiParent:
+  \_ref_typespec: (work@dut.t1.DRspDepth)
+  |vpiRange:
+  \_range: , line:5:15, endln:5:20
+    |vpiParent:
+    \_bit_typespec: , line:5:11, endln:5:20
+    |vpiLeftRange:
+    \_constant: , line:5:16, endln:5:17
+      |vpiParent:
+      \_range: , line:5:15, endln:5:20
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:18, endln:5:19
+      |vpiParent:
+      \_range: , line:5:15, endln:5:20
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

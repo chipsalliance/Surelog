@@ -279,6 +279,7 @@ parameter                                             14
 range                                                 21
 ref_module                                             6
 ref_obj                                                9
+ref_typespec                                          52
 ref_var                                                1
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
@@ -306,6 +307,7 @@ parameter                                             14
 range                                                 21
 ref_module                                             6
 ref_obj                                                9
+ref_typespec                                          60
 ref_var                                                1
 unsupported_typespec                                   1
 === UHDM Object Stats End ===
@@ -338,10 +340,12 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ConstantRange/dut.sv, line:6:1, endln:21:10
     |UINT:8
     |vpiTypespec:
-    \_int_typespec: , line:7:11, endln:7:14
+    \_ref_typespec: (work@dut.NMioPads)
       |vpiParent:
       \_parameter: (work@dut.NMioPads), line:7:15, endln:7:23
-      |vpiSigned:1
+      |vpiFullName:work@dut.NMioPads
+      |vpiActual:
+      \_int_typespec: , line:7:11, endln:7:14
     |vpiSigned:1
     |vpiName:NMioPads
     |vpiFullName:work@dut.NMioPads
@@ -351,40 +355,12 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ConstantRange/dut.sv, line:6:1, endln:21:10
     |BIN:11110000
     |vpiTypespec:
-    \_logic_typespec: , line:8:11, endln:8:33
+    \_ref_typespec: (work@dut.ConnectDioIn)
       |vpiParent:
       \_parameter: (work@dut.ConnectDioIn), line:8:34, endln:8:46
-      |vpiRange:
-      \_range: , line:8:17, endln:8:33
-        |vpiParent:
-        \_logic_typespec: , line:8:11, endln:8:33
-        |vpiLeftRange:
-        \_operation: , line:8:18, endln:8:30
-          |vpiParent:
-          \_range: , line:8:17, endln:8:33
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (work@dut.ConnectDioIn.NMioPads), line:8:18, endln:8:26
-            |vpiParent:
-            \_operation: , line:8:18, endln:8:30
-            |vpiName:NMioPads
-            |vpiFullName:work@dut.ConnectDioIn.NMioPads
-          |vpiOperand:
-          \_constant: , line:8:29, endln:8:30
-            |vpiParent:
-            \_operation: , line:8:18, endln:8:30
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:8:31, endln:8:32
-          |vpiParent:
-          \_range: , line:8:17, endln:8:33
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@dut.ConnectDioIn
+      |vpiActual:
+      \_logic_typespec: , line:8:11, endln:8:33
     |vpiName:ConnectDioIn
     |vpiFullName:work@dut.ConnectDioIn
   |vpiParameter:
@@ -393,40 +369,12 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ConstantRange/dut.sv, line:6:1, endln:21:10
     |BIN:11110000
     |vpiTypespec:
-    \_logic_typespec: , line:9:11, endln:9:33
+    \_ref_typespec: (work@dut.ConnectDioOut)
       |vpiParent:
       \_parameter: (work@dut.ConnectDioOut), line:9:34, endln:9:47
-      |vpiRange:
-      \_range: , line:9:17, endln:9:33
-        |vpiParent:
-        \_logic_typespec: , line:9:11, endln:9:33
-        |vpiLeftRange:
-        \_operation: , line:9:18, endln:9:30
-          |vpiParent:
-          \_range: , line:9:17, endln:9:33
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (work@dut.ConnectDioOut.NMioPads), line:9:18, endln:9:26
-            |vpiParent:
-            \_operation: , line:9:18, endln:9:30
-            |vpiName:NMioPads
-            |vpiFullName:work@dut.ConnectDioOut.NMioPads
-          |vpiOperand:
-          \_constant: , line:9:29, endln:9:30
-            |vpiParent:
-            \_operation: , line:9:18, endln:9:30
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:9:31, endln:9:32
-          |vpiParent:
-          \_range: , line:9:17, endln:9:33
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@dut.ConnectDioOut
+      |vpiActual:
+      \_logic_typespec: , line:9:11, endln:9:33
     |vpiName:ConnectDioOut
     |vpiFullName:work@dut.ConnectDioOut
   |vpiParamAssign:
@@ -441,7 +389,12 @@ design: (work@dut)
       |vpiSize:64
       |UINT:8
       |vpiTypespec:
-      \_int_typespec: , line:7:11, endln:7:14
+      \_ref_typespec: (work@dut)
+        |vpiParent:
+        \_constant: , line:7:26, endln:7:27
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_int_typespec: , line:7:11, endln:7:14
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@dut.NMioPads), line:7:15, endln:7:23
@@ -457,7 +410,12 @@ design: (work@dut)
       |vpiSize:8
       |BIN:11110000
       |vpiTypespec:
-      \_logic_typespec: , line:8:11, endln:8:33
+      \_ref_typespec: (work@dut)
+        |vpiParent:
+        \_constant: , line:8:49, endln:8:60
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_logic_typespec: , line:8:11, endln:8:33
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@dut.ConnectDioIn), line:8:34, endln:8:46
@@ -473,7 +431,12 @@ design: (work@dut)
       |vpiSize:8
       |BIN:11110000
       |vpiTypespec:
-      \_logic_typespec: , line:9:11, endln:9:33
+      \_ref_typespec: (work@dut)
+        |vpiParent:
+        \_constant: , line:9:50, endln:9:61
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_logic_typespec: , line:9:11, endln:9:33
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@dut.ConnectDioOut), line:9:34, endln:9:47
@@ -504,7 +467,12 @@ design: (work@dut)
         |vpiParent:
         \_assign_stmt: , line:11:6, endln:11:18
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@dut.k)
+          |vpiParent:
+          \_int_var: (work@dut.k), line:11:13, endln:11:14
+          |vpiFullName:work@dut.k
+          |vpiActual:
+          \_int_typespec: 
         |vpiName:k
         |vpiFullName:work@dut.k
     |vpiCondition:
@@ -628,10 +596,12 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ConstantRange/dut.sv, line:6:1, endln:21:10
     |UINT:8
     |vpiTypespec:
-    \_int_typespec: , line:7:11, endln:7:14
+    \_ref_typespec: (work@dut.NMioPads)
       |vpiParent:
       \_parameter: (work@dut.NMioPads), line:7:15, endln:7:23
-      |vpiSigned:1
+      |vpiFullName:work@dut.NMioPads
+      |vpiActual:
+      \_int_typespec: , line:7:11, endln:7:14
     |vpiSigned:1
     |vpiName:NMioPads
     |vpiFullName:work@dut.NMioPads
@@ -641,42 +611,12 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ConstantRange/dut.sv, line:6:1, endln:21:10
     |BIN:11110000
     |vpiTypespec:
-    \_logic_typespec: , line:8:11, endln:8:33
+    \_ref_typespec: (work@dut.ConnectDioIn)
       |vpiParent:
       \_parameter: (work@dut.ConnectDioIn), line:8:34, endln:8:46
-      |vpiRange:
-      \_range: , line:8:17, endln:8:33
-        |vpiParent:
-        \_logic_typespec: , line:8:11, endln:8:33
-        |vpiLeftRange:
-        \_operation: , line:8:18, endln:8:30
-          |vpiParent:
-          \_range: , line:8:17, endln:8:33
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (work@dut.ConnectDioIn.NMioPads), line:8:18, endln:8:26
-            |vpiParent:
-            \_operation: , line:8:18, endln:8:30
-            |vpiName:NMioPads
-            |vpiFullName:work@dut.ConnectDioIn.NMioPads
-            |vpiActual:
-            \_parameter: (work@dut.NMioPads), line:7:15, endln:7:23
-          |vpiOperand:
-          \_constant: , line:8:29, endln:8:30
-            |vpiParent:
-            \_operation: , line:8:18, endln:8:30
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:8:31, endln:8:32
-          |vpiParent:
-          \_range: , line:8:17, endln:8:33
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@dut.ConnectDioIn
+      |vpiActual:
+      \_logic_typespec: , line:8:11, endln:8:33
     |vpiName:ConnectDioIn
     |vpiFullName:work@dut.ConnectDioIn
   |vpiParameter:
@@ -685,42 +625,12 @@ design: (work@dut)
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/ConstantRange/dut.sv, line:6:1, endln:21:10
     |BIN:11110000
     |vpiTypespec:
-    \_logic_typespec: , line:9:11, endln:9:33
+    \_ref_typespec: (work@dut.ConnectDioOut)
       |vpiParent:
       \_parameter: (work@dut.ConnectDioOut), line:9:34, endln:9:47
-      |vpiRange:
-      \_range: , line:9:17, endln:9:33
-        |vpiParent:
-        \_logic_typespec: , line:9:11, endln:9:33
-        |vpiLeftRange:
-        \_operation: , line:9:18, endln:9:30
-          |vpiParent:
-          \_range: , line:9:17, endln:9:33
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (work@dut.ConnectDioOut.NMioPads), line:9:18, endln:9:26
-            |vpiParent:
-            \_operation: , line:9:18, endln:9:30
-            |vpiName:NMioPads
-            |vpiFullName:work@dut.ConnectDioOut.NMioPads
-            |vpiActual:
-            \_parameter: (work@dut.NMioPads), line:7:15, endln:7:23
-          |vpiOperand:
-          \_constant: , line:9:29, endln:9:30
-            |vpiParent:
-            \_operation: , line:9:18, endln:9:30
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:9:31, endln:9:32
-          |vpiParent:
-          \_range: , line:9:17, endln:9:33
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
+      |vpiFullName:work@dut.ConnectDioOut
+      |vpiActual:
+      \_logic_typespec: , line:9:11, endln:9:33
     |vpiName:ConnectDioOut
     |vpiFullName:work@dut.ConnectDioOut
   |vpiParamAssign:
@@ -735,7 +645,12 @@ design: (work@dut)
       |vpiSize:32
       |UINT:8
       |vpiTypespec:
-      \_int_typespec: , line:7:11, endln:7:14
+      \_ref_typespec: (work@dut)
+        |vpiParent:
+        \_constant: , line:7:26, endln:7:27
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_int_typespec: , line:7:11, endln:7:14
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@dut.NMioPads), line:7:15, endln:7:23
@@ -751,17 +666,12 @@ design: (work@dut)
       |vpiSize:8
       |BIN:11110000
       |vpiTypespec:
-      \_logic_typespec: 
-        |vpiRange:
-        \_range: 
-          |vpiParent:
-          \_logic_typespec: 
-          |vpiLeftRange:
-          \_constant: 
-            |UINT:7
-          |vpiRightRange:
-          \_constant: 
-            |UINT:0
+      \_ref_typespec: (work@dut)
+        |vpiParent:
+        \_constant: , line:8:49, endln:8:60
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_logic_typespec: 
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@dut.ConnectDioIn), line:8:34, endln:8:46
@@ -777,17 +687,12 @@ design: (work@dut)
       |vpiSize:8
       |BIN:11110000
       |vpiTypespec:
-      \_logic_typespec: 
-        |vpiRange:
-        \_range: 
-          |vpiParent:
-          \_logic_typespec: 
-          |vpiLeftRange:
-          \_constant: 
-            |UINT:7
-          |vpiRightRange:
-          \_constant: 
-            |UINT:0
+      \_ref_typespec: (work@dut)
+        |vpiParent:
+        \_constant: , line:9:50, endln:9:61
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_logic_typespec: 
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@dut.ConnectDioOut), line:9:34, endln:9:47
@@ -811,7 +716,12 @@ design: (work@dut)
         \_gen_scope: (work@dut.gen_mio_pads[0]), line:11:39, endln:15:4
         |UINT:0
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@dut.gen_mio_pads[0].k)
+          |vpiParent:
+          \_parameter: (work@dut.gen_mio_pads[0].k), line:11:0
+          |vpiFullName:work@dut.gen_mio_pads[0].k
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:k
         |vpiFullName:work@dut.gen_mio_pads[0].k
@@ -832,7 +742,12 @@ design: (work@dut)
         \_gen_scope: (work@dut.gen_mio_pads[1]), line:11:39, endln:15:4
         |UINT:1
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@dut.gen_mio_pads[1].k)
+          |vpiParent:
+          \_parameter: (work@dut.gen_mio_pads[1].k), line:11:0
+          |vpiFullName:work@dut.gen_mio_pads[1].k
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:k
         |vpiFullName:work@dut.gen_mio_pads[1].k
@@ -853,7 +768,12 @@ design: (work@dut)
         \_gen_scope: (work@dut.gen_mio_pads[2]), line:11:39, endln:15:4
         |UINT:2
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@dut.gen_mio_pads[2].k)
+          |vpiParent:
+          \_parameter: (work@dut.gen_mio_pads[2].k), line:11:0
+          |vpiFullName:work@dut.gen_mio_pads[2].k
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:k
         |vpiFullName:work@dut.gen_mio_pads[2].k
@@ -874,7 +794,12 @@ design: (work@dut)
         \_gen_scope: (work@dut.gen_mio_pads[3]), line:11:39, endln:15:4
         |UINT:3
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@dut.gen_mio_pads[3].k)
+          |vpiParent:
+          \_parameter: (work@dut.gen_mio_pads[3].k), line:11:0
+          |vpiFullName:work@dut.gen_mio_pads[3].k
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:k
         |vpiFullName:work@dut.gen_mio_pads[3].k
@@ -895,7 +820,12 @@ design: (work@dut)
         \_gen_scope: (work@dut.gen_mio_pads[4]), line:11:39, endln:15:4
         |UINT:4
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@dut.gen_mio_pads[4].k)
+          |vpiParent:
+          \_parameter: (work@dut.gen_mio_pads[4].k), line:11:0
+          |vpiFullName:work@dut.gen_mio_pads[4].k
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:k
         |vpiFullName:work@dut.gen_mio_pads[4].k
@@ -936,7 +866,12 @@ design: (work@dut)
         \_gen_scope: (work@dut.gen_mio_pads[5]), line:11:39, endln:15:4
         |UINT:5
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@dut.gen_mio_pads[5].k)
+          |vpiParent:
+          \_parameter: (work@dut.gen_mio_pads[5].k), line:11:0
+          |vpiFullName:work@dut.gen_mio_pads[5].k
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:k
         |vpiFullName:work@dut.gen_mio_pads[5].k
@@ -977,7 +912,12 @@ design: (work@dut)
         \_gen_scope: (work@dut.gen_mio_pads[6]), line:11:39, endln:15:4
         |UINT:6
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@dut.gen_mio_pads[6].k)
+          |vpiParent:
+          \_parameter: (work@dut.gen_mio_pads[6].k), line:11:0
+          |vpiFullName:work@dut.gen_mio_pads[6].k
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:k
         |vpiFullName:work@dut.gen_mio_pads[6].k
@@ -1018,7 +958,12 @@ design: (work@dut)
         \_gen_scope: (work@dut.gen_mio_pads[7]), line:11:39, endln:15:4
         |UINT:7
         |vpiTypespec:
-        \_int_typespec: 
+        \_ref_typespec: (work@dut.gen_mio_pads[7].k)
+          |vpiParent:
+          \_parameter: (work@dut.gen_mio_pads[7].k), line:11:0
+          |vpiFullName:work@dut.gen_mio_pads[7].k
+          |vpiActual:
+          \_int_typespec: 
         |vpiLocalParam:1
         |vpiName:k
         |vpiFullName:work@dut.gen_mio_pads[7].k
@@ -1042,6 +987,186 @@ design: (work@dut)
             |vpiDefName:work@GOOD
             |vpiDefFile:${SURELOG_DIR}/tests/ConstantRange/dut.sv
             |vpiDefLineNo:1
+\_weaklyReferenced:
+\_int_typespec: , line:7:11, endln:7:14
+  |vpiParent:
+  \_parameter: (work@dut.NMioPads), line:7:15, endln:7:23
+  |vpiSigned:1
+\_logic_typespec: , line:8:11, endln:8:33
+  |vpiParent:
+  \_parameter: (work@dut.ConnectDioIn), line:8:34, endln:8:46
+  |vpiRange:
+  \_range: , line:8:17, endln:8:33
+    |vpiParent:
+    \_logic_typespec: , line:8:11, endln:8:33
+    |vpiLeftRange:
+    \_operation: , line:8:18, endln:8:30
+      |vpiParent:
+      \_range: , line:8:17, endln:8:33
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@dut.ConnectDioIn.NMioPads), line:8:18, endln:8:26
+        |vpiParent:
+        \_operation: , line:8:18, endln:8:30
+        |vpiName:NMioPads
+        |vpiFullName:work@dut.ConnectDioIn.NMioPads
+      |vpiOperand:
+      \_constant: , line:8:29, endln:8:30
+        |vpiParent:
+        \_operation: , line:8:18, endln:8:30
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:8:31, endln:8:32
+      |vpiParent:
+      \_range: , line:8:17, endln:8:33
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:9:11, endln:9:33
+  |vpiParent:
+  \_parameter: (work@dut.ConnectDioOut), line:9:34, endln:9:47
+  |vpiRange:
+  \_range: , line:9:17, endln:9:33
+    |vpiParent:
+    \_logic_typespec: , line:9:11, endln:9:33
+    |vpiLeftRange:
+    \_operation: , line:9:18, endln:9:30
+      |vpiParent:
+      \_range: , line:9:17, endln:9:33
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@dut.ConnectDioOut.NMioPads), line:9:18, endln:9:26
+        |vpiParent:
+        \_operation: , line:9:18, endln:9:30
+        |vpiName:NMioPads
+        |vpiFullName:work@dut.ConnectDioOut.NMioPads
+      |vpiOperand:
+      \_constant: , line:9:29, endln:9:30
+        |vpiParent:
+        \_operation: , line:9:18, endln:9:30
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:9:31, endln:9:32
+      |vpiParent:
+      \_range: , line:9:17, endln:9:33
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: 
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_logic_typespec: 
+    |vpiLeftRange:
+    \_constant: 
+      |UINT:7
+    |vpiRightRange:
+    \_constant: 
+      |UINT:0
+\_logic_typespec: 
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_logic_typespec: 
+    |vpiLeftRange:
+    \_constant: 
+      |UINT:7
+    |vpiRightRange:
+    \_constant: 
+      |UINT:0
+\_int_typespec: , line:7:11, endln:7:14
+  |vpiParent:
+  \_ref_typespec: (work@dut.NMioPads)
+  |vpiSigned:1
+\_logic_typespec: , line:8:11, endln:8:33
+  |vpiParent:
+  \_ref_typespec: (work@dut.ConnectDioIn)
+  |vpiRange:
+  \_range: , line:8:17, endln:8:33
+    |vpiParent:
+    \_logic_typespec: , line:8:11, endln:8:33
+    |vpiLeftRange:
+    \_operation: , line:8:18, endln:8:30
+      |vpiParent:
+      \_range: , line:8:17, endln:8:33
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@dut.ConnectDioIn.NMioPads), line:8:18, endln:8:26
+        |vpiParent:
+        \_operation: , line:8:18, endln:8:30
+        |vpiName:NMioPads
+        |vpiFullName:work@dut.ConnectDioIn.NMioPads
+        |vpiActual:
+        \_parameter: (work@dut.NMioPads), line:7:15, endln:7:23
+      |vpiOperand:
+      \_constant: , line:8:29, endln:8:30
+        |vpiParent:
+        \_operation: , line:8:18, endln:8:30
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:8:31, endln:8:32
+      |vpiParent:
+      \_range: , line:8:17, endln:8:33
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:9:11, endln:9:33
+  |vpiParent:
+  \_ref_typespec: (work@dut.ConnectDioOut)
+  |vpiRange:
+  \_range: , line:9:17, endln:9:33
+    |vpiParent:
+    \_logic_typespec: , line:9:11, endln:9:33
+    |vpiLeftRange:
+    \_operation: , line:9:18, endln:9:30
+      |vpiParent:
+      \_range: , line:9:17, endln:9:33
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@dut.ConnectDioOut.NMioPads), line:9:18, endln:9:26
+        |vpiParent:
+        \_operation: , line:9:18, endln:9:30
+        |vpiName:NMioPads
+        |vpiFullName:work@dut.ConnectDioOut.NMioPads
+        |vpiActual:
+        \_parameter: (work@dut.NMioPads), line:7:15, endln:7:23
+      |vpiOperand:
+      \_constant: , line:9:29, endln:9:30
+        |vpiParent:
+        \_operation: , line:9:18, endln:9:30
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:9:31, endln:9:32
+      |vpiParent:
+      \_range: , line:9:17, endln:9:33
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
