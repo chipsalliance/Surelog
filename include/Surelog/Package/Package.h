@@ -84,8 +84,12 @@ class Package : public DesignComponent {
 
   Package* getUnElabPackage() { return m_unElabPackage; }
 
+  std::string_view getEndLabel() const { return m_endLabel; }
+  void setEndLabel(std::string_view endLabel) { m_endLabel = endLabel; }
+
  private:
   std::string m_name;
+  std::string m_endLabel;
   Library* m_library;
   ExprBuilder m_exprBuilder;
   ClassNameClassDefinitionMultiMap m_classDefinitions;

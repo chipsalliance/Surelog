@@ -98,22 +98,38 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
   void setModuleArrays(std::vector<UHDM::module_array*>* modules) {
     m_moduleArrays = modules;
   }
-  
+
   std::vector<UHDM::ref_module*>* getRefModules() { return m_ref_modules; }
   void setRefModules(std::vector<UHDM::ref_module*>* modules) {
     m_ref_modules = modules;
   }
 
   UHDM::VectorOfprimitive* getPrimitives() { return m_subPrimitives; }
-  UHDM::VectorOfprimitive_array* getPrimitiveArrays() { return m_subPrimitiveArrays; }
-  UHDM::VectorOfgen_scope_array* getGenScopeArrays() { return m_subGenScopeArrays; }
+  UHDM::VectorOfprimitive_array* getPrimitiveArrays() {
+    return m_subPrimitiveArrays;
+  }
+  UHDM::VectorOfgen_scope_array* getGenScopeArrays() {
+    return m_subGenScopeArrays;
+  }
   std::vector<UHDM::gen_stmt*>* getGenStmts() { return m_genStmts; }
-  void setPrimitives(UHDM::VectorOfprimitive* primitives) { m_subPrimitives = primitives; }
-  void setPrimitiveArrays(UHDM::VectorOfprimitive_array* primitives) { m_subPrimitiveArrays = primitives; }
-  void setGenScopeArrays(UHDM::VectorOfgen_scope_array* gen_arrays) { m_subGenScopeArrays = gen_arrays; }
-  void setGenStmts(std::vector<UHDM::gen_stmt*>* gen_stmts) { m_genStmts = gen_stmts; }
+  void setPrimitives(UHDM::VectorOfprimitive* primitives) {
+    m_subPrimitives = primitives;
+  }
+  void setPrimitiveArrays(UHDM::VectorOfprimitive_array* primitives) {
+    m_subPrimitiveArrays = primitives;
+  }
+  void setGenScopeArrays(UHDM::VectorOfgen_scope_array* gen_arrays) {
+    m_subGenScopeArrays = gen_arrays;
+  }
+  void setGenStmts(std::vector<UHDM::gen_stmt*>* gen_stmts) {
+    m_genStmts = gen_stmts;
+  }
+  std::string_view getEndLabel() const { return m_endLabel; }
+  void setEndLabel(std::string_view endLabel) { m_endLabel = endLabel; }
+
  private:
   const std::string m_name;
+  std::string m_endLabel;
   ModPortSignalMap m_modportSignalMap;
   ModPortClockingBlockMap m_modportClockingBlockMap;
   ClassNameClassDefinitionMultiMap m_classDefinitions;

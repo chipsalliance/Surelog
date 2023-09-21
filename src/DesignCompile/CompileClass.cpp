@@ -227,6 +227,7 @@ bool CompileClass::compile() {
           if (fC->Type(fC->Parent(id)) != VObjectType::paClass_declaration)
             break;
           const std::string_view endLabel = fC->SymName(id);
+          m_class->setEndLabel(endLabel);
           std::string_view moduleName =
               StringUtils::ltrim_until(m_class->getName(), '@');
           if (endLabel != moduleName) {

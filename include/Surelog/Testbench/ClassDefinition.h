@@ -119,8 +119,12 @@ class ClassDefinition : public DesignComponent, public DataType {
     return true;
   }
 
+  std::string_view getEndLabel() const { return m_endLabel; }
+  void setEndLabel(std::string_view endLabel) { m_endLabel = endLabel; }
+
  private:
   std::string m_name;
+  std::string m_endLabel;
   Library* m_library;
   DesignComponent* m_container;
   ClassDefinition* m_parent;

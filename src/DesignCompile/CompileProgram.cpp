@@ -342,6 +342,7 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
           if (fC->Type(fC->Parent(id)) != VObjectType::paProgram_declaration)
             break;
           const std::string_view endLabel = fC->SymName(id);
+          m_program->setEndLabel(endLabel);
           std::string_view moduleName =
               StringUtils::ltrim_until(m_program->getName(), '@');
           if (endLabel != moduleName) {

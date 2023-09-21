@@ -274,8 +274,8 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       NodeId item = fC->Child(the_stmt);
       VectorOfany* stmts = s.MakeAnyVec();
       UHDM::scope* scope = nullptr;
-      std::string label;
-      NodeId labelId;
+      std::string label, endLabel;
+      NodeId labelId, endLabelId;
       if (fC->Type(item) == VObjectType::slStringConst) {
         labelId = item;
         item = fC->Sibling(item);
@@ -287,12 +287,26 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
           if (fC->Type(Label) == VObjectType::slStringConst) labelId = Label;
         }
       }
-
-      if (labelId) {
+      NodeId tempItem = item;
+      while (tempItem) {
+        if (fC->Type(tempItem) == VObjectType::paEND) {
+          if ((endLabelId = fC->Sibling(tempItem))) {
+            break;
+          }
+        }
+        tempItem = fC->Sibling(tempItem);
+      }
+      if (labelId || endLabelId) {
         UHDM::named_begin* begin = s.MakeNamed_begin();
         begin->Stmts(stmts);
-        label = fC->SymName(labelId);
-        begin->VpiName(label);
+        if (labelId) {
+          label = fC->SymName(labelId);
+          begin->VpiName(label);
+        }
+        if (endLabelId) {
+          endLabel = fC->SymName(endLabelId);
+          begin->VpiEndLabel(endLabel);
+        }
         stmt = begin;
         scope = begin;
       } else {
@@ -304,26 +318,19 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       }
       scope->VpiParent(pstmt);
       fC->populateCoreMembers(labelId, labelId, scope);
-      while (item) {
-        if (item && (fC->Type(item) == VObjectType::paEND)) {
-          if (NodeId endLabel = fC->Sibling(item)) {
-            const std::string_view endlabel = fC->SymName(endLabel);
-            if (endlabel != label) {
-              ErrorContainer* errors =
-                  compileDesign->getCompiler()->getErrorContainer();
-              SymbolTable* symbols =
-                  compileDesign->getCompiler()->getSymbolTable();
-              Location loc(fC->getFileId(), fC->Line(labelId),
-                           fC->Column(labelId), symbols->registerSymbol(label));
-              Location loc2(fC->getFileId(), fC->Line(endLabel),
-                            fC->Column(endLabel),
-                            symbols->registerSymbol(endlabel));
-              Error err(ErrorDefinition::COMP_UNMATCHED_LABEL, loc, loc2);
-              errors->addError(err);
-            }
-          }
-          break;
-        }
+      if (labelId && endLabelId && (label != endLabel)) {
+        ErrorContainer* errors =
+            compileDesign->getCompiler()->getErrorContainer();
+        SymbolTable* symbols = compileDesign->getCompiler()->getSymbolTable();
+        Location loc(fC->getFileId(), fC->Line(labelId), fC->Column(labelId),
+                     symbols->registerSymbol(label));
+        Location loc2(fC->getFileId(), fC->Line(endLabelId),
+                      fC->Column(endLabelId),
+                      symbols->registerSymbol(endLabel));
+        Error err(ErrorDefinition::COMP_UNMATCHED_LABEL, loc, loc2);
+        errors->addError(err);
+      }
+      while (item && (fC->Type(item) != VObjectType::paEND)) {
         if (VectorOfany* cstmts =
                 compileStmt(component, fC, item, compileDesign, Reduce::No,
                             stmt, instance, muteErrors)) {
@@ -358,8 +365,8 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       NodeId item = fC->Child(the_stmt);
       VectorOfany* stmts = s.MakeAnyVec();
       UHDM::scope* scope = nullptr;
-      std::string label;
-      NodeId labelId;
+      std::string label, endLabel;
+      NodeId labelId, endLabelId;
       if (fC->Type(item) == VObjectType::slStringConst) {
         labelId = item;
         item = fC->Sibling(item);
@@ -371,11 +378,30 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
           if (fC->Type(Label) == VObjectType::slStringConst) labelId = Label;
         }
       }
-      if (labelId) {
+      // Get join label if any
+      NodeId tempItem = fC->Sibling(item);
+      while (tempItem) {
+        VObjectType type = fC->Type(tempItem);
+        if ((type == VObjectType::paJoin_keyword) ||
+            (type == VObjectType::paJoin_any_keyword) ||
+            (type == VObjectType::paJoin_none_keyword)) {
+          if ((endLabelId = fC->Sibling(tempItem))) {
+            break;
+          }
+        }
+        tempItem = fC->Sibling(tempItem);
+      }
+      if (labelId || endLabelId) {
         UHDM::named_fork* fork = s.MakeNamed_fork();
         fork->Stmts(stmts);
-        label = fC->SymName(labelId);
-        fork->VpiName(label);
+        if (labelId) {
+          label = fC->SymName(labelId);
+          fork->VpiName(label);
+        }
+        if (endLabelId) {
+          endLabel = fC->SymName(endLabelId);
+          fork->VpiEndLabel(endLabel);
+        }
         stmt = fork;
         scope = fork;
       } else {
