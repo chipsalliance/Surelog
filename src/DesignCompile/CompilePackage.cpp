@@ -282,6 +282,7 @@ bool CompilePackage::collectObjects_(CollectType collectType, Reduce reduce) {
             if (fC->Type(fC->Parent(id)) != VObjectType::paPackage_declaration)
               break;
             const std::string_view endLabel = fC->SymName(id);
+            m_package->setEndLabel(endLabel);
             std::string_view moduleName =
                 StringUtils::ltrim_until(m_package->getName(), '@');
             if (endLabel != moduleName) {

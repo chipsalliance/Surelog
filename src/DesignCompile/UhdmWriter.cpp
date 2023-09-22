@@ -853,6 +853,7 @@ void UhdmWriter::writeClass(ClassDefinition* classDef,
     class_defn* c = classDef->getUhdmDefinition();
     m_componentMap.emplace(classDef, c);
     c->VpiParent(parent);
+    c->VpiEndLabel(classDef->getEndLabel());
     // Typepecs
     VectorOftypespec* typespecs = s.MakeTypespecVec();
     c->Typespecs(typespecs);
@@ -1044,6 +1045,7 @@ void reInstanceTypespec(Serializer& serializer, any* root, package* p) {
 
 void UhdmWriter::writePackage(Package* pack, package* p, Serializer& s,
                               bool elaborated) {
+  p->VpiEndLabel(pack->getEndLabel());
   p->VpiFullName(StrCat(pack->getName(), "::"));
   VectorOfclass_defn* dest_classes = nullptr;
 
@@ -1176,6 +1178,8 @@ void UhdmWriter::writeModule(ModuleDefinition* mod, module_inst* m,
   SignalBaseClassMap signalBaseMap;
   SignalMap portMap;
   SignalMap netMap;
+
+  m->VpiEndLabel(mod->getEndLabel());
 
   // Let decls
   if (!mod->getLetStmts().empty()) {
@@ -1385,6 +1389,8 @@ void UhdmWriter::writeInterface(ModuleDefinition* mod, interface_inst* m,
   SignalMap portMap;
   SignalMap netMap;
 
+  m->VpiEndLabel(mod->getEndLabel());
+
   // Let decls
   if (!mod->getLetStmts().empty()) {
     VectorOflet_decl* decls = s.MakeLet_declVec();
@@ -1537,6 +1543,9 @@ void UhdmWriter::writeProgram(Program* mod, program* m, Serializer& s,
   SignalBaseClassMap signalBaseMap;
   SignalMap portMap;
   SignalMap netMap;
+
+  m->VpiEndLabel(mod->getEndLabel());
+
   // Typepecs
   VectorOftypespec* typespecs = s.MakeTypespecVec();
   m->Typespecs(typespecs);

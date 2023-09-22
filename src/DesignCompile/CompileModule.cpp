@@ -897,6 +897,7 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
             if (fC->Type(fC->Parent(id)) != VObjectType::paModule_declaration)
               break;
             const std::string_view endLabel = fC->SymName(id);
+            m_module->setEndLabel(endLabel);
             std::string_view moduleName = m_module->getName();
             moduleName = StringUtils::ltrim_until(moduleName, '@');
             moduleName = StringUtils::ltrim_until(moduleName, ':');
@@ -1382,6 +1383,7 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
           if (InterfaceIdentifier) {
             NodeId label = fC->Child(InterfaceIdentifier);
             const std::string_view endLabel = fC->SymName(label);
+            m_module->setEndLabel(endLabel);
             std::string_view moduleName = m_module->getName();
             moduleName = StringUtils::ltrim_until(moduleName, '@');
             moduleName = StringUtils::ltrim_until(moduleName, ':');

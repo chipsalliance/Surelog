@@ -69,8 +69,12 @@ class Program : public DesignComponent, public ClockingBlockHolder {
     return true;
   }
 
+  std::string_view getEndLabel() const { return m_endLabel; }
+  void setEndLabel(std::string_view endLabel) { m_endLabel = endLabel; }
+
  private:
   std::string m_name;
+  std::string m_endLabel;
   Library* m_library;
   ClassNameClassDefinitionMultiMap m_classDefinitions;
 
