@@ -1,1 +1,0 @@
--parse -elabuhdm -d uhdm -d ast dut.sv

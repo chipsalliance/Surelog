@@ -193,7 +193,7 @@ jobs:
         rm ${{ env.build-artifact-name }}.tar.gz
 
         python3 scripts/regression.py run       \
-          --uhdm-lint-filepath bin/uhdm-lint    \
+          --uhdm-dump-filepath bin/uhdm-dump    \
           --jobs $(nproc)                       \
           --show-diffs                          \
           --num_shards=${{ matrix.num_shards }} \
