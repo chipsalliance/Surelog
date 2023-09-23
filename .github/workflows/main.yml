@@ -144,7 +144,7 @@ jobs:
         rm ${{ env.build-artifact-name }}.tar.gz
 
         python3 scripts/regression.py run       \
-          --uhdm-lint-filepath bin/uhdm-lint    \
+          --uhdm-dump-filepath bin/uhdm-dump    \
           --jobs $(nproc)                       \
           --show-diffs                          \
           --num_shards=${{ matrix.num_shards }} \
@@ -285,7 +285,7 @@ jobs:
         rm ${{ env.build-artifact-name }}.tar.gz
 
         python3 scripts/regression.py run     \
-          --uhdm-lint-filepath bin/uhdm-lint  \
+          --uhdm-dump-filepath bin/uhdm-dump  \
           --tool valgrind                     \
           --filters ${{ matrix.project }}
 
@@ -537,7 +537,7 @@ jobs:
         rm ${{ env.build-artifact-name }}.tar.gz
 
         python3 scripts/regression.py run         \
-          --uhdm-lint-filepath bin/uhdm-lint.exe  \
+          --uhdm-dump-filepath bin/uhdm-dump.exe  \
           --jobs $(nproc)                         \
           --show-diffs                            \
           --num_shards=${{ matrix.num_shards }}   \
@@ -581,7 +581,6 @@ jobs:
     - name: Install Core Dependencies
       run: |
         choco install -y make
-        choco install -y ninja
         vcpkg install zlib zlib:x64-windows
 
     - name: Setup Python
@@ -791,7 +790,7 @@ jobs:
       timeout-minutes: 120
       run: |
         python3 scripts/regression.py run^
-          --uhdm-lint-filepath bin/uhdm-lint.exe^
+          --uhdm-dump-filepath bin/uhdm-dump.exe^
           --jobs %NUMBER_OF_PROCESSORS%^
           --show-diffs^
           --num_shards=${{ matrix.num_shards }}^
@@ -975,7 +974,7 @@ jobs:
         rm ${{ env.build-artifact-name }}.tar.gz
 
         python3 scripts/regression.py run       \
-          --uhdm-lint-filepath bin/uhdm-lint    \
+          --uhdm-dump-filepath bin/uhdm-dump    \
           --jobs $(sysctl -n hw.physicalcpu)    \
           --show-diffs                          \
           --num_shards=${{ matrix.num_shards }} \
