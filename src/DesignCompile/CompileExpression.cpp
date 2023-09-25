@@ -403,6 +403,7 @@ bool getStringVal(std::string &result, expr *val) {
     if (sval) {
       if (sval->format == vpiStringVal || sval->format == vpiBinStrVal) {
         result = sval->value.str;
+        delete sval;
         return true;
       }
     }
