@@ -46,6 +46,12 @@ FileContent::FileContent(PathId fileId, Library* library,
             InvalidNodeId, InvalidNodeId, InvalidNodeId, InvalidNodeId);
 }
 
+FileContent::~FileContent() {
+  for (auto de : m_elements) {
+    delete de;
+  }
+}
+
 std::string_view FileContent::getName() const {
   return FileSystem::getInstance()->toPath(m_fileId);
 }

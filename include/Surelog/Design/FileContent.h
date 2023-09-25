@@ -49,7 +49,7 @@ class FileContent : public DesignComponent {
  public:
   FileContent(PathId fileId, Library* library, SymbolTable* symbolTable,
               ErrorContainer* errors, FileContent* parent, PathId fileChunkId);
-  ~FileContent() override = default;
+  ~FileContent();
 
   void setLibrary(Library* lib) { m_library = lib; }
 
