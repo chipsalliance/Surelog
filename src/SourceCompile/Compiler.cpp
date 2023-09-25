@@ -1170,6 +1170,8 @@ PreprocessFile::AntlrParserHandler* Compiler::getAntlrPpHandlerForId(
 bool Compiler::parseLibrariesDef_() {
   ParseLibraryDef* libParser = new ParseLibraryDef(
       m_commandLineParser, m_errors, m_symbolTable, m_librarySet, m_configSet);
-  return libParser->parseLibrariesDefinition();
+  bool result = libParser->parseLibrariesDefinition();
+  delete libParser;
+  return result;
 }
 }  // namespace SURELOG

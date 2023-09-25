@@ -26,6 +26,7 @@
 #include <Surelog/ErrorReporting/ErrorContainer.h>
 #include <Surelog/Library/Library.h>
 #include <Surelog/Package/Precompiled.h>
+#include <Surelog/SourceCompile/AnalyzeFile.h>
 #include <Surelog/SourceCompile/CompileSourceFile.h>
 #include <Surelog/SourceCompile/Compiler.h>
 #include <Surelog/SourceCompile/ParseFile.h>
@@ -133,6 +134,7 @@ CompileSourceFile::~CompileSourceFile() {
   }
   m_antlrPpMacroMap.clear();
   m_antlrPpFileMap.clear();
+  if (m_fileAnalyzer) delete m_fileAnalyzer;
 }
 
 uint64_t CompileSourceFile::getJobSize(Action action) const {
