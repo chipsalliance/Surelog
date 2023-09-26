@@ -396,21 +396,6 @@ std::pair<UHDM::task_func *, DesignComponent *> CompileHelper::getTaskFunc(
   return result;
 }
 
-bool getStringVal(std::string &result, expr *val) {
-  const UHDM::constant *hs0 = any_cast<const UHDM::constant *>(val);
-  if (hs0) {
-    s_vpi_value *sval = String2VpiValue(hs0->VpiValue());
-    if (sval) {
-      if (sval->format == vpiStringVal || sval->format == vpiBinStrVal) {
-        result = sval->value.str;
-        delete sval;
-        return true;
-      }
-    }
-  }
-  return false;
-}
-
 static bool largeInt(std::string_view str) {
   bool isSigned = false;
   size_t pos = str.find('\'');
