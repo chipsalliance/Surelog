@@ -134,7 +134,7 @@ CompileSourceFile::~CompileSourceFile() {
   }
   m_antlrPpMacroMap.clear();
   m_antlrPpFileMap.clear();
-  if (m_fileAnalyzer) delete m_fileAnalyzer;
+  delete m_fileAnalyzer;
 }
 
 uint64_t CompileSourceFile::getJobSize(Action action) const {
