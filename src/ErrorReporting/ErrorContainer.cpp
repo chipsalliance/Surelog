@@ -253,7 +253,7 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
         padding = "0";
       if ((reentrantPython == false) || (!m_clp->pythonAllowed())) {
         tmp = "[" + severity + ":" + category + padding +
-              std::to_string(msg.m_errorId) + "] " + location + text + "\n\n";
+              std::to_string(msg.m_errorId) + "] " + location + text + "\n";
       } else {
         std::vector<std::string> args;
         args.push_back(severity);
