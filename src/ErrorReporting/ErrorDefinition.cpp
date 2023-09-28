@@ -189,7 +189,7 @@ bool ErrorDefinition::init() {
       "Missing output directory argument for -odir option");
   rec(CMD_PP_CANNOT_CREATE_OUTPUT_DIR, FATAL, CMD,
       "Cannot create output directory \"%s\"");
-  rec(CMD_CREATING_LOG_FILE, INFO, CMD, "Creating log file %s");
+  rec(CMD_CREATING_LOG_FILE, INFO, CMD, "Creating log file \"%s\"");
   rec(CMD_NUMBER_THREADS, INFO, CMD, "Executing with %s threads");
   rec(CMD_PP_CANNOT_CREATE_CACHE_DIR, FATAL, CMD,
       "Cannot create cache directory \"%s\"");
