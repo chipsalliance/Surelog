@@ -71,6 +71,8 @@ bool CheckCompile::mergeSymbolTables_() {
 bool CheckCompile::checkTimescale_() {
   std::string globaltimescale =
       m_compiler->getCommandLineParser()->getTimeScale();
+  bool reportMissingTimescale =
+      !m_compiler->getCommandLineParser()->reportNonSynthesizable();
   if (!globaltimescale.empty()) {
     Location loc(m_compiler->getSymbolTable()->registerSymbol(globaltimescale));
     Error err(ErrorDefinition::CMD_USING_GLOBAL_TIMESCALE, loc);
@@ -108,7 +110,8 @@ bool CheckCompile::checkTimescale_() {
               reportedMissingTimescale.end()) {
             reportedMissingTimescale.insert(elem->m_name);
             Error err(ErrorDefinition::PA_NOTIMESCALE_INFO, loc);
-            m_compiler->getErrorContainer()->addError(err);
+            if (reportMissingTimescale)
+              m_compiler->getErrorContainer()->addError(err);
           }
         }
       }
