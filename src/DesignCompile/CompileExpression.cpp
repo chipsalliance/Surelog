@@ -3086,6 +3086,47 @@ UHDM::any *CompileHelper::compileExpression(
           result = ref;
           break;
         }
+        case VObjectType::paACCEPT_ON:
+        case VObjectType::paREJECT_ON:
+        case VObjectType::paSYNC_ACCEPT_ON:
+        case VObjectType::paSYNC_REJECT_ON:
+        case VObjectType::paALWAYS:
+        case VObjectType::paS_ALWAYS:
+        case VObjectType::paEVENTUALLY:
+        case VObjectType::paS_EVENTUALLY:
+        case VObjectType::paNEXTTIME:
+        case VObjectType::paS_NEXTTIME: {
+          VObjectType type = childType;
+          operation *operation = s.MakeOperation();
+          operation->VpiParent(pexpr);
+          UHDM::VectorOfany *operands = s.MakeAnyVec();
+          operation->Operands(operands);
+          fC->populateCoreMembers(parent, parent, operation);
+          int32_t operationType = UhdmWriter::getVpiOpType(type);
+          operation->VpiOpType(operationType);
+          if (any *rhs = compileExpression(component, fC, fC->Sibling(child),
+                                           compileDesign, reduce, operation,
+                                           instance, muteErrors)) {
+            operands->push_back(rhs);
+          }
+          result = operation;
+          break;
+        }
+        case VObjectType::paClocking_event: {
+          UHDM::clocked_property *prop = s.MakeClocked_property();
+          if (any *cev = compileExpression(component, fC, fC->Child(child),
+                                           compileDesign, reduce, prop,
+                                           instance, muteErrors)) {
+            prop->VpiClockingEvent((expr *)cev);
+          }
+          if (any *ex = compileExpression(component, fC, fC->Sibling(child),
+                                          compileDesign, reduce, prop, instance,
+                                          muteErrors)) {
+            prop->VpiPropertyExpr(ex);
+          }
+          result = prop;
+          break;
+        }
         default:
           break;
       }

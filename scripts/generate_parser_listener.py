@@ -534,6 +534,7 @@ def _generate_VObjectTypes_h(pp_typenames: list, pa_typenames: list, filepath: s
 
   index = _sl_typename_start
   content.append(f'  slIndexBegin = {index},')
+  index += 1
   for typename in _sl_typenames:
     content.append(f'  sl{typename} = {index},')
     index += 1
@@ -545,6 +546,7 @@ def _generate_VObjectTypes_h(pp_typenames: list, pa_typenames: list, filepath: s
 
   index = _pp_typename_start
   content.append(f'  ppIndexBegin = {index},')
+  index += 1
   for typename in pp_typenames:
     content.append(f'  pp{typename} = {index},')
     index += 1
@@ -556,6 +558,7 @@ def _generate_VObjectTypes_h(pp_typenames: list, pa_typenames: list, filepath: s
 
   index = _forced_pp_typename_start
   content.append(f'  ppForcedIndexBegin = {index},')
+  index += 1
   for typename in sorted(_forced_pp_typenames):
     content.append(f'  pp{typename} = {index},')
     index += 1
@@ -567,6 +570,7 @@ def _generate_VObjectTypes_h(pp_typenames: list, pa_typenames: list, filepath: s
 
   index = _pa_typename_start
   content.append(f'  paIndexBegin = {index},')
+  index += 1
   for typename in pa_typenames:
     content.append(f'  pa{typename} = {index},')
     index += 1
@@ -578,6 +582,7 @@ def _generate_VObjectTypes_h(pp_typenames: list, pa_typenames: list, filepath: s
 
   index = _forced_pa_typename_start
   content.append(f'  paForcedIndexBegin = {index},')
+  index += 1
   for typename in sorted(_forced_pa_typenames):
     content.append(f'  pa{typename} = {index},')
     index += 1
@@ -619,6 +624,7 @@ def _generate_VObjectTypes_cpp(pp_typenames: list, pa_typenames: list, filepath:
   content.append('')
 
   index = _sl_typename_start
+  index += 1
   for typename in _sl_typenames:
     content.append(f'    case VObjectType::sl{typename} /* = {index} */: return "sl{typename}";')
     index += 1
@@ -628,6 +634,7 @@ def _generate_VObjectTypes_cpp(pp_typenames: list, pa_typenames: list, filepath:
   content.append('')
 
   index = _pp_typename_start
+  index += 1
   for typename in pp_typenames:
     content.append(f'    case VObjectType::pp{typename} /* = {index} */: return "pp{typename}";')
     index += 1
@@ -637,6 +644,7 @@ def _generate_VObjectTypes_cpp(pp_typenames: list, pa_typenames: list, filepath:
   content.append('')
 
   index = _forced_pp_typename_start
+  index += 1
   for typename in sorted(_forced_pp_typenames):
     content.append(f'    case VObjectType::pp{typename} /* = {index} */: return "pp{typename}";')
     index += 1
@@ -646,6 +654,7 @@ def _generate_VObjectTypes_cpp(pp_typenames: list, pa_typenames: list, filepath:
   content.append('')
 
   index = _pa_typename_start
+  index += 1
   for typename in pa_typenames:
     content.append(f'    case VObjectType::pa{typename} /* = {index} */: return "pa{typename}";')
     index += 1
@@ -655,6 +664,7 @@ def _generate_VObjectTypes_cpp(pp_typenames: list, pa_typenames: list, filepath:
   content.append('')
 
   index = _forced_pa_typename_start
+  index += 1
   for typename in sorted(_forced_pa_typenames):
     content.append(f'    case VObjectType::pa{typename} /* = {index} */: return "pa{typename}";')
     index += 1
@@ -695,6 +705,7 @@ def _generate_VObjectTypes_py_h(pp_typenames: list, pa_typenames: list, filepath
   content.append('  "# Global typenames (shared acroos preprocessor & parser)\\n",')
 
   index = _sl_typename_start
+  index += 1
   for typename in _sl_typenames:
     content.append(f'  "sl{typename} = {index};\\n",')
     index += 1
@@ -703,6 +714,7 @@ def _generate_VObjectTypes_py_h(pp_typenames: list, pa_typenames: list, filepath
   content.append('  "# Preprocessor typenames\\n",')
 
   index = _pp_typename_start
+  index += 1
   for typename in pp_typenames:
     content.append(f'  "pp{typename} = {index};\\n",')
     index += 1
@@ -711,6 +723,7 @@ def _generate_VObjectTypes_py_h(pp_typenames: list, pa_typenames: list, filepath
   content.append('  "# Forced Preprocessor typenames\\n",')
 
   index = _forced_pp_typename_start
+  index += 1
   for typename in sorted(_forced_pp_typenames):
     content.append(f'  "pp{typename} = {index};\\n",')
     index += 1
@@ -719,6 +732,7 @@ def _generate_VObjectTypes_py_h(pp_typenames: list, pa_typenames: list, filepath
   content.append('  "# Parser typenames\\n",')
 
   index = _pa_typename_start
+  index += 1
   for typename in pa_typenames:
     content.append(f'  "pa{typename} = {index};\\n",')
     index += 1
@@ -727,6 +741,7 @@ def _generate_VObjectTypes_py_h(pp_typenames: list, pa_typenames: list, filepath
   content.append('  "# Forced Parser typenames\\n",')
 
   index = _forced_pa_typename_start
+  index += 1
   for typename in sorted(_forced_pa_typenames):
     content.append(f'  "pa{typename} = {index};\\n",')
     index += 1

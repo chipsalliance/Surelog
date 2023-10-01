@@ -529,23 +529,26 @@ there are 6 more instances of this message.
 always                                                 1
 assert_stmt                                            4
 begin                                                  2
+clocked_property                                       2
 clocking_block                                         2
-constant                                               2
+constant                                               4
 delay_control                                          1
 design                                                 1
 event_control                                          3
 func_call                                              2
 if_else                                                1
-logic_net                                              8
+logic_net                                             16
 logic_typespec                                         9
 logic_var                                              8
 module_inst                                            2
-operation                                             16
+operation                                             19
 port                                                  14
+prop_formal_decl                                      12
+property_decl                                          2
 property_inst                                          2
-property_spec                                          4
-ref_obj                                               41
-ref_typespec                                           9
+property_spec                                          6
+ref_obj                                               50
+ref_typespec                                          21
 sequence_inst                                          2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -553,23 +556,26 @@ sequence_inst                                          2
 always                                                 2
 assert_stmt                                            8
 begin                                                  4
+clocked_property                                       4
 clocking_block                                         3
-constant                                               2
+constant                                               4
 delay_control                                          2
 design                                                 1
 event_control                                          5
 func_call                                              2
 if_else                                                2
-logic_net                                              8
+logic_net                                             16
 logic_typespec                                         9
 logic_var                                              8
 module_inst                                            2
-operation                                             31
+operation                                             37
 port                                                  21
+prop_formal_decl                                      24
+property_decl                                          4
 property_inst                                          4
-property_spec                                          8
-ref_obj                                               68
-ref_typespec                                           9
+property_spec                                         12
+ref_obj                                               86
+ref_typespec                                          33
 sequence_inst                                          4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/SequenceInst/slpp_all/surelog.uhdm ...
@@ -585,6 +591,184 @@ design: (work@m)
   |vpiParent:
   \_design: (work@m)
   |vpiFullName:work@m
+  |vpiPropertyDecl:
+  \_property_decl: (work@m.p_triggers)
+    |vpiParent:
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/SequenceInst/dut.sv, line:1:1, endln:30:10
+    |vpiName:p_triggers
+    |vpiFullName:work@m.p_triggers
+    |vpiPropFormalDecl:
+    \_prop_formal_decl: (start_event)
+      |vpiName:start_event
+      |vpiTypespec:
+      \_ref_typespec: 
+    |vpiPropFormalDecl:
+    \_prop_formal_decl: (end_event)
+      |vpiName:end_event
+      |vpiTypespec:
+      \_ref_typespec: 
+    |vpiPropFormalDecl:
+    \_prop_formal_decl: (form)
+      |vpiName:form
+      |vpiTypespec:
+      \_ref_typespec: 
+    |vpiPropFormalDecl:
+    \_prop_formal_decl: (clk)
+      |vpiName:clk
+      |vpiTypespec:
+      \_ref_typespec: 
+    |vpiPropFormalDecl:
+    \_prop_formal_decl: (rst)
+      |vpiName:rst
+      |vpiTypespec:
+      \_ref_typespec: 
+    |vpiPropertySpec:
+    \_property_spec: , line:9:5, endln:9:69
+      |vpiParent:
+      \_property_decl: (work@m.p_triggers)
+      |vpiClockingEvent:
+      \_ref_obj: (work@m.p_triggers.clk), line:9:5, endln:9:9
+        |vpiParent:
+        \_property_spec: , line:9:5, endln:9:69
+        |vpiName:clk
+        |vpiFullName:work@m.p_triggers.clk
+        |vpiActual:
+        \_logic_net: (work@m.clk), line:9:5, endln:9:9
+      |vpiPropertyExpr:
+      \_ref_obj: (work@m.p_triggers.rst), line:9:23, endln:9:26
+        |vpiParent:
+        \_property_spec: , line:9:5, endln:9:69
+        |vpiName:rst
+        |vpiFullName:work@m.p_triggers.rst
+        |vpiActual:
+        \_logic_net: (work@m.rst), line:3:9, endln:3:12
+  |vpiPropertyDecl:
+  \_property_decl: (work@m.p_multiclock)
+    |vpiParent:
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/SequenceInst/dut.sv, line:1:1, endln:30:10
+    |vpiName:p_multiclock
+    |vpiFullName:work@m.p_multiclock
+    |vpiPropFormalDecl:
+    \_prop_formal_decl: (clkw)
+      |vpiName:clkw
+      |vpiTypespec:
+      \_ref_typespec: 
+    |vpiPropFormalDecl:
+    \_prop_formal_decl: (clkx)
+      |vpiName:clkx
+      |vpiTypespec:
+      \_ref_typespec: 
+    |vpiPropFormalDecl:
+    \_prop_formal_decl: (clky)
+      |vpiName:clky
+      |vpiTypespec:
+      \_ref_typespec: 
+    |vpiPropFormalDecl:
+    \_prop_formal_decl: (w)
+      |vpiName:w
+      |vpiTypespec:
+      \_ref_typespec: 
+    |vpiPropFormalDecl:
+    \_prop_formal_decl: (x)
+      |vpiName:x
+      |vpiTypespec:
+      \_ref_typespec: 
+    |vpiPropFormalDecl:
+    \_prop_formal_decl: (y)
+      |vpiName:y
+      |vpiTypespec:
+      \_ref_typespec: 
+    |vpiPropFormalDecl:
+    \_prop_formal_decl: (z)
+      |vpiName:z
+      |vpiTypespec:
+      \_ref_typespec: 
+    |vpiPropertySpec:
+    \_property_spec: , line:13:5, endln:13:42
+      |vpiParent:
+      \_property_decl: (work@m.p_multiclock)
+      |vpiClockingEvent:
+      \_ref_obj: (work@m.p_multiclock.clkw), line:13:5, endln:13:10
+        |vpiParent:
+        \_property_spec: , line:13:5, endln:13:42
+        |vpiName:clkw
+        |vpiFullName:work@m.p_multiclock.clkw
+        |vpiActual:
+        \_logic_net: (work@m.clkw), line:13:5, endln:13:10
+      |vpiPropertyExpr:
+      \_operation: , line:13:11, endln:13:42
+        |vpiParent:
+        \_property_spec: , line:13:5, endln:13:42
+        |vpiOpType:51
+        |vpiOperand:
+        \_operation: , line:13:11, endln:13:24
+          |vpiParent:
+          \_operation: , line:13:11, endln:13:42
+          |vpiOpType:54
+          |vpiOperand:
+          \_ref_obj: (work@m.p_multiclock.w), line:13:11, endln:13:12
+            |vpiParent:
+            \_operation: , line:13:11, endln:13:24
+            |vpiName:w
+            |vpiFullName:work@m.p_multiclock.w
+            |vpiActual:
+            \_logic_net: (work@m.w), line:13:11, endln:13:12
+          |vpiOperand:
+          \_constant: , line:13:13, endln:13:16
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+          |vpiOperand:
+          \_clocked_property: , line:13:17, endln:13:22
+            |vpiClockingEvent:
+            \_ref_obj: (clkx), line:13:18, endln:13:22
+              |vpiParent:
+              \_clocked_property: , line:13:17, endln:13:22
+              |vpiName:clkx
+              |vpiActual:
+              \_logic_net: (work@m.clkx), line:13:18, endln:13:22
+            |vpiPropertyExpr:
+            \_ref_obj: (x), line:13:23, endln:13:24
+              |vpiParent:
+              \_clocked_property: , line:13:17, endln:13:22
+              |vpiName:x
+              |vpiActual:
+              \_logic_net: (work@m.x), line:13:23, endln:13:24
+        |vpiOperand:
+        \_clocked_property: , line:13:29, endln:13:34
+          |vpiClockingEvent:
+          \_ref_obj: (clky), line:13:30, endln:13:34
+            |vpiParent:
+            \_clocked_property: , line:13:29, endln:13:34
+            |vpiName:clky
+            |vpiActual:
+            \_logic_net: (work@m.clky), line:13:30, endln:13:34
+          |vpiPropertyExpr:
+          \_operation: , line:13:35, endln:13:42
+            |vpiParent:
+            \_clocked_property: , line:13:29, endln:13:34
+            |vpiOpType:54
+            |vpiOperand:
+            \_ref_obj: (y), line:13:35, endln:13:36
+              |vpiParent:
+              \_operation: , line:13:35, endln:13:42
+              |vpiName:y
+              |vpiActual:
+              \_logic_net: (work@m.y), line:13:35, endln:13:36
+            |vpiOperand:
+            \_constant: , line:13:37, endln:13:40
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
+            |vpiOperand:
+            \_ref_obj: (z), line:13:41, endln:13:42
+              |vpiParent:
+              \_operation: , line:13:35, endln:13:42
+              |vpiName:z
+              |vpiActual:
+              \_logic_net: (work@m.z), line:13:41, endln:13:42
   |vpiDefName:work@m
   |vpiNet:
   \_logic_net: (work@m.b), line:1:19, endln:1:20
@@ -649,6 +833,62 @@ design: (work@m)
     |vpiName:a
     |vpiFullName:work@m.a
     |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@m.clk), line:9:5, endln:9:9
+    |vpiParent:
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/SequenceInst/dut.sv, line:1:1, endln:30:10
+    |vpiName:clk
+    |vpiFullName:work@m.clk
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@m.clkw), line:13:5, endln:13:10
+    |vpiParent:
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/SequenceInst/dut.sv, line:1:1, endln:30:10
+    |vpiName:clkw
+    |vpiFullName:work@m.clkw
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@m.w), line:13:11, endln:13:12
+    |vpiParent:
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/SequenceInst/dut.sv, line:1:1, endln:30:10
+    |vpiName:w
+    |vpiFullName:work@m.w
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@m.clkx), line:13:18, endln:13:22
+    |vpiParent:
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/SequenceInst/dut.sv, line:1:1, endln:30:10
+    |vpiName:clkx
+    |vpiFullName:work@m.clkx
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@m.x), line:13:23, endln:13:24
+    |vpiParent:
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/SequenceInst/dut.sv, line:1:1, endln:30:10
+    |vpiName:x
+    |vpiFullName:work@m.x
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@m.clky), line:13:30, endln:13:34
+    |vpiParent:
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/SequenceInst/dut.sv, line:1:1, endln:30:10
+    |vpiName:clky
+    |vpiFullName:work@m.clky
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@m.y), line:13:35, endln:13:36
+    |vpiParent:
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/SequenceInst/dut.sv, line:1:1, endln:30:10
+    |vpiName:y
+    |vpiFullName:work@m.y
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@m.z), line:13:41, endln:13:42
+    |vpiParent:
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/SequenceInst/dut.sv, line:1:1, endln:30:10
+    |vpiName:z
+    |vpiFullName:work@m.z
+    |vpiNetType:1
   |vpiAssertion:
   \_assert_stmt: (work@m.a1), line:16:3, endln:16:45
     |vpiParent:
@@ -1091,6 +1331,245 @@ design: (work@m)
 |uhdmtopModules:
 \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/SequenceInst/dut.sv, line:1:1, endln:30:10
   |vpiName:work@m
+  |vpiPropertyDecl:
+  \_property_decl: (work@m.p_triggers)
+    |vpiParent:
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/SequenceInst/dut.sv, line:1:1, endln:30:10
+    |vpiName:p_triggers
+    |vpiFullName:work@m.p_triggers
+    |vpiPropFormalDecl:
+    \_prop_formal_decl: (start_event)
+      |vpiParent:
+      \_property_decl: (work@m.p_triggers)
+      |vpiName:start_event
+      |vpiTypespec:
+      \_ref_typespec: (work@m.p_triggers.start_event)
+        |vpiParent:
+        \_prop_formal_decl: (start_event)
+        |vpiFullName:work@m.p_triggers.start_event
+    |vpiPropFormalDecl:
+    \_prop_formal_decl: (end_event)
+      |vpiParent:
+      \_property_decl: (work@m.p_triggers)
+      |vpiName:end_event
+      |vpiTypespec:
+      \_ref_typespec: (work@m.p_triggers.end_event)
+        |vpiParent:
+        \_prop_formal_decl: (end_event)
+        |vpiFullName:work@m.p_triggers.end_event
+    |vpiPropFormalDecl:
+    \_prop_formal_decl: (form)
+      |vpiParent:
+      \_property_decl: (work@m.p_triggers)
+      |vpiName:form
+      |vpiTypespec:
+      \_ref_typespec: (work@m.p_triggers.form)
+        |vpiParent:
+        \_prop_formal_decl: (form)
+        |vpiFullName:work@m.p_triggers.form
+    |vpiPropFormalDecl:
+    \_prop_formal_decl: (clk)
+      |vpiParent:
+      \_property_decl: (work@m.p_triggers)
+      |vpiName:clk
+      |vpiTypespec:
+      \_ref_typespec: (work@m.p_triggers.clk)
+        |vpiParent:
+        \_prop_formal_decl: (clk)
+        |vpiFullName:work@m.p_triggers.clk
+    |vpiPropFormalDecl:
+    \_prop_formal_decl: (rst)
+      |vpiParent:
+      \_property_decl: (work@m.p_triggers)
+      |vpiName:rst
+      |vpiTypespec:
+      \_ref_typespec: (work@m.p_triggers.rst)
+        |vpiParent:
+        \_prop_formal_decl: (rst)
+        |vpiFullName:work@m.p_triggers.rst
+    |vpiPropertySpec:
+    \_property_spec: , line:9:5, endln:9:69
+      |vpiParent:
+      \_property_decl: (work@m.p_triggers)
+      |vpiClockingEvent:
+      \_ref_obj: (work@m.p_triggers.clk), line:9:5, endln:9:9
+        |vpiParent:
+        \_property_spec: , line:9:5, endln:9:69
+        |vpiName:clk
+        |vpiFullName:work@m.p_triggers.clk
+        |vpiActual:
+        \_logic_net: (work@m.clk), line:9:5, endln:9:9
+      |vpiPropertyExpr:
+      \_ref_obj: (work@m.p_triggers.rst), line:9:23, endln:9:26
+        |vpiParent:
+        \_property_spec: , line:9:5, endln:9:69
+        |vpiName:rst
+        |vpiFullName:work@m.p_triggers.rst
+        |vpiActual:
+        \_logic_var: (work@m.rst), line:3:9, endln:3:12
+  |vpiPropertyDecl:
+  \_property_decl: (work@m.p_multiclock)
+    |vpiParent:
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/SequenceInst/dut.sv, line:1:1, endln:30:10
+    |vpiName:p_multiclock
+    |vpiFullName:work@m.p_multiclock
+    |vpiPropFormalDecl:
+    \_prop_formal_decl: (clkw)
+      |vpiParent:
+      \_property_decl: (work@m.p_multiclock)
+      |vpiName:clkw
+      |vpiTypespec:
+      \_ref_typespec: (work@m.p_multiclock.clkw)
+        |vpiParent:
+        \_prop_formal_decl: (clkw)
+        |vpiFullName:work@m.p_multiclock.clkw
+    |vpiPropFormalDecl:
+    \_prop_formal_decl: (clkx)
+      |vpiParent:
+      \_property_decl: (work@m.p_multiclock)
+      |vpiName:clkx
+      |vpiTypespec:
+      \_ref_typespec: (work@m.p_multiclock.clkx)
+        |vpiParent:
+        \_prop_formal_decl: (clkx)
+        |vpiFullName:work@m.p_multiclock.clkx
+    |vpiPropFormalDecl:
+    \_prop_formal_decl: (clky)
+      |vpiParent:
+      \_property_decl: (work@m.p_multiclock)
+      |vpiName:clky
+      |vpiTypespec:
+      \_ref_typespec: (work@m.p_multiclock.clky)
+        |vpiParent:
+        \_prop_formal_decl: (clky)
+        |vpiFullName:work@m.p_multiclock.clky
+    |vpiPropFormalDecl:
+    \_prop_formal_decl: (w)
+      |vpiParent:
+      \_property_decl: (work@m.p_multiclock)
+      |vpiName:w
+      |vpiTypespec:
+      \_ref_typespec: (work@m.p_multiclock.w)
+        |vpiParent:
+        \_prop_formal_decl: (w)
+        |vpiFullName:work@m.p_multiclock.w
+    |vpiPropFormalDecl:
+    \_prop_formal_decl: (x)
+      |vpiParent:
+      \_property_decl: (work@m.p_multiclock)
+      |vpiName:x
+      |vpiTypespec:
+      \_ref_typespec: (work@m.p_multiclock.x)
+        |vpiParent:
+        \_prop_formal_decl: (x)
+        |vpiFullName:work@m.p_multiclock.x
+    |vpiPropFormalDecl:
+    \_prop_formal_decl: (y)
+      |vpiParent:
+      \_property_decl: (work@m.p_multiclock)
+      |vpiName:y
+      |vpiTypespec:
+      \_ref_typespec: (work@m.p_multiclock.y)
+        |vpiParent:
+        \_prop_formal_decl: (y)
+        |vpiFullName:work@m.p_multiclock.y
+    |vpiPropFormalDecl:
+    \_prop_formal_decl: (z)
+      |vpiParent:
+      \_property_decl: (work@m.p_multiclock)
+      |vpiName:z
+      |vpiTypespec:
+      \_ref_typespec: (work@m.p_multiclock.z)
+        |vpiParent:
+        \_prop_formal_decl: (z)
+        |vpiFullName:work@m.p_multiclock.z
+    |vpiPropertySpec:
+    \_property_spec: , line:13:5, endln:13:42
+      |vpiParent:
+      \_property_decl: (work@m.p_multiclock)
+      |vpiClockingEvent:
+      \_ref_obj: (work@m.p_multiclock.clkw), line:13:5, endln:13:10
+        |vpiParent:
+        \_property_spec: , line:13:5, endln:13:42
+        |vpiName:clkw
+        |vpiFullName:work@m.p_multiclock.clkw
+        |vpiActual:
+        \_logic_net: (work@m.clkw), line:13:5, endln:13:10
+      |vpiPropertyExpr:
+      \_operation: , line:13:11, endln:13:42
+        |vpiParent:
+        \_property_spec: , line:13:5, endln:13:42
+        |vpiOpType:51
+        |vpiOperand:
+        \_operation: , line:13:11, endln:13:24
+          |vpiParent:
+          \_operation: , line:13:11, endln:13:42
+          |vpiOpType:54
+          |vpiOperand:
+          \_ref_obj: (work@m.p_multiclock.w), line:13:11, endln:13:12
+            |vpiParent:
+            \_operation: , line:13:11, endln:13:24
+            |vpiName:w
+            |vpiFullName:work@m.p_multiclock.w
+            |vpiActual:
+            \_logic_net: (work@m.w), line:13:11, endln:13:12
+          |vpiOperand:
+          \_constant: , line:13:13, endln:13:16
+          |vpiOperand:
+          \_clocked_property: , line:13:17, endln:13:22
+            |vpiParent:
+            \_operation: , line:13:11, endln:13:24
+            |vpiClockingEvent:
+            \_ref_obj: (work@m.p_multiclock.clkx), line:13:18, endln:13:22
+              |vpiParent:
+              \_clocked_property: , line:13:17, endln:13:22
+              |vpiName:clkx
+              |vpiFullName:work@m.p_multiclock.clkx
+              |vpiActual:
+              \_logic_net: (work@m.clkx), line:13:18, endln:13:22
+            |vpiPropertyExpr:
+            \_ref_obj: (work@m.p_multiclock.x), line:13:23, endln:13:24
+              |vpiParent:
+              \_clocked_property: , line:13:17, endln:13:22
+              |vpiName:x
+              |vpiFullName:work@m.p_multiclock.x
+              |vpiActual:
+              \_logic_net: (work@m.x), line:13:23, endln:13:24
+        |vpiOperand:
+        \_clocked_property: , line:13:29, endln:13:34
+          |vpiParent:
+          \_operation: , line:13:11, endln:13:42
+          |vpiClockingEvent:
+          \_ref_obj: (work@m.p_multiclock.clky), line:13:30, endln:13:34
+            |vpiParent:
+            \_clocked_property: , line:13:29, endln:13:34
+            |vpiName:clky
+            |vpiFullName:work@m.p_multiclock.clky
+            |vpiActual:
+            \_logic_net: (work@m.clky), line:13:30, endln:13:34
+          |vpiPropertyExpr:
+          \_operation: , line:13:35, endln:13:42
+            |vpiParent:
+            \_clocked_property: , line:13:29, endln:13:34
+            |vpiOpType:54
+            |vpiOperand:
+            \_ref_obj: (work@m.p_multiclock.y), line:13:35, endln:13:36
+              |vpiParent:
+              \_operation: , line:13:35, endln:13:42
+              |vpiName:y
+              |vpiFullName:work@m.p_multiclock.y
+              |vpiActual:
+              \_logic_net: (work@m.y), line:13:35, endln:13:36
+            |vpiOperand:
+            \_constant: , line:13:37, endln:13:40
+            |vpiOperand:
+            \_ref_obj: (work@m.p_multiclock.z), line:13:41, endln:13:42
+              |vpiParent:
+              \_operation: , line:13:35, endln:13:42
+              |vpiName:z
+              |vpiFullName:work@m.p_multiclock.z
+              |vpiActual:
+              \_logic_net: (work@m.z), line:13:41, endln:13:42
   |vpiVariables:
   \_logic_var: (work@m.b), line:1:19, endln:1:20
     |vpiParent:
@@ -1677,28 +2156,13 @@ design: (work@m)
 [   NOTE] : 5
 
 ============================== Begin Linting Results ==============================
+[LINT]: ${SURELOG_DIR}/tests/SequenceInst/dut.sv:9:5: Non synthesizable construct,
+[LINT]: ${SURELOG_DIR}/tests/SequenceInst/dut.sv:1:1: Non synthesizable construct, work@m
+[LINT]: ${SURELOG_DIR}/tests/SequenceInst/dut.sv:13:17: Non synthesizable construct,
+[LINT]: ${SURELOG_DIR}/tests/SequenceInst/dut.sv:13:29: Non synthesizable construct,
 [LINT]: ${SURELOG_DIR}/tests/SequenceInst/dut.sv:16:24: Non synthesizable construct, p_triggers
-[LINT]: ${SURELOG_DIR}/tests/SequenceInst/dut.sv:16:24: Non synthesizable construct,
-[LINT]: ${SURELOG_DIR}/tests/SequenceInst/dut.sv:18:24: Non synthesizable construct, p_triggers
-[LINT]: ${SURELOG_DIR}/tests/SequenceInst/dut.sv:18:24: Non synthesizable construct,
-[LINT]: ${SURELOG_DIR}/tests/SequenceInst/dut.sv:28:23: Non synthesizable construct, p_multiclock
-[LINT]: ${SURELOG_DIR}/tests/SequenceInst/dut.sv:28:23: Non synthesizable construct,
-[LINT]: ${SURELOG_DIR}/tests/SequenceInst/dut.sv:4:3: Non synthesizable construct, unnamed_clocking_block
-[LINT]: ${SURELOG_DIR}/tests/SequenceInst/dut.sv:22:7: Non synthesizable construct,
-[LINT]: ${SURELOG_DIR}/tests/SequenceInst/dut.sv:24:28: Non synthesizable construct, p_triggers
-[LINT]: ${SURELOG_DIR}/tests/SequenceInst/dut.sv:24:28: Non synthesizable construct,
-[LINT]: ${SURELOG_DIR}/tests/SequenceInst/dut.sv:16:24: Non synthesizable construct, p_triggers
-[LINT]: ${SURELOG_DIR}/tests/SequenceInst/dut.sv:16:24: Non synthesizable construct,
-[LINT]: ${SURELOG_DIR}/tests/SequenceInst/dut.sv:18:24: Non synthesizable construct, p_triggers
-[LINT]: ${SURELOG_DIR}/tests/SequenceInst/dut.sv:18:24: Non synthesizable construct,
-[LINT]: ${SURELOG_DIR}/tests/SequenceInst/dut.sv:28:23: Non synthesizable construct, p_multiclock
-[LINT]: ${SURELOG_DIR}/tests/SequenceInst/dut.sv:28:23: Non synthesizable construct,
 [LINT]: ${SURELOG_DIR}/tests/SequenceInst/dut.sv:4:3: Non synthesizable construct, unnamed_clocking_block
 [LINT]: ${SURELOG_DIR}/tests/SequenceInst/dut.sv:22:7: Non synthesizable construct,
 [LINT]: ${SURELOG_DIR}/tests/SequenceInst/dut.sv:24:28: Non synthesizable construct, p_triggers
 [LINT]: ${SURELOG_DIR}/tests/SequenceInst/dut.sv:24:28: Non synthesizable construct,
 ============================== End Linting Results ==============================
-
-============================== Begin RoundTrip Results ==============================
-[roundtrip]: ${SURELOG_DIR}/tests/SequenceInst/dut.sv | ${SURELOG_DIR}/build/regression/SequenceInst/roundtrip/dut_000.sv | 11 | 30 |
-============================== End RoundTrip Results ==============================

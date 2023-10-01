@@ -452,41 +452,45 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 always                                                 1
 assert_stmt                                            1
-bit_typespec                                           3
+bit_typespec                                           4
 constant                                              18
 design                                                 1
 immediate_assert                                       1
-logic_net                                              6
-logic_typespec                                         9
+logic_net                                              8
+logic_typespec                                        13
 logic_var                                              4
 module_inst                                            3
-operation                                              4
+operation                                             12
 packed_array_typespec                                  1
 port                                                   2
-property_spec                                          1
+prop_formal_decl                                       2
+property_decl                                          1
+property_spec                                          2
 range                                                  9
-ref_obj                                                5
-ref_typespec                                          15
+ref_obj                                                9
+ref_typespec                                          21
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
 always                                                 2
 assert_stmt                                            2
-bit_typespec                                           3
+bit_typespec                                           4
 constant                                              18
 design                                                 1
 immediate_assert                                       2
-logic_net                                              6
-logic_typespec                                         9
+logic_net                                              8
+logic_typespec                                        13
 logic_var                                              4
 module_inst                                            3
-operation                                              8
+operation                                             24
 packed_array_typespec                                  1
 port                                                   3
-property_spec                                          2
+prop_formal_decl                                       4
+property_decl                                          2
+property_spec                                          4
 range                                                  9
-ref_obj                                                9
-ref_typespec                                          18
+ref_obj                                               17
+ref_typespec                                          30
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/Assertions/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/Assertions/slpp_all/checker/surelog.chk.html ...
@@ -501,6 +505,128 @@ design: (work@m)
   |vpiParent:
   \_design: (work@m)
   |vpiFullName:work@m
+  |vpiPropertyDecl:
+  \_property_decl: (work@m.toggles)
+    |vpiParent:
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
+    |vpiName:toggles
+    |vpiFullName:work@m.toggles
+    |vpiPropFormalDecl:
+    \_prop_formal_decl: (x)
+      |vpiName:x
+      |vpiTypespec:
+      \_ref_typespec: 
+        |vpiActual:
+        \_bit_typespec: , line:9:18, endln:9:21
+    |vpiPropFormalDecl:
+    \_prop_formal_decl: (y)
+      |vpiName:y
+      |vpiTypespec:
+      \_ref_typespec: 
+    |vpiPropertySpec:
+    \_property_spec: , line:10:1, endln:10:58
+      |vpiParent:
+      \_property_decl: (work@m.toggles)
+      |vpiPropertyExpr:
+      \_operation: , line:10:1, endln:10:58
+        |vpiParent:
+        \_property_spec: , line:10:1, endln:10:58
+        |vpiOpType:51
+        |vpiOperand:
+        \_operation: , line:10:2, endln:10:25
+          |vpiParent:
+          \_operation: , line:10:1, endln:10:58
+          |vpiOpType:16
+          |vpiOperand:
+          \_operation: , line:10:2, endln:10:11
+            |vpiParent:
+            \_operation: , line:10:2, endln:10:25
+            |vpiTypespec:
+            \_ref_typespec: (work@m.toggles)
+              |vpiParent:
+              \_operation: , line:10:2, endln:10:11
+              |vpiFullName:work@m.toggles
+              |vpiActual:
+              \_logic_typespec: , line:10:2, endln:10:7
+            |vpiOpType:67
+            |vpiOperand:
+            \_ref_obj: (work@m.toggles.x), line:10:9, endln:10:10
+              |vpiParent:
+              \_operation: , line:10:2, endln:10:11
+              |vpiName:x
+              |vpiFullName:work@m.toggles.x
+              |vpiActual:
+              \_logic_net: (work@m.x), line:10:9, endln:10:10
+          |vpiOperand:
+          \_operation: , line:10:16, endln:10:25
+            |vpiParent:
+            \_operation: , line:10:2, endln:10:25
+            |vpiTypespec:
+            \_ref_typespec: (work@m.toggles)
+              |vpiParent:
+              \_operation: , line:10:16, endln:10:25
+              |vpiFullName:work@m.toggles
+              |vpiActual:
+              \_logic_typespec: , line:10:16, endln:10:21
+            |vpiOpType:67
+            |vpiOperand:
+            \_ref_obj: (work@m.toggles.y), line:10:23, endln:10:24
+              |vpiParent:
+              \_operation: , line:10:16, endln:10:25
+              |vpiName:y
+              |vpiFullName:work@m.toggles.y
+              |vpiActual:
+              \_logic_net: (work@m.y), line:10:23, endln:10:24
+        |vpiOperand:
+        \_operation: , line:10:31, endln:10:58
+          |vpiParent:
+          \_operation: , line:10:1, endln:10:58
+          |vpiOpType:3
+          |vpiOperand:
+          \_operation: , line:10:34, endln:10:57
+            |vpiParent:
+            \_operation: , line:10:31, endln:10:58
+            |vpiOpType:16
+            |vpiOperand:
+            \_operation: , line:10:34, endln:10:43
+              |vpiParent:
+              \_operation: , line:10:34, endln:10:57
+              |vpiTypespec:
+              \_ref_typespec: (work@m.toggles)
+                |vpiParent:
+                \_operation: , line:10:34, endln:10:43
+                |vpiFullName:work@m.toggles
+                |vpiActual:
+                \_logic_typespec: , line:10:34, endln:10:39
+              |vpiOpType:67
+              |vpiOperand:
+              \_ref_obj: (work@m.toggles.x), line:10:41, endln:10:42
+                |vpiParent:
+                \_operation: , line:10:34, endln:10:43
+                |vpiName:x
+                |vpiFullName:work@m.toggles.x
+                |vpiActual:
+                \_logic_net: (work@m.x), line:10:9, endln:10:10
+            |vpiOperand:
+            \_operation: , line:10:48, endln:10:57
+              |vpiParent:
+              \_operation: , line:10:34, endln:10:57
+              |vpiTypespec:
+              \_ref_typespec: (work@m.toggles)
+                |vpiParent:
+                \_operation: , line:10:48, endln:10:57
+                |vpiFullName:work@m.toggles
+                |vpiActual:
+                \_logic_typespec: , line:10:48, endln:10:53
+              |vpiOpType:67
+              |vpiOperand:
+              \_ref_obj: (work@m.toggles.y), line:10:55, endln:10:56
+                |vpiParent:
+                \_operation: , line:10:48, endln:10:57
+                |vpiName:y
+                |vpiFullName:work@m.toggles.y
+                |vpiActual:
+                \_logic_net: (work@m.y), line:10:23, endln:10:24
   |vpiTypedef:
   \_bit_typespec: (bits), line:4:9, endln:4:19
     |vpiParent:
@@ -591,6 +717,20 @@ design: (work@m)
     |vpiName:d
     |vpiFullName:work@m.d
     |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@m.x), line:10:9, endln:10:10
+    |vpiParent:
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
+    |vpiName:x
+    |vpiFullName:work@m.x
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@m.y), line:10:23, endln:10:24
+    |vpiParent:
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
+    |vpiName:y
+    |vpiFullName:work@m.y
+    |vpiNetType:1
   |vpiAssertion:
   \_assert_stmt: (work@m.a2), line:12:1, endln:12:54
     |vpiParent:
@@ -694,6 +834,138 @@ design: (work@m)
 |uhdmtopModules:
 \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
   |vpiName:work@m
+  |vpiPropertyDecl:
+  \_property_decl: (work@m.toggles)
+    |vpiParent:
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/Assertions/dut.sv, line:1:1, endln:13:14
+    |vpiName:toggles
+    |vpiFullName:work@m.toggles
+    |vpiPropFormalDecl:
+    \_prop_formal_decl: (x)
+      |vpiParent:
+      \_property_decl: (work@m.toggles)
+      |vpiName:x
+      |vpiTypespec:
+      \_ref_typespec: (work@m.toggles.x)
+        |vpiParent:
+        \_prop_formal_decl: (x)
+        |vpiFullName:work@m.toggles.x
+        |vpiActual:
+        \_bit_typespec: , line:9:18, endln:9:21
+    |vpiPropFormalDecl:
+    \_prop_formal_decl: (y)
+      |vpiParent:
+      \_property_decl: (work@m.toggles)
+      |vpiName:y
+      |vpiTypespec:
+      \_ref_typespec: (work@m.toggles.y)
+        |vpiParent:
+        \_prop_formal_decl: (y)
+        |vpiFullName:work@m.toggles.y
+    |vpiPropertySpec:
+    \_property_spec: , line:10:1, endln:10:58
+      |vpiParent:
+      \_property_decl: (work@m.toggles)
+      |vpiPropertyExpr:
+      \_operation: , line:10:1, endln:10:58
+        |vpiParent:
+        \_property_spec: , line:10:1, endln:10:58
+        |vpiOpType:51
+        |vpiOperand:
+        \_operation: , line:10:2, endln:10:25
+          |vpiParent:
+          \_operation: , line:10:1, endln:10:58
+          |vpiOpType:16
+          |vpiOperand:
+          \_operation: , line:10:2, endln:10:11
+            |vpiParent:
+            \_operation: , line:10:2, endln:10:25
+            |vpiTypespec:
+            \_ref_typespec: (work@m.toggles)
+              |vpiParent:
+              \_operation: , line:10:2, endln:10:11
+              |vpiFullName:work@m.toggles
+              |vpiActual:
+              \_logic_typespec: , line:10:2, endln:10:7
+            |vpiOpType:67
+            |vpiOperand:
+            \_ref_obj: (work@m.toggles.x), line:10:9, endln:10:10
+              |vpiParent:
+              \_operation: , line:10:2, endln:10:11
+              |vpiName:x
+              |vpiFullName:work@m.toggles.x
+              |vpiActual:
+              \_logic_net: (work@m.x), line:10:9, endln:10:10
+          |vpiOperand:
+          \_operation: , line:10:16, endln:10:25
+            |vpiParent:
+            \_operation: , line:10:2, endln:10:25
+            |vpiTypespec:
+            \_ref_typespec: (work@m.toggles)
+              |vpiParent:
+              \_operation: , line:10:16, endln:10:25
+              |vpiFullName:work@m.toggles
+              |vpiActual:
+              \_logic_typespec: , line:10:16, endln:10:21
+            |vpiOpType:67
+            |vpiOperand:
+            \_ref_obj: (work@m.toggles.y), line:10:23, endln:10:24
+              |vpiParent:
+              \_operation: , line:10:16, endln:10:25
+              |vpiName:y
+              |vpiFullName:work@m.toggles.y
+              |vpiActual:
+              \_logic_net: (work@m.y), line:10:23, endln:10:24
+        |vpiOperand:
+        \_operation: , line:10:31, endln:10:58
+          |vpiParent:
+          \_operation: , line:10:1, endln:10:58
+          |vpiOpType:3
+          |vpiOperand:
+          \_operation: , line:10:34, endln:10:57
+            |vpiParent:
+            \_operation: , line:10:31, endln:10:58
+            |vpiOpType:16
+            |vpiOperand:
+            \_operation: , line:10:34, endln:10:43
+              |vpiParent:
+              \_operation: , line:10:34, endln:10:57
+              |vpiTypespec:
+              \_ref_typespec: (work@m.toggles)
+                |vpiParent:
+                \_operation: , line:10:34, endln:10:43
+                |vpiFullName:work@m.toggles
+                |vpiActual:
+                \_logic_typespec: , line:10:34, endln:10:39
+              |vpiOpType:67
+              |vpiOperand:
+              \_ref_obj: (work@m.toggles.x), line:10:41, endln:10:42
+                |vpiParent:
+                \_operation: , line:10:34, endln:10:43
+                |vpiName:x
+                |vpiFullName:work@m.toggles.x
+                |vpiActual:
+                \_logic_net: (work@m.x), line:10:9, endln:10:10
+            |vpiOperand:
+            \_operation: , line:10:48, endln:10:57
+              |vpiParent:
+              \_operation: , line:10:34, endln:10:57
+              |vpiTypespec:
+              \_ref_typespec: (work@m.toggles)
+                |vpiParent:
+                \_operation: , line:10:48, endln:10:57
+                |vpiFullName:work@m.toggles
+                |vpiActual:
+                \_logic_typespec: , line:10:48, endln:10:53
+              |vpiOpType:67
+              |vpiOperand:
+              \_ref_obj: (work@m.toggles.y), line:10:55, endln:10:56
+                |vpiParent:
+                \_operation: , line:10:48, endln:10:57
+                |vpiName:y
+                |vpiFullName:work@m.toggles.y
+                |vpiActual:
+                \_logic_net: (work@m.y), line:10:23, endln:10:24
   |vpiVariables:
   \_logic_var: (work@m.a), line:2:14, endln:2:15
     |vpiParent:
@@ -928,6 +1200,11 @@ design: (work@m)
       |vpiSize:64
       |UINT:0
       |vpiConstType:9
+\_bit_typespec: , line:9:18, endln:9:21
+\_logic_typespec: , line:10:2, endln:10:7
+\_logic_typespec: , line:10:16, endln:10:21
+\_logic_typespec: , line:10:34, endln:10:39
+\_logic_typespec: , line:10:48, endln:10:53
 \_logic_typespec: , line:1:16, endln:1:16
 \_logic_typespec: , line:1:16, endln:1:16
   |vpiParent:
@@ -1011,10 +1288,6 @@ design: (work@m)
 [   NOTE] : 5
 
 ============================== Begin Linting Results ==============================
-[LINT]: ${SURELOG_DIR}/tests/Assertions/dut.sv:12:22: Non synthesizable construct,
-[LINT]: ${SURELOG_DIR}/tests/Assertions/dut.sv:12:22: Non synthesizable construct,
+[LINT]: ${SURELOG_DIR}/tests/Assertions/dut.sv:10:1: Non synthesizable construct,
+[LINT]: ${SURELOG_DIR}/tests/Assertions/dut.sv:1:1: Non synthesizable construct, work@m
 ============================== End Linting Results ==============================
-
-============================== Begin RoundTrip Results ==============================
-[roundtrip]: ${SURELOG_DIR}/tests/Assertions/dut.sv | ${SURELOG_DIR}/build/regression/Assertions/roundtrip/dut_000.sv | 10 | 13 |
-============================== End RoundTrip Results ==============================

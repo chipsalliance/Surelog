@@ -283,6 +283,12 @@ class CompileHelper final {
                                         CompileDesign* compileDesign,
                                         UHDM::any* pstmt,
                                         ValuedComponentI* instance);
+                                        
+  UHDM::property_decl* compilePropertyDeclaration(DesignComponent* component,
+                                        const FileContent* fC, NodeId nodeId,
+                                        CompileDesign* compileDesign,
+                                        UHDM::any* pstmt,
+                                        ValuedComponentI* instance);
 
   UHDM::initial* compileInitialBlock(DesignComponent* component,
                                      const FileContent* fC, NodeId id,

@@ -361,6 +361,24 @@ uint32_t UhdmWriter::getVpiOpType(VObjectType type) {
       return vpiIntersectOp;
     case VObjectType::paFIRST_MATCH:
       return vpiFirstMatchOp;
+    case VObjectType::paSTRONG:
+      return vpiOpStrong;
+    case VObjectType::paACCEPT_ON:
+      return vpiAcceptOnOp;
+    case VObjectType::paSYNC_ACCEPT_ON:
+      return vpiSyncAcceptOnOp;
+    case VObjectType::paREJECT_ON:
+      return vpiRejectOnOp;
+    case VObjectType::paSYNC_REJECT_ON:
+      return vpiSyncRejectOnOp;
+    case VObjectType::paNEXTTIME:
+      return vpiNexttimeOp;
+    case VObjectType::paS_NEXTTIME:
+      return vpiNexttimeOp;
+    case VObjectType::paALWAYS:
+      return vpiAlwaysOp;
+    case VObjectType::paEVENTUALLY:
+      return vpiEventuallyOp;
     default:
       return 0;
   }
@@ -1197,6 +1215,14 @@ void UhdmWriter::writeModule(ModuleDefinition* mod, module_inst* m,
       stmt->VpiParent(m);
     }
   }
+  if (!mod->getPropertyDecls().empty()) {
+    VectorOfproperty_decl* decls = s.MakeProperty_declVec();
+    m->Property_decls(decls);
+    for (auto decl : mod->getPropertyDecls()) {
+      decl->VpiParent(m);
+      decls->push_back(decl);
+    }
+  }
 
   // Typepecs
   VectorOftypespec* typespecs = s.MakeTypespecVec();
@@ -1404,6 +1430,14 @@ void UhdmWriter::writeInterface(ModuleDefinition* mod, interface_inst* m,
     m->Gen_stmts(mod->getGenStmts());
     for (auto stmt : *mod->getGenStmts()) {
       stmt->VpiParent(m);
+    }
+  }
+  if (!mod->getPropertyDecls().empty()) {
+    VectorOfproperty_decl* decls = s.MakeProperty_declVec();
+    m->Property_decls(decls);
+    for (auto decl : mod->getPropertyDecls()) {
+      decl->VpiParent(m);
+      decls->push_back(decl);
     }
   }
 
@@ -1656,6 +1690,14 @@ bool UhdmWriter::writeElabProgram(Serializer& s, ModuleInstance* instance,
       m->Let_decls(decls);
       for (auto stmt : mod->getLetStmts()) {
         decls->push_back((let_decl*)stmt.second->Decl());
+      }
+    }
+    if (!mod->getPropertyDecls().empty()) {
+      VectorOfproperty_decl* decls = s.MakeProperty_declVec();
+      m->Property_decls(decls);
+      for (auto decl : mod->getPropertyDecls()) {
+        decl->VpiParent(m);
+        decls->push_back(decl);
       }
     }
     // Typepecs
@@ -2045,6 +2087,14 @@ bool UhdmWriter::writeElabGenScope(Serializer& s, ModuleInstance* instance,
       m->Let_decls(decls);
       for (auto stmt : mod->getLetStmts()) {
         decls->push_back((let_decl*)stmt.second->Decl());
+      }
+    }
+    if (!mod->getPropertyDecls().empty()) {
+      VectorOfproperty_decl* decls = s.MakeProperty_declVec();
+      m->Property_decls(decls);
+      for (auto decl : mod->getPropertyDecls()) {
+        decl->VpiParent(m);
+        decls->push_back(decl);
       }
     }
     // Typepecs
@@ -3599,6 +3649,14 @@ bool UhdmWriter::writeElabModule(Serializer& s, ModuleInstance* instance,
         decls->push_back((let_decl*)stmt.second->Decl());
       }
     }
+    if (!mod->getPropertyDecls().empty()) {
+      VectorOfproperty_decl* decls = s.MakeProperty_declVec();
+      m->Property_decls(decls);
+      for (auto decl : mod->getPropertyDecls()) {
+        decl->VpiParent(m);
+        decls->push_back(decl);
+      }
+    }
     // Typepecs
     VectorOftypespec* typespecs = s.MakeTypespecVec();
     m->Typespecs(typespecs);
@@ -3739,6 +3797,14 @@ bool UhdmWriter::writeElabInterface(Serializer& s, ModuleInstance* instance,
       m->Let_decls(decls);
       for (auto stmt : mod->getLetStmts()) {
         decls->push_back((let_decl*)stmt.second->Decl());
+      }
+    }
+    if (!mod->getPropertyDecls().empty()) {
+      VectorOfproperty_decl* decls = s.MakeProperty_declVec();
+      m->Property_decls(decls);
+      for (auto decl : mod->getPropertyDecls()) {
+        decl->VpiParent(m);
+        decls->push_back(decl);
       }
     }
     // Typepecs
