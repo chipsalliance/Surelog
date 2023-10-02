@@ -3504,7 +3504,14 @@ void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod, scope* m) {
       }
       if (isParam) continue;
     }
-
+    if (m && m->Property_decls()) {
+      for (auto n : *m->Property_decls()) {
+        if (n->VpiName() == name) {
+          ref->Actual_group(n);
+          break;  
+        }
+      }
+    }
     if (m && m->Typespecs()) {
       bool isTypespec = false;
       std::vector<std::string> importedPackages;
