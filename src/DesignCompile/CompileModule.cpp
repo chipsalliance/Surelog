@@ -660,6 +660,14 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
           }
           break;
         }
+        case VObjectType::paProperty_declaration: {
+          if (collectType != CollectType::OTHER) break;
+          UHDM::property_decl* decl = m_helper.compilePropertyDeclaration(
+              m_module, fC, fC->Child(id), m_compileDesign, nullptr,
+              m_instance);
+          m_module->addPropertyDecl(decl);
+          break;
+        }
         case VObjectType::paAlways_construct: {
           if (collectType != CollectType::OTHER) break;
           UHDM::always* always = m_helper.compileAlwaysBlock(

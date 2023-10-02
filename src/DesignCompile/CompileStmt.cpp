@@ -880,6 +880,11 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
           component, fC, fC->Child(the_stmt), compileDesign, pstmt, nullptr);
       break;
     }
+    case VObjectType::paProperty_declaration: {
+      stmt = compilePropertyDeclaration(component, fC, fC->Child(the_stmt),
+                                        compileDesign, pstmt, nullptr);
+      break;
+    }
     case VObjectType::paConcurrent_assertion_statement: {
       stmt = compileConcurrentAssertion(component, fC, fC->Child(the_stmt),
                                         compileDesign, pstmt, nullptr);

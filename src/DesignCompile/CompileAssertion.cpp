@@ -428,4 +428,66 @@ UHDM::any* CompileHelper::compileDeferredImmediateAssertion(
   }
   return stmt;
 }
+
+UHDM::property_decl* CompileHelper::compilePropertyDeclaration(
+    DesignComponent* component, const FileContent* fC, NodeId nodeId,
+    CompileDesign* compileDesign, UHDM::any* pstmt,
+    ValuedComponentI* instance) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  UHDM::property_decl* result = s.MakeProperty_decl();
+  std::string_view propName = fC->SymName(nodeId);
+  result->VpiName(propName);
+  result->VpiParent(pstmt);
+  NodeId Property_spec = fC->Sibling(nodeId);
+  if (fC->Type(Property_spec) == VObjectType::paProperty_port_list) {
+    NodeId Property_port_item = fC->Child(Property_spec);
+    UHDM::VectorOfprop_formal_decl* ports = s.MakeProp_formal_declVec();
+    result->Prop_formal_decls(ports);
+    while (Property_port_item) {
+      NodeId Property_formal_type = fC->Child(Property_port_item);
+      NodeId SeqFormatType_Data = fC->Child(Property_formal_type);
+      NodeId Data_type_or_implicit = fC->Child(SeqFormatType_Data);
+      NodeId Data_type = fC->Child(Data_type_or_implicit);
+      UHDM::typespec* tps =
+          compileTypespec(component, fC, Data_type, compileDesign, Reduce::No,
+                          pstmt, instance, false);
+
+      NodeId Port_name = fC->Sibling(Property_formal_type);
+      UHDM::prop_formal_decl* prop_port_decl = s.MakeProp_formal_decl();
+      ports->push_back(prop_port_decl);
+      prop_port_decl->VpiName(fC->SymName(Port_name));
+      UHDM::ref_typespec* rtps = s.MakeRef_typespec();
+      rtps->Actual_typespec(tps);
+      prop_port_decl->Typespec(rtps);
+      Property_port_item = fC->Sibling(Property_port_item);
+    }
+    Property_spec = fC->Sibling(Property_spec);
+  }
+  NodeId Clocking_event = fC->Child(Property_spec);
+  NodeId Property_expr = fC->Sibling(Clocking_event);
+  if (Property_expr == InvalidNodeId) {
+    Property_expr = Clocking_event;
+    Clocking_event = InvalidNodeId;
+  }
+  UHDM::property_spec* prop_spec = s.MakeProperty_spec();
+  prop_spec->VpiParent(result);
+  if (Clocking_event) {
+    if (UHDM::expr* clocking_event = (UHDM::expr*)compileExpression(
+            component, fC, Clocking_event, compileDesign, Reduce::No, prop_spec,
+            instance)) {
+      prop_spec->VpiClockingEvent(clocking_event);
+      clocking_event->VpiParent(prop_spec);
+    }
+  }
+  result->Property_spec(prop_spec);
+  if (UHDM::any* property_expr =
+          compileExpression(component, fC, Property_expr, compileDesign,
+                            Reduce::No, prop_spec, instance)) {
+    property_expr = createPropertyInst(component, property_expr, s);
+    prop_spec->VpiPropertyExpr(property_expr);
+  }
+  fC->populateCoreMembers(Property_spec, Property_spec, prop_spec);
+  return result;
+}
+
 }  // namespace SURELOG

@@ -17,22 +17,26 @@ always                                                 2
 assert_stmt                                            1
 assignment                                             6
 begin                                                  2
-constant                                               9
+bit_typespec                                           1
+constant                                              11
 delay_control                                          3
 design                                                 1
 event_control                                          1
 if_else                                                1
 initial                                                2
-logic_net                                             10
+int_typespec                                           1
+logic_net                                             12
 logic_typespec                                        15
 logic_var                                              2
 module_inst                                            4
-operation                                              7
+operation                                             13
 port                                                   6
-property_spec                                          1
-ref_obj                                               23
-ref_typespec                                          15
-sys_func_call                                          7
+prop_formal_decl                                       2
+property_decl                                          1
+property_spec                                          2
+ref_obj                                               28
+ref_typespec                                          17
+sys_func_call                                          9
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/OneDivider/slpp_unit/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/OneDivider/slpp_unit/checker/surelog.chk.html ...
@@ -238,6 +242,124 @@ design: (work@tb)
   |vpiParent:
   \_design: (work@tb)
   |vpiFullName:work@tb
+  |vpiPropertyDecl:
+  \_property_decl: (work@tb.divide)
+    |vpiParent:
+    \_module_inst: work@tb (work@tb), file:${SURELOG_DIR}/tests/OneDivider/tb.v, line:1:1, endln:30:10
+    |vpiName:divide
+    |vpiFullName:work@tb.divide
+    |vpiPropFormalDecl:
+    \_prop_formal_decl: (a)
+      |vpiName:a
+      |vpiTypespec:
+      \_ref_typespec: 
+        |vpiActual:
+        \_bit_typespec: , line:24:19, endln:24:22
+    |vpiPropFormalDecl:
+    \_prop_formal_decl: (n)
+      |vpiName:n
+      |vpiTypespec:
+      \_ref_typespec: 
+        |vpiActual:
+        \_int_typespec: , line:24:26, endln:24:29
+    |vpiPropertySpec:
+    \_property_spec: , line:25:3, endln:25:52
+      |vpiParent:
+      \_property_decl: (work@tb.divide)
+      |vpiClockingEvent:
+      \_operation: , line:25:5, endln:25:16
+        |vpiParent:
+        \_property_spec: , line:25:3, endln:25:52
+        |vpiOpType:39
+        |vpiOperand:
+        \_ref_obj: (work@tb.divide.clk), line:25:13, endln:25:16
+          |vpiParent:
+          \_operation: , line:25:5, endln:25:16
+          |vpiName:clk
+          |vpiFullName:work@tb.divide.clk
+          |vpiActual:
+          \_logic_net: (work@tb.clk), line:2:7, endln:2:10
+      |vpiPropertyExpr:
+      \_operation: , line:25:18, endln:25:52
+        |vpiParent:
+        \_property_spec: , line:25:3, endln:25:52
+        |vpiOpType:51
+        |vpiOperand:
+        \_sys_func_call: ($rose), line:25:18, endln:25:26
+          |vpiParent:
+          \_operation: , line:25:18, endln:25:52
+          |vpiArgument:
+          \_ref_obj: (work@tb.divide.a), line:25:24, endln:25:25
+            |vpiParent:
+            \_sys_func_call: ($rose), line:25:18, endln:25:26
+            |vpiName:a
+            |vpiFullName:work@tb.divide.a
+            |vpiActual:
+            \_logic_net: (work@tb.a), line:25:24, endln:25:25
+          |vpiName:$rose
+        |vpiOperand:
+        \_operation: , line:25:31, endln:25:52
+          |vpiParent:
+          \_operation: , line:25:18, endln:25:52
+          |vpiOpType:54
+          |vpiOperand:
+          \_operation: , line:25:31, endln:25:39
+            |vpiParent:
+            \_operation: , line:25:31, endln:25:52
+            |vpiOpType:60
+            |vpiOperand:
+            \_operation: , line:25:31, endln:25:33
+              |vpiParent:
+              \_operation: , line:25:18, endln:25:52
+              |vpiOpType:3
+              |vpiOperand:
+              \_ref_obj: (work@tb.divide.a), line:25:32, endln:25:33
+                |vpiParent:
+                \_operation: , line:25:31, endln:25:33
+                |vpiName:a
+                |vpiFullName:work@tb.divide.a
+                |vpiActual:
+                \_logic_net: (work@tb.a), line:25:24, endln:25:25
+            |vpiOperand:
+            \_operation: , line:25:35, endln:25:38
+              |vpiParent:
+              \_operation: , line:25:31, endln:25:39
+              |vpiOpType:11
+              |vpiOperand:
+              \_ref_obj: (work@tb.divide.n), line:25:35, endln:25:36
+                |vpiParent:
+                \_operation: , line:25:35, endln:25:38
+                |vpiName:n
+                |vpiFullName:work@tb.divide.n
+                |vpiActual:
+                \_logic_net: (work@tb.n), line:25:35, endln:25:36
+              |vpiOperand:
+              \_constant: , line:25:37, endln:25:38
+                |vpiParent:
+                \_operation: , line:25:35, endln:25:38
+                |vpiDecompile:1
+                |vpiSize:64
+                |UINT:1
+                |vpiConstType:9
+          |vpiOperand:
+          \_constant: , line:25:40, endln:25:43
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+          |vpiOperand:
+          \_sys_func_call: ($rose), line:25:44, endln:25:52
+            |vpiParent:
+            \_operation: , line:25:31, endln:25:52
+            |vpiArgument:
+            \_ref_obj: (work@tb.divide.a), line:25:50, endln:25:51
+              |vpiParent:
+              \_sys_func_call: ($rose), line:25:44, endln:25:52
+              |vpiName:a
+              |vpiFullName:work@tb.divide.a
+              |vpiActual:
+              \_logic_net: (work@tb.a), line:25:24, endln:25:25
+            |vpiName:$rose
   |vpiDefName:work@tb
   |vpiNet:
   \_logic_net: (work@tb.clk), line:2:7, endln:2:10
@@ -281,6 +403,20 @@ design: (work@tb)
     |vpiName:rstn
     |vpiFullName:work@tb.rstn
     |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@tb.a), line:25:24, endln:25:25
+    |vpiParent:
+    \_module_inst: work@tb (work@tb), file:${SURELOG_DIR}/tests/OneDivider/tb.v, line:1:1, endln:30:10
+    |vpiName:a
+    |vpiFullName:work@tb.a
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@tb.n), line:25:35, endln:25:36
+    |vpiParent:
+    \_module_inst: work@tb (work@tb), file:${SURELOG_DIR}/tests/OneDivider/tb.v, line:1:1, endln:30:10
+    |vpiName:n
+    |vpiFullName:work@tb.n
+    |vpiNetType:1
   |vpiAssertion:
   \_assert_stmt: (work@tb.ap_div2), line:28:3, endln:28:112
     |vpiParent:
@@ -502,6 +638,8 @@ design: (work@tb)
 |uhdmtopModules:
 \_module_inst: work@tb (work@tb), file:${SURELOG_DIR}/tests/OneDivider/tb.v, line:1:1, endln:30:10
   |vpiName:work@tb
+  |vpiPropertyDecl:
+  \_property_decl: (work@tb.divide)
   |vpiVariables:
   \_logic_var: (work@tb.div), line:3:9, endln:3:12
     |vpiParent:
@@ -698,6 +836,9 @@ design: (work@tb)
     |vpiProcess:
     \_always: , line:5:1, endln:9:23
 \_weaklyReferenced:
+\_bit_typespec: , line:24:19, endln:24:22
+\_int_typespec: , line:24:26, endln:24:29
+  |vpiSigned:1
 \_logic_typespec: , line:2:3, endln:2:6
   |vpiParent:
   \_logic_net: (work@tb.clk), line:2:7, endln:2:10
@@ -733,14 +874,12 @@ design: (work@tb)
 [   NOTE] : 5
 
 ============================== Begin Linting Results ==============================
-[LINT]: ${SURELOG_DIR}/tests/OneDivider/tb.v:28:28: Non synthesizable construct,
+[LINT]: ${SURELOG_DIR}/tests/OneDivider/tb.v:25:18: Non synthesizable construct, $rose
+[LINT]: ${SURELOG_DIR}/tests/OneDivider/tb.v:25:44: Non synthesizable construct, $rose
+[LINT]: ${SURELOG_DIR}/tests/OneDivider/tb.v:25:3: Non synthesizable construct,
+[LINT]: ${SURELOG_DIR}/tests/OneDivider/tb.v:1:1: Non synthesizable construct, work@tb
 [LINT]: ${SURELOG_DIR}/tests/OneDivider/tb.v:8:5: Non synthesizable construct, $monitor
 [LINT]: ${SURELOG_DIR}/tests/OneDivider/tb.v:9:5: Non synthesizable construct,
 [LINT]: ${SURELOG_DIR}/tests/OneDivider/tb.v:16:5: Non synthesizable construct,
 [LINT]: ${SURELOG_DIR}/tests/OneDivider/tb.v:20:5: Non synthesizable construct,
 ============================== End Linting Results ==============================
-
-============================== Begin RoundTrip Results ==============================
-[roundtrip]: ${SURELOG_DIR}/tests/OneDivider/dut.v | ${SURELOG_DIR}/build/regression/OneDivider/roundtrip/dut_000.v | 3 | 10 |
-[roundtrip]: ${SURELOG_DIR}/tests/OneDivider/tb.v  | ${SURELOG_DIR}/build/regression/OneDivider/roundtrip/tb_000.v  | 7 | 30 |
-============================== End RoundTrip Results ==============================
