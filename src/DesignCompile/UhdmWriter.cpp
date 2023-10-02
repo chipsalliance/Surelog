@@ -3508,7 +3508,7 @@ void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod, scope* m) {
       for (auto n : *m->Property_decls()) {
         if (n->VpiName() == name) {
           ref->Actual_group(n);
-          break;  
+          break;
         }
       }
     }
