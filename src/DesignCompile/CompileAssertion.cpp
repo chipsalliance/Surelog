@@ -490,4 +490,66 @@ UHDM::property_decl* CompileHelper::compilePropertyDeclaration(
   return result;
 }
 
+UHDM::sequence_decl* CompileHelper::compileSequenceDeclaration(
+    DesignComponent* component, const FileContent* fC, NodeId nodeId,
+    CompileDesign* compileDesign, UHDM::any* pstmt,
+    ValuedComponentI* instance) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  UHDM::sequence_decl* result = s.MakeSequence_decl();
+  std::string_view propName = fC->SymName(nodeId);
+  result->VpiName(propName);
+  result->VpiParent(pstmt);
+  NodeId Sequence_expr = fC->Sibling(nodeId);
+  if (fC->Type(Sequence_expr) == VObjectType::paSequence_port_list) {
+    NodeId Sequence_port_item = fC->Child(Sequence_expr);
+    UHDM::VectorOfseq_formal_decl* ports = s.MakeSeq_formal_declVec();
+    result->Seq_formal_decls(ports);
+    while (Sequence_port_item) {
+      NodeId Sequence_formal_type = fC->Child(Sequence_port_item);
+      NodeId SeqFormatType_Data = fC->Child(Sequence_formal_type);
+      NodeId Data_type_or_implicit = fC->Child(SeqFormatType_Data);
+      NodeId Data_type = fC->Child(Data_type_or_implicit);
+      UHDM::typespec* tps =
+          compileTypespec(component, fC, Data_type, compileDesign, Reduce::No,
+                          pstmt, instance, false);
+
+      NodeId Port_name = fC->Sibling(Sequence_formal_type);
+      UHDM::seq_formal_decl* prop_port_decl = s.MakeSeq_formal_decl();
+      ports->push_back(prop_port_decl);
+      prop_port_decl->VpiName(fC->SymName(Port_name));
+      UHDM::ref_typespec* rtps = s.MakeRef_typespec();
+      rtps->Actual_typespec(tps);
+      prop_port_decl->Typespec(rtps);
+      Sequence_port_item = fC->Sibling(Sequence_port_item);
+    }
+    Sequence_expr = fC->Sibling(Sequence_expr);
+  }
+  NodeId lookup = fC->Child(Sequence_expr);
+  if (fC->Type(lookup) == VObjectType::paClocking_event) {
+    UHDM::multiclock_sequence_expr* mexpr = s.MakeMulticlock_sequence_expr();
+    result->Sequence_expr_multiclock_group(mexpr);
+    mexpr->Clocked_seqs(s.MakeClocked_seqVec());
+    while (fC->Type(lookup) == VObjectType::paClocking_event) {
+      UHDM::expr* clock_event = any_cast<UHDM::expr*>(compileExpression(
+          component, fC, lookup, compileDesign, Reduce::No, result, instance));
+      UHDM::clocked_seq* seq = s.MakeClocked_seq();
+      mexpr->Clocked_seqs()->push_back(seq);
+      seq->VpiClockingEvent(clock_event);
+      lookup = fC->Sibling(lookup);
+    }
+    if (UHDM::any* seq_expr =
+            compileExpression(component, fC, lookup, compileDesign, Reduce::No,
+                              result, instance)) {
+      mexpr->Clocked_seqs()->back()->VpiSequenceExpr(seq_expr);
+    }
+  } else {
+    if (UHDM::any* seq_expr =
+            compileExpression(component, fC, Sequence_expr, compileDesign,
+                              Reduce::No, result, instance)) {
+      result->Sequence_expr_multiclock_group(seq_expr);
+    }
+  }
+  return result;
+}
+
 }  // namespace SURELOG

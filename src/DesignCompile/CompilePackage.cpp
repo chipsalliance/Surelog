@@ -254,6 +254,20 @@ bool CompilePackage::collectObjects_(CollectType collectType, Reduce reduce) {
                                                     m_compileDesign, nullptr);
           break;
         }
+        case VObjectType::paProperty_declaration: {
+          if (collectType != CollectType::OTHER) break;
+          UHDM::property_decl* decl = m_helper.compilePropertyDeclaration(
+              m_package, fC, fC->Child(id), m_compileDesign, nullptr, nullptr);
+          m_package->addPropertyDecl(decl);
+          break;
+        }
+        case VObjectType::paSequence_declaration: {
+          if (collectType != CollectType::OTHER) break;
+          UHDM::sequence_decl* decl = m_helper.compileSequenceDeclaration(
+              m_package, fC, fC->Child(id), m_compileDesign, nullptr, nullptr);
+          m_package->addSequenceDecl(decl);
+          break;
+        }
         case VObjectType::paDpi_import_export: {
           if (collectType != CollectType::FUNCTION) break;
           NodeId Import = fC->Child(id);

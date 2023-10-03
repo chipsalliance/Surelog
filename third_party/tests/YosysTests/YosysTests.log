@@ -10389,9 +10389,15 @@ Processing: -cd verific/sva nonconsrep.sv -writepp -parse -nocache -nobuiltin -n
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd verific/sva triggered.sv -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l triggered.sv.log
+[ERR:UH0700] ${SURELOG_DIR}/third_party/tests/YosysTests/verific/sva/triggered.sv:63:5: Unsupported expression "<n<> u<768> t<Consecutive_repetition> p<769> l<63:5> el<63:8>> 		A [+] ##1 C;".
+[ERR:UH0700] ${SURELOG_DIR}/third_party/tests/YosysTests/verific/sva/triggered.sv:68:11: Unsupported expression "<n<> u<810> t<Consecutive_repetition> p<811> l<68:11> el<68:14>> 		C ##1 B [+];".
+[ERR:UH0700] ${SURELOG_DIR}/third_party/tests/YosysTests/verific/sva/triggered.sv:34:5: Unsupported expression "<n<> u<526> t<Consecutive_repetition> p<527> l<34:5> el<34:8>> 		A [+] ##1 C;".
+[ERR:UH0700] ${SURELOG_DIR}/third_party/tests/YosysTests/verific/sva/triggered.sv:39:11: Unsupported expression "<n<> u<568> t<Consecutive_repetition> p<569> l<39:11> el<39:14>> 		C ##1 B [+];".
+[ERR:UH0700] ${SURELOG_DIR}/third_party/tests/YosysTests/verific/sva/triggered.sv:92:5: Unsupported expression "<n<> u<1010> t<Consecutive_repetition> p<1011> l<92:5> el<92:8>> 		A [+] ##1 C;".
+[ERR:UH0700] ${SURELOG_DIR}/third_party/tests/YosysTests/verific/sva/triggered.sv:97:11: Unsupported expression "<n<> u<1052> t<Consecutive_repetition> p<1053> l<97:11> el<97:14>> 		C ##1 B [+];".
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 6
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd verific/sva repzero.sv -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l repzero.sv.log
@@ -10460,6 +10466,6 @@ Processing: -cd regression/issue_01329 synchronizer.sv -writepp -parse -nocache 
 Processed 1309 tests.
 [  FATAL] : 0
 [ SYNTAX] : 61
-[  ERROR] : 38
+[  ERROR] : 44
 [WARNING] : 2368
 [   NOTE] : 0

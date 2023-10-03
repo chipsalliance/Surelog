@@ -668,6 +668,14 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
           m_module->addPropertyDecl(decl);
           break;
         }
+        case VObjectType::paSequence_declaration: {
+          if (collectType != CollectType::OTHER) break;
+          UHDM::sequence_decl* decl = m_helper.compileSequenceDeclaration(
+              m_module, fC, fC->Child(id), m_compileDesign, nullptr,
+              m_instance);
+          m_module->addSequenceDecl(decl);
+          break;
+        }
         case VObjectType::paAlways_construct: {
           if (collectType != CollectType::OTHER) break;
           UHDM::always* always = m_helper.compileAlwaysBlock(
@@ -1208,6 +1216,22 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
             Error err(ErrorDefinition::COMP_NO_MODPORT_IN_GENERATE, loc);
             m_errors->addError(err);
           }
+          break;
+        }
+        case VObjectType::paProperty_declaration: {
+          if (collectType != CollectType::OTHER) break;
+          UHDM::property_decl* decl = m_helper.compilePropertyDeclaration(
+              m_module, fC, fC->Child(id), m_compileDesign, nullptr,
+              m_instance);
+          m_module->addPropertyDecl(decl);
+          break;
+        }
+        case VObjectType::paSequence_declaration: {
+          if (collectType != CollectType::OTHER) break;
+          UHDM::sequence_decl* decl = m_helper.compileSequenceDeclaration(
+              m_module, fC, fC->Child(id), m_compileDesign, nullptr,
+              m_instance);
+          m_module->addSequenceDecl(decl);
           break;
         }
         case VObjectType::paModport_item:
