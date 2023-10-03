@@ -169,6 +169,13 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
     return m_property_decls;
   }
 
+  void addSequenceDecl(UHDM::sequence_decl* seq_decl) {
+    m_sequence_decls.push_back(seq_decl);
+  }
+  const std::vector<UHDM::sequence_decl*>& getSequenceDecls() const {
+    return m_sequence_decls;
+  }
+
   void needLateBinding(UHDM::ref_obj* obj) {
     if (m_lateBinding) m_needLateBinding.push_back(obj);
   }
@@ -230,7 +237,8 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   VariableMap m_variables;
   std::vector<UHDM::import_typespec*> m_imported_symbols;
   std::vector<UHDM::tf_call*> m_elab_sys_calls;
-  std::vector<UHDM::property_decl*> m_property_decls; 
+  std::vector<UHDM::property_decl*> m_property_decls;
+  std::vector<UHDM::sequence_decl*> m_sequence_decls;  
   std::vector<UHDM::ref_obj*> m_needLateBinding;
   std::vector<UHDM::any*> m_needLateTypedefBinding;
   FuncNameTypespecVec m_lateResolutionFunctions;

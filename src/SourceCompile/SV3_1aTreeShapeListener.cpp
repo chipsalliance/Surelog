@@ -1816,6 +1816,12 @@ void SV3_1aTreeShapeListener::exitSequence_expr(
     addVObject((antlr4::ParserRuleContext *)ctx->INTERSECT(),
                VObjectType::paINTERSECT);
   }
+  if (ctx->AND()) {
+    addVObject((antlr4::ParserRuleContext *)ctx->AND(), VObjectType::paAND);
+  }
+  if (ctx->OR()) {
+    addVObject((antlr4::ParserRuleContext *)ctx->OR(), VObjectType::paOR);
+  }
   addVObject(ctx, VObjectType::paSequence_expr);
 }
 

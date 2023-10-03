@@ -327,6 +327,10 @@ uint32_t UhdmWriter::getVpiOpType(VObjectType type) {
       return vpiWildNeqOp;
     case VObjectType::paIFF:
       return vpiIffOp;
+    case VObjectType::paOR:
+      return vpiLogOrOp;
+    case VObjectType::paAND:
+      return vpiLogAndOp;
     case VObjectType::paNON_OVERLAP_IMPLY:
       return vpiNonOverlapImplyOp;
     case VObjectType::paOVERLAP_IMPLY:
@@ -1223,6 +1227,14 @@ void UhdmWriter::writeModule(ModuleDefinition* mod, module_inst* m,
       decls->push_back(decl);
     }
   }
+  if (!mod->getSequenceDecls().empty()) {
+    VectorOfsequence_decl* decls = s.MakeSequence_declVec();
+    m->Sequence_decls(decls);
+    for (auto decl : mod->getSequenceDecls()) {
+      decl->VpiParent(m);
+      decls->push_back(decl);
+    }
+  }
 
   // Typepecs
   VectorOftypespec* typespecs = s.MakeTypespecVec();
@@ -1436,6 +1448,14 @@ void UhdmWriter::writeInterface(ModuleDefinition* mod, interface_inst* m,
     VectorOfproperty_decl* decls = s.MakeProperty_declVec();
     m->Property_decls(decls);
     for (auto decl : mod->getPropertyDecls()) {
+      decl->VpiParent(m);
+      decls->push_back(decl);
+    }
+  }
+  if (!mod->getSequenceDecls().empty()) {
+    VectorOfsequence_decl* decls = s.MakeSequence_declVec();
+    m->Sequence_decls(decls);
+    for (auto decl : mod->getSequenceDecls()) {
       decl->VpiParent(m);
       decls->push_back(decl);
     }
@@ -1696,6 +1716,14 @@ bool UhdmWriter::writeElabProgram(Serializer& s, ModuleInstance* instance,
       VectorOfproperty_decl* decls = s.MakeProperty_declVec();
       m->Property_decls(decls);
       for (auto decl : mod->getPropertyDecls()) {
+        decl->VpiParent(m);
+        decls->push_back(decl);
+      }
+    }
+    if (!mod->getSequenceDecls().empty()) {
+      VectorOfsequence_decl* decls = s.MakeSequence_declVec();
+      m->Sequence_decls(decls);
+      for (auto decl : mod->getSequenceDecls()) {
         decl->VpiParent(m);
         decls->push_back(decl);
       }
@@ -2093,6 +2121,14 @@ bool UhdmWriter::writeElabGenScope(Serializer& s, ModuleInstance* instance,
       VectorOfproperty_decl* decls = s.MakeProperty_declVec();
       m->Property_decls(decls);
       for (auto decl : mod->getPropertyDecls()) {
+        decl->VpiParent(m);
+        decls->push_back(decl);
+      }
+    }
+    if (!mod->getSequenceDecls().empty()) {
+      VectorOfsequence_decl* decls = s.MakeSequence_declVec();
+      m->Sequence_decls(decls);
+      for (auto decl : mod->getSequenceDecls()) {
         decl->VpiParent(m);
         decls->push_back(decl);
       }
@@ -3506,6 +3542,14 @@ void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod, scope* m) {
     }
     if (m && m->Property_decls()) {
       for (auto n : *m->Property_decls()) {
+        if (n->VpiName() == name) {
+          ref->Actual_group(n);
+          break;
+        }
+      }
+    }
+    if (m && m->Sequence_decls()) {
+      for (auto n : *m->Sequence_decls()) {
         if (n->VpiName() == name) {
           ref->Actual_group(n);
           break;

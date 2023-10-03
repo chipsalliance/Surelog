@@ -3113,18 +3113,33 @@ UHDM::any *CompileHelper::compileExpression(
           break;
         }
         case VObjectType::paClocking_event: {
-          UHDM::clocked_property *prop = s.MakeClocked_property();
-          if (any *cev = compileExpression(component, fC, fC->Child(child),
-                                           compileDesign, reduce, prop,
-                                           instance, muteErrors)) {
-            prop->VpiClockingEvent((expr *)cev);
+          if (fC->Type(fC->Sibling(child)) == VObjectType::paSequence_expr) {
+            UHDM::clocked_seq *seq = s.MakeClocked_seq();
+            if (any *cev = compileExpression(component, fC, fC->Child(child),
+                                             compileDesign, reduce, seq,
+                                             instance, muteErrors)) {
+              seq->VpiClockingEvent((expr *)cev);
+            }
+            if (any *ex = compileExpression(component, fC, fC->Sibling(child),
+                                            compileDesign, reduce, seq,
+                                            instance, muteErrors)) {
+              seq->VpiSequenceExpr(ex);
+            }
+            result = seq;
+          } else {
+            UHDM::clocked_property *prop = s.MakeClocked_property();
+            if (any *cev = compileExpression(component, fC, fC->Child(child),
+                                             compileDesign, reduce, prop,
+                                             instance, muteErrors)) {
+              prop->VpiClockingEvent((expr *)cev);
+            }
+            if (any *ex = compileExpression(component, fC, fC->Sibling(child),
+                                            compileDesign, reduce, prop,
+                                            instance, muteErrors)) {
+              prop->VpiPropertyExpr(ex);
+            }
+            result = prop;
           }
-          if (any *ex = compileExpression(component, fC, fC->Sibling(child),
-                                          compileDesign, reduce, prop, instance,
-                                          muteErrors)) {
-            prop->VpiPropertyExpr(ex);
-          }
-          result = prop;
           break;
         }
         default:
