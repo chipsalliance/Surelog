@@ -1798,10 +1798,14 @@ UHDM::any *CompileHelper::compileExpression(
               NodeId repetition = fC->Child(dist);
               VObjectType repetType = fC->Type(repetition);
               op->VpiOpType(UhdmWriter::getVpiOpType(repetType));
-              if (any *rep = compileExpression(component, fC, repetition,
-                                               compileDesign, reduce, op,
-                                               instance, muteErrors)) {
-                operands->push_back(rep);
+              if ((repetType == VObjectType::paConsecutive_repetition) &&
+                  (fC->Child(repetition) == InvalidNodeId)) {
+              } else {
+                if (any *rep = compileExpression(component, fC, repetition,
+                                                 compileDesign, reduce, op,
+                                                 instance, muteErrors)) {
+                  operands->push_back(rep);
+                }
               }
               result = op;
             } else if (distType == VObjectType::paTHROUGHOUT ||
@@ -2983,6 +2987,20 @@ UHDM::any *CompileHelper::compileExpression(
             m_stackLevel--;
           }
           return nullptr;
+        case VObjectType::paCycle_delay_const_range_expression: {
+          UHDM::range *r = s.MakeRange();
+          NodeId lhs = fC->Child(child);
+          NodeId rhs = fC->Sibling(lhs);
+          r->Left_expr((expr *)compileExpression(component, fC, lhs,
+                                                 compileDesign, reduce, r,
+                                                 instance, muteErrors));
+          r->Right_expr((expr *)compileExpression(component, fC, rhs,
+                                                  compileDesign, reduce, r,
+                                                  instance, muteErrors));
+          fC->populateCoreMembers(parent, parent, r);
+          result = r;
+          break;
+        }
         case VObjectType::paCycle_delay_range: {
           VObjectType type = fC->Type(child);
           operation *operation = s.MakeOperation();
