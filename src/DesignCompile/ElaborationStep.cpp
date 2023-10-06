@@ -2235,12 +2235,13 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
       array_vars->push_back((variables*)obj);
       ((variables*)obj)->VpiName("");
     }
-    if (array_var->Typespec() == nullptr) {
+    /*if (array_var->Typespec() == nullptr) {
       ref_typespec* tsRef = s.MakeRef_typespec();
       tsRef->VpiParent(array_var);
       tsRef->Actual_typespec(s.MakeArray_typespec());
       array_var->Typespec(tsRef);
     }
+    */
     array_var->Expr(assignExp);
     fC->populateCoreMembers(sig->getNodeId(), sig->getNodeId(), obj);
     obj = array_var;
