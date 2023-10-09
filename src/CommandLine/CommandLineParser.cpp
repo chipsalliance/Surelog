@@ -1385,12 +1385,15 @@ bool CommandLineParser::parseCommandLine(int32_t argc, const char** argv) {
         if (filepath.is_relative()) filepath = cd / filepath;
         const PathId fileId =
             fileSystem->toPathId(filepath.string(), m_symbolTable);
-        m_sourceFiles.emplace_back(fileId);
-        m_svSourceFiles.emplace(fileId);
-        PathId dirId = fileSystem->getParent(fileId, m_symbolTable);
-        if (m_includePathSet.find(dirId) == m_includePathSet.end()) {
-          m_includePathSet.emplace(dirId);
-          m_includePaths.emplace_back(dirId);
+        if (m_sourceFileSet.find(fileId) == m_sourceFileSet.end()) {
+          m_sourceFiles.emplace_back(fileId);
+          m_sourceFileSet.emplace(fileId);
+          m_svSourceFiles.emplace(fileId);
+          PathId dirId = fileSystem->getParent(fileId, m_symbolTable);
+          if (m_includePathSet.find(dirId) == m_includePathSet.end()) {
+            m_includePathSet.emplace(dirId);
+            m_includePaths.emplace_back(dirId);
+          }
         }
       } else {
         m_sverilog = true;
@@ -1425,11 +1428,14 @@ bool CommandLineParser::parseCommandLine(int32_t argc, const char** argv) {
       if (filepath.is_relative()) filepath = cd / filepath;
       const PathId fileId =
           fileSystem->toPathId(filepath.string(), m_symbolTable);
-      m_sourceFiles.emplace_back(fileId);
-      PathId dirId = fileSystem->getParent(fileId, m_symbolTable);
-      if (m_includePathSet.find(dirId) == m_includePathSet.end()) {
-        m_includePathSet.emplace(dirId);
-        m_includePaths.emplace_back(dirId);
+      if (m_sourceFileSet.find(fileId) == m_sourceFileSet.end()) {
+        m_sourceFiles.emplace_back(fileId);
+        m_sourceFileSet.emplace(fileId);
+        PathId dirId = fileSystem->getParent(fileId, m_symbolTable);
+        if (m_includePathSet.find(dirId) == m_includePathSet.end()) {
+          m_includePathSet.emplace(dirId);
+          m_includePaths.emplace_back(dirId);
+        }
       }
     }
   }

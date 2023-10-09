@@ -271,6 +271,7 @@ class CommandLineParser final {
   PathIdVector m_workingDirs;
   PathIdVector m_libraryPaths;  // -y
   PathIdVector m_sourceFiles;   // .v .sv
+  PathIdSet m_sourceFileSet;
   PathIdSet m_svSourceFiles;    // user forced sv files
   PathIdVector m_libraryFiles;  // -v
   PathIdVector m_includePaths;  // +incdir+
