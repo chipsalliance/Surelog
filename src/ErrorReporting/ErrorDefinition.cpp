@@ -473,6 +473,8 @@ bool ErrorDefinition::init() {
       "Unresolved hierarchical reference \"%s\"");
   rec(UHDM_UNDEFINED_VARIABLE, ERROR, UHDM, "Undefined variable \"%s\"");
   rec(UHDM_INVALID_CASE_STMT_VALUE, ERROR, UHDM, "Invalid case stmt value");
+  rec(UHDM_UNSUPPORTED_TYPESPEC, ERROR, UHDM, "Unsupported typespec \"%s\"");
+  rec(UHDM_UNRESOLVED_PROPERTY, ERROR, UHDM, "Unresolved property \"%s\"");
   return true;
 }
 

@@ -463,6 +463,28 @@ UHDM::property_decl* CompileHelper::compilePropertyDeclaration(
     }
     Property_spec = fC->Sibling(Property_spec);
   }
+  if (fC->Type(Property_spec) ==
+      VObjectType::paAssertion_variable_declaration) {
+    UHDM::VectorOfvariables* vars = s.MakeVariablesVec();
+    result->Variables(vars);
+    while (fC->Type(Property_spec) ==
+           VObjectType::paAssertion_variable_declaration) {
+      NodeId Assertion_variable_declaration = Property_spec;
+      UHDM::VectorOfany* varst =
+          compileDataDeclaration(component, fC, Assertion_variable_declaration,
+                                 compileDesign, Reduce::No, pstmt, instance);
+      if (varst) {
+        for (auto v : *varst) {
+          if (UHDM::assign_stmt* vast = any_cast<UHDM::assign_stmt*>(v)) {
+            if (UHDM::variables* va = any_cast<UHDM::variables*>(vast->Lhs())) {
+              vars->push_back(va);
+            }
+          }
+        }
+      }
+      Property_spec = fC->Sibling(Property_spec);
+    }
+  }
   NodeId Clocking_event = fC->Child(Property_spec);
   NodeId Property_expr = fC->Sibling(Clocking_event);
   if (Property_expr == InvalidNodeId) {

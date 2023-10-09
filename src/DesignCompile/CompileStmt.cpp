@@ -1131,6 +1131,7 @@ VectorOfany* CompileHelper::compileDataDeclaration(
     type = fC->Type(nodeId);
   }
   switch (type) {
+    case VObjectType::paAssertion_variable_declaration:
     case VObjectType::paVariable_declaration: {
       NodeId Data_type = fC->Child(nodeId);
       // typespec* ts = compileTypespec(component, fC, Data_type,
@@ -1152,7 +1153,8 @@ VectorOfany* CompileHelper::compileDataDeclaration(
         }
       }
       while (Variable_decl_assignment) {
-        NodeId Var = fC->Child(Variable_decl_assignment);
+        NodeId Var = Variable_decl_assignment;
+        if (fC->Child(Var)) Var = fC->Child(Var);
         NodeId tmp = fC->Sibling(Var);
         std::vector<UHDM::range*>* unpackedDimensions = nullptr;
         if (fC->Type(tmp) != VObjectType::paExpression) {
