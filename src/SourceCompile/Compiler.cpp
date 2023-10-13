@@ -227,7 +227,8 @@ bool Compiler::ppinit_() {
                 if (std::regex_search(buffer.str(), regexpMod)) {
                   fileContainsModuleOfSameName = true;
                 }
-                const std::regex regexpPrim{"(primitive)[ ]+(" + moduleName + ")"};
+                const std::regex regexpPrim{"(primitive)[ ]+(" + moduleName +
+                                            ")"};
                 if (std::regex_search(buffer.str(), regexpPrim)) {
                   fileContainsModuleOfSameName = true;
                 }
