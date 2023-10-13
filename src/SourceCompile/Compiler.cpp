@@ -46,6 +46,7 @@
 
 #include <climits>
 #include <filesystem>
+#include <fstream>
 #include <nlohmann/json.hpp>
 #include <thread>
 
@@ -210,11 +211,38 @@ bool Compiler::ppinit_() {
       fileSystem->collect(libFileId,
                           m_commandLineParser->getSymbolTable()->getSymbol(ext),
                           m_commandLineParser->getSymbolTable(), fileIds);
-      std::copy_if(fileIds.begin(), fileIds.end(),
-                   std::inserter(libFileIdSet, libFileIdSet.end()),
-                   [&sourceFiles](const PathId& libFileId) {
-                     return sourceFiles.find(libFileId) == sourceFiles.end();
-                   });
+      std::copy_if(
+          fileIds.begin(), fileIds.end(),
+          std::inserter(libFileIdSet, libFileIdSet.end()),
+          [&](const PathId& libFileId) {
+            if (sourceFiles.find(libFileId) == sourceFiles.end()) {
+              bool fileContainsModuleOfSameName = false;
+              std::filesystem::path dir_entry = fileSystem->toPath(libFileId);
+              std::ifstream ifs(dir_entry.string());
+              if (ifs.good()) {
+                std::stringstream buffer;
+                buffer << ifs.rdbuf();
+                std::string moduleName = dir_entry.stem().string();
+                const std::regex regexpMod{"(module)[ ]+(" + moduleName + ")"};
+                if (std::regex_search(buffer.str(), regexpMod)) {
+                  fileContainsModuleOfSameName = true;
+                }
+                const std::regex regexpPrim{"(primitive)[ ]+(" + moduleName + ")"};
+                if (std::regex_search(buffer.str(), regexpPrim)) {
+                  fileContainsModuleOfSameName = true;
+                }
+                const std::regex regexpPack{"(package)[ ]"};
+                if (std::regex_search(buffer.str(), regexpPack)) {
+                  // Files containing packages cannot be imported with -y
+                  fileContainsModuleOfSameName = false;
+                }
+              }
+              ifs.close();
+              return fileContainsModuleOfSameName;
+            } else {
+              return false;
+            }
+          });
     }
   }
   for (const auto& libFileId : libFileIdSet) {
