@@ -1,0 +1,1 @@
+-parse -d uhdm -d coveruhdm -elabuhdm -d ast left_rotate_assertions.sv  left_rotate.sv  tb_left_rotate.sv -nobuiltin

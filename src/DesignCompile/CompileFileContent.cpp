@@ -99,6 +99,11 @@ bool CompileFileContent::collectObjects_() {
         }
         break;
       }
+      case VObjectType::paBind_directive: {
+        m_helper.compileBindStmt(m_fileContent, fC, id, m_compileDesign,
+                                 nullptr);
+        break;
+      }
       case VObjectType::paParameter_declaration: {
         if (m_declOnly) {
           NodeId list_of_type_assignments = fC->Child(id);
