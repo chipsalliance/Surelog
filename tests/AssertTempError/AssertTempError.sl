@@ -1,0 +1,1 @@
+-parse -d uhdm -d coveruhdm -elabuhdm -d ast design.sv  testbench.sv -nobuiltin
