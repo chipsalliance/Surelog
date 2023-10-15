@@ -28,6 +28,7 @@ pkgs.mkShell {
       antlr4.runtime.cpp
       capnproto
       gtest
+      nlohmann_json
 
       # Ease development
       ccache
@@ -39,6 +40,6 @@ pkgs.mkShell {
     ];
   shellHook = ''
     export CMAKE_CXX_COMPILER_LAUNCHER=ccache
-    export ADDITIONAL_CMAKE_OPTIONS="-DSURELOG_USE_HOST_GTEST=On -DSURELOG_USE_HOST_CAPNP=On -DSURELOG_USE_HOST_ANTLR=On -DANTLR_JAR_LOCATION=${pkgs.antlr4.jarLocation}"
+    export ADDITIONAL_CMAKE_OPTIONS="-DSURELOG_USE_HOST_GTEST=On -DSURELOG_USE_HOST_CAPNP=On -DSURELOG_USE_HOST_JSON=On -DSURELOG_USE_HOST_ANTLR=On -DANTLR_JAR_LOCATION=${pkgs.antlr4.jarLocation}"
   '';
 }
