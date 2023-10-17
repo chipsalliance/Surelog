@@ -844,8 +844,11 @@ Processing: -cd errors +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -tim
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Yosys/errors/syntax_err02.v:3:16: Syntax error: missing {'this', 'randomize', 'sample', Escaped_identifier, Simple_identifier} at '[',
   input integer [3:0]x
                 ^-- ${SURELOG_DIR}/build/regression/Yosys/slpp_all/lib/work/errors/syntax_err02.v:3:16:.
+[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Yosys/errors/syntax_err02.v:3:21: Syntax error: extraneous input 'x' expecting ')',
+  input integer [3:0]x
+                     ^-- ${SURELOG_DIR}/build/regression/Yosys/slpp_all/lib/work/errors/syntax_err02.v:3:21:.
 [  FATAL] : 0
-[ SYNTAX] : 1
+[ SYNTAX] : 2
 [  ERROR] : 0
 [WARNING] : 0
 [   NOTE] : 0
@@ -853,8 +856,14 @@ Processing: -cd errors +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -tim
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Yosys/errors/syntax_err10.v:2:18: Syntax error: missing {'this', 'randomize', 'sample', Escaped_identifier, Simple_identifier} at '[',
 parameter integer [2:0]x=0;
                   ^-- ${SURELOG_DIR}/build/regression/Yosys/slpp_all/lib/work/errors/syntax_err10.v:2:18:.
+[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Yosys/errors/syntax_err10.v:2:23: Syntax error: missing ';' at 'x',
+parameter integer [2:0]x=0;
+                       ^-- ${SURELOG_DIR}/build/regression/Yosys/slpp_all/lib/work/errors/syntax_err10.v:2:23:.
+[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Yosys/errors/syntax_err10.v:2:25: Syntax error: mismatched input '0' expecting {Pound_Pound_delay, Pound_delay, 'type', 'local', 'super', '{', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', DOLLAR_UNIT, '#', ''', 'this', DOLLAR_ROOT, 'randomize', 'sample', Escaped_identifier, Simple_identifier},
+parameter integer [2:0]x=0;
+                         ^-- ${SURELOG_DIR}/build/regression/Yosys/slpp_all/lib/work/errors/syntax_err10.v:2:25:.
 [  FATAL] : 0
-[ SYNTAX] : 1
+[ SYNTAX] : 3
 [  ERROR] : 0
 [WARNING] : 0
 [   NOTE] : 0
@@ -862,8 +871,11 @@ Processing: -cd errors +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -tim
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Yosys/errors/syntax_err05.v:2: Syntax error: extraneous input 'input' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'clocking', 'defparam', 'bind', 'const', 'function', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'not', 'or', 'and', 'sequence', 'covergroup', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'restrict', 'let', 'this', 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
 input x[2:0];
 ^-- ${SURELOG_DIR}/build/regression/Yosys/slpp_all/lib/work/errors/syntax_err05.v:2:0:.
+[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Yosys/errors/syntax_err05.v:2:12: Syntax error: missing {'this', 'randomize', 'sample', Escaped_identifier, Simple_identifier} at ';',
+input x[2:0];
+            ^-- ${SURELOG_DIR}/build/regression/Yosys/slpp_all/lib/work/errors/syntax_err05.v:2:12:.
 [  FATAL] : 0
-[ SYNTAX] : 1
+[ SYNTAX] : 2
 [  ERROR] : 0
 [WARNING] : 0
 [   NOTE] : 0
@@ -879,8 +891,11 @@ Processing: -cd errors +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -tim
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Yosys/errors/syntax_err01.v:2:8: Syntax error: missing {'this', 'randomize', 'sample', Escaped_identifier, Simple_identifier} at '[',
 integer [31:0]w;
         ^-- ${SURELOG_DIR}/build/regression/Yosys/slpp_all/lib/work/errors/syntax_err01.v:2:8:.
+[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Yosys/errors/syntax_err01.v:2:14: Syntax error: extraneous input 'w' expecting ';',
+integer [31:0]w;
+              ^-- ${SURELOG_DIR}/build/regression/Yosys/slpp_all/lib/work/errors/syntax_err01.v:2:14:.
 [  FATAL] : 0
-[ SYNTAX] : 1
+[ SYNTAX] : 2
 [  ERROR] : 0
 [WARNING] : 0
 [   NOTE] : 0
@@ -981,8 +996,11 @@ Processing: -cd various +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -ti
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Yosys/various/shregmap.v:15:7: Syntax error: no viable alternative at input 'module \',
 module \$__SHREG_DFF_P_ (input C, D, output Q);
        ^-- ${SURELOG_DIR}/build/regression/Yosys/slpp_all/lib/work/various/shregmap.v:15:7:.
+[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Yosys/various/shregmap.v:19: Syntax error: mismatched input 'always' expecting <EOF>,
+always @(posedge C) 
+^-- ${SURELOG_DIR}/build/regression/Yosys/slpp_all/lib/work/various/shregmap.v:19:0:.
 [  FATAL] : 0
-[ SYNTAX] : 1
+[ SYNTAX] : 2
 [  ERROR] : 0
 [WARNING] : 0
 [   NOTE] : 0
@@ -1781,7 +1799,7 @@ Processing: -cd simple +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -tim
 [   NOTE] : 0
 Processed 253 tests.
 [  FATAL] : 0
-[ SYNTAX] : 10
+[ SYNTAX] : 16
 [  ERROR] : 3
 [WARNING] : 229
 [   NOTE] : 0
