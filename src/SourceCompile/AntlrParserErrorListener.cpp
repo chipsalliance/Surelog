@@ -51,7 +51,7 @@ void AntlrParserErrorListener::syntaxError(
                 charPositionInLine, ":");
     }
   }
-  if (m_reportedSyntaxError == false) {
+  if (m_reportedSyntaxError < 10) {
     SymbolId msgId = m_parser->registerSymbol(msg);
     int32_t adjustedLine = m_parser->getLineNb(line + m_lineOffset);
     Location loc1(m_parser->getFileId(line + m_lineOffset), adjustedLine,
@@ -60,8 +60,8 @@ void AntlrParserErrorListener::syntaxError(
     Location loc3(m_parser->getCompileSourceFile()->getFileId(), 0, 0);
     Error err(ErrorDefinition::PA_SYNTAX_ERROR, {loc1, loc2, loc3});
     m_parser->addError(err);
-    m_reportedSyntaxError = true;
   }
+  m_reportedSyntaxError++;
 }
 
 void AntlrParserErrorListener::reportAmbiguity(

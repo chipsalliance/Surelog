@@ -40,7 +40,7 @@ class AntlrParserErrorListener : public antlr4::ANTLRErrorListener {
   AntlrParserErrorListener(ParseFile *parser, bool watchDogOn,
                            uint32_t lineOffset, PathId fileId)
       : m_parser(parser),
-        m_reportedSyntaxError(false),
+        m_reportedSyntaxError(0),
         m_watchDogOn(watchDogOn),
         m_barked(false),
         m_lineOffset(lineOffset),
@@ -70,7 +70,7 @@ class AntlrParserErrorListener : public antlr4::ANTLRErrorListener {
                                 antlr4::atn::ATNConfigSet *configs) override;
 
   ParseFile *m_parser;
-  bool m_reportedSyntaxError;
+  int m_reportedSyntaxError;
   bool m_watchDogOn;
   bool m_barked;
   uint32_t m_lineOffset;
