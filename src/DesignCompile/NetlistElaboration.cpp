@@ -807,9 +807,11 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
     signals = &comp->getPorts();
   }
   std::map<std::string_view, Signal*> allSignals;
+  std::map<std::string_view, Signal*> allSignalsConst;
   if (signals) {
     for (Signal* s : *signals) {
       allSignals.emplace(s->getName(), s);
+      allSignalsConst.emplace(s->getName(), s);
     }
   }
   if ((inst_type == VObjectType::paUdp_instantiation) ||
@@ -1178,6 +1180,24 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
                   p = s.MakePort();
                   ports->push_back(p);
                   p->VpiName(formalName);
+                  fC->populateCoreMembers(formalId, formalId, p);
+                  if (!allSignalsConst.empty()) {
+                    auto found = allSignalsConst.find(p->VpiName());
+                    if (found == allSignalsConst.end()) {
+                      SymbolTable* symbols =
+                          m_compileDesign->getCompiler()->getSymbolTable();
+                      ErrorContainer* errors =
+                          m_compileDesign->getCompiler()->getErrorContainer();
+                      Location loc(
+                          fileSystem->toPathId(
+                              p->VpiFile(),
+                              m_compileDesign->getCompiler()->getSymbolTable()),
+                          p->VpiLineNo(), p->VpiColumnNo(),
+                          symbols->registerSymbol(p->VpiName()));
+                      Error err(ErrorDefinition::ELAB_UNKNOWN_PORT, loc);
+                      errors->addError(err);
+                    }
+                  }
                 }
               } else {
                 ports = s.MakePortVec();
@@ -1198,6 +1218,20 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
                        VObjectType::paExpression) {  // .p(s) connection by name
               sigId = tmp;
               Expression = tmp;
+              if (!allSignalsConst.empty()) {
+                auto found = allSignalsConst.find(formalName);
+                if (found == allSignalsConst.end()) {
+                  SymbolTable* symbols =
+                      m_compileDesign->getCompiler()->getSymbolTable();
+                  ErrorContainer* errors =
+                      m_compileDesign->getCompiler()->getErrorContainer();
+                  Location loc(fC->getFileId(formalId), fC->Line(formalId),
+                               fC->Column(formalId),
+                               symbols->registerSymbol(formalName));
+                  Error err(ErrorDefinition::ELAB_UNKNOWN_PORT, loc);
+                  errors->addError(err);
+                }
+              }
             }
           }  // else .p implicit connection
         }

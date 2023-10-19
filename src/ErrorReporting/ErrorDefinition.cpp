@@ -426,6 +426,7 @@ bool ErrorDefinition::init() {
       "Skipping blackboxed instance \"%s\"");
   rec(ELAB_INVALID_CASE_STMT_VALUE, ERROR, ELAB,
       "Invalid generate case stmt value");
+  rec(ELAB_UNKNOWN_PORT, ERROR, ELAB, "Unknown port \"%s\"");
   rec(ELAB_SYSTEM_FATAL, FATAL, ELAB, "Fatal elaboration %s");
   rec(ELAB_SYSTEM_ERROR, ERROR, ELAB, "Elaboration error %s");
   rec(ELAB_SYSTEM_WARNING, WARNING, ELAB, "Elaboration warning %s");
@@ -477,6 +478,8 @@ bool ErrorDefinition::init() {
   rec(UHDM_UNRESOLVED_PROPERTY, ERROR, UHDM, "Unresolved property \"%s\"");
   rec(UHDM_NON_TEMPORAL_SEQUENCE_USE, ERROR, UHDM,
       "Sequence used in non-temporal context \"%s\"");
+  rec(UHDM_NON_POSITIVE_VALUE, ERROR, UHDM,
+      "Required positive value (>=1), \"%s\" given");
   return true;
 }
 
