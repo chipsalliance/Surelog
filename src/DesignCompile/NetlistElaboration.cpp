@@ -1181,7 +1181,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
                   ports->push_back(p);
                   p->VpiName(formalName);
                   fC->populateCoreMembers(formalId, formalId, p);
-                  if (allSignalsConst.size()) {
+                  if (!allSignalsConst.empty()) {
                     auto found = allSignalsConst.find(p->VpiName());
                     if (found == allSignalsConst.end()) {
                       SymbolTable* symbols =
@@ -1218,7 +1218,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
                        VObjectType::paExpression) {  // .p(s) connection by name
               sigId = tmp;
               Expression = tmp;
-              if (allSignalsConst.size()) {
+              if (!allSignalsConst.empty()) {
                 auto found = allSignalsConst.find(formalName);
                 if (found == allSignalsConst.end()) {
                   SymbolTable* symbols =
