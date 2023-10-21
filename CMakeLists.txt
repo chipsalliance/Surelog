@@ -135,6 +135,8 @@ endif()
 if (SURELOG_USE_HOST_JSON)
   find_package(nlohmann_json)
   get_target_property(JSON_INCLUDE_DIR nlohmann_json::nlohmann_json INTERFACE_INCLUDE_DIRECTORIES)
+  # the above returns a list of directories that seem to be duplicates, so take the first
+  list(POP_FRONT JSON_INCLUDE_DIR JSON_INCLUDE_DIR)
 else()
   # https://json.nlohmann.me/integration/cmake/#supporting-both
   set(JSON_BuildTests OFF CACHE INTERNAL "")
