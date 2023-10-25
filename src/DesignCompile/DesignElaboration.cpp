@@ -2330,6 +2330,18 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
           exprId = param.fC->Sibling(exprId);
         }
         NodeId Data_type = param.fC->Child(exprId);
+        if (instance->getParent() == nullptr) {
+          // Top level
+          if (exprId == InvalidNodeId) {
+            Location loc(param.fC->getFileId(ident), param.fC->Line(ident),
+                         param.fC->Column(ident),
+                         m_compileDesign->getCompiler()
+                             ->getSymbolTable()
+                             ->registerSymbol(name));
+            Error err(ErrorDefinition::ELAB_TOP_PARAMETER_NO_DEFAULT, loc);
+            m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
+          }
+        }
         if (param.fC->Type(Data_type) != VObjectType::paData_type) {
           // Regular params
           Parameter* p = module->getParameter(name);
