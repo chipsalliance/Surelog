@@ -754,8 +754,18 @@ void CommandLineParser::processOutputDirectory_(
 
 bool CommandLineParser::parseCommandLine(int32_t argc, const char** argv) {
   FileSystem* const fileSystem = FileSystem::getInstance();
-  m_programId = fileSystem->getProgramFile(argv[0], m_symbolTable);
-
+  std::string pname = argv[0];
+  if (pname == "read_systemverilog") {
+    // When surelog is embedded as a plugin in yosys, the program name is
+    // "read_systemverilog", which breaks the -lowmem option
+    pname = "surelog";
+    std::filesystem::path programPath = fileSystem->getProgramPath();
+    programPath = programPath.parent_path();
+    programPath = programPath / pname;
+    m_programId = fileSystem->toPathId(programPath.c_str(), m_symbolTable);
+  } else {
+    m_programId = fileSystem->getProgramFile(pname, m_symbolTable);
+  }
   std::vector<std::string> cmd_line;
   for (int32_t i = 1; i < argc; i++) {
     cmd_line.emplace_back(undecorateArg(argv[i]));
