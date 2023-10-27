@@ -759,7 +759,7 @@ bool CommandLineParser::parseCommandLine(int32_t argc, const char** argv) {
     // When surelog is embedded as a plugin in yosys, the program name is
     // "read_systemverilog", which breaks the -lowmem option
     pname = "surelog";
-    std::filesystem::path programPath = fileSystem->getProgramPath();
+    std::filesystem::path programPath = FileSystem::getProgramPath();
     programPath = programPath.parent_path();
     programPath = programPath / pname;
     m_programId = fileSystem->toPathId(programPath.c_str(), m_symbolTable);
