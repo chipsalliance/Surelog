@@ -762,7 +762,7 @@ bool CommandLineParser::parseCommandLine(int32_t argc, const char** argv) {
     std::filesystem::path programPath = FileSystem::getProgramPath();
     programPath = programPath.parent_path();
     programPath = programPath / pname;
-    m_programId = fileSystem->toPathId(programPath.c_str(), m_symbolTable);
+    m_programId = fileSystem->toPathId(programPath.string(), m_symbolTable);
   } else {
     m_programId = fileSystem->getProgramFile(pname, m_symbolTable);
   }
