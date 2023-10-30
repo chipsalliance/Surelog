@@ -1426,5 +1426,54 @@ endmodule
   }
 }
 
+TEST(Elaboration, HierPathUnpacked) {
+  CompileHelper helper;
+  ElaboratorHarness eharness;
+
+  // Preprocess, Parse, Compile, Elaborate
+  Design* design;
+  FileContent* fC;
+  CompileDesign* compileDesign;
+  std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
+package keymgr_pkg;
+   parameter int Shares = 2;
+   parameter int KeyWidth = 16;
+   typedef struct packed {
+      logic [Shares-1:0][KeyWidth-1:0] key;
+   } hw_key_req_t;
+
+   typedef struct  {
+     logic [31:0] pair[2];
+   } foo_t;
+endpackage // keymgr_pkg
+
+module top(output int o);
+  keymgr_pkg::hw_key_req_t keymgr_key_i;
+  keymgr_pkg::foo_t a;
+  parameter p1 = $bits(keymgr_key_i.key[0]);
+  parameter p2 = $bits(a.pair[0]);
+endmodule // top
+  )");
+  Compiler* compiler = compileDesign->getCompiler();
+  vpiHandle hdesign = compiler->getUhdmDesign();
+  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  for (auto topMod : *udesign->TopModules()) {
+    for (auto passign : *topMod->Param_assigns()) {
+      UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
+      bool invalidValue = false;
+      const std::string_view name = passign->Lhs()->VpiName();
+      if (name == "p1") {
+        UHDM::ExprEval eval;
+        int64_t val = eval.get_value(invalidValue, rhs);
+        EXPECT_EQ(val, 16);
+      } else if (name == "p2") {
+        UHDM::ExprEval eval;
+        int64_t val = eval.get_value(invalidValue, rhs);
+        EXPECT_EQ(val, 32);
+      }
+    }
+  }
+}
+
 }  // namespace
 }  // namespace SURELOG
