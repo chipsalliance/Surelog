@@ -1683,6 +1683,35 @@ UHDM::typespec* CompileHelper::compileTypespec(
                                   reduce, nullptr, instance, false);
             m->Default_value((expr*)ex);
           }
+          if (Expression &&
+              (fC->Type(Expression) == VObjectType::paVariable_dimension)) {
+            NodeId Unpacked_dimension = fC->Child(Expression);
+            if (fC->Type(Unpacked_dimension) ==
+                VObjectType::paUnpacked_dimension) {
+              int32_t size;
+              VectorOfrange* ranges = compileRanges(
+                  component, fC, Unpacked_dimension, compileDesign, reduce,
+                  pstmt, instance, size, false);
+              array_typespec* pats = s.MakeArray_typespec();
+              ref_typespec* ref = s.MakeRef_typespec();
+              if (isPacked) {
+                ErrorContainer* errors =
+                    compileDesign->getCompiler()->getErrorContainer();
+                SymbolTable* symbols =
+                    compileDesign->getCompiler()->getSymbolTable();
+                Location loc1(
+                    fC->getFileId(), fC->Line(Unpacked_dimension),
+                    fC->Column(Unpacked_dimension),
+                    symbols->registerSymbol(fC->SymName(member_name)));
+                Error err(ErrorDefinition::COMP_UNPACKED_IN_PACKED, loc1);
+                errors->addError(err);
+              }
+              pats->Elem_typespec(ref);
+              ref->Actual_typespec(m->Typespec()->Actual_typespec());
+              m->Typespec()->Actual_typespec(pats);
+              pats->Ranges(ranges);
+            }
+          }
           if (component && member_ts &&
               (member_ts->UhdmType() == uhdmunsupported_typespec)) {
             component->needLateTypedefBinding(m);

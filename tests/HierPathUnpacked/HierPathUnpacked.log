@@ -305,9 +305,10 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 2.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+array_typespec                                         2
 begin                                                  2
 bit_select                                             4
-constant                                              46
+constant                                              52
 design                                                 1
 gen_if                                                 2
 gen_scope                                              4
@@ -318,24 +319,26 @@ int_var                                                1
 logic_net                                              3
 logic_typespec                                         6
 module_inst                                           10
-operation                                              8
+operation                                             10
 package                                                2
 param_assign                                          12
 parameter                                             12
 port                                                   2
-range                                                  6
+range                                                  8
 ref_module                                             4
 ref_obj                                               10
-ref_typespec                                          39
-struct_net                                             2
+ref_typespec                                          41
+struct_net                                             1
 struct_typespec                                        4
+struct_var                                             1
 typespec_member                                        4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
+array_typespec                                         2
 begin                                                  2
 bit_select                                             4
-constant                                              46
+constant                                              52
 design                                                 1
 gen_if                                                 2
 gen_scope                                              6
@@ -346,17 +349,18 @@ int_var                                                1
 logic_net                                              3
 logic_typespec                                         6
 module_inst                                           12
-operation                                              8
+operation                                             10
 package                                                2
 param_assign                                          12
 parameter                                             12
 port                                                   3
-range                                                  6
+range                                                  8
 ref_module                                             4
 ref_obj                                               11
-ref_typespec                                          40
-struct_net                                             2
+ref_typespec                                          42
+struct_net                                             1
 struct_typespec                                        4
+struct_var                                             1
 typespec_member                                        4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/HierPathUnpacked/slpp_all/surelog.uhdm ...
@@ -463,7 +467,7 @@ design: (work@top)
         \_typespec_member: (pair), line:10:17, endln:10:24
         |vpiFullName:keymgr_pkg::keymgr_pkg::foo_t::pair
         |vpiActual:
-        \_logic_typespec: , line:10:4, endln:10:16
+        \_array_typespec: 
       |vpiRefFile:${SURELOG_DIR}/tests/HierPathUnpacked/dut.sv
       |vpiRefLineNo:10
       |vpiRefColumnNo:4
@@ -591,7 +595,7 @@ design: (work@top)
         \_typespec_member: (pair), line:10:17, endln:10:24
         |vpiFullName:keymgr_pkg::keymgr_pkg::foo_t::pair
         |vpiActual:
-        \_logic_typespec: , line:10:4, endln:10:16
+        \_array_typespec: 
       |vpiRefFile:${SURELOG_DIR}/tests/HierPathUnpacked/dut.sv
       |vpiRefLineNo:10
       |vpiRefColumnNo:4
@@ -739,7 +743,6 @@ design: (work@top)
       \_struct_typespec: (keymgr_pkg::foo_t), line:9:9, endln:11:2
     |vpiName:a
     |vpiFullName:work@top.a
-    |vpiNetType:1
   |vpiPort:
   \_port: (o), line:19:23, endln:19:24
     |vpiParent:
@@ -847,6 +850,20 @@ design: (work@top)
     |vpiFullName:work@top.o
     |vpiSigned:1
     |vpiVisibility:1
+  |vpiVariables:
+  \_struct_var: (work@top.a), line:21:23, endln:21:24
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathUnpacked/dut.sv, line:19:1, endln:36:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.a)
+      |vpiParent:
+      \_struct_var: (work@top.a), line:21:23, endln:21:24
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_struct_typespec: (keymgr_pkg::foo_t), line:9:9, endln:11:2
+    |vpiName:a
+    |vpiFullName:work@top.a
+    |vpiVisibility:1
   |vpiParameter:
   \_parameter: (work@top.p1), line:23:13, endln:23:15
     |vpiParent:
@@ -932,20 +949,6 @@ design: (work@top)
       \_struct_typespec: (keymgr_pkg::hw_key_req_t), line:5:12, endln:7:5
     |vpiName:keymgr_key_i
     |vpiFullName:work@top.keymgr_key_i
-    |vpiNetType:1
-  |vpiNet:
-  \_struct_net: (work@top.a), line:21:23, endln:21:24
-    |vpiParent:
-    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathUnpacked/dut.sv, line:19:1, endln:36:10
-    |vpiTypespec:
-    \_ref_typespec: (work@top.a)
-      |vpiParent:
-      \_struct_net: (work@top.a), line:21:23, endln:21:24
-      |vpiFullName:work@top.a
-      |vpiActual:
-      \_struct_typespec: (keymgr_pkg::foo_t), line:9:9, endln:11:2
-    |vpiName:a
-    |vpiFullName:work@top.a
     |vpiNetType:1
   |vpiTopModule:1
   |vpiPort:
@@ -1069,6 +1072,39 @@ design: (work@top)
       |vpiSize:64
       |UINT:0
       |vpiConstType:9
+\_array_typespec: 
+  |vpiRange:
+  \_range: , line:10:22, endln:10:23
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: , line:10:22, endln:10:23
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_operation: , line:10:22, endln:10:23
+      |vpiParent:
+      \_range: , line:10:22, endln:10:23
+      |vpiOpType:11
+      |vpiOperand:
+      \_constant: , line:10:22, endln:10:23
+        |vpiParent:
+        \_operation: , line:10:22, endln:10:23
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
+        |vpiConstType:9
+      |vpiOperand:
+      \_constant: 
+        |vpiSize:64
+        |INT:1
+        |vpiConstType:7
+  |vpiElemTypespec:
+  \_ref_typespec: 
+    |vpiActual:
+    \_logic_typespec: , line:10:4, endln:10:16
 \_logic_typespec: , line:10:4, endln:10:16
   |vpiParent:
   \_typespec_member: (pair), line:10:17, endln:10:24
@@ -1177,6 +1213,39 @@ design: (work@top)
       |vpiSize:64
       |UINT:0
       |vpiConstType:9
+\_array_typespec: 
+  |vpiRange:
+  \_range: , line:10:22, endln:10:23
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: , line:10:22, endln:10:23
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_operation: , line:10:22, endln:10:23
+      |vpiParent:
+      \_range: , line:10:22, endln:10:23
+      |vpiOpType:11
+      |vpiOperand:
+      \_constant: , line:10:22, endln:10:23
+        |vpiParent:
+        \_operation: , line:10:22, endln:10:23
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
+        |vpiConstType:9
+      |vpiOperand:
+      \_constant: 
+        |vpiSize:64
+        |INT:1
+        |vpiConstType:7
+  |vpiElemTypespec:
+  \_ref_typespec: 
+    |vpiActual:
+    \_logic_typespec: , line:10:4, endln:10:16
 \_logic_typespec: , line:10:4, endln:10:16
   |vpiParent:
   \_typespec_member: (pair), line:10:17, endln:10:24
