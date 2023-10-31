@@ -356,6 +356,8 @@ bool ErrorDefinition::init() {
       "Skipping blackboxed instance \"%s\"");
   rec(COMP_ILLEGAL_DEFAULT_PORT_VALUE, ERROR, COMP,
       "Illegal default value for port \"%s\"");
+  rec(COMP_UNPACKED_IN_PACKED, ERROR, COMP,
+      "Illegal unpacked member in packed struct \"%s\"");
   rec(PY_PROCESSING_SOURCE_FILE, INFO, PYTH, "Processing source file \"%s\"");
   rec(PY_NO_PYTHON_LISTENER_FOUND, FATAL, PYTH,
       "No Python listener found (slSV3_1aPythonListener.py)");

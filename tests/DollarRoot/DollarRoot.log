@@ -6731,7 +6731,7 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 always                                                 9
-array_typespec                                        10
+array_typespec                                        15
 array_var                                              5
 assign_stmt                                           53
 assignment                                            65
@@ -6743,7 +6743,7 @@ break_stmt                                             2
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                             210
+constant                                             220
 cont_assign                                            1
 design                                                 1
 enum_const                                             9
@@ -6770,15 +6770,15 @@ logic_var                                              9
 method_func_call                                      13
 module_inst                                           10
 named_event                                            1
-operation                                            113
+operation                                            118
 package                                                2
 packed_array_typespec                                  1
 param_assign                                          20
 parameter                                             20
 port                                                   4
-range                                                 41
-ref_obj                                              579
-ref_typespec                                         212
+range                                                 46
+ref_obj                                              584
+ref_typespec                                         217
 ref_var                                                6
 return_stmt                                           11
 string_typespec                                        2
@@ -6796,7 +6796,7 @@ wait_stmt                                              1
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
 always                                                18
-array_typespec                                        10
+array_typespec                                        15
 array_var                                              5
 assign_stmt                                           71
 assignment                                           130
@@ -6808,7 +6808,7 @@ break_stmt                                             4
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                             210
+constant                                             220
 cont_assign                                            2
 design                                                 1
 enum_const                                            14
@@ -6835,15 +6835,15 @@ logic_var                                             19
 method_func_call                                      26
 module_inst                                           10
 named_event                                            1
-operation                                            195
+operation                                            200
 package                                                2
 packed_array_typespec                                  1
 param_assign                                          20
 parameter                                             20
 port                                                   6
-range                                                 41
-ref_obj                                             1135
-ref_typespec                                         337
+range                                                 46
+ref_obj                                             1140
+ref_typespec                                         342
 ref_var                                               10
 return_stmt                                           22
 string_typespec                                        2
@@ -7871,7 +7871,7 @@ design: (work@top)
         \_typespec_member: (data), line:50:37, endln:50:63
         |vpiFullName:work@test_program.Command.data
         |vpiActual:
-        \_logic_typespec: , line:50:8, endln:50:26
+        \_array_typespec: 
       |vpiRefFile:${SURELOG_DIR}/tests/DollarRoot/dut.sv
       |vpiRefLineNo:50
       |vpiRefColumnNo:8
@@ -7888,7 +7888,7 @@ design: (work@top)
         \_typespec_member: (byteenable), line:51:37, endln:51:63
         |vpiFullName:work@test_program.Command.byteenable
         |vpiActual:
-        \_logic_typespec: , line:51:8, endln:51:31
+        \_array_typespec: 
       |vpiRefFile:${SURELOG_DIR}/tests/DollarRoot/dut.sv
       |vpiRefLineNo:51
       |vpiRefColumnNo:8
@@ -7922,7 +7922,7 @@ design: (work@top)
         \_typespec_member: (data_idles), line:53:37, endln:53:63
         |vpiFullName:work@test_program.Command.data_idles
         |vpiActual:
-        \_bit_typespec: , line:53:8, endln:53:18
+        \_array_typespec: 
       |vpiRefFile:${SURELOG_DIR}/tests/DollarRoot/dut.sv
       |vpiRefLineNo:53
       |vpiRefColumnNo:8
@@ -7963,7 +7963,7 @@ design: (work@top)
         \_typespec_member: (data), line:59:37, endln:59:61
         |vpiFullName:work@test_program.Response.data
         |vpiActual:
-        \_logic_typespec: , line:59:7, endln:59:25
+        \_array_typespec: 
       |vpiRefFile:${SURELOG_DIR}/tests/DollarRoot/dut.sv
       |vpiRefLineNo:59
       |vpiRefColumnNo:7
@@ -7980,7 +7980,7 @@ design: (work@top)
         \_typespec_member: (latency), line:60:37, endln:60:61
         |vpiFullName:work@test_program.Response.latency
         |vpiActual:
-        \_bit_typespec: , line:60:7, endln:60:17
+        \_array_typespec: 
       |vpiRefFile:${SURELOG_DIR}/tests/DollarRoot/dut.sv
       |vpiRefLineNo:60
       |vpiRefColumnNo:7
@@ -27159,6 +27159,41 @@ design: (work@top)
       |vpiSize:64
       |UINT:0
       |vpiConstType:9
+\_array_typespec: 
+  |vpiRange:
+  \_range: , line:50:48, endln:50:63
+    |vpiLeftRange:
+    \_operation: , line:50:49, endln:50:60
+      |vpiParent:
+      \_range: , line:50:48, endln:50:63
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (MAX_BURST), line:50:49, endln:50:58
+        |vpiParent:
+        \_operation: , line:50:49, endln:50:60
+        |vpiName:MAX_BURST
+        |vpiActual:
+        \_parameter: (work@test_program.MAX_BURST), line:20:15, endln:20:24
+      |vpiOperand:
+      \_constant: , line:50:59, endln:50:60
+        |vpiParent:
+        \_operation: , line:50:49, endln:50:60
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:50:61, endln:50:62
+      |vpiParent:
+      \_range: , line:50:48, endln:50:63
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_typespec: 
+    |vpiActual:
+    \_logic_typespec: , line:50:8, endln:50:26
 \_logic_typespec: , line:50:8, endln:50:26
   |vpiParent:
   \_typespec_member: (data), line:50:37, endln:50:63
@@ -27195,6 +27230,41 @@ design: (work@top)
       |vpiSize:64
       |UINT:0
       |vpiConstType:9
+\_array_typespec: 
+  |vpiRange:
+  \_range: , line:51:48, endln:51:63
+    |vpiLeftRange:
+    \_operation: , line:51:49, endln:51:60
+      |vpiParent:
+      \_range: , line:51:48, endln:51:63
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (MAX_BURST), line:51:49, endln:51:58
+        |vpiParent:
+        \_operation: , line:51:49, endln:51:60
+        |vpiName:MAX_BURST
+        |vpiActual:
+        \_parameter: (work@test_program.MAX_BURST), line:20:15, endln:20:24
+      |vpiOperand:
+      \_constant: , line:51:59, endln:51:60
+        |vpiParent:
+        \_operation: , line:51:49, endln:51:60
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:51:61, endln:51:62
+      |vpiParent:
+      \_range: , line:51:48, endln:51:63
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_typespec: 
+    |vpiActual:
+    \_logic_typespec: , line:51:8, endln:51:31
 \_logic_typespec: , line:51:8, endln:51:31
   |vpiParent:
   \_typespec_member: (byteenable), line:51:37, endln:51:63
@@ -27254,6 +27324,41 @@ design: (work@top)
       |vpiSize:64
       |UINT:0
       |vpiConstType:9
+\_array_typespec: 
+  |vpiRange:
+  \_range: , line:53:48, endln:53:63
+    |vpiLeftRange:
+    \_operation: , line:53:49, endln:53:60
+      |vpiParent:
+      \_range: , line:53:48, endln:53:63
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (MAX_BURST), line:53:49, endln:53:58
+        |vpiParent:
+        \_operation: , line:53:49, endln:53:60
+        |vpiName:MAX_BURST
+        |vpiActual:
+        \_parameter: (work@test_program.MAX_BURST), line:20:15, endln:20:24
+      |vpiOperand:
+      \_constant: , line:53:59, endln:53:60
+        |vpiParent:
+        \_operation: , line:53:49, endln:53:60
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:53:61, endln:53:62
+      |vpiParent:
+      \_range: , line:53:48, endln:53:63
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_typespec: 
+    |vpiActual:
+    \_bit_typespec: , line:53:8, endln:53:18
 \_bit_typespec: , line:53:8, endln:53:18
   |vpiParent:
   \_typespec_member: (data_idles), line:53:37, endln:53:63
@@ -27321,6 +27426,41 @@ design: (work@top)
       |vpiSize:64
       |UINT:0
       |vpiConstType:9
+\_array_typespec: 
+  |vpiRange:
+  \_range: , line:59:46, endln:59:61
+    |vpiLeftRange:
+    \_operation: , line:59:47, endln:59:58
+      |vpiParent:
+      \_range: , line:59:46, endln:59:61
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (MAX_BURST), line:59:47, endln:59:56
+        |vpiParent:
+        \_operation: , line:59:47, endln:59:58
+        |vpiName:MAX_BURST
+        |vpiActual:
+        \_parameter: (work@test_program.MAX_BURST), line:20:15, endln:20:24
+      |vpiOperand:
+      \_constant: , line:59:57, endln:59:58
+        |vpiParent:
+        \_operation: , line:59:47, endln:59:58
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:59:59, endln:59:60
+      |vpiParent:
+      \_range: , line:59:46, endln:59:61
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_typespec: 
+    |vpiActual:
+    \_logic_typespec: , line:59:7, endln:59:25
 \_logic_typespec: , line:59:7, endln:59:25
   |vpiParent:
   \_typespec_member: (data), line:59:37, endln:59:61
@@ -27357,6 +27497,41 @@ design: (work@top)
       |vpiSize:64
       |UINT:0
       |vpiConstType:9
+\_array_typespec: 
+  |vpiRange:
+  \_range: , line:60:46, endln:60:61
+    |vpiLeftRange:
+    \_operation: , line:60:47, endln:60:58
+      |vpiParent:
+      \_range: , line:60:46, endln:60:61
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (MAX_BURST), line:60:47, endln:60:56
+        |vpiParent:
+        \_operation: , line:60:47, endln:60:58
+        |vpiName:MAX_BURST
+        |vpiActual:
+        \_parameter: (work@test_program.MAX_BURST), line:20:15, endln:20:24
+      |vpiOperand:
+      \_constant: , line:60:57, endln:60:58
+        |vpiParent:
+        \_operation: , line:60:47, endln:60:58
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:60:59, endln:60:60
+      |vpiParent:
+      \_range: , line:60:46, endln:60:61
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_typespec: 
+    |vpiActual:
+    \_bit_typespec: , line:60:7, endln:60:17
 \_bit_typespec: , line:60:7, endln:60:17
   |vpiParent:
   \_typespec_member: (latency), line:60:37, endln:60:61

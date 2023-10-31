@@ -724,7 +724,7 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 always                                                 1
-array_typespec                                         1
+array_typespec                                         2
 array_var                                              1
 assign_stmt                                            1
 assignment                                             2
@@ -732,7 +732,7 @@ begin                                                  2
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              73
+constant                                              76
 cont_assign                                            1
 design                                                 1
 enum_const                                             5
@@ -750,13 +750,13 @@ logic_net                                              9
 logic_var                                              1
 module_inst                                            9
 named_begin                                            1
-operation                                             26
+operation                                             27
 package                                                4
 param_assign                                          30
 parameter                                             30
-range                                                  2
+range                                                  3
 ref_obj                                               20
-ref_typespec                                          99
+ref_typespec                                         100
 string_typespec                                        2
 struct_typespec                                        3
 struct_var                                             2
@@ -768,7 +768,7 @@ typespec_member                                        8
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
 always                                                 2
-array_typespec                                         1
+array_typespec                                         2
 array_var                                              2
 assign_stmt                                            1
 assignment                                             4
@@ -776,7 +776,7 @@ begin                                                  4
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              73
+constant                                              76
 cont_assign                                            2
 design                                                 1
 enum_const                                            10
@@ -794,13 +794,13 @@ logic_net                                              9
 logic_var                                              1
 module_inst                                            9
 named_begin                                            2
-operation                                             36
+operation                                             37
 package                                                4
 param_assign                                          30
 parameter                                             30
-range                                                  2
+range                                                  3
 ref_obj                                               30
-ref_typespec                                         108
+ref_typespec                                         109
 string_typespec                                        2
 struct_typespec                                        3
 struct_var                                             4
@@ -2016,7 +2016,7 @@ design: (work@tlul_adapter_host)
         \_typespec_member: (b), line:27:27, endln:27:31
         |vpiFullName:work@top.ab_t.b
         |vpiActual:
-        \_int_typespec: , line:27:21, endln:27:24
+        \_array_typespec: 
       |vpiRefFile:${SURELOG_DIR}/tests/CastTypespec/dut.sv
       |vpiRefLineNo:27
       |vpiRefColumnNo:21
@@ -2764,6 +2764,39 @@ design: (work@tlul_adapter_host)
   |vpiParent:
   \_typespec_member: (a), line:27:25, endln:27:26
   |vpiSigned:1
+\_array_typespec: 
+  |vpiRange:
+  \_range: , line:27:29, endln:27:30
+    |vpiLeftRange:
+    \_constant: 
+      |vpiParent:
+      \_range: , line:27:29, endln:27:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_operation: , line:27:29, endln:27:30
+      |vpiParent:
+      \_range: , line:27:29, endln:27:30
+      |vpiOpType:11
+      |vpiOperand:
+      \_constant: , line:27:29, endln:27:30
+        |vpiParent:
+        \_operation: , line:27:29, endln:27:30
+        |vpiDecompile:4
+        |vpiSize:64
+        |UINT:4
+        |vpiConstType:9
+      |vpiOperand:
+      \_constant: 
+        |vpiSize:64
+        |INT:1
+        |vpiConstType:7
+  |vpiElemTypespec:
+  \_ref_typespec: 
+    |vpiActual:
+    \_int_typespec: , line:27:21, endln:27:24
 \_int_typespec: , line:27:21, endln:27:24
   |vpiParent:
   \_typespec_member: (b), line:27:27, endln:27:31

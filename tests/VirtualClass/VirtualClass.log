@@ -263,22 +263,22 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 1.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-array_typespec                                         2
+array_typespec                                         3
 class_defn                                             1
-constant                                              15
+constant                                              18
 design                                                 1
 int_typespec                                           1
 logic_net                                              3
 logic_typespec                                         4
 logic_var                                              3
 module_inst                                            2
-operation                                              5
+operation                                              7
 packed_array_typespec                                  2
 param_assign                                           1
 parameter                                              1
-range                                                  7
-ref_obj                                                5
-ref_typespec                                           9
+range                                                  8
+ref_obj                                                6
+ref_typespec                                          10
 struct_typespec                                        1
 type_parameter                                         1
 typespec_member                                        2
@@ -286,22 +286,22 @@ unsupported_typespec                                   7
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-array_typespec                                         3
+array_typespec                                         4
 class_defn                                             1
-constant                                              15
+constant                                              18
 design                                                 1
 int_typespec                                           1
 logic_net                                              3
 logic_typespec                                         5
 logic_var                                              3
 module_inst                                            2
-operation                                              7
+operation                                              9
 packed_array_typespec                                  2
 param_assign                                           2
 parameter                                              1
-range                                                  9
-ref_obj                                                7
-ref_typespec                                          14
+range                                                 10
+ref_obj                                                8
+ref_typespec                                          15
 struct_typespec                                        2
 type_parameter                                         1
 typespec_member                                        4
@@ -422,7 +422,7 @@ design: (work@top)
         \_typespec_member: (m0), line:5:18, endln:5:33
         |vpiFullName:work@C::t_struct::m0
         |vpiActual:
-        \_logic_typespec: (t_vector), line:2:13, endln:2:29
+        \_array_typespec: 
       |vpiRefFile:${SURELOG_DIR}/tests/VirtualClass/dut.sv
       |vpiRefLineNo:5
       |vpiRefColumnNo:9
@@ -623,6 +623,54 @@ design: (work@top)
   |vpiName:t_vector
   |vpiRange:
   \_range: , line:2:19, endln:2:29
+\_array_typespec: 
+  |vpiRange:
+  \_range: , line:5:21, endln:5:33
+    |vpiLeftRange:
+    \_operation: , line:5:22, endln:5:30
+      |vpiParent:
+      \_range: , line:5:21, endln:5:33
+      |vpiOpType:11
+      |vpiOperand:
+      \_operation: , line:5:22, endln:5:28
+        |vpiParent:
+        \_operation: , line:5:22, endln:5:30
+        |vpiOpType:25
+        |vpiOperand:
+        \_constant: , line:5:22, endln:5:23
+          |vpiParent:
+          \_operation: , line:5:22, endln:5:28
+          |vpiDecompile:2
+          |vpiSize:64
+          |UINT:2
+          |vpiConstType:9
+        |vpiOperand:
+        \_ref_obj: (SIZE), line:5:24, endln:5:28
+          |vpiParent:
+          \_operation: , line:5:22, endln:5:28
+          |vpiName:SIZE
+          |vpiActual:
+          \_parameter: (work@C::SIZE), line:1:54, endln:1:58
+      |vpiOperand:
+      \_constant: , line:5:29, endln:5:30
+        |vpiParent:
+        \_operation: , line:5:22, endln:5:30
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:31, endln:5:32
+      |vpiParent:
+      \_range: , line:5:21, endln:5:33
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_typespec: 
+    |vpiActual:
+    \_logic_typespec: (t_vector), line:2:13, endln:2:29
 \_logic_typespec: (t_vector), line:2:13, endln:2:29
   |vpiParent:
   \_typespec_member: (m0), line:5:18, endln:5:33
@@ -677,7 +725,7 @@ design: (work@top)
     \_typespec_member: (m0), line:5:18, endln:5:33
     |vpiFullName:work@C::t_struct::m0
     |vpiActual:
-    \_logic_typespec: (t_vector), line:2:13, endln:2:29
+    \_array_typespec: 
   |vpiRefFile:${SURELOG_DIR}/tests/VirtualClass/dut.sv
   |vpiRefLineNo:5
   |vpiRefColumnNo:9
