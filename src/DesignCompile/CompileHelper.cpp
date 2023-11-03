@@ -5101,6 +5101,33 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
             for (uint64_t i = 0; i < size; i++) {
               values[i] = defaultval;
             }
+            // Apply any other indexed value
+            for (any* op : *operands) {
+              if (op->UhdmType() == uhdmtagged_pattern) {
+                taggedPattern = true;
+                tagged_pattern* tp = (tagged_pattern*)op;
+                if (const UHDM::ref_typespec* rt = tp->Typespec()) {
+                  if (const typespec* tpsi = rt->Actual_typespec()) {
+                    if (tpsi->UhdmType() == uhdminteger_typespec) {
+                      integer_typespec* itps = (integer_typespec*)tpsi;
+                      std::string_view v = itps->VpiValue();
+                      v.remove_prefix(std::string_view("INT:").length());
+                      int64_t index;
+                      if (NumUtils::parseInt64(v, &index)) {
+                        any* pattern = tp->Pattern();
+                        if (pattern->UhdmType() == uhdmconstant) {
+                          constant* c = (constant*)pattern;
+                          UHDM::ExprEval eval;
+                          int32_t val = eval.get_value(invalidValue, c);
+                          if (index >= 0 && index < ((int64_t)size))
+                            values[size - index - 1] = val;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         } else {
           int32_t valIndex = 0;
