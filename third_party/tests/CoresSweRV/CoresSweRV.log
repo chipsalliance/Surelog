@@ -2620,15 +2620,26 @@ wait_stmt                                            140
 while_stmt                                           353
 === UHDM Object Stats End ===
 [ERR:UH0725] Unresolved hierarchical reference "".
+[WRN:UH0732] ${SURELOG_DIR}/third_party/tests/CoresSweRV/design/exu/exu_mul_ctl.sv:98:79: Critical: Signed vs Unsigned port connection "dout".
+[WRN:UH0732] ${SURELOG_DIR}/third_party/tests/CoresSweRV/design/exu/exu_mul_ctl.sv:99:79: Critical: Signed vs Unsigned port connection "dout".
+[WRN:UH0732] ${SURELOG_DIR}/third_party/tests/CoresSweRV/design/exu/exu_mul_ctl.sv:112:49: Critical: Signed vs Unsigned port connection "din".
+[WRN:UH0732] ${SURELOG_DIR}/third_party/tests/CoresSweRV/design/exu/exu_alu_ctl.sv:90:68: Critical: Signed vs Unsigned port connection "dout".
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/CoresSweRV/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/CoresSweRV/slpp_all/checker/surelog.chk.html ...
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 1
-[WARNING] : 117
+[WARNING] : 121
 [   NOTE] : 15
 
 ============================== Begin Linting Results ==============================
+[LINT]: ${SURELOG_DIR}/third_party/tests/CoresSweRV/design/exu/exu_mul_ctl.sv:98:79: Signed vs Unsigned port connection, dout
+[LINT]: ${SURELOG_DIR}/third_party/tests/CoresSweRV/design/exu/exu_mul_ctl.sv:99:79: Signed vs Unsigned port connection, dout
+[LINT]: ${SURELOG_DIR}/third_party/tests/CoresSweRV/design/exu/exu_mul_ctl.sv:112:49: Signed vs Unsigned port connection, din
+[LINT]: ${SURELOG_DIR}/third_party/tests/CoresSweRV/design/exu/exu_alu_ctl.sv:90:68: Signed vs Unsigned port connection, dout
+[LINT]: ${SURELOG_DIR}/third_party/tests/CoresSweRV/design/exu/exu_alu_ctl.sv:90:68: Signed vs Unsigned port connection, dout
+[LINT]: ${SURELOG_DIR}/third_party/tests/CoresSweRV/design/exu/exu_alu_ctl.sv:90:68: Signed vs Unsigned port connection, dout
+[LINT]: ${SURELOG_DIR}/third_party/tests/CoresSweRV/design/exu/exu_alu_ctl.sv:90:68: Signed vs Unsigned port connection, dout
 [LINT]: ${SURELOG_DIR}/build/bin/1800.2-2017-1.0/src/base/uvm_factory.svh:947:9: Non synthesizable construct, uvm_object_wrapper
 [LINT]: ${SURELOG_DIR}/build/bin/1800.2-2017-1.0/src/base/uvm_misc.svh:74:39: Non synthesizable construct, $urandom
 [LINT]: ${SURELOG_DIR}/build/bin/1800.2-2017-1.0/src/base/uvm_misc.svh:84:1: Non synthesizable construct, uvm_seed_map
@@ -5852,6 +5863,13 @@ while_stmt                                           353
 [LINT]: ${SURELOG_DIR}/third_party/tests/CoresSweRV/testbench/tb_top.sv:427:9: Non synthesizable construct, $fwrite
 [LINT]: ${SURELOG_DIR}/third_party/tests/CoresSweRV/testbench/tb_top.sv:428:14: Non synthesizable construct, $fopen
 [LINT]: ${SURELOG_DIR}/third_party/tests/CoresSweRV/testbench/tb_top.sv:435:29: Non synthesizable construct,
+[LINT]: ${SURELOG_DIR}/third_party/tests/CoresSweRV/design/exu/exu_mul_ctl.sv:98:79: Critical: Forcing signal to unsigned type due to unsigned port binding , a_ff_e2
+[LINT]: ${SURELOG_DIR}/third_party/tests/CoresSweRV/design/exu/exu_mul_ctl.sv:99:79: Critical: Forcing signal to unsigned type due to unsigned port binding , b_ff_e2
+[LINT]: ${SURELOG_DIR}/third_party/tests/CoresSweRV/design/exu/exu_mul_ctl.sv:112:49: Critical: Forcing signal to unsigned type due to unsigned port binding , prod_e2
+[LINT]: ${SURELOG_DIR}/third_party/tests/CoresSweRV/design/exu/exu_alu_ctl.sv:90:68: Critical: Forcing signal to unsigned type due to unsigned port binding , a_ff
+[LINT]: ${SURELOG_DIR}/third_party/tests/CoresSweRV/design/exu/exu_alu_ctl.sv:90:68: Critical: Forcing signal to unsigned type due to unsigned port binding , a_ff
+[LINT]: ${SURELOG_DIR}/third_party/tests/CoresSweRV/design/exu/exu_alu_ctl.sv:90:68: Critical: Forcing signal to unsigned type due to unsigned port binding , a_ff
+[LINT]: ${SURELOG_DIR}/third_party/tests/CoresSweRV/design/exu/exu_alu_ctl.sv:90:68: Critical: Forcing signal to unsigned type due to unsigned port binding , a_ff
 [LINT]: ${SURELOG_DIR}/third_party/tests/CoresSweRV/testbench/tb_top.sv:336:13: Non synthesizable construct, $fwrite
 [LINT]: ${SURELOG_DIR}/third_party/tests/CoresSweRV/testbench/tb_top.sv:337:13: Non synthesizable construct, $write
 [LINT]: ${SURELOG_DIR}/third_party/tests/CoresSweRV/testbench/tb_top.sv:359:12: Non synthesizable construct, $fwrite

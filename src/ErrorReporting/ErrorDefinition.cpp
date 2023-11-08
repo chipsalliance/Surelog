@@ -484,6 +484,11 @@ bool ErrorDefinition::init() {
       "Sequence used in non-temporal context \"%s\"");
   rec(UHDM_NON_POSITIVE_VALUE, ERROR, UHDM,
       "Required positive value (>=1), \"%s\" given");
+  rec(UHDM_SIGNED_UNSIGNED_PORT_CONN, WARNING, UHDM,
+      "Critical: Signed vs Unsigned port connection \"%s\"");
+  rec(UHDM_FORCING_UNSIGNED_TYPE, WARNING, UHDM,
+      "Critical: Forcing signal to unsigned type due to unsigned port binding "
+      "\"%s\"");
   return true;
 }
 
