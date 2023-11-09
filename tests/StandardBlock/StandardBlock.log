@@ -260,8 +260,7 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 0.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-assign_stmt                                            9
-assignment                                             2
+assignment                                            11
 begin                                                  8
 constant                                              31
 design                                                 1
@@ -287,8 +286,7 @@ unsupported_typespec                                   2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-assign_stmt                                            9
-assignment                                             2
+assignment                                            11
 begin                                                  8
 constant                                              31
 design                                                 1
@@ -384,13 +382,15 @@ design: (work@top)
       \_gen_if_else: 
       |vpiFullName:work@top
       |vpiStmt:
-      \_assign_stmt: , line:5:20, endln:5:21
+      \_assignment: , line:5:20, endln:5:21
         |vpiParent:
         \_begin: (work@top)
+        |vpiOpType:82
+        |vpiBlocking:1
         |vpiLhs:
         \_logic_var: (work@top.a), line:5:20, endln:5:21
           |vpiParent:
-          \_assign_stmt: , line:5:20, endln:5:21
+          \_assignment: , line:5:20, endln:5:21
           |vpiTypespec:
           \_ref_typespec: (work@top.a)
             |vpiParent:
@@ -406,13 +406,15 @@ design: (work@top)
       \_gen_if_else: 
       |vpiFullName:work@top
       |vpiStmt:
-      \_assign_stmt: , line:6:12, endln:6:13
+      \_assignment: , line:6:12, endln:6:13
         |vpiParent:
         \_begin: (work@top)
+        |vpiOpType:82
+        |vpiBlocking:1
         |vpiLhs:
         \_logic_var: (work@top.b), line:6:12, endln:6:13
           |vpiParent:
-          \_assign_stmt: , line:6:12, endln:6:13
+          \_assignment: , line:6:12, endln:6:13
           |vpiTypespec:
           \_ref_typespec: (work@top.b)
             |vpiParent:
@@ -438,13 +440,15 @@ design: (work@top)
       \_gen_if_else: 
       |vpiFullName:work@top
       |vpiStmt:
-      \_assign_stmt: , line:9:20, endln:9:21
+      \_assignment: , line:9:20, endln:9:21
         |vpiParent:
         \_begin: (work@top)
+        |vpiOpType:82
+        |vpiBlocking:1
         |vpiLhs:
         \_logic_var: (work@top.a), line:9:20, endln:9:21
           |vpiParent:
-          \_assign_stmt: , line:9:20, endln:9:21
+          \_assignment: , line:9:20, endln:9:21
           |vpiTypespec:
           \_ref_typespec: (work@top.a)
             |vpiParent:
@@ -460,13 +464,15 @@ design: (work@top)
       \_gen_if_else: 
       |vpiFullName:work@top
       |vpiStmt:
-      \_assign_stmt: , line:10:12, endln:10:13
+      \_assignment: , line:10:12, endln:10:13
         |vpiParent:
         \_begin: (work@top)
+        |vpiOpType:82
+        |vpiBlocking:1
         |vpiLhs:
         \_logic_var: (work@top.b), line:10:12, endln:10:13
           |vpiParent:
-          \_assign_stmt: , line:10:12, endln:10:13
+          \_assignment: , line:10:12, endln:10:13
           |vpiTypespec:
           \_ref_typespec: (work@top.b)
             |vpiParent:
@@ -481,7 +487,7 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StandardBlock/dut.sv, line:1:1, endln:28:10
     |vpiForInitStmt:
-    \_assign_stmt: , line:13:6, endln:13:11
+    \_assignment: , line:13:6, endln:13:11
       |vpiParent:
       \_gen_for: 
       |vpiRhs:
@@ -493,7 +499,7 @@ design: (work@top)
       |vpiLhs:
       \_int_var: (work@top.i), line:13:6, endln:13:7
         |vpiParent:
-        \_assign_stmt: , line:13:6, endln:13:11
+        \_assignment: , line:13:6, endln:13:11
         |vpiTypespec:
         \_ref_typespec: (work@top.i)
           |vpiParent:
@@ -582,13 +588,15 @@ design: (work@top)
           \_gen_if: , line:16:1, endln:16:3
           |vpiFullName:work@top.g1
           |vpiStmt:
-          \_assign_stmt: , line:16:14, endln:16:15
+          \_assignment: , line:16:14, endln:16:15
             |vpiParent:
             \_begin: (work@top.g1)
+            |vpiOpType:82
+            |vpiBlocking:1
             |vpiLhs:
             \_logic_var: (work@top.g1.a), line:16:14, endln:16:15
               |vpiParent:
-              \_assign_stmt: , line:16:14, endln:16:15
+              \_assignment: , line:16:14, endln:16:15
               |vpiTypespec:
               \_ref_typespec: (work@top.g1.a)
                 |vpiParent:
@@ -603,7 +611,7 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StandardBlock/dut.sv, line:1:1, endln:28:10
     |vpiForInitStmt:
-    \_assign_stmt: , line:22:6, endln:22:11
+    \_assignment: , line:22:6, endln:22:11
       |vpiParent:
       \_gen_for: 
       |vpiRhs:
@@ -615,7 +623,7 @@ design: (work@top)
       |vpiLhs:
       \_int_var: (work@top.i), line:22:6, endln:22:7
         |vpiParent:
-        \_assign_stmt: , line:22:6, endln:22:11
+        \_assignment: , line:22:6, endln:22:11
         |vpiTypespec:
         \_ref_typespec: (work@top.i)
           |vpiParent:
@@ -703,13 +711,15 @@ design: (work@top)
           \_gen_if: , line:25:1, endln:25:3
           |vpiFullName:work@top
           |vpiStmt:
-          \_assign_stmt: , line:25:14, endln:25:15
+          \_assignment: , line:25:14, endln:25:15
             |vpiParent:
             \_begin: (work@top)
+            |vpiOpType:82
+            |vpiBlocking:1
             |vpiLhs:
             \_logic_var: (work@top.a), line:25:14, endln:25:15
               |vpiParent:
-              \_assign_stmt: , line:25:14, endln:25:15
+              \_assignment: , line:25:14, endln:25:15
               |vpiTypespec:
               \_ref_typespec: (work@top.a)
                 |vpiParent:
@@ -737,13 +747,15 @@ design: (work@top)
       \_gen_if: , line:27:1, endln:27:3
       |vpiFullName:work@top
       |vpiStmt:
-      \_assign_stmt: , line:27:14, endln:27:15
+      \_assignment: , line:27:14, endln:27:15
         |vpiParent:
         \_begin: (work@top)
+        |vpiOpType:82
+        |vpiBlocking:1
         |vpiLhs:
         \_logic_var: (work@top.a), line:27:14, endln:27:15
           |vpiParent:
-          \_assign_stmt: , line:27:14, endln:27:15
+          \_assignment: , line:27:14, endln:27:15
           |vpiTypespec:
           \_ref_typespec: (work@top.a)
             |vpiParent:

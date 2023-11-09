@@ -164,7 +164,7 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 1.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-assign_stmt                                            1
+assignment                                             1
 bit_select                                             9
 constant                                              32
 cont_assign                                            5
@@ -193,7 +193,7 @@ unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-assign_stmt                                            1
+assignment                                             1
 bit_select                                            13
 constant                                              32
 cont_assign                                            7
@@ -247,7 +247,7 @@ design: (work@alert_handler_reg_wrap)
     |vpiParent:
     \_module_inst: work@alert_handler_reg_wrap (work@alert_handler_reg_wrap), file:${SURELOG_DIR}/tests/HierPathLhs/dut.sv, line:1:1, endln:5:10
     |vpiForInitStmt:
-    \_assign_stmt: , line:2:8, endln:2:20
+    \_assignment: , line:2:8, endln:2:20
       |vpiParent:
       \_gen_for: 
       |vpiRhs:
@@ -259,7 +259,7 @@ design: (work@alert_handler_reg_wrap)
       |vpiLhs:
       \_int_var: (work@alert_handler_reg_wrap.k), line:2:15, endln:2:16
         |vpiParent:
-        \_assign_stmt: , line:2:8, endln:2:20
+        \_assignment: , line:2:8, endln:2:20
         |vpiTypespec:
         \_ref_typespec: (work@alert_handler_reg_wrap.k)
           |vpiParent:
@@ -325,7 +325,6 @@ design: (work@alert_handler_reg_wrap)
         \_hier_path: (hw2reg.alert_cause[k].d), line:3:12, endln:3:35
           |vpiParent:
           \_cont_assign: , line:3:12, endln:3:43
-          |vpiName:hw2reg.alert_cause[k].d
           |vpiActual:
           \_ref_obj: (hw2reg), line:3:19, endln:3:30
             |vpiParent:
@@ -348,6 +347,7 @@ design: (work@alert_handler_reg_wrap)
             \_hier_path: (hw2reg.alert_cause[k].d), line:3:12, endln:3:35
             |vpiName:d
             |vpiFullName:alert_cause[k].d
+          |vpiName:hw2reg.alert_cause[k].d
 |uhdmallModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathLhs/dut.sv, line:8:1, endln:16:10
   |vpiParent:
@@ -408,7 +408,6 @@ design: (work@alert_handler_reg_wrap)
     \_hier_path: (a[0][0].x[0]), line:15:10, endln:15:11
       |vpiParent:
       \_cont_assign: , line:15:10, endln:15:26
-      |vpiName:a[0][0].x[0]
       |vpiActual:
       \_bit_select: (a[0]), line:15:10, endln:15:11
         |vpiParent:
@@ -446,6 +445,7 @@ design: (work@alert_handler_reg_wrap)
           |vpiSize:64
           |UINT:0
           |vpiConstType:9
+      |vpiName:a[0][0].x[0]
 |uhdmtopModules:
 \_module_inst: work@alert_handler_reg_wrap (work@alert_handler_reg_wrap), file:${SURELOG_DIR}/tests/HierPathLhs/dut.sv, line:1:1, endln:5:10
   |vpiName:work@alert_handler_reg_wrap
@@ -494,7 +494,6 @@ design: (work@alert_handler_reg_wrap)
         \_hier_path: (hw2reg.alert_cause[k].d), line:3:12, endln:3:35
           |vpiParent:
           \_cont_assign: , line:3:12, endln:3:43
-          |vpiName:hw2reg.alert_cause[k].d
           |vpiActual:
           \_ref_obj: (hw2reg), line:3:19, endln:3:30
             |vpiParent:
@@ -520,6 +519,7 @@ design: (work@alert_handler_reg_wrap)
             \_hier_path: (hw2reg.alert_cause[k].d), line:3:12, endln:3:35
             |vpiName:d
             |vpiFullName:alert_cause[k].d
+          |vpiName:hw2reg.alert_cause[k].d
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathLhs/dut.sv, line:8:1, endln:16:10
   |vpiName:work@top
@@ -597,7 +597,6 @@ design: (work@alert_handler_reg_wrap)
     \_hier_path: (a[0][0].x[0]), line:15:10, endln:15:11
       |vpiParent:
       \_cont_assign: , line:15:10, endln:15:26
-      |vpiName:a[0][0].x[0]
       |vpiActual:
       \_bit_select: (a[0]), line:15:10, endln:15:11
         |vpiParent:
@@ -643,13 +642,14 @@ design: (work@alert_handler_reg_wrap)
           |vpiSize:64
           |UINT:0
           |vpiConstType:9
+      |vpiName:a[0][0].x[0]
 \_weaklyReferenced:
 \_hier_path: (alert_cause[k].d), line:3:19, endln:3:30
-  |vpiName:alert_cause[k].d
   |vpiActual:
   \_bit_select: (alert_cause[k]), line:3:19, endln:3:30
   |vpiActual:
   \_ref_obj: (alert_cause[k].d), line:3:37, endln:3:37
+  |vpiName:alert_cause[k].d
 \_int_typespec: , line:10:5, endln:10:8
   |vpiParent:
   \_typespec_member: (x), line:10:9, endln:10:10
@@ -710,7 +710,6 @@ design: (work@alert_handler_reg_wrap)
   \_hier_path: (hw2reg.alert_cause[k].d), line:3:12, endln:3:35
     |vpiParent:
     \_cont_assign: , line:3:12, endln:3:43
-    |vpiName:hw2reg.alert_cause[k].d
     |vpiActual:
     \_ref_obj: (hw2reg), line:3:19, endln:3:30
       |vpiParent:
@@ -734,6 +733,7 @@ design: (work@alert_handler_reg_wrap)
       \_hier_path: (hw2reg.alert_cause[k].d), line:3:12, endln:3:35
       |vpiName:d
       |vpiFullName:alert_cause[k].d
+    |vpiName:hw2reg.alert_cause[k].d
 \_gen_scope: (work@alert_handler_reg_wrap.gen_alert_cause[0]), line:2:34, endln:4:6
   |vpiParent:
   \_gen_scope_array: (work@alert_handler_reg_wrap.gen_alert_cause[0]), line:2:34, endln:4:6
@@ -760,7 +760,6 @@ design: (work@alert_handler_reg_wrap)
   \_hier_path: (a[0][0].x[0]), line:15:10, endln:15:11
     |vpiParent:
     \_cont_assign: , line:15:10, endln:15:26
-    |vpiName:a[0][0].x[0]
     |vpiActual:
     \_bit_select: (a[0]), line:15:10, endln:15:11
       |vpiParent:
@@ -786,6 +785,7 @@ design: (work@alert_handler_reg_wrap)
       |vpiFullName:a[0][0].x[0]
       |vpiIndex:
       \_constant: , line:15:20, endln:15:21
+    |vpiName:a[0][0].x[0]
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

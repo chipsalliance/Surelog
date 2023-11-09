@@ -194,8 +194,7 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 0.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-assign_stmt                                            1
-assignment                                             1
+assignment                                             2
 begin                                                  2
 constant                                              12
 design                                                 1
@@ -220,8 +219,7 @@ return_stmt                                            1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-assign_stmt                                            2
-assignment                                             2
+assignment                                             4
 begin                                                  4
 constant                                              13
 design                                                 1
@@ -302,7 +300,7 @@ design: (work@top)
     |vpiVariables:
     \_logic_var: (work@prim_lfsr.get_1s.a), line:6:26, endln:6:27
       |vpiParent:
-      \_assign_stmt: , line:6:26, endln:6:32
+      \_assignment: , line:6:26, endln:6:32
       |vpiTypespec:
       \_ref_typespec: (work@prim_lfsr.get_1s.a)
         |vpiParent:
@@ -334,9 +332,11 @@ design: (work@top)
       |vpiVariables:
       \_logic_var: (work@prim_lfsr.get_1s.a), line:6:26, endln:6:27
       |vpiStmt:
-      \_assign_stmt: , line:6:26, endln:6:32
+      \_assignment: , line:6:26, endln:6:32
         |vpiParent:
         \_begin: (work@prim_lfsr.get_1s), line:7:7, endln:7:16
+        |vpiOpType:82
+        |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:6:30, endln:6:32
           |vpiDecompile:'1
@@ -628,13 +628,15 @@ design: (work@top)
           |vpiName:a
           |vpiFullName:work@top.u_lfsr.get_1s.a
         |vpiStmt:
-        \_assign_stmt: , line:6:26, endln:6:32
+        \_assignment: , line:6:26, endln:6:32
           |vpiParent:
           \_begin: (work@top.u_lfsr.get_1s), line:7:7, endln:7:16
+          |vpiOpType:82
+          |vpiBlocking:1
           |vpiRhs:
           \_constant: , line:6:30, endln:6:32
             |vpiParent:
-            \_assign_stmt: , line:6:26, endln:6:32
+            \_assignment: , line:6:26, endln:6:32
             |vpiDecompile:1111111111111111
             |vpiSize:16
             |BIN:1111111111111111
@@ -642,7 +644,7 @@ design: (work@top)
           |vpiLhs:
           \_logic_var: (work@top.u_lfsr.get_1s.a), line:6:26, endln:6:27
             |vpiParent:
-            \_assign_stmt: , line:6:26, endln:6:32
+            \_assignment: , line:6:26, endln:6:32
             |vpiTypespec:
             \_ref_typespec: (work@top.u_lfsr.get_1s.a)
               |vpiParent:

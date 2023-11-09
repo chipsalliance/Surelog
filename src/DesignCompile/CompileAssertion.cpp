@@ -475,7 +475,7 @@ UHDM::property_decl* CompileHelper::compilePropertyDeclaration(
                                  compileDesign, Reduce::No, pstmt, instance);
       if (varst) {
         for (auto v : *varst) {
-          if (UHDM::assign_stmt* vast = any_cast<UHDM::assign_stmt*>(v)) {
+          if (UHDM::assignment* vast = any_cast<UHDM::assignment*>(v)) {
             if (UHDM::variables* va = any_cast<UHDM::variables*>(vast->Lhs())) {
               vars->push_back(va);
             }

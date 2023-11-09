@@ -168,8 +168,7 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_typespec                                         2
 array_var                                              2
-assign_stmt                                            3
-assignment                                             1
+assignment                                             4
 begin                                                  1
 class_defn                                             3
 class_typespec                                         4
@@ -193,8 +192,7 @@ type_parameter                                         2
 === UHDM Object Stats Begin (Elaborated Model) ===
 array_typespec                                         2
 array_var                                              6
-assign_stmt                                            3
-assignment                                             2
+assignment                                             5
 begin                                                  2
 class_defn                                             3
 class_typespec                                         4
@@ -467,7 +465,6 @@ design: (work@top)
           \_hier_path: (callbacks_to_append), line:19:32, endln:19:90
             |vpiParent:
             \_assignment: , line:19:3, endln:19:90
-            |vpiName:callbacks_to_append
             |vpiActual:
             \_ref_obj: (pkg::uvm_callbacks::get_all::callbacks_to_append), line:19:32, endln:19:51
               |vpiParent:
@@ -493,7 +490,6 @@ design: (work@top)
               \_hier_path: (cb_.get_inst_id), line:19:73, endln:19:88
                 |vpiParent:
                 \_method_func_call: (unique), line:19:52, endln:19:58
-                |vpiName:cb_.get_inst_id
                 |vpiActual:
                 \_ref_obj: (cb_), line:19:73, endln:19:76
                   |vpiParent:
@@ -509,6 +505,8 @@ design: (work@top)
                   |vpiFullName:pkg::uvm_callbacks::get_all::callbacks_to_append::get_inst_id
                   |vpiActual:
                   \_int_var: (pkg::uvm_callback::get_inst_id), line:7:8, endln:7:19
+                |vpiName:cb_.get_inst_id
+            |vpiName:callbacks_to_append
           |vpiLhs:
           \_ref_obj: (pkg::uvm_callbacks::get_all::unique_callbacks_to_append), line:19:3, endln:19:29
             |vpiParent:
@@ -681,7 +679,6 @@ design: (work@top)
   \_hier_path: (cb_.get_inst_id), line:19:73, endln:19:88
     |vpiParent:
     \_assignment: , line:19:3, endln:19:90
-    |vpiName:cb_.get_inst_id
     |vpiActual:
     \_ref_obj: (cb_), line:19:73, endln:19:76
       |vpiParent:
@@ -693,6 +690,7 @@ design: (work@top)
       \_hier_path: (cb_.get_inst_id), line:19:73, endln:19:88
       |vpiName:get_inst_id
       |vpiFullName:pkg::uvm_callbacks::get_all::get_inst_id
+    |vpiName:cb_.get_inst_id
 \_assignment: , line:19:3, endln:19:90
   |vpiParent:
   \_begin: (pkg::uvm_callbacks::get_all), line:15:3, endln:15:29
@@ -702,7 +700,6 @@ design: (work@top)
   \_hier_path: (callbacks_to_append), line:19:32, endln:19:90
     |vpiParent:
     \_assignment: , line:19:3, endln:19:90
-    |vpiName:callbacks_to_append
     |vpiActual:
     \_ref_obj: (pkg::uvm_callbacks::get_all::callbacks_to_append), line:19:32, endln:19:51
       |vpiParent:
@@ -711,6 +708,7 @@ design: (work@top)
       |vpiFullName:pkg::uvm_callbacks::get_all::callbacks_to_append
     |vpiActual:
     \_method_func_call: (unique), line:19:52, endln:19:58
+    |vpiName:callbacks_to_append
   |vpiLhs:
   \_ref_obj: (pkg::uvm_callbacks::get_all::unique_callbacks_to_append), line:19:3, endln:19:29
     |vpiParent:

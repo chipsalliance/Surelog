@@ -182,8 +182,7 @@ AST_DEBUG_END
 always                                                 2
 array_typespec                                         1
 array_var                                              1
-assign_stmt                                            1
-assignment                                             2
+assignment                                             3
 begin                                                  3
 bit_select                                             2
 constant                                              27
@@ -216,8 +215,7 @@ unsupported_typespec                                   1
 always                                                 3
 array_typespec                                         1
 array_var                                              1
-assign_stmt                                            1
-assignment                                             3
+assignment                                             4
 begin                                                  4
 bit_select                                             3
 constant                                              27
@@ -375,7 +373,7 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:7:1, endln:19:10
     |vpiForInitStmt:
-    \_assign_stmt: , line:14:7, endln:14:19
+    \_assignment: , line:14:7, endln:14:19
       |vpiParent:
       \_gen_for: 
       |vpiRhs:
@@ -387,7 +385,7 @@ design: (work@dut)
       |vpiLhs:
       \_int_var: (work@dut.i), line:14:14, endln:14:15
         |vpiParent:
-        \_assign_stmt: , line:14:7, endln:14:19
+        \_assignment: , line:14:7, endln:14:19
         |vpiTypespec:
         \_ref_typespec: (work@dut.i)
           |vpiParent:

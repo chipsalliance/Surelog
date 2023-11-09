@@ -13,8 +13,7 @@
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 always                                                 1
-assign_stmt                                            1
-assignment                                             1
+assignment                                             2
 begin                                                  3
 bit_select                                             1
 case_item                                              1
@@ -44,8 +43,7 @@ typespec_member                                        8
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
 always                                                 2
-assign_stmt                                            2
-assignment                                             2
+assignment                                             4
 begin                                                  6
 bit_select                                             2
 case_item                                              2
@@ -448,13 +446,13 @@ design: (work@top)
               \_begin: (work@top), line:21:18, endln:25:10
               |vpiFullName:work@top
               |vpiForInitStmt:
-              \_assign_stmt: , line:22:14, endln:22:23
+              \_assignment: , line:22:14, endln:22:23
                 |vpiParent:
                 \_for_stmt: (work@top), line:22:9, endln:22:12
                 |vpiRhs:
                 \_constant: , line:22:22, endln:22:23
                   |vpiParent:
-                  \_assign_stmt: , line:22:14, endln:22:23
+                  \_assignment: , line:22:14, endln:22:23
                   |vpiDecompile:0
                   |vpiSize:64
                   |UINT:0
@@ -462,7 +460,7 @@ design: (work@top)
                 |vpiLhs:
                 \_int_var: (work@top.i), line:22:18, endln:22:19
                   |vpiParent:
-                  \_assign_stmt: , line:22:14, endln:22:23
+                  \_assignment: , line:22:14, endln:22:23
                   |vpiTypespec:
                   \_ref_typespec: (work@top.i)
                     |vpiParent:
@@ -538,7 +536,6 @@ design: (work@top)
                       \_hier_path: (keymgr_data_i.strb[i]), line:23:36, endln:23:57
                         |vpiParent:
                         \_operation: , line:23:35, endln:23:58
-                        |vpiName:keymgr_data_i.strb[i]
                         |vpiActual:
                         \_ref_obj: (keymgr_data_i), line:23:36, endln:23:49
                           |vpiParent:
@@ -558,6 +555,7 @@ design: (work@top)
                             |vpiFullName:work@top.keymgr_data_i.strb[i].i
                             |vpiActual:
                             \_int_var: (work@top.i), line:22:18, endln:22:19
+                        |vpiName:keymgr_data_i.strb[i]
                   |vpiLhs:
                   \_indexed_part_select: kmac_mask_o (work@top.kmac_mask_o), line:23:11, endln:23:30
                     |vpiParent:
@@ -721,7 +719,7 @@ design: (work@top)
               \_begin: (work@top), line:21:18, endln:25:10
               |vpiFullName:work@top
               |vpiForInitStmt:
-              \_assign_stmt: , line:22:14, endln:22:23
+              \_assignment: , line:22:14, endln:22:23
                 |vpiParent:
                 \_for_stmt: (work@top), line:22:9, endln:22:12
                 |vpiRhs:
@@ -729,7 +727,7 @@ design: (work@top)
                 |vpiLhs:
                 \_int_var: (work@top.i), line:22:18, endln:22:19
                   |vpiParent:
-                  \_assign_stmt: , line:22:14, endln:22:23
+                  \_assignment: , line:22:14, endln:22:23
                   |vpiTypespec:
                   \_ref_typespec: (work@top.i)
                     |vpiParent:
@@ -795,7 +793,6 @@ design: (work@top)
                       \_hier_path: (keymgr_data_i.strb[i]), line:23:36, endln:23:57
                         |vpiParent:
                         \_operation: , line:23:35, endln:23:58
-                        |vpiName:keymgr_data_i.strb[i]
                         |vpiActual:
                         \_ref_obj: (keymgr_data_i), line:23:36, endln:23:49
                           |vpiParent:
@@ -819,6 +816,7 @@ design: (work@top)
                             |vpiFullName:work@top.keymgr_data_i.strb[i].i
                             |vpiActual:
                             \_int_var: (work@top.i), line:22:18, endln:22:19
+                        |vpiName:keymgr_data_i.strb[i]
                   |vpiLhs:
                   \_indexed_part_select: kmac_mask_o (work@top.kmac_mask_o), line:23:11, endln:23:30
                     |vpiParent:

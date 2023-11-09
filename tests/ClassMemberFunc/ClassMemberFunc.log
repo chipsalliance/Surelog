@@ -92,7 +92,7 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 0.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-assign_stmt                                            4
+assignment                                             4
 begin                                                  2
 class_defn                                             2
 class_typespec                                         1
@@ -109,7 +109,7 @@ unsupported_typespec                                   4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-assign_stmt                                            6
+assignment                                             6
 begin                                                  4
 class_defn                                             2
 class_typespec                                         2
@@ -208,14 +208,15 @@ design: (unnamed)
         |vpiActual:
         \_ref_var: (pkg::uvm_sequencer_base::start_phase_sequence::rsrc), line:15:21, endln:15:25
       |vpiStmt:
-      \_assign_stmt: , line:15:21, endln:15:37
+      \_assignment: , line:15:21, endln:15:37
         |vpiParent:
         \_begin: (pkg::uvm_sequencer_base::start_phase_sequence), line:15:3, endln:15:38
+        |vpiOpType:82
+        |vpiBlocking:1
         |vpiRhs:
         \_hier_path: (rq.get), line:15:28, endln:15:37
           |vpiParent:
-          \_assign_stmt: , line:15:21, endln:15:37
-          |vpiName:rq.get
+          \_assignment: , line:15:21, endln:15:37
           |vpiActual:
           \_ref_obj: (rq), line:15:28, endln:15:30
             |vpiParent:
@@ -236,10 +237,11 @@ design: (unnamed)
               |vpiActual:
               \_class_var: (pkg::uvm_sequencer_base::start_phase_sequence::rq), line:13:30, endln:13:32
             |vpiName:get
+          |vpiName:rq.get
         |vpiLhs:
         \_ref_var: (pkg::uvm_sequencer_base::start_phase_sequence::rsrc), line:15:21, endln:15:25
           |vpiParent:
-          \_assign_stmt: , line:15:21, endln:15:37
+          \_assignment: , line:15:21, endln:15:37
           |vpiTypespec:
           \_ref_typespec: (pkg::uvm_sequencer_base::start_phase_sequence::rsrc)
             |vpiParent:
@@ -349,14 +351,15 @@ design: (unnamed)
         |vpiActual:
         \_ref_var: (pkg::uvm_sequencer_base::start_phase_sequence::rsrc), line:15:21, endln:15:25
       |vpiStmt:
-      \_assign_stmt: , line:15:21, endln:15:37
+      \_assignment: , line:15:21, endln:15:37
         |vpiParent:
         \_begin: (pkg::uvm_sequencer_base::start_phase_sequence), line:15:3, endln:15:38
+        |vpiOpType:82
+        |vpiBlocking:1
         |vpiRhs:
         \_hier_path: (rq.get), line:15:28, endln:15:37
           |vpiParent:
-          \_assign_stmt: , line:15:21, endln:15:37
-          |vpiName:rq.get
+          \_assignment: , line:15:21, endln:15:37
           |vpiActual:
           \_ref_obj: (rq), line:15:28, endln:15:30
             |vpiParent:
@@ -377,10 +380,11 @@ design: (unnamed)
               |vpiActual:
               \_class_var: (pkg::uvm_sequencer_base::start_phase_sequence::rq), line:13:30, endln:13:32
             |vpiName:get
+          |vpiName:rq.get
         |vpiLhs:
         \_ref_var: (pkg::uvm_sequencer_base::start_phase_sequence::rsrc), line:15:21, endln:15:25
           |vpiParent:
-          \_assign_stmt: , line:15:21, endln:15:37
+          \_assignment: , line:15:21, endln:15:37
           |vpiTypespec:
           \_ref_typespec: (pkg::uvm_sequencer_base::start_phase_sequence::rsrc)
             |vpiParent:
@@ -416,7 +420,7 @@ design: (unnamed)
   |vpiVariables:
   \_ref_var: (pkg::uvm_sequencer_base::start_phase_sequence::rsrc), line:15:21, endln:15:25
     |vpiParent:
-    \_assign_stmt: , line:15:21, endln:15:37
+    \_assignment: , line:15:21, endln:15:37
     |vpiTypespec:
     \_ref_typespec: (pkg::uvm_sequencer_base::start_phase_sequence::rsrc)
       |vpiParent:
@@ -427,14 +431,15 @@ design: (unnamed)
     |vpiName:rsrc
     |vpiFullName:pkg::uvm_sequencer_base::start_phase_sequence::rsrc
   |vpiStmt:
-  \_assign_stmt: , line:15:21, endln:15:37
+  \_assignment: , line:15:21, endln:15:37
     |vpiParent:
     \_begin: (pkg::uvm_sequencer_base::start_phase_sequence), line:15:3, endln:15:38
+    |vpiOpType:82
+    |vpiBlocking:1
     |vpiRhs:
     \_hier_path: (rq.get), line:15:28, endln:15:37
       |vpiParent:
-      \_assign_stmt: , line:15:21, endln:15:37
-      |vpiName:rq.get
+      \_assignment: , line:15:21, endln:15:37
       |vpiActual:
       \_ref_obj: (rq), line:15:28, endln:15:30
         |vpiParent:
@@ -453,6 +458,7 @@ design: (unnamed)
           |vpiName:i
           |vpiFullName:pkg::uvm_sequencer_base::start_phase_sequence::rq.get::i
         |vpiName:get
+      |vpiName:rq.get
     |vpiLhs:
     \_ref_var: (pkg::uvm_sequencer_base::start_phase_sequence::rsrc), line:15:21, endln:15:25
 \_function: (pkg::uvm_sequencer_base::start_phase_sequence), line:12:1, endln:18:12
@@ -494,7 +500,7 @@ design: (unnamed)
   |vpiVariables:
   \_ref_var: (pkg::uvm_sequencer_base::start_phase_sequence::rsrc), line:15:21, endln:15:25
     |vpiParent:
-    \_assign_stmt: , line:15:21, endln:15:37
+    \_assignment: , line:15:21, endln:15:37
     |vpiTypespec:
     \_ref_typespec: (pkg::uvm_sequencer_base::start_phase_sequence::rsrc)
       |vpiParent:
@@ -505,14 +511,15 @@ design: (unnamed)
     |vpiName:rsrc
     |vpiFullName:pkg::uvm_sequencer_base::start_phase_sequence::rsrc
   |vpiStmt:
-  \_assign_stmt: , line:15:21, endln:15:37
+  \_assignment: , line:15:21, endln:15:37
     |vpiParent:
     \_begin: (pkg::uvm_sequencer_base::start_phase_sequence), line:15:3, endln:15:38
+    |vpiOpType:82
+    |vpiBlocking:1
     |vpiRhs:
     \_hier_path: (rq.get), line:15:28, endln:15:37
       |vpiParent:
-      \_assign_stmt: , line:15:21, endln:15:37
-      |vpiName:rq.get
+      \_assignment: , line:15:21, endln:15:37
       |vpiActual:
       \_ref_obj: (rq), line:15:28, endln:15:30
         |vpiParent:
@@ -531,6 +538,7 @@ design: (unnamed)
           |vpiName:i
           |vpiFullName:pkg::uvm_sequencer_base::start_phase_sequence::rq.get::i
         |vpiName:get
+      |vpiName:rq.get
     |vpiLhs:
     \_ref_var: (pkg::uvm_sequencer_base::start_phase_sequence::rsrc), line:15:21, endln:15:25
 \_function: (pkg::uvm_sequencer_base::start_phase_sequence), line:12:1, endln:18:12

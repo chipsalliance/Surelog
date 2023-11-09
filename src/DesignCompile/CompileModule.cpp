@@ -37,6 +37,7 @@
 // UHDM
 #include <uhdm/always.h>
 #include <uhdm/assign_stmt.h>
+#include <uhdm/assignment.h>
 #include <uhdm/constant.h>
 #include <uhdm/final_stmt.h>
 #include <uhdm/initial.h>
@@ -468,7 +469,7 @@ bool CompileModule::collectUdpObjects_() {
         fC->populateCoreMembers(id, id, init);
         init->VpiParent(defn);
         defn->Initial(init);
-        UHDM::assign_stmt* assign_stmt = s.MakeAssign_stmt();
+        UHDM::assignment* assign_stmt = s.MakeAssignment();
         init->Stmt(assign_stmt);
         UHDM::ref_obj* ref = s.MakeRef_obj();
         ref->VpiName(fC->SymName(Identifier));

@@ -58,7 +58,7 @@ jobs:
         cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=17 -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DJSON_BuildTests=OFF . && cmake --build build && sudo cmake --install build
         popd
 
-        git clone --depth 1 --branch v1.78 https://github.com/chipsalliance/UHDM.git
+        git clone --depth 1 --branch v1.79 https://github.com/chipsalliance/UHDM.git
         pushd UHDM
         cmake -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DUHDM_USE_HOST_GTEST=ON -DUHDM_USE_HOST_CAPNP=ON . && cmake --build build && sudo cmake --install build
         popd

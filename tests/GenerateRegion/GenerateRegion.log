@@ -1104,8 +1104,7 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 always                                                 7
-assign_stmt                                            1
-assignment                                             9
+assignment                                            10
 begin                                                  6
 bit_select                                            12
 constant                                             195
@@ -1140,8 +1139,7 @@ sys_func_call                                          1
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
 always                                                12
-assign_stmt                                            1
-assignment                                            15
+assignment                                            16
 begin                                                  6
 bit_select                                            21
 constant                                             197
@@ -1263,7 +1261,6 @@ design: (work@oh_delay)
             \_hier_path: (B.y), line:61:36, endln:61:39
               |vpiParent:
               \_operation: , line:61:36, endln:61:47
-              |vpiName:B.y
               |vpiActual:
               \_ref_obj: (B), line:61:36, endln:61:37
                 |vpiParent:
@@ -1277,6 +1274,7 @@ design: (work@oh_delay)
                 \_hier_path: (B.y), line:61:36, endln:61:39
                 |vpiName:y
                 |vpiFullName:work@gen_test9.A.y
+              |vpiName:B.y
             |vpiOperand:
             \_constant: , line:61:42, endln:61:47
               |vpiParent:
@@ -1289,7 +1287,6 @@ design: (work@oh_delay)
           \_hier_path: (C.z), line:61:50, endln:61:53
             |vpiParent:
             \_operation: , line:61:36, endln:61:53
-            |vpiName:C.z
             |vpiActual:
             \_ref_obj: (C), line:61:50, endln:61:51
               |vpiParent:
@@ -1303,6 +1300,7 @@ design: (work@oh_delay)
               \_hier_path: (C.z), line:61:50, endln:61:53
               |vpiName:z
               |vpiFullName:work@gen_test9.A.z
+            |vpiName:C.z
         |vpiLhs:
         \_ref_obj: (work@gen_test9.A.x), line:61:32, endln:61:33
           |vpiParent:
@@ -1719,13 +1717,15 @@ design: (work@oh_delay)
           \_gen_if_else: , line:103:7, endln:121:5
           |vpiFullName:work@oh_rsync
           |vpiStmt:
-          \_assign_stmt: , line:105:24, endln:105:33
+          \_assignment: , line:105:24, endln:105:33
             |vpiParent:
             \_begin: (work@oh_rsync)
+            |vpiOpType:82
+            |vpiBlocking:1
             |vpiLhs:
             \_logic_var: (work@oh_rsync.sync_pipe), line:105:24, endln:105:33
               |vpiParent:
-              \_assign_stmt: , line:105:24, endln:105:33
+              \_assignment: , line:105:24, endln:105:33
               |vpiTypespec:
               \_ref_typespec: (work@oh_rsync.sync_pipe)
                 |vpiParent:
@@ -3258,7 +3258,6 @@ design: (work@oh_delay)
             \_hier_path: (B.y), line:61:36, endln:61:39
               |vpiParent:
               \_operation: , line:61:36, endln:61:47
-              |vpiName:B.y
               |vpiActual:
               \_ref_obj: (B), line:61:36, endln:61:37
                 |vpiParent:
@@ -3274,6 +3273,7 @@ design: (work@oh_delay)
                 |vpiFullName:work@gen_test9.A.y
                 |vpiActual:
                 \_logic_net: (work@gen_test9.A.B.y), line:53:44, endln:53:45
+              |vpiName:B.y
             |vpiOperand:
             \_constant: , line:61:42, endln:61:47
               |vpiParent:
@@ -3286,7 +3286,6 @@ design: (work@oh_delay)
           \_hier_path: (C.z), line:61:50, endln:61:53
             |vpiParent:
             \_operation: , line:61:36, endln:61:53
-            |vpiName:C.z
             |vpiActual:
             \_ref_obj: (C), line:61:50, endln:61:51
               |vpiParent:
@@ -3302,6 +3301,7 @@ design: (work@oh_delay)
               |vpiFullName:work@gen_test9.A.z
               |vpiActual:
               \_logic_net: (work@gen_test9.A.C.z), line:58:44, endln:58:45
+            |vpiName:C.z
         |vpiLhs:
         \_ref_obj: (work@gen_test9.A.x), line:61:32, endln:61:33
           |vpiParent:
@@ -4356,7 +4356,6 @@ design: (work@oh_delay)
   \_hier_path: (B.y), line:61:36, endln:61:39
     |vpiParent:
     \_operation: , line:61:36, endln:61:47
-    |vpiName:B.y
     |vpiActual:
     \_ref_obj: (B), line:61:36, endln:61:37
       |vpiParent:
@@ -4368,6 +4367,7 @@ design: (work@oh_delay)
       \_hier_path: (B.y), line:61:36, endln:61:39
       |vpiName:y
       |vpiFullName:work@gen_test9.A.y
+    |vpiName:B.y
   |vpiOperand:
   \_constant: , line:61:42, endln:61:47
 \_operation: , line:61:36, endln:61:53
@@ -4380,7 +4380,6 @@ design: (work@oh_delay)
   \_hier_path: (C.z), line:61:50, endln:61:53
     |vpiParent:
     \_operation: , line:61:36, endln:61:53
-    |vpiName:C.z
     |vpiActual:
     \_ref_obj: (C), line:61:50, endln:61:51
       |vpiParent:
@@ -4392,6 +4391,7 @@ design: (work@oh_delay)
       \_hier_path: (C.z), line:61:50, endln:61:53
       |vpiName:z
       |vpiFullName:work@gen_test9.A.z
+    |vpiName:C.z
 \_cont_assign: , line:61:32, endln:61:53
   |vpiParent:
   \_gen_scope: (work@gen_test9.A), line:49:17, endln:62:20

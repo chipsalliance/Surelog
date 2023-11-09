@@ -106,7 +106,7 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_typespec                                         1
 array_var                                              1
-assign_stmt                                            1
+assignment                                             1
 begin                                                  1
 bit_select                                             1
 constant                                               7
@@ -132,7 +132,7 @@ return_stmt                                            1
 === UHDM Object Stats Begin (Elaborated Model) ===
 array_typespec                                         1
 array_var                                              4
-assign_stmt                                            2
+assignment                                             2
 begin                                                  2
 bit_select                                             2
 constant                                               7
@@ -177,7 +177,7 @@ design: (work@top)
     |vpiVariables:
     \_array_var: (work@top.get_a1.a), line:5:11, endln:5:12
       |vpiParent:
-      \_assign_stmt: , line:5:11, endln:5:26
+      \_assignment: , line:5:11, endln:5:26
       |vpiTypespec:
       \_ref_typespec: (work@top.get_a1.a)
         |vpiParent:
@@ -226,13 +226,15 @@ design: (work@top)
       |vpiVariables:
       \_array_var: (work@top.get_a1.a), line:5:11, endln:5:12
       |vpiStmt:
-      \_assign_stmt: , line:5:11, endln:5:26
+      \_assignment: , line:5:11, endln:5:26
         |vpiParent:
         \_begin: (work@top.get_a1), line:6:7, endln:6:19
+        |vpiOpType:82
+        |vpiBlocking:1
         |vpiRhs:
         \_operation: , line:5:19, endln:5:26
           |vpiParent:
-          \_assign_stmt: , line:5:11, endln:5:26
+          \_assignment: , line:5:11, endln:5:26
           |vpiOpType:75
           |vpiOperand:
           \_constant: , line:5:21, endln:5:22
@@ -419,13 +421,15 @@ design: (work@top)
           |vpiFullName:work@top.get_a1.a
           |vpiSigned:1
       |vpiStmt:
-      \_assign_stmt: , line:5:11, endln:5:26
+      \_assignment: , line:5:11, endln:5:26
         |vpiParent:
         \_begin: (work@top.get_a1), line:6:7, endln:6:19
+        |vpiOpType:82
+        |vpiBlocking:1
         |vpiRhs:
         \_operation: , line:5:19, endln:5:26
           |vpiParent:
-          \_assign_stmt: , line:5:11, endln:5:26
+          \_assignment: , line:5:11, endln:5:26
           |vpiOpType:75
           |vpiOperand:
           \_constant: , line:5:21, endln:5:22
@@ -434,7 +438,7 @@ design: (work@top)
         |vpiLhs:
         \_array_var: (work@top.get_a1.a), line:5:11, endln:5:12
           |vpiParent:
-          \_assign_stmt: , line:5:11, endln:5:26
+          \_assignment: , line:5:11, endln:5:26
           |vpiTypespec:
           \_ref_typespec: (work@top.get_a1.a)
             |vpiParent:

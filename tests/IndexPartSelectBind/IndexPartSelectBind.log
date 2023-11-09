@@ -150,8 +150,7 @@ AST_DEBUG_END
 [ERR:CP0317] ${SURELOG_DIR}/tests/IndexPartSelectBind/dut.sv:10:1: Undefined type "uvm_sequence_item".
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-assign_stmt                                            1
-assignment                                             1
+assignment                                             2
 begin                                                  2
 bit_select                                             1
 class_defn                                             1
@@ -176,8 +175,7 @@ unsupported_typespec                                   3
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-assign_stmt                                            2
-assignment                                             2
+assignment                                             4
 begin                                                  4
 bit_select                                             2
 class_defn                                             1
@@ -322,13 +320,13 @@ design: (unnamed)
           \_begin: (pkg::tt::reg2bus), line:17:1, endln:17:11
           |vpiFullName:pkg::tt::reg2bus
           |vpiForInitStmt:
-          \_assign_stmt: , line:12:6, endln:12:15
+          \_assignment: , line:12:6, endln:12:15
             |vpiParent:
             \_for_stmt: (pkg::tt::reg2bus), line:12:1, endln:12:4
             |vpiRhs:
             \_constant: , line:12:14, endln:12:15
               |vpiParent:
-              \_assign_stmt: , line:12:6, endln:12:15
+              \_assignment: , line:12:6, endln:12:15
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
@@ -336,7 +334,7 @@ design: (unnamed)
             |vpiLhs:
             \_int_var: (pkg::tt::reg2bus::i), line:12:10, endln:12:11
               |vpiParent:
-              \_assign_stmt: , line:12:6, endln:12:15
+              \_assignment: , line:12:6, endln:12:15
               |vpiTypespec:
               \_ref_typespec: (pkg::tt::reg2bus::i)
                 |vpiParent:
@@ -394,7 +392,6 @@ design: (unnamed)
               \_hier_path: (rw.data[i * 8+:8]), line:13:17, endln:13:32
                 |vpiParent:
                 \_assignment: , line:13:4, endln:13:32
-                |vpiName:rw.data[i * 8+:8]
                 |vpiActual:
                 \_ref_obj: (rw), line:13:17, endln:13:19
                   |vpiParent:
@@ -439,11 +436,11 @@ design: (unnamed)
                     |vpiSize:64
                     |UINT:8
                     |vpiConstType:9
+                |vpiName:rw.data[i * 8+:8]
               |vpiLhs:
               \_hier_path: (rw.data[i]), line:13:4, endln:13:14
                 |vpiParent:
                 \_assignment: , line:13:4, endln:13:32
-                |vpiName:rw.data[i]
                 |vpiActual:
                 \_ref_obj: (rw), line:13:7, endln:13:11
                   |vpiParent:
@@ -467,6 +464,7 @@ design: (unnamed)
                     |vpiFullName:pkg::tt::reg2bus::rw.data[i]::i
                     |vpiActual:
                     \_int_var: (pkg::tt::reg2bus::i), line:12:10, endln:12:11
+                |vpiName:rw.data[i]
         |vpiStmt:
         \_return_stmt: , line:17:1, endln:17:7
           |vpiParent:
@@ -524,7 +522,7 @@ design: (unnamed)
       \_begin: (pkg::tt::reg2bus), line:17:1, endln:17:11
       |vpiFullName:pkg::tt::reg2bus
       |vpiForInitStmt:
-      \_assign_stmt: , line:12:6, endln:12:15
+      \_assignment: , line:12:6, endln:12:15
         |vpiParent:
         \_for_stmt: (pkg::tt::reg2bus), line:12:1, endln:12:4
         |vpiRhs:
@@ -532,7 +530,7 @@ design: (unnamed)
         |vpiLhs:
         \_int_var: (pkg::tt::reg2bus::i), line:12:10, endln:12:11
           |vpiParent:
-          \_assign_stmt: , line:12:6, endln:12:15
+          \_assignment: , line:12:6, endln:12:15
           |vpiTypespec:
           \_ref_typespec: (pkg::tt::reg2bus::i)
             |vpiParent:
@@ -586,7 +584,6 @@ design: (unnamed)
           \_hier_path: (rw.data[i * 8+:8]), line:13:17, endln:13:32
             |vpiParent:
             \_assignment: , line:13:4, endln:13:32
-            |vpiName:rw.data[i * 8+:8]
             |vpiActual:
             \_ref_obj: (rw), line:13:17, endln:13:19
               |vpiParent:
@@ -615,11 +612,11 @@ design: (unnamed)
                 \_constant: , line:13:27, endln:13:28
               |vpiWidthExpr:
               \_constant: , line:13:30, endln:13:31
+            |vpiName:rw.data[i * 8+:8]
           |vpiLhs:
           \_hier_path: (rw.data[i]), line:13:4, endln:13:14
             |vpiParent:
             \_assignment: , line:13:4, endln:13:32
-            |vpiName:rw.data[i]
             |vpiActual:
             \_ref_obj: (rw), line:13:7, endln:13:11
               |vpiParent:
@@ -637,6 +634,7 @@ design: (unnamed)
                 \_bit_select: (pkg::tt::reg2bus::rw.data[i]::data), line:13:12, endln:13:13
                 |vpiName:i
                 |vpiFullName:pkg::tt::reg2bus::rw.data[i]::i
+            |vpiName:rw.data[i]
     |vpiStmt:
     \_return_stmt: , line:17:1, endln:17:7
       |vpiParent:

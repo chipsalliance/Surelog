@@ -319,7 +319,6 @@ design: (work@dm_csrs)
     \_hier_path: (dmi_req_i.addr2), line:2:28, endln:2:43
       |vpiParent:
       \_cont_assign: , line:2:10, endln:2:43
-      |vpiName:dmi_req_i.addr2
       |vpiActual:
       \_ref_obj: (dmi_req_i), line:2:28, endln:2:37
         |vpiParent:
@@ -331,11 +330,11 @@ design: (work@dm_csrs)
         \_hier_path: (dmi_req_i.addr2), line:2:28, endln:2:43
         |vpiName:addr2
         |vpiFullName:work@dm_csrs.addr2
+      |vpiName:dmi_req_i.addr2
     |vpiLhs:
     \_hier_path: (dmi_req_i.addr1), line:2:10, endln:2:25
       |vpiParent:
       \_cont_assign: , line:2:10, endln:2:43
-      |vpiName:dmi_req_i.addr1
       |vpiActual:
       \_ref_obj: (dmi_req_i), line:2:20, endln:2:25
         |vpiParent:
@@ -346,6 +345,7 @@ design: (work@dm_csrs)
         |vpiParent:
         \_hier_path: (dmi_req_i.addr1), line:2:10, endln:2:25
         |vpiName:addr1
+      |vpiName:dmi_req_i.addr1
   |vpiContAssign:
   \_cont_assign: , line:3:10, endln:3:58
     |vpiParent:
@@ -370,7 +370,6 @@ design: (work@dm_csrs)
         \_hier_path: (keymgr_data_i.strb[i]), line:3:35, endln:3:56
           |vpiParent:
           \_operation: , line:3:34, endln:3:57
-          |vpiName:keymgr_data_i.strb[i]
           |vpiActual:
           \_ref_obj: (keymgr_data_i), line:3:35, endln:3:48
             |vpiParent:
@@ -390,6 +389,7 @@ design: (work@dm_csrs)
               |vpiFullName:work@dm_csrs.keymgr_data_i.strb[i].i
               |vpiActual:
               \_logic_net: (work@dm_csrs.i), line:3:24, endln:3:25
+          |vpiName:keymgr_data_i.strb[i]
     |vpiLhs:
     \_indexed_part_select: kmac_mask_o (work@dm_csrs.kmac_mask_o), line:3:10, endln:3:29
       |vpiParent:
@@ -434,7 +434,6 @@ design: (work@dm_csrs)
     \_hier_path: (keymgr_key_i.key[0][1 * 32+:32]), line:4:14, endln:4:47
       |vpiParent:
       \_cont_assign: , line:4:10, endln:4:47
-      |vpiName:keymgr_key_i.key[0][1 * 32+:32]
       |vpiActual:
       \_ref_obj: (keymgr_key_i), line:4:14, endln:4:26
         |vpiParent:
@@ -490,6 +489,7 @@ design: (work@dm_csrs)
             |vpiSize:64
             |UINT:32
             |vpiConstType:9
+      |vpiName:keymgr_key_i.key[0][1 * 32+:32]
     |vpiLhs:
     \_ref_obj: (work@dm_csrs.o), line:4:10, endln:4:11
       |vpiParent:
@@ -514,7 +514,6 @@ design: (work@dm_csrs)
     \_hier_path: (sram_otp_key_o[2 - 2].nonce), line:5:10, endln:5:24
       |vpiParent:
       \_cont_assign: , line:5:10, endln:5:39
-      |vpiName:sram_otp_key_o[2 - 2].nonce
       |vpiActual:
       \_bit_select: (sram_otp_key_o[2 - 2]), line:5:10, endln:5:24
         |vpiParent:
@@ -548,6 +547,7 @@ design: (work@dm_csrs)
         \_hier_path: (sram_otp_key_o[2 - 2].nonce), line:5:10, endln:5:24
         |vpiName:nonce
         |vpiFullName:sram_otp_key_o[2 - 2].nonce
+      |vpiName:sram_otp_key_o[2 - 2].nonce
 |uhdmtopModules:
 \_module_inst: work@dm_csrs (work@dm_csrs), file:${SURELOG_DIR}/tests/HierMultiSelect/dut.sv, line:1:1, endln:8:10
   |vpiName:work@dm_csrs
@@ -569,7 +569,6 @@ design: (work@dm_csrs)
     \_hier_path: (a[0].source[6-:2]), line:6:13, endln:6:32
       |vpiParent:
       \_logic_var: (work@dm_csrs.c), line:6:9, endln:6:32
-      |vpiName:a[0].source[6-:2]
       |vpiActual:
       \_bit_select: (a[0]), line:6:13, endln:6:14
         |vpiParent:
@@ -602,6 +601,7 @@ design: (work@dm_csrs)
           |vpiSize:64
           |UINT:2
           |vpiConstType:9
+      |vpiName:a[0].source[6-:2]
   |vpiVariables:
   \_byte_var: (work@dm_csrs.o), line:7:8, endln:7:17
     |vpiParent:
@@ -620,7 +620,6 @@ design: (work@dm_csrs)
     \_hier_path: (b), line:7:12, endln:7:17
       |vpiParent:
       \_byte_var: (work@dm_csrs.o), line:7:8, endln:7:17
-      |vpiName:b
       |vpiActual:
       \_ref_obj: (work@dm_csrs.o.b), line:7:12, endln:7:13
         |vpiParent:
@@ -632,6 +631,7 @@ design: (work@dm_csrs)
         |vpiParent:
         \_hier_path: (b), line:7:12, endln:7:17
         |vpiName:and
+      |vpiName:b
   |vpiDefName:work@dm_csrs
   |vpiTop:1
   |vpiTopModule:1
@@ -643,7 +643,6 @@ design: (work@dm_csrs)
     \_hier_path: (dmi_req_i.addr2), line:2:28, endln:2:43
       |vpiParent:
       \_cont_assign: , line:2:10, endln:2:43
-      |vpiName:dmi_req_i.addr2
       |vpiActual:
       \_ref_obj: (dmi_req_i), line:2:28, endln:2:37
         |vpiParent:
@@ -655,11 +654,11 @@ design: (work@dm_csrs)
         \_hier_path: (dmi_req_i.addr2), line:2:28, endln:2:43
         |vpiName:addr2
         |vpiFullName:work@dm_csrs.addr2
+      |vpiName:dmi_req_i.addr2
     |vpiLhs:
     \_hier_path: (dmi_req_i.addr1), line:2:10, endln:2:25
       |vpiParent:
       \_cont_assign: , line:2:10, endln:2:43
-      |vpiName:dmi_req_i.addr1
       |vpiActual:
       \_ref_obj: (dmi_req_i), line:2:20, endln:2:25
         |vpiParent:
@@ -670,6 +669,7 @@ design: (work@dm_csrs)
         |vpiParent:
         \_hier_path: (dmi_req_i.addr1), line:2:10, endln:2:25
         |vpiName:addr1
+      |vpiName:dmi_req_i.addr1
   |vpiContAssign:
   \_cont_assign: , line:3:10, endln:3:58
     |vpiParent:
@@ -690,7 +690,6 @@ design: (work@dm_csrs)
         \_hier_path: (keymgr_data_i.strb[i]), line:3:35, endln:3:56
           |vpiParent:
           \_operation: , line:3:34, endln:3:57
-          |vpiName:keymgr_data_i.strb[i]
           |vpiActual:
           \_ref_obj: (keymgr_data_i), line:3:35, endln:3:48
             |vpiParent:
@@ -710,6 +709,7 @@ design: (work@dm_csrs)
               |vpiFullName:work@dm_csrs.keymgr_data_i.strb[i].i
               |vpiActual:
               \_logic_net: (work@dm_csrs.i), line:3:24, endln:3:25
+          |vpiName:keymgr_data_i.strb[i]
     |vpiLhs:
     \_indexed_part_select: kmac_mask_o (work@dm_csrs.kmac_mask_o), line:3:10, endln:3:29
       |vpiParent:
@@ -744,7 +744,6 @@ design: (work@dm_csrs)
     \_hier_path: (keymgr_key_i.key[0][1 * 32+:32]), line:4:14, endln:4:47
       |vpiParent:
       \_cont_assign: , line:4:10, endln:4:47
-      |vpiName:keymgr_key_i.key[0][1 * 32+:32]
       |vpiActual:
       \_ref_obj: (keymgr_key_i), line:4:14, endln:4:26
         |vpiParent:
@@ -775,6 +774,7 @@ design: (work@dm_csrs)
             |vpiConstType:7
           |vpiWidthExpr:
           \_constant: , line:4:44, endln:4:46
+      |vpiName:keymgr_key_i.key[0][1 * 32+:32]
     |vpiLhs:
     \_ref_obj: (work@dm_csrs.o), line:4:10, endln:4:11
       |vpiParent:
@@ -793,7 +793,6 @@ design: (work@dm_csrs)
     \_hier_path: (sram_otp_key_o[2 - 2].nonce), line:5:10, endln:5:24
       |vpiParent:
       \_cont_assign: , line:5:10, endln:5:39
-      |vpiName:sram_otp_key_o[2 - 2].nonce
       |vpiActual:
       \_bit_select: (sram_otp_key_o[2 - 2]), line:5:10, endln:5:24
         |vpiParent:
@@ -812,6 +811,7 @@ design: (work@dm_csrs)
         \_hier_path: (sram_otp_key_o[2 - 2].nonce), line:5:10, endln:5:24
         |vpiName:nonce
         |vpiFullName:sram_otp_key_o[2 - 2].nonce
+      |vpiName:sram_otp_key_o[2 - 2].nonce
 \_weaklyReferenced:
 \_logic_typespec: , line:6:3, endln:6:8
   |vpiParent:
@@ -830,7 +830,6 @@ design: (work@dm_csrs)
   \_hier_path: (sram_otp_key_o[2 - 2].nonce), line:5:10, endln:5:24
     |vpiParent:
     \_cont_assign: , line:5:10, endln:5:39
-    |vpiName:sram_otp_key_o[2 - 2].nonce
     |vpiActual:
     \_bit_select: (sram_otp_key_o[2 - 2]), line:5:10, endln:5:24
       |vpiParent:
@@ -864,6 +863,7 @@ design: (work@dm_csrs)
       \_hier_path: (sram_otp_key_o[2 - 2].nonce), line:5:10, endln:5:24
       |vpiName:nonce
       |vpiFullName:sram_otp_key_o[2 - 2].nonce
+    |vpiName:sram_otp_key_o[2 - 2].nonce
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

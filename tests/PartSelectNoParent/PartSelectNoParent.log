@@ -237,8 +237,7 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 always                                                 1
-assign_stmt                                            1
-assignment                                             1
+assignment                                             2
 begin                                                  1
 constant                                              49
 cont_assign                                            2
@@ -269,8 +268,7 @@ var_select                                             1
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
 always                                                 2
-assign_stmt                                            2
-assignment                                             2
+assignment                                             4
 begin                                                  2
 constant                                              49
 cont_assign                                            3
@@ -804,13 +802,13 @@ design: (work@top)
         \_named_begin: (work@top.key_sideload_get), line:14:24, endln:14:40
         |vpiFullName:work@top.key_sideload_get
         |vpiForInitStmt:
-        \_assign_stmt: , line:15:12, endln:15:21
+        \_assignment: , line:15:12, endln:15:21
           |vpiParent:
           \_for_stmt: (work@top.key_sideload_get), line:15:7, endln:15:10
           |vpiRhs:
           \_constant: , line:15:20, endln:15:21
             |vpiParent:
-            \_assign_stmt: , line:15:12, endln:15:21
+            \_assignment: , line:15:12, endln:15:21
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
@@ -818,7 +816,7 @@ design: (work@top)
           |vpiLhs:
           \_int_var: (work@top.key_sideload_get.i), line:15:16, endln:15:17
             |vpiParent:
-            \_assign_stmt: , line:15:12, endln:15:21
+            \_assignment: , line:15:12, endln:15:21
             |vpiTypespec:
             \_ref_typespec: (work@top.key_sideload_get.i)
               |vpiParent:
@@ -885,7 +883,6 @@ design: (work@top)
             \_hier_path: (keymgr_key_i.key[0][31:0]), line:16:14, endln:16:41
               |vpiParent:
               \_assignment: , line:16:10, endln:16:41
-              |vpiName:keymgr_key_i.key[0][31:0]
               |vpiActual:
               \_ref_obj: (keymgr_key_i), line:16:14, endln:16:26
                 |vpiParent:
@@ -925,6 +922,7 @@ design: (work@top)
                     |vpiSize:64
                     |UINT:0
                     |vpiConstType:9
+              |vpiName:keymgr_key_i.key[0][31:0]
             |vpiLhs:
             \_ref_obj: (work@top.key_sideload_get.o), line:16:10, endln:16:11
               |vpiParent:
@@ -1122,7 +1120,7 @@ design: (work@top)
         \_named_begin: (work@top.key_sideload_get), line:14:24, endln:14:40
         |vpiFullName:work@top.key_sideload_get
         |vpiForInitStmt:
-        \_assign_stmt: , line:15:12, endln:15:21
+        \_assignment: , line:15:12, endln:15:21
           |vpiParent:
           \_for_stmt: (work@top.key_sideload_get), line:15:7, endln:15:10
           |vpiRhs:
@@ -1130,7 +1128,7 @@ design: (work@top)
           |vpiLhs:
           \_int_var: (work@top.key_sideload_get.i), line:15:16, endln:15:17
             |vpiParent:
-            \_assign_stmt: , line:15:12, endln:15:21
+            \_assignment: , line:15:12, endln:15:21
             |vpiTypespec:
             \_ref_typespec: (work@top.key_sideload_get.i)
               |vpiParent:
@@ -1184,7 +1182,6 @@ design: (work@top)
             \_hier_path: (keymgr_key_i.key[0][31:0]), line:16:14, endln:16:41
               |vpiParent:
               \_assignment: , line:16:10, endln:16:41
-              |vpiName:keymgr_key_i.key[0][31:0]
               |vpiActual:
               \_ref_obj: (keymgr_key_i), line:16:14, endln:16:26
                 |vpiParent:
@@ -1214,6 +1211,7 @@ design: (work@top)
                   \_constant: , line:16:34, endln:16:36
                   |vpiRightRange:
                   \_constant: , line:16:39, endln:16:40
+              |vpiName:keymgr_key_i.key[0][31:0]
             |vpiLhs:
             \_ref_obj: (work@top.key_sideload_get.o), line:16:10, endln:16:11
               |vpiParent:

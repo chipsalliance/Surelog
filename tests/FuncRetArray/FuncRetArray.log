@@ -321,8 +321,7 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_typespec                                         5
 array_var                                              1
-assign_stmt                                            1
-assignment                                             1
+assignment                                             2
 begin                                                  4
 bit_select                                             7
 constant                                              64
@@ -350,8 +349,7 @@ sys_task_call                                          1
 === UHDM Object Stats Begin (Elaborated Model) ===
 array_typespec                                         5
 array_var                                              1
-assign_stmt                                            2
-assignment                                             2
+assignment                                             4
 begin                                                  5
 bit_select                                             8
 constant                                              64
@@ -530,13 +528,13 @@ design: (work@main)
       \_function: (work@top.ASSIGN_VADDR), line:3:5, endln:7:16
       |vpiFullName:work@top.ASSIGN_VADDR
       |vpiForInitStmt:
-      \_assign_stmt: , line:4:14, endln:4:23
+      \_assignment: , line:4:14, endln:4:23
         |vpiParent:
         \_for_stmt: (work@top.ASSIGN_VADDR), line:4:9, endln:4:12
         |vpiRhs:
         \_constant: , line:4:22, endln:4:23
           |vpiParent:
-          \_assign_stmt: , line:4:14, endln:4:23
+          \_assignment: , line:4:14, endln:4:23
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -544,7 +542,7 @@ design: (work@main)
         |vpiLhs:
         \_int_var: (work@top.ASSIGN_VADDR.i), line:4:18, endln:4:19
           |vpiParent:
-          \_assign_stmt: , line:4:14, endln:4:23
+          \_assignment: , line:4:14, endln:4:23
           |vpiTypespec:
           \_ref_typespec: (work@top.ASSIGN_VADDR.i)
             |vpiParent:
@@ -824,7 +822,7 @@ design: (work@main)
         \_function: (work@main.top1.ASSIGN_VADDR), line:3:5, endln:7:16
         |vpiFullName:work@main.top1.ASSIGN_VADDR
         |vpiForInitStmt:
-        \_assign_stmt: , line:4:14, endln:4:23
+        \_assignment: , line:4:14, endln:4:23
           |vpiParent:
           \_for_stmt: (work@main.top1.ASSIGN_VADDR), line:4:9, endln:4:12
           |vpiRhs:
@@ -832,7 +830,7 @@ design: (work@main)
           |vpiLhs:
           \_int_var: (work@main.top1.ASSIGN_VADDR.i), line:4:18, endln:4:19
             |vpiParent:
-            \_assign_stmt: , line:4:14, endln:4:23
+            \_assignment: , line:4:14, endln:4:23
             |vpiTypespec:
             \_ref_typespec: (work@main.top1.ASSIGN_VADDR.i)
               |vpiParent:
@@ -1046,5 +1044,5 @@ design: (work@main)
 [   NOTE] : 5
 
 ============================== Begin RoundTrip Results ==============================
-[roundtrip]: ${SURELOG_DIR}/tests/FuncRetArray/dut.sv | ${SURELOG_DIR}/build/regression/FuncRetArray/roundtrip/dut_000.sv | 13 | 24 |
+[roundtrip]: ${SURELOG_DIR}/tests/FuncRetArray/dut.sv | ${SURELOG_DIR}/build/regression/FuncRetArray/roundtrip/dut_000.sv | 14 | 24 |
 ============================== End RoundTrip Results ==============================

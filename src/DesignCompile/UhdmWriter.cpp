@@ -2592,10 +2592,10 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
           VectorOfany* inits = f->VpiForInitStmts();
           if (inits) {
             for (auto init : *inits) {
-              if (init->UhdmType() == uhdmassign_stmt) {
-                assign_stmt* as = (assign_stmt*)init;
+              if (init->UhdmType() == uhdmassignment) {
+                assignment* as = (assignment*)init;
                 const expr* lhs = as->Lhs();
-                if (lhs->VpiName() == name) {
+                if (lhs && lhs->VpiName() == name) {
                   if (lhs->UhdmType() == uhdmref_var) continue;
                   if (lhs->UhdmType() == uhdmref_obj) continue;
                   found = true;
@@ -2734,10 +2734,10 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
           VectorOfany* stmts = b->Stmts();
           if (stmts) {
             for (auto init : *stmts) {
-              if (init->UhdmType() == uhdmassign_stmt) {
-                assign_stmt* as = (assign_stmt*)init;
+              if (init->UhdmType() == uhdmassignment) {
+                assignment* as = (assignment*)init;
                 const expr* lhs = as->Lhs();
-                if (lhs->VpiName() == name) {
+                if (lhs && lhs->VpiName() == name) {
                   if (lhs->UhdmType() == uhdmref_var) continue;
                   if (lhs->UhdmType() == uhdmref_obj) continue;
                   found = true;
@@ -2786,10 +2786,10 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
           VectorOfany* stmts = b->Stmts();
           if (stmts) {
             for (auto init : *stmts) {
-              if (init->UhdmType() == uhdmassign_stmt) {
-                assign_stmt* as = (assign_stmt*)init;
+              if (init->UhdmType() == uhdmassignment) {
+                assignment* as = (assignment*)init;
                 const expr* lhs = as->Lhs();
-                if (lhs->VpiName() == name) {
+                if (lhs && lhs->VpiName() == name) {
                   if (lhs->UhdmType() == uhdmref_var) continue;
                   if (lhs->UhdmType() == uhdmref_obj) continue;
                   found = true;
@@ -2839,10 +2839,10 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
           VectorOfany* stmts = b->Stmts();
           if (stmts) {
             for (auto init : *stmts) {
-              if (init->UhdmType() == uhdmassign_stmt) {
-                assign_stmt* as = (assign_stmt*)init;
+              if (init->UhdmType() == uhdmassignment) {
+                assignment* as = (assignment*)init;
                 const expr* lhs = as->Lhs();
-                if (lhs->VpiName() == name) {
+                if (lhs && lhs->VpiName() == name) {
                   if (lhs->UhdmType() == uhdmref_var) continue;
                   if (lhs->UhdmType() == uhdmref_obj) continue;
                   found = true;
@@ -2892,9 +2892,10 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
           VectorOfany* stmts = b->Stmts();
           if (stmts) {
             for (auto init : *stmts) {
-              if (init->UhdmType() == uhdmassign_stmt) {
-                assign_stmt* as = (assign_stmt*)init;
+              if (init->UhdmType() == uhdmassignment) {
+                assignment* as = (assignment*)init;
                 const expr* lhs = as->Lhs();
+                if (!lhs) continue;
                 if (lhs->UhdmType() == uhdmref_var) continue;
                 if (lhs->UhdmType() == uhdmref_obj) continue;
                 if (lhs->VpiName() == name) {
@@ -2952,15 +2953,15 @@ void UhdmWriter::lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
                                           parent);
               }
             }
-          } else if (parent->UhdmType() == uhdmassign_stmt) {
+          } else if (parent->UhdmType() == uhdmassignment) {
             parent = var->VpiParent()->VpiParent();
             // gen_for loop, implicit loop var declaration fixup
             if (parent->UhdmType() == uhdmgen_for) {
               gen_for* for_stmt = (gen_for*)parent;
               if (for_stmt->VpiForInitStmts()) {
                 any* stmt = for_stmt->VpiForInitStmts()->at(0);
-                if (stmt->UhdmType() == uhdmassign_stmt) {
-                  assign_stmt* st = (assign_stmt*)stmt;
+                if (stmt->UhdmType() == uhdmassignment) {
+                  assignment* st = (assignment*)stmt;
                   st->Lhs((expr*)swapForSpecifiedVar(
                       s, mod, st->Lhs(), nullptr, nullptr, name, var, parent));
                 }
@@ -3280,10 +3281,10 @@ void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod, scope* m) {
         VectorOfany* inits = f->VpiForInitStmts();
         if (inits) {
           for (auto init : *inits) {
-            if (init->UhdmType() == uhdmassign_stmt) {
-              assign_stmt* as = (assign_stmt*)init;
+            if (init->UhdmType() == uhdmassignment) {
+              assignment* as = (assignment*)init;
               const expr* lhs = as->Lhs();
-              if (lhs->VpiName() == name) {
+              if (lhs && lhs->VpiName() == name) {
                 if (lhs->UhdmType() == uhdmref_var) continue;
                 if (lhs->UhdmType() == uhdmref_obj) continue;
                 ref->Actual_group((expr*)lhs);
@@ -3330,7 +3331,16 @@ void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod, scope* m) {
         VectorOfany* stmts = b->Stmts();
         if (stmts) {
           for (auto init : *stmts) {
-            if (init->UhdmType() == uhdmassign_stmt) {
+            if (init->UhdmType() == uhdmassignment) {
+              assignment* as = (assignment*)init;
+              const expr* lhs = as->Lhs();
+              if (lhs && lhs->VpiName() == name) {
+                if (lhs->UhdmType() == uhdmref_var) continue;
+                if (lhs->UhdmType() == uhdmref_obj) continue;
+                ref->Actual_group((expr*)lhs);
+                break;
+              }
+            } else if (init->UhdmType() == uhdmassign_stmt) {
               assign_stmt* as = (assign_stmt*)init;
               const expr* lhs = as->Lhs();
               if (lhs->VpiName() == name) {
@@ -3376,6 +3386,15 @@ void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod, scope* m) {
                 ref->Actual_group((expr*)lhs);
                 break;
               }
+            } else if (init->UhdmType() == uhdmassignment) {
+              assignment* as = (assignment*)init;
+              const expr* lhs = as->Lhs();
+              if (lhs->VpiName() == name) {
+                if (lhs->UhdmType() == uhdmref_var) continue;
+                if (lhs->UhdmType() == uhdmref_obj) continue;
+                ref->Actual_group((expr*)lhs);
+                break;
+              }
             }
           }
         }
@@ -3413,6 +3432,15 @@ void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod, scope* m) {
                 ref->Actual_group((expr*)lhs);
                 break;
               }
+            } else if (init->UhdmType() == uhdmassignment) {
+              assignment* as = (assignment*)init;
+              const expr* lhs = as->Lhs();
+              if (lhs->VpiName() == name) {
+                if (lhs->UhdmType() == uhdmref_var) continue;
+                if (lhs->UhdmType() == uhdmref_obj) continue;
+                ref->Actual_group((expr*)lhs);
+                break;
+              }
             }
           }
         }
@@ -3443,6 +3471,15 @@ void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod, scope* m) {
           for (auto init : *stmts) {
             if (init->UhdmType() == uhdmassign_stmt) {
               assign_stmt* as = (assign_stmt*)init;
+              const expr* lhs = as->Lhs();
+              if (lhs->VpiName() == name) {
+                if (lhs->UhdmType() == uhdmref_var) continue;
+                if (lhs->UhdmType() == uhdmref_obj) continue;
+                ref->Actual_group((expr*)lhs);
+                break;
+              }
+            } else if (init->UhdmType() == uhdmassignment) {
+              assignment* as = (assignment*)init;
               const expr* lhs = as->Lhs();
               if (lhs->VpiName() == name) {
                 if (lhs->UhdmType() == uhdmref_var) continue;

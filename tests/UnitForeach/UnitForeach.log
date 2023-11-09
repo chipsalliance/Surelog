@@ -723,7 +723,7 @@ Instance tree:
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_typespec                                         4
 array_var                                              4
-assign_stmt                                            2
+assignment                                             2
 begin                                                  7
 bit_select                                             4
 class_defn                                            10
@@ -836,7 +836,6 @@ design: (unnamed)
         \_hier_path: (arb_sequence_q.size), line:7:53, endln:7:74
           |vpiParent:
           \_method_func_call: (print_array_header), line:7:13, endln:7:31
-          |vpiName:arb_sequence_q.size
           |vpiActual:
           \_ref_obj: (arb_sequence_q), line:7:53, endln:7:67
             |vpiParent:
@@ -847,6 +846,7 @@ design: (unnamed)
             |vpiParent:
             \_hier_path: (arb_sequence_q.size), line:7:53, endln:7:74
             |vpiName:size
+          |vpiName:arb_sequence_q.size
         |vpiName:print_array_header
         |vpiPrefix:
         \_ref_obj: (uvm_pkg::uvm_sequencer_base::do_print::printer), line:7:5, endln:7:12
@@ -924,7 +924,6 @@ design: (unnamed)
             \_hier_path: (arb_sequence_q[i].request.name), line:10:34, endln:10:66
               |vpiParent:
               \_sys_func_call: ($sformatf), line:10:10, endln:10:97
-              |vpiName:arb_sequence_q[i].request.name
               |vpiActual:
               \_bit_select: (arb_sequence_q[i]), line:10:34, endln:10:48
                 |vpiParent:
@@ -947,11 +946,11 @@ design: (unnamed)
                 |vpiParent:
                 \_hier_path: (arb_sequence_q[i].request.name), line:10:34, endln:10:66
                 |vpiName:name
+              |vpiName:arb_sequence_q[i].request.name
             |vpiArgument:
             \_hier_path: (arb_sequence_q[i].sequence_id), line:10:67, endln:10:96
               |vpiParent:
               \_sys_func_call: ($sformatf), line:10:10, endln:10:97
-              |vpiName:arb_sequence_q[i].sequence_id
               |vpiActual:
               \_bit_select: (arb_sequence_q[i]), line:10:67, endln:10:81
                 |vpiParent:
@@ -970,6 +969,7 @@ design: (unnamed)
                 \_hier_path: (arb_sequence_q[i].sequence_id), line:10:67, endln:10:96
                 |vpiName:sequence_id
                 |vpiFullName:uvm_pkg::uvm_sequencer_base::do_print::sequence_id
+              |vpiName:arb_sequence_q[i].sequence_id
             |vpiName:$sformatf
           |vpiArgument:
           \_constant: , line:10:99, endln:10:102
@@ -1094,7 +1094,6 @@ design: (unnamed)
         \_hier_path: (arb_sequence_q.size), line:7:53, endln:7:74
           |vpiParent:
           \_method_func_call: (print_array_header), line:7:13, endln:7:31
-          |vpiName:arb_sequence_q.size
           |vpiActual:
           \_ref_obj: (arb_sequence_q), line:7:53, endln:7:67
             |vpiParent:
@@ -1105,6 +1104,7 @@ design: (unnamed)
             |vpiParent:
             \_hier_path: (arb_sequence_q.size), line:7:53, endln:7:74
             |vpiName:size
+          |vpiName:arb_sequence_q.size
         |vpiName:print_array_header
         |vpiPrefix:
         \_ref_obj: (uvm_pkg::uvm_sequencer_base::do_print::printer), line:7:5, endln:7:12
@@ -1184,7 +1184,6 @@ design: (unnamed)
             \_hier_path: (arb_sequence_q[i].request.name), line:10:34, endln:10:66
               |vpiParent:
               \_sys_func_call: ($sformatf), line:10:10, endln:10:97
-              |vpiName:arb_sequence_q[i].request.name
               |vpiActual:
               \_bit_select: (arb_sequence_q[i]), line:10:34, endln:10:48
                 |vpiParent:
@@ -1209,11 +1208,11 @@ design: (unnamed)
                 |vpiParent:
                 \_hier_path: (arb_sequence_q[i].request.name), line:10:34, endln:10:66
                 |vpiName:name
+              |vpiName:arb_sequence_q[i].request.name
             |vpiArgument:
             \_hier_path: (arb_sequence_q[i].sequence_id), line:10:67, endln:10:96
               |vpiParent:
               \_sys_func_call: ($sformatf), line:10:10, endln:10:97
-              |vpiName:arb_sequence_q[i].sequence_id
               |vpiActual:
               \_bit_select: (arb_sequence_q[i]), line:10:67, endln:10:81
                 |vpiParent:
@@ -1234,6 +1233,7 @@ design: (unnamed)
                 \_hier_path: (arb_sequence_q[i].sequence_id), line:10:67, endln:10:96
                 |vpiName:sequence_id
                 |vpiFullName:uvm_pkg::uvm_sequencer_base::do_print::sequence_id
+              |vpiName:arb_sequence_q[i].sequence_id
             |vpiName:$sformatf
           |vpiArgument:
           \_constant: , line:10:99, endln:10:102
