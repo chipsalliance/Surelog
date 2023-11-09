@@ -41,8 +41,7 @@ jobs:
         # Make sure we always use https:// instead of git://
         git config --global url.https://github.com/.insteadOf git://github.com/
         # Use current main of the plugin repository...
-        git clone https://github.com/chipsalliance/synlig.git
-        cd synlig
+        git clone https://github.com/alaindargelas/synlig.git
         git checkout stable_rs
         git submodule update --depth 1 --init --recursive --checkout \
               third_party/yosys \
@@ -55,7 +54,7 @@ jobs:
       with:
         submodules: recursive
         fetch-depth: 0
-        path: 'systemverilog-plugin/third_party/surelog'
+        path: 'synlig/third_party/surelog'
 
     - name: Create Cache Timestamp
       id: cache_timestamp
@@ -72,21 +71,21 @@ jobs:
 
     - name: Build binaries
       run: |
-        cd systemverilog-plugin
+        cd synlig
         make -rR -j $(nproc) -Oline -f build_binaries.mk SYSTEMVERILOG_PLUGIN_ONLY:=0 \
               install-surelog install-yosys install-plugins
 
     - name: Build & Test Ibex
       run: |
         pip install virtualenv
-        cd systemverilog-plugin/tests
+        cd synlig/tests
         make -j 1 env TEST=ibex
         make -j $(nproc) uhdm/yosys/synth-ibex-f4pga TEST=ibex ENABLE_READLINE=0 PRETTY=0
 
     - uses: actions/upload-artifact@v2
       with:
         name: top_artya7.bit
-        path: ./systemverilog-plugin/tests/build/lowrisc_ibex_top_artya7_surelog_0.1/synth-symbiflow/top_artya7.bit
+        path: ./synlig/tests/build/lowrisc_ibex_top_artya7_surelog_0.1/synth-symbiflow/top_artya7.bit
 
     - name: Upload load graphs
       uses: actions/upload-artifact@v2
