@@ -41,8 +41,9 @@ jobs:
         # Make sure we always use https:// instead of git://
         git config --global url.https://github.com/.insteadOf git://github.com/
         # Use current main of the plugin repository...
-        git clone https://github.com/chipsalliance/systemverilog-plugin.git
-        cd systemverilog-plugin
+        git clone https://github.com/chipsalliance/synlig.git
+        cd synlig
+        git checkout stable_rs
         git submodule update --depth 1 --init --recursive --checkout \
               third_party/yosys \
               third_party/yosys_f4pga_plugins \
