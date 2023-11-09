@@ -43,11 +43,10 @@ jobs:
         # Use current main of the plugin repository...
         git clone https://github.com/alaindargelas/synlig.git
         git checkout stable_rs
-        git submodule update --depth 1 --init --recursive --checkout \
-              third_party/yosys \
-              third_party/yosys_f4pga_plugins \
-              third_party/make_env \
-              third_party/ibex \
+        git submodule sync
+        git submodule update --depth 3 --init --recursive --checkout \
+          ./third_party/{surelog,yosys} \
+          ;
 
     - name: Setup Surelog
       uses: actions/checkout@v2
