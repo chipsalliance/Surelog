@@ -338,7 +338,7 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 0.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-assign_stmt                                            2
+assignment                                             2
 begin                                                  1
 bit_typespec                                           2
 class_defn                                             8
@@ -369,7 +369,7 @@ task                                                   9
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-assign_stmt                                            2
+assignment                                             2
 begin                                                  1
 bit_typespec                                           2
 class_defn                                             8
@@ -952,13 +952,15 @@ design: (work@top)
       |vpiName:gen_no_async
       |vpiFullName:work@top.gen_no_async
       |vpiStmt:
-      \_assign_stmt: , line:8:11, endln:8:18
+      \_assignment: , line:8:11, endln:8:18
         |vpiParent:
         \_named_begin: (work@top.gen_no_async)
+        |vpiOpType:82
+        |vpiBlocking:1
         |vpiLhs:
         \_logic_var: (work@top.gen_no_async.diff_pq), line:8:11, endln:8:18
           |vpiParent:
-          \_assign_stmt: , line:8:11, endln:8:18
+          \_assignment: , line:8:11, endln:8:18
           |vpiTypespec:
           \_ref_typespec: (work@top.gen_no_async.diff_pq)
             |vpiParent:
@@ -969,13 +971,15 @@ design: (work@top)
           |vpiName:diff_pq
           |vpiFullName:work@top.gen_no_async.diff_pq
       |vpiStmt:
-      \_assign_stmt: , line:8:20, endln:8:27
+      \_assignment: , line:8:20, endln:8:27
         |vpiParent:
         \_named_begin: (work@top.gen_no_async)
+        |vpiOpType:82
+        |vpiBlocking:1
         |vpiLhs:
         \_logic_var: (work@top.gen_no_async.diff_pd), line:8:20, endln:8:27
           |vpiParent:
-          \_assign_stmt: , line:8:20, endln:8:27
+          \_assignment: , line:8:20, endln:8:27
           |vpiTypespec:
           \_ref_typespec: (work@top.gen_no_async.diff_pd)
             |vpiParent:
@@ -1336,8 +1340,3 @@ design: (work@top)
 [  ERROR] : 0
 [WARNING] : 1
 [   NOTE] : 5
-
-============================== Begin RoundTrip Results ==============================
-[roundtrip]: ${SURELOG_DIR}/tests/GenBlockVar/builtin.sv | ${SURELOG_DIR}/build/regression/GenBlockVar/roundtrip/builtin_000.sv | 0 | 0 |
-[roundtrip]: ${SURELOG_DIR}/tests/GenBlockVar/dut.sv     | ${SURELOG_DIR}/build/regression/GenBlockVar/roundtrip/dut_000.sv     | 6 | 12 |
-============================== End RoundTrip Results ==============================

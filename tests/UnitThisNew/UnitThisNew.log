@@ -565,8 +565,7 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_typespec                                         2
 array_var                                              2
-assign_stmt                                            4
-assignment                                             6
+assignment                                            10
 begin                                                 12
 bit_typespec                                           4
 bit_var                                                4
@@ -604,8 +603,7 @@ unsupported_typespec                                  12
 === UHDM Object Stats Begin (Elaborated Model) ===
 array_typespec                                         2
 array_var                                              6
-assign_stmt                                            4
-assignment                                            12
+assignment                                            16
 begin                                                 24
 bit_typespec                                           4
 bit_var                                                4
@@ -980,7 +978,6 @@ design: (unnamed)
       \_hier_path: (this.fields.get_lsb_pos_in_register), line:27:8, endln:27:52
         |vpiParent:
         \_if_stmt: , line:27:4, endln:28:7
-        |vpiName:this.fields.get_lsb_pos_in_register
         |vpiActual:
         \_ref_obj: (this), line:27:13, endln:27:19
           |vpiParent:
@@ -996,6 +993,7 @@ design: (unnamed)
           |vpiParent:
           \_hier_path: (this.fields.get_lsb_pos_in_register), line:27:8, endln:27:52
           |vpiName:get_lsb_pos_in_register
+        |vpiName:this.fields.get_lsb_pos_in_register
       |vpiStmt:
       \_begin: (toto::uvm_reg::add_field), line:27:54, endln:28:7
         |vpiParent:
@@ -1035,7 +1033,6 @@ design: (unnamed)
         \_hier_path: (this.stream_handle), line:33:11, endln:33:29
           |vpiParent:
           \_operation: , line:33:11, endln:33:37
-          |vpiName:this.stream_handle
           |vpiActual:
           \_ref_obj: (this), line:33:16, endln:33:29
             |vpiParent:
@@ -1046,6 +1043,7 @@ design: (unnamed)
             |vpiParent:
             \_hier_path: (this.stream_handle), line:33:11, endln:33:29
             |vpiName:stream_handle
+          |vpiName:this.stream_handle
         |vpiOperand:
         \_constant: , line:33:33, endln:33:37
           |vpiParent:
@@ -1509,7 +1507,6 @@ design: (unnamed)
       \_hier_path: (this.fields.get_lsb_pos_in_register), line:27:8, endln:27:52
         |vpiParent:
         \_if_stmt: , line:27:4, endln:28:7
-        |vpiName:this.fields.get_lsb_pos_in_register
         |vpiActual:
         \_ref_obj: (this), line:27:13, endln:27:19
           |vpiParent:
@@ -1525,6 +1522,7 @@ design: (unnamed)
           |vpiParent:
           \_hier_path: (this.fields.get_lsb_pos_in_register), line:27:8, endln:27:52
           |vpiName:get_lsb_pos_in_register
+        |vpiName:this.fields.get_lsb_pos_in_register
       |vpiStmt:
       \_begin: (toto::uvm_reg::add_field), line:27:54, endln:28:7
         |vpiParent:
@@ -1564,7 +1562,6 @@ design: (unnamed)
         \_hier_path: (this.stream_handle), line:33:11, endln:33:29
           |vpiParent:
           \_operation: , line:33:11, endln:33:37
-          |vpiName:this.stream_handle
           |vpiActual:
           \_ref_obj: (this), line:33:16, endln:33:29
             |vpiParent:
@@ -1575,6 +1572,7 @@ design: (unnamed)
             |vpiParent:
             \_hier_path: (this.stream_handle), line:33:11, endln:33:29
             |vpiName:stream_handle
+          |vpiName:this.stream_handle
         |vpiOperand:
         \_constant: , line:33:33, endln:33:37
           |vpiParent:
@@ -2341,7 +2339,6 @@ design: (unnamed)
       \_hier_path: (this.stream_handle), line:33:11, endln:33:29
         |vpiParent:
         \_operation: , line:33:11, endln:33:37
-        |vpiName:this.stream_handle
         |vpiActual:
         \_ref_obj: (this), line:33:16, endln:33:29
           |vpiParent:
@@ -2352,6 +2349,7 @@ design: (unnamed)
           |vpiParent:
           \_hier_path: (this.stream_handle), line:33:11, endln:33:29
           |vpiName:stream_handle
+        |vpiName:this.stream_handle
       |vpiOperand:
       \_constant: , line:33:33, endln:33:37
   |vpiInstance:
@@ -2407,15 +2405,15 @@ design: (unnamed)
 \_hier_path: (m_b_inst)
   |vpiParent:
   \_assignment: , line:18:6, endln:18:20
-  |vpiName:m_b_inst
   |vpiActual:
   \_ref_obj: (toto::m_initialize::m_b_inst), line:18:6, endln:18:14
+  |vpiName:m_b_inst
 \_hier_path: (m_pool)
   |vpiParent:
   \_assignment: , line:19:6, endln:19:22
-  |vpiName:m_pool
   |vpiActual:
   \_ref_obj: (toto::m_initialize::m_pool), line:19:6, endln:19:12
+  |vpiName:m_pool
 \_unsupported_typespec: (uvm_reg_field), line:25:34, endln:25:47
   |vpiName:uvm_reg_field
   |vpiInstance:
@@ -2727,7 +2725,6 @@ design: (unnamed)
       \_hier_path: (this.stream_handle), line:33:11, endln:33:29
         |vpiParent:
         \_operation: , line:33:11, endln:33:37
-        |vpiName:this.stream_handle
         |vpiActual:
         \_ref_obj: (this), line:33:16, endln:33:29
           |vpiParent:
@@ -2738,6 +2735,7 @@ design: (unnamed)
           |vpiParent:
           \_hier_path: (this.stream_handle), line:33:11, endln:33:29
           |vpiName:stream_handle
+        |vpiName:this.stream_handle
       |vpiOperand:
       \_constant: , line:33:33, endln:33:37
   |vpiInstance:
@@ -2793,15 +2791,15 @@ design: (unnamed)
 \_hier_path: (m_b_inst)
   |vpiParent:
   \_assignment: , line:18:6, endln:18:20
-  |vpiName:m_b_inst
   |vpiActual:
   \_ref_obj: (toto::m_initialize::m_b_inst), line:18:6, endln:18:14
+  |vpiName:m_b_inst
 \_hier_path: (m_pool)
   |vpiParent:
   \_assignment: , line:19:6, endln:19:22
-  |vpiName:m_pool
   |vpiActual:
   \_ref_obj: (toto::m_initialize::m_pool), line:19:6, endln:19:12
+  |vpiName:m_pool
 \_unsupported_typespec: (uvm_reg_field), line:25:34, endln:25:47
   |vpiName:uvm_reg_field
   |vpiInstance:

@@ -741,8 +741,7 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 1.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-assign_stmt                                            8
-assignment                                             8
+assignment                                            16
 begin                                                 10
 bit_select                                             4
 class_defn                                             8
@@ -780,8 +779,7 @@ task                                                   9
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-assign_stmt                                           16
-assignment                                            17
+assignment                                            33
 begin                                                 23
 bit_select                                            10
 class_defn                                             8
@@ -947,13 +945,13 @@ design: (work@flash_ctrl_info_cfg)
         \_begin: (prim_util_pkg::_clog2), line:8:5, endln:8:23
         |vpiFullName:prim_util_pkg::_clog2
         |vpiForInitStmt:
-        \_assign_stmt: , line:9:10, endln:9:20
+        \_assignment: , line:9:10, endln:9:20
           |vpiParent:
           \_for_stmt: (prim_util_pkg::_clog2), line:9:5, endln:9:8
           |vpiRhs:
           \_constant: , line:9:19, endln:9:20
             |vpiParent:
-            \_assign_stmt: , line:9:10, endln:9:20
+            \_assignment: , line:9:10, endln:9:20
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
@@ -961,7 +959,7 @@ design: (work@flash_ctrl_info_cfg)
           |vpiLhs:
           \_ref_var: (prim_util_pkg::_clog2::result), line:9:10, endln:9:16
             |vpiParent:
-            \_assign_stmt: , line:9:10, endln:9:20
+            \_assignment: , line:9:10, endln:9:20
             |vpiName:result
             |vpiFullName:prim_util_pkg::_clog2::result
             |vpiActual:
@@ -1391,9 +1389,11 @@ design: (work@flash_ctrl_info_cfg)
         |vpiFullName:flash_ctrl_pkg::max_info_pages::current_max
         |vpiSigned:1
       |vpiStmt:
-      \_assign_stmt: , line:36:9, endln:36:24
+      \_assignment: , line:36:9, endln:36:24
         |vpiParent:
         \_begin: (flash_ctrl_pkg::max_info_pages), line:37:5, endln:41:8
+        |vpiOpType:82
+        |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:36:23, endln:36:24
           |vpiDecompile:0
@@ -1403,7 +1403,7 @@ design: (work@flash_ctrl_info_cfg)
         |vpiLhs:
         \_int_var: (flash_ctrl_pkg::max_info_pages::current_max), line:36:9, endln:36:20
           |vpiParent:
-          \_assign_stmt: , line:36:9, endln:36:24
+          \_assignment: , line:36:9, endln:36:24
           |vpiTypespec:
           \_ref_typespec: (flash_ctrl_pkg::max_info_pages::current_max)
             |vpiParent:
@@ -1420,13 +1420,13 @@ design: (work@flash_ctrl_info_cfg)
         \_begin: (flash_ctrl_pkg::max_info_pages), line:37:5, endln:41:8
         |vpiFullName:flash_ctrl_pkg::max_info_pages
         |vpiForInitStmt:
-        \_assign_stmt: , line:37:10, endln:37:19
+        \_assignment: , line:37:10, endln:37:19
           |vpiParent:
           \_for_stmt: (flash_ctrl_pkg::max_info_pages), line:37:5, endln:37:8
           |vpiRhs:
           \_constant: , line:37:18, endln:37:19
             |vpiParent:
-            \_assign_stmt: , line:37:10, endln:37:19
+            \_assignment: , line:37:10, endln:37:19
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
@@ -1434,7 +1434,7 @@ design: (work@flash_ctrl_info_cfg)
           |vpiLhs:
           \_int_var: (flash_ctrl_pkg::max_info_pages::i), line:37:14, endln:37:15
             |vpiParent:
-            \_assign_stmt: , line:37:10, endln:37:19
+            \_assignment: , line:37:10, endln:37:19
             |vpiTypespec:
             \_ref_typespec: (flash_ctrl_pkg::max_info_pages::i)
               |vpiParent:
@@ -1858,13 +1858,13 @@ design: (work@flash_ctrl_info_cfg)
         \_begin: (prim_util_pkg::_clog2), line:8:5, endln:8:23
         |vpiFullName:prim_util_pkg::_clog2
         |vpiForInitStmt:
-        \_assign_stmt: , line:9:10, endln:9:20
+        \_assignment: , line:9:10, endln:9:20
           |vpiParent:
           \_for_stmt: (prim_util_pkg::_clog2), line:9:5, endln:9:8
           |vpiRhs:
           \_constant: , line:9:19, endln:9:20
             |vpiParent:
-            \_assign_stmt: , line:9:10, endln:9:20
+            \_assignment: , line:9:10, endln:9:20
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
@@ -1872,7 +1872,7 @@ design: (work@flash_ctrl_info_cfg)
           |vpiLhs:
           \_ref_var: (prim_util_pkg::_clog2::result), line:9:10, endln:9:16
             |vpiParent:
-            \_assign_stmt: , line:9:10, endln:9:20
+            \_assignment: , line:9:10, endln:9:20
             |vpiName:result
             |vpiFullName:prim_util_pkg::_clog2::result
             |vpiActual:
@@ -2266,9 +2266,11 @@ design: (work@flash_ctrl_info_cfg)
         |vpiFullName:flash_ctrl_pkg::max_info_pages::current_max
         |vpiSigned:1
       |vpiStmt:
-      \_assign_stmt: , line:36:9, endln:36:24
+      \_assignment: , line:36:9, endln:36:24
         |vpiParent:
         \_begin: (flash_ctrl_pkg::max_info_pages), line:37:5, endln:41:8
+        |vpiOpType:82
+        |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:36:23, endln:36:24
           |vpiDecompile:0
@@ -2278,7 +2280,7 @@ design: (work@flash_ctrl_info_cfg)
         |vpiLhs:
         \_int_var: (flash_ctrl_pkg::max_info_pages::current_max), line:36:9, endln:36:20
           |vpiParent:
-          \_assign_stmt: , line:36:9, endln:36:24
+          \_assignment: , line:36:9, endln:36:24
           |vpiTypespec:
           \_ref_typespec: (flash_ctrl_pkg::max_info_pages::current_max)
             |vpiParent:
@@ -2295,13 +2297,13 @@ design: (work@flash_ctrl_info_cfg)
         \_begin: (flash_ctrl_pkg::max_info_pages), line:37:5, endln:41:8
         |vpiFullName:flash_ctrl_pkg::max_info_pages
         |vpiForInitStmt:
-        \_assign_stmt: , line:37:10, endln:37:19
+        \_assignment: , line:37:10, endln:37:19
           |vpiParent:
           \_for_stmt: (flash_ctrl_pkg::max_info_pages), line:37:5, endln:37:8
           |vpiRhs:
           \_constant: , line:37:18, endln:37:19
             |vpiParent:
-            \_assign_stmt: , line:37:10, endln:37:19
+            \_assignment: , line:37:10, endln:37:19
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
@@ -2309,7 +2311,7 @@ design: (work@flash_ctrl_info_cfg)
           |vpiLhs:
           \_int_var: (flash_ctrl_pkg::max_info_pages::i), line:37:14, endln:37:15
             |vpiParent:
-            \_assign_stmt: , line:37:10, endln:37:19
+            \_assignment: , line:37:10, endln:37:19
             |vpiTypespec:
             \_ref_typespec: (flash_ctrl_pkg::max_info_pages::i)
               |vpiParent:
@@ -3166,7 +3168,7 @@ design: (work@flash_ctrl_info_cfg)
     |vpiVariables:
     \_int_var: (flash_ctrl_pkg::max_info_pages::current_max), line:36:9, endln:36:20
       |vpiParent:
-      \_assign_stmt: , line:36:9, endln:36:24
+      \_assignment: , line:36:9, endln:36:24
       |vpiTypespec:
       \_ref_typespec: (flash_ctrl_pkg::max_info_pages::current_max)
         |vpiParent:
@@ -3223,9 +3225,11 @@ design: (work@flash_ctrl_info_cfg)
       |vpiVariables:
       \_int_var: (flash_ctrl_pkg::max_info_pages::current_max), line:36:9, endln:36:20
       |vpiStmt:
-      \_assign_stmt: , line:36:9, endln:36:24
+      \_assignment: , line:36:9, endln:36:24
         |vpiParent:
         \_begin: (flash_ctrl_pkg::max_info_pages), line:37:5, endln:41:8
+        |vpiOpType:82
+        |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:36:23, endln:36:24
         |vpiLhs:
@@ -3236,7 +3240,7 @@ design: (work@flash_ctrl_info_cfg)
         \_begin: (flash_ctrl_pkg::max_info_pages), line:37:5, endln:41:8
         |vpiFullName:flash_ctrl_pkg::max_info_pages
         |vpiForInitStmt:
-        \_assign_stmt: , line:37:10, endln:37:19
+        \_assignment: , line:37:10, endln:37:19
           |vpiParent:
           \_for_stmt: (flash_ctrl_pkg::max_info_pages), line:37:5, endln:37:8
           |vpiRhs:
@@ -3244,7 +3248,7 @@ design: (work@flash_ctrl_info_cfg)
           |vpiLhs:
           \_int_var: (flash_ctrl_pkg::max_info_pages::i), line:37:14, endln:37:15
             |vpiParent:
-            \_assign_stmt: , line:37:10, endln:37:19
+            \_assignment: , line:37:10, endln:37:19
             |vpiTypespec:
             \_ref_typespec: (flash_ctrl_pkg::max_info_pages::i)
               |vpiParent:
@@ -3598,15 +3602,17 @@ design: (work@flash_ctrl_info_cfg)
         |vpiFullName:work@flash_ctrl_info_cfg.max_info_pages.current_max
         |vpiSigned:1
       |vpiStmt:
-      \_assign_stmt: , line:36:9, endln:36:24
+      \_assignment: , line:36:9, endln:36:24
         |vpiParent:
         \_begin: (work@flash_ctrl_info_cfg.max_info_pages), line:37:5, endln:41:8
+        |vpiOpType:82
+        |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:36:23, endln:36:24
         |vpiLhs:
         \_int_var: (work@flash_ctrl_info_cfg.max_info_pages.current_max), line:36:9, endln:36:20
           |vpiParent:
-          \_assign_stmt: , line:36:9, endln:36:24
+          \_assignment: , line:36:9, endln:36:24
           |vpiTypespec:
           \_ref_typespec: (work@flash_ctrl_info_cfg.max_info_pages.current_max)
             |vpiParent:
@@ -3623,7 +3629,7 @@ design: (work@flash_ctrl_info_cfg)
         \_begin: (work@flash_ctrl_info_cfg.max_info_pages), line:37:5, endln:41:8
         |vpiFullName:work@flash_ctrl_info_cfg.max_info_pages
         |vpiForInitStmt:
-        \_assign_stmt: , line:37:10, endln:37:19
+        \_assignment: , line:37:10, endln:37:19
           |vpiParent:
           \_for_stmt: (work@flash_ctrl_info_cfg.max_info_pages), line:37:5, endln:37:8
           |vpiRhs:
@@ -3631,7 +3637,7 @@ design: (work@flash_ctrl_info_cfg)
           |vpiLhs:
           \_int_var: (work@flash_ctrl_info_cfg.max_info_pages.i), line:37:14, endln:37:15
             |vpiParent:
-            \_assign_stmt: , line:37:10, endln:37:19
+            \_assignment: , line:37:10, endln:37:19
             |vpiTypespec:
             \_ref_typespec: (work@flash_ctrl_info_cfg.max_info_pages.i)
               |vpiParent:
@@ -3843,7 +3849,7 @@ design: (work@flash_ctrl_info_cfg)
       \_begin: (prim_util_pkg::_clog2), line:8:5, endln:8:23
       |vpiFullName:prim_util_pkg::_clog2
       |vpiForInitStmt:
-      \_assign_stmt: , line:9:10, endln:9:20
+      \_assignment: , line:9:10, endln:9:20
         |vpiParent:
         \_for_stmt: (prim_util_pkg::_clog2), line:9:5, endln:9:8
         |vpiRhs:
@@ -3851,7 +3857,7 @@ design: (work@flash_ctrl_info_cfg)
         |vpiLhs:
         \_ref_var: (prim_util_pkg::_clog2::result), line:9:10, endln:9:16
           |vpiParent:
-          \_assign_stmt: , line:9:10, endln:9:20
+          \_assignment: , line:9:10, endln:9:20
           |vpiName:result
           |vpiFullName:prim_util_pkg::_clog2::result
       |vpiForIncStmt:
@@ -4116,7 +4122,7 @@ design: (work@flash_ctrl_info_cfg)
       \_begin: (prim_util_pkg::_clog2), line:8:5, endln:8:23
       |vpiFullName:prim_util_pkg::_clog2
       |vpiForInitStmt:
-      \_assign_stmt: , line:9:10, endln:9:20
+      \_assignment: , line:9:10, endln:9:20
         |vpiParent:
         \_for_stmt: (prim_util_pkg::_clog2), line:9:5, endln:9:8
         |vpiRhs:
@@ -4124,7 +4130,7 @@ design: (work@flash_ctrl_info_cfg)
         |vpiLhs:
         \_ref_var: (prim_util_pkg::_clog2::result), line:9:10, endln:9:16
           |vpiParent:
-          \_assign_stmt: , line:9:10, endln:9:20
+          \_assignment: , line:9:10, endln:9:20
           |vpiName:result
           |vpiFullName:prim_util_pkg::_clog2::result
       |vpiForIncStmt:
@@ -4346,7 +4352,7 @@ design: (work@flash_ctrl_info_cfg)
   |vpiVariables:
   \_int_var: (flash_ctrl_pkg::max_info_pages::current_max), line:36:9, endln:36:20
     |vpiParent:
-    \_assign_stmt: , line:36:9, endln:36:24
+    \_assignment: , line:36:9, endln:36:24
     |vpiTypespec:
     \_ref_typespec: (flash_ctrl_pkg::max_info_pages::current_max)
       |vpiParent:
@@ -4403,9 +4409,11 @@ design: (work@flash_ctrl_info_cfg)
     |vpiVariables:
     \_int_var: (flash_ctrl_pkg::max_info_pages::current_max), line:36:9, endln:36:20
     |vpiStmt:
-    \_assign_stmt: , line:36:9, endln:36:24
+    \_assignment: , line:36:9, endln:36:24
       |vpiParent:
       \_begin: (flash_ctrl_pkg::max_info_pages), line:37:5, endln:41:8
+      |vpiOpType:82
+      |vpiBlocking:1
       |vpiRhs:
       \_constant: , line:36:23, endln:36:24
       |vpiLhs:
@@ -4416,7 +4424,7 @@ design: (work@flash_ctrl_info_cfg)
       \_begin: (flash_ctrl_pkg::max_info_pages), line:37:5, endln:41:8
       |vpiFullName:flash_ctrl_pkg::max_info_pages
       |vpiForInitStmt:
-      \_assign_stmt: , line:37:10, endln:37:19
+      \_assignment: , line:37:10, endln:37:19
         |vpiParent:
         \_for_stmt: (flash_ctrl_pkg::max_info_pages), line:37:5, endln:37:8
         |vpiRhs:
@@ -4424,7 +4432,7 @@ design: (work@flash_ctrl_info_cfg)
         |vpiLhs:
         \_int_var: (flash_ctrl_pkg::max_info_pages::i), line:37:14, endln:37:15
           |vpiParent:
-          \_assign_stmt: , line:37:10, endln:37:19
+          \_assignment: , line:37:10, endln:37:19
           |vpiTypespec:
           \_ref_typespec: (flash_ctrl_pkg::max_info_pages::i)
             |vpiParent:

@@ -673,7 +673,6 @@ design: (work@dut)
       \_hier_path: (conn.con_i), line:11:17, endln:11:27
         |vpiParent:
         \_port: (inp), line:11:12, endln:11:28
-        |vpiName:conn.con_i
         |vpiActual:
         \_ref_obj: (conn), line:11:17, endln:11:21
           |vpiParent:
@@ -685,6 +684,7 @@ design: (work@dut)
           \_hier_path: (conn.con_i), line:11:17, endln:11:27
           |vpiName:con_i
           |vpiFullName:work@middle.sub1.inp.con_i
+        |vpiName:conn.con_i
     |vpiPort:
     \_port: (out), line:11:29, endln:11:45
       |vpiParent:
@@ -694,7 +694,6 @@ design: (work@dut)
       \_hier_path: (conn.con_o), line:11:34, endln:11:44
         |vpiParent:
         \_port: (out), line:11:29, endln:11:45
-        |vpiName:conn.con_o
         |vpiActual:
         \_ref_obj: (conn), line:11:34, endln:11:38
           |vpiParent:
@@ -706,6 +705,7 @@ design: (work@dut)
           \_hier_path: (conn.con_o), line:11:34, endln:11:44
           |vpiName:con_o
           |vpiFullName:work@middle.sub1.out.con_o
+        |vpiName:conn.con_o
 |uhdmallModules:
 \_module_inst: work@tb (work@tb), file:${SURELOG_DIR}/tests/OneNetInterf/tb.v, line:14:1, endln:19:10
   |vpiParent:
@@ -818,7 +818,6 @@ design: (work@dut)
       \_hier_path: (conntb.con_o), line:18:25, endln:18:37
         |vpiParent:
         \_port: (observe), line:18:16, endln:18:38
-        |vpiName:conntb.con_o
         |vpiActual:
         \_ref_obj: (conntb), line:18:25, endln:18:31
           |vpiParent:
@@ -830,6 +829,7 @@ design: (work@dut)
           \_hier_path: (conntb.con_o), line:18:25, endln:18:37
           |vpiName:con_o
           |vpiFullName:work@tb.tb.observe.con_o
+        |vpiName:conntb.con_o
     |vpiPort:
     \_port: (drive), line:18:39, endln:18:59
       |vpiParent:
@@ -839,7 +839,6 @@ design: (work@dut)
       \_hier_path: (conntb.con_i), line:18:46, endln:18:58
         |vpiParent:
         \_port: (drive), line:18:39, endln:18:59
-        |vpiName:conntb.con_i
         |vpiActual:
         \_ref_obj: (conntb), line:18:46, endln:18:52
           |vpiParent:
@@ -851,6 +850,7 @@ design: (work@dut)
           \_hier_path: (conntb.con_i), line:18:46, endln:18:58
           |vpiName:con_i
           |vpiFullName:work@tb.tb.drive.con_i
+        |vpiName:conntb.con_i
 |uhdmtopModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:2:1, endln:5:10
   |vpiName:work@dut
@@ -1169,12 +1169,6 @@ design: (work@dut)
         \_hier_path: (conn.con_i), line:11:17, endln:11:27
           |vpiParent:
           \_port: (inp), line:14:24, endln:14:27
-          |vpiName:conn.con_i
-          |vpiExpr:
-          \_ref_obj: (work@dut.middle1.conn), line:4:18, endln:4:24
-            |vpiFullName:work@dut.middle1.conn
-            |vpiActual:
-            \_interface_inst: work@ConnectTB (work@dut.middle1.conn), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:4:0
           |vpiActual:
           \_ref_obj: (conn), line:11:17, endln:11:21
             |vpiParent:
@@ -1192,6 +1186,10 @@ design: (work@dut)
             \_logic_net: (con_i), line:7:33, endln:7:38
           |vpiExpr:
           \_ref_obj: (work@dut.middle1.conn), line:4:18, endln:4:24
+            |vpiFullName:work@dut.middle1.conn
+            |vpiActual:
+            \_interface_inst: work@ConnectTB (work@dut.middle1.conn), file:${SURELOG_DIR}/tests/OneNetInterf/dut.v, line:4:0
+          |vpiName:conn.con_i
         |vpiLowConn:
         \_ref_obj: (work@dut.middle1.sub1.inp), line:11:13, endln:11:16
           |vpiParent:
@@ -1219,9 +1217,6 @@ design: (work@dut)
         \_hier_path: (conn.con_o), line:11:34, endln:11:44
           |vpiParent:
           \_port: (out), line:14:40, endln:14:43
-          |vpiName:conn.con_o
-          |vpiExpr:
-          \_ref_obj: (work@dut.middle1.conn), line:4:18, endln:4:24
           |vpiActual:
           \_ref_obj: (conn), line:11:34, endln:11:38
             |vpiParent:
@@ -1239,6 +1234,7 @@ design: (work@dut)
             \_logic_net: (con_o), line:7:51, endln:7:56
           |vpiExpr:
           \_ref_obj: (work@dut.middle1.conn), line:4:18, endln:4:24
+          |vpiName:conn.con_o
         |vpiLowConn:
         \_ref_obj: (work@dut.middle1.sub1.out), line:11:30, endln:11:33
           |vpiParent:
@@ -1332,7 +1328,6 @@ design: (work@dut)
       \_hier_path: (conntb.con_o), line:18:25, endln:18:37
         |vpiParent:
         \_port: (observe), line:1:30, endln:1:37
-        |vpiName:conntb.con_o
         |vpiActual:
         \_ref_obj: (conntb), line:18:25, endln:18:31
           |vpiParent:
@@ -1346,6 +1341,7 @@ design: (work@dut)
           \_hier_path: (conntb.con_o), line:18:25, endln:18:37
           |vpiName:con_o
           |vpiFullName:work@tb.tb.observe.con_o
+        |vpiName:conntb.con_o
       |vpiLowConn:
       \_ref_obj: (work@tb.tb.observe), line:18:17, endln:18:24
         |vpiParent:
@@ -1371,7 +1367,6 @@ design: (work@dut)
       \_hier_path: (conntb.con_i), line:18:46, endln:18:58
         |vpiParent:
         \_port: (drive), line:1:50, endln:1:55
-        |vpiName:conntb.con_i
         |vpiActual:
         \_ref_obj: (conntb), line:18:46, endln:18:52
           |vpiParent:
@@ -1385,6 +1380,7 @@ design: (work@dut)
           \_hier_path: (conntb.con_i), line:18:46, endln:18:58
           |vpiName:con_i
           |vpiFullName:work@tb.tb.drive.con_i
+        |vpiName:conntb.con_i
       |vpiLowConn:
       \_ref_obj: (work@tb.tb.drive), line:18:40, endln:18:45
         |vpiParent:
@@ -1667,12 +1663,6 @@ design: (work@dut)
         \_hier_path: (conn.con_i), line:11:17, endln:11:27
           |vpiParent:
           \_port: (inp), line:14:24, endln:14:27
-          |vpiName:conn.con_i
-          |vpiExpr:
-          \_ref_obj: (work@tb.dut1.conn), line:17:15, endln:17:21
-            |vpiFullName:work@tb.dut1.conn
-            |vpiActual:
-            \_interface_inst: work@ConnectTB (work@tb.dut1.conn), file:${SURELOG_DIR}/tests/OneNetInterf/tb.v, line:17:0
           |vpiActual:
           \_ref_obj: (conn), line:11:17, endln:11:21
             |vpiParent:
@@ -1690,6 +1680,10 @@ design: (work@dut)
             \_logic_net: (con_i), line:7:33, endln:7:38
           |vpiExpr:
           \_ref_obj: (work@tb.dut1.conn), line:17:15, endln:17:21
+            |vpiFullName:work@tb.dut1.conn
+            |vpiActual:
+            \_interface_inst: work@ConnectTB (work@tb.dut1.conn), file:${SURELOG_DIR}/tests/OneNetInterf/tb.v, line:17:0
+          |vpiName:conn.con_i
         |vpiLowConn:
         \_ref_obj: (work@tb.dut1.sub1.inp), line:11:13, endln:11:16
           |vpiParent:
@@ -1717,9 +1711,6 @@ design: (work@dut)
         \_hier_path: (conn.con_o), line:11:34, endln:11:44
           |vpiParent:
           \_port: (out), line:14:40, endln:14:43
-          |vpiName:conn.con_o
-          |vpiExpr:
-          \_ref_obj: (work@tb.dut1.conn), line:17:15, endln:17:21
           |vpiActual:
           \_ref_obj: (conn), line:11:34, endln:11:38
             |vpiParent:
@@ -1737,6 +1728,7 @@ design: (work@dut)
             \_logic_net: (con_o), line:7:51, endln:7:56
           |vpiExpr:
           \_ref_obj: (work@tb.dut1.conn), line:17:15, endln:17:21
+          |vpiName:conn.con_o
         |vpiLowConn:
         \_ref_obj: (work@tb.dut1.sub1.out), line:11:30, endln:11:33
           |vpiParent:

@@ -215,7 +215,7 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 always                                                 1
-assign_stmt                                            1
+assignment                                             1
 begin                                                  3
 bit_select                                             1
 constant                                              36
@@ -246,7 +246,7 @@ typespec_member                                        2
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
 always                                                 2
-assign_stmt                                            2
+assignment                                             2
 begin                                                  6
 bit_select                                             2
 constant                                              36
@@ -599,13 +599,13 @@ design: (work@rvfi_tracer)
           \_begin: (work@rvfi_tracer), line:16:28, endln:21:4
           |vpiFullName:work@rvfi_tracer
           |vpiForInitStmt:
-          \_assign_stmt: , line:17:8, endln:17:17
+          \_assignment: , line:17:8, endln:17:17
             |vpiParent:
             \_for_stmt: (work@rvfi_tracer), line:17:3, endln:17:6
             |vpiRhs:
             \_constant: , line:17:16, endln:17:17
               |vpiParent:
-              \_assign_stmt: , line:17:8, endln:17:17
+              \_assignment: , line:17:8, endln:17:17
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
@@ -613,7 +613,7 @@ design: (work@rvfi_tracer)
             |vpiLhs:
             \_int_var: (work@rvfi_tracer.i), line:17:12, endln:17:13
               |vpiParent:
-              \_assign_stmt: , line:17:8, endln:17:17
+              \_assignment: , line:17:8, endln:17:17
               |vpiTypespec:
               \_ref_typespec: (work@rvfi_tracer.i)
                 |vpiParent:
@@ -669,7 +669,6 @@ design: (work@rvfi_tracer)
               \_hier_path: (rvfi_i[i].trap), line:18:9, endln:18:23
                 |vpiParent:
                 \_begin: (work@rvfi_tracer), line:17:45, endln:20:6
-                |vpiName:rvfi_i[i].trap
                 |vpiActual:
                 \_bit_select: (rvfi_i[i]), line:18:9, endln:18:15
                   |vpiParent:
@@ -690,6 +689,7 @@ design: (work@rvfi_tracer)
                   \_hier_path: (rvfi_i[i].trap), line:18:9, endln:18:23
                   |vpiName:trap
                   |vpiFullName:work@rvfi_tracer.trap
+                |vpiName:rvfi_i[i].trap
               |vpiStmt:
               \_begin: (work@rvfi_tracer), line:18:25, endln:19:8
                 |vpiParent:
@@ -832,7 +832,7 @@ design: (work@rvfi_tracer)
           \_begin: (work@rvfi_tracer), line:16:28, endln:21:4
           |vpiFullName:work@rvfi_tracer
           |vpiForInitStmt:
-          \_assign_stmt: , line:17:8, endln:17:17
+          \_assignment: , line:17:8, endln:17:17
             |vpiParent:
             \_for_stmt: (work@rvfi_tracer), line:17:3, endln:17:6
             |vpiRhs:
@@ -840,7 +840,7 @@ design: (work@rvfi_tracer)
             |vpiLhs:
             \_int_var: (work@rvfi_tracer.i), line:17:12, endln:17:13
               |vpiParent:
-              \_assign_stmt: , line:17:8, endln:17:17
+              \_assignment: , line:17:8, endln:17:17
               |vpiTypespec:
               \_ref_typespec: (work@rvfi_tracer.i)
                 |vpiParent:
@@ -898,7 +898,6 @@ design: (work@rvfi_tracer)
               \_hier_path: (rvfi_i[i].trap), line:18:9, endln:18:23
                 |vpiParent:
                 \_if_stmt: , line:18:5, endln:19:8
-                |vpiName:rvfi_i[i].trap
                 |vpiActual:
                 \_bit_select: (work@rvfi_tracer.rvfi_i), line:18:9, endln:18:15
                   |vpiParent:
@@ -923,6 +922,7 @@ design: (work@rvfi_tracer)
                   |vpiFullName:work@rvfi_tracer.trap
                   |vpiActual:
                   \_typespec_member: (trap), line:6:36, endln:6:40
+                |vpiName:rvfi_i[i].trap
               |vpiStmt:
               \_begin: (work@rvfi_tracer), line:18:25, endln:19:8
                 |vpiParent:

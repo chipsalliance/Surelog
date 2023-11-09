@@ -786,7 +786,7 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_typespec                                        10
-assign_stmt                                            1
+assignment                                             1
 begin                                                  1
 bit_select                                            14
 class_defn                                             8
@@ -832,7 +832,7 @@ unsupported_typespec                                   2
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
 array_typespec                                        10
-assign_stmt                                            1
+assignment                                             1
 begin                                                  1
 bit_select                                            14
 class_defn                                             8
@@ -2113,7 +2113,6 @@ design: (work@top)
       \_hier_path: (Info.size), line:40:33, endln:40:42
         |vpiParent:
         \_operation: , line:40:33, endln:40:47
-        |vpiName:Info.size
         |vpiActual:
         \_ref_obj: (Info), line:40:38, endln:40:42
           |vpiParent:
@@ -2124,6 +2123,7 @@ design: (work@top)
           |vpiParent:
           \_hier_path: (Info.size), line:40:33, endln:40:42
           |vpiName:size
+        |vpiName:Info.size
       |vpiOperand:
       \_constant: , line:40:46, endln:40:47
         |vpiParent:
@@ -2525,7 +2525,7 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamArraySelect/dut.sv, line:51:1, endln:71:10
     |vpiForInitStmt:
-    \_assign_stmt: , line:61:7, endln:61:19
+    \_assignment: , line:61:7, endln:61:19
       |vpiParent:
       \_gen_for: 
       |vpiRhs:
@@ -2537,7 +2537,7 @@ design: (work@top)
       |vpiLhs:
       \_int_var: (work@top.k), line:61:14, endln:61:15
         |vpiParent:
-        \_assign_stmt: , line:61:7, endln:61:19
+        \_assignment: , line:61:7, endln:61:19
         |vpiTypespec:
         \_ref_typespec: (work@top.k)
           |vpiParent:
@@ -2619,7 +2619,6 @@ design: (work@top)
             \_hier_path: (PartInfo[k].offset), line:62:75, endln:62:83
               |vpiParent:
               \_operation: , line:62:53, endln:62:94
-              |vpiName:PartInfo[k].offset
               |vpiActual:
               \_bit_select: (PartInfo[k]), line:62:75, endln:62:83
                 |vpiParent:
@@ -2638,6 +2637,7 @@ design: (work@top)
                 \_hier_path: (PartInfo[k].offset), line:62:75, endln:62:83
                 |vpiName:offset
                 |vpiFullName:work@top.gen_part_sel.offset
+              |vpiName:PartInfo[k].offset
           |vpiOperand:
           \_operation: , line:63:53, endln:63:92
             |vpiParent:
@@ -2654,7 +2654,6 @@ design: (work@top)
             \_hier_path: (PartInfo[k].size), line:63:75, endln:63:83
               |vpiParent:
               \_operation: , line:63:53, endln:63:92
-              |vpiName:PartInfo[k].size
               |vpiActual:
               \_bit_select: (PartInfo[k]), line:63:75, endln:63:83
                 |vpiParent:
@@ -2673,6 +2672,7 @@ design: (work@top)
                 \_hier_path: (PartInfo[k].size), line:63:75, endln:63:83
                 |vpiName:size
                 |vpiFullName:work@top.gen_part_sel.size
+              |vpiName:PartInfo[k].size
         |vpiLhs:
         \_parameter: (work@top.gen_part_sel.PartEnd), line:62:43, endln:63:92
           |vpiParent:
@@ -5051,7 +5051,6 @@ design: (work@top)
     \_hier_path: (PartInfo[LifeCycleIdx].size), line:59:10, endln:59:18
       |vpiParent:
       \_range: , line:59:9, endln:59:40
-      |vpiName:PartInfo[LifeCycleIdx].size
       |vpiActual:
       \_bit_select: (PartInfo[LifeCycleIdx]), line:59:10, endln:59:18
         |vpiParent:
@@ -5070,6 +5069,7 @@ design: (work@top)
         |vpiParent:
         \_hier_path: (PartInfo[LifeCycleIdx].size), line:59:10, endln:59:18
         |vpiName:size
+      |vpiName:PartInfo[LifeCycleIdx].size
     |vpiRightRange:
     \_constant: , line:59:38, endln:59:39
       |vpiParent:

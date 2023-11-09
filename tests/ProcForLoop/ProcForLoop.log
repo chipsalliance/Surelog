@@ -412,8 +412,7 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 1.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-assign_stmt                                            2
-assignment                                             1
+assignment                                             3
 begin                                                  3
 class_defn                                             8
 class_typespec                                         4
@@ -439,8 +438,7 @@ task                                                   9
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-assign_stmt                                            4
-assignment                                             2
+assignment                                             6
 begin                                                  6
 class_defn                                             8
 class_typespec                                         4
@@ -984,13 +982,13 @@ design: (work@top)
         \_begin: (work@top.foo), line:6:7, endln:8:10
         |vpiFullName:work@top.foo
         |vpiForInitStmt:
-        \_assign_stmt: , line:3:13, endln:3:20
+        \_assignment: , line:3:13, endln:3:20
           |vpiParent:
           \_for_stmt: (work@top.foo), line:3:7, endln:3:10
           |vpiRhs:
           \_constant: , line:3:19, endln:3:20
             |vpiParent:
-            \_assign_stmt: , line:3:13, endln:3:20
+            \_assignment: , line:3:13, endln:3:20
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
@@ -998,7 +996,7 @@ design: (work@top)
           |vpiLhs:
           \_int_var: (work@top.foo.i), line:3:17, endln:3:18
             |vpiParent:
-            \_assign_stmt: , line:3:13, endln:3:20
+            \_assignment: , line:3:13, endln:3:20
             |vpiTypespec:
             \_ref_typespec: (work@top.foo.i)
               |vpiParent:
@@ -1097,13 +1095,13 @@ design: (work@top)
         \_begin: (work@top.foo), line:6:7, endln:8:10
         |vpiFullName:work@top.foo
         |vpiForInitStmt:
-        \_assign_stmt: , line:6:13, endln:6:21
+        \_assignment: , line:6:13, endln:6:21
           |vpiParent:
           \_for_stmt: (work@top.foo), line:6:7, endln:6:10
           |vpiRhs:
           \_constant: , line:6:20, endln:6:21
             |vpiParent:
-            \_assign_stmt: , line:6:13, endln:6:21
+            \_assignment: , line:6:13, endln:6:21
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
@@ -1111,7 +1109,7 @@ design: (work@top)
           |vpiLhs:
           \_int_var: (work@top.foo.j), line:6:17, endln:6:18
             |vpiParent:
-            \_assign_stmt: , line:6:13, endln:6:21
+            \_assignment: , line:6:13, endln:6:21
             |vpiTypespec:
             \_ref_typespec: (work@top.foo.j)
               |vpiParent:
@@ -1209,7 +1207,7 @@ design: (work@top)
         \_begin: (work@top.foo), line:6:7, endln:8:10
         |vpiFullName:work@top.foo
         |vpiForInitStmt:
-        \_assign_stmt: , line:3:13, endln:3:20
+        \_assignment: , line:3:13, endln:3:20
           |vpiParent:
           \_for_stmt: (work@top.foo), line:3:7, endln:3:10
           |vpiRhs:
@@ -1217,7 +1215,7 @@ design: (work@top)
           |vpiLhs:
           \_int_var: (work@top.foo.i), line:3:17, endln:3:18
             |vpiParent:
-            \_assign_stmt: , line:3:13, endln:3:20
+            \_assignment: , line:3:13, endln:3:20
             |vpiTypespec:
             \_ref_typespec: (work@top.foo.i)
               |vpiParent:
@@ -1298,7 +1296,7 @@ design: (work@top)
         \_begin: (work@top.foo), line:6:7, endln:8:10
         |vpiFullName:work@top.foo
         |vpiForInitStmt:
-        \_assign_stmt: , line:6:13, endln:6:21
+        \_assignment: , line:6:13, endln:6:21
           |vpiParent:
           \_for_stmt: (work@top.foo), line:6:7, endln:6:10
           |vpiRhs:
@@ -1306,7 +1304,7 @@ design: (work@top)
           |vpiLhs:
           \_int_var: (work@top.foo.j), line:6:17, endln:6:18
             |vpiParent:
-            \_assign_stmt: , line:6:13, endln:6:21
+            \_assignment: , line:6:13, endln:6:21
             |vpiTypespec:
             \_ref_typespec: (work@top.foo.j)
               |vpiParent:
@@ -1595,5 +1593,5 @@ design: (work@top)
 
 ============================== Begin RoundTrip Results ==============================
 [roundtrip]: ${SURELOG_DIR}/tests/ProcForLoop/builtin.sv | ${SURELOG_DIR}/build/regression/ProcForLoop/roundtrip/builtin_000.sv | 0 | 0 |
-[roundtrip]: ${SURELOG_DIR}/tests/ProcForLoop/dut.sv     | ${SURELOG_DIR}/build/regression/ProcForLoop/roundtrip/dut_000.sv     | 1 | 11 |
+[roundtrip]: ${SURELOG_DIR}/tests/ProcForLoop/dut.sv     | ${SURELOG_DIR}/build/regression/ProcForLoop/roundtrip/dut_000.sv     | 2 | 11 |
 ============================== End RoundTrip Results ==============================

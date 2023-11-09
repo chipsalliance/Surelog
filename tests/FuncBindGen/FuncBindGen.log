@@ -187,7 +187,7 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 0.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-assign_stmt                                            1
+assignment                                             1
 begin                                                  1
 constant                                              26
 cont_assign                                            3
@@ -216,7 +216,7 @@ return_stmt                                            1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-assign_stmt                                            2
+assignment                                             2
 begin                                                  2
 constant                                              26
 cont_assign                                            4
@@ -607,13 +607,15 @@ design: (work@top)
             |vpiName:dec_tmp_sub
             |vpiFullName:work@top.gen_block.get_casted_param.dec_tmp_sub
           |vpiStmt:
-          \_assign_stmt: , line:7:32, endln:7:65
+          \_assignment: , line:7:32, endln:7:65
             |vpiParent:
             \_begin: (work@top.gen_block.get_casted_param), line:8:10, endln:8:29
+            |vpiOpType:82
+            |vpiBlocking:1
             |vpiRhs:
             \_operation: , line:7:46, endln:7:65
               |vpiParent:
-              \_assign_stmt: , line:7:32, endln:7:65
+              \_assignment: , line:7:32, endln:7:65
               |vpiTypespec:
               \_ref_typespec: (work@top.gen_block.get_casted_param)
                 |vpiParent:
@@ -640,7 +642,7 @@ design: (work@top)
             |vpiLhs:
             \_logic_var: (work@top.gen_block.get_casted_param.dec_tmp_sub), line:7:32, endln:7:43
               |vpiParent:
-              \_assign_stmt: , line:7:32, endln:7:65
+              \_assignment: , line:7:32, endln:7:65
               |vpiTypespec:
               \_ref_typespec: (work@top.gen_block.get_casted_param.dec_tmp_sub)
                 |vpiParent:
@@ -683,7 +685,7 @@ design: (work@top)
   |vpiVariables:
   \_logic_var: (work@top.gen_block.get_casted_param.dec_tmp_sub), line:7:32, endln:7:43
     |vpiParent:
-    \_assign_stmt: , line:7:32, endln:7:65
+    \_assignment: , line:7:32, endln:7:65
     |vpiTypespec:
     \_ref_typespec: (work@top.gen_block.get_casted_param.dec_tmp_sub)
       |vpiParent:
@@ -705,13 +707,15 @@ design: (work@top)
     |vpiVariables:
     \_logic_var: (work@top.gen_block.get_casted_param.dec_tmp_sub), line:7:32, endln:7:43
     |vpiStmt:
-    \_assign_stmt: , line:7:32, endln:7:65
+    \_assignment: , line:7:32, endln:7:65
       |vpiParent:
       \_begin: (work@top.gen_block.get_casted_param), line:8:10, endln:8:29
+      |vpiOpType:82
+      |vpiBlocking:1
       |vpiRhs:
       \_operation: , line:7:46, endln:7:65
         |vpiParent:
-        \_assign_stmt: , line:7:32, endln:7:65
+        \_assignment: , line:7:32, endln:7:65
         |vpiTypespec:
         \_ref_typespec: (work@top.gen_block.get_casted_param)
           |vpiParent:

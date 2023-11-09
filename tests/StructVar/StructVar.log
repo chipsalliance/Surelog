@@ -22,7 +22,7 @@
 array_net                                              2
 array_typespec                                         7
 array_var                                              7
-assign_stmt                                            1
+assignment                                             1
 bit_select                                             6
 bit_typespec                                           5
 constant                                              83
@@ -61,7 +61,7 @@ unsupported_typespec                                   1
 array_net                                              2
 array_typespec                                         7
 array_var                                              7
-assign_stmt                                            1
+assignment                                             1
 bit_select                                            10
 bit_typespec                                           5
 constant                                              83
@@ -490,7 +490,7 @@ design: (work@test)
     |vpiParent:
     \_module_inst: work@prim_generic_ram_1 (work@prim_generic_ram_1), file:${SURELOG_DIR}/tests/StructVar/dut.sv, line:47:1, endln:66:10
     |vpiForInitStmt:
-    \_assign_stmt: , line:59:7, endln:59:19
+    \_assignment: , line:59:7, endln:59:19
       |vpiParent:
       \_gen_for: 
       |vpiRhs:
@@ -502,7 +502,7 @@ design: (work@test)
       |vpiLhs:
       \_int_var: (work@prim_generic_ram_1.i), line:59:14, endln:59:15
         |vpiParent:
-        \_assign_stmt: , line:59:7, endln:59:19
+        \_assignment: , line:59:7, endln:59:19
         |vpiTypespec:
         \_ref_typespec: (work@prim_generic_ram_1.i)
           |vpiParent:
@@ -570,7 +570,6 @@ design: (work@test)
             \_hier_path: (pmp_cfg[i].lock), line:61:25, endln:61:40
               |vpiParent:
               \_operation: , line:61:24, endln:61:40
-              |vpiName:pmp_cfg[i].lock
               |vpiActual:
               \_bit_select: (pmp_cfg[i]), line:61:25, endln:61:32
                 |vpiParent:
@@ -589,6 +588,7 @@ design: (work@test)
                 \_hier_path: (pmp_cfg[i].lock), line:61:25, endln:61:40
                 |vpiName:lock
                 |vpiFullName:work@prim_generic_ram_1.g_pmp_csrs.lock
+              |vpiName:pmp_cfg[i].lock
           |vpiOperand:
           \_operation: , line:62:4, endln:62:37
             |vpiParent:
@@ -598,7 +598,6 @@ design: (work@test)
             \_hier_path: (pmp_cfg[i + 1].mode), line:62:4, endln:62:21
               |vpiParent:
               \_operation: , line:62:4, endln:62:37
-              |vpiName:pmp_cfg[i + 1].mode
               |vpiActual:
               \_bit_select: (pmp_cfg[i + 1]), line:62:4, endln:62:11
                 |vpiParent:
@@ -630,6 +629,7 @@ design: (work@test)
                 \_hier_path: (pmp_cfg[i + 1].mode), line:62:4, endln:62:21
                 |vpiName:mode
                 |vpiFullName:work@prim_generic_ram_1.g_pmp_csrs.mode
+              |vpiName:pmp_cfg[i + 1].mode
             |vpiOperand:
             \_ref_obj: (work@prim_generic_ram_1.g_pmp_csrs.PMP_MODE_TOR), line:62:25, endln:62:37
               |vpiParent:
@@ -1453,7 +1453,6 @@ design: (work@test)
               \_hier_path: (pmp_cfg[i].lock), line:61:25, endln:61:40
                 |vpiParent:
                 \_operation: , line:61:24, endln:61:40
-                |vpiName:pmp_cfg[i].lock
                 |vpiActual:
                 \_bit_select: (pmp_cfg[i]), line:61:25, endln:61:32
                   |vpiParent:
@@ -1478,6 +1477,7 @@ design: (work@test)
                   |vpiFullName:work@test.u3.g_pmp_csrs[0].lock
                   |vpiActual:
                   \_typespec_member: (lock), line:53:20, endln:53:24
+                |vpiName:pmp_cfg[i].lock
             |vpiOperand:
             \_operation: , line:62:4, endln:62:37
               |vpiParent:
@@ -1487,7 +1487,6 @@ design: (work@test)
               \_hier_path: (pmp_cfg[i + 1].mode), line:62:4, endln:62:21
                 |vpiParent:
                 \_operation: , line:62:4, endln:62:37
-                |vpiName:pmp_cfg[i + 1].mode
                 |vpiActual:
                 \_bit_select: (pmp_cfg[i + 1]), line:62:4, endln:62:11
                   |vpiParent:
@@ -1525,6 +1524,7 @@ design: (work@test)
                   |vpiFullName:work@test.u3.g_pmp_csrs[0].mode
                   |vpiActual:
                   \_typespec_member: (mode), line:54:20, endln:54:24
+                |vpiName:pmp_cfg[i + 1].mode
               |vpiOperand:
               \_ref_obj: (work@test.u3.g_pmp_csrs[0].PMP_MODE_TOR), line:62:25, endln:62:37
                 |vpiParent:
@@ -1583,7 +1583,6 @@ design: (work@test)
               \_hier_path: (pmp_cfg[i].lock), line:61:25, endln:61:40
                 |vpiParent:
                 \_operation: , line:61:24, endln:61:40
-                |vpiName:pmp_cfg[i].lock
                 |vpiActual:
                 \_bit_select: (pmp_cfg[i]), line:61:25, endln:61:32
                   |vpiParent:
@@ -1608,6 +1607,7 @@ design: (work@test)
                   |vpiFullName:work@test.u3.g_pmp_csrs[1].lock
                   |vpiActual:
                   \_typespec_member: (lock), line:53:20, endln:53:24
+                |vpiName:pmp_cfg[i].lock
             |vpiOperand:
             \_operation: , line:62:4, endln:62:37
               |vpiParent:
@@ -1617,7 +1617,6 @@ design: (work@test)
               \_hier_path: (pmp_cfg[i + 1].mode), line:62:4, endln:62:21
                 |vpiParent:
                 \_operation: , line:62:4, endln:62:37
-                |vpiName:pmp_cfg[i + 1].mode
                 |vpiActual:
                 \_bit_select: (pmp_cfg[i + 1]), line:62:4, endln:62:11
                   |vpiParent:
@@ -1655,6 +1654,7 @@ design: (work@test)
                   |vpiFullName:work@test.u3.g_pmp_csrs[1].mode
                   |vpiActual:
                   \_typespec_member: (mode), line:54:20, endln:54:24
+                |vpiName:pmp_cfg[i + 1].mode
               |vpiOperand:
               \_ref_obj: (work@test.u3.g_pmp_csrs[1].PMP_MODE_TOR), line:62:25, endln:62:37
                 |vpiParent:
@@ -1889,7 +1889,6 @@ design: (work@test)
 \_hier_path: (pmp_cfg[i + 1].mode), line:62:4, endln:62:21
   |vpiParent:
   \_operation: , line:62:4, endln:62:37
-  |vpiName:pmp_cfg[i + 1].mode
   |vpiActual:
   \_bit_select: (pmp_cfg[i + 1]), line:62:4, endln:62:11
     |vpiParent:
@@ -1904,6 +1903,7 @@ design: (work@test)
     \_hier_path: (pmp_cfg[i + 1].mode), line:62:4, endln:62:21
     |vpiName:mode
     |vpiFullName:work@test.u3.g_pmp_csrs[0].mode
+  |vpiName:pmp_cfg[i + 1].mode
 \_operation: , line:62:4, endln:62:37
   |vpiParent:
   \_operation: , line:61:24, endln:62:38
@@ -1929,7 +1929,6 @@ design: (work@test)
     \_hier_path: (pmp_cfg[i].lock), line:61:25, endln:61:40
       |vpiParent:
       \_operation: , line:61:24, endln:61:40
-      |vpiName:pmp_cfg[i].lock
       |vpiActual:
       \_bit_select: (pmp_cfg[i]), line:61:25, endln:61:32
         |vpiParent:
@@ -1948,6 +1947,7 @@ design: (work@test)
         \_hier_path: (pmp_cfg[i].lock), line:61:25, endln:61:40
         |vpiName:lock
         |vpiFullName:work@test.u3.g_pmp_csrs[0].lock
+      |vpiName:pmp_cfg[i].lock
   |vpiOperand:
   \_operation: , line:62:4, endln:62:37
 \_cont_assign: , line:61:10, endln:62:38
@@ -1976,7 +1976,6 @@ design: (work@test)
 \_hier_path: (pmp_cfg[i + 1].mode), line:62:4, endln:62:21
   |vpiParent:
   \_operation: , line:62:4, endln:62:37
-  |vpiName:pmp_cfg[i + 1].mode
   |vpiActual:
   \_bit_select: (pmp_cfg[i + 1]), line:62:4, endln:62:11
     |vpiParent:
@@ -1991,6 +1990,7 @@ design: (work@test)
     \_hier_path: (pmp_cfg[i + 1].mode), line:62:4, endln:62:21
     |vpiName:mode
     |vpiFullName:work@test.u3.g_pmp_csrs[1].mode
+  |vpiName:pmp_cfg[i + 1].mode
 \_operation: , line:62:4, endln:62:37
   |vpiParent:
   \_operation: , line:61:24, endln:62:38
@@ -2016,7 +2016,6 @@ design: (work@test)
     \_hier_path: (pmp_cfg[i].lock), line:61:25, endln:61:40
       |vpiParent:
       \_operation: , line:61:24, endln:61:40
-      |vpiName:pmp_cfg[i].lock
       |vpiActual:
       \_bit_select: (pmp_cfg[i]), line:61:25, endln:61:32
         |vpiParent:
@@ -2035,6 +2034,7 @@ design: (work@test)
         \_hier_path: (pmp_cfg[i].lock), line:61:25, endln:61:40
         |vpiName:lock
         |vpiFullName:work@test.u3.g_pmp_csrs[1].lock
+      |vpiName:pmp_cfg[i].lock
   |vpiOperand:
   \_operation: , line:62:4, endln:62:37
 \_cont_assign: , line:61:10, endln:62:38

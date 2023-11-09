@@ -128,7 +128,7 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_typespec                                         2
 array_var                                              2
-assign_stmt                                            2
+assignment                                             2
 begin                                                  6
 bit_select                                             4
 class_defn                                             1
@@ -155,7 +155,7 @@ unsupported_typespec                                   2
 === UHDM Object Stats Begin (Elaborated Model) ===
 array_typespec                                         2
 array_var                                              4
-assign_stmt                                            2
+assignment                                             2
 begin                                                 12
 bit_select                                             8
 class_defn                                             1
@@ -246,7 +246,6 @@ design: (unnamed)
         \_hier_path: (top_map.m_mems_by_offset)
           |vpiParent:
           \_foreach_stmt: (uvm::f1), line:11:5, endln:11:12
-          |vpiFullName:top_map.m_mems_by_offset
           |vpiActual:
           \_ref_obj: (uvm::f1::top_map), line:11:14, endln:11:21
             |vpiParent:
@@ -263,6 +262,7 @@ design: (unnamed)
             |vpiFullName:uvm::f1::m_mems_by_offset
             |vpiActual:
             \_array_var: (uvm::uvm_reg_map::m_mems_by_offset), line:4:17, endln:4:33
+          |vpiFullName:top_map.m_mems_by_offset
         |vpiLoopVars:
         \_ref_var: (uvm::f1::range), line:11:39, endln:11:44
           |vpiParent:
@@ -313,7 +313,6 @@ design: (unnamed)
                 \_hier_path: (range.min), line:12:23, endln:12:32
                   |vpiParent:
                   \_operation: , line:12:11, endln:12:32
-                  |vpiName:range.min
                   |vpiActual:
                   \_ref_obj: (range), line:12:23, endln:12:28
                     |vpiParent:
@@ -327,6 +326,7 @@ design: (unnamed)
                     \_hier_path: (range.min), line:12:23, endln:12:32
                     |vpiName:min
                     |vpiFullName:uvm::f1::min
+                  |vpiName:range.min
               |vpiOperand:
               \_operation: , line:12:36, endln:12:57
                 |vpiParent:
@@ -348,7 +348,6 @@ design: (unnamed)
                 \_hier_path: (range.max), line:12:48, endln:12:57
                   |vpiParent:
                   \_operation: , line:12:36, endln:12:57
-                  |vpiName:range.max
                   |vpiActual:
                   \_ref_obj: (range), line:12:48, endln:12:53
                     |vpiParent:
@@ -362,6 +361,7 @@ design: (unnamed)
                     \_hier_path: (range.max), line:12:48, endln:12:57
                     |vpiName:max
                     |vpiFullName:uvm::f1::max
+                  |vpiName:range.max
             |vpiStmt:
             \_begin: (uvm::f1), line:12:59, endln:13:10
               |vpiParent:
@@ -495,7 +495,6 @@ design: (unnamed)
         \_hier_path: (top_map.m_mems_by_offset)
           |vpiParent:
           \_foreach_stmt: (uvm::f1), line:11:5, endln:11:12
-          |vpiFullName:top_map.m_mems_by_offset
           |vpiActual:
           \_ref_obj: (uvm::f1::top_map), line:11:14, endln:11:21
             |vpiParent:
@@ -512,6 +511,7 @@ design: (unnamed)
             |vpiFullName:uvm::f1::m_mems_by_offset
             |vpiActual:
             \_array_var: (uvm::uvm_reg_map::m_mems_by_offset), line:4:17, endln:4:33
+          |vpiFullName:top_map.m_mems_by_offset
         |vpiLoopVars:
         \_array_var: (uvm::f1::range), line:11:39, endln:11:44
           |vpiParent:
@@ -560,7 +560,6 @@ design: (unnamed)
                 \_hier_path: (range.min), line:12:23, endln:12:32
                   |vpiParent:
                   \_operation: , line:12:11, endln:12:32
-                  |vpiName:range.min
                   |vpiActual:
                   \_ref_obj: (range), line:12:23, endln:12:28
                     |vpiParent:
@@ -576,6 +575,7 @@ design: (unnamed)
                     |vpiFullName:uvm::f1::min
                     |vpiActual:
                     \_func_call: (min)
+                  |vpiName:range.min
               |vpiOperand:
               \_operation: , line:12:36, endln:12:57
                 |vpiParent:
@@ -597,7 +597,6 @@ design: (unnamed)
                 \_hier_path: (range.max), line:12:48, endln:12:57
                   |vpiParent:
                   \_operation: , line:12:36, endln:12:57
-                  |vpiName:range.max
                   |vpiActual:
                   \_ref_obj: (range), line:12:48, endln:12:53
                     |vpiParent:
@@ -613,6 +612,7 @@ design: (unnamed)
                     |vpiFullName:uvm::f1::max
                     |vpiActual:
                     \_func_call: (max)
+                  |vpiName:range.max
             |vpiStmt:
             \_begin: (uvm::f1), line:12:59, endln:13:10
               |vpiParent:
@@ -658,7 +658,6 @@ design: (unnamed)
       \_hier_path: (top_map.m_mems_by_offset)
         |vpiParent:
         \_foreach_stmt: (uvm::f1), line:11:5, endln:11:12
-        |vpiFullName:top_map.m_mems_by_offset
         |vpiActual:
         \_ref_obj: (uvm::f1::top_map), line:11:14, endln:11:21
           |vpiParent:
@@ -673,6 +672,7 @@ design: (unnamed)
           \_hier_path: (top_map.m_mems_by_offset)
           |vpiName:m_mems_by_offset
           |vpiFullName:uvm::f1::m_mems_by_offset
+        |vpiFullName:top_map.m_mems_by_offset
       |vpiLoopVars:
       \_array_var: (uvm::f1::range), line:11:39, endln:11:44
         |vpiParent:
@@ -721,7 +721,6 @@ design: (unnamed)
               \_hier_path: (range.min), line:12:23, endln:12:32
                 |vpiParent:
                 \_operation: , line:12:11, endln:12:32
-                |vpiName:range.min
                 |vpiActual:
                 \_ref_obj: (range), line:12:23, endln:12:28
                   |vpiParent:
@@ -735,6 +734,7 @@ design: (unnamed)
                   \_hier_path: (range.min), line:12:23, endln:12:32
                   |vpiName:min
                   |vpiFullName:uvm::f1::min
+                |vpiName:range.min
             |vpiOperand:
             \_operation: , line:12:36, endln:12:57
               |vpiParent:
@@ -756,7 +756,6 @@ design: (unnamed)
               \_hier_path: (range.max), line:12:48, endln:12:57
                 |vpiParent:
                 \_operation: , line:12:36, endln:12:57
-                |vpiName:range.max
                 |vpiActual:
                 \_ref_obj: (range), line:12:48, endln:12:53
                   |vpiParent:
@@ -770,6 +769,7 @@ design: (unnamed)
                   \_hier_path: (range.max), line:12:48, endln:12:57
                   |vpiName:max
                   |vpiFullName:uvm::f1::max
+                |vpiName:range.max
           |vpiStmt:
           \_begin: (uvm::f1), line:12:59, endln:13:10
             |vpiParent:
@@ -817,7 +817,6 @@ design: (unnamed)
       \_hier_path: (top_map.m_mems_by_offset)
         |vpiParent:
         \_foreach_stmt: (uvm::f1), line:11:5, endln:11:12
-        |vpiFullName:top_map.m_mems_by_offset
         |vpiActual:
         \_ref_obj: (uvm::f1::top_map), line:11:14, endln:11:21
           |vpiParent:
@@ -832,6 +831,7 @@ design: (unnamed)
           \_hier_path: (top_map.m_mems_by_offset)
           |vpiName:m_mems_by_offset
           |vpiFullName:uvm::f1::m_mems_by_offset
+        |vpiFullName:top_map.m_mems_by_offset
       |vpiLoopVars:
       \_ref_var: (uvm::f1::range), line:11:39, endln:11:44
         |vpiParent:
@@ -880,7 +880,6 @@ design: (unnamed)
               \_hier_path: (range.min), line:12:23, endln:12:32
                 |vpiParent:
                 \_operation: , line:12:11, endln:12:32
-                |vpiName:range.min
                 |vpiActual:
                 \_ref_obj: (range), line:12:23, endln:12:28
                   |vpiParent:
@@ -894,6 +893,7 @@ design: (unnamed)
                   \_hier_path: (range.min), line:12:23, endln:12:32
                   |vpiName:min
                   |vpiFullName:uvm::f1::min
+                |vpiName:range.min
             |vpiOperand:
             \_operation: , line:12:36, endln:12:57
               |vpiParent:
@@ -915,7 +915,6 @@ design: (unnamed)
               \_hier_path: (range.max), line:12:48, endln:12:57
                 |vpiParent:
                 \_operation: , line:12:36, endln:12:57
-                |vpiName:range.max
                 |vpiActual:
                 \_ref_obj: (range), line:12:48, endln:12:53
                   |vpiParent:
@@ -929,6 +928,7 @@ design: (unnamed)
                   \_hier_path: (range.max), line:12:48, endln:12:57
                   |vpiName:max
                   |vpiFullName:uvm::f1::max
+                |vpiName:range.max
           |vpiStmt:
           \_begin: (uvm::f1), line:12:59, endln:13:10
             |vpiParent:

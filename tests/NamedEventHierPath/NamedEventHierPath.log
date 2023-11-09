@@ -82,8 +82,7 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 0.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-assign_stmt                                            1
-assignment                                             1
+assignment                                             2
 begin                                                  1
 class_defn                                             1
 class_typespec                                         2
@@ -101,8 +100,7 @@ unsupported_typespec                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-assign_stmt                                            1
-assignment                                             2
+assignment                                             3
 begin                                                  2
 class_defn                                             1
 class_typespec                                         2
@@ -217,7 +215,6 @@ design: (unnamed)
           \_hier_path: (e.m_event), line:9:11, endln:9:20
             |vpiParent:
             \_assignment: , line:9:1, endln:9:20
-            |vpiName:e.m_event
             |vpiActual:
             \_ref_obj: (e), line:9:11, endln:9:12
               |vpiParent:
@@ -233,6 +230,7 @@ design: (unnamed)
               |vpiFullName:pack::uvm_event_base::do_copy::m_event
               |vpiActual:
               \_named_event: (pack::uvm_event_base::m_event), line:4:23, endln:4:30
+            |vpiName:e.m_event
           |vpiLhs:
           \_ref_obj: (pack::uvm_event_base::do_copy::m_event), line:9:1, endln:9:8
             |vpiParent:

@@ -115,7 +115,7 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 1.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-assign_stmt                                            3
+assignment                                             3
 begin                                                  2
 constant                                               4
 design                                                 1
@@ -133,7 +133,7 @@ return_stmt                                            2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-assign_stmt                                            4
+assignment                                             4
 begin                                                  4
 constant                                               4
 design                                                 1
@@ -195,13 +195,13 @@ design: (work@top)
         \_begin: (work@top.theta), line:8:7, endln:8:16
         |vpiFullName:work@top.theta
         |vpiForInitStmt:
-        \_assign_stmt: , line:3:12, endln:3:21
+        \_assignment: , line:3:12, endln:3:21
           |vpiParent:
           \_for_stmt: (work@top.theta), line:3:7, endln:3:10
           |vpiRhs:
           \_constant: , line:3:20, endln:3:21
             |vpiParent:
-            \_assign_stmt: , line:3:12, endln:3:21
+            \_assignment: , line:3:12, endln:3:21
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
@@ -209,7 +209,7 @@ design: (work@top)
           |vpiLhs:
           \_int_var: (work@top.theta.x), line:3:16, endln:3:17
             |vpiParent:
-            \_assign_stmt: , line:3:12, endln:3:21
+            \_assignment: , line:3:12, endln:3:21
             |vpiTypespec:
             \_ref_typespec: (work@top.theta.x)
               |vpiParent:
@@ -378,7 +378,7 @@ design: (work@top)
         \_begin: (work@top.theta), line:8:7, endln:8:16
         |vpiFullName:work@top.theta
         |vpiForInitStmt:
-        \_assign_stmt: , line:3:12, endln:3:21
+        \_assignment: , line:3:12, endln:3:21
           |vpiParent:
           \_for_stmt: (work@top.theta), line:3:7, endln:3:10
           |vpiRhs:
@@ -386,7 +386,7 @@ design: (work@top)
           |vpiLhs:
           \_int_var: (work@top.theta.x), line:3:16, endln:3:17
             |vpiParent:
-            \_assign_stmt: , line:3:12, endln:3:21
+            \_assignment: , line:3:12, endln:3:21
             |vpiTypespec:
             \_ref_typespec: (work@top.theta.x)
               |vpiParent:
@@ -521,5 +521,5 @@ design: (work@top)
 [   NOTE] : 5
 
 ============================== Begin RoundTrip Results ==============================
-[roundtrip]: ${SURELOG_DIR}/tests/VarDecl2/dut.sv | ${SURELOG_DIR}/build/regression/VarDecl2/roundtrip/dut_000.sv | 5 | 11 |
+[roundtrip]: ${SURELOG_DIR}/tests/VarDecl2/dut.sv | ${SURELOG_DIR}/build/regression/VarDecl2/roundtrip/dut_000.sv | 6 | 11 |
 ============================== End RoundTrip Results ==============================

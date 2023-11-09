@@ -256,7 +256,7 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 0.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-assign_stmt                                            2
+assignment                                             2
 begin                                                  1
 constant                                              49
 cont_assign                                            3
@@ -283,7 +283,7 @@ string_typespec                                        2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-assign_stmt                                            2
+assignment                                             2
 begin                                                  1
 constant                                              49
 cont_assign                                            4
@@ -488,13 +488,15 @@ design: (work@dut)
       |vpiName:gen_w
       |vpiFullName:work@prim_subreg_arb.gen_w
       |vpiStmt:
-      \_assign_stmt: , line:9:20, endln:9:31
+      \_assignment: , line:9:20, endln:9:31
         |vpiParent:
         \_named_begin: (work@prim_subreg_arb.gen_w)
+        |vpiOpType:82
+        |vpiBlocking:1
         |vpiLhs:
         \_logic_var: (work@prim_subreg_arb.gen_w.unused_q_wo), line:9:20, endln:9:31
           |vpiParent:
-          \_assign_stmt: , line:9:20, endln:9:31
+          \_assignment: , line:9:20, endln:9:31
           |vpiTypespec:
           \_ref_typespec: (work@prim_subreg_arb.gen_w.unused_q_wo)
             |vpiParent:
@@ -555,13 +557,15 @@ design: (work@dut)
           |vpiName:gen_ro
           |vpiFullName:work@prim_subreg_arb.gen_ro
           |vpiStmt:
-          \_assign_stmt: , line:12:20, endln:12:31
+          \_assignment: , line:12:20, endln:12:31
             |vpiParent:
             \_named_begin: (work@prim_subreg_arb.gen_ro)
+            |vpiOpType:82
+            |vpiBlocking:1
             |vpiLhs:
             \_logic_var: (work@prim_subreg_arb.gen_ro.unused_q_ro), line:12:20, endln:12:31
               |vpiParent:
-              \_assign_stmt: , line:12:20, endln:12:31
+              \_assignment: , line:12:20, endln:12:31
               |vpiTypespec:
               \_ref_typespec: (work@prim_subreg_arb.gen_ro.unused_q_ro)
                 |vpiParent:
@@ -981,7 +985,3 @@ design: (work@dut)
 [  ERROR] : 0
 [WARNING] : 2
 [   NOTE] : 5
-
-============================== Begin RoundTrip Results ==============================
-[roundtrip]: ${SURELOG_DIR}/tests/GenNet/dut.sv | ${SURELOG_DIR}/build/regression/GenNet/roundtrip/dut_000.sv | 12 | 23 |
-============================== End RoundTrip Results ==============================

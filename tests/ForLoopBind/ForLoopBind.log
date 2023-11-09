@@ -480,8 +480,7 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_typespec                                         2
 array_var                                              2
-assign_stmt                                            6
-assignment                                             4
+assignment                                            10
 begin                                                  6
 class_defn                                            13
 class_typespec                                        17
@@ -513,8 +512,7 @@ unsupported_typespec                                   4
 === UHDM Object Stats Begin (Elaborated Model) ===
 array_typespec                                         2
 array_var                                              4
-assign_stmt                                            8
-assignment                                             8
+assignment                                            16
 begin                                                 12
 class_defn                                            13
 class_typespec                                        17
@@ -659,13 +657,13 @@ design: (unnamed)
             \_begin: (uvm::uvm_vreg::write), line:27:24, endln:33:7
             |vpiFullName:uvm::uvm_vreg::write
             |vpiForInitStmt:
-            \_assign_stmt: , line:29:12, endln:29:39
+            \_assignment: , line:29:12, endln:29:39
               |vpiParent:
               \_for_stmt: (uvm::uvm_vreg::write), line:29:7, endln:29:10
               |vpiRhs:
               \_ref_obj: (uvm::uvm_vreg::write::cbs), line:29:36, endln:29:39
                 |vpiParent:
-                \_assign_stmt: , line:29:12, endln:29:39
+                \_assignment: , line:29:12, endln:29:39
                 |vpiName:cbs
                 |vpiFullName:uvm::uvm_vreg::write::cbs
                 |vpiActual:
@@ -673,7 +671,7 @@ design: (unnamed)
               |vpiLhs:
               \_class_var: (uvm::uvm_vreg::write::cb), line:29:31, endln:29:33
                 |vpiParent:
-                \_assign_stmt: , line:29:12, endln:29:39
+                \_assignment: , line:29:12, endln:29:39
                 |vpiTypespec:
                 \_ref_typespec: (uvm::uvm_vreg::write::cb)
                   |vpiParent:
@@ -747,7 +745,6 @@ design: (unnamed)
                 \_hier_path: (cb.fname), line:31:10, endln:31:18
                   |vpiParent:
                   \_assignment: , line:31:10, endln:31:22
-                  |vpiName:cb.fname
                   |vpiActual:
                   \_ref_obj: (cb), line:31:13, endln:31:18
                     |vpiParent:
@@ -762,6 +759,7 @@ design: (unnamed)
                     |vpiName:fname
                     |vpiActual:
                     \_int_var: (uvm::uvm_vreg_field_cbs::fname), line:14:7, endln:14:12
+                  |vpiName:cb.fname
     |vpiInstance:
     \_package: uvm (uvm::), file:${SURELOG_DIR}/tests/ForLoopBind/dut.sv, line:1:1, endln:36:11
 |uhdmtopPackages:
@@ -950,13 +948,13 @@ design: (unnamed)
               \_begin: (uvm::uvm_vreg::write), line:27:24, endln:33:7
               |vpiFullName:uvm::uvm_vreg::write
               |vpiForInitStmt:
-              \_assign_stmt: , line:29:12, endln:29:39
+              \_assignment: , line:29:12, endln:29:39
                 |vpiParent:
                 \_for_stmt: (uvm::uvm_vreg::write), line:29:7, endln:29:10
                 |vpiRhs:
                 \_ref_obj: (uvm::uvm_vreg::write::cbs), line:29:36, endln:29:39
                   |vpiParent:
-                  \_assign_stmt: , line:29:12, endln:29:39
+                  \_assignment: , line:29:12, endln:29:39
                   |vpiName:cbs
                   |vpiFullName:uvm::uvm_vreg::write::cbs
                   |vpiActual:
@@ -964,7 +962,7 @@ design: (unnamed)
                 |vpiLhs:
                 \_class_var: (uvm::uvm_vreg::write::cb), line:29:31, endln:29:33
                   |vpiParent:
-                  \_assign_stmt: , line:29:12, endln:29:39
+                  \_assignment: , line:29:12, endln:29:39
                   |vpiTypespec:
                   \_ref_typespec: (uvm::uvm_vreg::write::cb)
                     |vpiParent:
@@ -1038,7 +1036,6 @@ design: (unnamed)
                   \_hier_path: (cb.fname), line:31:10, endln:31:18
                     |vpiParent:
                     \_assignment: , line:31:10, endln:31:22
-                    |vpiName:cb.fname
                     |vpiActual:
                     \_ref_obj: (cb), line:31:13, endln:31:18
                       |vpiParent:
@@ -1053,6 +1050,7 @@ design: (unnamed)
                       |vpiName:fname
                       |vpiActual:
                       \_int_var: (uvm::uvm_vreg_field_cbs::fname), line:14:7, endln:14:12
+                    |vpiName:cb.fname
       |vpiInstance:
       \_package: uvm (uvm::), file:${SURELOG_DIR}/tests/ForLoopBind/dut.sv, line:1:1, endln:36:11
   |vpiClassDefn:
@@ -1607,13 +1605,13 @@ design: (unnamed)
   \_begin: (uvm::uvm_vreg::write), line:27:24, endln:33:7
   |vpiFullName:uvm::uvm_vreg::write
   |vpiForInitStmt:
-  \_assign_stmt: , line:29:12, endln:29:39
+  \_assignment: , line:29:12, endln:29:39
     |vpiParent:
     \_for_stmt: (uvm::uvm_vreg::write), line:29:7, endln:29:10
     |vpiRhs:
     \_ref_obj: (uvm::uvm_vreg::write::cbs), line:29:36, endln:29:39
       |vpiParent:
-      \_assign_stmt: , line:29:12, endln:29:39
+      \_assignment: , line:29:12, endln:29:39
       |vpiName:cbs
       |vpiFullName:uvm::uvm_vreg::write::cbs
       |vpiActual:
@@ -1621,7 +1619,7 @@ design: (unnamed)
     |vpiLhs:
     \_class_var: (uvm::uvm_vreg::write::cb), line:29:31, endln:29:33
       |vpiParent:
-      \_assign_stmt: , line:29:12, endln:29:39
+      \_assignment: , line:29:12, endln:29:39
       |vpiTypespec:
       \_ref_typespec: (uvm::uvm_vreg::write::cb)
         |vpiParent:
@@ -1672,7 +1670,6 @@ design: (unnamed)
       \_hier_path: (cb.fname), line:31:10, endln:31:18
         |vpiParent:
         \_assignment: , line:31:10, endln:31:22
-        |vpiName:cb.fname
         |vpiActual:
         \_ref_obj: (cb), line:31:13, endln:31:18
           |vpiParent:
@@ -1683,6 +1680,7 @@ design: (unnamed)
           |vpiParent:
           \_hier_path: (cb.fname), line:31:10, endln:31:18
           |vpiName:fname
+        |vpiName:cb.fname
 \_begin: (uvm::uvm_vreg::write), line:27:24, endln:33:7
   |vpiParent:
   \_foreach_stmt: (uvm::uvm_vreg::write), line:27:4, endln:27:11
@@ -1827,13 +1825,13 @@ design: (unnamed)
       \_begin: (uvm::uvm_vreg::write), line:27:24, endln:33:7
       |vpiFullName:uvm::uvm_vreg::write
       |vpiForInitStmt:
-      \_assign_stmt: , line:29:12, endln:29:39
+      \_assignment: , line:29:12, endln:29:39
         |vpiParent:
         \_for_stmt: (uvm::uvm_vreg::write), line:29:7, endln:29:10
         |vpiRhs:
         \_ref_obj: (uvm::uvm_vreg::write::cbs), line:29:36, endln:29:39
           |vpiParent:
-          \_assign_stmt: , line:29:12, endln:29:39
+          \_assignment: , line:29:12, endln:29:39
           |vpiName:cbs
           |vpiFullName:uvm::uvm_vreg::write::cbs
           |vpiActual:
@@ -1841,7 +1839,7 @@ design: (unnamed)
         |vpiLhs:
         \_class_var: (uvm::uvm_vreg::write::cb), line:29:31, endln:29:33
           |vpiParent:
-          \_assign_stmt: , line:29:12, endln:29:39
+          \_assignment: , line:29:12, endln:29:39
           |vpiTypespec:
           \_ref_typespec: (uvm::uvm_vreg::write::cb)
             |vpiParent:
@@ -1905,7 +1903,6 @@ design: (unnamed)
           \_hier_path: (cb.fname), line:31:10, endln:31:18
             |vpiParent:
             \_assignment: , line:31:10, endln:31:22
-            |vpiName:cb.fname
             |vpiActual:
             \_ref_obj: (cb), line:31:13, endln:31:18
               |vpiParent:
@@ -1918,6 +1915,7 @@ design: (unnamed)
               |vpiParent:
               \_hier_path: (cb.fname), line:31:10, endln:31:18
               |vpiName:fname
+            |vpiName:cb.fname
 \_begin: (uvm::uvm_vreg::write), line:27:4, endln:33:7
   |vpiParent:
   \_task: (uvm::uvm_vreg::write), line:25:1, endln:34:8

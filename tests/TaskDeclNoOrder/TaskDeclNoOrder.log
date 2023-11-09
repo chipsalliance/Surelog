@@ -228,7 +228,7 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 1.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-assign_stmt                                            5
+assignment                                             5
 begin                                                  1
 constant                                              26
 design                                                 1
@@ -245,7 +245,7 @@ task                                                   1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-assign_stmt                                            9
+assignment                                             9
 begin                                                  2
 constant                                              30
 design                                                 1
@@ -283,7 +283,7 @@ design: (work@dut)
     |vpiVariables:
     \_logic_var: (work@dut.set_pll_fast_run.band_vco1_val), line:4:24, endln:4:37
       |vpiParent:
-      \_assign_stmt: , line:4:24, endln:4:42
+      \_assignment: , line:4:24, endln:4:42
       |vpiTypespec:
       \_ref_typespec: (work@dut.set_pll_fast_run.band_vco1_val)
         |vpiParent:
@@ -296,7 +296,7 @@ design: (work@dut)
     |vpiVariables:
     \_logic_var: (work@dut.set_pll_fast_run.fine_vco1_val), line:5:24, endln:5:37
       |vpiParent:
-      \_assign_stmt: , line:5:24, endln:5:42
+      \_assignment: , line:5:24, endln:5:42
       |vpiTypespec:
       \_ref_typespec: (work@dut.set_pll_fast_run.fine_vco1_val)
         |vpiParent:
@@ -309,7 +309,7 @@ design: (work@dut)
     |vpiVariables:
     \_logic_var: (work@dut.set_pll_fast_run.band_vco2_val), line:6:24, endln:6:37
       |vpiParent:
-      \_assign_stmt: , line:6:24, endln:6:42
+      \_assignment: , line:6:24, endln:6:42
       |vpiTypespec:
       \_ref_typespec: (work@dut.set_pll_fast_run.band_vco2_val)
         |vpiParent:
@@ -322,7 +322,7 @@ design: (work@dut)
     |vpiVariables:
     \_logic_var: (work@dut.set_pll_fast_run.fine_vco2_val), line:7:24, endln:7:37
       |vpiParent:
-      \_assign_stmt: , line:7:24, endln:7:42
+      \_assignment: , line:7:24, endln:7:42
       |vpiTypespec:
       \_ref_typespec: (work@dut.set_pll_fast_run.fine_vco2_val)
         |vpiParent:
@@ -444,9 +444,11 @@ design: (work@dut)
       |vpiVariables:
       \_logic_var: (work@dut.set_pll_fast_run.pll_core_ready), line:8:11, endln:8:25
       |vpiStmt:
-      \_assign_stmt: , line:4:24, endln:4:42
+      \_assignment: , line:4:24, endln:4:42
         |vpiParent:
         \_begin: (work@dut.set_pll_fast_run), line:5:5, endln:5:43
+        |vpiOpType:82
+        |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:4:38, endln:4:42
           |vpiDecompile:'h1A
@@ -456,9 +458,11 @@ design: (work@dut)
         |vpiLhs:
         \_logic_var: (work@dut.set_pll_fast_run.band_vco1_val), line:4:24, endln:4:37
       |vpiStmt:
-      \_assign_stmt: , line:5:24, endln:5:42
+      \_assignment: , line:5:24, endln:5:42
         |vpiParent:
         \_begin: (work@dut.set_pll_fast_run), line:5:5, endln:5:43
+        |vpiOpType:82
+        |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:5:38, endln:5:42
           |vpiDecompile:'h04
@@ -468,9 +472,11 @@ design: (work@dut)
         |vpiLhs:
         \_logic_var: (work@dut.set_pll_fast_run.fine_vco1_val), line:5:24, endln:5:37
       |vpiStmt:
-      \_assign_stmt: , line:6:24, endln:6:42
+      \_assignment: , line:6:24, endln:6:42
         |vpiParent:
         \_begin: (work@dut.set_pll_fast_run), line:5:5, endln:5:43
+        |vpiOpType:82
+        |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:6:38, endln:6:42
           |vpiDecompile:'h04
@@ -480,9 +486,11 @@ design: (work@dut)
         |vpiLhs:
         \_logic_var: (work@dut.set_pll_fast_run.band_vco2_val), line:6:24, endln:6:37
       |vpiStmt:
-      \_assign_stmt: , line:7:24, endln:7:42
+      \_assignment: , line:7:24, endln:7:42
         |vpiParent:
         \_begin: (work@dut.set_pll_fast_run), line:5:5, endln:5:43
+        |vpiOpType:82
+        |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:7:38, endln:7:42
           |vpiDecompile:'h1C
@@ -723,13 +731,15 @@ design: (work@dut)
         |vpiName:pll_core_ready
         |vpiFullName:work@dut.set_pll_fast_run.pll_core_ready
       |vpiStmt:
-      \_assign_stmt: , line:4:24, endln:4:42
+      \_assignment: , line:4:24, endln:4:42
         |vpiParent:
         \_begin: (work@dut.set_pll_fast_run), line:5:5, endln:5:43
+        |vpiOpType:82
+        |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:4:38, endln:4:42
           |vpiParent:
-          \_assign_stmt: , line:4:24, endln:4:42
+          \_assignment: , line:4:24, endln:4:42
           |vpiDecompile:'h1A
           |vpiSize:-1
           |HEX:1A
@@ -737,7 +747,7 @@ design: (work@dut)
         |vpiLhs:
         \_logic_var: (work@dut.set_pll_fast_run.band_vco1_val), line:4:24, endln:4:37
           |vpiParent:
-          \_assign_stmt: , line:4:24, endln:4:42
+          \_assignment: , line:4:24, endln:4:42
           |vpiTypespec:
           \_ref_typespec: (work@dut.set_pll_fast_run.band_vco1_val)
             |vpiParent:
@@ -748,13 +758,15 @@ design: (work@dut)
           |vpiName:band_vco1_val
           |vpiFullName:work@dut.set_pll_fast_run.band_vco1_val
       |vpiStmt:
-      \_assign_stmt: , line:5:24, endln:5:42
+      \_assignment: , line:5:24, endln:5:42
         |vpiParent:
         \_begin: (work@dut.set_pll_fast_run), line:5:5, endln:5:43
+        |vpiOpType:82
+        |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:5:38, endln:5:42
           |vpiParent:
-          \_assign_stmt: , line:5:24, endln:5:42
+          \_assignment: , line:5:24, endln:5:42
           |vpiDecompile:'h04
           |vpiSize:-1
           |HEX:04
@@ -762,7 +774,7 @@ design: (work@dut)
         |vpiLhs:
         \_logic_var: (work@dut.set_pll_fast_run.fine_vco1_val), line:5:24, endln:5:37
           |vpiParent:
-          \_assign_stmt: , line:5:24, endln:5:42
+          \_assignment: , line:5:24, endln:5:42
           |vpiTypespec:
           \_ref_typespec: (work@dut.set_pll_fast_run.fine_vco1_val)
             |vpiParent:
@@ -773,13 +785,15 @@ design: (work@dut)
           |vpiName:fine_vco1_val
           |vpiFullName:work@dut.set_pll_fast_run.fine_vco1_val
       |vpiStmt:
-      \_assign_stmt: , line:6:24, endln:6:42
+      \_assignment: , line:6:24, endln:6:42
         |vpiParent:
         \_begin: (work@dut.set_pll_fast_run), line:5:5, endln:5:43
+        |vpiOpType:82
+        |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:6:38, endln:6:42
           |vpiParent:
-          \_assign_stmt: , line:6:24, endln:6:42
+          \_assignment: , line:6:24, endln:6:42
           |vpiDecompile:'h04
           |vpiSize:-1
           |HEX:04
@@ -787,7 +801,7 @@ design: (work@dut)
         |vpiLhs:
         \_logic_var: (work@dut.set_pll_fast_run.band_vco2_val), line:6:24, endln:6:37
           |vpiParent:
-          \_assign_stmt: , line:6:24, endln:6:42
+          \_assignment: , line:6:24, endln:6:42
           |vpiTypespec:
           \_ref_typespec: (work@dut.set_pll_fast_run.band_vco2_val)
             |vpiParent:
@@ -798,13 +812,15 @@ design: (work@dut)
           |vpiName:band_vco2_val
           |vpiFullName:work@dut.set_pll_fast_run.band_vco2_val
       |vpiStmt:
-      \_assign_stmt: , line:7:24, endln:7:42
+      \_assignment: , line:7:24, endln:7:42
         |vpiParent:
         \_begin: (work@dut.set_pll_fast_run), line:5:5, endln:5:43
+        |vpiOpType:82
+        |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:7:38, endln:7:42
           |vpiParent:
-          \_assign_stmt: , line:7:24, endln:7:42
+          \_assignment: , line:7:24, endln:7:42
           |vpiDecompile:'h1C
           |vpiSize:-1
           |HEX:1C
@@ -812,7 +828,7 @@ design: (work@dut)
         |vpiLhs:
         \_logic_var: (work@dut.set_pll_fast_run.fine_vco2_val), line:7:24, endln:7:37
           |vpiParent:
-          \_assign_stmt: , line:7:24, endln:7:42
+          \_assignment: , line:7:24, endln:7:42
           |vpiTypespec:
           \_ref_typespec: (work@dut.set_pll_fast_run.fine_vco2_val)
             |vpiParent:

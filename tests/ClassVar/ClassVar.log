@@ -138,7 +138,7 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_typespec                                         2
 array_var                                              2
-assign_stmt                                            3
+assignment                                             3
 begin                                                  2
 bit_select                                             2
 class_defn                                             2
@@ -165,7 +165,7 @@ unsupported_typespec                                   2
 === UHDM Object Stats Begin (Elaborated Model) ===
 array_typespec                                         2
 array_var                                              5
-assign_stmt                                            5
+assignment                                             5
 begin                                                  4
 bit_select                                             4
 class_defn                                             2
@@ -446,13 +446,15 @@ design: (unnamed)
               |vpiName:p_
               |vpiFullName:pack::uvm_mem_mam::check_reg::p_
             |vpiStmt:
-            \_assign_stmt: , line:17:25, endln:17:38
+            \_assignment: , line:17:25, endln:17:38
               |vpiParent:
               \_begin: (pack::uvm_mem_mam::check_reg), line:16:21, endln:22:6
+              |vpiOpType:82
+              |vpiBlocking:1
               |vpiRhs:
               \_bit_select: (pack::uvm_mem_mam::check_reg::paths), line:17:36, endln:17:37
                 |vpiParent:
-                \_assign_stmt: , line:17:25, endln:17:38
+                \_assignment: , line:17:25, endln:17:38
                 |vpiName:paths
                 |vpiFullName:pack::uvm_mem_mam::check_reg::paths
                 |vpiActual:
@@ -468,7 +470,7 @@ design: (unnamed)
               |vpiLhs:
               \_class_var: (pack::uvm_mem_mam::check_reg::path), line:17:25, endln:17:29
                 |vpiParent:
-                \_assign_stmt: , line:17:25, endln:17:38
+                \_assignment: , line:17:25, endln:17:38
                 |vpiTypespec:
                 \_ref_typespec: (pack::uvm_mem_mam::check_reg::path)
                   |vpiParent:
@@ -479,14 +481,15 @@ design: (unnamed)
                 |vpiName:path
                 |vpiFullName:pack::uvm_mem_mam::check_reg::path
             |vpiStmt:
-            \_assign_stmt: , line:18:12, endln:18:37
+            \_assignment: , line:18:12, endln:18:37
               |vpiParent:
               \_begin: (pack::uvm_mem_mam::check_reg), line:16:21, endln:22:6
+              |vpiOpType:82
+              |vpiBlocking:1
               |vpiRhs:
               \_hier_path: (path.slices[0].spath), line:18:17, endln:18:37
                 |vpiParent:
-                \_assign_stmt: , line:18:12, endln:18:37
-                |vpiName:path.slices[0].spath
+                \_assignment: , line:18:12, endln:18:37
                 |vpiActual:
                 \_ref_obj: (path), line:18:17, endln:18:21
                   |vpiParent:
@@ -516,10 +519,11 @@ design: (unnamed)
                   |vpiFullName:pack::uvm_mem_mam::check_reg::spath
                   |vpiActual:
                   \_typespec_member: (spath), line:4:11, endln:4:16
+                |vpiName:path.slices[0].spath
               |vpiLhs:
               \_string_var: (pack::uvm_mem_mam::check_reg::p_), line:18:12, endln:18:14
                 |vpiParent:
-                \_assign_stmt: , line:18:12, endln:18:37
+                \_assignment: , line:18:12, endln:18:37
                 |vpiTypespec:
                 \_ref_typespec: (pack::uvm_mem_mam::check_reg::p_)
                   |vpiParent:
@@ -615,7 +619,7 @@ design: (unnamed)
       |vpiVariables:
       \_class_var: (pack::uvm_mem_mam::check_reg::path), line:17:25, endln:17:29
         |vpiParent:
-        \_assign_stmt: , line:17:25, endln:17:38
+        \_assignment: , line:17:25, endln:17:38
         |vpiTypespec:
         \_ref_typespec: (pack::uvm_mem_mam::check_reg::path)
           |vpiParent:
@@ -628,7 +632,7 @@ design: (unnamed)
       |vpiVariables:
       \_string_var: (pack::uvm_mem_mam::check_reg::p_), line:18:12, endln:18:14
         |vpiParent:
-        \_assign_stmt: , line:18:12, endln:18:37
+        \_assignment: , line:18:12, endln:18:37
         |vpiTypespec:
         \_ref_typespec: (pack::uvm_mem_mam::check_reg::p_)
           |vpiParent:
@@ -639,13 +643,15 @@ design: (unnamed)
         |vpiName:p_
         |vpiFullName:pack::uvm_mem_mam::check_reg::p_
       |vpiStmt:
-      \_assign_stmt: , line:17:25, endln:17:38
+      \_assignment: , line:17:25, endln:17:38
         |vpiParent:
         \_begin: (pack::uvm_mem_mam::check_reg), line:16:21, endln:22:6
+        |vpiOpType:82
+        |vpiBlocking:1
         |vpiRhs:
         \_bit_select: (pack::uvm_mem_mam::check_reg::paths), line:17:36, endln:17:37
           |vpiParent:
-          \_assign_stmt: , line:17:25, endln:17:38
+          \_assignment: , line:17:25, endln:17:38
           |vpiName:paths
           |vpiFullName:pack::uvm_mem_mam::check_reg::paths
           |vpiIndex:
@@ -657,14 +663,15 @@ design: (unnamed)
         |vpiLhs:
         \_class_var: (pack::uvm_mem_mam::check_reg::path), line:17:25, endln:17:29
       |vpiStmt:
-      \_assign_stmt: , line:18:12, endln:18:37
+      \_assignment: , line:18:12, endln:18:37
         |vpiParent:
         \_begin: (pack::uvm_mem_mam::check_reg), line:16:21, endln:22:6
+        |vpiOpType:82
+        |vpiBlocking:1
         |vpiRhs:
         \_hier_path: (path.slices[0].spath), line:18:17, endln:18:37
           |vpiParent:
-          \_assign_stmt: , line:18:12, endln:18:37
-          |vpiName:path.slices[0].spath
+          \_assignment: , line:18:12, endln:18:37
           |vpiActual:
           \_ref_obj: (path), line:18:17, endln:18:21
             |vpiParent:
@@ -684,6 +691,7 @@ design: (unnamed)
             \_hier_path: (path.slices[0].spath), line:18:17, endln:18:37
             |vpiName:spath
             |vpiFullName:pack::uvm_mem_mam::check_reg::spath
+          |vpiName:path.slices[0].spath
         |vpiLhs:
         \_string_var: (pack::uvm_mem_mam::check_reg::p_), line:18:12, endln:18:14
 \_function: (pack::uvm_mem_mam::check_reg), line:13:1, endln:13:10

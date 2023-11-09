@@ -641,7 +641,7 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 0.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-assign_stmt                                            1
+assignment                                             1
 bit_select                                             7
 constant                                             269
 cont_assign                                            3
@@ -682,7 +682,7 @@ unsupported_typespec                                   8
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-assign_stmt                                            1
+assignment                                             1
 bit_select                                            12
 constant                                             270
 cont_assign                                            4
@@ -1172,7 +1172,6 @@ design: (work@top)
           \_hier_path: (FP_ENCODINGS[fmt].exp_bits), line:38:12, endln:38:38
             |vpiParent:
             \_operation: , line:38:12, endln:38:67
-            |vpiName:FP_ENCODINGS[fmt].exp_bits
             |vpiActual:
             \_bit_select: (FP_ENCODINGS[fmt]), line:38:12, endln:38:24
               |vpiParent:
@@ -1197,11 +1196,11 @@ design: (work@top)
               |vpiFullName:fpnew_pkg::fp_width::exp_bits
               |vpiActual:
               \_typespec_member: (exp_bits), line:7:18, endln:7:26
+            |vpiName:FP_ENCODINGS[fmt].exp_bits
           |vpiOperand:
           \_hier_path: (FP_ENCODINGS[fmt].man_bits), line:38:41, endln:38:67
             |vpiParent:
             \_operation: , line:38:12, endln:38:67
-            |vpiName:FP_ENCODINGS[fmt].man_bits
             |vpiActual:
             \_bit_select: (FP_ENCODINGS[fmt]), line:38:41, endln:38:53
               |vpiParent:
@@ -1226,6 +1225,7 @@ design: (work@top)
               |vpiFullName:fpnew_pkg::fp_width::man_bits
               |vpiActual:
               \_typespec_member: (man_bits), line:8:18, endln:8:26
+            |vpiName:FP_ENCODINGS[fmt].man_bits
         |vpiOperand:
         \_constant: , line:38:70, endln:38:71
           |vpiParent:
@@ -1683,7 +1683,6 @@ design: (work@top)
           \_hier_path: (FP_ENCODINGS[fmt].exp_bits), line:38:12, endln:38:38
             |vpiParent:
             \_operation: , line:38:12, endln:38:67
-            |vpiName:FP_ENCODINGS[fmt].exp_bits
             |vpiActual:
             \_bit_select: (FP_ENCODINGS[fmt]), line:38:12, endln:38:24
               |vpiParent:
@@ -1708,11 +1707,11 @@ design: (work@top)
               |vpiFullName:fpnew_pkg::fp_width::exp_bits
               |vpiActual:
               \_typespec_member: (exp_bits), line:7:18, endln:7:26
+            |vpiName:FP_ENCODINGS[fmt].exp_bits
           |vpiOperand:
           \_hier_path: (FP_ENCODINGS[fmt].man_bits), line:38:41, endln:38:67
             |vpiParent:
             \_operation: , line:38:12, endln:38:67
-            |vpiName:FP_ENCODINGS[fmt].man_bits
             |vpiActual:
             \_bit_select: (FP_ENCODINGS[fmt]), line:38:41, endln:38:53
               |vpiParent:
@@ -1737,6 +1736,7 @@ design: (work@top)
               |vpiFullName:fpnew_pkg::fp_width::man_bits
               |vpiActual:
               \_typespec_member: (man_bits), line:8:18, endln:8:26
+            |vpiName:FP_ENCODINGS[fmt].man_bits
         |vpiOperand:
         \_constant: , line:38:70, endln:38:71
           |vpiParent:
@@ -1921,7 +1921,6 @@ design: (work@top)
     \_hier_path: (Features.Width), line:46:22, endln:46:36
       |vpiParent:
       \_param_assign: , line:46:14, endln:46:36
-      |vpiName:Features.Width
       |vpiActual:
       \_ref_obj: (Features), line:46:31, endln:46:36
         |vpiParent:
@@ -1932,6 +1931,7 @@ design: (work@top)
         |vpiParent:
         \_hier_path: (Features.Width), line:46:22, endln:46:36
         |vpiName:Width
+      |vpiName:Features.Width
     |vpiLhs:
     \_parameter: (work@top.WIDTH), line:46:14, endln:46:19
   |vpiDefName:work@top
@@ -1947,7 +1947,7 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverload3/dut.sv, line:43:1, endln:64:10
     |vpiForInitStmt:
-    \_assign_stmt: , line:49:8, endln:49:22
+    \_assignment: , line:49:8, endln:49:22
       |vpiParent:
       \_gen_for: 
       |vpiRhs:
@@ -1959,7 +1959,7 @@ design: (work@top)
       |vpiLhs:
       \_int_var: (work@top.fmt), line:49:15, endln:49:18
         |vpiParent:
-        \_assign_stmt: , line:49:8, endln:49:22
+        \_assignment: , line:49:8, endln:49:22
         |vpiTypespec:
         \_ref_typespec: (work@top.fmt)
           |vpiParent:
@@ -2075,7 +2075,6 @@ design: (work@top)
           \_hier_path: (Features.EnableNanBox), line:52:9, endln:52:30
             |vpiParent:
             \_operation: , line:52:9, endln:52:52
-            |vpiName:Features.EnableNanBox
             |vpiActual:
             \_ref_obj: (Features), line:52:18, endln:52:30
               |vpiParent:
@@ -2086,6 +2085,7 @@ design: (work@top)
               |vpiParent:
               \_hier_path: (Features.EnableNanBox), line:52:9, endln:52:30
               |vpiName:EnableNanBox
+            |vpiName:Features.EnableNanBox
           |vpiOperand:
           \_operation: , line:52:35, endln:52:51
             |vpiParent:
@@ -2752,7 +2752,6 @@ design: (work@top)
         \_hier_path: (FP_ENCODINGS[fmt].exp_bits), line:38:12, endln:38:38
           |vpiParent:
           \_operation: , line:38:12, endln:38:67
-          |vpiName:FP_ENCODINGS[fmt].exp_bits
           |vpiActual:
           \_bit_select: (FP_ENCODINGS[fmt]), line:38:12, endln:38:24
             |vpiParent:
@@ -2775,11 +2774,11 @@ design: (work@top)
             \_hier_path: (FP_ENCODINGS[fmt].exp_bits), line:38:12, endln:38:38
             |vpiName:exp_bits
             |vpiFullName:fpnew_pkg::fp_width::exp_bits
+          |vpiName:FP_ENCODINGS[fmt].exp_bits
         |vpiOperand:
         \_hier_path: (FP_ENCODINGS[fmt].man_bits), line:38:41, endln:38:67
           |vpiParent:
           \_operation: , line:38:12, endln:38:67
-          |vpiName:FP_ENCODINGS[fmt].man_bits
           |vpiActual:
           \_bit_select: (FP_ENCODINGS[fmt]), line:38:41, endln:38:53
             |vpiParent:
@@ -2802,6 +2801,7 @@ design: (work@top)
             \_hier_path: (FP_ENCODINGS[fmt].man_bits), line:38:41, endln:38:67
             |vpiName:man_bits
             |vpiFullName:fpnew_pkg::fp_width::man_bits
+          |vpiName:FP_ENCODINGS[fmt].man_bits
       |vpiOperand:
       \_constant: , line:38:70, endln:38:71
   |vpiInstance:
@@ -2950,7 +2950,6 @@ design: (work@top)
         \_hier_path: (FP_ENCODINGS[fmt].exp_bits), line:38:12, endln:38:38
           |vpiParent:
           \_operation: , line:38:12, endln:38:67
-          |vpiName:FP_ENCODINGS[fmt].exp_bits
           |vpiActual:
           \_bit_select: (FP_ENCODINGS[fmt]), line:38:12, endln:38:24
             |vpiParent:
@@ -2973,11 +2972,11 @@ design: (work@top)
             \_hier_path: (FP_ENCODINGS[fmt].exp_bits), line:38:12, endln:38:38
             |vpiName:exp_bits
             |vpiFullName:fpnew_pkg::fp_width::exp_bits
+          |vpiName:FP_ENCODINGS[fmt].exp_bits
         |vpiOperand:
         \_hier_path: (FP_ENCODINGS[fmt].man_bits), line:38:41, endln:38:67
           |vpiParent:
           \_operation: , line:38:12, endln:38:67
-          |vpiName:FP_ENCODINGS[fmt].man_bits
           |vpiActual:
           \_bit_select: (FP_ENCODINGS[fmt]), line:38:41, endln:38:53
             |vpiParent:
@@ -3000,6 +2999,7 @@ design: (work@top)
             \_hier_path: (FP_ENCODINGS[fmt].man_bits), line:38:41, endln:38:67
             |vpiName:man_bits
             |vpiFullName:fpnew_pkg::fp_width::man_bits
+          |vpiName:FP_ENCODINGS[fmt].man_bits
       |vpiOperand:
       \_constant: , line:38:70, endln:38:71
   |vpiInstance:

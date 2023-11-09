@@ -588,8 +588,7 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 always                                                 1
-assign_stmt                                            1
-assignment                                            10
+assignment                                            11
 begin                                                  2
 bit_select                                             2
 bit_typespec                                           1
@@ -626,8 +625,7 @@ task                                                   9
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
 always                                                 2
-assign_stmt                                            2
-assignment                                            20
+assignment                                            22
 begin                                                  4
 bit_select                                             4
 bit_typespec                                           1
@@ -1222,7 +1220,6 @@ design: (work@dut)
             \_hier_path: (cover_info.size), line:6:22, endln:6:39
               |vpiParent:
               \_operation: , line:6:22, endln:6:43
-              |vpiName:cover_info.size
               |vpiActual:
               \_ref_obj: (cover_info), line:6:22, endln:6:32
                 |vpiParent:
@@ -1235,6 +1232,7 @@ design: (work@dut)
                 |vpiParent:
                 \_hier_path: (cover_info.size), line:6:22, endln:6:39
                 |vpiName:size
+              |vpiName:cover_info.size
             |vpiOperand:
             \_constant: , line:6:42, endln:6:43
               |vpiParent:
@@ -1357,13 +1355,13 @@ design: (work@dut)
         \_begin: (work@dut.uvm_packer::get_packed_bits), line:7:5, endln:7:38
         |vpiFullName:work@dut.uvm_packer::get_packed_bits
         |vpiForInitStmt:
-        \_assign_stmt: , line:10:10, endln:10:17
+        \_assignment: , line:10:10, endln:10:17
           |vpiParent:
           \_for_stmt: (work@dut.uvm_packer::get_packed_bits), line:10:5, endln:10:8
           |vpiRhs:
           \_constant: , line:10:16, endln:10:17
             |vpiParent:
-            \_assign_stmt: , line:10:10, endln:10:17
+            \_assignment: , line:10:10, endln:10:17
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
@@ -1371,7 +1369,7 @@ design: (work@dut)
           |vpiLhs:
           \_int_var: (work@dut.uvm_packer::get_packed_bits.i), line:10:14, endln:10:15
             |vpiParent:
-            \_assign_stmt: , line:10:10, endln:10:17
+            \_assignment: , line:10:10, endln:10:17
             |vpiTypespec:
             \_ref_typespec: (work@dut.uvm_packer::get_packed_bits.i)
               |vpiParent:
@@ -1783,7 +1781,6 @@ design: (work@dut)
             \_hier_path: (cover_info.size), line:6:22, endln:6:39
               |vpiParent:
               \_operation: , line:6:22, endln:6:43
-              |vpiName:cover_info.size
               |vpiActual:
               \_ref_obj: (cover_info), line:6:22, endln:6:32
                 |vpiParent:
@@ -1796,6 +1793,7 @@ design: (work@dut)
                 |vpiParent:
                 \_hier_path: (cover_info.size), line:6:22, endln:6:39
                 |vpiName:size
+              |vpiName:cover_info.size
             |vpiOperand:
             \_constant: , line:6:42, endln:6:43
           |vpiArgument:
@@ -1900,7 +1898,7 @@ design: (work@dut)
         \_begin: (work@dut.uvm_packer::get_packed_bits), line:7:5, endln:7:38
         |vpiFullName:work@dut.uvm_packer::get_packed_bits
         |vpiForInitStmt:
-        \_assign_stmt: , line:10:10, endln:10:17
+        \_assignment: , line:10:10, endln:10:17
           |vpiParent:
           \_for_stmt: (work@dut.uvm_packer::get_packed_bits), line:10:5, endln:10:8
           |vpiRhs:
@@ -1908,7 +1906,7 @@ design: (work@dut)
           |vpiLhs:
           \_int_var: (work@dut.uvm_packer::get_packed_bits.i), line:10:14, endln:10:15
             |vpiParent:
-            \_assign_stmt: , line:10:10, endln:10:17
+            \_assignment: , line:10:10, endln:10:17
             |vpiTypespec:
             \_ref_typespec: (work@dut.uvm_packer::get_packed_bits.i)
               |vpiParent:

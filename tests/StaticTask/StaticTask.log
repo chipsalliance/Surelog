@@ -94,8 +94,7 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 1.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-assign_stmt                                            1
-assignment                                             1
+assignment                                             2
 begin                                                  1
 constant                                               3
 design                                                 1
@@ -112,8 +111,7 @@ task_call                                              1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-assign_stmt                                            2
-assignment                                             2
+assignment                                             4
 begin                                                  2
 constant                                               3
 design                                                 1
@@ -151,7 +149,7 @@ design: (work@tb)
     |vpiVariables:
     \_integer_var: (work@tb.display.i), line:6:10, endln:6:11
       |vpiParent:
-      \_assign_stmt: , line:6:10, endln:6:15
+      \_assignment: , line:6:10, endln:6:15
       |vpiTypespec:
       \_ref_typespec: (work@tb.display.i)
         |vpiParent:
@@ -171,9 +169,11 @@ design: (work@tb)
       |vpiVariables:
       \_integer_var: (work@tb.display.i), line:6:10, endln:6:11
       |vpiStmt:
-      \_assign_stmt: , line:6:10, endln:6:15
+      \_assignment: , line:6:10, endln:6:15
         |vpiParent:
         \_begin: (work@tb.display), line:7:2, endln:7:12
+        |vpiOpType:82
+        |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:6:14, endln:6:15
           |vpiDecompile:0
@@ -297,15 +297,17 @@ design: (work@tb)
         |vpiFullName:work@tb.display.i
         |vpiSigned:1
       |vpiStmt:
-      \_assign_stmt: , line:6:10, endln:6:15
+      \_assignment: , line:6:10, endln:6:15
         |vpiParent:
         \_begin: (work@tb.display), line:7:2, endln:7:12
+        |vpiOpType:82
+        |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:6:14, endln:6:15
         |vpiLhs:
         \_integer_var: (work@tb.display.i), line:6:10, endln:6:11
           |vpiParent:
-          \_assign_stmt: , line:6:10, endln:6:15
+          \_assignment: , line:6:10, endln:6:15
           |vpiTypespec:
           \_ref_typespec: (work@tb.display.i)
             |vpiParent:

@@ -308,7 +308,7 @@ UHDM::VectorOfgen_stmt* CompileHelper::compileGenStmt(
 
     NodeId Var = fC->Child(varInit);
     NodeId Expression = fC->Sibling(Var);
-    assign_stmt* assign_stmt = s.MakeAssign_stmt();
+    assignment* assign_stmt = s.MakeAssignment();
     assign_stmt->VpiParent(genfor);
     fC->populateCoreMembers(varInit, varInit, assign_stmt);
     if (variables* varb = (variables*)compileVariable(

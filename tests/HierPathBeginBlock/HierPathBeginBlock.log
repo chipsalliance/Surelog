@@ -297,8 +297,7 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 0.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-assign_stmt                                            4
-assignment                                             4
+assignment                                             8
 begin                                                  2
 constant                                              34
 cont_assign                                           10
@@ -320,8 +319,7 @@ ref_typespec                                          18
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-assign_stmt                                            4
-assignment                                             8
+assignment                                            12
 begin                                                  3
 constant                                              34
 cont_assign                                           14
@@ -525,7 +523,6 @@ design: (work@matching_end_labels_top)
         \_hier_path: (blk1.x), line:10:16, endln:10:22
           |vpiParent:
           \_assignment: , line:10:9, endln:10:22
-          |vpiName:blk1.x
           |vpiActual:
           \_ref_obj: (blk1), line:10:16, endln:10:20
             |vpiParent:
@@ -539,6 +536,7 @@ design: (work@matching_end_labels_top)
             \_hier_path: (blk1.x), line:10:16, endln:10:22
             |vpiName:x
             |vpiFullName:work@matching_end_labels_top.x
+          |vpiName:blk1.x
         |vpiLhs:
         \_ref_obj: (work@matching_end_labels_top.out1), line:10:9, endln:10:13
           |vpiParent:
@@ -597,7 +595,6 @@ design: (work@matching_end_labels_top)
         \_hier_path: (blk2.x), line:16:16, endln:16:22
           |vpiParent:
           \_assignment: , line:16:9, endln:16:22
-          |vpiName:blk2.x
           |vpiActual:
           \_ref_obj: (blk2), line:16:16, endln:16:20
             |vpiParent:
@@ -611,6 +608,7 @@ design: (work@matching_end_labels_top)
             \_hier_path: (blk2.x), line:16:16, endln:16:22
             |vpiName:x
             |vpiFullName:work@matching_end_labels_top.x
+          |vpiName:blk2.x
         |vpiLhs:
         \_ref_obj: (work@matching_end_labels_top.out2), line:16:9, endln:16:13
           |vpiParent:
@@ -655,13 +653,15 @@ design: (work@matching_end_labels_top)
           |vpiName:blk3
           |vpiFullName:work@matching_end_labels_top.blk3
           |vpiStmt:
-          \_assign_stmt: , line:22:17, endln:22:18
+          \_assignment: , line:22:17, endln:22:18
             |vpiParent:
             \_named_begin: (work@matching_end_labels_top.blk3)
+            |vpiOpType:82
+            |vpiBlocking:1
             |vpiLhs:
             \_logic_var: (work@matching_end_labels_top.blk3.x), line:22:17, endln:22:18
               |vpiParent:
-              \_assign_stmt: , line:22:17, endln:22:18
+              \_assignment: , line:22:17, endln:22:18
               |vpiTypespec:
               \_ref_typespec: (work@matching_end_labels_top.blk3.x)
                 |vpiParent:
@@ -697,7 +697,6 @@ design: (work@matching_end_labels_top)
         \_hier_path: (blk3.x), line:25:23, endln:25:29
           |vpiParent:
           \_cont_assign: , line:25:16, endln:25:29
-          |vpiName:blk3.x
           |vpiActual:
           \_ref_obj: (blk3), line:25:23, endln:25:27
             |vpiParent:
@@ -711,6 +710,7 @@ design: (work@matching_end_labels_top)
             \_hier_path: (blk3.x), line:25:23, endln:25:29
             |vpiName:x
             |vpiFullName:work@matching_end_labels_top.x
+          |vpiName:blk3.x
         |vpiLhs:
         \_ref_obj: (work@matching_end_labels_top.out3), line:25:16, endln:25:20
           |vpiParent:
@@ -736,13 +736,15 @@ design: (work@matching_end_labels_top)
           |vpiName:blk4
           |vpiFullName:work@matching_end_labels_top.blk4
           |vpiStmt:
-          \_assign_stmt: , line:27:17, endln:27:18
+          \_assignment: , line:27:17, endln:27:18
             |vpiParent:
             \_named_begin: (work@matching_end_labels_top.blk4)
+            |vpiOpType:82
+            |vpiBlocking:1
             |vpiLhs:
             \_logic_var: (work@matching_end_labels_top.blk4.x), line:27:17, endln:27:18
               |vpiParent:
-              \_assign_stmt: , line:27:17, endln:27:18
+              \_assignment: , line:27:17, endln:27:18
               |vpiTypespec:
               \_ref_typespec: (work@matching_end_labels_top.blk4.x)
                 |vpiParent:
@@ -778,7 +780,6 @@ design: (work@matching_end_labels_top)
         \_hier_path: (blk4.x), line:30:23, endln:30:29
           |vpiParent:
           \_cont_assign: , line:30:16, endln:30:29
-          |vpiName:blk4.x
           |vpiActual:
           \_ref_obj: (blk4), line:30:23, endln:30:27
             |vpiParent:
@@ -792,6 +793,7 @@ design: (work@matching_end_labels_top)
             \_hier_path: (blk4.x), line:30:23, endln:30:29
             |vpiName:x
             |vpiFullName:work@matching_end_labels_top.x
+          |vpiName:blk4.x
         |vpiLhs:
         \_ref_obj: (work@matching_end_labels_top.out4), line:30:16, endln:30:20
           |vpiParent:
@@ -1006,7 +1008,6 @@ design: (work@matching_end_labels_top)
         \_hier_path: (blk1.x), line:10:16, endln:10:22
           |vpiParent:
           \_assignment: , line:10:9, endln:10:22
-          |vpiName:blk1.x
           |vpiActual:
           \_ref_obj: (blk1), line:10:16, endln:10:20
             |vpiParent:
@@ -1022,6 +1023,7 @@ design: (work@matching_end_labels_top)
             |vpiFullName:work@matching_end_labels_top.x
             |vpiActual:
             \_logic_var: (work@matching_end_labels_top.blk1.x), line:7:17, endln:7:18
+          |vpiName:blk1.x
         |vpiLhs:
         \_ref_obj: (work@matching_end_labels_top.out1), line:10:9, endln:10:13
           |vpiParent:
@@ -1076,7 +1078,6 @@ design: (work@matching_end_labels_top)
         \_hier_path: (blk2.x), line:16:16, endln:16:22
           |vpiParent:
           \_assignment: , line:16:9, endln:16:22
-          |vpiName:blk2.x
           |vpiActual:
           \_ref_obj: (blk2), line:16:16, endln:16:20
             |vpiParent:
@@ -1092,6 +1093,7 @@ design: (work@matching_end_labels_top)
             |vpiFullName:work@matching_end_labels_top.x
             |vpiActual:
             \_logic_var: (work@matching_end_labels_top.blk2.x), line:13:17, endln:13:18
+          |vpiName:blk2.x
         |vpiLhs:
         \_ref_obj: (work@matching_end_labels_top.out2), line:16:9, endln:16:13
           |vpiParent:
@@ -1119,7 +1121,6 @@ design: (work@matching_end_labels_top)
         \_hier_path: (blk3.x), line:25:23, endln:25:29
           |vpiParent:
           \_cont_assign: , line:25:16, endln:25:29
-          |vpiName:blk3.x
           |vpiActual:
           \_ref_obj: (blk3), line:25:23, endln:25:27
             |vpiParent:
@@ -1135,6 +1136,7 @@ design: (work@matching_end_labels_top)
             |vpiFullName:work@matching_end_labels_top.genblk2.x
             |vpiActual:
             \_logic_net: (work@matching_end_labels_top.genblk2.blk3.x), line:22:17, endln:22:18
+          |vpiName:blk3.x
         |vpiLhs:
         \_ref_obj: (work@matching_end_labels_top.genblk2.out3), line:25:16, endln:25:20
           |vpiParent:
@@ -1151,7 +1153,6 @@ design: (work@matching_end_labels_top)
         \_hier_path: (blk4.x), line:30:23, endln:30:29
           |vpiParent:
           \_cont_assign: , line:30:16, endln:30:29
-          |vpiName:blk4.x
           |vpiActual:
           \_ref_obj: (blk4), line:30:23, endln:30:27
             |vpiParent:
@@ -1167,6 +1168,7 @@ design: (work@matching_end_labels_top)
             |vpiFullName:work@matching_end_labels_top.genblk2.x
             |vpiActual:
             \_logic_net: (work@matching_end_labels_top.genblk2.blk4.x), line:27:17, endln:27:18
+          |vpiName:blk4.x
         |vpiLhs:
         \_ref_obj: (work@matching_end_labels_top.genblk2.out4), line:30:16, endln:30:20
           |vpiParent:
@@ -1441,7 +1443,6 @@ design: (work@matching_end_labels_top)
     \_hier_path: (blk3.x), line:25:23, endln:25:29
       |vpiParent:
       \_cont_assign: , line:25:16, endln:25:29
-      |vpiName:blk3.x
       |vpiActual:
       \_ref_obj: (blk3), line:25:23, endln:25:27
         |vpiParent:
@@ -1453,6 +1454,7 @@ design: (work@matching_end_labels_top)
         \_hier_path: (blk3.x), line:25:23, endln:25:29
         |vpiName:x
         |vpiFullName:work@matching_end_labels_top.genblk2.x
+      |vpiName:blk3.x
     |vpiLhs:
     \_ref_obj: (work@matching_end_labels_top.genblk2.out3), line:25:16, endln:25:20
       |vpiParent:
@@ -1469,7 +1471,6 @@ design: (work@matching_end_labels_top)
     \_hier_path: (blk4.x), line:30:23, endln:30:29
       |vpiParent:
       \_cont_assign: , line:30:16, endln:30:29
-      |vpiName:blk4.x
       |vpiActual:
       \_ref_obj: (blk4), line:30:23, endln:30:27
         |vpiParent:
@@ -1481,6 +1482,7 @@ design: (work@matching_end_labels_top)
         \_hier_path: (blk4.x), line:30:23, endln:30:29
         |vpiName:x
         |vpiFullName:work@matching_end_labels_top.genblk2.x
+      |vpiName:blk4.x
     |vpiLhs:
     \_ref_obj: (work@matching_end_labels_top.genblk2.out4), line:30:16, endln:30:20
       |vpiParent:
@@ -1531,7 +1533,3 @@ design: (work@matching_end_labels_top)
 [  ERROR] : 0
 [WARNING] : 1
 [   NOTE] : 5
-
-============================== Begin RoundTrip Results ==============================
-[roundtrip]: ${SURELOG_DIR}/tests/HierPathBeginBlock/dut.sv | ${SURELOG_DIR}/build/regression/HierPathBeginBlock/roundtrip/dut_000.sv | 17 | 33 |
-============================== End RoundTrip Results ==============================

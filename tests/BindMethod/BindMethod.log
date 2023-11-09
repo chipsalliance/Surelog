@@ -107,8 +107,7 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 0.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-assign_stmt                                            2
-assignment                                             2
+assignment                                             4
 begin                                                  2
 class_defn                                             4
 class_typespec                                         5
@@ -127,8 +126,7 @@ task                                                   3
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-assign_stmt                                            2
-assignment                                             4
+assignment                                             6
 begin                                                  4
 class_defn                                             4
 class_typespec                                         5
@@ -208,7 +206,6 @@ design: (unnamed)
         \_hier_path: (cbs.first), line:20:15, endln:20:26
           |vpiParent:
           \_assignment: , line:20:3, endln:20:26
-          |vpiName:cbs.first
           |vpiActual:
           \_ref_obj: (cbs), line:20:15, endln:20:18
             |vpiParent:
@@ -223,11 +220,11 @@ design: (unnamed)
             |vpiName:first
             |vpiFunction:
             \_function: (uvm::uvm_vreg_field_cb_iter::first), line:5:1, endln:5:7
+          |vpiName:cbs.first
         |vpiLhs:
         \_hier_path: (cbs.fname), line:20:3, endln:20:12
           |vpiParent:
           \_assignment: , line:20:3, endln:20:26
-          |vpiName:cbs.fname
           |vpiActual:
           \_ref_obj: (cbs), line:20:7, endln:20:12
             |vpiParent:
@@ -242,6 +239,7 @@ design: (unnamed)
             |vpiName:fname
             |vpiActual:
             \_int_var: (uvm::uvm_vreg_field_cbs::fname), line:10:7, endln:10:12
+          |vpiName:cbs.fname
     |vpiInstance:
     \_package: uvm (uvm::), file:${SURELOG_DIR}/tests/BindMethod/dut.sv, line:1:1, endln:23:11
 |uhdmtopPackages:
@@ -315,7 +313,6 @@ design: (unnamed)
           \_hier_path: (cbs.first), line:20:15, endln:20:26
             |vpiParent:
             \_assignment: , line:20:3, endln:20:26
-            |vpiName:cbs.first
             |vpiActual:
             \_ref_obj: (cbs), line:20:15, endln:20:18
               |vpiParent:
@@ -330,11 +327,11 @@ design: (unnamed)
               |vpiName:first
               |vpiFunction:
               \_function: (uvm::uvm_vreg_field_cb_iter::first), line:5:1, endln:5:7
+            |vpiName:cbs.first
           |vpiLhs:
           \_hier_path: (cbs.fname), line:20:3, endln:20:12
             |vpiParent:
             \_assignment: , line:20:3, endln:20:26
-            |vpiName:cbs.fname
             |vpiActual:
             \_ref_obj: (cbs), line:20:7, endln:20:12
               |vpiParent:
@@ -349,6 +346,7 @@ design: (unnamed)
               |vpiName:fname
               |vpiActual:
               \_int_var: (uvm::uvm_vreg_field_cbs::fname), line:10:7, endln:10:12
+            |vpiName:cbs.fname
       |vpiInstance:
       \_package: uvm (uvm::), file:${SURELOG_DIR}/tests/BindMethod/dut.sv, line:1:1, endln:23:11
   |vpiClassDefn:
@@ -446,7 +444,6 @@ design: (unnamed)
     \_hier_path: (cbs.first), line:20:15, endln:20:26
       |vpiParent:
       \_assignment: , line:20:3, endln:20:26
-      |vpiName:cbs.first
       |vpiActual:
       \_ref_obj: (cbs), line:20:15, endln:20:18
         |vpiParent:
@@ -459,11 +456,11 @@ design: (unnamed)
         |vpiParent:
         \_hier_path: (cbs.first), line:20:15, endln:20:26
         |vpiName:first
+      |vpiName:cbs.first
     |vpiLhs:
     \_hier_path: (cbs.fname), line:20:3, endln:20:12
       |vpiParent:
       \_assignment: , line:20:3, endln:20:26
-      |vpiName:cbs.fname
       |vpiActual:
       \_ref_obj: (cbs), line:20:7, endln:20:12
         |vpiParent:
@@ -476,6 +473,7 @@ design: (unnamed)
         |vpiParent:
         \_hier_path: (cbs.fname), line:20:3, endln:20:12
         |vpiName:fname
+      |vpiName:cbs.fname
 \_task: (uvm::uvm_vreg::write), line:18:1, endln:21:8
   |vpiParent:
   \_package: uvm (uvm::), file:${SURELOG_DIR}/tests/BindMethod/dut.sv, line:1:1, endln:23:11

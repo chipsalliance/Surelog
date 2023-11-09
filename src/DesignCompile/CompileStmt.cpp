@@ -336,11 +336,11 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
                             stmt, instance, muteErrors)) {
           for (any* cstmt : *cstmts) {
             bool isDecl = false;
-            if (cstmt->UhdmType() == uhdmassign_stmt) {
-              assign_stmt* assign = (assign_stmt*)cstmt;
+            if (cstmt->UhdmType() == uhdmassignment) {
+              assignment* assign = (assignment*)cstmt;
               if (assign->Rhs() == nullptr) {
                 isDecl = true;
-                ((variables*)assign->Lhs())->VpiParent(stmt);
+                if (assign->Lhs()) ((variables*)assign->Lhs())->VpiParent(stmt);
               }
             } else if (cstmt->UhdmType() == uhdmsequence_decl) {
               VectorOfsequence_decl* decls = scope->Sequence_decls();
@@ -418,8 +418,8 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
                             stmt, instance, muteErrors)) {
           for (any* cstmt : *cstmts) {
             bool isDecl = false;
-            if (cstmt->UhdmType() == uhdmassign_stmt) {
-              assign_stmt* assign = (assign_stmt*)cstmt;
+            if (cstmt->UhdmType() == uhdmassignment) {
+              assignment* assign = (assignment*)cstmt;
               if (assign->Rhs() == nullptr) {
                 VectorOfvariables* vars = scope->Variables();
                 if (vars == nullptr) {
@@ -427,8 +427,10 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
                   vars = s.MakeVariablesVec();
                   scope->Variables(vars);
                 }
-                vars->push_back((UHDM::variables*)assign->Lhs());
-                ((variables*)assign->Lhs())->VpiParent(stmt);
+                if (assign->Lhs()) {
+                  vars->push_back((UHDM::variables*)assign->Lhs());
+                  ((variables*)assign->Lhs())->VpiParent(stmt);
+                }
               }
             }
             if (!isDecl) {
@@ -1241,7 +1243,9 @@ VectorOfany* CompileHelper::compileDataDeclaration(
         if (results == nullptr) {
           results = s.MakeAnyVec();
         }
-        assign_stmt* assign_stmt = s.MakeAssign_stmt();
+        assignment* assign_stmt = s.MakeAssignment();
+        assign_stmt->VpiOpType(vpiAssignmentOp);
+        assign_stmt->VpiBlocking(true);
         if (var) {
           var->VpiParent(assign_stmt);
           assign_stmt->Lhs(var);
@@ -2064,8 +2068,9 @@ bool CompileHelper::compileTask(DesignComponent* component,
               }
               if (param_assign* pst = any_cast<param_assign*>(st))
                 param_assigns->push_back(pst);
-            } else if (stmt_type == uhdmassign_stmt) {
-              assign_stmt* stmt = (assign_stmt*)st;
+            }
+            if (stmt_type == uhdmassignment) {
+              assignment* stmt = (assignment*)st;
               if (stmt->Rhs() == nullptr ||
                   any_cast<variables*>((expr*)stmt->Lhs())) {
                 // Declaration
@@ -2074,11 +2079,12 @@ bool CompileHelper::compileTask(DesignComponent* component,
                   task->Variables(s.MakeVariablesVec());
                   vars = task->Variables();
                 }
-                vars->push_back((variables*)stmt->Lhs());
+                if (stmt->Lhs()) vars->push_back((variables*)stmt->Lhs());
                 if (stmt->Rhs() != nullptr) {
                   stmts->push_back(st);
                 } else {
-                  any_cast<variables*>((expr*)stmt->Lhs())->VpiParent(begin);
+                  if (variables* var = any_cast<variables*>((expr*)stmt->Lhs()))
+                    var->VpiParent(begin);
                   // s.Erase(stmt);
                 }
               } else {
@@ -2110,8 +2116,8 @@ bool CompileHelper::compileTask(DesignComponent* component,
             }
             if (param_assign* pst = any_cast<param_assign*>(st))
               param_assigns->push_back(pst);
-          } else if (stmt_type == uhdmassign_stmt) {
-            assign_stmt* stmt = (assign_stmt*)st;
+          } else if (stmt_type == uhdmassignment) {
+            assignment* stmt = (assignment*)st;
             if (stmt->Rhs() == nullptr ||
                 any_cast<variables*>((expr*)stmt->Lhs())) {
               // Declaration
@@ -2120,11 +2126,12 @@ bool CompileHelper::compileTask(DesignComponent* component,
                 task->Variables(s.MakeVariablesVec());
                 vars = task->Variables();
               }
-              vars->push_back((variables*)stmt->Lhs());
+              if (stmt->Lhs()) vars->push_back((variables*)stmt->Lhs());
               if (stmt->Rhs() != nullptr) {
                 task->Stmt(st);
               } else {
-                any_cast<variables*>((expr*)stmt->Lhs())->VpiParent(task);
+                if (variables* var = any_cast<variables*>((expr*)stmt->Lhs()))
+                  var->VpiParent(task);
                 // s.Erase(stmt);
               }
             } else {
@@ -2481,8 +2488,8 @@ bool CompileHelper::compileFunction(DesignComponent* component,
               }
               if (param_assign* pst = any_cast<param_assign*>(st))
                 param_assigns->push_back(pst);
-            } else if (stmt_type == uhdmassign_stmt) {
-              assign_stmt* stmt = (assign_stmt*)st;
+            } else if (stmt_type == uhdmassignment) {
+              assignment* stmt = (assignment*)st;
               if (stmt->Rhs() == nullptr ||
                   any_cast<variables*>((expr*)stmt->Lhs())) {
                 // Declaration
@@ -2491,11 +2498,12 @@ bool CompileHelper::compileFunction(DesignComponent* component,
                   func->Variables(s.MakeVariablesVec());
                   vars = func->Variables();
                 }
-                vars->push_back((variables*)stmt->Lhs());
+                if (stmt->Lhs()) vars->push_back((variables*)stmt->Lhs());
                 if (stmt->Rhs() != nullptr) {
                   stmts->push_back(st);
                 } else {
-                  any_cast<variables*>((expr*)stmt->Lhs())->VpiParent(begin);
+                  if (variables* var = any_cast<variables*>((expr*)stmt->Lhs()))
+                    var->VpiParent(begin);
                   // s.Erase(stmt);
                 }
               } else {
@@ -2527,8 +2535,8 @@ bool CompileHelper::compileFunction(DesignComponent* component,
           }
           if (param_assign* pst = any_cast<param_assign*>(st))
             param_assigns->push_back(pst);
-        } else if (stmt_type == uhdmassign_stmt) {
-          assign_stmt* stmt = (assign_stmt*)st;
+        } else if (stmt_type == uhdmassignment) {
+          assignment* stmt = (assignment*)st;
           if (stmt->Rhs() == nullptr ||
               any_cast<variables*>((expr*)stmt->Lhs())) {
             // Declaration
@@ -2537,11 +2545,12 @@ bool CompileHelper::compileFunction(DesignComponent* component,
               func->Variables(s.MakeVariablesVec());
               vars = func->Variables();
             }
-            vars->push_back((variables*)stmt->Lhs());
+            if (stmt->Lhs()) vars->push_back((variables*)stmt->Lhs());
             if (stmt->Rhs() != nullptr) {
               func->Stmt(st);
             } else {
-              any_cast<variables*>((expr*)stmt->Lhs())->VpiParent(func);
+              if (variables* var = any_cast<variables*>((expr*)stmt->Lhs()))
+                var->VpiParent(func);
               // s.Erase(stmt);
             }
           } else {
@@ -2837,7 +2846,7 @@ UHDM::any* CompileHelper::compileForLoop(DesignComponent* component,
         NodeId Data_type = fC->Child(For_variable_declaration);
         NodeId Var = fC->Sibling(Data_type);
         NodeId Expression = fC->Sibling(Var);
-        assign_stmt* assign_stmt = s.MakeAssign_stmt();
+        assignment* assign_stmt = s.MakeAssignment();
         assign_stmt->VpiParent(for_stmt);
         fC->populateCoreMembers(For_variable_declaration,
                                 For_variable_declaration, assign_stmt);
@@ -2884,7 +2893,7 @@ UHDM::any* CompileHelper::compileForLoop(DesignComponent* component,
           stmts = for_stmt->VpiForInitStmts();
         }
 
-        assign_stmt* assign_stmt = s.MakeAssign_stmt();
+        assignment* assign_stmt = s.MakeAssignment();
         assign_stmt->VpiParent(for_stmt);
         fC->populateCoreMembers(Variable_assignment, Variable_assignment,
                                 assign_stmt);

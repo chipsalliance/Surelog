@@ -388,8 +388,7 @@ AST_DEBUG_END
 array_expr                                             7
 array_typespec                                        12
 array_var                                              1
-assign_stmt                                            1
-assignment                                             1
+assignment                                             2
 begin                                                  4
 bit_select                                             8
 constant                                             124
@@ -422,8 +421,7 @@ tagged_pattern                                         6
 array_expr                                             7
 array_typespec                                        12
 array_var                                              1
-assign_stmt                                            2
-assignment                                             2
+assignment                                             4
 begin                                                  5
 bit_select                                            10
 constant                                             124
@@ -1037,13 +1035,13 @@ design: (work@main)
       \_function: (work@top.ASSIGN_VADDR), line:11:1, endln:15:12
       |vpiFullName:work@top.ASSIGN_VADDR
       |vpiForInitStmt:
-      \_assign_stmt: , line:12:10, endln:12:19
+      \_assignment: , line:12:10, endln:12:19
         |vpiParent:
         \_for_stmt: (work@top.ASSIGN_VADDR), line:12:5, endln:12:8
         |vpiRhs:
         \_constant: , line:12:18, endln:12:19
           |vpiParent:
-          \_assign_stmt: , line:12:10, endln:12:19
+          \_assignment: , line:12:10, endln:12:19
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -1051,7 +1049,7 @@ design: (work@main)
         |vpiLhs:
         \_int_var: (work@top.ASSIGN_VADDR.i), line:12:14, endln:12:15
           |vpiParent:
-          \_assign_stmt: , line:12:10, endln:12:19
+          \_assignment: , line:12:10, endln:12:19
           |vpiTypespec:
           \_ref_typespec: (work@top.ASSIGN_VADDR.i)
             |vpiParent:
@@ -1473,7 +1471,7 @@ design: (work@main)
         \_function: (work@main.top1.ASSIGN_VADDR), line:11:1, endln:15:12
         |vpiFullName:work@main.top1.ASSIGN_VADDR
         |vpiForInitStmt:
-        \_assign_stmt: , line:12:10, endln:12:19
+        \_assignment: , line:12:10, endln:12:19
           |vpiParent:
           \_for_stmt: (work@main.top1.ASSIGN_VADDR), line:12:5, endln:12:8
           |vpiRhs:
@@ -1481,7 +1479,7 @@ design: (work@main)
           |vpiLhs:
           \_int_var: (work@main.top1.ASSIGN_VADDR.i), line:12:14, endln:12:15
             |vpiParent:
-            \_assign_stmt: , line:12:10, endln:12:19
+            \_assignment: , line:12:10, endln:12:19
             |vpiTypespec:
             \_ref_typespec: (work@main.top1.ASSIGN_VADDR.i)
               |vpiParent:

@@ -243,8 +243,7 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 1.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-assign_stmt                                            2
-assignment                                             2
+assignment                                             4
 begin                                                  2
 constant                                              18
 design                                                 1
@@ -266,8 +265,7 @@ return_stmt                                            2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-assign_stmt                                            4
-assignment                                             4
+assignment                                             8
 begin                                                  4
 constant                                              18
 design                                                 1
@@ -422,7 +420,7 @@ design: (work@test)
     |vpiVariables:
     \_int_var: (work@test.accumulate1.acc), line:4:14, endln:4:17
       |vpiParent:
-      \_assign_stmt: , line:4:14, endln:4:21
+      \_assignment: , line:4:14, endln:4:21
       |vpiTypespec:
       \_ref_typespec: (work@test.accumulate1.acc)
         |vpiParent:
@@ -468,9 +466,11 @@ design: (work@test)
       |vpiVariables:
       \_int_var: (work@test.accumulate1.acc), line:4:14, endln:4:17
       |vpiStmt:
-      \_assign_stmt: , line:4:14, endln:4:21
+      \_assignment: , line:4:14, endln:4:21
         |vpiParent:
         \_begin: (work@test.accumulate1), line:5:3, endln:5:21
+        |vpiOpType:82
+        |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:4:20, endln:4:21
           |vpiDecompile:1
@@ -537,7 +537,7 @@ design: (work@test)
     |vpiVariables:
     \_int_var: (work@test.accumulate2.acc), line:10:7, endln:10:10
       |vpiParent:
-      \_assign_stmt: , line:10:7, endln:10:14
+      \_assignment: , line:10:7, endln:10:14
       |vpiTypespec:
       \_ref_typespec: (work@test.accumulate2.acc)
         |vpiParent:
@@ -583,9 +583,11 @@ design: (work@test)
       |vpiVariables:
       \_int_var: (work@test.accumulate2.acc), line:10:7, endln:10:10
       |vpiStmt:
-      \_assign_stmt: , line:10:7, endln:10:14
+      \_assignment: , line:10:7, endln:10:14
         |vpiParent:
         \_begin: (work@test.accumulate2), line:11:3, endln:11:21
+        |vpiOpType:82
+        |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:10:13, endln:10:14
           |vpiDecompile:1
@@ -788,15 +790,17 @@ design: (work@test)
         |vpiFullName:work@test.accumulate1.acc
         |vpiSigned:1
       |vpiStmt:
-      \_assign_stmt: , line:4:14, endln:4:21
+      \_assignment: , line:4:14, endln:4:21
         |vpiParent:
         \_begin: (work@test.accumulate1), line:5:3, endln:5:21
+        |vpiOpType:82
+        |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:4:20, endln:4:21
         |vpiLhs:
         \_int_var: (work@test.accumulate1.acc), line:4:14, endln:4:17
           |vpiParent:
-          \_assign_stmt: , line:4:14, endln:4:21
+          \_assignment: , line:4:14, endln:4:21
           |vpiTypespec:
           \_ref_typespec: (work@test.accumulate1.acc)
             |vpiParent:
@@ -912,15 +916,17 @@ design: (work@test)
         |vpiFullName:work@test.accumulate2.acc
         |vpiSigned:1
       |vpiStmt:
-      \_assign_stmt: , line:10:7, endln:10:14
+      \_assignment: , line:10:7, endln:10:14
         |vpiParent:
         \_begin: (work@test.accumulate2), line:11:3, endln:11:21
+        |vpiOpType:82
+        |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:10:13, endln:10:14
         |vpiLhs:
         \_int_var: (work@test.accumulate2.acc), line:10:7, endln:10:10
           |vpiParent:
-          \_assign_stmt: , line:10:7, endln:10:14
+          \_assignment: , line:10:7, endln:10:14
           |vpiTypespec:
           \_ref_typespec: (work@test.accumulate2.acc)
             |vpiParent:

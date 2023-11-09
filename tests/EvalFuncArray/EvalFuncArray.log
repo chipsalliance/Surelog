@@ -464,8 +464,7 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 0.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-assign_stmt                                            4
-assignment                                             2
+assignment                                             6
 begin                                                  6
 bit_select                                             4
 class_defn                                             8
@@ -500,8 +499,7 @@ task                                                   9
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-assign_stmt                                            8
-assignment                                             4
+assignment                                            12
 begin                                                 12
 bit_select                                             8
 class_defn                                             8
@@ -752,9 +750,11 @@ design: (unnamed)
         |vpiFullName:earlgrey::max_info_pages::current_max
         |vpiSigned:1
       |vpiStmt:
-      \_assign_stmt: , line:14:9, endln:14:24
+      \_assignment: , line:14:9, endln:14:24
         |vpiParent:
         \_begin: (earlgrey::max_info_pages), line:15:5, endln:19:8
+        |vpiOpType:82
+        |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:14:23, endln:14:24
           |vpiDecompile:0
@@ -764,7 +764,7 @@ design: (unnamed)
         |vpiLhs:
         \_int_var: (earlgrey::max_info_pages::current_max), line:14:9, endln:14:20
           |vpiParent:
-          \_assign_stmt: , line:14:9, endln:14:24
+          \_assignment: , line:14:9, endln:14:24
           |vpiTypespec:
           \_ref_typespec: (earlgrey::max_info_pages::current_max)
             |vpiParent:
@@ -781,13 +781,13 @@ design: (unnamed)
         \_begin: (earlgrey::max_info_pages), line:15:5, endln:19:8
         |vpiFullName:earlgrey::max_info_pages
         |vpiForInitStmt:
-        \_assign_stmt: , line:15:10, endln:15:19
+        \_assignment: , line:15:10, endln:15:19
           |vpiParent:
           \_for_stmt: (earlgrey::max_info_pages), line:15:5, endln:15:8
           |vpiRhs:
           \_constant: , line:15:18, endln:15:19
             |vpiParent:
-            \_assign_stmt: , line:15:10, endln:15:19
+            \_assignment: , line:15:10, endln:15:19
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
@@ -795,7 +795,7 @@ design: (unnamed)
           |vpiLhs:
           \_int_var: (earlgrey::max_info_pages::i), line:15:14, endln:15:15
             |vpiParent:
-            \_assign_stmt: , line:15:10, endln:15:19
+            \_assignment: , line:15:10, endln:15:19
             |vpiTypespec:
             \_ref_typespec: (earlgrey::max_info_pages::i)
               |vpiParent:
@@ -1133,9 +1133,11 @@ design: (unnamed)
         |vpiFullName:earlgrey::max_info_pages::current_max
         |vpiSigned:1
       |vpiStmt:
-      \_assign_stmt: , line:14:9, endln:14:24
+      \_assignment: , line:14:9, endln:14:24
         |vpiParent:
         \_begin: (earlgrey::max_info_pages), line:15:5, endln:19:8
+        |vpiOpType:82
+        |vpiBlocking:1
         |vpiRhs:
         \_constant: , line:14:23, endln:14:24
           |vpiDecompile:0
@@ -1145,7 +1147,7 @@ design: (unnamed)
         |vpiLhs:
         \_int_var: (earlgrey::max_info_pages::current_max), line:14:9, endln:14:20
           |vpiParent:
-          \_assign_stmt: , line:14:9, endln:14:24
+          \_assignment: , line:14:9, endln:14:24
           |vpiTypespec:
           \_ref_typespec: (earlgrey::max_info_pages::current_max)
             |vpiParent:
@@ -1162,13 +1164,13 @@ design: (unnamed)
         \_begin: (earlgrey::max_info_pages), line:15:5, endln:19:8
         |vpiFullName:earlgrey::max_info_pages
         |vpiForInitStmt:
-        \_assign_stmt: , line:15:10, endln:15:19
+        \_assignment: , line:15:10, endln:15:19
           |vpiParent:
           \_for_stmt: (earlgrey::max_info_pages), line:15:5, endln:15:8
           |vpiRhs:
           \_constant: , line:15:18, endln:15:19
             |vpiParent:
-            \_assign_stmt: , line:15:10, endln:15:19
+            \_assignment: , line:15:10, endln:15:19
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
@@ -1176,7 +1178,7 @@ design: (unnamed)
           |vpiLhs:
           \_int_var: (earlgrey::max_info_pages::i), line:15:14, endln:15:15
             |vpiParent:
-            \_assign_stmt: , line:15:10, endln:15:19
+            \_assignment: , line:15:10, endln:15:19
             |vpiTypespec:
             \_ref_typespec: (earlgrey::max_info_pages::i)
               |vpiParent:
@@ -1755,7 +1757,7 @@ design: (unnamed)
   |vpiVariables:
   \_int_var: (earlgrey::max_info_pages::current_max), line:14:9, endln:14:20
     |vpiParent:
-    \_assign_stmt: , line:14:9, endln:14:24
+    \_assignment: , line:14:9, endln:14:24
     |vpiTypespec:
     \_ref_typespec: (earlgrey::max_info_pages::current_max)
       |vpiParent:
@@ -1812,9 +1814,11 @@ design: (unnamed)
     |vpiVariables:
     \_int_var: (earlgrey::max_info_pages::current_max), line:14:9, endln:14:20
     |vpiStmt:
-    \_assign_stmt: , line:14:9, endln:14:24
+    \_assignment: , line:14:9, endln:14:24
       |vpiParent:
       \_begin: (earlgrey::max_info_pages), line:15:5, endln:19:8
+      |vpiOpType:82
+      |vpiBlocking:1
       |vpiRhs:
       \_constant: , line:14:23, endln:14:24
       |vpiLhs:
@@ -1825,7 +1829,7 @@ design: (unnamed)
       \_begin: (earlgrey::max_info_pages), line:15:5, endln:19:8
       |vpiFullName:earlgrey::max_info_pages
       |vpiForInitStmt:
-      \_assign_stmt: , line:15:10, endln:15:19
+      \_assignment: , line:15:10, endln:15:19
         |vpiParent:
         \_for_stmt: (earlgrey::max_info_pages), line:15:5, endln:15:8
         |vpiRhs:
@@ -1833,7 +1837,7 @@ design: (unnamed)
         |vpiLhs:
         \_int_var: (earlgrey::max_info_pages::i), line:15:14, endln:15:15
           |vpiParent:
-          \_assign_stmt: , line:15:10, endln:15:19
+          \_assignment: , line:15:10, endln:15:19
           |vpiTypespec:
           \_ref_typespec: (earlgrey::max_info_pages::i)
             |vpiParent:
@@ -2001,7 +2005,7 @@ design: (unnamed)
   |vpiVariables:
   \_int_var: (earlgrey::max_info_pages::current_max), line:14:9, endln:14:20
     |vpiParent:
-    \_assign_stmt: , line:14:9, endln:14:24
+    \_assignment: , line:14:9, endln:14:24
     |vpiTypespec:
     \_ref_typespec: (earlgrey::max_info_pages::current_max)
       |vpiParent:
@@ -2058,9 +2062,11 @@ design: (unnamed)
     |vpiVariables:
     \_int_var: (earlgrey::max_info_pages::current_max), line:14:9, endln:14:20
     |vpiStmt:
-    \_assign_stmt: , line:14:9, endln:14:24
+    \_assignment: , line:14:9, endln:14:24
       |vpiParent:
       \_begin: (earlgrey::max_info_pages), line:15:5, endln:19:8
+      |vpiOpType:82
+      |vpiBlocking:1
       |vpiRhs:
       \_constant: , line:14:23, endln:14:24
       |vpiLhs:
@@ -2071,7 +2077,7 @@ design: (unnamed)
       \_begin: (earlgrey::max_info_pages), line:15:5, endln:19:8
       |vpiFullName:earlgrey::max_info_pages
       |vpiForInitStmt:
-      \_assign_stmt: , line:15:10, endln:15:19
+      \_assignment: , line:15:10, endln:15:19
         |vpiParent:
         \_for_stmt: (earlgrey::max_info_pages), line:15:5, endln:15:8
         |vpiRhs:
@@ -2079,7 +2085,7 @@ design: (unnamed)
         |vpiLhs:
         \_int_var: (earlgrey::max_info_pages::i), line:15:14, endln:15:15
           |vpiParent:
-          \_assign_stmt: , line:15:10, endln:15:19
+          \_assignment: , line:15:10, endln:15:19
           |vpiTypespec:
           \_ref_typespec: (earlgrey::max_info_pages::i)
             |vpiParent:

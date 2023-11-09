@@ -656,8 +656,7 @@ always                                                76
 array_net                                              1
 array_typespec                                         2
 array_var                                              2
-assign_stmt                                           30
-assignment                                           157
+assignment                                           187
 begin                                                 97
 bit_select                                           114
 class_defn                                             8
@@ -716,8 +715,7 @@ always                                               108
 array_net                                              1
 array_typespec                                         2
 array_var                                              2
-assign_stmt                                           33
-assignment                                           222
+assignment                                           255
 begin                                                 99
 bit_select                                           179
 class_defn                                             8
@@ -1473,13 +1471,13 @@ design: (work@oh_fifo_async)
           \_begin: (work@oh_bin2gray), line:25:6, endln:29:9
           |vpiFullName:work@oh_bin2gray
           |vpiForInitStmt:
-          \_assign_stmt: , line:27:7, endln:27:10
+          \_assignment: , line:27:7, endln:27:10
             |vpiParent:
             \_for_stmt: (work@oh_bin2gray), line:27:2, endln:27:5
             |vpiRhs:
             \_constant: , line:27:9, endln:27:10
               |vpiParent:
-              \_assign_stmt: , line:27:7, endln:27:10
+              \_assignment: , line:27:7, endln:27:10
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
@@ -1487,7 +1485,7 @@ design: (work@oh_fifo_async)
             |vpiLhs:
             \_ref_var: (work@oh_bin2gray.i), line:27:7, endln:27:8
               |vpiParent:
-              \_assign_stmt: , line:27:7, endln:27:10
+              \_assignment: , line:27:7, endln:27:10
               |vpiName:i
               |vpiFullName:work@oh_bin2gray.i
           |vpiForIncStmt:
@@ -2057,13 +2055,15 @@ design: (work@oh_fifo_async)
           \_gen_if_else: , line:22:7, endln:42:5
           |vpiFullName:work@oh_dsync
           |vpiStmt:
-          \_assign_stmt: , line:23:20, endln:23:29
+          \_assignment: , line:23:20, endln:23:29
             |vpiParent:
             \_begin: (work@oh_dsync)
+            |vpiOpType:82
+            |vpiBlocking:1
             |vpiLhs:
             \_logic_var: (work@oh_dsync.sync_pipe), line:23:20, endln:23:29
               |vpiParent:
-              \_assign_stmt: , line:23:20, endln:23:29
+              \_assignment: , line:23:20, endln:23:29
               |vpiTypespec:
               \_ref_typespec: (work@oh_dsync.sync_pipe)
                 |vpiParent:
@@ -5727,13 +5727,15 @@ design: (work@oh_fifo_async)
           \_gen_if_else: , line:43:7, endln:76:10
           |vpiFullName:work@oh_memory_dp
           |vpiStmt:
-          \_assign_stmt: , line:48:22, endln:48:40
+          \_assignment: , line:48:22, endln:48:40
             |vpiParent:
             \_begin: (work@oh_memory_dp)
+            |vpiOpType:82
+            |vpiBlocking:1
             |vpiLhs:
             \_array_var: (work@oh_memory_dp.ram), line:48:22, endln:48:25
               |vpiParent:
-              \_assign_stmt: , line:48:22, endln:48:40
+              \_assignment: , line:48:22, endln:48:40
               |vpiTypespec:
               \_ref_typespec: (work@oh_memory_dp.ram)
                 |vpiParent:
@@ -5757,13 +5759,15 @@ design: (work@oh_fifo_async)
                   \_logic_typespec: , line:48:3, endln:48:14
                 |vpiFullName:work@oh_memory_dp.ram
           |vpiStmt:
-          \_assign_stmt: , line:50:17, endln:50:18
+          \_assignment: , line:50:17, endln:50:18
             |vpiParent:
             \_begin: (work@oh_memory_dp)
+            |vpiOpType:82
+            |vpiBlocking:1
             |vpiLhs:
             \_integer_var: (work@oh_memory_dp.i), line:50:17, endln:50:18
               |vpiParent:
-              \_assign_stmt: , line:50:17, endln:50:18
+              \_assignment: , line:50:17, endln:50:18
               |vpiTypespec:
               \_ref_typespec: (work@oh_memory_dp.i)
                 |vpiParent:
@@ -5799,13 +5803,13 @@ design: (work@oh_fifo_async)
                 \_event_control: , line:53:10, endln:53:27
                 |vpiFullName:work@oh_memory_dp
                 |vpiForInitStmt:
-                \_assign_stmt: , line:54:10, endln:54:13
+                \_assignment: , line:54:10, endln:54:13
                   |vpiParent:
                   \_for_stmt: (work@oh_memory_dp), line:54:5, endln:54:8
                   |vpiRhs:
                   \_constant: , line:54:12, endln:54:13
                     |vpiParent:
-                    \_assign_stmt: , line:54:10, endln:54:13
+                    \_assignment: , line:54:10, endln:54:13
                     |vpiDecompile:0
                     |vpiSize:64
                     |UINT:0
@@ -5813,7 +5817,7 @@ design: (work@oh_fifo_async)
                   |vpiLhs:
                   \_ref_var: (work@oh_memory_dp.i), line:54:10, endln:54:11
                     |vpiParent:
-                    \_assign_stmt: , line:54:10, endln:54:13
+                    \_assignment: , line:54:10, endln:54:13
                     |vpiName:i
                     |vpiFullName:work@oh_memory_dp.i
                 |vpiForIncStmt:
@@ -6032,13 +6036,15 @@ design: (work@oh_fifo_async)
                 |UINT:0
                 |vpiConstType:9
           |vpiStmt:
-          \_assign_stmt: , line:62:21, endln:62:27
+          \_assignment: , line:62:21, endln:62:27
             |vpiParent:
             \_begin: (work@oh_memory_dp)
+            |vpiOpType:82
+            |vpiBlocking:1
             |vpiLhs:
             \_logic_var: (work@oh_memory_dp.rd_reg), line:62:21, endln:62:27
               |vpiParent:
-              \_assign_stmt: , line:62:21, endln:62:27
+              \_assignment: , line:62:21, endln:62:27
               |vpiTypespec:
               \_ref_typespec: (work@oh_memory_dp.rd_reg)
                 |vpiParent:
@@ -6518,13 +6524,15 @@ design: (work@oh_fifo_async)
           \_gen_if_else: , line:20:7, endln:38:5
           |vpiFullName:work@oh_rsync
           |vpiStmt:
-          \_assign_stmt: , line:22:24, endln:22:33
+          \_assignment: , line:22:24, endln:22:33
             |vpiParent:
             \_begin: (work@oh_rsync)
+            |vpiOpType:82
+            |vpiBlocking:1
             |vpiLhs:
             \_logic_var: (work@oh_rsync.sync_pipe), line:22:24, endln:22:33
               |vpiParent:
-              \_assign_stmt: , line:22:24, endln:22:33
+              \_assignment: , line:22:24, endln:22:33
               |vpiTypespec:
               \_ref_typespec: (work@oh_rsync.sync_pipe)
                 |vpiParent:
@@ -9595,7 +9603,7 @@ design: (work@oh_fifo_async)
             \_begin: (work@oh_fifo_async.wr_bin2gray), line:25:6, endln:29:9
             |vpiFullName:work@oh_fifo_async.wr_bin2gray
             |vpiForInitStmt:
-            \_assign_stmt: , line:27:7, endln:27:10
+            \_assignment: , line:27:7, endln:27:10
               |vpiParent:
               \_for_stmt: (work@oh_fifo_async.wr_bin2gray), line:27:2, endln:27:5
               |vpiRhs:
@@ -9603,7 +9611,7 @@ design: (work@oh_fifo_async)
               |vpiLhs:
               \_ref_var: (work@oh_fifo_async.wr_bin2gray.i), line:27:7, endln:27:8
                 |vpiParent:
-                \_assign_stmt: , line:27:7, endln:27:10
+                \_assignment: , line:27:7, endln:27:10
                 |vpiName:i
                 |vpiFullName:work@oh_fifo_async.wr_bin2gray.i
                 |vpiActual:
@@ -13996,7 +14004,7 @@ design: (work@oh_fifo_async)
             \_begin: (work@oh_fifo_async.rd_bin2gray), line:25:6, endln:29:9
             |vpiFullName:work@oh_fifo_async.rd_bin2gray
             |vpiForInitStmt:
-            \_assign_stmt: , line:27:7, endln:27:10
+            \_assignment: , line:27:7, endln:27:10
               |vpiParent:
               \_for_stmt: (work@oh_fifo_async.rd_bin2gray), line:27:2, endln:27:5
               |vpiRhs:
@@ -14004,7 +14012,7 @@ design: (work@oh_fifo_async)
               |vpiLhs:
               \_ref_var: (work@oh_fifo_async.rd_bin2gray.i), line:27:7, endln:27:8
                 |vpiParent:
-                \_assign_stmt: , line:27:7, endln:27:10
+                \_assignment: , line:27:7, endln:27:10
                 |vpiName:i
                 |vpiFullName:work@oh_fifo_async.rd_bin2gray.i
                 |vpiActual:
@@ -19514,13 +19522,13 @@ design: (work@oh_fifo_async)
               \_event_control: , line:53:10, endln:53:27
               |vpiFullName:work@oh_fifo_async.oh_memory_dp.genblk1
               |vpiForInitStmt:
-              \_assign_stmt: , line:54:10, endln:54:13
+              \_assignment: , line:54:10, endln:54:13
                 |vpiParent:
                 \_for_stmt: (work@oh_fifo_async.oh_memory_dp.genblk1), line:54:5, endln:54:8
                 |vpiRhs:
                 \_constant: , line:54:12, endln:54:13
                   |vpiParent:
-                  \_assign_stmt: , line:54:10, endln:54:13
+                  \_assignment: , line:54:10, endln:54:13
                   |vpiDecompile:0
                   |vpiSize:64
                   |UINT:0
@@ -19528,7 +19536,7 @@ design: (work@oh_fifo_async)
                 |vpiLhs:
                 \_ref_var: (work@oh_fifo_async.oh_memory_dp.genblk1.i), line:54:10, endln:54:11
                   |vpiParent:
-                  \_assign_stmt: , line:54:10, endln:54:13
+                  \_assignment: , line:54:10, endln:54:13
                   |vpiName:i
                   |vpiFullName:work@oh_fifo_async.oh_memory_dp.genblk1.i
                   |vpiActual:
@@ -22656,7 +22664,7 @@ design: (work@oh_fifo_async)
       |vpiConstType:9
 \_int_typespec: 
   |UINT:1
-\_assign_stmt: , line:54:10, endln:54:13
+\_assignment: , line:54:10, endln:54:13
   |vpiParent:
   \_for_stmt: (work@oh_fifo_async.oh_memory_dp.genblk1), line:54:5, endln:54:8
   |vpiRhs:
@@ -22664,7 +22672,7 @@ design: (work@oh_fifo_async)
   |vpiLhs:
   \_ref_var: (work@oh_fifo_async.oh_memory_dp.genblk1.i), line:54:10, endln:54:11
     |vpiParent:
-    \_assign_stmt: , line:54:10, endln:54:13
+    \_assignment: , line:54:10, endln:54:13
     |vpiName:i
     |vpiFullName:work@oh_fifo_async.oh_memory_dp.genblk1.i
 \_for_stmt: (work@oh_fifo_async.oh_memory_dp.genblk1), line:54:5, endln:54:8
@@ -22672,7 +22680,7 @@ design: (work@oh_fifo_async)
   \_event_control: , line:53:10, endln:53:27
   |vpiFullName:work@oh_fifo_async.oh_memory_dp.genblk1
   |vpiForInitStmt:
-  \_assign_stmt: , line:54:10, endln:54:13
+  \_assignment: , line:54:10, endln:54:13
   |vpiForIncStmt:
   \_assignment: , line:54:18, endln:54:23
     |vpiParent:

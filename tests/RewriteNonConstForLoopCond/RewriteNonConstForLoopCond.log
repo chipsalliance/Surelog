@@ -151,8 +151,7 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 always                                                 1
-assign_stmt                                            1
-assignment                                             2
+assignment                                             3
 begin                                                  3
 constant                                               6
 design                                                 1
@@ -171,8 +170,7 @@ ref_typespec                                           3
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
 always                                                 2
-assign_stmt                                            2
-assignment                                             4
+assignment                                             6
 begin                                                  6
 constant                                               6
 design                                                 1
@@ -258,13 +256,13 @@ design: (work@top)
         \_begin: (work@top), line:6:6, endln:17:9
         |vpiFullName:work@top
         |vpiForInitStmt:
-        \_assign_stmt: , line:10:14, endln:10:21
+        \_assignment: , line:10:14, endln:10:21
           |vpiParent:
           \_for_stmt: (work@top), line:10:9, endln:10:12
           |vpiRhs:
           \_constant: , line:10:20, endln:10:21
             |vpiParent:
-            \_assign_stmt: , line:10:14, endln:10:21
+            \_assignment: , line:10:14, endln:10:21
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
@@ -272,7 +270,7 @@ design: (work@top)
           |vpiLhs:
           \_int_var: (work@top.i), line:10:18, endln:10:19
             |vpiParent:
-            \_assign_stmt: , line:10:14, endln:10:21
+            \_assignment: , line:10:14, endln:10:21
             |vpiTypespec:
             \_ref_typespec: (work@top.i)
               |vpiParent:
@@ -450,7 +448,7 @@ design: (work@top)
         \_begin: (work@top), line:6:6, endln:17:9
         |vpiFullName:work@top
         |vpiForInitStmt:
-        \_assign_stmt: , line:10:14, endln:10:21
+        \_assignment: , line:10:14, endln:10:21
           |vpiParent:
           \_for_stmt: (work@top), line:10:9, endln:10:12
           |vpiRhs:
@@ -458,7 +456,7 @@ design: (work@top)
           |vpiLhs:
           \_int_var: (work@top.i), line:10:18, endln:10:19
             |vpiParent:
-            \_assign_stmt: , line:10:14, endln:10:21
+            \_assignment: , line:10:14, endln:10:21
             |vpiTypespec:
             \_ref_typespec: (work@top.i)
               |vpiParent:
@@ -578,5 +576,5 @@ design: (work@top)
 [   NOTE] : 5
 
 ============================== Begin RoundTrip Results ==============================
-[roundtrip]: ${SURELOG_DIR}/tests/RewriteNonConstForLoopCond/dut.sv | ${SURELOG_DIR}/build/regression/RewriteNonConstForLoopCond/roundtrip/dut_000.sv | 0 | 20 |
+[roundtrip]: ${SURELOG_DIR}/tests/RewriteNonConstForLoopCond/dut.sv | ${SURELOG_DIR}/build/regression/RewriteNonConstForLoopCond/roundtrip/dut_000.sv | 1 | 20 |
 ============================== End RoundTrip Results ==============================
