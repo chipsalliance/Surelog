@@ -39,7 +39,7 @@ jobs:
       run: |
         # Github dropped support for unauthorized git: https://github.blog/2021-09-01-improving-git-protocol-security-github/
         # Make sure we always use https:// instead of git://
-        git config --global url.https://github.com/.insteadOf git://github.com/
+        #git config --global url.https://github.com/.insteadOf git://github.com/
         # Use current main of the plugin repository...
         git clone https://github.com/alaindargelas/synlig.git
         git checkout stable_rs
@@ -47,13 +47,6 @@ jobs:
         git submodule update --depth 3 --init --recursive --checkout \
           ./third_party/{surelog,yosys} \
           ;
-
-    - name: Setup Surelog
-      uses: actions/checkout@v2
-      with:
-        submodules: recursive
-        fetch-depth: 0
-        path: 'synlig/third_party/surelog'
 
     - name: Create Cache Timestamp
       id: cache_timestamp
