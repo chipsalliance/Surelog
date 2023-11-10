@@ -64,7 +64,7 @@ jobs:
 
     - name: Build binaries
       run: |
-        #cd synlig
+        cd synlig
         make -rR -j $(nproc) -Oline -f build_binaries.mk SYSTEMVERILOG_PLUGIN_ONLY:=0 \
               install-surelog install-yosys install-plugins
 
