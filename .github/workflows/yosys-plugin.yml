@@ -68,6 +68,13 @@ jobs:
         make -rR -j $(nproc) -Oline -f build_binaries.mk SYSTEMVERILOG_PLUGIN_ONLY:=0 \
               install-surelog install-yosys install-plugins
 
+    - name: Setup build environment
+      run: |
+        # Environment creation has to be run with one job to avoid race conditions.
+        # See: https://github.com/SymbiFlow/make-env/pull/40
+        # Even with the fix more jobs doesn't help with anything.
+        make -C ./tests env TEST=ibex -j1
+
     - name: Build & Test
       run: |
         make -C tests uhdm/yosys/synth-ibex-f4pga TEST=ibex \
