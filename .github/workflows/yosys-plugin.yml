@@ -46,7 +46,7 @@ jobs:
         git checkout stable_rs
         git submodule sync
         git submodule update --depth 3 --init --recursive --checkout \
-          ./third_party/{surelog,yosys,make_env} \
+          ./third_party/{surelog,yosys,make_env,yosys_f4pga_plugins} \
           ;
 
     - name: Create Cache Timestamp
@@ -68,17 +68,15 @@ jobs:
         make -rR -j $(nproc) -Oline -f build_binaries.mk SYSTEMVERILOG_PLUGIN_ONLY:=0 \
               install-surelog install-yosys install-plugins
 
-    - name: Build & Test Ibex
+    - name: Build & Test
       run: |
-        pip install virtualenv
-        cd synlig/tests
-        make -j 1 env TEST=ibex
-        make -j $(nproc) uhdm/yosys/synth-ibex-f4pga TEST=ibex ENABLE_READLINE=0 PRETTY=0
+        make -C tests uhdm/yosys/synth-ibex-f4pga TEST=ibex \
+              ENABLE_READLINE=0 PRETTY=0 -j $(nproc)
 
     - uses: actions/upload-artifact@v2
       with:
         name: top_artya7.bit
-        path: ./synlig/tests/build/lowrisc_ibex_top_artya7_surelog_0.1/synth-symbiflow/top_artya7.bit
+        path: ./tests/build/lowrisc_ibex_top_artya7_surelog_0.1/synth-symbiflow/top_artya7.bit
 
     - name: Upload load graphs
       uses: actions/upload-artifact@v2
