@@ -39,22 +39,15 @@ jobs:
       run: |
         # Github dropped support for unauthorized git: https://github.blog/2021-09-01-improving-git-protocol-security-github/
         # Make sure we always use https:// instead of git://
-        git config --global url.https://github.com/.insteadOf git://github.com/
+        #git config --global url.https://github.com/.insteadOf git://github.com/
         # Use current main of the plugin repository...
-        git clone https://github.com/chipsalliance/systemverilog-plugin.git
-        cd systemverilog-plugin
-        git submodule update --depth 1 --init --recursive --checkout \
-              third_party/yosys \
-              third_party/yosys_f4pga_plugins \
-              third_party/make_env \
-              third_party/ibex \
-
-    - name: Setup Surelog
-      uses: actions/checkout@v2
-      with:
-        submodules: recursive
-        fetch-depth: 0
-        path: 'systemverilog-plugin/third_party/surelog'
+        git clone https://github.com/alaindargelas/synlig.git
+        cd synlig
+        git checkout stable_rs
+        git submodule sync
+        git submodule update --depth 3 --init --recursive --checkout \
+          ./third_party/{surelog,yosys,make_env,yosys_f4pga_plugins,ibex} \
+          ;
 
     - name: Create Cache Timestamp
       id: cache_timestamp
@@ -71,21 +64,30 @@ jobs:
 
     - name: Build binaries
       run: |
-        cd systemverilog-plugin
+        cd synlig
         make -rR -j $(nproc) -Oline -f build_binaries.mk SYSTEMVERILOG_PLUGIN_ONLY:=0 \
               install-surelog install-yosys install-plugins
 
-    - name: Build & Test Ibex
+    - name: Setup build environment
+      run: |
+        # Environment creation has to be run with one job to avoid race conditions.
+        # See: https://github.com/SymbiFlow/make-env/pull/40
+        # Even with the fix more jobs doesn't help with anything.
+        pip install virtualenv
+        cd synlig
+        make -C ./tests env TEST=ibex -j1
+
+    - name: Build & Test
       run: |
         pip install virtualenv
-        cd systemverilog-plugin/tests
-        make -j 1 env TEST=ibex
-        make -j $(nproc) uhdm/yosys/synth-ibex-f4pga TEST=ibex ENABLE_READLINE=0 PRETTY=0
+        cd synlig
+        make -C tests uhdm/yosys/synth-ibex-f4pga TEST=ibex \
+              ENABLE_READLINE=0 PRETTY=0 -j $(nproc)
 
     - uses: actions/upload-artifact@v2
       with:
         name: top_artya7.bit
-        path: ./systemverilog-plugin/tests/build/lowrisc_ibex_top_artya7_surelog_0.1/synth-symbiflow/top_artya7.bit
+        path: ./tests/build/lowrisc_ibex_top_artya7_surelog_0.1/synth-symbiflow/top_artya7.bit
 
     - name: Upload load graphs
       uses: actions/upload-artifact@v2
