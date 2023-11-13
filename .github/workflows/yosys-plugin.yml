@@ -73,11 +73,13 @@ jobs:
         # Environment creation has to be run with one job to avoid race conditions.
         # See: https://github.com/SymbiFlow/make-env/pull/40
         # Even with the fix more jobs doesn't help with anything.
+        pip install virtualenv
         cd synlig
         make -C ./tests env TEST=ibex -j1
 
     - name: Build & Test
       run: |
+        pip install virtualenv
         cd synlig
         make -C tests uhdm/yosys/synth-ibex-f4pga TEST=ibex \
               ENABLE_READLINE=0 PRETTY=0 -j $(nproc)
