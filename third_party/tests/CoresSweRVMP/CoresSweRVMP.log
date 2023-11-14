@@ -80,19 +80,19 @@ CMake Deprecation Warning at CMakeLists.txt:1 (cmake_minimum_required):
 -- Configuring done (0.0s)
 -- Generating done (0.0s)
 -- Build files have been written to: ${SURELOG_DIR}/build/regression/CoresSweRVMP/slpp_all/mp_preprocess
-[  6%] Generating 11_ifu_bp_ctl.sv
 [ 12%] Generating 12_beh_lib.sv
-[ 18%] Generating 13_ifu_mem_ctl.sv
-[ 25%] Generating 14_mem_lib.sv
-[ 31%] Generating 10_lsu_bus_intf.sv
+[ 12%] Generating 10_lsu_bus_intf.sv
+[ 18%] Generating 11_ifu_bp_ctl.sv
+[ 25%] Generating 13_ifu_mem_ctl.sv
+[ 31%] Generating 14_mem_lib.sv
 [ 37%] Generating 15_exu.sv
 [ 43%] Generating 16_dec_decode_ctl.sv
 [ 50%] Generating 1_lsu_stbuf.sv
 [ 56%] Generating 2_ahb_to_axi4.sv
-[ 62%] Generating 4_dec_tlu_ctl.sv
-[ 68%] Generating 3_rvjtag_tap.sv
+[ 62%] Generating 3_rvjtag_tap.sv
+[ 68%] Generating 4_dec_tlu_ctl.sv
+[ 75%] Generating 5_lsu_bus_buffer.sv
 [ 81%] Generating 6_dbg.sv
-[ 81%] Generating 5_lsu_bus_buffer.sv
 [ 87%] Generating 7_axi4_to_ahb.sv
 [ 93%] Generating 8_ifu_aln_ctl.sv
 [100%] Generating 9_tb_top.sv
@@ -5501,11 +5501,8 @@ while_stmt                                           353
 [LINT]: ${SURELOG_DIR}/build/bin/1800.2-2017-1.0/src/base/uvm_links.svh:34:9: Non synthesizable construct, uvm_link_base
 [LINT]: ${SURELOG_DIR}/build/bin/1800.2-2017-1.0/src/base/uvm_links.svh:181:37: Non synthesizable construct,
 [LINT]: ${SURELOG_DIR}/build/bin/1800.2-2017-1.0/src/base/uvm_links.svh:181:1: Non synthesizable construct, uvm_cause_effect_link
-[LINT]: ${SURELOG_DIR}/build/bin/1800.2-2017-1.0/src/comps/uvm_policies.svh:138:17: Non synthesizable construct, clone
 [LINT]: ${SURELOG_DIR}/build/bin/1800.2-2017-1.0/src/comps/uvm_policies.svh:135:1: Non synthesizable construct, uvm_class_clone
-[LINT]: ${SURELOG_DIR}/build/bin/1800.2-2017-1.0/src/comps/uvm_policies.svh:97:14: Non synthesizable construct, compare
 [LINT]: ${SURELOG_DIR}/build/bin/1800.2-2017-1.0/src/comps/uvm_policies.svh:94:1: Non synthesizable construct, uvm_class_comp
-[LINT]: ${SURELOG_DIR}/build/bin/1800.2-2017-1.0/src/comps/uvm_policies.svh:117:14: Non synthesizable construct, convert2string
 [LINT]: ${SURELOG_DIR}/build/bin/1800.2-2017-1.0/src/comps/uvm_policies.svh:114:1: Non synthesizable construct, uvm_class_converter
 [LINT]: ${SURELOG_DIR}/build/bin/1800.2-2017-1.0/src/comps/uvm_pair.svh:38:1: Non synthesizable construct, uvm_class_pair
 [LINT]: ${SURELOG_DIR}/build/bin/1800.2-2017-1.0/src/base/uvm_cmdline_processor.svh:27:1: Non synthesizable construct, uvm_cmd_line_verb
@@ -5833,10 +5830,8 @@ while_stmt                                           353
 [LINT]: ${SURELOG_DIR}/build/bin/1800.2-2017-1.0/src/reg/sequences/uvm_reg_mem_hdl_paths_seq.svh:51:1: Non synthesizable construct, uvm_reg_mem_hdl_paths_seq
 [LINT]: ${SURELOG_DIR}/build/bin/1800.2-2017-1.0/src/reg/sequences/uvm_reg_mem_shared_access_seq.svh:61:1: Non synthesizable construct, uvm_reg_shared_access_seq
 [LINT]: ${SURELOG_DIR}/build/bin/1800.2-2017-1.0/src/base/uvm_registry.svh:654:30: Non synthesizable construct, get_factory
-[LINT]: ${SURELOG_DIR}/build/bin/1800.2-2017-1.0/src/base/uvm_registry.svh:655:20: Non synthesizable construct, create_component_by_type
 [LINT]: ${SURELOG_DIR}/build/bin/1800.2-2017-1.0/src/base/uvm_registry.svh:645:9: Non synthesizable construct, uvm_registry_component_creator
 [LINT]: ${SURELOG_DIR}/build/bin/1800.2-2017-1.0/src/base/uvm_registry.svh:670:30: Non synthesizable construct, get_factory
-[LINT]: ${SURELOG_DIR}/build/bin/1800.2-2017-1.0/src/base/uvm_registry.svh:672:20: Non synthesizable construct, create_object_by_type
 [LINT]: ${SURELOG_DIR}/build/bin/1800.2-2017-1.0/src/base/uvm_registry.svh:661:9: Non synthesizable construct, uvm_registry_object_creator
 [LINT]: ${SURELOG_DIR}/build/bin/1800.2-2017-1.0/src/base/uvm_resource_db_options.svh:101:14: Non synthesizable construct, get_arg_matches
 [LINT]: ${SURELOG_DIR}/build/bin/1800.2-2017-1.0/src/base/uvm_resource_db_options.svh:49:1: Non synthesizable construct, uvm_resource_db_options
@@ -5913,7 +5908,6 @@ while_stmt                                           353
 [LINT]: ${SURELOG_DIR}/build/bin/1800.2-2017-1.0/src/base/uvm_globals.svh:50:7: Non synthesizable construct, run_test
 [LINT]: ${SURELOG_DIR}/build/bin/1800.2-2017-1.0/src/base/uvm_globals.svh:66:12: Non synthesizable construct, get_root
 [LINT]: ${SURELOG_DIR}/build/bin/1800.2-2017-1.0/src/base/uvm_globals.svh:89:12: Non synthesizable construct, get_root
-[LINT]: ${SURELOG_DIR}/build/bin/1800.2-2017-1.0/src/base/uvm_globals.svh:90:14: Non synthesizable construct, uvm_report_enabled
 [LINT]: ${SURELOG_DIR}/build/bin/1800.2-2017-1.0/src/base/uvm_globals.svh:108:12: Non synthesizable construct, get_root
 [LINT]: ${SURELOG_DIR}/build/bin/1800.2-2017-1.0/src/base/uvm_globals.svh:109:7: Non synthesizable construct, uvm_report
 [LINT]: ${SURELOG_DIR}/build/bin/1800.2-2017-1.0/src/base/uvm_globals.svh:136:12: Non synthesizable construct, get_root
