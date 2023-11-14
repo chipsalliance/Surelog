@@ -3273,6 +3273,27 @@ void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod, scope* m) {
                 }
               }
             }
+            if (m->Typespecs()) {
+              for (auto n : *m->Typespecs()) {
+                if (n->UhdmType() == uhdmenum_typespec) {
+                  enum_typespec* tps = any_cast<enum_typespec*>(n);
+                  if (tps && tps->Enum_consts()) {
+                    for (auto c : *tps->Enum_consts()) {
+                      if (c->VpiName() == name) {
+                        ref->Actual_group(c);
+                        break;
+                      }
+                      if (std::string(std::string(m->VpiName()) +
+                                      std::string("::") + std::string(name)) ==
+                          c->VpiName()) {
+                        ref->Actual_group(c);
+                        break;
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
         if (ref->Actual_group()) break;
@@ -3608,6 +3629,11 @@ void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod, scope* m) {
           if (tps && tps->Enum_consts()) {
             for (auto c : *tps->Enum_consts()) {
               if (c->VpiName() == name) {
+                ref->Actual_group(c);
+                break;
+              }
+              if (std::string(std::string(m->VpiName()) + std::string("::") +
+                              std::string(name)) == c->VpiName()) {
                 ref->Actual_group(c);
                 break;
               }
