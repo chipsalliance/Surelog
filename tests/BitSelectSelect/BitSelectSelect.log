@@ -136,6 +136,7 @@ range                                                  7
 ref_obj                                                4
 ref_typespec                                           8
 struct_typespec                                        1
+struct_var                                             1
 typespec_member                                        1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -157,6 +158,7 @@ range                                                  7
 ref_obj                                                6
 ref_typespec                                           9
 struct_typespec                                        1
+struct_var                                             1
 typespec_member                                        1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/BitSelectSelect/slpp_all/surelog.uhdm ...
@@ -306,16 +308,61 @@ design: (work@top)
   \_packed_array_var: (work@top.a), line:7:28, endln:7:29
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectSelect/dut.sv, line:2:1, endln:9:10
-    |vpiTypespec:
-    \_ref_typespec: (work@top.a)
-      |vpiParent:
-      \_packed_array_var: (work@top.a), line:7:28, endln:7:29
-      |vpiFullName:work@top.a
-      |vpiActual:
-      \_packed_array_typespec: , line:7:4, endln:7:27
     |vpiName:a
     |vpiFullName:work@top.a
     |vpiVisibility:1
+    |vpiRange:
+    \_range: , line:7:17, endln:7:22
+      |vpiParent:
+      \_packed_array_var: (work@top.a), line:7:28, endln:7:29
+      |vpiLeftRange:
+      \_constant: , line:7:18, endln:7:19
+        |vpiParent:
+        \_range: , line:7:17, endln:7:22
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:7:20, endln:7:21
+        |vpiParent:
+        \_range: , line:7:17, endln:7:22
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiRange:
+    \_range: , line:7:22, endln:7:27
+      |vpiParent:
+      \_packed_array_var: (work@top.a), line:7:28, endln:7:29
+      |vpiLeftRange:
+      \_constant: , line:7:23, endln:7:24
+        |vpiParent:
+        \_range: , line:7:22, endln:7:27
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:7:25, endln:7:26
+        |vpiParent:
+        \_range: , line:7:22, endln:7:27
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiElement:
+    \_struct_var: (work@top.a)
+      |vpiParent:
+      \_packed_array_var: (work@top.a), line:7:28, endln:7:29
+      |vpiTypespec:
+      \_ref_typespec: (work@top.a)
+        |vpiParent:
+        \_struct_var: (work@top.a)
+        |vpiFullName:work@top.a
+        |vpiActual:
+        \_struct_typespec: (filter_ctl_t), line:3:12, endln:5:5
+      |vpiFullName:work@top.a
   |vpiTypedef:
   \_struct_typespec: (filter_ctl_t), line:3:12, endln:5:5
   |vpiDefName:work@top
@@ -426,56 +473,6 @@ design: (work@top)
   |vpiParent:
   \_int_var: (work@top.o), line:2:23, endln:2:24
   |vpiSigned:1
-\_packed_array_typespec: , line:7:4, endln:7:27
-  |vpiParent:
-  \_packed_array_var: (work@top.a), line:7:28, endln:7:29
-  |vpiRange:
-  \_range: , line:7:17, endln:7:22
-    |vpiParent:
-    \_packed_array_typespec: , line:7:4, endln:7:27
-    |vpiLeftRange:
-    \_constant: , line:7:18, endln:7:19
-      |vpiParent:
-      \_range: , line:7:17, endln:7:22
-      |vpiDecompile:1
-      |vpiSize:64
-      |UINT:1
-      |vpiConstType:9
-    |vpiRightRange:
-    \_constant: , line:7:20, endln:7:21
-      |vpiParent:
-      \_range: , line:7:17, endln:7:22
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-  |vpiRange:
-  \_range: , line:7:22, endln:7:27
-    |vpiParent:
-    \_packed_array_typespec: , line:7:4, endln:7:27
-    |vpiLeftRange:
-    \_constant: , line:7:23, endln:7:24
-      |vpiParent:
-      \_range: , line:7:22, endln:7:27
-      |vpiDecompile:2
-      |vpiSize:64
-      |UINT:2
-      |vpiConstType:9
-    |vpiRightRange:
-    \_constant: , line:7:25, endln:7:26
-      |vpiParent:
-      \_range: , line:7:22, endln:7:27
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-  |vpiElemTypespec:
-  \_ref_typespec: (work@top.a)
-    |vpiParent:
-    \_packed_array_typespec: , line:7:4, endln:7:27
-    |vpiFullName:work@top.a
-    |vpiActual:
-    \_struct_typespec: (filter_ctl_t), line:3:12, endln:5:5
 \_int_typespec: , line:2:19, endln:2:22
   |vpiSigned:1
 \_packed_array_typespec: , line:7:4, endln:7:22

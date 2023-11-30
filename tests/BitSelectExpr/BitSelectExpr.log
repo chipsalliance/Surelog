@@ -118,6 +118,7 @@ range                                                  3
 ref_obj                                                4
 ref_typespec                                           8
 struct_typespec                                        1
+struct_var                                             1
 typespec_member                                        1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -139,6 +140,7 @@ range                                                  3
 ref_obj                                                6
 ref_typespec                                           9
 struct_typespec                                        1
+struct_var                                             1
 typespec_member                                        1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/BitSelectExpr/slpp_all/surelog.uhdm ...
@@ -292,16 +294,41 @@ design: (work@top)
   \_packed_array_var: (work@top.sram_otp_key_o), line:7:29, endln:7:43
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectExpr/dut.sv, line:1:1, endln:12:10
-    |vpiTypespec:
-    \_ref_typespec: (work@top.sram_otp_key_o)
-      |vpiParent:
-      \_packed_array_var: (work@top.sram_otp_key_o), line:7:29, endln:7:43
-      |vpiFullName:work@top.sram_otp_key_o
-      |vpiActual:
-      \_packed_array_typespec: , line:7:4, endln:7:28
     |vpiName:sram_otp_key_o
     |vpiFullName:work@top.sram_otp_key_o
     |vpiVisibility:1
+    |vpiRange:
+    \_range: , line:7:23, endln:7:28
+      |vpiParent:
+      \_packed_array_var: (work@top.sram_otp_key_o), line:7:29, endln:7:43
+      |vpiLeftRange:
+      \_constant: , line:7:24, endln:7:25
+        |vpiParent:
+        \_range: , line:7:23, endln:7:28
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:7:26, endln:7:27
+        |vpiParent:
+        \_range: , line:7:23, endln:7:28
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiElement:
+    \_struct_var: (work@top.sram_otp_key_o)
+      |vpiParent:
+      \_packed_array_var: (work@top.sram_otp_key_o), line:7:29, endln:7:43
+      |vpiTypespec:
+      \_ref_typespec: (work@top.sram_otp_key_o)
+        |vpiParent:
+        \_struct_var: (work@top.sram_otp_key_o)
+        |vpiFullName:work@top.sram_otp_key_o
+        |vpiActual:
+        \_struct_typespec: (sram_otp_key_rsp_t), line:3:12, endln:5:5
+      |vpiFullName:work@top.sram_otp_key_o
   |vpiTypedef:
   \_struct_typespec: (sram_otp_key_rsp_t), line:3:12, endln:5:5
   |vpiDefName:work@top
@@ -374,36 +401,6 @@ design: (work@top)
   |vpiParent:
   \_int_var: (work@top.o), line:1:23, endln:1:24
   |vpiSigned:1
-\_packed_array_typespec: , line:7:4, endln:7:28
-  |vpiParent:
-  \_packed_array_var: (work@top.sram_otp_key_o), line:7:29, endln:7:43
-  |vpiRange:
-  \_range: , line:7:23, endln:7:28
-    |vpiParent:
-    \_packed_array_typespec: , line:7:4, endln:7:28
-    |vpiLeftRange:
-    \_constant: , line:7:24, endln:7:25
-      |vpiParent:
-      \_range: , line:7:23, endln:7:28
-      |vpiDecompile:2
-      |vpiSize:64
-      |UINT:2
-      |vpiConstType:9
-    |vpiRightRange:
-    \_constant: , line:7:26, endln:7:27
-      |vpiParent:
-      \_range: , line:7:23, endln:7:28
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-  |vpiElemTypespec:
-  \_ref_typespec: (work@top.sram_otp_key_o)
-    |vpiParent:
-    \_packed_array_typespec: , line:7:4, endln:7:28
-    |vpiFullName:work@top.sram_otp_key_o
-    |vpiActual:
-    \_struct_typespec: (sram_otp_key_rsp_t), line:3:12, endln:5:5
 \_int_typespec: , line:1:19, endln:1:22
   |vpiSigned:1
 \_packed_array_typespec: , line:7:4, endln:7:28
