@@ -1676,113 +1676,7 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
 
   variables* obj = nullptr;
   bool found = false;
-
-  while ((!found) && dtype) {
-    if (Parameter* sit =
-            const_cast<Parameter*>(datatype_cast<const Parameter*>(dtype))) {
-      if (UHDM::typespec* spec = elabTypeParameter_(component, sit, instance)) {
-        if (variables* var = m_helper.getSimpleVarFromTypespec(
-                spec, packedDimensions, m_compileDesign)) {
-          var->VpiConstantVariable(sig->isConst());
-          var->VpiSigned(sig->isSigned());
-          var->VpiName(signame);
-          if (assignExp != nullptr) {
-            var->Expr(assignExp);
-            assignExp->VpiParent(var);
-          }
-          obj = var;
-          found = true;
-          break;
-        }
-      }
-    }
-    dtype = dtype->getDefinition();
-  }
-
-  if ((found == false) && tps) {
-    UHDM::UHDM_OBJECT_TYPE tpstype = tps->UhdmType();
-    found = true;
-    if (tpstype == uhdmstruct_typespec) {
-      struct_var* stv = s.MakeStruct_var();
-      obj = stv;
-    } else if (tpstype == uhdmlogic_typespec) {
-      logic_var* stv = s.MakeLogic_var();
-      // Do not set packedDimensions, it is a repeat of the typespec packed
-      // dimension.
-      // stv->Ranges(packedDimensions);
-      obj = stv;
-    } else if (tpstype == uhdmenum_typespec) {
-      enum_var* stv = s.MakeEnum_var();
-      obj = stv;
-    } else if (tpstype == uhdmbit_typespec) {
-      bit_var* stv = s.MakeBit_var();
-      stv->Ranges(unpackedDimensions);
-      obj = stv;
-    } else if (tpstype == uhdmbyte_typespec) {
-      byte_var* stv = s.MakeByte_var();
-      obj = stv;
-    } else if (tpstype == uhdmreal_typespec) {
-      real_var* stv = s.MakeReal_var();
-      obj = stv;
-    } else if (tpstype == uhdmint_typespec) {
-      int_var* stv = s.MakeInt_var();
-      obj = stv;
-    } else if (tpstype == uhdminteger_typespec) {
-      integer_var* stv = s.MakeInteger_var();
-      obj = stv;
-    } else if (tpstype == uhdmlong_int_typespec) {
-      long_int_var* stv = s.MakeLong_int_var();
-      obj = stv;
-    } else if (tpstype == uhdmshort_int_typespec) {
-      short_int_var* stv = s.MakeShort_int_var();
-      obj = stv;
-    } else if (tpstype == uhdmstring_typespec) {
-      string_var* stv = s.MakeString_var();
-      obj = stv;
-    } else if (tpstype == uhdmbit_typespec) {
-      bit_var* stv = s.MakeBit_var();
-      obj = stv;
-    } else if (tpstype == uhdmbyte_typespec) {
-      byte_var* stv = s.MakeByte_var();
-      obj = stv;
-    } else if (tpstype == uhdmtime_typespec) {
-      time_var* stv = s.MakeTime_var();
-      obj = stv;
-    } else if (tpstype == uhdmunion_typespec) {
-      union_var* stv = s.MakeUnion_var();
-      obj = stv;
-    } else if (tpstype == uhdmclass_typespec) {
-      class_var* stv = s.MakeClass_var();
-      obj = stv;
-    } else if (tpstype == uhdmpacked_array_typespec) {
-      packed_array_var* stv = s.MakePacked_array_var();
-      obj = stv;
-    } else if (tpstype == uhdmarray_typespec) {
-      UHDM::array_var* stv = s.MakeArray_var();
-      obj = stv;
-    } else {
-      found = false;
-    }
-
-    if (obj != nullptr) {
-      if (assignExp != nullptr) {
-        assignExp->VpiParent(obj);
-        obj->Expr(assignExp);
-      }
-      if (tps != nullptr) {
-        if (obj->Typespec() == nullptr) {
-          ref_typespec* rt = s.MakeRef_typespec();
-          rt->VpiParent(obj);
-          obj->Typespec(rt);
-        }
-        obj->Typespec()->Actual_typespec(tps);
-        tps->VpiParent(obj);
-      }
-      obj->VpiName(signame);
-    }
-  }
-
-  while ((!found) && dtype) {
+  while (dtype) {
     if (const TypeDef* tdef = datatype_cast<const TypeDef*>(dtype)) {
       if (tdef->getTypespec()) {
         tps = tdef->getTypespec();
@@ -1943,8 +1837,105 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
       obj = stv;
       found = true;
       break;
+    } else if (Parameter* sit = const_cast<Parameter*>(
+                   datatype_cast<const Parameter*>(dtype))) {
+      if (UHDM::typespec* spec = elabTypeParameter_(component, sit, instance)) {
+        if (variables* var = m_helper.getSimpleVarFromTypespec(
+                spec, packedDimensions, m_compileDesign)) {
+          var->VpiConstantVariable(sig->isConst());
+          var->VpiSigned(sig->isSigned());
+          var->VpiName(signame);
+          if (assignExp != nullptr) {
+            var->Expr(assignExp);
+            assignExp->VpiParent(var);
+          }
+          obj = var;
+          found = true;
+          break;
+        }
+      }
     }
     dtype = dtype->getDefinition();
+  }
+
+  if ((found == false) && tps) {
+    UHDM::UHDM_OBJECT_TYPE tpstype = tps->UhdmType();
+    if (tpstype == uhdmstruct_typespec) {
+      struct_var* stv = s.MakeStruct_var();
+      obj = stv;
+    } else if (tpstype == uhdmlogic_typespec) {
+      logic_var* stv = s.MakeLogic_var();
+      // Do not set packedDimensions, it is a repeat of the typespec packed
+      // dimension.
+      // stv->Ranges(packedDimensions);
+      obj = stv;
+    } else if (tpstype == uhdmenum_typespec) {
+      enum_var* stv = s.MakeEnum_var();
+      obj = stv;
+    } else if (tpstype == uhdmbit_typespec) {
+      bit_var* stv = s.MakeBit_var();
+      stv->Ranges(unpackedDimensions);
+      obj = stv;
+    } else if (tpstype == uhdmbyte_typespec) {
+      byte_var* stv = s.MakeByte_var();
+      obj = stv;
+    } else if (tpstype == uhdmreal_typespec) {
+      real_var* stv = s.MakeReal_var();
+      obj = stv;
+    } else if (tpstype == uhdmint_typespec) {
+      int_var* stv = s.MakeInt_var();
+      obj = stv;
+    } else if (tpstype == uhdminteger_typespec) {
+      integer_var* stv = s.MakeInteger_var();
+      obj = stv;
+    } else if (tpstype == uhdmlong_int_typespec) {
+      long_int_var* stv = s.MakeLong_int_var();
+      obj = stv;
+    } else if (tpstype == uhdmshort_int_typespec) {
+      short_int_var* stv = s.MakeShort_int_var();
+      obj = stv;
+    } else if (tpstype == uhdmstring_typespec) {
+      string_var* stv = s.MakeString_var();
+      obj = stv;
+    } else if (tpstype == uhdmbit_typespec) {
+      bit_var* stv = s.MakeBit_var();
+      obj = stv;
+    } else if (tpstype == uhdmbyte_typespec) {
+      byte_var* stv = s.MakeByte_var();
+      obj = stv;
+    } else if (tpstype == uhdmtime_typespec) {
+      time_var* stv = s.MakeTime_var();
+      obj = stv;
+    } else if (tpstype == uhdmunion_typespec) {
+      union_var* stv = s.MakeUnion_var();
+      obj = stv;
+    } else if (tpstype == uhdmclass_typespec) {
+      class_var* stv = s.MakeClass_var();
+      obj = stv;
+    } else if (tpstype == uhdmpacked_array_typespec) {
+      packed_array_var* stv = s.MakePacked_array_var();
+      obj = stv;
+    } else if (tpstype == uhdmarray_typespec) {
+      UHDM::array_var* stv = s.MakeArray_var();
+      obj = stv;
+    }
+
+    if (obj != nullptr) {
+      if (assignExp != nullptr) {
+        assignExp->VpiParent(obj);
+        obj->Expr(assignExp);
+      }
+      if (tps != nullptr) {
+        if (obj->Typespec() == nullptr) {
+          ref_typespec* rt = s.MakeRef_typespec();
+          rt->VpiParent(obj);
+          obj->Typespec(rt);
+        }
+        obj->Typespec()->Actual_typespec(tps);
+        tps->VpiParent(obj);
+      }
+      obj->VpiName(signame);
+    }
   }
 
   if (obj == nullptr) {

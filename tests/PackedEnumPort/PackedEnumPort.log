@@ -151,6 +151,7 @@ constant                                              18
 design                                                 1
 enum_const                                             3
 enum_typespec                                          3
+enum_var                                               1
 int_typespec                                           6
 int_var                                                2
 logic_net                                              5
@@ -172,6 +173,7 @@ constant                                              18
 design                                                 1
 enum_const                                             3
 enum_typespec                                          3
+enum_var                                               1
 int_typespec                                           6
 int_var                                                2
 logic_net                                              5
@@ -457,16 +459,42 @@ design: (work@top)
   \_packed_array_var: (work@top.lc_clk_byp_ack), line:25:30, endln:25:44
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PackedEnumPort/dut.sv, line:24:1, endln:37:16
-    |vpiTypespec:
-    \_ref_typespec: (work@top.lc_clk_byp_ack)
-      |vpiParent:
-      \_packed_array_var: (work@top.lc_clk_byp_ack), line:25:30, endln:25:44
-      |vpiFullName:work@top.lc_clk_byp_ack
-      |vpiActual:
-      \_packed_array_typespec: 
     |vpiName:lc_clk_byp_ack
     |vpiFullName:work@top.lc_clk_byp_ack
     |vpiVisibility:1
+    |vpiRange:
+    \_range: , line:25:24, endln:25:29
+      |vpiParent:
+      \_packed_array_var: (work@top.lc_clk_byp_ack), line:25:30, endln:25:44
+      |vpiLeftRange:
+      \_constant: , line:25:25, endln:25:26
+        |vpiParent:
+        \_range: , line:25:24, endln:25:29
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:25:27, endln:25:28
+        |vpiParent:
+        \_range: , line:25:24, endln:25:29
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiElement:
+    \_enum_var: (work@top.lc_clk_byp_ack.lc_clk_byp_ack)
+      |vpiParent:
+      \_packed_array_var: (work@top.lc_clk_byp_ack), line:25:30, endln:25:44
+      |vpiTypespec:
+      \_ref_typespec: (work@top.lc_clk_byp_ack.lc_clk_byp_ack)
+        |vpiParent:
+        \_enum_var: (work@top.lc_clk_byp_ack.lc_clk_byp_ack)
+        |vpiFullName:work@top.lc_clk_byp_ack.lc_clk_byp_ack
+        |vpiActual:
+        \_enum_typespec: (lc_ctrl_pkg::lc_tx_t), line:3:4, endln:5:14
+      |vpiName:lc_clk_byp_ack
+      |vpiFullName:work@top.lc_clk_byp_ack.lc_clk_byp_ack
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
@@ -664,36 +692,6 @@ design: (work@top)
   |vpiParent:
   \_int_var: (work@top.p), line:24:37, endln:24:38
   |vpiSigned:1
-\_packed_array_typespec: 
-  |vpiParent:
-  \_packed_array_var: (work@top.lc_clk_byp_ack), line:25:30, endln:25:44
-  |vpiRange:
-  \_range: , line:25:24, endln:25:29
-    |vpiParent:
-    \_packed_array_typespec: 
-    |vpiLeftRange:
-    \_constant: , line:25:25, endln:25:26
-      |vpiParent:
-      \_range: , line:25:24, endln:25:29
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-    |vpiRightRange:
-    \_constant: , line:25:27, endln:25:28
-      |vpiParent:
-      \_range: , line:25:24, endln:25:29
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-  |vpiElemTypespec:
-  \_ref_typespec: (work@top.lc_clk_byp_ack)
-    |vpiParent:
-    \_packed_array_typespec: 
-    |vpiFullName:work@top.lc_clk_byp_ack
-    |vpiActual:
-    \_enum_typespec: (lc_ctrl_pkg::lc_tx_t), line:3:4, endln:5:14
 \_logic_typespec: , line:13:9, endln:13:14
 \_logic_typespec: , line:13:9, endln:13:14
   |vpiParent:
