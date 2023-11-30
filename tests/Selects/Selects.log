@@ -168,7 +168,7 @@ range                                                  4
 ref_obj                                                3
 ref_typespec                                          13
 struct_typespec                                        2
-struct_var                                             2
+struct_var                                             1
 typespec_member                                        2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -187,7 +187,7 @@ range                                                  4
 ref_obj                                                3
 ref_typespec                                          13
 struct_typespec                                        2
-struct_var                                             2
+struct_var                                             1
 typespec_member                                        2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/Selects/slpp_all/surelog.uhdm ...
@@ -329,41 +329,16 @@ design: (work@t)
   \_packed_array_var: (work@t.sw_rst_ctrl_n), line:12:44, endln:12:57
     |vpiParent:
     \_module_inst: work@t (work@t), file:${SURELOG_DIR}/tests/Selects/dut.sv, line:1:1, endln:16:10
+    |vpiTypespec:
+    \_ref_typespec: (work@t.sw_rst_ctrl_n)
+      |vpiParent:
+      \_packed_array_var: (work@t.sw_rst_ctrl_n), line:12:44, endln:12:57
+      |vpiFullName:work@t.sw_rst_ctrl_n
+      |vpiActual:
+      \_packed_array_typespec: , line:12:3, endln:12:43
     |vpiName:sw_rst_ctrl_n
     |vpiFullName:work@t.sw_rst_ctrl_n
     |vpiVisibility:1
-    |vpiRange:
-    \_range: , line:12:38, endln:12:43
-      |vpiParent:
-      \_packed_array_var: (work@t.sw_rst_ctrl_n), line:12:44, endln:12:57
-      |vpiLeftRange:
-      \_constant: , line:12:39, endln:12:40
-        |vpiParent:
-        \_range: , line:12:38, endln:12:43
-        |vpiDecompile:0
-        |vpiSize:64
-        |UINT:0
-        |vpiConstType:9
-      |vpiRightRange:
-      \_constant: , line:12:41, endln:12:42
-        |vpiParent:
-        \_range: , line:12:38, endln:12:43
-        |vpiDecompile:0
-        |vpiSize:64
-        |UINT:0
-        |vpiConstType:9
-    |vpiElement:
-    \_struct_var: (work@t.sw_rst_ctrl_n)
-      |vpiParent:
-      \_packed_array_var: (work@t.sw_rst_ctrl_n), line:12:44, endln:12:57
-      |vpiTypespec:
-      \_ref_typespec: (work@t.sw_rst_ctrl_n)
-        |vpiParent:
-        \_struct_var: (work@t.sw_rst_ctrl_n)
-        |vpiFullName:work@t.sw_rst_ctrl_n
-        |vpiActual:
-        \_struct_typespec: (rstmgr_reg2hw_sw_rst_ctrl_n_mreg_t), line:3:11, endln:5:4
-      |vpiFullName:work@t.sw_rst_ctrl_n
   |vpiVariables:
   \_logic_var: (work@t.X), line:14:9, endln:14:38
     |vpiParent:
@@ -488,6 +463,36 @@ design: (work@t)
     |vpiParent:
     \_packed_array_typespec: , line:8:5, endln:8:45
     |vpiFullName:work@t.rstmgr_reg2hw_t.sw_rst_ctrl_n
+    |vpiActual:
+    \_struct_typespec: (rstmgr_reg2hw_sw_rst_ctrl_n_mreg_t), line:3:11, endln:5:4
+\_packed_array_typespec: , line:12:3, endln:12:43
+  |vpiParent:
+  \_packed_array_var: (work@t.sw_rst_ctrl_n), line:12:44, endln:12:57
+  |vpiRange:
+  \_range: , line:12:38, endln:12:43
+    |vpiParent:
+    \_packed_array_typespec: , line:12:3, endln:12:43
+    |vpiLeftRange:
+    \_constant: , line:12:39, endln:12:40
+      |vpiParent:
+      \_range: , line:12:38, endln:12:43
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:12:41, endln:12:42
+      |vpiParent:
+      \_range: , line:12:38, endln:12:43
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_typespec: (work@t.sw_rst_ctrl_n)
+    |vpiParent:
+    \_packed_array_typespec: , line:12:3, endln:12:43
+    |vpiFullName:work@t.sw_rst_ctrl_n
     |vpiActual:
     \_struct_typespec: (rstmgr_reg2hw_sw_rst_ctrl_n_mreg_t), line:3:11, endln:5:4
 \_logic_typespec: , line:14:3, endln:14:8

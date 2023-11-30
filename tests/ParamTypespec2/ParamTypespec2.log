@@ -211,7 +211,6 @@ ref_obj                                               14
 ref_typespec                                          81
 string_typespec                                       26
 struct_typespec                                       13
-struct_var                                             1
 tagged_pattern                                        26
 typespec_member                                       26
 === UHDM Object Stats End ===
@@ -239,7 +238,6 @@ ref_obj                                               20
 ref_typespec                                          86
 string_typespec                                       26
 struct_typespec                                       13
-struct_var                                             1
 tagged_pattern                                        26
 typespec_member                                       26
 === UHDM Object Stats End ===
@@ -775,41 +773,16 @@ design: (work@top)
     \_packed_array_var: (work@top.u_nmi_gen.a), line:15:25, endln:15:26
       |vpiParent:
       \_module_inst: work@nmi_gen (work@top.u_nmi_gen), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:22:4, endln:25:6
+      |vpiTypespec:
+      \_ref_typespec: (work@top.u_nmi_gen.a)
+        |vpiParent:
+        \_packed_array_var: (work@top.u_nmi_gen.a), line:15:25, endln:15:26
+        |vpiFullName:work@top.u_nmi_gen.a
+        |vpiActual:
+        \_packed_array_typespec: , line:15:10, endln:15:24
       |vpiName:a
       |vpiFullName:work@top.u_nmi_gen.a
       |vpiVisibility:1
-      |vpiRange:
-      \_range: , line:15:19, endln:15:24
-        |vpiParent:
-        \_packed_array_var: (work@top.u_nmi_gen.a), line:15:25, endln:15:26
-        |vpiLeftRange:
-        \_constant: , line:15:20, endln:15:21
-          |vpiParent:
-          \_range: , line:15:19, endln:15:24
-          |vpiDecompile:2
-          |vpiSize:64
-          |UINT:2
-          |vpiConstType:9
-        |vpiRightRange:
-        \_constant: , line:15:22, endln:15:23
-          |vpiParent:
-          \_range: , line:15:19, endln:15:24
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-      |vpiElement:
-      \_struct_var: (work@top.u_nmi_gen.a)
-        |vpiParent:
-        \_packed_array_var: (work@top.u_nmi_gen.a), line:15:25, endln:15:26
-        |vpiTypespec:
-        \_ref_typespec: (work@top.u_nmi_gen.a)
-          |vpiParent:
-          \_struct_var: (work@top.u_nmi_gen.a)
-          |vpiFullName:work@top.u_nmi_gen.a
-          |vpiActual:
-          \_struct_typespec: (prim_esc_pkg::esc_tx_t), line:2:11, endln:5:4
-        |vpiFullName:work@top.u_nmi_gen.a
     |vpiVariables:
     \_int_var: (work@top.u_nmi_gen.x), line:16:15, endln:16:16
       |vpiParent:
@@ -1313,6 +1286,36 @@ design: (work@top)
   \_ref_typespec: (work@top.u_nmi_gen.prim_esc_pkg::esc_tx_t.esc_n)
   |vpiInstance:
   \_package: prim_esc_pkg (prim_esc_pkg::), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:1:1, endln:10:26
+\_packed_array_typespec: , line:15:10, endln:15:24
+  |vpiParent:
+  \_packed_array_var: (work@top.u_nmi_gen.a), line:15:25, endln:15:26
+  |vpiRange:
+  \_range: , line:15:19, endln:15:24
+    |vpiParent:
+    \_packed_array_typespec: , line:15:10, endln:15:24
+    |vpiLeftRange:
+    \_constant: , line:15:20, endln:15:21
+      |vpiParent:
+      \_range: , line:15:19, endln:15:24
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:15:22, endln:15:23
+      |vpiParent:
+      \_range: , line:15:19, endln:15:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_typespec: (work@top.u_nmi_gen.a)
+    |vpiParent:
+    \_packed_array_typespec: , line:15:10, endln:15:24
+    |vpiFullName:work@top.u_nmi_gen.a
+    |vpiActual:
+    \_struct_typespec: (prim_esc_pkg::esc_tx_t), line:2:11, endln:5:4
 \_int_typespec: , line:16:11, endln:16:14
   |vpiSigned:1
 \_operation: , line:7:39, endln:8:54

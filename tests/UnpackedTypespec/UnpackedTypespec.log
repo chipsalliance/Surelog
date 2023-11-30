@@ -212,41 +212,41 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 1.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-array_typespec                                         8
+array_typespec                                         6
 array_var                                              1
-constant                                              34
+constant                                              32
 design                                                 1
 enum_const                                             3
 enum_typespec                                          1
-int_typespec                                           4
+int_typespec                                           3
 integer_typespec                                       1
 logic_net                                              1
 logic_typespec                                         2
 module_inst                                            5
 operation                                              1
 packed_array_typespec                                  7
-range                                                 16
-ref_typespec                                          16
+range                                                 15
+ref_typespec                                          15
 string_typespec                                        1
 tagged_pattern                                         2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-array_typespec                                         8
+array_typespec                                         6
 array_var                                              1
-constant                                              34
+constant                                              32
 design                                                 1
 enum_const                                             3
 enum_typespec                                          1
-int_typespec                                           4
+int_typespec                                           3
 integer_typespec                                       1
 logic_net                                              1
 logic_typespec                                         2
 module_inst                                            5
 operation                                              1
 packed_array_typespec                                  7
-range                                                 16
-ref_typespec                                          16
+range                                                 15
+ref_typespec                                          15
 string_typespec                                        1
 tagged_pattern                                         2
 === UHDM Object Stats End ===
@@ -628,14 +628,17 @@ design: (work@top)
     \_packed_array_typespec: , line:18:11, endln:18:28
     |vpiActual:
     \_enum_typespec: (unit_type_t), line:10:4, endln:14:17
-\_integer_typespec: , line:5:16, endln:5:17
-  |INT:1
-\_string_typespec: (default), line:5:21, endln:5:28
-  |vpiParent:
-  \_tagged_pattern: , line:5:29, endln:5:30
-  |vpiName:default
 \_array_typespec: (triple), line:4:11, endln:4:27
+  |vpiParent:
+  \_array_var: (work@top.b), line:5:10, endln:5:11
   |vpiName:triple
+  |vpiTypedefAlias:
+  \_ref_typespec: (work@top.b.triple)
+    |vpiParent:
+    \_array_typespec: (triple), line:4:11, endln:4:27
+    |vpiFullName:work@top.b.triple
+    |vpiActual:
+    \_array_typespec: (triple), line:4:11, endln:4:27
   |vpiRange:
   \_range: , line:4:22, endln:4:27
     |vpiParent:
@@ -657,16 +660,22 @@ design: (work@top)
       |UINT:3
       |vpiConstType:9
   |vpiElemTypespec:
-  \_ref_typespec: (triple)
+  \_ref_typespec: (work@top.b.triple)
     |vpiParent:
     \_array_typespec: (triple), line:4:11, endln:4:27
-    |vpiFullName:triple
+    |vpiFullName:work@top.b.triple
     |vpiActual:
     \_int_typespec: , line:4:11, endln:4:14
 \_int_typespec: , line:4:11, endln:4:14
   |vpiParent:
-  \_ref_typespec: (triple)
+  \_ref_typespec: (work@top.b.triple)
   |vpiSigned:1
+\_integer_typespec: , line:5:16, endln:5:17
+  |INT:1
+\_string_typespec: (default), line:5:21, endln:5:28
+  |vpiParent:
+  \_tagged_pattern: , line:5:29, endln:5:30
+  |vpiName:default
 \_array_typespec: (triple), line:4:11, endln:4:27
   |vpiName:triple
   |vpiTypedefAlias:

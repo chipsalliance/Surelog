@@ -404,7 +404,6 @@ range                                                 10
 ref_obj                                                1
 ref_typespec                                          20
 struct_typespec                                        1
-struct_var                                             1
 task                                                   9
 typespec_member                                        1
 === UHDM Object Stats End ===
@@ -435,7 +434,6 @@ range                                                 10
 ref_obj                                                1
 ref_typespec                                          25
 struct_typespec                                        1
-struct_var                                             1
 task                                                  18
 typespec_member                                        1
 === UHDM Object Stats End ===
@@ -995,61 +993,16 @@ design: (work@adc_ctrl_core)
   \_packed_array_var: (work@adc_ctrl_core.a), line:6:28, endln:6:29
     |vpiParent:
     \_module_inst: work@adc_ctrl_core (work@adc_ctrl_core), file:${SURELOG_DIR}/tests/SelectSelect/dut.sv, line:1:1, endln:8:10
+    |vpiTypespec:
+    \_ref_typespec: (work@adc_ctrl_core.a)
+      |vpiParent:
+      \_packed_array_var: (work@adc_ctrl_core.a), line:6:28, endln:6:29
+      |vpiFullName:work@adc_ctrl_core.a
+      |vpiActual:
+      \_packed_array_typespec: , line:6:4, endln:6:27
     |vpiName:a
     |vpiFullName:work@adc_ctrl_core.a
     |vpiVisibility:1
-    |vpiRange:
-    \_range: , line:6:17, endln:6:22
-      |vpiParent:
-      \_packed_array_var: (work@adc_ctrl_core.a), line:6:28, endln:6:29
-      |vpiLeftRange:
-      \_constant: , line:6:18, endln:6:19
-        |vpiParent:
-        \_range: , line:6:17, endln:6:22
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-      |vpiRightRange:
-      \_constant: , line:6:20, endln:6:21
-        |vpiParent:
-        \_range: , line:6:17, endln:6:22
-        |vpiDecompile:0
-        |vpiSize:64
-        |UINT:0
-        |vpiConstType:9
-    |vpiRange:
-    \_range: , line:6:22, endln:6:27
-      |vpiParent:
-      \_packed_array_var: (work@adc_ctrl_core.a), line:6:28, endln:6:29
-      |vpiLeftRange:
-      \_constant: , line:6:23, endln:6:24
-        |vpiParent:
-        \_range: , line:6:22, endln:6:27
-        |vpiDecompile:2
-        |vpiSize:64
-        |UINT:2
-        |vpiConstType:9
-      |vpiRightRange:
-      \_constant: , line:6:25, endln:6:26
-        |vpiParent:
-        \_range: , line:6:22, endln:6:27
-        |vpiDecompile:0
-        |vpiSize:64
-        |UINT:0
-        |vpiConstType:9
-    |vpiElement:
-    \_struct_var: (work@adc_ctrl_core.a)
-      |vpiParent:
-      \_packed_array_var: (work@adc_ctrl_core.a), line:6:28, endln:6:29
-      |vpiTypespec:
-      \_ref_typespec: (work@adc_ctrl_core.a)
-        |vpiParent:
-        \_struct_var: (work@adc_ctrl_core.a)
-        |vpiFullName:work@adc_ctrl_core.a
-        |vpiActual:
-        \_struct_typespec: (filter_ctl_t), line:2:12, endln:4:5
-      |vpiFullName:work@adc_ctrl_core.a
   |vpiVariables:
   \_logic_var: (work@adc_ctrl_core.x), line:7:16, endln:7:33
     |vpiParent:
@@ -1342,6 +1295,56 @@ design: (work@adc_ctrl_core)
   |vpiSigned:1
 \_int_typespec: , line:66:26, endln:66:29
   |vpiSigned:1
+\_packed_array_typespec: , line:6:4, endln:6:27
+  |vpiParent:
+  \_packed_array_var: (work@adc_ctrl_core.a), line:6:28, endln:6:29
+  |vpiRange:
+  \_range: , line:6:17, endln:6:22
+    |vpiParent:
+    \_packed_array_typespec: , line:6:4, endln:6:27
+    |vpiLeftRange:
+    \_constant: , line:6:18, endln:6:19
+      |vpiParent:
+      \_range: , line:6:17, endln:6:22
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:20, endln:6:21
+      |vpiParent:
+      \_range: , line:6:17, endln:6:22
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:6:22, endln:6:27
+    |vpiParent:
+    \_packed_array_typespec: , line:6:4, endln:6:27
+    |vpiLeftRange:
+    \_constant: , line:6:23, endln:6:24
+      |vpiParent:
+      \_range: , line:6:22, endln:6:27
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:25, endln:6:26
+      |vpiParent:
+      \_range: , line:6:22, endln:6:27
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_typespec: (work@adc_ctrl_core.a)
+    |vpiParent:
+    \_packed_array_typespec: , line:6:4, endln:6:27
+    |vpiFullName:work@adc_ctrl_core.a
+    |vpiActual:
+    \_struct_typespec: (filter_ctl_t), line:2:12, endln:4:5
 \_logic_typespec: , line:7:4, endln:7:15
   |vpiParent:
   \_logic_var: (work@adc_ctrl_core.x), line:7:16, endln:7:33

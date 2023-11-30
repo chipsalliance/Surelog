@@ -192,7 +192,7 @@ design: (work@top)
       \_logic_var: (work@top.a), line:5:13, endln:5:14
       |vpiFullName:work@top.a
       |vpiActual:
-      \_logic_typespec: (wddr_pkg::my_logic), line:20:9, endln:20:14
+      \_logic_typespec: (my_logic), line:20:9, endln:20:14
     |vpiName:a
     |vpiFullName:work@top.a
     |vpiVisibility:1
@@ -216,6 +216,19 @@ design: (work@top)
   |vpiTop:1
   |vpiTopModule:1
 \_weaklyReferenced:
+\_logic_typespec: (my_logic), line:20:9, endln:20:14
+  |vpiParent:
+  \_logic_var: (work@top.a), line:5:13, endln:5:14
+  |vpiName:my_logic
+  |vpiTypedefAlias:
+  \_ref_typespec: (work@top.a.my_logic)
+    |vpiParent:
+    \_logic_typespec: (my_logic), line:20:9, endln:20:14
+    |vpiFullName:work@top.a.my_logic
+    |vpiActual:
+    \_logic_typespec: (wddr_pkg::my_logic), line:20:9, endln:20:14
+  |vpiInstance:
+  \_package: wddr_pkg (wddr_pkg::), file:${SURELOG_DIR}/tests/LowMemPkg/wddr_pkg.sv, line:19:1, endln:22:11
 \_logic_typespec: , line:6:4, endln:6:9
   |vpiParent:
   \_logic_var: (work@top.b), line:6:10, endln:6:11

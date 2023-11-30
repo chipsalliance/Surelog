@@ -192,7 +192,6 @@ range                                                  7
 ref_obj                                                5
 ref_typespec                                           8
 struct_typespec                                        2
-struct_var                                             1
 typespec_member                                        3
 union_typespec                                         1
 === UHDM Object Stats End ===
@@ -214,7 +213,6 @@ range                                                  7
 ref_obj                                               10
 ref_typespec                                           8
 struct_typespec                                        2
-struct_var                                             1
 typespec_member                                        3
 union_typespec                                         1
 === UHDM Object Stats End ===
@@ -423,61 +421,16 @@ design: (work@PreDecodeStage)
   \_packed_array_var: (work@PreDecodeStage.microOps), line:26:19, endln:26:27
     |vpiParent:
     \_module_inst: work@PreDecodeStage (work@PreDecodeStage), file:${SURELOG_DIR}/tests/MultiIndexBind/dut.sv, line:1:1, endln:30:10
+    |vpiTypespec:
+    \_ref_typespec: (work@PreDecodeStage.microOps)
+      |vpiParent:
+      \_packed_array_var: (work@PreDecodeStage.microOps), line:26:19, endln:26:27
+      |vpiFullName:work@PreDecodeStage.microOps
+      |vpiActual:
+      \_packed_array_typespec: , line:26:1, endln:26:18
     |vpiName:microOps
     |vpiFullName:work@PreDecodeStage.microOps
     |vpiVisibility:1
-    |vpiRange:
-    \_range: , line:26:8, endln:26:13
-      |vpiParent:
-      \_packed_array_var: (work@PreDecodeStage.microOps), line:26:19, endln:26:27
-      |vpiLeftRange:
-      \_constant: , line:26:9, endln:26:10
-        |vpiParent:
-        \_range: , line:26:8, endln:26:13
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-      |vpiRightRange:
-      \_constant: , line:26:11, endln:26:12
-        |vpiParent:
-        \_range: , line:26:8, endln:26:13
-        |vpiDecompile:0
-        |vpiSize:64
-        |UINT:0
-        |vpiConstType:9
-    |vpiRange:
-    \_range: , line:26:13, endln:26:18
-      |vpiParent:
-      \_packed_array_var: (work@PreDecodeStage.microOps), line:26:19, endln:26:27
-      |vpiLeftRange:
-      \_constant: , line:26:14, endln:26:15
-        |vpiParent:
-        \_range: , line:26:13, endln:26:18
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-      |vpiRightRange:
-      \_constant: , line:26:16, endln:26:17
-        |vpiParent:
-        \_range: , line:26:13, endln:26:18
-        |vpiDecompile:0
-        |vpiSize:64
-        |UINT:0
-        |vpiConstType:9
-    |vpiElement:
-    \_struct_var: (work@PreDecodeStage.microOps)
-      |vpiParent:
-      \_packed_array_var: (work@PreDecodeStage.microOps), line:26:19, endln:26:27
-      |vpiTypespec:
-      \_ref_typespec: (work@PreDecodeStage.microOps)
-        |vpiParent:
-        \_struct_var: (work@PreDecodeStage.microOps)
-        |vpiFullName:work@PreDecodeStage.microOps
-        |vpiActual:
-        \_struct_typespec: (OpInfo), line:19:9, endln:22:2
-      |vpiFullName:work@PreDecodeStage.microOps
   |vpiTypedef:
   \_enum_typespec: (IntALU_Code), line:4:1, endln:7:15
   |vpiTypedef:
@@ -573,6 +526,56 @@ design: (work@PreDecodeStage)
       |vpiSize:64
       |UINT:0
       |vpiConstType:9
+\_packed_array_typespec: , line:26:1, endln:26:18
+  |vpiParent:
+  \_packed_array_var: (work@PreDecodeStage.microOps), line:26:19, endln:26:27
+  |vpiRange:
+  \_range: , line:26:8, endln:26:13
+    |vpiParent:
+    \_packed_array_typespec: , line:26:1, endln:26:18
+    |vpiLeftRange:
+    \_constant: , line:26:9, endln:26:10
+      |vpiParent:
+      \_range: , line:26:8, endln:26:13
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:26:11, endln:26:12
+      |vpiParent:
+      \_range: , line:26:8, endln:26:13
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:26:13, endln:26:18
+    |vpiParent:
+    \_packed_array_typespec: , line:26:1, endln:26:18
+    |vpiLeftRange:
+    \_constant: , line:26:14, endln:26:15
+      |vpiParent:
+      \_range: , line:26:13, endln:26:18
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:26:16, endln:26:17
+      |vpiParent:
+      \_range: , line:26:13, endln:26:18
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_typespec: (work@PreDecodeStage.microOps)
+    |vpiParent:
+    \_packed_array_typespec: , line:26:1, endln:26:18
+    |vpiFullName:work@PreDecodeStage.microOps
+    |vpiActual:
+    \_struct_typespec: (OpInfo), line:19:9, endln:22:2
 \_packed_array_typespec: , line:26:1, endln:26:13
   |vpiRange:
   \_range: , line:26:8, endln:26:13
