@@ -108,12 +108,12 @@ logic_net                                              3
 logic_typespec                                         4
 module_inst                                            4
 packed_array_typespec                                  1
+packed_array_var                                       1
 port                                                   2
 range                                                  5
 ref_obj                                                4
 ref_typespec                                           7
 struct_typespec                                        1
-struct_var                                             1
 typespec_member                                        1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -125,12 +125,12 @@ logic_net                                              3
 logic_typespec                                         4
 module_inst                                            4
 packed_array_typespec                                  1
+packed_array_var                                       1
 port                                                   3
 range                                                  5
 ref_obj                                                7
 ref_typespec                                           8
 struct_typespec                                        1
-struct_var                                             1
 typespec_member                                        1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PackedArrayStruct/slpp_all/surelog.uhdm ...
@@ -246,13 +246,13 @@ design: (work@top)
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PackedArrayStruct/dut.sv, line:1:1, endln:7:10
   |vpiName:work@top
   |vpiVariables:
-  \_struct_var: (work@top.a), line:5:19, endln:5:20
+  \_packed_array_var: (work@top.a), line:5:19, endln:5:20
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/PackedArrayStruct/dut.sv, line:1:1, endln:7:10
     |vpiTypespec:
     \_ref_typespec: (work@top.a)
       |vpiParent:
-      \_struct_var: (work@top.a), line:5:19, endln:5:20
+      \_packed_array_var: (work@top.a), line:5:19, endln:5:20
       |vpiFullName:work@top.a
       |vpiActual:
       \_packed_array_typespec: (struct_array_t), line:2:12, endln:4:12
@@ -262,7 +262,7 @@ design: (work@top)
     |vpiExpr:
     \_constant: , line:5:23, endln:5:25
       |vpiParent:
-      \_struct_var: (work@top.a), line:5:19, endln:5:20
+      \_packed_array_var: (work@top.a), line:5:19, endln:5:20
       |vpiDecompile:4294967295
       |vpiSize:32
       |UINT:4294967295
@@ -320,7 +320,7 @@ design: (work@top)
       |vpiName:a
       |vpiFullName:work@top.a
       |vpiActual:
-      \_struct_var: (work@top.a), line:5:19, endln:5:20
+      \_packed_array_var: (work@top.a), line:5:19, endln:5:20
     |vpiLhs:
     \_ref_obj: (work@top.o), line:6:11, endln:6:12
       |vpiParent:

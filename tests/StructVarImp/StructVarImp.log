@@ -504,7 +504,6 @@ range                                                  7
 ref_obj                                                3
 ref_typespec                                          67
 struct_typespec                                       14
-struct_var                                             1
 task                                                   9
 typespec_member                                       24
 === UHDM Object Stats End ===
@@ -536,7 +535,6 @@ range                                                  7
 ref_obj                                                3
 ref_typespec                                          72
 struct_typespec                                       14
-struct_var                                             1
 task                                                  18
 typespec_member                                       24
 === UHDM Object Stats End ===
@@ -1549,41 +1547,16 @@ design: (work@top)
   \_packed_array_var: (work@top.region_cfgs), line:36:56, endln:36:67
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/StructVarImp/dut.sv, line:33:1, endln:38:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.region_cfgs)
+      |vpiParent:
+      \_packed_array_var: (work@top.region_cfgs), line:36:56, endln:36:67
+      |vpiFullName:work@top.region_cfgs
+      |vpiActual:
+      \_packed_array_typespec: , line:36:3, endln:36:55
     |vpiName:region_cfgs
     |vpiFullName:work@top.region_cfgs
     |vpiVisibility:1
-    |vpiRange:
-    \_range: , line:36:42, endln:36:55
-      |vpiParent:
-      \_packed_array_var: (work@top.region_cfgs), line:36:56, endln:36:67
-      |vpiLeftRange:
-      \_ref_obj: (work@top.region_cfgs.MpRegions), line:36:43, endln:36:52
-        |vpiParent:
-        \_range: , line:36:42, endln:36:55
-        |vpiName:MpRegions
-        |vpiFullName:work@top.region_cfgs.MpRegions
-        |vpiActual:
-        \_logic_net: (work@top.MpRegions), line:36:43, endln:36:52
-      |vpiRightRange:
-      \_constant: , line:36:53, endln:36:54
-        |vpiParent:
-        \_range: , line:36:42, endln:36:55
-        |vpiDecompile:0
-        |vpiSize:64
-        |UINT:0
-        |vpiConstType:9
-    |vpiElement:
-    \_struct_var: (work@top.region_cfgs)
-      |vpiParent:
-      \_packed_array_var: (work@top.region_cfgs), line:36:56, endln:36:67
-      |vpiTypespec:
-      \_ref_typespec: (work@top.region_cfgs)
-        |vpiParent:
-        \_struct_var: (work@top.region_cfgs)
-        |vpiFullName:work@top.region_cfgs
-        |vpiActual:
-        \_struct_typespec: (flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t), line:7:11, endln:26:4
-      |vpiFullName:work@top.region_cfgs
   |vpiParameter:
   \_parameter: (work@top.NBanks), line:4:17, endln:4:23
     |vpiParent:
@@ -2355,6 +2328,36 @@ design: (work@top)
   |vpiSigned:1
 \_int_typespec: , line:66:26, endln:66:29
   |vpiSigned:1
+\_packed_array_typespec: , line:36:3, endln:36:55
+  |vpiParent:
+  \_packed_array_var: (work@top.region_cfgs), line:36:56, endln:36:67
+  |vpiRange:
+  \_range: , line:36:42, endln:36:55
+    |vpiParent:
+    \_packed_array_typespec: , line:36:3, endln:36:55
+    |vpiLeftRange:
+    \_ref_obj: (work@top.region_cfgs.MpRegions), line:36:43, endln:36:52
+      |vpiParent:
+      \_range: , line:36:42, endln:36:55
+      |vpiName:MpRegions
+      |vpiFullName:work@top.region_cfgs.MpRegions
+      |vpiActual:
+      \_logic_net: (work@top.MpRegions), line:36:43, endln:36:52
+    |vpiRightRange:
+    \_constant: , line:36:53, endln:36:54
+      |vpiParent:
+      \_range: , line:36:42, endln:36:55
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_typespec: (work@top.region_cfgs)
+    |vpiParent:
+    \_packed_array_typespec: , line:36:3, endln:36:55
+    |vpiFullName:work@top.region_cfgs
+    |vpiActual:
+    \_struct_typespec: (flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t), line:7:11, endln:26:4
 \_packed_array_typespec: , line:36:3, endln:36:55
   |vpiRange:
   \_range: , line:36:42, endln:36:55
