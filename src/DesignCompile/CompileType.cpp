@@ -141,11 +141,24 @@ variables* CompileHelper::getSimpleVarFromTypespec(
       }
       break;
     }
-    case uhdmlogic_typespec:
+    case uhdmlogic_typespec: {
+      logic_var* logicv = s.MakeLogic_var();
+      var = logicv;
+      if (packedDimensions) {
+        packed_array_var* array = s.MakePacked_array_var();
+        VectorOfany* vars = s.MakeAnyVec();
+        array->Ranges(packedDimensions);
+        for (auto r : *packedDimensions) r->VpiParent(array);
+        array->Elements(vars);
+        vars->push_back(var);
+        var->VpiParent(array);
+        var = array;
+      }
+      break;
+    }
     case uhdmvoid_typespec: {
       logic_var* logicv = s.MakeLogic_var();
       var = logicv;
-      break;
     }
     case uhdmunion_typespec: {
       UHDM::union_var* unionv = s.MakeUnion_var();

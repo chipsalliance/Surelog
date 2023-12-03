@@ -246,7 +246,7 @@ AST_DEBUG_END
 assignment                                             6
 begin                                                  2
 bit_select                                             6
-constant                                              91
+constant                                              87
 cont_assign                                            4
 design                                                 1
 func_call                                              2
@@ -254,23 +254,24 @@ function                                               2
 import_typespec                                        1
 io_decl                                                4
 logic_net                                              2
-logic_typespec                                        32
+logic_typespec                                        30
 logic_var                                              7
 module_inst                                            6
 package                                                2
 packed_array_typespec                                  2
+packed_array_var                                       4
 param_assign                                           4
 parameter                                              4
-range                                                 38
+range                                                 36
 ref_obj                                                8
-ref_typespec                                          44
+ref_typespec                                          42
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
 assignment                                            12
 begin                                                  5
 bit_select                                            10
-constant                                              91
+constant                                              87
 cont_assign                                            6
 design                                                 1
 func_call                                              2
@@ -278,16 +279,17 @@ function                                               5
 import_typespec                                        1
 io_decl                                               10
 logic_net                                              2
-logic_typespec                                        32
+logic_typespec                                        30
 logic_var                                             13
 module_inst                                            6
 package                                                2
 packed_array_typespec                                  2
+packed_array_var                                       4
 param_assign                                           4
 parameter                                              4
-range                                                 38
+range                                                 36
 ref_obj                                               15
-ref_typespec                                          56
+ref_typespec                                          54
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FuncStruct/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/FuncStruct/slpp_all/checker/surelog.chk.html ...
@@ -354,17 +356,42 @@ design: (work@dut)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_logic_var: (hmac_pkg::compress), line:3:20, endln:3:36
+    \_packed_array_var: (hmac_pkg::compress), line:3:20, endln:3:36
       |vpiParent:
       \_function: (hmac_pkg::compress), line:3:1, endln:8:12
       |vpiTypespec:
       \_ref_typespec: (hmac_pkg::compress)
         |vpiParent:
-        \_logic_var: (hmac_pkg::compress), line:3:20, endln:3:36
+        \_packed_array_var: (hmac_pkg::compress), line:3:20, endln:3:36
         |vpiFullName:hmac_pkg::compress
         |vpiActual:
         \_logic_typespec: , line:3:20, endln:3:36
       |vpiFullName:hmac_pkg::compress
+      |vpiRange:
+      \_range: , line:3:31, endln:3:36
+        |vpiParent:
+        \_packed_array_var: (hmac_pkg::compress), line:3:20, endln:3:36
+        |vpiLeftRange:
+        \_constant: , line:3:32, endln:3:33
+          |vpiParent:
+          \_range: , line:3:31, endln:3:36
+          |vpiDecompile:7
+          |vpiSize:64
+          |UINT:7
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:3:34, endln:3:35
+          |vpiParent:
+          \_range: , line:3:31, endln:3:36
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiElement:
+      \_logic_var: (hmac_pkg::compress)
+        |vpiParent:
+        \_packed_array_var: (hmac_pkg::compress), line:3:20, endln:3:36
+        |vpiFullName:hmac_pkg::compress
     |vpiIODecl:
     \_io_decl: (w), line:3:64, endln:3:65
       |vpiParent:
@@ -457,7 +484,7 @@ design: (work@dut)
           |vpiName:compress
           |vpiFullName:hmac_pkg::compress::compress
           |vpiActual:
-          \_logic_var: (hmac_pkg::compress), line:3:20, endln:3:36
+          \_packed_array_var: (hmac_pkg::compress), line:3:20, endln:3:36
           |vpiIndex:
           \_constant: , line:7:12, endln:7:13
             |vpiParent:
@@ -526,17 +553,42 @@ design: (work@dut)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_logic_var: (hmac_pkg::compress), line:3:20, endln:3:36
+    \_packed_array_var: (hmac_pkg::compress), line:3:20, endln:3:36
       |vpiParent:
       \_function: (hmac_pkg::compress), line:3:1, endln:8:12
       |vpiTypespec:
       \_ref_typespec: (hmac_pkg::compress)
         |vpiParent:
-        \_logic_var: (hmac_pkg::compress), line:3:20, endln:3:36
+        \_packed_array_var: (hmac_pkg::compress), line:3:20, endln:3:36
         |vpiFullName:hmac_pkg::compress
         |vpiActual:
         \_logic_typespec: , line:3:20, endln:3:36
       |vpiFullName:hmac_pkg::compress
+      |vpiRange:
+      \_range: , line:3:31, endln:3:36
+        |vpiParent:
+        \_packed_array_var: (hmac_pkg::compress), line:3:20, endln:3:36
+        |vpiLeftRange:
+        \_constant: , line:3:32, endln:3:33
+          |vpiParent:
+          \_range: , line:3:31, endln:3:36
+          |vpiDecompile:7
+          |vpiSize:64
+          |UINT:7
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:3:34, endln:3:35
+          |vpiParent:
+          \_range: , line:3:31, endln:3:36
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiElement:
+      \_logic_var: (hmac_pkg::compress)
+        |vpiParent:
+        \_packed_array_var: (hmac_pkg::compress), line:3:20, endln:3:36
+        |vpiFullName:hmac_pkg::compress
     |vpiIODecl:
     \_io_decl: (w), line:3:64, endln:3:65
       |vpiParent:
@@ -629,7 +681,7 @@ design: (work@dut)
           |vpiName:compress
           |vpiFullName:hmac_pkg::compress::compress
           |vpiActual:
-          \_logic_var: (hmac_pkg::compress), line:3:20, endln:3:36
+          \_packed_array_var: (hmac_pkg::compress), line:3:20, endln:3:36
           |vpiIndex:
           \_constant: , line:7:12, endln:7:13
             |vpiParent:
@@ -673,7 +725,7 @@ design: (work@dut)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_logic_var: (hmac_pkg::compress), line:3:20, endln:3:36
+    \_packed_array_var: (hmac_pkg::compress), line:3:20, endln:3:36
     |vpiIODecl:
     \_io_decl: (w), line:3:64, endln:3:65
       |vpiParent:
@@ -746,7 +798,7 @@ design: (work@dut)
           |vpiName:compress
           |vpiFullName:hmac_pkg::compress::compress
           |vpiActual:
-          \_logic_var: (hmac_pkg::compress), line:3:20, endln:3:36
+          \_packed_array_var: (hmac_pkg::compress), line:3:20, endln:3:36
           |vpiIndex:
           \_constant: , line:7:12, endln:7:13
     |vpiInstance:
@@ -817,13 +869,6 @@ design: (work@dut)
       \_bit_select: (work@dut.w), line:17:26, endln:17:27
         |vpiParent:
         \_func_call: (compress), line:17:15, endln:17:35
-        |vpiTypespec:
-        \_ref_typespec: (work@dut.w)
-          |vpiParent:
-          \_bit_select: (work@dut.w), line:17:26, endln:17:27
-          |vpiFullName:work@dut.w
-          |vpiActual:
-          \_logic_typespec: (sha_word_t), line:3:53, endln:3:63
         |vpiName:w
         |vpiFullName:work@dut.w
         |vpiIndex:
@@ -864,33 +909,90 @@ design: (work@dut)
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:12:1, endln:19:10
   |vpiName:work@dut
   |vpiVariables:
-  \_logic_var: (work@dut.w), line:14:19, endln:14:20
+  \_packed_array_var: (work@dut.w), line:14:19, endln:14:20
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:12:1, endln:19:10
     |vpiTypespec:
     \_ref_typespec: (work@dut.w)
       |vpiParent:
-      \_logic_var: (work@dut.w), line:14:19, endln:14:20
+      \_packed_array_var: (work@dut.w), line:14:19, endln:14:20
       |vpiFullName:work@dut.w
       |vpiActual:
       \_logic_typespec: (sha_word_t), line:2:9, endln:2:21
     |vpiName:w
     |vpiFullName:work@dut.w
     |vpiVisibility:1
+    |vpiRange:
+    \_range: , line:14:12, endln:14:18
+      |vpiParent:
+      \_packed_array_var: (work@dut.w), line:14:19, endln:14:20
+      |vpiLeftRange:
+      \_constant: , line:14:13, endln:14:15
+        |vpiParent:
+        \_range: , line:14:12, endln:14:18
+        |vpiDecompile:15
+        |vpiSize:64
+        |UINT:15
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:14:16, endln:14:17
+        |vpiParent:
+        \_range: , line:14:12, endln:14:18
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiElement:
+    \_logic_var: (work@dut.w)
+      |vpiParent:
+      \_packed_array_var: (work@dut.w), line:14:19, endln:14:20
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.w)
+        |vpiParent:
+        \_logic_var: (work@dut.w)
+        |vpiFullName:work@dut.w
+        |vpiActual:
+        \_logic_typespec: (sha_word_t), line:3:53, endln:3:63
+      |vpiFullName:work@dut.w
   |vpiVariables:
-  \_logic_var: (work@dut.hash), line:15:18, endln:15:22
+  \_packed_array_var: (work@dut.hash), line:15:18, endln:15:22
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/FuncStruct/dut.sv, line:12:1, endln:19:10
     |vpiTypespec:
     \_ref_typespec: (work@dut.hash)
       |vpiParent:
-      \_logic_var: (work@dut.hash), line:15:18, endln:15:22
+      \_packed_array_var: (work@dut.hash), line:15:18, endln:15:22
       |vpiFullName:work@dut.hash
       |vpiActual:
       \_logic_typespec: (sha_word_t), line:2:9, endln:2:21
     |vpiName:hash
     |vpiFullName:work@dut.hash
     |vpiVisibility:1
+    |vpiRange:
+    \_range: , line:15:12, endln:15:17
+      |vpiParent:
+      \_packed_array_var: (work@dut.hash), line:15:18, endln:15:22
+      |vpiLeftRange:
+      \_constant: , line:15:13, endln:15:14
+        |vpiParent:
+        \_range: , line:15:12, endln:15:17
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:15:15, endln:15:16
+        |vpiParent:
+        \_range: , line:15:12, endln:15:17
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiElement:
+    \_logic_var: (work@dut.hash)
+      |vpiParent:
+      \_packed_array_var: (work@dut.hash), line:15:18, endln:15:22
+      |vpiFullName:work@dut.hash
   |vpiTypedef:
   \_logic_typespec: (hmac_pkg::sha_word_t), line:2:9, endln:2:21
   |vpiTypedef:
@@ -920,7 +1022,7 @@ design: (work@dut)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_logic_var: (hmac_pkg::compress), line:3:20, endln:3:36
+    \_packed_array_var: (hmac_pkg::compress), line:3:20, endln:3:36
     |vpiIODecl:
     \_io_decl: (w), line:3:64, endln:3:65
       |vpiParent:
@@ -1005,7 +1107,7 @@ design: (work@dut)
           |vpiName:compress
           |vpiFullName:work@dut.compress.compress
           |vpiActual:
-          \_logic_var: (hmac_pkg::compress), line:3:20, endln:3:36
+          \_packed_array_var: (hmac_pkg::compress), line:3:20, endln:3:36
           |vpiIndex:
           \_constant: , line:7:12, endln:7:13
     |vpiInstance:
@@ -1024,7 +1126,7 @@ design: (work@dut)
       |vpiName:w
       |vpiFullName:work@dut.w
       |vpiActual:
-      \_logic_var: (work@dut.w), line:14:19, endln:14:20
+      \_packed_array_var: (work@dut.w), line:14:19, endln:14:20
       |vpiIndex:
       \_constant: , line:16:10, endln:16:11
         |vpiParent:
@@ -1059,7 +1161,7 @@ design: (work@dut)
       |vpiName:hash
       |vpiFullName:work@dut.hash
       |vpiActual:
-      \_logic_var: (work@dut.hash), line:15:18, endln:15:22
+      \_packed_array_var: (work@dut.hash), line:15:18, endln:15:22
 \_weaklyReferenced:
 \_logic_typespec: , line:3:20, endln:3:36
   |vpiInstance:
@@ -1265,7 +1367,7 @@ design: (work@dut)
   |vpiVisibility:1
   |vpiAutomatic:1
   |vpiReturn:
-  \_logic_var: (hmac_pkg::compress), line:3:20, endln:3:36
+  \_packed_array_var: (hmac_pkg::compress), line:3:20, endln:3:36
   |vpiIODecl:
   \_io_decl: (w), line:3:64, endln:3:65
     |vpiParent:
@@ -1338,7 +1440,7 @@ design: (work@dut)
         |vpiName:compress
         |vpiFullName:hmac_pkg::compress::compress
         |vpiActual:
-        \_logic_var: (hmac_pkg::compress), line:3:20, endln:3:36
+        \_packed_array_var: (hmac_pkg::compress), line:3:20, endln:3:36
         |vpiIndex:
         \_constant: , line:7:12, endln:7:13
   |vpiInstance:
