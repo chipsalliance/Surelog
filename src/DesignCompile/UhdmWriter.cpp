@@ -3163,7 +3163,17 @@ void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod, scope* m) {
 
     const any* parent = ref->VpiParent();
     while (parent) {
-      if (parent->UhdmType() == uhdmfunction) {
+      if (parent->UhdmType() == uhdmdesign) {
+        design* d = (design*) parent;
+        if (auto params = d->Parameters()) {
+          for (auto decl : *params) {
+            if (decl->VpiName() == name) {
+              ref->Actual_group(decl);
+              break;
+            }
+          }
+        }
+      } else if (parent->UhdmType() == uhdmfunction) {
         function* func = (function*)parent;
         if (parent->VpiName() == name) {
           if (const any* ret = func->Return()) {
