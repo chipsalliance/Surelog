@@ -3164,7 +3164,7 @@ void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod, scope* m) {
     const any* parent = ref->VpiParent();
     while (parent) {
       if (parent->UhdmType() == uhdmdesign) {
-        design* d = (design*) parent;
+        design* d = (design*)parent;
         if (auto params = d->Parameters()) {
           for (auto decl : *params) {
             if (decl->VpiName() == name) {
