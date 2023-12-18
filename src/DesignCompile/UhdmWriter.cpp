@@ -4527,7 +4527,6 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
   }
 }
 
-
 class AlwaysWithForLoop : public VpiListener {
  public:
   explicit AlwaysWithForLoop() {}
@@ -4549,10 +4548,10 @@ bool alwaysContainsForLoop(Serializer& serializer, any* root) {
 }
 
 // synlig has a major problem processing always blocks.
-// They are processed mainly in the allModules section which is incorrect in some case.
-// They should be processed from the topModules section.
-// Here we try to fix temporarily this by filtering out the always blocks containing for-loops
-// from the allModules, and those without from the topModules 
+// They are processed mainly in the allModules section which is incorrect in
+// some case. They should be processed from the topModules section. Here we try
+// to fix temporarily this by filtering out the always blocks containing
+// for-loops from the allModules, and those without from the topModules
 void filterAlwaysBlocks(Serializer& s, design* d) {
   if (d->AllModules()) {
     for (auto module : *d->AllModules()) {
@@ -4578,14 +4577,14 @@ void filterAlwaysBlocks(Serializer& s, design* d) {
   std::queue<scope*> instances;
   if (d->TopModules()) {
     for (auto mod : *d->TopModules()) {
-      instances.push(mod) ; 
+      instances.push(mod);
     }
   }
   while (!instances.empty()) {
     scope* current = instances.front();
     instances.pop();
     if (current->UhdmType() == uhdmmodule_inst) {
-      module_inst* mod = (module_inst*) current;
+      module_inst* mod = (module_inst*)current;
       if (mod->Process()) {
         bool more = true;
         while (more) {
@@ -4605,41 +4604,24 @@ void filterAlwaysBlocks(Serializer& s, design* d) {
       }
       if (mod->Modules()) {
         for (auto m : *mod->Modules()) {
-          instances.push(m); 
+          instances.push(m);
         }
       }
       if (mod->Gen_scope_arrays()) {
         for (auto m : *mod->Gen_scope_arrays()) {
-          instances.push(m->Gen_scopes()->at(0)); 
+          instances.push(m->Gen_scopes()->at(0));
         }
       }
     } else if (current->UhdmType() == uhdmgen_scope) {
-      gen_scope* sc = (gen_scope*) current;
-      if (sc->Process()) {
-        bool more = true;
-        while (more) {
-          more = false;
-          for (std::vector<process_stmt*>::iterator itr =
-                   sc->Process()->begin();
-               itr != sc->Process()->end(); itr++) {
-            if ((*itr)->UhdmType() == uhdmalways) {
-              if (!alwaysContainsForLoop(s, (*itr))) {
-                more = true;
-                sc->Process()->erase(itr);
-                break;
-              }
-            }
-          }
-        }
-      }
-       if (sc->Modules()) {
+      gen_scope* sc = (gen_scope*)current;
+      if (sc->Modules()) {
         for (auto m : *sc->Modules()) {
-          instances.push(m); 
+          instances.push(m);
         }
       }
       if (sc->Gen_scope_arrays()) {
         for (auto m : *sc->Gen_scope_arrays()) {
-          instances.push(m->Gen_scopes()->at(0)); 
+          instances.push(m->Gen_scopes()->at(0));
         }
       }
     }
