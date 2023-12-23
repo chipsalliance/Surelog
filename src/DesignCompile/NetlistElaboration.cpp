@@ -514,7 +514,7 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
           inst_assign->VpiOverriden(true);
         }
         const any* rhs = inst_assign->Rhs();
-        if (rhs->UhdmType() == uhdmconstant) {
+        if (rhs && rhs->UhdmType() == uhdmconstant) {
           constant* c = (constant*)rhs;
           m_helper.adjustSize(tps, instance->getDefinition(), m_compileDesign,
                               instance, c);
