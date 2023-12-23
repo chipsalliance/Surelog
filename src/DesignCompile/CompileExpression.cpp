@@ -2574,7 +2574,9 @@ UHDM::any *CompileHelper::compileExpression(
                             param_ass->Lhs()->VpiName();
                         if (param_name == name) {
                           if ((reduce == Reduce::Yes) ||
-                              (param_ass->Rhs()->UhdmType() == uhdmconstant)) {
+                              (param_ass->Rhs() &&
+                               (param_ass->Rhs()->UhdmType() ==
+                                uhdmconstant))) {
                             if (substituteAssignedValue(param_ass->Rhs(),
                                                         compileDesign)) {
                               ElaboratorContext elaboratorContext(&s, false,
