@@ -2280,6 +2280,14 @@ bool CompileHelper::compileDataDeclaration(
       NodeId intVec_TypeReg = fC->Child(data_type);
       if (fC->Type(intVec_TypeReg) == VObjectType::paVIRTUAL)
         intVec_TypeReg = fC->Sibling(intVec_TypeReg);
+      if (fC->Type(intVec_TypeReg) == VObjectType::paIntegerAtomType_Byte ||
+          fC->Type(intVec_TypeReg) == VObjectType::paIntegerAtomType_Int ||
+          fC->Type(intVec_TypeReg) == VObjectType::paIntegerAtomType_Integer ||
+          fC->Type(intVec_TypeReg) == VObjectType::paIntegerAtomType_LongInt ||
+          fC->Type(intVec_TypeReg) == VObjectType::paIntegerAtomType_Shortint ||
+          fC->Type(intVec_TypeReg) == VObjectType::paReal_number) {
+        is_signed = true;
+      }
       NodeId packedDimension = fC->Sibling(intVec_TypeReg);
       if (fC->Type(packedDimension) == VObjectType::slStringConst) {
         // class or package name;
@@ -2294,6 +2302,7 @@ bool CompileHelper::compileDataDeclaration(
         packedDimension = fC->Sibling(packedDimension);
       } else if (fC->Type(packedDimension) == VObjectType::paSigning_Unsigned) {
         packedDimension = fC->Sibling(packedDimension);
+        is_signed = false;
       }
       NodeId unpackedDimension;
       NodeId list_of_variable_decl_assignments = fC->Sibling(data_type);
@@ -3486,7 +3495,8 @@ bool CompileHelper::compileParameterDeclaration(
             type == VObjectType::paIntegerAtomType_Int ||
             type == VObjectType::paIntegerAtomType_Integer ||
             type == VObjectType::paIntegerAtomType_LongInt ||
-            type == VObjectType::paIntegerAtomType_Shortint) {
+            type == VObjectType::paIntegerAtomType_Shortint ||
+            type == VObjectType::paReal_number) {
           isSigned = true;
         }
         if (fC->Type(Signage) == VObjectType::paSigning_Signed) isSigned = true;
