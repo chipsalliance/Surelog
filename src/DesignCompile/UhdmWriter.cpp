@@ -4531,7 +4531,7 @@ class AlwaysWithForLoop : public VpiListener {
  public:
   explicit AlwaysWithForLoop() {}
   ~AlwaysWithForLoop() override = default;
-  void leaveFor_stmt(const for_stmt* object, vpiHandle handle) {
+  void leaveFor_stmt(const for_stmt* object, vpiHandle handle) override {
     containtsForStmt = true;
   }
   bool containtsForStmt = false;
