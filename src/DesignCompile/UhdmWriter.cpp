@@ -3557,6 +3557,21 @@ void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod, scope* m) {
             ref->Actual_group(n);
             break;
           }
+          if (const ref_typespec* reftps = n->Typespec()) {
+            const typespec* tps = reftps->Actual_typespec();
+            if (tps->UhdmType() == uhdmenum_typespec) {
+              const enum_typespec* etps = any_cast<const enum_typespec*>(tps);
+              if (etps && etps->Enum_consts()) {
+                for (auto c : *etps->Enum_consts()) {
+                  if (c->VpiName() == name) {
+                    ref->Actual_group(c);
+                    break;
+                  }
+                }
+                if (ref->Actual_group()) break;
+              }
+            }
+          }
         }
         if (ref->Actual_group()) continue;
       }
