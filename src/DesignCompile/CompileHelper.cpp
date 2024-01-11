@@ -3732,7 +3732,9 @@ bool CompileHelper::compileParameterDeclaration(
                 param->Typespec()->Actual_typespec(ts);
                 break;
               }
-              case vpiDecConst:
+              case vpiDecConst: {
+                break;
+              }
               case vpiIntConst: {
                 int_typespec* its = s.MakeInt_typespec();
                 its->VpiSigned(false);
@@ -3898,8 +3900,9 @@ UHDM::constant* CompileHelper::adjustSize(const UHDM::typespec* ts,
            c->VpiLineNo(), sizeMode);
 
   int32_t size = orig_size;
-  if (!invalidValue) size = sizetmp;
-
+  if (c->VpiConstType() != vpiDecConst) {
+    if (!invalidValue) size = sizetmp;
+  }
   bool signedLhs = false;
   if (ts->UhdmType() == uhdmint_typespec) {
     int_typespec* its = (int_typespec*)ts;
