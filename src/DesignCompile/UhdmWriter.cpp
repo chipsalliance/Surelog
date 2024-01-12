@@ -165,7 +165,7 @@ std::string UhdmWriter::builtinGateName(VObjectType type) {
 }
 
 UhdmWriter::UhdmWriter(CompileDesign* compiler, Design* design)
-    : m_compileDesign(compiler), m_design(design) {
+    : m_compileDesign(compiler), m_design(design), m_uhdmDesign(nullptr) {
   m_helper.seterrorReporting(
       m_compileDesign->getCompiler()->getErrorContainer(),
       m_compileDesign->getCompiler()->getSymbolTable());
@@ -3723,6 +3723,19 @@ void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod, scope* m) {
         if (ref->Actual_group()) break;
       }
     }
+
+    if (!ref->Actual_group()) {
+      design* d = m_uhdmDesign;
+      if (auto params = d->Parameters()) {
+        for (auto decl : *params) {
+          if (decl->VpiName() == name) {
+            ref->Actual_group(decl);
+            break;
+          }
+        }
+      }
+    }
+
     if (!ref->Actual_group()) {
       if (mod) {
         if (auto elem = mod->getDesignElement()) {
@@ -4696,6 +4709,7 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
   design* d = nullptr;
   if (m_design) {
     d = s.MakeDesign();
+    m_uhdmDesign = d;
     designHandle = reinterpret_cast<vpiHandle>(new uhdm_handle(uhdmdesign, d));
     std::string designName = "unnamed";
     auto topLevelModules = m_design->getTopLevelModuleInstances();
