@@ -131,6 +131,7 @@ class UhdmWriter final {
 
   CompileDesign* const m_compileDesign;
   Design* const m_design;
+  UHDM::design* m_uhdmDesign;
   ComponentMap m_componentMap;
   CompileHelper m_helper;
 };
