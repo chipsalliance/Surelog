@@ -3554,7 +3554,12 @@ bool CompileHelper::compileParameterDeclaration(
           NodeId pattAssign = fC->sl_collect(
               actual_value, VObjectType::paConstant_concatenation);
           if (pattAssign != InvalidNodeId) {
-            isMultiDimension = true;
+            if (!compileDesign->getCompiler()
+                     ->getCommandLineParser()
+                     ->reportNonSynthesizable()) {
+              // More constant pushing with Synth option on
+              isMultiDimension = true;
+            }
           }
         }
         UHDM::any* expr = compileExpression(
