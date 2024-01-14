@@ -851,7 +851,6 @@ void DesignElaboration::elaborateInstance_(
 
   std::vector<NodeId> subInstances =
       fC->sl_collect_all(nodeId, types, stopPoints);
-  bool elaborated = false;
   for (auto subInstanceId : subInstances) {
     VObjectType type = fC->Type(subInstanceId);
     std::vector<NodeId> subSubInstances;
@@ -894,10 +893,45 @@ void DesignElaboration::elaborateInstance_(
     } else {
       subSubInstances.push_back(subInstanceId);
     }
-    elaborated = true;
-    NetlistElaboration* nelab = new NetlistElaboration(m_compileDesign);
-    nelab->elaborateInstance(parent);
-    delete nelab;
+  }
+
+  NetlistElaboration* nelab = new NetlistElaboration(m_compileDesign);
+  nelab->elaborateInstance(parent);
+  delete nelab;
+
+  for (auto subInstanceId : subInstances) {
+    VObjectType type = fC->Type(subInstanceId);
+    std::vector<NodeId> subSubInstances;
+    std::string instName;
+    if (type == VObjectType::paGenerate_region) {
+      NodeId Generate_item = fC->Child(subInstanceId);
+      if (fC->Type(Generate_item) != VObjectType::paGenerate_item) {
+        continue;
+      }
+      NodeId nameId = fC->Child(Generate_item);
+      if (fC->Name(nameId)) {
+        instName = fC->SymName(nameId);
+        subSubInstances.push_back(subInstanceId);
+      } else {
+        while (Generate_item) {
+          std::vector<NodeId> subIds =
+              fC->sl_collect_all(Generate_item, types, stopPoints);
+          if (!subIds.empty()) {
+            for (auto id : subIds) {
+              subSubInstances.push_back(id);
+            }
+          } else {
+          }
+          Generate_item = fC->Sibling(Generate_item);
+          if (Generate_item &&
+              (fC->Type(Generate_item) == VObjectType::paENDGENERATE)) {
+            break;
+          }
+        }
+      }
+    } else {
+      subSubInstances.push_back(subInstanceId);
+    }
 
     for (auto subInstanceId : subSubInstances) {
       NodeId childId;
@@ -1822,11 +1856,6 @@ void DesignElaboration::elaborateInstance_(
         // std::endl;
       }
     }
-  }
-  if (!elaborated) {
-    NetlistElaboration* nelab = new NetlistElaboration(m_compileDesign);
-    nelab->elaborateInstance(parent);
-    delete nelab;
   }
 }
 
