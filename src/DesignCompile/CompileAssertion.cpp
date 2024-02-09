@@ -294,6 +294,7 @@ UHDM::any* CompileHelper::compileSimpleImmediateAssertion(
   switch (fC->Type(the_stmt)) {
     case VObjectType::paSimple_immediate_assert_statement: {
       UHDM::immediate_assert* astmt = s.MakeImmediate_assert();
+      fC->populateCoreMembers(the_stmt, the_stmt, astmt);
       astmt->VpiParent(pstmt);
       astmt->Expr((UHDM::expr*)expr);
       if (expr) expr->VpiParent(astmt);
@@ -306,6 +307,7 @@ UHDM::any* CompileHelper::compileSimpleImmediateAssertion(
     }
     case VObjectType::paSimple_immediate_assume_statement: {
       UHDM::immediate_assume* astmt = s.MakeImmediate_assume();
+      fC->populateCoreMembers(the_stmt, the_stmt, astmt);
       astmt->VpiParent(pstmt);
       astmt->Expr((UHDM::expr*)expr);
       if (expr) expr->VpiParent(astmt);
@@ -318,6 +320,7 @@ UHDM::any* CompileHelper::compileSimpleImmediateAssertion(
     }
     case VObjectType::paSimple_immediate_cover_statement: {
       UHDM::immediate_cover* astmt = s.MakeImmediate_cover();
+      fC->populateCoreMembers(the_stmt, the_stmt, astmt);
       astmt->VpiParent(pstmt);
       astmt->Expr((UHDM::expr*)expr);
       if (expr) expr->VpiParent(astmt);
@@ -385,6 +388,7 @@ UHDM::any* CompileHelper::compileDeferredImmediateAssertion(
   switch (fC->Type(the_stmt)) {
     case VObjectType::paDeferred_immediate_assert_statement: {
       UHDM::immediate_assert* astmt = s.MakeImmediate_assert();
+      fC->populateCoreMembers(the_stmt, the_stmt, astmt);
       astmt->VpiParent(pstmt);
       astmt->Expr((UHDM::expr*)expr);
       if (expr) expr->VpiParent(astmt);
@@ -399,6 +403,7 @@ UHDM::any* CompileHelper::compileDeferredImmediateAssertion(
     }
     case VObjectType::paDeferred_immediate_assume_statement: {
       UHDM::immediate_assume* astmt = s.MakeImmediate_assume();
+      fC->populateCoreMembers(the_stmt, the_stmt, astmt);
       astmt->VpiParent(pstmt);
       astmt->Expr((UHDM::expr*)expr);
       if (expr) expr->VpiParent(astmt);
@@ -413,6 +418,7 @@ UHDM::any* CompileHelper::compileDeferredImmediateAssertion(
     }
     case VObjectType::paDeferred_immediate_cover_statement: {
       UHDM::immediate_cover* astmt = s.MakeImmediate_cover();
+      fC->populateCoreMembers(the_stmt, the_stmt, astmt);
       astmt->VpiParent(pstmt);
       astmt->Expr((UHDM::expr*)expr);
       if (expr) expr->VpiParent(astmt);
@@ -435,6 +441,7 @@ UHDM::property_decl* CompileHelper::compilePropertyDeclaration(
     ValuedComponentI* instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::property_decl* result = s.MakeProperty_decl();
+  fC->populateCoreMembers(nodeId, nodeId, result);
   std::string_view propName = fC->SymName(nodeId);
   result->VpiName(propName);
   result->VpiParent(pstmt);
@@ -518,6 +525,7 @@ UHDM::sequence_decl* CompileHelper::compileSequenceDeclaration(
     ValuedComponentI* instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::sequence_decl* result = s.MakeSequence_decl();
+  fC->populateCoreMembers(nodeId, nodeId, result);
   std::string_view propName = fC->SymName(nodeId);
   result->VpiName(propName);
   result->VpiParent(pstmt);
@@ -537,6 +545,7 @@ UHDM::sequence_decl* CompileHelper::compileSequenceDeclaration(
 
       NodeId Port_name = fC->Sibling(Sequence_formal_type);
       UHDM::seq_formal_decl* prop_port_decl = s.MakeSeq_formal_decl();
+      fC->populateCoreMembers(Sequence_expr, Sequence_expr, prop_port_decl);
       ports->push_back(prop_port_decl);
       prop_port_decl->VpiName(fC->SymName(Port_name));
       UHDM::ref_typespec* rtps = s.MakeRef_typespec();
@@ -549,6 +558,7 @@ UHDM::sequence_decl* CompileHelper::compileSequenceDeclaration(
   NodeId lookup = fC->Child(Sequence_expr);
   if (fC->Type(lookup) == VObjectType::paClocking_event) {
     UHDM::multiclock_sequence_expr* mexpr = s.MakeMulticlock_sequence_expr();
+    fC->populateCoreMembers(Sequence_expr, Sequence_expr, mexpr);
     result->Sequence_expr_multiclock_group(mexpr);
     mexpr->Clocked_seqs(s.MakeClocked_seqVec());
     while (fC->Type(lookup) == VObjectType::paClocking_event) {

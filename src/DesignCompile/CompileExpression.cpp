@@ -2245,6 +2245,7 @@ UHDM::any *CompileHelper::compileExpression(
           NodeId NameId = fC->Child(Ps_or_hierarchical_array_identifier);
           const std::string_view name = fC->SymName(NameId);
           sequence_inst *seqinst = s.MakeSequence_inst();
+          fC->populateCoreMembers(child, child, seqinst);
           seqinst->VpiName(name);
           seqinst->VpiParent(pexpr);
           NodeId Sequence_list_of_arguments =
