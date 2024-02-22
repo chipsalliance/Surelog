@@ -44,6 +44,7 @@
 #include <Surelog/Utils/NumUtils.h>
 #include <Surelog/Utils/StringUtils.h>
 
+#include <algorithm>
 #include <cmath>
 #include <cstring>
 
@@ -432,7 +433,8 @@ constant *compileConst(const FileContent *fC, NodeId child, Serializer &s) {
       // Do not evaluate the constant, keep it as in the source text:
       UHDM::constant *c = s.MakeConstant();
       fC->populateCoreMembers(child, child, c);
-      const std::string_view value = fC->SymName(child);
+      std::string value = std::string(fC->SymName(child));
+      value.erase(std::remove(value.begin(), value.end(), '_'), value.end());
       std::string v;
       c->VpiDecompile(value);
       bool tickNumber = (value.find('\'') != std::string::npos);
