@@ -655,10 +655,6 @@ if (UNIX)
 endif()
 
 if (CMAKE_SYSTEM_NAME MATCHES "Linux")
-  if(NOT SURELOG_USE_HOST_UHDM)
-    target_link_libraries(uhdm PRIVATE stdc++fs)
-  endif()
-  target_link_libraries(surelog PRIVATE stdc++fs)
   target_link_libraries(surelog PRIVATE rt)
 endif()
 
