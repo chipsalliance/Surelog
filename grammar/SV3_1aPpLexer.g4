@@ -16,7 +16,10 @@
 
 lexer grammar SV3_1aPpLexer;
 
-ESCAPED_IDENTIFIER: '\\' ~[WS\r\t\n]*? WS;
+ESCAPED_IDENTIFIER: '\\' ~[WS\r\t\n]*? WS |
+                    '\\' ( OPEN_BRACKET? [A-Za-z0-9_$+-.]+ CLOSE_BRACKET?)* WS;
+
+
 
 // A.9.2 Comments
 
