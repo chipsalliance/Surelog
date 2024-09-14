@@ -59,8 +59,8 @@ class Value : public RTTI {
 
   ~Value() override {}
 
-  virtual int16_t getSize() const = 0;  // size in bits
-  virtual int16_t getSize(
+  virtual int32_t getSize() const = 0;  // size in bits
+  virtual int32_t getSize(
       uint32_t wordIndex) const = 0;  // size in bits of a multi-word value
   // nb of 64 bits words necessary to encode the size
   virtual uint16_t getNbWords() const = 0;
@@ -91,7 +91,7 @@ class Value : public RTTI {
   virtual void set(uint64_t val) = 0;
   virtual void set(int64_t val) = 0;
   virtual void set(double val) = 0;
-  virtual void set(uint64_t val, Type type, int16_t size) = 0;
+  virtual void set(uint64_t val, Type type, int32_t size) = 0;
   virtual void set(std::string_view val) = 0;
   virtual void set(std::string_view val, Type type) = 0;
   virtual bool operator<(const Value& rhs) const = 0;
@@ -166,7 +166,7 @@ class SValue final : public Value {
       : m_type(Value::Type::Unsigned), m_size(0), m_valid(1), m_negative(0) {
     m_value.u_int = 0;
   }
-  SValue(int64_t val, int16_t size)
+  SValue(int64_t val, int32_t size)
       : m_type(Value::Type::Integer),
         m_size(size),
         m_valid(1),
@@ -196,8 +196,8 @@ class SValue final : public Value {
   }
   ~SValue() final;
 
-  int16_t getSize() const final { return m_size; }
-  int16_t getSize(uint32_t wordIndex) const final { return m_size; }
+  int32_t getSize() const final { return m_size; }
+  int32_t getSize(uint32_t wordIndex) const final { return m_size; }
   void setRange(uint16_t lrange, uint16_t rrange) final {
     m_lrange = lrange;
     m_rrange = rrange;
@@ -219,7 +219,7 @@ class SValue final : public Value {
   void set(uint64_t val) final;
   void set(int64_t val) final;
   void set(double val) final;
-  void set(uint64_t val, Type type, int16_t size) final;
+  void set(uint64_t val, Type type, int32_t size) final;
 
   void set(std::string_view val) final {
     m_type = Value::Type::None;
@@ -343,8 +343,8 @@ class LValue final : public Value {
   LValue(int64_t val, Type type, int16_t size);
   ~LValue() final;
 
-  int16_t getSize() const final;
-  int16_t getSize(uint32_t wordIndex) const final {
+  int32_t getSize() const final;
+  int32_t getSize(uint32_t wordIndex) const final {
     if (m_valueArray) {
       return m_valueArray[wordIndex].m_size;
     } else
@@ -371,7 +371,7 @@ class LValue final : public Value {
   void set(uint64_t val) final;
   void set(int64_t val) final;
   void set(double val) final;
-  void set(uint64_t val, Type type, int16_t size) final;
+  void set(uint64_t val, Type type, int32_t size) final;
   void set(std::string_view val) final {}
   void set(std::string_view val, Type type) final {}
   bool operator<(const Value& rhs) const final;
@@ -448,8 +448,8 @@ class StValue final : public Value {
       : m_type(Type::String), m_value(val), m_size(val.size()), m_valid(true), m_typespec(nullptr) {}
   ~StValue() final;
 
-  int16_t getSize() const final { return m_size; }
-  int16_t getSize(uint32_t wordIndex) const final { return m_size; }
+  int32_t getSize() const final { return m_size; }
+  int32_t getSize(uint32_t wordIndex) const final { return m_size; }
   void setRange(uint16_t lrange, uint16_t rrange) final {
     m_lrange = lrange;
     m_rrange = rrange;
@@ -489,7 +489,7 @@ class StValue final : public Value {
     m_signed = true;
     m_typespec = nullptr;
   }
-  void set(uint64_t val, Type type, int16_t size) final {
+  void set(uint64_t val, Type type, int32_t size) final {
     m_type = type;
     m_value = std::to_string(val);
     m_size = size;
@@ -508,7 +508,7 @@ class StValue final : public Value {
     m_signed = false;
     m_typespec = nullptr;
   }
-  void set(std::string_view val, Type type, int16_t size) {
+  void set(std::string_view val, Type type, int32_t size) {
     m_type = type;
     m_value = val;
     m_size = size;
@@ -606,7 +606,7 @@ class StValue final : public Value {
  private:
   Type m_type;
   std::string m_value;
-  int16_t m_size = 0;
+  int32_t m_size = 0;
   uint16_t m_valid = 0;
   uint16_t m_lrange = 0;
   uint16_t m_rrange = 0;

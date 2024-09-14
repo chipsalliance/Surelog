@@ -193,7 +193,7 @@ void SValue::set(double val) {
   m_rrange = 0;
   m_signed = true;
 }
-void SValue::set(uint64_t val, Type type, int16_t size) {
+void SValue::set(uint64_t val, Type type, int32_t size) {
   m_type = type;
   m_value.u_int = val;
   m_size = size;
@@ -858,8 +858,8 @@ void SValue::shiftRight(const Value* a, const Value* b) {
   m_valid = a->isValid() && b->isValid();
 }
 
-int16_t LValue::getSize() const {
-  uint16_t size = 0;
+int32_t LValue::getSize() const {
+  uint32_t size = 0;
   for (int32_t i = 0; i < m_nbWords; i++) {
     size += m_valueArray[i].m_size;
   }
@@ -1118,7 +1118,7 @@ void LValue::set(double val) {
   m_typespec = nullptr;
 }
 
-void LValue::set(uint64_t val, Type type, int16_t size) {
+void LValue::set(uint64_t val, Type type, int32_t size) {
   m_type = type;
   m_nbWords = 1;
   if (!m_valueArray) m_valueArray = new SValue[1];
