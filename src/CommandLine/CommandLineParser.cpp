@@ -226,6 +226,7 @@ static const std::initializer_list<std::string_view> helpText = {
     "                        output",
     "  -pploc                Output message location in terms of post",
     "                        preprocessor location",
+    "  -ppextra_loc          Adds pre-processor location to syntax errors"
     "  -noinfo               Filters out INFO messages",
     "  -nonote               Filters out NOTE messages",
     "  -nowarning            Filters out WARNING messages",
@@ -393,6 +394,7 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_profile(false),
       m_parseBuiltIn(true),
       m_ppOutputFileLocation(false),
+      m_ppPrintLineInfo(false),
       m_sverilog(false),
       m_dumpUhdm(false),
       m_elabUhdm(false),
@@ -1311,6 +1313,8 @@ bool CommandLineParser::parseCommandLine(int32_t argc, const char** argv) {
       m_elabUhdm = true;
     } else if (all_arguments[i] == "-pploc") {
       m_ppOutputFileLocation = true;
+    } else if (all_arguments[i] == "-ppextra_loc") {
+      m_ppPrintLineInfo = true;
     } else if (all_arguments[i] == "-pythonlistener") {
       m_writePpOutput = true;
       m_parse = true;

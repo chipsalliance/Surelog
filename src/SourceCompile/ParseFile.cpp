@@ -287,8 +287,8 @@ bool ParseFile::parseOneFile_(PathId fileId, uint32_t lineOffset) {
         new antlr4::ANTLRInputStream(m_sourceText);
   }
 
-  m_antlrParserHandler->m_errorListener =
-      new AntlrParserErrorListener(this, false, lineOffset, fileId);
+  m_antlrParserHandler->m_errorListener = new AntlrParserErrorListener(
+      this, false, lineOffset, fileId, clp->printExtraPpLineInfo());
   m_antlrParserHandler->m_lexer =
       new SV3_1aLexer(m_antlrParserHandler->m_inputStream);
   VerilogVersion version = VerilogVersion::SystemVerilog;

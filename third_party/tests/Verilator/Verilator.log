@@ -109,7 +109,7 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_lint_pkg_colon_bad.v -l t_lint_pkg_colon_bad.v.log
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_lint_pkg_colon_bad.v:7:14: Syntax error: mismatched input '::' expecting ';',
    reg mispkgb::bar_t b;
-              ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_lint_pkg_colon_bad.v:7:14:.
+              ^--.
 [  FATAL] : 0
 [ SYNTAX] : 1
 [  ERROR] : 0
@@ -118,7 +118,7 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_case_wild.v -l t_case_wild.v.log
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_case_wild.v:64:6: Syntax error: mismatched input 'endcase' expecting {''b0', ''b1', ''B0', ''B1', ''0', ''1', '1'b0', '1'b1', '1'bx', '1'bX', '1'B0', '1'B1', '1'Bx', '1'BX', Integral_number, Real_number, String, 'default', '(', 'type', 'const', 'local', 'super', '{', 'string', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'signed', 'unsigned', '$', '++', '+', '--', '-', DOLLAR_UNIT, '!', 'matches', 'tagged', ''', 'inside', 'null', 'this', DOLLAR_ROOT, 'randomize', 'sample', '&', '|', '~|', '~&', '^~', Escaped_identifier, '~', '^', '~^', Simple_identifier},
       endcase
-      ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_case_wild.v:64:6:.
+      ^--.
 [  FATAL] : 0
 [ SYNTAX] : 1
 [  ERROR] : 0
@@ -235,10 +235,10 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_var_dup_bad.v -l t_var_dup_bad.v.log
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_var_dup_bad.v:65:3: Syntax error: extraneous input 'output' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'clocking', 'defparam', 'bind', 'const', 'function', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'not', 'or', 'and', 'sequence', 'covergroup', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'restrict', 'let', 'this', 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
    output bad_reout_port;
-   ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_var_dup_bad.v:65:3:.
+   ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_var_dup_bad.v:65:24: Syntax error: no viable alternative at input 'bad_reout_port;',
    output bad_reout_port;
-                        ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_var_dup_bad.v:65:24:.
+                        ^--.
 [  FATAL] : 0
 [ SYNTAX] : 2
 [  ERROR] : 0
@@ -348,31 +348,31 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_lint_pindup_bad.v -l t_lint_pindup_bad.v.log
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_lint_pindup_bad.v:14:7: Syntax error: no viable alternative at input 'sub\n     #(,',
      #(,  // Not found
-       ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_lint_pindup_bad.v:14:7:.
+       ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_lint_pindup_bad.v:15:15: Syntax error: no viable alternative at input '(1',
        .NEXIST(1),  // Not found
-               ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_lint_pindup_bad.v:15:15:.
+               ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_lint_pindup_bad.v:16:10: Syntax error: no viable alternative at input '(2',
        .P(2),
-          ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_lint_pindup_bad.v:16:10:.
+          ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_lint_pindup_bad.v:17:10: Syntax error: no viable alternative at input '(3',
        .P(3))  // Dup
-          ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_lint_pindup_bad.v:17:10:.
+          ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_lint_pindup_bad.v:18:8: Syntax error: no viable alternative at input '(.',
    sub (.o(o),
-        ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_lint_pindup_bad.v:18:8:.
+        ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_lint_pindup_bad.v:18:12: Syntax error: extraneous input ')' expecting ',',
    sub (.o(o),
-            ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_lint_pindup_bad.v:18:12:.
+            ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_lint_pindup_bad.v:19:8: Syntax error: extraneous input '.' expecting {''b0', ''b1', ''B0', ''B1', ''0', ''1', '1'b0', '1'b1', '1'bx', '1'bX', '1'B0', '1'B1', '1'Bx', '1'BX', Integral_number, Real_number, String, '(', 'type', 'const', 'local', 'super', '{', 'string', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'signed', 'unsigned', '$', '++', '+', '--', '-', DOLLAR_UNIT, '!', 'tagged', ''', 'null', 'this', DOLLAR_ROOT, 'randomize', 'sample', '&', '|', '~|', '~&', '^~', Escaped_identifier, '~', '^', '~^', Simple_identifier},
         .i(i),
-        ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_lint_pindup_bad.v:19:8:.
+        ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_lint_pindup_bad.v:20:8: Syntax error: extraneous input '.' expecting {''b0', ''b1', ''B0', ''B1', ''0', ''1', '1'b0', '1'b1', '1'bx', '1'bX', '1'B0', '1'B1', '1'Bx', '1'BX', Integral_number, Real_number, String, '(', 'type', 'const', 'local', 'super', '{', 'string', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'signed', 'unsigned', '$', '++', '+', '--', '-', DOLLAR_UNIT, '!', 'tagged', ''', 'null', 'this', DOLLAR_ROOT, 'randomize', 'sample', '&', '|', '~|', '~&', '^~', Escaped_identifier, '~', '^', '~^', Simple_identifier},
         .i(i2),  // Dup
-        ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_lint_pindup_bad.v:20:8:.
+        ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_lint_pindup_bad.v:21:8: Syntax error: extraneous input '.' expecting {''b0', ''b1', ''B0', ''B1', ''0', ''1', '1'b0', '1'b1', '1'bx', '1'bX', '1'B0', '1'B1', '1'Bx', '1'BX', Integral_number, Real_number, String, '(', 'type', 'const', 'local', 'super', '{', 'string', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'signed', 'unsigned', '$', '++', '+', '--', '-', DOLLAR_UNIT, '!', 'tagged', ''', 'null', 'this', DOLLAR_ROOT, 'randomize', 'sample', '&', '|', '~|', '~&', '^~', Escaped_identifier, '~', '^', '~^', Simple_identifier},
         .nexist(i2)  // Not found
-        ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_lint_pindup_bad.v:21:8:.
+        ^--.
 [  FATAL] : 0
 [ SYNTAX] : 9
 [  ERROR] : 0
@@ -436,10 +436,10 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [ERR:PP0102] ${SURELOG_DIR}/third_party/tests/Verilator/t_dpi_display.v:11:4: Unknown macro "error".
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_dpi_display.v:11:39: Syntax error: no viable alternative at input 'module t ();\n\n\n   SURELOG_MACRO_NOT_DEFINED:error!!!  "Only Verilator supports PLI-ish DPI calls and sformat conversion."',
    SURELOG_MACRO_NOT_DEFINED:error!!!  "Only Verilator supports PLI-ish DPI calls and sformat conversion."
-                                       ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_dpi_display.v:11:39:.
+                                       ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_dpi_display.v:11:39: Syntax error: mismatched input '"Only Verilator supports PLI-ish DPI calls and sformat conversion."' expecting <EOF>,
    SURELOG_MACRO_NOT_DEFINED:error!!!  "Only Verilator supports PLI-ish DPI calls and sformat conversion."
-                                       ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_dpi_display.v:11:39:.
+                                       ^--.
 [ERR:PA0203] ${SURELOG_DIR}/third_party/tests/Verilator/t_dpi_display.v:11: Unknown macro "error".
 [  FATAL] : 0
 [ SYNTAX] : 2
@@ -639,13 +639,13 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_flag_language.v -l t_flag_language.v.log
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_flag_language.v:10:11: Syntax error: no viable alternative at input 'module t (/*AUTOARG*/);\n\n   // See also t_preproc_kwd.v\n\n   integer bit',
    integer bit; initial bit = 1;
-           ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_flag_language.v:10:11:.
+           ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_flag_language.v:10:11: Syntax error: mismatched input 'bit' expecting {'this', 'randomize', 'sample', Escaped_identifier, Simple_identifier},
    integer bit; initial bit = 1;
-           ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_flag_language.v:10:11:.
+           ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_flag_language.v:10:16: Syntax error: mismatched input 'initial' expecting <EOF>,
    integer bit; initial bit = 1;
-                ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_flag_language.v:10:16:.
+                ^--.
 [  FATAL] : 0
 [ SYNTAX] : 3
 [  ERROR] : 0
@@ -1023,36 +1023,24 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_pipe_filter.v -l t_pipe_filter.v.log
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_pipe_filter.v:10:13: Syntax error: no viable alternative at input 'example line 10',
 example line 10;
-             ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_pipe_filter.v:10:13:.
+             ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_pipe_filter.v:11:13: Syntax error: no viable alternative at input 'example line 11',
 example line 11;
-             ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_pipe_filter.v:11:13:.
+             ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_pipe_filter_inc.vh:6:9: Syntax error: no viable alternative at input 'inc line 6',
 inc line 6;
-         ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_pipe_filter.v:18:9:.
+         ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_pipe_filter_inc.vh:7:9: Syntax error: no viable alternative at input 'inc line 7',
 inc line 7;  // example_lint_off_line FOO
-         ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_pipe_filter.v:19:9:.
+         ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_pipe_filter_inc.vh:8:9: Syntax error: no viable alternative at input 'inc line 8',
 inc line 8;  // example_lint_off_line BAR
-         ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_pipe_filter.v:20:9:.
+         ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_pipe_filter_inc.vh:9:9: Syntax error: no viable alternative at input 'inc line 9',
 inc line 9;
-         ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_pipe_filter.v:21:9:.
-[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_pipe_filter_inc.vh:6:9: Syntax error: no viable alternative at input 'inc line 6',
-inc line 6;
-         ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_pipe_filter.v:29:9:.
-[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_pipe_filter_inc.vh:7:9: Syntax error: no viable alternative at input 'inc line 7',
-inc line 7;  // example_lint_off_line FOO
-         ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_pipe_filter.v:30:9:.
-[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_pipe_filter_inc.vh:8:9: Syntax error: no viable alternative at input 'inc line 8',
-inc line 8;  // example_lint_off_line BAR
-         ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_pipe_filter.v:31:9:.
-[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_pipe_filter_inc.vh:9:9: Syntax error: no viable alternative at input 'inc line 9',
-inc line 9;
-         ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_pipe_filter.v:32:9:.
+         ^--.
 [  FATAL] : 0
-[ SYNTAX] : 10
+[ SYNTAX] : 6
 [  ERROR] : 0
 [WARNING] : 0
 [   NOTE] : 0
@@ -1168,7 +1156,7 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_lint_bsspace_bad.v -l t_lint_bsspace_bad.v.log
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_lint_bsspace_bad.v:12: Syntax error: no viable alternative at input 'blak\n\nmodule',
 module t;
-^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_lint_bsspace_bad.v:12:0:.
+^--.
 [  FATAL] : 0
 [ SYNTAX] : 1
 [  ERROR] : 0
@@ -1250,13 +1238,13 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_interface_modportlist.v -l t_interface_modportlist.v.log
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_interface_modportlist.v:10:26: Syntax error: no viable alternative at input 'my_module m(.clk(clk), iface',
    my_module m(.clk(clk), iface);
-                          ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_interface_modportlist.v:10:26:.
+                          ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_interface_modportlist.v:10:15: Syntax error: no viable alternative at input '(.',
    my_module m(.clk(clk), iface);
-               ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_interface_modportlist.v:10:15:.
+               ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_interface_modportlist.v:10:23: Syntax error: extraneous input ')' expecting ',',
    my_module m(.clk(clk), iface);
-                       ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_interface_modportlist.v:10:23:.
+                       ^--.
 [  FATAL] : 0
 [ SYNTAX] : 3
 [  ERROR] : 0
@@ -1321,7 +1309,7 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_preproc_persist_inc.v -l t_preproc_persist_inc.v.log
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_preproc_persist_inc.v:8:7: Syntax error: no viable alternative at input 'Inside "${SURELOG_DIR}/third_party/tests/Verilator/t_preproc_persist_inc.v"',
 Inside "${SURELOG_DIR}/third_party/tests/Verilator/t_preproc_persist_inc.v".
-       ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_preproc_persist_inc.v:8:7:.
+       ^--.
 [  FATAL] : 0
 [ SYNTAX] : 1
 [  ERROR] : 0
@@ -1366,13 +1354,13 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_const_dec_mixed_bad.v -l t_const_dec_mixed_bad.v.log
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_const_dec_mixed_bad.v:8:35: Syntax error: no viable alternative at input 'module t (/*AUTOARG*/);\n\n   parameter [200:0] MIXED = 32'dx_1',
    parameter [200:0] MIXED = 32'dx_1;
-                                   ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_const_dec_mixed_bad.v:8:35:.
+                                   ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_const_dec_mixed_bad.v:8:35: Syntax error: extraneous input '1' expecting ';',
    parameter [200:0] MIXED = 32'dx_1;
-                                   ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_const_dec_mixed_bad.v:8:35:.
+                                   ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_const_dec_mixed_bad.v:10: Syntax error: extraneous input 'endmodule' expecting <EOF>,
 endmodule
-^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_const_dec_mixed_bad.v:10:0:.
+^--.
 [  FATAL] : 0
 [ SYNTAX] : 3
 [  ERROR] : 0
@@ -1393,10 +1381,10 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_trace_primitive.v -l t_trace_primitive.v.log
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_trace_primitive.v:34: Syntax error: extraneous input 'assign' expecting {'input', 'output', 'reg', '(*', 'table', 'initial'},
 assign b = ~a;
-^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_trace_primitive.v:34:0:.
+^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_trace_primitive.v:35: Syntax error: mismatched input 'endprimitive' expecting <EOF>,
 endprimitive
-^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_trace_primitive.v:35:0:.
+^--.
 [  FATAL] : 0
 [ SYNTAX] : 2
 [  ERROR] : 0
@@ -1411,19 +1399,19 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_enum.v -l t_enum.v.log
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_enum.v:33:16: Syntax error: no viable alternative at input 'module t (/*AUTOARG*/);\n\n   localparam FIVE = 5;\n\n   enum { e0,\n\t  e1,\n\t  e3=3,\n\t  e5=FIVE,\n\t  e10_[2] = 10,\n\t  e12,\n\t  e20_[5:7] = 25,\n\t  e20_z,\n\t  e30_[7:5] = 30,\n\t  e30_z\n\t  } EN;\n\n   enum {\n\t z5 = e5\n\t } ZN;\n\n   typedef enum [',
    typedef enum [2:0] { ONES=~0 } three_t;
-                ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_enum.v:33:16:.
+                ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_enum.v:33:16: Syntax error: no viable alternative at input 'enum [',
    typedef enum [2:0] { ONES=~0 } three_t;
-                ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_enum.v:33:16:.
+                ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_enum.v:33:16: Syntax error: mismatched input '[' expecting {'{', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'this', 'randomize', 'sample', Escaped_identifier, Simple_identifier},
    typedef enum [2:0] { ONES=~0 } three_t;
-                ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_enum.v:33:16:.
+                ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_enum.v:33:22: Syntax error: mismatched input '{' expecting ';',
    typedef enum [2:0] { ONES=~0 } three_t;
-                      ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_enum.v:33:22:.
+                      ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_enum.v:41:3: Syntax error: mismatched input 'initial' expecting <EOF>,
    initial begin
-   ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_enum.v:41:3:.
+   ^--.
 [  FATAL] : 0
 [ SYNTAX] : 5
 [  ERROR] : 0
@@ -1482,7 +1470,7 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [ERR:PP0102] ${SURELOG_DIR}/third_party/tests/Verilator/t_dpi_threads.v:19:4: Unknown macro "error".
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_dpi_threads.v:19:39: Syntax error: extraneous input '"Only Verilator supports PLI-ish DPI calls."' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'input', 'output', 'inout', 'ref', 'clocking', 'defparam', 'bind', 'const', 'function', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'not', 'or', 'and', 'sequence', 'covergroup', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'restrict', 'let', 'this', DOLLAR_ROOT, 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
    SURELOG_MACRO_NOT_DEFINED:error!!!  "Only Verilator supports PLI-ish DPI calls."
-                                       ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_dpi_threads.v:19:39:.
+                                       ^--.
 [ERR:PA0203] ${SURELOG_DIR}/third_party/tests/Verilator/t_dpi_threads.v:19: Unknown macro "error".
 [  FATAL] : 0
 [ SYNTAX] : 1
@@ -1602,13 +1590,13 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_inst_missing.v -l t_inst_missing.v.log
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_inst_missing.v:10:21: Syntax error: no viable alternative at input 'module t (/*AUTOARG*/);\n   wire ok = 1'b0;\n   // verilator lint_off PINNOCONNECT\n   // verilator lint_off PINCONNECTEMPTY\n   sub sub (.ok(ok), ,',
    sub sub (.ok(ok), , .nc());
-                     ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_inst_missing.v:10:21:.
+                     ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_inst_missing.v:10:11: Syntax error: no viable alternative at input 'sub sub (',
    sub sub (.ok(ok), , .nc());
-           ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_inst_missing.v:10:11:.
+           ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_inst_missing.v:13: Syntax error: mismatched input 'endmodule' expecting <EOF>,
 endmodule
-^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_inst_missing.v:13:0:.
+^--.
 [  FATAL] : 0
 [ SYNTAX] : 3
 [  ERROR] : 0
@@ -1634,34 +1622,34 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [ERR:PA0209] ${SURELOG_DIR}/third_party/tests/Verilator/t_preproc_kwd.v:73: Unsupported keyword set: "VAMS-2.3".
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_preproc_kwd.v:29:16: Syntax error: missing {'this', 'randomize', 'sample', Escaped_identifier, Simple_identifier} at ';',
   integer signed; initial signed = 1;
-                ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_preproc_kwd.v:29:16:.
+                ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_preproc_kwd.v:29:26: Syntax error: mismatched input 'signed' expecting {Pound_Pound_delay, Pound_delay, ATSTAR, AT_PARENS_STAR, ';', 'type', 'local', 'super', '{', '->', 'if', 'foreach', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'void', '$', '++', '--', DOLLAR_UNIT, '(*', 'assert', 'assume', 'cover', 'expect', 'disable', '##', '#', 'begin', 'case', 'for', 'assign', 'deassign', 'force', 'release', 'fork', 'repeat', '@', 'return', 'break', 'continue', 'wait', 'wait_order', 'unique', 'unique0', 'priority', 'casez', 'casex', 'randcase', 'forever', 'while', 'do', 'restrict', ''', 'randsequence', 'this', DOLLAR_ROOT, 'randomize', 'sample', '->>', Escaped_identifier, Simple_identifier, SURELOG_MACRO_NOT_DEFINED},
   integer signed; initial signed = 1;
-                          ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_preproc_kwd.v:29:26:.
+                          ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_preproc_kwd.v:29:33: Syntax error: mismatched input '=' expecting {'[', 'this', 'randomize', 'sample', Escaped_identifier, Simple_identifier},
   integer signed; initial signed = 1;
-                                 ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_preproc_kwd.v:29:33:.
+                                 ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_preproc_kwd.v:29:35: Syntax error: mismatched input '1' expecting {Pound_Pound_delay, Pound_delay, 'type', 'local', 'super', '{', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', DOLLAR_UNIT, '#', ''', 'this', DOLLAR_ROOT, 'randomize', 'sample', Escaped_identifier, Simple_identifier},
   integer signed; initial signed = 1;
-                                   ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_preproc_kwd.v:29:35:.
+                                   ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_preproc_kwd.v:35:10: Syntax error: mismatched input 'bit' expecting {'this', 'randomize', 'sample', Escaped_identifier, Simple_identifier},
   integer bit; initial bit = 1;
-          ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_preproc_kwd.v:35:10:.
+          ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_preproc_kwd.v:35:23: Syntax error: mismatched input 'bit' expecting {Pound_Pound_delay, Pound_delay, ATSTAR, AT_PARENS_STAR, ';', 'type', 'local', 'super', '{', '->', 'if', 'foreach', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'void', '$', '++', '--', DOLLAR_UNIT, '(*', 'assert', 'assume', 'cover', 'expect', 'disable', '##', '#', 'begin', 'case', 'for', 'assign', 'deassign', 'force', 'release', 'fork', 'repeat', '@', 'return', 'break', 'continue', 'wait', 'wait_order', 'unique', 'unique0', 'priority', 'casez', 'casex', 'randcase', 'forever', 'while', 'do', 'restrict', ''', 'randsequence', 'this', DOLLAR_ROOT, 'randomize', 'sample', '->>', Escaped_identifier, Simple_identifier, SURELOG_MACRO_NOT_DEFINED},
   integer bit; initial bit = 1;
-                       ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_preproc_kwd.v:35:23:.
+                       ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_preproc_kwd.v:35:27: Syntax error: missing {'this', 'randomize', 'sample', Escaped_identifier, Simple_identifier} at '=',
   integer bit; initial bit = 1;
-                           ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_preproc_kwd.v:35:27:.
+                           ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_preproc_kwd.v:41:10: Syntax error: mismatched input 'final' expecting {'this', 'randomize', 'sample', Escaped_identifier, Simple_identifier},
   integer final; initial final = 1;
-          ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_preproc_kwd.v:41:10:.
+          ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_preproc_kwd.v:41:25: Syntax error: mismatched input 'final' expecting {Pound_Pound_delay, Pound_delay, ATSTAR, AT_PARENS_STAR, ';', 'type', 'local', 'super', '{', '->', 'if', 'foreach', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'void', '$', '++', '--', DOLLAR_UNIT, '(*', 'assert', 'assume', 'cover', 'expect', 'disable', '##', '#', 'begin', 'case', 'for', 'assign', 'deassign', 'force', 'release', 'fork', 'repeat', '@', 'return', 'break', 'continue', 'wait', 'wait_order', 'unique', 'unique0', 'priority', 'casez', 'casex', 'randcase', 'forever', 'while', 'do', 'restrict', ''', 'randsequence', 'this', DOLLAR_ROOT, 'randomize', 'sample', '->>', Escaped_identifier, Simple_identifier, SURELOG_MACRO_NOT_DEFINED},
   integer final; initial final = 1;
-                         ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_preproc_kwd.v:41:25:.
+                         ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_preproc_kwd.v:41:31: Syntax error: mismatched input '=' expecting {Pound_Pound_delay, Pound_delay, ATSTAR, AT_PARENS_STAR, 'type', 'local', 'super', '{', '->', 'if', 'foreach', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'void', '$', '++', '--', DOLLAR_UNIT, '(*', 'assert', 'assume', 'cover', 'expect', 'disable', '##', '#', 'begin', 'case', 'for', 'assign', 'deassign', 'force', 'release', 'fork', 'repeat', '@', 'return', 'break', 'continue', 'wait', 'wait_order', 'unique', 'unique0', 'priority', 'casez', 'casex', 'randcase', 'forever', 'while', 'do', 'restrict', ''', 'randsequence', 'this', DOLLAR_ROOT, 'randomize', 'sample', '->>', Escaped_identifier, Simple_identifier, SURELOG_MACRO_NOT_DEFINED},
   integer final; initial final = 1;
-                               ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_preproc_kwd.v:41:31:.
+                               ^--.
 [  FATAL] : 0
 [ SYNTAX] : 10
 [  ERROR] : 1
@@ -1722,10 +1710,10 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [ERR:PP0120] ${SURELOG_DIR}/third_party/tests/Verilator/t_lint_implicit_def_bad.v:21: Illegal directive in design element "`resetall".
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_lint_implicit_def_bad.v:14: Syntax error: extraneous input '`default_nettype' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'input', 'output', 'inout', 'ref', 'clocking', 'defparam', 'bind', 'const', 'function', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'not', 'or', 'and', 'sequence', 'covergroup', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'restrict', 'let', 'this', DOLLAR_ROOT, 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
 `default_nettype none
-^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_lint_implicit_def_bad.v:14:0:.
+^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_lint_implicit_def_bad.v:15:3: Syntax error: mismatched input 'assign' expecting <EOF>,
    assign imp_err = 1'b1;
-   ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_lint_implicit_def_bad.v:15:3:.
+   ^--.
 [  FATAL] : 0
 [ SYNTAX] : 2
 [  ERROR] : 1
@@ -1772,13 +1760,13 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_inst_missing_bad.v -l t_inst_missing_bad.v.log
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_inst_missing_bad.v:8:21: Syntax error: no viable alternative at input 'module t (/*AUTOARG*/);\n   wire ok = 1'b0;\n   sub sub (.ok(ok), ,',
    sub sub (.ok(ok), , .nc());
-                     ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_inst_missing_bad.v:8:21:.
+                     ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_inst_missing_bad.v:8:11: Syntax error: no viable alternative at input 'sub sub (',
    sub sub (.ok(ok), , .nc());
-           ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_inst_missing_bad.v:8:11:.
+           ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_inst_missing_bad.v:9: Syntax error: mismatched input 'endmodule' expecting <EOF>,
 endmodule
-^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_inst_missing_bad.v:9:0:.
+^--.
 [  FATAL] : 0
 [ SYNTAX] : 3
 [  ERROR] : 0
@@ -1838,25 +1826,25 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 ${SURELOG_DIR}/third_party/tests/Verilator/t_pp_display.v:17:9: No default value for argument 1 (x) in macro definition.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_pp_display.v:21:3: Syntax error: no viable alternative at input '$display("left side: \"right side\"" // The 'left' as the variable name shouldn't match the "left" in the `" string\n   initial',
    initial begin
-   ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_pp_display.v:33:3:.
+   ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_pp_display.v:20:15: Syntax error: no viable alternative at input '("left side: \"right side\""',
       $display("left side: \"right side\"" // The 'left' as the variable name shouldn't match the "left" in the `" string
-               ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_pp_display.v:32:15:.
+               ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_pp_display.v:31: Syntax error: extraneous input ')' expecting {Pound_Pound_delay, Pound_delay, ATSTAR, AT_PARENS_STAR, ';', ':', 'virtual', 'type', 'bind', 'const', 'static', 'local', 'super', '{', '->', 'if', 'foreach', 'automatic', 'localparam', 'parameter', 'import', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'signed', 'unsigned', 'var', 'void', '$', '++', '--', DOLLAR_UNIT, '(*', 'assert', 'assume', 'cover', 'expect', 'disable', '##', '#', 'begin', 'end', 'case', 'for', 'assign', 'deassign', 'force', 'release', 'fork', 'repeat', '@', 'return', 'break', 'continue', 'wait', 'wait_order', 'unique', 'unique0', 'priority', 'casez', 'casex', 'randcase', 'forever', 'while', 'do', 'restrict', 'let', ''', 'randsequence', 'this', DOLLAR_ROOT, 'randomize', 'sample', '->>', 'nettype', Escaped_identifier, Simple_identifier, SURELOG_MACRO_NOT_DEFINED},
 );
-^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_pp_display.v:35:0:.
+^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_pp_display.v:39:15: Syntax error: no viable alternative at input '$display(`',
       $display(`"standalone`");
-               ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_pp_display.v:43:15:.
+               ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_pp_display.v:39:14: Syntax error: mismatched input '(' expecting ';',
       $display(`"standalone`");
-              ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_pp_display.v:43:14:.
+              ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_pp_display.v:39:16: Syntax error: mismatched input '"standalone`"' expecting Simple_identifier,
       $display(`"standalone`");
-                ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_pp_display.v:43:16:.
+                ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_pp_display.v:49:6: Syntax error: mismatched input '$' expecting <EOF>,
       $display("Line %0d File \"%s\"",49,"${SURELOG_DIR}/third_party/tests/Verilator/t_pp_display.v");
-      ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_pp_display.v:53:6:.
+      ^--.
 [  FATAL] : 0
 [ SYNTAX] : 7
 [  ERROR] : 1
@@ -1969,16 +1957,16 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_mem_slice_bad.v -l t_mem_slice_bad.v.log
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_mem_slice_bad.v:38:30: Syntax error: mismatched input '[' expecting '=',
    assign active_command3[1:0][2:0][3:0] = (use_AnB) ?  command_A3[1:0][2:0][3:0] : command_B3[1:0][1:0][3:0];
-                              ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_mem_slice_bad.v:38:30:.
+                              ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_mem_slice_bad.v:38:41: Syntax error: extraneous input '=' expecting {'[', 'this', 'randomize', 'sample', Escaped_identifier, Simple_identifier},
    assign active_command3[1:0][2:0][3:0] = (use_AnB) ?  command_A3[1:0][2:0][3:0] : command_B3[1:0][1:0][3:0];
-                                         ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_mem_slice_bad.v:38:41:.
+                                         ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_mem_slice_bad.v:38:53: Syntax error: mismatched input '?' expecting ';',
    assign active_command3[1:0][2:0][3:0] = (use_AnB) ?  command_A3[1:0][2:0][3:0] : command_B3[1:0][1:0][3:0];
-                                                     ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_mem_slice_bad.v:38:53:.
+                                                     ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_mem_slice_bad.v:38:82: Syntax error: extraneous input ':' expecting {'this', 'randomize', 'sample', Escaped_identifier, Simple_identifier},
    assign active_command3[1:0][2:0][3:0] = (use_AnB) ?  command_A3[1:0][2:0][3:0] : command_B3[1:0][1:0][3:0];
-                                                                                  ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_mem_slice_bad.v:38:82:.
+                                                                                  ^--.
 [  FATAL] : 0
 [ SYNTAX] : 4
 [  ERROR] : 0
@@ -2041,10 +2029,10 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_mem_multi_ref_bad.v -l t_mem_multi_ref_bad.v.log
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_mem_multi_ref_bad.v:18:18: Syntax error: no viable alternative at input 'module t (/*AUTOARG*/);\n   reg       dimn;\n   reg [1:0] dim0;\n   reg [1:0] dim1 [1:0];\n   reg [1:0] dim2 [1:0][1:0];\n   reg       dim0nv[1:0];\n\n   initial begin\n      dimn[1:0] = 0;            // Bad: Not ranged\n      dim0[1][1] = 0;           // Bad: Not arrayed\n      dim1[1][1][1] = 0;        // Bad: Not arrayed to right depth\n      dim2[1][1][1] = 0;        // OK\n      dim2[0 +: 1][',
       dim2[0 +: 1][1] = 0;      // Bad: Range on non-bits
-                  ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_mem_multi_ref_bad.v:18:18:.
+                  ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_mem_multi_ref_bad.v:13:3: Syntax error: mismatched input 'initial' expecting <EOF>,
    initial begin
-   ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_mem_multi_ref_bad.v:13:3:.
+   ^--.
 [  FATAL] : 0
 [ SYNTAX] : 2
 [  ERROR] : 0
@@ -2077,7 +2065,7 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_preproc_persist.v -l t_preproc_persist.v.log
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_preproc_persist.v:6:7: Syntax error: no viable alternative at input 'Inside "${SURELOG_DIR}/third_party/tests/Verilator/t_preproc_persist.v"',
 Inside "${SURELOG_DIR}/third_party/tests/Verilator/t_preproc_persist.v".
-       ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_preproc_persist.v:6:7:.
+       ^--.
 [  FATAL] : 0
 [ SYNTAX] : 1
 [  ERROR] : 0
@@ -2165,13 +2153,13 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_langext_order.v -l t_langext_order.v.log
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_langext_order.v:10:15: Syntax error: no viable alternative at input 'input do',
 module t(input do);
-               ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_langext_order.v:10:15:.
+               ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_langext_order.v:11:29: Syntax error: no viable alternative at input 't_langext_order_sub sub (.do',
    t_langext_order_sub sub (.do(do));
-                             ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_langext_order.v:11:29:.
+                             ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_langext_order.v:11:28: Syntax error: no viable alternative at input '(.',
    t_langext_order_sub sub (.do(do));
-                            ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_langext_order.v:11:28:.
+                            ^--.
 [  FATAL] : 0
 [ SYNTAX] : 3
 [  ERROR] : 0
@@ -2286,10 +2274,10 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [ERR:PP0102] ${SURELOG_DIR}/third_party/tests/Verilator/t_dpi_sys.v:15:4: Unknown macro "error".
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_dpi_sys.v:15:39: Syntax error: no viable alternative at input 'module t ();\n\n\n   SURELOG_MACRO_NOT_DEFINED:error!!!  "Only Verilator supports PLI-ish DPI calls."',
    SURELOG_MACRO_NOT_DEFINED:error!!!  "Only Verilator supports PLI-ish DPI calls."
-                                       ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_dpi_sys.v:15:39:.
+                                       ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_dpi_sys.v:15:39: Syntax error: mismatched input '"Only Verilator supports PLI-ish DPI calls."' expecting <EOF>,
    SURELOG_MACRO_NOT_DEFINED:error!!!  "Only Verilator supports PLI-ish DPI calls."
-                                       ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_dpi_sys.v:15:39:.
+                                       ^--.
 [ERR:PA0203] ${SURELOG_DIR}/third_party/tests/Verilator/t_dpi_sys.v:15: Unknown macro "error".
 [  FATAL] : 0
 [ SYNTAX] : 2
@@ -2397,7 +2385,7 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_lint_mod_paren_bad.v -l t_lint_mod_paren_bad.v.log
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_lint_mod_paren_bad.v:12:5: Syntax error: mismatched input '(' expecting ';',
    ) (
-     ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_lint_mod_paren_bad.v:12:5:.
+     ^--.
 [  FATAL] : 0
 [ SYNTAX] : 1
 [  ERROR] : 0
@@ -2430,10 +2418,10 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_clk_concat2.v -l t_clk_concat2.v.log
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_clk_concat2.v:85:3: Syntax error: extraneous input 'input' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'clocking', 'defparam', 'bind', 'const', 'function', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'not', 'or', 'and', 'sequence', 'covergroup', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'restrict', 'let', 'this', 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
    input       clk;
-   ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_clk_concat2.v:85:3:.
+   ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_clk_concat2.v:85:18: Syntax error: no viable alternative at input 'clk;',
    input       clk;
-                  ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_clk_concat2.v:85:18:.
+                  ^--.
 [  FATAL] : 0
 [ SYNTAX] : 2
 [  ERROR] : 0
@@ -2720,10 +2708,10 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_hierarchy_identifier.v -l t_hierarchy_identifier.v.log
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_hierarchy_identifier.v:30:26: Syntax error: mismatched input '\' expecting {'this', 'randomize', 'sample', Escaped_identifier, Simple_identifier},
    if (cnt==SIZE) begin : \0escaped___name
-                          ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_hierarchy_identifier.v:30:26:.
+                          ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_hierarchy_identifier.v:33:3: Syntax error: extraneous input 'end' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'input', 'output', 'inout', 'ref', 'clocking', 'defparam', 'bind', 'const', 'function', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'not', 'or', 'and', 'sequence', 'covergroup', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'restrict', 'let', 'this', DOLLAR_ROOT, 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
    end : \0escaped___name
-   ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_hierarchy_identifier.v:33:3:.
+   ^--.
 [  FATAL] : 0
 [ SYNTAX] : 2
 [  ERROR] : 0
@@ -2801,7 +2789,7 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 ${SURELOG_DIR}/third_party/tests/Verilator/t_preproc_def09.v:55:9: No default value for argument 1 (a) in macro definition.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_preproc_def09.v:11: Syntax error: mismatched input ''' expecting <EOF>,
 'initial $display("start", "msg1" , "msg2", "end");'
-^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_preproc_def09.v:11:0:.
+^--.
 [  FATAL] : 0
 [ SYNTAX] : 1
 [  ERROR] : 1
@@ -2949,7 +2937,7 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_preproc_noline.v -l t_preproc_noline.v.log
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_preproc_noline.v:9:9: Syntax error: no viable alternative at input 'Hello in t_preproc_psl',
 Hello in t_preproc_psl.v
-         ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_preproc_noline.v:9:9:.
+         ^--.
 [  FATAL] : 0
 [ SYNTAX] : 1
 [  ERROR] : 0
@@ -3007,7 +2995,7 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_preproc_persist2.v -l t_preproc_persist2.v.log
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_preproc_persist2.v:6:7: Syntax error: no viable alternative at input 'Inside "${SURELOG_DIR}/third_party/tests/Verilator/t_preproc_persist2.v"',
 Inside "${SURELOG_DIR}/third_party/tests/Verilator/t_preproc_persist2.v".
-       ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_preproc_persist2.v:6:7:.
+       ^--.
 [  FATAL] : 0
 [ SYNTAX] : 1
 [  ERROR] : 0
@@ -3166,10 +3154,10 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_attr_parenstar.v -l t_attr_parenstar.v.log
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_attr_parenstar.v:32:12: Syntax error: no viable alternative at input '@ (*',
    always @ (*
-            ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_attr_parenstar.v:32:12:.
+            ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_attr_parenstar.v:35:3: Syntax error: extraneous input 'end' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'input', 'output', 'inout', 'ref', 'clocking', 'defparam', 'bind', 'const', 'function', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'not', 'or', 'and', 'sequence', 'covergroup', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'restrict', 'let', 'this', DOLLAR_ROOT, 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
    end
-   ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_attr_parenstar.v:35:3:.
+   ^--.
 [  FATAL] : 0
 [ SYNTAX] : 2
 [  ERROR] : 0
@@ -3316,13 +3304,13 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_var_bad_sv.v -l t_var_bad_sv.v.log
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_var_bad_sv.v:7:7: Syntax error: mismatched input 'do' expecting {'this', 'randomize', 'sample', Escaped_identifier, Simple_identifier},
    reg do;
-       ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_var_bad_sv.v:7:7:.
+       ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_var_bad_sv.v:8:13: Syntax error: no viable alternative at input 'mod mod (.do',
    mod mod (.do(bar));
-             ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_var_bad_sv.v:8:13:.
+             ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_var_bad_sv.v:8:12: Syntax error: no viable alternative at input '(.',
    mod mod (.do(bar));
-            ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_var_bad_sv.v:8:12:.
+            ^--.
 [  FATAL] : 0
 [ SYNTAX] : 3
 [  ERROR] : 0
@@ -3614,10 +3602,10 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [ERR:PP0102] ${SURELOG_DIR}/third_party/tests/Verilator/t_pp_lib_library.v:7:11: Unknown macro "WIDTH".
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_pp_lib_library.v:7:10: Syntax error: no viable alternative at input '[SURELOG_MACRO_NOT_DEFINED:WIDTH!!!',
    input [SURELOG_MACRO_NOT_DEFINED:WIDTH!!! -1:0] a;
-          ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_pp_lib_library.v:7:10:.
+          ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_pp_lib_library.v:7:45: Syntax error: extraneous input '-' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'input', 'output', 'inout', 'ref', 'clocking', 'defparam', 'bind', 'const', 'function', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'not', 'or', 'and', 'sequence', 'covergroup', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'restrict', 'let', 'this', DOLLAR_ROOT, 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
    input [SURELOG_MACRO_NOT_DEFINED:WIDTH!!! -1:0] a;
-                                             ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_pp_lib_library.v:7:45:.
+                                             ^--.
 [ERR:PA0203] ${SURELOG_DIR}/third_party/tests/Verilator/t_pp_lib_library.v:7: Unknown macro "WIDTH".
 [  FATAL] : 0
 [ SYNTAX] : 2
@@ -3806,7 +3794,7 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [ERR:PP0102] ${SURELOG_DIR}/third_party/tests/Verilator/t_tri_gate.v:36:2: Unknown macro "error".
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_tri_gate.v:36:37: Syntax error: extraneous input '"Unknown test name"' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'clocking', 'defparam', 'bind', 'const', 'function', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'not', 'or', 'and', 'sequence', 'covergroup', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'restrict', 'let', 'this', 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
  SURELOG_MACRO_NOT_DEFINED:error!!!  "Unknown test name"
-                                     ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_tri_gate.v:36:37:.
+                                     ^--.
 [ERR:PA0203] ${SURELOG_DIR}/third_party/tests/Verilator/t_tri_gate.v:36: Unknown macro "error".
 [  FATAL] : 0
 [ SYNTAX] : 1
@@ -3841,7 +3829,7 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [ERR:PP0102] ${SURELOG_DIR}/third_party/tests/Verilator/t_gen_missing.v:13:2: Unknown macro "error".
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_gen_missing.v:13:37: Syntax error: extraneous input '"Bad Test"' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'clocking', 'defparam', 'bind', 'const', 'function', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'not', 'or', 'and', 'sequence', 'covergroup', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'restrict', 'let', 'this', 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
  SURELOG_MACRO_NOT_DEFINED:error!!!  "Bad Test"
-                                     ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_gen_missing.v:13:37:.
+                                     ^--.
 [ERR:PA0203] ${SURELOG_DIR}/third_party/tests/Verilator/t_gen_missing.v:13: Unknown macro "error".
 [  FATAL] : 0
 [ SYNTAX] : 1
@@ -4116,13 +4104,13 @@ ${SURELOG_DIR}/third_party/tests/Verilator/t_preproc.v:97:9: No default value fo
 [ERR:PP0102] ${SURELOG_DIR}/third_party/tests/Verilator/t_preproc.v:651:8: Unknown macro "SV_COV_PARTIAL".
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_preproc_inc2.vh:4:8: Syntax error: no viable alternative at input 'At file "${SURELOG_DIR}/third_party/tests/Verilator/t_preproc_inc2.vh"',
 At file "${SURELOG_DIR}/third_party/tests/Verilator/t_preproc_inc2.vh"  line 4
-        ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_preproc.v:10:8:.
+        ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_preproc.v:29:4: Syntax error: no viable alternative at input 'text.',
 text.
-    ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_preproc.v:35:4:.
+    ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_preproc.v:84:1: Syntax error: mismatched input '$' expecting <EOF>,
 	$c("Zap(\"","bug2","\");");
- ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_preproc.v:100:1:.
+ ^--.
 [  FATAL] : 0
 [ SYNTAX] : 6
 [  ERROR] : 28
@@ -4210,10 +4198,10 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_clk_concat6.v -l t_clk_concat6.v.log
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_clk_concat6.v:97:3: Syntax error: extraneous input 'input' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'clocking', 'defparam', 'bind', 'const', 'function', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'not', 'or', 'and', 'sequence', 'covergroup', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'restrict', 'let', 'this', 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
    input       clk;
-   ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_clk_concat6.v:97:3:.
+   ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_clk_concat6.v:97:18: Syntax error: no viable alternative at input 'clk;',
    input       clk;
-                  ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_clk_concat6.v:97:18:.
+                  ^--.
 [  FATAL] : 0
 [ SYNTAX] : 2
 [  ERROR] : 0
@@ -4588,10 +4576,10 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [ERR:PP0102] ${SURELOG_DIR}/third_party/tests/Verilator/t_pp_circdef_bad.v:9:25: Unknown macro "SEL_NUM_BITS".
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_pp_circdef_bad.v:13:18: Syntax error: mismatched input 'SURELOG_MACRO_NOT_DEFINED:SEL_NUM_BITS!!!' expecting {''b0', ''b1', ''B0', ''B1', ''0', ''1', '1'b0', '1'b1', '1'bx', '1'bX', '1'B0', '1'B1', '1'Bx', '1'BX', Integral_number, Real_number, String, '(', 'type', 'const', 'local', 'super', '{', 'string', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'signed', 'unsigned', '$', '+', '-', DOLLAR_UNIT, '(*', '!', ''', 'this', DOLLAR_ROOT, 'randomize', 'sample', '&', '|', '~|', '~&', '^~', Escaped_identifier, '~', '^', '~^', Simple_identifier},
 typedef logic [12-SURELOG_MACRO_NOT_DEFINED:SEL_NUM_BITS!!!  +: SURELOG_MACRO_NOT_DEFINED:SEL_NUM_BITS!!! -1:0]  d_t;
-                  ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_pp_circdef_bad.v:13:18:.
+                  ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_pp_circdef_bad.v:13:61: Syntax error: mismatched input '+:' expecting <EOF>,
 typedef logic [12-SURELOG_MACRO_NOT_DEFINED:SEL_NUM_BITS!!!  +: SURELOG_MACRO_NOT_DEFINED:SEL_NUM_BITS!!! -1:0]  d_t;
-                                                             ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_pp_circdef_bad.v:13:61:.
+                                                             ^--.
 [ERR:PA0203] ${SURELOG_DIR}/third_party/tests/Verilator/t_pp_circdef_bad.v:13: Unknown macro "SEL_NUM_BITS".
 [  FATAL] : 0
 [ SYNTAX] : 2
@@ -4800,10 +4788,10 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_clk_concat5.v -l t_clk_concat5.v.log
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_clk_concat5.v:84:3: Syntax error: extraneous input 'input' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'clocking', 'defparam', 'bind', 'const', 'function', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'not', 'or', 'and', 'sequence', 'covergroup', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'restrict', 'let', 'this', 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
    input       clk;
-   ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_clk_concat5.v:84:3:.
+   ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_clk_concat5.v:84:18: Syntax error: no viable alternative at input 'clk;',
    input       clk;
-                  ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_clk_concat5.v:84:18:.
+                  ^--.
 [  FATAL] : 0
 [ SYNTAX] : 2
 [  ERROR] : 0
@@ -4832,10 +4820,10 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [ERR:PP0102] ${SURELOG_DIR}/third_party/tests/Verilator/t_preproc_undefineall.v:14:29: Unknown macro "error".
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_preproc_undefineall.v:9:37: Syntax error: extraneous input '"Test setup error, PREDEF_COMMAND_LINE pre-missing"' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'clocking', 'defparam', 'bind', 'const', 'function', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'not', 'or', 'and', 'sequence', 'covergroup', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'restrict', 'let', 'this', 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
  SURELOG_MACRO_NOT_DEFINED:error!!!  "Test setup error, PREDEF_COMMAND_LINE pre-missing" 
-                                     ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_preproc_undefineall.v:9:37:.
+                                     ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_preproc_undefineall.v:14:37: Syntax error: extraneous input '"Deleted too much, no PREDEF_COMMAND_LINE"' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'clocking', 'defparam', 'bind', 'const', 'function', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'not', 'or', 'and', 'sequence', 'covergroup', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'restrict', 'let', 'this', 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
  SURELOG_MACRO_NOT_DEFINED:error!!!  "Deleted too much, no PREDEF_COMMAND_LINE" 
-                                     ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_preproc_undefineall.v:14:37:.
+                                     ^--.
 [ERR:PA0203] ${SURELOG_DIR}/third_party/tests/Verilator/t_preproc_undefineall.v:9: Unknown macro "error".
 [ERR:PA0203] ${SURELOG_DIR}/third_party/tests/Verilator/t_preproc_undefineall.v:14: Unknown macro "error".
 [  FATAL] : 0
@@ -4853,16 +4841,16 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [ERR:PP0102] ${SURELOG_DIR}/third_party/tests/Verilator/t_interface_down_gen.v:75:1: Unknown macro "error".
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_interface_down_gen.v:75:52: Syntax error: missing '(' at 'choke',
 SURELOG_MACRO_NOT_DEFINED:error!!!  Commercial sims choke on cross ref here
-                                                    ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_interface_down_gen.v:75:52:.
+                                                    ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_interface_down_gen.v:75:61: Syntax error: mismatched input 'cross' expecting '(',
 SURELOG_MACRO_NOT_DEFINED:error!!!  Commercial sims choke on cross ref here
-                                                             ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_interface_down_gen.v:75:61:.
+                                                             ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_interface_down_gen.v:76:10: Syntax error: missing '(' at '.',
       isub.g.value = i_value;
-          ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_interface_down_gen.v:76:10:.
+          ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_interface_down_gen.v:76:12: Syntax error: mismatched input '.' expecting ')',
       isub.g.value = i_value;
-            ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_interface_down_gen.v:76:12:.
+            ^--.
 [ERR:PA0203] ${SURELOG_DIR}/third_party/tests/Verilator/t_interface_down_gen.v:75: Unknown macro "error".
 [  FATAL] : 0
 [ SYNTAX] : 4
@@ -4890,7 +4878,7 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_preproc_inc_bad.v -l t_preproc_inc_bad.v.log
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_preproc_inc_inc_bad.vh:10: Syntax error: no viable alternative at input 'xx  // intentional error\n\nendmodule',
 endmodule
-^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_preproc_inc_bad.v:17:0:.
+^--.
 [  FATAL] : 0
 [ SYNTAX] : 1
 [  ERROR] : 0
@@ -4930,7 +4918,7 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_var_rsvd.v -l t_var_rsvd.v.log
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_var_rsvd.v:24:8: Syntax error: mismatched input 'global' expecting {'this', 'randomize', 'sample', Escaped_identifier, Simple_identifier},
    reg  global;
-        ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_var_rsvd.v:24:8:.
+        ^--.
 [  FATAL] : 0
 [ SYNTAX] : 1
 [  ERROR] : 0
@@ -5017,7 +5005,7 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_lint_rsvd_bad.v -l t_lint_rsvd_bad.v.log
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_lint_rsvd_bad.v:7: Syntax error: mismatched input 'endconfig' expecting {'design', 'localparam'},
 endconfig
-^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_lint_rsvd_bad.v:7:0:.
+^--.
 [  FATAL] : 0
 [ SYNTAX] : 1
 [  ERROR] : 0
@@ -5123,22 +5111,22 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_enum_type_methods.v -l t_enum_type_methods.v.log
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_enum_type_methods.v:15:16: Syntax error: no viable alternative at input 'enum [',
    typedef enum [3:0] {
-                ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_enum_type_methods.v:15:16:.
+                ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_enum_type_methods.v:15:16: Syntax error: mismatched input '[' expecting {'{', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'this', 'randomize', 'sample', Escaped_identifier, Simple_identifier},
    typedef enum [3:0] {
-                ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_enum_type_methods.v:15:16:.
+                ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_enum_type_methods.v:15:22: Syntax error: mismatched input '{' expecting ';',
    typedef enum [3:0] {
-                      ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_enum_type_methods.v:15:22:.
+                      ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_enum_type_methods.v:16:15: Syntax error: mismatched input '1' expecting {Pound_Pound_delay, Pound_delay, 'type', 'local', 'super', '{', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', DOLLAR_UNIT, '#', ''', 'this', DOLLAR_ROOT, 'randomize', 'sample', Escaped_identifier, Simple_identifier},
 		       E01 = 1,
-               ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_enum_type_methods.v:16:15:.
+               ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_enum_type_methods.v:17:15: Syntax error: mismatched input '3' expecting {Pound_Pound_delay, Pound_delay, 'type', 'local', 'super', '{', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', DOLLAR_UNIT, '#', ''', 'this', DOLLAR_ROOT, 'randomize', 'sample', Escaped_identifier, Simple_identifier},
 		       E03 = 3,
-               ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_enum_type_methods.v:17:15:.
+               ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_enum_type_methods.v:18:15: Syntax error: mismatched input '4' expecting {Pound_Pound_delay, Pound_delay, 'type', 'local', 'super', '{', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', DOLLAR_UNIT, '#', ''', 'this', DOLLAR_ROOT, 'randomize', 'sample', Escaped_identifier, Simple_identifier},
 		       E04 = 4
-               ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_enum_type_methods.v:18:15:.
+               ^--.
 [  FATAL] : 0
 [ SYNTAX] : 6
 [  ERROR] : 0
@@ -5147,13 +5135,13 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_lint_in_inc_bad.v -l t_lint_in_inc_bad.v.log
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_lint_in_inc_bad_2.vh:8:6: Syntax error: mismatched input 'if' expecting '(',
    if if if;
-      ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_lint_in_inc_bad.v:18:6:.
+      ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_lint_in_inc_bad_2.vh:8:9: Syntax error: mismatched input 'if' expecting '(',
    if if if;
-         ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_lint_in_inc_bad.v:18:9:.
+         ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_lint_in_inc_bad_2.vh:8:11: Syntax error: mismatched input ';' expecting '(',
    if if if;
-           ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_lint_in_inc_bad.v:18:11:.
+           ^--.
 [  FATAL] : 0
 [ SYNTAX] : 3
 [  ERROR] : 0
@@ -5205,7 +5193,7 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_langext_order_sub.v -l t_langext_order_sub.v.log
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_langext_order_sub.v:10:33: Syntax error: no viable alternative at input 'input do',
 module t_langext_order_sub(input do);
-                                 ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_langext_order_sub.v:10:33:.
+                                 ^--.
 [  FATAL] : 0
 [ SYNTAX] : 1
 [  ERROR] : 0
@@ -5401,19 +5389,19 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [ERR:PP0102] ${SURELOG_DIR}/third_party/tests/Verilator/t_extend_class.v:56:2: Unknown macro "verilog".
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_extend_class.v:49: Syntax error: extraneous input '#' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'input', 'output', 'inout', 'ref', 'clocking', 'defparam', 'bind', 'const', 'function', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'not', 'or', 'and', 'sequence', 'covergroup', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'restrict', 'let', 'this', DOLLAR_ROOT, 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
 #include "t_extend_class_c.h"	// Header for contained object
-^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_extend_class.v:49:0:.
+^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_extend_class.v:51:19: Syntax error: no viable alternative at input 't_extend_class_c*',
    t_extend_class_c* m_myobjp;	// Pointer to object we are embedding
-                   ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_extend_class.v:51:19:.
+                   ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_extend_class.v:53:12: Syntax error: no viable alternative at input 'm_myobjp =',
    m_myobjp = new t_extend_class_c();	// Construct contained object
-            ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_extend_class.v:53:12:.
+            ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_extend_class.v:53:14: Syntax error: extraneous input 'new' expecting {Pound_Pound_delay, Pound_delay, 'type', 'local', 'super', '{', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', DOLLAR_UNIT, '#', ''', 'this', DOLLAR_ROOT, 'randomize', 'sample', Escaped_identifier, Simple_identifier},
    m_myobjp = new t_extend_class_c();	// Construct contained object
-              ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_extend_class.v:53:14:.
+              ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_extend_class.v:53:34: Syntax error: missing '=' at '(',
    m_myobjp = new t_extend_class_c();	// Construct contained object
-                                  ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_extend_class.v:53:34:.
+                                  ^--.
 [ERR:PA0203] ${SURELOG_DIR}/third_party/tests/Verilator/t_extend_class.v:48: Unknown macro "systemc_header".
 [ERR:PA0203] ${SURELOG_DIR}/third_party/tests/Verilator/t_extend_class.v:50: Unknown macro "systemc_interface".
 [ERR:PA0203] ${SURELOG_DIR}/third_party/tests/Verilator/t_extend_class.v:52: Unknown macro "systemc_ctor".
@@ -5435,10 +5423,10 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [ERR:PP0102] ${SURELOG_DIR}/third_party/tests/Verilator/t_dpi_var.v:69:1: Unknown macro "verilog".
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_dpi_var.v:67:2: Syntax error: no viable alternative at input 'module sub (/*AUTOARG*/\n   // Outputs\n   fr_a, fr_b, fr_chk,\n   // Inputs\n   in\n   );\n\nSURELOG_MACRO_NOT_DEFINED:systemc_imp_header!!! \n  void',
   void mon_class_name(const char* namep);
-  ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_dpi_var.v:67:2:.
+  ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_dpi_var.v:67:2: Syntax error: mismatched input 'void' expecting <EOF>,
   void mon_class_name(const char* namep);
-  ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_dpi_var.v:67:2:.
+  ^--.
 [ERR:PA0203] ${SURELOG_DIR}/third_party/tests/Verilator/t_dpi_var.v:66: Unknown macro "systemc_imp_header".
 [  FATAL] : 0
 [ SYNTAX] : 2
@@ -5540,10 +5528,10 @@ Processing: -cd t_sv_cpu_code +incdir+. -parse -noelab -nocache -nobuiltin -nono
 [ERR:PP0102] ${SURELOG_DIR}/third_party/tests/Verilator/t_sv_cpu_code/ports.sv:49:12: Unknown macro "PACKED".
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_sv_cpu_code/ports.sv:44:9: Syntax error: extraneous input 'SURELOG_MACRO_NOT_DEFINED:PACKED!!!' expecting {'{', 'packed'},
   struct SURELOG_MACRO_NOT_DEFINED:PACKED!!! 
-         ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_sv_cpu_code/ports.sv:44:9:.
+         ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_sv_cpu_code/ports.sv:49:11: Syntax error: extraneous input 'SURELOG_MACRO_NOT_DEFINED:PACKED!!!' expecting {'{', 'packed'},
     struct SURELOG_MACRO_NOT_DEFINED:PACKED!!! 
-           ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_sv_cpu_code/ports.sv:49:11:.
+           ^--.
 [  FATAL] : 0
 [ SYNTAX] : 2
 [  ERROR] : 2
@@ -5572,10 +5560,10 @@ Processing: -cd t_sv_cpu_code +incdir+. -parse -noelab -nocache -nobuiltin -nono
 [ERR:PP0102] ${SURELOG_DIR}/third_party/tests/Verilator/t_sv_cpu_code/rom.sv:35:7: Unknown macro "EOP".
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_sv_cpu_code/rom.sv:18:6: Syntax error: no viable alternative at input ''{\n      SURELOG_MACRO_NOT_DEFINED:LDI!!!',
       SURELOG_MACRO_NOT_DEFINED:LDI!!! 
-      ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_sv_cpu_code/rom.sv:18:6:.
+      ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_sv_cpu_code/rom.sv:36:6: Syntax error: mismatched input '}' expecting <EOF>,
       };
-      ^-- ${SURELOG_DIR}/build/regression/Verilator/slpp_all/lib/work/t_sv_cpu_code/rom.sv:36:6:.
+      ^--.
 [ERR:PA0203] ${SURELOG_DIR}/third_party/tests/Verilator/t_sv_cpu_code/rom.sv:18: Unknown macro "LDI".
 [ERR:PA0203] ${SURELOG_DIR}/third_party/tests/Verilator/t_sv_cpu_code/rom.sv:19: Unknown macro "LDI".
 [ERR:PA0203] ${SURELOG_DIR}/third_party/tests/Verilator/t_sv_cpu_code/rom.sv:20: Unknown macro "LDI".
@@ -5650,7 +5638,7 @@ Processing: -cd t_sv_bus_mux_demux +incdir+. -parse -noelab -nocache -nobuiltin 
 [   NOTE] : 0
 Processed 837 tests.
 [  FATAL] : 0
-[ SYNTAX] : 140
+[ SYNTAX] : 136
 [  ERROR] : 154
 [WARNING] : 43
 [   NOTE] : 0
