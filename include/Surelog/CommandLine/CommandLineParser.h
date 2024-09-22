@@ -97,6 +97,8 @@ class CommandLineParser final {
   PathId getCacheDirId() const { return m_cacheDirId; }
   PathId getPrecompiledDirId() const { return m_precompiledDirId; }
   bool usePPOutputFileLocation() const { return m_ppOutputFileLocation; }
+  void printExtraPpLineInfo(bool on) { m_ppPrintLineInfo = on; }
+  bool printExtraPpLineInfo() { return m_ppPrintLineInfo; }
   /* PP Output content generation options */
   bool filterFileLine() const { return m_filterFileLine; }
   void setFilterFileLine(bool val) { m_filterFileLine = val; }
@@ -345,6 +347,7 @@ class CommandLineParser final {
   bool m_profile;
   bool m_parseBuiltIn;
   bool m_ppOutputFileLocation;
+  bool m_ppPrintLineInfo;
   PathId m_programId;
   std::string m_exeCommand;
   std::set<std::string, std::less<>> m_topLevelModules;

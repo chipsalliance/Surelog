@@ -47,8 +47,11 @@ void AntlrParserErrorListener::syntaxError(
     if (!lineText.empty()) {
       lineText.push_back('\n');
       lineText.append(charPositionInLine, ' ');
-      StrAppend(&lineText, "^-- ", fileSystem->toPath(m_fileId), ":", line, ":",
-                charPositionInLine, ":");
+      if (m_printExtraPpLineInfo)
+        StrAppend(&lineText, "^-- ", fileSystem->toPath(m_fileId), ":", line,
+                  ":", charPositionInLine, ":");
+      else
+        StrAppend(&lineText, "^--");
     }
   }
   if (m_reportedSyntaxError < 10) {

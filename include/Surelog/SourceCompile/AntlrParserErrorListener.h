@@ -38,13 +38,14 @@ class ParseFile;
 class AntlrParserErrorListener : public antlr4::ANTLRErrorListener {
  public:
   AntlrParserErrorListener(ParseFile *parser, bool watchDogOn,
-                           uint32_t lineOffset, PathId fileId)
+                           uint32_t lineOffset, PathId fileId, bool printExtraPpLineInfo)
       : m_parser(parser),
         m_reportedSyntaxError(0),
         m_watchDogOn(watchDogOn),
         m_barked(false),
         m_lineOffset(lineOffset),
-        m_fileId(fileId) {}
+        m_fileId(fileId), 
+        m_printExtraPpLineInfo(printExtraPpLineInfo) {}
 
   ~AntlrParserErrorListener() override{};
 
@@ -76,6 +77,7 @@ class AntlrParserErrorListener : public antlr4::ANTLRErrorListener {
   uint32_t m_lineOffset;
   PathId m_fileId;
   std::vector<std::string> m_fileContent;
+  bool m_printExtraPpLineInfo;
 };
 
 };  // namespace SURELOG
