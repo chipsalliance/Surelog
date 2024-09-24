@@ -226,7 +226,7 @@ static const std::initializer_list<std::string_view> helpText = {
     "                        output",
     "  -pploc                Output message location in terms of post",
     "                        preprocessor location",
-    "  -ppextra_loc          Adds pre-processor location to syntax errors"
+    "  -ppextra_loc          Adds pre-processor location to syntax errors",
     "  -noinfo               Filters out INFO messages",
     "  -nonote               Filters out NOTE messages",
     "  -nowarning            Filters out WARNING messages",
