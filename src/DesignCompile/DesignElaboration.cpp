@@ -2023,6 +2023,18 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
         // Named param
         const std::string_view name = parentFile->SymName(child);
         overridenParams.insert(name);
+        if (module) {
+          Parameter* p = module->getParameter(name);
+          if (p == nullptr) {
+            Location loc(parentFile->getFileId(paramAssign),
+                         parentFile->Line(paramAssign),
+                         parentFile->Column(paramAssign),
+                         st->registerSymbol(name));
+            Error err(ErrorDefinition::ELAB_UNKNOWN_PARAMETER_OVERRIDE, loc);
+            errors->addError(err);
+            continue;
+          }
+        }
         NodeId expr = parentFile->Sibling(child);
         if (!expr) {
           Location loc(
@@ -2523,7 +2535,7 @@ void DesignElaboration::checkElaboration_() {
       Location loc(
           m_compileDesign->getCompiler()->getSymbolTable()->registerSymbol(
               name));
-      Error err(ErrorDefinition::ELAB_UNKNOWN_PARAMETER, loc);
+      Error err(ErrorDefinition::ELAB_UNKNOWN_PARAMETER_COMMAND, loc);
       m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
     }
   }

@@ -13,55 +13,6 @@
 // --------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
-module LUT6_2
-   (O5,
-    O6,
-    I0,
-    I1,
-    I2,
-    I3,
-    I4,
-    I5);
-  output O5;
-  output O6;
-  input I0;
-  input I1;
-  input I2;
-  input I3;
-  input I4;
-  input I5;
-
-  wire I0;
-  wire I1;
-  wire I2;
-  wire I3;
-  wire I4;
-  wire I5;
-  wire O5;
-  wire O6;
-
-  (* HLUTNM = "LUT6_2" *) 
-  LUT5 #(
-    .INIT(32'h00000000)) 
-    LUT5
-       (.I0(I0),
-        .I1(I1),
-        .I2(I2),
-        .I3(I3),
-        .I4(I4),
-        .O(O5));
-  (* HLUTNM = "LUT6_2" *) 
-  LUT6 #(
-    .INIT(64'h0000000000000000)) 
-    LUT6
-       (.I0(I0),
-        .I1(I1),
-        .I2(I2),
-        .I3(I3),
-        .I4(I4),
-        .I5(I5),
-        .O(O6));
-endmodule
 
 (* ECO_CHECKSUM = "bf1951fa" *) 
 (* STRUCTURAL_NETLIST = "yes" *)
