@@ -419,7 +419,9 @@ bool ErrorDefinition::init() {
   rec(ELAB_UNKNOWN_INTERFACE_MEMBER, ERROR, ELAB,
       "Unknown interface member \"%s\"",
       "%exloc interface definition for \"%exobj\"");
-  rec(ELAB_UNKNOWN_PARAMETER, ERROR, ELAB,
+  rec(ELAB_UNKNOWN_PARAMETER_OVERRIDE, ERROR, ELAB,
+      "Unknown parameter override \"%s\"");
+  rec(ELAB_UNKNOWN_PARAMETER_COMMAND, ERROR, ELAB,
       "Unknown parameter in command line override \"%s\"");
   rec(ELAB_EXPRESSION_LOOP, ERROR, ELAB, "Expression loop in instance \"%s\"");
   rec(ELAB_SKIPPING_BLACKBOX_MODULE, INFO, ELAB,
