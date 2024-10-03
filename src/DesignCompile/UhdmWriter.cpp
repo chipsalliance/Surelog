@@ -1075,11 +1075,9 @@ void UhdmWriter::writePackage(Package* pack, package* p, Serializer& s,
   VectorOftypespec* typespecs = s.MakeTypespecVec();
   p->Typespecs(typespecs);
   writeDataTypes(pack->getDataTypeMap(), p, typespecs, s, true);
+  writeImportedSymbols(pack, s, typespecs);
   for (auto tp : *typespecs) {
     tp->Instance(p);
-  }
-  for (auto item : pack->getImportedSymbols()) {
-    typespecs->push_back(item);
   }
   // Classes
   ClassNameClassDefinitionMultiMap& orig_classes = pack->getClassDefinitions();
@@ -1194,6 +1192,101 @@ void UhdmWriter::writePackage(Package* pack, package* p, Serializer& s,
   lateBinding(s, pack, p);
 }
 
+void UhdmWriter::writeImportedSymbols(DesignComponent* mod, Serializer& s,
+                                      VectorOftypespec* typespecs) {
+  for (auto item : mod->getImportedSymbols()) {
+    bool append = true;
+    for (auto tpsiter : *typespecs) {
+      if (item->VpiName() == tpsiter->VpiName()) {
+        append = false;
+        break;
+      }
+    }
+    if (append) {  // Prevents multiple definition
+      typespecs->push_back(item);
+    }
+    constant* c = item->Item();
+    if (c) {
+      std::string_view packName = item->VpiName();
+      std::string_view typeName = c->VpiDecompile();
+      Package* pack =
+          m_compileDesign->getCompiler()->getDesign()->getPackage(packName);
+      if (pack) {
+        const auto& itr = m_componentMap.find(pack);
+        if (itr != m_componentMap.end()) {
+          package* p = (package*)itr->second;
+          typespec* tps = nullptr;
+          enum_const* cts = nullptr;
+          if (p->Typespecs()) {
+            for (auto n : *p->Typespecs()) {
+              if (n->VpiName() == typeName) {
+                tps = n;
+                break;
+              }
+              const std::string pname = StrCat(p->VpiName(), "::", typeName);
+              if (n->VpiName() == pname) {
+                tps = n;
+                break;
+              }
+              if (n->UhdmType() == uhdmenum_typespec) {
+                enum_typespec* tpsiter = any_cast<enum_typespec*>(n);
+                if (tpsiter && tpsiter->Enum_consts()) {
+                  for (auto c : *tpsiter->Enum_consts()) {
+                    if (c->VpiName() == typeName) {
+                      cts = c;
+                      tps = tpsiter;
+                      break;
+                    }
+                    if (pname == c->VpiName()) {
+                      cts = c;
+                      tps = tpsiter;
+                      break;
+                    }
+                  }
+                }
+              }
+              if (cts) break;
+            }
+          }
+          if (cts) {
+            // Ideally we would want to import only the given symbol,
+            // But Synlig does not process that properly, so instead we import
+            // the whole enum
+            bool append = true;
+            for (auto tpsiter : *typespecs) {
+              if (tps->VpiName() == tpsiter->VpiName()) {
+                append = false;
+                break;
+              }
+            }
+            if (append) {  // Prevents multiple definition
+              ElaboratorContext elaboratorContext(&s, false, true);
+              typespec* item =
+                  (typespec*)UHDM::clone_tree(tps, &elaboratorContext);
+              typespecs->push_back(item);
+            }
+          } else if (tps) {
+            bool append = true;
+            for (auto tpsiter : *typespecs) {
+              if (tps->VpiName() == tpsiter->VpiName()) {
+                append = false;
+                break;
+              }
+            }
+            if (append) {  // Prevents multiple definition
+              ElaboratorContext elaboratorContext(&s, false, true);
+              typespec* item =
+                  (typespec*)UHDM::clone_tree(tps, &elaboratorContext);
+              item->VpiName(typeName);
+              typespecs->push_back(item);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 void UhdmWriter::writeModule(ModuleDefinition* mod, module_inst* m,
                              Serializer& s, ModuleMap& moduleMap,
                              ModPortMap& modPortMap, ModuleInstance* instance) {
@@ -1240,9 +1333,7 @@ void UhdmWriter::writeModule(ModuleDefinition* mod, module_inst* m,
   VectorOftypespec* typespecs = s.MakeTypespecVec();
   m->Typespecs(typespecs);
   writeDataTypes(mod->getDataTypeMap(), m, typespecs, s, true);
-  for (auto item : mod->getImportedSymbols()) {
-    typespecs->push_back(item);
-  }
+  writeImportedSymbols(mod, s, typespecs);
   // Ports
   std::vector<Signal*>& orig_ports = mod->getPorts();
   VectorOfport* dest_ports = s.MakePortVec();
@@ -1465,9 +1556,7 @@ void UhdmWriter::writeInterface(ModuleDefinition* mod, interface_inst* m,
   VectorOftypespec* typespecs = s.MakeTypespecVec();
   m->Typespecs(typespecs);
   writeDataTypes(mod->getDataTypeMap(), m, typespecs, s, true);
-  for (auto item : mod->getImportedSymbols()) {
-    typespecs->push_back(item);
-  }
+  writeImportedSymbols(mod, s, typespecs);
   // Ports
   std::vector<Signal*>& orig_ports = mod->getPorts();
   VectorOfport* dest_ports = s.MakePortVec();
@@ -1604,9 +1693,7 @@ void UhdmWriter::writeProgram(Program* mod, program* m, Serializer& s,
   VectorOftypespec* typespecs = s.MakeTypespecVec();
   m->Typespecs(typespecs);
   writeDataTypes(mod->getDataTypeMap(), m, typespecs, s, true);
-  for (auto item : mod->getImportedSymbols()) {
-    typespecs->push_back(item);
-  }
+  writeImportedSymbols(mod, s, typespecs);
   // Ports
   std::vector<Signal*>& orig_ports = mod->getPorts();
   VectorOfport* dest_ports = s.MakePortVec();
@@ -1732,9 +1819,7 @@ bool UhdmWriter::writeElabProgram(Serializer& s, ModuleInstance* instance,
     VectorOftypespec* typespecs = s.MakeTypespecVec();
     m->Typespecs(typespecs);
     writeDataTypes(mod->getDataTypeMap(), m, typespecs, s, false);
-    for (auto item : mod->getImportedSymbols()) {
-      typespecs->push_back(item);
-    }
+    writeImportedSymbols(mod, s, typespecs);
     // Assertions
     if (mod->getAssertions()) {
       m->Assertions(mod->getAssertions());
@@ -2137,9 +2222,7 @@ bool UhdmWriter::writeElabGenScope(Serializer& s, ModuleInstance* instance,
     VectorOftypespec* typespecs = s.MakeTypespecVec();
     m->Typespecs(typespecs);
     writeDataTypes(mod->getDataTypeMap(), m, typespecs, s, true);
-    for (auto item : mod->getImportedSymbols()) {
-      typespecs->push_back(item);
-    }
+    writeImportedSymbols(mod, s, typespecs);
     // System elab tasks
     m->Elab_tasks((std::vector<UHDM::tf_call*>*)&mod->getElabSysCalls());
     if (m->Elab_tasks()) {
@@ -3606,7 +3689,9 @@ void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod, scope* m) {
         const any* lhs = p->Lhs();
         if (lhs->VpiName() == name) {
           // Do not bind blindly here, let the uhdmelab do this correctly
-          // ref->Actual_group((any*)p->Rhs());
+          // Unless we are in a package
+          if (m && m->UhdmType() == uhdmpackage)
+            ref->Actual_group((any*)p->Rhs());
           isParam = true;
           break;
         }
@@ -3737,6 +3822,18 @@ void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod, scope* m) {
     }
 
     if (!ref->Actual_group()) {
+      Value* value = mod->getValue(name);
+      if (value && value->isValid()) {
+        enum_const* c = s.MakeEnum_const();
+        c->VpiName(name);
+        c->VpiValue(value->uhdmValue());
+        c->VpiDecompile(value->decompiledValue());
+        c->VpiSize(value->getSize());
+        c->VpiParent(ref);
+        ref->Actual_group(c);
+      }
+    }
+    if (!ref->Actual_group()) {
       if (mod) {
         if (auto elem = mod->getDesignElement()) {
           if (elem->m_defaultNetType == VObjectType::slNoType) {
@@ -3813,9 +3910,7 @@ bool UhdmWriter::writeElabModule(Serializer& s, ModuleInstance* instance,
     VectorOftypespec* typespecs = s.MakeTypespecVec();
     m->Typespecs(typespecs);
     writeDataTypes(mod->getDataTypeMap(), m, typespecs, s, false);
-    for (auto item : mod->getImportedSymbols()) {
-      typespecs->push_back(item);
-    }
+    writeImportedSymbols(mod, s, typespecs);
     // System elab tasks
     m->Elab_tasks((std::vector<UHDM::tf_call*>*)&mod->getElabSysCalls());
     if (m->Elab_tasks()) {
@@ -3963,9 +4058,7 @@ bool UhdmWriter::writeElabInterface(Serializer& s, ModuleInstance* instance,
     VectorOftypespec* typespecs = s.MakeTypespecVec();
     m->Typespecs(typespecs);
     writeDataTypes(mod->getDataTypeMap(), m, typespecs, s, false);
-    for (auto item : mod->getImportedSymbols()) {
-      typespecs->push_back(item);
-    }
+    writeImportedSymbols(mod, s, typespecs);
     // System elab tasks
     m->Elab_tasks((std::vector<UHDM::tf_call*>*)&mod->getElabSysCalls());
     if (m->Elab_tasks()) {

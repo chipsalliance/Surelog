@@ -890,6 +890,44 @@
             ]
         },
         {
+            "name": "ScratchPad_NoUHDMElab",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-parse", "tests/ScratchPad.sv",  "-d", "inst", "-synth", "-d", "ast", "-d", "uhdm", "-d", "uhdmstats", "-d", "vpi_ids", "-replay", "-nobuiltin"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "kmac",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-parse", "sha3_pkg.sv", "kmac_core.sv", "kmac.sv", "-top", "kmac", "-d", "inst", "-synth", "-d", "ast", "-d", "uhdm", "-d", "uhdmstats", "-d", "vpi_ids", "-elabuhdm", "-nobuiltin"],
+            "stopAtEntry": false,
+            "cwd": "/home/alain/os-fpga/Raptor/tests/Testcases/kmac",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
             "name": "ScratchPad_v",
             "type": "cppdbg",
             "request": "launch",

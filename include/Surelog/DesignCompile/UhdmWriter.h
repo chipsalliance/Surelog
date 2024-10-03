@@ -84,6 +84,7 @@ class UhdmWriter final {
   void writeDataTypes(const DesignComponent::DataTypeMap& datatypeMap,
                     UHDM::BaseClass* parent, UHDM::VectorOftypespec* dest_typespecs,
                     UHDM::Serializer& s, bool setParent);
+  void writeImportedSymbols(DesignComponent* mod, UHDM::Serializer& s, UHDM::VectorOftypespec* typespecs); 
   void writeVariables(const DesignComponent::VariableMap& orig_vars,
                       UHDM::BaseClass* parent,
                       UHDM::VectorOfvariables* dest_vars, UHDM::Serializer& s);

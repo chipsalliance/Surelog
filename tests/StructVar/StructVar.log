@@ -28,7 +28,7 @@ bit_typespec                                           5
 constant                                              83
 cont_assign                                            3
 design                                                 1
-enum_const                                             1
+enum_const                                             3
 enum_typespec                                          1
 gen_for                                                1
 gen_scope                                              4
@@ -67,7 +67,7 @@ bit_typespec                                           5
 constant                                              83
 cont_assign                                            5
 design                                                 1
-enum_const                                             1
+enum_const                                             3
 enum_typespec                                          1
 gen_for                                                1
 gen_scope                                              6
@@ -1916,6 +1916,8 @@ design: (work@test)
     \_operation: , line:62:4, endln:62:37
     |vpiName:PMP_MODE_TOR
     |vpiFullName:work@test.u3.g_pmp_csrs[0].PMP_MODE_TOR
+    |vpiActual:
+    \_enum_const: (PMP_MODE_TOR)
 \_operation: , line:61:24, endln:62:38
   |vpiParent:
   \_cont_assign: , line:61:10, endln:62:38
@@ -2003,6 +2005,8 @@ design: (work@test)
     \_operation: , line:62:4, endln:62:37
     |vpiName:PMP_MODE_TOR
     |vpiFullName:work@test.u3.g_pmp_csrs[1].PMP_MODE_TOR
+    |vpiActual:
+    \_enum_const: (PMP_MODE_TOR)
 \_operation: , line:61:24, endln:62:38
   |vpiParent:
   \_cont_assign: , line:61:10, endln:62:38
@@ -2087,6 +2091,13 @@ design: (work@test)
   |vpiGenScope:
   \_gen_scope: (work@test.u3.g_pmp_csrs[0]), line:59:33, endln:64:5
 \_int_typespec: 
+\_enum_const: (PMP_MODE_TOR)
+  |vpiParent:
+  \_ref_obj: (work@test.u3.g_pmp_csrs[0].PMP_MODE_TOR), line:62:25, endln:62:37
+  |vpiName:PMP_MODE_TOR
+  |BIN:01
+  |vpiDecompile:2'b01
+  |vpiSize:2
 \_gen_scope: (work@test.u3.g_pmp_csrs[1]), line:59:33, endln:64:5
   |vpiParent:
   \_gen_scope_array: (work@test.u3.g_pmp_csrs[1]), line:59:33, endln:64:5
@@ -2103,6 +2114,13 @@ design: (work@test)
   |vpiGenScope:
   \_gen_scope: (work@test.u3.g_pmp_csrs[1]), line:59:33, endln:64:5
 \_int_typespec: 
+\_enum_const: (PMP_MODE_TOR)
+  |vpiParent:
+  \_ref_obj: (work@test.u3.g_pmp_csrs[1].PMP_MODE_TOR), line:62:25, endln:62:37
+  |vpiName:PMP_MODE_TOR
+  |BIN:01
+  |vpiDecompile:2'b01
+  |vpiSize:2
 \_int_typespec: 
 ===================
 [  FATAL] : 0
