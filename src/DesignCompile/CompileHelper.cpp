@@ -2040,7 +2040,7 @@ bool CompileHelper::compileNetDeclaration(DesignComponent* component,
                                           const FileContent* fC, NodeId id,
                                           bool interface,
                                           CompileDesign* compileDesign,
-                                           UHDM::VectorOfattribute* attributes) {
+                                          UHDM::VectorOfattribute* attributes) {
   /*
  n<> u<17> t<NetType_Wire> p<18> l<27>
  n<> u<18> t<NetTypeOrTrireg_Net> p<22> c<17> s<21> l<27>
@@ -4540,8 +4540,8 @@ std::vector<UHDM::attribute*>* CompileHelper::compileAttributes(
         results->push_back(attribute);
         if (NodeId Constant_expression = fC->Sibling(Attr_name)) {
           if (UHDM::expr* expr = (UHDM::expr*)compileExpression(
-                component, fC, Constant_expression, compileDesign, Reduce::No,
-                attribute)) {
+                  component, fC, Constant_expression, compileDesign, Reduce::No,
+                  attribute)) {
             attribute->VpiValue(expr->VpiValue());
           }
         }
