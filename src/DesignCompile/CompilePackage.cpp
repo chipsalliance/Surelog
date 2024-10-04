@@ -237,7 +237,7 @@ bool CompilePackage::collectObjects_(CollectType collectType, Reduce reduce) {
         case VObjectType::paNet_declaration: {
           if (collectType != CollectType::DEFINITION) break;
           m_helper.compileNetDeclaration(m_package, fC, id, false,
-                                         m_compileDesign);
+                                         m_compileDesign, m_attributes);
           m_attributes = nullptr;
           break;
         }

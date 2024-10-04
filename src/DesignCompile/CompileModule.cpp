@@ -618,7 +618,7 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
         case VObjectType::paNet_declaration: {
           if (collectType != CollectType::DEFINITION) break;
           m_helper.compileNetDeclaration(m_module, fC, id, false,
-                                         m_compileDesign);
+                                         m_compileDesign, m_attributes);
           m_attributes = nullptr;
           break;
         }
@@ -1091,7 +1091,7 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
         case VObjectType::paNet_declaration: {
           if (collectType != CollectType::DEFINITION) break;
           m_helper.compileNetDeclaration(m_module, fC, id, true,
-                                         m_compileDesign);
+                                         m_compileDesign, m_attributes);
           m_attributes = nullptr;
           break;
         }
