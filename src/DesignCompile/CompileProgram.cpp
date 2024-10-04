@@ -277,7 +277,7 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
       case VObjectType::paNet_declaration: {
         if (collectType != CollectType::DEFINITION) break;
         m_helper.compileNetDeclaration(m_program, fC, id, false,
-                                       m_compileDesign);
+                                       m_compileDesign, m_attributes);
         m_attributes = nullptr;
         break;
       }

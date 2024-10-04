@@ -134,7 +134,8 @@ class CompileHelper final {
 
   bool compileNetDeclaration(DesignComponent* component, const FileContent* fC,
                              NodeId id, bool interface,
-                             CompileDesign* compileDesign);
+                             CompileDesign* compileDesign,
+                             UHDM::VectorOfattribute* attributes);
 
   bool compileDataDeclaration(DesignComponent* component, const FileContent* fC,
                               NodeId id, bool interface,

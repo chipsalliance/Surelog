@@ -2039,7 +2039,8 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
 bool CompileHelper::compileNetDeclaration(DesignComponent* component,
                                           const FileContent* fC, NodeId id,
                                           bool interface,
-                                          CompileDesign* compileDesign) {
+                                          CompileDesign* compileDesign,
+                                          UHDM::VectorOfattribute* attributes) {
   /*
  n<> u<17> t<NetType_Wire> p<18> l<27>
  n<> u<18> t<NetTypeOrTrireg_Net> p<22> c<17> s<21> l<27>
@@ -2136,6 +2137,7 @@ bool CompileHelper::compileNetDeclaration(DesignComponent* component,
       if (portRef) portRef->setLowConn(sig);
       sig->setDelay(delay);
       sig->setStatic();
+      sig->attributes(attributes);
       if (isSigned) sig->setSigned();
       component->getSignals().push_back(sig);
     }
@@ -4527,20 +4529,23 @@ std::vector<UHDM::attribute*>* CompileHelper::compileAttributes(
   if (fC->Type(nodeId) == VObjectType::paAttribute_instance) {
     results = s.MakeAttributeVec();
     while (fC->Type(nodeId) == VObjectType::paAttribute_instance) {
-      UHDM::attribute* attribute = s.MakeAttribute();
       NodeId Attr_spec = fC->Child(nodeId);
-      NodeId Attr_name = fC->Child(Attr_spec);
-      const std::string_view name = fC->SymName(fC->Child(Attr_name));
-      attribute->VpiName(name);
-      attribute->VpiParent(pexpr);
-      fC->populateCoreMembers(Attr_spec, Attr_spec, attribute);
-      results->push_back(attribute);
-      if (NodeId Constant_expression = fC->Sibling(Attr_name)) {
-        if (UHDM::expr* expr = (UHDM::expr*)compileExpression(
-                component, fC, Constant_expression, compileDesign, Reduce::No,
-                attribute)) {
-          attribute->VpiValue(expr->VpiValue());
+      while (fC->Type(Attr_spec) == VObjectType::paAttr_spec) {
+        UHDM::attribute* attribute = s.MakeAttribute();
+        NodeId Attr_name = fC->Child(Attr_spec);
+        const std::string_view name = fC->SymName(fC->Child(Attr_name));
+        attribute->VpiName(name);
+        attribute->VpiParent(pexpr);
+        fC->populateCoreMembers(Attr_spec, Attr_spec, attribute);
+        results->push_back(attribute);
+        if (NodeId Constant_expression = fC->Sibling(Attr_name)) {
+          if (UHDM::expr* expr = (UHDM::expr*)compileExpression(
+                  component, fC, Constant_expression, compileDesign, Reduce::No,
+                  attribute)) {
+            attribute->VpiValue(expr->VpiValue());
+          }
         }
+        Attr_spec = fC->Sibling(Attr_spec);
       }
       nodeId = fC->Sibling(nodeId);
     }
