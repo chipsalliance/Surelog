@@ -2261,11 +2261,11 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
           array_nets = s.MakeArray_netVec();
           netlist->array_nets(array_nets);
         }
-
         array_nets->push_back(array_net);
         obj->VpiParent(array_net);
         UHDM::VectorOfnet* array_n = array_net->Nets();
         array_n->push_back((net*)obj);
+        array_net->Attributes(((net*)obj)->Attributes());
       } else {
         if (nets == nullptr) {
           nets = s.MakeNetVec();
@@ -2322,11 +2322,11 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
           array_nets = s.MakeArray_netVec();
           netlist->array_nets(array_nets);
         }
-
         array_nets->push_back(array_net);
         obj->VpiParent(array_net);
         UHDM::VectorOfnet* array_n = array_net->Nets();
         array_n->push_back((net*)obj);
+        array_net->Attributes(((net*)obj)->Attributes());
       } else {
         if (nets == nullptr) {
           nets = s.MakeNetVec();
@@ -2374,6 +2374,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
         UHDM::VectorOfnet* array_n = array_net->Nets();
         array_n->push_back(logicn);
         obj = array_net;
+        array_net->Attributes(((net*)logicn)->Attributes());
       } else {
         logicn->VpiName(signame);
         logicn->VpiSigned(sig->isSigned());
