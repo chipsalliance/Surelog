@@ -1,4 +1,3 @@
----
 # readability-make-member-function-const is great, but it also suggests that
 #    in cases where we return a non-const pointer.
 #    So good for a regular cleanup-sweep but not as default.
@@ -10,12 +9,33 @@
 # performance-inefficient-string-concatenation is good, but until we use
 # absl in this project with absl::StrCat(), the alternatives are not improving
 # readability.
-WarningsAsErrors: ''
-HeaderFilterRegex: ''
 Checks: >
-  clang-diagnostic-*,clang-analyzer-*,
+  bugprone-*,
+  -bugprone-branch-clone,
+  -bugprone-narrowing-conversions,
+  -bugprone-easily-swappable-parameters,
+  clang-diagnostic-*,
+  clang-analyzer-*,
   -clang-analyzer-core.CallAndMessage,
   -clang-analyzer-cplusplus.NewDeleteLeaks,
+  google-*,
+  -google-build-using-namespace,
+  -google-readability-avoid-underscore-in-googletest-name,
+  -google-readability-braces-around-statements,
+  -google-readability-casting,
+  -google-readability-todo,
+  -google-runtime-int,
+  misc-*,
+  -misc-const-correctness,
+  -misc-no-recursion,
+  -misc-redundant-expression,
+  -misc-unused-parameters,
+  -misc-use-anonymous-namespace,
+  modernize-*,
+  -modernize-use-trailing-return-type,
+  -modernize-use-auto,
+  performance-*,
+  -performance-avoid-endl,
   readability-*,
   -readability-braces-around-statements,
   -readability-convert-member-functions-to-static,
@@ -31,23 +51,10 @@ Checks: >
   -readability-qualified-auto,
   -readability-redundant-access-specifiers,
   -readability-simplify-boolean-expr,
-  -readability-uppercase-literal-suffix,
-  google-*,
-  -google-build-using-namespace,
-  -google-readability-avoid-underscore-in-googletest-name,
-  -google-readability-braces-around-statements,
-  -google-readability-casting,
-  -google-readability-todo,
-  -google-runtime-int,
-  performance-*,
-  bugprone-*,
-  -bugprone-branch-clone,
-  -bugprone-narrowing-conversions,
-  -bugprone-easily-swappable-parameters,
-  modernize-loop-convert,
-  modernize-raw-string-literal,
-  modernize-use-override,
+  -readability-uppercase-literal-suffix
 
+WarningsAsErrors: ''
+HeaderFilterRegex: ''
 CheckOptions:
   - key: performance-unnecessary-value-param.AllowedTypes
     value: 'NodeId;SymbolId;PathId'
@@ -55,4 +62,9 @@ CheckOptions:
     value: 'NodeId;SymbolId;PathId'
   - key: performance-for-range-copy.AllowedTypes
     value: 'NodeId;SymbolId;PathId'
-...
+  - key: performance-unnecessary-value-param.AllowedTypes
+    value: ::SURELOG::SymbolId;SURELOG::SymbolId;SymbolId;::SURELOG::NodeId;SURELOG::NodeId;NodeId;::SURELOG::PathId;SURELOG::PathId;PathId
+  - key: performance-for-range-copy.AllowedTypes
+    value: ::SURELOG::SymbolId;SURELOG::SymbolId;SymbolId;::SURELOG::NodeId;SURELOG::NodeId;NodeId;::SURELOG::PathId;SURELOG::PathId;PathId
+  - key: performance-unnecessary-copy-initialization.AllowedTypes
+    value: ::SURELOG::SymbolId;SURELOG::SymbolId;SymbolId;::SURELOG::NodeId;SURELOG::NodeId;NodeId;::SURELOG::PathId;SURELOG::PathId;PathId

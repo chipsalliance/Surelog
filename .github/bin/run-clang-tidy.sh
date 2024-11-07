@@ -13,6 +13,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# TODO(hzeller): switch to .github/bin/run-clang-tidy-cached.cc
+# entirely once we have all the issues addressed.
+# It caches the results, so is much faster, but doesn't have the
+# concept of the 'limited' clang-tidy.
+
 LOCAL_TMP=${TMPDIR:-/tmp}
 
 TIDY_OUT=${LOCAL_TMP}/clang-tidy-surelog.out
