@@ -65,7 +65,7 @@ jobs:
         pushd build && ctest --output-on-failure && popd
 
         rm -rf build      # make sure we only see installation artifacts
-        
+
         # This shouldn''t be necessary, and can't be reproduced outside CI
         export CMAKE_PREFIX_PATH=$INSTALL_DIR
 
@@ -871,8 +871,8 @@ jobs:
           echo 'CC=clang' >> $GITHUB_ENV
           echo 'CXX=clang++' >> $GITHUB_ENV
         else
-          echo 'CC=gcc-11' >> $GITHUB_ENV
-          echo 'CXX=g++-11' >> $GITHUB_ENV
+          echo 'CC=gcc-13' >> $GITHUB_ENV
+          echo 'CXX=g++-13' >> $GITHUB_ENV
         fi
 
     - name: Configure shell
