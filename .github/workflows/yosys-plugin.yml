@@ -84,13 +84,13 @@ jobs:
         make -C tests uhdm/yosys/synth-ibex-f4pga TEST=ibex \
               ENABLE_READLINE=0 PRETTY=0 -j $(nproc)
 
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v4
       with:
         name: top_artya7.bit
         path: ./tests/build/lowrisc_ibex_top_artya7_surelog_0.1/synth-symbiflow/top_artya7.bit
 
     - name: Upload load graphs
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: plots
         path: |
