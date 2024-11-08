@@ -14,6 +14,8 @@
  limitations under the License.
  */
 
+#include "Surelog/Design/Enum.h"
+
 /*
  * File:   Enum.cpp
  * Author: alain
@@ -21,8 +23,9 @@
  * Created on May 19, 2019, 11:55 AM
  */
 
-#include <Surelog/Design/Enum.h>
 #include <Surelog/Design/FileContent.h>
+
+#include <string_view>
 
 namespace SURELOG {
 Enum::Enum(const FileContent* fC, NodeId nameId, NodeId baseTypeId)

@@ -14,14 +14,15 @@
  limitations under the License.
  */
 
+#include "Surelog/Design/TimeInfo.h"
+
 /*
  * File:   TimeInfo.cpp
  * Author: alain
  *
  * Created on June 8, 2017, 8:27 PM
  */
-
-#include <Surelog/Design/TimeInfo.h>
+#include <string_view>
 
 namespace SURELOG {
 

@@ -13,6 +13,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
+#include "Surelog/Design/VObject.h"
 
 /*
  * File:   VObject.cpp
@@ -21,9 +22,11 @@
  * Created on June 14, 2017, 10:58 PM
  */
 
-#include <Surelog/Design/VObject.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
 #include <Surelog/Utils/StringUtils.h>
+
+#include <string>
+#include <string_view>
 
 namespace SURELOG {
 

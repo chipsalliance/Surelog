@@ -14,6 +14,8 @@
  limitations under the License.
  */
 
+#include "Surelog/Design/FileContent.h"
+
 /*
  * File:   FileContent.cpp
  * Author: alain
@@ -23,7 +25,6 @@
 
 #include <Surelog/Common/FileSystem.h>
 #include <Surelog/Design/DesignElement.h>
-#include <Surelog/Design/FileContent.h>
 #include <Surelog/ErrorReporting/ErrorContainer.h>
 #include <Surelog/Library/Library.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
@@ -31,6 +32,9 @@
 
 #include <iostream>
 #include <stack>
+#include <string>
+#include <string_view>
+#include <vector>
 
 namespace SURELOG {
 FileContent::FileContent(PathId fileId, Library* library,

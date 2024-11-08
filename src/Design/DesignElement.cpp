@@ -13,6 +13,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
+#include "Surelog/Design/DesignElement.h"
 
 /*
  * File:   DesignElement.cpp
@@ -21,7 +22,7 @@
  * Created on June 8, 2017, 8:05 PM
  */
 
-#include <Surelog/Design/DesignElement.h>
+#include <ostream>
 
 namespace SURELOG {
 DesignElement::DesignElement(SymbolId name, PathId fileId, ElemType type,

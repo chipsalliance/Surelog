@@ -13,6 +13,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
+#include "Surelog/Design/Scope.h"
 
 /*
  * File:   Scope.cpp
@@ -21,8 +22,9 @@
  * Created on August 31, 2019, 11:24 AM
  */
 
-#include <Surelog/Design/Scope.h>
 #include <Surelog/Testbench/Variable.h>
+
+#include <string_view>
 
 namespace SURELOG {
 

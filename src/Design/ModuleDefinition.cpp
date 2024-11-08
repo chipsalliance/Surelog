@@ -14,6 +14,8 @@
  limitations under the License.
  */
 
+#include "Surelog/Design/ModuleDefinition.h"
+
 /*
  * File:   ModuleDefinition.cpp
  * Author: alain
@@ -23,7 +25,9 @@
 
 #include <Surelog/Design/FileContent.h>
 #include <Surelog/Design/ModPort.h>
-#include <Surelog/Design/ModuleDefinition.h>
+
+#include <string_view>
+#include <vector>
 
 namespace SURELOG {
 
