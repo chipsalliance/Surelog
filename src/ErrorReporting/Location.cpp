@@ -21,7 +21,7 @@
  * Created on March 6, 2017, 6:48 PM
  */
 
-#include <Surelog/ErrorReporting/Location.h>
+#include "Surelog/ErrorReporting/Location.h"
 
 namespace SURELOG {
 

@@ -22,13 +22,13 @@
  * Created on May 20, 2019, 21:03 PM
  */
 
-#include <Surelog/Design/ModuleInstance.h>
-#include <Surelog/Expression/ExprBuilder.h>
-
 #include <map>
 #include <string>
 #include <string_view>
 #include <utility>
+
+#include "Surelog/Design/ModuleInstance.h"
+#include "Surelog/Expression/ExprBuilder.h"
 
 namespace SURELOG {
 Value* ValuedComponentI::getValue(std::string_view name) const {

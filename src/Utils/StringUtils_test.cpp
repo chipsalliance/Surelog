@@ -14,7 +14,8 @@
  limitations under the License.
 */
 
-#include <Surelog/Utils/StringUtils.h>
+#include "Surelog/Utils/StringUtils.h"
+
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 #include <stdlib.h>

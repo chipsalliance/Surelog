@@ -21,8 +21,9 @@
  * Created on July 4, 2022, 1:30 AM
  */
 
-#include <Surelog/Common/FileSystem.h>
-#include <Surelog/Common/PathId.h>
+#include "Surelog/Common/PathId.h"
+
+#include "Surelog/Common/FileSystem.h"
 
 namespace SURELOG {
 std::ostream &operator<<(std::ostream &strm, const PathIdPP &id) {

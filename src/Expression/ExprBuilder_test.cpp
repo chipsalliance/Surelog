@@ -14,13 +14,15 @@
  limitations under the License.
 */
 
-#include <Surelog/Design/FileContent.h>
-#include <Surelog/Expression/ExprBuilder.h>
-#include <Surelog/SourceCompile/ParserHarness.h>
+#include "Surelog/Expression/ExprBuilder.h"
+
 #include <gtest/gtest.h>
 
 #include <memory>
 #include <vector>
+
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/SourceCompile/ParserHarness.h"
 
 namespace SURELOG {
 

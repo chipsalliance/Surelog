@@ -14,12 +14,13 @@
  limitations under the License.
 */
 
-#include <Surelog/SourceCompile/PreprocessHarness.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
 #include <string>
 #include <vector>
+
+#include "Surelog/SourceCompile/PreprocessHarness.h"
 
 namespace SURELOG {
 using ::testing::ElementsAre;

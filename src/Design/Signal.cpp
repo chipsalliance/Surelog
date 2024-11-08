@@ -22,11 +22,11 @@
  * Created on May 6, 2018, 5:32 PM
  */
 
-#include <Surelog/Design/FileContent.h>
-#include <Surelog/Utils/StringUtils.h>
-
 #include <string>
 #include <string_view>
+
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/Utils/StringUtils.h"
 
 namespace SURELOG {
 

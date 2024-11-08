@@ -13,7 +13,8 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 */
-#include <Surelog/DesignCompile/CompileHelper.h>
+#include "Surelog/DesignCompile/CompileHelper.h"
+
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 #include <uhdm/Serializer.h>

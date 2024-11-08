@@ -14,14 +14,16 @@
  limitations under the License.
 */
 
-#include <Surelog/Common/SymbolId.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
+#include "Surelog/SourceCompile/SymbolTable.h"
+
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
 #include <string>
 #include <string_view>
 #include <vector>
+
+#include "Surelog/Common/SymbolId.h"
 
 namespace SURELOG {
 using testing::ElementsAre;

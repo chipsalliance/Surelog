@@ -21,7 +21,7 @@
  * Created on May 19, 2019, 11:55 AM
  */
 
-#include <Surelog/Design/BindStmt.h>
+#include "Surelog/Design/BindStmt.h"
 
 namespace SURELOG {
 

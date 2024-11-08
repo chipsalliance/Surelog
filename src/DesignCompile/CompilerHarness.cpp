@@ -21,11 +21,12 @@
  * Created on June 05, 2021, 90:03 AM
  */
 
-#include <Surelog/CommandLine/CommandLineParser.h>
-#include <Surelog/DesignCompile/CompileDesign.h>
-#include <Surelog/DesignCompile/CompilerHarness.h>
-#include <Surelog/SourceCompile/Compiler.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
+#include "Surelog/DesignCompile/CompilerHarness.h"
+
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/DesignCompile/CompileDesign.h"
+#include "Surelog/SourceCompile/Compiler.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
 
 namespace SURELOG {
 

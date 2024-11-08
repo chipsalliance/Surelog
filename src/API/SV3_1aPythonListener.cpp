@@ -21,11 +21,12 @@
  * Created on April 16, 2017, 8:28 PM
  */
 
-#include <Surelog/API/SV3_1aPythonListener.h>
-#include <Surelog/ErrorReporting/ErrorContainer.h>
-#include <Surelog/SourceCompile/PythonListen.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Utils/ParseUtils.h>
+#include "Surelog/API/SV3_1aPythonListener.h"
+
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/SourceCompile/PythonListen.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Utils/ParseUtils.h"
 
 namespace SURELOG {
 SV3_1aPythonListener::SV3_1aPythonListener(PythonListen* pl,

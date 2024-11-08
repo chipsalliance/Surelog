@@ -21,8 +21,9 @@
  * Created on June 1, 2022, 3:00 AM
  */
 
-#include <Surelog/Common/FileSystem.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
+#include "Surelog/Common/FileSystem.h"
+
+#include "Surelog/SourceCompile/SymbolTable.h"
 
 #if defined(_WIN32)
 #define NOMINMAX

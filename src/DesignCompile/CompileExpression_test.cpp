@@ -14,14 +14,15 @@
  limitations under the License.
 */
 
-#include <Surelog/Design/FileContent.h>
-#include <Surelog/DesignCompile/CompileDesign.h>
-#include <Surelog/DesignCompile/CompileHelper.h>
-#include <Surelog/DesignCompile/CompilerHarness.h>
-#include <Surelog/SourceCompile/ParserHarness.h>
-#include <Surelog/SourceCompile/PreprocessHarness.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
+
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/DesignCompile/CompileDesign.h"
+#include "Surelog/DesignCompile/CompileHelper.h"
+#include "Surelog/DesignCompile/CompilerHarness.h"
+#include "Surelog/SourceCompile/ParserHarness.h"
+#include "Surelog/SourceCompile/PreprocessHarness.h"
 
 // UHDM
 #include <uhdm/ExprEval.h>

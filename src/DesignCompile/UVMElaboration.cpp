@@ -21,7 +21,7 @@
  * Created on July 12, 2017, 8:56 PM
  */
 
-#include <Surelog/DesignCompile/UVMElaboration.h>
+#include "Surelog/DesignCompile/UVMElaboration.h"
 
 namespace SURELOG {
 

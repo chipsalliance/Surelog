@@ -23,10 +23,10 @@
  * Created on February 21, 2019, 8:19 PM
  */
 
-#include <Surelog/Design/FileContent.h>
-#include <Surelog/DesignCompile/CompileHelper.h>
-
 #include <string_view>
+
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/DesignCompile/CompileHelper.h"
 
 namespace SURELOG {
 Procedure::Procedure(DesignComponent* parent, const FileContent* fC, NodeId id,

@@ -20,17 +20,18 @@
  *
  * Created on November 2, 2017, 9:45 PM
  */
-#include <Surelog/Design/Design.h>
-#include <Surelog/Design/FileContent.h>
-#include <Surelog/ErrorReporting/ErrorContainer.h>
-#include <Surelog/Expression/ExprBuilder.h>
-#include <Surelog/Package/Package.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/SourceCompile/VObjectTypes.h>
-#include <Surelog/Utils/NumUtils.h>
-#include <Surelog/Utils/StringUtils.h>
+#include "Surelog/Expression/ExprBuilder.h"
 
 #include <cmath>
+
+#include "Surelog/Design/Design.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/Package/Package.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
+#include "Surelog/Utils/NumUtils.h"
+#include "Surelog/Utils/StringUtils.h"
 
 #if defined(_MSC_VER)
 #define strcasecmp _stricmp

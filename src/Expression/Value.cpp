@@ -21,11 +21,12 @@
  * Created on October 29, 2017, 10:33 PM
  */
 
-#include <Surelog/Expression/Value.h>
-#include <Surelog/Utils/NumUtils.h>
-#include <Surelog/Utils/StringUtils.h>
+#include "Surelog/Expression/Value.h"
 
 #include <cmath>
+
+#include "Surelog/Utils/NumUtils.h"
+#include "Surelog/Utils/StringUtils.h"
 
 // UHDM
 #include <uhdm/vpi_user.h>

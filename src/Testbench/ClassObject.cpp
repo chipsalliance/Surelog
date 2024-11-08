@@ -21,8 +21,9 @@
  * Created on March 24, 2019, 7:38 PM
  */
 
-#include <Surelog/Testbench/ClassDefinition.h>
-#include <Surelog/Testbench/ClassObject.h>
+#include "Surelog/Testbench/ClassObject.h"
+
+#include "Surelog/Testbench/ClassDefinition.h"
 
 namespace SURELOG {
 

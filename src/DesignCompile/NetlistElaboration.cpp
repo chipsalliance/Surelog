@@ -21,32 +21,33 @@
  * Created on Mar 1, 2020, 6:36 PM
  */
 
-#include <Surelog/CommandLine/CommandLineParser.h>
-#include <Surelog/Common/FileSystem.h>
-#include <Surelog/Design/DesignComponent.h>
-#include <Surelog/Design/DesignElement.h>
-#include <Surelog/Design/DummyType.h>
-#include <Surelog/Design/Enum.h>
-#include <Surelog/Design/FileContent.h>
-#include <Surelog/Design/ModPort.h>
-#include <Surelog/Design/ModuleDefinition.h>
-#include <Surelog/Design/ModuleInstance.h>
-#include <Surelog/Design/Netlist.h>
-#include <Surelog/Design/ParamAssign.h>
-#include <Surelog/Design/Parameter.h>
-#include <Surelog/Design/SimpleType.h>
-#include <Surelog/Design/Struct.h>
-#include <Surelog/Design/Union.h>
-#include <Surelog/DesignCompile/CompileDesign.h>
-#include <Surelog/DesignCompile/NetlistElaboration.h>
-#include <Surelog/DesignCompile/UhdmWriter.h>
-#include <Surelog/Package/Package.h>
-#include <Surelog/SourceCompile/Compiler.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Testbench/TypeDef.h>
-#include <Surelog/Utils/StringUtils.h>
+#include "Surelog/DesignCompile/NetlistElaboration.h"
 
 #include <algorithm>
+
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Common/FileSystem.h"
+#include "Surelog/Design/DesignComponent.h"
+#include "Surelog/Design/DesignElement.h"
+#include "Surelog/Design/DummyType.h"
+#include "Surelog/Design/Enum.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/Design/ModPort.h"
+#include "Surelog/Design/ModuleDefinition.h"
+#include "Surelog/Design/ModuleInstance.h"
+#include "Surelog/Design/Netlist.h"
+#include "Surelog/Design/ParamAssign.h"
+#include "Surelog/Design/Parameter.h"
+#include "Surelog/Design/SimpleType.h"
+#include "Surelog/Design/Struct.h"
+#include "Surelog/Design/Union.h"
+#include "Surelog/DesignCompile/CompileDesign.h"
+#include "Surelog/DesignCompile/UhdmWriter.h"
+#include "Surelog/Package/Package.h"
+#include "Surelog/SourceCompile/Compiler.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Testbench/TypeDef.h"
+#include "Surelog/Utils/StringUtils.h"
 
 // UHDM
 #include <uhdm/ElaboratorListener.h>

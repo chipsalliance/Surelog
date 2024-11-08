@@ -21,15 +21,16 @@
  * Created on January 26, 2017, 9:47 PM
  */
 
-#include <Surelog/API/PythonAPI.h>
-#include <Surelog/CommandLine/CommandLineParser.h>
-#include <Surelog/Common/PlatformFileSystem.h>
-#include <Surelog/ErrorReporting/ErrorContainer.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Utils/StringUtils.h>
-#include <Surelog/surelog-version.h>
+#include "Surelog/CommandLine/CommandLineParser.h"
 
 #include <nlohmann/json.hpp>
+
+#include "Surelog/API/PythonAPI.h"
+#include "Surelog/Common/PlatformFileSystem.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Utils/StringUtils.h"
+#include "Surelog/surelog-version.h"
 
 #if defined(_MSC_VER)
 #include <direct.h>

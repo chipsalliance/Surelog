@@ -21,7 +21,7 @@
  * Created on February 10, 2018, 11:09 PM
  */
 
-#include <Surelog/Config/Config.h>
+#include "Surelog/Config/Config.h"
 
 namespace SURELOG {
 UseClause* Config::getInstanceUseClause(std::string_view instance) {

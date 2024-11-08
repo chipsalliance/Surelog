@@ -14,13 +14,15 @@
  limitations under the License.
 */
 
-#include <Surelog/Common/PathId.h>
-#include <Surelog/Common/PlatformFileSystem.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
+#include "Surelog/Common/PathId.h"
+
 #include <gtest/gtest.h>
 
 #include <filesystem>
 #include <memory>
+
+#include "Surelog/Common/PlatformFileSystem.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
 
 namespace SURELOG {
 

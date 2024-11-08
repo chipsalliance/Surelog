@@ -21,7 +21,7 @@
  * Created on April 5, 2017, 11:46 PM
  */
 
-#include <Surelog/SourceCompile/MacroInfo.h>
+#include "Surelog/SourceCompile/MacroInfo.h"
 
 namespace SURELOG {
 MacroInfo::MacroInfo(std::string_view name, int32_t type, PathId fileId,

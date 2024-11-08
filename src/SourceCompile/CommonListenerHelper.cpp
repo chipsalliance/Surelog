@@ -21,10 +21,12 @@
  * Created on December 5, 2019, 9:13 PM
  */
 
-#include <Surelog/Design/DesignElement.h>
-#include <Surelog/Design/FileContent.h>
-#include <Surelog/SourceCompile/CommonListenerHelper.h>
+#include "Surelog/SourceCompile/CommonListenerHelper.h"
+
 #include <antlr4-runtime.h>
+
+#include "Surelog/Design/DesignElement.h"
+#include "Surelog/Design/FileContent.h"
 
 namespace SURELOG {
 

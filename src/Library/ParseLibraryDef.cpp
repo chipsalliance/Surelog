@@ -21,20 +21,22 @@
  * Created on January 27, 2018, 5:05 PM
  */
 
-#include <Surelog/CommandLine/CommandLineParser.h>
-#include <Surelog/Common/FileSystem.h>
-#include <Surelog/Config/ConfigSet.h>
-#include <Surelog/Design/FileContent.h>
-#include <Surelog/ErrorReporting/ErrorContainer.h>
-#include <Surelog/Library/AntlrLibParserErrorListener.h>
-#include <Surelog/Library/Library.h>
-#include <Surelog/Library/LibrarySet.h>
-#include <Surelog/Library/ParseLibraryDef.h>
-#include <Surelog/Library/SVLibShapeListener.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Utils/StringUtils.h>
+#include "Surelog/Library/ParseLibraryDef.h"
+
 #include <parser/SV3_1aLexer.h>
 #include <parser/SV3_1aParser.h>
+
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Common/FileSystem.h"
+#include "Surelog/Config/ConfigSet.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/Library/AntlrLibParserErrorListener.h"
+#include "Surelog/Library/Library.h"
+#include "Surelog/Library/LibrarySet.h"
+#include "Surelog/Library/SVLibShapeListener.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Utils/StringUtils.h"
 
 namespace SURELOG {
 

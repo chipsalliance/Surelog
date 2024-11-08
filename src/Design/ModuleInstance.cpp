@@ -22,15 +22,15 @@
  * Created on October 16, 2017, 10:48 PM
  */
 
-#include <Surelog/Design/DesignComponent.h>
-#include <Surelog/Design/FileContent.h>
-#include <Surelog/Design/Netlist.h>
-#include <Surelog/Expression/ExprBuilder.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
-
 #include <set>
 #include <string_view>
 #include <vector>
+
+#include "Surelog/Design/DesignComponent.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/Design/Netlist.h"
+#include "Surelog/Expression/ExprBuilder.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
 
 // UHDM
 #include <uhdm/ExprEval.h>

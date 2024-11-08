@@ -21,10 +21,11 @@
  * Created on March 28, 2018, 10:16 PM
  */
 
-#include <Surelog/Design/FileContent.h>
-#include <Surelog/DesignCompile/CompileFileContent.h>
+#include "Surelog/DesignCompile/CompileFileContent.h"
 
 #include <stack>
+
+#include "Surelog/Design/FileContent.h"
 
 namespace SURELOG {
 

@@ -21,23 +21,25 @@
  * Created on February 24, 2017, 10:03 PM
  */
 
-#include <Surelog/Cache/ParseCache.h>
-#include <Surelog/CommandLine/CommandLineParser.h>
-#include <Surelog/Common/FileSystem.h>
-#include <Surelog/Design/FileContent.h>
-#include <Surelog/ErrorReporting/ErrorContainer.h>
-#include <Surelog/Package/Precompiled.h>
-#include <Surelog/SourceCompile/AntlrParserErrorListener.h>
-#include <Surelog/SourceCompile/AntlrParserHandler.h>
-#include <Surelog/SourceCompile/CompileSourceFile.h>
-#include <Surelog/SourceCompile/ParseFile.h>
-#include <Surelog/SourceCompile/SV3_1aTreeShapeListener.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Utils/StringUtils.h>
-#include <Surelog/Utils/Timer.h>
+#include "Surelog/SourceCompile/ParseFile.h"
+
 #include <antlr4-runtime.h>
 #include <parser/SV3_1aLexer.h>
 #include <parser/SV3_1aParser.h>
+
+#include "Surelog/Cache/ParseCache.h"
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Common/FileSystem.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/Package/Precompiled.h"
+#include "Surelog/SourceCompile/AntlrParserErrorListener.h"
+#include "Surelog/SourceCompile/AntlrParserHandler.h"
+#include "Surelog/SourceCompile/CompileSourceFile.h"
+#include "Surelog/SourceCompile/SV3_1aTreeShapeListener.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Utils/StringUtils.h"
+#include "Surelog/Utils/Timer.h"
 
 namespace SURELOG {
 ParseFile::ParseFile(PathId fileId, SymbolTable* symbolTable,

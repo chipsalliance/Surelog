@@ -22,19 +22,6 @@
  * Created on July 1, 2017, 1:23 PM
  */
 
-#include <Surelog/Design/DefParam.h>
-#include <Surelog/Design/DesignComponent.h>
-#include <Surelog/Design/FileContent.h>
-#include <Surelog/Design/ModuleDefinition.h>
-#include <Surelog/Design/ModuleInstance.h>
-#include <Surelog/ErrorReporting/ErrorContainer.h>
-#include <Surelog/Expression/Value.h>
-#include <Surelog/Package/Package.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Testbench/ClassDefinition.h>
-#include <Surelog/Testbench/Program.h>
-#include <Surelog/Utils/StringUtils.h>
-
 #include <iterator>
 #include <map>
 #include <queue>
@@ -43,6 +30,19 @@
 #include <string_view>
 #include <utility>
 #include <vector>
+
+#include "Surelog/Design/DefParam.h"
+#include "Surelog/Design/DesignComponent.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/Design/ModuleDefinition.h"
+#include "Surelog/Design/ModuleInstance.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/Expression/Value.h"
+#include "Surelog/Package/Package.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Testbench/ClassDefinition.h"
+#include "Surelog/Testbench/Program.h"
+#include "Surelog/Utils/StringUtils.h"
 
 namespace SURELOG {
 

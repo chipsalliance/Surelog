@@ -14,7 +14,8 @@
  limitations under the License.
 */
 
-#include <Surelog/Utils/NumUtils.h>
+#include "Surelog/Utils/NumUtils.h"
+
 #include <gtest/gtest.h>
 
 namespace SURELOG {

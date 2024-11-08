@@ -21,8 +21,9 @@
  * Created on March 10, 2021, 9:30 PM
  */
 
-#include <Surelog/Common/FileSystem.h>
-#include <Surelog/ErrorReporting/LogListener.h>
+#include "Surelog/ErrorReporting/LogListener.h"
+
+#include "Surelog/Common/FileSystem.h"
 
 namespace SURELOG {
 

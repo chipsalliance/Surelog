@@ -21,21 +21,23 @@
  * Created on February 20, 2017, 9:54 PM
  */
 
-#include <Surelog/CommandLine/CommandLineParser.h>
-#include <Surelog/Common/FileSystem.h>
-#include <Surelog/ErrorReporting/ErrorContainer.h>
-#include <Surelog/Library/Library.h>
-#include <Surelog/Package/Precompiled.h>
-#include <Surelog/SourceCompile/AnalyzeFile.h>
-#include <Surelog/SourceCompile/CompileSourceFile.h>
-#include <Surelog/SourceCompile/Compiler.h>
-#include <Surelog/SourceCompile/ParseFile.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
+#include "Surelog/SourceCompile/CompileSourceFile.h"
+
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Common/FileSystem.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/Library/Library.h"
+#include "Surelog/Package/Precompiled.h"
+#include "Surelog/SourceCompile/AnalyzeFile.h"
+#include "Surelog/SourceCompile/Compiler.h"
+#include "Surelog/SourceCompile/ParseFile.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
 
 #ifdef SURELOG_WITH_PYTHON
 #include <Python.h>
-#include <Surelog/API/PythonAPI.h>
-#include <Surelog/SourceCompile/PythonListen.h>
+
+#include "Surelog/API/PythonAPI.h"
+#include "Surelog/SourceCompile/PythonListen.h"
 #endif
 
 #include <iostream>

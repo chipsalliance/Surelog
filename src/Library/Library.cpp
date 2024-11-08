@@ -21,9 +21,10 @@
  * Created on January 27, 2018, 5:25 PM
  */
 
-#include <Surelog/Design/ModuleDefinition.h>
-#include <Surelog/Library/Library.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
+#include "Surelog/Library/Library.h"
+
+#include "Surelog/Design/ModuleDefinition.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
 
 namespace SURELOG {
 

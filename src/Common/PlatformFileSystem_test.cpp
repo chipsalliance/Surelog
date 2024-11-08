@@ -21,17 +21,19 @@
  * Created on June 1, 2022, 3:00 AM
  */
 
-#include <Surelog/CommandLine/CommandLineParser.h>
-#include <Surelog/Common/PlatformFileSystem.h>
-#include <Surelog/Design/Design.h>
-#include <Surelog/Library/Library.h>
-#include <Surelog/SourceCompile/CompileSourceFile.h>
-#include <Surelog/SourceCompile/Compiler.h>
-#include <Surelog/SourceCompile/ParseFile.h>
-#include <Surelog/SourceCompile/PreprocessFile.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Utils/StringUtils.h>
+#include "Surelog/Common/PlatformFileSystem.h"
+
 #include <gtest/gtest.h>
+
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Design/Design.h"
+#include "Surelog/Library/Library.h"
+#include "Surelog/SourceCompile/CompileSourceFile.h"
+#include "Surelog/SourceCompile/Compiler.h"
+#include "Surelog/SourceCompile/ParseFile.h"
+#include "Surelog/SourceCompile/PreprocessFile.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Utils/StringUtils.h"
 
 // UHDM
 #include <uhdm/ExprEval.h>

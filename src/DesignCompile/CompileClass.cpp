@@ -21,20 +21,21 @@
  * Created on June 7, 2018, 10:26 PM
  */
 
-#include <Surelog/CommandLine/CommandLineParser.h>
-#include <Surelog/Common/FileSystem.h>
-#include <Surelog/Design/FileContent.h>
-#include <Surelog/DesignCompile/CompileClass.h>
-#include <Surelog/DesignCompile/CompileDesign.h>
-#include <Surelog/ErrorReporting/ErrorContainer.h>
-#include <Surelog/SourceCompile/Compiler.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Testbench/ClassDefinition.h>
-#include <Surelog/Testbench/Constraint.h>
-#include <Surelog/Testbench/CoverGroupDefinition.h>
-#include <Surelog/Testbench/FunctionMethod.h>
-#include <Surelog/Testbench/Property.h>
-#include <Surelog/Utils/StringUtils.h>
+#include "Surelog/DesignCompile/CompileClass.h"
+
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Common/FileSystem.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/DesignCompile/CompileDesign.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/SourceCompile/Compiler.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Testbench/ClassDefinition.h"
+#include "Surelog/Testbench/Constraint.h"
+#include "Surelog/Testbench/CoverGroupDefinition.h"
+#include "Surelog/Testbench/FunctionMethod.h"
+#include "Surelog/Testbench/Property.h"
+#include "Surelog/Utils/StringUtils.h"
 
 // UHDM
 #include <uhdm/class_defn.h>

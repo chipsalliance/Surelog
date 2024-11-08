@@ -21,14 +21,15 @@
  * Created on June 1, 2022, 3:00 AM
  */
 
-#include <Surelog/Common/PlatformFileSystem.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Utils/StringUtils.h>
+#include "Surelog/Common/PlatformFileSystem.h"
 
 #include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <mutex>
+
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Utils/StringUtils.h"
 #ifdef SURELOG_WITH_ZLIB
 #include <zlib.h>
 #endif

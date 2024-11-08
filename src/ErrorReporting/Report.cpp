@@ -21,17 +21,18 @@
  * Created on April 10, 2017, 8:56 PM
  */
 
-#include <Surelog/CommandLine/CommandLineParser.h>
-#include <Surelog/Common/FileSystem.h>
-#include <Surelog/ErrorReporting/Report.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Utils/StringUtils.h>
+#include "Surelog/ErrorReporting/Report.h"
 
 #include <chrono>
 #include <filesystem>
 #include <iostream>
 #include <regex>
 #include <thread>
+
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Common/FileSystem.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Utils/StringUtils.h"
 
 namespace SURELOG {
 

@@ -21,9 +21,9 @@
  * Created on May 14, 2019, 8:03 PM
  */
 
-#include <Surelog/Design/FileContent.h>
-#include <Surelog/DesignCompile/CompileDesign.h>
-#include <Surelog/DesignCompile/CompileHelper.h>
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/DesignCompile/CompileDesign.h"
+#include "Surelog/DesignCompile/CompileHelper.h"
 
 // UHDM
 #include <uhdm/ElaboratorListener.h>
