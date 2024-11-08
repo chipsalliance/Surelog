@@ -115,7 +115,8 @@ struct ConfigValues {
 
 // --------------[ Project-specific configuration ]--------------
 static constexpr ConfigValues kConfig = {
-    .start_dir = "src/",
+    .start_dir = ".",
+    .file_include_re = "^(src|include)",
     // Not clean yet, don't revisit yet.
     .revisit_brokenfiles_if_build_config_newer = false,
 };
