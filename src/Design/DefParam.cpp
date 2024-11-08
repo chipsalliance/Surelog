@@ -14,6 +14,8 @@
  limitations under the License.
  */
 
+#include "Surelog/Design/DefParam.h"
+
 /*
  * File:   DefParam.cpp
  * Author: alain
@@ -21,8 +23,7 @@
  * Created on January 7, 2018, 8:55 PM
  */
 
-#include <Surelog/Design/DefParam.h>
-
+#include <string>
 #include <vector>
 
 namespace SURELOG {

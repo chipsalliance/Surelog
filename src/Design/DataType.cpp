@@ -13,6 +13,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
+#include "Surelog/Design/DataType.h"
 
 /*
  * File:   DataType.cpp
@@ -21,8 +22,9 @@
  * Created on June 14, 2018, 10:07 PM
  */
 
-#include <Surelog/Design/DataType.h>
 #include <Surelog/Expression/Value.h>
+
+#include <string>
 
 namespace SURELOG {
 

@@ -13,6 +13,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
+#include "Surelog/Design/ValuedComponentI.h"
 
 /*
  * File:   ValuedComponentI.cpp
@@ -22,8 +23,12 @@
  */
 
 #include <Surelog/Design/ModuleInstance.h>
-#include <Surelog/Design/ValuedComponentI.h>
 #include <Surelog/Expression/ExprBuilder.h>
+
+#include <map>
+#include <string>
+#include <string_view>
+#include <utility>
 
 namespace SURELOG {
 Value* ValuedComponentI::getValue(std::string_view name) const {

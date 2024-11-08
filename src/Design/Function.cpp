@@ -14,6 +14,8 @@
  limitations under the License.
  */
 
+#include "Surelog/Design/Function.h"
+
 /*
  * File:   Function.cpp
  * Author: alain
@@ -22,8 +24,9 @@
  */
 
 #include <Surelog/Design/FileContent.h>
-#include <Surelog/Design/Function.h>
 #include <Surelog/DesignCompile/CompileHelper.h>
+
+#include <string_view>
 
 namespace SURELOG {
 Procedure::Procedure(DesignComponent* parent, const FileContent* fC, NodeId id,

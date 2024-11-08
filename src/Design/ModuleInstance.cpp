@@ -13,6 +13,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
+#include "Surelog/Design/ModuleInstance.h"
 
 /*
  * File:   ModuleInstance.cpp
@@ -23,10 +24,13 @@
 
 #include <Surelog/Design/DesignComponent.h>
 #include <Surelog/Design/FileContent.h>
-#include <Surelog/Design/ModuleInstance.h>
 #include <Surelog/Design/Netlist.h>
 #include <Surelog/Expression/ExprBuilder.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
+
+#include <set>
+#include <string_view>
+#include <vector>
 
 // UHDM
 #include <uhdm/ExprEval.h>

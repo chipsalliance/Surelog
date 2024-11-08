@@ -13,6 +13,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
+#include "Surelog/Design/Signal.h"
 
 /*
  * File:   Signal.cpp
@@ -22,8 +23,10 @@
  */
 
 #include <Surelog/Design/FileContent.h>
-#include <Surelog/Design/Signal.h>
 #include <Surelog/Utils/StringUtils.h>
+
+#include <string>
+#include <string_view>
 
 namespace SURELOG {
 

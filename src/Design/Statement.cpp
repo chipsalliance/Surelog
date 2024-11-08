@@ -13,6 +13,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
+#include "Surelog/Design/Statement.h"
 
 /*
  * File:   Statement.cpp
@@ -22,7 +23,9 @@
  */
 
 #include <Surelog/Design/FileContent.h>
-#include <Surelog/Design/Statement.h>
+
+#include <string_view>
+#include <vector>
 
 namespace SURELOG {
 

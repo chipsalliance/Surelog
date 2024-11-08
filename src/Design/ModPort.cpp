@@ -14,13 +14,16 @@
  limitations under the License.
  */
 
+#include "Surelog/Design/ModPort.h"
+
 /*
  * File:   ModPort.cpp
  * Author: alain
  *
  * Created on January 31, 2020, 9:46 PM
  */
-#include <Surelog/Design/ModPort.h>
+
+#include <string_view>
 
 namespace SURELOG {
 

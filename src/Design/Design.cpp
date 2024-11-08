@@ -13,6 +13,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
+#include "Surelog/Design/Design.h"
 
 /*
  * File:   Design.cpp
@@ -22,7 +23,6 @@
  */
 
 #include <Surelog/Design/DefParam.h>
-#include <Surelog/Design/Design.h>
 #include <Surelog/Design/DesignComponent.h>
 #include <Surelog/Design/FileContent.h>
 #include <Surelog/Design/ModuleDefinition.h>
@@ -35,7 +35,14 @@
 #include <Surelog/Testbench/Program.h>
 #include <Surelog/Utils/StringUtils.h>
 
+#include <iterator>
+#include <map>
 #include <queue>
+#include <set>
+#include <string>
+#include <string_view>
+#include <utility>
+#include <vector>
 
 namespace SURELOG {
 
