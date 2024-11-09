@@ -21,20 +21,23 @@
  * Created on May 13, 2017, 4:42 PM
  */
 
-#include <Surelog/API/PythonAPI.h>
-#include <Surelog/Common/FileSystem.h>
-#include <Surelog/Design/Design.h>
-#include <Surelog/ErrorReporting/ErrorContainer.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Utils/StringUtils.h>
+#include "Surelog/API/PythonAPI.h"
+
 #include <antlr4-runtime.h>
+
+#include "Surelog/Common/FileSystem.h"
+#include "Surelog/Design/Design.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Utils/StringUtils.h"
 
 #ifdef SURELOG_WITH_PYTHON
 #include <Python.h>
-#include <Surelog/API/SLAPI.h>
-#include <Surelog/API/SV3_1aPythonListener.h>
-#include <Surelog/API/VObjectTypes_py.h>
-#include <Surelog/API/slapi_scripts.h>
+
+#include "Surelog/API/SLAPI.h"
+#include "Surelog/API/SV3_1aPythonListener.h"
+#include "Surelog/API/VObjectTypes_py.h"
+#include "Surelog/API/slapi_scripts.h"
 
 typedef SURELOG::NodeId NodeId;
 #include <Surelog/API/slapi_wrap.cxx>

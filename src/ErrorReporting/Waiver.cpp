@@ -21,10 +21,11 @@
  * Created on May 7, 2017, 11:11 PM
  */
 
-#include <Surelog/ErrorReporting/ErrorDefinition.h>
-#include <Surelog/ErrorReporting/Waiver.h>
+#include "Surelog/ErrorReporting/Waiver.h"
 
 #include <string>
+
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
 
 namespace SURELOG {
 

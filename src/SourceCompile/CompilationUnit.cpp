@@ -20,7 +20,7 @@
  *
  * Created on April 5, 2017, 9:16 PM
  */
-#include <Surelog/SourceCompile/CompilationUnit.h>
+#include "Surelog/SourceCompile/CompilationUnit.h"
 
 namespace SURELOG {
 

@@ -21,7 +21,7 @@
  * Created on March 14, 2017, 10:43 PM
  */
 
-#include <Surelog/Utils/StringUtils.h>
+#include "Surelog/Utils/StringUtils.h"
 
 #include <algorithm>
 #include <array>

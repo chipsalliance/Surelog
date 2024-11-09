@@ -21,21 +21,23 @@
  * Created on May 28, 2017, 10:49 PM
  */
 
-#include <Surelog/API/PythonAPI.h>
-#include <Surelog/Cache/Cache.h>
-#include <Surelog/Cache/PythonAPICache.h>
-#include <Surelog/CommandLine/CommandLineParser.h>
-#include <Surelog/Common/FileSystem.h>
-#include <Surelog/ErrorReporting/ErrorContainer.h>
-#include <Surelog/Library/Library.h>
-#include <Surelog/SourceCompile/CompileSourceFile.h>
-#include <Surelog/SourceCompile/ParseFile.h>
-#include <Surelog/SourceCompile/PythonListen.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
+#include "Surelog/Cache/PythonAPICache.h"
+
 #include <capnp/serialize-packed.h>
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+
+#include "Surelog/API/PythonAPI.h"
+#include "Surelog/Cache/Cache.h"
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Common/FileSystem.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/Library/Library.h"
+#include "Surelog/SourceCompile/CompileSourceFile.h"
+#include "Surelog/SourceCompile/ParseFile.h"
+#include "Surelog/SourceCompile/PythonListen.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
 
 #if defined(_MSC_VER)
 #include <io.h>

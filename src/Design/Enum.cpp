@@ -23,9 +23,9 @@
  * Created on May 19, 2019, 11:55 AM
  */
 
-#include <Surelog/Design/FileContent.h>
-
 #include <string_view>
+
+#include "Surelog/Design/FileContent.h"
 
 namespace SURELOG {
 Enum::Enum(const FileContent* fC, NodeId nameId, NodeId baseTypeId)

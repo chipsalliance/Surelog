@@ -21,10 +21,11 @@
  * Created on Feb 08, 2018, 9:54 PM
  */
 
-#include <Surelog/ErrorReporting/ErrorContainer.h>
-#include <Surelog/Library/AntlrLibParserErrorListener.h>
-#include <Surelog/Library/ParseLibraryDef.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
+#include "Surelog/Library/AntlrLibParserErrorListener.h"
+
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/Library/ParseLibraryDef.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
 
 namespace SURELOG {
 

@@ -21,22 +21,8 @@
  * Created on February 24, 2017, 9:38 PM
  */
 
-#include <Surelog/Cache/PPCache.h>
-#include <Surelog/CommandLine/CommandLineParser.h>
-#include <Surelog/Common/FileSystem.h>
-#include <Surelog/Design/FileContent.h>
-#include <Surelog/ErrorReporting/ErrorContainer.h>
-#include <Surelog/ErrorReporting/Waiver.h>
-#include <Surelog/Package/Precompiled.h>
-#include <Surelog/SourceCompile/CompilationUnit.h>
-#include <Surelog/SourceCompile/CompileSourceFile.h>
-#include <Surelog/SourceCompile/Compiler.h>
-#include <Surelog/SourceCompile/MacroInfo.h>
-#include <Surelog/SourceCompile/PreprocessFile.h>
-#include <Surelog/SourceCompile/SV3_1aPpTreeShapeListener.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Utils/StringUtils.h>
-#include <Surelog/Utils/Timer.h>
+#include "Surelog/SourceCompile/PreprocessFile.h"
+
 #include <antlr4-runtime.h>
 #include <parser/SV3_1aPpLexer.h>
 #include <parser/SV3_1aPpParser.h>
@@ -44,6 +30,22 @@
 #include <iostream>
 #include <regex>
 #include <string_view>
+
+#include "Surelog/Cache/PPCache.h"
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Common/FileSystem.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/ErrorReporting/Waiver.h"
+#include "Surelog/Package/Precompiled.h"
+#include "Surelog/SourceCompile/CompilationUnit.h"
+#include "Surelog/SourceCompile/CompileSourceFile.h"
+#include "Surelog/SourceCompile/Compiler.h"
+#include "Surelog/SourceCompile/MacroInfo.h"
+#include "Surelog/SourceCompile/SV3_1aPpTreeShapeListener.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Utils/StringUtils.h"
+#include "Surelog/Utils/Timer.h"
 
 namespace SURELOG {
 

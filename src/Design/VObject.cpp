@@ -22,11 +22,11 @@
  * Created on June 14, 2017, 10:58 PM
  */
 
-#include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Utils/StringUtils.h>
-
 #include <string>
 #include <string_view>
+
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Utils/StringUtils.h"
 
 namespace SURELOG {
 

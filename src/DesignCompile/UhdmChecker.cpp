@@ -21,18 +21,19 @@
  * Created on January 17, 2020, 9:13 PM
  */
 
-#include <Surelog/CommandLine/CommandLineParser.h>
-#include <Surelog/Common/FileSystem.h>
-#include <Surelog/Design/FileContent.h>
-#include <Surelog/Design/ModuleInstance.h>
-#include <Surelog/Design/VObject.h>
-#include <Surelog/DesignCompile/CompileDesign.h>
-#include <Surelog/DesignCompile/UhdmChecker.h>
-#include <Surelog/Library/Library.h>
-#include <Surelog/Package/Package.h>
-#include <Surelog/SourceCompile/Compiler.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Utils/StringUtils.h>
+#include "Surelog/DesignCompile/UhdmChecker.h"
+
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Common/FileSystem.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/Design/ModuleInstance.h"
+#include "Surelog/Design/VObject.h"
+#include "Surelog/DesignCompile/CompileDesign.h"
+#include "Surelog/Library/Library.h"
+#include "Surelog/Package/Package.h"
+#include "Surelog/SourceCompile/Compiler.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Utils/StringUtils.h"
 
 // UHDM
 #include <uhdm/Serializer.h>

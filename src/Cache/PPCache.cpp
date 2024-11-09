@@ -21,26 +21,27 @@
  * Created on April 23, 2017, 8:49 PM
  */
 
-#include <Surelog/Cache/PPCache.h>
-#include <Surelog/CommandLine/CommandLineParser.h>
-#include <Surelog/Common/FileSystem.h>
-#include <Surelog/Design/Design.h>
-#include <Surelog/Design/FileContent.h>
-#include <Surelog/Design/TimeInfo.h>
-#include <Surelog/Library/Library.h>
-#include <Surelog/Package/Precompiled.h>
-#include <Surelog/SourceCompile/CompilationUnit.h>
-#include <Surelog/SourceCompile/CompileSourceFile.h>
-#include <Surelog/SourceCompile/Compiler.h>
-#include <Surelog/SourceCompile/MacroInfo.h>
-#include <Surelog/SourceCompile/PreprocessFile.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Utils/StringUtils.h>
+#include "Surelog/Cache/PPCache.h"
+
 #include <capnp/serialize-packed.h>
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Common/FileSystem.h"
+#include "Surelog/Design/Design.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/Design/TimeInfo.h"
+#include "Surelog/Library/Library.h"
+#include "Surelog/Package/Precompiled.h"
+#include "Surelog/SourceCompile/CompilationUnit.h"
+#include "Surelog/SourceCompile/CompileSourceFile.h"
+#include "Surelog/SourceCompile/Compiler.h"
+#include "Surelog/SourceCompile/MacroInfo.h"
+#include "Surelog/SourceCompile/PreprocessFile.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Utils/StringUtils.h"
 #include "Surelog/config.h"
 
 #if defined(_MSC_VER)

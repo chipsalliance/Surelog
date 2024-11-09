@@ -21,9 +21,10 @@
  * Created on March 18, 2018, 7:58 PM
  */
 
-#include <Surelog/Design/FileContent.h>
-#include <Surelog/Package/Package.h>
-#include <Surelog/Testbench/ClassDefinition.h>
+#include "Surelog/Package/Package.h"
+
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/Testbench/ClassDefinition.h"
 
 namespace SURELOG {
 

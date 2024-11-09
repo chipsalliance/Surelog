@@ -23,18 +23,18 @@
  * Created on June 8, 2017, 8:22 PM
  */
 
-#include <Surelog/Common/FileSystem.h>
-#include <Surelog/Design/DesignElement.h>
-#include <Surelog/ErrorReporting/ErrorContainer.h>
-#include <Surelog/Library/Library.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Utils/StringUtils.h>
-
 #include <iostream>
 #include <stack>
 #include <string>
 #include <string_view>
 #include <vector>
+
+#include "Surelog/Common/FileSystem.h"
+#include "Surelog/Design/DesignElement.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/Library/Library.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Utils/StringUtils.h"
 
 namespace SURELOG {
 FileContent::FileContent(PathId fileId, Library* library,

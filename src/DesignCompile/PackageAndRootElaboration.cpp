@@ -21,7 +21,7 @@
  * Created on June 3, 2019, 10:02 PM
  */
 
-#include <Surelog/DesignCompile/PackageAndRootElaboration.h>
+#include "Surelog/DesignCompile/PackageAndRootElaboration.h"
 
 namespace SURELOG {
 

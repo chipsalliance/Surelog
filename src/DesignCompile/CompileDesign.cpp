@@ -21,32 +21,33 @@
  * Created on July 1, 2017, 1:11 PM
  */
 
-#include <Surelog/CommandLine/CommandLineParser.h>
-#include <Surelog/Common/FileSystem.h>
-#include <Surelog/Design/FileContent.h>
-#include <Surelog/Design/ModuleDefinition.h>
-#include <Surelog/Design/ModuleInstance.h>
-#include <Surelog/Design/Netlist.h>
-#include <Surelog/DesignCompile/Builtin.h>
-#include <Surelog/DesignCompile/CompileClass.h>
-#include <Surelog/DesignCompile/CompileDesign.h>
-#include <Surelog/DesignCompile/CompileFileContent.h>
-#include <Surelog/DesignCompile/CompileModule.h>
-#include <Surelog/DesignCompile/CompilePackage.h>
-#include <Surelog/DesignCompile/CompileProgram.h>
-#include <Surelog/DesignCompile/DesignElaboration.h>
-#include <Surelog/DesignCompile/NetlistElaboration.h>
-#include <Surelog/DesignCompile/PackageAndRootElaboration.h>
-#include <Surelog/DesignCompile/ResolveSymbols.h>
-#include <Surelog/DesignCompile/UVMElaboration.h>
-#include <Surelog/DesignCompile/UhdmWriter.h>
-#include <Surelog/ErrorReporting/ErrorContainer.h>
-#include <Surelog/Library/Library.h>
-#include <Surelog/Package/Package.h>
-#include <Surelog/SourceCompile/Compiler.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Testbench/ClassDefinition.h>
-#include <Surelog/Testbench/Program.h>
+#include "Surelog/DesignCompile/CompileDesign.h"
+
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Common/FileSystem.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/Design/ModuleDefinition.h"
+#include "Surelog/Design/ModuleInstance.h"
+#include "Surelog/Design/Netlist.h"
+#include "Surelog/DesignCompile/Builtin.h"
+#include "Surelog/DesignCompile/CompileClass.h"
+#include "Surelog/DesignCompile/CompileFileContent.h"
+#include "Surelog/DesignCompile/CompileModule.h"
+#include "Surelog/DesignCompile/CompilePackage.h"
+#include "Surelog/DesignCompile/CompileProgram.h"
+#include "Surelog/DesignCompile/DesignElaboration.h"
+#include "Surelog/DesignCompile/NetlistElaboration.h"
+#include "Surelog/DesignCompile/PackageAndRootElaboration.h"
+#include "Surelog/DesignCompile/ResolveSymbols.h"
+#include "Surelog/DesignCompile/UVMElaboration.h"
+#include "Surelog/DesignCompile/UhdmWriter.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/Library/Library.h"
+#include "Surelog/Package/Package.h"
+#include "Surelog/SourceCompile/Compiler.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Testbench/ClassDefinition.h"
+#include "Surelog/Testbench/Program.h"
 
 // UHDM
 #include <uhdm/include_file_info.h>

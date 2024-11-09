@@ -21,13 +21,13 @@
  * Created on May 14, 2019, 8:03 PM
  */
 
-#include <Surelog/Design/DesignComponent.h>
-#include <Surelog/Design/ParamAssign.h>
-#include <Surelog/DesignCompile/CompileDesign.h>
-#include <Surelog/DesignCompile/CompileHelper.h>
-#include <Surelog/SourceCompile/Compiler.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Utils/StringUtils.h>
+#include "Surelog/Design/DesignComponent.h"
+#include "Surelog/Design/ParamAssign.h"
+#include "Surelog/DesignCompile/CompileDesign.h"
+#include "Surelog/DesignCompile/CompileHelper.h"
+#include "Surelog/SourceCompile/Compiler.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Utils/StringUtils.h"
 
 // UHDM
 #include <uhdm/ElaboratorListener.h>

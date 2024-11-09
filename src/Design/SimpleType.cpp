@@ -22,8 +22,9 @@
  * Created on May 19, 2020, 11:55 AM
  */
 
-#include <Surelog/Design/FileContent.h>
-#include <Surelog/Design/SimpleType.h>
+#include "Surelog/Design/SimpleType.h"
+
+#include "Surelog/Design/FileContent.h"
 
 // UHDM
 #include <uhdm/uhdm.h>

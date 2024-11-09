@@ -21,8 +21,9 @@
  * Created on March 6, 2019, 9:14 PM
  */
 
-#include <Surelog/Design/FileContent.h>
-#include <Surelog/Testbench/TypeDef.h>
+#include "Surelog/Testbench/TypeDef.h"
+
+#include "Surelog/Design/FileContent.h"
 
 namespace SURELOG {
 

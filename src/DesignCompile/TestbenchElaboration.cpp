@@ -21,20 +21,21 @@
  * Created on February 6, 2019, 9:01 PM
  */
 
-#include <Surelog/Common/FileSystem.h>
-#include <Surelog/Design/Design.h>
-#include <Surelog/Design/FileContent.h>
-#include <Surelog/Design/Parameter.h>
-#include <Surelog/Design/Signal.h>
-#include <Surelog/Design/Statement.h>
-#include <Surelog/Design/TfPortItem.h>
-#include <Surelog/DesignCompile/CompileDesign.h>
-#include <Surelog/DesignCompile/TestbenchElaboration.h>
-#include <Surelog/SourceCompile/Compiler.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Testbench/ClassDefinition.h>
-#include <Surelog/Testbench/Property.h>
-#include <Surelog/Utils/StringUtils.h>
+#include "Surelog/DesignCompile/TestbenchElaboration.h"
+
+#include "Surelog/Common/FileSystem.h"
+#include "Surelog/Design/Design.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/Design/Parameter.h"
+#include "Surelog/Design/Signal.h"
+#include "Surelog/Design/Statement.h"
+#include "Surelog/Design/TfPortItem.h"
+#include "Surelog/DesignCompile/CompileDesign.h"
+#include "Surelog/SourceCompile/Compiler.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Testbench/ClassDefinition.h"
+#include "Surelog/Testbench/Property.h"
+#include "Surelog/Utils/StringUtils.h"
 
 // UHDM
 #include <uhdm/class_defn.h>

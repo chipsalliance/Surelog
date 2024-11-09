@@ -21,9 +21,10 @@
  * Created on February 21, 2019, 8:19 PM
  */
 
-#include <Surelog/Design/FileContent.h>
-#include <Surelog/Design/Task.h>
-#include <Surelog/DesignCompile/CompileHelper.h>
+#include "Surelog/Design/Task.h"
+
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/DesignCompile/CompileHelper.h"
 
 namespace SURELOG {
 

@@ -23,11 +23,11 @@
  * Created on October 20, 2017, 10:29 PM
  */
 
-#include <Surelog/Design/FileContent.h>
-#include <Surelog/Design/ModPort.h>
-
 #include <string_view>
 #include <vector>
+
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/Design/ModPort.h"
 
 namespace SURELOG {
 

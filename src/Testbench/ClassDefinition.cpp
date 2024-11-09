@@ -20,14 +20,15 @@
  *
  * Created on June 1, 2018, 10:12 PM
  */
-#include <Surelog/Design/FileContent.h>
-#include <Surelog/Design/Parameter.h>
-#include <Surelog/Testbench/ClassDefinition.h>
-#include <Surelog/Testbench/Constraint.h>
-#include <Surelog/Testbench/CoverGroupDefinition.h>
-#include <Surelog/Testbench/Property.h>
+#include "Surelog/Testbench/ClassDefinition.h"
 
 #include <string_view>
+
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/Design/Parameter.h"
+#include "Surelog/Testbench/Constraint.h"
+#include "Surelog/Testbench/CoverGroupDefinition.h"
+#include "Surelog/Testbench/Property.h"
 
 namespace SURELOG {
 

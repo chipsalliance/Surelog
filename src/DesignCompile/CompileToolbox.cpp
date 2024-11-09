@@ -21,8 +21,9 @@
  * Created on June 13, 2018, 9:36 PM
  */
 
-#include <Surelog/Common/NodeId.h>
-#include <Surelog/DesignCompile/CompileToolbox.h>
+#include "Surelog/DesignCompile/CompileToolbox.h"
+
+#include "Surelog/Common/NodeId.h"
 
 namespace SURELOG {
 

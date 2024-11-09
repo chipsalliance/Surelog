@@ -21,13 +21,14 @@
  * Created on December 4, 2019, 8:17 PM
  */
 
-#include <Surelog/CommandLine/CommandLineParser.h>
-#include <Surelog/ErrorReporting/ErrorContainer.h>
-#include <Surelog/SourceCompile/CompileSourceFile.h>
-#include <Surelog/SourceCompile/MacroInfo.h>
-#include <Surelog/SourceCompile/SV3_1aPpTreeListenerHelper.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Utils/ParseUtils.h>
+#include "Surelog/SourceCompile/SV3_1aPpTreeListenerHelper.h"
+
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/SourceCompile/CompileSourceFile.h"
+#include "Surelog/SourceCompile/MacroInfo.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Utils/ParseUtils.h"
 
 namespace SURELOG {
 

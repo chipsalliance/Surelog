@@ -21,22 +21,24 @@
  * Created on June 6, 2018, 10:43 PM
  */
 
-#include <Surelog/CommandLine/CommandLineParser.h>
-#include <Surelog/Design/FileContent.h>
-#include <Surelog/DesignCompile/CompileDesign.h>
-#include <Surelog/DesignCompile/CompileProgram.h>
-#include <Surelog/ErrorReporting/Error.h>
-#include <Surelog/ErrorReporting/ErrorContainer.h>
-#include <Surelog/ErrorReporting/ErrorDefinition.h>
-#include <Surelog/ErrorReporting/Location.h>
-#include <Surelog/SourceCompile/Compiler.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Testbench/Program.h>
-#include <Surelog/Utils/StringUtils.h>
+#include "Surelog/DesignCompile/CompileProgram.h"
+
 #include <uhdm/final_stmt.h>
 #include <uhdm/initial.h>
 
 #include <stack>
+
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/DesignCompile/CompileDesign.h"
+#include "Surelog/ErrorReporting/Error.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
+#include "Surelog/ErrorReporting/Location.h"
+#include "Surelog/SourceCompile/Compiler.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Testbench/Program.h"
+#include "Surelog/Utils/StringUtils.h"
 
 namespace SURELOG {
 

@@ -25,13 +25,13 @@
 // cd tests/UnitElabBlock
 // hellodesign top.v -parse -mutestdout
 
-#include <Surelog/API/Surelog.h>
-#include <Surelog/CommandLine/CommandLineParser.h>
-#include <Surelog/ErrorReporting/ErrorContainer.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
-
 #include <functional>
 #include <iostream>
+
+#include "Surelog/API/Surelog.h"
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
 
 // UHDM
 #include <uhdm/ElaboratorListener.h>

@@ -21,10 +21,8 @@
  * Created on August 10, 2022, 1:16 AM
  */
 
-#include <Surelog/CommandLine/CommandLineParser.h>
-#include <Surelog/Common/PlatformFileSystem.h>
-#include <Surelog/ErrorReporting/ErrorContainer.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
+#include "Surelog/CommandLine/CommandLineParser.h"
+
 #include <gtest/gtest.h>
 
 #include <algorithm>
@@ -33,6 +31,10 @@
 #include <set>
 #include <string>
 #include <vector>
+
+#include "Surelog/Common/PlatformFileSystem.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
 
 namespace SURELOG {
 

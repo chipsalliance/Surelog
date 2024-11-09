@@ -23,16 +23,16 @@
  * Created on March 25, 2018, 10:27 PM
  */
 
-#include <Surelog/Design/FileContent.h>
-#include <Surelog/Design/Parameter.h>
-#include <Surelog/Testbench/FunctionMethod.h>
-#include <Surelog/Testbench/TaskMethod.h>
-#include <Surelog/Testbench/TypeDef.h>
-#include <Surelog/Testbench/Variable.h>
-
 #include <string_view>
 #include <utility>
 #include <vector>
+
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/Design/Parameter.h"
+#include "Surelog/Testbench/FunctionMethod.h"
+#include "Surelog/Testbench/TaskMethod.h"
+#include "Surelog/Testbench/TypeDef.h"
+#include "Surelog/Testbench/Variable.h"
 
 namespace SURELOG {
 void DesignComponent::addFileContent(const FileContent* fileContent,

@@ -21,13 +21,6 @@
  * Created on June 1, 2022, 3:00 AM
  */
 
-#include <Surelog/CommandLine/CommandLineParser.h>
-#include <Surelog/Common/PlatformFileSystem.h>
-#include <Surelog/Design/Design.h>
-#include <Surelog/SourceCompile/Compiler.h>
-#include <Surelog/SourceCompile/ParseFile.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Utils/StringUtils.h>
 #include <gtest/gtest.h>
 
 #include <chrono>
@@ -37,6 +30,14 @@
 #include <string>
 #include <thread>
 #include <vector>
+
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Common/PlatformFileSystem.h"
+#include "Surelog/Design/Design.h"
+#include "Surelog/SourceCompile/Compiler.h"
+#include "Surelog/SourceCompile/ParseFile.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Utils/StringUtils.h"
 
 namespace SURELOG {
 

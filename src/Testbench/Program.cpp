@@ -21,11 +21,12 @@
  * Created on June 1, 2018, 8:58 PM
  */
 
-#include <Surelog/Design/DesignComponent.h>
-#include <Surelog/Design/FileContent.h>
-#include <Surelog/Testbench/Program.h>
+#include "Surelog/Testbench/Program.h"
 
 #include <string_view>
+
+#include "Surelog/Design/DesignComponent.h"
+#include "Surelog/Design/FileContent.h"
 
 namespace SURELOG {
 

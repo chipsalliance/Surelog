@@ -22,9 +22,9 @@
  * Created on June 14, 2018, 10:07 PM
  */
 
-#include <Surelog/Expression/Value.h>
-
 #include <string>
+
+#include "Surelog/Expression/Value.h"
 
 namespace SURELOG {
 

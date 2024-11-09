@@ -21,34 +21,35 @@
  * Created on March 4, 2017, 5:16 PM
  */
 
-#include <Surelog/API/PythonAPI.h>
-#include <Surelog/CommandLine/CommandLineParser.h>
-#include <Surelog/Common/FileSystem.h>
-#include <Surelog/Config/ConfigSet.h>
-#include <Surelog/Design/Design.h>
-#include <Surelog/Design/FileContent.h>
-#include <Surelog/DesignCompile/Builtin.h>
-#include <Surelog/DesignCompile/CompileDesign.h>
-#include <Surelog/Library/Library.h>
-#include <Surelog/Library/LibrarySet.h>
-#include <Surelog/Library/ParseLibraryDef.h>
-#include <Surelog/Package/Precompiled.h>
-#include <Surelog/SourceCompile/AnalyzeFile.h>
-#include <Surelog/SourceCompile/CheckCompile.h>
-#include <Surelog/SourceCompile/CompilationUnit.h>
-#include <Surelog/SourceCompile/CompileSourceFile.h>
-#include <Surelog/SourceCompile/Compiler.h>
-#include <Surelog/SourceCompile/ParseFile.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Utils/ContainerUtils.h>
-#include <Surelog/Utils/StringUtils.h>
-#include <Surelog/Utils/Timer.h>
+#include "Surelog/SourceCompile/Compiler.h"
 
 #include <climits>
 #include <filesystem>
 #include <fstream>
 #include <nlohmann/json.hpp>
 #include <thread>
+
+#include "Surelog/API/PythonAPI.h"
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Common/FileSystem.h"
+#include "Surelog/Config/ConfigSet.h"
+#include "Surelog/Design/Design.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/DesignCompile/Builtin.h"
+#include "Surelog/DesignCompile/CompileDesign.h"
+#include "Surelog/Library/Library.h"
+#include "Surelog/Library/LibrarySet.h"
+#include "Surelog/Library/ParseLibraryDef.h"
+#include "Surelog/Package/Precompiled.h"
+#include "Surelog/SourceCompile/AnalyzeFile.h"
+#include "Surelog/SourceCompile/CheckCompile.h"
+#include "Surelog/SourceCompile/CompilationUnit.h"
+#include "Surelog/SourceCompile/CompileSourceFile.h"
+#include "Surelog/SourceCompile/ParseFile.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Utils/ContainerUtils.h"
+#include "Surelog/Utils/StringUtils.h"
+#include "Surelog/Utils/Timer.h"
 
 #if defined(_MSC_VER)
 #include <direct.h>

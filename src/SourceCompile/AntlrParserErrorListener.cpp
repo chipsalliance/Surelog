@@ -21,11 +21,12 @@
  * Created on July 29, 2017, 5:32 PM
  */
 
-#include <Surelog/Common/FileSystem.h>
-#include <Surelog/SourceCompile/AntlrParserErrorListener.h>
-#include <Surelog/SourceCompile/CompileSourceFile.h>
-#include <Surelog/SourceCompile/ParseFile.h>
-#include <Surelog/Utils/StringUtils.h>
+#include "Surelog/SourceCompile/AntlrParserErrorListener.h"
+
+#include "Surelog/Common/FileSystem.h"
+#include "Surelog/SourceCompile/CompileSourceFile.h"
+#include "Surelog/SourceCompile/ParseFile.h"
+#include "Surelog/Utils/StringUtils.h"
 
 namespace SURELOG {
 

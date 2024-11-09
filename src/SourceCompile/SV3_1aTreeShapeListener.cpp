@@ -21,19 +21,20 @@
  * Created on April 16, 2017, 8:28 PM
  */
 
-#include <Surelog/CommandLine/CommandLineParser.h>
-#include <Surelog/Common/FileSystem.h>
-#include <Surelog/Design/Design.h>
-#include <Surelog/Design/FileContent.h>
-#include <Surelog/SourceCompile/CompilationUnit.h>
-#include <Surelog/SourceCompile/Compiler.h>
-#include <Surelog/SourceCompile/ParseFile.h>
-#include <Surelog/SourceCompile/SV3_1aTreeShapeListener.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Utils/ParseUtils.h>
-#include <Surelog/Utils/StringUtils.h>
+#include "Surelog/SourceCompile/SV3_1aTreeShapeListener.h"
 
 #include <regex>
+
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Common/FileSystem.h"
+#include "Surelog/Design/Design.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/SourceCompile/CompilationUnit.h"
+#include "Surelog/SourceCompile/Compiler.h"
+#include "Surelog/SourceCompile/ParseFile.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Utils/ParseUtils.h"
+#include "Surelog/Utils/StringUtils.h"
 
 namespace SURELOG {
 

@@ -14,16 +14,17 @@
  limitations under the License.
  */
 
-#include <Surelog/API/Surelog.h>
-#include <Surelog/CommandLine/CommandLineParser.h>
-#include <Surelog/Common/FileSystem.h>
-#include <Surelog/Design/Design.h>
-#include <Surelog/Design/FileContent.h>
-#include <Surelog/DesignCompile/CompileDesign.h>
-#include <Surelog/SourceCompile/CompileSourceFile.h>
-#include <Surelog/SourceCompile/Compiler.h>
-#include <Surelog/SourceCompile/ParseFile.h>
-#include <Surelog/SourceCompile/ParseTreeListener.h>
+#include "Surelog/API/Surelog.h"
+
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Common/FileSystem.h"
+#include "Surelog/Design/Design.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/DesignCompile/CompileDesign.h"
+#include "Surelog/SourceCompile/CompileSourceFile.h"
+#include "Surelog/SourceCompile/Compiler.h"
+#include "Surelog/SourceCompile/ParseFile.h"
+#include "Surelog/SourceCompile/ParseTreeListener.h"
 
 namespace SURELOG {
 

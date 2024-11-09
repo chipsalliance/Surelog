@@ -21,10 +21,11 @@
  * Created on April 28, 2018, 10:27 AM
  */
 
-#include <Surelog/Common/FileSystem.h>
-#include <Surelog/Common/PathId.h>
-#include <Surelog/Package/Precompiled.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
+#include "Surelog/Package/Precompiled.h"
+
+#include "Surelog/Common/FileSystem.h"
+#include "Surelog/Common/PathId.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
 
 namespace SURELOG {
 Precompiled* Precompiled::getSingleton() {

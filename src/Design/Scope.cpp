@@ -22,9 +22,9 @@
  * Created on August 31, 2019, 11:24 AM
  */
 
-#include <Surelog/Testbench/Variable.h>
-
 #include <string_view>
+
+#include "Surelog/Testbench/Variable.h"
 
 namespace SURELOG {
 

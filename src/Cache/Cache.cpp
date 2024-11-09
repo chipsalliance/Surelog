@@ -21,17 +21,19 @@
  * Created on April 28, 2017, 9:32 PM
  */
 
-#include <Surelog/Cache/Cache.h>
-#include <Surelog/CommandLine/CommandLineParser.h>
-#include <Surelog/Common/FileSystem.h>
-#include <Surelog/Design/FileContent.h>
-#include <Surelog/ErrorReporting/ErrorContainer.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
+#include "Surelog/Cache/Cache.h"
+
 #include <capnp/serialize-packed.h>
 
 #include <filesystem>
 #include <functional>
 #include <iostream>
+
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Common/FileSystem.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
 
 namespace SURELOG {
 static constexpr std::string_view UnknownRawPath = "<unknown>";

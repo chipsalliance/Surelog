@@ -21,29 +21,30 @@
  * Created on May 13, 2017, 4:42 PM
  */
 
-#include <Surelog/API/SLAPI.h>
+#include "Surelog/API/SLAPI.h"
 
 #ifdef SURELOG_WITH_PYTHON
-#include <Surelog/API/SV3_1aPythonListener.h>
-#include <Surelog/SourceCompile/PythonListen.h>
+#include "Surelog/API/SV3_1aPythonListener.h"
+#include "Surelog/SourceCompile/PythonListen.h"
 #endif
 
-#include <Surelog/Common/FileSystem.h>
-#include <Surelog/Design/Design.h>
-#include <Surelog/Design/FileContent.h>
-#include <Surelog/Design/ModuleDefinition.h>
-#include <Surelog/Design/ModuleInstance.h>
-#include <Surelog/ErrorReporting/ErrorContainer.h>
-#include <Surelog/ErrorReporting/Waiver.h>
-#include <Surelog/Package/Package.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Testbench/ClassDefinition.h>
-#include <Surelog/Testbench/Program.h>
-#include <Surelog/Utils/ParseUtils.h>
-#include <Surelog/Utils/StringUtils.h>
 #include <antlr4-runtime.h>
 
 #include <iostream>
+
+#include "Surelog/Common/FileSystem.h"
+#include "Surelog/Design/Design.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/Design/ModuleDefinition.h"
+#include "Surelog/Design/ModuleInstance.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/ErrorReporting/Waiver.h"
+#include "Surelog/Package/Package.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Testbench/ClassDefinition.h"
+#include "Surelog/Testbench/Program.h"
+#include "Surelog/Utils/ParseUtils.h"
+#include "Surelog/Utils/StringUtils.h"
 
 namespace SURELOG {
 void SLsetWaiver(const char* messageId, const char* fileName, uint32_t line,

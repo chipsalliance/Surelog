@@ -21,27 +21,28 @@
  * Created on July 12, 2017, 8:55 PM
  */
 
-#include <Surelog/CommandLine/CommandLineParser.h>
-#include <Surelog/Common/FileSystem.h>
-#include <Surelog/Config/ConfigSet.h>
-#include <Surelog/Design/BindStmt.h>
-#include <Surelog/Design/DefParam.h>
-#include <Surelog/Design/DesignElement.h>
-#include <Surelog/Design/FileContent.h>
-#include <Surelog/Design/ModuleDefinition.h>
-#include <Surelog/Design/ModuleInstance.h>
-#include <Surelog/Design/Parameter.h>
-#include <Surelog/DesignCompile/CompileDesign.h>
-#include <Surelog/DesignCompile/CompileModule.h>
-#include <Surelog/DesignCompile/DesignElaboration.h>
-#include <Surelog/DesignCompile/NetlistElaboration.h>
-#include <Surelog/DesignCompile/UhdmWriter.h>
-#include <Surelog/Library/Library.h>
-#include <Surelog/Package/Package.h>
-#include <Surelog/SourceCompile/Compiler.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Testbench/Program.h>
-#include <Surelog/Utils/StringUtils.h>
+#include "Surelog/DesignCompile/DesignElaboration.h"
+
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Common/FileSystem.h"
+#include "Surelog/Config/ConfigSet.h"
+#include "Surelog/Design/BindStmt.h"
+#include "Surelog/Design/DefParam.h"
+#include "Surelog/Design/DesignElement.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/Design/ModuleDefinition.h"
+#include "Surelog/Design/ModuleInstance.h"
+#include "Surelog/Design/Parameter.h"
+#include "Surelog/DesignCompile/CompileDesign.h"
+#include "Surelog/DesignCompile/CompileModule.h"
+#include "Surelog/DesignCompile/NetlistElaboration.h"
+#include "Surelog/DesignCompile/UhdmWriter.h"
+#include "Surelog/Library/Library.h"
+#include "Surelog/Package/Package.h"
+#include "Surelog/SourceCompile/Compiler.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Testbench/Program.h"
+#include "Surelog/Utils/StringUtils.h"
 
 // UHDM
 #include <uhdm/ElaboratorListener.h>

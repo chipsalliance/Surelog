@@ -21,19 +21,20 @@
  * Created on January 28, 2018, 10:17 PM
  */
 
-#include <Surelog/CommandLine/CommandLineParser.h>
-#include <Surelog/Common/FileSystem.h>
-#include <Surelog/Design/FileContent.h>
-#include <Surelog/ErrorReporting/ErrorContainer.h>
-#include <Surelog/Library/Library.h>
-#include <Surelog/Library/LibrarySet.h>
-#include <Surelog/Library/ParseLibraryDef.h>
-#include <Surelog/Library/SVLibShapeListener.h>
-#include <Surelog/SourceCompile/ParseFile.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Utils/ParseUtils.h>
+#include "Surelog/Library/SVLibShapeListener.h"
 
 #include <regex>
+
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Common/FileSystem.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/Library/Library.h"
+#include "Surelog/Library/LibrarySet.h"
+#include "Surelog/Library/ParseLibraryDef.h"
+#include "Surelog/SourceCompile/ParseFile.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Utils/ParseUtils.h"
 
 namespace SURELOG {
 SVLibShapeListener::SVLibShapeListener(ParseLibraryDef *parser,

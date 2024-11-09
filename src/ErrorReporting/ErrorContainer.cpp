@@ -21,17 +21,18 @@
  * Created on March 5, 2017, 11:12 PM
  */
 
-#include <Surelog/API/PythonAPI.h>
-#include <Surelog/CommandLine/CommandLineParser.h>
-#include <Surelog/Common/FileSystem.h>
-#include <Surelog/ErrorReporting/ErrorContainer.h>
-#include <Surelog/ErrorReporting/ErrorDefinition.h>
-#include <Surelog/ErrorReporting/LogListener.h>
-#include <Surelog/ErrorReporting/Waiver.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
+#include "Surelog/ErrorReporting/ErrorContainer.h"
 
 #include <cstdio>
 #include <iostream>
+
+#include "Surelog/API/PythonAPI.h"
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Common/FileSystem.h"
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
+#include "Surelog/ErrorReporting/LogListener.h"
+#include "Surelog/ErrorReporting/Waiver.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
 
 namespace SURELOG {
 ErrorContainer::ErrorContainer(SymbolTable* symbolTable,

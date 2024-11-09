@@ -21,35 +21,36 @@
  * Created on July 12, 2017, 8:55 PM
  */
 
-#include <Surelog/CommandLine/CommandLineParser.h>
-#include <Surelog/Common/FileSystem.h>
-#include <Surelog/Design/DataType.h>
-#include <Surelog/Design/DummyType.h>
-#include <Surelog/Design/Enum.h>
-#include <Surelog/Design/FileContent.h>
-#include <Surelog/Design/Function.h>
-#include <Surelog/Design/ModuleDefinition.h>
-#include <Surelog/Design/ModuleInstance.h>
-#include <Surelog/Design/Netlist.h>
-#include <Surelog/Design/Parameter.h>
-#include <Surelog/Design/SimpleType.h>
-#include <Surelog/Design/Struct.h>
-#include <Surelog/Design/TfPortItem.h>
-#include <Surelog/Design/Union.h>
-#include <Surelog/DesignCompile/CompileDesign.h>
-#include <Surelog/DesignCompile/ElaborationStep.h>
-#include <Surelog/Library/Library.h>
-#include <Surelog/Package/Package.h>
-#include <Surelog/SourceCompile/Compiler.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
-#include <Surelog/Testbench/ClassDefinition.h>
-#include <Surelog/Testbench/Program.h>
-#include <Surelog/Testbench/Property.h>
-#include <Surelog/Testbench/TypeDef.h>
-#include <Surelog/Utils/StringUtils.h>
+#include "Surelog/DesignCompile/ElaborationStep.h"
 
 #include <cstring>
 #include <queue>
+
+#include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Common/FileSystem.h"
+#include "Surelog/Design/DataType.h"
+#include "Surelog/Design/DummyType.h"
+#include "Surelog/Design/Enum.h"
+#include "Surelog/Design/FileContent.h"
+#include "Surelog/Design/Function.h"
+#include "Surelog/Design/ModuleDefinition.h"
+#include "Surelog/Design/ModuleInstance.h"
+#include "Surelog/Design/Netlist.h"
+#include "Surelog/Design/Parameter.h"
+#include "Surelog/Design/SimpleType.h"
+#include "Surelog/Design/Struct.h"
+#include "Surelog/Design/TfPortItem.h"
+#include "Surelog/Design/Union.h"
+#include "Surelog/DesignCompile/CompileDesign.h"
+#include "Surelog/Library/Library.h"
+#include "Surelog/Package/Package.h"
+#include "Surelog/SourceCompile/Compiler.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Testbench/ClassDefinition.h"
+#include "Surelog/Testbench/Program.h"
+#include "Surelog/Testbench/Property.h"
+#include "Surelog/Testbench/TypeDef.h"
+#include "Surelog/Utils/StringUtils.h"
 
 // UHDM
 #include <uhdm/ElaboratorListener.h>

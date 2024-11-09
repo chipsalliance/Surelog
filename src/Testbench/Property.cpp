@@ -21,4 +21,4 @@
  * Created on January 23, 2019, 9:17 PM
  */
 
-#include <Surelog/Testbench/Property.h>
+#include "Surelog/Testbench/Property.h"

@@ -21,12 +21,13 @@
  * Created on June 4, 2017, 8:09 PM
  */
 
-#include <Surelog/API/SV3_1aPythonListener.h>
-#include <Surelog/Cache/PythonAPICache.h>
-#include <Surelog/ErrorReporting/ErrorContainer.h>
-#include <Surelog/SourceCompile/AntlrParserHandler.h>
-#include <Surelog/SourceCompile/ParseFile.h>
-#include <Surelog/SourceCompile/PythonListen.h>
+#include "Surelog/SourceCompile/PythonListen.h"
+
+#include "Surelog/API/SV3_1aPythonListener.h"
+#include "Surelog/Cache/PythonAPICache.h"
+#include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/SourceCompile/AntlrParserHandler.h"
+#include "Surelog/SourceCompile/ParseFile.h"
 
 namespace SURELOG {
 
