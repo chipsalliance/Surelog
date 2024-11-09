@@ -27,6 +27,7 @@
 #include <parser/SV3_1aLexer.h>
 #include <parser/SV3_1aParser.h>
 
+#include <iostream>
 #include <string_view>
 
 #include "Surelog/Cache/ParseCache.h"

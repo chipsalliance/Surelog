@@ -23,6 +23,7 @@
 
 #include "Surelog/Library/Library.h"
 
+#include <iostream>
 #include <string_view>
 
 #include "Surelog/Design/ModuleDefinition.h"

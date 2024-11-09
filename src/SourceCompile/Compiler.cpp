@@ -26,6 +26,7 @@
 #include <climits>
 #include <filesystem>
 #include <fstream>
+#include <iostream>
 #include <map>
 #include <nlohmann/json.hpp>
 #include <string_view>

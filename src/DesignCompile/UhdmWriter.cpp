@@ -24,6 +24,7 @@
 #include "Surelog/DesignCompile/UhdmWriter.h"
 
 #include <cstring>
+#include <iostream>
 #include <map>
 #include <queue>
 #include <set>
