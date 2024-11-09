@@ -18,20 +18,12 @@
 # It caches the results, so is much faster, but doesn't have the
 # concept of the 'limited' clang-tidy.
 
+# Exact binary can be set with environment variable if needed.
+CLANG_TIDY="${CLANG_TIDY:-clang-tidy}"
+
 LOCAL_TMP=${TMPDIR:-/tmp}
 
 TIDY_OUT=${LOCAL_TMP}/clang-tidy-surelog.out
-
-# Default clang-tidy, but if they are only available in versioned form,
-# use them. Configuration below is tested with 12, so using that is our
-# preferred version.
-CLANG_TIDY=clang-tidy
-for version in 12 13 14 11 ; do
-  if command -v clang-tidy-${version}; then
-    CLANG_TIDY=clang-tidy-${version}
-    break
-  fi
-done
 
 hash ${CLANG_TIDY} || exit 2  # make sure it is installed.
 

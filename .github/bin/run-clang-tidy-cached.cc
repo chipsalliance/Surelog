@@ -117,6 +117,7 @@ struct ConfigValues {
 static constexpr ConfigValues kConfig = {
     .start_dir = ".",
     .file_include_re = "^(src|include)",
+    .file_exclude_re = "\\.template\\.",
     // Not clean yet, don't revisit yet.
     .revisit_brokenfiles_if_build_config_newer = false,
 };

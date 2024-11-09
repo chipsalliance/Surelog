@@ -51,12 +51,12 @@ jobs:
 
     - name: Create Cache Timestamp
       id: cache_timestamp
-      uses: nanzm/get-time-action@v1.1
+      uses: nanzm/get-time-action@v2.0
       with:
         format: 'YYYY-MM-DD-HH-mm-ss'
 
     - name: Setup cache
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       with:
         path: ${{ env.CCACHE_DIR }}
         key: cache_${{ steps.cache_timestamp.outputs.time }}
