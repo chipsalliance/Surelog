@@ -42,7 +42,7 @@ namespace SURELOG {
 class CompileModule;
 class FileContent;
 
-class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
+class ModuleDefinition final : public DesignComponent, public ClockingBlockHolder {
   SURELOG_IMPLEMENT_RTTI(ModuleDefinition, DesignComponent)
   friend CompileModule;
 
@@ -50,12 +50,12 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
   ModuleDefinition(const FileContent* fileContent, NodeId nodeId,
                    std::string_view name);
 
-  ~ModuleDefinition() override = default;
+  ~ModuleDefinition() final = default;
 
-  std::string_view getName() const override { return m_name; }
-  VObjectType getType() const override;
-  bool isInstance() const override;
-  uint32_t getSize() const override;
+  std::string_view getName() const final { return m_name; }
+  VObjectType getType() const final;
+  bool isInstance() const final;
+  uint32_t getSize() const final;
 
   typedef std::map<std::string, ClockingBlock> ClockingBlockMap;
   typedef std::map<std::string, ModPort, std::less<>> ModPortSignalMap;

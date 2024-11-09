@@ -39,8 +39,11 @@ class SymbolTable;
  *
  * Native platform specific file system implementation.
  *
+ * Note, thie is final class from Surelogs perspective, but
+ * to make it simpler for users to override and change, keeping
+ * it overridable.
  */
-class PlatformFileSystem : public FileSystem {
+class PlatformFileSystem /*final*/ : public FileSystem {
  public:
   struct Configuration final {
     std::filesystem::path m_sourceDir;

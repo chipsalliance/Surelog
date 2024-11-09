@@ -44,12 +44,12 @@ class ModuleDefinition;
 class Package;
 class Program;
 
-class FileContent : public DesignComponent {
+class FileContent final : public DesignComponent {
   SURELOG_IMPLEMENT_RTTI(FileContent, DesignComponent)
  public:
   FileContent(PathId fileId, Library* library, SymbolTable* symbolTable,
               ErrorContainer* errors, FileContent* parent, PathId fileChunkId);
-  ~FileContent() override;
+  ~FileContent() final;
 
   void setLibrary(Library* lib) { m_library = lib; }
 
@@ -94,12 +94,12 @@ class FileContent : public DesignComponent {
                                      bool first = false) const;
   // Recursively search for all items of types
   // and stops at types stopPoints
-  uint32_t getSize() const override {
+  uint32_t getSize() const final {
     return static_cast<uint32_t>(m_objects.size());
   }
-  VObjectType getType() const override { return VObjectType::slNoType; }
-  bool isInstance() const override { return false; }
-  std::string_view getName() const override;
+  VObjectType getType() const final { return VObjectType::slNoType; }
+  bool isInstance() const final { return false; }
+  std::string_view getName() const final;
   NodeId getRootNode() const;
   std::string printObjects() const;  // The whole file content
   std::string printSubTree(

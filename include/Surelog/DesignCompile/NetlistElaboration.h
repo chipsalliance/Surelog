@@ -36,16 +36,16 @@ class ModuleInstance;
 class Netlist;
 class Signal;
 
-class NetlistElaboration : public TestbenchElaboration {
+class NetlistElaboration final : public TestbenchElaboration {
  public:
   explicit NetlistElaboration(CompileDesign* compileDesign);
   NetlistElaboration(const NetlistElaboration& orig) = delete;
 
-  bool elaborate() override;
+  bool elaborate() final;
   bool elaboratePackages();
   bool elaborateInstance(ModuleInstance* instance);
 
-  ~NetlistElaboration() override;
+  ~NetlistElaboration() final;
 
   typedef std::map<NodeId, UHDM::typespec*> TypespecCache;
   bool elabSignal(Signal* sig, ModuleInstance* instance, ModuleInstance* child,

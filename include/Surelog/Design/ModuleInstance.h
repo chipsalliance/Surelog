@@ -44,13 +44,13 @@ class Parameter;
 class PathId;
 class SymbolTable;
 
-class ModuleInstance : public ValuedComponentI {
+class ModuleInstance final : public ValuedComponentI {
   SURELOG_IMPLEMENT_RTTI(ModuleInstance, ValuedComponentI)
  public:
   ModuleInstance(DesignComponent* definition, const FileContent* fileContent,
                  NodeId nodeId, ModuleInstance* parent,
                  std::string_view instName, std::string_view moduleName);
-  ~ModuleInstance() override;
+  ~ModuleInstance() final;
 
   typedef std::map<UHDM::module_array*, std::vector<ModuleInstance*>>
       ModuleArrayModuleInstancesMap;
@@ -101,8 +101,8 @@ class ModuleInstance : public ValuedComponentI {
   std::vector<Parameter*>& getTypeParams() { return m_typeParams; }
 
   Value* getValue(std::string_view name,
-                  ExprBuilder& exprBuilder) const override;
-  UHDM::expr* getComplexValue(std::string_view name) const override;
+                  ExprBuilder& exprBuilder) const final;
+  UHDM::expr* getComplexValue(std::string_view name) const final;
 
   ModuleInstance* getInstanceBinding() { return m_boundInstance; }
   bool isElaborated() const { return m_elaborated; }

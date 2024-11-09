@@ -31,13 +31,13 @@ namespace SURELOG {
 
 class CompileDesign;
 
-class UVMElaboration : public TestbenchElaboration {
+class UVMElaboration final : public TestbenchElaboration {
  public:
   explicit UVMElaboration(CompileDesign* compileDesign);
   UVMElaboration(const UVMElaboration& orig) = delete;
-  ~UVMElaboration() override = default;
+  ~UVMElaboration() final = default;
 
-  bool elaborate() override;
+  bool elaborate() final;
 
  private:
 };

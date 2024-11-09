@@ -46,7 +46,7 @@ class FileContent;
 class Library;
 class Property;
 
-class ClassDefinition : public DesignComponent, public DataType {
+class ClassDefinition final : public DesignComponent, public DataType {
   SURELOG_IMPLEMENT_RTTI_2_BASES(ClassDefinition, DesignComponent, DataType)
   friend class CompileClass;
 
@@ -56,14 +56,14 @@ class ClassDefinition : public DesignComponent, public DataType {
                   NodeId nodeId, ClassDefinition* parent,
                   UHDM::class_defn* uhdm_definition);
 
-  ~ClassDefinition() override = default;
+  ~ClassDefinition() final = default;
 
-  uint32_t getSize() const override;
-  VObjectType getType() const override {
+  uint32_t getSize() const final;
+  VObjectType getType() const final {
     return VObjectType::paClass_declaration;
   }
-  bool isInstance() const override { return false; }
-  std::string_view getName() const override { return m_name; }
+  bool isInstance() const final { return false; }
+  std::string_view getName() const final { return m_name; }
   Library* getLibrary() { return m_library; }
   DesignComponent* getContainer() const { return m_container; }
   void setContainer(DesignComponent* container) { m_container = container; }
@@ -83,11 +83,11 @@ class ClassDefinition : public DesignComponent, public DataType {
   Property* getProperty(std::string_view name) const;
   void insertProperty(Property* p);
 
-  Function* getFunction(std::string_view name) const override;
+  Function* getFunction(std::string_view name) const final;
 
   const TaskMap& getTaskMap() const { return m_tasks; }
   TaskMap& getMutableTaskMap() { return m_tasks; }
-  TaskMethod* getTask(std::string_view name) const override;
+  TaskMethod* getTask(std::string_view name) const final;
   void insertTask(TaskMethod* p);
 
   const ConstraintMap& getConstraintMap() const { return m_constraints; }

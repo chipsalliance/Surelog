@@ -31,12 +31,12 @@
 
 namespace SURELOG {
 
-class TaskMethod : public Task {
+class TaskMethod final : public Task {
  public:
   TaskMethod(DesignComponent* parent, const FileContent* fC, NodeId id,
              std::string_view name, bool is_extern)
       : Task(parent, fC, id, name), m_extern(is_extern) {}
-  ~TaskMethod() override = default;
+  ~TaskMethod() final = default;
   bool isExtern() const { return m_extern; }
   bool compile(CompileHelper& compile_helper);
 
