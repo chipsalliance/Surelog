@@ -2239,8 +2239,8 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
     obj->VpiParent(array_var);
     if ((array_var->Typespec() == nullptr) || associative) {
       VectorOfvariables* array_vars = array_var->Variables();
-      array_vars->push_back((variables*)obj);
-      ((variables*)obj)->VpiName("");
+      array_vars->push_back(obj);
+      (obj)->VpiName("");
     }
     if (array_var->Typespec() == nullptr) {
       ref_typespec* tsRef = s.MakeRef_typespec();
@@ -2263,7 +2263,7 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
     } else if (obj->UhdmType() == uhdmlogic_var) {
       ((logic_var*)obj)->VpiName(signame);
     }
-    vars->push_back((variables*)obj);
+    vars->push_back(obj);
   }
 
   if (assignExp) {

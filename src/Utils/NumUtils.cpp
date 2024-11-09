@@ -88,10 +88,8 @@ std::string NumUtils::toBinary(int32_t size, uint64_t val) {
 uint64_t NumUtils::getMask(uint64_t wide) {
   uint64_t mask = 0;
   uint64_t sizeInBits = sizeof(mask) * 8;
-  mask = (wide >= sizeInBits)
-             ? ((uint64_t)-1)
-             : ((uint64_t)((uint64_t)(((uint64_t)1) << ((uint64_t)wide))) -
-                (uint64_t)1);
+  mask = (wide >= sizeInBits) ? ((uint64_t)-1)
+                              : (((((uint64_t)1) << (wide))) - (uint64_t)1);
   return mask;
 }
 

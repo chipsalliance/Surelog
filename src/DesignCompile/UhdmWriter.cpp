@@ -1029,11 +1029,11 @@ class ReInstanceTypespec : public VpiListener {
     any* object = (any*)cobject;
     const instance* inst = nullptr;
     if (typespec* tps = any_cast<typespec*>(object)) {
-      inst = (instance*)tps->Instance();
+      inst = tps->Instance();
     } else if (function* tps = any_cast<function*>(object)) {
-      inst = (instance*)tps->Instance();
+      inst = tps->Instance();
     } else if (task* tps = any_cast<task*>(object)) {
-      inst = (instance*)tps->Instance();
+      inst = tps->Instance();
     }
     if (inst) {
       const std::string_view name = inst->VpiName();
@@ -3698,8 +3698,7 @@ void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod, scope* m) {
         if (lhs->VpiName() == name) {
           // Do not bind blindly here, let the uhdmelab do this correctly
           // Unless we are in a package
-          if (m && m->UhdmType() == uhdmpackage)
-            ref->Actual_group((any*)p->Rhs());
+          if (m && m->UhdmType() == uhdmpackage) ref->Actual_group(p->Rhs());
           isParam = true;
           break;
         }

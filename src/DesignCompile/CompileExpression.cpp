@@ -207,7 +207,7 @@ any *CompileHelper::getObject(std::string_view name, DesignComponent *component,
         const std::string_view pname = p->Lhs()->VpiName();
         if (pname == name) {
           if (substituteAssignedValue(p->Rhs(), compileDesign)) {
-            result = (any *)p->Rhs();
+            result = p->Rhs();
             break;
           }
         }
@@ -253,7 +253,7 @@ any *CompileHelper::getObject(std::string_view name, DesignComponent *component,
             const std::string_view pname = p->Lhs()->VpiName();
             if (pname == name) {
               if (substituteAssignedValue(p->Rhs(), compileDesign)) {
-                result = (any *)p->Rhs();
+                result = p->Rhs();
                 break;
               }
             }
@@ -276,7 +276,7 @@ any *CompileHelper::getObject(std::string_view name, DesignComponent *component,
       result = getObject(refname, component, compileDesign, instance, pexpr);
     if (result) {
       if (UHDM::param_assign *passign = any_cast<param_assign *>(result)) {
-        result = (any *)passign->Rhs();
+        result = passign->Rhs();
       }
     }
   }
@@ -932,8 +932,7 @@ any *CompileHelper::getValue(std::string_view name, DesignComponent *component,
                   }
 
                   ElaboratorContext elaboratorContext(&s, false, true);
-                  result =
-                      UHDM::clone_tree((any *)param->Rhs(), &elaboratorContext);
+                  result = UHDM::clone_tree(param->Rhs(), &elaboratorContext);
                   break;
                 }
               }
@@ -1035,8 +1034,7 @@ any *CompileHelper::getValue(std::string_view name, DesignComponent *component,
               }
 
               ElaboratorContext elaboratorContext(&s, false, true);
-              result =
-                  UHDM::clone_tree((any *)param->Rhs(), &elaboratorContext);
+              result = UHDM::clone_tree(param->Rhs(), &elaboratorContext);
               if (result != nullptr) result->VpiParent(param);
               break;
             }
@@ -2432,7 +2430,7 @@ UHDM::any *CompileHelper::compileExpression(
                         if (substituteAssignedValue(param->Rhs(),
                                                     compileDesign)) {
                           ElaboratorContext elaboratorContext(&s, false, true);
-                          result = UHDM::clone_tree((any *)param->Rhs(),
+                          result = UHDM::clone_tree(param->Rhs(),
                                                     &elaboratorContext);
                           result->VpiParent(pexpr);
                           fC->populateCoreMembers(child, child, result);
@@ -2480,7 +2478,7 @@ UHDM::any *CompileHelper::compileExpression(
                         if (substituteAssignedValue(param->Rhs(),
                                                     compileDesign)) {
                           ElaboratorContext elaboratorContext(&s, false, true);
-                          result = UHDM::clone_tree((any *)param->Rhs(),
+                          result = UHDM::clone_tree(param->Rhs(),
                                                     &elaboratorContext);
                           fC->populateCoreMembers(child, child, result);
                         }
@@ -2590,10 +2588,9 @@ UHDM::any *CompileHelper::compileExpression(
                                                         compileDesign)) {
                               ElaboratorContext elaboratorContext(&s, false,
                                                                   true);
-                              result = UHDM::clone_tree((any *)param_ass->Rhs(),
+                              result = UHDM::clone_tree(param_ass->Rhs(),
                                                         &elaboratorContext);
-                              result->VpiParent(
-                                  const_cast<param_assign *>(param_ass));
+                              result->VpiParent(param_ass);
                               fC->populateCoreMembers(child, child, result);
                               typespec *tps = nullptr;
                               const any *lhs = param_ass->Lhs();
@@ -2659,10 +2656,9 @@ UHDM::any *CompileHelper::compileExpression(
                           } else {
                             ElaboratorContext elaboratorContext(&s, false,
                                                                 true);
-                            result = UHDM::clone_tree((any *)param_ass->Rhs(),
+                            result = UHDM::clone_tree(param_ass->Rhs(),
                                                       &elaboratorContext);
-                            result->VpiParent(
-                                const_cast<param_assign *>(param_ass));
+                            result->VpiParent(param_ass);
                             fC->populateCoreMembers(child, child, result);
                           }
                           typespec *tps = nullptr;
@@ -3622,7 +3618,7 @@ bool CompileHelper::errorOnNegativeConstant(DesignComponent *component,
             for (auto ps : *inst->getNetlist()->param_assigns()) {
               std::cout << ps->Lhs()->VpiName() << " = "
                         << "\n";
-              decompile((any *)ps->Rhs());
+              decompile(ps->Rhs());
             }
           }
           inst = inst->getParent();
@@ -5146,7 +5142,7 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
             path->Root_value(expval->Low_conn());
           } else if (UHDM::param_assign *passign =
                          any_cast<param_assign *>(rootValue)) {
-            path->Root_value((any *)passign->Rhs());
+            path->Root_value(passign->Rhs());
             const any *param = passign->Lhs();
             typespec *tps = nullptr;
             if (param->UhdmType() == uhdmparameter) {
@@ -5607,8 +5603,8 @@ void CompileHelper::reorderAssignmentPattern(
       if (ranges) {
         if (level < ranges->size()) {
           range *r = ranges->at(level);
-          expr *lr = (expr *)r->Left_expr();
-          expr *rr = (expr *)r->Right_expr();
+          expr *lr = r->Left_expr();
+          expr *rr = r->Right_expr();
           bool invalidValue = false;
           UHDM::ExprEval eval;
           lr = reduceExpr(lr, invalidValue, mod, compileDesign, instance,
