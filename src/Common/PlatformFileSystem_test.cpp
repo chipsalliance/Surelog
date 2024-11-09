@@ -25,6 +25,11 @@
 
 #include <gtest/gtest.h>
 
+#include <iostream>
+#include <set>
+#include <string_view>
+#include <utility>
+
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Design/Design.h"
 #include "Surelog/Library/Library.h"

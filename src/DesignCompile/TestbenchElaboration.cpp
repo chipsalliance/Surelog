@@ -44,6 +44,9 @@
 #include <uhdm/ref_typespec.h>
 
 #include <queue>
+#include <string>
+#include <string_view>
+#include <vector>
 
 namespace SURELOG {
 

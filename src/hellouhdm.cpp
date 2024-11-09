@@ -27,6 +27,7 @@
 
 #include <functional>
 #include <iostream>
+#include <string>
 
 #include "Surelog/API/Surelog.h"
 #include "Surelog/CommandLine/CommandLineParser.h"

@@ -25,6 +25,7 @@
 #define SURELOG_PRECOMPILED_H
 #pragma once
 
+#include <functional>
 #include <map>
 #include <set>
 #include <string>

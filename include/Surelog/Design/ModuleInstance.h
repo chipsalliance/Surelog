@@ -25,6 +25,10 @@
 #define SURELOG_MODULEINSTANCE_H
 #pragma once
 
+#include <set>
+#include <map>
+#include <vector>
+#include <string>
 #include <Surelog/Common/Containers.h>
 #include <Surelog/Common/NodeId.h>
 #include <Surelog/Common/SymbolId.h>

@@ -26,8 +26,12 @@
 #include <climits>
 #include <filesystem>
 #include <fstream>
+#include <iostream>
+#include <map>
 #include <nlohmann/json.hpp>
+#include <string_view>
 #include <thread>
+#include <vector>
 
 #include "Surelog/API/PythonAPI.h"
 #include "Surelog/CommandLine/CommandLineParser.h"

@@ -25,6 +25,7 @@ limitations under the License.
 #define SURELOG_COMPILER_H
 #pragma once
 
+#include <string_view>
 #include <Surelog/Common/PathId.h>
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/ErrorReporting/ErrorContainer.h>

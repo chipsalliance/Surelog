@@ -25,6 +25,7 @@
 #define SURELOG_LOGLISTENER_H
 #pragma once
 
+#include <string_view>
 #include <deque>
 #include <mutex>
 #include <ostream>

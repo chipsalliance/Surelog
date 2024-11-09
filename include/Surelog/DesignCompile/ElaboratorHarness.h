@@ -25,6 +25,7 @@
 #define SURELOG_ELABORATORHARNESS_H
 #pragma once
 
+#include <string_view>
 #include <string>
 
 namespace SURELOG {

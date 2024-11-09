@@ -41,8 +41,12 @@
 #include <uhdm/vpi_visitor.h>
 
 #include <iomanip>
+#include <set>
 #include <sstream>
 #include <stack>
+#include <string>
+#include <string_view>
+#include <vector>
 
 namespace SURELOG {
 using UHDM::BaseClass;

@@ -27,9 +27,13 @@
 #include <parser/SV3_1aPpLexer.h>
 #include <parser/SV3_1aPpParser.h>
 
+#include <functional>
 #include <iostream>
 #include <regex>
+#include <set>
 #include <string_view>
+#include <utility>
+#include <vector>
 
 #include "Surelog/Cache/PPCache.h"
 #include "Surelog/CommandLine/CommandLineParser.h"

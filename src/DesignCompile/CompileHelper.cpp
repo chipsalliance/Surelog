@@ -64,8 +64,12 @@
 
 #include <climits>
 #include <cstring>
+#include <functional>
 #include <iostream>
+#include <map>
 #include <string>
+#include <string_view>
+#include <utility>
 #include <vector>
 
 namespace SURELOG {

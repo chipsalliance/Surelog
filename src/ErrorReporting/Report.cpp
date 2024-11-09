@@ -27,7 +27,10 @@
 #include <filesystem>
 #include <iostream>
 #include <regex>
+#include <string>
+#include <string_view>
 #include <thread>
+#include <utility>
 
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"

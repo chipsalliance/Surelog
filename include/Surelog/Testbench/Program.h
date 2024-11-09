@@ -25,6 +25,7 @@
 #define SURELOG_PROGRAM_H
 #pragma once
 
+#include <string_view>
 #include <Surelog/Common/ClockingBlockHolder.h>
 #include <Surelog/Common/Containers.h>
 #include <Surelog/Common/SymbolId.h>

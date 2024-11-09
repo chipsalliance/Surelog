@@ -25,6 +25,7 @@
 #define SURELOG_WAIVER_H
 #pragma once
 
+#include <functional>
 #include <Surelog/ErrorReporting/ErrorDefinition.h>
 
 #include <map>

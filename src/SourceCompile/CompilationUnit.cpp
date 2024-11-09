@@ -22,6 +22,9 @@
  */
 #include "Surelog/SourceCompile/CompilationUnit.h"
 
+#include <string_view>
+#include <vector>
+
 namespace SURELOG {
 
 CompilationUnit::CompilationUnit(bool fileunit)

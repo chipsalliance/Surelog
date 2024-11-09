@@ -49,6 +49,10 @@
 #include <uhdm/udp_defn.h>
 
 #include <stack>
+#include <string>
+#include <string_view>
+#include <utility>
+#include <vector>
 
 namespace SURELOG {
 

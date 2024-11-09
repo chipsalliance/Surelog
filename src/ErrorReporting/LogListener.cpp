@@ -23,6 +23,9 @@
 
 #include "Surelog/ErrorReporting/LogListener.h"
 
+#include <iostream>
+#include <string_view>
+
 #include "Surelog/Common/FileSystem.h"
 
 namespace SURELOG {

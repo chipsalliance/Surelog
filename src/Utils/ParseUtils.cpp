@@ -25,6 +25,9 @@
 
 #include <antlr4-runtime.h>
 
+#include <string>
+#include <vector>
+
 namespace SURELOG {
 
 ParseUtils::LineColumn ParseUtils::getLineColumn(antlr4::Token* token) {

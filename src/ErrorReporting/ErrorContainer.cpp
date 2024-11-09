@@ -25,6 +25,11 @@
 
 #include <cstdio>
 #include <iostream>
+#include <map>
+#include <string>
+#include <string_view>
+#include <utility>
+#include <vector>
 
 #include "Surelog/API/PythonAPI.h"
 #include "Surelog/CommandLine/CommandLineParser.h"

@@ -24,7 +24,14 @@
 #include "Surelog/DesignCompile/UhdmWriter.h"
 
 #include <cstring>
+#include <iostream>
+#include <map>
 #include <queue>
+#include <set>
+#include <string>
+#include <string_view>
+#include <utility>
+#include <vector>
 
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"

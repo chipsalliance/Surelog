@@ -23,7 +23,11 @@
 
 #include "Surelog/Library/LibrarySet.h"
 
+#include <iostream>
+#include <map>
 #include <sstream>
+#include <string>
+#include <string_view>
 
 #include "Surelog/ErrorReporting/ErrorContainer.h"
 #include "Surelog/Library/Library.h"

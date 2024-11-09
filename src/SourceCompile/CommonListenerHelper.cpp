@@ -25,6 +25,9 @@
 
 #include <antlr4-runtime.h>
 
+#include <string_view>
+#include <vector>
+
 #include "Surelog/Design/DesignElement.h"
 #include "Surelog/Design/FileContent.h"
 

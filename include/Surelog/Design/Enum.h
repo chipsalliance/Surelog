@@ -25,6 +25,9 @@
 #define SURELOG_ENUM_H
 #pragma once
 
+#include <functional>
+#include <utility>
+#include <string_view>
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/DataType.h>
 

@@ -51,8 +51,14 @@
 #include <uhdm/uhdm.h>
 
 #include <cstring>
+#include <functional>
+#include <iostream>
 #include <queue>
+#include <set>
+#include <string>
 #include <unordered_set>
+#include <utility>
+#include <vector>
 
 namespace SURELOG {
 DesignElaboration::DesignElaboration(CompileDesign* compileDesign)

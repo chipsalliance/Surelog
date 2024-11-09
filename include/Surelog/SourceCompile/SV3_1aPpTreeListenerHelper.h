@@ -25,6 +25,7 @@
 #define SURELOG_SV3_1APPTREELISTENERHELPER_H
 #pragma once
 
+#include <string_view>
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/ErrorReporting/ErrorDefinition.h>
 #include <Surelog/ErrorReporting/Location.h>

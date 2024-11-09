@@ -28,6 +28,10 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
+#include <string>
+#include <string_view>
+#include <vector>
+
 #include "Surelog/API/PythonAPI.h"
 #include "Surelog/Cache/Cache.h"
 #include "Surelog/CommandLine/CommandLineParser.h"

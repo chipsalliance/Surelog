@@ -23,8 +23,12 @@
 
 #include "Surelog/SourceCompile/AnalyzeFile.h"
 
+#include <iostream>
 #include <regex>
 #include <sstream>
+#include <string>
+#include <string_view>
+#include <vector>
 
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"

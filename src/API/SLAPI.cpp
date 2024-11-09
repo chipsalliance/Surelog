@@ -31,6 +31,8 @@
 #include <antlr4-runtime.h>
 
 #include <iostream>
+#include <string>
+#include <vector>
 
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Design/Design.h"

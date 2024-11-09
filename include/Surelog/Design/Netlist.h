@@ -26,6 +26,8 @@
 #pragma once
 
 // UHDM
+#include <functional>
+#include <utility>
 #include <uhdm/uhdm_forward_decl.h>
 
 #include <map>

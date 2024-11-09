@@ -23,7 +23,12 @@
 
 #include "Surelog/CommandLine/CommandLineParser.h"
 
+#include <map>
 #include <nlohmann/json.hpp>
+#include <string>
+#include <string_view>
+#include <utility>
+#include <vector>
 
 #include "Surelog/API/PythonAPI.h"
 #include "Surelog/Common/PlatformFileSystem.h"

@@ -53,7 +53,13 @@
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/uhdm.h>
 
+#include <functional>
 #include <iostream>
+#include <map>
+#include <string>
+#include <string_view>
+#include <utility>
+#include <vector>
 
 namespace SURELOG {
 

@@ -23,6 +23,8 @@
 
 #include "Surelog/Package/Package.h"
 
+#include <string_view>
+
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Testbench/ClassDefinition.h"
 

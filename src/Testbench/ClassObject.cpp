@@ -23,6 +23,8 @@
 
 #include "Surelog/Testbench/ClassObject.h"
 
+#include <string_view>
+
 #include "Surelog/Testbench/ClassDefinition.h"
 
 namespace SURELOG {

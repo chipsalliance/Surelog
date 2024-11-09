@@ -24,6 +24,7 @@
 #include "Surelog/Expression/Value.h"
 
 #include <cmath>
+#include <string>
 
 #include "Surelog/Utils/NumUtils.h"
 #include "Surelog/Utils/StringUtils.h"

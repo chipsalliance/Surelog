@@ -21,6 +21,7 @@
 #include <uhdm/constant.h>
 
 #include <limits>
+#include <string_view>
 
 namespace SURELOG {
 

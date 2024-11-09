@@ -37,6 +37,10 @@
 // UHDM
 #include <uhdm/package.h>
 
+#include <string>
+#include <string_view>
+#include <vector>
+
 namespace SURELOG {
 
 int32_t FunctorCreateLookup::operator()() const {

@@ -24,6 +24,9 @@
 #if defined(_MSC_VER)
 #include <direct.h>
 #include <process.h>
+
+#include <string_view>
+#include <utility>
 #else
 #include <sys/param.h>
 #include <unistd.h>

@@ -25,6 +25,10 @@
 #define SURELOG_UHDMWRITER_H
 #pragma once
 
+#include <functional>
+#include <map>
+#include <vector>
+#include <string_view>
 #include <Surelog/Design/DesignComponent.h>
 #include <Surelog/DesignCompile/CompileHelper.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>

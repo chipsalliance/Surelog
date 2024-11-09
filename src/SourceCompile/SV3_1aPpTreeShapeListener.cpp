@@ -16,7 +16,12 @@
 
 #include "Surelog/SourceCompile/SV3_1aPpTreeShapeListener.h"
 
+#include <iostream>
 #include <regex>
+#include <set>
+#include <string>
+#include <string_view>
+#include <vector>
 
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"

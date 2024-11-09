@@ -24,6 +24,10 @@
 #include "Surelog/DesignCompile/NetlistElaboration.h"
 
 #include <algorithm>
+#include <map>
+#include <set>
+#include <string>
+#include <vector>
 
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"

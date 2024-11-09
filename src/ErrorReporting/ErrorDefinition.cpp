@@ -22,6 +22,9 @@
  */
 #include "Surelog/ErrorReporting/ErrorDefinition.h"
 
+#include <string>
+#include <string_view>
+
 #include "Surelog/Utils/NumUtils.h"
 #include "Surelog/Utils/StringUtils.h"
 

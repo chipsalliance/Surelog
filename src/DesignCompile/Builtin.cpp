@@ -44,6 +44,7 @@
 #include <uhdm/Serializer.h>
 #include <uhdm/package.h>
 
+#include <string>
 #include <string_view>
 #include <vector>
 

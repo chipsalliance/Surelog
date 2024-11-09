@@ -25,6 +25,8 @@
 #define SURELOG_ELABORATIONSTEP_H
 #pragma once
 
+#include <map>
+#include <string_view>
 #include <Surelog/DesignCompile/CompileHelper.h>
 #include <Surelog/ErrorReporting/ErrorDefinition.h>
 #include <Surelog/Expression/ExprBuilder.h>

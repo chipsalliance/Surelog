@@ -25,6 +25,7 @@
 #define SURELOG_VALUEDCOMPONENTI_H
 #pragma once
 
+#include <utility>
 #include <Surelog/Common/Containers.h>
 #include <Surelog/Common/RTTI.h>
 

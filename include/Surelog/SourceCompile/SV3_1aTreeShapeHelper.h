@@ -25,6 +25,7 @@
 #define SURELOG_SV3_1ATREESHAPEHELPER_H
 #pragma once
 
+#include <utility>
 #include <Surelog/Design/DesignElement.h>
 #include <Surelog/ErrorReporting/ErrorDefinition.h>
 #include <Surelog/ErrorReporting/Location.h>

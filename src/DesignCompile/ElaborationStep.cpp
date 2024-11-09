@@ -24,7 +24,13 @@
 #include "Surelog/DesignCompile/ElaborationStep.h"
 
 #include <cstring>
+#include <functional>
+#include <map>
 #include <queue>
+#include <string>
+#include <string_view>
+#include <utility>
+#include <vector>
 
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"

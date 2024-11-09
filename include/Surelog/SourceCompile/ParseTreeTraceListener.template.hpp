@@ -27,6 +27,8 @@
 #define SURELOG_PARSETREETRACELISTENER_H
 #pragma once
 
+#include <string_view>
+#include <string>
 #include <Surelog/SourceCompile/ParseTreeListener.h>
 
 #include <filesystem>

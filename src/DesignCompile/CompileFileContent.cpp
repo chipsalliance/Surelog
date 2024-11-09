@@ -24,6 +24,7 @@
 #include "Surelog/DesignCompile/CompileFileContent.h"
 
 #include <stack>
+#include <vector>
 
 #include "Surelog/Design/FileContent.h"
 

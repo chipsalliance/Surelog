@@ -23,6 +23,8 @@
 
 #include "Surelog/Library/AntlrLibParserErrorListener.h"
 
+#include <string>
+
 #include "Surelog/ErrorReporting/ErrorContainer.h"
 #include "Surelog/Library/ParseLibraryDef.h"
 #include "Surelog/SourceCompile/SymbolTable.h"

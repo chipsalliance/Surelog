@@ -27,6 +27,7 @@
 #define SURELOG_PARSETREELISTENER_H
 #pragma once
 
+#include <string>
 #include <Surelog/Common/NodeId.h>
 #include <Surelog/Common/PathId.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
