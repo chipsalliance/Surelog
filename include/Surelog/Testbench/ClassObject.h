@@ -39,8 +39,8 @@ class Value;
 
 class ClassObject final {
  public:
-  typedef std::map<std::string, std::pair<Property*, Value*>, std::less<>>
-      PropertyValueMap;
+  using PropertyValueMap =
+      std::map<std::string, std::pair<Property*, Value*>, std::less<>>;
 
   explicit ClassObject(ClassDefinition* class_def) : m_class(class_def) {}
   ClassDefinition* getClass() { return m_class; }

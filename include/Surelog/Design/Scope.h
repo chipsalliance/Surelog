@@ -42,10 +42,10 @@ class Variable;
 class Scope : public RTTI {
   SURELOG_IMPLEMENT_RTTI(Scope, RTTI)
  public:
-  typedef std::map<std::string, Variable*, std::less<>> VariableMap;
-  typedef std::map<std::string, DataType*, std::less<>> DataTypeMap;
-  typedef std::vector<Statement*> StmtVector;
-  typedef std::vector<Scope*> ScopeVector;
+  using VariableMap = std::map<std::string, Variable*, std::less<>>;
+  using DataTypeMap = std::map<std::string, DataType*, std::less<>>;
+  using StmtVector = std::vector<Statement*>;
+  using ScopeVector = std::vector<Scope*>;
 
   Scope(std::string_view name, Scope* parent)
       : m_name(name), m_parentScope(parent) {}

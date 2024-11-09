@@ -45,7 +45,7 @@ class Value;
 class Statement : public RTTI {
   SURELOG_IMPLEMENT_RTTI(Statement, RTTI)
  public:
-  typedef std::vector<Statement*> StatementVector;
+  using StatementVector = std::vector<Statement*>;
   Statement(Scope* scope, Statement* parentStmt, const FileContent* fileContent,
             NodeId node, VObjectType type)
       : m_scope(scope),

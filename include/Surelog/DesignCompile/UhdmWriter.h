@@ -52,13 +52,13 @@ class Signal;
 
 class UhdmWriter final {
  public:
-  typedef std::map<ModPort*, UHDM::modport*> ModPortMap;
-  typedef std::map<const ValuedComponentI*, UHDM::BaseClass*> ComponentMap;
-  typedef std::map<std::string_view, UHDM::BaseClass*> ModuleMap;
-  typedef std::map<Signal*, UHDM::BaseClass*> SignalBaseClassMap;
-  typedef std::map<std::string, Signal*, std::less<>> SignalMap;
-  typedef std::map<ModuleInstance*, UHDM::BaseClass*> InstanceMap;
-  typedef std::map<std::string, UHDM::BaseClass*> VpiSignalMap;
+  using ModPortMap = std::map<ModPort*, UHDM::modport*>;
+  using ComponentMap = std::map<const ValuedComponentI*, UHDM::BaseClass*>;
+  using ModuleMap = std::map<std::string_view, UHDM::BaseClass*>;
+  using SignalBaseClassMap = std::map<Signal*, UHDM::BaseClass*>;
+  using SignalMap = std::map<std::string, Signal*, std::less<>>;
+  using InstanceMap = std::map<ModuleInstance*, UHDM::BaseClass*>;
+  using VpiSignalMap = std::map<std::string, UHDM::BaseClass*>;
 
   UhdmWriter(CompileDesign* compiler, Design* design);
 

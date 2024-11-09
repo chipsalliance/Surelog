@@ -49,7 +49,7 @@ class ModuleInstance;
 class DesignComponent;
 class ErrorContainer;
 
-typedef std::vector<uint32_t> UIntVector;
+using UIntVector = std::vector<uint32_t>;
 
 /* Error DB API  */
 void SLsetWaiver(const char* messageId, const char* fileName = nullptr,

@@ -59,8 +59,8 @@ class SymbolTable;
 
 class Compiler {
  public:
-  typedef std::map<PathId, std::vector<PathId>, PathIdLessThanComparer>
-      PPFileMap;
+  using PPFileMap =
+      std::map<PathId, std::vector<PathId>, PathIdLessThanComparer>;
   Compiler(CommandLineParser* commandLineParser, ErrorContainer* errors,
            SymbolTable* symbolTable);
   Compiler(CommandLineParser* commandLineParser, ErrorContainer* errors,

@@ -56,7 +56,7 @@ class Statement;
 class SymbolTable;
 class Task;
 class TfPortItem;
-typedef std::vector<TfPortItem*> TfPortList;
+using TfPortList = std::vector<TfPortItem*>;
 
 class FScope : public ValuedComponentI {
   SURELOG_IMPLEMENT_RTTI(FScope, ValuedComponentI)
@@ -68,7 +68,7 @@ class FScope : public ValuedComponentI {
  private:
 };
 
-typedef std::vector<FScope*> Scopes;
+using Scopes = std::vector<FScope*>;
 enum class Reduce : bool { Yes = true, No = false };
 
 class CompileHelper final {

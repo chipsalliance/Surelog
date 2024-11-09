@@ -70,14 +70,14 @@ class ClassDefinition final : public DesignComponent, public DataType {
   UHDM::class_defn* getUhdmDefinition() const { return m_uhdm_definition; }
 
   // Parameter definitions are stored DesignComponent maps
-  typedef std::map<std::string, Property*, StringViewCompare> PropertyMap;
-  typedef std::map<std::string, TaskMethod*, StringViewCompare> TaskMap;
-  typedef std::map<std::string, Constraint*, StringViewCompare> ConstraintMap;
-  typedef std::map<std::string, const DataType*, StringViewCompare>
-      BaseClassMap;
-  typedef std::map<std::string, ClassDefinition*, StringViewCompare> ClassMap;
-  typedef std::map<std::string, CoverGroupDefinition*, StringViewCompare>
-      CoverGroupMap;
+  using PropertyMap = std::map<std::string, Property*, StringViewCompare>;
+  using TaskMap = std::map<std::string, TaskMethod*, StringViewCompare>;
+  using ConstraintMap = std::map<std::string, Constraint*, StringViewCompare>;
+  using BaseClassMap =
+      std::map<std::string, const DataType*, StringViewCompare>;
+  using ClassMap = std::map<std::string, ClassDefinition*, StringViewCompare>;
+  using CoverGroupMap =
+      std::map<std::string, CoverGroupDefinition*, StringViewCompare>;
 
   const PropertyMap& getPropertyMap() const { return m_properties; }
   Property* getProperty(std::string_view name) const;

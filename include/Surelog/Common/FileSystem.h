@@ -106,8 +106,8 @@ class FileSystem {
   static constexpr std::string_view kParserCacheDirName = kCacheDirName;
   static constexpr std::string_view kPythonCacheDirName = kCacheDirName;
 
-  typedef std::map<std::string, std::string, std::less<>>
-      filepath_to_working_directories_cache_t;
+  using filepath_to_working_directories_cache_t =
+      std::map<std::string, std::string, std::less<>>;
 
  public:
   static FileSystem *getInstance();

@@ -32,7 +32,7 @@ namespace SURELOG {
  * currently owned by FileContent.
  *
  */
-typedef uint32_t RawNodeId;
+using RawNodeId = uint32_t;
 inline static constexpr RawNodeId InvalidRawNodeId =
     0;  // Max of 28 bits as per cache!
 class NodeId final {
@@ -154,9 +154,9 @@ struct NodeIdLessThanComparer final {
   }
 };
 
-typedef std::set<NodeId, NodeIdLessThanComparer> NodeIdSet;
-typedef std::unordered_set<NodeId, NodeIdHasher, NodeIdEqualityComparer>
-    NodeIdUnorderedSet;
+using NodeIdSet = std::set<NodeId, NodeIdLessThanComparer>;
+using NodeIdUnorderedSet =
+    std::unordered_set<NodeId, NodeIdHasher, NodeIdEqualityComparer>;
 
 }  // namespace SURELOG
 

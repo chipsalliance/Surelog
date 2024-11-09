@@ -54,13 +54,13 @@ class PlatformFileSystem /*final*/ : public FileSystem {
     std::filesystem::path m_sourceDir;
     std::filesystem::path m_cacheDir;
   };
-  typedef std::vector<Configuration> Configurations;
+  using Configurations = std::vector<Configuration>;
 
   struct Mapping final {
     std::string m_what;
     std::string m_with;
   };
-  typedef std::vector<Mapping> Mappings;
+  using Mappings = std::vector<Mapping>;
 
  public:
   PathId toPathId(std::string_view path, SymbolTable *symbolTable) override;
@@ -202,7 +202,7 @@ class PlatformFileSystem /*final*/ : public FileSystem {
   // ref: https://stackoverflow.com/a/18940595
   template <class T>
   struct Comparer final {
-    typedef std::true_type is_transparent;
+    using is_transparent = std::true_type;
     // helper does some magic in order to reduce the number of
     // pairs of types we need to know how to compare: it turns
     // everything into a pointer, and then uses `std::less<T*>`
@@ -231,10 +231,10 @@ class PlatformFileSystem /*final*/ : public FileSystem {
     }
   };
 
-  typedef std::set<std::unique_ptr<std::istream>, Comparer<std::istream>>
-      InputStreams;
-  typedef std::set<std::unique_ptr<std::ostream>, Comparer<std::ostream>>
-      OutputStreams;
+  using InputStreams =
+      std::set<std::unique_ptr<std::istream>, Comparer<std::istream>>;
+  using OutputStreams =
+      std::set<std::unique_ptr<std::ostream>, Comparer<std::ostream>>;
 
   const std::filesystem::path m_workingDir;
 

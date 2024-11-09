@@ -24,23 +24,23 @@ class Package;
 class Program;
 class MacroInfo;
 
-typedef std::map<std::string, ModuleDefinition*, StringViewCompare>
-    ModuleNameModuleDefinitionMap;
-typedef std::multimap<std::string, Package*, StringViewCompare>
-    PackageNamePackageDefinitionMultiMap;
-typedef std::vector<Package*> PackageDefinitionVec;
-typedef std::map<std::string, Program*, StringViewCompare>
-    ProgramNameProgramDefinitionMap;
+using ModuleNameModuleDefinitionMap =
+    std::map<std::string, ModuleDefinition *, StringViewCompare>;
+using PackageNamePackageDefinitionMultiMap =
+    std::multimap<std::string, Package *, StringViewCompare>;
+using PackageDefinitionVec = std::vector<Package *>;
+using ProgramNameProgramDefinitionMap =
+    std::map<std::string, Program *, StringViewCompare>;
 
-typedef std::multimap<std::string, ClassDefinition*, StringViewCompare>
-    ClassNameClassDefinitionMultiMap;
-typedef std::map<std::string, ClassDefinition*, StringViewCompare>
-    ClassNameClassDefinitionMap;
+using ClassNameClassDefinitionMultiMap =
+    std::multimap<std::string, ClassDefinition *, StringViewCompare>;
+using ClassNameClassDefinitionMap =
+    std::map<std::string, ClassDefinition *, StringViewCompare>;
 
-typedef std::map<std::string, std::vector<MacroInfo*>, StringViewCompare>
-    MacroStorage;
-typedef std::map<std::string, std::vector<MacroInfo*>, StringViewCompare>
-    MacroStorageRef;
+using MacroStorage =
+    std::map<std::string, std::vector<MacroInfo *>, StringViewCompare>;
+using MacroStorageRef =
+    std::map<std::string, std::vector<MacroInfo *>, StringViewCompare>;
 
 }  // namespace SURELOG
 

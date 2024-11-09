@@ -255,7 +255,7 @@ class PreprocessFile final {
     Type m_type = Type::IFDEF;
     bool m_previousActiveState = false;
   };
-  typedef std::vector<IfElseItem> IfElseStack;
+  using IfElseStack = std::vector<IfElseItem>;
   IfElseStack m_ifStack;
   IfElseStack& getStack();
 

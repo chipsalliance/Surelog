@@ -56,8 +56,8 @@ class ModuleInstance final : public ValuedComponentI {
                  std::string_view instName, std::string_view moduleName);
   ~ModuleInstance() final;
 
-  typedef std::map<UHDM::module_array*, std::vector<ModuleInstance*>>
-      ModuleArrayModuleInstancesMap;
+  using ModuleArrayModuleInstancesMap =
+      std::map<UHDM::module_array*, std::vector<ModuleInstance*>>;
 
   void addSubInstance(ModuleInstance* subInstance);
   std::vector<ModuleInstance*>& getAllSubInstances() {

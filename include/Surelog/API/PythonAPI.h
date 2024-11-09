@@ -30,7 +30,7 @@
 #include <vector>
 
 struct _ts;
-typedef struct _ts PyThreadState;
+using PyThreadState = struct _ts;
 
 namespace SURELOG {
 

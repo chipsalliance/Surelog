@@ -40,8 +40,8 @@ class SymbolTable;
 
 class Library final {
  public:
-  typedef std::map<SymbolId, ModuleDefinition*, SymbolIdLessThanComparer>
-      ModuleDefinitionByNameMap;
+  using ModuleDefinitionByNameMap =
+      std::map<SymbolId, ModuleDefinition*, SymbolIdLessThanComparer>;
 
  public:
   Library(std::string_view name, SymbolTable* symbols);

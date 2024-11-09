@@ -43,7 +43,7 @@ namespace SURELOG {
  * of it outside of the SURELOG::FileSystem context.
  *
  */
-typedef uint32_t RawPathId;
+using RawPathId = uint32_t;
 inline static constexpr RawPathId BadRawPathId = 0;
 inline static constexpr std::string_view BadRawPath = BadRawSymbol;
 
@@ -141,10 +141,10 @@ struct PathIdLessThanComparer final {
   }
 };
 
-typedef std::set<PathId, PathIdLessThanComparer> PathIdSet;
-typedef std::unordered_set<PathId, PathIdHasher, PathIdEqualityComparer>
-    PathIdUnorderedSet;
-typedef std::vector<PathId> PathIdVector;
+using PathIdSet = std::set<PathId, PathIdLessThanComparer>;
+using PathIdUnorderedSet =
+    std::unordered_set<PathId, PathIdHasher, PathIdEqualityComparer>;
+using PathIdVector = std::vector<PathId>;
 
 }  // namespace SURELOG
 

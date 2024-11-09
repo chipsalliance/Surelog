@@ -103,7 +103,7 @@ class CommonListenerHelper {
   FileContent* m_fileContent;
   antlr4::CommonTokenStream* const m_tokens;
 
-  typedef std::map<const antlr4::tree::ParseTree*, NodeId> ContextToObjectMap;
+  using ContextToObjectMap = std::map<const antlr4::tree::ParseTree*, NodeId>;
   ContextToObjectMap m_contextToObjectMap;
 };
 
