@@ -57,7 +57,7 @@ class Value : public RTTI {
     Scalar
   };
 
-  ~Value() override {}
+  ~Value() override = default;
 
   virtual int32_t getSize() const = 0;  // size in bits
   virtual int32_t getSize(

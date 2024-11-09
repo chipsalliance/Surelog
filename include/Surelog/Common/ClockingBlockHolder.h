@@ -37,7 +37,7 @@ class ClockingBlockHolder {
   using ClockingBlockMap =
       std::multimap<SymbolId, ClockingBlock, SymbolIdLessThanComparer>;
 
-  virtual ~ClockingBlockHolder() {}  // virtual as used as interface
+  virtual ~ClockingBlockHolder() = default;  // virtual as used as interface
 
   ClockingBlockMap& getClockingBlockMap() { return m_clockingBlockMap; }
   void addClockingBlock(SymbolId blockId, ClockingBlock& block);

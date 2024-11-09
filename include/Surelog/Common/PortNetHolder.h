@@ -36,7 +36,7 @@ class Signal;
 
 class PortNetHolder {
  public:
-  virtual ~PortNetHolder() {}  // virtual as used as interface
+  virtual ~PortNetHolder() = default;  // virtual as used as interface
 
   std::vector<Signal*>& getPorts() { return m_ports; }
   std::vector<Signal*>& getSignals() { return m_signals; }

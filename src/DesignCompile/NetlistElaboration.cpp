@@ -76,7 +76,7 @@ NetlistElaboration::NetlistElaboration(CompileDesign* compileDesign)
   m_errors = m_compileDesign->getCompiler()->getErrorContainer();
 }
 
-NetlistElaboration::~NetlistElaboration() {}
+NetlistElaboration::~NetlistElaboration() = default;
 
 bool NetlistElaboration::elaboratePackages() {
   Design* design = m_compileDesign->getCompiler()->getDesign();

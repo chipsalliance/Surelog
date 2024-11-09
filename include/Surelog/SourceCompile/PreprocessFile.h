@@ -200,13 +200,8 @@ class PreprocessFile final {
           m_evaluate(Evaluate),
           m_persist(DontPersist) {}
     SpecialInstructions(SpecialInstructions& rhs)
-        : m_mute(rhs.m_mute),
-          m_mark_empty_macro(rhs.m_mark_empty_macro),
-          m_filterFileLine(rhs.m_filterFileLine),
-          m_check_macro_loop(rhs.m_check_macro_loop),
-          m_as_is_undefined_macro(rhs.m_as_is_undefined_macro),
-          m_evaluate(rhs.m_evaluate),
-          m_persist(rhs.m_persist) {}
+
+        = default;
     SpecialInstructions(TraceInstr mute, EmptyMacroInstr mark_empty_macro,
                         FileLineInfoInstr filterFileLine,
                         CheckLoopInstr check_macro_loop,

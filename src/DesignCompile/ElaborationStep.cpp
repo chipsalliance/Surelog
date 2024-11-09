@@ -82,7 +82,7 @@ ElaborationStep::ElaborationStep(CompileDesign* compileDesign)
   m_errors = m_compileDesign->getCompiler()->getErrorContainer();
 }
 
-ElaborationStep::~ElaborationStep() {}
+ElaborationStep::~ElaborationStep() = default;
 
 bool ElaborationStep::bindTypedefs_() {
   FileSystem* const fileSystem = FileSystem::getInstance();

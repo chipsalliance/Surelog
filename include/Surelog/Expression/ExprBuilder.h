@@ -40,7 +40,7 @@ class ValuedComponentI;
 
 class ExprBuilder final {
  public:
-  ExprBuilder() {}
+  ExprBuilder() = default;
   Value* evalExpr(const FileContent*, NodeId id,
                   ValuedComponentI* instance = nullptr,
                   bool muteErrors = false);

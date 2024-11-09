@@ -71,7 +71,7 @@ DesignElaboration::DesignElaboration(CompileDesign* compileDesign)
   m_exprBuilder.setDesign(m_compileDesign->getCompiler()->getDesign());
 }
 
-DesignElaboration::~DesignElaboration() {}
+DesignElaboration::~DesignElaboration() = default;
 
 bool DesignElaboration::elaborate() {
   createBuiltinPrimitives_();

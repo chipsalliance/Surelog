@@ -49,7 +49,7 @@ class Scope : public RTTI {
 
   Scope(std::string_view name, Scope* parent)
       : m_name(name), m_parentScope(parent) {}
-  ~Scope() override {}
+  ~Scope() override = default;
 
   std::string_view getName() const { return m_name; }
   Scope* getParentScope() { return m_parentScope; }

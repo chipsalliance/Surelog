@@ -39,7 +39,7 @@ Parameter::Parameter(const FileContent* fC, NodeId nodeId,
   m_category = DataType::Category::PARAMETER;
 }
 
-Parameter::~Parameter() {}
+Parameter::~Parameter() = default;
 
 VObjectType Parameter::getType() const {
   return getFileContent()->Type(m_ntype);

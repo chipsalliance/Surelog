@@ -46,7 +46,7 @@ class SymbolTable final : public UHDM::SymbolFactory {
  private:
   // Create a snapshot of the current symbol table. Private, as this
   // functionality should be explicitly accessed through CreateSnapshot().
-  SymbolTable(const SymbolTable& parent) : SymbolFactory(parent) {}
+  SymbolTable(const SymbolTable& parent) = default;
 };
 }  // namespace SURELOG
 

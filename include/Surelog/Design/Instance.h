@@ -29,7 +29,7 @@ namespace SURELOG {
 
 class Instance final {
  public:
-  Instance() {}
+  Instance() = default;
   Instance(const Instance& orig) = delete;
 };
 

@@ -39,7 +39,7 @@ class NodeId final {
  public:
   constexpr NodeId() : NodeId(InvalidRawNodeId) {}
   constexpr explicit NodeId(RawNodeId id) : id(id) {}
-  constexpr NodeId(const NodeId &rhs) : id(rhs.id) {}
+  constexpr NodeId(const NodeId &rhs) = default;
 
   operator RawNodeId() const { return id; }  // NOLINT
 

@@ -35,5 +35,5 @@ DummyType::DummyType(const FileContent* fC, NodeId nameId, NodeId structId)
   m_category = DataType::Category::DUMMY;
 }
 
-DummyType::~DummyType() {}
+DummyType::~DummyType() = default;
 }  // namespace SURELOG

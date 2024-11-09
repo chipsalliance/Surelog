@@ -48,7 +48,7 @@ class AntlrParserErrorListener final : public antlr4::ANTLRErrorListener {
         m_fileId(fileId),
         m_printExtraPpLineInfo(printExtraPpLineInfo) {}
 
-  ~AntlrParserErrorListener() final{};
+  ~AntlrParserErrorListener() final = default;
 
   void syntaxError(antlr4::Recognizer *recognizer,
                    antlr4::Token *offendingSymbol, size_t line,

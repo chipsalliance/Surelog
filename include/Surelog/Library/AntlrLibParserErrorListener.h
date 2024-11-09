@@ -40,7 +40,7 @@ class AntlrLibParserErrorListener final : public antlr4::ANTLRErrorListener {
   explicit AntlrLibParserErrorListener(ParseLibraryDef *parser)
       : m_parser(parser) {}
 
-  ~AntlrLibParserErrorListener() final{};
+  ~AntlrLibParserErrorListener() final = default;
 
   void syntaxError(antlr4::Recognizer *recognizer,
                    antlr4::Token *offendingSymbol, size_t line,

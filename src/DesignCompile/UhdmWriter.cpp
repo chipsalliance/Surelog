@@ -1973,7 +1973,7 @@ bool UhdmWriter::writeElabProgram(Serializer& s, ModuleInstance* instance,
 
 class DetectUnsizedConstant final : public VpiListener {
  public:
-  DetectUnsizedConstant() {}
+  DetectUnsizedConstant() = default;
   bool unsizedDetected() { return unsized_; }
 
  private:

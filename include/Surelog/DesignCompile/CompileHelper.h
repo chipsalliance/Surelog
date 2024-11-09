@@ -73,7 +73,7 @@ enum class Reduce : bool { Yes = true, No = false };
 
 class CompileHelper final {
  public:
-  CompileHelper() {}
+  CompileHelper() = default;
 
   void seterrorReporting(ErrorContainer* errors, SymbolTable* symbols) {
     m_errors = errors;

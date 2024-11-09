@@ -646,7 +646,7 @@ SV3_1aTreeShapeListener::SV3_1aTreeShapeListener(
     ParseFile *pf, antlr4::CommonTokenStream *tokens, uint32_t lineOffset)
     : SV3_1aTreeShapeHelper::SV3_1aTreeShapeHelper(pf, tokens, lineOffset) {}
 
-SV3_1aTreeShapeListener::~SV3_1aTreeShapeListener() {}
+SV3_1aTreeShapeListener::~SV3_1aTreeShapeListener() = default;
 
 void SV3_1aTreeShapeListener::enterPackage_declaration(
     SV3_1aParser::Package_declarationContext *ctx) {
