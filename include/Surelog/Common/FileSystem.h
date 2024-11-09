@@ -25,6 +25,7 @@
 #define SURELOG_FILESYSTEM_H
 #pragma once
 
+#include <functional>
 #include <set>
 #include <utility>
 #include <vector>

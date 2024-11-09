@@ -25,6 +25,7 @@
 #define SURELOG_DESIGN_H
 #pragma once
 
+#include <functional>
 #include <utility>
 #include <string_view>
 #include <string>

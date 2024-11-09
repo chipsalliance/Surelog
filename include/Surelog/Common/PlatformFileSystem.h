@@ -25,6 +25,7 @@
 #define SURELOG_PLATFORMFILESYSTEM_H
 #pragma once
 
+#include <functional>
 #include <utility>
 #include <vector>
 #include <string_view>

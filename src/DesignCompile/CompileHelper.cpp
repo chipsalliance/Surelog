@@ -64,6 +64,7 @@
 
 #include <climits>
 #include <cstring>
+#include <functional>
 #include <iostream>
 #include <map>
 #include <string>

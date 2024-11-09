@@ -25,6 +25,7 @@
 #define SURELOG_UHDMWRITER_H
 #pragma once
 
+#include <functional>
 #include <map>
 #include <vector>
 #include <string_view>

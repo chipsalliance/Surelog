@@ -51,6 +51,7 @@
 #include <uhdm/uhdm.h>
 
 #include <cstring>
+#include <functional>
 #include <queue>
 #include <set>
 #include <string>

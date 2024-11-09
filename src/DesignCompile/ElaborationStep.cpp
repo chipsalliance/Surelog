@@ -24,6 +24,7 @@
 #include "Surelog/DesignCompile/ElaborationStep.h"
 
 #include <cstring>
+#include <functional>
 #include <map>
 #include <queue>
 #include <string>

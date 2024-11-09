@@ -25,6 +25,7 @@
 #define SURELOG_DESIGNELABORATION_H
 #pragma once
 
+#include <functional>
 #include <set>
 #include <map>
 #include <utility>
