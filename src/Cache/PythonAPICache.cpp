@@ -29,6 +29,7 @@
 #include <sys/types.h>
 
 #include <string>
+#include <string_view>
 
 #include "Surelog/API/PythonAPI.h"
 #include "Surelog/Cache/Cache.h"

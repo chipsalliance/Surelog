@@ -24,6 +24,7 @@
 #include "Surelog/SourceCompile/SV3_1aTreeShapeHelper.h"
 
 #include <string>
+#include <string_view>
 
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Design/FileContent.h"

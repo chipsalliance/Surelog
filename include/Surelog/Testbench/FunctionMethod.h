@@ -25,6 +25,7 @@
 #define SURELOG_FUNCTIONMETHOD_H
 #pragma once
 
+#include <string_view>
 #include <Surelog/Design/Function.h>
 
 namespace SURELOG {

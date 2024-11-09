@@ -28,6 +28,7 @@
 #include <iostream>
 #include <regex>
 #include <string>
+#include <string_view>
 #include <thread>
 
 #include "Surelog/CommandLine/CommandLineParser.h"

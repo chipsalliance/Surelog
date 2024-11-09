@@ -25,6 +25,7 @@
 #define SURELOG_TYPEDEF_H
 #pragma once
 
+#include <string_view>
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/DataType.h>
 

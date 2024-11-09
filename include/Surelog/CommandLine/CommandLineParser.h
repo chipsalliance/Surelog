@@ -25,6 +25,7 @@
 #define SURELOG_COMMANDLINEPARSER_H
 #pragma once
 
+#include <string_view>
 #include <Surelog/Common/PathId.h>
 #include <Surelog/Common/SymbolId.h>
 

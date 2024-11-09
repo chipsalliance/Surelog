@@ -23,6 +23,8 @@
 
 #include "Surelog/Testbench/TypeDef.h"
 
+#include <string_view>
+
 #include "Surelog/Design/FileContent.h"
 
 namespace SURELOG {

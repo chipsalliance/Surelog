@@ -23,6 +23,8 @@
 
 #include "Surelog/ErrorReporting/LogListener.h"
 
+#include <string_view>
+
 #include "Surelog/Common/FileSystem.h"
 
 namespace SURELOG {

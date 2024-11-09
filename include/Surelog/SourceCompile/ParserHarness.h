@@ -25,6 +25,7 @@
 #define SURELOG_PARSERHARNESS_H
 #pragma once
 
+#include <string_view>
 #include <memory>
 #include <string>
 

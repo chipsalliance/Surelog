@@ -28,6 +28,7 @@
 #include <iostream>
 #include <mutex>
 #include <string>
+#include <string_view>
 
 #include "Surelog/SourceCompile/SymbolTable.h"
 #include "Surelog/Utils/StringUtils.h"

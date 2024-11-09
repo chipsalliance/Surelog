@@ -23,6 +23,8 @@
 
 #include "Surelog/Config/Config.h"
 
+#include <string_view>
+
 namespace SURELOG {
 UseClause* Config::getInstanceUseClause(std::string_view instance) {
   const auto found = m_instanceUseClauses.find(instance);

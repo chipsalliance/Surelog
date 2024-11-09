@@ -26,6 +26,7 @@
 #include <cstdio>
 #include <iostream>
 #include <string>
+#include <string_view>
 
 #include "Surelog/API/PythonAPI.h"
 #include "Surelog/CommandLine/CommandLineParser.h"

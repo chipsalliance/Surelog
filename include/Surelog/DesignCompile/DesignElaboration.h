@@ -25,6 +25,7 @@
 #define SURELOG_DESIGNELABORATION_H
 #pragma once
 
+#include <string_view>
 #include <string>
 #include <Surelog/Config/Config.h>
 #include <Surelog/DesignCompile/TestbenchElaboration.h>

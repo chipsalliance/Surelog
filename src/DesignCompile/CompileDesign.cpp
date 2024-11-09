@@ -56,6 +56,7 @@
 
 #include <climits>
 #include <string>
+#include <string_view>
 #include <thread>
 
 #ifdef USETBB

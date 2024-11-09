@@ -44,6 +44,7 @@
 #include <sstream>
 #include <stack>
 #include <string>
+#include <string_view>
 
 namespace SURELOG {
 using UHDM::BaseClass;

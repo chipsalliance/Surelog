@@ -25,6 +25,7 @@
 #define SURELOG_SVLIBSHAPELISTENER_H
 #pragma once
 
+#include <string_view>
 #include <Surelog/Common/PathId.h>
 #include <Surelog/SourceCompile/SV3_1aTreeShapeHelper.h>
 #include <parser/SV3_1aParserBaseListener.h>

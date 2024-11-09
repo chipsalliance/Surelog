@@ -30,6 +30,7 @@
 #include <Windows.h>
 
 #include <string>
+#include <string_view>
 #elif defined(__APPLE__)
 #include <mach-o/dyld.h>
 #include <sys/param.h>

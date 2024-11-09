@@ -23,6 +23,8 @@
 
 #include "Surelog/Library/Library.h"
 
+#include <string_view>
+
 #include "Surelog/Design/ModuleDefinition.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
 

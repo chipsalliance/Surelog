@@ -25,6 +25,7 @@
 #define SURELOG_RESOLVESYMBOLS_H
 #pragma once
 
+#include <string_view>
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/DesignCompile/CompileStep.h>
 

@@ -24,6 +24,7 @@
 #include "Surelog/SourceCompile/PreprocessHarness.h"
 
 #include <string>
+#include <string_view>
 
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Library/Library.h"

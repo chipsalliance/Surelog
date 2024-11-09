@@ -25,6 +25,7 @@
 #define SURELOG_PROPERTY_H
 #pragma once
 
+#include <string_view>
 #include <Surelog/Testbench/Variable.h>
 
 namespace SURELOG {

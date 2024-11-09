@@ -55,6 +55,7 @@
 
 #include <iostream>
 #include <string>
+#include <string_view>
 
 namespace SURELOG {
 

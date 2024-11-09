@@ -38,6 +38,7 @@
 #include <uhdm/package.h>
 
 #include <string>
+#include <string_view>
 
 namespace SURELOG {
 

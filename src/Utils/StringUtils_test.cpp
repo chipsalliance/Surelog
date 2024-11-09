@@ -21,6 +21,7 @@
 #include <stdlib.h>
 
 #include <string>
+#include <string_view>
 
 namespace SURELOG {
 using ::testing::ElementsAre;

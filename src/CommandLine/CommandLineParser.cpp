@@ -25,6 +25,7 @@
 
 #include <nlohmann/json.hpp>
 #include <string>
+#include <string_view>
 
 #include "Surelog/API/PythonAPI.h"
 #include "Surelog/Common/PlatformFileSystem.h"

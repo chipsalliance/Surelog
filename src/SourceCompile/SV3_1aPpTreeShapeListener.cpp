@@ -18,6 +18,7 @@
 
 #include <regex>
 #include <string>
+#include <string_view>
 
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"

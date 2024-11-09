@@ -36,6 +36,8 @@
 #ifdef SURELOG_WITH_PYTHON
 #include <Python.h>
 
+#include <string_view>
+
 #include "Surelog/API/PythonAPI.h"
 #include "Surelog/SourceCompile/PythonListen.h"
 #endif

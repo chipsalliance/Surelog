@@ -27,6 +27,7 @@
 #include <filesystem>
 #include <fstream>
 #include <nlohmann/json.hpp>
+#include <string_view>
 #include <thread>
 
 #include "Surelog/API/PythonAPI.h"

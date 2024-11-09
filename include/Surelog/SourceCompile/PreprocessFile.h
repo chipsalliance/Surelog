@@ -25,6 +25,7 @@
 #define SURELOG_PREPROCESSFILE_H
 #pragma once
 
+#include <string_view>
 #include <string>
 #include <Surelog/Common/Containers.h>
 #include <Surelog/Common/PathId.h>

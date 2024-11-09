@@ -23,6 +23,8 @@
 
 #include "Surelog/Config/ConfigSet.h"
 
+#include <string_view>
+
 namespace SURELOG {
 Config* ConfigSet::getMutableConfigByName(std::string_view configName) {
   for (auto& config : m_configs) {

@@ -23,6 +23,8 @@
 
 #include "Surelog/DesignCompile/ElaboratorHarness.h"
 
+#include <string_view>
+
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Design/Design.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"

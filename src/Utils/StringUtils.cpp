@@ -31,6 +31,7 @@
 #include <regex>
 #include <sstream>
 #include <string>
+#include <string_view>
 
 namespace SURELOG {
 

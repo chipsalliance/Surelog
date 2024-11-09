@@ -25,6 +25,7 @@
 #define SURELOG_CLASSOBJECT_H
 #pragma once
 
+#include <string_view>
 #include <map>
 #include <string>
 

@@ -25,6 +25,7 @@
 #define SURELOG_STATEMENT_H
 #pragma once
 
+#include <string_view>
 #include <Surelog/Common/NodeId.h>
 #include <Surelog/Common/RTTI.h>
 #include <Surelog/Design/Scope.h>

@@ -23,6 +23,8 @@
 
 #include "Surelog/SourceCompile/SV3_1aPpTreeListenerHelper.h"
 
+#include <string_view>
+
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
 #include "Surelog/SourceCompile/CompileSourceFile.h"

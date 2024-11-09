@@ -25,6 +25,7 @@
 #define SURELOG_EXPRBUILDER_H
 #pragma once
 
+#include <string_view>
 #include <Surelog/Expression/Value.h>
 
 namespace SURELOG {

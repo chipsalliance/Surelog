@@ -24,6 +24,7 @@
 #include "Surelog/ErrorReporting/Waiver.h"
 
 #include <string>
+#include <string_view>
 
 #include "Surelog/ErrorReporting/ErrorDefinition.h"
 

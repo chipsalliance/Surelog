@@ -25,6 +25,7 @@
 #define SURELOG_COMPILEHELPER_H
 #pragma once
 
+#include <string_view>
 #include <Surelog/Common/PathId.h>
 #include <Surelog/Design/ValuedComponentI.h>
 #include <Surelog/Expression/ExprBuilder.h>
