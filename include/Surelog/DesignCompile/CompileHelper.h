@@ -25,6 +25,7 @@
 #define SURELOG_COMPILEHELPER_H
 #pragma once
 
+#include <utility>
 #include <vector>
 #include <string_view>
 #include <Surelog/Common/PathId.h>

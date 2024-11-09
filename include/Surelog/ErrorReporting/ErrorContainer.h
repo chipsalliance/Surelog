@@ -25,6 +25,7 @@
 #define SURELOG_ERRORCONTAINER_H
 #pragma once
 
+#include <utility>
 #include <string_view>
 #include <Surelog/ErrorReporting/Error.h>
 

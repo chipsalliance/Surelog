@@ -25,6 +25,7 @@
 #define SURELOG_DESIGNCOMPONENT_H
 #pragma once
 
+#include <utility>
 #include <vector>
 #include <string_view>
 #include <string>

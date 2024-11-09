@@ -29,6 +29,7 @@
 #include <mutex>
 #include <string>
 #include <string_view>
+#include <utility>
 #include <vector>
 
 #include "Surelog/SourceCompile/SymbolTable.h"

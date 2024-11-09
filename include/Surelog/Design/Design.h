@@ -25,6 +25,7 @@
 #define SURELOG_DESIGN_H
 #pragma once
 
+#include <utility>
 #include <string_view>
 #include <string>
 #include <Surelog/Common/Containers.h>
