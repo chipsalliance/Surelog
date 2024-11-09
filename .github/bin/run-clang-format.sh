@@ -13,10 +13,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+CLANG_FORMAT="${CLANG_FORMAT:-clang-format}"
+
 FORMAT_OUT=${TMPDIR:-/tmp}/clang-format-diff.out
 
 # Run on all c++ files.
-find include src -name "*.h" -o -name "*.cpp" | xargs clang-format --style=Google -i
+find src include -name "*.h" -o -name "*.cpp" | xargs ${CLANG_FORMAT} --style=Google -i
 
 # Check if we got any diff, then print it out in in the CI.
 # TODO: make these suggested diffs in the pull request.

@@ -38,7 +38,7 @@ jobs:
         sudo ln -sf /usr/bin/gcov-9 /usr/bin/gcov
 
     - name: Setup Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v5
       with:
         python-version: 3.8
         architecture: x64
@@ -47,7 +47,7 @@ jobs:
       run: pip3 install psutil
 
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
         submodules: recursive
         fetch-depth: 0
@@ -84,7 +84,7 @@ jobs:
 
     - name: Archive regression artifacts
       if: always()
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: surelog-linux-gcc-regression-${{ matrix.mode }}
         path: |
@@ -113,7 +113,7 @@ jobs:
         choco install -y swig --side-by-side --version=3.0.12
 
     - name: Setup Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v5
       with:
         python-version: 3.8
         architecture: x64
@@ -122,7 +122,7 @@ jobs:
       run: pip3 install psutil
 
     - name: Setup Java
-      uses: actions/setup-java@v1
+      uses: actions/setup-java@v4
       with:
         java-version: 1.8
         java-package: jre
@@ -140,7 +140,7 @@ jobs:
         rd /S /Q %GITHUB_WORKSPACE%
         mklink /D %GITHUB_WORKSPACE% C:\Surelog
 
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
       with:
         submodules: recursive
         fetch-depth: 0
@@ -180,7 +180,7 @@ jobs:
 
     - name: Archive regression artifacts
       if: always()
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: surelog-windows-msvc-regression-${{ matrix.mode }}
         path: |

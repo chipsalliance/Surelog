@@ -12,7 +12,7 @@ jobs:
 # Linux build, test, and publish
   linux-install:
     name: "Linux | Install | ${{ matrix.compiler }} | ${{ matrix.config }} | ${{ matrix.vendored_dependencies }}"
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
@@ -27,14 +27,14 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         submodules: recursive
         fetch-depth: 0
       if: ${{ matrix.vendored_dependencies }}
 
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       if: ${{ !matrix.vendored_dependencies }}
 
     # Fetch tags for CMakeLists version check
@@ -108,7 +108,7 @@ jobs:
         pushd build && ctest --output-on-failure && popd
 
         rm -rf build      # make sure we only see installation artifacts
-        
+
         # this shouldnt be necessary, and can't be reproduced outside CI
         export CMAKE_PREFIX_PATH=$INSTALL_DIR
 
@@ -132,7 +132,7 @@ jobs:
       if: ${{ matrix.vendored_dependencies }}
 
     - name: Upload build artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ env.artifact-name }}
         path: artifacts/${{ env.artifact-name }}.tar.gz
@@ -142,7 +142,7 @@ jobs:
 # Linux regression
   linux-regression:
     name: "Linux | Regression | ${{ matrix.compiler }} | ${{ matrix.config }} [${{ matrix.shard }}]"
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: linux-install
     strategy:
       fail-fast: false
@@ -164,7 +164,7 @@ jobs:
         sudo apt install -y google-perftools libgoogle-perftools-dev
 
     - name: Setup Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: 3.8
         architecture: x64
@@ -175,13 +175,13 @@ jobs:
         pip3 install psutil
 
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         submodules: recursive
         fetch-depth: 0
 
     - name: Download artifact
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: ${{ env.build-artifact-name }}
 
@@ -209,7 +209,7 @@ jobs:
 
     - name: Upload regression artifacts
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ env.regression-artifact-name }}
         path: build/${{ env.regression-artifact-name }}.tar.gz
@@ -217,17 +217,17 @@ jobs:
 
 # Code formatting
   CodeFormatting:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
 
     - name: Install Dependencies
       run: |
-        sudo apt-get install clang-format
+        sudo apt-get install clang-format-18
         clang-format --version
 
     - name: Run formatting style check
@@ -236,18 +236,18 @@ jobs:
 
 # Code Tideness
   ClangTidy:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
 
     steps:
     - name: Install Dependencies
       run: |
         sudo apt-get update -qq
-        sudo apt -qq -y install clang-tidy-12 \
+        sudo apt -qq -y install clang-tidy-18 \
                                 g++-9 default-jre cmake \
                                 uuid-dev build-essential
 
     - name: Setup Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: 3.8
         architecture: x64
@@ -258,7 +258,7 @@ jobs:
         pip3 install psutil
 
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         submodules: recursive
         fetch-depth: 0
