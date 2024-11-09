@@ -25,9 +25,10 @@
 #define SURELOG_NETLISTELABORATION_H
 #pragma once
 
+#include <Surelog/DesignCompile/TestbenchElaboration.h>
+
 #include <map>
 #include <string_view>
-#include <Surelog/DesignCompile/TestbenchElaboration.h>
 
 namespace SURELOG {
 

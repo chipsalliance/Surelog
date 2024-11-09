@@ -25,11 +25,12 @@
 #define SURELOG_ELABORATIONSTEP_H
 #pragma once
 
-#include <map>
-#include <string_view>
 #include <Surelog/DesignCompile/CompileHelper.h>
 #include <Surelog/ErrorReporting/ErrorDefinition.h>
 #include <Surelog/Expression/ExprBuilder.h>
+
+#include <map>
+#include <string_view>
 
 // UHDM
 #include <uhdm/uhdm_forward_decl.h>
@@ -107,8 +108,12 @@ class ElaborationStep {
                       UHDM::VectorOfvariables* vars, UHDM::expr* assignExp,
                       UHDM::typespec* tps);
 
-  void swapTypespecPointersInUhdm(UHDM::Serializer& s, std::map<const UHDM::typespec*, const UHDM::typespec*>& typespecSwapMap);
-  void swapTypespecPointersInTypedef(Design* design, std::map<const UHDM::typespec*, const UHDM::typespec*>& typespecSwapMap);
+  void swapTypespecPointersInUhdm(
+      UHDM::Serializer& s,
+      std::map<const UHDM::typespec*, const UHDM::typespec*>& typespecSwapMap);
+  void swapTypespecPointersInTypedef(
+      Design* design,
+      std::map<const UHDM::typespec*, const UHDM::typespec*>& typespecSwapMap);
 
   CompileDesign* m_compileDesign;
   ExprBuilder m_exprBuilder;

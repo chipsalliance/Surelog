@@ -25,7 +25,6 @@
 #define SURELOG_SV3_1ATREESHAPEHELPER_H
 #pragma once
 
-#include <utility>
 #include <Surelog/Design/DesignElement.h>
 #include <Surelog/ErrorReporting/ErrorDefinition.h>
 #include <Surelog/ErrorReporting/Location.h>
@@ -35,6 +34,7 @@
 
 #include <stack>
 #include <string_view>
+#include <utility>
 
 namespace antlr4 {
 class CommonTokenStream;
@@ -80,9 +80,8 @@ class SV3_1aTreeShapeHelper : public CommonListenerHelper {
   std::pair<double, TimeInfo::Unit> getTimeValue(
       SV3_1aParser::Time_literalContext* ctx);
 
-  std::tuple<PathId, uint32_t, uint16_t, uint32_t, uint16_t>
-  getFileLine(antlr4::ParserRuleContext* ctx,
-              antlr4::Token* token) const final;
+  std::tuple<PathId, uint32_t, uint16_t, uint32_t, uint16_t> getFileLine(
+      antlr4::ParserRuleContext* ctx, antlr4::Token* token) const final;
 
  protected:
   SV3_1aTreeShapeHelper(ParseFile* pf, antlr4::CommonTokenStream* tokens,

@@ -25,12 +25,12 @@
 #define SURELOG_COMPILESOURCEFILE_H
 #pragma once
 
-#include <string_view>
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/SourceCompile/PreprocessFile.h>
 
 #include <map>
 #include <string>
+#include <string_view>
 #include <vector>
 
 #ifdef SURELOG_WITH_PYTHON

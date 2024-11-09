@@ -73,7 +73,7 @@ class PPCache : Cache {
                     const SymbolTable& sourceSymbols);
 
   void cacheTimeInfos(::PPCache::Builder builder, SymbolTable& targetSymbols,
-                    const SymbolTable& sourceSymbols);
+                      const SymbolTable& sourceSymbols);
 
   void cacheLineTranslationInfos(::PPCache::Builder builder,
                                  SymbolTable& targetSymbols,

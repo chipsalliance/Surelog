@@ -25,16 +25,16 @@
 #define SURELOG_PLATFORMFILESYSTEM_H
 #pragma once
 
-#include <functional>
-#include <utility>
-#include <vector>
-#include <string_view>
-#include <string>
 #include <Surelog/Common/FileSystem.h>
 
+#include <functional>
 #include <memory>
 #include <mutex>
 #include <set>
+#include <string>
+#include <string_view>
+#include <utility>
+#include <vector>
 
 namespace SURELOG {
 class SymbolTable;
