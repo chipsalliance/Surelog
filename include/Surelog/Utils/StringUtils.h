@@ -130,7 +130,7 @@ std::string replaceAll(std::string_view str, std::string_view from,
 std::vector<std::string_view> splitLines(std::string_view text);
 
 // Convert double number with given amount of precision.
-std::string to_string(double a_value, const int32_t n = 3);
+std::string to_string(double a_value, int32_t n = 3);
 
 // Remove '//' and '#'-style end-of-line comments
 [[nodiscard]] std::string removeComments(std::string_view text);

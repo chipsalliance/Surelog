@@ -60,7 +60,7 @@ Value* ExprBuilder::clone(Value* val) {
 // Often, there are assignments to muteErrors here, that are never read.
 // It seems like there is a (future?) intention here. So for now, disable
 // warnings from clang-tidy.
-// TODO(Alain): remove NOLINTBEGIN, run .github/bin/run-clang-tidy.sh
+// TODO(Alain): remove N0LINTBEGIN, run .github/bin/run-clang-tidy.sh
 //              and fix the intended places.
 //
 // NOLINTBEGIN(*.DeadStores)
