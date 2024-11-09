@@ -4703,7 +4703,7 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
     }
   }
 
-  vpiHandle designHandle = 0;
+  vpiHandle designHandle = nullptr;
   std::vector<vpiHandle> designs;
   design* d = nullptr;
   if (m_design) {

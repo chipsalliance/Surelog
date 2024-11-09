@@ -52,8 +52,8 @@ class ErrorContainer;
 typedef std::vector<uint32_t> UIntVector;
 
 /* Error DB API  */
-void SLsetWaiver(const char* messageId, const char* fileName = 0,
-                 uint32_t line = 0, const char* objectName = 0);
+void SLsetWaiver(const char* messageId, const char* fileName = nullptr,
+                 uint32_t line = 0, const char* objectName = nullptr);
 
 void SLoverrideSeverity(const char* messageId, const char* severity);
 

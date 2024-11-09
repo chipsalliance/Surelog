@@ -44,8 +44,8 @@ class DesignListener final : public UHDM::VpiListener {
                         vpiHandle handle) final {
     std::string_view instName = object->VpiName();
     m_flatTraversal =
-        (instName.empty()) && ((object->VpiParent() == 0) ||
-                               ((object->VpiParent() != 0) &&
+        (instName.empty()) && ((object->VpiParent() == nullptr) ||
+                               ((object->VpiParent() != nullptr) &&
                                 (object->VpiParent()->VpiType() != vpiModule)));
     if (m_flatTraversal)
       std::cout << "Entering Module Definition: " << object->VpiDefName() << " "

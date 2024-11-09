@@ -3982,7 +3982,7 @@ UHDM::constant* CompileHelper::adjustSize(const UHDM::typespec* ts,
               if (signedLhs) {
                 const std::string res = twosComplement(v);
                 // Convert to int32_t
-                val = std::strtoll(res.c_str(), 0, 2);
+                val = std::strtoll(res.c_str(), nullptr, 2);
                 val = -val;
               } else {
                 if (size > orig_size) {
@@ -3991,7 +3991,7 @@ UHDM::constant* CompileHelper::adjustSize(const UHDM::typespec* ts,
                   }
                   orig_size = size;
                 }
-                val = std::strtoll(v.c_str(), 0, 2);
+                val = std::strtoll(v.c_str(), nullptr, 2);
               }
               if (uniquify) {
                 UHDM::ElaboratorContext elaboratorContext(&s, false, true);

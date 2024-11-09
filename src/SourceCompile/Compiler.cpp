@@ -74,7 +74,7 @@ Compiler::Compiler(CommandLineParser* commandLineParser, ErrorContainer* errors,
       m_librarySet(new LibrarySet()),
       m_configSet(new ConfigSet()),
       m_design(new Design(getErrorContainer(), m_librarySet, m_configSet)),
-      m_uhdmDesign(0),
+      m_uhdmDesign(nullptr),
       m_compileDesign(nullptr) {
 #ifdef USETBB
   if (getCommandLineParser()->useTbb() &&
@@ -92,7 +92,7 @@ Compiler::Compiler(CommandLineParser* commandLineParser, ErrorContainer* errors,
       m_librarySet(new LibrarySet()),
       m_configSet(new ConfigSet()),
       m_design(new Design(getErrorContainer(), m_librarySet, m_configSet)),
-      m_uhdmDesign(0),
+      m_uhdmDesign(nullptr),
       m_text(text),
       m_compileDesign(nullptr) {}
 

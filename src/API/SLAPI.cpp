@@ -51,11 +51,11 @@
 namespace SURELOG {
 void SLsetWaiver(const char* messageId, const char* fileName, uint32_t line,
                  const char* objectName) {
-  if (fileName == 0 && line == 0 && objectName == 0) {
+  if (fileName == nullptr && line == 0 && objectName == nullptr) {
     Waiver::setWaiver(messageId, "", 0, "");
-  } else if (line == 0 && objectName == 0) {
+  } else if (line == 0 && objectName == nullptr) {
     Waiver::setWaiver(messageId, "", 0, fileName);
-  } else if (objectName == 0) {
+  } else if (objectName == nullptr) {
     Waiver::setWaiver(messageId, fileName, line, "");
   } else {
     Waiver::setWaiver(messageId, fileName, line, objectName);
@@ -426,7 +426,7 @@ uint32_t SLgetnTopModuleInstance(Design* design) {
 }
 
 ModuleDefinition* SLgetModuleDefinition(Design* design, uint32_t index) {
-  if (!design) return 0;
+  if (!design) return nullptr;
   ModuleNameModuleDefinitionMap::iterator itr =
       design->getModuleDefinitions().begin();
   for (uint32_t i = 0; i < index; i++) itr++;
@@ -434,7 +434,7 @@ ModuleDefinition* SLgetModuleDefinition(Design* design, uint32_t index) {
 }
 
 Program* SLgetProgramDefinition(Design* design, uint32_t index) {
-  if (!design) return 0;
+  if (!design) return nullptr;
   ProgramNameProgramDefinitionMap::iterator itr =
       design->getProgramDefinitions().begin();
   for (uint32_t i = 0; i < index; i++) itr++;
@@ -442,7 +442,7 @@ Program* SLgetProgramDefinition(Design* design, uint32_t index) {
 }
 
 Package* SLgetPackageDefinition(Design* design, uint32_t index) {
-  if (!design) return 0;
+  if (!design) return nullptr;
   PackageNamePackageDefinitionMultiMap::iterator itr =
       design->getPackageDefinitions().begin();
   for (uint32_t i = 0; i < index; i++) itr++;
@@ -450,7 +450,7 @@ Package* SLgetPackageDefinition(Design* design, uint32_t index) {
 }
 
 ClassDefinition* SLgetClassDefinition(Design* design, uint32_t index) {
-  if (!design) return 0;
+  if (!design) return nullptr;
   ClassNameClassDefinitionMap::iterator itr =
       design->getUniqueClassDefinitions().begin();
   for (uint32_t i = 0; i < index; i++) itr++;
@@ -458,7 +458,7 @@ ClassDefinition* SLgetClassDefinition(Design* design, uint32_t index) {
 }
 
 ModuleInstance* SLgetTopModuleInstance(Design* design, uint32_t index) {
-  if (!design) return 0;
+  if (!design) return nullptr;
   return design->getTopLevelModuleInstances()[index];
 }
 

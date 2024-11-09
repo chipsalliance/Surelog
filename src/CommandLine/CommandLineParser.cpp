@@ -307,7 +307,7 @@ void CommandLineParser::withPython() {
 }
 
 std::string CommandLineParser::currentDateTime() {
-  time_t now = time(0);
+  time_t now = time(nullptr);
   struct tm tstruct = *localtime(&now);
   // Visit http://en.cppreference.com/w/cpp/chrono/c/strftime
   // for more information about date/time format
