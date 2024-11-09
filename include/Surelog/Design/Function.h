@@ -25,14 +25,14 @@
 #define SURELOG_FUNCTION_H
 #pragma once
 
-#include <vector>
-#include <string_view>
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/Scope.h>
 #include <Surelog/Design/Statement.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
 
 #include <string>
+#include <string_view>
+#include <vector>
 
 namespace SURELOG {
 

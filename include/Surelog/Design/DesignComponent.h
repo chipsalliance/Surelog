@@ -25,12 +25,6 @@
 #define SURELOG_DESIGNCOMPONENT_H
 #pragma once
 
-#include <functional>
-#include <map>
-#include <utility>
-#include <vector>
-#include <string_view>
-#include <string>
 #include <Surelog/Common/Containers.h>
 #include <Surelog/Common/PathId.h>
 #include <Surelog/Common/PortNetHolder.h>
@@ -39,6 +33,13 @@
 #include <Surelog/Design/LetStmt.h>
 #include <Surelog/Design/ValuedComponentI.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
+
+#include <functional>
+#include <map>
+#include <string>
+#include <string_view>
+#include <utility>
+#include <vector>
 
 // UHDM
 #include <uhdm/uhdm_forward_decl.h>
@@ -99,7 +100,8 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   typedef std::map<std::string, std::pair<FileCNodeId, DesignComponent*>,
                    StringViewCompare>
       NamedObjectMap;
-  typedef std::vector<std::pair<std::string, UHDM::typespec*>> FuncNameTypespecVec;
+  typedef std::vector<std::pair<std::string, UHDM::typespec*>>
+      FuncNameTypespecVec;
 
   void addFileContent(const FileContent* fileContent, NodeId nodeId);
   const std::vector<const FileContent*>& getFileContents() const {
@@ -244,7 +246,7 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   std::vector<UHDM::import_typespec*> m_imported_symbols;
   std::vector<UHDM::tf_call*> m_elab_sys_calls;
   std::vector<UHDM::property_decl*> m_property_decls;
-  std::vector<UHDM::sequence_decl*> m_sequence_decls;  
+  std::vector<UHDM::sequence_decl*> m_sequence_decls;
   std::vector<UHDM::ref_obj*> m_needLateBinding;
   std::vector<UHDM::any*> m_needLateTypedefBinding;
   FuncNameTypespecVec m_lateResolutionFunctions;

@@ -26,12 +26,12 @@
 #pragma once
 
 // UHDM
-#include <functional>
-#include <utility>
 #include <uhdm/uhdm_forward_decl.h>
 
+#include <functional>
 #include <map>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace SURELOG {

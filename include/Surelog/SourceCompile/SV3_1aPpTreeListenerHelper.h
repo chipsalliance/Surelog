@@ -25,7 +25,6 @@
 #define SURELOG_SV3_1APPTREELISTENERHELPER_H
 #pragma once
 
-#include <string_view>
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/ErrorReporting/ErrorDefinition.h>
 #include <Surelog/ErrorReporting/Location.h>
@@ -33,6 +32,7 @@
 #include <Surelog/SourceCompile/PreprocessFile.h>
 
 #include <set>
+#include <string_view>
 #include <vector>
 
 namespace SURELOG {
@@ -75,9 +75,8 @@ class SV3_1aPpTreeListenerHelper : public CommonListenerHelper {
   SymbolTable* getSymbolTable() const;
   SymbolId registerSymbol(std::string_view symbol) final;
 
-  std::tuple<PathId, uint32_t, uint16_t, uint32_t, uint16_t>
-  getFileLine(antlr4::ParserRuleContext* ctx,
-              antlr4::Token* token) const final;
+  std::tuple<PathId, uint32_t, uint16_t, uint32_t, uint16_t> getFileLine(
+      antlr4::ParserRuleContext* ctx, antlr4::Token* token) const final;
 
  protected:
   SV3_1aPpTreeListenerHelper(PreprocessFile* pp,

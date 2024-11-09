@@ -25,10 +25,11 @@
 #define SURELOG_PARSEUTILS_H
 #pragma once
 
+#include <ParserRuleContext.h>
+
+#include <string>
 #include <utility>
 #include <vector>
-#include <string>
-#include <ParserRuleContext.h>
 
 namespace SURELOG {
 namespace ParseUtils {

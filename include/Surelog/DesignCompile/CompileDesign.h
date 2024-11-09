@@ -25,9 +25,10 @@
 #define SURELOG_COMPILEDESIGN_H
 #pragma once
 
+#include <Surelog/Design/Design.h>
+
 #include <map>
 #include <vector>
-#include <Surelog/Design/Design.h>
 
 // UHDM
 #include <uhdm/Serializer.h>
@@ -59,7 +60,10 @@ class CompileDesign {
   void lockSerializer() { m_serializerMutex.lock(); }
   void unlockSerializer() { m_serializerMutex.unlock(); }
   UHDM::VectorOfinclude_file_info* getFileInfo() { return m_fileInfo; }
-  std::map<const UHDM::typespec*, const UHDM::typespec*>& getSwapedObjects() { return m_typespecSwapMap; }
+  std::map<const UHDM::typespec*, const UHDM::typespec*>& getSwapedObjects() {
+    return m_typespecSwapMap;
+  }
+
  private:
   CompileDesign(const CompileDesign& orig) = delete;
 

@@ -25,11 +25,11 @@
 #define SURELOG_TYPEDEF_H
 #pragma once
 
-#include <string_view>
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/DataType.h>
 
 #include <string>
+#include <string_view>
 
 namespace SURELOG {
 

@@ -25,13 +25,14 @@
 #define SURELOG_UHDMWRITER_H
 #pragma once
 
-#include <functional>
-#include <map>
-#include <vector>
-#include <string_view>
 #include <Surelog/Design/DesignComponent.h>
 #include <Surelog/DesignCompile/CompileHelper.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
+
+#include <functional>
+#include <map>
+#include <string_view>
+#include <vector>
 
 // UHDM
 #include <uhdm/uhdm_forward_decl.h>
@@ -86,9 +87,11 @@ class UhdmWriter final {
                  SignalMap& signalMap, SignalMap& portMap,
                  ModuleInstance* instance = nullptr);
   void writeDataTypes(const DesignComponent::DataTypeMap& datatypeMap,
-                    UHDM::BaseClass* parent, UHDM::VectorOftypespec* dest_typespecs,
-                    UHDM::Serializer& s, bool setParent);
-  void writeImportedSymbols(DesignComponent* mod, UHDM::Serializer& s, UHDM::VectorOftypespec* typespecs); 
+                      UHDM::BaseClass* parent,
+                      UHDM::VectorOftypespec* dest_typespecs,
+                      UHDM::Serializer& s, bool setParent);
+  void writeImportedSymbols(DesignComponent* mod, UHDM::Serializer& s,
+                            UHDM::VectorOftypespec* typespecs);
   void writeVariables(const DesignComponent::VariableMap& orig_vars,
                       UHDM::BaseClass* parent,
                       UHDM::VectorOfvariables* dest_vars, UHDM::Serializer& s);
@@ -127,10 +130,11 @@ class UhdmWriter final {
 
   void lateBinding(UHDM::Serializer& s, DesignComponent* mod, UHDM::scope* m);
   UHDM::any* swapForSpecifiedVar(UHDM::Serializer& s, DesignComponent* mod,
-                           UHDM::any* tmp,
-                           UHDM::VectorOfvariables* lvariables,
-                           UHDM::variables* lvariable, std::string_view name,
-                           const UHDM::any* var, const UHDM::any* parent);
+                                 UHDM::any* tmp,
+                                 UHDM::VectorOfvariables* lvariables,
+                                 UHDM::variables* lvariable,
+                                 std::string_view name, const UHDM::any* var,
+                                 const UHDM::any* parent);
   void lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
                           UHDM::scope* m);
 

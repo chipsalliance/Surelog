@@ -21,8 +21,8 @@
 #include <cstdint>
 #include <ostream>
 #include <set>
-#include <unordered_set>
 #include <type_traits>
+#include <unordered_set>
 
 namespace SURELOG {
 /**
@@ -33,7 +33,8 @@ namespace SURELOG {
  *
  */
 typedef uint32_t RawNodeId;
-inline static constexpr RawNodeId InvalidRawNodeId = 0;  // Max of 28 bits as per cache!
+inline static constexpr RawNodeId InvalidRawNodeId =
+    0;  // Max of 28 bits as per cache!
 class NodeId final {
  public:
   constexpr NodeId() : NodeId(InvalidRawNodeId) {}
@@ -64,28 +65,54 @@ class NodeId final {
   NodeId operator-(const NodeId &rhs) const { return NodeId(id - rhs.id); }
   NodeId operator+(const NodeId &rhs) const { return NodeId(id + rhs.id); }
 
-  NodeId &operator-=(const NodeId &rhs) { id -= rhs.id; return *this; }
-  NodeId &operator+=(const NodeId &rhs) { id += rhs.id; return *this; }
+  NodeId &operator-=(const NodeId &rhs) {
+    id -= rhs.id;
+    return *this;
+  }
+  NodeId &operator+=(const NodeId &rhs) {
+    id += rhs.id;
+    return *this;
+  }
 
   template <typename U, typename = typename std::enable_if<
                             std::is_integral<U>::value>::type>
-  bool operator<(const U &rhs) const { return id < rhs; }
+  bool operator<(const U &rhs) const {
+    return id < rhs;
+  }
   template <typename U, typename = typename std::enable_if<
                             std::is_integral<U>::value>::type>
-  bool operator<=(const U &rhs) const { return id <= rhs; }
+  bool operator<=(const U &rhs) const {
+    return id <= rhs;
+  }
 
   template <typename U, typename = typename std::enable_if<
                             std::is_integral<U>::value>::type>
-  bool operator>(const U &rhs) const { return id > rhs; }
+  bool operator>(const U &rhs) const {
+    return id > rhs;
+  }
   template <typename U, typename = typename std::enable_if<
                             std::is_integral<U>::value>::type>
-  bool operator>=(const U &rhs) const { return id >= rhs; }
+  bool operator>=(const U &rhs) const {
+    return id >= rhs;
+  }
 
-  NodeId &operator++() { ++id; return *this; }
-  NodeId operator++(int) { const NodeId rid(id++); return rid; }
+  NodeId &operator++() {
+    ++id;
+    return *this;
+  }
+  NodeId operator++(int) {
+    const NodeId rid(id++);
+    return rid;
+  }
 
-  NodeId &operator--() { --id; return *this; }
-  NodeId operator--(int) { const NodeId rid(id--); return rid; }
+  NodeId &operator--() {
+    --id;
+    return *this;
+  }
+  NodeId operator--(int) {
+    const NodeId rid(id--);
+    return rid;
+  }
 
   NodeId &operator=(const NodeId &rhs) {
     if (this != &rhs) {

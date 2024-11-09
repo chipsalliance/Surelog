@@ -25,16 +25,16 @@
 #define SURELOG_COMMANDLINEPARSER_H
 #pragma once
 
-#include <functional>
-#include <utility>
-#include <string_view>
 #include <Surelog/Common/PathId.h>
 #include <Surelog/Common/SymbolId.h>
 
 #include <filesystem>
+#include <functional>
 #include <map>
 #include <set>
 #include <string>
+#include <string_view>
+#include <utility>
 #include <vector>
 
 namespace SURELOG {

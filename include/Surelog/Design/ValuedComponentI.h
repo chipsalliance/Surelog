@@ -25,9 +25,10 @@
 #define SURELOG_VALUEDCOMPONENTI_H
 #pragma once
 
-#include <utility>
 #include <Surelog/Common/Containers.h>
 #include <Surelog/Common/RTTI.h>
+
+#include <utility>
 
 // UHDM
 #include <uhdm/uhdm_forward_decl.h>
