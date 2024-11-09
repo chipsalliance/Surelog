@@ -43,6 +43,7 @@
 #include <iomanip>
 #include <sstream>
 #include <stack>
+#include <string>
 
 namespace SURELOG {
 using UHDM::BaseClass;

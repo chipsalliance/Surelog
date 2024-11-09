@@ -28,6 +28,8 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
+#include <string>
+
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Design/Design.h"

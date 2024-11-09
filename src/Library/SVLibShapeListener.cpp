@@ -24,6 +24,7 @@
 #include "Surelog/Library/SVLibShapeListener.h"
 
 #include <regex>
+#include <string>
 
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"

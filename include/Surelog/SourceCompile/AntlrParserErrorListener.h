@@ -25,6 +25,7 @@
 #define SURELOG_ANTLRPARSERERRORLISTENER_H
 #pragma once
 
+#include <string>
 #include <Surelog/Common/PathId.h>
 #include <ANTLRErrorListener.h>
 

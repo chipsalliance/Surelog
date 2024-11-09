@@ -23,6 +23,7 @@
  *
  */
 
+#include <string>
 #include <Surelog/Common/FileSystem.h>
 #include <Surelog/Design/VObject.h>
 #include <Surelog/SourceCompile/ParseTreeListener.h>

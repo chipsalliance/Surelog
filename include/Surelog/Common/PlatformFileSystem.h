@@ -25,6 +25,7 @@
 #define SURELOG_PLATFORMFILESYSTEM_H
 #pragma once
 
+#include <string>
 #include <Surelog/Common/FileSystem.h>
 
 #include <memory>

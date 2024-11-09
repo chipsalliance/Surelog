@@ -30,6 +30,7 @@
 #include <map>
 #include <regex>
 #include <sstream>
+#include <string>
 
 namespace SURELOG {
 

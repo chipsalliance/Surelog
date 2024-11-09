@@ -25,6 +25,7 @@
 #define SURELOG_FILECONTENT_H
 #pragma once
 
+#include <string>
 #include <Surelog/Common/Containers.h>
 #include <Surelog/Common/NodeId.h>
 #include <Surelog/Design/DesignComponent.h>

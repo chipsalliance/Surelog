@@ -27,6 +27,7 @@
 #include <filesystem>
 #include <iostream>
 #include <regex>
+#include <string>
 #include <thread>
 
 #include "Surelog/CommandLine/CommandLineParser.h"

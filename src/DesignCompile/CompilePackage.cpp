@@ -38,6 +38,7 @@
 #include <uhdm/package.h>
 
 #include <stack>
+#include <string>
 
 namespace SURELOG {
 

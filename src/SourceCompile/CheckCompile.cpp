@@ -23,6 +23,8 @@
 
 #include "Surelog/SourceCompile/CheckCompile.h"
 
+#include <string>
+
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Design/Design.h"

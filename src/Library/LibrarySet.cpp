@@ -24,6 +24,7 @@
 #include "Surelog/Library/LibrarySet.h"
 
 #include <sstream>
+#include <string>
 
 #include "Surelog/ErrorReporting/ErrorContainer.h"
 #include "Surelog/Library/Library.h"

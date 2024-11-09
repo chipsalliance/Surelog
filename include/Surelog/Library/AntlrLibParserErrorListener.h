@@ -25,6 +25,7 @@
 #define SURELOG_ANTLRLIBPARSERERRORLISTENER_H
 #pragma once
 
+#include <string>
 #include <ANTLRErrorListener.h>
 
 #include <cstddef>

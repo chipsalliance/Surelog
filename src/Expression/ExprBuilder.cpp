@@ -23,6 +23,7 @@
 #include "Surelog/Expression/ExprBuilder.h"
 
 #include <cmath>
+#include <string>
 
 #include "Surelog/Design/Design.h"
 #include "Surelog/Design/FileContent.h"

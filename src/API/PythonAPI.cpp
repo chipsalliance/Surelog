@@ -25,6 +25,8 @@
 
 #include <antlr4-runtime.h>
 
+#include <string>
+
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Design/Design.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"

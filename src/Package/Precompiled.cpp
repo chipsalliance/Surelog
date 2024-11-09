@@ -23,6 +23,8 @@
 
 #include "Surelog/Package/Precompiled.h"
 
+#include <string>
+
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Common/PathId.h"
 #include "Surelog/SourceCompile/SymbolTable.h"

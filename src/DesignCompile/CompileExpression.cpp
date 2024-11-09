@@ -24,6 +24,7 @@
 #include <algorithm>
 #include <cmath>
 #include <cstring>
+#include <string>
 
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"

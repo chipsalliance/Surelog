@@ -23,6 +23,8 @@
 
 #include "Surelog/SourceCompile/AntlrParserErrorListener.h"
 
+#include <string>
+
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/SourceCompile/CompileSourceFile.h"
 #include "Surelog/SourceCompile/ParseFile.h"

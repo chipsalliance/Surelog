@@ -20,6 +20,8 @@
 #include <gtest/gtest.h>
 #include <stdlib.h>
 
+#include <string>
+
 namespace SURELOG {
 using ::testing::ElementsAre;
 

@@ -27,6 +27,7 @@
 #include <fstream>
 #include <iostream>
 #include <mutex>
+#include <string>
 
 #include "Surelog/SourceCompile/SymbolTable.h"
 #include "Surelog/Utils/StringUtils.h"

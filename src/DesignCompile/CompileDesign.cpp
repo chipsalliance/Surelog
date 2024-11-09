@@ -55,6 +55,7 @@
 #include <uhdm/vpi_visitor.h>
 
 #include <climits>
+#include <string>
 #include <thread>
 
 #ifdef USETBB

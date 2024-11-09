@@ -25,6 +25,7 @@
 
 #include <bitset>
 #include <cstring>
+#include <string>
 
 namespace SURELOG {
 

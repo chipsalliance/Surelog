@@ -28,6 +28,8 @@
 #if defined(_WIN32)
 #define NOMINMAX
 #include <Windows.h>
+
+#include <string>
 #elif defined(__APPLE__)
 #include <mach-o/dyld.h>
 #include <sys/param.h>

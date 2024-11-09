@@ -17,6 +17,7 @@
 #include "Surelog/SourceCompile/SV3_1aPpTreeShapeListener.h"
 
 #include <regex>
+#include <string>
 
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"

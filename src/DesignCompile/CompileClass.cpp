@@ -41,6 +41,7 @@
 #include <uhdm/class_defn.h>
 
 #include <stack>
+#include <string>
 
 namespace SURELOG {
 int32_t FunctorCompileClass::operator()() const {

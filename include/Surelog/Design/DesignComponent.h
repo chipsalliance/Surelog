@@ -25,6 +25,7 @@
 #define SURELOG_DESIGNCOMPONENT_H
 #pragma once
 
+#include <string>
 #include <Surelog/Common/Containers.h>
 #include <Surelog/Common/PathId.h>
 #include <Surelog/Common/PortNetHolder.h>

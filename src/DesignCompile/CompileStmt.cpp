@@ -54,6 +54,7 @@
 #include <uhdm/uhdm.h>
 
 #include <iostream>
+#include <string>
 
 namespace SURELOG {
 
