@@ -37,7 +37,7 @@ PythonListen::PythonListen(ParseFile* parse,
       m_compileSourceFile(compileSourceFile),
       m_usingCachedVersion(false) {}
 
-PythonListen::~PythonListen() {}
+PythonListen::~PythonListen() = default;
 
 void PythonListen::addError(Error& error) {
   getCompileSourceFile()->getErrorContainer()->addError(error);
@@ -51,8 +51,8 @@ bool PythonListen::listen() {
   }
 
   // This is either a parent Parser object of this Parser object has no parent
-  if ((m_parse->m_children.size() != 0) || (m_parse->m_parent == nullptr)) {
-    if ((m_parse->m_parent == nullptr) && (m_parse->m_children.size() == 0)) {
+  if ((!m_parse->m_children.empty()) || (m_parse->m_parent == nullptr)) {
+    if ((m_parse->m_parent == nullptr) && (m_parse->m_children.empty())) {
       SV3_1aPythonListener* pythonListener =
           new SV3_1aPythonListener(this, m_compileSourceFile->getPythonInterp(),
                                    m_parse->m_antlrParserHandler->m_tokens, 0);
@@ -61,20 +61,18 @@ bool PythonListen::listen() {
           pythonListener, m_parse->m_antlrParserHandler->m_tree);
     }
 
-    if (m_parse->m_children.size() != 0) {
-      for (uint32_t i = 0; i < m_parse->m_children.size(); i++) {
-        if (m_parse->m_children[i]->m_antlrParserHandler) {
+    if (!m_parse->m_children.empty()) {
+      for (const ParseFile* child : m_parse->m_children) {
+        if (child->m_antlrParserHandler) {
           // Only visit the chunks that got re-parsed
           // TODO: Incrementally regenerate the FileContent
 
           SV3_1aPythonListener* pythonListener = new SV3_1aPythonListener(
               this, m_compileSourceFile->getPythonInterp(),
-              m_parse->m_children[i]->m_antlrParserHandler->m_tokens,
-              m_parse->m_children[i]->m_offsetLine);
+              child->m_antlrParserHandler->m_tokens, child->m_offsetLine);
           m_pythonListeners.push_back(pythonListener);
           antlr4::tree::ParseTreeWalker::DEFAULT.walk(
-              pythonListener,
-              m_parse->m_children[i]->m_antlrParserHandler->m_tree);
+              pythonListener, child->m_antlrParserHandler->m_tree);
         }
       }
     }

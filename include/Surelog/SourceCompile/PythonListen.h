@@ -37,6 +37,8 @@ class SV3_1aPythonListener;
 class PythonListen {
  public:
   PythonListen(ParseFile* parse, CompileSourceFile* m_compileSourceFile);
+  PythonListen(const PythonListen& orig) = delete;
+
   bool listen();
 
   virtual ~PythonListen();
@@ -47,8 +49,6 @@ class PythonListen {
   void addError(Error& error);
 
  private:
-  PythonListen(const PythonListen& orig) = delete;
-
   ParseFile* const m_parse;
   CompileSourceFile* const m_compileSourceFile;
   std::vector<SV3_1aPythonListener*> m_pythonListeners;

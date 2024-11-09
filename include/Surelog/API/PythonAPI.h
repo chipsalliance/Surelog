@@ -61,7 +61,8 @@ class PythonAPI {
                                 const std::string& function,
                                 const std::vector<std::string>& args,
                                 PyThreadState* interp);
-  static void evalScript(std::string function, SV3_1aPythonListener* listener,
+  static void evalScript(const std::string& function,
+                         SV3_1aPythonListener* listener,
                          parser_rule_context* ctx);
   static std::string getInvalidScriptString() { return m_invalidScriptResult; }
   static bool isListenerLoaded() { return m_listenerLoaded; }

@@ -275,7 +275,8 @@ void PythonAPI::init(int32_t argc, const char** argv) {
 #endif
 }
 
-void PythonAPI::evalScript(std::string function, SV3_1aPythonListener* listener,
+void PythonAPI::evalScript(const std::string& function,
+                           SV3_1aPythonListener* listener,
                            parser_rule_context* ctx1) {
 #ifdef SURELOG_WITH_PYTHON
   antlr4::ParserRuleContext* ctx = (antlr4::ParserRuleContext*)ctx1;

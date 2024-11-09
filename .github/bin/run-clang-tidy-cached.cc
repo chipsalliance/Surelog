@@ -15,7 +15,7 @@ B=${0%%.cc}; [ "$B" -nt "$0" ] || c++ -std=c++17 -o"$B" "$0" && exec "$B" "$@";
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Location: https://github.com/hzeller/dev-tools (2024-10-18)
+// Location: https://github.com/hzeller/dev-tools (2024-11-09)
 
 // Script to run clang-tidy on files in a bazel project while caching the
 // results as clang-tidy can be pretty slow. The clang-tidy output messages
@@ -28,8 +28,9 @@ B=${0%%.cc}; [ "$B" -nt "$0" ] || c++ -std=c++17 -o"$B" "$0" && exec "$B" "$@";
 //   run-clang-tidy-cached.cc --checks="-*,modernize-use-override" --fix
 //
 // Note: useful environment variables to configure are
-//  CLANG_TIDY = binary to run; default would just be clang-tidy.
-//  CACHE_DIR  = where to put the cached content; default ~/.cache
+//  CLANG_TIDY         = binary to run; default would just be clang-tidy.
+//  CLANG_TIDY_CONFIG  = override configuration file in kConfig.clang_tidy_file
+//  CACHE_DIR          = where to put the cached content; default ~/.cache
 
 // This file shall be c++17 self-contained; not using any re2 or absl niceties.
 #include <unistd.h>
@@ -109,7 +110,8 @@ struct ConfigValues {
   // that is included by a lot of other files results in lots of reprocessing.
   bool revisit_if_any_include_changes = true;
 
-  // Clang tidy configuration: clang tidy files with checks.
+  // Clang tidy configuration: clang tidy files with checks. This can be
+  // overriden with environment variable CLANG_TIDY_CONFIG
   std::string_view clang_tidy_file = ".clang-tidy";
 };
 
@@ -176,9 +178,13 @@ std::string GetContent(const fs::path &f) {
   return GetContent(file_to_read);
 }
 
-const char *EnvWithFallback(const char *varname, const char *fallback) {
-  const char *value = getenv(varname);
+std::string_view EnvWithFallback(const char *var, std::string_view fallback) {
+  const char *value = getenv(var);
   return value ? value : fallback;
+}
+
+std::string_view GetClangTidyConfig() {
+  return EnvWithFallback("CLANG_TIDY_CONFIG", kConfig.clang_tidy_file);
 }
 
 std::string GetCommandOutput(const std::string &prog) {
@@ -323,7 +329,7 @@ class ClangTidyRunner {
   static std::string AssembleArgs(int argc, char **argv) {
     std::string result = " --quiet";
     result.append(" '--config-file=")
-        .append(kConfig.clang_tidy_file)
+      .append(GetClangTidyConfig())
         .append("'");
     for (const std::string_view arg : kExtraArgs) {
       result.append(" --extra-arg='").append(arg).append("'");
@@ -352,7 +358,7 @@ class ClangTidyRunner {
 
     // Make sure directory filename depends on .clang-tidy content.
     hash_t cache_unique_id = hashContent(version + clang_tidy_args_);
-    cache_unique_id ^= hashContent(GetContent(kConfig.clang_tidy_file));
+    cache_unique_id ^= hashContent(GetContent(GetClangTidyConfig()));
     return cache_dir / fs::path(cache_prefix + "v" + major_version + "_" +
                                 ToHex(cache_unique_id, 8));
   }
@@ -527,8 +533,8 @@ class FileGatherer {
 
 int main(int argc, char *argv[]) {
   // Test that key files exist and remember their last change.
-  if (!fs::exists(kConfig.clang_tidy_file)) {
-    std::cerr << "Need a " << kConfig.clang_tidy_file << " config file.\n";
+  if (!fs::exists(GetClangTidyConfig())) {
+    std::cerr << "Need a " << GetClangTidyConfig() << " config file.\n";
     return EXIT_FAILURE;
   }
 
