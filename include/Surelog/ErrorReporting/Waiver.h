@@ -25,13 +25,13 @@
 #define SURELOG_WAIVER_H
 #pragma once
 
-#include <functional>
 #include <Surelog/ErrorReporting/ErrorDefinition.h>
 
+#include <cstdint>
+#include <functional>
 #include <map>
 #include <set>
 #include <string>
-#include <cstdint>
 #include <string_view>
 
 namespace SURELOG {

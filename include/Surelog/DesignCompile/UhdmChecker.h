@@ -25,12 +25,12 @@
 #define SURELOG_UHDMCHECKER_H
 #pragma once
 
-#include <utility>
-#include <string_view>
 #include <Surelog/Common/PathId.h>
 
 #include <map>
 #include <set>
+#include <string_view>
+#include <utility>
 #include <vector>
 
 namespace SURELOG {

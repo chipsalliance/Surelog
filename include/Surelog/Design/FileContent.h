@@ -25,16 +25,16 @@
 #define SURELOG_FILECONTENT_H
 #pragma once
 
-#include <functional>
-#include <set>
-#include <map>
-#include <string_view>
-#include <string>
 #include <Surelog/Common/Containers.h>
 #include <Surelog/Common/NodeId.h>
 #include <Surelog/Design/DesignComponent.h>
 #include <Surelog/Design/VObject.h>
 
+#include <functional>
+#include <map>
+#include <set>
+#include <string>
+#include <string_view>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
@@ -118,14 +118,15 @@ class FileContent final : public DesignComponent {
   PathId* getMutableFileId(NodeId id);
   Library* getLibrary() const { return m_library; }
   std::vector<DesignElement*>& getDesignElements() { return m_elements; }
-  const std::vector<DesignElement*>& getDesignElements() const { return m_elements; }
+  const std::vector<DesignElement*>& getDesignElements() const {
+    return m_elements;
+  }
   void addDesignElement(std::string_view name, DesignElement* elem);
   const DesignElement* getDesignElement(std::string_view name) const;
   using DesignComponent::addObject;
   NodeId addObject(SymbolId name, PathId fileId, VObjectType type,
-                   uint32_t line, uint16_t column,
-                   uint32_t endLine, uint16_t endColumn,
-                   NodeId parent = InvalidNodeId,
+                   uint32_t line, uint16_t column, uint32_t endLine,
+                   uint16_t endColumn, NodeId parent = InvalidNodeId,
                    NodeId definition = InvalidNodeId,
                    NodeId child = InvalidNodeId,
                    NodeId sibling = InvalidNodeId);

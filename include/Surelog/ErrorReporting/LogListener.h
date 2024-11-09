@@ -25,13 +25,13 @@
 #define SURELOG_LOGLISTENER_H
 #pragma once
 
-#include <string_view>
+#include <Surelog/Common/PathId.h>
+
 #include <deque>
 #include <mutex>
 #include <ostream>
 #include <string>
-
-#include <Surelog/Common/PathId.h>
+#include <string_view>
 
 namespace SURELOG {
 

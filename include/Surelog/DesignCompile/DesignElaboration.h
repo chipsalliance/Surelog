@@ -25,15 +25,16 @@
 #define SURELOG_DESIGNELABORATION_H
 #pragma once
 
-#include <functional>
-#include <set>
-#include <map>
-#include <utility>
-#include <vector>
-#include <string_view>
-#include <string>
 #include <Surelog/Config/Config.h>
 #include <Surelog/DesignCompile/TestbenchElaboration.h>
+
+#include <functional>
+#include <map>
+#include <set>
+#include <string>
+#include <string_view>
+#include <utility>
+#include <vector>
 
 namespace SURELOG {
 

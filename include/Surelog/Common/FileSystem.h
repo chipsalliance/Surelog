@@ -25,20 +25,20 @@
 #define SURELOG_FILESYSTEM_H
 #pragma once
 
-#include <functional>
-#include <set>
-#include <utility>
-#include <vector>
 #include <Surelog/Common/PathId.h>
 
 #include <cstdint>
 #include <filesystem>
+#include <functional>
 #include <istream>
 #include <map>
 #include <regex>
+#include <set>
 #include <sstream>
 #include <string>
 #include <string_view>
+#include <utility>
+#include <vector>
 
 namespace SURELOG {
 class SymbolTable;
@@ -77,7 +77,8 @@ class SymbolTable;
  *
  *   NOTE:
  *     toPath(id) == toPath(toPathId(toPath(id))) but
- *     toPlatformAbsPath(id) <> toPlatformAbsPath(toPathId(toPlatformAbsPath(id)))
+ *     toPlatformAbsPath(id) <>
+ * toPlatformAbsPath(toPathId(toPlatformAbsPath(id)))
  *
  *     i.e. string representation can be converted to id (and vice-versa)
  *     using toPathId & toPath but the same is not necessarily guaranteed
@@ -132,7 +133,7 @@ class FileSystem {
   // and can be used for, say, system commands.
   virtual std::filesystem::path toPlatformAbsPath(PathId id) = 0;
   virtual std::filesystem::path toPlatformRelPath(PathId id) = 0;
-  // Returns base and relative paths 
+  // Returns base and relative paths
   virtual std::pair<std::filesystem::path, std::filesystem::path>
   toSplitPlatformPath(PathId id) = 0;
 
@@ -147,7 +148,8 @@ class FileSystem {
   // Open/Close an input stream represented by the input PathId.
   // openForRead defaults the ios_base::openmode to ios_base::text
   // openForLoad defaults the ios_base::openmode to ios_base::binary
-  virtual std::istream &openInput(PathId fileId, std::ios_base::openmode mode) = 0;
+  virtual std::istream &openInput(PathId fileId,
+                                  std::ios_base::openmode mode) = 0;
   std::istream &openForRead(PathId fileId);
   std::istream &openForLoad(PathId fileId);
   virtual bool close(std::istream &strm) = 0;
@@ -155,7 +157,8 @@ class FileSystem {
   // Open/Close an output stream represented by the input PathId.
   // openForWrite defaults the ios_base::openmode to ios_base::text
   // openForSave defaults the ios_base::openmode to ios_base::binary
-  virtual std::ostream &openOutput(PathId fileId, std::ios_base::openmode mode) = 0;
+  virtual std::ostream &openOutput(PathId fileId,
+                                   std::ios_base::openmode mode) = 0;
   std::ostream &openForWrite(PathId fileId);
   std::ostream &openForSave(PathId fileId);
   virtual bool close(std::ostream &strm) = 0;
@@ -203,9 +206,12 @@ class FileSystem {
   virtual PathId getProgramFile(std::string_view hint,
                                 SymbolTable *symbolTable) = 0;
 
-  virtual PathId getWorkingDir(std::string_view dir, SymbolTable *symbolTable) = 0;
-  virtual PathId getOutputDir(std::string_view dir, SymbolTable *symbolTable) = 0;
-  virtual PathId getPrecompiledDir(PathId programId, SymbolTable *symbolTable) = 0;
+  virtual PathId getWorkingDir(std::string_view dir,
+                               SymbolTable *symbolTable) = 0;
+  virtual PathId getOutputDir(std::string_view dir,
+                              SymbolTable *symbolTable) = 0;
+  virtual PathId getPrecompiledDir(PathId programId,
+                                   SymbolTable *symbolTable) = 0;
 
   virtual PathId getLogFile(bool isUnitCompilation, std::string_view filename,
                             SymbolTable *symbolTable) = 0;
@@ -222,23 +228,23 @@ class FileSystem {
                                  std::string_view libraryName,
                                  SymbolTable *symbolTable) = 0;
   PathId getPpOutputFile(bool isUnitCompilation, PathId sourceFileId,
-                                 SymbolId libraryNameId,
-                                 SymbolTable *symbolTable);
+                         SymbolId libraryNameId, SymbolTable *symbolTable);
 
   virtual PathId getPpCacheFile(bool isUnitCompilation, PathId sourceFileId,
                                 std::string_view libraryName,
-                                bool isPrecompiled, SymbolTable *symbolTable) = 0;
+                                bool isPrecompiled,
+                                SymbolTable *symbolTable) = 0;
   PathId getPpCacheFile(bool isUnitCompilation, PathId sourceFileId,
-                                SymbolId libraryNameId, bool isPrecompiled,
-                                SymbolTable *symbolTable);
+                        SymbolId libraryNameId, bool isPrecompiled,
+                        SymbolTable *symbolTable);
 
   virtual PathId getParseCacheFile(bool isUnitCompilation, PathId ppFileId,
                                    std::string_view libraryName,
                                    bool isPrecompiled,
                                    SymbolTable *symbolTable) = 0;
   PathId getParseCacheFile(bool isUnitCompilation, PathId ppFileId,
-                                   SymbolId libraryNameId, bool isPrecompiled,
-                                   SymbolTable *symbolTable);
+                           SymbolId libraryNameId, bool isPrecompiled,
+                           SymbolTable *symbolTable);
 
   virtual PathId getPythonCacheFile(bool isUnitCompilation, PathId sourceFileId,
                                     std::string_view libraryName,
@@ -257,7 +263,8 @@ class FileSystem {
 
   virtual PathId getCheckerDir(bool isUnitCompilation,
                                SymbolTable *symbolTable) = 0;
-  virtual PathId getCheckerFile(PathId uhdmFileId, SymbolTable *symbolTable) = 0;
+  virtual PathId getCheckerFile(PathId uhdmFileId,
+                                SymbolTable *symbolTable) = 0;
   virtual PathId getCheckerHtmlFile(PathId uhdmFileId,
                                     SymbolTable *symbolTable) = 0;
   virtual PathId getCheckerHtmlFile(PathId uhdmFileId, int32_t index,

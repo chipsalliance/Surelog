@@ -18,8 +18,6 @@
 #define SURELOG_PATHID_H
 #pragma once
 
-#include "Surelog/config.h"
-
 #include <Surelog/Common/SymbolId.h>
 
 #include <cstdint>
@@ -28,6 +26,8 @@
 #include <string_view>
 #include <unordered_set>
 #include <vector>
+
+#include "Surelog/config.h"
 
 namespace SURELOG {
 /**
@@ -52,8 +52,7 @@ class SymbolTable;
 class PathId final {
  public:
 #if SURELOG_PATHID_DEBUG_ENABLED
-  PathId()
-      : m_symbolTable(nullptr), m_id(BadRawPathId), m_value(BadRawPath) {}
+  PathId() : m_symbolTable(nullptr), m_id(BadRawPathId), m_value(BadRawPath) {}
   PathId(const SymbolTable *const symbolTable, RawPathId id,
          std::string_view value)
       : m_symbolTable(symbolTable), m_id(id), m_value(value) {}
@@ -66,8 +65,7 @@ class PathId final {
   PathId(const SymbolTable *const symbolTable, RawPathId id,
          std::string_view value)
       : m_symbolTable(symbolTable), m_id(id) {}
-  PathId(const PathId &rhs)
-      : PathId(rhs.m_symbolTable, rhs.m_id, BadRawPath) {}
+  PathId(const PathId &rhs) : PathId(rhs.m_symbolTable, rhs.m_id, BadRawPath) {}
   PathId(const SymbolTable *const symbolTable, SymbolId id)
       : PathId(symbolTable, (RawSymbolId)id, BadRawPath) {}
 #endif
@@ -117,7 +115,7 @@ inline std::ostream &operator<<(std::ostream &strm, const PathId &pathId) {
   return strm << pathId.m_id;
 }
 
-struct PathIdPP final { // Pretty Printer
+struct PathIdPP final {  // Pretty Printer
   const PathId &m_id;
 
   explicit PathIdPP(const PathId &id) : m_id(id) {}

@@ -25,11 +25,12 @@
 #define SURELOG_COMPILATIONUNIT_H
 #pragma once
 
-#include <vector>
-#include <string_view>
 #include <Surelog/Common/Containers.h>
 #include <Surelog/Common/NodeId.h>
 #include <Surelog/Design/TimeInfo.h>
+
+#include <string_view>
+#include <vector>
 
 namespace SURELOG {
 

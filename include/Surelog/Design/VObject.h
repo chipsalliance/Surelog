@@ -25,7 +25,6 @@
 #define SURELOG_VOBJECT_H
 #pragma once
 
-#include <string_view>
 #include <Surelog/Common/NodeId.h>
 #include <Surelog/Common/PathId.h>
 #include <Surelog/Common/SymbolId.h>
@@ -33,6 +32,7 @@
 
 #include <ostream>
 #include <string>
+#include <string_view>
 
 namespace SURELOG {
 
@@ -48,8 +48,8 @@ class VObject final {
                 InvalidNodeId /* sibling */) {}
 
   VObject(SymbolId name, PathId fileId, VObjectType type, uint32_t line,
-          uint16_t column, uint32_t endLine, uint16_t endColumn,
-          NodeId parent, NodeId definition, NodeId child, NodeId sibling)
+          uint16_t column, uint32_t endLine, uint16_t endColumn, NodeId parent,
+          NodeId definition, NodeId child, NodeId sibling)
       : m_name(name),
         m_fileId(fileId),
         m_type(type),

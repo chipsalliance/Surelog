@@ -44,8 +44,8 @@ class AnalyzeFile final {
  public:
   class FileChunk final {
    public:
-    FileChunk(DesignElement::ElemType type, uint64_t from,
-              uint64_t to, uint64_t startChar, uint64_t endChar)
+    FileChunk(DesignElement::ElemType type, uint64_t from, uint64_t to,
+              uint64_t startChar, uint64_t endChar)
         : m_chunkType(type),
           m_fromLine(from),
           m_toLine(to),
@@ -73,9 +73,7 @@ class AnalyzeFile final {
 
   void analyze();
   const std::vector<PathId>& getSplitFiles() const { return m_splitFiles; }
-  const std::vector<uint32_t>& getLineOffsets() const {
-    return m_lineOffsets;
-  }
+  const std::vector<uint32_t>& getLineOffsets() const { return m_lineOffsets; }
 
   AnalyzeFile(const AnalyzeFile& orig) = delete;
   ~AnalyzeFile() = default;

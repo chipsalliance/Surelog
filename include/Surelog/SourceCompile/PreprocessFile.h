@@ -25,9 +25,6 @@
 #define SURELOG_PREPROCESSFILE_H
 #pragma once
 
-#include <utility>
-#include <string_view>
-#include <string>
 #include <Surelog/Common/Containers.h>
 #include <Surelog/Common/PathId.h>
 #include <Surelog/Common/SymbolId.h>
@@ -35,6 +32,9 @@
 #include <Surelog/SourceCompile/LoopCheck.h>
 
 #include <set>
+#include <string>
+#include <string_view>
+#include <utility>
 #include <vector>
 
 namespace antlr4 {

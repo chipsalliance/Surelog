@@ -25,12 +25,12 @@
 #define SURELOG_SCOPE_H
 #pragma once
 
-#include <functional>
-#include <string_view>
 #include <Surelog/Common/RTTI.h>
 
-#include <string>
+#include <functional>
 #include <map>
+#include <string>
+#include <string_view>
 #include <vector>
 
 namespace SURELOG {

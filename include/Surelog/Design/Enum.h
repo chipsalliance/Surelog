@@ -25,11 +25,12 @@
 #define SURELOG_ENUM_H
 #pragma once
 
-#include <functional>
-#include <utility>
-#include <string_view>
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/DataType.h>
+
+#include <functional>
+#include <string_view>
+#include <utility>
 
 // UHDM
 #include <uhdm/uhdm_forward_decl.h>

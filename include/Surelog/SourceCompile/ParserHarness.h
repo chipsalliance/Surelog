@@ -25,11 +25,11 @@
 #define SURELOG_PARSERHARNESS_H
 #pragma once
 
-#include <string_view>
+#include <Surelog/Common/PathId.h>
+
 #include <memory>
 #include <string>
-
-#include <Surelog/Common/PathId.h>
+#include <string_view>
 
 namespace SURELOG {
 

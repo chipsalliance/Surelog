@@ -25,16 +25,16 @@
 #define SURELOG_DESIGN_H
 #pragma once
 
-#include <functional>
-#include <utility>
-#include <string_view>
-#include <string>
 #include <Surelog/Common/Containers.h>
 #include <Surelog/Common/NodeId.h>
 #include <Surelog/Common/PathId.h>
 
+#include <functional>
 #include <map>
 #include <mutex>
+#include <string>
+#include <string_view>
+#include <utility>
 #include <vector>
 
 namespace SURELOG {
@@ -130,8 +130,7 @@ class Design final {
 
   std::string reportInstanceTree() const;
 
-  void reportInstanceTreeStats(uint32_t& nbTopLevelModules,
-                               uint32_t& maxDepth,
+  void reportInstanceTreeStats(uint32_t& nbTopLevelModules, uint32_t& maxDepth,
                                uint32_t& numberOfInstances,
                                uint32_t& numberOfLeafInstances,
                                uint32_t& nbUndefinedModules,

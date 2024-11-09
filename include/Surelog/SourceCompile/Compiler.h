@@ -25,13 +25,14 @@ limitations under the License.
 #define SURELOG_COMPILER_H
 #pragma once
 
-#include <string_view>
 #include <Surelog/Common/PathId.h>
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/ErrorReporting/ErrorContainer.h>
 #include <Surelog/SourceCompile/CompileSourceFile.h>
 #include <Surelog/SourceCompile/PreprocessFile.h>
 #include <uhdm/vpi_user.h>
+
+#include <string_view>
 
 #ifdef USETBB
 #include <tbb/task.h>

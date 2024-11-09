@@ -25,11 +25,11 @@
 #define SURELOG_ANTLRLIBPARSERERRORLISTENER_H
 #pragma once
 
-#include <string>
 #include <ANTLRErrorListener.h>
 
 #include <cstddef>
 #include <exception>
+#include <string>
 
 namespace SURELOG {
 
@@ -37,7 +37,8 @@ class ParseLibraryDef;
 
 class AntlrLibParserErrorListener final : public antlr4::ANTLRErrorListener {
  public:
-  explicit AntlrLibParserErrorListener(ParseLibraryDef *parser) : m_parser(parser) {}
+  explicit AntlrLibParserErrorListener(ParseLibraryDef *parser)
+      : m_parser(parser) {}
 
   ~AntlrLibParserErrorListener() final{};
 

@@ -25,12 +25,12 @@
 #define SURELOG_RESOLVESYMBOLS_H
 #pragma once
 
-#include <vector>
-#include <string_view>
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/DesignCompile/CompileStep.h>
 
+#include <string_view>
 #include <unordered_set>
+#include <vector>
 
 namespace SURELOG {
 

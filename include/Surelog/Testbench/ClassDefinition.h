@@ -25,13 +25,13 @@
 #define SURELOG_CLASSDEFINITION_H
 #pragma once
 
-#include <map>
-#include <string>
 #include <Surelog/Common/Containers.h>
 #include <Surelog/Design/DataType.h>
 #include <Surelog/Design/DesignComponent.h>
 #include <Surelog/Testbench/TaskMethod.h>
 
+#include <map>
+#include <string>
 #include <string_view>
 
 // UHDM
@@ -61,9 +61,7 @@ class ClassDefinition final : public DesignComponent, public DataType {
   ~ClassDefinition() final = default;
 
   uint32_t getSize() const final;
-  VObjectType getType() const final {
-    return VObjectType::paClass_declaration;
-  }
+  VObjectType getType() const final { return VObjectType::paClass_declaration; }
   bool isInstance() const final { return false; }
   std::string_view getName() const final { return m_name; }
   Library* getLibrary() { return m_library; }

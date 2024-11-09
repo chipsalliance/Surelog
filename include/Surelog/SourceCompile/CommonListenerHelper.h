@@ -25,13 +25,13 @@
 #define SURELOG_COMMONLISTENERHELPER_H
 #pragma once
 
-#include <string_view>
 #include <Surelog/Common/NodeId.h>
 #include <Surelog/Common/PathId.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
 
 #include <map>
 #include <string>
+#include <string_view>
 
 namespace antlr4 {
 class CommonTokenStream;
@@ -86,8 +86,7 @@ class CommonListenerHelper {
 
   NodeId getObjectId(antlr4::ParserRuleContext* ctx) const;
 
-  virtual std::tuple<PathId, uint32_t, uint16_t, uint32_t,
-                     uint16_t>
+  virtual std::tuple<PathId, uint32_t, uint16_t, uint32_t, uint16_t>
   getFileLine(antlr4::ParserRuleContext* ctx, antlr4::Token* token) const = 0;
 
   NodeId& MutableChild(NodeId index);

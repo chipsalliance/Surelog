@@ -25,9 +25,9 @@
 #define SURELOG_TASKMETHOD_H
 #pragma once
 
-#include <string_view>
-
 #include <Surelog/Design/Task.h>
+
+#include <string_view>
 
 namespace SURELOG {
 

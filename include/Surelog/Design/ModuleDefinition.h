@@ -25,14 +25,15 @@
 #define SURELOG_MODULEDEFINITION_H
 #pragma once
 
-#include <functional>
-#include <map>
-#include <string>
 #include <Surelog/Common/ClockingBlockHolder.h>
 #include <Surelog/Common/Containers.h>
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/DesignComponent.h>
 #include <Surelog/Design/ModPort.h>
+
+#include <functional>
+#include <map>
+#include <string>
 
 // UHDM
 #include <uhdm/containers.h>
@@ -45,7 +46,8 @@ namespace SURELOG {
 class CompileModule;
 class FileContent;
 
-class ModuleDefinition final : public DesignComponent, public ClockingBlockHolder {
+class ModuleDefinition final : public DesignComponent,
+                               public ClockingBlockHolder {
   SURELOG_IMPLEMENT_RTTI(ModuleDefinition, DesignComponent)
   friend CompileModule;
 

@@ -25,18 +25,18 @@
 #define SURELOG_MODULEINSTANCE_H
 #pragma once
 
-#include <set>
-#include <map>
-#include <vector>
-#include <string>
 #include <Surelog/Common/Containers.h>
 #include <Surelog/Common/NodeId.h>
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/ValuedComponentI.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
-
-#include <string_view>
 #include <uhdm/Serializer.h>
+
+#include <map>
+#include <set>
+#include <string>
+#include <string_view>
+#include <vector>
 
 namespace SURELOG {
 
@@ -104,8 +104,7 @@ class ModuleInstance final : public ValuedComponentI {
 
   std::vector<Parameter*>& getTypeParams() { return m_typeParams; }
 
-  Value* getValue(std::string_view name,
-                  ExprBuilder& exprBuilder) const final;
+  Value* getValue(std::string_view name, ExprBuilder& exprBuilder) const final;
   UHDM::expr* getComplexValue(std::string_view name) const final;
 
   ModuleInstance* getInstanceBinding() { return m_boundInstance; }

@@ -25,14 +25,14 @@
 #define SURELOG_STATEMENT_H
 #pragma once
 
-#include <utility>
-#include <string_view>
 #include <Surelog/Common/NodeId.h>
 #include <Surelog/Common/RTTI.h>
 #include <Surelog/Design/Scope.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
 
 #include <string>
+#include <string_view>
+#include <utility>
 #include <vector>
 
 namespace SURELOG {
@@ -67,7 +67,9 @@ class Statement : public RTTI {
   virtual Function* getFunction() { return nullptr; }
   virtual void setFunction(Function* function) {}
 
-  void addStatement(Statement* statement) { m_statements.emplace_back(statement); }
+  void addStatement(Statement* statement) {
+    m_statements.emplace_back(statement);
+  }
   const StatementVector& getStatements() const { return m_statements; }
 
  private:

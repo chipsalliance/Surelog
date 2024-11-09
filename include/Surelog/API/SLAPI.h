@@ -78,16 +78,17 @@ void SLaddMLErrorContext(SV3_1aPythonListener* prog,
 void SLaddMLError(ErrorContainer* container, const char* messageId,
                   const char* fileName1, uint32_t line1, uint32_t col1,
                   const char* objectName1, const char* fileName2,
-                  uint32_t line2, uint32_t col2,
-                  const char* objectName2);
+                  uint32_t line2, uint32_t col2, const char* objectName2);
 
 /* File Listener API */
 std::string SLgetFile(SV3_1aPythonListener* prog,
                       antlr4::ParserRuleContext* context);
 
-int32_t SLgetLine(SV3_1aPythonListener* prog, antlr4::ParserRuleContext* context);
+int32_t SLgetLine(SV3_1aPythonListener* prog,
+                  antlr4::ParserRuleContext* context);
 
-int32_t SLgetColumn(SV3_1aPythonListener* prog, antlr4::ParserRuleContext* context);
+int32_t SLgetColumn(SV3_1aPythonListener* prog,
+                    antlr4::ParserRuleContext* context);
 
 std::string SLgetText(SV3_1aPythonListener* prog,
                       antlr4::ParserRuleContext* context);
@@ -119,10 +120,10 @@ std::string SLgetName(FileContent* fC, RawNodeId index);
 uint32_t SLgetType(FileContent* fC, RawNodeId index);
 
 RawNodeId SLgetChild(FileContent* fC, RawNodeId parent,
-                  uint32_t type);  // Get first child item of type
+                     uint32_t type);  // Get first child item of type
 
 RawNodeId SLgetParent(FileContent* fC, RawNodeId parent,
-                   uint32_t type);  // Get first parent item of type
+                      uint32_t type);  // Get first parent item of type
 
 UIntVector SLgetAll(FileContent* fC, RawNodeId parent,
                     uint32_t type);  // get all child items of type
@@ -143,8 +144,8 @@ UIntVector SLcollectAll(
     bool first);  // Recursively search for all items of types
 
 UIntVector SLcollectAll(FileContent* fC, RawNodeId parent,
-                        const UIntVector& types,
-                        const UIntVector& stopPoints, bool first);
+                        const UIntVector& types, const UIntVector& stopPoints,
+                        bool first);
 // Recursively search for all items of types
 // and stops at types stopPoints
 /* Design API */

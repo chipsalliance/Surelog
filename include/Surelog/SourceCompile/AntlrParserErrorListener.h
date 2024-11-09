@@ -25,12 +25,11 @@
 #define SURELOG_ANTLRPARSERERRORLISTENER_H
 #pragma once
 
-#include <string>
-#include <Surelog/Common/PathId.h>
 #include <ANTLRErrorListener.h>
+#include <Surelog/Common/PathId.h>
 
+#include <string>
 #include <vector>
-
 
 namespace SURELOG {
 
@@ -39,7 +38,8 @@ class ParseFile;
 class AntlrParserErrorListener final : public antlr4::ANTLRErrorListener {
  public:
   AntlrParserErrorListener(ParseFile *parser, bool watchDogOn,
-                           uint32_t lineOffset, PathId fileId, bool printExtraPpLineInfo)
+                           uint32_t lineOffset, PathId fileId,
+                           bool printExtraPpLineInfo)
       : m_parser(parser),
         m_reportedSyntaxError(0),
         m_watchDogOn(watchDogOn),

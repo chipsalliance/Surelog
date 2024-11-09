@@ -10,15 +10,15 @@ using UHDM::RawSymbolId;
 using UHDM::SymbolId;
 using UHDM::SymbolIdPP;
 
-using UHDM::BadRawSymbolId;
 using UHDM::BadRawSymbol;
+using UHDM::BadRawSymbolId;
 using UHDM::BadSymbolId;
 
 using UHDM::operator<<;
 
-using UHDM::SymbolIdLessThanComparer;
-using UHDM::SymbolIdHasher;
 using UHDM::SymbolIdEqualityComparer;
+using UHDM::SymbolIdHasher;
+using UHDM::SymbolIdLessThanComparer;
 
 using UHDM::SymbolIdSet;
 using UHDM::SymbolIdUnorderedSet;

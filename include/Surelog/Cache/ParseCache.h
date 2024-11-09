@@ -62,11 +62,11 @@ class ParseCache final : Cache {
   // to IDs used on the cache on disk.
   // Updates "targetSymbols" if new IDs are needed.
   void cacheVObjects(::ParseCache::Builder builder, const FileContent* fC,
-                     SymbolTable& targetSymbols, const SymbolTable& sourceSymbols,
-                     PathId fileId);
+                     SymbolTable& targetSymbols,
+                     const SymbolTable& sourceSymbols, PathId fileId);
 
-  void cacheDesignElements(::ParseCache::Builder builder,
-                           const FileContent* fC, SymbolTable& targetSymbols,
+  void cacheDesignElements(::ParseCache::Builder builder, const FileContent* fC,
+                           SymbolTable& targetSymbols,
                            const SymbolTable& sourceSymbols);
 
   bool restore(PathId cacheFileId);

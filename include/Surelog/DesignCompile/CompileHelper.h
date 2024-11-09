@@ -25,16 +25,16 @@
 #define SURELOG_COMPILEHELPER_H
 #pragma once
 
-#include <utility>
-#include <vector>
-#include <string_view>
 #include <Surelog/Common/PathId.h>
 #include <Surelog/Design/ValuedComponentI.h>
 #include <Surelog/Expression/ExprBuilder.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
 
 #include <string>
+#include <string_view>
 #include <unordered_map>
+#include <utility>
+#include <vector>
 
 // UHDM
 #include <uhdm/constant.h>
@@ -287,18 +287,20 @@ class CompileHelper final {
                                         CompileDesign* compileDesign,
                                         UHDM::any* pstmt,
                                         ValuedComponentI* instance);
-                                        
+
   UHDM::property_decl* compilePropertyDeclaration(DesignComponent* component,
-                                        const FileContent* fC, NodeId nodeId,
-                                        CompileDesign* compileDesign,
-                                        UHDM::any* pstmt,
-                                        ValuedComponentI* instance);
-                                        
+                                                  const FileContent* fC,
+                                                  NodeId nodeId,
+                                                  CompileDesign* compileDesign,
+                                                  UHDM::any* pstmt,
+                                                  ValuedComponentI* instance);
+
   UHDM::sequence_decl* compileSequenceDeclaration(DesignComponent* component,
-                                        const FileContent* fC, NodeId nodeId,
-                                        CompileDesign* compileDesign,
-                                        UHDM::any* pstmt,
-                                        ValuedComponentI* instance);
+                                                  const FileContent* fC,
+                                                  NodeId nodeId,
+                                                  CompileDesign* compileDesign,
+                                                  UHDM::any* pstmt,
+                                                  ValuedComponentI* instance);
 
   UHDM::initial* compileInitialBlock(DesignComponent* component,
                                      const FileContent* fC, NodeId id,
@@ -509,7 +511,7 @@ class CompileHelper final {
                        int32_t opIndex, UHDM::expr* rhs,
                        DesignComponent* component, CompileDesign* compileDesign,
                        ValuedComponentI* instance);
-  
+
   void adjustUnsized(UHDM::constant* c, int32_t size);
 
   UHDM::any* defaultPatternAssignment(const UHDM::typespec* tps, UHDM::any* exp,

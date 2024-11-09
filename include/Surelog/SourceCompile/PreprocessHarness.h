@@ -25,11 +25,12 @@
 #define SURELOG_PREPROCESSHARNESS_H
 #pragma once
 
-#include <string_view>
-#include <string>
 #include <Surelog/ErrorReporting/ErrorContainer.h>
 #include <Surelog/SourceCompile/CompilationUnit.h>
 #include <Surelog/SourceCompile/SymbolTable.h>
+
+#include <string>
+#include <string_view>
 
 namespace SURELOG {
 

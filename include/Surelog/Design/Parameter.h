@@ -25,9 +25,10 @@
 #define SURELOG_PARAMETER_H
 #pragma once
 
-#include <string_view>
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/DataType.h>
+
+#include <string_view>
 
 // UHDM
 #include <uhdm/uhdm_forward_decl.h>
