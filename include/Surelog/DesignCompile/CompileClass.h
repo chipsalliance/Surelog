@@ -25,6 +25,7 @@
 #define SURELOG_COMPILECLASS_H
 #pragma once
 
+#include <set>
 #include <string>
 #include <Surelog/DesignCompile/CompileHelper.h>
 #include <Surelog/Testbench/ClassDefinition.h>

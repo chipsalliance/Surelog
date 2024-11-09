@@ -17,6 +17,7 @@
 #include "Surelog/SourceCompile/SV3_1aPpTreeShapeListener.h"
 
 #include <regex>
+#include <set>
 #include <string>
 #include <string_view>
 #include <vector>

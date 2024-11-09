@@ -25,6 +25,7 @@
 #define SURELOG_FILECONTENT_H
 #pragma once
 
+#include <set>
 #include <map>
 #include <string_view>
 #include <string>

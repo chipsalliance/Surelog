@@ -23,6 +23,7 @@
 
 #include "Surelog/ErrorReporting/Waiver.h"
 
+#include <set>
 #include <string>
 #include <string_view>
 

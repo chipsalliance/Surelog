@@ -25,6 +25,7 @@
 #define SURELOG_FILESYSTEM_H
 #pragma once
 
+#include <set>
 #include <utility>
 #include <vector>
 #include <Surelog/Common/PathId.h>

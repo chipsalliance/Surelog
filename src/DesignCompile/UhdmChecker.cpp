@@ -41,6 +41,7 @@
 #include <uhdm/vpi_visitor.h>
 
 #include <iomanip>
+#include <set>
 #include <sstream>
 #include <stack>
 #include <string>
