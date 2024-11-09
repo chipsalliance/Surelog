@@ -48,6 +48,7 @@ class VObject;
 
 class Cache {
  public:
+  Cache(const Cache& orig) = delete;
   static constexpr uint64_t Capacity = 0x000000000FFFFFFF;
 
  protected:
@@ -94,9 +95,6 @@ class Cache {
   void restoreSymbols(
       SymbolTable& targetSymbols,
       const ::capnp::List<::capnp::Text>::Reader& sourceSymbols);
-
- private:
-  Cache(const Cache& orig) = delete;
 };
 
 }  // namespace SURELOG

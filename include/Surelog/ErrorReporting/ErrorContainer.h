@@ -63,6 +63,8 @@ class ErrorContainer final {
 
   explicit ErrorContainer(SymbolTable* symbolTable,
                           LogListener* logListener = nullptr);
+  ErrorContainer(const ErrorContainer& orig) = delete;
+
   virtual ~ErrorContainer();
 
   LogListener* getLogListener() { return m_logListener; }
@@ -86,8 +88,6 @@ class ErrorContainer final {
   void setPythonInterp(void* interpState) { m_interpState = interpState; }
 
  private:
-  ErrorContainer(const ErrorContainer& orig) = delete;
-
   std::pair<std::string, bool> createReport_() const;
   std::pair<std::string, bool> createReport_(const Error& error) const;
   std::vector<Error> m_errors;

@@ -43,6 +43,7 @@ class ParseLibraryDef final {
   ParseLibraryDef(CommandLineParser* commandLineParser, ErrorContainer* errors,
                   SymbolTable* symbolTable, LibrarySet* librarySet,
                   ConfigSet* configSet);
+  ParseLibraryDef(const ParseLibraryDef& orig) = delete;
 
   bool parseLibrariesDefinition();
   bool parseLibraryDefinition(PathId file, Library* lib = nullptr);
@@ -62,8 +63,6 @@ class ParseLibraryDef final {
   ConfigSet* getConfigSet() const { return m_configSet; }
 
  private:
-  ParseLibraryDef(const ParseLibraryDef& orig) = delete;
-
   PathId m_fileId;
   CommandLineParser* const m_commandLineParser;
   ErrorContainer* const m_errors;

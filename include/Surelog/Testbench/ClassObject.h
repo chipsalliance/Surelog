@@ -43,6 +43,7 @@ class ClassObject final {
       std::map<std::string, std::pair<Property*, Value*>, std::less<>>;
 
   explicit ClassObject(ClassDefinition* class_def) : m_class(class_def) {}
+  ClassObject(const ClassObject& orig) = delete;
   ClassDefinition* getClass() { return m_class; }
 
   const PropertyValueMap& getProperties() const { return m_properties; }
@@ -50,8 +51,6 @@ class ClassObject final {
   Value* getValue(std::string_view property) const;
 
  private:
-  ClassObject(const ClassObject& orig) = delete;
-
   ClassDefinition* const m_class;
   PropertyValueMap m_properties;
 };

@@ -43,6 +43,8 @@ struct parser_rule_context;
 class PythonAPI {
  public:
   PythonAPI() = default;
+  PythonAPI(const PythonAPI& orig) = delete;
+
   virtual ~PythonAPI() = default;
 
   /* Main interpreter (in main thread) */
@@ -74,8 +76,6 @@ class PythonAPI {
   static void setStrictMode(bool mode) { m_strictMode = mode; }
 
  private:
-  PythonAPI(const PythonAPI& orig) = delete;
-
   static void initInterp_();
   static void loadScriptsInInterp_();
   static bool loadScript_(const std::filesystem::path& name,

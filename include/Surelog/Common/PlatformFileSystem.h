@@ -247,7 +247,7 @@ class PlatformFileSystem /*final*/ : public FileSystem {
   Mappings m_mappings;
   std::filesystem::path m_outputDir;
 
- private:
+ public:
   PlatformFileSystem(const PlatformFileSystem &rhs) = delete;
   PlatformFileSystem &operator=(const PlatformFileSystem &rhs) = delete;
 };

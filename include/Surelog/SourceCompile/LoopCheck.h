@@ -36,6 +36,7 @@ namespace SURELOG {
 class LoopCheck {
  public:
   LoopCheck() = default;
+  LoopCheck(const LoopCheck& orig) = delete;
   ~LoopCheck();
 
   void clear();
@@ -46,8 +47,6 @@ class LoopCheck {
   std::vector<SymbolId> reportLoop() const;
 
  private:
-  LoopCheck(const LoopCheck& orig) = delete;
-
   class Node {
    public:
     explicit Node(SymbolId objId) : m_objId(objId), m_visited(false) {}

@@ -35,14 +35,13 @@ class PreprocessFile;
 class PPCache : Cache {
  public:
   explicit PPCache(PreprocessFile* pp);
+  PPCache(const PPCache& orig) = delete;
 
   bool restore(bool errorsOnly);
   bool save();
   bool isValid();
 
  private:
-  PPCache(const PPCache& orig) = delete;
-
   PathId getCacheFileId(PathId sourceFileId) const;
 
   bool checkCacheIsValid(PathId cacheFileId,

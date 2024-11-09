@@ -31,8 +31,7 @@
 #include <utility>
 #include <vector>
 
-namespace SURELOG {
-namespace ParseUtils {
+namespace SURELOG::ParseUtils {
 using ParseTree = antlr4::tree::ParseTree;
 using LineColumn = std::pair<uint32_t, uint16_t>;
 
@@ -54,8 +53,6 @@ void tokenizeAtComma(std::vector<std::string>& actualArgs,
 std::vector<antlr4::Token*> getFlatTokenList(ParseTree* tree);
 
 void inOrderTraversal(std::vector<antlr4::Token*>& tokens, ParseTree* parent);
-}  // namespace ParseUtils
-
-}  // namespace SURELOG
+}  // namespace SURELOG::ParseUtils
 
 #endif /* SURELOG_PARSEUTILS_H */

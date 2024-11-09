@@ -35,11 +35,10 @@ class SymbolTable;
 class Report final {
  public:
   Report() = default;
+  Report(const Report& orig) = delete;
+
   std::pair<bool, bool> makeDiffCompUnitReport(CommandLineParser* clp,
                                                SymbolTable* st);
-
- private:
-  Report(const Report& orig) = delete;
 };
 
 }  // namespace SURELOG

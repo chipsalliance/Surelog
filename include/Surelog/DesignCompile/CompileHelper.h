@@ -74,6 +74,7 @@ enum class Reduce : bool { Yes = true, No = false };
 class CompileHelper final {
  public:
   CompileHelper() = default;
+  CompileHelper(const CompileHelper&) = delete;
 
   void seterrorReporting(ErrorContainer* errors, SymbolTable* symbols) {
     m_errors = errors;
@@ -625,8 +626,6 @@ class CompileHelper final {
   void setElabMode(bool on) { m_elabMode = on; }
 
  private:
-  CompileHelper(const CompileHelper&) = delete;
-
   ErrorContainer* m_errors = nullptr;
   SymbolTable* m_symbols = nullptr;
   ExprBuilder m_exprBuilder;

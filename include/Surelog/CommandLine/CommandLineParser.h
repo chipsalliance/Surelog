@@ -46,6 +46,8 @@ class CommandLineParser final {
  public:
   CommandLineParser(ErrorContainer* errors, SymbolTable* symbolTable,
                     bool diffCompMode = false, bool fileUnit = false);
+  CommandLineParser(const CommandLineParser& orig) = delete;
+
   bool parseCommandLine(int32_t argc, const char** argv);
 
   /* Verilog command line content */
@@ -250,8 +252,6 @@ class CommandLineParser final {
   bool cleanCache();
 
  private:
-  CommandLineParser(const CommandLineParser& orig) = delete;
-
   std::pair<PathId, std::filesystem::path> addWorkingDirectory_(
       const std::filesystem::path& wd, const std::filesystem::path& rwd);
   bool plus_arguments_(std::string_view s, const std::filesystem::path& cd);

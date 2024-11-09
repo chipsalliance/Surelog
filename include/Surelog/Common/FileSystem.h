@@ -368,7 +368,7 @@ class FileSystem {
  protected:
   FileSystem() = default;
 
- private:
+ public:
   FileSystem(const FileSystem &rhs) = delete;
   FileSystem &operator=(const FileSystem &rhs) = delete;
 };
