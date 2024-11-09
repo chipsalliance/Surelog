@@ -67,13 +67,13 @@ void SLaddError(ErrorContainer* container, const char* messageId,
 void SLaddErrorContext(SV3_1aPythonListener* prog,
                        antlr4::ParserRuleContext* context,
                        const char* messageId, const char* objectName,
-                       bool printColumn = 0);
+                       bool printColumn = false);
 
 void SLaddMLErrorContext(SV3_1aPythonListener* prog,
                          antlr4::ParserRuleContext* context1,
                          antlr4::ParserRuleContext* context2,
                          const char* messageId, const char* objectName1,
-                         const char* objectName2, bool printColumn = 0);
+                         const char* objectName2, bool printColumn = false);
 
 void SLaddMLError(ErrorContainer* container, const char* messageId,
                   const char* fileName1, uint32_t line1, uint32_t col1,

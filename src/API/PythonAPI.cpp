@@ -42,7 +42,7 @@
 #include "Surelog/API/VObjectTypes_py.h"
 #include "Surelog/API/slapi_scripts.h"
 
-typedef SURELOG::NodeId NodeId;
+using NodeId = SURELOG::NodeId;
 #include <Surelog/API/slapi_wrap.cxx>
 #endif
 

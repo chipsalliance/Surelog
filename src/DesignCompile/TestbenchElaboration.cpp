@@ -181,7 +181,7 @@ bool TestbenchElaboration::checkForMultipleDefinition_() {
 
       std::vector<Location> locations;
 
-      while (1) {
+      while (true) {
         const FileContent* fC2 = prevClassDefinition->getFileContents()[0];
         NodeId nodeId2 = prevClassDefinition->getNodeIds()[0];
         PathId fileId2 = fileSystem->copy(fC2->getFileId(nodeId2), symbols);

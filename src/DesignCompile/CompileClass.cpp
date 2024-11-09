@@ -77,7 +77,7 @@ bool CompileClass::compile() {
   }
   if (!names.empty()) {
     uint32_t index = names.size() - 1;
-    while (1) {
+    while (true) {
       fullName += names[index];
       if (index > 0) fullName += "::";
       if (index == 0) break;
