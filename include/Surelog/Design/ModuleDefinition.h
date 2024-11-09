@@ -25,6 +25,7 @@
 #define SURELOG_MODULEDEFINITION_H
 #pragma once
 
+#include <map>
 #include <string>
 #include <Surelog/Common/ClockingBlockHolder.h>
 #include <Surelog/Common/Containers.h>

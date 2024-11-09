@@ -23,6 +23,7 @@
 
 #include "Surelog/SourceCompile/LoopCheck.h"
 
+#include <map>
 #include <queue>
 #include <vector>
 

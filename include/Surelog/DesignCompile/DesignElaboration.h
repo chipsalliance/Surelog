@@ -25,6 +25,7 @@
 #define SURELOG_DESIGNELABORATION_H
 #pragma once
 
+#include <map>
 #include <utility>
 #include <vector>
 #include <string_view>

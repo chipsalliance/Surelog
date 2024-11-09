@@ -25,6 +25,7 @@
 #define SURELOG_MODULEINSTANCE_H
 #pragma once
 
+#include <map>
 #include <vector>
 #include <string>
 #include <Surelog/Common/Containers.h>

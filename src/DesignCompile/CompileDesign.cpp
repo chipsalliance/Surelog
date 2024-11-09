@@ -55,6 +55,7 @@
 #include <uhdm/vpi_visitor.h>
 
 #include <climits>
+#include <map>
 #include <string>
 #include <string_view>
 #include <thread>

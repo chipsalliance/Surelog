@@ -25,6 +25,7 @@
 #define SURELOG_CLASSDEFINITION_H
 #pragma once
 
+#include <map>
 #include <string>
 #include <Surelog/Common/Containers.h>
 #include <Surelog/Design/DataType.h>
