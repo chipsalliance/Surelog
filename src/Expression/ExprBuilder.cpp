@@ -25,6 +25,7 @@
 #include <cmath>
 #include <string>
 #include <string_view>
+#include <vector>
 
 #include "Surelog/Design/Design.h"
 #include "Surelog/Design/FileContent.h"

@@ -24,6 +24,7 @@
 #include "Surelog/SourceCompile/LoopCheck.h"
 
 #include <queue>
+#include <vector>
 
 namespace SURELOG {
 

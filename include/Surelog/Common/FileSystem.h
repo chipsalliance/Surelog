@@ -25,6 +25,7 @@
 #define SURELOG_FILESYSTEM_H
 #pragma once
 
+#include <vector>
 #include <Surelog/Common/PathId.h>
 
 #include <cstdint>

@@ -25,6 +25,7 @@
 #define SURELOG_COMPILEDESIGN_H
 #pragma once
 
+#include <vector>
 #include <Surelog/Design/Design.h>
 
 // UHDM

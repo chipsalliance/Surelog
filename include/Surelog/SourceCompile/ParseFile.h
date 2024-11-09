@@ -25,6 +25,7 @@
 #define SURELOG_PARSEFILE_H
 #pragma once
 
+#include <vector>
 #include <string_view>
 #include <Surelog/ErrorReporting/Error.h>
 

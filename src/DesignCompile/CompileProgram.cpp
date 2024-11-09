@@ -29,6 +29,7 @@
 #include <stack>
 #include <string>
 #include <string_view>
+#include <vector>
 
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Design/FileContent.h"

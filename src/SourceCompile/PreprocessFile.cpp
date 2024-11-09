@@ -30,6 +30,7 @@
 #include <iostream>
 #include <regex>
 #include <string_view>
+#include <vector>
 
 #include "Surelog/Cache/PPCache.h"
 #include "Surelog/CommandLine/CommandLineParser.h"

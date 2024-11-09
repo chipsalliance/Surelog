@@ -23,6 +23,8 @@
 
 #include "Surelog/ErrorReporting/Error.h"
 
+#include <vector>
+
 namespace SURELOG {
 
 Error::Error(ErrorDefinition::ErrorType errorId, const Location& loc,

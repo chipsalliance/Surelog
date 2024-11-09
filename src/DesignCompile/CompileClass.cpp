@@ -43,6 +43,7 @@
 #include <stack>
 #include <string>
 #include <string_view>
+#include <vector>
 
 namespace SURELOG {
 int32_t FunctorCompileClass::operator()() const {

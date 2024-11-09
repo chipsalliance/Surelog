@@ -37,6 +37,7 @@
 #include <Python.h>
 
 #include <string_view>
+#include <vector>
 
 #include "Surelog/API/PythonAPI.h"
 #include "Surelog/SourceCompile/PythonListen.h"

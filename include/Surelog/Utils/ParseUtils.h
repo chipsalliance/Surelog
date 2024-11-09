@@ -25,6 +25,7 @@
 #define SURELOG_PARSEUTILS_H
 #pragma once
 
+#include <vector>
 #include <string>
 #include <ParserRuleContext.h>
 

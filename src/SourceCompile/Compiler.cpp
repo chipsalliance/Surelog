@@ -29,6 +29,7 @@
 #include <nlohmann/json.hpp>
 #include <string_view>
 #include <thread>
+#include <vector>
 
 #include "Surelog/API/PythonAPI.h"
 #include "Surelog/CommandLine/CommandLineParser.h"

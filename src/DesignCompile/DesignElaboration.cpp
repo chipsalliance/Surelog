@@ -54,6 +54,7 @@
 #include <queue>
 #include <string>
 #include <unordered_set>
+#include <vector>
 
 namespace SURELOG {
 DesignElaboration::DesignElaboration(CompileDesign* compileDesign)

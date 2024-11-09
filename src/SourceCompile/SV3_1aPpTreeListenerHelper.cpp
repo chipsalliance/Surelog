@@ -24,6 +24,7 @@
 #include "Surelog/SourceCompile/SV3_1aPpTreeListenerHelper.h"
 
 #include <string_view>
+#include <vector>
 
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"

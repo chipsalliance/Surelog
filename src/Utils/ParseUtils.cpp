@@ -26,6 +26,7 @@
 #include <antlr4-runtime.h>
 
 #include <string>
+#include <vector>
 
 namespace SURELOG {
 

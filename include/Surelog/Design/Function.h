@@ -25,6 +25,7 @@
 #define SURELOG_FUNCTION_H
 #pragma once
 
+#include <vector>
 #include <string_view>
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/Scope.h>

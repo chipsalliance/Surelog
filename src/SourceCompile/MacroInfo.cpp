@@ -25,6 +25,7 @@
 
 #include <string>
 #include <string_view>
+#include <vector>
 
 namespace SURELOG {
 MacroInfo::MacroInfo(std::string_view name, int32_t type, PathId fileId,
