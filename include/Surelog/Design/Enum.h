@@ -39,11 +39,11 @@ namespace SURELOG {
 class FileContent;
 class Value;
 
-class Enum : public DataType {
+class Enum final : public DataType {
   SURELOG_IMPLEMENT_RTTI(Enum, DataType)
  public:
   Enum(const FileContent* fC, NodeId nameId, NodeId baseTypeId);
-  ~Enum() override = default;
+  ~Enum() final = default;
 
   typedef std::map<std::string, std::pair<uint32_t, Value*>, std::less<>>
       NameValueMap;

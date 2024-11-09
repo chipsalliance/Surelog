@@ -37,15 +37,15 @@ namespace SURELOG {
 
 class FileContent;
 
-class Parameter : public DataType {
+class Parameter final : public DataType {
   SURELOG_IMPLEMENT_RTTI(Parameter, DataType)
  public:
   Parameter(const FileContent* fC, NodeId nodeId, std::string_view name,
             NodeId node_type, bool port_param);
 
-  ~Parameter() override;
+  ~Parameter() final;
 
-  VObjectType getType() const override;
+  VObjectType getType() const final;
   NodeId getNodeType() const { return m_ntype; }
 
   void setUhdmParam(UHDM::any* param) { m_param = param; }

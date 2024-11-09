@@ -39,19 +39,19 @@ class CompileProgram;
 class FileContent;
 class Library;
 
-class Program : public DesignComponent, public ClockingBlockHolder {
+class Program final : public DesignComponent, public ClockingBlockHolder {
   SURELOG_IMPLEMENT_RTTI(Program, DesignComponent)
   friend class CompileProgram;
 
  public:
   Program(std::string_view name, Library* library, FileContent* fC,
           NodeId nodeId);
-  ~Program() override = default;
+  ~Program() final = default;
 
-  uint32_t getSize() const override;
-  VObjectType getType() const override;
-  bool isInstance() const override { return true; }
-  std::string_view getName() const override { return m_name; }
+  uint32_t getSize() const final;
+  VObjectType getType() const final;
+  bool isInstance() const final { return true; }
+  std::string_view getName() const final { return m_name; }
 
   ClassNameClassDefinitionMultiMap& getClassDefinitions() {
     return m_classDefinitions;

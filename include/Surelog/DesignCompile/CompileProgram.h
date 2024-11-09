@@ -55,7 +55,7 @@ struct FunctorCompileProgram {
   ErrorContainer* const m_errors;
 };
 
-class CompileProgram : public CompileToolbox {
+class CompileProgram final : public CompileToolbox {
  public:
   CompileProgram(CompileDesign* compiler, Program* program, Design* design,
                  SymbolTable* symbols, ErrorContainer* errors)
@@ -69,7 +69,7 @@ class CompileProgram : public CompileToolbox {
 
   bool compile();
 
-  ~CompileProgram() override = default;
+  ~CompileProgram() final = default;
 
  private:
   enum CollectType { FUNCTION, DEFINITION, OTHER };

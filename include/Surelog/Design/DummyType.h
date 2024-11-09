@@ -35,11 +35,11 @@ namespace SURELOG {
 
 class FileContent;
 
-class DummyType : public DataType {
+class DummyType final : public DataType {
   SURELOG_IMPLEMENT_RTTI(DummyType, DataType)
  public:
   DummyType(const FileContent* fC, NodeId nameId, NodeId structId);
-  ~DummyType() override;
+  ~DummyType() final;
 
   NodeId getNameId() const { return m_nameId; }
 

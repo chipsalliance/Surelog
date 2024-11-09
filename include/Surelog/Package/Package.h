@@ -41,7 +41,7 @@ class FileContent;
 class Library;
 class Netlist;
 
-class Package : public DesignComponent {
+class Package final : public DesignComponent {
   SURELOG_IMPLEMENT_RTTI(Package, DesignComponent)
   friend CompilePackage;
 
@@ -50,16 +50,16 @@ class Package : public DesignComponent {
           NodeId nodeId);
   void append(Package* package);
 
-  ~Package() override = default;
+  ~Package() final = default;
 
   Library* getLibrary() { return m_library; }
 
-  uint32_t getSize() const override;
-  VObjectType getType() const override {
+  uint32_t getSize() const final;
+  VObjectType getType() const final {
     return VObjectType::paPackage_declaration;
   }
-  bool isInstance() const override { return false; }
-  std::string_view getName() const override { return m_name; }
+  bool isInstance() const final { return false; }
+  std::string_view getName() const final { return m_name; }
 
   ClassNameClassDefinitionMultiMap& getClassDefinitions() {
     return m_classDefinitions;

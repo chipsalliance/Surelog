@@ -29,14 +29,14 @@
 
 namespace SURELOG {
 
-class PackageAndRootElaboration : public ElaborationStep {
+class PackageAndRootElaboration final : public ElaborationStep {
  public:
   explicit PackageAndRootElaboration(CompileDesign* compileDesign)
       : ElaborationStep(compileDesign) {}
 
-  ~PackageAndRootElaboration() override = default;
+  ~PackageAndRootElaboration() final = default;
 
-  bool elaborate() override;
+  bool elaborate() final;
 
  private:
 };

@@ -73,7 +73,7 @@ struct FunctorResolve {
   ErrorContainer* const m_errorContainer;
 };
 
-class ResolveSymbols : public CompileStep {
+class ResolveSymbols final : public CompileStep {
  public:
   ResolveSymbols(CompileDesign* compileDesign, FileContent* fileContent,
                  SymbolTable* symbolTable, ErrorContainer* errors)
@@ -86,55 +86,55 @@ class ResolveSymbols : public CompileStep {
 
   bool resolve();
 
-  VObject Object(NodeId index) const override;
+  VObject Object(NodeId index) const final;
   VObject* MutableObject(NodeId index);
 
-  NodeId UniqueId(NodeId index) const override;
+  NodeId UniqueId(NodeId index) const final;
 
-  SymbolId Name(NodeId index) const override;
+  SymbolId Name(NodeId index) const final;
 
-  NodeId Child(NodeId index) const override;
+  NodeId Child(NodeId index) const final;
 
-  NodeId Sibling(NodeId index) const override;
+  NodeId Sibling(NodeId index) const final;
 
-  NodeId Definition(NodeId index) const override;
+  NodeId Definition(NodeId index) const final;
   bool SetDefinition(NodeId index, NodeId node);
 
-  NodeId Parent(NodeId index) const override;
+  NodeId Parent(NodeId index) const final;
 
-  VObjectType Type(NodeId index) const override;
+  VObjectType Type(NodeId index) const final;
   bool SetType(NodeId index, VObjectType type);
 
-  uint32_t Line(NodeId index) const override;
+  uint32_t Line(NodeId index) const final;
 
-  std::string_view Symbol(SymbolId id) const override;
+  std::string_view Symbol(SymbolId id) const final;
 
-  std::string_view SymName(NodeId index) const override;
+  std::string_view SymName(NodeId index) const final;
 
   NodeId sl_get(NodeId parent,
-                VObjectType type) const override;  // Get first item of type
+                VObjectType type) const final;  // Get first item of type
 
   NodeId sl_parent(
       NodeId parent,
-      VObjectType type) const override;  // Get first parent item of type
+      VObjectType type) const final;  // Get first parent item of type
 
   NodeId sl_parent(NodeId parent, const VObjectTypeUnorderedSet& types,
-                   VObjectType& actualType) const override;
+                   VObjectType& actualType) const final;
 
   std::vector<NodeId> sl_get_all(
       NodeId parent,
-      VObjectType type) const override;  // get all items of type
+      VObjectType type) const final;  // get all items of type
 
   NodeId sl_collect(NodeId parent,
                     VObjectType type)
-      const override;  // Recursively search for first item of type
+      const final;  // Recursively search for first item of type
 
   std::vector<NodeId> sl_collect_all(NodeId parent,
                                      VObjectType type)
-      const override;  // Recursively search for all items of type
+      const final;  // Recursively search for all items of type
 
   ResolveSymbols(const ResolveSymbols& orig);
-  ~ResolveSymbols() override = default;
+  ~ResolveSymbols() final = default;
 
   Compiler* getCompiler() const;
 

@@ -36,15 +36,15 @@ namespace SURELOG {
 
 class FileContent;
 
-class Struct : public DataType {
+class Struct final : public DataType {
   SURELOG_IMPLEMENT_RTTI(Struct, DataType)
  public:
   Struct(const FileContent* fC, NodeId nameId, NodeId structId);
-  ~Struct() override = default;
+  ~Struct() final = default;
 
   NodeId getNameId() const { return m_nameId; }
 
-  bool isNet() const override;
+  bool isNet() const final;
 
  private:
   const NodeId m_nameId;

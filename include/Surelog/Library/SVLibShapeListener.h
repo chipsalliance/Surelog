@@ -34,7 +34,7 @@ namespace SURELOG {
 class Config;
 class ParseLibraryDef;
 
-class SVLibShapeListener : public SV3_1aParserBaseListener,
+class SVLibShapeListener final : public SV3_1aParserBaseListener,
                            public SV3_1aTreeShapeHelper {
  public:
   SVLibShapeListener(ParseLibraryDef* parser, antlr4::CommonTokenStream* tokens);
@@ -42,13 +42,13 @@ class SVLibShapeListener : public SV3_1aParserBaseListener,
   SymbolId registerSymbol(std::string_view symbol) final;
 
   antlr4::CommonTokenStream* getTokenStream() const { return m_tokens; }
-  ~SVLibShapeListener() override = default;
+  ~SVLibShapeListener() final = default;
 
   // *** LIBRARY DEFINITION PARSING ***
 
   // DO NOT OVERRIDE: virtual void
   // enterTop_level_library_rule(SV3_1aParser::Top_level_library_ruleContext *
-  // /*ctx*/) override;
+  // /*ctx*/) final;
   void enterTop_level_library_rule(
       SV3_1aParser::Top_level_library_ruleContext* /*ctx*/) final {}
 

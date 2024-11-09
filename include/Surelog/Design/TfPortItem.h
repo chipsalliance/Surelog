@@ -33,7 +33,7 @@ namespace SURELOG {
 class Procedure;
 class Value;
 
-class TfPortItem : public Variable {
+class TfPortItem final : public Variable {
  public:
   TfPortItem(Procedure* parent, const FileContent* fc, NodeId id, NodeId range,
              std::string_view name, DataType* type, Value* default_value,
@@ -42,7 +42,7 @@ class TfPortItem : public Variable {
         m_parent(parent),
         m_default(default_value),
         m_direction(direction) {}
-  ~TfPortItem() override = default;
+  ~TfPortItem() final = default;
 
   Procedure* getParent() const { return m_parent; }
   Value* getDefault() const { return m_default; }

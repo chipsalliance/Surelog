@@ -34,18 +34,18 @@ class BindStmt;
 class ModuleDefinitionFactory;
 class ModuleInstanceFactory;
 
-class DesignElaboration : public TestbenchElaboration {
+class DesignElaboration final : public TestbenchElaboration {
  public:
   explicit DesignElaboration(CompileDesign* compileDesign);
   DesignElaboration(const DesignElaboration& orig) = delete;
-  ~DesignElaboration() override;
+  ~DesignElaboration() final;
 
   bool createModuleAndPackageDefinitions();
 
-  bool elaborate() override;
+  bool elaborate() final;
 
  private:
-  bool bindDataTypes_() override;
+  bool bindDataTypes_() final;
   bool bindPackagesDataTypes_();
   bool bindDataTypes_(ModuleInstance* instance, DesignComponent* component);
   void bind_ports_nets_(std::vector<Signal*>& ports,
