@@ -30,7 +30,7 @@
 #include <vector>
 
 struct _ts;
-typedef struct _ts PyThreadState;
+using PyThreadState = struct _ts;
 
 namespace SURELOG {
 
@@ -43,6 +43,8 @@ struct parser_rule_context;
 class PythonAPI {
  public:
   PythonAPI() = default;
+  PythonAPI(const PythonAPI& orig) = delete;
+
   virtual ~PythonAPI() = default;
 
   /* Main interpreter (in main thread) */
@@ -59,7 +61,8 @@ class PythonAPI {
                                 const std::string& function,
                                 const std::vector<std::string>& args,
                                 PyThreadState* interp);
-  static void evalScript(std::string function, SV3_1aPythonListener* listener,
+  static void evalScript(const std::string& function,
+                         SV3_1aPythonListener* listener,
                          parser_rule_context* ctx);
   static std::string getInvalidScriptString() { return m_invalidScriptResult; }
   static bool isListenerLoaded() { return m_listenerLoaded; }
@@ -74,8 +77,6 @@ class PythonAPI {
   static void setStrictMode(bool mode) { m_strictMode = mode; }
 
  private:
-  PythonAPI(const PythonAPI& orig) = delete;
-
   static void initInterp_();
   static void loadScriptsInInterp_();
   static bool loadScript_(const std::filesystem::path& name,

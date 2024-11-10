@@ -406,7 +406,7 @@ void SV3_1aPpTreeShapeListener::enterSimple_no_args_macro_definition(
     }
     if (m_reservedMacroNamesSet.find(macroName) !=
         m_reservedMacroNamesSet.end()) {
-      logError(ErrorDefinition::PP_MACRO_NAME_RESERVED, ctx, macroName, 0);
+      logError(ErrorDefinition::PP_MACRO_NAME_RESERVED, ctx, macroName, false);
     }
     m_inMacroDefinitionParsing = true;
     SV3_1aPpParser::Simple_macro_definition_bodyContext *cBody =
@@ -849,7 +849,7 @@ void SV3_1aPpTreeShapeListener::enterDefine_directive(
     }
     if (m_reservedMacroNamesSet.find(macroName) !=
         m_reservedMacroNamesSet.end()) {
-      logError(ErrorDefinition::PP_MACRO_NAME_RESERVED, ctx, macroName, 0);
+      logError(ErrorDefinition::PP_MACRO_NAME_RESERVED, ctx, macroName, false);
     }
   }
 }
@@ -1053,7 +1053,7 @@ void SV3_1aPpTreeShapeListener::enterUndef_directive(
   }
   if (m_reservedMacroNamesSet.find(macroName) !=
       m_reservedMacroNamesSet.end()) {
-    logError(ErrorDefinition::PP_MACRO_NAME_RESERVED, ctx, macroName, 0);
+    logError(ErrorDefinition::PP_MACRO_NAME_RESERVED, ctx, macroName, false);
   }
   if (m_pp->m_debugMacro)
     std::cout << "Undefining macro: " << macroName << std::endl;
@@ -1454,7 +1454,7 @@ void SV3_1aPpTreeShapeListener::enterMultiline_no_args_macro_definition(
     }
     if (m_reservedMacroNamesSet.find(macroName) !=
         m_reservedMacroNamesSet.end()) {
-      logError(ErrorDefinition::PP_MACRO_NAME_RESERVED, ctx, macroName, 0);
+      logError(ErrorDefinition::PP_MACRO_NAME_RESERVED, ctx, macroName, false);
     }
     antlr4::tree::TerminalNode *const identifier =
         ctx->Simple_identifier() ? ctx->Simple_identifier()
@@ -1507,7 +1507,7 @@ void SV3_1aPpTreeShapeListener::enterMultiline_args_macro_definition(
     }
     if (m_reservedMacroNamesSet.find(macroName) !=
         m_reservedMacroNamesSet.end()) {
-      logError(ErrorDefinition::PP_MACRO_NAME_RESERVED, ctx, macroName, 0);
+      logError(ErrorDefinition::PP_MACRO_NAME_RESERVED, ctx, macroName, false);
     }
     if (m_pp->m_debugMacro)
       std::cout << "Defining macro:" << macroName << std::endl;
@@ -1559,7 +1559,7 @@ void SV3_1aPpTreeShapeListener::enterSimple_args_macro_definition(
     }
     if (m_reservedMacroNamesSet.find(macroName) !=
         m_reservedMacroNamesSet.end()) {
-      logError(ErrorDefinition::PP_MACRO_NAME_RESERVED, ctx, macroName, 0);
+      logError(ErrorDefinition::PP_MACRO_NAME_RESERVED, ctx, macroName, false);
     }
     if (m_pp->m_debugMacro)
       std::cout << "Defining macro:" << macroName << std::endl;

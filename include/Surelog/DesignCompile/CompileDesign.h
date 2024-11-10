@@ -48,6 +48,7 @@ class CompileDesign {
  public:
   // Note: takes owernship of compiler
   explicit CompileDesign(Compiler* compiler);
+  CompileDesign(const CompileDesign& orig) = delete;
   virtual ~CompileDesign();  // Used in MockCompileDesign
 
   bool compile();
@@ -65,8 +66,6 @@ class CompileDesign {
   }
 
  private:
-  CompileDesign(const CompileDesign& orig) = delete;
-
   template <class ObjectType, class ObjectMapType, typename FunctorType>
   void compileMT_(ObjectMapType& objects, int32_t maxThreadCount);
 

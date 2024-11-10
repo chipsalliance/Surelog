@@ -58,7 +58,7 @@ class FileContent final : public DesignComponent {
 
   void setLibrary(Library* lib) { m_library = lib; }
 
-  typedef std::map<std::string, NodeId, std::less<>> NameIdMap;
+  using NameIdMap = std::map<std::string, NodeId, std::less<>>;
 
   NodeId sl_get(NodeId parent,
                 VObjectType type) const;  // Get first child item of type

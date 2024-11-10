@@ -84,12 +84,11 @@ class CompileFileContent final {
         m_declOnly(declOnly) {
     m_helper.seterrorReporting(errors, symbols);
   }
+  CompileFileContent(const CompileFileContent&) = delete;
 
   bool compile();
 
  private:
-  CompileFileContent(const CompileFileContent&) = delete;
-
   bool collectObjects_();
   CompileDesign* const m_compileDesign;
   FileContent* const m_fileContent;

@@ -83,7 +83,7 @@ class Design final {
 
   ~Design();
 
-  typedef std::vector<std::pair<PathId, FileContent*>> FileIdDesignContentMap;
+  using FileIdDesignContentMap = std::vector<std::pair<PathId, FileContent*>>;
 
   // TODO: Unfortunately, all these need to be non-const, as there is code
   // on the receiving end is not using const stringently enough.
@@ -158,7 +158,7 @@ class Design final {
 
   ErrorContainer* getErrorContainer() { return m_errors; }
 
-  typedef std::multimap<std::string, BindStmt*, std::less<>> BindMap;
+  using BindMap = std::multimap<std::string, BindStmt*, std::less<>>;
 
   BindMap& getBindMap() { return m_bindMap; }
 

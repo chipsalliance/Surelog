@@ -25,7 +25,8 @@
 
 namespace SURELOG {
 
-Netlist::~Netlist() {
+Netlist::~Netlist() {  // NOLINT(modernize-use-equals-default)
+  // Why are these not deleted ?
   /*
   delete m_interfaces;
   delete m_interface_arrays;

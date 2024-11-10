@@ -31,8 +31,7 @@
 #include <string>
 #include <string_view>
 
-namespace SURELOG {
-namespace NumUtils {
+namespace SURELOG::NumUtils {
 namespace internal {
 // These functions parse a number from a std::string_view into "result".
 // Returns the end of the number on success, nullptr otherwise.
@@ -176,7 +175,6 @@ template <typename result_type>
 // failure.
 [[nodiscard]] const char* parseLongDouble(std::string_view s,
                                           long double* result);
-}  // namespace NumUtils
-}  // namespace SURELOG
+}  // namespace SURELOG::NumUtils
 
 #endif /* SURELOG_NUMUTILS_H */

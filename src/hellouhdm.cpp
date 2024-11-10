@@ -54,7 +54,7 @@ int main(int argc, const char** argv) {
   // clp->setElabUhdm(true);  // Request UHDM Uniquification/Elaboration
   bool success = clp->parseCommandLine(argc, argv);
   errors->printMessages(clp->muteStdout());
-  vpiHandle the_design = 0;
+  vpiHandle the_design = nullptr;
   SURELOG::scompiler* compiler = nullptr;
   if (success && (!clp->help())) {
     compiler = SURELOG::start_compiler(clp);

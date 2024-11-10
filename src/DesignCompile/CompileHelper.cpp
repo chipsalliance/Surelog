@@ -3324,15 +3324,15 @@ UHDM::any* CompileHelper::defaultPatternAssignment(const UHDM::typespec* tps,
               bool invalidValue = false;
               UHDM::ExprEval eval;
               expr* lexp = reduceExpr(
-                  (expr*)r->Left_expr(), invalidValue, component, compileDesign,
+                  r->Left_expr(), invalidValue, component, compileDesign,
                   instance,
                   fileSystem->toPathId(
                       r->VpiFile(),
                       compileDesign->getCompiler()->getSymbolTable()),
                   r->VpiLineNo(), nullptr);
               expr* rexp = reduceExpr(
-                  (expr*)r->Right_expr(), invalidValue, component,
-                  compileDesign, instance,
+                  r->Right_expr(), invalidValue, component, compileDesign,
+                  instance,
                   fileSystem->toPathId(
                       r->VpiFile(),
                       compileDesign->getCompiler()->getSymbolTable()),
@@ -3982,7 +3982,7 @@ UHDM::constant* CompileHelper::adjustSize(const UHDM::typespec* ts,
               if (signedLhs) {
                 const std::string res = twosComplement(v);
                 // Convert to int32_t
-                val = std::strtoll(res.c_str(), 0, 2);
+                val = std::strtoll(res.c_str(), nullptr, 2);
                 val = -val;
               } else {
                 if (size > orig_size) {
@@ -3991,7 +3991,7 @@ UHDM::constant* CompileHelper::adjustSize(const UHDM::typespec* ts,
                   }
                   orig_size = size;
                 }
-                val = std::strtoll(v.c_str(), 0, 2);
+                val = std::strtoll(v.c_str(), nullptr, 2);
               }
               if (uniquify) {
                 UHDM::ElaboratorContext elaboratorContext(&s, false, true);
@@ -4983,7 +4983,7 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
   uint64_t patternSize = 0;
 
   UHDM::ExprEval eval(true);
-  rhs = eval.flattenPatternAssignments(s, tps, (UHDM::expr*)rhs);
+  rhs = eval.flattenPatternAssignments(s, tps, rhs);
 
   std::vector<int32_t> values(size, 0);
   if (rhs->UhdmType() == uhdmoperation) {
@@ -5014,8 +5014,8 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
                   defaultval = eval.get_value(
                       invalidValue,
                       reduceExpr(
-                          (any*)tp->Pattern(), invalidValue, component,
-                          compileDesign, instance,
+                          tp->Pattern(), invalidValue, component, compileDesign,
+                          instance,
                           fileSystem->toPathId(
                               tp->Pattern()->VpiFile(),
                               compileDesign->getCompiler()->getSymbolTable()),
@@ -5089,8 +5089,8 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
                         UHDM::ExprEval eval;
                         val = eval.get_value(
                             invalidValue,
-                            reduceExpr((any*)tp->Pattern(), invalidValue,
-                                       component, compileDesign, instance,
+                            reduceExpr(tp->Pattern(), invalidValue, component,
+                                       compileDesign, instance,
                                        fileSystem->toPathId(
                                            tp->Pattern()->VpiFile(),
                                            compileDesign->getCompiler()

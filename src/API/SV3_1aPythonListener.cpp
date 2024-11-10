@@ -38,13 +38,15 @@ SV3_1aPythonListener::SV3_1aPythonListener(PythonListen* pl,
       m_tokens(tokens),
       m_lineOffset(lineOffset) {}
 
-SV3_1aPythonListener::SV3_1aPythonListener(const SV3_1aPythonListener& orig) {}
+SV3_1aPythonListener::SV3_1aPythonListener(const SV3_1aPythonListener& orig) =
+    default;
 
-SV3_1aPythonListener::~SV3_1aPythonListener() {}
+SV3_1aPythonListener::~SV3_1aPythonListener() = default;
 
 void SV3_1aPythonListener::logError(ErrorDefinition::ErrorType error,
                                     antlr4::ParserRuleContext* ctx,
-                                    std::string object, bool printColumn) {
+                                    const std::string& object,
+                                    bool printColumn) {
   ParseUtils::LineColumn lineCol =
       ParseUtils::getLineColumn(getTokenStream(), ctx);
 

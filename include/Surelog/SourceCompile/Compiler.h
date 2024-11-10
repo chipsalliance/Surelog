@@ -59,12 +59,13 @@ class SymbolTable;
 
 class Compiler {
  public:
-  typedef std::map<PathId, std::vector<PathId>, PathIdLessThanComparer>
-      PPFileMap;
+  using PPFileMap =
+      std::map<PathId, std::vector<PathId>, PathIdLessThanComparer>;
   Compiler(CommandLineParser* commandLineParser, ErrorContainer* errors,
            SymbolTable* symbolTable);
   Compiler(CommandLineParser* commandLineParser, ErrorContainer* errors,
            SymbolTable* symbolTable, std::string_view text);
+  Compiler(const Compiler& orig) = delete;
   virtual ~Compiler();
 
   bool compile();
@@ -104,7 +105,6 @@ class Compiler {
 #endif
 
  private:
-  Compiler(const Compiler& orig) = delete;
   bool parseLibrariesDef_();
 
   bool ppinit_();

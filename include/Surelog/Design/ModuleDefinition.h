@@ -62,10 +62,10 @@ class ModuleDefinition final : public DesignComponent,
   bool isInstance() const final;
   uint32_t getSize() const final;
 
-  typedef std::map<std::string, ClockingBlock> ClockingBlockMap;
-  typedef std::map<std::string, ModPort, std::less<>> ModPortSignalMap;
-  typedef std::map<std::string, std::vector<ClockingBlock>, std::less<>>
-      ModPortClockingBlockMap;
+  using ClockingBlockMap = std::map<std::string, ClockingBlock>;
+  using ModPortSignalMap = std::map<std::string, ModPort, std::less<>>;
+  using ModPortClockingBlockMap =
+      std::map<std::string, std::vector<ClockingBlock>, std::less<>>;
 
   ModPortSignalMap& getModPortSignalMap() { return m_modportSignalMap; }
   ModPortClockingBlockMap& getModPortClockingBlockMap() {

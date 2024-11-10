@@ -38,6 +38,7 @@ class CoverGroupDefinition final {
  public:
   CoverGroupDefinition(const FileContent* fC, NodeId id, std::string_view name)
       : m_fileContent(fC), m_nodeId(id), m_name(name) {}
+  CoverGroupDefinition(const CoverGroupDefinition&) = delete;
 
   std::string_view getName() const { return m_name; }
 
@@ -46,8 +47,6 @@ class CoverGroupDefinition final {
   NodeId getNodeId() const { return m_nodeId; }
 
  private:
-  CoverGroupDefinition(const CoverGroupDefinition&) = delete;
-
   // Set in constructor, never updated, no copy constructor. Can be const.
   const FileContent* const m_fileContent;
   const NodeId m_nodeId;

@@ -38,6 +38,9 @@ namespace SURELOG {
 
 class Waiver final {
  public:
+  Waiver() = delete;
+  Waiver(const Waiver& orig) = delete;
+
   static void initWaivers();
 
   static bool macroArgCheck(std::string_view name);
@@ -64,9 +67,6 @@ class Waiver final {
   }
 
  private:
-  Waiver() = delete;
-  Waiver(const Waiver& orig) = delete;
-
   static std::set<std::string, std::less<>> m_macroArgCheck;
   static std::multimap<ErrorDefinition::ErrorType, WaiverData> m_waivers;
 };

@@ -1075,7 +1075,7 @@ jobs:
     - name: Install Dependencies
       run: |
         sudo apt-get update -qq
-        sudo apt -qq -y install clang-tidy-18 \
+        sudo apt -qq -y install clang-tidy-18 ccache \
                                 g++-9 default-jre cmake \
                                 uuid-dev build-essential
 
@@ -1096,10 +1096,20 @@ jobs:
         submodules: recursive
         fetch-depth: 0
 
-    - name: Use ccache
-      uses: hendrikmuhs/ccache-action@v1.2
+    - name: Create Cache Timestamp
+      id: cache_timestamp
+      uses: nanzm/get-time-action@v2.0
       with:
-        key: clang-tidy-codegen
+        format: 'YYYY-MM-DD-HH-mm-ss'
+
+    - name: Retrieve cached results
+      uses: actions/cache@v3
+      with:
+        path: |
+          /home/runner/.cache/clang-tidy
+          /home/runner/.cache/ccache
+        key: clang-tidy-${{ steps.cache_timestamp.outputs.time }}
+        restore-keys: clang-tidy-
 
     - name: Configure shell
       run: |
@@ -1107,14 +1117,13 @@ jobs:
 
     - name: Prepare source
       run: |
-        make run-cmake-release
-        make -j2 -C build GenerateParser
-        make -j2 -C build GenerateParserListeners
-        make -j2 -C build GenerateCacheSerializers
+        make run-cmake-release-with-python
+        make -j2 -C build surelog  # creates all relevant artifacts
         ln -sf build/compile_commands.json .
 
     - name: Run clang tidy
       run: |
         export CLANG_TIDY=clang-tidy-18
         "${CLANG_TIDY}" --version
-        ./.github/bin/run-clang-tidy.sh limited
+        ./.github/bin/run-clang-tidy.sh limited \
+           || ( cat Surelog_clang-tidy.out ; exit 1)

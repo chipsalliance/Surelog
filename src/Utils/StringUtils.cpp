@@ -293,7 +293,7 @@ std::vector<std::string_view> StringUtils::splitLines(std::string_view text) {
 std::string StringUtils::removeComments(std::string_view text) {
   std::string result;
   char c1 = '\0';
-  bool inComment = 0;
+  bool inComment = false;
   for (char c2 : text) {
     if ((c2 == '/') && (c1 == '/') && !inComment) {
       inComment = true;

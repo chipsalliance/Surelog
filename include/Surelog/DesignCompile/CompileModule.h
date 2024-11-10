@@ -71,11 +71,11 @@ class CompileModule final {
         m_instance(instance) {
     m_helper.seterrorReporting(errors, symbols);
   }
+  CompileModule(const CompileModule&) = delete;
 
   bool compile();
 
  private:
-  CompileModule(const CompileModule&) = delete;
   enum CollectType { FUNCTION, DEFINITION, GENERATE_REGIONS, OTHER };
   bool collectModuleObjects_(CollectType collectType);
   bool checkModule_();

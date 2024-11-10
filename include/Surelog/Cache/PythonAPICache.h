@@ -35,14 +35,13 @@ class PythonListen;
 class PythonAPICache final : Cache {
  public:
   explicit PythonAPICache(PythonListen* listener);
+  PythonAPICache(const PythonAPICache& orig) = delete;
 
   bool restore();
   bool save();
   bool isValid() const;
 
  private:
-  PythonAPICache(const PythonAPICache& orig) = delete;
-
   PathId getCacheFileId(PathId sourceFileId) const;
 
   bool checkCacheIsValid(PathId cacheFileId,

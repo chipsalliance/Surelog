@@ -1195,7 +1195,7 @@ PathId PreprocessFile::getFileId(uint32_t line) const {
         }
       } else {
         uint32_t index = size - 1;
-        while (1) {
+        while (true) {
           if (line >= m_lineTranslationVec[index].m_originalLine) {
             return (m_lineTranslationVec[index].m_pretendFileId);
           }
@@ -1215,7 +1215,7 @@ uint32_t PreprocessFile::getLineNb(uint32_t line) {
     return (m_macroInfo->m_startLine + line - 1);
   } else if (!m_lineTranslationVec.empty()) {
     uint32_t index = m_lineTranslationVec.size() - 1;
-    while (1) {
+    while (true) {
       if (line >= m_lineTranslationVec[index].m_originalLine) {
         return (m_lineTranslationVec[index].m_pretendLine +
                 (line - m_lineTranslationVec[index].m_originalLine));

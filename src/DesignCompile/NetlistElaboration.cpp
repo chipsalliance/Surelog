@@ -76,7 +76,7 @@ NetlistElaboration::NetlistElaboration(CompileDesign* compileDesign)
   m_errors = m_compileDesign->getCompiler()->getErrorContainer();
 }
 
-NetlistElaboration::~NetlistElaboration() {}
+NetlistElaboration::~NetlistElaboration() = default;
 
 bool NetlistElaboration::elaboratePackages() {
   Design* design = m_compileDesign->getCompiler()->getDesign();
@@ -222,7 +222,7 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
             pclone->VpiParent((any*)mod_assign->VpiParent());
             pclone->VpiOverriden(instance->isOverridenParam(paramName));
             const any* lhs = pclone->Lhs();
-            any* rhs = (any*)pclone->Rhs();
+            any* rhs = pclone->Rhs();
             if (complexVal) {
               rhs = UHDM::clone_tree(complexVal, &elaboratorContext);
               rhs->VpiParent(pclone);
@@ -287,7 +287,7 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
     inst_assign->VpiColumnNo(mod_assign->VpiColumnNo());
     inst_assign->VpiEndLineNo(mod_assign->VpiEndLineNo());
     inst_assign->VpiEndColumnNo(mod_assign->VpiEndColumnNo());
-    inst_assign->Lhs((any*)mod_assign->Lhs());
+    inst_assign->Lhs(mod_assign->Lhs());
 
     bool overriden = false;
     for (Parameter* tpm :
@@ -2926,7 +2926,7 @@ any* NetlistElaboration::bind_net_(ModuleInstance* instance,
             if (ios) {
               for (io_decl* decl : *ios) {
                 if (decl->VpiName() == subname) {
-                  return (any*)decl->Expr();
+                  return decl->Expr();
                 }
               }
             }

@@ -65,12 +65,11 @@ class CompileClass final {
     m_helper.seterrorReporting(errors, symbols);
     builtins_ = {"constraint_mode", "randomize", "rand_mode", "srandom"};
   }
+  CompileClass(const CompileClass&) = delete;
 
   bool compile();
 
  private:
-  CompileClass(const CompileClass&) = delete;
-
   CompileDesign* const m_compileDesign;
   ClassDefinition* const m_class;
   Design* const m_design;

@@ -38,6 +38,7 @@ class SymbolTable;
 class Precompiled final {
  public:
   static Precompiled* getSingleton();
+  Precompiled(const Precompiled&) = delete;
 
   void addPrecompiled(std::string_view package_name, std::string_view fileName);
 
@@ -50,7 +51,6 @@ class Precompiled final {
 
  private:
   Precompiled();  // Only accessed via singleton.
-  Precompiled(const Precompiled&) = delete;
 
   std::map<std::string, std::string, std::less<>> m_packageMap;
   std::set<std::string, std::less<>> m_packageFileSet;

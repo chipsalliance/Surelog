@@ -40,7 +40,9 @@ class ValuedComponentI;
 
 class ExprBuilder final {
  public:
-  ExprBuilder() {}
+  ExprBuilder() = default;
+  ExprBuilder(const ExprBuilder& orig) = delete;
+
   Value* evalExpr(const FileContent*, NodeId id,
                   ValuedComponentI* instance = nullptr,
                   bool muteErrors = false);
@@ -56,8 +58,6 @@ class ExprBuilder final {
   ValueFactory& getValueFactory() { return m_valueFactory; }
 
  private:
-  ExprBuilder(const ExprBuilder& orig) = delete;
-
   ValueFactory m_valueFactory;
   ErrorContainer* m_errors = nullptr;
   SymbolTable* m_symbols = nullptr;

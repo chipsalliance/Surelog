@@ -42,8 +42,8 @@
 #include "Surelog/API/VObjectTypes_py.h"
 #include "Surelog/API/slapi_scripts.h"
 
-typedef SURELOG::NodeId NodeId;
-#include <Surelog/API/slapi_wrap.cxx>
+using NodeId = SURELOG::NodeId;
+#include <Surelog/API/slapi_wrap.cxx>  // NOLINT(bugprone-suspicious-include)
 #endif
 
 #include <cstring>
@@ -76,7 +76,7 @@ static struct PyModuleDef SLAPI_module = {PyModuleDef_HEAD_INIT,
                                           nullptr,
                                           nullptr};
 
-static PyObject* PyInit_slapi(void) { return PyModule_Create(&SLAPI_module); }
+static PyObject* PyInit_slapi() { return PyModule_Create(&SLAPI_module); }
 #endif
 
 void PythonAPI::shutdown() {
@@ -275,7 +275,8 @@ void PythonAPI::init(int32_t argc, const char** argv) {
 #endif
 }
 
-void PythonAPI::evalScript(std::string function, SV3_1aPythonListener* listener,
+void PythonAPI::evalScript(const std::string& function,
+                           SV3_1aPythonListener* listener,
                            parser_rule_context* ctx1) {
 #ifdef SURELOG_WITH_PYTHON
   antlr4::ParserRuleContext* ctx = (antlr4::ParserRuleContext*)ctx1;

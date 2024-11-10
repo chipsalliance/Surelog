@@ -56,25 +56,25 @@
 
 static constexpr char kOverwriteMarker = '\0';
 
-typedef std::vector<std::string> file_content_t;
-typedef std::map<std::filesystem::path, file_content_t> design_content_t;
+using file_content_t = std::vector<std::string>;
+using design_content_t = std::map<std::filesystem::path, file_content_t>;
 
-typedef std::unordered_map<int32_t, std::string_view> op_type_names_t;
-typedef std::unordered_map<int16_t, std::string_view> direction_names_t;
-typedef std::unordered_map<int16_t, std::string_view> net_type_names_t;
-typedef std::unordered_map<UHDM::UHDM_OBJECT_TYPE, std::string_view>
-    typespec_names_t;
-typedef std::unordered_map<UHDM::UHDM_OBJECT_TYPE, std::string_view>
-    variable_type_names_t;
-typedef std::unordered_map<int32_t, std::string_view> edge_names_t;
-typedef std::unordered_map<int32_t, std::string_view> always_type_names_t;
-typedef std::unordered_map<int32_t, std::string_view> case_type_names_t;
-typedef std::unordered_map<int32_t, std::string_view> case_qualifier_names_t;
+using op_type_names_t = std::unordered_map<int32_t, std::string_view>;
+using direction_names_t = std::unordered_map<int16_t, std::string_view>;
+using net_type_names_t = std::unordered_map<int16_t, std::string_view>;
+using typespec_names_t =
+    std::unordered_map<UHDM::UHDM_OBJECT_TYPE, std::string_view>;
+using variable_type_names_t =
+    std::unordered_map<UHDM::UHDM_OBJECT_TYPE, std::string_view>;
+using edge_names_t = std::unordered_map<int32_t, std::string_view>;
+using always_type_names_t = std::unordered_map<int32_t, std::string_view>;
+using case_type_names_t = std::unordered_map<int32_t, std::string_view>;
+using case_qualifier_names_t = std::unordered_map<int32_t, std::string_view>;
 
-typedef std::pair<size_t, size_t> comparison_result_t;
-typedef std::tuple<std::filesystem::path, std::filesystem::path, size_t, size_t>
-    file_statistics_t;
-typedef std::vector<file_statistics_t> design_statistics_t;
+using comparison_result_t = std::pair<size_t, size_t>;
+using file_statistics_t =
+    std::tuple<std::filesystem::path, std::filesystem::path, size_t, size_t>;
+using design_statistics_t = std::vector<file_statistics_t>;
 
 static std::regex re_strip_single_line_comments("//.+$");
 static std::regex re_strip_block_comments("/\\*.*\\*/");

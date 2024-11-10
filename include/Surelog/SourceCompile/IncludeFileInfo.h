@@ -44,17 +44,8 @@ class IncludeFileInfo {
                         sectionFileId, originalStartLine, originalStartColumn,
                         originalEndLine, originalEndColumn, action, -1, -1) {}
   IncludeFileInfo(const IncludeFileInfo& i)
-      : m_context(i.m_context),
-        m_sectionStartLine(i.m_sectionStartLine),
-        m_sectionSymbolId(i.m_sectionSymbolId),
-        m_sectionFileId(i.m_sectionFileId),
-        m_originalStartLine(i.m_originalStartLine),
-        m_originalStartColumn(i.m_originalStartColumn),
-        m_originalEndLine(i.m_originalEndLine),
-        m_originalEndColumn(i.m_originalEndColumn),
-        m_action(i.m_action),
-        m_indexOpening(i.m_indexOpening),
-        m_indexClosing(i.m_indexClosing) {}
+
+      = default;
   IncludeFileInfo(Context context, uint32_t sectionStartLine,
                   SymbolId sectionSymbolId, PathId sectionFileId,
                   uint32_t originalStartLine, uint32_t originalStartColumn,

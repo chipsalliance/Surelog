@@ -40,7 +40,7 @@ class CompileHelper;
 class DesignComponent;
 class FileContent;
 class TfPortItem;
-typedef std::vector<TfPortItem*> TfPortList;
+using TfPortList = std::vector<TfPortItem*>;
 
 class Procedure : public Scope, public Statement {
   SURELOG_IMPLEMENT_RTTI_2_BASES(Procedure, Scope, Statement)

@@ -71,7 +71,7 @@ DesignElaboration::DesignElaboration(CompileDesign* compileDesign)
   m_exprBuilder.setDesign(m_compileDesign->getCompiler()->getDesign());
 }
 
-DesignElaboration::~DesignElaboration() {}
+DesignElaboration::~DesignElaboration() = default;
 
 bool DesignElaboration::elaborate() {
   createBuiltinPrimitives_();
@@ -349,7 +349,7 @@ bool DesignElaboration::identifyTopModules_() {
 
       std::vector<Location> locations;
 
-      while (1) {
+      while (true) {
         const FileContent* fC2 = prevFileContent;
         NodeId nodeId2 = prevModuleDefinition->m_node;
         PathId fileId2 = fileSystem->copy(fC2->getFileId(nodeId2), st);
@@ -1289,7 +1289,7 @@ void DesignElaboration::elaborateInstance_(
             } else {  // Else branch
               if (!tmp) continue;
               bool activeBranch = false;
-              while (1) {
+              while (true) {
                 if (tmp) {
                   tmp = fC->Sibling(tmp);  // Else
                   if (!tmp) break;

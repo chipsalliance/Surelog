@@ -53,7 +53,7 @@ void shutdown_compiler(scompiler* the_compiler) {
 }
 
 vpiHandle get_uhdm_design(scompiler* compiler) {
-  vpiHandle design_handle = 0;
+  vpiHandle design_handle = nullptr;
   Compiler* the_compiler = (Compiler*)compiler;
   if (the_compiler) {
     design_handle = the_compiler->getUhdmDesign();

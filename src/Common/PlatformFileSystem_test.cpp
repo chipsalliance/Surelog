@@ -544,9 +544,9 @@ TEST(PlatformFileSystemTest, WorkingDirs_Ideal) {
 // but is a prototype to showcase the potential of FileSystem abstraction.
 class InMemoryFileSystem : public TestFileSystem {
  public:
-  typedef std::map<fs::path, std::string> Files;
-  typedef std::set<fs::path> Directories;
-  typedef std::map<const std::ostream *, fs::path> OpenOutputFiles;
+  using Files = std::map<fs::path, std::string>;
+  using Directories = std::set<fs::path>;
+  using OpenOutputFiles = std::map<const std::ostream *, fs::path>;
 
   explicit InMemoryFileSystem(const fs::path &cwd) : TestFileSystem(cwd) {
     FileSystem::setInstance(this);

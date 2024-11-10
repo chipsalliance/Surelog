@@ -89,7 +89,7 @@ def _main():
     '  PythonListen*  getPythonListen() { return m_pl; }',
     '  antlr4::CommonTokenStream* getTokenStream() { return m_tokens; }',
     '',
-    '  void logError(ErrorDefinition::ErrorType error, antlr4::ParserRuleContext* ctx, std::string object, bool printColumn = false);',
+    '  void logError(ErrorDefinition::ErrorType error, antlr4::ParserRuleContext* ctx, const std::string& object, bool printColumn = false);',
     '  void logError(ErrorDefinition::ErrorType, Location& loc, bool showDuplicates = false);',
     '  void logError(ErrorDefinition::ErrorType, Location& loc, Location& extraLoc, bool showDuplicates = false);',
     '',

@@ -44,6 +44,7 @@ class Variable {
         m_nodeId(varId),
         m_range(range),
         m_name(name) {}
+  Variable(const Variable&) = delete;
   virtual ~Variable() = default;
 
   const DataType* getDataType() const { return m_dataType; }
@@ -53,8 +54,6 @@ class Variable {
   NodeId getRange() const { return m_range; }
 
  private:
-  Variable(const Variable&) = delete;
-
   // All of these values are only set in the constructor and we never
   // copy. So these can be const.
   const DataType* const m_dataType;

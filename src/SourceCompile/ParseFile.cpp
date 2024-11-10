@@ -171,7 +171,7 @@ void ParseFile::buildLineInfoCache_() {
       bool inRange = false;
       uint32_t indexOpeningRange = 0;
       uint32_t index = infos.size() - 1;
-      while (1) {
+      while (true) {
         if ((lineItr >= infos[index].m_originalStartLine) &&
             (infos[index].m_action == IncludeFileInfo::Action::POP)) {
           fileInfoCache[lineItr] = infos[index].m_sectionFileId;

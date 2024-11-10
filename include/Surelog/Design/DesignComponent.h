@@ -78,7 +78,7 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
  public:
   DesignComponent(const DesignComponent* parent, DesignComponent* definition)
       : ValuedComponentI(parent, definition), m_instance(nullptr) {}
-  ~DesignComponent() override {}
+  ~DesignComponent() override = default;
 
   virtual uint32_t getSize() const = 0;
   virtual VObjectType getType() const = 0;
@@ -86,22 +86,22 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   virtual std::string_view getName() const = 0;
   void append(DesignComponent*);
 
-  typedef std::map<std::string, DataType*, StringViewCompare> DataTypeMap;
-  typedef std::map<std::string, TypeDef*, StringViewCompare> TypeDefMap;
-  typedef std::vector<DataType*> DataTypeVec;
-  typedef std::vector<TypeDef*> TypeDefVec;
-  typedef std::map<std::string, Function*, StringViewCompare> FunctionMap;
-  typedef std::map<std::string, Task*, StringViewCompare> TaskMap;
-  typedef std::map<std::string, Variable*, StringViewCompare> VariableMap;
-  typedef std::map<std::string, Parameter*, StringViewCompare> ParameterMap;
-  typedef std::vector<Parameter*> ParameterVec;
-  typedef std::vector<ParamAssign*> ParamAssignVec;
-  typedef std::map<std::string, LetStmt*, StringViewCompare> LetStmtMap;
-  typedef std::map<std::string, std::pair<FileCNodeId, DesignComponent*>,
-                   StringViewCompare>
-      NamedObjectMap;
-  typedef std::vector<std::pair<std::string, UHDM::typespec*>>
-      FuncNameTypespecVec;
+  using DataTypeMap = std::map<std::string, DataType*, StringViewCompare>;
+  using TypeDefMap = std::map<std::string, TypeDef*, StringViewCompare>;
+  using DataTypeVec = std::vector<DataType*>;
+  using TypeDefVec = std::vector<TypeDef*>;
+  using FunctionMap = std::map<std::string, Function*, StringViewCompare>;
+  using TaskMap = std::map<std::string, Task*, StringViewCompare>;
+  using VariableMap = std::map<std::string, Variable*, StringViewCompare>;
+  using ParameterMap = std::map<std::string, Parameter*, StringViewCompare>;
+  using ParameterVec = std::vector<Parameter*>;
+  using ParamAssignVec = std::vector<ParamAssign*>;
+  using LetStmtMap = std::map<std::string, LetStmt*, StringViewCompare>;
+  using NamedObjectMap =
+      std::map<std::string, std::pair<FileCNodeId, DesignComponent*>,
+               StringViewCompare>;
+  using FuncNameTypespecVec =
+      std::vector<std::pair<std::string, UHDM::typespec*>>;
 
   void addFileContent(const FileContent* fileContent, NodeId nodeId);
   const std::vector<const FileContent*>& getFileContents() const {

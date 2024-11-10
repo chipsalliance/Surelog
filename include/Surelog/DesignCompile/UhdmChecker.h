@@ -57,7 +57,7 @@ class UhdmChecker final {
 
   CompileDesign* const m_compileDesign;
   Design* const m_design;
-  typedef uint32_t LineNb;
+  using LineNb = uint32_t;
   enum Status { EXIST, COVERED, UNSUPPORTED };
   class ColRange {
    public:
@@ -65,9 +65,9 @@ class UhdmChecker final {
     uint16_t to;
     Status covered;
   };
-  typedef std::vector<ColRange> Ranges;
-  typedef std::map<LineNb, Ranges> RangesMap;
-  typedef std::map<const FileContent*, RangesMap> FileNodeCoverMap;
+  using Ranges = std::vector<ColRange>;
+  using RangesMap = std::map<LineNb, Ranges>;
+  using FileNodeCoverMap = std::map<const FileContent*, RangesMap>;
   FileNodeCoverMap fileNodeCoverMap;
   std::map<PathId, const FileContent*, PathIdLessThanComparer> fileMap;
   std::multimap<float, std::pair<PathId, float>> coverageMap;

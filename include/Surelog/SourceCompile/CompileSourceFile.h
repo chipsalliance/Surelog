@@ -35,7 +35,7 @@
 
 #ifdef SURELOG_WITH_PYTHON
 struct _ts;
-typedef struct _ts PyThreadState;
+using PyThreadState = struct _ts;
 #endif
 
 namespace SURELOG {

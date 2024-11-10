@@ -35,14 +35,13 @@ class ParseFile;
 class ParseCache final : Cache {
  public:
   explicit ParseCache(ParseFile* pp);
+  ParseCache(const ParseCache& orig) = delete;
 
   bool restore();
   bool save();
   bool isValid();
 
  private:
-  ParseCache(const ParseCache& orig) = delete;
-
   PathId getCacheFileId(PathId ppFileId) const;
 
   bool checkCacheIsValid(PathId cacheFileId,

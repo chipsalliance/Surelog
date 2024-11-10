@@ -2077,8 +2077,7 @@ bool CompileHelper::compileTask(DesignComponent* component,
             }
             if (stmt_type == uhdmassignment) {
               assignment* stmt = (assignment*)st;
-              if (stmt->Rhs() == nullptr ||
-                  any_cast<variables*>((expr*)stmt->Lhs())) {
+              if (stmt->Rhs() == nullptr || any_cast<variables*>(stmt->Lhs())) {
                 // Declaration
                 VectorOfvariables* vars = task->Variables();
                 if (vars == nullptr) {
@@ -2089,7 +2088,7 @@ bool CompileHelper::compileTask(DesignComponent* component,
                 if (stmt->Rhs() != nullptr) {
                   stmts->push_back(st);
                 } else {
-                  if (variables* var = any_cast<variables*>((expr*)stmt->Lhs()))
+                  if (variables* var = any_cast<variables*>(stmt->Lhs()))
                     var->VpiParent(begin);
                   // s.Erase(stmt);
                 }
@@ -2124,8 +2123,7 @@ bool CompileHelper::compileTask(DesignComponent* component,
               param_assigns->push_back(pst);
           } else if (stmt_type == uhdmassignment) {
             assignment* stmt = (assignment*)st;
-            if (stmt->Rhs() == nullptr ||
-                any_cast<variables*>((expr*)stmt->Lhs())) {
+            if (stmt->Rhs() == nullptr || any_cast<variables*>(stmt->Lhs())) {
               // Declaration
               VectorOfvariables* vars = task->Variables();
               if (vars == nullptr) {
@@ -2136,7 +2134,7 @@ bool CompileHelper::compileTask(DesignComponent* component,
               if (stmt->Rhs() != nullptr) {
                 task->Stmt(st);
               } else {
-                if (variables* var = any_cast<variables*>((expr*)stmt->Lhs()))
+                if (variables* var = any_cast<variables*>(stmt->Lhs()))
                   var->VpiParent(task);
                 // s.Erase(stmt);
               }
@@ -2496,8 +2494,7 @@ bool CompileHelper::compileFunction(DesignComponent* component,
                 param_assigns->push_back(pst);
             } else if (stmt_type == uhdmassignment) {
               assignment* stmt = (assignment*)st;
-              if (stmt->Rhs() == nullptr ||
-                  any_cast<variables*>((expr*)stmt->Lhs())) {
+              if (stmt->Rhs() == nullptr || any_cast<variables*>(stmt->Lhs())) {
                 // Declaration
                 VectorOfvariables* vars = func->Variables();
                 if (vars == nullptr) {
@@ -2508,7 +2505,7 @@ bool CompileHelper::compileFunction(DesignComponent* component,
                 if (stmt->Rhs() != nullptr) {
                   stmts->push_back(st);
                 } else {
-                  if (variables* var = any_cast<variables*>((expr*)stmt->Lhs()))
+                  if (variables* var = any_cast<variables*>(stmt->Lhs()))
                     var->VpiParent(begin);
                   // s.Erase(stmt);
                 }
@@ -2543,8 +2540,7 @@ bool CompileHelper::compileFunction(DesignComponent* component,
             param_assigns->push_back(pst);
         } else if (stmt_type == uhdmassignment) {
           assignment* stmt = (assignment*)st;
-          if (stmt->Rhs() == nullptr ||
-              any_cast<variables*>((expr*)stmt->Lhs())) {
+          if (stmt->Rhs() == nullptr || any_cast<variables*>(stmt->Lhs())) {
             // Declaration
             VectorOfvariables* vars = func->Variables();
             if (vars == nullptr) {
@@ -2555,7 +2551,7 @@ bool CompileHelper::compileFunction(DesignComponent* component,
             if (stmt->Rhs() != nullptr) {
               func->Stmt(st);
             } else {
-              if (variables* var = any_cast<variables*>((expr*)stmt->Lhs()))
+              if (variables* var = any_cast<variables*>(stmt->Lhs()))
                 var->VpiParent(func);
               // s.Erase(stmt);
             }
@@ -3038,7 +3034,7 @@ UHDM::any* CompileHelper::bindParameter(DesignComponent* component,
         if (netlist->param_assigns()) {
           for (param_assign* pass : *netlist->param_assigns()) {
             if (pass->Lhs()->VpiName() == name) {
-              return (any*)pass->Lhs();
+              return pass->Lhs();
             }
           }
         }

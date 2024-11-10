@@ -84,7 +84,7 @@ class LogListener {
   int32_t droppedCount = 0;
   uint32_t maxQueuedMessageCount = DEFAULT_MAX_QUEUED_MESSAGE_COUNT;
 
- private:
+ public:
   LogListener(const LogListener&) = delete;
   LogListener& operator=(const LogListener&) = delete;
 };

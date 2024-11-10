@@ -13,32 +13,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# TODO(hzeller): switch to .github/bin/run-clang-tidy-cached.cc
-# entirely once we have all the issues addressed.
-# It caches the results, so is much faster, but doesn't have the
-# concept of the 'limited' clang-tidy.
-
-# Exact binary can be set with environment variable if needed.
-CLANG_TIDY="${CLANG_TIDY:-clang-tidy}"
-
 LOCAL_TMP=${TMPDIR:-/tmp}
 
 TIDY_OUT=${LOCAL_TMP}/clang-tidy-surelog.out
 
-hash ${CLANG_TIDY} || exit 2  # make sure it is installed.
-
 if [ "$1" == "limited" ]; then
+    export CLANG_TIDY_CONFIG="${LOCAL_TMP}/clang-tidy"
     # For now, since there are a lot things to fix, don't enable everything
     # that is mentioned in .clang-tidy, but add rules as we fix them.
     # The more strict .clang-tidy rules will still show up as reminders in the
     # IDE, so are hopefully fixed on the way.
-    cat > ${LOCAL_TMP}/clang-tidy <<EOF
+    cat > "${CLANG_TIDY_CONFIG}" <<EOF
 Checks: >
     -*,
     bugprone-copy-constructor-init,
     bugprone-macro-parentheses,
     bugprone-redundant-branch-condition,
     bugprone-string-integer-assignment,
+    bugprone-suspicious-include,
     bugprone-suspicious-missing-comma,
     bugprone-suspicious-string-compare,
     bugprone-too-small-loop-variable,
@@ -49,19 +41,29 @@ Checks: >
     clang-diagnostic-unused-private-field,
     google-build-using-namespace,
     google-explicit-constructor,
+    modernize-concat-nested-namespaces,
     modernize-loop-convert,
+    modernize-make-unique,
     modernize-raw-string-literal,
+    modernize-redundant-void-arg,
+    modernize-use-bool-literals,
+    modernize-use-equals-default,
+    modernize-use-equals-delete,
+    modernize-use-nullptr,
     modernize-use-override,
+    modernize-use-using,
     performance-faster-string-find,
     performance-for-range-copy,
     performance-inefficient-string-concatenation,
     performance-inefficient-vector-operation,
     performance-unnecessary-copy-initialization,
     performance-unnecessary-value-param,
+    readability-avoid-const-params-in-decls,
     readability-const-return-type,
     readability-container-size-empty,
     readability-delete-null-pointer,
     readability-non-const-parameter,
+    readability-redundant-casting,
     readability-redundant-member-init,
     readability-redundant-smartptr-get,
     readability-redundant-string-cstr,
@@ -79,10 +81,7 @@ CheckOptions:
     - key: performance-unnecessary-copy-initialization.AllowedTypes
       value: ::SURELOG::SymbolId;SURELOG::SymbolId;SymbolId;::SURELOG::NodeId;SURELOG::NodeId;NodeId;::SURELOG::PathId;SURELOG::PathId;PathId
 EOF
-    CLANG_TIDY_OPTS="--config-file=${LOCAL_TMP}/clang-tidy"
 fi
-
-CLANG_TIDY_OPTS="${CLANG_TIDY_OPTS} --quiet"
 
 if [ ! -r compile_commands.json ]; then
     echo "To get compile_commands.json, run in root of project and "
@@ -90,20 +89,5 @@ if [ ! -r compile_commands.json ]; then
     exit 1
 fi
 
-find src/ include/ -name "*.cpp" -or -name "*.h" \
-    | grep -v Python | grep -v Constraint.h | grep -v "hello.*\.cpp" \
-    | xargs -P$(nproc) -n 5 -- ${CLANG_TIDY} ${CLANG_TIDY_OPTS} 2>/dev/null \
-            > ${TIDY_OUT}
-
-cat ${TIDY_OUT}
-
-sed 's|\(.*\)\(\[[a-zA-Z.-]*\]$\)|\2|p;d' < ${TIDY_OUT} \
-    | sort | uniq -c | sort -rn
-
-if [ -s ${TIDY_OUT} ]; then
-    echo "There were clang-tidy warnings (see ${TIDY_OUT}). Please fix."
-    exit 1
-fi
-
-echo "No clang-tidy complaints.😎"
-exit 0
+# Invoke run-clang-tidy-cached, possibly with the 'limited' clang-tidy config.
+sh $(dirname $0)/run-clang-tidy-cached.cc

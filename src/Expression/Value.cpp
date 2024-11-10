@@ -40,11 +40,11 @@ uint32_t Value::nbWords_(uint32_t size) {
   return nb;
 }
 
-SValue::~SValue() {}
+SValue::~SValue() = default;
 
 LValue::~LValue() { delete[] m_valueArray; }
 
-StValue::~StValue() {}
+StValue::~StValue() = default;
 
 bool LValue::operator<(const Value& rhs) const {
   if (!isValid() || !rhs.isValid()) return false;
