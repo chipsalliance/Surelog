@@ -25,6 +25,7 @@
 #define SURELOG_DESIGNELABORATION_H
 #pragma once
 
+#include <Surelog/Common/NodeId.h>
 #include <Surelog/Config/Config.h>
 #include <Surelog/DesignCompile/TestbenchElaboration.h>
 

@@ -24,6 +24,7 @@
 
 #include "Surelog/Design/SimpleType.h"
 
+#include "Surelog/Common/NodeId.h"
 #include "Surelog/Design/FileContent.h"
 
 // UHDM

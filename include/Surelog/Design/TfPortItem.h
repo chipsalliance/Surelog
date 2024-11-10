@@ -25,6 +25,7 @@
 #define SURELOG_TFPORTITEM_H
 #pragma once
 
+#include <Surelog/Common/NodeId.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
 #include <Surelog/Testbench/Variable.h>
 

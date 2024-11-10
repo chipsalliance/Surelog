@@ -25,6 +25,7 @@
 #include <cstdint>
 #include <string_view>
 
+#include "Surelog/Common/NodeId.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Design/Parameter.h"
 #include "Surelog/Testbench/Constraint.h"

@@ -25,6 +25,7 @@
 #include <string>
 #include <string_view>
 
+#include "Surelog/Common/NodeId.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
 #include "Surelog/Utils/StringUtils.h"
 

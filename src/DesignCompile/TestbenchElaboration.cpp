@@ -24,6 +24,7 @@
 #include "Surelog/DesignCompile/TestbenchElaboration.h"
 
 #include "Surelog/Common/FileSystem.h"
+#include "Surelog/Common/NodeId.h"
 #include "Surelog/Design/Design.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Design/Parameter.h"

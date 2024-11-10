@@ -25,6 +25,7 @@
 
 #ifdef SURELOG_WITH_PYTHON
 #include "Surelog/API/SV3_1aPythonListener.h"
+#include "Surelog/Common/NodeId.h"
 #include "Surelog/SourceCompile/PythonListen.h"
 #endif
 

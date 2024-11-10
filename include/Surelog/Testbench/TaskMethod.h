@@ -25,6 +25,7 @@
 #define SURELOG_TASKMETHOD_H
 #pragma once
 
+#include <Surelog/Common/NodeId.h>
 #include <Surelog/Design/Task.h>
 
 #include <string_view>

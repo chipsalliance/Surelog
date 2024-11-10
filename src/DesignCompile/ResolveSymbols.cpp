@@ -23,6 +23,7 @@
 
 #include "Surelog/DesignCompile/ResolveSymbols.h"
 
+#include "Surelog/Common/NodeId.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Design/ModuleDefinition.h"
 #include "Surelog/DesignCompile/CompileDesign.h"

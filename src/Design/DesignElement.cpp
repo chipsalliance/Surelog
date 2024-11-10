@@ -15,6 +15,8 @@
  */
 #include "Surelog/Design/DesignElement.h"
 
+#include "Surelog/Common/NodeId.h"
+
 /*
  * File:   DesignElement.cpp
  * Author: alain

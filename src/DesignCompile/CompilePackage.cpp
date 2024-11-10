@@ -24,6 +24,7 @@
 #include "Surelog/DesignCompile/CompilePackage.h"
 
 #include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Common/NodeId.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Design/VObject.h"
 #include "Surelog/DesignCompile/CompileDesign.h"

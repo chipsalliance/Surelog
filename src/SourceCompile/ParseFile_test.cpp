@@ -16,6 +16,7 @@
 
 #include <gtest/gtest.h>
 
+#include "Surelog/Common/NodeId.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/SourceCompile/ParserHarness.h"
 

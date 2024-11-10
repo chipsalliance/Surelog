@@ -27,6 +27,7 @@
 #include <utility>
 #include <vector>
 
+#include "Surelog/Common/NodeId.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Design/Parameter.h"
 #include "Surelog/Testbench/FunctionMethod.h"

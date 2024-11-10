@@ -29,6 +29,7 @@
 #include <string_view>
 #include <vector>
 
+#include "Surelog/Common/NodeId.h"
 #include "Surelog/Design/DesignElement.h"
 #include "Surelog/Design/FileContent.h"
 

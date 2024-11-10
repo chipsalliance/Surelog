@@ -25,6 +25,7 @@
 #define SURELOG_NETLISTELABORATION_H
 #pragma once
 
+#include <Surelog/Common/NodeId.h>
 #include <Surelog/DesignCompile/TestbenchElaboration.h>
 
 #include <cstdint>
