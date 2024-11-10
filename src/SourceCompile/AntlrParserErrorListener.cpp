@@ -27,6 +27,7 @@
 #include <string>
 
 #include "Surelog/Common/FileSystem.h"
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
 #include "Surelog/SourceCompile/CompileSourceFile.h"
 #include "Surelog/SourceCompile/ParseFile.h"
 #include "Surelog/Utils/StringUtils.h"

@@ -37,6 +37,7 @@
 #include "Surelog/DesignCompile/CompileModule.h"
 #include "Surelog/DesignCompile/NetlistElaboration.h"
 #include "Surelog/DesignCompile/UhdmWriter.h"
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
 #include "Surelog/Library/Library.h"
 #include "Surelog/Package/Package.h"
 #include "Surelog/SourceCompile/Compiler.h"

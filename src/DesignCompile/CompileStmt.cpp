@@ -35,6 +35,7 @@
 #include "Surelog/DesignCompile/CompileHelper.h"
 #include "Surelog/DesignCompile/UhdmWriter.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
 #include "Surelog/Expression/ExprBuilder.h"
 #include "Surelog/Expression/Value.h"
 #include "Surelog/Library/Library.h"

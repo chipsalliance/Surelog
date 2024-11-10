@@ -36,6 +36,7 @@
 #include "Surelog/Config/ConfigSet.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
 #include "Surelog/Library/AntlrLibParserErrorListener.h"
 #include "Surelog/Library/Library.h"
 #include "Surelog/Library/LibrarySet.h"

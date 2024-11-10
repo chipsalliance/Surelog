@@ -26,6 +26,8 @@
 #include <cstdint>
 #include <vector>
 
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
+
 namespace SURELOG {
 
 Error::Error(ErrorDefinition::ErrorType errorId, const Location& loc,
