@@ -28,6 +28,7 @@
 #include <Surelog/DesignCompile/CompileHelper.h>
 #include <Surelog/Testbench/ClassDefinition.h>
 
+#include <cstdint>
 #include <set>
 #include <string>
 

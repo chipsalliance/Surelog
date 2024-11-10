@@ -23,6 +23,7 @@
 
 #include "Surelog/ErrorReporting/LogListener.h"
 
+#include <cstdint>
 #include <iostream>
 #include <string_view>
 

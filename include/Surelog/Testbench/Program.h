@@ -27,9 +27,12 @@
 
 #include <Surelog/Common/ClockingBlockHolder.h>
 #include <Surelog/Common/Containers.h>
+#include <Surelog/Common/NodeId.h>
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/DesignComponent.h>
+#include <Surelog/SourceCompile/VObjectTypes.h>
 
+#include <cstdint>
 #include <string_view>
 
 // UHDM

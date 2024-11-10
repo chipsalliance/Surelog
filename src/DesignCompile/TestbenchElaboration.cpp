@@ -24,6 +24,7 @@
 #include "Surelog/DesignCompile/TestbenchElaboration.h"
 
 #include "Surelog/Common/FileSystem.h"
+#include "Surelog/Common/NodeId.h"
 #include "Surelog/Design/Design.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Design/Parameter.h"
@@ -31,8 +32,10 @@
 #include "Surelog/Design/Statement.h"
 #include "Surelog/Design/TfPortItem.h"
 #include "Surelog/DesignCompile/CompileDesign.h"
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
 #include "Surelog/SourceCompile/Compiler.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 #include "Surelog/Testbench/ClassDefinition.h"
 #include "Surelog/Testbench/Property.h"
 #include "Surelog/Utils/StringUtils.h"
@@ -43,6 +46,7 @@
 #include <uhdm/extends.h>
 #include <uhdm/ref_typespec.h>
 
+#include <cstdint>
 #include <queue>
 #include <string>
 #include <string_view>

@@ -27,6 +27,7 @@
 
 #include <Surelog/Expression/Value.h>
 
+#include <cstdint>
 #include <string_view>
 
 namespace SURELOG {

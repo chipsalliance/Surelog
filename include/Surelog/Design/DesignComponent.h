@@ -26,6 +26,7 @@
 #pragma once
 
 #include <Surelog/Common/Containers.h>
+#include <Surelog/Common/NodeId.h>
 #include <Surelog/Common/PathId.h>
 #include <Surelog/Common/PortNetHolder.h>
 #include <Surelog/Common/SymbolId.h>
@@ -34,6 +35,7 @@
 #include <Surelog/Design/ValuedComponentI.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
 
+#include <cstdint>
 #include <functional>
 #include <map>
 #include <string>

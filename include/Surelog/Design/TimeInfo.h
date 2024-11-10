@@ -28,6 +28,7 @@
 #include <Surelog/Common/PathId.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
 
+#include <cstdint>
 #include <string_view>
 
 namespace SURELOG {

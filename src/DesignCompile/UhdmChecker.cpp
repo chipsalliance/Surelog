@@ -25,14 +25,17 @@
 
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"
+#include "Surelog/Common/NodeId.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Design/ModuleInstance.h"
 #include "Surelog/Design/VObject.h"
 #include "Surelog/DesignCompile/CompileDesign.h"
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
 #include "Surelog/Library/Library.h"
 #include "Surelog/Package/Package.h"
 #include "Surelog/SourceCompile/Compiler.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 #include "Surelog/Utils/StringUtils.h"
 
 // UHDM
@@ -40,6 +43,7 @@
 #include <uhdm/uhdm.h>
 #include <uhdm/vpi_visitor.h>
 
+#include <cstdint>
 #include <iomanip>
 #include <set>
 #include <sstream>

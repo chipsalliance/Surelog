@@ -28,6 +28,7 @@
 #include <Surelog/Common/NodeId.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
 
+#include <cstdint>
 #include <string>
 #include <vector>
 

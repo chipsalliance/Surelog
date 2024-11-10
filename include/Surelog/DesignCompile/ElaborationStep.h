@@ -29,6 +29,7 @@
 #include <Surelog/ErrorReporting/ErrorDefinition.h>
 #include <Surelog/Expression/ExprBuilder.h>
 
+#include <cstdint>
 #include <map>
 #include <string_view>
 

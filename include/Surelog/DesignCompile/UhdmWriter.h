@@ -29,6 +29,7 @@
 #include <Surelog/DesignCompile/CompileHelper.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
 
+#include <cstdint>
 #include <functional>
 #include <map>
 #include <string_view>

@@ -25,13 +25,16 @@
 #define SURELOG_SV3_1ATREESHAPEHELPER_H
 #pragma once
 
+#include <Surelog/Common/NodeId.h>
 #include <Surelog/Design/DesignElement.h>
 #include <Surelog/ErrorReporting/ErrorDefinition.h>
 #include <Surelog/ErrorReporting/Location.h>
 #include <Surelog/SourceCompile/CommonListenerHelper.h>
 #include <Surelog/SourceCompile/IncludeFileInfo.h>
+#include <Surelog/SourceCompile/VObjectTypes.h>
 #include <parser/SV3_1aParser.h>
 
+#include <cstdint>
 #include <stack>
 #include <string_view>
 #include <utility>

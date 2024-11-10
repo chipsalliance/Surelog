@@ -20,6 +20,7 @@
 #include <uhdm/Serializer.h>
 #include <uhdm/constant.h>
 
+#include <cstdint>
 #include <limits>
 #include <string_view>
 

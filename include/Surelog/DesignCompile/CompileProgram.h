@@ -28,6 +28,8 @@
 #include <Surelog/DesignCompile/CompileHelper.h>
 #include <Surelog/DesignCompile/CompileToolbox.h>
 
+#include <cstdint>
+
 namespace SURELOG {
 
 class CompileDesign;

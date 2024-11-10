@@ -31,6 +31,7 @@
 #include <Surelog/SourceCompile/IncludeFileInfo.h>
 #include <Surelog/SourceCompile/LoopCheck.h>
 
+#include <cstdint>
 #include <set>
 #include <string>
 #include <string_view>

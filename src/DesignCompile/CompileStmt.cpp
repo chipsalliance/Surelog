@@ -35,6 +35,7 @@
 #include "Surelog/DesignCompile/CompileHelper.h"
 #include "Surelog/DesignCompile/UhdmWriter.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
 #include "Surelog/Expression/ExprBuilder.h"
 #include "Surelog/Expression/Value.h"
 #include "Surelog/Library/Library.h"
@@ -45,6 +46,7 @@
 #include "Surelog/SourceCompile/ParseFile.h"
 #include "Surelog/SourceCompile/PreprocessFile.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 #include "Surelog/Testbench/ClassDefinition.h"
 #include "Surelog/Testbench/Property.h"
 #include "Surelog/Utils/StringUtils.h"
@@ -53,6 +55,7 @@
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/uhdm.h>
 
+#include <cstdint>
 #include <functional>
 #include <iostream>
 #include <map>

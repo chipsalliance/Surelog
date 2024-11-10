@@ -25,6 +25,7 @@
 #define SURELOG_STRINGUTILS_H
 #pragma once
 
+#include <cstdint>
 #include <sstream>
 #include <string>
 #include <string_view>

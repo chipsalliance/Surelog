@@ -25,6 +25,7 @@
 #include <direct.h>
 #include <process.h>
 
+#include <cstdint>
 #include <string_view>
 #include <utility>
 #else
@@ -49,6 +50,7 @@
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/PlatformFileSystem.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
 #include "Surelog/ErrorReporting/Report.h"
 #include "Surelog/ErrorReporting/Waiver.h"
 #include "Surelog/SourceCompile/SymbolTable.h"

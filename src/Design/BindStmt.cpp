@@ -23,6 +23,8 @@
 
 #include "Surelog/Design/BindStmt.h"
 
+#include "Surelog/Common/NodeId.h"
+
 namespace SURELOG {
 
 BindStmt::BindStmt(const FileContent* fC, NodeId stmtId, NodeId targetModId,

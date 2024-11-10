@@ -22,6 +22,7 @@
  * Created on October 16, 2017, 10:48 PM
  */
 
+#include <cstdint>
 #include <set>
 #include <string_view>
 #include <vector>
@@ -31,6 +32,7 @@
 #include "Surelog/Design/Netlist.h"
 #include "Surelog/Expression/ExprBuilder.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 
 // UHDM
 #include <uhdm/ExprEval.h>

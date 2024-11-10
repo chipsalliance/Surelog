@@ -29,6 +29,7 @@
 #include <Surelog/Design/DesignElement.h>
 #include <Surelog/SourceCompile/IncludeFileInfo.h>
 
+#include <cstdint>
 #include <stack>
 #include <string>
 #include <string_view>

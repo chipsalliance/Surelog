@@ -22,6 +22,7 @@
  */
 #include "Surelog/ErrorReporting/ErrorDefinition.h"
 
+#include <cstdint>
 #include <string>
 #include <string_view>
 

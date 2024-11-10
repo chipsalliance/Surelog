@@ -36,6 +36,7 @@
 #include <uhdm/uhdm.h>
 
 #include <bitset>
+#include <cstdint>
 #include <iostream>
 #include <string>
 #include <string_view>

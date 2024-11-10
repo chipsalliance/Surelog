@@ -25,11 +25,14 @@
 
 #include <antlr4-runtime.h>
 
+#include <cstdint>
 #include <string_view>
 #include <vector>
 
+#include "Surelog/Common/NodeId.h"
 #include "Surelog/Design/DesignElement.h"
 #include "Surelog/Design/FileContent.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 
 namespace SURELOG {
 

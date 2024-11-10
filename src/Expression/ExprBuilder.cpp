@@ -23,6 +23,7 @@
 #include "Surelog/Expression/ExprBuilder.h"
 
 #include <cmath>
+#include <cstdint>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -30,6 +31,7 @@
 #include "Surelog/Design/Design.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
 #include "Surelog/Package/Package.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
 #include "Surelog/SourceCompile/VObjectTypes.h"

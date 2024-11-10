@@ -22,6 +22,7 @@
  * Created on July 1, 2017, 1:23 PM
  */
 
+#include <cstdint>
 #include <iterator>
 #include <map>
 #include <queue>
@@ -31,15 +32,18 @@
 #include <utility>
 #include <vector>
 
+#include "Surelog/Common/NodeId.h"
 #include "Surelog/Design/DefParam.h"
 #include "Surelog/Design/DesignComponent.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Design/ModuleDefinition.h"
 #include "Surelog/Design/ModuleInstance.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
 #include "Surelog/Expression/Value.h"
 #include "Surelog/Package/Package.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 #include "Surelog/Testbench/ClassDefinition.h"
 #include "Surelog/Testbench/Program.h"
 #include "Surelog/Utils/StringUtils.h"

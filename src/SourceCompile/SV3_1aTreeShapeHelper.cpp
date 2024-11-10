@@ -23,19 +23,23 @@
 
 #include "Surelog/SourceCompile/SV3_1aTreeShapeHelper.h"
 
+#include <cstdint>
 #include <string>
 #include <string_view>
 #include <utility>
 #include <vector>
 
 #include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Common/NodeId.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
 #include "Surelog/Library/Library.h"
 #include "Surelog/SourceCompile/CompilationUnit.h"
 #include "Surelog/SourceCompile/CompileSourceFile.h"
 #include "Surelog/SourceCompile/ParseFile.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 #include "Surelog/Utils/ParseUtils.h"
 #include "Surelog/Utils/StringUtils.h"
 

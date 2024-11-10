@@ -27,6 +27,7 @@
 #include <parser/SV3_1aPpLexer.h>
 #include <parser/SV3_1aPpParser.h>
 
+#include <cstdint>
 #include <functional>
 #include <iostream>
 #include <regex>
@@ -40,6 +41,7 @@
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
 #include "Surelog/ErrorReporting/Waiver.h"
 #include "Surelog/Package/Precompiled.h"
 #include "Surelog/SourceCompile/CompilationUnit.h"

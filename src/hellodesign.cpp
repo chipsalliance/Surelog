@@ -25,6 +25,7 @@
 // cd tests/UnitElabBlock
 // hellodesign top.v -parse -mutestdout
 
+#include <cstdint>
 #include <functional>
 #include <iostream>
 #include <string_view>

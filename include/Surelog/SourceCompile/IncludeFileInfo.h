@@ -28,6 +28,8 @@
 #include <Surelog/Common/PathId.h>
 #include <Surelog/Common/SymbolId.h>
 
+#include <cstdint>
+
 namespace SURELOG {
 
 class IncludeFileInfo {

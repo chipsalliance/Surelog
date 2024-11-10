@@ -28,6 +28,7 @@
 #include <ANTLRErrorListener.h>
 #include <Surelog/Common/PathId.h>
 
+#include <cstdint>
 #include <string>
 #include <vector>
 

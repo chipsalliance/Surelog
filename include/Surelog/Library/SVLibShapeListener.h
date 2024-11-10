@@ -27,6 +27,7 @@
 
 #include <Surelog/Common/PathId.h>
 #include <Surelog/SourceCompile/SV3_1aTreeShapeHelper.h>
+#include <Surelog/SourceCompile/VObjectTypes.h>
 #include <parser/SV3_1aParserBaseListener.h>
 
 #include <string_view>

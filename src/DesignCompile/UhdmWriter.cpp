@@ -23,6 +23,7 @@
 
 #include "Surelog/DesignCompile/UhdmWriter.h"
 
+#include <cstdint>
 #include <cstring>
 #include <iostream>
 #include <map>
@@ -35,6 +36,7 @@
 
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"
+#include "Surelog/Common/NodeId.h"
 #include "Surelog/Design/DesignElement.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Design/ModPort.h"
@@ -45,9 +47,11 @@
 #include "Surelog/Design/Signal.h"
 #include "Surelog/DesignCompile/CompileDesign.h"
 #include "Surelog/DesignCompile/UhdmChecker.h"
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
 #include "Surelog/Package/Package.h"
 #include "Surelog/SourceCompile/Compiler.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 #include "Surelog/Testbench/ClassDefinition.h"
 #include "Surelog/Testbench/Program.h"
 #include "Surelog/Testbench/TypeDef.h"

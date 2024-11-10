@@ -23,6 +23,7 @@
 
 #include "Surelog/DesignCompile/ElaborationStep.h"
 
+#include <cstdint>
 #include <cstring>
 #include <functional>
 #include <map>
@@ -34,6 +35,7 @@
 
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"
+#include "Surelog/Common/NodeId.h"
 #include "Surelog/Design/DataType.h"
 #include "Surelog/Design/DummyType.h"
 #include "Surelog/Design/Enum.h"
@@ -48,10 +50,12 @@
 #include "Surelog/Design/TfPortItem.h"
 #include "Surelog/Design/Union.h"
 #include "Surelog/DesignCompile/CompileDesign.h"
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
 #include "Surelog/Library/Library.h"
 #include "Surelog/Package/Package.h"
 #include "Surelog/SourceCompile/Compiler.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 #include "Surelog/Testbench/ClassDefinition.h"
 #include "Surelog/Testbench/Program.h"
 #include "Surelog/Testbench/Property.h"

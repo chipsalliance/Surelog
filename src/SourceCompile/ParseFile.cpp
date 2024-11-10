@@ -27,6 +27,7 @@
 #include <parser/SV3_1aLexer.h>
 #include <parser/SV3_1aParser.h>
 
+#include <cstdint>
 #include <iostream>
 #include <string_view>
 
@@ -35,6 +36,7 @@
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
 #include "Surelog/Package/Precompiled.h"
 #include "Surelog/SourceCompile/AntlrParserErrorListener.h"
 #include "Surelog/SourceCompile/AntlrParserHandler.h"

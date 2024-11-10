@@ -24,12 +24,14 @@
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/DesignCompile/CompileDesign.h"
 #include "Surelog/DesignCompile/CompileHelper.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 
 // UHDM
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/clone_tree.h>
 #include <uhdm/uhdm.h>
 
+#include <cstdint>
 #include <iostream>
 #include <string_view>
 

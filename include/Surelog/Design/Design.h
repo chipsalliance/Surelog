@@ -29,6 +29,7 @@
 #include <Surelog/Common/NodeId.h>
 #include <Surelog/Common/PathId.h>
 
+#include <cstdint>
 #include <functional>
 #include <map>
 #include <mutex>

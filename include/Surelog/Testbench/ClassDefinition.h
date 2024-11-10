@@ -26,10 +26,13 @@
 #pragma once
 
 #include <Surelog/Common/Containers.h>
+#include <Surelog/Common/NodeId.h>
 #include <Surelog/Design/DataType.h>
 #include <Surelog/Design/DesignComponent.h>
+#include <Surelog/SourceCompile/VObjectTypes.h>
 #include <Surelog/Testbench/TaskMethod.h>
 
+#include <cstdint>
 #include <map>
 #include <string>
 #include <string_view>

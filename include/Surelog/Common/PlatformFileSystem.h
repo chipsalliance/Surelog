@@ -27,6 +27,7 @@
 
 #include <Surelog/Common/FileSystem.h>
 
+#include <cstdint>
 #include <functional>
 #include <memory>
 #include <mutex>

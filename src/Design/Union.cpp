@@ -23,6 +23,7 @@
 
 #include "Surelog/Design/Union.h"
 
+#include "Surelog/Common/NodeId.h"
 #include "Surelog/Design/FileContent.h"
 
 namespace SURELOG {

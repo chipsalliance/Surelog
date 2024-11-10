@@ -23,6 +23,7 @@
 
 #include "Surelog/SourceCompile/SV3_1aTreeShapeListener.h"
 
+#include <cstdint>
 #include <regex>
 #include <string>
 #include <string_view>
@@ -32,10 +33,12 @@
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Design/Design.h"
 #include "Surelog/Design/FileContent.h"
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
 #include "Surelog/SourceCompile/CompilationUnit.h"
 #include "Surelog/SourceCompile/Compiler.h"
 #include "Surelog/SourceCompile/ParseFile.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 #include "Surelog/Utils/ParseUtils.h"
 #include "Surelog/Utils/StringUtils.h"
 

@@ -23,8 +23,10 @@
 
 #include "Surelog/Package/Package.h"
 
+#include <cstdint>
 #include <string_view>
 
+#include "Surelog/Common/NodeId.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Testbench/ClassDefinition.h"
 

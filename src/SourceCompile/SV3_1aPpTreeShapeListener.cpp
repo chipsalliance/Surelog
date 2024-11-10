@@ -16,6 +16,7 @@
 
 #include "Surelog/SourceCompile/SV3_1aPpTreeShapeListener.h"
 
+#include <cstdint>
 #include <iostream>
 #include <regex>
 #include <set>
@@ -27,12 +28,14 @@
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Design/Design.h"
 #include "Surelog/Design/FileContent.h"
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
 #include "Surelog/SourceCompile/CompilationUnit.h"
 #include "Surelog/SourceCompile/CompileSourceFile.h"
 #include "Surelog/SourceCompile/Compiler.h"
 #include "Surelog/SourceCompile/MacroInfo.h"
 #include "Surelog/SourceCompile/PreprocessFile.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 #include "Surelog/Utils/ParseUtils.h"
 #include "Surelog/Utils/StringUtils.h"
 

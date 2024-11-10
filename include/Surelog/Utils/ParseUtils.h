@@ -27,6 +27,7 @@
 
 #include <ParserRuleContext.h>
 
+#include <cstdint>
 #include <string>
 #include <utility>
 #include <vector>

@@ -26,6 +26,7 @@
 #include "Surelog/DesignCompile/CompilerHarness.h"
 #include "Surelog/SourceCompile/ParserHarness.h"
 #include "Surelog/SourceCompile/PreprocessHarness.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 
 // UHDM
 #include <uhdm/ExprEval.h>

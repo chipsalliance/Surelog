@@ -23,11 +23,13 @@
  * Created on October 20, 2017, 10:29 PM
  */
 
+#include <cstdint>
 #include <string_view>
 #include <vector>
 
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Design/ModPort.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 
 namespace SURELOG {
 

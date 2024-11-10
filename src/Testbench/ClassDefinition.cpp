@@ -22,10 +22,13 @@
  */
 #include "Surelog/Testbench/ClassDefinition.h"
 
+#include <cstdint>
 #include <string_view>
 
+#include "Surelog/Common/NodeId.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Design/Parameter.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 #include "Surelog/Testbench/Constraint.h"
 #include "Surelog/Testbench/CoverGroupDefinition.h"
 #include "Surelog/Testbench/Property.h"

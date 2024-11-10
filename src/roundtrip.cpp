@@ -30,6 +30,7 @@
 #include <uhdm/uhdm.h>
 
 #include <algorithm>
+#include <cstdint>
 #include <fstream>
 #include <iostream>
 #include <map>

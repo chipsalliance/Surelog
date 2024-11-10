@@ -23,6 +23,7 @@
 
 #include "Surelog/DesignCompile/ResolveSymbols.h"
 
+#include "Surelog/Common/NodeId.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Design/ModuleDefinition.h"
 #include "Surelog/DesignCompile/CompileDesign.h"
@@ -30,6 +31,7 @@
 #include "Surelog/Package/Package.h"
 #include "Surelog/SourceCompile/Compiler.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 #include "Surelog/Testbench/ClassDefinition.h"
 #include "Surelog/Testbench/Program.h"
 #include "Surelog/Utils/StringUtils.h"
@@ -37,6 +39,7 @@
 // UHDM
 #include <uhdm/package.h>
 
+#include <cstdint>
 #include <string>
 #include <string_view>
 #include <vector>

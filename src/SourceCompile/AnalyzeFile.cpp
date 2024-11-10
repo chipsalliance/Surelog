@@ -23,6 +23,7 @@
 
 #include "Surelog/SourceCompile/AnalyzeFile.h"
 
+#include <cstdint>
 #include <iostream>
 #include <regex>
 #include <sstream>
@@ -34,6 +35,7 @@
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Design/Design.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
 #include "Surelog/Utils/StringUtils.h"
 

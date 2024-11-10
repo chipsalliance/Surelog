@@ -23,10 +23,13 @@
 
 #include "Surelog/DesignCompile/CompileFileContent.h"
 
+#include <cstdint>
 #include <stack>
 #include <vector>
 
+#include "Surelog/Common/NodeId.h"
 #include "Surelog/Design/FileContent.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 
 namespace SURELOG {
 

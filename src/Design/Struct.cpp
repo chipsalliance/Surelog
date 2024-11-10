@@ -23,6 +23,7 @@
 
 #include "Surelog/Design/Struct.h"
 
+#include "Surelog/Common/NodeId.h"
 #include "Surelog/Design/FileContent.h"
 
 // UHDM

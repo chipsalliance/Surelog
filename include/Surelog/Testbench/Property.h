@@ -25,6 +25,7 @@
 #define SURELOG_PROPERTY_H
 #pragma once
 
+#include <Surelog/Common/NodeId.h>
 #include <Surelog/Testbench/Variable.h>
 
 #include <string_view>

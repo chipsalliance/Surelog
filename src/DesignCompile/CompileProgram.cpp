@@ -26,12 +26,14 @@
 #include <uhdm/final_stmt.h>
 #include <uhdm/initial.h>
 
+#include <cstdint>
 #include <stack>
 #include <string>
 #include <string_view>
 #include <vector>
 
 #include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Common/NodeId.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/DesignCompile/CompileDesign.h"
 #include "Surelog/ErrorReporting/Error.h"
@@ -40,6 +42,7 @@
 #include "Surelog/ErrorReporting/Location.h"
 #include "Surelog/SourceCompile/Compiler.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 #include "Surelog/Testbench/Program.h"
 #include "Surelog/Utils/StringUtils.h"
 

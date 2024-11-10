@@ -23,6 +23,7 @@
 
 #include "Surelog/CommandLine/CommandLineParser.h"
 
+#include <cstdint>
 #include <map>
 #include <nlohmann/json.hpp>
 #include <string>
@@ -33,6 +34,7 @@
 #include "Surelog/API/PythonAPI.h"
 #include "Surelog/Common/PlatformFileSystem.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
 #include "Surelog/Utils/StringUtils.h"
 #include "Surelog/surelog-version.h"

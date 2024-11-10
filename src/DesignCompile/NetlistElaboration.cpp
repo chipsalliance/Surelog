@@ -24,6 +24,7 @@
 #include "Surelog/DesignCompile/NetlistElaboration.h"
 
 #include <algorithm>
+#include <cstdint>
 #include <map>
 #include <set>
 #include <string>
@@ -31,6 +32,7 @@
 
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"
+#include "Surelog/Common/NodeId.h"
 #include "Surelog/Design/DesignComponent.h"
 #include "Surelog/Design/DesignElement.h"
 #include "Surelog/Design/DummyType.h"
@@ -47,9 +49,11 @@
 #include "Surelog/Design/Union.h"
 #include "Surelog/DesignCompile/CompileDesign.h"
 #include "Surelog/DesignCompile/UhdmWriter.h"
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
 #include "Surelog/Package/Package.h"
 #include "Surelog/SourceCompile/Compiler.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 #include "Surelog/Testbench/TypeDef.h"
 #include "Surelog/Utils/StringUtils.h"
 

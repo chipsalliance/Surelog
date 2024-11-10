@@ -23,6 +23,7 @@
  * Created on June 8, 2017, 8:22 PM
  */
 
+#include <cstdint>
 #include <iostream>
 #include <stack>
 #include <string>
@@ -32,8 +33,10 @@
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Design/DesignElement.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
 #include "Surelog/Library/Library.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 #include "Surelog/Utils/StringUtils.h"
 
 namespace SURELOG {

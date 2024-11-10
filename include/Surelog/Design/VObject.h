@@ -30,6 +30,7 @@
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
 
+#include <cstdint>
 #include <ostream>
 #include <string>
 #include <string_view>

@@ -28,6 +28,7 @@
 #include <Surelog/Common/Containers.h>
 #include <Surelog/Common/RTTI.h>
 
+#include <cstdint>
 #include <utility>
 
 // UHDM

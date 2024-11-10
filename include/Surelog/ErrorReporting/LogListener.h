@@ -27,6 +27,7 @@
 
 #include <Surelog/Common/PathId.h>
 
+#include <cstdint>
 #include <deque>
 #include <mutex>
 #include <ostream>

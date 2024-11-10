@@ -23,11 +23,13 @@
 
 #include "Surelog/SourceCompile/SV3_1aPpTreeListenerHelper.h"
 
+#include <cstdint>
 #include <string_view>
 #include <vector>
 
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
 #include "Surelog/SourceCompile/CompileSourceFile.h"
 #include "Surelog/SourceCompile/MacroInfo.h"
 #include "Surelog/SourceCompile/SymbolTable.h"

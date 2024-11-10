@@ -25,6 +25,7 @@
 
 #include <capnp/serialize-packed.h>
 
+#include <cstdint>
 #include <filesystem>
 #include <functional>
 #include <iostream>
@@ -34,9 +35,12 @@
 
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"
+#include "Surelog/Common/NodeId.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 
 namespace SURELOG {
 static constexpr std::string_view UnknownRawPath = "<unknown>";

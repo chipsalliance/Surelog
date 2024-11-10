@@ -37,10 +37,12 @@
 #include "Surelog/DesignCompile/CompileModule.h"
 #include "Surelog/DesignCompile/NetlistElaboration.h"
 #include "Surelog/DesignCompile/UhdmWriter.h"
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
 #include "Surelog/Library/Library.h"
 #include "Surelog/Package/Package.h"
 #include "Surelog/SourceCompile/Compiler.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 #include "Surelog/Testbench/Program.h"
 #include "Surelog/Utils/StringUtils.h"
 
@@ -50,6 +52,7 @@
 #include <uhdm/clone_tree.h>
 #include <uhdm/uhdm.h>
 
+#include <cstdint>
 #include <cstring>
 #include <functional>
 #include <iostream>

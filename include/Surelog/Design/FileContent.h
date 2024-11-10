@@ -29,7 +29,9 @@
 #include <Surelog/Common/NodeId.h>
 #include <Surelog/Design/DesignComponent.h>
 #include <Surelog/Design/VObject.h>
+#include <Surelog/SourceCompile/VObjectTypes.h>
 
+#include <cstdint>
 #include <functional>
 #include <map>
 #include <set>

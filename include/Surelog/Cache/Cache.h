@@ -29,6 +29,7 @@
 #include <Surelog/Common/PathId.h>
 #include <Surelog/ErrorReporting/Error.h>
 
+#include <cstdint>
 #include <string_view>
 #include <vector>
 
