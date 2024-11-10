@@ -34,6 +34,7 @@
 #include "Surelog/SourceCompile/MacroInfo.h"
 #include "Surelog/SourceCompile/PreprocessFile.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 #include "Surelog/Utils/ParseUtils.h"
 #include "Surelog/Utils/StringUtils.h"
 

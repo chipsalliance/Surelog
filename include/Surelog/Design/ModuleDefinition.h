@@ -31,6 +31,7 @@
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/DesignComponent.h>
 #include <Surelog/Design/ModPort.h>
+#include <Surelog/SourceCompile/VObjectTypes.h>
 
 #include <cstdint>
 #include <functional>

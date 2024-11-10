@@ -25,6 +25,7 @@
 #include <string>
 
 #include "Surelog/Expression/Value.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 
 namespace SURELOG {
 

@@ -28,6 +28,7 @@
 #include <Surelog/Common/NodeId.h>
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/DesignCompile/CompileStep.h>
+#include <Surelog/SourceCompile/VObjectTypes.h>
 
 #include <cstdint>
 #include <string_view>

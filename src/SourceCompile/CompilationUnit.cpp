@@ -26,6 +26,8 @@
 #include <string_view>
 #include <vector>
 
+#include "Surelog/SourceCompile/VObjectTypes.h"
+
 namespace SURELOG {
 
 CompilationUnit::CompilationUnit(bool fileunit)

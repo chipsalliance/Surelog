@@ -37,6 +37,7 @@
 #include "Surelog/SourceCompile/Compiler.h"
 #include "Surelog/SourceCompile/ParseFile.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 #include "Surelog/Utils/ParseUtils.h"
 #include "Surelog/Utils/StringUtils.h"
 

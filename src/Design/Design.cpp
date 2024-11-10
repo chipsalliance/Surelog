@@ -42,6 +42,7 @@
 #include "Surelog/Expression/Value.h"
 #include "Surelog/Package/Package.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 #include "Surelog/Testbench/ClassDefinition.h"
 #include "Surelog/Testbench/Program.h"
 #include "Surelog/Utils/StringUtils.h"

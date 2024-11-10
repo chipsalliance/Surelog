@@ -28,6 +28,7 @@
 #include <Surelog/Common/Containers.h>
 #include <Surelog/Design/DesignComponent.h>
 #include <Surelog/Expression/ExprBuilder.h>
+#include <Surelog/SourceCompile/VObjectTypes.h>
 
 #include <cstdint>
 #include <string_view>

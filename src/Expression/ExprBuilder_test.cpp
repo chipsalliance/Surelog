@@ -24,6 +24,7 @@
 
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/SourceCompile/ParserHarness.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 
 namespace SURELOG {
 

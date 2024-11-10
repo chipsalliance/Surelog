@@ -34,6 +34,7 @@
 #include "Surelog/DesignCompile/CompileDesign.h"
 #include "Surelog/SourceCompile/Compiler.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 #include "Surelog/Testbench/ClassDefinition.h"
 #include "Surelog/Testbench/Property.h"
 #include "Surelog/Utils/StringUtils.h"

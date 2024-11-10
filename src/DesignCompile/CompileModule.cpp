@@ -34,6 +34,7 @@
 #include "Surelog/Library/Library.h"
 #include "Surelog/SourceCompile/Compiler.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 #include "Surelog/Utils/StringUtils.h"
 
 // UHDM

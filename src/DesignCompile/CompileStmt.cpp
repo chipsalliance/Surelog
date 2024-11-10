@@ -45,6 +45,7 @@
 #include "Surelog/SourceCompile/ParseFile.h"
 #include "Surelog/SourceCompile/PreprocessFile.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 #include "Surelog/Testbench/ClassDefinition.h"
 #include "Surelog/Testbench/Property.h"
 #include "Surelog/Utils/StringUtils.h"

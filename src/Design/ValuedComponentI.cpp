@@ -30,6 +30,7 @@
 
 #include "Surelog/Design/ModuleInstance.h"
 #include "Surelog/Expression/ExprBuilder.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 
 namespace SURELOG {
 Value* ValuedComponentI::getValue(std::string_view name) const {

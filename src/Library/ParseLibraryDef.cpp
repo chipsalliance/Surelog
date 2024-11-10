@@ -41,6 +41,7 @@
 #include "Surelog/Library/LibrarySet.h"
 #include "Surelog/Library/SVLibShapeListener.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 #include "Surelog/Utils/StringUtils.h"
 
 namespace SURELOG {

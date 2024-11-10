@@ -31,6 +31,7 @@
 #include <Surelog/ErrorReporting/Location.h>
 #include <Surelog/SourceCompile/CommonListenerHelper.h>
 #include <Surelog/SourceCompile/IncludeFileInfo.h>
+#include <Surelog/SourceCompile/VObjectTypes.h>
 #include <parser/SV3_1aParser.h>
 
 #include <cstdint>

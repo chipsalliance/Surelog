@@ -24,6 +24,7 @@
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/DesignCompile/CompileDesign.h"
 #include "Surelog/DesignCompile/CompileHelper.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 
 // UHDM
 #include <uhdm/ElaboratorListener.h>

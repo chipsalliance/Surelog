@@ -29,6 +29,7 @@
 #include <Surelog/Common/PathId.h>
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/TimeInfo.h>
+#include <Surelog/SourceCompile/VObjectTypes.h>
 
 #include <cstdint>
 #include <ostream>

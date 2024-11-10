@@ -29,6 +29,7 @@
 
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Design/ModPort.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 
 namespace SURELOG {
 

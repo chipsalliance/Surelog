@@ -27,6 +27,7 @@
 
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/DesignCompile/CompileHelper.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 
 namespace SURELOG {
 Procedure::Procedure(DesignComponent* parent, const FileContent* fC, NodeId id,

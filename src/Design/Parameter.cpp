@@ -26,6 +26,7 @@
 
 #include "Surelog/Common/NodeId.h"
 #include "Surelog/Design/FileContent.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 
 namespace SURELOG {
 

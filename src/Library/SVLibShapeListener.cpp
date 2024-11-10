@@ -36,6 +36,7 @@
 #include "Surelog/Library/ParseLibraryDef.h"
 #include "Surelog/SourceCompile/ParseFile.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/SourceCompile/VObjectTypes.h"
 #include "Surelog/Utils/ParseUtils.h"
 
 namespace SURELOG {
