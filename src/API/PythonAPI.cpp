@@ -43,7 +43,7 @@
 #include "Surelog/API/slapi_scripts.h"
 
 using NodeId = SURELOG::NodeId;
-#include <Surelog/API/slapi_wrap.cxx>
+#include <Surelog/API/slapi_wrap.cxx>  // NOLINT(bugprone-suspicious-include)
 #endif
 
 #include <cstring>
@@ -76,7 +76,7 @@ static struct PyModuleDef SLAPI_module = {PyModuleDef_HEAD_INIT,
                                           nullptr,
                                           nullptr};
 
-static PyObject* PyInit_slapi(void) { return PyModule_Create(&SLAPI_module); }
+static PyObject* PyInit_slapi() { return PyModule_Create(&SLAPI_module); }
 #endif
 
 void PythonAPI::shutdown() {
