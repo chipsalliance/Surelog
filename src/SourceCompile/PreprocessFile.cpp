@@ -27,6 +27,7 @@
 #include <parser/SV3_1aPpLexer.h>
 #include <parser/SV3_1aPpParser.h>
 
+#include <cstdint>
 #include <functional>
 #include <iostream>
 #include <regex>

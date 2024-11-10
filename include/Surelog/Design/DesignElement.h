@@ -30,6 +30,7 @@
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/TimeInfo.h>
 
+#include <cstdint>
 #include <ostream>
 
 namespace SURELOG {

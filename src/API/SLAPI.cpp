@@ -30,6 +30,7 @@
 
 #include <antlr4-runtime.h>
 
+#include <cstdint>
 #include <iostream>
 #include <string>
 #include <vector>

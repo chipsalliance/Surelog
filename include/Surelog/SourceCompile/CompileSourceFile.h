@@ -28,6 +28,7 @@
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/SourceCompile/PreprocessFile.h>
 
+#include <cstdint>
 #include <map>
 #include <string>
 #include <string_view>

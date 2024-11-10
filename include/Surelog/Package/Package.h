@@ -29,6 +29,7 @@
 #include <Surelog/Design/DesignComponent.h>
 #include <Surelog/Expression/ExprBuilder.h>
 
+#include <cstdint>
 #include <string_view>
 
 // UHDM

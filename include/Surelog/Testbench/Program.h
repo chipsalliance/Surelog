@@ -30,6 +30,7 @@
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/DesignComponent.h>
 
+#include <cstdint>
 #include <string_view>
 
 // UHDM

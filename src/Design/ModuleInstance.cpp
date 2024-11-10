@@ -22,6 +22,7 @@
  * Created on October 16, 2017, 10:48 PM
  */
 
+#include <cstdint>
 #include <set>
 #include <string_view>
 #include <vector>

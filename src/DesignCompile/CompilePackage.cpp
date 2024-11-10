@@ -37,6 +37,7 @@
 // UHDM
 #include <uhdm/package.h>
 
+#include <cstdint>
 #include <stack>
 #include <string>
 #include <string_view>

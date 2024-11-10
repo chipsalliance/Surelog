@@ -28,6 +28,7 @@
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/DataType.h>
 
+#include <cstdint>
 #include <functional>
 #include <string_view>
 #include <utility>

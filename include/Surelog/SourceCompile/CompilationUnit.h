@@ -29,6 +29,7 @@
 #include <Surelog/Common/NodeId.h>
 #include <Surelog/Design/TimeInfo.h>
 
+#include <cstdint>
 #include <string_view>
 #include <vector>
 

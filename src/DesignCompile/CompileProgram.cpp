@@ -26,6 +26,7 @@
 #include <uhdm/final_stmt.h>
 #include <uhdm/initial.h>
 
+#include <cstdint>
 #include <stack>
 #include <string>
 #include <string_view>

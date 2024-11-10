@@ -50,6 +50,7 @@
 #include <uhdm/clone_tree.h>
 #include <uhdm/uhdm.h>
 
+#include <cstdint>
 #include <cstring>
 #include <functional>
 #include <iostream>

@@ -31,6 +31,7 @@
 #include <Surelog/Design/DesignComponent.h>
 #include <Surelog/Design/ModPort.h>
 
+#include <cstdint>
 #include <functional>
 #include <map>
 #include <string>

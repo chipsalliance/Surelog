@@ -24,6 +24,7 @@
 #include "Surelog/DesignCompile/NetlistElaboration.h"
 
 #include <algorithm>
+#include <cstdint>
 #include <map>
 #include <set>
 #include <string>

@@ -28,6 +28,7 @@
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/DesignCompile/CompileStep.h>
 
+#include <cstdint>
 #include <string_view>
 #include <unordered_set>
 #include <vector>

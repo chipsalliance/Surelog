@@ -40,6 +40,7 @@
 // UHDM
 #include <uhdm/class_defn.h>
 
+#include <cstdint>
 #include <stack>
 #include <string>
 #include <string_view>

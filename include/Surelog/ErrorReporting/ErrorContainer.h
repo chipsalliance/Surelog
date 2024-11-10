@@ -27,6 +27,7 @@
 
 #include <Surelog/ErrorReporting/Error.h>
 
+#include <cstdint>
 #include <set>
 #include <string>
 #include <string_view>

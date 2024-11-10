@@ -28,6 +28,7 @@
 #include <Surelog/Config/Config.h>
 #include <Surelog/DesignCompile/TestbenchElaboration.h>
 
+#include <cstdint>
 #include <functional>
 #include <map>
 #include <set>

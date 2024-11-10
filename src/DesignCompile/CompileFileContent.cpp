@@ -23,6 +23,7 @@
 
 #include "Surelog/DesignCompile/CompileFileContent.h"
 
+#include <cstdint>
 #include <stack>
 #include <vector>
 

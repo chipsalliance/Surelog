@@ -23,6 +23,7 @@
 
 #include "Surelog/ErrorReporting/ErrorContainer.h"
 
+#include <cstdint>
 #include <cstdio>
 #include <iostream>
 #include <map>

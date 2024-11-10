@@ -43,6 +43,7 @@
 #include <uhdm/extends.h>
 #include <uhdm/ref_typespec.h>
 
+#include <cstdint>
 #include <queue>
 #include <string>
 #include <string_view>

@@ -23,6 +23,7 @@
 
 #include "Surelog/ErrorReporting/Error.h"
 
+#include <cstdint>
 #include <vector>
 
 namespace SURELOG {

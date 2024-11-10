@@ -31,6 +31,7 @@
 #include <Surelog/SourceCompile/CommonListenerHelper.h>
 #include <Surelog/SourceCompile/PreprocessFile.h>
 
+#include <cstdint>
 #include <set>
 #include <string_view>
 #include <vector>

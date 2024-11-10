@@ -22,6 +22,7 @@
  */
 #include "Surelog/Testbench/ClassDefinition.h"
 
+#include <cstdint>
 #include <string_view>
 
 #include "Surelog/Design/FileContent.h"

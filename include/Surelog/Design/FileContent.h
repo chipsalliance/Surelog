@@ -30,6 +30,7 @@
 #include <Surelog/Design/DesignComponent.h>
 #include <Surelog/Design/VObject.h>
 
+#include <cstdint>
 #include <functional>
 #include <map>
 #include <set>

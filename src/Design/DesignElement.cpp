@@ -22,6 +22,7 @@
  * Created on June 8, 2017, 8:05 PM
  */
 
+#include <cstdint>
 #include <ostream>
 
 namespace SURELOG {

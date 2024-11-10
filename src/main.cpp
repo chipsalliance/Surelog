@@ -25,6 +25,7 @@
 #include <direct.h>
 #include <process.h>
 
+#include <cstdint>
 #include <string_view>
 #include <utility>
 #else

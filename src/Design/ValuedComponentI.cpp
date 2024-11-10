@@ -22,6 +22,7 @@
  * Created on May 20, 2019, 21:03 PM
  */
 
+#include <cstdint>
 #include <map>
 #include <string>
 #include <string_view>

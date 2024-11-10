@@ -53,6 +53,7 @@
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/uhdm.h>
 
+#include <cstdint>
 #include <functional>
 #include <iostream>
 #include <map>

@@ -23,6 +23,7 @@
 
 #include "Surelog/Testbench/Program.h"
 
+#include <cstdint>
 #include <string_view>
 
 #include "Surelog/Design/DesignComponent.h"

@@ -22,6 +22,7 @@
  */
 #include "Surelog/SourceCompile/CompilationUnit.h"
 
+#include <cstdint>
 #include <string_view>
 #include <vector>
 

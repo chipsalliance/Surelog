@@ -30,6 +30,7 @@
 #include <Surelog/Expression/ExprBuilder.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
 
+#include <cstdint>
 #include <string>
 #include <string_view>
 #include <unordered_map>

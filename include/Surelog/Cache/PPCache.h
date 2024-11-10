@@ -28,6 +28,8 @@
 #include <Surelog/Cache/Cache.h>
 #include <Surelog/Cache/PPCache.capnp.h>
 
+#include <cstdint>
+
 namespace SURELOG {
 
 class PreprocessFile;

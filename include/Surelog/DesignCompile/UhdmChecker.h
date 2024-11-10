@@ -27,6 +27,7 @@
 
 #include <Surelog/Common/PathId.h>
 
+#include <cstdint>
 #include <map>
 #include <set>
 #include <string_view>

@@ -24,6 +24,7 @@
 // Example of usage:
 // cd tests/UnitElabBlock
 // hellouhdm top.v -parse -mutestdout
+#include <cstdint>
 #include <functional>
 #include <iostream>
 

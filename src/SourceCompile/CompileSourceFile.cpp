@@ -36,6 +36,7 @@
 #ifdef SURELOG_WITH_PYTHON
 #include <Python.h>
 
+#include <cstdint>
 #include <string_view>
 #include <vector>
 

@@ -25,6 +25,7 @@
 #define SURELOG_PYTHONAPI_H
 #pragma once
 
+#include <cstdint>
 #include <filesystem>
 #include <string>
 #include <vector>

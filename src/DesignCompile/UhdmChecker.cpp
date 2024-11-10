@@ -40,6 +40,7 @@
 #include <uhdm/uhdm.h>
 #include <uhdm/vpi_visitor.h>
 
+#include <cstdint>
 #include <iomanip>
 #include <set>
 #include <sstream>

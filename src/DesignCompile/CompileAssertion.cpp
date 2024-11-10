@@ -30,6 +30,7 @@
 #include <uhdm/clone_tree.h>
 #include <uhdm/uhdm.h>
 
+#include <cstdint>
 #include <iostream>
 #include <string_view>
 

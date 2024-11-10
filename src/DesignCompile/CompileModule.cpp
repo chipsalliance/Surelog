@@ -48,6 +48,7 @@
 #include <uhdm/table_entry.h>
 #include <uhdm/udp_defn.h>
 
+#include <cstdint>
 #include <stack>
 #include <string>
 #include <string_view>

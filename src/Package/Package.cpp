@@ -23,6 +23,7 @@
 
 #include "Surelog/Package/Package.h"
 
+#include <cstdint>
 #include <string_view>
 
 #include "Surelog/Design/FileContent.h"

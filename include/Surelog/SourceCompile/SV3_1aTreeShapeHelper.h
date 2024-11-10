@@ -32,6 +32,7 @@
 #include <Surelog/SourceCompile/IncludeFileInfo.h>
 #include <parser/SV3_1aParser.h>
 
+#include <cstdint>
 #include <stack>
 #include <string_view>
 #include <utility>

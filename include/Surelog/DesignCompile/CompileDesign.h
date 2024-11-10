@@ -27,6 +27,7 @@
 
 #include <Surelog/Design/Design.h>
 
+#include <cstdint>
 #include <map>
 #include <vector>
 

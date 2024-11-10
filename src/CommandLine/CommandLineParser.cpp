@@ -23,6 +23,7 @@
 
 #include "Surelog/CommandLine/CommandLineParser.h"
 
+#include <cstdint>
 #include <map>
 #include <nlohmann/json.hpp>
 #include <string>

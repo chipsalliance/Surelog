@@ -29,6 +29,7 @@
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
 
+#include <cstdint>
 #include <string_view>
 #include <vector>
 

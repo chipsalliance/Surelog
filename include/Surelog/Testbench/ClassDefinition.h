@@ -30,6 +30,7 @@
 #include <Surelog/Design/DesignComponent.h>
 #include <Surelog/Testbench/TaskMethod.h>
 
+#include <cstdint>
 #include <map>
 #include <string>
 #include <string_view>

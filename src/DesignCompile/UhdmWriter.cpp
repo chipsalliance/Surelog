@@ -23,6 +23,7 @@
 
 #include "Surelog/DesignCompile/UhdmWriter.h"
 
+#include <cstdint>
 #include <cstring>
 #include <iostream>
 #include <map>

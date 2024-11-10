@@ -23,6 +23,7 @@
 
 #include "Surelog/SourceCompile/SV3_1aTreeShapeListener.h"
 
+#include <cstdint>
 #include <regex>
 #include <string>
 #include <string_view>

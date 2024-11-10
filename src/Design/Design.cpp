@@ -22,6 +22,7 @@
  * Created on July 1, 2017, 1:23 PM
  */
 
+#include <cstdint>
 #include <iterator>
 #include <map>
 #include <queue>

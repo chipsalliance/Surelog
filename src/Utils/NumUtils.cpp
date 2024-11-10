@@ -24,6 +24,7 @@
 #include "Surelog/Utils/NumUtils.h"
 
 #include <bitset>
+#include <cstdint>
 #include <cstring>
 #include <string>
 #include <string_view>

@@ -24,6 +24,7 @@
 #include "Surelog/ErrorReporting/Report.h"
 
 #include <chrono>
+#include <cstdint>
 #include <filesystem>
 #include <iostream>
 #include <regex>

@@ -18,6 +18,8 @@
 
 #include <gtest/gtest.h>
 
+#include <cstdint>
+
 namespace SURELOG {
 TEST(NumUtilsTest, ParseDecimalInt) {
   int64_t value;

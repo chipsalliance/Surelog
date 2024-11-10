@@ -27,6 +27,7 @@
 
 #include <Surelog/DesignCompile/TestbenchElaboration.h>
 
+#include <cstdint>
 #include <map>
 #include <string_view>
 

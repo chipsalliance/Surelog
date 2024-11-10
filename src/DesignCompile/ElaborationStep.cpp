@@ -23,6 +23,7 @@
 
 #include "Surelog/DesignCompile/ElaborationStep.h"
 
+#include <cstdint>
 #include <cstring>
 #include <functional>
 #include <map>
