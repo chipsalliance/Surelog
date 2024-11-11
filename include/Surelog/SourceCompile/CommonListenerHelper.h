@@ -34,6 +34,7 @@
 #include <map>
 #include <string>
 #include <string_view>
+#include <tuple>
 
 namespace antlr4 {
 class CommonTokenStream;

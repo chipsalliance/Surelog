@@ -39,6 +39,7 @@
 #include <cstdint>
 #include <stack>
 #include <string_view>
+#include <tuple>
 #include <utility>
 
 namespace antlr4 {

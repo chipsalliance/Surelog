@@ -35,6 +35,7 @@
 #include <cstdint>
 #include <set>
 #include <string_view>
+#include <tuple>
 #include <vector>
 
 namespace SURELOG {

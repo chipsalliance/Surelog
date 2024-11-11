@@ -25,6 +25,7 @@
 
 #include <cstdint>
 #include <string_view>
+#include <tuple>
 #include <vector>
 
 #include "Surelog/CommandLine/CommandLineParser.h"
