@@ -27,6 +27,7 @@
 #include <string_view>
 
 #include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Common/PathId.h"
 #include "Surelog/Library/Library.h"
 #include "Surelog/SourceCompile/CompilationUnit.h"
 #include "Surelog/SourceCompile/CompileSourceFile.h"

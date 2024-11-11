@@ -29,6 +29,7 @@
 
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"
+#include "Surelog/Common/PathId.h"
 #include "Surelog/Common/SymbolId.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/ErrorReporting/Error.h"

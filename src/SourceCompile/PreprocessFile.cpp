@@ -39,6 +39,7 @@
 #include "Surelog/Cache/PPCache.h"
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"
+#include "Surelog/Common/PathId.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
 #include "Surelog/ErrorReporting/ErrorDefinition.h"
