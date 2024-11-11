@@ -31,6 +31,7 @@
 #include "Surelog/Common/PathId.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
 #include "Surelog/ErrorReporting/ErrorDefinition.h"
+#include "Surelog/ErrorReporting/Location.h"
 #include "Surelog/SourceCompile/CompileSourceFile.h"
 #include "Surelog/SourceCompile/MacroInfo.h"
 #include "Surelog/SourceCompile/SymbolTable.h"

@@ -27,6 +27,7 @@
 #include <vector>
 
 #include "Surelog/ErrorReporting/ErrorDefinition.h"
+#include "Surelog/ErrorReporting/Location.h"
 
 namespace SURELOG {
 

@@ -40,6 +40,7 @@
 #include "Surelog/Design/DesignElement.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/ErrorReporting/ErrorDefinition.h"
+#include "Surelog/ErrorReporting/Location.h"
 #include "Surelog/Library/Library.h"
 #include "Surelog/Package/Precompiled.h"
 #include "Surelog/SourceCompile/CompileSourceFile.h"

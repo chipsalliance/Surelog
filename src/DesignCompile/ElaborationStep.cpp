@@ -51,6 +51,7 @@
 #include "Surelog/Design/Union.h"
 #include "Surelog/DesignCompile/CompileDesign.h"
 #include "Surelog/ErrorReporting/ErrorDefinition.h"
+#include "Surelog/ErrorReporting/Location.h"
 #include "Surelog/Library/Library.h"
 #include "Surelog/Package/Package.h"
 #include "Surelog/SourceCompile/Compiler.h"

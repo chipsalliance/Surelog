@@ -36,6 +36,7 @@
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/ErrorReporting/ErrorDefinition.h"
+#include "Surelog/ErrorReporting/Location.h"
 #include "Surelog/ErrorReporting/LogListener.h"
 #include "Surelog/ErrorReporting/Waiver.h"
 #include "Surelog/SourceCompile/SymbolTable.h"

@@ -27,6 +27,7 @@
 #include "Surelog/API/SV3_1aPythonListener.h"
 #include "Surelog/Common/NodeId.h"
 #include "Surelog/ErrorReporting/ErrorDefinition.h"
+#include "Surelog/ErrorReporting/Location.h"
 #include "Surelog/SourceCompile/PythonListen.h"
 #include "Surelog/SourceCompile/VObjectTypes.h"
 #endif

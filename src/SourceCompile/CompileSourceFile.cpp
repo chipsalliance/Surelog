@@ -27,6 +27,7 @@
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
 #include "Surelog/ErrorReporting/ErrorDefinition.h"
+#include "Surelog/ErrorReporting/Location.h"
 #include "Surelog/Library/Library.h"
 #include "Surelog/Package/Precompiled.h"
 #include "Surelog/SourceCompile/AnalyzeFile.h"

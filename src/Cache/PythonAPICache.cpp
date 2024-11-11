@@ -39,6 +39,7 @@
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Common/PathId.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/ErrorReporting/Location.h"
 #include "Surelog/Library/Library.h"
 #include "Surelog/SourceCompile/CompileSourceFile.h"
 #include "Surelog/SourceCompile/ParseFile.h"

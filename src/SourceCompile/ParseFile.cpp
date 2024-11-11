@@ -37,6 +37,7 @@
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
 #include "Surelog/ErrorReporting/ErrorDefinition.h"
+#include "Surelog/ErrorReporting/Location.h"
 #include "Surelog/Package/Precompiled.h"
 #include "Surelog/SourceCompile/AntlrParserErrorListener.h"
 #include "Surelog/SourceCompile/AntlrParserHandler.h"
