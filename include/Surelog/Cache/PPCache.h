@@ -28,6 +28,7 @@
 #include <Surelog/Cache/Cache.h>
 #include <Surelog/Cache/PPCache.capnp.h>
 #include <Surelog/Common/PathId.h>
+#include <capnp/list.h>
 
 #include <cstdint>
 

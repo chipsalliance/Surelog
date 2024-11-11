@@ -28,6 +28,8 @@
 #include <Surelog/Cache/Cache.capnp.h>
 #include <Surelog/Common/PathId.h>
 #include <Surelog/ErrorReporting/Error.h>
+#include <capnp/blob.h>
+#include <capnp/list.h>
 
 #include <cstdint>
 #include <string_view>

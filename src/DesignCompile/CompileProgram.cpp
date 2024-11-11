@@ -36,6 +36,7 @@
 #include "Surelog/Common/NodeId.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/DesignCompile/CompileDesign.h"
+#include "Surelog/DesignCompile/CompileHelper.h"
 #include "Surelog/ErrorReporting/Error.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
 #include "Surelog/ErrorReporting/ErrorDefinition.h"

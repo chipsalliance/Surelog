@@ -27,6 +27,7 @@
 
 #include <Surelog/Common/NodeId.h>
 #include <Surelog/Common/PathId.h>
+#include <Surelog/DesignCompile/CompileHelper.h>
 #include <Surelog/DesignCompile/TestbenchElaboration.h>
 #include <uhdm/uhdm_types.h>
 

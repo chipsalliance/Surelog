@@ -23,6 +23,8 @@
 
 #include "Surelog/Cache/PPCache.h"
 
+#include <capnp/blob.h>
+#include <capnp/list.h>
 #include <capnp/serialize-packed.h>
 #include <fcntl.h>
 #include <sys/stat.h>

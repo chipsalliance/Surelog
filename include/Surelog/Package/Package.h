@@ -26,6 +26,7 @@
 #pragma once
 
 #include <Surelog/Common/Containers.h>
+#include <Surelog/Common/RTTI.h>
 #include <Surelog/Design/DesignComponent.h>
 #include <Surelog/Expression/ExprBuilder.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>

@@ -29,6 +29,7 @@
 #include <Surelog/Common/NodeId.h>
 #include <Surelog/Common/PathId.h>
 #include <Surelog/Common/PortNetHolder.h>
+#include <Surelog/Common/RTTI.h>
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/FileCNodeId.h>
 #include <Surelog/Design/LetStmt.h>

@@ -50,6 +50,7 @@
 #include "Surelog/Design/Parameter.h"
 #include "Surelog/Design/Signal.h"
 #include "Surelog/DesignCompile/CompileDesign.h"
+#include "Surelog/DesignCompile/CompileHelper.h"
 #include "Surelog/DesignCompile/UhdmChecker.h"
 #include "Surelog/ErrorReporting/Error.h"
 #include "Surelog/ErrorReporting/ErrorDefinition.h"

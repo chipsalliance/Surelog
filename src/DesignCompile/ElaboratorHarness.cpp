@@ -24,6 +24,7 @@
 #include "Surelog/DesignCompile/ElaboratorHarness.h"
 
 #include <string_view>
+#include <tuple>
 
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Design/Design.h"
