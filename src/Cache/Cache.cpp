@@ -23,6 +23,7 @@
 
 #include "Surelog/Cache/Cache.h"
 
+#include <capnp/list.h>
 #include <capnp/serialize-packed.h>
 
 #include <cstddef>
