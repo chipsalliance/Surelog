@@ -20,6 +20,7 @@
 #include <string>
 #include <vector>
 
+#include "Surelog/ErrorReporting/Error.h"
 #include "Surelog/ErrorReporting/ErrorDefinition.h"
 #include "Surelog/SourceCompile/PreprocessHarness.h"
 

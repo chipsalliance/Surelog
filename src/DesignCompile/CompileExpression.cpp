@@ -48,6 +48,7 @@
 #include "Surelog/DesignCompile/CompileDesign.h"
 #include "Surelog/DesignCompile/CompileHelper.h"
 #include "Surelog/DesignCompile/UhdmWriter.h"
+#include "Surelog/ErrorReporting/Error.h"
 #include "Surelog/ErrorReporting/ErrorDefinition.h"
 #include "Surelog/ErrorReporting/Location.h"
 #include "Surelog/Package/Package.h"

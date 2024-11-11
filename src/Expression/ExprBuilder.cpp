@@ -30,6 +30,7 @@
 
 #include "Surelog/Design/Design.h"
 #include "Surelog/Design/FileContent.h"
+#include "Surelog/ErrorReporting/Error.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
 #include "Surelog/ErrorReporting/ErrorDefinition.h"
 #include "Surelog/ErrorReporting/Location.h"
