@@ -53,6 +53,7 @@
 #include <uhdm/ref_obj.h>
 #include <uhdm/table_entry.h>
 #include <uhdm/udp_defn.h>
+#include <uhdm/vpi_user.h>
 
 #include <cstdint>
 #include <stack>

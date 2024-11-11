@@ -54,7 +54,9 @@
 
 // UHDM
 #include <uhdm/ElaboratorListener.h>
+#include <uhdm/sv_vpi_user.h>
 #include <uhdm/uhdm.h>
+#include <uhdm/vpi_user.h>
 
 #include <cstdint>
 #include <functional>

@@ -64,7 +64,9 @@
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/ExprEval.h>
 #include <uhdm/clone_tree.h>
+#include <uhdm/sv_vpi_user.h>
 #include <uhdm/uhdm.h>
+#include <uhdm/vpi_user.h>
 
 namespace SURELOG {
 
