@@ -27,8 +27,10 @@
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/UhdmListener.h>
 #include <uhdm/VpiListener.h>
+#include <uhdm/expr.h>
 #include <uhdm/sv_vpi_user.h>
 #include <uhdm/uhdm.h>
+#include <uhdm/uhdm_types.h>
 #include <uhdm/vpi_user.h>
 
 #include <algorithm>

@@ -22,6 +22,8 @@
  * Created on May 20, 2019, 21:03 PM
  */
 
+#include <uhdm/expr.h>
+
 #include <cstdint>
 #include <map>
 #include <string>

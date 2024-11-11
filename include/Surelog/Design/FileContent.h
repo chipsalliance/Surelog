@@ -32,6 +32,7 @@
 #include <Surelog/Design/DesignComponent.h>
 #include <Surelog/Design/VObject.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
+#include <uhdm/uhdm_types.h>
 
 #include <cstdint>
 #include <functional>

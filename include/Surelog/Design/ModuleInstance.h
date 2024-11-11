@@ -31,6 +31,7 @@
 #include <Surelog/Design/ValuedComponentI.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
 #include <uhdm/Serializer.h>
+#include <uhdm/expr.h>
 
 #include <cstdint>
 #include <map>

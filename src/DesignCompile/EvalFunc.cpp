@@ -34,7 +34,9 @@
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/ExprEval.h>
 #include <uhdm/clone_tree.h>
+#include <uhdm/expr.h>
 #include <uhdm/uhdm.h>
+#include <uhdm/uhdm_types.h>
 
 #include <bitset>
 #include <cstdint>

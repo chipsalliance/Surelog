@@ -23,6 +23,8 @@
  * Created on June 8, 2017, 8:22 PM
  */
 
+#include <uhdm/uhdm_types.h>
+
 #include <cstdint>
 #include <iostream>
 #include <stack>

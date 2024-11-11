@@ -23,6 +23,9 @@
 
 #include "Surelog/DesignCompile/ElaborationStep.h"
 
+#include <uhdm/expr.h>
+#include <uhdm/uhdm_types.h>
+
 #include <cstdint>
 #include <cstring>
 #include <functional>

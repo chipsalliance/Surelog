@@ -46,8 +46,10 @@
 // UHDM
 #include <uhdm/class_defn.h>
 #include <uhdm/class_typespec.h>
+#include <uhdm/expr.h>
 #include <uhdm/extends.h>
 #include <uhdm/ref_typespec.h>
+#include <uhdm/uhdm_types.h>
 
 #include <cstdint>
 #include <queue>

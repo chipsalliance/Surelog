@@ -24,6 +24,7 @@
 #include "Surelog/Common/PlatformFileSystem.h"
 
 #include <gtest/gtest.h>
+#include <uhdm/expr.h>
 
 #include <cstdint>
 #include <iostream>
