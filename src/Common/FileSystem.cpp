@@ -23,6 +23,7 @@
 
 #include "Surelog/Common/FileSystem.h"
 
+#include "Surelog/Common/PathId.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
 
 #if defined(_WIN32)

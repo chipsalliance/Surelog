@@ -28,6 +28,8 @@
 #include <string_view>
 #include <vector>
 
+#include "Surelog/Common/PathId.h"
+
 namespace SURELOG {
 MacroInfo::MacroInfo(std::string_view name, int32_t type, PathId fileId,
                      uint32_t startLine, uint16_t startColumn, uint32_t endLine,

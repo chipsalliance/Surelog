@@ -25,6 +25,7 @@
 #define SURELOG_COMPILESOURCEFILE_H
 #pragma once
 
+#include <Surelog/Common/PathId.h>
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/SourceCompile/PreprocessFile.h>
 

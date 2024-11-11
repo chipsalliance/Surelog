@@ -21,6 +21,7 @@
  * Created on May 14, 2019, 8:03 PM
  */
 
+#include "Surelog/Common/PathId.h"
 #include "Surelog/Design/DesignComponent.h"
 #include "Surelog/Design/ParamAssign.h"
 #include "Surelog/DesignCompile/CompileDesign.h"

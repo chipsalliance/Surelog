@@ -34,6 +34,7 @@
 #include <utility>
 #include <vector>
 
+#include "Surelog/Common/PathId.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
 #include "Surelog/Utils/StringUtils.h"
 #ifdef SURELOG_WITH_ZLIB

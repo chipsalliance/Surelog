@@ -29,6 +29,7 @@
 #include <string>
 #include <string_view>
 
+#include "Surelog/Common/PathId.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
 #include "Surelog/ErrorReporting/ErrorDefinition.h"
 #include "Surelog/Library/Library.h"

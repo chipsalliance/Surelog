@@ -27,6 +27,7 @@
 
 #include <Surelog/Cache/Cache.h>
 #include <Surelog/Cache/PythonAPICache.capnp.h>
+#include <Surelog/Common/PathId.h>
 
 namespace SURELOG {
 

@@ -28,6 +28,7 @@
 #include <vector>
 
 #include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Common/PathId.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
 #include "Surelog/ErrorReporting/ErrorDefinition.h"
 #include "Surelog/SourceCompile/CompileSourceFile.h"

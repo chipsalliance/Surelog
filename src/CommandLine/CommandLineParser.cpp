@@ -32,6 +32,7 @@
 #include <vector>
 
 #include "Surelog/API/PythonAPI.h"
+#include "Surelog/Common/PathId.h"
 #include "Surelog/Common/PlatformFileSystem.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
 #include "Surelog/ErrorReporting/ErrorDefinition.h"
