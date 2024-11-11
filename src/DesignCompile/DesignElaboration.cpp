@@ -35,6 +35,7 @@
 #include "Surelog/Design/ModuleInstance.h"
 #include "Surelog/Design/Parameter.h"
 #include "Surelog/DesignCompile/CompileDesign.h"
+#include "Surelog/DesignCompile/CompileHelper.h"
 #include "Surelog/DesignCompile/CompileModule.h"
 #include "Surelog/DesignCompile/NetlistElaboration.h"
 #include "Surelog/DesignCompile/UhdmWriter.h"
