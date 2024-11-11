@@ -31,6 +31,7 @@
 #define NOMINMAX
 #include <Windows.h>
 
+#include <cstddef>
 #include <cstdint>
 #include <iostream>
 #include <string>

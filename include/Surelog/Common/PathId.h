@@ -20,6 +20,7 @@
 
 #include <Surelog/Common/SymbolId.h>
 
+#include <cstddef>
 #include <cstdint>
 #include <istream>
 #include <set>

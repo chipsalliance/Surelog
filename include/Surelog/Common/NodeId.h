@@ -18,6 +18,7 @@
 #define SURELOG_NODEID_H
 #pragma once
 
+#include <cstddef>
 #include <cstdint>
 #include <ostream>
 #include <set>

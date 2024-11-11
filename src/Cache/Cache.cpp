@@ -25,6 +25,7 @@
 
 #include <capnp/serialize-packed.h>
 
+#include <cstddef>
 #include <cstdint>
 #include <filesystem>
 #include <functional>

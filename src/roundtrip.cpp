@@ -34,6 +34,7 @@
 #include <uhdm/vpi_user.h>
 
 #include <algorithm>
+#include <cstddef>
 #include <cstdint>
 #include <fstream>
 #include <iostream>

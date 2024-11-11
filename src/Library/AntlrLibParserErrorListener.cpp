@@ -23,6 +23,7 @@
 
 #include "Surelog/Library/AntlrLibParserErrorListener.h"
 
+#include <cstddef>
 #include <string>
 
 #include "Surelog/Common/SymbolId.h"

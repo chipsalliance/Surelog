@@ -23,6 +23,7 @@
  * Created on October 20, 2017, 10:29 PM
  */
 
+#include <cstddef>
 #include <cstdint>
 #include <string_view>
 #include <vector>

@@ -24,6 +24,7 @@
 #include "Surelog/SourceCompile/Compiler.h"
 
 #include <climits>
+#include <cstddef>
 #include <cstdint>
 #include <filesystem>
 #include <fstream>
