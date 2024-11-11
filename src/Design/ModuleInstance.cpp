@@ -22,11 +22,15 @@
  * Created on October 16, 2017, 10:48 PM
  */
 
+#include <uhdm/expr.h>
+#include <uhdm/uhdm_types.h>
+
 #include <cstdint>
 #include <set>
 #include <string_view>
 #include <vector>
 
+#include "Surelog/Common/SymbolId.h"
 #include "Surelog/Design/DesignComponent.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Design/Netlist.h"

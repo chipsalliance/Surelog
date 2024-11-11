@@ -39,6 +39,7 @@
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/VpiListener.h>
 #include <uhdm/uhdm.h>
+#include <uhdm/vpi_user.h>
 
 class DesignListener final : public UHDM::VpiListener {
   void enterModule_inst(const UHDM::module_inst *object,

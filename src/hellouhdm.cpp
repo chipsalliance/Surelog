@@ -38,6 +38,7 @@
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/VpiListener.h>
 #include <uhdm/uhdm.h>
+#include <uhdm/vpi_user.h>
 
 int main(int argc, const char** argv) {
   // Read command line, compile a design, use -parse argument

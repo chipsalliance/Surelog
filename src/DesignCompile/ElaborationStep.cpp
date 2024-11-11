@@ -23,6 +23,9 @@
 
 #include "Surelog/DesignCompile/ElaborationStep.h"
 
+#include <uhdm/expr.h>
+#include <uhdm/uhdm_types.h>
+
 #include <cstdint>
 #include <cstring>
 #include <functional>
@@ -50,7 +53,9 @@
 #include "Surelog/Design/TfPortItem.h"
 #include "Surelog/Design/Union.h"
 #include "Surelog/DesignCompile/CompileDesign.h"
+#include "Surelog/ErrorReporting/Error.h"
 #include "Surelog/ErrorReporting/ErrorDefinition.h"
+#include "Surelog/ErrorReporting/Location.h"
 #include "Surelog/Library/Library.h"
 #include "Surelog/Package/Package.h"
 #include "Surelog/SourceCompile/Compiler.h"
@@ -66,6 +71,7 @@
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/ExprEval.h>
 #include <uhdm/clone_tree.h>
+#include <uhdm/sv_vpi_user.h>
 #include <uhdm/uhdm.h>
 #include <uhdm/vpi_visitor.h>
 

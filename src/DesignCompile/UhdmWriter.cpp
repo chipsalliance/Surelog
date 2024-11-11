@@ -23,6 +23,9 @@
 
 #include "Surelog/DesignCompile/UhdmWriter.h"
 
+#include <uhdm/expr.h>
+#include <uhdm/uhdm_types.h>
+
 #include <cstdint>
 #include <cstring>
 #include <iostream>
@@ -37,6 +40,7 @@
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Common/NodeId.h"
+#include "Surelog/Common/SymbolId.h"
 #include "Surelog/Design/DesignElement.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Design/ModPort.h"
@@ -47,7 +51,9 @@
 #include "Surelog/Design/Signal.h"
 #include "Surelog/DesignCompile/CompileDesign.h"
 #include "Surelog/DesignCompile/UhdmChecker.h"
+#include "Surelog/ErrorReporting/Error.h"
 #include "Surelog/ErrorReporting/ErrorDefinition.h"
+#include "Surelog/ErrorReporting/Location.h"
 #include "Surelog/Package/Package.h"
 #include "Surelog/SourceCompile/Compiler.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
@@ -67,7 +73,10 @@
 #include <uhdm/UhdmLint.h>
 #include <uhdm/VpiListener.h>
 #include <uhdm/clone_tree.h>
+#include <uhdm/sv_vpi_user.h>
 #include <uhdm/uhdm.h>
+#include <uhdm/vpi_uhdm.h>
+#include <uhdm/vpi_user.h>
 #include <uhdm/vpi_visitor.h>
 
 namespace SURELOG {

@@ -23,11 +23,15 @@
 
 #include "Surelog/SourceCompile/AntlrParserErrorListener.h"
 
+#include <cstddef>
 #include <cstdint>
 #include <string>
 
 #include "Surelog/Common/FileSystem.h"
+#include "Surelog/Common/SymbolId.h"
+#include "Surelog/ErrorReporting/Error.h"
 #include "Surelog/ErrorReporting/ErrorDefinition.h"
+#include "Surelog/ErrorReporting/Location.h"
 #include "Surelog/SourceCompile/CompileSourceFile.h"
 #include "Surelog/SourceCompile/ParseFile.h"
 #include "Surelog/Utils/StringUtils.h"

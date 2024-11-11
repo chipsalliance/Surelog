@@ -29,6 +29,8 @@
 #include <Surelog/Design/ValuedComponentI.h>
 #include <Surelog/Expression/ExprBuilder.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
+#include <uhdm/expr.h>
+#include <uhdm/uhdm_types.h>
 
 #include <cstdint>
 #include <string>

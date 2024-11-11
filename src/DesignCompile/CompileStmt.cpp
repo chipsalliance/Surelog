@@ -36,6 +36,7 @@
 #include "Surelog/DesignCompile/UhdmWriter.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
 #include "Surelog/ErrorReporting/ErrorDefinition.h"
+#include "Surelog/ErrorReporting/Location.h"
 #include "Surelog/Expression/ExprBuilder.h"
 #include "Surelog/Expression/Value.h"
 #include "Surelog/Library/Library.h"
@@ -53,7 +54,11 @@
 
 // UHDM
 #include <uhdm/ElaboratorListener.h>
+#include <uhdm/expr.h>
+#include <uhdm/sv_vpi_user.h>
 #include <uhdm/uhdm.h>
+#include <uhdm/uhdm_types.h>
+#include <uhdm/vpi_user.h>
 
 #include <cstdint>
 #include <functional>

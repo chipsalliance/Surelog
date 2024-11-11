@@ -25,6 +25,7 @@
 
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Common/NodeId.h"
+#include "Surelog/Common/PathId.h"
 #include "Surelog/Design/Design.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Design/Parameter.h"
@@ -32,7 +33,9 @@
 #include "Surelog/Design/Statement.h"
 #include "Surelog/Design/TfPortItem.h"
 #include "Surelog/DesignCompile/CompileDesign.h"
+#include "Surelog/ErrorReporting/Error.h"
 #include "Surelog/ErrorReporting/ErrorDefinition.h"
+#include "Surelog/ErrorReporting/Location.h"
 #include "Surelog/SourceCompile/Compiler.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
 #include "Surelog/SourceCompile/VObjectTypes.h"
@@ -43,8 +46,10 @@
 // UHDM
 #include <uhdm/class_defn.h>
 #include <uhdm/class_typespec.h>
+#include <uhdm/expr.h>
 #include <uhdm/extends.h>
 #include <uhdm/ref_typespec.h>
+#include <uhdm/uhdm_types.h>
 
 #include <cstdint>
 #include <queue>

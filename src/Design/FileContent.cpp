@@ -23,6 +23,8 @@
  * Created on June 8, 2017, 8:22 PM
  */
 
+#include <uhdm/uhdm_types.h>
+
 #include <cstdint>
 #include <iostream>
 #include <stack>
@@ -31,9 +33,12 @@
 #include <vector>
 
 #include "Surelog/Common/FileSystem.h"
+#include "Surelog/Common/PathId.h"
 #include "Surelog/Design/DesignElement.h"
+#include "Surelog/ErrorReporting/Error.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
 #include "Surelog/ErrorReporting/ErrorDefinition.h"
+#include "Surelog/ErrorReporting/Location.h"
 #include "Surelog/Library/Library.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
 #include "Surelog/SourceCompile/VObjectTypes.h"

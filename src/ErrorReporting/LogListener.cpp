@@ -28,6 +28,7 @@
 #include <string_view>
 
 #include "Surelog/Common/FileSystem.h"
+#include "Surelog/Common/PathId.h"
 
 namespace SURELOG {
 

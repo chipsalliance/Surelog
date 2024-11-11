@@ -21,6 +21,7 @@
  * Created on May 14, 2019, 8:03 PM
  */
 
+#include "Surelog/Common/PathId.h"
 #include "Surelog/Design/DesignComponent.h"
 #include "Surelog/Design/ParamAssign.h"
 #include "Surelog/DesignCompile/CompileDesign.h"
@@ -33,7 +34,9 @@
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/ExprEval.h>
 #include <uhdm/clone_tree.h>
+#include <uhdm/expr.h>
 #include <uhdm/uhdm.h>
+#include <uhdm/uhdm_types.h>
 
 #include <bitset>
 #include <cstdint>

@@ -23,6 +23,7 @@
 
 #include "Surelog/Common/PlatformFileSystem.h"
 
+#include <cstddef>
 #include <cstdint>
 #include <filesystem>
 #include <fstream>
@@ -34,6 +35,8 @@
 #include <utility>
 #include <vector>
 
+#include "Surelog/Common/PathId.h"
+#include "Surelog/Common/SymbolId.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
 #include "Surelog/Utils/StringUtils.h"
 #ifdef SURELOG_WITH_ZLIB

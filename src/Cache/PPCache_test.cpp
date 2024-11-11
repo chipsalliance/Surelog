@@ -33,6 +33,7 @@
 #include <vector>
 
 #include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Common/PathId.h"
 #include "Surelog/Common/PlatformFileSystem.h"
 #include "Surelog/Design/Design.h"
 #include "Surelog/SourceCompile/Compiler.h"

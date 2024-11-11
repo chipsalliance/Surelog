@@ -25,6 +25,7 @@
 
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"
+#include "Surelog/Common/SymbolId.h"
 #include "Surelog/Config/ConfigSet.h"
 #include "Surelog/Design/BindStmt.h"
 #include "Surelog/Design/DefParam.h"
@@ -37,7 +38,9 @@
 #include "Surelog/DesignCompile/CompileModule.h"
 #include "Surelog/DesignCompile/NetlistElaboration.h"
 #include "Surelog/DesignCompile/UhdmWriter.h"
+#include "Surelog/ErrorReporting/Error.h"
 #include "Surelog/ErrorReporting/ErrorDefinition.h"
+#include "Surelog/ErrorReporting/Location.h"
 #include "Surelog/Library/Library.h"
 #include "Surelog/Package/Package.h"
 #include "Surelog/SourceCompile/Compiler.h"
@@ -50,7 +53,11 @@
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/ExprEval.h>
 #include <uhdm/clone_tree.h>
+#include <uhdm/expr.h>
+#include <uhdm/sv_vpi_user.h>
 #include <uhdm/uhdm.h>
+#include <uhdm/uhdm_types.h>
+#include <uhdm/vpi_user.h>
 
 #include <cstdint>
 #include <cstring>

@@ -27,6 +27,7 @@
 
 #ifdef SURELOG_WITH_PYTHON
 
+#include <Surelog/ErrorReporting/Error.h>
 #include <Surelog/SourceCompile/CompileSourceFile.h>
 #include <Surelog/SourceCompile/ParseFile.h>
 

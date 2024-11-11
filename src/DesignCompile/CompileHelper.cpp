@@ -25,6 +25,7 @@
 
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"
+#include "Surelog/Common/PathId.h"
 #include "Surelog/Design/DataType.h"
 #include "Surelog/Design/DummyType.h"
 #include "Surelog/Design/Enum.h"
@@ -62,7 +63,11 @@
 #include <uhdm/ExprEval.h>
 #include <uhdm/VpiListener.h>
 #include <uhdm/clone_tree.h>
+#include <uhdm/expr.h>
+#include <uhdm/sv_vpi_user.h>
 #include <uhdm/uhdm.h>
+#include <uhdm/uhdm_types.h>
+#include <uhdm/vpi_user.h>
 
 #include <climits>
 #include <cstdint>

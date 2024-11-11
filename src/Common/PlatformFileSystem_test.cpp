@@ -24,7 +24,9 @@
 #include "Surelog/Common/PlatformFileSystem.h"
 
 #include <gtest/gtest.h>
+#include <uhdm/expr.h>
 
+#include <cstddef>
 #include <cstdint>
 #include <iostream>
 #include <set>
@@ -32,6 +34,8 @@
 #include <utility>
 
 #include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Common/PathId.h"
+#include "Surelog/Common/SymbolId.h"
 #include "Surelog/Design/Design.h"
 #include "Surelog/Library/Library.h"
 #include "Surelog/SourceCompile/CompileSourceFile.h"

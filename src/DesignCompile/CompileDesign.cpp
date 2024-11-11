@@ -41,8 +41,10 @@
 #include "Surelog/DesignCompile/ResolveSymbols.h"
 #include "Surelog/DesignCompile/UVMElaboration.h"
 #include "Surelog/DesignCompile/UhdmWriter.h"
+#include "Surelog/ErrorReporting/Error.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
 #include "Surelog/ErrorReporting/ErrorDefinition.h"
+#include "Surelog/ErrorReporting/Location.h"
 #include "Surelog/Library/Library.h"
 #include "Surelog/Package/Package.h"
 #include "Surelog/SourceCompile/Compiler.h"
@@ -53,6 +55,7 @@
 // UHDM
 #include <uhdm/include_file_info.h>
 #include <uhdm/param_assign.h>
+#include <uhdm/uhdm_types.h>
 #include <uhdm/vpi_visitor.h>
 
 #include <climits>

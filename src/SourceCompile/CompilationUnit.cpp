@@ -26,6 +26,7 @@
 #include <string_view>
 #include <vector>
 
+#include "Surelog/Common/PathId.h"
 #include "Surelog/SourceCompile/VObjectTypes.h"
 
 namespace SURELOG {

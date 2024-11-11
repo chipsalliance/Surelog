@@ -26,7 +26,11 @@
 #ifdef SURELOG_WITH_PYTHON
 #include "Surelog/API/SV3_1aPythonListener.h"
 #include "Surelog/Common/NodeId.h"
+#include "Surelog/Common/PathId.h"
+#include "Surelog/Common/SymbolId.h"
+#include "Surelog/ErrorReporting/Error.h"
 #include "Surelog/ErrorReporting/ErrorDefinition.h"
+#include "Surelog/ErrorReporting/Location.h"
 #include "Surelog/SourceCompile/PythonListen.h"
 #include "Surelog/SourceCompile/VObjectTypes.h"
 #endif

@@ -19,6 +19,7 @@
 #include <gtest/gtest.h>
 #include <uhdm/Serializer.h>
 #include <uhdm/constant.h>
+#include <uhdm/vpi_user.h>
 
 #include <cstdint>
 #include <limits>

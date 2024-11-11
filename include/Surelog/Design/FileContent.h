@@ -27,9 +27,12 @@
 
 #include <Surelog/Common/Containers.h>
 #include <Surelog/Common/NodeId.h>
+#include <Surelog/Common/PathId.h>
+#include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/DesignComponent.h>
 #include <Surelog/Design/VObject.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
+#include <uhdm/uhdm_types.h>
 
 #include <cstdint>
 #include <functional>
