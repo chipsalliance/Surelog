@@ -33,6 +33,7 @@
 
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/PathId.h"
+#include "Surelog/Common/SymbolId.h"
 #include "Surelog/Design/Design.h"
 #include "Surelog/Library/Library.h"
 #include "Surelog/SourceCompile/CompileSourceFile.h"

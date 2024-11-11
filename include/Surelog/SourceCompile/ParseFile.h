@@ -26,6 +26,7 @@
 #pragma once
 
 #include <Surelog/Common/PathId.h>
+#include <Surelog/Common/SymbolId.h>
 #include <Surelog/ErrorReporting/Error.h>
 
 #include <cstdint>

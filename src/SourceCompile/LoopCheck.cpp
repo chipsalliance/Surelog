@@ -27,6 +27,8 @@
 #include <queue>
 #include <vector>
 
+#include "Surelog/Common/SymbolId.h"
+
 namespace SURELOG {
 
 LoopCheck::~LoopCheck() {

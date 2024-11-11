@@ -25,6 +25,7 @@
 
 #include "Surelog/Common/NodeId.h"
 #include "Surelog/Common/PathId.h"
+#include "Surelog/Common/SymbolId.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Design/ModuleDefinition.h"
 #include "Surelog/DesignCompile/CompileDesign.h"

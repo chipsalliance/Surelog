@@ -34,6 +34,7 @@
 #include "Surelog/API/PythonAPI.h"
 #include "Surelog/Common/PathId.h"
 #include "Surelog/Common/PlatformFileSystem.h"
+#include "Surelog/Common/SymbolId.h"
 #include "Surelog/ErrorReporting/Error.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
 #include "Surelog/ErrorReporting/ErrorDefinition.h"

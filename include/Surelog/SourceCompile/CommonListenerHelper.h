@@ -27,6 +27,7 @@
 
 #include <Surelog/Common/NodeId.h>
 #include <Surelog/Common/PathId.h>
+#include <Surelog/Common/SymbolId.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
 
 #include <cstdint>

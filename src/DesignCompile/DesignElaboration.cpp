@@ -25,6 +25,7 @@
 
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"
+#include "Surelog/Common/SymbolId.h"
 #include "Surelog/Config/ConfigSet.h"
 #include "Surelog/Design/BindStmt.h"
 #include "Surelog/Design/DefParam.h"

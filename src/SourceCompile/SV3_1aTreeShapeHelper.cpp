@@ -31,6 +31,7 @@
 
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/NodeId.h"
+#include "Surelog/Common/SymbolId.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/ErrorReporting/Error.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"

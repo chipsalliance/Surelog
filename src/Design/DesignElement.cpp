@@ -17,6 +17,7 @@
 
 #include "Surelog/Common/NodeId.h"
 #include "Surelog/Common/PathId.h"
+#include "Surelog/Common/SymbolId.h"
 
 /*
  * File:   DesignElement.cpp

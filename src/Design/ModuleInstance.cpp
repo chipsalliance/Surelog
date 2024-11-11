@@ -27,6 +27,7 @@
 #include <string_view>
 #include <vector>
 
+#include "Surelog/Common/SymbolId.h"
 #include "Surelog/Design/DesignComponent.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Design/Netlist.h"
