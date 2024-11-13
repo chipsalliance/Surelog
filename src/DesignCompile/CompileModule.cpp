@@ -43,15 +43,23 @@
 #include "Surelog/Utils/StringUtils.h"
 
 // UHDM
+#include <uhdm/Serializer.h>
 #include <uhdm/always.h>
 #include <uhdm/assign_stmt.h>
 #include <uhdm/assignment.h>
+#include <uhdm/clocking_block.h>
 #include <uhdm/constant.h>
+#include <uhdm/cont_assign.h>
+#include <uhdm/containers.h>
 #include <uhdm/final_stmt.h>
 #include <uhdm/initial.h>
 #include <uhdm/io_decl.h>
 #include <uhdm/logic_net.h>
+#include <uhdm/module_array.h>
+#include <uhdm/property_decl.h>
+#include <uhdm/ref_module.h>
 #include <uhdm/ref_obj.h>
+#include <uhdm/sequence_decl.h>
 #include <uhdm/table_entry.h>
 #include <uhdm/udp_defn.h>
 #include <uhdm/vpi_user.h>

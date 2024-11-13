@@ -37,6 +37,8 @@
 #include <vector>
 
 // UHDM
+#include <uhdm/Serializer.h>
+#include <uhdm/containers.h>
 #include <uhdm/uhdm_forward_decl.h>
 
 #include <string>

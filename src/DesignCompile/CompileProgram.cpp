@@ -23,9 +23,6 @@
 
 #include "Surelog/DesignCompile/CompileProgram.h"
 
-#include <uhdm/final_stmt.h>
-#include <uhdm/initial.h>
-
 #include <cstdint>
 #include <stack>
 #include <string>
@@ -46,6 +43,13 @@
 #include "Surelog/SourceCompile/VObjectTypes.h"
 #include "Surelog/Testbench/Program.h"
 #include "Surelog/Utils/StringUtils.h"
+
+// UHDM
+#include <uhdm/containers.h>
+#include <uhdm/final_stmt.h>
+#include <uhdm/initial.h>
+#include <uhdm/property_decl.h>
+#include <uhdm/sequence_decl.h>
 
 namespace SURELOG {
 

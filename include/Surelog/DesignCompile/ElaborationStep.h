@@ -31,13 +31,14 @@
 
 #include <cstdint>
 #include <map>
+#include <string>
 #include <string_view>
+#include <vector>
 
 // UHDM
+#include <uhdm/Serializer.h>
+#include <uhdm/containers.h>
 #include <uhdm/uhdm_forward_decl.h>
-
-#include <string>
-#include <vector>
 
 namespace SURELOG {
 

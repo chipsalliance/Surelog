@@ -33,6 +33,7 @@
 #include <Surelog/SourceCompile/VObjectTypes.h>
 #include <uhdm/Serializer.h>
 #include <uhdm/expr.h>
+#include <uhdm/module_array.h>
 
 #include <cstdint>
 #include <map>

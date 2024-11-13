@@ -30,8 +30,6 @@
 #include <Surelog/Design/ValuedComponentI.h>
 #include <Surelog/Expression/ExprBuilder.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
-#include <uhdm/expr.h>
-#include <uhdm/uhdm_types.h>
 
 #include <cstdint>
 #include <string>
@@ -41,8 +39,36 @@
 #include <vector>
 
 // UHDM
+#include <uhdm/always.h>
+#include <uhdm/array_var.h>
+#include <uhdm/assignment.h>
+#include <uhdm/atomic_stmt.h>
+#include <uhdm/attribute.h>
+#include <uhdm/clocking_block.h>
 #include <uhdm/constant.h>
+#include <uhdm/cont_assign.h>
 #include <uhdm/containers.h>
+#include <uhdm/event_control.h>
+#include <uhdm/expr.h>
+#include <uhdm/final_stmt.h>
+#include <uhdm/function.h>
+#include <uhdm/hier_path.h>
+#include <uhdm/initial.h>
+#include <uhdm/int_typespec.h>
+#include <uhdm/io_decl.h>
+#include <uhdm/method_func_call.h>
+#include <uhdm/module_array.h>
+#include <uhdm/module_inst.h>
+#include <uhdm/primitive.h>
+#include <uhdm/property_decl.h>
+#include <uhdm/range.h>
+#include <uhdm/ref_module.h>
+#include <uhdm/sequence_decl.h>
+#include <uhdm/task_func.h>
+#include <uhdm/typespec.h>
+#include <uhdm/typespec_member.h>
+#include <uhdm/uhdm_types.h>
+#include <uhdm/variables.h>
 
 namespace SURELOG {
 

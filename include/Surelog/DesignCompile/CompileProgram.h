@@ -27,6 +27,7 @@
 
 #include <Surelog/DesignCompile/CompileHelper.h>
 #include <Surelog/DesignCompile/CompileToolbox.h>
+#include <uhdm/containers.h>
 
 #include <cstdint>
 
