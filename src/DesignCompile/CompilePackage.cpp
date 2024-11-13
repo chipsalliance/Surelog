@@ -41,7 +41,11 @@
 #include "Surelog/Utils/StringUtils.h"
 
 // UHDM
+#include <uhdm/Serializer.h>
+#include <uhdm/containers.h>
 #include <uhdm/package.h>
+#include <uhdm/property_decl.h>
+#include <uhdm/sequence_decl.h>
 
 #include <cstdint>
 #include <stack>

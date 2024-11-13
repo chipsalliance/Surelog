@@ -39,6 +39,7 @@
 #include "Surelog/Utils/StringUtils.h"
 
 // UHDM
+#include <uhdm/Serializer.h>
 #include <uhdm/package.h>
 
 #include <cstdint>

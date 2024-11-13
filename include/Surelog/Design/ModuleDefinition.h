@@ -38,12 +38,15 @@
 #include <functional>
 #include <map>
 #include <string>
+#include <string_view>
+#include <vector>
 
 // UHDM
 #include <uhdm/containers.h>
-
-#include <string_view>
-#include <vector>
+#include <uhdm/gen_stmt.h>
+#include <uhdm/module_array.h>
+#include <uhdm/ref_module.h>
+#include <uhdm/udp_defn.h>
 
 namespace SURELOG {
 

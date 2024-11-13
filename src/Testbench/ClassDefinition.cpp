@@ -22,6 +22,8 @@
  */
 #include "Surelog/Testbench/ClassDefinition.h"
 
+#include <uhdm/class_defn.h>
+
 #include <cstdint>
 #include <string_view>
 

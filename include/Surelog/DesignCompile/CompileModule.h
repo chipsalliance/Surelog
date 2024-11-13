@@ -29,6 +29,9 @@
 
 #include <cstdint>
 
+// UHDM
+#include <uhdm/containers.h>
+
 namespace SURELOG {
 
 class CompileDesign;

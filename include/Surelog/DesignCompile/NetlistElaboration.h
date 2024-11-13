@@ -29,11 +29,17 @@
 #include <Surelog/Common/PathId.h>
 #include <Surelog/DesignCompile/CompileHelper.h>
 #include <Surelog/DesignCompile/TestbenchElaboration.h>
-#include <uhdm/uhdm_types.h>
 
 #include <cstdint>
 #include <map>
 #include <string_view>
+
+// UHDM
+#include <uhdm/interface_array.h>
+#include <uhdm/interface_inst.h>
+#include <uhdm/modport.h>
+#include <uhdm/typespec.h>
+#include <uhdm/uhdm_types.h>
 
 namespace SURELOG {
 

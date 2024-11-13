@@ -32,6 +32,9 @@
 #include <set>
 #include <string>
 
+// UHDM
+#include <uhdm/containers.h>
+
 namespace SURELOG {
 
 struct FunctorCompileClass {
