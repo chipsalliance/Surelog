@@ -23,6 +23,7 @@
 
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"
+#include "Surelog/Common/NodeId.h"
 #include "Surelog/Design/DataType.h"
 #include "Surelog/Design/DummyType.h"
 #include "Surelog/Design/Enum.h"
@@ -33,6 +34,7 @@
 #include "Surelog/Design/Netlist.h"
 #include "Surelog/Design/ParamAssign.h"
 #include "Surelog/Design/Parameter.h"
+#include "Surelog/Design/Signal.h"
 #include "Surelog/Design/SimpleType.h"
 #include "Surelog/Design/Struct.h"
 #include "Surelog/Design/Task.h"

@@ -24,6 +24,7 @@
 #include "Surelog/DesignCompile/Builtin.h"
 
 #include "Surelog/Common/FileSystem.h"
+#include "Surelog/Common/NodeId.h"
 #include "Surelog/Common/PathId.h"
 #include "Surelog/Design/Design.h"
 #include "Surelog/Design/FileContent.h"

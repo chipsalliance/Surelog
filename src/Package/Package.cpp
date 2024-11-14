@@ -26,7 +26,9 @@
 #include <cstdint>
 #include <string_view>
 
+#include "Surelog/Common/Containers.h"
 #include "Surelog/Common/NodeId.h"
+#include "Surelog/Design/DesignComponent.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Testbench/ClassDefinition.h"
 

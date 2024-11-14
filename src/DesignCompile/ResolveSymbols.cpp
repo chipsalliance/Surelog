@@ -28,6 +28,7 @@
 #include "Surelog/Common/SymbolId.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Design/ModuleDefinition.h"
+#include "Surelog/Design/VObject.h"
 #include "Surelog/DesignCompile/CompileDesign.h"
 #include "Surelog/Library/Library.h"
 #include "Surelog/Package/Package.h"

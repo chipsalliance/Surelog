@@ -24,6 +24,7 @@
 #include "Surelog/Common/ClockingBlockHolder.h"
 
 #include "Surelog/Common/SymbolId.h"
+#include "Surelog/Design/ClockingBlock.h"
 
 namespace SURELOG {
 void ClockingBlockHolder::addClockingBlock(SymbolId blockId,

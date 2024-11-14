@@ -30,8 +30,10 @@
 #include <Surelog/Common/NodeId.h>
 #include <Surelog/Common/RTTI.h>
 #include <Surelog/Common/SymbolId.h>
+#include <Surelog/Design/ClockingBlock.h>
 #include <Surelog/Design/DesignComponent.h>
 #include <Surelog/Design/ModPort.h>
+#include <Surelog/Design/Signal.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
 
 #include <cstdint>

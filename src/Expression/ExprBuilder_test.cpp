@@ -23,6 +23,7 @@
 #include <vector>
 
 #include "Surelog/Design/FileContent.h"
+#include "Surelog/Expression/Value.h"
 #include "Surelog/SourceCompile/ParserHarness.h"
 #include "Surelog/SourceCompile/VObjectTypes.h"
 

@@ -35,6 +35,7 @@
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Design/Netlist.h"
 #include "Surelog/Expression/ExprBuilder.h"
+#include "Surelog/Expression/Value.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
 #include "Surelog/SourceCompile/VObjectTypes.h"
 

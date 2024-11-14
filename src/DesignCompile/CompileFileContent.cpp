@@ -28,7 +28,9 @@
 #include <vector>
 
 #include "Surelog/Common/NodeId.h"
+#include "Surelog/Design/FileCNodeId.h"
 #include "Surelog/Design/FileContent.h"
+#include "Surelog/Design/VObject.h"
 #include "Surelog/DesignCompile/CompileHelper.h"
 #include "Surelog/SourceCompile/VObjectTypes.h"
 
