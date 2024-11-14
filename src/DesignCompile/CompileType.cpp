@@ -34,6 +34,7 @@
 #include "Surelog/Design/Netlist.h"
 #include "Surelog/Design/ParamAssign.h"
 #include "Surelog/Design/Parameter.h"
+#include "Surelog/Design/Signal.h"
 #include "Surelog/Design/SimpleType.h"
 #include "Surelog/Design/Struct.h"
 #include "Surelog/Design/Task.h"

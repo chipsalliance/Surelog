@@ -16,6 +16,8 @@
 
 #include "Surelog/Design/ModPort.h"
 
+#include "Surelog/Design/Signal.h"
+
 /*
  * File:   ModPort.cpp
  * Author: alain

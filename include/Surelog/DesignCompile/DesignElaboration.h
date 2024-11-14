@@ -27,6 +27,7 @@
 
 #include <Surelog/Common/NodeId.h>
 #include <Surelog/Config/Config.h>
+#include <Surelog/Design/Signal.h>
 #include <Surelog/DesignCompile/TestbenchElaboration.h>
 
 #include <cstdint>
