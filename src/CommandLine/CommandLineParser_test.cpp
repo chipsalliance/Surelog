@@ -32,6 +32,7 @@
 #include <string>
 #include <vector>
 
+#include "Surelog/Common/FileSystem.h"
 #include "Surelog/Common/PathId.h"
 #include "Surelog/Common/PlatformFileSystem.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"

@@ -32,6 +32,7 @@
 #include <vector>
 
 #include "Surelog/API/PythonAPI.h"
+#include "Surelog/Common/FileSystem.h"
 #include "Surelog/Common/PathId.h"
 #include "Surelog/Common/PlatformFileSystem.h"
 #include "Surelog/Common/SymbolId.h"

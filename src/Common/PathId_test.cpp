@@ -21,6 +21,7 @@
 #include <filesystem>
 #include <memory>
 
+#include "Surelog/Common/FileSystem.h"
 #include "Surelog/Common/PlatformFileSystem.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
 

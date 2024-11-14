@@ -48,6 +48,7 @@
 #include "Surelog/API/PythonAPI.h"
 #include "Surelog/API/Surelog.h"
 #include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Common/FileSystem.h"
 #include "Surelog/Common/PathId.h"
 #include "Surelog/Common/PlatformFileSystem.h"
 #include "Surelog/Common/SymbolId.h"
