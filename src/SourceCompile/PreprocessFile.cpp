@@ -51,6 +51,7 @@
 #include "Surelog/SourceCompile/CompilationUnit.h"
 #include "Surelog/SourceCompile/CompileSourceFile.h"
 #include "Surelog/SourceCompile/Compiler.h"
+#include "Surelog/SourceCompile/IncludeFileInfo.h"
 #include "Surelog/SourceCompile/MacroInfo.h"
 #include "Surelog/SourceCompile/SV3_1aPpTreeShapeListener.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
