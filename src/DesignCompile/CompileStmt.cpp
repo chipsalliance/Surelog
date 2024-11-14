@@ -22,6 +22,7 @@
  */
 
 #include "Surelog/Common/FileSystem.h"
+#include "Surelog/Common/NodeId.h"
 #include "Surelog/Design/BindStmt.h"
 #include "Surelog/Design/Design.h"
 #include "Surelog/Design/Enum.h"
