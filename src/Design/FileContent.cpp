@@ -35,7 +35,7 @@
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Common/NodeId.h"
 #include "Surelog/Common/PathId.h"
-#include "Surelog/Common/SumbolId.h"
+#include "Surelog/Common/SymbolId.h"
 #include "Surelog/Design/DesignElement.h"
 #include "Surelog/ErrorReporting/Error.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
