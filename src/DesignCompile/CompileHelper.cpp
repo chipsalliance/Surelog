@@ -40,6 +40,7 @@
 #include "Surelog/Design/Struct.h"
 #include "Surelog/Design/TfPortItem.h"
 #include "Surelog/Design/Union.h"
+#include "Surelog/Design/VObject.h"
 #include "Surelog/DesignCompile/CompileDesign.h"
 #include "Surelog/DesignCompile/UhdmWriter.h"
 #include "Surelog/ErrorReporting/Error.h"

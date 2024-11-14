@@ -44,6 +44,7 @@
 #include "Surelog/Design/Design.h"
 #include "Surelog/Design/DesignElement.h"
 #include "Surelog/Design/FileContent.h"
+#include "Surelog/Design/VObject.h"
 #include "Surelog/ErrorReporting/Error.h"
 #include "Surelog/ErrorReporting/ErrorDefinition.h"
 #include "Surelog/ErrorReporting/Location.h"

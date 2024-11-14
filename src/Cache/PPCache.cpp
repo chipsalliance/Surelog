@@ -43,6 +43,7 @@
 #include "Surelog/Design/Design.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Design/TimeInfo.h"
+#include "Surelog/Design/VObject.h"
 #include "Surelog/ErrorReporting/ErrorDefinition.h"
 #include "Surelog/ErrorReporting/Location.h"
 #include "Surelog/Library/Library.h"

@@ -28,6 +28,7 @@
 #include "Surelog/Common/NodeId.h"
 #include "Surelog/Common/SymbolId.h"
 #include "Surelog/Design/FileContent.h"
+#include "Surelog/Design/VObject.h"
 #include "Surelog/DesignCompile/CompileDesign.h"
 #include "Surelog/DesignCompile/CompileHelper.h"
 #include "Surelog/ErrorReporting/Error.h"
