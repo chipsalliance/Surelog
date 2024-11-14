@@ -26,6 +26,7 @@
 #include <string_view>
 
 #include "Surelog/Common/NodeId.h"
+#include "Surelog/Design/DataType.h"
 #include "Surelog/Design/FileContent.h"
 
 namespace SURELOG {
