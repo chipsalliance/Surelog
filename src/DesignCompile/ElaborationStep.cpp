@@ -37,6 +37,7 @@
 #include <vector>
 
 #include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Common/Containers.h"
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Common/NodeId.h"
 #include "Surelog/Design/DataType.h"

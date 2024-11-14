@@ -25,6 +25,7 @@
 #define SURELOG_UHDMWRITER_H
 #pragma once
 
+#include <Surelog/Common/Containers.h>
 #include <Surelog/Common/PathId.h>
 #include <Surelog/Design/DesignComponent.h>
 #include <Surelog/DesignCompile/CompileHelper.h>

@@ -23,6 +23,7 @@
 
 #include "Surelog/DesignCompile/TestbenchElaboration.h"
 
+#include "Surelog/Common/Containers.h"
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Common/NodeId.h"
 #include "Surelog/Common/PathId.h"
