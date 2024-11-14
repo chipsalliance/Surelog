@@ -28,6 +28,7 @@
 #include <string_view>
 #include <vector>
 
+#include "Surelog/Design/DesignComponent.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Design/ModPort.h"
 #include "Surelog/Design/Signal.h"
