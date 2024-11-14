@@ -28,6 +28,7 @@
 #include <string_view>
 #include <vector>
 
+#include "Surelog/Design/ClockingBlock.h"
 #include "Surelog/Design/DesignComponent.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Design/ModPort.h"
