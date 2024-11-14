@@ -30,6 +30,7 @@
 #include "Surelog/Design/BindStmt.h"
 #include "Surelog/Design/DefParam.h"
 #include "Surelog/Design/DesignElement.h"
+#include "Surelog/Design/FileCNodeId.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Design/ModuleDefinition.h"
 #include "Surelog/Design/ModuleInstance.h"
