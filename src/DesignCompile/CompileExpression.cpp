@@ -5093,7 +5093,19 @@ UHDM::any *CompileHelper::compileComplexFuncCall(
       std::string the_name(fC->SymName(name));
       if (!hierPath) {
         VObjectType dtype = fC->Type(dotedName);
-        if (Bit_select && (fC->Child(Bit_select) || fC->Sibling(Bit_select))) {
+        VObjectType selectType = fC->Type(selectName);
+        if (selectName &&
+            (selectType == VObjectType::paConstant_part_select_range)) {
+          result = compileSelectExpression(component, fC, dotedName, "",
+                                           compileDesign, reduce, pexpr,
+                                           instance, muteErrors);
+          if (result && (result->UhdmType() == UHDM::uhdmvar_select)) {
+            fC->populateCoreMembers(name, dotedName, result);
+            ((var_select *)result)->VpiName(sval);
+          }
+          return result;
+        } else if (Bit_select &&
+                   (fC->Child(Bit_select) || fC->Sibling(Bit_select))) {
           result = compileSelectExpression(component, fC, Bit_select, sval,
                                            compileDesign, reduce, pexpr,
                                            instance, muteErrors);
