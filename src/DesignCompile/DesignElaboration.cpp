@@ -660,6 +660,9 @@ ModuleInstance* DesignElaboration::createBindInstance_(
   if (instance) {
     std::vector<ModuleInstance*> parentSubInstances;
     instance->setInstanceBinding(parent);
+    if (instance->getParent() == nullptr) {
+      instance->setParent(parent);
+    }
     NodeId parameterOverloading = fC->Sibling(bindNodeId);
     if (fC->Type(parameterOverloading) ==
         VObjectType::paHierarchical_instance) {

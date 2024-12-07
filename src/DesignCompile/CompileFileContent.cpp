@@ -108,8 +108,10 @@ bool CompileFileContent::collectObjects_() {
         break;
       }
       case VObjectType::paBind_directive: {
-        m_helper.compileBindStmt(m_fileContent, fC, id, m_compileDesign,
-                                 nullptr);
+        if (!m_declOnly) {
+          m_helper.compileBindStmt(m_fileContent, fC, id, m_compileDesign,
+                                   nullptr);
+        }
         break;
       }
       case VObjectType::paParameter_declaration: {

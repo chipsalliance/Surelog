@@ -83,6 +83,7 @@ class ModuleInstance final : public ValuedComponentI {
     }
   }
   ModuleInstance* getParent() const { return m_parent; }
+  void setParent(ModuleInstance* parent) { m_parent = parent; }
   const FileContent* getFileContent() const { return m_fileContent; }
   PathId getFileId() const;
   NodeId getNodeId() const { return m_nodeId; }
