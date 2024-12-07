@@ -1477,8 +1477,8 @@ AST_DEBUG_END
 [NTE:EL0503] ${SURELOG_DIR}/tests/AssertTempError/testbench.sv:3:1: Top level module "work@tb_UART".
 [NTE:EL0508] Nb Top level modules: 1.
 [NTE:EL0509] Max instance depth: 2.
-[NTE:EL0510] Nb instances: 4.
-[NTE:EL0511] Nb leaf instances: 2.
+[NTE:EL0510] Nb instances: 3.
+[NTE:EL0511] Nb leaf instances: 1.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 always                                                 3
@@ -1488,27 +1488,27 @@ begin                                                 15
 bit_select                                             2
 case_item                                              4
 case_stmt                                              1
-constant                                             106
+constant                                              94
 delay_control                                          6
 design                                                 1
 event_control                                          2
 if_else                                                2
 if_stmt                                                2
 initial                                                1
-int_typespec                                          20
-logic_net                                             54
-logic_typespec                                        64
-module_inst                                           12
+int_typespec                                          16
+logic_net                                             49
+logic_typespec                                        55
+module_inst                                           10
 operation                                             24
-param_assign                                          20
-parameter                                             20
-port                                                  33
+param_assign                                          16
+parameter                                             16
+port                                                  29
 property_decl                                          2
 property_spec                                          4
-range                                                 23
+range                                                 21
 ref_module                                             1
-ref_obj                                              124
-ref_typespec                                         120
+ref_obj                                              116
+ref_typespec                                          99
 repeat                                                 1
 sys_func_call                                          6
 while_stmt                                             1
@@ -1516,35 +1516,35 @@ while_stmt                                             1
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
 always                                                 7
-assert_stmt                                            6
+assert_stmt                                            4
 assignment                                            74
 begin                                                 33
 bit_select                                             4
 case_item                                              8
 case_stmt                                              2
-constant                                             106
+constant                                              94
 delay_control                                         18
 design                                                 1
 event_control                                          4
 if_else                                                4
 if_stmt                                                4
 initial                                                3
-int_typespec                                          20
-logic_net                                             54
-logic_typespec                                        64
-module_inst                                           12
-operation                                             57
-param_assign                                          20
-parameter                                             20
-port                                                  48
-property_decl                                          6
-property_spec                                         12
-range                                                 23
+int_typespec                                          16
+logic_net                                             49
+logic_typespec                                        55
+module_inst                                           10
+operation                                             51
+param_assign                                          16
+parameter                                             16
+port                                                  40
+property_decl                                          4
+property_spec                                          8
+range                                                 21
 ref_module                                             1
-ref_obj                                              253
-ref_typespec                                         135
+ref_obj                                              227
+ref_typespec                                         110
 repeat                                                 3
-sys_func_call                                         18
+sys_func_call                                         16
 while_stmt                                             3
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/AssertTempError/slpp_all/surelog.uhdm ...
@@ -5974,509 +5974,6 @@ design: (work@tb_UART)
           \_logic_typespec: , line:74:11, endln:74:11
         |vpiInstance:
         \_module_inst: work@UART_assertions (work@tb_UART.uut), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:100:11, endln:100:80
-    |vpiModule:
-    \_module_inst: work@UART_assertions (work@tb_UART.uut), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:100:11, endln:100:80
-      |vpiParent:
-      \_module_inst: work@UART (work@tb_UART.uart_inst), file:${SURELOG_DIR}/tests/AssertTempError/testbench.sv, line:10:5, endln:18:7
-      |vpiName:uut
-      |vpiFullName:work@tb_UART.uut
-      |vpiPropertyDecl:
-      \_property_decl: (work@tb_UART.uart_inst.uut.p_send), line:82:14, endln:82:20
-        |vpiParent:
-        \_module_inst: work@UART_assertions (work@tb_UART.uut), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:100:11, endln:100:80
-        |vpiName:p_send
-        |vpiFullName:work@tb_UART.uart_inst.uut.p_send
-        |vpiPropertySpec:
-        \_property_spec: , line:83:9, endln:84:33
-          |vpiParent:
-          \_property_decl: (work@tb_UART.uart_inst.uut.p_send), line:82:14, endln:82:20
-          |vpiClockingEvent:
-          \_operation: , line:83:11, endln:83:22
-            |vpiParent:
-            \_property_spec: , line:83:9, endln:84:33
-            |vpiOpType:39
-            |vpiOperand:
-            \_ref_obj: (work@tb_UART.uart_inst.uut.p_send.clk), line:83:19, endln:83:22
-              |vpiParent:
-              \_operation: , line:83:11, endln:83:22
-              |vpiName:clk
-              |vpiFullName:work@tb_UART.uart_inst.uut.p_send.clk
-              |vpiActual:
-              \_logic_net: (work@tb_UART.uart_inst.uut.clk), line:71:11, endln:71:14
-          |vpiPropertyExpr:
-          \_operation: , line:84:9, endln:84:33
-            |vpiParent:
-            \_property_spec: , line:83:9, endln:84:33
-            |vpiOpType:51
-            |vpiOperand:
-            \_ref_obj: (work@tb_UART.uart_inst.uut.p_send.send), line:84:9, endln:84:13
-              |vpiParent:
-              \_operation: , line:84:9, endln:84:33
-              |vpiName:send
-              |vpiFullName:work@tb_UART.uart_inst.uut.p_send.send
-              |vpiActual:
-              \_logic_net: (work@tb_UART.uart_inst.uut.send), line:73:11, endln:73:15
-            |vpiOperand:
-            \_operation: , line:84:19, endln:84:32
-              |vpiParent:
-              \_operation: , line:84:9, endln:84:33
-              |vpiOpType:14
-              |vpiOperand:
-              \_ref_obj: (work@tb_UART.uart_inst.uut.p_send.state), line:84:19, endln:84:24
-                |vpiParent:
-                \_operation: , line:84:19, endln:84:32
-                |vpiName:state
-                |vpiFullName:work@tb_UART.uart_inst.uut.p_send.state
-                |vpiActual:
-                \_logic_net: (work@tb_UART.uart_inst.uut.state), line:78:13, endln:78:18
-              |vpiOperand:
-              \_ref_obj: (work@tb_UART.uart_inst.uut.p_send.DATA), line:84:28, endln:84:32
-                |vpiParent:
-                \_operation: , line:84:19, endln:84:32
-                |vpiName:DATA
-                |vpiFullName:work@tb_UART.uart_inst.uut.p_send.DATA
-                |vpiActual:
-                \_parameter: (work@tb_UART.uart_inst.uut.DATA), line:79:36, endln:79:40
-      |vpiPropertyDecl:
-      \_property_decl: (work@tb_UART.uart_inst.uut.p_done), line:90:14, endln:90:20
-        |vpiParent:
-        \_module_inst: work@UART_assertions (work@tb_UART.uut), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:100:11, endln:100:80
-        |vpiName:p_done
-        |vpiFullName:work@tb_UART.uart_inst.uut.p_done
-        |vpiPropertySpec:
-        \_property_spec: , line:91:9, endln:92:33
-          |vpiParent:
-          \_property_decl: (work@tb_UART.uart_inst.uut.p_done), line:90:14, endln:90:20
-          |vpiClockingEvent:
-          \_operation: , line:91:11, endln:91:22
-            |vpiParent:
-            \_property_spec: , line:91:9, endln:92:33
-            |vpiOpType:39
-            |vpiOperand:
-            \_ref_obj: (work@tb_UART.uart_inst.uut.p_done.clk), line:91:19, endln:91:22
-              |vpiParent:
-              \_operation: , line:91:11, endln:91:22
-              |vpiName:clk
-              |vpiFullName:work@tb_UART.uart_inst.uut.p_done.clk
-              |vpiActual:
-              \_logic_net: (work@tb_UART.uart_inst.uut.clk), line:71:11, endln:71:14
-          |vpiPropertyExpr:
-          \_operation: , line:92:9, endln:92:33
-            |vpiParent:
-            \_property_spec: , line:91:9, endln:92:33
-            |vpiOpType:51
-            |vpiOperand:
-            \_ref_obj: (work@tb_UART.uart_inst.uut.p_done.done), line:92:9, endln:92:13
-              |vpiParent:
-              \_operation: , line:92:9, endln:92:33
-              |vpiName:done
-              |vpiFullName:work@tb_UART.uart_inst.uut.p_done.done
-              |vpiActual:
-              \_logic_net: (work@tb_UART.uart_inst.uut.done), line:74:11, endln:74:15
-            |vpiOperand:
-            \_operation: , line:92:19, endln:92:32
-              |vpiParent:
-              \_operation: , line:92:9, endln:92:33
-              |vpiOpType:14
-              |vpiOperand:
-              \_ref_obj: (work@tb_UART.uart_inst.uut.p_done.state), line:92:19, endln:92:24
-                |vpiParent:
-                \_operation: , line:92:19, endln:92:32
-                |vpiName:state
-                |vpiFullName:work@tb_UART.uart_inst.uut.p_done.state
-                |vpiActual:
-                \_logic_net: (work@tb_UART.uart_inst.uut.state), line:78:13, endln:78:18
-              |vpiOperand:
-              \_ref_obj: (work@tb_UART.uart_inst.uut.p_done.STOP), line:92:28, endln:92:32
-                |vpiParent:
-                \_operation: , line:92:19, endln:92:32
-                |vpiName:STOP
-                |vpiFullName:work@tb_UART.uart_inst.uut.p_done.STOP
-                |vpiActual:
-                \_parameter: (work@tb_UART.uart_inst.uut.STOP), line:79:46, endln:79:50
-      |vpiParameter:
-      \_parameter: (work@tb_UART.uart_inst.uut.IDLE), line:79:15, endln:79:19
-        |vpiParent:
-        \_module_inst: work@UART_assertions (work@tb_UART.uut), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:100:11, endln:100:80
-        |UINT:0
-        |vpiTypespec:
-        \_ref_typespec: (work@tb_UART.uart_inst.uut.IDLE)
-          |vpiParent:
-          \_parameter: (work@tb_UART.uart_inst.uut.IDLE), line:79:15, endln:79:19
-          |vpiFullName:work@tb_UART.uart_inst.uut.IDLE
-          |vpiActual:
-          \_int_typespec: , line:79:5, endln:79:54
-        |vpiName:IDLE
-        |vpiFullName:work@tb_UART.uart_inst.uut.IDLE
-      |vpiParameter:
-      \_parameter: (work@tb_UART.uart_inst.uut.START), line:79:25, endln:79:30
-        |vpiParent:
-        \_module_inst: work@UART_assertions (work@tb_UART.uut), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:100:11, endln:100:80
-        |UINT:1
-        |vpiTypespec:
-        \_ref_typespec: (work@tb_UART.uart_inst.uut.START)
-          |vpiParent:
-          \_parameter: (work@tb_UART.uart_inst.uut.START), line:79:25, endln:79:30
-          |vpiFullName:work@tb_UART.uart_inst.uut.START
-          |vpiActual:
-          \_int_typespec: , line:79:5, endln:79:54
-        |vpiName:START
-        |vpiFullName:work@tb_UART.uart_inst.uut.START
-      |vpiParameter:
-      \_parameter: (work@tb_UART.uart_inst.uut.DATA), line:79:36, endln:79:40
-        |vpiParent:
-        \_module_inst: work@UART_assertions (work@tb_UART.uut), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:100:11, endln:100:80
-        |UINT:2
-        |vpiTypespec:
-        \_ref_typespec: (work@tb_UART.uart_inst.uut.DATA)
-          |vpiParent:
-          \_parameter: (work@tb_UART.uart_inst.uut.DATA), line:79:36, endln:79:40
-          |vpiFullName:work@tb_UART.uart_inst.uut.DATA
-          |vpiActual:
-          \_int_typespec: , line:79:5, endln:79:54
-        |vpiName:DATA
-        |vpiFullName:work@tb_UART.uart_inst.uut.DATA
-      |vpiParameter:
-      \_parameter: (work@tb_UART.uart_inst.uut.STOP), line:79:46, endln:79:50
-        |vpiParent:
-        \_module_inst: work@UART_assertions (work@tb_UART.uut), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:100:11, endln:100:80
-        |UINT:3
-        |vpiTypespec:
-        \_ref_typespec: (work@tb_UART.uart_inst.uut.STOP)
-          |vpiParent:
-          \_parameter: (work@tb_UART.uart_inst.uut.STOP), line:79:46, endln:79:50
-          |vpiFullName:work@tb_UART.uart_inst.uut.STOP
-          |vpiActual:
-          \_int_typespec: , line:79:5, endln:79:54
-        |vpiName:STOP
-        |vpiFullName:work@tb_UART.uart_inst.uut.STOP
-      |vpiParamAssign:
-      \_param_assign: , line:79:15, endln:79:23
-        |vpiParent:
-        \_module_inst: work@UART_assertions (work@tb_UART.uut), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:100:11, endln:100:80
-        |vpiRhs:
-        \_constant: , line:79:22, endln:79:23
-          |vpiParent:
-          \_param_assign: , line:79:15, endln:79:23
-          |vpiDecompile:0
-          |vpiSize:32
-          |UINT:0
-          |vpiTypespec:
-          \_ref_typespec: (work@tb_UART.uart_inst.uut)
-            |vpiParent:
-            \_constant: , line:79:22, endln:79:23
-            |vpiFullName:work@tb_UART.uart_inst.uut
-            |vpiActual:
-            \_int_typespec: , line:79:5, endln:79:54
-          |vpiConstType:9
-        |vpiLhs:
-        \_parameter: (work@tb_UART.uart_inst.uut.IDLE), line:79:15, endln:79:19
-      |vpiParamAssign:
-      \_param_assign: , line:79:25, endln:79:34
-        |vpiParent:
-        \_module_inst: work@UART_assertions (work@tb_UART.uut), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:100:11, endln:100:80
-        |vpiRhs:
-        \_constant: , line:79:33, endln:79:34
-          |vpiParent:
-          \_param_assign: , line:79:25, endln:79:34
-          |vpiDecompile:1
-          |vpiSize:32
-          |UINT:1
-          |vpiTypespec:
-          \_ref_typespec: (work@tb_UART.uart_inst.uut)
-            |vpiParent:
-            \_constant: , line:79:33, endln:79:34
-            |vpiFullName:work@tb_UART.uart_inst.uut
-            |vpiActual:
-            \_int_typespec: , line:79:5, endln:79:54
-          |vpiConstType:9
-        |vpiLhs:
-        \_parameter: (work@tb_UART.uart_inst.uut.START), line:79:25, endln:79:30
-      |vpiParamAssign:
-      \_param_assign: , line:79:36, endln:79:44
-        |vpiParent:
-        \_module_inst: work@UART_assertions (work@tb_UART.uut), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:100:11, endln:100:80
-        |vpiRhs:
-        \_constant: , line:79:43, endln:79:44
-          |vpiParent:
-          \_param_assign: , line:79:36, endln:79:44
-          |vpiDecompile:2
-          |vpiSize:32
-          |UINT:2
-          |vpiTypespec:
-          \_ref_typespec: (work@tb_UART.uart_inst.uut)
-            |vpiParent:
-            \_constant: , line:79:43, endln:79:44
-            |vpiFullName:work@tb_UART.uart_inst.uut
-            |vpiActual:
-            \_int_typespec: , line:79:5, endln:79:54
-          |vpiConstType:9
-        |vpiLhs:
-        \_parameter: (work@tb_UART.uart_inst.uut.DATA), line:79:36, endln:79:40
-      |vpiParamAssign:
-      \_param_assign: , line:79:46, endln:79:54
-        |vpiParent:
-        \_module_inst: work@UART_assertions (work@tb_UART.uut), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:100:11, endln:100:80
-        |vpiRhs:
-        \_constant: , line:79:53, endln:79:54
-          |vpiParent:
-          \_param_assign: , line:79:46, endln:79:54
-          |vpiDecompile:3
-          |vpiSize:32
-          |UINT:3
-          |vpiTypespec:
-          \_ref_typespec: (work@tb_UART.uart_inst.uut)
-            |vpiParent:
-            \_constant: , line:79:53, endln:79:54
-            |vpiFullName:work@tb_UART.uart_inst.uut
-            |vpiActual:
-            \_int_typespec: , line:79:5, endln:79:54
-          |vpiConstType:9
-        |vpiLhs:
-        \_parameter: (work@tb_UART.uart_inst.uut.STOP), line:79:46, endln:79:50
-      |vpiDefName:work@UART_assertions
-      |vpiDefFile:${SURELOG_DIR}/tests/AssertTempError/design.sv
-      |vpiDefLineNo:70
-      |vpiNet:
-      \_logic_net: (work@tb_UART.uart_inst.uut.clk), line:71:11, endln:71:14
-        |vpiParent:
-        \_module_inst: work@UART_assertions (work@tb_UART.uut), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:100:11, endln:100:80
-        |vpiTypespec:
-        \_ref_typespec: (work@tb_UART.uart_inst.uut.clk)
-          |vpiParent:
-          \_logic_net: (work@tb_UART.uart_inst.uut.clk), line:71:11, endln:71:14
-          |vpiFullName:work@tb_UART.uart_inst.uut.clk
-          |vpiActual:
-          \_logic_typespec: , line:71:11, endln:71:11
-        |vpiName:clk
-        |vpiFullName:work@tb_UART.uart_inst.uut.clk
-      |vpiNet:
-      \_logic_net: (work@tb_UART.uart_inst.uut.rst_n), line:72:11, endln:72:16
-        |vpiParent:
-        \_module_inst: work@UART_assertions (work@tb_UART.uut), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:100:11, endln:100:80
-        |vpiTypespec:
-        \_ref_typespec: (work@tb_UART.uart_inst.uut.rst_n)
-          |vpiParent:
-          \_logic_net: (work@tb_UART.uart_inst.uut.rst_n), line:72:11, endln:72:16
-          |vpiFullName:work@tb_UART.uart_inst.uut.rst_n
-          |vpiActual:
-          \_logic_typespec: , line:72:11, endln:72:11
-        |vpiName:rst_n
-        |vpiFullName:work@tb_UART.uart_inst.uut.rst_n
-      |vpiNet:
-      \_logic_net: (work@tb_UART.uart_inst.uut.send), line:73:11, endln:73:15
-        |vpiParent:
-        \_module_inst: work@UART_assertions (work@tb_UART.uut), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:100:11, endln:100:80
-        |vpiTypespec:
-        \_ref_typespec: (work@tb_UART.uart_inst.uut.send)
-          |vpiParent:
-          \_logic_net: (work@tb_UART.uart_inst.uut.send), line:73:11, endln:73:15
-          |vpiFullName:work@tb_UART.uart_inst.uut.send
-          |vpiActual:
-          \_logic_typespec: , line:73:11, endln:73:11
-        |vpiName:send
-        |vpiFullName:work@tb_UART.uart_inst.uut.send
-      |vpiNet:
-      \_logic_net: (work@tb_UART.uart_inst.uut.done), line:74:11, endln:74:15
-        |vpiParent:
-        \_module_inst: work@UART_assertions (work@tb_UART.uut), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:100:11, endln:100:80
-        |vpiTypespec:
-        \_ref_typespec: (work@tb_UART.uart_inst.uut.done)
-          |vpiParent:
-          \_logic_net: (work@tb_UART.uart_inst.uut.done), line:74:11, endln:74:15
-          |vpiFullName:work@tb_UART.uart_inst.uut.done
-          |vpiActual:
-          \_logic_typespec: , line:74:11, endln:74:11
-        |vpiName:done
-        |vpiFullName:work@tb_UART.uart_inst.uut.done
-      |vpiNet:
-      \_logic_net: (work@tb_UART.uart_inst.uut.state), line:78:13, endln:78:18
-        |vpiParent:
-        \_module_inst: work@UART_assertions (work@tb_UART.uut), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:100:11, endln:100:80
-        |vpiTypespec:
-        \_ref_typespec: (work@tb_UART.uart_inst.uut.state)
-          |vpiParent:
-          \_logic_net: (work@tb_UART.uart_inst.uut.state), line:78:13, endln:78:18
-          |vpiFullName:work@tb_UART.uart_inst.uut.state
-          |vpiActual:
-          \_logic_typespec: , line:78:3, endln:78:12
-        |vpiName:state
-        |vpiFullName:work@tb_UART.uart_inst.uut.state
-        |vpiNetType:48
-      |vpiAssertion:
-      \_assert_stmt: (work@tb_UART.uart_inst.uut), line:87:4, endln:87:69
-        |vpiParent:
-        \_module_inst: work@UART_assertions (work@tb_UART.uut), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:100:11, endln:100:80
-        |vpiFullName:work@tb_UART.uart_inst.uut
-        |vpiStmt:
-        \_sys_func_call: ($display), line:87:34, endln:87:68
-          |vpiParent:
-          \_assert_stmt: (work@tb_UART.uart_inst.uut), line:87:4, endln:87:69
-          |vpiArgument:
-          \_constant: , line:87:43, endln:87:67
-          |vpiName:$display
-        |vpiProperty:
-        \_property_spec: , line:87:21, endln:87:27
-          |vpiParent:
-          \_assert_stmt: (work@tb_UART.uart_inst.uut), line:87:4, endln:87:69
-          |vpiPropertyExpr:
-          \_ref_obj: (work@tb_UART.uart_inst.uut.p_send), line:87:21, endln:87:27
-            |vpiParent:
-            \_property_spec: , line:87:21, endln:87:27
-            |vpiName:p_send
-            |vpiFullName:work@tb_UART.uart_inst.uut.p_send
-            |vpiActual:
-            \_property_decl: (work@tb_UART.uart_inst.uut.p_send), line:82:14, endln:82:20
-      |vpiAssertion:
-      \_assert_stmt: (work@tb_UART.uart_inst.uut), line:95:5, endln:95:70
-        |vpiParent:
-        \_module_inst: work@UART_assertions (work@tb_UART.uut), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:100:11, endln:100:80
-        |vpiFullName:work@tb_UART.uart_inst.uut
-        |vpiStmt:
-        \_sys_func_call: ($display), line:95:35, endln:95:69
-          |vpiParent:
-          \_assert_stmt: (work@tb_UART.uart_inst.uut), line:95:5, endln:95:70
-          |vpiArgument:
-          \_constant: , line:95:44, endln:95:68
-          |vpiName:$display
-        |vpiProperty:
-        \_property_spec: , line:95:22, endln:95:28
-          |vpiParent:
-          \_assert_stmt: (work@tb_UART.uart_inst.uut), line:95:5, endln:95:70
-          |vpiPropertyExpr:
-          \_ref_obj: (work@tb_UART.uart_inst.uut.p_done), line:95:22, endln:95:28
-            |vpiParent:
-            \_property_spec: , line:95:22, endln:95:28
-            |vpiName:p_done
-            |vpiFullName:work@tb_UART.uart_inst.uut.p_done
-            |vpiActual:
-            \_property_decl: (work@tb_UART.uart_inst.uut.p_done), line:90:14, endln:90:20
-      |vpiInstance:
-      \_module_inst: work@UART (work@tb_UART.uart_inst), file:${SURELOG_DIR}/tests/AssertTempError/testbench.sv, line:10:5, endln:18:7
-      |vpiPort:
-      \_port: (clk), line:71:11, endln:71:14
-        |vpiParent:
-        \_module_inst: work@UART_assertions (work@tb_UART.uut), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:100:11, endln:100:80
-        |vpiName:clk
-        |vpiDirection:1
-        |vpiHighConn:
-        \_ref_obj: (work@tb_UART.clk), line:100:36, endln:100:39
-          |vpiParent:
-          \_port: (clk), line:71:11, endln:71:14
-          |vpiName:clk
-          |vpiFullName:work@tb_UART.clk
-          |vpiActual:
-          \_logic_net: (work@tb_UART.uart_inst.uut.clk), line:71:11, endln:71:14
-        |vpiLowConn:
-        \_ref_obj: (work@tb_UART.uut.clk), line:100:32, endln:100:35
-          |vpiParent:
-          \_port: (clk), line:71:11, endln:71:14
-          |vpiName:clk
-          |vpiFullName:work@tb_UART.uut.clk
-          |vpiActual:
-          \_logic_net: (work@tb_UART.uart_inst.uut.clk), line:71:11, endln:71:14
-        |vpiTypedef:
-        \_ref_typespec: (work@tb_UART.uart_inst.uut.clk)
-          |vpiParent:
-          \_port: (clk), line:71:11, endln:71:14
-          |vpiFullName:work@tb_UART.uart_inst.uut.clk
-          |vpiActual:
-          \_logic_typespec: , line:71:11, endln:71:11
-        |vpiInstance:
-        \_module_inst: work@UART_assertions (work@tb_UART.uut), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:100:11, endln:100:80
-      |vpiPort:
-      \_port: (rst_n), line:72:11, endln:72:16
-        |vpiParent:
-        \_module_inst: work@UART_assertions (work@tb_UART.uut), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:100:11, endln:100:80
-        |vpiName:rst_n
-        |vpiDirection:1
-        |vpiHighConn:
-        \_ref_obj: (work@tb_UART.rst_n), line:100:48, endln:100:53
-          |vpiParent:
-          \_port: (rst_n), line:72:11, endln:72:16
-          |vpiName:rst_n
-          |vpiFullName:work@tb_UART.rst_n
-          |vpiActual:
-          \_logic_net: (work@tb_UART.uart_inst.uut.rst_n), line:72:11, endln:72:16
-        |vpiLowConn:
-        \_ref_obj: (work@tb_UART.uut.rst_n), line:100:42, endln:100:47
-          |vpiParent:
-          \_port: (rst_n), line:72:11, endln:72:16
-          |vpiName:rst_n
-          |vpiFullName:work@tb_UART.uut.rst_n
-          |vpiActual:
-          \_logic_net: (work@tb_UART.uart_inst.uut.rst_n), line:72:11, endln:72:16
-        |vpiTypedef:
-        \_ref_typespec: (work@tb_UART.uart_inst.uut.rst_n)
-          |vpiParent:
-          \_port: (rst_n), line:72:11, endln:72:16
-          |vpiFullName:work@tb_UART.uart_inst.uut.rst_n
-          |vpiActual:
-          \_logic_typespec: , line:72:11, endln:72:11
-        |vpiInstance:
-        \_module_inst: work@UART_assertions (work@tb_UART.uut), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:100:11, endln:100:80
-      |vpiPort:
-      \_port: (send), line:73:11, endln:73:15
-        |vpiParent:
-        \_module_inst: work@UART_assertions (work@tb_UART.uut), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:100:11, endln:100:80
-        |vpiName:send
-        |vpiDirection:1
-        |vpiHighConn:
-        \_ref_obj: (work@tb_UART.send), line:100:61, endln:100:65
-          |vpiParent:
-          \_port: (send), line:73:11, endln:73:15
-          |vpiName:send
-          |vpiFullName:work@tb_UART.send
-          |vpiActual:
-          \_logic_net: (work@tb_UART.uart_inst.uut.send), line:73:11, endln:73:15
-        |vpiLowConn:
-        \_ref_obj: (work@tb_UART.uut.send), line:100:56, endln:100:60
-          |vpiParent:
-          \_port: (send), line:73:11, endln:73:15
-          |vpiName:send
-          |vpiFullName:work@tb_UART.uut.send
-          |vpiActual:
-          \_logic_net: (work@tb_UART.uart_inst.uut.send), line:73:11, endln:73:15
-        |vpiTypedef:
-        \_ref_typespec: (work@tb_UART.uart_inst.uut.send)
-          |vpiParent:
-          \_port: (send), line:73:11, endln:73:15
-          |vpiFullName:work@tb_UART.uart_inst.uut.send
-          |vpiActual:
-          \_logic_typespec: , line:73:11, endln:73:11
-        |vpiInstance:
-        \_module_inst: work@UART_assertions (work@tb_UART.uut), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:100:11, endln:100:80
-      |vpiPort:
-      \_port: (done), line:74:11, endln:74:15
-        |vpiParent:
-        \_module_inst: work@UART_assertions (work@tb_UART.uut), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:100:11, endln:100:80
-        |vpiName:done
-        |vpiDirection:1
-        |vpiHighConn:
-        \_ref_obj: (work@tb_UART.done), line:100:73, endln:100:77
-          |vpiParent:
-          \_port: (done), line:74:11, endln:74:15
-          |vpiName:done
-          |vpiFullName:work@tb_UART.done
-          |vpiActual:
-          \_logic_net: (work@tb_UART.uart_inst.uut.done), line:74:11, endln:74:15
-        |vpiLowConn:
-        \_ref_obj: (work@tb_UART.uut.done), line:100:68, endln:100:72
-          |vpiParent:
-          \_port: (done), line:74:11, endln:74:15
-          |vpiName:done
-          |vpiFullName:work@tb_UART.uut.done
-          |vpiActual:
-          \_logic_net: (work@tb_UART.uart_inst.uut.done), line:74:11, endln:74:15
-        |vpiTypedef:
-        \_ref_typespec: (work@tb_UART.uart_inst.uut.done)
-          |vpiParent:
-          \_port: (done), line:74:11, endln:74:15
-          |vpiFullName:work@tb_UART.uart_inst.uut.done
-          |vpiActual:
-          \_logic_typespec: , line:74:11, endln:74:11
-        |vpiInstance:
-        \_module_inst: work@UART_assertions (work@tb_UART.uut), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:100:11, endln:100:80
 \_weaklyReferenced:
 \_int_typespec: , line:12:5, endln:12:54
 \_int_typespec: , line:12:5, endln:12:54
@@ -6658,45 +6155,6 @@ design: (work@tb_UART)
 \_logic_typespec: , line:16:5, endln:16:8
   |vpiParent:
   \_logic_net: (work@tb_UART.uart_inst.tx_next), line:16:9, endln:16:16
-\_logic_typespec: , line:71:11, endln:71:11
-\_logic_typespec: , line:72:11, endln:72:11
-\_logic_typespec: , line:73:11, endln:73:11
-\_logic_typespec: , line:74:11, endln:74:11
-\_logic_typespec: , line:71:11, endln:71:11
-  |vpiParent:
-  \_logic_net: (work@tb_UART.uart_inst.uut.clk), line:71:11, endln:71:14
-\_logic_typespec: , line:72:11, endln:72:11
-  |vpiParent:
-  \_logic_net: (work@tb_UART.uart_inst.uut.rst_n), line:72:11, endln:72:16
-\_logic_typespec: , line:73:11, endln:73:11
-  |vpiParent:
-  \_logic_net: (work@tb_UART.uart_inst.uut.send), line:73:11, endln:73:15
-\_logic_typespec: , line:74:11, endln:74:11
-  |vpiParent:
-  \_logic_net: (work@tb_UART.uart_inst.uut.done), line:74:11, endln:74:15
-\_logic_typespec: , line:78:3, endln:78:12
-  |vpiParent:
-  \_logic_net: (work@tb_UART.uart_inst.uut.state), line:78:13, endln:78:18
-  |vpiRange:
-  \_range: , line:78:7, endln:78:12
-    |vpiParent:
-    \_logic_typespec: , line:78:3, endln:78:12
-    |vpiLeftRange:
-    \_constant: , line:78:8, endln:78:9
-      |vpiParent:
-      \_range: , line:78:7, endln:78:12
-      |vpiDecompile:2
-      |vpiSize:64
-      |UINT:2
-      |vpiConstType:9
-    |vpiRightRange:
-    \_constant: , line:78:10, endln:78:11
-      |vpiParent:
-      \_range: , line:78:7, endln:78:12
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
 \_logic_typespec: , line:71:11, endln:71:11
 \_logic_typespec: , line:72:11, endln:72:11
 \_logic_typespec: , line:73:11, endln:73:11
@@ -6924,18 +6382,6 @@ design: (work@tb_UART)
 \_int_typespec: , line:79:5, endln:79:54
   |vpiParent:
   \_ref_typespec: (work@tb_UART.uart_inst.uut.STOP)
-\_int_typespec: , line:79:5, endln:79:54
-  |vpiParent:
-  \_ref_typespec: (work@tb_UART.uart_inst.uut.IDLE)
-\_int_typespec: , line:79:5, endln:79:54
-  |vpiParent:
-  \_ref_typespec: (work@tb_UART.uart_inst.uut.START)
-\_int_typespec: , line:79:5, endln:79:54
-  |vpiParent:
-  \_ref_typespec: (work@tb_UART.uart_inst.uut.DATA)
-\_int_typespec: , line:79:5, endln:79:54
-  |vpiParent:
-  \_ref_typespec: (work@tb_UART.uart_inst.uut.STOP)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -6962,12 +6408,6 @@ design: (work@tb_UART)
 [LINT]: ${SURELOG_DIR}/tests/AssertTempError/testbench.sv:46:30: Non synthesizable construct,
 [LINT]: ${SURELOG_DIR}/tests/AssertTempError/testbench.sv:46:13: Non synthesizable construct,
 [LINT]: ${SURELOG_DIR}/tests/AssertTempError/testbench.sv:48:13: Non synthesizable construct,
-[LINT]: ${SURELOG_DIR}/tests/AssertTempError/design.sv:83:9: Non synthesizable construct,
-[LINT]: ${SURELOG_DIR}/tests/AssertTempError/design.sv:82:14: Non synthesizable construct, p_send
-[LINT]: ${SURELOG_DIR}/tests/AssertTempError/design.sv:91:9: Non synthesizable construct,
-[LINT]: ${SURELOG_DIR}/tests/AssertTempError/design.sv:90:14: Non synthesizable construct, p_done
-[LINT]: ${SURELOG_DIR}/tests/AssertTempError/design.sv:87:21: Non synthesizable construct,
-[LINT]: ${SURELOG_DIR}/tests/AssertTempError/design.sv:95:22: Non synthesizable construct,
 [LINT]: ${SURELOG_DIR}/tests/AssertTempError/design.sv:83:9: Non synthesizable construct,
 [LINT]: ${SURELOG_DIR}/tests/AssertTempError/design.sv:82:14: Non synthesizable construct, p_send
 [LINT]: ${SURELOG_DIR}/tests/AssertTempError/design.sv:91:9: Non synthesizable construct,

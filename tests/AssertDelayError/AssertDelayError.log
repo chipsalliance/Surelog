@@ -952,7 +952,7 @@ AST_DEBUG_END
 [NTE:EL0503] ${SURELOG_DIR}/tests/AssertDelayError/tb_left_rotate.sv:2:1: Top level module "work@tb_left_rotation".
 [NTE:EL0508] Nb Top level modules: 1.
 [NTE:EL0509] Max instance depth: 2.
-[NTE:EL0510] Nb instances: 4.
+[NTE:EL0510] Nb instances: 3.
 [NTE:EL0511] Nb leaf instances: 0.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
@@ -961,7 +961,7 @@ assert_stmt                                            3
 assignment                                            11
 begin                                                  9
 bit_select                                             1
-constant                                              89
+constant                                              71
 delay_control                                          6
 design                                                 1
 event_control                                          2
@@ -969,48 +969,48 @@ if_else                                                1
 if_stmt                                                1
 immediate_assert                                       1
 initial                                                3
-logic_net                                             32
-logic_typespec                                        44
-module_inst                                           11
-operation                                             29
+logic_net                                             27
+logic_typespec                                        34
+module_inst                                            9
+operation                                             28
 part_select                                            1
-port                                                  27
+port                                                  22
 property_decl                                          3
 property_spec                                          6
-range                                                 35
+range                                                 26
 ref_module                                             1
-ref_obj                                               76
-ref_typespec                                          45
+ref_obj                                               67
+ref_typespec                                          35
 repeat                                                 1
 sys_func_call                                          4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
 always                                                 5
-assert_stmt                                            9
+assert_stmt                                            6
 assignment                                            30
-begin                                                 23
+begin                                                 21
 bit_select                                             2
-constant                                              89
+constant                                              71
 delay_control                                         18
 design                                                 1
-event_control                                          5
+event_control                                          4
 if_else                                                2
-if_stmt                                                3
-immediate_assert                                       3
-initial                                                8
-logic_net                                             32
-logic_typespec                                        44
-module_inst                                           11
-operation                                             81
+if_stmt                                                2
+immediate_assert                                       2
+initial                                                7
+logic_net                                             27
+logic_typespec                                        34
+module_inst                                            9
+operation                                             58
 part_select                                            2
-port                                                  41
-property_decl                                          9
-property_spec                                         18
-range                                                 35
+port                                                  31
+property_decl                                          6
+property_spec                                         12
+range                                                 26
 ref_module                                             1
-ref_obj                                              170
-ref_typespec                                          59
+ref_obj                                              131
+ref_typespec                                          44
 repeat                                                 3
 sys_func_call                                         12
 === UHDM Object Stats End ===
@@ -3483,601 +3483,6 @@ design: (work@tb_left_rotation)
                     \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rotated), line:6:18, endln:6:25
                   |vpiOperand:
                   \_constant: , line:13:25, endln:13:26
-    |vpiModule:
-    \_module_inst: work@left_rotate_assertions (work@tb_left_rotation.u_left_rotate_assertions), file:${SURELOG_DIR}/tests/AssertDelayError/left_rotate_assertions.sv, line:37:20, endln:43:3
-      |vpiParent:
-      \_module_inst: work@left_rotation (work@tb_left_rotation.left_rotation_inst), file:${SURELOG_DIR}/tests/AssertDelayError/tb_left_rotate.sv, line:8:5, endln:13:7
-      |vpiName:u_left_rotate_assertions
-      |vpiFullName:work@tb_left_rotation.u_left_rotate_assertions
-      |vpiPropertyDecl:
-      \_property_decl: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_valid_rotation), line:18:12, endln:18:28
-        |vpiParent:
-        \_module_inst: work@left_rotate_assertions (work@tb_left_rotation.u_left_rotate_assertions), file:${SURELOG_DIR}/tests/AssertDelayError/left_rotate_assertions.sv, line:37:20, endln:43:3
-        |vpiName:p_valid_rotation
-        |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_valid_rotation
-        |vpiPropertySpec:
-        \_property_spec: , line:19:5, endln:19:98
-          |vpiParent:
-          \_property_decl: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_valid_rotation), line:18:12, endln:18:28
-          |vpiClockingEvent:
-          \_operation: , line:19:7, endln:19:18
-            |vpiParent:
-            \_property_spec: , line:19:5, endln:19:98
-            |vpiOpType:39
-            |vpiOperand:
-            \_ref_obj: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_valid_rotation.clk), line:19:15, endln:19:18
-              |vpiParent:
-              \_operation: , line:19:7, endln:19:18
-              |vpiName:clk
-              |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_valid_rotation.clk
-              |vpiActual:
-              \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.clk), line:2:11, endln:2:14
-          |vpiPropertyExpr:
-          \_operation: , line:19:20, endln:19:98
-            |vpiParent:
-            \_property_spec: , line:19:5, endln:19:98
-            |vpiOpType:52
-            |vpiOperand:
-            \_operation: , line:19:21, endln:19:27
-              |vpiParent:
-              \_operation: , line:19:20, endln:19:98
-              |vpiOpType:3
-              |vpiOperand:
-              \_ref_obj: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_valid_rotation.rst_n), line:19:22, endln:19:27
-                |vpiParent:
-                \_operation: , line:19:21, endln:19:27
-                |vpiName:rst_n
-                |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_valid_rotation.rst_n
-                |vpiActual:
-                \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rst_n), line:3:11, endln:3:16
-            |vpiOperand:
-            \_operation: , line:19:34, endln:19:97
-              |vpiParent:
-              \_operation: , line:19:20, endln:19:98
-              |vpiOpType:29
-              |vpiOperand:
-              \_operation: , line:19:34, endln:19:67
-                |vpiParent:
-                \_operation: , line:19:34, endln:19:97
-                |vpiOpType:14
-                |vpiOperand:
-                \_ref_obj: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_valid_rotation.rotated), line:19:34, endln:19:41
-                  |vpiParent:
-                  \_operation: , line:19:34, endln:19:67
-                  |vpiName:rotated
-                  |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_valid_rotation.rotated
-                  |vpiActual:
-                  \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rotated), line:6:18, endln:6:25
-                |vpiOperand:
-                \_operation: , line:19:46, endln:19:66
-                  |vpiParent:
-                  \_operation: , line:19:34, endln:19:67
-                  |vpiOpType:22
-                  |vpiOperand:
-                  \_ref_obj: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_valid_rotation.word_in), line:19:46, endln:19:53
-                    |vpiParent:
-                    \_operation: , line:19:46, endln:19:66
-                    |vpiName:word_in
-                    |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_valid_rotation.word_in
-                    |vpiActual:
-                    \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.word_in), line:4:18, endln:4:25
-                  |vpiOperand:
-                  \_ref_obj: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_valid_rotation.rotate_by), line:19:57, endln:19:66
-                    |vpiParent:
-                    \_operation: , line:19:46, endln:19:66
-                    |vpiName:rotate_by
-                    |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_valid_rotation.rotate_by
-                    |vpiActual:
-                    \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rotate_by), line:5:17, endln:5:26
-              |vpiOperand:
-              \_operation: , line:19:71, endln:19:96
-                |vpiParent:
-                \_operation: , line:19:34, endln:19:97
-                |vpiOpType:23
-                |vpiOperand:
-                \_ref_obj: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_valid_rotation.word_in), line:19:71, endln:19:78
-                  |vpiParent:
-                  \_operation: , line:19:71, endln:19:96
-                  |vpiName:word_in
-                  |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_valid_rotation.word_in
-                  |vpiActual:
-                  \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.word_in), line:4:18, endln:4:25
-                |vpiOperand:
-                \_operation: , line:19:83, endln:19:95
-                  |vpiParent:
-                  \_operation: , line:19:71, endln:19:96
-                  |vpiOpType:11
-                  |vpiOperand:
-                  \_constant: , line:19:83, endln:19:85
-                  |vpiOperand:
-                  \_ref_obj: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_valid_rotation.rotate_by), line:19:86, endln:19:95
-                    |vpiParent:
-                    \_operation: , line:19:83, endln:19:95
-                    |vpiName:rotate_by
-                    |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_valid_rotation.rotate_by
-                    |vpiActual:
-                    \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rotate_by), line:5:17, endln:5:26
-      |vpiPropertyDecl:
-      \_property_decl: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_rotation_range), line:24:12, endln:24:28
-        |vpiParent:
-        \_module_inst: work@left_rotate_assertions (work@tb_left_rotation.u_left_rotate_assertions), file:${SURELOG_DIR}/tests/AssertDelayError/left_rotate_assertions.sv, line:37:20, endln:43:3
-        |vpiName:p_rotation_range
-        |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_rotation_range
-        |vpiPropertySpec:
-        \_property_spec: , line:25:5, endln:25:53
-          |vpiParent:
-          \_property_decl: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_rotation_range), line:24:12, endln:24:28
-          |vpiClockingEvent:
-          \_operation: , line:25:7, endln:25:18
-            |vpiParent:
-            \_property_spec: , line:25:5, endln:25:53
-            |vpiOpType:39
-            |vpiOperand:
-            \_ref_obj: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_rotation_range.clk), line:25:15, endln:25:18
-              |vpiParent:
-              \_operation: , line:25:7, endln:25:18
-              |vpiName:clk
-              |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_rotation_range.clk
-              |vpiActual:
-              \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.clk), line:2:11, endln:2:14
-          |vpiPropertyExpr:
-          \_operation: , line:25:20, endln:25:53
-            |vpiParent:
-            \_property_spec: , line:25:5, endln:25:53
-            |vpiOpType:52
-            |vpiOperand:
-            \_operation: , line:25:21, endln:25:27
-              |vpiParent:
-              \_operation: , line:25:20, endln:25:53
-              |vpiOpType:3
-              |vpiOperand:
-              \_ref_obj: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_rotation_range.rst_n), line:25:22, endln:25:27
-                |vpiParent:
-                \_operation: , line:25:21, endln:25:27
-                |vpiName:rst_n
-                |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_rotation_range.rst_n
-                |vpiActual:
-                \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rst_n), line:3:11, endln:3:16
-            |vpiOperand:
-            \_operation: , line:25:34, endln:25:52
-              |vpiParent:
-              \_operation: , line:25:20, endln:25:53
-              |vpiOpType:21
-              |vpiOperand:
-              \_ref_obj: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_rotation_range.rotate_by), line:25:34, endln:25:43
-                |vpiParent:
-                \_operation: , line:25:34, endln:25:52
-                |vpiName:rotate_by
-                |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_rotation_range.rotate_by
-                |vpiActual:
-                \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rotate_by), line:5:17, endln:5:26
-              |vpiOperand:
-              \_constant: , line:25:47, endln:25:52
-      |vpiPropertyDecl:
-      \_property_decl: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_no_rotation), line:30:12, endln:30:25
-        |vpiParent:
-        \_module_inst: work@left_rotate_assertions (work@tb_left_rotation.u_left_rotate_assertions), file:${SURELOG_DIR}/tests/AssertDelayError/left_rotate_assertions.sv, line:37:20, endln:43:3
-        |vpiName:p_no_rotation
-        |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_no_rotation
-        |vpiPropertySpec:
-        \_property_spec: , line:31:5, endln:31:71
-          |vpiParent:
-          \_property_decl: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_no_rotation), line:30:12, endln:30:25
-          |vpiClockingEvent:
-          \_operation: , line:31:7, endln:31:18
-            |vpiParent:
-            \_property_spec: , line:31:5, endln:31:71
-            |vpiOpType:39
-            |vpiOperand:
-            \_ref_obj: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_no_rotation.clk), line:31:15, endln:31:18
-              |vpiParent:
-              \_operation: , line:31:7, endln:31:18
-              |vpiName:clk
-              |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_no_rotation.clk
-              |vpiActual:
-              \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.clk), line:2:11, endln:2:14
-          |vpiPropertyExpr:
-          \_operation: , line:31:20, endln:31:71
-            |vpiParent:
-            \_property_spec: , line:31:5, endln:31:71
-            |vpiOpType:52
-            |vpiOperand:
-            \_operation: , line:31:21, endln:31:45
-              |vpiParent:
-              \_operation: , line:31:20, endln:31:71
-              |vpiOpType:26
-              |vpiOperand:
-              \_operation: , line:31:21, endln:31:27
-                |vpiParent:
-                \_operation: , line:31:21, endln:31:45
-                |vpiOpType:3
-                |vpiOperand:
-                \_ref_obj: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_no_rotation.rst_n), line:31:22, endln:31:27
-                  |vpiParent:
-                  \_operation: , line:31:21, endln:31:27
-                  |vpiName:rst_n
-                  |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_no_rotation.rst_n
-                  |vpiActual:
-                  \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rst_n), line:3:11, endln:3:16
-              |vpiOperand:
-              \_operation: , line:31:31, endln:31:45
-                |vpiParent:
-                \_operation: , line:31:21, endln:31:45
-                |vpiOpType:14
-                |vpiOperand:
-                \_ref_obj: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_no_rotation.rotate_by), line:31:31, endln:31:40
-                  |vpiParent:
-                  \_operation: , line:31:31, endln:31:45
-                  |vpiName:rotate_by
-                  |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_no_rotation.rotate_by
-                  |vpiActual:
-                  \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rotate_by), line:5:17, endln:5:26
-                |vpiOperand:
-                \_constant: , line:31:44, endln:31:45
-            |vpiOperand:
-            \_operation: , line:31:52, endln:31:70
-              |vpiParent:
-              \_operation: , line:31:20, endln:31:71
-              |vpiOpType:14
-              |vpiOperand:
-              \_ref_obj: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_no_rotation.rotated), line:31:52, endln:31:59
-                |vpiParent:
-                \_operation: , line:31:52, endln:31:70
-                |vpiName:rotated
-                |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_no_rotation.rotated
-                |vpiActual:
-                \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rotated), line:6:18, endln:6:25
-              |vpiOperand:
-              \_ref_obj: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_no_rotation.word_in), line:31:63, endln:31:70
-                |vpiParent:
-                \_operation: , line:31:52, endln:31:70
-                |vpiName:word_in
-                |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_no_rotation.word_in
-                |vpiActual:
-                \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.word_in), line:4:18, endln:4:25
-      |vpiDefName:work@left_rotate_assertions
-      |vpiDefFile:${SURELOG_DIR}/tests/AssertDelayError/left_rotate_assertions.sv
-      |vpiDefLineNo:1
-      |vpiNet:
-      \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.clk), line:2:11, endln:2:14
-        |vpiParent:
-        \_module_inst: work@left_rotate_assertions (work@tb_left_rotation.u_left_rotate_assertions), file:${SURELOG_DIR}/tests/AssertDelayError/left_rotate_assertions.sv, line:37:20, endln:43:3
-        |vpiTypespec:
-        \_ref_typespec: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.clk)
-          |vpiParent:
-          \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.clk), line:2:11, endln:2:14
-          |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.clk
-          |vpiActual:
-          \_logic_typespec: , line:2:11, endln:2:11
-        |vpiName:clk
-        |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.clk
-      |vpiNet:
-      \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rst_n), line:3:11, endln:3:16
-        |vpiParent:
-        \_module_inst: work@left_rotate_assertions (work@tb_left_rotation.u_left_rotate_assertions), file:${SURELOG_DIR}/tests/AssertDelayError/left_rotate_assertions.sv, line:37:20, endln:43:3
-        |vpiTypespec:
-        \_ref_typespec: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rst_n)
-          |vpiParent:
-          \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rst_n), line:3:11, endln:3:16
-          |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rst_n
-          |vpiActual:
-          \_logic_typespec: , line:3:11, endln:3:11
-        |vpiName:rst_n
-        |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rst_n
-      |vpiNet:
-      \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.word_in), line:4:18, endln:4:25
-        |vpiParent:
-        \_module_inst: work@left_rotate_assertions (work@tb_left_rotation.u_left_rotate_assertions), file:${SURELOG_DIR}/tests/AssertDelayError/left_rotate_assertions.sv, line:37:20, endln:43:3
-        |vpiTypespec:
-        \_ref_typespec: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.word_in)
-          |vpiParent:
-          \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.word_in), line:4:18, endln:4:25
-          |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.word_in
-          |vpiActual:
-          \_logic_typespec: , line:4:11, endln:4:17
-        |vpiName:word_in
-        |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.word_in
-      |vpiNet:
-      \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rotate_by), line:5:17, endln:5:26
-        |vpiParent:
-        \_module_inst: work@left_rotate_assertions (work@tb_left_rotation.u_left_rotate_assertions), file:${SURELOG_DIR}/tests/AssertDelayError/left_rotate_assertions.sv, line:37:20, endln:43:3
-        |vpiTypespec:
-        \_ref_typespec: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rotate_by)
-          |vpiParent:
-          \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rotate_by), line:5:17, endln:5:26
-          |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rotate_by
-          |vpiActual:
-          \_logic_typespec: , line:5:11, endln:5:16
-        |vpiName:rotate_by
-        |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rotate_by
-      |vpiNet:
-      \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rotated), line:6:18, endln:6:25
-        |vpiParent:
-        \_module_inst: work@left_rotate_assertions (work@tb_left_rotation.u_left_rotate_assertions), file:${SURELOG_DIR}/tests/AssertDelayError/left_rotate_assertions.sv, line:37:20, endln:43:3
-        |vpiTypespec:
-        \_ref_typespec: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rotated)
-          |vpiParent:
-          \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rotated), line:6:18, endln:6:25
-          |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rotated
-          |vpiActual:
-          \_logic_typespec: , line:6:11, endln:6:17
-        |vpiName:rotated
-        |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rotated
-      |vpiAssertion:
-      \_assert_stmt: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.a_valid_rotation), line:21:3, endln:21:55
-        |vpiParent:
-        \_module_inst: work@left_rotate_assertions (work@tb_left_rotation.u_left_rotate_assertions), file:${SURELOG_DIR}/tests/AssertDelayError/left_rotate_assertions.sv, line:37:20, endln:43:3
-        |vpiName:a_valid_rotation
-        |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.a_valid_rotation
-        |vpiProperty:
-        \_property_spec: , line:21:37, endln:21:53
-          |vpiParent:
-          \_assert_stmt: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.a_valid_rotation), line:21:3, endln:21:55
-          |vpiPropertyExpr:
-          \_ref_obj: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.a_valid_rotation.p_valid_rotation), line:21:37, endln:21:53
-            |vpiParent:
-            \_property_spec: , line:21:37, endln:21:53
-            |vpiName:p_valid_rotation
-            |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.a_valid_rotation.p_valid_rotation
-            |vpiActual:
-            \_property_decl: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_valid_rotation), line:18:12, endln:18:28
-      |vpiAssertion:
-      \_assert_stmt: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.a_rotation_range), line:27:3, endln:27:55
-        |vpiParent:
-        \_module_inst: work@left_rotate_assertions (work@tb_left_rotation.u_left_rotate_assertions), file:${SURELOG_DIR}/tests/AssertDelayError/left_rotate_assertions.sv, line:37:20, endln:43:3
-        |vpiName:a_rotation_range
-        |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.a_rotation_range
-        |vpiProperty:
-        \_property_spec: , line:27:37, endln:27:53
-          |vpiParent:
-          \_assert_stmt: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.a_rotation_range), line:27:3, endln:27:55
-          |vpiPropertyExpr:
-          \_ref_obj: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.a_rotation_range.p_rotation_range), line:27:37, endln:27:53
-            |vpiParent:
-            \_property_spec: , line:27:37, endln:27:53
-            |vpiName:p_rotation_range
-            |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.a_rotation_range.p_rotation_range
-            |vpiActual:
-            \_property_decl: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_rotation_range), line:24:12, endln:24:28
-      |vpiAssertion:
-      \_assert_stmt: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.a_no_rotation), line:33:3, endln:33:49
-        |vpiParent:
-        \_module_inst: work@left_rotate_assertions (work@tb_left_rotation.u_left_rotate_assertions), file:${SURELOG_DIR}/tests/AssertDelayError/left_rotate_assertions.sv, line:37:20, endln:43:3
-        |vpiName:a_no_rotation
-        |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.a_no_rotation
-        |vpiProperty:
-        \_property_spec: , line:33:34, endln:33:47
-          |vpiParent:
-          \_assert_stmt: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.a_no_rotation), line:33:3, endln:33:49
-          |vpiPropertyExpr:
-          \_ref_obj: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.a_no_rotation.p_no_rotation), line:33:34, endln:33:47
-            |vpiParent:
-            \_property_spec: , line:33:34, endln:33:47
-            |vpiName:p_no_rotation
-            |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.a_no_rotation.p_no_rotation
-            |vpiActual:
-            \_property_decl: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.p_no_rotation), line:30:12, endln:30:25
-      |vpiInstance:
-      \_module_inst: work@left_rotation (work@tb_left_rotation.left_rotation_inst), file:${SURELOG_DIR}/tests/AssertDelayError/tb_left_rotate.sv, line:8:5, endln:13:7
-      |vpiPort:
-      \_port: (clk), line:2:11, endln:2:14
-        |vpiParent:
-        \_module_inst: work@left_rotate_assertions (work@tb_left_rotation.u_left_rotate_assertions), file:${SURELOG_DIR}/tests/AssertDelayError/left_rotate_assertions.sv, line:37:20, endln:43:3
-        |vpiName:clk
-        |vpiDirection:1
-        |vpiHighConn:
-        \_ref_obj: (work@tb_left_rotation.clk), line:38:10, endln:38:13
-          |vpiParent:
-          \_port: (clk), line:2:11, endln:2:14
-          |vpiName:clk
-          |vpiFullName:work@tb_left_rotation.clk
-          |vpiActual:
-          \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.clk), line:2:11, endln:2:14
-        |vpiLowConn:
-        \_ref_obj: (work@tb_left_rotation.u_left_rotate_assertions.clk), line:38:6, endln:38:9
-          |vpiParent:
-          \_port: (clk), line:2:11, endln:2:14
-          |vpiName:clk
-          |vpiFullName:work@tb_left_rotation.u_left_rotate_assertions.clk
-          |vpiActual:
-          \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.clk), line:2:11, endln:2:14
-        |vpiTypedef:
-        \_ref_typespec: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.clk)
-          |vpiParent:
-          \_port: (clk), line:2:11, endln:2:14
-          |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.clk
-          |vpiActual:
-          \_logic_typespec: , line:2:11, endln:2:11
-        |vpiInstance:
-        \_module_inst: work@left_rotate_assertions (work@tb_left_rotation.u_left_rotate_assertions), file:${SURELOG_DIR}/tests/AssertDelayError/left_rotate_assertions.sv, line:37:20, endln:43:3
-      |vpiPort:
-      \_port: (rst_n), line:3:11, endln:3:16
-        |vpiParent:
-        \_module_inst: work@left_rotate_assertions (work@tb_left_rotation.u_left_rotate_assertions), file:${SURELOG_DIR}/tests/AssertDelayError/left_rotate_assertions.sv, line:37:20, endln:43:3
-        |vpiName:rst_n
-        |vpiDirection:1
-        |vpiHighConn:
-        \_ref_obj: (work@tb_left_rotation.reset), line:39:10, endln:39:15
-          |vpiParent:
-          \_port: (rst_n), line:3:11, endln:3:16
-          |vpiName:reset
-          |vpiFullName:work@tb_left_rotation.reset
-          |vpiActual:
-          \_logic_net: (work@tb_left_rotation.left_rotation_inst.reset), line:3:16, endln:3:21
-        |vpiLowConn:
-        \_ref_obj: (work@tb_left_rotation.u_left_rotate_assertions.rst_n), line:39:4, endln:39:9
-          |vpiParent:
-          \_port: (rst_n), line:3:11, endln:3:16
-          |vpiName:rst_n
-          |vpiFullName:work@tb_left_rotation.u_left_rotate_assertions.rst_n
-          |vpiActual:
-          \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rst_n), line:3:11, endln:3:16
-        |vpiTypedef:
-        \_ref_typespec: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rst_n)
-          |vpiParent:
-          \_port: (rst_n), line:3:11, endln:3:16
-          |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rst_n
-          |vpiActual:
-          \_logic_typespec: , line:3:11, endln:3:11
-        |vpiInstance:
-        \_module_inst: work@left_rotate_assertions (work@tb_left_rotation.u_left_rotate_assertions), file:${SURELOG_DIR}/tests/AssertDelayError/left_rotate_assertions.sv, line:37:20, endln:43:3
-      |vpiPort:
-      \_port: (word_in), line:4:18, endln:4:25
-        |vpiParent:
-        \_module_inst: work@left_rotate_assertions (work@tb_left_rotation.u_left_rotate_assertions), file:${SURELOG_DIR}/tests/AssertDelayError/left_rotate_assertions.sv, line:37:20, endln:43:3
-        |vpiName:word_in
-        |vpiDirection:1
-        |vpiHighConn:
-        \_ref_obj: (work@tb_left_rotation.in_data), line:40:12, endln:40:19
-          |vpiParent:
-          \_port: (word_in), line:4:18, endln:4:25
-          |vpiName:in_data
-          |vpiFullName:work@tb_left_rotation.in_data
-          |vpiActual:
-          \_logic_net: (work@tb_left_rotation.left_rotation_inst.in_data), line:4:22, endln:4:29
-        |vpiLowConn:
-        \_ref_obj: (work@tb_left_rotation.u_left_rotate_assertions.word_in), line:40:4, endln:40:11
-          |vpiParent:
-          \_port: (word_in), line:4:18, endln:4:25
-          |vpiName:word_in
-          |vpiFullName:work@tb_left_rotation.u_left_rotate_assertions.word_in
-          |vpiActual:
-          \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.word_in), line:4:18, endln:4:25
-        |vpiTypedef:
-        \_ref_typespec: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.word_in)
-          |vpiParent:
-          \_port: (word_in), line:4:18, endln:4:25
-          |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.word_in
-          |vpiActual:
-          \_logic_typespec: , line:4:11, endln:4:17
-        |vpiInstance:
-        \_module_inst: work@left_rotate_assertions (work@tb_left_rotation.u_left_rotate_assertions), file:${SURELOG_DIR}/tests/AssertDelayError/left_rotate_assertions.sv, line:37:20, endln:43:3
-      |vpiPort:
-      \_port: (rotate_by), line:5:17, endln:5:26
-        |vpiParent:
-        \_module_inst: work@left_rotate_assertions (work@tb_left_rotation.u_left_rotate_assertions), file:${SURELOG_DIR}/tests/AssertDelayError/left_rotate_assertions.sv, line:37:20, endln:43:3
-        |vpiName:rotate_by
-        |vpiDirection:1
-        |vpiHighConn:
-        \_operation: , line:41:16, endln:41:17
-          |vpiParent:
-          \_port: (rotate_by), line:5:17, endln:5:26
-          |vpiOpType:36
-        |vpiLowConn:
-        \_ref_obj: (work@tb_left_rotation.u_left_rotate_assertions.rotate_by), line:5:17, endln:5:26
-          |vpiParent:
-          \_port: (rotate_by), line:5:17, endln:5:26
-          |vpiName:rotate_by
-          |vpiFullName:work@tb_left_rotation.u_left_rotate_assertions.rotate_by
-          |vpiActual:
-          \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rotate_by), line:5:17, endln:5:26
-        |vpiTypedef:
-        \_ref_typespec: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rotate_by)
-          |vpiParent:
-          \_port: (rotate_by), line:5:17, endln:5:26
-          |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rotate_by
-          |vpiActual:
-          \_logic_typespec: , line:5:11, endln:5:16
-        |vpiInstance:
-        \_module_inst: work@left_rotate_assertions (work@tb_left_rotation.u_left_rotate_assertions), file:${SURELOG_DIR}/tests/AssertDelayError/left_rotate_assertions.sv, line:37:20, endln:43:3
-      |vpiPort:
-      \_port: (rotated), line:6:18, endln:6:25
-        |vpiParent:
-        \_module_inst: work@left_rotate_assertions (work@tb_left_rotation.u_left_rotate_assertions), file:${SURELOG_DIR}/tests/AssertDelayError/left_rotate_assertions.sv, line:37:20, endln:43:3
-        |vpiName:rotated
-        |vpiDirection:1
-        |vpiHighConn:
-        \_ref_obj: (work@tb_left_rotation.out_data), line:42:12, endln:42:20
-          |vpiParent:
-          \_port: (rotated), line:6:18, endln:6:25
-          |vpiName:out_data
-          |vpiFullName:work@tb_left_rotation.out_data
-          |vpiActual:
-          \_logic_net: (work@tb_left_rotation.left_rotation_inst.out_data), line:5:22, endln:5:30
-        |vpiLowConn:
-        \_ref_obj: (work@tb_left_rotation.u_left_rotate_assertions.rotated), line:42:4, endln:42:11
-          |vpiParent:
-          \_port: (rotated), line:6:18, endln:6:25
-          |vpiName:rotated
-          |vpiFullName:work@tb_left_rotation.u_left_rotate_assertions.rotated
-          |vpiActual:
-          \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rotated), line:6:18, endln:6:25
-        |vpiTypedef:
-        \_ref_typespec: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rotated)
-          |vpiParent:
-          \_port: (rotated), line:6:18, endln:6:25
-          |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rotated
-          |vpiActual:
-          \_logic_typespec: , line:6:11, endln:6:17
-        |vpiInstance:
-        \_module_inst: work@left_rotate_assertions (work@tb_left_rotation.u_left_rotate_assertions), file:${SURELOG_DIR}/tests/AssertDelayError/left_rotate_assertions.sv, line:37:20, endln:43:3
-      |vpiProcess:
-      \_initial: , line:10:3, endln:15:6
-        |vpiParent:
-        \_module_inst: work@left_rotate_assertions (work@tb_left_rotation.u_left_rotate_assertions), file:${SURELOG_DIR}/tests/AssertDelayError/left_rotate_assertions.sv, line:37:20, endln:43:3
-        |vpiStmt:
-        \_begin: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions), line:10:11, endln:15:6
-          |vpiParent:
-          \_initial: , line:10:3, endln:15:6
-          |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions
-          |vpiStmt:
-          \_event_control: , line:11:5, endln:11:19
-            |vpiParent:
-            \_begin: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions), line:10:11, endln:15:6
-            |vpiCondition:
-            \_operation: , line:11:7, endln:11:18
-              |vpiParent:
-              \_event_control: , line:11:5, endln:11:19
-              |vpiOpType:39
-              |vpiOperand:
-              \_ref_obj: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.clk), line:11:15, endln:11:18
-                |vpiParent:
-                \_operation: , line:11:7, endln:11:18
-                |vpiName:clk
-                |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.clk
-                |vpiActual:
-                \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.clk), line:2:11, endln:2:14
-          |vpiStmt:
-          \_if_stmt: , line:12:5, endln:14:8
-            |vpiParent:
-            \_begin: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions), line:10:11, endln:15:6
-            |vpiCondition:
-            \_operation: , line:12:9, endln:12:15
-              |vpiParent:
-              \_if_stmt: , line:12:5, endln:14:8
-              |vpiOpType:3
-              |vpiOperand:
-              \_ref_obj: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rst_n), line:12:10, endln:12:15
-                |vpiParent:
-                \_operation: , line:12:9, endln:12:15
-                |vpiName:rst_n
-                |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rst_n
-                |vpiActual:
-                \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rst_n), line:3:11, endln:3:16
-            |vpiStmt:
-            \_begin: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions), line:12:17, endln:14:8
-              |vpiParent:
-              \_if_stmt: , line:12:5, endln:14:8
-              |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions
-              |vpiStmt:
-              \_immediate_assert: , line:13:7, endln:13:28
-                |vpiParent:
-                \_begin: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions), line:12:17, endln:14:8
-                |vpiExpr:
-                \_operation: , line:13:14, endln:13:26
-                  |vpiParent:
-                  \_immediate_assert: , line:13:7, endln:13:28
-                  |vpiOpType:14
-                  |vpiOperand:
-                  \_ref_obj: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rotated), line:13:14, endln:13:21
-                    |vpiParent:
-                    \_operation: , line:13:14, endln:13:26
-                    |vpiName:rotated
-                    |vpiFullName:work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rotated
-                    |vpiActual:
-                    \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rotated), line:6:18, endln:6:25
-                  |vpiOperand:
-                  \_constant: , line:13:25, endln:13:26
 \_weaklyReferenced:
 \_logic_typespec: , line:3:5, endln:3:8
   |vpiParent:
@@ -4429,146 +3834,6 @@ design: (work@tb_left_rotation)
       |vpiSize:64
       |UINT:0
       |vpiConstType:9
-\_logic_typespec: , line:2:11, endln:2:11
-  |vpiParent:
-  \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.clk), line:2:11, endln:2:14
-\_logic_typespec: , line:3:11, endln:3:11
-  |vpiParent:
-  \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rst_n), line:3:11, endln:3:16
-\_logic_typespec: , line:4:11, endln:4:17
-  |vpiParent:
-  \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.word_in), line:4:18, endln:4:25
-  |vpiRange:
-  \_range: , line:4:11, endln:4:17
-    |vpiParent:
-    \_logic_typespec: , line:4:11, endln:4:17
-    |vpiLeftRange:
-    \_constant: , line:4:12, endln:4:14
-      |vpiParent:
-      \_range: , line:4:11, endln:4:17
-      |vpiDecompile:31
-      |vpiSize:64
-      |UINT:31
-      |vpiConstType:9
-    |vpiRightRange:
-    \_constant: , line:4:15, endln:4:16
-      |vpiParent:
-      \_range: , line:4:11, endln:4:17
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_logic_typespec: , line:5:11, endln:5:16
-  |vpiParent:
-  \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rotate_by), line:5:17, endln:5:26
-  |vpiRange:
-  \_range: , line:5:11, endln:5:16
-    |vpiParent:
-    \_logic_typespec: , line:5:11, endln:5:16
-    |vpiLeftRange:
-    \_constant: , line:5:12, endln:5:13
-      |vpiParent:
-      \_range: , line:5:11, endln:5:16
-      |vpiDecompile:4
-      |vpiSize:64
-      |UINT:4
-      |vpiConstType:9
-    |vpiRightRange:
-    \_constant: , line:5:14, endln:5:15
-      |vpiParent:
-      \_range: , line:5:11, endln:5:16
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_logic_typespec: , line:6:11, endln:6:17
-  |vpiParent:
-  \_logic_net: (work@tb_left_rotation.left_rotation_inst.u_left_rotate_assertions.rotated), line:6:18, endln:6:25
-  |vpiRange:
-  \_range: , line:6:11, endln:6:17
-    |vpiParent:
-    \_logic_typespec: , line:6:11, endln:6:17
-    |vpiLeftRange:
-    \_constant: , line:6:12, endln:6:14
-      |vpiParent:
-      \_range: , line:6:11, endln:6:17
-      |vpiDecompile:31
-      |vpiSize:64
-      |UINT:31
-      |vpiConstType:9
-    |vpiRightRange:
-    \_constant: , line:6:15, endln:6:16
-      |vpiParent:
-      \_range: , line:6:11, endln:6:17
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_logic_typespec: , line:2:11, endln:2:11
-\_logic_typespec: , line:3:11, endln:3:11
-\_logic_typespec: , line:4:11, endln:4:17
-  |vpiRange:
-  \_range: , line:4:11, endln:4:17
-    |vpiParent:
-    \_logic_typespec: , line:4:11, endln:4:17
-    |vpiLeftRange:
-    \_constant: , line:4:12, endln:4:14
-      |vpiParent:
-      \_range: , line:4:11, endln:4:17
-      |vpiDecompile:31
-      |vpiSize:64
-      |UINT:31
-      |vpiConstType:9
-    |vpiRightRange:
-    \_constant: , line:4:15, endln:4:16
-      |vpiParent:
-      \_range: , line:4:11, endln:4:17
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_logic_typespec: , line:5:11, endln:5:16
-  |vpiRange:
-  \_range: , line:5:11, endln:5:16
-    |vpiParent:
-    \_logic_typespec: , line:5:11, endln:5:16
-    |vpiLeftRange:
-    \_constant: , line:5:12, endln:5:13
-      |vpiParent:
-      \_range: , line:5:11, endln:5:16
-      |vpiDecompile:4
-      |vpiSize:64
-      |UINT:4
-      |vpiConstType:9
-    |vpiRightRange:
-    \_constant: , line:5:14, endln:5:15
-      |vpiParent:
-      \_range: , line:5:11, endln:5:16
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_logic_typespec: , line:6:11, endln:6:17
-  |vpiRange:
-  \_range: , line:6:11, endln:6:17
-    |vpiParent:
-    \_logic_typespec: , line:6:11, endln:6:17
-    |vpiLeftRange:
-    \_constant: , line:6:12, endln:6:14
-      |vpiParent:
-      \_range: , line:6:11, endln:6:17
-      |vpiDecompile:31
-      |vpiSize:64
-      |UINT:31
-      |vpiConstType:9
-    |vpiRightRange:
-    \_constant: , line:6:15, endln:6:16
-      |vpiParent:
-      \_range: , line:6:11, endln:6:17
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
 \_logic_typespec: , line:2:11, endln:2:15
 \_logic_typespec: , line:3:11, endln:3:15
 \_logic_typespec: , line:4:11, endln:4:21
@@ -4686,15 +3951,6 @@ design: (work@tb_left_rotation)
 [LINT]: ${SURELOG_DIR}/tests/AssertDelayError/tb_left_rotate.sv:36:13: Non synthesizable construct,
 [LINT]: ${SURELOG_DIR}/tests/AssertDelayError/tb_left_rotate.sv:40:9: Non synthesizable construct,
 [LINT]: ${SURELOG_DIR}/tests/AssertDelayError/tb_left_rotate.sv:41:9: Non synthesizable construct,
-[LINT]: ${SURELOG_DIR}/tests/AssertDelayError/left_rotate_assertions.sv:19:5: Non synthesizable construct,
-[LINT]: ${SURELOG_DIR}/tests/AssertDelayError/left_rotate_assertions.sv:18:12: Non synthesizable construct, p_valid_rotation
-[LINT]: ${SURELOG_DIR}/tests/AssertDelayError/left_rotate_assertions.sv:25:5: Non synthesizable construct,
-[LINT]: ${SURELOG_DIR}/tests/AssertDelayError/left_rotate_assertions.sv:24:12: Non synthesizable construct, p_rotation_range
-[LINT]: ${SURELOG_DIR}/tests/AssertDelayError/left_rotate_assertions.sv:31:5: Non synthesizable construct,
-[LINT]: ${SURELOG_DIR}/tests/AssertDelayError/left_rotate_assertions.sv:30:12: Non synthesizable construct, p_no_rotation
-[LINT]: ${SURELOG_DIR}/tests/AssertDelayError/left_rotate_assertions.sv:21:37: Non synthesizable construct,
-[LINT]: ${SURELOG_DIR}/tests/AssertDelayError/left_rotate_assertions.sv:27:37: Non synthesizable construct,
-[LINT]: ${SURELOG_DIR}/tests/AssertDelayError/left_rotate_assertions.sv:33:34: Non synthesizable construct,
 [LINT]: ${SURELOG_DIR}/tests/AssertDelayError/left_rotate_assertions.sv:19:5: Non synthesizable construct,
 [LINT]: ${SURELOG_DIR}/tests/AssertDelayError/left_rotate_assertions.sv:18:12: Non synthesizable construct, p_valid_rotation
 [LINT]: ${SURELOG_DIR}/tests/AssertDelayError/left_rotate_assertions.sv:25:5: Non synthesizable construct,
