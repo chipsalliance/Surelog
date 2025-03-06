@@ -44,6 +44,7 @@
 #include "Surelog/Common/NodeId.h"
 #include "Surelog/Common/SymbolId.h"
 #include "Surelog/Design/ClockingBlock.h"
+#include "Surelog/Design/DataType.h"
 #include "Surelog/Design/DesignElement.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Design/ModPort.h"
