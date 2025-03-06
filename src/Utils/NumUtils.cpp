@@ -25,6 +25,7 @@
 
 #include <bitset>
 #include <cstdint>
+#include <cstdlib>
 #include <cstring>
 #include <string>
 #include <string_view>
