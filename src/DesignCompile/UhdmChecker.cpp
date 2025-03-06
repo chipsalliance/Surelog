@@ -47,6 +47,7 @@
 
 #include <cstdint>
 #include <iomanip>
+#include <ostream>
 #include <set>
 #include <sstream>
 #include <stack>
