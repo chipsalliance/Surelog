@@ -20,6 +20,8 @@
 
 // Header file for Surelog library
 
+// IWYU pragma: begin_exports
+
 #include <Surelog/CommandLine/CommandLineParser.h>
 #include <Surelog/Common/FileSystem.h>
 #include <Surelog/ErrorReporting/Error.h>
@@ -81,5 +83,7 @@
 #include <Surelog/Testbench/TaskMethod.h>
 #include <Surelog/Testbench/TypeDef.h>
 #include <Surelog/Testbench/Variable.h>
+
+// IWYU pragma: end_exports
 
 #endif  // SURELOG_PUBLIC_SURELOG_H
