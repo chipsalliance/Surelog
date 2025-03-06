@@ -23,12 +23,16 @@
 
 #include "Surelog/DesignCompile/UhdmWriter.h"
 
+#include <uhdm/BaseClass.h>
 #include <uhdm/expr.h>
 #include <uhdm/uhdm_types.h>
 
+#include <algorithm>
 #include <cstdint>
 #include <cstring>
+#include <filesystem>
 #include <iostream>
+#include <iterator>
 #include <map>
 #include <queue>
 #include <set>
@@ -43,6 +47,7 @@
 #include "Surelog/Common/NodeId.h"
 #include "Surelog/Common/SymbolId.h"
 #include "Surelog/Design/ClockingBlock.h"
+#include "Surelog/Design/DataType.h"
 #include "Surelog/Design/DesignElement.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Design/ModPort.h"
@@ -51,6 +56,7 @@
 #include "Surelog/Design/Netlist.h"
 #include "Surelog/Design/Parameter.h"
 #include "Surelog/Design/Signal.h"
+#include "Surelog/Design/ValuedComponentI.h"
 #include "Surelog/DesignCompile/CompileDesign.h"
 #include "Surelog/DesignCompile/CompileHelper.h"
 #include "Surelog/DesignCompile/UhdmChecker.h"

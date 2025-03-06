@@ -38,6 +38,7 @@
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Design/ModuleDefinition.h"
 #include "Surelog/Design/ModuleInstance.h"
+#include "Surelog/Design/ValuedComponentI.h"
 #include "Surelog/ErrorReporting/Error.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
 #include "Surelog/ErrorReporting/ErrorDefinition.h"

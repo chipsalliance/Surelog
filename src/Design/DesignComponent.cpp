@@ -31,6 +31,7 @@
 #include "Surelog/Design/FileCNodeId.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Design/Parameter.h"
+#include "Surelog/Design/ValuedComponentI.h"
 #include "Surelog/SourceCompile/VObjectTypes.h"
 #include "Surelog/Testbench/FunctionMethod.h"
 #include "Surelog/Testbench/TaskMethod.h"

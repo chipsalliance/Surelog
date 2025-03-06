@@ -47,11 +47,13 @@
 
 #include <cstdint>
 #include <iomanip>
+#include <ostream>
 #include <set>
 #include <sstream>
 #include <stack>
 #include <string>
 #include <string_view>
+#include <utility>
 #include <vector>
 
 namespace SURELOG {

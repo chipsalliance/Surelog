@@ -23,6 +23,8 @@
 
 #include "Surelog/SourceCompile/SV3_1aPpTreeListenerHelper.h"
 
+#include <antlr4-runtime.h>
+
 #include <cstdint>
 #include <string_view>
 #include <tuple>

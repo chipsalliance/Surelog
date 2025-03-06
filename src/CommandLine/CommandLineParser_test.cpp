@@ -28,8 +28,11 @@
 #include <algorithm>
 #include <filesystem>
 #include <fstream>
+#include <iterator>
+#include <memory>
 #include <set>
 #include <string>
+#include <system_error>
 #include <vector>
 
 #include "Surelog/Common/FileSystem.h"

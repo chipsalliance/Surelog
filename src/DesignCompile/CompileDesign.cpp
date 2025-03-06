@@ -31,6 +31,7 @@
 #include "Surelog/Design/ModuleDefinition.h"
 #include "Surelog/Design/ModuleInstance.h"
 #include "Surelog/Design/Netlist.h"
+#include "Surelog/Design/ValuedComponentI.h"
 #include "Surelog/DesignCompile/Builtin.h"
 #include "Surelog/DesignCompile/CompileClass.h"
 #include "Surelog/DesignCompile/CompileFileContent.h"
