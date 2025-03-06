@@ -30,6 +30,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <iostream>
+#include <iterator>
 #include <memory>
 #include <set>
 #include <string_view>

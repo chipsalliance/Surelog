@@ -28,6 +28,7 @@
 #include <algorithm>
 #include <filesystem>
 #include <fstream>
+#include <iterator>
 #include <memory>
 #include <set>
 #include <string>
