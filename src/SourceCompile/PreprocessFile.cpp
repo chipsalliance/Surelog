@@ -32,6 +32,7 @@
 #include <cstdint>
 #include <functional>
 #include <iostream>
+#include <memory>
 #include <regex>
 #include <set>
 #include <string_view>

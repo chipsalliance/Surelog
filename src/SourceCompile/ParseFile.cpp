@@ -29,6 +29,7 @@
 
 #include <cstdint>
 #include <iostream>
+#include <memory>
 #include <string_view>
 
 #include "Surelog/Cache/ParseCache.h"
