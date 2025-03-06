@@ -30,6 +30,7 @@
 #include <algorithm>
 #include <cstdint>
 #include <cstring>
+#include <filesystem>
 #include <iostream>
 #include <iterator>
 #include <map>

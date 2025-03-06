@@ -25,6 +25,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <filesystem>
 #include <iostream>
 #include <ostream>
 #include <string>
