@@ -31,6 +31,7 @@
 #include <iostream>
 #include <map>
 #include <nlohmann/json.hpp>
+#include <string>
 #include <string_view>
 #include <thread>
 #include <vector>
