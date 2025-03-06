@@ -34,6 +34,7 @@
 #include <memory>
 #include <set>
 #include <string_view>
+#include <system_error>
 #include <utility>
 
 #include "Surelog/CommandLine/CommandLineParser.h"
