@@ -27,6 +27,7 @@
 #include <uhdm/expr.h>
 #include <uhdm/uhdm_types.h>
 
+#include <algorithm>
 #include <cstdint>
 #include <cstring>
 #include <iostream>

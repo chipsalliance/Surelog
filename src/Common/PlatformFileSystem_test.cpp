@@ -26,6 +26,7 @@
 #include <gtest/gtest.h>
 #include <uhdm/expr.h>
 
+#include <algorithm>
 #include <cstddef>
 #include <cstdint>
 #include <iostream>

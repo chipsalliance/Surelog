@@ -23,6 +23,7 @@
 
 #include "Surelog/Common/PlatformFileSystem.h"
 
+#include <algorithm>
 #include <cstddef>
 #include <cstdint>
 #include <filesystem>

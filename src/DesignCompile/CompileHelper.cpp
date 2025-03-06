@@ -74,6 +74,7 @@
 #include <uhdm/uhdm_types.h>
 #include <uhdm/vpi_user.h>
 
+#include <algorithm>
 #include <climits>
 #include <cstdint>
 #include <cstring>
