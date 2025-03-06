@@ -23,6 +23,8 @@
 
 #include "Surelog/SourceCompile/SV3_1aTreeShapeListener.h"
 
+#include <antlr4-runtime.h>
+
 #include <cstdint>
 #include <regex>
 #include <string>

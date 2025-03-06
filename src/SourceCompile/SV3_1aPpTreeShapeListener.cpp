@@ -16,6 +16,8 @@
 
 #include "Surelog/SourceCompile/SV3_1aPpTreeShapeListener.h"
 
+#include <antlr4-runtime.h>
+
 #include <algorithm>
 #include <cstdint>
 #include <iostream>
