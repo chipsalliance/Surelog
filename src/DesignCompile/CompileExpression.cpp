@@ -21,6 +21,7 @@
  * Created on May 14, 2019, 8:03 PM
  */
 
+#include <uhdm/BaseClass.h>
 #include <uhdm/expr.h>
 #include <uhdm/uhdm_types.h>
 

@@ -23,6 +23,7 @@
 
 #include "Surelog/DesignCompile/UhdmWriter.h"
 
+#include <uhdm/BaseClass.h>
 #include <uhdm/expr.h>
 #include <uhdm/uhdm_types.h>
 
