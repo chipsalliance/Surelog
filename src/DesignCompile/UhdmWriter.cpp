@@ -52,6 +52,7 @@
 #include "Surelog/Design/Netlist.h"
 #include "Surelog/Design/Parameter.h"
 #include "Surelog/Design/Signal.h"
+#include "Surelog/Design/ValuedComponentI.h"
 #include "Surelog/DesignCompile/CompileDesign.h"
 #include "Surelog/DesignCompile/CompileHelper.h"
 #include "Surelog/DesignCompile/UhdmChecker.h"
