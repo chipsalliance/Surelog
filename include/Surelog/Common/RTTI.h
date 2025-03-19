@@ -2,7 +2,7 @@
 #define SURELOG_RTTI_H
 #pragma once
 
-#include <uhdm/RTTI.h>
+#include <uhdm/RTTI.h>  // IWYU pragma: export
 
 namespace SURELOG {
 using RTTI = UHDM::RTTI;

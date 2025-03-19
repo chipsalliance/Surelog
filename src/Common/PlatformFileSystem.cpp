@@ -23,6 +23,7 @@
 
 #include "Surelog/Common/PlatformFileSystem.h"
 
+#include <algorithm>
 #include <cstddef>
 #include <cstdint>
 #include <filesystem>
@@ -32,6 +33,7 @@
 #include <set>
 #include <string>
 #include <string_view>
+#include <system_error>
 #include <utility>
 #include <vector>
 

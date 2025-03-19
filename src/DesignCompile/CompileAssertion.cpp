@@ -28,6 +28,7 @@
 #include "Surelog/SourceCompile/VObjectTypes.h"
 
 // UHDM
+#include <uhdm/BaseClass.h>
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/clone_tree.h>
 #include <uhdm/expr.h>

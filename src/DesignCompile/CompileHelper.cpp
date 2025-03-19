@@ -43,6 +43,7 @@
 #include "Surelog/Design/TfPortItem.h"
 #include "Surelog/Design/Union.h"
 #include "Surelog/Design/VObject.h"
+#include "Surelog/Design/ValuedComponentI.h"
 #include "Surelog/DesignCompile/CompileDesign.h"
 #include "Surelog/DesignCompile/UhdmWriter.h"
 #include "Surelog/ErrorReporting/Error.h"
@@ -62,6 +63,7 @@
 #include "Surelog/Utils/StringUtils.h"
 
 // UHDM
+#include <uhdm/BaseClass.h>
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/ExprEval.h>
 #include <uhdm/VpiListener.h>
@@ -72,6 +74,7 @@
 #include <uhdm/uhdm_types.h>
 #include <uhdm/vpi_user.h>
 
+#include <algorithm>
 #include <climits>
 #include <cstdint>
 #include <cstring>

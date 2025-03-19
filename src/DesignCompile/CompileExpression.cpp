@@ -21,6 +21,7 @@
  * Created on May 14, 2019, 8:03 PM
  */
 
+#include <uhdm/BaseClass.h>
 #include <uhdm/expr.h>
 #include <uhdm/uhdm_types.h>
 
@@ -39,6 +40,7 @@
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Common/NodeId.h"
 #include "Surelog/Common/PathId.h"
+#include "Surelog/Design/DataType.h"
 #include "Surelog/Design/Enum.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Design/ModuleDefinition.h"
@@ -50,6 +52,7 @@
 #include "Surelog/Design/Struct.h"
 #include "Surelog/Design/TimeInfo.h"
 #include "Surelog/Design/Union.h"
+#include "Surelog/Design/ValuedComponentI.h"
 #include "Surelog/DesignCompile/CompileDesign.h"
 #include "Surelog/DesignCompile/CompileHelper.h"
 #include "Surelog/DesignCompile/UhdmWriter.h"

@@ -24,10 +24,12 @@
 #include "Surelog/CommandLine/CommandLineParser.h"
 
 #include <cstdint>
+#include <filesystem>
 #include <map>
 #include <nlohmann/json.hpp>
 #include <string>
 #include <string_view>
+#include <system_error>
 #include <utility>
 #include <vector>
 

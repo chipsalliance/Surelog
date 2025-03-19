@@ -32,7 +32,7 @@ pkgs.mkShell {
 
       # Ease development
       ccache
-      clang-tools_18 # for clang-tidy
+      clang-tools_19 # for clang-tidy
       git cacert
       lcov          # generate coverage
       ninja
@@ -43,7 +43,7 @@ pkgs.mkShell {
     export ADDITIONAL_CMAKE_OPTIONS="-DSURELOG_USE_HOST_GTEST=On -DSURELOG_USE_HOST_CAPNP=On -DSURELOG_USE_HOST_JSON=On -DSURELOG_USE_HOST_ANTLR=On -DANTLR_JAR_LOCATION=${pkgs.antlr4.jarLocation}"
 
     # Use latest clang-tidy
-    export CLANG_TIDY=${pkgs.clang-tools_18}/bin/clang-tidy
+    export CLANG_TIDY=${pkgs.clang-tools_19}/bin/clang-tidy
 
     # There is too much volatility between even micro-versions of
     # clang-format 18. Let's use 17 for now.

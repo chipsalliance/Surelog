@@ -36,6 +36,7 @@
 #include <algorithm>
 #include <cstddef>
 #include <cstdint>
+#include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <map>
@@ -44,6 +45,7 @@
 #include <stack>
 #include <string>
 #include <string_view>
+#include <system_error>
 #include <tuple>
 #include <unordered_map>
 #include <unordered_set>

@@ -23,6 +23,7 @@
 
 #include "Surelog/DesignCompile/ElaborationStep.h"
 
+#include <uhdm/BaseClass.h>
 #include <uhdm/expr.h>
 #include <uhdm/uhdm_types.h>
 
@@ -54,6 +55,7 @@
 #include "Surelog/Design/Struct.h"
 #include "Surelog/Design/TfPortItem.h"
 #include "Surelog/Design/Union.h"
+#include "Surelog/Design/ValuedComponentI.h"
 #include "Surelog/DesignCompile/CompileDesign.h"
 #include "Surelog/DesignCompile/CompileHelper.h"
 #include "Surelog/ErrorReporting/Error.h"

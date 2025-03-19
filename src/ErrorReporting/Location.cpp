@@ -23,6 +23,8 @@
 
 #include "Surelog/ErrorReporting/Location.h"
 
+#include <ostream>
+
 namespace SURELOG {
 
 bool Location::operator==(const Location &rhs) const {

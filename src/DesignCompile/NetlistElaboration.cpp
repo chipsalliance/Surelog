@@ -23,6 +23,7 @@
 
 #include "Surelog/DesignCompile/NetlistElaboration.h"
 
+#include <uhdm/BaseClass.h>
 #include <uhdm/expr.h>
 #include <uhdm/uhdm_types.h>
 
@@ -31,12 +32,14 @@
 #include <map>
 #include <set>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Common/NodeId.h"
 #include "Surelog/Common/PathId.h"
+#include "Surelog/Design/DataType.h"
 #include "Surelog/Design/DesignComponent.h"
 #include "Surelog/Design/DesignElement.h"
 #include "Surelog/Design/DummyType.h"
@@ -51,6 +54,7 @@
 #include "Surelog/Design/SimpleType.h"
 #include "Surelog/Design/Struct.h"
 #include "Surelog/Design/Union.h"
+#include "Surelog/Design/ValuedComponentI.h"
 #include "Surelog/DesignCompile/CompileDesign.h"
 #include "Surelog/DesignCompile/CompileHelper.h"
 #include "Surelog/DesignCompile/UhdmWriter.h"
