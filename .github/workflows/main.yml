@@ -61,6 +61,7 @@ jobs:
         cmake --build build -j $(nproc)
         cmake --install build
 
+        echo "---- run tests ----"
         cmake --build build --target UnitTests -j $(nproc)
         pushd build && ctest --output-on-failure && popd
 
@@ -69,6 +70,7 @@ jobs:
         # This shouldn''t be necessary, and can't be reproduced outside CI
         export CMAKE_PREFIX_PATH=$INSTALL_DIR
 
+        echo "---- Test Install ----"
         cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DINSTALL_DIR=$INSTALL_DIR -S tests/TestInstall -B tests/TestInstall/build
         cmake --build tests/TestInstall/build -j $(nproc)
 
@@ -818,7 +820,7 @@ jobs:
 # Mac build, test, and publish
   macos-install:
     name: "Mac OS | Install | ${{ matrix.compiler }} | ${{ matrix.config }}"
-    runs-on: macos-12
+    runs-on: macos-13
     strategy:
       fail-fast: false
       matrix:
@@ -835,15 +837,13 @@ jobs:
       uses: actions/setup-java@v4
       with:
         distribution: temurin
-        java-version: 11
+        java-version: 17
         java-package: jre
-        architecture: x64
 
     - name: Setup Python
       uses: actions/setup-python@v5
       with:
         python-version: 3.8
-        architecture: x64
 
     - name: Setup Python Packages
       run: |
@@ -858,21 +858,16 @@ jobs:
     - name: Use ccache
       uses: hendrikmuhs/ccache-action@v1.2
       with:
-        key: macos-install-${{ matrix.compiler }}-${{ matrix.config }}
+        key: macos-install1-${{ matrix.compiler }}-${{ matrix.config }}
 
     - name: Configure compiler
       run: |
-        # Default xcode version 14.0.1 has reported bugs with linker
-        # Current recommended workaround is to downgrade to last known good version.
-        # https://github.com/actions/runner-images/issues/6350
-        sudo xcode-select -s '/Applications/Xcode_13.4.1.app/Contents/Developer'
-
         if [ "${{ matrix.compiler }}" == "clang" ]; then
           echo 'CC=clang' >> $GITHUB_ENV
           echo 'CXX=clang++' >> $GITHUB_ENV
         else
-          echo 'CC=gcc-13' >> $GITHUB_ENV
-          echo 'CXX=g++-13' >> $GITHUB_ENV
+          echo 'CC=gcc-14' >> $GITHUB_ENV
+          echo 'CXX=g++-14' >> $GITHUB_ENV
         fi
 
     - name: Configure shell
