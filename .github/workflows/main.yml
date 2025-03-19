@@ -195,41 +195,6 @@ jobs:
     - name: PythonAPI
       run: make ${{ matrix.config }} ADDITIONAL_CMAKE_OPTIONS="-DSURELOG_WITH_PYTHON=1 -DCMAKE_CXX_FLAGS=-fpermissive"
 
-
-  linux-coverage:
-    name: "Linux | Coverage | ${{ matrix.compiler }} | ${{ matrix.config }}"
-    runs-on: ubuntu-20.04
-    strategy:
-      fail-fast: false
-      matrix:
-        compiler:
-        - gcc
-        config:
-        - debug
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      with:
-        submodules: recursive
-        fetch-depth: 0
-
-    - uses: ./.github/linux-setup
-      with:
-        compiler: ${{ matrix.compiler }}
-        ccache-key: linux-coverage-${{ matrix.compiler }}-${{ matrix.config }}
-
-    - name: Coverage
-      run: make coverage-build/surelog.coverage
-
-    - name: Upload coverage
-      # will show up under https://app.codecov.io/gh/chipsalliance/Surelog
-      uses: codecov/codecov-action@v3
-      with:
-        files: coverage-build/surelog.coverage
-        fail_ci_if_error: false
-
-
 # Valgrind
   linux-valgrind:
     name: "Linux | Valgrind | ${{ matrix.project }} | ${{ matrix.compiler }} | ${{ matrix.config }}"
