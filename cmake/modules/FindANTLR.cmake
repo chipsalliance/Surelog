@@ -12,9 +12,9 @@ find_package(Java QUIET COMPONENTS Runtime)
 # ANTLR JAR HANDLING
 if(NOT ANTLR_JAR_LOCATION)
   find_file(ANTLR_JAR_LOCATION
-            NAMES antlr-4.12.0-complete.jar antlr-4.13.0-complete.jar antlr-4.13.1-complete.jar antlr.jar antlr4.jar antlr-4.jar 
+            NAMES antlr-4.12.0-complete.jar antlr-4.13.0-complete.jar antlr-4.13.1-complete.jar antlr-4.13.2-complete.jar antlr.jar antlr4.jar antlr-4.jar
             HINTS /usr /usr/local /usr/local/share /usr/local/share/java /usr/local/lib/ /usr/share /usr/share/java /usr/local/Homebrew ~/homebrew /usr/local/homebrew/Cellar /opt/homebrew/Cellar
-            PATH_SUFFIXES antlr 4.12.0 4.13.0 4.13.1 antlr/4.12.0 antlr/4.13.0 antlr/4.13.1 
+            PATH_SUFFIXES antlr 4.12.0 4.13.0 4.13.1 4.13.2 antlr/4.12.0 antlr/4.13.0 antlr/4.13.1 antlr/4.13.2
             NO_CMAKE_SYSTEM_PATH
             NO_SYSTEM_ENVIRONMENT_PATH)
     message("ANTLR Jar: ${ANTLR_JAR_LOCATION}")
@@ -140,7 +140,7 @@ find_path(ANTLR_INCLUDE_DIR antlr4-runtime.h
   NO_CMAKE_SYSTEM_PATH
   NO_SYSTEM_ENVIRONMENT_PATH)
 
-find_path(ANTLR_LIB_DIR 
+find_path(ANTLR_LIB_DIR
   NAMES libantlr4-runtime.a libantlr-runtime.a antlr_static.a antlr-static.a libantlr4-runtimeo.so libantlr-runtime.so antlr4.so antlr.so libantlr4-runtime.dylib libantlr-runtime.dylb antlr4.dylib antlr.dylib
   PATHS ${ANTLR_ROOT}/lib
   HINTS /usr /usr/local /usr/local/Homebrew ~/homebrew/ /opt/homebrew/
@@ -158,7 +158,7 @@ if(BUILD_SHARED_LIBS)
     NO_SYSTEM_ENVIRONMENT_PATH)
 else()
   find_file(ANTLR_LIBRARY
-    NAMES libantlr4-runtime.a libantlr-runtime.a antlr_static.a antlr-static.a 
+    NAMES libantlr4-runtime.a libantlr-runtime.a antlr_static.a antlr-static.a
     PATHS ${ANTLR_LIB_DIR}
     HINTS /usr /usr/local /usr/share /usr/share/java /usr/local/Homebrew ~/homebrew/ /opt/homebrew/
     PATH_SUFFIXES lib antlr-runtime antlr-runtime/lib lib/antlr-runtime
@@ -169,6 +169,5 @@ endif()
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(
     ANTLR
-    REQUIRED_VARS ANTLR_JAR_LOCATION Java_JAVA_EXECUTABLE ANTLR_INCLUDE_DIR ANTLR_LIBRARY 
+    REQUIRED_VARS ANTLR_JAR_LOCATION Java_JAVA_EXECUTABLE ANTLR_INCLUDE_DIR ANTLR_LIBRARY
     VERSION_VAR ANTLR_VERSION)
-
