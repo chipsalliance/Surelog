@@ -23,6 +23,7 @@
 
 #include "Surelog/SourceCompile/ParserHarness.h"
 
+#include <memory>
 #include <string_view>
 
 #include "Surelog/CommandLine/CommandLineParser.h"

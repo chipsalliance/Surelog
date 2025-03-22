@@ -24,6 +24,7 @@
 #include "Surelog/Testbench/ClassObject.h"
 
 #include <string_view>
+#include <utility>
 
 #include "Surelog/Testbench/ClassDefinition.h"
 

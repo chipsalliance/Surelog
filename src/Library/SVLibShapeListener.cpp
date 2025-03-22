@@ -23,6 +23,8 @@
 
 #include "Surelog/Library/SVLibShapeListener.h"
 
+#include <antlr4-runtime.h>
+
 #include <regex>
 #include <string>
 #include <string_view>

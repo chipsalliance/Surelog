@@ -23,6 +23,8 @@
 
 #include "Surelog/DesignCompile/CompilerHarness.h"
 
+#include <memory>
+
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/DesignCompile/CompileDesign.h"
 #include "Surelog/SourceCompile/Compiler.h"

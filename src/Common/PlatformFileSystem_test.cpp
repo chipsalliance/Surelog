@@ -26,11 +26,15 @@
 #include <gtest/gtest.h>
 #include <uhdm/expr.h>
 
+#include <algorithm>
 #include <cstddef>
 #include <cstdint>
 #include <iostream>
+#include <iterator>
+#include <memory>
 #include <set>
 #include <string_view>
+#include <system_error>
 #include <utility>
 
 #include "Surelog/CommandLine/CommandLineParser.h"

@@ -27,12 +27,15 @@
 #include <parser/SV3_1aPpLexer.h>
 #include <parser/SV3_1aPpParser.h>
 
+#include <algorithm>
 #include <cstddef>
 #include <cstdint>
 #include <functional>
 #include <iostream>
+#include <memory>
 #include <regex>
 #include <set>
+#include <string>
 #include <string_view>
 #include <utility>
 #include <vector>

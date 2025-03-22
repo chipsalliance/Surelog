@@ -37,8 +37,10 @@
 
 #include <antlr4-runtime.h>
 
+#include <algorithm>
 #include <cstdint>
 #include <iostream>
+#include <iterator>
 #include <string>
 #include <vector>
 

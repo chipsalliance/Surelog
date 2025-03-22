@@ -23,12 +23,16 @@
 
 #include <gtest/gtest.h>
 
+#include <algorithm>
 #include <chrono>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
+#include <iterator>
 #include <map>
+#include <memory>
 #include <string>
+#include <system_error>
 #include <thread>
 #include <vector>
 

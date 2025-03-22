@@ -23,6 +23,15 @@
 
 #include "Surelog/Common/FileSystem.h"
 
+#include <cstddef>
+#include <cstdint>
+#include <filesystem>
+#include <iostream>
+#include <ostream>
+#include <string>
+#include <string_view>
+#include <vector>
+
 #include "Surelog/Common/PathId.h"
 #include "Surelog/Common/SymbolId.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
@@ -30,13 +39,6 @@
 #if defined(_WIN32)
 #define NOMINMAX
 #include <Windows.h>
-
-#include <cstddef>
-#include <cstdint>
-#include <iostream>
-#include <string>
-#include <string_view>
-#include <vector>
 #elif defined(__APPLE__)
 #include <mach-o/dyld.h>
 #include <sys/param.h>

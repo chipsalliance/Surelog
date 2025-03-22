@@ -23,6 +23,8 @@
 
 #include "Surelog/Common/PathId.h"
 
+#include <ostream>
+
 #include "Surelog/Common/FileSystem.h"
 
 namespace SURELOG {

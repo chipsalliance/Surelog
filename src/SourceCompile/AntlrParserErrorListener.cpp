@@ -23,6 +23,8 @@
 
 #include "Surelog/SourceCompile/AntlrParserErrorListener.h"
 
+#include <antlr4-runtime.h>
+
 #include <cstddef>
 #include <cstdint>
 #include <string>
