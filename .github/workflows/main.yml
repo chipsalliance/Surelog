@@ -57,6 +57,10 @@ jobs:
 
         export INSTALL_DIR=`pwd`/install
 
+        # https://github.com/antlr/antlr4/pull/4800
+        sed -i '6i include(GNUInstallDirs)' third_party/antlr4/runtime/Cpp/runtime/CMakeLists.txt
+        sed 's|\(set.*libantlrcpp_INCLUDE_INSTALL_DIR "\)include/|\1${CMAKE_INSTALL_INCLUDEDIR}/|' -i third_party/antlr4/runtime/Cpp/runtime/CMakeLists.txt
+
         cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR $CMAKE_ADDITIONAL_ARGS -S . -B build
         cmake --build build -j $(nproc)
         cmake --install build
