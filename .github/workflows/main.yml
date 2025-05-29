@@ -360,7 +360,7 @@ jobs:
         echo 'CXX=g++' >> $GITHUB_ENV
         echo "PREFIX=${CWD}/install" >> $GITHUB_ENV
         echo "Py3_ROOT_DIR=$Py3_ROOT_DIR" >> $GITHUB_ENV
-        echo "ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=$Py3_ROOT_DIR -DSURELOG_WITH_TCMALLOC=Off" >> $GITHUB_ENV
+        echo "ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=$Py3_ROOT_DIR -DSURELOG_WITH_TCMALLOC=Off -DCMAKE_POLICY_VERSION_MINIMUM=3.5" >> $GITHUB_ENV
         echo "PATH=$JAVA_HOME/bin:$Py3_ROOT_DIR:/usr/lib/ccache:/usr/local/opt/ccache/libexec:$PATH" >> $GITHUB_ENV
 
         echo "$JAVA_HOME/bin" >> $GITHUB_PATH
@@ -840,7 +840,7 @@ jobs:
         echo "PATH=$(brew --prefix)/opt/ccache/libexec:$PATH" >> $GITHUB_ENV
         echo "PREFIX=${GITHUB_WORKSPACE}/install" >> $GITHUB_ENV
         echo "CMAKE_PREFIX_PATH=${GITHUB_WORKSPACE}/install" >> $GITHUB_ENV
-        echo 'ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=${pythonLocation}' >> $GITHUB_ENV
+        echo 'ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=${pythonLocation} -DCMAKE_POLICY_VERSION_MINIMUM=3.5' >> $GITHUB_ENV
 
     - name: Show shell configuration
       run: |
@@ -878,7 +878,7 @@ jobs:
 # Mac regression
   macos-regression:
     name: "Mac OS | Regression | ${{ matrix.compiler }} | ${{ matrix.config }} [${{ matrix.shard }}]"
-    runs-on: macos-12
+    runs-on: macos-13
     needs: macos-install
     strategy:
       fail-fast: false
