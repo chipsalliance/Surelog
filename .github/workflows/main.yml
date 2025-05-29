@@ -841,7 +841,8 @@ jobs:
         echo "PREFIX=${GITHUB_WORKSPACE}/install" >> $GITHUB_ENV
         echo "CMAKE_PREFIX_PATH=${GITHUB_WORKSPACE}/install" >> $GITHUB_ENV
         echo 'ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=${pythonLocation}' >> $GITHUB_ENV
-
+        echo "ADDITIONAL_CMAKE_OPTIONS=-DCMAKE_POLICY_VERSION_MINIMUM=3.5" >> $GITHUB_ENV
+        
     - name: Show shell configuration
       run: |
         env
@@ -878,7 +879,7 @@ jobs:
 # Mac regression
   macos-regression:
     name: "Mac OS | Regression | ${{ matrix.compiler }} | ${{ matrix.config }} [${{ matrix.shard }}]"
-    runs-on: macos-12
+    runs-on: macos-13
     needs: macos-install
     strategy:
       fail-fast: false
