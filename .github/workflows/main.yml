@@ -182,6 +182,12 @@ jobs:
         - release
 
     steps:
+    - name: Setup Python Packages
+      run: |
+        pip3 install orderedmultidict
+        pip3 install psutil
+        pip3 install build
+
     - name: Checkout code
       uses: actions/checkout@v4
       with:
