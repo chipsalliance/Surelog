@@ -140,9 +140,11 @@ PyThreadState* PythonAPI::initNewInterp() {
 void PythonAPI::shutdown(PyThreadState* interp) {
 #ifdef SURELOG_WITH_PYTHON
   if (interp != m_mainThreadState) {
-    PyEval_AcquireThread(interp);
+    PyGILState_STATE gstate = PyGILState_Ensure();
+    PyThreadState* old_state = PyThreadState_Swap(interp);
     Py_EndInterpreter(interp);
-    PyEval_ReleaseLock();
+    PyThreadState_Swap(old_state);
+    PyGILState_Release(gstate);
   }
 #endif
 }
