@@ -22,19 +22,19 @@
 [WARNING] : 3
 [   NOTE] : 0
 [INF:CM0023] Creating log file "${SURELOG_DIR}/tests/TestSepComp/badpath/slpp_all/surelog.log".
-PARSER CACHE USED FOR: ${SURELOG_DIR}/tests/TestSepComp/pkg1.sv
-PARSER CACHE USED FOR: ${SURELOG_DIR}/tests/TestSepComp/pkg2.sv
 PARSER CACHE USED FOR: ${SURELOG_DIR}/tests/TestSepComp/badpath/badtop.sv
 PARSER CACHE USED FOR: ${SURELOG_DIR}/tests/EvalFunc/dut.sv
-[WRN:PA0205] ${SURELOG_DIR}/tests/TestSepComp/pkg1.sv:1:1: No timescale set for "pkg1".
-[WRN:PA0205] ${SURELOG_DIR}/tests/TestSepComp/pkg2.sv:1:1: No timescale set for "pkg2".
+PARSER CACHE USED FOR: ${SURELOG_DIR}/tests/TestSepComp/pkg1.sv
+PARSER CACHE USED FOR: ${SURELOG_DIR}/tests/TestSepComp/pkg2.sv
 [WRN:PA0205] ${SURELOG_DIR}/tests/TestSepComp/badpath/badtop.sv:1:1: No timescale set for "badtop".
 [WRN:PA0205] ${SURELOG_DIR}/tests/EvalFunc/dut.sv:1:1: No timescale set for "prim_util_pkg".
 [WRN:PA0205] ${SURELOG_DIR}/tests/EvalFunc/dut.sv:22:1: No timescale set for "top".
+[WRN:PA0205] ${SURELOG_DIR}/tests/TestSepComp/pkg1.sv:1:1: No timescale set for "pkg1".
+[WRN:PA0205] ${SURELOG_DIR}/tests/TestSepComp/pkg2.sv:1:1: No timescale set for "pkg2".
 [INF:CP0300] Compilation...
+[INF:CP0301] ${SURELOG_DIR}/tests/EvalFunc/dut.sv:1:1: Compile package "prim_util_pkg".
 [INF:CP0301] ${SURELOG_DIR}/tests/TestSepComp/pkg1.sv:1:1: Compile package "pkg1".
 [INF:CP0301] ${SURELOG_DIR}/tests/TestSepComp/pkg2.sv:1:1: Compile package "pkg2".
-[INF:CP0301] ${SURELOG_DIR}/tests/EvalFunc/dut.sv:1:1: Compile package "prim_util_pkg".
 [INF:CP0303] ${SURELOG_DIR}/tests/TestSepComp/badpath/badtop.sv:1:1: Compile module "work@badtop".
 [INF:CP0303] ${SURELOG_DIR}/tests/EvalFunc/dut.sv:22:1: Compile module "work@top".
 [INF:CP0302] Compile class "work@mailbox".
@@ -56,3 +56,11 @@ PARSER CACHE USED FOR: ${SURELOG_DIR}/tests/EvalFunc/dut.sv
 [  ERROR] : 0
 [WARNING] : 8
 [   NOTE] : 5
+
+============================== Begin RoundTrip Results ==============================
+[roundtrip]: ${SURELOG_DIR}/tests/EvalFunc/dut.sv                | ${SURELOG_DIR}/tests/TestSepComp/badpath/dut_000.sv     | 16 | 68 |
+[roundtrip]: ${SURELOG_DIR}/tests/TestSepComp/badpath/badtop.sv  | ${SURELOG_DIR}/tests/TestSepComp/badpath/badtop_000.sv  | 2 | 6 |
+[roundtrip]: ${SURELOG_DIR}/tests/TestSepComp/badpath/builtin.sv | ${SURELOG_DIR}/tests/TestSepComp/badpath/builtin_000.sv | 0 | 0 |
+[roundtrip]: ${SURELOG_DIR}/tests/TestSepComp/pkg1.sv            | ${SURELOG_DIR}/tests/TestSepComp/badpath/pkg1_000.sv    | 0 | 7 |
+[roundtrip]: ${SURELOG_DIR}/tests/TestSepComp/pkg2.sv            | ${SURELOG_DIR}/tests/TestSepComp/badpath/pkg2_000.sv    | 10 | 16 |
+============================== End RoundTrip Results ==============================

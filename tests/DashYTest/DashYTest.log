@@ -27,22 +27,6 @@ n<> u<21> t<Top_level_rule> c<1> l<1:1> el<4:1>
 AST_DEBUG_END
 AST_DEBUG_BEGIN
 LIB:  work
-FILE: ${SURELOG_DIR}/tests/DashYTest/lib/AND.v
-n<> u<0> t<_INVALID_> f<0> l<0:0>
-n<> u<1> t<Null_rule> p<11> s<10> l<1:1> el<1:0>
-n<module> u<2> t<Module_keyword> p<6> s<3> l<1:1> el<1:7>
-n<AND> u<3> t<StringConst> p<6> s<5> l<1:8> el<1:11>
-n<> u<4> t<Port> p<5> l<1:12> el<1:12>
-n<> u<5> t<List_of_ports> p<6> c<4> l<1:11> el<1:13>
-n<> u<6> t<Module_nonansi_header> p<8> c<2> s<7> l<1:1> el<1:14>
-n<> u<7> t<ENDMODULE> p<8> l<2:1> el<2:10>
-n<> u<8> t<Module_declaration> p<9> c<6> l<1:1> el<2:10>
-n<> u<9> t<Description> p<10> c<8> l<1:1> el<2:10>
-n<> u<10> t<Source_text> p<11> c<9> l<1:1> el<2:10>
-n<> u<11> t<Top_level_rule> c<1> l<1:1> el<3:1>
-AST_DEBUG_END
-AST_DEBUG_BEGIN
-LIB:  work
 FILE: ${SURELOG_DIR}/tests/DashYTest/lib/OR.v
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<11> s<10> l<1:1> el<1:0>
@@ -51,6 +35,22 @@ n<OR> u<3> t<StringConst> p<6> s<5> l<1:8> el<1:10>
 n<> u<4> t<Port> p<5> l<1:11> el<1:11>
 n<> u<5> t<List_of_ports> p<6> c<4> l<1:10> el<1:12>
 n<> u<6> t<Module_nonansi_header> p<8> c<2> s<7> l<1:1> el<1:13>
+n<> u<7> t<ENDMODULE> p<8> l<2:1> el<2:10>
+n<> u<8> t<Module_declaration> p<9> c<6> l<1:1> el<2:10>
+n<> u<9> t<Description> p<10> c<8> l<1:1> el<2:10>
+n<> u<10> t<Source_text> p<11> c<9> l<1:1> el<2:10>
+n<> u<11> t<Top_level_rule> c<1> l<1:1> el<3:1>
+AST_DEBUG_END
+AST_DEBUG_BEGIN
+LIB:  work
+FILE: ${SURELOG_DIR}/tests/DashYTest/lib/AND.v
+n<> u<0> t<_INVALID_> f<0> l<0:0>
+n<> u<1> t<Null_rule> p<11> s<10> l<1:1> el<1:0>
+n<module> u<2> t<Module_keyword> p<6> s<3> l<1:1> el<1:7>
+n<AND> u<3> t<StringConst> p<6> s<5> l<1:8> el<1:11>
+n<> u<4> t<Port> p<5> l<1:12> el<1:12>
+n<> u<5> t<List_of_ports> p<6> c<4> l<1:11> el<1:13>
+n<> u<6> t<Module_nonansi_header> p<8> c<2> s<7> l<1:1> el<1:14>
 n<> u<7> t<ENDMODULE> p<8> l<2:1> el<2:10>
 n<> u<8> t<Module_declaration> p<9> c<6> l<1:1> el<2:10>
 n<> u<9> t<Description> p<10> c<8> l<1:1> el<2:10>
@@ -125,40 +125,40 @@ ref_module                                             1
 [INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/DashYTest/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
-design: (work@top)
+Design: (work@top)
 |vpiElaborated:1
 |vpiName:work@top
 |uhdmallModules:
-\_module_inst: work@AND (work@AND), file:${SURELOG_DIR}/tests/DashYTest/lib/AND.v, line:1:1, endln:2:10
+\_Module: work@AND (work@AND), file:${SURELOG_DIR}/tests/DashYTest/lib/AND.v, line:1:1, endln:2:10
   |vpiParent:
-  \_design: (work@top)
+  \_Design: (work@top)
   |vpiFullName:work@AND
   |vpiDefName:work@AND
   |vpiCellInstance:1
 |uhdmallModules:
-\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DashYTest/dut.sv, line:1:1, endln:3:10
+\_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DashYTest/dut.sv, line:1:1, endln:3:10
   |vpiParent:
-  \_design: (work@top)
+  \_Design: (work@top)
   |vpiFullName:work@top
   |vpiDefName:work@top
   |vpiRefModule:
-  \_ref_module: work@AND (and1), line:2:8, endln:2:12
+  \_RefModule: work@AND (and1), line:2:8, endln:2:12
     |vpiParent:
-    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DashYTest/dut.sv, line:1:1, endln:3:10
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DashYTest/dut.sv, line:1:1, endln:3:10
     |vpiName:and1
     |vpiDefName:work@AND
     |vpiActual:
-    \_module_inst: work@AND (work@AND), file:${SURELOG_DIR}/tests/DashYTest/lib/AND.v, line:1:1, endln:2:10
+    \_Module: work@AND (work@AND), file:${SURELOG_DIR}/tests/DashYTest/lib/AND.v, line:1:1, endln:2:10
 |uhdmtopModules:
-\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DashYTest/dut.sv, line:1:1, endln:3:10
+\_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DashYTest/dut.sv, line:1:1, endln:3:10
   |vpiName:work@top
   |vpiDefName:work@top
   |vpiTop:1
   |vpiTopModule:1
   |vpiModule:
-  \_module_inst: work@AND (work@top.and1), file:${SURELOG_DIR}/tests/DashYTest/dut.sv, line:2:4, endln:2:15
+  \_Module: work@AND (work@top.and1), file:${SURELOG_DIR}/tests/DashYTest/dut.sv, line:2:4, endln:2:15
     |vpiParent:
-    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DashYTest/dut.sv, line:1:1, endln:3:10
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DashYTest/dut.sv, line:1:1, endln:3:10
     |vpiName:and1
     |vpiFullName:work@top.and1
     |vpiDefName:work@AND
@@ -166,7 +166,7 @@ design: (work@top)
     |vpiDefFile:${SURELOG_DIR}/tests/DashYTest/lib/AND.v
     |vpiDefLineNo:1
     |vpiInstance:
-    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/DashYTest/dut.sv, line:1:1, endln:3:10
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DashYTest/dut.sv, line:1:1, endln:3:10
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
