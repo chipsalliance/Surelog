@@ -44,6 +44,7 @@
 
 // UHDM
 #include <uhdm/Serializer.h>
+#include <uhdm/class_defn.h>
 #include <uhdm/package.h>
 
 #include <string>
@@ -249,9 +250,10 @@ void Builtin::addBuiltinTypes() {
     const std::string fullClassName = StrCat(f.packageName, "::", f.className);
     ClassDefinition* classDef = m_design->getClassDefinition(fullClassName);
     if (classDef == nullptr) {
-      classDef =
-          new ClassDefinition(f.className, nullptr, package, nullptr,
-                              InvalidNodeId, nullptr, s.MakeClass_defn());
+      UHDM::class_defn* const cdfn = s.MakeClass_defn();
+      cdfn->VpiParent(package->getUhdmInstance());
+      classDef = new ClassDefinition(f.className, nullptr, package, nullptr,
+                                     InvalidNodeId, nullptr, cdfn);
       m_design->addClassDefinition(fullClassName, classDef);
       package->addClassDefinition(f.className, classDef);
     }

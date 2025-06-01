@@ -39,7 +39,7 @@ namespace SURELOG {
 int32_t FunctorCompileFileContentDecl::operator()() const {
   CompileFileContent* instance = new CompileFileContent(
       m_compileDesign, m_fileContent, m_design, true, m_symbols, m_errors);
-  instance->compile();
+  instance->compile(Elaborate::No, Reduce::No);
   delete instance;
   return 0;
 }
@@ -47,12 +47,16 @@ int32_t FunctorCompileFileContentDecl::operator()() const {
 int32_t FunctorCompileFileContent::operator()() const {
   CompileFileContent* instance = new CompileFileContent(
       m_compileDesign, m_fileContent, m_design, false, m_symbols, m_errors);
-  instance->compile();
+  instance->compile(Elaborate::No, Reduce::No);
   delete instance;
   return 0;
 }
 
-bool CompileFileContent::compile() { return collectObjects_(); }
+bool CompileFileContent::compile(Elaborate elaborate, Reduce reduce) {
+  m_helper.setElaborate(elaborate);
+  m_helper.setReduce(reduce);
+  return collectObjects_();
+}
 
 bool CompileFileContent::collectObjects_() {
   std::vector<VObjectType> stopPoints = {

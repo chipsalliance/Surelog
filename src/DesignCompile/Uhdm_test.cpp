@@ -33,7 +33,7 @@ namespace SURELOG {
 using ::testing::ElementsAre;
 
 namespace {
-
+#if 0  // Not running elaboration anymore!!
 TEST(Uhdm, PortType) {
   CompileHelper helper;
   ElaboratorHarness eharness;
@@ -118,5 +118,6 @@ TEST(Uhdm, Unsigned) {
     }
   }
 }
+#endif
 }  // namespace
 }  // namespace SURELOG

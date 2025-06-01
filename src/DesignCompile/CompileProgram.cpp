@@ -58,12 +58,15 @@ namespace SURELOG {
 int32_t FunctorCompileProgram::operator()() const {
   CompileProgram* instance = new CompileProgram(m_compileDesign, m_program,
                                                 m_design, m_symbols, m_errors);
-  instance->compile();
+  instance->compile(Elaborate::No, Reduce::No);
   delete instance;
   return 0;
 }
 
-bool CompileProgram::compile() {
+bool CompileProgram::compile(Elaborate elaborate, Reduce reduce) {
+  m_helper.setElaborate(elaborate);
+  m_helper.setReduce(reduce);
+
   const FileContent* fC = m_program->m_fileContents[0];
   NodeId nodeId = m_program->m_nodeIds[0];
 

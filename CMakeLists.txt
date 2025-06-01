@@ -216,7 +216,7 @@ if(MSVC)
       "${CMAKE_CXX_FLAGS_DEBUG} ${TCMALLOC_COMPILE_OPTIONS} /Zc:__cplusplus /W4 /bigobj ${MY_CXX_WARNING_FLAGS}"
   )
   set(CMAKE_CXX_FLAGS_RELWITHDEBINFO
-      "${CMAKE_CXX_FLAGS_RELEASE} ${TCMALLOC_COMPILE_OPTIONS} /Zc:__cplusplus /W4 /bigobj ${MY_CXX_WARNING_FLAGS}"
+      "${CMAKE_CXX_FLAGS_RELEASE} ${TCMALLOC_COMPILE_OPTIONS} /Zi /Zc:__cplusplus /W4 /bigobj ${MY_CXX_WARNING_FLAGS}"
   )
   set(CMAKE_CXX_FLAGS_RELEASE
       "${CMAKE_CXX_FLAGS_RELEASE} ${TCMALLOC_COMPILE_OPTIONS} /Zc:__cplusplus /W4 /bigobj ${MY_CXX_WARNING_FLAGS}"
@@ -235,6 +235,9 @@ else()
   #)
   set(CMAKE_CXX_FLAGS_DEBUG
       "${CMAKE_CXX_FLAGS_DEBUG} ${TCMALLOC_COMPILE_OPTIONS} -Wall -O0 -g ${MSYS_COMPILE_OPTIONS} ${MY_CXX_WARNING_FLAGS} ${MEM_SANITIZER_FLAGS}"
+  )
+  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO
+      "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} ${TCMALLOC_COMPILE_OPTIONS} -Wall -O3 -g ${MSYS_COMPILE_OPTIONS} -DNDEBUG ${MY_CXX_WARNING_FLAGS}"
   )
   set(CMAKE_CXX_FLAGS_RELEASE
       "${CMAKE_CXX_FLAGS_RELEASE} ${TCMALLOC_COMPILE_OPTIONS} -Wall -O3 ${MSYS_COMPILE_OPTIONS} -DNDEBUG ${MY_CXX_WARNING_FLAGS} ${MEM_SANITIZER_FLAGS}"
@@ -656,6 +659,10 @@ if (UNIX)
 endif()
 
 if (CMAKE_SYSTEM_NAME MATCHES "Linux")
+  if(NOT SURELOG_USE_HOST_UHDM)
+    target_link_libraries(uhdm PRIVATE stdc++fs)
+  endif()
+  target_link_libraries(surelog PRIVATE stdc++fs)
   target_link_libraries(surelog PRIVATE rt)
 endif()
 
@@ -962,15 +969,15 @@ if (WIN32)
       FILES ${Python3_RUNTIME_LIBRARY_DIRS}/python${Python3_VERSION_MAJOR}${Python3_VERSION_MINOR}$<$<CONFIG:Debug>:_d>.dll
       DESTINATION ${CMAKE_INSTALL_BINDIR})
   endif()
-  install(
-    FILES $<TARGET_PDB_FILE:roundtrip>
-          $<TARGET_PDB_FILE:surelog-bin>
-          ${UHDM_BINARY_DIR}/bin/uhdm-cmp.pdb
-          ${UHDM_BINARY_DIR}/bin/uhdm-dump.pdb
-          ${UHDM_BINARY_DIR}/bin/uhdm-hier.pdb
-    CONFIGURATIONS Debug RelWithDebInfo
-    DESTINATION ${CMAKE_INSTALL_BINDIR})
   if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+    install(
+      FILES $<TARGET_PDB_FILE:roundtrip>
+            $<TARGET_PDB_FILE:surelog-bin>
+            ${UHDM_BINARY_DIR}/bin/uhdm-cmp.pdb
+            ${UHDM_BINARY_DIR}/bin/uhdm-dump.pdb
+            ${UHDM_BINARY_DIR}/bin/uhdm-hier.pdb
+      CONFIGURATIONS Debug RelWithDebInfo
+      DESTINATION ${CMAKE_INSTALL_BINDIR})
     install(
       FILES ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/surelog.dir/surelog.pdb
             ${LIBANTLR4_BINARY_DIR}/runtime/$<TARGET_FILE_BASE_NAME:antlr4_static>.pdb

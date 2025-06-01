@@ -38,10 +38,11 @@ Package::Package(std::string_view name, Library* library, FileContent* fC,
                  NodeId nodeId)
     : DesignComponent(fC, nullptr), m_name(name), m_library(library) {
   addFileContent(fC, nodeId);
-  if (!name.empty()) {  // avoid loop
-    m_unElabPackage = new Package("", library, fC, nodeId);
-    m_unElabPackage->m_name = name;
-  }
+  m_unElabPackage = this;
+  // if (!name.empty()) {  // avoid loop
+  //   m_unElabPackage = new Package("", library, fC, nodeId);
+  //   m_unElabPackage->m_name = name;
+  // }
 }
 
 uint32_t Package::getSize() const {

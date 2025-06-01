@@ -58,26 +58,32 @@
 namespace SURELOG {
 
 int32_t FunctorCompilePackage::operator()() const {
-  CompilePackage* instance = new CompilePackage(m_compileDesign, m_package,
-                                                m_design, m_symbols, m_errors);
-  instance->compile(Reduce::Yes);
-  delete instance;
+  if (CompilePackage* instance =
+          new CompilePackage(m_compileDesign, m_package->getUnElabPackage(),
+                             m_design, m_symbols, m_errors)) {
+    instance->compile(Elaborate::No, Reduce::No);
+    delete instance;
+  }
 
-  instance = new CompilePackage(m_compileDesign, m_package->getUnElabPackage(),
-                                m_design, m_symbols, m_errors);
-  instance->compile(Reduce::No);
-  delete instance;
+  if (m_compileDesign->getCompiler()->getCommandLineParser()->elaborate()) {
+    if (CompilePackage* instance = new CompilePackage(
+            m_compileDesign, m_package, m_design, m_symbols, m_errors)) {
+      instance->compile(Elaborate::Yes, Reduce::Yes);
+      delete instance;
+    }
+  }
 
   return 0;
 }
 
-bool CompilePackage::compile(Reduce reduce) {
+bool CompilePackage::compile(Elaborate elaborate, Reduce reduce) {
   if (!m_package) return false;
   UHDM::Serializer& s = m_compileDesign->getSerializer();
   UHDM::package* pack = any_cast<UHDM::package*>(m_package->getUhdmInstance());
   const FileContent* fC = m_package->m_fileContents[0];
   NodeId packId = m_package->m_nodeIds[0];
-  m_helper.setElabMode(reduce == Reduce::Yes);
+  m_helper.setElaborate(elaborate);
+  m_helper.setReduce(reduce);
   if (pack == nullptr) {
     pack = s.MakePackage();
     pack->VpiName(m_package->getName());

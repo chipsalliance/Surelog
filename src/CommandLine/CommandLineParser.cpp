@@ -150,6 +150,7 @@ static const std::initializer_list<std::string_view> helpText = {
     "  -noparse              Turns off Parsing & Compilation & Elaboration",
     "  -nocomp               Turns off Compilation & Elaboration",
     "  -noelab               Turns off Elaboration",
+    "  -noreduce             Turns off reduction",
     "  -parseonly            Only Parses, reloads Preprocessor saved db",
     "  -init                 Initialize cache for separate compile flow",
     "                        (-sepcomp, -link)",
@@ -424,7 +425,8 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_noCacheHash(false),
       m_sepComp(false),
       m_link(false),
-      m_gc(true) {
+      m_gc(true),
+      m_reduce(true) {
   if (FileSystem::getInstance() == nullptr) {
     // Ensures that instance gets created early!
     FileSystem::setInstance(new PlatformFileSystem(fs::current_path()));
@@ -1323,6 +1325,8 @@ bool CommandLineParser::parseCommandLine(int32_t argc, const char** argv) {
       m_elaborate = false;
     } else if (all_arguments[i] == "-noelab") {
       m_elaborate = false;
+    } else if (all_arguments[i] == "-noreduce") {
+      m_reduce = false;
     } else if (all_arguments[i] == "-elabuhdm") {
       m_elaborate = true;
       m_elabUhdm = true;
@@ -1468,6 +1472,9 @@ bool CommandLineParser::parseCommandLine(int32_t argc, const char** argv) {
       }
     }
   }
+
+  // Force disable elaboration!!
+  m_elaborate = m_reduce = m_elabUhdm = m_coverUhdm = false;
 
   if (m_debugFSConfig) {
     fileSystem->printConfiguration(std::cout);

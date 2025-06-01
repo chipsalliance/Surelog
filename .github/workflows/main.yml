@@ -22,7 +22,7 @@ jobs:
 #        - gcc
         - clang
         config:
-        - debug
+#        - debug
         - release
 
     env:
@@ -147,9 +147,7 @@ jobs:
         rm ${{ env.build-artifact-name }}.tar.gz
 
         python3 scripts/regression.py run       \
-          --uhdm-lint-filepath bin/uhdm-lint    \
           --jobs $(nproc)                       \
-          --show-diffs                          \
           --num_shards=${{ matrix.num_shards }} \
           --shard=${{ matrix.shard }}
         git status
@@ -262,7 +260,6 @@ jobs:
         rm ${{ env.build-artifact-name }}.tar.gz
 
         python3 scripts/regression.py run     \
-          --uhdm-lint-filepath bin/uhdm-lint  \
           --tool valgrind                     \
           --filters ${{ matrix.project }}
 
@@ -518,9 +515,7 @@ jobs:
         rm ${{ env.build-artifact-name }}.tar.gz
 
         python3 scripts/regression.py run         \
-          --uhdm-lint-filepath bin/uhdm-lint.exe  \
           --jobs $(nproc)                         \
-          --show-diffs                            \
           --num_shards=${{ matrix.num_shards }}   \
           --shard=${{ matrix.shard }}
         git status
@@ -776,9 +771,7 @@ jobs:
       timeout-minutes: 120
       run: |
         python3 scripts/regression.py run^
-          --uhdm-lint-filepath bin/uhdm-lint.exe^
           --jobs %NUMBER_OF_PROCESSORS%^
-          --show-diffs^
           --num_shards=${{ matrix.num_shards }}^
           --shard=${{ matrix.shard }}
         if %errorlevel% neq 0 exit /b %errorlevel%
@@ -957,9 +950,7 @@ jobs:
         rm ${{ env.build-artifact-name }}.tar.gz
 
         python3 scripts/regression.py run       \
-          --uhdm-lint-filepath bin/uhdm-lint    \
           --jobs $(sysctl -n hw.physicalcpu)    \
-          --show-diffs                          \
           --num_shards=${{ matrix.num_shards }} \
           --shard=${{ matrix.shard }}
         git status

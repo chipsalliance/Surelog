@@ -654,7 +654,9 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
         param_assign->Lhs(param);
         param_assign->Rhs((expr*)compileExpression(
             component, fC, value, compileDesign,
-            ((reduce == Reduce::Yes) || instance) ? Reduce::Yes : Reduce::No,
+            ((m_reduce == Reduce::Yes) && (reduce == Reduce::Yes) && instance)
+                ? Reduce::Yes
+                : Reduce::No,
             param_assign, nullptr));
         Param_assignment = fC->Sibling(Param_assignment);
       }

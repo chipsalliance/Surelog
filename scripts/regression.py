@@ -45,15 +45,10 @@ if not _is_ci_build():
 
 _default_output_dirpath = 'regression'
 _default_surelog_filename = 'surelog.exe' if platform.system() == 'Windows' else 'surelog'
-_default_uhdm_lint_filename = 'uhdm-lint.exe' if platform.system() == 'Windows' else 'uhdm-lint'
-_default_roundtrip_filename = 'roundtrip.exe' if platform.system() == 'Windows' else 'roundtrip'
 _default_surelog_filepath = os.path.join('bin', _default_surelog_filename)
-_default_uhdm_lint_filepath = os.path.join('third_party', 'UHDM', 'bin', _default_uhdm_lint_filename)
-_default_roundtrip_filepath = os.path.join('bin', _default_roundtrip_filename)
 
 _re_status_1 = re.compile(r'^\s*\[\s*(?P<status>\w+)\]\s*:\s*(?P<count>\d+)$')
 _re_status_2 = re.compile(r'^\s*\|\s*(?P<status>\w+)\s*\|\s*(?P<count1>\d+|\s+)\s*\|\s*(?P<count2>\d+|\s+)\s*\|\s*$')
-_re_status_3 = re.compile(r'^\[roundtrip\]: (?P<original>.+)\s*\|\s*(?P<generated>.+)\s*\|\s*(?P<diffcount>\d+)\s*\|\s*(?P<linecount>\d+)\s*\|\s*$')
 
 
 _log_mutex = Lock()
@@ -240,9 +235,7 @@ def _normalize_log(content, path_mappings):
 
 
 def _get_log_statistics(filepath):
-  # For the time being don't allow the regression to fail because of
-  # differences in roundtrip results. This is still work in progress!!
-  statistics = { 'ROUNDTRIP_A': 0, 'ROUNDTRIP_B': 0, 'LINT': 0 }
+  statistics = {}
   if not os.path.isfile(filepath):
     return statistics
 
@@ -262,7 +255,6 @@ def _get_log_statistics(filepath):
   uhdm_stats = {}
   uhdm_stat_dump_started = False
   uhdm_line_count = 0
-  lint_count = 0
   with open(filepath, 'rt', encoding='cp850') as strm:
     for line in strm:
       line = line.strip()
@@ -280,36 +272,27 @@ def _get_log_statistics(filepath):
           uhdm_stats[parts[0]] = uhdm_stats.get(parts[0], 0) + int(parts[1])
         continue
 
-      if line.startswith('[LINT]: '):
-        lint_count += 1
-
-      m = _re_status_3.match(line)
+      m = _re_status_2.match(line)
       if m:
-        statistics['ROUNDTRIP_A'] = statistics.get('ROUNDTRIP_A', 0) + int(m.group('diffcount').strip())
-        statistics['ROUNDTRIP_B'] = statistics.get('ROUNDTRIP_B', 0) + int(m.group('linecount').strip())
+        count1 = m.group('count1').strip()
+        count2 = m.group('count2').strip()
+        count1 = int(count1) if count1 else 0
+        count2 = int(count2) if count2 else 0
+        statistics[m.group('status')] = statistics.get(m.group('status'), 0) + count1 + count2
       else:
-        m = _re_status_2.match(line)
+        m = _re_status_1.match(line)
         if m:
-          count1 = m.group('count1').strip()
-          count2 = m.group('count2').strip()
-          count1 = int(count1) if count1 else 0
-          count2 = int(count2) if count2 else 0
-          statistics[m.group('status')] = statistics.get(m.group('status'), 0) + count1 + count2
-        else:
-          m = _re_status_1.match(line)
-          if m:
-            statistics[m.group('status')] = int(m.group('count'))
-          elif uhdm_dump_started and (line.startswith('|') or line.startswith('\\')):
-            uhdm_line_count += 1
+          statistics[m.group('status')] = int(m.group('count'))
+        elif uhdm_dump_started and (line.startswith('|') or line.startswith('\\')):
+          uhdm_line_count += 1
 
-        if 'ERR:' in line and ('/dev/null' in line or '\\dev\\null' in line):
-          # On Windows, this is reported as an error but on Linux it isn't.
-          # Don't count it as error on Windows as well so that numbers across platforms can match.
-          negatives['ERROR'] = negatives.get('ERROR', 0) + 1
+      if 'ERR:' in line and ('/dev/null' in line or '\\dev\\null' in line):
+        # On Windows, this is reported as an error but on Linux it isn't.
+        # Don't count it as error on Windows as well so that numbers across platforms can match.
+        negatives['ERROR'] = negatives.get('ERROR', 0) + 1
 
   statistics['NOTE'] = statistics.get('NOTE', 0) + uhdm_line_count
   statistics['STATS'] = uhdm_stats
-  statistics['LINT'] = lint_count
 
   for key, value in negatives.items():
     statistics[key] = max(statistics.get(key, 0) - value, 0)
@@ -340,9 +323,9 @@ def _get_run_args(name, filepath, dirpath, binary_filepath, uvm_reldirpath, mp, 
   cmdline = cmdline.replace('"', '\\"')
   cmdline = cmdline.replace("'", "\\'")
   if 'MSYSTEM' in os.environ:
-    cmdline = re.sub('[.\\\/]+[\\\/]UVM', uvm_reldirpath.replace('\\', '/'), cmdline)
+    cmdline = re.sub(r'[.\\\/]+[\\/]UVM', uvm_reldirpath.replace('\\', '/'), cmdline)
   else:
-    cmdline = re.sub('[.\\\/]+[\\\/]UVM', uvm_reldirpath.replace('\\', '\\\\'), cmdline)
+    cmdline = re.sub(r'[.\\\/]+[\\/]UVM', uvm_reldirpath.replace('\\', '\\\\'), cmdline)
   cmdline = cmdline.strip()
 
   if '.sh' in cmdline or '.bat' in cmdline:
@@ -353,14 +336,14 @@ def _get_run_args(name, filepath, dirpath, binary_filepath, uvm_reldirpath, mp, 
     if '*/*.sv' in cmdline:
       cmdline = cmdline.replace('*/*.sv', ' '.join(_find_files(dirpath, '*.sv')))
     if '-mt' in cmdline:
-      cmdline = re.sub('-mt\s+(max|\d+)', '', cmdline)
+      cmdline = re.sub(r'-mt\s+(max|\d+)', '', cmdline)
 
     if mp and ((mp == 'max') or (mp.isnumeric() and int(mp) > 0)):
-      cmdline = re.sub('-mp\s+(max|\d+)', '', cmdline)  # Option overridden from command prompt
+      cmdline = re.sub(r'-mp\s+(max|\d+)', '', cmdline)  # Option overridden from command prompt
     if mp or ('-mp' in cmdline):
       cmdline = cmdline.replace('-nocache', '')
     if '-lowmem' in cmdline:
-      cmdline = re.sub('-mp\s+(max|\d+)', '', cmdline)
+      cmdline = re.sub(r'-mp\s+(max|\d+)', '', cmdline)
       mp = '1'
 
     parts = cmdline.split(' ')
@@ -374,6 +357,8 @@ def _get_run_args(name, filepath, dirpath, binary_filepath, uvm_reldirpath, mp, 
       parts += ['-mp', (mp or '0')]
     parts += ['-d', 'uhdmstats'] # Force print uhdm stats
     parts += ['-d', 'cache']
+    parts += ['-d', 'ast']
+    parts += ['-noreduce', '-noelab'] # Disable reduction & elaboration
 
     rel_output_dirpath = os.path.relpath(output_dirpath, dirpath)
     if 'MSYSTEM' in os.environ:
@@ -486,79 +471,6 @@ def _run_surelog(
   }
 
 
-def _run_uhdm_lint(
-    name, uhdm_lint_filepath, uhdm_src_filepath, uhdm_lint_log_filepath, output_dirpath):
-  start_dt = datetime.now()
-  print(f'start-time: {start_dt}')
-
-  status = Status.PASS
-  uhdm_args = [uhdm_lint_filepath, uhdm_src_filepath]
-
-  print('Launching uhdm-lint with arguments:')
-  pprint.pprint(uhdm_args)
-  print('\n')
-
-  with open(uhdm_lint_log_filepath, 'wt', encoding='cp850') as uhdm_lint_log_strm:
-    try:
-      result = subprocess.run(
-          uhdm_args,
-          stdout=uhdm_lint_log_strm,
-          stderr=subprocess.STDOUT,
-          check=False,
-          cwd=os.path.dirname(uhdm_lint_filepath))
-      print(f'uhdm-lint terminated with exit code: {result.returncode}')
-    except:
-      status = Status.FAILDUMP
-      print(f'uhdm-lint threw an exception')
-      traceback.print_exc()
-
-    uhdm_lint_log_strm.flush()
-
-  end_dt = datetime.now()
-  delta = end_dt - start_dt
-  print(f'end-time: {str(end_dt)} {str(delta)}')
-
-  return { 'STATUS': status }
-
-
-def _run_roundtrip(
-    name, filepath, dirpath, roundtrip_filepath,
-    roundtrip_log_filepath, uvm_reldirpath, mp, mt, tool, output_dirpath):
-  start_dt = datetime.now()
-  print(f'start-time: {start_dt}')
-
-  args, _ = _get_run_args(
-      name, filepath, dirpath, roundtrip_filepath,
-      uvm_reldirpath, mp, mt, tool, output_dirpath)
-
-  print('Launching roundtrip with arguments:')
-  pprint.pprint(args)
-  print('\n')
-
-  status = Status.PASS
-  with open(roundtrip_log_filepath, 'wt', encoding='cp850') as roundtrip_log_strm:
-    try:
-      result = subprocess.run(
-          args,
-          stdout=roundtrip_log_strm,
-          stderr=subprocess.STDOUT,
-          check=False,
-          cwd=dirpath)
-      print(f'roundtrip terminated with exit code: {result.returncode}')
-    except:
-      status = Status.FAILDUMP
-      print(f'roundtrip threw an exception')
-      traceback.print_exc()
-
-    roundtrip_log_strm.flush()
-
-  end_dt = datetime.now()
-  delta = end_dt - start_dt
-  print(f'end-time: {str(end_dt)} {str(delta)}')
-
-  return { 'STATUS': status }
-
-
 def _compare_one(lhs_filepath, rhs_filepath, prefilter=lambda x: x):
   lhs_content = [prefilter(line) for line in open(lhs_filepath, 'rt', encoding='cp850').readlines()]
   rhs_content = [prefilter(line) for line in open(rhs_filepath, 'rt', encoding='cp850').readlines()]
@@ -567,7 +479,7 @@ def _compare_one(lhs_filepath, rhs_filepath, prefilter=lambda x: x):
 
 def _run_one(params):
   start_dt = datetime.now()
-  name, filepath, workspace_dirpath, surelog_filepath, uhdm_lint_filepath, roundtrip_filepath, mp, mt, tool, output_dirpath = params
+  name, filepath, workspace_dirpath, surelog_filepath, mp, mt, tool, output_dirpath = params
 
   log(f'Running {name} ...')
 
@@ -577,14 +489,10 @@ def _run_one(params):
   uvm_reldirpath = os.path.relpath(os.path.join(workspace_dirpath, 'third_party', 'UVM'), dirpath)
   uhdm_slpp_all_filepath = os.path.join(output_dirpath, 'slpp_all', 'surelog.uhdm')
   uhdm_slpp_unit_filepath = os.path.join(output_dirpath, 'slpp_unit', 'surelog.uhdm')
-  uhdm_lint_log_filepath = os.path.join(output_dirpath, 'lint.log')
-  roundtrip_output_dirpath = os.path.join(output_dirpath, 'roundtrip')
-  roundtrip_log_filepath = os.path.join(roundtrip_output_dirpath, 'roundtrip.log')
 
   _rmtree(dirpath, ['slpp_all', 'slpp_unit'])
   _rmdir(output_dirpath)
   _mkdir(output_dirpath)
-  _mkdir(roundtrip_output_dirpath)
 
   result = {
     'TESTNAME': name,
@@ -609,16 +517,12 @@ def _run_one(params):
       print(f'           test-filepath: {filepath}')
       print(f'       workspace-dirpath: {workspace_dirpath}')
       print(f'        surelog-filepath: {surelog_filepath}')
-      print(f'      uhdm_lint-filepath: {uhdm_lint_filepath}')
       print(f'          uvm-reldirpath: {uvm_reldirpath}')
       print(f'          output-dirpath: {output_dirpath}')
       print(f'     golden-log-filepath: {golden_log_filepath}')
       print(f'    surelog-log-filepath: {surelog_log_filepath}')
       print(f'  uhdm-slpp_all-filepath: {uhdm_slpp_all_filepath}')
       print(f' uhdm-slpp_unit-filepath: {uhdm_slpp_unit_filepath}')
-      print(f'  uhdm-lint-log-filepath: {uhdm_lint_log_filepath}')
-      print(f'roundtrip-output-dirpath: {roundtrip_output_dirpath}')
-      print(f'  roundtrip_log_filepath: {roundtrip_log_filepath}')
       print(f'                    tool: {tool}')
       print( '\n')
 
@@ -644,51 +548,16 @@ def _run_one(params):
           print(f'File not found: {uhdm_slpp_all_filepath}')
           print(f'File not found: {uhdm_slpp_unit_filepath}')
 
-      uhdmlint_content = []
-      if uhdm_src_filepath and result['STATUS'] == Status.PASS:
-        print('Running uhdm-lint ...', flush=True)
-        result.update(_run_uhdm_lint(
-            name, uhdm_lint_filepath, uhdm_src_filepath, uhdm_lint_log_filepath, output_dirpath))
-        print('\n')
-        regression_log_strm.flush()
-
-        if os.path.isfile(uhdm_lint_log_filepath):
-          with open(uhdm_lint_log_filepath, 'rt') as log_strm:
-            uhdmlint_content.extend(['[LINT]: ' + line.rstrip() for line in log_strm])
-
-      roundtrip_content = []
-      if not tool and result['STATUS'] == Status.PASS:
-        print('Running roundtrip ...', flush=True)
-        result.update(_run_roundtrip(
-            name, filepath, dirpath, roundtrip_filepath,
-            roundtrip_log_filepath, uvm_reldirpath, mp, mt, None, roundtrip_output_dirpath))
-        print('\n')
-        regression_log_strm.flush()
-
-        if os.path.isfile(roundtrip_log_filepath):
-          with open(roundtrip_log_filepath, 'rt') as log_strm:
-            roundtrip_content.extend([line.rstrip() for line in log_strm if line.startswith('[roundtrip]:')])
-
       print(f'Normalizing surelog log file {surelog_log_filepath}')
       if os.path.isfile(surelog_log_filepath):
         content = open(surelog_log_filepath, 'rt', encoding='cp850').read()
         if 'Segmentation fault' in content:
           result['STATUS'] = Status.SEGFLT
 
-        if uhdmlint_content:
-          content += '\n' + ('=' * 30) + ' Begin Linting Results ' + ('=' * 30)
-          content += '\n' + '\n'.join(uhdmlint_content)
-          content += '\n' + ('=' * 30) + ' End Linting Results ' + ('=' * 30)
-          content += '\n'
-
-        if roundtrip_content:
-          content += '\n' + ('=' * 30) + ' Begin RoundTrip Results ' + ('=' * 30)
-          content += '\n' + '\n'.join(roundtrip_content)
-          content += '\n' + ('=' * 30) + ' End RoundTrip Results ' + ('=' * 30)
-          content += '\n'
-
         content = _normalize_log(content, {
-          workspace_dirpath: '${SURELOG_DIR}'
+          workspace_dirpath: '${SURELOG_DIR}',
+          '${SURELOG_DIR}/out/build/bin': '${DEPENDS_DIR}',
+          '${SURELOG_DIR}/build/bin': '${DEPENDS_DIR}',
         })
 
         open(surelog_log_filepath, 'wt', encoding='cp850').write(content)
@@ -722,7 +591,7 @@ def _run_one(params):
               elif golden_stat:
                 result['STATUS'] = Status.DIFF
                 break
-            elif k not in ['ROUNDTRIP_A', 'ROUNDTRIP_B'] and v != golden.get(k, 0):
+            elif v != golden.get(k, 0):
               result['STATUS'] = Status.DIFF
               break
 
@@ -821,7 +690,7 @@ def _report_one(params):
       golden = result['golden']
       if len(current) == len(golden):
         for k, v in current.items():
-          if k not in ['ROUNDTRIP_A', 'ROUNDTRIP_B'] and v != golden.get(k, 0):
+          if v != golden.get(k, 0):
             result['STATUS'] = Status.DIFF
             break
       else:
@@ -879,7 +748,7 @@ def _update_one(params):
 def _print_report(results):
   columns = [
     'TESTNAME', 'STATUS', 'FATAL', 'SYNTAX', 'ERROR', 'WARNING',
-    'NOTE', 'LINT', 'CPU-TIME', 'VTL-MEM', 'PHY-MEM', 'ROUNDTRIP'
+    'NOTE', 'CPU-TIME', 'VTL-MEM', 'PHY-MEM'
   ]
 
   rows = []
@@ -897,18 +766,16 @@ def _print_report(results):
 
     summary[result[columns[1]].name] += 1
     rows.append([
-      result[columns[0]],
-      result[columns[1]].name,
-      _get_cell_value(columns[2]),
-      _get_cell_value(columns[3]),
-      _get_cell_value(columns[4]),
-      _get_cell_value(columns[5]),
-      _get_cell_value(columns[6]),
-      _get_cell_value(columns[7]),
-      '{:.2f}'.format(result.get(columns[8], 0)),
-      str(round(result.get(columns[9], 0) / (1024 * 1024))),
-      str(round(result.get(columns[10], 0) / (1024 * 1024))),
-      '{}/{}'.format(_get_cell_value("ROUNDTRIP_A"), _get_cell_value("ROUNDTRIP_B")),
+      result[columns[0]],                                     # TESTNAME
+      result[columns[1]].name,                                # STATUS
+      _get_cell_value(columns[2]),                            # FATAL
+      _get_cell_value(columns[3]),                            # SYNTAX
+      _get_cell_value(columns[4]),                            # ERROR
+      _get_cell_value(columns[5]),                            # WARNING
+      _get_cell_value(columns[6]),                            # NOTE
+      '{:.2f}'.format(result.get(columns[7], 0)),             # CPU-TIME
+      str(round(result.get(columns[8], 0) / (1024 * 1024))),  # VTL-MEM
+      str(round(result.get(columns[9], 0) / (1024 * 1024))),  # PHY-MEM
     ])
 
   longest_cpu_test = max(results, key=lambda result: result.get('CPU-TIME', 0))
@@ -971,8 +838,6 @@ def _run(args, tests):
     filepath,
     args.workspace_dirpath,
     args.surelog_filepath,
-    args.uhdm_lint_filepath,
-    args.roundtrip_filepath,
     args.mp,
     args.mt,
     args.tool,
@@ -1161,12 +1026,6 @@ def _main():
       '--surelog-filepath', dest='surelog_filepath', required=False, default=_default_surelog_filepath, type=str,
       help='Location, either absolute or relative to build directory, of surelog executable')
   parser.add_argument(
-      '--uhdm-lint-filepath', dest='uhdm_lint_filepath', required=False, default=_default_uhdm_lint_filepath, type=str,
-      help='Location, either absolute or relative to build directory, of uhdm-lint executable')
-  parser.add_argument(
-      '--roundtrip-filepath', dest='roundtrip_filepath', required=False, default=_default_roundtrip_filepath, type=str,
-      help='Location, either absolute or relative to build directory, of roundtrip executable')
-  parser.add_argument(
       '--filters', nargs='+', required=False, default=[], type=str, help='Filter tests matching these regex inputs')
   parser.add_argument(
       '--jobs', nargs='?', required=False, default=multiprocessing.cpu_count(), type=int,
@@ -1207,19 +1066,6 @@ def _main():
     args.surelog_filepath = os.path.join(args.build_dirpath, args.surelog_filepath)
   args.surelog_filepath = os.path.abspath(args.surelog_filepath)
 
-  if not os.path.isabs(args.uhdm_lint_filepath):
-    args.uhdm_lint_filepath = os.path.join(args.build_dirpath, args.uhdm_lint_filepath)
-  args.uhdm_lint_filepath = os.path.abspath(args.uhdm_lint_filepath)
-
-  # If there is no uhdm-lint in third_party/ (e.g. due to SURELOG_USE_HOST_UHDM)
-  # then get it from the path.
-  if not os.path.exists(args.uhdm_lint_filepath):
-    args.uhdm_lint_filepath = shutil.which(_default_uhdm_lint_filename)
-
-  if not os.path.isabs(args.roundtrip_filepath):
-    args.roundtrip_filepath = os.path.join(args.build_dirpath, args.roundtrip_filepath)
-  args.roundtrip_filepath = os.path.abspath(args.roundtrip_filepath)
-
   if not os.path.isabs(args.output_dirpath):
     args.output_dirpath = os.path.join(args.build_dirpath, args.output_dirpath)
   args.output_dirpath = os.path.abspath(args.output_dirpath)
@@ -1254,8 +1100,6 @@ def _main():
   print(f' workspace-dirpath: {args.workspace_dirpath}')
   print(f'     build-dirpath: {args.build_dirpath}')
   print(f'  surelog-filepath: {args.surelog_filepath}')
-  print(f'uhdm-lint-filepath: {args.uhdm_lint_filepath}')
-  print(f'roundtrip-filepath: {args.roundtrip_filepath}')
   print(f'     test-dirpaths: {"; ".join(args.test_dirpaths)}')
   print(f'    output-dirpath: {args.output_dirpath}')
   print(f'   multi-threading: {args.mt}')

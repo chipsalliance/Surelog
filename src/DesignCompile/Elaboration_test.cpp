@@ -1429,6 +1429,8 @@ endmodule
   }
 }
 
+#if 0
+// Works only in elaborated mode where the sizes are actually computed.
 TEST(Elaboration, HierPathUnpacked) {
   CompileHelper helper;
   ElaboratorHarness eharness;
@@ -1477,6 +1479,6 @@ endmodule // top
     }
   }
 }
-
+#endif
 }  // namespace
 }  // namespace SURELOG

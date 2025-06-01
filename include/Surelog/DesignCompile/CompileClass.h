@@ -71,7 +71,7 @@ class CompileClass final {
   }
   CompileClass(const CompileClass&) = delete;
 
-  bool compile();
+  bool compile(Elaborate elaborate, Reduce reduce);
 
  private:
   CompileDesign* const m_compileDesign;

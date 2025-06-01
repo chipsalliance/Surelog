@@ -85,7 +85,17 @@ std::string_view FileContent::SymName(NodeId index) const {
 }
 
 NodeId FileContent::getRootNode() const {
-  return m_objects.empty() ? InvalidNodeId : m_objects[1].m_sibling;
+  if (m_objects.empty()) return InvalidNodeId;
+
+  int32_t index = static_cast<int32_t>(m_objects.size());
+  while (--index >= 0) {
+    if ((m_objects[index].m_type == VObjectType::ppTop_level_rule) ||
+        (m_objects[index].m_type == VObjectType::paTop_level_rule) ||
+        (m_objects[index].m_type == VObjectType::paTop_level_library_rule)) {
+      return NodeId(index);
+    }
+  }
+  return InvalidNodeId;
 }
 
 PathId FileContent::getFileId(NodeId id) const {
@@ -96,37 +106,72 @@ PathId* FileContent::getMutableFileId(NodeId id) {
   return &m_objects[id].m_fileId;
 }
 
-std::string FileContent::printObjects() const {
-  std::string text;
-  NodeId index(0);
+void FileContent::printTree(std::ostream& strm, NodeId id,
+                            size_t indent /* = 0 */) const {
+  if (!id) return;
 
-  StrAppend(&text, "AST_DEBUG_BEGIN\n");
-  if (m_library) StrAppend(&text, "LIB:  ", m_library->getName(), "\n");
-  StrAppend(&text, "FILE: ", FileSystem::getInstance()->toPath(m_fileId), "\n");
-  for (const auto& object : m_objects) {
-    StrAppend(
-        &text,
-        object.print(m_symbolTable, index, GetDefinitionFile(index), m_fileId),
-        "\n");
-    index++;
+  strm << std::string(indent * 2, ' ')
+       << m_objects[id].print(m_symbolTable, id, GetDefinitionFile(id),
+                              m_fileId)
+       << std::endl;
+  for (NodeId childId = m_objects[id].m_child; childId;
+       childId = m_objects[childId].m_sibling) {
+    printTree(strm, childId, indent + 1);
   }
-  StrAppend(&text, "AST_DEBUG_END\n");
-  return text;
+}
+
+void FileContent::printTree(std::ostream& strm) const {
+  FileSystem* const fileSystem = FileSystem::getInstance();
+  strm << "AST_DEBUG_BEGIN" << std::endl;
+  strm << "Count: " << m_objects.size() << std::endl;
+  if (m_library) strm << "LIB: " << m_library->getName() << std::endl;
+  strm << "FILE: " << fileSystem->toPath(m_fileId) << std::endl;
+
+  PathIdSet includes;
+  for (const auto& object : m_objects) {
+    if (object.m_fileId && (object.m_fileId != m_fileId)) {
+      includes.insert(object.m_fileId);
+    }
+  }
+  for (const PathId& include : includes) {
+    strm << "INCL f<" << (RawPathId)include
+         << ">: " << fileSystem->toPath(include) << std::endl;
+  }
+
+  printTree(strm, getRootNode(), 0);
+  strm << "AST_DEBUG_END" << std::endl;
+}
+
+std::string FileContent::printObjects() const {
+  FileSystem* const fileSystem = FileSystem::getInstance();
+  std::ostringstream strm;
+
+  strm << "AST_DEBUG_BEGIN\n";
+  strm << "Count: " << m_objects.size() << "\n";
+  if (m_library) strm << "LIB: " << m_library->getName() << "\n";
+  strm << "FILE f<" << (RawPathId)m_fileId
+       << ">:" << fileSystem->toPath(m_fileId) << "\n";
+  PathIdSet includes;
+  for (const auto& object : m_objects) {
+    if (object.m_fileId && (object.m_fileId != m_fileId)) {
+      includes.insert(object.m_fileId);
+    }
+  }
+  for (const PathId& include : includes) {
+    strm << "INCL f<" << (RawPathId)include
+         << ">: " << fileSystem->toPath(include) << "\n";
+  }
+  if (const NodeId id = getRootNode()) {
+    printTree(strm, id, 0);
+  }
+  strm << "AST_DEBUG_END\n";
+  return strm.str();
 }
 
 std::string FileContent::printObject(NodeId nodeId) const {
   if (!nodeId || (nodeId >= m_objects.size())) return "";
   return m_objects[nodeId].print(m_symbolTable, nodeId,
                                  GetDefinitionFile(nodeId), m_fileId);
-}
-
-std::string FileContent::printSubTree(NodeId nodeId) const {
-  if (!nodeId || (nodeId >= m_objects.size())) return "";
-  std::string text;
-  for (const auto& s : collectSubTree(nodeId)) {
-    text += s + "\n";
-  }
-  return text;
 }
 
 void FileContent::insertObjectLookup(std::string_view name, NodeId id,
@@ -194,27 +239,6 @@ const ClassDefinition* FileContent::getClassDefinition(
   } else {
     return (*itr).second;
   }
-}
-
-std::vector<std::string> FileContent::collectSubTree(NodeId index) const {
-  std::vector<std::string> text;
-
-  text.push_back(m_objects[index].print(m_symbolTable, index,
-                                        GetDefinitionFile(index), m_fileId));
-
-  if (m_objects[index].m_child) {
-    for (const auto& s : collectSubTree(m_objects[index].m_child)) {
-      text.push_back("    " + s);
-    }
-  }
-
-  if (m_objects[index].m_sibling) {
-    for (const auto& s : collectSubTree(m_objects[index].m_sibling)) {
-      text.push_back(s);
-    }
-  }
-
-  return text;
 }
 
 void FileContent::SetDefinitionFile(NodeId index, PathId def) {

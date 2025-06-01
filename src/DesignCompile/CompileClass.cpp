@@ -62,13 +62,16 @@ namespace SURELOG {
 int32_t FunctorCompileClass::operator()() const {
   CompileClass* instance =
       new CompileClass(m_compileDesign, m_class, m_design, m_symbols, m_errors);
-  instance->compile();
+  instance->compile(Elaborate::No, Reduce::No);
   delete instance;
   return true;
 }
 
-bool CompileClass::compile() {
+bool CompileClass::compile(Elaborate elaborate, Reduce reduce) {
   if (m_class->m_fileContents.empty()) return true;
+
+  m_helper.setElaborate(elaborate);
+  m_helper.setReduce(reduce);
 
   const FileContent* fC = m_class->m_fileContents[0];
   if (fC == nullptr) return true;
@@ -702,7 +705,7 @@ bool CompileClass::compile_class_declaration_(const FileContent* fC,
 
   CompileClass* instance = new CompileClass(m_compileDesign, the_class,
                                             m_design, m_symbols, m_errors);
-  instance->compile();
+  instance->compile(m_helper.getElaborate(), m_helper.getReduce());
   delete instance;
 
   return true;

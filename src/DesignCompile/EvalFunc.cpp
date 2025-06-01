@@ -55,6 +55,11 @@ expr* CompileHelper::EvalFunc(UHDM::function* func, std::vector<any*>* args,
                               CompileDesign* compileDesign,
                               ValuedComponentI* instance, PathId fileId,
                               uint32_t lineNumber, any* pexpr) {
+  if (m_reduce == Reduce::Yes) {
+    invalidValue = true;
+    return nullptr;
+  }
+
   UHDM::GetObjectFunctor getObjectFunctor =
       [&](std::string_view name, const any* inst,
           const any* pexpr) -> UHDM::any* {
@@ -99,7 +104,7 @@ void CompileHelper::evalScheduledExprs(DesignComponent* component,
         reduceExpr(expr_eval.m_expr, invalidValue, component, compileDesign,
                    expr_eval.m_instance, expr_eval.m_fileId,
                    expr_eval.m_lineNumber, expr_eval.m_pexpr);
-    if (result && result->UhdmType() == uhdmconstant) {
+    if (!invalidValue && result && (result->UhdmType() == uhdmconstant)) {
       UHDM::constant* c = (UHDM::constant*)result;
       Value* val = m_exprBuilder.fromVpiValue(c->VpiValue(), c->VpiSize());
       component->setValue(name, val, m_exprBuilder);

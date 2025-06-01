@@ -79,14 +79,28 @@
 namespace SURELOG {
 
 int32_t FunctorCompileModule::operator()() const {
-  CompileModule* instance = new CompileModule(
-      m_compileDesign, m_module, m_design, m_symbols, m_errors, m_instance);
-  instance->compile();
-  delete instance;
+  if (CompileModule* instance =
+          new CompileModule(m_compileDesign, m_module->getUnelabMmodule(),
+                            m_design, m_symbols, m_errors, nullptr)) {
+    instance->compile(Elaborate::No, Reduce::No);
+    delete instance;
+  }
+
+  if (m_compileDesign->getCompiler()->getCommandLineParser()->elaborate()) {
+    if (CompileModule* instance =
+            new CompileModule(m_compileDesign, m_module, m_design, m_symbols,
+                              m_errors, nullptr)) {
+      instance->compile(Elaborate::Yes, Reduce::Yes);
+      delete instance;
+    }
+  }
+
   return 0;
 }
 
-bool CompileModule::compile() {
+bool CompileModule::compile(Elaborate elaborate, Reduce reduce) {
+  m_helper.setElaborate(elaborate);
+  m_helper.setReduce(reduce);
   const FileContent* const fC = m_module->m_fileContents[0];
   NodeId nodeId = m_module->m_nodeIds[0];
   Location loc(fC->getFileId(nodeId), fC->Line(nodeId), fC->Column(nodeId),
@@ -125,6 +139,8 @@ bool CompileModule::compile() {
   }
 
   m_module->setDesignElement(fC->getDesignElement(m_module->getName()));
+  m_helper.setElaborate(elaborate);
+  m_helper.setReduce(reduce);
 
   CommandLineParser* clp =
       m_compileDesign->getCompiler()->getCommandLineParser();

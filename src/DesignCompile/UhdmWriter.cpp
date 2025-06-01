@@ -4695,7 +4695,8 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
   m_compileDesign->getCompiler()->getErrorContainer()->printMessages(
       m_compileDesign->getCompiler()->getCommandLineParser()->muteStdout());
 
-  m_helper.setElabMode(false);
+  m_helper.setElaborate(Elaborate::No);
+  m_helper.setReduce(Reduce::No);
 
   // Compute list of design components that are part of the instance tree
   std::set<DesignComponent*> designComponents;
@@ -4812,38 +4813,42 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
       }
     }
 
-    m_helper.setElabMode(true);
+    if (m_compileDesign->getCompiler()->getCommandLineParser()->elaborate()) {
+      m_helper.setElaborate(Elaborate::Yes);
+      m_helper.setReduce(Reduce::Yes);
 
-    VectorOfpackage* v2 = s.MakePackageVec();
-    for (Package* pack : packages) {
-      if (!pack) continue;
-      if (!pack->getFileContents().empty() &&
-          pack->getType() == VObjectType::paPackage_declaration) {
-        const FileContent* fC = pack->getFileContents()[0];
-        package* p = (package*)pack->getUhdmInstance();
-        m_componentMap.emplace(pack, p);
-        p->VpiParent(d);
-        p->VpiTop(true);
-        p->VpiDefName(pack->getName());
-        if (pack->Attributes() != nullptr) {
-          p->Attributes(pack->Attributes());
-          for (auto a : *p->Attributes()) {
-            a->VpiParent(p);
+      VectorOfpackage* v2 = s.MakePackageVec();
+      for (Package* pack : packages) {
+        if (!pack) continue;
+        if (!pack->getFileContents().empty() &&
+            pack->getType() == VObjectType::paPackage_declaration) {
+          const FileContent* fC = pack->getFileContents()[0];
+          package* p = (package*)pack->getUhdmInstance();
+          m_componentMap.emplace(pack, p);
+          p->VpiParent(d);
+          p->VpiTop(true);
+          p->VpiDefName(pack->getName());
+          if (pack->Attributes() != nullptr) {
+            p->Attributes(pack->Attributes());
+            for (auto a : *p->Attributes()) {
+              a->VpiParent(p);
+            }
           }
+          writePackage(pack, p, s, true);
+          if (fC) {
+            // Builtin package has no file
+            const NodeId modId = pack->getNodeIds()[0];
+            const NodeId startId =
+                fC->sl_collect(modId, VObjectType::paPACKAGE);
+            fC->populateCoreMembers(startId, modId, p);
+          }
+          v2->push_back(p);
         }
-        writePackage(pack, p, s, true);
-        if (fC) {
-          // Builtin package has no file
-          const NodeId modId = pack->getNodeIds()[0];
-          const NodeId startId = fC->sl_collect(modId, VObjectType::paPACKAGE);
-          fC->populateCoreMembers(startId, modId, p);
-        }
-        v2->push_back(p);
       }
+      d->TopPackages(v2);
     }
-    d->TopPackages(v2);
-
-    m_helper.setElabMode(false);
+    m_helper.setElaborate(Elaborate::No);
+    m_helper.setReduce(Reduce::No);
 
     VectorOfpackage* v3 = s.MakePackageVec();
     d->AllPackages(v3);
@@ -4983,7 +4988,7 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
             fC->sl_collect(modId, VObjectType::paModule_keyword);
         fC->populateCoreMembers(startId, modId, m);
         uhdm_modules->push_back(m);
-        writeModule(mod, m, s, moduleMap, modPortMap);
+        writeModule(mod->getUnelabMmodule(), m, s, moduleMap, modPortMap);
       } else if (mod->getType() == VObjectType::paUdp_declaration) {
         const FileContent* fC = mod->getFileContents()[0];
         UHDM::udp_defn* defn = mod->getUdpDefn();
@@ -5036,41 +5041,44 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
 
     // -------------------------------
     // Elaborated Model (Folded)
+    if (m_compileDesign->getCompiler()->getCommandLineParser()->elaborate()) {
+      m_helper.setElaborate(Elaborate::Yes);
+      m_helper.setReduce(Reduce::Yes);
 
-    m_helper.setElabMode(true);
-
-    // Top-level modules
-    VectorOfmodule_inst* uhdm_top_modules = s.MakeModule_instVec();
-    for (ModuleInstance* inst : topLevelModules) {
-      DesignComponent* component = inst->getDefinition();
-      ModuleDefinition* mod =
-          valuedcomponenti_cast<ModuleDefinition*>(component);
-      const auto& itr = m_componentMap.find(mod);
-      module_inst* m = s.MakeModule_inst();
-      m->VpiTopModule(true);
-      m->VpiTop(true);
-      module_inst* def = (module_inst*)itr->second;
-      m->VpiDefName(def->VpiDefName());
-      m->VpiName(def->VpiDefName());  // Top's instance name is module name
-      m->VpiFullName(
-          def->VpiDefName());  // Top's full instance name is module name
-      m->VpiFile(def->VpiFile());
-      m->VpiLineNo(def->VpiLineNo());
-      m->VpiColumnNo(def->VpiColumnNo());
-      m->VpiEndLineNo(def->VpiEndLineNo());
-      m->VpiEndColumnNo(def->VpiEndColumnNo());
-      writeInstance(mod, inst, m, m_compileDesign, modPortMap, instanceMap,
-                    exprBuilder);
-      uhdm_top_modules->push_back(m);
+      // Top-level modules
+      VectorOfmodule_inst* uhdm_top_modules = s.MakeModule_instVec();
+      for (ModuleInstance* inst : topLevelModules) {
+        DesignComponent* component = inst->getDefinition();
+        ModuleDefinition* mod =
+            valuedcomponenti_cast<ModuleDefinition*>(component);
+        const auto& itr = m_componentMap.find(mod);
+        module_inst* m = s.MakeModule_inst();
+        m->VpiTopModule(true);
+        m->VpiTop(true);
+        module_inst* def = (module_inst*)itr->second;
+        m->VpiDefName(def->VpiDefName());
+        m->VpiName(def->VpiDefName());  // Top's instance name is module name
+        m->VpiFullName(
+            def->VpiDefName());  // Top's full instance name is module name
+        m->VpiFile(def->VpiFile());
+        m->VpiLineNo(def->VpiLineNo());
+        m->VpiColumnNo(def->VpiColumnNo());
+        m->VpiEndLineNo(def->VpiEndLineNo());
+        m->VpiEndColumnNo(def->VpiEndColumnNo());
+        writeInstance(mod, inst, m, m_compileDesign, modPortMap, instanceMap,
+                      exprBuilder);
+        uhdm_top_modules->push_back(m);
+      }
+      d->TopModules(uhdm_top_modules);
     }
-    d->TopModules(uhdm_top_modules);
   }
 
   if (m_compileDesign->getCompiler()->getCommandLineParser()->getUhdmStats()) {
     s.PrintStats(std::cerr, "Non-Elaborated Model");
   }
 
-  m_helper.setElabMode(true);
+  m_helper.setElaborate(Elaborate::Yes);
+  m_helper.setReduce(Reduce::Yes);
 
   // ----------------------------------
   // Fully elaborated model

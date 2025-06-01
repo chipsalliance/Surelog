@@ -70,7 +70,7 @@ class CompileProgram final : public CompileToolbox {
     m_helper.seterrorReporting(errors, symbols);
   }
 
-  bool compile();
+  bool compile(Elaborate elaborate, Reduce reduce);
 
   ~CompileProgram() final = default;
 

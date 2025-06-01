@@ -154,6 +154,7 @@ class CommandLineParser final {
   bool lowMem() const { return m_lowMem; }
   bool compile() const { return m_compile; }
   bool elaborate() const { return m_elaborate; }
+  bool reduce() const { return m_reduce; }
   bool writeUhdm() const { return m_writeUhdm; }
   bool sepComp() const { return m_sepComp; }
   bool link() const { return m_link; }
@@ -372,6 +373,7 @@ class CommandLineParser final {
   bool m_sepComp;
   bool m_link;
   bool m_gc;
+  bool m_reduce;
 };
 
 }  // namespace SURELOG

@@ -112,12 +112,6 @@ class FileContent final : public DesignComponent {
   bool isInstance() const final { return false; }
   std::string_view getName() const final;
   NodeId getRootNode() const;
-  std::string printObjects() const;  // The whole file content
-  std::string printSubTree(
-      NodeId parentIndex) const;                 // Print subtree from parent
-  std::string printObject(NodeId noedId) const;  // Only print that object
-  std::vector<std::string> collectSubTree(
-      NodeId uniqueId) const;  // Helper function
   SymbolTable* getSymbolTable() const { return m_symbolTable; }
   void setSymbolTable(SymbolTable* table) { m_symbolTable = table; }
   PathId getFileId(NodeId id) const;
@@ -226,6 +220,12 @@ class FileContent final : public DesignComponent {
 
   void populateCoreMembers(NodeId startIndex, NodeId endIndex,
                            UHDM::any* instance) const;
+
+  std::string printObjects() const;              // The whole file content
+  std::string printObject(NodeId nodeId) const;  // Only print that object
+
+  void printTree(std::ostream& strm) const;
+  void printTree(std::ostream& strm, NodeId id, size_t indent = 0) const;
 
  protected:
   std::vector<DesignElement*> m_elements;

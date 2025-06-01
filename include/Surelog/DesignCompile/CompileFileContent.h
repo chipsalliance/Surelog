@@ -88,7 +88,7 @@ class CompileFileContent final {
   }
   CompileFileContent(const CompileFileContent&) = delete;
 
-  bool compile();
+  bool compile(Elaborate elaborate, Reduce reduce);
 
  private:
   bool collectObjects_();
