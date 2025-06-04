@@ -38,19 +38,19 @@
 #include <uhdm/containers.h>
 
 namespace SURELOG {
-
 class CompilePackage;
 class FileContent;
 class Library;
 class Netlist;
+class Session;
 
 class Package final : public DesignComponent {
   SURELOG_IMPLEMENT_RTTI(Package, DesignComponent)
   friend CompilePackage;
 
  public:
-  Package(std::string_view name, Library* library, FileContent* fC,
-          NodeId nodeId);
+  Package(Session* session, std::string_view name, Library* library,
+          const FileContent* fC, NodeId nodeId, uhdm::Serializer& serializer);
   void append(Package* package);
 
   ~Package() final = default;
@@ -64,6 +64,9 @@ class Package final : public DesignComponent {
   bool isInstance() const final { return false; }
   std::string_view getName() const final { return m_name; }
 
+  const DataType* getDataType(Design* design,
+                              std::string_view name) const override;
+
   ClassNameClassDefinitionMultiMap& getClassDefinitions() {
     return m_classDefinitions;
   }
@@ -72,12 +75,13 @@ class Package final : public DesignComponent {
     m_classDefinitions.emplace(className, classDef);
   }
   ClassDefinition* getClassDefinition(std::string_view name);
+  const ClassDefinition* getClassDefinition(std::string_view name) const;
   ExprBuilder* getExprBuilder() { return &m_exprBuilder; }
 
-  UHDM::VectorOfattribute* Attributes() const { return attributes_; }
+  uhdm::AttributeCollection* getAttributes() const { return m_attributes; }
 
-  bool Attributes(UHDM::VectorOfattribute* data) {
-    attributes_ = data;
+  bool setAttributes(uhdm::AttributeCollection* data) {
+    m_attributes = data;
     return true;
   }
 
@@ -93,11 +97,11 @@ class Package final : public DesignComponent {
  private:
   std::string m_name;
   std::string m_endLabel;
-  Library* m_library;
+  Library* m_library = nullptr;
   ExprBuilder m_exprBuilder;
   ClassNameClassDefinitionMultiMap m_classDefinitions;
 
-  UHDM::VectorOfattribute* attributes_ = nullptr;
+  uhdm::AttributeCollection* m_attributes = nullptr;
   Netlist* m_netlist = nullptr;
   Package* m_unElabPackage = nullptr;
 };

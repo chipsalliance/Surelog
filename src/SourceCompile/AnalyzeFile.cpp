@@ -34,6 +34,7 @@
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Common/PathId.h"
+#include "Surelog/Common/Session.h"
 #include "Surelog/Common/SymbolId.h"
 #include "Surelog/Design/Design.h"
 #include "Surelog/ErrorReporting/Error.h"
@@ -47,14 +48,18 @@
 namespace SURELOG {
 void AnalyzeFile::checkSLlineDirective_(std::string_view line,
                                         uint32_t lineNb) {
+  SymbolTable* const symbols = m_session->getSymbolTable();
+  FileSystem* const fileSystem = m_session->getFileSystem();
+
   std::stringstream ss(
       (std::string(line))); /* Storing the whole string into string stream */
   std::string keyword;
   ss >> keyword;
   if (keyword == "SLline") {
-    IncludeFileInfo info(IncludeFileInfo::Context::NONE, 0, BadSymbolId,
-                         BadPathId, 0, 0, 0, 0, IncludeFileInfo::Action::NONE);
-    ss >> info.m_sectionStartLine;
+    IncludeFileInfo info(IncludeFileInfo::Context::None,
+                         IncludeFileInfo::Action::None, BadPathId, 0, 0, 0, 0,
+                         BadSymbolId, 0, 0);
+    ss >> info.m_sectionLine;
     std::string text;
     ss >> text;
     text = StringUtils::unquoted(text);
@@ -62,43 +67,43 @@ void AnalyzeFile::checkSLlineDirective_(std::string_view line,
     StringUtils::tokenize(text, "^", parts);
     std::string_view symbol = StringUtils::unquoted(parts[0]);
     std::string_view file = StringUtils::unquoted(parts[1]);
-    info.m_sectionSymbolId = m_clp->getSymbolTable()->registerSymbol(symbol);
-    info.m_sectionFileId =
-        FileSystem::getInstance()->toPathId(file, m_clp->getSymbolTable());
+    info.m_symbolId = symbols->registerSymbol(symbol);
+    info.m_sectionFileId = fileSystem->toPathId(file, symbols);
     uint32_t action = 0;
     ss >> action;
 
     if (static_cast<IncludeFileInfo::Action>(action) ==
-        IncludeFileInfo::Action::PUSH) {
+        IncludeFileInfo::Action::Push) {
       // Push
-      info.m_originalStartLine = lineNb;
-      info.m_action = IncludeFileInfo::Action::PUSH;
+      info.m_sectionLine = lineNb;
+      info.m_action = IncludeFileInfo::Action::Push;
       m_includeFileInfo.push(info);
     } else if (static_cast<IncludeFileInfo::Action>(action) ==
-               IncludeFileInfo::Action::POP) {
+               IncludeFileInfo::Action::Pop) {
       // Pop
       if (!m_includeFileInfo.empty()) m_includeFileInfo.pop();
       if (!m_includeFileInfo.empty()) {
         IncludeFileInfo& top = m_includeFileInfo.top();
-        top.m_sectionSymbolId = info.m_sectionSymbolId;
+        top.m_symbolId = info.m_symbolId;
         top.m_sectionFileId = info.m_sectionFileId;
-        top.m_originalStartLine = lineNb;
-        top.m_sectionStartLine = info.m_sectionStartLine - 1;
-        top.m_action = IncludeFileInfo::Action::POP;
+        top.m_sourceLine = lineNb;
+        top.m_sectionLine = info.m_sectionLine - 1;
+        top.m_action = IncludeFileInfo::Action::Pop;
       }
     }
   }
 }
 
 std::string AnalyzeFile::setSLlineDirective_(uint32_t lineNb) {
+  SymbolTable* const symbols = m_session->getSymbolTable();
+  FileSystem* const fileSystem = m_session->getFileSystem();
+
   std::ostringstream result;
   if (!m_includeFileInfo.empty()) {
-    FileSystem* const fileSystem = FileSystem::getInstance();
     const IncludeFileInfo& info = m_includeFileInfo.top();
-    uint32_t origFromLine =
-        lineNb - info.m_originalStartLine + info.m_sectionStartLine;
+    uint32_t origFromLine = lineNb - info.m_sourceLine + info.m_sectionLine;
     result << "SLline " << origFromLine << " "
-           << m_clp->getSymbolTable()->getSymbol(info.m_sectionSymbolId) << "^"
+           << symbols->getSymbol(info.m_symbolId) << "^"
            << fileSystem->toPath(m_includeFileInfo.top().m_sectionFileId)
            << " 1" << std::endl;
   } else {
@@ -108,9 +113,10 @@ std::string AnalyzeFile::setSLlineDirective_(uint32_t lineNb) {
 }
 
 void AnalyzeFile::analyze() {
-  FileSystem* const fileSystem = FileSystem::getInstance();
-  SymbolTable* const symbolTable = m_clp->getSymbolTable();
-  ErrorContainer* const errors = m_clp->getErrorContainer();
+  SymbolTable* const symbols = m_session->getSymbolTable();
+  FileSystem* const fileSystem = m_session->getFileSystem();
+  ErrorContainer* const errors = m_session->getErrorContainer();
+  CommandLineParser* const clp = m_session->getCommandLineParser();
 
   std::vector<std::string> allLines;
   allLines.emplace_back("FILLER LINE");
@@ -129,7 +135,7 @@ void AnalyzeFile::analyze() {
   }
   if (allLines.empty()) return;
 
-  uint32_t minNbLineForPartitioning = m_clp->getNbLinesForFileSpliting();
+  uint32_t minNbLineForPartitioning = clp->getLinesForFileSpliting();
   std::vector<FileChunk> fileChunks;
   bool inPackage = false;
   int32_t inClass = 0;
@@ -149,14 +155,6 @@ void AnalyzeFile::analyze() {
   uint32_t startChar = 0;
   uint32_t indexPackage = 0;
   uint32_t indexModule = 0;
-  int32_t nbPackage = 0;
-  int32_t nbClass = 0;
-  int32_t nbModule = 0;
-  int32_t nbProgram = 0;
-  int32_t nbInterface = 0;
-  int32_t nbConfig = 0;
-  int32_t nbChecker = 0;
-  int32_t nbPrimitive = 0 /*./re   , nbFunction = 0, nbTask = 0*/;
   std::string prev_keyword;
   std::string prev_prev_keyword;
   const std::regex import_regex("import[ ]+[a-zA-Z_0-9:\\*]+[ ]*;");
@@ -212,7 +210,6 @@ void AnalyzeFile::analyze() {
             if (inPackage) {
               fileChunks[indexPackage].m_toLine = lineNb;
               fileChunks[indexPackage].m_endChar = charNb;
-              nbPackage++;
             }
             inPackage = false;
             // std::cout << "PACKAGE:" <<
@@ -235,7 +232,6 @@ void AnalyzeFile::analyze() {
             if (inModule == 1) {
               fileChunks[indexModule].m_toLine = lineNb;
               fileChunks[indexModule].m_endChar = charNb;
-              nbModule++;
             }
             inModule--;
           }
@@ -296,7 +292,6 @@ void AnalyzeFile::analyze() {
             if (inClass == 1) {
               fileChunks.emplace_back(DesignElement::ElemType::Class, startLine,
                                       lineNb, startChar, charNb);
-              nbClass++;
             }
             inClass--;
           }
@@ -311,7 +306,6 @@ void AnalyzeFile::analyze() {
             if (inInterface == 1) {
               fileChunks.emplace_back(DesignElement::ElemType::Interface,
                                       startLine, lineNb, startChar, charNb);
-              nbInterface++;
             }
             inInterface--;
           }
@@ -324,7 +318,6 @@ void AnalyzeFile::analyze() {
             if (inConfig) {
               fileChunks.emplace_back(DesignElement::ElemType::Config,
                                       startLine, lineNb, startChar, charNb);
-              nbConfig++;
             }
             inConfig = false;
           }
@@ -337,7 +330,6 @@ void AnalyzeFile::analyze() {
             if (inChecker) {
               fileChunks.emplace_back(DesignElement::ElemType::Checker,
                                       startLine, lineNb, startChar, charNb);
-              nbChecker++;
             }
             inChecker = false;
           }
@@ -350,7 +342,6 @@ void AnalyzeFile::analyze() {
             if (inProgram) {
               fileChunks.emplace_back(DesignElement::ElemType::Program,
                                       startLine, lineNb, startChar, charNb);
-              nbProgram++;
             }
             inProgram = false;
           }
@@ -363,7 +354,6 @@ void AnalyzeFile::analyze() {
             if (inPrimitive) {
               fileChunks.emplace_back(DesignElement::ElemType::Primitive,
                                       startLine, lineNb, startChar, charNb);
-              nbPrimitive++;
             }
             inPrimitive = false;
           }
@@ -390,7 +380,7 @@ void AnalyzeFile::analyze() {
 
   uint32_t lineSize = lineNb;
 
-  if (m_clp->getNbMaxProcesses() || (lineSize < minNbLineForPartitioning) ||
+  if (clp->getMaxProcesses() || (lineSize < minNbLineForPartitioning) ||
       (m_nbChunks < 2)) {
     m_splitFiles.emplace_back(m_ppFileId);
     m_lineOffsets.push_back(0);
@@ -414,9 +404,9 @@ void AnalyzeFile::analyze() {
 
   uint32_t fromLine = 1;
   uint32_t toIndex = 0;
-  m_includeFileInfo.emplace(IncludeFileInfo::Context::INCLUDE, 1, BadSymbolId,
-                            m_fileId, 1, 0, 1, 0,
-                            IncludeFileInfo::Action::PUSH);
+  m_includeFileInfo.emplace(IncludeFileInfo::Context::Include,
+                            IncludeFileInfo::Action::Push, m_fileId, 1, 1, 1, 1,
+                            BadSymbolId, 1, 1);
   uint32_t linesWriten = 0;
   for (uint32_t i = 0; i < fileChunks.size(); i++) {
     DesignElement::ElemType chunkType = fileChunks[i].m_chunkType;
@@ -557,7 +547,7 @@ void AnalyzeFile::analyze() {
           StrAppend(&content, "  ", fileLevelImportSection);
 
           const PathId splitFileId =
-              fileSystem->getChunkFile(m_ppFileId, chunkNb, symbolTable);
+              fileSystem->getChunkFile(m_ppFileId, chunkNb, symbols);
           fileSystem->writeContent(splitFileId, content);
           m_splitFiles.emplace_back(splitFileId);
 
@@ -617,7 +607,7 @@ void AnalyzeFile::analyze() {
         }
 
         PathId splitFileId =
-            fileSystem->getChunkFile(m_ppFileId, chunkNb, symbolTable);
+            fileSystem->getChunkFile(m_ppFileId, chunkNb, symbols);
         fileSystem->writeContent(splitFileId, content);
         m_splitFiles.emplace_back(splitFileId);
 
@@ -683,7 +673,7 @@ void AnalyzeFile::analyze() {
       }
 
       PathId splitFileId =
-          fileSystem->getChunkFile(m_ppFileId, chunkNb, symbolTable);
+          fileSystem->getChunkFile(m_ppFileId, chunkNb, symbols);
       fileSystem->writeContent(splitFileId, content);
       m_splitFiles.emplace_back(splitFileId);
 

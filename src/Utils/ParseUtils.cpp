@@ -32,47 +32,56 @@
 
 namespace SURELOG {
 
-ParseUtils::LineColumn ParseUtils::getLineColumn(antlr4::Token* token) {
+LineColumn ParseUtils::getLineColumn(antlr4::Token* token) {
   const uint32_t lineNb = static_cast<uint32_t>(token->getLine());
   const uint16_t columnNb =
       static_cast<uint16_t>(token->getCharPositionInLine() + 1);
-  return std::make_pair(lineNb, columnNb);
+  return {lineNb, columnNb};
 }
 
-ParseUtils::LineColumn ParseUtils::getEndLineColumn(antlr4::Token* token) {
-  const uint32_t lineNb = static_cast<uint32_t>(token->getLine());
-  const uint16_t columnNb = static_cast<uint16_t>(
-      token->getCharPositionInLine() + token->getStopIndex() -
-      token->getStartIndex() + 1 + 1);
-  return std::make_pair(lineNb, columnNb);
+LineColumn ParseUtils::getEndLineColumn(antlr4::Token* token) {
+  const std::string text = token->getText();
+  const size_t pos = text.rfind('\n');
+  if (pos == std::string::npos) {
+    const uint32_t lineNb = static_cast<uint32_t>(token->getLine());
+    const uint16_t columnNb = static_cast<uint16_t>(
+        token->getCharPositionInLine() + token->getStopIndex() -
+        token->getStartIndex() + 1 + 1);
+    return {lineNb, columnNb};
+  } else {
+    const uint32_t lineNb = static_cast<uint32_t>(token->getLine()) +
+                            std::count(text.begin(), text.end(), '\n');
+    const uint16_t columnNb = static_cast<uint16_t>(text.length() - pos);
+    return {lineNb, columnNb};
+  }
 }
 
-ParseUtils::LineColumn ParseUtils::getLineColumn(
-    antlr4::tree::TerminalNode* node) {
+LineColumn ParseUtils::getLineColumn(antlr4::tree::TerminalNode* node) {
   return getLineColumn(node->getSymbol());
 }
 
-ParseUtils::LineColumn ParseUtils::getEndLineColumn(
-    antlr4::tree::TerminalNode* node) {
+LineColumn ParseUtils::getEndLineColumn(antlr4::tree::TerminalNode* node) {
   return getEndLineColumn(node->getSymbol());
 }
 
-ParseUtils::LineColumn ParseUtils::getLineColumn(
-    antlr4::CommonTokenStream* stream, antlr4::ParserRuleContext* context) {
-  const antlr4::misc::Interval sourceInterval = context->getSourceInterval();
-  if (sourceInterval.a == -1) return std::make_pair(0, 0);
-  return getLineColumn(stream->get(sourceInterval.a));
+LineColumn ParseUtils::getLineColumn(const antlr4::CommonTokenStream* stream,
+                                     antlr4::tree::ParseTree* tree) {
+  const antlr4::misc::Interval sourceInterval = tree->getSourceInterval();
+  return (sourceInterval.a == -1)
+             ? LineColumn(0, 0)
+             : getLineColumn(stream->get(sourceInterval.a));
 }
 
-ParseUtils::LineColumn ParseUtils::getEndLineColumn(
-    antlr4::CommonTokenStream* stream, antlr4::ParserRuleContext* context) {
-  const antlr4::misc::Interval sourceInterval = context->getSourceInterval();
-  if (sourceInterval.b == -1) return std::make_pair(0, 0);
-  return getEndLineColumn(stream->get(sourceInterval.b));
+LineColumn ParseUtils::getEndLineColumn(const antlr4::CommonTokenStream* stream,
+                                        antlr4::tree::ParseTree* tree) {
+  const antlr4::misc::Interval sourceInterval = tree->getSourceInterval();
+  return (sourceInterval.b == -1)
+             ? LineColumn(0, 0)
+             : getEndLineColumn(stream->get(sourceInterval.b));
 }
 
 const std::vector<antlr4::tree::ParseTree*>& ParseUtils::getTopTokenList(
-    antlr4::tree::ParseTree* tree) {
+    const antlr4::tree::ParseTree* tree) {
   return tree->children;
 }
 
@@ -152,7 +161,7 @@ std::vector<antlr4::Token*> ParseUtils::getFlatTokenList(
  */
 
 void ParseUtils::inOrderTraversal(std::vector<antlr4::Token*>& tokens,
-                                  antlr4::tree::ParseTree* parent) {
+                                  const antlr4::tree::ParseTree* parent) {
   if (!parent) return;
   // Iterate over all child nodes of `parent`.
   for (auto child : parent->children) {

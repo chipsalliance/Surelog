@@ -25,6 +25,7 @@
 
 #include <antlr4-runtime.h>
 
+#include <cctype>
 #include <cstdint>
 #include <regex>
 #include <string>
@@ -34,6 +35,7 @@
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Common/PathId.h"
+#include "Surelog/Common/Session.h"
 #include "Surelog/Common/SymbolId.h"
 #include "Surelog/Design/Design.h"
 #include "Surelog/Design/FileContent.h"
@@ -52,30 +54,27 @@ namespace SURELOG {
 void SV3_1aTreeShapeListener::enterTop_level_rule(
     SV3_1aParser::Top_level_ruleContext * /*ctx*/) {
   if (m_pf->getFileContent() == nullptr) {
-    m_fileContent = new FileContent(
-        m_pf->getFileId(0), m_pf->getLibrary(),
-        m_pf->getCompileSourceFile()->getSymbolTable(),
-        m_pf->getCompileSourceFile()->getErrorContainer(), nullptr, BadPathId);
+    m_fileContent = new FileContent(m_session, m_pf->getFileId(0),
+                                    m_pf->getLibrary(), nullptr, BadPathId);
     m_pf->setFileContent(m_fileContent);
     m_pf->getCompileSourceFile()->getCompiler()->getDesign()->addFileContent(
         m_pf->getFileId(0), m_fileContent);
   } else {
     m_fileContent = m_pf->getFileContent();
   }
-  CommandLineParser *clp = m_pf->getCompileSourceFile()->getCommandLineParser();
+  CommandLineParser *clp = m_session->getCommandLineParser();
   if ((!clp->parseOnly()) && (!clp->lowMem())) {
-    m_includeFileInfo.emplace(IncludeFileInfo::Context::NONE, 1, BadSymbolId,
-                              m_pf->getFileId(0), 0, 0, 0, 0,
-                              IncludeFileInfo::Action::PUSH);
+    m_includeFileInfo.emplace(IncludeFileInfo::Context::None,
+                              IncludeFileInfo::Action::Push, m_pf->getFileId(0),
+                              0, 0, 0, 0, BadSymbolId, 0, 0);
   }
 }
 
 void SV3_1aTreeShapeListener::enterTop_level_library_rule(
     SV3_1aParser::Top_level_library_ruleContext * /*ctx*/) {
   // Visited from Library/SVLibShapeListener.h
-  m_fileContent = new FileContent(
-      m_pf->getFileId(0), m_pf->getLibrary(), m_pf->getSymbolTable(),
-      m_pf->getErrorContainer(), nullptr, BadPathId);
+  m_fileContent = new FileContent(m_session, m_pf->getFileId(0),
+                                  m_pf->getLibrary(), nullptr, BadPathId);
   m_pf->setFileContent(m_fileContent);
 }
 
@@ -92,9 +91,9 @@ void SV3_1aTreeShapeListener::enterModule_declaration(
     else
       ident = "MODULE NAME UNKNOWN";
   }
-  ident = std::regex_replace(ident, std::regex(EscapeSequence), "");
+  ident = std::regex_replace(ident, m_regexEscSeqReplace, "");
   addNestedDesignElement(ctx, ident, DesignElement::Module,
-                         VObjectType::paMODULE);
+                         VObjectType::paModule_keyword);
 }
 
 void SV3_1aTreeShapeListener::exitModule_declaration(
@@ -200,7 +199,8 @@ void SV3_1aTreeShapeListener::enterSlline(
     SV3_1aParser::SllineContext * /*ctx*/) {}
 
 void SV3_1aTreeShapeListener::exitSlline(SV3_1aParser::SllineContext *ctx) {
-  FileSystem *const fileSystem = FileSystem::getInstance();
+  SymbolTable *const symbols = m_session->getSymbolTable();
+  FileSystem *const fileSystem = m_session->getFileSystem();
   uint32_t startLine = std::stoi(ctx->Integral_number()[0]->getText());
   IncludeFileInfo::Action action = static_cast<IncludeFileInfo::Action>(
       std::stoi(ctx->Integral_number()[1]->getText()));
@@ -210,29 +210,28 @@ void SV3_1aTreeShapeListener::exitSlline(SV3_1aParser::SllineContext *ctx) {
   std::string_view symbol = StringUtils::unquoted(parts[0]);
   std::string_view file = StringUtils::unquoted(parts[1]);
 
-  ParseUtils::LineColumn startLineCol =
-      ParseUtils::getLineColumn(m_tokens, ctx);
-  ParseUtils::LineColumn endLineCol =
-      ParseUtils::getEndLineColumn(m_tokens, ctx);
-  if (action == IncludeFileInfo::Action::PUSH) {
+  LineColumn startLineCol = ParseUtils::getLineColumn(m_tokens, ctx);
+  LineColumn endLineCol = ParseUtils::getEndLineColumn(m_tokens, ctx);
+  if (action == IncludeFileInfo::Action::Push) {
     // Push
-    m_includeFileInfo.emplace(
-        IncludeFileInfo::Context::INCLUDE, startLine,
-        m_pf->getSymbolTable()->registerSymbol(symbol),
-        fileSystem->toPathId(file, m_pf->getSymbolTable()), startLineCol.first,
-        startLineCol.second, endLineCol.first, endLineCol.second,
-        IncludeFileInfo::Action::PUSH);
-  } else if (action == IncludeFileInfo::Action::POP) {
+    m_includeFileInfo.emplace(IncludeFileInfo::Context::Include,
+                              IncludeFileInfo::Action::Push,
+                              fileSystem->toPathId(file, symbols), startLine, 0,
+                              0, 0, symbols->registerSymbol(symbol),
+                              startLineCol.first, startLineCol.second);
+  } else if (action == IncludeFileInfo::Action::Pop) {
     // Pop
     if (!m_includeFileInfo.empty()) m_includeFileInfo.pop();
     if (!m_includeFileInfo.empty()) {
       IncludeFileInfo &info = m_includeFileInfo.top();
-      info.m_sectionSymbolId = m_pf->getSymbolTable()->registerSymbol(symbol);
-      info.m_sectionFileId = fileSystem->toPathId(file, m_pf->getSymbolTable());
-      info.m_originalStartLine = startLineCol.first /*+ m_lineOffset */;
-      info.m_originalStartColumn = startLineCol.second /*+ m_lineOffset */;
-      info.m_sectionStartLine = startLine;
-      info.m_action = IncludeFileInfo::Action::POP;
+      info.m_symbolId = symbols->registerSymbol(symbol);
+      info.m_sectionFileId = fileSystem->toPathId(file, symbols);
+      info.m_sourceLine = startLineCol.first /*+ m_lineOffset */;
+      info.m_sourceColumn = startLineCol.second /*+ m_lineOffset */;
+      info.m_sectionLine = startLine;
+      info.m_symbolLine = endLineCol.first;
+      info.m_symbolColumn = endLineCol.second;
+      info.m_action = IncludeFileInfo::Action::Pop;
     }
   }
 }
@@ -264,7 +263,7 @@ void SV3_1aTreeShapeListener::enterInterface_declaration(
                  VObjectType::paINTERFACE);
     }
   }
-  ident = std::regex_replace(ident, std::regex(EscapeSequence), "");
+  ident = std::regex_replace(ident, m_regexEscSeqReplace, "");
   addNestedDesignElement(ctx, ident, DesignElement::Interface,
                          VObjectType::paINTERFACE);
 }
@@ -634,7 +633,7 @@ void SV3_1aTreeShapeListener::enterProgram_declaration(
                  VObjectType::paPROGRAM);
     }
   }
-  ident = std::regex_replace(ident, std::regex(EscapeSequence), "");
+  ident = std::regex_replace(ident, m_regexEscSeqReplace, "");
   addDesignElement(ctx, ident, DesignElement::Program, VObjectType::paPROGRAM);
 }
 
@@ -643,7 +642,7 @@ void SV3_1aTreeShapeListener::enterClass_declaration(
   std::string ident;
   if (ctx->identifier(0)) {
     ident = ctx->identifier(0)->getText();
-    ident = std::regex_replace(ident, std::regex(EscapeSequence), "");
+    ident = std::regex_replace(ident, m_regexEscSeqReplace, "");
     addDesignElement(ctx, ident, DesignElement::Class, VObjectType::paCLASS);
   } else
     addDesignElement(ctx, "UNNAMED_CLASS", DesignElement::Class,
@@ -651,8 +650,9 @@ void SV3_1aTreeShapeListener::enterClass_declaration(
 }
 
 SV3_1aTreeShapeListener::SV3_1aTreeShapeListener(
-    ParseFile *pf, antlr4::CommonTokenStream *tokens, uint32_t lineOffset)
-    : SV3_1aTreeShapeHelper::SV3_1aTreeShapeHelper(pf, tokens, lineOffset) {}
+    Session *session, ParseFile *pf, antlr4::CommonTokenStream *tokens,
+    uint32_t lineOffset)
+    : SV3_1aTreeShapeHelper(session, pf, tokens, lineOffset) {}
 
 SV3_1aTreeShapeListener::~SV3_1aTreeShapeListener() = default;
 
@@ -663,7 +663,7 @@ void SV3_1aTreeShapeListener::enterPackage_declaration(
                VObjectType::paPACKAGE);
   }
   std::string ident = ctx->identifier(0)->getText();
-  ident = std::regex_replace(ident, std::regex(EscapeSequence), "");
+  ident = std::regex_replace(ident, m_regexEscSeqReplace, "");
   addDesignElement(ctx, ident, DesignElement::Package, VObjectType::paPACKAGE);
 }
 
@@ -682,8 +682,7 @@ void SV3_1aTreeShapeListener::enterTimescale_directive(
   TimeInfo compUnitTimeInfo;
   compUnitTimeInfo.m_type = TimeInfo::Type::Timescale;
   compUnitTimeInfo.m_fileId = m_pf->getFileId(0);
-  ParseUtils::LineColumn lineCol =
-      ParseUtils::getLineColumn(ctx->TICK_TIMESCALE());
+  LineColumn lineCol = ParseUtils::getLineColumn(ctx->TICK_TIMESCALE());
   compUnitTimeInfo.m_line = lineCol.first;
   std::regex base_regex("`timescale([0-9]+)([mnsupf]+)/([0-9]+)([mnsupf]+)");
   std::smatch base_match;
@@ -830,7 +829,7 @@ void SV3_1aTreeShapeListener::enterUdp_declaration(
                  VObjectType::paPRIMITIVE);
     }
   }
-  ident = std::regex_replace(ident, std::regex(EscapeSequence), "");
+  ident = std::regex_replace(ident, m_regexEscSeqReplace, "");
   addDesignElement(ctx, ident, DesignElement::Primitive,
                    VObjectType::paPRIMITIVE);
 }
@@ -869,23 +868,6 @@ void SV3_1aTreeShapeListener::exitUnbased_unsized_literal(
   addVObject(ctx, s, type);
 }
 
-/*
-void
-SV3_1aTreeShapeListener::exitComment_OneLine
-(SV3_1aParser::Comment_OneLineContext *ctx)
-{
-  addVObject (ctx, ctx->One_line_comment ()->getText (),
-VObjectType::paComments);
-}
-
-void
-SV3_1aTreeShapeListener::exitComment_Block (SV3_1aParser::Comment_BlockContext
-*ctx)
-{
-  addVObject (ctx, ctx->Block_comment ()->getText (), VObjectType::paComments);
-}
-*/
-
 void SV3_1aTreeShapeListener::exitPound_delay_value(
     SV3_1aParser::Pound_delay_valueContext *ctx) {
   if (ctx->Pound_delay()) {
@@ -909,7 +891,50 @@ void SV3_1aTreeShapeListener::exitData_type(
     addVObject((antlr4::ParserRuleContext *)ctx->VIRTUAL(),
                VObjectType::paVIRTUAL);
   }
-  addVObject(ctx, VObjectType::paData_type);
+
+  std::string text;
+  if ((ctx->class_scope() != nullptr) || (ctx->package_scope() != nullptr) ||
+      (ctx->string_type() != nullptr)) {
+    text = ctx->getText();
+  } else {
+    std::vector<SV3_1aParser::IdentifierContext *> idctxs = ctx->identifier();
+    if (idctxs.size() == 1) {
+      text = idctxs.front()->getText();
+    }
+  }
+
+  if (text.empty()) {
+    addVObject(ctx, VObjectType::paData_type);
+  } else {
+    // Remove the packed/unpacked dimensions from the name
+    std::string_view stext = text;
+    std::string_view::size_type npos = stext.find_first_of('#');
+    if (npos == std::string_view::npos) npos = stext.find_first_of('[');
+    if (npos != std::string_view::npos)
+      stext.remove_suffix(stext.length() - npos);
+
+    while (!stext.empty() && std::isblank(stext.back())) stext.remove_suffix(1);
+
+    addVObject(ctx, stext, VObjectType::paData_type);
+  }
+}
+
+void SV3_1aTreeShapeListener::exitInterface_identifier(
+    SV3_1aParser::Interface_identifierContext *ctx) {
+  if (ctx->constant_expression().empty()) {
+    addVObject(ctx, ctx->getText(), VObjectType::paInterface_identifier);
+  } else {
+    addVObject(ctx, VObjectType::paInterface_identifier);
+  }
+}
+
+void SV3_1aTreeShapeListener::exitData_type_or_void(
+    SV3_1aParser::Data_type_or_voidContext *ctx) {
+  if (ctx->VOID()) {
+    addVObject(ctx, ctx->VOID()->getText(), VObjectType::paData_type_or_void);
+  } else {
+    addVObject(ctx, VObjectType::paData_type_or_void);
+  }
 }
 
 void SV3_1aTreeShapeListener::exitString_value(
@@ -918,10 +943,8 @@ void SV3_1aTreeShapeListener::exitString_value(
 
   ident = ctx->String()->getText();
 
-  std::regex escaped(std::string(EscapeSequence) + std::string("(.*?)") +
-                     EscapeSequence);
   std::smatch match;
-  while (std::regex_search(ident, match, escaped)) {
+  while (std::regex_search(ident, match, m_regexEscSeqSearch)) {
     std::string var = "\\" + match[1].str() + " ";
     ident = ident.replace(match.position(0), match.length(0), var);
   }
@@ -1074,7 +1097,7 @@ void SV3_1aTreeShapeListener::exitHierarchical_identifier(
       if (symbol->getType() == SV3_1aParser::Simple_identifier ||
           symbol->getType() == SV3_1aParser::Escaped_identifier) {
         ident = tnode->getText();
-        ident = std::regex_replace(ident, std::regex(EscapeSequence), "");
+        ident = std::regex_replace(ident, m_regexEscSeqReplace, "");
         addVObject((antlr4::ParserRuleContext *)tnode, ident,
                    VObjectType::slStringConst);
       } else if (symbol->getType() == SV3_1aParser::THIS ||
@@ -1281,10 +1304,8 @@ void SV3_1aTreeShapeListener::exitPackage_scope(
   } else if (ctx->Escaped_identifier()) {
     childCtx = (antlr4::ParserRuleContext *)ctx->Escaped_identifier();
     ident = ctx->Escaped_identifier()->getText();
-    std::regex escaped(std::string(EscapeSequence) + std::string("(.*?)") +
-                       EscapeSequence);
     std::smatch match;
-    while (std::regex_search(ident, match, escaped)) {
+    while (std::regex_search(ident, match, m_regexEscSeqSearch)) {
       std::string var = match[1].str();
       ident = ident.replace(match.position(0), match.length(0), var);
     }
@@ -1322,10 +1343,8 @@ void SV3_1aTreeShapeListener::exitPs_identifier(
   } else if (!ctx->Escaped_identifier().empty()) {
     childCtx = (antlr4::ParserRuleContext *)ctx->Escaped_identifier()[0];
     ident = ctx->Escaped_identifier()[0]->getText();
-    std::regex escaped(std::string(EscapeSequence) + std::string("(.*?)") +
-                       EscapeSequence);
     std::smatch match;
-    while (std::regex_search(ident, match, escaped)) {
+    while (std::regex_search(ident, match, m_regexEscSeqSearch)) {
       std::string var = match[1].str();
       ident = ident.replace(match.position(0), match.length(0), var);
     }
@@ -2089,7 +2108,7 @@ void SV3_1aTreeShapeListener::exitDefault_nettype_directive(
   NetTypeInfo info;
   info.m_type = VObjectType::paNetType_Wire;
   info.m_fileId = m_pf->getFileId(0);
-  ParseUtils::LineColumn lineCol = ParseUtils::getLineColumn(m_tokens, ctx);
+  LineColumn lineCol = ParseUtils::getLineColumn(m_tokens, ctx);
   info.m_line = lineCol.first;
   if (ctx->Simple_identifier()) {
     addVObject((antlr4::ParserRuleContext *)ctx->Simple_identifier(),
@@ -2144,4 +2163,13 @@ void SV3_1aTreeShapeListener::exitElaboration_system_task(
   addVObject(ctx, VObjectType::paElaboration_system_task);
 }
 
+void SV3_1aTreeShapeListener::exitSimple_type(
+    SV3_1aParser::Simple_typeContext *ctx) {
+  addVObject(ctx, ctx->getText(), VObjectType::paSimple_type);
+}
+
+void SV3_1aTreeShapeListener::exitString_type(
+    SV3_1aParser::String_typeContext *ctx) {
+  addVObject(ctx, ctx->getText(), VObjectType::paString_type);
+}
 }  // namespace SURELOG

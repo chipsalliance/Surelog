@@ -38,6 +38,7 @@
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Common/PathId.h"
 #include "Surelog/Common/PlatformFileSystem.h"
+#include "Surelog/Common/Session.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
 
@@ -48,9 +49,7 @@ namespace fs = std::filesystem;
 namespace {
 class TestFileSystem final : public PlatformFileSystem {
  public:
-  explicit TestFileSystem(const fs::path& wd) : PlatformFileSystem(wd) {
-    FileSystem::setInstance(this);
-  }
+  explicit TestFileSystem(const fs::path& wd) : PlatformFileSystem(wd) {}
   TestFileSystem() : TestFileSystem(fs::current_path()) {}
 };
 
@@ -143,12 +142,11 @@ TEST(CommandLineParserTest, WorkingDirectories1) {
   std::transform(args.begin(), args.end(), std::back_inserter(cargs),
                  [](const std::string& arg) { return arg.c_str(); });
 
-  std::unique_ptr<TestFileSystem> fileSystem(new TestFileSystem(testdir));
-  std::unique_ptr<SymbolTable> symbolTable(new SymbolTable);
-  std::unique_ptr<ErrorContainer> errors(new ErrorContainer(symbolTable.get()));
-  std::unique_ptr<CommandLineParser> clp(
-      new CommandLineParser(errors.get(), symbolTable.get()));
-  clp->parseCommandLine(cargs.size(), cargs.data());
+  Session session(new TestFileSystem(testdir), nullptr, nullptr, nullptr,
+                  nullptr, nullptr);
+  FileSystem* const fileSystem = session.getFileSystem();
+  CommandLineParser* const clp = session.getCommandLineParser();
+  session.parseCommandLine(cargs.size(), cargs.data(), false, false);
 
   fs::remove_all(testdir / "dira", ec);
   EXPECT_FALSE(ec) << ec;
@@ -258,12 +256,11 @@ TEST(CommandLineParserTest, WorkingDirectories2) {
   std::transform(args.begin(), args.end(), std::back_inserter(cargs),
                  [](const std::string& arg) { return arg.c_str(); });
 
-  std::unique_ptr<TestFileSystem> fileSystem(new TestFileSystem(testdir));
-  std::unique_ptr<SymbolTable> symbolTable(new SymbolTable);
-  std::unique_ptr<ErrorContainer> errors(new ErrorContainer(symbolTable.get()));
-  std::unique_ptr<CommandLineParser> clp(
-      new CommandLineParser(errors.get(), symbolTable.get()));
-  clp->parseCommandLine(cargs.size(), cargs.data());
+  Session session(new TestFileSystem(testdir), nullptr, nullptr, nullptr,
+                  nullptr, nullptr);
+  FileSystem* const fileSystem = session.getFileSystem();
+  CommandLineParser* const clp = session.getCommandLineParser();
+  session.parseCommandLine(cargs.size(), cargs.data(), false, false);
 
   fs::remove_all(testdir / "dira", ec);
   EXPECT_FALSE(ec) << ec;
@@ -363,12 +360,11 @@ TEST(CommandLineParserTest, WorkingDirectories3) {
   std::transform(args.begin(), args.end(), std::back_inserter(cargs),
                  [](const std::string& arg) { return arg.c_str(); });
 
-  std::unique_ptr<TestFileSystem> fileSystem(new TestFileSystem(testdir));
-  std::unique_ptr<SymbolTable> symbolTable(new SymbolTable);
-  std::unique_ptr<ErrorContainer> errors(new ErrorContainer(symbolTable.get()));
-  std::unique_ptr<CommandLineParser> clp(
-      new CommandLineParser(errors.get(), symbolTable.get()));
-  clp->parseCommandLine(cargs.size(), cargs.data());
+  Session session(new TestFileSystem(testdir), nullptr, nullptr, nullptr,
+                  nullptr, nullptr);
+  FileSystem* const fileSystem = session.getFileSystem();
+  CommandLineParser* const clp = session.getCommandLineParser();
+  session.parseCommandLine(cargs.size(), cargs.data(), false, false);
 
   fs::remove_all(wsdir, ec);
   EXPECT_FALSE(ec) << ec;
@@ -474,12 +470,11 @@ TEST(CommandLineParserTest, WorkingDirectories4) {
   std::transform(args.begin(), args.end(), std::back_inserter(cargs),
                  [](const std::string& arg) { return arg.c_str(); });
 
-  std::unique_ptr<TestFileSystem> fileSystem(new TestFileSystem(testdir));
-  std::unique_ptr<SymbolTable> symbolTable(new SymbolTable);
-  std::unique_ptr<ErrorContainer> errors(new ErrorContainer(symbolTable.get()));
-  std::unique_ptr<CommandLineParser> clp(
-      new CommandLineParser(errors.get(), symbolTable.get()));
-  clp->parseCommandLine(cargs.size(), cargs.data());
+  Session session(new TestFileSystem(testdir), nullptr, nullptr, nullptr,
+                  nullptr, nullptr);
+  FileSystem* const fileSystem = session.getFileSystem();
+  CommandLineParser* const clp = session.getCommandLineParser();
+  session.parseCommandLine(cargs.size(), cargs.data(), false, false);
 
   fs::remove_all(wsdir, ec);
   EXPECT_FALSE(ec) << ec;

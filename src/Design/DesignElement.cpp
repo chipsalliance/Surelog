@@ -31,15 +31,15 @@
 
 namespace SURELOG {
 DesignElement::DesignElement(SymbolId name, PathId fileId, ElemType type,
-                             NodeId uniqueId, uint32_t line, uint16_t column,
-                             uint32_t endLine, uint16_t endColumn,
-                             NodeId parent)
+                             NodeId uniqueId, uint32_t startLine,
+                             uint16_t startColumn, uint32_t endLine,
+                             uint16_t endColumn, NodeId parent)
     : m_name(name),
       m_fileId(fileId),
       m_type(type),
       m_uniqueId(uniqueId),
-      m_line(line),
-      m_column(column),
+      m_startLine(startLine),
+      m_startColumn(startColumn),
       m_endLine(endLine),
       m_endColumn(endColumn),
       m_parent(parent),

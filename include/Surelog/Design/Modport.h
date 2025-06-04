@@ -15,7 +15,7 @@
  */
 
 /*
- * File:   ModPort.h
+ * File:   Modport.h
  * Author: alain
  *
  * Created on January 31, 2020, 9:46 PM
@@ -37,9 +37,9 @@ namespace SURELOG {
 class ModuleDefinition;
 class FileContent;
 
-class ModPort final {
+class Modport final {
  public:
-  ModPort(ModuleDefinition* parent, std::string_view name,
+  Modport(ModuleDefinition* parent, std::string_view name,
           const FileContent* const fC, NodeId nodeId)
       : m_parent(parent), m_name(name), m_fileContent(fC), m_nodeId(nodeId) {}
 

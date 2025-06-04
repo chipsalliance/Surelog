@@ -91,14 +91,14 @@ void ValuedComponentI::setValue(std::string_view name, Value* val,  // NOLINT
   forgetComplexValue(name);
 }
 
-void ValuedComponentI::setComplexValue(std::string_view name, UHDM::expr* val) {
+void ValuedComponentI::setComplexValue(std::string_view name, uhdm::Expr* val) {
   auto itr = m_complexValues.find(name);
   if (itr != m_complexValues.end()) m_complexValues.erase(itr);
   m_complexValues.emplace(name, val);
   forgetValue(name);
 }
 
-UHDM::expr* ValuedComponentI::getComplexValue(std::string_view name) const {
+uhdm::Expr* ValuedComponentI::getComplexValue(std::string_view name) const {
   auto itr = m_complexValues.find(name);
   if (itr != m_complexValues.end()) {
     return (*itr).second;

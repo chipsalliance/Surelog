@@ -1,4 +1,4 @@
-/* -*- c++ -*-
+/*
  Copyright 2019 Alain Dargelas
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,19 +14,27 @@
  limitations under the License.
  */
 
-#ifndef SURELOG_CONTAINERUTILS_H
-#define SURELOG_CONTAINERUTILS_H
-#pragma once
+#include "Surelog/Design/Modport.h"
+
+#include "Surelog/Design/Signal.h"
+
+/*
+ * File:   Modport.cpp
+ * Author: alain
+ *
+ * Created on January 31, 2020, 9:46 PM
+ */
+
+#include <string_view>
 
 namespace SURELOG {
 
-// Delete all pointers in a sequence container and clear()'s it.
-template <typename Container>
-void DeleteContainerPointersAndClear(Container *c) {
-  for (auto &item : *c) delete item;
-  c->clear();
+const Signal* Modport::getPort(std::string_view name) const {
+  for (const Signal& sig : m_ports) {
+    if (sig.getName() == name) {
+      return &sig;
+    }
+  }
+  return nullptr;
 }
-
 }  // namespace SURELOG
-
-#endif  // SURELOG_CONTAINERUTILS_H

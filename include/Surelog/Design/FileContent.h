@@ -38,6 +38,7 @@
 #include <cstdint>
 #include <functional>
 #include <map>
+#include <ostream>
 #include <set>
 #include <string>
 #include <string_view>
@@ -54,13 +55,22 @@ class Library;
 class ModuleDefinition;
 class Package;
 class Program;
+class Session;
 
 class FileContent final : public DesignComponent {
   SURELOG_IMPLEMENT_RTTI(FileContent, DesignComponent)
+
  public:
-  FileContent(PathId fileId, Library* library, SymbolTable* symbolTable,
-              ErrorContainer* errors, FileContent* parent, PathId fileChunkId);
+  using AnyToNodeIdPairCache =
+      std::map<const uhdm::Any*, std::pair<NodeId, NodeId>>;
+
+ public:
+  FileContent(Session* session, PathId fileId, Library* library,
+              FileContent* parent, PathId fileChunkId);
   ~FileContent() final;
+
+  Session* getSession() { return m_session; }
+  const Session* getSession() const { return m_session; }
 
   void setLibrary(Library* lib) { m_library = lib; }
 
@@ -112,8 +122,6 @@ class FileContent final : public DesignComponent {
   bool isInstance() const final { return false; }
   std::string_view getName() const final;
   NodeId getRootNode() const;
-  SymbolTable* getSymbolTable() const { return m_symbolTable; }
-  void setSymbolTable(SymbolTable* table) { m_symbolTable = table; }
   PathId getFileId(NodeId id) const;
   PathId* getMutableFileId(NodeId id);
   Library* getLibrary() const { return m_library; }
@@ -204,7 +212,11 @@ class FileContent final : public DesignComponent {
 
   const Program* getProgram(std::string_view name) const;
 
+  ClassDefinition* getClassDefinition(std::string_view name);
   const ClassDefinition* getClassDefinition(std::string_view name) const;
+
+  const DataType* getDataType(Design* design,
+                              std::string_view name) const override;
 
   const FileContent* getParent() const { return m_parentFile; }
   void setParent(FileContent* parent) { m_parentFile = parent; }
@@ -219,13 +231,21 @@ class FileContent final : public DesignComponent {
   void setLibraryCellFile() { m_isLibraryCellFile = true; }
 
   void populateCoreMembers(NodeId startIndex, NodeId endIndex,
-                           UHDM::any* instance) const;
+                           uhdm::Any* instance, bool force = false) const;
+  const AnyToNodeIdPairCache& getAnyToNodeIdPairCache() const {
+    return m_anyToNodeIdPairCache;
+  }
+
+  bool validate() const;
 
   std::string printObjects() const;              // The whole file content
   std::string printObject(NodeId nodeId) const;  // Only print that object
 
   void printTree(std::ostream& strm) const;
   void printTree(std::ostream& strm, NodeId id, size_t indent = 0) const;
+
+ private:
+  bool validate(NodeId parentId) const;
 
  protected:
   std::vector<DesignElement*> m_elements;
@@ -245,13 +265,14 @@ class FileContent final : public DesignComponent {
 
   ClassNameClassDefinitionMultiMap m_classDefinitions;
 
+  // Unfortunately, far too many places are using FileContent as a const!
+  mutable AnyToNodeIdPairCache m_anyToNodeIdPairCache;
+
   const PathId m_fileId;
   const PathId m_fileChunkId;
-  ErrorContainer* const m_errors;
-
-  Library* m_library;          // TODO: should be set in constructor and *const
-  SymbolTable* m_symbolTable;  // TODO: should be set in constructor *const
-  FileContent* m_parentFile;   // for file chunks
+  Library* m_library =
+      nullptr;  // TODO: should be set in constructor and *const
+  FileContent* m_parentFile = nullptr;  // for file chunks
   bool m_isLibraryCellFile = false;
 };
 

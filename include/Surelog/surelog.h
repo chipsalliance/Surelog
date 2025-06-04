@@ -19,11 +19,11 @@
 #pragma once
 
 // Header file for Surelog library
-
 // IWYU pragma: begin_exports
 
 #include <Surelog/CommandLine/CommandLineParser.h>
 #include <Surelog/Common/FileSystem.h>
+#include <Surelog/Common/Session.h>
 #include <Surelog/ErrorReporting/Error.h>
 #include <Surelog/ErrorReporting/ErrorContainer.h>
 #include <Surelog/ErrorReporting/ErrorDefinition.h>

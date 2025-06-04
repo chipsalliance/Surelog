@@ -36,6 +36,7 @@
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Common/PathId.h"
+#include "Surelog/Common/Session.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
 #include "Surelog/Utils/StringUtils.h"
 
@@ -52,8 +53,8 @@ struct Result {
   std::string m_nbInfo;
 };
 
-bool parseReportFile(PathId logFileId, Result& result) {
-  FileSystem* const fileSystem = FileSystem::getInstance();
+bool parseReportFile(Session* session, PathId logFileId, Result& result) {
+  FileSystem* const fileSystem = session->getFileSystem();
   bool ret = false;
   std::istream& ifs = fileSystem->openForRead(logFileId);
   if (ifs.good()) {
@@ -87,12 +88,15 @@ bool parseReportFile(PathId logFileId, Result& result) {
   return ret;
 }
 
-std::pair<bool, bool> Report::makeDiffCompUnitReport(CommandLineParser* clp,
-                                                     SymbolTable* st) {
+Report::Report(Session* session) : m_session(session) {}
+
+std::pair<bool, bool> Report::makeDiffCompUnitReport() {
   // std::mutex m;
   // m.lock();
   constexpr std::string_view kDiffLogFileName = "diff.log";
-  FileSystem* const fileSystem = FileSystem::getInstance();
+  SymbolTable* const st = m_session->getSymbolTable();
+  FileSystem* const fileSystem = m_session->getFileSystem();
+  CommandLineParser* const clp = m_session->getCommandLineParser();
   const PathId outputDirId = clp->getOutputDirId();
   const PathId allLogFileId = fileSystem->getLogFile(false, st);
   const PathId unitLogFileId = fileSystem->getLogFile(true, st);
@@ -107,10 +111,10 @@ std::pair<bool, bool> Report::makeDiffCompUnitReport(CommandLineParser* clp,
   while ((!readAll) || (!readUnit)) {
     std::this_thread::sleep_for(std::chrono::microseconds(1000));
     if (!readAll) {
-      readAll = parseReportFile(allLogFileId, readAllResult);
+      readAll = parseReportFile(m_session, allLogFileId, readAllResult);
     }
     if (!readUnit) {
-      readUnit = parseReportFile(unitLogFileId, readUnitResult);
+      readUnit = parseReportFile(m_session, unitLogFileId, readUnitResult);
     }
   }
 
@@ -137,8 +141,10 @@ std::pair<bool, bool> Report::makeDiffCompUnitReport(CommandLineParser* clp,
             << "         |" << std::endl;
   std::cout << "|-------|------------------|-------------------|" << std::endl;
   std::cout << std::endl;
-  std::cout << "FILE UNIT LOG: " << PathIdPP(unitLogFileId) << std::endl;
-  std::cout << "ALL FILES LOG: " << PathIdPP(allLogFileId) << std::endl;
+  std::cout << "FILE UNIT LOG: " << PathIdPP(unitLogFileId, fileSystem)
+            << std::endl;
+  std::cout << "ALL FILES LOG: " << PathIdPP(allLogFileId, fileSystem)
+            << std::endl;
 
   const PathId allCompileDirId = fileSystem->getCompileDir(false, st);
   const PathId unitCompileDirId = fileSystem->getCompileDir(true, st);

@@ -21,6 +21,8 @@
 #include <uhdm/constant.h>
 #include <uhdm/vpi_user.h>
 
+#include "Surelog/Common/Session.h"
+
 #include <cstdint>
 #include <limits>
 #include <string_view>
@@ -28,12 +30,13 @@
 namespace SURELOG {
 
 TEST(CompileHelper, ParseConstants) {
-  UHDM::Serializer s;
+  uhdm::Serializer s;
   auto tester = [&s](int32_t type, std::string_view value, int64_t* result) {
-    CompileHelper testee;
-    UHDM::constant* val = s.MakeConstant();
-    val->VpiConstType(type);
-    val->VpiValue(value);
+    Session session;
+    CompileHelper testee(&session);
+    uhdm::Constant* val = s.make<uhdm::Constant>();
+    val->setConstType(type);
+    val->setValue(value);
     return testee.parseConstant(*val, result);
   };
 

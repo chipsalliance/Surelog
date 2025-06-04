@@ -38,44 +38,41 @@ class CompileDesign;
 class Design;
 class ErrorContainer;
 class ModuleDefinition;
+class Session;
 class SymbolTable;
 class ValuedComponentI;
 
 struct FunctorCompileModule {
-  FunctorCompileModule(CompileDesign* compiler, ModuleDefinition* mdl,
-                       Design* design, SymbolTable* symbols,
-                       ErrorContainer* errors,
+  FunctorCompileModule(Session* session, CompileDesign* compiler,
+                       ModuleDefinition* mdl, Design* design,
                        ValuedComponentI* instance = nullptr)
-      : m_compileDesign(compiler),
+      : m_session(session),
+        m_compileDesign(compiler),
         m_module(mdl),
         m_design(design),
-        m_symbols(symbols),
-        m_errors(errors),
         m_instance(instance) {}
+  FunctorCompileModule(const FunctorCompileModule&) = delete;
   int32_t operator()() const;
 
  private:
-  CompileDesign* const m_compileDesign;
-  ModuleDefinition* const m_module;
-  Design* const m_design;
-  SymbolTable* const m_symbols;
-  ErrorContainer* const m_errors;
-  ValuedComponentI* const m_instance;
+  Session* const m_session = nullptr;
+  CompileDesign* const m_compileDesign = nullptr;
+  ModuleDefinition* const m_module = nullptr;
+  Design* const m_design = nullptr;
+  ValuedComponentI* const m_instance = nullptr;
 };
 
 class CompileModule final {
  public:
-  CompileModule(CompileDesign* compiler, ModuleDefinition* mdl, Design* design,
-                SymbolTable* symbols, ErrorContainer* errors,
+  CompileModule(Session* session, CompileDesign* compiler,
+                ModuleDefinition* mdl, Design* design,
                 ValuedComponentI* instance = nullptr)
-      : m_compileDesign(compiler),
+      : m_session(session),
+        m_compileDesign(compiler),
         m_module(mdl),
         m_design(design),
-        m_symbols(symbols),
-        m_errors(errors),
-        m_instance(instance) {
-    m_helper.seterrorReporting(errors, symbols);
-  }
+        m_helper(session),
+        m_instance(instance) {}
   CompileModule(const CompileModule&) = delete;
 
   bool compile(Elaborate elaborate, Reduce reduce);
@@ -89,16 +86,15 @@ class CompileModule final {
   bool collectUdpObjects_();
   void compileClockingBlock_(const FileContent* fC, NodeId id);
 
-  CompileDesign* const m_compileDesign;
-  ModuleDefinition* const m_module;
-  Design* const m_design;
-  SymbolTable* const m_symbols;
-  ErrorContainer* const m_errors;
+  Session* const m_session = nullptr;
+  CompileDesign* const m_compileDesign = nullptr;
+  ModuleDefinition* const m_module = nullptr;
+  Design* const m_design = nullptr;
   CompileHelper m_helper;
-  ValuedComponentI* const m_instance;
+  ValuedComponentI* const m_instance = nullptr;
   uint32_t m_nbPorts = 0;
   bool m_hasNonNullPort = false;
-  UHDM::VectorOfattribute* m_attributes = nullptr;
+  uhdm::AttributeCollection* m_attributes = nullptr;
 };
 
 }  // namespace SURELOG

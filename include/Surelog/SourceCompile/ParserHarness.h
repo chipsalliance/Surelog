@@ -32,25 +32,31 @@
 #include <string_view>
 
 namespace SURELOG {
-
 class Compiler;
 class FileContent;
+class Session;
 
 class ParserHarness {
  public:
+  ParserHarness();
+  explicit ParserHarness(Session *session);
+  ~ParserHarness();
+
   // Parse content and return FileContent or nullptr if it couldn't
   // be parsed.
   // Unit test
   std::unique_ptr<FileContent> parse(std::string_view content);
 
   // Builtin
-  FileContent* parse(std::string_view content, Compiler* compiler,
+  FileContent *parse(std::string_view content, Compiler *compiler,
                      PathId fileId);
-  ~ParserHarness();
 
  private:
   struct Holder;
-  Holder* m_h = nullptr;
+
+  Session *m_session = nullptr;
+  Holder *m_h = nullptr;
+  const bool m_ownsSession = false;
 };
 
 };  // namespace SURELOG

@@ -34,14 +34,25 @@
 #include "Surelog/Design/DesignElement.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/SourceCompile/VObjectTypes.h"
+#include "Surelog/Utils/StringUtils.h"
 
 namespace SURELOG {
 
-using antlr4::ParserRuleContext;
+using antlr4::tree::ParseTree;
 
-NodeId CommonListenerHelper::NodeIdFromContext(
-    const antlr4::tree::ParseTree* ctx) const {
-  auto found = m_contextToObjectMap.find(ctx);
+CommonListenerHelper::CommonListenerHelper(Session* session,
+                                           FileContent* file_content,
+                                           antlr4::CommonTokenStream* tokens)
+    : m_session(session),
+      m_fileContent(file_content),
+      m_tokens(tokens),
+      m_regexEscSeqReplace(kEscapeSequence),
+      m_regexEscSeqSearch(StrCat(kEscapeSequence, "(.*?)", kEscapeSequence)),
+      m_regexTranslateOn(R"(\/\/\s*(synopsys|pragma)\s+translate_on\s*)"),
+      m_regexTranslateOff(R"(\/\/\s*(synopsys|pragma)\s+translate_off\s*)") {}
+
+NodeId CommonListenerHelper::NodeIdFromContext(const ParseTree* tree) const {
+  auto found = m_contextToObjectMap.find(tree);
   return (found == m_contextToObjectMap.end()) ? InvalidNodeId : found->second;
 }
 
@@ -92,23 +103,29 @@ uint32_t CommonListenerHelper::Line(NodeId index) const {
   return m_fileContent->Line(index);
 }
 
-NodeId CommonListenerHelper::addVObject(ParserRuleContext* ctx, SymbolId sym,
-                                        VObjectType objtype) {
-  auto [fileId, line, column, endLine, endColumn] = getFileLine(ctx, nullptr);
+NodeId CommonListenerHelper::addVObject(ParseTree* tree, SymbolId sym,
+                                        VObjectType objtype,
+                                        bool skipParenting /* = false */) {
+  auto [fid, sl, sc, el, ec] = getFileLine(tree, nullptr);
 
-  NodeId objectIndex = m_fileContent->addObject(sym, fileId, objtype, line,
-                                                column, endLine, endColumn);
-  VObject* inserted = m_fileContent->MutableObject(objectIndex);
-  m_contextToObjectMap.emplace(ctx, objectIndex);
-  addParentChildRelations(objectIndex, ctx);
+  NodeId objectIndex =
+      m_fileContent->addObject(sym, fid, objtype, sl, sc, el, ec);
+  VObject* const inserted = m_fileContent->MutableObject(objectIndex);
+  PathId ppFileId;
+  std::tie(ppFileId, inserted->m_ppStartLine, inserted->m_ppStartColumn,
+           inserted->m_ppEndLine, inserted->m_ppEndColumn) =
+      getPPFileLine(tree, nullptr);
+  addNodeIdForContext(tree, objectIndex);
+  if (!skipParenting) addParentChildRelations(tree, objectIndex);
   std::vector<SURELOG::DesignElement*>& delements =
       m_fileContent->getDesignElements();
   for (auto it = delements.rbegin(); it != delements.rend(); ++it) {
-    if ((*it)->m_context == ctx) {
+    if ((*it)->m_context == tree) {
       // Use the file and line number of the design object (package, module),
       // true file/line when splitting
       inserted->m_fileId = (*it)->m_fileId;
-      inserted->m_line = (*it)->m_line;
+      inserted->m_startLine = (*it)->m_startLine;
+      inserted->m_endLine = (*it)->m_endLine;
       (*it)->m_node = NodeId(objectIndex);
       break;
     }
@@ -116,41 +133,50 @@ NodeId CommonListenerHelper::addVObject(ParserRuleContext* ctx, SymbolId sym,
   return objectIndex;
 }
 
-NodeId CommonListenerHelper::addVObject(ParserRuleContext* ctx,
-                                        std::string_view name,
-                                        VObjectType objtype) {
-  return addVObject(ctx, registerSymbol(name), objtype);
+NodeId CommonListenerHelper::addVObject(ParseTree* tree, std::string_view name,
+                                        VObjectType objtype,
+                                        bool skipParenting /* = false */) {
+  return addVObject(tree, registerSymbol(name), objtype, skipParenting);
 }
 
-NodeId CommonListenerHelper::addVObject(ParserRuleContext* ctx,
-                                        VObjectType objtype) {
-  return addVObject(ctx, BadSymbolId, objtype);
+NodeId CommonListenerHelper::addVObject(ParseTree* tree, VObjectType objtype,
+                                        bool skipParenting /* = false */) {
+  return addVObject(tree, BadSymbolId, objtype, skipParenting);
 }
 
-void CommonListenerHelper::addParentChildRelations(NodeId indexParent,
-                                                   ParserRuleContext* ctx) {
-  NodeId currentIndex = indexParent;
-  for (antlr4::tree::ParseTree* child : ctx->children) {
-    NodeId childIndex = NodeIdFromContext(child);
-    if (childIndex) {
-      MutableParent(childIndex) = UniqueId(indexParent);
-      if (indexParent == currentIndex) {
-        MutableChild(indexParent) = UniqueId(childIndex);
+void CommonListenerHelper::addNodeIdForContext(const ParseTree* tree,
+                                               NodeId nodeId) {
+  auto [it, succeeded] = m_contextToObjectMap.emplace(tree, nodeId);
+  if (!succeeded) {
+    std::vector<VObject>& objects = *m_fileContent->mutableVObjects();
+    NodeId tid = it->second;
+    while (tid && objects[tid].m_sibling) {
+      tid = objects[tid].m_sibling;
+    }
+    objects[tid].m_sibling = nodeId;
+  }
+}
+
+void CommonListenerHelper::addParentChildRelations(const ParseTree* tree,
+                                                   NodeId parentId) {
+  std::vector<VObject>& objects = *m_fileContent->mutableVObjects();
+  VObject& parent = objects[parentId];
+
+  NodeId tailId = parentId;
+  for (ParseTree* subtree : tree->children) {
+    NodeId childId = NodeIdFromContext(subtree);
+    while (childId) {
+      VObject& child = objects[childId];
+      child.m_parent = parentId;
+      if (parentId == tailId) {
+        parent.m_child = childId;
       } else {
-        MutableSibling(currentIndex) = UniqueId(childIndex);
+        VObject& tail = objects[tailId];
+        tail.m_sibling = childId;
       }
-      currentIndex = childIndex;
+      tailId = childId;
+      childId = child.m_sibling;
     }
   }
 }
-
-NodeId CommonListenerHelper::getObjectId(ParserRuleContext* ctx) const {
-  auto itr = m_contextToObjectMap.find(ctx);
-  if (itr == m_contextToObjectMap.end()) {
-    return InvalidNodeId;
-  } else {
-    return (*itr).second;
-  }
-}
-
 }  // namespace SURELOG

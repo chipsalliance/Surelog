@@ -32,6 +32,7 @@
 
 #include <cstdint>
 #include <map>
+#include <regex>
 #include <string>
 #include <string_view>
 #include <tuple>
@@ -40,17 +41,24 @@ namespace antlr4 {
 class CommonTokenStream;
 class ParserRuleContext;
 class Token;
+
 namespace tree {
 class ParseTree;
 }
 }  // namespace antlr4
 
 namespace SURELOG {
-
 class FileContent;
+class Session;
 class VObject;
 
-static constexpr char EscapeSequence[] = "#~@";
+static constexpr char kEscapeSequence[] = "#~@";
+
+static constexpr std::string_view kPreprocBeginPrefix = "{!< ";
+static constexpr std::string_view kPreprocBeginSuffix = " !}";
+
+static constexpr std::string_view kPreprocEndPrefix = "{! ";
+static constexpr std::string_view kPreprocEndSuffix = " >!}";
 
 class CommonListenerHelper {
  public:
@@ -58,11 +66,12 @@ class CommonListenerHelper {
 
  public:
   FileContent* getFileContent() { return m_fileContent; }
+  const FileContent* getFileContent() const { return m_fileContent; }
 
  protected:
   virtual SymbolId registerSymbol(std::string_view symbol) = 0;
 
-  NodeId NodeIdFromContext(const antlr4::tree::ParseTree* ctx) const;
+  NodeId NodeIdFromContext(const antlr4::tree::ParseTree* tree) const;
 
   const VObject& Object(NodeId index);
 
@@ -77,37 +86,44 @@ class CommonListenerHelper {
   uint16_t Column(NodeId index) const;
   uint32_t Line(NodeId index) const;
 
-  NodeId addVObject(antlr4::ParserRuleContext* ctx, std::string_view name,
-                    VObjectType objtype);
+  NodeId addVObject(antlr4::tree::ParseTree* tree, std::string_view name,
+                    VObjectType objtype, bool skipParenting = false);
+  NodeId addVObject(antlr4::tree::ParseTree* tree, VObjectType objtype,
+                    bool skipParenting = false);
+  NodeId addVObject(antlr4::tree::ParseTree* tree, SymbolId sym,
+                    VObjectType objtype, bool skipParenting = false);
 
-  NodeId addVObject(antlr4::ParserRuleContext* ctx, VObjectType objtype);
-  NodeId addVObject(antlr4::ParserRuleContext* ctx, SymbolId sym,
-                    VObjectType objtype);
-
-  void addParentChildRelations(NodeId indexParent,
-                               antlr4::ParserRuleContext* ctx);
-
-  NodeId getObjectId(antlr4::ParserRuleContext* ctx) const;
+  void addNodeIdForContext(const antlr4::tree::ParseTree* tree, NodeId nodeId);
+  void addParentChildRelations(const antlr4::tree::ParseTree* tree,
+                               NodeId parentId);
 
   virtual std::tuple<PathId, uint32_t, uint16_t, uint32_t, uint16_t>
-  getFileLine(antlr4::ParserRuleContext* ctx, antlr4::Token* token) const = 0;
+  getPPFileLine(antlr4::tree::ParseTree* tree, antlr4::Token* token) const = 0;
+  virtual std::tuple<PathId, uint32_t, uint16_t, uint32_t, uint16_t>
+  getFileLine(antlr4::tree::ParseTree* tree, antlr4::Token* token) const = 0;
 
   NodeId& MutableChild(NodeId index);
   NodeId& MutableSibling(NodeId index);
   NodeId& MutableParent(NodeId index);
 
  protected:
-  CommonListenerHelper(FileContent* file_content,
-                       antlr4::CommonTokenStream* tokens)
-      : m_fileContent(file_content), m_tokens(tokens) {}
+  CommonListenerHelper(Session* session, FileContent* file_content,
+                       antlr4::CommonTokenStream* tokens);
+
+ protected:
+  using ContextToObjectMap = std::map<const antlr4::tree::ParseTree*, NodeId>;
+  Session* const m_session = nullptr;
 
   // These should be *const, but they are still set in some places.
   // TODO: fix these places.
-  FileContent* m_fileContent;
-  antlr4::CommonTokenStream* const m_tokens;
+  FileContent* m_fileContent = nullptr;
+  antlr4::CommonTokenStream* const m_tokens = nullptr;
 
-  using ContextToObjectMap = std::map<const antlr4::tree::ParseTree*, NodeId>;
   ContextToObjectMap m_contextToObjectMap;
+  const std::regex m_regexEscSeqReplace;
+  const std::regex m_regexEscSeqSearch;
+  const std::regex m_regexTranslateOn;
+  const std::regex m_regexTranslateOff;
 };
 
 }  // namespace SURELOG

@@ -32,7 +32,7 @@
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/ClockingBlock.h>
 #include <Surelog/Design/DesignComponent.h>
-#include <Surelog/Design/ModPort.h>
+#include <Surelog/Design/Modport.h>
 #include <Surelog/Design/Signal.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
 
@@ -50,6 +50,10 @@
 #include <uhdm/ref_module.h>
 #include <uhdm/udp_defn.h>
 
+namespace uhdm {
+class Serializer;
+}
+
 namespace SURELOG {
 
 class CompileModule;
@@ -61,9 +65,9 @@ class ModuleDefinition final : public DesignComponent,
   friend CompileModule;
 
  public:
-  ModuleDefinition(const FileContent* fileContent, NodeId nodeId,
-                   std::string_view name);
-
+  ModuleDefinition(Session* session, std::string_view name,
+                   const FileContent* fileContent, NodeId nodeId,
+                   uhdm::Serializer& serializer);
   ~ModuleDefinition() final = default;
 
   std::string_view getName() const final { return m_name; }
@@ -72,21 +76,21 @@ class ModuleDefinition final : public DesignComponent,
   uint32_t getSize() const final;
 
   using ClockingBlockMap = std::map<std::string, ClockingBlock>;
-  using ModPortSignalMap = std::map<std::string, ModPort, std::less<>>;
-  using ModPortClockingBlockMap =
+  using ModportSignalMap = std::map<std::string, Modport, std::less<>>;
+  using ModportClockingBlockMap =
       std::map<std::string, std::vector<ClockingBlock>, std::less<>>;
 
-  ModPortSignalMap& getModPortSignalMap() { return m_modportSignalMap; }
-  ModPortClockingBlockMap& getModPortClockingBlockMap() {
+  ModportSignalMap& getModportSignalMap() { return m_modportSignalMap; }
+  ModportClockingBlockMap& getModportClockingBlockMap() {
     return m_modportClockingBlockMap;
   }
-  void insertModPort(std::string_view modport, const Signal& signal,
+  void insertModport(std::string_view modport, const Signal& signal,
                      NodeId nodeId);
-  void insertModPort(std::string_view modport, ClockingBlock& block);
-  const Signal* getModPortSignal(std::string_view modport, NodeId port) const;
-  ModPort* getModPort(std::string_view modport);
+  void insertModport(std::string_view modport, ClockingBlock& block);
+  const Signal* getModportSignal(std::string_view modport, NodeId port) const;
+  Modport* getModport(std::string_view modport);
 
-  const ClockingBlock* getModPortClockingBlock(std::string_view modport,
+  const ClockingBlock* getModportClockingBlock(std::string_view modport,
                                                NodeId port) const;
 
   ClassNameClassDefinitionMultiMap& getClassDefinitions() {
@@ -99,77 +103,74 @@ class ModuleDefinition final : public DesignComponent,
   ClassDefinition* getClassDefinition(std::string_view name);
 
   void setGenBlockId(NodeId id) {
-    m_gen_block_id = id;
+    m_genBlockId = id;
     if (m_unelabModule != this) m_unelabModule->setGenBlockId(id);
   }
 
-  NodeId getGenBlockId() const { return m_gen_block_id; }
-  UHDM::udp_defn* getUdpDefn() { return m_udpDefn; }
+  NodeId getGenBlockId() const { return m_genBlockId; }
+  uhdm::UdpDefn* getUdpDefn() { return m_udpDefn; }
 
-  UHDM::VectorOfattribute* Attributes() const { return attributes_; }
+  uhdm::AttributeCollection* getAttributes() const { return m_attributes; }
 
-  bool Attributes(UHDM::VectorOfattribute* data) {
-    attributes_ = data;
+  bool setAttributes(uhdm::AttributeCollection* data) {
+    m_attributes = data;
     return true;
   }
-  std::vector<UHDM::module_array*>* getModuleArrays() { return m_moduleArrays; }
-  void setModuleArrays(std::vector<UHDM::module_array*>* modules) {
+  std::vector<uhdm::ModuleArray*>* getModuleArrays() { return m_moduleArrays; }
+  void setModuleArrays(std::vector<uhdm::ModuleArray*>* modules) {
     m_moduleArrays = modules;
   }
 
-  std::vector<UHDM::ref_module*>* getRefModules() { return m_ref_modules; }
-  void setRefModules(std::vector<UHDM::ref_module*>* modules) {
-    m_ref_modules = modules;
+  std::vector<uhdm::RefModule*>* getRefModules() { return m_refModules; }
+  void setRefModules(std::vector<uhdm::RefModule*>* modules) {
+    m_refModules = modules;
   }
 
-  UHDM::VectorOfprimitive* getPrimitives() { return m_subPrimitives; }
-  UHDM::VectorOfprimitive_array* getPrimitiveArrays() {
+  uhdm::PrimitiveCollection* getPrimitives() { return m_subPrimitives; }
+  uhdm::PrimitiveArrayCollection* getPrimitiveArrays() {
     return m_subPrimitiveArrays;
   }
-  UHDM::VectorOfgen_scope_array* getGenScopeArrays() {
+  uhdm::GenScopeArrayCollection* getGenScopeArrays() {
     return m_subGenScopeArrays;
   }
-  std::vector<UHDM::gen_stmt*>* getGenStmts() { return m_genStmts; }
-  void setPrimitives(UHDM::VectorOfprimitive* primitives) {
+  std::vector<uhdm::Any*>* getGenStmts() { return m_genStmts; }
+  std::vector<uhdm::Any*>* getGenVars() { return m_genVars; }
+  void setPrimitives(uhdm::PrimitiveCollection* primitives) {
     m_subPrimitives = primitives;
   }
-  void setPrimitiveArrays(UHDM::VectorOfprimitive_array* primitives) {
+  void setPrimitiveArrays(uhdm::PrimitiveArrayCollection* primitives) {
     m_subPrimitiveArrays = primitives;
   }
-  void setGenScopeArrays(UHDM::VectorOfgen_scope_array* gen_arrays) {
+  void setGenScopeArrays(uhdm::GenScopeArrayCollection* gen_arrays) {
     m_subGenScopeArrays = gen_arrays;
   }
-  void setGenStmts(std::vector<UHDM::gen_stmt*>* gen_stmts) {
+  void setGenStmts(std::vector<uhdm::Any*>* gen_stmts) {
     m_genStmts = gen_stmts;
   }
+  void setGenVars(std::vector<uhdm::Any*>* gen_vars) { m_genVars = gen_vars; }
   std::string_view getEndLabel() const { return m_endLabel; }
   void setEndLabel(std::string_view endLabel) { m_endLabel = endLabel; }
 
   ModuleDefinition* getUnelabMmodule() { return m_unelabModule; }
 
  private:
-  const std::string m_name;
+  std::string m_name;
   std::string m_endLabel;
-  ModPortSignalMap m_modportSignalMap;
-  ModPortClockingBlockMap m_modportClockingBlockMap;
+  ModportSignalMap m_modportSignalMap;
+  ModportClockingBlockMap m_modportClockingBlockMap;
   ClassNameClassDefinitionMultiMap m_classDefinitions;
-  NodeId m_gen_block_id;
-  UHDM::udp_defn* m_udpDefn;
-  ModuleDefinition* m_unelabModule;
+  NodeId m_genBlockId;
+  ModuleDefinition* m_unelabModule = nullptr;
+  uhdm::UdpDefn* m_udpDefn = nullptr;
 
-  UHDM::VectorOfattribute* attributes_ = nullptr;
-  std::vector<UHDM::module_array*>* m_moduleArrays = nullptr;
-  std::vector<UHDM::ref_module*>* m_ref_modules = nullptr;
-  UHDM::VectorOfprimitive* m_subPrimitives = nullptr;
-  UHDM::VectorOfprimitive_array* m_subPrimitiveArrays = nullptr;
-  UHDM::VectorOfgen_scope_array* m_subGenScopeArrays = nullptr;
-  std::vector<UHDM::gen_stmt*>* m_genStmts = nullptr;
-};
-
-class ModuleDefinitionFactory {
- public:
-  ModuleDefinition* newModuleDefinition(const FileContent* fileContent,
-                                        NodeId nodeId, std::string_view name);
+  uhdm::AttributeCollection* m_attributes = nullptr;
+  std::vector<uhdm::ModuleArray*>* m_moduleArrays = nullptr;
+  std::vector<uhdm::RefModule*>* m_refModules = nullptr;
+  uhdm::PrimitiveCollection* m_subPrimitives = nullptr;
+  uhdm::PrimitiveArrayCollection* m_subPrimitiveArrays = nullptr;
+  uhdm::GenScopeArrayCollection* m_subGenScopeArrays = nullptr;
+  std::vector<uhdm::Any*>* m_genStmts = nullptr;
+  std::vector<uhdm::Any*>* m_genVars = nullptr;
 };
 
 };  // namespace SURELOG

@@ -53,6 +53,7 @@ namespace SURELOG {
 
 class ParseFile;
 class ParseLibraryDef;
+class Session;
 
 class SV3_1aTreeShapeHelper : public CommonListenerHelper {
  public:
@@ -86,20 +87,24 @@ class SV3_1aTreeShapeHelper : public CommonListenerHelper {
   std::pair<double, TimeInfo::Unit> getTimeValue(
       SV3_1aParser::Time_literalContext* ctx);
 
+  std::tuple<PathId, uint32_t, uint16_t, uint32_t, uint16_t> getPPFileLine(
+      antlr4::tree::ParseTree* tree, antlr4::Token* token) const override;
   std::tuple<PathId, uint32_t, uint16_t, uint32_t, uint16_t> getFileLine(
-      antlr4::ParserRuleContext* ctx, antlr4::Token* token) const final;
+      antlr4::tree::ParseTree* tree, antlr4::Token* token) const final;
 
  protected:
-  SV3_1aTreeShapeHelper(ParseFile* pf, antlr4::CommonTokenStream* tokens,
-                        uint32_t lineOffset);
-  SV3_1aTreeShapeHelper(ParseLibraryDef* pf, antlr4::CommonTokenStream* tokens);
+  SV3_1aTreeShapeHelper(Session* session, ParseFile* pf,
+                        antlr4::CommonTokenStream* tokens, uint32_t lineOffset);
+
+  SV3_1aTreeShapeHelper(Session* session, ParseLibraryDef* pf,
+                        antlr4::CommonTokenStream* tokens);
 
  protected:
-  ParseFile* m_pf;
-  DesignElement* m_currentElement;
+  ParseFile* m_pf = nullptr;
+  DesignElement* m_currentElement = nullptr;
   std::stack<DesignElement*> m_nestedElements;
-  uint32_t m_lineOffset;
-  bool m_ppOutputFileLocation;
+  uint32_t m_lineOffset = 0;
+  bool m_ppOutputFileLocation = false;
   std::stack<IncludeFileInfo> m_includeFileInfo;
 };
 

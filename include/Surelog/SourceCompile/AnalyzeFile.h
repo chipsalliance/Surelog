@@ -36,10 +36,8 @@
 #include <vector>
 
 namespace SURELOG {
-
-class CommandLineParser;
 class Design;
-class SymbolTable;
+class Session;
 
 class AnalyzeFile final {
  public:
@@ -63,9 +61,9 @@ class AnalyzeFile final {
     uint64_t m_endChar;
   };
 
-  AnalyzeFile(CommandLineParser* clp, Design* design, PathId ppFileId,
-              PathId fileId, int32_t nbChunks, std::string_view text = "")
-      : m_clp(clp),
+  AnalyzeFile(Session* session, Design* design, PathId ppFileId, PathId fileId,
+              int32_t nbChunks, std::string_view text = "")
+      : m_session(session),
         m_design(design),
         m_ppFileId(ppFileId),
         m_fileId(fileId),
@@ -82,14 +80,16 @@ class AnalyzeFile final {
  private:
   void checkSLlineDirective_(std::string_view line, uint32_t lineNb);
   std::string setSLlineDirective_(uint32_t lineNb);
-  CommandLineParser* const m_clp = nullptr;
+
+ private:
+  Session* const m_session = nullptr;
   Design* const m_design = nullptr;
   PathId m_ppFileId;
   PathId m_fileId;
   std::vector<FileChunk> m_fileChunks;
   std::vector<PathId> m_splitFiles;
   std::vector<uint32_t> m_lineOffsets;
-  int32_t m_nbChunks;
+  int32_t m_nbChunks = 0;
   std::stack<IncludeFileInfo> m_includeFileInfo;
   std::string m_text;  // unit test
 };

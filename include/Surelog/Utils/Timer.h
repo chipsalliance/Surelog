@@ -33,17 +33,17 @@ namespace SURELOG {
 
 class Timer final {
  public:
-  Timer() : beg_(clock_::now()) {}
+  Timer() : m_beg(clock_t::now()) {}
 
-  void reset() { beg_ = clock_::now(); }
+  void reset() { m_beg = clock_t::now(); }
 
   double elapsed() const {
-    return std::chrono::duration_cast<second_>(clock_::now() - beg_).count();
+    return std::chrono::duration_cast<second_t>(clock_t::now() - m_beg).count();
   }
 
   double elapsed_rounded() const {
     double res =
-        std::chrono::duration_cast<second_>(clock_::now() - beg_).count();
+        std::chrono::duration_cast<second_t>(clock_t::now() - m_beg).count();
     return round(res);
   }
 
@@ -53,9 +53,9 @@ class Timer final {
   }
 
  private:
-  using clock_ = std::chrono::high_resolution_clock;
-  using second_ = std::chrono::duration<double, std::ratio<1>>;
-  std::chrono::time_point<clock_> beg_;
+  using clock_t = std::chrono::high_resolution_clock;
+  using second_t = std::chrono::duration<double, std::ratio<1>>;
+  std::chrono::time_point<clock_t> m_beg;
 };
 
 };  // namespace SURELOG

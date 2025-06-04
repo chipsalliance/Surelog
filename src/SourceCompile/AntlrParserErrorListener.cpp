@@ -30,6 +30,7 @@
 #include <string>
 
 #include "Surelog/Common/FileSystem.h"
+#include "Surelog/Common/Session.h"
 #include "Surelog/Common/SymbolId.h"
 #include "Surelog/ErrorReporting/Error.h"
 #include "Surelog/ErrorReporting/ErrorDefinition.h"
@@ -40,6 +41,19 @@
 
 namespace SURELOG {
 
+AntlrParserErrorListener::AntlrParserErrorListener(Session *session,
+                                                   ParseFile *parser,
+                                                   bool watchDogOn,
+                                                   uint32_t lineOffset,
+                                                   PathId fileId)
+    : m_session(session),
+      m_parser(parser),
+      m_reportedSyntaxError(0),
+      m_watchDogOn(watchDogOn),
+      m_barked(false),
+      m_lineOffset(lineOffset),
+      m_fileId(fileId) {}
+
 void AntlrParserErrorListener::syntaxError(
     antlr4::Recognizer *recognizer, antlr4::Token *offendingSymbol, size_t line,
     size_t charPositionInLine, const std::string &msg, std::exception_ptr e) {
@@ -47,7 +61,8 @@ void AntlrParserErrorListener::syntaxError(
     m_barked = true;
     return;
   }
-  FileSystem *const fileSystem = FileSystem::getInstance();
+
+  FileSystem *const fileSystem = m_session->getFileSystem();
   if (m_fileContent.empty()) {
     fileSystem->readLines(m_fileId, m_fileContent);
   }
@@ -58,11 +73,10 @@ void AntlrParserErrorListener::syntaxError(
     if (!lineText.empty()) {
       lineText.push_back('\n');
       lineText.append(charPositionInLine, ' ');
-      if (m_printExtraPpLineInfo)
-        StrAppend(&lineText, "^-- ", fileSystem->toPath(m_fileId), ":", line,
-                  ":", charPositionInLine, ":");
-      else
-        StrAppend(&lineText, "^--");
+      StrAppend(&lineText, "^-- ",
+                fileSystem->toPath(m_parser->getFileId(line + m_lineOffset)),
+                ":", m_parser->getLineNb(line + m_lineOffset), ":",
+                charPositionInLine, ":");
     }
   }
   if (m_reportedSyntaxError < 10) {

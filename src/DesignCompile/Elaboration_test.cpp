@@ -24,6 +24,7 @@
 #include <tuple>
 #include <vector>
 
+#include "Surelog/Common/Session.h"
 #include "Surelog/Design/Design.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Design/ModuleInstance.h"
@@ -40,7 +41,7 @@
 #include <uhdm/gen_scope.h>
 #include <uhdm/gen_scope_array.h>
 #include <uhdm/int_typespec.h>
-#include <uhdm/module_inst.h>
+#include <uhdm/module.h>
 #include <uhdm/param_assign.h>
 #include <uhdm/ref_typespec.h>
 #include <uhdm/variables.h>
@@ -57,7 +58,7 @@ TEST(Elaboration, ExprFromPpTree) {
   ElaboratorHarness eharness;
 
   // Preprocess, Parse, Compile, Elaborate
-  Design* design;
+  uhdm::Design* design;
   FileContent* fC;
   CompileDesign* compileDesign;
   std::tie(design, fC, compileDesign) = eharness.elaborate(
@@ -89,16 +90,16 @@ TEST(Elaboration, ExprFromPpTree) {
     const std::string_view name = fC->SymName(param);
     NodeId rhs = fC->Sibling(param);
     // Not reduced
-    UHDM::expr* exp1 = (UHDM::expr*)helper.compileExpression(
+    uhdm::Expr* exp1 = (uhdm::Expr*)helper.compileExpression(
         component, fC, rhs, compileDesign, Reduce::No, nullptr, top, true);
-    EXPECT_EQ(exp1->UhdmType(), UHDM::uhdmoperation);
+    EXPECT_EQ(exp1->getUhdmType(), uhdm::UhdmType::Operation);
     // Reduced
-    UHDM::expr* exp2 = (UHDM::expr*)helper.compileExpression(
+    uhdm::Expr* exp2 = (uhdm::Expr*)helper.compileExpression(
         component, fC, rhs, compileDesign, Reduce::Yes, nullptr, top, true);
     if (name == "p1") {
-      EXPECT_EQ(exp2->UhdmType(), UHDM::uhdmconstant);
+      EXPECT_EQ(exp2->getUhdmType(), uhdm::UhdmType::Constant);
       bool invalidValue = false;
-      UHDM::ExprEval eval;
+      uhdm::ExprEval eval;
       EXPECT_EQ(eval.get_value(invalidValue, exp2), 6);
     }
   }
@@ -108,7 +109,7 @@ TEST(Elaboration, ExprFromText) {
   ElaboratorHarness eharness;
 
   // Preprocess, Parse, Compile, Elaborate
-  Design* design;
+  uhdm::Design* design;
   FileContent* fC;
   CompileDesign* compileDesign;
   std::tie(design, fC, compileDesign) = eharness.elaborate(
@@ -136,11 +137,11 @@ TEST(Elaboration, ExprFromText) {
     NodeId param = fC->Child(param_assign);
     NodeId rhs = fC->Sibling(param);
     // Reduced
-    UHDM::expr* exp = (UHDM::expr*)helper.compileExpression(
+    uhdm::Expr* exp = (uhdm::Expr*)helper.compileExpression(
         component, fC, rhs, compileDesign, Reduce::Yes, nullptr, top, true);
-    EXPECT_EQ(exp->UhdmType(), UHDM::uhdmconstant);
+    EXPECT_EQ(exp->getUhdmType(), uhdm::UhdmType::Constant);
     bool invalidValue = false;
-    UHDM::ExprEval eval;
+    uhdm::ExprEval eval;
     EXPECT_EQ(eval.get_value(invalidValue, exp), 16);
   }
 }
@@ -149,7 +150,7 @@ TEST(Elaboration, ExprUsePackage) {
   CompileHelper helper;
   ElaboratorHarness eharness;
 
-  Design* design;
+  uhdm::Design* design;
   FileContent* fC;
   CompileDesign* compileDesign;
   // Preprocess, Parse, Compile, Elaborate
@@ -184,11 +185,11 @@ TEST(Elaboration, ExprUsePackage) {
     NodeId param = fC->Child(param_assign);
     NodeId rhs = fC->Sibling(param);
     // Reduced
-    UHDM::expr* exp = (UHDM::expr*)helper.compileExpression(
+    uhdm::Expr* exp = (uhdm::Expr*)helper.compileExpression(
         component, fC, rhs, compileDesign, Reduce::Yes, nullptr, top, true);
-    EXPECT_EQ(exp->UhdmType(), UHDM::uhdmconstant);
+    EXPECT_EQ(exp->getUhdmType(), uhdm::UhdmType::Constant);
     bool invalidValue = false;
-    UHDM::ExprEval eval;
+    uhdm::ExprEval eval;
     EXPECT_EQ(eval.get_value(invalidValue, exp), 16);
   }
 }
@@ -197,7 +198,7 @@ TEST(Elaboration, DollarBits) {
   CompileHelper helper;
   ElaboratorHarness eharness;
 
-  Design* design;
+  uhdm::Design* design;
   FileContent* fC;
   CompileDesign* compileDesign;
   // Preprocess, Parse, Compile, Elaborate
@@ -224,21 +225,21 @@ TEST(Elaboration, DollarBits) {
   }
   EXPECT_NE(top, nullptr);
   Compiler* compiler = compileDesign->getCompiler();
-  vpiHandle hdesign = compiler->getUhdmDesign();
-  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  vpiHandle hdesign = compiler-getDesign()->getVpiDesign();
+  uhdm::Design* udesign = UhdmDesignFromVpiHandle(hdesign);
   for (auto topMod : *udesign->TopModules()) {
     for (auto passign : *topMod->Param_assigns()) {
-      UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
+      uhdm::Expr* rhs = (uhdm::Expr*)passign->getRhs();
       bool invalidValue = false;
-      UHDM::ExprEval eval;
+      uhdm::ExprEval eval;
       EXPECT_EQ(eval.get_value(invalidValue, rhs), 17);
     }
     for (auto sub : *topMod->Modules()) {
-      const std::string_view instName = sub->VpiName();
+      const std::string_view instName = sub->getName();
       for (auto passign : *sub->Param_assigns()) {
-        UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
+        uhdm::Expr* rhs = (uhdm::Expr*)passign->getRhs();
         bool invalidValue = false;
-        UHDM::ExprEval eval;
+        uhdm::ExprEval eval;
         uint64_t val = eval.get_value(invalidValue, rhs);
         if (instName == "dut1") {
           EXPECT_EQ(val, 8);
@@ -257,7 +258,7 @@ TEST(Elaboration, DollarBits) {
 TEST(Elaboration, DollarBitsHier) {
   CompileHelper helper;
   ElaboratorHarness eharness;
-  Design* design;
+  uhdm::Design* design;
   FileContent* fC;
   CompileDesign* compileDesign;
   // Preprocess, Parse, Compile, Elaborate
@@ -276,13 +277,13 @@ TEST(Elaboration, DollarBitsHier) {
     parameter o = $bits(reg2hw.ctrl.nco);
   endmodule)");
   Compiler* compiler = compileDesign->getCompiler();
-  vpiHandle hdesign = compiler->getUhdmDesign();
-  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  vpiHandle hdesign = compiler-getDesign()->getVpiDesign();
+  uhdm::Design* udesign = UhdmDesignFromVpiHandle(hdesign);
   for (auto topMod : *udesign->TopModules()) {
     for (auto passign : *topMod->Param_assigns()) {
-      UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
+      uhdm::Expr* rhs = (uhdm::Expr*)passign->getRhs();
       bool invalidValue = false;
-      UHDM::ExprEval eval;
+      uhdm::ExprEval eval;
       EXPECT_EQ(eval.get_value(invalidValue, rhs), 16);
     }
   }
@@ -291,7 +292,7 @@ TEST(Elaboration, DollarBitsHier) {
 TEST(Elaboration, ConcatHexa) {
   CompileHelper helper;
   ElaboratorHarness eharness;
-  Design* design;
+  uhdm::Design* design;
   FileContent* fC;
   CompileDesign* compileDesign;
   // Preprocess, Parse, Compile, Elaborate
@@ -305,13 +306,13 @@ TEST(Elaboration, ConcatHexa) {
     };
   endmodule)");
   Compiler* compiler = compileDesign->getCompiler();
-  vpiHandle hdesign = compiler->getUhdmDesign();
-  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  vpiHandle hdesign = compiler-getDesign()->getVpiDesign();
+  uhdm::Design* udesign = UhdmDesignFromVpiHandle(hdesign);
   for (auto topMod : *udesign->TopModules()) {
     for (auto passign : *topMod->Param_assigns()) {
-      UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
+      uhdm::Expr* rhs = (uhdm::Expr*)passign->getRhs();
       bool invalidValue = false;
-      UHDM::ExprEval eval;
+      uhdm::ExprEval eval;
       EXPECT_EQ(eval.get_value(invalidValue, rhs), 83183693);
     }
   }
@@ -320,7 +321,7 @@ TEST(Elaboration, ConcatHexa) {
 TEST(Elaboration, ParamSubstituteWhenConstant) {
   CompileHelper helper;
   ElaboratorHarness eharness;
-  Design* design;
+  uhdm::Design* design;
   FileContent* fC;
   CompileDesign* compileDesign;
   // Preprocess, Parse, Compile, Elaborate
@@ -333,14 +334,14 @@ TEST(Elaboration, ParamSubstituteWhenConstant) {
     parameter logic [7:0][3:0] P = X;
   endmodule )");
   Compiler* compiler = compileDesign->getCompiler();
-  vpiHandle hdesign = compiler->getUhdmDesign();
-  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  vpiHandle hdesign = compiler-getDesign()->getVpiDesign();
+  uhdm::Design* udesign = UhdmDesignFromVpiHandle(hdesign);
   for (auto topMod : *udesign->TopModules()) {
     for (auto passign : *topMod->Param_assigns()) {
-      UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
+      uhdm::Expr* rhs = (uhdm::Expr*)passign->getRhs();
       bool invalidValue = false;
-      EXPECT_EQ(rhs->UhdmType(), UHDM::uhdmconstant);
-      UHDM::ExprEval eval;
+      EXPECT_EQ(rhs->getUhdmType(), uhdm::UhdmType::Constant);
+      uhdm::ExprEval eval;
       EXPECT_EQ(eval.get_value(invalidValue, rhs), 43981);
     }
   }
@@ -349,7 +350,7 @@ TEST(Elaboration, ParamSubstituteWhenConstant) {
 TEST(Elaboration, ParamSubstituteComplex) {
   CompileHelper helper;
   ElaboratorHarness eharness;
-  Design* design;
+  uhdm::Design* design;
   FileContent* fC;
   CompileDesign* compileDesign;
   // Preprocess, Parse, Compile, Elaborate
@@ -399,15 +400,15 @@ endmodule
 
 )");
   Compiler* compiler = compileDesign->getCompiler();
-  vpiHandle hdesign = compiler->getUhdmDesign();
-  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  vpiHandle hdesign = compiler-getDesign()->getVpiDesign();
+  uhdm::Design* udesign = UhdmDesignFromVpiHandle(hdesign);
   for (auto topMod : *udesign->TopModules()) {
     for (auto passign : *topMod->Param_assigns()) {
-      if (passign->Lhs()->VpiName() == "DEBUGME") {
-        UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
+      if (passign->getLhs()->getName() == "DEBUGME") {
+        uhdm::Expr* rhs = (uhdm::Expr*)passign->getRhs();
         bool invalidValue = false;
-        EXPECT_EQ(rhs->UhdmType(), UHDM::uhdmconstant);
-        UHDM::ExprEval eval;
+        EXPECT_EQ(rhs->getUhdmType(), uhdm::UhdmType::Constant);
+        uhdm::ExprEval eval;
         EXPECT_EQ(eval.get_value(invalidValue, rhs), 1);
       }
     }
@@ -419,7 +420,7 @@ TEST(Elaboration, SignedBinConstParam) {
   ElaboratorHarness eharness;
 
   // Preprocess, Parse, Compile, Elaborate
-  Design* design;
+  uhdm::Design* design;
   FileContent* fC;
   CompileDesign* compileDesign;
   std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
@@ -435,16 +436,16 @@ module top();
 endmodule
   )");
   Compiler* compiler = compileDesign->getCompiler();
-  vpiHandle hdesign = compiler->getUhdmDesign();
-  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  vpiHandle hdesign = compiler-getDesign()->getVpiDesign();
+  uhdm::Design* udesign = UhdmDesignFromVpiHandle(hdesign);
   for (auto topMod : *udesign->TopModules()) {
     for (auto passign : *topMod->Param_assigns()) {
-      UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
+      uhdm::Expr* rhs = (uhdm::Expr*)passign->getRhs();
       bool invalidValue = false;
-      EXPECT_EQ(rhs->UhdmType(), UHDM::uhdmconstant);
-      UHDM::ExprEval eval;
+      EXPECT_EQ(rhs->getUhdmType(), uhdm::UhdmType::Constant);
+      uhdm::ExprEval eval;
       int64_t val = eval.get_value(invalidValue, rhs);
-      const std::string_view name = passign->Lhs()->VpiName();
+      const std::string_view name = passign->getLhs()->getName();
       if (name == "p1") {
         EXPECT_EQ(val, 3);
       } else if (name == "p2") {
@@ -471,7 +472,7 @@ TEST(Elaboration, SignedBinConstAssign) {
   ElaboratorHarness eharness;
 
   // Preprocess, Parse, Compile, Elaborate
-  Design* design;
+  uhdm::Design* design;
   FileContent* fC;
   CompileDesign* compileDesign;
   std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
@@ -483,24 +484,24 @@ module top(output [3:0] x);
 endmodule
   )");
   Compiler* compiler = compileDesign->getCompiler();
-  vpiHandle hdesign = compiler->getUhdmDesign();
-  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  vpiHandle hdesign = compiler-getDesign()->getVpiDesign();
+  uhdm::Design* udesign = UhdmDesignFromVpiHandle(hdesign);
   for (auto topMod : *udesign->TopModules()) {
     for (auto cassign : *topMod->Cont_assigns()) {
-      UHDM::expr* rhs = (UHDM::expr*)cassign->Rhs();
+      uhdm::Expr* rhs = (uhdm::Expr*)cassign->getRhs();
       bool invalidValue = false;
-      EXPECT_EQ(rhs->UhdmType(), UHDM::uhdmconstant);
-      UHDM::ExprEval eval;
+      EXPECT_EQ(rhs->getUhdmType(), uhdm::UhdmType::Constant);
+      uhdm::ExprEval eval;
       int64_t val = eval.get_value(invalidValue, rhs);
-      const std::string_view name = cassign->Lhs()->VpiName();
+      const std::string_view name = cassign->getLhs()->getName();
       if (name == "p1") {
         // Val is 1, but it has a signed typespec (Meaning negative bin number)
         EXPECT_EQ(val, 3);
-        const UHDM::int_typespec* itps = nullptr;
-        if (const UHDM::ref_typespec* rt = rhs->Typespec()) {
-          itps = rt->Actual_typespec<UHDM::int_typespec>();
+        const uhdm::IntTypespec* itps = nullptr;
+        if (const uhdm::RefTypespec* rt = rhs->getTypespec()) {
+          itps = rt->setActualTypespec<uhdm::IntTypespec>();
         }
-        EXPECT_EQ(itps->VpiSigned(), false);
+        EXPECT_EQ(itps->getSigned(), false);
       } else if (name == "p2") {
         EXPECT_EQ(val, 2);
       } else if (name == "x") {
@@ -508,12 +509,12 @@ endmodule
       }
     }
     for (auto var : *topMod->Variables()) {
-      UHDM::expr* rhs = (UHDM::expr*)var->Expr();
+      uhdm::Expr* rhs = (uhdm::Expr*)var->getExpr();
       bool invalidValue = false;
-      EXPECT_EQ(rhs->UhdmType(), UHDM::uhdmconstant);
-      UHDM::ExprEval eval;
+      EXPECT_EQ(rhs->getUhdmType(), uhdm::UhdmType::Constant);
+      uhdm::ExprEval eval;
       int64_t val = eval.get_value(invalidValue, rhs);
-      const std::string_view name = var->VpiName();
+      const std::string_view name = var->getName();
       if (name == "p3") {
         EXPECT_EQ(val, -2);
       }
@@ -526,7 +527,7 @@ TEST(Elaboration, WordSizeFuncArg) {
   ElaboratorHarness eharness;
 
   // Preprocess, Parse, Compile, Elaborate
-  Design* design;
+  uhdm::Design* design;
   FileContent* fC;
   CompileDesign* compileDesign;
   std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
@@ -540,14 +541,14 @@ module top(output logic [31:0] o);
 endmodule
   )");
   Compiler* compiler = compileDesign->getCompiler();
-  vpiHandle hdesign = compiler->getUhdmDesign();
-  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  vpiHandle hdesign = compiler-getDesign()->getVpiDesign();
+  uhdm::Design* udesign = UhdmDesignFromVpiHandle(hdesign);
   for (auto topMod : *udesign->TopModules()) {
     for (auto passign : *topMod->Param_assigns()) {
-      UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
+      uhdm::Expr* rhs = (uhdm::Expr*)passign->getRhs();
       bool invalidValue = false;
-      EXPECT_EQ(rhs->UhdmType(), UHDM::uhdmconstant);
-      UHDM::ExprEval eval;
+      EXPECT_EQ(rhs->getUhdmType(), uhdm::UhdmType::Constant);
+      uhdm::ExprEval eval;
       int64_t val = eval.get_value(invalidValue, rhs);
       EXPECT_EQ(val, 26796);
     }
@@ -559,7 +560,7 @@ TEST(Elaboration, FuncNoArg) {
   ElaboratorHarness eharness;
 
   // Preprocess, Parse, Compile, Elaborate
-  Design* design;
+  uhdm::Design* design;
   FileContent* fC;
   CompileDesign* compileDesign;
   std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
@@ -574,16 +575,16 @@ module top(output int o);
 endmodule
   )");
   Compiler* compiler = compileDesign->getCompiler();
-  vpiHandle hdesign = compiler->getUhdmDesign();
-  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  vpiHandle hdesign = compiler-getDesign()->getVpiDesign();
+  uhdm::Design* udesign = UhdmDesignFromVpiHandle(hdesign);
   for (auto topMod : *udesign->TopModules()) {
     for (auto passign : *topMod->Param_assigns()) {
-      UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
+      uhdm::Expr* rhs = (uhdm::Expr*)passign->getRhs();
       bool invalidValue = false;
-      const std::string_view name = passign->Lhs()->VpiName();
+      const std::string_view name = passign->getLhs()->getName();
       if (name == "p") {
-        EXPECT_EQ(rhs->UhdmType(), UHDM::uhdmconstant);
-        UHDM::ExprEval eval;
+        EXPECT_EQ(rhs->getUhdmType(), uhdm::UhdmType::Constant);
+        uhdm::ExprEval eval;
         int64_t val = eval.get_value(invalidValue, rhs);
         EXPECT_EQ(val, 1);
       }
@@ -596,7 +597,7 @@ TEST(Elaboration, FuncReturn) {
   ElaboratorHarness eharness;
 
   // Preprocess, Parse, Compile, Elaborate
-  Design* design;
+  uhdm::Design* design;
   FileContent* fC;
   CompileDesign* compileDesign;
   std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
@@ -615,16 +616,16 @@ endmodule : top
 
   )");
   Compiler* compiler = compileDesign->getCompiler();
-  vpiHandle hdesign = compiler->getUhdmDesign();
-  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  vpiHandle hdesign = compiler-getDesign()->getVpiDesign();
+  uhdm::Design* udesign = UhdmDesignFromVpiHandle(hdesign);
   for (auto topMod : *udesign->TopModules()) {
     for (auto passign : *topMod->Param_assigns()) {
-      UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
+      uhdm::Expr* rhs = (uhdm::Expr*)passign->getRhs();
       bool invalidValue = false;
-      const std::string_view name = passign->Lhs()->VpiName();
+      const std::string_view name = passign->getLhs()->getName();
       if (name == "p") {
-        EXPECT_EQ(rhs->UhdmType(), UHDM::uhdmconstant);
-        UHDM::ExprEval eval;
+        EXPECT_EQ(rhs->getUhdmType(), uhdm::UhdmType::Constant);
+        uhdm::ExprEval eval;
         int64_t val = eval.get_value(invalidValue, rhs);
         EXPECT_EQ(val, 1);
       }
@@ -637,7 +638,7 @@ TEST(Elaboration, StructValToLogic) {
   ElaboratorHarness eharness;
 
   // Preprocess, Parse, Compile, Elaborate
-  Design* design;
+  uhdm::Design* design;
   FileContent* fC;
   CompileDesign* compileDesign;
   std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
@@ -664,15 +665,15 @@ module top();
 endmodule
   )");
   Compiler* compiler = compileDesign->getCompiler();
-  vpiHandle hdesign = compiler->getUhdmDesign();
-  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  vpiHandle hdesign = compiler-getDesign()->getVpiDesign();
+  uhdm::Design* udesign = UhdmDesignFromVpiHandle(hdesign);
   for (auto topMod : *udesign->TopModules()) {
     for (auto passign : *topMod->Param_assigns()) {
-      UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
+      uhdm::Expr* rhs = (uhdm::Expr*)passign->getRhs();
       bool invalidValue = false;
-      const std::string_view name = passign->Lhs()->VpiName();
+      const std::string_view name = passign->getLhs()->getName();
       if (name == "RESVAL") {
-        UHDM::ExprEval eval;
+        uhdm::ExprEval eval;
         int64_t val = eval.get_value(invalidValue, rhs);
         EXPECT_EQ(val, 99);
       }
@@ -685,7 +686,7 @@ TEST(Elaboration, DefaultValLogic) {
   ElaboratorHarness eharness;
 
   // Preprocess, Parse, Compile, Elaborate
-  Design* design;
+  uhdm::Design* design;
   FileContent* fC;
   CompileDesign* compileDesign;
   std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
@@ -694,15 +695,15 @@ module top();
 endmodule
   )");
   Compiler* compiler = compileDesign->getCompiler();
-  vpiHandle hdesign = compiler->getUhdmDesign();
-  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  vpiHandle hdesign = compiler-getDesign()->getVpiDesign();
+  uhdm::Design* udesign = UhdmDesignFromVpiHandle(hdesign);
   for (auto topMod : *udesign->TopModules()) {
     for (auto passign : *topMod->Param_assigns()) {
-      UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
+      uhdm::Expr* rhs = (uhdm::Expr*)passign->getRhs();
       bool invalidValue = false;
-      const std::string_view name = passign->Lhs()->VpiName();
+      const std::string_view name = passign->getLhs()->getName();
       if (name == "P") {
-        UHDM::ExprEval eval;
+        uhdm::ExprEval eval;
         int64_t val = eval.get_value(invalidValue, rhs);
         EXPECT_EQ(val, 255);
       }
@@ -715,7 +716,7 @@ TEST(Elaboration, AssignmentBitOrder) {
   ElaboratorHarness eharness;
 
   // Preprocess, Parse, Compile, Elaborate
-  Design* design;
+  uhdm::Design* design;
   FileContent* fC;
   CompileDesign* compileDesign;
   std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
@@ -736,16 +737,16 @@ endmodule
 
   )");
   Compiler* compiler = compileDesign->getCompiler();
-  vpiHandle hdesign = compiler->getUhdmDesign();
-  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  vpiHandle hdesign = compiler-getDesign()->getVpiDesign();
+  uhdm::Design* udesign = UhdmDesignFromVpiHandle(hdesign);
   for (auto topMod : *udesign->TopModules()) {
     for (auto inst : *topMod->Modules()) {
       for (auto passign : *inst->Param_assigns()) {
-        UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
+        uhdm::Expr* rhs = (uhdm::Expr*)passign->getRhs();
         bool invalidValue = false;
-        const std::string_view name = passign->Lhs()->VpiName();
+        const std::string_view name = passign->getLhs()->getName();
         if (name == "A") {
-          UHDM::ExprEval eval;
+          uhdm::ExprEval eval;
           int64_t val = eval.get_value(invalidValue, rhs);
           EXPECT_EQ(val, 22);
         }
@@ -755,8 +756,9 @@ endmodule
 }
 #endif
 TEST(Elaboration, EnumConstElab) {
-  CompileHelper helper;
-  ElaboratorHarness eharness;
+  Session session;
+  CompileHelper helper(&session);
+  ElaboratorHarness eharness(&session);
 
   // Preprocess, Parse, Compile, Elaborate
   Design* design;
@@ -808,20 +810,20 @@ module top;
 endmodule // top
   )");
   Compiler* compiler = compileDesign->getCompiler();
-  vpiHandle hdesign = compiler->getUhdmDesign();
-  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  vpiHandle hdesign = compiler->getDesign()->getVpiDesign();
+  uhdm::Design* udesign = UhdmDesignFromVpiHandle(hdesign);
 
-  UHDM::visit_designs({hdesign}, std::cout);
+  uhdm::visit_designs({hdesign}, std::cout);
 
-  for (auto topMod : *udesign->TopModules()) {
-    for (auto inst : *topMod->Modules()) {
-      for (auto inst2 : *inst->Modules()) {
-        for (auto passign : *inst2->Param_assigns()) {
-          UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
+  for (auto topMod : *udesign->getTopModules()) {
+    for (auto inst : *topMod->getModules()) {
+      for (auto inst2 : *inst->getModules()) {
+        for (auto passign : *inst2->getParamAssigns()) {
+          uhdm::Expr* rhs = (uhdm::Expr*)passign->getRhs();
           bool invalidValue = false;
-          const std::string_view name = passign->Lhs()->VpiName();
+          const std::string_view name = passign->getLhs()->getName();
           if (name == "RESVAL") {
-            UHDM::ExprEval eval;
+            uhdm::ExprEval eval;
             int64_t val = eval.get_value(invalidValue, rhs);
             EXPECT_EQ(val, 24);
           }
@@ -832,8 +834,9 @@ endmodule // top
 }
 
 TEST(Elaboration, ParamNoDefault) {
-  CompileHelper helper;
-  ElaboratorHarness eharness;
+  Session session;
+  CompileHelper helper(&session);
+  ElaboratorHarness eharness(&session);
 
   // Preprocess, Parse, Compile, Elaborate
   Design* design;
@@ -855,16 +858,16 @@ module top();
 endmodule
   )");
   Compiler* compiler = compileDesign->getCompiler();
-  vpiHandle hdesign = compiler->getUhdmDesign();
-  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
-  for (auto topMod : *udesign->TopModules()) {
-    for (auto inst : *topMod->Modules()) {
-      for (auto passign : *inst->Param_assigns()) {
-        UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
+  vpiHandle hdesign = compiler->getDesign()->getVpiDesign();
+  uhdm::Design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  for (auto topMod : *udesign->getTopModules()) {
+    for (auto inst : *topMod->getModules()) {
+      for (auto passign : *inst->getParamAssigns()) {
+        uhdm::Expr* rhs = (uhdm::Expr*)passign->getRhs();
         bool invalidValue = false;
-        const std::string_view name = passign->Lhs()->VpiName();
+        const std::string_view name = passign->getLhs()->getName();
         if (name == "A") {
-          UHDM::ExprEval eval;
+          uhdm::ExprEval eval;
           int64_t val = eval.get_value(invalidValue, rhs);
           EXPECT_EQ(val, 3);
         }
@@ -874,8 +877,9 @@ endmodule
 }
 
 TEST(Elaboration, ParamOverloading) {
-  CompileHelper helper;
-  ElaboratorHarness eharness;
+  Session session;
+  CompileHelper helper(&session);
+  ElaboratorHarness eharness(&session);
 
   // Preprocess, Parse, Compile, Elaborate
   Design* design;
@@ -924,17 +928,17 @@ module top;
 endmodule // top
   )");
   Compiler* compiler = compileDesign->getCompiler();
-  vpiHandle hdesign = compiler->getUhdmDesign();
-  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
-  for (auto topMod : *udesign->TopModules()) {
-    for (auto inst : *topMod->Modules()) {
-      for (auto inst2 : *inst->Modules()) {
-        for (auto passign : *inst2->Param_assigns()) {
-          UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
+  vpiHandle hdesign = compiler->getDesign()->getVpiDesign();
+  uhdm::Design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  for (auto topMod : *udesign->getTopModules()) {
+    for (auto inst : *topMod->getModules()) {
+      for (auto inst2 : *inst->getModules()) {
+        for (auto passign : *inst2->getParamAssigns()) {
+          uhdm::Expr* rhs = (uhdm::Expr*)passign->getRhs();
           bool invalidValue = false;
-          const std::string_view name = passign->Lhs()->VpiName();
+          const std::string_view name = passign->getLhs()->getName();
           if (name == "RESVAL") {
-            UHDM::ExprEval eval;
+            uhdm::ExprEval eval;
             int64_t val = eval.get_value(invalidValue, rhs);
             EXPECT_EQ(val, 8);
           }
@@ -945,8 +949,9 @@ endmodule // top
 }
 
 TEST(Elaboration, BitSelect) {
-  CompileHelper helper;
-  ElaboratorHarness eharness;
+  Session session;
+  CompileHelper helper(&session);
+  ElaboratorHarness eharness(&session);
 
   // Preprocess, Parse, Compile, Elaborate
   Design* design;
@@ -973,15 +978,15 @@ module top(output logic [15:0] o);
 endmodule // top
   )");
   Compiler* compiler = compileDesign->getCompiler();
-  vpiHandle hdesign = compiler->getUhdmDesign();
-  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
-  for (auto topMod : *udesign->TopModules()) {
-    for (auto cassign : *topMod->Cont_assigns()) {
-      UHDM::expr* rhs = (UHDM::expr*)cassign->Rhs();
+  vpiHandle hdesign = compiler->getDesign()->getVpiDesign();
+  uhdm::Design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  for (auto topMod : *udesign->getTopModules()) {
+    for (auto cassign : *topMod->getContAssigns()) {
+      uhdm::Expr* rhs = (uhdm::Expr*)cassign->getRhs();
       bool invalidValue = false;
-      const std::string_view name = cassign->Lhs()->VpiName();
+      const std::string_view name = cassign->getLhs()->getName();
       if (name == "o") {
-        UHDM::ExprEval eval;
+        uhdm::ExprEval eval;
         int64_t val = eval.get_value(invalidValue, rhs);
         EXPECT_EQ(val, 0b0100111100001011);
       }
@@ -990,8 +995,9 @@ endmodule // top
 }
 
 TEST(Elaboration, PartSelect) {
-  CompileHelper helper;
-  ElaboratorHarness eharness;
+  Session session;
+  CompileHelper helper(&session);
+  ElaboratorHarness eharness(&session);
 
   // Preprocess, Parse, Compile, Elaborate
   Design* design;
@@ -1016,15 +1022,15 @@ module top(output logic [15:0] o);
 endmodule // top
   )");
   Compiler* compiler = compileDesign->getCompiler();
-  vpiHandle hdesign = compiler->getUhdmDesign();
-  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
-  for (auto topMod : *udesign->TopModules()) {
-    for (auto cassign : *topMod->Cont_assigns()) {
-      UHDM::expr* rhs = (UHDM::expr*)cassign->Rhs();
+  vpiHandle hdesign = compiler->getDesign()->getVpiDesign();
+  uhdm::Design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  for (auto topMod : *udesign->getTopModules()) {
+    for (auto cassign : *topMod->getContAssigns()) {
+      uhdm::Expr* rhs = (uhdm::Expr*)cassign->getRhs();
       bool invalidValue = false;
-      const std::string_view name = cassign->Lhs()->VpiName();
+      const std::string_view name = cassign->getLhs()->getName();
       if (name == "o") {
-        UHDM::ExprEval eval;
+        uhdm::ExprEval eval;
         int64_t val = eval.get_value(invalidValue, rhs);
         EXPECT_EQ(val, 0b1010101100001111);
       }
@@ -1033,8 +1039,9 @@ endmodule // top
 }
 
 TEST(Elaboration, IndexedPartSelect) {
-  CompileHelper helper;
-  ElaboratorHarness eharness;
+  Session session;
+  CompileHelper helper(&session);
+  ElaboratorHarness eharness(&session);
 
   // Preprocess, Parse, Compile, Elaborate
   Design* design;
@@ -1059,15 +1066,15 @@ module top(output logic [15:0] o);
 endmodule // top
   )");
   Compiler* compiler = compileDesign->getCompiler();
-  vpiHandle hdesign = compiler->getUhdmDesign();
-  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
-  for (auto topMod : *udesign->TopModules()) {
-    for (auto cassign : *topMod->Cont_assigns()) {
-      UHDM::expr* rhs = (UHDM::expr*)cassign->Rhs();
+  vpiHandle hdesign = compiler->getDesign()->getVpiDesign();
+  uhdm::Design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  for (auto topMod : *udesign->getTopModules()) {
+    for (auto cassign : *topMod->getContAssigns()) {
+      uhdm::Expr* rhs = (uhdm::Expr*)cassign->getRhs();
       bool invalidValue = false;
-      const std::string_view name = cassign->Lhs()->VpiName();
+      const std::string_view name = cassign->getLhs()->getName();
       if (name == "o") {
-        UHDM::ExprEval eval;
+        uhdm::ExprEval eval;
         int64_t val = eval.get_value(invalidValue, rhs);
         EXPECT_EQ(val, 0b1010101100001111);
       }
@@ -1076,8 +1083,9 @@ endmodule // top
 }
 
 TEST(Elaboration, ConcatPartSelect) {
-  CompileHelper helper;
-  ElaboratorHarness eharness;
+  Session session;
+  CompileHelper helper(&session);
+  ElaboratorHarness eharness(&session);
 
   // Preprocess, Parse, Compile, Elaborate
   Design* design;
@@ -1104,15 +1112,15 @@ module top(output logic [15:0] o);
 endmodule // top
   )");
   Compiler* compiler = compileDesign->getCompiler();
-  vpiHandle hdesign = compiler->getUhdmDesign();
-  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
-  for (auto topMod : *udesign->TopModules()) {
-    for (auto cassign : *topMod->Cont_assigns()) {
-      UHDM::expr* rhs = (UHDM::expr*)cassign->Rhs();
+  vpiHandle hdesign = compiler->getDesign()->getVpiDesign();
+  uhdm::Design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  for (auto topMod : *udesign->getTopModules()) {
+    for (auto cassign : *topMod->getContAssigns()) {
+      uhdm::Expr* rhs = (uhdm::Expr*)cassign->getRhs();
       bool invalidValue = false;
-      const std::string_view name = cassign->Lhs()->VpiName();
+      const std::string_view name = cassign->getLhs()->getName();
       if (name == "o") {
-        UHDM::ExprEval eval;
+        uhdm::ExprEval eval;
         int64_t val = eval.get_value(invalidValue, rhs);
         EXPECT_EQ(val, 0b0100111100001011);
       }
@@ -1121,8 +1129,9 @@ endmodule // top
 }
 
 TEST(Elaboration, StringMath1) {
-  CompileHelper helper;
-  ElaboratorHarness eharness;
+  Session session;
+  CompileHelper helper(&session);
+  ElaboratorHarness eharness(&session);
 
   // Preprocess, Parse, Compile, Elaborate
   Design* design;
@@ -1139,15 +1148,15 @@ module Example();
 endmodule
   )");
   Compiler* compiler = compileDesign->getCompiler();
-  vpiHandle hdesign = compiler->getUhdmDesign();
-  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
-  for (auto topMod : *udesign->TopModules()) {
-    for (auto passign : *topMod->Param_assigns()) {
-      UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
+  vpiHandle hdesign = compiler->getDesign()->getVpiDesign();
+  uhdm::Design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  for (auto topMod : *udesign->getTopModules()) {
+    for (auto passign : *topMod->getParamAssigns()) {
+      uhdm::Expr* rhs = (uhdm::Expr*)passign->getRhs();
       bool invalidValue = false;
-      const std::string_view name = passign->Lhs()->VpiName();
+      const std::string_view name = passign->getLhs()->getName();
       if (name == "DEBUG") {
-        UHDM::ExprEval eval;
+        uhdm::ExprEval eval;
         int64_t val = eval.get_value(invalidValue, rhs);
         EXPECT_EQ(val, 79);
       }
@@ -1156,8 +1165,9 @@ endmodule
 }
 
 TEST(Elaboration, StringMath2) {
-  CompileHelper helper;
-  ElaboratorHarness eharness;
+  Session session;
+  CompileHelper helper(&session);
+  ElaboratorHarness eharness(&session);
 
   // Preprocess, Parse, Compile, Elaborate
   Design* design;
@@ -1169,15 +1179,15 @@ module dut2 #(parameter num_out_p="inv") ();
 endmodule
   )");
   Compiler* compiler = compileDesign->getCompiler();
-  vpiHandle hdesign = compiler->getUhdmDesign();
-  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
-  for (auto topMod : *udesign->TopModules()) {
-    for (auto passign : *topMod->Param_assigns()) {
-      UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
+  vpiHandle hdesign = compiler->getDesign()->getVpiDesign();
+  uhdm::Design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  for (auto topMod : *udesign->getTopModules()) {
+    for (auto passign : *topMod->getParamAssigns()) {
+      uhdm::Expr* rhs = (uhdm::Expr*)passign->getRhs();
       bool invalidValue = false;
-      const std::string_view name = passign->Lhs()->VpiName();
+      const std::string_view name = passign->getLhs()->getName();
       if (name == "P") {
-        UHDM::ExprEval eval;
+        uhdm::ExprEval eval;
         int64_t val = eval.get_value(invalidValue, rhs);
         EXPECT_EQ(val, 6909558);
       }
@@ -1186,8 +1196,9 @@ endmodule
 }
 
 TEST(Elaboration, CaseStatement) {
-  CompileHelper helper;
-  ElaboratorHarness eharness;
+  Session session;
+  CompileHelper helper(&session);
+  ElaboratorHarness eharness(&session);
 
   // Preprocess, Parse, Compile, Elaborate
   Design* design;
@@ -1224,13 +1235,13 @@ module top();
 endmodule
   )");
   Compiler* compiler = compileDesign->getCompiler();
-  vpiHandle hdesign = compiler->getUhdmDesign();
-  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
-  for (auto topMod : *udesign->TopModules()) {
-    for (auto gen_array : *topMod->Gen_scope_arrays()) {
-      for (auto gen_scope : *gen_array->Gen_scopes()) {
-        for (auto mod : *gen_scope->Modules()) {
-          EXPECT_EQ(mod->VpiDefName(), "UnitTest@GOOD");
+  vpiHandle hdesign = compiler->getDesign()->getVpiDesign();
+  uhdm::Design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  for (auto topMod : *udesign->getTopModules()) {
+    for (auto gen_array : *topMod->getGenScopeArrays()) {
+      for (auto gen_scope : *gen_array->getGenScopes()) {
+        for (auto mod : *gen_scope->getModules()) {
+          EXPECT_EQ(mod->getDefName(), "UnitTest@GOOD");
         }
       }
     }
@@ -1238,8 +1249,9 @@ endmodule
 }
 
 TEST(Elaboration, DollarBitsArrayVar) {
-  CompileHelper helper;
-  ElaboratorHarness eharness;
+  Session session;
+  CompileHelper helper(&session);
+  ElaboratorHarness eharness(&session);
 
   // Preprocess, Parse, Compile, Elaborate
   Design* design;
@@ -1253,15 +1265,15 @@ module top(output int o);
 endmodule
   )");
   Compiler* compiler = compileDesign->getCompiler();
-  vpiHandle hdesign = compiler->getUhdmDesign();
-  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
-  for (auto topMod : *udesign->TopModules()) {
-    for (auto cassign : *topMod->Cont_assigns()) {
-      UHDM::expr* rhs = (UHDM::expr*)cassign->Rhs();
+  vpiHandle hdesign = compiler->getDesign()->getVpiDesign();
+  uhdm::Design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  for (auto topMod : *udesign->getTopModules()) {
+    for (auto cassign : *topMod->getContAssigns()) {
+      uhdm::Expr* rhs = (uhdm::Expr*)cassign->getRhs();
       bool invalidValue = false;
-      const std::string_view name = cassign->Lhs()->VpiName();
+      const std::string_view name = cassign->getLhs()->getName();
       if (name == "o") {
-        UHDM::ExprEval eval;
+        uhdm::ExprEval eval;
         int64_t val = eval.get_value(invalidValue, rhs);
         EXPECT_EQ(val, 14);
       }
@@ -1270,8 +1282,9 @@ endmodule
 }
 
 TEST(Elaboration, FuncImplicitSignedReturn) {
-  CompileHelper helper;
-  ElaboratorHarness eharness;
+  Session session;
+  CompileHelper helper(&session);
+  ElaboratorHarness eharness(&session);
 
   // Preprocess, Parse, Compile, Elaborate
   Design* design;
@@ -1287,15 +1300,15 @@ module top (o);
 endmodule
   )");
   Compiler* compiler = compileDesign->getCompiler();
-  vpiHandle hdesign = compiler->getUhdmDesign();
-  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
-  for (auto topMod : *udesign->TopModules()) {
-    for (auto cassign : *topMod->Cont_assigns()) {
-      UHDM::expr* rhs = (UHDM::expr*)cassign->Rhs();
+  vpiHandle hdesign = compiler->getDesign()->getVpiDesign();
+  uhdm::Design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  for (auto topMod : *udesign->getTopModules()) {
+    for (auto cassign : *topMod->getContAssigns()) {
+      uhdm::Expr* rhs = (uhdm::Expr*)cassign->getRhs();
       bool invalidValue = false;
-      const std::string_view name = cassign->Lhs()->VpiName();
+      const std::string_view name = cassign->getLhs()->getName();
       if (name == "o") {
-        UHDM::ExprEval eval;
+        uhdm::ExprEval eval;
         int64_t val = eval.get_value(invalidValue, rhs);
         EXPECT_EQ(val, -1);
       }
@@ -1304,8 +1317,9 @@ endmodule
 }
 
 TEST(Elaboration, SignedUnsigned) {
-  CompileHelper helper;
-  ElaboratorHarness eharness;
+  Session session;
+  CompileHelper helper(&session);
+  ElaboratorHarness eharness(&session);
 
   // Preprocess, Parse, Compile, Elaborate
   Design* design;
@@ -1321,19 +1335,19 @@ module top(out1, out2);
 endmodule
   )");
   Compiler* compiler = compileDesign->getCompiler();
-  vpiHandle hdesign = compiler->getUhdmDesign();
-  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
-  for (auto topMod : *udesign->TopModules()) {
-    for (auto cassign : *topMod->Cont_assigns()) {
-      UHDM::expr* rhs = (UHDM::expr*)cassign->Rhs();
+  vpiHandle hdesign = compiler->getDesign()->getVpiDesign();
+  uhdm::Design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  for (auto topMod : *udesign->getTopModules()) {
+    for (auto cassign : *topMod->getContAssigns()) {
+      uhdm::Expr* rhs = (uhdm::Expr*)cassign->getRhs();
       bool invalidValue = false;
-      const std::string_view name = cassign->Lhs()->VpiName();
+      const std::string_view name = cassign->getLhs()->getName();
       if (name == "out1") {
-        UHDM::ExprEval eval;
+        uhdm::ExprEval eval;
         int64_t val = eval.get_value(invalidValue, rhs);
         EXPECT_EQ(val, 1952);
       } else if (name == "out2") {
-        UHDM::ExprEval eval;
+        uhdm::ExprEval eval;
         int64_t val = eval.get_value(invalidValue, rhs);
         EXPECT_EQ(val, -127);
       }
@@ -1342,8 +1356,9 @@ endmodule
 }
 
 TEST(Elaboration, ContAssignConst) {
-  CompileHelper helper;
-  ElaboratorHarness eharness;
+  Session session;
+  CompileHelper helper(&session);
+  ElaboratorHarness eharness(&session);
 
   // Preprocess, Parse, Compile, Elaborate
   Design* design;
@@ -1372,14 +1387,14 @@ module static_size_casting (
 endmodule : static_size_casting
   )");
   Compiler* compiler = compileDesign->getCompiler();
-  vpiHandle hdesign = compiler->getUhdmDesign();
-  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
-  for (auto topMod : *udesign->TopModules()) {
-    for (auto cassign : *topMod->Cont_assigns()) {
-      UHDM::expr* rhs = (UHDM::expr*)cassign->Rhs();
+  vpiHandle hdesign = compiler->getDesign()->getVpiDesign();
+  uhdm::Design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  for (auto topMod : *udesign->getTopModules()) {
+    for (auto cassign : *topMod->getContAssigns()) {
+      uhdm::Expr* rhs = (uhdm::Expr*)cassign->getRhs();
       bool invalidValue = false;
-      const std::string_view name = cassign->Lhs()->VpiName();
-      UHDM::ExprEval eval;
+      const std::string_view name = cassign->getLhs()->getName();
+      uhdm::ExprEval eval;
       int64_t val = eval.get_value(invalidValue, rhs);
       if (name == "out1") {
         EXPECT_EQ(val, 1);
@@ -1399,8 +1414,9 @@ endmodule : static_size_casting
 }
 
 TEST(Elaboration, ConstantPush) {
-  CompileHelper helper;
-  ElaboratorHarness eharness;
+  Session session;
+  CompileHelper helper(&session);
+  ElaboratorHarness eharness(&session);
 
   // Preprocess, Parse, Compile, Elaborate
   Design* design;
@@ -1413,14 +1429,14 @@ module top;
 endmodule
   )");
   Compiler* compiler = compileDesign->getCompiler();
-  vpiHandle hdesign = compiler->getUhdmDesign();
-  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
-  for (auto topMod : *udesign->TopModules()) {
-    for (auto cassign : *topMod->Cont_assigns()) {
-      UHDM::expr* rhs = (UHDM::expr*)cassign->Rhs();
+  vpiHandle hdesign = compiler->getDesign()->getVpiDesign();
+  uhdm::Design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  for (auto topMod : *udesign->getTopModules()) {
+    for (auto cassign : *topMod->getContAssigns()) {
+      uhdm::Expr* rhs = (uhdm::Expr*)cassign->getRhs();
       bool invalidValue = false;
-      const std::string_view name = cassign->Lhs()->VpiName();
-      UHDM::ExprEval eval;
+      const std::string_view name = cassign->getLhs()->getName();
+      uhdm::ExprEval eval;
       int64_t val = eval.get_value(invalidValue, rhs);
       if (name == "s1c") {
         EXPECT_EQ(val, ((ULLONG_MAX << 8) + 1));
@@ -1432,11 +1448,12 @@ endmodule
 #if 0
 // Works only in elaborated mode where the sizes are actually computed.
 TEST(Elaboration, HierPathUnpacked) {
-  CompileHelper helper;
-  ElaboratorHarness eharness;
+  Session session;
+  CompileHelper helper(&session);
+  ElaboratorHarness eharness(&session);
 
   // Preprocess, Parse, Compile, Elaborate
-  Design* design;
+  uhdm::Design* design;
   FileContent* fC;
   CompileDesign* compileDesign;
   std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
@@ -1460,19 +1477,19 @@ module top(output int o);
 endmodule // top
   )");
   Compiler* compiler = compileDesign->getCompiler();
-  vpiHandle hdesign = compiler->getUhdmDesign();
-  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  vpiHandle hdesign = compiler->getDesign()->getVpiDesign();
+  uhdm::Design* udesign = UhdmDesignFromVpiHandle(hdesign);
   for (auto topMod : *udesign->TopModules()) {
     for (auto passign : *topMod->Param_assigns()) {
-      UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
+      uhdm::Expr* rhs = (uhdm::Expr*)passign->getRhs();
       bool invalidValue = false;
-      const std::string_view name = passign->Lhs()->VpiName();
+      const std::string_view name = passign->getLhs()->getName();
       if (name == "p1") {
-        UHDM::ExprEval eval;
+        uhdm::ExprEval eval;
         int64_t val = eval.get_value(invalidValue, rhs);
         EXPECT_EQ(val, 16);
       } else if (name == "p2") {
-        UHDM::ExprEval eval;
+        uhdm::ExprEval eval;
         int64_t val = eval.get_value(invalidValue, rhs);
         EXPECT_EQ(val, 32);
       }

@@ -31,6 +31,7 @@
 
 #include "Surelog/API/Surelog.h"
 #include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Common/Session.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
 
@@ -40,26 +41,30 @@
 #include <uhdm/uhdm.h>
 #include <uhdm/vpi_user.h>
 
+#include <functional>
+#include <iostream>
+
+namespace fs = std::filesystem;
+
 int main(int argc, const char** argv) {
   // Read command line, compile a design, use -parse argument
   uint32_t code = 0;
-  SURELOG::SymbolTable* symbolTable = new SURELOG::SymbolTable();
-  SURELOG::ErrorContainer* errors = new SURELOG::ErrorContainer(symbolTable);
-  SURELOG::CommandLineParser* clp =
-      new SURELOG::CommandLineParser(errors, symbolTable, false, false);
+  SURELOG::Session session;
+  SURELOG::ErrorContainer* const errors = session.getErrorContainer();
+  SURELOG::CommandLineParser* const clp = session.getCommandLineParser();
+  bool success = session.parseCommandLine(argc, argv, false, false);
   clp->noPython();
   clp->setParse(true);
   clp->setwritePpOutput(true);
   clp->setCompile(true);
   clp->setElaborate(true);  // Request Surelog instance tree Elaboration
   // clp->setElabUhdm(true);  // Request UHDM Uniquification/Elaboration
-  bool success = clp->parseCommandLine(argc, argv);
   errors->printMessages(clp->muteStdout());
   vpiHandle the_design = nullptr;
   SURELOG::scompiler* compiler = nullptr;
   if (success && (!clp->help())) {
-    compiler = SURELOG::start_compiler(clp);
-    the_design = SURELOG::get_uhdm_design(compiler);
+    compiler = SURELOG::start_compiler(&session);
+    the_design = SURELOG::get_vpi_design(compiler);
     auto stats = errors->getErrorStats();
     code = (!success) | stats.nbFatal | stats.nbSyntax | stats.nbError;
   }
@@ -70,9 +75,9 @@ int main(int argc, const char** argv) {
   // different process pre-elaboration), then optionally elaborate it:
   if (the_design && (!vpi_get(vpiElaborated, the_design))) {
     std::cout << "UHDM Elaboration...\n";
-    UHDM::Serializer serializer;
-    UHDM::ElaboratorContext* elaboratorContext =
-        new UHDM::ElaboratorContext(&serializer, true);
+    uhdm::Serializer serializer;
+    uhdm::ElaboratorContext* elaboratorContext =
+        new uhdm::ElaboratorContext(&serializer, true);
     elaboratorContext->m_elaborator.listenDesigns({the_design});
     delete elaboratorContext;
   }
@@ -87,13 +92,13 @@ int main(int argc, const char** argv) {
   // - Walker design pattern (See third_party/UHDM/src/vpi_visitor.cpp)
 
   if (the_design) {
-    UHDM::design* udesign = nullptr;
+    uhdm::Design* udesign = nullptr;
     if (vpi_get(vpiType, the_design) == vpiDesign) {
       // C++ top handle from which the entire design can be traversed using the
       // C++ API
       udesign = UhdmDesignFromVpiHandle(the_design);
       result.append("Design name (C++): ")
-          .append(udesign->VpiName())
+          .append(udesign->getName())
           .append("\n");
     }
     // Example demonstrating the classic VPI API traversal of the folded model
@@ -105,7 +110,7 @@ int main(int argc, const char** argv) {
         "\n";
     // Flat Module list:
     result += "Module List:\n";
-    vpiHandle modItr = vpi_iterate(UHDM::uhdmallModules, the_design);
+    vpiHandle modItr = vpi_iterate(vpiAllModules, the_design);
     while (vpiHandle obj_h = vpi_scan(modItr)) {
       if (vpi_get(vpiType, obj_h) != vpiModule) {
         result += "ERROR: this is not a module\n";
@@ -156,7 +161,7 @@ int main(int argc, const char** argv) {
     // Instance tree:
     // Elaborated Instance tree
     result += "Instance Tree:\n";
-    vpiHandle instItr = vpi_iterate(UHDM::uhdmtopModules, the_design);
+    vpiHandle instItr = vpi_iterate(vpiTopModules, the_design);
     while (vpiHandle obj_h = vpi_scan(instItr)) {
       std::function<std::string(vpiHandle, std::string)> inst_visit =
           [&inst_visit](vpiHandle obj_h, std::string margin) {
@@ -223,8 +228,5 @@ int main(int argc, const char** argv) {
 
   // Do not delete these objects until you are done with UHDM
   SURELOG::shutdown_compiler(compiler);
-  delete clp;
-  delete symbolTable;
-  delete errors;
   return code;
 }

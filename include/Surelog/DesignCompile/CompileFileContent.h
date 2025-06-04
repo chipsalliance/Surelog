@@ -30,72 +30,64 @@
 #include <cstdint>
 
 namespace SURELOG {
-
 class CompileDesign;
-class FileContent;
 class Design;
-class SymbolTable;
-class ErrorContainer;
+class FileContent;
+class Session;
 
-struct FunctorCompileFileContentDecl {
-  FunctorCompileFileContentDecl(CompileDesign* compiler, FileContent* file,
-                                Design* design, SymbolTable* symbols,
-                                ErrorContainer* errors)
-      : m_compileDesign(compiler),
-        m_fileContent(file),
-        m_design(design),
-        m_symbols(symbols),
-        m_errors(errors) {}
+struct FunctorCompileFileContentDecl final {
+  FunctorCompileFileContentDecl(Session* session, CompileDesign* compileDesign,
+                                FileContent* fileContent, Design* design)
+      : m_session(session),
+        m_compileDesign(compileDesign),
+        m_fileContent(fileContent),
+        m_design(design) {}
+  FunctorCompileFileContentDecl(const FunctorCompileFileContentDecl&) = delete;
   int32_t operator()() const;
 
  private:
-  CompileDesign* const m_compileDesign;
-  FileContent* const m_fileContent;
-  Design* const m_design;
-  SymbolTable* const m_symbols;
-  ErrorContainer* const m_errors;
+  Session* const m_session = nullptr;
+  CompileDesign* const m_compileDesign = nullptr;
+  FileContent* const m_fileContent = nullptr;
+  Design* const m_design = nullptr;
 };
 
-struct FunctorCompileFileContent {
-  FunctorCompileFileContent(CompileDesign* compiler, FileContent* file,
-                            Design* design, SymbolTable* symbols,
-                            ErrorContainer* errors)
-      : m_compileDesign(compiler),
-        m_fileContent(file),
-        m_design(design),
-        m_symbols(symbols),
-        m_errors(errors) {}
+struct FunctorCompileFileContent final {
+  FunctorCompileFileContent(Session* session, CompileDesign* compileDesign,
+                            FileContent* fileContent, Design* design)
+      : m_session(session),
+        m_compileDesign(compileDesign),
+        m_fileContent(fileContent),
+        m_design(design) {}
+  FunctorCompileFileContent(const FunctorCompileFileContent&) = delete;
   int32_t operator()() const;
 
  private:
-  CompileDesign* const m_compileDesign;
-  FileContent* const m_fileContent;
-  Design* const m_design;
-  SymbolTable* const m_symbols;
-  ErrorContainer* const m_errors;
+  Session* const m_session = nullptr;
+  CompileDesign* const m_compileDesign = nullptr;
+  FileContent* const m_fileContent = nullptr;
+  Design* const m_design = nullptr;
 };
 
 class CompileFileContent final {
  public:
-  CompileFileContent(CompileDesign* compiler, FileContent* file, Design* design,
-                     bool declOnly, [[maybe_unused]] SymbolTable* symbols,
-                     [[maybe_unused]] ErrorContainer* errors)
-      : m_compileDesign(compiler),
-        m_fileContent(file),
+  CompileFileContent(Session* session, CompileDesign* compileDesign,
+                     FileContent* fileContent, Design* design, bool declOnly)
+      : m_compileDesign(compileDesign),
+        m_fileContent(fileContent),
         m_design(design),
-        m_declOnly(declOnly) {
-    m_helper.seterrorReporting(errors, symbols);
-  }
+        m_helper(session),
+        m_declOnly(declOnly) {}
   CompileFileContent(const CompileFileContent&) = delete;
 
   bool compile(Elaborate elaborate, Reduce reduce);
 
  private:
   bool collectObjects_();
-  CompileDesign* const m_compileDesign;
-  FileContent* const m_fileContent;
-  Design* const m_design;
 
+  CompileDesign* const m_compileDesign = nullptr;
+  FileContent* const m_fileContent = nullptr;
+  Design* const m_design = nullptr;
   CompileHelper m_helper;
   bool m_declOnly = false;
 };

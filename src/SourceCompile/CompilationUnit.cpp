@@ -27,39 +27,36 @@
 #include <vector>
 
 #include "Surelog/Common/PathId.h"
+#include "Surelog/SourceCompile/MacroInfo.h"
 #include "Surelog/SourceCompile/VObjectTypes.h"
 
 namespace SURELOG {
 
-CompilationUnit::CompilationUnit(bool fileunit)
-    : m_fileunit(fileunit), m_inDesignElement(false) {}
+CompilationUnit::CompilationUnit(bool fileUnit)
+    : m_fileUnit(fileUnit), m_inDesignElement(false) {}
 
 MacroInfo* CompilationUnit::getMacroInfo(std::string_view macroName) {
-  MacroStorageRef::iterator itr = m_macros.find(macroName);
-  if (itr != m_macros.end()) {
-    return itr->second.back();
+  for (MacroStorage::const_reverse_iterator it = m_macros.crbegin(),
+                                            end = m_macros.crend();
+       it != end; ++it) {
+    MacroInfo* mi = *it;
+    if (mi->m_defType == MacroInfo::DefType::UndefineAll) {
+      return nullptr;
+    } else if (mi->m_name == macroName) {
+      // NOTE(HS): Keep the previous behavior where the function returns
+      // null if the last action on the macro name was to undefine it.
+      return (mi->m_defType == MacroInfo::DefType::Define) ? mi : nullptr;
+    }
   }
   return nullptr;
 }
 
-void CompilationUnit::registerMacroInfo(std::string_view macroName,
-                                        MacroInfo* macro) {
-  MacroStorageRef::iterator itr = m_macros.find(macroName);
-  if (itr == m_macros.end()) {
-    itr = m_macros.emplace(macroName, std::vector<MacroInfo*>{}).first;
-  }
-  itr->second.push_back(macro);
-}
-
-void CompilationUnit::deleteMacro(std::string_view macroName) {
-  MacroStorageRef::iterator itr = m_macros.find(macroName);
-  if (itr != m_macros.end()) {
-    m_macros.erase(itr);
-  }
+void CompilationUnit::registerMacroInfo(MacroInfo* macro) {
+  m_macros.emplace_back(macro);
 }
 
 void CompilationUnit::recordTimeInfo(TimeInfo& info) {
-  m_timeInfo.push_back(info);
+  m_timeInfo.emplace_back(info);
 }
 
 TimeInfo& CompilationUnit::getTimeInfo(PathId fileId, uint32_t line) {
@@ -78,7 +75,7 @@ TimeInfo& CompilationUnit::getTimeInfo(PathId fileId, uint32_t line) {
 }
 
 void CompilationUnit::recordDefaultNetType(NetTypeInfo& info) {
-  m_defaultNetTypes.push_back(info);
+  m_defaultNetTypes.emplace_back(info);
 }
 
 VObjectType CompilationUnit::getDefaultNetType(PathId fileId, uint32_t line) {
@@ -103,7 +100,7 @@ void CompilationUnit::setCurrentTimeInfo(PathId fileId) {
   TimeInfo info = m_timeInfo[m_timeInfo.size() - 1];
   info.m_fileId = fileId;
   info.m_line = 1;
-  m_timeInfo.push_back(info);
+  m_timeInfo.emplace_back(info);
 }
 
 }  // namespace SURELOG

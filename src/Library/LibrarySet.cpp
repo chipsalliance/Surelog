@@ -40,11 +40,10 @@
 
 namespace SURELOG {
 
-Library* LibrarySet::addLibrary(std::string_view name,
-                                SymbolTable* symbolTable) {
+Library* LibrarySet::addLibrary(Session* session, std::string_view name) {
   Library* lib = getLibrary(name);
   if (lib == nullptr) {
-    lib = &m_libraries.emplace_back(name, symbolTable);
+    lib = &m_libraries.emplace_back(session, name);
   }
   return lib;
 }

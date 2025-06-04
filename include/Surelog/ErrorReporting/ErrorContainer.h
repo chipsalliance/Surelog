@@ -36,10 +36,8 @@
 #include <vector>
 
 namespace SURELOG {
-
-class CommandLineParser;
 class LogListener;
-class SymbolTable;
+class Session;
 
 class ErrorContainer final {
  public:
@@ -63,18 +61,23 @@ class ErrorContainer final {
     int32_t nbInfo = 0;
   };
 
-  explicit ErrorContainer(SymbolTable* symbolTable,
-                          LogListener* logListener = nullptr);
+  explicit ErrorContainer(Session* session);
   ErrorContainer(const ErrorContainer& orig) = delete;
-
   virtual ~ErrorContainer();
 
-  LogListener* getLogListener() { return m_logListener; }
+  Session* getSession() { return m_session; }
 
-  void registerCmdLine(CommandLineParser* clp) { m_clp = clp; }
   void init();
   Error& addError(Error& error, bool showDuplicates = false,
                   bool reentrantPython = true);
+  void addError(ErrorDefinition::ErrorType errorId, const Location& loc,
+                bool showDuplicates = false, bool reentrantPython = true);
+  void addError(ErrorDefinition::ErrorType errorId, const Location& loc,
+                const Location& extra, bool showDuplicates = false,
+                bool reentrantPython = true);
+  void addError(ErrorDefinition::ErrorType errorId,
+                const std::vector<Location>& locations,
+                bool showDuplicates = false, bool reentrantPython = true);
 
   const std::vector<Error>& getErrors() const { return m_errors; }
   bool printMessages(bool muteStdout = false);
@@ -84,26 +87,24 @@ class ErrorContainer final {
   bool hasFatalErrors() const;
   Stats getErrorStats() const;
   void appendErrors(ErrorContainer&);
-  SymbolTable* getSymbolTable() { return m_symbolTable; }
-  std::tuple<std::string, bool, bool> createErrorMessage(
-      const Error& error, bool reentrantPython = true) const;
   void setPythonInterp(void* interpState) { m_interpState = interpState; }
 
  private:
+  std::tuple<std::string, bool, bool> createErrorMessage(
+      ErrorDefinition::ErrorType errorId,
+      const std::vector<Location>& locations,
+      bool reentrantPython = true) const;
+  Error& addError(Error& error, const std::string& message,
+                  bool reportFatalError, bool showDuplicates);
+
   std::pair<std::string, bool> createReport_() const;
   std::pair<std::string, bool> createReport_(const Error& error) const;
   std::vector<Error> m_errors;
   std::set<std::string> m_errorSet;
 
-  CommandLineParser* m_clp;
-  bool m_reportedFatalErrorLogFile;
-  SymbolTable* const m_symbolTable;
-  void* m_interpState;
-
-  LogListener* const m_logListener;
-  // TODO: Ownership of passed log listener not very well defined.
-  // For now, just delete our listener if we own it.
-  const bool m_listenerOwned;
+  Session* const m_session = nullptr;
+  bool m_reportedFatalErrorLogFile = false;
+  void* m_interpState = nullptr;
 };
 
 };  // namespace SURELOG

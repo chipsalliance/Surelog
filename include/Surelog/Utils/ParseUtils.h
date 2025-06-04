@@ -25,21 +25,28 @@
 #define SURELOG_PARSEUTILS_H
 #pragma once
 
-#include <ParserRuleContext.h>
+#include <Surelog/Common/Containers.h>
 
 #include <cstdint>
 #include <string>
 #include <utility>
 #include <vector>
 
-namespace SURELOG::ParseUtils {
-using ParseTree = antlr4::tree::ParseTree;
-using LineColumn = std::pair<uint32_t, uint16_t>;
+namespace antlr4 {
+class CommonTokenStream;
+class Token;
+class ParserRuleContext;
+namespace tree {
+class ParseTree;
+class TerminalNode;
+}  // namespace tree
+}  // namespace antlr4
 
-LineColumn getLineColumn(antlr4::CommonTokenStream* stream,
-                         antlr4::ParserRuleContext* context);
-LineColumn getEndLineColumn(antlr4::CommonTokenStream* stream,
-                            antlr4::ParserRuleContext* context);
+namespace SURELOG::ParseUtils {
+LineColumn getLineColumn(const antlr4::CommonTokenStream* stream,
+                         antlr4::tree::ParseTree* tree);
+LineColumn getEndLineColumn(const antlr4::CommonTokenStream* stream,
+                            antlr4::tree::ParseTree* tree);
 
 LineColumn getLineColumn(antlr4::Token* token);
 LineColumn getEndLineColumn(antlr4::Token* token);
@@ -47,13 +54,15 @@ LineColumn getEndLineColumn(antlr4::Token* token);
 LineColumn getLineColumn(antlr4::tree::TerminalNode* node);
 LineColumn getEndLineColumn(antlr4::tree::TerminalNode* node);
 
-const std::vector<ParseTree*>& getTopTokenList(ParseTree* tree);
+const std::vector<antlr4::tree::ParseTree*>& getTopTokenList(
+    const antlr4::tree::ParseTree* tree);
 void tokenizeAtComma(std::vector<std::string>& actualArgs,
-                     const std::vector<ParseTree*>& tokens);
+                     const std::vector<antlr4::tree::ParseTree*>& tokens);
 
-std::vector<antlr4::Token*> getFlatTokenList(ParseTree* tree);
+std::vector<antlr4::Token*> getFlatTokenList(antlr4::tree::ParseTree* tree);
 
-void inOrderTraversal(std::vector<antlr4::Token*>& tokens, ParseTree* parent);
+void inOrderTraversal(std::vector<antlr4::Token*>& tokens,
+                      const antlr4::tree::ParseTree* parent);
 }  // namespace SURELOG::ParseUtils
 
 #endif /* SURELOG_PARSEUTILS_H */

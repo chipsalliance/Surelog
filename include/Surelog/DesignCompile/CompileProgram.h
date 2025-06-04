@@ -32,43 +32,36 @@
 #include <cstdint>
 
 namespace SURELOG {
-
 class CompileDesign;
 class Design;
-class ErrorContainer;
 class Program;
-class SymbolTable;
+class Session;
 
-struct FunctorCompileProgram {
-  FunctorCompileProgram(CompileDesign* compiler, Program* program,
-                        Design* design, SymbolTable* symbols,
-                        ErrorContainer* errors)
-      : m_compileDesign(compiler),
+struct FunctorCompileProgram final {
+  FunctorCompileProgram(Session* session, CompileDesign* compileDesign,
+                        Program* program, Design* design)
+      : m_session(session),
+        m_compileDesign(compileDesign),
         m_program(program),
-        m_design(design),
-        m_symbols(symbols),
-        m_errors(errors) {}
+        m_design(design) {}
   int32_t operator()() const;
 
  private:
-  CompileDesign* const m_compileDesign;
-  Program* const m_program;
-  Design* const m_design;
-  SymbolTable* const m_symbols;
-  ErrorContainer* const m_errors;
+  Session* const m_session = nullptr;
+  CompileDesign* const m_compileDesign = nullptr;
+  Program* const m_program = nullptr;
+  Design* const m_design = nullptr;
 };
 
 class CompileProgram final : public CompileToolbox {
  public:
-  CompileProgram(CompileDesign* compiler, Program* program, Design* design,
-                 SymbolTable* symbols, ErrorContainer* errors)
-      : m_compileDesign(compiler),
+  CompileProgram(Session* session, CompileDesign* compileDesign,
+                 Program* program, Design* design)
+      : m_session(session),
+        m_compileDesign(compileDesign),
         m_program(program),
         m_design(design),
-        m_symbols(symbols),
-        m_errors(errors) {
-    m_helper.seterrorReporting(errors, symbols);
-  }
+        m_helper(session) {}
 
   bool compile(Elaborate elaborate, Reduce reduce);
 
@@ -78,15 +71,14 @@ class CompileProgram final : public CompileToolbox {
   enum CollectType { FUNCTION, DEFINITION, OTHER };
   bool collectObjects_(CollectType collectType);
 
-  CompileDesign* const m_compileDesign;
-  Program* const m_program;
-  Design* const m_design;
-  SymbolTable* const m_symbols;
-  ErrorContainer* const m_errors;
+  Session* const m_session = nullptr;
+  CompileDesign* const m_compileDesign = nullptr;
+  Program* const m_program = nullptr;
+  Design* const m_design = nullptr;
   CompileHelper m_helper;
   uint32_t m_nbPorts = 0;
   bool m_hasNonNullPort = false;
-  UHDM::VectorOfattribute* m_attributes = nullptr;
+  uhdm::AttributeCollection* m_attributes = nullptr;
 };
 
 }  // namespace SURELOG

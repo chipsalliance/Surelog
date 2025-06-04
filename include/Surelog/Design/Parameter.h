@@ -46,32 +46,31 @@ class Parameter final : public DataType {
   SURELOG_IMPLEMENT_RTTI(Parameter, DataType)
  public:
   Parameter(const FileContent* fC, NodeId nodeId, std::string_view name,
-            NodeId node_type, bool port_param);
-
-  ~Parameter() final;
+            NodeId nodeType, bool portParam);
+  ~Parameter() final = default;
 
   VObjectType getType() const final;
   NodeId getNodeType() const { return m_ntype; }
 
-  void setUhdmParam(UHDM::any* param) { m_param = param; }
-  UHDM::any* getUhdmParam() const { return m_param; }
-  bool isPortParam() const { return m_port_param; }
+  void setUhdmParam(uhdm::Any* param) { m_param = param; }
+  uhdm::Any* getUhdmParam() const { return m_param; }
+  bool isPortParam() const { return m_portParam; }
   void setImportedPackage(std::string_view package) {
     m_importedPackage = package;
   }
   std::string importedPackage() { return m_importedPackage; }
-  bool isTypeParam() const { return type_param; }
-  void setTypeParam() { type_param = true; }
-  bool isMultidimension() const { return multi_dimension; }
-  void setMultidimension() { multi_dimension = true; }
+  bool isTypeParam() const { return m_typeParam; }
+  void setTypeParam() { m_typeParam = true; }
+  bool isMultidimension() const { return m_multiDimension; }
+  void setMultidimension() { m_multiDimension = true; }
 
  private:
   NodeId m_ntype;
-  UHDM::any* m_param;
+  uhdm::Any* m_param = nullptr;
   std::string m_importedPackage;
-  bool m_port_param;
-  bool type_param = false;
-  bool multi_dimension = false;
+  bool m_portParam = false;
+  bool m_typeParam = false;
+  bool m_multiDimension = false;
 };
 
 }  // namespace SURELOG

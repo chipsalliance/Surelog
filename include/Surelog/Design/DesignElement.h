@@ -55,15 +55,15 @@ class DesignElement final {
   };
 
   DesignElement(SymbolId name, PathId fileId, ElemType type, NodeId uniqueId,
-                uint32_t line, uint16_t column, uint32_t endLine,
+                uint32_t startLine, uint16_t startColumn, uint32_t endLine,
                 uint16_t endColumn, NodeId parent);
 
   SymbolId m_name;
   PathId m_fileId;
   const ElemType m_type;
   const NodeId m_uniqueId;
-  const uint32_t m_line;
-  const uint16_t m_column;
+  const uint32_t m_startLine;
+  const uint16_t m_startColumn;
   const uint32_t m_endLine;
   const uint16_t m_endColumn;
   NodeId m_parent;

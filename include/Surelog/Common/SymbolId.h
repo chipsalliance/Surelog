@@ -6,23 +6,23 @@
 
 namespace SURELOG {
 
-using UHDM::RawSymbolId;
-using UHDM::SymbolId;
-using UHDM::SymbolIdPP;
+using uhdm::RawSymbolId;
+using uhdm::SymbolId;
+using uhdm::SymbolIdPP;
 
-using UHDM::BadRawSymbol;
-using UHDM::BadRawSymbolId;
-using UHDM::BadSymbolId;
+using uhdm::BadRawSymbolId;
+using uhdm::BadRawSymbol;
+using uhdm::BadSymbolId;
 
-using UHDM::operator<<;
+using uhdm::operator<<;
 
-using UHDM::SymbolIdEqualityComparer;
-using UHDM::SymbolIdHasher;
-using UHDM::SymbolIdLessThanComparer;
+using uhdm::SymbolIdLessThanComparer;
+using uhdm::SymbolIdHasher;
+using uhdm::SymbolIdEqualityComparer;
 
-using UHDM::SymbolIdSet;
-using UHDM::SymbolIdUnorderedSet;
-using UHDM::SymbolIdVector;
+using uhdm::SymbolIdSet;
+using uhdm::SymbolIdUnorderedSet;
+using uhdm::SymbolIdVector;
 
 }  // namespace SURELOG
 

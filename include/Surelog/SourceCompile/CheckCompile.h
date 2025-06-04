@@ -26,14 +26,15 @@
 #pragma once
 
 namespace SURELOG {
-
 class Compiler;
+class Session;
 
 class CheckCompile {
  public:
-  explicit CheckCompile(Compiler* compiler) : m_compiler(compiler) {}
+  explicit CheckCompile(Session* session, Compiler* compiler);
+  ~CheckCompile() = default;
+
   bool check();
-  virtual ~CheckCompile() = default;
 
  private:
   bool mergeSymbolTables_();
@@ -42,7 +43,9 @@ class CheckCompile {
 
   bool checkSyntaxErrors_();
 
-  Compiler* m_compiler;
+ private:
+  Session* const m_session = nullptr;
+  Compiler* const m_compiler = nullptr;
 };
 
 };  // namespace SURELOG

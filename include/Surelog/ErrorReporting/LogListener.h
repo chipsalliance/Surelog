@@ -35,6 +35,7 @@
 #include <string_view>
 
 namespace SURELOG {
+class Session;
 
 // A thread-safe log listener that flushes it contents to a named file on disk.
 // Supports caching a fixed number of messages if the messages arrives before
@@ -59,10 +60,10 @@ class LogListener {
   }
 
  public:
-  LogListener() = default;
+  explicit LogListener(Session* session);
   virtual ~LogListener() = default;  // virtual as used as interface
 
-  virtual LogResult initialize(PathId fileId);
+  virtual LogResult initialize();
 
   virtual void setMaxQueuedMessageCount(int32_t count);
   int32_t getMaxQueuedMessageCount() const;
@@ -79,11 +80,12 @@ class LogListener {
   void flush(std::ostream& strm);
 
  protected:
-  PathId fileId;
-  mutable std::mutex mutex;
-  std::deque<std::string> queued;
-  int32_t droppedCount = 0;
-  uint32_t maxQueuedMessageCount = DEFAULT_MAX_QUEUED_MESSAGE_COUNT;
+  Session* const m_session = nullptr;
+  PathId m_fileId;
+  mutable std::mutex m_mutex;
+  std::deque<std::string> m_queued;
+  int32_t m_droppedCount = 0;
+  uint32_t m_maxQueuedMessageCount = DEFAULT_MAX_QUEUED_MESSAGE_COUNT;
 
  public:
   LogListener(const LogListener&) = delete;

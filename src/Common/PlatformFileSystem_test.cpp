@@ -40,6 +40,7 @@
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Common/PathId.h"
+#include "Surelog/Common/Session.h"
 #include "Surelog/Common/SymbolId.h"
 #include "Surelog/Design/Design.h"
 #include "Surelog/Library/Library.h"
@@ -53,7 +54,7 @@
 // UHDM
 #include <uhdm/ExprEval.h>
 #include <uhdm/design.h>
-#include <uhdm/module_inst.h>
+#include <uhdm/module.h>
 #include <uhdm/param_assign.h>
 #include <uhdm/vpi_uhdm.h>
 #include <uhdm/vpi_user.h>
@@ -73,9 +74,7 @@ namespace fs = std::filesystem;
 namespace {
 class TestFileSystem : public PlatformFileSystem {
  public:
-  explicit TestFileSystem(const fs::path &wd) : PlatformFileSystem(wd) {
-    FileSystem::setInstance(this);
-  }
+  explicit TestFileSystem(const fs::path &wd) : PlatformFileSystem(wd) {}
   TestFileSystem() : TestFileSystem(fs::current_path()) {}
 };
 
@@ -398,12 +397,11 @@ TEST(PlatformFileSystemTest, WorkingDirs_NonIdeal) {
   std::transform(args.begin(), args.end(), std::back_inserter(cargs),
                  [](const std::string &arg) { return arg.c_str(); });
 
-  std::unique_ptr<TestFileSystem> fileSystem(new TestFileSystem(testdir));
-  std::unique_ptr<SymbolTable> symbolTable(new SymbolTable);
-  std::unique_ptr<ErrorContainer> errors(new ErrorContainer(symbolTable.get()));
-  std::unique_ptr<CommandLineParser> clp(
-      new CommandLineParser(errors.get(), symbolTable.get()));
-  clp->parseCommandLine(cargs.size(), cargs.data());
+  Session session(new TestFileSystem(testdir), nullptr, nullptr, nullptr,
+                  nullptr, nullptr);
+  FileSystem *const fileSystem = session.getFileSystem();
+  CommandLineParser *const clp = session.getCommandLineParser();
+  session.parseCommandLine(cargs.size(), cargs.data(), false, false);
 
   fs::remove_all(wsdir, ec);
   EXPECT_FALSE(ec) << ec;
@@ -513,12 +511,11 @@ TEST(PlatformFileSystemTest, WorkingDirs_Ideal) {
   std::transform(args.begin(), args.end(), std::back_inserter(cargs),
                  [](const std::string &arg) { return arg.c_str(); });
 
-  std::unique_ptr<TestFileSystem> fileSystem(new TestFileSystem(testdir));
-  std::unique_ptr<SymbolTable> symbolTable(new SymbolTable);
-  std::unique_ptr<ErrorContainer> errors(new ErrorContainer(symbolTable.get()));
-  std::unique_ptr<CommandLineParser> clp(
-      new CommandLineParser(errors.get(), symbolTable.get()));
-  clp->parseCommandLine(cargs.size(), cargs.data());
+  Session session(new TestFileSystem(testdir), nullptr, nullptr, nullptr,
+                  nullptr, nullptr);
+  FileSystem *const fileSystem = session.getFileSystem();
+  CommandLineParser *const clp = session.getCommandLineParser();
+  session.parseCommandLine(cargs.size(), cargs.data(), false, false);
 
   fs::remove_all(wsdir, ec);
   EXPECT_FALSE(ec) << ec;
@@ -559,8 +556,6 @@ class InMemoryFileSystem : public TestFileSystem {
   using OpenOutputFiles = std::map<const std::ostream *, fs::path>;
 
   explicit InMemoryFileSystem(const fs::path &cwd) : TestFileSystem(cwd) {
-    FileSystem::setInstance(this);
-
     fs::path d1 = cwd;
     fs::path d2;
     while (d1 != d2) {
@@ -1039,10 +1034,9 @@ TEST(PlatformFileSystemTest, InMemoryTest) {
   std::transform(args.begin(), args.end(), std::back_inserter(cargs),
                  [](const std::string &arg) { return arg.data(); });
 
-  ErrorContainer *const errors = new ErrorContainer(symbolTable);
-  CommandLineParser *const clp =
-      new CommandLineParser(errors, symbolTable, false, false);
-  clp->parseCommandLine(cargs.size(), cargs.data());
+  Session session(fileSystem, symbolTable, nullptr, nullptr, nullptr, nullptr);
+  CommandLineParser *const clp = session.getCommandLineParser();
+  session.parseCommandLine(cargs.size(), cargs.data(), false, false);
   clp->setCacheAllowed(false);
   clp->setParse(true);
   clp->setCompile(true);
@@ -1051,7 +1045,7 @@ TEST(PlatformFileSystemTest, InMemoryTest) {
   clp->fullSVMode(true);
   clp->setWriteCache(false);
 
-  Compiler *const compiler = new Compiler(clp, errors, symbolTable);
+  Compiler *const compiler = new Compiler(&session);
   compiler->compile();
   Design *design = compiler->getDesign();
   EXPECT_NE(design, nullptr);
@@ -1069,21 +1063,20 @@ TEST(PlatformFileSystemTest, InMemoryTest) {
   }
   EXPECT_NE(top, nullptr);
 
-  vpiHandle hdesign = compiler->getUhdmDesign();
-  UHDM::design *const udesign = UhdmDesignFromVpiHandle(hdesign);
-  for (auto topMod : *udesign->TopModules()) {
-    for (auto passign : *topMod->Param_assigns()) {
-      UHDM::expr *rhs = (UHDM::expr *)passign->Rhs();
+  uhdm::Design *const udesign = compiler->getUhdmDesign();
+  for (auto topMod : *udesign->getTopModules()) {
+    for (auto passign : *topMod->getParamAssigns()) {
+      uhdm::Expr *rhs = (uhdm::Expr *)passign->getRhs();
       bool invalidValue = false;
-      UHDM::ExprEval eval;
+      uhdm::ExprEval eval;
       EXPECT_EQ(eval.get_value(invalidValue, rhs), 17);
     }
-    for (auto sub : *topMod->Modules()) {
-      const std::string_view instName = sub->VpiName();
-      for (auto passign : *sub->Param_assigns()) {
-        UHDM::expr *rhs = (UHDM::expr *)passign->Rhs();
+    for (auto sub : *topMod->getModules()) {
+      const std::string_view instName = sub->getName();
+      for (auto passign : *sub->getParamAssigns()) {
+        uhdm::Expr *rhs = (uhdm::Expr *)passign->getRhs();
         bool invalidValue = false;
-        UHDM::ExprEval eval;
+        uhdm::ExprEval eval;
         uint64_t val = eval.get_value(invalidValue, rhs);
         if (instName == "dut1") {
           EXPECT_EQ(val, 8);
@@ -1099,9 +1092,7 @@ TEST(PlatformFileSystemTest, InMemoryTest) {
   }
 
   delete compiler;
-  delete clp;
   delete symbolTable;
-  delete errors;
   delete fileSystem;
 }
 
@@ -1125,23 +1116,22 @@ TEST(PlatformFileSystemTest, PortableCacheTest) {
 
   // Run 1: Create cache in kOutputDir_run1 using source at kInputDir_run1
   {
-    std::unique_ptr<FileSystem> fileSystem(new TestFileSystem(kInputDir_run1));
-    std::unique_ptr<SymbolTable> symbolTable(new SymbolTable);
-    std::unique_ptr<ErrorContainer> errors(
-        new ErrorContainer(symbolTable.get()));
-    std::unique_ptr<CommandLineParser> clp(
-        new CommandLineParser(errors.get(), symbolTable.get(), false, false));
+    Session session(new TestFileSystem(kInputDir_run1), nullptr, nullptr,
+                    nullptr, nullptr, nullptr);
+    FileSystem *const fileSystem = session.getFileSystem();
+    SymbolTable *const symbolTable = session.getSymbolTable();
+    CommandLineParser *const clp = session.getCommandLineParser();
 
     const PathId inputDirId =
-        fileSystem->toPathId(kInputDir_run1.string(), symbolTable.get());
+        fileSystem->toPathId(kInputDir_run1.string(), symbolTable);
     EXPECT_TRUE(fileSystem->mkdirs(inputDirId));
 
     const PathId headerDirId = fileSystem->toPathId(
-        (kInputDir_run1 / kHeadersDirName).string(), symbolTable.get());
+        (kInputDir_run1 / kHeadersDirName).string(), symbolTable);
     EXPECT_TRUE(fileSystem->mkdirs(headerDirId));
 
     const PathId headerFileId =
-        fileSystem->getChild(headerDirId, kHeaderFileName, symbolTable.get());
+        fileSystem->getChild(headerDirId, kHeaderFileName, symbolTable);
     EXPECT_TRUE(headerFileId);
 
     std::ostream &strm1 = fileSystem->openForWrite(headerFileId);
@@ -1152,7 +1142,7 @@ TEST(PlatformFileSystemTest, PortableCacheTest) {
     fileSystem->close(strm1);
 
     const PathId sourceFileId = fileSystem->toPathId(
-        (kInputDir_run1 / kSourceFileName).string(), symbolTable.get());
+        (kInputDir_run1 / kSourceFileName).string(), symbolTable);
     EXPECT_TRUE(sourceFileId);
 
     std::ostream &strm2 = fileSystem->openForWrite(sourceFileId);
@@ -1177,14 +1167,12 @@ TEST(PlatformFileSystemTest, PortableCacheTest) {
     std::vector<const char *> cargs;
     std::transform(args.begin(), args.end(), std::back_inserter(cargs),
                    [](const std::string &arg) { return arg.data(); });
-    clp->parseCommandLine(cargs.size(), cargs.data());
+    session.parseCommandLine(cargs.size(), cargs.data(), false, false);
 
-    std::unique_ptr<Compiler> compiler(
-        new Compiler(clp.get(), errors.get(), symbolTable.get()));
+    std::unique_ptr<Compiler> compiler(new Compiler(&session));
     compiler->compile();
 
-    PathId cacheDirId =
-        fileSystem->getCacheDir(clp->fileunit(), symbolTable.get());
+    PathId cacheDirId = fileSystem->getCacheDir(clp->fileUnit(), symbolTable);
     EXPECT_TRUE(cacheDirId);
     EXPECT_TRUE(fileSystem->isDirectory(cacheDirId));
 
@@ -1196,21 +1184,21 @@ TEST(PlatformFileSystemTest, PortableCacheTest) {
           csf->getPreprocessor()->getLibrary()->getNameId();
       EXPECT_TRUE(libraryNameId);
 
-      PathId ppCacheFileId =
-          fileSystem->getPpCacheFile(clp->fileunit(), csf->getFileId(),
-                                     libraryNameId, false, symbolTable.get());
+      PathId ppCacheFileId = fileSystem->getPpCacheFile(
+          clp->fileUnit(), csf->getFileId(), libraryNameId, false, symbolTable);
       EXPECT_TRUE(ppCacheFileId);
       EXPECT_TRUE(fileSystem->isRegularFile(ppCacheFileId));
 
       PathId parseCacheFileId = fileSystem->getParseCacheFile(
-          clp->fileunit(), csf->getPpOutputFileId(), libraryNameId, false,
-          symbolTable.get());
+          clp->fileUnit(), csf->getPpOutputFileId(), libraryNameId, false,
+          symbolTable);
       EXPECT_TRUE(parseCacheFileId);
       EXPECT_TRUE(fileSystem->isRegularFile(parseCacheFileId));
 
-      EXPECT_FALSE(ppFile->usingCachedVersion()) << PathIdPP(ppCacheFileId);
+      EXPECT_FALSE(ppFile->usingCachedVersion())
+          << PathIdPP(ppCacheFileId, fileSystem);
       EXPECT_FALSE(parseFile->usingCachedVersion())
-          << PathIdPP(parseCacheFileId);
+          << PathIdPP(parseCacheFileId, fileSystem);
     }
   }
 
@@ -1225,24 +1213,23 @@ TEST(PlatformFileSystemTest, PortableCacheTest) {
   // Run 2: Setup a remap from original location to new location and with that
   // setup, the cache should be loaded successfully.
   {
-    std::unique_ptr<FileSystem> fileSystem(new TestFileSystem(kInputDir_run2));
-    std::unique_ptr<SymbolTable> symbolTable(new SymbolTable);
-    std::unique_ptr<ErrorContainer> errors(
-        new ErrorContainer(symbolTable.get()));
-    std::unique_ptr<CommandLineParser> clp(
-        new CommandLineParser(errors.get(), symbolTable.get(), false, false));
+    Session session(new TestFileSystem(kInputDir_run2), nullptr, nullptr,
+                    nullptr, nullptr, nullptr);
+    FileSystem *const fileSystem = session.getFileSystem();
+    SymbolTable *const symbolTable = session.getSymbolTable();
+    CommandLineParser *const clp = session.getCommandLineParser();
 
     const PathId headerDirId = fileSystem->toPathId(
-        (kInputDir_run2 / kHeadersDirName).string(), symbolTable.get());
+        (kInputDir_run2 / kHeadersDirName).string(), symbolTable);
     EXPECT_TRUE(fileSystem->isDirectory(headerDirId));
 
     const PathId headerFileId =
-        fileSystem->getChild(headerDirId, kHeaderFileName, symbolTable.get());
+        fileSystem->getChild(headerDirId, kHeaderFileName, symbolTable);
     EXPECT_TRUE(headerFileId);
     EXPECT_TRUE(fileSystem->isRegularFile(headerFileId));
 
     const PathId sourceFileId = fileSystem->toPathId(
-        (kInputDir_run2 / kSourceFileName).string(), symbolTable.get());
+        (kInputDir_run2 / kSourceFileName).string(), symbolTable);
     EXPECT_TRUE(sourceFileId);
     EXPECT_TRUE(fileSystem->isRegularFile(sourceFileId));
 
@@ -1262,14 +1249,12 @@ TEST(PlatformFileSystemTest, PortableCacheTest) {
     std::vector<const char *> cargs;
     std::transform(args.begin(), args.end(), std::back_inserter(cargs),
                    [](const std::string &arg) { return arg.data(); });
-    clp->parseCommandLine(cargs.size(), cargs.data());
+    session.parseCommandLine(cargs.size(), cargs.data(), false, false);
 
-    std::unique_ptr<Compiler> compiler(
-        new Compiler(clp.get(), errors.get(), symbolTable.get()));
+    std::unique_ptr<Compiler> compiler(new Compiler(&session));
     compiler->compile();
 
-    PathId cacheDirId =
-        fileSystem->getCacheDir(clp->fileunit(), symbolTable.get());
+    PathId cacheDirId = fileSystem->getCacheDir(clp->fileUnit(), symbolTable);
     EXPECT_TRUE(cacheDirId);
     EXPECT_TRUE(fileSystem->isDirectory(cacheDirId));
 
@@ -1281,23 +1266,23 @@ TEST(PlatformFileSystemTest, PortableCacheTest) {
           csf->getPreprocessor()->getLibrary()->getNameId();
       EXPECT_TRUE(libraryNameId);
 
-      PathId ppCacheFileId =
-          fileSystem->getPpCacheFile(clp->fileunit(), csf->getFileId(),
-                                     libraryNameId, false, symbolTable.get());
+      PathId ppCacheFileId = fileSystem->getPpCacheFile(
+          clp->fileUnit(), csf->getFileId(), libraryNameId, false, symbolTable);
       EXPECT_TRUE(ppCacheFileId);
       EXPECT_TRUE(fileSystem->isRegularFile(ppCacheFileId));
 
       PathId parseCacheFileId = fileSystem->getParseCacheFile(
-          clp->fileunit(), csf->getPpOutputFileId(), libraryNameId, false,
-          symbolTable.get());
+          clp->fileUnit(), csf->getPpOutputFileId(), libraryNameId, false,
+          symbolTable);
       EXPECT_TRUE(parseCacheFileId);
       EXPECT_TRUE(fileSystem->isRegularFile(parseCacheFileId));
 
       EXPECT_TRUE(ppFile->usingCachedVersion())
-          << PathIdPP(csf->getFileId()) << ", " << PathIdPP(ppCacheFileId);
+          << PathIdPP(csf->getFileId(), fileSystem) << ", "
+          << PathIdPP(ppCacheFileId, fileSystem);
       EXPECT_TRUE(parseFile->usingCachedVersion())
-          << PathIdPP(csf->getPpOutputFileId()) << ", "
-          << PathIdPP(parseCacheFileId);
+          << PathIdPP(csf->getPpOutputFileId(), fileSystem) << ", "
+          << PathIdPP(parseCacheFileId, fileSystem);
     }
   }
 

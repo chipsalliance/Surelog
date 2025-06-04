@@ -36,52 +36,40 @@
 #include <uhdm/containers.h>
 
 namespace SURELOG {
+class Session;
 
-struct FunctorCompileClass {
-  FunctorCompileClass(CompileDesign* compiler, ClassDefinition* classDef,
-                      Design* design, SymbolTable* symbols,
-                      ErrorContainer* errors)
-      : m_compileDesign(compiler),
+struct FunctorCompileClass final {
+  FunctorCompileClass(Session* session, CompileDesign* compiler,
+                      ClassDefinition* classDef, Design* design)
+      : m_session(session),
+        m_compileDesign(compiler),
         m_class(classDef),
-        m_design(design),
-        m_symbols(symbols),
-        m_errors(errors) {}
-
+        m_design(design) {}
+  FunctorCompileClass(const FunctorCompileClass&) = delete;
   int32_t operator()() const;
 
  private:
-  CompileDesign* m_compileDesign;
-  ClassDefinition* m_class;
-  Design* m_design;
-  SymbolTable* m_symbols;
-  ErrorContainer* m_errors;
+  Session* const m_session = nullptr;
+  CompileDesign* const m_compileDesign = nullptr;
+  ClassDefinition* const m_class = nullptr;
+  Design* const m_design = nullptr;
 };
 
 class CompileClass final {
  public:
-  CompileClass(CompileDesign* compiler, ClassDefinition* classDef,
-               Design* design, SymbolTable* symbols, ErrorContainer* errors)
-      : m_compileDesign(compiler),
+  CompileClass(Session* session, CompileDesign* compiler,
+               ClassDefinition* classDef, Design* design)
+      : m_session(session),
+        m_compileDesign(compiler),
         m_class(classDef),
         m_design(design),
-        m_symbols(symbols),
-        m_errors(errors) {
-    m_helper.seterrorReporting(errors, symbols);
-    builtins_ = {"constraint_mode", "randomize", "rand_mode", "srandom"};
-  }
+        m_helper(session),
+        m_builtins({"constraint_mode", "randomize", "rand_mode", "srandom"}) {}
   CompileClass(const CompileClass&) = delete;
 
   bool compile(Elaborate elaborate, Reduce reduce);
 
  private:
-  CompileDesign* const m_compileDesign;
-  ClassDefinition* const m_class;
-  Design* const m_design;
-  SymbolTable* const m_symbols;
-  ErrorContainer* const m_errors;
-
-  CompileHelper m_helper;
-
   bool compile_class_parameters_(const FileContent* fC, NodeId id);
   bool compile_class_property_(const FileContent* fC, NodeId id);
   bool compile_class_method_(const FileContent* fC, NodeId id);
@@ -91,8 +79,15 @@ class CompileClass final {
   bool compile_local_parameter_declaration_(const FileContent* fC, NodeId id);
   bool compile_parameter_declaration_(const FileContent* fC, NodeId id);
   bool compile_class_type_(const FileContent* fC, NodeId id);
-  std::set<std::string> builtins_;
-  UHDM::VectorOfattribute* m_attributes = nullptr;
+  bool compile_properties();
+
+  Session* const m_session = nullptr;
+  CompileDesign* const m_compileDesign = nullptr;
+  ClassDefinition* const m_class = nullptr;
+  Design* const m_design = nullptr;
+  CompileHelper m_helper;
+  uhdm::AttributeCollection* m_attributes = nullptr;
+  const std::set<std::string> m_builtins;
 };
 
 }  // namespace SURELOG

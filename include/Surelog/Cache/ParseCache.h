@@ -36,7 +36,7 @@ class ParseFile;
 
 class ParseCache final : Cache {
  public:
-  explicit ParseCache(ParseFile* pp);
+  ParseCache(Session* session, ParseFile* pp);
   ParseCache(const ParseCache& orig) = delete;
 
   bool restore();

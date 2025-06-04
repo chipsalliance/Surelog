@@ -28,6 +28,7 @@
 #include "Surelog/SourceCompile/VObjectTypes.h"
 
 namespace SURELOG {
+int32_t DataType::s_id = 0;
 
 const DataType* DataType::getActual() const {
   const DataType* actual = this;

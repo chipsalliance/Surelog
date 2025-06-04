@@ -30,6 +30,7 @@ limitations under the License.
 #include <Surelog/ErrorReporting/ErrorContainer.h>
 #include <Surelog/SourceCompile/CompileSourceFile.h>
 #include <Surelog/SourceCompile/PreprocessFile.h>
+#include <uhdm/Serializer.h>
 #include <uhdm/vpi_user.h>
 
 #include <string_view>
@@ -41,40 +42,39 @@ limitations under the License.
 #endif
 
 #include <map>
+#include <mutex>
 #include <set>
 #include <string>
 #include <vector>
 
 namespace SURELOG {
-
-class CommandLineParser;
 class CompileDesign;
 class ConfigSet;
 class Design;
-class ErrorContainer;
 class FileContent;
 class LibrarySet;
 class PreprocessFile;
-class SymbolTable;
+class Session;
 
 class Compiler {
  public:
   using PPFileMap =
       std::map<PathId, std::vector<PathId>, PathIdLessThanComparer>;
-  Compiler(CommandLineParser* commandLineParser, ErrorContainer* errors,
-           SymbolTable* symbolTable);
-  Compiler(CommandLineParser* commandLineParser, ErrorContainer* errors,
-           SymbolTable* symbolTable, std::string_view text);
+  explicit Compiler(Session* session);
+  Compiler(Session* session, std::string_view text);
   Compiler(const Compiler& orig) = delete;
   virtual ~Compiler();
 
   bool compile();
   void purgeParsers();
-  CommandLineParser* getCommandLineParser() const {
-    return m_commandLineParser;
-  }
-  SymbolTable* getSymbolTable() const { return m_symbolTable; }
-  ErrorContainer* getErrorContainer() const { return m_errors; }
+
+  Session* getSession() { return m_session; }
+  const Session* getSession() const { return m_session; }
+
+  uhdm::Serializer& getSerializer() { return m_serializer; }
+  void lockSerializer() { m_serializerMutex.lock(); }
+  void unlockSerializer() { m_serializerMutex.unlock(); }
+
   std::vector<CompileSourceFile*>& getCompileSourceFiles() {
     return m_compilers;
   }
@@ -95,11 +95,13 @@ class Compiler {
   // of the design.
   Design* getDesign() const { return m_design; }
 
-  vpiHandle getUhdmDesign() const { return m_uhdmDesign; }
+  uhdm::Design* getUhdmDesign() const;
+  vpiHandle getVpiDesign() const;
   CompileDesign* getCompileDesign() const { return m_compileDesign; }
   ErrorContainer::Stats getErrorStats() const;
   bool isLibraryFile(PathId id) const;
   const PPFileMap& getPPFileMap() { return m_ppFileMap; }
+
 #ifdef USETBB
   tbb::task_group& getTaskGroup() { return m_taskGroup; }
 #endif
@@ -119,9 +121,12 @@ class Compiler {
                        CompileSourceFile::Action action);
   bool cleanup_();
 
-  CommandLineParser* const m_commandLineParser;
-  ErrorContainer* const m_errors;
-  SymbolTable* const m_symbolTable;
+  void writeUhdmSourceFiles();
+  void writePreprocMacroInstances();
+
+ private:
+  uhdm::Serializer m_serializer;
+  Session* const m_session = nullptr;
   CompilationUnit* m_commonCompilationUnit;
   std::map<SymbolId, PreprocessFile::AntlrParserHandler*,
            SymbolIdLessThanComparer>
@@ -130,16 +135,15 @@ class Compiler {
   std::vector<CompileSourceFile*> m_compilersChunkFiles;
   std::vector<CompileSourceFile*> m_compilersParentFiles;
   std::vector<CompilationUnit*> m_compilationUnits;
-  std::vector<SymbolTable*> m_symbolTables;
-  std::vector<ErrorContainer*> m_errorContainers;
-  LibrarySet* const m_librarySet;
-  ConfigSet* const m_configSet;
-  Design* const m_design;
-  vpiHandle m_uhdmDesign;
+  std::vector<Session*> m_sessions;
+  LibrarySet* const m_librarySet = nullptr;
+  ConfigSet* const m_configSet = nullptr;
+  Design* const m_design = nullptr;
   PathIdSet m_libraryFiles;  // -v <file>
   std::string m_text;        // unit tests
   CompileDesign* m_compileDesign;
   PPFileMap m_ppFileMap;
+  std::mutex m_serializerMutex;
 #ifdef USETBB
   tbb::task_group m_taskGroup;
 #endif

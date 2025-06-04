@@ -5,594 +5,73 @@ concurrency:
   cancel-in-progress: true
 
 on:
-  push:
-  pull_request:
   workflow_dispatch:
+  push:
+    branches:
+    - master
+
+env:
+  MODULE_NAME: 'Surelog'
+  PYTHON3_VERSION: '3.x'
+  JAVA_VERSION: '11'
+  SURELOG_WITH_TCMALLOC: 'Off'
 
 jobs:
+  build:
+    name: "Build | ${{ matrix.config.artifact-tag }} | ${{ matrix.config.build-type }}"
+    runs-on: ${{ matrix.config.os }}
 
-# Linux build, test, and publish
-  linux-install:
-    name: "Linux | Install | ${{ matrix.compiler }} | ${{ matrix.config }}"
-    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
-        compiler:
-#        - gcc
-        - clang
         config:
-#        - debug
-        - release
+#        - { os: ubuntu-24.04, artifact-tag: ubuntu-gcc, build-type: debug }
+        - { os: ubuntu-24.04, artifact-tag: ubuntu-gcc, build-type: release }
+#        - { os: windows-2022, artifact-tag: windows-cl, build-type: debug }
+#        - { os: windows-2022, artifact-tag: windows-cl, build-type: release }
 
     env:
-      artifact-name: sl-${{ github.run_number }}-linux-${{ matrix.compiler }}-${{ matrix.config }}
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      with:
-        submodules: recursive
-        fetch-depth: 0
-
-    # Fetch tags for CMakeLists version check
-    # https://github.com/actions/checkout/issues/701
-    - name: Git fetch tags
-      run: git fetch --tags origin
-
-    - uses: ./.github/linux-setup
-      with:
-        compiler: ${{ matrix.compiler }}
-        ccache-key: linux-install-${{ matrix.compiler }}-${{ matrix.config }}
-
-    - name: Build, install & test
-      run: |
-        if [ "${{ matrix.config }}" == "debug" ]; then
-          export BUILD_TYPE=Debug
-          export CMAKE_ADDITIONAL_ARGS=-DSURELOG_WITH_TCMALLOC=Off
-        else
-          export BUILD_TYPE=Release
-          export CMAKE_ADDITIONAL_ARGS=
-        fi
-
-        export INSTALL_DIR=`pwd`/install
-
-        cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR $CMAKE_ADDITIONAL_ARGS -S . -B build
-        cmake --build build -j $(nproc)
-        cmake --install build
-
-        echo "---- run tests ----"
-        cmake --build build --target UnitTests -j $(nproc)
-        pushd build && ctest --output-on-failure && popd
-
-        rm -rf build      # make sure we only see installation artifacts
-
-        # This shouldn''t be necessary, and can't be reproduced outside CI
-        export CMAKE_PREFIX_PATH=$INSTALL_DIR
-
-        echo "---- Test Install ----"
-        cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DINSTALL_DIR=$INSTALL_DIR -S tests/TestInstall -B tests/TestInstall/build
-        cmake --build tests/TestInstall/build -j $(nproc)
-
-        echo "-- pkg-config content --"
-        cat $INSTALL_DIR/lib/pkgconfig/Surelog.pc
-        PREFIX=$INSTALL_DIR make test_install_pkgconfig
-
-    - name: Prepare build artifacts
-      run: |
-        mkdir artifacts
-        mv install ${{ env.artifact-name }}
-        tar czfp artifacts/${{ env.artifact-name }}.tar.gz ${{ env.artifact-name }}
-
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: ${{ env.artifact-name }}
-        path: artifacts/${{ env.artifact-name }}.tar.gz
-
-
-# Linux regression
-  linux-regression:
-    name: "Linux | Regression | ${{ matrix.compiler }} | ${{ matrix.config }} [${{ matrix.shard }}]"
-    runs-on: ubuntu-24.04
-    needs: linux-install
-    strategy:
-      fail-fast: false
-      matrix:
-        num_shards: [6]
-        shard: [0, 1, 2, 3, 4, 5]
-        compiler:
-#        - gcc
-        - clang
-        config:
-        - release
-    env:
-      build-artifact-name: sl-${{ github.run_number }}-linux-${{ matrix.compiler }}-${{ matrix.config }}
-      regression-artifact-name: sl-${{ github.run_number }}-linux-${{ matrix.compiler }}-${{ matrix.config }}-regression-${{ matrix.shard }}
-
-    steps:
-    - name: Install dependencies
-      run: |
-        sudo apt-get update -qq &&
-        sudo apt install -y google-perftools libgoogle-perftools-dev
-
-    - name: Setup Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: 3.8
-        architecture: x64
-
-    - name: Setup Python Packages
-      run: |
-        pip3 install orderedmultidict
-        pip3 install psutil
-        pip3 install build
-
-    - name: Checkout code
-      uses: actions/checkout@v4
-      with:
-        submodules: recursive
-        fetch-depth: 0
-
-    - name: Download artifact
-      uses: actions/download-artifact@v4
-      with:
-        name: ${{ env.build-artifact-name }}
-
-    - name: Run regression ${{ matrix.shard }}/${{ matrix.num_shards }}
-      timeout-minutes: 120
-      run: |
-        tar xzfp ${{ env.build-artifact-name }}.tar.gz
-        mv ${{ env.build-artifact-name }} build
-        rm ${{ env.build-artifact-name }}.tar.gz
-
-        python3 scripts/regression.py run       \
-          --jobs $(nproc)                       \
-          --num_shards=${{ matrix.num_shards }} \
-          --shard=${{ matrix.shard }}
-        git status
-
-    - name: Prepare regression artifacts
-      if: always()
-      run: |
-        cd build
-        mv regression ${{ env.regression-artifact-name }}
-        find ${{ env.regression-artifact-name }} -name "*.tar.gz" | tar czfp ${{ env.regression-artifact-name }}.tar.gz -T -
-
-    - name: Upload regression artifacts
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: ${{ env.regression-artifact-name }}
-        path: build/${{ env.regression-artifact-name }}.tar.gz
-
-
-# Various other builds where just one compiler is sufficient to test with.
-  linux-pythonapi:
-    if: false
-    name: "Linux | Python API | ${{ matrix.compiler }} | ${{ matrix.config }}"
-    runs-on: ubuntu-24.04
-    strategy:
-      fail-fast: false
-      matrix:
-        compiler:
-        - gcc
-        config:
-        - release
-
-    steps:
-    - name: Setup Python Packages
-      run: |
-        pip3 install orderedmultidict
-        pip3 install psutil
-        pip3 install build
-
-    - name: Checkout code
-      uses: actions/checkout@v4
-      with:
-        submodules: recursive
-        fetch-depth: 0
-
-    - uses: ./.github/linux-setup
-      with:
-        compiler: ${{ matrix.compiler }}
-        ccache-key: linux-pythonapi-${{ matrix.compiler }}-${{ matrix.config }}
-
-    - name: PythonAPI
-      run: make ${{ matrix.config }} ADDITIONAL_CMAKE_OPTIONS="-DSURELOG_WITH_PYTHON=1 -DCMAKE_CXX_FLAGS=-fpermissive"
-
-# Valgrind
-  linux-valgrind:
-    if: false
-    name: "Linux | Valgrind | ${{ matrix.project }} | ${{ matrix.compiler }} | ${{ matrix.config }}"
-    runs-on: ubuntu-24.04
-    needs: linux-install
-    strategy:
-      fail-fast: false
-      matrix:
-        compiler:
-        - gcc
-        config:
-        - debug
-        project:
-        - TypeParamElab
-        - ArianeElab
-        - ArianeElab2
-        - BlackParrotMuteErrors
-    env:
-      build-artifact-name: sl-${{ github.run_number }}-linux-${{ matrix.compiler }}-${{ matrix.config }}
-      regression-artifact-name: sl-${{ github.run_number }}-linux-${{ matrix.compiler }}-${{ matrix.config }}-valgrind-${{ matrix.project }}
-
-    steps:
-    - name: Install dependencies
-      run: |
-        sudo apt-get update -qq &&
-        sudo apt install -y google-perftools libgoogle-perftools-dev valgrind
-
-    - name: Setup Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: 3.8
-        architecture: x64
-
-    - name: Setup Python Packages
-      run: |
-        pip3 install orderedmultidict
-        pip3 install psutil
-        pip3 install build
-
-    - name: Checkout code
-      uses: actions/checkout@v4
-      with:
-        submodules: recursive
-        fetch-depth: 0
-
-    - name: Download artifact
-      uses: actions/download-artifact@v4
-      with:
-        name: ${{ env.build-artifact-name }}
-
-    - name: Valgrind ${{ matrix.project }}
-      timeout-minutes: 90
-      run: |
-        tar xzfp ${{ env.build-artifact-name }}.tar.gz
-        mv ${{ env.build-artifact-name }} build
-        rm ${{ env.build-artifact-name }}.tar.gz
-
-        python3 scripts/regression.py run     \
-          --tool valgrind                     \
-          --filters ${{ matrix.project }}
-
-    - name: Prepare regression artifacts
-      if: always()
-      run: |
-        cd build
-        mv regression ${{ env.regression-artifact-name }}
-        find ${{ env.regression-artifact-name }} -name "*.tar.gz" | tar czfp ${{ env.regression-artifact-name }}.tar.gz -T -
-
-    - name: Upload regression artifacts
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: ${{ env.regression-artifact-name }}
-        path: build/${{ env.regression-artifact-name }}.tar.gz
-
-
-# MSYS2 build, test, and publish
-  msys2-install:
-    if: false
-    name: "MSYS2 (MSYS) | Install | ${{ matrix.compiler }} | ${{ matrix.config }}"
-    runs-on: windows-2022
-    defaults:
-      run:
-        shell: msys2 {0}
-    strategy:
-      fail-fast: false
-      matrix:
-        compiler:
-        - gcc
-        config:
-        - release
-    env:
-      artifact-name: sl-${{ github.run_number }}-msys2-${{ matrix.compiler }}-${{ matrix.config }}
-
-    steps:
-    - name: Setup Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: 3.8
-        architecture: x64
-
-    - name: Setup Python Packages
-      shell: cmd
-      run: |
-        pip3 install orderedmultidict
-        pip3 install psutil
-        pip3 install build
-
-    - name: Setup Msys2
-      uses: msys2/setup-msys2@v2
-      with:
-        msystem: MSYS
-        update: true
-        install: make cmake ninja gcc git diffutils zlib-devel
-      env:
-        MSYS2_PATH_TYPE: inherit
-
-    - name: Setup Java
-      uses: actions/setup-java@v4
-      with:
-        distribution: temurin
-        java-version: 11
-        java-package: jre
-        architecture: x64
-
-    - name: Configure Git
-      shell: bash
-      run: git config --global core.autocrlf input
-
-    - name: Move builds to C:\ drive
-      shell: cmd
-      run: |
-        mkdir C:\Surelog
-        cd /D C:\Surelog
-        rd /S /Q %GITHUB_WORKSPACE%
-        mklink /D %GITHUB_WORKSPACE% C:\Surelog
-
-    - name: Configure Pagefile
-      uses: al-cheb/configure-pagefile-action@v1.4
-      with:
-        minimum-size: 8GB
-        maximum-size: 16GB
-        disk-root: "D:"
-
-    - name: Git pull
-      uses: actions/checkout@v4
-      with:
-        submodules: recursive
-        fetch-depth: 0
-
-    - name: Use ccache
-      uses: hendrikmuhs/ccache-action@v1.2
-      with:
-        key: msys2-install-${{ matrix.compiler }}-${{ matrix.config }}
-
-    - name: Configure shell environment variables
-      run: |
-        export CWD=`pwd`
-        export JAVA_HOME=`cygpath -u $JAVA_HOME_11_X64`
-        export Py3_ROOT_DIR=`cygpath -u $pythonLocation`
-
-        echo "JAVA_HOME=$JAVA_HOME" >> $GITHUB_ENV
-        echo 'CMAKE_GENERATOR=Ninja' >> $GITHUB_ENV
-        echo 'CC=gcc' >> $GITHUB_ENV
-        echo 'CXX=g++' >> $GITHUB_ENV
-        echo "PREFIX=${CWD}/install" >> $GITHUB_ENV
-        echo "Py3_ROOT_DIR=$Py3_ROOT_DIR" >> $GITHUB_ENV
-        echo "ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=$Py3_ROOT_DIR -DSURELOG_WITH_TCMALLOC=Off -DCMAKE_POLICY_VERSION_MINIMUM=3.5" >> $GITHUB_ENV
-        echo "PATH=$JAVA_HOME/bin:$Py3_ROOT_DIR:/usr/lib/ccache:/usr/local/opt/ccache/libexec:$PATH" >> $GITHUB_ENV
-
-        echo "$JAVA_HOME/bin" >> $GITHUB_PATH
-        echo "$Py3_ROOT_DIR" >> $GITHUB_PATH
-        echo "/usr/lib/ccache" >> $GITHUB_PATH
-        echo "/usr/local/opt/ccache/libexec" >> $GITHUB_PATH
-
-    - name: Show shell configuration
-      run: |
-        env
-        where git && git --version
-        where cmake && cmake --version
-        where make && make --version
-        where java && java -version
-        where python && python --version
-        where ninja && ninja --version
-        where $CC && $CC --version
-        where $CXX && $CXX --version
-
-    - name: Build, install & test
-      run: |
-        make ${{ matrix.config }}
-        make install
-
-        make test/unittest
-        make clean
-        make test_install
-        #make test_install_pkgconfig  # not working yet.
-
-    - name: Prepare build artifacts
-      run: |
-        mkdir artifacts
-        mv install ${{ env.artifact-name }}
-        tar czfp artifacts/${{ env.artifact-name }}.tar.gz ${{ env.artifact-name }}
-
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: ${{ env.artifact-name }}
-        path: artifacts/${{ env.artifact-name }}.tar.gz
-
-
-# MSYS2 regression
-  msys2-regression:
-    if: false
-    name: "MSYS2 (MSYS) | Regression | ${{ matrix.compiler }} | ${{ matrix.config }} [${{ matrix.shard }}]"
-    runs-on: windows-2022
-    needs: msys2-install
-    defaults:
-      run:
-        shell: msys2 {0}
-    strategy:
-      fail-fast: false
-      matrix:
-        num_shards: [6]
-        shard: [0, 1, 2, 3, 4, 5]
-        compiler:
-        - gcc
-        config:
-        - release
-    env:
-      build-artifact-name: sl-${{ github.run_number }}-msys2-${{ matrix.compiler }}-${{ matrix.config }}
-      regression-artifact-name: sl-${{ github.run_number }}-msys2-${{ matrix.compiler }}-${{ matrix.config }}-regression-${{ matrix.shard }}
-
-    steps:
-    - name: Setup Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: 3.8
-        architecture: x64
-
-    - name: Setup Python Packages
-      shell: cmd
-      run: |
-        pip3 install orderedmultidict
-        pip3 install psutil
-        pip3 install build
-
-    - name: Setup Msys2
-      uses: msys2/setup-msys2@v2
-      with:
-        msystem: MSYS
-        update: true
-        install: make git diffutils
-      env:
-        MSYS2_PATH_TYPE: inherit
-
-    - name: Configure Git
-      run: git config --global core.autocrlf input
-      shell: bash
-
-    - name: Move builds to C:\ drive
-      shell: cmd
-      run: |
-        mkdir C:\Surelog
-        cd /D C:\Surelog
-        rd /S /Q %GITHUB_WORKSPACE%
-        mklink /D %GITHUB_WORKSPACE% C:\Surelog
-
-    - name: Configure Pagefile
-      uses: al-cheb/configure-pagefile-action@v1.4
-      with:
-        minimum-size: 8GB
-        maximum-size: 16GB
-        disk-root: "D:"
-
-    - name: Git pull
-      uses: actions/checkout@v4
-      with:
-        submodules: recursive
-        fetch-depth: 0
-
-    - name: Download artifact
-      uses: actions/download-artifact@v4
-      with:
-        name: ${{ env.build-artifact-name }}
-
-    - name: Configure shell environment variables
-      run: |
-        export Py3_ROOT_DIR=`cygpath -u $pythonLocation`
-
-        echo "Py3_ROOT_DIR=$Py3_ROOT_DIR" >> $GITHUB_ENV
-        echo "$Py3_ROOT_DIR" >> $GITHUB_PATH
-
-    - name: Show shell configuration
-      run: |
-        # Not entirely sure why this export statement is required.
-        # But the log shows system's PATH variable and env.PATH are still different.
-        export PATH=$Py3_ROOT_DIR:$PATH
-
-        env
-        where git && git --version
-        where make && make --version
-        where python3 && python3 --version
-
-    - name: Run regression ${{ matrix.shard }}/${{ matrix.num_shards }}
-      timeout-minutes: 120
-      run: |
-        export PATH=$Py3_ROOT_DIR:$PATH
-
-        tar xzfp ${{ env.build-artifact-name }}.tar.gz
-        mv ${{ env.build-artifact-name }} build
-        rm ${{ env.build-artifact-name }}.tar.gz
-
-        python3 scripts/regression.py run         \
-          --jobs $(nproc)                         \
-          --num_shards=${{ matrix.num_shards }}   \
-          --shard=${{ matrix.shard }}
-        git status
-
-    - name: Prepare regression artifacts
-      if: always()
-      run: |
-        cd build
-        mv regression ${{ env.regression-artifact-name }}
-        find ${{ env.regression-artifact-name }} -name "*.tar.gz" | tar czfp ${{ env.regression-artifact-name }}.tar.gz -T -
-
-    - name: Upload regression artifacts
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: ${{ env.regression-artifact-name }}
-        path: build/${{ env.regression-artifact-name }}.tar.gz
-
-
-# Windows install
-  windows-install:
-    if: false
-    name: "Windows | Install | ${{ matrix.compiler }} | ${{ matrix.config }}"
-    runs-on: windows-2022
-    defaults:
-      run:
-        shell: cmd
-    strategy:
-      fail-fast: false
-      matrix:
-        compiler:
-        - cl
-        - clang
-        config:
-        - release
-    env:
-      artifact-name: sl-${{ github.run_number }}-windows-${{ matrix.compiler }}-${{ matrix.config }}
+      artifact-name: Surelog_${{ matrix.config.artifact-tag }}_${{ matrix.config.build-type }}_${{ github.run_number }}
 
     steps:
     - name: Install Core Dependencies
+      if: runner.os == 'Linux'
       run: |
-        choco install -y make
-        choco install -y ninja
+        sudo apt-get update -qq
+        sudo apt install -y g++-11
+        sudo apt install -y default-jre
+        sudo apt install -y cmake
+        sudo apt install -y build-essential
+        sudo apt install -y uuid-dev
+        sudo apt install -y ninja-build
+
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ env.PYTHON3_VERSION }}
+        architecture: 'x64'
+
+    - name: Install Core Dependencies
+      if: runner.os == 'Windows'
+      shell: cmd
+      run: |
+        choco install -y python3 --version=${{ env.PYTHON3_VERSION }} --installargs="/quiet Include_debug=1 TargetDir=%pythonLocation%"
         vcpkg install zlib zlib:x64-windows
 
-    - name: Setup Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: 3.8
-        architecture: x64
-
     - name: Setup Python Packages
       run: |
         pip3 install orderedmultidict
-        pip3 install psutil
-        pip3 install build
 
     - name: Setup Java
       uses: actions/setup-java@v4
       with:
         distribution: temurin
-        java-version: 11
+        java-version: ${{ env.JAVA_VERSION }}
         java-package: jre
         architecture: x64
 
-    - name: Setup Clang
-      if: matrix.compiler == 'clang'
-      uses: egor-tensin/setup-clang@v1
-      with:
-        version: 13
-        platform: x64
-        cygwin: 0
-
-    - run: git config --global core.autocrlf input
-      shell: bash
-
     - name: Move builds to C:\ drive
+      if: runner.os == 'Windows'
       shell: cmd
       run: |
         mkdir C:\Surelog
@@ -600,158 +79,148 @@ jobs:
         rd /S /Q %GITHUB_WORKSPACE%
         mklink /D %GITHUB_WORKSPACE% C:\Surelog
 
-    - name: Configure Pagefile
-      uses: al-cheb/configure-pagefile-action@v1.4
-      with:
-        minimum-size: 8GB
-        maximum-size: 16GB
-        disk-root: "D:"
-
-    - uses: actions/checkout@v4
+    - name: Git Pull
+      uses: actions/checkout@v4
       with:
         submodules: recursive
-        fetch-depth: 0
 
-    - name: Build & Test (cl compiler)
-      if: matrix.compiler == 'cl'
+    - name: Build on Linux
+      if: runner.os == 'Linux'
+      shell: bash
+      env:
+        CC: gcc-11
+        CXX: g++-11
+      run: |
+        env
+        which cmake && cmake --version
+        which java && java -version
+        which python && python --version
+        which ninja && ninja --version
+        which $CC && $CC --version
+        which $CXX && $CXX --version
+
+        if [[ "${{ matrix.config.build-type }}" == "debug" ]]; then
+          cmake -G Ninja                        \
+            -DCMAKE_BUILD_TYPE=Debug            \
+            -DPython3_ROOT_DIR=$pythonLocation  \
+            -DWITH_STATIC_CRT=0                 \
+            -DCMAKE_INSTALL_PREFIX=out/install  \
+            -S . -B out/build
+        else
+          cmake -G Ninja                        \
+            -DCMAKE_BUILD_TYPE=RelWithDebInfo   \
+            -DPython3_ROOT_DIR=$pythonLocation  \
+            -DWITH_STATIC_CRT=0                 \
+            -DCMAKE_INSTALL_PREFIX=out/install  \
+            -S . -B out/build
+        fi
+
+        cmake --build out/build -j `nproc`
+        cmake --install out/build
+
+    - name: Build on Windows
+      if: runner.os == 'Windows'
+      shell: cmd
+      env:
+        CC: cl
+        CXX: cl
       run: |
         call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+        if %errorlevel% neq 0 exit /b %errorlevel%
 
-        set CMAKE_GENERATOR=Ninja
-        set CC=cl
-        set CXX=cl
-        set PREFIX=%GITHUB_WORKSPACE%\install
-        set CMAKE_PREFIX_PATH=%GITHUB_WORKSPACE%\install
-        set CPU_CORES=%NUMBER_OF_PROCESSORS%
-
-        set MAKE_DIR=C:\make\bin
-        set PATH=%pythonLocation%;%JAVA_HOME%\bin;%MAKE_DIR%;%PATH%
-        set ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=%pythonLocation% -DSURELOG_WITH_TCMALLOC=Off -DCMAKE_TOOLCHAIN_FILE=%VCPKG_INSTALLATION_ROOT%/scripts/buildsystems/vcpkg.cmake.
+        set PATH=%JAVA_HOME%\bin;%PATH%
 
         set
         where cmake && cmake --version
-        where make && make --version
         where java && java -version
         where python && python --version
         where ninja && ninja --version
+        where %CC% && %CC%
+        where %CXX% && %CXX%
 
-        make ${{ matrix.config }}
-        if %errorlevel% neq 0 exit /b %errorlevel%
-        make install
-        if %errorlevel% neq 0 exit /b %errorlevel%
-        make test_install
-        if %errorlevel% neq 0 exit /b %errorlevel%
-        make test/unittest
-        if %errorlevel% neq 0 exit /b %errorlevel%
-
-    - name: Build & Test (clang compiler)
-      if: matrix.compiler == 'clang'
-      run: |
-        set CMAKE_GENERATOR=Ninja
-        set CC=clang
-        set CXX=clang++
-        set PREFIX=%GITHUB_WORKSPACE%\install
-        set CMAKE_PREFIX_PATH=%GITHUB_WORKSPACE%\install
-        set CPU_CORES=%NUMBER_OF_PROCESSORS%
-
-        set MAKE_DIR=C:\make\bin
-        set PATH=%pythonLocation%;%JAVA_HOME%\bin;%MAKE_DIR%;%PATH%
-        set ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=%pythonLocation% -DSURELOG_WITH_TCMALLOC=Off -DCMAKE_TOOLCHAIN_FILE=%VCPKG_INSTALLATION_ROOT%/scripts/buildsystems/vcpkg.cmake.
-
-        set
-        where cmake && cmake --version
-        where make && make --version
-        where java && java -version
-        where python && python --version
-        where ninja && ninja --version
-        where clang && clang --version
-        where clang++ && clang++ --version
-
-        make ${{ matrix.config }}
-        if %errorlevel% neq 0 exit /b %errorlevel%
-        make install
-        if %errorlevel% neq 0 exit /b %errorlevel%
-        make test_install
-        if %errorlevel% neq 0 exit /b %errorlevel%
-        make test/unittest
+        if "${{ matrix.config.build-type }}" EQU "debug" (
+          cmake -G Ninja^
+            -DCMAKE_BUILD_TYPE=Debug^
+            -DPython3_ROOT_DIR=%pythonLocation%^
+            -DWITH_STATIC_CRT=0^
+            -DCMAKE_INSTALL_PREFIX=out/install^
+            -S . -B out/build
+        ) else (
+          cmake -G Ninja^
+            -DCMAKE_BUILD_TYPE=RelWithDebInfo^
+            -DPython3_ROOT_DIR=%pythonLocation%^
+            -DWITH_STATIC_CRT=0^
+            -DCMAKE_INSTALL_PREFIX=out/install^
+            -DCMAKE_TOOLCHAIN_FILE=%VCPKG_INSTALLATION_ROOT%/scripts/buildsystems/vcpkg.cmake.^
+            -S . -B out/build
+        )
         if %errorlevel% neq 0 exit /b %errorlevel%
 
-    - name: Prepare build artifacts
+        cmake --build out/build -j %NUMBER_OF_PROCESSORS%
+        if %errorlevel% neq 0 exit /b %errorlevel%
+        cmake --install out/build
+
+    - name: Build compressed artifacts
+      if: always()
       shell: bash
       run: |
-        mkdir artifacts
-        mv install ${{ env.artifact-name }}
-        tar czfp artifacts/${{ env.artifact-name }}.tar.gz ${{ env.artifact-name }}
+        cp deploy/CMakeLists.txt out/install/.
+        cd out
 
-    - name: Upload build artifacts
+        mv install/lib install/${{ matrix.config.artifact-tag }}_${{ matrix.config.build-type }}
+        mkdir install/lib
+        mv install/${{ matrix.config.artifact-tag }}_${{ matrix.config.build-type }} install/lib/.
+
+        mv install/bin install/${{ matrix.config.artifact-tag }}_${{ matrix.config.build-type }}
+        mkdir install/bin
+        mv install/${{ matrix.config.artifact-tag }}_${{ matrix.config.build-type }} install/bin/.
+
+        mv install ${{ env.artifact-name }}
+        tar czfp ${{ env.artifact-name }}.tar.gz ${{ env.artifact-name }}
+
+    - name: Archive artifacts
+      if: always()
       uses: actions/upload-artifact@v4
       with:
         name: ${{ env.artifact-name }}
-        path: artifacts/${{ env.artifact-name }}.tar.gz
+        path: out/${{ env.artifact-name }}.tar.gz
 
+#######################################################################################################################
 
-# Windows regression
-  windows-regression:
-    if: false
-    name: "Windows | Regression | ${{ matrix.compiler }} | ${{ matrix.config }} [${{ matrix.shard }}]"
-    runs-on: windows-2022
-    needs: windows-install
-    defaults:
-      run:
-        shell: cmd
+  test:
+    name: "Test | ${{ matrix.config.artifact-tag }} | ${{ matrix.shard }}"
+    needs: build
+    runs-on: ${{ matrix.config.os }}
+
     strategy:
       fail-fast: false
       matrix:
         num_shards: [6]
         shard: [0, 1, 2, 3, 4, 5]
-        compiler:
-        - cl
-        - clang
         config:
-        - release
+        - { os: ubuntu-24.04, artifact-tag: ubuntu-gcc, build-type: release }
+#        - { os: windows-2022, artifact-tag: windows-cl, build-type: release }
+
     env:
-      build-artifact-name: sl-${{ github.run_number }}-windows-${{ matrix.compiler }}-${{ matrix.config }}
-      regression-artifact-name: sl-${{ github.run_number }}-windows-${{ matrix.compiler }}-${{ matrix.config }}-regression-${{ matrix.shard }}
+      build-artifact-name: Surelog_${{ matrix.config.artifact-tag }}_${{ matrix.config.build-type }}_${{ github.run_number }}
+      regression-artifact-name: Surelog_regression_${{ matrix.config.artifact-tag }}_${{ matrix.config.build-type }}_${{ github.run_number }}_${{ matrix.shard }}
 
     steps:
-    - name: Install Core Dependencies
-      run: |
-        choco install -y make
-
     - name: Setup Python
       uses: actions/setup-python@v5
       with:
-        python-version: 3.8
-        architecture: x64
+        python-version: ${{ env.PYTHON3_VERSION }}
+        architecture: 'x64'
 
     - name: Setup Python Packages
       run: |
         pip3 install orderedmultidict
         pip3 install psutil
-        pip3 install build
 
-    - run: git config --global core.autocrlf input
-      shell: bash
-
-    - name: Move builds to C:\ drive
-      shell: cmd
-      run: |
-        mkdir C:\Surelog
-        cd /D C:\Surelog
-        rd /S /Q %GITHUB_WORKSPACE%
-        mklink /D %GITHUB_WORKSPACE% C:\Surelog
-
-    - name: Configure Pagefile
-      uses: al-cheb/configure-pagefile-action@v1.4
-      with:
-        minimum-size: 8GB
-        maximum-size: 16GB
-        disk-root: "D:"
-
-    - uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
       with:
         submodules: recursive
-        fetch-depth: 0
 
     - name: Download artifact
       uses: actions/download-artifact@v4
@@ -767,10 +236,29 @@ jobs:
         mv ${{ env.build-artifact-name }} build
         rm ${{ env.build-artifact-name }}.tar.gz
 
-    - name: Run regression ${{ matrix.shard }}/${{ matrix.num_shards }}
+    - name: Run regression
+      if: runner.os == 'Linux'
+      shell: bash
+      timeout-minutes: 120
+      run: |
+        python3 scripts/regression.py run                                                             \
+          --build-dirpath build/bin/${{ matrix.config.artifact-tag }}_${{ matrix.config.build-type }} \
+          --surelog-filepath surelog                                                                  \
+          --output-dirpath ../../regression                                                           \
+          --jobs $(nproc)                                                                             \
+          --num_shards=${{ matrix.num_shards }}                                                       \
+          --shard=${{ matrix.shard }}
+        git status
+
+    - name: Run regression
+      if: runner.os == 'Windows'
+      shell: cmd
       timeout-minutes: 120
       run: |
         python3 scripts/regression.py run^
+          --build-dirpath build/bin/${{ matrix.config.artifact-tag }}_${{ matrix.config.build-type }}^
+          --surelog-filepath surelog.exe^
+          --output-dirpath ../../regression^
           --jobs %NUMBER_OF_PROCESSORS%^
           --num_shards=${{ matrix.num_shards }}^
           --shard=${{ matrix.shard }}
@@ -778,326 +266,129 @@ jobs:
         git status
 
     - name: Prepare regression artifacts
-      shell: bash
       if: always()
       run: |
+        ls -l build
         cd build
+        ls -l regression
         mv regression ${{ env.regression-artifact-name }}
         find ${{ env.regression-artifact-name }} -name "*.tar.gz" | tar czfp ${{ env.regression-artifact-name }}.tar.gz -T -
 
-    - name: Upload regression artifacts
+    - name: Archive artifacts
       if: always()
       uses: actions/upload-artifact@v4
       with:
         name: ${{ env.regression-artifact-name }}
         path: build/${{ env.regression-artifact-name }}.tar.gz
 
-
-# Mac build, test, and publish
-  macos-install:
-    if: false
-    name: "Mac OS | Install | ${{ matrix.compiler }} | ${{ matrix.config }}"
-    runs-on: macos-13
-    strategy:
-      fail-fast: false
-      matrix:
-        compiler:
-        - gcc
-        - clang
-        config:
-        - release
-    env:
-      artifact-name: sl-${{ github.run_number }}-macos-${{ matrix.compiler }}-${{ matrix.config }}
-
-    steps:
-    - name: Setup Java
-      uses: actions/setup-java@v4
-      with:
-        distribution: temurin
-        java-version: 17
-        java-package: jre
-
-    - name: Setup Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: 3.8
-
-    - name: Setup Python Packages
-      run: |
-        pip3 install orderedmultidict
-        pip3 install psutil
-        pip3 install build
-
-    - uses: actions/checkout@v4
-      with:
-        submodules: recursive
-        fetch-depth: 0
-
-    - name: Use ccache
-      uses: hendrikmuhs/ccache-action@v1.2
-      with:
-        key: macos-install1-${{ matrix.compiler }}-${{ matrix.config }}
-
-    - name: Configure compiler
-      run: |
-        if [ "${{ matrix.compiler }}" == "clang" ]; then
-          echo 'CC=clang' >> $GITHUB_ENV
-          echo 'CXX=clang++' >> $GITHUB_ENV
-        else
-          echo 'CC=gcc-14' >> $GITHUB_ENV
-          echo 'CXX=g++-14' >> $GITHUB_ENV
-        fi
-
-    - name: Configure shell
-      run: |
-        echo "PATH=$(brew --prefix)/opt/ccache/libexec:$PATH" >> $GITHUB_ENV
-        echo "PREFIX=${GITHUB_WORKSPACE}/install" >> $GITHUB_ENV
-        echo "CMAKE_PREFIX_PATH=${GITHUB_WORKSPACE}/install" >> $GITHUB_ENV
-        echo 'ADDITIONAL_CMAKE_OPTIONS=-DPython3_ROOT_DIR=${pythonLocation} -DCMAKE_POLICY_VERSION_MINIMUM=3.5' >> $GITHUB_ENV
-
-    - name: Show shell configuration
-      run: |
-        env
-        which cmake && cmake --version
-        which make && make --version
-        which java && java -version
-        which python && python --version
-        which $CC && $CC --version
-        which $CXX && $CXX --version
-
-    - name: Build, install & test
-      run: |
-        make ${{ matrix.config }}
-        make install
-
-        make test/unittest
-        make clean   # make sure we only see installation artifacts
-        make test_install
-        make test_install_pkgconfig
-
-    - name: Prepare build artifacts
-      run: |
-        mkdir artifacts
-        mv install ${{ env.artifact-name }}
-        tar czfp artifacts/${{ env.artifact-name }}.tar.gz ${{ env.artifact-name }}
-
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: ${{ env.artifact-name }}
-        path: artifacts/${{ env.artifact-name }}.tar.gz
-
-
-# Mac regression
-  macos-regression:
-    if: false
-    name: "Mac OS | Regression | ${{ matrix.compiler }} | ${{ matrix.config }} [${{ matrix.shard }}]"
-    runs-on: macos-13
-    needs: macos-install
-    strategy:
-      fail-fast: false
-      matrix:
-        num_shards: [6]
-        shard: [0, 1, 2, 3, 4, 5]
-        compiler:
-        - gcc
-        - clang
-        config:
-        - release
-    env:
-      build-artifact-name: sl-${{ github.run_number }}-macos-${{ matrix.compiler }}-${{ matrix.config }}
-      regression-artifact-name: sl-${{ github.run_number }}-macos-${{ matrix.compiler }}-${{ matrix.config }}-regression-${{ matrix.shard }}
-
-    steps:
-    - name: Setup Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: 3.8
-        architecture: x64
-
-    - name: Setup Python Packages
-      run: |
-        pip3 install orderedmultidict
-        pip3 install psutil
-        pip3 install build
-
-    - uses: actions/checkout@v4
-      with:
-        submodules: recursive
-        fetch-depth: 0
-
-    - name: Configure shell
-      run: |
-        echo 'PREFIX=${GITHUB_WORKSPACE}/install' >> $GITHUB_ENV
-
-    - name: Show shell configuration
-      run: |
-        env
-        which cmake && cmake --version
-        which make && make --version
-        which python && python --version
-
-    - name: Download artifact
-      uses: actions/download-artifact@v4
-      with:
-        name: ${{ env.build-artifact-name }}
-
-    - name: Run regression ${{ matrix.shard }}/${{ matrix.num_shards }}
-      timeout-minutes: 120
-      run: |
-        tar xzfp ${{ env.build-artifact-name }}.tar.gz
-        mv ${{ env.build-artifact-name }} build
-        rm ${{ env.build-artifact-name }}.tar.gz
-
-        python3 scripts/regression.py run       \
-          --jobs $(sysctl -n hw.physicalcpu)    \
-          --num_shards=${{ matrix.num_shards }} \
-          --shard=${{ matrix.shard }}
-        git status
-
-    - name: Prepare regression artifacts
-      if: always()
-      run: |
-        cd build
-        mv regression ${{ env.regression-artifact-name }}
-        find ${{ env.regression-artifact-name }} -name "*.tar.gz" | tar czfp ${{ env.regression-artifact-name }}.tar.gz -T -
-
-    - name: Upload regression artifacts
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: ${{ env.regression-artifact-name }}
-        path: build/${{ env.regression-artifact-name }}.tar.gz
-
-  release-tagging:
-    name: Version Tagging
-    runs-on: ubuntu-24.04
-    if: ${{github.repository == 'chipsalliance/Surelog' && github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')}}
-    permissions:
-      contents: write
-
-    steps:
-    - uses: actions/checkout@v4
-      with:
-       fetch-depth: 0
-
-    - name: Tag with CMake version if not already.
-      run: |
-        git config --local user.name "Development bot"
-        git config --local user.email "surelog-dev+bot@chipsalliance.org"
-
-        # We want to tag whenever the cmake version changes. So extract the
-        # hash of when the current version was entered.
-        read TAG_HASH TAG_VERSION <<<$(git annotate -l CMakeLists.txt | sed 's/\(^[0-9A-Fa-f]\+\).*project(SURELOG VERSION \([0-9]\+\.[0-9]\+\).*/\1 \2/p;d')
-
-        TAG="v${TAG_VERSION}"
-        echo "Surelog Version ${TAG} at hash ${TAG_HASH}"
-
-        # If this is the first time we see this tag: apply.
-        if [ -z "$(git tag -l "${TAG}")" ]; then
-          git tag -a "${TAG}" ${TAG_HASH} -m "Update to ${TAG}"
-          echo "TAG=$TAG" >> $GITHUB_ENV
-          echo "TAG_SHA=$TAG_HASH" >> $GITHUB_ENV
-        else
-          echo "Tag already applied, nothing to do."
-        fi
-
-    - name: Publish tag
-      if: ${{ env.TAG != '' }}
-      uses: actions/github-script@v7
-      env:
-        TAG_NAME: ${{env.TAG}}
-        TAG_SHA: ${{env.TAG_SHA}}
-      with:
-        script: |
-          const { TAG_NAME, TAG_SHA } = process.env;
-          github.rest.git.createRef({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            ref: `refs/tags/${TAG_NAME}`,
-            sha: TAG_SHA});
-
-# Code formatting
-  CodeFormatting:
-    runs-on: ubuntu-24.04
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-
-    - name: Install Dependencies
-      run: |
-        # clang-format 18 seems to still settle and has different
-        # outcome with minor versions. So using stable 17 for now.
-        sudo apt-get install clang-format-17
-
-    - name: Run formatting style check
-      run: |
-        export CLANG_FORMAT=clang-format-17
-        "${CLANG_FORMAT}" --version
-        ./.github/bin/run-clang-format.sh
-
-
-# Code Tideness
-  ClangTidy:
-    runs-on: ubuntu-24.04
-
-    steps:
-    - name: Install Dependencies
-      run: |
-        sudo apt-get update -qq
-        sudo apt -qq -y install clang-tidy-18 ccache \
-                                g++-9 default-jre cmake \
-                                uuid-dev build-essential
-
-    - name: Setup Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: 3.8
-        architecture: x64
-
-    - name: Setup Python Packages
-      run: |
-        pip3 install orderedmultidict
-        pip3 install psutil
-        pip3 install build
-
-    - name: Checkout code
-      uses: actions/checkout@v4
-      with:
-        submodules: recursive
-        fetch-depth: 0
-
-    - name: Create Cache Timestamp
-      id: cache_timestamp
-      uses: nanzm/get-time-action@v2.0
-      with:
-        format: 'YYYY-MM-DD-HH-mm-ss'
-
-    - name: Retrieve cached results
-      uses: actions/cache@v3
-      with:
-        path: |
-          /home/runner/.cache/clang-tidy
-          /home/runner/.cache/ccache
-        key: clang-tidy-${{ steps.cache_timestamp.outputs.time }}
-        restore-keys: clang-tidy-
-
-    - name: Configure shell
-      run: |
-        echo 'PATH=/usr/lib/ccache:'"$PATH" >> $GITHUB_ENV
-
-    - name: Prepare source
-      run: |
-        make run-cmake-release-with-python
-        make -j2 -C build surelog  # creates all relevant artifacts
-        ln -sf build/compile_commands.json .
-
-    - name: Run clang tidy
-      run: |
-        export CLANG_TIDY=clang-tidy-18
-        "${CLANG_TIDY}" --version
-        ./.github/bin/run-clang-tidy.sh limited \
-           || ( cat Surelog_clang-tidy.out ; exit 1)
+#######################################################################################################################
+# 
+#   deploy:
+#     name: "Deploy | ${{ matrix.config.artifact-tag }} | ${{ matrix.config.artifact-tag }}"
+#     if: github.ref == 'refs/heads/master'
+# 
+#     needs: test
+#     runs-on: ubuntu-latest
+# 
+#     strategy:
+#       fail-fast: false
+#       matrix:
+#         config:
+#         - { os: ubuntu-20.04, artifact-tag: focal-gcc, build-type: debug }
+#         - { os: ubuntu-20.04, artifact-tag: focal-gcc, build-type: release }
+#         - { os: windows-2022, artifact-tag: windows-cl, build-type: debug }
+#         - { os: windows-2022, artifact-tag: windows-cl, build-type: release }
+# 
+#     env:
+#       artifact-name: Surelog_${{ matrix.config.artifact-tag }}_${{ matrix.config.build-type }}_${{ github.run_number }}
+# 
+#     steps:
+#     - name: Setup environment
+#       run: |
+#         export COMMITTED_AT=$(date -d ${{ steps.author-date.outputs.result }} +'%Y.%m.%d_%H.%M.%S')
+#         echo "COMMITTED_AT=$COMMITTED_AT" >> $GITHUB_ENV
+#         echo "ARTIFACT_BIONIC_GCC_DEBUG=${{ env.MODULE_NAME }}-bionic-gcc-debug" >> $GITHUB_ENV
+#         echo "ARTIFACT_BIONIC_GCC_RELEASE=${{ env.MODULE_NAME }}-bionic-gcc-release" >> $GITHUB_ENV
+#         echo "ARTIFACT_WINDOWS_CL_DEBUG=${{ env.MODULE_NAME }}-windows-cl-debug" >> $GITHUB_ENV
+#         echo "ARTIFACT_WINDOWS_CL_RELEASE=${{ env.MODULE_NAME }}-windows-cl-release" >> $GITHUB_ENV
+# 
+#     - name: Download artifact (bionic-gcc-debug)
+#       uses: actions/download-artifact@v2
+#       with:
+#         name: ${{ env.ARTIFACT_BIONIC_GCC_DEBUG }}
+# 
+#     - name: Download artifact (bionic-gcc-release)
+#       uses: actions/download-artifact@v2
+#       with:
+#         name: ${{ env.ARTIFACT_BIONIC_GCC_RELEASE }}
+# 
+#     - name: Download artifact (windows-cl-debug)
+#       uses: actions/download-artifact@v2
+#       with:
+#         name: ${{ env.ARTIFACT_WINDOWS_CL_DEBUG }}
+# 
+#     - name: Download artifact (windows-cl-release)
+#       uses: actions/download-artifact@v2
+#       with:
+#         name: ${{ env.ARTIFACT_WINDOWS_CL_RELEASE }}
+# 
+#     - name: List directory contents
+#       run: ls -R
+# 
+#     - name: Create Release
+#       id: create_release
+#       uses: actions/create-release@v1
+#       env:
+#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#       with:
+#         tag_name: ${{ env.COMMITTED_AT }}
+#         release_name: ${{ env.MODULE_NAME }}
+#         draft: false
+#         prerelease: false
+# 
+#     - name: Upload Release Asset (bionic-gcc-debug)
+#       uses: actions/upload-release-asset@v1.0.1
+#       env:
+#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#       with:
+#         upload_url: ${{ steps.create_release.outputs.upload_url }}
+#         asset_path: ${{ env.ARTIFACT_BIONIC_GCC_DEBUG }}.tar.gz
+#         asset_name: 'bionic-gcc-debug.tar.gz'
+#         asset_content_type: application/zip
+# 
+#     - name: Upload Release Asset (bionic-gcc-release)
+#       uses: actions/upload-release-asset@v1.0.1
+#       env:
+#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#       with:
+#         upload_url: ${{ steps.create_release.outputs.upload_url }}
+#         asset_path: ${{ env.ARTIFACT_BIONIC_GCC_RELEASE }}.tar.gz
+#         asset_name: 'bionic-gcc-release.tar.gz'
+#         asset_content_type: application/zip
+# 
+#     - name: Upload Release Asset (windows-cl-debug)
+#       uses: actions/upload-release-asset@v1.0.1
+#       env:
+#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#       with:
+#         upload_url: ${{ steps.create_release.outputs.upload_url }}
+#         asset_path: ${{ env.ARTIFACT_WINDOWS_CL_DEBUG }}.tar.gz
+#         asset_name: 'windows-cl-debug.tar.gz'
+#         asset_content_type: application/zip
+# 
+#     - name: Upload Release Asset (windows-cl-release)
+#       uses: actions/upload-release-asset@v1.0.1
+#       env:
+#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#       with:
+#         upload_url: ${{ steps.create_release.outputs.upload_url }}
+#         asset_path: ${{ env.ARTIFACT_WINDOWS_CL_RELEASE }}.tar.gz
+#         asset_name: 'windows-cl-release.tar.gz'
+#         asset_content_type: application/zip
+# 
+#     - name: Delete some old releases
+#       uses: dev-drprasad/delete-older-releases@v0.2.0
+#       with:
+#         keep_latest: 5
+#       env:
+#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

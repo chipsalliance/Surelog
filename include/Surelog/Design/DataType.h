@@ -32,8 +32,8 @@
 #include <string>
 #include <string_view>
 
-namespace UHDM {
-class typespec;
+namespace uhdm {
+class Typespec;
 };
 
 namespace SURELOG {
@@ -81,6 +81,7 @@ class DataType : public RTTI {
   const FileContent* getFileContent() const { return m_fileContent; }
 
   NodeId getNodeId() const { return m_id; }
+  void setNodeId(NodeId nodeId) { m_id = nodeId; }
 
   std::string_view getName() const { return m_name; }
 
@@ -110,13 +111,16 @@ class DataType : public RTTI {
 
   virtual bool isNet() const { return false; }
 
-  UHDM::typespec* getTypespec() const { return m_typespec; }
-  void setTypespec(UHDM::typespec* typespec) { m_typespec = typespec; }
+  uhdm::Typespec* getTypespec() const { return m_typespec; }
+  virtual void setTypespec(uhdm::Typespec* typespec) { m_typespec = typespec; }
 
-  UHDM::typespec* getUnpackedTypespec() const { return m_unpacked_typespec; }
-  void setUnpackedTypespec(UHDM::typespec* typespec) {
-    m_unpacked_typespec = typespec;
+  uhdm::Typespec* getUnpackedTypespec() const { return m_unpackedTypespec; }
+  void setUnpackedTypespec(uhdm::Typespec* typespec) {
+    m_unpackedTypespec = typespec;
   }
+
+  const int32_t d_id = ++s_id;
+  static int32_t s_id;
 
  protected:
   const FileContent* m_fileContent = nullptr;
@@ -125,8 +129,8 @@ class DataType : public RTTI {
   mutable const DataType* m_definition = nullptr;
   VObjectType m_type = VObjectType::sl_INVALID_;
   bool m_is_parameter = false;
-  UHDM::typespec* m_typespec = nullptr;
-  UHDM::typespec* m_unpacked_typespec = nullptr;
+  uhdm::Typespec* m_typespec = nullptr;
+  uhdm::Typespec* m_unpackedTypespec = nullptr;
   Category m_category = Category::REF;
 };
 

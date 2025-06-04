@@ -28,6 +28,7 @@
 
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/PathId.h"
+#include "Surelog/Common/Session.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
 #include "Surelog/Library/Library.h"
@@ -39,59 +40,68 @@
 namespace SURELOG {
 
 struct ParserHarness::Holder {
-  std::unique_ptr<CompilationUnit> unit;
-  std::unique_ptr<SymbolTable> symbols;
-  std::unique_ptr<ErrorContainer> errors;
-  std::unique_ptr<CommandLineParser> clp;
-  std::unique_ptr<Library> lib;
-  std::unique_ptr<Compiler> compiler;
-  std::unique_ptr<CompileSourceFile> csf;
-  std::unique_ptr<ParseFile> pf;
+  std::unique_ptr<CompilationUnit> m_unit;
+  std::unique_ptr<Library> m_lib;
+  std::unique_ptr<Compiler> m_compiler;
+  std::unique_ptr<CompileSourceFile> m_csf;
+  std::unique_ptr<ParseFile> m_pf;
 };
+
+ParserHarness::ParserHarness() : m_ownsSession(true) {}
+
+ParserHarness::ParserHarness(Session* session)
+    : m_session(session), m_ownsSession(false) {}
+
+ParserHarness::~ParserHarness() {
+  if (m_ownsSession) delete m_session;
+  delete m_h;
+}
 
 std::unique_ptr<FileContent> ParserHarness::parse(std::string_view content) {
   delete m_h;
-  m_h = new Holder();
+  m_h = new Holder;
 
-  m_h->unit = std::make_unique<CompilationUnit>(false);
-  m_h->symbols = std::make_unique<SymbolTable>();
-  m_h->errors = std::make_unique<ErrorContainer>(m_h->symbols.get());
-  m_h->clp = std::make_unique<CommandLineParser>(
-      m_h->errors.get(), m_h->symbols.get(), false, false);
-  m_h->clp->setCacheAllowed(false);
-  m_h->lib = std::make_unique<Library>("work", m_h->symbols.get());
-  m_h->compiler = std::make_unique<Compiler>(m_h->clp.get(), m_h->errors.get(),
-                                             m_h->symbols.get());
-  m_h->csf = std::make_unique<CompileSourceFile>(
-      BadPathId, m_h->clp.get(), m_h->errors.get(), m_h->compiler.get(),
-      m_h->symbols.get(), m_h->unit.get(), m_h->lib.get());
-  m_h->pf = std::make_unique<ParseFile>(content, m_h->csf.get(),
-                                        m_h->unit.get(), m_h->lib.get());
+  if (m_ownsSession) {
+    delete m_session;
+    m_session = new Session;
+  }
+
+  CommandLineParser* const clp = m_session->getCommandLineParser();
+  clp->setCacheAllowed(false);
+
+  m_h->m_unit = std::make_unique<CompilationUnit>(false);
+  m_h->m_lib = std::make_unique<Library>(m_session, "work");
+  m_h->m_compiler = std::make_unique<Compiler>(m_session);
+  m_h->m_csf = std::make_unique<CompileSourceFile>(
+      m_session, BadPathId, m_h->m_compiler.get(), m_h->m_unit.get(),
+      m_h->m_lib.get());
+  m_h->m_pf.reset(new ParseFile(m_session, content, m_h->m_csf.get(),
+                                m_h->m_unit.get(), m_h->m_lib.get()));
   std::unique_ptr<FileContent> file_content_result(
-      new FileContent(BadPathId, m_h->lib.get(), m_h->symbols.get(),
-                      m_h->errors.get(), nullptr, BadPathId));
-  m_h->pf->setFileContent(file_content_result.get());
-  if (!m_h->pf->parse()) file_content_result.reset(nullptr);
+      std::make_unique<FileContent>(m_session, BadPathId, m_h->m_lib.get(),
+                                    nullptr, BadPathId));
+  m_h->m_pf->setFileContent(file_content_result.get());
+  if (!m_h->m_pf->parse()) file_content_result.reset(nullptr);
   return file_content_result;
 }
 
 FileContent* ParserHarness::parse(std::string_view content, Compiler* compiler,
                                   PathId fileId) {
-  CompilationUnit* unit = new CompilationUnit(false);
-  SymbolTable* symbols = compiler->getSymbolTable();
-  ErrorContainer* errors = compiler->getErrorContainer();
-  CommandLineParser* clp = compiler->getCommandLineParser();
-  Library* lib = new Library("work", symbols);
-  CompileSourceFile* csf =
-      new CompileSourceFile(fileId, clp, errors, compiler, symbols, unit, lib);
-  ParseFile* pf = new ParseFile(content, csf, unit, lib);
+  if (m_ownsSession) {
+    delete m_session;
+    m_session = new Session;
+  }
+
+  CompilationUnit* const unit = new CompilationUnit(false);
+  Library* const lib = new Library(m_session, "work");
+  CompileSourceFile* const csf =
+      new CompileSourceFile(m_session, fileId, compiler, unit, lib);
+  ParseFile* const pf = new ParseFile(m_session, content, csf, unit, lib);
   FileContent* file_content_result =
-      new FileContent(fileId, lib, symbols, errors, nullptr, BadPathId);
+      new FileContent(m_session, fileId, lib, nullptr, BadPathId);
   pf->setFileContent(file_content_result);
   if (!pf->parse()) file_content_result = nullptr;
   return file_content_result;
 }
-
-ParserHarness::~ParserHarness() { delete m_h; }
 
 }  // namespace SURELOG

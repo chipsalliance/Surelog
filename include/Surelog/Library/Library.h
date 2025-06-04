@@ -35,9 +35,8 @@
 #include <vector>
 
 namespace SURELOG {
-
 class ModuleDefinition;
-class SymbolTable;
+class Session;
 
 class Library final {
  public:
@@ -45,7 +44,7 @@ class Library final {
       std::map<SymbolId, ModuleDefinition*, SymbolIdLessThanComparer>;
 
  public:
-  Library(std::string_view name, SymbolTable* symbols);
+  Library(Session* session, std::string_view name);
 
   void addFileId(PathId fid) {
     m_fileIds.push_back(fid);
@@ -62,11 +61,10 @@ class Library final {
   void addModuleDefinition(ModuleDefinition* def);
   ModuleDefinitionByNameMap& getModules() { return m_modules; }
   ModuleDefinition* getModule(std::string_view name) const;
-  SymbolTable* getSymbols() { return m_symbols; }
 
  private:
+  Session* const m_session = nullptr;
   SymbolId m_nameId;
-  SymbolTable* const m_symbols;
   PathIdVector m_fileIds;
   PathIdSet m_fileIdsSet;
   ModuleDefinitionByNameMap m_modules;

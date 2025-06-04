@@ -23,6 +23,8 @@
 
 #include "Surelog/Testbench/TypeDef.h"
 
+#include <uhdm/typespec.h>
+
 #include <string_view>
 
 #include "Surelog/Common/NodeId.h"
@@ -40,4 +42,10 @@ TypeDef::TypeDef(const FileContent* fC, NodeId id, NodeId the_def,
   m_category = DataType::Category::TYPEDEF;
 }
 
+void TypeDef::setTypespec(uhdm::Typespec* typespec) {
+  if ((typespec == nullptr) ||
+      (typespec->getUhdmType() == uhdm::UhdmType::TypedefTypespec)) {
+    m_typespec = typespec;
+  }
+}
 }  // namespace SURELOG

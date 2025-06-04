@@ -147,6 +147,8 @@ class PlatformFileSystem /*final*/ : public FileSystem {
                             SymbolTable *symbolTable) override;
   PathId getCheckerHtmlFile(PathId uhdmFileId, int32_t index,
                             SymbolTable *symbolTable) override;
+  PathId getOutputUhdmFile(bool isUnitCompilation,
+                           SymbolTable *symbolTable) override;
 
   bool rename(PathId whatId, PathId toId) override;
   bool remove(PathId fileId) override;

@@ -41,6 +41,7 @@
 namespace SURELOG {
 
 class ExprBuilder;
+class Session;
 class Value;
 
 class ValuedComponentI : public RTTI {
@@ -48,13 +49,18 @@ class ValuedComponentI : public RTTI {
  public:
   using ParamMap =
       std::map<std::string, std::pair<Value*, int32_t>, StringViewCompare>;
-  using ComplexValueMap = std::map<std::string, UHDM::expr*, StringViewCompare>;
+  using ComplexValueMap = std::map<std::string, uhdm::Expr*, StringViewCompare>;
 
-  ValuedComponentI(const ValuedComponentI* parentScope,
+  ValuedComponentI(Session* session, const ValuedComponentI* parentScope,
                    ValuedComponentI* definition)
-      : m_parentScope(parentScope), m_definition(definition){};
+      : m_session(session),
+        m_parentScope(parentScope),
+        m_definition(definition) {}
 
   ~ValuedComponentI() override = default;
+
+  Session* getSession() { return m_session; }
+  const Session* getSession() const { return m_session; }
 
   virtual Value* getValue(std::string_view name) const;
   virtual Value* getValue(std::string_view name,
@@ -67,16 +73,19 @@ class ValuedComponentI : public RTTI {
   const ValuedComponentI* getParentScope() const { return m_parentScope; }
   void setParentScope(ValuedComponentI* parent) { m_parentScope = parent; }
 
-  virtual void setComplexValue(std::string_view name, UHDM::expr* val);
-  virtual UHDM::expr* getComplexValue(std::string_view name) const;
+  virtual void setComplexValue(std::string_view name, uhdm::Expr* val);
+  virtual uhdm::Expr* getComplexValue(std::string_view name) const;
   virtual void forgetComplexValue(std::string_view name);
   const ComplexValueMap& getComplexValues() const { return m_complexValues; }
   // Do not change the signature of this method, it's use in gdb for debug.
   virtual std::string decompile(char* valueName) { return "Undefined"; }
 
+ protected:
+  Session* const m_session = nullptr;
+
  private:
   const ValuedComponentI* m_parentScope;
-  ValuedComponentI* const m_definition;  // Module def for an instance
+  ValuedComponentI* const m_definition = nullptr;  // Module def for an instance
   ParamMap m_paramMap;
   ComplexValueMap m_complexValues;
 };

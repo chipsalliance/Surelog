@@ -34,19 +34,17 @@ struct _ts;
 using PyThreadState = struct _ts;
 
 namespace SURELOG {
-
 class Design;
 class ErrorContainer;
 class FileContent;
 class SV3_1aPythonListener;
 struct parser_rule_context;
 
-class PythonAPI {
+class PythonAPI final {
  public:
   PythonAPI() = default;
   PythonAPI(const PythonAPI& orig) = delete;
-
-  virtual ~PythonAPI() = default;
+  ~PythonAPI() = default;
 
   /* Main interpreter (in main thread) */
   static void init(int32_t argc, const char** argv);

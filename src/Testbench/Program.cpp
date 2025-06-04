@@ -23,6 +23,9 @@
 
 #include "Surelog/Testbench/Program.h"
 
+#include <uhdm/Serializer.h>
+#include <uhdm/program.h>
+
 #include <cstdint>
 #include <string_view>
 
@@ -33,10 +36,16 @@
 
 namespace SURELOG {
 
-Program::Program(std::string_view name, Library* library, FileContent* fC,
-                 NodeId nodeId)
-    : DesignComponent(fC, nullptr), m_name(name), m_library(library) {
+Program::Program(Session* session, std::string_view name, Library* library,
+                 FileContent* fC, NodeId nodeId, uhdm::Serializer& serializer)
+    : DesignComponent(session, fC, nullptr), m_name(name), m_library(library) {
   addFileContent(fC, nodeId);
+
+  uhdm::Program* const instance = serializer.make<uhdm::Program>();
+  if (!name.empty()) instance->setName(name);
+  if (nodeId && (fC != nullptr))
+    fC->populateCoreMembers(nodeId, nodeId, instance);
+  setUhdmModel(instance);
 }
 
 uint32_t Program::getSize() const {

@@ -37,35 +37,43 @@
 #include <uhdm/containers.h>
 #include <uhdm/sv_vpi_user.h>
 #include <uhdm/typespec.h>
+#include <uhdm/uhdm_forward_decl.h>
 
 #include <mutex>
 
-namespace SURELOG {
+namespace uhdm {
+class Serializer;
+}
 
+namespace SURELOG {
 class Compiler;
+class Session;
 class SymbolTable;
 class ValuedComponentI;
 
-void decompile(ValuedComponentI* instance);
+void decompile(Session* session, ValuedComponentI* instance);
 
 class CompileDesign {
  public:
   // Note: takes owernship of compiler
-  explicit CompileDesign(Compiler* compiler);
+  CompileDesign(Session* session, Compiler* compiler);
   CompileDesign(const CompileDesign& orig) = delete;
   virtual ~CompileDesign();  // Used in MockCompileDesign
 
   bool compile();
   bool elaborate();
   void purgeParsers();
-  vpiHandle writeUHDM(PathId fileId);
+  bool writeUHDM(PathId fileId);
+
+  Session* getSession() { return m_session; }
+  const Session* getSession() const { return m_session; }
 
   Compiler* getCompiler() const { return m_compiler; }
-  virtual UHDM::Serializer& getSerializer() { return m_serializer; }
-  void lockSerializer() { m_serializerMutex.lock(); }
-  void unlockSerializer() { m_serializerMutex.unlock(); }
-  UHDM::VectorOfinclude_file_info* getFileInfo() { return m_fileInfo; }
-  std::map<const UHDM::typespec*, const UHDM::typespec*>& getSwapedObjects() {
+  uhdm::Serializer& getSerializer();
+  void lockSerializer();
+  void unlockSerializer();
+  uhdm::SourceFileCollection* getUhdmSourceFiles() { return m_uhdmSourcefiles; }
+  std::map<const uhdm::Typespec*, const uhdm::Typespec*>& getSwapedObjects() {
     return m_typespecSwapMap;
   }
 
@@ -78,13 +86,11 @@ class CompileDesign {
   bool compilation_();
   bool elaboration_();
 
-  Compiler* const m_compiler;
-  std::vector<SymbolTable*> m_symbolTables;
-  std::vector<ErrorContainer*> m_errorContainers;
-  UHDM::VectorOfinclude_file_info* m_fileInfo = nullptr;
-  std::mutex m_serializerMutex;
-  UHDM::Serializer m_serializer;
-  std::map<const UHDM::typespec*, const UHDM::typespec*> m_typespecSwapMap;
+  Session* const m_session = nullptr;
+  Compiler* const m_compiler = nullptr;
+  std::vector<Session*> m_sessions;
+  uhdm::SourceFileCollection* m_uhdmSourcefiles = nullptr;
+  std::map<const uhdm::Typespec*, const uhdm::Typespec*> m_typespecSwapMap;
 };
 
 }  // namespace SURELOG

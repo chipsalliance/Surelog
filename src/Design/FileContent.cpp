@@ -36,6 +36,7 @@
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Common/NodeId.h"
 #include "Surelog/Common/PathId.h"
+#include "Surelog/Common/Session.h"
 #include "Surelog/Common/SymbolId.h"
 #include "Surelog/Design/DesignComponent.h"
 #include "Surelog/Design/DesignElement.h"
@@ -46,20 +47,18 @@
 #include "Surelog/Library/Library.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
 #include "Surelog/SourceCompile/VObjectTypes.h"
+#include "Surelog/Testbench/ClassDefinition.h"
 #include "Surelog/Utils/StringUtils.h"
 
 namespace SURELOG {
-FileContent::FileContent(PathId fileId, Library* library,
-                         SymbolTable* symbolTable, ErrorContainer* errors,
+FileContent::FileContent(Session* session, PathId fileId, Library* library,
                          FileContent* parent, PathId fileChunkId)
-    : DesignComponent(nullptr, nullptr),
+    : DesignComponent(session, nullptr, nullptr),
       m_fileId(fileId),
       m_fileChunkId(fileChunkId),
-      m_errors(errors),
       m_library(library),
-      m_symbolTable(symbolTable),
       m_parentFile(parent) {
-  addObject(BadSymbolId, BadPathId, VObjectType::sl_INVALID_, 0, 0, 0, 0,
+  addObject(BadSymbolId, m_fileId, VObjectType::sl_INVALID_, 0, 0, 0, 0,
             InvalidNodeId, InvalidNodeId, InvalidNodeId, InvalidNodeId);
 }
 
@@ -70,18 +69,17 @@ FileContent::~FileContent() {
 }
 
 std::string_view FileContent::getName() const {
-  return FileSystem::getInstance()->toPath(m_fileId);
+  return m_session->getFileSystem()->toPath(m_fileId);
 }
 
 std::string_view FileContent::SymName(NodeId index) const {
   if (index >= m_objects.size()) {
-    Location loc(m_fileId);
-    Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
-    m_errors->addError(err);
+    m_session->getErrorContainer()->addError(
+        ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, Location(m_fileId));
     std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
     return SymbolTable::getBadSymbol();
   }
-  return m_symbolTable->getSymbol(Name(index));
+  return m_session->getSymbolTable()->getSymbol(Name(index));
 }
 
 NodeId FileContent::getRootNode() const {
@@ -111,8 +109,7 @@ void FileContent::printTree(std::ostream& strm, NodeId id,
   if (!id) return;
 
   strm << std::string(indent * 2, ' ')
-       << m_objects[id].print(m_symbolTable, id, GetDefinitionFile(id),
-                              m_fileId)
+       << m_objects[id].print(m_session, id, GetDefinitionFile(id), m_fileId)
        << std::endl;
   for (NodeId childId = m_objects[id].m_child; childId;
        childId = m_objects[childId].m_sibling) {
@@ -121,7 +118,7 @@ void FileContent::printTree(std::ostream& strm, NodeId id,
 }
 
 void FileContent::printTree(std::ostream& strm) const {
-  FileSystem* const fileSystem = FileSystem::getInstance();
+  FileSystem* const fileSystem = m_session->getFileSystem();
   strm << "AST_DEBUG_BEGIN" << std::endl;
   strm << "Count: " << m_objects.size() << std::endl;
   if (m_library) strm << "LIB: " << m_library->getName() << std::endl;
@@ -143,7 +140,7 @@ void FileContent::printTree(std::ostream& strm) const {
 }
 
 std::string FileContent::printObjects() const {
-  FileSystem* const fileSystem = FileSystem::getInstance();
+  FileSystem* const fileSystem = m_session->getFileSystem();
   std::ostringstream strm;
 
   strm << "AST_DEBUG_BEGIN\n";
@@ -163,6 +160,12 @@ std::string FileContent::printObjects() const {
   }
   if (const NodeId id = getRootNode()) {
     printTree(strm, id, 0);
+  } else {
+    for (size_t i = 0, ni = m_objects.size(); i < ni; ++i) {
+      if (m_objects[i].m_type == VObjectType::paPREPROC_END) {
+        printTree(strm, NodeId(i), 0);
+      }
+    }
   }
   strm << "AST_DEBUG_END\n";
   return strm.str();
@@ -170,22 +173,20 @@ std::string FileContent::printObjects() const {
 
 std::string FileContent::printObject(NodeId nodeId) const {
   if (!nodeId || (nodeId >= m_objects.size())) return "";
-  return m_objects[nodeId].print(m_symbolTable, nodeId,
-                                 GetDefinitionFile(nodeId), m_fileId);
+  return m_objects[nodeId].print(m_session, nodeId, GetDefinitionFile(nodeId),
+                                 m_fileId);
 }
 
 void FileContent::insertObjectLookup(std::string_view name, NodeId id,
                                      ErrorContainer* errors) {
-  NameIdMap::iterator itr = m_objectLookup.find(name);
-  if (itr == m_objectLookup.end()) {
-    m_objectLookup.emplace(name, id);
-  } else {
+  std::pair<NameIdMap::iterator, bool> itr = m_objectLookup.emplace(name, id);
+  if (!itr.second) {
     Location loc(getFileId(id), Line(id), Column(id),
-                 errors->getSymbolTable()->registerSymbol(name));
-    Location loc2(getFileId(itr->second), Line(itr->second),
-                  Column(itr->second));
-    Error err(ErrorDefinition::COMP_MULTIPLY_DEFINED_DESIGN_UNIT, loc, loc2);
-    errors->addError(err);
+                 errors->getSession()->getSymbolTable()->registerSymbol(name));
+    Location loc2(getFileId(itr.first->second), Line(itr.first->second),
+                  Column(itr.first->second));
+    errors->addError(ErrorDefinition::COMP_MULTIPLY_DEFINED_DESIGN_UNIT,
+                     {loc, loc2});
   }
 }
 
@@ -194,7 +195,7 @@ const ModuleDefinition* FileContent::getModuleDefinition(
   ModuleNameModuleDefinitionMap::const_iterator itr =
       m_moduleDefinitions.find(moduleName);
   if (itr != m_moduleDefinitions.end()) {
-    return (*itr).second;
+    return itr->second;
   }
   return nullptr;
 }
@@ -216,7 +217,7 @@ Package* FileContent::getPackage(std::string_view name) const {
   if (itr == m_packageDefinitions.end()) {
     return nullptr;
   } else {
-    return (*itr).second;
+    return itr->second;
   }
 }
 
@@ -226,7 +227,17 @@ const Program* FileContent::getProgram(std::string_view name) const {
   if (itr == m_programDefinitions.end()) {
     return nullptr;
   } else {
-    return (*itr).second;
+    return itr->second;
+  }
+}
+
+ClassDefinition* FileContent::getClassDefinition(std::string_view name) {
+  ClassNameClassDefinitionMultiMap::iterator itr =
+      m_classDefinitions.find(name);
+  if (itr == m_classDefinitions.end()) {
+    return nullptr;
+  } else {
+    return itr->second;
   }
 }
 
@@ -237,8 +248,18 @@ const ClassDefinition* FileContent::getClassDefinition(
   if (itr == m_classDefinitions.end()) {
     return nullptr;
   } else {
-    return (*itr).second;
+    return itr->second;
   }
+}
+
+const DataType* FileContent::getDataType(Design* design,
+                                         std::string_view name) const {
+  if (const DataType* const dt = DesignComponent::getDataType(design, name)) {
+    return dt;
+  } else if (const DataType* const dt = getClassDefinition(name)) {
+    return dt;
+  }
+  return nullptr;
 }
 
 void FileContent::SetDefinitionFile(NodeId index, PathId def) {
@@ -266,9 +287,8 @@ NodeId FileContent::addObject(SymbolId name, PathId fileId, VObjectType type,
 const VObject& FileContent::Object(NodeId index) const {
   if (!index) return m_objects[0];
   if (index >= m_objects.size()) {
-    Location loc(m_fileId);
-    Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
-    m_errors->addError(err);
+    m_session->getErrorContainer()->addError(
+        ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, Location(m_fileId));
     std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
     return m_objects[0];
   }
@@ -278,9 +298,8 @@ const VObject& FileContent::Object(NodeId index) const {
 VObject* FileContent::MutableObject(NodeId index) {
   if (!index) return &m_objects[0];
   if (index >= m_objects.size()) {
-    Location loc(m_fileId);
-    Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
-    m_errors->addError(err);
+    m_session->getErrorContainer()->addError(
+        ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, Location(m_fileId));
     std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
     return &m_objects[0];
   }
@@ -290,9 +309,8 @@ VObject* FileContent::MutableObject(NodeId index) {
 NodeId FileContent::UniqueId(NodeId index) const {
   if (!index) return InvalidNodeId;
   if (index >= m_objects.size()) {
-    Location loc(m_fileId);
-    Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
-    m_errors->addError(err);
+    m_session->getErrorContainer()->addError(
+        ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, Location(m_fileId));
     std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
     return InvalidNodeId;
   }
@@ -302,9 +320,8 @@ NodeId FileContent::UniqueId(NodeId index) const {
 SymbolId FileContent::Name(NodeId index) const {
   if (!index) return BadSymbolId;
   if (index >= m_objects.size()) {
-    Location loc(m_fileId);
-    Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
-    m_errors->addError(err);
+    m_session->getErrorContainer()->addError(
+        ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, Location(m_fileId));
     std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
     return BadSymbolId;
   }
@@ -314,9 +331,8 @@ SymbolId FileContent::Name(NodeId index) const {
 NodeId FileContent::Child(NodeId index) const {
   if (!index) return InvalidNodeId;
   if (index >= m_objects.size()) {
-    Location loc(m_fileId);
-    Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
-    m_errors->addError(err);
+    m_session->getErrorContainer()->addError(
+        ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, Location(m_fileId));
     std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
     return InvalidNodeId;
   }
@@ -326,9 +342,8 @@ NodeId FileContent::Child(NodeId index) const {
 NodeId FileContent::Sibling(NodeId index) const {
   if (!index) return InvalidNodeId;
   if (index >= m_objects.size()) {
-    Location loc(m_fileId);
-    Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
-    m_errors->addError(err);
+    m_session->getErrorContainer()->addError(
+        ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, Location(m_fileId));
     std::cout << "\nINTERNAL OUT OF BOUND ERROR\n\n";
     return InvalidNodeId;
   }
@@ -338,9 +353,8 @@ NodeId FileContent::Sibling(NodeId index) const {
 NodeId FileContent::Definition(NodeId index) const {
   if (!index) return InvalidNodeId;
   if (index >= m_objects.size()) {
-    Location loc(m_fileId);
-    Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
-    m_errors->addError(err);
+    m_session->getErrorContainer()->addError(
+        ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, Location(m_fileId));
     std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
     return InvalidNodeId;
   }
@@ -350,9 +364,8 @@ NodeId FileContent::Definition(NodeId index) const {
 NodeId FileContent::Parent(NodeId index) const {
   if (!index) return InvalidNodeId;
   if (index >= m_objects.size()) {
-    Location loc(m_fileId);
-    Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
-    m_errors->addError(err);
+    m_session->getErrorContainer()->addError(
+        ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, Location(m_fileId));
     std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
     return InvalidNodeId;
   }
@@ -362,9 +375,8 @@ NodeId FileContent::Parent(NodeId index) const {
 VObjectType FileContent::Type(NodeId index) const {
   if (!index) return VObjectType::sl_INVALID_;
   if (index >= m_objects.size()) {
-    Location loc(m_fileId);
-    Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
-    m_errors->addError(err);
+    m_session->getErrorContainer()->addError(
+        ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, Location(m_fileId));
     std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
     return VObjectType::sl_INVALID_;
   }
@@ -374,33 +386,30 @@ VObjectType FileContent::Type(NodeId index) const {
 uint32_t FileContent::Line(NodeId index) const {
   if (!index) return 0;
   if (index >= m_objects.size()) {
-    Location loc(m_fileId);
-    Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
-    m_errors->addError(err);
+    m_session->getErrorContainer()->addError(
+        ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, Location(m_fileId));
     std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
     return 0;
   }
-  return m_objects[index].m_line;
+  return m_objects[index].m_startLine;
 }
 
 uint16_t FileContent::Column(NodeId index) const {
   if (!index) return 0;
   if (index >= m_objects.size()) {
-    Location loc(m_fileId);
-    Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
-    m_errors->addError(err);
+    m_session->getErrorContainer()->addError(
+        ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, Location(m_fileId));
     std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
     return 0;
   }
-  return m_objects[index].m_column;
+  return m_objects[index].m_startColumn;
 }
 
 uint32_t FileContent::EndLine(NodeId index) const {
   if (!index) return 0;
   if (index >= m_objects.size()) {
-    Location loc(m_fileId);
-    Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
-    m_errors->addError(err);
+    m_session->getErrorContainer()->addError(
+        ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, Location(m_fileId));
     std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
     return 0;
   }
@@ -410,9 +419,8 @@ uint32_t FileContent::EndLine(NodeId index) const {
 uint16_t FileContent::EndColumn(NodeId index) const {
   if (!index) return 0;
   if (index >= m_objects.size()) {
-    Location loc(m_fileId);
-    Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
-    m_errors->addError(err);
+    m_session->getErrorContainer()->addError(
+        ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, Location(m_fileId));
     std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
     return 0;
   }
@@ -690,73 +698,148 @@ const DesignElement* FileContent::getDesignElement(
     std::string_view name) const {
   auto itr = m_elementMap.find(name);
   if (itr != m_elementMap.end()) {
-    return (*itr).second;
+    return itr->second;
   }
   return nullptr;
 }
 
 void FileContent::populateCoreMembers(NodeId startIndex, NodeId endIndex,
-                                      UHDM::any* instance) const {
-  if (!startIndex && !endIndex) return;
-  if (startIndex) {
+                                      uhdm::Any* instance,
+                                      bool force /* = false */) const {
+  NodeId cacheStartIndex, cacheEndIndex;
+  if (startIndex && ((instance->getStartLine() == 0) || force)) {
     if (startIndex < m_objects.size()) {
       const VObject& object = m_objects[startIndex];
-      instance->VpiLineNo(object.m_line);
-      instance->VpiColumnNo(object.m_column);
+      instance->setStartLine(object.m_startLine);
+      instance->setStartColumn(object.m_startColumn);
+      cacheStartIndex = startIndex;
     } else {
-      Location loc(m_fileId);
-      Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
-      m_errors->addError(err);
+      m_session->getErrorContainer()->addError(
+          ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND,
+          Location(m_fileId));
       std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
     }
   }
 
-  if (endIndex) {
+  if (endIndex && ((instance->getEndLine() == 0) || force)) {
     if (endIndex < m_objects.size()) {
+      // For packed/unpacked dimenion, include all ranges!
+      if (instance->getUhdmType() != uhdm::UhdmType::Range) {
+        NodeId siblingId = endIndex;
+        while (siblingId && ((m_objects[siblingId].m_type ==
+                              VObjectType::paPacked_dimension) ||
+                             (m_objects[siblingId].m_type ==
+                              VObjectType::paUnpacked_dimension))) {
+          endIndex = siblingId;
+          siblingId = m_objects[siblingId].m_sibling;
+        }
+      }
+
       const VObject& object = m_objects[endIndex];
-      instance->VpiEndLineNo(object.m_endLine);
-      instance->VpiEndColumnNo(object.m_endColumn);
+      instance->setEndLine(object.m_endLine);
+      instance->setEndColumn(object.m_endColumn);
+      cacheEndIndex = endIndex;
     } else {
-      Location loc(m_fileId);
-      Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
-      m_errors->addError(err);
+      m_session->getErrorContainer()->addError(
+          ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND,
+          Location(m_fileId));
       std::cerr << "\nINTERNAL OUT OF BOUND ERROR\n\n";
     }
   }
 
-  PathId fileId;
-  // Issue #3239: Apparently, it's possible that startIndex.m_fileId
-  // & endIndex.m_fileId are differently (for example, including a file
-  // in the middle of a module declaration).
-  //
-  // if (startIndex && endIndex) {
-  //   const VObject& startObject = m_objects[startIndex];
-  //   const VObject& endObject = m_objects[endIndex];
-  //   if (startObject.m_fileId == endObject.m_fileId) {
-  //     fileId = startObject.m_fileId;
-  //   } else {
-  //     Location loc(m_fileId);
-  //     Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
-  //     m_errors->addError(err);
-  //     std::cerr << "\nFILE INDEX MISMATCH\n\n";
-  //   }
-  // } else
-  if (startIndex) {
-    const VObject& object = m_objects[startIndex];
-    fileId = object.m_fileId;
-  } else if (endIndex) {
-    const VObject& object = m_objects[endIndex];
-    fileId = object.m_fileId;
+  if (instance->getFile().empty() ||
+      (instance->getFile() == SymbolTable::getBadSymbol()) || force) {
+    PathId fileId;
+    // Issue #3239: Apparently, it's possible that startIndex.m_fileId
+    // & endIndex.m_fileId are differently (for example, including a file
+    // in the middle of a module declaration).
+    //
+    // if (startIndex && endIndex) {
+    //   const VObject& startObject = m_objects[startIndex];
+    //   const VObject& endObject = m_objects[endIndex];
+    //   if (startObject.m_fileId == endObject.m_fileId) {
+    //     fileId = startObject.m_fileId;
+    //   } else {
+    //     Location loc(m_fileId);
+    //     Error err(ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
+    //     m_errors->addError(err);
+    //     std::cerr << "\nFILE INDEX MISMATCH\n\n";
+    //   }
+    // } else
+    if (startIndex) {
+      const VObject& object = m_objects[startIndex];
+      fileId = object.m_fileId;
+    } else if (endIndex) {
+      const VObject& object = m_objects[endIndex];
+      fileId = object.m_fileId;
+    }
+
+    if (!fileId) {
+      fileId = m_fileId;
+    }
+
+    if (fileId) {
+      instance->setFile(m_session->getFileSystem()->toPath(fileId));
+    }
+
+    if (cacheStartIndex || cacheEndIndex) {
+      AnyToNodeIdPairCache::const_iterator it =
+          m_anyToNodeIdPairCache.find(instance);
+      if (it != m_anyToNodeIdPairCache.cend()) {
+        if (!cacheStartIndex) cacheStartIndex = it->second.first;
+        if (!cacheEndIndex) cacheEndIndex = it->second.second;
+      }
+      m_anyToNodeIdPairCache.insert_or_assign(
+          instance, std::make_pair(cacheStartIndex, cacheEndIndex));
+    }
+  }
+}
+
+bool FileContent::validate(NodeId parentId) const {
+  if (!parentId) return true;
+
+  const VObject& parentObject = m_objects[(RawNodeId)parentId];
+  if (parentObject.m_type == VObjectType::paNull_rule) return true;
+
+  if ((parentObject.m_type != VObjectType::paTop_level_rule) &&
+      !parentObject.m_parent) {
+    return false;
+  }
+
+  if (parentObject.m_startLine == parentObject.m_endLine) {
+    if (parentObject.m_startColumn > parentObject.m_endColumn) {
+      return false;
+    }
+  } else if (parentObject.m_startLine > parentObject.m_endLine) {
+    return false;
+  }
+
+  for (NodeId childId = parentObject.m_child; childId;
+       childId = m_objects[(RawNodeId)childId].m_sibling) {
+    const VObject& childObject = m_objects[(RawNodeId)childId];
+    if (childObject.m_parent != parentId) {
+      return false;
+    }
+
+    if (!validate(childId)) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+bool FileContent::validate() const {
+  if (const NodeId id = getRootNode()) {
+    return validate(id);
   } else {
-    fileId = m_fileId;
-  }
-
-  if (!fileId) {
-    fileId = m_fileId;
-  }
-
-  if (fileId) {
-    instance->VpiFile(FileSystem::getInstance()->toPath(fileId));
+    bool result = true;
+    for (size_t i = 0, ni = m_objects.size(); i < ni && result; ++i) {
+      if (m_objects[i].m_type == VObjectType::paPREPROC_END) {
+        result = result && validate(NodeId(i));
+      }
+    }
+    return result;
   }
 }
 }  // namespace SURELOG

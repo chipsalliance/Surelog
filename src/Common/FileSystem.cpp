@@ -49,15 +49,6 @@
 #endif
 
 namespace SURELOG {
-FileSystem *FileSystem::sInstance = nullptr;
-
-FileSystem *FileSystem::getInstance() { return sInstance; }
-
-FileSystem *FileSystem::setInstance(FileSystem *fileSystem) {
-  FileSystem *const instance = sInstance;
-  sInstance = fileSystem;
-  return instance;
-}
 
 std::filesystem::path FileSystem::getProgramPath() {
 #if defined(_WIN32)

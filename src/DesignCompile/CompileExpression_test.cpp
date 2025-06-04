@@ -21,6 +21,7 @@
 #include <string>
 #include <vector>
 
+#include "Surelog/Common/Session.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/DesignCompile/CompileDesign.h"
 #include "Surelog/DesignCompile/CompileHelper.h"
@@ -39,9 +40,10 @@ using ::testing::ElementsAre;
 
 namespace {
 TEST(CompileExpression, ExprFromParseTree1) {
-  CompileHelper helper;
-  ParserHarness pharness;
-  CompilerHarness charness;
+  Session session;
+  CompileHelper helper(&session);
+  ParserHarness pharness(&session);
+  CompilerHarness charness(&session);
   std::unique_ptr<CompileDesign> compileDesign = charness.createCompileDesign();
   // Cannot use parameters assignments in next expression, there is no
   // elaboration performed here!
@@ -62,19 +64,20 @@ TEST(CompileExpression, ExprFromParseTree1) {
   for (NodeId param_assign : assigns) {
     NodeId param = fC->Child(param_assign);
     NodeId rhs = fC->Sibling(param);
-    const UHDM::expr *exp = (UHDM::expr *)helper.compileExpression(
+    const uhdm::Expr *exp = (uhdm::Expr *)helper.compileExpression(
         nullptr, fC.get(), rhs, compileDesign.get(), Reduce::Yes, nullptr,
         nullptr, true);
-    EXPECT_EQ(exp->UhdmType(), UHDM::uhdmconstant);
+    EXPECT_EQ(exp->getUhdmType(), uhdm::UhdmType::Constant);
     bool invalidValue = false;
-    UHDM::ExprEval eval;
+    uhdm::ExprEval eval;
     EXPECT_EQ(eval.get_value(invalidValue, exp), 16);
   }
 }
 TEST(CompileExpression, ExprFromParseTree2) {
-  CompileHelper helper;
-  ParserHarness pharness;
-  CompilerHarness charness;
+  Session session;
+  CompileHelper helper(&session);
+  ParserHarness pharness(&session);
+  CompilerHarness charness(&session);
   std::unique_ptr<CompileDesign> compileDesign = charness.createCompileDesign();
   // Cannot use parameters assignments in next expression, there is no
   // elaboration performed here!
@@ -92,19 +95,20 @@ TEST(CompileExpression, ExprFromParseTree2) {
   for (NodeId param_assign : assigns) {
     NodeId param = fC->Child(param_assign);
     NodeId rhs = fC->Sibling(param);
-    const UHDM::expr *exp = (UHDM::expr *)helper.compileExpression(
+    const uhdm::Expr *exp = (uhdm::Expr *)helper.compileExpression(
         nullptr, fC.get(), rhs, compileDesign.get(), Reduce::Yes, nullptr,
         nullptr, true);
-    EXPECT_EQ(exp->UhdmType(), UHDM::uhdmconstant);
+    EXPECT_EQ(exp->getUhdmType(), uhdm::UhdmType::Constant);
     bool invalidValue = false;
-    UHDM::ExprEval eval;
+    uhdm::ExprEval eval;
     EXPECT_EQ(eval.get_value(invalidValue, exp), 1);
   }
 }
 TEST(CompileExpression, ExprFromParseTree3) {
-  CompileHelper helper;
-  ParserHarness pharness;
-  CompilerHarness charness;
+  Session session;
+  CompileHelper helper(&session);
+  ParserHarness pharness(&session);
+  CompilerHarness charness(&session);
   std::unique_ptr<CompileDesign> compileDesign = charness.createCompileDesign();
   // Cannot use parameters assignments in next expression, there is no
   // elaboration performed here!
@@ -121,26 +125,27 @@ TEST(CompileExpression, ExprFromParseTree3) {
     NodeId param = fC->Child(param_assign);
     const std::string_view name = fC->SymName(param);
     NodeId rhs = fC->Sibling(param);
-    const UHDM::expr *exp1 = (UHDM::expr *)helper.compileExpression(
+    const uhdm::Expr *exp1 = (uhdm::Expr *)helper.compileExpression(
         nullptr, fC.get(), rhs, compileDesign.get(), Reduce::No, nullptr,
         nullptr, true);
-    EXPECT_EQ(exp1->UhdmType(), UHDM::uhdmoperation);
-    const UHDM::expr *exp2 = (UHDM::expr *)helper.compileExpression(
+    EXPECT_EQ(exp1->getUhdmType(), uhdm::UhdmType::Operation);
+    const uhdm::Expr *exp2 = (uhdm::Expr *)helper.compileExpression(
         nullptr, fC.get(), rhs, compileDesign.get(), Reduce::Yes, nullptr,
         nullptr, true);
     if (name == "p1") {
-      EXPECT_EQ(exp2->UhdmType(), UHDM::uhdmconstant);
+      EXPECT_EQ(exp2->getUhdmType(), uhdm::UhdmType::Constant);
       bool invalidValue = false;
-      UHDM::ExprEval eval;
+      uhdm::ExprEval eval;
       EXPECT_EQ(eval.get_value(invalidValue, exp2), 6);
     }
   }
 }
 TEST(CompileExpression, ExprFromPpTree) {
-  CompileHelper helper;
-  PreprocessHarness ppharness;
-  ParserHarness pharness;
-  CompilerHarness charness;
+  Session session;
+  CompileHelper helper(&session);
+  PreprocessHarness ppharness(&session);
+  ParserHarness pharness(&session);
+  CompilerHarness charness(&session);
   std::unique_ptr<CompileDesign> compileDesign = charness.createCompileDesign();
   const std::string text = ppharness.preprocess(
       "`define A {1'b1, 2'b10}\n"
@@ -162,17 +167,17 @@ TEST(CompileExpression, ExprFromPpTree) {
     NodeId param = fC->Child(param_assign);
     const std::string_view name = fC->SymName(param);
     NodeId rhs = fC->Sibling(param);
-    const UHDM::expr *exp1 = (UHDM::expr *)helper.compileExpression(
+    const uhdm::Expr *exp1 = (uhdm::Expr *)helper.compileExpression(
         nullptr, fC.get(), rhs, compileDesign.get(), Reduce::No, nullptr,
         nullptr, true);
-    EXPECT_EQ(exp1->UhdmType(), UHDM::uhdmoperation);
-    const UHDM::expr *exp2 = (UHDM::expr *)helper.compileExpression(
+    EXPECT_EQ(exp1->getUhdmType(), uhdm::UhdmType::Operation);
+    const uhdm::Expr *exp2 = (uhdm::Expr *)helper.compileExpression(
         nullptr, fC.get(), rhs, compileDesign.get(), Reduce::Yes, nullptr,
         nullptr, true);
     if (name == "p1") {
-      EXPECT_EQ(exp2->UhdmType(), UHDM::uhdmconstant);
+      EXPECT_EQ(exp2->getUhdmType(), uhdm::UhdmType::Constant);
       bool invalidValue = false;
-      UHDM::ExprEval eval;
+      uhdm::ExprEval eval;
       EXPECT_EQ(eval.get_value(invalidValue, exp2), 6);
     }
   }

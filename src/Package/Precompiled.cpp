@@ -27,15 +27,12 @@
 
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Common/PathId.h"
+#include "Surelog/Common/Session.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
 
 namespace SURELOG {
-Precompiled* Precompiled::getSingleton() {
-  static Precompiled* const singleton = new Precompiled();
-  return singleton;
-}
 
-Precompiled::Precompiled() {
+Precompiled::Precompiled(Session *session) : m_session(session) {
   addPrecompiled("uvm_pkg", "uvm_pkg.sv");
   addPrecompiled("ovm_pkg", "ovm_pkg.sv");
 }
@@ -55,10 +52,10 @@ bool Precompiled::isFilePrecompiled(std::string_view fileName) const {
   return (m_packageFileSet.find(fileName) != m_packageFileSet.end());
 }
 
-bool Precompiled::isFilePrecompiled(PathId fileId,
-                                    SymbolTable* symbolTable) const {
-  std::string_view fileName =
-      std::get<1>(FileSystem::getInstance()->getLeaf(fileId, symbolTable));
+bool Precompiled::isFilePrecompiled(PathId fileId) const {
+  FileSystem *const fileSystem = m_session->getFileSystem();
+  SymbolTable *const symbols = m_session->getSymbolTable();
+  std::string_view fileName = std::get<1>(fileSystem->getLeaf(fileId, symbols));
   return (m_packageFileSet.find(fileName) != m_packageFileSet.end());
 }
 

@@ -30,19 +30,22 @@
 #include <tuple>
 
 namespace SURELOG {
-
+class CompileDesign;
 class Design;
 class FileContent;
-class CompileDesign;
+class Session;
 
 class ElaboratorHarness {
  public:
+  explicit ElaboratorHarness(Session* session);
+  ElaboratorHarness(const ElaboratorHarness&) = delete;
+
   // Preprocess, Parse, Compile, Elaborate (All in one)
   std::tuple<Design*, FileContent*, CompileDesign*> elaborate(
       std::string_view text);
 
- public:
  private:
+  Session* const m_session = nullptr;
 };
 
 };  // namespace SURELOG

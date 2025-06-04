@@ -5,7 +5,7 @@
 #include <uhdm/RTTI.h>  // IWYU pragma: export
 
 namespace SURELOG {
-using RTTI = UHDM::RTTI;
+using RTTI = uhdm::RTTI;
 }
 
 #define SURELOG_IMPLEMENT_RTTI(classType, baseType) \

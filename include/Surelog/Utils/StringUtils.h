@@ -51,10 +51,7 @@ std::string StrCat(Ts&&... args) {
 // string.
 template <typename... Ts>
 void StrAppend(std::string* dest, Ts&&... args) {
-  std::ostringstream out;
-  out << *dest;
-  (out << ... << std::forward<Ts>(args));
-  *dest = out.str();
+  dest->append(StrCat(std::forward<Ts>(args)...));
 }
 
 namespace StringUtils {
@@ -153,6 +150,9 @@ void registerEnvVar(std::string_view var, std::string_view value);
 
 // Returns true if string 'text' ends with 'suffix'
 [[nodiscard]] bool endsWith(std::string_view text, std::string_view suffix);
+
+// Returns true if all characters in input text returns true for std::isblank
+[[nodiscard]] bool isblank(std::string_view text);
 }  // namespace StringUtils
 }  // namespace SURELOG
 

@@ -28,6 +28,7 @@
 #include <string_view>
 #include <vector>
 
+#include "Surelog/Common/Session.h"
 #include "Surelog/Design/Design.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/ErrorReporting/Error.h"
@@ -70,6 +71,8 @@ Value* ExprBuilder::clone(Value* val) {
 // NOLINTBEGIN(*.DeadStores)
 Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
                              ValuedComponentI* instance, bool muteErrors) {
+  SymbolTable* const symbols = m_session->getSymbolTable();
+  ErrorContainer* const errors = m_session->getErrorContainer();
   Value* value = m_valueFactory.newLValue();
   NodeId child = fC->Child(parent);
   VObjectType type = fC->Type(parent);
@@ -95,9 +98,9 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
       if (sval == nullptr) {
         if (muteErrors == false) {
           Location loc(fC->getFileId(parent), fC->Line(parent),
-                       fC->Column(parent), m_symbols->registerSymbol(fullName));
+                       fC->Column(parent), symbols->registerSymbol(fullName));
           Error err(ErrorDefinition::ELAB_UNDEF_VARIABLE, loc);
-          m_errors->addError(err);
+          errors->addError(err);
         }
         value->setInvalid();
         return value;
@@ -547,10 +550,9 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         if (sval == nullptr) {
           if (muteErrors == false) {
             Location loc(fC->getFileId(child), fC->Line(child),
-                         fC->Column(child),
-                         m_symbols->registerSymbol(fullName));
+                         fC->Column(child), symbols->registerSymbol(fullName));
             Error err(ErrorDefinition::ELAB_UNDEF_VARIABLE, loc);
-            m_errors->addError(err);
+            errors->addError(err);
           }
           value->setInvalid();
           break;
@@ -768,10 +770,9 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         if (sval == nullptr) {
           if (muteErrors == false) {
             Location loc(fC->getFileId(parent), fC->Line(parent),
-                         fC->Column(parent),
-                         m_symbols->registerSymbol(fullName));
+                         fC->Column(parent), symbols->registerSymbol(fullName));
             Error err(ErrorDefinition::ELAB_UNDEF_VARIABLE, loc);
-            m_errors->addError(err);
+            errors->addError(err);
           }
           value->setInvalid();
           break;

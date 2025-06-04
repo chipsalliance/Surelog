@@ -25,6 +25,7 @@
 #define SURELOG_MACROINFO_H
 #pragma once
 
+#include <Surelog/Common/Containers.h>
 #include <Surelog/Common/PathId.h>
 
 #include <cstdint>
@@ -34,26 +35,35 @@
 
 namespace SURELOG {
 
-class MacroInfo {
+class MacroInfo final {
  public:
-  MacroInfo(std::string_view name, int32_t type, PathId fileId,
-            uint32_t startLine, uint16_t startColumn, uint32_t endLine,
-            uint16_t endColumn, const std::vector<std::string>& arguments,
-            const std::vector<std::string>& tokens);
-  enum Type {
-    NO_ARGS,
-    WITH_ARGS,
+  enum class DefType {
+    Define = 0,
+    UndefineOne = 1,
+    UndefineAll = 2,
   };
 
+  MacroInfo(std::string_view name, DefType defType, PathId fileId,
+            uint32_t startLine, uint16_t startColumn, uint32_t endLine,
+            uint16_t endColumn, uint16_t nameStartColumn,
+            uint16_t bodyStartColumn, const std::vector<std::string>& arguments,
+            const std::vector<LineColumn>& argumentPositions,
+            const std::vector<std::string>& tokens,
+            const std::vector<LineColumn>& tokenPositions);
+
   const std::string m_name;
-  const int32_t m_type;
+  const DefType m_defType;
   const PathId m_fileId;
   const uint32_t m_startLine;
   const uint16_t m_startColumn;
   const uint32_t m_endLine;
   const uint16_t m_endColumn;
+  const uint16_t m_nameStartColumn;
+  const uint16_t m_bodyStartColumn;
   const std::vector<std::string> m_arguments;
+  const std::vector<LineColumn> m_argumentPositions;
   const std::vector<std::string> m_tokens;
+  const std::vector<LineColumn> m_tokenPositions;
 };
 
 };  // namespace SURELOG

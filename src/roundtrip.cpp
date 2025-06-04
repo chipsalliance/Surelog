@@ -34,6 +34,7 @@
 #include <uhdm/vpi_user.h>
 
 #include <algorithm>
+#include <cassert>
 #include <cstddef>
 #include <cstdint>
 #include <filesystem>
@@ -56,6 +57,7 @@
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Common/PlatformFileSystem.h"
+#include "Surelog/Common/Session.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
 
@@ -72,10 +74,9 @@ using design_content_t = std::map<std::filesystem::path, file_content_t>;
 using op_type_names_t = std::unordered_map<int32_t, std::string_view>;
 using direction_names_t = std::unordered_map<int16_t, std::string_view>;
 using net_type_names_t = std::unordered_map<int16_t, std::string_view>;
-using typespec_names_t =
-    std::unordered_map<UHDM::UHDM_OBJECT_TYPE, std::string_view>;
+using typespec_names_t = std::unordered_map<uhdm::UhdmType, std::string_view>;
 using variable_type_names_t =
-    std::unordered_map<UHDM::UHDM_OBJECT_TYPE, std::string_view>;
+    std::unordered_map<uhdm::UhdmType, std::string_view>;
 using edge_names_t = std::unordered_map<int32_t, std::string_view>;
 using always_type_names_t = std::unordered_map<int32_t, std::string_view>;
 using case_type_names_t = std::unordered_map<int32_t, std::string_view>;
@@ -202,55 +203,55 @@ static const op_type_names_t kOpTypeNames = {
 };
 
 static const typespec_names_t kTypespecNames = {
-  { UHDM::uhdmarray_typespec, "" },
-  { UHDM::uhdmbit_typespec, "bit" },
-  { UHDM::uhdmbyte_typespec, "byte" },
-  { UHDM::uhdmchandle_typespec, "" },
-  { UHDM::uhdmclass_typespec, "" },
-  { UHDM::uhdmenum_typespec, "" },
-  { UHDM::uhdmevent_typespec, "" },
-  { UHDM::uhdmimport_typespec, "import" },
-  { UHDM::uhdmint_typespec, "int" },
-  { UHDM::uhdminteger_typespec, "integer" },
-  { UHDM::uhdminterface_typespec, "" },
-  { UHDM::uhdmlogic_typespec, "logic" },
-  { UHDM::uhdmlong_int_typespec, "longint" },
-  { UHDM::uhdmpacked_array_typespec, "" },
-  { UHDM::uhdmproperty_typespec, "" },
-  { UHDM::uhdmreal_typespec, "real" },
-  { UHDM::uhdmsequence_typespec, "" },
-  { UHDM::uhdmshort_int_typespec, "shortint" },
-  { UHDM::uhdmshort_real_typespec, "shortreal" },
-  { UHDM::uhdmstring_typespec, "string" },
-  { UHDM::uhdmstruct_typespec, "" },
-  { UHDM::uhdmtime_typespec, "time" },
-  { UHDM::uhdmtype_parameter, "" },
-  { UHDM::uhdmunion_typespec, "" },
-  { UHDM::uhdmunsupported_typespec, "" },
-  { UHDM::uhdmvoid_typespec, "void" },
+  { uhdm::UhdmType::ArrayTypespec, "" },
+  { uhdm::UhdmType::BitTypespec, "bit" },
+  { uhdm::UhdmType::ByteTypespec, "byte" },
+  { uhdm::UhdmType::ChandleTypespec, "" },
+  { uhdm::UhdmType::ClassTypespec, "" },
+  { uhdm::UhdmType::EnumTypespec, "" },
+  { uhdm::UhdmType::EventTypespec, "" },
+  { uhdm::UhdmType::ImportTypespec, "import" },
+  { uhdm::UhdmType::IntTypespec, "int" },
+  { uhdm::UhdmType::IntegerTypespec, "integer" },
+  { uhdm::UhdmType::InterfaceTypespec, "" },
+  { uhdm::UhdmType::LogicTypespec, "logic" },
+  { uhdm::UhdmType::LongIntTypespec, "longint" },
+  { uhdm::UhdmType::PackedArrayTypespec, "" },
+  { uhdm::UhdmType::PropertyTypespec, "" },
+  { uhdm::UhdmType::RealTypespec, "real" },
+  { uhdm::UhdmType::SequenceTypespec, "" },
+  { uhdm::UhdmType::ShortIntTypespec, "shortint" },
+  { uhdm::UhdmType::ShortRealTypespec, "shortreal" },
+  { uhdm::UhdmType::StringTypespec, "string" },
+  { uhdm::UhdmType::StructTypespec, "" },
+  { uhdm::UhdmType::TimeTypespec, "time" },
+  { uhdm::UhdmType::TypeParameter, "" },
+  { uhdm::UhdmType::UnionTypespec, "" },
+  { uhdm::UhdmType::UnsupportedTypespec, "" },
+  { uhdm::UhdmType::VoidTypespec, "void" },
 };
 
 static const variable_type_names_t kVariableTypeNames = {
- { UHDM::uhdmarray_var, "" },
- { UHDM::uhdmbit_var, "bit" },
- { UHDM::uhdmbyte_var, "byte" },
- { UHDM::uhdmchandle_var, "" },
- { UHDM::uhdmclass_var, "" },
- { UHDM::uhdmenum_var, "" },
- { UHDM::uhdmint_var, "int" },
- { UHDM::uhdminteger_var, "int" },
- { UHDM::uhdmlogic_var, "logic" },
- { UHDM::uhdmlong_int_var, "longint" },
- { UHDM::uhdmpacked_array_var, "" },
- { UHDM::uhdmreal_var, "float" },
- { UHDM::uhdmref_var, "" },
- { UHDM::uhdmshort_int_var, "shortint" },
- { UHDM::uhdmshort_real_var, "shortfloat" },
- { UHDM::uhdmstring_var, "string" },
- { UHDM::uhdmstruct_var, "" },
- { UHDM::uhdmtime_var, "" },
- { UHDM::uhdmunion_var, "" },
- { UHDM::uhdmvar_bit, "" },
+ { uhdm::UhdmType::ArrayVar, "" },
+ { uhdm::UhdmType::BitVar, "bit" },
+ { uhdm::UhdmType::ByteVar, "byte" },
+ { uhdm::UhdmType::ChandleVar, "" },
+ { uhdm::UhdmType::ClassVar, "" },
+ { uhdm::UhdmType::EnumVar, "" },
+ { uhdm::UhdmType::IntVar, "int" },
+ { uhdm::UhdmType::IntegerVar, "int" },
+ { uhdm::UhdmType::LogicVar, "logic" },
+ { uhdm::UhdmType::LongIntVar, "longint" },
+ { uhdm::UhdmType::PackedArrayVar, "" },
+ { uhdm::UhdmType::RealVar, "float" },
+ { uhdm::UhdmType::RefVar, "" },
+ { uhdm::UhdmType::ShortIntVar, "shortint" },
+ { uhdm::UhdmType::ShortRealVar, "shortfloat" },
+ { uhdm::UhdmType::StringVar, "string" },
+ { uhdm::UhdmType::StructVar, "" },
+ { uhdm::UhdmType::TimeVar, "" },
+ { uhdm::UhdmType::UnionVar, "" },
+ { uhdm::UhdmType::VarBit, "" },
 };
 
 static const edge_names_t kEdgeNames = {
@@ -280,13 +281,13 @@ static const case_qualifier_names_t kCaseQualifierNames = {
 };
 // clang-format on
 
-class RoundTripTracer final : public UHDM::UhdmListener {
+class RoundTripTracer final : public uhdm::UhdmListener {
  public:
-  explicit RoundTripTracer(const UHDM::design *const design) : design(design) {}
+  explicit RoundTripTracer(const uhdm::Design *const design) : design(design) {}
   ~RoundTripTracer() final = default;
 
  public:
-  const UHDM::design *const design = nullptr;
+  const uhdm::Design *const design = nullptr;
   design_content_t contents;
 
  private:
@@ -303,6 +304,8 @@ class RoundTripTracer final : public UHDM::UhdmListener {
 
   void insert(const std::filesystem::path &filepath, size_t line,
               uint16_t column, std::string_view data) {
+    assert(column < (uint16_t(~0) / 2));
+
     if (filepath.empty() || (line < 1) || (column < 1) || data.empty()) {
       return;
     }
@@ -359,26 +362,25 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     }
   }
 
-  inline static bool isModuleDefinition(const UHDM::module_inst *const mdl) {
-    return ((mdl->VpiParent() == nullptr) ||
-            (mdl->VpiParent()->UhdmType() != UHDM::uhdmmodule_inst)) &&
-           mdl->VpiName().empty();
+  inline static bool isModuleDefinition(const uhdm::Module *const mdl) {
+    return ((mdl->getParent() == nullptr) ||
+            (mdl->getParent()->getUhdmType() != uhdm::UhdmType::Module)) &&
+           mdl->getName().empty();
   }
 
-  inline static bool isInterfaceDefinition(
-      const UHDM::interface_inst *const mdl) {
-    return ((mdl->VpiParent() == nullptr) ||
-            (mdl->VpiParent()->UhdmType() != UHDM::uhdminterface_inst)) &&
-           mdl->VpiName().empty();
+  inline static bool isInterfaceDefinition(const uhdm::Interface *const mdl) {
+    return ((mdl->getParent() == nullptr) ||
+            (mdl->getParent()->getUhdmType() != uhdm::UhdmType::Interface)) &&
+           mdl->getName().empty();
   }
 
   inline bool isWalkingModuleDefinition() const {
-    for (any_stack_t::const_reverse_iterator it = callstack.rbegin(),
-                                             rend = callstack.rend();
+    for (any_stack_t::const_reverse_iterator it = m_callstack.rbegin(),
+                                             rend = m_callstack.rend();
          it != rend; ++it) {
-      const UHDM::any *const any = *it;
-      if (any->UhdmType() == UHDM::uhdmmodule_inst) {
-        return isModuleDefinition(static_cast<const UHDM::module_inst *>(any));
+      const uhdm::Any *const any = *it;
+      if (any->getUhdmType() == uhdm::UhdmType::Module) {
+        return isModuleDefinition(static_cast<const uhdm::Module *>(any));
       }
     }
     return false;
@@ -418,67 +420,66 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     return sarg;
   }
 
-  inline std::string getTypespecName(const UHDM::typespec *const object) {
+  inline std::string getTypespecName(const uhdm::Typespec *const object) {
     constexpr std::string_view keyword = "unsigned";
 
-    if (const UHDM::ref_typespec *const rt = object->Typedef_alias()) {
-      if (const UHDM::typespec *const alias = rt->Actual_typespec()) {
+    if (const uhdm::RefTypespec *const rt =
+            ((uhdm::TypedefTypespec *)object)->getTypedefAlias()) {
+      if (const uhdm::Typespec *const alias = rt->getActual()) {
         return getTypespecName(alias);
       }
     }
 
-    const std::string_view name = object->VpiName();
+    const std::string_view name = object->getName();
     if (!name.empty()) return formatName(name);
 
     std::string text;
     typespec_names_t::const_iterator it =
-        kTypespecNames.find(object->UhdmType());
+        kTypespecNames.find(object->getUhdmType());
     if (it != kTypespecNames.end()) {
       text.append(it->second);
-      if (object->UhdmType() != UHDM::uhdmlogic_typespec) {
+      if (object->getUhdmType() != uhdm::UhdmType::LogicTypespec) {
         text.append(1, kOverwriteMarker);
       }
     }
 
-    switch (object->UhdmType()) {
-      case UHDM::uhdmbyte_typespec: {
-        if (!static_cast<const UHDM::byte_typespec *>(object)->VpiSigned()) {
+    switch (object->getUhdmType()) {
+      case uhdm::UhdmType::ByteTypespec: {
+        if (!static_cast<const uhdm::ByteTypespec *>(object)->getSigned()) {
           text.append(keyword);
         }
       } break;
 
-      case UHDM::uhdmint_typespec: {
-        if (!static_cast<const UHDM::int_typespec *>(object)->VpiSigned()) {
+      case uhdm::UhdmType::IntTypespec: {
+        if (!static_cast<const uhdm::IntTypespec *>(object)->getSigned()) {
           text.append(keyword);
         }
       } break;
 
-      case UHDM::uhdminteger_typespec: {
-        if (!static_cast<const UHDM::integer_typespec *>(object)->VpiSigned()) {
+      case uhdm::UhdmType::IntegerTypespec: {
+        if (!static_cast<const uhdm::IntegerTypespec *>(object)->getSigned()) {
           text.append(keyword);
         }
       } break;
 
-      case UHDM::uhdmlong_int_typespec: {
-        if (!static_cast<const UHDM::long_int_typespec *>(object)
-                 ->VpiSigned()) {
+      case uhdm::UhdmType::LongIntTypespec: {
+        if (!static_cast<const uhdm::LongIntTypespec *>(object)->getSigned()) {
           text.append(keyword);
         }
       } break;
 
-      case UHDM::uhdmshort_int_typespec: {
-        if (!static_cast<const UHDM::short_int_typespec *>(object)
-                 ->VpiSigned()) {
+      case uhdm::UhdmType::ShortIntTypespec: {
+        if (!static_cast<const uhdm::ShortIntTypespec *>(object)->getSigned()) {
           text.append(keyword);
         }
       } break;
 
-      case UHDM::uhdmbit_typespec:
-      case UHDM::uhdmlogic_typespec: {
-        const UHDM::VectorOfrange *const ranges =
-            static_cast<const UHDM::logic_typespec *>(object)->Ranges();
+      case uhdm::UhdmType::BitTypespec:
+      case uhdm::UhdmType::LogicTypespec: {
+        const uhdm::RangeCollection *const ranges =
+            static_cast<const uhdm::LogicTypespec *>(object)->getRanges();
         if ((ranges != nullptr) && !ranges->empty()) {
-          text.resize(object->VpiEndColumnNo() - object->VpiColumnNo(),
+          text.resize(object->getEndColumn() - object->getStartColumn(),
                       kOverwriteMarker);
         }
       } break;
@@ -490,41 +491,41 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     return text;
   }
 
-  void enterVariables_(const UHDM::variables *const object) {
-    if (visited.find(object) != visited.end()) return;
+  void enterVariables_(const uhdm::Variables *const object) {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword1 = "automatic";
     constexpr std::string_view keyword2 = "unsigned";
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
     std::string prefix;
-    const std::string name = formatName(object->VpiName());
+    const std::string name = formatName(object->getName());
 
-    const UHDM::typespec *ts = nullptr;
-    if (const UHDM::ref_typespec *const rt = object->Typespec()) {
-      ts = rt->Actual_typespec();
+    const uhdm::Typespec *ts = nullptr;
+    if (const uhdm::RefTypespec *const rt = object->getTypespec()) {
+      ts = rt->getActual();
     }
 
     if (ts != nullptr) {
       prefix.append(getTypespecName(ts));
-      if (ts->VpiColumnNo() != 0) {
-        insert(filepath, ts->VpiLineNo(), ts->VpiColumnNo(), prefix);
+      if (ts->getStartColumn() != 0) {
+        insert(filepath, ts->getStartLine(), ts->getStartColumn(), prefix);
         prefix.clear();
       } else {
         prefix.append(1, kOverwriteMarker);
       }
-    } else if (object->UhdmType() == UHDM::uhdmarray_var) {
-      const UHDM::VectorOfvariables *const variables =
-          static_cast<const UHDM::array_var *>(object)->Variables();
+    } else if (object->getUhdmType() == uhdm::UhdmType::ArrayVar) {
+      const uhdm::VariablesCollection *const variables =
+          static_cast<const uhdm::ArrayVar *>(object)->getVariables();
       if ((variables != nullptr) && !variables->empty()) {
-        const UHDM::variables *const variable = variables->at(0);
-        if (const UHDM::ref_typespec *const rt = variable->Typespec()) {
-          ts = rt->Actual_typespec();
+        const uhdm::Variables *const variable = variables->at(0);
+        if (const uhdm::RefTypespec *const rt = variable->getTypespec()) {
+          ts = rt->getActual();
         }
         if (ts != nullptr) {
           prefix.append(getTypespecName(ts));
-          if (ts->VpiColumnNo() != 0) {
-            insert(filepath, ts->VpiLineNo(), ts->VpiColumnNo(), prefix);
+          if (ts->getStartColumn() != 0) {
+            insert(filepath, ts->getStartLine(), ts->getStartColumn(), prefix);
             prefix.clear();
           } else {
             prefix.append(1, kOverwriteMarker);
@@ -532,32 +533,32 @@ class RoundTripTracer final : public UHDM::UhdmListener {
         }
       }
     } else {
-      if (object->VpiAutomatic()) {
+      if (object->getAutomatic()) {
         prefix.append(keyword1).append(1, kOverwriteMarker);
       }
 
       variable_type_names_t::const_iterator it =
-          kVariableTypeNames.find(object->UhdmType());
+          kVariableTypeNames.find(object->getUhdmType());
       if (it != kVariableTypeNames.end()) {
         prefix.append(it->second);
       }
 
-      if (object->UhdmType() == UHDM::uhdmlogic_var) {
-        const UHDM::VectorOfrange *const ranges =
-            static_cast<const UHDM::logic_var *>(object)->Ranges();
+      if (object->getUhdmType() == uhdm::UhdmType::LogicVar) {
+        const uhdm::RangeCollection *const ranges =
+            static_cast<const uhdm::LogicVar *>(object)->getRanges();
         if ((ranges != nullptr) && !ranges->empty()) {
-          const UHDM::range *const range0 = ranges->front();
-          const UHDM::range *const rangeN = ranges->back();
-          prefix.append(rangeN->VpiEndColumnNo() - range0->VpiColumnNo(),
+          const uhdm::Range *const range0 = ranges->front();
+          const uhdm::Range *const rangeN = ranges->back();
+          prefix.append(rangeN->getEndColumn() - range0->getStartColumn(),
                         kOverwriteMarker);
         }
-      } else if (!object->VpiSigned()) {
-        switch (object->UhdmType()) {
-          case UHDM::uhdmbyte_var:
-          case UHDM::uhdmint_var:
-          case UHDM::uhdminteger_var:
-          case UHDM::uhdmlong_int_var:
-          case UHDM::uhdmshort_int_var: {
+      } else if (!object->getSigned()) {
+        switch (object->getUhdmType()) {
+          case uhdm::UhdmType::ByteVar:
+          case uhdm::UhdmType::IntVar:
+          case uhdm::UhdmType::IntegerVar:
+          case uhdm::UhdmType::LongIntVar:
+          case uhdm::UhdmType::ShortIntVar: {
             prefix.append(keyword2);
           } break;
           default:
@@ -575,40 +576,41 @@ class RoundTripTracer final : public UHDM::UhdmListener {
       text.append(name);
     }
 
-    insert(filepath, object->VpiLineNo(),
-           object->VpiColumnNo() - prefix.length(), text);
+    insert(filepath, object->getStartLine(), object->getStartColumn(), text);
 
-    if (const UHDM::expr *const expr = object->Expr()) {
-      insert(filepath, expr->VpiLineNo(), expr->VpiColumnNo() - 1, "=");
+    if (const uhdm::Expr *const expr = object->getExpr()) {
+      insert(filepath, expr->getStartLine(), expr->getStartColumn() - 1, "=");
     }
   }
 
-  void enterTypespec(const UHDM::typespec *const object) {
-    if (visited.find(object) != visited.end()) return;
+  void enterTypespec(const uhdm::Typespec *const object) {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword = "unsigned";
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    const UHDM::typespec *typespec = object;
-    if (object->UhdmType() == UHDM::uhdmarray_typespec) {
-      if (const UHDM::ref_typespec *const element_typespec =
-              static_cast<const UHDM::array_typespec *>(object)
-                  ->Elem_typespec()) {
-        typespec = element_typespec->Actual_typespec();
+    const uhdm::Typespec *typespec = object;
+    if (object->getUhdmType() == uhdm::UhdmType::ArrayTypespec) {
+      if (const uhdm::RefTypespec *const element_typespec =
+              static_cast<const uhdm::ArrayTypespec *>(object)
+                  ->getElemTypespec()) {
+        typespec = element_typespec->getActual();
       }
-    } else if (object->UhdmType() == UHDM::uhdmpacked_array_typespec) {
-      if (const UHDM::ref_typespec *const element_typespec =
-              static_cast<const UHDM::packed_array_typespec *>(object)
-                  ->Elem_typespec()) {
-        typespec = element_typespec->Actual_typespec();
+    } else if (object->getUhdmType() == uhdm::UhdmType::PackedArrayTypespec) {
+      if (const uhdm::RefTypespec *const element_typespec =
+              static_cast<const uhdm::PackedArrayTypespec *>(object)
+                  ->getElemTypespec()) {
+        typespec = element_typespec->getActual();
       }
     }
 
-    std::string text(typespec->VpiName());
+    if (typespec == nullptr) return;
+
+    std::string text(typespec->getName());
     if (text.empty()) {
       typespec_names_t::const_iterator it =
-          kTypespecNames.find(typespec->UhdmType());
+          kTypespecNames.find(typespec->getUhdmType());
       if (it != kTypespecNames.end()) {
         text.assign(it->second);
       }
@@ -616,62 +618,51 @@ class RoundTripTracer final : public UHDM::UhdmListener {
       text = formatName(text);
     }
 
-    switch (typespec->UhdmType()) {
-      case UHDM::uhdmenum_typespec: {
-        const UHDM::enum_typespec *const enum_typespec =
-            static_cast<const UHDM::enum_typespec *>(typespec);
-        if (const UHDM::ref_typespec *const rt =
-                enum_typespec->Typedef_alias()) {
-          if (const UHDM::typespec *const alias = rt->Actual_typespec()) {
-            text = formatName(alias->VpiName());
+    switch (typespec->getUhdmType()) {
+      case uhdm::UhdmType::TypedefTypespec: {
+        const uhdm::TypedefTypespec *const struct_typespec =
+            static_cast<const uhdm::TypedefTypespec *>(typespec);
+        if (const uhdm::RefTypespec *const rt =
+                struct_typespec->getTypedefAlias()) {
+          if (const uhdm::Typespec *const alias = rt->getActual()) {
+            text = formatName(alias->getName());
           }
         }
       } break;
 
-      case UHDM::uhdmstruct_typespec: {
-        const UHDM::struct_typespec *const struct_typespec =
-            static_cast<const UHDM::struct_typespec *>(typespec);
-        if (const UHDM::ref_typespec *const rt =
-                struct_typespec->Typedef_alias()) {
-          if (const UHDM::typespec *const alias = rt->Actual_typespec()) {
-            text = formatName(alias->VpiName());
-          }
-        }
-      } break;
-
-      case UHDM::uhdmbyte_typespec: {
-        if (!static_cast<const UHDM::byte_typespec *>(typespec)->VpiSigned()) {
+      case uhdm::UhdmType::ByteTypespec: {
+        if (!static_cast<const uhdm::ByteTypespec *>(typespec)->getSigned()) {
           if (!text.empty()) text.append(1, kOverwriteMarker);
           text.append(keyword);
         }
       } break;
 
-      case UHDM::uhdmint_typespec: {
-        if (!static_cast<const UHDM::int_typespec *>(typespec)->VpiSigned()) {
+      case uhdm::UhdmType::IntTypespec: {
+        if (!static_cast<const uhdm::IntTypespec *>(typespec)->getSigned()) {
           if (!text.empty()) text.append(1, kOverwriteMarker);
           text.append(keyword);
         }
       } break;
 
-      case UHDM::uhdminteger_typespec: {
-        if (!static_cast<const UHDM::integer_typespec *>(typespec)
-                 ->VpiSigned()) {
+      case uhdm::UhdmType::IntegerTypespec: {
+        if (!static_cast<const uhdm::IntegerTypespec *>(typespec)
+                 ->getSigned()) {
           if (!text.empty()) text.append(1, kOverwriteMarker);
           text.append(keyword);
         }
       } break;
 
-      case UHDM::uhdmlong_int_typespec: {
-        if (!static_cast<const UHDM::long_int_typespec *>(typespec)
-                 ->VpiSigned()) {
+      case uhdm::UhdmType::LongIntTypespec: {
+        if (!static_cast<const uhdm::LongIntTypespec *>(typespec)
+                 ->getSigned()) {
           if (!text.empty()) text.append(1, kOverwriteMarker);
           text.append(keyword);
         }
       } break;
 
-      case UHDM::uhdmshort_int_typespec: {
-        if (!static_cast<const UHDM::short_int_typespec *>(typespec)
-                 ->VpiSigned()) {
+      case uhdm::UhdmType::ShortIntTypespec: {
+        if (!static_cast<const uhdm::ShortIntTypespec *>(typespec)
+                 ->getSigned()) {
           if (!text.empty()) text.append(1, kOverwriteMarker);
           text.append(keyword);
         }
@@ -681,564 +672,600 @@ class RoundTripTracer final : public UHDM::UhdmListener {
         break;
     }
 
-    insert(filepath, typespec->VpiLineNo(), typespec->VpiColumnNo(), text);
+    insert(filepath, typespec->getStartLine(), typespec->getStartColumn(),
+           text);
   }
 
  public:
-  void enterAny(const UHDM::any *const object) override {
-    if ((object->UhdmType() == UHDM::uhdmpackage) &&
-        (static_cast<const UHDM::package *>(object)->VpiName() == "builtin")) {
+  void enterAny(const uhdm::Any *const object, uint32_t vpiRelation) override {
+    if ((object->getUhdmType() == uhdm::UhdmType::Package) &&
+        (static_cast<const uhdm::Package *>(object)->getName() == "builtin")) {
       // Ignore the built-in package
-      visited.insert(object);
+      m_visited.insert(object);
       return;
     }
 
-    const UHDM::any *parent = object->VpiParent();
+    const uhdm::Any *parent = object->getParent();
     while (parent != nullptr) {
-      if ((parent->UhdmType() == UHDM::uhdmpackage) &&
-          static_cast<const UHDM::package *>(parent)->VpiTop()) {
-        visited.insert(object);
+      if ((parent->getUhdmType() == uhdm::UhdmType::Package) &&
+          static_cast<const uhdm::Package *>(parent)->getTop()) {
+        m_visited.insert(object);
         return;
       }
 
-      if ((parent->UhdmType() == UHDM::uhdmmodule_inst) &&
-          static_cast<const UHDM::module_inst *>(parent)->VpiTop()) {
-        visited.insert(object);
+      if ((parent->getUhdmType() == uhdm::UhdmType::Module) &&
+          static_cast<const uhdm::Module *>(parent)->getTop()) {
+        m_visited.insert(object);
         return;
       }
 
-      parent = parent->VpiParent();
+      parent = parent->getParent();
     }
   }
 
-  void enterAttribute(const UHDM::attribute *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterAttribute(const uhdm::Attribute *const object,
+                      uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword1 = "(* ";
     constexpr std::string_view keyword2 = " *)";
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    const std::string name = formatName(object->VpiName());
+    const std::string name = formatName(object->getName());
     if (name.empty()) return;
 
     std::string text;
     text.append(keyword1).append(name);
-    std::string value = formatValue(object->VpiValue());
+    std::string value = formatValue(object->getValue());
     if (!value.empty()) {
       text.append("=").append(value);
     }
     text.append(keyword2);
-    insert(filepath, object->VpiLineNo(),
-           object->VpiColumnNo() - keyword1.length(), text);
+    insert(filepath, object->getStartLine(),
+           object->getStartColumn() - keyword1.length(), text);
   }
 
-  void enterVirtual_interface_var(
-      const UHDM::virtual_interface_var *const object) final {
+  void enterVirtualInterfaceVar(const uhdm::VirtualInterfaceVar *const object,
+                                uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterLet_decl(const UHDM::let_decl *const object) final {
+  void enterLetDecl(const uhdm::LetDecl *const object,
+                    uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterAlways(const UHDM::always *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterAlways(const uhdm::Always *const object,
+                   uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     always_type_names_t::const_iterator it =
-        kAlwaysTypeNames.find(object->VpiAlwaysType());
+        kAlwaysTypeNames.find(object->getAlwaysType());
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
     if (it != kAlwaysTypeNames.end()) {
-      insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), it->second);
+      insert(filepath, object->getStartLine(), object->getStartColumn(),
+             it->second);
     }
   }
 
-  void enterFinal_stmt(const UHDM::final_stmt *const object) final {
+  void enterFinalStmt(const uhdm::FinalStmt *const object,
+                      uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterInitial(const UHDM::initial *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterInitial(const uhdm::Initial *const object,
+                    uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword = "initial";
 
-    const std::filesystem::path &filepath = object->VpiFile();
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), keyword);
+    const std::filesystem::path &filepath = object->getFile();
+    insert(filepath, object->getStartLine(), object->getStartColumn(), keyword);
   }
 
-  void enterDelay_control(const UHDM::delay_control *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterDelayControl(const uhdm::DelayControl *const object,
+                         uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(),
-           object->VpiDelay());
+    const std::filesystem::path &filepath = object->getFile();
+    insert(filepath, object->getStartLine(), object->getStartColumn(),
+           object->getVpiDelay());
   }
 
-  void enterDelay_term(const UHDM::delay_term *const object) final {
+  void enterDelayTerm(const uhdm::DelayTerm *const object,
+                      uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterEvent_control(const UHDM::event_control *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterEventControl(const uhdm::EventControl *const object,
+                         uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    if (const UHDM::any *const condition = object->VpiCondition()) {
-      insert(filepath, condition->VpiLineNo(), condition->VpiColumnNo() - 2,
-             "@(");
-      insert(filepath, condition->VpiEndLineNo(), condition->VpiEndColumnNo(),
-             ")");
+    if (const uhdm::Any *const condition = object->getCondition()) {
+      insert(filepath, condition->getStartLine(),
+             condition->getStartColumn() - 2, "@(");
+      insert(filepath, condition->getEndLine(), condition->getEndColumn(), ")");
     } else {
-      insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), "@(*)");
+      insert(filepath, object->getStartLine(), object->getStartColumn(),
+             "@(*)");
     }
   }
 
-  void enterRepeat_control(const UHDM::repeat_control *const object) final {}
+  void enterRepeatControl(const uhdm::RepeatControl *const object,
+                          uint32_t vpiRelation) final {}
 
-  void enterBegin(const UHDM::begin *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterBegin(const uhdm::Begin *const object, uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword1 = "begin";
     constexpr std::string_view keyword2 = "end";
 
-    const std::filesystem::path &filepath = object->VpiFile();
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), keyword1);
-    insert(filepath, object->VpiEndLineNo(),
-           object->VpiEndColumnNo() - keyword2.length(), keyword2);
-  }
-
-  void enterNamed_begin(const UHDM::named_begin *const object) final {
-    if (visited.find(object) != visited.end()) return;
-
-    constexpr std::string_view keyword1 = "begin:";
-    constexpr std::string_view keyword2 = "end";
-
-    const std::filesystem::path &filepath = object->VpiFile();
-    const std::string name = formatName(object->VpiName());
-
-    std::string text;
-
-    text.assign(keyword1).append(name);
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
-    insert(filepath, object->VpiEndLineNo(),
-           object->VpiEndColumnNo() - keyword2.length(), keyword2);
-  }
-
-  void enterNamed_fork(const UHDM::named_fork *const object) final {
-    if (visited.find(object) != visited.end()) return;
-
-    constexpr std::string_view keyword1 = "fork";
-    constexpr std::string_view keyword2 = "join";
-
-    const std::filesystem::path &filepath = object->VpiFile();
-
-    std::string text;
-    text.append(keyword1).append(":").append(formatName(object->VpiName()));
-
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
-    insert(filepath, object->VpiEndLineNo(),
-           object->VpiEndColumnNo() - keyword2.length(), keyword2);
-  }
-
-  void enterFork_stmt(const UHDM::fork_stmt *const object) final {
-    if (visited.find(object) != visited.end()) return;
-
-    constexpr std::string_view keyword1 = "fork";
-    constexpr std::string_view keyword2 = "join";
-
-    const std::filesystem::path &filepath = object->VpiFile();
-
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), keyword1);
-    insert(filepath, object->VpiEndLineNo(),
-           object->VpiEndColumnNo() - keyword2.length(), keyword2);
-  }
-
-  void enterFor_stmt(const UHDM::for_stmt *const object) final {
-    if (visited.find(object) != visited.end()) return;
-
-    constexpr std::string_view keyword = "for";
-    const std::filesystem::path &filepath = object->VpiFile();
-
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), keyword);
-    insert(filepath, object->VpiLineNo(), object->VpiEndColumnNo(), "(");
-
-    const UHDM::VectorOfany *const inits = object->VpiForInitStmts();
-    if ((inits != nullptr) && !inits->empty()) {
-      for (int32_t i = 0, ni = inits->size() - 1; i < ni; ++i) {
-        const UHDM::any *const init = inits->at(i);
-        insert(filepath, init->VpiLineNo(), init->VpiEndColumnNo(), ",");
+    bool hasBeginEnd = true;
+    if (const uhdm::Any *const parent = object->getParent()) {
+      if ((parent->getUhdmType() == uhdm::UhdmType::Function) ||
+          (parent->getUhdmType() == uhdm::UhdmType::Task)) {
+        hasBeginEnd = false;
       }
-
-      const UHDM::any *const initN = inits->back();
-      insert(filepath, initN->VpiLineNo(), initN->VpiEndColumnNo(), ";");
-    } else if (const UHDM::any *const init = object->VpiForInitStmt()) {
-      insert(filepath, init->VpiLineNo(), init->VpiEndColumnNo(), ";");
     }
 
-    if (const UHDM::any *const condition = object->VpiCondition()) {
-      insert(filepath, condition->VpiLineNo(), condition->VpiEndColumnNo(),
+    const uhdm::AnyCollection *const stmts = object->getStmts();
+    if ((stmts == nullptr) || (stmts->size() <= 1)) hasBeginEnd = false;
+
+    if (hasBeginEnd) {
+      const std::filesystem::path &filepath = object->getFile();
+      insert(filepath, object->getStartLine(), object->getStartColumn(),
+             keyword1);
+      insert(filepath, object->getEndLine(),
+             object->getEndColumn() - keyword2.length(), keyword2);
+    }
+  }
+
+  void enterForkStmt(const uhdm::ForkStmt *const object,
+                     uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
+
+    constexpr std::string_view keyword1 = "fork";
+    constexpr std::string_view keyword2 = "join";
+
+    const std::filesystem::path &filepath = object->getFile();
+
+    insert(filepath, object->getStartLine(), object->getStartColumn(),
+           keyword1);
+    insert(filepath, object->getEndLine(),
+           object->getEndColumn() - keyword2.length(), keyword2);
+  }
+
+  void enterForStmt(const uhdm::ForStmt *const object,
+                    uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
+
+    constexpr std::string_view keyword = "for";
+    const std::filesystem::path &filepath = object->getFile();
+
+    insert(filepath, object->getStartLine(), object->getStartColumn(), keyword);
+    insert(filepath, object->getStartLine(), object->getEndColumn(), "(");
+
+    const uhdm::AnyCollection *const inits = object->getForInitStmts();
+    if ((inits != nullptr) && !inits->empty()) {
+      for (int32_t i = 0, ni = inits->size() - 1; i < ni; ++i) {
+        const uhdm::Any *const init = inits->at(i);
+        insert(filepath, init->getStartLine(), init->getEndColumn(), ",");
+      }
+
+      const uhdm::Any *const initN = inits->back();
+      insert(filepath, initN->getStartLine(), initN->getEndColumn(), ";");
+    } else if (const uhdm::Any *const init = object->getForInitStmt()) {
+      insert(filepath, init->getStartLine(), init->getEndColumn(), ";");
+    }
+
+    if (const uhdm::Any *const condition = object->getCondition()) {
+      insert(filepath, condition->getStartLine(), condition->getEndColumn(),
              ";");
     }
 
-    const UHDM::VectorOfany *const incs = object->VpiForIncStmts();
+    const uhdm::AnyCollection *const incs = object->getForIncStmts();
     if ((incs != nullptr) && !incs->empty()) {
       for (int32_t i = 0, ni = incs->size() - 1; i < ni; ++i) {
-        const UHDM::any *const inc = incs->at(i);
-        insert(filepath, inc->VpiLineNo(), inc->VpiEndColumnNo(), ",");
+        const uhdm::Any *const inc = incs->at(i);
+        insert(filepath, inc->getStartLine(), inc->getEndColumn(), ",");
       }
 
-      const UHDM::any *const incN = incs->back();
-      insert(filepath, incN->VpiLineNo(), incN->VpiEndColumnNo(), ")");
-    } else if (const UHDM::any *const inc = object->VpiForIncStmt()) {
-      insert(filepath, inc->VpiLineNo(), inc->VpiEndColumnNo(), ")");
+      const uhdm::Any *const incN = incs->back();
+      insert(filepath, incN->getStartLine(), incN->getEndColumn(), ")");
+    } else if (const uhdm::Any *const inc = object->getForIncStmt()) {
+      insert(filepath, inc->getStartLine(), inc->getEndColumn(), ")");
     }
   }
 
-  void enterIf_stmt(const UHDM::if_stmt *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterIfStmt(const uhdm::IfStmt *const object,
+                   uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword = "if";
 
-    const std::filesystem::path &filepath = object->VpiFile();
-    const UHDM::expr *const condition = object->VpiCondition();
+    const std::filesystem::path &filepath = object->getFile();
+    const uhdm::Expr *const condition = object->getCondition();
 
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), keyword);
-    insert(filepath, condition->VpiLineNo(), condition->VpiColumnNo() - 1, "(");
-    insert(filepath, condition->VpiEndLineNo(), condition->VpiEndColumnNo(),
-           ")");
+    insert(filepath, object->getStartLine(), object->getStartColumn(), keyword);
+    insert(filepath, condition->getStartLine(), condition->getStartColumn() - 1,
+           "(");
+    insert(filepath, condition->getEndLine(), condition->getEndColumn(), ")");
   }
 
-  void enterEvent_stmt(const UHDM::event_stmt *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterEventStmt(const uhdm::EventStmt *const object,
+                      uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword = "->";
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
     std::string text;
     text.append(keyword)
         .append(1, kOverwriteMarker)
-        .append(formatName(object->VpiName()))
+        .append(formatName(object->getName()))
         .append(";");
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
+    insert(filepath, object->getStartLine(), object->getStartColumn(), text);
   }
 
-  void enterThread_obj(const UHDM::thread_obj *const object) final {
+  void enterThread(const uhdm::Thread *const object,
+                   uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterForever_stmt(const UHDM::forever_stmt *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterForeverStmt(const uhdm::ForeverStmt *const object,
+                        uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword = "forever";
 
-    const std::filesystem::path &filepath = object->VpiFile();
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), keyword);
+    const std::filesystem::path &filepath = object->getFile();
+    insert(filepath, object->getStartLine(), object->getStartColumn(), keyword);
   }
 
-  void enterWait_stmt(const UHDM::wait_stmt *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterWaitStmt(const uhdm::WaitStmt *const object,
+                     uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword1 = "wait";
-    const std::filesystem::path &filepath = object->VpiFile();
-    const UHDM::any *const condition = object->VpiCondition();
+    const std::filesystem::path &filepath = object->getFile();
+    const uhdm::Any *const condition = object->getCondition();
 
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), keyword1);
-    insert(filepath, condition->VpiLineNo(), condition->VpiColumnNo() - 1, "(");
-    insert(filepath, condition->VpiEndLineNo(), condition->VpiEndColumnNo(),
-           ");");
+    insert(filepath, object->getStartLine(), object->getStartColumn(),
+           keyword1);
+    insert(filepath, condition->getStartLine(), condition->getStartColumn() - 1,
+           "(");
+    insert(filepath, condition->getEndLine(), condition->getEndColumn(), ");");
   }
 
-  void enterWait_fork(const UHDM::wait_fork *const object) final {
+  void enterWaitFork(const uhdm::WaitFork *const object,
+                     uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterOrdered_wait(const UHDM::ordered_wait *const object) final {
+  void enterOrderedWait(const uhdm::OrderedWait *const object,
+                        uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterDisable(const UHDM::disable *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterDisable(const uhdm::Disable *const object,
+                    uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword1 = "disable";
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
     std::string text;
     text.append(keyword1).append(1, kOverwriteMarker);
 
-    if (const UHDM::expr *const expr = object->VpiExpr<UHDM::expr>()) {
-      text.append(expr->VpiName());
-    } else if (const UHDM::scope *const scope =
-                   object->VpiExpr<UHDM::scope>()) {
-      text.append(scope->VpiName());
+    if (const uhdm::Expr *const expr = object->getExpr<uhdm::Expr>()) {
+      text.append(expr->getName());
+    } else if (const uhdm::Scope *const scope =
+                   object->getExpr<uhdm::Scope>()) {
+      text.append(scope->getName());
     }
 
     text.append(";");
 
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
+    insert(filepath, object->getStartLine(), object->getStartColumn(), text);
   }
 
-  void enterDisable_fork(const UHDM::disable_fork *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterDisableFork(const uhdm::DisableFork *const object,
+                        uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword1 = "disable fork;";
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), keyword1);
+    insert(filepath, object->getStartLine(), object->getStartColumn(),
+           keyword1);
   }
 
-  void enterContinue_stmt(const UHDM::continue_stmt *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterContinueStmt(const uhdm::ContinueStmt *const object,
+                         uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword1 = "continue;";
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), keyword1);
+    insert(filepath, object->getStartLine(), object->getStartColumn(),
+           keyword1);
   }
 
-  void enterBreak_stmt(const UHDM::break_stmt *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterBreakStmt(const uhdm::BreakStmt *const object,
+                      uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword1 = "break;";
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), keyword1);
+    insert(filepath, object->getStartLine(), object->getStartColumn(),
+           keyword1);
   }
 
-  void enterReturn_stmt(const UHDM::return_stmt *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterReturnStmt(const uhdm::ReturnStmt *const object,
+                       uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), "return");
+    const std::filesystem::path &filepath = object->getFile();
+    insert(filepath, object->getStartLine(), object->getStartColumn(),
+           "return");
   }
 
-  void enterWhile_stmt(const UHDM::while_stmt *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterWhileStmt(const uhdm::WhileStmt *const object,
+                      uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword1 = "while";
-    const std::filesystem::path &filepath = object->VpiFile();
-    const UHDM::any *const condition = object->VpiCondition();
+    const std::filesystem::path &filepath = object->getFile();
+    const uhdm::Any *const condition = object->getCondition();
 
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), keyword1);
-    insert(filepath, condition->VpiLineNo(), condition->VpiColumnNo() - 1, "(");
-    insert(filepath, condition->VpiEndLineNo(), condition->VpiEndColumnNo(),
-           ")");
+    insert(filepath, object->getStartLine(), object->getStartColumn(),
+           keyword1);
+    insert(filepath, condition->getStartLine(), condition->getStartColumn() - 1,
+           "(");
+    insert(filepath, condition->getEndLine(), condition->getEndColumn(), ")");
   }
 
-  void enterRepeat(const UHDM::repeat *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterRepeat(const uhdm::Repeat *const object,
+                   uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword1 = "repeat";
-    const std::filesystem::path &filepath = object->VpiFile();
-    const UHDM::any *const condition = object->VpiCondition();
+    const std::filesystem::path &filepath = object->getFile();
+    const uhdm::Any *const condition = object->getCondition();
 
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), keyword1);
-    insert(filepath, condition->VpiLineNo(), condition->VpiColumnNo() - 1, "(");
-    insert(filepath, condition->VpiEndLineNo(), condition->VpiEndColumnNo(),
-           ")");
+    insert(filepath, object->getStartLine(), object->getStartColumn(),
+           keyword1);
+    insert(filepath, condition->getStartLine(), condition->getStartColumn() - 1,
+           "(");
+    insert(filepath, condition->getEndLine(), condition->getEndColumn(), ")");
   }
 
-  void enterDo_while(const UHDM::do_while *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterDoWhile(const uhdm::DoWhile *const object,
+                    uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword1 = "do";
     constexpr std::string_view keyword2 = "while";
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    const UHDM::expr *const condition = object->VpiCondition();
+    const uhdm::Expr *const condition = object->getCondition();
 
     std::string text;
     text.append(keyword2).append("(");
 
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), keyword1);
-    insert(filepath, condition->VpiLineNo(),
-           condition->VpiColumnNo() - text.length(), text);
-    insert(filepath, condition->VpiEndLineNo(), condition->VpiEndColumnNo(),
-           ");");
+    insert(filepath, object->getStartLine(), object->getStartColumn(),
+           keyword1);
+    insert(filepath, condition->getStartLine(),
+           condition->getStartColumn() - text.length(), text);
+    insert(filepath, condition->getEndLine(), condition->getEndColumn(), ");");
   }
 
-  void enterIf_else(const UHDM::if_else *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterIfElse(const uhdm::IfElse *const object,
+                   uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword1 = "if";
     constexpr std::string_view keyword2 = "else";
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    const UHDM::any *const ifStmt = object->VpiStmt();
-    const UHDM::any *const elseStmt = object->VpiElseStmt();
-    const UHDM::expr *const condition = object->VpiCondition();
+    const uhdm::Any *const ifStmt = object->getStmt();
+    const uhdm::Any *const elseStmt = object->getElseStmt();
+    const uhdm::Expr *const condition = object->getCondition();
 
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), keyword1);
-    insert(filepath, condition->VpiLineNo(), condition->VpiColumnNo() - 1, "(");
-    insert(filepath, condition->VpiEndLineNo(), condition->VpiEndColumnNo(),
-           ")");
+    insert(filepath, object->getStartLine(), object->getStartColumn(),
+           keyword1);
+    if (condition->getStartColumn() > 0)
+      insert(filepath, condition->getStartLine(),
+             condition->getStartColumn() - 1, "(");
+    insert(filepath, condition->getEndLine(), condition->getEndColumn(), ")");
 
     // Check if the "else" keyword is on its own line
-    if ((elseStmt->VpiLineNo() - ifStmt->VpiEndLineNo()) >= 2) {
-      insert(filepath, ifStmt->VpiEndLineNo() + 1, object->VpiColumnNo(),
+    // If col is 0 then else is in previous line.
+    int32_t col = elseStmt->getStartColumn() - keyword2.length() - 1;
+    if (((elseStmt->getStartLine() - ifStmt->getEndLine()) >= 2) || (col < 1)) {
+      insert(filepath, ifStmt->getEndLine() + 1, object->getStartColumn(),
              keyword2);
     } else {
-      insert(filepath, elseStmt->VpiLineNo(),
-             elseStmt->VpiColumnNo() - keyword2.length() - 1, keyword2);
+      insert(filepath, elseStmt->getStartLine(),
+             elseStmt->getStartColumn() - keyword2.length() - 1, keyword2);
     }
   }
 
-  void enterCase_stmt(const UHDM::case_stmt *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterCaseStmt(const uhdm::CaseStmt *const object,
+                     uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword1 = "endcase";
     // constexpr std::string_view keyword2 = "inside";
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
     std::string text;
     case_qualifier_names_t::const_iterator it1 =
-        kCaseQualifierNames.find(object->VpiQualifier());
+        kCaseQualifierNames.find(object->getQualifier());
     if (it1 != kCaseQualifierNames.end()) {
       text.append(it1->second).append(1, kOverwriteMarker);
     }
 
     case_type_names_t::const_iterator it2 =
-        kCaseTypeNames.find(object->VpiCaseType());
+        kCaseTypeNames.find(object->getCaseType());
     if (it2 != kCaseTypeNames.end()) {
       text.append(it2->second);
     }
 
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
-    insert(filepath, object->VpiEndLineNo(),
-           object->VpiEndColumnNo() - keyword1.length(), keyword1);
+    insert(filepath, object->getStartLine(), object->getStartColumn(), text);
+    insert(filepath, object->getEndLine(),
+           object->getEndColumn() - keyword1.length(), keyword1);
 
-    const UHDM::expr *const condition = object->VpiCondition();
-    insert(filepath, condition->VpiLineNo(), condition->VpiColumnNo() - 1, "(");
-    insert(filepath, condition->VpiEndLineNo(), condition->VpiEndColumnNo(),
-           ")");
+    const uhdm::Expr *const condition = object->getCondition();
+    insert(filepath, condition->getStartLine(), condition->getStartColumn() - 1,
+           "(");
+    insert(filepath, condition->getEndLine(), condition->getEndColumn(), ")");
   }
 
-  void enterForce(const UHDM::force *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterForce(const uhdm::Force *const object, uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword = "force";
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), keyword);
+    insert(filepath, object->getStartLine(), object->getStartColumn(), keyword);
 
-    const UHDM::any *const lhs = object->Lhs();
-    const UHDM::any *const rhs = object->Rhs();
+    const uhdm::Any *const lhs = object->getLhs();
+    const uhdm::Any *const rhs = object->getRhs();
     if ((lhs != nullptr) && (rhs != nullptr)) {
-      insert(filepath, rhs->VpiLineNo(), rhs->VpiColumnNo() - 1, "=");
+      insert(filepath, rhs->getStartLine(), rhs->getStartColumn() - 1, "=");
     }
   }
 
-  void enterAssign_stmt(const UHDM::assign_stmt *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterAssignStmt(const uhdm::AssignStmt *const object,
+                       uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     // constexpr std::string_view keyword1 = "assign";
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
     // TODO(HS): This should basically be a check for implicit vs. explicit
     // but, unfortunately, there is nothing in the model to identify that.
-    // if ((object->VpiParent() == nullptr) ||
-    //     (object->VpiParent()->UhdmType() != UHDM::uhdmfor_stmt)) {
-    //   insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), keyword1);
+    // if ((object->getParent() == nullptr) ||
+    //     (object->getParent()->getUhdmType() != uhdm::UhdmType::ForStmt)) {
+    //   insert(filepath, object->getStartLine(), object->getStartColumn(),
+    //   keyword1);
     // }
 
-    const UHDM::any *const lhs = object->Lhs();
-    const UHDM::any *const rhs = object->Rhs();
+    const uhdm::Any *const lhs = object->getLhs();
+    const uhdm::Any *const rhs = object->getRhs();
     if ((lhs != nullptr) && (rhs != nullptr)) {
-      insert(filepath, rhs->VpiLineNo(), rhs->VpiColumnNo() - 1, "=");
+      insert(filepath, rhs->getStartLine(), rhs->getStartColumn() - 1, "=");
     }
   }
 
-  void enterDeassign(const UHDM::deassign *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterDeassign(const uhdm::Deassign *const object,
+                     uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword = "deassign";
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    if (const UHDM::any *const lhs = object->Lhs()) {
-      insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), keyword);
+    if (object->getLhs() != nullptr) {
+      insert(filepath, object->getStartLine(), object->getStartColumn(),
+             keyword);
     }
   }
 
-  void enterRelease(const UHDM::release *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterRelease(const uhdm::Release *const object,
+                    uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword = "release";
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    if (const UHDM::any *const lhs = object->Lhs()) {
-      insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), keyword);
+    if (object->getLhs() != nullptr) {
+      insert(filepath, object->getStartLine(), object->getStartColumn(),
+             keyword);
     }
   }
 
-  void enterNull_stmt(const UHDM::null_stmt *const object) final {
+  void enterNullStmt(const uhdm::NullStmt *const object,
+                     uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterExpect_stmt(const UHDM::expect_stmt *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterExpectStmt(const uhdm::ExpectStmt *const object,
+                       uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword1 = "expect";
     constexpr std::string_view keyword2 = ");";
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
     std::string text;
     text.append(keyword1).append("(");
 
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
-    insert(filepath, object->VpiEndLineNo(),
-           object->VpiEndColumnNo() - keyword2.length(), keyword2);
+    insert(filepath, object->getStartLine(), object->getStartColumn(), text);
+    insert(filepath, object->getEndLine(),
+           object->getEndColumn() - keyword2.length(), keyword2);
   }
 
-  void enterForeach_stmt(const UHDM::foreach_stmt *const object) final {
+  void enterForeachStmt(const uhdm::ForeachStmt *const object,
+                        uint32_t vpiRelation) final {
     // tests\DollarRoot, tests\UnitForeach
     // @todo: variables info is missing while decoding in foreach.
     // Need to revisit later.
 
-    if (visited.find(object) != visited.end()) return;
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword1 = "foreach";
     constexpr std::string_view keyword2 = ")";
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
     std::string text;
     text.append(keyword1).append("(");
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
+    insert(filepath, object->getStartLine(), object->getStartColumn(), text);
 
-    if (const UHDM::any *const stmt = object->VpiStmt()) {
-      insert(filepath, stmt->VpiLineNo(),
-             stmt->VpiColumnNo() - keyword2.length() - 1, keyword2);
+    if (const uhdm::Any *const stmt = object->getStmt()) {
+      insert(filepath, stmt->getStartLine(),
+             stmt->getStartColumn() - keyword2.length() - 1, keyword2);
     }
   }
 
-  void enterGen_scope(const UHDM::gen_scope *const object) final {
+  void enterGenScope(const uhdm::GenScope *const object,
+                     uint32_t vpiRelation) final {
     // tests\BindStmt, tests\Bindings, tests\ArianeElab
   }
 
-  void enterGen_var(const UHDM::gen_var *const object) final {
+  void enterGenVar(const uhdm::GenVar *const object,
+                   uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterGen_scope_array(const UHDM::gen_scope_array *const object) final {
+  void enterGenScopeArray(const uhdm::GenScopeArray *const object,
+                          uint32_t vpiRelation) final {
     // tests\BindStmt, tests\Bindings, tests\ArianeElab, tests\Cell ..
   }
 
-  void enterAssert_stmt(const UHDM::assert_stmt *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterAssert(const uhdm::Assert *const object,
+                   uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword1 = "assert";
     constexpr std::string_view keyword2 = "else";
 
-    const std::filesystem::path &filepath = object->VpiFile();
-    const std::string name = formatName(object->VpiName());
+    const std::filesystem::path &filepath = object->getFile();
+    const std::string name = formatName(object->getName());
 
     std::string prefix;
     if (!name.empty()) {
@@ -1248,28 +1275,29 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     std::string text = prefix;
     text.append(keyword1);
 
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
-    insert(filepath, object->VpiLineNo(), object->VpiEndColumnNo() - 1, ";");
+    insert(filepath, object->getStartLine(), object->getStartColumn(), text);
+    insert(filepath, object->getStartLine(), object->getEndColumn() - 1, ";");
 
-    if (const UHDM::any *const else_stmt = object->Else_stmt()) {
-      const UHDM::any *const property = object->VpiProperty();
-      insert(filepath, property->VpiEndLineNo(), property->VpiEndColumnNo() + 1,
+    if (object->getElseStmt() != nullptr) {
+      const uhdm::Any *const property = object->getProperty();
+      insert(filepath, property->getEndLine(), property->getEndColumn() + 1,
              keyword2);
     }
   }
 
-  void enterCover(const UHDM::cover *const object) final {
+  void enterCover(const uhdm::Cover *const object, uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterAssume(const UHDM::assume *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterAssume(const uhdm::Assume *const object,
+                   uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword1 = "assume";
     constexpr std::string_view keyword2 = "else";
 
-    const std::filesystem::path &filepath = object->VpiFile();
-    const std::string name = formatName(object->VpiName());
+    const std::filesystem::path &filepath = object->getFile();
+    const std::string name = formatName(object->getName());
 
     std::string prefix;
     if (!name.empty()) {
@@ -1279,27 +1307,29 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     std::string text = prefix;
     text.append(keyword1);
 
-    insert(filepath, object->VpiLineNo(),
-           object->VpiColumnNo() - prefix.length(), text);
+    insert(filepath, object->getStartLine(),
+           object->getStartColumn() - prefix.length(), text);
 
-    if (const UHDM::any *const stmt = object->Stmt()) {
-      const UHDM::any *const property = object->VpiProperty();
-      insert(filepath, property->VpiEndLineNo(), property->VpiEndColumnNo() + 1,
+    if (object->getStmt() != nullptr) {
+      const uhdm::Any *const property = object->getProperty();
+      insert(filepath, property->getEndLine(), property->getEndColumn() + 1,
              keyword2);
     }
   }
 
-  void enterRestrict(const UHDM::restrict *const object) final {
+  void enterRestrict(const uhdm::Restrict *const object,
+                     uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterImmediate_assert(const UHDM::immediate_assert *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterImmediateAssert(const uhdm::ImmediateAssert *const object,
+                            uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword = "assert";
 
-    const std::filesystem::path &filepath = object->VpiFile();
-    const std::string name = formatName(object->VpiName());
+    const std::filesystem::path &filepath = object->getFile();
+    const std::string name = formatName(object->getName());
 
     std::string text;
     if (!name.empty()) {
@@ -1307,1023 +1337,1096 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     }
     text.append(keyword).append("(");
 
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
-    insert(filepath, object->VpiEndLineNo(), object->VpiEndColumnNo() - 2,
-           ");");
+    insert(filepath, object->getStartLine(), object->getStartColumn(), text);
+    insert(filepath, object->getEndLine(), object->getEndColumn() - 2, ");");
   }
 
-  void enterImmediate_assume(const UHDM::immediate_assume *const object) final {
+  void enterImmediateAssume(const uhdm::ImmediateAssume *const object,
+                            uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterImmediate_cover(const UHDM::immediate_cover *const object) final {
+  void enterImmediateCover(const uhdm::ImmediateCover *const object,
+                           uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterCase_item(const UHDM::case_item *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterCaseItem(const uhdm::CaseItem *const object,
+                     uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword = "default:";
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    const UHDM::VectorOfany *const exprs = object->VpiExprs();
+    const uhdm::AnyCollection *const exprs = object->getExprs();
     if ((exprs != nullptr) && !exprs->empty()) {
       for (int32_t i = 0, ni = exprs->size() - 1; i < ni; ++i) {
-        const UHDM::any *const expr = exprs->at(i);
-        insert(filepath, expr->VpiEndLineNo(), expr->VpiEndColumnNo(), ",");
+        const uhdm::Any *const expr = exprs->at(i);
+        insert(filepath, expr->getEndLine(), expr->getEndColumn(), ",");
       }
 
-      const UHDM::any *const exprN = exprs->back();
-      insert(filepath, exprN->VpiEndLineNo(), exprN->VpiEndColumnNo(), ":");
+      const uhdm::Any *const exprN = exprs->back();
+      insert(filepath, exprN->getEndLine(), exprN->getEndColumn(), ":");
     } else {
-      insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), keyword);
+      insert(filepath, object->getStartLine(), object->getStartColumn(),
+             keyword);
     }
   }
 
-  void enterAssignment(const UHDM::assignment *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterAssignment(const uhdm::Assignment *const object,
+                       uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword1 = "=";
     constexpr std::string_view keyword2 = "<";
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    const UHDM::any *const rhs = object->Rhs();
-    uint32_t column = rhs->VpiColumnNo();
+    const uhdm::Any *const rhs = object->getRhs();
+    uint32_t column = (rhs != nullptr) ? rhs->getStartColumn() : 0;
     // In case of delay, might be need to add one space.
     // Will revisit once get any test file.
-    if (const UHDM::any *const delayCtrl = object->Delay_control()) {
-      column = delayCtrl->VpiColumnNo();
+    if (const uhdm::Any *const delayCtrl = object->getDelayControl()) {
+      column = delayCtrl->getStartColumn();
     }
 
     std::string text;
-    op_type_names_t::const_iterator it = kOpTypeNames.find(object->VpiOpType());
+    op_type_names_t::const_iterator it = kOpTypeNames.find(object->getOpType());
     if ((it != kOpTypeNames.end()) &&
-        (object->VpiOpType() != vpiAssignmentOp)) {
+        (object->getOpType() != vpiAssignmentOp)) {
       text.assign(it->second);
     }
-    if (!object->VpiBlocking()) {
+    if (!object->getBlocking()) {
       text.append(keyword2);
     }
     text.append(keyword1);
-    insert(filepath, rhs->VpiEndLineNo(), column - text.length(), text);
+    if (rhs != nullptr) {
+      insert(filepath, rhs->getEndLine(), column - text.length(), text);
+    }
   }
 
-  void enterAny_pattern(const UHDM::any_pattern *const object) final {
+  void enterAnyPattern(const uhdm::AnyPattern *const object,
+                       uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterTagged_pattern(const UHDM::tagged_pattern *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterTaggedPattern(const uhdm::TaggedPattern *const object,
+                          uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    const UHDM::typespec *typespec = nullptr;
-    if (const UHDM::ref_typespec *const rt = object->Typespec()) {
-      typespec = rt->Actual_typespec();
+    const uhdm::Typespec *typespec = nullptr;
+    if (const uhdm::RefTypespec *const rt = object->getTypespec()) {
+      typespec = rt->getActual();
     }
 
-    const UHDM::any *const pattern = object->Pattern();
+    const uhdm::Any *const pattern = object->getPattern();
     if ((typespec != nullptr) && (pattern != nullptr)) {
       std::string value;
-      switch (typespec->UhdmType()) {
-        case UHDM::uhdmint_typespec:
-          value = static_cast<const UHDM::int_typespec *>(typespec)->VpiValue();
+      switch (typespec->getUhdmType()) {
+        case uhdm::UhdmType::IntTypespec:
+          value = static_cast<const uhdm::IntTypespec *>(typespec)->getValue();
           break;
-        case UHDM::uhdminteger_typespec:
-          value = static_cast<const UHDM::int_typespec *>(typespec)->VpiValue();
+        case uhdm::UhdmType::IntegerTypespec:
+          value = static_cast<const uhdm::IntTypespec *>(typespec)->getValue();
           break;
         default:
           break;
       };
 
       if (value.empty()) {
-        insert(filepath, typespec->VpiLineNo(), typespec->VpiColumnNo(),
+        insert(filepath, typespec->getStartLine(), typespec->getStartColumn(),
                getTypespecName(typespec));
       } else {
         value = formatValue(value, false);
-        insert(filepath, typespec->VpiLineNo(), typespec->VpiColumnNo(), value);
+        insert(filepath, typespec->getStartLine(), typespec->getStartColumn(),
+               value);
       }
 
-      insert(filepath, typespec->VpiLineNo(), typespec->VpiEndColumnNo(), ":");
+      insert(filepath, typespec->getStartLine(), typespec->getEndColumn(), ":");
 
       listenAny(pattern);
-      visited.insert(object);
+      m_visited.insert(object);
     }
   }
 
-  void enterStruct_pattern(const UHDM::struct_pattern *const object) final {
+  void enterStructPattern(const uhdm::StructPattern *const object,
+                          uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterUnsupported_expr(const UHDM::unsupported_expr *const object) final {
+  void enterUnsupportedExpr(const uhdm::UnsupportedExpr *const object,
+                            uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterUnsupported_stmt(const UHDM::unsupported_stmt *const object) final {
+  void enterUnsupportedStmt(const uhdm::UnsupportedStmt *const object,
+                            uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterSequence_inst(const UHDM::sequence_inst *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterSequenceInst(const uhdm::SequenceInst *const object,
+                         uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
     std::string text;
-    text.append(formatName(object->VpiName())).append("(");
+    text.append(formatName(object->getName())).append("(");
 
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
-    insert(filepath, object->VpiEndLineNo(), object->VpiEndColumnNo() - 1, ")");
+    insert(filepath, object->getStartLine(), object->getStartColumn(), text);
+    insert(filepath, object->getEndLine(), object->getEndColumn() - 1, ")");
 
-    const UHDM::VectorOfany *const args =
-        object->Named_event_sequence_expr_groups();
+    const uhdm::AnyCollection *const args = object->getArguments();
     if ((args != nullptr) && !args->empty()) {
       for (int32_t i = 0, n = args->size() - 1; i < n; ++i) {
-        UHDM::VectorOfany::const_reference arg = args->at(i);
-        insert(filepath, arg->VpiLineNo(), arg->VpiEndColumnNo(), ",");
+        uhdm::AnyCollection::const_reference arg = args->at(i);
+        insert(filepath, arg->getStartLine(), arg->getEndColumn(), ",");
       }
     }
   }
 
-  void enterSeq_formal_decl(const UHDM::seq_formal_decl *const object) final {
+  void enterSeqFormalDecl(const uhdm::SeqFormalDecl *const object,
+                          uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterSequence_decl(const UHDM::sequence_decl *const object) final {
+  void enterSequenceDecl(const uhdm::SequenceDecl *const object,
+                         uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterProp_formal_decl(const UHDM::prop_formal_decl *const object) final {
+  void enterPropFormalDecl(const uhdm::PropFormalDecl *const object,
+                           uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterProperty_inst(const UHDM::property_inst *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterPropertyInst(const uhdm::PropertyInst *const object,
+                         uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
     std::string text;
-    text.append(formatName(object->VpiName())).append("(");
+    text.append(formatName(object->getName())).append("(");
 
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
-    insert(filepath, object->VpiEndLineNo(), object->VpiEndColumnNo() - 1, ")");
+    insert(filepath, object->getStartLine(), object->getStartColumn(), text);
+    insert(filepath, object->getEndLine(), object->getEndColumn() - 1, ")");
 
-    const UHDM::VectorOfany *const args = object->VpiArguments();
+    const uhdm::AnyCollection *const args = object->getArguments();
     if ((args != nullptr) && !args->empty()) {
       for (int32_t i = 0, n = args->size() - 1; i < n; ++i) {
-        UHDM::VectorOfany::const_reference arg = args->at(i);
-        insert(filepath, arg->VpiLineNo(), arg->VpiEndColumnNo(), ",");
+        uhdm::AnyCollection::const_reference arg = args->at(i);
+        insert(filepath, arg->getStartLine(), arg->getEndColumn(), ",");
       }
     }
   }
 
-  void enterProperty_spec(const UHDM::property_spec *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterPropertySpec(const uhdm::PropertySpec *const object,
+                         uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    constexpr std::string_view keyword1 = "property(";
+    // constexpr std::string_view keyword1 = "property(";
     constexpr std::string_view keyword2 = "@(";
     constexpr std::string_view keyword3 = ")";
-    constexpr std::string_view keyword4 = ")";
+    // constexpr std::string_view keyword4 = ")";
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    insert(filepath, object->VpiLineNo(),
-           object->VpiColumnNo() - keyword1.length(), keyword1);
-    insert(filepath, object->VpiEndLineNo(), object->VpiEndColumnNo(),
-           keyword4);
+    // insert(filepath, object->getStartLine(),
+    //        object->getStartColumn() - keyword1.length(), keyword1);
+    // insert(filepath, object->getEndLine(), object->getEndColumn(),
+    //        keyword4);
 
-    if (const UHDM::expr *const clockingEvent = object->VpiClockingEvent()) {
-      insert(filepath, clockingEvent->VpiLineNo(),
-             clockingEvent->VpiColumnNo() - keyword2.length(), keyword2);
-      insert(filepath, clockingEvent->VpiEndLineNo(),
-             clockingEvent->VpiEndColumnNo(), keyword3);
+    if (const uhdm::Expr *const clockingEvent = object->getClockingEvent()) {
+      insert(filepath, clockingEvent->getStartLine(),
+             clockingEvent->getStartColumn() - keyword2.length(), keyword2);
+      insert(filepath, clockingEvent->getEndLine(),
+             clockingEvent->getEndColumn(), keyword3);
     }
   }
 
-  void enterProperty_decl(const UHDM::property_decl *const object) final {
+  void enterPropertyDecl(const uhdm::PropertyDecl *const object,
+                         uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterClocked_property(const UHDM::clocked_property *const object) final {
+  void enterClockedProperty(const uhdm::ClockedProperty *const object,
+                            uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterCase_property_item(
-      const UHDM::case_property_item *const object) final {
+  void enterCasePropertyItem(const uhdm::CasePropertyItem *const object,
+                             uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterCase_property(const UHDM::case_property *const object) final {
+  void enterCaseProperty(const uhdm::CaseProperty *const object,
+                         uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterMulticlock_sequence_expr(
-      const UHDM::multiclock_sequence_expr *const object) final {
+  void enterMulticlockSequenceExpr(
+      const uhdm::MulticlockSequenceExpr *const object,
+      uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterClocked_seq(const UHDM::clocked_seq *const object) final {
+  void enterClockedSeq(const uhdm::ClockedSeq *const object,
+                       uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterConstant(const UHDM::constant *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterConstant(const uhdm::Constant *const object,
+                     uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    std::string text = formatValue(object->VpiDecompile());
-    if (object->VpiConstType() == vpiStringConst) {
+    std::string text = formatValue(object->getDecompile());
+    if (object->getConstType() == vpiStringConst) {
       if ((text.size() < 2) || (text.front() != '\"') ||
           (text.back() != '\"')) {
         const std::string tmp_text = text;
         text.assign("\"").append(tmp_text).append("\"");
       }
     }
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
+    insert(filepath, object->getStartLine(), object->getStartColumn(), text);
 
-    if (const UHDM::ref_typespec *const rt = object->Typespec()) {
-      if (const UHDM::typespec *const typespec = rt->Actual_typespec()) {
-        visited.insert(typespec);
+    if (const uhdm::RefTypespec *const rt = object->getTypespec()) {
+      if (const uhdm::Typespec *const typespec = rt->getActual()) {
+        m_visited.insert(typespec);
       }
     }
   }
 
-  void enterLet_expr(const UHDM::let_expr *const object) final {
+  void enterLetExpr(const uhdm::LetExpr *const object,
+                    uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterOperation(const UHDM::operation *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterOperation(const uhdm::Operation *const object,
+                      uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    op_type_names_t::const_iterator it = kOpTypeNames.find(object->VpiOpType());
+    op_type_names_t::const_iterator it = kOpTypeNames.find(object->getOpType());
     if (it == kOpTypeNames.end()) return;
 
-    const UHDM::VectorOfany *const operands = object->Operands();
+    const uhdm::AnyCollection *const operands = object->getOperands();
     if ((operands == nullptr) || operands->empty()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    switch (object->VpiOpType()) {
+    switch (object->getOpType()) {
       case vpiConditionOp: {
-        const UHDM::any *const operand0 = operands->at(0);
-        const UHDM::any *const operand1 = operands->at(1);
-        insert(filepath, operand0->VpiEndLineNo(), operand0->VpiEndColumnNo(),
+        const uhdm::Any *const operand0 = operands->at(0);
+        const uhdm::Any *const operand1 = operands->at(1);
+        insert(filepath, operand0->getEndLine(), operand0->getEndColumn(),
                it->second);
-        insert(filepath, operand1->VpiEndLineNo(), operand1->VpiEndColumnNo(),
-               ":");
+        insert(filepath, operand1->getEndLine(), operand1->getEndColumn(), ":");
       } break;
 
       case vpiMinTypMaxOp:
       case vpiListOp: {
         for (int32_t i = 0, n = operands->size() - 1; i < n; ++i) {
-          UHDM::VectorOfany::const_reference operand = operands->at(i);
-          insert(filepath, operand->VpiEndLineNo(), operand->VpiEndColumnNo(),
+          uhdm::AnyCollection::const_reference operand = operands->at(i);
+          insert(filepath, operand->getEndLine(), operand->getEndColumn(),
                  it->second);
         }
       } break;
 
       case vpiConcatOp: {
-        insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), "{");
-        UHDM::VectorOfany ordered(operands->begin(), operands->end());
-        if (object->VpiReordered()) {
+        insert(filepath, object->getStartLine(), object->getStartColumn(), "{");
+        uhdm::AnyCollection ordered(operands->begin(), operands->end());
+        if (object->getReordered()) {
           std::stable_sort(
               ordered.begin(), ordered.end(),
-              [](const UHDM::any *const lhs, const UHDM::any *const rhs) {
-                int32_t r = lhs->VpiLineNo() - rhs->VpiLineNo();
+              [](const uhdm::Any *const lhs, const uhdm::Any *const rhs) {
+                int32_t r = lhs->getStartLine() - rhs->getStartLine();
                 if (r != 0) return r < 0;
 
-                r = lhs->VpiColumnNo() - rhs->VpiColumnNo();
+                r = lhs->getStartColumn() - rhs->getStartColumn();
                 if (r != 0) return r < 0;
 
-                r = lhs->VpiEndLineNo() - rhs->VpiEndLineNo();
+                r = lhs->getEndLine() - rhs->getEndLine();
                 if (r != 0) return r < 0;
 
-                r = lhs->VpiEndColumnNo() - rhs->VpiEndColumnNo();
+                r = lhs->getEndColumn() - rhs->getEndColumn();
                 return r < 0;
               });
         }
 
         for (int32_t i = 0, ni = ordered.size() - 1; i < ni; ++i) {
-          const UHDM::any *const operand = ordered[i];
-          insert(filepath, operand->VpiEndLineNo(), operand->VpiEndColumnNo(),
-                 ",");
+          const uhdm::Any *const operand = ordered[i];
+          insert(filepath, operand->getEndLine(), operand->getEndColumn(), ",");
         }
-        insert(filepath, object->VpiEndLineNo(), object->VpiEndColumnNo() - 1,
-               "}");
+        insert(filepath, object->getEndLine(), object->getEndColumn() - 1, "}");
       } break;
 
       case vpiMultiConcatOp: {
-        insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), "{");
-        insert(filepath, object->VpiEndLineNo(), object->VpiEndColumnNo() - 1,
-               "}");
+        insert(filepath, object->getStartLine(), object->getStartColumn(), "{");
+        insert(filepath, object->getEndLine(), object->getEndColumn() - 1, "}");
       } break;
 
       case vpiMultiAssignmentPatternOp: {
-        insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), "'{");
-        insert(filepath, object->VpiEndLineNo(), object->VpiEndColumnNo() - 1,
+        insert(filepath, object->getStartLine(), object->getStartColumn(),
+               "'{");
+        insert(filepath, object->getEndLine(), object->getEndColumn() - 1,
                "};");
       } break;
 
       case vpiAssignmentPatternOp: {
-        insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), "'{");
+        insert(filepath, object->getStartLine(), object->getStartColumn(),
+               "'{");
         for (int32_t i = 0, ni = operands->size() - 1; i < ni; ++i) {
-          const UHDM::any *const operand = operands->at(i);
-          insert(filepath, operand->VpiEndLineNo(), operand->VpiEndColumnNo(),
-                 ",");
+          const uhdm::Any *const operand = operands->at(i);
+          insert(filepath, operand->getEndLine(), operand->getEndColumn(), ",");
         }
-        insert(filepath, object->VpiEndLineNo(), object->VpiEndColumnNo() - 1,
+        insert(filepath, object->getEndLine(), object->getEndColumn() - 1,
                "};");
       } break;
 
       case vpiPostIncOp: {
-        const UHDM::any *const operand0 = operands->at(0);
-        insert(filepath, operand0->VpiEndLineNo(), operand0->VpiEndColumnNo(),
+        const uhdm::Any *const operand0 = operands->at(0);
+        insert(filepath, operand0->getEndLine(), operand0->getEndColumn(),
                it->second);
       } break;
 
       case vpiEqOp: {
-        const UHDM::any *const operand1 = operands->at(1);
-        insert(filepath, operand1->VpiLineNo(),
-               operand1->VpiColumnNo() - it->second.length(), it->second);
+        const uhdm::Any *const operand1 = operands->at(1);
+        insert(filepath, operand1->getStartLine(),
+               operand1->getStartColumn() - it->second.length(), it->second);
       } break;
 
       case vpiEventOrOp: {
-        const UHDM::any *const operand0 = operands->at(0);
-        insert(filepath, operand0->VpiEndLineNo(),
-               operand0->VpiEndColumnNo() + 1, it->second);
+        const uhdm::Any *const operand0 = operands->at(0);
+        insert(filepath, operand0->getEndLine(), operand0->getEndColumn() + 1,
+               it->second);
       } break;
 
       case vpiCycleDelayOp: {
-        const UHDM::any *const operand1 = operands->at(1);
-        insert(filepath, operand1->VpiLineNo(),
-               operand1->VpiColumnNo() - it->second.length(), it->second);
+        const uhdm::Any *const operand1 = operands->at(1);
+        insert(filepath, operand1->getStartLine(),
+               operand1->getStartColumn() - it->second.length(), it->second);
       } break;
 
       default: {
         if (operands->size() == 1) {
-          const UHDM::any *const operand0 = operands->at(0);
-          insert(filepath, operand0->VpiLineNo(),
-                 operand0->VpiColumnNo() - it->second.length(), it->second);
+          const uhdm::Any *const operand0 = operands->at(0);
+          /* Handle operation in multiple line
+          * @(
+            posedge
+             in)
+          */
+          uint32_t colLine = operand0->getStartLine();
+          int32_t colDiff = operand0->getStartColumn() - it->second.length();
+          if ((colLine > 0) && (colDiff > 0)) {
+            if ((colDiff < 0) && (object->getStartLine() != colLine))
+              insert(filepath, operand0->getStartLine() - 1, 1, it->second);
+            else
+              insert(filepath, operand0->getStartLine(), colDiff, it->second);
+          }
         } else if (operands->size() == 2) {
-          const UHDM::any *const operand1 = operands->at(1);
-          insert(filepath, operand1->VpiLineNo(),
-                 operand1->VpiColumnNo() - it->second.length(), it->second);
+          const uhdm::Any *const operand1 = operands->at(1);
+          insert(filepath, operand1->getStartLine(),
+                 operand1->getStartColumn() - it->second.length(), it->second);
         }
       } break;
     }
   }
 
-  void enterPart_select(const UHDM::part_select *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterPartSelect(const uhdm::PartSelect *const object,
+                       uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    if (const UHDM::any *const parent = object->VpiParent()) {
-      insert(filepath, object->VpiLineNo(), object->VpiColumnNo(),
-             formatName(parent->VpiName()));
+    if (const uhdm::Any *const parent = object->getParent()) {
+      insert(filepath, object->getStartLine(), object->getStartColumn(),
+             formatName(parent->getName()));
     }
 
-    const UHDM::expr *const lr = object->Left_range();
-    const UHDM::expr *const rr = object->Right_range();
+    const uhdm::Expr *const lr = object->getLeftExpr();
+    const uhdm::Expr *const rr = object->getRightExpr();
 
     if ((lr != nullptr) && (rr != nullptr)) {
-      insert(filepath, lr->VpiLineNo(), lr->VpiColumnNo() - 1, "[");
-      insert(filepath, lr->VpiEndLineNo(), lr->VpiEndColumnNo(), ":");
-      insert(filepath, rr->VpiEndLineNo(), rr->VpiEndColumnNo(), "]");
+      insert(filepath, lr->getStartLine(), lr->getStartColumn() - 1, "[");
+      insert(filepath, lr->getEndLine(), lr->getEndColumn(), ":");
+      insert(filepath, rr->getEndLine(), rr->getEndColumn(), "]");
     }
   }
 
-  void enterIndexed_part_select(
-      const UHDM::indexed_part_select *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterIndexedPartSelect(const uhdm::IndexedPartSelect *const object,
+                              uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view kPosIndexed = "+:";
     constexpr std::string_view kNegIndexed = "-:";
 
-    const UHDM::any *const parent = object->VpiParent();
+    const uhdm::Any *const parent = object->getParent();
     if (parent == nullptr) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
-    const std::string text = formatName(parent->VpiDefName());
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo() + text.length(),
-           "[");
-    insert(filepath, object->VpiEndLineNo(), object->VpiEndColumnNo() - 1, "]");
+    const std::filesystem::path &filepath = object->getFile();
+    const std::string text = formatName(parent->getDefName());
+    insert(filepath, object->getStartLine(), object->getStartColumn(), text);
+    insert(filepath, object->getStartLine(),
+           object->getStartColumn() + text.length(), "[");
+    insert(filepath, object->getEndLine(), object->getEndColumn() - 1, "]");
 
-    const UHDM::expr *const width = object->Width_expr();
-    switch (object->VpiIndexedPartSelectType()) {
+    const uhdm::Expr *const width = object->getWidthExpr();
+    switch (object->getIndexedPartSelectType()) {
       case vpiPosIndexed: {
-        insert(filepath, width->VpiLineNo(),
-               width->VpiColumnNo() - kPosIndexed.length(), kPosIndexed);
+        insert(filepath, width->getStartLine(),
+               width->getStartColumn() - kPosIndexed.length(), kPosIndexed);
       } break;
 
       case vpiNegIndexed: {
-        insert(filepath, width->VpiLineNo(),
-               width->VpiColumnNo() - kNegIndexed.length(), kNegIndexed);
+        insert(filepath, width->getStartLine(),
+               width->getStartColumn() - kNegIndexed.length(), kNegIndexed);
       } break;
     };
   }
 
-  void enterRef_obj(const UHDM::ref_obj *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterRefObj(const uhdm::RefObj *const object,
+                   uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    const UHDM::any *resolved = object->Actual_group();
-    if (resolved == nullptr) {
-      resolved = object;
-    }
-
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(),
-           formatName(resolved->VpiName()));
+    insert(filepath, object->getStartLine(), object->getStartColumn(),
+           formatName(object->getName()));
   }
 
-  void enterHier_path(const UHDM::hier_path *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterHierPath(const uhdm::HierPath *const object,
+                     uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    const UHDM::VectorOfany *const elements = object->Path_elems();
+    const uhdm::AnyCollection *const elements = object->getPathElems();
     if ((elements != nullptr) && !elements->empty()) {
       for (size_t i = 1, n = elements->size(); i < n; ++i) {
-        const UHDM::any *const element = elements->at(i);
-        insert(filepath, element->VpiLineNo(), element->VpiColumnNo() - 1, ".");
+        const uhdm::Any *const element = elements->at(i);
+        if (element->getStartColumn() > 0) {
+          insert(filepath, element->getStartLine(),
+                 element->getStartColumn() - 1, ".");
+        }
       }
     }
   }
 
-  void enterVar_select(const UHDM::var_select *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterVarSelect(const uhdm::VarSelect *const object,
+                      uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
-    const std::string text = formatName(object->VpiName());
+    const std::filesystem::path &filepath = object->getFile();
+    const std::string text = formatName(object->getName());
 
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
+    insert(filepath, object->getStartLine(), object->getStartColumn(), text);
   }
 
-  void enterBit_select(const UHDM::bit_select *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterBitSelect(const uhdm::BitSelect *const object,
+                      uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
-    std::string text = formatName(object->VpiName());
+    const std::filesystem::path &filepath = object->getFile();
+    std::string text = formatName(object->getName());
 
-    if (const UHDM::expr *const index = object->VpiIndex()) {
-      text.resize(index->VpiEndColumnNo() - object->VpiColumnNo() + 1,
-                  kOverwriteMarker);
-      text[index->VpiColumnNo() - object->VpiColumnNo() - 1] = '[';
-      text[index->VpiEndColumnNo() - object->VpiColumnNo()] = ']';
+    if (const uhdm::Expr *const index = object->getIndex()) {
+      insert(filepath, index->getStartLine(), index->getStartColumn() - 1, "[");
+      insert(filepath, index->getStartLine(), index->getEndColumn(), "]");
     }
 
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
+    insert(filepath, object->getStartLine(), object->getStartColumn(), text);
   }
 
-  void enterRef_var(const UHDM::ref_var *const object) final {
+  void enterRefVar(const uhdm::RefVar *const object,
+                   uint32_t vpiRelation) final {
     enterVariables_(object);
   }
 
-  void enterShort_real_var(const UHDM::short_real_var *const object) final {
+  void enterShortRealVar(const uhdm::ShortRealVar *const object,
+                         uint32_t vpiRelation) final {
     enterVariables_(object);
   }
 
-  void enterReal_var(const UHDM::real_var *const object) final {
+  void enterRealVar(const uhdm::RealVar *const object,
+                    uint32_t vpiRelation) final {
     enterVariables_(object);
   }
 
-  void enterByte_var(const UHDM::byte_var *const object) final {
+  void enterByteVar(const uhdm::ByteVar *const object,
+                    uint32_t vpiRelation) final {
     enterVariables_(object);
   }
 
-  void enterShort_int_var(const UHDM::short_int_var *const object) final {
+  void enterShortIntVar(const uhdm::ShortIntVar *const object,
+                        uint32_t vpiRelation) final {
     enterVariables_(object);
   }
 
-  void enterInt_var(const UHDM::int_var *const object) final {
+  void enterIntVar(const uhdm::IntVar *const object,
+                   uint32_t vpiRelation) final {
     enterVariables_(object);
   }
 
-  void enterLong_int_var(const UHDM::long_int_var *const object) final {
+  void enterLongIntVar(const uhdm::LongIntVar *const object,
+                       uint32_t vpiRelation) final {
     enterVariables_(object);
   }
 
-  void enterInteger_var(const UHDM::integer_var *const object) final {
+  void enterIntegerVar(const uhdm::IntegerVar *const object,
+                       uint32_t vpiRelation) final {
     enterVariables_(object);
   }
 
-  void enterTime_var(const UHDM::time_var *const object) final {
+  void enterTimeVar(const uhdm::TimeVar *const object,
+                    uint32_t vpiRelation) final {
     enterVariables_(object);
   }
 
-  void enterArray_var(const UHDM::array_var *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterArrayVar(const uhdm::ArrayVar *const object,
+                     uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     enterVariables_(object);
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    if (const UHDM::ref_typespec *const rt = object->Typespec()) {
-      if (const UHDM::typespec *const typespec = rt->Actual_typespec()) {
-        insert(filepath, typespec->VpiLineNo(), typespec->VpiColumnNo() - 1,
-               "[");
-        insert(filepath, typespec->VpiEndLineNo(), typespec->VpiEndColumnNo(),
-               "]");
+    if (const uhdm::RefTypespec *const rt = object->getTypespec()) {
+      if (const uhdm::Typespec *const typespec = rt->getActual()) {
+        insert(filepath, typespec->getStartLine(),
+               typespec->getStartColumn() - 1, "[");
+        insert(filepath, typespec->getEndLine(), typespec->getEndColumn(), "]");
       }
     }
 
-    if (const UHDM::VectorOfvariables *const variables = object->Variables()) {
+    if (const uhdm::VariablesCollection *const variables =
+            object->getVariables()) {
       std::copy(variables->begin(), variables->end(),
-                std::inserter(visited, visited.end()));
+                std::inserter(m_visited, m_visited.end()));
     }
   }
 
-  void enterReg_array(const UHDM::reg_array *const object) final {
+  void enterRegArray(const uhdm::RegArray *const object,
+                     uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterReg(const UHDM::reg *const object) final {
+  void enterReg(const uhdm::Reg *const object, uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterPacked_array_var(const UHDM::packed_array_var *const object) final {
+  void enterPackedArrayVar(const uhdm::PackedArrayVar *const object,
+                           uint32_t vpiRelation) final {
     enterVariables_(object);
   }
 
-  void enterBit_var(const UHDM::bit_var *const object) final {
+  void enterBitVar(const uhdm::BitVar *const object,
+                   uint32_t vpiRelation) final {
     enterVariables_(object);
   }
 
-  void enterLogic_var(const UHDM::logic_var *const object) final {
+  void enterLogicVar(const uhdm::LogicVar *const object,
+                     uint32_t vpiRelation) final {
     enterVariables_(object);
   }
 
-  void enterStruct_var(const UHDM::struct_var *const object) final {
+  void enterStructVar(const uhdm::StructVar *const object,
+                      uint32_t vpiRelation) final {
     enterVariables_(object);
   }
 
-  void enterUnion_var(const UHDM::union_var *const object) final {
+  void enterUnionVar(const uhdm::UnionVar *const object,
+                     uint32_t vpiRelation) final {
     enterVariables_(object);
   }
 
-  void enterEnum_var(const UHDM::enum_var *const object) final {
+  void enterEnumVar(const uhdm::EnumVar *const object,
+                    uint32_t vpiRelation) final {
     enterVariables_(object);
   }
 
-  void enterString_var(const UHDM::string_var *const object) final {
+  void enterStringVar(const uhdm::StringVar *const object,
+                      uint32_t vpiRelation) final {
     enterVariables_(object);
   }
 
-  void enterChandle_var(const UHDM::chandle_var *const object) final {
+  void enterChandleVar(const uhdm::ChandleVar *const object,
+                       uint32_t vpiRelation) final {
     enterVariables_(object);
   }
 
-  void enterVar_bit(const UHDM::var_bit *const object) final {
+  void enterVarBit(const uhdm::VarBit *const object,
+                   uint32_t vpiRelation) final {
     enterVariables_(object);
   }
 
-  void enterTask(const UHDM::task *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterTask(const uhdm::Task *const object, uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword1 = "task";
     constexpr std::string_view keyword2 = "endtask";
     constexpr std::string_view keyword3 = "virtual";
     constexpr std::string_view keyword4 = "pure";
 
-    const std::filesystem::path &filepath = object->VpiFile();
-    const bool isPureVirtual = object->VpiDPIPure();
+    const std::filesystem::path &filepath = object->getFile();
+    const bool isPureVirtual = object->getDPIPure();
 
     std::string text;
     if (isPureVirtual) {
       text.append(keyword4).append(1, kOverwriteMarker);
     }
-    if (object->VpiVirtual()) {
+    if (object->getVirtual()) {
       text.append(keyword3).append(1, kOverwriteMarker);
     }
     text.append(keyword1)
         .append(1, kOverwriteMarker)
-        .append(formatName(object->VpiName()))
+        .append(formatName(object->getName()))
         .append("(");
 
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
+    insert(filepath, object->getStartLine(), object->getStartColumn(), text);
 
     if (!isPureVirtual) {
-      insert(filepath, object->VpiEndLineNo(),
-             object->VpiEndColumnNo() - keyword2.length(), keyword2);
+      insert(filepath, object->getEndLine(),
+             object->getEndColumn() - keyword2.length(), keyword2);
     }
 
-    int32_t end_line = object->VpiLineNo();
-    int32_t end_column = object->VpiColumnNo() + text.length();
-    const UHDM::VectorOfio_decl *const io_decls = object->Io_decls();
+    int32_t end_line = object->getStartLine();
+    int32_t end_column = object->getStartColumn() + text.length();
+    const uhdm::IODeclCollection *const io_decls = object->getIODecls();
     if ((io_decls != nullptr) && !io_decls->empty()) {
       for (int32_t i = 0, ni = io_decls->size() - 1; i < ni; ++i) {
-        const UHDM::io_decl *const io_decl = io_decls->at(i);
-        if (const UHDM::any *const expr = io_decl->Expr()) {
-          insert(filepath, expr->VpiLineNo(), expr->VpiColumnNo() - 1, "=");
-          insert(filepath, expr->VpiEndLineNo(), expr->VpiEndColumnNo(), ",");
+        const uhdm::IODecl *const io_decl = io_decls->at(i);
+        if (const uhdm::Any *const expr = io_decl->getExpr()) {
+          insert(filepath, expr->getStartLine(), expr->getStartColumn() - 1,
+                 "=");
+          insert(filepath, expr->getEndLine(), expr->getEndColumn(), ",");
         } else {
-          insert(filepath, io_decl->VpiEndLineNo(), io_decl->VpiEndColumnNo(),
-                 ",");
+          insert(filepath, io_decl->getEndLine(), io_decl->getEndColumn(), ",");
         }
       }
 
-      const UHDM::io_decl *const io_declN = io_decls->back();
-      if (const UHDM::any *const exprN = io_declN->Expr()) {
-        insert(filepath, exprN->VpiLineNo(), exprN->VpiColumnNo() - 1, "=");
-        end_line = exprN->VpiEndLineNo();
-        end_column = exprN->VpiEndColumnNo();
+      const uhdm::IODecl *const io_declN = io_decls->back();
+      if (const uhdm::Any *const exprN = io_declN->getExpr()) {
+        insert(filepath, exprN->getStartLine(), exprN->getStartColumn() - 1,
+               "=");
+        end_line = exprN->getEndLine();
+        end_column = exprN->getEndColumn();
       } else {
-        end_line = io_declN->VpiEndLineNo();
-        end_column = io_declN->VpiEndColumnNo();
+        end_line = io_declN->getEndLine();
+        end_column = io_declN->getEndColumn();
       }
     }
 
     insert(filepath, end_line, end_column, ");");
   }
 
-  void enterFunction(const UHDM::function *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterFunction(const uhdm::Function *const object,
+                     uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword1 = "function";
     constexpr std::string_view keyword2 = "automatic";
     constexpr std::string_view keyword3 = "endfunction";
     constexpr std::string_view keyword4 = "void";
-    const std::filesystem::path &filepath = object->VpiFile();
+    constexpr std::string_view keyword5 = "virtual";
+    // constexpr std::string_view keyword6 = "pure";
+    constexpr std::string_view keyword7 = "extern";
+    const std::filesystem::path &filepath = object->getFile();
 
-    std::string text(keyword1);
-    if (object->VpiAutomatic()) {
+    bool isExtern = false;
+    std::string text;
+    if (object->getAccessType() == vpiExternAcc) {
+      text.append(keyword7).append(1, kOverwriteMarker);
+      isExtern = true;
+    }
+    if (object->getVirtual()) {
+      text.append(keyword5).append(1, kOverwriteMarker);
+    }
+    text.append(keyword1);
+    if (object->getAutomatic()) {
       text.append(1, kOverwriteMarker).append(keyword2);
     }
 
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
+    insert(filepath, object->getStartLine(), object->getStartColumn(), text);
 
-    int32_t end_column = object->VpiColumnNo() + text.length();
+    int32_t end_column = object->getStartColumn() + text.length();
 
     // NOTE(HS): For implicit return, the location data is never set
-    if (const UHDM::variables *const returnValue = object->Return()) {
-      if (returnValue->VpiEndColumnNo() > 0) {
-        end_column = returnValue->VpiEndColumnNo();
+    if (const uhdm::Variables *const returnValue = object->getReturn()) {
+      if (returnValue->getEndColumn() > 0) {
+        end_column = returnValue->getEndColumn();
       }
     } else {
-      insert(filepath, object->VpiLineNo(), end_column + 1, keyword4);
+      insert(filepath, object->getStartLine(), end_column + 1, keyword4);
       end_column += keyword4.length() + 1;
     }
 
-    const std::string name = formatName(object->VpiName());
-    insert(filepath, object->VpiLineNo(), end_column + 1, name);
+    const std::string name = formatName(object->getName());
+    insert(filepath, object->getStartLine(), end_column + 1, name);
     end_column += name.length() + 1;
 
-    insert(filepath, object->VpiLineNo(), end_column, "(");
+    insert(filepath, object->getStartLine(), end_column, "(");
 
-    const UHDM::VectorOfio_decl *const io_decls = object->Io_decls();
+    const uhdm::IODeclCollection *const io_decls = object->getIODecls();
     if ((io_decls != nullptr) && !io_decls->empty()) {
       for (int32_t i = 0, ni = io_decls->size() - 1; i < ni; ++i) {
-        UHDM::VectorOfio_decl::const_reference io_decl = io_decls->at(i);
-        if (const UHDM::any *const expr = io_decl->Expr()) {
-          insert(filepath, expr->VpiLineNo(), expr->VpiColumnNo() - 1, "=");
-          insert(filepath, expr->VpiEndLineNo(), expr->VpiEndColumnNo(), ",");
+        uhdm::IODeclCollection::const_reference ioDecl = io_decls->at(i);
+        if (const uhdm::Any *const expr = ioDecl->getExpr()) {
+          insert(filepath, expr->getStartLine(), expr->getStartColumn() - 1,
+                 "=");
+          insert(filepath, expr->getEndLine(), expr->getEndColumn(), ",");
         } else {
-          insert(filepath, io_decl->VpiEndLineNo(), io_decl->VpiEndColumnNo(),
-                 ",");
+          insert(filepath, ioDecl->getEndLine(), ioDecl->getEndColumn(), ",");
         }
       }
 
-      UHDM::VectorOfio_decl::const_reference io_declN = io_decls->back();
-      if (const UHDM::any *const exprN = io_declN->Expr()) {
-        insert(filepath, exprN->VpiLineNo(), exprN->VpiColumnNo() - 1, "=");
-        insert(filepath, exprN->VpiEndLineNo(), exprN->VpiEndColumnNo(), ");");
+      uhdm::IODeclCollection::const_reference io_declN = io_decls->back();
+      if (const uhdm::Any *const exprN = io_declN->getExpr()) {
+        insert(filepath, exprN->getStartLine(), exprN->getStartColumn() - 1,
+               "=");
+        insert(filepath, exprN->getEndLine(), exprN->getEndColumn(), ");");
       } else {
-        const UHDM::VectorOfrange *const ranges = io_declN->Ranges();
+        const uhdm::RangeCollection *const ranges = io_declN->getRanges();
         if ((ranges != nullptr) && !ranges->empty()) {
-          const UHDM::range *const rangeN = ranges->back();
-          insert(filepath, io_declN->VpiEndLineNo(), rangeN->VpiEndColumnNo(),
+          const uhdm::Range *const rangeN = ranges->back();
+          insert(filepath, io_declN->getEndLine(), rangeN->getEndColumn(),
                  ");");
         } else {
-          insert(filepath, io_declN->VpiEndLineNo(), io_declN->VpiEndColumnNo(),
+          insert(filepath, io_declN->getEndLine(), io_declN->getEndColumn(),
                  ");");
         }
       }
     } else {
-      insert(filepath, object->VpiLineNo(), end_column + 1, ");");
+      insert(filepath, object->getStartLine(), end_column + 1, ");");
     }
-
-    insert(filepath, object->VpiEndLineNo(), object->VpiColumnNo(), keyword3);
+    if (!isExtern) {
+      insert(filepath, object->getEndLine(), object->getStartColumn(),
+             keyword3);
+    }
   }
 
-  void enterModport(const UHDM::modport *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterModport(const uhdm::Modport *const object,
+                    uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword = "modport";
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
     std::string prefix(keyword);
     prefix.append(1, kOverwriteMarker);
 
     std::string text = prefix;
-    text.append(formatName(object->VpiName()));
+    text.append(formatName(object->getName()));
 
-    insert(filepath, object->VpiLineNo(),
-           object->VpiColumnNo() - prefix.length(), text);
+    insert(filepath, object->getStartLine(),
+           object->getStartColumn() - prefix.length(), text);
 
-    const UHDM::VectorOfio_decl *const io_decls = object->Io_decls();
+    const uhdm::IODeclCollection *const io_decls = object->getIODecls();
     if ((io_decls != nullptr) && !io_decls->empty()) {
-      insert(filepath, object->VpiEndLineNo(), object->VpiEndColumnNo(), "(");
+      insert(filepath, object->getEndLine(), object->getEndColumn(), "(");
 
       for (int32_t i = 0, ni = io_decls->size() - 1; i < ni; ++i) {
-        UHDM::VectorOfio_decl::const_reference io_decl = io_decls->at(i);
-        insert(filepath, io_decl->VpiEndLineNo(), io_decl->VpiEndColumnNo(),
-               ",");
+        uhdm::IODeclCollection::const_reference io_decl = io_decls->at(i);
+        insert(filepath, io_decl->getEndLine(), io_decl->getEndColumn(), ",");
       }
 
-      UHDM::VectorOfio_decl::const_reference io_declN = io_decls->back();
-      insert(filepath, io_declN->VpiEndLineNo(), io_declN->VpiEndColumnNo(),
-             ")");
+      uhdm::IODeclCollection::const_reference io_declN = io_decls->back();
+      insert(filepath, io_declN->getEndLine(), io_declN->getEndColumn(), ")");
     } else {
-      insert(filepath, object->VpiEndLineNo(), object->VpiEndColumnNo(), "()");
+      insert(filepath, object->getEndLine(), object->getEndColumn(), "()");
     }
   }
 
-  void enterInterface_tf_decl(
-      const UHDM::interface_tf_decl *const object) final {
+  void enterInterfaceTFDecl(const uhdm::InterfaceTFDecl *const object,
+                            uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterCont_assign(const UHDM::cont_assign *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterContAssign(const uhdm::ContAssign *const object,
+                       uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword = "assign";
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
     std::string text(keyword);
 
-    if (const UHDM::any *const lhs = object->Lhs()) {
-      text.resize(keyword.length() + 1 + lhs->VpiEndColumnNo() -
-                      object->VpiColumnNo() + 1,
+    if (const uhdm::Any *const lhs = object->getLhs()) {
+      text.resize(keyword.length() + 1 + lhs->getEndColumn() -
+                      object->getStartColumn() + 1,
                   kOverwriteMarker);
-      text[keyword.length() + 1 + lhs->VpiEndColumnNo() -
-           object->VpiColumnNo()] = '=';
+      text[keyword.length() + 1 + lhs->getEndColumn() -
+           object->getStartColumn()] = '=';
     }
-    insert(filepath, object->VpiLineNo(),
-           object->VpiColumnNo() - keyword.length() - 1, text);
+    const int32_t column = object->getStartColumn() - keyword.length() - 1;
+    if (column > 0) {
+      insert(filepath, object->getStartLine(),
+             object->getStartColumn() - keyword.length() - 1, text);
+    }
   }
 
-  void enterCont_assign_bit(const UHDM::cont_assign_bit *const object) final {
+  void enterContAssignBit(const uhdm::ContAssignBit *const object,
+                          uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterPort(const UHDM::port *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterPort(const uhdm::Port *const object, uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(),
-           formatName(object->VpiName()));
+    insert(filepath, object->getStartLine(), object->getStartColumn(),
+           formatName(object->getName()));
   }
 
-  void enterPort_bit(const UHDM::port_bit *const object) final {
+  void enterPortBit(const uhdm::PortBit *const object,
+                    uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterChecker_port(const UHDM::checker_port *const object) final {
+  void enterCheckerPort(const uhdm::CheckerPort *const object,
+                        uint32_t vpiRelation) final {
     // Test file not available. Need to try with tests\CheckerInst
   }
 
-  void enterChecker_inst_port(
-      const UHDM::checker_inst_port *const object) final {
+  void enterCheckerInstPort(const uhdm::CheckerInstPort *const object,
+                            uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterGate(const UHDM::gate *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterGate(const uhdm::Gate *const object, uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
     std::string text;
-    text.assign(formatName(object->VpiName()));
+    text.assign(formatName(object->getName()));
 
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
+    insert(filepath, object->getStartLine(), object->getStartColumn(), text);
 
-    uint32_t column = object->VpiColumnNo();
-    text.assign(formatName(object->VpiDefName()));
+    uint32_t column = object->getStartColumn();
+    text.assign(formatName(object->getDefName()));
 
-    if (const UHDM::expr *expr = object->Delay()) {
-      if (expr->UhdmType() == UHDM::uhdmoperation) {
-        const UHDM::VectorOfany *const operands =
-            static_cast<const UHDM::operation *>(expr)->Operands();
+    if (const uhdm::Expr *expr = object->getDelay()) {
+      if (expr->getUhdmType() == uhdm::UhdmType::Operation) {
+        const uhdm::AnyCollection *const operands =
+            static_cast<const uhdm::Operation *>(expr)->getOperands();
         if ((operands != nullptr) && !operands->empty()) {
-          UHDM::VectorOfany::const_reference operand0 = operands->front();
-          UHDM::VectorOfany::const_reference operandN = operands->back();
+          uhdm::AnyCollection::const_reference operand0 = operands->front();
+          uhdm::AnyCollection::const_reference operandN = operands->back();
 
-          insert(filepath, operand0->VpiLineNo(), operand0->VpiColumnNo() - 2,
-                 "#(");
-          insert(filepath, operandN->VpiEndLineNo(), operandN->VpiEndColumnNo(),
+          insert(filepath, operand0->getStartLine(),
+                 operand0->getStartColumn() - 2, "#(");
+          insert(filepath, operandN->getEndLine(), operandN->getEndColumn(),
                  ")");
         }
       }
-      column = expr->VpiColumnNo();
+      column = expr->getStartColumn();
     }
-    insert(filepath, object->VpiLineNo(), column - text.length() - 1, text);
+    insert(filepath, object->getStartLine(), column - text.length() - 1, text);
 
-    column = object->VpiEndColumnNo();
-    uint32_t endColumn = object->VpiEndColumnNo() + 1;
-    const UHDM::VectorOfprim_term *const prims = object->Prim_terms();
+    column = object->getEndColumn();
+    uint32_t endColumn = object->getEndColumn() + 1;
+    const uhdm::PrimTermCollection *const prims = object->getPrimTerms();
     if ((prims != nullptr) && !prims->empty()) {
       for (int32_t i = 0, ni = prims->size() - 1; i < ni; ++i) {
-        UHDM::VectorOfprim_term::const_reference prim = prims->at(i);
-        insert(filepath, prim->VpiEndLineNo(), prim->VpiEndColumnNo(), ",");
+        uhdm::PrimTermCollection::const_reference prim = prims->at(i);
+        insert(filepath, prim->getEndLine(), prim->getEndColumn(), ",");
       }
 
-      UHDM::VectorOfprim_term::const_reference prim0 = prims->front();
-      UHDM::VectorOfprim_term::const_reference primN = prims->back();
-      column = prim0->VpiColumnNo() - 1;
-      endColumn = primN->VpiEndColumnNo();
+      uhdm::PrimTermCollection::const_reference prim0 = prims->front();
+      uhdm::PrimTermCollection::const_reference primN = prims->back();
+      column = prim0->getStartColumn() - 1;
+      endColumn = primN->getEndColumn();
     }
 
-    insert(filepath, object->VpiLineNo(), column, "(");
-    insert(filepath, object->VpiEndLineNo(), endColumn, ");");
+    insert(filepath, object->getStartLine(), column, "(");
+    insert(filepath, object->getEndLine(), endColumn, ");");
   }
 
-  void enterSwitch_tran(const UHDM::switch_tran *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterSwitchTran(const uhdm::SwitchTran *const object,
+                       uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
     std::string text;
-    text.assign(formatName(object->VpiName())).append("(");
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
+    text.assign(formatName(object->getName())).append("(");
+    insert(filepath, object->getStartLine(), object->getStartColumn(), text);
 
-    text.assign(formatName(object->VpiDefName())).append(1, kOverwriteMarker);
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo() - text.length(),
-           text);
+    text.assign(formatName(object->getDefName())).append(1, kOverwriteMarker);
+    insert(filepath, object->getStartLine(),
+           object->getStartColumn() - text.length(), text);
 
-    uint32_t column = object->VpiEndColumnNo();
-    const UHDM::VectorOfprim_term *const prims = object->Prim_terms();
+    uint32_t column = object->getEndColumn();
+    const uhdm::PrimTermCollection *const prims = object->getPrimTerms();
     if ((prims != nullptr) && !prims->empty()) {
       for (int32_t i = 0, ni = prims->size() - 1; i < ni; ++i) {
-        UHDM::VectorOfprim_term::const_reference prim = prims->at(i);
-        insert(filepath, prim->VpiEndLineNo(), prim->VpiEndColumnNo(), ",");
+        uhdm::PrimTermCollection::const_reference prim = prims->at(i);
+        insert(filepath, prim->getEndLine(), prim->getEndColumn(), ",");
       }
 
-      UHDM::VectorOfprim_term::const_reference primN = prims->back();
-      column = primN->VpiEndColumnNo();
+      uhdm::PrimTermCollection::const_reference primN = prims->back();
+      column = primN->getEndColumn();
     }
-    insert(filepath, object->VpiEndLineNo(), column, ");");
+    insert(filepath, object->getEndLine(), column, ");");
   }
 
-  void enterUdp(const UHDM::udp *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterUdp(const uhdm::Udp *const object, uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword1 = "primitive";
     constexpr std::string_view keyword2 = "endprimitive";
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
     std::string text;
     text.append(keyword1)
         .append(1, kOverwriteMarker)
-        .append(formatName(object->VpiDefName()));
+        .append(formatName(object->getDefName()));
 
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
-    insert(filepath, object->VpiEndLineNo(),
-           object->VpiEndColumnNo() - keyword2.length(), keyword2);
+    insert(filepath, object->getStartLine(), object->getStartColumn(), text);
+    insert(filepath, object->getEndLine(),
+           object->getEndColumn() - keyword2.length(), keyword2);
   }
 
-  void enterMod_path(const UHDM::mod_path *const object) final {
+  void enterModPath(const uhdm::ModPath *const object,
+                    uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterTchk(const UHDM::tchk *const object) final {
+  void enterTchk(const uhdm::Tchk *const object, uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterRange(const UHDM::range *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterRange(const uhdm::Range *const object, uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword = "unsized";
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    uint32_t column = object->VpiColumnNo();
-    uint32_t endColumn = object->VpiEndColumnNo();
+    uint32_t column = object->getStartColumn();
+    uint32_t endColumn = object->getEndColumn();
 
-    const UHDM::expr *const rexpr = object->Right_expr();
-    if (rexpr->UhdmType() == UHDM::uhdmoperation) {  // single-range
-      const UHDM::VectorOfany *const operands =
-          static_cast<const UHDM::operation *>(rexpr)->Operands();
+    const uhdm::Expr *const rexpr = object->getRightExpr();
+    if (rexpr->getUhdmType() == uhdm::UhdmType::Operation) {  // single-range
+      const uhdm::AnyCollection *const operands =
+          static_cast<const uhdm::Operation *>(rexpr)->getOperands();
       if ((operands != nullptr) &&
-          (operands->at(0)->UhdmType() == UHDM::uhdmconstant)) {
+          (operands->at(0)->getUhdmType() == uhdm::UhdmType::Constant)) {
         std::string_view loperand =
-            static_cast<const UHDM::constant *>(operands->at(0))
-                ->VpiDecompile();
-        insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), loperand);
-        visited.insert(rexpr);
-        visited.insert(object->Left_expr());
+            static_cast<const uhdm::Constant *>(operands->at(0))
+                ->getDecompile();
+        insert(filepath, object->getStartLine(), object->getStartColumn(),
+               loperand);
+        m_visited.insert(rexpr);
+        m_visited.insert(object->getLeftExpr());
 
         column -= 1;  // It's a single range so set the start "[" to column - 1.
         endColumn += 1;
       }
-    } else if (rexpr->VpiDecompile() == keyword) {  // unsized-range
-      visited.insert(rexpr);
-      visited.insert(object->Left_expr());
+    } else if (rexpr->getDecompile() == keyword) {  // unsized-range
+      m_visited.insert(rexpr);
+      m_visited.insert(object->getLeftExpr());
     } else {  // double-range
-      insert(filepath, rexpr->VpiLineNo(), rexpr->VpiColumnNo() - 1, ":");
+      if (rexpr->getStartColumn() > 0) {
+        insert(filepath, rexpr->getStartLine(), rexpr->getStartColumn() - 1,
+               ":");
+      }
     }
-    insert(filepath, object->VpiLineNo(), column, "[");
-    insert(filepath, object->VpiEndLineNo(), endColumn - 1, "]");
+    insert(filepath, object->getStartLine(), column, "[");
+    insert(filepath, object->getEndLine(), endColumn - 1, "]");
   }
 
-  void enterUdp_defn(const UHDM::udp_defn *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterUdpDefn(const uhdm::UdpDefn *const object,
+                    uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword1 = "primitive";
     constexpr std::string_view keyword2 = "endprimitive";
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
     std::string text;
     text.append(keyword1)
         .append(1, kOverwriteMarker)
-        .append(formatName(object->VpiDefName()))
+        .append(formatName(object->getDefName()))
         .append("(");
 
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
-    insert(filepath, object->VpiEndLineNo(),
-           object->VpiEndColumnNo() - keyword2.length(), keyword2);
+    insert(filepath, object->getStartLine(), object->getStartColumn(), text);
+    insert(filepath, object->getEndLine(),
+           object->getEndColumn() - keyword2.length(), keyword2);
 
-    const UHDM::VectorOfio_decl *const io_decls = object->Io_decls();
+    const uhdm::IODeclCollection *const io_decls = object->getIODecls();
     if ((io_decls != nullptr) && !io_decls->empty()) {
       for (int32_t i = 0, ni = io_decls->size() - 1; i < ni; ++i) {
-        UHDM::VectorOfio_decl::const_reference io_decl = io_decls->at(i);
-        insert(filepath, io_decl->VpiEndLineNo(), io_decl->VpiEndColumnNo(),
-               ",");
+        uhdm::IODeclCollection::const_reference io_decl = io_decls->at(i);
+        insert(filepath, io_decl->getEndLine(), io_decl->getEndColumn(), ",");
       }
-      UHDM::VectorOfio_decl::const_reference io_declN = io_decls->back();
-      insert(filepath, io_declN->VpiEndLineNo(), io_declN->VpiEndColumnNo(),
-             ")");
+      uhdm::IODeclCollection::const_reference io_declN = io_decls->back();
+      insert(filepath, io_declN->getEndLine(), io_declN->getEndColumn(), ")");
     } else {
-      insert(filepath, object->VpiEndLineNo(), object->VpiEndColumnNo() + 1,
-             ")");
+      insert(filepath, object->getEndLine(), object->getEndColumn() + 1, ")");
     }
   }
 
-  void enterTable_entry(const UHDM::table_entry *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterTableEntry(const uhdm::TableEntry *const object,
+                       uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    const std::string text = formatValue(object->VpiValue(), false);
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
+    const std::string text = formatValue(object->getValue(), false);
+    insert(filepath, object->getStartLine(), object->getStartColumn(), text);
   }
 
-  void enterIo_decl(const UHDM::io_decl *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterIODecl(const uhdm::IODecl *const object,
+                   uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    if (const UHDM::ref_typespec *const rt = object->Typespec()) {
-      if (const UHDM::typespec *const typespec = rt->Actual_typespec()) {
+    if (const uhdm::RefTypespec *const rt = object->getTypespec()) {
+      if (const uhdm::Typespec *const typespec = rt->getActual()) {
         const std::string name = getTypespecName(typespec);
-        switch (typespec->UhdmType()) {
-          case UHDM::uhdmclass_typespec:
-          case UHDM::uhdmenum_typespec:
-          case UHDM::uhdmstruct_typespec: {
-            insert(filepath, object->VpiLineNo(),
-                   object->VpiColumnNo() - name.length() - 1, name);
+        switch (typespec->getUhdmType()) {
+          case uhdm::UhdmType::ClassTypespec:
+          case uhdm::UhdmType::EnumTypespec:
+          case uhdm::UhdmType::StructTypespec: {
+            insert(filepath, object->getStartLine(), object->getStartColumn(),
+                   name);
           } break;
 
           default: {
-            insert(filepath, typespec->VpiLineNo(), typespec->VpiColumnNo(),
-                   name);
+            insert(filepath, typespec->getStartLine(),
+                   typespec->getStartColumn(), name);
           } break;
         }
       }
     }
 
-    std::string prefix;
-    if (object->VpiDirection() != vpiInput) {
-      direction_names_t::const_iterator it =
-          kDirectionNames.find(object->VpiDirection());
-      if (it != kDirectionNames.end()) {
-        prefix.append(it->second).append(1, kOverwriteMarker);
-      }
-    }
-
-    std::string text = prefix;
-    text.append(formatName(object->VpiName()));
-
-    insert(filepath, object->VpiLineNo(),
-           object->VpiColumnNo() - prefix.length(), text);
+    std::string text = formatName(object->getName());
+    insert(filepath, object->getStartLine(), object->getEndColumn(), text);
   }
 
-  void enterAlias_stmt(const UHDM::alias_stmt *const object) final {
+  void enterAlias(const uhdm::Alias *const object, uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterClocking_block(const UHDM::clocking_block *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterClockingBlock(const uhdm::ClockingBlock *const object,
+                          uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const UHDM::any *const parent = object->VpiParent();
-    if ((parent == nullptr) || (parent->UhdmType() != UHDM::uhdmmodule_inst))
+    const uhdm::Any *const parent = object->getParent();
+    if ((parent == nullptr) ||
+        (parent->getUhdmType() != uhdm::UhdmType::Module))
       return;
 
     constexpr std::string_view keyword1 = "unnamed_clocking_block";
@@ -2334,15 +2437,14 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     constexpr std::string_view keyword6 = "input";
     constexpr std::string_view keyword7 = "output";
 
-    const std::filesystem::path &filepath = object->VpiFile();
-    const std::string name = formatName(object->VpiName());
+    const std::filesystem::path &filepath = object->getFile();
+    const std::string name = formatName(object->getName());
 
-    const UHDM::module_inst *const mdl =
-        static_cast<const UHDM::module_inst *>(parent);
+    const uhdm::Module *const mdl = static_cast<const uhdm::Module *>(parent);
     std::string text;
-    if (mdl->Global_clocking() == object) {
+    if (mdl->getGlobalClocking() == object) {
       text.append(keyword3).append(1, kOverwriteMarker);
-    } else if (mdl->Default_clocking() == object) {
+    } else if (mdl->getDefaultClocking() == object) {
       text.append(keyword2).append(1, kOverwriteMarker);
     }
     text.append(keyword4);
@@ -2351,398 +2453,419 @@ class RoundTripTracer final : public UHDM::UhdmListener {
       text.append(1, kOverwriteMarker).append(name);
     }
 
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
-    insert(filepath, object->VpiEndLineNo(),
-           object->VpiEndColumnNo() - keyword5.length(), keyword5);
+    insert(filepath, object->getStartLine(), object->getStartColumn(), text);
+    insert(filepath, object->getEndLine(),
+           object->getEndColumn() - keyword5.length(), keyword5);
 
-    const UHDM::delay_control *const inputSkew = object->Input_skew();
-    const UHDM::delay_control *const outputSkew = object->Output_skew();
+    const uhdm::DelayControl *const inputSkew = object->getInputSkew();
+    const uhdm::DelayControl *const outputSkew = object->getOutputSkew();
     if (inputSkew != nullptr) {
-      insert(filepath, inputSkew->VpiLineNo(),
-             inputSkew->VpiColumnNo() - keyword2.length() - 1 -
+      insert(filepath, inputSkew->getStartLine(),
+             inputSkew->getStartColumn() - keyword2.length() - 1 -
                  keyword6.length() - 1,
              keyword2);
-      insert(filepath, inputSkew->VpiLineNo(),
-             inputSkew->VpiColumnNo() - keyword6.length() - 1, keyword6);
+      insert(filepath, inputSkew->getStartLine(),
+             inputSkew->getStartColumn() - keyword6.length() - 1, keyword6);
 
       edge_names_t::const_iterator it =
-          kEdgeNames.find(object->VpiOutputEdge());
+          kEdgeNames.find(object->getOutputEdge());
       if (it != kEdgeNames.end()) {
         text.assign(keyword7).append(1, kOverwriteMarker).append(it->second);
-        insert(filepath, inputSkew->VpiEndLineNo(),
-               inputSkew->VpiEndColumnNo() + 1, text);
+        insert(filepath, inputSkew->getEndLine(), inputSkew->getEndColumn() + 1,
+               text);
       }
     }
 
     if (outputSkew != nullptr) {
       if ((inputSkew == nullptr) ||
-          (inputSkew->VpiLineNo() != outputSkew->VpiLineNo())) {
-        insert(filepath, outputSkew->VpiLineNo(),
-               outputSkew->VpiColumnNo() - keyword2.length() - 1 -
+          (inputSkew->getStartLine() != outputSkew->getStartLine())) {
+        insert(filepath, outputSkew->getStartLine(),
+               outputSkew->getStartColumn() - keyword2.length() - 1 -
                    keyword6.length() - 1,
                keyword2);
       }
 
-      insert(filepath, outputSkew->VpiLineNo(),
-             outputSkew->VpiColumnNo() - keyword7.length() - 1, keyword7);
+      insert(filepath, outputSkew->getStartLine(),
+             outputSkew->getStartColumn() - keyword7.length() - 1, keyword7);
     }
   }
 
-  void enterClocking_io_decl(const UHDM::clocking_io_decl *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterClockingIODecl(const uhdm::ClockingIODecl *const object,
+                           uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(),
-           formatName(object->VpiName()));
+    insert(filepath, object->getStartLine(), object->getStartColumn(),
+           formatName(object->getName()));
 
     std::string text;
     direction_names_t::const_iterator it1 =
-        kDirectionNames.find(object->VpiDirection());
+        kDirectionNames.find(object->getDirection());
     if (it1 != kDirectionNames.end()) {
       text.append(it1->second).append(1, kOverwriteMarker);
     }
-    if ((object->VpiDirection() == vpiInput) &&
-        (object->VpiInputEdge() != vpiNoEdge)) {
+    if ((object->getDirection() == vpiInput) &&
+        (object->getInputEdge() != vpiNoEdge)) {
       edge_names_t::const_iterator it2 =
-          kEdgeNames.find(object->VpiInputEdge());
+          kEdgeNames.find(object->getInputEdge());
       if (it2 != kEdgeNames.end()) {
         text.append(it2->second).append(1, kOverwriteMarker);
       }
-    } else if ((object->VpiDirection() == vpiOutput) &&
-               (object->VpiOutputEdge() != vpiNoEdge)) {
+    } else if ((object->getDirection() == vpiOutput) &&
+               (object->getOutputEdge() != vpiNoEdge)) {
       edge_names_t::const_iterator it2 =
-          kEdgeNames.find(object->VpiOutputEdge());
+          kEdgeNames.find(object->getOutputEdge());
       if (it2 != kEdgeNames.end()) {
         text.append(it2->second).append(1, kOverwriteMarker);
       }
     }
 
-    const UHDM::delay_control *const inputSkew = object->Input_skew();
-    const UHDM::delay_control *const outputSkew = object->Output_skew();
+    const uhdm::DelayControl *const inputSkew = object->getInputSkew();
+    const uhdm::DelayControl *const outputSkew = object->getOutputSkew();
     if (inputSkew != nullptr) {
-      insert(filepath, inputSkew->VpiLineNo(),
-             inputSkew->VpiColumnNo() - text.length(), text);
+      insert(filepath, inputSkew->getStartLine(),
+             inputSkew->getStartColumn() - text.length(), text);
     } else if (outputSkew != nullptr) {
-      insert(filepath, outputSkew->VpiLineNo(),
-             outputSkew->VpiColumnNo() - text.length(), text);
+      insert(filepath, outputSkew->getStartLine(),
+             outputSkew->getStartColumn() - text.length(), text);
     } else {
-      insert(filepath, object->VpiLineNo(),
-             object->VpiColumnNo() - text.length(), text);
+      insert(filepath, object->getStartLine(),
+             object->getStartColumn() - text.length(), text);
     }
 
-    const UHDM::any *const expr = object->Expr();
+    const uhdm::Any *const expr = object->getExpr();
     if (expr != nullptr) {
-      insert(filepath, expr->VpiLineNo(), expr->VpiColumnNo() - 1, "=");
+      insert(filepath, expr->getStartLine(), expr->getStartColumn() - 1, "=");
     }
   }
 
-  void enterParam_assign(const UHDM::param_assign *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterParamAssign(const uhdm::ParamAssign *const object,
+                        uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    const UHDM::any *const lhs = object->Lhs();
-    const UHDM::any *const rhs = object->Rhs();
+    const uhdm::Any *const lhs = object->getLhs();
+    const uhdm::Any *const rhs = object->getRhs();
     if ((lhs != nullptr) && (rhs != nullptr)) {
-      insert(filepath, rhs->VpiLineNo(), rhs->VpiColumnNo() - 1, "=");
+      insert(filepath, rhs->getStartLine(), rhs->getStartColumn() - 1, "=");
     }
   }
 
-  void enterInterface_array(const UHDM::interface_array *const object) final {
+  void enterInterfaceArray(const uhdm::InterfaceArray *const object,
+                           uint32_t vpiRelation) final {
     //@todo: Ideally it should have information related to type of interface.
-    // Ex. MyInterface.MyModPort my_port2. It only has "my_port2" info not
-    // MyInterface.MyModPort File: test\ModPortRange\dut.sv
-    if (visited.find(object) != visited.end()) return;
+    // Ex. MyInterface.MyModport my_port2. It only has "my_port2" info not
+    // MyInterface.MyModport File: test\ModportRange\dut.sv
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(),
-           formatName(object->VpiName()));
+    insert(filepath, object->getStartLine(), object->getStartColumn(),
+           formatName(object->getName()));
   }
 
-  void enterProgram_array(const UHDM::program_array *const object) final {
+  void enterProgramArray(const uhdm::ProgramArray *const object,
+                         uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterModule_array(const UHDM::module_array *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterModuleArray(const uhdm::ModuleArray *const object,
+                        uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(),
-           formatName(object->VpiName()));
+    insert(filepath, object->getStartLine(), object->getStartColumn(),
+           formatName(object->getName()));
 
-    const UHDM::VectorOfrange *const ranges = object->Ranges();
+    const uhdm::RangeCollection *const ranges = object->getRanges();
     if ((ranges != nullptr) && !ranges->empty()) {
-      const UHDM::range *const rangeN = ranges->back();
-      insert(filepath, rangeN->VpiLineNo(), rangeN->VpiEndColumnNo(), "();");
+      const uhdm::Range *const rangeN = ranges->back();
+      insert(filepath, rangeN->getStartLine(), rangeN->getEndColumn(), "();");
     }
   }
 
-  void enterModule_typespec(const UHDM::module_typespec *const object) final {
+  void enterModuleTypespec(const uhdm::ModuleTypespec *const object,
+                           uint32_t vpiRelation) final {
     enterTypespec(object);
   }
 
-  void enterSwitch_array(const UHDM::switch_array *const object) final {
+  void enterSwitchArray(const uhdm::SwitchArray *const object,
+                        uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterUdp_array(const UHDM::udp_array *const object) final {
+  void enterUdpArray(const uhdm::UdpArray *const object,
+                     uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterPrim_term(const UHDM::prim_term *const object) final {
+  void enterPrimTerm(const uhdm::PrimTerm *const object,
+                     uint32_t vpiRelation) final {
     // third_party\tests\SimpleParserTest\jkff_udp.v
     // No data available. Also taken care by entergate() and enterRef_obj().
   }
 
-  void enterPath_term(const UHDM::path_term *const object) final {
+  void enterPathTerm(const uhdm::PathTerm *const object,
+                     uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterTchk_term(const UHDM::tchk_term *const object) final {
+  void enterTchkTerm(const uhdm::TchkTerm *const object,
+                     uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterNet_bit(const UHDM::net_bit *const object) final {
+  void enterNetBit(const uhdm::NetBit *const object,
+                   uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterStruct_net(const UHDM::struct_net *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterStructNet(const uhdm::StructNet *const object,
+                      uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
     std::string prefix;
 
     net_type_names_t::const_iterator it =
-        kNetTypeNames.find(object->VpiNetType());
+        kNetTypeNames.find(object->getNetType());
     if (it != kNetTypeNames.end()) {
       prefix.append(it->second).append(1, kOverwriteMarker);
     }
 
-    if (const UHDM::ref_typespec *const rt = object->Typespec()) {
-      if (const UHDM::typespec *const typespec = rt->Actual_typespec()) {
+    if (const uhdm::RefTypespec *const rt = object->getTypespec()) {
+      if (const uhdm::Typespec *const typespec = rt->getActual()) {
         prefix.append(getTypespecName(typespec)).append(1, kOverwriteMarker);
       }
     }
 
     std::string text = prefix;
-    text.append(formatName(object->VpiName()));
+    text.append(formatName(object->getName()));
 
-    insert(filepath, object->VpiLineNo(),
-           object->VpiColumnNo() - prefix.length(), text);
+    insert(filepath, object->getStartLine(),
+           object->getStartColumn() - prefix.length(), text);
   }
 
-  void enterEnum_net(const UHDM::enum_net *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterEnumNet(const uhdm::EnumNet *const object,
+                    uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
     std::string prefix;
 
     net_type_names_t::const_iterator it =
-        kNetTypeNames.find(object->VpiNetType());
+        kNetTypeNames.find(object->getNetType());
     if (it != kNetTypeNames.end()) {
       prefix.append(it->second).append(1, kOverwriteMarker);
     }
 
-    if (const UHDM::ref_typespec *const rt = object->Typespec()) {
-      if (const UHDM::typespec *const typespec = rt->Actual_typespec()) {
+    if (const uhdm::RefTypespec *const rt = object->getTypespec()) {
+      if (const uhdm::Typespec *const typespec = rt->getActual()) {
         prefix.append(getTypespecName(typespec)).append(1, kOverwriteMarker);
       }
     }
 
     std::string text = prefix;
-    text.append(formatName(object->VpiName()));
+    text.append(formatName(object->getName()));
 
-    insert(filepath, object->VpiLineNo(),
-           object->VpiColumnNo() - prefix.length(), text);
+    insert(filepath, object->getStartLine(),
+           object->getStartColumn() - prefix.length(), text);
   }
 
-  void enterInteger_net(const UHDM::integer_net *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterIntegerNet(const uhdm::IntegerNet *const object,
+                       uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
     std::string prefix;
 
     net_type_names_t::const_iterator it =
-        kNetTypeNames.find(object->VpiNetType());
+        kNetTypeNames.find(object->getNetType());
     if (it != kNetTypeNames.end()) {
       prefix.append(it->second).append(1, kOverwriteMarker);
     }
 
-    if (const UHDM::ref_typespec *const rt = object->Typespec()) {
-      if (const UHDM::typespec *const typespec = rt->Actual_typespec()) {
+    if (const uhdm::RefTypespec *const rt = object->getTypespec()) {
+      if (const uhdm::Typespec *const typespec = rt->getActual()) {
         prefix.append(getTypespecName(typespec)).append(1, kOverwriteMarker);
       }
     }
 
     std::string text = prefix;
-    text.append(formatName(object->VpiName()));
+    text.append(formatName(object->getName()));
 
-    insert(filepath, object->VpiLineNo(),
-           object->VpiColumnNo() - prefix.length(), text);
+    insert(filepath, object->getStartLine(),
+           object->getStartColumn() - prefix.length(), text);
   }
 
-  void enterTime_net(const UHDM::time_net *const object) final {
+  void enterTimeNet(const uhdm::TimeNet *const object,
+                    uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterLogic_net(const UHDM::logic_net *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterLogicNet(const uhdm::LogicNet *const object,
+                     uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(),
-           formatName(object->VpiName()));
+    insert(filepath, object->getStartLine(), object->getStartColumn(),
+           formatName(object->getName()));
 
-    const UHDM::VectorOfrange *const ranges = object->Ranges();
+    const uhdm::RangeCollection *const ranges = object->getRanges();
     if ((ranges != nullptr) && !ranges->empty()) {
       net_type_names_t::const_iterator it =
-          kNetTypeNames.find(object->VpiNetType());
+          kNetTypeNames.find(object->getNetType());
       if (it != kNetTypeNames.end()) {
-        const UHDM::range *const range0 = ranges->at(0);
-        insert(filepath, range0->VpiLineNo(),
-               range0->VpiColumnNo() - it->second.length() - 2, it->second);
+        const uhdm::Range *const range0 = ranges->at(0);
+        insert(filepath, range0->getStartLine(),
+               range0->getStartColumn() - it->second.length() - 2, it->second);
       }
     }
   }
 
-  void enterArray_net(const UHDM::array_net *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterArrayNet(const uhdm::ArrayNet *const object,
+                     uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(),
-           formatName(object->VpiName()));
+    insert(filepath, object->getStartLine(), object->getStartColumn(),
+           formatName(object->getName()));
   }
 
-  void enterPacked_array_net(const UHDM::packed_array_net *const object) final {
-  }
+  void enterPackedArrayNet(const uhdm::PackedArrayNet *const object,
+                           uint32_t vpiRelation) final {}
 
-  void enterEvent_typespec(const UHDM::event_typespec *const object) final {
+  void enterEventTypespec(const uhdm::EventTypespec *const object,
+                          uint32_t vpiRelation) final {
     enterTypespec(object);
   }
 
-  void enterNamed_event(const UHDM::named_event *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterNamedEvent(const uhdm::NamedEvent *const object,
+                       uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword = "event";
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
     std::string text;
     text.append(keyword)
         .append(1, kOverwriteMarker)
-        .append(formatName(object->VpiName()))
+        .append(formatName(object->getName()))
         .append(";");
-    insert(filepath, object->VpiLineNo(),
-           object->VpiColumnNo() - keyword.length() - 1, text);
+    insert(filepath, object->getStartLine(),
+           object->getStartColumn() - keyword.length() - 1, text);
   }
 
-  void enterNamed_event_array(
-      const UHDM::named_event_array *const object) final {
+  void enterNamedEventArray(const uhdm::NamedEventArray *const object,
+                            uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterParameter(const UHDM::parameter *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterParameter(const uhdm::Parameter *const object,
+                      uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    constexpr std::string_view keyword1 = "localparam";
-    constexpr std::string_view keyword2 = "parameter";
+    // constexpr std::string_view keyword1 = "localparam";
+    // constexpr std::string_view keyword2 = "parameter";
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    int32_t line = object->VpiLineNo();
-    int32_t column = object->VpiColumnNo();
-    if (const UHDM::ref_typespec *const rt = object->Typespec()) {
-      if (const UHDM::typespec *const typespec = rt->Actual_typespec()) {
-        if ((typespec->UhdmType() == UHDM::uhdmenum_typespec) ||
-            (typespec->UhdmType() == UHDM::uhdmstruct_typespec)) {
+    int32_t line = object->getStartLine();
+    int32_t column = object->getStartColumn();
+    if (const uhdm::RefTypespec *const rt = object->getTypespec()) {
+      if (const uhdm::Typespec *const typespec = rt->getActual()) {
+        if ((typespec->getUhdmType() == uhdm::UhdmType::EnumTypespec) ||
+            (typespec->getUhdmType() == uhdm::UhdmType::StructTypespec)) {
           const std::string name = getTypespecName(typespec);
-          column = object->VpiColumnNo() - name.length() - 1;
+          column = object->getStartColumn() - name.length() - 1;
           insert(filepath, line, column, name);
-        } else if (typespec->VpiColumnNo() != 0) {
+        } else if (typespec->getStartColumn() != 0) {
           // TODO(HS): This check needs to go!
-          column = typespec->VpiColumnNo();
+          column = typespec->getStartColumn();
         }
       }
     }
 
-    if (object->VpiLocalParam()) {
-      insert(filepath, line, column - keyword1.length() - 1, keyword1);
-    } else {
-      insert(filepath, line, column - keyword2.length() - 1, keyword2);
-    }
-
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(),
-           formatName(object->VpiName()));
+    insert(filepath, object->getStartLine(), object->getStartColumn(),
+           formatName(object->getName()));
   }
 
-  void enterDef_param(const UHDM::def_param *const object) final {
+  void enterDefParam(const uhdm::DefParam *const object,
+                     uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterSpec_param(const UHDM::spec_param *const object) final {
+  void enterSpecParam(const uhdm::SpecParam *const object,
+                      uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterClass_typespec(const UHDM::class_typespec *const object) final {
+  void enterClassTypespec(const uhdm::ClassTypespec *const object,
+                          uint32_t vpiRelation) final {
     enterTypespec(object);
   }
 
-  void enterExtends(const UHDM::extends *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterExtends(const uhdm::Extends *const object,
+                    uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword1 = "extends";
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    insert(filepath, object->VpiLineNo(),
-           object->VpiColumnNo() - keyword1.length() - 1, keyword1);
+    insert(filepath, object->getStartLine(), object->getStartColumn(),
+           keyword1);
 
-    if (const UHDM::ref_typespec *const rt = object->Class_typespec()) {
-      if (const UHDM::class_typespec *const typespec =
-              rt->Actual_typespec<UHDM::class_typespec>()) {
-        enterTypespec(typespec);
-      }
+    if (const uhdm::RefTypespec *const rt = object->getClassTypespec()) {
+      insert(filepath, rt->getStartLine(), rt->getStartColumn(),
+             formatName(rt->getName()));
     }
   }
 
-  void enterClass_defn(const UHDM::class_defn *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterClassDefn(const uhdm::ClassDefn *const object,
+                      uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword1 = "class";
     constexpr std::string_view keyword2 = "endclass";
 
-    const std::filesystem::path &filepath = object->VpiFile();
-    const std::string name = formatName(object->VpiName());
+    const std::filesystem::path &filepath = object->getFile();
+    const std::string name = formatName(object->getName());
 
     std::string text;
     text.append(keyword1)
         .append(1, kOverwriteMarker)
-        .append(formatName(object->VpiName()));
+        .append(formatName(object->getName()));
 
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
-    insert(filepath, object->VpiEndLineNo(),
-           object->VpiEndColumnNo() - keyword2.length(), keyword2);
+    insert(filepath, object->getStartLine(), object->getStartColumn(), text);
+    insert(filepath, object->getEndLine(),
+           object->getEndColumn() - keyword2.length(), keyword2);
 
-    if (const UHDM::extends *const extends = object->Extends()) {
-      enterExtends(extends);
+    if (const uhdm::Extends *const extends = object->getExtends()) {
+      enterExtends(extends, vpiExtends);
     }
   }
 
-  void enterClass_obj(const UHDM::class_obj *const object) final {
+  void enterClassObj(const uhdm::ClassObj *const object,
+                     uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterClass_var(const UHDM::class_var *const object) final {
+  void enterClassVar(const uhdm::ClassVar *const object,
+                     uint32_t vpiRelation) final {
     enterVariables_(object);
   }
 
-  void enterInterface_inst(const UHDM::interface_inst *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterInterface(const uhdm::Interface *const object,
+                      uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
     if (isInterfaceDefinition(object)) {
       constexpr std::string_view keyword1 = "interface";
@@ -2751,68 +2874,70 @@ class RoundTripTracer final : public UHDM::UhdmListener {
       std::string text;
       text.append(keyword1)
           .append(1, kOverwriteMarker)
-          .append(formatName(object->VpiDefName()));
+          .append(formatName(object->getDefName()));
 
-      insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
-      insert(filepath, object->VpiEndLineNo(),
-             object->VpiEndColumnNo() - keyword2.length(), keyword2);
+      insert(filepath, object->getStartLine(), object->getStartColumn(), text);
+      insert(filepath, object->getEndLine(),
+             object->getEndColumn() - keyword2.length(), keyword2);
     } else {
-      insert(filepath, object->VpiLineNo(), object->VpiColumnNo(),
-             formatName(object->VpiName()));
+      insert(filepath, object->getStartLine(), object->getStartColumn(),
+             formatName(object->getName()));
     }
   }
 
-  void enterProgram(const UHDM::program *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterProgram(const uhdm::Program *const object,
+                    uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword1 = "program";
     constexpr std::string_view keyword2 = "endprogram";
 
-    const std::filesystem::path &filepath = object->VpiFile();
-    const std::string name = formatName(object->VpiName());
+    const std::filesystem::path &filepath = object->getFile();
+    const std::string name = formatName(object->getName());
 
     std::string text;
     if (name.empty()) {
       text.append(keyword1)
           .append(1, kOverwriteMarker)
-          .append(formatName(object->VpiDefName()));
+          .append(formatName(object->getDefName()));
 
-      insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
-      insert(filepath, object->VpiEndLineNo(),
-             object->VpiEndColumnNo() - keyword2.length(), keyword2);
+      insert(filepath, object->getStartLine(), object->getStartColumn(), text);
+      insert(filepath, object->getEndLine(),
+             object->getEndColumn() - keyword2.length(), keyword2);
     } else {
-      text.append(formatName(object->VpiDefName()))
+      text.append(formatName(object->getDefName()))
           .append(" #() ")
           .append(name)
           .append("(");
 
-      insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
-      insert(filepath, object->VpiEndLineNo(), object->VpiEndColumnNo() - 1,
-             ")");
+      insert(filepath, object->getStartLine(), object->getStartColumn(), text);
+      insert(filepath, object->getEndLine(), object->getEndColumn() - 1, ")");
     }
   }
 
-  void enterPackage(const UHDM::package *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterPackage(const uhdm::Package *const object,
+                    uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword1 = "package";
     constexpr std::string_view keyword2 = "endpackage";
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
     std::string text;
     text.append(keyword1)
         .append(1, kOverwriteMarker)
-        .append(formatName(object->VpiName()));
+        .append(formatName(object->getName()));
 
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
-    insert(filepath, object->VpiEndLineNo(),
-           object->VpiEndColumnNo() - keyword2.length(), keyword2);
+    insert(filepath, object->getStartLine(), object->getStartColumn(), text);
+    insert(filepath, object->getEndLine(),
+           object->getEndColumn() - keyword2.length(), keyword2);
   }
 
-  void enterModule_inst(const UHDM::module_inst *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterModule(const uhdm::Module *const object,
+                   uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
     uint32_t end_column = 0;
     if (isModuleDefinition(object)) {
@@ -2822,44 +2947,44 @@ class RoundTripTracer final : public UHDM::UhdmListener {
       std::string text;
       text.append(keyword1)
           .append(1, kOverwriteMarker)
-          .append(formatName(object->VpiDefName()));
+          .append(formatName(object->getDefName()));
 
-      insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
-      insert(filepath, object->VpiEndLineNo(),
-             object->VpiEndColumnNo() - keyword2.length(), keyword2);
-      end_column = object->VpiColumnNo() + text.length();
+      insert(filepath, object->getStartLine(), object->getStartColumn(), text);
+      insert(filepath, object->getEndLine(),
+             object->getEndColumn() - keyword2.length(), keyword2);
+      end_column = object->getStartColumn() + text.length();
 
-      insert(filepath, object->VpiLineNo(), end_column, "(");
+      insert(filepath, object->getStartLine(), end_column, "(");
 
-      uint32_t end_line = object->VpiLineNo();
-      const UHDM::VectorOfport *const ports = object->Ports();
+      uint32_t end_line = object->getStartLine();
+      const uhdm::PortCollection *const ports = object->getPorts();
       if ((ports != nullptr) && !ports->empty()) {
         for (int32_t i = 0, ni = ports->size(); i < ni; ++i) {
-          const UHDM::port *const port = ports->at(i);
+          const uhdm::Port *const port = ports->at(i);
 
-          const UHDM::VectorOfrange *ranges = nullptr;
-          if (const UHDM::ref_typespec *const rt = port->Typespec()) {
-            if (const UHDM::typespec *const typespec = rt->Actual_typespec()) {
-              if (typespec->UhdmType() == UHDM::uhdmarray_typespec) {
-                ranges = static_cast<const UHDM::array_typespec *>(typespec)
-                             ->Ranges();
-              } else if (typespec->UhdmType() ==
-                         UHDM::uhdmpacked_array_typespec) {
+          const uhdm::RangeCollection *ranges = nullptr;
+          if (const uhdm::RefTypespec *const rt = port->getTypespec()) {
+            if (const uhdm::Typespec *const typespec = rt->getActual()) {
+              if (typespec->getUhdmType() == uhdm::UhdmType::ArrayTypespec) {
+                ranges = static_cast<const uhdm::ArrayTypespec *>(typespec)
+                             ->getRanges();
+              } else if (typespec->getUhdmType() ==
+                         uhdm::UhdmType::PackedArrayTypespec) {
                 ranges =
-                    static_cast<const UHDM::packed_array_typespec *>(typespec)
-                        ->Ranges();
+                    static_cast<const uhdm::PackedArrayTypespec *>(typespec)
+                        ->getRanges();
               }
             }
           }
 
           if ((ranges == nullptr) || ranges->empty()) {
-            end_line = port->VpiEndLineNo();
-            end_column = port->VpiEndColumnNo();
+            end_line = port->getEndLine();
+            end_column = port->getEndColumn();
           } else {
-            const UHDM::range *const rangeN = ranges->back();
+            const uhdm::Range *const rangeN = ranges->back();
 
-            end_line = rangeN->VpiEndLineNo();
-            end_column = rangeN->VpiEndColumnNo();
+            end_line = rangeN->getEndLine();
+            end_column = rangeN->getEndColumn();
           }
 
           if (i != (ni - 1)) {
@@ -2872,317 +2997,324 @@ class RoundTripTracer final : public UHDM::UhdmListener {
       insert(filepath, end_line, end_column, ");");
     } else {
       std::string text;
-      text.append(formatName(object->VpiDefName()))
+      text.append(formatName(object->getDefName()))
           .append(1, kOverwriteMarker)
-          .append(formatName(object->VpiName()));
+          .append(formatName(object->getName()));
 
-      insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
-      end_column = object->VpiColumnNo() + text.length();
+      insert(filepath, object->getStartLine(), object->getStartColumn(), text);
+      end_column = object->getStartColumn() + text.length();
 
-      insert(filepath, object->VpiLineNo(), end_column, "(");
+      insert(filepath, object->getStartLine(), end_column, "(");
 
-      const UHDM::VectorOfport *const ports = object->Ports();
+      const uhdm::PortCollection *const ports = object->getPorts();
       if ((ports != nullptr) && !ports->empty()) {
         for (int32_t i = 0, ni = ports->size() - 1; i < ni; ++i) {
-          const UHDM::port *const port = ports->at(i);
-          if (const UHDM::any *const high_conn = port->High_conn()) {
-            insert(filepath, high_conn->VpiEndLineNo(),
-                   high_conn->VpiEndColumnNo() + 1, ",");
+          const uhdm::Port *const port = ports->at(i);
+          if (const uhdm::Any *const high_conn = port->getHighConn()) {
+            insert(filepath, high_conn->getEndLine(),
+                   high_conn->getEndColumn() + 1, ",");
           }
         }
-        const UHDM::port *const portN = ports->back();
-        if (const UHDM::any *const high_connN = portN->High_conn()) {
-          end_column = high_connN->VpiEndColumnNo() + 1;
+        const uhdm::Port *const portN = ports->back();
+        if (const uhdm::Any *const high_connN = portN->getHighConn()) {
+          end_column = high_connN->getEndColumn() + 1;
         }
       }
-      insert(filepath, object->VpiEndLineNo(), end_column + 1, ");");
+      insert(filepath, object->getEndLine(), end_column + 1, ");");
     }
 
-    const UHDM::VectorOfparam_assign *const param_assigns =
-        object->Param_assigns();
+    const uhdm::ParamAssignCollection *const param_assigns =
+        object->getParamAssigns();
     if ((param_assigns != nullptr) && !param_assigns->empty()) {
-      UHDM::VectorOfparam_assign ordered(*param_assigns);
+      uhdm::ParamAssignCollection ordered(*param_assigns);
       std::stable_sort(ordered.begin(), ordered.end(),
-                       [](UHDM::VectorOfparam_assign::const_reference lhs,
-                          UHDM::VectorOfparam_assign::const_reference rhs) {
-                         int32_t r = lhs->VpiLineNo() - rhs->VpiLineNo();
+                       [](uhdm::ParamAssignCollection::const_reference lhs,
+                          uhdm::ParamAssignCollection::const_reference rhs) {
+                         int32_t r = lhs->getStartLine() - rhs->getStartLine();
                          if (r != 0) return r < 0;
 
-                         r = lhs->VpiColumnNo() - rhs->VpiColumnNo();
+                         r = lhs->getStartColumn() - rhs->getStartColumn();
                          if (r != 0) return r < 0;
 
-                         r = lhs->VpiEndLineNo() - rhs->VpiEndLineNo();
+                         r = lhs->getEndLine() - rhs->getEndLine();
                          if (r != 0) return r < 0;
 
-                         r = lhs->VpiEndColumnNo() - rhs->VpiEndColumnNo();
+                         r = lhs->getEndColumn() - rhs->getEndColumn();
                          return r < 0;
                        });
       for (int32_t i = 0, j = 1, nj = ordered.size(); j < nj; ++i, ++j) {
-        const UHDM::any *const ilhs = ordered[i]->Lhs();
-        const UHDM::any *const jlhs = ordered[j]->Lhs();
-        if ((ilhs->UhdmType() == UHDM::uhdmparameter) &&
-            (jlhs->UhdmType() == UHDM::uhdmparameter)) {
-          const UHDM::typespec *itypespec = nullptr;
-          if (const UHDM::ref_typespec *const rt =
-                  static_cast<const UHDM::parameter *>(ilhs)->Typespec()) {
-            itypespec = rt->Actual_typespec();
+        const uhdm::Any *const ilhs = ordered[i]->getLhs();
+        const uhdm::Any *const jlhs = ordered[j]->getLhs();
+        if ((ilhs->getUhdmType() == uhdm::UhdmType::Parameter) &&
+            (jlhs->getUhdmType() == uhdm::UhdmType::Parameter)) {
+          const uhdm::Typespec *itypespec = nullptr;
+          if (const uhdm::RefTypespec *const rt =
+                  static_cast<const uhdm::Parameter *>(ilhs)->getTypespec()) {
+            itypespec = rt->getActual();
           }
 
-          const UHDM::typespec *jtypespec = nullptr;
-          if (const UHDM::ref_typespec *const rt =
-                  static_cast<const UHDM::parameter *>(jlhs)->Typespec()) {
-            jtypespec = rt->Actual_typespec();
+          const uhdm::Typespec *jtypespec = nullptr;
+          if (const uhdm::RefTypespec *const rt =
+                  static_cast<const uhdm::Parameter *>(jlhs)->getTypespec()) {
+            jtypespec = rt->getActual();
           }
 
           if ((itypespec != nullptr) && (jtypespec != nullptr) &&
-              (itypespec->VpiLineNo() != 0) &&
-              (itypespec->VpiColumnNo() != 0) &&
-              (itypespec->VpiEndLineNo() != 0) &&
-              (itypespec->VpiEndColumnNo() != 0) &&
-              (itypespec->UhdmType() == jtypespec->UhdmType()) &&
-              (itypespec->VpiLineNo() == jtypespec->VpiLineNo()) &&
-              (itypespec->VpiColumnNo() == jtypespec->VpiColumnNo()) &&
-              (itypespec->VpiEndLineNo() == jtypespec->VpiEndLineNo()) &&
-              (itypespec->VpiEndColumnNo() == jtypespec->VpiEndColumnNo())) {
-            UHDM::VectorOfparam_assign::const_reference iparam_assign =
+              (itypespec->getStartLine() != 0) &&
+              (itypespec->getStartColumn() != 0) &&
+              (itypespec->getEndLine() != 0) &&
+              (itypespec->getEndColumn() != 0) &&
+              (itypespec->getUhdmType() == jtypespec->getUhdmType()) &&
+              (itypespec->getStartLine() == jtypespec->getStartLine()) &&
+              (itypespec->getStartColumn() == jtypespec->getStartColumn()) &&
+              (itypespec->getEndLine() == jtypespec->getEndLine()) &&
+              (itypespec->getEndColumn() == jtypespec->getEndColumn())) {
+            uhdm::ParamAssignCollection::const_reference iparam_assign =
                 ordered[i];
-            insert(filepath, iparam_assign->VpiEndLineNo(),
-                   iparam_assign->VpiEndColumnNo(), ",");
+            insert(filepath, iparam_assign->getEndLine(),
+                   iparam_assign->getEndColumn(), ",");
           }
         }
       }
     }
   }
 
-  void enterChecker_decl(const UHDM::checker_decl *const object) final {
+  void enterCheckerDecl(const uhdm::CheckerDecl *const object,
+                        uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterChecker_inst(const UHDM::checker_inst *const object) final {
+  void enterCheckerInst(const uhdm::CheckerInst *const object,
+                        uint32_t vpiRelation) final {
     // TODO(KS): In case of checker intance, other data is not available. Only
     // checker instance and instance name with start and end line and col is
     // available. tests\CheckerInst\dut.sv
 
-    if (visited.find(object) != visited.end()) return;
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
     std::string text;
-    text.append(formatName(object->VpiDefName()))
+    text.append(formatName(object->getDefName()))
         .append(1, kOverwriteMarker)
-        .append(formatName(object->VpiName()))
+        .append(formatName(object->getName()))
         .append("(");
 
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
-    insert(filepath, object->VpiEndLineNo(), object->VpiEndColumnNo(), ")");
+    insert(filepath, object->getStartLine(), object->getStartColumn(), text);
+    insert(filepath, object->getEndLine(), object->getEndColumn(), ")");
   }
 
-  void enterShort_real_typespec(
-      const UHDM::short_real_typespec *const object) final {
+  void enterShortRealTypespec(const uhdm::ShortRealTypespec *const object,
+                              uint32_t vpiRelation) final {
     enterTypespec(object);
   }
 
-  void enterReal_typespec(const UHDM::real_typespec *const object) final {
+  void enterRealTypespec(const uhdm::RealTypespec *const object,
+                         uint32_t vpiRelation) final {
     enterTypespec(object);
   }
 
-  void enterByte_typespec(const UHDM::byte_typespec *const object) final {
+  void enterByteTypespec(const uhdm::ByteTypespec *const object,
+                         uint32_t vpiRelation) final {
     enterTypespec(object);
   }
 
-  void enterShort_int_typespec(
-      const UHDM::short_int_typespec *const object) final {
+  void enterShortIntTypespec(const uhdm::ShortIntTypespec *const object,
+                             uint32_t vpiRelation) final {
     enterTypespec(object);
   }
 
-  void enterInt_typespec(const UHDM::int_typespec *const object) final {
+  void enterIntTypespec(const uhdm::IntTypespec *const object,
+                        uint32_t vpiRelation) final {
     enterTypespec(object);
   }
 
-  void enterLong_int_typespec(
-      const UHDM::long_int_typespec *const object) final {
+  void enterLongIntTypespec(const uhdm::LongIntTypespec *const object,
+                            uint32_t vpiRelation) final {
     enterTypespec(object);
   }
 
-  void enterInteger_typespec(const UHDM::integer_typespec *const object) final {
+  void enterIntegerTypespec(const uhdm::IntegerTypespec *const object,
+                            uint32_t vpiRelation) final {
     enterTypespec(object);
   }
 
-  void enterTime_typespec(const UHDM::time_typespec *const object) final {
+  void enterTimeTypespec(const uhdm::TimeTypespec *const object,
+                         uint32_t vpiRelation) final {
     enterTypespec(object);
   }
 
-  void enterString_typespec(const UHDM::string_typespec *const object) final {
+  void enterStringTypespec(const uhdm::StringTypespec *const object,
+                           uint32_t vpiRelation) final {
     enterTypespec(object);
   }
 
-  void enterChandle_typespec(const UHDM::chandle_typespec *const object) final {
+  void enterChandleTypespec(const uhdm::ChandleTypespec *const object,
+                            uint32_t vpiRelation) final {
     enterTypespec(object);
   }
 
-  void enterLogic_typespec(const UHDM::logic_typespec *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterLogicTypespec(const uhdm::LogicTypespec *const object,
+                          uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const UHDM::any *const parent = object->VpiParent();
-    if ((parent != nullptr) && (parent->UhdmType() != UHDM::uhdmparameter) &&
-        (parent->UhdmType() != UHDM::uhdmparam_assign) &&
-        (parent->UhdmType() != UHDM::uhdmtypespec_member)) {
-      constexpr std::string_view keyword = "typedef";
-      const std::filesystem::path &filepath = object->VpiFile();
+    const uhdm::Any *const parent = object->getParent();
+    if ((parent != nullptr) &&
+        (parent->getUhdmType() != uhdm::UhdmType::Parameter) &&
+        (parent->getUhdmType() != uhdm::UhdmType::ParamAssign) &&
+        (parent->getUhdmType() != uhdm::UhdmType::TypespecMember)) {
+      constexpr std::string_view keyword = "logic";
+      const std::filesystem::path &filepath = object->getFile();
 
-      std::string prefix(keyword);
-      prefix.append(1, kOverwriteMarker);
+      insert(filepath, object->getStartLine(), object->getStartColumn(),
+             keyword);
 
-      std::string text(prefix);
-      text.append("logic");
-      insert(filepath, object->VpiLineNo(),
-             object->VpiColumnNo() - prefix.length(), text);
-
-      insert(filepath, object->VpiEndLineNo(), object->VpiEndColumnNo() + 1,
-             formatName(object->VpiName()));
-    } else if (object->VpiName().empty()) {
+      insert(filepath, object->getEndLine(), object->getEndColumn() + 1,
+             formatName(object->getName()));
+    } else if (object->getName().empty()) {
       enterTypespec(object);
     }
   }
 
-  void enterPacked_array_typespec(
-      const UHDM::packed_array_typespec *const object) final {
+  void enterPackedArrayTypespec(const uhdm::PackedArrayTypespec *const object,
+                                uint32_t vpiRelation) final {
     enterTypespec(object);
   }
 
-  void enterArray_typespec(const UHDM::array_typespec *const object) final {
+  void enterArrayTypespec(const uhdm::ArrayTypespec *const object,
+                          uint32_t vpiRelation) final {
     enterTypespec(object);
   }
 
-  void enterVoid_typespec(const UHDM::void_typespec *const object) final {
+  void enterVoidTypespec(const uhdm::VoidTypespec *const object,
+                         uint32_t vpiRelation) final {
     enterTypespec(object);
   }
 
-  void enterSequence_typespec(
-      const UHDM::sequence_typespec *const object) final {
+  void enterSequenceTypespec(const uhdm::SequenceTypespec *const object,
+                             uint32_t vpiRelation) final {
     enterTypespec(object);
   }
 
-  void enterProperty_typespec(
-      const UHDM::property_typespec *const object) final {
+  void enterPropertyTypespec(const uhdm::PropertyTypespec *const object,
+                             uint32_t vpiRelation) final {
     enterTypespec(object);
   }
 
-  void enterInterface_typespec(
-      const UHDM::interface_typespec *const object) final {
+  void enterInterfaceTypespec(const uhdm::InterfaceTypespec *const object,
+                              uint32_t vpiRelation) final {
     enterTypespec(object);
   }
 
-  void enterEnum_typespec(const UHDM::enum_typespec *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterEnumTypespec(const uhdm::EnumTypespec *const object,
+                         uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    std::string text("typedef enum ");
+    std::string text("enum ");
 
-    if (const UHDM::ref_typespec *const rt = object->Base_typespec()) {
-      if (const UHDM::typespec *const base_typespec = rt->Actual_typespec()) {
+    if (const uhdm::RefTypespec *const rt = object->getBaseTypespec()) {
+      if (const uhdm::Typespec *const base_typespec = rt->getActual()) {
         text.append(getTypespecName(base_typespec)).append(1, kOverwriteMarker);
       }
     }
 
     text.append("{");
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
+    insert(filepath, object->getStartLine(), object->getStartColumn(), text);
 
     text.assign("} ").append(getTypespecName(object)).append(";");
-    insert(filepath, object->VpiEndLineNo(),
-           object->VpiEndColumnNo() - text.length(), text);
+    insert(filepath, object->getEndLine(), object->getEndColumn() + 1, text);
 
-    const UHDM::VectorOfenum_const *const enum_consts = object->Enum_consts();
+    const uhdm::EnumConstCollection *const enum_consts =
+        object->getEnumConsts();
     if ((enum_consts != nullptr) && !enum_consts->empty()) {
       for (int32_t i = 0, ni = enum_consts->size() - 1; i < ni; ++i) {
-        insert(filepath, enum_consts->at(i)->VpiEndLineNo(),
-               enum_consts->at(i)->VpiEndColumnNo(), ",");
+        insert(filepath, enum_consts->at(i)->getEndLine(),
+               enum_consts->at(i)->getEndColumn(), ",");
       }
     }
   }
 
-  void enterStruct_typespec(const UHDM::struct_typespec *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterStructTypespec(const uhdm::StructTypespec *const object,
+                           uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     // TODO: struct_typespec/endline is wrong!
-    const UHDM::VectorOftypespec_member *const members = object->Members();
+    // Need to verify more. Now struct_typespec/endline looks good!
+    const uhdm::TypespecMemberCollection *const members = object->getMembers();
     if ((members != nullptr) && !members->empty()) {
-      const UHDM::typespec_member *const last = members->back();
-
       constexpr std::string_view keyword1 = "typedef";
       constexpr std::string_view keyword2 = "struct";
-      const std::filesystem::path &filepath = object->VpiFile();
+      const std::filesystem::path &filepath = object->getFile();
 
-      std::string prefix;
-      //      if (callstack.empty() ||
-      //          (callstack.back()->UhdmType() != UHDM::uhdmtypespec_member)) {
-      prefix.append(keyword1).append(1, kOverwriteMarker);
-      //      }
+      std::string text;
+      const std::string name = formatName(object->getName());
+      if (!name.empty()) text.append(keyword1).append(1, kOverwriteMarker);
 
-      std::string text = prefix;
       text.append(keyword2);
-      if (object->VpiPacked()) {
+      if (object->getPacked()) {
         text.append(" packed");
       }
       text.append(" {");
-      insert(filepath, object->VpiLineNo(),
-             object->VpiColumnNo() - prefix.length(), text);
-
-      text.assign("} ").append(formatName(object->VpiName()));
-      insert(filepath, last->VpiLineNo() + 1, 1, text);
+      insert(filepath, object->getStartLine(), object->getStartColumn(), text);
+      text.assign("} ").append(name);
+      insert(filepath, object->getEndLine(), 1, text);
     }
   }
 
-  void enterUnion_typespec(const UHDM::union_typespec *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterUnionTypespec(const uhdm::UnionTypespec *const object,
+                          uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
     // TODO: union_typespec/endline is wrong!
-    const UHDM::VectorOftypespec_member *const members = object->Members();
+    const uhdm::TypespecMemberCollection *const members = object->getMembers();
     if ((members != nullptr) && !members->empty()) {
-      const UHDM::typespec_member *const last = members->back();
-
       constexpr std::string_view keyword = "typedef";
 
       std::string text;
-      text.append(keyword).append(1, kOverwriteMarker).append("union");
-      if (object->VpiPacked()) {
+      const std::string name = formatName(object->getName());
+      if (!name.empty()) text.append(keyword).append(1, kOverwriteMarker);
+
+      text.append("union");
+      if (object->getPacked()) {
         text.append(" packed");
       }
       text.append(" {");
-      insert(filepath, object->VpiLineNo(),
-             object->VpiColumnNo() - keyword.length() - 1, text);
+      insert(filepath, object->getStartLine(), object->getStartColumn(), text);
 
-      text.assign("} ").append(formatName(object->VpiName()));
-      insert(filepath, last->VpiLineNo() + 1, 1, text);
+      text.assign("} ").append(name);
+      insert(filepath, object->getEndLine(), 1, text);
     }
   }
 
-  void enterUnsupported_typespec(
-      const UHDM::unsupported_typespec *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterUnsupportedTypespec(const uhdm::UnsupportedTypespec *const object,
+                                uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(),
-           formatName(object->VpiName()));
+    insert(filepath, object->getStartLine(), object->getStartColumn(),
+           formatName(object->getName()));
   }
 
-  void enterType_parameter(const UHDM::type_parameter *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterTypeParameter(const uhdm::TypeParameter *const object,
+                          uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    constexpr std::string_view keyword1 = "parameter type";
+    constexpr std::string_view keyword1 = "parameter";
     constexpr std::string_view keyword2 = "=logic";
+    constexpr std::string_view keyword3 = "type";
 
-    const std::filesystem::path &filepath = object->VpiFile();
-    if (const UHDM::ref_typespec *const rt = object->Typespec()) {
-      if (const UHDM::typespec *const typespec = rt->Actual_typespec()) {
-        switch (typespec->UhdmType()) {
-          case UHDM::uhdmlogic_typespec: {
-            insert(filepath, typespec->VpiLineNo(), typespec->VpiColumnNo() - 1,
-                   keyword2);
+    const std::filesystem::path &filepath = object->getFile();
+    if (const uhdm::RefTypespec *const rt = object->getTypespec()) {
+      if (const uhdm::Typespec *const typespec = rt->getActual()) {
+        switch (typespec->getUhdmType()) {
+          case uhdm::UhdmType::LogicTypespec: {
+            insert(filepath, typespec->getStartLine(),
+                   typespec->getStartColumn() - 1, keyword2);
           } break;
 
           default:
@@ -3190,198 +3322,213 @@ class RoundTripTracer final : public UHDM::UhdmListener {
         }
       }
     }
-    insert(filepath, object->VpiLineNo(),
-           object->VpiColumnNo() - keyword1.length() - 1, keyword1);
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(),
-           formatName(object->VpiName()));
+    insert(filepath, object->getStartLine(),
+           object->getStartColumn() - keyword1.length() - 1, keyword1);
+    insert(filepath, object->getStartLine(), object->getStartColumn(),
+           keyword3);
+    insert(filepath, object->getStartLine(),
+           object->getStartColumn() + keyword3.length() + 1,
+           formatName(object->getName()));
   }
 
-  void enterTypespec_member(const UHDM::typespec_member *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterTypespecMember(const uhdm::TypespecMember *const object,
+                           uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    if (const UHDM::ref_typespec *const rt = object->Typespec()) {
-      if (const UHDM::typespec *typespec = rt->Actual_typespec()) {
-        insert(filepath, object->VpiRefLineNo(), object->VpiRefColumnNo(),
+    if (const uhdm::RefTypespec *const rt = object->getTypespec()) {
+      if (const uhdm::Typespec *typespec = rt->getActual()) {
+        insert(filepath, rt->getStartLine(), rt->getStartColumn(),
                getTypespecName(typespec));
       }
     }
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(),
-           formatName(object->VpiName()));
+    const std::string name = formatName(object->getName());
+    insert(filepath, object->getEndLine(),
+           object->getEndColumn() - name.length() - 1, name);
   }
 
-  void enterEnum_const(const UHDM::enum_const *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterEnumConst(const uhdm::EnumConst *const object,
+                      uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
-    const std::string name = formatName(object->VpiName());
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), name);
+    const std::filesystem::path &filepath = object->getFile();
+    const std::string name = formatName(object->getName());
+    insert(filepath, object->getStartLine(), object->getStartColumn(), name);
 
-    if (static_cast<uint16_t>(object->VpiColumnNo() + name.length()) <
-        object->VpiEndColumnNo()) {
+    if (static_cast<uint16_t>(object->getStartColumn() + name.length()) <
+        object->getEndColumn()) {
       std::string text;
-      text.append("=").append(object->VpiDecompile());
-      insert(filepath, object->VpiLineNo(),
-             object->VpiEndColumnNo() - text.length(), text);
+      text.append("=").append(object->getDecompile());
+      insert(filepath, object->getStartLine(),
+             object->getEndColumn() - text.length(), text);
     }
-    visited.insert(object);
+    m_visited.insert(object);
   }
 
-  void enterBit_typespec(const UHDM::bit_typespec *const object) final {
+  void enterBitTypespec(const uhdm::BitTypespec *const object,
+                        uint32_t vpiRelation) final {
     enterTypespec(object);
   }
 
-  void enterUser_systf(const UHDM::user_systf *const object) final {
+  void enterUserSystf(const uhdm::UserSystf *const object,
+                      uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterSys_func_call(const UHDM::sys_func_call *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterSysFuncCall(const uhdm::SysFuncCall *const object,
+                        uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    const std::string text = formatName(object->VpiName());
+    const std::string text = formatName(object->getName());
 
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(), text);
+    insert(filepath, object->getStartLine(), object->getStartColumn(), text);
 
-    const UHDM::VectorOfany *const call_args = object->Tf_call_args();
+    const uhdm::AnyCollection *const call_args = object->getArguments();
     if ((call_args != nullptr) && !call_args->empty()) {
-      UHDM::VectorOfany::const_reference call_arg0 = call_args->front();
-      UHDM::VectorOfany::const_reference call_argN = call_args->back();
+      uhdm::AnyCollection::const_reference call_arg0 = call_args->front();
+      uhdm::AnyCollection::const_reference call_argN = call_args->back();
 
-      insert(filepath, call_arg0->VpiLineNo(), call_arg0->VpiColumnNo() - 1,
-             "(");
-      insert(filepath, call_argN->VpiEndLineNo(), call_argN->VpiEndColumnNo(),
-             ")");
+      insert(filepath, call_arg0->getStartLine(),
+             call_arg0->getStartColumn() - 1, "(");
+      insert(filepath, call_argN->getEndLine(), call_argN->getEndColumn(), ")");
 
       for (int32_t i = 0, n = call_args->size() - 1; i < n; ++i) {
-        UHDM::VectorOfany::const_reference call_arg = call_args->at(i);
-        insert(filepath, call_arg->VpiEndLineNo(), call_arg->VpiEndColumnNo(),
-               ",");
+        uhdm::AnyCollection::const_reference call_arg = call_args->at(i);
+        insert(filepath, call_arg->getEndLine(), call_arg->getEndColumn(), ",");
       }
     }
   }
 
-  void enterSys_task_call(const UHDM::sys_task_call *const object) final {
+  void enterSysTaskCall(const uhdm::SysTaskCall *const object,
+                        uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterMethod_func_call(const UHDM::method_func_call *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterMethodFuncCall(const uhdm::MethodFuncCall *const object,
+                           uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    if (object->Prefix() != nullptr) {
-      insert(filepath, object->VpiLineNo(), object->VpiColumnNo() - 1, ".");
+    if (object->getPrefix() != nullptr) {
+      insert(filepath, object->getStartLine(), object->getStartColumn() - 1,
+             ".");
     }
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(),
-           formatName(object->VpiName()));
-    insert(filepath, object->VpiLineNo(), object->VpiEndColumnNo(), "(");
+    insert(filepath, object->getStartLine(), object->getStartColumn(),
+           formatName(object->getName()));
+    insert(filepath, object->getStartLine(), object->getEndColumn(), "(");
 
-    uint32_t closing_bracket_line = object->VpiLineNo();
-    uint32_t closing_bracket_column = object->VpiEndColumnNo() + 1;
-    const UHDM::VectorOfany *const call_args = object->Tf_call_args();
+    uint32_t closing_bracket_line = object->getStartLine();
+    uint32_t closing_bracket_column = object->getEndColumn() + 1;
+    const uhdm::AnyCollection *const call_args = object->getArguments();
     if ((call_args != nullptr) && !call_args->empty()) {
       for (size_t i = 0, n = call_args->size() - 1; i < n; ++i) {
-        const UHDM::any *const arg = call_args->at(i);
-        if ((arg->VpiLineNo() > 0) && (arg->VpiColumnNo() > 0) &&
-            (arg->VpiEndLineNo() > 0) && (arg->VpiEndColumnNo() > 0)) {
-          insert(filepath, arg->VpiEndLineNo(), arg->VpiEndColumnNo(), ",");
+        const uhdm::Any *const arg = call_args->at(i);
+        if ((arg->getStartLine() > 0) && (arg->getStartColumn() > 0) &&
+            (arg->getEndLine() > 0) && (arg->getEndColumn() > 0)) {
+          insert(filepath, arg->getEndLine(), arg->getEndColumn(), ",");
         }
       }
-      closing_bracket_line = call_args->back()->VpiLineNo();
-      closing_bracket_column = call_args->back()->VpiEndColumnNo();
+      closing_bracket_line = call_args->back()->getStartLine();
+      closing_bracket_column = call_args->back()->getEndColumn();
     }
     insert(filepath, closing_bracket_line, closing_bracket_column, ")");
   }
 
-  void enterMethod_task_call(const UHDM::method_task_call *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterMethodTaskCall(const uhdm::MethodTaskCall *const object,
+                           uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(),
-           formatName(object->VpiName()));
+    insert(filepath, object->getStartLine(), object->getStartColumn(),
+           formatName(object->getName()));
 
-    const UHDM::VectorOfany *const args = object->Tf_call_args();
+    const uhdm::AnyCollection *const args = object->getArguments();
     if ((args != nullptr) && !args->empty()) {
-      const UHDM::any *const arg0 = args->front();
-      insert(filepath, arg0->VpiLineNo(), arg0->VpiColumnNo() - 1, "(");
+      const uhdm::Any *const arg0 = args->front();
+      insert(filepath, arg0->getStartLine(), arg0->getStartColumn() - 1, "(");
       for (int32_t i = 0, ni = args->size() - 1; i < ni; ++i) {
-        const UHDM::any *const arg = args->at(i);
-        insert(filepath, arg->VpiEndLineNo(), arg->VpiEndColumnNo(), ",");
+        const uhdm::Any *const arg = args->at(i);
+        insert(filepath, arg->getEndLine(), arg->getEndColumn(), ",");
       }
-      const UHDM::any *const argN = args->back();
-      insert(filepath, argN->VpiEndLineNo(), argN->VpiEndColumnNo(), ")");
+      const uhdm::Any *const argN = args->back();
+      insert(filepath, argN->getEndLine(), argN->getEndColumn(), ")");
     } else {
-      insert(filepath, object->VpiLineNo(), object->VpiEndColumnNo(), "()");
+      insert(filepath, object->getStartLine(), object->getEndColumn(), "()");
     }
   }
 
-  void enterFunc_call(const UHDM::func_call *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterFuncCall(const uhdm::FuncCall *const object,
+                     uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(),
-           formatName(object->VpiName()));
+    const std::filesystem::path &filepath = object->getFile();
+    insert(filepath, object->getStartLine(), object->getStartColumn(),
+           formatName(object->getName()));
 
-    const UHDM::VectorOfany *const args = object->Tf_call_args();
+    const uhdm::AnyCollection *const args = object->getArguments();
     if ((args != nullptr) && !args->empty()) {
-      const UHDM::any *const arg0 = args->front();
-      insert(filepath, arg0->VpiLineNo(), arg0->VpiColumnNo() - 1, "(");
+      const uhdm::Any *const arg0 = args->front();
+      insert(filepath, arg0->getStartLine(), arg0->getStartColumn() - 1, "(");
       for (int32_t i = 0, ni = args->size() - 1; i < ni; ++i) {
-        const UHDM::any *const arg = args->at(i);
-        insert(filepath, arg->VpiEndLineNo(), arg->VpiEndColumnNo(), ",");
+        const uhdm::Any *const arg = args->at(i);
+        insert(filepath, arg->getEndLine(), arg->getEndColumn(), ",");
       }
-      const UHDM::any *const argN = args->back();
-      insert(filepath, argN->VpiEndLineNo(), argN->VpiEndColumnNo(), ")");
+      const uhdm::Any *const argN = args->back();
+      insert(filepath, argN->getEndLine(), argN->getEndColumn(), ")");
     } else {
-      insert(filepath, object->VpiLineNo(), object->VpiEndColumnNo(), "()");
+      insert(filepath, object->getStartLine(), object->getEndColumn(), "()");
     }
   }
 
-  void enterTask_call(const UHDM::task_call *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterTaskCall(const uhdm::TaskCall *const object,
+                     uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
-    const std::filesystem::path &filepath = object->VpiFile();
-    insert(filepath, object->VpiLineNo(), object->VpiColumnNo(),
-           formatName(object->VpiName()));
+    const std::filesystem::path &filepath = object->getFile();
+    insert(filepath, object->getStartLine(), object->getStartColumn(),
+           formatName(object->getName()));
 
-    const UHDM::VectorOfany *const args = object->Tf_call_args();
+    const uhdm::AnyCollection *const args = object->getArguments();
     if ((args != nullptr) && !args->empty()) {
-      const UHDM::any *const arg0 = args->front();
-      insert(filepath, arg0->VpiLineNo(), arg0->VpiColumnNo() - 1, "(");
+      const uhdm::Any *const arg0 = args->front();
+      insert(filepath, arg0->getStartLine(), arg0->getStartColumn() - 1, "(");
       for (int32_t i = 0, ni = args->size() - 1; i < ni; ++i) {
-        const UHDM::any *const arg = args->at(i);
-        insert(filepath, arg->VpiEndLineNo(), arg->VpiEndColumnNo(), ",");
+        const uhdm::Any *const arg = args->at(i);
+        insert(filepath, arg->getEndLine(), arg->getEndColumn(), ",");
       }
-      const UHDM::any *const argN = args->back();
-      insert(filepath, argN->VpiEndLineNo(), argN->VpiEndColumnNo(), ")");
+      const uhdm::Any *const argN = args->back();
+      insert(filepath, argN->getEndLine(), argN->getEndColumn(), ")");
     } else {
-      insert(filepath, object->VpiLineNo(), object->VpiEndColumnNo(), "()");
+      insert(filepath, object->getStartLine(), object->getEndColumn(), "()");
     }
   }
 
-  void enterConstraint_ordering(
-      const UHDM::constraint_ordering *const object) final {
+  void enterConstraintOrdering(const uhdm::ConstraintOrdering *const object,
+                               uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterConstraint(const UHDM::constraint *const object) final {
+  void enterConstraint(const uhdm::Constraint *const object,
+                       uint32_t vpiRelation) final {
     // tests\SimpleClass
   }
 
-  void enterImport_typespec(const UHDM::import_typespec *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterImportTypespec(const uhdm::ImportTypespec *const object,
+                           uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
 
     constexpr std::string_view keyword1 = "import";
     constexpr std::string_view keyword2 = "STRING:";
 
-    const std::filesystem::path &filepath = object->VpiFile();
-    const UHDM::constant *const constant = object->Item();
+    const std::filesystem::path &filepath = object->getFile();
+    const uhdm::Constant *const constant = object->getItem();
 
-    std::string value(constant->VpiValue());
+    std::string value(constant->getValue());
     size_t pos = value.find(keyword2);
     if (pos == 0) {
       value = value.substr(keyword2.length());
@@ -3390,127 +3537,118 @@ class RoundTripTracer final : public UHDM::UhdmListener {
     std::string text;
     text.append(keyword1)
         .append(1, kOverwriteMarker)
-        .append(object->VpiName())
+        .append(object->getName())
         .append("::")
         .append(value)
         .append(";");
 
-    insert(filepath, object->VpiLineNo(),
-           object->VpiColumnNo() - keyword1.length() - 1, text);
+    insert(filepath, object->getStartLine(),
+           object->getStartColumn() - keyword1.length() - 1, text);
   }
 
-  void enterDist_item(const UHDM::dist_item *const object) final {
+  void enterDistItem(const uhdm::DistItem *const object,
+                     uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterDistribution(const UHDM::distribution *const object) final {
+  void enterDistribution(const uhdm::Distribution *const object,
+                         uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterImplication(const UHDM::implication *const object) final {
+  void enterImplication(const uhdm::Implication *const object,
+                        uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterConstr_if(const UHDM::constr_if *const object) final {
+  void enterConstrIf(const uhdm::ConstrIf *const object,
+                     uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterConstr_if_else(const UHDM::constr_if_else *const object) final {
+  void enterConstrIfElse(const uhdm::ConstrIfElse *const object,
+                         uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterConstr_foreach(const UHDM::constr_foreach *const object) final {
+  void enterConstrForeach(const uhdm::ConstrForeach *const object,
+                          uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterSoft_disable(const UHDM::soft_disable *const object) final {
+  void enterSoftDisable(const uhdm::SoftDisable *const object,
+                        uint32_t vpiRelation) final {
     // Test file not available.
   }
 
-  void enterInclude_file_info(
-      const UHDM::include_file_info *const object) final {
-    if (visited.find(object) != visited.end()) return;
+  void enterSourceFile(const uhdm::SourceFile *const object,
+                       uint32_t vpiRelation) final {
+    if (m_visited.find(object) != m_visited.end()) return;
+    if ((object->getStartLine() == 0) || (object->getStartColumn() == 0))
+      return;
 
     constexpr std::string_view keyword = "`include";
 
-    const std::filesystem::path &filepath = object->VpiFile();
+    const std::filesystem::path &filepath = object->getFile();
 
-    std::string text;
-    text.assign(keyword).append(" \"");
-    text.append(object->VpiIncludedFile()).append("\"");
+    if (uhdm::SourceFileCollection *includes = object->getIncludes()) {
+      for (const uhdm::SourceFile *included : *includes) {
+        std::string text;
+        text.assign(keyword)
+            .append(" \"")
+            .append(included->getName())
+            .append("\"");
 
-    insert(filepath, object->VpiLineNo(),
-           object->VpiColumnNo() - keyword.length() - 1, text);
-  }
-
-  void enterDesign(const UHDM::design *const object) final {}
-
-  void enterAllPackages(const UHDM::any *const object,
-                        const UHDM::VectorOfpackage &objects) final {
-    for (UHDM::VectorOfpackage::const_reference package : objects) {
-      package->VpiTop(false);
+        insert(filepath, object->getStartLine(),
+               object->getStartColumn() - keyword.length() - 1, text);
+      }
     }
   }
 
-  void enterTopPackages(const UHDM::any *const object,
-                        const UHDM::VectorOfpackage &objects) final {
-    for (UHDM::VectorOfpackage::const_reference package : objects) {
-      package->VpiTop(true);
-      visited.insert(package);
+  void enterDesign(const uhdm::Design *const object,
+                   uint32_t vpiRelation) final {}
+
+  void enterPackageCollection(const uhdm::Any *const object,
+                              const uhdm::PackageCollection &objects,
+                              uint32_t vpiRelation) final {
+    if (vpiRelation == vpiAllPackages) {
+      for (uhdm::PackageCollection::const_reference package : objects) {
+        package->setTop(false);
+      }
+    } else if (vpiRelation == vpiTopPackages) {
+      for (uhdm::PackageCollection::const_reference package : objects) {
+        package->setTop(true);
+        m_visited.insert(package);
+      }
     }
   }
 
-  void enterAllClasses(const UHDM::any *const object,
-                       const UHDM::VectorOfclass_defn &objects) final {}
-
-  void enterAllInterfaces(const UHDM::any *const object,
-                          const UHDM::VectorOfinterface_inst &objects) final {}
-
-  void enterAllUdps(const UHDM::any *const object,
-                    const UHDM::VectorOfudp_defn &objects) final {}
-
-  void enterAllPrograms(const UHDM::any *const object,
-                        const UHDM::VectorOfprogram &objects) final {}
-
-  void enterAllModules(const UHDM::any *const object,
-                       const UHDM::VectorOfmodule_inst &objects) final {
-    for (UHDM::VectorOfmodule_inst::const_reference module : objects) {
-      module->VpiTop(false);
+  void enterModuleCollection(const uhdm::Any *const object,
+                             const uhdm::ModuleCollection &objects,
+                             uint32_t vpiRelation) final {
+    if (vpiRelation == vpiAllModules) {
+      for (uhdm::ModuleCollection::const_reference module : objects) {
+        module->setTop(false);
+      }
+    } else if (vpiRelation == vpiTopModules) {
+      for (uhdm::ModuleCollection::const_reference module : objects) {
+        module->setTop(true);
+        m_visited.insert(module);
+      }
     }
   }
 
-  void enterTypespecs(const UHDM::any *const object,
-                      const UHDM::VectorOftypespec &objects) final {}
+  void enterTableEntryCollection(const uhdm::Any *const object,
+                                 const uhdm::TableEntryCollection &objects,
+                                 uint32_t vpiRelation) final {
+    const std::filesystem::path &filepath = object->getFile();
 
-  void enterLet_decls(const UHDM::any *const object,
-                      const UHDM::VectorOflet_decl &objects) final {}
+    const uhdm::TableEntry *const entry0 = objects.front();
+    insert(filepath, entry0->getStartLine() - 1, entry0->getStartColumn(),
+           "table");
 
-  void enterTask_funcs(const UHDM::any *const object,
-                       const UHDM::VectorOftask_func &objects) final {}
-
-  void enterParameters(const UHDM::any *const object,
-                       const UHDM::VectorOfany &objects) final {}
-
-  void enterParam_assigns(const UHDM::any *const object,
-                          const UHDM::VectorOfparam_assign &objects) final {}
-
-  void enterTopModules(const UHDM::any *const object,
-                       const UHDM::VectorOfmodule_inst &objects) final {
-    for (UHDM::VectorOfmodule_inst::const_reference module : objects) {
-      module->VpiTop(true);
-      visited.insert(module);
-    }
-  }
-
-  void enterTable_entrys(const UHDM::any *const object,
-                         const UHDM::VectorOftable_entry &objects) final {
-    const std::filesystem::path &filepath = object->VpiFile();
-
-    const UHDM::table_entry *const entry0 = objects.front();
-    insert(filepath, entry0->VpiLineNo() - 1, entry0->VpiColumnNo(), "table");
-
-    const UHDM::table_entry *const entryN = objects.back();
-    insert(filepath, entryN->VpiEndLineNo() + 1, entry0->VpiColumnNo(),
+    const uhdm::TableEntry *const entryN = objects.back();
+    insert(filepath, entryN->getEndLine() + 1, entry0->getStartColumn(),
            "endtable");
   }
 };
@@ -3560,8 +3698,8 @@ static int32_t run(const std::vector<vpiHandle> &designHandles,
   int32_t longestLHSFilepath = 0;
   int32_t longestRHSFilepath = 0;
   for (const vpiHandle &handle : designHandles) {
-    const UHDM::design *const design =
-        (const UHDM::design *)((const uhdm_handle *)handle)->object;
+    const uhdm::Design *const design =
+        (const uhdm::Design *)((const uhdm_handle *)handle)->object;
     RoundTripTracer listener(design);
     listener.listenDesign(design);
 
@@ -3640,18 +3778,14 @@ int main(int argc, const char **argv) {
   }
 #endif
 
-  SURELOG::FileSystem::setInstance(
-      new SURELOG::PlatformFileSystem(std::filesystem::current_path()));
-
   // Read command line, compile a design, use -parse argument
-  uint32_t code = 0;
-  SURELOG::FileSystem *const fileSystem = SURELOG::FileSystem::getInstance();
-  SURELOG::SymbolTable *const symbolTable = new SURELOG::SymbolTable();
-  SURELOG::ErrorContainer *const errors =
-      new SURELOG::ErrorContainer(symbolTable);
-  SURELOG::CommandLineParser *const clp =
-      new SURELOG::CommandLineParser(errors, symbolTable, false, false);
-  bool success = clp->parseCommandLine(argc, argv);
+  int32_t code = 0;
+
+  SURELOG::Session session;
+  SURELOG::FileSystem *const fileSystem = session.getFileSystem();
+  SURELOG::ErrorContainer *const errors = session.getErrorContainer();
+  SURELOG::CommandLineParser *const clp = session.getCommandLineParser();
+  bool success = session.parseCommandLine(argc, argv, false, false);
   clp->noPython();
   clp->setElaborate(false);
   clp->setElabUhdm(false);  // Force disable elaboration!
@@ -3664,8 +3798,8 @@ int main(int argc, const char **argv) {
   vpiHandle vpi_design = nullptr;
   SURELOG::scompiler *compiler = nullptr;
   if (success && (!clp->help())) {
-    compiler = SURELOG::start_compiler(clp);
-    vpi_design = SURELOG::get_uhdm_design(compiler);
+    compiler = SURELOG::start_compiler(&session);
+    vpi_design = SURELOG::get_vpi_design(compiler);
     auto stats = errors->getErrorStats();
     code = (!success) | stats.nbFatal | stats.nbSyntax | stats.nbError;
   }
@@ -3685,9 +3819,6 @@ int main(int argc, const char **argv) {
 
   // Do not delete these objects until you are done with UHDM
   SURELOG::shutdown_compiler(compiler);
-  delete clp;
-  delete symbolTable;
-  delete errors;
 
 #if defined(_MSC_VER) && defined(_DEBUG)
   // Redirect cout back to screen

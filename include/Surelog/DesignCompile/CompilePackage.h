@@ -33,43 +33,36 @@
 #include <uhdm/containers.h>
 
 namespace SURELOG {
-
 class CompileDesign;
 class Design;
-class ErrorContainer;
 class Package;
-class SymbolTable;
+class Session;
 
-struct FunctorCompilePackage {
-  FunctorCompilePackage(CompileDesign* compiler, Package* package,
-                        Design* design, SymbolTable* symbols,
-                        ErrorContainer* errors)
-      : m_compileDesign(compiler),
+struct FunctorCompilePackage final {
+  FunctorCompilePackage(Session* session, CompileDesign* compileDesign,
+                        Package* package, Design* design)
+      : m_session(session),
+        m_compileDesign(compileDesign),
         m_package(package),
-        m_design(design),
-        m_symbols(symbols),
-        m_errors(errors) {}
+        m_design(design) {}
   int32_t operator()() const;
 
  private:
-  CompileDesign* const m_compileDesign;
-  Package* const m_package;
-  Design* const m_design;
-  SymbolTable* const m_symbols;
-  ErrorContainer* const m_errors;
+  Session* const m_session = nullptr;
+  CompileDesign* const m_compileDesign = nullptr;
+  Package* const m_package = nullptr;
+  Design* const m_design = nullptr;
 };
 
 class CompilePackage final {
  public:
-  CompilePackage(CompileDesign* compiler, Package* package, Design* design,
-                 SymbolTable* symbols, ErrorContainer* errors)
-      : m_compileDesign(compiler),
+  CompilePackage(Session* session, CompileDesign* compileDesign,
+                 Package* package, Design* design)
+      : m_session(session),
+        m_compileDesign(compileDesign),
         m_package(package),
         m_design(design),
-        m_symbols(symbols),
-        m_errors(errors) {
-    m_helper.seterrorReporting(errors, symbols);
-  }
+        m_helper(session) {}
 
   bool compile(Elaborate elaborate, Reduce reduce);
 
@@ -77,13 +70,12 @@ class CompilePackage final {
   enum CollectType { FUNCTION, DEFINITION, OTHER };
   bool collectObjects_(CollectType collectType, Reduce reduce);
 
+  Session* const m_session = nullptr;
   CompileDesign* const m_compileDesign;
   Package* const m_package;
   Design* const m_design;
-  SymbolTable* const m_symbols;
-  ErrorContainer* const m_errors;
   CompileHelper m_helper;
-  UHDM::VectorOfattribute* m_attributes = nullptr;
+  uhdm::AttributeCollection* m_attributes = nullptr;
 };
 
 }  // namespace SURELOG

@@ -28,12 +28,14 @@
 #include <Surelog/DesignCompile/ElaborationStep.h>
 
 namespace SURELOG {
+class Session;
 
 class PackageAndRootElaboration final : public ElaborationStep {
  public:
-  explicit PackageAndRootElaboration(CompileDesign* compileDesign)
-      : ElaborationStep(compileDesign) {}
-
+  explicit PackageAndRootElaboration(Session* session,
+                                     CompileDesign* compileDesign)
+      : ElaborationStep(session, compileDesign) {}
+  PackageAndRootElaboration(const PackageAndRootElaboration&) = delete;
   ~PackageAndRootElaboration() final = default;
 
   bool elaborate() final;

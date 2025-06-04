@@ -36,45 +36,49 @@
 #include <string_view>
 
 namespace SURELOG {
-
-class SymbolTable;
+class Session;
 
 class VObject final {
  public:
-  VObject(SymbolId name, PathId fileId, VObjectType type, uint32_t line,
-          uint16_t column, uint32_t endLine, uint16_t endColumn,
+  VObject(SymbolId name, PathId fileId, VObjectType type, uint32_t startLine,
+          uint16_t startColumn, uint32_t endLine, uint16_t endColumn,
           NodeId parent = InvalidNodeId)
-      : VObject(name, fileId, type, line, column, endLine, endColumn, parent,
-                InvalidNodeId /* definition */, InvalidNodeId /* child */,
-                InvalidNodeId /* sibling */) {}
+      : VObject(name, fileId, type, startLine, startColumn, endLine, endColumn,
+                parent, InvalidNodeId /* definition */,
+                InvalidNodeId /* child */, InvalidNodeId /* sibling */) {}
 
-  VObject(SymbolId name, PathId fileId, VObjectType type, uint32_t line,
-          uint16_t column, uint32_t endLine, uint16_t endColumn, NodeId parent,
-          NodeId definition, NodeId child, NodeId sibling)
+  VObject(SymbolId name, PathId fileId, VObjectType type, uint32_t startLine,
+          uint16_t startColumn, uint32_t endLine, uint16_t endColumn,
+          NodeId parent, NodeId definition, NodeId child, NodeId sibling)
       : m_name(name),
         m_fileId(fileId),
         m_type(type),
-        m_column(column),
-        m_endColumn(endColumn),
-        m_line(line),
+        m_startLine(startLine),
         m_endLine(endLine),
+        m_startColumn(startColumn),
+        m_endColumn(endColumn),
         m_parent(parent),
         m_definition(definition),
         m_child(child),
         m_sibling(sibling) {}
 
   static std::string_view getTypeName(VObjectType type);
+  static VObjectType getType(std::string_view name);
 
-  std::string print(SymbolTable* symbols, NodeId uniqueId,
-                    PathId definitionFile, PathId printedFile) const;
+  std::string print(Session* session, NodeId uniqueId, PathId definitionFile,
+                    PathId printedFile) const;
 
   SymbolId m_name;
   PathId m_fileId;
   VObjectType m_type;
-  uint16_t m_column = 0;
-  uint16_t m_endColumn = 0;
-  uint32_t m_line = 0;
+  uint32_t m_startLine = 0;
   uint32_t m_endLine = 0;
+  uint16_t m_startColumn = 0;
+  uint16_t m_endColumn = 0;
+  uint32_t m_ppStartLine = 0;
+  uint32_t m_ppEndLine = 0;
+  uint16_t m_ppStartColumn = 0;
+  uint16_t m_ppEndColumn = 0;
   NodeId m_parent;
   NodeId m_definition;
   NodeId m_child;

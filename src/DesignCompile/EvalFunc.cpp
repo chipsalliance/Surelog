@@ -48,48 +48,49 @@
 
 namespace SURELOG {
 
-using namespace UHDM;  // NOLINT (using a bunch of them)
-
-expr* CompileHelper::EvalFunc(UHDM::function* func, std::vector<any*>* args,
-                              bool& invalidValue, DesignComponent* component,
-                              CompileDesign* compileDesign,
-                              ValuedComponentI* instance, PathId fileId,
-                              uint32_t lineNumber, any* pexpr) {
+uhdm::Expr* CompileHelper::EvalFunc(uhdm::Function* func,
+                                    std::vector<uhdm::Any*>* args,
+                                    bool& invalidValue,
+                                    DesignComponent* component,
+                                    CompileDesign* compileDesign,
+                                    ValuedComponentI* instance, PathId fileId,
+                                    uint32_t lineNumber, uhdm::Any* pexpr) {
   if (m_reduce == Reduce::Yes) {
     invalidValue = true;
     return nullptr;
   }
 
-  UHDM::GetObjectFunctor getObjectFunctor =
-      [&](std::string_view name, const any* inst,
-          const any* pexpr) -> UHDM::any* {
+  uhdm::GetObjectFunctor getObjectFunctor =
+      [&](std::string_view name, const uhdm::Any* inst,
+          const uhdm::Any* pexpr) -> uhdm::Any* {
     return getObject(name, component, compileDesign, instance, pexpr);
   };
-  UHDM::GetObjectFunctor getValueFunctor = [&](std::string_view name,
-                                               const any* inst,
-                                               const any* pexpr) -> UHDM::any* {
-    return (expr*)getValue(name, component, compileDesign, Reduce::Yes,
-                           instance, fileId, lineNumber, (any*)pexpr, false);
+  uhdm::GetObjectFunctor getValueFunctor =
+      [&](std::string_view name, const uhdm::Any* inst,
+          const uhdm::Any* pexpr) -> uhdm::Any* {
+    return (uhdm::Expr*)getValue(name, component, compileDesign, Reduce::Yes,
+                                 instance, fileId, lineNumber,
+                                 (uhdm::Any*)pexpr, false);
   };
-  UHDM::GetTaskFuncFunctor getTaskFuncFunctor =
-      [&](std::string_view name, const any* inst) -> UHDM::task_func* {
+  uhdm::GetTaskFuncFunctor getTaskFuncFunctor =
+      [&](std::string_view name, const uhdm::Any* inst) -> uhdm::TaskFunc* {
     auto ret = getTaskFunc(name, component, compileDesign, instance, pexpr);
     return ret.first;
   };
-  UHDM::ExprEval eval;
+  uhdm::ExprEval eval;
   eval.setGetObjectFunctor(getObjectFunctor);
   eval.setGetValueFunctor(getValueFunctor);
   eval.setGetTaskFuncFunctor(getTaskFuncFunctor);
   if (m_exprEvalPlaceHolder == nullptr) {
-    m_exprEvalPlaceHolder = compileDesign->getSerializer().MakeModule_inst();
-    m_exprEvalPlaceHolder->Param_assigns(
-        compileDesign->getSerializer().MakeParam_assignVec());
+    m_exprEvalPlaceHolder = compileDesign->getSerializer().make<uhdm::Module>();
+    m_exprEvalPlaceHolder->setParamAssigns(
+        compileDesign->getSerializer().makeCollection<uhdm::ParamAssign>());
   } else {
-    m_exprEvalPlaceHolder->Param_assigns()->erase(
-        m_exprEvalPlaceHolder->Param_assigns()->begin(),
-        m_exprEvalPlaceHolder->Param_assigns()->end());
+    m_exprEvalPlaceHolder->getParamAssigns()->erase(
+        m_exprEvalPlaceHolder->getParamAssigns()->begin(),
+        m_exprEvalPlaceHolder->getParamAssigns()->end());
   }
-  expr* res =
+  uhdm::Expr* res =
       eval.evalFunc(func, args, invalidValue, m_exprEvalPlaceHolder, pexpr);
   return res;
 }
@@ -100,18 +101,19 @@ void CompileHelper::evalScheduledExprs(DesignComponent* component,
     const std::string& name = nameEval.first;
     ExprEval& expr_eval = nameEval.second;
     bool invalidValue = false;
-    expr* result =
+    uhdm::Expr* result =
         reduceExpr(expr_eval.m_expr, invalidValue, component, compileDesign,
                    expr_eval.m_instance, expr_eval.m_fileId,
                    expr_eval.m_lineNumber, expr_eval.m_pexpr);
-    if (!invalidValue && result && (result->UhdmType() == uhdmconstant)) {
-      UHDM::constant* c = (UHDM::constant*)result;
-      Value* val = m_exprBuilder.fromVpiValue(c->VpiValue(), c->VpiSize());
+    if (!invalidValue && result &&
+        (result->getUhdmType() == uhdm::UhdmType::Constant)) {
+      uhdm::Constant* c = (uhdm::Constant*)result;
+      Value* val = m_exprBuilder.fromVpiValue(c->getValue(), c->getSize());
       component->setValue(name, val, m_exprBuilder);
       for (ParamAssign* pass : component->getParamAssignVec()) {
-        if (param_assign* upass = pass->getUhdmParamAssign()) {
-          if (upass->Lhs()->VpiName() == name) {
-            upass->Rhs(result);
+        if (uhdm::ParamAssign* upass = pass->getUhdmParamAssign()) {
+          if (upass->getLhs()->getName() == name) {
+            upass->setRhs(result);
             break;
           }
         }

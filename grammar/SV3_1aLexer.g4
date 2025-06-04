@@ -27,8 +27,12 @@ lexer grammar SV3_1aLexer;
 
 channels {
   WHITESPACES,
-  COMMENTS
+  COMMENTS,
+  PREPROC
 }
+
+PREPROC_BEGIN: '{!< ' Decimal_digit+ ' !}' -> channel(PREPROC);
+PREPROC_END: '{! ' Decimal_digit+ ' >!}' -> channel(PREPROC);
 
 QMARK: '?';
 
@@ -916,6 +920,7 @@ NETTYPE: 'nettype';
 //Escaped_identifier : '^^^' [\\|+a-zA-Z0-9_$:,-/*{}()`~!=;'"<>?.]* '^^^' ;
 
 Escaped_identifier: '#~@' .*? '#~@';
+Preproc_identifier: '@~#' Decimal_digit+;
 
 TILDA: '~';
 

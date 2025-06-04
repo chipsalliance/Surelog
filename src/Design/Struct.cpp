@@ -44,13 +44,13 @@ bool Struct::isNet() const {
   if (!m_typespec) {
     return false;
   }
-  if (m_typespec->UhdmType() != UHDM::uhdmstruct_typespec) return false;
-  const UHDM::struct_typespec* tps = (const UHDM::struct_typespec*)m_typespec;
-  if (tps->Members()) {
-    for (UHDM::typespec_member* member : *tps->Members()) {
-      if (const UHDM::ref_typespec* rt = member->Typespec()) {
-        if (const UHDM::typespec* ag = rt->Actual_typespec()) {
-          if (ag->UhdmType() != UHDM::uhdmlogic_typespec) {
+  if (m_typespec->getUhdmType() != uhdm::UhdmType::StructTypespec) return false;
+  const uhdm::StructTypespec* tps = (const uhdm::StructTypespec*)m_typespec;
+  if (const uhdm::TypespecMemberCollection* const members = tps->getMembers()) {
+    for (uhdm::TypespecMember* member : *members) {
+      if (const uhdm::RefTypespec* rt = member->getTypespec()) {
+        if (const uhdm::Typespec* ag = rt->getActual()) {
+          if (ag->getUhdmType() != uhdm::UhdmType::LogicTypespec) {
             return false;
           }
         } else {

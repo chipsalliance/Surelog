@@ -32,6 +32,7 @@
 
 #include "Surelog/API/Surelog.h"
 #include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Common/Session.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
 
@@ -41,31 +42,34 @@
 #include <uhdm/uhdm.h>
 #include <uhdm/vpi_user.h>
 
-class DesignListener final : public UHDM::VpiListener {
-  void enterModule_inst(const UHDM::module_inst *object,
-                        vpiHandle handle) final {
-    std::string_view instName = object->VpiName();
-    m_flatTraversal =
-        (instName.empty()) && ((object->VpiParent() == nullptr) ||
-                               ((object->VpiParent() != nullptr) &&
-                                (object->VpiParent()->VpiType() != vpiModule)));
+#include <functional>
+#include <iostream>
+
+namespace fs = std::filesystem;
+
+class DesignListener final : public uhdm::VpiListener {
+  void enterModule(const uhdm::Module *object, vpiHandle handle) final {
+    std::string_view instName = object->getName();
+    m_flatTraversal = (instName.empty()) &&
+                      ((object->getParent() == 0) ||
+                       ((object->getParent() != 0) &&
+                        (object->getParent()->getVpiType() != vpiModule)));
     if (m_flatTraversal)
-      std::cout << "Entering Module Definition: " << object->VpiDefName() << " "
-                << intptr_t(object) << " " << object->UhdmId() << std::endl;
+      std::cout << "Entering Module Definition: " << object->getDefName() << " "
+                << intptr_t(object) << " " << object->getUhdmId() << std::endl;
     else
-      std::cout << "Entering Module Instance: " << object->VpiFullName() << " "
-                << intptr_t(object) << " " << object->UhdmId() << std::endl;
+      std::cout << "Entering Module Instance: " << object->getFullName() << " "
+                << intptr_t(object) << " " << object->getUhdmId() << std::endl;
   }
 
-  void enterCont_assign(const UHDM::cont_assign *object,
-                        vpiHandle handle) final {
+  void enterContAssign(const uhdm::ContAssign *object, vpiHandle handle) final {
     if (m_flatTraversal) {
       std::cout << "  Let's skip the cont assigns in the flat traversal and "
                    "only navigate the ones in the hierarchical tree!"
                 << std::endl;
     } else {
       std::cout << "  enterCont_assign " << intptr_t(object) << " "
-                << object->UhdmId() << std::endl;
+                << object->getUhdmId() << std::endl;
     }
   }
 
@@ -85,25 +89,24 @@ int main(int argc, const char **argv) {
 
   // Read command line, compile a design, use -parse argument
   int32_t code = 0;
-  SURELOG::SymbolTable *const symbolTable = new SURELOG::SymbolTable();
-  SURELOG::ErrorContainer *const errors =
-      new SURELOG::ErrorContainer(symbolTable);
-  SURELOG::CommandLineParser *const clp =
-      new SURELOG::CommandLineParser(errors, symbolTable, false, false);
+  SURELOG::Session session;
+  SURELOG::ErrorContainer *const errors = session.getErrorContainer();
+  SURELOG::CommandLineParser *const clp = session.getCommandLineParser();
+
   clp->noPython();
   clp->setwritePpOutput(true);
   clp->setParse(true);
   clp->setCompile(true);
   clp->setElaborate(true);  // Request Surelog instance tree elaboration
   clp->setElabUhdm(true);   // Request UHDM Uniquification/Elaboration
-  bool success = clp->parseCommandLine(argc, argv);
+  bool success = session.parseCommandLine(argc, argv, false, false);
   errors->printMessages(clp->muteStdout());
 
   vpiHandle vpi_design = nullptr;
   SURELOG::scompiler *compiler = nullptr;
   if (success && (!clp->help())) {
-    compiler = SURELOG::start_compiler(clp);
-    vpi_design = SURELOG::get_uhdm_design(compiler);
+    compiler = SURELOG::start_compiler(&session);
+    vpi_design = SURELOG::get_vpi_design(compiler);
     auto stats = errors->getErrorStats();
     code = (!success) | stats.nbFatal | stats.nbSyntax | stats.nbError;
   }
@@ -117,8 +120,5 @@ int main(int argc, const char **argv) {
 
   // Do not delete these objects until you are done with UHDM
   SURELOG::shutdown_compiler(compiler);
-  delete clp;
-  delete symbolTable;
-  delete errors;
   return 0;
 }

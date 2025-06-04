@@ -43,19 +43,19 @@ class ClockingBlock final {
   // TODO: some of these parameters are not used. Correct or oversight ?
   ClockingBlock([[maybe_unused]] const FileContent* fileContent, NodeId blockId,
                 [[maybe_unused]] NodeId clockingBlockId, Type type,
-                UHDM::clocking_block* actual)
+                uhdm::ClockingBlock* actual)
       : m_blockId(blockId), m_actual(actual), m_type(type) {}
 
   void addSignal(Signal& signal) { m_signals.push_back(signal); }
   NodeId getNodeId() const { return m_blockId; }
   const std::vector<Signal>& getAllSignals() const { return m_signals; }
-  UHDM::clocking_block* getActual() const { return m_actual; }
+  uhdm::ClockingBlock* getActual() const { return m_actual; }
   Type getType() const { return m_type; }
 
  private:
   NodeId m_blockId;
   std::vector<Signal> m_signals;
-  UHDM::clocking_block* m_actual;
+  uhdm::ClockingBlock* m_actual = nullptr;
   Type m_type;
 };
 

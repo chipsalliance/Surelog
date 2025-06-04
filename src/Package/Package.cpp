@@ -32,17 +32,31 @@
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Testbench/ClassDefinition.h"
 
+#include <uhdm/Serializer.h>
+#include <uhdm/package.h>
+
 namespace SURELOG {
 
-Package::Package(std::string_view name, Library* library, FileContent* fC,
-                 NodeId nodeId)
-    : DesignComponent(fC, nullptr), m_name(name), m_library(library) {
+Package::Package(Session* session, std::string_view name, Library* library,
+                 const FileContent* fC, NodeId nodeId,
+                 uhdm::Serializer& serializer)
+    : DesignComponent(session, fC, nullptr),
+      m_name(name),
+      m_library(library),
+      m_exprBuilder(session) {
   addFileContent(fC, nodeId);
   m_unElabPackage = this;
   // if (!name.empty()) {  // avoid loop
   //   m_unElabPackage = new Package("", library, fC, nodeId);
   //   m_unElabPackage->m_name = name;
   // }
+
+  uhdm::Package* const instance = serializer.make<uhdm::Package>();
+  if (!name.empty()) instance->setName(name);
+  if (nodeId && (fC != nullptr))
+    fC->populateCoreMembers(fC->sl_collect(nodeId, VObjectType::paPACKAGE),
+                            nodeId, instance);
+  setUhdmModel(instance);
 }
 
 uint32_t Package::getSize() const {
@@ -58,9 +72,31 @@ ClassDefinition* Package::getClassDefinition(std::string_view name) {
   if (itr == m_classDefinitions.end()) {
     return nullptr;
   } else {
-    return (*itr).second;
+    return itr->second;
   }
 }
+
+const ClassDefinition* Package::getClassDefinition(
+    std::string_view name) const {
+  ClassNameClassDefinitionMultiMap::const_iterator itr =
+      m_classDefinitions.find(name);
+  if (itr == m_classDefinitions.end()) {
+    return nullptr;
+  } else {
+    return itr->second;
+  }
+}
+
+const DataType* Package::getDataType(Design* design,
+                                     std::string_view name) const {
+  if (const DataType* const dt = DesignComponent::getDataType(design, name)) {
+    return dt;
+  } else if (const DataType* const dt = getClassDefinition(name)) {
+    return dt;
+  }
+  return nullptr;
+}
+
 void Package::append(Package* package) {
   DesignComponent::append(package);
   for (auto& type : package->m_dataTypes)

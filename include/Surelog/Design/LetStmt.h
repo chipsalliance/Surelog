@@ -40,18 +40,18 @@ class FileContent;
 
 class LetStmt final {
  public:
-  LetStmt(UHDM::let_decl* decl, UHDM::VectorOfseq_formal_decl* ios,
-          UHDM::expr* expr)
+  LetStmt(uhdm::LetDecl* decl, uhdm::SeqFormalDeclCollection* ios,
+          uhdm::Expr* expr)
       : m_decl(decl), m_ios(ios), m_expr(expr) {}
   ~LetStmt() = default;
-  const UHDM::let_decl* Decl() { return m_decl; }
-  const UHDM::VectorOfseq_formal_decl* Ios() { return m_ios; }
-  const UHDM::expr* Expr() { return m_expr; }
+  const uhdm::LetDecl* getDecl() { return m_decl; }
+  const uhdm::SeqFormalDeclCollection* getIos() { return m_ios; }
+  const uhdm::Expr* getExpr() { return m_expr; }
 
  private:
-  UHDM::let_decl* m_decl;
-  UHDM::VectorOfseq_formal_decl* m_ios;
-  UHDM::expr* m_expr;
+  uhdm::LetDecl* const m_decl = nullptr;
+  uhdm::SeqFormalDeclCollection* const m_ios = nullptr;
+  uhdm::Expr* const m_expr = nullptr;
 };
 
 }  // namespace SURELOG

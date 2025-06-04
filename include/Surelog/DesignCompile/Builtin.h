@@ -27,24 +27,26 @@
 
 namespace SURELOG {
 
+class CompilationUnit;
 class CompileDesign;
 class Design;
-class CompilationUnit;
+class Session;
+class SymbolTable;
 
 // TODO: this looks like it should probably be more a
 // function ? Something like
 // SURELOG::addBuiltinsTo(Design *design);
 class Builtin final {
  public:
-  Builtin(CompileDesign* compiler, Design* design)
-      : m_compiler(compiler), m_design(design) {}
-  void addBuiltinMacros(CompilationUnit* compUnit);
-  void addBuiltinTypes();
-  void addBuiltinClasses();
+  Builtin(Session* session, CompileDesign* compileDesign, Design* design);
+  void addBuiltinMacros(CompilationUnit* compUnit) const;
+  void addBuiltinTypes() const;
+  void addBuiltinClasses() const;
 
  private:
-  CompileDesign* const m_compiler;
-  Design* const m_design;
+  Session* const m_session = nullptr;
+  CompileDesign* const m_compileDesign = nullptr;
+  Design* const m_design = nullptr;
 };
 
 };  // namespace SURELOG

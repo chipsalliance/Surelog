@@ -28,6 +28,7 @@
 #include <Surelog/Common/PathId.h>
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/SourceCompile/PreprocessFile.h>
+#include <uhdm/containers.h>
 
 #include <cstdint>
 #include <map>
@@ -41,42 +42,41 @@ using PyThreadState = struct _ts;
 #endif
 
 namespace SURELOG {
-
 class AnalyzeFile;
-class CommandLineParser;
 class CompilationUnit;
 class Compiler;
-class ErrorContainer;
 class Library;
 class ParseFile;
 class PreprocessFile;
 class PythonListen;
-class SymbolTable;
+class Session;
 
 class CompileSourceFile final {
  public:
-  friend PreprocessFile;
-  enum Action { Preprocess, PostPreprocess, Parse, PythonAPI };
+  friend class Compiler;
+  friend class PreprocessFile;
 
-  CompileSourceFile(PathId fileId, CommandLineParser* clp,
-                    ErrorContainer* errors, Compiler* compiler,
-                    SymbolTable* symbols, CompilationUnit* comp_unit,
-                    Library* library, std::string_view = "");
+  enum class Action { Preprocess, PostPreprocess, Parse, PythonAPI };
+
+  CompileSourceFile(Session* session, PathId fileId, Compiler* compiler,
+                    CompilationUnit* comp_unit, Library* library,
+                    std::string_view = "");
 
   // Chunk File:
-  CompileSourceFile(CompileSourceFile* parent, PathId ppResultFileId,
-                    uint32_t lineOffset);
+  CompileSourceFile(Session* session, CompileSourceFile* parent,
+                    PathId ppResultFileId, uint32_t lineOffset);
+  CompileSourceFile(const CompileSourceFile& orig);
+  ~CompileSourceFile();
 
   bool compile(Action action);
-  CompileSourceFile(const CompileSourceFile& orig);
-  virtual ~CompileSourceFile();
+
   Compiler* getCompiler() const { return m_compiler; }
-  ErrorContainer* getErrorContainer() const { return m_errors; }
-  CommandLineParser* getCommandLineParser() const {
-    return m_commandLineParser;
-  }
-  SymbolTable* getSymbolTable() const { return m_symbolTable; }
   Library* getLibrary() const { return m_library; }
+
+  Session* getSession() { return m_session; }
+  const Session* getSession() const { return m_session; }
+  void setSession(Session* session) { m_session = session; }
+
   void registerPP(PreprocessFile* pp) { m_ppIncludeVec.push_back(pp); }
   bool initParser();
   void setParser(ParseFile* pf) { m_parser = pf; }
@@ -99,9 +99,6 @@ class CompileSourceFile final {
   PyThreadState* getPythonInterp() { return m_interpState; }
 #endif
 
-  void setSymbolTable(SymbolTable* symbols);
-  void setErrorContainer(ErrorContainer* errors) { m_errors = errors; }
-
   // Get size of job approximated by size of file to process.
   uint64_t getJobSize(Action action) const;
 
@@ -114,20 +111,25 @@ class CompileSourceFile final {
   ParseFile* getParser() const { return m_parser; }
   PreprocessFile* getPreprocessor() const { return m_pp; }
 
+  const uhdm::PreprocMacroInstanceCollection& getPreprocMacroInstances() const {
+    return m_preprocMacroInstances;
+  }
+
  private:
   bool preprocess_();
   bool postPreprocess_();
 
   bool parse_();
-
   bool pythonAPI_();
 
+  uhdm::PreprocMacroInstanceCollection& getPreprocMacroInstances() {
+    return m_preprocMacroInstances;
+  }
+
+  Session* m_session = nullptr;
   PathId m_fileId;
-  CommandLineParser* m_commandLineParser = nullptr;
-  ErrorContainer* m_errors = nullptr;
   Compiler* m_compiler = nullptr;
   PreprocessFile* m_pp = nullptr;
-  SymbolTable* m_symbolTable = nullptr;
   std::vector<PreprocessFile*> m_ppIncludeVec;
   ParseFile* m_parser = nullptr;
   CompilationUnit* m_compilationUnit = nullptr;
@@ -138,6 +140,7 @@ class CompileSourceFile final {
       m_antlrPpMacroMap;  // Preprocessor Antlr Handlers (One per macro)
   std::map<PathId, PreprocessFile::AntlrParserHandler*, PathIdLessThanComparer>
       m_antlrPpFileMap;  // Preprocessor Antlr Handlers (One per included file)
+  uhdm::PreprocMacroInstanceCollection m_preprocMacroInstances;
 #ifdef SURELOG_WITH_PYTHON
   PyThreadState* m_interpState = nullptr;
   PythonListen* m_pythonListener = nullptr;

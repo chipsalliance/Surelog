@@ -104,7 +104,7 @@ description
 escaped_identifier: ESCAPED_IDENTIFIER;
 
 macro_instance
-  : (Macro_identifier | Macro_Escaped_identifier) Spaces* OPEN_PARENS macro_actual_args CLOSE_PARENS 
+  : (Macro_identifier | Macro_Escaped_identifier) Spaces* OPEN_PARENS macro_actual_args CLOSE_PARENS
       # MacroInstanceWithArgs
   | (Macro_identifier | Macro_Escaped_identifier) # MacroInstanceNoArgs
   ;
@@ -352,10 +352,7 @@ multiline_args_macro_definition
 
 simple_no_args_macro_definition
   : TICK_DEFINE Spaces (Simple_identifier | ESCAPED_IDENTIFIER) Spaces simple_macro_definition_body
-      (
-    CR
-    | One_line_comment
-  )
+      (CR | One_line_comment)
   | TICK_DEFINE Spaces (Simple_identifier | ESCAPED_IDENTIFIER) Spaces* CR
   ;
 

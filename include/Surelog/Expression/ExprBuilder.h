@@ -31,17 +31,15 @@
 #include <string_view>
 
 namespace SURELOG {
-
 class Design;
-class ErrorContainer;
 class FileContent;
 class NodeId;
-class SymbolTable;
+class Session;
 class ValuedComponentI;
 
 class ExprBuilder final {
  public:
-  ExprBuilder() = default;
+  explicit ExprBuilder(Session* session) : m_session(session) {}
   ExprBuilder(const ExprBuilder& orig) = delete;
 
   Value* evalExpr(const FileContent*, NodeId id,
@@ -50,18 +48,14 @@ class ExprBuilder final {
   Value* fromVpiValue(std::string_view value, int32_t size);
   Value* fromString(std::string_view value);
   Value* clone(Value* val);
-  void seterrorReporting(ErrorContainer* errors, SymbolTable* symbols) {
-    m_errors = errors;
-    m_symbols = symbols;
-  }
+
   void setDesign(Design* design) { m_design = design; }
   void deleteValue(Value* value) { m_valueFactory.deleteValue(value); }
   ValueFactory& getValueFactory() { return m_valueFactory; }
 
  private:
+  Session* const m_session = nullptr;
   ValueFactory m_valueFactory;
-  ErrorContainer* m_errors = nullptr;
-  SymbolTable* m_symbols = nullptr;
   Design* m_design = nullptr;
 };
 

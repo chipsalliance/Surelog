@@ -27,13 +27,18 @@
 #include <iostream>
 #include <string_view>
 
+#include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Common/PathId.h"
+#include "Surelog/Common/Session.h"
 
 namespace SURELOG {
+LogListener::LogListener(Session *session) : m_session(session) {}
 
-LogListener::LogResult LogListener::initialize(PathId fileId) {
-  FileSystem *const fileSystem = FileSystem::getInstance();
+LogListener::LogResult LogListener::initialize() {
+  FileSystem *const fileSystem = m_session->getFileSystem();
+  CommandLineParser *const clp = m_session->getCommandLineParser();
+  PathId fileId = clp->getLogFileId();
   std::ostream &strm = fileSystem->openForWrite(fileId);
   if (!strm.good()) {
     fileSystem->close(strm);
@@ -41,68 +46,69 @@ LogListener::LogResult LogListener::initialize(PathId fileId) {
   }
   fileSystem->close(strm);
 
-  std::scoped_lock<std::mutex> lock(mutex);
-  this->fileId = fileId;
+  std::scoped_lock<std::mutex> lock(m_mutex);
+  m_fileId = fileId;
   return LogResult::Ok;
 }
 
 PathId LogListener::getLogFileId() const {
-  std::scoped_lock<std::mutex> lock(mutex);
-  return fileId;
+  std::scoped_lock<std::mutex> lock(m_mutex);
+  return m_fileId;
 }
 
 void LogListener::setMaxQueuedMessageCount(int32_t count) {
-  std::scoped_lock<std::mutex> lock(mutex);
-  maxQueuedMessageCount = count;
+  std::scoped_lock<std::mutex> lock(m_mutex);
+  m_maxQueuedMessageCount = count;
 }
 
 int32_t LogListener::getMaxQueuedMessageCount() const {
   // Lock unnecessary here ...
-  return maxQueuedMessageCount;
+  return m_maxQueuedMessageCount;
 }
 
 int32_t LogListener::getQueuedMessageCount() const {
-  std::scoped_lock<std::mutex> lock(mutex);
-  return static_cast<int32_t>(queued.size());
+  std::scoped_lock<std::mutex> lock(m_mutex);
+  return static_cast<int32_t>(m_queued.size());
 }
 
 void LogListener::enqueue(std::string_view message) {
   // NOTE: This isn't guarded since this is expected to be used only via
   // public API (which in turn are reponsible for ensuring thread-safety)
 
-  while (queued.size() >= maxQueuedMessageCount) {
-    queued.pop_front();
-    ++droppedCount;
+  while (m_queued.size() >= m_maxQueuedMessageCount) {
+    m_queued.pop_front();
+    ++m_droppedCount;
   }
-  queued.emplace_back(message);
+  m_queued.emplace_back(message);
 }
 
 void LogListener::flush(std::ostream &strm) {
   // NOTE: This isn't guarded since this is expected to be used only via
   // public API (which in turn are reponsible for ensuring thread-safety)
 
-  if (droppedCount > 0) {
-    strm << "---------- " << droppedCount
+  if (m_droppedCount > 0) {
+    strm << "---------- " << m_droppedCount
          << " messages were dropped! ----------" << std::endl;
   }
-  droppedCount = 0;
-  while (!queued.empty()) {
-    strm << queued.front();
-    queued.pop_front();
+  m_droppedCount = 0;
+  while (!m_queued.empty()) {
+    strm << m_queued.front();
+    m_queued.pop_front();
   }
   strm << std::flush;
 }
 
 LogListener::LogResult LogListener::flush() {
-  std::scoped_lock<std::mutex> lock(mutex);
+  std::scoped_lock<std::mutex> lock(m_mutex);
 
-  if (queued.empty()) {
+  if (m_queued.empty()) {
     return LogResult::Ok;  // Nothing to flush!
   }
 
-  FileSystem *const fileSystem = FileSystem::getInstance();
+  FileSystem *const fileSystem = m_session->getFileSystem();
+
   std::ostream &strm =
-      fileSystem->openOutput(fileId, std::ios_base::out | std::ios_base::app);
+      fileSystem->openOutput(m_fileId, std::ios_base::out | std::ios_base::app);
   if (!strm.good()) {
     fileSystem->close(strm);
     return LogResult::FailedToOpenFileForWrite;
@@ -114,23 +120,24 @@ LogListener::LogResult LogListener::flush() {
 }
 
 LogListener::LogResult LogListener::log(std::string_view message) {
-  std::scoped_lock<std::mutex> lock(mutex);
+  std::scoped_lock<std::mutex> lock(m_mutex);
 
-  if (!fileId) {
+  if (!m_fileId) {
     enqueue(message);
     return LogResult::Enqueued;
   }
 
-  FileSystem *const fileSystem = FileSystem::getInstance();
+  FileSystem *const fileSystem = m_session->getFileSystem();
+
   std::ostream &strm =
-      fileSystem->openOutput(fileId, std::ios_base::out | std::ios_base::app);
+      fileSystem->openOutput(m_fileId, std::ios_base::out | std::ios_base::app);
   if (!strm.good()) {
     enqueue(message);
     fileSystem->close(strm);
     return LogResult::FailedToOpenFileForWrite;
   }
 
-  if (!queued.empty()) {
+  if (!m_queued.empty()) {
     flush(strm);
   }
 

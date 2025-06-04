@@ -28,6 +28,7 @@
 // UHDM
 #include <uhdm/uhdm_forward_decl.h>
 
+#include <algorithm>
 #include <vector>
 
 namespace SURELOG {
@@ -38,61 +39,93 @@ class PortNetHolder {
  public:
   virtual ~PortNetHolder() = default;  // virtual as used as interface
 
-  std::vector<Signal*>& getPorts() { return m_ports; }
-  std::vector<Signal*>& getSignals() { return m_signals; }
-  std::vector<UHDM::cont_assign*>* getContAssigns() const {
+  const std::vector<Signal*>& getPorts() const { return m_ports; }
+  const std::vector<Signal*>& getSignals() const { return m_signals; }
+
+  void addPort(Signal* signal) { m_ports.emplace_back(signal); }
+
+  void addSignal(Signal* signal) { m_signals.emplace_back(signal); }
+
+  bool removePort(Signal* signal) {
+    auto it = std::find(m_ports.begin(), m_ports.end(), signal);
+    if (it != m_ports.end()) {
+      m_ports.erase(it);
+      return true;
+    }
+    return false;
+  }
+
+  bool removeSignal(Signal* signal) {
+    auto it = std::find(m_signals.begin(), m_signals.end(), signal);
+    if (it != m_signals.end()) {
+      m_signals.erase(it);
+      return true;
+    }
+    return false;
+  }
+
+  std::vector<uhdm::ContAssign*>* getContAssigns() const {
     return m_contAssigns;
   }
 
-  void setContAssigns(std::vector<UHDM::cont_assign*>* cont_assigns) {
+  void setContAssigns(std::vector<uhdm::ContAssign*>* cont_assigns) {
     m_contAssigns = cont_assigns;
   }
 
-  std::vector<UHDM::process_stmt*>* getProcesses() const { return m_processes; }
-  void setProcesses(std::vector<UHDM::process_stmt*>* processes) {
+  std::vector<uhdm::Process*>* getProcesses() const { return m_processes; }
+  void setProcesses(std::vector<uhdm::Process*>* processes) {
     m_processes = processes;
   }
 
-  std::vector<UHDM::any*>* getParameters() const { return m_parameters; }
-  void setParameters(std::vector<UHDM::any*>* parameters) {
+  std::vector<uhdm::Any*>* getParameters() const { return m_parameters; }
+  void setParameters(std::vector<uhdm::Any*>* parameters) {
     m_parameters = parameters;
   }
 
-  std::vector<UHDM::any*>* getAssertions() const { return m_assertions; }
-  void setAssertions(std::vector<UHDM::any*>* assertions) {
+  std::vector<uhdm::Any*>* getAssertions() const { return m_assertions; }
+  void setAssertions(std::vector<uhdm::Any*>* assertions) {
     m_assertions = assertions;
   }
 
-  std::vector<UHDM::param_assign*>* getParam_assigns() const {
-    return m_param_assigns;
+  std::vector<uhdm::ParamAssign*>* getParamAssigns() const {
+    return m_paramAssigns;
   }
-  void setParam_assigns(std::vector<UHDM::param_assign*>* param_assigns) {
-    m_param_assigns = param_assigns;
-  }
-
-  std::vector<UHDM::param_assign*>* getOrigParam_assigns() const {
-    return m_orig_param_assigns;
-  }
-  void setOrigParam_assigns(std::vector<UHDM::param_assign*>* param_assigns) {
-    m_orig_param_assigns = param_assigns;
+  void setParam_assigns(std::vector<uhdm::ParamAssign*>* param_assigns) {
+    m_paramAssigns = param_assigns;
   }
 
-  std::vector<UHDM::task_func*>* getTask_funcs() const { return m_task_funcs; }
+  std::vector<uhdm::ParamAssign*>* getOrigParam_assigns() const {
+    return m_origParamAssigns;
+  }
+  void setOrigParam_assigns(std::vector<uhdm::ParamAssign*>* param_assigns) {
+    m_origParamAssigns = param_assigns;
+  }
 
-  void setTask_funcs(std::vector<UHDM::task_func*>* task_funcs) {
-    m_task_funcs = task_funcs;
+  std::vector<uhdm::TaskFunc*>* getTaskFuncs() const { return m_taskFuncs; }
+
+  void setTaskFuncs(std::vector<uhdm::TaskFunc*>* taskFuncs) {
+    m_taskFuncs = taskFuncs;
+  }
+
+  std::vector<uhdm::TaskFuncDecl*>* getTaskFuncDecls() const {
+    return m_taskFuncDecls;
+  }
+
+  void setTaskFuncDecls(std::vector<uhdm::TaskFuncDecl*>* taskFuncDecls) {
+    m_taskFuncDecls = taskFuncDecls;
   }
 
  protected:
   std::vector<Signal*> m_ports;
   std::vector<Signal*> m_signals;
-  std::vector<UHDM::cont_assign*>* m_contAssigns = nullptr;
-  std::vector<UHDM::process_stmt*>* m_processes = nullptr;
-  std::vector<UHDM::any*>* m_parameters = nullptr;
-  std::vector<UHDM::param_assign*>* m_param_assigns = nullptr;
-  std::vector<UHDM::param_assign*>* m_orig_param_assigns = nullptr;
-  std::vector<UHDM::task_func*>* m_task_funcs = nullptr;
-  std::vector<UHDM::any*>* m_assertions = nullptr;
+  std::vector<uhdm::ContAssign*>* m_contAssigns = nullptr;
+  std::vector<uhdm::Process*>* m_processes = nullptr;
+  std::vector<uhdm::Any*>* m_parameters = nullptr;
+  std::vector<uhdm::ParamAssign*>* m_paramAssigns = nullptr;
+  std::vector<uhdm::ParamAssign*>* m_origParamAssigns = nullptr;
+  std::vector<uhdm::TaskFunc*>* m_taskFuncs = nullptr;
+  std::vector<uhdm::TaskFuncDecl*>* m_taskFuncDecls = nullptr;
+  std::vector<uhdm::Any*>* m_assertions = nullptr;
 };
 
 }  // namespace SURELOG

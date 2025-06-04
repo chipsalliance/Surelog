@@ -20,19 +20,19 @@
 
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"
+#include "Surelog/Common/Session.h"
 #include "Surelog/Design/Design.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/DesignCompile/CompileDesign.h"
 #include "Surelog/SourceCompile/CompileSourceFile.h"
 #include "Surelog/SourceCompile/Compiler.h"
 #include "Surelog/SourceCompile/ParseFile.h"
-#include "Surelog/SourceCompile/ParseTreeListener.h"
+#include "Surelog/SourceCompile/AstListener.h"
 
 namespace SURELOG {
 
-scompiler* start_compiler(CommandLineParser* clp) {
-  Compiler* the_compiler =
-      new Compiler(clp, clp->getErrorContainer(), clp->getSymbolTable());
+scompiler* start_compiler(Session* session) {
+  Compiler* the_compiler = new Compiler(session);
   bool status = the_compiler->compile();
   if (!status) return nullptr;
   return (scompiler*)the_compiler;
@@ -47,29 +47,38 @@ void shutdown_compiler(scompiler* the_compiler) {
   if (the_compiler == nullptr) return;
   Compiler* compiler = (Compiler*)the_compiler;
   if (CompileDesign* comp = compiler->getCompileDesign()) {
-    comp->getSerializer().Purge();
+    comp->getSerializer().purge();
   }
   delete (Compiler*)the_compiler;
 }
 
-vpiHandle get_uhdm_design(scompiler* compiler) {
+uhdm::Design* get_uhdm_design(scompiler* compiler) {
+  if (Design* design = get_design(compiler)) {
+    return design->getUhdmDesign();
+  }
+  return nullptr;
+}
+
+vpiHandle get_vpi_design(scompiler* compiler) {
   vpiHandle design_handle = nullptr;
   Compiler* the_compiler = (Compiler*)compiler;
   if (the_compiler) {
-    design_handle = the_compiler->getUhdmDesign();
+    design_handle = the_compiler->getVpiDesign();
   }
   return design_handle;
 }
 
-void walk_parsetree(scompiler* compiler, ParseTreeListener* listener) {
+void walk(scompiler* compiler, AstListener* listener) {
   if (!compiler || !listener) return;
   Compiler* the_compiler = (Compiler*)compiler;
   for (const CompileSourceFile* csf : the_compiler->getCompileSourceFiles()) {
-    const FileContent* const fC = csf->getParser()->getFileContent();
-    const std::vector<VObject>& objects = fC->getVObjects();
-    const SymbolTable* const symbolTable = fC->getSymbolTable();
-    listener->listen(fC->getFileId(), objects.data(), objects.size(),
-                     symbolTable);
+    ParseFile* const parser = csf->getParser();
+    FileContent* const fC = parser->getFileContent();
+    if (listener->shouldWalkSourceFile(fC->getSession(), fC->getFileId())) {
+      const std::vector<VObject>& objects = fC->getVObjects();
+      listener->listen(fC->getSession(), fC->getFileId(),
+                       parser->getSourceText(), objects.data(), objects.size());
+    }
   }
 }
 

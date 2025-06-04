@@ -32,71 +32,39 @@
 
 namespace SURELOG {
 
-Signal::Signal(const FileContent* fileContent, NodeId nodeId, VObjectType type,
-               VObjectType direction, NodeId packedDimension, bool is_signed)
-    : m_fileContent(fileContent),
+int32_t Signal::s_instId = 0;
+
+Signal::Signal(DesignComponent* component, const FileContent* fileContent,
+               NodeId nodeId, NodeId nameId, VObjectType type,
+               VObjectType direction, NodeId packedDimension,
+               NodeId unpackedDimension, bool is_signed)
+    : d_instId(++s_instId),
+      m_component(component),
+      m_fileContent(fileContent),
       m_nodeId(nodeId),
+      m_nameId(nameId),
+      m_netNodeId(nodeId),
+      m_netNameId(nameId),
+      m_packedDimension(packedDimension),
+      m_unpackedDimension(unpackedDimension),
       m_type(type),
       m_direction(direction),
-      m_interfaceDef(nullptr),
-      m_modPort(nullptr),
-      m_dataType(nullptr),
-      m_lowConn(nullptr),
-      m_packedDimension(packedDimension),
-      m_const(false),
-      m_var(false),
       m_signed(is_signed) {}
 
-Signal::Signal(const FileContent* fileContent, NodeId nodeId,
-               NodeId interfaceTypeNameId, VObjectType subnettype,
-               NodeId unpackedDimension, bool is_signed)
-    : m_fileContent(fileContent),
+Signal::Signal(DesignComponent* component, const FileContent* fileContent,
+               NodeId nodeId, NodeId nameId, NodeId interfaceTypeNameId,
+               VObjectType subnettype, NodeId unpackedDimension, bool is_signed)
+    : d_instId(++s_instId),
+      m_component(component),
+      m_fileContent(fileContent),
       m_nodeId(nodeId),
-      m_type(subnettype),
-      m_direction(VObjectType::slNoType),
-      m_interfaceDef(nullptr),
-      m_modPort(nullptr),
-      m_dataType(nullptr),
-      m_lowConn(nullptr),
+      m_nameId(nameId),
+      m_netNodeId(nodeId),
+      m_netNameId(nameId),
       m_interfaceTypeNameId(interfaceTypeNameId),
       m_unpackedDimension(unpackedDimension),
-      m_const(false),
-      m_var(false),
-      m_signed(is_signed) {}
-
-Signal::Signal(const FileContent* fileContent, NodeId nodeId, VObjectType type,
-               NodeId packedDimension, VObjectType direction, NodeId typeSpecId,
-               NodeId unpackedDimension, bool is_signed)
-    : m_fileContent(fileContent),
-      m_nodeId(nodeId),
-      m_type(type),
-      m_direction(direction),
-      m_interfaceDef(nullptr),
-      m_modPort(nullptr),
-      m_dataType(nullptr),
-      m_lowConn(nullptr),
-      m_packedDimension(packedDimension),
-      m_typeSpecId(typeSpecId),
-      m_unpackedDimension(unpackedDimension),
-      m_const(false),
-      m_var(false),
-      m_signed(is_signed) {}
-
-Signal::Signal(const FileContent* fileContent, NodeId nodeId, VObjectType type,
-               NodeId packedDimension, VObjectType direction,
-               NodeId unpackedDimension, bool is_signed)
-    : m_fileContent(fileContent),
-      m_nodeId(nodeId),
-      m_type(type),
-      m_direction(direction),
-      m_interfaceDef(nullptr),
-      m_modPort(nullptr),
-      m_dataType(nullptr),
-      m_lowConn(nullptr),
-      m_packedDimension(packedDimension),
-      m_unpackedDimension(unpackedDimension),
-      m_const(false),
-      m_var(false),
+      m_type(subnettype),
+      m_direction(VObjectType::slNoType),
       m_signed(is_signed) {}
 
 std::string Signal::getInterfaceTypeName() const {
@@ -125,10 +93,10 @@ std::string Signal::getInterfaceTypeName() const {
 }
 
 std::string_view Signal::getName() const {
-  return m_fileContent->SymName(m_nodeId);
+  return m_fileContent->SymName(m_nameId);
 }
 
-NodeId Signal::getModPortId() const {
+NodeId Signal::getModportId() const {
   return m_fileContent->Sibling(m_interfaceTypeNameId);
 }
 

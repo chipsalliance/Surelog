@@ -45,11 +45,13 @@
 #include <vector>
 
 // UHDM
+#include <uhdm/BaseClass.h>
 #include <uhdm/uhdm_forward_decl.h>
 
 namespace SURELOG {
 
 class DataType;
+class Design;
 class DesignElement;
 class FileContent;
 class Function;
@@ -62,25 +64,26 @@ class Variable;
 
 class ExprEval {
  public:
-  ExprEval(UHDM::expr* expr, ValuedComponentI* instance, PathId fileId,
-           uint32_t lineNumber, UHDM::any* pexpr)
+  ExprEval(uhdm::Expr* expr, ValuedComponentI* instance, PathId fileId,
+           uint32_t lineNumber, uhdm::Any* pexpr)
       : m_expr(expr),
         m_instance(instance),
         m_fileId(fileId),
         m_lineNumber(lineNumber),
         m_pexpr(pexpr) {}
-  UHDM::expr* m_expr;
-  ValuedComponentI* m_instance;
+  uhdm::Expr* const m_expr = nullptr;
+  ValuedComponentI* const m_instance = nullptr;
   PathId m_fileId;
   uint32_t m_lineNumber;
-  UHDM::any* m_pexpr;
+  uhdm::Any* const m_pexpr = nullptr;
 };
 
 class DesignComponent : public ValuedComponentI, public PortNetHolder {
   SURELOG_IMPLEMENT_RTTI(DesignComponent, ValuedComponentI)
  public:
-  DesignComponent(const DesignComponent* parent, DesignComponent* definition)
-      : ValuedComponentI(parent, definition), m_instance(nullptr) {}
+  DesignComponent(Session* session, const DesignComponent* parent,
+                  DesignComponent* definition)
+      : ValuedComponentI(session, parent, definition) {}
   ~DesignComponent() override = default;
 
   virtual uint32_t getSize() const = 0;
@@ -104,7 +107,7 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
       std::map<std::string, std::pair<FileCNodeId, DesignComponent*>,
                StringViewCompare>;
   using FuncNameTypespecVec =
-      std::vector<std::pair<std::string, UHDM::typespec*>>;
+      std::vector<std::pair<std::string, uhdm::Typespec*>>;
 
   void addFileContent(const FileContent* fileContent, NodeId nodeId);
   const std::vector<const FileContent*>& getFileContents() const {
@@ -127,7 +130,8 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   void insertUsedDataType(std::string_view dataTypeName, DataType* dataType);
 
   const DataTypeMap& getDataTypeMap() const { return m_dataTypes; }
-  const DataType* getDataType(std::string_view name) const;
+  virtual const DataType* getDataType(Design* design,
+                                      std::string_view name) const;
   void insertDataType(std::string_view dataTypeName, DataType* dataType);
 
   const TypeDefMap& getTypeDefMap() const { return m_typedefs; }
@@ -142,7 +146,7 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   virtual Task* getTask(std::string_view name) const;
   void insertTask(Task* p);
 
-  void addAccessPackage(Package* p) { m_packages.push_back(p); }
+  void addAccessPackage(Package* p) { m_packages.emplace_back(p); }
   const std::vector<Package*>& getAccessPackages() const { return m_packages; }
 
   void addVariable(Variable* var);
@@ -156,63 +160,49 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
     return m_orderedParameters;
   }
 
-  void addParamAssign(ParamAssign* assign) { m_paramAssigns.push_back(assign); }
+  void addParamAssign(ParamAssign* assign) {
+    m_paramAssigns.emplace_back(assign);
+  }
   const ParamAssignVec& getParamAssignVec() const { return m_paramAssigns; }
 
-  void addImportedSymbol(UHDM::import_typespec* i) {
-    m_imported_symbols.push_back(i);
+  void addImportTypespec(uhdm::ImportTypespec* i) {
+    m_importTypespecs.emplace_back(i);
   }
-  const std::vector<UHDM::import_typespec*>& getImportedSymbols() const {
-    return m_imported_symbols;
-  }
-
-  void addElabSysCall(UHDM::tf_call* elab_sys_call) {
-    m_elab_sys_calls.push_back(elab_sys_call);
-  }
-  const std::vector<UHDM::tf_call*>& getElabSysCalls() const {
-    return m_elab_sys_calls;
+  const DataType* getImportedDataType(
+      Design* design, std::string_view name,
+      std::set<const DesignComponent*>& visited) const;
+  const std::vector<uhdm::ImportTypespec*>& getImportedSymbols() const {
+    return m_importTypespecs;
   }
 
-  void addPropertyDecl(UHDM::property_decl* prop_decl) {
-    m_property_decls.push_back(prop_decl);
+  void addElabSysCall(uhdm::TFCall* elab_sys_call) {
+    m_elabSysCalls.emplace_back(elab_sys_call);
   }
-  const std::vector<UHDM::property_decl*>& getPropertyDecls() const {
-    return m_property_decls;
-  }
-
-  void addSequenceDecl(UHDM::sequence_decl* seq_decl) {
-    m_sequence_decls.push_back(seq_decl);
-  }
-  const std::vector<UHDM::sequence_decl*>& getSequenceDecls() const {
-    return m_sequence_decls;
+  const std::vector<uhdm::TFCall*>& getElabSysCalls() const {
+    return m_elabSysCalls;
   }
 
-  void needLateBinding(UHDM::ref_obj* obj) {
-    if (m_lateBinding) m_needLateBinding.push_back(obj);
+  void addPropertyDecl(uhdm::PropertyDecl* prop_decl) {
+    m_propertyDecls.emplace_back(prop_decl);
   }
-  const std::vector<UHDM::ref_obj*>& getLateBinding() const {
-    return m_needLateBinding;
-  }
-
-  void needLateTypedefBinding(UHDM::any* obj) {
-    if (m_lateBinding) m_needLateTypedefBinding.push_back(obj);
-  }
-  const std::vector<UHDM::any*>& getLateTypedefBinding() const {
-    return m_needLateTypedefBinding;
+  const std::vector<uhdm::PropertyDecl*>& getPropertyDecls() const {
+    return m_propertyDecls;
   }
 
-  void needLateResolutionFunction(std::string_view funcName,
-                                  UHDM::typespec* tps) {
-    if (m_lateBinding) m_lateResolutionFunctions.emplace_back(funcName, tps);
+  void addSequenceDecl(uhdm::SequenceDecl* seq_decl) {
+    m_sequenceDecls.emplace_back(seq_decl);
   }
-  FuncNameTypespecVec& getLateResolutionFunction() {
-    return m_lateResolutionFunctions;
+  const std::vector<uhdm::SequenceDecl*>& getSequenceDecls() const {
+    return m_sequenceDecls;
   }
 
-  void lateBinding(bool on) { m_lateBinding = on; }
+  void setUhdmModel(uhdm::Any* model) { m_model = model; }
+  uhdm::Any* getUhdmModel() { return m_model; }
+  template <typename T>
+  T* getUhdmModel() const {
+    return (m_model == nullptr) ? nullptr : any_cast<T>(m_model);
+  }
 
-  void setUhdmInstance(UHDM::instance* instance) { m_instance = instance; }
-  UHDM::instance* getUhdmInstance() { return m_instance; }
   void scheduleParamExprEval(std::string_view name, ExprEval& expr_eval) {
     m_scheduledParamExprEval.emplace_back(name, expr_eval);
   }
@@ -226,6 +216,11 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   LetStmt* getLetStmt(std::string_view name);
 
   const LetStmtMap& getLetStmts() const { return m_letDecls; }
+
+ private:
+  const DataType* getDataTypeRecursive(
+      Design* design, std::string_view name,
+      std::set<const DesignComponent*>& visited) const;
 
  protected:
   std::vector<const FileContent*> m_fileContents;
@@ -246,21 +241,17 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   TypeDefMap m_typedefs;
   std::vector<Package*> m_packages;
   VariableMap m_variables;
-  std::vector<UHDM::import_typespec*> m_imported_symbols;
-  std::vector<UHDM::tf_call*> m_elab_sys_calls;
-  std::vector<UHDM::property_decl*> m_property_decls;
-  std::vector<UHDM::sequence_decl*> m_sequence_decls;
-  std::vector<UHDM::ref_obj*> m_needLateBinding;
-  std::vector<UHDM::any*> m_needLateTypedefBinding;
-  FuncNameTypespecVec m_lateResolutionFunctions;
+  std::vector<uhdm::ImportTypespec*> m_importTypespecs;
+  std::vector<uhdm::TFCall*> m_elabSysCalls;
+  std::vector<uhdm::PropertyDecl*> m_propertyDecls;
+  std::vector<uhdm::SequenceDecl*> m_sequenceDecls;
   ParameterMap m_parameterMap;
   ParameterVec m_orderedParameters;
   ParamAssignVec m_paramAssigns;
-  UHDM::instance* m_instance;
+  uhdm::Any* m_model = nullptr;
   std::vector<std::pair<std::string, ExprEval>> m_scheduledParamExprEval;
   const DesignElement* m_designElement = nullptr;
   LetStmtMap m_letDecls;
-  bool m_lateBinding = true;
 };
 
 };  // namespace SURELOG

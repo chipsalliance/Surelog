@@ -55,13 +55,14 @@ class SymbolTable;
 class ModuleInstance final : public ValuedComponentI {
   SURELOG_IMPLEMENT_RTTI(ModuleInstance, ValuedComponentI)
  public:
-  ModuleInstance(DesignComponent* definition, const FileContent* fileContent,
-                 NodeId nodeId, ModuleInstance* parent,
-                 std::string_view instName, std::string_view moduleName);
+  ModuleInstance(Session* session, DesignComponent* definition,
+                 const FileContent* fileContent, NodeId nodeId,
+                 ModuleInstance* parent, std::string_view instName,
+                 std::string_view moduleName);
   ~ModuleInstance() final;
 
   using ModuleArrayModuleInstancesMap =
-      std::map<UHDM::module_array*, std::vector<ModuleInstance*>>;
+      std::map<uhdm::ModuleArray*, std::vector<ModuleInstance*>>;
 
   void addSubInstance(ModuleInstance* subInstance);
   std::vector<ModuleInstance*>& getAllSubInstances() {
@@ -74,6 +75,7 @@ class ModuleInstance final : public ValuedComponentI {
     m_boundInstance = boundToInstance;
   }
   DesignComponent* getDefinition() { return m_definition; }
+  const DesignComponent* getDefinition() const { return m_definition; }
   uint32_t getNbChildren() const { return m_allSubInstances.size(); }
   ModuleInstance* getChildren(uint32_t i) {
     if (i < m_allSubInstances.size()) {
@@ -103,14 +105,14 @@ class ModuleInstance final : public ValuedComponentI {
 
   void setNodeId(NodeId id) { m_nodeId = id; }  // Used for generate stmt
   void overrideParentChild(ModuleInstance* parent, ModuleInstance* interm,
-                           ModuleInstance* child, UHDM::Serializer& s);
+                           ModuleInstance* child, uhdm::Serializer& s);
   Netlist* getNetlist() { return m_netlist; }
   void setNetlist(Netlist* netlist) { m_netlist = netlist; }
 
   std::vector<Parameter*>& getTypeParams() { return m_typeParams; }
 
   Value* getValue(std::string_view name, ExprBuilder& exprBuilder) const final;
-  UHDM::expr* getComplexValue(std::string_view name) const final;
+  uhdm::Expr* getComplexValue(std::string_view name) const final;
 
   ModuleInstance* getInstanceBinding() { return m_boundInstance; }
   bool isElaborated() const { return m_elaborated; }
@@ -138,15 +140,6 @@ class ModuleInstance final : public ValuedComponentI {
   bool m_elaborated = false;
   std::set<std::string, StringViewCompare> m_overridenParams;
   ModuleArrayModuleInstancesMap m_moduleArrayModuleInstancesMap;
-};
-
-class ModuleInstanceFactory {
- public:
-  ModuleInstance* newModuleInstance(DesignComponent* definition,
-                                    const FileContent* fileContent,
-                                    NodeId nodeId, ModuleInstance* parent,
-                                    std::string_view instName,
-                                    std::string_view moduleName);
 };
 
 }  // namespace SURELOG

@@ -25,6 +25,7 @@
 
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/NodeId.h"
+#include "Surelog/Common/Session.h"
 #include "Surelog/Design/FileCNodeId.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Design/VObject.h"
@@ -59,55 +60,46 @@ namespace SURELOG {
 
 int32_t FunctorCompilePackage::operator()() const {
   if (CompilePackage* instance =
-          new CompilePackage(m_compileDesign, m_package->getUnElabPackage(),
-                             m_design, m_symbols, m_errors)) {
+          new CompilePackage(m_session, m_compileDesign,
+                             m_package->getUnElabPackage(), m_design)) {
     instance->compile(Elaborate::No, Reduce::No);
     delete instance;
   }
 
-  if (m_compileDesign->getCompiler()->getCommandLineParser()->elaborate()) {
-    if (CompilePackage* instance = new CompilePackage(
-            m_compileDesign, m_package, m_design, m_symbols, m_errors)) {
-      instance->compile(Elaborate::Yes, Reduce::Yes);
-      delete instance;
-    }
-  }
+  // if (m_compileDesign->getCompiler()->getCommandLineParser()->elaborate()) {
+  //   if (CompilePackage* instance = new CompilePackage(
+  //           m_session, m_compileDesign, m_package, m_design)) {
+  //     instance->compile(Elaborate::Yes, Reduce::Yes);
+  //     delete instance;
+  //   }
+  // }
 
   return 0;
 }
 
 bool CompilePackage::compile(Elaborate elaborate, Reduce reduce) {
   if (!m_package) return false;
-  UHDM::Serializer& s = m_compileDesign->getSerializer();
-  UHDM::package* pack = any_cast<UHDM::package*>(m_package->getUhdmInstance());
+  uhdm::Package* pack = m_package->getUhdmModel<uhdm::Package>();
   const FileContent* fC = m_package->m_fileContents[0];
+  SymbolTable* const symbols = m_session->getSymbolTable();
   NodeId packId = m_package->m_nodeIds[0];
   m_helper.setElaborate(elaborate);
   m_helper.setReduce(reduce);
-  if (pack == nullptr) {
-    pack = s.MakePackage();
-    pack->VpiName(m_package->getName());
-    m_package->setUhdmInstance(pack);
-  }
   fC->populateCoreMembers(packId, packId, pack);
-  m_package->m_exprBuilder.seterrorReporting(m_errors, m_symbols);
+
   m_package->m_exprBuilder.setDesign(
       m_compileDesign->getCompiler()->getDesign());
   if (reduce == Reduce::Yes) {
     Location loc(fC->getFileId(packId), fC->Line(packId), fC->Column(packId),
-                 m_symbols->getId(m_package->getName()));
+                 symbols->getId(m_package->getName()));
     Error err(ErrorDefinition::COMP_COMPILE_PACKAGE, loc);
 
-    ErrorContainer* errors =
-        new ErrorContainer(m_symbols, m_errors->getLogListener());
-    errors->registerCmdLine(
-        m_compileDesign->getCompiler()->getCommandLineParser());
-    errors->addError(err);
-    errors->printMessage(
-        err,
-        m_compileDesign->getCompiler()->getCommandLineParser()->muteStdout());
-    delete errors;
+    ErrorContainer* errors2 = new ErrorContainer(m_session);
+    errors2->addError(err);
+    errors2->printMessage(err, m_session->getCommandLineParser()->muteStdout());
+    delete errors2;
   }
+  const uhdm::ScopedScope scopedScope(pack);
   collectObjects_(CollectType::FUNCTION, reduce);
   collectObjects_(CollectType::DEFINITION, reduce);
   m_helper.evalScheduledExprs(m_package, m_compileDesign);
@@ -118,9 +110,9 @@ bool CompilePackage::compile(Elaborate elaborate, Reduce reduce) {
     packId = current.m_child;
   } while (packId && (fC->Type(packId) != VObjectType::paAttribute_instance));
   if (packId) {
-    if (UHDM::VectorOfattribute* attributes = m_helper.compileAttributes(
+    if (uhdm::AttributeCollection* attributes = m_helper.compileAttributes(
             m_package, fC, packId, m_compileDesign, nullptr)) {
-      m_package->Attributes(attributes);
+      m_package->setAttributes(attributes);
     }
   }
 
@@ -128,6 +120,8 @@ bool CompilePackage::compile(Elaborate elaborate, Reduce reduce) {
 }
 
 bool CompilePackage::collectObjects_(CollectType collectType, Reduce reduce) {
+  SymbolTable* const symbols = m_session->getSymbolTable();
+  ErrorContainer* const errors = m_session->getErrorContainer();
   std::vector<VObjectType> stopPoints = {
       VObjectType::paClass_declaration,
       VObjectType::paFunction_body_declaration,
@@ -150,7 +144,7 @@ bool CompilePackage::collectObjects_(CollectType collectType, Reduce reduce) {
         pack_imports.push_back(import);
       }
 
-      for (auto pack_import : pack_imports) {
+      for (auto& pack_import : pack_imports) {
         const FileContent* pack_fC = pack_import.fC;
         NodeId pack_id = pack_import.nodeId;
         m_helper.importPackage(m_package, m_design, pack_fC, pack_id,
@@ -279,15 +273,15 @@ bool CompilePackage::collectObjects_(CollectType collectType, Reduce reduce) {
         }
         case VObjectType::paProperty_declaration: {
           if (collectType != CollectType::OTHER) break;
-          UHDM::property_decl* decl = m_helper.compilePropertyDeclaration(
-              m_package, fC, fC->Child(id), m_compileDesign, nullptr, nullptr);
+          uhdm::PropertyDecl* decl = m_helper.compilePropertyDeclaration(
+              m_package, fC, id, m_compileDesign, nullptr, nullptr);
           m_package->addPropertyDecl(decl);
           break;
         }
         case VObjectType::paSequence_declaration: {
           if (collectType != CollectType::OTHER) break;
-          UHDM::sequence_decl* decl = m_helper.compileSequenceDeclaration(
-              m_package, fC, fC->Child(id), m_compileDesign, nullptr, nullptr);
+          uhdm::SequenceDecl* decl = m_helper.compileSequenceDeclaration(
+              m_package, fC, id, m_compileDesign, nullptr, nullptr);
           m_package->addSequenceDecl(decl);
           break;
         }
@@ -326,16 +320,11 @@ bool CompilePackage::collectObjects_(CollectType collectType, Reduce reduce) {
               Location loc(fC->getFileId(m_package->getNodeIds()[0]),
                            fC->Line(m_package->getNodeIds()[0]),
                            fC->Column(m_package->getNodeIds()[0]),
-                           m_compileDesign->getCompiler()
-                               ->getSymbolTable()
-                               ->registerSymbol(moduleName));
+                           symbols->registerSymbol(moduleName));
               Location loc2(fC->getFileId(id), fC->Line(id), fC->Column(id),
-                            m_compileDesign->getCompiler()
-                                ->getSymbolTable()
-                                ->registerSymbol(endLabel));
+                            symbols->registerSymbol(endLabel));
               Error err(ErrorDefinition::COMP_UNMATCHED_LABEL, loc, loc2);
-              m_compileDesign->getCompiler()->getErrorContainer()->addError(
-                  err);
+              errors->addError(err);
             }
           }
           break;

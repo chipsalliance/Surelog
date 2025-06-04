@@ -31,6 +31,7 @@
 #include "Surelog/API/Surelog.h"
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"
+#include "Surelog/Common/Session.h"
 #include "Surelog/Design/Design.h"
 #include "Surelog/Design/ModuleInstance.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
@@ -39,20 +40,22 @@
 // UHDM
 #include <uhdm/uhdm.h>
 
+namespace fs = std::filesystem;
+
 int main(int argc, const char** argv) {
   // Read command line, compile a design, use -parse argument
   uint32_t code = 0;
-  SURELOG::SymbolTable* symbolTable = new SURELOG::SymbolTable();
-  SURELOG::ErrorContainer* errors = new SURELOG::ErrorContainer(symbolTable);
-  SURELOG::CommandLineParser* clp =
-      new SURELOG::CommandLineParser(errors, symbolTable, false, false);
+  SURELOG::Session session;
+  SURELOG::FileSystem* const fileSystem = session.getFileSystem();
+  SURELOG::ErrorContainer* const errors = session.getErrorContainer();
+  SURELOG::CommandLineParser* const clp = session.getCommandLineParser();
+  bool success = session.parseCommandLine(argc, argv, false, false);
   clp->noPython();
-  bool success = clp->parseCommandLine(argc, argv);
   errors->printMessages(clp->muteStdout());
   SURELOG::Design* the_design = nullptr;
   SURELOG::scompiler* compiler = nullptr;
   if (success && (!clp->help())) {
-    compiler = SURELOG::start_compiler(clp);
+    compiler = SURELOG::start_compiler(&session);
     the_design = SURELOG::get_design(compiler);
     auto stats = errors->getErrorStats();
     code = (!success) | stats.nbFatal | stats.nbSyntax | stats.nbError;
@@ -62,9 +65,7 @@ int main(int argc, const char** argv) {
   if (the_design) {
     for (auto& top : the_design->getTopLevelModuleInstances()) {
       std::function<void(SURELOG::ModuleInstance*)> inst_visit =
-          [&inst_visit](SURELOG::ModuleInstance* inst) {
-            SURELOG::FileSystem* const fileSystem =
-                SURELOG::FileSystem::getInstance();
+          [&inst_visit, fileSystem](SURELOG::ModuleInstance* inst) {
             std::cout << "Inst: " << inst->getFullPathName() << std::endl;
             std::cout << "File: " << fileSystem->toPath(inst->getFileId())
                       << std::endl;
@@ -80,8 +81,5 @@ int main(int argc, const char** argv) {
   if (success && (!clp->help())) {
     SURELOG::shutdown_compiler(compiler);
   }
-  delete clp;
-  delete symbolTable;
-  delete errors;
   return code;
 }

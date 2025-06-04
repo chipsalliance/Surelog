@@ -28,12 +28,12 @@
 #include <Surelog/DesignCompile/TestbenchElaboration.h>
 
 namespace SURELOG {
-
 class CompileDesign;
+class Session;
 
 class UVMElaboration final : public TestbenchElaboration {
  public:
-  explicit UVMElaboration(CompileDesign* compileDesign);
+  UVMElaboration(Session* session, CompileDesign* compileDesign);
   UVMElaboration(const UVMElaboration& orig) = delete;
   ~UVMElaboration() final = default;
 

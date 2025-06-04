@@ -41,25 +41,22 @@
 #include <uhdm/uhdm_forward_decl.h>
 
 namespace SURELOG {
-
 class CompileDesign;
-class ErrorContainer;
 class ModuleInstance;
 class Parameter;
 class Scope;
+class Session;
 class Signal;
-class SymbolTable;
 class TypeDef;
 class Variable;
 
 class ElaborationStep {
  public:
-  explicit ElaborationStep(CompileDesign* compileDesign);
+  ElaborationStep(Session* session, CompileDesign* compileDesign);
   ElaborationStep(const ElaborationStep& orig) = delete;
+  virtual ~ElaborationStep() = default;
 
   virtual bool elaborate() = 0;
-
-  virtual ~ElaborationStep();
 
  protected:
   bool bindTypedefs_();
@@ -94,35 +91,34 @@ class ElaborationStep {
                      DesignComponent* parentComponent,
                      ErrorDefinition::ErrorType errtype);
 
-  UHDM::expr* exprFromAssign_(DesignComponent* component, const FileContent* fC,
+  uhdm::Expr* exprFromAssign_(DesignComponent* component, const FileContent* fC,
                               NodeId id, NodeId unpackedDimension,
                               ModuleInstance* instance);
 
-  UHDM::typespec* elabTypeParameter_(DesignComponent* component,
+  uhdm::Typespec* elabTypeParameter_(DesignComponent* component,
                                      Parameter* typeParam,
                                      ModuleInstance* instance);
 
-  UHDM::any* makeVar_(DesignComponent* component, Signal* sig,
-                      std::vector<UHDM::range*>* packedDimensions,
+  uhdm::Any* makeVar_(DesignComponent* component, Signal* sig,
+                      std::vector<uhdm::Range*>* packedDimensions,
                       int32_t packedSize,
-                      std::vector<UHDM::range*>* unpackedDimensions,
+                      std::vector<uhdm::Range*>* unpackedDimensions,
                       int32_t unpackedSize, ModuleInstance* instance,
-                      UHDM::VectorOfvariables* vars, UHDM::expr* assignExp,
-                      UHDM::typespec* tps);
+                      uhdm::VariablesCollection* vars, uhdm::Expr* assignExp,
+                      uhdm::Typespec* tps);
 
   void swapTypespecPointersInUhdm(
-      UHDM::Serializer& s,
-      std::map<const UHDM::typespec*, const UHDM::typespec*>& typespecSwapMap);
+      uhdm::Serializer& s,
+      std::map<const uhdm::Typespec*, const uhdm::Typespec*>& typespecSwapMap);
   void swapTypespecPointersInTypedef(
       Design* design,
-      std::map<const UHDM::typespec*, const UHDM::typespec*>& typespecSwapMap);
+      std::map<const uhdm::Typespec*, const uhdm::Typespec*>& typespecSwapMap);
 
-  CompileDesign* m_compileDesign;
+ protected:
+  Session* const m_session = nullptr;
+  CompileDesign* const m_compileDesign = nullptr;
   ExprBuilder m_exprBuilder;
-  SymbolTable* m_symbols;
-  ErrorContainer* m_errors;
   CompileHelper m_helper;
-
   std::map<std::string, Variable*> m_staticVariables;
 };
 

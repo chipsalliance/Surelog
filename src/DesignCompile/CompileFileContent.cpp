@@ -23,6 +23,8 @@
 
 #include "Surelog/DesignCompile/CompileFileContent.h"
 
+#include <uhdm/design.h>
+
 #include <cstdint>
 #include <stack>
 #include <vector>
@@ -31,14 +33,16 @@
 #include "Surelog/Design/FileCNodeId.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Design/VObject.h"
+#include "Surelog/DesignCompile/CompileDesign.h"
 #include "Surelog/DesignCompile/CompileHelper.h"
+#include "Surelog/SourceCompile/Compiler.h"
 #include "Surelog/SourceCompile/VObjectTypes.h"
 
 namespace SURELOG {
 
 int32_t FunctorCompileFileContentDecl::operator()() const {
   CompileFileContent* instance = new CompileFileContent(
-      m_compileDesign, m_fileContent, m_design, true, m_symbols, m_errors);
+      m_session, m_compileDesign, m_fileContent, m_design, true);
   instance->compile(Elaborate::No, Reduce::No);
   delete instance;
   return 0;
@@ -46,7 +50,7 @@ int32_t FunctorCompileFileContentDecl::operator()() const {
 
 int32_t FunctorCompileFileContent::operator()() const {
   CompileFileContent* instance = new CompileFileContent(
-      m_compileDesign, m_fileContent, m_design, false, m_symbols, m_errors);
+      m_session, m_compileDesign, m_fileContent, m_design, false);
   instance->compile(Elaborate::No, Reduce::No);
   delete instance;
   return 0;
@@ -68,6 +72,10 @@ bool CompileFileContent::collectObjects_() {
       VObjectType::paPackage_declaration,
       VObjectType::paFunction_declaration,
       VObjectType::paInterface_class_declaration};
+
+  Design* const design = m_compileDesign->getCompiler()->getDesign();
+  uhdm::Design* const udesign = design->getUhdmDesign();
+  const uhdm::ScopedScope scopedScope(udesign);
 
   FileContent* fC = m_fileContent;
   if (fC->getSize() == 0) return true;

@@ -40,6 +40,7 @@
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Common/PathId.h"
+#include "Surelog/Common/Session.h"
 #include "Surelog/ErrorReporting/Error.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
 #include "Surelog/ErrorReporting/Location.h"
@@ -61,28 +62,24 @@
 namespace SURELOG {
 static std::string_view kSchemaVersion = "1.1";
 
-PythonAPICache::PythonAPICache(PythonListen* listener) : m_listener(listener) {}
+PythonAPICache::PythonAPICache(Session* session, PythonListen* listener)
+    : Cache(session), m_listener(listener) {}
 
 PathId PythonAPICache::getCacheFileId(PathId sourceFileId) const {
   ParseFile* parseFile = m_listener->getParseFile();
   if (!sourceFileId) sourceFileId = parseFile->getFileId(LINE1);
   if (!sourceFileId) return BadPathId;
 
-  FileSystem* const fileSystem = FileSystem::getInstance();
-  CommandLineParser* clp =
-      m_listener->getCompileSourceFile()->getCommandLineParser();
-  SymbolTable* symbolTable =
-      m_listener->getCompileSourceFile()->getSymbolTable();
+  SymbolTable* symbolTable = m_session->getSymbolTable();
 
   const std::string_view libName =
       m_listener->getCompileSourceFile()->getLibrary()->getName();
-  return fileSystem->getPythonCacheFile(clp->fileunit(), sourceFileId, libName,
-                                        symbolTable);
+  return m_fileSystem->getPythonCacheFile(m_session->fileunit(), sourceFileId,
+                                          libName, symbolTable);
 }
 
 bool PythonAPICache::checkCacheIsValid(
     PathId cacheFileId, const ::PythonAPICache::Reader& root) const {
-  FileSystem* const fileSystem = FileSystem::getInstance();
   const ::Header::Reader& sourceHeader = root.getHeader();
 
   SymbolTable* const targetSymbols =
@@ -90,10 +87,10 @@ bool PythonAPICache::checkCacheIsValid(
 
   const std::string scriptFile(root.getScriptFile().cStr());
   const PathId scriptFileId =
-      fileSystem->toPathId(fileSystem->remap(scriptFile), targetSymbols);
+      m_fileSystem->toPathId(m_fileSystem->remap(scriptFile), targetSymbols);
 
-  std::filesystem::file_time_type ct = fileSystem->modtime(cacheFileId);
-  std::filesystem::file_time_type ft = fileSystem->modtime(scriptFileId);
+  std::filesystem::file_time_type ct = m_fileSystem->modtime(cacheFileId);
+  std::filesystem::file_time_type ft = m_fileSystem->modtime(scriptFileId);
 
   if (ft == std::filesystem::file_time_type::min()) {
     return false;
@@ -112,9 +109,8 @@ bool PythonAPICache::checkCacheIsValid(
 bool PythonAPICache::checkCacheIsValid(PathId cacheFileId) const {
   if (!cacheFileId) return false;
 
-  FileSystem* const fileSystem = FileSystem::getInstance();
   const std::string filepath =
-      fileSystem->toPlatformAbsPath(cacheFileId).string();
+      m_fileSystem->toPlatformAbsPath(cacheFileId).string();
 
   const int32_t fd = ::open(filepath.c_str(), O_RDONLY | O_BINARY);
   if (fd < 0) return false;
@@ -168,15 +164,14 @@ void PythonAPICache::cacheErrors(::PythonAPICache::Builder builder,
 
 bool PythonAPICache::restore() {
   CompileSourceFile* const csf = m_listener->getCompileSourceFile();
-  CommandLineParser* const clp = csf->getCommandLineParser();
-  if (!clp->cacheAllowed()) return false;
+  // CommandLineParser* const clp = csf->getCommandLineParser();
+  if (!m_session->cacheAllowed()) return false;
 
   PathId cacheFileId = getCacheFileId(BadPathId);
   if (!cacheFileId) return false;
 
-  FileSystem* const fileSystem = FileSystem::getInstance();
   const std::string filepath =
-      fileSystem->toPlatformAbsPath(cacheFileId).string();
+      m_fileSystem->toPlatformAbsPath(cacheFileId).string();
 
   const int32_t fd = ::open(filepath.c_str(), O_RDONLY | O_BINARY);
   if (fd < 0) return false;
@@ -199,8 +194,8 @@ bool PythonAPICache::restore() {
         m_listener->getCompileSourceFile()->getSymbolTable();
 
     restoreSymbols(sourceSymbols, root.getSymbols());
-    restoreErrors(csf->getErrorContainer(), *targetSymbols, root.getErrors(),
-                  sourceSymbols);
+    restoreErrors(m_session->getErrorContainer(), *targetSymbols,
+                  root.getErrors(), sourceSymbols);
   } while (false);
 
   ::close(fd);
@@ -210,16 +205,15 @@ bool PythonAPICache::restore() {
 bool PythonAPICache::save() {
   CompileSourceFile* const csf = m_listener->getCompileSourceFile();
   ParseFile* const pf = m_listener->getParseFile();
-  CommandLineParser* clp =
-      m_listener->getCompileSourceFile()->getCommandLineParser();
-  if (!clp->cacheAllowed()) return false;
+  // CommandLineParser* clp =
+  //     m_listener->getCompileSourceFile()->getCommandLineParser();
+  if (!m_session->cacheAllowed()) return false;
 
   PathId cacheFileId = getCacheFileId(BadPathId);
   if (!cacheFileId) return false;
 
-  FileSystem* const fileSystem = FileSystem::getInstance();
-  ErrorContainer* const errorContainer = csf->getErrorContainer();
-  SymbolTable* const sourceSymbols = csf->getSymbolTable();
+  ErrorContainer* const errorContainer = m_session->getErrorContainer();
+  SymbolTable* const sourceSymbols = m_session->getSymbolTable();
   SymbolTable targetSymbols;
 
   ::capnp::MallocMessageBuilder message;
@@ -239,11 +233,11 @@ bool PythonAPICache::save() {
   cacheSymbols(builder, targetSymbols);
 
   // Finally, save to disk
-  PathId cacheDirId = fileSystem->getParent(cacheFileId, sourceSymbols);
-  if (!fileSystem->mkdirs(cacheDirId)) return false;
+  PathId cacheDirId = m_fileSystem->getParent(cacheFileId, sourceSymbols);
+  if (!m_fileSystem->mkdirs(cacheDirId)) return false;
 
   const std::string filepath =
-      fileSystem->toPlatformAbsPath(cacheFileId).string();
+      m_fileSystem->toPlatformAbsPath(cacheFileId).string();
 
   const int32_t fd = ::open(filepath.c_str(), O_RDONLY | O_BINARY);
   if (fd < 0) return false;

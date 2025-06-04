@@ -26,31 +26,28 @@
 #include <memory>
 
 #include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Common/Session.h"
 #include "Surelog/DesignCompile/CompileDesign.h"
 #include "Surelog/SourceCompile/Compiler.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
 
 namespace SURELOG {
 
-struct CompilerHarness::Holder {
-  Holder()
-      : symbols(new SymbolTable()),
-        errors(new ErrorContainer(symbols.get())),
-        clp(new CommandLineParser(errors.get(), symbols.get(), false, false)),
-        compiler(new Compiler(clp.get(), errors.get(), symbols.get())) {
-    clp->setCacheAllowed(false);
-  }
+CompilerHarness::CompilerHarness(Session* session) : m_session(session) {}
 
-  std::unique_ptr<SymbolTable> symbols;
-  std::unique_ptr<ErrorContainer> errors;
-  std::unique_ptr<CommandLineParser> clp;
+struct CompilerHarness::Holder {
+  explicit Holder(Session* session)
+      : m_session(session), compiler(new Compiler(m_session)) {
+    session->getCommandLineParser()->setCacheAllowed(false);
+  }
+  Session* const m_session = nullptr;
   std::unique_ptr<Compiler> compiler;
 };
 
 std::unique_ptr<CompileDesign> CompilerHarness::createCompileDesign() {
   delete m_h;
-  m_h = new Holder();
-  return std::make_unique<CompileDesign>(m_h->compiler.get());
+  m_h = new Holder(m_session);
+  return std::make_unique<CompileDesign>(m_session, m_h->compiler.get());
 }
 
 CompilerHarness::~CompilerHarness() { delete m_h; }

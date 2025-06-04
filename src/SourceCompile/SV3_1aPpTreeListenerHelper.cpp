@@ -32,6 +32,7 @@
 
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/PathId.h"
+#include "Surelog/Common/Session.h"
 #include "Surelog/Common/SymbolId.h"
 #include "Surelog/ErrorReporting/Error.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
@@ -44,26 +45,36 @@
 
 namespace SURELOG {
 
-SymbolTable* SV3_1aPpTreeListenerHelper::getSymbolTable() const {
-  return m_pp->getCompileSourceFile()->getSymbolTable();
+SV3_1aPpTreeListenerHelper::SV3_1aPpTreeListenerHelper(
+    Session* session, PreprocessFile* pp,
+    PreprocessFile::SpecialInstructions& instructions,
+    antlr4::CommonTokenStream* tokens)
+    : CommonListenerHelper(session, nullptr, tokens),
+      m_pp(pp),
+      m_inActiveBranch(true),
+      m_inMacroDefinitionParsing(false),
+      m_inProtectedRegion(false),
+      m_filterProtectedRegions(false),
+      m_appendPausedContext(nullptr),
+      m_instructions(instructions) {
+  init();
 }
 
 SymbolId SV3_1aPpTreeListenerHelper::registerSymbol(std::string_view symbol) {
-  return m_pp->getCompileSourceFile()->getSymbolTable()->registerSymbol(symbol);
+  return m_session->getSymbolTable()->registerSymbol(symbol);
 }
 
 std::tuple<PathId, uint32_t, uint16_t, uint32_t, uint16_t>
-SV3_1aPpTreeListenerHelper::getFileLine(antlr4::ParserRuleContext* ctx,
-                                        antlr4::Token* token) const {
-  ParseUtils::LineColumn lineCol = ParseUtils::getLineColumn(m_tokens, ctx);
-  ParseUtils::LineColumn endLineCol =
-      ParseUtils::getEndLineColumn(m_tokens, ctx);
-  uint32_t line = m_pp->getLineNb(lineCol.first);
-  uint16_t column = lineCol.second;
-  uint32_t endLine = m_pp->getLineNb(endLineCol.first);
-  uint16_t endColumn = endLineCol.second;
-  PathId fileId = m_pp->getFileId(lineCol.first);
-  return std::make_tuple(fileId, line, column, endLine, endColumn);
+SV3_1aPpTreeListenerHelper::getPPFileLine(antlr4::tree::ParseTree* tree,
+                                          antlr4::Token* token) const {
+  const LineColumn slc = ParseUtils::getLineColumn(m_tokens, tree);
+  const LineColumn elc = ParseUtils::getEndLineColumn(m_tokens, tree);
+  const uint32_t sl = m_pp->getLineNb(slc.first);
+  const uint16_t sc = slc.second;
+  const uint32_t el = m_pp->getLineNb(elc.first);
+  const uint16_t ec = elc.second;
+  const PathId fid = m_pp->getFileId(slc.first);
+  return std::make_tuple(fid, sl, sc, el, ec);
 }
 
 void SV3_1aPpTreeListenerHelper::init() {
@@ -115,9 +126,10 @@ void SV3_1aPpTreeListenerHelper::init() {
       "remove_netname",
       "noremove_netnames"};
 
+  SymbolTable* const symbols = m_session->getSymbolTable();
   for (const std::string_view reserved_macro : kReservedMacros) {
     m_reservedMacroNamesSet.insert(reserved_macro);
-    getSymbolTable()->registerSymbol(reserved_macro);
+    symbols->registerSymbol(reserved_macro);
   }
 }
 
@@ -125,51 +137,43 @@ void SV3_1aPpTreeListenerHelper::logError(ErrorDefinition::ErrorType error,
                                           antlr4::ParserRuleContext* ctx,
                                           std::string_view object,
                                           bool printColumn) {
+  SymbolTable* const symbols = m_session->getSymbolTable();
   if (m_instructions.m_mute) return;
-  ParseUtils::LineColumn lineCol =
-      ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
+  LineColumn lineCol = ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
   if (m_pp->getMacroInfo()) {
     Location loc(m_pp->getMacroInfo()->m_fileId,
                  m_pp->getMacroInfo()->m_startLine + lineCol.first - 1,
-                 lineCol.second, getSymbolTable()->registerSymbol(object));
+                 lineCol.second, symbols->registerSymbol(object));
     Location extraLoc(m_pp->getIncluderFileId(m_pp->getIncluderLine()),
                       m_pp->getIncluderLine(), 0);
-    Error err(error, loc, extraLoc);
-    m_pp->addError(err);
+    m_session->getErrorContainer()->addError(error, {loc, extraLoc});
   } else {
     Location loc(m_pp->getFileId(lineCol.first), m_pp->getLineNb(lineCol.first),
                  printColumn ? lineCol.second : 0,
-                 getSymbolTable()->registerSymbol(object));
-    Error err(error, loc);
-    m_pp->addError(err);
+                 symbols->registerSymbol(object));
+    m_session->getErrorContainer()->addError(error, loc);
   }
 }
 
 void SV3_1aPpTreeListenerHelper::logError(ErrorDefinition::ErrorType error,
                                           Location& loc, bool showDuplicates) {
   if (m_instructions.m_mute) return;
-  Error err(error, loc);
-  m_pp->getCompileSourceFile()->getErrorContainer()->addError(err,
-                                                              showDuplicates);
+  m_session->getErrorContainer()->addError(error, loc, showDuplicates);
 }
 
 void SV3_1aPpTreeListenerHelper::logError(ErrorDefinition::ErrorType error,
                                           Location& loc, Location& extraLoc,
                                           bool showDuplicates) {
   if (m_instructions.m_mute) return;
-  std::vector<Location> extras;
-  extras.push_back(extraLoc);
-  Error err(error, loc, &extras);
-  m_pp->getCompileSourceFile()->getErrorContainer()->addError(err,
-                                                              showDuplicates);
+  m_session->getErrorContainer()->addError(error, {loc, extraLoc},
+                                           showDuplicates);
 }
 
 void SV3_1aPpTreeListenerHelper::forwardToParser(
     antlr4::ParserRuleContext* ctx) {
+  CommandLineParser* const clp = m_session->getCommandLineParser();
   if (m_inActiveBranch && (!m_inMacroDefinitionParsing) &&
-      (!m_pp->getCompileSourceFile()
-            ->getCommandLineParser()
-            ->filterSimpleDirectives()) &&
+      (!clp->filterSimpleDirectives()) &&
       (!(m_filterProtectedRegions && m_inProtectedRegion))) {
     // m_pp->append(ctx->getText() + "\n");
     m_pp->append(ctx->getText());
@@ -180,24 +184,24 @@ void SV3_1aPpTreeListenerHelper::forwardToParser(
 
 void SV3_1aPpTreeListenerHelper::addLineFiller(antlr4::ParserRuleContext* ctx) {
   if (m_pp->isMacroBody()) return;
-  for (char c : ctx->getText()) {
-    if (c == '\n') m_pp->append("\n");
-  }
+  const std::string text = ctx->getText();
+  const uint32_t count = std::count(text.cbegin(), text.cend(), '\n');
+  m_pp->append(std::string(count, '\n'));
 }
 
 void SV3_1aPpTreeListenerHelper::checkMultiplyDefinedMacro(
     std::string_view macroName, antlr4::ParserRuleContext* ctx) {
+  SymbolTable* const symbols = m_session->getSymbolTable();
   MacroInfo* macroInf = m_pp->getMacro(macroName);
   if (macroInf) {
-    ParseUtils::LineColumn lineCol =
-        ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
+    LineColumn lineCol = ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
     if ((macroInf->m_fileId == m_pp->getFileId(lineCol.first)) &&
         (m_pp->getLineNb(lineCol.first) == macroInf->m_startLine))
       return;
     Location loc(m_pp->getFileId(lineCol.first), m_pp->getLineNb(lineCol.first),
-                 lineCol.second, getSymbolTable()->getId(macroName));
+                 lineCol.second, symbols->getId(macroName));
     Location extraLoc(macroInf->m_fileId, macroInf->m_startLine,
-                      macroInf->m_startColumn);
+                      macroInf->m_nameStartColumn);
     logError(ErrorDefinition::PP_MULTIPLY_DEFINED_MACRO, loc, extraLoc);
   }
 }
@@ -251,49 +255,25 @@ void SV3_1aPpTreeListenerHelper::setCurrentBranchActivity(
   }
 }
 
-bool SV3_1aPpTreeListenerHelper::isPreviousBranchActive() {
-  PreprocessFile::IfElseStack& stack = m_pp->getStack();
-  bool previousBranchActive = false;
-  bool checkPrev = true;
-  if (stack.empty()) {
-    return false;
-  }
-  int32_t index = stack.size() - 1;
-  while (checkPrev) {
-    checkPrev = false;
-    PreprocessFile::IfElseItem& tmpitem = stack.at(index);
+bool SV3_1aPpTreeListenerHelper::isPreviousBranchActive() const {
+  const PreprocessFile::IfElseStack& stack = m_pp->getStack();
+  if (stack.empty()) return true;
+
+  for (int32_t i = stack.size() - 1; i >= 0; --i) {
+    const PreprocessFile::IfElseItem& tmpitem = stack[i];
     switch (tmpitem.m_type) {
       case PreprocessFile::IfElseItem::IFDEF:
-        if (tmpitem.m_defined) {
-          previousBranchActive = true;
-        }
-        checkPrev = false;
-        break;
+        return tmpitem.m_defined;
       case PreprocessFile::IfElseItem::ELSIF:
-        if (tmpitem.m_defined) {
-          previousBranchActive = true;
-          checkPrev = false;
-        } else {
-          checkPrev = true;
-        }
+        if (tmpitem.m_defined) return true;
         break;
       case PreprocessFile::IfElseItem::IFNDEF:
-        if (!tmpitem.m_defined) {
-          previousBranchActive = true;
-        }
-        checkPrev = false;
-        break;
+        return !tmpitem.m_defined;
       default:
         break;
     }
-    if (index > 0) {
-      index--;
-    } else {
-      if (checkPrev) previousBranchActive = false;
-      checkPrev = false;
-    }
   }
-  return previousBranchActive;
+  return false;
 }
 
 }  // namespace SURELOG

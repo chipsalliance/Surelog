@@ -31,26 +31,22 @@
 
 namespace SURELOG {
 
-Error::Error(ErrorDefinition::ErrorType errorId, const Location& loc,
-             const std::vector<Location>* extraLocs)
+Error::Error(ErrorDefinition::ErrorType errorId, const Location& loc)
     : m_errorId(errorId), m_reported(false), m_waived(false) {
-  m_locations.push_back(loc);
-  if (extraLocs) {
-    for (const auto& location : *extraLocs) m_locations.push_back(location);
-  }
+  m_locations.emplace_back(loc);
 }
 
 Error::Error(ErrorDefinition::ErrorType errorId, const Location& loc,
              const Location& extra)
     : m_errorId(errorId), m_reported(false), m_waived(false) {
-  m_locations.push_back(loc);
-  m_locations.push_back(extra);
+  m_locations.emplace_back(loc);
+  m_locations.emplace_back(extra);
 }
 
 Error::Error(ErrorDefinition::ErrorType errorId,
              const std::vector<Location>& locations)
     : m_errorId(errorId), m_reported(false), m_waived(false) {
-  for (const auto& location : locations) m_locations.push_back(location);
+  for (const auto& location : locations) m_locations.emplace_back(location);
 }
 
 bool Error::operator==(const Error& rhs) const {

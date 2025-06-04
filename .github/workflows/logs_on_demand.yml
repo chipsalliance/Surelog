@@ -7,11 +7,14 @@ concurrency:
 on:
   workflow_dispatch:
 
+env:
+  SURELOG_WITH_TCMALLOC: 'Off'
+
 jobs:
 
 # Linux build, test, and publish
   linux-install:
-    name: "Linux | Install | ${{ matrix.compiler }} | ${{ matrix.config }} | ${{ matrix.vendored_dependencies }}"
+    name: "Linux | Install | ${{ matrix.compiler }} | ${{ matrix.config }}"
     runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
@@ -20,62 +23,20 @@ jobs:
         - gcc
         config:
         - release
-        vendored_dependencies: [true]
 
     env:
-      artifact-name: sl-${{ github.run_number }}-linux-${{ matrix.compiler }}-${{ matrix.config }}
+      artifact-name: sl-linux-${{ matrix.compiler }}-${{ matrix.config }}
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
       with:
         submodules: recursive
-        fetch-depth: 0
-      if: ${{ matrix.vendored_dependencies }}
-
-    - name: Checkout code
-      uses: actions/checkout@v4
-      if: ${{ !matrix.vendored_dependencies }}
-
-    # Fetch tags for CMakeLists version check
-    # https://github.com/actions/checkout/issues/701
-    - name: Git fetch tags
-      run: git fetch --tags origin
 
     - uses: ./.github/linux-setup
       with:
         compiler: ${{ matrix.compiler }}
         ccache-key: linux-install-${{ matrix.compiler }}-${{ matrix.config }}
-
-    - name: Install vendored dependencies
-      if: ${{ !matrix.vendored_dependencies }}
-      run: |
-        git clone https://github.com/google/flatbuffers.git
-        pushd flatbuffers
-        cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=17 -DBUILD_SHARED_LIBS=ON . && cmake --build build && sudo cmake --install build
-        popd
-
-        git clone https://github.com/google/googletest.git
-        pushd googletest
-        cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=17 -DBUILD_SHARED_LIBS=ON . && cmake --build build && sudo cmake --install build
-        popd
-
-        git clone https://github.com/capnproto/capnproto.git
-        pushd capnproto
-        cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=17 -DCMAKE_POSITION_INDEPENDENT_CODE=ON . && cmake --build build && sudo cmake --install build
-        popd
-
-        git clone https://github.com/chipsalliance/UHDM.git
-        pushd UHDM
-        cmake -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DUHDM_USE_HOST_GTEST=ON -DUHDM_USE_HOST_CAPNP=ON . && cmake --build build && sudo cmake --install build
-        popd
-
-        sudo mkdir -p /usr/share/java
-        sudo wget https://www.antlr.org/download/antlr-4.12.0-complete.jar -P /usr/share/java
-        wget https://www.antlr.org/download/antlr4-cpp-runtime-4.12.0-source.zip && mkdir antlr4
-        pushd antlr4
-        unzip ../antlr4-cpp-runtime-4.12.0-source.zip && cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=17 -DBUILD_SHARED_LIBS=ON . && cmake --build build && sudo cmake --install build
-        popd
 
     - name: Build, install & test
       run: |
@@ -89,54 +50,36 @@ jobs:
 
         export INSTALL_DIR=`pwd`/install
 
-        if [ "${{ matrix.vendored_dependencies }}" == "false" ]; then
-          # Ensure that vendored dependencies' shared libraries are available
-          # for any run checks, such as those in the `TestInstall` project
-          export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
-        fi
-
-        if [ "${{ matrix.vendored_dependencies }}" == "false" ]; then
-          cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR -DBUILD_SHARED_LIBS=ON -DSURELOG_USE_HOST_FLATBUFFERS=ON -DSURELOG_USE_HOST_ANTLR=ON -DSURELOG_USE_HOST_UHDM=ON -DSURELOG_USE_HOST_GTEST=ON -DSURELOG_WITH_TCMALLOC=OFF -DCMAKE_MODULE_PATH="/usr/share/CMake/Modules;/usr/local/lib/cmake" -S . -B build
-        else
-          cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR $CMAKE_ADDITIONAL_ARGS -S . -B build
-        fi
-
+        cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR $CMAKE_ADDITIONAL_ARGS -S . -B build
         cmake --build build -j $(nproc)
         cmake --install build
 
-        cmake --build build --target UnitTests -j $(nproc)
-        pushd build && ctest --output-on-failure && popd
+        # cmake --build build --target UnitTests -j $(nproc)
+        # pushd build && ctest --output-on-failure && popd
 
-        rm -rf build      # make sure we only see installation artifacts
-
+        # rm -rf build      # make sure we only see installation artifacts
+        
         # this shouldnt be necessary, and can't be reproduced outside CI
-        export CMAKE_PREFIX_PATH=$INSTALL_DIR
+        # export CMAKE_PREFIX_PATH=$INSTALL_DIR
 
-        if [ "${{ matrix.vendored_dependencies }}" == "false" ]; then
-          cmake -DCMAKE_BUILD_TYPE=Release -DINSTALL_DIR=$INSTALL_DIR -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR -DBUILD_SHARED_LIBS=ON -DSURELOG_USE_HOST_FLATBUFFERS=ON -DSURELOG_USE_HOST_ANTLR=ON -DSURELOG_USE_HOST_UHDM=ON -DSURELOG_USE_HOST_GTEST=ON -S tests/TestInstall -B tests/TestInstall/build
-        else
-          cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DINSTALL_DIR=$INSTALL_DIR -S tests/TestInstall -B tests/TestInstall/build
-        fi
+        # cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DINSTALL_DIR=$INSTALL_DIR -S tests/TestInstall -B tests/TestInstall/build
+        # cmake --build tests/TestInstall/build -j $(nproc)
 
-        cmake --build tests/TestInstall/build -j $(nproc)
-
-        echo "-- pkg-config content --"
-        cat $INSTALL_DIR/lib/pkgconfig/Surelog.pc
-        PREFIX=$INSTALL_DIR make test_install_pkgconfig
+        # echo "-- pkg-config content --"
+        # cat $INSTALL_DIR/lib/pkgconfig/Surelog.pc
+        # PREFIX=$INSTALL_DIR make test_install_pkgconfig
 
     - name: Prepare build artifacts
       run: |
         mkdir artifacts
         mv install ${{ env.artifact-name }}
         tar czfp artifacts/${{ env.artifact-name }}.tar.gz ${{ env.artifact-name }}
-      if: ${{ matrix.vendored_dependencies }}
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4
       with:
         name: ${{ env.artifact-name }}
         path: artifacts/${{ env.artifact-name }}.tar.gz
-      if: ${{ matrix.vendored_dependencies }}
 
 
 # Linux regression
@@ -147,38 +90,33 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        num_shards: [6]
-        shard: [0, 1, 2, 3, 4, 5]
+        num_shards: [4]
+        shard: [0, 1, 2, 3]
         compiler:
         - gcc
         config:
         - release
     env:
-      build-artifact-name: sl-${{ github.run_number }}-linux-${{ matrix.compiler }}-${{ matrix.config }}
-      regression-artifact-name: sl-${{ github.run_number }}-linux-${{ matrix.compiler }}-${{ matrix.config }}-regression-${{ matrix.shard }}
+      build-artifact-name: sl-linux-${{ matrix.compiler }}-${{ matrix.config }}
+      regression-artifact-name: sl-linux-${{ matrix.compiler }}-${{ matrix.config }}-regression-${{ matrix.shard }}
 
     steps:
     - name: Install dependencies
       run: |
         sudo apt-get update -qq &&
-        sudo apt install -y google-perftools libgoogle-perftools-dev
+        sudo apt install -y libunwind-dev google-perftools libgoogle-perftools-dev
 
     - name: Setup Python
       uses: actions/setup-python@v5
       with:
-        python-version: 3.8
+        python-version: '3.x'
         architecture: x64
 
     - name: Setup Python Packages
-      run: |
-        pip3 install orderedmultidict
-        pip3 install psutil
+      run: pip3 install orderedmultidict psutil
 
     - name: Checkout code
       uses: actions/checkout@v4
-      with:
-        submodules: recursive
-        fetch-depth: 0
 
     - name: Download artifact
       uses: actions/download-artifact@v4
@@ -195,7 +133,6 @@ jobs:
         python3 scripts/regression.py run       \
           --uhdm-lint-filepath bin/uhdm-lint    \
           --jobs $(nproc)                       \
-          --show-diffs                          \
           --num_shards=${{ matrix.num_shards }} \
           --shard=${{ matrix.shard }}
         git status
@@ -215,6 +152,59 @@ jobs:
         path: build/${{ env.regression-artifact-name }}.tar.gz
 
 
+# Collect statistics
+  collect-statistics:
+    name: "Linux | Statistics | ${{ matrix.compiler }} | ${{ matrix.config }}"
+    runs-on: ubuntu-24.04
+    needs: linux-regression
+    if: "!cancelled()"
+    strategy:
+      fail-fast: false
+      matrix:
+        compiler:
+        - gcc
+        config:
+        - release
+    env:
+      regression-artifact-pattern: "sl-linux-${{ matrix.compiler }}-${{ matrix.config }}-regression-*"
+      statistics-artifact-name: sl-linux-${{ matrix.compiler }}-${{ matrix.config }}-statistics
+
+    steps:
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+        architecture: x64
+
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        submodules: false
+        sparse-checkout: scripts/scan_errors.py
+        sparse-checkout-cone-mode: false
+
+    - name: Download artifact
+      uses: actions/download-artifact@v4
+      with:
+        path: artifacts
+        pattern: ${{ env.regression-artifact-pattern }}
+        merge-multiple: true
+
+    - name: Run scanner
+      timeout-minutes: 30
+      run: |
+        ls -lR
+        python3 scripts/scan_errors.py artifacts
+        mv artifacts/sl-ic-errors.txt ${{ env.statistics-artifact-name }}.log
+
+    - name: Upload regression artifacts
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ env.statistics-artifact-name }}
+        path: ${{ env.statistics-artifact-name }}.log
+
+
 # Code formatting
   CodeFormatting:
     runs-on: ubuntu-24.04
@@ -222,12 +212,10 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
 
     - name: Install Dependencies
       run: |
-        sudo apt-get install clang-format-18
+        sudo apt-get install clang-format
         clang-format --version
 
     - name: Run formatting style check
@@ -243,25 +231,22 @@ jobs:
       run: |
         sudo apt-get update -qq
         sudo apt -qq -y install clang-tidy-18 \
-                                g++-9 default-jre cmake \
+                                g++-11 default-jre cmake \
                                 uuid-dev build-essential
 
     - name: Setup Python
       uses: actions/setup-python@v5
       with:
-        python-version: 3.8
+        python-version: '3.x'
         architecture: x64
 
     - name: Setup Python Packages
-      run: |
-        pip3 install orderedmultidict
-        pip3 install psutil
+      run: pip3 install orderedmultidict psutil
 
     - name: Checkout code
       uses: actions/checkout@v4
       with:
         submodules: recursive
-        fetch-depth: 0
 
     - name: Use ccache
       uses: hendrikmuhs/ccache-action@v1.2

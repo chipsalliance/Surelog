@@ -40,6 +40,7 @@
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Common/NodeId.h"
 #include "Surelog/Common/PathId.h"
+#include "Surelog/Common/Session.h"
 #include "Surelog/Common/SymbolId.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/ErrorReporting/Error.h"
@@ -51,6 +52,8 @@
 
 namespace SURELOG {
 static constexpr std::string_view UnknownRawPath = "<unknown>";
+
+Cache::Cache(Session* session) : m_session(session) {}
 
 std::string_view Cache::getExecutableTimeStamp() const {
   static constexpr std::string_view sExecTstamp(__DATE__ "-" __TIME__);
@@ -72,7 +75,7 @@ bool Cache::checkIfCacheIsValid(const Header::Reader& header,
 
   // Timestamp Cache vs Orig File
   if (cacheFileId && sourceFileId) {
-    FileSystem* const fileSystem = FileSystem::getInstance();
+    FileSystem* const fileSystem = m_session->getFileSystem();
     std::filesystem::file_time_type ct = fileSystem->modtime(cacheFileId);
     std::filesystem::file_time_type ft = fileSystem->modtime(sourceFileId);
 
@@ -99,7 +102,7 @@ void Cache::cacheErrors(
     ::capnp::List<::Error, ::capnp::Kind::STRUCT>::Builder targetErrors,
     SymbolTable& targetSymbols, const std::vector<Error>& sourceErrors,
     const SymbolTable& sourceSymbols) {
-  FileSystem* const fileSystem = FileSystem::getInstance();
+  FileSystem* const fileSystem = m_session->getFileSystem();
   for (size_t i = 0, ni = sourceErrors.size(); i < ni; ++i) {
     const Error& sourceError = sourceErrors[i];
     const auto& sourceLocations = sourceError.getLocations();
@@ -137,8 +140,9 @@ void Cache::cacheVObjects(
                                                   &sourceSymbols](SymbolId id) {
     return (RawSymbolId)targetSymbols.copyFrom(id, &sourceSymbols);
   };
-  std::function<uint64_t(PathId)> toCachePath = [&targetSymbols](PathId id) {
-    FileSystem* const fileSystem = FileSystem::getInstance();
+  FileSystem* const fileSystem = m_session->getFileSystem();
+  std::function<uint64_t(PathId)> toCachePath = [&targetSymbols,
+                                                 &fileSystem](PathId id) {
     return (RawPathId)fileSystem->copy(id, &targetSymbols);
   };
 
@@ -164,7 +168,7 @@ void Cache::cacheVObjects(
     // clang-format off
     field1 |= 0x0000000000FFFFFF & toCacheSym(object.m_name);
     field1 |= 0x0000000FFF000000 & (((uint64_t)object.m_type)                  << (24));
-    field1 |= 0x0000FFF000000000 & (((uint64_t)object.m_column)                << (24 + 12));
+    field1 |= 0x0000FFF000000000 & (((uint64_t)object.m_startColumn)           << (24 + 12));
     field1 |= 0xFFFF000000000000 & (((uint64_t)(RawNodeId)object.m_parent)     << (24 + 12 + 12));
     field2 |= 0x0000000000000FFF & (((uint64_t)(RawNodeId)object.m_parent)     >> (16));
     field2 |= 0x000000FFFFFFF000 & (((uint64_t)(RawNodeId)object.m_definition) << (12));
@@ -172,8 +176,8 @@ void Cache::cacheVObjects(
     field3 |= 0x000000000000000F & (((uint64_t)(RawNodeId)object.m_child)      >> (24));
     field3 |= 0x00000000FFFFFFF0 & (((uint64_t)(RawNodeId)object.m_sibling)    << (4));
     field3 |= 0x00FFFFFF00000000 & (toCachePath(object.m_fileId)               << (4 + 28));
-    field3 |= 0xFF00000000000000 & (((uint64_t)object.m_line)                  << (4 + 28 + 24));
-    field4 |= 0x000000000000FFFF & (((uint64_t)object.m_line)                  >> (8));
+    field3 |= 0xFF00000000000000 & (((uint64_t)object.m_startLine)             << (4 + 28 + 24));
+    field4 |= 0x000000000000FFFF & (((uint64_t)object.m_startLine)             >> (8));
     field4 |= 0x000000FFFFFF0000 & (((uint64_t)object.m_endLine)               << (16));
     field4 |= 0x000FFF0000000000 & (((uint64_t)object.m_endColumn)             << (16 + 24));
     // clang-format on
@@ -207,7 +211,7 @@ void Cache::restoreErrors(ErrorContainer* errorContainer,
                           SymbolTable& targetSymbols,
                           const ::capnp::List<::Error>::Reader& sourceErrors,
                           const SymbolTable& sourceSymbols) {
-  FileSystem* const fileSystem = FileSystem::getInstance();
+  FileSystem* const fileSystem = m_session->getFileSystem();
   for (const ::Error::Reader& sourceError : sourceErrors) {
     std::vector<Location> targetLocations;
     for (const ::Location::Reader& sourceLocation :
@@ -233,7 +237,7 @@ void Cache::restoreVObjects(
     std::vector<VObject>& targetVObjects, SymbolTable& targetSymbols,
     const ::capnp::List<::VObject>::Reader& sourceVObjects,
     const SymbolTable& sourceSymbols) {
-  FileSystem* const fileSystem = FileSystem::getInstance();
+  FileSystem* const fileSystem = m_session->getFileSystem();
   /* Restore design objects */
   targetVObjects.clear();
   targetVObjects.reserve(sourceVObjects.size());

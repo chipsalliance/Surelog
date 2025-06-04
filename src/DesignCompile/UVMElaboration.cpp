@@ -25,8 +25,8 @@
 
 namespace SURELOG {
 
-UVMElaboration::UVMElaboration(CompileDesign* compileDesign)
-    : TestbenchElaboration(compileDesign) {}
+UVMElaboration::UVMElaboration(Session* session, CompileDesign* compileDesign)
+    : TestbenchElaboration(session, compileDesign) {}
 
 bool UVMElaboration::elaborate() {
   bindClasses_();

@@ -25,57 +25,68 @@
 #define SURELOG_INCLUDEFILEINFO_H
 #pragma once
 
+#include <Surelog/Common/Containers.h>
 #include <Surelog/Common/PathId.h>
 #include <Surelog/Common/SymbolId.h>
 
 #include <cstdint>
+#include <vector>
 
 namespace SURELOG {
 
-class IncludeFileInfo {
+class MacroInfo;
+
+class IncludeFileInfo final {
  public:
-  enum class Context : uint32_t { NONE = 0, INCLUDE = 1, MACRO = 2 };
-  enum class Action : uint32_t { NONE = 0, PUSH = 1, POP = 2 };
+  enum class Context : uint16_t { None = 0, Include = 1, Macro = 2, Directive = 3 };
+  enum class Action : uint16_t { None = 0, Push = 1, Pop = 2 };
 
-  IncludeFileInfo(Context context, uint32_t sectionStartLine,
-                  SymbolId sectionSymbolId, PathId sectionFileId,
-                  uint32_t originalStartLine, uint32_t originalStartColumn,
-                  uint32_t originalEndLine, uint32_t originalEndColumn,
-                  Action action)
-      : IncludeFileInfo(context, sectionStartLine, sectionSymbolId,
-                        sectionFileId, originalStartLine, originalStartColumn,
-                        originalEndLine, originalEndColumn, action, -1, -1) {}
-  IncludeFileInfo(const IncludeFileInfo& i)
-
-      = default;
-  IncludeFileInfo(Context context, uint32_t sectionStartLine,
-                  SymbolId sectionSymbolId, PathId sectionFileId,
-                  uint32_t originalStartLine, uint32_t originalStartColumn,
-                  uint32_t originalEndLine, uint32_t originalEndColumn,
-                  Action action, int32_t indexOpening, int32_t indexClosing)
+  IncludeFileInfo(Context context, Action action, PathId sectionFileId,
+                  uint32_t sectionLine, uint16_t sectionColumn,
+                  uint32_t sourceLine, uint16_t sourceColumn, SymbolId symbolId,
+                  uint32_t symbolLine, uint32_t symbolColumn)
+      : IncludeFileInfo(context, action, nullptr, sectionFileId, sectionLine,
+                        sectionColumn, sourceLine, sourceColumn, symbolId,
+                        symbolLine, symbolColumn, -1) {}
+  IncludeFileInfo(Context context, Action action,
+                  const MacroInfo *macroDefinition, PathId sectionFileId,
+                  uint32_t sectionLine, uint16_t sectionColumn,
+                  uint32_t sourceLine, uint16_t sourceColumn, SymbolId symbolId,
+                  uint32_t symbolLine, uint32_t symbolColumn,
+                  int32_t indexOpposite)
       : m_context(context),
-        m_sectionStartLine(sectionStartLine),
-        m_sectionSymbolId(sectionSymbolId),
-        m_sectionFileId(sectionFileId),
-        m_originalStartLine(originalStartLine),
-        m_originalStartColumn(originalStartColumn),
-        m_originalEndLine(originalEndLine),
-        m_originalEndColumn(originalEndColumn),
         m_action(action),
-        m_indexOpening(indexOpening),
-        m_indexClosing(indexClosing) {}
+        m_macroDefinition(macroDefinition),
+        m_sectionFileId(sectionFileId),
+        m_sectionLine(sectionLine),
+        m_sourceLine(sourceLine),
+        m_sectionColumn(sectionColumn),
+        m_sourceColumn(sourceColumn),
+        m_symbolId(symbolId),
+        m_symbolLine(symbolLine),
+        m_symbolColumn(symbolColumn),
+        m_indexOpposite(indexOpposite) {}
 
-  const Context m_context;
-  uint32_t m_sectionStartLine = 0;
-  SymbolId m_sectionSymbolId;
+  const Context m_context = Context::None;
+  Action m_action = Action::None;
+
+  const MacroInfo *m_macroDefinition = nullptr;
   PathId m_sectionFileId;
-  uint32_t m_originalStartLine = 0;
-  uint32_t m_originalStartColumn = 0;
-  const uint32_t m_originalEndLine = 0;
-  const uint32_t m_originalEndColumn = 0;
-  Action m_action = Action::NONE;  // 1 or 2, push or pop
-  int32_t m_indexOpening = 0;
-  int32_t m_indexClosing = 0;
+
+  uint32_t m_sectionLine = 0;
+  uint32_t m_sourceLine = 0;
+
+  uint16_t m_sectionColumn = 0;
+  uint16_t m_sourceColumn = 0;
+
+  SymbolId m_symbolId;
+  uint32_t m_symbolLine = 0;
+  uint16_t m_symbolColumn = 0;
+
+  int32_t m_indexOpposite = -1;
+
+  std::vector<MacroInfo *> m_macroDefinitions;
+  std::vector<LineColumn> m_tokenPositions;
 };
 
 }  // namespace SURELOG

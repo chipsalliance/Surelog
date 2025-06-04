@@ -53,6 +53,7 @@
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Common/PathId.h"
 #include "Surelog/Common/PlatformFileSystem.h"
+#include "Surelog/Common/Session.h"
 #include "Surelog/Common/SymbolId.h"
 #include "Surelog/ErrorReporting/Error.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
@@ -74,17 +75,16 @@ constexpr std::string_view nostdout_opt = "-nostdout";
 constexpr std::string_view output_folder_opt = "-o";
 
 uint32_t executeCompilation(
-    int32_t argc, const char** argv, bool diffCompMode, bool fileUnit,
+    SURELOG::Session* session, int32_t argc, const char** argv,
+    bool diffCompMode, bool fileUnit,
     SURELOG::ErrorContainer::Stats* overallStats = nullptr) {
-  SURELOG::FileSystem* const fileSystem = SURELOG::FileSystem::getInstance();
-  bool success = true;
   bool noFatalErrors = true;
   uint32_t codedReturn = 0;
-  SURELOG::SymbolTable* symbolTable = new SURELOG::SymbolTable();
-  SURELOG::ErrorContainer* errors = new SURELOG::ErrorContainer(symbolTable);
-  SURELOG::CommandLineParser* clp = new SURELOG::CommandLineParser(
-      errors, symbolTable, diffCompMode, fileUnit);
-  success = clp->parseCommandLine(argc, argv);
+  bool success = session->parseCommandLine(argc, argv, diffCompMode, fileUnit);
+  SURELOG::SymbolTable* const symbols = session->getSymbolTable();
+  SURELOG::ErrorContainer* const errors = session->getErrorContainer();
+  SURELOG::CommandLineParser* const clp = session->getCommandLineParser();
+  SURELOG::FileSystem* const fileSystem = session->getFileSystem();
   bool parseOnly = clp->parseOnly();
   errors->printMessages(clp->muteStdout());
   if (success && (!clp->help())) {
@@ -101,7 +101,7 @@ uint32_t executeCompilation(
       }
     }
 
-    SURELOG::scompiler* compiler = SURELOG::start_compiler(clp);
+    SURELOG::scompiler* compiler = SURELOG::start_compiler(session);
     if (!compiler) codedReturn |= 1;
     SURELOG::shutdown_compiler(compiler);
   }
@@ -121,8 +121,8 @@ uint32_t executeCompilation(
 
   std::string ext_command = clp->getExeCommand();
   if (!ext_command.empty()) {
-    SURELOG::PathId fileId = fileSystem->getChild(
-        clp->getCompileDirId(), "file.lst", clp->getSymbolTable());
+    SURELOG::PathId fileId =
+        fileSystem->getChild(clp->getCompileDirId(), "file.lst", symbols);
     fs::path fileList = fileSystem->toPath(fileId);
     std::string command = ext_command + " " + fileList.string();
     int32_t result = system(command.c_str());
@@ -131,17 +131,13 @@ uint32_t executeCompilation(
   }
   clp->logFooter();
   if (diffCompMode && fileUnit) {
-    SURELOG::Report* report = new SURELOG::Report();
-    std::pair<bool, bool> results =
-        report->makeDiffCompUnitReport(clp, symbolTable);
+    SURELOG::Report* report = new SURELOG::Report(session);
+    std::pair<bool, bool> results = report->makeDiffCompUnitReport();
     success = results.first;
     noFatalErrors = results.second;
     delete report;
   }
   clp->cleanCache();  // only if -nocache
-  delete clp;
-  delete symbolTable;
-  delete errors;
   if ((!noFatalErrors) || (!success)) codedReturn |= 1;
   if (parseOnly)
     return 0;
@@ -155,8 +151,9 @@ enum COMP_MODE {
   BATCH,
 };
 
-int32_t batchCompilation(const char* argv0, const fs::path& batchFile,
-                         const fs::path& outputDir, bool nostdout) {
+int32_t batchCompilation(SURELOG::Session* session, const char* argv0,
+                         const fs::path& batchFile, const fs::path& outputDir,
+                         bool nostdout) {
   int32_t returnCode = 0;
 
   std::error_code ec;
@@ -214,8 +211,14 @@ int32_t batchCompilation(const char* argv0, const fs::path& batchFile,
     }
     if (argv.size() < 2) continue;
 
-    returnCode |= executeCompilation(argv.size(), argv.data(), false, false,
-                                     &overallStats);
+    if (SURELOG::Session* const childSession =
+            new SURELOG::Session(session->getFileSystem(), nullptr, nullptr,
+                                 nullptr, nullptr, session->getPrecompiled())) {
+      returnCode |= executeCompilation(childSession, argv.size(), argv.data(),
+                                       false, false, &overallStats);
+      delete childSession;
+    }
+
     count++;
     fs::current_path(cwd, ec);
     if (ec) {
@@ -227,11 +230,7 @@ int32_t batchCompilation(const char* argv0, const fs::path& batchFile,
   if (!nostdout)
     std::cout << "Processed " << count << " tests." << std::endl << std::flush;
 
-  SURELOG::SymbolTable* symbolTable = new SURELOG::SymbolTable();
-  SURELOG::ErrorContainer* errors = new SURELOG::ErrorContainer(symbolTable);
-  if (!nostdout) errors->printStats(overallStats);
-  delete errors;
-  delete symbolTable;
+  if (!nostdout) session->getErrorContainer()->printStats(overallStats);
   stream.close();
   return returnCode;
 }
@@ -248,12 +247,10 @@ int main(int argc, const char** argv) {
     cerr_rdbuf = std::cerr.rdbuf(file.rdbuf());
   }
 #endif
-  SURELOG::FileSystem::setInstance(
-      new SURELOG::PlatformFileSystem(fs::current_path()));
-
   SURELOG::Waiver::initWaivers();
 
-  SURELOG::FileSystem* const fileSystem = SURELOG::FileSystem::getInstance();
+  SURELOG::Session session;
+  SURELOG::FileSystem* const fileSystem = session.getFileSystem();
   const fs::path workingDir = fileSystem->getWorkingDir();
 
   uint32_t codedReturn = 0;
@@ -291,16 +288,37 @@ int main(int argc, const char** argv) {
       // Implement it sequentially for now and optimize it if this
       // proves to be a bottleneck (preferably, implemented as a
       // cross platform solution).
-      executeCompilation(argc, argv, true, false);
-      codedReturn = executeCompilation(argc, argv, true, true);
+      if (SURELOG::Session* const childSession = new SURELOG::Session(
+              session.getFileSystem(), nullptr, nullptr, nullptr, nullptr,
+              session.getPrecompiled())) {
+        executeCompilation(childSession, argc, argv, true, false);
+        delete childSession;
+      }
+      if (SURELOG::Session* const childSession = new SURELOG::Session(
+              session.getFileSystem(), nullptr, nullptr, nullptr, nullptr,
+              session.getPrecompiled())) {
+        codedReturn = executeCompilation(childSession, argc, argv, true, true);
+        delete childSession;
+      }
 #else
       pid_t pid = fork();
       if (pid == 0) {
         // child process
-        executeCompilation(argc, argv, true, false);
+        if (SURELOG::Session* const childSession = new SURELOG::Session(
+                session.getFileSystem(), nullptr, nullptr, nullptr, nullptr,
+                session.getPrecompiled())) {
+          executeCompilation(childSession, argc, argv, true, false);
+          delete childSession;
+        }
       } else if (pid > 0) {
         // parent process
-        codedReturn = executeCompilation(argc, argv, true, true);
+        if (SURELOG::Session* const childSession = new SURELOG::Session(
+                session.getFileSystem(), nullptr, nullptr, nullptr, nullptr,
+                session.getPrecompiled())) {
+          codedReturn =
+              executeCompilation(childSession, argc, argv, true, true);
+          delete childSession;
+        }
       } else {
         // fork failed
         printf("fork() failed!\n");
@@ -310,14 +328,16 @@ int main(int argc, const char** argv) {
       break;
     }
     case NORMAL:
-      codedReturn = executeCompilation(argc, argv, false, false);
+      codedReturn = executeCompilation(&session, argc, argv, false, false);
       break;
     case BATCH:
-      codedReturn = batchCompilation(argv[0], batchFile, outputDir, nostdout);
+      codedReturn =
+          batchCompilation(&session, argv[0], batchFile, outputDir, nostdout);
       break;
   }
 
   if (python_mode) SURELOG::PythonAPI::shutdown();
+
 #if defined(_MSC_VER) && defined(_DEBUG)
   // Redirect cout back to screen
   if (cout_rdbuf != nullptr) {
@@ -331,5 +351,6 @@ int main(int argc, const char** argv) {
     file.close();
   }
 #endif
+
   return codedReturn;
 }

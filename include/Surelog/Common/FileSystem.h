@@ -79,7 +79,7 @@ class SymbolTable;
  *   NOTE:
  *     toPath(id) == toPath(toPathId(toPath(id))) but
  *     toPlatformAbsPath(id) <>
- * toPlatformAbsPath(toPathId(toPlatformAbsPath(id)))
+ *         toPlatformAbsPath(toPathId(toPlatformAbsPath(id)))
  *
  *     i.e. string representation can be converted to id (and vice-versa)
  *     using toPathId & toPath but the same is not necessarily guaranteed
@@ -111,9 +111,6 @@ class FileSystem {
       std::map<std::string, std::string, std::less<>>;
 
  public:
-  static FileSystem *getInstance();
-  static FileSystem *setInstance(FileSystem *fileSystem);
-
   // Returns the executing binary's path by querying the OS
   static std::filesystem::path getProgramPath();
 
@@ -270,6 +267,8 @@ class FileSystem {
                                     SymbolTable *symbolTable) = 0;
   virtual PathId getCheckerHtmlFile(PathId uhdmFileId, int32_t index,
                                     SymbolTable *symbolTable) = 0;
+  virtual PathId getOutputUhdmFile(bool isUnitCompilation,
+                                   SymbolTable *symbolTable) = 0;
 
   // Rename directory/file represented by 'whatId' to 'toId'
   virtual bool rename(PathId whatId, PathId toId) = 0;
@@ -362,9 +361,6 @@ class FileSystem {
   std::ostringstream m_nullOutputStream;
 
   filepath_to_working_directories_cache_t m_filepathToWorkingDirectoriesCache;
-
- private:
-  static FileSystem *sInstance;
 
  protected:
   FileSystem() = default;

@@ -32,6 +32,7 @@
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Common/PathId.h"
+#include "Surelog/Common/Session.h"
 #include "Surelog/Common/SymbolId.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/ErrorReporting/Error.h"
@@ -48,34 +49,32 @@
 #include "Surelog/Utils/ParseUtils.h"
 
 namespace SURELOG {
-SVLibShapeListener::SVLibShapeListener(ParseLibraryDef *parser,
+SVLibShapeListener::SVLibShapeListener(Session *session,
+                                       ParseLibraryDef *parser,
                                        antlr4::CommonTokenStream *tokens)
     : SV3_1aTreeShapeHelper(
-          new ParseFile(parser->getFileId(), parser->getSymbolTable(),
-                        parser->getErrorContainer()),
-          tokens, 0),
+          session, new ParseFile(session, parser->getFileId()), tokens, 0),
       m_parser(parser),
       m_tokens(tokens) {
-  m_fileContent = new FileContent(
-      m_parser->getFileId(), nullptr, m_parser->getSymbolTable(),
-      m_parser->getErrorContainer(), nullptr, BadPathId);
+  m_fileContent = new FileContent(m_session, m_parser->getFileId(), nullptr,
+                                  nullptr, BadPathId);
   m_pf->setFileContent(m_fileContent);
-  m_includeFileInfo.emplace(IncludeFileInfo::Context::NONE, 1, BadSymbolId,
-                            m_pf->getFileId(0), 0, 0, 0, 0,
-                            IncludeFileInfo::Action::PUSH);
+  m_includeFileInfo.emplace(IncludeFileInfo::Context::Include,
+                            IncludeFileInfo::Action::Push, m_pf->getFileId(0),
+                            1, 1, 1, 1, BadSymbolId, 0, 0);
 }
 
 SymbolId SVLibShapeListener::registerSymbol(std::string_view symbol) {
-  return m_parser->getSymbolTable()->registerSymbol(symbol);
+  return m_session->getSymbolTable()->registerSymbol(symbol);
 }
 
 void SVLibShapeListener::enterLibrary_declaration(
     SV3_1aParser::Library_declarationContext *ctx) {
-  FileSystem *const fileSystem = FileSystem::getInstance();
+  FileSystem *const fileSystem = m_session->getFileSystem();
   std::string name = ctx->identifier()->getText();
   LibrarySet *librarySet = m_parser->getLibrarySet();
-  Library *lib = librarySet->addLibrary(name, m_parser->getSymbolTable());
-  SymbolTable *symbolTable = m_parser->getSymbolTable();
+  Library *lib = librarySet->addLibrary(m_session, name);
+  SymbolTable *symbolTable = m_session->getSymbolTable();
   PathId baseDirId = fileSystem->getParent(m_parser->getFileId(), symbolTable);
   for (auto pathSpec : ctx->file_path_spec()) {
     PathIdVector fileIds;
@@ -84,9 +83,7 @@ void SVLibShapeListener::enterLibrary_declaration(
       lib->addFileId(id);
       std::string_view type = std::get<1>(fileSystem->getType(id, symbolTable));
       if ((type == ".cfg") || (type == ".map")) {
-        ParseLibraryDef parser(m_parser->getCommandLineParser(),
-                               m_parser->getErrorContainer(), symbolTable,
-                               librarySet, m_parser->getConfigSet());
+        ParseLibraryDef parser(m_session, librarySet, m_parser->getConfigSet());
         parser.parseLibraryDefinition(id, lib);
       }
     }
@@ -97,11 +94,11 @@ void SVLibShapeListener::enterInclude_statement(
     SV3_1aParser::Include_statementContext *ctx) {
   const std::string filename = ctx->file_path_spec()->getText();
 
-  FileSystem *const fileSystem = FileSystem::getInstance();
-  SymbolTable *const symbolTable = m_parser->getSymbolTable();
+  FileSystem *const fileSystem = m_session->getFileSystem();
+  SymbolTable *const symbolTable = m_session->getSymbolTable();
+  CommandLineParser *const clp = m_session->getCommandLineParser();
 
-  const PathIdVector &includePathIds =
-      m_parser->getCommandLineParser()->getIncludePaths();
+  const PathIdVector &includePathIds = clp->getIncludePaths();
   PathId fileId = fileSystem->locate(filename, includePathIds, symbolTable);
 
   if (!fileId) {
@@ -110,17 +107,16 @@ void SVLibShapeListener::enterInclude_statement(
   }
 
   if (!fileId || !fileSystem->isRegularFile(fileId)) {
-    ParseUtils::LineColumn lineCol = ParseUtils::getLineColumn(m_tokens, ctx);
+    LineColumn lineCol = ParseUtils::getLineColumn(m_tokens, ctx);
     Location loc(m_parser->getFileId(), lineCol.first, lineCol.second,
                  symbolTable->registerSymbol(filename));
     Error err(ErrorDefinition::PP_CANNOT_OPEN_INCLUDE_FILE, loc);
-    m_parser->getErrorContainer()->addError(err);
+    m_session->getErrorContainer()->addError(err);
     return;
   }
 
-  ParseLibraryDef parser(m_parser->getCommandLineParser(),
-                         m_parser->getErrorContainer(), symbolTable,
-                         m_parser->getLibrarySet(), m_parser->getConfigSet());
+  ParseLibraryDef parser(m_session, m_parser->getLibrarySet(),
+                         m_parser->getConfigSet());
   parser.parseLibraryDefinition(fileId);
 }
 
@@ -197,7 +193,7 @@ void SVLibShapeListener::exitHierarchical_identifier(
 
   childCtx = (antlr4::ParserRuleContext *)ctx->children[0];
   ident = ctx->getText();
-  ident = std::regex_replace(ident, std::regex(EscapeSequence), "");
+  ident = std::regex_replace(ident, m_regexEscSeqReplace, "");
   addVObject(childCtx, ident, VObjectType::slStringConst);
   addVObject(ctx, VObjectType::paHierarchical_identifier);
 

@@ -41,28 +41,26 @@
 #include <vector>
 
 namespace SURELOG {
-
 class BindStmt;
-class ModuleDefinitionFactory;
-class ModuleInstanceFactory;
+class Session;
 
 class DesignElaboration final : public TestbenchElaboration {
  public:
-  explicit DesignElaboration(CompileDesign* compileDesign);
+  DesignElaboration(Session* session, CompileDesign* compileDesign);
   DesignElaboration(const DesignElaboration& orig) = delete;
   ~DesignElaboration() final;
 
   bool createModuleAndPackageDefinitions();
-
   bool elaborate() final;
 
  private:
   bool bindDataTypes_() final;
   bool bindPackagesDataTypes_();
   bool bindDataTypes_(ModuleInstance* instance, DesignComponent* component);
-  void bind_ports_nets_(std::vector<Signal*>& ports,
-                        std::vector<Signal*>& signals, const FileContent* fC,
-                        ModuleInstance* instance, DesignComponent* mod);
+  void bind_ports_nets_(const std::vector<Signal*>& ports,
+                        const std::vector<Signal*>& signals,
+                        const FileContent* fC, ModuleInstance* instance,
+                        DesignComponent* mod);
   bool createBuiltinPrimitives_();
   bool setupConfigurations_();
   bool identifyTopModules_();
@@ -76,35 +74,30 @@ class DesignElaboration final : public TestbenchElaboration {
                                                ModuleInstance* instance,
                                                NodeId parentParamOverride);
   void elaborateInstance_(const FileContent* fC, NodeId nodeId,
-                          NodeId parentParamOverride,
-                          ModuleInstanceFactory* factory,
-                          ModuleInstance* parent, Config* config,
+                          NodeId parentParamOverride, ModuleInstance* parent,
+                          Config* config,
                           std::vector<ModuleInstance*>& parentSubInstances);
   void recurseInstanceLoop_(std::vector<int32_t>& from,
                             std::vector<int32_t>& to,
                             std::vector<int32_t>& indexes, uint32_t pos,
                             DesignComponent* def, const FileContent* fC,
                             NodeId subInstanceId, NodeId paramOverride,
-                            ModuleInstanceFactory* factory,
                             ModuleInstance* parent, Config* config,
                             std::string instanceName, std::string_view modName,
                             std::vector<ModuleInstance*>& allSubInstances);
   void recurseBuildInstanceClause_(std::string_view parentPath, Config* config,
                                    std::set<Config*>& stack);
   ModuleInstance* createBindInstance_(BindStmt* bind, ModuleInstance* parent,
-                                      ModuleInstanceFactory* factory,
                                       Config* config);
   void reduceUnnamedBlocks_();
   void checkConfigurations_();
-  bool bindAllInstances_(ModuleInstance*, ModuleInstanceFactory* factory,
-                         Config* config);
+  bool bindAllInstances_(ModuleInstance*, Config* config);
   void createFileList_();
   Config* getInstConfig(std::string_view name);
   Config* getCellConfig(std::string_view name);
+
   std::vector<std::pair<std::string, const FileContent*>> m_topLevelModules;
   std::set<std::string> m_uniqueTopLevelModules;
-  ModuleDefinitionFactory* m_moduleDefFactory;
-  ModuleInstanceFactory* m_moduleInstFactory;
   std::set<std::string> m_toplevelConfigModules;
   std::map<std::string, Config, std::less<>> m_instConfig;
   std::map<std::string, Config, std::less<>> m_cellConfig;

@@ -26,6 +26,7 @@
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Common/NodeId.h"
+#include "Surelog/Common/Session.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Design/ModuleInstance.h"
 #include "Surelog/Design/VObject.h"
@@ -57,14 +58,6 @@
 #include <vector>
 
 namespace SURELOG {
-using UHDM::BaseClass;
-using UHDM::begin;
-using UHDM::Serializer;
-using UHDM::UHDM_OBJECT_TYPE;
-using UHDM::uhdmunsupported_expr;
-using UHDM::uhdmunsupported_stmt;
-using UHDM::uhdmunsupported_typespec;
-
 // TODO: In the code below, some of the column-range based coverage is
 // implemented, the data collection part is. The actual coverage is not and is
 // commented out as it is a work in progress
@@ -79,11 +72,11 @@ bool UhdmChecker::registerFile(const FileContent* fC,
   std::stack<NodeId> stack;
   stack.push(id);
 
-  FileNodeCoverMap::iterator fileItr = fileNodeCoverMap.find(fC);
-  if (fileItr == fileNodeCoverMap.end()) {
+  FileNodeCoverMap::iterator fileItr = m_fileNodeCoverMap.find(fC);
+  if (fileItr == m_fileNodeCoverMap.end()) {
     RangesMap uhdmCover;
-    fileNodeCoverMap.emplace(fC, uhdmCover);
-    fileItr = fileNodeCoverMap.find(fC);
+    m_fileNodeCoverMap.emplace(fC, uhdmCover);
+    fileItr = m_fileNodeCoverMap.find(fC);
   }
   RangesMap& uhdmCover = (*fileItr).second;
   bool skipModule = false;
@@ -144,7 +137,7 @@ bool UhdmChecker::registerFile(const FileContent* fC,
         ((type == VObjectType::paPackage_or_generate_item_declaration) &&
          !current.m_child) ||  // SEMICOLUMN ALONE ;
         type == VObjectType::paGenerate_begin_end_block) {
-      RangesMap::iterator lineItr = uhdmCover.find(current.m_line);
+      RangesMap::iterator lineItr = uhdmCover.find(current.m_startLine);
       if (lineItr != uhdmCover.end()) {
         uhdmCover.erase(lineItr);
       }
@@ -159,7 +152,7 @@ bool UhdmChecker::registerFile(const FileContent* fC,
     }
     if (type == VObjectType::paGenvar_declaration) {
       // Skip the item and its' children
-      RangesMap::iterator lineItr = uhdmCover.find(current.m_line);
+      RangesMap::iterator lineItr = uhdmCover.find(current.m_startLine);
       if (lineItr != uhdmCover.end()) {
         uhdmCover.erase(lineItr);
       }
@@ -183,7 +176,7 @@ bool UhdmChecker::registerFile(const FileContent* fC,
          (parentType == VObjectType::paModule_nonansi_header) ||  // module name
          (parentType == VObjectType::paType_declaration)))        // struct name
     {
-      RangesMap::iterator lineItr = uhdmCover.find(current.m_line);
+      RangesMap::iterator lineItr = uhdmCover.find(current.m_startLine);
       if (skipModule == false) {
         uint16_t from = fC->Column(id);
         uint16_t to = fC->EndColumn(id);
@@ -212,7 +205,7 @@ bool UhdmChecker::registerFile(const FileContent* fC,
           crange.to = to;
           crange.covered = Status::COVERED;
           ranges.push_back(crange);
-          uhdmCover.emplace(current.m_line, ranges);
+          uhdmCover.emplace(current.m_startLine, ranges);
         }
       }
       skip = true;  // Only skip the item itself
@@ -223,7 +216,7 @@ bool UhdmChecker::registerFile(const FileContent* fC,
     if (skip == false && skipModule == false) {
       uint16_t from = fC->Column(id);
       uint16_t to = fC->EndColumn(id);
-      RangesMap::iterator lineItr = uhdmCover.find(current.m_line);
+      RangesMap::iterator lineItr = uhdmCover.find(current.m_startLine);
       if (lineItr != uhdmCover.end()) {
         bool found = false;
         for (ColRange& crange : (*lineItr).second) {
@@ -249,7 +242,7 @@ bool UhdmChecker::registerFile(const FileContent* fC,
         crange.to = to;
         crange.covered = Status::EXIST;
         ranges.push_back(crange);
-        uhdmCover.emplace(current.m_line, ranges);
+        uhdmCover.emplace(current.m_startLine, ranges);
       }
     }
     if (id == endModuleNode) {
@@ -260,9 +253,9 @@ bool UhdmChecker::registerFile(const FileContent* fC,
 }
 
 bool UhdmChecker::reportHtml(PathId uhdmFileId, float overallCoverage) {
-  FileSystem* const fileSystem = FileSystem::getInstance();
-  ErrorContainer* errors = m_compileDesign->getCompiler()->getErrorContainer();
-  SymbolTable* symbols = m_compileDesign->getCompiler()->getSymbolTable();
+  SymbolTable* const symbols = m_session->getSymbolTable();
+  FileSystem* const fileSystem = m_session->getFileSystem();
+  ErrorContainer* const errors = m_session->getErrorContainer();
 
   const PathId reportFileId =
       fileSystem->getCheckerHtmlFile(uhdmFileId, symbols);
@@ -280,7 +273,7 @@ bool UhdmChecker::reportHtml(PathId uhdmFileId, float overallCoverage) {
   uint32_t fileIndex = 1;
   std::string allUncovered;
   static std::multimap<int32_t, std::string> orderedCoverageMap;
-  for (const auto& [fC, uhdmCover] : fileNodeCoverMap) {
+  for (const auto& [fC, uhdmCover] : m_fileNodeCoverMap) {
     std::vector<std::string> fileContentLines;
     if (!fileSystem->readLines(fC->getFileId(), fileContentLines)) {
       fileSystem->close(report);
@@ -301,7 +294,7 @@ bool UhdmChecker::reportHtml(PathId uhdmFileId, float overallCoverage) {
                "{\nfont-size: 14px;\n}</style>\n";
 
     float cov = 0.0f;
-    const auto& itr = fileCoverageMap.find(fC->getFileId());
+    const auto& itr = m_fileCoverageMap.find(fC->getFileId());
     cov = (*itr).second;
     std::stringstream strst;
     strst << std::setprecision(3) << cov;
@@ -438,8 +431,7 @@ bool UhdmChecker::reportHtml(PathId uhdmFileId, float overallCoverage) {
   }
 
   report << "<h2 style=\"text-decoration: underline\">"
-         << "All Uncovered: "
-         << "</h2>\n";
+         << "All Uncovered: " << "</h2>\n";
   report << allUncovered << "\n";
   report << "</body>\n</html>\n";
   fileSystem->close(report);
@@ -447,7 +439,7 @@ bool UhdmChecker::reportHtml(PathId uhdmFileId, float overallCoverage) {
 }
 
 void UhdmChecker::mergeColumnCoverage() {
-  for (auto& fileItr : fileNodeCoverMap) {
+  for (auto& fileItr : m_fileNodeCoverMap) {
     RangesMap& uhdmCover = fileItr.second;
     for (auto& cItr : uhdmCover) {
       Ranges& ranges = cItr.second;
@@ -464,8 +456,8 @@ void UhdmChecker::mergeColumnCoverage() {
 }
 
 float UhdmChecker::reportCoverage(PathId uhdmFileId) {
-  FileSystem* const fileSystem = FileSystem::getInstance();
-  SymbolTable* symbols = m_compileDesign->getCompiler()->getSymbolTable();
+  SymbolTable* const symbols = m_session->getSymbolTable();
+  FileSystem* const fileSystem = m_session->getFileSystem();
   const PathId reportFileId = fileSystem->getCheckerFile(uhdmFileId, symbols);
 
   std::ostream& report = fileSystem->openForWrite(reportFileId);
@@ -476,7 +468,7 @@ float UhdmChecker::reportCoverage(PathId uhdmFileId) {
 
   int32_t overallUncovered = 0;
   int32_t overallLineNb = 0;
-  for (auto& [fC, uhdmCover] : fileNodeCoverMap) {
+  for (auto& [fC, uhdmCover] : m_fileNodeCoverMap) {
     bool fileNamePrinted = false;
     int32_t lineNb = 0;
     int32_t uncovered = 0;
@@ -507,8 +499,7 @@ float UhdmChecker::reportCoverage(PathId uhdmFileId) {
           firstUncoveredLine = cItr.first;
           report << "\n\n"
                  << fileSystem->toPath(fC->getFileId()) << ":" << cItr.first
-                 << ": "
-                 << " Missing models\n";
+                 << ": " << " Missing models\n";
           fileNamePrinted = true;
         }
         report << "Line: " << cItr.first << "\n";
@@ -523,10 +514,10 @@ float UhdmChecker::reportCoverage(PathId uhdmFileId) {
       coverage = (lineNb - uncovered) * 100.0f / lineNb;
     if (uncovered) {
       report << "File coverage: " << std::setprecision(3) << coverage << "%\n";
-      coverageMap.emplace(coverage,
-                          std::make_pair(fC->getFileId(), firstUncoveredLine));
+      m_coverageMap.emplace(
+          coverage, std::make_pair(fC->getFileId(), firstUncoveredLine));
     }
-    fileCoverageMap.emplace(fC->getFileId(), coverage);
+    m_fileCoverageMap.emplace(fC->getFileId(), coverage);
   }
   float overallCoverage = 0.0f;
   if (overallLineNb == 0)
@@ -537,38 +528,38 @@ float UhdmChecker::reportCoverage(PathId uhdmFileId) {
   report << "\nOverall coverage: " << std::setprecision(3) << overallCoverage
          << "%\n";
   report << "\nOrdered coverage:\n";
-  for (const auto& covFile : coverageMap) {
+  for (const auto& covFile : m_coverageMap) {
     report << covFile.second.first << ":" << covFile.second.second << ": "
-           << std::setprecision(3) << covFile.first << "% "
-           << "\n";
+           << std::setprecision(3) << covFile.first << "% " << "\n";
   }
   fileSystem->close(report);
   return overallCoverage;
 }
 
 void UhdmChecker::annotate() {
-  FileSystem* const fileSystem = FileSystem::getInstance();
-  Serializer& s = m_compileDesign->getSerializer();
-  const auto& objects = s.AllObjects();
+  SymbolTable* const symbols = m_session->getSymbolTable();
+  FileSystem* const fileSystem = m_session->getFileSystem();
+  uhdm::Serializer& s = m_compileDesign->getSerializer();
+  const auto& objects = s.getAllObjects();
   for (const auto& obj : objects) {
-    const BaseClass* bc = obj.first;
+    const uhdm::BaseClass* bc = obj.first;
     if (!bc) continue;
     bool unsupported = false;
-    UHDM_OBJECT_TYPE ot = bc->UhdmType();
-    if ((ot == uhdmunsupported_expr) || (ot == uhdmunsupported_stmt) ||
-        (ot == uhdmunsupported_typespec))
+    uhdm::UhdmType ot = bc->getUhdmType();
+    if ((ot == uhdm::UhdmType::UnsupportedExpr) ||
+        (ot == uhdm::UhdmType::UnsupportedStmt) ||
+        (ot == uhdm::UhdmType::UnsupportedTypespec))
       unsupported = true;
-    PathId fnId = fileSystem->toPathId(
-        bc->VpiFile(), m_compileDesign->getCompiler()->getSymbolTable());
-    const auto& fItr = fileMap.find(fnId);
-    if (fItr != fileMap.end()) {
+    PathId fnId = fileSystem->toPathId(bc->getFile(), symbols);
+    const auto& fItr = m_fileMap.find(fnId);
+    if (fItr != m_fileMap.end()) {
       const FileContent* fC = (*fItr).second;
-      FileNodeCoverMap::iterator fileItr = fileNodeCoverMap.find(fC);
-      if (fileItr != fileNodeCoverMap.end()) {
+      FileNodeCoverMap::iterator fileItr = m_fileNodeCoverMap.find(fC);
+      if (fileItr != m_fileNodeCoverMap.end()) {
         RangesMap& uhdmCover = (*fileItr).second;
-        RangesMap::iterator cItr = uhdmCover.find(bc->VpiLineNo());
-        // uint16_t from = bc->VpiColumnNo();
-        // uint16_t to = bc->VpiEndColumnNo();
+        RangesMap::iterator cItr = uhdmCover.find(bc->getStartLine());
+        // uint16_t from = bc->getStartColumn();
+        // uint16_t to = bc->getEndColumn();
 
         if (cItr != uhdmCover.end()) {
           // bool found = false;
@@ -650,11 +641,10 @@ void collectUsedFileContents(std::set<const FileContent*>& files,
 }
 
 bool UhdmChecker::check(PathId uhdmFileId) {
-  FileSystem* const fileSystem = FileSystem::getInstance();
+  FileSystem* const fileSystem = m_session->getFileSystem();
   // Register all objects location in file content
-  CommandLineParser* clp =
-      m_compileDesign->getCompiler()->getCommandLineParser();
-  SymbolTable* symbols = m_compileDesign->getCompiler()->getSymbolTable();
+  CommandLineParser* const clp = m_session->getCommandLineParser();
+  SymbolTable* const symbols = m_session->getSymbolTable();
   std::set<const FileContent*> files;
   std::set<std::string_view> moduleNames;
   for (ModuleInstance* top : m_design->getTopLevelModuleInstances()) {
@@ -669,13 +659,13 @@ bool UhdmChecker::check(PathId uhdmFileId) {
 
   for (const FileContent* fC : files) {
     if (!clp->createCache()) {
-      std::string_view fileName = std::get<1>(
-          fileSystem->getLeaf(fC->getFileId(), fC->getSymbolTable()));
+      std::string_view fileName =
+          std::get<1>(fileSystem->getLeaf(fC->getFileId(), symbols));
       if ((fileName == "uvm_pkg.sv") || (fileName == "ovm_pkg.sv")) {
         continue;
       }
     }
-    fileMap.emplace(fC->getFileId(), fC);
+    m_fileMap.emplace(fC->getFileId(), fC);
     registerFile(fC, moduleNames);
   }
 
@@ -685,7 +675,7 @@ bool UhdmChecker::check(PathId uhdmFileId) {
   mergeColumnCoverage();
 
   if (!fileSystem->mkdirs(
-          fileSystem->getCheckerDir(clp->fileunit(), symbols))) {
+          fileSystem->getCheckerDir(clp->fileUnit(), symbols))) {
     return false;
   }
 

@@ -28,15 +28,18 @@
 // UHDM
 #include <uhdm/sv_vpi_user.h>
 
-namespace SURELOG {
-
-class CommandLineParser;
+namespace uhdm {
 class Design;
+}
+
+namespace SURELOG {
+class Design;
+class AstListener;
+class Session;
 struct scompiler;
-class ParseTreeListener;
 
 // Create a compiler session based on the command line options
-scompiler* start_compiler(CommandLineParser* clp);
+scompiler* start_compiler(Session* session);
 
 // Surelog internal design representation and AST access
 Design* get_design(scompiler* compiler);
@@ -45,7 +48,8 @@ Design* get_design(scompiler* compiler);
 // navigate) see: third_party/Verilog_Object_Model.pdf
 //      third_party/UHDM/include/
 //      third_party/UHDM/headers/
-vpiHandle get_uhdm_design(scompiler* compiler);
+uhdm::Design* get_uhdm_design(scompiler* compiler);
+vpiHandle get_vpi_design(scompiler* compiler);
 
 // Terminate the compiler session, cleanup internal datastructures,
 // Purges UHDM and VPI from memory,
@@ -53,7 +57,7 @@ vpiHandle get_uhdm_design(scompiler* compiler);
 // use!
 void shutdown_compiler(scompiler* compiler);
 
-void walk_parsetree(scompiler* compiler, ParseTreeListener* listener);
+void walk(scompiler* compiler, AstListener* listener);
 
 }  // namespace SURELOG
 

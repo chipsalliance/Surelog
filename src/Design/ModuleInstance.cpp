@@ -48,17 +48,13 @@
 #include <uhdm/vpi_visitor.h>
 
 namespace SURELOG {
-using UHDM::any;
-using UHDM::constant;
-using UHDM::param_assign;
-using UHDM::uhdmconstant;
-
-ModuleInstance::ModuleInstance(DesignComponent* moduleDefinition,
+ModuleInstance::ModuleInstance(Session* session,
+                               DesignComponent* moduleDefinition,
                                const FileContent* fileContent, NodeId nodeId,
                                ModuleInstance* parent,
                                std::string_view instName,
                                std::string_view modName)
-    : ValuedComponentI(parent, moduleDefinition),
+    : ValuedComponentI(session, parent, moduleDefinition),
       m_definition(moduleDefinition),
       m_fileContent(fileContent),
       m_nodeId(nodeId),
@@ -71,24 +67,24 @@ ModuleInstance::ModuleInstance(DesignComponent* moduleDefinition,
   }
 }
 
-UHDM::expr* ModuleInstance::getComplexValue(std::string_view name) const {
+uhdm::Expr* ModuleInstance::getComplexValue(std::string_view name) const {
   ModuleInstance* instance = (ModuleInstance*)this;
   while (instance) {
-    UHDM::expr* res = ValuedComponentI::getComplexValue(name);
+    uhdm::Expr* res = ValuedComponentI::getComplexValue(name);
     if (res) {
       return res;
     }
 
     if (instance->m_netlist) {
-      UHDM::VectorOfparam_assign* param_assigns =
+      uhdm::ParamAssignCollection* param_assigns =
           instance->m_netlist->param_assigns();
       if (param_assigns) {
-        for (param_assign* param : *param_assigns) {
-          if (param && param->Lhs()) {
-            const std::string_view param_name = param->Lhs()->VpiName();
+        for (uhdm::ParamAssign* param : *param_assigns) {
+          if (param && param->getLhs()) {
+            const std::string_view param_name = param->getLhs()->getName();
             if (param_name == name) {
-              const any* exp = param->Rhs();
-              if (exp) return (UHDM::expr*)exp;
+              const uhdm::Any* exp = param->getRhs();
+              if (exp) return (uhdm::Expr*)exp;
             }
           }
         }
@@ -103,24 +99,24 @@ UHDM::expr* ModuleInstance::getComplexValue(std::string_view name) const {
   return nullptr;
 }
 
-const UHDM::constant* resolveFromParamAssign(
-    const UHDM::VectorOfparam_assign* param_assigns,
+const uhdm::Constant* resolveFromParamAssign(
+    const uhdm::ParamAssignCollection* param_assigns,
     std::set<std::string>& visited, const std::string_view& name) {
   std::string s(name);
   if (visited.find(s) != visited.end()) {
     return nullptr;
   }
   visited.insert(std::string(name));
-  for (param_assign* param : *param_assigns) {
-    const std::string_view param_name = param->Lhs()->VpiName();
+  for (uhdm::ParamAssign* param : *param_assigns) {
+    const std::string_view param_name = param->getLhs()->getName();
     if (param_name == name) {
-      const any* exp = param->Rhs();
+      const uhdm::Any* exp = param->getRhs();
       if (exp) {
-        if (exp->UhdmType() == uhdmconstant) {
-          return (constant*)exp;
-        } else if (exp->UhdmType() == UHDM::uhdmref_obj) {
-          UHDM::ref_obj* ref = (UHDM::ref_obj*)exp;
-          const std::string_view ref_name = ref->VpiName();
+        if (exp->getUhdmType() == uhdm::UhdmType::Constant) {
+          return (uhdm::Constant*)exp;
+        } else if (exp->getUhdmType() == uhdm::UhdmType::RefObj) {
+          uhdm::RefObj* ref = (uhdm::RefObj*)exp;
+          const std::string_view ref_name = ref->getName();
           return resolveFromParamAssign(param_assigns, visited, ref_name);
         }
       }
@@ -141,14 +137,14 @@ Value* ModuleInstance::getValue(std::string_view name,
   ModuleInstance* instance = (ModuleInstance*)this;
   while (instance) {
     if (instance->m_netlist) {
-      UHDM::VectorOfparam_assign* param_assigns =
+      uhdm::ParamAssignCollection* param_assigns =
           instance->m_netlist->param_assigns();
       if (param_assigns) {
         std::set<std::string> visited;
-        const UHDM::constant* res =
+        const uhdm::Constant* res =
             resolveFromParamAssign(param_assigns, visited, name);
         if (res) {
-          sval = exprBuilder.fromVpiValue(res->VpiValue(), res->VpiSize());
+          sval = exprBuilder.fromVpiValue(res->getValue(), res->getSize());
           break;
         }
       }
@@ -165,14 +161,14 @@ Value* ModuleInstance::getValue(std::string_view name,
   }
 
   if (m_definition && (sval == nullptr)) {
-    UHDM::VectorOfparam_assign* param_assigns =
-        m_definition->getParam_assigns();
+    uhdm::ParamAssignCollection* param_assigns =
+        m_definition->getParamAssigns();
     if (param_assigns) {
       std::set<std::string> visited;
-      const UHDM::constant* res =
+      const uhdm::Constant* res =
           resolveFromParamAssign(param_assigns, visited, name);
       if (res) {
-        sval = exprBuilder.fromVpiValue(res->VpiValue(), res->VpiSize());
+        sval = exprBuilder.fromVpiValue(res->getValue(), res->getSize());
       }
     }
   }
@@ -188,13 +184,13 @@ ModuleInstance* ModuleInstance::getChildByName(std::string_view name) {
 }
 
 std::string ModuleInstance::decompile(char* valueName) {
-  ExprBuilder exprBuilder;
+  ExprBuilder exprBuilder(m_session);
   Value* val = getValue(valueName, exprBuilder);
   if (val) {
     return val->uhdmValue();
   }
-  if (UHDM::expr* complex = getComplexValue(valueName)) {
-    return UHDM::decompile(complex);
+  if (uhdm::Expr* complex = getComplexValue(valueName)) {
+    return uhdm::decompile(complex);
   } else {
     return "Undefined";
   }
@@ -209,14 +205,6 @@ ModuleInstance::~ModuleInstance() {
 
 void ModuleInstance::addSubInstance(ModuleInstance* subInstance) {
   m_allSubInstances.push_back(subInstance);
-}
-
-ModuleInstance* ModuleInstanceFactory::newModuleInstance(
-    DesignComponent* moduleDefinition, const FileContent* fileContent,
-    NodeId nodeId, ModuleInstance* parent, std::string_view instName,
-    std::string_view modName) {
-  return new ModuleInstance(moduleDefinition, fileContent, nodeId, parent,
-                            instName, modName);
 }
 
 VObjectType ModuleInstance::getType() const {
@@ -310,7 +298,7 @@ std::string_view ModuleInstance::getModuleName() const {
 void ModuleInstance::overrideParentChild(ModuleInstance* parent,
                                          ModuleInstance* interm,
                                          ModuleInstance* child,
-                                         UHDM::Serializer& s) {
+                                         uhdm::Serializer& s) {
   if (parent != this) return;
   Netlist* netlist = interm->getNetlist();
   if (netlist) {
@@ -325,9 +313,9 @@ void ModuleInstance::overrideParentChild(ModuleInstance* parent,
   if (netlist->param_assigns()) {
     auto params = child_netlist->param_assigns();
     if (params == nullptr) {
-      params = s.MakeParam_assignVec();
+      params = s.makeCollection<uhdm::ParamAssign>();
+      child_netlist->param_assigns(params);
     }
-    child_netlist->param_assigns(params);
     for (auto p : *netlist->param_assigns()) {
       params->push_back(p);
     }
@@ -339,32 +327,32 @@ void ModuleInstance::overrideParentChild(ModuleInstance* parent,
     Value* val = param.second.first;
     auto params = child_netlist->param_assigns();
     if (params == nullptr) {
-      params = s.MakeParam_assignVec();
+      params = s.makeCollection<uhdm::ParamAssign>();
+      child_netlist->param_assigns(params);
     }
-    child_netlist->param_assigns(params);
     bool found = false;
     for (auto p : *params) {
-      if (p->VpiName() == name) {
+      if (p->getName() == name) {
         found = true;
         break;
       }
     }
     if (!found) {
-      UHDM::parameter* p = s.MakeParameter();
-      p->VpiName(name);
-      if (val && val->isValid()) p->VpiValue(val->uhdmValue());
-      p->VpiLineNo(param.second.second);
-      p->VpiLocalParam(true);
-      UHDM::int_typespec* ts = s.MakeInt_typespec();
-      UHDM::ref_typespec* rt = s.MakeRef_typespec();
-      rt->VpiParent(p);
-      p->Typespec(rt);
-      rt->Actual_typespec(ts);
-      UHDM::param_assign* pass = s.MakeParam_assign();
-      pass->Lhs(p);
-      UHDM::constant* c = s.MakeConstant();
-      c->VpiValue(val->uhdmValue());
-      pass->Rhs(c);
+      uhdm::Parameter* p = s.make<uhdm::Parameter>();
+      p->setName(name);
+      if (val && val->isValid()) p->setValue(val->uhdmValue());
+      p->setStartLine(param.second.second);
+      p->setLocalParam(true);
+      uhdm::IntTypespec* ts = s.make<uhdm::IntTypespec>();
+      uhdm::RefTypespec* rt = s.make<uhdm::RefTypespec>();
+      rt->setParent(p);
+      p->setTypespec(rt);
+      rt->setActual(ts);
+      uhdm::ParamAssign* pass = s.make<uhdm::ParamAssign>();
+      pass->setLhs(p);
+      uhdm::Constant* c = s.make<uhdm::Constant>();
+      c->setValue(val->uhdmValue());
+      pass->setRhs(c);
       params->push_back(pass);
     }
   }

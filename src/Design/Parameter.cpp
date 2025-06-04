@@ -32,17 +32,15 @@
 namespace SURELOG {
 
 Parameter::Parameter(const FileContent* fC, NodeId nodeId,
-                     std::string_view name, NodeId node_type, bool port_param)
+                     std::string_view name, NodeId nodeType, bool portParam)
     : DataType(fC, nodeId, name,
-               fC ? fC->Type(node_type) : VObjectType::paParameter_declaration,
+               fC ? fC->Type(nodeType) : VObjectType::paParameter_declaration,
                true),
-      m_ntype(node_type),
+      m_ntype(nodeType),
       m_param(nullptr),
-      m_port_param(port_param) {
+      m_portParam(portParam) {
   m_category = DataType::Category::PARAMETER;
 }
-
-Parameter::~Parameter() = default;
 
 VObjectType Parameter::getType() const {
   return getFileContent()->Type(m_ntype);

@@ -38,11 +38,8 @@ class Variable;
 
 class TestbenchElaboration : public ElaborationStep {
  public:
-  explicit TestbenchElaboration(CompileDesign* compileDesign)
-      : ElaborationStep(compileDesign) {}
-
+  TestbenchElaboration(Session* session, CompileDesign* compileDesign);
   TestbenchElaboration(const TestbenchElaboration& orig);
-
   ~TestbenchElaboration() override = default;
 
  protected:
@@ -56,8 +53,7 @@ class TestbenchElaboration : public ElaborationStep {
   bool bindFunctionReturnTypesAndParamaters_();
   bool bindFunctionBodies_();
   bool bindSubRoutineCall_(ClassDefinition* classDefinition, Statement* stmt,
-                           Design* design, SymbolTable* symbols,
-                           ErrorContainer* errors);
+                           Design* design);
   bool bindForeachLoop_(ClassDefinition* classDefinition, Statement* stmt,
                         ForeachLoopStmt* st);
   bool bindForLoop_(ClassDefinition* classDefinition, Statement* stmt,

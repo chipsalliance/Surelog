@@ -30,12 +30,12 @@
 #include <Surelog/Common/PathId.h>
 
 namespace SURELOG {
-
 class PythonListen;
+class Session;
 
 class PythonAPICache final : Cache {
  public:
-  explicit PythonAPICache(PythonListen* listener);
+  PythonAPICache(Session* session, PythonListen* listener);
   PythonAPICache(const PythonAPICache& orig) = delete;
 
   bool restore();

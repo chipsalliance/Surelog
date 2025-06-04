@@ -120,6 +120,9 @@ std::string ErrorDefinition::getCategoryName(
     case ErrorDefinition::UHDM:
       cat = "UH";
       break;
+    case ErrorDefinition::INTG:
+      cat = "IG";
+      break;
   }
   return cat;
 }
@@ -150,6 +153,8 @@ ErrorDefinition::ErrorCategory ErrorDefinition::getCategory(
     return ErrorDefinition::USER;
   else if (cat == "UH")
     return ErrorDefinition::UHDM;
+  else if (cat == "IG")
+    return ErrorDefinition::INTG;
   return ErrorDefinition::USER;
 }
 
@@ -284,6 +289,7 @@ bool ErrorDefinition::init() {
       "Timescale precision less precise than timeunit");
   rec(PA_INTERNAL_ERROR, ERROR, PARSE, "Internal error: %s");
   rec(PA_INTERNAL_WARNING, WARNING, PARSE, "Internal warning: %s");
+  rec(PA_INVALID_VOBJECT_LOCATION, WARNING, PARSE, "Invalid VObject location");
   rec(COMP_COMPILE, INFO, COMP, "Compilation..");
   rec(COMP_COMPILE_PACKAGE, INFO, COMP, "Compile package \"%s\"");
   rec(COMP_COMPILE_CLASS, INFO, COMP, "Compile class \"%s\"");
@@ -496,6 +502,24 @@ bool ErrorDefinition::init() {
   rec(UHDM_FORCING_UNSIGNED_TYPE, WARNING, UHDM,
       "Critical: Forcing signal to unsigned type due to unsigned port binding "
       "\"%s\"");
+  rec(UHDM_FAILED_TO_BIND, ERROR, UHDM, "Failed to bind object: \"%s\"");
+
+  rec(INTEGRITY_CHECK_MISSING_LOCATION, ERROR, INTG,
+      "Missing location information: %s");
+  rec(INTEGRITY_CHECK_MISSING_PARENT, ERROR, INTG, "Parent is null: %s");
+  rec(INTEGRITY_CHECK_MISSING_NAME, ERROR, INTG, "Missing/invalid name: %s");
+  rec(INTEGRITY_CHECK_MISSING_FILE, ERROR, INTG, "Missing/invalid file: %s");
+  rec(INTEGRITY_CHECK_PARENT_IS_NEITHER_SCOPE_NOR_DESIGN, ERROR, INTG,
+      "Parented to neither scope nor design: %s");
+  rec(INTEGRITY_CHECK_OBJECT_NOT_IN_PARENT_COLLECTION, ERROR, INTG,
+      "Object not found in parent (scope|design)'s collection: %s");
+  rec(INTEGRITY_CHECK_BAD_RELATIVE_LOCATION, ERROR, INTG,
+      "Bad relative location: %s");
+  rec(INTEGRITY_CHECK_COLLECTION_HAS_DUPLICATES, ERROR, INTG,
+      "Object has duplicates: %s");
+  rec(INTEGRITY_CHECK_BINDING, ERROR, INTG, "Unbound: %s");
+  rec(INTEGRITY_CHECK_INVALID_LOCATION, ERROR, INTG, "Invalid location: %s");
+  rec(INTEGRITY_CHECK_INVALID_REFPARENT, ERROR, INTG, "Invalid RefParent %s");
   return true;
 }
 

@@ -111,16 +111,16 @@ TEST(StringUtilsTest, ReplaceInTokenVectorWithVectorPattern) {
 
   // Pattern match
   StringUtils::replaceInTokenVector(tokens, {"a", "b", "c"}, "bar");
-  EXPECT_THAT(tokens, ElementsAre("c", "bar", "x", "y"));
+  EXPECT_THAT(tokens, ElementsAre("c", "bar", "", "", "x", "y"));
 
   // Pattern starts multiple times, but only full pattern counts
   tokens = {"a", "a", "b", "c", "x", "y"};
   StringUtils::replaceInTokenVector(tokens, {"a", "b", "c"}, "baz");
-  EXPECT_THAT(tokens, ElementsAre("a", "baz", "x", "y"));
+  EXPECT_THAT(tokens, ElementsAre("a", "baz", "", "", "x", "y"));
 
   tokens = {"a", "b", "a", "b", "c", "x", "y"};
   StringUtils::replaceInTokenVector(tokens, {"a", "b", "c"}, "quuz");
-  EXPECT_THAT(tokens, ElementsAre("a", "b", "quuz", "x", "y"));
+  EXPECT_THAT(tokens, ElementsAre("a", "b", "quuz", "", "", "x", "y"));
 }
 
 TEST(StringUtilsTest, ReplaceInTokenVectorWithVectorString) {

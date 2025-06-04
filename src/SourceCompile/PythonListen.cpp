@@ -40,7 +40,7 @@ PythonListen::PythonListen(ParseFile* parse,
 PythonListen::~PythonListen() = default;
 
 void PythonListen::addError(Error& error) {
-  getCompileSourceFile()->getErrorContainer()->addError(error);
+  m_session->getErrorContainer()->addError(error);
 }
 
 bool PythonListen::listen() {

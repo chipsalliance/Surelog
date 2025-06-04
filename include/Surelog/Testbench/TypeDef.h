@@ -49,6 +49,7 @@ class TypeDef final : public DataType {
   NodeId getDefinitionNode() const { return m_the_def; }
   const DataType* getDataType() const { return m_datatype; }
   bool isForwardDeclaration() const { return m_forwardDeclaration; }
+  void setTypespec(uhdm::Typespec* typespec) override;
 
  private:
   NodeId m_the_def;

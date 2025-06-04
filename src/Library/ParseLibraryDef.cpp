@@ -35,6 +35,7 @@
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Common/NodeId.h"
 #include "Surelog/Common/PathId.h"
+#include "Surelog/Common/Session.h"
 #include "Surelog/Config/ConfigSet.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/ErrorReporting/Error.h"
@@ -51,35 +52,33 @@
 
 namespace SURELOG {
 
-ParseLibraryDef::ParseLibraryDef(CommandLineParser* commandLineParser,
-                                 ErrorContainer* errors,
-                                 SymbolTable* symbolTable,
-                                 LibrarySet* librarySet, ConfigSet* configSet)
-    : m_commandLineParser(commandLineParser),
-      m_errors(errors),
-      m_symbolTable(symbolTable),
+ParseLibraryDef::ParseLibraryDef(Session* session, LibrarySet* librarySet,
+                                 ConfigSet* configSet)
+    : m_session(session),
       m_librarySet(librarySet),
       m_configSet(configSet),
       m_fileContent(nullptr) {}
 
 bool ParseLibraryDef::parseLibrariesDefinition() {
-  FileSystem* const fileSystem = FileSystem::getInstance();
   // Get .map files from command line
-  std::vector<PathId> libraryMapFiles =
-      m_commandLineParser->getLibraryMapFiles();
+  SymbolTable* const symbols = m_session->getSymbolTable();
+  FileSystem* const fileSystem = m_session->getFileSystem();
+  ErrorContainer* const errors = m_session->getErrorContainer();
+  CommandLineParser* const clp = m_session->getCommandLineParser();
+  std::vector<PathId> libraryMapFiles = clp->getLibraryMapFiles();
   if (libraryMapFiles.empty()) {
     // or scan local dir
-    for (const PathId& wdId : m_commandLineParser->getWorkingDirs()) {
-      fileSystem->collect(wdId, ".map", m_symbolTable, libraryMapFiles);
+    for (const PathId& wdId : clp->getWorkingDirs()) {
+      fileSystem->collect(wdId, ".map", symbols, libraryMapFiles);
     }
   }
 
   // If "work" library is not yet declared from command line, create it
   constexpr std::string_view workN = "work";
-  m_librarySet->addLibrary(workN, m_symbolTable);
+  m_librarySet->addLibrary(m_session, workN);
 
   // Config files are parsed using the library top rule
-  const PathIdVector& cfgFiles = m_commandLineParser->getConfigFiles();
+  const PathIdVector& cfgFiles = clp->getConfigFiles();
   libraryMapFiles.insert(libraryMapFiles.end(), cfgFiles.begin(),
                          cfgFiles.end());
 
@@ -92,40 +91,43 @@ bool ParseLibraryDef::parseLibrariesDefinition() {
     m_librarySet->getLibrary(fileId);
   }
 
-  for (const PathId& fileId : m_commandLineParser->getSourceFiles()) {
+  for (const PathId& fileId : clp->getSourceFiles()) {
     // Register files in "work" library
     m_librarySet->getLibrary(fileId);
   }
 
-  m_librarySet->checkErrors(m_symbolTable, m_errors);
+  m_librarySet->checkErrors(symbols, errors);
 
-  if (m_commandLineParser->getDebugLibraryDef()) {
+  if (clp->getDebugLibraryDef()) {
     m_librarySet->report(std::cout) << std::endl;
   }
   return true;
 }
 
 bool ParseLibraryDef::parseLibraryDefinition(PathId fileId, Library* lib) {
-  FileSystem* const fileSystem = FileSystem::getInstance();
   m_fileId = fileId;
-  std::istream& stream = fileSystem->openForRead(m_fileId);
 
+  FileSystem* const fileSystem = m_session->getFileSystem();
+  ErrorContainer* const errors = m_session->getErrorContainer();
+  CommandLineParser* const clp = m_session->getCommandLineParser();
+
+  std::istream& stream = fileSystem->openForRead(m_fileId);
   if (!stream.good()) {
     fileSystem->close(stream);
 
     Location ppfile(fileId);
     Error err(ErrorDefinition::PA_CANNOT_OPEN_FILE, ppfile);
-    m_errors->addError(err);
+    errors->addError(err);
     return false;
   }
 
   Location ppfile(fileId);
   Error err(ErrorDefinition::PP_PROCESSING_SOURCE_FILE, ppfile);
-  m_errors->addError(err);
-  m_errors->printMessage(err, m_commandLineParser->muteStdout());
+  errors->addError(err);
+  errors->printMessage(err, clp->muteStdout());
 
   AntlrLibParserErrorListener* errorListener =
-      new AntlrLibParserErrorListener(this);
+      new AntlrLibParserErrorListener(m_session, this);
   antlr4::ANTLRInputStream* inputStream = new antlr4::ANTLRInputStream(stream);
   SV3_1aLexer* lexer = new SV3_1aLexer(inputStream);
   lexer->removeErrorListeners();
@@ -137,7 +139,8 @@ bool ParseLibraryDef::parseLibraryDefinition(PathId fileId, Library* lib) {
   parser->addErrorListener(errorListener);
   antlr4::tree::ParseTree* m_tree = parser->top_level_library_rule();
 
-  SVLibShapeListener* listener = new SVLibShapeListener(this, tokens);
+  SVLibShapeListener* listener =
+      new SVLibShapeListener(m_session, this, tokens);
   m_fileContent = listener->getFileContent();
 
   antlr4::tree::ParseTreeWalker::DEFAULT.walk(listener, m_tree);
@@ -150,7 +153,7 @@ bool ParseLibraryDef::parseLibraryDefinition(PathId fileId, Library* lib) {
     }
   }
 
-  if (m_commandLineParser->getDebugAstModel()) {
+  if (clp->getDebugAstModel()) {
     std::cout << m_fileContent->printObjects();
   }
 
@@ -165,49 +168,53 @@ bool ParseLibraryDef::parseLibraryDefinition(PathId fileId, Library* lib) {
 }
 
 bool ParseLibraryDef::parseConfigDefinition() {
-  FileContent* fC = m_fileContent;
-  if (!fC) return false;
+  if (!m_fileContent) return false;
+
+  SymbolTable* const symbols = m_session->getSymbolTable();
 
   VObjectTypeUnorderedSet types = {VObjectType::paConfig_declaration};
-  std::vector<NodeId> configs = fC->sl_collect_all(fC->getRootNode(), types);
-  for (auto config : configs) {
-    NodeId ident = fC->Child(config);
-    std::string name =
-        StrCat(fC->getLibrary()->getName(), "@", fC->SymName(ident));
-    m_symbolTable->registerSymbol(name);
-    Config conf(name, fC, config);
+  std::vector<NodeId> configs =
+      m_fileContent->sl_collect_all(m_fileContent->getRootNode(), types);
+  for (auto& config : configs) {
+    NodeId ident = m_fileContent->Child(config);
+    std::string name = StrCat(m_fileContent->getLibrary()->getName(), "@",
+                              m_fileContent->SymName(ident));
+    symbols->registerSymbol(name);
+    Config conf(name, m_fileContent, config);
 
     // Design clause
     VObjectTypeUnorderedSet designStmt = {VObjectType::paDesign_statement};
-    std::vector<NodeId> designs = fC->sl_collect_all(config, designStmt);
+    std::vector<NodeId> designs =
+        m_fileContent->sl_collect_all(config, designStmt);
     if (designs.empty()) {
       // TODO: Error
     } else if (designs.size() > 1) {
       // TODO: Error
     } else {
       NodeId design = designs[0];
-      NodeId libName = fC->Child(design);
-      NodeId topName = fC->Sibling(libName);
+      NodeId libName = m_fileContent->Child(design);
+      NodeId topName = m_fileContent->Sibling(libName);
       if (!topName) {
-        conf.setDesignLib(fC->getLibrary()->getName());
-        conf.setDesignTop(fC->SymName(libName));
+        conf.setDesignLib(m_fileContent->getLibrary()->getName());
+        conf.setDesignTop(m_fileContent->SymName(libName));
       } else {
-        conf.setDesignLib(fC->SymName(libName));
-        conf.setDesignTop(fC->SymName(topName));
+        conf.setDesignLib(m_fileContent->SymName(libName));
+        conf.setDesignTop(m_fileContent->SymName(topName));
       }
     }
 
     // Default clause
     VObjectTypeUnorderedSet defaultStmt = {VObjectType::paDefault_clause};
-    std::vector<NodeId> defaults = fC->sl_collect_all(config, defaultStmt);
+    std::vector<NodeId> defaults =
+        m_fileContent->sl_collect_all(config, defaultStmt);
     if (!defaults.empty()) {
       NodeId defaultClause = defaults[0];
-      NodeId libList = fC->Sibling(defaultClause);
-      if (fC->Type(libList) == VObjectType::paLiblist_clause) {
-        NodeId lib = fC->Child(libList);
+      NodeId libList = m_fileContent->Sibling(defaultClause);
+      if (m_fileContent->Type(libList) == VObjectType::paLiblist_clause) {
+        NodeId lib = m_fileContent->Child(libList);
         while (lib) {
-          conf.addDefaultLib(fC->SymName(lib));
-          lib = fC->Sibling(lib);
+          conf.addDefaultLib(m_fileContent->SymName(lib));
+          lib = m_fileContent->Sibling(lib);
         }
       }
     }
@@ -215,68 +222,71 @@ bool ParseLibraryDef::parseConfigDefinition() {
     // Instance and Cell clauses
     VObjectTypeUnorderedSet instanceStmt = {VObjectType::paInst_clause,
                                             VObjectType::paCell_clause};
-    std::vector<NodeId> instances = fC->sl_collect_all(config, instanceStmt);
-    for (auto inst : instances) {
-      VObjectType type = fC->Type(inst);
-      NodeId instName = fC->Child(inst);
-      if (type == VObjectType::paInst_clause) instName = fC->Child(instName);
+    std::vector<NodeId> instances =
+        m_fileContent->sl_collect_all(config, instanceStmt);
+    for (auto& inst : instances) {
+      VObjectType type = m_fileContent->Type(inst);
+      NodeId instName = m_fileContent->Child(inst);
+      if (type == VObjectType::paInst_clause)
+        instName = m_fileContent->Child(instName);
       std::string instNameS;
       while (instName) {
         if (instNameS.empty())
-          instNameS = fC->SymName(instName);
+          instNameS = m_fileContent->SymName(instName);
         else
-          instNameS.append(".").append(fC->SymName(instName));
-        instName = fC->Sibling(instName);
+          instNameS.append(".").append(m_fileContent->SymName(instName));
+        instName = m_fileContent->Sibling(instName);
       }
-      NodeId instClause = fC->Sibling(inst);
-      if (fC->Type(instClause) == VObjectType::paLiblist_clause) {
-        NodeId libList = fC->Child(instClause);
+      NodeId instClause = m_fileContent->Sibling(inst);
+      if (m_fileContent->Type(instClause) == VObjectType::paLiblist_clause) {
+        NodeId libList = m_fileContent->Child(instClause);
         std::vector<std::string> libs;
         while (libList) {
-          libs.emplace_back(fC->SymName(libList));
-          libList = fC->Sibling(libList);
+          libs.emplace_back(m_fileContent->SymName(libList));
+          libList = m_fileContent->Sibling(libList);
         }
 
-        UseClause usec(UseClause::UseLib, libs, fC, instClause);
+        UseClause usec(UseClause::UseLib, libs, m_fileContent, instClause);
         if (type == VObjectType::paInst_clause)
           conf.addInstanceUseClause(instNameS, usec);
         else
           conf.addCellUseClause(instNameS, usec);
-      } else if (fC->Type(instClause) == VObjectType::paUse_clause) {
-        NodeId use = fC->Child(instClause);
+      } else if (m_fileContent->Type(instClause) == VObjectType::paUse_clause) {
+        NodeId use = m_fileContent->Child(instClause);
         std::string useName;
-        VObjectType useType = fC->Type(use);
+        VObjectType useType = m_fileContent->Type(use);
         if (useType == VObjectType::paParameter_value_assignment) {
-          UseClause usec(UseClause::UseParam, fC, use);
+          UseClause usec(UseClause::UseParam, m_fileContent, use);
           conf.addInstanceUseClause(instNameS, usec);
         } else {
           NodeId mem = use;
           while (use) {
             if (useName.empty())
-              useName = fC->SymName(use);
+              useName = m_fileContent->SymName(use);
             else
-              useName.append(".").append(fC->SymName(use));
-            use = fC->Sibling(use);
+              useName.append(".").append(m_fileContent->SymName(use));
+            use = m_fileContent->Sibling(use);
           }
           useName = StringUtils::replaceAll(useName, ".", "@");
-          UseClause usec(UseClause::UseModule, useName, fC, mem);
+          UseClause usec(UseClause::UseModule, useName, m_fileContent, mem);
           if (type == VObjectType::paInst_clause)
             conf.addInstanceUseClause(instNameS, usec);
           else
             conf.addCellUseClause(instNameS, usec);
         }
-      } else if (fC->Type(instClause) == VObjectType::paUse_clause_config) {
-        NodeId use = fC->Child(instClause);
+      } else if (m_fileContent->Type(instClause) ==
+                 VObjectType::paUse_clause_config) {
+        NodeId use = m_fileContent->Child(instClause);
         std::string useName;
         NodeId mem = use;
         while (use) {
           if (useName.empty())
-            useName = fC->SymName(use);
+            useName = m_fileContent->SymName(use);
           else
-            useName.append("@").append(fC->SymName(use));
-          use = fC->Sibling(use);
+            useName.append("@").append(m_fileContent->SymName(use));
+          use = m_fileContent->Sibling(use);
         }
-        UseClause usec(UseClause::UseConfig, useName, fC, mem);
+        UseClause usec(UseClause::UseConfig, useName, m_fileContent, mem);
         if (type == VObjectType::paInst_clause)
           conf.addInstanceUseClause(instNameS, usec);
         else

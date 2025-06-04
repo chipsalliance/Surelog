@@ -146,9 +146,8 @@ include_statement: INCLUDE file_path_spec SEMICOLON;
 
 source_text: timeunits_declaration? description*;
 
-null_rule
-  :
-  ; // Placeholder rule that create the "0" VObject, DO NOT REMOVE
+// Placeholder rule that create the "0" VObject, DO NOT REMOVE
+null_rule: ;
 
 description
   : module_declaration
@@ -308,7 +307,10 @@ parameter_port_declaration
   | TYPE list_of_type_assignments
   ;
 
-list_of_ports: OPEN_PARENS port (COMMA port)* CLOSE_PARENS;
+list_of_ports
+  : OPEN_PARENS CLOSE_PARENS
+  | OPEN_PARENS port (COMMA port)* CLOSE_PARENS
+  ;
 
 list_of_port_declarations
   : OPEN_PARENS (
@@ -384,7 +386,10 @@ module_common_item
   | system_task
   ;
 
-module_item: port_declaration SEMICOLON | non_port_module_item;
+module_item
+  : port_declaration SEMICOLON
+  | non_port_module_item
+  ;
 
 module_or_generate_item
   : attribute_instance* (

@@ -45,6 +45,7 @@
 #include <vector>
 
 #include "Surelog/Common/FileSystem.h"
+#include "Surelog/Common/Session.h"
 #include "Surelog/Design/Design.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Design/ModuleDefinition.h"
@@ -93,12 +94,11 @@ void SLoverrideSeverity(const char* messageId, const char* severity) {
 
 static bool IsEmpty(const char* str) { return !(str && *str); }
 
-void SLaddError(ErrorContainer* errors, const char* messageId,
-                const char* fileName, uint32_t line, uint32_t col,
-                const char* objectName) {
-  if (errors == nullptr) return;
-  FileSystem* const fileSystem = FileSystem::getInstance();
-  SymbolTable* symbolTable = errors->getSymbolTable();
+void SLaddError(Session* session, const char* messageId, const char* fileName,
+                uint32_t line, uint32_t col, const char* objectName) {
+  FileSystem* const fileSystem = session->getFileSystem();
+  SymbolTable* const symbolTable = session->getSymbolTable();
+  ErrorContainer* const errors = session->getErrorContainer();
   const PathId fileId = IsEmpty(fileName)
                             ? BadPathId
                             : fileSystem->toPathId(fileName, symbolTable);
@@ -112,13 +112,13 @@ void SLaddError(ErrorContainer* errors, const char* messageId,
   errors->addError(err, false, false);
 }
 
-void SLaddMLError(ErrorContainer* errors, const char* messageId,
+void SLaddMLError(Session* session, const char* messageId,
                   const char* fileName1, uint32_t line1, uint32_t col1,
                   const char* objectName1, const char* fileName2,
                   uint32_t line2, uint32_t col2, const char* objectName2) {
-  if (errors == nullptr) return;
-  FileSystem* const fileSystem = FileSystem::getInstance();
-  SymbolTable* symbolTable = errors->getSymbolTable();
+  FileSystem* const fileSystem = session->getFileSystem();
+  SymbolTable* const symbolTable = session->getSymbolTable();
+  ErrorContainer* const errors = session->getErrorContainer();
   const PathId fileId1 = IsEmpty(fileName1)
                              ? BadPathId
                              : fileSystem->toPathId(fileName1, symbolTable);
@@ -149,7 +149,7 @@ void SLaddErrorContext(SV3_1aPythonListener* prog,
   antlr4::ParserRuleContext* ctx = context;
   ErrorContainer* errors =
       listener->getPythonListen()->getCompileSourceFile()->getErrorContainer();
-  ParseUtils::LineColumn lineCol =
+  LineColumn lineCol =
       ParseUtils::getLineColumn(listener->getTokenStream(), ctx);
   ErrorDefinition::ErrorType type = ErrorDefinition::getErrorType(messageId);
 
@@ -179,9 +179,9 @@ void SLaddMLErrorContext(SV3_1aPythonListener* prog,
   antlr4::ParserRuleContext* ctx2 = context2;
   ErrorContainer* errors =
       listener->getPythonListen()->getCompileSourceFile()->getErrorContainer();
-  ParseUtils::LineColumn lineCol1 =
+  LineColumn lineCol1 =
       ParseUtils::getLineColumn(listener->getTokenStream(), ctx1);
-  ParseUtils::LineColumn lineCol2 =
+  LineColumn lineCol2 =
       ParseUtils::getLineColumn(listener->getTokenStream(), ctx2);
   ErrorDefinition::ErrorType type = ErrorDefinition::getErrorType(messageId);
 
@@ -227,7 +227,7 @@ int32_t SLgetLine(SV3_1aPythonListener* prog,
 #ifdef SURELOG_WITH_PYTHON
   SV3_1aPythonListener* listener = prog;
   antlr4::ParserRuleContext* ctx = context;
-  ParseUtils::LineColumn lineCol =
+  LineColumn lineCol =
       ParseUtils::getLineColumn(listener->getTokenStream(), ctx);
   return lineCol.first;
 #else
@@ -241,7 +241,7 @@ int32_t SLgetColumn(SV3_1aPythonListener* prog,
 #ifdef SURELOG_WITH_PYTHON
   SV3_1aPythonListener* listener = prog;
   antlr4::ParserRuleContext* ctx = context;
-  ParseUtils::LineColumn lineCol =
+  LineColumn lineCol =
       ParseUtils::getLineColumn(listener->getTokenStream(), ctx);
   return lineCol.second;
 #else
@@ -305,8 +305,9 @@ RawNodeId SLgetRootNode(FileContent* fC) {
 
 std::string SLgetFile(FileContent* fC, RawNodeId id) {
   if (!fC) return "";
-  return std::string(
-      FileSystem::getInstance()->toPath(fC->getFileId(NodeId(id))));
+  Session* const session = fC->getSession();
+  FileSystem* const fileSystem = session->getFileSystem();
+  return std::string(fileSystem->toPath(fC->getFileId(NodeId(id))));
 }
 
 uint32_t SLgetType(FileContent* fC, RawNodeId id) {
@@ -486,7 +487,9 @@ static bool ModuleHasFirstFileContent(const ClassOrPackageOrProgram* module) {
 
 std::string SLgetModuleFile(ModuleDefinition* module) {
   if (!ModuleHasFirstFileContent(module)) return "";
-  return std::string(FileSystem::getInstance()->toPath(
+  Session* const session = module->getSession();
+  FileSystem* const fileSystem = session->getFileSystem();
+  return std::string(fileSystem->toPath(
       module->getFileContents()[0]->getFileId(module->getNodeIds()[0])));
 }
 
@@ -518,7 +521,9 @@ std::string SLgetClassName(ClassDefinition* module) {
 
 std::string SLgetClassFile(ClassDefinition* module) {
   if (!ModuleHasFirstFileContent(module)) return "";
-  return std::string(FileSystem::getInstance()->toPath(
+  Session* const session = module->getSession();
+  FileSystem* const fileSystem = session->getFileSystem();
+  return std::string(fileSystem->toPath(
       module->getFileContents()[0]->getFileId(module->getNodeIds()[0])));
 }
 
@@ -550,7 +555,9 @@ std::string SLgetPackageName(Package* module) {
 
 std::string SLgetPackageFile(Package* module) {
   if (!ModuleHasFirstFileContent(module)) return "";
-  return std::string(FileSystem::getInstance()->toPath(
+  Session* const session = module->getSession();
+  FileSystem* const fileSystem = session->getFileSystem();
+  return std::string(fileSystem->toPath(
       module->getFileContents()[0]->getFileId(module->getNodeIds()[0])));
 }
 
@@ -581,7 +588,9 @@ std::string SLgetProgramName(Program* module) {
 
 std::string SLgetProgramFile(Program* module) {
   if (!ModuleHasFirstFileContent(module)) return "";
-  return std::string(FileSystem::getInstance()->toPath(
+  Session* const session = module->getSession();
+  FileSystem* const fileSystem = session->getFileSystem();
+  return std::string(fileSystem->toPath(
       module->getFileContents()[0]->getFileId(module->getNodeIds()[0])));
 }
 
@@ -637,7 +646,9 @@ DesignComponent* SLgetInstanceDefinition(ModuleInstance* instance) {
 
 std::string SLgetInstanceFileName(ModuleInstance* instance) {
   if (!instance) return "";
-  return std::string(FileSystem::getInstance()->toPath(
+  Session* const session = instance->getSession();
+  FileSystem* const fileSystem = session->getFileSystem();
+  return std::string(fileSystem->toPath(
       instance->getFileContent()->getFileId(instance->getNodeId())));
 }
 

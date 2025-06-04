@@ -29,19 +29,15 @@
 #include <Surelog/Common/SymbolId.h>
 
 namespace SURELOG {
-
-class CommandLineParser;
 class ConfigSet;
-class ErrorContainer;
 class FileContent;
 class Library;
 class LibrarySet;
-class SymbolTable;
+class Session;
 
 class ParseLibraryDef final {
  public:
-  ParseLibraryDef(CommandLineParser* commandLineParser, ErrorContainer* errors,
-                  SymbolTable* symbolTable, LibrarySet* librarySet,
+  ParseLibraryDef(Session* session, LibrarySet* librarySet,
                   ConfigSet* configSet);
   ParseLibraryDef(const ParseLibraryDef& orig) = delete;
 
@@ -50,26 +46,15 @@ class ParseLibraryDef final {
   bool parseConfigDefinition();
 
   PathId getFileId() const { return m_fileId; }
-  CommandLineParser* getCommandLineParser() const {
-    return m_commandLineParser;
-  }
-
-  ErrorContainer* getErrorContainer() const { return m_errors; }
-
-  SymbolTable* getSymbolTable() const { return m_symbolTable; }
-
   LibrarySet* getLibrarySet() const { return m_librarySet; }
-
   ConfigSet* getConfigSet() const { return m_configSet; }
 
  private:
+  Session* const m_session = nullptr;
   PathId m_fileId;
-  CommandLineParser* const m_commandLineParser;
-  ErrorContainer* const m_errors;
-  SymbolTable* const m_symbolTable;
-  LibrarySet* const m_librarySet;
-  ConfigSet* const m_configSet;
-  FileContent* m_fileContent;
+  LibrarySet* const m_librarySet = nullptr;
+  ConfigSet* const m_configSet = nullptr;
+  FileContent* m_fileContent = nullptr;
 };
 
 }  // namespace SURELOG

@@ -211,6 +211,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${TCMALLOC_COMPILE_OPTIONS} ${MY_CXX_WAR
 
 if(MSVC)
   add_compile_definitions(_CRT_NONSTDC_NO_WARNINGS)
+  add_compile_definitions(_CRT_SECURE_NO_WARNINGS)
 
   set(CMAKE_CXX_FLAGS_DEBUG
       "${CMAKE_CXX_FLAGS_DEBUG} ${TCMALLOC_COMPILE_OPTIONS} /Zc:__cplusplus /W4 /bigobj ${MY_CXX_WARNING_FLAGS}"
@@ -338,19 +339,23 @@ add_custom_target(GenerateParser DEPENDS
 add_custom_command(
   OUTPUT ${GENDIR}/src/parser/generated-listeners.tstamp
          ${GENDIR}/include/Surelog/API/VObjectTypes_py.h
-         ${GENDIR}/include/Surelog/SourceCompile/ParseTreeListener.h
-         ${GENDIR}/include/Surelog/SourceCompile/ParseTreeTraceListener.h
+         ${GENDIR}/include/Surelog/SourceCompile/AstListener.h
+         ${GENDIR}/include/Surelog/SourceCompile/AstTraceListener.h
          ${GENDIR}/include/Surelog/SourceCompile/SV3_1aPpTreeShapeListener.h
          ${GENDIR}/include/Surelog/SourceCompile/SV3_1aTreeShapeListener.h
          ${GENDIR}/include/Surelog/SourceCompile/VObjectTypes.h
-         ${GENDIR}/src/SourceCompile/ParseTreeListener.cpp
+         ${GENDIR}/src/SourceCompile/AstListener.cpp
+         ${GENDIR}/src/SourceCompile/SV3_1aParserTreeListener.cpp
+         ${GENDIR}/src/SourceCompile/SV3_1aPreprocessorTreeListener.cpp
          ${GENDIR}/src/SourceCompile/VObjectTypes.cpp
   DEPENDS ${GENDIR}/src/parser/generated-parsers.tstamp
           ${surelog_grammars-GENERATED_SRC}
-          ${PROJECT_SOURCE_DIR}/include/Surelog/SourceCompile/ParseTreeListener.template.hpp
-          ${PROJECT_SOURCE_DIR}/include/Surelog/SourceCompile/ParseTreeTraceListener.template.hpp
+          ${PROJECT_SOURCE_DIR}/include/Surelog/SourceCompile/AstListener.template.hpp
+          ${PROJECT_SOURCE_DIR}/include/Surelog/SourceCompile/AstTraceListener.template.hpp
           ${PROJECT_SOURCE_DIR}/scripts/generate_parser_listener.py
-          ${PROJECT_SOURCE_DIR}/src/SourceCompile/ParseTreeListener.template.cxx
+          ${PROJECT_SOURCE_DIR}/src/SourceCompile/AstListener.template.cxx
+          ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aParserTreeListener.template.cxx
+          ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aPreprocessorTreeListener.template.cxx
           ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aPpTreeShapeListener.cpp
           ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aTreeShapeListener.cpp
   WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
@@ -362,12 +367,14 @@ add_custom_target(GenerateParserListeners DEPENDS
   ${GENDIR}/src/parser/generated-listeners.tstamp
   ${surelog_grammars-GENERATED_SRC}
   ${GENDIR}/include/Surelog/API/VObjectTypes_py.h
-  ${GENDIR}/include/Surelog/SourceCompile/ParseTreeListener.h
-  ${GENDIR}/include/Surelog/SourceCompile/ParseTreeTraceListener.h
+  ${GENDIR}/include/Surelog/SourceCompile/AstListener.h
+  ${GENDIR}/include/Surelog/SourceCompile/AstTraceListener.h
   ${GENDIR}/include/Surelog/SourceCompile/SV3_1aPpTreeShapeListener.h
   ${GENDIR}/include/Surelog/SourceCompile/SV3_1aTreeShapeListener.h
   ${GENDIR}/include/Surelog/SourceCompile/VObjectTypes.h
-  ${GENDIR}/src/SourceCompile/ParseTreeListener.cpp
+  ${GENDIR}/src/SourceCompile/AstListener.cpp
+  ${GENDIR}/src/SourceCompile/SV3_1aParserTreeListener.cpp
+  ${GENDIR}/src/SourceCompile/SV3_1aPreprocessorTreeListener.cpp
   ${GENDIR}/src/SourceCompile/VObjectTypes.cpp)
 
 if (SURELOG_WITH_PYTHON)
@@ -405,73 +412,76 @@ endif()
 # Put source code here, files that are generated at build time in
 # surelog_generated_SRC
 set(surelog_SRC
-  ${PROJECT_SOURCE_DIR}/src/API/Surelog.cpp
-  ${PROJECT_SOURCE_DIR}/src/API/SLAPI.cpp
   ${PROJECT_SOURCE_DIR}/src/API/PythonAPI.cpp
+  ${PROJECT_SOURCE_DIR}/src/API/SLAPI.cpp
+  ${PROJECT_SOURCE_DIR}/src/API/Surelog.cpp
   ${PROJECT_SOURCE_DIR}/src/Cache/Cache.cpp
-  ${PROJECT_SOURCE_DIR}/src/Cache/PPCache.cpp
   ${PROJECT_SOURCE_DIR}/src/Cache/ParseCache.cpp
+  ${PROJECT_SOURCE_DIR}/src/Cache/PPCache.cpp
   ${PROJECT_SOURCE_DIR}/src/CommandLine/CommandLineParser.cpp
   ${PROJECT_SOURCE_DIR}/src/Common/ClockingBlockHolder.cpp
   ${PROJECT_SOURCE_DIR}/src/Common/FileSystem.cpp
   ${PROJECT_SOURCE_DIR}/src/Common/PathId.cpp
   ${PROJECT_SOURCE_DIR}/src/Common/PlatformFileSystem.cpp
+  ${PROJECT_SOURCE_DIR}/src/Common/Session.cpp
   ${PROJECT_SOURCE_DIR}/src/Config/Config.cpp
   ${PROJECT_SOURCE_DIR}/src/Config/ConfigSet.cpp
+  ${PROJECT_SOURCE_DIR}/src/Design/BindStmt.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/DataType.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/DefParam.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/Design.cpp
-  ${PROJECT_SOURCE_DIR}/src/Design/BindStmt.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/DesignComponent.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/DesignElement.cpp
+  ${PROJECT_SOURCE_DIR}/src/Design/DummyType.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/Enum.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/FileContent.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/Function.cpp
-  ${PROJECT_SOURCE_DIR}/src/Design/ModPort.cpp
+  ${PROJECT_SOURCE_DIR}/src/Design/Modport.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/ModuleDefinition.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/ModuleInstance.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/Netlist.cpp
-  ${PROJECT_SOURCE_DIR}/src/Design/Parameter.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/ParamAssign.cpp
+  ${PROJECT_SOURCE_DIR}/src/Design/Parameter.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/Scope.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/Signal.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/SimpleType.cpp
-  ${PROJECT_SOURCE_DIR}/src/Design/DummyType.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/Statement.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/Struct.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/Task.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/TfPortItem.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/TimeInfo.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/Union.cpp
-  ${PROJECT_SOURCE_DIR}/src/Design/VObject.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/ValuedComponentI.cpp
+  ${PROJECT_SOURCE_DIR}/src/Design/VObject.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/Builtin.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileAssertion.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileClass.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileDesign.cpp
-  ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompilerHarness.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileExpression.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileFileContent.cpp
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileGenStmt.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileHelper.cpp
-  ${PROJECT_SOURCE_DIR}/src/DesignCompile/EvalFunc.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileModule.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompilePackage.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileProgram.cpp
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompilerHarness.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileStep.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileStmt.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileToolbox.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileType.cpp
-  ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileGenStmt.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/DesignElaboration.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/ElaborationStep.cpp
-  ${PROJECT_SOURCE_DIR}/src/DesignCompile/NetlistElaboration.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/ElaboratorHarness.cpp
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/EvalFunc.cpp
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/IntegrityChecker.cpp
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/NetlistElaboration.cpp
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/ObjectBinder.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/PackageAndRootElaboration.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/ResolveSymbols.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/TestbenchElaboration.cpp
-  ${PROJECT_SOURCE_DIR}/src/DesignCompile/UVMElaboration.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/UhdmChecker.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/UhdmWriter.cpp
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/UVMElaboration.cpp
   ${PROJECT_SOURCE_DIR}/src/ErrorReporting/Error.cpp
   ${PROJECT_SOURCE_DIR}/src/ErrorReporting/ErrorContainer.cpp
   ${PROJECT_SOURCE_DIR}/src/ErrorReporting/ErrorDefinition.cpp
@@ -494,8 +504,8 @@ set(surelog_SRC
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/CheckCompile.cpp
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/CommonListenerHelper.cpp
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/CompilationUnit.cpp
-  ${PROJECT_SOURCE_DIR}/src/SourceCompile/CompileSourceFile.cpp
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/Compiler.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/CompileSourceFile.cpp
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/LoopCheck.cpp
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/MacroInfo.cpp
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/ParseFile.cpp
@@ -514,9 +524,9 @@ set(surelog_SRC
   ${PROJECT_SOURCE_DIR}/src/Testbench/TaskMethod.cpp
   ${PROJECT_SOURCE_DIR}/src/Testbench/TypeDef.cpp
   ${PROJECT_SOURCE_DIR}/src/Testbench/Variable.cpp
+  ${PROJECT_SOURCE_DIR}/src/Utils/NumUtils.cpp
   ${PROJECT_SOURCE_DIR}/src/Utils/ParseUtils.cpp
   ${PROJECT_SOURCE_DIR}/src/Utils/StringUtils.cpp
-  ${PROJECT_SOURCE_DIR}/src/Utils/NumUtils.cpp
   ${PROJECT_SOURCE_DIR}/src/Utils/Timer.cpp
 )
 
@@ -535,7 +545,9 @@ set(surelog_generated_SRC
 
   # Derived from parser generation.
   ${GENDIR}/src/SourceCompile/VObjectTypes.cpp
-  ${GENDIR}/src/SourceCompile/ParseTreeListener.cpp)
+  ${GENDIR}/src/SourceCompile/AstListener.cpp
+  ${GENDIR}/src/SourceCompile/SV3_1aParserTreeListener.cpp
+  ${GENDIR}/src/SourceCompile/SV3_1aPreprocessorTreeListener.cpp)
 
 foreach(gen_src ${surelog_generated_SRC})
   set_source_files_properties(${gen_src} PROPERTIES GENERATED TRUE)
@@ -598,7 +610,6 @@ if (NOT QUICK_COMP)
   add_executable(hellosureworld ${PROJECT_SOURCE_DIR}/src/hellosureworld.cpp)
   add_executable(hellouhdm ${PROJECT_SOURCE_DIR}/src/hellouhdm.cpp)
   add_executable(hellodesign ${PROJECT_SOURCE_DIR}/src/hellodesign.cpp)
-  add_executable(roundtrip ${PROJECT_SOURCE_DIR}/src/roundtrip.cpp)
 endif()
 
 if (MSVC OR WIN32)
@@ -610,7 +621,6 @@ if (MSVC OR WIN32)
   if (NOT QUICK_COMP)
     set_target_properties(hellouhdm PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
     set_target_properties(hellodesign PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
-    set_target_properties(roundtrip PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
     set_target_properties(hellosureworld PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
   endif()
 endif()
@@ -734,7 +744,6 @@ if (NOT QUICK_COMP)
   target_link_libraries(hellosureworld surelog)
   target_link_libraries(hellouhdm surelog)
   target_link_libraries(hellodesign surelog)
-  target_link_libraries(roundtrip surelog)
 endif()
 
 # Creation of the distribution directory, Precompiled package creation
@@ -814,7 +823,7 @@ if (QUICK_COMP)
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 else()
   install(
-    TARGETS surelog-bin roundtrip
+    TARGETS surelog-bin
     EXPORT Surelog
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 endif()
@@ -870,8 +879,8 @@ install(
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog/CommandLine)
 install(
   FILES ${PROJECT_SOURCE_DIR}/include/Surelog/SourceCompile/SymbolTable.h
-        ${GENDIR}/include/Surelog/SourceCompile/ParseTreeListener.h
-        ${GENDIR}/include/Surelog/SourceCompile/ParseTreeTraceListener.h
+        ${GENDIR}/include/Surelog/SourceCompile/AstListener.h
+        ${GENDIR}/include/Surelog/SourceCompile/AstTraceListener.h
         ${GENDIR}/include/Surelog/SourceCompile/VObjectTypes.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog/SourceCompile)
 install(
@@ -897,6 +906,7 @@ install(
         ${PROJECT_SOURCE_DIR}/include/Surelog/Common/PlatformFileSystem.h
         ${PROJECT_SOURCE_DIR}/include/Surelog/Common/PortNetHolder.h
         ${PROJECT_SOURCE_DIR}/include/Surelog/Common/RTTI.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Common/Session.h
         ${PROJECT_SOURCE_DIR}/include/Surelog/Common/SymbolId.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Surelog/Common)
 install(
@@ -930,7 +940,7 @@ install(
         ${PROJECT_SOURCE_DIR}/include/Surelog/Design/Function.h
         ${PROJECT_SOURCE_DIR}/include/Surelog/Design/Scope.h
         ${PROJECT_SOURCE_DIR}/include/Surelog/Design/TimeInfo.h
-        ${PROJECT_SOURCE_DIR}/include/Surelog/Design/ModPort.h
+        ${PROJECT_SOURCE_DIR}/include/Surelog/Design/Modport.h
         ${PROJECT_SOURCE_DIR}/include/Surelog/Design/Union.h
         ${PROJECT_SOURCE_DIR}/include/Surelog/Design/SimpleType.h
         ${PROJECT_SOURCE_DIR}/include/Surelog/Design/DummyType.h
@@ -971,8 +981,7 @@ if (WIN32)
   endif()
   if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
     install(
-      FILES $<TARGET_PDB_FILE:roundtrip>
-            $<TARGET_PDB_FILE:surelog-bin>
+      FILES $<TARGET_PDB_FILE:surelog-bin>
             ${UHDM_BINARY_DIR}/bin/uhdm-cmp.pdb
             ${UHDM_BINARY_DIR}/bin/uhdm-dump.pdb
             ${UHDM_BINARY_DIR}/bin/uhdm-hier.pdb

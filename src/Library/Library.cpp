@@ -26,31 +26,36 @@
 #include <iostream>
 #include <string_view>
 
+#include "Surelog/Common/Session.h"
 #include "Surelog/Design/ModuleDefinition.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
 
 namespace SURELOG {
 
-Library::Library(std::string_view name, SymbolTable* symbols)
-    : m_nameId(symbols->registerSymbol(name)), m_symbols(symbols) {}
+Library::Library(Session* session, std::string_view name)
+    : m_session(session),
+      m_nameId(session->getSymbolTable()->registerSymbol(name)) {}
 
 std::string_view Library::getName() const {
-  return m_symbols->getSymbol(m_nameId);
+  return m_session->getSymbolTable()->getSymbol(m_nameId);
 }
 
 void Library::addModuleDefinition(ModuleDefinition* def) {
-  m_modules.emplace(m_symbols->registerSymbol(def->getName()), def);
+  m_modules.emplace(m_session->getSymbolTable()->registerSymbol(def->getName()),
+                    def);
 }
 
 ModuleDefinition* Library::getModule(std::string_view name) const {
-  auto itr = m_modules.find(m_symbols->registerSymbol(name));
+  auto itr = m_modules.find(m_session->getSymbolTable()->registerSymbol(name));
   return (itr == m_modules.end()) ? nullptr : itr->second;
 }
 
 std::ostream& Library::report(std::ostream& out) const {
-  out << "LIB: " << m_symbols->getSymbol(m_nameId) << std::endl;
+  FileSystem* const fileSystem = m_session->getFileSystem();
+  out << "LIB: " << m_session->getSymbolTable()->getSymbol(m_nameId)
+      << std::endl;
   for (const auto& id : m_fileIds) {
-    out << "     " << PathIdPP(id) << std::endl;
+    out << "     " << PathIdPP(id, fileSystem) << std::endl;
   }
   return out;
 }

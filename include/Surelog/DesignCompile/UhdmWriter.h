@@ -49,25 +49,27 @@ namespace SURELOG {
 class CompileDesign;
 class Design;
 class ExprBuilder;
-class ModPort;
+class Modport;
 class ModuleDefinition;
 class ModuleInstance;
 class Netlist;
+class Session;
 class Signal;
 
 class UhdmWriter final {
  public:
-  using ModPortMap = std::map<ModPort*, UHDM::modport*>;
-  using ComponentMap = std::map<const ValuedComponentI*, UHDM::BaseClass*>;
-  using ModuleMap = std::map<std::string_view, UHDM::BaseClass*>;
-  using SignalBaseClassMap = std::map<Signal*, UHDM::BaseClass*>;
+  using ModportMap = std::map<Modport*, uhdm::Modport*>;
+  using ComponentMap = std::map<const ValuedComponentI*, uhdm::BaseClass*>;
+  using ModuleMap = std::map<std::string_view, uhdm::BaseClass*>;
+  using SignalBaseClassMap = std::map<Signal*, uhdm::BaseClass*>;
   using SignalMap = std::map<std::string, Signal*, std::less<>>;
-  using InstanceMap = std::map<ModuleInstance*, UHDM::BaseClass*>;
-  using VpiSignalMap = std::map<std::string, UHDM::BaseClass*>;
+  using VpiSignalMap = std::map<std::string, uhdm::BaseClass*>;
+  using ModuleInstanceMap = std::map<ModuleInstance*, uhdm::Module*>;
+  using InstanceDefinitionMap = std::map<std::string_view, uhdm::Instance*>;
 
-  UhdmWriter(CompileDesign* compiler, Design* design);
+  UhdmWriter(Session* session, CompileDesign* compiler, Design* design);
 
-  vpiHandle write(PathId uhdmFileId);
+  bool write(PathId uhdmFileId);
 
   static uint32_t getVpiDirection(VObjectType type);
 
@@ -80,72 +82,67 @@ class UhdmWriter final {
   static std::string builtinGateName(VObjectType type);
 
  private:
-  void writePorts(std::vector<Signal*>& orig_ports, UHDM::BaseClass* parent,
-                  UHDM::VectorOfport* dest_ports, UHDM::VectorOfnet* dest_nets,
-                  UHDM::Serializer& s, ModPortMap& modPortMap,
-                  SignalBaseClassMap& signalBaseMap, SignalMap& signalMap,
-                  ModuleInstance* instance = nullptr,
-                  ModuleDefinition* mod = nullptr);
-  void writeNets(DesignComponent* mod, std::vector<Signal*>& orig_nets,
-                 UHDM::BaseClass* parent, UHDM::VectorOfnet* dest_nets,
-                 UHDM::Serializer& s, SignalBaseClassMap& signalBaseMap,
-                 SignalMap& signalMap, SignalMap& portMap,
-                 ModuleInstance* instance = nullptr);
+  void writePorts(const std::vector<Signal*>& orig_ports,
+                  uhdm::BaseClass* parent, uhdm::Serializer& s,
+                  ModportMap& modPortMap, SignalBaseClassMap& signalBaseMap,
+                  SignalMap& signalMap, ModuleInstance* instance = nullptr,
+                  DesignComponent* mod = nullptr);
+  void writeNets(DesignComponent* mod, const std::vector<Signal*>& orig_nets,
+                 uhdm::BaseClass* parent, uhdm::Serializer& s,
+                 SignalBaseClassMap& signalBaseMap, SignalMap& signalMap,
+                 SignalMap& portMap, ModuleInstance* instance = nullptr);
   void writeDataTypes(const DesignComponent::DataTypeMap& datatypeMap,
-                      UHDM::BaseClass* parent,
-                      UHDM::VectorOftypespec* dest_typespecs,
-                      UHDM::Serializer& s, bool setParent);
-  void writeImportedSymbols(DesignComponent* mod, UHDM::Serializer& s,
-                            UHDM::VectorOftypespec* typespecs);
+                      uhdm::BaseClass* parent,
+                      uhdm::TypespecCollection* dest_typespecs,
+                      uhdm::Serializer& s, bool setParent);
+  void writeImportedSymbols(DesignComponent* mod, uhdm::Serializer& s,
+                            uhdm::TypespecCollection* typespecs);
   void writeVariables(const DesignComponent::VariableMap& orig_vars,
-                      UHDM::BaseClass* parent,
-                      UHDM::VectorOfvariables* dest_vars, UHDM::Serializer& s);
-  void writeModule(ModuleDefinition* mod, UHDM::module_inst* m,
-                   UHDM::Serializer& s, ModuleMap& moduleMap,
-                   ModPortMap& modPortMap, ModuleInstance* instance = nullptr);
-  void writeInterface(ModuleDefinition* mod, UHDM::interface_inst* m,
-                      UHDM::Serializer& s, ModPortMap& modPortMap,
+                      uhdm::BaseClass* parent, uhdm::Serializer& s);
+  void writeModule(ModuleDefinition* mod, uhdm::Module* m, uhdm::Serializer& s,
+                   InstanceDefinitionMap& instanceDefinitionMap,
+                   ModportMap& modPortMap, ModuleInstance* instance = nullptr);
+  void writeInterface(ModuleDefinition* mod, uhdm::Interface* m,
+                      uhdm::Serializer& s, ModportMap& modPortMap,
                       ModuleInstance* instance = nullptr);
-  bool writeElabInterface(UHDM::Serializer& s, ModuleInstance* instance,
-                          UHDM::interface_inst* m, ExprBuilder& exprBuilder);
+  bool writeElabInterface(uhdm::Serializer& s, ModuleInstance* instance,
+                          uhdm::Interface* m, ExprBuilder& exprBuilder);
   void writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
-                     UHDM::any* m, CompileDesign* compileDesign,
-                     ModPortMap& modPortMap, InstanceMap& instanceMap,
+                     uhdm::Any* m, CompileDesign* compileDesign,
+                     ModportMap& modPortMap,
+                     ModuleInstanceMap& moduleInstanceMap,
                      ExprBuilder& exprBuilder);
-  bool writeElabModule(UHDM::Serializer& s, ModuleInstance* instance,
-                       UHDM::module_inst* m, ExprBuilder& exprBuilder);
-  bool writeElabProgram(UHDM::Serializer& s, ModuleInstance* instance,
-                        UHDM::program* m, ModPortMap& modPortMap);
-  bool writeElabGenScope(UHDM::Serializer& s, ModuleInstance* instance,
-                         UHDM::gen_scope* m, ExprBuilder& exprBuilder);
-  void writePackage(Package* pack, UHDM::package* p, UHDM::Serializer& s,
+  bool writeElabModule(uhdm::Serializer& s, ModuleInstance* instance,
+                       uhdm::Module* m, ExprBuilder& exprBuilder);
+  bool writeElabProgram(uhdm::Serializer& s, ModuleInstance* instance,
+                        uhdm::Program* m, ModportMap& modPortMap);
+  bool writeElabGenScope(uhdm::Serializer& s, ModuleInstance* instance,
+                         uhdm::GenScope* m, ExprBuilder& exprBuilder);
+  void writePackage(Package* pack, uhdm::Package* p, uhdm::Serializer& s,
                     bool elaborated);
 
   void writeClasses(ClassNameClassDefinitionMultiMap& orig_classes,
-                    UHDM::VectorOfclass_defn* dest_classes, UHDM::Serializer& s,
-                    UHDM::BaseClass* parent);
-  void writeClass(ClassDefinition* classDef,
-                  UHDM::VectorOfclass_defn* dest_classes, UHDM::Serializer& s,
-                  UHDM::BaseClass* parent);
-  void writeProgram(Program* mod, UHDM::program* m, UHDM::Serializer& s,
-                    ModPortMap& modPortMap, ModuleInstance* instance = nullptr);
-  void writeCont_assign(Netlist* netlist, UHDM::Serializer& s,
-                        DesignComponent* mod, UHDM::any* scope,
-                        std::vector<UHDM::cont_assign*>* assigns);
+                    uhdm::Serializer& s, uhdm::BaseClass* parent);
+  void writeClass(ClassDefinition* classDef, uhdm::Serializer& s,
+                  uhdm::BaseClass* parent);
+  void writeProgram(Program* mod, uhdm::Program* m, uhdm::Serializer& s,
+                    ModportMap& modPortMap, ModuleInstance* instance = nullptr);
+  void writeContAssign(Netlist* netlist, uhdm::Serializer& s,
+                       DesignComponent* mod, uhdm::Any* scope,
+                       std::vector<uhdm::ContAssign*>* assigns);
 
-  void lateBinding(UHDM::Serializer& s, DesignComponent* mod, UHDM::scope* m);
-  UHDM::any* swapForSpecifiedVar(UHDM::Serializer& s, DesignComponent* mod,
-                                 UHDM::any* tmp,
-                                 UHDM::VectorOfvariables* lvariables,
-                                 UHDM::variables* lvariable,
-                                 std::string_view name, const UHDM::any* var,
-                                 const UHDM::any* parent);
-  void lateTypedefBinding(UHDM::Serializer& s, DesignComponent* mod,
-                          UHDM::scope* m);
+  uhdm::Any* swapForSpecifiedVar(uhdm::Serializer& s, DesignComponent* mod,
+                                 uhdm::Any* tmp,
+                                 uhdm::VariablesCollection* lvariables,
+                                 uhdm::Variables* lvariable,
+                                 std::string_view name, const uhdm::Any* var,
+                                 const uhdm::Any* parent);
+  void bind(uhdm::Serializer& s, const std::vector<vpiHandle>& designs);
 
-  CompileDesign* const m_compileDesign;
-  Design* const m_design;
-  UHDM::design* m_uhdmDesign;
+ private:
+  Session* const m_session = nullptr;
+  CompileDesign* const m_compileDesign = nullptr;
+  Design* const m_design = nullptr;
   ComponentMap m_componentMap;
   CompileHelper m_helper;
 };

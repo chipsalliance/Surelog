@@ -32,14 +32,15 @@
 #include <string>
 
 namespace SURELOG {
-
 class ParseLibraryDef;
+class Session;
 
 class AntlrLibParserErrorListener final : public antlr4::ANTLRErrorListener {
  public:
-  explicit AntlrLibParserErrorListener(ParseLibraryDef *parser)
-      : m_parser(parser) {}
-
+  explicit AntlrLibParserErrorListener(Session *session,
+                                       ParseLibraryDef *parser)
+      : m_session(session), m_parser(parser) {}
+  AntlrLibParserErrorListener(const AntlrLibParserErrorListener &) = delete;
   ~AntlrLibParserErrorListener() final = default;
 
   void syntaxError(antlr4::Recognizer *recognizer,
@@ -64,7 +65,8 @@ class AntlrLibParserErrorListener final : public antlr4::ANTLRErrorListener {
                                 antlr4::atn::ATNConfigSet *configs) final;
 
  private:
-  ParseLibraryDef *const m_parser;
+  Session *const m_session = nullptr;
+  ParseLibraryDef *const m_parser = nullptr;
 };
 
 };  // namespace SURELOG

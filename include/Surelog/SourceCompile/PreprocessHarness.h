@@ -25,26 +25,34 @@
 #define SURELOG_PREPROCESSHARNESS_H
 #pragma once
 
-#include <Surelog/ErrorReporting/ErrorContainer.h>
-#include <Surelog/SourceCompile/CompilationUnit.h>
-#include <Surelog/SourceCompile/SymbolTable.h>
+#include <Surelog/Common/PathId.h>
+
+#include <string>
+#include <string_view>
 
 #include <string>
 #include <string_view>
 
 namespace SURELOG {
+class CompilationUnit;
+class ErrorContainer;
+class Session;
 
-class PreprocessHarness {
+class PreprocessHarness final {
  public:
   PreprocessHarness();
-  std::string preprocess(std::string_view content,
-                         CompilationUnit* compUnit = nullptr);
+  explicit PreprocessHarness(Session* session);
+  ~PreprocessHarness();
 
-  const ErrorContainer& collected_errors() const { return m_errors; }
+  std::string preprocess(std::string_view content,
+                         CompilationUnit* compUnit = nullptr,
+                         PathId fileId = BadPathId);
+
+  const ErrorContainer& collectedErrors() const;
 
  private:
-  SymbolTable m_symbols;
-  ErrorContainer m_errors;
+  Session* m_session = nullptr;
+  const bool m_ownsSession = true;
 };
 
 };  // namespace SURELOG

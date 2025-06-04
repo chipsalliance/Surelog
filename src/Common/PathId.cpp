@@ -26,13 +26,14 @@
 #include <ostream>
 
 #include "Surelog/Common/FileSystem.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
 
 namespace SURELOG {
 std::ostream &operator<<(std::ostream &strm, const PathIdPP &id) {
-  return strm << FileSystem::getInstance()->toPath(id.m_id);
+  return strm << id.m_fileSystem->toPath(id.m_id);
 }
 
-bool PathId::operator==(const PathId &rhs) const {
+bool PathId::equals(const PathId &rhs, FileSystem *fileSystem) const {
   // IMPORTANT: The logic to compare two PathId instances cannot use
   // std::filesystem::equivalent (or FileSystem::areEquivalent) since those
   // API expects both the paths to exist. PathId doesn't have the same
@@ -45,8 +46,21 @@ bool PathId::operator==(const PathId &rhs) const {
 
   if ((m_symbolTable != nullptr) && (rhs.m_symbolTable != nullptr) &&
       (m_id != BadRawPathId) && (rhs.m_id != BadRawPathId)) {
-    FileSystem *const fileSystem = FileSystem::getInstance();
     return fileSystem->toPath(*this) == fileSystem->toPath(rhs);
+  }
+
+  return false;
+}
+
+bool PathId::operator==(const PathId &rhs) const {
+  if ((m_id == rhs.m_id) && (m_symbolTable == rhs.m_symbolTable)) {
+    return true;
+  }
+
+  if ((m_symbolTable != nullptr) && (rhs.m_symbolTable != nullptr) &&
+      (m_id != BadRawPathId) && (rhs.m_id != BadRawPathId)) {
+    return m_symbolTable->getSymbol((SymbolId)(*this)) ==
+           rhs.m_symbolTable->getSymbol((SymbolId)rhs);
   }
 
   return false;

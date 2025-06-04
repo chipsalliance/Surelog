@@ -41,21 +41,19 @@ class MacroInfo;
 
 class CompilationUnit {
  public:
-  explicit CompilationUnit(bool fileunit);
+  explicit CompilationUnit(bool fileUnit);
   CompilationUnit(const CompilationUnit& orig) = delete;
   virtual ~CompilationUnit() = default;
 
   void setInDesignElement() { m_inDesignElement = true; }
   void unsetInDesignElement() { m_inDesignElement = false; }
   bool isInDesignElement() const { return m_inDesignElement; }
-  bool isFileUnit() const { return m_fileunit; }
+  bool isFileUnit() const { return m_fileUnit; }
 
-  void registerMacroInfo(std::string_view macroName, MacroInfo* macro);
+  void registerMacroInfo(MacroInfo* macro);
   MacroInfo* getMacroInfo(std::string_view macroName);
 
-  const MacroStorageRef& getMacros() const { return m_macros; }
-  void deleteMacro(std::string_view macroName);
-  void deleteAllMacros() { m_macros.clear(); }
+  const MacroStorage& getMacros() const { return m_macros; }
 
   /* Following methods deal with `timescale */
   void setCurrentTimeInfo(PathId fileId);
@@ -78,10 +76,10 @@ class CompilationUnit {
   }
 
  private:
-  const bool m_fileunit;
+  const bool m_fileUnit;
   bool m_inDesignElement;
 
-  MacroStorageRef m_macros;
+  MacroStorage m_macros;
 
   std::vector<TimeInfo> m_timeInfo;
   std::vector<NetTypeInfo> m_defaultNetTypes;

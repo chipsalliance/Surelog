@@ -19,35 +19,48 @@
 
 using CACHE = import "Cache.capnp";
 
-enum MacroType {
-  noArgs    @0;
-  withArgs  @1;
+enum MacroDefType {
+  define      @0;
+  undefine    @1;
+  undefineAll @2;
+}
+
+struct LineColumn {
+  line    @0 :UInt32;
+  column  @1 :UInt16;
 }
 
 struct Macro {
-  nameId      @0 :UInt64;
-  type        @1 :MacroType;
-  fileId      @2 :UInt32;
-  startLine   @3 :UInt32;
-  startColumn @4 :UInt16;
-  endLine     @5 :UInt32;
-  endColumn   @6 :UInt16;
-  arguments   @7 :List(Text);
-  tokens      @8 :List(Text);
+  nameId            @0  :UInt32;
+  defType           @1  :MacroDefType;
+  fileId            @2  :UInt32;
+  startLine         @3  :UInt32;
+  startColumn       @4  :UInt16;
+  endLine           @5  :UInt32;
+  endColumn         @6  :UInt16;
+  nameColumn        @7  :UInt16;
+  bodyColumn        @8  :UInt16;
+  arguments         @9  :List(Text);
+  argumentPositions @10 :List(LineColumn);
+  tokens            @11 :List(Text);
+  tokenPositions    @12 :List(LineColumn);
 }
 
 struct IncludeFileInfo {
-  context             @0  :UInt32;
-  sectionStartLine    @1  :UInt32;
-  sectionSymbolId     @2  :UInt64;
-  sectionFileId       @3  :UInt64;
-  originalStartLine   @4  :UInt32;
-  originalStartColumn @5  :UInt32;
-  originalEndLine     @6  :UInt32;
-  originalEndColumn   @7  :UInt32;
-  action              @8  :UInt32;  # 1 or 2, push or pop
-  indexOpening        @9  :Int32;
-  indexClosing        @10 :Int32;
+  action          @0  :UInt16;  # 1 or 2, push or pop
+  context         @1  :UInt16;
+  definition      @2  :Int32;
+  sectionFileId   @3  :UInt64;
+  sectionLine     @4  :UInt32;
+  sourceLine      @5  :UInt32;
+  sectionColumn   @6  :UInt16;
+  sourceColumn    @7  :UInt16;
+  symbolId        @8  :UInt32;
+  symbolLine      @9  :UInt32;
+  symbolColumn    @10 :UInt16;
+  indexOpposite   @11 :Int32;
+  definitions     @12 :List(UInt16);
+  tokenPositions  @13 :List(LineColumn);
 }
 
 struct LineTranslationInfo {
@@ -57,14 +70,15 @@ struct LineTranslationInfo {
 }
 
 struct PPCache {
-  header            @0 :CACHE.Header;
-  macros            @1 :List(Macro);
-  body              @2 :Text;
-  errors            @3 :List(CACHE.Error);
-  symbols           @4 :List(Text);
-  defines           @5 :List(Text);
-  timeInfos         @6 :List(CACHE.TimeInfo);
-  lineTranslations  @7 :List(LineTranslationInfo);
-  includeFileInfos  @8 :List(IncludeFileInfo);
-  objects           @9 :List(CACHE.VObject);
+  header            @0  :CACHE.Header;
+  globalMacros      @1  :List(Macro);
+  localMacros       @2  :List(UInt16);
+  body              @3  :Text;
+  errors            @4  :List(CACHE.Error);
+  symbols           @5  :List(Text);
+  defines           @6  :List(Text);
+  timeInfos         @7  :List(CACHE.TimeInfo);
+  lineTranslations  @8  :List(LineTranslationInfo);
+  includeFileInfos  @9  :List(IncludeFileInfo);
+  objects           @10 :List(CACHE.VObject);
 }

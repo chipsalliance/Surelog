@@ -34,11 +34,12 @@
 
 namespace SURELOG {
 
+class MacroInfo;
 class PreprocessFile;
 
 class PPCache : Cache {
  public:
-  explicit PPCache(PreprocessFile* pp);
+  PPCache(Session* session, PreprocessFile* pp);
   PPCache(const PPCache& orig) = delete;
 
   bool restore(bool errorsOnly);
@@ -70,7 +71,8 @@ class PPCache : Cache {
 
   // Store macros in cache. Canonicalize strings and store in "targetSymbols".
   void cacheMacros(::PPCache::Builder builder, SymbolTable& targetSymbols,
-                   const SymbolTable& sourceSymbols);
+                   const SymbolTable& sourceSymbols,
+                   const std::vector<MacroInfo*>& globalMacros);
 
   void cacheDefines(::PPCache::Builder builder, SymbolTable& targetSymbols,
                     const SymbolTable& sourceSymbols);
@@ -84,13 +86,17 @@ class PPCache : Cache {
 
   void cacheIncludeFileInfos(::PPCache::Builder builder,
                              SymbolTable& targetSymbols,
-                             const SymbolTable& sourceSymbols);
+                             const SymbolTable& sourceSymbols,
+                             const std::vector<MacroInfo*>& globalMacros);
 
   bool restore(PathId cacheFileId, bool errorsOnly, int32_t recursionDepth);
 
-  void restoreMacros(SymbolTable& targetSymbols,
-                     const ::capnp::List<::Macro>::Reader& sourceMacros,
-                     const SymbolTable& sourceSymbols);
+  void restoreMacros(
+      SymbolTable& targetSymbols,
+      const ::capnp::List<::Macro>::Reader& sourceGlobalMacros,
+      const ::capnp::List<::uint16_t, ::capnp::Kind::PRIMITIVE>::Reader&
+          sourceLocalMacros,
+      const SymbolTable& sourceSymbols, std::vector<MacroInfo*>& globalMacros);
 
   void restoreTimeInfos(
       SymbolTable& targetSymbols,
@@ -106,7 +112,7 @@ class PPCache : Cache {
   void restoreIncludeFileInfos(
       SymbolTable& targetSymbols,
       const ::capnp::List<::IncludeFileInfo>::Reader& sourceIncludeFileInfos,
-      const SymbolTable& sourceSymbols);
+      const SymbolTable& sourceSymbols, const std::vector<MacroInfo*>& macros);
 
  private:
   PreprocessFile* const m_pp = nullptr;

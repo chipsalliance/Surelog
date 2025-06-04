@@ -174,22 +174,24 @@ static std::string removeLF(std::string_view st) {
 void StringUtils::replaceInTokenVector(
     std::vector<std::string>& tokens,
     const std::vector<std::string_view>& pattern, std::string_view news) {
-  uint32_t patternIndex = 0;
-  std::vector<std::string>::iterator itr;
   bool more = true;
+  const size_t ni = tokens.size();
+  const size_t nj = pattern.size();
   while (more) {
     more = false;
-    for (itr = tokens.begin(); itr != tokens.end(); itr++) {
-      if (patternIndex > 0 && *itr != pattern[patternIndex])
-        patternIndex = 0;  // Restart
-      if (*itr == pattern[patternIndex]) {
-        patternIndex++;
-        if (patternIndex == pattern.size()) {
-          *itr = news;
-          patternIndex = 0;
-          itr = tokens.erase(itr - (pattern.size() - 1), itr);
+    size_t j = 0;
+    for (size_t i = 0; i < ni; ++i) {
+      if (tokens[i].empty()) continue;
+      if (tokens[i] == pattern[j]) {
+        if (++j == nj) {
+          tokens[i - nj + 1] = news;
+          for (size_t k = 0; k < nj - 1; ++k) tokens[i - k].clear();
+          j = 0;
           more = true;
         }
+      } else {
+        if (tokens[i] == pattern[0]) --i;
+        j = 0;  // Restart
       }
     }
   }
@@ -384,5 +386,10 @@ bool StringUtils::endsWith(std::string_view text, std::string_view suffix) {
   return (text.size() >= suffix.size()) &&
          (text.compare(text.size() - suffix.size(), suffix.size(), suffix) ==
           0);
+}
+
+bool StringUtils::isblank(std::string_view text) {
+  return std::all_of(text.cbegin(), text.cend(),
+                     [](unsigned char ch) { return std::isblank(ch); });
 }
 }  // namespace SURELOG

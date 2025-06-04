@@ -16,7 +16,6 @@
     <CommandLineArguments></CommandLineArguments>
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
     <IsWindowsApplication>False</IsWindowsApplication>
-    <InterpreterId>Global|PythonCore|3.8</InterpreterId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,15 +30,14 @@
     <Content Include="pipelines\*.json" />
   </ItemGroup>
   <ItemGroup>
-    <InterpreterReference Include="Global|PythonCore|3.8" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="blacklisted.py" />
+    <Compile Include="dbcompare.py" />
     <Compile Include="embed_python_api.py" />
-    <Compile Include="generate_ast_listener.py" />
+    <Compile Include="extract.py" />
     <Compile Include="generate_parser_listener.py" />
     <Compile Include="generate_python_listener.py" />
     <Compile Include="regression.py" />
+    <Compile Include="scan_errors.py" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

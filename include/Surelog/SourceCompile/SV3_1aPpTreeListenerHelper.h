@@ -39,28 +39,15 @@
 #include <vector>
 
 namespace SURELOG {
-
-class SymbolTable;
-
 class SV3_1aPpTreeListenerHelper : public CommonListenerHelper {
  public:
   ~SV3_1aPpTreeListenerHelper() override = default;
 
  protected:
-  PreprocessFile* m_pp;
-  bool m_inActiveBranch;
-  bool m_inMacroDefinitionParsing;
-  bool m_inProtectedRegion;
-  bool m_filterProtectedRegions;
-  std::set<std::string_view> m_reservedMacroNamesSet;
-  antlr4::ParserRuleContext* m_append_paused_context;
-  PreprocessFile::SpecialInstructions m_instructions;
-
- protected:
   // Helper function if-else
   void setCurrentBranchActivity(uint32_t currentLine);
   // Helper function if-else
-  bool isPreviousBranchActive();
+  bool isPreviousBranchActive() const;
   // Helper function to log errors
   void logError(ErrorDefinition::ErrorType error,
                 antlr4::ParserRuleContext* ctx, std::string_view object,
@@ -75,26 +62,29 @@ class SV3_1aPpTreeListenerHelper : public CommonListenerHelper {
   void init();
   void addLineFiller(antlr4::ParserRuleContext* ctx);
 
-  SymbolTable* getSymbolTable() const;
   SymbolId registerSymbol(std::string_view symbol) final;
 
+  std::tuple<PathId, uint32_t, uint16_t, uint32_t, uint16_t> getPPFileLine(
+      antlr4::tree::ParseTree* tree, antlr4::Token* token) const final;
   std::tuple<PathId, uint32_t, uint16_t, uint32_t, uint16_t> getFileLine(
-      antlr4::ParserRuleContext* ctx, antlr4::Token* token) const final;
+      antlr4::tree::ParseTree* tree, antlr4::Token* token) const final {
+    return getPPFileLine(tree, token);
+  }
 
  protected:
-  SV3_1aPpTreeListenerHelper(PreprocessFile* pp,
+  SV3_1aPpTreeListenerHelper(Session* session, PreprocessFile* pp,
                              PreprocessFile::SpecialInstructions& instructions,
-                             antlr4::CommonTokenStream* tokens)
-      : CommonListenerHelper(nullptr, tokens),
-        m_pp(pp),
-        m_inActiveBranch(true),
-        m_inMacroDefinitionParsing(false),
-        m_inProtectedRegion(false),
-        m_filterProtectedRegions(false),
-        m_append_paused_context(nullptr),
-        m_instructions(instructions) {
-    init();
-  }
+                             antlr4::CommonTokenStream* tokens);
+
+ protected:
+  PreprocessFile* m_pp = nullptr;
+  bool m_inActiveBranch = false;
+  bool m_inMacroDefinitionParsing = false;
+  bool m_inProtectedRegion = false;
+  bool m_filterProtectedRegions = false;
+  std::set<std::string_view> m_reservedMacroNamesSet;
+  antlr4::tree::ParseTree* m_appendPausedContext = nullptr;
+  PreprocessFile::SpecialInstructions m_instructions;
 };
 
 }  // namespace SURELOG

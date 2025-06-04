@@ -29,7 +29,7 @@
 #include <uhdm/SymbolFactory.h>
 
 namespace SURELOG {
-class SymbolTable final : public UHDM::SymbolFactory {
+class SymbolTable final : public uhdm::SymbolFactory {
  public:
   // Create a snapshot of this symbol table. The returned SymbolTable contains
   // all the symbols this table has and allows to then continue using the new
