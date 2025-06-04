@@ -23,13 +23,6 @@ PARSER CACHE USED FOR: ${SURELOG_DIR}/tests/TestNoHash/pkg2.sv
 [WRN:PA0205] ${SURELOG_DIR}/tests/TestNoHash/pkg1.sv:1:1: No timescale set for "pkg1".
 [WRN:PA0205] ${SURELOG_DIR}/tests/TestNoHash/pkg2.sv:1:1: No timescale set for "pkg2".
 [INF:CP0300] Compilation...
-[INF:CP0301] ${SURELOG_DIR}/tests/TestNoHash/pkg1.sv:1:1: Compile package "pkg1".
-[INF:CP0301] ${SURELOG_DIR}/tests/TestNoHash/pkg2.sv:1:1: Compile package "pkg2".
-[INF:EL0526] Design Elaboration...
-[NTE:EL0508] Nb Top level modules: 0.
-[NTE:EL0509] Max instance depth: 0.
-[NTE:EL0510] Nb instances: 0.
-[NTE:EL0511] Nb leaf instances: 0.
 [INF:UH0706] Creating UHDM Model...
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/tests/TestNoHash/slpp_unit/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/tests/TestNoHash/slpp_unit/checker/surelog.chk.html ...
@@ -76,7 +69,7 @@ Design: (unnamed)
       \_Parameter: (pkg2::P1), line:4:18, endln:4:20
       |vpiFullName:pkg2::P1
       |vpiActual:
-      \_EnumTypespec: (pkg2::enum2), line:3:3, endln:5:11
+      \_UnsupportedTypespec: (enum2), line:4:12, endln:4:17
     |vpiName:P1
     |vpiFullName:pkg2::P1
   |vpiParamAssign:
@@ -92,101 +85,16 @@ Design: (unnamed)
     |vpiLhs:
     \_Parameter: (pkg2::P1), line:4:18, endln:4:20
   |vpiDefName:pkg2
-|uhdmtopPackages:
-\_Package: pkg1 (pkg1::), file:${SURELOG_DIR}/tests/TestNoHash/pkg1.sv, line:1:1, endln:7:11
+\_weaklyReferenced:
+\_UnsupportedTypespec: (enum2), line:4:12, endln:4:17
   |vpiParent:
-  \_Design: (unnamed)
-  |vpiName:pkg1
-  |vpiFullName:pkg1::
-  |vpiTypedef:
-  \_EnumTypespec: (pkg1::enum1), line:3:3, endln:5:11
-    |vpiParent:
-    \_Package: pkg1 (pkg1::), file:${SURELOG_DIR}/tests/TestNoHash/pkg1.sv, line:1:1, endln:7:11
-    |vpiName:pkg1::enum1
-    |vpiInstance:
-    \_Package: pkg1 (pkg1::), file:${SURELOG_DIR}/tests/TestNoHash/pkg1.sv, line:1:1, endln:7:11
-    |vpiEnumConst:
-    \_EnumConst: (HERE), line:4:5, endln:4:9
-      |vpiParent:
-      \_EnumTypespec: (pkg1::enum1), line:3:3, endln:5:11
-      |vpiName:HERE
-      |INT:0
-      |vpiDecompile:0
-      |vpiSize:64
-  |vpiDefName:pkg1
-  |vpiTop:1
-|uhdmtopPackages:
-\_Package: pkg2 (pkg2::), file:${SURELOG_DIR}/tests/TestNoHash/pkg2.sv, line:1:1, endln:16:11
-  |vpiParent:
-  \_Design: (unnamed)
-  |vpiName:pkg2
-  |vpiFullName:pkg2::
-  |vpiParameter:
   \_Parameter: (pkg2::P1), line:4:18, endln:4:20
-    |vpiParent:
-    \_Package: pkg2 (pkg2::), file:${SURELOG_DIR}/tests/TestNoHash/pkg2.sv, line:1:1, endln:16:11
-    |INT:0
-    |vpiTypespec:
-    \_RefTypespec: (pkg2::P1)
-      |vpiParent:
-      \_Parameter: (pkg2::P1), line:4:18, endln:4:20
-      |vpiFullName:pkg2::P1
-      |vpiActual:
-      \_EnumTypespec: (pkg2::enum2), line:3:3, endln:5:11
-    |vpiName:P1
-    |vpiFullName:pkg2::P1
-  |vpiParamAssign:
-  \_ParamAssign: , line:4:18, endln:4:33
-    |vpiParent:
-    \_Package: pkg2 (pkg2::), file:${SURELOG_DIR}/tests/TestNoHash/pkg2.sv, line:1:1, endln:16:11
-    |vpiRhs:
-    \_Constant: , line:4:23, endln:4:29
-      |vpiParent:
-      \_ParamAssign: , line:4:18, endln:4:33
-      |vpiDecompile:0
-      |INT:0
-      |vpiTypespec:
-      \_RefTypespec: (pkg2)
-        |vpiParent:
-        \_Constant: , line:4:23, endln:4:29
-        |vpiFullName:pkg2
-        |vpiActual:
-        \_EnumTypespec: (pkg2::enum2), line:3:3, endln:5:11
-      |vpiConstType:7
-    |vpiLhs:
-    \_Parameter: (pkg2::P1), line:4:18, endln:4:20
-  |vpiTypedef:
-  \_EnumTypespec: (pkg2::enum2), line:3:3, endln:5:11
-    |vpiParent:
-    \_Package: pkg2 (pkg2::), file:${SURELOG_DIR}/tests/TestNoHash/pkg2.sv, line:1:1, endln:16:11
-    |vpiName:pkg2::enum2
-    |vpiTypedefAlias:
-    \_RefTypespec: (pkg2::pkg2::enum2)
-      |vpiParent:
-      \_EnumTypespec: (pkg2::enum2), line:3:3, endln:5:11
-      |vpiFullName:pkg2::pkg2::enum2
-      |vpiActual:
-      \_EnumTypespec: (pkg1::enum1), line:3:3, endln:5:11
-    |vpiInstance:
-    \_Package: pkg2 (pkg2::), file:${SURELOG_DIR}/tests/TestNoHash/pkg2.sv, line:1:1, endln:16:11
-    |vpiEnumConst:
-    \_EnumConst: (HERE), line:4:5, endln:4:9
-      |vpiParent:
-      \_EnumTypespec: (pkg2::enum2), line:3:3, endln:5:11
-      |vpiName:HERE
-      |INT:0
-      |vpiDecompile:0
-      |vpiSize:64
-  |vpiDefName:pkg2
-  |vpiTop:1
+  |vpiName:enum2
+  |vpiInstance:
+  \_Package: pkg2 (pkg2::), file:${SURELOG_DIR}/tests/TestNoHash/pkg2.sv, line:1:1, endln:16:11
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 0
 [WARNING] : 2
-[   NOTE] : 4
-
-============================== Begin RoundTrip Results ==============================
-[roundtrip]: ${SURELOG_DIR}/tests/TestNoHash/pkg1.sv | ${SURELOG_DIR}/tests/TestNoHash/pkg1_000.sv | 0 | 7 |
-[roundtrip]: ${SURELOG_DIR}/tests/TestNoHash/pkg2.sv | ${SURELOG_DIR}/tests/TestNoHash/pkg2_000.sv | 10 | 16 |
-============================== End RoundTrip Results ==============================
+[   NOTE] : 0

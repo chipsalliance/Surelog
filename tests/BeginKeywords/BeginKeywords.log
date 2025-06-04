@@ -1,56 +1,40 @@
 [INF:CM0023] Creating log file "${SURELOG_DIR}/build/regression/BeginKeywords/slpp_all/surelog.log".
 AST_DEBUG_BEGIN
-LIB:  work
-FILE: ${SURELOG_DIR}/tests/BeginKeywords/top.v
-n<> u<0> t<_INVALID_> f<0> l<0:0>
-n<> u<1> t<Null_rule> p<19> s<18> l<8:1> el<7:4>
-n<module> u<2> t<Module_keyword> p<6> s<3> l<8:1> el<8:7>
-n<b_kw2> u<3> t<StringConst> p<6> s<5> l<8:8> el<8:13>
-n<> u<4> t<Port> p<5> l<8:14> el<8:14>
-n<> u<5> t<List_of_ports> p<6> c<4> l<8:13> el<8:15>
-n<> u<6> t<Module_nonansi_header> p<16> c<2> s<14> l<8:1> el<8:16>
-n<logic> u<7> t<StringConst> p<8> l<9:1> el<9:6>
-n<> u<8> t<Interface_identifier> p<12> c<7> s<11> l<9:1> el<9:6>
-n<clk> u<9> t<StringConst> p<10> l<9:7> el<9:10>
-n<> u<10> t<Interface_identifier> p<11> c<9> l<9:7> el<9:10>
-n<> u<11> t<List_of_interface_identifiers> p<12> c<10> l<9:7> el<9:10>
-n<> u<12> t<Interface_port_declaration> p<13> c<8> l<9:1> el<9:10>
-n<> u<13> t<Port_declaration> p<14> c<12> l<9:1> el<9:10>
-n<> u<14> t<Module_item> p<16> c<13> s<15> l<9:1> el<9:11>
-n<> u<15> t<ENDMODULE> p<16> l<10:1> el<10:10>
-n<> u<16> t<Module_declaration> p<17> c<6> l<8:1> el<10:10>
-n<> u<17> t<Description> p<18> c<16> l<8:1> el<10:10>
-n<> u<18> t<Source_text> p<19> c<17> l<8:1> el<10:10>
+Count: 20
+LIB: work
+FILE f<12>:${SURELOG_DIR}/tests/BeginKeywords/top.v
 n<> u<19> t<Top_level_rule> c<1> l<8:1> el<15:3>
+  n<> u<1> t<Null_rule> p<19> s<18> l<8:1> el<7:4>
+  n<> u<18> t<Source_text> p<19> c<17> l<8:1> el<10:10>
+    n<> u<17> t<Description> p<18> c<16> l<8:1> el<10:10>
+      n<> u<16> t<Module_declaration> p<17> c<6> l<8:1> el<10:10>
+        n<> u<6> t<Module_nonansi_header> p<16> c<2> s<14> l<8:1> el<8:16>
+          n<module> u<2> t<Module_keyword> p<6> s<3> l<8:1> el<8:7>
+          n<b_kw2> u<3> t<StringConst> p<6> s<5> l<8:8> el<8:13>
+          n<> u<5> t<List_of_ports> p<6> c<4> l<8:13> el<8:15>
+            n<> u<4> t<Port> p<5> l<8:14> el<8:14>
+        n<> u<14> t<Module_item> p<16> c<13> s<15> l<9:1> el<9:11>
+          n<> u<13> t<Port_declaration> p<14> c<12> l<9:1> el<9:10>
+            n<> u<12> t<Interface_port_declaration> p<13> c<8> l<9:1> el<9:10>
+              n<> u<8> t<Interface_identifier> p<12> c<7> s<11> l<9:1> el<9:6>
+                n<logic> u<7> t<StringConst> p<8> l<9:1> el<9:6>
+              n<> u<11> t<List_of_interface_identifiers> p<12> c<10> l<9:7> el<9:10>
+                n<> u<10> t<Interface_identifier> p<11> c<9> l<9:7> el<9:10>
+                  n<clk> u<9> t<StringConst> p<10> l<9:7> el<9:10>
+        n<> u<15> t<ENDMODULE> p<16> l<10:1> el<10:10>
 AST_DEBUG_END
 [WRN:PA0205] ${SURELOG_DIR}/tests/BeginKeywords/top.v:8:1: No timescale set for "b_kw2".
 [INF:CP0300] Compilation...
 [INF:CP0303] ${SURELOG_DIR}/tests/BeginKeywords/top.v:8:1: Compile module "work@b_kw2".
-[INF:EL0526] Design Elaboration...
-Instance tree:
-[TOP] work@b_kw2 work@b_kw2
-
-[NTE:EL0503] ${SURELOG_DIR}/tests/BeginKeywords/top.v:8:1: Top level module "work@b_kw2".
-[NTE:EL0508] Nb Top level modules: 1.
-[NTE:EL0509] Max instance depth: 1.
-[NTE:EL0510] Nb instances: 1.
-[NTE:EL0511] Nb leaf instances: 1.
-[NTE:EL0523] ${SURELOG_DIR}/tests/BeginKeywords/top.v:8:1: Instance "work@b_kw2".
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-design                                                 1
-logic_net                                              2
-logic_typespec                                         1
-module_inst                                            2
-ref_typespec                                           1
+Design                                                 1
+LogicNet                                               1
+Module                                                 1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/BeginKeywords/slpp_all/surelog.uhdm ...
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 0
 [WARNING] : 1
-[   NOTE] : 6
-
-============================== Begin RoundTrip Results ==============================
-[roundtrip]: ${SURELOG_DIR}/tests/BeginKeywords/top.v | ${SURELOG_DIR}/build/regression/BeginKeywords/roundtrip/top_000.v | 8 | 10 |
-============================== End RoundTrip Results ==============================
+[   NOTE] : 0

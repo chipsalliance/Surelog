@@ -3,36 +3,31 @@ Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp="BLAH"
 [WRN:PA0205] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: No timescale set for "top".
 [INF:CP0300] Compilation...
 [INF:CP0303] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Compile module "work@top".
-[INF:EL0526] Design Elaboration...
-[INF:CP0335] ${SURELOG_DIR}/tests/ParamLine/dut.sv:4:7: Compile generate block "work@top.genblk1".
-[NTE:EL0503] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Top level module "work@top".
-[WRN:EL0500] ${SURELOG_DIR}/tests/ParamLine/dut.sv:4:7: Cannot find a module definition for "work@top.genblk1::GOOD_BLAH".
-[NTE:EL0508] Nb Top level modules: 1.
-[NTE:EL0509] Max instance depth: 3.
-[NTE:EL0510] Nb instances: 2.
-[NTE:EL0511] Nb leaf instances: 1.
-[WRN:EL0512] Nb undefined modules: 1.
-[WRN:EL0513] Nb undefined instances: 1.
 [INF:UH0706] Creating UHDM Model...
-[INF:UH0707] Elaborating UHDM...
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/checker/surelog.chk.html ...
 [INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
-Design: (work@top)
-|vpiElaborated:1
-|vpiName:work@top
+Design: (unnamed)
+|vpiName:unnamed
 |uhdmallModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
   |vpiParent:
-  \_Design: (work@top)
+  \_Design: (unnamed)
   |vpiFullName:work@top
   |vpiParameter:
   \_Parameter: (work@top.p), line:2:15, endln:2:16
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |BIN:0
+    |vpiTypespec:
+    \_RefTypespec: (work@top.p)
+      |vpiParent:
+      \_Parameter: (work@top.p), line:2:15, endln:2:16
+      |vpiFullName:work@top.p
+      |vpiActual:
+      \_IntTypespec: , line:2:5, endln:2:23
     |vpiName:p
     |vpiFullName:work@top.p
   |vpiParamAssign:
@@ -400,958 +395,6 @@ Design: (work@top)
         \_Begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_MINUS_STR
-|uhdmtopModules:
-\_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-  |vpiName:work@top
-  |vpiParameter:
-  \_Parameter: (work@top.p), line:2:15, endln:2:16
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |BIN:0
-    |vpiName:p
-    |vpiFullName:work@top.p
-  |vpiParamAssign:
-  \_ParamAssign: , line:2:15, endln:2:23
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiRhs:
-    \_Constant: , line:2:19, endln:2:23
-      |vpiParent:
-      \_ParamAssign: , line:2:15, endln:2:23
-      |vpiDecompile:BLAH
-      |vpiSize:32
-      |STRING:BLAH
-      |vpiConstType:6
-    |vpiLhs:
-    \_Parameter: (work@top.p), line:2:15, endln:2:16
-  |vpiDefName:work@top
-  |vpiTop:1
-  |vpiTopModule:1
-  |vpiGenScopeArray:
-  \_GenScopeArray: (work@top.genblk1), line:4:7, endln:4:24
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiName:genblk1
-    |vpiFullName:work@top.genblk1
-    |vpiGenScope:
-    \_GenScope: (work@top.genblk1), line:4:7, endln:4:24
-      |vpiParent:
-      \_GenScopeArray: (work@top.genblk1), line:4:7, endln:4:24
-      |vpiFullName:work@top.genblk1
-      |vpiModule:
-      \_Module: work@top.genblk1::GOOD_BLAH (work@top.genblk1.good), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:4:7, endln:4:24
-        |vpiParent:
-        \_GenScope: (work@top.genblk1), line:4:7, endln:4:24
-        |vpiName:good
-        |vpiFullName:work@top.genblk1.good
-        |vpiDefName:work@top.genblk1::GOOD_BLAH
-\_weaklyReferenced:
-\_IntTypespec: , line:2:5, endln:2:23
-  |vpiRange:
-  \_Range: 
-    |vpiParent:
-    \_IntTypespec: , line:2:5, endln:2:23
-    |vpiLeftRange:
-    \_Constant: 
-      |INT:0
-    |vpiRightRange:
-    \_Constant: 
-      |INT:0
-===================
-[  FATAL] : 0
-[ SYNTAX] : 0
-[  ERROR] : 0
-[WARNING] : 4
-[   NOTE] : 5
-Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp=4'b1001
-[INF:CM0023] Creating log file "${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.log".
-[WRN:PA0205] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: No timescale set for "top".
-[INF:CP0300] Compilation...
-[INF:CP0303] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Compile module "work@top".
-[INF:EL0526] Design Elaboration...
-[INF:CP0335] ${SURELOG_DIR}/tests/ParamLine/dut.sv:7:7: Compile generate block "work@top.genblk2".
-[NTE:EL0503] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Top level module "work@top".
-[WRN:EL0500] ${SURELOG_DIR}/tests/ParamLine/dut.sv:7:7: Cannot find a module definition for "work@top.genblk2::GOOD_BIN1".
-[NTE:EL0508] Nb Top level modules: 1.
-[NTE:EL0509] Max instance depth: 3.
-[NTE:EL0510] Nb instances: 2.
-[NTE:EL0511] Nb leaf instances: 1.
-[WRN:EL0512] Nb undefined modules: 1.
-[WRN:EL0513] Nb undefined instances: 1.
-[INF:UH0706] Creating UHDM Model...
-[INF:UH0707] Elaborating UHDM...
-[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.uhdm ...
-[INF:UH0711] Decompiling UHDM...
-====== UHDM =======
-Design: (work@top)
-|vpiElaborated:1
-|vpiName:work@top
-|uhdmallModules:
-\_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-  |vpiParent:
-  \_Design: (work@top)
-  |vpiFullName:work@top
-  |vpiParameter:
-  \_Parameter: (work@top.p), line:2:15, endln:2:16
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |BIN:0
-    |vpiName:p
-    |vpiFullName:work@top.p
-  |vpiParamAssign:
-  \_ParamAssign: , line:2:15, endln:2:23
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiRhs:
-    \_Constant: , line:2:19, endln:2:23
-      |vpiParent:
-      \_ParamAssign: , line:2:15, endln:2:23
-      |vpiDecompile:1'b0
-      |vpiSize:1
-      |BIN:0
-      |vpiTypespec:
-      \_RefTypespec: (work@top)
-        |vpiParent:
-        \_Constant: , line:2:19, endln:2:23
-        |vpiFullName:work@top
-        |vpiActual:
-        \_IntTypespec: , line:2:5, endln:2:23
-      |vpiConstType:3
-    |vpiLhs:
-    \_Parameter: (work@top.p), line:2:15, endln:2:16
-  |vpiDefName:work@top
-  |vpiGenStmt:
-  \_GenIf: , line:3:4, endln:3:6
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiCondition:
-    \_Operation: , line:3:8, endln:3:19
-      |vpiParent:
-      \_GenIf: , line:3:4, endln:3:6
-      |vpiOpType:14
-      |vpiOperand:
-      \_RefObj: (work@top.p), line:3:8, endln:3:9
-        |vpiParent:
-        \_Operation: , line:3:8, endln:3:19
-        |vpiName:p
-        |vpiFullName:work@top.p
-      |vpiOperand:
-      \_Constant: , line:3:13, endln:3:19
-        |vpiParent:
-        \_Operation: , line:3:8, endln:3:19
-        |vpiDecompile:"BLAH"
-        |vpiSize:32
-        |STRING:BLAH
-        |vpiConstType:6
-    |vpiStmt:
-    \_Begin: (work@top)
-      |vpiParent:
-      \_GenIf: , line:3:4, endln:3:6
-      |vpiFullName:work@top
-      |vpiStmt:
-      \_RefModule: work@GOOD_BLAH (good), line:4:17, endln:4:21
-        |vpiParent:
-        \_Begin: (work@top)
-        |vpiName:good
-        |vpiDefName:work@GOOD_BLAH
-  |vpiGenStmt:
-  \_GenIf: , line:6:4, endln:6:6
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiCondition:
-    \_Operation: , line:6:8, endln:6:20
-      |vpiParent:
-      \_GenIf: , line:6:4, endln:6:6
-      |vpiOpType:14
-      |vpiOperand:
-      \_RefObj: (work@top.p), line:6:8, endln:6:9
-        |vpiParent:
-        \_Operation: , line:6:8, endln:6:20
-        |vpiName:p
-        |vpiFullName:work@top.p
-      |vpiOperand:
-      \_Constant: , line:6:13, endln:6:20
-        |vpiParent:
-        \_Operation: , line:6:8, endln:6:20
-        |vpiDecompile:4'b1001
-        |vpiSize:4
-        |BIN:1001
-        |vpiConstType:3
-    |vpiStmt:
-    \_Begin: (work@top)
-      |vpiParent:
-      \_GenIf: , line:6:4, endln:6:6
-      |vpiFullName:work@top
-      |vpiStmt:
-      \_RefModule: work@GOOD_BIN1 (good), line:7:17, endln:7:21
-        |vpiParent:
-        \_Begin: (work@top)
-        |vpiName:good
-        |vpiDefName:work@GOOD_BIN1
-  |vpiGenStmt:
-  \_GenIf: , line:9:4, endln:9:6
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiCondition:
-    \_Operation: , line:9:8, endln:9:20
-      |vpiParent:
-      \_GenIf: , line:9:4, endln:9:6
-      |vpiOpType:14
-      |vpiOperand:
-      \_RefObj: (work@top.p), line:9:8, endln:9:9
-        |vpiParent:
-        \_Operation: , line:9:8, endln:9:20
-        |vpiName:p
-        |vpiFullName:work@top.p
-      |vpiOperand:
-      \_Constant: , line:9:13, endln:9:20
-        |vpiParent:
-        \_Operation: , line:9:8, endln:9:20
-        |vpiDecompile:4'b1011
-        |vpiSize:4
-        |BIN:1011
-        |vpiConstType:3
-    |vpiStmt:
-    \_Begin: (work@top)
-      |vpiParent:
-      \_GenIf: , line:9:4, endln:9:6
-      |vpiFullName:work@top
-      |vpiStmt:
-      \_RefModule: work@GOOD_BIN2 (good), line:10:17, endln:10:21
-        |vpiParent:
-        \_Begin: (work@top)
-        |vpiName:good
-        |vpiDefName:work@GOOD_BIN2
-  |vpiGenStmt:
-  \_GenIf: , line:12:4, endln:12:6
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiCondition:
-    \_Operation: , line:12:8, endln:12:17
-      |vpiParent:
-      \_GenIf: , line:12:4, endln:12:6
-      |vpiOpType:14
-      |vpiOperand:
-      \_RefObj: (work@top.p), line:12:8, endln:12:9
-        |vpiParent:
-        \_Operation: , line:12:8, endln:12:17
-        |vpiName:p
-        |vpiFullName:work@top.p
-      |vpiOperand:
-      \_Constant: , line:12:13, endln:12:17
-        |vpiParent:
-        \_Operation: , line:12:8, endln:12:17
-        |vpiDecompile:'hFF
-        |vpiSize:-1
-        |HEX:FF
-        |vpiConstType:5
-    |vpiStmt:
-    \_Begin: (work@top)
-      |vpiParent:
-      \_GenIf: , line:12:4, endln:12:6
-      |vpiFullName:work@top
-      |vpiStmt:
-      \_RefModule: work@GOOD_HEXA (good), line:13:17, endln:13:21
-        |vpiParent:
-        \_Begin: (work@top)
-        |vpiName:good
-        |vpiDefName:work@GOOD_HEXA
-  |vpiGenStmt:
-  \_GenIf: , line:15:4, endln:15:6
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiCondition:
-    \_Operation: , line:15:8, endln:15:16
-      |vpiParent:
-      \_GenIf: , line:15:4, endln:15:6
-      |vpiOpType:14
-      |vpiOperand:
-      \_RefObj: (work@top.p), line:15:8, endln:15:9
-        |vpiParent:
-        \_Operation: , line:15:8, endln:15:16
-        |vpiName:p
-        |vpiFullName:work@top.p
-      |vpiOperand:
-      \_Operation: , line:15:13, endln:15:16
-        |vpiParent:
-        \_Operation: , line:15:8, endln:15:16
-        |vpiOpType:1
-        |vpiOperand:
-        \_Constant: , line:15:14, endln:15:16
-          |vpiDecompile:12
-          |vpiSize:64
-          |UINT:12
-          |vpiConstType:9
-    |vpiStmt:
-    \_Begin: (work@top)
-      |vpiParent:
-      \_GenIf: , line:15:4, endln:15:6
-      |vpiFullName:work@top
-      |vpiStmt:
-      \_RefModule: work@GOOD_MINUS12 (good), line:16:20, endln:16:24
-        |vpiParent:
-        \_Begin: (work@top)
-        |vpiName:good
-        |vpiDefName:work@GOOD_MINUS12
-  |vpiGenStmt:
-  \_GenIf: , line:18:4, endln:18:6
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiCondition:
-    \_Operation: , line:18:8, endln:18:15
-      |vpiParent:
-      \_GenIf: , line:18:4, endln:18:6
-      |vpiOpType:14
-      |vpiOperand:
-      \_RefObj: (work@top.p), line:18:8, endln:18:9
-        |vpiParent:
-        \_Operation: , line:18:8, endln:18:15
-        |vpiName:p
-        |vpiFullName:work@top.p
-      |vpiOperand:
-      \_Constant: , line:18:13, endln:18:15
-        |vpiParent:
-        \_Operation: , line:18:8, endln:18:15
-        |vpiDecompile:12
-        |vpiSize:64
-        |UINT:12
-        |vpiConstType:9
-    |vpiStmt:
-    \_Begin: (work@top)
-      |vpiParent:
-      \_GenIf: , line:18:4, endln:18:6
-      |vpiFullName:work@top
-      |vpiStmt:
-      \_RefModule: work@GOOD_12 (good), line:19:15, endln:19:19
-        |vpiParent:
-        \_Begin: (work@top)
-        |vpiName:good
-        |vpiDefName:work@GOOD_12
-  |vpiGenStmt:
-  \_GenIf: , line:21:4, endln:21:6
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiCondition:
-    \_Operation: , line:21:8, endln:21:18
-      |vpiParent:
-      \_GenIf: , line:21:4, endln:21:6
-      |vpiOpType:14
-      |vpiOperand:
-      \_RefObj: (work@top.p), line:21:8, endln:21:9
-        |vpiParent:
-        \_Operation: , line:21:8, endln:21:18
-        |vpiName:p
-        |vpiFullName:work@top.p
-      |vpiOperand:
-      \_Constant: , line:21:13, endln:21:18
-        |vpiParent:
-        \_Operation: , line:21:8, endln:21:18
-        |vpiDecompile:12.12
-        |vpiSize:64
-        |REAL:12.120000
-        |vpiConstType:2
-    |vpiStmt:
-    \_Begin: (work@top)
-      |vpiParent:
-      \_GenIf: , line:21:4, endln:21:6
-      |vpiFullName:work@top
-      |vpiStmt:
-      \_RefModule: work@GOOD_REAL12 (good), line:22:19, endln:22:23
-        |vpiParent:
-        \_Begin: (work@top)
-        |vpiName:good
-        |vpiDefName:work@GOOD_REAL12
-  |vpiGenStmt:
-  \_GenIf: , line:24:4, endln:24:6
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiCondition:
-    \_Operation: , line:24:8, endln:24:14
-      |vpiParent:
-      \_GenIf: , line:24:4, endln:24:6
-      |vpiOpType:14
-      |vpiOperand:
-      \_RefObj: (work@top.p), line:24:8, endln:24:9
-        |vpiParent:
-        \_Operation: , line:24:8, endln:24:14
-        |vpiName:p
-        |vpiFullName:work@top.p
-      |vpiOperand:
-      \_Constant: , line:24:13, endln:24:14
-        |vpiParent:
-        \_Operation: , line:24:8, endln:24:14
-        |vpiDecompile:0
-        |vpiSize:64
-        |UINT:0
-        |vpiConstType:9
-    |vpiStmt:
-    \_Begin: (work@top)
-      |vpiParent:
-      \_GenIf: , line:24:4, endln:24:6
-      |vpiFullName:work@top
-      |vpiStmt:
-      \_RefModule: work@GOOD_0 (good), line:25:14, endln:25:18
-        |vpiParent:
-        \_Begin: (work@top)
-        |vpiName:good
-        |vpiDefName:work@GOOD_0
-  |vpiGenStmt:
-  \_GenIf: , line:27:4, endln:27:6
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiCondition:
-    \_Operation: , line:27:8, endln:27:27
-      |vpiParent:
-      \_GenIf: , line:27:4, endln:27:6
-      |vpiOpType:14
-      |vpiOperand:
-      \_RefObj: (work@top.p), line:27:8, endln:27:9
-        |vpiParent:
-        \_Operation: , line:27:8, endln:27:27
-        |vpiName:p
-        |vpiFullName:work@top.p
-      |vpiOperand:
-      \_Constant: , line:27:13, endln:27:27
-        |vpiParent:
-        \_Operation: , line:27:8, endln:27:27
-        |vpiDecompile:"STR.WITH.DOT"
-        |vpiSize:96
-        |STRING:STR.WITH.DOT
-        |vpiConstType:6
-    |vpiStmt:
-    \_Begin: (work@top)
-      |vpiParent:
-      \_GenIf: , line:27:4, endln:27:6
-      |vpiFullName:work@top
-      |vpiStmt:
-      \_RefModule: work@GOOD_STR_WITH_DOT (good), line:28:25, endln:28:29
-        |vpiParent:
-        \_Begin: (work@top)
-        |vpiName:good
-        |vpiDefName:work@GOOD_STR_WITH_DOT
-  |vpiGenStmt:
-  \_GenIf: , line:30:4, endln:30:6
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiCondition:
-    \_Operation: , line:30:8, endln:30:19
-      |vpiParent:
-      \_GenIf: , line:30:4, endln:30:6
-      |vpiOpType:14
-      |vpiOperand:
-      \_RefObj: (work@top.p), line:30:8, endln:30:9
-        |vpiParent:
-        \_Operation: , line:30:8, endln:30:19
-        |vpiName:p
-        |vpiFullName:work@top.p
-      |vpiOperand:
-      \_Constant: , line:30:13, endln:30:19
-        |vpiParent:
-        \_Operation: , line:30:8, endln:30:19
-        |vpiDecompile:"-STR"
-        |vpiSize:32
-        |STRING:-STR
-        |vpiConstType:6
-    |vpiStmt:
-    \_Begin: (work@top)
-      |vpiParent:
-      \_GenIf: , line:30:4, endln:30:6
-      |vpiFullName:work@top
-      |vpiStmt:
-      \_RefModule: work@GOOD_MINUS_STR (good), line:31:22, endln:31:26
-        |vpiParent:
-        \_Begin: (work@top)
-        |vpiName:good
-        |vpiDefName:work@GOOD_MINUS_STR
-|uhdmtopModules:
-\_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-  |vpiName:work@top
-  |vpiParameter:
-  \_Parameter: (work@top.p), line:2:15, endln:2:16
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |BIN:0
-    |vpiName:p
-    |vpiFullName:work@top.p
-  |vpiParamAssign:
-  \_ParamAssign: , line:2:15, endln:2:23
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiRhs:
-    \_Constant: , line:2:19, endln:2:23
-      |vpiParent:
-      \_ParamAssign: , line:2:15, endln:2:23
-      |vpiDecompile:4'b1001
-      |vpiSize:4
-      |BIN:1001
-      |vpiConstType:3
-    |vpiLhs:
-    \_Parameter: (work@top.p), line:2:15, endln:2:16
-  |vpiDefName:work@top
-  |vpiTop:1
-  |vpiTopModule:1
-  |vpiGenScopeArray:
-  \_GenScopeArray: (work@top.genblk2), line:7:7, endln:7:24
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiName:genblk2
-    |vpiFullName:work@top.genblk2
-    |vpiGenScope:
-    \_GenScope: (work@top.genblk2), line:7:7, endln:7:24
-      |vpiParent:
-      \_GenScopeArray: (work@top.genblk2), line:7:7, endln:7:24
-      |vpiFullName:work@top.genblk2
-      |vpiModule:
-      \_Module: work@top.genblk2::GOOD_BIN1 (work@top.genblk2.good), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:7:7, endln:7:24
-        |vpiParent:
-        \_GenScope: (work@top.genblk2), line:7:7, endln:7:24
-        |vpiName:good
-        |vpiFullName:work@top.genblk2.good
-        |vpiDefName:work@top.genblk2::GOOD_BIN1
-\_weaklyReferenced:
-\_IntTypespec: , line:2:5, endln:2:23
-  |vpiRange:
-  \_Range: 
-    |vpiParent:
-    \_IntTypespec: , line:2:5, endln:2:23
-    |vpiLeftRange:
-    \_Constant: 
-      |INT:0
-    |vpiRightRange:
-    \_Constant: 
-      |INT:0
-===================
-[  FATAL] : 0
-[ SYNTAX] : 0
-[  ERROR] : 0
-[WARNING] : 4
-[   NOTE] : 5
-Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp='b1002
-[INF:CM0023] Creating log file "${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.log".
-[WRN:PA0205] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: No timescale set for "top".
-[INF:CP0300] Compilation...
-[INF:CP0303] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Compile module "work@top".
-[INF:EL0526] Design Elaboration...
-[NTE:EL0503] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Top level module "work@top".
-[NTE:EL0508] Nb Top level modules: 1.
-[NTE:EL0509] Max instance depth: 1.
-[NTE:EL0510] Nb instances: 1.
-[NTE:EL0511] Nb leaf instances: 1.
-[INF:UH0706] Creating UHDM Model...
-[INF:UH0707] Elaborating UHDM...
-[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.uhdm ...
-[INF:UH0711] Decompiling UHDM...
-====== UHDM =======
-Design: (work@top)
-|vpiElaborated:1
-|vpiName:work@top
-|uhdmallModules:
-\_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-  |vpiParent:
-  \_Design: (work@top)
-  |vpiFullName:work@top
-  |vpiParameter:
-  \_Parameter: (work@top.p), line:2:15, endln:2:16
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |BIN:0
-    |vpiName:p
-    |vpiFullName:work@top.p
-  |vpiParamAssign:
-  \_ParamAssign: , line:2:15, endln:2:23
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiRhs:
-    \_Constant: , line:2:19, endln:2:23
-      |vpiParent:
-      \_ParamAssign: , line:2:15, endln:2:23
-      |vpiDecompile:1'b0
-      |vpiSize:1
-      |BIN:0
-      |vpiTypespec:
-      \_RefTypespec: (work@top)
-        |vpiParent:
-        \_Constant: , line:2:19, endln:2:23
-        |vpiFullName:work@top
-        |vpiActual:
-        \_IntTypespec: , line:2:5, endln:2:23
-      |vpiConstType:3
-    |vpiLhs:
-    \_Parameter: (work@top.p), line:2:15, endln:2:16
-  |vpiDefName:work@top
-  |vpiGenStmt:
-  \_GenIf: , line:3:4, endln:3:6
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiCondition:
-    \_Operation: , line:3:8, endln:3:19
-      |vpiParent:
-      \_GenIf: , line:3:4, endln:3:6
-      |vpiOpType:14
-      |vpiOperand:
-      \_RefObj: (work@top.p), line:3:8, endln:3:9
-        |vpiParent:
-        \_Operation: , line:3:8, endln:3:19
-        |vpiName:p
-        |vpiFullName:work@top.p
-      |vpiOperand:
-      \_Constant: , line:3:13, endln:3:19
-        |vpiParent:
-        \_Operation: , line:3:8, endln:3:19
-        |vpiDecompile:"BLAH"
-        |vpiSize:32
-        |STRING:BLAH
-        |vpiConstType:6
-    |vpiStmt:
-    \_Begin: (work@top)
-      |vpiParent:
-      \_GenIf: , line:3:4, endln:3:6
-      |vpiFullName:work@top
-      |vpiStmt:
-      \_RefModule: work@GOOD_BLAH (good), line:4:17, endln:4:21
-        |vpiParent:
-        \_Begin: (work@top)
-        |vpiName:good
-        |vpiDefName:work@GOOD_BLAH
-  |vpiGenStmt:
-  \_GenIf: , line:6:4, endln:6:6
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiCondition:
-    \_Operation: , line:6:8, endln:6:20
-      |vpiParent:
-      \_GenIf: , line:6:4, endln:6:6
-      |vpiOpType:14
-      |vpiOperand:
-      \_RefObj: (work@top.p), line:6:8, endln:6:9
-        |vpiParent:
-        \_Operation: , line:6:8, endln:6:20
-        |vpiName:p
-        |vpiFullName:work@top.p
-      |vpiOperand:
-      \_Constant: , line:6:13, endln:6:20
-        |vpiParent:
-        \_Operation: , line:6:8, endln:6:20
-        |vpiDecompile:4'b1001
-        |vpiSize:4
-        |BIN:1001
-        |vpiConstType:3
-    |vpiStmt:
-    \_Begin: (work@top)
-      |vpiParent:
-      \_GenIf: , line:6:4, endln:6:6
-      |vpiFullName:work@top
-      |vpiStmt:
-      \_RefModule: work@GOOD_BIN1 (good), line:7:17, endln:7:21
-        |vpiParent:
-        \_Begin: (work@top)
-        |vpiName:good
-        |vpiDefName:work@GOOD_BIN1
-  |vpiGenStmt:
-  \_GenIf: , line:9:4, endln:9:6
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiCondition:
-    \_Operation: , line:9:8, endln:9:20
-      |vpiParent:
-      \_GenIf: , line:9:4, endln:9:6
-      |vpiOpType:14
-      |vpiOperand:
-      \_RefObj: (work@top.p), line:9:8, endln:9:9
-        |vpiParent:
-        \_Operation: , line:9:8, endln:9:20
-        |vpiName:p
-        |vpiFullName:work@top.p
-      |vpiOperand:
-      \_Constant: , line:9:13, endln:9:20
-        |vpiParent:
-        \_Operation: , line:9:8, endln:9:20
-        |vpiDecompile:4'b1011
-        |vpiSize:4
-        |BIN:1011
-        |vpiConstType:3
-    |vpiStmt:
-    \_Begin: (work@top)
-      |vpiParent:
-      \_GenIf: , line:9:4, endln:9:6
-      |vpiFullName:work@top
-      |vpiStmt:
-      \_RefModule: work@GOOD_BIN2 (good), line:10:17, endln:10:21
-        |vpiParent:
-        \_Begin: (work@top)
-        |vpiName:good
-        |vpiDefName:work@GOOD_BIN2
-  |vpiGenStmt:
-  \_GenIf: , line:12:4, endln:12:6
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiCondition:
-    \_Operation: , line:12:8, endln:12:17
-      |vpiParent:
-      \_GenIf: , line:12:4, endln:12:6
-      |vpiOpType:14
-      |vpiOperand:
-      \_RefObj: (work@top.p), line:12:8, endln:12:9
-        |vpiParent:
-        \_Operation: , line:12:8, endln:12:17
-        |vpiName:p
-        |vpiFullName:work@top.p
-      |vpiOperand:
-      \_Constant: , line:12:13, endln:12:17
-        |vpiParent:
-        \_Operation: , line:12:8, endln:12:17
-        |vpiDecompile:'hFF
-        |vpiSize:-1
-        |HEX:FF
-        |vpiConstType:5
-    |vpiStmt:
-    \_Begin: (work@top)
-      |vpiParent:
-      \_GenIf: , line:12:4, endln:12:6
-      |vpiFullName:work@top
-      |vpiStmt:
-      \_RefModule: work@GOOD_HEXA (good), line:13:17, endln:13:21
-        |vpiParent:
-        \_Begin: (work@top)
-        |vpiName:good
-        |vpiDefName:work@GOOD_HEXA
-  |vpiGenStmt:
-  \_GenIf: , line:15:4, endln:15:6
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiCondition:
-    \_Operation: , line:15:8, endln:15:16
-      |vpiParent:
-      \_GenIf: , line:15:4, endln:15:6
-      |vpiOpType:14
-      |vpiOperand:
-      \_RefObj: (work@top.p), line:15:8, endln:15:9
-        |vpiParent:
-        \_Operation: , line:15:8, endln:15:16
-        |vpiName:p
-        |vpiFullName:work@top.p
-      |vpiOperand:
-      \_Operation: , line:15:13, endln:15:16
-        |vpiParent:
-        \_Operation: , line:15:8, endln:15:16
-        |vpiOpType:1
-        |vpiOperand:
-        \_Constant: , line:15:14, endln:15:16
-          |vpiDecompile:12
-          |vpiSize:64
-          |UINT:12
-          |vpiConstType:9
-    |vpiStmt:
-    \_Begin: (work@top)
-      |vpiParent:
-      \_GenIf: , line:15:4, endln:15:6
-      |vpiFullName:work@top
-      |vpiStmt:
-      \_RefModule: work@GOOD_MINUS12 (good), line:16:20, endln:16:24
-        |vpiParent:
-        \_Begin: (work@top)
-        |vpiName:good
-        |vpiDefName:work@GOOD_MINUS12
-  |vpiGenStmt:
-  \_GenIf: , line:18:4, endln:18:6
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiCondition:
-    \_Operation: , line:18:8, endln:18:15
-      |vpiParent:
-      \_GenIf: , line:18:4, endln:18:6
-      |vpiOpType:14
-      |vpiOperand:
-      \_RefObj: (work@top.p), line:18:8, endln:18:9
-        |vpiParent:
-        \_Operation: , line:18:8, endln:18:15
-        |vpiName:p
-        |vpiFullName:work@top.p
-      |vpiOperand:
-      \_Constant: , line:18:13, endln:18:15
-        |vpiParent:
-        \_Operation: , line:18:8, endln:18:15
-        |vpiDecompile:12
-        |vpiSize:64
-        |UINT:12
-        |vpiConstType:9
-    |vpiStmt:
-    \_Begin: (work@top)
-      |vpiParent:
-      \_GenIf: , line:18:4, endln:18:6
-      |vpiFullName:work@top
-      |vpiStmt:
-      \_RefModule: work@GOOD_12 (good), line:19:15, endln:19:19
-        |vpiParent:
-        \_Begin: (work@top)
-        |vpiName:good
-        |vpiDefName:work@GOOD_12
-  |vpiGenStmt:
-  \_GenIf: , line:21:4, endln:21:6
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiCondition:
-    \_Operation: , line:21:8, endln:21:18
-      |vpiParent:
-      \_GenIf: , line:21:4, endln:21:6
-      |vpiOpType:14
-      |vpiOperand:
-      \_RefObj: (work@top.p), line:21:8, endln:21:9
-        |vpiParent:
-        \_Operation: , line:21:8, endln:21:18
-        |vpiName:p
-        |vpiFullName:work@top.p
-      |vpiOperand:
-      \_Constant: , line:21:13, endln:21:18
-        |vpiParent:
-        \_Operation: , line:21:8, endln:21:18
-        |vpiDecompile:12.12
-        |vpiSize:64
-        |REAL:12.120000
-        |vpiConstType:2
-    |vpiStmt:
-    \_Begin: (work@top)
-      |vpiParent:
-      \_GenIf: , line:21:4, endln:21:6
-      |vpiFullName:work@top
-      |vpiStmt:
-      \_RefModule: work@GOOD_REAL12 (good), line:22:19, endln:22:23
-        |vpiParent:
-        \_Begin: (work@top)
-        |vpiName:good
-        |vpiDefName:work@GOOD_REAL12
-  |vpiGenStmt:
-  \_GenIf: , line:24:4, endln:24:6
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiCondition:
-    \_Operation: , line:24:8, endln:24:14
-      |vpiParent:
-      \_GenIf: , line:24:4, endln:24:6
-      |vpiOpType:14
-      |vpiOperand:
-      \_RefObj: (work@top.p), line:24:8, endln:24:9
-        |vpiParent:
-        \_Operation: , line:24:8, endln:24:14
-        |vpiName:p
-        |vpiFullName:work@top.p
-      |vpiOperand:
-      \_Constant: , line:24:13, endln:24:14
-        |vpiParent:
-        \_Operation: , line:24:8, endln:24:14
-        |vpiDecompile:0
-        |vpiSize:64
-        |UINT:0
-        |vpiConstType:9
-    |vpiStmt:
-    \_Begin: (work@top)
-      |vpiParent:
-      \_GenIf: , line:24:4, endln:24:6
-      |vpiFullName:work@top
-      |vpiStmt:
-      \_RefModule: work@GOOD_0 (good), line:25:14, endln:25:18
-        |vpiParent:
-        \_Begin: (work@top)
-        |vpiName:good
-        |vpiDefName:work@GOOD_0
-  |vpiGenStmt:
-  \_GenIf: , line:27:4, endln:27:6
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiCondition:
-    \_Operation: , line:27:8, endln:27:27
-      |vpiParent:
-      \_GenIf: , line:27:4, endln:27:6
-      |vpiOpType:14
-      |vpiOperand:
-      \_RefObj: (work@top.p), line:27:8, endln:27:9
-        |vpiParent:
-        \_Operation: , line:27:8, endln:27:27
-        |vpiName:p
-        |vpiFullName:work@top.p
-      |vpiOperand:
-      \_Constant: , line:27:13, endln:27:27
-        |vpiParent:
-        \_Operation: , line:27:8, endln:27:27
-        |vpiDecompile:"STR.WITH.DOT"
-        |vpiSize:96
-        |STRING:STR.WITH.DOT
-        |vpiConstType:6
-    |vpiStmt:
-    \_Begin: (work@top)
-      |vpiParent:
-      \_GenIf: , line:27:4, endln:27:6
-      |vpiFullName:work@top
-      |vpiStmt:
-      \_RefModule: work@GOOD_STR_WITH_DOT (good), line:28:25, endln:28:29
-        |vpiParent:
-        \_Begin: (work@top)
-        |vpiName:good
-        |vpiDefName:work@GOOD_STR_WITH_DOT
-  |vpiGenStmt:
-  \_GenIf: , line:30:4, endln:30:6
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiCondition:
-    \_Operation: , line:30:8, endln:30:19
-      |vpiParent:
-      \_GenIf: , line:30:4, endln:30:6
-      |vpiOpType:14
-      |vpiOperand:
-      \_RefObj: (work@top.p), line:30:8, endln:30:9
-        |vpiParent:
-        \_Operation: , line:30:8, endln:30:19
-        |vpiName:p
-        |vpiFullName:work@top.p
-      |vpiOperand:
-      \_Constant: , line:30:13, endln:30:19
-        |vpiParent:
-        \_Operation: , line:30:8, endln:30:19
-        |vpiDecompile:"-STR"
-        |vpiSize:32
-        |STRING:-STR
-        |vpiConstType:6
-    |vpiStmt:
-    \_Begin: (work@top)
-      |vpiParent:
-      \_GenIf: , line:30:4, endln:30:6
-      |vpiFullName:work@top
-      |vpiStmt:
-      \_RefModule: work@GOOD_MINUS_STR (good), line:31:22, endln:31:26
-        |vpiParent:
-        \_Begin: (work@top)
-        |vpiName:good
-        |vpiDefName:work@GOOD_MINUS_STR
-|uhdmtopModules:
-\_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-  |vpiName:work@top
-  |vpiParameter:
-  \_Parameter: (work@top.p), line:2:15, endln:2:16
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |BIN:0
-    |vpiName:p
-    |vpiFullName:work@top.p
-  |vpiParamAssign:
-  \_ParamAssign: , line:2:15, endln:2:23
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiRhs:
-    \_Constant: , line:2:19, endln:2:23
-      |vpiParent:
-      \_ParamAssign: , line:2:15, endln:2:23
-      |vpiDecompile:'b1002
-      |BIN:1002
-      |vpiConstType:3
-    |vpiLhs:
-    \_Parameter: (work@top.p), line:2:15, endln:2:16
-  |vpiDefName:work@top
-  |vpiTop:1
-  |vpiTopModule:1
 \_weaklyReferenced:
 \_IntTypespec: , line:2:5, endln:2:23
   |vpiRange:
@@ -1369,42 +412,867 @@ Design: (work@top)
 [ SYNTAX] : 0
 [  ERROR] : 0
 [WARNING] : 1
-[   NOTE] : 5
+[   NOTE] : 0
+Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp=4'b1001
+[INF:CM0023] Creating log file "${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.log".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: No timescale set for "top".
+[INF:CP0300] Compilation...
+[INF:CP0303] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Compile module "work@top".
+[INF:UH0706] Creating UHDM Model...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.uhdm ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/checker/surelog.chk.html ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.uhdm ...
+[INF:UH0711] Decompiling UHDM...
+====== UHDM =======
+Design: (unnamed)
+|vpiName:unnamed
+|uhdmallModules:
+\_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
+  |vpiParent:
+  \_Design: (unnamed)
+  |vpiFullName:work@top
+  |vpiParameter:
+  \_Parameter: (work@top.p), line:2:15, endln:2:16
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
+    |BIN:0
+    |vpiTypespec:
+    \_RefTypespec: (work@top.p)
+      |vpiParent:
+      \_Parameter: (work@top.p), line:2:15, endln:2:16
+      |vpiFullName:work@top.p
+      |vpiActual:
+      \_IntTypespec: , line:2:5, endln:2:23
+    |vpiName:p
+    |vpiFullName:work@top.p
+  |vpiParamAssign:
+  \_ParamAssign: , line:2:15, endln:2:23
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
+    |vpiRhs:
+    \_Constant: , line:2:19, endln:2:23
+      |vpiParent:
+      \_ParamAssign: , line:2:15, endln:2:23
+      |vpiDecompile:1'b0
+      |vpiSize:1
+      |BIN:0
+      |vpiTypespec:
+      \_RefTypespec: (work@top)
+        |vpiParent:
+        \_Constant: , line:2:19, endln:2:23
+        |vpiFullName:work@top
+        |vpiActual:
+        \_IntTypespec: , line:2:5, endln:2:23
+      |vpiConstType:3
+    |vpiLhs:
+    \_Parameter: (work@top.p), line:2:15, endln:2:16
+  |vpiDefName:work@top
+  |vpiGenStmt:
+  \_GenIf: , line:3:4, endln:3:6
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
+    |vpiCondition:
+    \_Operation: , line:3:8, endln:3:19
+      |vpiParent:
+      \_GenIf: , line:3:4, endln:3:6
+      |vpiOpType:14
+      |vpiOperand:
+      \_RefObj: (work@top.p), line:3:8, endln:3:9
+        |vpiParent:
+        \_Operation: , line:3:8, endln:3:19
+        |vpiName:p
+        |vpiFullName:work@top.p
+      |vpiOperand:
+      \_Constant: , line:3:13, endln:3:19
+        |vpiParent:
+        \_Operation: , line:3:8, endln:3:19
+        |vpiDecompile:"BLAH"
+        |vpiSize:32
+        |STRING:BLAH
+        |vpiConstType:6
+    |vpiStmt:
+    \_Begin: (work@top)
+      |vpiParent:
+      \_GenIf: , line:3:4, endln:3:6
+      |vpiFullName:work@top
+      |vpiStmt:
+      \_RefModule: work@GOOD_BLAH (good), line:4:17, endln:4:21
+        |vpiParent:
+        \_Begin: (work@top)
+        |vpiName:good
+        |vpiDefName:work@GOOD_BLAH
+  |vpiGenStmt:
+  \_GenIf: , line:6:4, endln:6:6
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
+    |vpiCondition:
+    \_Operation: , line:6:8, endln:6:20
+      |vpiParent:
+      \_GenIf: , line:6:4, endln:6:6
+      |vpiOpType:14
+      |vpiOperand:
+      \_RefObj: (work@top.p), line:6:8, endln:6:9
+        |vpiParent:
+        \_Operation: , line:6:8, endln:6:20
+        |vpiName:p
+        |vpiFullName:work@top.p
+      |vpiOperand:
+      \_Constant: , line:6:13, endln:6:20
+        |vpiParent:
+        \_Operation: , line:6:8, endln:6:20
+        |vpiDecompile:4'b1001
+        |vpiSize:4
+        |BIN:1001
+        |vpiConstType:3
+    |vpiStmt:
+    \_Begin: (work@top)
+      |vpiParent:
+      \_GenIf: , line:6:4, endln:6:6
+      |vpiFullName:work@top
+      |vpiStmt:
+      \_RefModule: work@GOOD_BIN1 (good), line:7:17, endln:7:21
+        |vpiParent:
+        \_Begin: (work@top)
+        |vpiName:good
+        |vpiDefName:work@GOOD_BIN1
+  |vpiGenStmt:
+  \_GenIf: , line:9:4, endln:9:6
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
+    |vpiCondition:
+    \_Operation: , line:9:8, endln:9:20
+      |vpiParent:
+      \_GenIf: , line:9:4, endln:9:6
+      |vpiOpType:14
+      |vpiOperand:
+      \_RefObj: (work@top.p), line:9:8, endln:9:9
+        |vpiParent:
+        \_Operation: , line:9:8, endln:9:20
+        |vpiName:p
+        |vpiFullName:work@top.p
+      |vpiOperand:
+      \_Constant: , line:9:13, endln:9:20
+        |vpiParent:
+        \_Operation: , line:9:8, endln:9:20
+        |vpiDecompile:4'b1011
+        |vpiSize:4
+        |BIN:1011
+        |vpiConstType:3
+    |vpiStmt:
+    \_Begin: (work@top)
+      |vpiParent:
+      \_GenIf: , line:9:4, endln:9:6
+      |vpiFullName:work@top
+      |vpiStmt:
+      \_RefModule: work@GOOD_BIN2 (good), line:10:17, endln:10:21
+        |vpiParent:
+        \_Begin: (work@top)
+        |vpiName:good
+        |vpiDefName:work@GOOD_BIN2
+  |vpiGenStmt:
+  \_GenIf: , line:12:4, endln:12:6
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
+    |vpiCondition:
+    \_Operation: , line:12:8, endln:12:17
+      |vpiParent:
+      \_GenIf: , line:12:4, endln:12:6
+      |vpiOpType:14
+      |vpiOperand:
+      \_RefObj: (work@top.p), line:12:8, endln:12:9
+        |vpiParent:
+        \_Operation: , line:12:8, endln:12:17
+        |vpiName:p
+        |vpiFullName:work@top.p
+      |vpiOperand:
+      \_Constant: , line:12:13, endln:12:17
+        |vpiParent:
+        \_Operation: , line:12:8, endln:12:17
+        |vpiDecompile:'hFF
+        |vpiSize:-1
+        |HEX:FF
+        |vpiConstType:5
+    |vpiStmt:
+    \_Begin: (work@top)
+      |vpiParent:
+      \_GenIf: , line:12:4, endln:12:6
+      |vpiFullName:work@top
+      |vpiStmt:
+      \_RefModule: work@GOOD_HEXA (good), line:13:17, endln:13:21
+        |vpiParent:
+        \_Begin: (work@top)
+        |vpiName:good
+        |vpiDefName:work@GOOD_HEXA
+  |vpiGenStmt:
+  \_GenIf: , line:15:4, endln:15:6
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
+    |vpiCondition:
+    \_Operation: , line:15:8, endln:15:16
+      |vpiParent:
+      \_GenIf: , line:15:4, endln:15:6
+      |vpiOpType:14
+      |vpiOperand:
+      \_RefObj: (work@top.p), line:15:8, endln:15:9
+        |vpiParent:
+        \_Operation: , line:15:8, endln:15:16
+        |vpiName:p
+        |vpiFullName:work@top.p
+      |vpiOperand:
+      \_Operation: , line:15:13, endln:15:16
+        |vpiParent:
+        \_Operation: , line:15:8, endln:15:16
+        |vpiOpType:1
+        |vpiOperand:
+        \_Constant: , line:15:14, endln:15:16
+          |vpiDecompile:12
+          |vpiSize:64
+          |UINT:12
+          |vpiConstType:9
+    |vpiStmt:
+    \_Begin: (work@top)
+      |vpiParent:
+      \_GenIf: , line:15:4, endln:15:6
+      |vpiFullName:work@top
+      |vpiStmt:
+      \_RefModule: work@GOOD_MINUS12 (good), line:16:20, endln:16:24
+        |vpiParent:
+        \_Begin: (work@top)
+        |vpiName:good
+        |vpiDefName:work@GOOD_MINUS12
+  |vpiGenStmt:
+  \_GenIf: , line:18:4, endln:18:6
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
+    |vpiCondition:
+    \_Operation: , line:18:8, endln:18:15
+      |vpiParent:
+      \_GenIf: , line:18:4, endln:18:6
+      |vpiOpType:14
+      |vpiOperand:
+      \_RefObj: (work@top.p), line:18:8, endln:18:9
+        |vpiParent:
+        \_Operation: , line:18:8, endln:18:15
+        |vpiName:p
+        |vpiFullName:work@top.p
+      |vpiOperand:
+      \_Constant: , line:18:13, endln:18:15
+        |vpiParent:
+        \_Operation: , line:18:8, endln:18:15
+        |vpiDecompile:12
+        |vpiSize:64
+        |UINT:12
+        |vpiConstType:9
+    |vpiStmt:
+    \_Begin: (work@top)
+      |vpiParent:
+      \_GenIf: , line:18:4, endln:18:6
+      |vpiFullName:work@top
+      |vpiStmt:
+      \_RefModule: work@GOOD_12 (good), line:19:15, endln:19:19
+        |vpiParent:
+        \_Begin: (work@top)
+        |vpiName:good
+        |vpiDefName:work@GOOD_12
+  |vpiGenStmt:
+  \_GenIf: , line:21:4, endln:21:6
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
+    |vpiCondition:
+    \_Operation: , line:21:8, endln:21:18
+      |vpiParent:
+      \_GenIf: , line:21:4, endln:21:6
+      |vpiOpType:14
+      |vpiOperand:
+      \_RefObj: (work@top.p), line:21:8, endln:21:9
+        |vpiParent:
+        \_Operation: , line:21:8, endln:21:18
+        |vpiName:p
+        |vpiFullName:work@top.p
+      |vpiOperand:
+      \_Constant: , line:21:13, endln:21:18
+        |vpiParent:
+        \_Operation: , line:21:8, endln:21:18
+        |vpiDecompile:12.12
+        |vpiSize:64
+        |REAL:12.120000
+        |vpiConstType:2
+    |vpiStmt:
+    \_Begin: (work@top)
+      |vpiParent:
+      \_GenIf: , line:21:4, endln:21:6
+      |vpiFullName:work@top
+      |vpiStmt:
+      \_RefModule: work@GOOD_REAL12 (good), line:22:19, endln:22:23
+        |vpiParent:
+        \_Begin: (work@top)
+        |vpiName:good
+        |vpiDefName:work@GOOD_REAL12
+  |vpiGenStmt:
+  \_GenIf: , line:24:4, endln:24:6
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
+    |vpiCondition:
+    \_Operation: , line:24:8, endln:24:14
+      |vpiParent:
+      \_GenIf: , line:24:4, endln:24:6
+      |vpiOpType:14
+      |vpiOperand:
+      \_RefObj: (work@top.p), line:24:8, endln:24:9
+        |vpiParent:
+        \_Operation: , line:24:8, endln:24:14
+        |vpiName:p
+        |vpiFullName:work@top.p
+      |vpiOperand:
+      \_Constant: , line:24:13, endln:24:14
+        |vpiParent:
+        \_Operation: , line:24:8, endln:24:14
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiStmt:
+    \_Begin: (work@top)
+      |vpiParent:
+      \_GenIf: , line:24:4, endln:24:6
+      |vpiFullName:work@top
+      |vpiStmt:
+      \_RefModule: work@GOOD_0 (good), line:25:14, endln:25:18
+        |vpiParent:
+        \_Begin: (work@top)
+        |vpiName:good
+        |vpiDefName:work@GOOD_0
+  |vpiGenStmt:
+  \_GenIf: , line:27:4, endln:27:6
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
+    |vpiCondition:
+    \_Operation: , line:27:8, endln:27:27
+      |vpiParent:
+      \_GenIf: , line:27:4, endln:27:6
+      |vpiOpType:14
+      |vpiOperand:
+      \_RefObj: (work@top.p), line:27:8, endln:27:9
+        |vpiParent:
+        \_Operation: , line:27:8, endln:27:27
+        |vpiName:p
+        |vpiFullName:work@top.p
+      |vpiOperand:
+      \_Constant: , line:27:13, endln:27:27
+        |vpiParent:
+        \_Operation: , line:27:8, endln:27:27
+        |vpiDecompile:"STR.WITH.DOT"
+        |vpiSize:96
+        |STRING:STR.WITH.DOT
+        |vpiConstType:6
+    |vpiStmt:
+    \_Begin: (work@top)
+      |vpiParent:
+      \_GenIf: , line:27:4, endln:27:6
+      |vpiFullName:work@top
+      |vpiStmt:
+      \_RefModule: work@GOOD_STR_WITH_DOT (good), line:28:25, endln:28:29
+        |vpiParent:
+        \_Begin: (work@top)
+        |vpiName:good
+        |vpiDefName:work@GOOD_STR_WITH_DOT
+  |vpiGenStmt:
+  \_GenIf: , line:30:4, endln:30:6
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
+    |vpiCondition:
+    \_Operation: , line:30:8, endln:30:19
+      |vpiParent:
+      \_GenIf: , line:30:4, endln:30:6
+      |vpiOpType:14
+      |vpiOperand:
+      \_RefObj: (work@top.p), line:30:8, endln:30:9
+        |vpiParent:
+        \_Operation: , line:30:8, endln:30:19
+        |vpiName:p
+        |vpiFullName:work@top.p
+      |vpiOperand:
+      \_Constant: , line:30:13, endln:30:19
+        |vpiParent:
+        \_Operation: , line:30:8, endln:30:19
+        |vpiDecompile:"-STR"
+        |vpiSize:32
+        |STRING:-STR
+        |vpiConstType:6
+    |vpiStmt:
+    \_Begin: (work@top)
+      |vpiParent:
+      \_GenIf: , line:30:4, endln:30:6
+      |vpiFullName:work@top
+      |vpiStmt:
+      \_RefModule: work@GOOD_MINUS_STR (good), line:31:22, endln:31:26
+        |vpiParent:
+        \_Begin: (work@top)
+        |vpiName:good
+        |vpiDefName:work@GOOD_MINUS_STR
+\_weaklyReferenced:
+\_IntTypespec: , line:2:5, endln:2:23
+  |vpiRange:
+  \_Range: 
+    |vpiParent:
+    \_IntTypespec: , line:2:5, endln:2:23
+    |vpiLeftRange:
+    \_Constant: 
+      |INT:0
+    |vpiRightRange:
+    \_Constant: 
+      |INT:0
+===================
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 0
+[WARNING] : 1
+[   NOTE] : 0
+Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp='b1002
+[INF:CM0023] Creating log file "${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.log".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: No timescale set for "top".
+[INF:CP0300] Compilation...
+[INF:CP0303] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Compile module "work@top".
+[INF:UH0706] Creating UHDM Model...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.uhdm ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/checker/surelog.chk.html ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.uhdm ...
+[INF:UH0711] Decompiling UHDM...
+====== UHDM =======
+Design: (unnamed)
+|vpiName:unnamed
+|uhdmallModules:
+\_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
+  |vpiParent:
+  \_Design: (unnamed)
+  |vpiFullName:work@top
+  |vpiParameter:
+  \_Parameter: (work@top.p), line:2:15, endln:2:16
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
+    |BIN:0
+    |vpiTypespec:
+    \_RefTypespec: (work@top.p)
+      |vpiParent:
+      \_Parameter: (work@top.p), line:2:15, endln:2:16
+      |vpiFullName:work@top.p
+      |vpiActual:
+      \_IntTypespec: , line:2:5, endln:2:23
+    |vpiName:p
+    |vpiFullName:work@top.p
+  |vpiParamAssign:
+  \_ParamAssign: , line:2:15, endln:2:23
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
+    |vpiRhs:
+    \_Constant: , line:2:19, endln:2:23
+      |vpiParent:
+      \_ParamAssign: , line:2:15, endln:2:23
+      |vpiDecompile:1'b0
+      |vpiSize:1
+      |BIN:0
+      |vpiTypespec:
+      \_RefTypespec: (work@top)
+        |vpiParent:
+        \_Constant: , line:2:19, endln:2:23
+        |vpiFullName:work@top
+        |vpiActual:
+        \_IntTypespec: , line:2:5, endln:2:23
+      |vpiConstType:3
+    |vpiLhs:
+    \_Parameter: (work@top.p), line:2:15, endln:2:16
+  |vpiDefName:work@top
+  |vpiGenStmt:
+  \_GenIf: , line:3:4, endln:3:6
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
+    |vpiCondition:
+    \_Operation: , line:3:8, endln:3:19
+      |vpiParent:
+      \_GenIf: , line:3:4, endln:3:6
+      |vpiOpType:14
+      |vpiOperand:
+      \_RefObj: (work@top.p), line:3:8, endln:3:9
+        |vpiParent:
+        \_Operation: , line:3:8, endln:3:19
+        |vpiName:p
+        |vpiFullName:work@top.p
+      |vpiOperand:
+      \_Constant: , line:3:13, endln:3:19
+        |vpiParent:
+        \_Operation: , line:3:8, endln:3:19
+        |vpiDecompile:"BLAH"
+        |vpiSize:32
+        |STRING:BLAH
+        |vpiConstType:6
+    |vpiStmt:
+    \_Begin: (work@top)
+      |vpiParent:
+      \_GenIf: , line:3:4, endln:3:6
+      |vpiFullName:work@top
+      |vpiStmt:
+      \_RefModule: work@GOOD_BLAH (good), line:4:17, endln:4:21
+        |vpiParent:
+        \_Begin: (work@top)
+        |vpiName:good
+        |vpiDefName:work@GOOD_BLAH
+  |vpiGenStmt:
+  \_GenIf: , line:6:4, endln:6:6
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
+    |vpiCondition:
+    \_Operation: , line:6:8, endln:6:20
+      |vpiParent:
+      \_GenIf: , line:6:4, endln:6:6
+      |vpiOpType:14
+      |vpiOperand:
+      \_RefObj: (work@top.p), line:6:8, endln:6:9
+        |vpiParent:
+        \_Operation: , line:6:8, endln:6:20
+        |vpiName:p
+        |vpiFullName:work@top.p
+      |vpiOperand:
+      \_Constant: , line:6:13, endln:6:20
+        |vpiParent:
+        \_Operation: , line:6:8, endln:6:20
+        |vpiDecompile:4'b1001
+        |vpiSize:4
+        |BIN:1001
+        |vpiConstType:3
+    |vpiStmt:
+    \_Begin: (work@top)
+      |vpiParent:
+      \_GenIf: , line:6:4, endln:6:6
+      |vpiFullName:work@top
+      |vpiStmt:
+      \_RefModule: work@GOOD_BIN1 (good), line:7:17, endln:7:21
+        |vpiParent:
+        \_Begin: (work@top)
+        |vpiName:good
+        |vpiDefName:work@GOOD_BIN1
+  |vpiGenStmt:
+  \_GenIf: , line:9:4, endln:9:6
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
+    |vpiCondition:
+    \_Operation: , line:9:8, endln:9:20
+      |vpiParent:
+      \_GenIf: , line:9:4, endln:9:6
+      |vpiOpType:14
+      |vpiOperand:
+      \_RefObj: (work@top.p), line:9:8, endln:9:9
+        |vpiParent:
+        \_Operation: , line:9:8, endln:9:20
+        |vpiName:p
+        |vpiFullName:work@top.p
+      |vpiOperand:
+      \_Constant: , line:9:13, endln:9:20
+        |vpiParent:
+        \_Operation: , line:9:8, endln:9:20
+        |vpiDecompile:4'b1011
+        |vpiSize:4
+        |BIN:1011
+        |vpiConstType:3
+    |vpiStmt:
+    \_Begin: (work@top)
+      |vpiParent:
+      \_GenIf: , line:9:4, endln:9:6
+      |vpiFullName:work@top
+      |vpiStmt:
+      \_RefModule: work@GOOD_BIN2 (good), line:10:17, endln:10:21
+        |vpiParent:
+        \_Begin: (work@top)
+        |vpiName:good
+        |vpiDefName:work@GOOD_BIN2
+  |vpiGenStmt:
+  \_GenIf: , line:12:4, endln:12:6
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
+    |vpiCondition:
+    \_Operation: , line:12:8, endln:12:17
+      |vpiParent:
+      \_GenIf: , line:12:4, endln:12:6
+      |vpiOpType:14
+      |vpiOperand:
+      \_RefObj: (work@top.p), line:12:8, endln:12:9
+        |vpiParent:
+        \_Operation: , line:12:8, endln:12:17
+        |vpiName:p
+        |vpiFullName:work@top.p
+      |vpiOperand:
+      \_Constant: , line:12:13, endln:12:17
+        |vpiParent:
+        \_Operation: , line:12:8, endln:12:17
+        |vpiDecompile:'hFF
+        |vpiSize:-1
+        |HEX:FF
+        |vpiConstType:5
+    |vpiStmt:
+    \_Begin: (work@top)
+      |vpiParent:
+      \_GenIf: , line:12:4, endln:12:6
+      |vpiFullName:work@top
+      |vpiStmt:
+      \_RefModule: work@GOOD_HEXA (good), line:13:17, endln:13:21
+        |vpiParent:
+        \_Begin: (work@top)
+        |vpiName:good
+        |vpiDefName:work@GOOD_HEXA
+  |vpiGenStmt:
+  \_GenIf: , line:15:4, endln:15:6
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
+    |vpiCondition:
+    \_Operation: , line:15:8, endln:15:16
+      |vpiParent:
+      \_GenIf: , line:15:4, endln:15:6
+      |vpiOpType:14
+      |vpiOperand:
+      \_RefObj: (work@top.p), line:15:8, endln:15:9
+        |vpiParent:
+        \_Operation: , line:15:8, endln:15:16
+        |vpiName:p
+        |vpiFullName:work@top.p
+      |vpiOperand:
+      \_Operation: , line:15:13, endln:15:16
+        |vpiParent:
+        \_Operation: , line:15:8, endln:15:16
+        |vpiOpType:1
+        |vpiOperand:
+        \_Constant: , line:15:14, endln:15:16
+          |vpiDecompile:12
+          |vpiSize:64
+          |UINT:12
+          |vpiConstType:9
+    |vpiStmt:
+    \_Begin: (work@top)
+      |vpiParent:
+      \_GenIf: , line:15:4, endln:15:6
+      |vpiFullName:work@top
+      |vpiStmt:
+      \_RefModule: work@GOOD_MINUS12 (good), line:16:20, endln:16:24
+        |vpiParent:
+        \_Begin: (work@top)
+        |vpiName:good
+        |vpiDefName:work@GOOD_MINUS12
+  |vpiGenStmt:
+  \_GenIf: , line:18:4, endln:18:6
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
+    |vpiCondition:
+    \_Operation: , line:18:8, endln:18:15
+      |vpiParent:
+      \_GenIf: , line:18:4, endln:18:6
+      |vpiOpType:14
+      |vpiOperand:
+      \_RefObj: (work@top.p), line:18:8, endln:18:9
+        |vpiParent:
+        \_Operation: , line:18:8, endln:18:15
+        |vpiName:p
+        |vpiFullName:work@top.p
+      |vpiOperand:
+      \_Constant: , line:18:13, endln:18:15
+        |vpiParent:
+        \_Operation: , line:18:8, endln:18:15
+        |vpiDecompile:12
+        |vpiSize:64
+        |UINT:12
+        |vpiConstType:9
+    |vpiStmt:
+    \_Begin: (work@top)
+      |vpiParent:
+      \_GenIf: , line:18:4, endln:18:6
+      |vpiFullName:work@top
+      |vpiStmt:
+      \_RefModule: work@GOOD_12 (good), line:19:15, endln:19:19
+        |vpiParent:
+        \_Begin: (work@top)
+        |vpiName:good
+        |vpiDefName:work@GOOD_12
+  |vpiGenStmt:
+  \_GenIf: , line:21:4, endln:21:6
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
+    |vpiCondition:
+    \_Operation: , line:21:8, endln:21:18
+      |vpiParent:
+      \_GenIf: , line:21:4, endln:21:6
+      |vpiOpType:14
+      |vpiOperand:
+      \_RefObj: (work@top.p), line:21:8, endln:21:9
+        |vpiParent:
+        \_Operation: , line:21:8, endln:21:18
+        |vpiName:p
+        |vpiFullName:work@top.p
+      |vpiOperand:
+      \_Constant: , line:21:13, endln:21:18
+        |vpiParent:
+        \_Operation: , line:21:8, endln:21:18
+        |vpiDecompile:12.12
+        |vpiSize:64
+        |REAL:12.120000
+        |vpiConstType:2
+    |vpiStmt:
+    \_Begin: (work@top)
+      |vpiParent:
+      \_GenIf: , line:21:4, endln:21:6
+      |vpiFullName:work@top
+      |vpiStmt:
+      \_RefModule: work@GOOD_REAL12 (good), line:22:19, endln:22:23
+        |vpiParent:
+        \_Begin: (work@top)
+        |vpiName:good
+        |vpiDefName:work@GOOD_REAL12
+  |vpiGenStmt:
+  \_GenIf: , line:24:4, endln:24:6
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
+    |vpiCondition:
+    \_Operation: , line:24:8, endln:24:14
+      |vpiParent:
+      \_GenIf: , line:24:4, endln:24:6
+      |vpiOpType:14
+      |vpiOperand:
+      \_RefObj: (work@top.p), line:24:8, endln:24:9
+        |vpiParent:
+        \_Operation: , line:24:8, endln:24:14
+        |vpiName:p
+        |vpiFullName:work@top.p
+      |vpiOperand:
+      \_Constant: , line:24:13, endln:24:14
+        |vpiParent:
+        \_Operation: , line:24:8, endln:24:14
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiStmt:
+    \_Begin: (work@top)
+      |vpiParent:
+      \_GenIf: , line:24:4, endln:24:6
+      |vpiFullName:work@top
+      |vpiStmt:
+      \_RefModule: work@GOOD_0 (good), line:25:14, endln:25:18
+        |vpiParent:
+        \_Begin: (work@top)
+        |vpiName:good
+        |vpiDefName:work@GOOD_0
+  |vpiGenStmt:
+  \_GenIf: , line:27:4, endln:27:6
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
+    |vpiCondition:
+    \_Operation: , line:27:8, endln:27:27
+      |vpiParent:
+      \_GenIf: , line:27:4, endln:27:6
+      |vpiOpType:14
+      |vpiOperand:
+      \_RefObj: (work@top.p), line:27:8, endln:27:9
+        |vpiParent:
+        \_Operation: , line:27:8, endln:27:27
+        |vpiName:p
+        |vpiFullName:work@top.p
+      |vpiOperand:
+      \_Constant: , line:27:13, endln:27:27
+        |vpiParent:
+        \_Operation: , line:27:8, endln:27:27
+        |vpiDecompile:"STR.WITH.DOT"
+        |vpiSize:96
+        |STRING:STR.WITH.DOT
+        |vpiConstType:6
+    |vpiStmt:
+    \_Begin: (work@top)
+      |vpiParent:
+      \_GenIf: , line:27:4, endln:27:6
+      |vpiFullName:work@top
+      |vpiStmt:
+      \_RefModule: work@GOOD_STR_WITH_DOT (good), line:28:25, endln:28:29
+        |vpiParent:
+        \_Begin: (work@top)
+        |vpiName:good
+        |vpiDefName:work@GOOD_STR_WITH_DOT
+  |vpiGenStmt:
+  \_GenIf: , line:30:4, endln:30:6
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
+    |vpiCondition:
+    \_Operation: , line:30:8, endln:30:19
+      |vpiParent:
+      \_GenIf: , line:30:4, endln:30:6
+      |vpiOpType:14
+      |vpiOperand:
+      \_RefObj: (work@top.p), line:30:8, endln:30:9
+        |vpiParent:
+        \_Operation: , line:30:8, endln:30:19
+        |vpiName:p
+        |vpiFullName:work@top.p
+      |vpiOperand:
+      \_Constant: , line:30:13, endln:30:19
+        |vpiParent:
+        \_Operation: , line:30:8, endln:30:19
+        |vpiDecompile:"-STR"
+        |vpiSize:32
+        |STRING:-STR
+        |vpiConstType:6
+    |vpiStmt:
+    \_Begin: (work@top)
+      |vpiParent:
+      \_GenIf: , line:30:4, endln:30:6
+      |vpiFullName:work@top
+      |vpiStmt:
+      \_RefModule: work@GOOD_MINUS_STR (good), line:31:22, endln:31:26
+        |vpiParent:
+        \_Begin: (work@top)
+        |vpiName:good
+        |vpiDefName:work@GOOD_MINUS_STR
+\_weaklyReferenced:
+\_IntTypespec: , line:2:5, endln:2:23
+  |vpiRange:
+  \_Range: 
+    |vpiParent:
+    \_IntTypespec: , line:2:5, endln:2:23
+    |vpiLeftRange:
+    \_Constant: 
+      |INT:0
+    |vpiRightRange:
+    \_Constant: 
+      |INT:0
+===================
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 0
+[WARNING] : 1
+[   NOTE] : 0
 Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp='hFF
 [INF:CM0023] Creating log file "${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.log".
 [WRN:PA0205] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: No timescale set for "top".
 [INF:CP0300] Compilation...
 [INF:CP0303] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Compile module "work@top".
-[INF:EL0526] Design Elaboration...
-[INF:CP0335] ${SURELOG_DIR}/tests/ParamLine/dut.sv:13:7: Compile generate block "work@top.genblk4".
-[NTE:EL0503] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Top level module "work@top".
-[WRN:EL0500] ${SURELOG_DIR}/tests/ParamLine/dut.sv:13:7: Cannot find a module definition for "work@top.genblk4::GOOD_HEXA".
-[NTE:EL0508] Nb Top level modules: 1.
-[NTE:EL0509] Max instance depth: 3.
-[NTE:EL0510] Nb instances: 2.
-[NTE:EL0511] Nb leaf instances: 1.
-[WRN:EL0512] Nb undefined modules: 1.
-[WRN:EL0513] Nb undefined instances: 1.
 [INF:UH0706] Creating UHDM Model...
-[INF:UH0707] Elaborating UHDM...
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/checker/surelog.chk.html ...
 [INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
-Design: (work@top)
-|vpiElaborated:1
-|vpiName:work@top
+Design: (unnamed)
+|vpiName:unnamed
 |uhdmallModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
   |vpiParent:
-  \_Design: (work@top)
+  \_Design: (unnamed)
   |vpiFullName:work@top
   |vpiParameter:
   \_Parameter: (work@top.p), line:2:15, endln:2:16
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |BIN:0
+    |vpiTypespec:
+    \_RefTypespec: (work@top.p)
+      |vpiParent:
+      \_Parameter: (work@top.p), line:2:15, endln:2:16
+      |vpiFullName:work@top.p
+      |vpiActual:
+      \_IntTypespec: , line:2:5, endln:2:23
     |vpiName:p
     |vpiFullName:work@top.p
   |vpiParamAssign:
@@ -1772,50 +1640,6 @@ Design: (work@top)
         \_Begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_MINUS_STR
-|uhdmtopModules:
-\_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-  |vpiName:work@top
-  |vpiParameter:
-  \_Parameter: (work@top.p), line:2:15, endln:2:16
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |BIN:0
-    |vpiName:p
-    |vpiFullName:work@top.p
-  |vpiParamAssign:
-  \_ParamAssign: , line:2:15, endln:2:23
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiRhs:
-    \_Constant: , line:2:19, endln:2:23
-      |vpiParent:
-      \_ParamAssign: , line:2:15, endln:2:23
-      |vpiDecompile:'hFF
-      |HEX:FF
-      |vpiConstType:5
-    |vpiLhs:
-    \_Parameter: (work@top.p), line:2:15, endln:2:16
-  |vpiDefName:work@top
-  |vpiTop:1
-  |vpiTopModule:1
-  |vpiGenScopeArray:
-  \_GenScopeArray: (work@top.genblk4), line:13:7, endln:13:24
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiName:genblk4
-    |vpiFullName:work@top.genblk4
-    |vpiGenScope:
-    \_GenScope: (work@top.genblk4), line:13:7, endln:13:24
-      |vpiParent:
-      \_GenScopeArray: (work@top.genblk4), line:13:7, endln:13:24
-      |vpiFullName:work@top.genblk4
-      |vpiModule:
-      \_Module: work@top.genblk4::GOOD_HEXA (work@top.genblk4.good), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:13:7, endln:13:24
-        |vpiParent:
-        \_GenScope: (work@top.genblk4), line:13:7, endln:13:24
-        |vpiName:good
-        |vpiFullName:work@top.genblk4.good
-        |vpiDefName:work@top.genblk4::GOOD_HEXA
 \_weaklyReferenced:
 \_IntTypespec: , line:2:5, endln:2:23
   |vpiRange:
@@ -1832,43 +1656,38 @@ Design: (work@top)
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 0
-[WARNING] : 4
-[   NOTE] : 5
+[WARNING] : 1
+[   NOTE] : 0
 Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp=-12
 [INF:CM0023] Creating log file "${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.log".
 [WRN:PA0205] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: No timescale set for "top".
 [INF:CP0300] Compilation...
 [INF:CP0303] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Compile module "work@top".
-[INF:EL0526] Design Elaboration...
-[INF:CP0335] ${SURELOG_DIR}/tests/ParamLine/dut.sv:16:7: Compile generate block "work@top.genblk5".
-[NTE:EL0503] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Top level module "work@top".
-[WRN:EL0500] ${SURELOG_DIR}/tests/ParamLine/dut.sv:16:7: Cannot find a module definition for "work@top.genblk5::GOOD_MINUS12".
-[NTE:EL0508] Nb Top level modules: 1.
-[NTE:EL0509] Max instance depth: 3.
-[NTE:EL0510] Nb instances: 2.
-[NTE:EL0511] Nb leaf instances: 1.
-[WRN:EL0512] Nb undefined modules: 1.
-[WRN:EL0513] Nb undefined instances: 1.
 [INF:UH0706] Creating UHDM Model...
-[INF:UH0707] Elaborating UHDM...
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/checker/surelog.chk.html ...
 [INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
-Design: (work@top)
-|vpiElaborated:1
-|vpiName:work@top
+Design: (unnamed)
+|vpiName:unnamed
 |uhdmallModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
   |vpiParent:
-  \_Design: (work@top)
+  \_Design: (unnamed)
   |vpiFullName:work@top
   |vpiParameter:
   \_Parameter: (work@top.p), line:2:15, endln:2:16
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |BIN:0
+    |vpiTypespec:
+    \_RefTypespec: (work@top.p)
+      |vpiParent:
+      \_Parameter: (work@top.p), line:2:15, endln:2:16
+      |vpiFullName:work@top.p
+      |vpiActual:
+      \_IntTypespec: , line:2:5, endln:2:23
     |vpiName:p
     |vpiFullName:work@top.p
   |vpiParamAssign:
@@ -2236,51 +2055,6 @@ Design: (work@top)
         \_Begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_MINUS_STR
-|uhdmtopModules:
-\_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-  |vpiName:work@top
-  |vpiParameter:
-  \_Parameter: (work@top.p), line:2:15, endln:2:16
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |BIN:0
-    |vpiName:p
-    |vpiFullName:work@top.p
-  |vpiParamAssign:
-  \_ParamAssign: , line:2:15, endln:2:23
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiRhs:
-    \_Constant: , line:2:19, endln:2:23
-      |vpiParent:
-      \_ParamAssign: , line:2:15, endln:2:23
-      |vpiDecompile:-12
-      |vpiSize:64
-      |INT:-12
-      |vpiConstType:7
-    |vpiLhs:
-    \_Parameter: (work@top.p), line:2:15, endln:2:16
-  |vpiDefName:work@top
-  |vpiTop:1
-  |vpiTopModule:1
-  |vpiGenScopeArray:
-  \_GenScopeArray: (work@top.genblk5), line:16:7, endln:16:27
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiName:genblk5
-    |vpiFullName:work@top.genblk5
-    |vpiGenScope:
-    \_GenScope: (work@top.genblk5), line:16:7, endln:16:27
-      |vpiParent:
-      \_GenScopeArray: (work@top.genblk5), line:16:7, endln:16:27
-      |vpiFullName:work@top.genblk5
-      |vpiModule:
-      \_Module: work@top.genblk5::GOOD_MINUS12 (work@top.genblk5.good), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:16:7, endln:16:27
-        |vpiParent:
-        \_GenScope: (work@top.genblk5), line:16:7, endln:16:27
-        |vpiName:good
-        |vpiFullName:work@top.genblk5.good
-        |vpiDefName:work@top.genblk5::GOOD_MINUS12
 \_weaklyReferenced:
 \_IntTypespec: , line:2:5, endln:2:23
   |vpiRange:
@@ -2297,43 +2071,38 @@ Design: (work@top)
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 0
-[WARNING] : 4
-[   NOTE] : 5
+[WARNING] : 1
+[   NOTE] : 0
 Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp=12
 [INF:CM0023] Creating log file "${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.log".
 [WRN:PA0205] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: No timescale set for "top".
 [INF:CP0300] Compilation...
 [INF:CP0303] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Compile module "work@top".
-[INF:EL0526] Design Elaboration...
-[INF:CP0335] ${SURELOG_DIR}/tests/ParamLine/dut.sv:19:7: Compile generate block "work@top.genblk6".
-[NTE:EL0503] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Top level module "work@top".
-[WRN:EL0500] ${SURELOG_DIR}/tests/ParamLine/dut.sv:19:7: Cannot find a module definition for "work@top.genblk6::GOOD_12".
-[NTE:EL0508] Nb Top level modules: 1.
-[NTE:EL0509] Max instance depth: 3.
-[NTE:EL0510] Nb instances: 2.
-[NTE:EL0511] Nb leaf instances: 1.
-[WRN:EL0512] Nb undefined modules: 1.
-[WRN:EL0513] Nb undefined instances: 1.
 [INF:UH0706] Creating UHDM Model...
-[INF:UH0707] Elaborating UHDM...
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/checker/surelog.chk.html ...
 [INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
-Design: (work@top)
-|vpiElaborated:1
-|vpiName:work@top
+Design: (unnamed)
+|vpiName:unnamed
 |uhdmallModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
   |vpiParent:
-  \_Design: (work@top)
+  \_Design: (unnamed)
   |vpiFullName:work@top
   |vpiParameter:
   \_Parameter: (work@top.p), line:2:15, endln:2:16
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |BIN:0
+    |vpiTypespec:
+    \_RefTypespec: (work@top.p)
+      |vpiParent:
+      \_Parameter: (work@top.p), line:2:15, endln:2:16
+      |vpiFullName:work@top.p
+      |vpiActual:
+      \_IntTypespec: , line:2:5, endln:2:23
     |vpiName:p
     |vpiFullName:work@top.p
   |vpiParamAssign:
@@ -2701,51 +2470,6 @@ Design: (work@top)
         \_Begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_MINUS_STR
-|uhdmtopModules:
-\_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-  |vpiName:work@top
-  |vpiParameter:
-  \_Parameter: (work@top.p), line:2:15, endln:2:16
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |BIN:0
-    |vpiName:p
-    |vpiFullName:work@top.p
-  |vpiParamAssign:
-  \_ParamAssign: , line:2:15, endln:2:23
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiRhs:
-    \_Constant: , line:2:19, endln:2:23
-      |vpiParent:
-      \_ParamAssign: , line:2:15, endln:2:23
-      |vpiDecompile:12
-      |vpiSize:64
-      |UINT:12
-      |vpiConstType:9
-    |vpiLhs:
-    \_Parameter: (work@top.p), line:2:15, endln:2:16
-  |vpiDefName:work@top
-  |vpiTop:1
-  |vpiTopModule:1
-  |vpiGenScopeArray:
-  \_GenScopeArray: (work@top.genblk6), line:19:7, endln:19:22
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiName:genblk6
-    |vpiFullName:work@top.genblk6
-    |vpiGenScope:
-    \_GenScope: (work@top.genblk6), line:19:7, endln:19:22
-      |vpiParent:
-      \_GenScopeArray: (work@top.genblk6), line:19:7, endln:19:22
-      |vpiFullName:work@top.genblk6
-      |vpiModule:
-      \_Module: work@top.genblk6::GOOD_12 (work@top.genblk6.good), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:19:7, endln:19:22
-        |vpiParent:
-        \_GenScope: (work@top.genblk6), line:19:7, endln:19:22
-        |vpiName:good
-        |vpiFullName:work@top.genblk6.good
-        |vpiDefName:work@top.genblk6::GOOD_12
 \_weaklyReferenced:
 \_IntTypespec: , line:2:5, endln:2:23
   |vpiRange:
@@ -2762,43 +2486,38 @@ Design: (work@top)
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 0
-[WARNING] : 4
-[   NOTE] : 5
+[WARNING] : 1
+[   NOTE] : 0
 Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp=12.12
 [INF:CM0023] Creating log file "${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.log".
 [WRN:PA0205] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: No timescale set for "top".
 [INF:CP0300] Compilation...
 [INF:CP0303] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Compile module "work@top".
-[INF:EL0526] Design Elaboration...
-[INF:CP0335] ${SURELOG_DIR}/tests/ParamLine/dut.sv:22:7: Compile generate block "work@top.genblk7".
-[NTE:EL0503] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Top level module "work@top".
-[WRN:EL0500] ${SURELOG_DIR}/tests/ParamLine/dut.sv:22:7: Cannot find a module definition for "work@top.genblk7::GOOD_REAL12".
-[NTE:EL0508] Nb Top level modules: 1.
-[NTE:EL0509] Max instance depth: 3.
-[NTE:EL0510] Nb instances: 2.
-[NTE:EL0511] Nb leaf instances: 1.
-[WRN:EL0512] Nb undefined modules: 1.
-[WRN:EL0513] Nb undefined instances: 1.
 [INF:UH0706] Creating UHDM Model...
-[INF:UH0707] Elaborating UHDM...
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/checker/surelog.chk.html ...
 [INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
-Design: (work@top)
-|vpiElaborated:1
-|vpiName:work@top
+Design: (unnamed)
+|vpiName:unnamed
 |uhdmallModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
   |vpiParent:
-  \_Design: (work@top)
+  \_Design: (unnamed)
   |vpiFullName:work@top
   |vpiParameter:
   \_Parameter: (work@top.p), line:2:15, endln:2:16
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |BIN:0
+    |vpiTypespec:
+    \_RefTypespec: (work@top.p)
+      |vpiParent:
+      \_Parameter: (work@top.p), line:2:15, endln:2:16
+      |vpiFullName:work@top.p
+      |vpiActual:
+      \_IntTypespec: , line:2:5, endln:2:23
     |vpiName:p
     |vpiFullName:work@top.p
   |vpiParamAssign:
@@ -3166,51 +2885,6 @@ Design: (work@top)
         \_Begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_MINUS_STR
-|uhdmtopModules:
-\_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-  |vpiName:work@top
-  |vpiParameter:
-  \_Parameter: (work@top.p), line:2:15, endln:2:16
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |BIN:0
-    |vpiName:p
-    |vpiFullName:work@top.p
-  |vpiParamAssign:
-  \_ParamAssign: , line:2:15, endln:2:23
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiRhs:
-    \_Constant: , line:2:19, endln:2:23
-      |vpiParent:
-      \_ParamAssign: , line:2:15, endln:2:23
-      |vpiDecompile:12.120000
-      |vpiSize:64
-      |REAL:12.120000
-      |vpiConstType:2
-    |vpiLhs:
-    \_Parameter: (work@top.p), line:2:15, endln:2:16
-  |vpiDefName:work@top
-  |vpiTop:1
-  |vpiTopModule:1
-  |vpiGenScopeArray:
-  \_GenScopeArray: (work@top.genblk7), line:22:7, endln:22:26
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiName:genblk7
-    |vpiFullName:work@top.genblk7
-    |vpiGenScope:
-    \_GenScope: (work@top.genblk7), line:22:7, endln:22:26
-      |vpiParent:
-      \_GenScopeArray: (work@top.genblk7), line:22:7, endln:22:26
-      |vpiFullName:work@top.genblk7
-      |vpiModule:
-      \_Module: work@top.genblk7::GOOD_REAL12 (work@top.genblk7.good), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:22:7, endln:22:26
-        |vpiParent:
-        \_GenScope: (work@top.genblk7), line:22:7, endln:22:26
-        |vpiName:good
-        |vpiFullName:work@top.genblk7.good
-        |vpiDefName:work@top.genblk7::GOOD_REAL12
 \_weaklyReferenced:
 \_IntTypespec: , line:2:5, endln:2:23
   |vpiRange:
@@ -3227,43 +2901,38 @@ Design: (work@top)
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 0
-[WARNING] : 4
-[   NOTE] : 5
+[WARNING] : 1
+[   NOTE] : 0
 Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp=0
 [INF:CM0023] Creating log file "${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.log".
 [WRN:PA0205] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: No timescale set for "top".
 [INF:CP0300] Compilation...
 [INF:CP0303] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Compile module "work@top".
-[INF:EL0526] Design Elaboration...
-[INF:CP0335] ${SURELOG_DIR}/tests/ParamLine/dut.sv:25:7: Compile generate block "work@top.genblk8".
-[NTE:EL0503] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Top level module "work@top".
-[WRN:EL0500] ${SURELOG_DIR}/tests/ParamLine/dut.sv:25:7: Cannot find a module definition for "work@top.genblk8::GOOD_0".
-[NTE:EL0508] Nb Top level modules: 1.
-[NTE:EL0509] Max instance depth: 3.
-[NTE:EL0510] Nb instances: 2.
-[NTE:EL0511] Nb leaf instances: 1.
-[WRN:EL0512] Nb undefined modules: 1.
-[WRN:EL0513] Nb undefined instances: 1.
 [INF:UH0706] Creating UHDM Model...
-[INF:UH0707] Elaborating UHDM...
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/checker/surelog.chk.html ...
 [INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
-Design: (work@top)
-|vpiElaborated:1
-|vpiName:work@top
+Design: (unnamed)
+|vpiName:unnamed
 |uhdmallModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
   |vpiParent:
-  \_Design: (work@top)
+  \_Design: (unnamed)
   |vpiFullName:work@top
   |vpiParameter:
   \_Parameter: (work@top.p), line:2:15, endln:2:16
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |BIN:0
+    |vpiTypespec:
+    \_RefTypespec: (work@top.p)
+      |vpiParent:
+      \_Parameter: (work@top.p), line:2:15, endln:2:16
+      |vpiFullName:work@top.p
+      |vpiActual:
+      \_IntTypespec: , line:2:5, endln:2:23
     |vpiName:p
     |vpiFullName:work@top.p
   |vpiParamAssign:
@@ -3631,51 +3300,6 @@ Design: (work@top)
         \_Begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_MINUS_STR
-|uhdmtopModules:
-\_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-  |vpiName:work@top
-  |vpiParameter:
-  \_Parameter: (work@top.p), line:2:15, endln:2:16
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |BIN:0
-    |vpiName:p
-    |vpiFullName:work@top.p
-  |vpiParamAssign:
-  \_ParamAssign: , line:2:15, endln:2:23
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiRhs:
-    \_Constant: , line:2:19, endln:2:23
-      |vpiParent:
-      \_ParamAssign: , line:2:15, endln:2:23
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-    |vpiLhs:
-    \_Parameter: (work@top.p), line:2:15, endln:2:16
-  |vpiDefName:work@top
-  |vpiTop:1
-  |vpiTopModule:1
-  |vpiGenScopeArray:
-  \_GenScopeArray: (work@top.genblk8), line:25:7, endln:25:21
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiName:genblk8
-    |vpiFullName:work@top.genblk8
-    |vpiGenScope:
-    \_GenScope: (work@top.genblk8), line:25:7, endln:25:21
-      |vpiParent:
-      \_GenScopeArray: (work@top.genblk8), line:25:7, endln:25:21
-      |vpiFullName:work@top.genblk8
-      |vpiModule:
-      \_Module: work@top.genblk8::GOOD_0 (work@top.genblk8.good), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:25:7, endln:25:21
-        |vpiParent:
-        \_GenScope: (work@top.genblk8), line:25:7, endln:25:21
-        |vpiName:good
-        |vpiFullName:work@top.genblk8.good
-        |vpiDefName:work@top.genblk8::GOOD_0
 \_weaklyReferenced:
 \_IntTypespec: , line:2:5, endln:2:23
   |vpiRange:
@@ -3692,43 +3316,38 @@ Design: (work@top)
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 0
-[WARNING] : 4
-[   NOTE] : 5
+[WARNING] : 1
+[   NOTE] : 0
 Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp="STR.WITH.DOT"
 [INF:CM0023] Creating log file "${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.log".
 [WRN:PA0205] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: No timescale set for "top".
 [INF:CP0300] Compilation...
 [INF:CP0303] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Compile module "work@top".
-[INF:EL0526] Design Elaboration...
-[INF:CP0335] ${SURELOG_DIR}/tests/ParamLine/dut.sv:28:7: Compile generate block "work@top.genblk9".
-[NTE:EL0503] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Top level module "work@top".
-[WRN:EL0500] ${SURELOG_DIR}/tests/ParamLine/dut.sv:28:7: Cannot find a module definition for "work@top.genblk9::GOOD_STR_WITH_DOT".
-[NTE:EL0508] Nb Top level modules: 1.
-[NTE:EL0509] Max instance depth: 3.
-[NTE:EL0510] Nb instances: 2.
-[NTE:EL0511] Nb leaf instances: 1.
-[WRN:EL0512] Nb undefined modules: 1.
-[WRN:EL0513] Nb undefined instances: 1.
 [INF:UH0706] Creating UHDM Model...
-[INF:UH0707] Elaborating UHDM...
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/checker/surelog.chk.html ...
 [INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
-Design: (work@top)
-|vpiElaborated:1
-|vpiName:work@top
+Design: (unnamed)
+|vpiName:unnamed
 |uhdmallModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
   |vpiParent:
-  \_Design: (work@top)
+  \_Design: (unnamed)
   |vpiFullName:work@top
   |vpiParameter:
   \_Parameter: (work@top.p), line:2:15, endln:2:16
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |BIN:0
+    |vpiTypespec:
+    \_RefTypespec: (work@top.p)
+      |vpiParent:
+      \_Parameter: (work@top.p), line:2:15, endln:2:16
+      |vpiFullName:work@top.p
+      |vpiActual:
+      \_IntTypespec: , line:2:5, endln:2:23
     |vpiName:p
     |vpiFullName:work@top.p
   |vpiParamAssign:
@@ -4096,51 +3715,6 @@ Design: (work@top)
         \_Begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_MINUS_STR
-|uhdmtopModules:
-\_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-  |vpiName:work@top
-  |vpiParameter:
-  \_Parameter: (work@top.p), line:2:15, endln:2:16
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |BIN:0
-    |vpiName:p
-    |vpiFullName:work@top.p
-  |vpiParamAssign:
-  \_ParamAssign: , line:2:15, endln:2:23
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiRhs:
-    \_Constant: , line:2:19, endln:2:23
-      |vpiParent:
-      \_ParamAssign: , line:2:15, endln:2:23
-      |vpiDecompile:STR.WITH.DOT
-      |vpiSize:96
-      |STRING:STR.WITH.DOT
-      |vpiConstType:6
-    |vpiLhs:
-    \_Parameter: (work@top.p), line:2:15, endln:2:16
-  |vpiDefName:work@top
-  |vpiTop:1
-  |vpiTopModule:1
-  |vpiGenScopeArray:
-  \_GenScopeArray: (work@top.genblk9), line:28:7, endln:28:32
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiName:genblk9
-    |vpiFullName:work@top.genblk9
-    |vpiGenScope:
-    \_GenScope: (work@top.genblk9), line:28:7, endln:28:32
-      |vpiParent:
-      \_GenScopeArray: (work@top.genblk9), line:28:7, endln:28:32
-      |vpiFullName:work@top.genblk9
-      |vpiModule:
-      \_Module: work@top.genblk9::GOOD_STR_WITH_DOT (work@top.genblk9.good), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:28:7, endln:28:32
-        |vpiParent:
-        \_GenScope: (work@top.genblk9), line:28:7, endln:28:32
-        |vpiName:good
-        |vpiFullName:work@top.genblk9.good
-        |vpiDefName:work@top.genblk9::GOOD_STR_WITH_DOT
 \_weaklyReferenced:
 \_IntTypespec: , line:2:5, endln:2:23
   |vpiRange:
@@ -4157,43 +3731,38 @@ Design: (work@top)
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 0
-[WARNING] : 4
-[   NOTE] : 5
+[WARNING] : 1
+[   NOTE] : 0
 Processing: -parse -d uhdm -elabuhdm dut.sv -nobuiltin -Pp="-STR"
 [INF:CM0023] Creating log file "${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.log".
 [WRN:PA0205] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: No timescale set for "top".
 [INF:CP0300] Compilation...
 [INF:CP0303] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Compile module "work@top".
-[INF:EL0526] Design Elaboration...
-[INF:CP0335] ${SURELOG_DIR}/tests/ParamLine/dut.sv:31:7: Compile generate block "work@top.genblk10".
-[NTE:EL0503] ${SURELOG_DIR}/tests/ParamLine/dut.sv:1:1: Top level module "work@top".
-[WRN:EL0500] ${SURELOG_DIR}/tests/ParamLine/dut.sv:31:7: Cannot find a module definition for "work@top.genblk10::GOOD_MINUS_STR".
-[NTE:EL0508] Nb Top level modules: 1.
-[NTE:EL0509] Max instance depth: 3.
-[NTE:EL0510] Nb instances: 2.
-[NTE:EL0511] Nb leaf instances: 1.
-[WRN:EL0512] Nb undefined modules: 1.
-[WRN:EL0513] Nb undefined instances: 1.
 [INF:UH0706] Creating UHDM Model...
-[INF:UH0707] Elaborating UHDM...
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/checker/surelog.chk.html ...
 [INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ParamLine/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
-Design: (work@top)
-|vpiElaborated:1
-|vpiName:work@top
+Design: (unnamed)
+|vpiName:unnamed
 |uhdmallModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
   |vpiParent:
-  \_Design: (work@top)
+  \_Design: (unnamed)
   |vpiFullName:work@top
   |vpiParameter:
   \_Parameter: (work@top.p), line:2:15, endln:2:16
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
     |BIN:0
+    |vpiTypespec:
+    \_RefTypespec: (work@top.p)
+      |vpiParent:
+      \_Parameter: (work@top.p), line:2:15, endln:2:16
+      |vpiFullName:work@top.p
+      |vpiActual:
+      \_IntTypespec: , line:2:5, endln:2:23
     |vpiName:p
     |vpiFullName:work@top.p
   |vpiParamAssign:
@@ -4561,51 +4130,6 @@ Design: (work@top)
         \_Begin: (work@top)
         |vpiName:good
         |vpiDefName:work@GOOD_MINUS_STR
-|uhdmtopModules:
-\_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-  |vpiName:work@top
-  |vpiParameter:
-  \_Parameter: (work@top.p), line:2:15, endln:2:16
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |BIN:0
-    |vpiName:p
-    |vpiFullName:work@top.p
-  |vpiParamAssign:
-  \_ParamAssign: , line:2:15, endln:2:23
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiRhs:
-    \_Constant: , line:2:19, endln:2:23
-      |vpiParent:
-      \_ParamAssign: , line:2:15, endln:2:23
-      |vpiDecompile:-STR
-      |vpiSize:32
-      |STRING:-STR
-      |vpiConstType:6
-    |vpiLhs:
-    \_Parameter: (work@top.p), line:2:15, endln:2:16
-  |vpiDefName:work@top
-  |vpiTop:1
-  |vpiTopModule:1
-  |vpiGenScopeArray:
-  \_GenScopeArray: (work@top.genblk10), line:31:7, endln:31:29
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:1:1, endln:33:10
-    |vpiName:genblk10
-    |vpiFullName:work@top.genblk10
-    |vpiGenScope:
-    \_GenScope: (work@top.genblk10), line:31:7, endln:31:29
-      |vpiParent:
-      \_GenScopeArray: (work@top.genblk10), line:31:7, endln:31:29
-      |vpiFullName:work@top.genblk10
-      |vpiModule:
-      \_Module: work@top.genblk10::GOOD_MINUS_STR (work@top.genblk10.good), file:${SURELOG_DIR}/tests/ParamLine/dut.sv, line:31:7, endln:31:29
-        |vpiParent:
-        \_GenScope: (work@top.genblk10), line:31:7, endln:31:29
-        |vpiName:good
-        |vpiFullName:work@top.genblk10.good
-        |vpiDefName:work@top.genblk10::GOOD_MINUS_STR
 \_weaklyReferenced:
 \_IntTypespec: , line:2:5, endln:2:23
   |vpiRange:
@@ -4622,11 +4146,11 @@ Design: (work@top)
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 0
-[WARNING] : 4
-[   NOTE] : 5
+[WARNING] : 1
+[   NOTE] : 0
 Processed 10 tests.
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 0
-[WARNING] : 37
-[   NOTE] : 50
+[WARNING] : 10
+[   NOTE] : 0

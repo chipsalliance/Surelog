@@ -15,9 +15,6 @@ Processing: -cd ../SimpleClass1 +incdir+.+../../third_party/UVM/uvm-1.2/src/ ../
 [WRN:PA0205] ${SURELOG_DIR}/tests/SimpleClass1/top.v:40:1: No timescale set for "all_c".
 [WRN:PA0205] ${SURELOG_DIR}/tests/SimpleClass1/top.v:64:1: No timescale set for "top".
 [INF:CP0300] Compilation...
-[INF:CP0301] ${SURELOG_DIR}/build/bin/1800.2-2017-1.0/src/uvm_pkg.sv:28:1: Compile package "uvm_pkg".
-[INF:CP0301] ${SURELOG_DIR}/tests/SimpleClass1/top.v:13:1: Compile package "uvm_pkg".
-[INF:CP0301] ${SURELOG_DIR}/tests/SimpleClass1/top.v:40:1: Compile package "all_c".
 [INF:CP0303] ${SURELOG_DIR}/tests/SimpleClass1/top.v:64:1: Compile module "work@top".
 [INF:CP0303] ${SURELOG_DIR}/tests/SimpleClass1/top.v:23:1: Compile module "work@uvm_pkg".
 [INF:CP0302] ${SURELOG_DIR}/tests/SimpleClass1/top.v:44:2: Compile class "all_c::D".
@@ -374,37 +371,13 @@ Processing: -cd ../SimpleClass1 +incdir+.+../../third_party/UVM/uvm-1.2/src/ ../
              ${SURELOG_DIR}/tests/SimpleClass1/top.v:13:1: previous usage.
 [WRN:CP0334] ${SURELOG_DIR}/tests/SimpleClass1/top.v:131:1: Colliding compilation unit name: "c2",
              ${SURELOG_DIR}/tests/SimpleClass1/top.v:96:1: previous usage.
-[INF:EL0526] Design Elaboration...
-Instance tree:
-[TOP] work@top work@top
-
-[NTE:EL0503] ${SURELOG_DIR}/tests/SimpleClass1/top.v:23:1: Top level module "work@uvm_pkg".
-[NTE:EL0503] ${SURELOG_DIR}/tests/SimpleClass1/top.v:64:1: Top level module "work@top".
-[NTE:EL0504] Multiple top level modules in design.
-[NTE:EL0508] Nb Top level modules: 1.
-[NTE:EL0509] Max instance depth: 1.
-[NTE:EL0510] Nb instances: 1.
-[NTE:EL0511] Nb leaf instances: 1.
-[NTE:EL0523] ${SURELOG_DIR}/tests/SimpleClass1/top.v:64:1: Instance "work@top".
-[WRN:CP0319] ${SURELOG_DIR}/tests/SimpleClass1/top.v:15:1: Multiply defined class "uvm_pkg::uvm_component",
-             ${SURELOG_DIR}/build/bin/1800.2-2017-1.0/src/base/uvm_component.svh:68:1: previous definition.
-[WRN:CP0319] ${SURELOG_DIR}/tests/SimpleClass1/top.v:131:1: Multiply defined class "work@c2",
-             ${SURELOG_DIR}/tests/SimpleClass1/top.v:96:1: previous definition.
-[ERR:CP0317] ${SURELOG_DIR}/tests/SimpleClass1/top.v:102:5: Undefined type "T".
-[ERR:CP0332] ${SURELOG_DIR}/tests/SimpleClass1/top.v:111:3: Function "get_current_item" is not defined for variable "ar" of type paIntegerAtomType_Int,
-             ${SURELOG_DIR}/tests/SimpleClass1/top.v:107:20: type definition.
-[ERR:CP0332] ${SURELOG_DIR}/tests/SimpleClass1/top.v:139:3: Function "toto" is not defined for variable "byte_data" of type array,
-             ${SURELOG_DIR}/tests/SimpleClass1/top.v:137:3: type definition.
-[ERR:CP0332] ${SURELOG_DIR}/tests/SimpleClass1/top.v:142:3: Function "get_current_item" is not defined for variable "q" of type queue,
-             ${SURELOG_DIR}/tests/SimpleClass1/top.v:135:3: type definition.
-[ERR:CP0333] ${SURELOG_DIR}/tests/SimpleClass1/top.v:144:3: Undefined system task/function "$foo".
 [INF:UH0706] Creating UHDM Model...
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/build/regression/TestBatchMode/slpp_all/class1/slpp_all/surelog.uhdm ...
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 5
-[WARNING] : 18
-[   NOTE] : 9
+[  ERROR] : 0
+[WARNING] : 16
+[   NOTE] : 1
 Running list file ${SURELOG_DIR}/build/build/regression/TestBatchMode/slpp_all/class1/slpp_all/file.lst...
 Command result: 0
 Processing: -cd ../SimpleClass2 +incdir+.+../../third_party/UVM/uvm-1.2/src/ ../../third_party/UVM/uvm-1.2/src/uvm_pkg.sv -sverilog -writepp -parse -d inst top.v -l batch.log -o ../../build/regression/TestBatchMode/slpp_all/class2
@@ -414,10 +387,6 @@ Processing: -cd ../SimpleClass2 +incdir+.+../../third_party/UVM/uvm-1.2/src/ ../
 [WRN:PA0205] ${SURELOG_DIR}/tests/SimpleClass2/top.v:26:1: No timescale set for "p3".
 [WRN:PA0205] ${SURELOG_DIR}/tests/SimpleClass2/top.v:31:1: No timescale set for "p2".
 [INF:CP0300] Compilation...
-[INF:CP0301] ${SURELOG_DIR}/build/bin/1800.2-2017-1.0/src/uvm_pkg.sv:28:1: Compile package "uvm_pkg".
-[INF:CP0301] ${SURELOG_DIR}/tests/SimpleClass2/top.v:8:1: Compile package "p1".
-[INF:CP0301] ${SURELOG_DIR}/tests/SimpleClass2/top.v:26:1: Compile package "p3".
-[INF:CP0301] ${SURELOG_DIR}/tests/SimpleClass2/top.v:31:1: Compile package "p2".
 [INF:CP0302] Compile class "work@mailbox".
 [INF:CP0302] ${SURELOG_DIR}/tests/SimpleClass2/top.v:10:1: Compile class "p1::c1".
 [INF:CP0302] ${SURELOG_DIR}/tests/SimpleClass2/top.v:35:1: Compile class "p2::c2".
@@ -752,27 +721,16 @@ Processing: -cd ../SimpleClass2 +incdir+.+../../third_party/UVM/uvm-1.2/src/ ../
 [INF:CP0302] ${SURELOG_DIR}/build/bin/1800.2-2017-1.0/src/reg/uvm_vreg_field.svh:53:1: Compile class "uvm_pkg::uvm_vreg_field".
 [INF:CP0302] ${SURELOG_DIR}/build/bin/1800.2-2017-1.0/src/reg/uvm_vreg_field.svh:237:1: Compile class "uvm_pkg::uvm_vreg_field_cbs".
 [INF:CP0302] ${SURELOG_DIR}/tests/SimpleClass2/top.v:2:1: Compile class "work@uvm_pool".
-[INF:EL0526] Design Elaboration...
-Instance tree:
-
-[NTE:EL0508] Nb Top level modules: 0.
-[NTE:EL0509] Max instance depth: 0.
-[NTE:EL0510] Nb instances: 0.
-[NTE:EL0511] Nb leaf instances: 0.
-[ERR:CP0332] ${SURELOG_DIR}/tests/SimpleClass2/top.v:44:5: Function "addq" is not defined for variable "id_actions" of type work@uvm_pool,
-             ${SURELOG_DIR}/tests/SimpleClass2/top.v:2:1: type definition.
-[ERR:CP0332] ${SURELOG_DIR}/tests/SimpleClass2/top.v:46:5: Function "len1" is not defined for variable "super.toto" of type string,
-             ${SURELOG_DIR}/tests/SimpleClass2/top.v:11:3: type definition.
 [INF:UH0706] Creating UHDM Model...
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/build/regression/TestBatchMode/slpp_all/class2/slpp_all/surelog.uhdm ...
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 2
+[  ERROR] : 0
 [WARNING] : 4
-[   NOTE] : 4
+[   NOTE] : 0
 Processed 2 tests.
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 7
-[WARNING] : 22
-[   NOTE] : 13
+[  ERROR] : 0
+[WARNING] : 20
+[   NOTE] : 1
