@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 34
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/CmdLineOverride/dut.sv
+FILE: ${SURELOG_DIR}/tests/CmdLineOverride/dut.sv
 n<> u<33> t<Top_level_rule> c<1> l<1:1> el<8:1>
-  n<> u<1> t<Null_rule> p<33> s<32> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<33> s<32> l<1:1>
   n<> u<32> t<Source_text> p<33> c<25> l<1:1> el<6:10>
     n<> u<25> t<Description> p<32> c<24> s<31> l<1:1> el<3:10>
       n<> u<24> t<Module_declaration> p<25> c<4> l<1:1> el<3:10>
@@ -50,35 +50,33 @@ IntTypespec                                            1
 Module                                                 2
 ParamAssign                                            1
 Parameter                                              1
-RefTypespec                                            2
+RefTypespec                                            1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/CmdLineOverride/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/CmdLineOverride/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/CmdLineOverride/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@baz (work@baz), file:${SURELOG_DIR}/tests/CmdLineOverride/dut.sv, line:5:1, endln:6:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@baz
+  |vpiName:work@baz
   |vpiDefName:work@baz
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@foo (work@foo), file:${SURELOG_DIR}/tests/CmdLineOverride/dut.sv, line:1:1, endln:3:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@foo
+  |vpiName:work@foo
   |vpiParameter:
-  \_Parameter: (work@foo.bar), line:2:17, endln:2:20
+  \_Parameter: (work@foo.bar), line:2:17, endln:2:24
     |vpiParent:
     \_Module: work@foo (work@foo), file:${SURELOG_DIR}/tests/CmdLineOverride/dut.sv, line:1:1, endln:3:10
     |UINT:0
     |vpiTypespec:
-    \_RefTypespec: (work@foo.bar)
+    \_RefTypespec: (work@foo.bar), line:2:13, endln:2:16
       |vpiParent:
-      \_Parameter: (work@foo.bar), line:2:17, endln:2:20
+      \_Parameter: (work@foo.bar), line:2:17, endln:2:24
       |vpiFullName:work@foo.bar
       |vpiActual:
       \_IntTypespec: , line:2:13, endln:2:16
@@ -96,22 +94,17 @@ Design: (unnamed)
       |vpiDecompile:0
       |vpiSize:64
       |UINT:0
-      |vpiTypespec:
-      \_RefTypespec: (work@foo)
-        |vpiParent:
-        \_Constant: , line:2:23, endln:2:24
-        |vpiFullName:work@foo
-        |vpiActual:
-        \_IntTypespec: , line:2:13, endln:2:16
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (work@foo.bar), line:2:17, endln:2:20
+    \_Parameter: (work@foo.bar), line:2:17, endln:2:24
+  |vpiTypedef:
+  \_IntTypespec: , line:2:13, endln:2:16
+    |vpiParent:
+    \_Module: work@foo (work@foo), file:${SURELOG_DIR}/tests/CmdLineOverride/dut.sv, line:1:1, endln:3:10
+    |vpiSigned:1
+  |vpiImportTypespec:
+  \_IntTypespec: , line:2:13, endln:2:16
   |vpiDefName:work@foo
-\_weaklyReferenced:
-\_IntTypespec: , line:2:13, endln:2:16
-  |vpiParent:
-  \_Parameter: (work@foo.bar), line:2:17, endln:2:20
-  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

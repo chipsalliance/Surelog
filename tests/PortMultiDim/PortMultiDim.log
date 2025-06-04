@@ -3,9 +3,9 @@
 AST_DEBUG_BEGIN
 Count: 87
 LIB: work
-FILE f<11>:${SURELOG_DIR}/tests/PortMultiDim/dut.sv
+FILE: ${SURELOG_DIR}/tests/PortMultiDim/dut.sv
 n<> u<86> t<Top_level_rule> c<1> l<1:1> el<10:1>
-  n<> u<1> t<Null_rule> p<86> s<85> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<86> s<85> l<1:1>
   n<> u<85> t<Source_text> p<86> c<84> l<1:1> el<8:10>
     n<> u<84> t<Description> p<85> c<83> l<1:1> el<8:10>
       n<> u<83> t<Module_declaration> p<84> c<28> l<1:1> el<8:10>
@@ -96,76 +96,190 @@ AST_DEBUG_END
 [INF:CP0303] ${SURELOG_DIR}/tests/PortMultiDim/dut.sv:1:1: Compile module "work@ibex_multdiv_fast".
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+ArrayNet                                               1
 ArrayTypespec                                          1
-Constant                                              10
+Constant                                              15
 ContAssign                                             1
 Design                                                 1
-LogicNet                                               2
-LogicTypespec                                          2
+LogicNet                                               1
+LogicTypespec                                          3
+LogicVar                                               1
 Module                                                 1
-Operation                                              1
+Operation                                              2
 PartSelect                                             1
 Port                                                   1
-Range                                                  3
-RefObj                                                 2
-RefTypespec                                            3
+Range                                                  7
+RefObj                                                 1
+RefTypespec                                            4
 VarSelect                                              1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PortMultiDim/slpp_unit/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/PortMultiDim/slpp_unit/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/PortMultiDim/slpp_unit/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@ibex_multdiv_fast (work@ibex_multdiv_fast), file:${SURELOG_DIR}/tests/PortMultiDim/dut.sv, line:1:1, endln:8:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@ibex_multdiv_fast
-  |vpiDefName:work@ibex_multdiv_fast
-  |vpiNet:
-  \_LogicNet: (work@ibex_multdiv_fast.imd_val_q_i), line:2:24, endln:2:35
-    |vpiParent:
-    \_Module: work@ibex_multdiv_fast (work@ibex_multdiv_fast), file:${SURELOG_DIR}/tests/PortMultiDim/dut.sv, line:1:1, endln:8:10
-    |vpiName:imd_val_q_i
-    |vpiFullName:work@ibex_multdiv_fast.imd_val_q_i
-    |vpiNetType:36
-  |vpiNet:
-  \_LogicNet: (work@ibex_multdiv_fast.op_denominator_q), line:5:16, endln:5:32
+  |vpiName:work@ibex_multdiv_fast
+  |vpiVariables:
+  \_LogicVar: (work@ibex_multdiv_fast.op_denominator_q), line:5:16, endln:5:32
     |vpiParent:
     \_Module: work@ibex_multdiv_fast (work@ibex_multdiv_fast), file:${SURELOG_DIR}/tests/PortMultiDim/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
-    \_RefTypespec: (work@ibex_multdiv_fast.op_denominator_q)
+    \_RefTypespec: (work@ibex_multdiv_fast.op_denominator_q), line:5:3, endln:5:15
       |vpiParent:
-      \_LogicNet: (work@ibex_multdiv_fast.op_denominator_q), line:5:16, endln:5:32
+      \_LogicVar: (work@ibex_multdiv_fast.op_denominator_q), line:5:16, endln:5:32
       |vpiFullName:work@ibex_multdiv_fast.op_denominator_q
       |vpiActual:
       \_LogicTypespec: , line:5:3, endln:5:15
     |vpiName:op_denominator_q
     |vpiFullName:work@ibex_multdiv_fast.op_denominator_q
+    |vpiVisibility:1
+  |vpiReg:
+  \_LogicVar: (work@ibex_multdiv_fast.op_denominator_q), line:5:16, endln:5:32
+  |vpiTypedef:
+  \_LogicTypespec: , line:2:11, endln:2:23
+    |vpiParent:
+    \_Module: work@ibex_multdiv_fast (work@ibex_multdiv_fast), file:${SURELOG_DIR}/tests/PortMultiDim/dut.sv, line:1:1, endln:8:10
+    |vpiRange:
+    \_Range: , line:2:17, endln:2:23
+      |vpiParent:
+      \_LogicTypespec: , line:2:11, endln:2:23
+      |vpiLeftRange:
+      \_Constant: , line:2:18, endln:2:20
+        |vpiParent:
+        \_Range: , line:2:17, endln:2:23
+        |vpiDecompile:33
+        |vpiSize:64
+        |UINT:33
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:2:21, endln:2:22
+        |vpiParent:
+        \_Range: , line:2:17, endln:2:23
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:5:3, endln:5:15
+    |vpiParent:
+    \_Module: work@ibex_multdiv_fast (work@ibex_multdiv_fast), file:${SURELOG_DIR}/tests/PortMultiDim/dut.sv, line:1:1, endln:8:10
+    |vpiRange:
+    \_Range: , line:5:9, endln:5:15
+      |vpiParent:
+      \_LogicTypespec: , line:5:3, endln:5:15
+      |vpiLeftRange:
+      \_Constant: , line:5:10, endln:5:12
+        |vpiParent:
+        \_Range: , line:5:9, endln:5:15
+        |vpiDecompile:31
+        |vpiSize:64
+        |UINT:31
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:5:13, endln:5:14
+        |vpiParent:
+        \_Range: , line:5:9, endln:5:15
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_ArrayTypespec: , line:2:35, endln:2:38
+    |vpiParent:
+    \_Module: work@ibex_multdiv_fast (work@ibex_multdiv_fast), file:${SURELOG_DIR}/tests/PortMultiDim/dut.sv, line:1:1, endln:8:10
+    |vpiArrayType:1
+    |vpiRange:
+    \_Range: , line:2:35, endln:2:38
+      |vpiParent:
+      \_ArrayTypespec: , line:2:35, endln:2:38
+      |vpiRightRange:
+      \_Operation: , line:2:36, endln:2:37
+        |vpiParent:
+        \_Range: , line:2:35, endln:2:38
+        |vpiOpType:11
+        |vpiOperand:
+        \_Constant: , line:2:36, endln:2:37
+          |vpiParent:
+          \_Operation: , line:2:36, endln:2:37
+          |vpiDecompile:2
+          |vpiSize:64
+          |UINT:2
+          |vpiConstType:9
+    |vpiElemTypespec:
+    \_RefTypespec: (work@ibex_multdiv_fast), line:2:11, endln:2:23
+      |vpiParent:
+      \_ArrayTypespec: , line:2:35, endln:2:38
+      |vpiFullName:work@ibex_multdiv_fast
+      |vpiActual:
+      \_LogicTypespec: , line:2:11, endln:2:23
+  |vpiTypedef:
+  \_LogicTypespec: , line:2:11, endln:2:23
+    |vpiParent:
+    \_Module: work@ibex_multdiv_fast (work@ibex_multdiv_fast), file:${SURELOG_DIR}/tests/PortMultiDim/dut.sv, line:1:1, endln:8:10
+    |vpiRange:
+    \_Range: , line:2:17, endln:2:23
+      |vpiParent:
+      \_LogicTypespec: , line:2:11, endln:2:23
+      |vpiLeftRange:
+      \_Constant: , line:2:18, endln:2:20
+        |vpiParent:
+        \_Range: , line:2:17, endln:2:23
+        |vpiDecompile:33
+        |vpiSize:64
+        |UINT:33
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:2:21, endln:2:22
+        |vpiParent:
+        \_Range: , line:2:17, endln:2:23
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:2:11, endln:2:23
+  |vpiImportTypespec:
+  \_LogicNet: (work@ibex_multdiv_fast.imd_val_q_i), line:2:24, endln:2:35
+    |vpiParent:
+    \_Module: work@ibex_multdiv_fast (work@ibex_multdiv_fast), file:${SURELOG_DIR}/tests/PortMultiDim/dut.sv, line:1:1, endln:8:10
+    |vpiTypespec:
+    \_RefTypespec: (work@ibex_multdiv_fast.imd_val_q_i), line:2:11, endln:2:23
+      |vpiParent:
+      \_LogicNet: (work@ibex_multdiv_fast.imd_val_q_i), line:2:24, endln:2:35
+      |vpiFullName:work@ibex_multdiv_fast.imd_val_q_i
+      |vpiActual:
+      \_LogicTypespec: , line:2:11, endln:2:23
+    |vpiName:imd_val_q_i
+    |vpiFullName:work@ibex_multdiv_fast.imd_val_q_i
     |vpiNetType:36
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:5:3, endln:5:15
+  |vpiImportTypespec:
+  \_LogicVar: (work@ibex_multdiv_fast.op_denominator_q), line:5:16, endln:5:32
+  |vpiImportTypespec:
+  \_ArrayTypespec: , line:2:35, endln:2:38
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:2:11, endln:2:23
+  |vpiDefName:work@ibex_multdiv_fast
+  |vpiNet:
+  \_LogicNet: (work@ibex_multdiv_fast.imd_val_q_i), line:2:24, endln:2:35
   |vpiPort:
   \_Port: (imd_val_q_i), line:2:24, endln:2:35
     |vpiParent:
     \_Module: work@ibex_multdiv_fast (work@ibex_multdiv_fast), file:${SURELOG_DIR}/tests/PortMultiDim/dut.sv, line:1:1, endln:8:10
     |vpiName:imd_val_q_i
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@ibex_multdiv_fast.imd_val_q_i.imd_val_q_i), line:2:24, endln:2:35
-      |vpiParent:
-      \_Port: (imd_val_q_i), line:2:24, endln:2:35
-      |vpiName:imd_val_q_i
-      |vpiFullName:work@ibex_multdiv_fast.imd_val_q_i.imd_val_q_i
-      |vpiActual:
-      \_LogicNet: (work@ibex_multdiv_fast.imd_val_q_i), line:2:24, endln:2:35
-    |vpiTypedef:
-    \_RefTypespec: (work@ibex_multdiv_fast.imd_val_q_i)
+    |vpiTypespec:
+    \_RefTypespec: (work@ibex_multdiv_fast.imd_val_q_i), line:2:11, endln:2:16
       |vpiParent:
       \_Port: (imd_val_q_i), line:2:24, endln:2:35
       |vpiFullName:work@ibex_multdiv_fast.imd_val_q_i
       |vpiActual:
-      \_ArrayTypespec: , line:2:11, endln:2:37
+      \_ArrayTypespec: , line:2:35, endln:2:38
   |vpiContAssign:
   \_ContAssign: , line:6:10, endln:6:49
     |vpiParent:
@@ -176,6 +290,8 @@ Design: (unnamed)
       \_ContAssign: , line:6:10, endln:6:49
       |vpiName:imd_val_q_i
       |vpiFullName:work@ibex_multdiv_fast.imd_val_q_i
+      |vpiActual:
+      \_LogicNet: (work@ibex_multdiv_fast.imd_val_q_i), line:2:24, endln:2:35
       |vpiIndex:
       \_Constant: , line:6:41, endln:6:42
         |vpiParent:
@@ -185,21 +301,27 @@ Design: (unnamed)
         |UINT:1
         |vpiConstType:9
       |vpiIndex:
-      \_PartSelect: imd_val_q_i (work@ibex_multdiv_fast.imd_val_q_i.imd_val_q_i), line:6:44, endln:6:48
+      \_PartSelect: imd_val_q_i (work@ibex_multdiv_fast.imd_val_q_i), line:6:44, endln:6:48
         |vpiParent:
-        \_VarSelect: (work@ibex_multdiv_fast.imd_val_q_i), line:6:29, endln:6:49
+        \_ContAssign: , line:6:10, endln:6:49
         |vpiName:imd_val_q_i
-        |vpiFullName:work@ibex_multdiv_fast.imd_val_q_i.imd_val_q_i
+        |vpiFullName:work@ibex_multdiv_fast.imd_val_q_i
         |vpiDefName:imd_val_q_i
+        |vpiActual:
+        \_LogicNet: (work@ibex_multdiv_fast.imd_val_q_i), line:2:24, endln:2:35
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_Constant: , line:6:44, endln:6:46
+          |vpiParent:
+          \_PartSelect: imd_val_q_i (work@ibex_multdiv_fast.imd_val_q_i), line:6:44, endln:6:48
           |vpiDecompile:31
           |vpiSize:64
           |UINT:31
           |vpiConstType:9
         |vpiRightRange:
         \_Constant: , line:6:47, endln:6:48
+          |vpiParent:
+          \_PartSelect: imd_val_q_i (work@ibex_multdiv_fast.imd_val_q_i), line:6:44, endln:6:48
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -211,91 +333,7 @@ Design: (unnamed)
       |vpiName:op_denominator_q
       |vpiFullName:work@ibex_multdiv_fast.op_denominator_q
       |vpiActual:
-      \_LogicNet: (work@ibex_multdiv_fast.op_denominator_q), line:5:16, endln:5:32
-\_weaklyReferenced:
-\_ArrayTypespec: , line:2:11, endln:2:37
-  |vpiParent:
-  \_Port: (imd_val_q_i), line:2:24, endln:2:35
-  |vpiArrayType:1
-  |vpiRange:
-  \_Range: , line:2:36, endln:2:37
-    |vpiParent:
-    \_ArrayTypespec: , line:2:11, endln:2:37
-    |vpiLeftRange:
-    \_Constant: 
-      |vpiParent:
-      \_Range: , line:2:36, endln:2:37
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Operation: , line:2:36, endln:2:37
-      |vpiParent:
-      \_Range: , line:2:36, endln:2:37
-      |vpiOpType:11
-      |vpiOperand:
-      \_Constant: , line:2:36, endln:2:37
-        |vpiParent:
-        \_Operation: , line:2:36, endln:2:37
-        |vpiDecompile:2
-        |vpiSize:64
-        |UINT:2
-        |vpiConstType:9
-      |vpiOperand:
-      \_Constant: 
-        |vpiSize:64
-        |INT:1
-        |vpiConstType:7
-  |vpiElemTypespec:
-  \_RefTypespec: (work@ibex_multdiv_fast.imd_val_q_i)
-    |vpiParent:
-    \_ArrayTypespec: , line:2:11, endln:2:37
-    |vpiFullName:work@ibex_multdiv_fast.imd_val_q_i
-    |vpiActual:
-    \_LogicTypespec: , line:2:11, endln:2:23
-\_LogicTypespec: , line:2:11, endln:2:23
-  |vpiRange:
-  \_Range: , line:2:17, endln:2:23
-    |vpiParent:
-    \_LogicTypespec: , line:2:11, endln:2:23
-    |vpiLeftRange:
-    \_Constant: , line:2:18, endln:2:20
-      |vpiParent:
-      \_Range: , line:2:17, endln:2:23
-      |vpiDecompile:33
-      |vpiSize:64
-      |UINT:33
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:2:21, endln:2:22
-      |vpiParent:
-      \_Range: , line:2:17, endln:2:23
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:5:3, endln:5:15
-  |vpiRange:
-  \_Range: , line:5:9, endln:5:15
-    |vpiParent:
-    \_LogicTypespec: , line:5:3, endln:5:15
-    |vpiLeftRange:
-    \_Constant: , line:5:10, endln:5:12
-      |vpiParent:
-      \_Range: , line:5:9, endln:5:15
-      |vpiDecompile:31
-      |vpiSize:64
-      |UINT:31
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:5:13, endln:5:14
-      |vpiParent:
-      \_Range: , line:5:9, endln:5:15
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
+      \_LogicVar: (work@ibex_multdiv_fast.op_denominator_q), line:5:16, endln:5:32
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

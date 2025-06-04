@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 272
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/ContAssignConst/dut.sv
+FILE: ${SURELOG_DIR}/tests/ContAssignConst/dut.sv
 n<> u<271> t<Top_level_rule> c<1> l<10:1> el<29:32>
-  n<> u<1> t<Null_rule> p<271> s<270> l<10:1> el<8:5>
+  n<> u<1> t<Null_rule> p<271> s<270> l<10:1> el<10:1>
   n<> u<270> t<Source_text> p<271> c<269> l<10:1> el<29:32>
     n<> u<269> t<Description> p<270> c<268> l<10:1> el<29:32>
       n<> u<268> t<Module_declaration> p<269> c<107> l<10:1> el<29:32>
@@ -280,90 +280,445 @@ AST_DEBUG_END
 [INF:CP0303] ${SURELOG_DIR}/tests/ContAssignConst/dut.sv:10:1: Compile module "work@static_size_casting".
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-Constant                                              24
+Constant                                              48
 ContAssign                                             6
 Design                                                 1
-IntegerTypespec                                        5
 LogicNet                                               6
-LogicTypespec                                          6
+LogicTypespec                                         12
 Module                                                 1
 Operation                                             12
 Port                                                   6
-Range                                                  6
-RefObj                                                12
-RefTypespec                                           11
+Range                                                 18
+RefObj                                                 6
+RefTypespec                                           12
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ContAssignConst/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ContAssignConst/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ContAssignConst/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@static_size_casting (work@static_size_casting), file:${SURELOG_DIR}/tests/ContAssignConst/dut.sv, line:10:1, endln:29:32
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@static_size_casting
-  |vpiDefName:work@static_size_casting
-  |vpiNet:
+  |vpiName:work@static_size_casting
+  |vpiTypedef:
+  \_LogicTypespec: , line:11:13, endln:11:24
+    |vpiParent:
+    \_Module: work@static_size_casting (work@static_size_casting), file:${SURELOG_DIR}/tests/ContAssignConst/dut.sv, line:10:1, endln:29:32
+    |vpiRange:
+    \_Range: , line:11:18, endln:11:24
+      |vpiParent:
+      \_LogicTypespec: , line:11:13, endln:11:24
+      |vpiLeftRange:
+      \_Constant: , line:11:20, endln:11:21
+        |vpiParent:
+        \_Range: , line:11:18, endln:11:24
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:11:22, endln:11:23
+        |vpiParent:
+        \_Range: , line:11:18, endln:11:24
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:12:13, endln:12:24
+    |vpiParent:
+    \_Module: work@static_size_casting (work@static_size_casting), file:${SURELOG_DIR}/tests/ContAssignConst/dut.sv, line:10:1, endln:29:32
+    |vpiRange:
+    \_Range: , line:12:18, endln:12:24
+      |vpiParent:
+      \_LogicTypespec: , line:12:13, endln:12:24
+      |vpiLeftRange:
+      \_Constant: , line:12:20, endln:12:21
+        |vpiParent:
+        \_Range: , line:12:18, endln:12:24
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:12:22, endln:12:23
+        |vpiParent:
+        \_Range: , line:12:18, endln:12:24
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:13:13, endln:13:24
+    |vpiParent:
+    \_Module: work@static_size_casting (work@static_size_casting), file:${SURELOG_DIR}/tests/ContAssignConst/dut.sv, line:10:1, endln:29:32
+    |vpiRange:
+    \_Range: , line:13:18, endln:13:24
+      |vpiParent:
+      \_LogicTypespec: , line:13:13, endln:13:24
+      |vpiLeftRange:
+      \_Constant: , line:13:19, endln:13:21
+        |vpiParent:
+        \_Range: , line:13:18, endln:13:24
+        |vpiDecompile:15
+        |vpiSize:64
+        |UINT:15
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:13:22, endln:13:23
+        |vpiParent:
+        \_Range: , line:13:18, endln:13:24
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:14:12, endln:14:23
+    |vpiParent:
+    \_Module: work@static_size_casting (work@static_size_casting), file:${SURELOG_DIR}/tests/ContAssignConst/dut.sv, line:10:1, endln:29:32
+    |vpiRange:
+    \_Range: , line:14:17, endln:14:23
+      |vpiParent:
+      \_LogicTypespec: , line:14:12, endln:14:23
+      |vpiLeftRange:
+      \_Constant: , line:14:18, endln:14:20
+        |vpiParent:
+        \_Range: , line:14:17, endln:14:23
+        |vpiDecompile:15
+        |vpiSize:64
+        |UINT:15
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:14:21, endln:14:22
+        |vpiParent:
+        \_Range: , line:14:17, endln:14:23
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:15:13, endln:15:24
+    |vpiParent:
+    \_Module: work@static_size_casting (work@static_size_casting), file:${SURELOG_DIR}/tests/ContAssignConst/dut.sv, line:10:1, endln:29:32
+    |vpiRange:
+    \_Range: , line:15:18, endln:15:24
+      |vpiParent:
+      \_LogicTypespec: , line:15:13, endln:15:24
+      |vpiLeftRange:
+      \_Constant: , line:15:19, endln:15:21
+        |vpiParent:
+        \_Range: , line:15:18, endln:15:24
+        |vpiDecompile:15
+        |vpiSize:64
+        |UINT:15
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:15:22, endln:15:23
+        |vpiParent:
+        \_Range: , line:15:18, endln:15:24
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:16:12, endln:16:23
+    |vpiParent:
+    \_Module: work@static_size_casting (work@static_size_casting), file:${SURELOG_DIR}/tests/ContAssignConst/dut.sv, line:10:1, endln:29:32
+    |vpiRange:
+    \_Range: , line:16:17, endln:16:23
+      |vpiParent:
+      \_LogicTypespec: , line:16:12, endln:16:23
+      |vpiLeftRange:
+      \_Constant: , line:16:18, endln:16:20
+        |vpiParent:
+        \_Range: , line:16:17, endln:16:23
+        |vpiDecompile:15
+        |vpiSize:64
+        |UINT:15
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:16:21, endln:16:22
+        |vpiParent:
+        \_Range: , line:16:17, endln:16:23
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:11:13, endln:11:24
+    |vpiParent:
+    \_Module: work@static_size_casting (work@static_size_casting), file:${SURELOG_DIR}/tests/ContAssignConst/dut.sv, line:10:1, endln:29:32
+    |vpiRange:
+    \_Range: , line:11:18, endln:11:24
+      |vpiParent:
+      \_LogicTypespec: , line:11:13, endln:11:24
+      |vpiLeftRange:
+      \_Constant: , line:11:20, endln:11:21
+        |vpiParent:
+        \_Range: , line:11:18, endln:11:24
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:11:22, endln:11:23
+        |vpiParent:
+        \_Range: , line:11:18, endln:11:24
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:12:13, endln:12:24
+    |vpiParent:
+    \_Module: work@static_size_casting (work@static_size_casting), file:${SURELOG_DIR}/tests/ContAssignConst/dut.sv, line:10:1, endln:29:32
+    |vpiRange:
+    \_Range: , line:12:18, endln:12:24
+      |vpiParent:
+      \_LogicTypespec: , line:12:13, endln:12:24
+      |vpiLeftRange:
+      \_Constant: , line:12:20, endln:12:21
+        |vpiParent:
+        \_Range: , line:12:18, endln:12:24
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:12:22, endln:12:23
+        |vpiParent:
+        \_Range: , line:12:18, endln:12:24
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:13:13, endln:13:24
+    |vpiParent:
+    \_Module: work@static_size_casting (work@static_size_casting), file:${SURELOG_DIR}/tests/ContAssignConst/dut.sv, line:10:1, endln:29:32
+    |vpiRange:
+    \_Range: , line:13:18, endln:13:24
+      |vpiParent:
+      \_LogicTypespec: , line:13:13, endln:13:24
+      |vpiLeftRange:
+      \_Constant: , line:13:19, endln:13:21
+        |vpiParent:
+        \_Range: , line:13:18, endln:13:24
+        |vpiDecompile:15
+        |vpiSize:64
+        |UINT:15
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:13:22, endln:13:23
+        |vpiParent:
+        \_Range: , line:13:18, endln:13:24
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:14:12, endln:14:23
+    |vpiParent:
+    \_Module: work@static_size_casting (work@static_size_casting), file:${SURELOG_DIR}/tests/ContAssignConst/dut.sv, line:10:1, endln:29:32
+    |vpiRange:
+    \_Range: , line:14:17, endln:14:23
+      |vpiParent:
+      \_LogicTypespec: , line:14:12, endln:14:23
+      |vpiLeftRange:
+      \_Constant: , line:14:18, endln:14:20
+        |vpiParent:
+        \_Range: , line:14:17, endln:14:23
+        |vpiDecompile:15
+        |vpiSize:64
+        |UINT:15
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:14:21, endln:14:22
+        |vpiParent:
+        \_Range: , line:14:17, endln:14:23
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:15:13, endln:15:24
+    |vpiParent:
+    \_Module: work@static_size_casting (work@static_size_casting), file:${SURELOG_DIR}/tests/ContAssignConst/dut.sv, line:10:1, endln:29:32
+    |vpiRange:
+    \_Range: , line:15:18, endln:15:24
+      |vpiParent:
+      \_LogicTypespec: , line:15:13, endln:15:24
+      |vpiLeftRange:
+      \_Constant: , line:15:19, endln:15:21
+        |vpiParent:
+        \_Range: , line:15:18, endln:15:24
+        |vpiDecompile:15
+        |vpiSize:64
+        |UINT:15
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:15:22, endln:15:23
+        |vpiParent:
+        \_Range: , line:15:18, endln:15:24
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:16:12, endln:16:23
+    |vpiParent:
+    \_Module: work@static_size_casting (work@static_size_casting), file:${SURELOG_DIR}/tests/ContAssignConst/dut.sv, line:10:1, endln:29:32
+    |vpiRange:
+    \_Range: , line:16:17, endln:16:23
+      |vpiParent:
+      \_LogicTypespec: , line:16:12, endln:16:23
+      |vpiLeftRange:
+      \_Constant: , line:16:18, endln:16:20
+        |vpiParent:
+        \_Range: , line:16:17, endln:16:23
+        |vpiDecompile:15
+        |vpiSize:64
+        |UINT:15
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:16:21, endln:16:22
+        |vpiParent:
+        \_Range: , line:16:17, endln:16:23
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:11:13, endln:11:24
+  |vpiImportTypespec:
   \_LogicNet: (work@static_size_casting.out1), line:11:25, endln:11:29
     |vpiParent:
     \_Module: work@static_size_casting (work@static_size_casting), file:${SURELOG_DIR}/tests/ContAssignConst/dut.sv, line:10:1, endln:29:32
+    |vpiTypespec:
+    \_RefTypespec: (work@static_size_casting.out1), line:11:13, endln:11:24
+      |vpiParent:
+      \_LogicNet: (work@static_size_casting.out1), line:11:25, endln:11:29
+      |vpiFullName:work@static_size_casting.out1
+      |vpiActual:
+      \_LogicTypespec: , line:11:13, endln:11:24
     |vpiName:out1
     |vpiFullName:work@static_size_casting.out1
     |vpiNetType:1
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:12:13, endln:12:24
+  |vpiImportTypespec:
   \_LogicNet: (work@static_size_casting.out2), line:12:25, endln:12:29
     |vpiParent:
     \_Module: work@static_size_casting (work@static_size_casting), file:${SURELOG_DIR}/tests/ContAssignConst/dut.sv, line:10:1, endln:29:32
+    |vpiTypespec:
+    \_RefTypespec: (work@static_size_casting.out2), line:12:13, endln:12:24
+      |vpiParent:
+      \_LogicNet: (work@static_size_casting.out2), line:12:25, endln:12:29
+      |vpiFullName:work@static_size_casting.out2
+      |vpiActual:
+      \_LogicTypespec: , line:12:13, endln:12:24
     |vpiName:out2
     |vpiFullName:work@static_size_casting.out2
     |vpiNetType:1
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:13:13, endln:13:24
+  |vpiImportTypespec:
   \_LogicNet: (work@static_size_casting.out3), line:13:25, endln:13:29
     |vpiParent:
     \_Module: work@static_size_casting (work@static_size_casting), file:${SURELOG_DIR}/tests/ContAssignConst/dut.sv, line:10:1, endln:29:32
+    |vpiTypespec:
+    \_RefTypespec: (work@static_size_casting.out3), line:13:13, endln:13:24
+      |vpiParent:
+      \_LogicNet: (work@static_size_casting.out3), line:13:25, endln:13:29
+      |vpiFullName:work@static_size_casting.out3
+      |vpiActual:
+      \_LogicTypespec: , line:13:13, endln:13:24
     |vpiName:out3
     |vpiFullName:work@static_size_casting.out3
     |vpiNetType:1
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:14:12, endln:14:23
+  |vpiImportTypespec:
   \_LogicNet: (work@static_size_casting.out4), line:14:24, endln:14:28
     |vpiParent:
     \_Module: work@static_size_casting (work@static_size_casting), file:${SURELOG_DIR}/tests/ContAssignConst/dut.sv, line:10:1, endln:29:32
+    |vpiTypespec:
+    \_RefTypespec: (work@static_size_casting.out4), line:14:12, endln:14:23
+      |vpiParent:
+      \_LogicNet: (work@static_size_casting.out4), line:14:24, endln:14:28
+      |vpiFullName:work@static_size_casting.out4
+      |vpiActual:
+      \_LogicTypespec: , line:14:12, endln:14:23
     |vpiName:out4
     |vpiFullName:work@static_size_casting.out4
     |vpiNetType:1
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:15:13, endln:15:24
+  |vpiImportTypespec:
   \_LogicNet: (work@static_size_casting.out5), line:15:25, endln:15:29
     |vpiParent:
     \_Module: work@static_size_casting (work@static_size_casting), file:${SURELOG_DIR}/tests/ContAssignConst/dut.sv, line:10:1, endln:29:32
+    |vpiTypespec:
+    \_RefTypespec: (work@static_size_casting.out5), line:15:13, endln:15:24
+      |vpiParent:
+      \_LogicNet: (work@static_size_casting.out5), line:15:25, endln:15:29
+      |vpiFullName:work@static_size_casting.out5
+      |vpiActual:
+      \_LogicTypespec: , line:15:13, endln:15:24
     |vpiName:out5
     |vpiFullName:work@static_size_casting.out5
     |vpiNetType:1
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:16:12, endln:16:23
+  |vpiImportTypespec:
   \_LogicNet: (work@static_size_casting.out6), line:16:24, endln:16:28
     |vpiParent:
     \_Module: work@static_size_casting (work@static_size_casting), file:${SURELOG_DIR}/tests/ContAssignConst/dut.sv, line:10:1, endln:29:32
+    |vpiTypespec:
+    \_RefTypespec: (work@static_size_casting.out6), line:16:12, endln:16:23
+      |vpiParent:
+      \_LogicNet: (work@static_size_casting.out6), line:16:24, endln:16:28
+      |vpiFullName:work@static_size_casting.out6
+      |vpiActual:
+      \_LogicTypespec: , line:16:12, endln:16:23
     |vpiName:out6
     |vpiFullName:work@static_size_casting.out6
     |vpiNetType:1
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:11:13, endln:11:24
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:12:13, endln:12:24
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:13:13, endln:13:24
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:14:12, endln:14:23
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:15:13, endln:15:24
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:16:12, endln:16:23
+  |vpiDefName:work@static_size_casting
+  |vpiNet:
+  \_LogicNet: (work@static_size_casting.out1), line:11:25, endln:11:29
+  |vpiNet:
+  \_LogicNet: (work@static_size_casting.out2), line:12:25, endln:12:29
+  |vpiNet:
+  \_LogicNet: (work@static_size_casting.out3), line:13:25, endln:13:29
+  |vpiNet:
+  \_LogicNet: (work@static_size_casting.out4), line:14:24, endln:14:28
+  |vpiNet:
+  \_LogicNet: (work@static_size_casting.out5), line:15:25, endln:15:29
+  |vpiNet:
+  \_LogicNet: (work@static_size_casting.out6), line:16:24, endln:16:28
   |vpiPort:
   \_Port: (out1), line:11:25, endln:11:29
     |vpiParent:
     \_Module: work@static_size_casting (work@static_size_casting), file:${SURELOG_DIR}/tests/ContAssignConst/dut.sv, line:10:1, endln:29:32
     |vpiName:out1
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@static_size_casting.out1.out1), line:11:25, endln:11:29
-      |vpiParent:
-      \_Port: (out1), line:11:25, endln:11:29
-      |vpiName:out1
-      |vpiFullName:work@static_size_casting.out1.out1
-      |vpiActual:
-      \_LogicNet: (work@static_size_casting.out1), line:11:25, endln:11:29
-    |vpiTypedef:
-    \_RefTypespec: (work@static_size_casting.out1)
+    |vpiTypespec:
+    \_RefTypespec: (work@static_size_casting.out1), line:11:13, endln:11:17
       |vpiParent:
       \_Port: (out1), line:11:25, endln:11:29
       |vpiFullName:work@static_size_casting.out1
@@ -375,16 +730,8 @@ Design: (unnamed)
     \_Module: work@static_size_casting (work@static_size_casting), file:${SURELOG_DIR}/tests/ContAssignConst/dut.sv, line:10:1, endln:29:32
     |vpiName:out2
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@static_size_casting.out2.out2), line:12:25, endln:12:29
-      |vpiParent:
-      \_Port: (out2), line:12:25, endln:12:29
-      |vpiName:out2
-      |vpiFullName:work@static_size_casting.out2.out2
-      |vpiActual:
-      \_LogicNet: (work@static_size_casting.out2), line:12:25, endln:12:29
-    |vpiTypedef:
-    \_RefTypespec: (work@static_size_casting.out2)
+    |vpiTypespec:
+    \_RefTypespec: (work@static_size_casting.out2), line:12:13, endln:12:17
       |vpiParent:
       \_Port: (out2), line:12:25, endln:12:29
       |vpiFullName:work@static_size_casting.out2
@@ -396,16 +743,8 @@ Design: (unnamed)
     \_Module: work@static_size_casting (work@static_size_casting), file:${SURELOG_DIR}/tests/ContAssignConst/dut.sv, line:10:1, endln:29:32
     |vpiName:out3
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@static_size_casting.out3.out3), line:13:25, endln:13:29
-      |vpiParent:
-      \_Port: (out3), line:13:25, endln:13:29
-      |vpiName:out3
-      |vpiFullName:work@static_size_casting.out3.out3
-      |vpiActual:
-      \_LogicNet: (work@static_size_casting.out3), line:13:25, endln:13:29
-    |vpiTypedef:
-    \_RefTypespec: (work@static_size_casting.out3)
+    |vpiTypespec:
+    \_RefTypespec: (work@static_size_casting.out3), line:13:13, endln:13:17
       |vpiParent:
       \_Port: (out3), line:13:25, endln:13:29
       |vpiFullName:work@static_size_casting.out3
@@ -417,16 +756,8 @@ Design: (unnamed)
     \_Module: work@static_size_casting (work@static_size_casting), file:${SURELOG_DIR}/tests/ContAssignConst/dut.sv, line:10:1, endln:29:32
     |vpiName:out4
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@static_size_casting.out4.out4), line:14:24, endln:14:28
-      |vpiParent:
-      \_Port: (out4), line:14:24, endln:14:28
-      |vpiName:out4
-      |vpiFullName:work@static_size_casting.out4.out4
-      |vpiActual:
-      \_LogicNet: (work@static_size_casting.out4), line:14:24, endln:14:28
-    |vpiTypedef:
-    \_RefTypespec: (work@static_size_casting.out4)
+    |vpiTypespec:
+    \_RefTypespec: (work@static_size_casting.out4), line:14:12, endln:14:16
       |vpiParent:
       \_Port: (out4), line:14:24, endln:14:28
       |vpiFullName:work@static_size_casting.out4
@@ -438,16 +769,8 @@ Design: (unnamed)
     \_Module: work@static_size_casting (work@static_size_casting), file:${SURELOG_DIR}/tests/ContAssignConst/dut.sv, line:10:1, endln:29:32
     |vpiName:out5
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@static_size_casting.out5.out5), line:15:25, endln:15:29
-      |vpiParent:
-      \_Port: (out5), line:15:25, endln:15:29
-      |vpiName:out5
-      |vpiFullName:work@static_size_casting.out5.out5
-      |vpiActual:
-      \_LogicNet: (work@static_size_casting.out5), line:15:25, endln:15:29
-    |vpiTypedef:
-    \_RefTypespec: (work@static_size_casting.out5)
+    |vpiTypespec:
+    \_RefTypespec: (work@static_size_casting.out5), line:15:13, endln:15:17
       |vpiParent:
       \_Port: (out5), line:15:25, endln:15:29
       |vpiFullName:work@static_size_casting.out5
@@ -459,16 +782,8 @@ Design: (unnamed)
     \_Module: work@static_size_casting (work@static_size_casting), file:${SURELOG_DIR}/tests/ContAssignConst/dut.sv, line:10:1, endln:29:32
     |vpiName:out6
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@static_size_casting.out6.out6), line:16:24, endln:16:28
-      |vpiParent:
-      \_Port: (out6), line:16:24, endln:16:28
-      |vpiName:out6
-      |vpiFullName:work@static_size_casting.out6.out6
-      |vpiActual:
-      \_LogicNet: (work@static_size_casting.out6), line:16:24, endln:16:28
-    |vpiTypedef:
-    \_RefTypespec: (work@static_size_casting.out6)
+    |vpiTypespec:
+    \_RefTypespec: (work@static_size_casting.out6), line:16:12, endln:16:16
       |vpiParent:
       \_Port: (out6), line:16:24, endln:16:28
       |vpiFullName:work@static_size_casting.out6
@@ -515,13 +830,6 @@ Design: (unnamed)
     \_Operation: , line:21:17, endln:21:28
       |vpiParent:
       \_ContAssign: , line:21:10, endln:21:28
-      |vpiTypespec:
-      \_RefTypespec: (work@static_size_casting)
-        |vpiParent:
-        \_Operation: , line:21:17, endln:21:28
-        |vpiFullName:work@static_size_casting
-        |vpiActual:
-        \_IntegerTypespec: , line:21:17, endln:21:18
       |vpiOpType:67
       |vpiOperand:
       \_Operation: , line:21:20, endln:21:27
@@ -593,13 +901,6 @@ Design: (unnamed)
     \_Operation: , line:25:17, endln:25:28
       |vpiParent:
       \_ContAssign: , line:25:10, endln:25:28
-      |vpiTypespec:
-      \_RefTypespec: (work@static_size_casting)
-        |vpiParent:
-        \_Operation: , line:25:17, endln:25:28
-        |vpiFullName:work@static_size_casting
-        |vpiActual:
-        \_IntegerTypespec: , line:25:17, endln:25:18
       |vpiOpType:67
       |vpiOperand:
       \_Operation: , line:25:20, endln:25:27
@@ -638,25 +939,11 @@ Design: (unnamed)
     \_Operation: , line:26:17, endln:26:33
       |vpiParent:
       \_ContAssign: , line:26:10, endln:26:33
-      |vpiTypespec:
-      \_RefTypespec: (work@static_size_casting)
-        |vpiParent:
-        \_Operation: , line:26:17, endln:26:33
-        |vpiFullName:work@static_size_casting
-        |vpiActual:
-        \_IntegerTypespec: , line:26:17, endln:26:19
       |vpiOpType:67
       |vpiOperand:
       \_Operation: , line:26:21, endln:26:32
         |vpiParent:
         \_Operation: , line:26:17, endln:26:33
-        |vpiTypespec:
-        \_RefTypespec: (work@static_size_casting)
-          |vpiParent:
-          \_Operation: , line:26:21, endln:26:32
-          |vpiFullName:work@static_size_casting
-          |vpiActual:
-          \_IntegerTypespec: , line:26:21, endln:26:22
         |vpiOpType:67
         |vpiOperand:
         \_Operation: , line:26:24, endln:26:31
@@ -698,6 +985,8 @@ Design: (unnamed)
       |vpiOpType:34
       |vpiOperand:
       \_Constant: , line:27:18, endln:27:19
+        |vpiParent:
+        \_Operation: , line:27:17, endln:27:30
         |vpiDecompile:8
         |vpiSize:64
         |UINT:8
@@ -711,13 +1000,6 @@ Design: (unnamed)
         \_Operation: , line:27:20, endln:27:28
           |vpiParent:
           \_Operation: , line:27:19, endln:27:29
-          |vpiTypespec:
-          \_RefTypespec: (work@static_size_casting)
-            |vpiParent:
-            \_Operation: , line:27:20, endln:27:28
-            |vpiFullName:work@static_size_casting
-            |vpiActual:
-            \_IntegerTypespec: , line:27:20, endln:27:21
           |vpiOpType:67
           |vpiOperand:
           \_Constant: , line:27:23, endln:27:27
@@ -736,143 +1018,6 @@ Design: (unnamed)
       |vpiActual:
       \_LogicNet: (work@static_size_casting.out6), line:16:24, endln:16:28
   |vpiEndLabel:static_size_casting
-\_weaklyReferenced:
-\_IntegerTypespec: , line:21:17, endln:21:18
-  |INT:8
-\_IntegerTypespec: , line:25:17, endln:25:18
-  |INT:8
-\_IntegerTypespec: , line:26:21, endln:26:22
-  |INT:8
-\_IntegerTypespec: , line:26:17, endln:26:19
-  |INT:16
-\_IntegerTypespec: , line:27:20, endln:27:21
-  |INT:2
-\_LogicTypespec: , line:11:13, endln:11:24
-  |vpiRange:
-  \_Range: , line:11:18, endln:11:24
-    |vpiParent:
-    \_LogicTypespec: , line:11:13, endln:11:24
-    |vpiLeftRange:
-    \_Constant: , line:11:20, endln:11:21
-      |vpiParent:
-      \_Range: , line:11:18, endln:11:24
-      |vpiDecompile:7
-      |vpiSize:64
-      |UINT:7
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:11:22, endln:11:23
-      |vpiParent:
-      \_Range: , line:11:18, endln:11:24
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:12:13, endln:12:24
-  |vpiRange:
-  \_Range: , line:12:18, endln:12:24
-    |vpiParent:
-    \_LogicTypespec: , line:12:13, endln:12:24
-    |vpiLeftRange:
-    \_Constant: , line:12:20, endln:12:21
-      |vpiParent:
-      \_Range: , line:12:18, endln:12:24
-      |vpiDecompile:7
-      |vpiSize:64
-      |UINT:7
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:12:22, endln:12:23
-      |vpiParent:
-      \_Range: , line:12:18, endln:12:24
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:13:13, endln:13:24
-  |vpiRange:
-  \_Range: , line:13:18, endln:13:24
-    |vpiParent:
-    \_LogicTypespec: , line:13:13, endln:13:24
-    |vpiLeftRange:
-    \_Constant: , line:13:19, endln:13:21
-      |vpiParent:
-      \_Range: , line:13:18, endln:13:24
-      |vpiDecompile:15
-      |vpiSize:64
-      |UINT:15
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:13:22, endln:13:23
-      |vpiParent:
-      \_Range: , line:13:18, endln:13:24
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:14:12, endln:14:23
-  |vpiRange:
-  \_Range: , line:14:17, endln:14:23
-    |vpiParent:
-    \_LogicTypespec: , line:14:12, endln:14:23
-    |vpiLeftRange:
-    \_Constant: , line:14:18, endln:14:20
-      |vpiParent:
-      \_Range: , line:14:17, endln:14:23
-      |vpiDecompile:15
-      |vpiSize:64
-      |UINT:15
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:14:21, endln:14:22
-      |vpiParent:
-      \_Range: , line:14:17, endln:14:23
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:15:13, endln:15:24
-  |vpiRange:
-  \_Range: , line:15:18, endln:15:24
-    |vpiParent:
-    \_LogicTypespec: , line:15:13, endln:15:24
-    |vpiLeftRange:
-    \_Constant: , line:15:19, endln:15:21
-      |vpiParent:
-      \_Range: , line:15:18, endln:15:24
-      |vpiDecompile:15
-      |vpiSize:64
-      |UINT:15
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:15:22, endln:15:23
-      |vpiParent:
-      \_Range: , line:15:18, endln:15:24
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:16:12, endln:16:23
-  |vpiRange:
-  \_Range: , line:16:17, endln:16:23
-    |vpiParent:
-    \_LogicTypespec: , line:16:12, endln:16:23
-    |vpiLeftRange:
-    \_Constant: , line:16:18, endln:16:20
-      |vpiParent:
-      \_Range: , line:16:17, endln:16:23
-      |vpiDecompile:15
-      |vpiSize:64
-      |UINT:15
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:16:21, endln:16:22
-      |vpiParent:
-      \_Range: , line:16:17, endln:16:23
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

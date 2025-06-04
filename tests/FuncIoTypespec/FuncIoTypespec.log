@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 1502
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv
+FILE: ${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv
 n<> u<1501> t<Top_level_rule> c<1> l<1:1> el<103:1>
-  n<> u<1> t<Null_rule> p<1501> s<1500> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<1501> s<1500> l<1:1>
   n<> u<1500> t<Source_text> p<1501> c<1295> l<1:1> el<102:10>
     n<> u<1295> t<Description> p<1500> c<1294> s<1499> l<1:1> el<81:10>
       n<> u<1294> t<Module_declaration> p<1295> c<23> l<1:1> el<81:10>
@@ -1515,9 +1515,9 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 Assignment                                            14
-Begin                                                  6
+Begin                                                  8
 BitSelect                                              3
-Constant                                              95
+Constant                                             117
 ContAssign                                             2
 Design                                                 1
 FuncCall                                               5
@@ -1526,89 +1526,58 @@ GenIfElse                                              1
 GenRegion                                              1
 IODecl                                                12
 IfElse                                                 1
-IntTypespec                                            7
-LogicNet                                               7
-LogicTypespec                                         33
-LogicVar                                              14
-Module                                                 2
-NamedBegin                                             2
-Operation                                             58
+LogicNet                                               6
+LogicTypespec                                         22
+LogicVar                                               9
+Module                                                 8
+ModuleTypespec                                         1
+Operation                                             69
 ParamAssign                                           13
 Parameter                                             13
 PartSelect                                             7
 Port                                                   9
-Range                                                 36
+Range                                                 47
 RefModule                                              1
-RefObj                                               107
-RefTypespec                                           42
+RefObj                                               112
+RefTypespec                                           17
 SysFuncCall                                            1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FuncIoTypespec/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/FuncIoTypespec/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/FuncIoTypespec/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@shift (work@shift), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:1:1, endln:81:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@shift
+  |vpiName:work@shift
   |vpiParameter:
-  \_Parameter: (work@shift.width_a), line:2:16, endln:2:23
+  \_Parameter: (work@shift.width_a), line:2:16, endln:2:27
     |vpiParent:
     \_Module: work@shift (work@shift), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:1:1, endln:81:10
     |UINT:4
-    |vpiTypespec:
-    \_RefTypespec: (work@shift.width_a)
-      |vpiParent:
-      \_Parameter: (work@shift.width_a), line:2:16, endln:2:23
-      |vpiFullName:work@shift.width_a
-      |vpiActual:
-      \_IntTypespec: , line:2:3, endln:2:27
     |vpiName:width_a
     |vpiFullName:work@shift.width_a
   |vpiParameter:
-  \_Parameter: (work@shift.signd_a), line:3:16, endln:3:23
+  \_Parameter: (work@shift.signd_a), line:3:16, endln:3:27
     |vpiParent:
     \_Module: work@shift (work@shift), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:1:1, endln:81:10
     |UINT:1
-    |vpiTypespec:
-    \_RefTypespec: (work@shift.signd_a)
-      |vpiParent:
-      \_Parameter: (work@shift.signd_a), line:3:16, endln:3:23
-      |vpiFullName:work@shift.signd_a
-      |vpiActual:
-      \_IntTypespec: , line:3:3, endln:3:27
     |vpiName:signd_a
     |vpiFullName:work@shift.signd_a
   |vpiParameter:
-  \_Parameter: (work@shift.width_s), line:4:16, endln:4:23
+  \_Parameter: (work@shift.width_s), line:4:16, endln:4:27
     |vpiParent:
     \_Module: work@shift (work@shift), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:1:1, endln:81:10
     |UINT:2
-    |vpiTypespec:
-    \_RefTypespec: (work@shift.width_s)
-      |vpiParent:
-      \_Parameter: (work@shift.width_s), line:4:16, endln:4:23
-      |vpiFullName:work@shift.width_s
-      |vpiActual:
-      \_IntTypespec: , line:4:3, endln:4:27
     |vpiName:width_s
     |vpiFullName:work@shift.width_s
   |vpiParameter:
-  \_Parameter: (work@shift.width_z), line:5:16, endln:5:23
+  \_Parameter: (work@shift.width_z), line:5:16, endln:5:27
     |vpiParent:
     \_Module: work@shift (work@shift), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:1:1, endln:81:10
     |UINT:8
-    |vpiTypespec:
-    \_RefTypespec: (work@shift.width_z)
-      |vpiParent:
-      \_Parameter: (work@shift.width_z), line:5:16, endln:5:23
-      |vpiFullName:work@shift.width_z
-      |vpiActual:
-      \_IntTypespec: , line:5:3, endln:5:27
     |vpiName:width_z
     |vpiFullName:work@shift.width_z
   |vpiParamAssign:
@@ -1622,16 +1591,9 @@ Design: (unnamed)
       |vpiDecompile:4
       |vpiSize:64
       |UINT:4
-      |vpiTypespec:
-      \_RefTypespec: (work@shift)
-        |vpiParent:
-        \_Constant: , line:2:26, endln:2:27
-        |vpiFullName:work@shift
-        |vpiActual:
-        \_IntTypespec: , line:2:3, endln:2:27
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (work@shift.width_a), line:2:16, endln:2:23
+    \_Parameter: (work@shift.width_a), line:2:16, endln:2:27
   |vpiParamAssign:
   \_ParamAssign: , line:3:16, endln:3:27
     |vpiParent:
@@ -1643,16 +1605,9 @@ Design: (unnamed)
       |vpiDecompile:1
       |vpiSize:64
       |UINT:1
-      |vpiTypespec:
-      \_RefTypespec: (work@shift)
-        |vpiParent:
-        \_Constant: , line:3:26, endln:3:27
-        |vpiFullName:work@shift
-        |vpiActual:
-        \_IntTypespec: , line:3:3, endln:3:27
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (work@shift.signd_a), line:3:16, endln:3:23
+    \_Parameter: (work@shift.signd_a), line:3:16, endln:3:27
   |vpiParamAssign:
   \_ParamAssign: , line:4:16, endln:4:27
     |vpiParent:
@@ -1664,16 +1619,9 @@ Design: (unnamed)
       |vpiDecompile:2
       |vpiSize:64
       |UINT:2
-      |vpiTypespec:
-      \_RefTypespec: (work@shift)
-        |vpiParent:
-        \_Constant: , line:4:26, endln:4:27
-        |vpiFullName:work@shift
-        |vpiActual:
-        \_IntTypespec: , line:4:3, endln:4:27
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (work@shift.width_s), line:4:16, endln:4:23
+    \_Parameter: (work@shift.width_s), line:4:16, endln:4:27
   |vpiParamAssign:
   \_ParamAssign: , line:5:16, endln:5:27
     |vpiParent:
@@ -1685,45 +1633,49 @@ Design: (unnamed)
       |vpiDecompile:8
       |vpiSize:64
       |UINT:8
-      |vpiTypespec:
-      \_RefTypespec: (work@shift)
-        |vpiParent:
-        \_Constant: , line:5:26, endln:5:27
-        |vpiFullName:work@shift
-        |vpiActual:
-        \_IntTypespec: , line:5:3, endln:5:27
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (work@shift.width_z), line:5:16, endln:5:23
-  |vpiDefName:work@shift
-  |vpiTaskFunc:
+    \_Parameter: (work@shift.width_z), line:5:16, endln:5:27
+  |vpiInternalScope:
   \_Function: (work@shift.fshl_u_1), line:21:3, endln:36:14
     |vpiParent:
     \_Module: work@shift (work@shift), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:1:1, endln:81:10
     |vpiName:fshl_u_1
     |vpiFullName:work@shift.fshl_u_1
-    |vpiVariables:
-    \_LogicVar: (work@shift.fshl_u_1.result), line:28:6, endln:28:19
+    |vpiReg:
+    \_LogicVar: (work@shift.fshl_u_1)
       |vpiParent:
       \_Function: (work@shift.fshl_u_1), line:21:3, endln:36:14
       |vpiTypespec:
-      \_RefTypespec: (work@shift.fshl_u_1.result)
+      \_RefTypespec: (work@shift.fshl_u_1), line:21:12, endln:21:25
         |vpiParent:
-        \_LogicVar: (work@shift.fshl_u_1.result), line:28:6, endln:28:19
+        \_LogicVar: (work@shift.fshl_u_1)
+        |vpiFullName:work@shift.fshl_u_1
+        |vpiActual:
+        \_LogicTypespec: , line:21:12, endln:21:25
+      |vpiFullName:work@shift.fshl_u_1
+    |vpiReg:
+    \_LogicVar: (work@shift.fshl_u_1.result), line:28:20, endln:28:26
+      |vpiParent:
+      \_Function: (work@shift.fshl_u_1), line:21:3, endln:36:14
+      |vpiTypespec:
+      \_RefTypespec: (work@shift.fshl_u_1.result), line:28:6, endln:28:19
+        |vpiParent:
+        \_LogicVar: (work@shift.fshl_u_1.result), line:28:20, endln:28:26
         |vpiFullName:work@shift.fshl_u_1.result
         |vpiActual:
         \_LogicTypespec: , line:28:6, endln:28:19
       |vpiName:result
       |vpiFullName:work@shift.fshl_u_1.result
       |vpiAutomatic:1
-    |vpiVariables:
-    \_LogicVar: (work@shift.fshl_u_1.result_t), line:29:6, endln:29:19
+    |vpiReg:
+    \_LogicVar: (work@shift.fshl_u_1.result_t), line:29:20, endln:29:28
       |vpiParent:
       \_Function: (work@shift.fshl_u_1), line:21:3, endln:36:14
       |vpiTypespec:
-      \_RefTypespec: (work@shift.fshl_u_1.result_t)
+      \_RefTypespec: (work@shift.fshl_u_1.result_t), line:29:6, endln:29:19
         |vpiParent:
-        \_LogicVar: (work@shift.fshl_u_1.result_t), line:29:6, endln:29:19
+        \_LogicVar: (work@shift.fshl_u_1.result_t), line:29:20, endln:29:28
         |vpiFullName:work@shift.fshl_u_1.result_t
         |vpiActual:
         \_LogicTypespec: , line:29:6, endln:29:19
@@ -1731,21 +1683,21 @@ Design: (unnamed)
       |vpiFullName:work@shift.fshl_u_1.result_t
       |vpiAutomatic:1
     |vpiParameter:
-    \_Parameter: (work@shift.fshl_u_1.olen), line:25:16, endln:25:20
+    \_Parameter: (work@shift.fshl_u_1.olen), line:25:16, endln:25:30
       |vpiParent:
-      \_ParamAssign: , line:25:16, endln:25:30
+      \_Function: (work@shift.fshl_u_1), line:21:3, endln:36:14
       |vpiName:olen
       |vpiFullName:work@shift.fshl_u_1.olen
     |vpiParameter:
-    \_Parameter: (work@shift.fshl_u_1.ilen), line:26:16, endln:26:20
+    \_Parameter: (work@shift.fshl_u_1.ilen), line:26:16, endln:26:32
       |vpiParent:
-      \_ParamAssign: , line:26:16, endln:26:32
+      \_Function: (work@shift.fshl_u_1), line:21:3, endln:36:14
       |vpiName:ilen
       |vpiFullName:work@shift.fshl_u_1.ilen
     |vpiParameter:
-    \_Parameter: (work@shift.fshl_u_1.len), line:27:16, endln:27:19
+    \_Parameter: (work@shift.fshl_u_1.len), line:27:16, endln:27:50
       |vpiParent:
-      \_ParamAssign: , line:27:16, endln:27:50
+      \_Function: (work@shift.fshl_u_1), line:21:3, endln:36:14
       |vpiName:len
       |vpiFullName:work@shift.fshl_u_1.len
     |vpiParamAssign:
@@ -1758,8 +1710,10 @@ Design: (unnamed)
         \_ParamAssign: , line:25:16, endln:25:30
         |vpiName:width_z
         |vpiFullName:work@shift.fshl_u_1.width_z
+        |vpiActual:
+        \_Parameter: (work@shift.width_z), line:5:16, endln:5:27
       |vpiLhs:
-      \_Parameter: (work@shift.fshl_u_1.olen), line:25:16, endln:25:20
+      \_Parameter: (work@shift.fshl_u_1.olen), line:25:16, endln:25:30
     |vpiParamAssign:
     \_ParamAssign: , line:26:16, endln:26:32
       |vpiParent:
@@ -1775,6 +1729,8 @@ Design: (unnamed)
           \_Operation: , line:26:23, endln:26:32
           |vpiName:width_a
           |vpiFullName:work@shift.fshl_u_1.width_a
+          |vpiActual:
+          \_Parameter: (work@shift.width_a), line:2:16, endln:2:27
         |vpiOperand:
         \_Constant: , line:26:31, endln:26:32
           |vpiParent:
@@ -1784,7 +1740,7 @@ Design: (unnamed)
           |UINT:1
           |vpiConstType:9
       |vpiLhs:
-      \_Parameter: (work@shift.fshl_u_1.ilen), line:26:16, endln:26:20
+      \_Parameter: (work@shift.fshl_u_1.ilen), line:26:16, endln:26:32
     |vpiParamAssign:
     \_ParamAssign: , line:27:16, endln:27:50
       |vpiParent:
@@ -1805,72 +1761,35 @@ Design: (unnamed)
             \_Operation: , line:27:23, endln:27:35
             |vpiName:ilen
             |vpiFullName:work@shift.fshl_u_1.ilen
+            |vpiActual:
+            \_Parameter: (work@shift.fshl_u_1.ilen), line:26:16, endln:26:32
           |vpiOperand:
           \_RefObj: (work@shift.fshl_u_1.olen), line:27:31, endln:27:35
             |vpiParent:
             \_Operation: , line:27:23, endln:27:35
             |vpiName:olen
             |vpiFullName:work@shift.fshl_u_1.olen
+            |vpiActual:
+            \_Parameter: (work@shift.fshl_u_1.olen), line:25:16, endln:25:30
         |vpiOperand:
         \_RefObj: (work@shift.fshl_u_1.ilen), line:27:39, endln:27:43
           |vpiParent:
           \_Operation: , line:27:22, endln:27:50
           |vpiName:ilen
           |vpiFullName:work@shift.fshl_u_1.ilen
+          |vpiActual:
+          \_Parameter: (work@shift.fshl_u_1.ilen), line:26:16, endln:26:32
         |vpiOperand:
         \_RefObj: (work@shift.fshl_u_1.olen), line:27:46, endln:27:50
           |vpiParent:
           \_Operation: , line:27:22, endln:27:50
           |vpiName:olen
           |vpiFullName:work@shift.fshl_u_1.olen
+          |vpiActual:
+          \_Parameter: (work@shift.fshl_u_1.olen), line:25:16, endln:25:30
       |vpiLhs:
-      \_Parameter: (work@shift.fshl_u_1.len), line:27:16, endln:27:19
-    |vpiVisibility:1
-    |vpiReturn:
-    \_LogicVar: (work@shift.fshl_u_1), line:21:12, endln:21:25
-      |vpiParent:
-      \_Function: (work@shift.fshl_u_1), line:21:3, endln:36:14
-      |vpiTypespec:
-      \_RefTypespec: (work@shift.fshl_u_1)
-        |vpiParent:
-        \_LogicVar: (work@shift.fshl_u_1), line:21:12, endln:21:25
-        |vpiFullName:work@shift.fshl_u_1
-        |vpiActual:
-        \_LogicTypespec: , line:21:12, endln:21:25
-      |vpiFullName:work@shift.fshl_u_1
-    |vpiIODecl:
-    \_IODecl: (arg1), line:22:26, endln:22:30
-      |vpiParent:
-      \_Function: (work@shift.fshl_u_1), line:21:3, endln:36:14
-      |vpiDirection:1
-      |vpiName:arg1
-      |vpiTypedef:
-      \_RefTypespec: (work@shift.fshl_u_1.arg1)
-        |vpiParent:
-        \_IODecl: (arg1), line:22:26, endln:22:30
-        |vpiFullName:work@shift.fshl_u_1.arg1
-        |vpiActual:
-        \_LogicTypespec: , line:22:12, endln:22:25
-    |vpiIODecl:
-    \_IODecl: (arg2), line:23:26, endln:23:30
-      |vpiParent:
-      \_Function: (work@shift.fshl_u_1), line:21:3, endln:36:14
-      |vpiDirection:1
-      |vpiName:arg2
-      |vpiTypedef:
-      \_RefTypespec: (work@shift.fshl_u_1.arg2)
-        |vpiParent:
-        \_IODecl: (arg2), line:23:26, endln:23:30
-        |vpiFullName:work@shift.fshl_u_1.arg2
-        |vpiActual:
-        \_LogicTypespec: , line:23:12, endln:23:25
-    |vpiIODecl:
-    \_IODecl: (sbit), line:24:12, endln:24:16
-      |vpiParent:
-      \_Function: (work@shift.fshl_u_1), line:21:3, endln:36:14
-      |vpiDirection:1
-      |vpiName:sbit
-    |vpiStmt:
+      \_Parameter: (work@shift.fshl_u_1.len), line:27:16, endln:27:50
+    |vpiInternalScope:
     \_Begin: (work@shift.fshl_u_1), line:30:6, endln:35:9
       |vpiParent:
       \_Function: (work@shift.fshl_u_1), line:21:3, endln:36:14
@@ -1893,7 +1812,7 @@ Design: (unnamed)
             |vpiName:len
             |vpiFullName:work@shift.fshl_u_1.len
             |vpiActual:
-            \_Parameter: (work@shift.fshl_u_1.len), line:27:16, endln:27:19
+            \_Parameter: (work@shift.fshl_u_1.len), line:27:16, endln:27:50
           |vpiOperand:
           \_Operation: , line:31:25, endln:31:31
             |vpiParent:
@@ -1914,7 +1833,7 @@ Design: (unnamed)
           |vpiName:result_t
           |vpiFullName:work@shift.fshl_u_1.result_t
           |vpiActual:
-          \_PartSelect: result_t (work@shift.fshl_u_1.result_t), line:32:8, endln:32:26
+          \_LogicVar: (work@shift.fshl_u_1.result_t), line:29:20, endln:29:28
       |vpiStmt:
       \_Assignment: , line:32:8, endln:32:33
         |vpiParent:
@@ -1930,17 +1849,19 @@ Design: (unnamed)
           |vpiActual:
           \_IODecl: (arg1), line:22:26, endln:22:30
         |vpiLhs:
-        \_PartSelect: result_t (work@shift.fshl_u_1.result_t), line:32:8, endln:32:26
+        \_PartSelect: result_t (work@shift.fshl_u_1.result_t), line:32:17, endln:32:25
           |vpiParent:
           \_Assignment: , line:32:8, endln:32:33
           |vpiName:result_t
           |vpiFullName:work@shift.fshl_u_1.result_t
           |vpiDefName:result_t
+          |vpiActual:
+          \_LogicVar: (work@shift.fshl_u_1.result_t), line:29:20, endln:29:28
           |vpiConstantSelect:1
           |vpiLeftRange:
           \_Operation: , line:32:17, endln:32:23
             |vpiParent:
-            \_PartSelect: result_t (work@shift.fshl_u_1.result_t), line:32:8, endln:32:26
+            \_PartSelect: result_t (work@shift.fshl_u_1.result_t), line:32:17, endln:32:25
             |vpiOpType:11
             |vpiOperand:
             \_RefObj: (work@shift.fshl_u_1.result_t.ilen), line:32:17, endln:32:21
@@ -1949,7 +1870,7 @@ Design: (unnamed)
               |vpiName:ilen
               |vpiFullName:work@shift.fshl_u_1.result_t.ilen
               |vpiActual:
-              \_Parameter: (work@shift.fshl_u_1.ilen), line:26:16, endln:26:20
+              \_Parameter: (work@shift.fshl_u_1.ilen), line:26:16, endln:26:32
             |vpiOperand:
             \_Constant: , line:32:22, endln:32:23
               |vpiParent:
@@ -1960,6 +1881,8 @@ Design: (unnamed)
               |vpiConstType:9
           |vpiRightRange:
           \_Constant: , line:32:24, endln:32:25
+            |vpiParent:
+            \_PartSelect: result_t (work@shift.fshl_u_1.result_t), line:32:17, endln:32:25
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
@@ -1982,7 +1905,7 @@ Design: (unnamed)
             |vpiName:result_t
             |vpiFullName:work@shift.fshl_u_1.result_t
             |vpiActual:
-            \_PartSelect: result_t (work@shift.fshl_u_1.result_t), line:32:8, endln:32:26
+            \_LogicVar: (work@shift.fshl_u_1.result_t), line:29:20, endln:29:28
           |vpiOperand:
           \_RefObj: (work@shift.fshl_u_1.arg2), line:33:30, endln:33:34
             |vpiParent:
@@ -1998,7 +1921,7 @@ Design: (unnamed)
           |vpiName:result
           |vpiFullName:work@shift.fshl_u_1.result
           |vpiActual:
-          \_LogicVar: (work@shift.fshl_u_1.result), line:28:6, endln:28:19
+          \_LogicVar: (work@shift.fshl_u_1.result), line:28:20, endln:28:26
       |vpiStmt:
       \_Assignment: , line:34:8, endln:34:36
         |vpiParent:
@@ -2012,6 +1935,8 @@ Design: (unnamed)
           |vpiName:result
           |vpiFullName:work@shift.fshl_u_1.result
           |vpiDefName:result
+          |vpiActual:
+          \_LogicVar: (work@shift.fshl_u_1.result), line:28:20, endln:28:26
           |vpiConstantSelect:1
           |vpiLeftRange:
           \_Operation: , line:34:27, endln:34:33
@@ -2025,7 +1950,7 @@ Design: (unnamed)
               |vpiName:olen
               |vpiFullName:work@shift.fshl_u_1.result.olen
               |vpiActual:
-              \_Parameter: (work@shift.fshl_u_1.olen), line:25:16, endln:25:20
+              \_Parameter: (work@shift.fshl_u_1.olen), line:25:16, endln:25:30
             |vpiOperand:
             \_Constant: , line:34:32, endln:34:33
               |vpiParent:
@@ -2036,6 +1961,8 @@ Design: (unnamed)
               |vpiConstType:9
           |vpiRightRange:
           \_Constant: , line:34:34, endln:34:35
+            |vpiParent:
+            \_PartSelect: result (work@shift.fshl_u_1.result), line:34:20, endln:34:36
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
@@ -2047,28 +1974,452 @@ Design: (unnamed)
           |vpiName:fshl_u_1
           |vpiFullName:work@shift.fshl_u_1.fshl_u_1
           |vpiActual:
-          \_LogicVar: (work@shift.fshl_u_1.fshl_u_1), line:21:12, endln:21:25
-    |vpiInstance:
-    \_Module: work@shift (work@shift), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:1:1, endln:81:10
-  |vpiTaskFunc:
+          \_LogicVar: (work@shift.fshl_u_1)
+    |vpiTypedef:
+    \_LogicTypespec: , line:21:12, endln:21:25
+      |vpiParent:
+      \_Function: (work@shift.fshl_u_1), line:21:3, endln:36:14
+      |vpiRange:
+      \_Range: , line:21:12, endln:21:25
+        |vpiParent:
+        \_LogicTypespec: , line:21:12, endln:21:25
+        |vpiLeftRange:
+        \_Operation: , line:21:13, endln:21:22
+          |vpiParent:
+          \_Range: , line:21:12, endln:21:25
+          |vpiOpType:11
+          |vpiOperand:
+          \_RefObj: (work@shift.fshl_u_1.width_z), line:21:13, endln:21:20
+            |vpiParent:
+            \_Operation: , line:21:13, endln:21:22
+            |vpiName:width_z
+            |vpiFullName:work@shift.fshl_u_1.width_z
+            |vpiActual:
+            \_Parameter: (work@shift.width_z), line:5:16, endln:5:27
+          |vpiOperand:
+          \_Constant: , line:21:21, endln:21:22
+            |vpiParent:
+            \_Operation: , line:21:13, endln:21:22
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_Constant: , line:21:23, endln:21:24
+          |vpiParent:
+          \_Range: , line:21:12, endln:21:25
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiSigned:1
+    |vpiTypedef:
+    \_LogicTypespec: , line:22:12, endln:22:25
+      |vpiParent:
+      \_Function: (work@shift.fshl_u_1), line:21:3, endln:36:14
+      |vpiRange:
+      \_Range: , line:22:12, endln:22:25
+        |vpiParent:
+        \_LogicTypespec: , line:22:12, endln:22:25
+        |vpiLeftRange:
+        \_RefObj: (work@shift.fshl_u_1.width_a), line:22:13, endln:22:20
+          |vpiParent:
+          \_Range: , line:22:12, endln:22:25
+          |vpiName:width_a
+          |vpiFullName:work@shift.fshl_u_1.width_a
+          |vpiActual:
+          \_Parameter: (work@shift.width_a), line:2:16, endln:2:27
+        |vpiRightRange:
+        \_Constant: , line:22:23, endln:22:24
+          |vpiParent:
+          \_Range: , line:22:12, endln:22:25
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiTypedef:
+    \_LogicTypespec: , line:23:12, endln:23:25
+      |vpiParent:
+      \_Function: (work@shift.fshl_u_1), line:21:3, endln:36:14
+      |vpiRange:
+      \_Range: , line:23:12, endln:23:25
+        |vpiParent:
+        \_LogicTypespec: , line:23:12, endln:23:25
+        |vpiLeftRange:
+        \_Operation: , line:23:13, endln:23:22
+          |vpiParent:
+          \_Range: , line:23:12, endln:23:25
+          |vpiOpType:11
+          |vpiOperand:
+          \_RefObj: (work@shift.fshl_u_1.width_s), line:23:13, endln:23:20
+            |vpiParent:
+            \_Operation: , line:23:13, endln:23:22
+            |vpiName:width_s
+            |vpiFullName:work@shift.fshl_u_1.width_s
+            |vpiActual:
+            \_Parameter: (work@shift.width_s), line:4:16, endln:4:27
+          |vpiOperand:
+          \_Constant: , line:23:21, endln:23:22
+            |vpiParent:
+            \_Operation: , line:23:13, endln:23:22
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_Constant: , line:23:23, endln:23:24
+          |vpiParent:
+          \_Range: , line:23:12, endln:23:25
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiTypedef:
+    \_LogicTypespec: , line:28:6, endln:28:19
+      |vpiParent:
+      \_Function: (work@shift.fshl_u_1), line:21:3, endln:36:14
+      |vpiRange:
+      \_Range: , line:28:10, endln:28:19
+        |vpiParent:
+        \_LogicTypespec: , line:28:6, endln:28:19
+        |vpiLeftRange:
+        \_Operation: , line:28:11, endln:28:16
+          |vpiParent:
+          \_Range: , line:28:10, endln:28:19
+          |vpiOpType:11
+          |vpiOperand:
+          \_RefObj: (work@shift.fshl_u_1.len), line:28:11, endln:28:14
+            |vpiParent:
+            \_Operation: , line:28:11, endln:28:16
+            |vpiName:len
+            |vpiFullName:work@shift.fshl_u_1.len
+            |vpiActual:
+            \_Parameter: (work@shift.fshl_u_1.len), line:27:16, endln:27:50
+          |vpiOperand:
+          \_Constant: , line:28:15, endln:28:16
+            |vpiParent:
+            \_Operation: , line:28:11, endln:28:16
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_Constant: , line:28:17, endln:28:18
+          |vpiParent:
+          \_Range: , line:28:10, endln:28:19
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiTypedef:
+    \_LogicTypespec: , line:28:6, endln:28:19
+      |vpiParent:
+      \_Function: (work@shift.fshl_u_1), line:21:3, endln:36:14
+      |vpiRange:
+      \_Range: , line:28:10, endln:28:19
+        |vpiParent:
+        \_LogicTypespec: , line:28:6, endln:28:19
+        |vpiLeftRange:
+        \_Operation: , line:28:11, endln:28:16
+          |vpiParent:
+          \_Range: , line:28:10, endln:28:19
+          |vpiOpType:11
+          |vpiOperand:
+          \_RefObj: (work@shift.fshl_u_1.len), line:28:11, endln:28:14
+            |vpiParent:
+            \_Operation: , line:28:11, endln:28:16
+            |vpiName:len
+            |vpiFullName:work@shift.fshl_u_1.len
+            |vpiActual:
+            \_Parameter: (work@shift.fshl_u_1.len), line:27:16, endln:27:50
+          |vpiOperand:
+          \_Constant: , line:28:15, endln:28:16
+            |vpiParent:
+            \_Operation: , line:28:11, endln:28:16
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_Constant: , line:28:17, endln:28:18
+          |vpiParent:
+          \_Range: , line:28:10, endln:28:19
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiTypedef:
+    \_LogicTypespec: , line:29:6, endln:29:19
+      |vpiParent:
+      \_Function: (work@shift.fshl_u_1), line:21:3, endln:36:14
+      |vpiRange:
+      \_Range: , line:29:10, endln:29:19
+        |vpiParent:
+        \_LogicTypespec: , line:29:6, endln:29:19
+        |vpiLeftRange:
+        \_Operation: , line:29:11, endln:29:16
+          |vpiParent:
+          \_Range: , line:29:10, endln:29:19
+          |vpiOpType:11
+          |vpiOperand:
+          \_RefObj: (work@shift.fshl_u_1.len), line:29:11, endln:29:14
+            |vpiParent:
+            \_Operation: , line:29:11, endln:29:16
+            |vpiName:len
+            |vpiFullName:work@shift.fshl_u_1.len
+            |vpiActual:
+            \_Parameter: (work@shift.fshl_u_1.len), line:27:16, endln:27:50
+          |vpiOperand:
+          \_Constant: , line:29:15, endln:29:16
+            |vpiParent:
+            \_Operation: , line:29:11, endln:29:16
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_Constant: , line:29:17, endln:29:18
+          |vpiParent:
+          \_Range: , line:29:10, endln:29:19
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiTypedef:
+    \_LogicTypespec: , line:29:6, endln:29:19
+      |vpiParent:
+      \_Function: (work@shift.fshl_u_1), line:21:3, endln:36:14
+      |vpiRange:
+      \_Range: , line:29:10, endln:29:19
+        |vpiParent:
+        \_LogicTypespec: , line:29:6, endln:29:19
+        |vpiLeftRange:
+        \_Operation: , line:29:11, endln:29:16
+          |vpiParent:
+          \_Range: , line:29:10, endln:29:19
+          |vpiOpType:11
+          |vpiOperand:
+          \_RefObj: (work@shift.fshl_u_1.len), line:29:11, endln:29:14
+            |vpiParent:
+            \_Operation: , line:29:11, endln:29:16
+            |vpiName:len
+            |vpiFullName:work@shift.fshl_u_1.len
+            |vpiActual:
+            \_Parameter: (work@shift.fshl_u_1.len), line:27:16, endln:27:50
+          |vpiOperand:
+          \_Constant: , line:29:15, endln:29:16
+            |vpiParent:
+            \_Operation: , line:29:11, endln:29:16
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_Constant: , line:29:17, endln:29:18
+          |vpiParent:
+          \_Range: , line:29:10, endln:29:19
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiImportTypespec:
+    \_LogicVar: (work@shift.fshl_u_1)
+    |vpiImportTypespec:
+    \_LogicTypespec: , line:21:12, endln:21:25
+    |vpiImportTypespec:
+    \_LogicTypespec: , line:22:12, endln:22:25
+    |vpiImportTypespec:
+    \_LogicTypespec: , line:23:12, endln:23:25
+    |vpiImportTypespec:
+    \_LogicTypespec: , line:28:6, endln:28:19
+    |vpiImportTypespec:
+    \_LogicTypespec: , line:28:6, endln:28:19
+    |vpiImportTypespec:
+    \_LogicVar: (work@shift.fshl_u_1.result), line:28:20, endln:28:26
+    |vpiImportTypespec:
+    \_LogicTypespec: , line:29:6, endln:29:19
+    |vpiImportTypespec:
+    \_LogicTypespec: , line:29:6, endln:29:19
+    |vpiImportTypespec:
+    \_LogicVar: (work@shift.fshl_u_1.result_t), line:29:20, endln:29:28
+    |vpiVisibility:1
+    |vpiReturn:
+    \_LogicVar: (work@shift.fshl_u_1)
+    |vpiIODecl:
+    \_IODecl: (arg1), line:22:26, endln:22:30
+      |vpiParent:
+      \_Function: (work@shift.fshl_u_1), line:21:3, endln:36:14
+      |vpiDirection:1
+      |vpiName:arg1
+      |vpiTypedef:
+      \_RefTypespec: (work@shift.fshl_u_1.arg1), line:22:12, endln:22:25
+        |vpiParent:
+        \_IODecl: (arg1), line:22:26, endln:22:30
+        |vpiFullName:work@shift.fshl_u_1.arg1
+        |vpiActual:
+        \_LogicTypespec: , line:22:12, endln:22:25
+    |vpiIODecl:
+    \_IODecl: (arg2), line:23:26, endln:23:30
+      |vpiParent:
+      \_Function: (work@shift.fshl_u_1), line:21:3, endln:36:14
+      |vpiDirection:1
+      |vpiName:arg2
+      |vpiTypedef:
+      \_RefTypespec: (work@shift.fshl_u_1.arg2), line:23:12, endln:23:25
+        |vpiParent:
+        \_IODecl: (arg2), line:23:26, endln:23:30
+        |vpiFullName:work@shift.fshl_u_1.arg2
+        |vpiActual:
+        \_LogicTypespec: , line:23:12, endln:23:25
+    |vpiIODecl:
+    \_IODecl: (sbit), line:24:12, endln:24:16
+      |vpiParent:
+      \_Function: (work@shift.fshl_u_1), line:21:3, endln:36:14
+      |vpiDirection:1
+      |vpiName:sbit
+    |vpiStmt:
+    \_Begin: (work@shift.fshl_u_1), line:30:6, endln:35:9
+  |vpiInternalScope:
   \_Function: (work@shift.fshl_u), line:38:3, endln:43:14
     |vpiParent:
     \_Module: work@shift (work@shift), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:1:1, endln:81:10
     |vpiName:fshl_u
     |vpiFullName:work@shift.fshl_u
-    |vpiVisibility:1
-    |vpiReturn:
-    \_LogicVar: (work@shift.fshl_u), line:38:12, endln:38:25
+    |vpiReg:
+    \_LogicVar: (work@shift.fshl_u)
       |vpiParent:
       \_Function: (work@shift.fshl_u), line:38:3, endln:43:14
       |vpiTypespec:
-      \_RefTypespec: (work@shift.fshl_u)
+      \_RefTypespec: (work@shift.fshl_u), line:38:12, endln:38:25
         |vpiParent:
-        \_LogicVar: (work@shift.fshl_u), line:38:12, endln:38:25
+        \_LogicVar: (work@shift.fshl_u)
         |vpiFullName:work@shift.fshl_u
         |vpiActual:
         \_LogicTypespec: , line:38:12, endln:38:25
       |vpiFullName:work@shift.fshl_u
+    |vpiTypedef:
+    \_LogicTypespec: , line:38:12, endln:38:25
+      |vpiParent:
+      \_Function: (work@shift.fshl_u), line:38:3, endln:43:14
+      |vpiRange:
+      \_Range: , line:38:12, endln:38:25
+        |vpiParent:
+        \_LogicTypespec: , line:38:12, endln:38:25
+        |vpiLeftRange:
+        \_Operation: , line:38:13, endln:38:22
+          |vpiParent:
+          \_Range: , line:38:12, endln:38:25
+          |vpiOpType:11
+          |vpiOperand:
+          \_RefObj: (work@shift.fshl_u.width_z), line:38:13, endln:38:20
+            |vpiParent:
+            \_Operation: , line:38:13, endln:38:22
+            |vpiName:width_z
+            |vpiFullName:work@shift.fshl_u.width_z
+            |vpiActual:
+            \_Parameter: (work@shift.width_z), line:5:16, endln:5:27
+          |vpiOperand:
+          \_Constant: , line:38:21, endln:38:22
+            |vpiParent:
+            \_Operation: , line:38:13, endln:38:22
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_Constant: , line:38:23, endln:38:24
+          |vpiParent:
+          \_Range: , line:38:12, endln:38:25
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiSigned:1
+    |vpiTypedef:
+    \_LogicTypespec: , line:39:12, endln:39:25
+      |vpiParent:
+      \_Function: (work@shift.fshl_u), line:38:3, endln:43:14
+      |vpiRange:
+      \_Range: , line:39:12, endln:39:25
+        |vpiParent:
+        \_LogicTypespec: , line:39:12, endln:39:25
+        |vpiLeftRange:
+        \_Operation: , line:39:13, endln:39:22
+          |vpiParent:
+          \_Range: , line:39:12, endln:39:25
+          |vpiOpType:11
+          |vpiOperand:
+          \_RefObj: (work@shift.fshl_u.width_a), line:39:13, endln:39:20
+            |vpiParent:
+            \_Operation: , line:39:13, endln:39:22
+            |vpiName:width_a
+            |vpiFullName:work@shift.fshl_u.width_a
+            |vpiActual:
+            \_Parameter: (work@shift.width_a), line:2:16, endln:2:27
+          |vpiOperand:
+          \_Constant: , line:39:21, endln:39:22
+            |vpiParent:
+            \_Operation: , line:39:13, endln:39:22
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_Constant: , line:39:23, endln:39:24
+          |vpiParent:
+          \_Range: , line:39:12, endln:39:25
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiTypedef:
+    \_LogicTypespec: , line:40:12, endln:40:25
+      |vpiParent:
+      \_Function: (work@shift.fshl_u), line:38:3, endln:43:14
+      |vpiRange:
+      \_Range: , line:40:12, endln:40:25
+        |vpiParent:
+        \_LogicTypespec: , line:40:12, endln:40:25
+        |vpiLeftRange:
+        \_Operation: , line:40:13, endln:40:22
+          |vpiParent:
+          \_Range: , line:40:12, endln:40:25
+          |vpiOpType:11
+          |vpiOperand:
+          \_RefObj: (work@shift.fshl_u.width_s), line:40:13, endln:40:20
+            |vpiParent:
+            \_Operation: , line:40:13, endln:40:22
+            |vpiName:width_s
+            |vpiFullName:work@shift.fshl_u.width_s
+            |vpiActual:
+            \_Parameter: (work@shift.width_s), line:4:16, endln:4:27
+          |vpiOperand:
+          \_Constant: , line:40:21, endln:40:22
+            |vpiParent:
+            \_Operation: , line:40:13, endln:40:22
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_Constant: , line:40:23, endln:40:24
+          |vpiParent:
+          \_Range: , line:40:12, endln:40:25
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiImportTypespec:
+    \_LogicVar: (work@shift.fshl_u)
+    |vpiImportTypespec:
+    \_LogicTypespec: , line:38:12, endln:38:25
+    |vpiImportTypespec:
+    \_LogicTypespec: , line:39:12, endln:39:25
+    |vpiImportTypespec:
+    \_LogicTypespec: , line:40:12, endln:40:25
+    |vpiVisibility:1
+    |vpiReturn:
+    \_LogicVar: (work@shift.fshl_u)
     |vpiIODecl:
     \_IODecl: (arg1), line:39:26, endln:39:30
       |vpiParent:
@@ -2076,7 +2427,7 @@ Design: (unnamed)
       |vpiDirection:1
       |vpiName:arg1
       |vpiTypedef:
-      \_RefTypespec: (work@shift.fshl_u.arg1)
+      \_RefTypespec: (work@shift.fshl_u.arg1), line:39:12, endln:39:25
         |vpiParent:
         \_IODecl: (arg1), line:39:26, endln:39:30
         |vpiFullName:work@shift.fshl_u.arg1
@@ -2089,7 +2440,7 @@ Design: (unnamed)
       |vpiDirection:1
       |vpiName:arg2
       |vpiTypedef:
-      \_RefTypespec: (work@shift.fshl_u.arg2)
+      \_RefTypespec: (work@shift.fshl_u.arg2), line:40:12, endln:40:25
         |vpiParent:
         \_IODecl: (arg2), line:40:26, endln:40:30
         |vpiFullName:work@shift.fshl_u.arg2
@@ -2158,37 +2509,47 @@ Design: (unnamed)
         |vpiName:fshl_u
         |vpiFullName:work@shift.fshl_u.fshl_u
         |vpiActual:
-        \_LogicVar: (work@shift.fshl_u.fshl_u), line:38:12, endln:38:25
-    |vpiInstance:
-    \_Module: work@shift (work@shift), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:1:1, endln:81:10
-  |vpiTaskFunc:
+        \_LogicVar: (work@shift.fshl_u)
+  |vpiInternalScope:
   \_Function: (work@shift.fshr_u), line:45:3, endln:60:14
     |vpiParent:
     \_Module: work@shift (work@shift), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:1:1, endln:81:10
     |vpiName:fshr_u
     |vpiFullName:work@shift.fshr_u
-    |vpiVariables:
-    \_LogicVar: (work@shift.fshr_u.result), line:52:6, endln:52:26
+    |vpiReg:
+    \_LogicVar: (work@shift.fshr_u)
       |vpiParent:
       \_Function: (work@shift.fshr_u), line:45:3, endln:60:14
       |vpiTypespec:
-      \_RefTypespec: (work@shift.fshr_u.result)
+      \_RefTypespec: (work@shift.fshr_u), line:45:12, endln:45:25
         |vpiParent:
-        \_LogicVar: (work@shift.fshr_u.result), line:52:6, endln:52:26
+        \_LogicVar: (work@shift.fshr_u)
+        |vpiFullName:work@shift.fshr_u
+        |vpiActual:
+        \_LogicTypespec: , line:45:12, endln:45:25
+      |vpiFullName:work@shift.fshr_u
+    |vpiReg:
+    \_LogicVar: (work@shift.fshr_u.result), line:52:27, endln:52:33
+      |vpiParent:
+      \_Function: (work@shift.fshr_u), line:45:3, endln:60:14
+      |vpiTypespec:
+      \_RefTypespec: (work@shift.fshr_u.result), line:52:6, endln:52:26
+        |vpiParent:
+        \_LogicVar: (work@shift.fshr_u.result), line:52:27, endln:52:33
         |vpiFullName:work@shift.fshr_u.result
         |vpiActual:
         \_LogicTypespec: , line:52:6, endln:52:26
       |vpiName:result
       |vpiFullName:work@shift.fshr_u.result
       |vpiAutomatic:1
-    |vpiVariables:
-    \_LogicVar: (work@shift.fshr_u.result_t), line:53:6, endln:53:26
+    |vpiReg:
+    \_LogicVar: (work@shift.fshr_u.result_t), line:53:27, endln:53:35
       |vpiParent:
       \_Function: (work@shift.fshr_u), line:45:3, endln:60:14
       |vpiTypespec:
-      \_RefTypespec: (work@shift.fshr_u.result_t)
+      \_RefTypespec: (work@shift.fshr_u.result_t), line:53:6, endln:53:26
         |vpiParent:
-        \_LogicVar: (work@shift.fshr_u.result_t), line:53:6, endln:53:26
+        \_LogicVar: (work@shift.fshr_u.result_t), line:53:27, endln:53:35
         |vpiFullName:work@shift.fshr_u.result_t
         |vpiActual:
         \_LogicTypespec: , line:53:6, endln:53:26
@@ -2196,21 +2557,21 @@ Design: (unnamed)
       |vpiFullName:work@shift.fshr_u.result_t
       |vpiAutomatic:1
     |vpiParameter:
-    \_Parameter: (work@shift.fshr_u.olen), line:49:16, endln:49:20
+    \_Parameter: (work@shift.fshr_u.olen), line:49:16, endln:49:30
       |vpiParent:
-      \_ParamAssign: , line:49:16, endln:49:30
+      \_Function: (work@shift.fshr_u), line:45:3, endln:60:14
       |vpiName:olen
       |vpiFullName:work@shift.fshr_u.olen
     |vpiParameter:
-    \_Parameter: (work@shift.fshr_u.ilen), line:50:16, endln:50:20
+    \_Parameter: (work@shift.fshr_u.ilen), line:50:16, endln:50:52
       |vpiParent:
-      \_ParamAssign: , line:50:16, endln:50:52
+      \_Function: (work@shift.fshr_u), line:45:3, endln:60:14
       |vpiName:ilen
       |vpiFullName:work@shift.fshr_u.ilen
     |vpiParameter:
-    \_Parameter: (work@shift.fshr_u.len), line:51:16, endln:51:19
+    \_Parameter: (work@shift.fshr_u.len), line:51:16, endln:51:50
       |vpiParent:
-      \_ParamAssign: , line:51:16, endln:51:50
+      \_Function: (work@shift.fshr_u), line:45:3, endln:60:14
       |vpiName:len
       |vpiFullName:work@shift.fshr_u.len
     |vpiParamAssign:
@@ -2223,8 +2584,10 @@ Design: (unnamed)
         \_ParamAssign: , line:49:16, endln:49:30
         |vpiName:width_z
         |vpiFullName:work@shift.fshr_u.width_z
+        |vpiActual:
+        \_Parameter: (work@shift.width_z), line:5:16, endln:5:27
       |vpiLhs:
-      \_Parameter: (work@shift.fshr_u.olen), line:49:16, endln:49:20
+      \_Parameter: (work@shift.fshr_u.olen), line:49:16, endln:49:30
     |vpiParamAssign:
     \_ParamAssign: , line:50:16, endln:50:52
       |vpiParent:
@@ -2240,12 +2603,16 @@ Design: (unnamed)
           \_Operation: , line:50:23, endln:50:52
           |vpiName:signd_a
           |vpiFullName:work@shift.fshr_u.signd_a
+          |vpiActual:
+          \_Parameter: (work@shift.signd_a), line:3:16, endln:3:27
         |vpiOperand:
         \_RefObj: (work@shift.fshr_u.width_a), line:50:33, endln:50:40
           |vpiParent:
           \_Operation: , line:50:23, endln:50:52
           |vpiName:width_a
           |vpiFullName:work@shift.fshr_u.width_a
+          |vpiActual:
+          \_Parameter: (work@shift.width_a), line:2:16, endln:2:27
         |vpiOperand:
         \_Operation: , line:50:43, endln:50:52
           |vpiParent:
@@ -2257,6 +2624,8 @@ Design: (unnamed)
             \_Operation: , line:50:43, endln:50:52
             |vpiName:width_a
             |vpiFullName:work@shift.fshr_u.width_a
+            |vpiActual:
+            \_Parameter: (work@shift.width_a), line:2:16, endln:2:27
           |vpiOperand:
           \_Constant: , line:50:51, endln:50:52
             |vpiParent:
@@ -2266,7 +2635,7 @@ Design: (unnamed)
             |UINT:1
             |vpiConstType:9
       |vpiLhs:
-      \_Parameter: (work@shift.fshr_u.ilen), line:50:16, endln:50:20
+      \_Parameter: (work@shift.fshr_u.ilen), line:50:16, endln:50:52
     |vpiParamAssign:
     \_ParamAssign: , line:51:16, endln:51:50
       |vpiParent:
@@ -2287,72 +2656,35 @@ Design: (unnamed)
             \_Operation: , line:51:23, endln:51:35
             |vpiName:ilen
             |vpiFullName:work@shift.fshr_u.ilen
+            |vpiActual:
+            \_Parameter: (work@shift.fshr_u.ilen), line:50:16, endln:50:52
           |vpiOperand:
           \_RefObj: (work@shift.fshr_u.olen), line:51:31, endln:51:35
             |vpiParent:
             \_Operation: , line:51:23, endln:51:35
             |vpiName:olen
             |vpiFullName:work@shift.fshr_u.olen
+            |vpiActual:
+            \_Parameter: (work@shift.fshr_u.olen), line:49:16, endln:49:30
         |vpiOperand:
         \_RefObj: (work@shift.fshr_u.ilen), line:51:39, endln:51:43
           |vpiParent:
           \_Operation: , line:51:22, endln:51:50
           |vpiName:ilen
           |vpiFullName:work@shift.fshr_u.ilen
+          |vpiActual:
+          \_Parameter: (work@shift.fshr_u.ilen), line:50:16, endln:50:52
         |vpiOperand:
         \_RefObj: (work@shift.fshr_u.olen), line:51:46, endln:51:50
           |vpiParent:
           \_Operation: , line:51:22, endln:51:50
           |vpiName:olen
           |vpiFullName:work@shift.fshr_u.olen
+          |vpiActual:
+          \_Parameter: (work@shift.fshr_u.olen), line:49:16, endln:49:30
       |vpiLhs:
-      \_Parameter: (work@shift.fshr_u.len), line:51:16, endln:51:19
-    |vpiVisibility:1
-    |vpiReturn:
-    \_LogicVar: (work@shift.fshr_u), line:45:12, endln:45:25
-      |vpiParent:
-      \_Function: (work@shift.fshr_u), line:45:3, endln:60:14
-      |vpiTypespec:
-      \_RefTypespec: (work@shift.fshr_u)
-        |vpiParent:
-        \_LogicVar: (work@shift.fshr_u), line:45:12, endln:45:25
-        |vpiFullName:work@shift.fshr_u
-        |vpiActual:
-        \_LogicTypespec: , line:45:12, endln:45:25
-      |vpiFullName:work@shift.fshr_u
-    |vpiIODecl:
-    \_IODecl: (arg1), line:46:26, endln:46:30
-      |vpiParent:
-      \_Function: (work@shift.fshr_u), line:45:3, endln:60:14
-      |vpiDirection:1
-      |vpiName:arg1
-      |vpiTypedef:
-      \_RefTypespec: (work@shift.fshr_u.arg1)
-        |vpiParent:
-        \_IODecl: (arg1), line:46:26, endln:46:30
-        |vpiFullName:work@shift.fshr_u.arg1
-        |vpiActual:
-        \_LogicTypespec: , line:46:12, endln:46:25
-    |vpiIODecl:
-    \_IODecl: (arg2), line:47:26, endln:47:30
-      |vpiParent:
-      \_Function: (work@shift.fshr_u), line:45:3, endln:60:14
-      |vpiDirection:1
-      |vpiName:arg2
-      |vpiTypedef:
-      \_RefTypespec: (work@shift.fshr_u.arg2)
-        |vpiParent:
-        \_IODecl: (arg2), line:47:26, endln:47:30
-        |vpiFullName:work@shift.fshr_u.arg2
-        |vpiActual:
-        \_LogicTypespec: , line:47:12, endln:47:25
-    |vpiIODecl:
-    \_IODecl: (sbit), line:48:12, endln:48:16
-      |vpiParent:
-      \_Function: (work@shift.fshr_u), line:45:3, endln:60:14
-      |vpiDirection:1
-      |vpiName:sbit
-    |vpiStmt:
+      \_Parameter: (work@shift.fshr_u.len), line:51:16, endln:51:50
+    |vpiInternalScope:
     \_Begin: (work@shift.fshr_u), line:54:6, endln:59:9
       |vpiParent:
       \_Function: (work@shift.fshr_u), line:45:3, endln:60:14
@@ -2364,13 +2696,13 @@ Design: (unnamed)
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
-        \_SysFuncCall: ($signed), line:55:19, endln:55:26
+        \_SysFuncCall: ($signed), line:55:19, endln:55:43
           |vpiParent:
           \_Assignment: , line:55:8, endln:55:43
           |vpiArgument:
           \_Operation: , line:55:28, endln:55:41
             |vpiParent:
-            \_SysFuncCall: ($signed), line:55:19, endln:55:26
+            \_SysFuncCall: ($signed), line:55:19, endln:55:43
             |vpiOpType:34
             |vpiOperand:
             \_RefObj: (work@shift.fshr_u.len), line:55:30, endln:55:33
@@ -2379,7 +2711,7 @@ Design: (unnamed)
               |vpiName:len
               |vpiFullName:work@shift.fshr_u.len
               |vpiActual:
-              \_Parameter: (work@shift.fshr_u.len), line:51:16, endln:51:19
+              \_Parameter: (work@shift.fshr_u.len), line:51:16, endln:51:50
             |vpiOperand:
             \_Operation: , line:55:34, endln:55:40
               |vpiParent:
@@ -2401,7 +2733,7 @@ Design: (unnamed)
           |vpiName:result_t
           |vpiFullName:work@shift.fshr_u.result_t
           |vpiActual:
-          \_PartSelect: result_t (work@shift.fshr_u.result_t), line:56:8, endln:56:29
+          \_LogicVar: (work@shift.fshr_u.result_t), line:53:27, endln:53:35
       |vpiStmt:
       \_Assignment: , line:56:8, endln:56:36
         |vpiParent:
@@ -2417,17 +2749,19 @@ Design: (unnamed)
           |vpiActual:
           \_IODecl: (arg1), line:46:26, endln:46:30
         |vpiLhs:
-        \_PartSelect: result_t (work@shift.fshr_u.result_t), line:56:8, endln:56:29
+        \_PartSelect: result_t (work@shift.fshr_u.result_t), line:56:17, endln:56:28
           |vpiParent:
           \_Assignment: , line:56:8, endln:56:36
           |vpiName:result_t
           |vpiFullName:work@shift.fshr_u.result_t
           |vpiDefName:result_t
+          |vpiActual:
+          \_LogicVar: (work@shift.fshr_u.result_t), line:53:27, endln:53:35
           |vpiConstantSelect:1
           |vpiLeftRange:
           \_Operation: , line:56:17, endln:56:26
             |vpiParent:
-            \_PartSelect: result_t (work@shift.fshr_u.result_t), line:56:8, endln:56:29
+            \_PartSelect: result_t (work@shift.fshr_u.result_t), line:56:17, endln:56:28
             |vpiOpType:11
             |vpiOperand:
             \_RefObj: (work@shift.fshr_u.result_t.width_a), line:56:17, endln:56:24
@@ -2435,6 +2769,8 @@ Design: (unnamed)
               \_Operation: , line:56:17, endln:56:26
               |vpiName:width_a
               |vpiFullName:work@shift.fshr_u.result_t.width_a
+              |vpiActual:
+              \_Parameter: (work@shift.width_a), line:2:16, endln:2:27
             |vpiOperand:
             \_Constant: , line:56:25, endln:56:26
               |vpiParent:
@@ -2445,6 +2781,8 @@ Design: (unnamed)
               |vpiConstType:9
           |vpiRightRange:
           \_Constant: , line:56:27, endln:56:28
+            |vpiParent:
+            \_PartSelect: result_t (work@shift.fshr_u.result_t), line:56:17, endln:56:28
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
@@ -2467,7 +2805,7 @@ Design: (unnamed)
             |vpiName:result_t
             |vpiFullName:work@shift.fshr_u.result_t
             |vpiActual:
-            \_PartSelect: result_t (work@shift.fshr_u.result_t), line:56:8, endln:56:29
+            \_LogicVar: (work@shift.fshr_u.result_t), line:53:27, endln:53:35
           |vpiOperand:
           \_RefObj: (work@shift.fshr_u.arg2), line:57:30, endln:57:34
             |vpiParent:
@@ -2483,7 +2821,7 @@ Design: (unnamed)
           |vpiName:result
           |vpiFullName:work@shift.fshr_u.result
           |vpiActual:
-          \_LogicVar: (work@shift.fshr_u.result), line:52:6, endln:52:26
+          \_LogicVar: (work@shift.fshr_u.result), line:52:27, endln:52:33
       |vpiStmt:
       \_Assignment: , line:58:8, endln:58:34
         |vpiParent:
@@ -2497,6 +2835,8 @@ Design: (unnamed)
           |vpiName:result
           |vpiFullName:work@shift.fshr_u.result
           |vpiDefName:result
+          |vpiActual:
+          \_LogicVar: (work@shift.fshr_u.result), line:52:27, endln:52:33
           |vpiConstantSelect:1
           |vpiLeftRange:
           \_Operation: , line:58:25, endln:58:31
@@ -2510,7 +2850,7 @@ Design: (unnamed)
               |vpiName:olen
               |vpiFullName:work@shift.fshr_u.result.olen
               |vpiActual:
-              \_Parameter: (work@shift.fshr_u.olen), line:49:16, endln:49:20
+              \_Parameter: (work@shift.fshr_u.olen), line:49:16, endln:49:30
             |vpiOperand:
             \_Constant: , line:58:30, endln:58:31
               |vpiParent:
@@ -2521,6 +2861,8 @@ Design: (unnamed)
               |vpiConstType:9
           |vpiRightRange:
           \_Constant: , line:58:32, endln:58:33
+            |vpiParent:
+            \_PartSelect: result (work@shift.fshr_u.result), line:58:18, endln:58:34
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
@@ -2532,75 +2874,361 @@ Design: (unnamed)
           |vpiName:fshr_u
           |vpiFullName:work@shift.fshr_u.fshr_u
           |vpiActual:
-          \_LogicVar: (work@shift.fshr_u.fshr_u), line:45:12, endln:45:25
-    |vpiInstance:
-    \_Module: work@shift (work@shift), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:1:1, endln:81:10
-  |vpiTaskFunc:
+          \_LogicVar: (work@shift.fshr_u)
+    |vpiTypedef:
+    \_LogicTypespec: , line:45:12, endln:45:25
+      |vpiParent:
+      \_Function: (work@shift.fshr_u), line:45:3, endln:60:14
+      |vpiRange:
+      \_Range: , line:45:12, endln:45:25
+        |vpiParent:
+        \_LogicTypespec: , line:45:12, endln:45:25
+        |vpiLeftRange:
+        \_Operation: , line:45:13, endln:45:22
+          |vpiParent:
+          \_Range: , line:45:12, endln:45:25
+          |vpiOpType:11
+          |vpiOperand:
+          \_RefObj: (work@shift.fshr_u.width_z), line:45:13, endln:45:20
+            |vpiParent:
+            \_Operation: , line:45:13, endln:45:22
+            |vpiName:width_z
+            |vpiFullName:work@shift.fshr_u.width_z
+            |vpiActual:
+            \_Parameter: (work@shift.width_z), line:5:16, endln:5:27
+          |vpiOperand:
+          \_Constant: , line:45:21, endln:45:22
+            |vpiParent:
+            \_Operation: , line:45:13, endln:45:22
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_Constant: , line:45:23, endln:45:24
+          |vpiParent:
+          \_Range: , line:45:12, endln:45:25
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiSigned:1
+    |vpiTypedef:
+    \_LogicTypespec: , line:46:12, endln:46:25
+      |vpiParent:
+      \_Function: (work@shift.fshr_u), line:45:3, endln:60:14
+      |vpiRange:
+      \_Range: , line:46:12, endln:46:25
+        |vpiParent:
+        \_LogicTypespec: , line:46:12, endln:46:25
+        |vpiLeftRange:
+        \_Operation: , line:46:13, endln:46:22
+          |vpiParent:
+          \_Range: , line:46:12, endln:46:25
+          |vpiOpType:11
+          |vpiOperand:
+          \_RefObj: (work@shift.fshr_u.width_a), line:46:13, endln:46:20
+            |vpiParent:
+            \_Operation: , line:46:13, endln:46:22
+            |vpiName:width_a
+            |vpiFullName:work@shift.fshr_u.width_a
+            |vpiActual:
+            \_Parameter: (work@shift.width_a), line:2:16, endln:2:27
+          |vpiOperand:
+          \_Constant: , line:46:21, endln:46:22
+            |vpiParent:
+            \_Operation: , line:46:13, endln:46:22
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_Constant: , line:46:23, endln:46:24
+          |vpiParent:
+          \_Range: , line:46:12, endln:46:25
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiTypedef:
+    \_LogicTypespec: , line:47:12, endln:47:25
+      |vpiParent:
+      \_Function: (work@shift.fshr_u), line:45:3, endln:60:14
+      |vpiRange:
+      \_Range: , line:47:12, endln:47:25
+        |vpiParent:
+        \_LogicTypespec: , line:47:12, endln:47:25
+        |vpiLeftRange:
+        \_Operation: , line:47:13, endln:47:22
+          |vpiParent:
+          \_Range: , line:47:12, endln:47:25
+          |vpiOpType:11
+          |vpiOperand:
+          \_RefObj: (work@shift.fshr_u.width_s), line:47:13, endln:47:20
+            |vpiParent:
+            \_Operation: , line:47:13, endln:47:22
+            |vpiName:width_s
+            |vpiFullName:work@shift.fshr_u.width_s
+            |vpiActual:
+            \_Parameter: (work@shift.width_s), line:4:16, endln:4:27
+          |vpiOperand:
+          \_Constant: , line:47:21, endln:47:22
+            |vpiParent:
+            \_Operation: , line:47:13, endln:47:22
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_Constant: , line:47:23, endln:47:24
+          |vpiParent:
+          \_Range: , line:47:12, endln:47:25
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiTypedef:
+    \_LogicTypespec: , line:52:6, endln:52:26
+      |vpiParent:
+      \_Function: (work@shift.fshr_u), line:45:3, endln:60:14
+      |vpiRange:
+      \_Range: , line:52:17, endln:52:26
+        |vpiParent:
+        \_LogicTypespec: , line:52:6, endln:52:26
+        |vpiLeftRange:
+        \_Operation: , line:52:18, endln:52:23
+          |vpiParent:
+          \_Range: , line:52:17, endln:52:26
+          |vpiOpType:11
+          |vpiOperand:
+          \_RefObj: (work@shift.fshr_u.len), line:52:18, endln:52:21
+            |vpiParent:
+            \_Operation: , line:52:18, endln:52:23
+            |vpiName:len
+            |vpiFullName:work@shift.fshr_u.len
+            |vpiActual:
+            \_Parameter: (work@shift.fshr_u.len), line:51:16, endln:51:50
+          |vpiOperand:
+          \_Constant: , line:52:22, endln:52:23
+            |vpiParent:
+            \_Operation: , line:52:18, endln:52:23
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_Constant: , line:52:24, endln:52:25
+          |vpiParent:
+          \_Range: , line:52:17, endln:52:26
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiSigned:1
+    |vpiTypedef:
+    \_LogicTypespec: , line:52:6, endln:52:26
+      |vpiParent:
+      \_Function: (work@shift.fshr_u), line:45:3, endln:60:14
+      |vpiRange:
+      \_Range: , line:52:17, endln:52:26
+        |vpiParent:
+        \_LogicTypespec: , line:52:6, endln:52:26
+        |vpiLeftRange:
+        \_Operation: , line:52:18, endln:52:23
+          |vpiParent:
+          \_Range: , line:52:17, endln:52:26
+          |vpiOpType:11
+          |vpiOperand:
+          \_RefObj: (work@shift.fshr_u.len), line:52:18, endln:52:21
+            |vpiParent:
+            \_Operation: , line:52:18, endln:52:23
+            |vpiName:len
+            |vpiFullName:work@shift.fshr_u.len
+            |vpiActual:
+            \_Parameter: (work@shift.fshr_u.len), line:51:16, endln:51:50
+          |vpiOperand:
+          \_Constant: , line:52:22, endln:52:23
+            |vpiParent:
+            \_Operation: , line:52:18, endln:52:23
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_Constant: , line:52:24, endln:52:25
+          |vpiParent:
+          \_Range: , line:52:17, endln:52:26
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiSigned:1
+    |vpiTypedef:
+    \_LogicTypespec: , line:53:6, endln:53:26
+      |vpiParent:
+      \_Function: (work@shift.fshr_u), line:45:3, endln:60:14
+      |vpiRange:
+      \_Range: , line:53:17, endln:53:26
+        |vpiParent:
+        \_LogicTypespec: , line:53:6, endln:53:26
+        |vpiLeftRange:
+        \_Operation: , line:53:18, endln:53:23
+          |vpiParent:
+          \_Range: , line:53:17, endln:53:26
+          |vpiOpType:11
+          |vpiOperand:
+          \_RefObj: (work@shift.fshr_u.len), line:53:18, endln:53:21
+            |vpiParent:
+            \_Operation: , line:53:18, endln:53:23
+            |vpiName:len
+            |vpiFullName:work@shift.fshr_u.len
+            |vpiActual:
+            \_Parameter: (work@shift.fshr_u.len), line:51:16, endln:51:50
+          |vpiOperand:
+          \_Constant: , line:53:22, endln:53:23
+            |vpiParent:
+            \_Operation: , line:53:18, endln:53:23
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_Constant: , line:53:24, endln:53:25
+          |vpiParent:
+          \_Range: , line:53:17, endln:53:26
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiSigned:1
+    |vpiTypedef:
+    \_LogicTypespec: , line:53:6, endln:53:26
+      |vpiParent:
+      \_Function: (work@shift.fshr_u), line:45:3, endln:60:14
+      |vpiRange:
+      \_Range: , line:53:17, endln:53:26
+        |vpiParent:
+        \_LogicTypespec: , line:53:6, endln:53:26
+        |vpiLeftRange:
+        \_Operation: , line:53:18, endln:53:23
+          |vpiParent:
+          \_Range: , line:53:17, endln:53:26
+          |vpiOpType:11
+          |vpiOperand:
+          \_RefObj: (work@shift.fshr_u.len), line:53:18, endln:53:21
+            |vpiParent:
+            \_Operation: , line:53:18, endln:53:23
+            |vpiName:len
+            |vpiFullName:work@shift.fshr_u.len
+            |vpiActual:
+            \_Parameter: (work@shift.fshr_u.len), line:51:16, endln:51:50
+          |vpiOperand:
+          \_Constant: , line:53:22, endln:53:23
+            |vpiParent:
+            \_Operation: , line:53:18, endln:53:23
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_Constant: , line:53:24, endln:53:25
+          |vpiParent:
+          \_Range: , line:53:17, endln:53:26
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiSigned:1
+    |vpiImportTypespec:
+    \_LogicVar: (work@shift.fshr_u)
+    |vpiImportTypespec:
+    \_LogicTypespec: , line:45:12, endln:45:25
+    |vpiImportTypespec:
+    \_LogicTypespec: , line:46:12, endln:46:25
+    |vpiImportTypespec:
+    \_LogicTypespec: , line:47:12, endln:47:25
+    |vpiImportTypespec:
+    \_LogicTypespec: , line:52:6, endln:52:26
+    |vpiImportTypespec:
+    \_LogicTypespec: , line:52:6, endln:52:26
+    |vpiImportTypespec:
+    \_LogicVar: (work@shift.fshr_u.result), line:52:27, endln:52:33
+    |vpiImportTypespec:
+    \_LogicTypespec: , line:53:6, endln:53:26
+    |vpiImportTypespec:
+    \_LogicTypespec: , line:53:6, endln:53:26
+    |vpiImportTypespec:
+    \_LogicVar: (work@shift.fshr_u.result_t), line:53:27, endln:53:35
+    |vpiVisibility:1
+    |vpiReturn:
+    \_LogicVar: (work@shift.fshr_u)
+    |vpiIODecl:
+    \_IODecl: (arg1), line:46:26, endln:46:30
+      |vpiParent:
+      \_Function: (work@shift.fshr_u), line:45:3, endln:60:14
+      |vpiDirection:1
+      |vpiName:arg1
+      |vpiTypedef:
+      \_RefTypespec: (work@shift.fshr_u.arg1), line:46:12, endln:46:25
+        |vpiParent:
+        \_IODecl: (arg1), line:46:26, endln:46:30
+        |vpiFullName:work@shift.fshr_u.arg1
+        |vpiActual:
+        \_LogicTypespec: , line:46:12, endln:46:25
+    |vpiIODecl:
+    \_IODecl: (arg2), line:47:26, endln:47:30
+      |vpiParent:
+      \_Function: (work@shift.fshr_u), line:45:3, endln:60:14
+      |vpiDirection:1
+      |vpiName:arg2
+      |vpiTypedef:
+      \_RefTypespec: (work@shift.fshr_u.arg2), line:47:12, endln:47:25
+        |vpiParent:
+        \_IODecl: (arg2), line:47:26, endln:47:30
+        |vpiFullName:work@shift.fshr_u.arg2
+        |vpiActual:
+        \_LogicTypespec: , line:47:12, endln:47:25
+    |vpiIODecl:
+    \_IODecl: (sbit), line:48:12, endln:48:16
+      |vpiParent:
+      \_Function: (work@shift.fshr_u), line:45:3, endln:60:14
+      |vpiDirection:1
+      |vpiName:sbit
+    |vpiStmt:
+    \_Begin: (work@shift.fshr_u), line:54:6, endln:59:9
+  |vpiInternalScope:
   \_Function: (work@shift.fshl_s), line:62:3, endln:80:14
     |vpiParent:
     \_Module: work@shift (work@shift), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:1:1, endln:81:10
     |vpiName:fshl_s
     |vpiFullName:work@shift.fshl_s
-    |vpiVariables:
-    \_LogicVar: (work@shift.fshl_s.sbit_arg1), line:66:6, endln:66:21
+    |vpiReg:
+    \_LogicVar: (work@shift.fshl_s)
       |vpiParent:
       \_Function: (work@shift.fshl_s), line:62:3, endln:80:14
       |vpiTypespec:
-      \_RefTypespec: (work@shift.fshl_s.sbit_arg1)
+      \_RefTypespec: (work@shift.fshl_s), line:62:12, endln:62:25
         |vpiParent:
-        \_LogicVar: (work@shift.fshl_s.sbit_arg1), line:66:6, endln:66:21
+        \_LogicVar: (work@shift.fshl_s)
+        |vpiFullName:work@shift.fshl_s
+        |vpiActual:
+        \_LogicTypespec: , line:62:12, endln:62:25
+      |vpiFullName:work@shift.fshl_s
+    |vpiReg:
+    \_LogicVar: (work@shift.fshl_s.sbit_arg1), line:66:22, endln:66:31
+      |vpiParent:
+      \_Function: (work@shift.fshl_s), line:62:3, endln:80:14
+      |vpiTypespec:
+      \_RefTypespec: (work@shift.fshl_s.sbit_arg1), line:66:6, endln:66:21
+        |vpiParent:
+        \_LogicVar: (work@shift.fshl_s.sbit_arg1), line:66:22, endln:66:31
         |vpiFullName:work@shift.fshl_s.sbit_arg1
         |vpiActual:
         \_LogicTypespec: , line:66:6, endln:66:21
       |vpiName:sbit_arg1
       |vpiFullName:work@shift.fshl_s.sbit_arg1
       |vpiAutomatic:1
-    |vpiVisibility:1
-    |vpiReturn:
-    \_LogicVar: (work@shift.fshl_s), line:62:12, endln:62:25
-      |vpiParent:
-      \_Function: (work@shift.fshl_s), line:62:3, endln:80:14
-      |vpiTypespec:
-      \_RefTypespec: (work@shift.fshl_s)
-        |vpiParent:
-        \_LogicVar: (work@shift.fshl_s), line:62:12, endln:62:25
-        |vpiFullName:work@shift.fshl_s
-        |vpiActual:
-        \_LogicTypespec: , line:62:12, endln:62:25
-      |vpiFullName:work@shift.fshl_s
-    |vpiIODecl:
-    \_IODecl: (arg1), line:63:26, endln:63:30
-      |vpiParent:
-      \_Function: (work@shift.fshl_s), line:62:3, endln:80:14
-      |vpiDirection:1
-      |vpiName:arg1
-      |vpiTypedef:
-      \_RefTypespec: (work@shift.fshl_s.arg1)
-        |vpiParent:
-        \_IODecl: (arg1), line:63:26, endln:63:30
-        |vpiFullName:work@shift.fshl_s.arg1
-        |vpiActual:
-        \_LogicTypespec: , line:63:12, endln:63:25
-    |vpiIODecl:
-    \_IODecl: (arg2), line:64:26, endln:64:30
-      |vpiParent:
-      \_Function: (work@shift.fshl_s), line:62:3, endln:80:14
-      |vpiDirection:1
-      |vpiName:arg2
-      |vpiTypedef:
-      \_RefTypespec: (work@shift.fshl_s.arg2)
-        |vpiParent:
-        \_IODecl: (arg2), line:64:26, endln:64:30
-        |vpiFullName:work@shift.fshl_s.arg2
-        |vpiActual:
-        \_LogicTypespec: , line:64:12, endln:64:25
-    |vpiIODecl:
-    \_IODecl: (sbit), line:65:12, endln:65:16
-      |vpiParent:
-      \_Function: (work@shift.fshl_s), line:62:3, endln:80:14
-      |vpiDirection:1
-      |vpiName:sbit
-    |vpiStmt:
+    |vpiInternalScope:
     \_Begin: (work@shift.fshl_s), line:67:6, endln:79:9
       |vpiParent:
       \_Function: (work@shift.fshl_s), line:62:3, endln:80:14
@@ -2612,18 +3240,20 @@ Design: (unnamed)
         |vpiCondition:
         \_Operation: , line:68:13, endln:68:36
           |vpiParent:
-          \_Begin: (work@shift.fshl_s), line:67:6, endln:79:9
+          \_IfElse: , line:68:8, endln:78:11
           |vpiOpType:14
           |vpiOperand:
-          \_BitSelect: (work@shift.fshl_s.arg2), line:68:18, endln:68:27
+          \_BitSelect: (work@shift.fshl_s.arg2), line:68:17, endln:68:28
             |vpiParent:
             \_Operation: , line:68:13, endln:68:36
             |vpiName:arg2
             |vpiFullName:work@shift.fshl_s.arg2
+            |vpiActual:
+            \_IODecl: (arg2), line:64:26, endln:64:30
             |vpiIndex:
             \_Operation: , line:68:18, endln:68:27
               |vpiParent:
-              \_BitSelect: (work@shift.fshl_s.arg2), line:68:18, endln:68:27
+              \_BitSelect: (work@shift.fshl_s.arg2), line:68:17, endln:68:28
               |vpiOpType:11
               |vpiOperand:
               \_RefObj: (work@shift.fshl_s.arg2.width_s), line:68:18, endln:68:25
@@ -2631,6 +3261,8 @@ Design: (unnamed)
                 \_Operation: , line:68:18, endln:68:27
                 |vpiName:width_s
                 |vpiFullName:work@shift.fshl_s.arg2.width_s
+                |vpiActual:
+                \_Parameter: (work@shift.width_s), line:4:16, endln:4:27
               |vpiOperand:
               \_Constant: , line:68:26, endln:68:27
                 |vpiParent:
@@ -2674,6 +3306,8 @@ Design: (unnamed)
                   \_Operation: , line:70:35, endln:70:44
                   |vpiName:width_a
                   |vpiFullName:work@shift.fshl_s.width_a
+                  |vpiActual:
+                  \_Parameter: (work@shift.width_a), line:2:16, endln:2:27
                 |vpiOperand:
                 \_Constant: , line:70:43, endln:70:44
                   |vpiParent:
@@ -2689,26 +3323,34 @@ Design: (unnamed)
                 |vpiOpType:33
                 |vpiOperand:
                 \_Constant: , line:70:46, endln:70:50
+                  |vpiParent:
+                  \_Operation: , line:70:45, endln:70:51
                   |vpiDecompile:1'b0
                   |vpiSize:1
                   |BIN:0
                   |vpiConstType:3
             |vpiLhs:
-            \_PartSelect: sbit_arg1 (work@shift.fshl_s.sbit_arg1), line:70:10, endln:70:30
+            \_PartSelect: sbit_arg1 (work@shift.fshl_s.sbit_arg1), line:70:20, endln:70:29
               |vpiParent:
               \_Assignment: , line:70:10, endln:70:52
               |vpiName:sbit_arg1
               |vpiFullName:work@shift.fshl_s.sbit_arg1
               |vpiDefName:sbit_arg1
+              |vpiActual:
+              \_LogicVar: (work@shift.fshl_s.sbit_arg1), line:66:22, endln:66:31
               |vpiConstantSelect:1
               |vpiLeftRange:
               \_RefObj: (work@shift.fshl_s.sbit_arg1.width_a), line:70:20, endln:70:27
                 |vpiParent:
-                \_PartSelect: sbit_arg1 (work@shift.fshl_s.sbit_arg1), line:70:10, endln:70:30
+                \_PartSelect: sbit_arg1 (work@shift.fshl_s.sbit_arg1), line:70:20, endln:70:29
                 |vpiName:width_a
                 |vpiFullName:work@shift.fshl_s.sbit_arg1.width_a
+                |vpiActual:
+                \_Parameter: (work@shift.width_a), line:2:16, endln:2:27
               |vpiRightRange:
               \_Constant: , line:70:28, endln:70:29
+                |vpiParent:
+                \_PartSelect: sbit_arg1 (work@shift.fshl_s.sbit_arg1), line:70:20, endln:70:29
                 |vpiDecompile:0
                 |vpiSize:64
                 |UINT:0
@@ -2757,7 +3399,7 @@ Design: (unnamed)
               |vpiName:fshl_s
               |vpiFullName:work@shift.fshl_s.fshl_s
               |vpiActual:
-              \_LogicVar: (work@shift.fshl_s.fshl_s), line:62:12, endln:62:25
+              \_LogicVar: (work@shift.fshl_s)
         |vpiElseStmt:
         \_Begin: (work@shift.fshl_s), line:74:8, endln:78:11
           |vpiParent:
@@ -2778,17 +3420,21 @@ Design: (unnamed)
               |vpiActual:
               \_IODecl: (sbit), line:65:12, endln:65:16
             |vpiLhs:
-            \_BitSelect: (work@shift.fshl_s.sbit_arg1), line:75:10, endln:75:28
+            \_BitSelect: (work@shift.fshl_s.sbit_arg1), line:75:19, endln:75:28
               |vpiParent:
               \_Assignment: , line:75:10, endln:75:35
               |vpiName:sbit_arg1
               |vpiFullName:work@shift.fshl_s.sbit_arg1
+              |vpiActual:
+              \_LogicVar: (work@shift.fshl_s.sbit_arg1), line:66:22, endln:66:31
               |vpiIndex:
               \_RefObj: (work@shift.fshl_s.width_a), line:75:20, endln:75:27
                 |vpiParent:
-                \_BitSelect: (work@shift.fshl_s.sbit_arg1), line:75:10, endln:75:28
+                \_BitSelect: (work@shift.fshl_s.sbit_arg1), line:75:19, endln:75:28
                 |vpiName:width_a
                 |vpiFullName:work@shift.fshl_s.width_a
+                |vpiActual:
+                \_Parameter: (work@shift.width_a), line:2:16, endln:2:27
           |vpiStmt:
           \_Assignment: , line:76:10, endln:76:39
             |vpiParent:
@@ -2804,17 +3450,19 @@ Design: (unnamed)
               |vpiActual:
               \_IODecl: (arg1), line:63:26, endln:63:30
             |vpiLhs:
-            \_PartSelect: sbit_arg1 (work@shift.fshl_s.sbit_arg1), line:76:10, endln:76:32
+            \_PartSelect: sbit_arg1 (work@shift.fshl_s.sbit_arg1), line:76:20, endln:76:31
               |vpiParent:
               \_Assignment: , line:76:10, endln:76:39
               |vpiName:sbit_arg1
               |vpiFullName:work@shift.fshl_s.sbit_arg1
               |vpiDefName:sbit_arg1
+              |vpiActual:
+              \_LogicVar: (work@shift.fshl_s.sbit_arg1), line:66:22, endln:66:31
               |vpiConstantSelect:1
               |vpiLeftRange:
               \_Operation: , line:76:20, endln:76:29
                 |vpiParent:
-                \_PartSelect: sbit_arg1 (work@shift.fshl_s.sbit_arg1), line:76:10, endln:76:32
+                \_PartSelect: sbit_arg1 (work@shift.fshl_s.sbit_arg1), line:76:20, endln:76:31
                 |vpiOpType:11
                 |vpiOperand:
                 \_RefObj: (work@shift.fshl_s.sbit_arg1.width_a), line:76:20, endln:76:27
@@ -2822,6 +3470,8 @@ Design: (unnamed)
                   \_Operation: , line:76:20, endln:76:29
                   |vpiName:width_a
                   |vpiFullName:work@shift.fshl_s.sbit_arg1.width_a
+                  |vpiActual:
+                  \_Parameter: (work@shift.width_a), line:2:16, endln:2:27
                 |vpiOperand:
                 \_Constant: , line:76:28, endln:76:29
                   |vpiParent:
@@ -2832,6 +3482,8 @@ Design: (unnamed)
                   |vpiConstType:9
               |vpiRightRange:
               \_Constant: , line:76:30, endln:76:31
+                |vpiParent:
+                \_PartSelect: sbit_arg1 (work@shift.fshl_s.sbit_arg1), line:76:20, endln:76:31
                 |vpiDecompile:0
                 |vpiSize:64
                 |UINT:0
@@ -2853,6 +3505,8 @@ Design: (unnamed)
                 |vpiName:sbit_arg1
                 |vpiFullName:work@shift.fshl_s.sbit_arg1
                 |vpiDefName:sbit_arg1
+                |vpiActual:
+                \_LogicVar: (work@shift.fshl_s.sbit_arg1), line:66:22, endln:66:31
                 |vpiConstantSelect:1
                 |vpiLeftRange:
                 \_RefObj: (work@shift.fshl_s.sbit_arg1.width_a), line:77:36, endln:77:43
@@ -2860,8 +3514,12 @@ Design: (unnamed)
                   \_PartSelect: sbit_arg1 (work@shift.fshl_s.sbit_arg1), line:77:26, endln:77:46
                   |vpiName:width_a
                   |vpiFullName:work@shift.fshl_s.sbit_arg1.width_a
+                  |vpiActual:
+                  \_Parameter: (work@shift.width_a), line:2:16, endln:2:27
                 |vpiRightRange:
                 \_Constant: , line:77:44, endln:77:45
+                  |vpiParent:
+                  \_PartSelect: sbit_arg1 (work@shift.fshl_s.sbit_arg1), line:77:26, endln:77:46
                   |vpiDecompile:1
                   |vpiSize:64
                   |UINT:1
@@ -2897,260 +3555,448 @@ Design: (unnamed)
               |vpiName:fshl_s
               |vpiFullName:work@shift.fshl_s.fshl_s
               |vpiActual:
-              \_LogicVar: (work@shift.fshl_s.fshl_s), line:62:12, endln:62:25
-    |vpiInstance:
-    \_Module: work@shift (work@shift), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:1:1, endln:81:10
-  |vpiNet:
-  \_LogicNet: (work@shift.a), line:1:14, endln:1:15
-    |vpiParent:
-    \_Module: work@shift (work@shift), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:1:1, endln:81:10
-    |vpiName:a
-    |vpiFullName:work@shift.a
-  |vpiNet:
-  \_LogicNet: (work@shift.s), line:1:16, endln:1:17
-    |vpiParent:
-    \_Module: work@shift (work@shift), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:1:1, endln:81:10
-    |vpiName:s
-    |vpiFullName:work@shift.s
-  |vpiNet:
-  \_LogicNet: (work@shift.z), line:1:18, endln:1:19
-    |vpiParent:
-    \_Module: work@shift (work@shift), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:1:1, endln:81:10
-    |vpiName:z
-    |vpiFullName:work@shift.z
-  |vpiNet:
-  \_LogicNet: (work@shift.len), line:28:11, endln:28:14
-    |vpiParent:
-    \_Module: work@shift (work@shift), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:1:1, endln:81:10
-    |vpiName:len
-    |vpiFullName:work@shift.len
-    |vpiNetType:1
-  |vpiPort:
-  \_Port: (a), line:1:14, endln:1:15
-    |vpiParent:
-    \_Module: work@shift (work@shift), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:1:1, endln:81:10
-    |vpiName:a
-    |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@shift.a.a), line:1:14, endln:1:15
-      |vpiParent:
-      \_Port: (a), line:1:14, endln:1:15
-      |vpiName:a
-      |vpiFullName:work@shift.a.a
-      |vpiActual:
-      \_LogicNet: (work@shift.a), line:1:14, endln:1:15
+              \_LogicVar: (work@shift.fshl_s)
     |vpiTypedef:
-    \_RefTypespec: (work@shift.a)
+    \_LogicTypespec: , line:62:12, endln:62:25
       |vpiParent:
-      \_Port: (a), line:1:14, endln:1:15
-      |vpiFullName:work@shift.a
-      |vpiActual:
-      \_LogicTypespec: , line:7:9, endln:7:22
-  |vpiPort:
-  \_Port: (s), line:1:16, endln:1:17
-    |vpiParent:
-    \_Module: work@shift (work@shift), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:1:1, endln:81:10
-    |vpiName:s
-    |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@shift.s.s), line:1:16, endln:1:17
-      |vpiParent:
-      \_Port: (s), line:1:16, endln:1:17
-      |vpiName:s
-      |vpiFullName:work@shift.s.s
-      |vpiActual:
-      \_LogicNet: (work@shift.s), line:1:16, endln:1:17
+      \_Function: (work@shift.fshl_s), line:62:3, endln:80:14
+      |vpiRange:
+      \_Range: , line:62:12, endln:62:25
+        |vpiParent:
+        \_LogicTypespec: , line:62:12, endln:62:25
+        |vpiLeftRange:
+        \_Operation: , line:62:13, endln:62:22
+          |vpiParent:
+          \_Range: , line:62:12, endln:62:25
+          |vpiOpType:11
+          |vpiOperand:
+          \_RefObj: (work@shift.fshl_s.width_z), line:62:13, endln:62:20
+            |vpiParent:
+            \_Operation: , line:62:13, endln:62:22
+            |vpiName:width_z
+            |vpiFullName:work@shift.fshl_s.width_z
+            |vpiActual:
+            \_Parameter: (work@shift.width_z), line:5:16, endln:5:27
+          |vpiOperand:
+          \_Constant: , line:62:21, endln:62:22
+            |vpiParent:
+            \_Operation: , line:62:13, endln:62:22
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_Constant: , line:62:23, endln:62:24
+          |vpiParent:
+          \_Range: , line:62:12, endln:62:25
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiSigned:1
     |vpiTypedef:
-    \_RefTypespec: (work@shift.s)
+    \_LogicTypespec: , line:63:12, endln:63:25
       |vpiParent:
-      \_Port: (s), line:1:16, endln:1:17
-      |vpiFullName:work@shift.s
-      |vpiActual:
-      \_LogicTypespec: , line:8:9, endln:8:22
-  |vpiPort:
-  \_Port: (z), line:1:18, endln:1:19
-    |vpiParent:
-    \_Module: work@shift (work@shift), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:1:1, endln:81:10
-    |vpiName:z
-    |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@shift.z.z), line:1:18, endln:1:19
-      |vpiParent:
-      \_Port: (z), line:1:18, endln:1:19
-      |vpiName:z
-      |vpiFullName:work@shift.z.z
-      |vpiActual:
-      \_LogicNet: (work@shift.z), line:1:18, endln:1:19
+      \_Function: (work@shift.fshl_s), line:62:3, endln:80:14
+      |vpiRange:
+      \_Range: , line:63:12, endln:63:25
+        |vpiParent:
+        \_LogicTypespec: , line:63:12, endln:63:25
+        |vpiLeftRange:
+        \_Operation: , line:63:13, endln:63:22
+          |vpiParent:
+          \_Range: , line:63:12, endln:63:25
+          |vpiOpType:11
+          |vpiOperand:
+          \_RefObj: (work@shift.fshl_s.width_a), line:63:13, endln:63:20
+            |vpiParent:
+            \_Operation: , line:63:13, endln:63:22
+            |vpiName:width_a
+            |vpiFullName:work@shift.fshl_s.width_a
+            |vpiActual:
+            \_Parameter: (work@shift.width_a), line:2:16, endln:2:27
+          |vpiOperand:
+          \_Constant: , line:63:21, endln:63:22
+            |vpiParent:
+            \_Operation: , line:63:13, endln:63:22
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_Constant: , line:63:23, endln:63:24
+          |vpiParent:
+          \_Range: , line:63:12, endln:63:25
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
     |vpiTypedef:
-    \_RefTypespec: (work@shift.z)
+    \_LogicTypespec: , line:64:12, endln:64:25
       |vpiParent:
-      \_Port: (z), line:1:18, endln:1:19
-      |vpiFullName:work@shift.z
-      |vpiActual:
-      \_LogicTypespec: , line:9:10, endln:9:24
-  |vpiGenStmt:
-  \_GenRegion: 
-    |vpiParent:
-    \_Module: work@shift (work@shift), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:1:1, endln:81:10
+      \_Function: (work@shift.fshl_s), line:62:3, endln:80:14
+      |vpiRange:
+      \_Range: , line:64:12, endln:64:25
+        |vpiParent:
+        \_LogicTypespec: , line:64:12, endln:64:25
+        |vpiLeftRange:
+        \_Operation: , line:64:13, endln:64:22
+          |vpiParent:
+          \_Range: , line:64:12, endln:64:25
+          |vpiOpType:11
+          |vpiOperand:
+          \_RefObj: (work@shift.fshl_s.width_s), line:64:13, endln:64:20
+            |vpiParent:
+            \_Operation: , line:64:13, endln:64:22
+            |vpiName:width_s
+            |vpiFullName:work@shift.fshl_s.width_s
+            |vpiActual:
+            \_Parameter: (work@shift.width_s), line:4:16, endln:4:27
+          |vpiOperand:
+          \_Constant: , line:64:21, endln:64:22
+            |vpiParent:
+            \_Operation: , line:64:13, endln:64:22
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_Constant: , line:64:23, endln:64:24
+          |vpiParent:
+          \_Range: , line:64:12, endln:64:25
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiTypedef:
+    \_LogicTypespec: , line:66:6, endln:66:21
+      |vpiParent:
+      \_Function: (work@shift.fshl_s), line:62:3, endln:80:14
+      |vpiRange:
+      \_Range: , line:66:10, endln:66:21
+        |vpiParent:
+        \_LogicTypespec: , line:66:6, endln:66:21
+        |vpiLeftRange:
+        \_RefObj: (work@shift.fshl_s.width_a), line:66:11, endln:66:18
+          |vpiParent:
+          \_Range: , line:66:10, endln:66:21
+          |vpiName:width_a
+          |vpiFullName:work@shift.fshl_s.width_a
+          |vpiActual:
+          \_Parameter: (work@shift.width_a), line:2:16, endln:2:27
+        |vpiRightRange:
+        \_Constant: , line:66:19, endln:66:20
+          |vpiParent:
+          \_Range: , line:66:10, endln:66:21
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiTypedef:
+    \_LogicTypespec: , line:66:6, endln:66:21
+      |vpiParent:
+      \_Function: (work@shift.fshl_s), line:62:3, endln:80:14
+      |vpiRange:
+      \_Range: , line:66:10, endln:66:21
+        |vpiParent:
+        \_LogicTypespec: , line:66:6, endln:66:21
+        |vpiLeftRange:
+        \_RefObj: (work@shift.fshl_s.width_a), line:66:11, endln:66:18
+          |vpiParent:
+          \_Range: , line:66:10, endln:66:21
+          |vpiName:width_a
+          |vpiFullName:work@shift.fshl_s.width_a
+          |vpiActual:
+          \_Parameter: (work@shift.width_a), line:2:16, endln:2:27
+        |vpiRightRange:
+        \_Constant: , line:66:19, endln:66:20
+          |vpiParent:
+          \_Range: , line:66:10, endln:66:21
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiImportTypespec:
+    \_LogicVar: (work@shift.fshl_s)
+    |vpiImportTypespec:
+    \_LogicTypespec: , line:62:12, endln:62:25
+    |vpiImportTypespec:
+    \_LogicTypespec: , line:63:12, endln:63:25
+    |vpiImportTypespec:
+    \_LogicTypespec: , line:64:12, endln:64:25
+    |vpiImportTypespec:
+    \_LogicTypespec: , line:66:6, endln:66:21
+    |vpiImportTypespec:
+    \_LogicTypespec: , line:66:6, endln:66:21
+    |vpiImportTypespec:
+    \_LogicVar: (work@shift.fshl_s.sbit_arg1), line:66:22, endln:66:31
+    |vpiVisibility:1
+    |vpiReturn:
+    \_LogicVar: (work@shift.fshl_s)
+    |vpiIODecl:
+    \_IODecl: (arg1), line:63:26, endln:63:30
+      |vpiParent:
+      \_Function: (work@shift.fshl_s), line:62:3, endln:80:14
+      |vpiDirection:1
+      |vpiName:arg1
+      |vpiTypedef:
+      \_RefTypespec: (work@shift.fshl_s.arg1), line:63:12, endln:63:25
+        |vpiParent:
+        \_IODecl: (arg1), line:63:26, endln:63:30
+        |vpiFullName:work@shift.fshl_s.arg1
+        |vpiActual:
+        \_LogicTypespec: , line:63:12, endln:63:25
+    |vpiIODecl:
+    \_IODecl: (arg2), line:64:26, endln:64:30
+      |vpiParent:
+      \_Function: (work@shift.fshl_s), line:62:3, endln:80:14
+      |vpiDirection:1
+      |vpiName:arg2
+      |vpiTypedef:
+      \_RefTypespec: (work@shift.fshl_s.arg2), line:64:12, endln:64:25
+        |vpiParent:
+        \_IODecl: (arg2), line:64:26, endln:64:30
+        |vpiFullName:work@shift.fshl_s.arg2
+        |vpiActual:
+        \_LogicTypespec: , line:64:12, endln:64:25
+    |vpiIODecl:
+    \_IODecl: (sbit), line:65:12, endln:65:16
+      |vpiParent:
+      \_Function: (work@shift.fshl_s), line:62:3, endln:80:14
+      |vpiDirection:1
+      |vpiName:sbit
     |vpiStmt:
-    \_Begin: (work@shift)
+    \_Begin: (work@shift.fshl_s), line:67:6, endln:79:9
+  |vpiInternalScope:
+  \_GenRegion: (work@shift), line:11:3, endln:19:14
+    |vpiParent:
+    \_Module: work@shift (work@shift), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:1:1, endln:81:10
+    |vpiFullName:work@shift
+    |vpiInternalScope:
+    \_Begin: (work@shift), line:11:12, endln:18:6
       |vpiParent:
-      \_GenRegion: 
+      \_GenRegion: (work@shift), line:11:3, endln:19:14
       |vpiFullName:work@shift
+      |vpiInternalScope:
+      \_Begin: (work@shift.SGNED), line:12:3, endln:14:6
+        |vpiParent:
+        \_Begin: (work@shift), line:11:12, endln:18:6
+        |vpiName:SGNED
+        |vpiFullName:work@shift.SGNED
+        |vpiStmt:
+        \_ContAssign: , line:13:12, endln:13:40
+          |vpiParent:
+          \_Begin: (work@shift.SGNED), line:12:3, endln:14:6
+          |vpiRhs:
+          \_FuncCall: (fshl_s), line:13:16, endln:13:40
+            |vpiParent:
+            \_ContAssign: , line:13:12, endln:13:40
+            |vpiArgument:
+            \_RefObj: (work@shift.SGNED.a), line:13:23, endln:13:24
+              |vpiParent:
+              \_FuncCall: (fshl_s), line:13:16, endln:13:40
+              |vpiName:a
+              |vpiFullName:work@shift.SGNED.a
+              |vpiActual:
+              \_LogicNet: (work@shift.a), line:7:23, endln:7:24
+            |vpiArgument:
+            \_RefObj: (work@shift.SGNED.s), line:13:25, endln:13:26
+              |vpiParent:
+              \_FuncCall: (fshl_s), line:13:16, endln:13:40
+              |vpiName:s
+              |vpiFullName:work@shift.SGNED.s
+              |vpiActual:
+              \_LogicNet: (work@shift.s), line:8:23, endln:8:24
+            |vpiArgument:
+            \_BitSelect: (work@shift.SGNED.a), line:13:28, endln:13:39
+              |vpiParent:
+              \_FuncCall: (fshl_s), line:13:16, endln:13:40
+              |vpiName:a
+              |vpiFullName:work@shift.SGNED.a
+              |vpiActual:
+              \_LogicNet: (work@shift.a), line:7:23, endln:7:24
+              |vpiIndex:
+              \_Operation: , line:13:29, endln:13:38
+                |vpiParent:
+                \_BitSelect: (work@shift.SGNED.a), line:13:28, endln:13:39
+                |vpiOpType:11
+                |vpiOperand:
+                \_RefObj: (work@shift.SGNED.a.width_a), line:13:29, endln:13:36
+                  |vpiParent:
+                  \_Operation: , line:13:29, endln:13:38
+                  |vpiName:width_a
+                  |vpiFullName:work@shift.SGNED.a.width_a
+                  |vpiActual:
+                  \_Parameter: (work@shift.width_a), line:2:16, endln:2:27
+                |vpiOperand:
+                \_Constant: , line:13:37, endln:13:38
+                  |vpiParent:
+                  \_Operation: , line:13:29, endln:13:38
+                  |vpiDecompile:1
+                  |vpiSize:64
+                  |UINT:1
+                  |vpiConstType:9
+            |vpiName:fshl_s
+            |vpiFunction:
+            \_Function: (work@shift.fshl_s), line:62:3, endln:80:14
+          |vpiLhs:
+          \_RefObj: (work@shift.SGNED.z), line:13:12, endln:13:13
+            |vpiParent:
+            \_ContAssign: , line:13:12, endln:13:40
+            |vpiName:z
+            |vpiFullName:work@shift.SGNED.z
+            |vpiActual:
+            \_LogicNet: (work@shift.z), line:9:25, endln:9:26
+      |vpiInternalScope:
+      \_Begin: (work@shift.UNSGNED), line:16:3, endln:18:6
+        |vpiParent:
+        \_Begin: (work@shift), line:11:12, endln:18:6
+        |vpiName:UNSGNED
+        |vpiFullName:work@shift.UNSGNED
+        |vpiStmt:
+        \_ContAssign: , line:17:12, endln:17:32
+          |vpiParent:
+          \_Begin: (work@shift.UNSGNED), line:16:3, endln:18:6
+          |vpiRhs:
+          \_FuncCall: (fshl_s), line:17:16, endln:17:32
+            |vpiParent:
+            \_ContAssign: , line:17:12, endln:17:32
+            |vpiArgument:
+            \_RefObj: (work@shift.UNSGNED.a), line:17:23, endln:17:24
+              |vpiParent:
+              \_FuncCall: (fshl_s), line:17:16, endln:17:32
+              |vpiName:a
+              |vpiFullName:work@shift.UNSGNED.a
+              |vpiActual:
+              \_LogicNet: (work@shift.a), line:7:23, endln:7:24
+            |vpiArgument:
+            \_RefObj: (work@shift.UNSGNED.s), line:17:25, endln:17:26
+              |vpiParent:
+              \_FuncCall: (fshl_s), line:17:16, endln:17:32
+              |vpiName:s
+              |vpiFullName:work@shift.UNSGNED.s
+              |vpiActual:
+              \_LogicNet: (work@shift.s), line:8:23, endln:8:24
+            |vpiArgument:
+            \_Constant: , line:17:27, endln:17:31
+              |vpiParent:
+              \_FuncCall: (fshl_s), line:17:16, endln:17:32
+              |vpiDecompile:1'b0
+              |vpiSize:1
+              |BIN:0
+              |vpiConstType:3
+            |vpiName:fshl_s
+            |vpiFunction:
+            \_Function: (work@shift.fshl_s), line:62:3, endln:80:14
+          |vpiLhs:
+          \_RefObj: (work@shift.UNSGNED.z), line:17:12, endln:17:13
+            |vpiParent:
+            \_ContAssign: , line:17:12, endln:17:32
+            |vpiName:z
+            |vpiFullName:work@shift.UNSGNED.z
+            |vpiActual:
+            \_LogicNet: (work@shift.z), line:9:25, endln:9:26
       |vpiStmt:
       \_GenIfElse: , line:11:12, endln:18:6
         |vpiParent:
-        \_Begin: (work@shift)
+        \_Begin: (work@shift), line:11:12, endln:18:6
         |vpiCondition:
         \_RefObj: (work@shift.signd_a), line:11:17, endln:11:24
           |vpiParent:
           \_GenIfElse: , line:11:12, endln:18:6
           |vpiName:signd_a
           |vpiFullName:work@shift.signd_a
+          |vpiActual:
+          \_Parameter: (work@shift.signd_a), line:3:16, endln:3:27
         |vpiStmt:
-        \_NamedBegin: (work@shift.SGNED)
-          |vpiParent:
-          \_GenIfElse: , line:11:12, endln:18:6
-          |vpiName:SGNED
-          |vpiFullName:work@shift.SGNED
-          |vpiStmt:
-          \_ContAssign: , line:13:12, endln:13:40
-            |vpiParent:
-            \_NamedBegin: (work@shift.SGNED)
-            |vpiRhs:
-            \_FuncCall: (fshl_s), line:13:16, endln:13:40
-              |vpiParent:
-              \_ContAssign: , line:13:12, endln:13:40
-              |vpiArgument:
-              \_RefObj: (work@shift.SGNED.a), line:13:23, endln:13:24
-                |vpiParent:
-                \_FuncCall: (fshl_s), line:13:16, endln:13:40
-                |vpiName:a
-                |vpiFullName:work@shift.SGNED.a
-              |vpiArgument:
-              \_RefObj: (work@shift.SGNED.s), line:13:25, endln:13:26
-                |vpiParent:
-                \_FuncCall: (fshl_s), line:13:16, endln:13:40
-                |vpiName:s
-                |vpiFullName:work@shift.SGNED.s
-              |vpiArgument:
-              \_BitSelect: (work@shift.SGNED.a), line:13:29, endln:13:38
-                |vpiParent:
-                \_FuncCall: (fshl_s), line:13:16, endln:13:40
-                |vpiName:a
-                |vpiFullName:work@shift.SGNED.a
-                |vpiIndex:
-                \_Operation: , line:13:29, endln:13:38
-                  |vpiParent:
-                  \_BitSelect: (work@shift.SGNED.a), line:13:29, endln:13:38
-                  |vpiOpType:11
-                  |vpiOperand:
-                  \_RefObj: (work@shift.SGNED.a.width_a), line:13:29, endln:13:36
-                    |vpiParent:
-                    \_Operation: , line:13:29, endln:13:38
-                    |vpiName:width_a
-                    |vpiFullName:work@shift.SGNED.a.width_a
-                  |vpiOperand:
-                  \_Constant: , line:13:37, endln:13:38
-                    |vpiParent:
-                    \_Operation: , line:13:29, endln:13:38
-                    |vpiDecompile:1
-                    |vpiSize:64
-                    |UINT:1
-                    |vpiConstType:9
-              |vpiName:fshl_s
-            |vpiLhs:
-            \_RefObj: (work@shift.SGNED.z), line:13:12, endln:13:13
-              |vpiParent:
-              \_ContAssign: , line:13:12, endln:13:40
-              |vpiName:z
-              |vpiFullName:work@shift.SGNED.z
+        \_Begin: (work@shift.SGNED), line:12:3, endln:14:6
         |vpiElseStmt:
-        \_NamedBegin: (work@shift.UNSGNED)
-          |vpiParent:
-          \_GenIfElse: , line:11:12, endln:18:6
-          |vpiName:UNSGNED
-          |vpiFullName:work@shift.UNSGNED
-          |vpiStmt:
-          \_ContAssign: , line:17:12, endln:17:32
-            |vpiParent:
-            \_NamedBegin: (work@shift.UNSGNED)
-            |vpiRhs:
-            \_FuncCall: (fshl_s), line:17:16, endln:17:32
-              |vpiParent:
-              \_ContAssign: , line:17:12, endln:17:32
-              |vpiArgument:
-              \_RefObj: (work@shift.UNSGNED.a), line:17:23, endln:17:24
-                |vpiParent:
-                \_FuncCall: (fshl_s), line:17:16, endln:17:32
-                |vpiName:a
-                |vpiFullName:work@shift.UNSGNED.a
-              |vpiArgument:
-              \_RefObj: (work@shift.UNSGNED.s), line:17:25, endln:17:26
-                |vpiParent:
-                \_FuncCall: (fshl_s), line:17:16, endln:17:32
-                |vpiName:s
-                |vpiFullName:work@shift.UNSGNED.s
-              |vpiArgument:
-              \_Constant: , line:17:27, endln:17:31
-                |vpiParent:
-                \_FuncCall: (fshl_s), line:17:16, endln:17:32
-                |vpiDecompile:1'b0
-                |vpiSize:1
-                |BIN:0
-                |vpiConstType:3
-              |vpiName:fshl_s
-            |vpiLhs:
-            \_RefObj: (work@shift.UNSGNED.z), line:17:12, endln:17:13
-              |vpiParent:
-              \_ContAssign: , line:17:12, endln:17:32
-              |vpiName:z
-              |vpiFullName:work@shift.UNSGNED.z
-|uhdmallModules:
+        \_Begin: (work@shift.UNSGNED), line:16:3, endln:18:6
+    |vpiStmt:
+    \_Begin: (work@shift), line:11:12, endln:18:6
+  |vpiImportTypespec:
+  \_Function: (work@shift.fshl_u_1), line:21:3, endln:36:14
+  |vpiImportTypespec:
+  \_Function: (work@shift.fshl_u), line:38:3, endln:43:14
+  |vpiImportTypespec:
+  \_Function: (work@shift.fshr_u), line:45:3, endln:60:14
+  |vpiImportTypespec:
+  \_Function: (work@shift.fshl_s), line:62:3, endln:80:14
+  |vpiImportTypespec:
+  \_LogicNet: (work@shift.a), line:7:23, endln:7:24
+    |vpiParent:
+    \_Module: work@shift (work@shift), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:1:1, endln:81:10
+    |vpiName:a
+    |vpiFullName:work@shift.a
+  |vpiImportTypespec:
+  \_LogicNet: (work@shift.s), line:8:23, endln:8:24
+    |vpiParent:
+    \_Module: work@shift (work@shift), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:1:1, endln:81:10
+    |vpiName:s
+    |vpiFullName:work@shift.s
+  |vpiImportTypespec:
+  \_LogicNet: (work@shift.z), line:9:25, endln:9:26
+    |vpiParent:
+    \_Module: work@shift (work@shift), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:1:1, endln:81:10
+    |vpiName:z
+    |vpiFullName:work@shift.z
+  |vpiDefName:work@shift
+  |vpiTaskFunc:
+  \_Function: (work@shift.fshl_u_1), line:21:3, endln:36:14
+  |vpiTaskFunc:
+  \_Function: (work@shift.fshl_u), line:38:3, endln:43:14
+  |vpiTaskFunc:
+  \_Function: (work@shift.fshr_u), line:45:3, endln:60:14
+  |vpiTaskFunc:
+  \_Function: (work@shift.fshl_s), line:62:3, endln:80:14
+  |vpiNet:
+  \_LogicNet: (work@shift.a), line:7:23, endln:7:24
+  |vpiNet:
+  \_LogicNet: (work@shift.s), line:8:23, endln:8:24
+  |vpiNet:
+  \_LogicNet: (work@shift.z), line:9:25, endln:9:26
+  |vpiPort:
+  \_Port: (a), line:1:14, endln:1:15
+    |vpiParent:
+    \_Module: work@shift (work@shift), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:1:1, endln:81:10
+    |vpiName:a
+    |vpiDirection:1
+  |vpiPort:
+  \_Port: (s), line:1:16, endln:1:17
+    |vpiParent:
+    \_Module: work@shift (work@shift), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:1:1, endln:81:10
+    |vpiName:s
+    |vpiDirection:1
+  |vpiPort:
+  \_Port: (z), line:1:18, endln:1:19
+    |vpiParent:
+    \_Module: work@shift (work@shift), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:1:1, endln:81:10
+    |vpiName:z
+    |vpiDirection:2
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:83:1, endln:102:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
+  |vpiName:work@top
   |vpiParameter:
-  \_Parameter: (work@top.width_a), line:85:13, endln:85:20
+  \_Parameter: (work@top.width_a), line:85:13, endln:85:26
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:83:1, endln:102:10
     |UINT:240
-    |vpiTypespec:
-    \_RefTypespec: (work@top.width_a)
-      |vpiParent:
-      \_Parameter: (work@top.width_a), line:85:13, endln:85:20
-      |vpiFullName:work@top.width_a
-      |vpiActual:
-      \_IntTypespec: , line:85:3, endln:85:26
     |vpiName:width_a
     |vpiFullName:work@top.width_a
   |vpiParameter:
-  \_Parameter: (work@top.width_s), line:86:13, endln:86:20
+  \_Parameter: (work@top.width_s), line:86:13, endln:86:24
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:83:1, endln:102:10
     |UINT:9
-    |vpiTypespec:
-    \_RefTypespec: (work@top.width_s)
-      |vpiParent:
-      \_Parameter: (work@top.width_s), line:86:13, endln:86:20
-      |vpiFullName:work@top.width_s
-      |vpiActual:
-      \_IntTypespec: , line:86:3, endln:86:24
     |vpiName:width_s
     |vpiFullName:work@top.width_s
   |vpiParameter:
-  \_Parameter: (work@top.width_z), line:87:13, endln:87:20
+  \_Parameter: (work@top.width_z), line:87:13, endln:87:26
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:83:1, endln:102:10
     |UINT:240
-    |vpiTypespec:
-    \_RefTypespec: (work@top.width_z)
-      |vpiParent:
-      \_Parameter: (work@top.width_z), line:87:13, endln:87:20
-      |vpiFullName:work@top.width_z
-      |vpiActual:
-      \_IntTypespec: , line:87:3, endln:87:26
     |vpiName:width_z
     |vpiFullName:work@top.width_z
   |vpiParamAssign:
@@ -3164,16 +4010,9 @@ Design: (unnamed)
       |vpiDecompile:240
       |vpiSize:64
       |UINT:240
-      |vpiTypespec:
-      \_RefTypespec: (work@top)
-        |vpiParent:
-        \_Constant: , line:85:23, endln:85:26
-        |vpiFullName:work@top
-        |vpiActual:
-        \_IntTypespec: , line:85:3, endln:85:26
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (work@top.width_a), line:85:13, endln:85:20
+    \_Parameter: (work@top.width_a), line:85:13, endln:85:26
   |vpiParamAssign:
   \_ParamAssign: , line:86:13, endln:86:24
     |vpiParent:
@@ -3185,16 +4024,9 @@ Design: (unnamed)
       |vpiDecompile:9
       |vpiSize:64
       |UINT:9
-      |vpiTypespec:
-      \_RefTypespec: (work@top)
-        |vpiParent:
-        \_Constant: , line:86:23, endln:86:24
-        |vpiFullName:work@top
-        |vpiActual:
-        \_IntTypespec: , line:86:3, endln:86:24
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (work@top.width_s), line:86:13, endln:86:20
+    \_Parameter: (work@top.width_s), line:86:13, endln:86:24
   |vpiParamAssign:
   \_ParamAssign: , line:87:13, endln:87:26
     |vpiParent:
@@ -3206,100 +4038,61 @@ Design: (unnamed)
       |vpiDecompile:240
       |vpiSize:64
       |UINT:240
-      |vpiTypespec:
-      \_RefTypespec: (work@top)
-        |vpiParent:
-        \_Constant: , line:87:23, endln:87:26
-        |vpiFullName:work@top
-        |vpiActual:
-        \_IntTypespec: , line:87:3, endln:87:26
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (work@top.width_z), line:87:13, endln:87:20
-  |vpiDefName:work@top
-  |vpiNet:
-  \_LogicNet: (work@top.a), line:83:13, endln:83:14
+    \_Parameter: (work@top.width_z), line:87:13, endln:87:26
+  |vpiTypedef:
+  \_ModuleTypespec: (shift), line:93:3, endln:93:8
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:83:1, endln:102:10
+    |vpiName:shift
+  |vpiImportTypespec:
+  \_ModuleTypespec: (shift), line:93:3, endln:93:8
+  |vpiImportTypespec:
+  \_LogicNet: (work@top.a), line:89:23, endln:89:24
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:83:1, endln:102:10
     |vpiName:a
     |vpiFullName:work@top.a
-  |vpiNet:
-  \_LogicNet: (work@top.s), line:83:15, endln:83:16
+  |vpiImportTypespec:
+  \_LogicNet: (work@top.s), line:90:23, endln:90:24
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:83:1, endln:102:10
     |vpiName:s
     |vpiFullName:work@top.s
-  |vpiNet:
-  \_LogicNet: (work@top.z), line:83:17, endln:83:18
+  |vpiImportTypespec:
+  \_LogicNet: (work@top.z), line:91:24, endln:91:25
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:83:1, endln:102:10
     |vpiName:z
     |vpiFullName:work@top.z
+  |vpiDefName:work@top
+  |vpiNet:
+  \_LogicNet: (work@top.a), line:89:23, endln:89:24
+  |vpiNet:
+  \_LogicNet: (work@top.s), line:90:23, endln:90:24
+  |vpiNet:
+  \_LogicNet: (work@top.z), line:91:24, endln:91:25
   |vpiPort:
   \_Port: (a), line:83:13, endln:83:14
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:83:1, endln:102:10
     |vpiName:a
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@top.a.a), line:83:13, endln:83:14
-      |vpiParent:
-      \_Port: (a), line:83:13, endln:83:14
-      |vpiName:a
-      |vpiFullName:work@top.a.a
-      |vpiActual:
-      \_LogicNet: (work@top.a), line:83:13, endln:83:14
-    |vpiTypedef:
-    \_RefTypespec: (work@top.a)
-      |vpiParent:
-      \_Port: (a), line:83:13, endln:83:14
-      |vpiFullName:work@top.a
-      |vpiActual:
-      \_LogicTypespec: , line:89:9, endln:89:22
   |vpiPort:
   \_Port: (s), line:83:15, endln:83:16
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:83:1, endln:102:10
     |vpiName:s
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@top.s.s), line:83:15, endln:83:16
-      |vpiParent:
-      \_Port: (s), line:83:15, endln:83:16
-      |vpiName:s
-      |vpiFullName:work@top.s.s
-      |vpiActual:
-      \_LogicNet: (work@top.s), line:83:15, endln:83:16
-    |vpiTypedef:
-    \_RefTypespec: (work@top.s)
-      |vpiParent:
-      \_Port: (s), line:83:15, endln:83:16
-      |vpiFullName:work@top.s
-      |vpiActual:
-      \_LogicTypespec: , line:90:9, endln:90:22
   |vpiPort:
   \_Port: (z), line:83:17, endln:83:18
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:83:1, endln:102:10
     |vpiName:z
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@top.z.z), line:83:17, endln:83:18
-      |vpiParent:
-      \_Port: (z), line:83:17, endln:83:18
-      |vpiName:z
-      |vpiFullName:work@top.z.z
-      |vpiActual:
-      \_LogicNet: (work@top.z), line:83:17, endln:83:18
-    |vpiTypedef:
-    \_RefTypespec: (work@top.z)
-      |vpiParent:
-      \_Port: (z), line:83:17, endln:83:18
-      |vpiFullName:work@top.z
-      |vpiActual:
-      \_LogicTypespec: , line:91:10, endln:91:23
   |vpiRefModule:
-  \_RefModule: work@shift (inst), line:97:5, endln:97:9
+  \_RefModule: work@shift (inst), line:93:3, endln:93:8
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:83:1, endln:102:10
     |vpiName:inst
@@ -3307,979 +4100,44 @@ Design: (unnamed)
     |vpiActual:
     \_Module: work@shift (work@shift), file:${SURELOG_DIR}/tests/FuncIoTypespec/dut.sv, line:1:1, endln:81:10
     |vpiPort:
-    \_Port: (a), line:98:7, endln:98:12
+    \_Port: (a), line:98:8, endln:98:9
       |vpiParent:
-      \_RefModule: work@shift (inst), line:97:5, endln:97:9
+      \_RefModule: work@shift (inst), line:93:3, endln:93:8
       |vpiName:a
       |vpiHighConn:
       \_RefObj: (work@top.inst.a.a), line:98:10, endln:98:11
         |vpiParent:
-        \_Port: (a), line:98:7, endln:98:12
+        \_Port: (a), line:98:8, endln:98:9
         |vpiName:a
         |vpiFullName:work@top.inst.a.a
         |vpiActual:
-        \_LogicNet: (work@top.a), line:83:13, endln:83:14
+        \_LogicNet: (work@top.a), line:89:23, endln:89:24
     |vpiPort:
-    \_Port: (s), line:99:7, endln:99:12
+    \_Port: (s), line:99:8, endln:99:9
       |vpiParent:
-      \_RefModule: work@shift (inst), line:97:5, endln:97:9
+      \_RefModule: work@shift (inst), line:93:3, endln:93:8
       |vpiName:s
       |vpiHighConn:
       \_RefObj: (work@top.inst.s.s), line:99:10, endln:99:11
         |vpiParent:
-        \_Port: (s), line:99:7, endln:99:12
+        \_Port: (s), line:99:8, endln:99:9
         |vpiName:s
         |vpiFullName:work@top.inst.s.s
         |vpiActual:
-        \_LogicNet: (work@top.s), line:83:15, endln:83:16
+        \_LogicNet: (work@top.s), line:90:23, endln:90:24
     |vpiPort:
-    \_Port: (z), line:100:7, endln:100:12
+    \_Port: (z), line:100:8, endln:100:9
       |vpiParent:
-      \_RefModule: work@shift (inst), line:97:5, endln:97:9
+      \_RefModule: work@shift (inst), line:93:3, endln:93:8
       |vpiName:z
       |vpiHighConn:
       \_RefObj: (work@top.inst.z.z), line:100:10, endln:100:11
         |vpiParent:
-        \_Port: (z), line:100:7, endln:100:12
+        \_Port: (z), line:100:8, endln:100:9
         |vpiName:z
         |vpiFullName:work@top.inst.z.z
         |vpiActual:
-        \_LogicNet: (work@top.z), line:83:17, endln:83:18
-\_weaklyReferenced:
-\_IntTypespec: , line:2:3, endln:2:27
-\_IntTypespec: , line:3:3, endln:3:27
-\_IntTypespec: , line:4:3, endln:4:27
-\_IntTypespec: , line:5:3, endln:5:27
-\_LogicTypespec: , line:21:12, endln:21:25
-  |vpiRange:
-  \_Range: , line:21:12, endln:21:25
-    |vpiParent:
-    \_LogicTypespec: , line:21:12, endln:21:25
-    |vpiLeftRange:
-    \_Operation: , line:21:13, endln:21:22
-      |vpiParent:
-      \_Range: , line:21:12, endln:21:25
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (width_z), line:21:13, endln:21:20
-        |vpiParent:
-        \_Operation: , line:21:13, endln:21:22
-        |vpiName:width_z
-      |vpiOperand:
-      \_Constant: , line:21:21, endln:21:22
-        |vpiParent:
-        \_Operation: , line:21:13, endln:21:22
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:21:23, endln:21:24
-      |vpiParent:
-      \_Range: , line:21:12, endln:21:25
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:22:12, endln:22:25
-  |vpiRange:
-  \_Range: , line:22:12, endln:22:25
-    |vpiParent:
-    \_LogicTypespec: , line:22:12, endln:22:25
-    |vpiLeftRange:
-    \_RefObj: (width_a), line:22:13, endln:22:20
-      |vpiParent:
-      \_Range: , line:22:12, endln:22:25
-      |vpiName:width_a
-    |vpiRightRange:
-    \_Constant: , line:22:23, endln:22:24
-      |vpiParent:
-      \_Range: , line:22:12, endln:22:25
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:23:12, endln:23:25
-  |vpiRange:
-  \_Range: , line:23:12, endln:23:25
-    |vpiParent:
-    \_LogicTypespec: , line:23:12, endln:23:25
-    |vpiLeftRange:
-    \_Operation: , line:23:13, endln:23:22
-      |vpiParent:
-      \_Range: , line:23:12, endln:23:25
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (width_s), line:23:13, endln:23:20
-        |vpiParent:
-        \_Operation: , line:23:13, endln:23:22
-        |vpiName:width_s
-      |vpiOperand:
-      \_Constant: , line:23:21, endln:23:22
-        |vpiParent:
-        \_Operation: , line:23:13, endln:23:22
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:23:23, endln:23:24
-      |vpiParent:
-      \_Range: , line:23:12, endln:23:25
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:28:6, endln:28:19
-  |vpiRange:
-  \_Range: , line:28:10, endln:28:19
-    |vpiParent:
-    \_LogicTypespec: , line:28:6, endln:28:19
-    |vpiLeftRange:
-    \_Operation: , line:28:11, endln:28:16
-      |vpiParent:
-      \_Range: , line:28:10, endln:28:19
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (len), line:28:11, endln:28:14
-        |vpiParent:
-        \_Operation: , line:28:11, endln:28:16
-        |vpiName:len
-        |vpiActual:
-        \_LogicNet: (work@shift.len), line:28:11, endln:28:14
-      |vpiOperand:
-      \_Constant: , line:28:15, endln:28:16
-        |vpiParent:
-        \_Operation: , line:28:11, endln:28:16
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:28:17, endln:28:18
-      |vpiParent:
-      \_Range: , line:28:10, endln:28:19
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:29:6, endln:29:19
-  |vpiRange:
-  \_Range: , line:29:10, endln:29:19
-    |vpiParent:
-    \_LogicTypespec: , line:29:6, endln:29:19
-    |vpiLeftRange:
-    \_Operation: , line:29:11, endln:29:16
-      |vpiParent:
-      \_Range: , line:29:10, endln:29:19
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (len), line:29:11, endln:29:14
-        |vpiParent:
-        \_Operation: , line:29:11, endln:29:16
-        |vpiName:len
-        |vpiActual:
-        \_LogicNet: (work@shift.len), line:28:11, endln:28:14
-      |vpiOperand:
-      \_Constant: , line:29:15, endln:29:16
-        |vpiParent:
-        \_Operation: , line:29:11, endln:29:16
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:29:17, endln:29:18
-      |vpiParent:
-      \_Range: , line:29:10, endln:29:19
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:38:12, endln:38:25
-  |vpiRange:
-  \_Range: , line:38:12, endln:38:25
-    |vpiParent:
-    \_LogicTypespec: , line:38:12, endln:38:25
-    |vpiLeftRange:
-    \_Operation: , line:38:13, endln:38:22
-      |vpiParent:
-      \_Range: , line:38:12, endln:38:25
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (width_z), line:38:13, endln:38:20
-        |vpiParent:
-        \_Operation: , line:38:13, endln:38:22
-        |vpiName:width_z
-      |vpiOperand:
-      \_Constant: , line:38:21, endln:38:22
-        |vpiParent:
-        \_Operation: , line:38:13, endln:38:22
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:38:23, endln:38:24
-      |vpiParent:
-      \_Range: , line:38:12, endln:38:25
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:39:12, endln:39:25
-  |vpiRange:
-  \_Range: , line:39:12, endln:39:25
-    |vpiParent:
-    \_LogicTypespec: , line:39:12, endln:39:25
-    |vpiLeftRange:
-    \_Operation: , line:39:13, endln:39:22
-      |vpiParent:
-      \_Range: , line:39:12, endln:39:25
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (width_a), line:39:13, endln:39:20
-        |vpiParent:
-        \_Operation: , line:39:13, endln:39:22
-        |vpiName:width_a
-      |vpiOperand:
-      \_Constant: , line:39:21, endln:39:22
-        |vpiParent:
-        \_Operation: , line:39:13, endln:39:22
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:39:23, endln:39:24
-      |vpiParent:
-      \_Range: , line:39:12, endln:39:25
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:40:12, endln:40:25
-  |vpiRange:
-  \_Range: , line:40:12, endln:40:25
-    |vpiParent:
-    \_LogicTypespec: , line:40:12, endln:40:25
-    |vpiLeftRange:
-    \_Operation: , line:40:13, endln:40:22
-      |vpiParent:
-      \_Range: , line:40:12, endln:40:25
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (width_s), line:40:13, endln:40:20
-        |vpiParent:
-        \_Operation: , line:40:13, endln:40:22
-        |vpiName:width_s
-      |vpiOperand:
-      \_Constant: , line:40:21, endln:40:22
-        |vpiParent:
-        \_Operation: , line:40:13, endln:40:22
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:40:23, endln:40:24
-      |vpiParent:
-      \_Range: , line:40:12, endln:40:25
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:45:12, endln:45:25
-  |vpiRange:
-  \_Range: , line:45:12, endln:45:25
-    |vpiParent:
-    \_LogicTypespec: , line:45:12, endln:45:25
-    |vpiLeftRange:
-    \_Operation: , line:45:13, endln:45:22
-      |vpiParent:
-      \_Range: , line:45:12, endln:45:25
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (width_z), line:45:13, endln:45:20
-        |vpiParent:
-        \_Operation: , line:45:13, endln:45:22
-        |vpiName:width_z
-      |vpiOperand:
-      \_Constant: , line:45:21, endln:45:22
-        |vpiParent:
-        \_Operation: , line:45:13, endln:45:22
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:45:23, endln:45:24
-      |vpiParent:
-      \_Range: , line:45:12, endln:45:25
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:46:12, endln:46:25
-  |vpiRange:
-  \_Range: , line:46:12, endln:46:25
-    |vpiParent:
-    \_LogicTypespec: , line:46:12, endln:46:25
-    |vpiLeftRange:
-    \_Operation: , line:46:13, endln:46:22
-      |vpiParent:
-      \_Range: , line:46:12, endln:46:25
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (width_a), line:46:13, endln:46:20
-        |vpiParent:
-        \_Operation: , line:46:13, endln:46:22
-        |vpiName:width_a
-      |vpiOperand:
-      \_Constant: , line:46:21, endln:46:22
-        |vpiParent:
-        \_Operation: , line:46:13, endln:46:22
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:46:23, endln:46:24
-      |vpiParent:
-      \_Range: , line:46:12, endln:46:25
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:47:12, endln:47:25
-  |vpiRange:
-  \_Range: , line:47:12, endln:47:25
-    |vpiParent:
-    \_LogicTypespec: , line:47:12, endln:47:25
-    |vpiLeftRange:
-    \_Operation: , line:47:13, endln:47:22
-      |vpiParent:
-      \_Range: , line:47:12, endln:47:25
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (width_s), line:47:13, endln:47:20
-        |vpiParent:
-        \_Operation: , line:47:13, endln:47:22
-        |vpiName:width_s
-      |vpiOperand:
-      \_Constant: , line:47:21, endln:47:22
-        |vpiParent:
-        \_Operation: , line:47:13, endln:47:22
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:47:23, endln:47:24
-      |vpiParent:
-      \_Range: , line:47:12, endln:47:25
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:52:6, endln:52:26
-  |vpiRange:
-  \_Range: , line:52:17, endln:52:26
-    |vpiParent:
-    \_LogicTypespec: , line:52:6, endln:52:26
-    |vpiLeftRange:
-    \_Operation: , line:52:18, endln:52:23
-      |vpiParent:
-      \_Range: , line:52:17, endln:52:26
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (len), line:52:18, endln:52:21
-        |vpiParent:
-        \_Operation: , line:52:18, endln:52:23
-        |vpiName:len
-        |vpiActual:
-        \_LogicNet: (work@shift.len), line:28:11, endln:28:14
-      |vpiOperand:
-      \_Constant: , line:52:22, endln:52:23
-        |vpiParent:
-        \_Operation: , line:52:18, endln:52:23
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:52:24, endln:52:25
-      |vpiParent:
-      \_Range: , line:52:17, endln:52:26
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-  |vpiSigned:1
-\_LogicTypespec: , line:53:6, endln:53:26
-  |vpiRange:
-  \_Range: , line:53:17, endln:53:26
-    |vpiParent:
-    \_LogicTypespec: , line:53:6, endln:53:26
-    |vpiLeftRange:
-    \_Operation: , line:53:18, endln:53:23
-      |vpiParent:
-      \_Range: , line:53:17, endln:53:26
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (len), line:53:18, endln:53:21
-        |vpiParent:
-        \_Operation: , line:53:18, endln:53:23
-        |vpiName:len
-        |vpiActual:
-        \_LogicNet: (work@shift.len), line:28:11, endln:28:14
-      |vpiOperand:
-      \_Constant: , line:53:22, endln:53:23
-        |vpiParent:
-        \_Operation: , line:53:18, endln:53:23
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:53:24, endln:53:25
-      |vpiParent:
-      \_Range: , line:53:17, endln:53:26
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-  |vpiSigned:1
-\_LogicTypespec: , line:62:12, endln:62:25
-  |vpiRange:
-  \_Range: , line:62:12, endln:62:25
-    |vpiParent:
-    \_LogicTypespec: , line:62:12, endln:62:25
-    |vpiLeftRange:
-    \_Operation: , line:62:13, endln:62:22
-      |vpiParent:
-      \_Range: , line:62:12, endln:62:25
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (width_z), line:62:13, endln:62:20
-        |vpiParent:
-        \_Operation: , line:62:13, endln:62:22
-        |vpiName:width_z
-      |vpiOperand:
-      \_Constant: , line:62:21, endln:62:22
-        |vpiParent:
-        \_Operation: , line:62:13, endln:62:22
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:62:23, endln:62:24
-      |vpiParent:
-      \_Range: , line:62:12, endln:62:25
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:63:12, endln:63:25
-  |vpiRange:
-  \_Range: , line:63:12, endln:63:25
-    |vpiParent:
-    \_LogicTypespec: , line:63:12, endln:63:25
-    |vpiLeftRange:
-    \_Operation: , line:63:13, endln:63:22
-      |vpiParent:
-      \_Range: , line:63:12, endln:63:25
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (width_a), line:63:13, endln:63:20
-        |vpiParent:
-        \_Operation: , line:63:13, endln:63:22
-        |vpiName:width_a
-      |vpiOperand:
-      \_Constant: , line:63:21, endln:63:22
-        |vpiParent:
-        \_Operation: , line:63:13, endln:63:22
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:63:23, endln:63:24
-      |vpiParent:
-      \_Range: , line:63:12, endln:63:25
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:64:12, endln:64:25
-  |vpiRange:
-  \_Range: , line:64:12, endln:64:25
-    |vpiParent:
-    \_LogicTypespec: , line:64:12, endln:64:25
-    |vpiLeftRange:
-    \_Operation: , line:64:13, endln:64:22
-      |vpiParent:
-      \_Range: , line:64:12, endln:64:25
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (width_s), line:64:13, endln:64:20
-        |vpiParent:
-        \_Operation: , line:64:13, endln:64:22
-        |vpiName:width_s
-      |vpiOperand:
-      \_Constant: , line:64:21, endln:64:22
-        |vpiParent:
-        \_Operation: , line:64:13, endln:64:22
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:64:23, endln:64:24
-      |vpiParent:
-      \_Range: , line:64:12, endln:64:25
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:66:6, endln:66:21
-  |vpiRange:
-  \_Range: , line:66:10, endln:66:21
-    |vpiParent:
-    \_LogicTypespec: , line:66:6, endln:66:21
-    |vpiLeftRange:
-    \_RefObj: (width_a), line:66:11, endln:66:18
-      |vpiParent:
-      \_Range: , line:66:10, endln:66:21
-      |vpiName:width_a
-    |vpiRightRange:
-    \_Constant: , line:66:19, endln:66:20
-      |vpiParent:
-      \_Range: , line:66:10, endln:66:21
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_IntTypespec: , line:85:3, endln:85:26
-\_IntTypespec: , line:86:3, endln:86:24
-\_IntTypespec: , line:87:3, endln:87:26
-\_LogicTypespec: , line:7:9, endln:7:22
-  |vpiRange:
-  \_Range: , line:7:9, endln:7:22
-    |vpiParent:
-    \_LogicTypespec: , line:7:9, endln:7:22
-    |vpiLeftRange:
-    \_Operation: , line:7:10, endln:7:19
-      |vpiParent:
-      \_Range: , line:7:9, endln:7:22
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (width_a), line:7:10, endln:7:17
-        |vpiParent:
-        \_Operation: , line:7:10, endln:7:19
-        |vpiName:width_a
-      |vpiOperand:
-      \_Constant: , line:7:18, endln:7:19
-        |vpiParent:
-        \_Operation: , line:7:10, endln:7:19
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:7:20, endln:7:21
-      |vpiParent:
-      \_Range: , line:7:9, endln:7:22
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:8:9, endln:8:22
-  |vpiRange:
-  \_Range: , line:8:9, endln:8:22
-    |vpiParent:
-    \_LogicTypespec: , line:8:9, endln:8:22
-    |vpiLeftRange:
-    \_Operation: , line:8:10, endln:8:19
-      |vpiParent:
-      \_Range: , line:8:9, endln:8:22
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (width_s), line:8:10, endln:8:17
-        |vpiParent:
-        \_Operation: , line:8:10, endln:8:19
-        |vpiName:width_s
-      |vpiOperand:
-      \_Constant: , line:8:18, endln:8:19
-        |vpiParent:
-        \_Operation: , line:8:10, endln:8:19
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:8:20, endln:8:21
-      |vpiParent:
-      \_Range: , line:8:9, endln:8:22
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:9:10, endln:9:24
-  |vpiRange:
-  \_Range: , line:9:10, endln:9:24
-    |vpiParent:
-    \_LogicTypespec: , line:9:10, endln:9:24
-    |vpiLeftRange:
-    \_Operation: , line:9:11, endln:9:21
-      |vpiParent:
-      \_Range: , line:9:10, endln:9:24
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (width_z), line:9:11, endln:9:18
-        |vpiParent:
-        \_Operation: , line:9:11, endln:9:21
-        |vpiName:width_z
-      |vpiOperand:
-      \_Constant: , line:9:20, endln:9:21
-        |vpiParent:
-        \_Operation: , line:9:11, endln:9:21
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:9:22, endln:9:23
-      |vpiParent:
-      \_Range: , line:9:10, endln:9:24
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicVar: (work@shift.fshl_u_1.fshl_u_1), line:21:12, endln:21:25
-  |vpiParent:
-  \_RefObj: (work@shift.fshl_u_1.fshl_u_1), line:34:8, endln:34:16
-  |vpiTypespec:
-  \_RefTypespec: (work@shift.fshl_u_1.fshl_u_1)
-    |vpiParent:
-    \_LogicVar: (work@shift.fshl_u_1.fshl_u_1), line:21:12, endln:21:25
-    |vpiFullName:work@shift.fshl_u_1.fshl_u_1
-    |vpiActual:
-    \_LogicTypespec: , line:21:12, endln:21:25
-  |vpiName:fshl_u_1
-  |vpiFullName:work@shift.fshl_u_1.fshl_u_1
-\_LogicTypespec: , line:21:12, endln:21:25
-  |vpiParent:
-  \_RefTypespec: (work@shift.fshl_u_1.fshl_u_1)
-  |vpiRange:
-  \_Range: , line:21:12, endln:21:25
-    |vpiParent:
-    \_LogicTypespec: , line:21:12, endln:21:25
-    |vpiLeftRange:
-    \_Operation: , line:21:13, endln:21:22
-      |vpiParent:
-      \_Range: , line:21:12, endln:21:25
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (work@shift.fshl_u_1.fshl_u_1.width_z), line:21:13, endln:21:20
-        |vpiParent:
-        \_Operation: , line:21:13, endln:21:22
-        |vpiName:width_z
-        |vpiFullName:work@shift.fshl_u_1.fshl_u_1.width_z
-      |vpiOperand:
-      \_Constant: , line:21:21, endln:21:22
-        |vpiParent:
-        \_Operation: , line:21:13, endln:21:22
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:21:23, endln:21:24
-      |vpiParent:
-      \_Range: , line:21:12, endln:21:25
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicVar: (work@shift.fshl_u.fshl_u), line:38:12, endln:38:25
-  |vpiParent:
-  \_RefObj: (work@shift.fshl_u.fshl_u), line:42:6, endln:42:12
-  |vpiTypespec:
-  \_RefTypespec: (work@shift.fshl_u.fshl_u)
-    |vpiParent:
-    \_LogicVar: (work@shift.fshl_u.fshl_u), line:38:12, endln:38:25
-    |vpiFullName:work@shift.fshl_u.fshl_u
-    |vpiActual:
-    \_LogicTypespec: , line:38:12, endln:38:25
-  |vpiName:fshl_u
-  |vpiFullName:work@shift.fshl_u.fshl_u
-\_LogicTypespec: , line:38:12, endln:38:25
-  |vpiParent:
-  \_RefTypespec: (work@shift.fshl_u.fshl_u)
-  |vpiRange:
-  \_Range: , line:38:12, endln:38:25
-    |vpiParent:
-    \_LogicTypespec: , line:38:12, endln:38:25
-    |vpiLeftRange:
-    \_Operation: , line:38:13, endln:38:22
-      |vpiParent:
-      \_Range: , line:38:12, endln:38:25
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (work@shift.fshl_u.fshl_u.width_z), line:38:13, endln:38:20
-        |vpiParent:
-        \_Operation: , line:38:13, endln:38:22
-        |vpiName:width_z
-        |vpiFullName:work@shift.fshl_u.fshl_u.width_z
-      |vpiOperand:
-      \_Constant: , line:38:21, endln:38:22
-        |vpiParent:
-        \_Operation: , line:38:13, endln:38:22
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:38:23, endln:38:24
-      |vpiParent:
-      \_Range: , line:38:12, endln:38:25
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicVar: (work@shift.fshr_u.fshr_u), line:45:12, endln:45:25
-  |vpiParent:
-  \_RefObj: (work@shift.fshr_u.fshr_u), line:58:8, endln:58:14
-  |vpiTypespec:
-  \_RefTypespec: (work@shift.fshr_u.fshr_u)
-    |vpiParent:
-    \_LogicVar: (work@shift.fshr_u.fshr_u), line:45:12, endln:45:25
-    |vpiFullName:work@shift.fshr_u.fshr_u
-    |vpiActual:
-    \_LogicTypespec: , line:45:12, endln:45:25
-  |vpiName:fshr_u
-  |vpiFullName:work@shift.fshr_u.fshr_u
-\_LogicTypespec: , line:45:12, endln:45:25
-  |vpiParent:
-  \_RefTypespec: (work@shift.fshr_u.fshr_u)
-  |vpiRange:
-  \_Range: , line:45:12, endln:45:25
-    |vpiParent:
-    \_LogicTypespec: , line:45:12, endln:45:25
-    |vpiLeftRange:
-    \_Operation: , line:45:13, endln:45:22
-      |vpiParent:
-      \_Range: , line:45:12, endln:45:25
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (work@shift.fshr_u.fshr_u.width_z), line:45:13, endln:45:20
-        |vpiParent:
-        \_Operation: , line:45:13, endln:45:22
-        |vpiName:width_z
-        |vpiFullName:work@shift.fshr_u.fshr_u.width_z
-      |vpiOperand:
-      \_Constant: , line:45:21, endln:45:22
-        |vpiParent:
-        \_Operation: , line:45:13, endln:45:22
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:45:23, endln:45:24
-      |vpiParent:
-      \_Range: , line:45:12, endln:45:25
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicVar: (work@shift.fshl_s.fshl_s), line:62:12, endln:62:25
-  |vpiParent:
-  \_RefObj: (work@shift.fshl_s.fshl_s), line:71:10, endln:71:16
-  |vpiTypespec:
-  \_RefTypespec: (work@shift.fshl_s.fshl_s)
-    |vpiParent:
-    \_LogicVar: (work@shift.fshl_s.fshl_s), line:62:12, endln:62:25
-    |vpiFullName:work@shift.fshl_s.fshl_s
-    |vpiActual:
-    \_LogicTypespec: , line:62:12, endln:62:25
-  |vpiName:fshl_s
-  |vpiFullName:work@shift.fshl_s.fshl_s
-\_LogicTypespec: , line:62:12, endln:62:25
-  |vpiParent:
-  \_RefTypespec: (work@shift.fshl_s.fshl_s)
-  |vpiRange:
-  \_Range: , line:62:12, endln:62:25
-    |vpiParent:
-    \_LogicTypespec: , line:62:12, endln:62:25
-    |vpiLeftRange:
-    \_Operation: , line:62:13, endln:62:22
-      |vpiParent:
-      \_Range: , line:62:12, endln:62:25
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (work@shift.fshl_s.fshl_s.width_z), line:62:13, endln:62:20
-        |vpiParent:
-        \_Operation: , line:62:13, endln:62:22
-        |vpiName:width_z
-        |vpiFullName:work@shift.fshl_s.fshl_s.width_z
-      |vpiOperand:
-      \_Constant: , line:62:21, endln:62:22
-        |vpiParent:
-        \_Operation: , line:62:13, endln:62:22
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:62:23, endln:62:24
-      |vpiParent:
-      \_Range: , line:62:12, endln:62:25
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicVar: (work@shift.fshl_s.fshl_s), line:62:12, endln:62:25
-  |vpiParent:
-  \_RefObj: (work@shift.fshl_s.fshl_s), line:77:10, endln:77:16
-  |vpiTypespec:
-  \_RefTypespec: (work@shift.fshl_s.fshl_s)
-    |vpiParent:
-    \_LogicVar: (work@shift.fshl_s.fshl_s), line:62:12, endln:62:25
-    |vpiFullName:work@shift.fshl_s.fshl_s
-    |vpiActual:
-    \_LogicTypespec: , line:62:12, endln:62:25
-  |vpiName:fshl_s
-  |vpiFullName:work@shift.fshl_s.fshl_s
-\_LogicTypespec: , line:62:12, endln:62:25
-  |vpiParent:
-  \_RefTypespec: (work@shift.fshl_s.fshl_s)
-  |vpiRange:
-  \_Range: , line:62:12, endln:62:25
-    |vpiParent:
-    \_LogicTypespec: , line:62:12, endln:62:25
-    |vpiLeftRange:
-    \_Operation: , line:62:13, endln:62:22
-      |vpiParent:
-      \_Range: , line:62:12, endln:62:25
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (work@shift.fshl_s.fshl_s.width_z), line:62:13, endln:62:20
-        |vpiParent:
-        \_Operation: , line:62:13, endln:62:22
-        |vpiName:width_z
-        |vpiFullName:work@shift.fshl_s.fshl_s.width_z
-      |vpiOperand:
-      \_Constant: , line:62:21, endln:62:22
-        |vpiParent:
-        \_Operation: , line:62:13, endln:62:22
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:62:23, endln:62:24
-      |vpiParent:
-      \_Range: , line:62:12, endln:62:25
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:89:9, endln:89:22
-  |vpiRange:
-  \_Range: , line:89:9, endln:89:22
-    |vpiParent:
-    \_LogicTypespec: , line:89:9, endln:89:22
-    |vpiLeftRange:
-    \_Operation: , line:89:10, endln:89:19
-      |vpiParent:
-      \_Range: , line:89:9, endln:89:22
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (width_a), line:89:10, endln:89:17
-        |vpiParent:
-        \_Operation: , line:89:10, endln:89:19
-        |vpiName:width_a
-      |vpiOperand:
-      \_Constant: , line:89:18, endln:89:19
-        |vpiParent:
-        \_Operation: , line:89:10, endln:89:19
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:89:20, endln:89:21
-      |vpiParent:
-      \_Range: , line:89:9, endln:89:22
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:90:9, endln:90:22
-  |vpiRange:
-  \_Range: , line:90:9, endln:90:22
-    |vpiParent:
-    \_LogicTypespec: , line:90:9, endln:90:22
-    |vpiLeftRange:
-    \_Operation: , line:90:10, endln:90:19
-      |vpiParent:
-      \_Range: , line:90:9, endln:90:22
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (width_s), line:90:10, endln:90:17
-        |vpiParent:
-        \_Operation: , line:90:10, endln:90:19
-        |vpiName:width_s
-      |vpiOperand:
-      \_Constant: , line:90:18, endln:90:19
-        |vpiParent:
-        \_Operation: , line:90:10, endln:90:19
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:90:20, endln:90:21
-      |vpiParent:
-      \_Range: , line:90:9, endln:90:22
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:91:10, endln:91:23
-  |vpiRange:
-  \_Range: , line:91:10, endln:91:23
-    |vpiParent:
-    \_LogicTypespec: , line:91:10, endln:91:23
-    |vpiLeftRange:
-    \_Operation: , line:91:11, endln:91:20
-      |vpiParent:
-      \_Range: , line:91:10, endln:91:23
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (width_z), line:91:11, endln:91:18
-        |vpiParent:
-        \_Operation: , line:91:11, endln:91:20
-        |vpiName:width_z
-      |vpiOperand:
-      \_Constant: , line:91:19, endln:91:20
-        |vpiParent:
-        \_Operation: , line:91:11, endln:91:20
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:91:21, endln:91:22
-      |vpiParent:
-      \_Range: , line:91:10, endln:91:23
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
+        \_LogicNet: (work@top.z), line:91:24, endln:91:25
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 187
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/EnumVal/dut.sv
+FILE: ${SURELOG_DIR}/tests/EnumVal/dut.sv
 n<> u<186> t<Top_level_rule> c<1> l<1:1> el<17:1>
-  n<> u<1> t<Null_rule> p<186> s<185> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<186> s<185> l<1:1>
   n<> u<185> t<Source_text> p<186> c<184> l<1:1> el<16:10>
     n<> u<184> t<Description> p<185> c<183> l<1:1> el<16:10>
       n<> u<183> t<Module_declaration> p<184> c<4> l<1:1> el<16:10>
@@ -206,35 +206,55 @@ Range                                                  1
 RefTypespec                                            1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/EnumVal/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/EnumVal/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/EnumVal/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/EnumVal/dut.sv, line:1:1, endln:16:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
+  |vpiName:work@top
   |vpiTypedef:
-  \_EnumTypespec: (exc_cause_e), line:2:5, endln:15:19
+  \_LogicTypespec: , line:2:18, endln:2:29
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/EnumVal/dut.sv, line:1:1, endln:16:10
+    |vpiRange:
+    \_Range: , line:2:24, endln:2:29
+      |vpiParent:
+      \_LogicTypespec: , line:2:18, endln:2:29
+      |vpiLeftRange:
+      \_Constant: , line:2:25, endln:2:26
+        |vpiParent:
+        \_Range: , line:2:24, endln:2:29
+        |vpiDecompile:5
+        |vpiSize:64
+        |UINT:5
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:2:27, endln:2:28
+        |vpiParent:
+        \_Range: , line:2:24, endln:2:29
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_EnumTypespec: (exc_cause_e), line:2:13, endln:15:18
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/EnumVal/dut.sv, line:1:1, endln:16:10
     |vpiName:exc_cause_e
-    |vpiInstance:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/EnumVal/dut.sv, line:1:1, endln:16:10
     |vpiBaseTypespec:
-    \_RefTypespec: (work@top.exc_cause_e)
+    \_RefTypespec: (work@top.exc_cause_e), line:2:18, endln:2:29
       |vpiParent:
-      \_EnumTypespec: (exc_cause_e), line:2:5, endln:15:19
+      \_EnumTypespec: (exc_cause_e), line:2:13, endln:15:18
       |vpiFullName:work@top.exc_cause_e
       |vpiActual:
       \_LogicTypespec: , line:2:18, endln:2:29
     |vpiEnumConst:
     \_EnumConst: (EXC_CAUSE_IRQ_SOFTWARE_M), line:3:5, endln:3:49
       |vpiParent:
-      \_EnumTypespec: (exc_cause_e), line:2:5, endln:15:19
+      \_EnumTypespec: (exc_cause_e), line:2:13, endln:15:18
       |vpiName:EXC_CAUSE_IRQ_SOFTWARE_M
       |BIN:100011
       |vpiDecompile:{1'b1,5'd03}
@@ -242,7 +262,7 @@ Design: (unnamed)
     |vpiEnumConst:
     \_EnumConst: (EXC_CAUSE_IRQ_TIMER_M), line:4:5, endln:4:49
       |vpiParent:
-      \_EnumTypespec: (exc_cause_e), line:2:5, endln:15:19
+      \_EnumTypespec: (exc_cause_e), line:2:13, endln:15:18
       |vpiName:EXC_CAUSE_IRQ_TIMER_M
       |BIN:100111
       |vpiDecompile:{1'b1,5'd07}
@@ -250,7 +270,7 @@ Design: (unnamed)
     |vpiEnumConst:
     \_EnumConst: (EXC_CAUSE_IRQ_EXTERNAL_M), line:5:5, endln:5:49
       |vpiParent:
-      \_EnumTypespec: (exc_cause_e), line:2:5, endln:15:19
+      \_EnumTypespec: (exc_cause_e), line:2:13, endln:15:18
       |vpiName:EXC_CAUSE_IRQ_EXTERNAL_M
       |BIN:101011
       |vpiDecompile:{1'b1,5'd11}
@@ -258,7 +278,7 @@ Design: (unnamed)
     |vpiEnumConst:
     \_EnumConst: (EXC_CAUSE_IRQ_NM), line:6:5, endln:6:49
       |vpiParent:
-      \_EnumTypespec: (exc_cause_e), line:2:5, endln:15:19
+      \_EnumTypespec: (exc_cause_e), line:2:13, endln:15:18
       |vpiName:EXC_CAUSE_IRQ_NM
       |BIN:111111
       |vpiDecompile:{1'b1,5'd31}
@@ -266,7 +286,7 @@ Design: (unnamed)
     |vpiEnumConst:
     \_EnumConst: (EXC_CAUSE_INSN_ADDR_MISA), line:7:5, endln:7:49
       |vpiParent:
-      \_EnumTypespec: (exc_cause_e), line:2:5, endln:15:19
+      \_EnumTypespec: (exc_cause_e), line:2:13, endln:15:18
       |vpiName:EXC_CAUSE_INSN_ADDR_MISA
       |BIN:000000
       |vpiDecompile:{1'b0,5'd00}
@@ -274,7 +294,7 @@ Design: (unnamed)
     |vpiEnumConst:
     \_EnumConst: (EXC_CAUSE_INSTR_ACCESS_FAULT), line:8:5, endln:8:49
       |vpiParent:
-      \_EnumTypespec: (exc_cause_e), line:2:5, endln:15:19
+      \_EnumTypespec: (exc_cause_e), line:2:13, endln:15:18
       |vpiName:EXC_CAUSE_INSTR_ACCESS_FAULT
       |BIN:000001
       |vpiDecompile:{1'b0,5'd01}
@@ -282,7 +302,7 @@ Design: (unnamed)
     |vpiEnumConst:
     \_EnumConst: (EXC_CAUSE_ILLEGAL_INSN), line:9:5, endln:9:49
       |vpiParent:
-      \_EnumTypespec: (exc_cause_e), line:2:5, endln:15:19
+      \_EnumTypespec: (exc_cause_e), line:2:13, endln:15:18
       |vpiName:EXC_CAUSE_ILLEGAL_INSN
       |BIN:000010
       |vpiDecompile:{1'b0,5'd02}
@@ -290,7 +310,7 @@ Design: (unnamed)
     |vpiEnumConst:
     \_EnumConst: (EXC_CAUSE_BREAKPOINT), line:10:5, endln:10:49
       |vpiParent:
-      \_EnumTypespec: (exc_cause_e), line:2:5, endln:15:19
+      \_EnumTypespec: (exc_cause_e), line:2:13, endln:15:18
       |vpiName:EXC_CAUSE_BREAKPOINT
       |BIN:000011
       |vpiDecompile:{1'b0,5'd03}
@@ -298,7 +318,7 @@ Design: (unnamed)
     |vpiEnumConst:
     \_EnumConst: (EXC_CAUSE_LOAD_ACCESS_FAULT), line:11:5, endln:11:49
       |vpiParent:
-      \_EnumTypespec: (exc_cause_e), line:2:5, endln:15:19
+      \_EnumTypespec: (exc_cause_e), line:2:13, endln:15:18
       |vpiName:EXC_CAUSE_LOAD_ACCESS_FAULT
       |BIN:000101
       |vpiDecompile:{1'b0,5'd05}
@@ -306,7 +326,7 @@ Design: (unnamed)
     |vpiEnumConst:
     \_EnumConst: (EXC_CAUSE_STORE_ACCESS_FAULT), line:12:5, endln:12:49
       |vpiParent:
-      \_EnumTypespec: (exc_cause_e), line:2:5, endln:15:19
+      \_EnumTypespec: (exc_cause_e), line:2:13, endln:15:18
       |vpiName:EXC_CAUSE_STORE_ACCESS_FAULT
       |BIN:000111
       |vpiDecompile:{1'b0,5'd07}
@@ -314,7 +334,7 @@ Design: (unnamed)
     |vpiEnumConst:
     \_EnumConst: (EXC_CAUSE_ECALL_UMODE), line:13:5, endln:13:49
       |vpiParent:
-      \_EnumTypespec: (exc_cause_e), line:2:5, endln:15:19
+      \_EnumTypespec: (exc_cause_e), line:2:13, endln:15:18
       |vpiName:EXC_CAUSE_ECALL_UMODE
       |BIN:001000
       |vpiDecompile:{1'b0,5'd08}
@@ -322,34 +342,16 @@ Design: (unnamed)
     |vpiEnumConst:
     \_EnumConst: (EXC_CAUSE_ECALL_MMODE), line:14:5, endln:14:49
       |vpiParent:
-      \_EnumTypespec: (exc_cause_e), line:2:5, endln:15:19
+      \_EnumTypespec: (exc_cause_e), line:2:13, endln:15:18
       |vpiName:EXC_CAUSE_ECALL_MMODE
       |BIN:001011
       |vpiDecompile:{1'b0,5'd11}
       |vpiSize:6
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:2:18, endln:2:29
+  |vpiImportTypespec:
+  \_EnumTypespec: (exc_cause_e), line:2:13, endln:15:18
   |vpiDefName:work@top
-\_weaklyReferenced:
-\_LogicTypespec: , line:2:18, endln:2:29
-  |vpiRange:
-  \_Range: , line:2:24, endln:2:29
-    |vpiParent:
-    \_LogicTypespec: , line:2:18, endln:2:29
-    |vpiLeftRange:
-    \_Constant: , line:2:25, endln:2:26
-      |vpiParent:
-      \_Range: , line:2:24, endln:2:29
-      |vpiDecompile:5
-      |vpiSize:64
-      |UINT:5
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:2:27, endln:2:28
-      |vpiParent:
-      \_Range: , line:2:24, endln:2:29
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

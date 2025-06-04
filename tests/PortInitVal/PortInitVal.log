@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 103
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/PortInitVal/dut.sv
+FILE: ${SURELOG_DIR}/tests/PortInitVal/dut.sv
 n<> u<102> t<Top_level_rule> c<1> l<1:1> el<10:1>
-  n<> u<1> t<Null_rule> p<102> s<101> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<102> s<101> l<1:1>
   n<> u<101> t<Source_text> p<102> c<100> l<1:1> el<9:10>
     n<> u<100> t<Description> p<101> c<99> l<1:1> el<9:10>
       n<> u<99> t<Module_declaration> p<100> c<11> l<1:1> el<9:10>
@@ -114,37 +114,48 @@ AST_DEBUG_END
 Always                                                 1
 Assignment                                             1
 Begin                                                  1
-Constant                                               2
+Constant                                               3
 ContAssign                                             1
 Design                                                 1
 EventControl                                           1
 IfStmt                                                 1
-LogicNet                                               3
-LogicTypespec                                          2
+LogicNet                                               2
+LogicTypespec                                          3
 Module                                                 1
 Port                                                   1
-RefObj                                                 5
-RefTypespec                                            2
+RefObj                                                 4
+RefTypespec                                            3
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PortInitVal/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/PortInitVal/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/PortInitVal/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PortInitVal/dut.sv, line:1:1, endln:9:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@dut
-  |vpiDefName:work@dut
-  |vpiNet:
+  |vpiName:work@dut
+  |vpiTypedef:
+  \_LogicTypespec: , line:2:9, endln:2:13
+    |vpiParent:
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PortInitVal/dut.sv, line:1:1, endln:9:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:3:16, endln:3:19
+    |vpiParent:
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PortInitVal/dut.sv, line:1:1, endln:9:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:3:16, endln:3:19
+    |vpiParent:
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PortInitVal/dut.sv, line:1:1, endln:9:10
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:2:9, endln:2:13
+  |vpiImportTypespec:
   \_LogicNet: (work@dut.a), line:2:14, endln:2:15
     |vpiParent:
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PortInitVal/dut.sv, line:1:1, endln:9:10
     |vpiTypespec:
-    \_RefTypespec: (work@dut.a)
+    \_RefTypespec: (work@dut.a), line:2:9, endln:2:13
       |vpiParent:
       \_LogicNet: (work@dut.a), line:2:14, endln:2:15
       |vpiFullName:work@dut.a
@@ -153,20 +164,38 @@ Design: (unnamed)
     |vpiName:a
     |vpiFullName:work@dut.a
     |vpiNetType:1
-  |vpiNet:
-  \_LogicNet: (work@dut.b), line:1:13, endln:1:14
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:3:16, endln:3:19
+  |vpiImportTypespec:
+  \_LogicNet: (work@dut.b), line:3:20, endln:3:21
     |vpiParent:
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PortInitVal/dut.sv, line:1:1, endln:9:10
+    |vpiTypespec:
+    \_RefTypespec: (work@dut.b), line:3:16, endln:3:19
+      |vpiParent:
+      \_LogicNet: (work@dut.b), line:3:20, endln:3:21
+      |vpiFullName:work@dut.b
+      |vpiActual:
+      \_LogicTypespec: , line:3:16, endln:3:19
     |vpiName:b
     |vpiFullName:work@dut.b
     |vpiNetType:48
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:3:16, endln:3:19
+  |vpiImportTypespec:
   \_LogicNet: (work@dut.c), line:7:11, endln:7:12
     |vpiParent:
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PortInitVal/dut.sv, line:1:1, endln:9:10
     |vpiName:c
     |vpiFullName:work@dut.c
     |vpiNetType:1
+  |vpiDefName:work@dut
+  |vpiNet:
+  \_LogicNet: (work@dut.a), line:2:14, endln:2:15
+  |vpiNet:
+  \_LogicNet: (work@dut.b), line:3:20, endln:3:21
+  |vpiNet:
+  \_LogicNet: (work@dut.c), line:7:11, endln:7:12
   |vpiPort:
   \_Port: (b), line:1:13, endln:1:14
     |vpiParent:
@@ -175,20 +204,14 @@ Design: (unnamed)
     |vpiDirection:2
     |vpiHighConn:
     \_Constant: , line:3:24, endln:3:25
+      |vpiParent:
+      \_Port: (b), line:1:13, endln:1:14
       |vpiDecompile:0
       |vpiSize:64
       |UINT:0
       |vpiConstType:9
-    |vpiLowConn:
-    \_RefObj: (work@dut.b.b), line:1:13, endln:1:14
-      |vpiParent:
-      \_Port: (b), line:1:13, endln:1:14
-      |vpiName:b
-      |vpiFullName:work@dut.b.b
-      |vpiActual:
-      \_LogicNet: (work@dut.b), line:1:13, endln:1:14
-    |vpiTypedef:
-    \_RefTypespec: (work@dut.b)
+    |vpiTypespec:
+    \_RefTypespec: (work@dut.b), line:3:16, endln:3:19
       |vpiParent:
       \_Port: (b), line:1:13, endln:1:14
       |vpiFullName:work@dut.b
@@ -214,7 +237,7 @@ Design: (unnamed)
           |vpiCondition:
           \_RefObj: (work@dut.a), line:5:20, endln:5:21
             |vpiParent:
-            \_Begin: (work@dut), line:4:19, endln:6:12
+            \_IfStmt: , line:5:17, endln:5:29
             |vpiName:a
             |vpiFullName:work@dut.a
             |vpiActual:
@@ -227,6 +250,8 @@ Design: (unnamed)
             |vpiBlocking:1
             |vpiRhs:
             \_Constant: , line:5:27, endln:5:28
+              |vpiParent:
+              \_Assignment: , line:5:23, endln:5:28
               |vpiDecompile:1
               |vpiSize:64
               |UINT:1
@@ -238,7 +263,7 @@ Design: (unnamed)
               |vpiName:b
               |vpiFullName:work@dut.b
               |vpiActual:
-              \_LogicNet: (work@dut.b), line:1:13, endln:1:14
+              \_LogicNet: (work@dut.b), line:3:20, endln:3:21
     |vpiAlwaysType:1
   |vpiContAssign:
   \_ContAssign: , line:7:11, endln:7:16
@@ -260,9 +285,6 @@ Design: (unnamed)
       |vpiFullName:work@dut.c
       |vpiActual:
       \_LogicNet: (work@dut.c), line:7:11, endln:7:12
-\_weaklyReferenced:
-\_LogicTypespec: , line:3:16, endln:3:19
-\_LogicTypespec: , line:2:9, endln:2:13
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

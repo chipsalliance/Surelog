@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 56
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/TaskProto/dut.sv
+FILE: ${SURELOG_DIR}/tests/TaskProto/dut.sv
 n<> u<55> t<Top_level_rule> c<1> l<1:1> el<8:1>
-  n<> u<1> t<Null_rule> p<55> s<54> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<55> s<54> l<1:1>
   n<> u<54> t<Source_text> p<55> c<53> l<1:1> el<7:10>
     n<> u<53> t<Description> p<54> c<52> l<1:1> el<7:10>
       n<> u<52> t<Module_declaration> p<53> c<13> l<1:1> el<7:10>
@@ -66,76 +66,67 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 Begin                                                  1
 Design                                                 1
+FuncCall                                               1
 IODecl                                                 1
 Initial                                                1
-IntTypespec                                            2
-LogicNet                                               1
+IntTypespec                                            3
+IntVar                                                 1
 Module                                                 1
 Port                                                   1
-RefObj                                                 2
-RefTypespec                                            2
-Task                                                   1
-TaskCall                                               1
+RefObj                                                 1
+RefTypespec                                            3
+TaskDecl                                               1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/TaskProto/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/TaskProto/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/TaskProto/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/TaskProto/dut.sv, line:1:1, endln:7:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
-  |vpiDefName:work@top
-  |vpiTaskFunc:
-  \_Task: (work@top.test_output_argument), line:2:4, endln:2:59
+  |vpiName:work@top
+  |vpiVariables:
+  \_IntVar: (work@top.a), line:1:23, endln:1:24
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/TaskProto/dut.sv, line:1:1, endln:7:10
-    |vpiName:test_output_argument
-    |vpiFullName:work@top.test_output_argument
-    |vpiAccessType:4
-    |vpiVisibility:1
-    |vpiDPICStr:2
-    |vpiIODecl:
-    \_IODecl: (o), line:2:56, endln:2:57
+    |vpiTypespec:
+    \_RefTypespec: (work@top.a), line:1:19, endln:1:22
       |vpiParent:
-      \_Task: (work@top.test_output_argument), line:2:4, endln:2:59
-      |vpiDirection:2
-      |vpiName:o
-      |vpiTypedef:
-      \_RefTypespec: (work@top.test_output_argument.o)
-        |vpiParent:
-        \_IODecl: (o), line:2:56, endln:2:57
-        |vpiFullName:work@top.test_output_argument.o
-        |vpiActual:
-        \_IntTypespec: , line:2:52, endln:2:55
-    |vpiInstance:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/TaskProto/dut.sv, line:1:1, endln:7:10
-  |vpiNet:
-  \_LogicNet: (work@top.a), line:1:23, endln:1:24
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/TaskProto/dut.sv, line:1:1, endln:7:10
+      \_IntVar: (work@top.a), line:1:23, endln:1:24
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_IntTypespec: , line:1:19, endln:1:22
     |vpiName:a
     |vpiFullName:work@top.a
+    |vpiSigned:1
+    |vpiVisibility:1
+  |vpiTypedef:
+  \_IntTypespec: , line:1:19, endln:1:22
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/TaskProto/dut.sv, line:1:1, endln:7:10
+    |vpiSigned:1
+  |vpiTypedef:
+  \_IntTypespec: , line:1:19, endln:1:22
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/TaskProto/dut.sv, line:1:1, endln:7:10
+    |vpiSigned:1
+  |vpiImportTypespec:
+  \_IntTypespec: , line:1:19, endln:1:22
+  |vpiImportTypespec:
+  \_IntVar: (work@top.a), line:1:23, endln:1:24
+  |vpiImportTypespec:
+  \_IntTypespec: , line:1:19, endln:1:22
+  |vpiDefName:work@top
   |vpiPort:
   \_Port: (a), line:1:23, endln:1:24
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/TaskProto/dut.sv, line:1:1, endln:7:10
     |vpiName:a
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@top.a.a), line:1:23, endln:1:24
-      |vpiParent:
-      \_Port: (a), line:1:23, endln:1:24
-      |vpiName:a
-      |vpiFullName:work@top.a.a
-      |vpiActual:
-      \_LogicNet: (work@top.a), line:1:23, endln:1:24
-    |vpiTypedef:
-    \_RefTypespec: (work@top.a)
+    |vpiTypespec:
+    \_RefTypespec: (work@top.a), line:1:19, endln:1:22
       |vpiParent:
       \_Port: (a), line:1:23, endln:1:24
       |vpiFullName:work@top.a
@@ -151,25 +142,18 @@ Design: (unnamed)
       \_Initial: , line:4:4, endln:6:7
       |vpiFullName:work@top
       |vpiStmt:
-      \_TaskCall: (test_output_argument), line:5:7, endln:5:30
+      \_FuncCall: (test_output_argument), line:5:7, endln:5:30
         |vpiParent:
         \_Begin: (work@top), line:4:12, endln:6:7
         |vpiArgument:
         \_RefObj: (work@top.a), line:5:28, endln:5:29
           |vpiParent:
-          \_TaskCall: (test_output_argument), line:5:7, endln:5:30
+          \_FuncCall: (test_output_argument), line:5:7, endln:5:30
           |vpiName:a
           |vpiFullName:work@top.a
           |vpiActual:
-          \_LogicNet: (work@top.a), line:1:23, endln:1:24
+          \_IntVar: (work@top.a), line:1:23, endln:1:24
         |vpiName:test_output_argument
-        |vpiTask:
-        \_Task: (work@top.test_output_argument), line:2:4, endln:2:59
-\_weaklyReferenced:
-\_IntTypespec: , line:2:52, endln:2:55
-  |vpiSigned:1
-\_IntTypespec: , line:1:19, endln:1:22
-  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

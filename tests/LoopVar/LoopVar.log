@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 64
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/LoopVar/dut.sv
+FILE: ${SURELOG_DIR}/tests/LoopVar/dut.sv
 n<> u<63> t<Top_level_rule> c<1> l<1:1> el<10:1>
-  n<> u<1> t<Null_rule> p<63> s<62> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<63> s<62> l<1:1>
   n<> u<62> t<Source_text> p<63> c<61> l<1:1> el<9:10>
     n<> u<61> t<Description> p<62> c<60> l<1:1> el<9:10>
       n<> u<60> t<Module_declaration> p<61> c<4> l<1:1> el<9:10>
@@ -72,53 +72,111 @@ AST_DEBUG_END
 [INF:CP0303] ${SURELOG_DIR}/tests/LoopVar/dut.sv:1:1: Compile module "work@dut".
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+ArrayTypespec                                          1
+ArrayVar                                               1
 Assignment                                             1
 Begin                                                  1
 BitSelect                                              1
+Constant                                               1
 Design                                                 1
 ForeachStmt                                            1
 Initial                                                1
 IntTypespec                                            1
-LogicNet                                               2
+IntVar                                                 1
 Module                                                 1
+Operation                                              1
+Range                                                  1
 RefObj                                                 2
-RefTypespec                                            3
+RefTypespec                                            4
 RefVar                                                 2
-UnsupportedTypespec                                    2
+UnsupportedTypespec                                    1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/LoopVar/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/LoopVar/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/LoopVar/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/LoopVar/dut.sv, line:1:1, endln:9:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@dut
-  |vpiDefName:work@dut
-  |vpiNet:
-  \_LogicNet: (work@dut.array), line:2:9, endln:2:14
+  |vpiName:work@dut
+  |vpiVariables:
+  \_IntVar: (work@dut), line:2:9, endln:2:14
     |vpiParent:
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/LoopVar/dut.sv, line:1:1, endln:9:10
     |vpiTypespec:
-    \_RefTypespec: (work@dut.array)
+    \_RefTypespec: (work@dut), line:2:5, endln:2:8
       |vpiParent:
-      \_LogicNet: (work@dut.array), line:2:9, endln:2:14
-      |vpiFullName:work@dut.array
+      \_IntVar: (work@dut), line:2:9, endln:2:14
+      |vpiFullName:work@dut
       |vpiActual:
-      \_IntTypespec: , line:2:5, endln:2:18
-    |vpiName:array
-    |vpiFullName:work@dut.array
-  |vpiNet:
-  \_LogicNet: (work@dut.i), line:6:19, endln:6:20
+      \_IntTypespec: , line:2:5, endln:2:8
+    |vpiFullName:work@dut
+  |vpiVariables:
+  \_ArrayVar: (work@dut.array), line:2:9, endln:2:14
     |vpiParent:
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/LoopVar/dut.sv, line:1:1, endln:9:10
-    |vpiName:i
-    |vpiFullName:work@dut.i
-    |vpiNetType:1
+    |vpiSize:1
+    |vpiTypespec:
+    \_RefTypespec: (work@dut.array), line:2:14, endln:2:18
+      |vpiParent:
+      \_ArrayVar: (work@dut.array), line:2:9, endln:2:14
+      |vpiFullName:work@dut.array
+      |vpiActual:
+      \_ArrayTypespec: , line:2:14, endln:2:18
+    |vpiName:array
+    |vpiFullName:work@dut.array
+    |vpiSigned:1
+    |vpiRandType:1
+    |vpiVisibility:1
+    |vpiArrayType:1
+    |vpiRange:
+    \_Range: , line:2:14, endln:2:18
+      |vpiParent:
+      \_ArrayVar: (work@dut.array), line:2:9, endln:2:14
+      |vpiRightRange:
+      \_Operation: , line:2:15, endln:2:17
+        |vpiParent:
+        \_Range: , line:2:14, endln:2:18
+        |vpiOpType:11
+        |vpiOperand:
+        \_Constant: , line:2:15, endln:2:17
+          |vpiParent:
+          \_Operation: , line:2:15, endln:2:17
+          |vpiDecompile:16
+          |vpiSize:64
+          |UINT:16
+          |vpiConstType:9
+    |vpiReg:
+    \_IntVar: (work@dut), line:2:9, endln:2:14
+  |vpiRegArray:
+  \_ArrayVar: (work@dut.array), line:2:9, endln:2:14
+  |vpiTypedef:
+  \_IntTypespec: , line:2:5, endln:2:8
+    |vpiParent:
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/LoopVar/dut.sv, line:1:1, endln:9:10
+    |vpiSigned:1
+  |vpiTypedef:
+  \_ArrayTypespec: , line:2:14, endln:2:18
+    |vpiParent:
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/LoopVar/dut.sv, line:1:1, endln:9:10
+    |vpiElemTypespec:
+    \_RefTypespec: (work@dut), line:2:5, endln:2:8
+      |vpiParent:
+      \_ArrayTypespec: , line:2:14, endln:2:18
+      |vpiFullName:work@dut
+      |vpiActual:
+      \_IntTypespec: , line:2:5, endln:2:8
+  |vpiImportTypespec:
+  \_IntTypespec: , line:2:5, endln:2:8
+  |vpiImportTypespec:
+  \_IntVar: (work@dut), line:2:9, endln:2:14
+  |vpiImportTypespec:
+  \_ArrayVar: (work@dut.array), line:2:9, endln:2:14
+  |vpiImportTypespec:
+  \_ArrayTypespec: , line:2:14, endln:2:18
+  |vpiDefName:work@dut
   |vpiProcess:
   \_Initial: , line:4:5, endln:7:8
     |vpiParent:
@@ -128,41 +186,39 @@ Design: (unnamed)
       |vpiParent:
       \_Initial: , line:4:5, endln:7:8
       |vpiFullName:work@dut
-      |vpiStmt:
-      \_ForeachStmt: (work@dut), line:5:9, endln:5:16
+      |vpiInternalScope:
+      \_ForeachStmt: (work@dut), line:5:9, endln:6:25
         |vpiParent:
         \_Begin: (work@dut), line:4:13, endln:7:8
         |vpiFullName:work@dut
-        |vpiVariables:
+        |vpiImportTypespec:
         \_RefVar: (work@dut.array), line:5:17, endln:5:22
           |vpiParent:
-          \_ForeachStmt: (work@dut), line:5:9, endln:5:16
-          |vpiTypespec:
-          \_RefTypespec: (work@dut.array)
-            |vpiParent:
-            \_RefVar: (work@dut.array), line:5:17, endln:5:22
-            |vpiFullName:work@dut.array
-            |vpiActual:
-            \_UnsupportedTypespec: (array), line:5:17, endln:5:22
+          \_ForeachStmt: (work@dut), line:5:9, endln:6:25
           |vpiName:array
           |vpiFullName:work@dut.array
-        |vpiLoopVars:
+        |vpiImportTypespec:
         \_RefVar: (work@dut.i), line:5:23, endln:5:24
           |vpiParent:
-          \_ForeachStmt: (work@dut), line:5:9, endln:5:16
+          \_ForeachStmt: (work@dut), line:5:9, endln:6:25
           |vpiTypespec:
-          \_RefTypespec: (work@dut.i)
+          \_RefTypespec: (work@dut.i.i), line:5:23, endln:5:24
             |vpiParent:
             \_RefVar: (work@dut.i), line:5:23, endln:5:24
-            |vpiFullName:work@dut.i
+            |vpiName:i
+            |vpiFullName:work@dut.i.i
             |vpiActual:
             \_UnsupportedTypespec: (i), line:5:23, endln:5:24
           |vpiName:i
           |vpiFullName:work@dut.i
+        |vpiVariables:
+        \_RefVar: (work@dut.array), line:5:17, endln:5:22
+        |vpiLoopVars:
+        \_RefVar: (work@dut.i), line:5:23, endln:5:24
         |vpiStmt:
         \_Assignment: , line:6:13, endln:6:25
           |vpiParent:
-          \_ForeachStmt: (work@dut), line:5:9, endln:5:16
+          \_ForeachStmt: (work@dut), line:5:9, endln:6:25
           |vpiOpType:82
           |vpiBlocking:1
           |vpiRhs:
@@ -172,30 +228,32 @@ Design: (unnamed)
             |vpiName:i
             |vpiFullName:work@dut.i
             |vpiActual:
-            \_LogicNet: (work@dut.i), line:6:19, endln:6:20
+            \_RefVar: (work@dut.i), line:5:23, endln:5:24
           |vpiLhs:
-          \_BitSelect: (work@dut.array), line:6:13, endln:6:21
+          \_BitSelect: (work@dut.array), line:6:18, endln:6:21
             |vpiParent:
             \_Assignment: , line:6:13, endln:6:25
             |vpiName:array
             |vpiFullName:work@dut.array
+            |vpiActual:
+            \_RefVar: (work@dut.array), line:5:17, endln:5:22
             |vpiIndex:
             \_RefObj: (work@dut.i), line:6:19, endln:6:20
               |vpiParent:
-              \_BitSelect: (work@dut.array), line:6:13, endln:6:21
+              \_BitSelect: (work@dut.array), line:6:18, endln:6:21
               |vpiName:i
               |vpiFullName:work@dut.i
               |vpiActual:
-              \_LogicNet: (work@dut.i), line:6:19, endln:6:20
-\_weaklyReferenced:
-\_UnsupportedTypespec: (array), line:5:17, endln:5:22
-  |vpiName:array
-\_UnsupportedTypespec: (i), line:5:23, endln:5:24
-  |vpiParent:
-  \_RefVar: (work@dut.i), line:5:23, endln:5:24
-  |vpiName:i
-\_IntTypespec: , line:2:5, endln:2:18
-  |vpiSigned:1
+              \_RefVar: (work@dut.i), line:5:23, endln:5:24
+      |vpiTypedef:
+      \_UnsupportedTypespec: (i), line:5:23, endln:5:24
+        |vpiParent:
+        \_Begin: (work@dut), line:4:13, endln:7:8
+        |vpiName:i
+      |vpiImportTypespec:
+      \_UnsupportedTypespec: (i), line:5:23, endln:5:24
+      |vpiStmt:
+      \_ForeachStmt: (work@dut), line:5:9, endln:6:25
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

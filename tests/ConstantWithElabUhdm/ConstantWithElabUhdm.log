@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 76
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/ConstantWithElabUhdm/dut.sv
+FILE: ${SURELOG_DIR}/tests/ConstantWithElabUhdm/dut.sv
 n<> u<75> t<Top_level_rule> c<1> l<2:1> el<9:1>
-  n<> u<1> t<Null_rule> p<75> s<74> l<2:1> el<1:2>
+  n<> u<1> t<Null_rule> p<75> s<74> l<2:1> el<2:1>
   n<> u<74> t<Source_text> p<75> c<28> l<2:1> el<8:16>
     n<> u<28> t<Description> p<74> c<27> s<73> l<2:1> el<2:59>
       n<> u<27> t<Package_item> p<28> c<26> l<2:1> el<2:59>
@@ -44,7 +44,7 @@ n<> u<75> t<Top_level_rule> c<1> l<2:1> el<9:1>
                 n<> u<31> t<PortDir_Out> p<36> s<35> l<4:5> el<4:11>
                 n<> u<35> t<Net_port_type> p<36> c<34> l<4:12> el<4:30>
                   n<> u<34> t<Data_type_or_implicit> p<35> c<33> l<4:12> el<4:30>
-                    n<> u<33> t<Data_type> p<34> c<32> l<4:12> el<4:30>
+                    n<my_struct_packed_t> u<33> t<Data_type> p<34> c<32> l<4:12> el<4:30>
                       n<my_struct_packed_t> u<32> t<StringConst> p<33> l<4:12> el<4:30>
               n<out3> u<37> t<StringConst> p<38> l<4:31> el<4:35>
             n<> u<45> t<Ansi_port_declaration> p<46> c<43> l<5:5> el<5:21>
@@ -87,62 +87,85 @@ AST_DEBUG_END
 Constant                                               3
 ContAssign                                             1
 Design                                                 1
-LogicNet                                               2
-LogicTypespec                                          2
+LogicNet                                               1
+LogicTypespec                                          3
 Module                                                 1
 Operation                                              1
 Port                                                   2
 Range                                                  1
-RefObj                                                 4
-RefTypespec                                            3
+RefObj                                                 2
+RefTypespec                                            5
+StructNet                                              1
 StructTypespec                                         1
 TypespecMember                                         1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ConstantWithElabUhdm/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ConstantWithElabUhdm/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ConstantWithElabUhdm/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ConstantWithElabUhdm/dut.sv, line:3:1, endln:8:16
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
-  |vpiDefName:work@top
-  |vpiNet:
-  \_LogicNet: (work@top.out3), line:4:31, endln:4:35
+  |vpiName:work@top
+  |vpiTypedef:
+  \_LogicTypespec: , line:5:12, endln:5:16
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ConstantWithElabUhdm/dut.sv, line:3:1, endln:8:16
+  |vpiTypedef:
+  \_LogicTypespec: , line:5:12, endln:5:16
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ConstantWithElabUhdm/dut.sv, line:3:1, endln:8:16
+  |vpiImportTypespec:
+  \_StructNet: (work@top.out3), line:4:31, endln:4:35
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ConstantWithElabUhdm/dut.sv, line:3:1, endln:8:16
+    |vpiTypespec:
+    \_RefTypespec: (work@top.out3.out3), line:4:12, endln:4:30
+      |vpiParent:
+      \_StructNet: (work@top.out3), line:4:31, endln:4:35
+      |vpiName:out3
+      |vpiFullName:work@top.out3.out3
+      |vpiActual:
+      \_StructTypespec: (my_struct_packed_t), line:2:9, endln:2:39
     |vpiName:out3
     |vpiFullName:work@top.out3
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:5:12, endln:5:16
+  |vpiImportTypespec:
   \_LogicNet: (work@top.out4), line:5:17, endln:5:21
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ConstantWithElabUhdm/dut.sv, line:3:1, endln:8:16
+    |vpiTypespec:
+    \_RefTypespec: (work@top.out4), line:5:12, endln:5:16
+      |vpiParent:
+      \_LogicNet: (work@top.out4), line:5:17, endln:5:21
+      |vpiFullName:work@top.out4
+      |vpiActual:
+      \_LogicTypespec: , line:5:12, endln:5:16
     |vpiName:out4
     |vpiFullName:work@top.out4
     |vpiNetType:1
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:5:12, endln:5:16
+  |vpiDefName:work@top
+  |vpiNet:
+  \_StructNet: (work@top.out3), line:4:31, endln:4:35
+  |vpiNet:
+  \_LogicNet: (work@top.out4), line:5:17, endln:5:21
   |vpiPort:
   \_Port: (out3), line:4:31, endln:4:35
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ConstantWithElabUhdm/dut.sv, line:3:1, endln:8:16
     |vpiName:out3
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@top.out3.out3), line:4:31, endln:4:35
+    |vpiTypespec:
+    \_RefTypespec: (work@top.out3.my_struct_packed_t), line:4:12, endln:4:30
       |vpiParent:
       \_Port: (out3), line:4:31, endln:4:35
-      |vpiName:out3
-      |vpiFullName:work@top.out3.out3
-      |vpiActual:
-      \_LogicNet: (work@top.out3), line:4:31, endln:4:35
-    |vpiTypedef:
-    \_RefTypespec: (work@top.out3)
-      |vpiParent:
-      \_Port: (out3), line:4:31, endln:4:35
-      |vpiFullName:work@top.out3
+      |vpiName:my_struct_packed_t
+      |vpiFullName:work@top.out3.my_struct_packed_t
       |vpiActual:
       \_StructTypespec: (my_struct_packed_t), line:2:9, endln:2:39
   |vpiPort:
@@ -151,16 +174,8 @@ Design: (unnamed)
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ConstantWithElabUhdm/dut.sv, line:3:1, endln:8:16
     |vpiName:out4
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@top.out4.out4), line:5:17, endln:5:21
-      |vpiParent:
-      \_Port: (out4), line:5:17, endln:5:21
-      |vpiName:out4
-      |vpiFullName:work@top.out4.out4
-      |vpiActual:
-      \_LogicNet: (work@top.out4), line:5:17, endln:5:21
-    |vpiTypedef:
-    \_RefTypespec: (work@top.out4)
+    |vpiTypespec:
+    \_RefTypespec: (work@top.out4), line:5:12, endln:5:16
       |vpiParent:
       \_Port: (out4), line:5:17, endln:5:21
       |vpiFullName:work@top.out4
@@ -182,7 +197,7 @@ Design: (unnamed)
         |vpiName:out3
         |vpiFullName:work@top.out3
         |vpiActual:
-        \_LogicNet: (work@top.out3), line:4:31, endln:4:35
+        \_StructNet: (work@top.out3), line:4:31, endln:4:35
       |vpiOperand:
       \_Constant: , line:7:29, endln:7:31
         |vpiParent:
@@ -205,8 +220,6 @@ Design: (unnamed)
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:my_struct_packed_t
-  |vpiInstance:
-  \_Design: (unnamed)
   |vpiPacked:1
   |vpiTypespecMember:
   \_TypespecMember: (a), line:2:36, endln:2:37
@@ -214,21 +227,16 @@ Design: (unnamed)
     \_StructTypespec: (my_struct_packed_t), line:2:9, endln:2:39
     |vpiName:a
     |vpiTypespec:
-    \_RefTypespec: (my_struct_packed_t.a)
+    \_RefTypespec: (my_struct_packed_t.a), line:2:24, endln:2:35
       |vpiParent:
       \_TypespecMember: (a), line:2:36, endln:2:37
       |vpiFullName:my_struct_packed_t.a
       |vpiActual:
       \_LogicTypespec: , line:2:24, endln:2:35
-    |vpiRefFile:${SURELOG_DIR}/tests/ConstantWithElabUhdm/dut.sv
-    |vpiRefLineNo:2
-    |vpiRefColumnNo:24
-    |vpiRefEndLineNo:2
-    |vpiRefEndColumnNo:35
-\_weaklyReferenced:
+|vpiTypedef:
 \_LogicTypespec: , line:2:24, endln:2:35
   |vpiParent:
-  \_TypespecMember: (a), line:2:36, endln:2:37
+  \_Design: (unnamed)
   |vpiRange:
   \_Range: , line:2:30, endln:2:35
     |vpiParent:
@@ -249,7 +257,6 @@ Design: (unnamed)
       |vpiSize:64
       |UINT:0
       |vpiConstType:9
-\_LogicTypespec: , line:5:12, endln:5:16
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

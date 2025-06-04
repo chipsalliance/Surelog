@@ -2,15 +2,15 @@
 AST_DEBUG_BEGIN
 Count: 286
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv
+FILE: ${SURELOG_DIR}/tests/FuncDeclScope/dut.sv
 n<> u<285> t<Top_level_rule> c<1> l<1:1> el<41:1>
-  n<> u<1> t<Null_rule> p<285> s<284> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<285> s<284> l<1:1>
   n<> u<284> t<Source_text> p<285> c<138> l<1:1> el<40:10>
     n<> u<138> t<Description> p<284> c<137> s<283> l<1:1> el<18:13>
       n<> u<137> t<Interface_declaration> p<138> c<5> l<1:1> el<18:13>
         n<> u<5> t<Interface_ansi_header> p<137> c<2> s<24> l<1:1> el<1:16>
           n<> u<2> t<INTERFACE> p<5> s<4> l<1:1> el<1:10>
-          n<> u<4> t<Interface_identifier> p<5> c<3> l<1:11> el<1:15>
+          n<intf> u<4> t<Interface_identifier> p<5> c<3> l<1:11> el<1:15>
             n<intf> u<3> t<StringConst> p<4> l<1:11> el<1:15>
         n<> u<24> t<Non_port_interface_item> p<137> c<23> s<36> l<2:4> el<2:37>
           n<> u<23> t<Interface_or_generate_item> p<24> c<22> l<2:4> el<2:37>
@@ -296,48 +296,61 @@ AST_DEBUG_END
 [INF:CP0303] ${SURELOG_DIR}/tests/FuncDeclScope/dut.sv:21:1: Compile module "work@top".
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-Begin                                                  2
+Begin                                                  4
 Constant                                               8
 ContAssign                                             4
 Design                                                 1
 FuncCall                                               2
 Function                                               2
 GenIfElse                                              2
-IntTypespec                                            6
-IntVar                                                 2
+IntTypespec                                            7
+IntVar                                                 4
 Interface                                              1
-LogicNet                                               2
+LogicNet                                               1
 Module                                                 1
-NamedBegin                                             2
+ModuleTypespec                                         1
 Operation                                              2
 ParamAssign                                            2
 Parameter                                              2
 RefModule                                              1
 RefObj                                                 6
-RefTypespec                                            8
+RefTypespec                                            7
 ReturnStmt                                             2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FuncDeclScope/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/FuncDeclScope/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/FuncDeclScope/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallInterfaces:
+|vpiAllInterfaces:
 \_Interface: work@intf (work@intf), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:1:1, endln:18:13
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@intf
+  |vpiName:work@intf
+  |vpiVariables:
+  \_IntVar: (work@intf.o), line:3:27, endln:3:28
+    |vpiParent:
+    \_Interface: work@intf (work@intf), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:1:1, endln:18:13
+    |vpiTypespec:
+    \_RefTypespec: (work@intf.o), line:3:4, endln:3:7
+      |vpiParent:
+      \_IntVar: (work@intf.o), line:3:27, endln:3:28
+      |vpiFullName:work@intf.o
+      |vpiActual:
+      \_IntTypespec: , line:3:4, endln:3:7
+    |vpiName:o
+    |vpiFullName:work@intf.o
+    |vpiSigned:1
+    |vpiVisibility:1
   |vpiParameter:
-  \_Parameter: (work@intf.Depth), line:2:27, endln:2:32
+  \_Parameter: (work@intf.Depth), line:2:27, endln:2:36
     |vpiParent:
     \_Interface: work@intf (work@intf), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:1:1, endln:18:13
     |UINT:4
     |vpiTypespec:
-    \_RefTypespec: (work@intf.Depth)
+    \_RefTypespec: (work@intf.Depth), line:2:14, endln:2:26
       |vpiParent:
-      \_Parameter: (work@intf.Depth), line:2:27, endln:2:32
+      \_Parameter: (work@intf.Depth), line:2:27, endln:2:36
       |vpiFullName:work@intf.Depth
       |vpiActual:
       \_IntTypespec: , line:2:14, endln:2:26
@@ -354,56 +367,131 @@ Design: (unnamed)
       |vpiDecompile:4
       |vpiSize:64
       |UINT:4
-      |vpiTypespec:
-      \_RefTypespec: (work@intf)
-        |vpiParent:
-        \_Constant: , line:2:35, endln:2:36
-        |vpiFullName:work@intf
-        |vpiActual:
-        \_IntTypespec: , line:2:14, endln:2:26
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (work@intf.Depth), line:2:27, endln:2:32
-  |vpiDefName:work@intf
-  |vpiTaskFunc:
+    \_Parameter: (work@intf.Depth), line:2:27, endln:2:36
+  |vpiInternalScope:
   \_Function: (work@intf.get2), line:5:4, endln:7:18
     |vpiParent:
     \_Interface: work@intf (work@intf), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:1:1, endln:18:13
     |vpiName:get2
     |vpiFullName:work@intf.get2
-    |vpiVisibility:1
-    |vpiAutomatic:1
-    |vpiReturn:
-    \_IntVar: (work@intf.get2), line:5:23, endln:5:26
+    |vpiVariables:
+    \_IntVar: (work@intf.get2)
       |vpiParent:
       \_Function: (work@intf.get2), line:5:4, endln:7:18
       |vpiTypespec:
-      \_RefTypespec: (work@intf.get2)
+      \_RefTypespec: (work@intf.get2), line:5:23, endln:5:26
         |vpiParent:
-        \_IntVar: (work@intf.get2), line:5:23, endln:5:26
+        \_IntVar: (work@intf.get2)
         |vpiFullName:work@intf.get2
         |vpiActual:
         \_IntTypespec: , line:5:23, endln:5:26
       |vpiFullName:work@intf.get2
       |vpiSigned:1
+    |vpiTypedef:
+    \_IntTypespec: , line:5:23, endln:5:26
+      |vpiParent:
+      \_Function: (work@intf.get2), line:5:4, endln:7:18
+      |vpiSigned:1
+    |vpiImportTypespec:
+    \_IntTypespec: , line:5:23, endln:5:26
+    |vpiImportTypespec:
+    \_IntVar: (work@intf.get2)
+    |vpiVisibility:1
+    |vpiAutomatic:1
+    |vpiReturn:
+    \_IntVar: (work@intf.get2)
     |vpiStmt:
-    \_ReturnStmt: , line:6:10, endln:6:16
+    \_ReturnStmt: , line:6:10, endln:6:18
       |vpiParent:
       \_Function: (work@intf.get2), line:5:4, endln:7:18
       |vpiCondition:
       \_Constant: , line:6:17, endln:6:18
+        |vpiParent:
+        \_ReturnStmt: , line:6:10, endln:6:18
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
         |vpiConstType:9
-    |vpiInstance:
+  |vpiInternalScope:
+  \_Begin: (work@intf.gen_block), line:9:19, endln:15:19
+    |vpiParent:
     \_Interface: work@intf (work@intf), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:1:1, endln:18:13
-  |vpiNet:
+    |vpiName:gen_block
+    |vpiFullName:work@intf.gen_block
+    |vpiStmt:
+    \_ContAssign: , line:14:14, endln:14:24
+      |vpiParent:
+      \_Begin: (work@intf.gen_block), line:9:19, endln:15:19
+      |vpiRhs:
+      \_FuncCall: (get3), line:14:18, endln:14:24
+        |vpiParent:
+        \_ContAssign: , line:14:14, endln:14:24
+        |vpiName:get3
+      |vpiLhs:
+      \_RefObj: (work@intf.gen_block.o), line:14:14, endln:14:15
+        |vpiParent:
+        \_ContAssign: , line:14:14, endln:14:24
+        |vpiName:o
+        |vpiFullName:work@intf.gen_block.o
+        |vpiActual:
+        \_LogicNet: (work@intf.o), line:3:27, endln:3:28
+  |vpiInternalScope:
+  \_Begin: (work@intf), line:17:6, endln:17:19
+    |vpiParent:
+    \_Interface: work@intf (work@intf), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:1:1, endln:18:13
+    |vpiFullName:work@intf
+    |vpiStmt:
+    \_ContAssign: , line:17:13, endln:17:18
+      |vpiParent:
+      \_Begin: (work@intf), line:17:6, endln:17:19
+      |vpiRhs:
+      \_Constant: , line:17:17, endln:17:18
+        |vpiParent:
+        \_ContAssign: , line:17:13, endln:17:18
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiLhs:
+      \_RefObj: (work@intf.o), line:17:13, endln:17:14
+        |vpiParent:
+        \_ContAssign: , line:17:13, endln:17:18
+        |vpiName:o
+        |vpiFullName:work@intf.o
+        |vpiActual:
+        \_LogicNet: (work@intf.o), line:3:27, endln:3:28
+  |vpiTypedef:
+  \_IntTypespec: , line:2:14, endln:2:26
+    |vpiParent:
+    \_Interface: work@intf (work@intf), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:1:1, endln:18:13
+  |vpiTypedef:
+  \_IntTypespec: , line:3:4, endln:3:7
+    |vpiParent:
+    \_Interface: work@intf (work@intf), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:1:1, endln:18:13
+    |vpiSigned:1
+  |vpiTypedef:
+  \_IntTypespec: , line:3:4, endln:3:7
+    |vpiParent:
+    \_Interface: work@intf (work@intf), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:1:1, endln:18:13
+    |vpiSigned:1
+  |vpiImportTypespec:
+  \_Function: (work@intf.get2), line:5:4, endln:7:18
+  |vpiImportTypespec:
+  \_IntTypespec: , line:2:14, endln:2:26
+  |vpiImportTypespec:
+  \_IntTypespec: , line:3:4, endln:3:7
+  |vpiImportTypespec:
+  \_IntVar: (work@intf.o), line:3:27, endln:3:28
+  |vpiImportTypespec:
+  \_IntTypespec: , line:3:4, endln:3:7
+  |vpiImportTypespec:
   \_LogicNet: (work@intf.o), line:3:27, endln:3:28
     |vpiParent:
     \_Interface: work@intf (work@intf), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:1:1, endln:18:13
     |vpiTypespec:
-    \_RefTypespec: (work@intf.o)
+    \_RefTypespec: (work@intf.o), line:3:4, endln:3:7
       |vpiParent:
       \_LogicNet: (work@intf.o), line:3:27, endln:3:28
       |vpiFullName:work@intf.o
@@ -411,14 +499,19 @@ Design: (unnamed)
       \_IntTypespec: , line:3:4, endln:3:7
     |vpiName:o
     |vpiFullName:work@intf.o
+  |vpiDefName:work@intf
+  |vpiTaskFunc:
+  \_Function: (work@intf.get2), line:5:4, endln:7:18
+  |vpiNet:
+  \_LogicNet: (work@intf.o), line:3:27, endln:3:28
   |vpiGenStmt:
-  \_GenIfElse: 
+  \_GenIfElse: , line:9:4, endln:17:19
     |vpiParent:
     \_Interface: work@intf (work@intf), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:1:1, endln:18:13
     |vpiCondition:
     \_Operation: , line:9:8, endln:9:17
       |vpiParent:
-      \_GenIfElse: 
+      \_GenIfElse: , line:9:4, endln:17:19
       |vpiOpType:18
       |vpiOperand:
       \_RefObj: (work@intf.Depth), line:9:8, endln:9:13
@@ -426,6 +519,8 @@ Design: (unnamed)
         \_Operation: , line:9:8, endln:9:17
         |vpiName:Depth
         |vpiFullName:work@intf.Depth
+        |vpiActual:
+        \_Parameter: (work@intf.Depth), line:2:27, endln:2:36
       |vpiOperand:
       \_Constant: , line:9:16, endln:9:17
         |vpiParent:
@@ -435,63 +530,38 @@ Design: (unnamed)
         |UINT:2
         |vpiConstType:9
     |vpiStmt:
-    \_NamedBegin: (work@intf.gen_block)
-      |vpiParent:
-      \_GenIfElse: 
-      |vpiName:gen_block
-      |vpiFullName:work@intf.gen_block
-      |vpiStmt:
-      \_ContAssign: , line:14:14, endln:14:24
-        |vpiParent:
-        \_NamedBegin: (work@intf.gen_block)
-        |vpiRhs:
-        \_FuncCall: (get3), line:14:18, endln:14:24
-          |vpiParent:
-          \_ContAssign: , line:14:14, endln:14:24
-          |vpiName:get3
-        |vpiLhs:
-        \_RefObj: (work@intf.gen_block.o), line:14:14, endln:14:15
-          |vpiParent:
-          \_ContAssign: , line:14:14, endln:14:24
-          |vpiName:o
-          |vpiFullName:work@intf.gen_block.o
+    \_Begin: (work@intf.gen_block), line:9:19, endln:15:19
     |vpiElseStmt:
-    \_Begin: (work@intf)
-      |vpiParent:
-      \_GenIfElse: 
-      |vpiFullName:work@intf
-      |vpiStmt:
-      \_ContAssign: , line:17:13, endln:17:18
-        |vpiParent:
-        \_Begin: (work@intf)
-        |vpiRhs:
-        \_Constant: , line:17:17, endln:17:18
-          |vpiParent:
-          \_ContAssign: , line:17:13, endln:17:18
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-        |vpiLhs:
-        \_RefObj: (work@intf.o), line:17:13, endln:17:14
-          |vpiParent:
-          \_ContAssign: , line:17:13, endln:17:18
-          |vpiName:o
-          |vpiFullName:work@intf.o
-|uhdmallModules:
+    \_Begin: (work@intf), line:17:6, endln:17:19
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
+  |vpiName:work@top
+  |vpiVariables:
+  \_IntVar: (work@top.o), line:23:27, endln:23:28
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o), line:23:4, endln:23:7
+      |vpiParent:
+      \_IntVar: (work@top.o), line:23:27, endln:23:28
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_IntTypespec: , line:23:4, endln:23:7
+    |vpiName:o
+    |vpiFullName:work@top.o
+    |vpiSigned:1
+    |vpiVisibility:1
   |vpiParameter:
-  \_Parameter: (work@top.Depth), line:22:27, endln:22:32
+  \_Parameter: (work@top.Depth), line:22:27, endln:22:36
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
     |UINT:4
     |vpiTypespec:
-    \_RefTypespec: (work@top.Depth)
+    \_RefTypespec: (work@top.Depth), line:22:14, endln:22:26
       |vpiParent:
-      \_Parameter: (work@top.Depth), line:22:27, endln:22:32
+      \_Parameter: (work@top.Depth), line:22:27, endln:22:36
       |vpiFullName:work@top.Depth
       |vpiActual:
       \_IntTypespec: , line:22:14, endln:22:26
@@ -508,65 +578,130 @@ Design: (unnamed)
       |vpiDecompile:4
       |vpiSize:64
       |UINT:4
-      |vpiTypespec:
-      \_RefTypespec: (work@top)
-        |vpiParent:
-        \_Constant: , line:22:35, endln:22:36
-        |vpiFullName:work@top
-        |vpiActual:
-        \_IntTypespec: , line:22:14, endln:22:26
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (work@top.Depth), line:22:27, endln:22:32
-  |vpiDefName:work@top
-  |vpiTaskFunc:
+    \_Parameter: (work@top.Depth), line:22:27, endln:22:36
+  |vpiInternalScope:
   \_Function: (work@top.get4), line:25:4, endln:27:18
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
     |vpiName:get4
     |vpiFullName:work@top.get4
-    |vpiVisibility:1
-    |vpiAutomatic:1
-    |vpiReturn:
-    \_IntVar: (work@top.get4), line:25:23, endln:25:26
+    |vpiVariables:
+    \_IntVar: (work@top.get4)
       |vpiParent:
       \_Function: (work@top.get4), line:25:4, endln:27:18
       |vpiTypespec:
-      \_RefTypespec: (work@top.get4)
+      \_RefTypespec: (work@top.get4), line:25:23, endln:25:26
         |vpiParent:
-        \_IntVar: (work@top.get4), line:25:23, endln:25:26
+        \_IntVar: (work@top.get4)
         |vpiFullName:work@top.get4
         |vpiActual:
         \_IntTypespec: , line:25:23, endln:25:26
       |vpiFullName:work@top.get4
       |vpiSigned:1
+    |vpiTypedef:
+    \_IntTypespec: , line:25:23, endln:25:26
+      |vpiParent:
+      \_Function: (work@top.get4), line:25:4, endln:27:18
+      |vpiSigned:1
+    |vpiImportTypespec:
+    \_IntTypespec: , line:25:23, endln:25:26
+    |vpiImportTypespec:
+    \_IntVar: (work@top.get4)
+    |vpiVisibility:1
+    |vpiAutomatic:1
+    |vpiReturn:
+    \_IntVar: (work@top.get4)
     |vpiStmt:
-    \_ReturnStmt: , line:26:10, endln:26:16
+    \_ReturnStmt: , line:26:10, endln:26:18
       |vpiParent:
       \_Function: (work@top.get4), line:25:4, endln:27:18
       |vpiCondition:
       \_Constant: , line:26:17, endln:26:18
+        |vpiParent:
+        \_ReturnStmt: , line:26:10, endln:26:18
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
         |vpiConstType:9
-    |vpiInstance:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
-  |vpiNet:
-  \_LogicNet: (work@top.o), line:23:27, endln:23:28
+  |vpiInternalScope:
+  \_Begin: (work@top.gen_block), line:29:19, endln:35:19
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
-    |vpiTypespec:
-    \_RefTypespec: (work@top.o)
+    |vpiName:gen_block
+    |vpiFullName:work@top.gen_block
+    |vpiStmt:
+    \_ContAssign: , line:34:14, endln:34:24
       |vpiParent:
-      \_LogicNet: (work@top.o), line:23:27, endln:23:28
-      |vpiFullName:work@top.o
-      |vpiActual:
-      \_IntTypespec: , line:23:4, endln:23:7
-    |vpiName:o
-    |vpiFullName:work@top.o
+      \_Begin: (work@top.gen_block), line:29:19, endln:35:19
+      |vpiRhs:
+      \_FuncCall: (get1), line:34:18, endln:34:24
+        |vpiParent:
+        \_ContAssign: , line:34:14, endln:34:24
+        |vpiName:get1
+      |vpiLhs:
+      \_RefObj: (work@top.gen_block.o), line:34:14, endln:34:15
+        |vpiParent:
+        \_ContAssign: , line:34:14, endln:34:24
+        |vpiName:o
+        |vpiFullName:work@top.gen_block.o
+        |vpiActual:
+        \_IntVar: (work@top.o), line:23:27, endln:23:28
+  |vpiInternalScope:
+  \_Begin: (work@top), line:37:6, endln:37:19
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
+    |vpiFullName:work@top
+    |vpiStmt:
+    \_ContAssign: , line:37:13, endln:37:18
+      |vpiParent:
+      \_Begin: (work@top), line:37:6, endln:37:19
+      |vpiRhs:
+      \_Constant: , line:37:17, endln:37:18
+        |vpiParent:
+        \_ContAssign: , line:37:13, endln:37:18
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiLhs:
+      \_RefObj: (work@top.o), line:37:13, endln:37:14
+        |vpiParent:
+        \_ContAssign: , line:37:13, endln:37:18
+        |vpiName:o
+        |vpiFullName:work@top.o
+        |vpiActual:
+        \_IntVar: (work@top.o), line:23:27, endln:23:28
+  |vpiTypedef:
+  \_IntTypespec: , line:22:14, endln:22:26
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
+  |vpiTypedef:
+  \_ModuleTypespec: (intf), line:28:3, endln:28:7
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
+    |vpiName:intf
+  |vpiTypedef:
+  \_IntTypespec: , line:23:4, endln:23:7
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
+    |vpiSigned:1
+  |vpiImportTypespec:
+  \_Function: (work@top.get4), line:25:4, endln:27:18
+  |vpiImportTypespec:
+  \_IntTypespec: , line:22:14, endln:22:26
+  |vpiImportTypespec:
+  \_ModuleTypespec: (intf), line:28:3, endln:28:7
+  |vpiImportTypespec:
+  \_IntTypespec: , line:23:4, endln:23:7
+  |vpiImportTypespec:
+  \_IntVar: (work@top.o), line:23:27, endln:23:28
+  |vpiDefName:work@top
+  |vpiTaskFunc:
+  \_Function: (work@top.get4), line:25:4, endln:27:18
   |vpiRefModule:
-  \_RefModule: work@intf (interf), line:28:8, endln:28:14
+  \_RefModule: work@intf (interf), line:28:3, endln:28:7
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
     |vpiName:interf
@@ -574,13 +709,13 @@ Design: (unnamed)
     |vpiActual:
     \_Interface: work@intf (work@intf), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:1:1, endln:18:13
   |vpiGenStmt:
-  \_GenIfElse: 
+  \_GenIfElse: , line:29:4, endln:37:19
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncDeclScope/dut.sv, line:21:1, endln:40:10
     |vpiCondition:
     \_Operation: , line:29:8, endln:29:17
       |vpiParent:
-      \_GenIfElse: 
+      \_GenIfElse: , line:29:4, endln:37:19
       |vpiOpType:18
       |vpiOperand:
       \_RefObj: (work@top.Depth), line:29:8, endln:29:13
@@ -588,6 +723,8 @@ Design: (unnamed)
         \_Operation: , line:29:8, endln:29:17
         |vpiName:Depth
         |vpiFullName:work@top.Depth
+        |vpiActual:
+        \_Parameter: (work@top.Depth), line:22:27, endln:22:36
       |vpiOperand:
       \_Constant: , line:29:16, endln:29:17
         |vpiParent:
@@ -597,64 +734,9 @@ Design: (unnamed)
         |UINT:2
         |vpiConstType:9
     |vpiStmt:
-    \_NamedBegin: (work@top.gen_block)
-      |vpiParent:
-      \_GenIfElse: 
-      |vpiName:gen_block
-      |vpiFullName:work@top.gen_block
-      |vpiStmt:
-      \_ContAssign: , line:34:14, endln:34:24
-        |vpiParent:
-        \_NamedBegin: (work@top.gen_block)
-        |vpiRhs:
-        \_FuncCall: (get1), line:34:18, endln:34:24
-          |vpiParent:
-          \_ContAssign: , line:34:14, endln:34:24
-          |vpiName:get1
-        |vpiLhs:
-        \_RefObj: (work@top.gen_block.o), line:34:14, endln:34:15
-          |vpiParent:
-          \_ContAssign: , line:34:14, endln:34:24
-          |vpiName:o
-          |vpiFullName:work@top.gen_block.o
+    \_Begin: (work@top.gen_block), line:29:19, endln:35:19
     |vpiElseStmt:
-    \_Begin: (work@top)
-      |vpiParent:
-      \_GenIfElse: 
-      |vpiFullName:work@top
-      |vpiStmt:
-      \_ContAssign: , line:37:13, endln:37:18
-        |vpiParent:
-        \_Begin: (work@top)
-        |vpiRhs:
-        \_Constant: , line:37:17, endln:37:18
-          |vpiParent:
-          \_ContAssign: , line:37:13, endln:37:18
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-        |vpiLhs:
-        \_RefObj: (work@top.o), line:37:13, endln:37:14
-          |vpiParent:
-          \_ContAssign: , line:37:13, endln:37:18
-          |vpiName:o
-          |vpiFullName:work@top.o
-\_weaklyReferenced:
-\_IntTypespec: , line:2:14, endln:2:26
-  |vpiParent:
-  \_Parameter: (work@intf.Depth), line:2:27, endln:2:32
-\_IntTypespec: , line:5:23, endln:5:26
-  |vpiSigned:1
-\_IntTypespec: , line:22:14, endln:22:26
-  |vpiParent:
-  \_Parameter: (work@top.Depth), line:22:27, endln:22:32
-\_IntTypespec: , line:25:23, endln:25:26
-  |vpiSigned:1
-\_IntTypespec: , line:3:4, endln:3:7
-  |vpiSigned:1
-\_IntTypespec: , line:23:4, endln:23:7
-  |vpiSigned:1
+    \_Begin: (work@top), line:37:6, endln:37:19
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -3,9 +3,9 @@
 AST_DEBUG_BEGIN
 Count: 295
 LIB: work
-FILE f<13>:${SURELOG_DIR}/tests/UnitForLoop/top.v
+FILE: ${SURELOG_DIR}/tests/UnitForLoop/top.v
 n<> u<294> t<Top_level_rule> c<1> l<1:1> el<29:9>
-  n<> u<1> t<Null_rule> p<294> s<293> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<294> s<293> l<1:1>
   n<> u<293> t<Source_text> p<294> c<292> l<1:1> el<29:9>
     n<> u<292> t<Description> p<293> c<291> l<1:1> el<29:9>
       n<> u<291> t<Package_item> p<292> c<290> l<1:1> el<29:9>
@@ -319,31 +319,69 @@ Operation                                              7
 RefObj                                                23
 RefTypespec                                            4
 === UHDM Object Stats End ===
+[ERR:UH0734] ${SURELOG_DIR}/tests/UnitForLoop/top.v:9:10: Failed to bind object: "id: 29, name: i".
+[ERR:EL0535] ${SURELOG_DIR}/tests/UnitForLoop/top.v:9:10: Illegal implicit net "id:29, name: i".
+[ERR:UH0734] ${SURELOG_DIR}/tests/UnitForLoop/top.v:10:4: Failed to bind object: "id: 32, name: i".
+[ERR:EL0535] ${SURELOG_DIR}/tests/UnitForLoop/top.v:10:4: Illegal implicit net "id:32, name: i".
+[ERR:UH0734] ${SURELOG_DIR}/tests/UnitForLoop/top.v:8:31: Failed to bind object: "id: 25, name: i".
+[ERR:EL0535] ${SURELOG_DIR}/tests/UnitForLoop/top.v:8:31: Illegal implicit net "id:25, name: i".
+[ERR:UH0734] ${SURELOG_DIR}/tests/UnitForLoop/top.v:13:10: Failed to bind object: "id: 46, name: i".
+[ERR:EL0535] ${SURELOG_DIR}/tests/UnitForLoop/top.v:13:10: Illegal implicit net "id:46, name: i".
+[ERR:UH0734] ${SURELOG_DIR}/tests/UnitForLoop/top.v:14:4: Failed to bind object: "id: 49, name: i".
+[ERR:EL0535] ${SURELOG_DIR}/tests/UnitForLoop/top.v:14:4: Illegal implicit net "id:49, name: i".
+[ERR:UH0734] ${SURELOG_DIR}/tests/UnitForLoop/top.v:12:31: Failed to bind object: "id: 42, name: i".
+[ERR:EL0535] ${SURELOG_DIR}/tests/UnitForLoop/top.v:12:31: Illegal implicit net "id:42, name: i".
+[ERR:UH0734] ${SURELOG_DIR}/tests/UnitForLoop/top.v:17:5: Failed to bind object: "id: 59, name: i".
+[ERR:EL0535] ${SURELOG_DIR}/tests/UnitForLoop/top.v:17:5: Illegal implicit net "id:59, name: i".
+[ERR:UH0734] ${SURELOG_DIR}/tests/UnitForLoop/top.v:18:4: Failed to bind object: "id: 62, name: i".
+[ERR:EL0535] ${SURELOG_DIR}/tests/UnitForLoop/top.v:18:4: Illegal implicit net "id:62, name: i".
+[ERR:UH0734] ${SURELOG_DIR}/tests/UnitForLoop/top.v:22:5: Failed to bind object: "id: 67, name: i".
+[ERR:EL0535] ${SURELOG_DIR}/tests/UnitForLoop/top.v:22:5: Illegal implicit net "id:67, name: i".
+[ERR:UH0734] ${SURELOG_DIR}/tests/UnitForLoop/top.v:23:5: Failed to bind object: "id: 70, name: i".
+[ERR:EL0535] ${SURELOG_DIR}/tests/UnitForLoop/top.v:23:5: Illegal implicit net "id:70, name: i".
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/UnitForLoop/slpp_unit/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/UnitForLoop/slpp_unit/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/UnitForLoop/slpp_unit/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallClasses:
+|vpiAllClasses:
 \_ClassDefn: (work@top), file:${SURELOG_DIR}/tests/UnitForLoop/top.v, line:1:1, endln:29:9
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:work@top
-  |vpiMethod:
+  |vpiInternalScope:
   \_Function: (work@top::f2), line:3:1, endln:4:12
     |vpiParent:
     \_ClassDefn: (work@top), file:${SURELOG_DIR}/tests/UnitForLoop/top.v, line:1:1, endln:29:9
     |vpiName:f2
     |vpiFullName:work@top::f2
-    |vpiMethod:1
-    |vpiVisibility:1
-    |vpiReturn:
+    |vpiVariables:
     \_LogicVar: (work@top::f2)
       |vpiParent:
       \_Function: (work@top::f2), line:3:1, endln:4:12
       |vpiFullName:work@top::f2
+    |vpiReg:
+    \_LogicVar: (work@top::f2)
+    |vpiTypedef:
+    \_IntTypespec: , line:3:14, endln:3:17
+      |vpiParent:
+      \_Function: (work@top::f2), line:3:1, endln:4:12
+      |vpiSigned:1
+    |vpiTypedef:
+    \_IntTypespec: , line:3:21, endln:3:24
+      |vpiParent:
+      \_Function: (work@top::f2), line:3:1, endln:4:12
+      |vpiSigned:1
+    |vpiImportTypespec:
+    \_LogicVar: (work@top::f2)
+    |vpiImportTypespec:
+    \_IntTypespec: , line:3:14, endln:3:17
+    |vpiImportTypespec:
+    \_IntTypespec: , line:3:21, endln:3:24
+    |vpiMethod:1
+    |vpiVisibility:1
+    |vpiReturn:
+    \_LogicVar: (work@top::f2)
     |vpiIODecl:
     \_IODecl: (i), line:3:18, endln:3:19
       |vpiParent:
@@ -351,7 +389,7 @@ Design: (unnamed)
       |vpiDirection:1
       |vpiName:i
       |vpiTypedef:
-      \_RefTypespec: (work@top::f2::i)
+      \_RefTypespec: (work@top::f2::i), line:3:14, endln:3:17
         |vpiParent:
         \_IODecl: (i), line:3:18, endln:3:19
         |vpiFullName:work@top::f2::i
@@ -364,106 +402,67 @@ Design: (unnamed)
       |vpiDirection:1
       |vpiName:j
       |vpiTypedef:
-      \_RefTypespec: (work@top::f2::j)
+      \_RefTypespec: (work@top::f2::j), line:3:21, endln:3:24
         |vpiParent:
         \_IODecl: (j), line:3:25, endln:3:26
         |vpiFullName:work@top::f2::j
         |vpiActual:
         \_IntTypespec: , line:3:21, endln:3:24
-  |vpiMethod:
+  |vpiInternalScope:
   \_Function: (work@top::f1), line:7:1, endln:27:12
     |vpiParent:
     \_ClassDefn: (work@top), file:${SURELOG_DIR}/tests/UnitForLoop/top.v, line:1:1, endln:29:9
     |vpiName:f1
     |vpiFullName:work@top::f1
-    |vpiMethod:1
-    |vpiVisibility:1
-    |vpiReturn:
+    |vpiVariables:
     \_LogicVar: (work@top::f1)
       |vpiParent:
       \_Function: (work@top::f1), line:7:1, endln:27:12
       |vpiFullName:work@top::f1
-    |vpiStmt:
-    \_Begin: (work@top::f1), line:12:3, endln:15:7
+    |vpiReg:
+    \_LogicVar: (work@top::f1)
+    |vpiInternalScope:
+    \_Begin: (work@top::f1)
       |vpiParent:
       \_Function: (work@top::f1), line:7:1, endln:27:12
       |vpiFullName:work@top::f1
-      |vpiStmt:
-      \_ForStmt: (work@top::f1), line:8:4, endln:8:7
+      |vpiVariables:
+      \_IntVar: (work@top::f1::j), line:8:14, endln:8:15
         |vpiParent:
-        \_Begin: (work@top::f1), line:12:3, endln:15:7
-        |vpiFullName:work@top::f1
-        |vpiForInitStmt:
-        \_Assignment: , line:8:10, endln:8:21
+        \_Begin: (work@top::f1)
+        |vpiTypespec:
+        \_RefTypespec: (work@top::f1::j), line:8:10, endln:8:13
           |vpiParent:
-          \_ForStmt: (work@top::f1), line:8:4, endln:8:7
-          |vpiRhs:
-          \_Constant: , line:8:16, endln:8:17
-            |vpiParent:
-            \_Assignment: , line:8:10, endln:8:21
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-          |vpiLhs:
           \_IntVar: (work@top::f1::j), line:8:14, endln:8:15
-            |vpiParent:
-            \_Assignment: , line:8:10, endln:8:21
-            |vpiTypespec:
-            \_RefTypespec: (work@top::f1::j)
-              |vpiParent:
-              \_IntVar: (work@top::f1::j), line:8:14, endln:8:15
-              |vpiFullName:work@top::f1::j
-              |vpiActual:
-              \_IntTypespec: , line:8:10, endln:8:13
-            |vpiName:j
-            |vpiFullName:work@top::f1::j
-            |vpiSigned:1
-        |vpiForIncStmt:
-        \_Operation: , line:8:26, endln:8:29
+          |vpiFullName:work@top::f1::j
+          |vpiActual:
+          \_IntTypespec: , line:8:10, endln:8:13
+        |vpiName:j
+        |vpiFullName:work@top::f1::j
+        |vpiSigned:1
+      |vpiVariables:
+      \_IntVar: (work@top::f1::j), line:12:13, endln:12:14
+        |vpiParent:
+        \_Begin: (work@top::f1)
+        |vpiTypespec:
+        \_RefTypespec: (work@top::f1::j), line:12:9, endln:12:12
           |vpiParent:
-          \_ForStmt: (work@top::f1), line:8:4, endln:8:7
-          |vpiOpType:62
-          |vpiOperand:
-          \_RefObj: (work@top::f1::j), line:8:26, endln:8:27
-            |vpiParent:
-            \_Operation: , line:8:26, endln:8:29
-            |vpiName:j
-            |vpiFullName:work@top::f1::j
-        |vpiForIncStmt:
-        \_Operation: , line:8:31, endln:8:34
-          |vpiParent:
-          \_ForStmt: (work@top::f1), line:8:4, endln:8:7
-          |vpiOpType:62
-          |vpiOperand:
-          \_RefObj: (work@top::f1::i), line:8:31, endln:8:32
-            |vpiParent:
-            \_Operation: , line:8:31, endln:8:34
-            |vpiName:i
-            |vpiFullName:work@top::f1::i
-        |vpiCondition:
-        \_Operation: , line:8:22, endln:8:25
-          |vpiParent:
-          \_ForStmt: (work@top::f1), line:8:4, endln:8:7
-          |vpiOpType:20
-          |vpiOperand:
-          \_RefObj: (work@top::f1::j), line:8:22, endln:8:23
-            |vpiParent:
-            \_Operation: , line:8:22, endln:8:25
-            |vpiName:j
-            |vpiFullName:work@top::f1::j
-          |vpiOperand:
-          \_Constant: , line:8:24, endln:8:25
-            |vpiParent:
-            \_Operation: , line:8:22, endln:8:25
-            |vpiDecompile:8
-            |vpiSize:64
-            |UINT:8
-            |vpiConstType:9
-        |vpiStmt:
+          \_IntVar: (work@top::f1::j), line:12:13, endln:12:14
+          |vpiFullName:work@top::f1::j
+          |vpiActual:
+          \_IntTypespec: , line:12:9, endln:12:12
+        |vpiName:j
+        |vpiFullName:work@top::f1::j
+        |vpiSigned:1
+      |vpiInternalScope:
+      \_ForStmt: (work@top::f1), line:8:4, endln:11:7
+        |vpiParent:
+        \_Begin: (work@top::f1)
+        |vpiFullName:work@top::f1
+        |vpiInternalScope:
         \_Begin: (work@top::f1), line:8:36, endln:11:7
           |vpiParent:
-          \_ForStmt: (work@top::f1), line:8:4, endln:8:7
+          \_ForStmt: (work@top::f1), line:8:4, endln:11:7
           |vpiFullName:work@top::f1
           |vpiStmt:
           \_FuncCall: (f2), line:9:7, endln:9:14
@@ -481,6 +480,8 @@ Design: (unnamed)
               \_FuncCall: (f2), line:9:7, endln:9:14
               |vpiName:j
               |vpiFullName:work@top::f1::j
+              |vpiActual:
+              \_IntVar: (work@top::f1::j), line:8:14, endln:8:15
             |vpiName:f2
             |vpiFunction:
             \_Function: (work@top::f2), line:3:1, endln:4:12
@@ -500,64 +501,79 @@ Design: (unnamed)
               \_FuncCall: (f3), line:10:1, endln:10:8
               |vpiName:j
               |vpiFullName:work@top::f1::j
+              |vpiActual:
+              \_IntVar: (work@top::f1::j), line:8:14, endln:8:15
             |vpiName:f3
-      |vpiStmt:
-      \_ForStmt: (work@top::f1), line:12:3, endln:12:6
-        |vpiParent:
-        \_Begin: (work@top::f1), line:12:3, endln:15:7
-        |vpiFullName:work@top::f1
         |vpiForInitStmt:
-        \_Assignment: , line:12:9, endln:12:22
+        \_Assignment: , line:8:10, endln:8:21
           |vpiParent:
-          \_ForStmt: (work@top::f1), line:12:3, endln:12:6
+          \_ForStmt: (work@top::f1), line:8:4, endln:11:7
           |vpiRhs:
-          \_Constant: , line:12:15, endln:12:16
+          \_Constant: , line:8:16, endln:8:17
             |vpiParent:
-            \_Assignment: , line:12:9, endln:12:22
+            \_Assignment: , line:8:10, endln:8:21
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
           |vpiLhs:
-          \_IntVar: (work@top::f1::j), line:12:13, endln:12:14
-            |vpiParent:
-            \_Assignment: , line:12:9, endln:12:22
-            |vpiTypespec:
-            \_RefTypespec: (work@top::f1::j)
-              |vpiParent:
-              \_IntVar: (work@top::f1::j), line:12:13, endln:12:14
-              |vpiFullName:work@top::f1::j
-              |vpiActual:
-              \_IntTypespec: , line:12:9, endln:12:12
-            |vpiName:j
-            |vpiFullName:work@top::f1::j
-            |vpiSigned:1
+          \_IntVar: (work@top::f1::j), line:8:14, endln:8:15
         |vpiForIncStmt:
-        \_Operation: , line:12:26, endln:12:29
+        \_Operation: , line:8:26, endln:8:29
           |vpiParent:
-          \_ForStmt: (work@top::f1), line:12:3, endln:12:6
+          \_ForStmt: (work@top::f1), line:8:4, endln:11:7
           |vpiOpType:62
           |vpiOperand:
-          \_RefObj: (work@top::f1::j), line:12:26, endln:12:27
+          \_RefObj: (work@top::f1::j), line:8:26, endln:8:27
             |vpiParent:
-            \_Operation: , line:12:26, endln:12:29
+            \_Operation: , line:8:26, endln:8:29
             |vpiName:j
             |vpiFullName:work@top::f1::j
+            |vpiActual:
+            \_IntVar: (work@top::f1::j), line:8:14, endln:8:15
         |vpiForIncStmt:
-        \_Operation: , line:12:31, endln:12:34
+        \_Operation: , line:8:31, endln:8:34
           |vpiParent:
-          \_ForStmt: (work@top::f1), line:12:3, endln:12:6
+          \_ForStmt: (work@top::f1), line:8:4, endln:11:7
           |vpiOpType:62
           |vpiOperand:
-          \_RefObj: (work@top::f1::i), line:12:31, endln:12:32
+          \_RefObj: (work@top::f1::i), line:8:31, endln:8:32
             |vpiParent:
-            \_Operation: , line:12:31, endln:12:34
+            \_Operation: , line:8:31, endln:8:34
             |vpiName:i
             |vpiFullName:work@top::f1::i
+        |vpiCondition:
+        \_Operation: , line:8:22, endln:8:25
+          |vpiParent:
+          \_ForStmt: (work@top::f1), line:8:4, endln:11:7
+          |vpiOpType:20
+          |vpiOperand:
+          \_RefObj: (work@top::f1::j), line:8:22, endln:8:23
+            |vpiParent:
+            \_Operation: , line:8:22, endln:8:25
+            |vpiName:j
+            |vpiFullName:work@top::f1::j
+            |vpiActual:
+            \_IntVar: (work@top::f1::j), line:8:14, endln:8:15
+          |vpiOperand:
+          \_Constant: , line:8:24, endln:8:25
+            |vpiParent:
+            \_Operation: , line:8:22, endln:8:25
+            |vpiDecompile:8
+            |vpiSize:64
+            |UINT:8
+            |vpiConstType:9
         |vpiStmt:
+        \_Begin: (work@top::f1), line:8:36, endln:11:7
+      |vpiInternalScope:
+      \_ForStmt: (work@top::f1), line:12:3, endln:15:7
+        |vpiParent:
+        \_Begin: (work@top::f1)
+        |vpiFullName:work@top::f1
+        |vpiInternalScope:
         \_Begin: (work@top::f1), line:12:36, endln:15:7
           |vpiParent:
-          \_ForStmt: (work@top::f1), line:12:3, endln:12:6
+          \_ForStmt: (work@top::f1), line:12:3, endln:15:7
           |vpiFullName:work@top::f1
           |vpiStmt:
           \_FuncCall: (f2), line:13:7, endln:13:14
@@ -575,6 +591,8 @@ Design: (unnamed)
               \_FuncCall: (f2), line:13:7, endln:13:14
               |vpiName:j
               |vpiFullName:work@top::f1::j
+              |vpiActual:
+              \_IntVar: (work@top::f1::j), line:8:14, endln:8:15
             |vpiName:f2
             |vpiFunction:
             \_Function: (work@top::f2), line:3:1, endln:4:12
@@ -594,46 +612,58 @@ Design: (unnamed)
               \_FuncCall: (f4), line:14:1, endln:14:8
               |vpiName:j
               |vpiFullName:work@top::f1::j
+              |vpiActual:
+              \_IntVar: (work@top::f1::j), line:8:14, endln:8:15
             |vpiName:f4
-      |vpiStmt:
-      \_ForStmt: (work@top::f1), line:16:4, endln:16:7
-        |vpiParent:
-        \_Begin: (work@top::f1), line:12:3, endln:15:7
-        |vpiFullName:work@top::f1
-        |vpiForIncStmt:
-        \_Operation: , line:16:19, endln:16:22
+        |vpiForInitStmt:
+        \_Assignment: , line:12:9, endln:12:22
           |vpiParent:
-          \_ForStmt: (work@top::f1), line:16:4, endln:16:7
+          \_ForStmt: (work@top::f1), line:12:3, endln:15:7
+          |vpiRhs:
+          \_Constant: , line:12:15, endln:12:16
+            |vpiParent:
+            \_Assignment: , line:12:9, endln:12:22
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+          |vpiLhs:
+          \_IntVar: (work@top::f1::j), line:12:13, endln:12:14
+        |vpiForIncStmt:
+        \_Operation: , line:12:26, endln:12:29
+          |vpiParent:
+          \_ForStmt: (work@top::f1), line:12:3, endln:15:7
           |vpiOpType:62
           |vpiOperand:
-          \_RefObj: (work@top::f1::j), line:16:19, endln:16:20
+          \_RefObj: (work@top::f1::j), line:12:26, endln:12:27
             |vpiParent:
-            \_Operation: , line:16:19, endln:16:22
+            \_Operation: , line:12:26, endln:12:29
             |vpiName:j
             |vpiFullName:work@top::f1::j
-        |vpiCondition:
-        \_Operation: , line:16:12, endln:16:17
+            |vpiActual:
+            \_IntVar: (work@top::f1::j), line:8:14, endln:8:15
+        |vpiForIncStmt:
+        \_Operation: , line:12:31, endln:12:34
           |vpiParent:
-          \_ForStmt: (work@top::f1), line:16:4, endln:16:7
-          |vpiOpType:20
+          \_ForStmt: (work@top::f1), line:12:3, endln:15:7
+          |vpiOpType:62
           |vpiOperand:
-          \_RefObj: (work@top::f1::j), line:16:12, endln:16:13
+          \_RefObj: (work@top::f1::i), line:12:31, endln:12:32
             |vpiParent:
-            \_Operation: , line:16:12, endln:16:17
-            |vpiName:j
-            |vpiFullName:work@top::f1::j
-          |vpiOperand:
-          \_Constant: , line:16:16, endln:16:17
-            |vpiParent:
-            \_Operation: , line:16:12, endln:16:17
-            |vpiDecompile:8
-            |vpiSize:64
-            |UINT:8
-            |vpiConstType:9
+            \_Operation: , line:12:31, endln:12:34
+            |vpiName:i
+            |vpiFullName:work@top::f1::i
         |vpiStmt:
+        \_Begin: (work@top::f1), line:12:36, endln:15:7
+      |vpiInternalScope:
+      \_ForStmt: (work@top::f1), line:16:4, endln:19:7
+        |vpiParent:
+        \_Begin: (work@top::f1)
+        |vpiFullName:work@top::f1
+        |vpiInternalScope:
         \_Begin: (work@top::f1), line:16:24, endln:19:7
           |vpiParent:
-          \_ForStmt: (work@top::f1), line:16:4, endln:16:7
+          \_ForStmt: (work@top::f1), line:16:4, endln:19:7
           |vpiFullName:work@top::f1
           |vpiStmt:
           \_FuncCall: (f2), line:17:2, endln:17:9
@@ -651,6 +681,8 @@ Design: (unnamed)
               \_FuncCall: (f2), line:17:2, endln:17:9
               |vpiName:j
               |vpiFullName:work@top::f1::j
+              |vpiActual:
+              \_IntVar: (work@top::f1::j), line:8:14, endln:8:15
             |vpiName:f2
             |vpiFunction:
             \_Function: (work@top::f2), line:3:1, endln:4:12
@@ -670,16 +702,54 @@ Design: (unnamed)
               \_FuncCall: (f5), line:18:1, endln:18:8
               |vpiName:j
               |vpiFullName:work@top::f1::j
+              |vpiActual:
+              \_IntVar: (work@top::f1::j), line:8:14, endln:8:15
             |vpiName:f5
-      |vpiStmt:
-      \_ForStmt: (work@top::f1), line:21:4, endln:21:7
-        |vpiParent:
-        \_Begin: (work@top::f1), line:12:3, endln:15:7
-        |vpiFullName:work@top::f1
+        |vpiForIncStmt:
+        \_Operation: , line:16:19, endln:16:22
+          |vpiParent:
+          \_ForStmt: (work@top::f1), line:16:4, endln:19:7
+          |vpiOpType:62
+          |vpiOperand:
+          \_RefObj: (work@top::f1::j), line:16:19, endln:16:20
+            |vpiParent:
+            \_Operation: , line:16:19, endln:16:22
+            |vpiName:j
+            |vpiFullName:work@top::f1::j
+            |vpiActual:
+            \_IntVar: (work@top::f1::j), line:8:14, endln:8:15
+        |vpiCondition:
+        \_Operation: , line:16:12, endln:16:17
+          |vpiParent:
+          \_ForStmt: (work@top::f1), line:16:4, endln:19:7
+          |vpiOpType:20
+          |vpiOperand:
+          \_RefObj: (work@top::f1::j), line:16:12, endln:16:13
+            |vpiParent:
+            \_Operation: , line:16:12, endln:16:17
+            |vpiName:j
+            |vpiFullName:work@top::f1::j
+            |vpiActual:
+            \_IntVar: (work@top::f1::j), line:8:14, endln:8:15
+          |vpiOperand:
+          \_Constant: , line:16:16, endln:16:17
+            |vpiParent:
+            \_Operation: , line:16:12, endln:16:17
+            |vpiDecompile:8
+            |vpiSize:64
+            |UINT:8
+            |vpiConstType:9
         |vpiStmt:
+        \_Begin: (work@top::f1), line:16:24, endln:19:7
+      |vpiInternalScope:
+      \_ForStmt: (work@top::f1), line:21:4, endln:24:7
+        |vpiParent:
+        \_Begin: (work@top::f1)
+        |vpiFullName:work@top::f1
+        |vpiInternalScope:
         \_Begin: (work@top::f1), line:21:16, endln:24:7
           |vpiParent:
-          \_ForStmt: (work@top::f1), line:21:4, endln:21:7
+          \_ForStmt: (work@top::f1), line:21:4, endln:24:7
           |vpiFullName:work@top::f1
           |vpiStmt:
           \_FuncCall: (f2), line:22:2, endln:22:9
@@ -697,6 +767,8 @@ Design: (unnamed)
               \_FuncCall: (f2), line:22:2, endln:22:9
               |vpiName:j
               |vpiFullName:work@top::f1::j
+              |vpiActual:
+              \_IntVar: (work@top::f1::j), line:8:14, endln:8:15
             |vpiName:f2
             |vpiFunction:
             \_Function: (work@top::f2), line:3:1, endln:4:12
@@ -716,19 +788,56 @@ Design: (unnamed)
               \_FuncCall: (f6), line:23:2, endln:23:9
               |vpiName:j
               |vpiFullName:work@top::f1::j
+              |vpiActual:
+              \_IntVar: (work@top::f1::j), line:8:14, endln:8:15
             |vpiName:f6
-\_weaklyReferenced:
-\_IntTypespec: , line:3:14, endln:3:17
-  |vpiSigned:1
-\_IntTypespec: , line:3:21, endln:3:24
-  |vpiSigned:1
-\_IntTypespec: , line:8:10, endln:8:13
-  |vpiSigned:1
-\_IntTypespec: , line:12:9, endln:12:12
-  |vpiSigned:1
+        |vpiStmt:
+        \_Begin: (work@top::f1), line:21:16, endln:24:7
+      |vpiTypedef:
+      \_IntTypespec: , line:8:10, endln:8:13
+        |vpiParent:
+        \_Begin: (work@top::f1)
+        |vpiSigned:1
+      |vpiTypedef:
+      \_IntTypespec: , line:12:9, endln:12:12
+        |vpiParent:
+        \_Begin: (work@top::f1)
+        |vpiSigned:1
+      |vpiImportTypespec:
+      \_IntTypespec: , line:8:10, endln:8:13
+      |vpiImportTypespec:
+      \_IntVar: (work@top::f1::j), line:8:14, endln:8:15
+      |vpiImportTypespec:
+      \_IntTypespec: , line:12:9, endln:12:12
+      |vpiImportTypespec:
+      \_IntVar: (work@top::f1::j), line:12:13, endln:12:14
+      |vpiStmt:
+      \_ForStmt: (work@top::f1), line:8:4, endln:11:7
+      |vpiStmt:
+      \_ForStmt: (work@top::f1), line:12:3, endln:15:7
+      |vpiStmt:
+      \_ForStmt: (work@top::f1), line:16:4, endln:19:7
+      |vpiStmt:
+      \_ForStmt: (work@top::f1), line:21:4, endln:24:7
+    |vpiImportTypespec:
+    \_LogicVar: (work@top::f1)
+    |vpiMethod:1
+    |vpiVisibility:1
+    |vpiReturn:
+    \_LogicVar: (work@top::f1)
+    |vpiStmt:
+    \_Begin: (work@top::f1)
+  |vpiImportTypespec:
+  \_Function: (work@top::f2), line:3:1, endln:4:12
+  |vpiImportTypespec:
+  \_Function: (work@top::f1), line:7:1, endln:27:12
+  |vpiMethod:
+  \_Function: (work@top::f2), line:3:1, endln:4:12
+  |vpiMethod:
+  \_Function: (work@top::f1), line:7:1, endln:27:12
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 20
 [WARNING] : 0
 [   NOTE] : 0

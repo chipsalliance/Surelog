@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 106
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/TypedefPack/dut.sv
+FILE: ${SURELOG_DIR}/tests/TypedefPack/dut.sv
 n<> u<105> t<Top_level_rule> c<1> l<1:1> el<16:1>
-  n<> u<1> t<Null_rule> p<105> s<104> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<105> s<104> l<1:1>
   n<> u<104> t<Source_text> p<105> c<44> l<1:1> el<15:27>
     n<> u<44> t<Description> p<104> c<43> s<103> l<1:1> el<8:25>
       n<> u<43> t<Package_declaration> p<44> c<2> l<1:1> el<8:25>
@@ -44,7 +44,7 @@ n<> u<105> t<Top_level_rule> c<1> l<1:1> el<16:1>
           n<> u<39> t<Package_or_generate_item_declaration> p<40> c<38> l<7:3> el<7:27>
             n<> u<38> t<Data_declaration> p<39> c<37> l<7:3> el<7:27>
               n<> u<37> t<Type_declaration> p<38> c<35> l<7:3> el<7:27>
-                n<> u<35> t<Data_type> p<37> c<34> s<36> l<7:11> el<7:18>
+                n<lc_tx_e> u<35> t<Data_type> p<37> c<34> s<36> l<7:11> el<7:18>
                   n<lc_tx_e> u<34> t<StringConst> p<35> l<7:11> el<7:18>
                 n<lc_tx_t> u<36> t<StringConst> p<37> l<7:19> el<7:26>
         n<> u<42> t<ENDPACKAGE> p<43> s<41> l<8:1> el<8:11>
@@ -76,7 +76,7 @@ n<> u<105> t<Top_level_rule> c<1> l<1:1> el<16:1>
                 n<> u<63> t<PortDir_Out> p<71> s<70> l<12:3> el<12:9>
                 n<> u<70> t<Net_port_type> p<71> c<69> l<12:10> el<12:30>
                   n<> u<69> t<Data_type_or_implicit> p<70> c<68> l<12:10> el<12:30>
-                    n<> u<68> t<Data_type> p<69> c<66> l<12:10> el<12:30>
+                    n<lc_ctrl_pkg::lc_tx_t> u<68> t<Data_type> p<69> c<66> l<12:10> el<12:30>
                       n<> u<66> t<Class_scope> p<68> c<65> s<67> l<12:10> el<12:23>
                         n<> u<65> t<Class_type> p<66> c<64> l<12:10> el<12:21>
                           n<lc_ctrl_pkg> u<64> t<StringConst> p<65> l<12:10> el<12:21>
@@ -97,7 +97,7 @@ n<> u<105> t<Top_level_rule> c<1> l<1:1> el<16:1>
                       n<> u<92> t<Primary> p<93> c<91> l<14:20> el<14:50>
                         n<> u<91> t<Cast> p<92> c<86> l<14:20> el<14:50>
                           n<> u<86> t<Casting_type> p<91> c<85> s<90> l<14:20> el<14:40>
-                            n<> u<85> t<Simple_type> p<86> c<84> l<14:20> el<14:40>
+                            n<lc_ctrl_pkg::lc_tx_t> u<85> t<Simple_type> p<86> c<84> l<14:20> el<14:40>
                               n<> u<84> t<Ps_type_identifier> p<85> c<82> l<14:20> el<14:40>
                                 n<> u<82> t<Package_scope> p<84> c<81> s<83> l<14:20> el<14:33>
                                   n<lc_ctrl_pkg> u<81> t<StringConst> p<82> l<14:20> el<14:31>
@@ -115,53 +115,73 @@ AST_DEBUG_END
 [INF:CP0303] ${SURELOG_DIR}/tests/TypedefPack/dut.sv:10:1: Compile module "work@prim_lc_sender".
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-Constant                                               8
+Constant                                              12
 ContAssign                                             1
 Design                                                 1
 EnumConst                                              2
 EnumTypespec                                           1
-LogicNet                                               2
-LogicTypespec                                          2
+LogicNet                                               1
+LogicTypespec                                          1
+LogicVar                                               1
 Module                                                 2
 Operation                                              1
 Package                                                1
 Port                                                   2
-Range                                                  2
-RefObj                                                 4
-RefTypespec                                            4
+Range                                                  4
+RefObj                                                 2
+RefTypespec                                            2
 UnsupportedTypespec                                    2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/TypedefPack/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/TypedefPack/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/TypedefPack/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallPackages:
-\_Package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/TypedefPack/dut.sv, line:1:1, endln:8:25
+|vpiAllPackages:
+\_Package: lc_ctrl_pkg (lc_ctrl_pkg), file:${SURELOG_DIR}/tests/TypedefPack/dut.sv, line:1:1, endln:8:25
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:lc_ctrl_pkg
-  |vpiFullName:lc_ctrl_pkg::
   |vpiTypedef:
-  \_EnumTypespec: (lc_ctrl_pkg::lc_tx_e), line:2:3, endln:5:13
+  \_LogicTypespec: , line:2:16, endln:2:27
     |vpiParent:
-    \_Package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/TypedefPack/dut.sv, line:1:1, endln:8:25
-    |vpiName:lc_ctrl_pkg::lc_tx_e
-    |vpiInstance:
-    \_Package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/TypedefPack/dut.sv, line:1:1, endln:8:25
-    |vpiBaseTypespec:
-    \_RefTypespec: (lc_ctrl_pkg::lc_ctrl_pkg::lc_tx_e)
+    \_Package: lc_ctrl_pkg (lc_ctrl_pkg), file:${SURELOG_DIR}/tests/TypedefPack/dut.sv, line:1:1, endln:8:25
+    |vpiRange:
+    \_Range: , line:2:22, endln:2:27
       |vpiParent:
-      \_EnumTypespec: (lc_ctrl_pkg::lc_tx_e), line:2:3, endln:5:13
-      |vpiFullName:lc_ctrl_pkg::lc_ctrl_pkg::lc_tx_e
+      \_LogicTypespec: , line:2:16, endln:2:27
+      |vpiLeftRange:
+      \_Constant: , line:2:23, endln:2:24
+        |vpiParent:
+        \_Range: , line:2:22, endln:2:27
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:2:25, endln:2:26
+        |vpiParent:
+        \_Range: , line:2:22, endln:2:27
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_EnumTypespec: (lc_ctrl_pkg::lc_tx_e), line:2:11, endln:5:12
+    |vpiParent:
+    \_Package: lc_ctrl_pkg (lc_ctrl_pkg), file:${SURELOG_DIR}/tests/TypedefPack/dut.sv, line:1:1, endln:8:25
+    |vpiName:lc_ctrl_pkg::lc_tx_e
+    |vpiBaseTypespec:
+    \_RefTypespec: (lc_ctrl_pkg::lc_tx_e), line:2:16, endln:2:27
+      |vpiParent:
+      \_EnumTypespec: (lc_ctrl_pkg::lc_tx_e), line:2:11, endln:5:12
+      |vpiFullName:lc_ctrl_pkg::lc_tx_e
       |vpiActual:
       \_LogicTypespec: , line:2:16, endln:2:27
     |vpiEnumConst:
     \_EnumConst: (On), line:3:5, endln:3:18
       |vpiParent:
-      \_EnumTypespec: (lc_ctrl_pkg::lc_tx_e), line:2:3, endln:5:13
+      \_EnumTypespec: (lc_ctrl_pkg::lc_tx_e), line:2:11, endln:5:12
       |vpiName:On
       |BIN:1010
       |vpiDecompile:4'b1010
@@ -169,73 +189,76 @@ Design: (unnamed)
     |vpiEnumConst:
     \_EnumConst: (Off), line:4:5, endln:4:18
       |vpiParent:
-      \_EnumTypespec: (lc_ctrl_pkg::lc_tx_e), line:2:3, endln:5:13
+      \_EnumTypespec: (lc_ctrl_pkg::lc_tx_e), line:2:11, endln:5:12
       |vpiName:Off
       |BIN:0101
       |vpiDecompile:4'b0101
       |vpiSize:4
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:2:16, endln:2:27
+  |vpiImportTypespec:
+  \_EnumTypespec: (lc_ctrl_pkg::lc_tx_e), line:2:11, endln:5:12
   |vpiDefName:lc_ctrl_pkg
   |vpiEndLabel:lc_ctrl_pkg
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@prim_lc_sender (work@prim_lc_sender), file:${SURELOG_DIR}/tests/TypedefPack/dut.sv, line:10:1, endln:15:27
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@prim_lc_sender
-  |vpiDefName:work@prim_lc_sender
-  |vpiNet:
+  |vpiName:work@prim_lc_sender
+  |vpiVariables:
+  \_LogicVar: (work@prim_lc_sender.lc_en_o), line:12:31, endln:12:38
+    |vpiParent:
+    \_Module: work@prim_lc_sender (work@prim_lc_sender), file:${SURELOG_DIR}/tests/TypedefPack/dut.sv, line:10:1, endln:15:27
+    |vpiName:lc_en_o
+    |vpiFullName:work@prim_lc_sender.lc_en_o
+    |vpiVisibility:1
+  |vpiReg:
+  \_LogicVar: (work@prim_lc_sender.lc_en_o), line:12:31, endln:12:38
+  |vpiTypedef:
+  \_UnsupportedTypespec: (lc_ctrl_pkg::lc_tx_t), line:12:10, endln:12:30
+    |vpiParent:
+    \_Module: work@prim_lc_sender (work@prim_lc_sender), file:${SURELOG_DIR}/tests/TypedefPack/dut.sv, line:10:1, endln:15:27
+    |vpiName:lc_ctrl_pkg::lc_tx_t
+  |vpiTypedef:
+  \_UnsupportedTypespec: (lc_ctrl_pkg::lc_tx_t), line:12:10, endln:12:30
+    |vpiParent:
+    \_Module: work@prim_lc_sender (work@prim_lc_sender), file:${SURELOG_DIR}/tests/TypedefPack/dut.sv, line:10:1, endln:15:27
+    |vpiName:lc_ctrl_pkg::lc_tx_t
+  |vpiImportTypespec:
   \_LogicNet: (work@prim_lc_sender.lc_en_i), line:11:16, endln:11:23
     |vpiParent:
     \_Module: work@prim_lc_sender (work@prim_lc_sender), file:${SURELOG_DIR}/tests/TypedefPack/dut.sv, line:10:1, endln:15:27
     |vpiName:lc_en_i
     |vpiFullName:work@prim_lc_sender.lc_en_i
+  |vpiImportTypespec:
+  \_UnsupportedTypespec: (lc_ctrl_pkg::lc_tx_t), line:12:10, endln:12:30
+  |vpiImportTypespec:
+  \_LogicVar: (work@prim_lc_sender.lc_en_o), line:12:31, endln:12:38
+  |vpiImportTypespec:
+  \_UnsupportedTypespec: (lc_ctrl_pkg::lc_tx_t), line:12:10, endln:12:30
+  |vpiDefName:work@prim_lc_sender
   |vpiNet:
-  \_LogicNet: (work@prim_lc_sender.lc_en_o), line:12:31, endln:12:38
-    |vpiParent:
-    \_Module: work@prim_lc_sender (work@prim_lc_sender), file:${SURELOG_DIR}/tests/TypedefPack/dut.sv, line:10:1, endln:15:27
-    |vpiName:lc_en_o
-    |vpiFullName:work@prim_lc_sender.lc_en_o
+  \_LogicNet: (work@prim_lc_sender.lc_en_i), line:11:16, endln:11:23
   |vpiPort:
   \_Port: (lc_en_i), line:11:16, endln:11:23
     |vpiParent:
     \_Module: work@prim_lc_sender (work@prim_lc_sender), file:${SURELOG_DIR}/tests/TypedefPack/dut.sv, line:10:1, endln:15:27
     |vpiName:lc_en_i
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@prim_lc_sender.lc_en_i.lc_en_i), line:11:16, endln:11:23
-      |vpiParent:
-      \_Port: (lc_en_i), line:11:16, endln:11:23
-      |vpiName:lc_en_i
-      |vpiFullName:work@prim_lc_sender.lc_en_i.lc_en_i
-      |vpiActual:
-      \_LogicNet: (work@prim_lc_sender.lc_en_i), line:11:16, endln:11:23
-    |vpiTypedef:
-    \_RefTypespec: (work@prim_lc_sender.lc_en_i)
-      |vpiParent:
-      \_Port: (lc_en_i), line:11:16, endln:11:23
-      |vpiFullName:work@prim_lc_sender.lc_en_i
-      |vpiActual:
-      \_LogicTypespec: , line:11:10, endln:11:15
   |vpiPort:
   \_Port: (lc_en_o), line:12:31, endln:12:38
     |vpiParent:
     \_Module: work@prim_lc_sender (work@prim_lc_sender), file:${SURELOG_DIR}/tests/TypedefPack/dut.sv, line:10:1, endln:15:27
     |vpiName:lc_en_o
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@prim_lc_sender.lc_en_o.lc_en_o), line:12:31, endln:12:38
+    |vpiTypespec:
+    \_RefTypespec: (work@prim_lc_sender.lc_en_o.lc_ctrl_pkg::lc_tx_t), line:12:10, endln:12:30
       |vpiParent:
       \_Port: (lc_en_o), line:12:31, endln:12:38
-      |vpiName:lc_en_o
-      |vpiFullName:work@prim_lc_sender.lc_en_o.lc_en_o
+      |vpiName:lc_ctrl_pkg::lc_tx_t
+      |vpiFullName:work@prim_lc_sender.lc_en_o.lc_ctrl_pkg::lc_tx_t
       |vpiActual:
-      \_LogicNet: (work@prim_lc_sender.lc_en_o), line:12:31, endln:12:38
-    |vpiTypedef:
-    \_RefTypespec: (work@prim_lc_sender.lc_en_o)
-      |vpiParent:
-      \_Port: (lc_en_o), line:12:31, endln:12:38
-      |vpiFullName:work@prim_lc_sender.lc_en_o
-      |vpiActual:
-      \_UnsupportedTypespec: (lc_ctrl_pkg::lc_tx_t), line:12:10, endln:12:23
+      \_UnsupportedTypespec: (lc_ctrl_pkg::lc_tx_t), line:12:10, endln:12:30
   |vpiContAssign:
   \_ContAssign: , line:14:10, endln:14:50
     |vpiParent:
@@ -244,13 +267,6 @@ Design: (unnamed)
     \_Operation: , line:14:20, endln:14:50
       |vpiParent:
       \_ContAssign: , line:14:10, endln:14:50
-      |vpiTypespec:
-      \_RefTypespec: (work@prim_lc_sender)
-        |vpiParent:
-        \_Operation: , line:14:20, endln:14:50
-        |vpiFullName:work@prim_lc_sender
-        |vpiActual:
-        \_UnsupportedTypespec: (lc_ctrl_pkg::lc_tx_t), line:14:20, endln:14:33
       |vpiOpType:67
       |vpiOperand:
       \_RefObj: (work@prim_lc_sender.lc_en_i), line:14:42, endln:14:49
@@ -267,57 +283,8 @@ Design: (unnamed)
       |vpiName:lc_en_o
       |vpiFullName:work@prim_lc_sender.lc_en_o
       |vpiActual:
-      \_LogicNet: (work@prim_lc_sender.lc_en_o), line:12:31, endln:12:38
+      \_LogicVar: (work@prim_lc_sender.lc_en_o), line:12:31, endln:12:38
   |vpiEndLabel:prim_lc_sender
-\_weaklyReferenced:
-\_LogicTypespec: , line:2:16, endln:2:27
-  |vpiInstance:
-  \_Package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/TypedefPack/dut.sv, line:1:1, endln:8:25
-  |vpiRange:
-  \_Range: , line:2:22, endln:2:27
-    |vpiParent:
-    \_LogicTypespec: , line:2:16, endln:2:27
-    |vpiLeftRange:
-    \_Constant: , line:2:23, endln:2:24
-      |vpiParent:
-      \_Range: , line:2:22, endln:2:27
-      |vpiDecompile:3
-      |vpiSize:64
-      |UINT:3
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:2:25, endln:2:26
-      |vpiParent:
-      \_Range: , line:2:22, endln:2:27
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_UnsupportedTypespec: (lc_ctrl_pkg::lc_tx_t), line:14:20, endln:14:33
-  |vpiName:lc_ctrl_pkg::lc_tx_t
-\_LogicTypespec: , line:11:10, endln:11:15
-  |vpiRange:
-  \_Range: , line:11:10, endln:11:15
-    |vpiParent:
-    \_LogicTypespec: , line:11:10, endln:11:15
-    |vpiLeftRange:
-    \_Constant: , line:11:11, endln:11:12
-      |vpiParent:
-      \_Range: , line:11:10, endln:11:15
-      |vpiDecompile:3
-      |vpiSize:64
-      |UINT:3
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:11:13, endln:11:14
-      |vpiParent:
-      \_Range: , line:11:10, endln:11:15
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_UnsupportedTypespec: (lc_ctrl_pkg::lc_tx_t), line:12:10, endln:12:23
-  |vpiName:lc_ctrl_pkg::lc_tx_t
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

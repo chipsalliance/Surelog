@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 178
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/UnsizedFunc/dut.sv
+FILE: ${SURELOG_DIR}/tests/UnsizedFunc/dut.sv
 n<> u<177> t<Top_level_rule> c<1> l<3:1> el<103:3>
-  n<> u<1> t<Null_rule> p<177> s<176> l<3:1> el<1:3>
+  n<> u<1> t<Null_rule> p<177> s<176> l<3:1> el<3:1>
   n<> u<176> t<Source_text> p<177> c<134> l<3:1> el<19:10>
     n<> u<134> t<Description> p<176> c<133> s<175> l<3:1> el<13:10>
       n<> u<133> t<Module_declaration> p<134> c<13> l<3:1> el<13:10>
@@ -129,7 +129,7 @@ n<> u<177> t<Top_level_rule> c<1> l<3:1> el<103:3>
                                     n<> u<116> t<Primary> p<117> c<115> l<11:11> el<11:25>
                                       n<> u<115> t<Cast> p<116> c<109> l<11:11> el<11:25>
                                         n<> u<109> t<Casting_type> p<115> c<108> s<114> l<11:11> el<11:14>
-                                          n<> u<108> t<Simple_type> p<109> c<107> l<11:11> el<11:14>
+                                          n<int> u<108> t<Simple_type> p<109> c<107> l<11:11> el<11:14>
                                             n<> u<107> t<Integer_type> p<108> c<106> l<11:11> el<11:14>
                                               n<> u<106> t<IntegerAtomType_Int> p<107> l<11:11> el<11:14>
                                         n<> u<114> t<Expression> p<115> c<113> l<11:16> el<11:24>
@@ -195,42 +195,56 @@ Design                                                 1
 FuncCall                                               1
 Function                                               1
 Initial                                                1
-IntTypespec                                            4
-LogicNet                                               2
+IntTypespec                                            5
+IntVar                                                 2
 LogicTypespec                                          2
 LogicVar                                               2
 Module                                                 2
+ModuleTypespec                                         1
 Operation                                              5
 ParamAssign                                            1
 Parameter                                              1
 Port                                                   3
 Range                                                  4
 RefModule                                              1
-RefObj                                                 9
+RefObj                                                 7
 RefTypespec                                            7
 ReturnStmt                                             1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/UnsizedFunc/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/UnsizedFunc/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/UnsizedFunc/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@prim_lfsr (work@prim_lfsr), file:${SURELOG_DIR}/tests/UnsizedFunc/dut.sv, line:3:1, endln:13:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@prim_lfsr
+  |vpiName:work@prim_lfsr
+  |vpiVariables:
+  \_IntVar: (work@prim_lfsr.o), line:3:29, endln:3:30
+    |vpiParent:
+    \_Module: work@prim_lfsr (work@prim_lfsr), file:${SURELOG_DIR}/tests/UnsizedFunc/dut.sv, line:3:1, endln:13:10
+    |vpiTypespec:
+    \_RefTypespec: (work@prim_lfsr.o), line:3:25, endln:3:28
+      |vpiParent:
+      \_IntVar: (work@prim_lfsr.o), line:3:29, endln:3:30
+      |vpiFullName:work@prim_lfsr.o
+      |vpiActual:
+      \_IntTypespec: , line:3:25, endln:3:28
+    |vpiName:o
+    |vpiFullName:work@prim_lfsr.o
+    |vpiSigned:1
+    |vpiVisibility:1
   |vpiParameter:
-  \_Parameter: (work@prim_lfsr.LfsrDw), line:4:27, endln:4:33
+  \_Parameter: (work@prim_lfsr.LfsrDw), line:4:27, endln:4:38
     |vpiParent:
     \_Module: work@prim_lfsr (work@prim_lfsr), file:${SURELOG_DIR}/tests/UnsizedFunc/dut.sv, line:3:1, endln:13:10
     |UINT:12
     |vpiTypespec:
-    \_RefTypespec: (work@prim_lfsr.LfsrDw)
+    \_RefTypespec: (work@prim_lfsr.LfsrDw), line:4:14, endln:4:26
       |vpiParent:
-      \_Parameter: (work@prim_lfsr.LfsrDw), line:4:27, endln:4:33
+      \_Parameter: (work@prim_lfsr.LfsrDw), line:4:27, endln:4:38
       |vpiFullName:work@prim_lfsr.LfsrDw
       |vpiActual:
       \_IntTypespec: , line:4:14, endln:4:26
@@ -247,65 +261,100 @@ Design: (unnamed)
       |vpiDecompile:12
       |vpiSize:64
       |UINT:12
-      |vpiTypespec:
-      \_RefTypespec: (work@prim_lfsr)
-        |vpiParent:
-        \_Constant: , line:4:36, endln:4:38
-        |vpiFullName:work@prim_lfsr
-        |vpiActual:
-        \_IntTypespec: , line:4:14, endln:4:26
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (work@prim_lfsr.LfsrDw), line:4:27, endln:4:33
-  |vpiDefName:work@prim_lfsr
-  |vpiTaskFunc:
+    \_Parameter: (work@prim_lfsr.LfsrDw), line:4:27, endln:4:38
+  |vpiInternalScope:
   \_Function: (work@prim_lfsr.get_1s), line:5:4, endln:8:15
     |vpiParent:
     \_Module: work@prim_lfsr (work@prim_lfsr), file:${SURELOG_DIR}/tests/UnsizedFunc/dut.sv, line:3:1, endln:13:10
     |vpiName:get_1s
     |vpiFullName:work@prim_lfsr.get_1s
     |vpiVariables:
-    \_LogicVar: (work@prim_lfsr.get_1s.a), line:6:26, endln:6:27
-      |vpiParent:
-      \_Assignment: , line:6:26, endln:6:32
-      |vpiTypespec:
-      \_RefTypespec: (work@prim_lfsr.get_1s.a)
-        |vpiParent:
-        \_LogicVar: (work@prim_lfsr.get_1s.a), line:6:26, endln:6:27
-        |vpiFullName:work@prim_lfsr.get_1s.a
-        |vpiActual:
-        \_LogicTypespec: , line:6:7, endln:6:25
-      |vpiName:a
-      |vpiFullName:work@prim_lfsr.get_1s.a
-    |vpiVisibility:1
-    |vpiAutomatic:1
-    |vpiReturn:
-    \_LogicVar: (work@prim_lfsr.get_1s), line:5:23, endln:5:41
+    \_LogicVar: (work@prim_lfsr.get_1s)
       |vpiParent:
       \_Function: (work@prim_lfsr.get_1s), line:5:4, endln:8:15
       |vpiTypespec:
-      \_RefTypespec: (work@prim_lfsr.get_1s)
+      \_RefTypespec: (work@prim_lfsr.get_1s), line:5:23, endln:5:41
         |vpiParent:
-        \_LogicVar: (work@prim_lfsr.get_1s), line:5:23, endln:5:41
+        \_LogicVar: (work@prim_lfsr.get_1s)
         |vpiFullName:work@prim_lfsr.get_1s
         |vpiActual:
         \_LogicTypespec: , line:5:23, endln:5:41
       |vpiFullName:work@prim_lfsr.get_1s
-    |vpiStmt:
-    \_Begin: (work@prim_lfsr.get_1s), line:7:7, endln:7:16
+    |vpiReg:
+    \_LogicVar: (work@prim_lfsr.get_1s)
+    |vpiInternalScope:
+    \_Begin: (work@prim_lfsr.get_1s)
       |vpiParent:
       \_Function: (work@prim_lfsr.get_1s), line:5:4, endln:8:15
       |vpiFullName:work@prim_lfsr.get_1s
       |vpiVariables:
       \_LogicVar: (work@prim_lfsr.get_1s.a), line:6:26, endln:6:27
+        |vpiParent:
+        \_Begin: (work@prim_lfsr.get_1s)
+        |vpiTypespec:
+        \_RefTypespec: (work@prim_lfsr.get_1s.a), line:6:7, endln:6:25
+          |vpiParent:
+          \_LogicVar: (work@prim_lfsr.get_1s.a), line:6:26, endln:6:27
+          |vpiFullName:work@prim_lfsr.get_1s.a
+          |vpiActual:
+          \_LogicTypespec: , line:6:7, endln:6:25
+        |vpiName:a
+        |vpiFullName:work@prim_lfsr.get_1s.a
+      |vpiReg:
+      \_LogicVar: (work@prim_lfsr.get_1s.a), line:6:26, endln:6:27
+      |vpiTypedef:
+      \_LogicTypespec: , line:6:7, endln:6:25
+        |vpiParent:
+        \_Begin: (work@prim_lfsr.get_1s)
+        |vpiRange:
+        \_Range: , line:6:13, endln:6:25
+          |vpiParent:
+          \_LogicTypespec: , line:6:7, endln:6:25
+          |vpiLeftRange:
+          \_Operation: , line:6:14, endln:6:22
+            |vpiParent:
+            \_Range: , line:6:13, endln:6:25
+            |vpiOpType:11
+            |vpiOperand:
+            \_RefObj: (work@prim_lfsr.get_1s.LfsrDw), line:6:14, endln:6:20
+              |vpiParent:
+              \_Operation: , line:6:14, endln:6:22
+              |vpiName:LfsrDw
+              |vpiFullName:work@prim_lfsr.get_1s.LfsrDw
+              |vpiActual:
+              \_Parameter: (work@prim_lfsr.LfsrDw), line:4:27, endln:4:38
+            |vpiOperand:
+            \_Constant: , line:6:21, endln:6:22
+              |vpiParent:
+              \_Operation: , line:6:14, endln:6:22
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
+          |vpiRightRange:
+          \_Constant: , line:6:23, endln:6:24
+            |vpiParent:
+            \_Range: , line:6:13, endln:6:25
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+      |vpiImportTypespec:
+      \_LogicTypespec: , line:6:7, endln:6:25
+      |vpiImportTypespec:
+      \_LogicVar: (work@prim_lfsr.get_1s.a), line:6:26, endln:6:27
       |vpiStmt:
       \_Assignment: , line:6:26, endln:6:32
         |vpiParent:
-        \_Begin: (work@prim_lfsr.get_1s), line:7:7, endln:7:16
+        \_Begin: (work@prim_lfsr.get_1s)
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
         \_Constant: , line:6:30, endln:6:32
+          |vpiParent:
+          \_Assignment: , line:6:26, endln:6:32
           |vpiDecompile:'1
           |vpiSize:-1
           |BIN:1
@@ -313,41 +362,99 @@ Design: (unnamed)
         |vpiLhs:
         \_LogicVar: (work@prim_lfsr.get_1s.a), line:6:26, endln:6:27
       |vpiStmt:
-      \_ReturnStmt: , line:7:7, endln:7:13
+      \_ReturnStmt: , line:7:7, endln:7:15
         |vpiParent:
-        \_Begin: (work@prim_lfsr.get_1s), line:7:7, endln:7:16
+        \_Begin: (work@prim_lfsr.get_1s)
         |vpiCondition:
         \_RefObj: (work@prim_lfsr.get_1s.a), line:7:14, endln:7:15
           |vpiParent:
-          \_ReturnStmt: , line:7:7, endln:7:13
+          \_ReturnStmt: , line:7:7, endln:7:15
           |vpiName:a
           |vpiFullName:work@prim_lfsr.get_1s.a
           |vpiActual:
           \_LogicVar: (work@prim_lfsr.get_1s.a), line:6:26, endln:6:27
-    |vpiInstance:
-    \_Module: work@prim_lfsr (work@prim_lfsr), file:${SURELOG_DIR}/tests/UnsizedFunc/dut.sv, line:3:1, endln:13:10
-  |vpiNet:
-  \_LogicNet: (work@prim_lfsr.o), line:3:29, endln:3:30
+    |vpiTypedef:
+    \_LogicTypespec: , line:5:23, endln:5:41
+      |vpiParent:
+      \_Function: (work@prim_lfsr.get_1s), line:5:4, endln:8:15
+      |vpiRange:
+      \_Range: , line:5:29, endln:5:41
+        |vpiParent:
+        \_LogicTypespec: , line:5:23, endln:5:41
+        |vpiLeftRange:
+        \_Operation: , line:5:30, endln:5:38
+          |vpiParent:
+          \_Range: , line:5:29, endln:5:41
+          |vpiOpType:11
+          |vpiOperand:
+          \_RefObj: (work@prim_lfsr.get_1s.LfsrDw), line:5:30, endln:5:36
+            |vpiParent:
+            \_Operation: , line:5:30, endln:5:38
+            |vpiName:LfsrDw
+            |vpiFullName:work@prim_lfsr.get_1s.LfsrDw
+            |vpiActual:
+            \_Parameter: (work@prim_lfsr.LfsrDw), line:4:27, endln:4:38
+          |vpiOperand:
+          \_Constant: , line:5:37, endln:5:38
+            |vpiParent:
+            \_Operation: , line:5:30, endln:5:38
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_Constant: , line:5:39, endln:5:40
+          |vpiParent:
+          \_Range: , line:5:29, endln:5:41
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiImportTypespec:
+    \_LogicTypespec: , line:5:23, endln:5:41
+    |vpiImportTypespec:
+    \_LogicVar: (work@prim_lfsr.get_1s)
+    |vpiVisibility:1
+    |vpiAutomatic:1
+    |vpiReturn:
+    \_LogicVar: (work@prim_lfsr.get_1s)
+    |vpiStmt:
+    \_Begin: (work@prim_lfsr.get_1s)
+  |vpiTypedef:
+  \_IntTypespec: , line:4:14, endln:4:26
     |vpiParent:
     \_Module: work@prim_lfsr (work@prim_lfsr), file:${SURELOG_DIR}/tests/UnsizedFunc/dut.sv, line:3:1, endln:13:10
-    |vpiName:o
-    |vpiFullName:work@prim_lfsr.o
+  |vpiTypedef:
+  \_IntTypespec: , line:3:25, endln:3:28
+    |vpiParent:
+    \_Module: work@prim_lfsr (work@prim_lfsr), file:${SURELOG_DIR}/tests/UnsizedFunc/dut.sv, line:3:1, endln:13:10
+    |vpiSigned:1
+  |vpiTypedef:
+  \_IntTypespec: , line:3:25, endln:3:28
+    |vpiParent:
+    \_Module: work@prim_lfsr (work@prim_lfsr), file:${SURELOG_DIR}/tests/UnsizedFunc/dut.sv, line:3:1, endln:13:10
+    |vpiSigned:1
+  |vpiImportTypespec:
+  \_Function: (work@prim_lfsr.get_1s), line:5:4, endln:8:15
+  |vpiImportTypespec:
+  \_IntTypespec: , line:4:14, endln:4:26
+  |vpiImportTypespec:
+  \_IntTypespec: , line:3:25, endln:3:28
+  |vpiImportTypespec:
+  \_IntVar: (work@prim_lfsr.o), line:3:29, endln:3:30
+  |vpiImportTypespec:
+  \_IntTypespec: , line:3:25, endln:3:28
+  |vpiDefName:work@prim_lfsr
+  |vpiTaskFunc:
+  \_Function: (work@prim_lfsr.get_1s), line:5:4, endln:8:15
   |vpiPort:
   \_Port: (o), line:3:29, endln:3:30
     |vpiParent:
     \_Module: work@prim_lfsr (work@prim_lfsr), file:${SURELOG_DIR}/tests/UnsizedFunc/dut.sv, line:3:1, endln:13:10
     |vpiName:o
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@prim_lfsr.o.o), line:3:29, endln:3:30
-      |vpiParent:
-      \_Port: (o), line:3:29, endln:3:30
-      |vpiName:o
-      |vpiFullName:work@prim_lfsr.o.o
-      |vpiActual:
-      \_LogicNet: (work@prim_lfsr.o), line:3:29, endln:3:30
-    |vpiTypedef:
-    \_RefTypespec: (work@prim_lfsr.o)
+    |vpiTypespec:
+    \_RefTypespec: (work@prim_lfsr.o), line:3:25, endln:3:28
       |vpiParent:
       \_Port: (o), line:3:29, endln:3:30
       |vpiFullName:work@prim_lfsr.o
@@ -372,13 +479,6 @@ Design: (unnamed)
         \_Operation: , line:11:11, endln:11:25
           |vpiParent:
           \_Assignment: , line:11:7, endln:11:25
-          |vpiTypespec:
-          \_RefTypespec: (work@prim_lfsr)
-            |vpiParent:
-            \_Operation: , line:11:11, endln:11:25
-            |vpiFullName:work@prim_lfsr
-            |vpiActual:
-            \_IntTypespec: , line:11:11, endln:11:14
           |vpiOpType:67
           |vpiOperand:
           \_FuncCall: (get_1s), line:11:16, endln:11:24
@@ -394,42 +494,66 @@ Design: (unnamed)
           |vpiName:o
           |vpiFullName:work@prim_lfsr.o
           |vpiActual:
-          \_LogicNet: (work@prim_lfsr.o), line:3:29, endln:3:30
-|uhdmallModules:
+          \_IntVar: (work@prim_lfsr.o), line:3:29, endln:3:30
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedFunc/dut.sv, line:15:1, endln:19:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
-  |vpiDefName:work@top
-  |vpiNet:
-  \_LogicNet: (work@top.o), line:15:23, endln:15:24
+  |vpiName:work@top
+  |vpiVariables:
+  \_IntVar: (work@top.o), line:15:23, endln:15:24
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedFunc/dut.sv, line:15:1, endln:19:10
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o), line:15:19, endln:15:22
+      |vpiParent:
+      \_IntVar: (work@top.o), line:15:23, endln:15:24
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_IntTypespec: , line:15:19, endln:15:22
     |vpiName:o
     |vpiFullName:work@top.o
+    |vpiSigned:1
+    |vpiVisibility:1
+  |vpiTypedef:
+  \_ModuleTypespec: (prim_lfsr), line:16:4, endln:16:13
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedFunc/dut.sv, line:15:1, endln:19:10
+    |vpiName:prim_lfsr
+  |vpiTypedef:
+  \_IntTypespec: , line:15:19, endln:15:22
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedFunc/dut.sv, line:15:1, endln:19:10
+    |vpiSigned:1
+  |vpiTypedef:
+  \_IntTypespec: , line:15:19, endln:15:22
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedFunc/dut.sv, line:15:1, endln:19:10
+    |vpiSigned:1
+  |vpiImportTypespec:
+  \_ModuleTypespec: (prim_lfsr), line:16:4, endln:16:13
+  |vpiImportTypespec:
+  \_IntTypespec: , line:15:19, endln:15:22
+  |vpiImportTypespec:
+  \_IntVar: (work@top.o), line:15:23, endln:15:24
+  |vpiImportTypespec:
+  \_IntTypespec: , line:15:19, endln:15:22
+  |vpiDefName:work@top
   |vpiPort:
   \_Port: (o), line:15:23, endln:15:24
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedFunc/dut.sv, line:15:1, endln:19:10
     |vpiName:o
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@top.o.o), line:15:23, endln:15:24
-      |vpiParent:
-      \_Port: (o), line:15:23, endln:15:24
-      |vpiName:o
-      |vpiFullName:work@top.o.o
-      |vpiActual:
-      \_LogicNet: (work@top.o), line:15:23, endln:15:24
-    |vpiTypedef:
-    \_RefTypespec: (work@top.o)
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o), line:15:19, endln:15:22
       |vpiParent:
       \_Port: (o), line:15:23, endln:15:24
       |vpiFullName:work@top.o
       |vpiActual:
       \_IntTypespec: , line:15:19, endln:15:22
   |vpiRefModule:
-  \_RefModule: work@prim_lfsr (u_lfsr), line:18:6, endln:18:12
+  \_RefModule: work@prim_lfsr (u_lfsr), line:16:4, endln:16:13
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/UnsizedFunc/dut.sv, line:15:1, endln:19:10
     |vpiName:u_lfsr
@@ -437,90 +561,18 @@ Design: (unnamed)
     |vpiActual:
     \_Module: work@prim_lfsr (work@prim_lfsr), file:${SURELOG_DIR}/tests/UnsizedFunc/dut.sv, line:3:1, endln:13:10
     |vpiPort:
-    \_Port: (o), line:18:13, endln:18:18
+    \_Port: (o), line:18:14, endln:18:15
       |vpiParent:
-      \_RefModule: work@prim_lfsr (u_lfsr), line:18:6, endln:18:12
+      \_RefModule: work@prim_lfsr (u_lfsr), line:16:4, endln:16:13
       |vpiName:o
       |vpiHighConn:
       \_RefObj: (work@top.u_lfsr.o.o), line:18:16, endln:18:17
         |vpiParent:
-        \_Port: (o), line:18:13, endln:18:18
+        \_Port: (o), line:18:14, endln:18:15
         |vpiName:o
         |vpiFullName:work@top.u_lfsr.o.o
         |vpiActual:
-        \_LogicNet: (work@top.o), line:15:23, endln:15:24
-\_weaklyReferenced:
-\_IntTypespec: , line:4:14, endln:4:26
-  |vpiParent:
-  \_Parameter: (work@prim_lfsr.LfsrDw), line:4:27, endln:4:33
-\_LogicTypespec: , line:5:23, endln:5:41
-  |vpiRange:
-  \_Range: , line:5:29, endln:5:41
-    |vpiParent:
-    \_LogicTypespec: , line:5:23, endln:5:41
-    |vpiLeftRange:
-    \_Operation: , line:5:30, endln:5:38
-      |vpiParent:
-      \_Range: , line:5:29, endln:5:41
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (LfsrDw), line:5:30, endln:5:36
-        |vpiParent:
-        \_Operation: , line:5:30, endln:5:38
-        |vpiName:LfsrDw
-      |vpiOperand:
-      \_Constant: , line:5:37, endln:5:38
-        |vpiParent:
-        \_Operation: , line:5:30, endln:5:38
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:5:39, endln:5:40
-      |vpiParent:
-      \_Range: , line:5:29, endln:5:41
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:6:7, endln:6:25
-  |vpiRange:
-  \_Range: , line:6:13, endln:6:25
-    |vpiParent:
-    \_LogicTypespec: , line:6:7, endln:6:25
-    |vpiLeftRange:
-    \_Operation: , line:6:14, endln:6:22
-      |vpiParent:
-      \_Range: , line:6:13, endln:6:25
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (LfsrDw), line:6:14, endln:6:20
-        |vpiParent:
-        \_Operation: , line:6:14, endln:6:22
-        |vpiName:LfsrDw
-      |vpiOperand:
-      \_Constant: , line:6:21, endln:6:22
-        |vpiParent:
-        \_Operation: , line:6:14, endln:6:22
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:6:23, endln:6:24
-      |vpiParent:
-      \_Range: , line:6:13, endln:6:25
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_IntTypespec: , line:11:11, endln:11:14
-  |vpiSigned:1
-\_IntTypespec: , line:3:25, endln:3:28
-  |vpiSigned:1
-\_IntTypespec: , line:15:19, endln:15:22
-  |vpiSigned:1
+        \_IntVar: (work@top.o), line:15:23, endln:15:24
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

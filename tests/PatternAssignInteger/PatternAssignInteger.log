@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 77
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/PatternAssignInteger/dut.sv
+FILE: ${SURELOG_DIR}/tests/PatternAssignInteger/dut.sv
 n<> u<76> t<Top_level_rule> c<1> l<1:1> el<3:10>
-  n<> u<1> t<Null_rule> p<76> s<75> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<76> s<75> l<1:1>
   n<> u<75> t<Source_text> p<76> c<74> l<1:1> el<3:10>
     n<> u<74> t<Description> p<75> c<73> l<1:1> el<3:10>
       n<> u<73> t<Module_declaration> p<74> c<23> l<1:1> el<3:10>
@@ -85,57 +85,136 @@ AST_DEBUG_END
 [INF:CP0303] ${SURELOG_DIR}/tests/PatternAssignInteger/dut.sv:1:1: Compile module "work@top".
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-Constant                                               6
+Constant                                              10
 ContAssign                                             1
 Design                                                 1
 IntegerTypespec                                        3
 LogicNet                                               1
-LogicTypespec                                          1
+LogicTypespec                                          2
 Module                                                 1
 Operation                                              1
 Port                                                   1
-Range                                                  1
-RefObj                                                 2
-RefTypespec                                            5
+Range                                                  3
+RefObj                                                 1
+RefTypespec                                            6
 StringTypespec                                         1
 TaggedPattern                                          4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PatternAssignInteger/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/PatternAssignInteger/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/PatternAssignInteger/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PatternAssignInteger/dut.sv, line:1:1, endln:3:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
-  |vpiDefName:work@top
-  |vpiNet:
+  |vpiName:work@top
+  |vpiTypedef:
+  \_IntegerTypespec: , line:2:17, endln:2:18
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PatternAssignInteger/dut.sv, line:1:1, endln:3:10
+    |INT:0
+  |vpiTypedef:
+  \_IntegerTypespec: , line:2:22, endln:2:23
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PatternAssignInteger/dut.sv, line:1:1, endln:3:10
+    |INT:3
+  |vpiTypedef:
+  \_IntegerTypespec: , line:2:27, endln:2:28
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PatternAssignInteger/dut.sv, line:1:1, endln:3:10
+    |INT:7
+  |vpiTypedef:
+  \_StringTypespec: (default), line:2:32, endln:2:39
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PatternAssignInteger/dut.sv, line:1:1, endln:3:10
+    |vpiName:default
+  |vpiTypedef:
+  \_LogicTypespec: , line:1:19, endln:1:29
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PatternAssignInteger/dut.sv, line:1:1, endln:3:10
+    |vpiRange:
+    \_Range: , line:1:24, endln:1:29
+      |vpiParent:
+      \_LogicTypespec: , line:1:19, endln:1:29
+      |vpiLeftRange:
+      \_Constant: , line:1:25, endln:1:26
+        |vpiParent:
+        \_Range: , line:1:24, endln:1:29
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:1:27, endln:1:28
+        |vpiParent:
+        \_Range: , line:1:24, endln:1:29
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:1:19, endln:1:29
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PatternAssignInteger/dut.sv, line:1:1, endln:3:10
+    |vpiRange:
+    \_Range: , line:1:24, endln:1:29
+      |vpiParent:
+      \_LogicTypespec: , line:1:19, endln:1:29
+      |vpiLeftRange:
+      \_Constant: , line:1:25, endln:1:26
+        |vpiParent:
+        \_Range: , line:1:24, endln:1:29
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:1:27, endln:1:28
+        |vpiParent:
+        \_Range: , line:1:24, endln:1:29
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiImportTypespec:
+  \_IntegerTypespec: , line:2:17, endln:2:18
+  |vpiImportTypespec:
+  \_IntegerTypespec: , line:2:22, endln:2:23
+  |vpiImportTypespec:
+  \_IntegerTypespec: , line:2:27, endln:2:28
+  |vpiImportTypespec:
+  \_StringTypespec: (default), line:2:32, endln:2:39
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:1:19, endln:1:29
+  |vpiImportTypespec:
   \_LogicNet: (work@top.o), line:1:30, endln:1:31
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PatternAssignInteger/dut.sv, line:1:1, endln:3:10
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o), line:1:19, endln:1:29
+      |vpiParent:
+      \_LogicNet: (work@top.o), line:1:30, endln:1:31
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_LogicTypespec: , line:1:19, endln:1:29
     |vpiName:o
     |vpiFullName:work@top.o
     |vpiNetType:36
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:1:19, endln:1:29
+  |vpiDefName:work@top
+  |vpiNet:
+  \_LogicNet: (work@top.o), line:1:30, endln:1:31
   |vpiPort:
   \_Port: (o), line:1:30, endln:1:31
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PatternAssignInteger/dut.sv, line:1:1, endln:3:10
     |vpiName:o
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@top.o.o), line:1:30, endln:1:31
-      |vpiParent:
-      \_Port: (o), line:1:30, endln:1:31
-      |vpiName:o
-      |vpiFullName:work@top.o.o
-      |vpiActual:
-      \_LogicNet: (work@top.o), line:1:30, endln:1:31
-    |vpiTypedef:
-    \_RefTypespec: (work@top.o)
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o), line:1:19, endln:1:24
       |vpiParent:
       \_Port: (o), line:1:30, endln:1:31
       |vpiFullName:work@top.o
@@ -151,70 +230,78 @@ Design: (unnamed)
       \_ContAssign: , line:2:11, endln:2:42
       |vpiOpType:75
       |vpiOperand:
-      \_TaggedPattern: , line:2:19, endln:2:20
+      \_TaggedPattern: , line:2:17, endln:2:20
         |vpiParent:
         \_Operation: , line:2:15, endln:2:42
         |vpiPattern:
         \_Constant: , line:2:19, endln:2:20
+          |vpiParent:
+          \_TaggedPattern: , line:2:17, endln:2:20
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
           |vpiConstType:9
         |vpiTypespec:
-        \_RefTypespec: (work@top)
+        \_RefTypespec: (work@top), line:2:17, endln:2:18
           |vpiParent:
-          \_TaggedPattern: , line:2:19, endln:2:20
+          \_TaggedPattern: , line:2:17, endln:2:20
           |vpiFullName:work@top
           |vpiActual:
           \_IntegerTypespec: , line:2:17, endln:2:18
       |vpiOperand:
-      \_TaggedPattern: , line:2:24, endln:2:25
+      \_TaggedPattern: , line:2:22, endln:2:25
         |vpiParent:
         \_Operation: , line:2:15, endln:2:42
         |vpiPattern:
         \_Constant: , line:2:24, endln:2:25
+          |vpiParent:
+          \_TaggedPattern: , line:2:22, endln:2:25
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
           |vpiConstType:9
         |vpiTypespec:
-        \_RefTypespec: (work@top)
+        \_RefTypespec: (work@top), line:2:22, endln:2:23
           |vpiParent:
-          \_TaggedPattern: , line:2:24, endln:2:25
+          \_TaggedPattern: , line:2:22, endln:2:25
           |vpiFullName:work@top
           |vpiActual:
           \_IntegerTypespec: , line:2:22, endln:2:23
       |vpiOperand:
-      \_TaggedPattern: , line:2:29, endln:2:30
+      \_TaggedPattern: , line:2:27, endln:2:30
         |vpiParent:
         \_Operation: , line:2:15, endln:2:42
         |vpiPattern:
         \_Constant: , line:2:29, endln:2:30
+          |vpiParent:
+          \_TaggedPattern: , line:2:27, endln:2:30
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
           |vpiConstType:9
         |vpiTypespec:
-        \_RefTypespec: (work@top)
+        \_RefTypespec: (work@top), line:2:27, endln:2:28
           |vpiParent:
-          \_TaggedPattern: , line:2:29, endln:2:30
+          \_TaggedPattern: , line:2:27, endln:2:30
           |vpiFullName:work@top
           |vpiActual:
           \_IntegerTypespec: , line:2:27, endln:2:28
       |vpiOperand:
-      \_TaggedPattern: , line:2:40, endln:2:41
+      \_TaggedPattern: , line:2:32, endln:2:41
         |vpiParent:
         \_Operation: , line:2:15, endln:2:42
         |vpiPattern:
         \_Constant: , line:2:40, endln:2:41
+          |vpiParent:
+          \_TaggedPattern: , line:2:32, endln:2:41
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
           |vpiConstType:9
         |vpiTypespec:
-        \_RefTypespec: (work@top)
+        \_RefTypespec: (work@top), line:2:32, endln:2:39
           |vpiParent:
-          \_TaggedPattern: , line:2:40, endln:2:41
+          \_TaggedPattern: , line:2:32, endln:2:41
           |vpiFullName:work@top
           |vpiActual:
           \_StringTypespec: (default), line:2:32, endln:2:39
@@ -226,38 +313,6 @@ Design: (unnamed)
       |vpiFullName:work@top.o
       |vpiActual:
       \_LogicNet: (work@top.o), line:1:30, endln:1:31
-\_weaklyReferenced:
-\_IntegerTypespec: , line:2:17, endln:2:18
-  |INT:0
-\_IntegerTypespec: , line:2:22, endln:2:23
-  |INT:3
-\_IntegerTypespec: , line:2:27, endln:2:28
-  |INT:7
-\_StringTypespec: (default), line:2:32, endln:2:39
-  |vpiParent:
-  \_TaggedPattern: , line:2:40, endln:2:41
-  |vpiName:default
-\_LogicTypespec: , line:1:19, endln:1:29
-  |vpiRange:
-  \_Range: , line:1:24, endln:1:29
-    |vpiParent:
-    \_LogicTypespec: , line:1:19, endln:1:29
-    |vpiLeftRange:
-    \_Constant: , line:1:25, endln:1:26
-      |vpiParent:
-      \_Range: , line:1:24, endln:1:29
-      |vpiDecompile:7
-      |vpiSize:64
-      |UINT:7
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:1:27, endln:1:28
-      |vpiParent:
-      \_Range: , line:1:24, endln:1:29
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

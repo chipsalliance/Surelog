@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 147
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/IndexedSelect/dut.sv
+FILE: ${SURELOG_DIR}/tests/IndexedSelect/dut.sv
 n<> u<146> t<Top_level_rule> c<1> l<1:1> el<17:10>
-  n<> u<1> t<Null_rule> p<146> s<145> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<146> s<145> l<1:1>
   n<> u<145> t<Source_text> p<146> c<144> l<1:1> el<17:10>
     n<> u<144> t<Description> p<145> c<143> l<1:1> el<17:10>
       n<> u<143> t<Module_declaration> p<144> c<4> l<1:1> el<17:10>
@@ -153,55 +153,46 @@ AST_DEBUG_END
 [WRN:PA0205] ${SURELOG_DIR}/tests/IndexedSelect/dut.sv:1:1: No timescale set for "test".
 [INF:CP0300] Compilation...
 [INF:CP0303] ${SURELOG_DIR}/tests/IndexedSelect/dut.sv:1:1: Compile module "work@test".
+[ERR:UH0703] ${SURELOG_DIR}/tests/IndexedSelect/dut.sv:10:12: Internal Error(19) : adding wrong object type (GenVar) in a stmt group!.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 Begin                                                  1
 Constant                                               4
 Design                                                 1
 GenRegion                                              1
+GenVar                                                 1
 IndexedPartSelect                                      1
-IntTypespec                                            1
 Module                                                 1
 Operation                                              2
 ParamAssign                                            3
 Parameter                                              3
 RefObj                                                 1
-RefTypespec                                            2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/IndexedSelect/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/IndexedSelect/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/IndexedSelect/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@test (work@test), file:${SURELOG_DIR}/tests/IndexedSelect/dut.sv, line:1:1, endln:17:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@test
+  |vpiName:work@test
   |vpiParameter:
-  \_Parameter: (work@test.FOO), line:3:11, endln:3:14
+  \_Parameter: (work@test.FOO), line:3:11, endln:3:16
     |vpiParent:
     \_Module: work@test (work@test), file:${SURELOG_DIR}/tests/IndexedSelect/dut.sv, line:1:1, endln:17:10
     |UINT:3
-    |vpiTypespec:
-    \_RefTypespec: (work@test.FOO)
-      |vpiParent:
-      \_Parameter: (work@test.FOO), line:3:11, endln:3:14
-      |vpiFullName:work@test.FOO
-      |vpiActual:
-      \_IntTypespec: , line:3:1, endln:3:16
     |vpiName:FOO
     |vpiFullName:work@test.FOO
   |vpiParameter:
-  \_Parameter: (work@test.FOO_REPL), line:4:11, endln:4:19
+  \_Parameter: (work@test.FOO_REPL), line:4:11, endln:4:32
     |vpiParent:
     \_Module: work@test (work@test), file:${SURELOG_DIR}/tests/IndexedSelect/dut.sv, line:1:1, endln:17:10
     |vpiName:FOO_REPL
     |vpiFullName:work@test.FOO_REPL
   |vpiParameter:
-  \_Parameter: (work@test.DEBUG), line:6:11, endln:6:16
+  \_Parameter: (work@test.DEBUG), line:6:11, endln:6:34
     |vpiParent:
     \_Module: work@test (work@test), file:${SURELOG_DIR}/tests/IndexedSelect/dut.sv, line:1:1, endln:17:10
     |vpiName:DEBUG
@@ -217,16 +208,9 @@ Design: (unnamed)
       |vpiDecompile:3
       |vpiSize:64
       |UINT:3
-      |vpiTypespec:
-      \_RefTypespec: (work@test)
-        |vpiParent:
-        \_Constant: , line:3:15, endln:3:16
-        |vpiFullName:work@test
-        |vpiActual:
-        \_IntTypespec: , line:3:1, endln:3:16
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (work@test.FOO), line:3:11, endln:3:14
+    \_Parameter: (work@test.FOO), line:3:11, endln:3:16
   |vpiParamAssign:
   \_ParamAssign: , line:4:11, endln:4:32
     |vpiParent:
@@ -242,6 +226,8 @@ Design: (unnamed)
         \_Operation: , line:4:20, endln:4:32
         |vpiName:FOO
         |vpiFullName:work@test.FOO
+        |vpiActual:
+        \_Parameter: (work@test.FOO), line:3:11, endln:3:16
       |vpiOperand:
       \_Operation: , line:4:24, endln:4:31
         |vpiParent:
@@ -249,54 +235,69 @@ Design: (unnamed)
         |vpiOpType:33
         |vpiOperand:
         \_Constant: , line:4:25, endln:4:30
+          |vpiParent:
+          \_Operation: , line:4:24, endln:4:31
           |vpiDecompile:32'd4
           |vpiSize:32
           |DEC:4
           |vpiConstType:1
     |vpiLhs:
-    \_Parameter: (work@test.FOO_REPL), line:4:11, endln:4:19
+    \_Parameter: (work@test.FOO_REPL), line:4:11, endln:4:32
   |vpiParamAssign:
   \_ParamAssign: , line:6:11, endln:6:34
     |vpiParent:
     \_Module: work@test (work@test), file:${SURELOG_DIR}/tests/IndexedSelect/dut.sv, line:1:1, endln:17:10
     |vpiRhs:
-    \_IndexedPartSelect: FOO_REPL (work@test.FOO_REPL), line:6:19, endln:6:34
+    \_IndexedPartSelect: FOO_REPL (work@test.FOO_REPL), line:6:28, endln:6:33
       |vpiParent:
       \_ParamAssign: , line:6:11, endln:6:34
       |vpiName:FOO_REPL
       |vpiFullName:work@test.FOO_REPL
       |vpiDefName:FOO_REPL
+      |vpiActual:
+      \_Parameter: (work@test.FOO_REPL), line:4:11, endln:4:32
       |vpiConstantSelect:1
       |vpiIndexedPartSelectType:1
       |vpiBaseExpr:
       \_Constant: , line:6:28, endln:6:29
+        |vpiParent:
+        \_IndexedPartSelect: FOO_REPL (work@test.FOO_REPL), line:6:28, endln:6:33
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
         |vpiConstType:9
       |vpiWidthExpr:
       \_Constant: , line:6:31, endln:6:33
+        |vpiParent:
+        \_IndexedPartSelect: FOO_REPL (work@test.FOO_REPL), line:6:28, endln:6:33
         |vpiDecompile:32
         |vpiSize:64
         |UINT:32
         |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (work@test.DEBUG), line:6:11, endln:6:16
-  |vpiDefName:work@test
-  |vpiGenStmt:
-  \_GenRegion: 
+    \_Parameter: (work@test.DEBUG), line:6:11, endln:6:34
+  |vpiInternalScope:
+  \_GenRegion: (work@test), line:9:1, endln:14:12
     |vpiParent:
     \_Module: work@test (work@test), file:${SURELOG_DIR}/tests/IndexedSelect/dut.sv, line:1:1, endln:17:10
-    |vpiStmt:
-    \_Begin: (work@test)
+    |vpiFullName:work@test
+    |vpiInternalScope:
+    \_Begin: (work@test), line:10:5, endln:10:14
       |vpiParent:
-      \_GenRegion: 
+      \_GenRegion: (work@test), line:9:1, endln:14:12
       |vpiFullName:work@test
-\_weaklyReferenced:
-\_IntTypespec: , line:3:1, endln:3:16
+      |vpiGenVar:
+      \_GenVar: (work@test.i), line:10:12, endln:10:13
+        |vpiParent:
+        \_Begin: (work@test), line:10:5, endln:10:14
+        |vpiName:i
+        |vpiFullName:work@test.i
+    |vpiStmt:
+    \_Begin: (work@test), line:10:5, endln:10:14
+  |vpiDefName:work@test
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 1
 [   NOTE] : 0

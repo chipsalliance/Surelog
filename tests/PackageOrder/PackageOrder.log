@@ -5,9 +5,9 @@
 AST_DEBUG_BEGIN
 Count: 47
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/PackageOrder/dut.sv
+FILE: ${SURELOG_DIR}/tests/PackageOrder/dut.sv
 n<> u<46> t<Top_level_rule> c<1> l<1:1> el<14:1>
-  n<> u<1> t<Null_rule> p<46> s<45> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<46> s<45> l<1:1>
   n<> u<45> t<Source_text> p<46> c<13> l<1:1> el<12:12>
     n<> u<13> t<Description> p<45> c<12> s<16> l<1:1> el<3:11>
       n<> u<12> t<Package_declaration> p<13> c<2> l<1:1> el<3:11>
@@ -66,46 +66,63 @@ LogicTypespec                                          1
 Package                                                3
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PackageOrder/slpp_unit/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/PackageOrder/slpp_unit/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/PackageOrder/slpp_unit/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallPackages:
-\_Package: B (B::), file:${SURELOG_DIR}/tests/PackageOrder/dut.sv, line:1:1, endln:3:11
+|vpiAllPackages:
+\_Package: B (B), file:${SURELOG_DIR}/tests/PackageOrder/dut.sv, line:1:1, endln:3:11
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:B
-  |vpiFullName:B::
   |vpiTypedef:
-  \_LogicTypespec: (B::C), line:2:11, endln:2:16
+  \_LogicTypespec: (C), line:2:11, endln:2:16
     |vpiParent:
-    \_Package: A (A::), file:${SURELOG_DIR}/tests/PackageOrder/dut.sv, line:10:1, endln:12:11
-    |vpiName:B::C
-    |vpiInstance:
-    \_Package: A (A::), file:${SURELOG_DIR}/tests/PackageOrder/dut.sv, line:10:1, endln:12:11
+    \_Package: B (B), file:${SURELOG_DIR}/tests/PackageOrder/dut.sv, line:1:1, endln:3:11
+    |vpiName:C
+  |vpiImportTypespec:
+  \_LogicTypespec: (C), line:2:11, endln:2:16
   |vpiDefName:B
-|uhdmallPackages:
-\_Package: D (D::), file:${SURELOG_DIR}/tests/PackageOrder/dut.sv, line:5:1, endln:7:11
+|vpiAllPackages:
+\_Package: D (D), file:${SURELOG_DIR}/tests/PackageOrder/dut.sv, line:5:1, endln:7:11
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:D
-  |vpiFullName:D::
-  |vpiTypedef:
-  \_LogicTypespec: (B::C), line:2:11, endln:2:16
   |vpiTypedef:
   \_ImportTypespec: (B), line:6:10, endln:6:14
+    |vpiParent:
+    \_Package: D (D), file:${SURELOG_DIR}/tests/PackageOrder/dut.sv, line:5:1, endln:7:11
+    |vpiName:B
+    |vpiImportTypespecItem:
+    \_Constant: , line:6:10, endln:6:14
+      |vpiParent:
+      \_ImportTypespec: (B), line:6:10, endln:6:14
+      |vpiDecompile:*
+      |vpiSize:8
+      |STRING:*
+      |vpiConstType:8
+  |vpiImportTypespec:
+  \_ImportTypespec: (B), line:6:10, endln:6:14
   |vpiDefName:D
-|uhdmallPackages:
-\_Package: A (A::), file:${SURELOG_DIR}/tests/PackageOrder/dut.sv, line:10:1, endln:12:11
+|vpiAllPackages:
+\_Package: A (A), file:${SURELOG_DIR}/tests/PackageOrder/dut.sv, line:10:1, endln:12:11
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:A
-  |vpiFullName:A::
   |vpiTypedef:
-  \_LogicTypespec: (B::C), line:2:11, endln:2:16
-  |vpiTypedef:
+  \_ImportTypespec: (D), line:11:10, endln:11:14
+    |vpiParent:
+    \_Package: A (A), file:${SURELOG_DIR}/tests/PackageOrder/dut.sv, line:10:1, endln:12:11
+    |vpiName:D
+    |vpiImportTypespecItem:
+    \_Constant: , line:11:10, endln:11:14
+      |vpiParent:
+      \_ImportTypespec: (D), line:11:10, endln:11:14
+      |vpiDecompile:*
+      |vpiSize:8
+      |STRING:*
+      |vpiConstType:8
+  |vpiImportTypespec:
   \_ImportTypespec: (D), line:11:10, endln:11:14
   |vpiDefName:A
 ===================

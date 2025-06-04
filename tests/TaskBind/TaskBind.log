@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 81
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/TaskBind/dut.sv
+FILE: ${SURELOG_DIR}/tests/TaskBind/dut.sv
 n<> u<80> t<Top_level_rule> c<1> l<1:1> el<11:1>
-  n<> u<1> t<Null_rule> p<80> s<79> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<80> s<79> l<1:1>
   n<> u<79> t<Source_text> p<80> c<78> l<1:1> el<9:10>
     n<> u<78> t<Description> p<79> c<77> l<1:1> el<9:10>
       n<> u<77> t<Module_declaration> p<78> c<4> l<1:1> el<9:10>
@@ -105,55 +105,59 @@ Task                                                   1
 TaskCall                                               1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/TaskBind/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/TaskBind/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/TaskBind/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@tb (work@tb), file:${SURELOG_DIR}/tests/TaskBind/dut.sv, line:1:1, endln:9:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@tb
-  |vpiDefName:work@tb
-  |vpiTaskFunc:
+  |vpiName:work@tb
+  |vpiInternalScope:
   \_Task: (work@tb.display), line:4:2, endln:8:9
     |vpiParent:
     \_Module: work@tb (work@tb), file:${SURELOG_DIR}/tests/TaskBind/dut.sv, line:1:1, endln:9:10
     |vpiName:display
     |vpiFullName:work@tb.display
-    |vpiVariables:
-    \_IntegerVar: (work@tb.display.i), line:5:10, endln:5:11
-      |vpiParent:
-      \_Assignment: , line:5:10, endln:5:15
-      |vpiTypespec:
-      \_RefTypespec: (work@tb.display.i)
-        |vpiParent:
-        \_IntegerVar: (work@tb.display.i), line:5:10, endln:5:11
-        |vpiFullName:work@tb.display.i
-        |vpiActual:
-        \_IntegerTypespec: , line:5:2, endln:5:9
-      |vpiName:i
-      |vpiFullName:work@tb.display.i
-      |vpiSigned:1
-    |vpiVisibility:1
-    |vpiAutomatic:1
-    |vpiStmt:
-    \_Begin: (work@tb.display), line:6:2, endln:6:12
+    |vpiInternalScope:
+    \_Begin: (work@tb.display), line:5:2, endln:7:23
       |vpiParent:
       \_Task: (work@tb.display), line:4:2, endln:8:9
       |vpiFullName:work@tb.display
       |vpiVariables:
       \_IntegerVar: (work@tb.display.i), line:5:10, endln:5:11
+        |vpiParent:
+        \_Begin: (work@tb.display), line:5:2, endln:7:23
+        |vpiTypespec:
+        \_RefTypespec: (work@tb.display.i), line:5:2, endln:5:9
+          |vpiParent:
+          \_IntegerVar: (work@tb.display.i), line:5:10, endln:5:11
+          |vpiFullName:work@tb.display.i
+          |vpiActual:
+          \_IntegerTypespec: , line:5:2, endln:5:9
+        |vpiName:i
+        |vpiFullName:work@tb.display.i
+        |vpiSigned:1
+      |vpiTypedef:
+      \_IntegerTypespec: , line:5:2, endln:5:9
+        |vpiParent:
+        \_Begin: (work@tb.display), line:5:2, endln:7:23
+        |vpiSigned:1
+      |vpiImportTypespec:
+      \_IntegerTypespec: , line:5:2, endln:5:9
+      |vpiImportTypespec:
+      \_IntegerVar: (work@tb.display.i), line:5:10, endln:5:11
       |vpiStmt:
       \_Assignment: , line:5:10, endln:5:15
         |vpiParent:
-        \_Begin: (work@tb.display), line:6:2, endln:6:12
+        \_Begin: (work@tb.display), line:5:2, endln:7:23
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
         \_Constant: , line:5:14, endln:5:15
+          |vpiParent:
+          \_Assignment: , line:5:10, endln:5:15
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -163,7 +167,7 @@ Design: (unnamed)
       |vpiStmt:
       \_Assignment: , line:6:2, endln:6:11
         |vpiParent:
-        \_Begin: (work@tb.display), line:6:2, endln:6:12
+        \_Begin: (work@tb.display), line:5:2, endln:7:23
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
@@ -198,7 +202,7 @@ Design: (unnamed)
       |vpiStmt:
       \_SysFuncCall: ($display), line:7:2, endln:7:22
         |vpiParent:
-        \_Begin: (work@tb.display), line:6:2, endln:6:12
+        \_Begin: (work@tb.display), line:5:2, endln:7:23
         |vpiArgument:
         \_Constant: , line:7:11, endln:7:18
           |vpiParent:
@@ -216,8 +220,15 @@ Design: (unnamed)
           |vpiActual:
           \_IntegerVar: (work@tb.display.i), line:5:10, endln:5:11
         |vpiName:$display
-    |vpiInstance:
-    \_Module: work@tb (work@tb), file:${SURELOG_DIR}/tests/TaskBind/dut.sv, line:1:1, endln:9:10
+    |vpiVisibility:1
+    |vpiAutomatic:1
+    |vpiStmt:
+    \_Begin: (work@tb.display), line:5:2, endln:7:23
+  |vpiImportTypespec:
+  \_Task: (work@tb.display), line:4:2, endln:8:9
+  |vpiDefName:work@tb
+  |vpiTaskFunc:
+  \_Task: (work@tb.display), line:4:2, endln:8:9
   |vpiProcess:
   \_Initial: , line:2:2, endln:2:20
     |vpiParent:
@@ -229,9 +240,6 @@ Design: (unnamed)
       |vpiName:display
       |vpiTask:
       \_Task: (work@tb.display), line:4:2, endln:8:9
-\_weaklyReferenced:
-\_IntegerTypespec: , line:5:2, endln:5:9
-  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

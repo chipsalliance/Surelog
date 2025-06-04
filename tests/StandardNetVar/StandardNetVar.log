@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 99
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/StandardNetVar/dut.sv
+FILE: ${SURELOG_DIR}/tests/StandardNetVar/dut.sv
 n<> u<98> t<Top_level_rule> c<1> l<1:1> el<9:1>
-  n<> u<1> t<Null_rule> p<98> s<97> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<98> s<97> l<1:1>
   n<> u<97> t<Source_text> p<98> c<96> l<1:1> el<8:10>
     n<> u<96> t<Description> p<97> c<95> l<1:1> el<8:10>
       n<> u<95> t<Module_declaration> p<96> c<45> l<1:1> el<8:10>
@@ -109,65 +109,160 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 Design                                                 1
-LogicNet                                               9
-LogicTypespec                                          8
+LogicNet                                               5
+LogicTypespec                                          9
+LogicVar                                               4
 Module                                                 1
 Port                                                   5
-RefObj                                                 5
-RefTypespec                                            8
+RefTypespec                                            9
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/StandardNetVar/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/StandardNetVar/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/StandardNetVar/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@net_vars (work@net_vars), file:${SURELOG_DIR}/tests/StandardNetVar/dut.sv, line:1:1, endln:8:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@net_vars
-  |vpiDefName:work@net_vars
-  |vpiNet:
-  \_LogicNet: (work@net_vars.i1), line:1:34, endln:1:36
+  |vpiName:work@net_vars
+  |vpiVariables:
+  \_LogicVar: (work@net_vars.i1), line:1:34, endln:1:36
     |vpiParent:
     \_Module: work@net_vars (work@net_vars), file:${SURELOG_DIR}/tests/StandardNetVar/dut.sv, line:1:1, endln:8:10
+    |vpiTypespec:
+    \_RefTypespec: (work@net_vars.i1), line:1:28, endln:1:33
+      |vpiParent:
+      \_LogicVar: (work@net_vars.i1), line:1:34, endln:1:36
+      |vpiFullName:work@net_vars.i1
+      |vpiActual:
+      \_LogicTypespec: , line:1:28, endln:1:33
     |vpiName:i1
     |vpiFullName:work@net_vars.i1
-    |vpiNetType:36
-  |vpiNet:
+    |vpiVisibility:1
+  |vpiVariables:
+  \_LogicVar: (work@net_vars.o1), line:1:111, endln:1:113
+    |vpiParent:
+    \_Module: work@net_vars (work@net_vars), file:${SURELOG_DIR}/tests/StandardNetVar/dut.sv, line:1:1, endln:8:10
+    |vpiTypespec:
+    \_RefTypespec: (work@net_vars.o1), line:1:105, endln:1:110
+      |vpiParent:
+      \_LogicVar: (work@net_vars.o1), line:1:111, endln:1:113
+      |vpiFullName:work@net_vars.o1
+      |vpiActual:
+      \_LogicTypespec: , line:1:105, endln:1:110
+    |vpiName:o1
+    |vpiFullName:work@net_vars.o1
+    |vpiVisibility:1
+  |vpiVariables:
+  \_LogicVar: (work@net_vars.c), line:5:7, endln:5:8
+    |vpiParent:
+    \_Module: work@net_vars (work@net_vars), file:${SURELOG_DIR}/tests/StandardNetVar/dut.sv, line:1:1, endln:8:10
+    |vpiTypespec:
+    \_RefTypespec: (work@net_vars.c), line:5:1, endln:5:6
+      |vpiParent:
+      \_LogicVar: (work@net_vars.c), line:5:7, endln:5:8
+      |vpiFullName:work@net_vars.c
+      |vpiActual:
+      \_LogicTypespec: , line:5:1, endln:5:6
+    |vpiName:c
+    |vpiFullName:work@net_vars.c
+    |vpiVisibility:1
+  |vpiVariables:
+  \_LogicVar: (work@net_vars.d), line:6:5, endln:6:6
+    |vpiParent:
+    \_Module: work@net_vars (work@net_vars), file:${SURELOG_DIR}/tests/StandardNetVar/dut.sv, line:1:1, endln:8:10
+    |vpiName:d
+    |vpiFullName:work@net_vars.d
+    |vpiVisibility:1
+  |vpiReg:
+  \_LogicVar: (work@net_vars.i1), line:1:34, endln:1:36
+  |vpiReg:
+  \_LogicVar: (work@net_vars.o1), line:1:111, endln:1:113
+  |vpiReg:
+  \_LogicVar: (work@net_vars.c), line:5:7, endln:5:8
+  |vpiReg:
+  \_LogicVar: (work@net_vars.d), line:6:5, endln:6:6
+  |vpiTypedef:
+  \_LogicTypespec: , line:1:28, endln:1:33
+    |vpiParent:
+    \_Module: work@net_vars (work@net_vars), file:${SURELOG_DIR}/tests/StandardNetVar/dut.sv, line:1:1, endln:8:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:1:74, endln:1:79
+    |vpiParent:
+    \_Module: work@net_vars (work@net_vars), file:${SURELOG_DIR}/tests/StandardNetVar/dut.sv, line:1:1, endln:8:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:1:105, endln:1:110
+    |vpiParent:
+    \_Module: work@net_vars (work@net_vars), file:${SURELOG_DIR}/tests/StandardNetVar/dut.sv, line:1:1, endln:8:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:3:1, endln:3:5
+    |vpiParent:
+    \_Module: work@net_vars (work@net_vars), file:${SURELOG_DIR}/tests/StandardNetVar/dut.sv, line:1:1, endln:8:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:4:1, endln:4:5
+    |vpiParent:
+    \_Module: work@net_vars (work@net_vars), file:${SURELOG_DIR}/tests/StandardNetVar/dut.sv, line:1:1, endln:8:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:5:1, endln:5:6
+    |vpiParent:
+    \_Module: work@net_vars (work@net_vars), file:${SURELOG_DIR}/tests/StandardNetVar/dut.sv, line:1:1, endln:8:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:1:28, endln:1:33
+    |vpiParent:
+    \_Module: work@net_vars (work@net_vars), file:${SURELOG_DIR}/tests/StandardNetVar/dut.sv, line:1:1, endln:8:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:1:74, endln:1:79
+    |vpiParent:
+    \_Module: work@net_vars (work@net_vars), file:${SURELOG_DIR}/tests/StandardNetVar/dut.sv, line:1:1, endln:8:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:1:105, endln:1:110
+    |vpiParent:
+    \_Module: work@net_vars (work@net_vars), file:${SURELOG_DIR}/tests/StandardNetVar/dut.sv, line:1:1, endln:8:10
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:1:28, endln:1:33
+  |vpiImportTypespec:
+  \_LogicVar: (work@net_vars.i1), line:1:34, endln:1:36
+  |vpiImportTypespec:
   \_LogicNet: (work@net_vars.i2), line:1:54, endln:1:56
     |vpiParent:
     \_Module: work@net_vars (work@net_vars), file:${SURELOG_DIR}/tests/StandardNetVar/dut.sv, line:1:1, endln:8:10
     |vpiName:i2
     |vpiFullName:work@net_vars.i2
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:1:74, endln:1:79
+  |vpiImportTypespec:
   \_LogicNet: (work@net_vars.i3), line:1:80, endln:1:82
     |vpiParent:
     \_Module: work@net_vars (work@net_vars), file:${SURELOG_DIR}/tests/StandardNetVar/dut.sv, line:1:1, endln:8:10
+    |vpiTypespec:
+    \_RefTypespec: (work@net_vars.i3), line:1:74, endln:1:79
+      |vpiParent:
+      \_LogicNet: (work@net_vars.i3), line:1:80, endln:1:82
+      |vpiFullName:work@net_vars.i3
+      |vpiActual:
+      \_LogicTypespec: , line:1:74, endln:1:79
     |vpiName:i3
     |vpiFullName:work@net_vars.i3
     |vpiNetType:36
-  |vpiNet:
-  \_LogicNet: (work@net_vars.o1), line:1:111, endln:1:113
-    |vpiParent:
-    \_Module: work@net_vars (work@net_vars), file:${SURELOG_DIR}/tests/StandardNetVar/dut.sv, line:1:1, endln:8:10
-    |vpiName:o1
-    |vpiFullName:work@net_vars.o1
-    |vpiNetType:36
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:1:105, endln:1:110
+  |vpiImportTypespec:
+  \_LogicVar: (work@net_vars.o1), line:1:111, endln:1:113
+  |vpiImportTypespec:
   \_LogicNet: (work@net_vars.o2), line:1:133, endln:1:135
     |vpiParent:
     \_Module: work@net_vars (work@net_vars), file:${SURELOG_DIR}/tests/StandardNetVar/dut.sv, line:1:1, endln:8:10
     |vpiName:o2
     |vpiFullName:work@net_vars.o2
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:3:1, endln:3:5
+  |vpiImportTypespec:
   \_LogicNet: (work@net_vars.a), line:3:6, endln:3:7
     |vpiParent:
     \_Module: work@net_vars (work@net_vars), file:${SURELOG_DIR}/tests/StandardNetVar/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
-    \_RefTypespec: (work@net_vars.a)
+    \_RefTypespec: (work@net_vars.a), line:3:1, endln:3:5
       |vpiParent:
       \_LogicNet: (work@net_vars.a), line:3:6, endln:3:7
       |vpiFullName:work@net_vars.a
@@ -176,56 +271,53 @@ Design: (unnamed)
     |vpiName:a
     |vpiFullName:work@net_vars.a
     |vpiNetType:1
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:4:1, endln:4:5
+  |vpiImportTypespec:
   \_LogicNet: (work@net_vars.b), line:4:12, endln:4:13
     |vpiParent:
     \_Module: work@net_vars (work@net_vars), file:${SURELOG_DIR}/tests/StandardNetVar/dut.sv, line:1:1, endln:8:10
     |vpiTypespec:
-    \_RefTypespec: (work@net_vars.b)
+    \_RefTypespec: (work@net_vars.b), line:4:1, endln:4:5
       |vpiParent:
       \_LogicNet: (work@net_vars.b), line:4:12, endln:4:13
       |vpiFullName:work@net_vars.b
       |vpiActual:
-      \_LogicTypespec: , line:4:6, endln:4:11
+      \_LogicTypespec: , line:4:1, endln:4:5
     |vpiName:b
     |vpiFullName:work@net_vars.b
     |vpiNetType:1
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:5:1, endln:5:6
+  |vpiImportTypespec:
+  \_LogicVar: (work@net_vars.c), line:5:7, endln:5:8
+  |vpiImportTypespec:
+  \_LogicVar: (work@net_vars.d), line:6:5, endln:6:6
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:1:28, endln:1:33
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:1:74, endln:1:79
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:1:105, endln:1:110
+  |vpiDefName:work@net_vars
   |vpiNet:
-  \_LogicNet: (work@net_vars.c), line:5:7, endln:5:8
-    |vpiParent:
-    \_Module: work@net_vars (work@net_vars), file:${SURELOG_DIR}/tests/StandardNetVar/dut.sv, line:1:1, endln:8:10
-    |vpiTypespec:
-    \_RefTypespec: (work@net_vars.c)
-      |vpiParent:
-      \_LogicNet: (work@net_vars.c), line:5:7, endln:5:8
-      |vpiFullName:work@net_vars.c
-      |vpiActual:
-      \_LogicTypespec: , line:5:1, endln:5:6
-    |vpiName:c
-    |vpiFullName:work@net_vars.c
-    |vpiNetType:36
+  \_LogicNet: (work@net_vars.i2), line:1:54, endln:1:56
   |vpiNet:
-  \_LogicNet: (work@net_vars.d), line:6:5, endln:6:6
-    |vpiParent:
-    \_Module: work@net_vars (work@net_vars), file:${SURELOG_DIR}/tests/StandardNetVar/dut.sv, line:1:1, endln:8:10
-    |vpiName:d
-    |vpiFullName:work@net_vars.d
+  \_LogicNet: (work@net_vars.i3), line:1:80, endln:1:82
+  |vpiNet:
+  \_LogicNet: (work@net_vars.o2), line:1:133, endln:1:135
+  |vpiNet:
+  \_LogicNet: (work@net_vars.a), line:3:6, endln:3:7
+  |vpiNet:
+  \_LogicNet: (work@net_vars.b), line:4:12, endln:4:13
   |vpiPort:
   \_Port: (i1), line:1:34, endln:1:36
     |vpiParent:
     \_Module: work@net_vars (work@net_vars), file:${SURELOG_DIR}/tests/StandardNetVar/dut.sv, line:1:1, endln:8:10
     |vpiName:i1
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@net_vars.i1.i1), line:1:34, endln:1:36
-      |vpiParent:
-      \_Port: (i1), line:1:34, endln:1:36
-      |vpiName:i1
-      |vpiFullName:work@net_vars.i1.i1
-      |vpiActual:
-      \_LogicNet: (work@net_vars.i1), line:1:34, endln:1:36
-    |vpiTypedef:
-    \_RefTypespec: (work@net_vars.i1)
+    |vpiTypespec:
+    \_RefTypespec: (work@net_vars.i1), line:1:28, endln:1:33
       |vpiParent:
       \_Port: (i1), line:1:34, endln:1:36
       |vpiFullName:work@net_vars.i1
@@ -237,37 +329,14 @@ Design: (unnamed)
     \_Module: work@net_vars (work@net_vars), file:${SURELOG_DIR}/tests/StandardNetVar/dut.sv, line:1:1, endln:8:10
     |vpiName:i2
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@net_vars.i2.i2), line:1:54, endln:1:56
-      |vpiParent:
-      \_Port: (i2), line:1:54, endln:1:56
-      |vpiName:i2
-      |vpiFullName:work@net_vars.i2.i2
-      |vpiActual:
-      \_LogicNet: (work@net_vars.i2), line:1:54, endln:1:56
-    |vpiTypedef:
-    \_RefTypespec: (work@net_vars.i2)
-      |vpiParent:
-      \_Port: (i2), line:1:54, endln:1:56
-      |vpiFullName:work@net_vars.i2
-      |vpiActual:
-      \_LogicTypespec: , line:1:54, endln:1:54
   |vpiPort:
   \_Port: (i3), line:1:80, endln:1:82
     |vpiParent:
     \_Module: work@net_vars (work@net_vars), file:${SURELOG_DIR}/tests/StandardNetVar/dut.sv, line:1:1, endln:8:10
     |vpiName:i3
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@net_vars.i3.i3), line:1:80, endln:1:82
-      |vpiParent:
-      \_Port: (i3), line:1:80, endln:1:82
-      |vpiName:i3
-      |vpiFullName:work@net_vars.i3.i3
-      |vpiActual:
-      \_LogicNet: (work@net_vars.i3), line:1:80, endln:1:82
-    |vpiTypedef:
-    \_RefTypespec: (work@net_vars.i3)
+    |vpiTypespec:
+    \_RefTypespec: (work@net_vars.i3), line:1:74, endln:1:79
       |vpiParent:
       \_Port: (i3), line:1:80, endln:1:82
       |vpiFullName:work@net_vars.i3
@@ -279,16 +348,8 @@ Design: (unnamed)
     \_Module: work@net_vars (work@net_vars), file:${SURELOG_DIR}/tests/StandardNetVar/dut.sv, line:1:1, endln:8:10
     |vpiName:o1
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@net_vars.o1.o1), line:1:111, endln:1:113
-      |vpiParent:
-      \_Port: (o1), line:1:111, endln:1:113
-      |vpiName:o1
-      |vpiFullName:work@net_vars.o1.o1
-      |vpiActual:
-      \_LogicNet: (work@net_vars.o1), line:1:111, endln:1:113
-    |vpiTypedef:
-    \_RefTypespec: (work@net_vars.o1)
+    |vpiTypespec:
+    \_RefTypespec: (work@net_vars.o1), line:1:105, endln:1:110
       |vpiParent:
       \_Port: (o1), line:1:111, endln:1:113
       |vpiFullName:work@net_vars.o1
@@ -300,30 +361,6 @@ Design: (unnamed)
     \_Module: work@net_vars (work@net_vars), file:${SURELOG_DIR}/tests/StandardNetVar/dut.sv, line:1:1, endln:8:10
     |vpiName:o2
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@net_vars.o2.o2), line:1:133, endln:1:135
-      |vpiParent:
-      \_Port: (o2), line:1:133, endln:1:135
-      |vpiName:o2
-      |vpiFullName:work@net_vars.o2.o2
-      |vpiActual:
-      \_LogicNet: (work@net_vars.o2), line:1:133, endln:1:135
-    |vpiTypedef:
-    \_RefTypespec: (work@net_vars.o2)
-      |vpiParent:
-      \_Port: (o2), line:1:133, endln:1:135
-      |vpiFullName:work@net_vars.o2
-      |vpiActual:
-      \_LogicTypespec: , line:1:133, endln:1:133
-\_weaklyReferenced:
-\_LogicTypespec: , line:1:28, endln:1:33
-\_LogicTypespec: , line:1:54, endln:1:54
-\_LogicTypespec: , line:1:74, endln:1:79
-\_LogicTypespec: , line:1:105, endln:1:110
-\_LogicTypespec: , line:1:133, endln:1:133
-\_LogicTypespec: , line:3:1, endln:3:5
-\_LogicTypespec: , line:4:6, endln:4:11
-\_LogicTypespec: , line:5:1, endln:5:6
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

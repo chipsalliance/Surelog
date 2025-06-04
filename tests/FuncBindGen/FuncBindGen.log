@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 172
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/FuncBindGen/dut.sv
+FILE: ${SURELOG_DIR}/tests/FuncBindGen/dut.sv
 n<> u<171> t<Top_level_rule> c<1> l<1:1> el<15:1>
-  n<> u<1> t<Null_rule> p<171> s<170> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<171> s<170> l<1:1>
   n<> u<170> t<Source_text> p<171> c<169> l<1:1> el<14:10>
     n<> u<169> t<Description> p<170> c<168> l<1:1> el<14:10>
       n<> u<168> t<Module_declaration> p<169> c<13> l<1:1> el<14:10>
@@ -164,7 +164,7 @@ n<> u<171> t<Top_level_rule> c<1> l<1:1> el<15:1>
                                     n<> u<150> t<Primary> p<151> c<149> l<11:18> el<11:42>
                                       n<> u<149> t<Cast> p<150> c<143> l<11:18> el<11:42>
                                         n<> u<143> t<Casting_type> p<149> c<142> s<148> l<11:18> el<11:21>
-                                          n<> u<142> t<Simple_type> p<143> c<141> l<11:18> el<11:21>
+                                          n<int> u<142> t<Simple_type> p<143> c<141> l<11:18> el<11:21>
                                             n<> u<141> t<Integer_type> p<142> c<140> l<11:18> el<11:21>
                                               n<> u<140> t<IntegerAtomType_Int> p<141> l<11:18> el<11:21>
                                         n<> u<148> t<Expression> p<149> c<147> l<11:23> el<11:41>
@@ -180,57 +180,70 @@ AST_DEBUG_END
 [INF:CP0303] ${SURELOG_DIR}/tests/FuncBindGen/dut.sv:1:1: Compile module "work@top".
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+Begin                                                  1
 Constant                                               3
 ContAssign                                             1
 Design                                                 1
 FuncCall                                               1
 GenIf                                                  1
 IntTypespec                                            4
-LogicNet                                               1
+IntVar                                                 1
 Module                                                 1
-NamedBegin                                             1
 Operation                                              2
 ParamAssign                                            2
 Parameter                                              2
 Port                                                   1
-RefObj                                                 3
-RefTypespec                                            6
+RefObj                                                 2
+RefTypespec                                            4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FuncBindGen/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/FuncBindGen/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/FuncBindGen/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncBindGen/dut.sv, line:1:1, endln:14:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
+  |vpiName:work@top
+  |vpiVariables:
+  \_IntVar: (work@top.o), line:1:23, endln:1:24
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncBindGen/dut.sv, line:1:1, endln:14:10
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o), line:1:19, endln:1:22
+      |vpiParent:
+      \_IntVar: (work@top.o), line:1:23, endln:1:24
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_IntTypespec: , line:1:19, endln:1:22
+    |vpiName:o
+    |vpiFullName:work@top.o
+    |vpiSigned:1
+    |vpiVisibility:1
   |vpiParameter:
-  \_Parameter: (work@top.Depth), line:2:28, endln:2:33
+  \_Parameter: (work@top.Depth), line:2:28, endln:2:40
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncBindGen/dut.sv, line:1:1, endln:14:10
     |UINT:500
     |vpiTypespec:
-    \_RefTypespec: (work@top.Depth)
+    \_RefTypespec: (work@top.Depth), line:2:15, endln:2:27
       |vpiParent:
-      \_Parameter: (work@top.Depth), line:2:28, endln:2:33
+      \_Parameter: (work@top.Depth), line:2:28, endln:2:40
       |vpiFullName:work@top.Depth
       |vpiActual:
       \_IntTypespec: , line:2:15, endln:2:27
     |vpiName:Depth
     |vpiFullName:work@top.Depth
   |vpiParameter:
-  \_Parameter: (work@top.PTR_WIDTH), line:3:28, endln:3:37
+  \_Parameter: (work@top.PTR_WIDTH), line:3:28, endln:3:41
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncBindGen/dut.sv, line:1:1, endln:14:10
     |UINT:3
     |vpiTypespec:
-    \_RefTypespec: (work@top.PTR_WIDTH)
+    \_RefTypespec: (work@top.PTR_WIDTH), line:3:15, endln:3:27
       |vpiParent:
-      \_Parameter: (work@top.PTR_WIDTH), line:3:28, endln:3:37
+      \_Parameter: (work@top.PTR_WIDTH), line:3:28, endln:3:41
       |vpiFullName:work@top.PTR_WIDTH
       |vpiActual:
       \_IntTypespec: , line:3:15, endln:3:27
@@ -248,16 +261,9 @@ Design: (unnamed)
       |vpiDecompile:500
       |vpiSize:64
       |UINT:500
-      |vpiTypespec:
-      \_RefTypespec: (work@top)
-        |vpiParent:
-        \_Constant: , line:2:37, endln:2:40
-        |vpiFullName:work@top
-        |vpiActual:
-        \_IntTypespec: , line:2:15, endln:2:27
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (work@top.Depth), line:2:28, endln:2:33
+    \_Parameter: (work@top.Depth), line:2:28, endln:2:40
   |vpiParamAssign:
   \_ParamAssign: , line:3:28, endln:3:41
     |vpiParent:
@@ -269,52 +275,87 @@ Design: (unnamed)
       |vpiDecompile:3
       |vpiSize:64
       |UINT:3
-      |vpiTypespec:
-      \_RefTypespec: (work@top)
-        |vpiParent:
-        \_Constant: , line:3:40, endln:3:41
-        |vpiFullName:work@top
-        |vpiActual:
-        \_IntTypespec: , line:3:15, endln:3:27
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (work@top.PTR_WIDTH), line:3:28, endln:3:37
-  |vpiDefName:work@top
-  |vpiNet:
-  \_LogicNet: (work@top.o), line:1:23, endln:1:24
+    \_Parameter: (work@top.PTR_WIDTH), line:3:28, endln:3:41
+  |vpiInternalScope:
+  \_Begin: (work@top.gen_block), line:5:19, endln:12:7
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncBindGen/dut.sv, line:1:1, endln:14:10
-    |vpiName:o
-    |vpiFullName:work@top.o
+    |vpiName:gen_block
+    |vpiFullName:work@top.gen_block
+    |vpiStmt:
+    \_ContAssign: , line:11:14, endln:11:42
+      |vpiParent:
+      \_Begin: (work@top.gen_block), line:5:19, endln:12:7
+      |vpiRhs:
+      \_Operation: , line:11:18, endln:11:42
+        |vpiParent:
+        \_ContAssign: , line:11:14, endln:11:42
+        |vpiOpType:67
+        |vpiOperand:
+        \_FuncCall: (get_casted_param), line:11:23, endln:11:41
+          |vpiParent:
+          \_Operation: , line:11:18, endln:11:42
+          |vpiName:get_casted_param
+      |vpiLhs:
+      \_RefObj: (work@top.gen_block.o), line:11:14, endln:11:15
+        |vpiParent:
+        \_ContAssign: , line:11:14, endln:11:42
+        |vpiName:o
+        |vpiFullName:work@top.gen_block.o
+        |vpiActual:
+        \_IntVar: (work@top.o), line:1:23, endln:1:24
+  |vpiTypedef:
+  \_IntTypespec: , line:2:15, endln:2:27
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncBindGen/dut.sv, line:1:1, endln:14:10
+  |vpiTypedef:
+  \_IntTypespec: , line:3:15, endln:3:27
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncBindGen/dut.sv, line:1:1, endln:14:10
+  |vpiTypedef:
+  \_IntTypespec: , line:1:19, endln:1:22
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncBindGen/dut.sv, line:1:1, endln:14:10
+    |vpiSigned:1
+  |vpiTypedef:
+  \_IntTypespec: , line:1:19, endln:1:22
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncBindGen/dut.sv, line:1:1, endln:14:10
+    |vpiSigned:1
+  |vpiImportTypespec:
+  \_IntTypespec: , line:2:15, endln:2:27
+  |vpiImportTypespec:
+  \_IntTypespec: , line:3:15, endln:3:27
+  |vpiImportTypespec:
+  \_IntTypespec: , line:1:19, endln:1:22
+  |vpiImportTypespec:
+  \_IntVar: (work@top.o), line:1:23, endln:1:24
+  |vpiImportTypespec:
+  \_IntTypespec: , line:1:19, endln:1:22
+  |vpiDefName:work@top
   |vpiPort:
   \_Port: (o), line:1:23, endln:1:24
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncBindGen/dut.sv, line:1:1, endln:14:10
     |vpiName:o
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@top.o.o), line:1:23, endln:1:24
-      |vpiParent:
-      \_Port: (o), line:1:23, endln:1:24
-      |vpiName:o
-      |vpiFullName:work@top.o.o
-      |vpiActual:
-      \_LogicNet: (work@top.o), line:1:23, endln:1:24
-    |vpiTypedef:
-    \_RefTypespec: (work@top.o)
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o), line:1:19, endln:1:22
       |vpiParent:
       \_Port: (o), line:1:23, endln:1:24
       |vpiFullName:work@top.o
       |vpiActual:
       \_IntTypespec: , line:1:19, endln:1:22
   |vpiGenStmt:
-  \_GenIf: , line:5:4, endln:5:6
+  \_GenIf: , line:5:4, endln:12:7
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/FuncBindGen/dut.sv, line:1:1, endln:14:10
     |vpiCondition:
     \_Operation: , line:5:8, endln:5:17
       |vpiParent:
-      \_GenIf: , line:5:4, endln:5:6
+      \_GenIf: , line:5:4, endln:12:7
       |vpiOpType:18
       |vpiOperand:
       \_RefObj: (work@top.Depth), line:5:8, endln:5:13
@@ -322,6 +363,8 @@ Design: (unnamed)
         \_Operation: , line:5:8, endln:5:17
         |vpiName:Depth
         |vpiFullName:work@top.Depth
+        |vpiActual:
+        \_Parameter: (work@top.Depth), line:2:28, endln:2:40
       |vpiOperand:
       \_Constant: , line:5:16, endln:5:17
         |vpiParent:
@@ -331,49 +374,7 @@ Design: (unnamed)
         |UINT:2
         |vpiConstType:9
     |vpiStmt:
-    \_NamedBegin: (work@top.gen_block)
-      |vpiParent:
-      \_GenIf: , line:5:4, endln:5:6
-      |vpiName:gen_block
-      |vpiFullName:work@top.gen_block
-      |vpiStmt:
-      \_ContAssign: , line:11:14, endln:11:42
-        |vpiParent:
-        \_NamedBegin: (work@top.gen_block)
-        |vpiRhs:
-        \_Operation: , line:11:18, endln:11:42
-          |vpiParent:
-          \_ContAssign: , line:11:14, endln:11:42
-          |vpiTypespec:
-          \_RefTypespec: (work@top.gen_block)
-            |vpiParent:
-            \_Operation: , line:11:18, endln:11:42
-            |vpiFullName:work@top.gen_block
-            |vpiActual:
-            \_IntTypespec: , line:11:18, endln:11:21
-          |vpiOpType:67
-          |vpiOperand:
-          \_FuncCall: (get_casted_param), line:11:23, endln:11:41
-            |vpiParent:
-            \_Operation: , line:11:18, endln:11:42
-            |vpiName:get_casted_param
-        |vpiLhs:
-        \_RefObj: (work@top.gen_block.o), line:11:14, endln:11:15
-          |vpiParent:
-          \_ContAssign: , line:11:14, endln:11:42
-          |vpiName:o
-          |vpiFullName:work@top.gen_block.o
-\_weaklyReferenced:
-\_IntTypespec: , line:2:15, endln:2:27
-  |vpiParent:
-  \_Parameter: (work@top.Depth), line:2:28, endln:2:33
-\_IntTypespec: , line:3:15, endln:3:27
-  |vpiParent:
-  \_Parameter: (work@top.PTR_WIDTH), line:3:28, endln:3:37
-\_IntTypespec: , line:11:18, endln:11:21
-  |vpiSigned:1
-\_IntTypespec: , line:1:19, endln:1:22
-  |vpiSigned:1
+    \_Begin: (work@top.gen_block), line:5:19, endln:12:7
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

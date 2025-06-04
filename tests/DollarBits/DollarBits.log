@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 178
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/DollarBits/dut.sv
+FILE: ${SURELOG_DIR}/tests/DollarBits/dut.sv
 n<> u<177> t<Top_level_rule> c<1> l<1:1> el<10:1>
-  n<> u<1> t<Null_rule> p<177> s<176> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<177> s<176> l<1:1>
   n<> u<176> t<Source_text> p<177> c<86> l<1:1> el<9:10>
     n<> u<86> t<Description> p<176> c<85> s<89> l<1:1> el<5:10>
       n<> u<85> t<Module_declaration> p<86> c<68> l<1:1> el<5:10>
@@ -188,65 +188,185 @@ AST_DEBUG_END
 [INF:CP0303] ${SURELOG_DIR}/tests/DollarBits/dut.sv:1:1: Compile module "work@other".
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-Constant                                               9
+Constant                                              25
 ContAssign                                             1
 Design                                                 1
 IntTypespec                                            1
 LogicNet                                               4
-LogicTypespec                                          4
+LogicTypespec                                          8
 Module                                                 2
-Operation                                              2
+ModuleTypespec                                         1
+Operation                                              6
 ParamAssign                                            1
 Parameter                                              1
 Port                                                   6
-Range                                                  4
+Range                                                 12
 RefModule                                              1
 RefObj                                                10
-RefTypespec                                            6
+RefTypespec                                            9
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/DollarBits/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/DollarBits/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/DollarBits/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:7:1, endln:9:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@dut
-  |vpiDefName:work@dut
-  |vpiNet:
+  |vpiName:work@dut
+  |vpiTypedef:
+  \_ModuleTypespec: (other), line:8:4, endln:8:9
+    |vpiParent:
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:7:1, endln:9:10
+    |vpiName:other
+  |vpiTypedef:
+  \_LogicTypespec: , line:7:19, endln:7:29
+    |vpiParent:
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:7:1, endln:9:10
+    |vpiRange:
+    \_Range: , line:7:24, endln:7:29
+      |vpiParent:
+      \_LogicTypespec: , line:7:19, endln:7:29
+      |vpiLeftRange:
+      \_Constant: , line:7:25, endln:7:26
+        |vpiParent:
+        \_Range: , line:7:24, endln:7:29
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:7:27, endln:7:28
+        |vpiParent:
+        \_Range: , line:7:24, endln:7:29
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:7:41, endln:7:51
+    |vpiParent:
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:7:1, endln:9:10
+    |vpiRange:
+    \_Range: , line:7:46, endln:7:51
+      |vpiParent:
+      \_LogicTypespec: , line:7:41, endln:7:51
+      |vpiLeftRange:
+      \_Constant: , line:7:47, endln:7:48
+        |vpiParent:
+        \_Range: , line:7:46, endln:7:51
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:7:49, endln:7:50
+        |vpiParent:
+        \_Range: , line:7:46, endln:7:51
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:7:19, endln:7:29
+    |vpiParent:
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:7:1, endln:9:10
+    |vpiRange:
+    \_Range: , line:7:24, endln:7:29
+      |vpiParent:
+      \_LogicTypespec: , line:7:19, endln:7:29
+      |vpiLeftRange:
+      \_Constant: , line:7:25, endln:7:26
+        |vpiParent:
+        \_Range: , line:7:24, endln:7:29
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:7:27, endln:7:28
+        |vpiParent:
+        \_Range: , line:7:24, endln:7:29
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:7:41, endln:7:51
+    |vpiParent:
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:7:1, endln:9:10
+    |vpiRange:
+    \_Range: , line:7:46, endln:7:51
+      |vpiParent:
+      \_LogicTypespec: , line:7:41, endln:7:51
+      |vpiLeftRange:
+      \_Constant: , line:7:47, endln:7:48
+        |vpiParent:
+        \_Range: , line:7:46, endln:7:51
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:7:49, endln:7:50
+        |vpiParent:
+        \_Range: , line:7:46, endln:7:51
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiImportTypespec:
+  \_ModuleTypespec: (other), line:8:4, endln:8:9
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:7:19, endln:7:29
+  |vpiImportTypespec:
   \_LogicNet: (work@dut.in), line:7:30, endln:7:32
     |vpiParent:
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:7:1, endln:9:10
+    |vpiTypespec:
+    \_RefTypespec: (work@dut.in), line:7:19, endln:7:29
+      |vpiParent:
+      \_LogicNet: (work@dut.in), line:7:30, endln:7:32
+      |vpiFullName:work@dut.in
+      |vpiActual:
+      \_LogicTypespec: , line:7:19, endln:7:29
     |vpiName:in
     |vpiFullName:work@dut.in
     |vpiNetType:36
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:7:41, endln:7:51
+  |vpiImportTypespec:
   \_LogicNet: (work@dut.out), line:7:52, endln:7:55
     |vpiParent:
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:7:1, endln:9:10
+    |vpiTypespec:
+    \_RefTypespec: (work@dut.out), line:7:41, endln:7:51
+      |vpiParent:
+      \_LogicNet: (work@dut.out), line:7:52, endln:7:55
+      |vpiFullName:work@dut.out
+      |vpiActual:
+      \_LogicTypespec: , line:7:41, endln:7:51
     |vpiName:out
     |vpiFullName:work@dut.out
     |vpiNetType:36
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:7:19, endln:7:29
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:7:41, endln:7:51
+  |vpiDefName:work@dut
+  |vpiNet:
+  \_LogicNet: (work@dut.in), line:7:30, endln:7:32
+  |vpiNet:
+  \_LogicNet: (work@dut.out), line:7:52, endln:7:55
   |vpiPort:
   \_Port: (in), line:7:30, endln:7:32
     |vpiParent:
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:7:1, endln:9:10
     |vpiName:in
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@dut.in.in), line:7:30, endln:7:32
-      |vpiParent:
-      \_Port: (in), line:7:30, endln:7:32
-      |vpiName:in
-      |vpiFullName:work@dut.in.in
-      |vpiActual:
-      \_LogicNet: (work@dut.in), line:7:30, endln:7:32
-    |vpiTypedef:
-    \_RefTypespec: (work@dut.in)
+    |vpiTypespec:
+    \_RefTypespec: (work@dut.in), line:7:19, endln:7:24
       |vpiParent:
       \_Port: (in), line:7:30, endln:7:32
       |vpiFullName:work@dut.in
@@ -258,23 +378,15 @@ Design: (unnamed)
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:7:1, endln:9:10
     |vpiName:out
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@dut.out.out), line:7:52, endln:7:55
-      |vpiParent:
-      \_Port: (out), line:7:52, endln:7:55
-      |vpiName:out
-      |vpiFullName:work@dut.out.out
-      |vpiActual:
-      \_LogicNet: (work@dut.out), line:7:52, endln:7:55
-    |vpiTypedef:
-    \_RefTypespec: (work@dut.out)
+    |vpiTypespec:
+    \_RefTypespec: (work@dut.out), line:7:41, endln:7:46
       |vpiParent:
       \_Port: (out), line:7:52, endln:7:55
       |vpiFullName:work@dut.out
       |vpiActual:
       \_LogicTypespec: , line:7:41, endln:7:51
   |vpiRefModule:
-  \_RefModule: work@other (oth), line:8:33, endln:8:36
+  \_RefModule: work@other (oth), line:8:4, endln:8:9
     |vpiParent:
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:7:1, endln:9:10
     |vpiName:oth
@@ -282,45 +394,45 @@ Design: (unnamed)
     |vpiActual:
     \_Module: work@other (work@other), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:1:1, endln:5:10
     |vpiPort:
-    \_Port: (in), line:8:37, endln:8:44
+    \_Port: (in), line:8:38, endln:8:40
       |vpiParent:
-      \_RefModule: work@other (oth), line:8:33, endln:8:36
+      \_RefModule: work@other (oth), line:8:4, endln:8:9
       |vpiName:in
       |vpiHighConn:
       \_RefObj: (work@dut.oth.in.in), line:8:41, endln:8:43
         |vpiParent:
-        \_Port: (in), line:8:37, endln:8:44
+        \_Port: (in), line:8:38, endln:8:40
         |vpiName:in
         |vpiFullName:work@dut.oth.in.in
         |vpiActual:
         \_LogicNet: (work@dut.in), line:7:30, endln:7:32
     |vpiPort:
-    \_Port: (out), line:8:46, endln:8:55
+    \_Port: (out), line:8:47, endln:8:50
       |vpiParent:
-      \_RefModule: work@other (oth), line:8:33, endln:8:36
+      \_RefModule: work@other (oth), line:8:4, endln:8:9
       |vpiName:out
       |vpiHighConn:
       \_RefObj: (work@dut.oth.out.out), line:8:51, endln:8:54
         |vpiParent:
-        \_Port: (out), line:8:46, endln:8:55
+        \_Port: (out), line:8:47, endln:8:50
         |vpiName:out
         |vpiFullName:work@dut.oth.out.out
         |vpiActual:
         \_LogicNet: (work@dut.out), line:7:52, endln:7:55
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@other (work@other), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:1:1, endln:5:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@other
+  |vpiName:work@other
   |vpiParameter:
-  \_Parameter: (work@other.Width), line:2:19, endln:2:24
+  \_Parameter: (work@other.Width), line:2:19, endln:2:28
     |vpiParent:
     \_Module: work@other (work@other), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:1:1, endln:5:10
     |UINT:1
     |vpiTypespec:
-    \_RefTypespec: (work@other.Width)
+    \_RefTypespec: (work@other.Width), line:2:15, endln:2:18
       |vpiParent:
-      \_Parameter: (work@other.Width), line:2:19, endln:2:24
+      \_Parameter: (work@other.Width), line:2:19, endln:2:28
       |vpiFullName:work@other.Width
       |vpiActual:
       \_IntTypespec: , line:2:15, endln:2:18
@@ -338,47 +450,213 @@ Design: (unnamed)
       |vpiDecompile:1
       |vpiSize:64
       |UINT:1
-      |vpiTypespec:
-      \_RefTypespec: (work@other)
-        |vpiParent:
-        \_Constant: , line:2:27, endln:2:28
-        |vpiFullName:work@other
-        |vpiActual:
-        \_IntTypespec: , line:2:15, endln:2:18
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (work@other.Width), line:2:19, endln:2:24
-  |vpiDefName:work@other
-  |vpiNet:
+    \_Parameter: (work@other.Width), line:2:19, endln:2:28
+  |vpiTypedef:
+  \_IntTypespec: , line:2:15, endln:2:18
+    |vpiParent:
+    \_Module: work@other (work@other), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:1:1, endln:5:10
+    |vpiSigned:1
+  |vpiTypedef:
+  \_LogicTypespec: , line:3:10, endln:3:26
+    |vpiParent:
+    \_Module: work@other (work@other), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:1:1, endln:5:10
+    |vpiRange:
+    \_Range: , line:3:15, endln:3:26
+      |vpiParent:
+      \_LogicTypespec: , line:3:10, endln:3:26
+      |vpiLeftRange:
+      \_Operation: , line:3:16, endln:3:23
+        |vpiParent:
+        \_Range: , line:3:15, endln:3:26
+        |vpiOpType:11
+        |vpiOperand:
+        \_RefObj: (work@other.Width), line:3:16, endln:3:21
+          |vpiParent:
+          \_Operation: , line:3:16, endln:3:23
+          |vpiName:Width
+          |vpiFullName:work@other.Width
+          |vpiActual:
+          \_Parameter: (work@other.Width), line:2:19, endln:2:28
+        |vpiOperand:
+        \_Constant: , line:3:22, endln:3:23
+          |vpiParent:
+          \_Operation: , line:3:16, endln:3:23
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:3:24, endln:3:25
+        |vpiParent:
+        \_Range: , line:3:15, endln:3:26
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:3:38, endln:3:54
+    |vpiParent:
+    \_Module: work@other (work@other), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:1:1, endln:5:10
+    |vpiRange:
+    \_Range: , line:3:43, endln:3:54
+      |vpiParent:
+      \_LogicTypespec: , line:3:38, endln:3:54
+      |vpiLeftRange:
+      \_Operation: , line:3:44, endln:3:51
+        |vpiParent:
+        \_Range: , line:3:43, endln:3:54
+        |vpiOpType:11
+        |vpiOperand:
+        \_RefObj: (work@other.Width), line:3:44, endln:3:49
+          |vpiParent:
+          \_Operation: , line:3:44, endln:3:51
+          |vpiName:Width
+          |vpiFullName:work@other.Width
+          |vpiActual:
+          \_Parameter: (work@other.Width), line:2:19, endln:2:28
+        |vpiOperand:
+        \_Constant: , line:3:50, endln:3:51
+          |vpiParent:
+          \_Operation: , line:3:44, endln:3:51
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:3:52, endln:3:53
+        |vpiParent:
+        \_Range: , line:3:43, endln:3:54
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:3:10, endln:3:26
+    |vpiParent:
+    \_Module: work@other (work@other), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:1:1, endln:5:10
+    |vpiRange:
+    \_Range: , line:3:15, endln:3:26
+      |vpiParent:
+      \_LogicTypespec: , line:3:10, endln:3:26
+      |vpiLeftRange:
+      \_Operation: , line:3:16, endln:3:23
+        |vpiParent:
+        \_Range: , line:3:15, endln:3:26
+        |vpiOpType:11
+        |vpiOperand:
+        \_RefObj: (work@other.Width), line:3:16, endln:3:21
+          |vpiParent:
+          \_Operation: , line:3:16, endln:3:23
+          |vpiName:Width
+          |vpiFullName:work@other.Width
+          |vpiActual:
+          \_Parameter: (work@other.Width), line:2:19, endln:2:28
+        |vpiOperand:
+        \_Constant: , line:3:22, endln:3:23
+          |vpiParent:
+          \_Operation: , line:3:16, endln:3:23
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:3:24, endln:3:25
+        |vpiParent:
+        \_Range: , line:3:15, endln:3:26
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:3:38, endln:3:54
+    |vpiParent:
+    \_Module: work@other (work@other), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:1:1, endln:5:10
+    |vpiRange:
+    \_Range: , line:3:43, endln:3:54
+      |vpiParent:
+      \_LogicTypespec: , line:3:38, endln:3:54
+      |vpiLeftRange:
+      \_Operation: , line:3:44, endln:3:51
+        |vpiParent:
+        \_Range: , line:3:43, endln:3:54
+        |vpiOpType:11
+        |vpiOperand:
+        \_RefObj: (work@other.Width), line:3:44, endln:3:49
+          |vpiParent:
+          \_Operation: , line:3:44, endln:3:51
+          |vpiName:Width
+          |vpiFullName:work@other.Width
+          |vpiActual:
+          \_Parameter: (work@other.Width), line:2:19, endln:2:28
+        |vpiOperand:
+        \_Constant: , line:3:50, endln:3:51
+          |vpiParent:
+          \_Operation: , line:3:44, endln:3:51
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:3:52, endln:3:53
+        |vpiParent:
+        \_Range: , line:3:43, endln:3:54
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiImportTypespec:
+  \_IntTypespec: , line:2:15, endln:2:18
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:3:10, endln:3:26
+  |vpiImportTypespec:
   \_LogicNet: (work@other.in), line:3:27, endln:3:29
     |vpiParent:
     \_Module: work@other (work@other), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:1:1, endln:5:10
+    |vpiTypespec:
+    \_RefTypespec: (work@other.in), line:3:10, endln:3:26
+      |vpiParent:
+      \_LogicNet: (work@other.in), line:3:27, endln:3:29
+      |vpiFullName:work@other.in
+      |vpiActual:
+      \_LogicTypespec: , line:3:10, endln:3:26
     |vpiName:in
     |vpiFullName:work@other.in
     |vpiNetType:36
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:3:38, endln:3:54
+  |vpiImportTypespec:
   \_LogicNet: (work@other.out), line:3:55, endln:3:58
     |vpiParent:
     \_Module: work@other (work@other), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:1:1, endln:5:10
+    |vpiTypespec:
+    \_RefTypespec: (work@other.out), line:3:38, endln:3:54
+      |vpiParent:
+      \_LogicNet: (work@other.out), line:3:55, endln:3:58
+      |vpiFullName:work@other.out
+      |vpiActual:
+      \_LogicTypespec: , line:3:38, endln:3:54
     |vpiName:out
     |vpiFullName:work@other.out
     |vpiNetType:36
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:3:10, endln:3:26
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:3:38, endln:3:54
+  |vpiDefName:work@other
+  |vpiNet:
+  \_LogicNet: (work@other.in), line:3:27, endln:3:29
+  |vpiNet:
+  \_LogicNet: (work@other.out), line:3:55, endln:3:58
   |vpiPort:
   \_Port: (in), line:3:27, endln:3:29
     |vpiParent:
     \_Module: work@other (work@other), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:1:1, endln:5:10
     |vpiName:in
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@other.in.in), line:3:27, endln:3:29
-      |vpiParent:
-      \_Port: (in), line:3:27, endln:3:29
-      |vpiName:in
-      |vpiFullName:work@other.in.in
-      |vpiActual:
-      \_LogicNet: (work@other.in), line:3:27, endln:3:29
-    |vpiTypedef:
-    \_RefTypespec: (work@other.in)
+    |vpiTypespec:
+    \_RefTypespec: (work@other.in), line:3:10, endln:3:15
       |vpiParent:
       \_Port: (in), line:3:27, endln:3:29
       |vpiFullName:work@other.in
@@ -390,16 +668,8 @@ Design: (unnamed)
     \_Module: work@other (work@other), file:${SURELOG_DIR}/tests/DollarBits/dut.sv, line:1:1, endln:5:10
     |vpiName:out
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@other.out.out), line:3:55, endln:3:58
-      |vpiParent:
-      \_Port: (out), line:3:55, endln:3:58
-      |vpiName:out
-      |vpiFullName:work@other.out.out
-      |vpiActual:
-      \_LogicNet: (work@other.out), line:3:55, endln:3:58
-    |vpiTypedef:
-    \_RefTypespec: (work@other.out)
+    |vpiTypespec:
+    \_RefTypespec: (work@other.out), line:3:38, endln:3:43
       |vpiParent:
       \_Port: (out), line:3:55, endln:3:58
       |vpiFullName:work@other.out
@@ -425,115 +695,6 @@ Design: (unnamed)
       |vpiFullName:work@other.out
       |vpiActual:
       \_LogicNet: (work@other.out), line:3:55, endln:3:58
-\_weaklyReferenced:
-\_IntTypespec: , line:2:15, endln:2:18
-  |vpiParent:
-  \_Parameter: (work@other.Width), line:2:19, endln:2:24
-  |vpiSigned:1
-\_LogicTypespec: , line:7:19, endln:7:29
-  |vpiRange:
-  \_Range: , line:7:24, endln:7:29
-    |vpiParent:
-    \_LogicTypespec: , line:7:19, endln:7:29
-    |vpiLeftRange:
-    \_Constant: , line:7:25, endln:7:26
-      |vpiParent:
-      \_Range: , line:7:24, endln:7:29
-      |vpiDecompile:7
-      |vpiSize:64
-      |UINT:7
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:7:27, endln:7:28
-      |vpiParent:
-      \_Range: , line:7:24, endln:7:29
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:7:41, endln:7:51
-  |vpiRange:
-  \_Range: , line:7:46, endln:7:51
-    |vpiParent:
-    \_LogicTypespec: , line:7:41, endln:7:51
-    |vpiLeftRange:
-    \_Constant: , line:7:47, endln:7:48
-      |vpiParent:
-      \_Range: , line:7:46, endln:7:51
-      |vpiDecompile:7
-      |vpiSize:64
-      |UINT:7
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:7:49, endln:7:50
-      |vpiParent:
-      \_Range: , line:7:46, endln:7:51
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:3:10, endln:3:26
-  |vpiRange:
-  \_Range: , line:3:15, endln:3:26
-    |vpiParent:
-    \_LogicTypespec: , line:3:10, endln:3:26
-    |vpiLeftRange:
-    \_Operation: , line:3:16, endln:3:23
-      |vpiParent:
-      \_Range: , line:3:15, endln:3:26
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (Width), line:3:16, endln:3:21
-        |vpiParent:
-        \_Operation: , line:3:16, endln:3:23
-        |vpiName:Width
-      |vpiOperand:
-      \_Constant: , line:3:22, endln:3:23
-        |vpiParent:
-        \_Operation: , line:3:16, endln:3:23
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:3:24, endln:3:25
-      |vpiParent:
-      \_Range: , line:3:15, endln:3:26
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:3:38, endln:3:54
-  |vpiRange:
-  \_Range: , line:3:43, endln:3:54
-    |vpiParent:
-    \_LogicTypespec: , line:3:38, endln:3:54
-    |vpiLeftRange:
-    \_Operation: , line:3:44, endln:3:51
-      |vpiParent:
-      \_Range: , line:3:43, endln:3:54
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (Width), line:3:44, endln:3:49
-        |vpiParent:
-        \_Operation: , line:3:44, endln:3:51
-        |vpiName:Width
-      |vpiOperand:
-      \_Constant: , line:3:50, endln:3:51
-        |vpiParent:
-        \_Operation: , line:3:44, endln:3:51
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:3:52, endln:3:53
-      |vpiParent:
-      \_Range: , line:3:43, endln:3:54
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

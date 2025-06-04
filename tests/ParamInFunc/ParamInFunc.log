@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 146
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/ParamInFunc/dut.sv
+FILE: ${SURELOG_DIR}/tests/ParamInFunc/dut.sv
 n<> u<145> t<Top_level_rule> c<1> l<1:1> el<11:1>
-  n<> u<1> t<Null_rule> p<145> s<144> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<145> s<144> l<1:1>
   n<> u<144> t<Source_text> p<145> c<5> l<1:1> el<10:10>
     n<> u<5> t<Description> p<144> c<4> s<143> l<1:1> el<1:22>
       n<> u<4> t<Top_directives> p<5> c<3> l<1:1> el<1:22>
@@ -157,62 +157,63 @@ there are 3 more instances of this message.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 Assignment                                             1
-Constant                                               7
+Constant                                               9
 Design                                                 1
 Function                                               1
 IODecl                                                 1
-IntTypespec                                            1
 LogicNet                                               4
 LogicTypespec                                          2
 LogicVar                                               1
-Module                                                 1
+Module                                                 3
 Operation                                              1
 ParamAssign                                            2
 Parameter                                              2
 PartSelect                                             2
 Port                                                   4
-Range                                                  2
-RefObj                                                 8
-RefTypespec                                            4
+Range                                                  3
+RefObj                                                 4
+RefTypespec                                            2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamInFunc/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ParamInFunc/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ParamInFunc/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@func_block_top (work@func_block_top), file:${SURELOG_DIR}/tests/ParamInFunc/dut.sv, line:3:1, endln:10:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@func_block_top
-  |vpiDefName:work@func_block_top
-  |vpiTaskFunc:
+  |vpiName:work@func_block_top
+  |vpiInternalScope:
   \_Function: (work@func_block_top.func3), line:4:9, endln:9:20
     |vpiParent:
     \_Module: work@func_block_top (work@func_block_top), file:${SURELOG_DIR}/tests/ParamInFunc/dut.sv, line:3:1, endln:10:10
     |vpiName:func3
     |vpiFullName:work@func_block_top.func3
-    |vpiParameter:
-    \_Parameter: (work@func_block_top.func3.A), line:5:28, endln:5:29
+    |vpiReg:
+    \_LogicVar: (work@func_block_top.func3)
       |vpiParent:
-      \_ParamAssign: , line:5:28, endln:5:34
-      |UINT:31
+      \_Function: (work@func_block_top.func3), line:4:9, endln:9:20
       |vpiTypespec:
-      \_RefTypespec: (work@func_block_top.func3.A)
+      \_RefTypespec: (work@func_block_top.func3), line:4:28, endln:4:34
         |vpiParent:
-        \_Parameter: (work@func_block_top.func3.A), line:5:28, endln:5:29
-        |vpiFullName:work@func_block_top.func3.A
+        \_LogicVar: (work@func_block_top.func3)
+        |vpiFullName:work@func_block_top.func3
         |vpiActual:
-        \_IntTypespec: , line:5:17, endln:5:34
+        \_LogicTypespec: , line:4:28, endln:4:34
+      |vpiFullName:work@func_block_top.func3
+    |vpiParameter:
+    \_Parameter: (work@func_block_top.func3.A), line:5:28, endln:5:34
+      |vpiParent:
+      \_Function: (work@func_block_top.func3), line:4:9, endln:9:20
+      |UINT:31
       |vpiLocalParam:1
       |vpiName:A
       |vpiFullName:work@func_block_top.func3.A
     |vpiParameter:
-    \_Parameter: (work@func_block_top.func3.B), line:6:27, endln:6:28
+    \_Parameter: (work@func_block_top.func3.B), line:6:27, endln:6:36
       |vpiParent:
-      \_ParamAssign: , line:6:27, endln:6:36
+      \_Function: (work@func_block_top.func3), line:4:9, endln:9:20
       |vpiName:B
       |vpiFullName:work@func_block_top.func3.B
     |vpiParamAssign:
@@ -226,16 +227,9 @@ Design: (unnamed)
         |vpiDecompile:31
         |vpiSize:64
         |UINT:31
-        |vpiTypespec:
-        \_RefTypespec: (work@func_block_top.func3)
-          |vpiParent:
-          \_Constant: , line:5:32, endln:5:34
-          |vpiFullName:work@func_block_top.func3
-          |vpiActual:
-          \_IntTypespec: , line:5:17, endln:5:34
         |vpiConstType:9
       |vpiLhs:
-      \_Parameter: (work@func_block_top.func3.A), line:5:28, endln:5:29
+      \_Parameter: (work@func_block_top.func3.A), line:5:28, endln:5:34
     |vpiParamAssign:
     \_ParamAssign: , line:6:27, endln:6:36
       |vpiParent:
@@ -262,21 +256,66 @@ Design: (unnamed)
           |UINT:0
           |vpiConstType:9
       |vpiLhs:
-      \_Parameter: (work@func_block_top.func3.B), line:6:27, endln:6:28
+      \_Parameter: (work@func_block_top.func3.B), line:6:27, endln:6:36
+    |vpiTypedef:
+    \_LogicTypespec: , line:4:28, endln:4:34
+      |vpiParent:
+      \_Function: (work@func_block_top.func3), line:4:9, endln:9:20
+      |vpiRange:
+      \_Range: , line:4:28, endln:4:34
+        |vpiParent:
+        \_LogicTypespec: , line:4:28, endln:4:34
+        |vpiLeftRange:
+        \_Constant: , line:4:29, endln:4:31
+          |vpiParent:
+          \_Range: , line:4:28, endln:4:34
+          |vpiDecompile:31
+          |vpiSize:64
+          |UINT:31
+          |vpiConstType:9
+        |vpiRightRange:
+        \_Constant: , line:4:32, endln:4:33
+          |vpiParent:
+          \_Range: , line:4:28, endln:4:34
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiSigned:1
+    |vpiTypedef:
+    \_LogicTypespec: , line:7:23, endln:7:29
+      |vpiParent:
+      \_Function: (work@func_block_top.func3), line:4:9, endln:9:20
+      |vpiRange:
+      \_Range: , line:7:23, endln:7:29
+        |vpiParent:
+        \_LogicTypespec: , line:7:23, endln:7:29
+        |vpiLeftRange:
+        \_Constant: , line:7:24, endln:7:26
+          |vpiParent:
+          \_Range: , line:7:23, endln:7:29
+          |vpiDecompile:31
+          |vpiSize:64
+          |UINT:31
+          |vpiConstType:9
+        |vpiRightRange:
+        \_Constant: , line:7:27, endln:7:28
+          |vpiParent:
+          \_Range: , line:7:23, endln:7:29
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiImportTypespec:
+    \_LogicVar: (work@func_block_top.func3)
+    |vpiImportTypespec:
+    \_LogicTypespec: , line:4:28, endln:4:34
+    |vpiImportTypespec:
+    \_LogicTypespec: , line:7:23, endln:7:29
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_LogicVar: (work@func_block_top.func3), line:4:28, endln:4:34
-      |vpiParent:
-      \_Function: (work@func_block_top.func3), line:4:9, endln:9:20
-      |vpiTypespec:
-      \_RefTypespec: (work@func_block_top.func3)
-        |vpiParent:
-        \_LogicVar: (work@func_block_top.func3), line:4:28, endln:4:34
-        |vpiFullName:work@func_block_top.func3
-        |vpiActual:
-        \_LogicTypespec: , line:4:28, endln:4:34
-      |vpiFullName:work@func_block_top.func3
+    \_LogicVar: (work@func_block_top.func3)
     |vpiIODecl:
     \_IODecl: (inp), line:7:30, endln:7:33
       |vpiParent:
@@ -284,7 +323,7 @@ Design: (unnamed)
       |vpiDirection:1
       |vpiName:inp
       |vpiTypedef:
-      \_RefTypespec: (work@func_block_top.func3.inp)
+      \_RefTypespec: (work@func_block_top.func3.inp), line:7:23, endln:7:29
         |vpiParent:
         \_IODecl: (inp), line:7:30, endln:7:33
         |vpiFullName:work@func_block_top.func3.inp
@@ -303,6 +342,8 @@ Design: (unnamed)
         |vpiName:inp
         |vpiFullName:work@func_block_top.func3.inp
         |vpiDefName:inp
+        |vpiActual:
+        \_IODecl: (inp), line:7:30, endln:7:33
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_RefObj: (work@func_block_top.func3.inp.A), line:8:34, endln:8:35
@@ -311,7 +352,7 @@ Design: (unnamed)
           |vpiName:A
           |vpiFullName:work@func_block_top.func3.inp.A
           |vpiActual:
-          \_Parameter: (work@func_block_top.func3.A), line:5:28, endln:5:29
+          \_Parameter: (work@func_block_top.func3.A), line:5:28, endln:5:34
         |vpiRightRange:
         \_RefObj: (work@func_block_top.func3.inp.B), line:8:36, endln:8:37
           |vpiParent:
@@ -319,157 +360,94 @@ Design: (unnamed)
           |vpiName:B
           |vpiFullName:work@func_block_top.func3.inp.B
           |vpiActual:
-          \_Parameter: (work@func_block_top.func3.B), line:6:27, endln:6:28
+          \_Parameter: (work@func_block_top.func3.B), line:6:27, endln:6:36
       |vpiLhs:
-      \_PartSelect: func3 (work@func_block_top.func3.func3), line:8:17, endln:8:27
+      \_PartSelect: func3 (work@func_block_top.func3.func3), line:8:23, endln:8:26
         |vpiParent:
         \_Assignment: , line:8:17, endln:8:38
         |vpiName:func3
         |vpiFullName:work@func_block_top.func3.func3
         |vpiDefName:func3
+        |vpiActual:
+        \_LogicVar: (work@func_block_top.func3)
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_RefObj: (work@func_block_top.func3.func3.A), line:8:23, endln:8:24
           |vpiParent:
-          \_PartSelect: func3 (work@func_block_top.func3.func3), line:8:17, endln:8:27
+          \_PartSelect: func3 (work@func_block_top.func3.func3), line:8:23, endln:8:26
           |vpiName:A
           |vpiFullName:work@func_block_top.func3.func3.A
           |vpiActual:
-          \_Parameter: (work@func_block_top.func3.A), line:5:28, endln:5:29
+          \_Parameter: (work@func_block_top.func3.A), line:5:28, endln:5:34
         |vpiRightRange:
         \_RefObj: (work@func_block_top.func3.func3.B), line:8:25, endln:8:26
           |vpiParent:
-          \_PartSelect: func3 (work@func_block_top.func3.func3), line:8:17, endln:8:27
+          \_PartSelect: func3 (work@func_block_top.func3.func3), line:8:23, endln:8:26
           |vpiName:B
           |vpiFullName:work@func_block_top.func3.func3.B
           |vpiActual:
-          \_Parameter: (work@func_block_top.func3.B), line:6:27, endln:6:28
-    |vpiInstance:
-    \_Module: work@func_block_top (work@func_block_top), file:${SURELOG_DIR}/tests/ParamInFunc/dut.sv, line:3:1, endln:10:10
-  |vpiNet:
+          \_Parameter: (work@func_block_top.func3.B), line:6:27, endln:6:36
+  |vpiImportTypespec:
+  \_Function: (work@func_block_top.func3), line:4:9, endln:9:20
+  |vpiImportTypespec:
   \_LogicNet: (work@func_block_top.inp), line:3:23, endln:3:26
     |vpiParent:
     \_Module: work@func_block_top (work@func_block_top), file:${SURELOG_DIR}/tests/ParamInFunc/dut.sv, line:3:1, endln:10:10
     |vpiName:inp
     |vpiFullName:work@func_block_top.inp
-  |vpiNet:
+  |vpiImportTypespec:
   \_LogicNet: (work@func_block_top.out1), line:3:28, endln:3:32
     |vpiParent:
     \_Module: work@func_block_top (work@func_block_top), file:${SURELOG_DIR}/tests/ParamInFunc/dut.sv, line:3:1, endln:10:10
     |vpiName:out1
     |vpiFullName:work@func_block_top.out1
-  |vpiNet:
+  |vpiImportTypespec:
   \_LogicNet: (work@func_block_top.out2), line:3:34, endln:3:38
     |vpiParent:
     \_Module: work@func_block_top (work@func_block_top), file:${SURELOG_DIR}/tests/ParamInFunc/dut.sv, line:3:1, endln:10:10
     |vpiName:out2
     |vpiFullName:work@func_block_top.out2
-  |vpiNet:
+  |vpiImportTypespec:
   \_LogicNet: (work@func_block_top.out3), line:3:40, endln:3:44
     |vpiParent:
     \_Module: work@func_block_top (work@func_block_top), file:${SURELOG_DIR}/tests/ParamInFunc/dut.sv, line:3:1, endln:10:10
     |vpiName:out3
     |vpiFullName:work@func_block_top.out3
+  |vpiDefName:work@func_block_top
+  |vpiTaskFunc:
+  \_Function: (work@func_block_top.func3), line:4:9, endln:9:20
+  |vpiNet:
+  \_LogicNet: (work@func_block_top.inp), line:3:23, endln:3:26
+  |vpiNet:
+  \_LogicNet: (work@func_block_top.out1), line:3:28, endln:3:32
+  |vpiNet:
+  \_LogicNet: (work@func_block_top.out2), line:3:34, endln:3:38
+  |vpiNet:
+  \_LogicNet: (work@func_block_top.out3), line:3:40, endln:3:44
   |vpiPort:
   \_Port: (inp), line:3:23, endln:3:26
     |vpiParent:
     \_Module: work@func_block_top (work@func_block_top), file:${SURELOG_DIR}/tests/ParamInFunc/dut.sv, line:3:1, endln:10:10
     |vpiName:inp
     |vpiDirection:3
-    |vpiLowConn:
-    \_RefObj: (work@func_block_top.inp.inp), line:3:23, endln:3:26
-      |vpiParent:
-      \_Port: (inp), line:3:23, endln:3:26
-      |vpiName:inp
-      |vpiFullName:work@func_block_top.inp.inp
-      |vpiActual:
-      \_LogicNet: (work@func_block_top.inp), line:3:23, endln:3:26
   |vpiPort:
   \_Port: (out1), line:3:28, endln:3:32
     |vpiParent:
     \_Module: work@func_block_top (work@func_block_top), file:${SURELOG_DIR}/tests/ParamInFunc/dut.sv, line:3:1, endln:10:10
     |vpiName:out1
     |vpiDirection:3
-    |vpiLowConn:
-    \_RefObj: (work@func_block_top.out1.out1), line:3:28, endln:3:32
-      |vpiParent:
-      \_Port: (out1), line:3:28, endln:3:32
-      |vpiName:out1
-      |vpiFullName:work@func_block_top.out1.out1
-      |vpiActual:
-      \_LogicNet: (work@func_block_top.out1), line:3:28, endln:3:32
   |vpiPort:
   \_Port: (out2), line:3:34, endln:3:38
     |vpiParent:
     \_Module: work@func_block_top (work@func_block_top), file:${SURELOG_DIR}/tests/ParamInFunc/dut.sv, line:3:1, endln:10:10
     |vpiName:out2
     |vpiDirection:3
-    |vpiLowConn:
-    \_RefObj: (work@func_block_top.out2.out2), line:3:34, endln:3:38
-      |vpiParent:
-      \_Port: (out2), line:3:34, endln:3:38
-      |vpiName:out2
-      |vpiFullName:work@func_block_top.out2.out2
-      |vpiActual:
-      \_LogicNet: (work@func_block_top.out2), line:3:34, endln:3:38
   |vpiPort:
   \_Port: (out3), line:3:40, endln:3:44
     |vpiParent:
     \_Module: work@func_block_top (work@func_block_top), file:${SURELOG_DIR}/tests/ParamInFunc/dut.sv, line:3:1, endln:10:10
     |vpiName:out3
     |vpiDirection:3
-    |vpiLowConn:
-    \_RefObj: (work@func_block_top.out3.out3), line:3:40, endln:3:44
-      |vpiParent:
-      \_Port: (out3), line:3:40, endln:3:44
-      |vpiName:out3
-      |vpiFullName:work@func_block_top.out3.out3
-      |vpiActual:
-      \_LogicNet: (work@func_block_top.out3), line:3:40, endln:3:44
-\_weaklyReferenced:
-\_LogicTypespec: , line:4:28, endln:4:34
-  |vpiRange:
-  \_Range: , line:4:28, endln:4:34
-    |vpiParent:
-    \_LogicTypespec: , line:4:28, endln:4:34
-    |vpiLeftRange:
-    \_Constant: , line:4:29, endln:4:31
-      |vpiParent:
-      \_Range: , line:4:28, endln:4:34
-      |vpiDecompile:31
-      |vpiSize:64
-      |UINT:31
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:4:32, endln:4:33
-      |vpiParent:
-      \_Range: , line:4:28, endln:4:34
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:7:23, endln:7:29
-  |vpiRange:
-  \_Range: , line:7:23, endln:7:29
-    |vpiParent:
-    \_LogicTypespec: , line:7:23, endln:7:29
-    |vpiLeftRange:
-    \_Constant: , line:7:24, endln:7:26
-      |vpiParent:
-      \_Range: , line:7:23, endln:7:29
-      |vpiDecompile:31
-      |vpiSize:64
-      |UINT:31
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:7:27, endln:7:28
-      |vpiParent:
-      \_Range: , line:7:23, endln:7:29
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_IntTypespec: , line:5:17, endln:5:34
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

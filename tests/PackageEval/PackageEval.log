@@ -3,9 +3,9 @@
 AST_DEBUG_BEGIN
 Count: 116
 LIB: work
-FILE f<11>:${SURELOG_DIR}/tests/PackageEval/dut.sv
+FILE: ${SURELOG_DIR}/tests/PackageEval/dut.sv
 n<> u<115> t<Top_level_rule> c<1> l<1:1> el<17:1>
-  n<> u<1> t<Null_rule> p<115> s<114> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<115> s<114> l<1:1>
   n<> u<114> t<Source_text> p<115> c<113> l<1:1> el<14:11>
     n<> u<113> t<Description> p<114> c<112> l<1:1> el<14:11>
       n<> u<112> t<Package_declaration> p<113> c<2> l<1:1> el<14:11>
@@ -124,45 +124,42 @@ AST_DEBUG_END
 [INF:CP0300] Compilation...
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-ArrayTypespec                                          2
-Constant                                              17
+ArrayTypespec                                          1
+Constant                                              13
 Design                                                 1
-IntTypespec                                            4
+IntTypespec                                            2
 LogicTypespec                                          2
 Module                                                 1
-Operation                                              6
+Operation                                              4
 Package                                                1
-ParamAssign                                            6
-Parameter                                              6
-Range                                                  4
-RefObj                                                 6
-RefTypespec                                           12
+ParamAssign                                            3
+Parameter                                              3
+Range                                                  2
+RefObj                                                 4
+RefTypespec                                            8
 StructTypespec                                         1
 SysFuncCall                                            3
 TypespecMember                                         2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PackageEval/slpp_unit/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/PackageEval/slpp_unit/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/PackageEval/slpp_unit/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallPackages:
-\_Package: test_pkg (test_pkg::), file:${SURELOG_DIR}/tests/PackageEval/dut.sv, line:1:1, endln:14:11
+|vpiAllPackages:
+\_Package: test_pkg (test_pkg), file:${SURELOG_DIR}/tests/PackageEval/dut.sv, line:1:1, endln:14:11
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:test_pkg
-  |vpiFullName:test_pkg::
   |vpiParameter:
-  \_Parameter: (test_pkg::NStraps), line:3:16, endln:3:23
+  \_Parameter: (test_pkg::NStraps), line:3:16, endln:3:28
     |vpiParent:
-    \_Package: test_pkg (test_pkg::), file:${SURELOG_DIR}/tests/PackageEval/dut.sv, line:1:1, endln:14:11
+    \_Package: test_pkg (test_pkg), file:${SURELOG_DIR}/tests/PackageEval/dut.sv, line:1:1, endln:14:11
     |UINT:2
     |vpiTypespec:
-    \_RefTypespec: (test_pkg::NStraps)
+    \_RefTypespec: (test_pkg::NStraps), line:3:12, endln:3:15
       |vpiParent:
-      \_Parameter: (test_pkg::NStraps), line:3:16, endln:3:23
+      \_Parameter: (test_pkg::NStraps), line:3:16, endln:3:28
       |vpiFullName:test_pkg::NStraps
       |vpiActual:
       \_IntTypespec: , line:3:12, endln:3:15
@@ -170,22 +167,22 @@ Design: (unnamed)
     |vpiName:NStraps
     |vpiFullName:test_pkg::NStraps
   |vpiParameter:
-  \_Parameter: (test_pkg::MioStrapPos), line:4:16, endln:4:27
+  \_Parameter: (test_pkg::MioStrapPos), line:4:16, endln:4:51
     |vpiParent:
-    \_Package: test_pkg (test_pkg::), file:${SURELOG_DIR}/tests/PackageEval/dut.sv, line:1:1, endln:14:11
+    \_Package: test_pkg (test_pkg), file:${SURELOG_DIR}/tests/PackageEval/dut.sv, line:1:1, endln:14:11
     |vpiSize:1
     |vpiTypespec:
-    \_RefTypespec: (test_pkg::MioStrapPos)
+    \_RefTypespec: (test_pkg::MioStrapPos), line:4:12, endln:4:15
       |vpiParent:
-      \_Parameter: (test_pkg::MioStrapPos), line:4:16, endln:4:27
+      \_Parameter: (test_pkg::MioStrapPos), line:4:16, endln:4:51
       |vpiFullName:test_pkg::MioStrapPos
       |vpiActual:
-      \_ArrayTypespec: , line:4:12, endln:4:41
+      \_ArrayTypespec: , line:4:28, endln:4:41
     |vpiSigned:1
     |vpiRange:
     \_Range: , line:4:28, endln:4:41
       |vpiParent:
-      \_Parameter: (test_pkg::MioStrapPos), line:4:16, endln:4:27
+      \_Parameter: (test_pkg::MioStrapPos), line:4:16, endln:4:51
       |vpiLeftRange:
       \_Constant: , line:4:29, endln:4:30
         |vpiParent:
@@ -206,7 +203,7 @@ Design: (unnamed)
           |vpiName:NStraps
           |vpiFullName:test_pkg::MioStrapPos::NStraps
           |vpiActual:
-          \_Constant: , line:3:27, endln:3:28
+          \_Parameter: (test_pkg::NStraps), line:3:16, endln:3:28
         |vpiOperand:
         \_Constant: , line:4:39, endln:4:40
           |vpiParent:
@@ -218,15 +215,15 @@ Design: (unnamed)
     |vpiName:MioStrapPos
     |vpiFullName:test_pkg::MioStrapPos
   |vpiParameter:
-  \_Parameter: (test_pkg::TEST_SIZE), line:11:11, endln:11:20
+  \_Parameter: (test_pkg::TEST_SIZE), line:11:11, endln:11:36
     |vpiParent:
-    \_Package: test_pkg (test_pkg::), file:${SURELOG_DIR}/tests/PackageEval/dut.sv, line:1:1, endln:14:11
+    \_Package: test_pkg (test_pkg), file:${SURELOG_DIR}/tests/PackageEval/dut.sv, line:1:1, endln:14:11
     |vpiName:TEST_SIZE
     |vpiFullName:test_pkg::TEST_SIZE
   |vpiParamAssign:
   \_ParamAssign: , line:3:16, endln:3:28
     |vpiParent:
-    \_Package: test_pkg (test_pkg::), file:${SURELOG_DIR}/tests/PackageEval/dut.sv, line:1:1, endln:14:11
+    \_Package: test_pkg (test_pkg), file:${SURELOG_DIR}/tests/PackageEval/dut.sv, line:1:1, endln:14:11
     |vpiRhs:
     \_Constant: , line:3:27, endln:3:28
       |vpiParent:
@@ -234,20 +231,13 @@ Design: (unnamed)
       |vpiDecompile:2
       |vpiSize:64
       |UINT:2
-      |vpiTypespec:
-      \_RefTypespec: (test_pkg)
-        |vpiParent:
-        \_Constant: , line:3:27, endln:3:28
-        |vpiFullName:test_pkg
-        |vpiActual:
-        \_IntTypespec: , line:3:12, endln:3:15
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (test_pkg::NStraps), line:3:16, endln:3:23
+    \_Parameter: (test_pkg::NStraps), line:3:16, endln:3:28
   |vpiParamAssign:
   \_ParamAssign: , line:4:16, endln:4:51
     |vpiParent:
-    \_Package: test_pkg (test_pkg::), file:${SURELOG_DIR}/tests/PackageEval/dut.sv, line:1:1, endln:14:11
+    \_Package: test_pkg (test_pkg), file:${SURELOG_DIR}/tests/PackageEval/dut.sv, line:1:1, endln:14:11
     |vpiRhs:
     \_Operation: , line:4:44, endln:4:51
       |vpiParent:
@@ -255,42 +245,69 @@ Design: (unnamed)
       |vpiOpType:75
       |vpiOperand:
       \_Constant: , line:4:46, endln:4:47
+        |vpiParent:
+        \_Operation: , line:4:44, endln:4:51
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
         |vpiConstType:9
       |vpiOperand:
       \_Constant: , line:4:49, endln:4:50
+        |vpiParent:
+        \_Operation: , line:4:44, endln:4:51
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
         |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (test_pkg::MioStrapPos), line:4:16, endln:4:27
+    \_Parameter: (test_pkg::MioStrapPos), line:4:16, endln:4:51
   |vpiParamAssign:
   \_ParamAssign: , line:11:11, endln:11:36
     |vpiParent:
-    \_Package: test_pkg (test_pkg::), file:${SURELOG_DIR}/tests/PackageEval/dut.sv, line:1:1, endln:14:11
+    \_Package: test_pkg (test_pkg), file:${SURELOG_DIR}/tests/PackageEval/dut.sv, line:1:1, endln:14:11
     |vpiRhs:
     \_SysFuncCall: ($bits), line:11:23, endln:11:36
       |vpiParent:
       \_ParamAssign: , line:11:11, endln:11:36
       |vpiArgument:
-      \_RefObj: (test_pkg::t_test), line:11:29, endln:11:35
+      \_RefTypespec: (test_pkg::t_test), line:11:29, endln:11:35
         |vpiParent:
         \_SysFuncCall: ($bits), line:11:23, endln:11:36
         |vpiName:t_test
         |vpiFullName:test_pkg::t_test
+        |vpiActual:
+        \_StructTypespec: (test_pkg::t_test), line:7:9, endln:10:2
       |vpiName:$bits
     |vpiLhs:
-    \_Parameter: (test_pkg::TEST_SIZE), line:11:11, endln:11:20
+    \_Parameter: (test_pkg::TEST_SIZE), line:11:11, endln:11:36
+  |vpiTypedef:
+  \_IntTypespec: , line:3:12, endln:3:15
+    |vpiParent:
+    \_Package: test_pkg (test_pkg), file:${SURELOG_DIR}/tests/PackageEval/dut.sv, line:1:1, endln:14:11
+    |vpiSigned:1
+  |vpiTypedef:
+  \_IntTypespec: , line:4:12, endln:4:15
+    |vpiParent:
+    \_Package: test_pkg (test_pkg), file:${SURELOG_DIR}/tests/PackageEval/dut.sv, line:1:1, endln:14:11
+    |vpiSigned:1
+  |vpiTypedef:
+  \_ArrayTypespec: , line:4:28, endln:4:41
+    |vpiParent:
+    \_Package: test_pkg (test_pkg), file:${SURELOG_DIR}/tests/PackageEval/dut.sv, line:1:1, endln:14:11
+    |vpiRange:
+    \_Range: , line:4:28, endln:4:41
+    |vpiElemTypespec:
+    \_RefTypespec: (test_pkg), line:4:12, endln:4:15
+      |vpiParent:
+      \_ArrayTypespec: , line:4:28, endln:4:41
+      |vpiFullName:test_pkg
+      |vpiActual:
+      \_IntTypespec: , line:4:12, endln:4:15
   |vpiTypedef:
   \_StructTypespec: (test_pkg::t_test), line:7:9, endln:10:2
     |vpiParent:
-    \_Package: test_pkg (test_pkg::), file:${SURELOG_DIR}/tests/PackageEval/dut.sv, line:1:1, endln:14:11
+    \_Package: test_pkg (test_pkg), file:${SURELOG_DIR}/tests/PackageEval/dut.sv, line:1:1, endln:14:11
     |vpiName:test_pkg::t_test
-    |vpiInstance:
-    \_Package: test_pkg (test_pkg::), file:${SURELOG_DIR}/tests/PackageEval/dut.sv, line:1:1, endln:14:11
     |vpiPacked:1
     |vpiTypespecMember:
     \_TypespecMember: (valid), line:8:11, endln:8:16
@@ -298,88 +315,65 @@ Design: (unnamed)
       \_StructTypespec: (test_pkg::t_test), line:7:9, endln:10:2
       |vpiName:valid
       |vpiTypespec:
-      \_RefTypespec: (test_pkg::test_pkg::t_test::valid)
+      \_RefTypespec: (test_pkg::t_test::valid), line:8:5, endln:8:10
         |vpiParent:
         \_TypespecMember: (valid), line:8:11, endln:8:16
-        |vpiFullName:test_pkg::test_pkg::t_test::valid
+        |vpiFullName:test_pkg::t_test::valid
         |vpiActual:
         \_LogicTypespec: , line:8:5, endln:8:10
-      |vpiRefFile:${SURELOG_DIR}/tests/PackageEval/dut.sv
-      |vpiRefLineNo:8
-      |vpiRefColumnNo:5
-      |vpiRefEndLineNo:8
-      |vpiRefEndColumnNo:10
     |vpiTypespecMember:
     \_TypespecMember: (data), line:9:18, endln:9:22
       |vpiParent:
       \_StructTypespec: (test_pkg::t_test), line:7:9, endln:10:2
       |vpiName:data
       |vpiTypespec:
-      \_RefTypespec: (test_pkg::test_pkg::t_test::data)
+      \_RefTypespec: (test_pkg::t_test::data), line:9:5, endln:9:17
         |vpiParent:
         \_TypespecMember: (data), line:9:18, endln:9:22
-        |vpiFullName:test_pkg::test_pkg::t_test::data
+        |vpiFullName:test_pkg::t_test::data
         |vpiActual:
         \_LogicTypespec: , line:9:5, endln:9:17
-      |vpiRefFile:${SURELOG_DIR}/tests/PackageEval/dut.sv
-      |vpiRefLineNo:9
-      |vpiRefColumnNo:5
-      |vpiRefEndLineNo:9
-      |vpiRefEndColumnNo:17
+  |vpiTypedef:
+  \_LogicTypespec: , line:8:5, endln:8:10
+    |vpiParent:
+    \_Package: test_pkg (test_pkg), file:${SURELOG_DIR}/tests/PackageEval/dut.sv, line:1:1, endln:14:11
+  |vpiTypedef:
+  \_LogicTypespec: , line:9:5, endln:9:17
+    |vpiParent:
+    \_Package: test_pkg (test_pkg), file:${SURELOG_DIR}/tests/PackageEval/dut.sv, line:1:1, endln:14:11
+    |vpiRange:
+    \_Range: , line:9:11, endln:9:17
+      |vpiParent:
+      \_LogicTypespec: , line:9:5, endln:9:17
+      |vpiLeftRange:
+      \_Constant: , line:9:12, endln:9:14
+        |vpiParent:
+        \_Range: , line:9:11, endln:9:17
+        |vpiDecompile:63
+        |vpiSize:64
+        |UINT:63
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:9:15, endln:9:16
+        |vpiParent:
+        \_Range: , line:9:11, endln:9:17
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiImportTypespec:
+  \_IntTypespec: , line:3:12, endln:3:15
+  |vpiImportTypespec:
+  \_IntTypespec: , line:4:12, endln:4:15
+  |vpiImportTypespec:
+  \_ArrayTypespec: , line:4:28, endln:4:41
+  |vpiImportTypespec:
+  \_StructTypespec: (test_pkg::t_test), line:7:9, endln:10:2
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:8:5, endln:8:10
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:9:5, endln:9:17
   |vpiDefName:test_pkg
-\_weaklyReferenced:
-\_IntTypespec: , line:3:12, endln:3:15
-  |vpiParent:
-  \_Parameter: (test_pkg::NStraps), line:3:16, endln:3:23
-  |vpiInstance:
-  \_Package: test_pkg (test_pkg::), file:${SURELOG_DIR}/tests/PackageEval/dut.sv, line:1:1, endln:14:11
-  |vpiSigned:1
-\_ArrayTypespec: , line:4:12, endln:4:41
-  |vpiParent:
-  \_Parameter: (test_pkg::MioStrapPos), line:4:16, endln:4:27
-  |vpiRange:
-  \_Range: , line:4:28, endln:4:41
-  |vpiElemTypespec:
-  \_RefTypespec: (test_pkg::MioStrapPos)
-    |vpiParent:
-    \_ArrayTypespec: , line:4:12, endln:4:41
-    |vpiFullName:test_pkg::MioStrapPos
-    |vpiActual:
-    \_IntTypespec: , line:4:12, endln:4:15
-\_IntTypespec: , line:4:12, endln:4:15
-  |vpiInstance:
-  \_Package: test_pkg (test_pkg::), file:${SURELOG_DIR}/tests/PackageEval/dut.sv, line:1:1, endln:14:11
-  |vpiSigned:1
-\_LogicTypespec: , line:8:5, endln:8:10
-  |vpiParent:
-  \_TypespecMember: (valid), line:8:11, endln:8:16
-  |vpiInstance:
-  \_Package: test_pkg (test_pkg::), file:${SURELOG_DIR}/tests/PackageEval/dut.sv, line:1:1, endln:14:11
-\_LogicTypespec: , line:9:5, endln:9:17
-  |vpiParent:
-  \_TypespecMember: (data), line:9:18, endln:9:22
-  |vpiInstance:
-  \_Package: test_pkg (test_pkg::), file:${SURELOG_DIR}/tests/PackageEval/dut.sv, line:1:1, endln:14:11
-  |vpiRange:
-  \_Range: , line:9:11, endln:9:17
-    |vpiParent:
-    \_LogicTypespec: , line:9:5, endln:9:17
-    |vpiLeftRange:
-    \_Constant: , line:9:12, endln:9:14
-      |vpiParent:
-      \_Range: , line:9:11, endln:9:17
-      |vpiDecompile:63
-      |vpiSize:64
-      |UINT:63
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:9:15, endln:9:16
-      |vpiParent:
-      \_Range: , line:9:11, endln:9:17
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

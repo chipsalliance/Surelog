@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 71
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/PackageParamConst/dut.sv
+FILE: ${SURELOG_DIR}/tests/PackageParamConst/dut.sv
 n<> u<70> t<Top_level_rule> c<1> l<1:1> el<9:1>
-  n<> u<1> t<Null_rule> p<70> s<69> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<70> s<69> l<1:1>
   n<> u<69> t<Source_text> p<70> c<31> l<1:1> el<7:10>
     n<> u<31> t<Description> p<69> c<30> s<68> l<1:1> el<3:11>
       n<> u<30> t<Package_declaration> p<31> c<2> l<1:1> el<3:11>
@@ -82,42 +82,39 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 BitSelect                                              1
-Constant                                               8
+Constant                                               6
 ContAssign                                             1
 Design                                                 1
 LogicNet                                               1
-LogicTypespec                                          3
+LogicTypespec                                          1
 Module                                                 2
 Package                                                1
-ParamAssign                                            2
-Parameter                                              2
+ParamAssign                                            1
+Parameter                                              1
 Port                                                   1
-Range                                                  2
-RefObj                                                 2
-RefTypespec                                            5
+Range                                                  1
+RefObj                                                 1
+RefTypespec                                            2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PackageParamConst/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/PackageParamConst/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/PackageParamConst/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallPackages:
-\_Package: pkg (pkg::), file:${SURELOG_DIR}/tests/PackageParamConst/dut.sv, line:1:1, endln:3:11
+|vpiAllPackages:
+\_Package: pkg (pkg), file:${SURELOG_DIR}/tests/PackageParamConst/dut.sv, line:1:1, endln:3:11
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:pkg
-  |vpiFullName:pkg::
   |vpiParameter:
-  \_Parameter: (pkg::A), line:2:26, endln:2:27
+  \_Parameter: (pkg::A), line:2:26, endln:2:34
     |vpiParent:
-    \_Package: pkg (pkg::), file:${SURELOG_DIR}/tests/PackageParamConst/dut.sv, line:1:1, endln:3:11
+    \_Package: pkg (pkg), file:${SURELOG_DIR}/tests/PackageParamConst/dut.sv, line:1:1, endln:3:11
     |HEX:F
     |vpiTypespec:
-    \_RefTypespec: (pkg::A)
+    \_RefTypespec: (pkg::A), line:2:14, endln:2:25
       |vpiParent:
-      \_Parameter: (pkg::A), line:2:26, endln:2:27
+      \_Parameter: (pkg::A), line:2:26, endln:2:34
       |vpiFullName:pkg::A
       |vpiActual:
       \_LogicTypespec: , line:2:14, endln:2:25
@@ -126,7 +123,7 @@ Design: (unnamed)
   |vpiParamAssign:
   \_ParamAssign: , line:2:26, endln:2:34
     |vpiParent:
-    \_Package: pkg (pkg::), file:${SURELOG_DIR}/tests/PackageParamConst/dut.sv, line:1:1, endln:3:11
+    \_Package: pkg (pkg), file:${SURELOG_DIR}/tests/PackageParamConst/dut.sv, line:1:1, endln:3:11
     |vpiRhs:
     \_Constant: , line:2:30, endln:2:34
       |vpiParent:
@@ -134,63 +131,71 @@ Design: (unnamed)
       |vpiDecompile:4'hF
       |vpiSize:4
       |HEX:F
-      |vpiTypespec:
-      \_RefTypespec: (pkg)
-        |vpiParent:
-        \_Constant: , line:2:30, endln:2:34
-        |vpiFullName:pkg
-        |vpiActual:
-        \_LogicTypespec: , line:2:14, endln:2:25
       |vpiConstType:5
     |vpiLhs:
-    \_Parameter: (pkg::A), line:2:26, endln:2:27
+    \_Parameter: (pkg::A), line:2:26, endln:2:34
+  |vpiTypedef:
+  \_LogicTypespec: , line:2:14, endln:2:25
+    |vpiParent:
+    \_Package: pkg (pkg), file:${SURELOG_DIR}/tests/PackageParamConst/dut.sv, line:1:1, endln:3:11
+    |vpiRange:
+    \_Range: , line:2:20, endln:2:25
+      |vpiParent:
+      \_LogicTypespec: , line:2:14, endln:2:25
+      |vpiLeftRange:
+      \_Constant: , line:2:21, endln:2:22
+        |vpiParent:
+        \_Range: , line:2:20, endln:2:25
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:2:23, endln:2:24
+        |vpiParent:
+        \_Range: , line:2:20, endln:2:25
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:2:14, endln:2:25
   |vpiDefName:pkg
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PackageParamConst/dut.sv, line:5:1, endln:7:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
-  |vpiDefName:work@top
-  |vpiNet:
+  |vpiName:work@top
+  |vpiImportTypespec:
   \_LogicNet: (work@top.a), line:5:19, endln:5:20
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PackageParamConst/dut.sv, line:5:1, endln:7:10
     |vpiName:a
     |vpiFullName:work@top.a
+  |vpiDefName:work@top
+  |vpiNet:
+  \_LogicNet: (work@top.a), line:5:19, endln:5:20
   |vpiPort:
   \_Port: (a), line:5:19, endln:5:20
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PackageParamConst/dut.sv, line:5:1, endln:7:10
     |vpiName:a
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@top.a.a), line:5:19, endln:5:20
-      |vpiParent:
-      \_Port: (a), line:5:19, endln:5:20
-      |vpiName:a
-      |vpiFullName:work@top.a.a
-      |vpiActual:
-      \_LogicNet: (work@top.a), line:5:19, endln:5:20
-    |vpiTypedef:
-    \_RefTypespec: (work@top.a)
-      |vpiParent:
-      \_Port: (a), line:5:19, endln:5:20
-      |vpiFullName:work@top.a
-      |vpiActual:
-      \_LogicTypespec: , line:5:19, endln:5:19
   |vpiContAssign:
   \_ContAssign: , line:6:11, endln:6:24
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PackageParamConst/dut.sv, line:5:1, endln:7:10
     |vpiRhs:
-    \_BitSelect: (pkg::A), line:6:22, endln:6:23
+    \_BitSelect: (pkg::A), line:6:21, endln:6:24
       |vpiParent:
-      \_Parameter: (pkg::A), line:2:26, endln:2:27
+      \_ContAssign: , line:6:11, endln:6:24
       |vpiName:pkg::A
+      |vpiActual:
+      \_Parameter: (pkg::A), line:2:26, endln:2:34
       |vpiIndex:
       \_Constant: , line:6:22, endln:6:23
         |vpiParent:
-        \_BitSelect: (pkg::A), line:6:22, endln:6:23
+        \_BitSelect: (pkg::A), line:6:21, endln:6:24
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
@@ -203,33 +208,6 @@ Design: (unnamed)
       |vpiFullName:work@top.a
       |vpiActual:
       \_LogicNet: (work@top.a), line:5:19, endln:5:20
-\_weaklyReferenced:
-\_LogicTypespec: , line:2:14, endln:2:25
-  |vpiParent:
-  \_Parameter: (pkg::A), line:2:26, endln:2:27
-  |vpiInstance:
-  \_Package: pkg (pkg::), file:${SURELOG_DIR}/tests/PackageParamConst/dut.sv, line:1:1, endln:3:11
-  |vpiRange:
-  \_Range: , line:2:20, endln:2:25
-    |vpiParent:
-    \_LogicTypespec: , line:2:14, endln:2:25
-    |vpiLeftRange:
-    \_Constant: , line:2:21, endln:2:22
-      |vpiParent:
-      \_Range: , line:2:20, endln:2:25
-      |vpiDecompile:3
-      |vpiSize:64
-      |UINT:3
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:2:23, endln:2:24
-      |vpiParent:
-      \_Range: , line:2:20, endln:2:25
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:5:19, endln:5:19
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

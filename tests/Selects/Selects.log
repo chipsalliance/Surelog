@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 140
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/Selects/dut.sv
+FILE: ${SURELOG_DIR}/tests/Selects/dut.sv
 n<> u<139> t<Top_level_rule> c<1> l<1:1> el<17:1>
-  n<> u<1> t<Null_rule> p<139> s<138> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<139> s<138> l<1:1>
   n<> u<138> t<Source_text> p<139> c<134> l<1:1> el<16:11>
     n<> u<134> t<Description> p<138> c<133> s<137> l<1:1> el<16:10>
       n<> u<133> t<Module_declaration> p<134> c<4> l<1:1> el<16:10>
@@ -43,7 +43,7 @@ n<> u<139> t<Top_level_rule> c<1> l<1:1> el<17:1>
                         n<> u<26> t<Packed_keyword> p<44> s<43> l<7:18> el<7:24>
                         n<> u<43> t<Struct_union_member> p<44> c<39> l<8:5> el<8:60>
                           n<> u<39> t<Data_type_or_void> p<43> c<38> s<42> l<8:5> el<8:45>
-                            n<> u<38> t<Data_type> p<39> c<27> l<8:5> el<8:45>
+                            n<rstmgr_reg2hw_sw_rst_ctrl_n_mreg_t> u<38> t<Data_type> p<39> c<27> l<8:5> el<8:45>
                               n<rstmgr_reg2hw_sw_rst_ctrl_n_mreg_t> u<27> t<StringConst> p<38> s<37> l<8:5> el<8:39>
                               n<> u<37> t<Packed_dimension> p<38> c<36> l<8:40> el<8:45>
                                 n<> u<36> t<Constant_range> p<37> c<31> l<8:41> el<8:44>
@@ -76,7 +76,7 @@ n<> u<139> t<Top_level_rule> c<1> l<1:1> el<17:1>
                 n<> u<80> t<Package_or_generate_item_declaration> p<81> c<79> l<12:3> el<12:58>
                   n<> u<79> t<Data_declaration> p<80> c<78> l<12:3> el<12:58>
                     n<> u<78> t<Variable_declaration> p<79> c<74> l<12:3> el<12:58>
-                      n<> u<74> t<Data_type> p<78> c<63> s<77> l<12:3> el<12:43>
+                      n<rstmgr_reg2hw_sw_rst_ctrl_n_mreg_t> u<74> t<Data_type> p<78> c<63> s<77> l<12:3> el<12:43>
                         n<rstmgr_reg2hw_sw_rst_ctrl_n_mreg_t> u<63> t<StringConst> p<74> s<73> l<12:3> el<12:37>
                         n<> u<73> t<Packed_dimension> p<74> c<72> l<12:38> el<12:43>
                           n<> u<72> t<Constant_range> p<73> c<67> l<12:39> el<12:42>
@@ -148,36 +148,164 @@ AST_DEBUG_END
 [INF:CP0303] ${SURELOG_DIR}/tests/Selects/dut.sv:1:1: Compile module "work@t".
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-Constant                                               4
+BitSelect                                              2
+Constant                                               8
 Design                                                 1
-LogicNet                                               4
+HierPath                                               2
 LogicTypespec                                          3
+LogicVar                                               2
 Module                                                 1
 PackedArrayTypespec                                    2
-Range                                                  2
+PackedArrayVar                                         1
+Range                                                  3
+RefObj                                                 3
 RefTypespec                                            8
 StructTypespec                                         2
+StructVar                                              1
 TypespecMember                                         2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/Selects/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/Selects/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/Selects/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@t (work@t), file:${SURELOG_DIR}/tests/Selects/dut.sv, line:1:1, endln:16:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@t
+  |vpiName:work@t
+  |vpiVariables:
+  \_StructVar: (work@t.reg2hw), line:11:19, endln:11:25
+    |vpiParent:
+    \_Module: work@t (work@t), file:${SURELOG_DIR}/tests/Selects/dut.sv, line:1:1, endln:16:10
+    |vpiTypespec:
+    \_RefTypespec: (work@t.reg2hw.rstmgr_reg2hw_t), line:11:3, endln:11:18
+      |vpiParent:
+      \_StructVar: (work@t.reg2hw), line:11:19, endln:11:25
+      |vpiName:rstmgr_reg2hw_t
+      |vpiFullName:work@t.reg2hw.rstmgr_reg2hw_t
+      |vpiActual:
+      \_StructTypespec: (rstmgr_reg2hw_t), line:7:11, endln:9:4
+    |vpiName:reg2hw
+    |vpiFullName:work@t.reg2hw
+    |vpiVisibility:1
+  |vpiVariables:
+  \_PackedArrayVar: (work@t.sw_rst_ctrl_n), line:12:44, endln:12:57
+    |vpiParent:
+    \_Module: work@t (work@t), file:${SURELOG_DIR}/tests/Selects/dut.sv, line:1:1, endln:16:10
+    |vpiTypespec:
+    \_RefTypespec: (work@t.sw_rst_ctrl_n.rstmgr_reg2hw_sw_rst_ctrl_n_mreg_t), line:12:3, endln:12:43
+      |vpiParent:
+      \_PackedArrayVar: (work@t.sw_rst_ctrl_n), line:12:44, endln:12:57
+      |vpiName:rstmgr_reg2hw_sw_rst_ctrl_n_mreg_t
+      |vpiFullName:work@t.sw_rst_ctrl_n.rstmgr_reg2hw_sw_rst_ctrl_n_mreg_t
+      |vpiActual:
+      \_PackedArrayTypespec: , line:12:38, endln:12:43
+    |vpiName:sw_rst_ctrl_n
+    |vpiFullName:work@t.sw_rst_ctrl_n
+    |vpiVisibility:1
+  |vpiVariables:
+  \_LogicVar: (work@t.X), line:14:9, endln:14:10
+    |vpiParent:
+    \_Module: work@t (work@t), file:${SURELOG_DIR}/tests/Selects/dut.sv, line:1:1, endln:16:10
+    |vpiTypespec:
+    \_RefTypespec: (work@t.X), line:14:3, endln:14:8
+      |vpiParent:
+      \_LogicVar: (work@t.X), line:14:9, endln:14:10
+      |vpiFullName:work@t.X
+      |vpiActual:
+      \_LogicTypespec: , line:14:3, endln:14:8
+    |vpiName:X
+    |vpiFullName:work@t.X
+    |vpiVisibility:1
+    |vpiExpr:
+    \_HierPath: (reg2hw.sw_rst_ctrl_n[0].q), line:14:13, endln:14:38
+      |vpiParent:
+      \_LogicVar: (work@t.X), line:14:9, endln:14:10
+      |vpiActual:
+      \_RefObj: (reg2hw), line:14:13, endln:14:19
+        |vpiParent:
+        \_HierPath: (reg2hw.sw_rst_ctrl_n[0].q), line:14:13, endln:14:38
+        |vpiName:reg2hw
+        |vpiActual:
+        \_StructVar: (work@t.reg2hw), line:11:19, endln:11:25
+      |vpiActual:
+      \_BitSelect: (reg2hw.sw_rst_ctrl_n[0]), line:14:20, endln:14:33
+        |vpiParent:
+        \_HierPath: (reg2hw.sw_rst_ctrl_n[0].q), line:14:13, endln:14:38
+        |vpiName:reg2hw.sw_rst_ctrl_n
+        |vpiFullName:reg2hw.sw_rst_ctrl_n[0]
+        |vpiActual:
+        \_TypespecMember: (sw_rst_ctrl_n), line:8:46, endln:8:59
+        |vpiIndex:
+        \_Constant: , line:14:34, endln:14:35
+          |vpiParent:
+          \_BitSelect: (reg2hw.sw_rst_ctrl_n[0]), line:14:20, endln:14:33
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiActual:
+      \_RefObj: (work@t.X.q), line:14:37, endln:14:38
+        |vpiParent:
+        \_HierPath: (reg2hw.sw_rst_ctrl_n[0].q), line:14:13, endln:14:38
+        |vpiName:q
+        |vpiFullName:work@t.X.q
+        |vpiActual:
+        \_LogicNet: (work@t.q), line:14:37, endln:14:38
+      |vpiName:reg2hw.sw_rst_ctrl_n[0].q
+  |vpiVariables:
+  \_LogicVar: (work@t.Y), line:15:9, endln:15:10
+    |vpiParent:
+    \_Module: work@t (work@t), file:${SURELOG_DIR}/tests/Selects/dut.sv, line:1:1, endln:16:10
+    |vpiTypespec:
+    \_RefTypespec: (work@t.Y), line:15:3, endln:15:8
+      |vpiParent:
+      \_LogicVar: (work@t.Y), line:15:9, endln:15:10
+      |vpiFullName:work@t.Y
+      |vpiActual:
+      \_LogicTypespec: , line:15:3, endln:15:8
+    |vpiName:Y
+    |vpiFullName:work@t.Y
+    |vpiVisibility:1
+    |vpiExpr:
+    \_HierPath: (sw_rst_ctrl_n[0].q), line:15:13, endln:15:31
+      |vpiParent:
+      \_LogicVar: (work@t.Y), line:15:9, endln:15:10
+      |vpiActual:
+      \_BitSelect: (sw_rst_ctrl_n[0]), line:15:13, endln:15:26
+        |vpiParent:
+        \_HierPath: (sw_rst_ctrl_n[0].q), line:15:13, endln:15:31
+        |vpiName:sw_rst_ctrl_n
+        |vpiFullName:sw_rst_ctrl_n[0]
+        |vpiActual:
+        \_PackedArrayVar: (work@t.sw_rst_ctrl_n), line:12:44, endln:12:57
+        |vpiIndex:
+        \_Constant: , line:15:27, endln:15:28
+          |vpiParent:
+          \_BitSelect: (sw_rst_ctrl_n[0]), line:15:13, endln:15:26
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiActual:
+      \_RefObj: (work@t.Y.q), line:15:30, endln:15:31
+        |vpiParent:
+        \_HierPath: (sw_rst_ctrl_n[0].q), line:15:13, endln:15:31
+        |vpiName:q
+        |vpiFullName:work@t.Y.q
+        |vpiActual:
+        \_LogicNet: (work@t.q), line:14:37, endln:14:38
+      |vpiName:sw_rst_ctrl_n[0].q
+  |vpiReg:
+  \_LogicVar: (work@t.X), line:14:9, endln:14:10
+  |vpiReg:
+  \_LogicVar: (work@t.Y), line:15:9, endln:15:10
   |vpiTypedef:
   \_StructTypespec: (rstmgr_reg2hw_sw_rst_ctrl_n_mreg_t), line:3:11, endln:5:4
     |vpiParent:
     \_Module: work@t (work@t), file:${SURELOG_DIR}/tests/Selects/dut.sv, line:1:1, endln:16:10
     |vpiName:rstmgr_reg2hw_sw_rst_ctrl_n_mreg_t
-    |vpiInstance:
-    \_Module: work@t (work@t), file:${SURELOG_DIR}/tests/Selects/dut.sv, line:1:1, endln:16:10
     |vpiPacked:1
     |vpiTypespecMember:
     \_TypespecMember: (q), line:4:18, endln:4:19
@@ -185,24 +313,21 @@ Design: (unnamed)
       \_StructTypespec: (rstmgr_reg2hw_sw_rst_ctrl_n_mreg_t), line:3:11, endln:5:4
       |vpiName:q
       |vpiTypespec:
-      \_RefTypespec: (work@t.rstmgr_reg2hw_sw_rst_ctrl_n_mreg_t.q)
+      \_RefTypespec: (work@t.rstmgr_reg2hw_sw_rst_ctrl_n_mreg_t.q), line:4:5, endln:4:10
         |vpiParent:
         \_TypespecMember: (q), line:4:18, endln:4:19
         |vpiFullName:work@t.rstmgr_reg2hw_sw_rst_ctrl_n_mreg_t.q
         |vpiActual:
         \_LogicTypespec: , line:4:5, endln:4:10
-      |vpiRefFile:${SURELOG_DIR}/tests/Selects/dut.sv
-      |vpiRefLineNo:4
-      |vpiRefColumnNo:5
-      |vpiRefEndLineNo:4
-      |vpiRefEndColumnNo:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:4:5, endln:4:10
+    |vpiParent:
+    \_Module: work@t (work@t), file:${SURELOG_DIR}/tests/Selects/dut.sv, line:1:1, endln:16:10
   |vpiTypedef:
   \_StructTypespec: (rstmgr_reg2hw_t), line:7:11, endln:9:4
     |vpiParent:
     \_Module: work@t (work@t), file:${SURELOG_DIR}/tests/Selects/dut.sv, line:1:1, endln:16:10
     |vpiName:rstmgr_reg2hw_t
-    |vpiInstance:
-    \_Module: work@t (work@t), file:${SURELOG_DIR}/tests/Selects/dut.sv, line:1:1, endln:16:10
     |vpiPacked:1
     |vpiTypespecMember:
     \_TypespecMember: (sw_rst_ctrl_n), line:8:46, endln:8:59
@@ -210,135 +335,117 @@ Design: (unnamed)
       \_StructTypespec: (rstmgr_reg2hw_t), line:7:11, endln:9:4
       |vpiName:sw_rst_ctrl_n
       |vpiTypespec:
-      \_RefTypespec: (work@t.rstmgr_reg2hw_t.sw_rst_ctrl_n)
+      \_RefTypespec: (work@t.rstmgr_reg2hw_t.sw_rst_ctrl_n.rstmgr_reg2hw_sw_rst_ctrl_n_mreg_t), line:8:5, endln:8:45
         |vpiParent:
         \_TypespecMember: (sw_rst_ctrl_n), line:8:46, endln:8:59
-        |vpiFullName:work@t.rstmgr_reg2hw_t.sw_rst_ctrl_n
+        |vpiName:rstmgr_reg2hw_sw_rst_ctrl_n_mreg_t
+        |vpiFullName:work@t.rstmgr_reg2hw_t.sw_rst_ctrl_n.rstmgr_reg2hw_sw_rst_ctrl_n_mreg_t
         |vpiActual:
-        \_PackedArrayTypespec: , line:8:5, endln:8:45
-      |vpiRefFile:${SURELOG_DIR}/tests/Selects/dut.sv
-      |vpiRefLineNo:8
-      |vpiRefColumnNo:5
-      |vpiRefEndLineNo:8
-      |vpiRefEndColumnNo:45
+        \_PackedArrayTypespec: , line:8:40, endln:8:45
+  |vpiTypedef:
+  \_PackedArrayTypespec: , line:8:40, endln:8:45
+    |vpiParent:
+    \_Module: work@t (work@t), file:${SURELOG_DIR}/tests/Selects/dut.sv, line:1:1, endln:16:10
+    |vpiRange:
+    \_Range: , line:8:40, endln:8:45
+      |vpiParent:
+      \_PackedArrayTypespec: , line:8:40, endln:8:45
+      |vpiLeftRange:
+      \_Constant: , line:8:41, endln:8:42
+        |vpiParent:
+        \_Range: , line:8:40, endln:8:45
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:8:43, endln:8:44
+        |vpiParent:
+        \_Range: , line:8:40, endln:8:45
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiElemTypespec:
+    \_RefTypespec: (work@t.rstmgr_reg2hw_sw_rst_ctrl_n_mreg_t), line:8:5, endln:8:39
+      |vpiParent:
+      \_PackedArrayTypespec: , line:8:40, endln:8:45
+      |vpiName:rstmgr_reg2hw_sw_rst_ctrl_n_mreg_t
+      |vpiFullName:work@t.rstmgr_reg2hw_sw_rst_ctrl_n_mreg_t
+      |vpiActual:
+      \_StructTypespec: (rstmgr_reg2hw_sw_rst_ctrl_n_mreg_t), line:3:11, endln:5:4
+  |vpiTypedef:
+  \_PackedArrayTypespec: , line:12:38, endln:12:43
+    |vpiParent:
+    \_Module: work@t (work@t), file:${SURELOG_DIR}/tests/Selects/dut.sv, line:1:1, endln:16:10
+    |vpiRange:
+    \_Range: , line:12:38, endln:12:43
+      |vpiParent:
+      \_PackedArrayTypespec: , line:12:38, endln:12:43
+      |vpiLeftRange:
+      \_Constant: , line:12:39, endln:12:40
+        |vpiParent:
+        \_Range: , line:12:38, endln:12:43
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:12:41, endln:12:42
+        |vpiParent:
+        \_Range: , line:12:38, endln:12:43
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiElemTypespec:
+    \_RefTypespec: (work@t.rstmgr_reg2hw_sw_rst_ctrl_n_mreg_t), line:12:3, endln:12:37
+      |vpiParent:
+      \_PackedArrayTypespec: , line:12:38, endln:12:43
+      |vpiName:rstmgr_reg2hw_sw_rst_ctrl_n_mreg_t
+      |vpiFullName:work@t.rstmgr_reg2hw_sw_rst_ctrl_n_mreg_t
+      |vpiActual:
+      \_StructTypespec: (rstmgr_reg2hw_sw_rst_ctrl_n_mreg_t), line:3:11, endln:5:4
+  |vpiTypedef:
+  \_LogicTypespec: , line:14:3, endln:14:8
+    |vpiParent:
+    \_Module: work@t (work@t), file:${SURELOG_DIR}/tests/Selects/dut.sv, line:1:1, endln:16:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:15:3, endln:15:8
+    |vpiParent:
+    \_Module: work@t (work@t), file:${SURELOG_DIR}/tests/Selects/dut.sv, line:1:1, endln:16:10
+  |vpiImportTypespec:
+  \_StructTypespec: (rstmgr_reg2hw_sw_rst_ctrl_n_mreg_t), line:3:11, endln:5:4
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:4:5, endln:4:10
+  |vpiImportTypespec:
+  \_StructTypespec: (rstmgr_reg2hw_t), line:7:11, endln:9:4
+  |vpiImportTypespec:
+  \_PackedArrayTypespec: , line:8:40, endln:8:45
+  |vpiImportTypespec:
+  \_StructVar: (work@t.reg2hw), line:11:19, endln:11:25
+  |vpiImportTypespec:
+  \_PackedArrayTypespec: , line:12:38, endln:12:43
+  |vpiImportTypespec:
+  \_PackedArrayVar: (work@t.sw_rst_ctrl_n), line:12:44, endln:12:57
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:14:3, endln:14:8
+  |vpiImportTypespec:
+  \_LogicVar: (work@t.X), line:14:9, endln:14:10
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:15:3, endln:15:8
+  |vpiImportTypespec:
+  \_LogicVar: (work@t.Y), line:15:9, endln:15:10
+  |vpiImportTypespec:
+  \_LogicNet: (work@t.q), line:14:37, endln:14:38
+    |vpiParent:
+    \_Module: work@t (work@t), file:${SURELOG_DIR}/tests/Selects/dut.sv, line:1:1, endln:16:10
+    |vpiName:q
+    |vpiFullName:work@t.q
+    |vpiNetType:1
   |vpiDefName:work@t
   |vpiNet:
-  \_LogicNet: (work@t.reg2hw), line:11:19, endln:11:25
-    |vpiParent:
-    \_Module: work@t (work@t), file:${SURELOG_DIR}/tests/Selects/dut.sv, line:1:1, endln:16:10
-    |vpiTypespec:
-    \_RefTypespec: (work@t.reg2hw)
-      |vpiParent:
-      \_LogicNet: (work@t.reg2hw), line:11:19, endln:11:25
-      |vpiFullName:work@t.reg2hw
-      |vpiActual:
-      \_StructTypespec: (rstmgr_reg2hw_t), line:7:11, endln:9:4
-    |vpiName:reg2hw
-    |vpiFullName:work@t.reg2hw
-  |vpiNet:
-  \_LogicNet: (work@t.sw_rst_ctrl_n), line:12:44, endln:12:57
-    |vpiParent:
-    \_Module: work@t (work@t), file:${SURELOG_DIR}/tests/Selects/dut.sv, line:1:1, endln:16:10
-    |vpiTypespec:
-    \_RefTypespec: (work@t.sw_rst_ctrl_n)
-      |vpiParent:
-      \_LogicNet: (work@t.sw_rst_ctrl_n), line:12:44, endln:12:57
-      |vpiFullName:work@t.sw_rst_ctrl_n
-      |vpiActual:
-      \_PackedArrayTypespec: , line:12:3, endln:12:43
-    |vpiName:sw_rst_ctrl_n
-    |vpiFullName:work@t.sw_rst_ctrl_n
-  |vpiNet:
-  \_LogicNet: (work@t.X), line:14:9, endln:14:10
-    |vpiParent:
-    \_Module: work@t (work@t), file:${SURELOG_DIR}/tests/Selects/dut.sv, line:1:1, endln:16:10
-    |vpiTypespec:
-    \_RefTypespec: (work@t.X)
-      |vpiParent:
-      \_LogicNet: (work@t.X), line:14:9, endln:14:10
-      |vpiFullName:work@t.X
-      |vpiActual:
-      \_LogicTypespec: , line:14:3, endln:14:38
-    |vpiName:X
-    |vpiFullName:work@t.X
-    |vpiNetType:36
-  |vpiNet:
-  \_LogicNet: (work@t.Y), line:15:9, endln:15:10
-    |vpiParent:
-    \_Module: work@t (work@t), file:${SURELOG_DIR}/tests/Selects/dut.sv, line:1:1, endln:16:10
-    |vpiTypespec:
-    \_RefTypespec: (work@t.Y)
-      |vpiParent:
-      \_LogicNet: (work@t.Y), line:15:9, endln:15:10
-      |vpiFullName:work@t.Y
-      |vpiActual:
-      \_LogicTypespec: , line:15:3, endln:15:31
-    |vpiName:Y
-    |vpiFullName:work@t.Y
-    |vpiNetType:36
-\_weaklyReferenced:
-\_LogicTypespec: , line:4:5, endln:4:10
-  |vpiParent:
-  \_TypespecMember: (q), line:4:18, endln:4:19
-\_PackedArrayTypespec: , line:8:5, endln:8:45
-  |vpiParent:
-  \_TypespecMember: (sw_rst_ctrl_n), line:8:46, endln:8:59
-  |vpiRange:
-  \_Range: , line:8:40, endln:8:45
-    |vpiParent:
-    \_PackedArrayTypespec: , line:8:5, endln:8:45
-    |vpiLeftRange:
-    \_Constant: , line:8:41, endln:8:42
-      |vpiParent:
-      \_Range: , line:8:40, endln:8:45
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:8:43, endln:8:44
-      |vpiParent:
-      \_Range: , line:8:40, endln:8:45
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-  |vpiElemTypespec:
-  \_RefTypespec: (work@t.rstmgr_reg2hw_t.sw_rst_ctrl_n)
-    |vpiParent:
-    \_PackedArrayTypespec: , line:8:5, endln:8:45
-    |vpiFullName:work@t.rstmgr_reg2hw_t.sw_rst_ctrl_n
-    |vpiActual:
-    \_StructTypespec: (rstmgr_reg2hw_sw_rst_ctrl_n_mreg_t), line:3:11, endln:5:4
-\_PackedArrayTypespec: , line:12:3, endln:12:43
-  |vpiRange:
-  \_Range: , line:12:38, endln:12:43
-    |vpiParent:
-    \_PackedArrayTypespec: , line:12:3, endln:12:43
-    |vpiLeftRange:
-    \_Constant: , line:12:39, endln:12:40
-      |vpiParent:
-      \_Range: , line:12:38, endln:12:43
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:12:41, endln:12:42
-      |vpiParent:
-      \_Range: , line:12:38, endln:12:43
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-  |vpiElemTypespec:
-  \_RefTypespec: 
-    |vpiParent:
-    \_PackedArrayTypespec: , line:12:3, endln:12:43
-    |vpiActual:
-    \_StructTypespec: (rstmgr_reg2hw_sw_rst_ctrl_n_mreg_t), line:3:11, endln:5:4
-\_LogicTypespec: , line:14:3, endln:14:38
-\_LogicTypespec: , line:15:3, endln:15:31
+  \_LogicNet: (work@t.q), line:14:37, endln:14:38
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

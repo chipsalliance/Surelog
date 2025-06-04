@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 365
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/DefaultNetType/dut.sv
+FILE: ${SURELOG_DIR}/tests/DefaultNetType/dut.sv
 n<> u<364> t<Top_level_rule> c<1> l<1:1> el<50:1>
-  n<> u<1> t<Null_rule> p<364> s<363> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<364> s<363> l<1:1>
   n<> u<363> t<Source_text> p<364> c<5> l<1:1> el<49:10>
     n<> u<5> t<Description> p<363> c<4> s<38> l<1:1> el<1:22>
       n<> u<4> t<Top_directives> p<5> c<3> l<1:1> el<1:22>
@@ -378,118 +378,138 @@ AST_DEBUG_END
 [INF:CP0303] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:28:1: Compile module "work@bad2".
 [INF:CP0303] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:3:1: Compile module "work@ok".
 [INF:UH0706] Creating UHDM Model...
-[ERR:EL0535] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:16:8: Illegal implicit net "b".
-[ERR:EL0535] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:32:21: Illegal implicit net "clock".
-[ERR:EL0535] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:33:4: Illegal implicit net "clear".
-[ERR:EL0535] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:40:14: Illegal implicit net "mode".
-[ERR:EL0535] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:41:21: Illegal implicit net "operation".
-[ERR:EL0535] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:42:21: Illegal implicit net "operation".
-[ERR:EL0535] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:43:22: Illegal implicit net "operation".
-[ERR:EL0535] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:47:7: Illegal implicit net "b".
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 Always                                                 2
 Assignment                                             6
 Begin                                                  3
 CaseItem                                               3
 CaseStmt                                               1
-Constant                                              14
+Constant                                              12
 ContAssign                                             2
 Design                                                 1
 EnumConst                                             11
 EnumTypespec                                           4
+EnumVar                                                2
 EventControl                                           1
 Function                                               1
 IODecl                                                 1
 IfElse                                                 1
-LogicNet                                               6
-LogicTypespec                                          7
-LogicVar                                               2
+LogicNet                                               3
+LogicTypespec                                          4
+LogicVar                                               1
 Module                                                 5
+ModuleTypespec                                         1
 Operation                                              1
 Port                                                   2
-Range                                                  4
+Range                                                  3
 RefModule                                              1
-RefObj                                                23
-RefTypespec                                           11
+RefObj                                                22
+RefTypespec                                            6
 === UHDM Object Stats End ===
+[ERR:UH0734] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:16:8: Failed to bind object: "id: 41, name: b".
+[ERR:EL0535] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:16:8: Illegal implicit net "id:41, name: b".
+[ERR:UH0734] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:32:21: Failed to bind object: "id: 49, name: clock".
+[ERR:EL0535] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:32:21: Illegal implicit net "id:49, name: clock".
+[ERR:UH0734] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:33:4: Failed to bind object: "id: 51, name: clear".
+[ERR:EL0535] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:33:4: Illegal implicit net "id:51, name: clear".
+[ERR:UH0734] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:40:14: Failed to bind object: "id: 63, name: mode".
+[ERR:EL0535] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:40:14: Illegal implicit net "id:63, name: mode".
+[ERR:UH0734] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:41:21: Failed to bind object: "id: 67, name: operation".
+[ERR:EL0535] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:41:21: Illegal implicit net "id:67, name: operation".
+[ERR:UH0734] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:42:21: Failed to bind object: "id: 72, name: operation".
+[ERR:EL0535] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:42:21: Illegal implicit net "id:72, name: operation".
+[ERR:UH0734] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:43:22: Failed to bind object: "id: 76, name: operation".
+[ERR:EL0535] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:43:22: Illegal implicit net "id:76, name: operation".
+[ERR:UH0734] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:47:7: Failed to bind object: "id: 81, name: b".
+[ERR:EL0535] ${SURELOG_DIR}/tests/DefaultNetType/dut.sv:47:7: Illegal implicit net "id:81, name: b".
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/DefaultNetType/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/DefaultNetType/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/DefaultNetType/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@M1 (work@M1), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:11:1, endln:12:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@M1
-  |vpiDefName:work@M1
-  |vpiNet:
+  |vpiName:work@M1
+  |vpiImportTypespec:
   \_LogicNet: (work@M1.b), line:11:17, endln:11:18
     |vpiParent:
     \_Module: work@M1 (work@M1), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:11:1, endln:12:10
     |vpiName:b
     |vpiFullName:work@M1.b
+  |vpiDefName:work@M1
+  |vpiNet:
+  \_LogicNet: (work@M1.b), line:11:17, endln:11:18
   |vpiPort:
   \_Port: (b), line:11:17, endln:11:18
     |vpiParent:
     \_Module: work@M1 (work@M1), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:11:1, endln:12:10
     |vpiName:b
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@M1.b.b), line:11:17, endln:11:18
-      |vpiParent:
-      \_Port: (b), line:11:17, endln:11:18
-      |vpiName:b
-      |vpiFullName:work@M1.b.b
-      |vpiActual:
-      \_LogicNet: (work@M1.b), line:11:17, endln:11:18
-    |vpiTypedef:
-    \_RefTypespec: (work@M1.b)
-      |vpiParent:
-      \_Port: (b), line:11:17, endln:11:18
-      |vpiFullName:work@M1.b
-      |vpiActual:
-      \_LogicTypespec: , line:11:17, endln:11:17
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@bad1 (work@bad1), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:14:1, endln:22:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@bad1
-  |vpiDefName:work@bad1
-  |vpiTaskFunc:
+  |vpiName:work@bad1
+  |vpiInternalScope:
   \_Function: (work@bad1.__truncate_to_2_bits), line:18:1, endln:20:12
     |vpiParent:
     \_Module: work@bad1 (work@bad1), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:14:1, endln:22:10
     |vpiName:__truncate_to_2_bits
     |vpiFullName:work@bad1.__truncate_to_2_bits
-    |vpiVisibility:1
-    |vpiReturn:
-    \_LogicVar: (work@bad1.__truncate_to_2_bits), line:18:10, endln:18:15
+    |vpiVariables:
+    \_LogicVar: (work@bad1.__truncate_to_2_bits)
       |vpiParent:
       \_Function: (work@bad1.__truncate_to_2_bits), line:18:1, endln:20:12
       |vpiTypespec:
-      \_RefTypespec: (work@bad1.__truncate_to_2_bits)
+      \_RefTypespec: (work@bad1.__truncate_to_2_bits), line:18:10, endln:18:15
         |vpiParent:
-        \_LogicVar: (work@bad1.__truncate_to_2_bits), line:18:10, endln:18:15
+        \_LogicVar: (work@bad1.__truncate_to_2_bits)
         |vpiFullName:work@bad1.__truncate_to_2_bits
         |vpiActual:
         \_LogicTypespec: , line:18:10, endln:18:15
       |vpiFullName:work@bad1.__truncate_to_2_bits
+    |vpiReg:
+    \_LogicVar: (work@bad1.__truncate_to_2_bits)
+    |vpiTypedef:
+    \_LogicTypespec: , line:18:10, endln:18:15
+      |vpiParent:
+      \_Function: (work@bad1.__truncate_to_2_bits), line:18:1, endln:20:12
+      |vpiRange:
+      \_Range: , line:18:10, endln:18:15
+        |vpiParent:
+        \_LogicTypespec: , line:18:10, endln:18:15
+        |vpiLeftRange:
+        \_Constant: , line:18:11, endln:18:12
+          |vpiParent:
+          \_Range: , line:18:10, endln:18:15
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiRightRange:
+        \_Constant: , line:18:13, endln:18:14
+          |vpiParent:
+          \_Range: , line:18:10, endln:18:15
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiSigned:1
+    |vpiImportTypespec:
+    \_LogicVar: (work@bad1.__truncate_to_2_bits)
+    |vpiImportTypespec:
+    \_LogicTypespec: , line:18:10, endln:18:15
+    |vpiVisibility:1
+    |vpiReturn:
+    \_LogicVar: (work@bad1.__truncate_to_2_bits)
     |vpiIODecl:
     \_IODecl: (i), line:18:49, endln:18:50
       |vpiParent:
       \_Function: (work@bad1.__truncate_to_2_bits), line:18:1, endln:20:12
       |vpiDirection:1
       |vpiName:i
-      |vpiTypedef:
-      \_RefTypespec: (work@bad1.__truncate_to_2_bits.i)
-        |vpiParent:
-        \_IODecl: (i), line:18:49, endln:18:50
-        |vpiFullName:work@bad1.__truncate_to_2_bits.i
-        |vpiActual:
-        \_LogicTypespec: , line:18:43, endln:18:48
     |vpiStmt:
     \_Assignment: , line:19:1, endln:19:25
       |vpiParent:
@@ -511,15 +531,21 @@ Design: (unnamed)
         |vpiName:__truncate_to_2_bits
         |vpiFullName:work@bad1.__truncate_to_2_bits.__truncate_to_2_bits
         |vpiActual:
-        \_LogicVar: (work@bad1.__truncate_to_2_bits.__truncate_to_2_bits), line:18:10, endln:18:15
-    |vpiInstance:
+        \_LogicVar: (work@bad1.__truncate_to_2_bits)
+  |vpiTypedef:
+  \_LogicTypespec: , line:15:1, endln:15:4
+    |vpiParent:
     \_Module: work@bad1 (work@bad1), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:14:1, endln:22:10
-  |vpiNet:
+  |vpiImportTypespec:
+  \_Function: (work@bad1.__truncate_to_2_bits), line:18:1, endln:20:12
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:15:1, endln:15:4
+  |vpiImportTypespec:
   \_LogicNet: (work@bad1.a), line:15:5, endln:15:6
     |vpiParent:
     \_Module: work@bad1 (work@bad1), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:14:1, endln:22:10
     |vpiTypespec:
-    \_RefTypespec: (work@bad1.a)
+    \_RefTypespec: (work@bad1.a), line:15:1, endln:15:4
       |vpiParent:
       \_LogicNet: (work@bad1.a), line:15:5, endln:15:6
       |vpiFullName:work@bad1.a
@@ -528,6 +554,11 @@ Design: (unnamed)
     |vpiName:a
     |vpiFullName:work@bad1.a
     |vpiNetType:48
+  |vpiDefName:work@bad1
+  |vpiTaskFunc:
+  \_Function: (work@bad1.__truncate_to_2_bits), line:18:1, endln:20:12
+  |vpiNet:
+  \_LogicNet: (work@bad1.a), line:15:5, endln:15:6
   |vpiContAssign:
   \_ContAssign: , line:16:8, endln:16:11
     |vpiParent:
@@ -546,38 +577,111 @@ Design: (unnamed)
       \_ContAssign: , line:16:8, endln:16:11
       |vpiName:b
       |vpiFullName:work@bad1.b
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@bad2 (work@bad2), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:28:1, endln:49:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@bad2
-  |vpiDefName:work@bad2
-  |vpiNet:
-  \_LogicNet: (work@bad2.currentState), line:30:22, endln:30:34
+  |vpiName:work@bad2
+  |vpiVariables:
+  \_EnumVar: (work@bad2.currentState), line:30:22, endln:30:34
     |vpiParent:
     \_Module: work@bad2 (work@bad2), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:28:1, endln:49:10
     |vpiTypespec:
-    \_RefTypespec: (work@bad2.currentState)
+    \_RefTypespec: (work@bad2.currentState), line:30:1, endln:30:15
       |vpiParent:
-      \_LogicNet: (work@bad2.currentState), line:30:22, endln:30:34
+      \_EnumVar: (work@bad2.currentState), line:30:22, endln:30:34
       |vpiFullName:work@bad2.currentState
       |vpiActual:
-      \_EnumTypespec: 
+      \_EnumTypespec: , line:30:1, endln:30:21
     |vpiName:currentState
     |vpiFullName:work@bad2.currentState
-  |vpiNet:
-  \_LogicNet: (work@bad2.nextState), line:30:36, endln:30:45
+    |vpiVisibility:1
+  |vpiVariables:
+  \_EnumVar: (work@bad2.nextState), line:30:36, endln:30:45
     |vpiParent:
     \_Module: work@bad2 (work@bad2), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:28:1, endln:49:10
     |vpiTypespec:
-    \_RefTypespec: (work@bad2.nextState)
+    \_RefTypespec: (work@bad2.nextState), line:30:1, endln:30:15
       |vpiParent:
-      \_LogicNet: (work@bad2.nextState), line:30:36, endln:30:45
+      \_EnumVar: (work@bad2.nextState), line:30:36, endln:30:45
       |vpiFullName:work@bad2.nextState
       |vpiActual:
-      \_EnumTypespec: 
+      \_EnumTypespec: , line:30:1, endln:30:21
     |vpiName:nextState
     |vpiFullName:work@bad2.nextState
+    |vpiVisibility:1
+  |vpiTypedef:
+  \_ModuleTypespec: (M1), line:47:1, endln:47:3
+    |vpiParent:
+    \_Module: work@bad2 (work@bad2), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:28:1, endln:49:10
+    |vpiName:M1
+  |vpiTypedef:
+  \_EnumTypespec: , line:30:1, endln:30:21
+    |vpiParent:
+    \_Module: work@bad2 (work@bad2), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:28:1, endln:49:10
+    |vpiEnumConst:
+    \_EnumConst: (S_A), line:30:7, endln:30:10
+      |vpiParent:
+      \_EnumTypespec: , line:30:1, endln:30:21
+      |vpiName:S_A
+      |INT:0
+      |vpiDecompile:0
+      |vpiSize:64
+    |vpiEnumConst:
+    \_EnumConst: (S_B), line:30:12, endln:30:15
+      |vpiParent:
+      \_EnumTypespec: , line:30:1, endln:30:21
+      |vpiName:S_B
+      |INT:1
+      |vpiDecompile:1
+      |vpiSize:64
+    |vpiEnumConst:
+    \_EnumConst: (S_C), line:30:17, endln:30:20
+      |vpiParent:
+      \_EnumTypespec: , line:30:1, endln:30:21
+      |vpiName:S_C
+      |INT:2
+      |vpiDecompile:2
+      |vpiSize:64
+  |vpiTypedef:
+  \_EnumTypespec: , line:30:1, endln:30:21
+    |vpiParent:
+    \_Module: work@bad2 (work@bad2), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:28:1, endln:49:10
+    |vpiEnumConst:
+    \_EnumConst: (S_A), line:30:7, endln:30:10
+      |vpiParent:
+      \_EnumTypespec: , line:30:1, endln:30:21
+      |vpiName:S_A
+      |INT:0
+      |vpiDecompile:0
+      |vpiSize:64
+    |vpiEnumConst:
+    \_EnumConst: (S_B), line:30:12, endln:30:15
+      |vpiParent:
+      \_EnumTypespec: , line:30:1, endln:30:21
+      |vpiName:S_B
+      |INT:1
+      |vpiDecompile:1
+      |vpiSize:64
+    |vpiEnumConst:
+    \_EnumConst: (S_C), line:30:17, endln:30:20
+      |vpiParent:
+      \_EnumTypespec: , line:30:1, endln:30:21
+      |vpiName:S_C
+      |INT:2
+      |vpiDecompile:2
+      |vpiSize:64
+  |vpiImportTypespec:
+  \_ModuleTypespec: (M1), line:47:1, endln:47:3
+  |vpiImportTypespec:
+  \_EnumTypespec: , line:30:1, endln:30:21
+  |vpiImportTypespec:
+  \_EnumVar: (work@bad2.currentState), line:30:22, endln:30:34
+  |vpiImportTypespec:
+  \_EnumTypespec: , line:30:1, endln:30:21
+  |vpiImportTypespec:
+  \_EnumVar: (work@bad2.nextState), line:30:36, endln:30:45
+  |vpiDefName:work@bad2
   |vpiProcess:
   \_Always: , line:32:1, endln:37:4
     |vpiParent:
@@ -604,7 +708,7 @@ Design: (unnamed)
         |vpiCondition:
         \_RefObj: (work@bad2.clear), line:33:4, endln:33:9
           |vpiParent:
-          \_EventControl: , line:32:11, endln:32:27
+          \_IfElse: , line:33:1, endln:37:4
           |vpiName:clear
           |vpiFullName:work@bad2.clear
         |vpiStmt:
@@ -632,7 +736,7 @@ Design: (unnamed)
               |vpiName:currentState
               |vpiFullName:work@bad2.currentState
               |vpiActual:
-              \_LogicNet: (work@bad2.currentState), line:30:22, endln:30:34
+              \_EnumVar: (work@bad2.currentState), line:30:22, endln:30:34
         |vpiElseStmt:
         \_Begin: (work@bad2), line:35:10, endln:37:4
           |vpiParent:
@@ -650,7 +754,7 @@ Design: (unnamed)
               |vpiName:nextState
               |vpiFullName:work@bad2.nextState
               |vpiActual:
-              \_LogicNet: (work@bad2.nextState), line:30:36, endln:30:45
+              \_EnumVar: (work@bad2.nextState), line:30:36, endln:30:45
             |vpiLhs:
             \_RefObj: (work@bad2.currentState), line:36:5, endln:36:17
               |vpiParent:
@@ -658,7 +762,7 @@ Design: (unnamed)
               |vpiName:currentState
               |vpiFullName:work@bad2.currentState
               |vpiActual:
-              \_LogicNet: (work@bad2.currentState), line:30:22, endln:30:34
+              \_EnumVar: (work@bad2.currentState), line:30:22, endln:30:34
     |vpiAlwaysType:3
   |vpiProcess:
   \_Always: , line:39:3, endln:45:8
@@ -677,7 +781,7 @@ Design: (unnamed)
         |vpiCondition:
         \_RefObj: (work@bad2.mode), line:40:14, endln:40:18
           |vpiParent:
-          \_Begin: (work@bad2), line:39:15, endln:45:8
+          \_CaseStmt: , line:40:9, endln:44:16
           |vpiName:mode
           |vpiFullName:work@bad2.mode
         |vpiCaseItem:
@@ -687,7 +791,7 @@ Design: (unnamed)
           |vpiExpr:
           \_RefObj: (work@bad2.MODE_A), line:41:13, endln:41:19
             |vpiParent:
-            \_Begin: (work@bad2), line:39:15, endln:45:8
+            \_CaseItem: , line:41:13, endln:41:38
             |vpiName:MODE_A
             |vpiFullName:work@bad2.MODE_A
             |vpiActual:
@@ -719,7 +823,7 @@ Design: (unnamed)
           |vpiExpr:
           \_RefObj: (work@bad2.MODE_B), line:42:13, endln:42:19
             |vpiParent:
-            \_Begin: (work@bad2), line:39:15, endln:45:8
+            \_CaseItem: , line:42:13, endln:42:39
             |vpiName:MODE_B
             |vpiFullName:work@bad2.MODE_B
             |vpiActual:
@@ -770,7 +874,7 @@ Design: (unnamed)
               |vpiFullName:work@bad2.operation
     |vpiAlwaysType:2
   |vpiRefModule:
-  \_RefModule: work@M1 (m1), line:47:4, endln:47:6
+  \_RefModule: work@M1 (m1), line:47:1, endln:47:3
     |vpiParent:
     \_Module: work@bad2 (work@bad2), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:28:1, endln:49:10
     |vpiName:m1
@@ -778,27 +882,33 @@ Design: (unnamed)
     |vpiActual:
     \_Module: work@M1 (work@M1), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:11:1, endln:12:10
     |vpiPort:
-    \_Port: , line:47:7, endln:47:8
+    \_Port: (b), line:47:7, endln:47:8
       |vpiParent:
-      \_RefModule: work@M1 (m1), line:47:4, endln:47:6
+      \_RefModule: work@M1 (m1), line:47:1, endln:47:3
+      |vpiName:b
       |vpiHighConn:
-      \_RefObj: (work@bad2.m1.b), line:47:7, endln:47:8
+      \_RefObj: (work@bad2.m1.b.b), line:47:7, endln:47:8
         |vpiParent:
-        \_Port: , line:47:7, endln:47:8
+        \_Port: (b), line:47:7, endln:47:8
         |vpiName:b
-        |vpiFullName:work@bad2.m1.b
-|uhdmallModules:
+        |vpiFullName:work@bad2.m1.b.b
+|vpiAllModules:
 \_Module: work@ok (work@ok), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:3:1, endln:7:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@ok
-  |vpiDefName:work@ok
-  |vpiNet:
+  |vpiName:work@ok
+  |vpiTypedef:
+  \_LogicTypespec: , line:4:1, endln:4:4
+    |vpiParent:
+    \_Module: work@ok (work@ok), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:3:1, endln:7:10
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:4:1, endln:4:4
+  |vpiImportTypespec:
   \_LogicNet: (work@ok.a), line:4:5, endln:4:6
     |vpiParent:
     \_Module: work@ok (work@ok), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:3:1, endln:7:10
     |vpiTypespec:
-    \_RefTypespec: (work@ok.a)
+    \_RefTypespec: (work@ok.a), line:4:1, endln:4:4
       |vpiParent:
       \_LogicNet: (work@ok.a), line:4:5, endln:4:6
       |vpiFullName:work@ok.a
@@ -807,13 +917,18 @@ Design: (unnamed)
     |vpiName:a
     |vpiFullName:work@ok.a
     |vpiNetType:48
-  |vpiNet:
+  |vpiImportTypespec:
   \_LogicNet: (work@ok.b), line:5:8, endln:5:9
     |vpiParent:
     \_Module: work@ok (work@ok), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:3:1, endln:7:10
     |vpiName:b
     |vpiFullName:work@ok.b
     |vpiNetType:1
+  |vpiDefName:work@ok
+  |vpiNet:
+  \_LogicNet: (work@ok.a), line:4:5, endln:4:6
+  |vpiNet:
+  \_LogicNet: (work@ok.b), line:5:8, endln:5:9
   |vpiContAssign:
   \_ContAssign: , line:5:8, endln:5:11
     |vpiParent:
@@ -835,16 +950,14 @@ Design: (unnamed)
       |vpiActual:
       \_LogicNet: (work@ok.b), line:5:8, endln:5:9
 |vpiTypedef:
-\_EnumTypespec: (Mode_t), line:24:1, endln:24:38
+\_EnumTypespec: (Mode_t), line:24:9, endln:24:37
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:Mode_t
-  |vpiInstance:
-  \_Design: (unnamed)
   |vpiEnumConst:
   \_EnumConst: (MODE_A), line:24:15, endln:24:21
     |vpiParent:
-    \_EnumTypespec: (Mode_t), line:24:1, endln:24:38
+    \_EnumTypespec: (Mode_t), line:24:9, endln:24:37
     |vpiName:MODE_A
     |INT:0
     |vpiDecompile:0
@@ -852,51 +965,15 @@ Design: (unnamed)
   |vpiEnumConst:
   \_EnumConst: (MODE_B), line:24:23, endln:24:29
     |vpiParent:
-    \_EnumTypespec: (Mode_t), line:24:1, endln:24:38
+    \_EnumTypespec: (Mode_t), line:24:9, endln:24:37
     |vpiName:MODE_B
     |INT:1
     |vpiDecompile:1
     |vpiSize:64
 |vpiTypedef:
-\_EnumTypespec: (Operation_t), line:26:1, endln:26:73
+\_LogicTypespec: , line:26:14, endln:26:25
   |vpiParent:
   \_Design: (unnamed)
-  |vpiName:Operation_t
-  |vpiInstance:
-  \_Design: (unnamed)
-  |vpiBaseTypespec:
-  \_RefTypespec: (Operation_t)
-    |vpiParent:
-    \_EnumTypespec: (Operation_t), line:26:1, endln:26:73
-    |vpiFullName:Operation_t
-    |vpiActual:
-    \_LogicTypespec: , line:26:14, endln:26:25
-  |vpiEnumConst:
-  \_EnumConst: (READ), line:26:27, endln:26:36
-    |vpiParent:
-    \_EnumTypespec: (Operation_t), line:26:1, endln:26:73
-    |vpiName:READ
-    |INT:1
-    |vpiDecompile:2'd1
-    |vpiSize:2
-  |vpiEnumConst:
-  \_EnumConst: (WRITE), line:26:38, endln:26:48
-    |vpiParent:
-    \_EnumTypespec: (Operation_t), line:26:1, endln:26:73
-    |vpiName:WRITE
-    |INT:2
-    |vpiDecompile:2'd2
-    |vpiSize:2
-  |vpiEnumConst:
-  \_EnumConst: (NONE), line:26:50, endln:26:59
-    |vpiParent:
-    \_EnumTypespec: (Operation_t), line:26:1, endln:26:73
-    |vpiName:NONE
-    |INT:0
-    |vpiDecompile:2'd0
-    |vpiSize:2
-\_weaklyReferenced:
-\_LogicTypespec: , line:26:14, endln:26:25
   |vpiRange:
   \_Range: , line:26:20, endln:26:25
     |vpiParent:
@@ -917,147 +994,45 @@ Design: (unnamed)
       |vpiSize:64
       |UINT:0
       |vpiConstType:9
-\_LogicTypespec: , line:18:10, endln:18:15
-  |vpiRange:
-  \_Range: , line:18:10, endln:18:15
-    |vpiParent:
-    \_LogicTypespec: , line:18:10, endln:18:15
-    |vpiLeftRange:
-    \_Constant: , line:18:11, endln:18:12
-      |vpiParent:
-      \_Range: , line:18:10, endln:18:15
-      |vpiDecompile:1
-      |vpiSize:64
-      |UINT:1
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:18:13, endln:18:14
-      |vpiParent:
-      \_Range: , line:18:10, endln:18:15
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:18:43, endln:18:48
-  |vpiRange:
-  \_Range: , line:18:43, endln:18:48
-    |vpiParent:
-    \_LogicTypespec: , line:18:43, endln:18:48
-    |vpiLeftRange:
-    \_Constant: , line:18:44, endln:18:45
-      |vpiParent:
-      \_Range: , line:18:43, endln:18:48
-      |vpiDecompile:1
-      |vpiSize:64
-      |UINT:1
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:18:46, endln:18:47
-      |vpiParent:
-      \_Range: , line:18:43, endln:18:48
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:11:17, endln:11:17
-\_LogicTypespec: , line:15:1, endln:15:4
-\_LogicVar: (work@bad1.__truncate_to_2_bits.__truncate_to_2_bits), line:18:10, endln:18:15
+|vpiTypedef:
+\_EnumTypespec: (Operation_t), line:26:9, endln:26:72
   |vpiParent:
-  \_RefObj: (work@bad1.__truncate_to_2_bits.__truncate_to_2_bits), line:19:1, endln:19:21
-  |vpiTypespec:
-  \_RefTypespec: (work@bad1.__truncate_to_2_bits.__truncate_to_2_bits)
+  \_Design: (unnamed)
+  |vpiName:Operation_t
+  |vpiBaseTypespec:
+  \_RefTypespec: (Operation_t), line:26:14, endln:26:25
     |vpiParent:
-    \_LogicVar: (work@bad1.__truncate_to_2_bits.__truncate_to_2_bits), line:18:10, endln:18:15
-    |vpiFullName:work@bad1.__truncate_to_2_bits.__truncate_to_2_bits
+    \_EnumTypespec: (Operation_t), line:26:9, endln:26:72
+    |vpiFullName:Operation_t
     |vpiActual:
-    \_LogicTypespec: , line:18:10, endln:18:15
-  |vpiName:__truncate_to_2_bits
-  |vpiFullName:work@bad1.__truncate_to_2_bits.__truncate_to_2_bits
-\_LogicTypespec: , line:18:10, endln:18:15
-  |vpiParent:
-  \_RefTypespec: (work@bad1.__truncate_to_2_bits.__truncate_to_2_bits)
-  |vpiRange:
-  \_Range: , line:18:10, endln:18:15
-    |vpiParent:
-    \_LogicTypespec: , line:18:10, endln:18:15
-    |vpiLeftRange:
-    \_Constant: , line:18:11, endln:18:12
-      |vpiParent:
-      \_Range: , line:18:10, endln:18:15
-      |vpiDecompile:1
-      |vpiSize:64
-      |UINT:1
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:18:13, endln:18:14
-      |vpiParent:
-      \_Range: , line:18:10, endln:18:15
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_EnumTypespec: 
-  |vpiBaseTypespec:
-  \_RefTypespec: 
-    |vpiParent:
-    \_EnumTypespec: 
+    \_LogicTypespec: , line:26:14, endln:26:25
   |vpiEnumConst:
-  \_EnumConst: (S_A), line:30:7, endln:30:10
+  \_EnumConst: (READ), line:26:27, endln:26:36
     |vpiParent:
-    \_EnumTypespec: 
-    |vpiName:S_A
-    |INT:0
-    |vpiDecompile:0
-    |vpiSize:64
-  |vpiEnumConst:
-  \_EnumConst: (S_B), line:30:12, endln:30:15
-    |vpiParent:
-    \_EnumTypespec: 
-    |vpiName:S_B
+    \_EnumTypespec: (Operation_t), line:26:9, endln:26:72
+    |vpiName:READ
     |INT:1
-    |vpiDecompile:1
-    |vpiSize:64
+    |vpiDecompile:2'd1
+    |vpiSize:2
   |vpiEnumConst:
-  \_EnumConst: (S_C), line:30:17, endln:30:20
+  \_EnumConst: (WRITE), line:26:38, endln:26:48
     |vpiParent:
-    \_EnumTypespec: 
-    |vpiName:S_C
+    \_EnumTypespec: (Operation_t), line:26:9, endln:26:72
+    |vpiName:WRITE
     |INT:2
-    |vpiDecompile:2
-    |vpiSize:64
-\_EnumTypespec: 
-  |vpiBaseTypespec:
-  \_RefTypespec: 
-    |vpiParent:
-    \_EnumTypespec: 
+    |vpiDecompile:2'd2
+    |vpiSize:2
   |vpiEnumConst:
-  \_EnumConst: (S_A), line:30:7, endln:30:10
+  \_EnumConst: (NONE), line:26:50, endln:26:59
     |vpiParent:
-    \_EnumTypespec: 
-    |vpiName:S_A
+    \_EnumTypespec: (Operation_t), line:26:9, endln:26:72
+    |vpiName:NONE
     |INT:0
-    |vpiDecompile:0
-    |vpiSize:64
-  |vpiEnumConst:
-  \_EnumConst: (S_B), line:30:12, endln:30:15
-    |vpiParent:
-    \_EnumTypespec: 
-    |vpiName:S_B
-    |INT:1
-    |vpiDecompile:1
-    |vpiSize:64
-  |vpiEnumConst:
-  \_EnumConst: (S_C), line:30:17, endln:30:20
-    |vpiParent:
-    \_EnumTypespec: 
-    |vpiName:S_C
-    |INT:2
-    |vpiDecompile:2
-    |vpiSize:64
-\_LogicTypespec: , line:4:1, endln:4:4
+    |vpiDecompile:2'd0
+    |vpiSize:2
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 8
+[  ERROR] : 16
 [WARNING] : 4
 [   NOTE] : 0

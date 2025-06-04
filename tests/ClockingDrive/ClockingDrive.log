@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 348
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/ClockingDrive/dut.sv
+FILE: ${SURELOG_DIR}/tests/ClockingDrive/dut.sv
 n<> u<347> t<Top_level_rule> c<1> l<3:1> el<37:1>
-  n<> u<1> t<Null_rule> p<347> s<346> l<3:1> el<1:3>
+  n<> u<1> t<Null_rule> p<347> s<346> l<3:1> el<3:1>
   n<> u<346> t<Source_text> p<347> c<345> l<3:1> el<36:10>
     n<> u<345> t<Description> p<346> c<344> l<3:1> el<36:10>
       n<> u<344> t<Module_declaration> p<345> c<4> l<3:1> el<36:10>
@@ -366,79 +366,33 @@ Design                                                 1
 EventControl                                           2
 HierPath                                              16
 Initial                                                2
-LogicNet                                               7
 Module                                                 1
 Operation                                              1
 RefObj                                                41
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ClockingDrive/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ClockingDrive/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ClockingDrive/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@main (work@main), file:${SURELOG_DIR}/tests/ClockingDrive/dut.sv, line:3:1, endln:36:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@main
-  |vpiDefName:work@main
-  |vpiNet:
-  \_LogicNet: (work@main.clk), line:6:31, endln:6:34
-    |vpiParent:
-    \_Module: work@main (work@main), file:${SURELOG_DIR}/tests/ClockingDrive/dut.sv, line:3:1, endln:36:10
-    |vpiName:clk
-    |vpiFullName:work@main.clk
-    |vpiNetType:1
-  |vpiNet:
-  \_LogicNet: (work@main.expr1), line:10:12, endln:10:17
-    |vpiParent:
-    \_Module: work@main (work@main), file:${SURELOG_DIR}/tests/ClockingDrive/dut.sv, line:3:1, endln:36:10
-    |vpiName:expr1
-    |vpiFullName:work@main.expr1
-    |vpiNetType:1
-  |vpiNet:
-  \_LogicNet: (work@main.c), line:13:13, endln:13:14
-    |vpiParent:
-    \_Module: work@main (work@main), file:${SURELOG_DIR}/tests/ClockingDrive/dut.sv, line:3:1, endln:36:10
-    |vpiName:c
-    |vpiFullName:work@main.c
-    |vpiNetType:1
-  |vpiNet:
-  \_LogicNet: (work@main.r), line:20:21, endln:20:22
-    |vpiParent:
-    \_Module: work@main (work@main), file:${SURELOG_DIR}/tests/ClockingDrive/dut.sv, line:3:1, endln:36:10
-    |vpiName:r
-    |vpiFullName:work@main.r
-    |vpiNetType:1
-  |vpiNet:
-  \_LogicNet: (work@main.expr2), line:26:17, endln:26:22
-    |vpiParent:
-    \_Module: work@main (work@main), file:${SURELOG_DIR}/tests/ClockingDrive/dut.sv, line:3:1, endln:36:10
-    |vpiName:expr2
-    |vpiFullName:work@main.expr2
-    |vpiNetType:1
-  |vpiNet:
-  \_LogicNet: (work@main.expr3), line:27:20, endln:27:25
-    |vpiParent:
-    \_Module: work@main (work@main), file:${SURELOG_DIR}/tests/ClockingDrive/dut.sv, line:3:1, endln:36:10
-    |vpiName:expr3
-    |vpiFullName:work@main.expr3
-    |vpiNetType:1
-  |vpiNet:
-  \_LogicNet: (work@main.x), line:30:3, endln:30:4
-    |vpiParent:
-    \_Module: work@main (work@main), file:${SURELOG_DIR}/tests/ClockingDrive/dut.sv, line:3:1, endln:36:10
-    |vpiName:x
-    |vpiFullName:work@main.x
-    |vpiNetType:1
-  |vpiDefaultClocking:
+  |vpiName:work@main
+  |vpiInternalScope:
   \_ClockingBlock: (work@main.cb), line:6:1, endln:8:12
     |vpiParent:
     \_Module: work@main (work@main), file:${SURELOG_DIR}/tests/ClockingDrive/dut.sv, line:3:1, endln:36:10
     |vpiName:cb
     |vpiFullName:work@main.cb
+    |vpiImportTypespec:
+    \_LogicNet: (work@main.cb.clk), line:6:31, endln:6:34
+      |vpiParent:
+      \_ClockingBlock: (work@main.cb), line:6:1, endln:8:12
+      |vpiName:clk
+      |vpiFullName:work@main.cb.clk
+      |vpiNetType:1
     |vpiClockingEvent:
     \_EventControl: , line:6:21, endln:6:35
       |vpiParent:
@@ -455,13 +409,16 @@ Design: (unnamed)
           |vpiName:clk
           |vpiFullName:work@main.cb.clk
           |vpiActual:
-          \_LogicNet: (work@main.clk), line:6:31, endln:6:34
+          \_LogicNet: (work@main.cb.clk), line:6:31, endln:6:34
     |vpiClockingIODecl:
     \_ClockingIODecl: (v), line:7:8, endln:7:9
       |vpiParent:
       \_ClockingBlock: (work@main.cb), line:6:1, endln:8:12
       |vpiDirection:2
       |vpiName:v
+  |vpiDefName:work@main
+  |vpiDefaultClocking:
+  \_ClockingBlock: (work@main.cb), line:6:1, endln:8:12
   |vpiProcess:
   \_Initial: , line:9:1, endln:11:4
     |vpiParent:
@@ -471,15 +428,29 @@ Design: (unnamed)
       |vpiParent:
       \_Initial: , line:9:1, endln:11:4
       |vpiFullName:work@main
+      |vpiImportTypespec:
+      \_LogicNet: (work@main.expr1), line:10:12, endln:10:17
+        |vpiParent:
+        \_Begin: (work@main), line:9:9, endln:11:4
+        |vpiName:expr1
+        |vpiFullName:work@main.expr1
+        |vpiNetType:1
+      |vpiImportTypespec:
+      \_LogicNet: (work@main.v), line:10:7, endln:10:8
+        |vpiParent:
+        \_Begin: (work@main), line:9:9, endln:11:4
+        |vpiName:v
+        |vpiFullName:work@main.v
+        |vpiNetType:1
       |vpiStmt:
-      \_DelayControl: , line:10:1, endln:10:3
+      \_DelayControl: , line:10:1, endln:10:17
         |vpiParent:
         \_Begin: (work@main), line:9:9, endln:11:4
         |#3
         |vpiStmt:
         \_Assignment: , line:10:4, endln:10:17
           |vpiParent:
-          \_DelayControl: , line:10:1, endln:10:3
+          \_DelayControl: , line:10:1, endln:10:17
           |vpiOpType:82
           |vpiRhs:
           \_RefObj: (work@main.expr1), line:10:12, endln:10:17
@@ -490,19 +461,23 @@ Design: (unnamed)
             |vpiActual:
             \_LogicNet: (work@main.expr1), line:10:12, endln:10:17
           |vpiLhs:
-          \_HierPath: (cb.v), line:10:4, endln:10:8
+          \_HierPath: (cb.v), line:10:6, endln:10:8
             |vpiParent:
             \_Assignment: , line:10:4, endln:10:17
             |vpiActual:
-            \_RefObj: (cb), line:10:7, endln:10:8
+            \_RefObj: (cb), line:10:6, endln:10:8
               |vpiParent:
-              \_HierPath: (cb.v), line:10:4, endln:10:8
+              \_HierPath: (cb.v), line:10:6, endln:10:8
               |vpiName:cb
+              |vpiActual:
+              \_ClockingBlock: (work@main.cb), line:6:1, endln:8:12
             |vpiActual:
             \_RefObj: (v), line:10:7, endln:10:8
               |vpiParent:
-              \_HierPath: (cb.v), line:10:4, endln:10:8
+              \_HierPath: (cb.v), line:10:6, endln:10:8
               |vpiName:v
+              |vpiActual:
+              \_LogicNet: (work@main.v), line:10:7, endln:10:8
             |vpiName:cb.v
   |vpiProcess:
   \_Initial: , line:12:1, endln:35:8
@@ -513,6 +488,97 @@ Design: (unnamed)
       |vpiParent:
       \_Initial: , line:12:1, endln:35:8
       |vpiFullName:work@main
+      |vpiImportTypespec:
+      \_LogicNet: (work@main.c), line:13:13, endln:13:14
+        |vpiParent:
+        \_Begin: (work@main), line:12:9, endln:35:8
+        |vpiName:c
+        |vpiFullName:work@main.c
+        |vpiNetType:1
+      |vpiImportTypespec:
+      \_LogicNet: (work@main.a), line:13:8, endln:13:9
+        |vpiParent:
+        \_Begin: (work@main), line:12:9, endln:35:8
+        |vpiName:a
+        |vpiFullName:work@main.a
+        |vpiNetType:1
+      |vpiImportTypespec:
+      \_LogicNet: (work@main.b), line:14:8, endln:14:9
+        |vpiParent:
+        \_Begin: (work@main), line:12:9, endln:35:8
+        |vpiName:b
+        |vpiFullName:work@main.b
+        |vpiNetType:1
+      |vpiImportTypespec:
+      \_LogicNet: (work@main.bus), line:17:8, endln:17:13
+        |vpiParent:
+        \_Begin: (work@main), line:12:9, endln:35:8
+        |vpiName:bus
+        |vpiFullName:work@main.bus
+        |vpiNetType:1
+      |vpiImportTypespec:
+      \_LogicNet: (work@main.data), line:17:9, endln:17:13
+        |vpiParent:
+        \_Begin: (work@main), line:12:9, endln:35:8
+        |vpiName:data
+        |vpiFullName:work@main.data
+        |vpiNetType:1
+      |vpiImportTypespec:
+      \_LogicNet: (work@main.r), line:20:21, endln:20:22
+        |vpiParent:
+        \_Begin: (work@main), line:12:9, endln:35:8
+        |vpiName:r
+        |vpiFullName:work@main.r
+        |vpiNetType:1
+      |vpiImportTypespec:
+      \_LogicNet: (work@main.expr1), line:25:13, endln:25:18
+        |vpiParent:
+        \_Begin: (work@main), line:12:9, endln:35:8
+        |vpiName:expr1
+        |vpiFullName:work@main.expr1
+        |vpiNetType:1
+      |vpiImportTypespec:
+      \_LogicNet: (work@main.v), line:25:8, endln:25:9
+        |vpiParent:
+        \_Begin: (work@main), line:12:9, endln:35:8
+        |vpiName:v
+        |vpiFullName:work@main.v
+        |vpiNetType:1
+      |vpiImportTypespec:
+      \_LogicNet: (work@main.expr2), line:26:17, endln:26:22
+        |vpiParent:
+        \_Begin: (work@main), line:12:9, endln:35:8
+        |vpiName:expr2
+        |vpiFullName:work@main.expr2
+        |vpiNetType:1
+      |vpiImportTypespec:
+      \_LogicNet: (work@main.expr3), line:27:20, endln:27:25
+        |vpiParent:
+        \_Begin: (work@main), line:12:9, endln:35:8
+        |vpiName:expr3
+        |vpiFullName:work@main.expr3
+        |vpiNetType:1
+      |vpiImportTypespec:
+      \_LogicNet: (work@main.x), line:30:3, endln:30:4
+        |vpiParent:
+        \_Begin: (work@main), line:12:9, endln:35:8
+        |vpiName:x
+        |vpiFullName:work@main.x
+        |vpiNetType:1
+      |vpiImportTypespec:
+      \_LogicNet: (work@main.pe), line:33:3, endln:33:10
+        |vpiParent:
+        \_Begin: (work@main), line:12:9, endln:35:8
+        |vpiName:pe
+        |vpiFullName:work@main.pe
+        |vpiNetType:1
+      |vpiImportTypespec:
+      \_LogicNet: (work@main.nibble), line:33:4, endln:33:10
+        |vpiParent:
+        \_Begin: (work@main), line:12:9, endln:35:8
+        |vpiName:nibble
+        |vpiFullName:work@main.nibble
+        |vpiNetType:1
       |vpiStmt:
       \_Assignment: , line:13:5, endln:13:14
         |vpiParent:
@@ -527,19 +593,23 @@ Design: (unnamed)
           |vpiActual:
           \_LogicNet: (work@main.c), line:13:13, endln:13:14
         |vpiLhs:
-        \_HierPath: (cb.a), line:13:5, endln:13:9
+        \_HierPath: (cb.a), line:13:7, endln:13:9
           |vpiParent:
           \_Assignment: , line:13:5, endln:13:14
           |vpiActual:
-          \_RefObj: (cb), line:13:8, endln:13:9
+          \_RefObj: (cb), line:13:7, endln:13:9
             |vpiParent:
-            \_HierPath: (cb.a), line:13:5, endln:13:9
+            \_HierPath: (cb.a), line:13:7, endln:13:9
             |vpiName:cb
+            |vpiActual:
+            \_ClockingBlock: (work@main.cb), line:6:1, endln:8:12
           |vpiActual:
           \_RefObj: (a), line:13:8, endln:13:9
             |vpiParent:
-            \_HierPath: (cb.a), line:13:5, endln:13:9
+            \_HierPath: (cb.a), line:13:7, endln:13:9
             |vpiName:a
+            |vpiActual:
+            \_LogicNet: (work@main.a), line:13:8, endln:13:9
           |vpiName:cb.a
       |vpiStmt:
       \_Assignment: , line:14:5, endln:14:17
@@ -555,27 +625,35 @@ Design: (unnamed)
             |vpiParent:
             \_HierPath: (cb.a), line:14:13, endln:14:17
             |vpiName:cb
+            |vpiActual:
+            \_ClockingBlock: (work@main.cb), line:6:1, endln:8:12
           |vpiActual:
           \_RefObj: (work@main.a), line:14:16, endln:14:17
             |vpiParent:
             \_HierPath: (cb.a), line:14:13, endln:14:17
             |vpiName:a
             |vpiFullName:work@main.a
+            |vpiActual:
+            \_LogicNet: (work@main.a), line:13:8, endln:13:9
           |vpiName:cb.a
         |vpiLhs:
-        \_HierPath: (cb.b), line:14:5, endln:14:9
+        \_HierPath: (cb.b), line:14:7, endln:14:9
           |vpiParent:
           \_Assignment: , line:14:5, endln:14:17
           |vpiActual:
-          \_RefObj: (cb), line:14:8, endln:14:9
+          \_RefObj: (cb), line:14:7, endln:14:9
             |vpiParent:
-            \_HierPath: (cb.b), line:14:5, endln:14:9
+            \_HierPath: (cb.b), line:14:7, endln:14:9
             |vpiName:cb
+            |vpiActual:
+            \_ClockingBlock: (work@main.cb), line:6:1, endln:8:12
           |vpiActual:
           \_RefObj: (b), line:14:8, endln:14:9
             |vpiParent:
-            \_HierPath: (cb.b), line:14:5, endln:14:9
+            \_HierPath: (cb.b), line:14:7, endln:14:9
             |vpiName:b
+            |vpiActual:
+            \_LogicNet: (work@main.b), line:14:8, endln:14:9
           |vpiName:cb.b
       |vpiStmt:
       \_Assignment: , line:17:5, endln:17:26
@@ -584,55 +662,67 @@ Design: (unnamed)
         |vpiOpType:82
         |vpiRhs:
         \_Constant: , line:17:22, endln:17:26
+          |vpiParent:
+          \_Assignment: , line:17:5, endln:17:26
           |vpiDecompile:4'h5
           |vpiSize:4
           |HEX:5
           |vpiConstType:5
         |vpiLhs:
-        \_HierPath: (bus.data), line:17:5, endln:17:18
+        \_HierPath: (bus.data), line:17:8, endln:17:13
           |vpiParent:
           \_Assignment: , line:17:5, endln:17:26
           |vpiActual:
-          \_RefObj: (bus), line:17:9, endln:17:13
+          \_RefObj: (bus), line:17:8, endln:17:13
             |vpiParent:
-            \_HierPath: (bus.data), line:17:5, endln:17:18
+            \_HierPath: (bus.data), line:17:8, endln:17:13
             |vpiName:bus
+            |vpiActual:
+            \_LogicNet: (work@main.bus), line:17:8, endln:17:13
           |vpiActual:
           \_RefObj: (data), line:17:9, endln:17:13
             |vpiParent:
-            \_HierPath: (bus.data), line:17:5, endln:17:18
+            \_HierPath: (bus.data), line:17:8, endln:17:13
             |vpiName:data
+            |vpiActual:
+            \_LogicNet: (work@main.data), line:17:9, endln:17:13
           |vpiName:bus.data
       |vpiStmt:
-      \_DelayControl: , line:18:5, endln:18:8
+      \_DelayControl: , line:18:5, endln:18:25
         |vpiParent:
         \_Begin: (work@main), line:12:9, endln:35:8
         |#0
         |vpiStmt:
         \_Assignment: , line:18:9, endln:18:25
           |vpiParent:
-          \_DelayControl: , line:18:5, endln:18:8
+          \_DelayControl: , line:18:5, endln:18:25
           |vpiOpType:82
           |vpiRhs:
           \_Constant: , line:18:21, endln:18:25
+            |vpiParent:
+            \_Assignment: , line:18:9, endln:18:25
             |vpiDecompile:8'hz
             |vpiSize:8
             |HEX:z
             |vpiConstType:5
           |vpiLhs:
-          \_HierPath: (bus.data), line:18:9, endln:18:17
+          \_HierPath: (bus.data), line:18:12, endln:18:17
             |vpiParent:
             \_Assignment: , line:18:9, endln:18:25
             |vpiActual:
-            \_RefObj: (bus), line:18:13, endln:18:17
+            \_RefObj: (bus), line:18:12, endln:18:17
               |vpiParent:
-              \_HierPath: (bus.data), line:18:9, endln:18:17
+              \_HierPath: (bus.data), line:18:12, endln:18:17
               |vpiName:bus
+              |vpiActual:
+              \_LogicNet: (work@main.bus), line:17:8, endln:17:13
             |vpiActual:
             \_RefObj: (data), line:18:13, endln:18:17
               |vpiParent:
-              \_HierPath: (bus.data), line:18:9, endln:18:17
+              \_HierPath: (bus.data), line:18:12, endln:18:17
               |vpiName:data
+              |vpiActual:
+              \_LogicNet: (work@main.data), line:17:9, endln:17:13
             |vpiName:bus.data
       |vpiStmt:
       \_DelayControl: , line:19:5, endln:19:8
@@ -646,24 +736,30 @@ Design: (unnamed)
         |vpiOpType:82
         |vpiRhs:
         \_Constant: , line:19:22, endln:19:23
+          |vpiParent:
+          \_Assignment: , line:19:10, endln:19:23
           |vpiDecompile:2
           |vpiSize:64
           |UINT:2
           |vpiConstType:9
         |vpiLhs:
-        \_HierPath: (bus.data), line:19:10, endln:19:18
+        \_HierPath: (bus.data), line:19:13, endln:19:18
           |vpiParent:
           \_Assignment: , line:19:10, endln:19:23
           |vpiActual:
-          \_RefObj: (bus), line:19:14, endln:19:18
+          \_RefObj: (bus), line:19:13, endln:19:18
             |vpiParent:
-            \_HierPath: (bus.data), line:19:10, endln:19:18
+            \_HierPath: (bus.data), line:19:13, endln:19:18
             |vpiName:bus
+            |vpiActual:
+            \_LogicNet: (work@main.bus), line:17:8, endln:17:13
           |vpiActual:
           \_RefObj: (data), line:19:14, endln:19:18
             |vpiParent:
-            \_HierPath: (bus.data), line:19:10, endln:19:18
+            \_HierPath: (bus.data), line:19:13, endln:19:18
             |vpiName:data
+            |vpiActual:
+            \_LogicNet: (work@main.data), line:17:9, endln:17:13
           |vpiName:bus.data
       |vpiStmt:
       \_Assignment: , line:20:5, endln:20:22
@@ -679,19 +775,23 @@ Design: (unnamed)
           |vpiActual:
           \_LogicNet: (work@main.r), line:20:21, endln:20:22
         |vpiLhs:
-        \_HierPath: (bus.data), line:20:5, endln:20:13
+        \_HierPath: (bus.data), line:20:8, endln:20:13
           |vpiParent:
           \_Assignment: , line:20:5, endln:20:22
           |vpiActual:
-          \_RefObj: (bus), line:20:9, endln:20:13
+          \_RefObj: (bus), line:20:8, endln:20:13
             |vpiParent:
-            \_HierPath: (bus.data), line:20:5, endln:20:13
+            \_HierPath: (bus.data), line:20:8, endln:20:13
             |vpiName:bus
+            |vpiActual:
+            \_LogicNet: (work@main.bus), line:17:8, endln:17:13
           |vpiActual:
           \_RefObj: (data), line:20:9, endln:20:13
             |vpiParent:
-            \_HierPath: (bus.data), line:20:5, endln:20:13
+            \_HierPath: (bus.data), line:20:8, endln:20:13
             |vpiName:data
+            |vpiActual:
+            \_LogicNet: (work@main.data), line:17:9, endln:17:13
           |vpiName:bus.data
         |vpiDelayControl:
         \_DelayControl: , line:20:17, endln:20:20
@@ -712,19 +812,23 @@ Design: (unnamed)
           |vpiActual:
           \_LogicNet: (work@main.r), line:20:21, endln:20:22
         |vpiLhs:
-        \_HierPath: (bus.data), line:22:5, endln:22:13
+        \_HierPath: (bus.data), line:22:8, endln:22:13
           |vpiParent:
           \_Assignment: , line:22:5, endln:22:21
           |vpiActual:
-          \_RefObj: (bus), line:22:9, endln:22:13
+          \_RefObj: (bus), line:22:8, endln:22:13
             |vpiParent:
-            \_HierPath: (bus.data), line:22:5, endln:22:13
+            \_HierPath: (bus.data), line:22:8, endln:22:13
             |vpiName:bus
+            |vpiActual:
+            \_LogicNet: (work@main.bus), line:17:8, endln:17:13
           |vpiActual:
           \_RefObj: (data), line:22:9, endln:22:13
             |vpiParent:
-            \_HierPath: (bus.data), line:22:5, endln:22:13
+            \_HierPath: (bus.data), line:22:8, endln:22:13
             |vpiName:data
+            |vpiActual:
+            \_LogicNet: (work@main.data), line:17:9, endln:17:13
           |vpiName:bus.data
         |vpiDelayControl:
         \_DelayControl: , line:22:17, endln:22:19
@@ -748,21 +852,25 @@ Design: (unnamed)
           |vpiName:expr1
           |vpiFullName:work@main.expr1
           |vpiActual:
-          \_LogicNet: (work@main.expr1), line:10:12, endln:10:17
+          \_LogicNet: (work@main.expr1), line:25:13, endln:25:18
         |vpiLhs:
-        \_HierPath: (cb.v), line:25:5, endln:25:9
+        \_HierPath: (cb.v), line:25:7, endln:25:9
           |vpiParent:
           \_Assignment: , line:25:5, endln:25:18
           |vpiActual:
-          \_RefObj: (cb), line:25:8, endln:25:9
+          \_RefObj: (cb), line:25:7, endln:25:9
             |vpiParent:
-            \_HierPath: (cb.v), line:25:5, endln:25:9
+            \_HierPath: (cb.v), line:25:7, endln:25:9
             |vpiName:cb
+            |vpiActual:
+            \_ClockingBlock: (work@main.cb), line:6:1, endln:8:12
           |vpiActual:
           \_RefObj: (v), line:25:8, endln:25:9
             |vpiParent:
-            \_HierPath: (cb.v), line:25:5, endln:25:9
+            \_HierPath: (cb.v), line:25:7, endln:25:9
             |vpiName:v
+            |vpiActual:
+            \_LogicNet: (work@main.v), line:25:8, endln:25:9
           |vpiName:cb.v
       |vpiStmt:
       \_Assignment: , line:26:5, endln:26:22
@@ -778,19 +886,23 @@ Design: (unnamed)
           |vpiActual:
           \_LogicNet: (work@main.expr2), line:26:17, endln:26:22
         |vpiLhs:
-        \_HierPath: (cb.v), line:26:5, endln:26:9
+        \_HierPath: (cb.v), line:26:7, endln:26:9
           |vpiParent:
           \_Assignment: , line:26:5, endln:26:22
           |vpiActual:
-          \_RefObj: (cb), line:26:8, endln:26:9
+          \_RefObj: (cb), line:26:7, endln:26:9
             |vpiParent:
-            \_HierPath: (cb.v), line:26:5, endln:26:9
+            \_HierPath: (cb.v), line:26:7, endln:26:9
             |vpiName:cb
+            |vpiActual:
+            \_ClockingBlock: (work@main.cb), line:6:1, endln:8:12
           |vpiActual:
           \_RefObj: (v), line:26:8, endln:26:9
             |vpiParent:
-            \_HierPath: (cb.v), line:26:5, endln:26:9
+            \_HierPath: (cb.v), line:26:7, endln:26:9
             |vpiName:v
+            |vpiActual:
+            \_LogicNet: (work@main.v), line:25:8, endln:25:9
           |vpiName:cb.v
         |vpiDelayControl:
         \_DelayControl: , line:26:13, endln:26:16
@@ -798,14 +910,14 @@ Design: (unnamed)
           \_Assignment: , line:26:5, endln:26:22
           |#0
       |vpiStmt:
-      \_DelayControl: , line:27:5, endln:27:7
+      \_DelayControl: , line:27:5, endln:27:25
         |vpiParent:
         \_Begin: (work@main), line:12:9, endln:35:8
         |#1
         |vpiStmt:
         \_Assignment: , line:27:8, endln:27:25
           |vpiParent:
-          \_DelayControl: , line:27:5, endln:27:7
+          \_DelayControl: , line:27:5, endln:27:25
           |vpiOpType:82
           |vpiRhs:
           \_RefObj: (work@main.expr3), line:27:20, endln:27:25
@@ -816,19 +928,23 @@ Design: (unnamed)
             |vpiActual:
             \_LogicNet: (work@main.expr3), line:27:20, endln:27:25
           |vpiLhs:
-          \_HierPath: (cb.v), line:27:8, endln:27:12
+          \_HierPath: (cb.v), line:27:10, endln:27:12
             |vpiParent:
             \_Assignment: , line:27:8, endln:27:25
             |vpiActual:
-            \_RefObj: (cb), line:27:11, endln:27:12
+            \_RefObj: (cb), line:27:10, endln:27:12
               |vpiParent:
-              \_HierPath: (cb.v), line:27:8, endln:27:12
+              \_HierPath: (cb.v), line:27:10, endln:27:12
               |vpiName:cb
+              |vpiActual:
+              \_ClockingBlock: (work@main.cb), line:6:1, endln:8:12
             |vpiActual:
             \_RefObj: (v), line:27:11, endln:27:12
               |vpiParent:
-              \_HierPath: (cb.v), line:27:8, endln:27:12
+              \_HierPath: (cb.v), line:27:10, endln:27:12
               |vpiName:v
+              |vpiActual:
+              \_LogicNet: (work@main.v), line:25:8, endln:25:9
             |vpiName:cb.v
           |vpiDelayControl:
           \_DelayControl: , line:27:16, endln:27:19
@@ -847,24 +963,30 @@ Design: (unnamed)
         |vpiOpType:82
         |vpiRhs:
         \_Constant: , line:29:9, endln:29:13
+          |vpiParent:
+          \_Assignment: , line:29:1, endln:29:13
           |vpiDecompile:1'b0
           |vpiSize:1
           |BIN:0
           |vpiConstType:3
         |vpiLhs:
-        \_HierPath: (cb.a), line:29:1, endln:29:5
+        \_HierPath: (cb.a), line:29:3, endln:29:5
           |vpiParent:
           \_Assignment: , line:29:1, endln:29:13
           |vpiActual:
-          \_RefObj: (cb), line:29:4, endln:29:5
+          \_RefObj: (cb), line:29:3, endln:29:5
             |vpiParent:
-            \_HierPath: (cb.a), line:29:1, endln:29:5
+            \_HierPath: (cb.a), line:29:3, endln:29:5
             |vpiName:cb
+            |vpiActual:
+            \_ClockingBlock: (work@main.cb), line:6:1, endln:8:12
           |vpiActual:
           \_RefObj: (a), line:29:4, endln:29:5
             |vpiParent:
-            \_HierPath: (cb.a), line:29:1, endln:29:5
+            \_HierPath: (cb.a), line:29:3, endln:29:5
             |vpiName:a
+            |vpiActual:
+            \_LogicNet: (work@main.a), line:13:8, endln:13:9
           |vpiName:cb.a
       |vpiStmt:
       \_EventControl: , line:30:1, endln:30:5
@@ -885,24 +1007,30 @@ Design: (unnamed)
         |vpiOpType:82
         |vpiRhs:
         \_Constant: , line:31:9, endln:31:13
+          |vpiParent:
+          \_Assignment: , line:31:1, endln:31:13
           |vpiDecompile:1'b1
           |vpiSize:1
           |BIN:1
           |vpiConstType:3
         |vpiLhs:
-        \_HierPath: (cb.a), line:31:1, endln:31:5
+        \_HierPath: (cb.a), line:31:3, endln:31:5
           |vpiParent:
           \_Assignment: , line:31:1, endln:31:13
           |vpiActual:
-          \_RefObj: (cb), line:31:4, endln:31:5
+          \_RefObj: (cb), line:31:3, endln:31:5
             |vpiParent:
-            \_HierPath: (cb.a), line:31:1, endln:31:5
+            \_HierPath: (cb.a), line:31:3, endln:31:5
             |vpiName:cb
+            |vpiActual:
+            \_ClockingBlock: (work@main.cb), line:6:1, endln:8:12
           |vpiActual:
           \_RefObj: (a), line:31:4, endln:31:5
             |vpiParent:
-            \_HierPath: (cb.a), line:31:1, endln:31:5
+            \_HierPath: (cb.a), line:31:3, endln:31:5
             |vpiName:a
+            |vpiActual:
+            \_LogicNet: (work@main.a), line:13:8, endln:13:9
           |vpiName:cb.a
       |vpiStmt:
       \_DelayControl: , line:32:1, endln:32:4
@@ -916,24 +1044,30 @@ Design: (unnamed)
         |vpiOpType:82
         |vpiRhs:
         \_Constant: , line:33:14, endln:33:21
+          |vpiParent:
+          \_Assignment: , line:33:1, endln:33:21
           |vpiDecompile:4'b0101
           |vpiSize:4
           |BIN:0101
           |vpiConstType:3
         |vpiLhs:
-        \_HierPath: (pe.nibble), line:33:1, endln:33:10
+        \_HierPath: (pe.nibble), line:33:3, endln:33:10
           |vpiParent:
           \_Assignment: , line:33:1, endln:33:21
           |vpiActual:
-          \_RefObj: (pe), line:33:4, endln:33:10
+          \_RefObj: (pe), line:33:3, endln:33:10
             |vpiParent:
-            \_HierPath: (pe.nibble), line:33:1, endln:33:10
+            \_HierPath: (pe.nibble), line:33:3, endln:33:10
             |vpiName:pe
+            |vpiActual:
+            \_LogicNet: (work@main.pe), line:33:3, endln:33:10
           |vpiActual:
           \_RefObj: (nibble), line:33:4, endln:33:10
             |vpiParent:
-            \_HierPath: (pe.nibble), line:33:1, endln:33:10
+            \_HierPath: (pe.nibble), line:33:3, endln:33:10
             |vpiName:nibble
+            |vpiActual:
+            \_LogicNet: (work@main.nibble), line:33:4, endln:33:10
           |vpiName:pe.nibble
       |vpiStmt:
       \_Assignment: , line:34:1, endln:34:21
@@ -942,25 +1076,33 @@ Design: (unnamed)
         |vpiOpType:82
         |vpiRhs:
         \_Constant: , line:34:14, endln:34:21
+          |vpiParent:
+          \_Assignment: , line:34:1, endln:34:21
           |vpiDecompile:4'b0011
           |vpiSize:4
           |BIN:0011
           |vpiConstType:3
         |vpiLhs:
-        \_HierPath: (pe.nibble), line:34:1, endln:34:10
+        \_HierPath: (pe.nibble), line:34:3, endln:34:10
           |vpiParent:
           \_Assignment: , line:34:1, endln:34:21
           |vpiActual:
-          \_RefObj: (pe), line:34:4, endln:34:10
+          \_RefObj: (pe), line:34:3, endln:34:10
             |vpiParent:
-            \_HierPath: (pe.nibble), line:34:1, endln:34:10
+            \_HierPath: (pe.nibble), line:34:3, endln:34:10
             |vpiName:pe
+            |vpiActual:
+            \_LogicNet: (work@main.pe), line:33:3, endln:33:10
           |vpiActual:
           \_RefObj: (nibble), line:34:4, endln:34:10
             |vpiParent:
-            \_HierPath: (pe.nibble), line:34:1, endln:34:10
+            \_HierPath: (pe.nibble), line:34:3, endln:34:10
             |vpiName:nibble
+            |vpiActual:
+            \_LogicNet: (work@main.nibble), line:33:4, endln:33:10
           |vpiName:pe.nibble
+  |vpiClockingBlock:
+  \_ClockingBlock: (work@main.cb), line:6:1, endln:8:12
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

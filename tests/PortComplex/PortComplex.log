@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 227
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/PortComplex/dut.sv
+FILE: ${SURELOG_DIR}/tests/PortComplex/dut.sv
 n<> u<226> t<Top_level_rule> c<1> l<1:1> el<34:1>
-  n<> u<1> t<Null_rule> p<226> s<225> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<226> s<225> l<1:1>
   n<> u<225> t<Source_text> p<226> c<29> l<1:1> el<33:10>
     n<> u<29> t<Description> p<225> c<28> s<57> l<1:1> el<7:11>
       n<> u<28> t<Package_declaration> p<29> c<2> l<1:1> el<7:11>
@@ -45,7 +45,7 @@ n<> u<226> t<Top_level_rule> c<1> l<1:1> el<34:1>
                 n<> u<32> t<PortDir_Out> p<50> s<49> l<10:1> el<10:7>
                 n<> u<49> t<Net_port_type> p<50> c<48> l<10:8> el<10:32>
                   n<> u<48> t<Data_type_or_implicit> p<49> c<47> l<10:8> el<10:32>
-                    n<> u<47> t<Data_type> p<48> c<35> l<10:8> el<10:32>
+                    n<pr_pkg::alert_tx_t> u<47> t<Data_type> p<48> c<35> l<10:8> el<10:32>
                       n<> u<35> t<Class_scope> p<47> c<34> s<36> l<10:8> el<10:16>
                         n<> u<34> t<Class_type> p<35> c<33> l<10:8> el<10:14>
                           n<pr_pkg> u<33> t<StringConst> p<34> l<10:8> el<10:14>
@@ -195,7 +195,7 @@ n<> u<226> t<Top_level_rule> c<1> l<1:1> el<34:1>
                 n<> u<182> t<PortDir_Inp> p<206> s<205> l<30:3> el<30:8>
                 n<> u<205> t<Net_port_type> p<206> c<204> l<30:9> el<30:37>
                   n<> u<204> t<Data_type_or_implicit> p<205> c<203> l<30:9> el<30:37>
-                    n<> u<203> t<Data_type> p<204> c<185> l<30:9> el<30:37>
+                    n<dm::hartinfo_t> u<203> t<Data_type> p<204> c<185> l<30:9> el<30:37>
                       n<> u<185> t<Class_scope> p<203> c<184> s<186> l<30:9> el<30:13>
                         n<> u<184> t<Class_type> p<185> c<183> l<30:9> el<30:11>
                           n<dm> u<183> t<StringConst> p<184> l<30:9> el<30:11>
@@ -222,7 +222,7 @@ n<> u<226> t<Top_level_rule> c<1> l<1:1> el<34:1>
                 n<> u<209> t<PortDir_Inp> p<217> s<216> l<31:3> el<31:8>
                 n<> u<216> t<Net_port_type> p<217> c<215> l<31:9> el<31:23>
                   n<> u<215> t<Data_type_or_implicit> p<216> c<214> l<31:9> el<31:23>
-                    n<> u<214> t<Data_type> p<215> c<212> l<31:9> el<31:23>
+                    n<dm::hartinfo_t> u<214> t<Data_type> p<215> c<212> l<31:9> el<31:23>
                       n<> u<212> t<Class_scope> p<214> c<211> s<213> l<31:9> el<31:13>
                         n<> u<211> t<Class_type> p<212> c<210> l<31:9> el<31:11>
                           n<dm> u<210> t<StringConst> p<211> l<31:9> el<31:11>
@@ -239,44 +239,40 @@ AST_DEBUG_END
 [INF:CP0303] ${SURELOG_DIR}/tests/PortComplex/dut.sv:26:1: Compile module "work@dut2".
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-Constant                                              15
+Constant                                              23
 Design                                                 1
 IntTypespec                                            1
-LogicNet                                               3
 LogicTypespec                                          8
 Module                                                 2
-Operation                                              1
+Operation                                              3
 Package                                                2
-PackedArrayTypespec                                    2
+PackedArrayTypespec                                    4
+PackedArrayVar                                         2
 ParamAssign                                            1
 Parameter                                              1
 Port                                                   3
-Range                                                  7
-RefObj                                                 4
-RefTypespec                                           15
+Range                                                 11
+RefObj                                                 3
+RefTypespec                                           19
+StructNet                                              1
 StructTypespec                                         2
 TypespecMember                                         8
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PortComplex/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/PortComplex/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/PortComplex/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallPackages:
-\_Package: pr_pkg (pr_pkg::), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:1:1, endln:7:11
+|vpiAllPackages:
+\_Package: pr_pkg (pr_pkg), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:1:1, endln:7:11
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:pr_pkg
-  |vpiFullName:pr_pkg::
   |vpiTypedef:
   \_StructTypespec: (pr_pkg::alert_tx_t), line:2:11, endln:5:4
     |vpiParent:
-    \_Package: pr_pkg (pr_pkg::), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:1:1, endln:7:11
+    \_Package: pr_pkg (pr_pkg), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:1:1, endln:7:11
     |vpiName:pr_pkg::alert_tx_t
-    |vpiInstance:
-    \_Package: pr_pkg (pr_pkg::), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:1:1, endln:7:11
     |vpiPacked:1
     |vpiTypespecMember:
     \_TypespecMember: (alert_p), line:3:11, endln:3:18
@@ -284,48 +280,49 @@ Design: (unnamed)
       \_StructTypespec: (pr_pkg::alert_tx_t), line:2:11, endln:5:4
       |vpiName:alert_p
       |vpiTypespec:
-      \_RefTypespec: (pr_pkg::pr_pkg::alert_tx_t::alert_p)
+      \_RefTypespec: (pr_pkg::alert_tx_t::alert_p), line:3:5, endln:3:10
         |vpiParent:
         \_TypespecMember: (alert_p), line:3:11, endln:3:18
-        |vpiFullName:pr_pkg::pr_pkg::alert_tx_t::alert_p
+        |vpiFullName:pr_pkg::alert_tx_t::alert_p
         |vpiActual:
         \_LogicTypespec: , line:3:5, endln:3:10
-      |vpiRefFile:${SURELOG_DIR}/tests/PortComplex/dut.sv
-      |vpiRefLineNo:3
-      |vpiRefColumnNo:5
-      |vpiRefEndLineNo:3
-      |vpiRefEndColumnNo:10
     |vpiTypespecMember:
     \_TypespecMember: (alert_n), line:4:11, endln:4:18
       |vpiParent:
       \_StructTypespec: (pr_pkg::alert_tx_t), line:2:11, endln:5:4
       |vpiName:alert_n
       |vpiTypespec:
-      \_RefTypespec: (pr_pkg::pr_pkg::alert_tx_t::alert_n)
+      \_RefTypespec: (pr_pkg::alert_tx_t::alert_n), line:4:5, endln:4:10
         |vpiParent:
         \_TypespecMember: (alert_n), line:4:11, endln:4:18
-        |vpiFullName:pr_pkg::pr_pkg::alert_tx_t::alert_n
+        |vpiFullName:pr_pkg::alert_tx_t::alert_n
         |vpiActual:
         \_LogicTypespec: , line:4:5, endln:4:10
-      |vpiRefFile:${SURELOG_DIR}/tests/PortComplex/dut.sv
-      |vpiRefLineNo:4
-      |vpiRefColumnNo:5
-      |vpiRefEndLineNo:4
-      |vpiRefEndColumnNo:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:3:5, endln:3:10
+    |vpiParent:
+    \_Package: pr_pkg (pr_pkg), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:1:1, endln:7:11
+  |vpiTypedef:
+  \_LogicTypespec: , line:4:5, endln:4:10
+    |vpiParent:
+    \_Package: pr_pkg (pr_pkg), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:1:1, endln:7:11
+  |vpiImportTypespec:
+  \_StructTypespec: (pr_pkg::alert_tx_t), line:2:11, endln:5:4
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:3:5, endln:3:10
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:4:5, endln:4:10
   |vpiDefName:pr_pkg
-|uhdmallPackages:
-\_Package: dm (dm::), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:15:1, endln:24:11
+|vpiAllPackages:
+\_Package: dm (dm), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:15:1, endln:24:11
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:dm
-  |vpiFullName:dm::
   |vpiTypedef:
   \_StructTypespec: (dm::hartinfo_t), line:16:9, endln:23:2
     |vpiParent:
-    \_Package: dm (dm::), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:15:1, endln:24:11
+    \_Package: dm (dm), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:15:1, endln:24:11
     |vpiName:dm::hartinfo_t
-    |vpiInstance:
-    \_Package: dm (dm::), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:15:1, endln:24:11
     |vpiPacked:1
     |vpiTypespecMember:
     \_TypespecMember: (zero1), line:17:17, endln:17:22
@@ -333,150 +330,342 @@ Design: (unnamed)
       \_StructTypespec: (dm::hartinfo_t), line:16:9, endln:23:2
       |vpiName:zero1
       |vpiTypespec:
-      \_RefTypespec: (dm::dm::hartinfo_t::zero1)
+      \_RefTypespec: (dm::hartinfo_t::zero1), line:17:3, endln:17:16
         |vpiParent:
         \_TypespecMember: (zero1), line:17:17, endln:17:22
-        |vpiFullName:dm::dm::hartinfo_t::zero1
+        |vpiFullName:dm::hartinfo_t::zero1
         |vpiActual:
         \_LogicTypespec: , line:17:3, endln:17:16
-      |vpiRefFile:${SURELOG_DIR}/tests/PortComplex/dut.sv
-      |vpiRefLineNo:17
-      |vpiRefColumnNo:3
-      |vpiRefEndLineNo:17
-      |vpiRefEndColumnNo:16
     |vpiTypespecMember:
     \_TypespecMember: (nscratch), line:18:17, endln:18:25
       |vpiParent:
       \_StructTypespec: (dm::hartinfo_t), line:16:9, endln:23:2
       |vpiName:nscratch
       |vpiTypespec:
-      \_RefTypespec: (dm::dm::hartinfo_t::nscratch)
+      \_RefTypespec: (dm::hartinfo_t::nscratch), line:18:3, endln:18:16
         |vpiParent:
         \_TypespecMember: (nscratch), line:18:17, endln:18:25
-        |vpiFullName:dm::dm::hartinfo_t::nscratch
+        |vpiFullName:dm::hartinfo_t::nscratch
         |vpiActual:
         \_LogicTypespec: , line:18:3, endln:18:16
-      |vpiRefFile:${SURELOG_DIR}/tests/PortComplex/dut.sv
-      |vpiRefLineNo:18
-      |vpiRefColumnNo:3
-      |vpiRefEndLineNo:18
-      |vpiRefEndColumnNo:16
     |vpiTypespecMember:
     \_TypespecMember: (zero0), line:19:17, endln:19:22
       |vpiParent:
       \_StructTypespec: (dm::hartinfo_t), line:16:9, endln:23:2
       |vpiName:zero0
       |vpiTypespec:
-      \_RefTypespec: (dm::dm::hartinfo_t::zero0)
+      \_RefTypespec: (dm::hartinfo_t::zero0), line:19:3, endln:19:16
         |vpiParent:
         \_TypespecMember: (zero0), line:19:17, endln:19:22
-        |vpiFullName:dm::dm::hartinfo_t::zero0
+        |vpiFullName:dm::hartinfo_t::zero0
         |vpiActual:
         \_LogicTypespec: , line:19:3, endln:19:16
-      |vpiRefFile:${SURELOG_DIR}/tests/PortComplex/dut.sv
-      |vpiRefLineNo:19
-      |vpiRefColumnNo:3
-      |vpiRefEndLineNo:19
-      |vpiRefEndColumnNo:16
     |vpiTypespecMember:
     \_TypespecMember: (dataaccess), line:20:17, endln:20:27
       |vpiParent:
       \_StructTypespec: (dm::hartinfo_t), line:16:9, endln:23:2
       |vpiName:dataaccess
       |vpiTypespec:
-      \_RefTypespec: (dm::dm::hartinfo_t::dataaccess)
+      \_RefTypespec: (dm::hartinfo_t::dataaccess), line:20:3, endln:20:8
         |vpiParent:
         \_TypespecMember: (dataaccess), line:20:17, endln:20:27
-        |vpiFullName:dm::dm::hartinfo_t::dataaccess
+        |vpiFullName:dm::hartinfo_t::dataaccess
         |vpiActual:
         \_LogicTypespec: , line:20:3, endln:20:8
-      |vpiRefFile:${SURELOG_DIR}/tests/PortComplex/dut.sv
-      |vpiRefLineNo:20
-      |vpiRefColumnNo:3
-      |vpiRefEndLineNo:20
-      |vpiRefEndColumnNo:8
     |vpiTypespecMember:
     \_TypespecMember: (datasize), line:21:17, endln:21:25
       |vpiParent:
       \_StructTypespec: (dm::hartinfo_t), line:16:9, endln:23:2
       |vpiName:datasize
       |vpiTypespec:
-      \_RefTypespec: (dm::dm::hartinfo_t::datasize)
+      \_RefTypespec: (dm::hartinfo_t::datasize), line:21:3, endln:21:16
         |vpiParent:
         \_TypespecMember: (datasize), line:21:17, endln:21:25
-        |vpiFullName:dm::dm::hartinfo_t::datasize
+        |vpiFullName:dm::hartinfo_t::datasize
         |vpiActual:
         \_LogicTypespec: , line:21:3, endln:21:16
-      |vpiRefFile:${SURELOG_DIR}/tests/PortComplex/dut.sv
-      |vpiRefLineNo:21
-      |vpiRefColumnNo:3
-      |vpiRefEndLineNo:21
-      |vpiRefEndColumnNo:16
     |vpiTypespecMember:
     \_TypespecMember: (dataaddr), line:22:17, endln:22:25
       |vpiParent:
       \_StructTypespec: (dm::hartinfo_t), line:16:9, endln:23:2
       |vpiName:dataaddr
       |vpiTypespec:
-      \_RefTypespec: (dm::dm::hartinfo_t::dataaddr)
+      \_RefTypespec: (dm::hartinfo_t::dataaddr), line:22:3, endln:22:15
         |vpiParent:
         \_TypespecMember: (dataaddr), line:22:17, endln:22:25
-        |vpiFullName:dm::dm::hartinfo_t::dataaddr
+        |vpiFullName:dm::hartinfo_t::dataaddr
         |vpiActual:
         \_LogicTypespec: , line:22:3, endln:22:15
-      |vpiRefFile:${SURELOG_DIR}/tests/PortComplex/dut.sv
-      |vpiRefLineNo:22
-      |vpiRefColumnNo:3
-      |vpiRefEndLineNo:22
-      |vpiRefEndColumnNo:15
+  |vpiTypedef:
+  \_LogicTypespec: , line:17:3, endln:17:16
+    |vpiParent:
+    \_Package: dm (dm), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:15:1, endln:24:11
+    |vpiRange:
+    \_Range: , line:17:9, endln:17:16
+      |vpiParent:
+      \_LogicTypespec: , line:17:3, endln:17:16
+      |vpiLeftRange:
+      \_Constant: , line:17:10, endln:17:12
+        |vpiParent:
+        \_Range: , line:17:9, endln:17:16
+        |vpiDecompile:31
+        |vpiSize:64
+        |UINT:31
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:17:13, endln:17:15
+        |vpiParent:
+        \_Range: , line:17:9, endln:17:16
+        |vpiDecompile:24
+        |vpiSize:64
+        |UINT:24
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:18:3, endln:18:16
+    |vpiParent:
+    \_Package: dm (dm), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:15:1, endln:24:11
+    |vpiRange:
+    \_Range: , line:18:9, endln:18:16
+      |vpiParent:
+      \_LogicTypespec: , line:18:3, endln:18:16
+      |vpiLeftRange:
+      \_Constant: , line:18:10, endln:18:12
+        |vpiParent:
+        \_Range: , line:18:9, endln:18:16
+        |vpiDecompile:23
+        |vpiSize:64
+        |UINT:23
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:18:13, endln:18:15
+        |vpiParent:
+        \_Range: , line:18:9, endln:18:16
+        |vpiDecompile:20
+        |vpiSize:64
+        |UINT:20
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:19:3, endln:19:16
+    |vpiParent:
+    \_Package: dm (dm), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:15:1, endln:24:11
+    |vpiRange:
+    \_Range: , line:19:9, endln:19:16
+      |vpiParent:
+      \_LogicTypespec: , line:19:3, endln:19:16
+      |vpiLeftRange:
+      \_Constant: , line:19:10, endln:19:12
+        |vpiParent:
+        \_Range: , line:19:9, endln:19:16
+        |vpiDecompile:19
+        |vpiSize:64
+        |UINT:19
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:19:13, endln:19:15
+        |vpiParent:
+        \_Range: , line:19:9, endln:19:16
+        |vpiDecompile:17
+        |vpiSize:64
+        |UINT:17
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:20:3, endln:20:8
+    |vpiParent:
+    \_Package: dm (dm), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:15:1, endln:24:11
+  |vpiTypedef:
+  \_LogicTypespec: , line:21:3, endln:21:16
+    |vpiParent:
+    \_Package: dm (dm), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:15:1, endln:24:11
+    |vpiRange:
+    \_Range: , line:21:9, endln:21:16
+      |vpiParent:
+      \_LogicTypespec: , line:21:3, endln:21:16
+      |vpiLeftRange:
+      \_Constant: , line:21:10, endln:21:12
+        |vpiParent:
+        \_Range: , line:21:9, endln:21:16
+        |vpiDecompile:15
+        |vpiSize:64
+        |UINT:15
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:21:13, endln:21:15
+        |vpiParent:
+        \_Range: , line:21:9, endln:21:16
+        |vpiDecompile:12
+        |vpiSize:64
+        |UINT:12
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:22:3, endln:22:15
+    |vpiParent:
+    \_Package: dm (dm), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:15:1, endln:24:11
+    |vpiRange:
+    \_Range: , line:22:9, endln:22:15
+      |vpiParent:
+      \_LogicTypespec: , line:22:3, endln:22:15
+      |vpiLeftRange:
+      \_Constant: , line:22:10, endln:22:12
+        |vpiParent:
+        \_Range: , line:22:9, endln:22:15
+        |vpiDecompile:11
+        |vpiSize:64
+        |UINT:11
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:22:13, endln:22:14
+        |vpiParent:
+        \_Range: , line:22:9, endln:22:15
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiImportTypespec:
+  \_StructTypespec: (dm::hartinfo_t), line:16:9, endln:23:2
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:17:3, endln:17:16
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:18:3, endln:18:16
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:19:3, endln:19:16
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:20:3, endln:20:8
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:21:3, endln:21:16
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:22:3, endln:22:15
   |vpiDefName:dm
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:9:1, endln:13:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@dut
-  |vpiDefName:work@dut
-  |vpiNet:
-  \_LogicNet: (work@dut.alert_tx_o), line:10:33, endln:10:43
+  |vpiName:work@dut
+  |vpiVariables:
+  \_PackedArrayVar: (work@dut.alert_tx_o), line:10:33, endln:10:43
     |vpiParent:
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:9:1, endln:13:10
+    |vpiTypespec:
+    \_RefTypespec: (work@dut.alert_tx_o.pr_pkg::alert_tx_t), line:10:8, endln:10:32
+      |vpiParent:
+      \_PackedArrayVar: (work@dut.alert_tx_o), line:10:33, endln:10:43
+      |vpiName:pr_pkg::alert_tx_t
+      |vpiFullName:work@dut.alert_tx_o.pr_pkg::alert_tx_t
+      |vpiActual:
+      \_PackedArrayTypespec: , line:10:27, endln:10:32
     |vpiName:alert_tx_o
     |vpiFullName:work@dut.alert_tx_o
+    |vpiVisibility:1
+  |vpiTypedef:
+  \_PackedArrayTypespec: , line:10:27, endln:10:32
+    |vpiParent:
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:9:1, endln:13:10
+    |vpiRange:
+    \_Range: , line:10:27, endln:10:32
+      |vpiParent:
+      \_PackedArrayTypespec: , line:10:27, endln:10:32
+      |vpiLeftRange:
+      \_Constant: , line:10:28, endln:10:29
+        |vpiParent:
+        \_Range: , line:10:27, endln:10:32
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:10:30, endln:10:31
+        |vpiParent:
+        \_Range: , line:10:27, endln:10:32
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiElemTypespec:
+    \_RefTypespec: (work@dut), line:10:8, endln:10:16
+      |vpiParent:
+      \_PackedArrayTypespec: , line:10:27, endln:10:32
+      |vpiFullName:work@dut
+      |vpiActual:
+      \_StructTypespec: (pr_pkg::alert_tx_t), line:2:11, endln:5:4
+  |vpiTypedef:
+  \_PackedArrayTypespec: , line:10:27, endln:10:32
+    |vpiParent:
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:9:1, endln:13:10
+    |vpiRange:
+    \_Range: , line:10:27, endln:10:32
+      |vpiParent:
+      \_PackedArrayTypespec: , line:10:27, endln:10:32
+      |vpiLeftRange:
+      \_Constant: , line:10:28, endln:10:29
+        |vpiParent:
+        \_Range: , line:10:27, endln:10:32
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:10:30, endln:10:31
+        |vpiParent:
+        \_Range: , line:10:27, endln:10:32
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiElemTypespec:
+    \_RefTypespec: (work@dut), line:10:8, endln:10:16
+      |vpiParent:
+      \_PackedArrayTypespec: , line:10:27, endln:10:32
+      |vpiFullName:work@dut
+      |vpiActual:
+      \_StructTypespec: (pr_pkg::alert_tx_t), line:2:11, endln:5:4
+  |vpiImportTypespec:
+  \_PackedArrayTypespec: , line:10:27, endln:10:32
+  |vpiImportTypespec:
+  \_PackedArrayVar: (work@dut.alert_tx_o), line:10:33, endln:10:43
+  |vpiImportTypespec:
+  \_PackedArrayTypespec: , line:10:27, endln:10:32
+  |vpiDefName:work@dut
   |vpiPort:
   \_Port: (alert_tx_o), line:10:33, endln:10:43
     |vpiParent:
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:9:1, endln:13:10
     |vpiName:alert_tx_o
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@dut.alert_tx_o.alert_tx_o), line:10:33, endln:10:43
-      |vpiParent:
-      \_Port: (alert_tx_o), line:10:33, endln:10:43
-      |vpiName:alert_tx_o
-      |vpiFullName:work@dut.alert_tx_o.alert_tx_o
-      |vpiActual:
-      \_LogicNet: (work@dut.alert_tx_o), line:10:33, endln:10:43
-    |vpiTypedef:
-    \_RefTypespec: (work@dut.alert_tx_o)
+    |vpiTypespec:
+    \_RefTypespec: (work@dut.alert_tx_o), line:10:8, endln:10:32
       |vpiParent:
       \_Port: (alert_tx_o), line:10:33, endln:10:43
       |vpiFullName:work@dut.alert_tx_o
       |vpiActual:
-      \_PackedArrayTypespec: 
-|uhdmallModules:
+      \_PackedArrayTypespec: , line:10:27, endln:10:32
+|vpiAllModules:
 \_Module: work@dut2 (work@dut2), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:26:1, endln:33:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@dut2
+  |vpiName:work@dut2
+  |vpiVariables:
+  \_PackedArrayVar: (work@dut2.hartinfo_i), line:30:44, endln:30:54
+    |vpiParent:
+    \_Module: work@dut2 (work@dut2), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:26:1, endln:33:10
+    |vpiTypespec:
+    \_RefTypespec: (work@dut2.hartinfo_i.dm::hartinfo_t), line:30:9, endln:30:37
+      |vpiParent:
+      \_PackedArrayVar: (work@dut2.hartinfo_i), line:30:44, endln:30:54
+      |vpiName:dm::hartinfo_t
+      |vpiFullName:work@dut2.hartinfo_i.dm::hartinfo_t
+      |vpiActual:
+      \_PackedArrayTypespec: , line:30:24, endln:30:37
+    |vpiName:hartinfo_i
+    |vpiFullName:work@dut2.hartinfo_i
+    |vpiVisibility:1
   |vpiParameter:
-  \_Parameter: (work@dut2.NrHarts), line:27:31, endln:27:38
+  \_Parameter: (work@dut2.NrHarts), line:27:31, endln:27:51
     |vpiParent:
     \_Module: work@dut2 (work@dut2), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:26:1, endln:33:10
     |UINT:1
     |vpiTypespec:
-    \_RefTypespec: (work@dut2.NrHarts)
+    \_RefTypespec: (work@dut2.NrHarts), line:27:11, endln:27:23
       |vpiParent:
-      \_Parameter: (work@dut2.NrHarts), line:27:31, endln:27:38
+      \_Parameter: (work@dut2.NrHarts), line:27:31, endln:27:51
       |vpiFullName:work@dut2.NrHarts
       |vpiActual:
       \_IntTypespec: , line:27:11, endln:27:23
@@ -493,279 +682,153 @@ Design: (unnamed)
       |vpiDecompile:1
       |vpiSize:64
       |UINT:1
-      |vpiTypespec:
-      \_RefTypespec: (work@dut2)
-        |vpiParent:
-        \_Constant: , line:27:50, endln:27:51
-        |vpiFullName:work@dut2
-        |vpiActual:
-        \_IntTypespec: , line:27:11, endln:27:23
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (work@dut2.NrHarts), line:27:31, endln:27:38
-  |vpiDefName:work@dut2
-  |vpiNet:
-  \_LogicNet: (work@dut2.hartinfo_i), line:30:44, endln:30:54
+    \_Parameter: (work@dut2.NrHarts), line:27:31, endln:27:51
+  |vpiTypedef:
+  \_IntTypespec: , line:27:11, endln:27:23
     |vpiParent:
     \_Module: work@dut2 (work@dut2), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:26:1, endln:33:10
-    |vpiName:hartinfo_i
-    |vpiFullName:work@dut2.hartinfo_i
-  |vpiNet:
-  \_LogicNet: (work@dut2.hart_info_i_without_range), line:31:44, endln:31:69
+  |vpiTypedef:
+  \_PackedArrayTypespec: , line:30:24, endln:30:37
     |vpiParent:
     \_Module: work@dut2 (work@dut2), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:26:1, endln:33:10
+    |vpiRange:
+    \_Range: , line:30:24, endln:30:37
+      |vpiParent:
+      \_PackedArrayTypespec: , line:30:24, endln:30:37
+      |vpiLeftRange:
+      \_Operation: , line:30:25, endln:30:34
+        |vpiParent:
+        \_Range: , line:30:24, endln:30:37
+        |vpiOpType:11
+        |vpiOperand:
+        \_RefObj: (work@dut2.NrHarts), line:30:25, endln:30:32
+          |vpiParent:
+          \_Operation: , line:30:25, endln:30:34
+          |vpiName:NrHarts
+          |vpiFullName:work@dut2.NrHarts
+          |vpiActual:
+          \_Parameter: (work@dut2.NrHarts), line:27:31, endln:27:51
+        |vpiOperand:
+        \_Constant: , line:30:33, endln:30:34
+          |vpiParent:
+          \_Operation: , line:30:25, endln:30:34
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:30:35, endln:30:36
+        |vpiParent:
+        \_Range: , line:30:24, endln:30:37
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiElemTypespec:
+    \_RefTypespec: (work@dut2), line:30:9, endln:30:13
+      |vpiParent:
+      \_PackedArrayTypespec: , line:30:24, endln:30:37
+      |vpiFullName:work@dut2
+      |vpiActual:
+      \_StructTypespec: (dm::hartinfo_t), line:16:9, endln:23:2
+  |vpiTypedef:
+  \_PackedArrayTypespec: , line:30:24, endln:30:37
+    |vpiParent:
+    \_Module: work@dut2 (work@dut2), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:26:1, endln:33:10
+    |vpiRange:
+    \_Range: , line:30:24, endln:30:37
+      |vpiParent:
+      \_PackedArrayTypespec: , line:30:24, endln:30:37
+      |vpiLeftRange:
+      \_Operation: , line:30:25, endln:30:34
+        |vpiParent:
+        \_Range: , line:30:24, endln:30:37
+        |vpiOpType:11
+        |vpiOperand:
+        \_RefObj: (work@dut2.NrHarts), line:30:25, endln:30:32
+          |vpiParent:
+          \_Operation: , line:30:25, endln:30:34
+          |vpiName:NrHarts
+          |vpiFullName:work@dut2.NrHarts
+          |vpiActual:
+          \_Parameter: (work@dut2.NrHarts), line:27:31, endln:27:51
+        |vpiOperand:
+        \_Constant: , line:30:33, endln:30:34
+          |vpiParent:
+          \_Operation: , line:30:25, endln:30:34
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:30:35, endln:30:36
+        |vpiParent:
+        \_Range: , line:30:24, endln:30:37
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiElemTypespec:
+    \_RefTypespec: (work@dut2), line:30:9, endln:30:13
+      |vpiParent:
+      \_PackedArrayTypespec: , line:30:24, endln:30:37
+      |vpiFullName:work@dut2
+      |vpiActual:
+      \_StructTypespec: (dm::hartinfo_t), line:16:9, endln:23:2
+  |vpiImportTypespec:
+  \_IntTypespec: , line:27:11, endln:27:23
+  |vpiImportTypespec:
+  \_PackedArrayTypespec: , line:30:24, endln:30:37
+  |vpiImportTypespec:
+  \_PackedArrayVar: (work@dut2.hartinfo_i), line:30:44, endln:30:54
+  |vpiImportTypespec:
+  \_StructNet: (work@dut2.hart_info_i_without_range), line:31:44, endln:31:69
+    |vpiParent:
+    \_Module: work@dut2 (work@dut2), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:26:1, endln:33:10
+    |vpiTypespec:
+    \_RefTypespec: (work@dut2.hart_info_i_without_range.hart_info_i_without_range), line:31:9, endln:31:23
+      |vpiParent:
+      \_StructNet: (work@dut2.hart_info_i_without_range), line:31:44, endln:31:69
+      |vpiName:hart_info_i_without_range
+      |vpiFullName:work@dut2.hart_info_i_without_range.hart_info_i_without_range
+      |vpiActual:
+      \_StructTypespec: (dm::hartinfo_t), line:16:9, endln:23:2
     |vpiName:hart_info_i_without_range
     |vpiFullName:work@dut2.hart_info_i_without_range
+  |vpiImportTypespec:
+  \_PackedArrayTypespec: , line:30:24, endln:30:37
+  |vpiDefName:work@dut2
+  |vpiNet:
+  \_StructNet: (work@dut2.hart_info_i_without_range), line:31:44, endln:31:69
   |vpiPort:
   \_Port: (hartinfo_i), line:30:44, endln:30:54
     |vpiParent:
     \_Module: work@dut2 (work@dut2), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:26:1, endln:33:10
     |vpiName:hartinfo_i
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@dut2.hartinfo_i.hartinfo_i), line:30:44, endln:30:54
-      |vpiParent:
-      \_Port: (hartinfo_i), line:30:44, endln:30:54
-      |vpiName:hartinfo_i
-      |vpiFullName:work@dut2.hartinfo_i.hartinfo_i
-      |vpiActual:
-      \_LogicNet: (work@dut2.hartinfo_i), line:30:44, endln:30:54
-    |vpiTypedef:
-    \_RefTypespec: (work@dut2.hartinfo_i)
+    |vpiTypespec:
+    \_RefTypespec: (work@dut2.hartinfo_i), line:30:9, endln:30:37
       |vpiParent:
       \_Port: (hartinfo_i), line:30:44, endln:30:54
       |vpiFullName:work@dut2.hartinfo_i
       |vpiActual:
-      \_PackedArrayTypespec: 
+      \_PackedArrayTypespec: , line:30:24, endln:30:37
   |vpiPort:
   \_Port: (hart_info_i_without_range), line:31:44, endln:31:69
     |vpiParent:
     \_Module: work@dut2 (work@dut2), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:26:1, endln:33:10
     |vpiName:hart_info_i_without_range
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@dut2.hart_info_i_without_range.hart_info_i_without_range), line:31:44, endln:31:69
+    |vpiTypespec:
+    \_RefTypespec: (work@dut2.hart_info_i_without_range.dm::hartinfo_t), line:31:9, endln:31:23
       |vpiParent:
       \_Port: (hart_info_i_without_range), line:31:44, endln:31:69
-      |vpiName:hart_info_i_without_range
-      |vpiFullName:work@dut2.hart_info_i_without_range.hart_info_i_without_range
-      |vpiActual:
-      \_LogicNet: (work@dut2.hart_info_i_without_range), line:31:44, endln:31:69
-    |vpiTypedef:
-    \_RefTypespec: (work@dut2.hart_info_i_without_range)
-      |vpiParent:
-      \_Port: (hart_info_i_without_range), line:31:44, endln:31:69
-      |vpiFullName:work@dut2.hart_info_i_without_range
+      |vpiName:dm::hartinfo_t
+      |vpiFullName:work@dut2.hart_info_i_without_range.dm::hartinfo_t
       |vpiActual:
       \_StructTypespec: (dm::hartinfo_t), line:16:9, endln:23:2
-\_weaklyReferenced:
-\_LogicTypespec: , line:3:5, endln:3:10
-  |vpiParent:
-  \_TypespecMember: (alert_p), line:3:11, endln:3:18
-  |vpiInstance:
-  \_Package: pr_pkg (pr_pkg::), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:1:1, endln:7:11
-\_LogicTypespec: , line:4:5, endln:4:10
-  |vpiParent:
-  \_TypespecMember: (alert_n), line:4:11, endln:4:18
-  |vpiInstance:
-  \_Package: pr_pkg (pr_pkg::), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:1:1, endln:7:11
-\_LogicTypespec: , line:17:3, endln:17:16
-  |vpiParent:
-  \_TypespecMember: (zero1), line:17:17, endln:17:22
-  |vpiInstance:
-  \_Package: dm (dm::), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:15:1, endln:24:11
-  |vpiRange:
-  \_Range: , line:17:9, endln:17:16
-    |vpiParent:
-    \_LogicTypespec: , line:17:3, endln:17:16
-    |vpiLeftRange:
-    \_Constant: , line:17:10, endln:17:12
-      |vpiParent:
-      \_Range: , line:17:9, endln:17:16
-      |vpiDecompile:31
-      |vpiSize:64
-      |UINT:31
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:17:13, endln:17:15
-      |vpiParent:
-      \_Range: , line:17:9, endln:17:16
-      |vpiDecompile:24
-      |vpiSize:64
-      |UINT:24
-      |vpiConstType:9
-\_LogicTypespec: , line:18:3, endln:18:16
-  |vpiParent:
-  \_TypespecMember: (nscratch), line:18:17, endln:18:25
-  |vpiInstance:
-  \_Package: dm (dm::), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:15:1, endln:24:11
-  |vpiRange:
-  \_Range: , line:18:9, endln:18:16
-    |vpiParent:
-    \_LogicTypespec: , line:18:3, endln:18:16
-    |vpiLeftRange:
-    \_Constant: , line:18:10, endln:18:12
-      |vpiParent:
-      \_Range: , line:18:9, endln:18:16
-      |vpiDecompile:23
-      |vpiSize:64
-      |UINT:23
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:18:13, endln:18:15
-      |vpiParent:
-      \_Range: , line:18:9, endln:18:16
-      |vpiDecompile:20
-      |vpiSize:64
-      |UINT:20
-      |vpiConstType:9
-\_LogicTypespec: , line:19:3, endln:19:16
-  |vpiParent:
-  \_TypespecMember: (zero0), line:19:17, endln:19:22
-  |vpiInstance:
-  \_Package: dm (dm::), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:15:1, endln:24:11
-  |vpiRange:
-  \_Range: , line:19:9, endln:19:16
-    |vpiParent:
-    \_LogicTypespec: , line:19:3, endln:19:16
-    |vpiLeftRange:
-    \_Constant: , line:19:10, endln:19:12
-      |vpiParent:
-      \_Range: , line:19:9, endln:19:16
-      |vpiDecompile:19
-      |vpiSize:64
-      |UINT:19
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:19:13, endln:19:15
-      |vpiParent:
-      \_Range: , line:19:9, endln:19:16
-      |vpiDecompile:17
-      |vpiSize:64
-      |UINT:17
-      |vpiConstType:9
-\_LogicTypespec: , line:20:3, endln:20:8
-  |vpiParent:
-  \_TypespecMember: (dataaccess), line:20:17, endln:20:27
-  |vpiInstance:
-  \_Package: dm (dm::), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:15:1, endln:24:11
-\_LogicTypespec: , line:21:3, endln:21:16
-  |vpiParent:
-  \_TypespecMember: (datasize), line:21:17, endln:21:25
-  |vpiInstance:
-  \_Package: dm (dm::), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:15:1, endln:24:11
-  |vpiRange:
-  \_Range: , line:21:9, endln:21:16
-    |vpiParent:
-    \_LogicTypespec: , line:21:3, endln:21:16
-    |vpiLeftRange:
-    \_Constant: , line:21:10, endln:21:12
-      |vpiParent:
-      \_Range: , line:21:9, endln:21:16
-      |vpiDecompile:15
-      |vpiSize:64
-      |UINT:15
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:21:13, endln:21:15
-      |vpiParent:
-      \_Range: , line:21:9, endln:21:16
-      |vpiDecompile:12
-      |vpiSize:64
-      |UINT:12
-      |vpiConstType:9
-\_LogicTypespec: , line:22:3, endln:22:15
-  |vpiParent:
-  \_TypespecMember: (dataaddr), line:22:17, endln:22:25
-  |vpiInstance:
-  \_Package: dm (dm::), file:${SURELOG_DIR}/tests/PortComplex/dut.sv, line:15:1, endln:24:11
-  |vpiRange:
-  \_Range: , line:22:9, endln:22:15
-    |vpiParent:
-    \_LogicTypespec: , line:22:3, endln:22:15
-    |vpiLeftRange:
-    \_Constant: , line:22:10, endln:22:12
-      |vpiParent:
-      \_Range: , line:22:9, endln:22:15
-      |vpiDecompile:11
-      |vpiSize:64
-      |UINT:11
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:22:13, endln:22:14
-      |vpiParent:
-      \_Range: , line:22:9, endln:22:15
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_IntTypespec: , line:27:11, endln:27:23
-  |vpiParent:
-  \_Parameter: (work@dut2.NrHarts), line:27:31, endln:27:38
-\_PackedArrayTypespec: 
-  |vpiRange:
-  \_Range: , line:10:27, endln:10:32
-    |vpiParent:
-    \_PackedArrayTypespec: 
-    |vpiLeftRange:
-    \_Constant: , line:10:28, endln:10:29
-      |vpiParent:
-      \_Range: , line:10:27, endln:10:32
-      |vpiDecompile:2
-      |vpiSize:64
-      |UINT:2
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:10:30, endln:10:31
-      |vpiParent:
-      \_Range: , line:10:27, endln:10:32
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-  |vpiElemTypespec:
-  \_RefTypespec: 
-    |vpiParent:
-    \_PackedArrayTypespec: 
-    |vpiActual:
-    \_StructTypespec: (pr_pkg::alert_tx_t), line:2:11, endln:5:4
-\_PackedArrayTypespec: 
-  |vpiRange:
-  \_Range: , line:30:24, endln:30:37
-    |vpiParent:
-    \_PackedArrayTypespec: 
-    |vpiLeftRange:
-    \_Operation: , line:30:25, endln:30:34
-      |vpiParent:
-      \_Range: , line:30:24, endln:30:37
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (NrHarts), line:30:25, endln:30:32
-        |vpiParent:
-        \_Operation: , line:30:25, endln:30:34
-        |vpiName:NrHarts
-      |vpiOperand:
-      \_Constant: , line:30:33, endln:30:34
-        |vpiParent:
-        \_Operation: , line:30:25, endln:30:34
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:30:35, endln:30:36
-      |vpiParent:
-      \_Range: , line:30:24, endln:30:37
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-  |vpiElemTypespec:
-  \_RefTypespec: 
-    |vpiParent:
-    \_PackedArrayTypespec: 
-    |vpiActual:
-    \_StructTypespec: (dm::hartinfo_t), line:16:9, endln:23:2
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

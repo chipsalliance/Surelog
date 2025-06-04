@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 143
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/ConstExpand/dut.sv
+FILE: ${SURELOG_DIR}/tests/ConstExpand/dut.sv
 n<> u<142> t<Top_level_rule> c<1> l<1:1> el<18:1>
-  n<> u<1> t<Null_rule> p<142> s<141> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<142> s<141> l<1:1>
   n<> u<141> t<Source_text> p<142> c<140> l<1:1> el<15:10>
     n<> u<140> t<Description> p<141> c<139> l<1:1> el<15:10>
       n<> u<139> t<Module_declaration> p<140> c<13> l<1:1> el<15:10>
@@ -160,34 +160,61 @@ Constant                                               5
 Design                                                 1
 HierPath                                               1
 IndexedPartSelect                                      1
-IntTypespec                                            3
-LogicNet                                               2
+IntTypespec                                            4
+IntVar                                                 1
 Module                                                 1
 Port                                                   1
-RefObj                                                 4
-RefTypespec                                            4
+RefObj                                                 3
+RefTypespec                                            5
 StructTypespec                                         1
+StructVar                                              1
 TypespecMember                                         2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ConstExpand/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ConstExpand/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ConstExpand/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ConstExpand/dut.sv, line:1:1, endln:15:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
+  |vpiName:work@top
+  |vpiVariables:
+  \_IntVar: (work@top.o), line:1:23, endln:1:24
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ConstExpand/dut.sv, line:1:1, endln:15:10
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o), line:1:19, endln:1:22
+      |vpiParent:
+      \_IntVar: (work@top.o), line:1:23, endln:1:24
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_IntTypespec: , line:1:19, endln:1:22
+    |vpiName:o
+    |vpiFullName:work@top.o
+    |vpiSigned:1
+    |vpiVisibility:1
+  |vpiVariables:
+  \_StructVar: (work@top.operation_i), line:7:27, endln:7:38
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ConstExpand/dut.sv, line:1:1, endln:15:10
+    |vpiTypespec:
+    \_RefTypespec: (work@top.operation_i.mac_bignum_operation_t), line:7:4, endln:7:26
+      |vpiParent:
+      \_StructVar: (work@top.operation_i), line:7:27, endln:7:38
+      |vpiName:mac_bignum_operation_t
+      |vpiFullName:work@top.operation_i.mac_bignum_operation_t
+      |vpiActual:
+      \_StructTypespec: (mac_bignum_operation_t), line:2:12, endln:5:5
+    |vpiName:operation_i
+    |vpiFullName:work@top.operation_i
+    |vpiVisibility:1
   |vpiTypedef:
   \_StructTypespec: (mac_bignum_operation_t), line:2:12, endln:5:5
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ConstExpand/dut.sv, line:1:1, endln:15:10
     |vpiName:mac_bignum_operation_t
-    |vpiInstance:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ConstExpand/dut.sv, line:1:1, endln:15:10
     |vpiPacked:1
     |vpiTypespecMember:
     \_TypespecMember: (operand_a), line:3:11, endln:3:20
@@ -195,70 +222,67 @@ Design: (unnamed)
       \_StructTypespec: (mac_bignum_operation_t), line:2:12, endln:5:5
       |vpiName:operand_a
       |vpiTypespec:
-      \_RefTypespec: (work@top.mac_bignum_operation_t.operand_a)
+      \_RefTypespec: (work@top.mac_bignum_operation_t.operand_a), line:3:7, endln:3:10
         |vpiParent:
         \_TypespecMember: (operand_a), line:3:11, endln:3:20
         |vpiFullName:work@top.mac_bignum_operation_t.operand_a
         |vpiActual:
         \_IntTypespec: , line:3:7, endln:3:10
-      |vpiRefFile:${SURELOG_DIR}/tests/ConstExpand/dut.sv
-      |vpiRefLineNo:3
-      |vpiRefColumnNo:7
-      |vpiRefEndLineNo:3
-      |vpiRefEndColumnNo:10
     |vpiTypespecMember:
     \_TypespecMember: (unused), line:4:11, endln:4:17
       |vpiParent:
       \_StructTypespec: (mac_bignum_operation_t), line:2:12, endln:5:5
       |vpiName:unused
       |vpiTypespec:
-      \_RefTypespec: (work@top.mac_bignum_operation_t.unused)
+      \_RefTypespec: (work@top.mac_bignum_operation_t.unused), line:4:7, endln:4:10
         |vpiParent:
         \_TypespecMember: (unused), line:4:11, endln:4:17
         |vpiFullName:work@top.mac_bignum_operation_t.unused
         |vpiActual:
         \_IntTypespec: , line:4:7, endln:4:10
-      |vpiRefFile:${SURELOG_DIR}/tests/ConstExpand/dut.sv
-      |vpiRefLineNo:4
-      |vpiRefColumnNo:7
-      |vpiRefEndLineNo:4
-      |vpiRefEndColumnNo:10
+  |vpiTypedef:
+  \_IntTypespec: , line:3:7, endln:3:10
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ConstExpand/dut.sv, line:1:1, endln:15:10
+    |vpiSigned:1
+  |vpiTypedef:
+  \_IntTypespec: , line:4:7, endln:4:10
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ConstExpand/dut.sv, line:1:1, endln:15:10
+    |vpiSigned:1
+  |vpiTypedef:
+  \_IntTypespec: , line:1:19, endln:1:22
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ConstExpand/dut.sv, line:1:1, endln:15:10
+    |vpiSigned:1
+  |vpiTypedef:
+  \_IntTypespec: , line:1:19, endln:1:22
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ConstExpand/dut.sv, line:1:1, endln:15:10
+    |vpiSigned:1
+  |vpiImportTypespec:
+  \_StructTypespec: (mac_bignum_operation_t), line:2:12, endln:5:5
+  |vpiImportTypespec:
+  \_IntTypespec: , line:3:7, endln:3:10
+  |vpiImportTypespec:
+  \_IntTypespec: , line:4:7, endln:4:10
+  |vpiImportTypespec:
+  \_IntTypespec: , line:1:19, endln:1:22
+  |vpiImportTypespec:
+  \_IntVar: (work@top.o), line:1:23, endln:1:24
+  |vpiImportTypespec:
+  \_StructVar: (work@top.operation_i), line:7:27, endln:7:38
+  |vpiImportTypespec:
+  \_IntTypespec: , line:1:19, endln:1:22
   |vpiDefName:work@top
-  |vpiNet:
-  \_LogicNet: (work@top.o), line:1:23, endln:1:24
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ConstExpand/dut.sv, line:1:1, endln:15:10
-    |vpiName:o
-    |vpiFullName:work@top.o
-  |vpiNet:
-  \_LogicNet: (work@top.operation_i), line:7:27, endln:7:38
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ConstExpand/dut.sv, line:1:1, endln:15:10
-    |vpiTypespec:
-    \_RefTypespec: (work@top.operation_i)
-      |vpiParent:
-      \_LogicNet: (work@top.operation_i), line:7:27, endln:7:38
-      |vpiFullName:work@top.operation_i
-      |vpiActual:
-      \_StructTypespec: (mac_bignum_operation_t), line:2:12, endln:5:5
-    |vpiName:operation_i
-    |vpiFullName:work@top.operation_i
   |vpiPort:
   \_Port: (o), line:1:23, endln:1:24
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ConstExpand/dut.sv, line:1:1, endln:15:10
     |vpiName:o
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@top.o.o), line:1:23, endln:1:24
-      |vpiParent:
-      \_Port: (o), line:1:23, endln:1:24
-      |vpiName:o
-      |vpiFullName:work@top.o.o
-      |vpiActual:
-      \_LogicNet: (work@top.o), line:1:23, endln:1:24
-    |vpiTypedef:
-    \_RefTypespec: (work@top.o)
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o), line:1:19, endln:1:22
       |vpiParent:
       \_Port: (o), line:1:23, endln:1:24
       |vpiFullName:work@top.o
@@ -306,30 +330,38 @@ Design: (unnamed)
             |vpiOpType:82
             |vpiBlocking:1
             |vpiRhs:
-            \_HierPath: (operation_i.operand_a[0+:32]), line:11:17, endln:11:45
+            \_HierPath: (operation_i.operand_a[0+:32]), line:11:17, endln:11:44
               |vpiParent:
               \_Assignment: , line:11:13, endln:11:45
               |vpiActual:
               \_RefObj: (operation_i), line:11:17, endln:11:28
                 |vpiParent:
-                \_HierPath: (operation_i.operand_a[0+:32]), line:11:17, endln:11:45
+                \_HierPath: (operation_i.operand_a[0+:32]), line:11:17, endln:11:44
                 |vpiName:operation_i
+                |vpiActual:
+                \_StructVar: (work@top.operation_i), line:7:27, endln:7:38
               |vpiActual:
               \_IndexedPartSelect: (operation_i.operand_a[0+:32]), line:11:29, endln:11:44
                 |vpiParent:
-                \_HierPath: (operation_i.operand_a[0+:32]), line:11:17, endln:11:45
+                \_HierPath: (operation_i.operand_a[0+:32]), line:11:17, endln:11:44
                 |vpiName:operand_a
                 |vpiFullName:operation_i.operand_a[0+:32]
+                |vpiActual:
+                \_TypespecMember: (operand_a), line:3:11, endln:3:20
                 |vpiConstantSelect:1
                 |vpiIndexedPartSelectType:1
                 |vpiBaseExpr:
                 \_Constant: , line:11:39, endln:11:40
+                  |vpiParent:
+                  \_IndexedPartSelect: (operation_i.operand_a[0+:32]), line:11:29, endln:11:44
                   |vpiDecompile:0
                   |vpiSize:64
                   |UINT:0
                   |vpiConstType:9
                 |vpiWidthExpr:
                 \_Constant: , line:11:42, endln:11:44
+                  |vpiParent:
+                  \_IndexedPartSelect: (operation_i.operand_a[0+:32]), line:11:29, endln:11:44
                   |vpiDecompile:32
                   |vpiSize:64
                   |UINT:32
@@ -342,7 +374,7 @@ Design: (unnamed)
               |vpiName:o
               |vpiFullName:work@top.o
               |vpiActual:
-              \_LogicNet: (work@top.o), line:1:23, endln:1:24
+              \_IntVar: (work@top.o), line:1:23, endln:1:24
         |vpiCaseItem:
         \_CaseItem: , line:12:10, endln:12:26
           |vpiParent:
@@ -355,6 +387,8 @@ Design: (unnamed)
             |vpiBlocking:1
             |vpiRhs:
             \_Constant: , line:12:23, endln:12:25
+              |vpiParent:
+              \_Assignment: , line:12:19, endln:12:25
               |vpiDecompile:'0
               |vpiSize:-1
               |BIN:0
@@ -366,19 +400,8 @@ Design: (unnamed)
               |vpiName:o
               |vpiFullName:work@top.o
               |vpiActual:
-              \_LogicNet: (work@top.o), line:1:23, endln:1:24
+              \_IntVar: (work@top.o), line:1:23, endln:1:24
     |vpiAlwaysType:2
-\_weaklyReferenced:
-\_IntTypespec: , line:3:7, endln:3:10
-  |vpiParent:
-  \_TypespecMember: (operand_a), line:3:11, endln:3:20
-  |vpiSigned:1
-\_IntTypespec: , line:4:7, endln:4:10
-  |vpiParent:
-  \_TypespecMember: (unused), line:4:11, endln:4:17
-  |vpiSigned:1
-\_IntTypespec: , line:1:19, endln:1:22
-  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

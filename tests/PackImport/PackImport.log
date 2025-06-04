@@ -5,9 +5,9 @@
 AST_DEBUG_BEGIN
 Count: 125
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/PackImport/dut.sv
+FILE: ${SURELOG_DIR}/tests/PackImport/dut.sv
 n<> u<124> t<Top_level_rule> c<1> l<3:1> el<22:1>
-  n<> u<1> t<Null_rule> p<124> s<123> l<3:1> el<1:3>
+  n<> u<1> t<Null_rule> p<124> s<123> l<3:1> el<3:1>
   n<> u<123> t<Source_text> p<124> c<36> l<3:1> el<20:10>
     n<> u<36> t<Description> p<123> c<35> s<82> l<3:1> el<9:11>
       n<> u<35> t<Package_declaration> p<36> c<2> l<3:1> el<9:11>
@@ -138,54 +138,73 @@ AST_DEBUG_END
 [INF:CP0303] ${SURELOG_DIR}/tests/PackImport/dut.sv:18:1: Compile module "work@top".
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-Constant                                              17
+Constant                                              19
 Design                                                 1
 EnumConst                                              2
 EnumTypespec                                           1
 ImportTypespec                                         2
 LogicNet                                               2
-LogicTypespec                                          5
+LogicTypespec                                          4
 Module                                                 2
 Operation                                              6
 Package                                                2
-ParamAssign                                            2
-Parameter                                              2
+ParamAssign                                            1
+Parameter                                              1
 Port                                                   2
-Range                                                  4
-RefObj                                                 5
-RefTypespec                                            6
+Range                                                  5
+RefObj                                                 3
+RefTypespec                                            5
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PackImport/slpp_unit/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/PackImport/slpp_unit/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/PackImport/slpp_unit/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallPackages:
-\_Package: ibex_pkg (ibex_pkg::), file:${SURELOG_DIR}/tests/PackImport/dut.sv, line:3:1, endln:9:11
+|vpiAllPackages:
+\_Package: ibex_pkg (ibex_pkg), file:${SURELOG_DIR}/tests/PackImport/dut.sv, line:3:1, endln:9:11
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:ibex_pkg
-  |vpiFullName:ibex_pkg::
   |vpiTypedef:
-  \_EnumTypespec: (ibex_pkg::opcode_e), line:5:1, endln:8:12
+  \_LogicTypespec: , line:5:14, endln:5:25
     |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PackImport/dut.sv, line:18:1, endln:20:10
-    |vpiName:ibex_pkg::opcode_e
-    |vpiInstance:
-    \_Package: ibex_tracer_pkg (ibex_tracer_pkg::), file:${SURELOG_DIR}/tests/PackImport/dut.sv, line:11:1, endln:14:11
-    |vpiBaseTypespec:
-    \_RefTypespec: (work@top.ibex_pkg::opcode_e)
+    \_Package: ibex_pkg (ibex_pkg), file:${SURELOG_DIR}/tests/PackImport/dut.sv, line:3:1, endln:9:11
+    |vpiRange:
+    \_Range: , line:5:20, endln:5:25
       |vpiParent:
-      \_EnumTypespec: (ibex_pkg::opcode_e), line:5:1, endln:8:12
-      |vpiFullName:work@top.ibex_pkg::opcode_e
+      \_LogicTypespec: , line:5:14, endln:5:25
+      |vpiLeftRange:
+      \_Constant: , line:5:21, endln:5:22
+        |vpiParent:
+        \_Range: , line:5:20, endln:5:25
+        |vpiDecompile:6
+        |vpiSize:64
+        |UINT:6
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:5:23, endln:5:24
+        |vpiParent:
+        \_Range: , line:5:20, endln:5:25
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_EnumTypespec: (ibex_pkg::opcode_e), line:5:9, endln:8:11
+    |vpiParent:
+    \_Package: ibex_pkg (ibex_pkg), file:${SURELOG_DIR}/tests/PackImport/dut.sv, line:3:1, endln:9:11
+    |vpiName:ibex_pkg::opcode_e
+    |vpiBaseTypespec:
+    \_RefTypespec: (ibex_pkg::opcode_e), line:5:14, endln:5:25
+      |vpiParent:
+      \_EnumTypespec: (ibex_pkg::opcode_e), line:5:9, endln:8:11
+      |vpiFullName:ibex_pkg::opcode_e
       |vpiActual:
       \_LogicTypespec: , line:5:14, endln:5:25
     |vpiEnumConst:
     \_EnumConst: (OPCODE_LOAD), line:6:3, endln:6:26
       |vpiParent:
-      \_EnumTypespec: (ibex_pkg::opcode_e), line:5:1, endln:8:12
+      \_EnumTypespec: (ibex_pkg::opcode_e), line:5:9, endln:8:11
       |vpiName:OPCODE_LOAD
       |HEX:03
       |vpiDecompile:7'h03
@@ -193,26 +212,29 @@ Design: (unnamed)
     |vpiEnumConst:
     \_EnumConst: (OPCODE_LUI), line:7:3, endln:7:26
       |vpiParent:
-      \_EnumTypespec: (ibex_pkg::opcode_e), line:5:1, endln:8:12
+      \_EnumTypespec: (ibex_pkg::opcode_e), line:5:9, endln:8:11
       |vpiName:OPCODE_LUI
       |HEX:37
       |vpiDecompile:7'h37
       |vpiSize:7
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:5:14, endln:5:25
+  |vpiImportTypespec:
+  \_EnumTypespec: (ibex_pkg::opcode_e), line:5:9, endln:8:11
   |vpiDefName:ibex_pkg
-|uhdmallPackages:
-\_Package: ibex_tracer_pkg (ibex_tracer_pkg::), file:${SURELOG_DIR}/tests/PackImport/dut.sv, line:11:1, endln:14:11
+|vpiAllPackages:
+\_Package: ibex_tracer_pkg (ibex_tracer_pkg), file:${SURELOG_DIR}/tests/PackImport/dut.sv, line:11:1, endln:14:11
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:ibex_tracer_pkg
-  |vpiFullName:ibex_tracer_pkg::
   |vpiParameter:
-  \_Parameter: (ibex_tracer_pkg::INSN_LUI), line:13:24, endln:13:32
+  \_Parameter: (ibex_tracer_pkg::INSN_LUI), line:13:24, endln:13:59
     |vpiParent:
-    \_Package: ibex_tracer_pkg (ibex_tracer_pkg::), file:${SURELOG_DIR}/tests/PackImport/dut.sv, line:11:1, endln:14:11
+    \_Package: ibex_tracer_pkg (ibex_tracer_pkg), file:${SURELOG_DIR}/tests/PackImport/dut.sv, line:11:1, endln:14:11
     |vpiTypespec:
-    \_RefTypespec: (ibex_tracer_pkg::INSN_LUI)
+    \_RefTypespec: (ibex_tracer_pkg::INSN_LUI), line:13:11, endln:13:23
       |vpiParent:
-      \_Parameter: (ibex_tracer_pkg::INSN_LUI), line:13:24, endln:13:32
+      \_Parameter: (ibex_tracer_pkg::INSN_LUI), line:13:24, endln:13:59
       |vpiFullName:ibex_tracer_pkg::INSN_LUI
       |vpiActual:
       \_LogicTypespec: , line:13:11, endln:13:23
@@ -221,7 +243,7 @@ Design: (unnamed)
   |vpiParamAssign:
   \_ParamAssign: , line:13:24, endln:13:59
     |vpiParent:
-    \_Package: ibex_tracer_pkg (ibex_tracer_pkg::), file:${SURELOG_DIR}/tests/PackImport/dut.sv, line:11:1, endln:14:11
+    \_Package: ibex_tracer_pkg (ibex_tracer_pkg), file:${SURELOG_DIR}/tests/PackImport/dut.sv, line:11:1, endln:14:11
     |vpiRhs:
     \_Operation: , line:13:35, endln:13:59
       |vpiParent:
@@ -229,6 +251,8 @@ Design: (unnamed)
       |vpiOpType:33
       |vpiOperand:
       \_Constant: , line:13:37, endln:13:42
+        |vpiParent:
+        \_Operation: , line:13:35, endln:13:59
         |vpiDecompile:25'h?
         |vpiSize:25
         |HEX:?
@@ -247,148 +271,165 @@ Design: (unnamed)
           |vpiActual:
           \_EnumConst: (OPCODE_LUI), line:7:3, endln:7:26
     |vpiLhs:
-    \_Parameter: (ibex_tracer_pkg::INSN_LUI), line:13:24, endln:13:32
-  |vpiTypedef:
-  \_EnumTypespec: (ibex_pkg::opcode_e), line:5:1, endln:8:12
+    \_Parameter: (ibex_tracer_pkg::INSN_LUI), line:13:24, endln:13:59
   |vpiTypedef:
   \_ImportTypespec: (ibex_pkg), line:12:8, endln:12:19
+    |vpiParent:
+    \_Package: ibex_tracer_pkg (ibex_tracer_pkg), file:${SURELOG_DIR}/tests/PackImport/dut.sv, line:11:1, endln:14:11
+    |vpiName:ibex_pkg
+    |vpiImportTypespecItem:
+    \_Constant: , line:12:8, endln:12:19
+      |vpiParent:
+      \_ImportTypespec: (ibex_pkg), line:12:8, endln:12:19
+      |vpiDecompile:*
+      |vpiSize:8
+      |STRING:*
+      |vpiConstType:8
+  |vpiTypedef:
+  \_LogicTypespec: , line:13:11, endln:13:23
+    |vpiParent:
+    \_Package: ibex_tracer_pkg (ibex_tracer_pkg), file:${SURELOG_DIR}/tests/PackImport/dut.sv, line:11:1, endln:14:11
+    |vpiRange:
+    \_Range: , line:13:17, endln:13:23
+      |vpiParent:
+      \_LogicTypespec: , line:13:11, endln:13:23
+      |vpiLeftRange:
+      \_Constant: , line:13:18, endln:13:20
+        |vpiParent:
+        \_Range: , line:13:17, endln:13:23
+        |vpiDecompile:31
+        |vpiSize:64
+        |UINT:31
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:13:21, endln:13:22
+        |vpiParent:
+        \_Range: , line:13:17, endln:13:23
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiImportTypespec:
+  \_ImportTypespec: (ibex_pkg), line:12:8, endln:12:19
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:13:11, endln:13:23
   |vpiDefName:ibex_tracer_pkg
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PackImport/dut.sv, line:18:1, endln:20:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
-  |vpiTypedef:
-  \_EnumTypespec: (ibex_pkg::opcode_e), line:5:1, endln:8:12
+  |vpiName:work@top
   |vpiTypedef:
   \_ImportTypespec: (ibex_pkg), line:19:8, endln:19:19
-  |vpiDefName:work@top
-  |vpiNet:
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PackImport/dut.sv, line:18:1, endln:20:10
+    |vpiName:ibex_pkg
+    |vpiImportTypespecItem:
+    \_Constant: , line:19:8, endln:19:19
+      |vpiParent:
+      \_ImportTypespec: (ibex_pkg), line:19:8, endln:19:19
+      |vpiDecompile:*
+      |vpiSize:8
+      |STRING:*
+      |vpiConstType:8
+  |vpiTypedef:
+  \_LogicTypespec: , line:18:32, endln:18:44
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PackImport/dut.sv, line:18:1, endln:20:10
+    |vpiRange:
+    \_Range: , line:18:38, endln:18:44
+      |vpiParent:
+      \_LogicTypespec: , line:18:32, endln:18:44
+      |vpiLeftRange:
+      \_Constant: , line:18:39, endln:18:41
+        |vpiParent:
+        \_Range: , line:18:38, endln:18:44
+        |vpiDecompile:31
+        |vpiSize:64
+        |UINT:31
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:18:42, endln:18:43
+        |vpiParent:
+        \_Range: , line:18:38, endln:18:44
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:18:32, endln:18:44
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PackImport/dut.sv, line:18:1, endln:20:10
+    |vpiRange:
+    \_Range: , line:18:38, endln:18:44
+      |vpiParent:
+      \_LogicTypespec: , line:18:32, endln:18:44
+      |vpiLeftRange:
+      \_Constant: , line:18:39, endln:18:41
+        |vpiParent:
+        \_Range: , line:18:38, endln:18:44
+        |vpiDecompile:31
+        |vpiSize:64
+        |UINT:31
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:18:42, endln:18:43
+        |vpiParent:
+        \_Range: , line:18:38, endln:18:44
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiImportTypespec:
+  \_ImportTypespec: (ibex_pkg), line:19:8, endln:19:19
+  |vpiImportTypespec:
   \_LogicNet: (work@top.clk_i), line:18:18, endln:18:23
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PackImport/dut.sv, line:18:1, endln:20:10
     |vpiName:clk_i
     |vpiFullName:work@top.clk_i
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:18:32, endln:18:44
+  |vpiImportTypespec:
   \_LogicNet: (work@top.o1), line:18:45, endln:18:47
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PackImport/dut.sv, line:18:1, endln:20:10
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o1), line:18:32, endln:18:44
+      |vpiParent:
+      \_LogicNet: (work@top.o1), line:18:45, endln:18:47
+      |vpiFullName:work@top.o1
+      |vpiActual:
+      \_LogicTypespec: , line:18:32, endln:18:44
     |vpiName:o1
     |vpiFullName:work@top.o1
     |vpiNetType:36
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:18:32, endln:18:44
+  |vpiDefName:work@top
+  |vpiNet:
+  \_LogicNet: (work@top.clk_i), line:18:18, endln:18:23
+  |vpiNet:
+  \_LogicNet: (work@top.o1), line:18:45, endln:18:47
   |vpiPort:
   \_Port: (clk_i), line:18:18, endln:18:23
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PackImport/dut.sv, line:18:1, endln:20:10
     |vpiName:clk_i
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@top.clk_i.clk_i), line:18:18, endln:18:23
-      |vpiParent:
-      \_Port: (clk_i), line:18:18, endln:18:23
-      |vpiName:clk_i
-      |vpiFullName:work@top.clk_i.clk_i
-      |vpiActual:
-      \_LogicNet: (work@top.clk_i), line:18:18, endln:18:23
-    |vpiTypedef:
-    \_RefTypespec: (work@top.clk_i)
-      |vpiParent:
-      \_Port: (clk_i), line:18:18, endln:18:23
-      |vpiFullName:work@top.clk_i
-      |vpiActual:
-      \_LogicTypespec: , line:18:18, endln:18:18
   |vpiPort:
   \_Port: (o1), line:18:45, endln:18:47
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PackImport/dut.sv, line:18:1, endln:20:10
     |vpiName:o1
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@top.o1.o1), line:18:45, endln:18:47
-      |vpiParent:
-      \_Port: (o1), line:18:45, endln:18:47
-      |vpiName:o1
-      |vpiFullName:work@top.o1.o1
-      |vpiActual:
-      \_LogicNet: (work@top.o1), line:18:45, endln:18:47
-    |vpiTypedef:
-    \_RefTypespec: (work@top.o1)
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o1), line:18:32, endln:18:37
       |vpiParent:
       \_Port: (o1), line:18:45, endln:18:47
       |vpiFullName:work@top.o1
       |vpiActual:
       \_LogicTypespec: , line:18:32, endln:18:44
-\_weaklyReferenced:
-\_LogicTypespec: , line:5:14, endln:5:25
-  |vpiInstance:
-  \_Package: ibex_pkg (ibex_pkg::), file:${SURELOG_DIR}/tests/PackImport/dut.sv, line:3:1, endln:9:11
-  |vpiRange:
-  \_Range: , line:5:20, endln:5:25
-    |vpiParent:
-    \_LogicTypespec: , line:5:14, endln:5:25
-    |vpiLeftRange:
-    \_Constant: , line:5:21, endln:5:22
-      |vpiParent:
-      \_Range: , line:5:20, endln:5:25
-      |vpiDecompile:6
-      |vpiSize:64
-      |UINT:6
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:5:23, endln:5:24
-      |vpiParent:
-      \_Range: , line:5:20, endln:5:25
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:13:11, endln:13:23
-  |vpiParent:
-  \_Parameter: (ibex_tracer_pkg::INSN_LUI), line:13:24, endln:13:32
-  |vpiInstance:
-  \_Package: ibex_tracer_pkg (ibex_tracer_pkg::), file:${SURELOG_DIR}/tests/PackImport/dut.sv, line:11:1, endln:14:11
-  |vpiRange:
-  \_Range: , line:13:17, endln:13:23
-    |vpiParent:
-    \_LogicTypespec: , line:13:11, endln:13:23
-    |vpiLeftRange:
-    \_Constant: , line:13:18, endln:13:20
-      |vpiParent:
-      \_Range: , line:13:17, endln:13:23
-      |vpiDecompile:31
-      |vpiSize:64
-      |UINT:31
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:13:21, endln:13:22
-      |vpiParent:
-      \_Range: , line:13:17, endln:13:23
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:18:18, endln:18:18
-\_LogicTypespec: , line:18:32, endln:18:44
-  |vpiRange:
-  \_Range: , line:18:38, endln:18:44
-    |vpiParent:
-    \_LogicTypespec: , line:18:32, endln:18:44
-    |vpiLeftRange:
-    \_Constant: , line:18:39, endln:18:41
-      |vpiParent:
-      \_Range: , line:18:38, endln:18:44
-      |vpiDecompile:31
-      |vpiSize:64
-      |UINT:31
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:18:42, endln:18:43
-      |vpiParent:
-      \_Range: , line:18:38, endln:18:44
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

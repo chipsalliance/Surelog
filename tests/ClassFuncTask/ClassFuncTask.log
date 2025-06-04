@@ -3,9 +3,9 @@
 AST_DEBUG_BEGIN
 Count: 177
 LIB: work
-FILE f<11>:${SURELOG_DIR}/tests/ClassFuncTask/dut.sv
+FILE: ${SURELOG_DIR}/tests/ClassFuncTask/dut.sv
 n<> u<176> t<Top_level_rule> c<1> l<1:1> el<28:1>
-  n<> u<1> t<Null_rule> p<176> s<175> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<176> s<175> l<1:1>
   n<> u<175> t<Source_text> p<176> c<174> l<1:1> el<27:11>
     n<> u<174> t<Description> p<175> c<173> l<1:1> el<27:11>
       n<> u<173> t<Package_declaration> p<174> c<2> l<1:1> el<27:11>
@@ -189,46 +189,197 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 Assignment                                             1
+BitTypespec                                            1
+BitVar                                                 1
 ClassDefn                                              3
-ClassTypespec                                          1
-ClassVar                                               1
-Constant                                               2
+Constant                                               6
 Design                                                 1
 Function                                               2
 IODecl                                                 2
 IntTypespec                                            6
-IntVar                                                 1
+IntVar                                                 2
 MethodFuncCall                                         1
+Operation                                              2
 Package                                                1
 ParamAssign                                            1
 Parameter                                              1
-RefObj                                                 8
-RefTypespec                                            9
+Range                                                  2
+RefObj                                                10
+RefTypespec                                            8
 ReturnStmt                                             1
 ShortIntTypespec                                       1
 Task                                                   1
 TypeParameter                                          3
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ClassFuncTask/slpp_unit/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ClassFuncTask/slpp_unit/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ClassFuncTask/slpp_unit/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallPackages:
-\_Package: pack (pack::), file:${SURELOG_DIR}/tests/ClassFuncTask/dut.sv, line:1:1, endln:27:11
+|vpiAllPackages:
+\_Package: pack (pack), file:${SURELOG_DIR}/tests/ClassFuncTask/dut.sv, line:1:1, endln:27:11
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:pack
-  |vpiFullName:pack::
-  |vpiDefName:pack
-  |vpiClassDefn:
+  |vpiInternalScope:
+  \_ClassDefn: (pack::Vector), file:${SURELOG_DIR}/tests/ClassFuncTask/dut.sv, line:5:1, endln:7:9
+    |vpiParent:
+    \_Package: pack (pack), file:${SURELOG_DIR}/tests/ClassFuncTask/dut.sv, line:1:1, endln:27:11
+    |vpiName:Vector
+    |vpiFullName:pack::Vector
+    |vpiVariables:
+    \_BitVar: (pack::Vector::data), line:6:19, endln:6:23
+      |vpiParent:
+      \_ClassDefn: (pack::Vector), file:${SURELOG_DIR}/tests/ClassFuncTask/dut.sv, line:5:1, endln:7:9
+      |vpiTypespec:
+      \_RefTypespec: (pack::Vector::data), line:6:3, endln:6:18
+        |vpiParent:
+        \_BitVar: (pack::Vector::data), line:6:19, endln:6:23
+        |vpiFullName:pack::Vector::data
+        |vpiActual:
+        \_BitTypespec: , line:6:3, endln:6:18
+      |vpiName:data
+      |vpiFullName:pack::Vector::data
+      |vpiAutomatic:1
+      |vpiVisibility:1
+    |vpiParameter:
+    \_Parameter: (pack::Vector::WIDTH), line:5:26, endln:5:33
+      |vpiParent:
+      \_ClassDefn: (pack::Vector), file:${SURELOG_DIR}/tests/ClassFuncTask/dut.sv, line:5:1, endln:7:9
+      |UINT:1
+      |vpiName:WIDTH
+      |vpiFullName:pack::Vector::WIDTH
+    |vpiParamAssign:
+    \_ParamAssign: , line:5:26, endln:5:33
+      |vpiParent:
+      \_ClassDefn: (pack::Vector), file:${SURELOG_DIR}/tests/ClassFuncTask/dut.sv, line:5:1, endln:7:9
+      |vpiRhs:
+      \_Constant: , line:5:32, endln:5:33
+        |vpiParent:
+        \_ParamAssign: , line:5:26, endln:5:33
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+      |vpiLhs:
+      \_Parameter: (pack::Vector::WIDTH), line:5:26, endln:5:33
+    |vpiTypedef:
+    \_BitTypespec: , line:6:3, endln:6:18
+      |vpiParent:
+      \_ClassDefn: (pack::Vector), file:${SURELOG_DIR}/tests/ClassFuncTask/dut.sv, line:5:1, endln:7:9
+      |vpiRange:
+      \_Range: , line:6:7, endln:6:18
+        |vpiParent:
+        \_BitTypespec: , line:6:3, endln:6:18
+        |vpiLeftRange:
+        \_Operation: , line:6:8, endln:6:15
+          |vpiParent:
+          \_Range: , line:6:7, endln:6:18
+          |vpiOpType:11
+          |vpiOperand:
+          \_RefObj: (pack::Vector::WIDTH), line:6:8, endln:6:13
+            |vpiParent:
+            \_Operation: , line:6:8, endln:6:15
+            |vpiName:WIDTH
+            |vpiFullName:pack::Vector::WIDTH
+            |vpiActual:
+            \_Parameter: (pack::Vector::WIDTH), line:5:26, endln:5:33
+          |vpiOperand:
+          \_Constant: , line:6:14, endln:6:15
+            |vpiParent:
+            \_Operation: , line:6:8, endln:6:15
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiRightRange:
+        \_Constant: , line:6:16, endln:6:17
+          |vpiParent:
+          \_Range: , line:6:7, endln:6:18
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiImportTypespec:
+    \_BitTypespec: , line:6:3, endln:6:18
+    |vpiImportTypespec:
+    \_BitVar: (pack::Vector::data), line:6:19, endln:6:23
+  |vpiInternalScope:
+  \_ClassDefn: (pack::ovm_queue), file:${SURELOG_DIR}/tests/ClassFuncTask/dut.sv, line:9:1, endln:10:9
+    |vpiParent:
+    \_Package: pack (pack), file:${SURELOG_DIR}/tests/ClassFuncTask/dut.sv, line:1:1, endln:27:11
+    |vpiName:ovm_queue
+    |vpiFullName:pack::ovm_queue
+    |vpiParameter:
+    \_TypeParameter: (pack::ovm_queue::T), line:9:24, endln:9:25
+      |vpiParent:
+      \_ClassDefn: (pack::ovm_queue), file:${SURELOG_DIR}/tests/ClassFuncTask/dut.sv, line:9:1, endln:10:9
+      |vpiName:T
+      |vpiFullName:pack::ovm_queue::T
+      |vpiTypespec:
+      \_RefTypespec: (pack::ovm_queue::T), line:9:26, endln:9:29
+        |vpiParent:
+        \_TypeParameter: (pack::ovm_queue::T), line:9:24, endln:9:25
+        |vpiFullName:pack::ovm_queue::T
+        |vpiActual:
+        \_IntTypespec: , line:9:26, endln:9:29
+    |vpiParameter:
+    \_TypeParameter: (pack::ovm_queue::Q), line:9:36, endln:9:37
+      |vpiParent:
+      \_ClassDefn: (pack::ovm_queue), file:${SURELOG_DIR}/tests/ClassFuncTask/dut.sv, line:9:1, endln:10:9
+      |vpiName:Q
+      |vpiFullName:pack::ovm_queue::Q
+      |vpiTypespec:
+      \_RefTypespec: (pack::ovm_queue::Q), line:9:38, endln:9:46
+        |vpiParent:
+        \_TypeParameter: (pack::ovm_queue::Q), line:9:36, endln:9:37
+        |vpiFullName:pack::ovm_queue::Q
+        |vpiActual:
+        \_ShortIntTypespec: , line:9:38, endln:9:46
+    |vpiTypedef:
+    \_IntTypespec: , line:9:26, endln:9:29
+      |vpiParent:
+      \_ClassDefn: (pack::ovm_queue), file:${SURELOG_DIR}/tests/ClassFuncTask/dut.sv, line:9:1, endln:10:9
+      |vpiSigned:1
+    |vpiTypedef:
+    \_TypeParameter: (pack::ovm_queue::T), line:9:24, endln:9:25
+    |vpiTypedef:
+    \_ShortIntTypespec: , line:9:38, endln:9:46
+      |vpiParent:
+      \_ClassDefn: (pack::ovm_queue), file:${SURELOG_DIR}/tests/ClassFuncTask/dut.sv, line:9:1, endln:10:9
+      |vpiSigned:1
+    |vpiTypedef:
+    \_TypeParameter: (pack::ovm_queue::Q), line:9:36, endln:9:37
+    |vpiImportTypespec:
+    \_IntTypespec: , line:9:26, endln:9:29
+    |vpiImportTypespec:
+    \_TypeParameter: (pack::ovm_queue::T), line:9:24, endln:9:25
+    |vpiImportTypespec:
+    \_ShortIntTypespec: , line:9:38, endln:9:46
+    |vpiImportTypespec:
+    \_TypeParameter: (pack::ovm_queue::Q), line:9:36, endln:9:37
+  |vpiInternalScope:
   \_ClassDefn: (pack::C), file:${SURELOG_DIR}/tests/ClassFuncTask/dut.sv, line:12:1, endln:25:9
     |vpiParent:
-    \_Package: pack (pack::), file:${SURELOG_DIR}/tests/ClassFuncTask/dut.sv, line:1:1, endln:27:11
+    \_Package: pack (pack), file:${SURELOG_DIR}/tests/ClassFuncTask/dut.sv, line:1:1, endln:27:11
     |vpiName:C
     |vpiFullName:pack::C
+    |vpiVariables:
+    \_IntVar: (pack::C::x), line:13:7, endln:13:8
+      |vpiParent:
+      \_ClassDefn: (pack::C), file:${SURELOG_DIR}/tests/ClassFuncTask/dut.sv, line:12:1, endln:25:9
+      |vpiTypespec:
+      \_RefTypespec: (pack::C::x), line:13:3, endln:13:6
+        |vpiParent:
+        \_IntVar: (pack::C::x), line:13:7, endln:13:8
+        |vpiFullName:pack::C::x
+        |vpiActual:
+        \_IntTypespec: , line:13:3, endln:13:6
+      |vpiName:x
+      |vpiFullName:pack::C::x
+      |vpiSigned:1
+      |vpiAutomatic:1
+      |vpiVisibility:1
     |vpiParameter:
     \_TypeParameter: (pack::C::T), line:12:16, endln:12:17
       |vpiParent:
@@ -236,91 +387,25 @@ Design: (unnamed)
       |vpiName:T
       |vpiFullName:pack::C::T
       |vpiTypespec:
-      \_RefTypespec: (pack::C::T)
+      \_RefTypespec: (pack::C::T), line:12:18, endln:12:21
         |vpiParent:
         \_TypeParameter: (pack::C::T), line:12:16, endln:12:17
         |vpiFullName:pack::C::T
         |vpiActual:
         \_IntTypespec: , line:12:18, endln:12:21
-    |vpiMethod:
-    \_Function: (pack::C::new), line:15:3, endln:17:14
-      |vpiParent:
-      \_ClassDefn: (pack::C), file:${SURELOG_DIR}/tests/ClassFuncTask/dut.sv, line:12:1, endln:25:9
-      |vpiName:new
-      |vpiFullName:pack::C::new
-      |vpiMethod:1
-      |vpiReturn:
-      \_ClassVar: (pack::C::new), line:15:21, endln:15:26
-        |vpiParent:
-        \_Function: (pack::C::new), line:15:3, endln:17:14
-        |vpiTypespec:
-        \_RefTypespec: (pack::C::new)
-          |vpiParent:
-          \_ClassVar: (pack::C::new), line:15:21, endln:15:26
-          |vpiFullName:pack::C::new
-          |vpiActual:
-          \_ClassTypespec: 
-        |vpiFullName:pack::C::new
-      |vpiIODecl:
-      \_IODecl: (bound), line:15:21, endln:15:26
-        |vpiParent:
-        \_Function: (pack::C::new), line:15:3, endln:17:14
-        |vpiDirection:1
-        |vpiName:bound
-        |vpiExpr:
-        \_Constant: , line:15:29, endln:15:30
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-        |vpiTypedef:
-        \_RefTypespec: (pack::C::new::bound)
-          |vpiParent:
-          \_IODecl: (bound), line:15:21, endln:15:26
-          |vpiFullName:pack::C::new::bound
-          |vpiActual:
-          \_IntTypespec: , line:15:17, endln:15:20
-      |vpiStmt:
-      \_MethodFuncCall: (super.new)
-        |vpiParent:
-        \_Function: (pack::C::new), line:15:3, endln:17:14
-        |vpiArgument:
-        \_RefObj: (pack::C::new::name), line:16:15, endln:16:19
-          |vpiParent:
-          \_MethodFuncCall: (super.new)
-          |vpiName:name
-          |vpiFullName:pack::C::new::name
-        |vpiArgument:
-        \_RefObj: (pack::C::new::parent), line:16:21, endln:16:27
-          |vpiParent:
-          \_MethodFuncCall: (super.new)
-          |vpiName:parent
-          |vpiFullName:pack::C::new::parent
-        |vpiArgument:
-        \_RefObj: (pack::C::new::UVM_PORT), line:16:29, endln:16:37
-          |vpiParent:
-          \_MethodFuncCall: (super.new)
-          |vpiName:UVM_PORT
-          |vpiFullName:pack::C::new::UVM_PORT
-        |vpiArgument:
-        \_RefObj: (pack::C::new::min_size), line:16:39, endln:16:47
-          |vpiParent:
-          \_MethodFuncCall: (super.new)
-          |vpiName:min_size
-          |vpiFullName:pack::C::new::min_size
-        |vpiArgument:
-        \_RefObj: (pack::C::new::max_size), line:16:49, endln:16:57
-          |vpiParent:
-          \_MethodFuncCall: (super.new)
-          |vpiName:max_size
-          |vpiFullName:pack::C::new::max_size
-        |vpiName:super.new
-    |vpiMethod:
+    |vpiInternalScope:
     \_Task: (pack::C::set), line:19:3, endln:21:10
       |vpiParent:
       \_ClassDefn: (pack::C), file:${SURELOG_DIR}/tests/ClassFuncTask/dut.sv, line:12:1, endln:25:9
       |vpiName:set
       |vpiFullName:pack::C::set
+      |vpiTypedef:
+      \_IntTypespec: , line:19:13, endln:19:16
+        |vpiParent:
+        \_Task: (pack::C::set), line:19:3, endln:21:10
+        |vpiSigned:1
+      |vpiImportTypespec:
+      \_IntTypespec: , line:19:13, endln:19:16
       |vpiMethod:1
       |vpiVisibility:1
       |vpiIODecl:
@@ -330,7 +415,7 @@ Design: (unnamed)
         |vpiDirection:1
         |vpiName:i
         |vpiTypedef:
-        \_RefTypespec: (pack::C::set::i)
+        \_RefTypespec: (pack::C::set::i), line:19:13, endln:19:16
           |vpiParent:
           \_IODecl: (i), line:19:17, endln:19:18
           |vpiFullName:pack::C::set::i
@@ -348,139 +433,101 @@ Design: (unnamed)
           \_Assignment: , line:20:5, endln:20:10
           |vpiName:i
           |vpiFullName:pack::C::set::i
+          |vpiActual:
+          \_IODecl: (i), line:19:17, endln:19:18
         |vpiLhs:
         \_RefObj: (pack::C::set::x), line:20:5, endln:20:6
           |vpiParent:
           \_Assignment: , line:20:5, endln:20:10
           |vpiName:x
           |vpiFullName:pack::C::set::x
-    |vpiMethod:
+          |vpiActual:
+          \_IntVar: (pack::C::x), line:13:7, endln:13:8
+    |vpiInternalScope:
     \_Function: (pack::C::get), line:22:3, endln:24:14
       |vpiParent:
       \_ClassDefn: (pack::C), file:${SURELOG_DIR}/tests/ClassFuncTask/dut.sv, line:12:1, endln:25:9
       |vpiName:get
       |vpiFullName:pack::C::get
-      |vpiMethod:1
-      |vpiVisibility:1
-      |vpiReturn:
-      \_IntVar: (pack::C::get), line:22:12, endln:22:15
+      |vpiVariables:
+      \_IntVar: (pack::C::get)
         |vpiParent:
         \_Function: (pack::C::get), line:22:3, endln:24:14
         |vpiTypespec:
-        \_RefTypespec: (pack::C::get)
+        \_RefTypespec: (pack::C::get), line:22:12, endln:22:15
           |vpiParent:
-          \_IntVar: (pack::C::get), line:22:12, endln:22:15
+          \_IntVar: (pack::C::get)
           |vpiFullName:pack::C::get
           |vpiActual:
           \_IntTypespec: , line:22:12, endln:22:15
         |vpiFullName:pack::C::get
         |vpiSigned:1
+      |vpiTypedef:
+      \_IntTypespec: , line:22:12, endln:22:15
+        |vpiParent:
+        \_Function: (pack::C::get), line:22:3, endln:24:14
+        |vpiSigned:1
+      |vpiImportTypespec:
+      \_IntTypespec: , line:22:12, endln:22:15
+      |vpiImportTypespec:
+      \_IntVar: (pack::C::get)
+      |vpiMethod:1
+      |vpiVisibility:1
+      |vpiReturn:
+      \_IntVar: (pack::C::get)
       |vpiStmt:
-      \_ReturnStmt: , line:23:5, endln:23:11
+      \_ReturnStmt: , line:23:5, endln:23:13
         |vpiParent:
         \_Function: (pack::C::get), line:22:3, endln:24:14
         |vpiCondition:
         \_RefObj: (pack::C::get::x), line:23:12, endln:23:13
           |vpiParent:
-          \_ReturnStmt: , line:23:5, endln:23:11
+          \_ReturnStmt: , line:23:5, endln:23:13
           |vpiName:x
           |vpiFullName:pack::C::get::x
+          |vpiActual:
+          \_IntVar: (pack::C::x), line:13:7, endln:13:8
+    |vpiTypedef:
+    \_IntTypespec: , line:12:18, endln:12:21
+      |vpiParent:
+      \_ClassDefn: (pack::C), file:${SURELOG_DIR}/tests/ClassFuncTask/dut.sv, line:12:1, endln:25:9
+      |vpiSigned:1
+    |vpiTypedef:
+    \_TypeParameter: (pack::C::T), line:12:16, endln:12:17
+    |vpiTypedef:
+    \_IntTypespec: , line:13:3, endln:13:6
+      |vpiParent:
+      \_ClassDefn: (pack::C), file:${SURELOG_DIR}/tests/ClassFuncTask/dut.sv, line:12:1, endln:25:9
+      |vpiSigned:1
+    |vpiImportTypespec:
+    \_IntTypespec: , line:12:18, endln:12:21
+    |vpiImportTypespec:
+    \_TypeParameter: (pack::C::T), line:12:16, endln:12:17
+    |vpiImportTypespec:
+    \_Task: (pack::C::set), line:19:3, endln:21:10
+    |vpiImportTypespec:
+    \_Function: (pack::C::get), line:22:3, endln:24:14
+    |vpiImportTypespec:
+    \_IntTypespec: , line:13:3, endln:13:6
+    |vpiImportTypespec:
+    \_IntVar: (pack::C::x), line:13:7, endln:13:8
+    |vpiMethod:
+    \_Task: (pack::C::set), line:19:3, endln:21:10
+    |vpiMethod:
+    \_Function: (pack::C::get), line:22:3, endln:24:14
+  |vpiImportTypespec:
+  \_ClassDefn: (pack::Vector), file:${SURELOG_DIR}/tests/ClassFuncTask/dut.sv, line:5:1, endln:7:9
+  |vpiImportTypespec:
+  \_ClassDefn: (pack::ovm_queue), file:${SURELOG_DIR}/tests/ClassFuncTask/dut.sv, line:9:1, endln:10:9
+  |vpiImportTypespec:
+  \_ClassDefn: (pack::C), file:${SURELOG_DIR}/tests/ClassFuncTask/dut.sv, line:12:1, endln:25:9
+  |vpiDefName:pack
   |vpiClassDefn:
   \_ClassDefn: (pack::Vector), file:${SURELOG_DIR}/tests/ClassFuncTask/dut.sv, line:5:1, endln:7:9
-    |vpiParent:
-    \_Package: pack (pack::), file:${SURELOG_DIR}/tests/ClassFuncTask/dut.sv, line:1:1, endln:27:11
-    |vpiName:Vector
-    |vpiFullName:pack::Vector
-    |vpiParameter:
-    \_Parameter: (pack::Vector::WIDTH), line:5:26, endln:5:31
-      |vpiParent:
-      \_ClassDefn: (pack::Vector), file:${SURELOG_DIR}/tests/ClassFuncTask/dut.sv, line:5:1, endln:7:9
-      |UINT:1
-      |vpiTypespec:
-      \_RefTypespec: (pack::Vector::WIDTH)
-        |vpiParent:
-        \_Parameter: (pack::Vector::WIDTH), line:5:26, endln:5:31
-        |vpiFullName:pack::Vector::WIDTH
-        |vpiActual:
-        \_IntTypespec: , line:5:16, endln:5:33
-      |vpiName:WIDTH
-      |vpiFullName:pack::Vector::WIDTH
-    |vpiParamAssign:
-    \_ParamAssign: , line:5:26, endln:5:33
-      |vpiParent:
-      \_ClassDefn: (pack::Vector), file:${SURELOG_DIR}/tests/ClassFuncTask/dut.sv, line:5:1, endln:7:9
-      |vpiRhs:
-      \_Constant: , line:5:32, endln:5:33
-        |vpiParent:
-        \_ParamAssign: , line:5:26, endln:5:33
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiTypespec:
-        \_RefTypespec: (pack::Vector)
-          |vpiParent:
-          \_Constant: , line:5:32, endln:5:33
-          |vpiFullName:pack::Vector
-          |vpiActual:
-          \_IntTypespec: , line:5:16, endln:5:33
-        |vpiConstType:9
-      |vpiLhs:
-      \_Parameter: (pack::Vector::WIDTH), line:5:26, endln:5:31
   |vpiClassDefn:
   \_ClassDefn: (pack::ovm_queue), file:${SURELOG_DIR}/tests/ClassFuncTask/dut.sv, line:9:1, endln:10:9
-    |vpiParent:
-    \_Package: pack (pack::), file:${SURELOG_DIR}/tests/ClassFuncTask/dut.sv, line:1:1, endln:27:11
-    |vpiName:ovm_queue
-    |vpiFullName:pack::ovm_queue
-    |vpiParameter:
-    \_TypeParameter: (pack::ovm_queue::T), line:9:24, endln:9:25
-      |vpiParent:
-      \_ClassDefn: (pack::ovm_queue), file:${SURELOG_DIR}/tests/ClassFuncTask/dut.sv, line:9:1, endln:10:9
-      |vpiName:T
-      |vpiFullName:pack::ovm_queue::T
-      |vpiTypespec:
-      \_RefTypespec: (pack::ovm_queue::T)
-        |vpiParent:
-        \_TypeParameter: (pack::ovm_queue::T), line:9:24, endln:9:25
-        |vpiFullName:pack::ovm_queue::T
-        |vpiActual:
-        \_IntTypespec: , line:9:26, endln:9:29
-    |vpiParameter:
-    \_TypeParameter: (pack::ovm_queue::Q), line:9:36, endln:9:37
-      |vpiParent:
-      \_ClassDefn: (pack::ovm_queue), file:${SURELOG_DIR}/tests/ClassFuncTask/dut.sv, line:9:1, endln:10:9
-      |vpiName:Q
-      |vpiFullName:pack::ovm_queue::Q
-      |vpiTypespec:
-      \_RefTypespec: (pack::ovm_queue::Q)
-        |vpiParent:
-        \_TypeParameter: (pack::ovm_queue::Q), line:9:36, endln:9:37
-        |vpiFullName:pack::ovm_queue::Q
-        |vpiActual:
-        \_ShortIntTypespec: , line:9:38, endln:9:46
-\_weaklyReferenced:
-\_IntTypespec: , line:12:18, endln:12:21
-  |vpiParent:
-  \_TypeParameter: (pack::C::T), line:12:16, endln:12:17
-  |vpiSigned:1
-\_ClassTypespec: 
   |vpiClassDefn:
   \_ClassDefn: (pack::C), file:${SURELOG_DIR}/tests/ClassFuncTask/dut.sv, line:12:1, endln:25:9
-\_IntTypespec: , line:15:17, endln:15:20
-  |vpiSigned:1
-\_IntTypespec: , line:19:13, endln:19:16
-  |vpiSigned:1
-\_IntTypespec: , line:22:12, endln:22:15
-  |vpiSigned:1
-\_IntTypespec: , line:5:16, endln:5:33
-\_IntTypespec: , line:9:26, endln:9:29
-  |vpiParent:
-  \_TypeParameter: (pack::ovm_queue::T), line:9:24, endln:9:25
-  |vpiSigned:1
-\_ShortIntTypespec: , line:9:38, endln:9:46
-  |vpiParent:
-  \_TypeParameter: (pack::ovm_queue::Q), line:9:36, endln:9:37
-  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

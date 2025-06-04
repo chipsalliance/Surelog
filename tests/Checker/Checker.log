@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 605
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/Checker/dut.sv
+FILE: ${SURELOG_DIR}/tests/Checker/dut.sv
 n<> u<604> t<Top_level_rule> c<1> l<1:1> el<64:1>
-  n<> u<1> t<Null_rule> p<604> s<603> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<604> s<603> l<1:1>
   n<> u<603> t<Source_text> p<604> c<439> l<1:1> el<63:11>
     n<> u<439> t<Description> p<603> c<438> s<602> l<1:1> el<47:28>
       n<> u<438> t<Package_item> p<439> c<437> l<1:1> el<47:28>
@@ -67,8 +67,8 @@ n<> u<604> t<Top_level_rule> c<1> l<1:1> el<64:1>
                 n<> u<58> t<Property_formal_type> p<68> c<57> s<59> l<9:3> el<9:9>
                   n<> u<57> t<SeqFormatType_Data> p<58> c<56> l<9:3> el<9:9>
                     n<> u<56> t<Data_type_or_implicit> p<57> c<55> l<9:3> el<9:9>
-                      n<> u<55> t<Data_type> p<56> c<54> l<9:3> el<9:9>
-                        n<> u<54> t<String_type> p<55> l<9:3> el<9:9>
+                      n<string> u<55> t<Data_type> p<56> c<54> l<9:3> el<9:9>
+                        n<string> u<54> t<String_type> p<55> l<9:3> el<9:9>
                 n<error_msg> u<59> t<StringConst> p<68> s<67> l<9:10> el<9:19>
                 n<> u<67> t<Property_actual_arg> p<68> c<66> l<9:22> el<9:33>
                   n<> u<66> t<Property_expr> p<67> c<65> l<9:22> el<9:33>
@@ -82,7 +82,7 @@ n<> u<604> t<Top_level_rule> c<1> l<1:1> el<64:1>
                 n<> u<73> t<Property_formal_type> p<83> c<72> s<74> l<10:3> el<10:17>
                   n<> u<72> t<SeqFormatType_Data> p<73> c<71> l<10:3> el<10:17>
                     n<> u<71> t<Data_type_or_implicit> p<72> c<70> l<10:3> el<10:17>
-                      n<> u<70> t<Data_type> p<71> c<69> l<10:3> el<10:17>
+                      n<coverage_level> u<70> t<Data_type> p<71> c<69> l<10:3> el<10:17>
                         n<coverage_level> u<69> t<StringConst> p<70> l<10:3> el<10:17>
                 n<clevel> u<74> t<StringConst> p<83> s<82> l<10:18> el<10:24>
                 n<> u<82> t<Property_actual_arg> p<83> c<81> l<10:27> el<10:36>
@@ -537,7 +537,7 @@ n<> u<604> t<Top_level_rule> c<1> l<1:1> el<64:1>
                   n<> u<532> t<Coverage_spec_or_option> p<535> c<531> s<534> l<55:5> el<55:34>
                     n<> u<531> t<Coverage_spec> p<532> c<530> l<55:5> el<55:34>
                       n<> u<530> t<Cover_point> p<531> c<523> l<55:5> el<55:34>
-                        n<> u<523> t<Data_type_or_implicit> p<530> s<524> l<55:5> el<54:25>
+                        n<> u<523> t<Data_type_or_implicit> p<530> s<524> l<55:5> el<55:5>
                         n<cp_op> u<524> t<StringConst> p<530> s<528> l<55:5> el<55:10>
                         n<> u<528> t<Expression> p<530> c<527> s<529> l<55:24> el<55:33>
                           n<> u<527> t<Primary> p<528> c<526> l<55:24> el<55:33>
@@ -550,7 +550,7 @@ n<> u<604> t<Top_level_rule> c<1> l<1:1> el<64:1>
               n<> u<547> t<Checker_or_generate_item_declaration> p<548> c<546> l<57:3> el<57:25>
                 n<> u<546> t<Data_declaration> p<547> c<545> l<57:3> el<57:25>
                   n<> u<545> t<Variable_declaration> p<546> c<539> l<57:3> el<57:25>
-                    n<> u<539> t<Data_type> p<545> c<538> s<544> l<57:3> el<57:8>
+                    n<cg_op> u<539> t<Data_type> p<545> c<538> s<544> l<57:3> el<57:8>
                       n<cg_op> u<538> t<StringConst> p<539> l<57:3> el<57:8>
                     n<> u<544> t<List_of_variable_decl_assignments> p<545> c<543> l<57:9> el<57:24>
                       n<> u<543> t<Variable_decl_assignment> p<544> c<540> l<57:9> el<57:24>
@@ -614,8 +614,6 @@ AST_DEBUG_END
 Design                                                 1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/Checker/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/Checker/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/Checker/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)

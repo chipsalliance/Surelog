@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 133
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/DollarBitsUnary/dut.sv
+FILE: ${SURELOG_DIR}/tests/DollarBitsUnary/dut.sv
 n<> u<132> t<Top_level_rule> c<1> l<1:1> el<10:1>
-  n<> u<1> t<Null_rule> p<132> s<131> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<132> s<131> l<1:1>
   n<> u<131> t<Source_text> p<132> c<130> l<1:1> el<9:10>
     n<> u<130> t<Description> p<131> c<129> l<1:1> el<9:10>
       n<> u<129> t<Module_declaration> p<130> c<23> l<1:1> el<9:10>
@@ -141,41 +141,54 @@ AST_DEBUG_END
 [INF:CP0303] ${SURELOG_DIR}/tests/DollarBitsUnary/dut.sv:1:1: Compile module "work@top".
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-Constant                                               8
+Constant                                              14
 ContAssign                                             1
 Design                                                 1
-LogicNet                                               2
-LogicTypespec                                          3
+LogicNet                                               1
+LogicTypespec                                          4
+LogicVar                                               1
 Module                                                 1
-Operation                                              3
+Operation                                              4
 PartSelect                                             1
 Port                                                   1
-Range                                                  3
+Range                                                  6
 RefObj                                                 4
-RefTypespec                                            3
+RefTypespec                                            4
 StructTypespec                                         1
-SysFuncCall                                            2
+SysFuncCall                                            3
 TypespecMember                                         1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/DollarBitsUnary/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/DollarBitsUnary/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/DollarBitsUnary/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DollarBitsUnary/dut.sv, line:1:1, endln:9:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
+  |vpiName:work@top
+  |vpiVariables:
+  \_LogicVar: (work@top.dr_q), line:6:28, endln:6:32
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DollarBitsUnary/dut.sv, line:1:1, endln:9:10
+    |vpiTypespec:
+    \_RefTypespec: (work@top.dr_q), line:6:3, endln:6:27
+      |vpiParent:
+      \_LogicVar: (work@top.dr_q), line:6:28, endln:6:32
+      |vpiFullName:work@top.dr_q
+      |vpiActual:
+      \_LogicTypespec: , line:6:3, endln:6:27
+    |vpiName:dr_q
+    |vpiFullName:work@top.dr_q
+    |vpiVisibility:1
+  |vpiReg:
+  \_LogicVar: (work@top.dr_q), line:6:28, endln:6:32
   |vpiTypedef:
   \_StructTypespec: (dmi_t), line:2:12, endln:4:5
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DollarBitsUnary/dut.sv, line:1:1, endln:9:10
     |vpiName:dmi_t
-    |vpiInstance:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DollarBitsUnary/dut.sv, line:1:1, endln:9:10
     |vpiPacked:1
     |vpiTypespecMember:
     \_TypespecMember: (data), line:3:20, endln:3:24
@@ -183,55 +196,172 @@ Design: (unnamed)
       \_StructTypespec: (dmi_t), line:2:12, endln:4:5
       |vpiName:data
       |vpiTypespec:
-      \_RefTypespec: (work@top.dmi_t.data)
+      \_RefTypespec: (work@top.dmi_t.data), line:3:7, endln:3:19
         |vpiParent:
         \_TypespecMember: (data), line:3:20, endln:3:24
         |vpiFullName:work@top.dmi_t.data
         |vpiActual:
         \_LogicTypespec: , line:3:7, endln:3:19
-      |vpiRefFile:${SURELOG_DIR}/tests/DollarBitsUnary/dut.sv
-      |vpiRefLineNo:3
-      |vpiRefColumnNo:7
-      |vpiRefEndLineNo:3
-      |vpiRefEndColumnNo:19
-  |vpiDefName:work@top
-  |vpiNet:
+  |vpiTypedef:
+  \_LogicTypespec: , line:3:7, endln:3:19
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DollarBitsUnary/dut.sv, line:1:1, endln:9:10
+    |vpiRange:
+    \_Range: , line:3:13, endln:3:19
+      |vpiParent:
+      \_LogicTypespec: , line:3:7, endln:3:19
+      |vpiLeftRange:
+      \_Constant: , line:3:14, endln:3:16
+        |vpiParent:
+        \_Range: , line:3:13, endln:3:19
+        |vpiDecompile:31
+        |vpiSize:64
+        |UINT:31
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:3:17, endln:3:18
+        |vpiParent:
+        \_Range: , line:3:13, endln:3:19
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:1:19, endln:1:31
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DollarBitsUnary/dut.sv, line:1:1, endln:9:10
+    |vpiRange:
+    \_Range: , line:1:25, endln:1:31
+      |vpiParent:
+      \_LogicTypespec: , line:1:19, endln:1:31
+      |vpiLeftRange:
+      \_Constant: , line:1:26, endln:1:28
+        |vpiParent:
+        \_Range: , line:1:25, endln:1:31
+        |vpiDecompile:31
+        |vpiSize:64
+        |UINT:31
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:1:29, endln:1:30
+        |vpiParent:
+        \_Range: , line:1:25, endln:1:31
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:6:3, endln:6:27
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DollarBitsUnary/dut.sv, line:1:1, endln:9:10
+    |vpiRange:
+    \_Range: , line:6:9, endln:6:27
+      |vpiParent:
+      \_LogicTypespec: , line:6:3, endln:6:27
+      |vpiLeftRange:
+      \_Operation: , line:6:10, endln:6:24
+        |vpiParent:
+        \_Range: , line:6:9, endln:6:27
+        |vpiOpType:11
+        |vpiOperand:
+        \_SysFuncCall: ($bits), line:6:10, endln:6:22
+          |vpiParent:
+          \_Operation: , line:6:10, endln:6:24
+          |vpiArgument:
+          \_RefTypespec: (work@top.dmi_t), line:6:16, endln:6:21
+            |vpiParent:
+            \_SysFuncCall: ($bits), line:6:10, endln:6:22
+            |vpiName:dmi_t
+            |vpiFullName:work@top.dmi_t
+            |vpiActual:
+            \_StructTypespec: (dmi_t), line:2:12, endln:4:5
+          |vpiName:$bits
+        |vpiOperand:
+        \_Constant: , line:6:23, endln:6:24
+          |vpiParent:
+          \_Operation: , line:6:10, endln:6:24
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:6:25, endln:6:26
+        |vpiParent:
+        \_Range: , line:6:9, endln:6:27
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:1:19, endln:1:31
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DollarBitsUnary/dut.sv, line:1:1, endln:9:10
+    |vpiRange:
+    \_Range: , line:1:25, endln:1:31
+      |vpiParent:
+      \_LogicTypespec: , line:1:19, endln:1:31
+      |vpiLeftRange:
+      \_Constant: , line:1:26, endln:1:28
+        |vpiParent:
+        \_Range: , line:1:25, endln:1:31
+        |vpiDecompile:31
+        |vpiSize:64
+        |UINT:31
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:1:29, endln:1:30
+        |vpiParent:
+        \_Range: , line:1:25, endln:1:31
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiImportTypespec:
+  \_StructTypespec: (dmi_t), line:2:12, endln:4:5
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:3:7, endln:3:19
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:1:19, endln:1:31
+  |vpiImportTypespec:
   \_LogicNet: (work@top.o), line:1:32, endln:1:33
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DollarBitsUnary/dut.sv, line:1:1, endln:9:10
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o), line:1:19, endln:1:31
+      |vpiParent:
+      \_LogicNet: (work@top.o), line:1:32, endln:1:33
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_LogicTypespec: , line:1:19, endln:1:31
     |vpiName:o
     |vpiFullName:work@top.o
     |vpiNetType:36
-  |vpiNet:
-  \_LogicNet: (work@top.dr_q), line:6:28, endln:6:32
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:6:3, endln:6:27
+  |vpiImportTypespec:
+  \_LogicVar: (work@top.dr_q), line:6:28, endln:6:32
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:1:19, endln:1:31
+  |vpiImportTypespec:
+  \_LogicNet: (work@top.dr_x), line:8:15, endln:8:37
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DollarBitsUnary/dut.sv, line:1:1, endln:9:10
-    |vpiTypespec:
-    \_RefTypespec: (work@top.dr_q)
-      |vpiParent:
-      \_LogicNet: (work@top.dr_q), line:6:28, endln:6:32
-      |vpiFullName:work@top.dr_q
-      |vpiActual:
-      \_LogicTypespec: , line:6:3, endln:6:27
-    |vpiName:dr_q
-    |vpiFullName:work@top.dr_q
-    |vpiNetType:36
+    |vpiName:dr_x
+    |vpiFullName:work@top.dr_x
+    |vpiNetType:1
+  |vpiDefName:work@top
+  |vpiNet:
+  \_LogicNet: (work@top.o), line:1:32, endln:1:33
+  |vpiNet:
+  \_LogicNet: (work@top.dr_x), line:8:15, endln:8:37
   |vpiPort:
   \_Port: (o), line:1:32, endln:1:33
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DollarBitsUnary/dut.sv, line:1:1, endln:9:10
     |vpiName:o
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@top.o.o), line:1:32, endln:1:33
-      |vpiParent:
-      \_Port: (o), line:1:32, endln:1:33
-      |vpiName:o
-      |vpiFullName:work@top.o.o
-      |vpiActual:
-      \_LogicNet: (work@top.o), line:1:32, endln:1:33
-    |vpiTypedef:
-    \_RefTypespec: (work@top.o)
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o), line:1:19, endln:1:24
       |vpiParent:
       \_Port: (o), line:1:32, endln:1:33
       |vpiFullName:work@top.o
@@ -248,6 +378,8 @@ Design: (unnamed)
       |vpiName:dr_x
       |vpiFullName:work@top.dr_x
       |vpiDefName:dr_x
+      |vpiActual:
+      \_LogicNet: (work@top.dr_x), line:8:15, endln:8:37
       |vpiConstantSelect:1
       |vpiLeftRange:
       \_Operation: , line:8:20, endln:8:34
@@ -259,18 +391,18 @@ Design: (unnamed)
           |vpiParent:
           \_Operation: , line:8:20, endln:8:34
           |vpiArgument:
-          \_Operation: , line:8:26, endln:8:27
+          \_Operation: , line:8:26, endln:8:31
             |vpiParent:
             \_SysFuncCall: ($bits), line:8:20, endln:8:32
             |vpiOpType:4
             |vpiOperand:
             \_RefObj: (work@top.dr_x.dr_q), line:8:27, endln:8:31
               |vpiParent:
-              \_Operation: , line:8:26, endln:8:27
+              \_Operation: , line:8:26, endln:8:31
               |vpiName:dr_q
               |vpiFullName:work@top.dr_x.dr_q
               |vpiActual:
-              \_LogicNet: (work@top.dr_q), line:6:28, endln:6:32
+              \_LogicVar: (work@top.dr_q), line:6:28, endln:6:32
           |vpiName:$bits
         |vpiOperand:
         \_Constant: , line:8:33, endln:8:34
@@ -282,6 +414,8 @@ Design: (unnamed)
           |vpiConstType:9
       |vpiRightRange:
       \_Constant: , line:8:35, endln:8:36
+        |vpiParent:
+        \_PartSelect: dr_x (work@top.dr_x), line:8:15, endln:8:37
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
@@ -294,87 +428,6 @@ Design: (unnamed)
       |vpiFullName:work@top.o
       |vpiActual:
       \_LogicNet: (work@top.o), line:1:32, endln:1:33
-\_weaklyReferenced:
-\_LogicTypespec: , line:3:7, endln:3:19
-  |vpiParent:
-  \_TypespecMember: (data), line:3:20, endln:3:24
-  |vpiRange:
-  \_Range: , line:3:13, endln:3:19
-    |vpiParent:
-    \_LogicTypespec: , line:3:7, endln:3:19
-    |vpiLeftRange:
-    \_Constant: , line:3:14, endln:3:16
-      |vpiParent:
-      \_Range: , line:3:13, endln:3:19
-      |vpiDecompile:31
-      |vpiSize:64
-      |UINT:31
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:3:17, endln:3:18
-      |vpiParent:
-      \_Range: , line:3:13, endln:3:19
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:1:19, endln:1:31
-  |vpiRange:
-  \_Range: , line:1:25, endln:1:31
-    |vpiParent:
-    \_LogicTypespec: , line:1:19, endln:1:31
-    |vpiLeftRange:
-    \_Constant: , line:1:26, endln:1:28
-      |vpiParent:
-      \_Range: , line:1:25, endln:1:31
-      |vpiDecompile:31
-      |vpiSize:64
-      |UINT:31
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:1:29, endln:1:30
-      |vpiParent:
-      \_Range: , line:1:25, endln:1:31
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:6:3, endln:6:27
-  |vpiRange:
-  \_Range: , line:6:9, endln:6:27
-    |vpiParent:
-    \_LogicTypespec: , line:6:3, endln:6:27
-    |vpiLeftRange:
-    \_Operation: , line:6:10, endln:6:24
-      |vpiParent:
-      \_Range: , line:6:9, endln:6:27
-      |vpiOpType:11
-      |vpiOperand:
-      \_SysFuncCall: ($bits), line:6:10, endln:6:22
-        |vpiParent:
-        \_Operation: , line:6:10, endln:6:24
-        |vpiArgument:
-        \_RefObj: (dmi_t), line:6:16, endln:6:21
-          |vpiParent:
-          \_SysFuncCall: ($bits), line:6:10, endln:6:22
-          |vpiName:dmi_t
-        |vpiName:$bits
-      |vpiOperand:
-      \_Constant: , line:6:23, endln:6:24
-        |vpiParent:
-        \_Operation: , line:6:10, endln:6:24
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:6:25, endln:6:26
-      |vpiParent:
-      \_Range: , line:6:9, endln:6:27
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

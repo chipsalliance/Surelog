@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 82
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/ComplexEscaped/dut.sv
+FILE: ${SURELOG_DIR}/tests/ComplexEscaped/dut.sv
 n<> u<81> t<Top_level_rule> c<1> l<1:1> el<13:1>
-  n<> u<1> t<Null_rule> p<81> s<80> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<81> s<80> l<1:1>
   n<> u<80> t<Source_text> p<81> c<40> l<1:1> el<10:10>
     n<> u<40> t<Description> p<80> c<39> s<79> l<1:1> el<5:10>
       n<> u<39> t<Module_declaration> p<40> c<13> l<1:1> el<5:10>
@@ -17,8 +17,8 @@ n<> u<81> t<Top_level_rule> c<1> l<1:1> el<13:1>
                 n<> u<4> t<PortDir_Out> p<9> s<8> l<1:12> el<1:18>
                 n<> u<8> t<Net_port_type> p<9> c<7> l<1:19> el<1:25>
                   n<> u<7> t<Data_type_or_implicit> p<8> c<6> l<1:19> el<1:25>
-                    n<> u<6> t<Data_type> p<7> c<5> l<1:19> el<1:25>
-                      n<> u<5> t<String_type> p<6> l<1:19> el<1:25>
+                    n<string> u<6> t<Data_type> p<7> c<5> l<1:19> el<1:25>
+                      n<string> u<5> t<String_type> p<6> l<1:19> el<1:25>
               n<o> u<10> t<StringConst> p<11> l<1:26> el<1:27>
         n<> u<37> t<Non_port_module_item> p<39> c<36> s<38> l<2:4> el<4:7>
           n<> u<36> t<Module_or_generate_item> p<37> c<35> l<2:4> el<4:7>
@@ -56,8 +56,8 @@ n<> u<81> t<Top_level_rule> c<1> l<1:1> el<13:1>
                 n<> u<43> t<PortDir_Out> p<48> s<47> l<6:12> el<6:18>
                 n<> u<47> t<Net_port_type> p<48> c<46> l<6:19> el<6:25>
                   n<> u<46> t<Data_type_or_implicit> p<47> c<45> l<6:19> el<6:25>
-                    n<> u<45> t<Data_type> p<46> c<44> l<6:19> el<6:25>
-                      n<> u<44> t<String_type> p<45> l<6:19> el<6:25>
+                    n<string> u<45> t<Data_type> p<46> c<44> l<6:19> el<6:25>
+                      n<string> u<44> t<String_type> p<45> l<6:19> el<6:25>
               n<o> u<49> t<StringConst> p<50> l<6:26> el<6:27>
         n<> u<76> t<Non_port_module_item> p<78> c<75> s<77> l<7:4> el<9:7>
           n<> u<75> t<Module_or_generate_item> p<76> c<74> l<7:4> el<9:7>
@@ -97,48 +97,61 @@ Begin                                                  1
 Constant                                               1
 Design                                                 1
 Initial                                                1
-LogicNet                                               1
-Module                                                 1
+Module                                                 2
 Port                                                   1
-RefObj                                                 2
-RefTypespec                                            1
-StringTypespec                                         1
+RefObj                                                 1
+RefTypespec                                            2
+StringTypespec                                         2
+StringVar                                              1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ComplexEscaped/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ComplexEscaped/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ComplexEscaped/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ComplexEscaped/dut.sv, line:1:1, endln:5:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
-  |vpiDefName:work@top
-  |vpiNet:
-  \_LogicNet: (work@top.o), line:1:26, endln:1:27
+  |vpiName:work@top
+  |vpiVariables:
+  \_StringVar: (work@top.o), line:1:26, endln:1:27
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ComplexEscaped/dut.sv, line:1:1, endln:5:10
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o.string), line:1:19, endln:1:25
+      |vpiParent:
+      \_StringVar: (work@top.o), line:1:26, endln:1:27
+      |vpiName:string
+      |vpiFullName:work@top.o.string
+      |vpiActual:
+      \_StringTypespec: , line:1:19, endln:1:25
     |vpiName:o
     |vpiFullName:work@top.o
+    |vpiVisibility:1
+  |vpiTypedef:
+  \_StringTypespec: , line:1:19, endln:1:25
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ComplexEscaped/dut.sv, line:1:1, endln:5:10
+  |vpiTypedef:
+  \_StringTypespec: , line:1:19, endln:1:25
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ComplexEscaped/dut.sv, line:1:1, endln:5:10
+  |vpiImportTypespec:
+  \_StringTypespec: , line:1:19, endln:1:25
+  |vpiImportTypespec:
+  \_StringVar: (work@top.o), line:1:26, endln:1:27
+  |vpiImportTypespec:
+  \_StringTypespec: , line:1:19, endln:1:25
+  |vpiDefName:work@top
   |vpiPort:
   \_Port: (o), line:1:26, endln:1:27
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ComplexEscaped/dut.sv, line:1:1, endln:5:10
     |vpiName:o
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@top.o.o), line:1:26, endln:1:27
-      |vpiParent:
-      \_Port: (o), line:1:26, endln:1:27
-      |vpiName:o
-      |vpiFullName:work@top.o.o
-      |vpiActual:
-      \_LogicNet: (work@top.o), line:1:26, endln:1:27
-    |vpiTypedef:
-    \_RefTypespec: (work@top.o)
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o), line:1:19, endln:1:25
       |vpiParent:
       \_Port: (o), line:1:26, endln:1:27
       |vpiFullName:work@top.o
@@ -161,6 +174,8 @@ Design: (unnamed)
         |vpiBlocking:1
         |vpiRhs:
         \_Constant: , line:3:11, endln:3:47
+          |vpiParent:
+          \_Assignment: , line:3:7, endln:3:47
           |vpiDecompile:"\\/ _| __| | '_ \\ / _` / "
           |vpiSize:208
           |STRING:\\/ _| __| | '_ \\ / _` / 
@@ -172,9 +187,7 @@ Design: (unnamed)
           |vpiName:o
           |vpiFullName:work@top.o
           |vpiActual:
-          \_LogicNet: (work@top.o), line:1:26, endln:1:27
-\_weaklyReferenced:
-\_StringTypespec: , line:1:19, endln:1:25
+          \_StringVar: (work@top.o), line:1:26, endln:1:27
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

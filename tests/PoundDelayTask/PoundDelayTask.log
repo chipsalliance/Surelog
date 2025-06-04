@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 50
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/PoundDelayTask/dut.sv
+FILE: ${SURELOG_DIR}/tests/PoundDelayTask/dut.sv
 n<> u<49> t<Top_level_rule> c<1> l<1:1> el<10:1>
-  n<> u<1> t<Null_rule> p<49> s<48> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<49> s<48> l<1:1>
   n<> u<48> t<Source_text> p<49> c<47> l<1:1> el<9:10>
     n<> u<47> t<Description> p<48> c<46> l<1:1> el<9:10>
       n<> u<46> t<Module_declaration> p<47> c<4> l<1:1> el<9:10>
@@ -69,19 +69,16 @@ Task                                                   1
 TaskCall                                               1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PoundDelayTask/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/PoundDelayTask/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/PoundDelayTask/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@m (work@m), file:${SURELOG_DIR}/tests/PoundDelayTask/dut.sv, line:1:1, endln:9:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@m
-  |vpiDefName:work@m
-  |vpiTaskFunc:
+  |vpiName:work@m
+  |vpiInternalScope:
   \_Task: (work@m.t), line:2:5, endln:4:12
     |vpiParent:
     \_Module: work@m (work@m), file:${SURELOG_DIR}/tests/PoundDelayTask/dut.sv, line:1:1, endln:9:10
@@ -101,8 +98,11 @@ Design: (unnamed)
         |STRING:I'm task t!
         |vpiConstType:6
       |vpiName:$display
-    |vpiInstance:
-    \_Module: work@m (work@m), file:${SURELOG_DIR}/tests/PoundDelayTask/dut.sv, line:1:1, endln:9:10
+  |vpiImportTypespec:
+  \_Task: (work@m.t), line:2:5, endln:4:12
+  |vpiDefName:work@m
+  |vpiTaskFunc:
+  \_Task: (work@m.t), line:2:5, endln:4:12
   |vpiProcess:
   \_Initial: , line:6:5, endln:8:8
     |vpiParent:
@@ -118,7 +118,7 @@ Design: (unnamed)
         \_Begin: (work@m), line:6:13, endln:8:8
         |#1
         |vpiStmt:
-        \_TaskCall: 
+        \_TaskCall: , line:7:12, endln:7:13
           |vpiParent:
           \_DelayControl: , line:7:9, endln:7:13
           |vpiTask:

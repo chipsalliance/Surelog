@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 352
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/HierPathTfArg/dut.sv
+FILE: ${SURELOG_DIR}/tests/HierPathTfArg/dut.sv
 n<> u<351> t<Top_level_rule> c<1> l<1:1> el<37:1>
-  n<> u<1> t<Null_rule> p<351> s<350> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<351> s<350> l<1:1>
   n<> u<350> t<Source_text> p<351> c<349> l<1:1> el<36:10>
     n<> u<349> t<Description> p<350> c<348> l<1:1> el<36:10>
       n<> u<348> t<Module_declaration> p<349> c<4> l<1:1> el<36:10>
@@ -360,7 +360,7 @@ AST_DEBUG_END
 [INF:CP0303] ${SURELOG_DIR}/tests/HierPathTfArg/dut.sv:1:1: Compile module "work@top".
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-Begin                                                  2
+Begin                                                  4
 Constant                                              10
 Design                                                 1
 FuncCall                                               1
@@ -371,31 +371,82 @@ HierPath                                               7
 Initial                                                1
 MethodFuncCall                                         7
 Module                                                 1
-NamedBegin                                             2
 RefObj                                                12
 SysFuncCall                                            8
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/HierPathTfArg/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/HierPathTfArg/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/HierPathTfArg/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathTfArg/dut.sv, line:1:1, endln:36:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
-  |vpiDefName:work@top
-  |vpiTaskFunc:
+  |vpiName:work@top
+  |vpiInternalScope:
   \_Function: (work@top.f3), line:15:9, endln:18:20
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathTfArg/dut.sv, line:1:1, endln:36:10
     |vpiName:f3
     |vpiFullName:work@top.f3
-    |vpiInstance:
+  |vpiInternalScope:
+  \_GenRegion: (work@top), line:2:5, endln:25:16
+    |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathTfArg/dut.sv, line:1:1, endln:36:10
+    |vpiFullName:work@top
+    |vpiInternalScope:
+    \_Begin: (work@top), line:3:9, endln:14:12
+      |vpiParent:
+      \_GenRegion: (work@top), line:2:5, endln:25:16
+      |vpiFullName:work@top
+      |vpiInternalScope:
+      \_Begin: (work@top.i), line:3:16, endln:14:12
+        |vpiParent:
+        \_Begin: (work@top), line:3:9, endln:14:12
+        |vpiName:i
+        |vpiFullName:work@top.i
+        |vpiInternalScope:
+        \_Begin: (work@top.i.blk), line:8:20, endln:13:16
+          |vpiParent:
+          \_Begin: (work@top.i), line:3:16, endln:14:12
+          |vpiName:blk
+          |vpiFullName:work@top.i.blk
+        |vpiStmt:
+        \_GenIf: , line:8:13, endln:13:16
+          |vpiParent:
+          \_Begin: (work@top.i), line:3:16, endln:14:12
+          |vpiCondition:
+          \_Constant: , line:8:17, endln:8:18
+            |vpiParent:
+            \_GenIf: , line:8:13, endln:13:16
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+          |vpiStmt:
+          \_Begin: (work@top.i.blk), line:8:20, endln:13:16
+      |vpiStmt:
+      \_GenIf: , line:3:9, endln:14:12
+        |vpiParent:
+        \_Begin: (work@top), line:3:9, endln:14:12
+        |vpiCondition:
+        \_Constant: , line:3:13, endln:3:14
+          |vpiParent:
+          \_GenIf: , line:3:9, endln:14:12
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiStmt:
+        \_Begin: (work@top.i), line:3:16, endln:14:12
+    |vpiStmt:
+    \_Begin: (work@top), line:3:9, endln:14:12
+  |vpiImportTypespec:
+  \_Function: (work@top.f3), line:15:9, endln:18:20
+  |vpiDefName:work@top
+  |vpiTaskFunc:
+  \_Function: (work@top.f3), line:15:9, endln:18:20
   |vpiProcess:
   \_Initial: , line:26:5, endln:35:8
     |vpiParent:
@@ -405,6 +456,20 @@ Design: (unnamed)
       |vpiParent:
       \_Initial: , line:26:5, endln:35:8
       |vpiFullName:work@top
+      |vpiImportTypespec:
+      \_LogicNet: (work@top.blk), line:28:18, endln:28:21
+        |vpiParent:
+        \_Begin: (work@top), line:26:13, endln:35:8
+        |vpiName:blk
+        |vpiFullName:work@top.blk
+        |vpiNetType:1
+      |vpiImportTypespec:
+      \_LogicNet: (work@top.i), line:29:18, endln:29:19
+        |vpiParent:
+        \_Begin: (work@top), line:26:13, endln:35:8
+        |vpiName:i
+        |vpiFullName:work@top.i
+        |vpiNetType:1
       |vpiStmt:
       \_SysFuncCall: ($display), line:27:9, endln:27:23
         |vpiParent:
@@ -436,14 +501,16 @@ Design: (unnamed)
             |vpiParent:
             \_HierPath: (blk.f), line:28:18, endln:28:26
             |vpiName:blk
+            |vpiActual:
+            \_LogicNet: (work@top.blk), line:28:18, endln:28:21
           |vpiActual:
-          \_MethodFuncCall: (f), line:28:22, endln:28:23
+          \_MethodFuncCall: (f), line:28:22, endln:28:26
             |vpiParent:
             \_HierPath: (blk.f), line:28:18, endln:28:26
             |vpiArgument:
             \_Constant: , line:28:24, endln:28:25
               |vpiParent:
-              \_MethodFuncCall: (f), line:28:22, endln:28:23
+              \_MethodFuncCall: (f), line:28:22, endln:28:26
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
@@ -464,14 +531,16 @@ Design: (unnamed)
             |vpiParent:
             \_HierPath: (i.f), line:29:18, endln:29:24
             |vpiName:i
+            |vpiActual:
+            \_LogicNet: (work@top.i), line:29:18, endln:29:19
           |vpiActual:
-          \_MethodFuncCall: (f), line:29:20, endln:29:21
+          \_MethodFuncCall: (f), line:29:20, endln:29:24
             |vpiParent:
             \_HierPath: (i.f), line:29:18, endln:29:24
             |vpiArgument:
             \_Constant: , line:29:22, endln:29:23
               |vpiParent:
-              \_MethodFuncCall: (f), line:29:20, endln:29:21
+              \_MethodFuncCall: (f), line:29:20, endln:29:24
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
@@ -492,19 +561,23 @@ Design: (unnamed)
             |vpiParent:
             \_HierPath: (i.blk.f), line:30:18, endln:30:28
             |vpiName:i
+            |vpiActual:
+            \_LogicNet: (work@top.i), line:29:18, endln:29:19
           |vpiActual:
           \_RefObj: (blk), line:30:20, endln:30:23
             |vpiParent:
             \_HierPath: (i.blk.f), line:30:18, endln:30:28
             |vpiName:blk
+            |vpiActual:
+            \_LogicNet: (work@top.blk), line:28:18, endln:28:21
           |vpiActual:
-          \_MethodFuncCall: (f), line:30:24, endln:30:25
+          \_MethodFuncCall: (f), line:30:24, endln:30:28
             |vpiParent:
             \_HierPath: (i.blk.f), line:30:18, endln:30:28
             |vpiArgument:
             \_Constant: , line:30:26, endln:30:27
               |vpiParent:
-              \_MethodFuncCall: (f), line:30:24, endln:30:25
+              \_MethodFuncCall: (f), line:30:24, endln:30:28
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
@@ -525,14 +598,16 @@ Design: (unnamed)
             |vpiParent:
             \_HierPath: (top.f3), line:31:18, endln:31:27
             |vpiName:top
+            |vpiActual:
+            \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathTfArg/dut.sv, line:1:1, endln:36:10
           |vpiActual:
-          \_MethodFuncCall: (f3), line:31:22, endln:31:24
+          \_MethodFuncCall: (f3), line:31:22, endln:31:27
             |vpiParent:
             \_HierPath: (top.f3), line:31:18, endln:31:27
             |vpiArgument:
             \_Constant: , line:31:25, endln:31:26
               |vpiParent:
-              \_MethodFuncCall: (f3), line:31:22, endln:31:24
+              \_MethodFuncCall: (f3), line:31:22, endln:31:27
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
@@ -553,19 +628,23 @@ Design: (unnamed)
             |vpiParent:
             \_HierPath: (top.blk.f), line:32:18, endln:32:30
             |vpiName:top
+            |vpiActual:
+            \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathTfArg/dut.sv, line:1:1, endln:36:10
           |vpiActual:
           \_RefObj: (blk), line:32:22, endln:32:25
             |vpiParent:
             \_HierPath: (top.blk.f), line:32:18, endln:32:30
             |vpiName:blk
+            |vpiActual:
+            \_LogicNet: (work@top.blk), line:28:18, endln:28:21
           |vpiActual:
-          \_MethodFuncCall: (f), line:32:26, endln:32:27
+          \_MethodFuncCall: (f), line:32:26, endln:32:30
             |vpiParent:
             \_HierPath: (top.blk.f), line:32:18, endln:32:30
             |vpiArgument:
             \_Constant: , line:32:28, endln:32:29
               |vpiParent:
-              \_MethodFuncCall: (f), line:32:26, endln:32:27
+              \_MethodFuncCall: (f), line:32:26, endln:32:30
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
@@ -586,19 +665,23 @@ Design: (unnamed)
             |vpiParent:
             \_HierPath: (top.i.f), line:33:18, endln:33:28
             |vpiName:top
+            |vpiActual:
+            \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathTfArg/dut.sv, line:1:1, endln:36:10
           |vpiActual:
           \_RefObj: (i), line:33:22, endln:33:23
             |vpiParent:
             \_HierPath: (top.i.f), line:33:18, endln:33:28
             |vpiName:i
+            |vpiActual:
+            \_LogicNet: (work@top.i), line:29:18, endln:29:19
           |vpiActual:
-          \_MethodFuncCall: (f), line:33:24, endln:33:25
+          \_MethodFuncCall: (f), line:33:24, endln:33:28
             |vpiParent:
             \_HierPath: (top.i.f), line:33:18, endln:33:28
             |vpiArgument:
             \_Constant: , line:33:26, endln:33:27
               |vpiParent:
-              \_MethodFuncCall: (f), line:33:24, endln:33:25
+              \_MethodFuncCall: (f), line:33:24, endln:33:28
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
@@ -619,24 +702,30 @@ Design: (unnamed)
             |vpiParent:
             \_HierPath: (top.i.blk.f), line:34:18, endln:34:32
             |vpiName:top
+            |vpiActual:
+            \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathTfArg/dut.sv, line:1:1, endln:36:10
           |vpiActual:
           \_RefObj: (i), line:34:22, endln:34:23
             |vpiParent:
             \_HierPath: (top.i.blk.f), line:34:18, endln:34:32
             |vpiName:i
+            |vpiActual:
+            \_LogicNet: (work@top.i), line:29:18, endln:29:19
           |vpiActual:
           \_RefObj: (blk), line:34:24, endln:34:27
             |vpiParent:
             \_HierPath: (top.i.blk.f), line:34:18, endln:34:32
             |vpiName:blk
+            |vpiActual:
+            \_LogicNet: (work@top.blk), line:28:18, endln:28:21
           |vpiActual:
-          \_MethodFuncCall: (f), line:34:28, endln:34:29
+          \_MethodFuncCall: (f), line:34:28, endln:34:32
             |vpiParent:
             \_HierPath: (top.i.blk.f), line:34:18, endln:34:32
             |vpiArgument:
             \_Constant: , line:34:30, endln:34:31
               |vpiParent:
-              \_MethodFuncCall: (f), line:34:28, endln:34:29
+              \_MethodFuncCall: (f), line:34:28, endln:34:32
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
@@ -644,51 +733,6 @@ Design: (unnamed)
             |vpiName:f
           |vpiName:top.i.blk.f
         |vpiName:$display
-  |vpiGenStmt:
-  \_GenRegion: 
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathTfArg/dut.sv, line:1:1, endln:36:10
-    |vpiStmt:
-    \_Begin: (work@top)
-      |vpiParent:
-      \_GenRegion: 
-      |vpiFullName:work@top
-      |vpiStmt:
-      \_GenIf: , line:3:9, endln:3:11
-        |vpiParent:
-        \_Begin: (work@top)
-        |vpiCondition:
-        \_Constant: , line:3:13, endln:3:14
-          |vpiParent:
-          \_GenIf: , line:3:9, endln:3:11
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiStmt:
-        \_NamedBegin: (work@top.i)
-          |vpiParent:
-          \_GenIf: , line:3:9, endln:3:11
-          |vpiName:i
-          |vpiFullName:work@top.i
-          |vpiStmt:
-          \_GenIf: , line:8:13, endln:8:15
-            |vpiParent:
-            \_NamedBegin: (work@top.i)
-            |vpiCondition:
-            \_Constant: , line:8:17, endln:8:18
-              |vpiParent:
-              \_GenIf: , line:8:13, endln:8:15
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-            |vpiStmt:
-            \_NamedBegin: (work@top.i.blk)
-              |vpiParent:
-              \_GenIf: , line:8:13, endln:8:15
-              |vpiName:blk
-              |vpiFullName:work@top.i.blk
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

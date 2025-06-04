@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 259
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/ImplicitGenBlock/dut.sv
+FILE: ${SURELOG_DIR}/tests/ImplicitGenBlock/dut.sv
 n<> u<258> t<Top_level_rule> c<1> l<30:1> el<76:1>
-  n<> u<1> t<Null_rule> p<258> s<257> l<30:1> el<27:6>
+  n<> u<1> t<Null_rule> p<258> s<257> l<30:1> el<30:1>
   n<> u<257> t<Source_text> p<258> c<256> l<30:1> el<74:10>
     n<> u<256> t<Description> p<257> c<255> l<30:1> el<74:10>
       n<> u<255> t<Module_declaration> p<256> c<4> l<30:1> el<74:10>
@@ -274,22 +274,253 @@ Design                                                 1
 GenIf                                                  1
 GenRegion                                              1
 HierPath                                               7
+LogicNet                                               5
+LogicTypespec                                          5
 Module                                                 1
 RefObj                                                17
+RefTypespec                                            5
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ImplicitGenBlock/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ImplicitGenBlock/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ImplicitGenBlock/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ImplicitGenBlock/dut.sv, line:30:1, endln:74:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
+  |vpiName:work@top
+  |vpiInternalScope:
+  \_GenRegion: (work@top), line:31:9, endln:64:20
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ImplicitGenBlock/dut.sv, line:30:1, endln:74:10
+    |vpiFullName:work@top
+    |vpiInternalScope:
+    \_Begin: (work@top), line:33:17, endln:50:20
+      |vpiParent:
+      \_GenRegion: (work@top), line:31:9, endln:64:20
+      |vpiFullName:work@top
+      |vpiInternalScope:
+      \_Begin: (work@top), line:33:24, endln:50:20
+        |vpiParent:
+        \_Begin: (work@top), line:33:17, endln:50:20
+        |vpiFullName:work@top
+        |vpiTypedef:
+        \_LogicTypespec: , line:35:25, endln:35:29
+          |vpiParent:
+          \_Begin: (work@top), line:33:24, endln:50:20
+        |vpiTypedef:
+        \_LogicTypespec: , line:38:33, endln:38:37
+          |vpiParent:
+          \_Begin: (work@top), line:33:24, endln:50:20
+        |vpiTypedef:
+        \_LogicTypespec: , line:39:33, endln:39:37
+          |vpiParent:
+          \_Begin: (work@top), line:33:24, endln:50:20
+        |vpiTypedef:
+        \_LogicTypespec: , line:42:35, endln:42:39
+          |vpiParent:
+          \_Begin: (work@top), line:33:24, endln:50:20
+        |vpiTypedef:
+        \_LogicTypespec: , line:47:25, endln:47:29
+          |vpiParent:
+          \_Begin: (work@top), line:33:24, endln:50:20
+        |vpiImportTypespec:
+        \_LogicTypespec: , line:35:25, endln:35:29
+        |vpiImportTypespec:
+        \_LogicNet: (work@top.t), line:35:30, endln:35:31
+          |vpiParent:
+          \_Begin: (work@top), line:33:24, endln:50:20
+          |vpiTypespec:
+          \_RefTypespec: (work@top.t), line:35:25, endln:35:29
+            |vpiParent:
+            \_LogicNet: (work@top.t), line:35:30, endln:35:31
+            |vpiFullName:work@top.t
+            |vpiActual:
+            \_LogicTypespec: , line:35:25, endln:35:29
+          |vpiName:t
+          |vpiFullName:work@top.t
+          |vpiNetType:1
+        |vpiImportTypespec:
+        \_LogicTypespec: , line:38:33, endln:38:37
+        |vpiImportTypespec:
+        \_LogicNet: (work@top.x1), line:38:38, endln:38:40
+          |vpiParent:
+          \_Begin: (work@top), line:33:24, endln:50:20
+          |vpiTypespec:
+          \_RefTypespec: (work@top.x1), line:38:33, endln:38:37
+            |vpiParent:
+            \_LogicNet: (work@top.x1), line:38:38, endln:38:40
+            |vpiFullName:work@top.x1
+            |vpiActual:
+            \_LogicTypespec: , line:38:33, endln:38:37
+          |vpiName:x1
+          |vpiFullName:work@top.x1
+          |vpiNetType:1
+        |vpiImportTypespec:
+        \_LogicTypespec: , line:39:33, endln:39:37
+        |vpiImportTypespec:
+        \_LogicNet: (work@top.y1), line:39:38, endln:39:40
+          |vpiParent:
+          \_Begin: (work@top), line:33:24, endln:50:20
+          |vpiTypespec:
+          \_RefTypespec: (work@top.y1), line:39:33, endln:39:37
+            |vpiParent:
+            \_LogicNet: (work@top.y1), line:39:38, endln:39:40
+            |vpiFullName:work@top.y1
+            |vpiActual:
+            \_LogicTypespec: , line:39:33, endln:39:37
+          |vpiName:y1
+          |vpiFullName:work@top.y1
+          |vpiNetType:1
+        |vpiImportTypespec:
+        \_LogicTypespec: , line:42:35, endln:42:39
+        |vpiImportTypespec:
+        \_LogicNet: (work@top.z1), line:42:40, endln:42:42
+          |vpiParent:
+          \_Begin: (work@top), line:33:24, endln:50:20
+          |vpiTypespec:
+          \_RefTypespec: (work@top.z1), line:42:35, endln:42:39
+            |vpiParent:
+            \_LogicNet: (work@top.z1), line:42:40, endln:42:42
+            |vpiFullName:work@top.z1
+            |vpiActual:
+            \_LogicTypespec: , line:42:35, endln:42:39
+          |vpiName:z1
+          |vpiFullName:work@top.z1
+          |vpiNetType:1
+        |vpiImportTypespec:
+        \_LogicTypespec: , line:47:25, endln:47:29
+        |vpiImportTypespec:
+        \_LogicNet: (work@top.u), line:47:30, endln:47:31
+          |vpiParent:
+          \_Begin: (work@top), line:33:24, endln:50:20
+          |vpiTypespec:
+          \_RefTypespec: (work@top.u), line:47:25, endln:47:29
+            |vpiParent:
+            \_LogicNet: (work@top.u), line:47:30, endln:47:31
+            |vpiFullName:work@top.u
+            |vpiActual:
+            \_LogicTypespec: , line:47:25, endln:47:29
+          |vpiName:u
+          |vpiFullName:work@top.u
+          |vpiNetType:1
+      |vpiStmt:
+      \_GenIf: , line:33:17, endln:50:20
+        |vpiParent:
+        \_Begin: (work@top), line:33:17, endln:50:20
+        |vpiCondition:
+        \_Constant: , line:33:21, endln:33:22
+          |vpiParent:
+          \_GenIf: , line:33:17, endln:50:20
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiStmt:
+        \_Begin: (work@top), line:33:24, endln:50:20
+    |vpiStmt:
+    \_Begin: (work@top), line:33:17, endln:50:20
+  |vpiImportTypespec:
+  \_LogicNet: (work@top.genblk1), line:66:23, endln:66:25
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ImplicitGenBlock/dut.sv, line:30:1, endln:74:10
+    |vpiName:genblk1
+    |vpiFullName:work@top.genblk1
+    |vpiNetType:1
+  |vpiImportTypespec:
+  \_LogicNet: (work@top.t), line:66:24, endln:66:25
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ImplicitGenBlock/dut.sv, line:30:1, endln:74:10
+    |vpiName:t
+    |vpiFullName:work@top.t
+    |vpiNetType:1
+  |vpiImportTypespec:
+  \_LogicNet: (work@top.foo), line:67:24, endln:67:27
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ImplicitGenBlock/dut.sv, line:30:1, endln:74:10
+    |vpiName:foo
+    |vpiFullName:work@top.foo
+    |vpiNetType:1
+  |vpiImportTypespec:
+  \_LogicNet: (work@top.x1), line:67:28, endln:67:30
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ImplicitGenBlock/dut.sv, line:30:1, endln:74:10
+    |vpiName:x1
+    |vpiFullName:work@top.x1
+    |vpiNetType:1
+  |vpiImportTypespec:
+  \_LogicNet: (work@top.u), line:68:24, endln:68:25
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ImplicitGenBlock/dut.sv, line:30:1, endln:74:10
+    |vpiName:u
+    |vpiFullName:work@top.u
+    |vpiNetType:1
+  |vpiImportTypespec:
+  \_LogicNet: (work@top.bar2), line:69:20, endln:69:23
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ImplicitGenBlock/dut.sv, line:30:1, endln:74:10
+    |vpiName:bar2
+    |vpiFullName:work@top.bar2
+    |vpiNetType:1
+  |vpiImportTypespec:
+  \_LogicNet: (work@top.x2), line:69:21, endln:69:23
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ImplicitGenBlock/dut.sv, line:30:1, endln:74:10
+    |vpiName:x2
+    |vpiFullName:work@top.x2
+    |vpiNetType:1
+  |vpiImportTypespec:
+  \_LogicNet: (work@top.y2), line:70:21, endln:70:23
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ImplicitGenBlock/dut.sv, line:30:1, endln:74:10
+    |vpiName:y2
+    |vpiFullName:work@top.y2
+    |vpiNetType:1
+  |vpiImportTypespec:
+  \_LogicNet: (work@top.baz), line:71:21, endln:71:24
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ImplicitGenBlock/dut.sv, line:30:1, endln:74:10
+    |vpiName:baz
+    |vpiFullName:work@top.baz
+    |vpiNetType:1
+  |vpiImportTypespec:
+  \_LogicNet: (work@top.x3), line:71:25, endln:71:27
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ImplicitGenBlock/dut.sv, line:30:1, endln:74:10
+    |vpiName:x3
+    |vpiFullName:work@top.x3
+    |vpiNetType:1
+  |vpiImportTypespec:
+  \_LogicNet: (work@top.z3), line:72:25, endln:72:27
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ImplicitGenBlock/dut.sv, line:30:1, endln:74:10
+    |vpiName:z3
+    |vpiFullName:work@top.z3
+    |vpiNetType:1
   |vpiDefName:work@top
+  |vpiNet:
+  \_LogicNet: (work@top.genblk1), line:66:23, endln:66:25
+  |vpiNet:
+  \_LogicNet: (work@top.t), line:66:24, endln:66:25
+  |vpiNet:
+  \_LogicNet: (work@top.foo), line:67:24, endln:67:27
+  |vpiNet:
+  \_LogicNet: (work@top.x1), line:67:28, endln:67:30
+  |vpiNet:
+  \_LogicNet: (work@top.u), line:68:24, endln:68:25
+  |vpiNet:
+  \_LogicNet: (work@top.bar2), line:69:20, endln:69:23
+  |vpiNet:
+  \_LogicNet: (work@top.x2), line:69:21, endln:69:23
+  |vpiNet:
+  \_LogicNet: (work@top.y2), line:70:21, endln:70:23
+  |vpiNet:
+  \_LogicNet: (work@top.baz), line:71:21, endln:71:24
+  |vpiNet:
+  \_LogicNet: (work@top.x3), line:71:25, endln:71:27
+  |vpiNet:
+  \_LogicNet: (work@top.z3), line:72:25, endln:72:27
   |vpiContAssign:
   \_ContAssign: , line:66:16, endln:66:29
     |vpiParent:
@@ -303,19 +534,23 @@ Design: (unnamed)
       |UINT:1
       |vpiConstType:9
     |vpiLhs:
-    \_HierPath: (genblk1.t), line:66:16, endln:66:25
+    \_HierPath: (genblk1.t), line:66:23, endln:66:25
       |vpiParent:
       \_ContAssign: , line:66:16, endln:66:29
       |vpiActual:
-      \_RefObj: (genblk1), line:66:24, endln:66:25
+      \_RefObj: (genblk1), line:66:23, endln:66:25
         |vpiParent:
-        \_HierPath: (genblk1.t), line:66:16, endln:66:25
+        \_HierPath: (genblk1.t), line:66:23, endln:66:25
         |vpiName:genblk1
+        |vpiActual:
+        \_LogicNet: (work@top.genblk1), line:66:23, endln:66:25
       |vpiActual:
       \_RefObj: (t), line:66:24, endln:66:25
         |vpiParent:
-        \_HierPath: (genblk1.t), line:66:16, endln:66:25
+        \_HierPath: (genblk1.t), line:66:23, endln:66:25
         |vpiName:t
+        |vpiActual:
+        \_LogicNet: (work@top.t), line:66:24, endln:66:25
       |vpiName:genblk1.t
   |vpiContAssign:
   \_ContAssign: , line:67:16, endln:67:34
@@ -330,24 +565,30 @@ Design: (unnamed)
       |UINT:1
       |vpiConstType:9
     |vpiLhs:
-    \_HierPath: (genblk1.foo.x1), line:67:16, endln:67:30
+    \_HierPath: (genblk1.foo.x1), line:67:23, endln:67:30
       |vpiParent:
       \_ContAssign: , line:67:16, endln:67:34
       |vpiActual:
-      \_RefObj: (genblk1), line:67:24, endln:67:27
+      \_RefObj: (genblk1), line:67:23, endln:67:27
         |vpiParent:
-        \_HierPath: (genblk1.foo.x1), line:67:16, endln:67:30
+        \_HierPath: (genblk1.foo.x1), line:67:23, endln:67:30
         |vpiName:genblk1
+        |vpiActual:
+        \_LogicNet: (work@top.genblk1), line:66:23, endln:66:25
       |vpiActual:
       \_RefObj: (foo), line:67:24, endln:67:27
         |vpiParent:
-        \_HierPath: (genblk1.foo.x1), line:67:16, endln:67:30
+        \_HierPath: (genblk1.foo.x1), line:67:23, endln:67:30
         |vpiName:foo
+        |vpiActual:
+        \_LogicNet: (work@top.foo), line:67:24, endln:67:27
       |vpiActual:
       \_RefObj: (x1), line:67:28, endln:67:30
         |vpiParent:
-        \_HierPath: (genblk1.foo.x1), line:67:16, endln:67:30
+        \_HierPath: (genblk1.foo.x1), line:67:23, endln:67:30
         |vpiName:x1
+        |vpiActual:
+        \_LogicNet: (work@top.x1), line:67:28, endln:67:30
       |vpiName:genblk1.foo.x1
   |vpiContAssign:
   \_ContAssign: , line:68:16, endln:68:29
@@ -362,19 +603,23 @@ Design: (unnamed)
       |UINT:1
       |vpiConstType:9
     |vpiLhs:
-    \_HierPath: (genblk1.u), line:68:16, endln:68:25
+    \_HierPath: (genblk1.u), line:68:23, endln:68:25
       |vpiParent:
       \_ContAssign: , line:68:16, endln:68:29
       |vpiActual:
-      \_RefObj: (genblk1), line:68:24, endln:68:25
+      \_RefObj: (genblk1), line:68:23, endln:68:25
         |vpiParent:
-        \_HierPath: (genblk1.u), line:68:16, endln:68:25
+        \_HierPath: (genblk1.u), line:68:23, endln:68:25
         |vpiName:genblk1
+        |vpiActual:
+        \_LogicNet: (work@top.genblk1), line:66:23, endln:66:25
       |vpiActual:
       \_RefObj: (u), line:68:24, endln:68:25
         |vpiParent:
-        \_HierPath: (genblk1.u), line:68:16, endln:68:25
+        \_HierPath: (genblk1.u), line:68:23, endln:68:25
         |vpiName:u
+        |vpiActual:
+        \_LogicNet: (work@top.u), line:68:24, endln:68:25
       |vpiName:genblk1.u
   |vpiContAssign:
   \_ContAssign: , line:69:16, endln:69:27
@@ -389,19 +634,23 @@ Design: (unnamed)
       |UINT:1
       |vpiConstType:9
     |vpiLhs:
-    \_HierPath: (bar2.x2), line:69:16, endln:69:23
+    \_HierPath: (bar2.x2), line:69:20, endln:69:23
       |vpiParent:
       \_ContAssign: , line:69:16, endln:69:27
       |vpiActual:
-      \_RefObj: (bar2), line:69:21, endln:69:23
+      \_RefObj: (bar2), line:69:20, endln:69:23
         |vpiParent:
-        \_HierPath: (bar2.x2), line:69:16, endln:69:23
+        \_HierPath: (bar2.x2), line:69:20, endln:69:23
         |vpiName:bar2
+        |vpiActual:
+        \_LogicNet: (work@top.bar2), line:69:20, endln:69:23
       |vpiActual:
       \_RefObj: (x2), line:69:21, endln:69:23
         |vpiParent:
-        \_HierPath: (bar2.x2), line:69:16, endln:69:23
+        \_HierPath: (bar2.x2), line:69:20, endln:69:23
         |vpiName:x2
+        |vpiActual:
+        \_LogicNet: (work@top.x2), line:69:21, endln:69:23
       |vpiName:bar2.x2
   |vpiContAssign:
   \_ContAssign: , line:70:16, endln:70:27
@@ -416,19 +665,23 @@ Design: (unnamed)
       |UINT:1
       |vpiConstType:9
     |vpiLhs:
-    \_HierPath: (bar2.y2), line:70:16, endln:70:23
+    \_HierPath: (bar2.y2), line:70:20, endln:70:23
       |vpiParent:
       \_ContAssign: , line:70:16, endln:70:27
       |vpiActual:
-      \_RefObj: (bar2), line:70:21, endln:70:23
+      \_RefObj: (bar2), line:70:20, endln:70:23
         |vpiParent:
-        \_HierPath: (bar2.y2), line:70:16, endln:70:23
+        \_HierPath: (bar2.y2), line:70:20, endln:70:23
         |vpiName:bar2
+        |vpiActual:
+        \_LogicNet: (work@top.bar2), line:69:20, endln:69:23
       |vpiActual:
       \_RefObj: (y2), line:70:21, endln:70:23
         |vpiParent:
-        \_HierPath: (bar2.y2), line:70:16, endln:70:23
+        \_HierPath: (bar2.y2), line:70:20, endln:70:23
         |vpiName:y2
+        |vpiActual:
+        \_LogicNet: (work@top.y2), line:70:21, endln:70:23
       |vpiName:bar2.y2
   |vpiContAssign:
   \_ContAssign: , line:71:16, endln:71:31
@@ -443,24 +696,30 @@ Design: (unnamed)
       |UINT:1
       |vpiConstType:9
     |vpiLhs:
-    \_HierPath: (bar2.baz.x3), line:71:16, endln:71:27
+    \_HierPath: (bar2.baz.x3), line:71:20, endln:71:27
       |vpiParent:
       \_ContAssign: , line:71:16, endln:71:31
       |vpiActual:
-      \_RefObj: (bar2), line:71:21, endln:71:24
+      \_RefObj: (bar2), line:71:20, endln:71:24
         |vpiParent:
-        \_HierPath: (bar2.baz.x3), line:71:16, endln:71:27
+        \_HierPath: (bar2.baz.x3), line:71:20, endln:71:27
         |vpiName:bar2
+        |vpiActual:
+        \_LogicNet: (work@top.bar2), line:69:20, endln:69:23
       |vpiActual:
       \_RefObj: (baz), line:71:21, endln:71:24
         |vpiParent:
-        \_HierPath: (bar2.baz.x3), line:71:16, endln:71:27
+        \_HierPath: (bar2.baz.x3), line:71:20, endln:71:27
         |vpiName:baz
+        |vpiActual:
+        \_LogicNet: (work@top.baz), line:71:21, endln:71:24
       |vpiActual:
       \_RefObj: (x3), line:71:25, endln:71:27
         |vpiParent:
-        \_HierPath: (bar2.baz.x3), line:71:16, endln:71:27
+        \_HierPath: (bar2.baz.x3), line:71:20, endln:71:27
         |vpiName:x3
+        |vpiActual:
+        \_LogicNet: (work@top.x3), line:71:25, endln:71:27
       |vpiName:bar2.baz.x3
   |vpiContAssign:
   \_ContAssign: , line:72:16, endln:72:31
@@ -475,51 +734,31 @@ Design: (unnamed)
       |UINT:1
       |vpiConstType:9
     |vpiLhs:
-    \_HierPath: (bar2.baz.z3), line:72:16, endln:72:27
+    \_HierPath: (bar2.baz.z3), line:72:20, endln:72:27
       |vpiParent:
       \_ContAssign: , line:72:16, endln:72:31
       |vpiActual:
-      \_RefObj: (bar2), line:72:21, endln:72:24
+      \_RefObj: (bar2), line:72:20, endln:72:24
         |vpiParent:
-        \_HierPath: (bar2.baz.z3), line:72:16, endln:72:27
+        \_HierPath: (bar2.baz.z3), line:72:20, endln:72:27
         |vpiName:bar2
+        |vpiActual:
+        \_LogicNet: (work@top.bar2), line:69:20, endln:69:23
       |vpiActual:
       \_RefObj: (baz), line:72:21, endln:72:24
         |vpiParent:
-        \_HierPath: (bar2.baz.z3), line:72:16, endln:72:27
+        \_HierPath: (bar2.baz.z3), line:72:20, endln:72:27
         |vpiName:baz
+        |vpiActual:
+        \_LogicNet: (work@top.baz), line:71:21, endln:71:24
       |vpiActual:
       \_RefObj: (z3), line:72:25, endln:72:27
         |vpiParent:
-        \_HierPath: (bar2.baz.z3), line:72:16, endln:72:27
+        \_HierPath: (bar2.baz.z3), line:72:20, endln:72:27
         |vpiName:z3
+        |vpiActual:
+        \_LogicNet: (work@top.z3), line:72:25, endln:72:27
       |vpiName:bar2.baz.z3
-  |vpiGenStmt:
-  \_GenRegion: 
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ImplicitGenBlock/dut.sv, line:30:1, endln:74:10
-    |vpiStmt:
-    \_Begin: (work@top)
-      |vpiParent:
-      \_GenRegion: 
-      |vpiFullName:work@top
-      |vpiStmt:
-      \_GenIf: , line:33:17, endln:33:19
-        |vpiParent:
-        \_Begin: (work@top)
-        |vpiCondition:
-        \_Constant: , line:33:21, endln:33:22
-          |vpiParent:
-          \_GenIf: , line:33:17, endln:33:19
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiStmt:
-        \_Begin: (work@top)
-          |vpiParent:
-          \_GenIf: , line:33:17, endln:33:19
-          |vpiFullName:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

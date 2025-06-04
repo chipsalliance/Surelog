@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 114
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/NetLValue/dut.sv
+FILE: ${SURELOG_DIR}/tests/NetLValue/dut.sv
 n<> u<113> t<Top_level_rule> c<1> l<1:1> el<11:1>
-  n<> u<1> t<Null_rule> p<113> s<112> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<113> s<112> l<1:1>
   n<> u<112> t<Source_text> p<113> c<111> l<1:1> el<10:10>
     n<> u<111> t<Description> p<112> c<110> l<1:1> el<10:10>
       n<> u<110> t<Module_declaration> p<111> c<4> l<1:1> el<10:10>
@@ -36,7 +36,7 @@ n<> u<113> t<Top_level_rule> c<1> l<1:1> el<11:1>
                 n<> u<40> t<Package_or_generate_item_declaration> p<41> c<39> l<3:4> el<3:13>
                   n<> u<39> t<Data_declaration> p<40> c<38> l<3:4> el<3:13>
                     n<> u<38> t<Variable_declaration> p<39> c<34> l<3:4> el<3:13>
-                      n<> u<34> t<Data_type> p<38> c<23> s<37> l<3:4> el<3:10>
+                      n<S> u<34> t<Data_type> p<38> c<23> s<37> l<3:4> el<3:10>
                         n<S> u<23> t<StringConst> p<34> s<33> l<3:4> el<3:5>
                         n<> u<33> t<Packed_dimension> p<34> c<32> l<3:5> el<3:10>
                           n<> u<32> t<Constant_range> p<33> c<27> l<3:6> el<3:9>
@@ -126,82 +126,132 @@ Always                                                 1
 Assignment                                             2
 Begin                                                  1
 BitSelect                                              2
-Constant                                               5
+Constant                                               7
 Design                                                 1
 HierPath                                               2
 IntTypespec                                            2
-LogicNet                                               2
+IntVar                                                 1
 Module                                                 1
 PackedArrayTypespec                                    1
-Range                                                  1
+PackedArrayVar                                         1
+Range                                                  2
 RefObj                                                 3
 RefTypespec                                            4
 StructTypespec                                         1
 TypespecMember                                         1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/NetLValue/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/NetLValue/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/NetLValue/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@t (work@t), file:${SURELOG_DIR}/tests/NetLValue/dut.sv, line:1:1, endln:10:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@t
+  |vpiName:work@t
+  |vpiVariables:
+  \_PackedArrayVar: (work@t.s), line:3:11, endln:3:12
+    |vpiParent:
+    \_Module: work@t (work@t), file:${SURELOG_DIR}/tests/NetLValue/dut.sv, line:1:1, endln:10:10
+    |vpiTypespec:
+    \_RefTypespec: (work@t.s.S), line:3:4, endln:3:10
+      |vpiParent:
+      \_PackedArrayVar: (work@t.s), line:3:11, endln:3:12
+      |vpiName:S
+      |vpiFullName:work@t.s.S
+      |vpiActual:
+      \_PackedArrayTypespec: , line:3:5, endln:3:10
+    |vpiName:s
+    |vpiFullName:work@t.s
+    |vpiVisibility:1
+  |vpiVariables:
+  \_IntVar: (work@t.y), line:4:8, endln:4:9
+    |vpiParent:
+    \_Module: work@t (work@t), file:${SURELOG_DIR}/tests/NetLValue/dut.sv, line:1:1, endln:10:10
+    |vpiTypespec:
+    \_RefTypespec: (work@t.y), line:4:4, endln:4:7
+      |vpiParent:
+      \_IntVar: (work@t.y), line:4:8, endln:4:9
+      |vpiFullName:work@t.y
+      |vpiActual:
+      \_IntTypespec: , line:4:4, endln:4:7
+    |vpiName:y
+    |vpiFullName:work@t.y
+    |vpiSigned:1
+    |vpiVisibility:1
   |vpiTypedef:
   \_StructTypespec: (S), line:2:12, endln:2:29
     |vpiParent:
     \_Module: work@t (work@t), file:${SURELOG_DIR}/tests/NetLValue/dut.sv, line:1:1, endln:10:10
     |vpiName:S
-    |vpiInstance:
-    \_Module: work@t (work@t), file:${SURELOG_DIR}/tests/NetLValue/dut.sv, line:1:1, endln:10:10
     |vpiTypespecMember:
     \_TypespecMember: (x), line:2:25, endln:2:26
       |vpiParent:
       \_StructTypespec: (S), line:2:12, endln:2:29
       |vpiName:x
       |vpiTypespec:
-      \_RefTypespec: (work@t.S.x)
+      \_RefTypespec: (work@t.S.x), line:2:21, endln:2:24
         |vpiParent:
         \_TypespecMember: (x), line:2:25, endln:2:26
         |vpiFullName:work@t.S.x
         |vpiActual:
         \_IntTypespec: , line:2:21, endln:2:24
-      |vpiRefFile:${SURELOG_DIR}/tests/NetLValue/dut.sv
-      |vpiRefLineNo:2
-      |vpiRefColumnNo:21
-      |vpiRefEndLineNo:2
-      |vpiRefEndColumnNo:24
+  |vpiTypedef:
+  \_IntTypespec: , line:2:21, endln:2:24
+    |vpiParent:
+    \_Module: work@t (work@t), file:${SURELOG_DIR}/tests/NetLValue/dut.sv, line:1:1, endln:10:10
+    |vpiSigned:1
+  |vpiTypedef:
+  \_PackedArrayTypespec: , line:3:5, endln:3:10
+    |vpiParent:
+    \_Module: work@t (work@t), file:${SURELOG_DIR}/tests/NetLValue/dut.sv, line:1:1, endln:10:10
+    |vpiRange:
+    \_Range: , line:3:5, endln:3:10
+      |vpiParent:
+      \_PackedArrayTypespec: , line:3:5, endln:3:10
+      |vpiLeftRange:
+      \_Constant: , line:3:6, endln:3:7
+        |vpiParent:
+        \_Range: , line:3:5, endln:3:10
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:3:8, endln:3:9
+        |vpiParent:
+        \_Range: , line:3:5, endln:3:10
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiElemTypespec:
+    \_RefTypespec: (work@t.S), line:3:4, endln:3:5
+      |vpiParent:
+      \_PackedArrayTypespec: , line:3:5, endln:3:10
+      |vpiName:S
+      |vpiFullName:work@t.S
+      |vpiActual:
+      \_StructTypespec: (S), line:2:12, endln:2:29
+  |vpiTypedef:
+  \_IntTypespec: , line:4:4, endln:4:7
+    |vpiParent:
+    \_Module: work@t (work@t), file:${SURELOG_DIR}/tests/NetLValue/dut.sv, line:1:1, endln:10:10
+    |vpiSigned:1
+  |vpiImportTypespec:
+  \_StructTypespec: (S), line:2:12, endln:2:29
+  |vpiImportTypespec:
+  \_IntTypespec: , line:2:21, endln:2:24
+  |vpiImportTypespec:
+  \_PackedArrayTypespec: , line:3:5, endln:3:10
+  |vpiImportTypespec:
+  \_PackedArrayVar: (work@t.s), line:3:11, endln:3:12
+  |vpiImportTypespec:
+  \_IntTypespec: , line:4:4, endln:4:7
+  |vpiImportTypespec:
+  \_IntVar: (work@t.y), line:4:8, endln:4:9
   |vpiDefName:work@t
-  |vpiNet:
-  \_LogicNet: (work@t.s), line:3:11, endln:3:12
-    |vpiParent:
-    \_Module: work@t (work@t), file:${SURELOG_DIR}/tests/NetLValue/dut.sv, line:1:1, endln:10:10
-    |vpiTypespec:
-    \_RefTypespec: (work@t.s)
-      |vpiParent:
-      \_LogicNet: (work@t.s), line:3:11, endln:3:12
-      |vpiFullName:work@t.s
-      |vpiActual:
-      \_PackedArrayTypespec: , line:3:4, endln:3:10
-    |vpiName:s
-    |vpiFullName:work@t.s
-  |vpiNet:
-  \_LogicNet: (work@t.y), line:4:8, endln:4:9
-    |vpiParent:
-    \_Module: work@t (work@t), file:${SURELOG_DIR}/tests/NetLValue/dut.sv, line:1:1, endln:10:10
-    |vpiTypespec:
-    \_RefTypespec: (work@t.y)
-      |vpiParent:
-      \_LogicNet: (work@t.y), line:4:8, endln:4:9
-      |vpiFullName:work@t.y
-      |vpiActual:
-      \_IntTypespec: , line:4:4, endln:4:7
-    |vpiName:y
-    |vpiFullName:work@t.y
   |vpiProcess:
   \_Always: , line:6:4, endln:9:7
     |vpiParent:
@@ -211,6 +261,13 @@ Design: (unnamed)
       |vpiParent:
       \_Always: , line:6:4, endln:9:7
       |vpiFullName:work@t
+      |vpiImportTypespec:
+      \_LogicNet: (work@t.x), line:7:15, endln:7:16
+        |vpiParent:
+        \_Begin: (work@t), line:6:16, endln:9:7
+        |vpiName:x
+        |vpiFullName:work@t.x
+        |vpiNetType:1
       |vpiStmt:
       \_Assignment: , line:7:6, endln:7:16
         |vpiParent:
@@ -227,8 +284,12 @@ Design: (unnamed)
             \_HierPath: (s[0].x), line:7:10, endln:7:16
             |vpiName:s
             |vpiFullName:s[0]
+            |vpiActual:
+            \_PackedArrayVar: (work@t.s), line:3:11, endln:3:12
             |vpiIndex:
             \_Constant: , line:7:12, endln:7:13
+              |vpiParent:
+              \_BitSelect: (s[0]), line:7:10, endln:7:11
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
@@ -239,6 +300,8 @@ Design: (unnamed)
             \_HierPath: (s[0].x), line:7:10, endln:7:16
             |vpiName:x
             |vpiFullName:work@t.x
+            |vpiActual:
+            \_LogicNet: (work@t.x), line:7:15, endln:7:16
           |vpiName:s[0].x
         |vpiLhs:
         \_RefObj: (work@t.y), line:7:6, endln:7:7
@@ -247,7 +310,7 @@ Design: (unnamed)
           |vpiName:y
           |vpiFullName:work@t.y
           |vpiActual:
-          \_LogicNet: (work@t.y), line:4:8, endln:4:9
+          \_IntVar: (work@t.y), line:4:8, endln:4:9
       |vpiStmt:
       \_Assignment: , line:8:6, endln:8:16
         |vpiParent:
@@ -256,22 +319,28 @@ Design: (unnamed)
         |vpiBlocking:1
         |vpiRhs:
         \_Constant: , line:8:15, endln:8:16
+          |vpiParent:
+          \_Assignment: , line:8:6, endln:8:16
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
           |vpiConstType:9
         |vpiLhs:
-        \_HierPath: (s[1].x), line:8:6, endln:8:7
+        \_HierPath: (s[1].x), line:8:6, endln:8:12
           |vpiParent:
           \_Assignment: , line:8:6, endln:8:16
           |vpiActual:
           \_BitSelect: (s[1]), line:8:6, endln:8:7
             |vpiParent:
-            \_HierPath: (s[1].x), line:8:6, endln:8:7
+            \_HierPath: (s[1].x), line:8:6, endln:8:12
             |vpiName:s
             |vpiFullName:s[1]
+            |vpiActual:
+            \_PackedArrayVar: (work@t.s), line:3:11, endln:3:12
             |vpiIndex:
             \_Constant: , line:8:8, endln:8:9
+              |vpiParent:
+              \_BitSelect: (s[1]), line:8:6, endln:8:7
               |vpiDecompile:1
               |vpiSize:64
               |UINT:1
@@ -279,45 +348,13 @@ Design: (unnamed)
           |vpiActual:
           \_RefObj: (s[1].x), line:8:11, endln:8:12
             |vpiParent:
-            \_HierPath: (s[1].x), line:8:6, endln:8:7
+            \_HierPath: (s[1].x), line:8:6, endln:8:12
             |vpiName:x
             |vpiFullName:s[1].x
+            |vpiActual:
+            \_LogicNet: (work@t.x), line:7:15, endln:7:16
           |vpiName:s[1].x
     |vpiAlwaysType:2
-\_weaklyReferenced:
-\_IntTypespec: , line:2:21, endln:2:24
-  |vpiParent:
-  \_TypespecMember: (x), line:2:25, endln:2:26
-  |vpiSigned:1
-\_PackedArrayTypespec: , line:3:4, endln:3:10
-  |vpiRange:
-  \_Range: , line:3:5, endln:3:10
-    |vpiParent:
-    \_PackedArrayTypespec: , line:3:4, endln:3:10
-    |vpiLeftRange:
-    \_Constant: , line:3:6, endln:3:7
-      |vpiParent:
-      \_Range: , line:3:5, endln:3:10
-      |vpiDecompile:1
-      |vpiSize:64
-      |UINT:1
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:3:8, endln:3:9
-      |vpiParent:
-      \_Range: , line:3:5, endln:3:10
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-  |vpiElemTypespec:
-  \_RefTypespec: 
-    |vpiParent:
-    \_PackedArrayTypespec: , line:3:4, endln:3:10
-    |vpiActual:
-    \_StructTypespec: (S), line:2:12, endln:2:29
-\_IntTypespec: , line:4:4, endln:4:7
-  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

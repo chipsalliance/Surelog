@@ -57,6 +57,10 @@ ${SURELOG_DIR}/tests/SimpleIncludeAndMacros/mode.vh:42:9: No default value for a
 [WRN:PP0118] ${SURELOG_DIR}/tests/SimpleIncludeAndMacros/top_2.v:47:15: Unknown escaped sequence '\p'.
 [INF:PP0123] Preprocessing include file "${SURELOG_DIR}/tests/SimpleIncludeAndMacros/foo/inc.sv".
 [INF:PP0122] Preprocessing source file "${SURELOG_DIR}/tests/SimpleIncludeAndMacros/top_3.v".
+[ERR:PP0115] ${SURELOG_DIR}/tests/SimpleIncludeAndMacros/top_3.v:4:9: Recursive macro definition for "TOP",
+             ${SURELOG_DIR}/tests/SimpleIncludeAndMacros/top_3.v:4:9: macro used in macro "TOP".
+[ERR:PP0102] ${SURELOG_DIR}/tests/SimpleIncludeAndMacros/top_3.v:4:1: Unknown macro "TOP".
+[ERR:PP0102] ${SURELOG_DIR}/tests/SimpleIncludeAndMacros/top_3.v:4:14: Unknown macro "TOP".
 [NTE:PP0105] ${SURELOG_DIR}/tests/SimpleIncludeAndMacros/top_3.v:13:1: Multiply defined macro "single",
              ${SURELOG_DIR}/tests/SimpleIncludeAndMacros/fake.sv:213:9: previous definition.
 [ERR:PP0102] ${SURELOG_DIR}/tests/SimpleIncludeAndMacros/top_3.v:16:1: Unknown macro "defaut_nettype".
@@ -86,66 +90,70 @@ ${SURELOG_DIR}/tests/SimpleIncludeAndMacros/mode.vh:21:9: macro definition takes
 AST_DEBUG_BEGIN
 Count: 7
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/SimpleIncludeAndMacros/top.v
-n<> u<6> t<Top_level_rule> c<1> l<3:1> el<47:33>
-  n<> u<1> t<Null_rule> p<6> s<5> l<3:1> el<2:2>
+FILE: ${SURELOG_DIR}/tests/SimpleIncludeAndMacros/top.v
+n<> u<6> t<Top_level_rule> c<1> l<3:1> el<45:45>
+  n<> u<1> t<Null_rule> p<6> s<5> l<3:1> el<3:1>
   n<> u<5> t<Source_text> p<6> c<4> l<3:1> el<3:21>
     n<> u<4> t<Description> p<5> c<3> l<3:1> el<3:21>
       n<> u<3> t<Top_directives> p<4> c<2> l<3:1> el<3:21>
         n<> u<2> t<Timescale_directive> p<3> l<3:1> el<3:21>
 AST_DEBUG_END
 [SNT:PA0207] ${SURELOG_DIR}/tests/SimpleIncludeAndMacros/mode.vh:26: Syntax error: mismatched input 'initial' expecting <EOF>,
-initial $display("start", "msg1" , "msg2", "end");
-^--.
+initial $display("start", "msg1"  , "msg2" , "end");
+^-- ${SURELOG_DIR}/tests/SimpleIncludeAndMacros/mode.vh:26:0:.
 [INF:PA0201] Parsing source file "${SURELOG_DIR}/tests/SimpleIncludeAndMacros/top_1.v".
 AST_DEBUG_BEGIN
 Count: 4
 LIB: work
-FILE f<11>:${SURELOG_DIR}/tests/SimpleIncludeAndMacros/top_1.v
-INCL f<130>: ${SURELOG_DIR}/tests/SimpleIncludeAndMacros/mode.vh
-n<> u<3> t<Top_level_rule> c<1> f<130> l<26:1> el<39:10>
-  n<> u<1> t<Null_rule> p<3> s<2> f<130> l<26:1> el<4:25>
-  n<> u<2> t<Source_text> p<3> f<130> l<26:1> el<4:25>
+FILE: ${SURELOG_DIR}/tests/SimpleIncludeAndMacros/top_1.v
+INCL f<177>: ${SURELOG_DIR}/tests/SimpleIncludeAndMacros/mode.vh
+n<> u<3> t<Top_level_rule> c<1> f<177> l<25:16> el<39:10>
+  n<> u<1> t<Null_rule> p<3> s<2> f<177> l<25:16> el<69:1>
+  n<> u<2> t<Source_text> p<3> f<177> l<25:16> el<69:1>
 AST_DEBUG_END
 [INF:PA0201] Parsing source file "${SURELOG_DIR}/tests/SimpleIncludeAndMacros/top_2.v".
 AST_DEBUG_BEGIN
 Count: 4
 LIB: work
-FILE f<12>:${SURELOG_DIR}/tests/SimpleIncludeAndMacros/top_2.v
-INCL f<128>: ${SURELOG_DIR}/tests/SimpleIncludeAndMacros/mode.vh
-n<> u<3> t<Top_level_rule> c<1> f<128> l<26:1> el<4:33>
-  n<> u<1> t<Null_rule> p<3> s<2> f<128> l<26:1> el<4:25>
-  n<> u<2> t<Source_text> p<3> f<128> l<26:1> el<4:25>
+FILE: ${SURELOG_DIR}/tests/SimpleIncludeAndMacros/top_2.v
+INCL f<175>: ${SURELOG_DIR}/tests/SimpleIncludeAndMacros/mode.vh
+n<> u<3> t<Top_level_rule> c<1> f<175> l<25:16> el<4:33>
+  n<> u<1> t<Null_rule> p<3> s<2> f<175> l<25:16> el<69:1>
+  n<> u<2> t<Source_text> p<3> f<175> l<25:16> el<69:1>
 AST_DEBUG_END
+[WRN:PA0215] Invalid VObject location.
 [INF:PA0201] Parsing source file "${SURELOG_DIR}/tests/SimpleIncludeAndMacros/top_3.v".
 AST_DEBUG_BEGIN
-Count: 4
+Count: 6
 LIB: work
-FILE f<13>:${SURELOG_DIR}/tests/SimpleIncludeAndMacros/top_3.v
-n<> u<3> t<Top_level_rule> c<1> l<5:1> el<52:10>
-  n<> u<1> t<Null_rule> p<3> s<2> l<5:1> el<2:4>
-  n<> u<2> t<Source_text> p<3> l<5:1> el<2:4>
+FILE: ${SURELOG_DIR}/tests/SimpleIncludeAndMacros/top_3.v
+n<> u<5> t<Top_level_rule> c<1> l<5:1> el<52:10>
+  n<> u<1> t<Null_rule> p<5> s<4> l<4:18> el<5:1>
+  n<> u<4> t<Source_text> p<5> c<3> l<4:18> el<4:50>
+    n<> u<3> t<Description> p<4> c<2> l<4:18> el<4:50>
+      n<> u<2> t<Surelog_macro_not_defined> p<3> l<4:18> el<4:50>
 AST_DEBUG_END
-[SNT:PA0207] ${SURELOG_DIR}/tests/SimpleIncludeAndMacros/top_3.v:5: Syntax error: mismatched input '1' expecting <EOF>,
-1 + 1 + 42 + 100 + c
-^--.
+[SNT:PA0207] ${SURELOG_DIR}/tests/SimpleIncludeAndMacros/top_3.v:5:34: Syntax error: mismatched input '+' expecting <EOF>,
+SURELOG_MACRO_NOT_DEFINED:TOP!!!  + SURELOG_MACRO_NOT_DEFINED:TOP!!!  
+                                  ^-- ${SURELOG_DIR}/tests/SimpleIncludeAndMacros/top_3.v:5:34:.
+[ERR:PA0203] ${SURELOG_DIR}/tests/SimpleIncludeAndMacros/top_3.v:5: Unknown macro "TOP".
 [INF:PA0201] Parsing source file "${SURELOG_DIR}/tests/SimpleIncludeAndMacros/top_4.v".
 AST_DEBUG_BEGIN
 Count: 4
 LIB: work
-FILE f<14>:${SURELOG_DIR}/tests/SimpleIncludeAndMacros/top_4.v
-INCL f<128>: ${SURELOG_DIR}/tests/SimpleIncludeAndMacros/mode.vh
-n<> u<3> t<Top_level_rule> c<1> f<128> l<26:1> el<56:10>
-  n<> u<1> t<Null_rule> p<3> s<2> f<128> l<26:1> el<4:25>
-  n<> u<2> t<Source_text> p<3> f<128> l<26:1> el<4:25>
+FILE: ${SURELOG_DIR}/tests/SimpleIncludeAndMacros/top_4.v
+INCL f<175>: ${SURELOG_DIR}/tests/SimpleIncludeAndMacros/mode.vh
+n<> u<3> t<Top_level_rule> c<1> f<175> l<25:16> el<56:10>
+  n<> u<1> t<Null_rule> p<3> s<2> f<175> l<25:16> el<69:1>
+  n<> u<2> t<Source_text> p<3> f<175> l<25:16> el<69:1>
 AST_DEBUG_END
 [INF:PA0201] Parsing source file "${SURELOG_DIR}/tests/SimpleIncludeAndMacros/lib.v".
 AST_DEBUG_BEGIN
 Count: 444
 LIB: work
-FILE f<18>:${SURELOG_DIR}/tests/SimpleIncludeAndMacros/lib.v
+FILE: ${SURELOG_DIR}/tests/SimpleIncludeAndMacros/lib.v
 n<> u<443> t<Top_level_rule> c<1> l<1:1> el<36:1>
-  n<> u<1> t<Null_rule> p<443> s<442> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<443> s<442> l<1:1>
   n<> u<442> t<Source_text> p<443> c<4> l<1:1> el<35:13>
     n<> u<4> t<Description> p<442> c<3> s<52> l<1:1> el<1:12>
       n<> u<3> t<Top_directives> p<4> c<2> l<1:1> el<1:12>
@@ -590,6 +598,6 @@ n<> u<443> t<Top_level_rule> c<1> l<1:1> el<36:1>
 AST_DEBUG_END
 [  FATAL] : 0
 [ SYNTAX] : 3
-[  ERROR] : 23
-[WARNING] : 12
+[  ERROR] : 27
+[WARNING] : 13
 [   NOTE] : 6

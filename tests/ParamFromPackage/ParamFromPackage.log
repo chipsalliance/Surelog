@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 127
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv
+FILE: ${SURELOG_DIR}/tests/ParamFromPackage/dut.sv
 n<> u<126> t<Top_level_rule> c<1> l<1:1> el<15:1>
-  n<> u<1> t<Null_rule> p<126> s<125> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<126> s<125> l<1:1>
   n<> u<125> t<Source_text> p<126> c<41> l<1:1> el<14:10>
     n<> u<41> t<Description> p<125> c<40> s<99> l<1:1> el<3:11>
       n<> u<40> t<Package_declaration> p<41> c<2> l<1:1> el<3:11>
@@ -138,41 +138,39 @@ AST_DEBUG_END
 [INF:CP0303] ${SURELOG_DIR}/tests/ParamFromPackage/dut.sv:12:1: Compile module "work@top".
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-Constant                                              30
+Constant                                              13
 Design                                                 1
 ImportTypespec                                         1
-LogicTypespec                                          7
+LogicTypespec                                          3
 Module                                                 3
+ModuleTypespec                                         1
 Package                                                1
-ParamAssign                                            5
-Parameter                                              6
-Range                                                 12
+ParamAssign                                            3
+Parameter                                              3
+Range                                                  4
 RefModule                                              1
 RefObj                                                 1
-RefTypespec                                           10
+RefTypespec                                            4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamFromPackage/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ParamFromPackage/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ParamFromPackage/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallPackages:
-\_Package: aes_pkg (aes_pkg::), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:1:1, endln:3:11
+|vpiAllPackages:
+\_Package: aes_pkg (aes_pkg), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:1:1, endln:3:11
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:aes_pkg
-  |vpiFullName:aes_pkg::
   |vpiParameter:
-  \_Parameter: (aes_pkg::X), line:2:31, endln:2:32
+  \_Parameter: (aes_pkg::X), line:2:31, endln:2:43
     |vpiParent:
-    \_Package: aes_pkg (aes_pkg::), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:1:1, endln:3:11
+    \_Package: aes_pkg (aes_pkg), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:1:1, endln:3:11
     |HEX:abcd
     |vpiTypespec:
-    \_RefTypespec: (aes_pkg::X)
+    \_RefTypespec: (aes_pkg::X), line:2:14, endln:2:30
       |vpiParent:
-      \_Parameter: (aes_pkg::X), line:2:31, endln:2:32
+      \_Parameter: (aes_pkg::X), line:2:31, endln:2:43
       |vpiFullName:aes_pkg::X
       |vpiActual:
       \_LogicTypespec: , line:2:14, endln:2:30
@@ -181,7 +179,7 @@ Design: (unnamed)
   |vpiParamAssign:
   \_ParamAssign: , line:2:31, endln:2:43
     |vpiParent:
-    \_Package: aes_pkg (aes_pkg::), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:1:1, endln:3:11
+    \_Package: aes_pkg (aes_pkg), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:1:1, endln:3:11
     |vpiRhs:
     \_Constant: , line:2:35, endln:2:43
       |vpiParent:
@@ -189,98 +187,88 @@ Design: (unnamed)
       |vpiDecompile:32'habcd
       |vpiSize:32
       |HEX:abcd
-      |vpiTypespec:
-      \_RefTypespec: (aes_pkg)
-        |vpiParent:
-        \_Constant: , line:2:35, endln:2:43
-        |vpiFullName:aes_pkg
-        |vpiActual:
-        \_LogicTypespec: , line:2:14, endln:2:30
       |vpiConstType:5
     |vpiLhs:
-    \_Parameter: (aes_pkg::X), line:2:31, endln:2:32
+    \_Parameter: (aes_pkg::X), line:2:31, endln:2:43
+  |vpiTypedef:
+  \_LogicTypespec: , line:2:14, endln:2:30
+    |vpiParent:
+    \_Package: aes_pkg (aes_pkg), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:1:1, endln:3:11
+    |vpiRange:
+    \_Range: , line:2:20, endln:2:25
+      |vpiParent:
+      \_LogicTypespec: , line:2:14, endln:2:30
+      |vpiLeftRange:
+      \_Constant: , line:2:21, endln:2:22
+        |vpiParent:
+        \_Range: , line:2:20, endln:2:25
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:2:23, endln:2:24
+        |vpiParent:
+        \_Range: , line:2:20, endln:2:25
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiRange:
+    \_Range: , line:2:25, endln:2:30
+      |vpiParent:
+      \_LogicTypespec: , line:2:14, endln:2:30
+      |vpiLeftRange:
+      \_Constant: , line:2:26, endln:2:27
+        |vpiParent:
+        \_Range: , line:2:25, endln:2:30
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:2:28, endln:2:29
+        |vpiParent:
+        \_Range: , line:2:25, endln:2:30
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:2:14, endln:2:30
   |vpiDefName:aes_pkg
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@aes_cipher_core (work@aes_cipher_core), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:5:1, endln:10:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@aes_cipher_core
+  |vpiName:work@aes_cipher_core
   |vpiParameter:
-  \_Parameter: (work@aes_cipher_core.X), line:2:31, endln:2:32
-    |vpiParent:
-    \_Module: work@aes_cipher_core (work@aes_cipher_core), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:5:1, endln:10:10
-    |HEX:abcd
-    |vpiTypespec:
-    \_RefTypespec: (work@aes_cipher_core.X)
-      |vpiParent:
-      \_Parameter: (work@aes_cipher_core.X), line:2:31, endln:2:32
-      |vpiFullName:work@aes_cipher_core.X
-      |vpiActual:
-      \_LogicTypespec: , line:2:14, endln:2:30
-    |vpiName:X
-    |vpiFullName:work@aes_cipher_core.X
-    |vpiImported:aes_pkg
-  |vpiParameter:
-  \_Parameter: (work@aes_cipher_core.P), line:7:34, endln:7:35
+  \_Parameter: (work@aes_cipher_core.P), line:7:34, endln:7:39
     |vpiParent:
     \_Module: work@aes_cipher_core (work@aes_cipher_core), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:5:1, endln:10:10
     |vpiTypespec:
-    \_RefTypespec: (work@aes_cipher_core.P)
+    \_RefTypespec: (work@aes_cipher_core.P), line:7:17, endln:7:33
       |vpiParent:
-      \_Parameter: (work@aes_cipher_core.P), line:7:34, endln:7:35
+      \_Parameter: (work@aes_cipher_core.P), line:7:34, endln:7:39
       |vpiFullName:work@aes_cipher_core.P
       |vpiActual:
       \_LogicTypespec: , line:7:17, endln:7:33
     |vpiName:P
     |vpiFullName:work@aes_cipher_core.P
   |vpiParameter:
-  \_Parameter: (work@aes_cipher_core.Z), line:8:23, endln:8:24
+  \_Parameter: (work@aes_cipher_core.Z), line:8:23, endln:8:28
     |vpiParent:
     \_Module: work@aes_cipher_core (work@aes_cipher_core), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:5:1, endln:10:10
     |UINT:0
     |vpiTypespec:
-    \_RefTypespec: (work@aes_cipher_core.Z)
+    \_RefTypespec: (work@aes_cipher_core.Z), line:8:17, endln:8:22
       |vpiParent:
-      \_Parameter: (work@aes_cipher_core.Z), line:8:23, endln:8:24
+      \_Parameter: (work@aes_cipher_core.Z), line:8:23, endln:8:28
       |vpiFullName:work@aes_cipher_core.Z
       |vpiActual:
       \_LogicTypespec: , line:8:17, endln:8:22
     |vpiName:Z
     |vpiFullName:work@aes_cipher_core.Z
-  |vpiParamAssign:
-  \_ParamAssign: , line:2:31, endln:2:43
-    |vpiParent:
-    \_Module: work@aes_cipher_core (work@aes_cipher_core), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:5:1, endln:10:10
-    |vpiRhs:
-    \_Constant: , line:2:35, endln:2:43
-      |vpiParent:
-      \_ParamAssign: , line:2:31, endln:2:43
-      |vpiDecompile:32'habcd
-      |vpiSize:32
-      |HEX:abcd
-      |vpiTypespec:
-      \_RefTypespec: (work@aes_cipher_core)
-        |vpiParent:
-        \_Constant: , line:2:35, endln:2:43
-        |vpiFullName:work@aes_cipher_core
-        |vpiActual:
-        \_LogicTypespec: , line:2:14, endln:2:30
-      |vpiConstType:5
-    |vpiLhs:
-    \_Parameter: (work@aes_cipher_core.X), line:2:31, endln:2:32
-      |vpiParent:
-      \_ParamAssign: , line:2:31, endln:2:43
-      |HEX:abcd
-      |vpiTypespec:
-      \_RefTypespec: (work@aes_cipher_core.X)
-        |vpiParent:
-        \_Parameter: (work@aes_cipher_core.X), line:2:31, endln:2:32
-        |vpiFullName:work@aes_cipher_core.X
-        |vpiActual:
-        \_LogicTypespec: , line:2:14, endln:2:30
-      |vpiName:X
-      |vpiFullName:work@aes_cipher_core.X
-      |vpiImported:aes_pkg
   |vpiParamAssign:
   \_ParamAssign: , line:7:34, endln:7:39
     |vpiParent:
@@ -291,8 +279,10 @@ Design: (unnamed)
       \_ParamAssign: , line:7:34, endln:7:39
       |vpiName:X
       |vpiFullName:work@aes_cipher_core.X
+      |vpiActual:
+      \_LogicNet: (work@aes_cipher_core.X), line:7:38, endln:7:39
     |vpiLhs:
-    \_Parameter: (work@aes_cipher_core.P), line:7:34, endln:7:35
+    \_Parameter: (work@aes_cipher_core.P), line:7:34, endln:7:39
   |vpiParamAssign:
   \_ParamAssign: , line:8:23, endln:8:28
     |vpiParent:
@@ -304,260 +294,107 @@ Design: (unnamed)
       |vpiDecompile:0
       |vpiSize:64
       |UINT:0
-      |vpiTypespec:
-      \_RefTypespec: (work@aes_cipher_core)
-        |vpiParent:
-        \_Constant: , line:8:27, endln:8:28
-        |vpiFullName:work@aes_cipher_core
-        |vpiActual:
-        \_LogicTypespec: , line:8:17, endln:8:22
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (work@aes_cipher_core.Z), line:8:23, endln:8:24
+    \_Parameter: (work@aes_cipher_core.Z), line:8:23, endln:8:28
   |vpiTypedef:
   \_ImportTypespec: (aes_pkg), line:5:31, endln:5:41
+    |vpiParent:
+    \_Module: work@aes_cipher_core (work@aes_cipher_core), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:5:1, endln:10:10
+    |vpiName:aes_pkg
+    |vpiImportTypespecItem:
+    \_Constant: , line:5:31, endln:5:41
+      |vpiParent:
+      \_ImportTypespec: (aes_pkg), line:5:31, endln:5:41
+      |vpiDecompile:*
+      |vpiSize:8
+      |STRING:*
+      |vpiConstType:8
+  |vpiTypedef:
+  \_LogicTypespec: , line:7:17, endln:7:33
+    |vpiParent:
+    \_Module: work@aes_cipher_core (work@aes_cipher_core), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:5:1, endln:10:10
+    |vpiRange:
+    \_Range: , line:7:23, endln:7:28
+      |vpiParent:
+      \_LogicTypespec: , line:7:17, endln:7:33
+      |vpiLeftRange:
+      \_Constant: , line:7:24, endln:7:25
+        |vpiParent:
+        \_Range: , line:7:23, endln:7:28
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:7:26, endln:7:27
+        |vpiParent:
+        \_Range: , line:7:23, endln:7:28
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiRange:
+    \_Range: , line:7:28, endln:7:33
+      |vpiParent:
+      \_LogicTypespec: , line:7:17, endln:7:33
+      |vpiLeftRange:
+      \_Constant: , line:7:29, endln:7:30
+        |vpiParent:
+        \_Range: , line:7:28, endln:7:33
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:7:31, endln:7:32
+        |vpiParent:
+        \_Range: , line:7:28, endln:7:33
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:8:17, endln:8:22
+    |vpiParent:
+    \_Module: work@aes_cipher_core (work@aes_cipher_core), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:5:1, endln:10:10
+  |vpiImportTypespec:
+  \_ImportTypespec: (aes_pkg), line:5:31, endln:5:41
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:7:17, endln:7:33
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:8:17, endln:8:22
+  |vpiImportTypespec:
+  \_LogicNet: (work@aes_cipher_core.X), line:7:38, endln:7:39
+    |vpiParent:
+    \_Module: work@aes_cipher_core (work@aes_cipher_core), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:5:1, endln:10:10
+    |vpiName:X
+    |vpiFullName:work@aes_cipher_core.X
+    |vpiNetType:1
   |vpiDefName:work@aes_cipher_core
-|uhdmallModules:
+  |vpiNet:
+  \_LogicNet: (work@aes_cipher_core.X), line:7:38, endln:7:39
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:12:1, endln:14:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
+  |vpiName:work@top
+  |vpiTypedef:
+  \_ModuleTypespec: (aes_cipher_core), line:13:4, endln:13:19
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:12:1, endln:14:10
+    |vpiName:aes_cipher_core
+  |vpiImportTypespec:
+  \_ModuleTypespec: (aes_cipher_core), line:13:4, endln:13:19
   |vpiDefName:work@top
   |vpiRefModule:
-  \_RefModule: work@aes_cipher_core (u_aes_cipher_core), line:13:29, endln:13:46
+  \_RefModule: work@aes_cipher_core (u_aes_cipher_core), line:13:4, endln:13:19
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:12:1, endln:14:10
     |vpiName:u_aes_cipher_core
     |vpiDefName:work@aes_cipher_core
     |vpiActual:
     \_Module: work@aes_cipher_core (work@aes_cipher_core), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:5:1, endln:10:10
-\_weaklyReferenced:
-\_LogicTypespec: , line:2:14, endln:2:30
-  |vpiParent:
-  \_Parameter: (aes_pkg::X), line:2:31, endln:2:32
-  |vpiInstance:
-  \_Package: aes_pkg (aes_pkg::), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:1:1, endln:3:11
-  |vpiRange:
-  \_Range: , line:2:20, endln:2:25
-    |vpiParent:
-    \_LogicTypespec: , line:2:14, endln:2:30
-    |vpiLeftRange:
-    \_Constant: , line:2:21, endln:2:22
-      |vpiParent:
-      \_Range: , line:2:20, endln:2:25
-      |vpiDecompile:7
-      |vpiSize:64
-      |UINT:7
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:2:23, endln:2:24
-      |vpiParent:
-      \_Range: , line:2:20, endln:2:25
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-  |vpiRange:
-  \_Range: , line:2:25, endln:2:30
-    |vpiParent:
-    \_LogicTypespec: , line:2:14, endln:2:30
-    |vpiLeftRange:
-    \_Constant: , line:2:26, endln:2:27
-      |vpiParent:
-      \_Range: , line:2:25, endln:2:30
-      |vpiDecompile:3
-      |vpiSize:64
-      |UINT:3
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:2:28, endln:2:29
-      |vpiParent:
-      \_Range: , line:2:25, endln:2:30
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:2:14, endln:2:30
-  |vpiParent:
-  \_RefTypespec: (work@aes_cipher_core.X)
-  |vpiInstance:
-  \_Package: aes_pkg (aes_pkg::), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:1:1, endln:3:11
-  |vpiRange:
-  \_Range: , line:2:20, endln:2:25
-    |vpiParent:
-    \_LogicTypespec: , line:2:14, endln:2:30
-    |vpiLeftRange:
-    \_Constant: , line:2:21, endln:2:22
-      |vpiParent:
-      \_Range: , line:2:20, endln:2:25
-      |vpiDecompile:7
-      |vpiSize:64
-      |UINT:7
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:2:23, endln:2:24
-      |vpiParent:
-      \_Range: , line:2:20, endln:2:25
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-  |vpiRange:
-  \_Range: , line:2:25, endln:2:30
-    |vpiParent:
-    \_LogicTypespec: , line:2:14, endln:2:30
-    |vpiLeftRange:
-    \_Constant: , line:2:26, endln:2:27
-      |vpiParent:
-      \_Range: , line:2:25, endln:2:30
-      |vpiDecompile:3
-      |vpiSize:64
-      |UINT:3
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:2:28, endln:2:29
-      |vpiParent:
-      \_Range: , line:2:25, endln:2:30
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:2:14, endln:2:30
-  |vpiParent:
-  \_RefTypespec: (work@aes_cipher_core)
-  |vpiInstance:
-  \_Package: aes_pkg (aes_pkg::), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:1:1, endln:3:11
-  |vpiRange:
-  \_Range: , line:2:20, endln:2:25
-    |vpiParent:
-    \_LogicTypespec: , line:2:14, endln:2:30
-    |vpiLeftRange:
-    \_Constant: , line:2:21, endln:2:22
-      |vpiParent:
-      \_Range: , line:2:20, endln:2:25
-      |vpiDecompile:7
-      |vpiSize:64
-      |UINT:7
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:2:23, endln:2:24
-      |vpiParent:
-      \_Range: , line:2:20, endln:2:25
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-  |vpiRange:
-  \_Range: , line:2:25, endln:2:30
-    |vpiParent:
-    \_LogicTypespec: , line:2:14, endln:2:30
-    |vpiLeftRange:
-    \_Constant: , line:2:26, endln:2:27
-      |vpiParent:
-      \_Range: , line:2:25, endln:2:30
-      |vpiDecompile:3
-      |vpiSize:64
-      |UINT:3
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:2:28, endln:2:29
-      |vpiParent:
-      \_Range: , line:2:25, endln:2:30
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:2:14, endln:2:30
-  |vpiParent:
-  \_RefTypespec: (work@aes_cipher_core.X)
-  |vpiInstance:
-  \_Package: aes_pkg (aes_pkg::), file:${SURELOG_DIR}/tests/ParamFromPackage/dut.sv, line:1:1, endln:3:11
-  |vpiRange:
-  \_Range: , line:2:20, endln:2:25
-    |vpiParent:
-    \_LogicTypespec: , line:2:14, endln:2:30
-    |vpiLeftRange:
-    \_Constant: , line:2:21, endln:2:22
-      |vpiParent:
-      \_Range: , line:2:20, endln:2:25
-      |vpiDecompile:7
-      |vpiSize:64
-      |UINT:7
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:2:23, endln:2:24
-      |vpiParent:
-      \_Range: , line:2:20, endln:2:25
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-  |vpiRange:
-  \_Range: , line:2:25, endln:2:30
-    |vpiParent:
-    \_LogicTypespec: , line:2:14, endln:2:30
-    |vpiLeftRange:
-    \_Constant: , line:2:26, endln:2:27
-      |vpiParent:
-      \_Range: , line:2:25, endln:2:30
-      |vpiDecompile:3
-      |vpiSize:64
-      |UINT:3
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:2:28, endln:2:29
-      |vpiParent:
-      \_Range: , line:2:25, endln:2:30
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:7:17, endln:7:33
-  |vpiParent:
-  \_Parameter: (work@aes_cipher_core.P), line:7:34, endln:7:35
-  |vpiRange:
-  \_Range: , line:7:23, endln:7:28
-    |vpiParent:
-    \_LogicTypespec: , line:7:17, endln:7:33
-    |vpiLeftRange:
-    \_Constant: , line:7:24, endln:7:25
-      |vpiParent:
-      \_Range: , line:7:23, endln:7:28
-      |vpiDecompile:7
-      |vpiSize:64
-      |UINT:7
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:7:26, endln:7:27
-      |vpiParent:
-      \_Range: , line:7:23, endln:7:28
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-  |vpiRange:
-  \_Range: , line:7:28, endln:7:33
-    |vpiParent:
-    \_LogicTypespec: , line:7:17, endln:7:33
-    |vpiLeftRange:
-    \_Constant: , line:7:29, endln:7:30
-      |vpiParent:
-      \_Range: , line:7:28, endln:7:33
-      |vpiDecompile:3
-      |vpiSize:64
-      |UINT:3
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:7:31, endln:7:32
-      |vpiParent:
-      \_Range: , line:7:28, endln:7:33
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:8:17, endln:8:22
-  |vpiParent:
-  \_Parameter: (work@aes_cipher_core.Z), line:8:23, endln:8:24
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

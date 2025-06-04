@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 41
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/AllBinding/enum.sv
+FILE: ${SURELOG_DIR}/tests/AllBinding/enum.sv
 n<> u<40> t<Top_level_rule> c<1> l<1:1> el<6:1>
-  n<> u<1> t<Null_rule> p<40> s<39> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<40> s<39> l<1:1>
   n<> u<39> t<Source_text> p<40> c<38> l<1:1> el<5:24>
     n<> u<38> t<Description> p<39> c<37> l<1:1> el<5:24>
       n<> u<37> t<Package_item> p<38> c<36> l<1:1> el<5:24>
@@ -47,9 +47,9 @@ AST_DEBUG_END
 AST_DEBUG_BEGIN
 Count: 29
 LIB: work
-FILE f<11>:${SURELOG_DIR}/tests/AllBinding/dut.sv
+FILE: ${SURELOG_DIR}/tests/AllBinding/dut.sv
 n<> u<28> t<Top_level_rule> c<1> l<1:1> el<6:1>
-  n<> u<1> t<Null_rule> p<28> s<27> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<28> s<27> l<1:1>
   n<> u<27> t<Source_text> p<28> c<26> l<1:1> el<5:10>
     n<> u<26> t<Description> p<27> c<25> l<1:1> el<5:10>
       n<> u<25> t<Module_declaration> p<26> c<13> l<1:1> el<5:10>
@@ -62,7 +62,7 @@ n<> u<28> t<Top_level_rule> c<1> l<1:1> el<6:1>
                 n<> u<4> t<PortDir_Inp> p<9> s<8> l<1:13> el<1:18>
                 n<> u<8> t<Net_port_type> p<9> c<7> l<1:21> el<1:41>
                   n<> u<7> t<Data_type_or_implicit> p<8> c<6> l<1:21> el<1:41>
-                    n<> u<6> t<Data_type> p<7> c<5> l<1:21> el<1:41>
+                    n<type_scr1_mem_resp_e> u<6> t<Data_type> p<7> c<5> l<1:21> el<1:41>
                       n<type_scr1_mem_resp_e> u<5> t<StringConst> p<6> l<1:21> el<1:41>
               n<dmem2exu_resp_i> u<10> t<StringConst> p<11> l<1:57> el<1:72>
         n<> u<23> t<Non_port_module_item> p<25> c<22> s<24> l<3:1> el<3:54>
@@ -86,107 +86,76 @@ Constant                                               8
 Design                                                 1
 EnumConst                                              3
 EnumTypespec                                           1
-LogicNet                                               2
+EnumVar                                                2
 LogicTypespec                                          1
 Module                                                 2
 Port                                                   1
 Range                                                  1
-RefObj                                                 1
-RefTypespec                                            3
+RefTypespec                                            4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/AllBinding/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/AllBinding/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/AllBinding/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/AllBinding/dut.sv, line:1:1, endln:5:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
-  |vpiDefName:work@top
-  |vpiNet:
-  \_LogicNet: (work@top.dmem2exu_resp_i), line:1:57, endln:1:72
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/AllBinding/dut.sv, line:1:1, endln:5:10
-    |vpiName:dmem2exu_resp_i
-    |vpiFullName:work@top.dmem2exu_resp_i
-  |vpiNet:
-  \_LogicNet: (work@top.dmem2exu_resp_ii), line:3:37, endln:3:53
+  |vpiName:work@top
+  |vpiVariables:
+  \_EnumVar: (work@top.dmem2exu_resp_i), line:1:57, endln:1:72
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/AllBinding/dut.sv, line:1:1, endln:5:10
     |vpiTypespec:
-    \_RefTypespec: (work@top.dmem2exu_resp_ii)
+    \_RefTypespec: (work@top.dmem2exu_resp_i.type_scr1_mem_resp_e), line:1:21, endln:1:41
       |vpiParent:
-      \_LogicNet: (work@top.dmem2exu_resp_ii), line:3:37, endln:3:53
-      |vpiFullName:work@top.dmem2exu_resp_ii
+      \_EnumVar: (work@top.dmem2exu_resp_i), line:1:57, endln:1:72
+      |vpiName:type_scr1_mem_resp_e
+      |vpiFullName:work@top.dmem2exu_resp_i.type_scr1_mem_resp_e
       |vpiActual:
-      \_EnumTypespec: (type_scr1_mem_resp_e), line:1:1, endln:5:24
+      \_EnumTypespec: (type_scr1_mem_resp_e), line:1:9, endln:5:23
+    |vpiName:dmem2exu_resp_i
+    |vpiFullName:work@top.dmem2exu_resp_i
+    |vpiVisibility:1
+  |vpiVariables:
+  \_EnumVar: (work@top.dmem2exu_resp_ii), line:3:37, endln:3:53
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/AllBinding/dut.sv, line:1:1, endln:5:10
+    |vpiTypespec:
+    \_RefTypespec: (work@top.dmem2exu_resp_ii.type_scr1_mem_resp_e), line:3:1, endln:3:21
+      |vpiParent:
+      \_EnumVar: (work@top.dmem2exu_resp_ii), line:3:37, endln:3:53
+      |vpiName:type_scr1_mem_resp_e
+      |vpiFullName:work@top.dmem2exu_resp_ii.type_scr1_mem_resp_e
+      |vpiActual:
+      \_EnumTypespec: (type_scr1_mem_resp_e), line:1:9, endln:5:23
     |vpiName:dmem2exu_resp_ii
     |vpiFullName:work@top.dmem2exu_resp_ii
+    |vpiVisibility:1
+  |vpiImportTypespec:
+  \_EnumVar: (work@top.dmem2exu_resp_i), line:1:57, endln:1:72
+  |vpiImportTypespec:
+  \_EnumVar: (work@top.dmem2exu_resp_ii), line:3:37, endln:3:53
+  |vpiDefName:work@top
   |vpiPort:
   \_Port: (dmem2exu_resp_i), line:1:57, endln:1:72
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/AllBinding/dut.sv, line:1:1, endln:5:10
     |vpiName:dmem2exu_resp_i
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@top.dmem2exu_resp_i.dmem2exu_resp_i), line:1:57, endln:1:72
+    |vpiTypespec:
+    \_RefTypespec: (work@top.dmem2exu_resp_i.type_scr1_mem_resp_e), line:1:21, endln:1:41
       |vpiParent:
       \_Port: (dmem2exu_resp_i), line:1:57, endln:1:72
-      |vpiName:dmem2exu_resp_i
-      |vpiFullName:work@top.dmem2exu_resp_i.dmem2exu_resp_i
+      |vpiName:type_scr1_mem_resp_e
+      |vpiFullName:work@top.dmem2exu_resp_i.type_scr1_mem_resp_e
       |vpiActual:
-      \_LogicNet: (work@top.dmem2exu_resp_i), line:1:57, endln:1:72
-    |vpiTypedef:
-    \_RefTypespec: (work@top.dmem2exu_resp_i)
-      |vpiParent:
-      \_Port: (dmem2exu_resp_i), line:1:57, endln:1:72
-      |vpiFullName:work@top.dmem2exu_resp_i
-      |vpiActual:
-      \_EnumTypespec: (type_scr1_mem_resp_e), line:1:1, endln:5:24
+      \_EnumTypespec: (type_scr1_mem_resp_e), line:1:9, endln:5:23
 |vpiTypedef:
-\_EnumTypespec: (type_scr1_mem_resp_e), line:1:1, endln:5:24
+\_LogicTypespec: , line:1:14, endln:1:24
   |vpiParent:
   \_Design: (unnamed)
-  |vpiName:type_scr1_mem_resp_e
-  |vpiInstance:
-  \_Design: (unnamed)
-  |vpiBaseTypespec:
-  \_RefTypespec: (type_scr1_mem_resp_e)
-    |vpiParent:
-    \_EnumTypespec: (type_scr1_mem_resp_e), line:1:1, endln:5:24
-    |vpiFullName:type_scr1_mem_resp_e
-    |vpiActual:
-    \_LogicTypespec: , line:1:14, endln:1:24
-  |vpiEnumConst:
-  \_EnumConst: (SCR1_MEM_RESP_NOTRDY), line:2:5, endln:2:36
-    |vpiParent:
-    \_EnumTypespec: (type_scr1_mem_resp_e), line:1:1, endln:5:24
-    |vpiName:SCR1_MEM_RESP_NOTRDY
-    |BIN:00
-    |vpiDecompile:2'b00
-    |vpiSize:2
-  |vpiEnumConst:
-  \_EnumConst: (SCR1_MEM_RESP_RDY_OK), line:3:5, endln:3:36
-    |vpiParent:
-    \_EnumTypespec: (type_scr1_mem_resp_e), line:1:1, endln:5:24
-    |vpiName:SCR1_MEM_RESP_RDY_OK
-    |BIN:01
-    |vpiDecompile:2'b01
-    |vpiSize:2
-  |vpiEnumConst:
-  \_EnumConst: (SCR1_MEM_RESP_RDY_ER), line:4:5, endln:4:36
-    |vpiParent:
-    \_EnumTypespec: (type_scr1_mem_resp_e), line:1:1, endln:5:24
-    |vpiName:SCR1_MEM_RESP_RDY_ER
-    |BIN:10
-    |vpiDecompile:2'b10
-    |vpiSize:2
-\_weaklyReferenced:
-\_LogicTypespec: , line:1:14, endln:1:24
   |vpiRange:
   \_Range: , line:1:19, endln:1:24
     |vpiParent:
@@ -207,6 +176,42 @@ Design: (unnamed)
       |vpiSize:64
       |UINT:0
       |vpiConstType:9
+|vpiTypedef:
+\_EnumTypespec: (type_scr1_mem_resp_e), line:1:9, endln:5:23
+  |vpiParent:
+  \_Design: (unnamed)
+  |vpiName:type_scr1_mem_resp_e
+  |vpiBaseTypespec:
+  \_RefTypespec: (type_scr1_mem_resp_e), line:1:14, endln:1:24
+    |vpiParent:
+    \_EnumTypespec: (type_scr1_mem_resp_e), line:1:9, endln:5:23
+    |vpiFullName:type_scr1_mem_resp_e
+    |vpiActual:
+    \_LogicTypespec: , line:1:14, endln:1:24
+  |vpiEnumConst:
+  \_EnumConst: (SCR1_MEM_RESP_NOTRDY), line:2:5, endln:2:36
+    |vpiParent:
+    \_EnumTypespec: (type_scr1_mem_resp_e), line:1:9, endln:5:23
+    |vpiName:SCR1_MEM_RESP_NOTRDY
+    |BIN:00
+    |vpiDecompile:2'b00
+    |vpiSize:2
+  |vpiEnumConst:
+  \_EnumConst: (SCR1_MEM_RESP_RDY_OK), line:3:5, endln:3:36
+    |vpiParent:
+    \_EnumTypespec: (type_scr1_mem_resp_e), line:1:9, endln:5:23
+    |vpiName:SCR1_MEM_RESP_RDY_OK
+    |BIN:01
+    |vpiDecompile:2'b01
+    |vpiSize:2
+  |vpiEnumConst:
+  \_EnumConst: (SCR1_MEM_RESP_RDY_ER), line:4:5, endln:4:36
+    |vpiParent:
+    \_EnumTypespec: (type_scr1_mem_resp_e), line:1:9, endln:5:23
+    |vpiName:SCR1_MEM_RESP_RDY_ER
+    |BIN:10
+    |vpiDecompile:2'b10
+    |vpiSize:2
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -3,9 +3,9 @@
 AST_DEBUG_BEGIN
 Count: 82
 LIB: work
-FILE f<11>:${SURELOG_DIR}/tests/IndexAssign/dut.sv
+FILE: ${SURELOG_DIR}/tests/IndexAssign/dut.sv
 n<> u<81> t<Top_level_rule> c<1> l<1:1> el<6:1>
-  n<> u<1> t<Null_rule> p<81> s<80> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<81> s<80> l<1:1>
   n<> u<80> t<Source_text> p<81> c<79> l<1:1> el<5:10>
     n<> u<79> t<Description> p<80> c<78> l<1:1> el<5:10>
       n<> u<78> t<Module_declaration> p<79> c<4> l<1:1> el<5:10>
@@ -92,41 +92,55 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 BitSelect                                              1
-Constant                                               5
+Constant                                               7
 ContAssign                                             1
 Design                                                 1
 IntTypespec                                            1
-LogicNet                                               1
 LogicTypespec                                          1
+LogicVar                                               1
 Module                                                 1
-Operation                                              2
+Operation                                              3
 ParamAssign                                            1
 Parameter                                              1
-Range                                                  1
-RefObj                                                 2
-RefTypespec                                            3
+Range                                                  2
+RefObj                                                 3
+RefTypespec                                            2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/IndexAssign/slpp_unit/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/IndexAssign/slpp_unit/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/IndexAssign/slpp_unit/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@t (work@t), file:${SURELOG_DIR}/tests/IndexAssign/dut.sv, line:1:1, endln:5:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@t
+  |vpiName:work@t
+  |vpiVariables:
+  \_LogicVar: (work@t.sig), line:3:17, endln:3:20
+    |vpiParent:
+    \_Module: work@t (work@t), file:${SURELOG_DIR}/tests/IndexAssign/dut.sv, line:1:1, endln:5:10
+    |vpiTypespec:
+    \_RefTypespec: (work@t.sig), line:3:3, endln:3:16
+      |vpiParent:
+      \_LogicVar: (work@t.sig), line:3:17, endln:3:20
+      |vpiFullName:work@t.sig
+      |vpiActual:
+      \_LogicTypespec: , line:3:3, endln:3:16
+    |vpiName:sig
+    |vpiFullName:work@t.sig
+    |vpiVisibility:1
+  |vpiReg:
+  \_LogicVar: (work@t.sig), line:3:17, endln:3:20
   |vpiParameter:
-  \_Parameter: (work@t.I), line:2:27, endln:2:28
+  \_Parameter: (work@t.I), line:2:27, endln:2:32
     |vpiParent:
     \_Module: work@t (work@t), file:${SURELOG_DIR}/tests/IndexAssign/dut.sv, line:1:1, endln:5:10
     |UINT:9
     |vpiTypespec:
-    \_RefTypespec: (work@t.I)
+    \_RefTypespec: (work@t.I), line:2:14, endln:2:26
       |vpiParent:
-      \_Parameter: (work@t.I), line:2:27, endln:2:28
+      \_Parameter: (work@t.I), line:2:27, endln:2:32
       |vpiFullName:work@t.I
       |vpiActual:
       \_IntTypespec: , line:2:14, endln:2:26
@@ -144,31 +158,57 @@ Design: (unnamed)
       |vpiDecompile:9
       |vpiSize:64
       |UINT:9
-      |vpiTypespec:
-      \_RefTypespec: (work@t)
-        |vpiParent:
-        \_Constant: , line:2:31, endln:2:32
-        |vpiFullName:work@t
-        |vpiActual:
-        \_IntTypespec: , line:2:14, endln:2:26
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (work@t.I), line:2:27, endln:2:28
-  |vpiDefName:work@t
-  |vpiNet:
-  \_LogicNet: (work@t.sig), line:3:17, endln:3:20
+    \_Parameter: (work@t.I), line:2:27, endln:2:32
+  |vpiTypedef:
+  \_IntTypespec: , line:2:14, endln:2:26
     |vpiParent:
     \_Module: work@t (work@t), file:${SURELOG_DIR}/tests/IndexAssign/dut.sv, line:1:1, endln:5:10
-    |vpiTypespec:
-    \_RefTypespec: (work@t.sig)
+  |vpiTypedef:
+  \_LogicTypespec: , line:3:3, endln:3:16
+    |vpiParent:
+    \_Module: work@t (work@t), file:${SURELOG_DIR}/tests/IndexAssign/dut.sv, line:1:1, endln:5:10
+    |vpiRange:
+    \_Range: , line:3:9, endln:3:16
       |vpiParent:
-      \_LogicNet: (work@t.sig), line:3:17, endln:3:20
-      |vpiFullName:work@t.sig
-      |vpiActual:
       \_LogicTypespec: , line:3:3, endln:3:16
-    |vpiName:sig
-    |vpiFullName:work@t.sig
-    |vpiNetType:36
+      |vpiLeftRange:
+      \_Operation: , line:3:10, endln:3:13
+        |vpiParent:
+        \_Range: , line:3:9, endln:3:16
+        |vpiOpType:11
+        |vpiOperand:
+        \_RefObj: (work@t.I), line:3:10, endln:3:11
+          |vpiParent:
+          \_Operation: , line:3:10, endln:3:13
+          |vpiName:I
+          |vpiFullName:work@t.I
+          |vpiActual:
+          \_Parameter: (work@t.I), line:2:27, endln:2:32
+        |vpiOperand:
+        \_Constant: , line:3:12, endln:3:13
+          |vpiParent:
+          \_Operation: , line:3:10, endln:3:13
+          |vpiDecompile:4
+          |vpiSize:64
+          |UINT:4
+          |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:3:14, endln:3:15
+        |vpiParent:
+        \_Range: , line:3:9, endln:3:16
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiImportTypespec:
+  \_IntTypespec: , line:2:14, endln:2:26
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:3:3, endln:3:16
+  |vpiImportTypespec:
+  \_LogicVar: (work@t.sig), line:3:17, endln:3:20
+  |vpiDefName:work@t
   |vpiContAssign:
   \_ContAssign: , line:4:10, endln:4:22
     |vpiParent:
@@ -182,15 +222,17 @@ Design: (unnamed)
       |UINT:3
       |vpiConstType:9
     |vpiLhs:
-    \_BitSelect: (work@t.sig), line:4:10, endln:4:18
+    \_BitSelect: (work@t.sig), line:4:13, endln:4:18
       |vpiParent:
       \_ContAssign: , line:4:10, endln:4:22
       |vpiName:sig
       |vpiFullName:work@t.sig
+      |vpiActual:
+      \_LogicVar: (work@t.sig), line:3:17, endln:3:20
       |vpiIndex:
       \_Operation: , line:4:14, endln:4:17
         |vpiParent:
-        \_BitSelect: (work@t.sig), line:4:10, endln:4:18
+        \_BitSelect: (work@t.sig), line:4:13, endln:4:18
         |vpiOpType:11
         |vpiOperand:
         \_RefObj: (work@t.sig.I), line:4:14, endln:4:15
@@ -198,6 +240,8 @@ Design: (unnamed)
           \_Operation: , line:4:14, endln:4:17
           |vpiName:I
           |vpiFullName:work@t.sig.I
+          |vpiActual:
+          \_Parameter: (work@t.I), line:2:27, endln:2:32
         |vpiOperand:
         \_Constant: , line:4:16, endln:4:17
           |vpiParent:
@@ -206,41 +250,6 @@ Design: (unnamed)
           |vpiSize:64
           |UINT:7
           |vpiConstType:9
-\_weaklyReferenced:
-\_IntTypespec: , line:2:14, endln:2:26
-  |vpiParent:
-  \_Parameter: (work@t.I), line:2:27, endln:2:28
-\_LogicTypespec: , line:3:3, endln:3:16
-  |vpiRange:
-  \_Range: , line:3:9, endln:3:16
-    |vpiParent:
-    \_LogicTypespec: , line:3:3, endln:3:16
-    |vpiLeftRange:
-    \_Operation: , line:3:10, endln:3:13
-      |vpiParent:
-      \_Range: , line:3:9, endln:3:16
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (I), line:3:10, endln:3:11
-        |vpiParent:
-        \_Operation: , line:3:10, endln:3:13
-        |vpiName:I
-      |vpiOperand:
-      \_Constant: , line:3:12, endln:3:13
-        |vpiParent:
-        \_Operation: , line:3:10, endln:3:13
-        |vpiDecompile:4
-        |vpiSize:64
-        |UINT:4
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:3:14, endln:3:15
-      |vpiParent:
-      \_Range: , line:3:9, endln:3:16
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

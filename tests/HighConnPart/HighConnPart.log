@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 235
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/HighConnPart/dut.sv
+FILE: ${SURELOG_DIR}/tests/HighConnPart/dut.sv
 n<> u<234> t<Top_level_rule> c<1> l<1:1> el<29:1>
-  n<> u<1> t<Null_rule> p<234> s<233> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<234> s<233> l<1:1>
   n<> u<233> t<Source_text> p<234> c<5> l<1:1> el<28:10>
     n<> u<5> t<Description> p<233> c<4> s<165> l<1:1> el<1:22>
       n<> u<4> t<Top_directives> p<5> c<3> l<1:1> el<1:22>
@@ -245,53 +245,198 @@ AST_DEBUG_END
 [INF:CP0303] ${SURELOG_DIR}/tests/HighConnPart/dut.sv:21:1: Compile module "work@Helper".
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-Constant                                              16
+Constant                                              42
 ContAssign                                             1
 Design                                                 1
 LogicNet                                               6
-LogicTypespec                                          6
+LogicTypespec                                         11
 Module                                                 2
+ModuleTypespec                                         1
 Operation                                              1
-PartSelect                                             2
-Port                                                   8
-Range                                                  6
-RefModule                                              1
-RefObj                                                 9
-RefTypespec                                            6
+PartSelect                                             4
+Port                                                  11
+Range                                                 17
+RefModule                                              2
+RefObj                                                 5
+RefTypespec                                           11
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/HighConnPart/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/HighConnPart/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/HighConnPart/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@Device (work@Device), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:3:1, endln:19:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@Device
-  |vpiDefName:work@Device
-  |vpiNet:
+  |vpiName:work@Device
+  |vpiTypedef:
+  \_ModuleTypespec: (Helper), line:9:5, endln:9:11
+    |vpiParent:
+    \_Module: work@Device (work@Device), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:3:1, endln:19:10
+    |vpiName:Helper
+  |vpiTypedef:
+  \_LogicTypespec: , line:4:11, endln:4:21
+    |vpiParent:
+    \_Module: work@Device (work@Device), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:3:1, endln:19:10
+    |vpiRange:
+    \_Range: , line:4:16, endln:4:21
+      |vpiParent:
+      \_LogicTypespec: , line:4:11, endln:4:21
+      |vpiLeftRange:
+      \_Constant: , line:4:17, endln:4:18
+        |vpiParent:
+        \_Range: , line:4:16, endln:4:21
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:4:19, endln:4:20
+        |vpiParent:
+        \_Range: , line:4:16, endln:4:21
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:5:12, endln:5:22
+    |vpiParent:
+    \_Module: work@Device (work@Device), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:3:1, endln:19:10
+    |vpiRange:
+    \_Range: , line:5:17, endln:5:22
+      |vpiParent:
+      \_LogicTypespec: , line:5:12, endln:5:22
+      |vpiLeftRange:
+      \_Constant: , line:5:18, endln:5:19
+        |vpiParent:
+        \_Range: , line:5:17, endln:5:22
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:5:20, endln:5:21
+        |vpiParent:
+        \_Range: , line:5:17, endln:5:22
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:11:5, endln:11:15
+    |vpiParent:
+    \_Module: work@Device (work@Device), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:3:1, endln:19:10
+    |vpiRange:
+    \_Range: , line:11:10, endln:11:15
+      |vpiParent:
+      \_LogicTypespec: , line:11:5, endln:11:15
+      |vpiLeftRange:
+      \_Constant: , line:11:11, endln:11:12
+        |vpiParent:
+        \_Range: , line:11:10, endln:11:15
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:11:13, endln:11:14
+        |vpiParent:
+        \_Range: , line:11:10, endln:11:15
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:4:11, endln:4:21
+    |vpiParent:
+    \_Module: work@Device (work@Device), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:3:1, endln:19:10
+    |vpiRange:
+    \_Range: , line:4:16, endln:4:21
+      |vpiParent:
+      \_LogicTypespec: , line:4:11, endln:4:21
+      |vpiLeftRange:
+      \_Constant: , line:4:17, endln:4:18
+        |vpiParent:
+        \_Range: , line:4:16, endln:4:21
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:4:19, endln:4:20
+        |vpiParent:
+        \_Range: , line:4:16, endln:4:21
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:5:12, endln:5:22
+    |vpiParent:
+    \_Module: work@Device (work@Device), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:3:1, endln:19:10
+    |vpiRange:
+    \_Range: , line:5:17, endln:5:22
+      |vpiParent:
+      \_LogicTypespec: , line:5:12, endln:5:22
+      |vpiLeftRange:
+      \_Constant: , line:5:18, endln:5:19
+        |vpiParent:
+        \_Range: , line:5:17, endln:5:22
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:5:20, endln:5:21
+        |vpiParent:
+        \_Range: , line:5:17, endln:5:22
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiImportTypespec:
+  \_ModuleTypespec: (Helper), line:9:5, endln:9:11
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:4:11, endln:4:21
+  |vpiImportTypespec:
   \_LogicNet: (work@Device.doubleNibble), line:4:22, endln:4:34
     |vpiParent:
     \_Module: work@Device (work@Device), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:3:1, endln:19:10
+    |vpiTypespec:
+    \_RefTypespec: (work@Device.doubleNibble), line:4:11, endln:4:21
+      |vpiParent:
+      \_LogicNet: (work@Device.doubleNibble), line:4:22, endln:4:34
+      |vpiFullName:work@Device.doubleNibble
+      |vpiActual:
+      \_LogicTypespec: , line:4:11, endln:4:21
     |vpiName:doubleNibble
     |vpiFullName:work@Device.doubleNibble
     |vpiNetType:1
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:5:12, endln:5:22
+  |vpiImportTypespec:
   \_LogicNet: (work@Device.sum), line:5:23, endln:5:26
     |vpiParent:
     \_Module: work@Device (work@Device), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:3:1, endln:19:10
+    |vpiTypespec:
+    \_RefTypespec: (work@Device.sum), line:5:12, endln:5:22
+      |vpiParent:
+      \_LogicNet: (work@Device.sum), line:5:23, endln:5:26
+      |vpiFullName:work@Device.sum
+      |vpiActual:
+      \_LogicTypespec: , line:5:12, endln:5:22
     |vpiName:sum
     |vpiFullName:work@Device.sum
     |vpiNetType:1
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:11:5, endln:11:15
+  |vpiImportTypespec:
   \_LogicNet: (work@Device.ignored), line:11:16, endln:11:23
     |vpiParent:
     \_Module: work@Device (work@Device), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:3:1, endln:19:10
     |vpiTypespec:
-    \_RefTypespec: (work@Device.ignored)
+    \_RefTypespec: (work@Device.ignored), line:11:5, endln:11:15
       |vpiParent:
       \_LogicNet: (work@Device.ignored), line:11:16, endln:11:23
       |vpiFullName:work@Device.ignored
@@ -300,22 +445,25 @@ Design: (unnamed)
     |vpiName:ignored
     |vpiFullName:work@Device.ignored
     |vpiNetType:1
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:4:11, endln:4:21
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:5:12, endln:5:22
+  |vpiDefName:work@Device
+  |vpiNet:
+  \_LogicNet: (work@Device.doubleNibble), line:4:22, endln:4:34
+  |vpiNet:
+  \_LogicNet: (work@Device.sum), line:5:23, endln:5:26
+  |vpiNet:
+  \_LogicNet: (work@Device.ignored), line:11:16, endln:11:23
   |vpiPort:
   \_Port: (doubleNibble), line:4:22, endln:4:34
     |vpiParent:
     \_Module: work@Device (work@Device), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:3:1, endln:19:10
     |vpiName:doubleNibble
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@Device.doubleNibble.doubleNibble), line:4:22, endln:4:34
-      |vpiParent:
-      \_Port: (doubleNibble), line:4:22, endln:4:34
-      |vpiName:doubleNibble
-      |vpiFullName:work@Device.doubleNibble.doubleNibble
-      |vpiActual:
-      \_LogicNet: (work@Device.doubleNibble), line:4:22, endln:4:34
-    |vpiTypedef:
-    \_RefTypespec: (work@Device.doubleNibble)
+    |vpiTypespec:
+    \_RefTypespec: (work@Device.doubleNibble), line:4:11, endln:4:15
       |vpiParent:
       \_Port: (doubleNibble), line:4:22, endln:4:34
       |vpiFullName:work@Device.doubleNibble
@@ -327,23 +475,95 @@ Design: (unnamed)
     \_Module: work@Device (work@Device), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:3:1, endln:19:10
     |vpiName:sum
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@Device.sum.sum), line:5:23, endln:5:26
-      |vpiParent:
-      \_Port: (sum), line:5:23, endln:5:26
-      |vpiName:sum
-      |vpiFullName:work@Device.sum.sum
-      |vpiActual:
-      \_LogicNet: (work@Device.sum), line:5:23, endln:5:26
-    |vpiTypedef:
-    \_RefTypespec: (work@Device.sum)
+    |vpiTypespec:
+    \_RefTypespec: (work@Device.sum), line:5:12, endln:5:16
       |vpiParent:
       \_Port: (sum), line:5:23, endln:5:26
       |vpiFullName:work@Device.sum
       |vpiActual:
       \_LogicTypespec: , line:5:12, endln:5:22
   |vpiRefModule:
-  \_RefModule: work@Helper (instance2), line:12:12, endln:12:21
+  \_RefModule: work@Helper (instance1), line:9:5, endln:9:11
+    |vpiParent:
+    \_Module: work@Device (work@Device), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:3:1, endln:19:10
+    |vpiName:instance1
+    |vpiDefName:work@Helper
+    |vpiActual:
+    \_Module: work@Helper (work@Helper), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:21:1, endln:28:10
+    |vpiPort:
+    \_Port: , line:9:22, endln:9:39
+      |vpiParent:
+      \_RefModule: work@Helper (instance1), line:9:5, endln:9:11
+      |vpiHighConn:
+      \_PartSelect: doubleNibble (work@Device.instance1.doubleNibble), line:9:35, endln:9:38
+        |vpiParent:
+        \_Port: , line:9:22, endln:9:39
+        |vpiName:doubleNibble
+        |vpiFullName:work@Device.instance1.doubleNibble
+        |vpiDefName:doubleNibble
+        |vpiActual:
+        \_LogicNet: (work@Device.doubleNibble), line:4:22, endln:4:34
+        |vpiConstantSelect:1
+        |vpiLeftRange:
+        \_Constant: , line:9:35, endln:9:36
+          |vpiParent:
+          \_PartSelect: doubleNibble (work@Device.instance1.doubleNibble), line:9:35, endln:9:38
+          |vpiDecompile:7
+          |vpiSize:64
+          |UINT:7
+          |vpiConstType:9
+        |vpiRightRange:
+        \_Constant: , line:9:37, endln:9:38
+          |vpiParent:
+          \_PartSelect: doubleNibble (work@Device.instance1.doubleNibble), line:9:35, endln:9:38
+          |vpiDecompile:4
+          |vpiSize:64
+          |UINT:4
+          |vpiConstType:9
+    |vpiPort:
+    \_Port: , line:9:41, endln:9:58
+      |vpiParent:
+      \_RefModule: work@Helper (instance1), line:9:5, endln:9:11
+      |vpiHighConn:
+      \_PartSelect: doubleNibble (work@Device.instance1.doubleNibble), line:9:41, endln:9:58
+        |vpiParent:
+        \_Port: , line:9:41, endln:9:58
+        |vpiName:doubleNibble
+        |vpiFullName:work@Device.instance1.doubleNibble
+        |vpiDefName:doubleNibble
+        |vpiActual:
+        \_LogicNet: (work@Device.doubleNibble), line:4:22, endln:4:34
+        |vpiConstantSelect:1
+        |vpiLeftRange:
+        \_Constant: , line:9:54, endln:9:55
+          |vpiParent:
+          \_PartSelect: doubleNibble (work@Device.instance1.doubleNibble), line:9:41, endln:9:58
+          |vpiDecompile:3
+          |vpiSize:64
+          |UINT:3
+          |vpiConstType:9
+        |vpiRightRange:
+        \_Constant: , line:9:56, endln:9:57
+          |vpiParent:
+          \_PartSelect: doubleNibble (work@Device.instance1.doubleNibble), line:9:41, endln:9:58
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiPort:
+    \_Port: , line:9:60, endln:9:63
+      |vpiParent:
+      \_RefModule: work@Helper (instance1), line:9:5, endln:9:11
+      |vpiHighConn:
+      \_RefObj: (work@Device.instance1.sum), line:9:60, endln:9:63
+        |vpiParent:
+        \_Port: , line:9:60, endln:9:63
+        |vpiName:sum
+        |vpiFullName:work@Device.instance1.sum
+        |vpiActual:
+        \_LogicNet: (work@Device.sum), line:5:23, endln:5:26
+  |vpiRefModule:
+  \_RefModule: work@Helper (instance2), line:12:5, endln:12:11
     |vpiParent:
     \_Module: work@Device (work@Device), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:3:1, endln:19:10
     |vpiName:instance2
@@ -351,111 +571,298 @@ Design: (unnamed)
     |vpiActual:
     \_Module: work@Helper (work@Helper), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:21:1, endln:28:10
     |vpiPort:
-    \_Port: (a), line:13:9, endln:13:30
+    \_Port: (a), line:13:10, endln:13:11
       |vpiParent:
-      \_RefModule: work@Helper (instance2), line:12:12, endln:12:21
+      \_RefModule: work@Helper (instance2), line:12:5, endln:12:11
       |vpiName:a
       |vpiHighConn:
       \_PartSelect: doubleNibble (work@Device.instance2.a.doubleNibble), line:13:12, endln:13:29
         |vpiParent:
-        \_Port: (a), line:13:9, endln:13:30
+        \_Port: (a), line:13:10, endln:13:11
         |vpiName:doubleNibble
         |vpiFullName:work@Device.instance2.a.doubleNibble
         |vpiDefName:doubleNibble
+        |vpiActual:
+        \_LogicNet: (work@Device.doubleNibble), line:4:22, endln:4:34
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_Constant: , line:13:25, endln:13:26
+          |vpiParent:
+          \_PartSelect: doubleNibble (work@Device.instance2.a.doubleNibble), line:13:12, endln:13:29
           |vpiDecompile:7
           |vpiSize:64
           |UINT:7
           |vpiConstType:9
         |vpiRightRange:
         \_Constant: , line:13:27, endln:13:28
+          |vpiParent:
+          \_PartSelect: doubleNibble (work@Device.instance2.a.doubleNibble), line:13:12, endln:13:29
           |vpiDecompile:4
           |vpiSize:64
           |UINT:4
           |vpiConstType:9
     |vpiPort:
-    \_Port: (b), line:14:9, endln:14:30
+    \_Port: (b), line:14:10, endln:14:11
       |vpiParent:
-      \_RefModule: work@Helper (instance2), line:12:12, endln:12:21
+      \_RefModule: work@Helper (instance2), line:12:5, endln:12:11
       |vpiName:b
       |vpiHighConn:
       \_PartSelect: doubleNibble (work@Device.instance2.b.doubleNibble), line:14:12, endln:14:29
         |vpiParent:
-        \_Port: (b), line:14:9, endln:14:30
+        \_Port: (b), line:14:10, endln:14:11
         |vpiName:doubleNibble
         |vpiFullName:work@Device.instance2.b.doubleNibble
         |vpiDefName:doubleNibble
+        |vpiActual:
+        \_LogicNet: (work@Device.doubleNibble), line:4:22, endln:4:34
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_Constant: , line:14:25, endln:14:26
+          |vpiParent:
+          \_PartSelect: doubleNibble (work@Device.instance2.b.doubleNibble), line:14:12, endln:14:29
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
           |vpiConstType:9
         |vpiRightRange:
         \_Constant: , line:14:27, endln:14:28
+          |vpiParent:
+          \_PartSelect: doubleNibble (work@Device.instance2.b.doubleNibble), line:14:12, endln:14:29
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
           |vpiConstType:9
     |vpiPort:
-    \_Port: (result), line:15:9, endln:15:25
+    \_Port: (result), line:15:10, endln:15:16
       |vpiParent:
-      \_RefModule: work@Helper (instance2), line:12:12, endln:12:21
+      \_RefModule: work@Helper (instance2), line:12:5, endln:12:11
       |vpiName:result
       |vpiHighConn:
       \_RefObj: (work@Device.instance2.result.ignored), line:15:17, endln:15:24
         |vpiParent:
-        \_Port: (result), line:15:9, endln:15:25
+        \_Port: (result), line:15:10, endln:15:16
         |vpiName:ignored
         |vpiFullName:work@Device.instance2.result.ignored
         |vpiActual:
         \_LogicNet: (work@Device.ignored), line:11:16, endln:11:23
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@Helper (work@Helper), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:21:1, endln:28:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@Helper
-  |vpiDefName:work@Helper
-  |vpiNet:
+  |vpiName:work@Helper
+  |vpiTypedef:
+  \_LogicTypespec: , line:22:11, endln:22:21
+    |vpiParent:
+    \_Module: work@Helper (work@Helper), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:21:1, endln:28:10
+    |vpiRange:
+    \_Range: , line:22:16, endln:22:21
+      |vpiParent:
+      \_LogicTypespec: , line:22:11, endln:22:21
+      |vpiLeftRange:
+      \_Constant: , line:22:17, endln:22:18
+        |vpiParent:
+        \_Range: , line:22:16, endln:22:21
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:22:19, endln:22:20
+        |vpiParent:
+        \_Range: , line:22:16, endln:22:21
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:22:11, endln:22:21
+    |vpiParent:
+    \_Module: work@Helper (work@Helper), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:21:1, endln:28:10
+    |vpiRange:
+    \_Range: , line:22:16, endln:22:21
+      |vpiParent:
+      \_LogicTypespec: , line:22:11, endln:22:21
+      |vpiLeftRange:
+      \_Constant: , line:22:17, endln:22:18
+        |vpiParent:
+        \_Range: , line:22:16, endln:22:21
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:22:19, endln:22:20
+        |vpiParent:
+        \_Range: , line:22:16, endln:22:21
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:23:12, endln:23:22
+    |vpiParent:
+    \_Module: work@Helper (work@Helper), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:21:1, endln:28:10
+    |vpiRange:
+    \_Range: , line:23:17, endln:23:22
+      |vpiParent:
+      \_LogicTypespec: , line:23:12, endln:23:22
+      |vpiLeftRange:
+      \_Constant: , line:23:18, endln:23:19
+        |vpiParent:
+        \_Range: , line:23:17, endln:23:22
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:23:20, endln:23:21
+        |vpiParent:
+        \_Range: , line:23:17, endln:23:22
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:22:11, endln:22:21
+    |vpiParent:
+    \_Module: work@Helper (work@Helper), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:21:1, endln:28:10
+    |vpiRange:
+    \_Range: , line:22:16, endln:22:21
+      |vpiParent:
+      \_LogicTypespec: , line:22:11, endln:22:21
+      |vpiLeftRange:
+      \_Constant: , line:22:17, endln:22:18
+        |vpiParent:
+        \_Range: , line:22:16, endln:22:21
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:22:19, endln:22:20
+        |vpiParent:
+        \_Range: , line:22:16, endln:22:21
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:22:11, endln:22:21
+    |vpiParent:
+    \_Module: work@Helper (work@Helper), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:21:1, endln:28:10
+    |vpiRange:
+    \_Range: , line:22:16, endln:22:21
+      |vpiParent:
+      \_LogicTypespec: , line:22:11, endln:22:21
+      |vpiLeftRange:
+      \_Constant: , line:22:17, endln:22:18
+        |vpiParent:
+        \_Range: , line:22:16, endln:22:21
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:22:19, endln:22:20
+        |vpiParent:
+        \_Range: , line:22:16, endln:22:21
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:23:12, endln:23:22
+    |vpiParent:
+    \_Module: work@Helper (work@Helper), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:21:1, endln:28:10
+    |vpiRange:
+    \_Range: , line:23:17, endln:23:22
+      |vpiParent:
+      \_LogicTypespec: , line:23:12, endln:23:22
+      |vpiLeftRange:
+      \_Constant: , line:23:18, endln:23:19
+        |vpiParent:
+        \_Range: , line:23:17, endln:23:22
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:23:20, endln:23:21
+        |vpiParent:
+        \_Range: , line:23:17, endln:23:22
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:22:11, endln:22:21
+  |vpiImportTypespec:
   \_LogicNet: (work@Helper.a), line:22:22, endln:22:23
     |vpiParent:
     \_Module: work@Helper (work@Helper), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:21:1, endln:28:10
+    |vpiTypespec:
+    \_RefTypespec: (work@Helper.a), line:22:11, endln:22:21
+      |vpiParent:
+      \_LogicNet: (work@Helper.a), line:22:22, endln:22:23
+      |vpiFullName:work@Helper.a
+      |vpiActual:
+      \_LogicTypespec: , line:22:11, endln:22:21
     |vpiName:a
     |vpiFullName:work@Helper.a
     |vpiNetType:1
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:22:11, endln:22:21
+  |vpiImportTypespec:
   \_LogicNet: (work@Helper.b), line:22:25, endln:22:26
     |vpiParent:
     \_Module: work@Helper (work@Helper), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:21:1, endln:28:10
+    |vpiTypespec:
+    \_RefTypespec: (work@Helper.b), line:22:11, endln:22:21
+      |vpiParent:
+      \_LogicNet: (work@Helper.b), line:22:25, endln:22:26
+      |vpiFullName:work@Helper.b
+      |vpiActual:
+      \_LogicTypespec: , line:22:11, endln:22:21
     |vpiName:b
     |vpiFullName:work@Helper.b
     |vpiNetType:1
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:23:12, endln:23:22
+  |vpiImportTypespec:
   \_LogicNet: (work@Helper.result), line:23:23, endln:23:29
     |vpiParent:
     \_Module: work@Helper (work@Helper), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:21:1, endln:28:10
+    |vpiTypespec:
+    \_RefTypespec: (work@Helper.result), line:23:12, endln:23:22
+      |vpiParent:
+      \_LogicNet: (work@Helper.result), line:23:23, endln:23:29
+      |vpiFullName:work@Helper.result
+      |vpiActual:
+      \_LogicTypespec: , line:23:12, endln:23:22
     |vpiName:result
     |vpiFullName:work@Helper.result
     |vpiNetType:1
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:22:11, endln:22:21
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:22:11, endln:22:21
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:23:12, endln:23:22
+  |vpiDefName:work@Helper
+  |vpiNet:
+  \_LogicNet: (work@Helper.a), line:22:22, endln:22:23
+  |vpiNet:
+  \_LogicNet: (work@Helper.b), line:22:25, endln:22:26
+  |vpiNet:
+  \_LogicNet: (work@Helper.result), line:23:23, endln:23:29
   |vpiPort:
   \_Port: (a), line:22:22, endln:22:23
     |vpiParent:
     \_Module: work@Helper (work@Helper), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:21:1, endln:28:10
     |vpiName:a
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@Helper.a.a), line:22:22, endln:22:23
-      |vpiParent:
-      \_Port: (a), line:22:22, endln:22:23
-      |vpiName:a
-      |vpiFullName:work@Helper.a.a
-      |vpiActual:
-      \_LogicNet: (work@Helper.a), line:22:22, endln:22:23
-    |vpiTypedef:
-    \_RefTypespec: (work@Helper.a)
+    |vpiTypespec:
+    \_RefTypespec: (work@Helper.a), line:22:11, endln:22:15
       |vpiParent:
       \_Port: (a), line:22:22, endln:22:23
       |vpiFullName:work@Helper.a
@@ -467,16 +874,8 @@ Design: (unnamed)
     \_Module: work@Helper (work@Helper), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:21:1, endln:28:10
     |vpiName:b
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@Helper.b.b), line:22:25, endln:22:26
-      |vpiParent:
-      \_Port: (b), line:22:25, endln:22:26
-      |vpiName:b
-      |vpiFullName:work@Helper.b.b
-      |vpiActual:
-      \_LogicNet: (work@Helper.b), line:22:25, endln:22:26
-    |vpiTypedef:
-    \_RefTypespec: (work@Helper.b)
+    |vpiTypespec:
+    \_RefTypespec: (work@Helper.b), line:22:11, endln:22:15
       |vpiParent:
       \_Port: (b), line:22:25, endln:22:26
       |vpiFullName:work@Helper.b
@@ -488,16 +887,8 @@ Design: (unnamed)
     \_Module: work@Helper (work@Helper), file:${SURELOG_DIR}/tests/HighConnPart/dut.sv, line:21:1, endln:28:10
     |vpiName:result
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@Helper.result.result), line:23:23, endln:23:29
-      |vpiParent:
-      \_Port: (result), line:23:23, endln:23:29
-      |vpiName:result
-      |vpiFullName:work@Helper.result.result
-      |vpiActual:
-      \_LogicNet: (work@Helper.result), line:23:23, endln:23:29
-    |vpiTypedef:
-    \_RefTypespec: (work@Helper.result)
+    |vpiTypespec:
+    \_RefTypespec: (work@Helper.result), line:23:12, endln:23:16
       |vpiParent:
       \_Port: (result), line:23:23, endln:23:29
       |vpiFullName:work@Helper.result
@@ -536,133 +927,6 @@ Design: (unnamed)
       |vpiFullName:work@Helper.result
       |vpiActual:
       \_LogicNet: (work@Helper.result), line:23:23, endln:23:29
-\_weaklyReferenced:
-\_LogicTypespec: , line:4:11, endln:4:21
-  |vpiRange:
-  \_Range: , line:4:16, endln:4:21
-    |vpiParent:
-    \_LogicTypespec: , line:4:11, endln:4:21
-    |vpiLeftRange:
-    \_Constant: , line:4:17, endln:4:18
-      |vpiParent:
-      \_Range: , line:4:16, endln:4:21
-      |vpiDecompile:7
-      |vpiSize:64
-      |UINT:7
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:4:19, endln:4:20
-      |vpiParent:
-      \_Range: , line:4:16, endln:4:21
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:5:12, endln:5:22
-  |vpiRange:
-  \_Range: , line:5:17, endln:5:22
-    |vpiParent:
-    \_LogicTypespec: , line:5:12, endln:5:22
-    |vpiLeftRange:
-    \_Constant: , line:5:18, endln:5:19
-      |vpiParent:
-      \_Range: , line:5:17, endln:5:22
-      |vpiDecompile:3
-      |vpiSize:64
-      |UINT:3
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:5:20, endln:5:21
-      |vpiParent:
-      \_Range: , line:5:17, endln:5:22
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:11:5, endln:11:15
-  |vpiRange:
-  \_Range: , line:11:10, endln:11:15
-    |vpiParent:
-    \_LogicTypespec: , line:11:5, endln:11:15
-    |vpiLeftRange:
-    \_Constant: , line:11:11, endln:11:12
-      |vpiParent:
-      \_Range: , line:11:10, endln:11:15
-      |vpiDecompile:3
-      |vpiSize:64
-      |UINT:3
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:11:13, endln:11:14
-      |vpiParent:
-      \_Range: , line:11:10, endln:11:15
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:22:11, endln:22:21
-  |vpiRange:
-  \_Range: , line:22:16, endln:22:21
-    |vpiParent:
-    \_LogicTypespec: , line:22:11, endln:22:21
-    |vpiLeftRange:
-    \_Constant: , line:22:17, endln:22:18
-      |vpiParent:
-      \_Range: , line:22:16, endln:22:21
-      |vpiDecompile:3
-      |vpiSize:64
-      |UINT:3
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:22:19, endln:22:20
-      |vpiParent:
-      \_Range: , line:22:16, endln:22:21
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:22:11, endln:22:21
-  |vpiRange:
-  \_Range: , line:22:16, endln:22:21
-    |vpiParent:
-    \_LogicTypespec: , line:22:11, endln:22:21
-    |vpiLeftRange:
-    \_Constant: , line:22:17, endln:22:18
-      |vpiParent:
-      \_Range: , line:22:16, endln:22:21
-      |vpiDecompile:3
-      |vpiSize:64
-      |UINT:3
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:22:19, endln:22:20
-      |vpiParent:
-      \_Range: , line:22:16, endln:22:21
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:23:12, endln:23:22
-  |vpiRange:
-  \_Range: , line:23:17, endln:23:22
-    |vpiParent:
-    \_LogicTypespec: , line:23:12, endln:23:22
-    |vpiLeftRange:
-    \_Constant: , line:23:18, endln:23:19
-      |vpiParent:
-      \_Range: , line:23:17, endln:23:22
-      |vpiDecompile:3
-      |vpiSize:64
-      |UINT:3
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:23:20, endln:23:21
-      |vpiParent:
-      \_Range: , line:23:17, endln:23:22
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

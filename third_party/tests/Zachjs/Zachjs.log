@@ -1,10 +1,10 @@
 Processing: -cd resolve +incdir+.+../basic/+../lex/+../lib/+../relong/+../resolve/ -parse -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns reference.v -l reference.v.log
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/resolve/reference.v:4:4: Syntax error: extraneous input 'input' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'clocking', 'defparam', 'bind', 'const', 'function', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'not', 'or', 'and', 'sequence', 'covergroup', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'restrict', 'let', 'this', 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
     input [width-1:0] i;
-    ^--.
+    ^-- ${SURELOG_DIR}/third_party/tests/Zachjs/resolve/reference.v:4:4:.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/resolve/reference.v:5:4: Syntax error: extraneous input 'output' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'clocking', 'defparam', 'bind', 'const', 'function', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'not', 'or', 'and', 'sequence', 'covergroup', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'restrict', 'let', 'this', 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
     output [width-1:0] o;
-    ^--.
+    ^-- ${SURELOG_DIR}/third_party/tests/Zachjs/resolve/reference.v:5:4:.
 [  FATAL] : 0
 [ SYNTAX] : 2
 [  ERROR] : 0
@@ -47,9 +47,10 @@ Processing: -cd basic +incdir+.+../basic/+../lex/+../lib/+../relong/+../resolve/
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd basic +incdir+.+../basic/+../lex/+../lib/+../relong/+../resolve/ -parse -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns for_decl.v -l for_decl.v.log
+[ERR:UH0703] ${SURELOG_DIR}/third_party/tests/Zachjs/basic/for_decl.v:5:16: Internal Error(5) : adding wrong object type (GenVar) in a stmt group!.
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd basic +incdir+.+../basic/+../lex/+../lib/+../relong/+../resolve/ -parse -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns multipack_port.v -l multipack_port.v.log
@@ -97,28 +98,28 @@ Processing: -cd basic +incdir+.+../basic/+../lex/+../lib/+../relong/+../resolve/
 Processing: -cd basic +incdir+.+../basic/+../lex/+../lib/+../relong/+../resolve/ -parse -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns flatten.v -l flatten.v.log
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/basic/flatten.sv:10:24: Syntax error: no viable alternative at input '$display($time, `',
         $display($time, `" A1 @+ ", out[1+a][1+b+:1]); 
-                        ^--.
+                        ^-- ${SURELOG_DIR}/third_party/tests/Zachjs/basic/flatten.sv:10:24:.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/basic/flatten.sv:10:16: Syntax error: mismatched input '(' expecting ';',
         $display($time, `" A1 @+ ", out[1+a][1+b+:1]); 
-                ^--.
+                ^-- ${SURELOG_DIR}/third_party/tests/Zachjs/basic/flatten.sv:10:16:.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/basic/flatten.sv:10:22: Syntax error: mismatched input ',' expecting ';',
         $display($time, `" A1 @+ ", out[1+a][1+b+:1]); 
-                      ^--.
+                      ^-- ${SURELOG_DIR}/third_party/tests/Zachjs/basic/flatten.sv:10:22:.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/basic/flatten.sv:10:25: Syntax error: mismatched input '" A1 @+ "' expecting Simple_identifier,
         $display($time, `" A1 @+ ", out[1+a][1+b+:1]); 
-                         ^--.
+                         ^-- ${SURELOG_DIR}/third_party/tests/Zachjs/basic/flatten.sv:10:25:.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/basic/flatten.sv:10:43: Syntax error: no viable alternative at input 'a]',
         $display($time, `" A1 @+ ", out[1+a][1+b+:1]); 
-                                           ^--.
+                                           ^-- ${SURELOG_DIR}/third_party/tests/Zachjs/basic/flatten.sv:10:43:.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/basic/flatten.sv:10:48: Syntax error: no viable alternative at input 'b+:',
         $display($time, `" A1 @+ ", out[1+a][1+b+:1]); 
-                                                ^--.
+                                                ^-- ${SURELOG_DIR}/third_party/tests/Zachjs/basic/flatten.sv:10:48:.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/basic/flatten.sv:10:52: Syntax error: mismatched input ')' expecting {'this', 'randomize', 'sample', Escaped_identifier, Simple_identifier},
         $display($time, `" A1 @+ ", out[1+a][1+b+:1]); 
-                                                    ^--.
+                                                    ^-- ${SURELOG_DIR}/third_party/tests/Zachjs/basic/flatten.sv:10:52:.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/basic/flatten.sv:11: Syntax error: mismatched input '111' expecting <EOF>,
 111        $display($time, `" A1 @+ ", out[2+a][1+b+:1]); 
-^--.
+^-- ${SURELOG_DIR}/third_party/tests/Zachjs/basic/flatten.sv:11:0:.
 [  FATAL] : 0
 [ SYNTAX] : 8
 [  ERROR] : 0
@@ -229,13 +230,13 @@ ${SURELOG_DIR}/third_party/tests/Zachjs/lex/macro_whitespace.sv:1:9: No default 
 ${SURELOG_DIR}/third_party/tests/Zachjs/lex/macro_whitespace.sv:1:9: No default value for argument 2 (b) in macro definition.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/lex/macro_whitespace.sv:5:17: Syntax error: no viable alternative at input '$display(`',
         $display(`FOO
-                 ^--.
+                 ^-- ${SURELOG_DIR}/third_party/tests/Zachjs/lex/macro_whitespace.sv:5:17:.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/lex/macro_whitespace.sv:5:16: Syntax error: mismatched input '(' expecting ';',
         $display(`FOO
-                ^--.
+                ^-- ${SURELOG_DIR}/third_party/tests/Zachjs/lex/macro_whitespace.sv:5:16:.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/lex/macro_whitespace.sv:6:8: Syntax error: mismatched input '(' expecting <EOF>,
         (
-        ^--.
+        ^-- ${SURELOG_DIR}/third_party/tests/Zachjs/lex/macro_whitespace.sv:6:8:.
 [  FATAL] : 0
 [ SYNTAX] : 3
 [  ERROR] : 3
@@ -259,9 +260,9 @@ Processing: -cd lex +incdir+.+../basic/+../lex/+../lib/+../relong/+../resolve/ -
 [WRN:PP0113] ${SURELOG_DIR}/third_party/tests/Zachjs/lex/macro_iv.sv:59:9: Unused macro argument "str".
 [ERR:PP0116] ${SURELOG_DIR}/third_party/tests/Zachjs/lex/macro_iv.sv:119:46: Illegal unterminated string: >>");
 <<.
-[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/lex/macro_iv.sv:122: Syntax error: mismatched input '"' expecting <EOF>,
+[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/lex/macro_iv.sv:121: Syntax error: mismatched input '"' expecting <EOF>,
 ");
-^--.
+^-- ${SURELOG_DIR}/third_party/tests/Zachjs/lex/macro_iv.sv:121:0:.
 [  FATAL] : 0
 [ SYNTAX] : 1
 [  ERROR] : 1
@@ -272,22 +273,22 @@ Processing: -cd lib +incdir+.+../basic/+../lex/+../lib/+../relong/+../resolve/ -
 [ERR:PP0102] ${SURELOG_DIR}/third_party/tests/Zachjs/lib/tb_dumper.v:4:22: Unknown macro "TEST_TOP".
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/lib/tb_dumper.v:3:18: Syntax error: no viable alternative at input '$dumpfile(SURELOG_MACRO_NOT_DEFINED:TEST_VCD!!!',
         $dumpfile(SURELOG_MACRO_NOT_DEFINED:TEST_VCD!!! );
-                  ^--.
+                  ^-- ${SURELOG_DIR}/third_party/tests/Zachjs/lib/tb_dumper.v:3:18:.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/lib/tb_dumper.v:3:17: Syntax error: mismatched input '(' expecting ';',
         $dumpfile(SURELOG_MACRO_NOT_DEFINED:TEST_VCD!!! );
-                 ^--.
+                 ^-- ${SURELOG_DIR}/third_party/tests/Zachjs/lib/tb_dumper.v:3:17:.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/lib/tb_dumper.v:3:56: Syntax error: extraneous input ')' expecting {Pound_Pound_delay, Pound_delay, ATSTAR, AT_PARENS_STAR, ';', 'type', 'local', 'super', '{', '->', 'if', 'foreach', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'void', '$', '++', '--', DOLLAR_UNIT, '(*', 'assert', 'assume', 'cover', 'expect', 'disable', '##', '#', 'begin', 'end', 'case', 'for', 'assign', 'deassign', 'force', 'release', 'fork', 'repeat', '@', 'return', 'break', 'continue', 'wait', 'wait_order', 'unique', 'unique0', 'priority', 'casez', 'casex', 'randcase', 'forever', 'while', 'do', 'restrict', ''', 'randsequence', 'this', DOLLAR_ROOT, 'randomize', 'sample', '->>', Escaped_identifier, Simple_identifier, SURELOG_MACRO_NOT_DEFINED},
         $dumpfile(SURELOG_MACRO_NOT_DEFINED:TEST_VCD!!! );
-                                                        ^--.
+                                                        ^-- ${SURELOG_DIR}/third_party/tests/Zachjs/lib/tb_dumper.v:3:56:.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/lib/tb_dumper.v:4:21: Syntax error: no viable alternative at input '$dumpvars(1, SURELOG_MACRO_NOT_DEFINED:TEST_TOP!!!',
         $dumpvars(1, SURELOG_MACRO_NOT_DEFINED:TEST_TOP!!! );
-                     ^--.
+                     ^-- ${SURELOG_DIR}/third_party/tests/Zachjs/lib/tb_dumper.v:4:21:.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/lib/tb_dumper.v:4:17: Syntax error: mismatched input '(' expecting ';',
         $dumpvars(1, SURELOG_MACRO_NOT_DEFINED:TEST_TOP!!! );
-                 ^--.
+                 ^-- ${SURELOG_DIR}/third_party/tests/Zachjs/lib/tb_dumper.v:4:17:.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/lib/tb_dumper.v:4:59: Syntax error: extraneous input ')' expecting {Pound_Pound_delay, Pound_delay, ATSTAR, AT_PARENS_STAR, ';', 'type', 'local', 'super', '{', '->', 'if', 'foreach', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'void', '$', '++', '--', DOLLAR_UNIT, '(*', 'assert', 'assume', 'cover', 'expect', 'disable', '##', '#', 'begin', 'end', 'case', 'for', 'assign', 'deassign', 'force', 'release', 'fork', 'repeat', '@', 'return', 'break', 'continue', 'wait', 'wait_order', 'unique', 'unique0', 'priority', 'casez', 'casex', 'randcase', 'forever', 'while', 'do', 'restrict', ''', 'randsequence', 'this', DOLLAR_ROOT, 'randomize', 'sample', '->>', Escaped_identifier, Simple_identifier, SURELOG_MACRO_NOT_DEFINED},
         $dumpvars(1, SURELOG_MACRO_NOT_DEFINED:TEST_TOP!!! );
-                                                           ^--.
+                                                           ^-- ${SURELOG_DIR}/third_party/tests/Zachjs/lib/tb_dumper.v:4:59:.
 [ERR:PA0203] ${SURELOG_DIR}/third_party/tests/Zachjs/lib/tb_dumper.v:3: Unknown macro "TEST_VCD".
 [ERR:PA0203] ${SURELOG_DIR}/third_party/tests/Zachjs/lib/tb_dumper.v:4: Unknown macro "TEST_TOP".
 [  FATAL] : 0
@@ -296,15 +297,17 @@ Processing: -cd lib +incdir+.+../basic/+../lex/+../lib/+../relong/+../resolve/ -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd lib +incdir+.+../basic/+../lex/+../lib/+../relong/+../resolve/ -parse -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns empty.v -l empty.v.log
+[WRN:PA0215] Invalid VObject location.
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 0
-[WARNING] : 0
+[WARNING] : 1
 [   NOTE] : 0
 Processing: -cd relong +incdir+.+../basic/+../lex/+../lib/+../relong/+../resolve/ -parse -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns gen_struct.v -l gen_struct.v.log
+[ERR:UH0703] ${SURELOG_DIR}/third_party/tests/Zachjs/relong/gen_struct.v:13:16: Internal Error(19) : adding wrong object type (GenVar) in a stmt group!.
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd relong +incdir+.+../basic/+../lex/+../lib/+../relong/+../resolve/ -parse -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns enum_tb.v -l enum_tb.v.log
@@ -386,9 +389,13 @@ Processing: -cd relong +incdir+.+../basic/+../lex/+../lib/+../relong/+../resolve
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd relong +incdir+.+../basic/+../lex/+../lib/+../relong/+../resolve/ -parse -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns struct_tb.v -l struct_tb.v.log
+[ERR:UH0734] ${SURELOG_DIR}/third_party/tests/Zachjs/relong/struct_tb.v:20:80: Failed to bind object: "id: 30, name: data_out".
+[ERR:EL0535] ${SURELOG_DIR}/third_party/tests/Zachjs/relong/struct_tb.v:20:80: Illegal implicit net "id:30, name: data_out".
+[ERR:UH0734] ${SURELOG_DIR}/third_party/tests/Zachjs/relong/struct_tb.v:20:94: Failed to bind object: "id: 33, name: mode_out".
+[ERR:EL0535] ${SURELOG_DIR}/third_party/tests/Zachjs/relong/struct_tb.v:20:94: Illegal implicit net "id:33, name: mode_out".
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 4
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd relong +incdir+.+../basic/+../lex/+../lib/+../relong/+../resolve/ -parse -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns cache_request_tb.v -l cache_request_tb.v.log
@@ -476,9 +483,13 @@ Processing: -cd relong +incdir+.+../basic/+../lex/+../lib/+../relong/+../resolve
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd relong +incdir+.+../basic/+../lex/+../lib/+../relong/+../resolve/ -parse -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns simple_interface_tb.v -l simple_interface_tb.v.log
+[ERR:UH0734] ${SURELOG_DIR}/third_party/tests/Zachjs/relong/simple_interface_tb.v:24:82: Failed to bind object: "id: 33, name: consumer".
+[ERR:EL0535] ${SURELOG_DIR}/third_party/tests/Zachjs/relong/simple_interface_tb.v:24:82: Illegal implicit net "id:33, name: consumer".
+[ERR:UH0734] ${SURELOG_DIR}/third_party/tests/Zachjs/relong/simple_interface_tb.v:24:91: Failed to bind object: "id: 34, name: local_shift".
+[ERR:EL0535] ${SURELOG_DIR}/third_party/tests/Zachjs/relong/simple_interface_tb.v:24:91: Illegal implicit net "id:34, name: local_shift".
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 4
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd relong +incdir+.+../basic/+../lex/+../lib/+../relong/+../resolve/ -parse -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns complex_interface_tb.v -l complex_interface_tb.v.log
@@ -506,9 +517,11 @@ Processing: -cd relong +incdir+.+../basic/+../lex/+../lib/+../relong/+../resolve
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd relong +incdir+.+../basic/+../lex/+../lib/+../relong/+../resolve/ -parse -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns fsm_tb.v -l fsm_tb.v.log
+[ERR:UH0734] ${SURELOG_DIR}/third_party/tests/Zachjs/relong/fsm_tb.v:22:61: Failed to bind object: "id: 33, name: currentState".
+[ERR:EL0535] ${SURELOG_DIR}/third_party/tests/Zachjs/relong/fsm_tb.v:22:61: Illegal implicit net "id:33, name: currentState".
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 2
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd relong +incdir+.+../basic/+../lex/+../lib/+../relong/+../resolve/ -parse -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns enum.v -l enum.v.log
@@ -521,13 +534,13 @@ Processing: -cd resolve +incdir+.+../basic/+../lex/+../lib/+../relong/+../resolv
 [ERR:PP0102] ${SURELOG_DIR}/third_party/tests/Zachjs/resolve/module.sv:8:18: Unknown macro "FANCY_SEEING_YOU".
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/resolve/module.sv:8:17: Syntax error: no viable alternative at input '$display(SURELOG_MACRO_NOT_DEFINED:FANCY_SEEING_YOU!!!',
         $display(SURELOG_MACRO_NOT_DEFINED:FANCY_SEEING_YOU!!! );
-                 ^--.
+                 ^-- ${SURELOG_DIR}/third_party/tests/Zachjs/resolve/module.sv:8:17:.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/resolve/module.sv:8:16: Syntax error: mismatched input '(' expecting ';',
         $display(SURELOG_MACRO_NOT_DEFINED:FANCY_SEEING_YOU!!! );
-                ^--.
+                ^-- ${SURELOG_DIR}/third_party/tests/Zachjs/resolve/module.sv:8:16:.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/resolve/module.sv:8:63: Syntax error: extraneous input ')' expecting {Pound_Pound_delay, Pound_delay, ATSTAR, AT_PARENS_STAR, ';', 'type', 'local', 'super', '{', '->', 'if', 'foreach', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'void', '$', '++', '--', DOLLAR_UNIT, '(*', 'assert', 'assume', 'cover', 'expect', 'disable', '##', '#', 'begin', 'end', 'case', 'for', 'assign', 'deassign', 'force', 'release', 'fork', 'repeat', '@', 'return', 'break', 'continue', 'wait', 'wait_order', 'unique', 'unique0', 'priority', 'casez', 'casex', 'randcase', 'forever', 'while', 'do', 'restrict', ''', 'randsequence', 'this', DOLLAR_ROOT, 'randomize', 'sample', '->>', Escaped_identifier, Simple_identifier, SURELOG_MACRO_NOT_DEFINED},
         $display(SURELOG_MACRO_NOT_DEFINED:FANCY_SEEING_YOU!!! );
-                                                               ^--.
+                                                               ^-- ${SURELOG_DIR}/third_party/tests/Zachjs/resolve/module.sv:8:63:.
 [ERR:PA0203] ${SURELOG_DIR}/third_party/tests/Zachjs/resolve/module.sv:8: Unknown macro "FANCY_SEEING_YOU".
 [  FATAL] : 0
 [ SYNTAX] : 3
@@ -549,28 +562,28 @@ Processing: -cd basic +incdir+.+../basic/+../lex/+../lib/+../relong/+../resolve/
 Processing: -cd basic +incdir+.+../basic/+../lex/+../lib/+../relong/+../resolve/ -parse -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns flatten.sv -l flatten.sv.log
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/basic/flatten.sv:10:24: Syntax error: no viable alternative at input '$display($time, `',
         $display($time, `" A1 @+ ", out[1+a][1+b+:1]); 
-                        ^--.
+                        ^-- ${SURELOG_DIR}/third_party/tests/Zachjs/basic/flatten.sv:10:24:.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/basic/flatten.sv:10:16: Syntax error: mismatched input '(' expecting ';',
         $display($time, `" A1 @+ ", out[1+a][1+b+:1]); 
-                ^--.
+                ^-- ${SURELOG_DIR}/third_party/tests/Zachjs/basic/flatten.sv:10:16:.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/basic/flatten.sv:10:22: Syntax error: mismatched input ',' expecting ';',
         $display($time, `" A1 @+ ", out[1+a][1+b+:1]); 
-                      ^--.
+                      ^-- ${SURELOG_DIR}/third_party/tests/Zachjs/basic/flatten.sv:10:22:.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/basic/flatten.sv:10:25: Syntax error: mismatched input '" A1 @+ "' expecting Simple_identifier,
         $display($time, `" A1 @+ ", out[1+a][1+b+:1]); 
-                         ^--.
+                         ^-- ${SURELOG_DIR}/third_party/tests/Zachjs/basic/flatten.sv:10:25:.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/basic/flatten.sv:10:43: Syntax error: no viable alternative at input 'a]',
         $display($time, `" A1 @+ ", out[1+a][1+b+:1]); 
-                                           ^--.
+                                           ^-- ${SURELOG_DIR}/third_party/tests/Zachjs/basic/flatten.sv:10:43:.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/basic/flatten.sv:10:48: Syntax error: no viable alternative at input 'b+:',
         $display($time, `" A1 @+ ", out[1+a][1+b+:1]); 
-                                                ^--.
+                                                ^-- ${SURELOG_DIR}/third_party/tests/Zachjs/basic/flatten.sv:10:48:.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/basic/flatten.sv:10:52: Syntax error: mismatched input ')' expecting {'this', 'randomize', 'sample', Escaped_identifier, Simple_identifier},
         $display($time, `" A1 @+ ", out[1+a][1+b+:1]); 
-                                                    ^--.
+                                                    ^-- ${SURELOG_DIR}/third_party/tests/Zachjs/basic/flatten.sv:10:52:.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/basic/flatten.sv:11: Syntax error: mismatched input '111' expecting <EOF>,
 111        $display($time, `" A1 @+ ", out[2+a][1+b+:1]); 
-^--.
+^-- ${SURELOG_DIR}/third_party/tests/Zachjs/basic/flatten.sv:11:0:.
 [  FATAL] : 0
 [ SYNTAX] : 8
 [  ERROR] : 0
@@ -591,13 +604,13 @@ Processing: -cd basic +incdir+.+../basic/+../lex/+../lib/+../relong/+../resolve/
 Processing: -cd basic +incdir+.+../basic/+../lex/+../lib/+../relong/+../resolve/ -parse -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns enum.sv -l enum.sv.log
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/basic/enum.sv:25:13: Syntax error: no viable alternative at input 'enum [',
 typedef enum [0:0] {
-             ^--.
+             ^-- ${SURELOG_DIR}/third_party/tests/Zachjs/basic/enum.sv:25:13:.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/basic/enum.sv:25:13: Syntax error: mismatched input '[' expecting {'{', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'this', 'randomize', 'sample', Escaped_identifier, Simple_identifier},
 typedef enum [0:0] {
-             ^--.
+             ^-- ${SURELOG_DIR}/third_party/tests/Zachjs/basic/enum.sv:25:13:.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/basic/enum.sv:25:19: Syntax error: mismatched input '{' expecting ';',
 typedef enum [0:0] {
-                   ^--.
+                   ^-- ${SURELOG_DIR}/third_party/tests/Zachjs/basic/enum.sv:25:19:.
 [  FATAL] : 0
 [ SYNTAX] : 3
 [  ERROR] : 0
@@ -727,13 +740,13 @@ ${SURELOG_DIR}/third_party/tests/Zachjs/lex/macro_whitespace.sv:1:9: No default 
 ${SURELOG_DIR}/third_party/tests/Zachjs/lex/macro_whitespace.sv:1:9: No default value for argument 2 (b) in macro definition.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/lex/macro_whitespace.sv:5:17: Syntax error: no viable alternative at input '$display(`',
         $display(`FOO
-                 ^--.
+                 ^-- ${SURELOG_DIR}/third_party/tests/Zachjs/lex/macro_whitespace.sv:5:17:.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/lex/macro_whitespace.sv:5:16: Syntax error: mismatched input '(' expecting ';',
         $display(`FOO
-                ^--.
+                ^-- ${SURELOG_DIR}/third_party/tests/Zachjs/lex/macro_whitespace.sv:5:16:.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/lex/macro_whitespace.sv:6:8: Syntax error: mismatched input '(' expecting <EOF>,
         (
-        ^--.
+        ^-- ${SURELOG_DIR}/third_party/tests/Zachjs/lex/macro_whitespace.sv:6:8:.
 [  FATAL] : 0
 [ SYNTAX] : 3
 [  ERROR] : 3
@@ -744,9 +757,9 @@ Processing: -cd lex +incdir+.+../basic/+../lex/+../lib/+../relong/+../resolve/ -
 [WRN:PP0113] ${SURELOG_DIR}/third_party/tests/Zachjs/lex/macro_iv.sv:59:9: Unused macro argument "str".
 [ERR:PP0116] ${SURELOG_DIR}/third_party/tests/Zachjs/lex/macro_iv.sv:119:46: Illegal unterminated string: >>");
 <<.
-[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/lex/macro_iv.sv:122: Syntax error: mismatched input '"' expecting <EOF>,
+[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/lex/macro_iv.sv:121: Syntax error: mismatched input '"' expecting <EOF>,
 ");
-^--.
+^-- ${SURELOG_DIR}/third_party/tests/Zachjs/lex/macro_iv.sv:121:0:.
 [  FATAL] : 0
 [ SYNTAX] : 1
 [  ERROR] : 1
@@ -763,9 +776,9 @@ Processing: -cd lex +incdir+.+../basic/+../lex/+../lib/+../relong/+../resolve/ -
 <<.
 [ERR:PP0116] ${SURELOG_DIR}/third_party/tests/Zachjs/lex/macro.sv:102:46: Illegal unterminated string: >>");
 <<.
-[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/lex/macro.sv:43: Syntax error: mismatched input '=' expecting <EOF>,
+[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Zachjs/lex/macro.sv:41: Syntax error: mismatched input '=' expecting <EOF>,
 = "bar" ) str, str
-^--.
+^-- ${SURELOG_DIR}/third_party/tests/Zachjs/lex/macro.sv:41:0:.
 [  FATAL] : 0
 [ SYNTAX] : 1
 [  ERROR] : 2
@@ -850,9 +863,10 @@ Processing: -cd relong +incdir+.+../basic/+../lex/+../lib/+../relong/+../resolve
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd relong +incdir+.+../basic/+../lex/+../lib/+../relong/+../resolve/ -parse -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns gen_struct.sv -l gen_struct.sv.log
+[ERR:UH0703] ${SURELOG_DIR}/third_party/tests/Zachjs/relong/gen_struct.sv:16:16: Internal Error(24) : adding wrong object type (GenVar) in a stmt group!.
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd relong +incdir+.+../basic/+../lex/+../lib/+../relong/+../resolve/ -parse -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns array.sv -l array.sv.log
@@ -862,9 +876,11 @@ Processing: -cd relong +incdir+.+../basic/+../lex/+../lib/+../relong/+../resolve
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd relong +incdir+.+../basic/+../lex/+../lib/+../relong/+../resolve/ -parse -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns cache_request.sv -l cache_request.sv.log
+[ERR:UH0734] ${SURELOG_DIR}/third_party/tests/Zachjs/relong/cache_request.sv:41:18: Failed to bind object: "id: 127, name: CacheRequest_t".
+[ERR:EL0535] ${SURELOG_DIR}/third_party/tests/Zachjs/relong/cache_request.sv:41:18: Illegal implicit net "id:127, name: CacheRequest_t".
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 2
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd relong +incdir+.+../basic/+../lex/+../lib/+../relong/+../resolve/ -parse -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns module_struct.sv -l module_struct.sv.log
@@ -882,6 +898,6 @@ Processing: -cd relong +incdir+.+../basic/+../lex/+../lib/+../relong/+../resolve
 Processed 122 tests.
 [  FATAL] : 0
 [ SYNTAX] : 39
-[  ERROR] : 16
-[WARNING] : 6
+[  ERROR] : 31
+[WARNING] : 7
 [   NOTE] : 0

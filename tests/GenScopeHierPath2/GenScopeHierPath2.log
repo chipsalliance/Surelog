@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 322
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv
+FILE: ${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv
 n<> u<321> t<Top_level_rule> c<1> l<1:1> el<26:1>
-  n<> u<1> t<Null_rule> p<321> s<320> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<321> s<320> l<1:1>
   n<> u<320> t<Source_text> p<321> c<319> l<1:1> el<25:10>
     n<> u<319> t<Description> p<320> c<318> l<1:1> el<25:10>
       n<> u<318> t<Module_declaration> p<319> c<22> l<1:1> el<25:10>
@@ -330,50 +330,40 @@ AST_DEBUG_END
 [INF:CP0303] ${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv:1:1: Compile module "work@mod".
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-Begin                                                  8
-Constant                                               9
+ArrayNet                                               4
+Begin                                                 12
+Constant                                              17
 ContAssign                                             4
 Design                                                 1
 GenIfElse                                              6
 HierPath                                               8
-IntTypespec                                            1
-LogicNet                                               1
-LogicTypespec                                          1
+LogicNet                                               5
+LogicTypespec                                          6
 Module                                                 2
-NamedBegin                                             4
-Operation                                              6
+Operation                                             10
 ParamAssign                                            1
 Parameter                                              1
 Port                                                   1
-Range                                                  1
-RefObj                                                27
-RefTypespec                                            3
+Range                                                  7
+RefObj                                                26
+RefTypespec                                            6
 SysFuncCall                                            4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/GenScopeHierPath2/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/GenScopeHierPath2/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/GenScopeHierPath2/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@mod (work@mod), file:${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv, line:1:1, endln:25:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@mod
+  |vpiName:work@mod
   |vpiParameter:
-  \_Parameter: (work@mod.P), line:4:15, endln:4:16
+  \_Parameter: (work@mod.P), line:4:15, endln:4:20
     |vpiParent:
     \_Module: work@mod (work@mod), file:${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv, line:1:1, endln:25:10
     |UINT:0
-    |vpiTypespec:
-    \_RefTypespec: (work@mod.P)
-      |vpiParent:
-      \_Parameter: (work@mod.P), line:4:15, endln:4:16
-      |vpiFullName:work@mod.P
-      |vpiActual:
-      \_IntTypespec: , line:4:5, endln:4:20
     |vpiName:P
     |vpiFullName:work@mod.P
   |vpiParamAssign:
@@ -387,53 +377,549 @@ Design: (unnamed)
       |vpiDecompile:0
       |vpiSize:64
       |UINT:0
-      |vpiTypespec:
-      \_RefTypespec: (work@mod)
-        |vpiParent:
-        \_Constant: , line:4:19, endln:4:20
-        |vpiFullName:work@mod
-        |vpiActual:
-        \_IntTypespec: , line:4:5, endln:4:20
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (work@mod.P), line:4:15, endln:4:16
-  |vpiDefName:work@mod
-  |vpiNet:
+    \_Parameter: (work@mod.P), line:4:15, endln:4:20
+  |vpiInternalScope:
+  \_Begin: (work@mod.blk1), line:5:17, endln:7:8
+    |vpiParent:
+    \_Module: work@mod (work@mod), file:${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv, line:1:1, endln:25:10
+    |vpiName:blk1
+    |vpiFullName:work@mod.blk1
+    |vpiTypedef:
+    \_LogicTypespec: , line:6:9, endln:6:13
+      |vpiParent:
+      \_Begin: (work@mod.blk1), line:5:17, endln:7:8
+    |vpiImportTypespec:
+    \_LogicTypespec: , line:6:9, endln:6:13
+    |vpiImportTypespec:
+    \_LogicNet: (work@mod.blk1.w), line:6:14, endln:6:15
+      |vpiParent:
+      \_Begin: (work@mod.blk1), line:5:17, endln:7:8
+      |vpiTypespec:
+      \_RefTypespec: (work@mod.blk1.w), line:6:9, endln:6:13
+        |vpiParent:
+        \_LogicNet: (work@mod.blk1.w), line:6:14, endln:6:15
+        |vpiFullName:work@mod.blk1.w
+        |vpiActual:
+        \_LogicTypespec: , line:6:9, endln:6:13
+      |vpiName:w
+      |vpiFullName:work@mod.blk1.w
+      |vpiNetType:1
+  |vpiInternalScope:
+  \_Begin: (work@mod), line:8:10, endln:16:8
+    |vpiParent:
+    \_Module: work@mod (work@mod), file:${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv, line:1:1, endln:25:10
+    |vpiFullName:work@mod
+    |vpiInternalScope:
+    \_Begin: (work@mod.blk2), line:8:22, endln:10:8
+      |vpiParent:
+      \_Begin: (work@mod), line:8:10, endln:16:8
+      |vpiName:blk2
+      |vpiFullName:work@mod.blk2
+      |vpiTypedef:
+      \_LogicTypespec: , line:9:9, endln:9:13
+        |vpiParent:
+        \_Begin: (work@mod.blk2), line:8:22, endln:10:8
+      |vpiImportTypespec:
+      \_LogicTypespec: , line:9:9, endln:9:13
+      |vpiImportTypespec:
+      \_LogicNet: (work@mod.blk2.x), line:9:14, endln:9:15
+        |vpiParent:
+        \_Begin: (work@mod.blk2), line:8:22, endln:10:8
+        |vpiTypespec:
+        \_RefTypespec: (work@mod.blk2.x), line:9:9, endln:9:13
+          |vpiParent:
+          \_LogicNet: (work@mod.blk2.x), line:9:14, endln:9:15
+          |vpiFullName:work@mod.blk2.x
+          |vpiActual:
+          \_LogicTypespec: , line:9:9, endln:9:13
+        |vpiName:x
+        |vpiFullName:work@mod.blk2.x
+        |vpiNetType:1
+    |vpiInternalScope:
+    \_Begin: (work@mod), line:11:10, endln:16:8
+      |vpiParent:
+      \_Begin: (work@mod), line:8:10, endln:16:8
+      |vpiFullName:work@mod
+      |vpiInternalScope:
+      \_Begin: (work@mod.blk3), line:11:22, endln:13:8
+        |vpiParent:
+        \_Begin: (work@mod), line:11:10, endln:16:8
+        |vpiName:blk3
+        |vpiFullName:work@mod.blk3
+        |vpiTypedef:
+        \_LogicTypespec: , line:12:9, endln:12:13
+          |vpiParent:
+          \_Begin: (work@mod.blk3), line:11:22, endln:13:8
+        |vpiImportTypespec:
+        \_LogicTypespec: , line:12:9, endln:12:13
+        |vpiImportTypespec:
+        \_LogicNet: (work@mod.blk3.y), line:12:14, endln:12:15
+          |vpiParent:
+          \_Begin: (work@mod.blk3), line:11:22, endln:13:8
+          |vpiTypespec:
+          \_RefTypespec: (work@mod.blk3.y), line:12:9, endln:12:13
+            |vpiParent:
+            \_LogicNet: (work@mod.blk3.y), line:12:14, endln:12:15
+            |vpiFullName:work@mod.blk3.y
+            |vpiActual:
+            \_LogicTypespec: , line:12:9, endln:12:13
+          |vpiName:y
+          |vpiFullName:work@mod.blk3.y
+          |vpiNetType:1
+      |vpiInternalScope:
+      \_Begin: (work@mod.blk4), line:14:10, endln:16:8
+        |vpiParent:
+        \_Begin: (work@mod), line:11:10, endln:16:8
+        |vpiName:blk4
+        |vpiFullName:work@mod.blk4
+        |vpiTypedef:
+        \_LogicTypespec: , line:15:9, endln:15:13
+          |vpiParent:
+          \_Begin: (work@mod.blk4), line:14:10, endln:16:8
+        |vpiImportTypespec:
+        \_LogicTypespec: , line:15:9, endln:15:13
+        |vpiImportTypespec:
+        \_LogicNet: (work@mod.blk4.z), line:15:14, endln:15:15
+          |vpiParent:
+          \_Begin: (work@mod.blk4), line:14:10, endln:16:8
+          |vpiTypespec:
+          \_RefTypespec: (work@mod.blk4.z), line:15:9, endln:15:13
+            |vpiParent:
+            \_LogicNet: (work@mod.blk4.z), line:15:14, endln:15:15
+            |vpiFullName:work@mod.blk4.z
+            |vpiActual:
+            \_LogicTypespec: , line:15:9, endln:15:13
+          |vpiName:z
+          |vpiFullName:work@mod.blk4.z
+          |vpiNetType:1
+      |vpiStmt:
+      \_GenIfElse: , line:11:10, endln:16:8
+        |vpiParent:
+        \_Begin: (work@mod), line:11:10, endln:16:8
+        |vpiCondition:
+        \_Operation: , line:11:14, endln:11:20
+          |vpiParent:
+          \_GenIfElse: , line:11:10, endln:16:8
+          |vpiOpType:14
+          |vpiOperand:
+          \_RefObj: (work@mod.P), line:11:14, endln:11:15
+            |vpiParent:
+            \_Operation: , line:11:14, endln:11:20
+            |vpiName:P
+            |vpiFullName:work@mod.P
+            |vpiActual:
+            \_Parameter: (work@mod.P), line:4:15, endln:4:20
+          |vpiOperand:
+          \_Constant: , line:11:19, endln:11:20
+            |vpiParent:
+            \_Operation: , line:11:14, endln:11:20
+            |vpiDecompile:3
+            |vpiSize:64
+            |UINT:3
+            |vpiConstType:9
+        |vpiStmt:
+        \_Begin: (work@mod.blk3), line:11:22, endln:13:8
+        |vpiElseStmt:
+        \_Begin: (work@mod.blk4), line:14:10, endln:16:8
+    |vpiStmt:
+    \_GenIfElse: , line:8:10, endln:16:8
+      |vpiParent:
+      \_Begin: (work@mod), line:8:10, endln:16:8
+      |vpiCondition:
+      \_Operation: , line:8:14, endln:8:20
+        |vpiParent:
+        \_GenIfElse: , line:8:10, endln:16:8
+        |vpiOpType:14
+        |vpiOperand:
+        \_RefObj: (work@mod.P), line:8:14, endln:8:15
+          |vpiParent:
+          \_Operation: , line:8:14, endln:8:20
+          |vpiName:P
+          |vpiFullName:work@mod.P
+          |vpiActual:
+          \_Parameter: (work@mod.P), line:4:15, endln:4:20
+        |vpiOperand:
+        \_Constant: , line:8:19, endln:8:20
+          |vpiParent:
+          \_Operation: , line:8:14, endln:8:20
+          |vpiDecompile:2
+          |vpiSize:64
+          |UINT:2
+          |vpiConstType:9
+      |vpiStmt:
+      \_Begin: (work@mod.blk2), line:8:22, endln:10:8
+      |vpiElseStmt:
+      \_Begin: (work@mod), line:11:10, endln:16:8
+  |vpiInternalScope:
+  \_Begin: (work@mod), line:18:9, endln:18:36
+    |vpiParent:
+    \_Module: work@mod (work@mod), file:${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv, line:1:1, endln:25:10
+    |vpiFullName:work@mod
+    |vpiStmt:
+    \_ContAssign: , line:18:16, endln:18:35
+      |vpiParent:
+      \_Begin: (work@mod), line:18:9, endln:18:36
+      |vpiRhs:
+      \_SysFuncCall: ($bits), line:18:28, endln:18:34
+        |vpiParent:
+        \_ContAssign: , line:18:16, endln:18:35
+        |vpiArgument:
+        \_HierPath: (blk1.w), line:18:28, endln:18:34
+          |vpiParent:
+          \_SysFuncCall: ($bits), line:18:28, endln:18:34
+          |vpiActual:
+          \_RefObj: (blk1), line:18:28, endln:18:32
+            |vpiParent:
+            \_HierPath: (blk1.w), line:18:28, endln:18:34
+            |vpiName:blk1
+            |vpiActual:
+            \_Begin: (work@mod.blk1), line:5:17, endln:7:8
+          |vpiActual:
+          \_RefObj: (work@mod.w), line:18:33, endln:18:34
+            |vpiParent:
+            \_HierPath: (blk1.w), line:18:28, endln:18:34
+            |vpiName:w
+            |vpiFullName:work@mod.w
+            |vpiActual:
+            \_LogicNet: (work@mod.blk1.w), line:6:14, endln:6:15
+          |vpiName:blk1.w
+        |vpiName:$bits
+      |vpiLhs:
+      \_RefObj: (work@mod.out), line:18:16, endln:18:19
+        |vpiParent:
+        \_ContAssign: , line:18:16, endln:18:35
+        |vpiName:out
+        |vpiFullName:work@mod.out
+        |vpiActual:
+        \_LogicNet: (work@mod.out), line:2:24, endln:2:27
+  |vpiInternalScope:
+  \_Begin: (work@mod), line:19:10, endln:24:36
+    |vpiParent:
+    \_Module: work@mod (work@mod), file:${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv, line:1:1, endln:25:10
+    |vpiFullName:work@mod
+    |vpiInternalScope:
+    \_Begin: (work@mod), line:20:9, endln:20:36
+      |vpiParent:
+      \_Begin: (work@mod), line:19:10, endln:24:36
+      |vpiFullName:work@mod
+      |vpiImportTypespec:
+      \_LogicNet: (work@mod.blk2), line:20:28, endln:20:32
+        |vpiParent:
+        \_Begin: (work@mod), line:20:9, endln:20:36
+        |vpiName:blk2
+        |vpiFullName:work@mod.blk2
+        |vpiNetType:1
+      |vpiImportTypespec:
+      \_LogicNet: (work@mod.x), line:20:33, endln:20:34
+        |vpiParent:
+        \_Begin: (work@mod), line:20:9, endln:20:36
+        |vpiName:x
+        |vpiFullName:work@mod.x
+        |vpiNetType:1
+      |vpiStmt:
+      \_ContAssign: , line:20:16, endln:20:35
+        |vpiParent:
+        \_Begin: (work@mod), line:20:9, endln:20:36
+        |vpiRhs:
+        \_SysFuncCall: ($bits), line:20:28, endln:20:34
+          |vpiParent:
+          \_ContAssign: , line:20:16, endln:20:35
+          |vpiArgument:
+          \_HierPath: (blk2.x), line:20:28, endln:20:34
+            |vpiParent:
+            \_SysFuncCall: ($bits), line:20:28, endln:20:34
+            |vpiActual:
+            \_RefObj: (blk2), line:20:28, endln:20:32
+              |vpiParent:
+              \_HierPath: (blk2.x), line:20:28, endln:20:34
+              |vpiName:blk2
+              |vpiActual:
+              \_LogicNet: (work@mod.blk2), line:20:28, endln:20:32
+            |vpiActual:
+            \_RefObj: (work@mod.x), line:20:33, endln:20:34
+              |vpiParent:
+              \_HierPath: (blk2.x), line:20:28, endln:20:34
+              |vpiName:x
+              |vpiFullName:work@mod.x
+              |vpiActual:
+              \_LogicNet: (work@mod.x), line:20:33, endln:20:34
+            |vpiName:blk2.x
+          |vpiName:$bits
+        |vpiLhs:
+        \_RefObj: (work@mod.out), line:20:16, endln:20:19
+          |vpiParent:
+          \_ContAssign: , line:20:16, endln:20:35
+          |vpiName:out
+          |vpiFullName:work@mod.out
+          |vpiActual:
+          \_LogicNet: (work@mod.out), line:2:24, endln:2:27
+    |vpiInternalScope:
+    \_Begin: (work@mod), line:21:10, endln:24:36
+      |vpiParent:
+      \_Begin: (work@mod), line:19:10, endln:24:36
+      |vpiFullName:work@mod
+      |vpiInternalScope:
+      \_Begin: (work@mod), line:22:9, endln:22:36
+        |vpiParent:
+        \_Begin: (work@mod), line:21:10, endln:24:36
+        |vpiFullName:work@mod
+        |vpiImportTypespec:
+        \_LogicNet: (work@mod.blk3), line:22:28, endln:22:32
+          |vpiParent:
+          \_Begin: (work@mod), line:22:9, endln:22:36
+          |vpiName:blk3
+          |vpiFullName:work@mod.blk3
+          |vpiNetType:1
+        |vpiImportTypespec:
+        \_LogicNet: (work@mod.y), line:22:33, endln:22:34
+          |vpiParent:
+          \_Begin: (work@mod), line:22:9, endln:22:36
+          |vpiName:y
+          |vpiFullName:work@mod.y
+          |vpiNetType:1
+        |vpiStmt:
+        \_ContAssign: , line:22:16, endln:22:35
+          |vpiParent:
+          \_Begin: (work@mod), line:22:9, endln:22:36
+          |vpiRhs:
+          \_SysFuncCall: ($bits), line:22:28, endln:22:34
+            |vpiParent:
+            \_ContAssign: , line:22:16, endln:22:35
+            |vpiArgument:
+            \_HierPath: (blk3.y), line:22:28, endln:22:34
+              |vpiParent:
+              \_SysFuncCall: ($bits), line:22:28, endln:22:34
+              |vpiActual:
+              \_RefObj: (blk3), line:22:28, endln:22:32
+                |vpiParent:
+                \_HierPath: (blk3.y), line:22:28, endln:22:34
+                |vpiName:blk3
+                |vpiActual:
+                \_LogicNet: (work@mod.blk3), line:22:28, endln:22:32
+              |vpiActual:
+              \_RefObj: (work@mod.y), line:22:33, endln:22:34
+                |vpiParent:
+                \_HierPath: (blk3.y), line:22:28, endln:22:34
+                |vpiName:y
+                |vpiFullName:work@mod.y
+                |vpiActual:
+                \_LogicNet: (work@mod.y), line:22:33, endln:22:34
+              |vpiName:blk3.y
+            |vpiName:$bits
+          |vpiLhs:
+          \_RefObj: (work@mod.out), line:22:16, endln:22:19
+            |vpiParent:
+            \_ContAssign: , line:22:16, endln:22:35
+            |vpiName:out
+            |vpiFullName:work@mod.out
+            |vpiActual:
+            \_LogicNet: (work@mod.out), line:2:24, endln:2:27
+      |vpiInternalScope:
+      \_Begin: (work@mod), line:24:9, endln:24:36
+        |vpiParent:
+        \_Begin: (work@mod), line:21:10, endln:24:36
+        |vpiFullName:work@mod
+        |vpiImportTypespec:
+        \_LogicNet: (work@mod.blk4), line:24:28, endln:24:32
+          |vpiParent:
+          \_Begin: (work@mod), line:24:9, endln:24:36
+          |vpiName:blk4
+          |vpiFullName:work@mod.blk4
+          |vpiNetType:1
+        |vpiImportTypespec:
+        \_LogicNet: (work@mod.z), line:24:33, endln:24:34
+          |vpiParent:
+          \_Begin: (work@mod), line:24:9, endln:24:36
+          |vpiName:z
+          |vpiFullName:work@mod.z
+          |vpiNetType:1
+        |vpiStmt:
+        \_ContAssign: , line:24:16, endln:24:35
+          |vpiParent:
+          \_Begin: (work@mod), line:24:9, endln:24:36
+          |vpiRhs:
+          \_SysFuncCall: ($bits), line:24:28, endln:24:34
+            |vpiParent:
+            \_ContAssign: , line:24:16, endln:24:35
+            |vpiArgument:
+            \_HierPath: (blk4.z), line:24:28, endln:24:34
+              |vpiParent:
+              \_SysFuncCall: ($bits), line:24:28, endln:24:34
+              |vpiActual:
+              \_RefObj: (blk4), line:24:28, endln:24:32
+                |vpiParent:
+                \_HierPath: (blk4.z), line:24:28, endln:24:34
+                |vpiName:blk4
+                |vpiActual:
+                \_LogicNet: (work@mod.blk4), line:24:28, endln:24:32
+              |vpiActual:
+              \_RefObj: (work@mod.z), line:24:33, endln:24:34
+                |vpiParent:
+                \_HierPath: (blk4.z), line:24:28, endln:24:34
+                |vpiName:z
+                |vpiFullName:work@mod.z
+                |vpiActual:
+                \_LogicNet: (work@mod.z), line:24:33, endln:24:34
+              |vpiName:blk4.z
+            |vpiName:$bits
+          |vpiLhs:
+          \_RefObj: (work@mod.out), line:24:16, endln:24:19
+            |vpiParent:
+            \_ContAssign: , line:24:16, endln:24:35
+            |vpiName:out
+            |vpiFullName:work@mod.out
+            |vpiActual:
+            \_LogicNet: (work@mod.out), line:2:24, endln:2:27
+      |vpiStmt:
+      \_GenIfElse: , line:21:10, endln:24:36
+        |vpiParent:
+        \_Begin: (work@mod), line:21:10, endln:24:36
+        |vpiCondition:
+        \_Operation: , line:21:14, endln:21:20
+          |vpiParent:
+          \_GenIfElse: , line:21:10, endln:24:36
+          |vpiOpType:14
+          |vpiOperand:
+          \_RefObj: (work@mod.P), line:21:14, endln:21:15
+            |vpiParent:
+            \_Operation: , line:21:14, endln:21:20
+            |vpiName:P
+            |vpiFullName:work@mod.P
+            |vpiActual:
+            \_Parameter: (work@mod.P), line:4:15, endln:4:20
+          |vpiOperand:
+          \_Constant: , line:21:19, endln:21:20
+            |vpiParent:
+            \_Operation: , line:21:14, endln:21:20
+            |vpiDecompile:3
+            |vpiSize:64
+            |UINT:3
+            |vpiConstType:9
+        |vpiStmt:
+        \_Begin: (work@mod), line:22:9, endln:22:36
+        |vpiElseStmt:
+        \_Begin: (work@mod), line:24:9, endln:24:36
+    |vpiStmt:
+    \_GenIfElse: , line:19:10, endln:24:36
+      |vpiParent:
+      \_Begin: (work@mod), line:19:10, endln:24:36
+      |vpiCondition:
+      \_Operation: , line:19:14, endln:19:20
+        |vpiParent:
+        \_GenIfElse: , line:19:10, endln:24:36
+        |vpiOpType:14
+        |vpiOperand:
+        \_RefObj: (work@mod.P), line:19:14, endln:19:15
+          |vpiParent:
+          \_Operation: , line:19:14, endln:19:20
+          |vpiName:P
+          |vpiFullName:work@mod.P
+          |vpiActual:
+          \_Parameter: (work@mod.P), line:4:15, endln:4:20
+        |vpiOperand:
+        \_Constant: , line:19:19, endln:19:20
+          |vpiParent:
+          \_Operation: , line:19:14, endln:19:20
+          |vpiDecompile:2
+          |vpiSize:64
+          |UINT:2
+          |vpiConstType:9
+      |vpiStmt:
+      \_Begin: (work@mod), line:20:9, endln:20:36
+      |vpiElseStmt:
+      \_Begin: (work@mod), line:21:10, endln:24:36
+  |vpiTypedef:
+  \_LogicTypespec: , line:2:12, endln:2:23
+    |vpiParent:
+    \_Module: work@mod (work@mod), file:${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv, line:1:1, endln:25:10
+    |vpiRange:
+    \_Range: , line:2:17, endln:2:23
+      |vpiParent:
+      \_LogicTypespec: , line:2:12, endln:2:23
+      |vpiLeftRange:
+      \_Constant: , line:2:18, endln:2:20
+        |vpiParent:
+        \_Range: , line:2:17, endln:2:23
+        |vpiDecompile:31
+        |vpiSize:64
+        |UINT:31
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:2:21, endln:2:22
+        |vpiParent:
+        \_Range: , line:2:17, endln:2:23
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:2:12, endln:2:23
+    |vpiParent:
+    \_Module: work@mod (work@mod), file:${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv, line:1:1, endln:25:10
+    |vpiRange:
+    \_Range: , line:2:17, endln:2:23
+      |vpiParent:
+      \_LogicTypespec: , line:2:12, endln:2:23
+      |vpiLeftRange:
+      \_Constant: , line:2:18, endln:2:20
+        |vpiParent:
+        \_Range: , line:2:17, endln:2:23
+        |vpiDecompile:31
+        |vpiSize:64
+        |UINT:31
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:2:21, endln:2:22
+        |vpiParent:
+        \_Range: , line:2:17, endln:2:23
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:2:12, endln:2:23
+  |vpiImportTypespec:
   \_LogicNet: (work@mod.out), line:2:24, endln:2:27
     |vpiParent:
     \_Module: work@mod (work@mod), file:${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv, line:1:1, endln:25:10
+    |vpiTypespec:
+    \_RefTypespec: (work@mod.out), line:2:12, endln:2:23
+      |vpiParent:
+      \_LogicNet: (work@mod.out), line:2:24, endln:2:27
+      |vpiFullName:work@mod.out
+      |vpiActual:
+      \_LogicTypespec: , line:2:12, endln:2:23
     |vpiName:out
     |vpiFullName:work@mod.out
     |vpiNetType:1
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:2:12, endln:2:23
+  |vpiDefName:work@mod
+  |vpiNet:
+  \_LogicNet: (work@mod.out), line:2:24, endln:2:27
   |vpiPort:
   \_Port: (out), line:2:24, endln:2:27
     |vpiParent:
     \_Module: work@mod (work@mod), file:${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv, line:1:1, endln:25:10
     |vpiName:out
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@mod.out.out), line:2:24, endln:2:27
-      |vpiParent:
-      \_Port: (out), line:2:24, endln:2:27
-      |vpiName:out
-      |vpiFullName:work@mod.out.out
-      |vpiActual:
-      \_LogicNet: (work@mod.out), line:2:24, endln:2:27
-    |vpiTypedef:
-    \_RefTypespec: (work@mod.out)
+    |vpiTypespec:
+    \_RefTypespec: (work@mod.out), line:2:12, endln:2:16
       |vpiParent:
       \_Port: (out), line:2:24, endln:2:27
       |vpiFullName:work@mod.out
       |vpiActual:
       \_LogicTypespec: , line:2:12, endln:2:23
   |vpiGenStmt:
-  \_GenIfElse: 
+  \_GenIfElse: , line:5:5, endln:16:8
     |vpiParent:
     \_Module: work@mod (work@mod), file:${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv, line:1:1, endln:25:10
     |vpiCondition:
     \_Operation: , line:5:9, endln:5:15
       |vpiParent:
-      \_GenIfElse: 
+      \_GenIfElse: , line:5:5, endln:16:8
       |vpiOpType:14
       |vpiOperand:
       \_RefObj: (work@mod.P), line:5:9, endln:5:10
@@ -441,6 +927,8 @@ Design: (unnamed)
         \_Operation: , line:5:9, endln:5:15
         |vpiName:P
         |vpiFullName:work@mod.P
+        |vpiActual:
+        \_Parameter: (work@mod.P), line:4:15, endln:4:20
       |vpiOperand:
       \_Constant: , line:5:14, endln:5:15
         |vpiParent:
@@ -450,93 +938,17 @@ Design: (unnamed)
         |UINT:1
         |vpiConstType:9
     |vpiStmt:
-    \_NamedBegin: (work@mod.blk1)
-      |vpiParent:
-      \_GenIfElse: 
-      |vpiName:blk1
-      |vpiFullName:work@mod.blk1
+    \_Begin: (work@mod.blk1), line:5:17, endln:7:8
     |vpiElseStmt:
-    \_Begin: (work@mod)
-      |vpiParent:
-      \_GenIfElse: 
-      |vpiFullName:work@mod
-      |vpiStmt:
-      \_GenIfElse: , line:8:10, endln:16:8
-        |vpiParent:
-        \_Begin: (work@mod)
-        |vpiCondition:
-        \_Operation: , line:8:14, endln:8:20
-          |vpiParent:
-          \_GenIfElse: , line:8:10, endln:16:8
-          |vpiOpType:14
-          |vpiOperand:
-          \_RefObj: (work@mod.P), line:8:14, endln:8:15
-            |vpiParent:
-            \_Operation: , line:8:14, endln:8:20
-            |vpiName:P
-            |vpiFullName:work@mod.P
-          |vpiOperand:
-          \_Constant: , line:8:19, endln:8:20
-            |vpiParent:
-            \_Operation: , line:8:14, endln:8:20
-            |vpiDecompile:2
-            |vpiSize:64
-            |UINT:2
-            |vpiConstType:9
-        |vpiStmt:
-        \_NamedBegin: (work@mod.blk2)
-          |vpiParent:
-          \_GenIfElse: , line:8:10, endln:16:8
-          |vpiName:blk2
-          |vpiFullName:work@mod.blk2
-        |vpiElseStmt:
-        \_Begin: (work@mod)
-          |vpiParent:
-          \_GenIfElse: , line:8:10, endln:16:8
-          |vpiFullName:work@mod
-          |vpiStmt:
-          \_GenIfElse: , line:11:10, endln:16:8
-            |vpiParent:
-            \_Begin: (work@mod)
-            |vpiCondition:
-            \_Operation: , line:11:14, endln:11:20
-              |vpiParent:
-              \_GenIfElse: , line:11:10, endln:16:8
-              |vpiOpType:14
-              |vpiOperand:
-              \_RefObj: (work@mod.P), line:11:14, endln:11:15
-                |vpiParent:
-                \_Operation: , line:11:14, endln:11:20
-                |vpiName:P
-                |vpiFullName:work@mod.P
-              |vpiOperand:
-              \_Constant: , line:11:19, endln:11:20
-                |vpiParent:
-                \_Operation: , line:11:14, endln:11:20
-                |vpiDecompile:3
-                |vpiSize:64
-                |UINT:3
-                |vpiConstType:9
-            |vpiStmt:
-            \_NamedBegin: (work@mod.blk3)
-              |vpiParent:
-              \_GenIfElse: , line:11:10, endln:16:8
-              |vpiName:blk3
-              |vpiFullName:work@mod.blk3
-            |vpiElseStmt:
-            \_NamedBegin: (work@mod.blk4)
-              |vpiParent:
-              \_GenIfElse: , line:11:10, endln:16:8
-              |vpiName:blk4
-              |vpiFullName:work@mod.blk4
+    \_Begin: (work@mod), line:8:10, endln:16:8
   |vpiGenStmt:
-  \_GenIfElse: 
+  \_GenIfElse: , line:17:5, endln:24:36
     |vpiParent:
     \_Module: work@mod (work@mod), file:${SURELOG_DIR}/tests/GenScopeHierPath2/dut.sv, line:1:1, endln:25:10
     |vpiCondition:
     \_Operation: , line:17:9, endln:17:15
       |vpiParent:
-      \_GenIfElse: 
+      \_GenIfElse: , line:17:5, endln:24:36
       |vpiOpType:14
       |vpiOperand:
       \_RefObj: (work@mod.P), line:17:9, endln:17:10
@@ -544,6 +956,8 @@ Design: (unnamed)
         \_Operation: , line:17:9, endln:17:15
         |vpiName:P
         |vpiFullName:work@mod.P
+        |vpiActual:
+        \_Parameter: (work@mod.P), line:4:15, endln:4:20
       |vpiOperand:
       \_Constant: , line:17:14, endln:17:15
         |vpiParent:
@@ -553,228 +967,9 @@ Design: (unnamed)
         |UINT:1
         |vpiConstType:9
     |vpiStmt:
-    \_Begin: (work@mod)
-      |vpiParent:
-      \_GenIfElse: 
-      |vpiFullName:work@mod
-      |vpiStmt:
-      \_ContAssign: , line:18:16, endln:18:35
-        |vpiParent:
-        \_Begin: (work@mod)
-        |vpiRhs:
-        \_SysFuncCall: ($bits), line:18:22, endln:18:35
-          |vpiParent:
-          \_ContAssign: , line:18:16, endln:18:35
-          |vpiArgument:
-          \_HierPath: (blk1.w), line:18:28, endln:18:34
-            |vpiParent:
-            \_SysFuncCall: ($bits), line:18:22, endln:18:35
-            |vpiActual:
-            \_RefObj: (blk1), line:18:28, endln:18:32
-              |vpiParent:
-              \_HierPath: (blk1.w), line:18:28, endln:18:34
-              |vpiName:blk1
-            |vpiActual:
-            \_RefObj: (work@mod.w), line:18:33, endln:18:34
-              |vpiParent:
-              \_HierPath: (blk1.w), line:18:28, endln:18:34
-              |vpiName:w
-              |vpiFullName:work@mod.w
-            |vpiName:blk1.w
-          |vpiName:$bits
-        |vpiLhs:
-        \_RefObj: (work@mod.out), line:18:16, endln:18:19
-          |vpiParent:
-          \_ContAssign: , line:18:16, endln:18:35
-          |vpiName:out
-          |vpiFullName:work@mod.out
+    \_Begin: (work@mod), line:18:9, endln:18:36
     |vpiElseStmt:
-    \_Begin: (work@mod)
-      |vpiParent:
-      \_GenIfElse: 
-      |vpiFullName:work@mod
-      |vpiStmt:
-      \_GenIfElse: , line:19:10, endln:24:36
-        |vpiParent:
-        \_Begin: (work@mod)
-        |vpiCondition:
-        \_Operation: , line:19:14, endln:19:20
-          |vpiParent:
-          \_GenIfElse: , line:19:10, endln:24:36
-          |vpiOpType:14
-          |vpiOperand:
-          \_RefObj: (work@mod.P), line:19:14, endln:19:15
-            |vpiParent:
-            \_Operation: , line:19:14, endln:19:20
-            |vpiName:P
-            |vpiFullName:work@mod.P
-          |vpiOperand:
-          \_Constant: , line:19:19, endln:19:20
-            |vpiParent:
-            \_Operation: , line:19:14, endln:19:20
-            |vpiDecompile:2
-            |vpiSize:64
-            |UINT:2
-            |vpiConstType:9
-        |vpiStmt:
-        \_Begin: (work@mod)
-          |vpiParent:
-          \_GenIfElse: , line:19:10, endln:24:36
-          |vpiFullName:work@mod
-          |vpiStmt:
-          \_ContAssign: , line:20:16, endln:20:35
-            |vpiParent:
-            \_Begin: (work@mod)
-            |vpiRhs:
-            \_SysFuncCall: ($bits), line:20:22, endln:20:35
-              |vpiParent:
-              \_ContAssign: , line:20:16, endln:20:35
-              |vpiArgument:
-              \_HierPath: (blk2.x), line:20:28, endln:20:34
-                |vpiParent:
-                \_SysFuncCall: ($bits), line:20:22, endln:20:35
-                |vpiActual:
-                \_RefObj: (blk2), line:20:28, endln:20:32
-                  |vpiParent:
-                  \_HierPath: (blk2.x), line:20:28, endln:20:34
-                  |vpiName:blk2
-                |vpiActual:
-                \_RefObj: (work@mod.x), line:20:33, endln:20:34
-                  |vpiParent:
-                  \_HierPath: (blk2.x), line:20:28, endln:20:34
-                  |vpiName:x
-                  |vpiFullName:work@mod.x
-                |vpiName:blk2.x
-              |vpiName:$bits
-            |vpiLhs:
-            \_RefObj: (work@mod.out), line:20:16, endln:20:19
-              |vpiParent:
-              \_ContAssign: , line:20:16, endln:20:35
-              |vpiName:out
-              |vpiFullName:work@mod.out
-        |vpiElseStmt:
-        \_Begin: (work@mod)
-          |vpiParent:
-          \_GenIfElse: , line:19:10, endln:24:36
-          |vpiFullName:work@mod
-          |vpiStmt:
-          \_GenIfElse: , line:21:10, endln:24:36
-            |vpiParent:
-            \_Begin: (work@mod)
-            |vpiCondition:
-            \_Operation: , line:21:14, endln:21:20
-              |vpiParent:
-              \_GenIfElse: , line:21:10, endln:24:36
-              |vpiOpType:14
-              |vpiOperand:
-              \_RefObj: (work@mod.P), line:21:14, endln:21:15
-                |vpiParent:
-                \_Operation: , line:21:14, endln:21:20
-                |vpiName:P
-                |vpiFullName:work@mod.P
-              |vpiOperand:
-              \_Constant: , line:21:19, endln:21:20
-                |vpiParent:
-                \_Operation: , line:21:14, endln:21:20
-                |vpiDecompile:3
-                |vpiSize:64
-                |UINT:3
-                |vpiConstType:9
-            |vpiStmt:
-            \_Begin: (work@mod)
-              |vpiParent:
-              \_GenIfElse: , line:21:10, endln:24:36
-              |vpiFullName:work@mod
-              |vpiStmt:
-              \_ContAssign: , line:22:16, endln:22:35
-                |vpiParent:
-                \_Begin: (work@mod)
-                |vpiRhs:
-                \_SysFuncCall: ($bits), line:22:22, endln:22:35
-                  |vpiParent:
-                  \_ContAssign: , line:22:16, endln:22:35
-                  |vpiArgument:
-                  \_HierPath: (blk3.y), line:22:28, endln:22:34
-                    |vpiParent:
-                    \_SysFuncCall: ($bits), line:22:22, endln:22:35
-                    |vpiActual:
-                    \_RefObj: (blk3), line:22:28, endln:22:32
-                      |vpiParent:
-                      \_HierPath: (blk3.y), line:22:28, endln:22:34
-                      |vpiName:blk3
-                    |vpiActual:
-                    \_RefObj: (work@mod.y), line:22:33, endln:22:34
-                      |vpiParent:
-                      \_HierPath: (blk3.y), line:22:28, endln:22:34
-                      |vpiName:y
-                      |vpiFullName:work@mod.y
-                    |vpiName:blk3.y
-                  |vpiName:$bits
-                |vpiLhs:
-                \_RefObj: (work@mod.out), line:22:16, endln:22:19
-                  |vpiParent:
-                  \_ContAssign: , line:22:16, endln:22:35
-                  |vpiName:out
-                  |vpiFullName:work@mod.out
-            |vpiElseStmt:
-            \_Begin: (work@mod)
-              |vpiParent:
-              \_GenIfElse: , line:21:10, endln:24:36
-              |vpiFullName:work@mod
-              |vpiStmt:
-              \_ContAssign: , line:24:16, endln:24:35
-                |vpiParent:
-                \_Begin: (work@mod)
-                |vpiRhs:
-                \_SysFuncCall: ($bits), line:24:22, endln:24:35
-                  |vpiParent:
-                  \_ContAssign: , line:24:16, endln:24:35
-                  |vpiArgument:
-                  \_HierPath: (blk4.z), line:24:28, endln:24:34
-                    |vpiParent:
-                    \_SysFuncCall: ($bits), line:24:22, endln:24:35
-                    |vpiActual:
-                    \_RefObj: (blk4), line:24:28, endln:24:32
-                      |vpiParent:
-                      \_HierPath: (blk4.z), line:24:28, endln:24:34
-                      |vpiName:blk4
-                    |vpiActual:
-                    \_RefObj: (work@mod.z), line:24:33, endln:24:34
-                      |vpiParent:
-                      \_HierPath: (blk4.z), line:24:28, endln:24:34
-                      |vpiName:z
-                      |vpiFullName:work@mod.z
-                    |vpiName:blk4.z
-                  |vpiName:$bits
-                |vpiLhs:
-                \_RefObj: (work@mod.out), line:24:16, endln:24:19
-                  |vpiParent:
-                  \_ContAssign: , line:24:16, endln:24:35
-                  |vpiName:out
-                  |vpiFullName:work@mod.out
-\_weaklyReferenced:
-\_IntTypespec: , line:4:5, endln:4:20
-\_LogicTypespec: , line:2:12, endln:2:23
-  |vpiRange:
-  \_Range: , line:2:17, endln:2:23
-    |vpiParent:
-    \_LogicTypespec: , line:2:12, endln:2:23
-    |vpiLeftRange:
-    \_Constant: , line:2:18, endln:2:20
-      |vpiParent:
-      \_Range: , line:2:17, endln:2:23
-      |vpiDecompile:31
-      |vpiSize:64
-      |UINT:31
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:2:21, endln:2:22
-      |vpiParent:
-      \_Range: , line:2:17, endln:2:23
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
+    \_Begin: (work@mod), line:19:10, endln:24:36
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

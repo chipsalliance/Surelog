@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 66
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/UnsupportedTypespecRange/dut.sv
+FILE: ${SURELOG_DIR}/tests/UnsupportedTypespecRange/dut.sv
 n<> u<65> t<Top_level_rule> c<1> l<1:1> el<12:1>
-  n<> u<1> t<Null_rule> p<65> s<64> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<65> s<64> l<1:1>
   n<> u<64> t<Source_text> p<65> c<23> l<1:1> el<11:14>
     n<> u<23> t<Description> p<64> c<22> s<63> l<1:1> el<6:27>
       n<> u<22> t<Package_declaration> p<23> c<2> l<1:1> el<6:27>
@@ -39,7 +39,7 @@ n<> u<65> t<Top_level_rule> c<1> l<1:1> el<12:1>
                 n<> u<26> t<Packed_keyword> p<57> s<56> l<9:15> el<9:21>
                 n<> u<56> t<Struct_union_member> p<57> c<52> l<10:5> el<10:55>
                   n<> u<52> t<Data_type_or_void> p<56> c<51> s<55> l<10:5> el<10:46>
-                    n<> u<51> t<Data_type> p<52> c<29> l<10:5> el<10:46>
+                    n<foo_flags_pkg::common_flags_t> u<51> t<Data_type> p<52> c<29> l<10:5> el<10:46>
                       n<> u<29> t<Class_scope> p<51> c<28> s<30> l<10:5> el<10:20>
                         n<> u<28> t<Class_type> p<29> c<27> l<10:5> el<10:18>
                           n<foo_flags_pkg> u<27> t<StringConst> p<28> l<10:5> el<10:18>
@@ -77,34 +77,28 @@ Constant                                               4
 Design                                                 1
 LogicTypespec                                          1
 Package                                                1
-PackedArrayTypespec                                    1
 Range                                                  2
-RefTypespec                                            3
+RefTypespec                                            2
 StructTypespec                                         1
 TypespecMember                                         2
 UnionTypespec                                          1
 UnsupportedTypespec                                    1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/UnsupportedTypespecRange/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/UnsupportedTypespecRange/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/UnsupportedTypespecRange/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallPackages:
-\_Package: foo_flags_pkg (foo_flags_pkg::), file:${SURELOG_DIR}/tests/UnsupportedTypespecRange/dut.sv, line:1:1, endln:6:27
+|vpiAllPackages:
+\_Package: foo_flags_pkg (foo_flags_pkg), file:${SURELOG_DIR}/tests/UnsupportedTypespecRange/dut.sv, line:1:1, endln:6:27
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:foo_flags_pkg
-  |vpiFullName:foo_flags_pkg::
   |vpiTypedef:
   \_StructTypespec: (foo_flags_pkg::common_flags_t), line:2:11, endln:4:4
     |vpiParent:
-    \_Package: foo_flags_pkg (foo_flags_pkg::), file:${SURELOG_DIR}/tests/UnsupportedTypespecRange/dut.sv, line:1:1, endln:6:27
+    \_Package: foo_flags_pkg (foo_flags_pkg), file:${SURELOG_DIR}/tests/UnsupportedTypespecRange/dut.sv, line:1:1, endln:6:27
     |vpiName:foo_flags_pkg::common_flags_t
-    |vpiInstance:
-    \_Package: foo_flags_pkg (foo_flags_pkg::), file:${SURELOG_DIR}/tests/UnsupportedTypespecRange/dut.sv, line:1:1, endln:6:27
     |vpiPacked:1
     |vpiTypespecMember:
     \_TypespecMember: (a), line:3:11, endln:3:12
@@ -112,55 +106,51 @@ Design: (unnamed)
       \_StructTypespec: (foo_flags_pkg::common_flags_t), line:2:11, endln:4:4
       |vpiName:a
       |vpiTypespec:
-      \_RefTypespec: (foo_flags_pkg::foo_flags_pkg::common_flags_t::a)
+      \_RefTypespec: (foo_flags_pkg::common_flags_t::a), line:3:5, endln:3:10
         |vpiParent:
         \_TypespecMember: (a), line:3:11, endln:3:12
-        |vpiFullName:foo_flags_pkg::foo_flags_pkg::common_flags_t::a
+        |vpiFullName:foo_flags_pkg::common_flags_t::a
         |vpiActual:
         \_LogicTypespec: , line:3:5, endln:3:10
-      |vpiRefFile:${SURELOG_DIR}/tests/UnsupportedTypespecRange/dut.sv
-      |vpiRefLineNo:3
-      |vpiRefColumnNo:5
-      |vpiRefEndLineNo:3
-      |vpiRefEndColumnNo:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:3:5, endln:3:10
+    |vpiParent:
+    \_Package: foo_flags_pkg (foo_flags_pkg), file:${SURELOG_DIR}/tests/UnsupportedTypespecRange/dut.sv, line:1:1, endln:6:27
+  |vpiImportTypespec:
+  \_StructTypespec: (foo_flags_pkg::common_flags_t), line:2:11, endln:4:4
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:3:5, endln:3:10
   |vpiDefName:foo_flags_pkg
   |vpiEndLabel:foo_flags_pkg
 |vpiTypedef:
-\_UnionTypespec: (top_flag_t), line:9:9, endln:11:2
+\_UnionTypespec: (top_flag_t), line:9:9, endln:11:13
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:top_flag_t
-  |vpiInstance:
-  \_Design: (unnamed)
   |vpiPacked:1
   |vpiTypespecMember:
   \_TypespecMember: (atype_t), line:10:47, endln:10:54
     |vpiParent:
-    \_UnionTypespec: (top_flag_t), line:9:9, endln:11:2
+    \_UnionTypespec: (top_flag_t), line:9:9, endln:11:13
     |vpiName:atype_t
     |vpiTypespec:
-    \_RefTypespec: (top_flag_t.atype_t)
+    \_RefTypespec: (top_flag_t.atype_t.foo_flags_pkg::common_flags_t), line:10:5, endln:10:46
       |vpiParent:
       \_TypespecMember: (atype_t), line:10:47, endln:10:54
-      |vpiFullName:top_flag_t.atype_t
+      |vpiName:foo_flags_pkg::common_flags_t
+      |vpiFullName:top_flag_t.atype_t.foo_flags_pkg::common_flags_t
       |vpiActual:
-      \_PackedArrayTypespec: 
-    |vpiRefFile:${SURELOG_DIR}/tests/UnsupportedTypespecRange/dut.sv
-    |vpiRefLineNo:10
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:10
-    |vpiRefEndColumnNo:46
-\_weaklyReferenced:
-\_LogicTypespec: , line:3:5, endln:3:10
+      \_StructTypespec: (foo_flags_pkg::common_flags_t), line:2:11, endln:4:4
+|vpiTypedef:
+\_UnsupportedTypespec: (foo_flags_pkg::common_flags_t), line:10:5, endln:10:46
   |vpiParent:
-  \_TypespecMember: (a), line:3:11, endln:3:12
-  |vpiInstance:
-  \_Package: foo_flags_pkg (foo_flags_pkg::), file:${SURELOG_DIR}/tests/UnsupportedTypespecRange/dut.sv, line:1:1, endln:6:27
-\_PackedArrayTypespec: 
+  \_Design: (unnamed)
+  |vpiName:foo_flags_pkg::common_flags_t
+  |vpiPacked:1
   |vpiRange:
   \_Range: , line:10:36, endln:10:41
     |vpiParent:
-    \_PackedArrayTypespec: 
+    \_UnsupportedTypespec: (foo_flags_pkg::common_flags_t), line:10:5, endln:10:46
     |vpiLeftRange:
     \_Constant: , line:10:37, endln:10:38
       |vpiParent:
@@ -180,7 +170,7 @@ Design: (unnamed)
   |vpiRange:
   \_Range: , line:10:41, endln:10:46
     |vpiParent:
-    \_PackedArrayTypespec: 
+    \_UnsupportedTypespec: (foo_flags_pkg::common_flags_t), line:10:5, endln:10:46
     |vpiLeftRange:
     \_Constant: , line:10:42, endln:10:43
       |vpiParent:
@@ -197,12 +187,6 @@ Design: (unnamed)
       |vpiSize:64
       |UINT:0
       |vpiConstType:9
-  |vpiElemTypespec:
-  \_RefTypespec: 
-    |vpiParent:
-    \_PackedArrayTypespec: 
-    |vpiActual:
-    \_StructTypespec: (foo_flags_pkg::common_flags_t), line:2:11, endln:4:4
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

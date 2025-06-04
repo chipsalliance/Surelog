@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 73
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/ComplexExprSize/dut.sv
+FILE: ${SURELOG_DIR}/tests/ComplexExprSize/dut.sv
 n<> u<72> t<Top_level_rule> c<1> l<1:1> el<6:1>
-  n<> u<1> t<Null_rule> p<72> s<71> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<72> s<71> l<1:1>
   n<> u<71> t<Source_text> p<72> c<70> l<1:1> el<5:10>
     n<> u<70> t<Description> p<71> c<69> l<1:1> el<5:10>
       n<> u<69> t<Module_declaration> p<70> c<11> l<1:1> el<5:10>
@@ -81,55 +81,106 @@ AST_DEBUG_END
 [INF:CP0303] ${SURELOG_DIR}/tests/ComplexExprSize/dut.sv:1:1: Compile module "work@top".
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-Constant                                               3
+Constant                                               7
 ContAssign                                             1
 Design                                                 1
 LogicNet                                               1
-LogicTypespec                                          1
+LogicTypespec                                          2
 Module                                                 1
 Operation                                              3
 Port                                                   1
-Range                                                  1
-RefObj                                                 2
-RefTypespec                                            1
+Range                                                  3
+RefObj                                                 1
+RefTypespec                                            2
 SysFuncCall                                            2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ComplexExprSize/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ComplexExprSize/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ComplexExprSize/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ComplexExprSize/dut.sv, line:1:1, endln:5:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
-  |vpiDefName:work@top
-  |vpiNet:
-  \_LogicNet: (work@top.out), line:1:13, endln:1:16
+  |vpiName:work@top
+  |vpiTypedef:
+  \_LogicTypespec: , line:2:10, endln:2:21
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ComplexExprSize/dut.sv, line:1:1, endln:5:10
+    |vpiRange:
+    \_Range: , line:2:15, endln:2:21
+      |vpiParent:
+      \_LogicTypespec: , line:2:10, endln:2:21
+      |vpiLeftRange:
+      \_Constant: , line:2:16, endln:2:18
+        |vpiParent:
+        \_Range: , line:2:15, endln:2:21
+        |vpiDecompile:31
+        |vpiSize:64
+        |UINT:31
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:2:19, endln:2:20
+        |vpiParent:
+        \_Range: , line:2:15, endln:2:21
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:2:10, endln:2:21
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ComplexExprSize/dut.sv, line:1:1, endln:5:10
+    |vpiRange:
+    \_Range: , line:2:15, endln:2:21
+      |vpiParent:
+      \_LogicTypespec: , line:2:10, endln:2:21
+      |vpiLeftRange:
+      \_Constant: , line:2:16, endln:2:18
+        |vpiParent:
+        \_Range: , line:2:15, endln:2:21
+        |vpiDecompile:31
+        |vpiSize:64
+        |UINT:31
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:2:19, endln:2:20
+        |vpiParent:
+        \_Range: , line:2:15, endln:2:21
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:2:10, endln:2:21
+  |vpiImportTypespec:
+  \_LogicNet: (work@top.out), line:2:22, endln:2:25
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ComplexExprSize/dut.sv, line:1:1, endln:5:10
+    |vpiTypespec:
+    \_RefTypespec: (work@top.out), line:2:10, endln:2:21
+      |vpiParent:
+      \_LogicNet: (work@top.out), line:2:22, endln:2:25
+      |vpiFullName:work@top.out
+      |vpiActual:
+      \_LogicTypespec: , line:2:10, endln:2:21
     |vpiName:out
     |vpiFullName:work@top.out
     |vpiNetType:1
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:2:10, endln:2:21
+  |vpiDefName:work@top
+  |vpiNet:
+  \_LogicNet: (work@top.out), line:2:22, endln:2:25
   |vpiPort:
   \_Port: (out), line:1:13, endln:1:16
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ComplexExprSize/dut.sv, line:1:1, endln:5:10
     |vpiName:out
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@top.out.out), line:1:13, endln:1:16
-      |vpiParent:
-      \_Port: (out), line:1:13, endln:1:16
-      |vpiName:out
-      |vpiFullName:work@top.out.out
-      |vpiActual:
-      \_LogicNet: (work@top.out), line:1:13, endln:1:16
-    |vpiTypedef:
-    \_RefTypespec: (work@top.out)
+    |vpiTypespec:
+    \_RefTypespec: (work@top.out), line:2:10, endln:2:14
       |vpiParent:
       \_Port: (out), line:1:13, endln:1:16
       |vpiFullName:work@top.out
@@ -140,13 +191,13 @@ Design: (unnamed)
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ComplexExprSize/dut.sv, line:1:1, endln:5:10
     |vpiRhs:
-    \_SysFuncCall: ($unsigned), line:4:16, endln:4:25
+    \_SysFuncCall: ($unsigned), line:4:16, endln:4:55
       |vpiParent:
       \_ContAssign: , line:4:10, endln:4:55
       |vpiArgument:
       \_Operation: , line:4:26, endln:4:54
         |vpiParent:
-        \_SysFuncCall: ($unsigned), line:4:16, endln:4:25
+        \_SysFuncCall: ($unsigned), line:4:16, endln:4:55
         |vpiOpType:33
         |vpiOperand:
         \_Operation: , line:4:28, endln:4:52
@@ -154,16 +205,18 @@ Design: (unnamed)
           \_Operation: , line:4:26, endln:4:54
           |vpiOpType:10
           |vpiOperand:
-          \_SysFuncCall: ($unsigned), line:4:30, endln:4:39
+          \_SysFuncCall: ($unsigned), line:4:30, endln:4:52
             |vpiParent:
             \_Operation: , line:4:28, endln:4:52
             |vpiArgument:
             \_Operation: , line:4:41, endln:4:50
               |vpiParent:
-              \_SysFuncCall: ($unsigned), line:4:30, endln:4:39
+              \_SysFuncCall: ($unsigned), line:4:30, endln:4:52
               |vpiOpType:6
               |vpiOperand:
               \_Constant: , line:4:44, endln:4:49
+                |vpiParent:
+                \_Operation: , line:4:41, endln:4:50
                 |vpiDecompile:8'ha4
                 |vpiSize:8
                 |HEX:a4
@@ -177,29 +230,7 @@ Design: (unnamed)
       |vpiName:out
       |vpiFullName:work@top.out
       |vpiActual:
-      \_LogicNet: (work@top.out), line:1:13, endln:1:16
-\_weaklyReferenced:
-\_LogicTypespec: , line:2:10, endln:2:21
-  |vpiRange:
-  \_Range: , line:2:15, endln:2:21
-    |vpiParent:
-    \_LogicTypespec: , line:2:10, endln:2:21
-    |vpiLeftRange:
-    \_Constant: , line:2:16, endln:2:18
-      |vpiParent:
-      \_Range: , line:2:15, endln:2:21
-      |vpiDecompile:31
-      |vpiSize:64
-      |UINT:31
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:2:19, endln:2:20
-      |vpiParent:
-      \_Range: , line:2:15, endln:2:21
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
+      \_LogicNet: (work@top.out), line:2:22, endln:2:25
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

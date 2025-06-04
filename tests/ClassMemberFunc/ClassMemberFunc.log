@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 77
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/ClassMemberFunc/dut.sv
+FILE: ${SURELOG_DIR}/tests/ClassMemberFunc/dut.sv
 n<> u<76> t<Top_level_rule> c<1> l<1:1> el<22:1>
-  n<> u<1> t<Null_rule> p<76> s<75> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<76> s<75> l<1:1>
   n<> u<75> t<Source_text> p<76> c<74> l<1:1> el<20:11>
     n<> u<74> t<Description> p<75> c<73> l<1:1> el<20:11>
       n<> u<73> t<Package_declaration> p<74> c<2> l<1:1> el<20:11>
@@ -25,7 +25,7 @@ n<> u<76> t<Top_level_rule> c<1> l<1:1> el<22:1>
                 n<> u<25> t<Class_property> p<26> c<24> l<8:3> el<8:50>
                   n<> u<24> t<Data_declaration> p<25> c<23> l<8:3> el<8:50>
                     n<> u<23> t<Type_declaration> p<24> c<21> l<8:3> el<8:50>
-                      n<> u<21> t<Data_type> p<23> c<11> s<22> l<8:11> el<8:40>
+                      n<uvm_queue> u<21> t<Data_type> p<23> c<11> s<22> l<8:11> el<8:40>
                         n<uvm_queue> u<11> t<StringConst> p<21> s<20> l<8:11> el<8:20>
                         n<> u<20> t<Parameter_value_assignment> p<21> c<19> l<8:20> el<8:40>
                           n<> u<19> t<List_of_parameter_assignments> p<20> c<18> l<8:22> el<8:39>
@@ -51,7 +51,7 @@ n<> u<76> t<Top_level_rule> c<1> l<1:1> el<22:1>
                 n<> u<48> t<Block_item_declaration> p<68> c<47> s<66> l<13:1> el<13:33>
                   n<> u<47> t<Data_declaration> p<48> c<46> l<13:1> el<13:33>
                     n<> u<46> t<Variable_declaration> p<47> c<42> l<13:1> el<13:33>
-                      n<> u<42> t<Data_type> p<46> c<40> s<45> l<13:1> el<13:29>
+                      n<uvm_resource_types::rsrc_q_t> u<42> t<Data_type> p<46> c<40> s<45> l<13:1> el<13:29>
                         n<> u<40> t<Class_scope> p<42> c<39> s<41> l<13:1> el<13:21>
                           n<> u<39> t<Class_type> p<40> c<38> l<13:1> el<13:19>
                             n<uvm_resource_types> u<38> t<StringConst> p<39> l<13:1> el<13:19>
@@ -62,7 +62,7 @@ n<> u<76> t<Top_level_rule> c<1> l<1:1> el<22:1>
                 n<> u<66> t<Block_item_declaration> p<68> c<65> s<67> l<15:3> el<15:38>
                   n<> u<65> t<Data_declaration> p<66> c<64> l<15:3> el<15:38>
                     n<> u<64> t<Variable_declaration> p<65> c<50> l<15:3> el<15:38>
-                      n<> u<50> t<Data_type> p<64> c<49> s<63> l<15:3> el<15:20>
+                      n<uvm_resource_base> u<50> t<Data_type> p<64> c<49> s<63> l<15:3> el<15:20>
                         n<uvm_resource_base> u<49> t<StringConst> p<50> l<15:3> el<15:20>
                       n<> u<63> t<List_of_variable_decl_assignments> p<64> c<62> l<15:21> el<15:37>
                         n<> u<62> t<Variable_decl_assignment> p<63> c<51> l<15:21> el<15:37>
@@ -100,78 +100,84 @@ RefTypespec                                            2
 RefVar                                                 1
 UnsupportedTypespec                                    2
 === UHDM Object Stats End ===
+[ERR:UH0734] ${SURELOG_DIR}/tests/ClassMemberFunc/dut.sv:15:35: Failed to bind object: "id: 18, name: i".
+[ERR:EL0535] ${SURELOG_DIR}/tests/ClassMemberFunc/dut.sv:15:35: Illegal implicit net "id:18, name: i".
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ClassMemberFunc/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ClassMemberFunc/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ClassMemberFunc/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallPackages:
-\_Package: pkg (pkg::), file:${SURELOG_DIR}/tests/ClassMemberFunc/dut.sv, line:1:1, endln:20:11
+|vpiAllPackages:
+\_Package: pkg (pkg), file:${SURELOG_DIR}/tests/ClassMemberFunc/dut.sv, line:1:1, endln:20:11
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:pkg
-  |vpiFullName:pkg::
-  |vpiDefName:pkg
-  |vpiClassDefn:
+  |vpiInternalScope:
   \_ClassDefn: (pkg::uvm_queue), file:${SURELOG_DIR}/tests/ClassMemberFunc/dut.sv, line:3:1, endln:4:9
     |vpiParent:
-    \_Package: pkg (pkg::), file:${SURELOG_DIR}/tests/ClassMemberFunc/dut.sv, line:1:1, endln:20:11
+    \_Package: pkg (pkg), file:${SURELOG_DIR}/tests/ClassMemberFunc/dut.sv, line:1:1, endln:20:11
     |vpiName:uvm_queue
     |vpiFullName:pkg::uvm_queue
-  |vpiClassDefn:
+  |vpiInternalScope:
   \_ClassDefn: (pkg::uvm_resource_types), file:${SURELOG_DIR}/tests/ClassMemberFunc/dut.sv, line:6:1, endln:10:9
     |vpiParent:
-    \_Package: pkg (pkg::), file:${SURELOG_DIR}/tests/ClassMemberFunc/dut.sv, line:1:1, endln:20:11
+    \_Package: pkg (pkg), file:${SURELOG_DIR}/tests/ClassMemberFunc/dut.sv, line:1:1, endln:20:11
     |vpiName:uvm_resource_types
     |vpiFullName:pkg::uvm_resource_types
-  |vpiTaskFunc:
+  |vpiInternalScope:
   \_Function: (pkg::uvm_sequencer_base::start_phase_sequence), line:12:1, endln:18:12
     |vpiParent:
-    \_Package: pkg (pkg::), file:${SURELOG_DIR}/tests/ClassMemberFunc/dut.sv, line:1:1, endln:20:11
+    \_Package: pkg (pkg), file:${SURELOG_DIR}/tests/ClassMemberFunc/dut.sv, line:1:1, endln:20:11
     |vpiName:uvm_sequencer_base::start_phase_sequence
     |vpiFullName:pkg::uvm_sequencer_base::start_phase_sequence
-    |vpiVariables:
-    \_ClassVar: (pkg::uvm_sequencer_base::start_phase_sequence::rq), line:13:30, endln:13:32
-      |vpiParent:
-      \_Begin: (pkg::uvm_sequencer_base::start_phase_sequence), line:15:3, endln:15:38
-      |vpiTypespec:
-      \_RefTypespec: (pkg::uvm_sequencer_base::start_phase_sequence::rq)
-        |vpiParent:
-        \_ClassVar: (pkg::uvm_sequencer_base::start_phase_sequence::rq), line:13:30, endln:13:32
-        |vpiFullName:pkg::uvm_sequencer_base::start_phase_sequence::rq
-        |vpiActual:
-        \_UnsupportedTypespec: (uvm_resource_types::rsrc_q_t), line:13:1, endln:13:21
-      |vpiName:rq
-      |vpiFullName:pkg::uvm_sequencer_base::start_phase_sequence::rq
-    |vpiVariables:
-    \_RefVar: (pkg::uvm_sequencer_base::start_phase_sequence::rsrc), line:15:21, endln:15:25
-      |vpiParent:
-      \_Assignment: , line:15:21, endln:15:37
-      |vpiTypespec:
-      \_RefTypespec: (pkg::uvm_sequencer_base::start_phase_sequence::rsrc)
-        |vpiParent:
-        \_RefVar: (pkg::uvm_sequencer_base::start_phase_sequence::rsrc), line:15:21, endln:15:25
-        |vpiFullName:pkg::uvm_sequencer_base::start_phase_sequence::rsrc
-        |vpiActual:
-        \_UnsupportedTypespec: (uvm_resource_base), line:15:3, endln:15:20
-      |vpiName:rsrc
-      |vpiFullName:pkg::uvm_sequencer_base::start_phase_sequence::rsrc
-    |vpiVisibility:1
-    |vpiStmt:
-    \_Begin: (pkg::uvm_sequencer_base::start_phase_sequence), line:15:3, endln:15:38
+    |vpiInternalScope:
+    \_Begin: (pkg::uvm_sequencer_base::start_phase_sequence)
       |vpiParent:
       \_Function: (pkg::uvm_sequencer_base::start_phase_sequence), line:12:1, endln:18:12
       |vpiFullName:pkg::uvm_sequencer_base::start_phase_sequence
       |vpiVariables:
       \_ClassVar: (pkg::uvm_sequencer_base::start_phase_sequence::rq), line:13:30, endln:13:32
+        |vpiParent:
+        \_Begin: (pkg::uvm_sequencer_base::start_phase_sequence)
+        |vpiTypespec:
+        \_RefTypespec: (pkg::uvm_sequencer_base::start_phase_sequence::rq::uvm_resource_types::rsrc_q_t), line:13:1, endln:13:29
+          |vpiParent:
+          \_ClassVar: (pkg::uvm_sequencer_base::start_phase_sequence::rq), line:13:30, endln:13:32
+          |vpiName:uvm_resource_types::rsrc_q_t
+          |vpiFullName:pkg::uvm_sequencer_base::start_phase_sequence::rq::uvm_resource_types::rsrc_q_t
+          |vpiActual:
+          \_UnsupportedTypespec: (uvm_resource_types::rsrc_q_t), line:13:1, endln:13:29
+        |vpiName:rq
+        |vpiFullName:pkg::uvm_sequencer_base::start_phase_sequence::rq
       |vpiVariables:
+      \_RefVar: (pkg::uvm_sequencer_base::start_phase_sequence::rsrc), line:15:21, endln:15:25
+        |vpiParent:
+        \_Begin: (pkg::uvm_sequencer_base::start_phase_sequence)
+        |vpiTypespec:
+        \_RefTypespec: (pkg::uvm_sequencer_base::start_phase_sequence::rsrc::uvm_resource_base), line:15:3, endln:15:20
+          |vpiParent:
+          \_RefVar: (pkg::uvm_sequencer_base::start_phase_sequence::rsrc), line:15:21, endln:15:25
+          |vpiName:uvm_resource_base
+          |vpiFullName:pkg::uvm_sequencer_base::start_phase_sequence::rsrc::uvm_resource_base
+          |vpiActual:
+          \_UnsupportedTypespec: (uvm_resource_base), line:15:3, endln:15:20
+        |vpiName:rsrc
+        |vpiFullName:pkg::uvm_sequencer_base::start_phase_sequence::rsrc
+      |vpiTypedef:
+      \_UnsupportedTypespec: (uvm_resource_types::rsrc_q_t), line:13:1, endln:13:29
+        |vpiParent:
+        \_Begin: (pkg::uvm_sequencer_base::start_phase_sequence)
+        |vpiName:uvm_resource_types::rsrc_q_t
+      |vpiImportTypespec:
+      \_UnsupportedTypespec: (uvm_resource_types::rsrc_q_t), line:13:1, endln:13:29
+      |vpiImportTypespec:
+      \_ClassVar: (pkg::uvm_sequencer_base::start_phase_sequence::rq), line:13:30, endln:13:32
+      |vpiImportTypespec:
       \_RefVar: (pkg::uvm_sequencer_base::start_phase_sequence::rsrc), line:15:21, endln:15:25
       |vpiStmt:
       \_Assignment: , line:15:21, endln:15:37
         |vpiParent:
-        \_Begin: (pkg::uvm_sequencer_base::start_phase_sequence), line:15:3, endln:15:38
+        \_Begin: (pkg::uvm_sequencer_base::start_phase_sequence)
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
@@ -183,34 +189,50 @@ Design: (unnamed)
             |vpiParent:
             \_HierPath: (rq.get), line:15:28, endln:15:37
             |vpiName:rq
+            |vpiActual:
+            \_ClassVar: (pkg::uvm_sequencer_base::start_phase_sequence::rq), line:13:30, endln:13:32
           |vpiActual:
-          \_MethodFuncCall: (get), line:15:31, endln:15:34
+          \_MethodFuncCall: (get), line:15:31, endln:15:37
             |vpiParent:
             \_HierPath: (rq.get), line:15:28, endln:15:37
             |vpiArgument:
             \_RefObj: (pkg::uvm_sequencer_base::start_phase_sequence::rq.get::i), line:15:35, endln:15:36
               |vpiParent:
-              \_MethodFuncCall: (get), line:15:31, endln:15:34
+              \_MethodFuncCall: (get), line:15:31, endln:15:37
               |vpiName:i
               |vpiFullName:pkg::uvm_sequencer_base::start_phase_sequence::rq.get::i
             |vpiName:get
           |vpiName:rq.get
         |vpiLhs:
         \_RefVar: (pkg::uvm_sequencer_base::start_phase_sequence::rsrc), line:15:21, endln:15:25
+    |vpiVisibility:1
+    |vpiStmt:
+    \_Begin: (pkg::uvm_sequencer_base::start_phase_sequence)
     |vpiInstance:
-    \_Package: pkg (pkg::), file:${SURELOG_DIR}/tests/ClassMemberFunc/dut.sv, line:1:1, endln:20:11
-\_weaklyReferenced:
-\_UnsupportedTypespec: (uvm_resource_types::rsrc_q_t), line:13:1, endln:13:21
-  |vpiName:uvm_resource_types::rsrc_q_t
-  |vpiInstance:
-  \_Package: pkg (pkg::), file:${SURELOG_DIR}/tests/ClassMemberFunc/dut.sv, line:1:1, endln:20:11
-\_UnsupportedTypespec: (uvm_resource_base), line:15:3, endln:15:20
-  |vpiName:uvm_resource_base
-  |vpiInstance:
-  \_Package: pkg (pkg::), file:${SURELOG_DIR}/tests/ClassMemberFunc/dut.sv, line:1:1, endln:20:11
+    \_Package: pkg (pkg), file:${SURELOG_DIR}/tests/ClassMemberFunc/dut.sv, line:1:1, endln:20:11
+  |vpiTypedef:
+  \_UnsupportedTypespec: (uvm_resource_base), line:15:3, endln:15:20
+    |vpiParent:
+    \_Package: pkg (pkg), file:${SURELOG_DIR}/tests/ClassMemberFunc/dut.sv, line:1:1, endln:20:11
+    |vpiName:uvm_resource_base
+  |vpiImportTypespec:
+  \_ClassDefn: (pkg::uvm_queue), file:${SURELOG_DIR}/tests/ClassMemberFunc/dut.sv, line:3:1, endln:4:9
+  |vpiImportTypespec:
+  \_ClassDefn: (pkg::uvm_resource_types), file:${SURELOG_DIR}/tests/ClassMemberFunc/dut.sv, line:6:1, endln:10:9
+  |vpiImportTypespec:
+  \_Function: (pkg::uvm_sequencer_base::start_phase_sequence), line:12:1, endln:18:12
+  |vpiImportTypespec:
+  \_UnsupportedTypespec: (uvm_resource_base), line:15:3, endln:15:20
+  |vpiDefName:pkg
+  |vpiClassDefn:
+  \_ClassDefn: (pkg::uvm_queue), file:${SURELOG_DIR}/tests/ClassMemberFunc/dut.sv, line:3:1, endln:4:9
+  |vpiClassDefn:
+  \_ClassDefn: (pkg::uvm_resource_types), file:${SURELOG_DIR}/tests/ClassMemberFunc/dut.sv, line:6:1, endln:10:9
+  |vpiTaskFunc:
+  \_Function: (pkg::uvm_sequencer_base::start_phase_sequence), line:12:1, endln:18:12
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 2
 [WARNING] : 1
 [   NOTE] : 0

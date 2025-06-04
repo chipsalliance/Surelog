@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 101
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/VarDecl2/dut.sv
+FILE: ${SURELOG_DIR}/tests/VarDecl2/dut.sv
 n<> u<100> t<Top_level_rule> c<1> l<1:1> el<12:1>
-  n<> u<1> t<Null_rule> p<100> s<99> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<100> s<99> l<1:1>
   n<> u<99> t<Source_text> p<100> c<98> l<1:1> el<11:16>
     n<> u<98> t<Description> p<99> c<97> l<1:1> el<11:16>
       n<> u<97> t<Module_declaration> p<98> c<13> l<1:1> el<11:16>
@@ -115,64 +115,150 @@ Constant                                               4
 Design                                                 1
 ForStmt                                                1
 Function                                               1
-IntTypespec                                            5
-IntVar                                                 4
-LogicNet                                               1
+IntTypespec                                            6
+IntVar                                                 5
 Module                                                 1
 Operation                                              2
 Port                                                   1
-RefObj                                                 3
-RefTypespec                                            5
+RefObj                                                 2
+RefTypespec                                            6
 ReturnStmt                                             2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/VarDecl2/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/VarDecl2/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/VarDecl2/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/VarDecl2/dut.sv, line:1:1, endln:11:16
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
-  |vpiDefName:work@top
-  |vpiTaskFunc:
+  |vpiName:work@top
+  |vpiVariables:
+  \_IntVar: (work@top.o), line:1:23, endln:1:24
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/VarDecl2/dut.sv, line:1:1, endln:11:16
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o), line:1:19, endln:1:22
+      |vpiParent:
+      \_IntVar: (work@top.o), line:1:23, endln:1:24
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_IntTypespec: , line:1:19, endln:1:22
+    |vpiName:o
+    |vpiFullName:work@top.o
+    |vpiSigned:1
+    |vpiVisibility:1
+  |vpiInternalScope:
   \_Function: (work@top.theta), line:2:4, endln:9:23
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/VarDecl2/dut.sv, line:1:1, endln:11:16
     |vpiName:theta
     |vpiFullName:work@top.theta
-    |vpiVisibility:1
-    |vpiAutomatic:1
-    |vpiReturn:
-    \_IntVar: (work@top.theta), line:2:23, endln:2:26
+    |vpiVariables:
+    \_IntVar: (work@top.theta)
       |vpiParent:
       \_Function: (work@top.theta), line:2:4, endln:9:23
       |vpiTypespec:
-      \_RefTypespec: (work@top.theta)
+      \_RefTypespec: (work@top.theta), line:2:23, endln:2:26
         |vpiParent:
-        \_IntVar: (work@top.theta), line:2:23, endln:2:26
+        \_IntVar: (work@top.theta)
         |vpiFullName:work@top.theta
         |vpiActual:
         \_IntTypespec: , line:2:23, endln:2:26
       |vpiFullName:work@top.theta
       |vpiSigned:1
-    |vpiStmt:
-    \_Begin: (work@top.theta), line:8:7, endln:8:16
+    |vpiInternalScope:
+    \_Begin: (work@top.theta)
       |vpiParent:
       \_Function: (work@top.theta), line:2:4, endln:9:23
       |vpiFullName:work@top.theta
-      |vpiStmt:
-      \_ForStmt: (work@top.theta), line:3:7, endln:3:10
+      |vpiVariables:
+      \_IntVar: (work@top.theta.x), line:3:16, endln:3:17
         |vpiParent:
-        \_Begin: (work@top.theta), line:8:7, endln:8:16
+        \_Begin: (work@top.theta)
+        |vpiTypespec:
+        \_RefTypespec: (work@top.theta.x), line:3:12, endln:3:15
+          |vpiParent:
+          \_IntVar: (work@top.theta.x), line:3:16, endln:3:17
+          |vpiFullName:work@top.theta.x
+          |vpiActual:
+          \_IntTypespec: , line:3:12, endln:3:15
+        |vpiName:x
+        |vpiFullName:work@top.theta.x
+        |vpiSigned:1
+      |vpiInternalScope:
+      \_ForStmt: (work@top.theta), line:3:7, endln:7:10
+        |vpiParent:
+        \_Begin: (work@top.theta)
         |vpiFullName:work@top.theta
+        |vpiInternalScope:
+        \_Begin: (work@top.theta), line:3:37, endln:7:10
+          |vpiParent:
+          \_ForStmt: (work@top.theta), line:3:7, endln:7:10
+          |vpiFullName:work@top.theta
+          |vpiVariables:
+          \_IntVar: (work@top.theta.a), line:4:14, endln:4:15
+            |vpiParent:
+            \_Begin: (work@top.theta), line:3:37, endln:7:10
+            |vpiTypespec:
+            \_RefTypespec: (work@top.theta.a), line:4:10, endln:4:13
+              |vpiParent:
+              \_IntVar: (work@top.theta.a), line:4:14, endln:4:15
+              |vpiFullName:work@top.theta.a
+              |vpiActual:
+              \_IntTypespec: , line:4:10, endln:4:13
+            |vpiName:a
+            |vpiFullName:work@top.theta.a
+            |vpiSigned:1
+          |vpiVariables:
+          \_IntVar: (work@top.theta.b), line:4:17, endln:4:18
+            |vpiParent:
+            \_Begin: (work@top.theta), line:3:37, endln:7:10
+            |vpiTypespec:
+            \_RefTypespec: (work@top.theta.b), line:4:10, endln:4:13
+              |vpiParent:
+              \_IntVar: (work@top.theta.b), line:4:17, endln:4:18
+              |vpiFullName:work@top.theta.b
+              |vpiActual:
+              \_IntTypespec: , line:4:10, endln:4:13
+            |vpiName:b
+            |vpiFullName:work@top.theta.b
+            |vpiSigned:1
+          |vpiTypedef:
+          \_IntTypespec: , line:4:10, endln:4:13
+            |vpiParent:
+            \_Begin: (work@top.theta), line:3:37, endln:7:10
+            |vpiSigned:1
+          |vpiTypedef:
+          \_IntTypespec: , line:4:10, endln:4:13
+            |vpiParent:
+            \_Begin: (work@top.theta), line:3:37, endln:7:10
+            |vpiSigned:1
+          |vpiImportTypespec:
+          \_IntTypespec: , line:4:10, endln:4:13
+          |vpiImportTypespec:
+          \_IntVar: (work@top.theta.a), line:4:14, endln:4:15
+          |vpiImportTypespec:
+          \_IntTypespec: , line:4:10, endln:4:13
+          |vpiImportTypespec:
+          \_IntVar: (work@top.theta.b), line:4:17, endln:4:18
+          |vpiStmt:
+          \_ReturnStmt: , line:6:10, endln:6:18
+            |vpiParent:
+            \_Begin: (work@top.theta), line:3:37, endln:7:10
+            |vpiCondition:
+            \_Constant: , line:6:17, endln:6:18
+              |vpiParent:
+              \_ReturnStmt: , line:6:10, endln:6:18
+              |vpiDecompile:0
+              |vpiSize:64
+              |UINT:0
+              |vpiConstType:9
         |vpiForInitStmt:
         \_Assignment: , line:3:12, endln:3:21
           |vpiParent:
-          \_ForStmt: (work@top.theta), line:3:7, endln:3:10
+          \_ForStmt: (work@top.theta), line:3:7, endln:7:10
           |vpiRhs:
           \_Constant: , line:3:20, endln:3:21
             |vpiParent:
@@ -183,22 +269,10 @@ Design: (unnamed)
             |vpiConstType:9
           |vpiLhs:
           \_IntVar: (work@top.theta.x), line:3:16, endln:3:17
-            |vpiParent:
-            \_Assignment: , line:3:12, endln:3:21
-            |vpiTypespec:
-            \_RefTypespec: (work@top.theta.x)
-              |vpiParent:
-              \_IntVar: (work@top.theta.x), line:3:16, endln:3:17
-              |vpiFullName:work@top.theta.x
-              |vpiActual:
-              \_IntTypespec: , line:3:12, endln:3:15
-            |vpiName:x
-            |vpiFullName:work@top.theta.x
-            |vpiSigned:1
         |vpiForIncStmt:
         \_Operation: , line:3:32, endln:3:35
           |vpiParent:
-          \_ForStmt: (work@top.theta), line:3:7, endln:3:10
+          \_ForStmt: (work@top.theta), line:3:7, endln:7:10
           |vpiOpType:62
           |vpiOperand:
           \_RefObj: (work@top.theta.x), line:3:32, endln:3:33
@@ -211,7 +285,7 @@ Design: (unnamed)
         |vpiCondition:
         \_Operation: , line:3:24, endln:3:29
           |vpiParent:
-          \_ForStmt: (work@top.theta), line:3:7, endln:3:10
+          \_ForStmt: (work@top.theta), line:3:7, endln:7:10
           |vpiOpType:20
           |vpiOperand:
           \_RefObj: (work@top.theta.x), line:3:24, endln:3:25
@@ -231,98 +305,79 @@ Design: (unnamed)
             |vpiConstType:9
         |vpiStmt:
         \_Begin: (work@top.theta), line:3:37, endln:7:10
-          |vpiParent:
-          \_ForStmt: (work@top.theta), line:3:7, endln:3:10
-          |vpiFullName:work@top.theta
-          |vpiVariables:
-          \_IntVar: (work@top.theta.a), line:4:14, endln:4:15
-            |vpiParent:
-            \_Begin: (work@top.theta), line:3:37, endln:7:10
-            |vpiTypespec:
-            \_RefTypespec: (work@top.theta.a)
-              |vpiParent:
-              \_IntVar: (work@top.theta.a), line:4:14, endln:4:15
-              |vpiFullName:work@top.theta.a
-              |vpiActual:
-              \_IntTypespec: , line:4:10, endln:4:13
-            |vpiName:a
-            |vpiFullName:work@top.theta.a
-            |vpiSigned:1
-          |vpiVariables:
-          \_IntVar: (work@top.theta.b), line:4:17, endln:4:18
-            |vpiParent:
-            \_Begin: (work@top.theta), line:3:37, endln:7:10
-            |vpiTypespec:
-            \_RefTypespec: (work@top.theta.b)
-              |vpiParent:
-              \_IntVar: (work@top.theta.b), line:4:17, endln:4:18
-              |vpiFullName:work@top.theta.b
-              |vpiActual:
-              \_IntTypespec: , line:4:10, endln:4:13
-            |vpiName:b
-            |vpiFullName:work@top.theta.b
-            |vpiSigned:1
-          |vpiStmt:
-          \_ReturnStmt: , line:6:10, endln:6:16
-            |vpiParent:
-            \_Begin: (work@top.theta), line:3:37, endln:7:10
-            |vpiCondition:
-            \_Constant: , line:6:17, endln:6:18
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
-      |vpiStmt:
-      \_ReturnStmt: , line:8:7, endln:8:13
+      |vpiTypedef:
+      \_IntTypespec: , line:3:12, endln:3:15
         |vpiParent:
-        \_Begin: (work@top.theta), line:8:7, endln:8:16
+        \_Begin: (work@top.theta)
+        |vpiSigned:1
+      |vpiImportTypespec:
+      \_IntTypespec: , line:3:12, endln:3:15
+      |vpiImportTypespec:
+      \_IntVar: (work@top.theta.x), line:3:16, endln:3:17
+      |vpiStmt:
+      \_ForStmt: (work@top.theta), line:3:7, endln:7:10
+      |vpiStmt:
+      \_ReturnStmt: , line:8:7, endln:8:15
+        |vpiParent:
+        \_Begin: (work@top.theta)
         |vpiCondition:
         \_Constant: , line:8:14, endln:8:15
+          |vpiParent:
+          \_ReturnStmt: , line:8:7, endln:8:15
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
           |vpiConstType:9
-    |vpiInstance:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/VarDecl2/dut.sv, line:1:1, endln:11:16
-  |vpiNet:
-  \_LogicNet: (work@top.o), line:1:23, endln:1:24
+    |vpiTypedef:
+    \_IntTypespec: , line:2:23, endln:2:26
+      |vpiParent:
+      \_Function: (work@top.theta), line:2:4, endln:9:23
+      |vpiSigned:1
+    |vpiImportTypespec:
+    \_IntTypespec: , line:2:23, endln:2:26
+    |vpiImportTypespec:
+    \_IntVar: (work@top.theta)
+    |vpiVisibility:1
+    |vpiAutomatic:1
+    |vpiReturn:
+    \_IntVar: (work@top.theta)
+    |vpiStmt:
+    \_Begin: (work@top.theta)
+  |vpiTypedef:
+  \_IntTypespec: , line:1:19, endln:1:22
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/VarDecl2/dut.sv, line:1:1, endln:11:16
-    |vpiName:o
-    |vpiFullName:work@top.o
+    |vpiSigned:1
+  |vpiTypedef:
+  \_IntTypespec: , line:1:19, endln:1:22
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/VarDecl2/dut.sv, line:1:1, endln:11:16
+    |vpiSigned:1
+  |vpiImportTypespec:
+  \_Function: (work@top.theta), line:2:4, endln:9:23
+  |vpiImportTypespec:
+  \_IntTypespec: , line:1:19, endln:1:22
+  |vpiImportTypespec:
+  \_IntVar: (work@top.o), line:1:23, endln:1:24
+  |vpiImportTypespec:
+  \_IntTypespec: , line:1:19, endln:1:22
+  |vpiDefName:work@top
+  |vpiTaskFunc:
+  \_Function: (work@top.theta), line:2:4, endln:9:23
   |vpiPort:
   \_Port: (o), line:1:23, endln:1:24
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/VarDecl2/dut.sv, line:1:1, endln:11:16
     |vpiName:o
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@top.o.o), line:1:23, endln:1:24
-      |vpiParent:
-      \_Port: (o), line:1:23, endln:1:24
-      |vpiName:o
-      |vpiFullName:work@top.o.o
-      |vpiActual:
-      \_LogicNet: (work@top.o), line:1:23, endln:1:24
-    |vpiTypedef:
-    \_RefTypespec: (work@top.o)
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o), line:1:19, endln:1:22
       |vpiParent:
       \_Port: (o), line:1:23, endln:1:24
       |vpiFullName:work@top.o
       |vpiActual:
       \_IntTypespec: , line:1:19, endln:1:22
   |vpiEndLabel:top
-\_weaklyReferenced:
-\_IntTypespec: , line:2:23, endln:2:26
-  |vpiSigned:1
-\_IntTypespec: , line:3:12, endln:3:15
-  |vpiSigned:1
-\_IntTypespec: , line:4:10, endln:4:13
-  |vpiSigned:1
-\_IntTypespec: , line:4:10, endln:4:13
-  |vpiSigned:1
-\_IntTypespec: , line:1:19, endln:1:22
-  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

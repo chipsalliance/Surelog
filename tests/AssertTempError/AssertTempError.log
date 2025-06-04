@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 1035
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/AssertTempError/design.sv
+FILE: ${SURELOG_DIR}/tests/AssertTempError/design.sv
 n<> u<1034> t<Top_level_rule> c<1> l<2:1> el<101:1>
-  n<> u<1> t<Null_rule> p<1034> s<1033> l<2:1> el<1:26>
+  n<> u<1> t<Null_rule> p<1034> s<1033> l<2:1> el<2:1>
   n<> u<1033> t<Source_text> p<1034> c<761> l<2:1> el<100:80>
     n<> u<761> t<Description> p<1033> c<760> s<990> l<2:1> el<67:10>
       n<> u<760> t<Module_declaration> p<761> c<61> l<2:1> el<67:10>
@@ -1041,9 +1041,9 @@ AST_DEBUG_END
 AST_DEBUG_BEGIN
 Count: 424
 LIB: work
-FILE f<11>:${SURELOG_DIR}/tests/AssertTempError/testbench.sv
+FILE: ${SURELOG_DIR}/tests/AssertTempError/testbench.sv
 n<> u<423> t<Top_level_rule> c<1> l<3:1> el<55:1>
-  n<> u<1> t<Null_rule> p<423> s<422> l<3:1> el<2:23>
+  n<> u<1> t<Null_rule> p<423> s<422> l<3:1> el<3:1>
   n<> u<422> t<Source_text> p<423> c<421> l<3:1> el<54:10>
     n<> u<421> t<Description> p<422> c<420> l<3:1> el<54:10>
       n<> u<420> t<Module_declaration> p<421> c<4> l<3:1> el<54:10>
@@ -1482,97 +1482,67 @@ Begin                                                 15
 BitSelect                                              2
 CaseItem                                               4
 CaseStmt                                               1
-Constant                                              50
+Constant                                              66
 DelayControl                                           6
 Design                                                 1
 EventControl                                           2
 IfElse                                                 2
 IfStmt                                                 2
 Initial                                                1
-IntTypespec                                            8
-LogicNet                                              25
-LogicTypespec                                         24
+LogicNet                                              24
+LogicTypespec                                         17
 Module                                                 3
+ModuleTypespec                                         1
 Operation                                             24
 ParamAssign                                            8
 Parameter                                              8
 Port                                                  18
 PropertyDecl                                           2
 PropertySpec                                           4
-Range                                                  7
+Range                                                 15
 RefModule                                              1
-RefObj                                                94
-RefTypespec                                           40
+RefObj                                                83
+RefTypespec                                           17
 Repeat                                                 1
 SysFuncCall                                            6
 WhileStmt                                              1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/AssertTempError/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/AssertTempError/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/AssertTempError/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@UART (work@UART), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:2:1, endln:67:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@UART
+  |vpiName:work@UART
   |vpiParameter:
-  \_Parameter: (work@UART.IDLE), line:12:15, endln:12:19
+  \_Parameter: (work@UART.IDLE), line:12:15, endln:12:23
     |vpiParent:
     \_Module: work@UART (work@UART), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:2:1, endln:67:10
     |UINT:0
-    |vpiTypespec:
-    \_RefTypespec: (work@UART.IDLE)
-      |vpiParent:
-      \_Parameter: (work@UART.IDLE), line:12:15, endln:12:19
-      |vpiFullName:work@UART.IDLE
-      |vpiActual:
-      \_IntTypespec: , line:12:5, endln:12:54
     |vpiName:IDLE
     |vpiFullName:work@UART.IDLE
   |vpiParameter:
-  \_Parameter: (work@UART.START), line:12:25, endln:12:30
+  \_Parameter: (work@UART.START), line:12:25, endln:12:34
     |vpiParent:
     \_Module: work@UART (work@UART), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:2:1, endln:67:10
     |UINT:1
-    |vpiTypespec:
-    \_RefTypespec: (work@UART.START)
-      |vpiParent:
-      \_Parameter: (work@UART.START), line:12:25, endln:12:30
-      |vpiFullName:work@UART.START
-      |vpiActual:
-      \_IntTypespec: , line:12:5, endln:12:54
     |vpiName:START
     |vpiFullName:work@UART.START
   |vpiParameter:
-  \_Parameter: (work@UART.DATA), line:12:36, endln:12:40
+  \_Parameter: (work@UART.DATA), line:12:36, endln:12:44
     |vpiParent:
     \_Module: work@UART (work@UART), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:2:1, endln:67:10
     |UINT:2
-    |vpiTypespec:
-    \_RefTypespec: (work@UART.DATA)
-      |vpiParent:
-      \_Parameter: (work@UART.DATA), line:12:36, endln:12:40
-      |vpiFullName:work@UART.DATA
-      |vpiActual:
-      \_IntTypespec: , line:12:5, endln:12:54
     |vpiName:DATA
     |vpiFullName:work@UART.DATA
   |vpiParameter:
-  \_Parameter: (work@UART.STOP), line:12:46, endln:12:50
+  \_Parameter: (work@UART.STOP), line:12:46, endln:12:54
     |vpiParent:
     \_Module: work@UART (work@UART), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:2:1, endln:67:10
     |UINT:3
-    |vpiTypespec:
-    \_RefTypespec: (work@UART.STOP)
-      |vpiParent:
-      \_Parameter: (work@UART.STOP), line:12:46, endln:12:50
-      |vpiFullName:work@UART.STOP
-      |vpiActual:
-      \_IntTypespec: , line:12:5, endln:12:54
     |vpiName:STOP
     |vpiFullName:work@UART.STOP
   |vpiParamAssign:
@@ -1586,16 +1556,9 @@ Design: (unnamed)
       |vpiDecompile:0
       |vpiSize:64
       |UINT:0
-      |vpiTypespec:
-      \_RefTypespec: (work@UART)
-        |vpiParent:
-        \_Constant: , line:12:22, endln:12:23
-        |vpiFullName:work@UART
-        |vpiActual:
-        \_IntTypespec: , line:12:5, endln:12:54
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (work@UART.IDLE), line:12:15, endln:12:19
+    \_Parameter: (work@UART.IDLE), line:12:15, endln:12:23
   |vpiParamAssign:
   \_ParamAssign: , line:12:25, endln:12:34
     |vpiParent:
@@ -1607,16 +1570,9 @@ Design: (unnamed)
       |vpiDecompile:1
       |vpiSize:64
       |UINT:1
-      |vpiTypespec:
-      \_RefTypespec: (work@UART)
-        |vpiParent:
-        \_Constant: , line:12:33, endln:12:34
-        |vpiFullName:work@UART
-        |vpiActual:
-        \_IntTypespec: , line:12:5, endln:12:54
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (work@UART.START), line:12:25, endln:12:30
+    \_Parameter: (work@UART.START), line:12:25, endln:12:34
   |vpiParamAssign:
   \_ParamAssign: , line:12:36, endln:12:44
     |vpiParent:
@@ -1628,16 +1584,9 @@ Design: (unnamed)
       |vpiDecompile:2
       |vpiSize:64
       |UINT:2
-      |vpiTypespec:
-      \_RefTypespec: (work@UART)
-        |vpiParent:
-        \_Constant: , line:12:43, endln:12:44
-        |vpiFullName:work@UART
-        |vpiActual:
-        \_IntTypespec: , line:12:5, endln:12:54
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (work@UART.DATA), line:12:36, endln:12:40
+    \_Parameter: (work@UART.DATA), line:12:36, endln:12:44
   |vpiParamAssign:
   \_ParamAssign: , line:12:46, endln:12:54
     |vpiParent:
@@ -1649,67 +1598,195 @@ Design: (unnamed)
       |vpiDecompile:3
       |vpiSize:64
       |UINT:3
-      |vpiTypespec:
-      \_RefTypespec: (work@UART)
-        |vpiParent:
-        \_Constant: , line:12:53, endln:12:54
-        |vpiFullName:work@UART
-        |vpiActual:
-        \_IntTypespec: , line:12:5, endln:12:54
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (work@UART.STOP), line:12:46, endln:12:50
-  |vpiDefName:work@UART
-  |vpiNet:
+    \_Parameter: (work@UART.STOP), line:12:46, endln:12:54
+  |vpiTypedef:
+  \_LogicTypespec: , line:6:12, endln:6:15
+    |vpiParent:
+    \_Module: work@UART (work@UART), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:2:1, endln:67:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:9:12, endln:9:15
+    |vpiParent:
+    \_Module: work@UART (work@UART), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:2:1, endln:67:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:13:5, endln:13:14
+    |vpiParent:
+    \_Module: work@UART (work@UART), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:2:1, endln:67:10
+    |vpiRange:
+    \_Range: , line:13:9, endln:13:14
+      |vpiParent:
+      \_LogicTypespec: , line:13:5, endln:13:14
+      |vpiLeftRange:
+      \_Constant: , line:13:10, endln:13:11
+        |vpiParent:
+        \_Range: , line:13:9, endln:13:14
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:13:12, endln:13:13
+        |vpiParent:
+        \_Range: , line:13:9, endln:13:14
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:14:5, endln:14:14
+    |vpiParent:
+    \_Module: work@UART (work@UART), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:2:1, endln:67:10
+    |vpiRange:
+    \_Range: , line:14:9, endln:14:14
+      |vpiParent:
+      \_LogicTypespec: , line:14:5, endln:14:14
+      |vpiLeftRange:
+      \_Constant: , line:14:10, endln:14:11
+        |vpiParent:
+        \_Range: , line:14:9, endln:14:14
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:14:12, endln:14:13
+        |vpiParent:
+        \_Range: , line:14:9, endln:14:14
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:14:5, endln:14:14
+    |vpiParent:
+    \_Module: work@UART (work@UART), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:2:1, endln:67:10
+    |vpiRange:
+    \_Range: , line:14:9, endln:14:14
+      |vpiParent:
+      \_LogicTypespec: , line:14:5, endln:14:14
+      |vpiLeftRange:
+      \_Constant: , line:14:10, endln:14:11
+        |vpiParent:
+        \_Range: , line:14:9, endln:14:14
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:14:12, endln:14:13
+        |vpiParent:
+        \_Range: , line:14:9, endln:14:14
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:15:5, endln:15:14
+    |vpiParent:
+    \_Module: work@UART (work@UART), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:2:1, endln:67:10
+    |vpiRange:
+    \_Range: , line:15:9, endln:15:14
+      |vpiParent:
+      \_LogicTypespec: , line:15:5, endln:15:14
+      |vpiLeftRange:
+      \_Constant: , line:15:10, endln:15:11
+        |vpiParent:
+        \_Range: , line:15:9, endln:15:14
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:15:12, endln:15:13
+        |vpiParent:
+        \_Range: , line:15:9, endln:15:14
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:16:5, endln:16:8
+    |vpiParent:
+    \_Module: work@UART (work@UART), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:2:1, endln:67:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:6:12, endln:6:15
+    |vpiParent:
+    \_Module: work@UART (work@UART), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:2:1, endln:67:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:9:12, endln:9:15
+    |vpiParent:
+    \_Module: work@UART (work@UART), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:2:1, endln:67:10
+  |vpiImportTypespec:
   \_LogicNet: (work@UART.clk), line:3:11, endln:3:14
     |vpiParent:
     \_Module: work@UART (work@UART), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:2:1, endln:67:10
     |vpiName:clk
     |vpiFullName:work@UART.clk
-  |vpiNet:
+  |vpiImportTypespec:
   \_LogicNet: (work@UART.rst_n), line:4:11, endln:4:16
     |vpiParent:
     \_Module: work@UART (work@UART), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:2:1, endln:67:10
     |vpiName:rst_n
     |vpiFullName:work@UART.rst_n
-  |vpiNet:
+  |vpiImportTypespec:
   \_LogicNet: (work@UART.rx), line:5:11, endln:5:13
     |vpiParent:
     \_Module: work@UART (work@UART), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:2:1, endln:67:10
     |vpiName:rx
     |vpiFullName:work@UART.rx
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:6:12, endln:6:15
+  |vpiImportTypespec:
   \_LogicNet: (work@UART.tx), line:6:16, endln:6:18
     |vpiParent:
     \_Module: work@UART (work@UART), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:2:1, endln:67:10
+    |vpiTypespec:
+    \_RefTypespec: (work@UART.tx), line:6:12, endln:6:15
+      |vpiParent:
+      \_LogicNet: (work@UART.tx), line:6:16, endln:6:18
+      |vpiFullName:work@UART.tx
+      |vpiActual:
+      \_LogicTypespec: , line:6:12, endln:6:15
     |vpiName:tx
     |vpiFullName:work@UART.tx
     |vpiNetType:48
-  |vpiNet:
+  |vpiImportTypespec:
   \_LogicNet: (work@UART.data), line:7:17, endln:7:21
     |vpiParent:
     \_Module: work@UART (work@UART), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:2:1, endln:67:10
     |vpiName:data
     |vpiFullName:work@UART.data
-  |vpiNet:
+  |vpiImportTypespec:
   \_LogicNet: (work@UART.send), line:8:11, endln:8:15
     |vpiParent:
     \_Module: work@UART (work@UART), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:2:1, endln:67:10
     |vpiName:send
     |vpiFullName:work@UART.send
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:9:12, endln:9:15
+  |vpiImportTypespec:
   \_LogicNet: (work@UART.done), line:9:16, endln:9:20
     |vpiParent:
     \_Module: work@UART (work@UART), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:2:1, endln:67:10
+    |vpiTypespec:
+    \_RefTypespec: (work@UART.done), line:9:12, endln:9:15
+      |vpiParent:
+      \_LogicNet: (work@UART.done), line:9:16, endln:9:20
+      |vpiFullName:work@UART.done
+      |vpiActual:
+      \_LogicTypespec: , line:9:12, endln:9:15
     |vpiName:done
     |vpiFullName:work@UART.done
     |vpiNetType:48
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:13:5, endln:13:14
+  |vpiImportTypespec:
   \_LogicNet: (work@UART.shift_reg), line:13:15, endln:13:24
     |vpiParent:
     \_Module: work@UART (work@UART), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:2:1, endln:67:10
     |vpiTypespec:
-    \_RefTypespec: (work@UART.shift_reg)
+    \_RefTypespec: (work@UART.shift_reg), line:13:5, endln:13:14
       |vpiParent:
       \_LogicNet: (work@UART.shift_reg), line:13:15, endln:13:24
       |vpiFullName:work@UART.shift_reg
@@ -1718,12 +1795,14 @@ Design: (unnamed)
     |vpiName:shift_reg
     |vpiFullName:work@UART.shift_reg
     |vpiNetType:48
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:14:5, endln:14:14
+  |vpiImportTypespec:
   \_LogicNet: (work@UART.state), line:14:15, endln:14:20
     |vpiParent:
     \_Module: work@UART (work@UART), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:2:1, endln:67:10
     |vpiTypespec:
-    \_RefTypespec: (work@UART.state)
+    \_RefTypespec: (work@UART.state), line:14:5, endln:14:14
       |vpiParent:
       \_LogicNet: (work@UART.state), line:14:15, endln:14:20
       |vpiFullName:work@UART.state
@@ -1732,12 +1811,14 @@ Design: (unnamed)
     |vpiName:state
     |vpiFullName:work@UART.state
     |vpiNetType:48
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:14:5, endln:14:14
+  |vpiImportTypespec:
   \_LogicNet: (work@UART.next_state), line:14:22, endln:14:32
     |vpiParent:
     \_Module: work@UART (work@UART), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:2:1, endln:67:10
     |vpiTypespec:
-    \_RefTypespec: (work@UART.next_state)
+    \_RefTypespec: (work@UART.next_state), line:14:5, endln:14:14
       |vpiParent:
       \_LogicNet: (work@UART.next_state), line:14:22, endln:14:32
       |vpiFullName:work@UART.next_state
@@ -1746,12 +1827,14 @@ Design: (unnamed)
     |vpiName:next_state
     |vpiFullName:work@UART.next_state
     |vpiNetType:48
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:15:5, endln:15:14
+  |vpiImportTypespec:
   \_LogicNet: (work@UART.bit_counter), line:15:15, endln:15:26
     |vpiParent:
     \_Module: work@UART (work@UART), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:2:1, endln:67:10
     |vpiTypespec:
-    \_RefTypespec: (work@UART.bit_counter)
+    \_RefTypespec: (work@UART.bit_counter), line:15:5, endln:15:14
       |vpiParent:
       \_LogicNet: (work@UART.bit_counter), line:15:15, endln:15:26
       |vpiFullName:work@UART.bit_counter
@@ -1760,12 +1843,14 @@ Design: (unnamed)
     |vpiName:bit_counter
     |vpiFullName:work@UART.bit_counter
     |vpiNetType:48
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:16:5, endln:16:8
+  |vpiImportTypespec:
   \_LogicNet: (work@UART.tx_next), line:16:9, endln:16:16
     |vpiParent:
     \_Module: work@UART (work@UART), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:2:1, endln:67:10
     |vpiTypespec:
-    \_RefTypespec: (work@UART.tx_next)
+    \_RefTypespec: (work@UART.tx_next), line:16:5, endln:16:8
       |vpiParent:
       \_LogicNet: (work@UART.tx_next), line:16:9, endln:16:16
       |vpiFullName:work@UART.tx_next
@@ -1774,85 +1859,61 @@ Design: (unnamed)
     |vpiName:tx_next
     |vpiFullName:work@UART.tx_next
     |vpiNetType:48
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:6:12, endln:6:15
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:9:12, endln:9:15
+  |vpiDefName:work@UART
+  |vpiNet:
+  \_LogicNet: (work@UART.clk), line:3:11, endln:3:14
+  |vpiNet:
+  \_LogicNet: (work@UART.rst_n), line:4:11, endln:4:16
+  |vpiNet:
+  \_LogicNet: (work@UART.rx), line:5:11, endln:5:13
+  |vpiNet:
+  \_LogicNet: (work@UART.tx), line:6:16, endln:6:18
+  |vpiNet:
+  \_LogicNet: (work@UART.data), line:7:17, endln:7:21
+  |vpiNet:
+  \_LogicNet: (work@UART.send), line:8:11, endln:8:15
+  |vpiNet:
+  \_LogicNet: (work@UART.done), line:9:16, endln:9:20
+  |vpiNet:
+  \_LogicNet: (work@UART.shift_reg), line:13:15, endln:13:24
+  |vpiNet:
+  \_LogicNet: (work@UART.state), line:14:15, endln:14:20
+  |vpiNet:
+  \_LogicNet: (work@UART.next_state), line:14:22, endln:14:32
+  |vpiNet:
+  \_LogicNet: (work@UART.bit_counter), line:15:15, endln:15:26
+  |vpiNet:
+  \_LogicNet: (work@UART.tx_next), line:16:9, endln:16:16
   |vpiPort:
   \_Port: (clk), line:3:11, endln:3:14
     |vpiParent:
     \_Module: work@UART (work@UART), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:2:1, endln:67:10
     |vpiName:clk
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@UART.clk.clk), line:3:11, endln:3:14
-      |vpiParent:
-      \_Port: (clk), line:3:11, endln:3:14
-      |vpiName:clk
-      |vpiFullName:work@UART.clk.clk
-      |vpiActual:
-      \_LogicNet: (work@UART.clk), line:3:11, endln:3:14
-    |vpiTypedef:
-    \_RefTypespec: (work@UART.clk)
-      |vpiParent:
-      \_Port: (clk), line:3:11, endln:3:14
-      |vpiFullName:work@UART.clk
-      |vpiActual:
-      \_LogicTypespec: , line:3:11, endln:3:11
   |vpiPort:
   \_Port: (rst_n), line:4:11, endln:4:16
     |vpiParent:
     \_Module: work@UART (work@UART), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:2:1, endln:67:10
     |vpiName:rst_n
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@UART.rst_n.rst_n), line:4:11, endln:4:16
-      |vpiParent:
-      \_Port: (rst_n), line:4:11, endln:4:16
-      |vpiName:rst_n
-      |vpiFullName:work@UART.rst_n.rst_n
-      |vpiActual:
-      \_LogicNet: (work@UART.rst_n), line:4:11, endln:4:16
-    |vpiTypedef:
-    \_RefTypespec: (work@UART.rst_n)
-      |vpiParent:
-      \_Port: (rst_n), line:4:11, endln:4:16
-      |vpiFullName:work@UART.rst_n
-      |vpiActual:
-      \_LogicTypespec: , line:4:11, endln:4:11
   |vpiPort:
   \_Port: (rx), line:5:11, endln:5:13
     |vpiParent:
     \_Module: work@UART (work@UART), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:2:1, endln:67:10
     |vpiName:rx
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@UART.rx.rx), line:5:11, endln:5:13
-      |vpiParent:
-      \_Port: (rx), line:5:11, endln:5:13
-      |vpiName:rx
-      |vpiFullName:work@UART.rx.rx
-      |vpiActual:
-      \_LogicNet: (work@UART.rx), line:5:11, endln:5:13
-    |vpiTypedef:
-    \_RefTypespec: (work@UART.rx)
-      |vpiParent:
-      \_Port: (rx), line:5:11, endln:5:13
-      |vpiFullName:work@UART.rx
-      |vpiActual:
-      \_LogicTypespec: , line:5:11, endln:5:11
   |vpiPort:
   \_Port: (tx), line:6:16, endln:6:18
     |vpiParent:
     \_Module: work@UART (work@UART), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:2:1, endln:67:10
     |vpiName:tx
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@UART.tx.tx), line:6:16, endln:6:18
-      |vpiParent:
-      \_Port: (tx), line:6:16, endln:6:18
-      |vpiName:tx
-      |vpiFullName:work@UART.tx.tx
-      |vpiActual:
-      \_LogicNet: (work@UART.tx), line:6:16, endln:6:18
-    |vpiTypedef:
-    \_RefTypespec: (work@UART.tx)
+    |vpiTypespec:
+    \_RefTypespec: (work@UART.tx), line:6:12, endln:6:15
       |vpiParent:
       \_Port: (tx), line:6:16, endln:6:18
       |vpiFullName:work@UART.tx
@@ -1864,58 +1925,20 @@ Design: (unnamed)
     \_Module: work@UART (work@UART), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:2:1, endln:67:10
     |vpiName:data
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@UART.data.data), line:7:17, endln:7:21
-      |vpiParent:
-      \_Port: (data), line:7:17, endln:7:21
-      |vpiName:data
-      |vpiFullName:work@UART.data.data
-      |vpiActual:
-      \_LogicNet: (work@UART.data), line:7:17, endln:7:21
-    |vpiTypedef:
-    \_RefTypespec: (work@UART.data)
-      |vpiParent:
-      \_Port: (data), line:7:17, endln:7:21
-      |vpiFullName:work@UART.data
-      |vpiActual:
-      \_LogicTypespec: , line:7:11, endln:7:16
   |vpiPort:
   \_Port: (send), line:8:11, endln:8:15
     |vpiParent:
     \_Module: work@UART (work@UART), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:2:1, endln:67:10
     |vpiName:send
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@UART.send.send), line:8:11, endln:8:15
-      |vpiParent:
-      \_Port: (send), line:8:11, endln:8:15
-      |vpiName:send
-      |vpiFullName:work@UART.send.send
-      |vpiActual:
-      \_LogicNet: (work@UART.send), line:8:11, endln:8:15
-    |vpiTypedef:
-    \_RefTypespec: (work@UART.send)
-      |vpiParent:
-      \_Port: (send), line:8:11, endln:8:15
-      |vpiFullName:work@UART.send
-      |vpiActual:
-      \_LogicTypespec: , line:8:11, endln:8:11
   |vpiPort:
   \_Port: (done), line:9:16, endln:9:20
     |vpiParent:
     \_Module: work@UART (work@UART), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:2:1, endln:67:10
     |vpiName:done
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@UART.done.done), line:9:16, endln:9:20
-      |vpiParent:
-      \_Port: (done), line:9:16, endln:9:20
-      |vpiName:done
-      |vpiFullName:work@UART.done.done
-      |vpiActual:
-      \_LogicNet: (work@UART.done), line:9:16, endln:9:20
-    |vpiTypedef:
-    \_RefTypespec: (work@UART.done)
+    |vpiTypespec:
+    \_RefTypespec: (work@UART.done), line:9:12, endln:9:15
       |vpiParent:
       \_Port: (done), line:9:16, endln:9:20
       |vpiFullName:work@UART.done
@@ -1972,7 +1995,7 @@ Design: (unnamed)
           |vpiCondition:
           \_Operation: , line:19:13, endln:19:19
             |vpiParent:
-            \_Begin: (work@UART), line:18:44, endln:26:8
+            \_IfElse: , line:19:9, endln:25:12
             |vpiOpType:3
             |vpiOperand:
             \_RefObj: (work@UART.rst_n), line:19:14, endln:19:19
@@ -1998,6 +2021,8 @@ Design: (unnamed)
                 \_Assignment: , line:20:13, endln:20:26
                 |vpiName:IDLE
                 |vpiFullName:work@UART.IDLE
+                |vpiActual:
+                \_Parameter: (work@UART.IDLE), line:12:15, endln:12:23
               |vpiLhs:
               \_RefObj: (work@UART.state), line:20:13, endln:20:18
                 |vpiParent:
@@ -2013,6 +2038,8 @@ Design: (unnamed)
               |vpiOpType:82
               |vpiRhs:
               \_Constant: , line:21:19, endln:21:23
+                |vpiParent:
+                \_Assignment: , line:21:13, endln:21:23
                 |vpiDecompile:1'b1
                 |vpiSize:1
                 |BIN:1
@@ -2211,6 +2238,8 @@ Design: (unnamed)
           |vpiBlocking:1
           |vpiRhs:
           \_Constant: , line:31:16, endln:31:20
+            |vpiParent:
+            \_Assignment: , line:31:9, endln:31:20
             |vpiDecompile:1'b0
             |vpiSize:1
             |BIN:0
@@ -2231,7 +2260,7 @@ Design: (unnamed)
           |vpiCondition:
           \_RefObj: (work@UART.state), line:33:15, endln:33:20
             |vpiParent:
-            \_Begin: (work@UART), line:28:61, endln:65:8
+            \_CaseStmt: , line:33:9, endln:64:16
             |vpiName:state
             |vpiFullName:work@UART.state
             |vpiActual:
@@ -2243,9 +2272,11 @@ Design: (unnamed)
             |vpiExpr:
             \_RefObj: (work@UART.IDLE), line:34:13, endln:34:17
               |vpiParent:
-              \_Begin: (work@UART), line:28:61, endln:65:8
+              \_CaseItem: , line:34:13, endln:41:16
               |vpiName:IDLE
               |vpiFullName:work@UART.IDLE
+              |vpiActual:
+              \_Parameter: (work@UART.IDLE), line:12:15, endln:12:23
             |vpiStmt:
             \_Begin: (work@UART), line:34:19, endln:41:16
               |vpiParent:
@@ -2258,7 +2289,7 @@ Design: (unnamed)
                 |vpiCondition:
                 \_RefObj: (work@UART.send), line:35:21, endln:35:25
                   |vpiParent:
-                  \_Begin: (work@UART), line:34:19, endln:41:16
+                  \_IfStmt: , line:35:17, endln:40:20
                   |vpiName:send
                   |vpiFullName:work@UART.send
                   |vpiActual:
@@ -2276,6 +2307,8 @@ Design: (unnamed)
                     |vpiBlocking:1
                     |vpiRhs:
                     \_Constant: , line:36:31, endln:36:35
+                      |vpiParent:
+                      \_Assignment: , line:36:21, endln:36:35
                       |vpiDecompile:1'b0
                       |vpiSize:1
                       |BIN:0
@@ -2318,6 +2351,8 @@ Design: (unnamed)
                     |vpiBlocking:1
                     |vpiRhs:
                     \_Constant: , line:38:35, endln:38:36
+                      |vpiParent:
+                      \_Assignment: , line:38:21, endln:38:36
                       |vpiDecompile:0
                       |vpiSize:64
                       |UINT:0
@@ -2342,6 +2377,8 @@ Design: (unnamed)
                       \_Assignment: , line:39:21, endln:39:39
                       |vpiName:START
                       |vpiFullName:work@UART.START
+                      |vpiActual:
+                      \_Parameter: (work@UART.START), line:12:25, endln:12:34
                     |vpiLhs:
                     \_RefObj: (work@UART.next_state), line:39:21, endln:39:31
                       |vpiParent:
@@ -2357,9 +2394,11 @@ Design: (unnamed)
             |vpiExpr:
             \_RefObj: (work@UART.START), line:42:13, endln:42:18
               |vpiParent:
-              \_Begin: (work@UART), line:28:61, endln:65:8
+              \_CaseItem: , line:42:13, endln:49:16
               |vpiName:START
               |vpiFullName:work@UART.START
+              |vpiActual:
+              \_Parameter: (work@UART.START), line:12:25, endln:12:34
             |vpiStmt:
             \_Begin: (work@UART), line:42:20, endln:49:16
               |vpiParent:
@@ -2407,7 +2446,7 @@ Design: (unnamed)
                 |vpiCondition:
                 \_Operation: , line:44:21, endln:44:37
                   |vpiParent:
-                  \_Begin: (work@UART), line:42:20, endln:49:16
+                  \_IfStmt: , line:44:17, endln:48:20
                   |vpiOpType:14
                   |vpiOperand:
                   \_RefObj: (work@UART.bit_counter), line:44:21, endln:44:32
@@ -2437,15 +2476,17 @@ Design: (unnamed)
                     |vpiOpType:82
                     |vpiBlocking:1
                     |vpiRhs:
-                    \_BitSelect: (work@UART.shift_reg), line:45:41, endln:45:42
+                    \_BitSelect: (work@UART.shift_reg), line:45:40, endln:45:43
                       |vpiParent:
                       \_Assignment: , line:45:21, endln:45:43
                       |vpiName:shift_reg
                       |vpiFullName:work@UART.shift_reg
+                      |vpiActual:
+                      \_LogicNet: (work@UART.shift_reg), line:13:15, endln:13:24
                       |vpiIndex:
                       \_Constant: , line:45:41, endln:45:42
                         |vpiParent:
-                        \_BitSelect: (work@UART.shift_reg), line:45:41, endln:45:42
+                        \_BitSelect: (work@UART.shift_reg), line:45:40, endln:45:43
                         |vpiDecompile:0
                         |vpiSize:64
                         |UINT:0
@@ -2505,6 +2546,8 @@ Design: (unnamed)
                       \_Assignment: , line:47:21, endln:47:38
                       |vpiName:DATA
                       |vpiFullName:work@UART.DATA
+                      |vpiActual:
+                      \_Parameter: (work@UART.DATA), line:12:36, endln:12:44
                     |vpiLhs:
                     \_RefObj: (work@UART.next_state), line:47:21, endln:47:31
                       |vpiParent:
@@ -2520,9 +2563,11 @@ Design: (unnamed)
             |vpiExpr:
             \_RefObj: (work@UART.DATA), line:50:13, endln:50:17
               |vpiParent:
-              \_Begin: (work@UART), line:28:61, endln:65:8
+              \_CaseItem: , line:50:13, endln:59:16
               |vpiName:DATA
               |vpiFullName:work@UART.DATA
+              |vpiActual:
+              \_Parameter: (work@UART.DATA), line:12:36, endln:12:44
             |vpiStmt:
             \_Begin: (work@UART), line:50:19, endln:59:16
               |vpiParent:
@@ -2570,7 +2615,7 @@ Design: (unnamed)
                 |vpiCondition:
                 \_Operation: , line:52:21, endln:52:38
                   |vpiParent:
-                  \_Begin: (work@UART), line:50:19, endln:59:16
+                  \_IfElse: , line:52:17, endln:58:20
                   |vpiOpType:14
                   |vpiOperand:
                   \_RefObj: (work@UART.bit_counter), line:52:21, endln:52:32
@@ -2601,6 +2646,8 @@ Design: (unnamed)
                     |vpiBlocking:1
                     |vpiRhs:
                     \_Constant: , line:53:31, endln:53:35
+                      |vpiParent:
+                      \_Assignment: , line:53:21, endln:53:35
                       |vpiDecompile:1'b1
                       |vpiSize:1
                       |BIN:1
@@ -2625,6 +2672,8 @@ Design: (unnamed)
                       \_Assignment: , line:54:21, endln:54:38
                       |vpiName:STOP
                       |vpiFullName:work@UART.STOP
+                      |vpiActual:
+                      \_Parameter: (work@UART.STOP), line:12:46, endln:12:54
                     |vpiLhs:
                     \_RefObj: (work@UART.next_state), line:54:21, endln:54:31
                       |vpiParent:
@@ -2645,15 +2694,17 @@ Design: (unnamed)
                     |vpiOpType:82
                     |vpiBlocking:1
                     |vpiRhs:
-                    \_BitSelect: (work@UART.shift_reg), line:56:41, endln:56:42
+                    \_BitSelect: (work@UART.shift_reg), line:56:40, endln:56:43
                       |vpiParent:
                       \_Assignment: , line:56:21, endln:56:43
                       |vpiName:shift_reg
                       |vpiFullName:work@UART.shift_reg
+                      |vpiActual:
+                      \_LogicNet: (work@UART.shift_reg), line:13:15, endln:13:24
                       |vpiIndex:
                       \_Constant: , line:56:41, endln:56:42
                         |vpiParent:
-                        \_BitSelect: (work@UART.shift_reg), line:56:41, endln:56:42
+                        \_BitSelect: (work@UART.shift_reg), line:56:40, endln:56:43
                         |vpiDecompile:0
                         |vpiSize:64
                         |UINT:0
@@ -2708,9 +2759,11 @@ Design: (unnamed)
             |vpiExpr:
             \_RefObj: (work@UART.STOP), line:60:13, endln:60:17
               |vpiParent:
-              \_Begin: (work@UART), line:28:61, endln:65:8
+              \_CaseItem: , line:60:13, endln:63:16
               |vpiName:STOP
               |vpiFullName:work@UART.STOP
+              |vpiActual:
+              \_Parameter: (work@UART.STOP), line:12:46, endln:12:54
             |vpiStmt:
             \_Begin: (work@UART), line:60:19, endln:63:16
               |vpiParent:
@@ -2724,6 +2777,8 @@ Design: (unnamed)
                 |vpiBlocking:1
                 |vpiRhs:
                 \_Constant: , line:61:24, endln:61:28
+                  |vpiParent:
+                  \_Assignment: , line:61:17, endln:61:28
                   |vpiDecompile:1'b1
                   |vpiSize:1
                   |BIN:1
@@ -2748,6 +2803,8 @@ Design: (unnamed)
                   \_Assignment: , line:62:17, endln:62:34
                   |vpiName:IDLE
                   |vpiFullName:work@UART.IDLE
+                  |vpiActual:
+                  \_Parameter: (work@UART.IDLE), line:12:15, endln:12:23
                 |vpiLhs:
                 \_RefObj: (work@UART.next_state), line:62:17, endln:62:27
                   |vpiParent:
@@ -2757,13 +2814,13 @@ Design: (unnamed)
                   |vpiActual:
                   \_LogicNet: (work@UART.next_state), line:14:22, endln:14:32
     |vpiAlwaysType:1
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:70:1, endln:97:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@UART_assertions
+  |vpiName:work@UART_assertions
   |vpiPropertyDecl:
-  \_PropertyDecl: (work@UART_assertions.p_send), line:82:14, endln:82:20
+  \_PropertyDecl: (work@UART_assertions.p_send), line:82:5, endln:85:16
     |vpiParent:
     \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:70:1, endln:97:10
     |vpiName:p_send
@@ -2771,7 +2828,7 @@ Design: (unnamed)
     |vpiPropertySpec:
     \_PropertySpec: , line:83:9, endln:84:33
       |vpiParent:
-      \_PropertyDecl: (work@UART_assertions.p_send), line:82:14, endln:82:20
+      \_PropertyDecl: (work@UART_assertions.p_send), line:82:5, endln:85:16
       |vpiClockingEvent:
       \_Operation: , line:83:11, endln:83:22
         |vpiParent:
@@ -2817,8 +2874,10 @@ Design: (unnamed)
             \_Operation: , line:84:19, endln:84:32
             |vpiName:DATA
             |vpiFullName:work@UART_assertions.p_send.DATA
+            |vpiActual:
+            \_Parameter: (work@UART_assertions.DATA), line:79:36, endln:79:44
   |vpiPropertyDecl:
-  \_PropertyDecl: (work@UART_assertions.p_done), line:90:14, endln:90:20
+  \_PropertyDecl: (work@UART_assertions.p_done), line:90:5, endln:93:16
     |vpiParent:
     \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:70:1, endln:97:10
     |vpiName:p_done
@@ -2826,7 +2885,7 @@ Design: (unnamed)
     |vpiPropertySpec:
     \_PropertySpec: , line:91:9, endln:92:33
       |vpiParent:
-      \_PropertyDecl: (work@UART_assertions.p_done), line:90:14, endln:90:20
+      \_PropertyDecl: (work@UART_assertions.p_done), line:90:5, endln:93:16
       |vpiClockingEvent:
       \_Operation: , line:91:11, endln:91:22
         |vpiParent:
@@ -2872,186 +2931,9 @@ Design: (unnamed)
             \_Operation: , line:92:19, endln:92:32
             |vpiName:STOP
             |vpiFullName:work@UART_assertions.p_done.STOP
-  |vpiParameter:
-  \_Parameter: (work@UART_assertions.IDLE), line:79:15, endln:79:19
-    |vpiParent:
-    \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:70:1, endln:97:10
-    |UINT:0
-    |vpiTypespec:
-    \_RefTypespec: (work@UART_assertions.IDLE)
-      |vpiParent:
-      \_Parameter: (work@UART_assertions.IDLE), line:79:15, endln:79:19
-      |vpiFullName:work@UART_assertions.IDLE
-      |vpiActual:
-      \_IntTypespec: , line:79:5, endln:79:54
-    |vpiName:IDLE
-    |vpiFullName:work@UART_assertions.IDLE
-  |vpiParameter:
-  \_Parameter: (work@UART_assertions.START), line:79:25, endln:79:30
-    |vpiParent:
-    \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:70:1, endln:97:10
-    |UINT:1
-    |vpiTypespec:
-    \_RefTypespec: (work@UART_assertions.START)
-      |vpiParent:
-      \_Parameter: (work@UART_assertions.START), line:79:25, endln:79:30
-      |vpiFullName:work@UART_assertions.START
-      |vpiActual:
-      \_IntTypespec: , line:79:5, endln:79:54
-    |vpiName:START
-    |vpiFullName:work@UART_assertions.START
-  |vpiParameter:
-  \_Parameter: (work@UART_assertions.DATA), line:79:36, endln:79:40
-    |vpiParent:
-    \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:70:1, endln:97:10
-    |UINT:2
-    |vpiTypespec:
-    \_RefTypespec: (work@UART_assertions.DATA)
-      |vpiParent:
-      \_Parameter: (work@UART_assertions.DATA), line:79:36, endln:79:40
-      |vpiFullName:work@UART_assertions.DATA
-      |vpiActual:
-      \_IntTypespec: , line:79:5, endln:79:54
-    |vpiName:DATA
-    |vpiFullName:work@UART_assertions.DATA
-  |vpiParameter:
-  \_Parameter: (work@UART_assertions.STOP), line:79:46, endln:79:50
-    |vpiParent:
-    \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:70:1, endln:97:10
-    |UINT:3
-    |vpiTypespec:
-    \_RefTypespec: (work@UART_assertions.STOP)
-      |vpiParent:
-      \_Parameter: (work@UART_assertions.STOP), line:79:46, endln:79:50
-      |vpiFullName:work@UART_assertions.STOP
-      |vpiActual:
-      \_IntTypespec: , line:79:5, endln:79:54
-    |vpiName:STOP
-    |vpiFullName:work@UART_assertions.STOP
-  |vpiParamAssign:
-  \_ParamAssign: , line:79:15, endln:79:23
-    |vpiParent:
-    \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:70:1, endln:97:10
-    |vpiRhs:
-    \_Constant: , line:79:22, endln:79:23
-      |vpiParent:
-      \_ParamAssign: , line:79:15, endln:79:23
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiTypespec:
-      \_RefTypespec: (work@UART_assertions)
-        |vpiParent:
-        \_Constant: , line:79:22, endln:79:23
-        |vpiFullName:work@UART_assertions
-        |vpiActual:
-        \_IntTypespec: , line:79:5, endln:79:54
-      |vpiConstType:9
-    |vpiLhs:
-    \_Parameter: (work@UART_assertions.IDLE), line:79:15, endln:79:19
-  |vpiParamAssign:
-  \_ParamAssign: , line:79:25, endln:79:34
-    |vpiParent:
-    \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:70:1, endln:97:10
-    |vpiRhs:
-    \_Constant: , line:79:33, endln:79:34
-      |vpiParent:
-      \_ParamAssign: , line:79:25, endln:79:34
-      |vpiDecompile:1
-      |vpiSize:64
-      |UINT:1
-      |vpiTypespec:
-      \_RefTypespec: (work@UART_assertions)
-        |vpiParent:
-        \_Constant: , line:79:33, endln:79:34
-        |vpiFullName:work@UART_assertions
-        |vpiActual:
-        \_IntTypespec: , line:79:5, endln:79:54
-      |vpiConstType:9
-    |vpiLhs:
-    \_Parameter: (work@UART_assertions.START), line:79:25, endln:79:30
-  |vpiParamAssign:
-  \_ParamAssign: , line:79:36, endln:79:44
-    |vpiParent:
-    \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:70:1, endln:97:10
-    |vpiRhs:
-    \_Constant: , line:79:43, endln:79:44
-      |vpiParent:
-      \_ParamAssign: , line:79:36, endln:79:44
-      |vpiDecompile:2
-      |vpiSize:64
-      |UINT:2
-      |vpiTypespec:
-      \_RefTypespec: (work@UART_assertions)
-        |vpiParent:
-        \_Constant: , line:79:43, endln:79:44
-        |vpiFullName:work@UART_assertions
-        |vpiActual:
-        \_IntTypespec: , line:79:5, endln:79:54
-      |vpiConstType:9
-    |vpiLhs:
-    \_Parameter: (work@UART_assertions.DATA), line:79:36, endln:79:40
-  |vpiParamAssign:
-  \_ParamAssign: , line:79:46, endln:79:54
-    |vpiParent:
-    \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:70:1, endln:97:10
-    |vpiRhs:
-    \_Constant: , line:79:53, endln:79:54
-      |vpiParent:
-      \_ParamAssign: , line:79:46, endln:79:54
-      |vpiDecompile:3
-      |vpiSize:64
-      |UINT:3
-      |vpiTypespec:
-      \_RefTypespec: (work@UART_assertions)
-        |vpiParent:
-        \_Constant: , line:79:53, endln:79:54
-        |vpiFullName:work@UART_assertions
-        |vpiActual:
-        \_IntTypespec: , line:79:5, endln:79:54
-      |vpiConstType:9
-    |vpiLhs:
-    \_Parameter: (work@UART_assertions.STOP), line:79:46, endln:79:50
-  |vpiDefName:work@UART_assertions
-  |vpiNet:
-  \_LogicNet: (work@UART_assertions.clk), line:71:11, endln:71:14
-    |vpiParent:
-    \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:70:1, endln:97:10
-    |vpiName:clk
-    |vpiFullName:work@UART_assertions.clk
-  |vpiNet:
-  \_LogicNet: (work@UART_assertions.rst_n), line:72:11, endln:72:16
-    |vpiParent:
-    \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:70:1, endln:97:10
-    |vpiName:rst_n
-    |vpiFullName:work@UART_assertions.rst_n
-  |vpiNet:
-  \_LogicNet: (work@UART_assertions.send), line:73:11, endln:73:15
-    |vpiParent:
-    \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:70:1, endln:97:10
-    |vpiName:send
-    |vpiFullName:work@UART_assertions.send
-  |vpiNet:
-  \_LogicNet: (work@UART_assertions.done), line:74:11, endln:74:15
-    |vpiParent:
-    \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:70:1, endln:97:10
-    |vpiName:done
-    |vpiFullName:work@UART_assertions.done
-  |vpiNet:
-  \_LogicNet: (work@UART_assertions.state), line:78:13, endln:78:18
-    |vpiParent:
-    \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:70:1, endln:97:10
-    |vpiTypespec:
-    \_RefTypespec: (work@UART_assertions.state)
-      |vpiParent:
-      \_LogicNet: (work@UART_assertions.state), line:78:13, endln:78:18
-      |vpiFullName:work@UART_assertions.state
-      |vpiActual:
-      \_LogicTypespec: , line:78:3, endln:78:12
-    |vpiName:state
-    |vpiFullName:work@UART_assertions.state
-    |vpiNetType:48
-  |vpiAssertion:
+            |vpiActual:
+            \_Parameter: (work@UART_assertions.STOP), line:79:46, endln:79:54
+  |vpiConcurrentAssertions:
   \_Assert: (work@UART_assertions), line:87:4, endln:87:69
     |vpiParent:
     \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:70:1, endln:97:10
@@ -3080,8 +2962,8 @@ Design: (unnamed)
         |vpiName:p_send
         |vpiFullName:work@UART_assertions.p_send
         |vpiActual:
-        \_PropertyDecl: (work@UART_assertions.p_send), line:82:14, endln:82:20
-  |vpiAssertion:
+        \_PropertyDecl: (work@UART_assertions.p_send), line:82:5, endln:85:16
+  |vpiConcurrentAssertions:
   \_Assert: (work@UART_assertions), line:95:5, endln:95:70
     |vpiParent:
     \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:70:1, endln:97:10
@@ -3110,103 +2992,262 @@ Design: (unnamed)
         |vpiName:p_done
         |vpiFullName:work@UART_assertions.p_done
         |vpiActual:
-        \_PropertyDecl: (work@UART_assertions.p_done), line:90:14, endln:90:20
+        \_PropertyDecl: (work@UART_assertions.p_done), line:90:5, endln:93:16
+  |vpiParameter:
+  \_Parameter: (work@UART_assertions.IDLE), line:79:15, endln:79:23
+    |vpiParent:
+    \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:70:1, endln:97:10
+    |UINT:0
+    |vpiName:IDLE
+    |vpiFullName:work@UART_assertions.IDLE
+  |vpiParameter:
+  \_Parameter: (work@UART_assertions.START), line:79:25, endln:79:34
+    |vpiParent:
+    \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:70:1, endln:97:10
+    |UINT:1
+    |vpiName:START
+    |vpiFullName:work@UART_assertions.START
+  |vpiParameter:
+  \_Parameter: (work@UART_assertions.DATA), line:79:36, endln:79:44
+    |vpiParent:
+    \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:70:1, endln:97:10
+    |UINT:2
+    |vpiName:DATA
+    |vpiFullName:work@UART_assertions.DATA
+  |vpiParameter:
+  \_Parameter: (work@UART_assertions.STOP), line:79:46, endln:79:54
+    |vpiParent:
+    \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:70:1, endln:97:10
+    |UINT:3
+    |vpiName:STOP
+    |vpiFullName:work@UART_assertions.STOP
+  |vpiParamAssign:
+  \_ParamAssign: , line:79:15, endln:79:23
+    |vpiParent:
+    \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:70:1, endln:97:10
+    |vpiRhs:
+    \_Constant: , line:79:22, endln:79:23
+      |vpiParent:
+      \_ParamAssign: , line:79:15, endln:79:23
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiLhs:
+    \_Parameter: (work@UART_assertions.IDLE), line:79:15, endln:79:23
+  |vpiParamAssign:
+  \_ParamAssign: , line:79:25, endln:79:34
+    |vpiParent:
+    \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:70:1, endln:97:10
+    |vpiRhs:
+    \_Constant: , line:79:33, endln:79:34
+      |vpiParent:
+      \_ParamAssign: , line:79:25, endln:79:34
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiLhs:
+    \_Parameter: (work@UART_assertions.START), line:79:25, endln:79:34
+  |vpiParamAssign:
+  \_ParamAssign: , line:79:36, endln:79:44
+    |vpiParent:
+    \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:70:1, endln:97:10
+    |vpiRhs:
+    \_Constant: , line:79:43, endln:79:44
+      |vpiParent:
+      \_ParamAssign: , line:79:36, endln:79:44
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+    |vpiLhs:
+    \_Parameter: (work@UART_assertions.DATA), line:79:36, endln:79:44
+  |vpiParamAssign:
+  \_ParamAssign: , line:79:46, endln:79:54
+    |vpiParent:
+    \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:70:1, endln:97:10
+    |vpiRhs:
+    \_Constant: , line:79:53, endln:79:54
+      |vpiParent:
+      \_ParamAssign: , line:79:46, endln:79:54
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiLhs:
+    \_Parameter: (work@UART_assertions.STOP), line:79:46, endln:79:54
+  |vpiTypedef:
+  \_LogicTypespec: , line:78:3, endln:78:12
+    |vpiParent:
+    \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:70:1, endln:97:10
+    |vpiRange:
+    \_Range: , line:78:7, endln:78:12
+      |vpiParent:
+      \_LogicTypespec: , line:78:3, endln:78:12
+      |vpiLeftRange:
+      \_Constant: , line:78:8, endln:78:9
+        |vpiParent:
+        \_Range: , line:78:7, endln:78:12
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:78:10, endln:78:11
+        |vpiParent:
+        \_Range: , line:78:7, endln:78:12
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiImportTypespec:
+  \_LogicNet: (work@UART_assertions.clk), line:71:11, endln:71:14
+    |vpiParent:
+    \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:70:1, endln:97:10
+    |vpiName:clk
+    |vpiFullName:work@UART_assertions.clk
+  |vpiImportTypespec:
+  \_LogicNet: (work@UART_assertions.rst_n), line:72:11, endln:72:16
+    |vpiParent:
+    \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:70:1, endln:97:10
+    |vpiName:rst_n
+    |vpiFullName:work@UART_assertions.rst_n
+  |vpiImportTypespec:
+  \_LogicNet: (work@UART_assertions.send), line:73:11, endln:73:15
+    |vpiParent:
+    \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:70:1, endln:97:10
+    |vpiName:send
+    |vpiFullName:work@UART_assertions.send
+  |vpiImportTypespec:
+  \_LogicNet: (work@UART_assertions.done), line:74:11, endln:74:15
+    |vpiParent:
+    \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:70:1, endln:97:10
+    |vpiName:done
+    |vpiFullName:work@UART_assertions.done
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:78:3, endln:78:12
+  |vpiImportTypespec:
+  \_LogicNet: (work@UART_assertions.state), line:78:13, endln:78:18
+    |vpiParent:
+    \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:70:1, endln:97:10
+    |vpiTypespec:
+    \_RefTypespec: (work@UART_assertions.state), line:78:3, endln:78:12
+      |vpiParent:
+      \_LogicNet: (work@UART_assertions.state), line:78:13, endln:78:18
+      |vpiFullName:work@UART_assertions.state
+      |vpiActual:
+      \_LogicTypespec: , line:78:3, endln:78:12
+    |vpiName:state
+    |vpiFullName:work@UART_assertions.state
+    |vpiNetType:48
+  |vpiImportTypespec:
+  \_Assert: (work@UART_assertions), line:87:4, endln:87:69
+  |vpiImportTypespec:
+  \_Assert: (work@UART_assertions), line:95:5, endln:95:70
+  |vpiDefName:work@UART_assertions
+  |vpiNet:
+  \_LogicNet: (work@UART_assertions.clk), line:71:11, endln:71:14
+  |vpiNet:
+  \_LogicNet: (work@UART_assertions.rst_n), line:72:11, endln:72:16
+  |vpiNet:
+  \_LogicNet: (work@UART_assertions.send), line:73:11, endln:73:15
+  |vpiNet:
+  \_LogicNet: (work@UART_assertions.done), line:74:11, endln:74:15
+  |vpiNet:
+  \_LogicNet: (work@UART_assertions.state), line:78:13, endln:78:18
   |vpiPort:
   \_Port: (clk), line:71:11, endln:71:14
     |vpiParent:
     \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:70:1, endln:97:10
     |vpiName:clk
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@UART_assertions.clk.clk), line:71:11, endln:71:14
-      |vpiParent:
-      \_Port: (clk), line:71:11, endln:71:14
-      |vpiName:clk
-      |vpiFullName:work@UART_assertions.clk.clk
-      |vpiActual:
-      \_LogicNet: (work@UART_assertions.clk), line:71:11, endln:71:14
-    |vpiTypedef:
-    \_RefTypespec: (work@UART_assertions.clk)
-      |vpiParent:
-      \_Port: (clk), line:71:11, endln:71:14
-      |vpiFullName:work@UART_assertions.clk
-      |vpiActual:
-      \_LogicTypespec: , line:71:11, endln:71:11
   |vpiPort:
   \_Port: (rst_n), line:72:11, endln:72:16
     |vpiParent:
     \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:70:1, endln:97:10
     |vpiName:rst_n
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@UART_assertions.rst_n.rst_n), line:72:11, endln:72:16
-      |vpiParent:
-      \_Port: (rst_n), line:72:11, endln:72:16
-      |vpiName:rst_n
-      |vpiFullName:work@UART_assertions.rst_n.rst_n
-      |vpiActual:
-      \_LogicNet: (work@UART_assertions.rst_n), line:72:11, endln:72:16
-    |vpiTypedef:
-    \_RefTypespec: (work@UART_assertions.rst_n)
-      |vpiParent:
-      \_Port: (rst_n), line:72:11, endln:72:16
-      |vpiFullName:work@UART_assertions.rst_n
-      |vpiActual:
-      \_LogicTypespec: , line:72:11, endln:72:11
   |vpiPort:
   \_Port: (send), line:73:11, endln:73:15
     |vpiParent:
     \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:70:1, endln:97:10
     |vpiName:send
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@UART_assertions.send.send), line:73:11, endln:73:15
-      |vpiParent:
-      \_Port: (send), line:73:11, endln:73:15
-      |vpiName:send
-      |vpiFullName:work@UART_assertions.send.send
-      |vpiActual:
-      \_LogicNet: (work@UART_assertions.send), line:73:11, endln:73:15
-    |vpiTypedef:
-    \_RefTypespec: (work@UART_assertions.send)
-      |vpiParent:
-      \_Port: (send), line:73:11, endln:73:15
-      |vpiFullName:work@UART_assertions.send
-      |vpiActual:
-      \_LogicTypespec: , line:73:11, endln:73:11
   |vpiPort:
   \_Port: (done), line:74:11, endln:74:15
     |vpiParent:
     \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:70:1, endln:97:10
     |vpiName:done
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@UART_assertions.done.done), line:74:11, endln:74:15
-      |vpiParent:
-      \_Port: (done), line:74:11, endln:74:15
-      |vpiName:done
-      |vpiFullName:work@UART_assertions.done.done
-      |vpiActual:
-      \_LogicNet: (work@UART_assertions.done), line:74:11, endln:74:15
-    |vpiTypedef:
-    \_RefTypespec: (work@UART_assertions.done)
-      |vpiParent:
-      \_Port: (done), line:74:11, endln:74:15
-      |vpiFullName:work@UART_assertions.done
-      |vpiActual:
-      \_LogicTypespec: , line:74:11, endln:74:11
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@tb_UART (work@tb_UART), file:${SURELOG_DIR}/tests/AssertTempError/testbench.sv, line:3:1, endln:54:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@tb_UART
-  |vpiDefName:work@tb_UART
-  |vpiNet:
+  |vpiName:work@tb_UART
+  |vpiTypedef:
+  \_ModuleTypespec: (UART), line:10:5, endln:10:9
+    |vpiParent:
+    \_Module: work@tb_UART (work@tb_UART), file:${SURELOG_DIR}/tests/AssertTempError/testbench.sv, line:3:1, endln:54:10
+    |vpiName:UART
+  |vpiTypedef:
+  \_LogicTypespec: , line:4:5, endln:4:8
+    |vpiParent:
+    \_Module: work@tb_UART (work@tb_UART), file:${SURELOG_DIR}/tests/AssertTempError/testbench.sv, line:3:1, endln:54:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:4:5, endln:4:8
+    |vpiParent:
+    \_Module: work@tb_UART (work@tb_UART), file:${SURELOG_DIR}/tests/AssertTempError/testbench.sv, line:3:1, endln:54:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:4:5, endln:4:8
+    |vpiParent:
+    \_Module: work@tb_UART (work@tb_UART), file:${SURELOG_DIR}/tests/AssertTempError/testbench.sv, line:3:1, endln:54:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:5:5, endln:5:8
+    |vpiParent:
+    \_Module: work@tb_UART (work@tb_UART), file:${SURELOG_DIR}/tests/AssertTempError/testbench.sv, line:3:1, endln:54:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:6:5, endln:6:14
+    |vpiParent:
+    \_Module: work@tb_UART (work@tb_UART), file:${SURELOG_DIR}/tests/AssertTempError/testbench.sv, line:3:1, endln:54:10
+    |vpiRange:
+    \_Range: , line:6:9, endln:6:14
+      |vpiParent:
+      \_LogicTypespec: , line:6:5, endln:6:14
+      |vpiLeftRange:
+      \_Constant: , line:6:10, endln:6:11
+        |vpiParent:
+        \_Range: , line:6:9, endln:6:14
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:6:12, endln:6:13
+        |vpiParent:
+        \_Range: , line:6:9, endln:6:14
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:7:5, endln:7:9
+    |vpiParent:
+    \_Module: work@tb_UART (work@tb_UART), file:${SURELOG_DIR}/tests/AssertTempError/testbench.sv, line:3:1, endln:54:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:7:5, endln:7:9
+    |vpiParent:
+    \_Module: work@tb_UART (work@tb_UART), file:${SURELOG_DIR}/tests/AssertTempError/testbench.sv, line:3:1, endln:54:10
+  |vpiImportTypespec:
+  \_ModuleTypespec: (UART), line:10:5, endln:10:9
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:4:5, endln:4:8
+  |vpiImportTypespec:
   \_LogicNet: (work@tb_UART.clk), line:4:9, endln:4:12
     |vpiParent:
     \_Module: work@tb_UART (work@tb_UART), file:${SURELOG_DIR}/tests/AssertTempError/testbench.sv, line:3:1, endln:54:10
     |vpiTypespec:
-    \_RefTypespec: (work@tb_UART.clk)
+    \_RefTypespec: (work@tb_UART.clk), line:4:5, endln:4:8
       |vpiParent:
       \_LogicNet: (work@tb_UART.clk), line:4:9, endln:4:12
       |vpiFullName:work@tb_UART.clk
@@ -3215,12 +3256,14 @@ Design: (unnamed)
     |vpiName:clk
     |vpiFullName:work@tb_UART.clk
     |vpiNetType:48
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:4:5, endln:4:8
+  |vpiImportTypespec:
   \_LogicNet: (work@tb_UART.rst_n), line:4:14, endln:4:19
     |vpiParent:
     \_Module: work@tb_UART (work@tb_UART), file:${SURELOG_DIR}/tests/AssertTempError/testbench.sv, line:3:1, endln:54:10
     |vpiTypespec:
-    \_RefTypespec: (work@tb_UART.rst_n)
+    \_RefTypespec: (work@tb_UART.rst_n), line:4:5, endln:4:8
       |vpiParent:
       \_LogicNet: (work@tb_UART.rst_n), line:4:14, endln:4:19
       |vpiFullName:work@tb_UART.rst_n
@@ -3229,12 +3272,14 @@ Design: (unnamed)
     |vpiName:rst_n
     |vpiFullName:work@tb_UART.rst_n
     |vpiNetType:48
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:4:5, endln:4:8
+  |vpiImportTypespec:
   \_LogicNet: (work@tb_UART.send), line:4:21, endln:4:25
     |vpiParent:
     \_Module: work@tb_UART (work@tb_UART), file:${SURELOG_DIR}/tests/AssertTempError/testbench.sv, line:3:1, endln:54:10
     |vpiTypespec:
-    \_RefTypespec: (work@tb_UART.send)
+    \_RefTypespec: (work@tb_UART.send), line:4:5, endln:4:8
       |vpiParent:
       \_LogicNet: (work@tb_UART.send), line:4:21, endln:4:25
       |vpiFullName:work@tb_UART.send
@@ -3243,12 +3288,14 @@ Design: (unnamed)
     |vpiName:send
     |vpiFullName:work@tb_UART.send
     |vpiNetType:48
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:5:5, endln:5:8
+  |vpiImportTypespec:
   \_LogicNet: (work@tb_UART.rx), line:5:9, endln:5:11
     |vpiParent:
     \_Module: work@tb_UART (work@tb_UART), file:${SURELOG_DIR}/tests/AssertTempError/testbench.sv, line:3:1, endln:54:10
     |vpiTypespec:
-    \_RefTypespec: (work@tb_UART.rx)
+    \_RefTypespec: (work@tb_UART.rx), line:5:5, endln:5:8
       |vpiParent:
       \_LogicNet: (work@tb_UART.rx), line:5:9, endln:5:11
       |vpiFullName:work@tb_UART.rx
@@ -3257,12 +3304,14 @@ Design: (unnamed)
     |vpiName:rx
     |vpiFullName:work@tb_UART.rx
     |vpiNetType:48
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:6:5, endln:6:14
+  |vpiImportTypespec:
   \_LogicNet: (work@tb_UART.data), line:6:15, endln:6:19
     |vpiParent:
     \_Module: work@tb_UART (work@tb_UART), file:${SURELOG_DIR}/tests/AssertTempError/testbench.sv, line:3:1, endln:54:10
     |vpiTypespec:
-    \_RefTypespec: (work@tb_UART.data)
+    \_RefTypespec: (work@tb_UART.data), line:6:5, endln:6:14
       |vpiParent:
       \_LogicNet: (work@tb_UART.data), line:6:15, endln:6:19
       |vpiFullName:work@tb_UART.data
@@ -3271,12 +3320,14 @@ Design: (unnamed)
     |vpiName:data
     |vpiFullName:work@tb_UART.data
     |vpiNetType:48
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:7:5, endln:7:9
+  |vpiImportTypespec:
   \_LogicNet: (work@tb_UART.tx), line:7:10, endln:7:12
     |vpiParent:
     \_Module: work@tb_UART (work@tb_UART), file:${SURELOG_DIR}/tests/AssertTempError/testbench.sv, line:3:1, endln:54:10
     |vpiTypespec:
-    \_RefTypespec: (work@tb_UART.tx)
+    \_RefTypespec: (work@tb_UART.tx), line:7:5, endln:7:9
       |vpiParent:
       \_LogicNet: (work@tb_UART.tx), line:7:10, endln:7:12
       |vpiFullName:work@tb_UART.tx
@@ -3285,12 +3336,14 @@ Design: (unnamed)
     |vpiName:tx
     |vpiFullName:work@tb_UART.tx
     |vpiNetType:1
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:7:5, endln:7:9
+  |vpiImportTypespec:
   \_LogicNet: (work@tb_UART.done), line:7:14, endln:7:18
     |vpiParent:
     \_Module: work@tb_UART (work@tb_UART), file:${SURELOG_DIR}/tests/AssertTempError/testbench.sv, line:3:1, endln:54:10
     |vpiTypespec:
-    \_RefTypespec: (work@tb_UART.done)
+    \_RefTypespec: (work@tb_UART.done), line:7:5, endln:7:9
       |vpiParent:
       \_LogicNet: (work@tb_UART.done), line:7:14, endln:7:18
       |vpiFullName:work@tb_UART.done
@@ -3299,13 +3352,21 @@ Design: (unnamed)
     |vpiName:done
     |vpiFullName:work@tb_UART.done
     |vpiNetType:1
+  |vpiDefName:work@tb_UART
   |vpiNet:
-  \_LogicNet: (work@tb_UART.tb_UART), line:30:22, endln:30:29
-    |vpiParent:
-    \_Module: work@tb_UART (work@tb_UART), file:${SURELOG_DIR}/tests/AssertTempError/testbench.sv, line:3:1, endln:54:10
-    |vpiName:tb_UART
-    |vpiFullName:work@tb_UART.tb_UART
-    |vpiNetType:1
+  \_LogicNet: (work@tb_UART.clk), line:4:9, endln:4:12
+  |vpiNet:
+  \_LogicNet: (work@tb_UART.rst_n), line:4:14, endln:4:19
+  |vpiNet:
+  \_LogicNet: (work@tb_UART.send), line:4:21, endln:4:25
+  |vpiNet:
+  \_LogicNet: (work@tb_UART.rx), line:5:9, endln:5:11
+  |vpiNet:
+  \_LogicNet: (work@tb_UART.data), line:6:15, endln:6:19
+  |vpiNet:
+  \_LogicNet: (work@tb_UART.tx), line:7:10, endln:7:12
+  |vpiNet:
+  \_LogicNet: (work@tb_UART.done), line:7:14, endln:7:18
   |vpiProcess:
   \_Always: , line:22:5, endln:24:8
     |vpiParent:
@@ -3316,14 +3377,14 @@ Design: (unnamed)
       \_Always: , line:22:5, endln:24:8
       |vpiFullName:work@tb_UART
       |vpiStmt:
-      \_DelayControl: , line:23:9, endln:23:11
+      \_DelayControl: , line:23:9, endln:23:22
         |vpiParent:
         \_Begin: (work@tb_UART), line:22:12, endln:24:8
         |#5
         |vpiStmt:
         \_Assignment: , line:23:12, endln:23:22
           |vpiParent:
-          \_DelayControl: , line:23:9, endln:23:11
+          \_DelayControl: , line:23:9, endln:23:22
           |vpiOpType:82
           |vpiBlocking:1
           |vpiRhs:
@@ -3389,7 +3450,7 @@ Design: (unnamed)
           |vpiName:tb_UART
           |vpiFullName:work@tb_UART.tb_UART
           |vpiActual:
-          \_LogicNet: (work@tb_UART.tb_UART), line:30:22, endln:30:29
+          \_Module: work@tb_UART (work@tb_UART), file:${SURELOG_DIR}/tests/AssertTempError/testbench.sv, line:3:1, endln:54:10
         |vpiName:$dumpvars
       |vpiStmt:
       \_Assignment: , line:32:9, endln:32:16
@@ -3399,6 +3460,8 @@ Design: (unnamed)
         |vpiBlocking:1
         |vpiRhs:
         \_Constant: , line:32:15, endln:32:16
+          |vpiParent:
+          \_Assignment: , line:32:9, endln:32:16
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -3419,6 +3482,8 @@ Design: (unnamed)
         |vpiBlocking:1
         |vpiRhs:
         \_Constant: , line:33:17, endln:33:18
+          |vpiParent:
+          \_Assignment: , line:33:9, endln:33:18
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -3439,6 +3504,8 @@ Design: (unnamed)
         |vpiBlocking:1
         |vpiRhs:
         \_Constant: , line:34:16, endln:34:17
+          |vpiParent:
+          \_Assignment: , line:34:9, endln:34:17
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -3459,6 +3526,8 @@ Design: (unnamed)
         |vpiBlocking:1
         |vpiRhs:
         \_Constant: , line:35:16, endln:35:27
+          |vpiParent:
+          \_Assignment: , line:35:9, endln:35:27
           |vpiDecompile:8'b00000000
           |vpiSize:8
           |BIN:00000000
@@ -3479,6 +3548,8 @@ Design: (unnamed)
         |vpiBlocking:1
         |vpiRhs:
         \_Constant: , line:36:14, endln:36:15
+          |vpiParent:
+          \_Assignment: , line:36:9, endln:36:15
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
@@ -3492,18 +3563,20 @@ Design: (unnamed)
           |vpiActual:
           \_LogicNet: (work@tb_UART.rx), line:5:9, endln:5:11
       |vpiStmt:
-      \_DelayControl: , line:37:9, endln:37:12
+      \_DelayControl: , line:37:9, endln:37:22
         |vpiParent:
         \_Begin: (work@tb_UART), line:27:13, endln:53:8
         |#10
         |vpiStmt:
         \_Assignment: , line:37:13, endln:37:22
           |vpiParent:
-          \_DelayControl: , line:37:9, endln:37:12
+          \_DelayControl: , line:37:9, endln:37:22
           |vpiOpType:82
           |vpiBlocking:1
           |vpiRhs:
           \_Constant: , line:37:21, endln:37:22
+            |vpiParent:
+            \_Assignment: , line:37:13, endln:37:22
             |vpiDecompile:1
             |vpiSize:64
             |UINT:1
@@ -3522,11 +3595,13 @@ Design: (unnamed)
         \_Begin: (work@tb_UART), line:27:13, endln:53:8
         |#10
       |vpiStmt:
-      \_Repeat: , line:43:9, endln:43:15
+      \_Repeat: , line:43:9, endln:49:12
         |vpiParent:
         \_Begin: (work@tb_UART), line:27:13, endln:53:8
         |vpiCondition:
         \_Constant: , line:43:16, endln:43:18
+          |vpiParent:
+          \_Repeat: , line:43:9, endln:49:12
           |vpiDecompile:10
           |vpiSize:64
           |UINT:10
@@ -3534,7 +3609,7 @@ Design: (unnamed)
         |vpiStmt:
         \_Begin: (work@tb_UART), line:43:20, endln:49:12
           |vpiParent:
-          \_Repeat: , line:43:9, endln:43:15
+          \_Repeat: , line:43:9, endln:49:12
           |vpiFullName:work@tb_UART
           |vpiStmt:
           \_Assignment: , line:44:13, endln:44:41
@@ -3576,6 +3651,8 @@ Design: (unnamed)
             |vpiBlocking:1
             |vpiRhs:
             \_Constant: , line:45:20, endln:45:21
+              |vpiParent:
+              \_Assignment: , line:45:13, endln:45:21
               |vpiDecompile:1
               |vpiSize:64
               |UINT:1
@@ -3589,18 +3666,18 @@ Design: (unnamed)
               |vpiActual:
               \_LogicNet: (work@tb_UART.send), line:4:21, endln:4:25
           |vpiStmt:
-          \_DelayControl: , line:46:13, endln:46:16
+          \_DelayControl: , line:46:13, endln:46:33
             |vpiParent:
             \_Begin: (work@tb_UART), line:43:20, endln:49:12
             |#10
             |vpiStmt:
-            \_WhileStmt: , line:46:17, endln:46:22
+            \_WhileStmt: , line:46:17, endln:46:33
               |vpiParent:
-              \_DelayControl: , line:46:13, endln:46:16
+              \_DelayControl: , line:46:13, endln:46:33
               |vpiCondition:
               \_Operation: , line:46:23, endln:46:28
                 |vpiParent:
-                \_WhileStmt: , line:46:17, endln:46:22
+                \_WhileStmt: , line:46:17, endln:46:33
                 |vpiOpType:3
                 |vpiOperand:
                 \_RefObj: (work@tb_UART.done), line:46:24, endln:46:28
@@ -3613,7 +3690,7 @@ Design: (unnamed)
               |vpiStmt:
               \_DelayControl: , line:46:30, endln:46:33
                 |vpiParent:
-                \_WhileStmt: , line:46:17, endln:46:22
+                \_WhileStmt: , line:46:17, endln:46:33
                 |#10
           |vpiStmt:
           \_Assignment: , line:47:13, endln:47:21
@@ -3623,6 +3700,8 @@ Design: (unnamed)
             |vpiBlocking:1
             |vpiRhs:
             \_Constant: , line:47:20, endln:47:21
+              |vpiParent:
+              \_Assignment: , line:47:13, endln:47:21
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
@@ -3646,7 +3725,7 @@ Design: (unnamed)
         \_Begin: (work@tb_UART), line:27:13, endln:53:8
         |vpiName:$finish
   |vpiRefModule:
-  \_RefModule: work@UART (uart_inst), line:10:10, endln:10:19
+  \_RefModule: work@UART (uart_inst), line:10:5, endln:10:9
     |vpiParent:
     \_Module: work@tb_UART (work@tb_UART), file:${SURELOG_DIR}/tests/AssertTempError/testbench.sv, line:3:1, endln:54:10
     |vpiName:uart_inst
@@ -3654,269 +3733,96 @@ Design: (unnamed)
     |vpiActual:
     \_Module: work@UART (work@UART), file:${SURELOG_DIR}/tests/AssertTempError/design.sv, line:2:1, endln:67:10
     |vpiPort:
-    \_Port: (clk), line:11:9, endln:11:18
+    \_Port: (clk), line:11:10, endln:11:13
       |vpiParent:
-      \_RefModule: work@UART (uart_inst), line:10:10, endln:10:19
+      \_RefModule: work@UART (uart_inst), line:10:5, endln:10:9
       |vpiName:clk
       |vpiHighConn:
       \_RefObj: (work@tb_UART.uart_inst.clk.clk), line:11:14, endln:11:17
         |vpiParent:
-        \_Port: (clk), line:11:9, endln:11:18
+        \_Port: (clk), line:11:10, endln:11:13
         |vpiName:clk
         |vpiFullName:work@tb_UART.uart_inst.clk.clk
         |vpiActual:
         \_LogicNet: (work@tb_UART.clk), line:4:9, endln:4:12
     |vpiPort:
-    \_Port: (rst_n), line:12:9, endln:12:22
+    \_Port: (rst_n), line:12:10, endln:12:15
       |vpiParent:
-      \_RefModule: work@UART (uart_inst), line:10:10, endln:10:19
+      \_RefModule: work@UART (uart_inst), line:10:5, endln:10:9
       |vpiName:rst_n
       |vpiHighConn:
       \_RefObj: (work@tb_UART.uart_inst.rst_n.rst_n), line:12:16, endln:12:21
         |vpiParent:
-        \_Port: (rst_n), line:12:9, endln:12:22
+        \_Port: (rst_n), line:12:10, endln:12:15
         |vpiName:rst_n
         |vpiFullName:work@tb_UART.uart_inst.rst_n.rst_n
         |vpiActual:
         \_LogicNet: (work@tb_UART.rst_n), line:4:14, endln:4:19
     |vpiPort:
-    \_Port: (rx), line:13:9, endln:13:16
+    \_Port: (rx), line:13:10, endln:13:12
       |vpiParent:
-      \_RefModule: work@UART (uart_inst), line:10:10, endln:10:19
+      \_RefModule: work@UART (uart_inst), line:10:5, endln:10:9
       |vpiName:rx
       |vpiHighConn:
       \_RefObj: (work@tb_UART.uart_inst.rx.rx), line:13:13, endln:13:15
         |vpiParent:
-        \_Port: (rx), line:13:9, endln:13:16
+        \_Port: (rx), line:13:10, endln:13:12
         |vpiName:rx
         |vpiFullName:work@tb_UART.uart_inst.rx.rx
         |vpiActual:
         \_LogicNet: (work@tb_UART.rx), line:5:9, endln:5:11
     |vpiPort:
-    \_Port: (tx), line:14:9, endln:14:16
+    \_Port: (tx), line:14:10, endln:14:12
       |vpiParent:
-      \_RefModule: work@UART (uart_inst), line:10:10, endln:10:19
+      \_RefModule: work@UART (uart_inst), line:10:5, endln:10:9
       |vpiName:tx
       |vpiHighConn:
       \_RefObj: (work@tb_UART.uart_inst.tx.tx), line:14:13, endln:14:15
         |vpiParent:
-        \_Port: (tx), line:14:9, endln:14:16
+        \_Port: (tx), line:14:10, endln:14:12
         |vpiName:tx
         |vpiFullName:work@tb_UART.uart_inst.tx.tx
         |vpiActual:
         \_LogicNet: (work@tb_UART.tx), line:7:10, endln:7:12
     |vpiPort:
-    \_Port: (data), line:15:9, endln:15:20
+    \_Port: (data), line:15:10, endln:15:14
       |vpiParent:
-      \_RefModule: work@UART (uart_inst), line:10:10, endln:10:19
+      \_RefModule: work@UART (uart_inst), line:10:5, endln:10:9
       |vpiName:data
       |vpiHighConn:
       \_RefObj: (work@tb_UART.uart_inst.data.data), line:15:15, endln:15:19
         |vpiParent:
-        \_Port: (data), line:15:9, endln:15:20
+        \_Port: (data), line:15:10, endln:15:14
         |vpiName:data
         |vpiFullName:work@tb_UART.uart_inst.data.data
         |vpiActual:
         \_LogicNet: (work@tb_UART.data), line:6:15, endln:6:19
     |vpiPort:
-    \_Port: (send), line:16:9, endln:16:20
+    \_Port: (send), line:16:10, endln:16:14
       |vpiParent:
-      \_RefModule: work@UART (uart_inst), line:10:10, endln:10:19
+      \_RefModule: work@UART (uart_inst), line:10:5, endln:10:9
       |vpiName:send
       |vpiHighConn:
       \_RefObj: (work@tb_UART.uart_inst.send.send), line:16:15, endln:16:19
         |vpiParent:
-        \_Port: (send), line:16:9, endln:16:20
+        \_Port: (send), line:16:10, endln:16:14
         |vpiName:send
         |vpiFullName:work@tb_UART.uart_inst.send.send
         |vpiActual:
         \_LogicNet: (work@tb_UART.send), line:4:21, endln:4:25
     |vpiPort:
-    \_Port: (done), line:17:9, endln:17:20
+    \_Port: (done), line:17:10, endln:17:14
       |vpiParent:
-      \_RefModule: work@UART (uart_inst), line:10:10, endln:10:19
+      \_RefModule: work@UART (uart_inst), line:10:5, endln:10:9
       |vpiName:done
       |vpiHighConn:
       \_RefObj: (work@tb_UART.uart_inst.done.done), line:17:15, endln:17:19
         |vpiParent:
-        \_Port: (done), line:17:9, endln:17:20
+        \_Port: (done), line:17:10, endln:17:14
         |vpiName:done
         |vpiFullName:work@tb_UART.uart_inst.done.done
         |vpiActual:
         \_LogicNet: (work@tb_UART.done), line:7:14, endln:7:18
-\_weaklyReferenced:
-\_IntTypespec: , line:12:5, endln:12:54
-\_IntTypespec: , line:12:5, endln:12:54
-\_IntTypespec: , line:12:5, endln:12:54
-\_IntTypespec: , line:12:5, endln:12:54
-\_IntTypespec: , line:79:5, endln:79:54
-\_IntTypespec: , line:79:5, endln:79:54
-\_IntTypespec: , line:79:5, endln:79:54
-\_IntTypespec: , line:79:5, endln:79:54
-\_LogicTypespec: , line:3:11, endln:3:11
-\_LogicTypespec: , line:4:11, endln:4:11
-\_LogicTypespec: , line:5:11, endln:5:11
-\_LogicTypespec: , line:6:12, endln:6:15
-\_LogicTypespec: , line:7:11, endln:7:16
-  |vpiRange:
-  \_Range: , line:7:11, endln:7:16
-    |vpiParent:
-    \_LogicTypespec: , line:7:11, endln:7:16
-    |vpiLeftRange:
-    \_Constant: , line:7:12, endln:7:13
-      |vpiParent:
-      \_Range: , line:7:11, endln:7:16
-      |vpiDecompile:7
-      |vpiSize:64
-      |UINT:7
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:7:14, endln:7:15
-      |vpiParent:
-      \_Range: , line:7:11, endln:7:16
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:8:11, endln:8:11
-\_LogicTypespec: , line:9:12, endln:9:15
-\_LogicTypespec: , line:13:5, endln:13:14
-  |vpiRange:
-  \_Range: , line:13:9, endln:13:14
-    |vpiParent:
-    \_LogicTypespec: , line:13:5, endln:13:14
-    |vpiLeftRange:
-    \_Constant: , line:13:10, endln:13:11
-      |vpiParent:
-      \_Range: , line:13:9, endln:13:14
-      |vpiDecompile:7
-      |vpiSize:64
-      |UINT:7
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:13:12, endln:13:13
-      |vpiParent:
-      \_Range: , line:13:9, endln:13:14
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:14:5, endln:14:14
-  |vpiRange:
-  \_Range: , line:14:9, endln:14:14
-    |vpiParent:
-    \_LogicTypespec: , line:14:5, endln:14:14
-    |vpiLeftRange:
-    \_Constant: , line:14:10, endln:14:11
-      |vpiParent:
-      \_Range: , line:14:9, endln:14:14
-      |vpiDecompile:2
-      |vpiSize:64
-      |UINT:2
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:14:12, endln:14:13
-      |vpiParent:
-      \_Range: , line:14:9, endln:14:14
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:14:5, endln:14:14
-  |vpiRange:
-  \_Range: , line:14:9, endln:14:14
-    |vpiParent:
-    \_LogicTypespec: , line:14:5, endln:14:14
-    |vpiLeftRange:
-    \_Constant: , line:14:10, endln:14:11
-      |vpiParent:
-      \_Range: , line:14:9, endln:14:14
-      |vpiDecompile:2
-      |vpiSize:64
-      |UINT:2
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:14:12, endln:14:13
-      |vpiParent:
-      \_Range: , line:14:9, endln:14:14
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:15:5, endln:15:14
-  |vpiRange:
-  \_Range: , line:15:9, endln:15:14
-    |vpiParent:
-    \_LogicTypespec: , line:15:5, endln:15:14
-    |vpiLeftRange:
-    \_Constant: , line:15:10, endln:15:11
-      |vpiParent:
-      \_Range: , line:15:9, endln:15:14
-      |vpiDecompile:2
-      |vpiSize:64
-      |UINT:2
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:15:12, endln:15:13
-      |vpiParent:
-      \_Range: , line:15:9, endln:15:14
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:16:5, endln:16:8
-\_LogicTypespec: , line:71:11, endln:71:11
-\_LogicTypespec: , line:72:11, endln:72:11
-\_LogicTypespec: , line:73:11, endln:73:11
-\_LogicTypespec: , line:74:11, endln:74:11
-\_LogicTypespec: , line:78:3, endln:78:12
-  |vpiRange:
-  \_Range: , line:78:7, endln:78:12
-    |vpiParent:
-    \_LogicTypespec: , line:78:3, endln:78:12
-    |vpiLeftRange:
-    \_Constant: , line:78:8, endln:78:9
-      |vpiParent:
-      \_Range: , line:78:7, endln:78:12
-      |vpiDecompile:2
-      |vpiSize:64
-      |UINT:2
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:78:10, endln:78:11
-      |vpiParent:
-      \_Range: , line:78:7, endln:78:12
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:4:5, endln:4:8
-\_LogicTypespec: , line:4:5, endln:4:8
-\_LogicTypespec: , line:4:5, endln:4:8
-\_LogicTypespec: , line:5:5, endln:5:8
-\_LogicTypespec: , line:6:5, endln:6:14
-  |vpiRange:
-  \_Range: , line:6:9, endln:6:14
-    |vpiParent:
-    \_LogicTypespec: , line:6:5, endln:6:14
-    |vpiLeftRange:
-    \_Constant: , line:6:10, endln:6:11
-      |vpiParent:
-      \_Range: , line:6:9, endln:6:14
-      |vpiDecompile:7
-      |vpiSize:64
-      |UINT:7
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:6:12, endln:6:13
-      |vpiParent:
-      \_Range: , line:6:9, endln:6:14
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:7:5, endln:7:9
-\_LogicTypespec: , line:7:5, endln:7:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

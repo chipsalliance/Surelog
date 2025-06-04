@@ -5,9 +5,9 @@
 AST_DEBUG_BEGIN
 Count: 35
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/StringConcat/dut.sv
+FILE: ${SURELOG_DIR}/tests/StringConcat/dut.sv
 n<> u<34> t<Top_level_rule> c<1> l<1:1> el<4:1>
-  n<> u<1> t<Null_rule> p<34> s<33> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<34> s<33> l<1:1>
   n<> u<33> t<Source_text> p<34> c<32> l<1:1> el<3:10>
     n<> u<32> t<Description> p<33> c<31> l<1:1> el<3:10>
       n<> u<31> t<Module_declaration> p<32> c<4> l<1:1> el<3:10>
@@ -21,8 +21,8 @@ n<> u<34> t<Top_level_rule> c<1> l<1:1> el<4:1>
                 n<> u<25> t<Package_or_generate_item_declaration> p<26> c<24> l<2:4> el<2:43>
                   n<> u<24> t<Local_parameter_declaration> p<25> c<7> l<2:4> el<2:42>
                     n<> u<7> t<Data_type_or_implicit> p<24> c<6> s<23> l<2:15> el<2:21>
-                      n<> u<6> t<Data_type> p<7> c<5> l<2:15> el<2:21>
-                        n<> u<5> t<String_type> p<6> l<2:15> el<2:21>
+                      n<string> u<6> t<Data_type> p<7> c<5> l<2:15> el<2:21>
+                        n<string> u<5> t<String_type> p<6> l<2:15> el<2:21>
                     n<> u<23> t<List_of_param_assignments> p<24> c<22> l<2:22> el<2:42>
                       n<> u<22> t<Param_assignment> p<23> c<8> l<2:22> el<2:42>
                         n<X> u<8> t<StringConst> p<22> s<21> l<2:22> el<2:23>
@@ -56,26 +56,25 @@ RefTypespec                                            1
 StringTypespec                                         1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/StringConcat/slpp_unit/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/StringConcat/slpp_unit/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/StringConcat/slpp_unit/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringConcat/dut.sv, line:1:1, endln:3:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
+  |vpiName:work@top
   |vpiParameter:
-  \_Parameter: (work@top.X), line:2:22, endln:2:23
+  \_Parameter: (work@top.X), line:2:22, endln:2:42
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringConcat/dut.sv, line:1:1, endln:3:10
     |vpiTypespec:
-    \_RefTypespec: (work@top.X)
+    \_RefTypespec: (work@top.X.string), line:2:15, endln:2:21
       |vpiParent:
-      \_Parameter: (work@top.X), line:2:22, endln:2:23
-      |vpiFullName:work@top.X
+      \_Parameter: (work@top.X), line:2:22, endln:2:42
+      |vpiName:string
+      |vpiFullName:work@top.X.string
       |vpiActual:
       \_StringTypespec: , line:2:15, endln:2:21
     |vpiLocalParam:1
@@ -92,23 +91,29 @@ Design: (unnamed)
       |vpiOpType:33
       |vpiOperand:
       \_Constant: , line:2:27, endln:2:33
+        |vpiParent:
+        \_Operation: , line:2:26, endln:2:42
         |vpiDecompile:"abcd"
         |vpiSize:32
         |STRING:abcd
         |vpiConstType:6
       |vpiOperand:
       \_Constant: , line:2:35, endln:2:41
+        |vpiParent:
+        \_Operation: , line:2:26, endln:2:42
         |vpiDecompile:"efgh"
         |vpiSize:32
         |STRING:efgh
         |vpiConstType:6
     |vpiLhs:
-    \_Parameter: (work@top.X), line:2:22, endln:2:23
+    \_Parameter: (work@top.X), line:2:22, endln:2:42
+  |vpiTypedef:
+  \_StringTypespec: , line:2:15, endln:2:21
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringConcat/dut.sv, line:1:1, endln:3:10
+  |vpiImportTypespec:
+  \_StringTypespec: , line:2:15, endln:2:21
   |vpiDefName:work@top
-\_weaklyReferenced:
-\_StringTypespec: , line:2:15, endln:2:21
-  |vpiParent:
-  \_Parameter: (work@top.X), line:2:22, endln:2:23
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

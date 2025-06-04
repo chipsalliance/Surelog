@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 90
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/PkgImportFunc/dut.sv
+FILE: ${SURELOG_DIR}/tests/PkgImportFunc/dut.sv
 n<> u<89> t<Top_level_rule> c<1> l<1:1> el<15:1>
-  n<> u<1> t<Null_rule> p<89> s<88> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<89> s<88> l<1:1>
   n<> u<88> t<Source_text> p<89> c<38> l<1:1> el<14:11>
     n<> u<38> t<Description> p<88> c<37> s<50> l<1:1> el<6:11>
       n<> u<37> t<Package_declaration> p<38> c<2> l<1:1> el<6:11>
@@ -100,88 +100,89 @@ AST_DEBUG_END
 [INF:CP0303] ${SURELOG_DIR}/tests/PkgImportFunc/dut.sv:12:1: Compile module "work@top".
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-Assignment                                             2
-Begin                                                  2
-Constant                                               3
+Assignment                                             1
+Begin                                                  1
+Constant                                               2
 ContAssign                                             1
 Design                                                 1
-FuncCall                                               1
-Function                                               2
+Function                                               1
 ImportTypespec                                         1
-IntTypespec                                            6
-IntVar                                                 5
-LogicNet                                               1
+IntTypespec                                            4
+IntVar                                                 3
 Module                                                 1
 Package                                                2
 Port                                                   1
-RefObj                                                 4
-RefTypespec                                            6
-ReturnStmt                                             2
+RefObj                                                 3
+RefTypespec                                            4
+ReturnStmt                                             1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PkgImportFunc/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/PkgImportFunc/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/PkgImportFunc/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallPackages:
-\_Package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/PkgImportFunc/dut.sv, line:1:1, endln:6:11
+|vpiAllPackages:
+\_Package: prim_util_pkg (prim_util_pkg), file:${SURELOG_DIR}/tests/PkgImportFunc/dut.sv, line:1:1, endln:6:11
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:prim_util_pkg
-  |vpiFullName:prim_util_pkg::
-  |vpiDefName:prim_util_pkg
-  |vpiTaskFunc:
+  |vpiInternalScope:
   \_Function: (prim_util_pkg::get_5), line:2:4, endln:5:15
     |vpiParent:
-    \_Package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/PkgImportFunc/dut.sv, line:1:1, endln:6:11
+    \_Package: prim_util_pkg (prim_util_pkg), file:${SURELOG_DIR}/tests/PkgImportFunc/dut.sv, line:1:1, endln:6:11
     |vpiName:get_5
     |vpiFullName:prim_util_pkg::get_5
     |vpiVariables:
-    \_IntVar: (prim_util_pkg::get_5::result), line:3:11, endln:3:17
-      |vpiParent:
-      \_Assignment: , line:3:11, endln:3:21
-      |vpiTypespec:
-      \_RefTypespec: (prim_util_pkg::get_5::result)
-        |vpiParent:
-        \_IntVar: (prim_util_pkg::get_5::result), line:3:11, endln:3:17
-        |vpiFullName:prim_util_pkg::get_5::result
-        |vpiActual:
-        \_IntTypespec: , line:3:7, endln:3:10
-      |vpiName:result
-      |vpiFullName:prim_util_pkg::get_5::result
-      |vpiSigned:1
-    |vpiVisibility:1
-    |vpiAutomatic:1
-    |vpiReturn:
-    \_IntVar: (prim_util_pkg::get_5), line:2:23, endln:2:26
+    \_IntVar: (prim_util_pkg::get_5)
       |vpiParent:
       \_Function: (prim_util_pkg::get_5), line:2:4, endln:5:15
       |vpiTypespec:
-      \_RefTypespec: (prim_util_pkg::get_5)
+      \_RefTypespec: (prim_util_pkg::get_5), line:2:23, endln:2:26
         |vpiParent:
-        \_IntVar: (prim_util_pkg::get_5), line:2:23, endln:2:26
+        \_IntVar: (prim_util_pkg::get_5)
         |vpiFullName:prim_util_pkg::get_5
         |vpiActual:
         \_IntTypespec: , line:2:23, endln:2:26
       |vpiFullName:prim_util_pkg::get_5
       |vpiSigned:1
-    |vpiStmt:
-    \_Begin: (prim_util_pkg::get_5), line:4:7, endln:4:21
+    |vpiInternalScope:
+    \_Begin: (prim_util_pkg::get_5)
       |vpiParent:
       \_Function: (prim_util_pkg::get_5), line:2:4, endln:5:15
       |vpiFullName:prim_util_pkg::get_5
       |vpiVariables:
       \_IntVar: (prim_util_pkg::get_5::result), line:3:11, endln:3:17
+        |vpiParent:
+        \_Begin: (prim_util_pkg::get_5)
+        |vpiTypespec:
+        \_RefTypespec: (prim_util_pkg::get_5::result), line:3:7, endln:3:10
+          |vpiParent:
+          \_IntVar: (prim_util_pkg::get_5::result), line:3:11, endln:3:17
+          |vpiFullName:prim_util_pkg::get_5::result
+          |vpiActual:
+          \_IntTypespec: , line:3:7, endln:3:10
+        |vpiName:result
+        |vpiFullName:prim_util_pkg::get_5::result
+        |vpiSigned:1
+      |vpiTypedef:
+      \_IntTypespec: , line:3:7, endln:3:10
+        |vpiParent:
+        \_Begin: (prim_util_pkg::get_5)
+        |vpiSigned:1
+      |vpiImportTypespec:
+      \_IntTypespec: , line:3:7, endln:3:10
+      |vpiImportTypespec:
+      \_IntVar: (prim_util_pkg::get_5::result), line:3:11, endln:3:17
       |vpiStmt:
       \_Assignment: , line:3:11, endln:3:21
         |vpiParent:
-        \_Begin: (prim_util_pkg::get_5), line:4:7, endln:4:21
+        \_Begin: (prim_util_pkg::get_5)
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
         \_Constant: , line:3:20, endln:3:21
+          |vpiParent:
+          \_Assignment: , line:3:11, endln:3:21
           |vpiDecompile:5
           |vpiSize:64
           |UINT:5
@@ -189,141 +190,105 @@ Design: (unnamed)
         |vpiLhs:
         \_IntVar: (prim_util_pkg::get_5::result), line:3:11, endln:3:17
       |vpiStmt:
-      \_ReturnStmt: , line:4:7, endln:4:13
+      \_ReturnStmt: , line:4:7, endln:4:20
         |vpiParent:
-        \_Begin: (prim_util_pkg::get_5), line:4:7, endln:4:21
+        \_Begin: (prim_util_pkg::get_5)
         |vpiCondition:
         \_RefObj: (prim_util_pkg::get_5::result), line:4:14, endln:4:20
           |vpiParent:
-          \_ReturnStmt: , line:4:7, endln:4:13
+          \_ReturnStmt: , line:4:7, endln:4:20
           |vpiName:result
           |vpiFullName:prim_util_pkg::get_5::result
           |vpiActual:
           \_IntVar: (prim_util_pkg::get_5::result), line:3:11, endln:3:17
-    |vpiInstance:
-    \_Package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/PkgImportFunc/dut.sv, line:1:1, endln:6:11
-|uhdmallPackages:
-\_Package: lc_ctrl_state_pkg (lc_ctrl_state_pkg::), file:${SURELOG_DIR}/tests/PkgImportFunc/dut.sv, line:8:1, endln:10:11
-  |vpiParent:
-  \_Design: (unnamed)
-  |vpiName:lc_ctrl_state_pkg
-  |vpiFullName:lc_ctrl_state_pkg::
-  |vpiTypedef:
-  \_ImportTypespec: (prim_util_pkg), line:9:11, endln:9:31
-  |vpiDefName:lc_ctrl_state_pkg
-  |vpiTaskFunc:
-  \_Function: (lc_ctrl_state_pkg::get_5), line:2:4, endln:5:15
-    |vpiParent:
-    \_Package: lc_ctrl_state_pkg (lc_ctrl_state_pkg::), file:${SURELOG_DIR}/tests/PkgImportFunc/dut.sv, line:8:1, endln:10:11
-    |vpiName:get_5
-    |vpiFullName:lc_ctrl_state_pkg::get_5
-    |vpiVariables:
-    \_IntVar: (lc_ctrl_state_pkg::get_5::result), line:3:11, endln:3:17
+    |vpiTypedef:
+    \_IntTypespec: , line:2:23, endln:2:26
       |vpiParent:
-      \_Function: (lc_ctrl_state_pkg::get_5), line:2:4, endln:5:15
-      |vpiTypespec:
-      \_RefTypespec: (lc_ctrl_state_pkg::get_5::result)
-        |vpiParent:
-        \_IntVar: (lc_ctrl_state_pkg::get_5::result), line:3:11, endln:3:17
-        |vpiFullName:lc_ctrl_state_pkg::get_5::result
-        |vpiActual:
-        \_IntTypespec: , line:3:7, endln:3:10
-      |vpiName:result
-      |vpiFullName:lc_ctrl_state_pkg::get_5::result
+      \_Function: (prim_util_pkg::get_5), line:2:4, endln:5:15
       |vpiSigned:1
+    |vpiImportTypespec:
+    \_IntTypespec: , line:2:23, endln:2:26
+    |vpiImportTypespec:
+    \_IntVar: (prim_util_pkg::get_5)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
-    \_IntVar: (prim_util_pkg::get_5), line:2:23, endln:2:26
+    \_IntVar: (prim_util_pkg::get_5)
     |vpiStmt:
-    \_Begin: (lc_ctrl_state_pkg::get_5), line:4:7, endln:4:21
-      |vpiParent:
-      \_Function: (lc_ctrl_state_pkg::get_5), line:2:4, endln:5:15
-      |vpiFullName:lc_ctrl_state_pkg::get_5
-      |vpiVariables:
-      \_IntVar: (lc_ctrl_state_pkg::get_5::result), line:3:11, endln:3:17
-        |vpiParent:
-        \_Begin: (lc_ctrl_state_pkg::get_5), line:4:7, endln:4:21
-        |vpiTypespec:
-        \_RefTypespec: (lc_ctrl_state_pkg::get_5::result)
-          |vpiParent:
-          \_IntVar: (lc_ctrl_state_pkg::get_5::result), line:3:11, endln:3:17
-          |vpiFullName:lc_ctrl_state_pkg::get_5::result
-          |vpiActual:
-          \_IntTypespec: , line:3:7, endln:3:10
-        |vpiName:result
-        |vpiFullName:lc_ctrl_state_pkg::get_5::result
-        |vpiSigned:1
-      |vpiStmt:
-      \_Assignment: , line:3:11, endln:3:21
-        |vpiParent:
-        \_Begin: (lc_ctrl_state_pkg::get_5), line:4:7, endln:4:21
-        |vpiOpType:82
-        |vpiBlocking:1
-        |vpiRhs:
-        \_Constant: , line:3:20, endln:3:21
-          |vpiParent:
-          \_Assignment: , line:3:11, endln:3:21
-          |vpiDecompile:5
-          |vpiSize:64
-          |UINT:5
-          |vpiConstType:9
-        |vpiLhs:
-        \_IntVar: (lc_ctrl_state_pkg::get_5::result), line:3:11, endln:3:17
-          |vpiParent:
-          \_Assignment: , line:3:11, endln:3:21
-          |vpiTypespec:
-          \_RefTypespec: (lc_ctrl_state_pkg::get_5::result)
-            |vpiParent:
-            \_IntVar: (lc_ctrl_state_pkg::get_5::result), line:3:11, endln:3:17
-            |vpiFullName:lc_ctrl_state_pkg::get_5::result
-            |vpiActual:
-            \_IntTypespec: , line:3:7, endln:3:10
-          |vpiName:result
-          |vpiFullName:lc_ctrl_state_pkg::get_5::result
-          |vpiSigned:1
-      |vpiStmt:
-      \_ReturnStmt: , line:4:7, endln:4:13
-        |vpiParent:
-        \_Begin: (lc_ctrl_state_pkg::get_5), line:4:7, endln:4:21
-        |vpiCondition:
-        \_RefObj: (lc_ctrl_state_pkg::get_5::result), line:4:14, endln:4:20
-          |vpiParent:
-          \_ReturnStmt: , line:4:7, endln:4:13
-          |vpiName:result
-          |vpiFullName:lc_ctrl_state_pkg::get_5::result
-          |vpiActual:
-          \_IntVar: (prim_util_pkg::get_5::result), line:3:11, endln:3:17
+    \_Begin: (prim_util_pkg::get_5)
     |vpiInstance:
-    \_Package: lc_ctrl_state_pkg (lc_ctrl_state_pkg::), file:${SURELOG_DIR}/tests/PkgImportFunc/dut.sv, line:8:1, endln:10:11
-|uhdmallModules:
+    \_Package: prim_util_pkg (prim_util_pkg), file:${SURELOG_DIR}/tests/PkgImportFunc/dut.sv, line:1:1, endln:6:11
+  |vpiImportTypespec:
+  \_Function: (prim_util_pkg::get_5), line:2:4, endln:5:15
+  |vpiDefName:prim_util_pkg
+  |vpiTaskFunc:
+  \_Function: (prim_util_pkg::get_5), line:2:4, endln:5:15
+|vpiAllPackages:
+\_Package: lc_ctrl_state_pkg (lc_ctrl_state_pkg), file:${SURELOG_DIR}/tests/PkgImportFunc/dut.sv, line:8:1, endln:10:11
+  |vpiParent:
+  \_Design: (unnamed)
+  |vpiName:lc_ctrl_state_pkg
+  |vpiTypedef:
+  \_ImportTypespec: (prim_util_pkg), line:9:11, endln:9:31
+    |vpiParent:
+    \_Package: lc_ctrl_state_pkg (lc_ctrl_state_pkg), file:${SURELOG_DIR}/tests/PkgImportFunc/dut.sv, line:8:1, endln:10:11
+    |vpiName:prim_util_pkg
+    |vpiImportTypespecItem:
+    \_Constant: , line:9:26, endln:9:31
+      |vpiParent:
+      \_ImportTypespec: (prim_util_pkg), line:9:11, endln:9:31
+      |vpiDecompile:get_5
+      |vpiSize:40
+      |STRING:get_5
+      |vpiConstType:8
+  |vpiImportTypespec:
+  \_ImportTypespec: (prim_util_pkg), line:9:11, endln:9:31
+  |vpiDefName:lc_ctrl_state_pkg
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PkgImportFunc/dut.sv, line:12:1, endln:14:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
-  |vpiDefName:work@top
-  |vpiNet:
-  \_LogicNet: (work@top.o), line:12:23, endln:12:24
+  |vpiName:work@top
+  |vpiVariables:
+  \_IntVar: (work@top.o), line:12:23, endln:12:24
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PkgImportFunc/dut.sv, line:12:1, endln:14:10
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o), line:12:19, endln:12:22
+      |vpiParent:
+      \_IntVar: (work@top.o), line:12:23, endln:12:24
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_IntTypespec: , line:12:19, endln:12:22
     |vpiName:o
     |vpiFullName:work@top.o
+    |vpiSigned:1
+    |vpiVisibility:1
+  |vpiTypedef:
+  \_IntTypespec: , line:12:19, endln:12:22
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PkgImportFunc/dut.sv, line:12:1, endln:14:10
+    |vpiSigned:1
+  |vpiTypedef:
+  \_IntTypespec: , line:12:19, endln:12:22
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PkgImportFunc/dut.sv, line:12:1, endln:14:10
+    |vpiSigned:1
+  |vpiImportTypespec:
+  \_IntTypespec: , line:12:19, endln:12:22
+  |vpiImportTypespec:
+  \_IntVar: (work@top.o), line:12:23, endln:12:24
+  |vpiImportTypespec:
+  \_IntTypespec: , line:12:19, endln:12:22
+  |vpiDefName:work@top
   |vpiPort:
   \_Port: (o), line:12:23, endln:12:24
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PkgImportFunc/dut.sv, line:12:1, endln:14:10
     |vpiName:o
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@top.o.o), line:12:23, endln:12:24
-      |vpiParent:
-      \_Port: (o), line:12:23, endln:12:24
-      |vpiName:o
-      |vpiFullName:work@top.o.o
-      |vpiActual:
-      \_LogicNet: (work@top.o), line:12:23, endln:12:24
-    |vpiTypedef:
-    \_RefTypespec: (work@top.o)
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o), line:12:19, endln:12:22
       |vpiParent:
       \_Port: (o), line:12:23, endln:12:24
       |vpiFullName:work@top.o
@@ -334,12 +299,13 @@ Design: (unnamed)
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PkgImportFunc/dut.sv, line:12:1, endln:14:10
     |vpiRhs:
-    \_FuncCall: (lc_ctrl_state_pkg::get_5), line:13:15, endln:13:32
+    \_RefObj: (work@top.lc_ctrl_state_pkg::get_5), line:13:15, endln:13:34
       |vpiParent:
       \_ContAssign: , line:13:11, endln:13:41
       |vpiName:lc_ctrl_state_pkg::get_5
-      |vpiFunction:
-      \_Function: (lc_ctrl_state_pkg::get_5), line:2:4, endln:5:15
+      |vpiFullName:work@top.lc_ctrl_state_pkg::get_5
+      |vpiActual:
+      \_Function: (prim_util_pkg::get_5), line:2:4, endln:5:15
     |vpiLhs:
     \_RefObj: (work@top.o), line:13:11, endln:13:12
       |vpiParent:
@@ -347,36 +313,7 @@ Design: (unnamed)
       |vpiName:o
       |vpiFullName:work@top.o
       |vpiActual:
-      \_LogicNet: (work@top.o), line:12:23, endln:12:24
-\_weaklyReferenced:
-\_IntTypespec: , line:2:23, endln:2:26
-  |vpiInstance:
-  \_Package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/PkgImportFunc/dut.sv, line:1:1, endln:6:11
-  |vpiSigned:1
-\_IntTypespec: , line:3:7, endln:3:10
-  |vpiInstance:
-  \_Package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/PkgImportFunc/dut.sv, line:1:1, endln:6:11
-  |vpiSigned:1
-\_IntTypespec: , line:3:7, endln:3:10
-  |vpiParent:
-  \_RefTypespec: (lc_ctrl_state_pkg::get_5::result)
-  |vpiInstance:
-  \_Package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/PkgImportFunc/dut.sv, line:1:1, endln:6:11
-  |vpiSigned:1
-\_IntTypespec: , line:3:7, endln:3:10
-  |vpiParent:
-  \_RefTypespec: (lc_ctrl_state_pkg::get_5::result)
-  |vpiInstance:
-  \_Package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/PkgImportFunc/dut.sv, line:1:1, endln:6:11
-  |vpiSigned:1
-\_IntTypespec: , line:3:7, endln:3:10
-  |vpiParent:
-  \_RefTypespec: (lc_ctrl_state_pkg::get_5::result)
-  |vpiInstance:
-  \_Package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/PkgImportFunc/dut.sv, line:1:1, endln:6:11
-  |vpiSigned:1
-\_IntTypespec: , line:12:19, endln:12:22
-  |vpiSigned:1
+      \_IntVar: (work@top.o), line:12:23, endln:12:24
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 87
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv
+FILE: ${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv
 n<> u<86> t<Top_level_rule> c<1> l<1:1> el<12:1>
-  n<> u<1> t<Null_rule> p<86> s<85> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<86> s<85> l<1:1>
   n<> u<85> t<Source_text> p<86> c<26> l<1:1> el<10:10>
     n<> u<26> t<Description> p<85> c<25> s<84> l<1:1> el<5:10>
       n<> u<25> t<Module_declaration> p<26> c<4> l<1:1> el<5:10>
@@ -102,35 +102,34 @@ Design                                                 1
 IntTypespec                                            1
 LogicTypespec                                          1
 Module                                                 2
+ModuleTypespec                                         1
 Operation                                              1
 ParamAssign                                            2
 Parameter                                              2
 Range                                                  1
 RefModule                                              1
 RefObj                                                 2
-RefTypespec                                            3
+RefTypespec                                            2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamOverloadProp/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ParamOverloadProp/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ParamOverloadProp/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@prim_flop (work@prim_flop), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:7:1, endln:10:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@prim_flop
+  |vpiName:work@prim_flop
   |vpiParameter:
-  \_Parameter: (work@prim_flop.Width), line:8:18, endln:8:23
+  \_Parameter: (work@prim_flop.Width), line:8:18, endln:8:27
     |vpiParent:
     \_Module: work@prim_flop (work@prim_flop), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:7:1, endln:10:10
     |UINT:1
     |vpiTypespec:
-    \_RefTypespec: (work@prim_flop.Width)
+    \_RefTypespec: (work@prim_flop.Width), line:8:14, endln:8:17
       |vpiParent:
-      \_Parameter: (work@prim_flop.Width), line:8:18, endln:8:23
+      \_Parameter: (work@prim_flop.Width), line:8:18, endln:8:27
       |vpiFullName:work@prim_flop.Width
       |vpiActual:
       \_IntTypespec: , line:8:14, endln:8:17
@@ -138,13 +137,13 @@ Design: (unnamed)
     |vpiName:Width
     |vpiFullName:work@prim_flop.Width
   |vpiParameter:
-  \_Parameter: (work@prim_flop.ResetValue), line:9:32, endln:9:42
+  \_Parameter: (work@prim_flop.ResetValue), line:9:32, endln:9:50
     |vpiParent:
     \_Module: work@prim_flop (work@prim_flop), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:7:1, endln:10:10
     |vpiTypespec:
-    \_RefTypespec: (work@prim_flop.ResetValue)
+    \_RefTypespec: (work@prim_flop.ResetValue), line:9:14, endln:9:31
       |vpiParent:
-      \_Parameter: (work@prim_flop.ResetValue), line:9:32, endln:9:42
+      \_Parameter: (work@prim_flop.ResetValue), line:9:32, endln:9:50
       |vpiFullName:work@prim_flop.ResetValue
       |vpiActual:
       \_LogicTypespec: , line:9:14, endln:9:31
@@ -161,16 +160,9 @@ Design: (unnamed)
       |vpiDecompile:1
       |vpiSize:64
       |UINT:1
-      |vpiTypespec:
-      \_RefTypespec: (work@prim_flop)
-        |vpiParent:
-        \_Constant: , line:8:26, endln:8:27
-        |vpiFullName:work@prim_flop
-        |vpiActual:
-        \_IntTypespec: , line:8:14, endln:8:17
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (work@prim_flop.Width), line:8:18, endln:8:23
+    \_Parameter: (work@prim_flop.Width), line:8:18, endln:8:27
   |vpiParamAssign:
   \_ParamAssign: , line:9:32, endln:9:50
     |vpiParent:
@@ -181,62 +173,78 @@ Design: (unnamed)
       \_ParamAssign: , line:9:32, endln:9:50
       |vpiName:Width
       |vpiFullName:work@prim_flop.Width
+      |vpiActual:
+      \_Parameter: (work@prim_flop.Width), line:8:18, endln:8:27
     |vpiLhs:
-    \_Parameter: (work@prim_flop.ResetValue), line:9:32, endln:9:42
+    \_Parameter: (work@prim_flop.ResetValue), line:9:32, endln:9:50
+  |vpiTypedef:
+  \_IntTypespec: , line:8:14, endln:8:17
+    |vpiParent:
+    \_Module: work@prim_flop (work@prim_flop), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:7:1, endln:10:10
+    |vpiSigned:1
+  |vpiTypedef:
+  \_LogicTypespec: , line:9:14, endln:9:31
+    |vpiParent:
+    \_Module: work@prim_flop (work@prim_flop), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:7:1, endln:10:10
+    |vpiRange:
+    \_Range: , line:9:20, endln:9:31
+      |vpiParent:
+      \_LogicTypespec: , line:9:14, endln:9:31
+      |vpiLeftRange:
+      \_Operation: , line:9:21, endln:9:28
+        |vpiParent:
+        \_Range: , line:9:20, endln:9:31
+        |vpiOpType:11
+        |vpiOperand:
+        \_RefObj: (work@prim_flop.Width), line:9:21, endln:9:26
+          |vpiParent:
+          \_Operation: , line:9:21, endln:9:28
+          |vpiName:Width
+          |vpiFullName:work@prim_flop.Width
+          |vpiActual:
+          \_Parameter: (work@prim_flop.Width), line:8:18, endln:8:27
+        |vpiOperand:
+        \_Constant: , line:9:27, endln:9:28
+          |vpiParent:
+          \_Operation: , line:9:21, endln:9:28
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:9:29, endln:9:30
+        |vpiParent:
+        \_Range: , line:9:20, endln:9:31
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiImportTypespec:
+  \_IntTypespec: , line:8:14, endln:8:17
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:9:14, endln:9:31
   |vpiDefName:work@prim_flop
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:1:1, endln:5:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
+  |vpiName:work@top
+  |vpiTypedef:
+  \_ModuleTypespec: (prim_flop), line:2:4, endln:2:13
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:1:1, endln:5:10
+    |vpiName:prim_flop
+  |vpiImportTypespec:
+  \_ModuleTypespec: (prim_flop), line:2:4, endln:2:13
   |vpiDefName:work@top
   |vpiRefModule:
-  \_RefModule: work@prim_flop (u_prim_flop), line:4:6, endln:4:17
+  \_RefModule: work@prim_flop (u_prim_flop), line:2:4, endln:2:13
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:1:1, endln:5:10
     |vpiName:u_prim_flop
     |vpiDefName:work@prim_flop
     |vpiActual:
     \_Module: work@prim_flop (work@prim_flop), file:${SURELOG_DIR}/tests/ParamOverloadProp/dut.sv, line:7:1, endln:10:10
-\_weaklyReferenced:
-\_IntTypespec: , line:8:14, endln:8:17
-  |vpiParent:
-  \_Parameter: (work@prim_flop.Width), line:8:18, endln:8:23
-  |vpiSigned:1
-\_LogicTypespec: , line:9:14, endln:9:31
-  |vpiParent:
-  \_Parameter: (work@prim_flop.ResetValue), line:9:32, endln:9:42
-  |vpiRange:
-  \_Range: , line:9:20, endln:9:31
-    |vpiParent:
-    \_LogicTypespec: , line:9:14, endln:9:31
-    |vpiLeftRange:
-    \_Operation: , line:9:21, endln:9:28
-      |vpiParent:
-      \_Range: , line:9:20, endln:9:31
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (work@prim_flop.ResetValue.Width), line:9:21, endln:9:26
-        |vpiParent:
-        \_Operation: , line:9:21, endln:9:28
-        |vpiName:Width
-        |vpiFullName:work@prim_flop.ResetValue.Width
-      |vpiOperand:
-      \_Constant: , line:9:27, endln:9:28
-        |vpiParent:
-        \_Operation: , line:9:21, endln:9:28
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:9:29, endln:9:30
-      |vpiParent:
-      \_Range: , line:9:20, endln:9:31
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

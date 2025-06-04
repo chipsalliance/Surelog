@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 70
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/InstArray/dut.sv
+FILE: ${SURELOG_DIR}/tests/InstArray/dut.sv
 n<> u<69> t<Top_level_rule> c<1> l<2:1> el<9:1>
-  n<> u<1> t<Null_rule> p<69> s<68> l<2:1> el<1:2>
+  n<> u<1> t<Null_rule> p<69> s<68> l<2:1> el<2:1>
   n<> u<68> t<Source_text> p<69> c<50> l<2:1> el<8:10>
     n<> u<50> t<Description> p<68> c<49> s<67> l<2:1> el<4:10>
       n<> u<49> t<Module_declaration> p<50> c<21> l<2:1> el<4:10>
@@ -80,37 +80,36 @@ AST_DEBUG_END
 [INF:CP0303] ${SURELOG_DIR}/tests/InstArray/dut.sv:2:1: Compile module "work@top".
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-Constant                                               5
+Constant                                               9
 Design                                                 1
 LogicNet                                               2
-LogicTypespec                                          2
 Module                                                 2
 ModuleArray                                            1
 ModuleTypespec                                         1
 Port                                                   3
-Range                                                  2
-RefObj                                                 3
-RefTypespec                                            3
+Range                                                  4
+RefObj                                                 1
+RefTypespec                                            1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/InstArray/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/InstArray/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/InstArray/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@bus_conn (work@bus_conn), file:${SURELOG_DIR}/tests/InstArray/dut.sv, line:6:1, endln:8:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@bus_conn
-  |vpiDefName:work@bus_conn
-  |vpiNet:
+  |vpiName:work@bus_conn
+  |vpiImportTypespec:
   \_LogicNet: (work@bus_conn.datain), line:7:7, endln:7:13
     |vpiParent:
     \_Module: work@bus_conn (work@bus_conn), file:${SURELOG_DIR}/tests/InstArray/dut.sv, line:6:1, endln:8:10
     |vpiName:datain
     |vpiFullName:work@bus_conn.datain
+  |vpiDefName:work@bus_conn
+  |vpiNet:
+  \_LogicNet: (work@bus_conn.datain), line:7:7, endln:7:13
   |vpiPort:
   \_Port: (datain), line:7:7, endln:7:13
     |vpiParent:
@@ -119,59 +118,40 @@ Design: (unnamed)
     |vpiDirection:1
     |vpiHighConn:
     \_Constant: , line:7:16, endln:7:20
+      |vpiParent:
+      \_Port: (datain), line:7:7, endln:7:13
       |vpiDecompile:1'b1
       |vpiSize:1
       |BIN:1
       |vpiConstType:3
-    |vpiLowConn:
-    \_RefObj: (work@bus_conn.datain.datain), line:7:7, endln:7:13
-      |vpiParent:
-      \_Port: (datain), line:7:7, endln:7:13
-      |vpiName:datain
-      |vpiFullName:work@bus_conn.datain.datain
-      |vpiActual:
-      \_LogicNet: (work@bus_conn.datain), line:7:7, endln:7:13
-    |vpiTypedef:
-    \_RefTypespec: (work@bus_conn.datain)
-      |vpiParent:
-      \_Port: (datain), line:7:7, endln:7:13
-      |vpiFullName:work@bus_conn.datain
-      |vpiActual:
-      \_LogicTypespec: , line:7:7, endln:7:7
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/InstArray/dut.sv, line:2:1, endln:4:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
-  |vpiDefName:work@top
-  |vpiNet:
+  |vpiName:work@top
+  |vpiTypedef:
+  \_ModuleTypespec: (bus_conn), line:3:3, endln:3:11
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/InstArray/dut.sv, line:2:1, endln:4:10
+    |vpiName:bus_conn
+  |vpiImportTypespec:
+  \_ModuleTypespec: (bus_conn), line:3:3, endln:3:11
+  |vpiImportTypespec:
   \_LogicNet: (work@top.inp), line:2:24, endln:2:27
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/InstArray/dut.sv, line:2:1, endln:4:10
     |vpiName:inp
     |vpiFullName:work@top.inp
+  |vpiDefName:work@top
+  |vpiNet:
+  \_LogicNet: (work@top.inp), line:2:24, endln:2:27
   |vpiPort:
   \_Port: (inp), line:2:24, endln:2:27
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/InstArray/dut.sv, line:2:1, endln:4:10
     |vpiName:inp
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@top.inp.inp), line:2:24, endln:2:27
-      |vpiParent:
-      \_Port: (inp), line:2:24, endln:2:27
-      |vpiName:inp
-      |vpiFullName:work@top.inp.inp
-      |vpiActual:
-      \_LogicNet: (work@top.inp), line:2:24, endln:2:27
-    |vpiTypedef:
-    \_RefTypespec: (work@top.inp)
-      |vpiParent:
-      \_Port: (inp), line:2:24, endln:2:27
-      |vpiFullName:work@top.inp
-      |vpiActual:
-      \_LogicTypespec: , line:2:18, endln:2:23
-  |vpiModuleArray:
+  |vpiModuleArrays:
   \_ModuleArray: (work@bus_conn), line:3:13, endln:3:15
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/InstArray/dut.sv, line:2:1, endln:4:10
@@ -198,52 +178,26 @@ Design: (unnamed)
         |UINT:0
         |vpiConstType:9
     |vpiElemTypespec:
-    \_RefTypespec: (work@top.u1)
+    \_RefTypespec: (work@top.u1.bus_conn), line:3:3, endln:3:11
       |vpiParent:
       \_ModuleArray: (work@bus_conn), line:3:13, endln:3:15
-      |vpiFullName:work@top.u1
+      |vpiName:bus_conn
+      |vpiFullName:work@top.u1.bus_conn
       |vpiActual:
       \_ModuleTypespec: (bus_conn), line:3:3, endln:3:11
     |vpiPort:
-    \_Port: (datain), line:3:23, endln:3:35
+    \_Port: (datain), line:3:24, endln:3:30
       |vpiParent:
       \_ModuleArray: (work@bus_conn), line:3:13, endln:3:15
       |vpiName:datain
       |vpiHighConn:
       \_RefObj: (work@top.u1.datain.inp), line:3:31, endln:3:34
         |vpiParent:
-        \_Port: (datain), line:3:23, endln:3:35
+        \_Port: (datain), line:3:24, endln:3:30
         |vpiName:inp
         |vpiFullName:work@top.u1.datain.inp
         |vpiActual:
         \_LogicNet: (work@top.inp), line:2:24, endln:2:27
-\_weaklyReferenced:
-\_ModuleTypespec: (bus_conn), line:3:3, endln:3:11
-  |vpiParent:
-  \_ModuleArray: (work@bus_conn), line:3:13, endln:3:15
-  |vpiName:bus_conn
-\_LogicTypespec: , line:7:7, endln:7:7
-\_LogicTypespec: , line:2:18, endln:2:23
-  |vpiRange:
-  \_Range: , line:2:18, endln:2:23
-    |vpiParent:
-    \_LogicTypespec: , line:2:18, endln:2:23
-    |vpiLeftRange:
-    \_Constant: , line:2:19, endln:2:20
-      |vpiParent:
-      \_Range: , line:2:18, endln:2:23
-      |vpiDecompile:1
-      |vpiSize:64
-      |UINT:1
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:2:21, endln:2:22
-      |vpiParent:
-      \_Range: , line:2:18, endln:2:23
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

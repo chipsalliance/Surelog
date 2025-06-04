@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 351
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/CarryAdd/dut.sv
+FILE: ${SURELOG_DIR}/tests/CarryAdd/dut.sv
 n<> u<350> t<Top_level_rule> c<1> l<1:1> el<24:10>
-  n<> u<1> t<Null_rule> p<350> s<349> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<350> s<349> l<1:1>
   n<> u<349> t<Source_text> p<350> c<348> l<1:1> el<24:10>
     n<> u<348> t<Description> p<349> c<347> l<1:1> el<24:10>
       n<> u<347> t<Module_declaration> p<348> c<23> l<1:1> el<24:10>
@@ -360,46 +360,50 @@ AST_DEBUG_END
 [NTE:CP0309] ${SURELOG_DIR}/tests/CarryAdd/dut.sv:1:23: Implicit port type (wire) for "y".
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-Begin                                                  1
-Constant                                               7
+Assignment                                             2
+Begin                                                  4
+BitSelect                                              3
+Constant                                              24
+ContAssign                                             5
 Design                                                 1
+GenFor                                                 1
+GenIfElse                                              1
 GenRegion                                              1
-IntTypespec                                            1
-LogicNet                                               3
-LogicTypespec                                          3
+GenVar                                                 1
+HierPath                                               2
+LogicNet                                               7
+LogicTypespec                                          4
 Module                                                 1
-Operation                                              3
+Operation                                             22
 ParamAssign                                            1
 Parameter                                              1
 Port                                                   3
-Range                                                  3
-RefObj                                                 6
-RefTypespec                                            5
+Range                                                  9
+RefObj                                                34
+RefTypespec                                            4
+RefVar                                                 1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/CarryAdd/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/CarryAdd/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/CarryAdd/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@carryadd (work@carryadd), file:${SURELOG_DIR}/tests/CarryAdd/dut.sv, line:1:1, endln:24:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@carryadd
+  |vpiName:work@carryadd
+  |vpiGenVar:
+  \_GenVar: (work@carryadd.i), line:8:8, endln:8:9
+    |vpiParent:
+    \_Module: work@carryadd (work@carryadd), file:${SURELOG_DIR}/tests/CarryAdd/dut.sv, line:1:1, endln:24:10
+    |vpiName:i
+    |vpiFullName:work@carryadd.i
   |vpiParameter:
-  \_Parameter: (work@carryadd.WIDTH), line:3:11, endln:3:16
+  \_Parameter: (work@carryadd.WIDTH), line:3:11, endln:3:20
     |vpiParent:
     \_Module: work@carryadd (work@carryadd), file:${SURELOG_DIR}/tests/CarryAdd/dut.sv, line:1:1, endln:24:10
     |UINT:2
-    |vpiTypespec:
-    \_RefTypespec: (work@carryadd.WIDTH)
-      |vpiParent:
-      \_Parameter: (work@carryadd.WIDTH), line:3:11, endln:3:16
-      |vpiFullName:work@carryadd.WIDTH
-      |vpiActual:
-      \_IntTypespec: , line:3:1, endln:3:20
     |vpiName:WIDTH
     |vpiFullName:work@carryadd.WIDTH
   |vpiParamAssign:
@@ -413,202 +417,555 @@ Design: (unnamed)
       |vpiDecompile:2
       |vpiSize:64
       |UINT:2
-      |vpiTypespec:
-      \_RefTypespec: (work@carryadd)
-        |vpiParent:
-        \_Constant: , line:3:19, endln:3:20
-        |vpiFullName:work@carryadd
-        |vpiActual:
-        \_IntTypespec: , line:3:1, endln:3:20
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (work@carryadd.WIDTH), line:3:11, endln:3:16
-  |vpiDefName:work@carryadd
-  |vpiNet:
-  \_LogicNet: (work@carryadd.a), line:1:17, endln:1:18
+    \_Parameter: (work@carryadd.WIDTH), line:3:11, endln:3:20
+  |vpiInternalScope:
+  \_GenRegion: (work@carryadd), line:9:1, endln:20:12
+    |vpiParent:
+    \_Module: work@carryadd (work@carryadd), file:${SURELOG_DIR}/tests/CarryAdd/dut.sv, line:1:1, endln:24:10
+    |vpiFullName:work@carryadd
+    |vpiInternalScope:
+    \_Begin: (work@carryadd), line:10:9, endln:19:12
+      |vpiParent:
+      \_GenRegion: (work@carryadd), line:9:1, endln:20:12
+      |vpiFullName:work@carryadd
+      |vpiInternalScope:
+      \_GenFor: (work@carryadd), line:10:9, endln:19:12
+        |vpiParent:
+        \_Begin: (work@carryadd), line:10:9, endln:19:12
+        |vpiFullName:work@carryadd
+        |vpiVariables:
+        \_RefVar: (work@carryadd.i), line:10:14, endln:10:15
+          |vpiParent:
+          \_GenFor: (work@carryadd), line:10:9, endln:19:12
+          |vpiName:i
+          |vpiFullName:work@carryadd.i
+        |vpiInternalScope:
+        \_Begin: (work@carryadd.STAGE), line:10:41, endln:19:12
+          |vpiParent:
+          \_GenFor: (work@carryadd), line:10:9, endln:19:12
+          |vpiName:STAGE
+          |vpiFullName:work@carryadd.STAGE
+          |vpiInternalScope:
+          \_Begin: (work@carryadd.STAGE), line:14:25, endln:14:61
+            |vpiParent:
+            \_Begin: (work@carryadd.STAGE), line:10:41, endln:19:12
+            |vpiFullName:work@carryadd.STAGE
+            |vpiStmt:
+            \_ContAssign: , line:14:32, endln:14:60
+              |vpiParent:
+              \_Begin: (work@carryadd.STAGE), line:14:25, endln:14:61
+              |vpiRhs:
+              \_Operation: , line:14:36, endln:14:45
+                |vpiParent:
+                \_ContAssign: , line:14:32, endln:14:60
+                |vpiOpType:28
+                |vpiOperand:
+                \_RefObj: (work@carryadd.STAGE.IN1), line:14:36, endln:14:39
+                  |vpiParent:
+                  \_Operation: , line:14:36, endln:14:45
+                  |vpiName:IN1
+                  |vpiFullName:work@carryadd.STAGE.IN1
+                  |vpiActual:
+                  \_LogicNet: (work@carryadd.STAGE.IN1), line:11:22, endln:11:25
+                |vpiOperand:
+                \_RefObj: (work@carryadd.STAGE.IN2), line:14:42, endln:14:45
+                  |vpiParent:
+                  \_Operation: , line:14:36, endln:14:45
+                  |vpiName:IN2
+                  |vpiFullName:work@carryadd.STAGE.IN2
+                  |vpiActual:
+                  \_LogicNet: (work@carryadd.STAGE.IN2), line:11:34, endln:11:37
+              |vpiLhs:
+              \_RefObj: (work@carryadd.STAGE.C), line:14:32, endln:14:33
+                |vpiParent:
+                \_ContAssign: , line:14:32, endln:14:60
+                |vpiName:C
+                |vpiFullName:work@carryadd.STAGE.C
+                |vpiActual:
+                \_LogicNet: (work@carryadd.STAGE.C), line:12:22, endln:12:23
+            |vpiStmt:
+            \_ContAssign: , line:14:32, endln:14:60
+              |vpiParent:
+              \_Begin: (work@carryadd.STAGE), line:14:25, endln:14:61
+              |vpiRhs:
+              \_Operation: , line:14:51, endln:14:60
+                |vpiParent:
+                \_ContAssign: , line:14:32, endln:14:60
+                |vpiOpType:30
+                |vpiOperand:
+                \_RefObj: (work@carryadd.STAGE.IN1), line:14:51, endln:14:54
+                  |vpiParent:
+                  \_Operation: , line:14:51, endln:14:60
+                  |vpiName:IN1
+                  |vpiFullName:work@carryadd.STAGE.IN1
+                  |vpiActual:
+                  \_LogicNet: (work@carryadd.STAGE.IN1), line:11:22, endln:11:25
+                |vpiOperand:
+                \_RefObj: (work@carryadd.STAGE.IN2), line:14:57, endln:14:60
+                  |vpiParent:
+                  \_Operation: , line:14:51, endln:14:60
+                  |vpiName:IN2
+                  |vpiFullName:work@carryadd.STAGE.IN2
+                  |vpiActual:
+                  \_LogicNet: (work@carryadd.STAGE.IN2), line:11:34, endln:11:37
+              |vpiLhs:
+              \_RefObj: (work@carryadd.STAGE.Y), line:14:47, endln:14:48
+                |vpiParent:
+                \_ContAssign: , line:14:32, endln:14:60
+                |vpiName:Y
+                |vpiFullName:work@carryadd.STAGE.Y
+                |vpiActual:
+                \_LogicNet: (work@carryadd.STAGE.Y), line:12:25, endln:12:26
+          |vpiInternalScope:
+          \_Begin: (work@carryadd.STAGE), line:16:25, endln:17:61
+            |vpiParent:
+            \_Begin: (work@carryadd.STAGE), line:10:41, endln:19:12
+            |vpiFullName:work@carryadd.STAGE
+            |vpiStmt:
+            \_ContAssign: , line:16:32, endln:17:60
+              |vpiParent:
+              \_Begin: (work@carryadd.STAGE), line:16:25, endln:17:61
+              |vpiRhs:
+              \_Operation: , line:16:36, endln:16:78
+                |vpiParent:
+                \_ContAssign: , line:16:32, endln:17:60
+                |vpiOpType:29
+                |vpiOperand:
+                \_Operation: , line:16:37, endln:16:46
+                  |vpiParent:
+                  \_Operation: , line:16:36, endln:16:78
+                  |vpiOpType:28
+                  |vpiOperand:
+                  \_RefObj: (work@carryadd.STAGE.IN1), line:16:37, endln:16:40
+                    |vpiParent:
+                    \_Operation: , line:16:37, endln:16:46
+                    |vpiName:IN1
+                    |vpiFullName:work@carryadd.STAGE.IN1
+                    |vpiActual:
+                    \_LogicNet: (work@carryadd.STAGE.IN1), line:11:22, endln:11:25
+                  |vpiOperand:
+                  \_RefObj: (work@carryadd.STAGE.IN2), line:16:43, endln:16:46
+                    |vpiParent:
+                    \_Operation: , line:16:37, endln:16:46
+                    |vpiName:IN2
+                    |vpiFullName:work@carryadd.STAGE.IN2
+                    |vpiActual:
+                    \_LogicNet: (work@carryadd.STAGE.IN2), line:11:34, endln:11:37
+                |vpiOperand:
+                \_Operation: , line:16:51, endln:16:77
+                  |vpiParent:
+                  \_Operation: , line:16:36, endln:16:78
+                  |vpiOpType:28
+                  |vpiOperand:
+                  \_Operation: , line:16:52, endln:16:61
+                    |vpiParent:
+                    \_Operation: , line:16:51, endln:16:77
+                    |vpiOpType:29
+                    |vpiOperand:
+                    \_RefObj: (work@carryadd.STAGE.IN1), line:16:52, endln:16:55
+                      |vpiParent:
+                      \_Operation: , line:16:52, endln:16:61
+                      |vpiName:IN1
+                      |vpiFullName:work@carryadd.STAGE.IN1
+                      |vpiActual:
+                      \_LogicNet: (work@carryadd.STAGE.IN1), line:11:22, endln:11:25
+                    |vpiOperand:
+                    \_RefObj: (work@carryadd.STAGE.IN2), line:16:58, endln:16:61
+                      |vpiParent:
+                      \_Operation: , line:16:52, endln:16:61
+                      |vpiName:IN2
+                      |vpiFullName:work@carryadd.STAGE.IN2
+                      |vpiActual:
+                      \_LogicNet: (work@carryadd.STAGE.IN2), line:11:34, endln:11:37
+                  |vpiOperand:
+                  \_HierPath: (STAGE[i - 1].C), line:16:65, endln:16:77
+                    |vpiParent:
+                    \_Operation: , line:16:51, endln:16:77
+                    |vpiActual:
+                    \_BitSelect: (STAGE[i - 1]), line:16:65, endln:16:70
+                      |vpiParent:
+                      \_HierPath: (STAGE[i - 1].C), line:16:65, endln:16:77
+                      |vpiName:STAGE
+                      |vpiFullName:STAGE[i - 1]
+                      |vpiActual:
+                      \_Begin: (work@carryadd.STAGE), line:10:41, endln:19:12
+                      |vpiIndex:
+                      \_Operation: , line:16:71, endln:16:74
+                        |vpiParent:
+                        \_BitSelect: (STAGE[i - 1]), line:16:65, endln:16:70
+                        |vpiOpType:11
+                        |vpiOperand:
+                        \_RefObj: (work@carryadd.STAGE.STAGE[i - 1].C.STAGE.i), line:16:71, endln:16:72
+                          |vpiParent:
+                          \_Operation: , line:16:71, endln:16:74
+                          |vpiName:i
+                          |vpiFullName:work@carryadd.STAGE.STAGE[i - 1].C.STAGE.i
+                          |vpiActual:
+                          \_GenVar: (work@carryadd.i), line:8:8, endln:8:9
+                        |vpiOperand:
+                        \_Constant: , line:16:73, endln:16:74
+                          |vpiParent:
+                          \_Operation: , line:16:71, endln:16:74
+                          |vpiDecompile:1
+                          |vpiSize:64
+                          |UINT:1
+                          |vpiConstType:9
+                    |vpiActual:
+                    \_RefObj: (work@carryadd.STAGE.C), line:16:76, endln:16:77
+                      |vpiParent:
+                      \_HierPath: (STAGE[i - 1].C), line:16:65, endln:16:77
+                      |vpiName:C
+                      |vpiFullName:work@carryadd.STAGE.C
+                      |vpiActual:
+                      \_LogicNet: (work@carryadd.STAGE.C), line:12:22, endln:12:23
+                    |vpiName:STAGE[i - 1].C
+              |vpiLhs:
+              \_RefObj: (work@carryadd.STAGE.C), line:16:32, endln:16:33
+                |vpiParent:
+                \_ContAssign: , line:16:32, endln:17:60
+                |vpiName:C
+                |vpiFullName:work@carryadd.STAGE.C
+                |vpiActual:
+                \_LogicNet: (work@carryadd.STAGE.C), line:12:22, endln:12:23
+            |vpiStmt:
+            \_ContAssign: , line:16:32, endln:17:60
+              |vpiParent:
+              \_Begin: (work@carryadd.STAGE), line:16:25, endln:17:61
+              |vpiRhs:
+              \_Operation: , line:17:36, endln:17:60
+                |vpiParent:
+                \_ContAssign: , line:16:32, endln:17:60
+                |vpiOpType:30
+                |vpiOperand:
+                \_Operation: , line:17:36, endln:17:45
+                  |vpiParent:
+                  \_Operation: , line:17:36, endln:17:60
+                  |vpiOpType:30
+                  |vpiOperand:
+                  \_RefObj: (work@carryadd.STAGE.IN1), line:17:36, endln:17:39
+                    |vpiParent:
+                    \_Operation: , line:17:36, endln:17:45
+                    |vpiName:IN1
+                    |vpiFullName:work@carryadd.STAGE.IN1
+                    |vpiActual:
+                    \_LogicNet: (work@carryadd.STAGE.IN1), line:11:22, endln:11:25
+                  |vpiOperand:
+                  \_RefObj: (work@carryadd.STAGE.IN2), line:17:42, endln:17:45
+                    |vpiParent:
+                    \_Operation: , line:17:36, endln:17:45
+                    |vpiName:IN2
+                    |vpiFullName:work@carryadd.STAGE.IN2
+                    |vpiActual:
+                    \_LogicNet: (work@carryadd.STAGE.IN2), line:11:34, endln:11:37
+                |vpiOperand:
+                \_HierPath: (STAGE[i - 1].C), line:17:48, endln:17:60
+                  |vpiParent:
+                  \_Operation: , line:17:36, endln:17:60
+                  |vpiActual:
+                  \_BitSelect: (STAGE[i - 1]), line:17:48, endln:17:53
+                    |vpiParent:
+                    \_HierPath: (STAGE[i - 1].C), line:17:48, endln:17:60
+                    |vpiName:STAGE
+                    |vpiFullName:STAGE[i - 1]
+                    |vpiActual:
+                    \_Begin: (work@carryadd.STAGE), line:10:41, endln:19:12
+                    |vpiIndex:
+                    \_Operation: , line:17:54, endln:17:57
+                      |vpiParent:
+                      \_BitSelect: (STAGE[i - 1]), line:17:48, endln:17:53
+                      |vpiOpType:11
+                      |vpiOperand:
+                      \_RefObj: (work@carryadd.STAGE.STAGE[i - 1].C.STAGE.i), line:17:54, endln:17:55
+                        |vpiParent:
+                        \_Operation: , line:17:54, endln:17:57
+                        |vpiName:i
+                        |vpiFullName:work@carryadd.STAGE.STAGE[i - 1].C.STAGE.i
+                        |vpiActual:
+                        \_GenVar: (work@carryadd.i), line:8:8, endln:8:9
+                      |vpiOperand:
+                      \_Constant: , line:17:56, endln:17:57
+                        |vpiParent:
+                        \_Operation: , line:17:54, endln:17:57
+                        |vpiDecompile:1
+                        |vpiSize:64
+                        |UINT:1
+                        |vpiConstType:9
+                  |vpiActual:
+                  \_RefObj: (work@carryadd.STAGE.C), line:17:59, endln:17:60
+                    |vpiParent:
+                    \_HierPath: (STAGE[i - 1].C), line:17:48, endln:17:60
+                    |vpiName:C
+                    |vpiFullName:work@carryadd.STAGE.C
+                    |vpiActual:
+                    \_LogicNet: (work@carryadd.STAGE.C), line:12:22, endln:12:23
+                  |vpiName:STAGE[i - 1].C
+              |vpiLhs:
+              \_RefObj: (work@carryadd.STAGE.Y), line:17:32, endln:17:33
+                |vpiParent:
+                \_ContAssign: , line:16:32, endln:17:60
+                |vpiName:Y
+                |vpiFullName:work@carryadd.STAGE.Y
+                |vpiActual:
+                \_LogicNet: (work@carryadd.STAGE.Y), line:12:25, endln:12:26
+          |vpiTypedef:
+          \_LogicTypespec: , line:11:17, endln:11:21
+            |vpiParent:
+            \_Begin: (work@carryadd.STAGE), line:10:41, endln:19:12
+          |vpiTypedef:
+          \_LogicTypespec: , line:11:17, endln:11:21
+            |vpiParent:
+            \_Begin: (work@carryadd.STAGE), line:10:41, endln:19:12
+          |vpiTypedef:
+          \_LogicTypespec: , line:12:17, endln:12:21
+            |vpiParent:
+            \_Begin: (work@carryadd.STAGE), line:10:41, endln:19:12
+          |vpiTypedef:
+          \_LogicTypespec: , line:12:17, endln:12:21
+            |vpiParent:
+            \_Begin: (work@carryadd.STAGE), line:10:41, endln:19:12
+          |vpiImportTypespec:
+          \_LogicTypespec: , line:11:17, endln:11:21
+          |vpiImportTypespec:
+          \_LogicNet: (work@carryadd.STAGE.IN1), line:11:22, endln:11:25
+            |vpiParent:
+            \_Begin: (work@carryadd.STAGE), line:10:41, endln:19:12
+            |vpiTypespec:
+            \_RefTypespec: (work@carryadd.STAGE.IN1), line:11:17, endln:11:21
+              |vpiParent:
+              \_LogicNet: (work@carryadd.STAGE.IN1), line:11:22, endln:11:25
+              |vpiFullName:work@carryadd.STAGE.IN1
+              |vpiActual:
+              \_LogicTypespec: , line:11:17, endln:11:21
+            |vpiName:IN1
+            |vpiFullName:work@carryadd.STAGE.IN1
+            |vpiNetType:1
+          |vpiImportTypespec:
+          \_LogicTypespec: , line:11:17, endln:11:21
+          |vpiImportTypespec:
+          \_LogicNet: (work@carryadd.STAGE.IN2), line:11:34, endln:11:37
+            |vpiParent:
+            \_Begin: (work@carryadd.STAGE), line:10:41, endln:19:12
+            |vpiTypespec:
+            \_RefTypespec: (work@carryadd.STAGE.IN2), line:11:17, endln:11:21
+              |vpiParent:
+              \_LogicNet: (work@carryadd.STAGE.IN2), line:11:34, endln:11:37
+              |vpiFullName:work@carryadd.STAGE.IN2
+              |vpiActual:
+              \_LogicTypespec: , line:11:17, endln:11:21
+            |vpiName:IN2
+            |vpiFullName:work@carryadd.STAGE.IN2
+            |vpiNetType:1
+          |vpiImportTypespec:
+          \_LogicTypespec: , line:12:17, endln:12:21
+          |vpiImportTypespec:
+          \_LogicNet: (work@carryadd.STAGE.C), line:12:22, endln:12:23
+            |vpiParent:
+            \_Begin: (work@carryadd.STAGE), line:10:41, endln:19:12
+            |vpiTypespec:
+            \_RefTypespec: (work@carryadd.STAGE.C), line:12:17, endln:12:21
+              |vpiParent:
+              \_LogicNet: (work@carryadd.STAGE.C), line:12:22, endln:12:23
+              |vpiFullName:work@carryadd.STAGE.C
+              |vpiActual:
+              \_LogicTypespec: , line:12:17, endln:12:21
+            |vpiName:C
+            |vpiFullName:work@carryadd.STAGE.C
+            |vpiNetType:1
+          |vpiImportTypespec:
+          \_LogicTypespec: , line:12:17, endln:12:21
+          |vpiImportTypespec:
+          \_LogicNet: (work@carryadd.STAGE.Y), line:12:25, endln:12:26
+            |vpiParent:
+            \_Begin: (work@carryadd.STAGE), line:10:41, endln:19:12
+            |vpiTypespec:
+            \_RefTypespec: (work@carryadd.STAGE.Y), line:12:17, endln:12:21
+              |vpiParent:
+              \_LogicNet: (work@carryadd.STAGE.Y), line:12:25, endln:12:26
+              |vpiFullName:work@carryadd.STAGE.Y
+              |vpiActual:
+              \_LogicTypespec: , line:12:17, endln:12:21
+            |vpiName:Y
+            |vpiFullName:work@carryadd.STAGE.Y
+            |vpiNetType:1
+          |vpiStmt:
+          \_GenIfElse: , line:13:17, endln:17:61
+            |vpiParent:
+            \_Begin: (work@carryadd.STAGE), line:10:41, endln:19:12
+            |vpiCondition:
+            \_Operation: , line:13:21, endln:13:27
+              |vpiParent:
+              \_GenIfElse: , line:13:17, endln:17:61
+              |vpiOpType:14
+              |vpiOperand:
+              \_RefObj: (work@carryadd.STAGE.i), line:13:21, endln:13:22
+                |vpiParent:
+                \_Operation: , line:13:21, endln:13:27
+                |vpiName:i
+                |vpiFullName:work@carryadd.STAGE.i
+                |vpiActual:
+                \_GenVar: (work@carryadd.i), line:8:8, endln:8:9
+              |vpiOperand:
+              \_Constant: , line:13:26, endln:13:27
+                |vpiParent:
+                \_Operation: , line:13:21, endln:13:27
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+                |vpiConstType:9
+            |vpiStmt:
+            \_Begin: (work@carryadd.STAGE), line:14:25, endln:14:61
+            |vpiElseStmt:
+            \_Begin: (work@carryadd.STAGE), line:16:25, endln:17:61
+          |vpiStmt:
+          \_ContAssign: , line:18:24, endln:18:32
+            |vpiParent:
+            \_Begin: (work@carryadd.STAGE), line:10:41, endln:19:12
+            |vpiRhs:
+            \_RefObj: (work@carryadd.STAGE.Y), line:18:31, endln:18:32
+              |vpiParent:
+              \_ContAssign: , line:18:24, endln:18:32
+              |vpiName:Y
+              |vpiFullName:work@carryadd.STAGE.Y
+              |vpiActual:
+              \_LogicNet: (work@carryadd.STAGE.Y), line:12:25, endln:12:26
+            |vpiLhs:
+            \_BitSelect: (work@carryadd.STAGE.y), line:18:25, endln:18:28
+              |vpiParent:
+              \_ContAssign: , line:18:24, endln:18:32
+              |vpiName:y
+              |vpiFullName:work@carryadd.STAGE.y
+              |vpiActual:
+              \_LogicNet: (work@carryadd.y), line:6:20, endln:6:21
+              |vpiIndex:
+              \_RefObj: (work@carryadd.STAGE.i), line:18:26, endln:18:27
+                |vpiParent:
+                \_BitSelect: (work@carryadd.STAGE.y), line:18:25, endln:18:28
+                |vpiName:i
+                |vpiFullName:work@carryadd.STAGE.i
+                |vpiActual:
+                \_GenVar: (work@carryadd.i), line:8:8, endln:8:9
+        |vpiImportTypespec:
+        \_RefVar: (work@carryadd.i), line:10:14, endln:10:15
+        |vpiForInitStmt:
+        \_Assignment: , line:10:14, endln:10:19
+          |vpiParent:
+          \_GenFor: (work@carryadd), line:10:9, endln:19:12
+          |vpiRhs:
+          \_Constant: , line:10:18, endln:10:19
+            |vpiParent:
+            \_Assignment: , line:10:14, endln:10:19
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+          |vpiLhs:
+          \_RefVar: (work@carryadd.i), line:10:14, endln:10:15
+        |vpiCondition:
+        \_Operation: , line:10:21, endln:10:30
+          |vpiParent:
+          \_GenFor: (work@carryadd), line:10:9, endln:19:12
+          |vpiOpType:20
+          |vpiOperand:
+          \_RefObj: (work@carryadd.i), line:10:21, endln:10:22
+            |vpiParent:
+            \_Operation: , line:10:21, endln:10:30
+            |vpiName:i
+            |vpiFullName:work@carryadd.i
+            |vpiActual:
+            \_GenVar: (work@carryadd.i), line:8:8, endln:8:9
+          |vpiOperand:
+          \_RefObj: (work@carryadd.WIDTH), line:10:25, endln:10:30
+            |vpiParent:
+            \_Operation: , line:10:21, endln:10:30
+            |vpiName:WIDTH
+            |vpiFullName:work@carryadd.WIDTH
+            |vpiActual:
+            \_Parameter: (work@carryadd.WIDTH), line:3:11, endln:3:20
+        |vpiForIncStmt:
+        \_Assignment: , line:10:32, endln:10:39
+          |vpiParent:
+          \_GenFor: (work@carryadd), line:10:9, endln:19:12
+          |vpiOpType:82
+          |vpiRhs:
+          \_Operation: , line:10:36, endln:10:39
+            |vpiParent:
+            \_Assignment: , line:10:32, endln:10:39
+            |vpiOpType:24
+            |vpiOperand:
+            \_RefObj: (work@carryadd.i), line:10:36, endln:10:37
+              |vpiParent:
+              \_Operation: , line:10:36, endln:10:39
+              |vpiName:i
+              |vpiFullName:work@carryadd.i
+              |vpiActual:
+              \_GenVar: (work@carryadd.i), line:8:8, endln:8:9
+            |vpiOperand:
+            \_Constant: , line:10:38, endln:10:39
+              |vpiParent:
+              \_Operation: , line:10:36, endln:10:39
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
+          |vpiLhs:
+          \_RefObj: (work@carryadd.i), line:10:32, endln:10:33
+            |vpiParent:
+            \_Assignment: , line:10:32, endln:10:39
+            |vpiName:i
+            |vpiFullName:work@carryadd.i
+            |vpiActual:
+            \_GenVar: (work@carryadd.i), line:8:8, endln:8:9
+        |vpiStmt:
+        \_Begin: (work@carryadd.STAGE), line:10:41, endln:19:12
+      |vpiStmt:
+      \_GenFor: (work@carryadd), line:10:9, endln:19:12
+    |vpiStmt:
+    \_Begin: (work@carryadd), line:10:9, endln:19:12
+  |vpiImportTypespec:
+  \_LogicNet: (work@carryadd.a), line:5:19, endln:5:20
     |vpiParent:
     \_Module: work@carryadd (work@carryadd), file:${SURELOG_DIR}/tests/CarryAdd/dut.sv, line:1:1, endln:24:10
     |vpiName:a
     |vpiFullName:work@carryadd.a
-  |vpiNet:
-  \_LogicNet: (work@carryadd.b), line:1:20, endln:1:21
+  |vpiImportTypespec:
+  \_LogicNet: (work@carryadd.b), line:5:22, endln:5:23
     |vpiParent:
     \_Module: work@carryadd (work@carryadd), file:${SURELOG_DIR}/tests/CarryAdd/dut.sv, line:1:1, endln:24:10
     |vpiName:b
     |vpiFullName:work@carryadd.b
-  |vpiNet:
-  \_LogicNet: (work@carryadd.y), line:1:23, endln:1:24
+  |vpiImportTypespec:
+  \_LogicNet: (work@carryadd.y), line:6:20, endln:6:21
     |vpiParent:
     \_Module: work@carryadd (work@carryadd), file:${SURELOG_DIR}/tests/CarryAdd/dut.sv, line:1:1, endln:24:10
     |vpiName:y
     |vpiFullName:work@carryadd.y
+  |vpiDefName:work@carryadd
+  |vpiNet:
+  \_LogicNet: (work@carryadd.a), line:5:19, endln:5:20
+  |vpiNet:
+  \_LogicNet: (work@carryadd.b), line:5:22, endln:5:23
+  |vpiNet:
+  \_LogicNet: (work@carryadd.y), line:6:20, endln:6:21
   |vpiPort:
   \_Port: (a), line:1:17, endln:1:18
     |vpiParent:
     \_Module: work@carryadd (work@carryadd), file:${SURELOG_DIR}/tests/CarryAdd/dut.sv, line:1:1, endln:24:10
     |vpiName:a
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@carryadd.a.a), line:1:17, endln:1:18
-      |vpiParent:
-      \_Port: (a), line:1:17, endln:1:18
-      |vpiName:a
-      |vpiFullName:work@carryadd.a.a
-      |vpiActual:
-      \_LogicNet: (work@carryadd.a), line:1:17, endln:1:18
-    |vpiTypedef:
-    \_RefTypespec: (work@carryadd.a)
-      |vpiParent:
-      \_Port: (a), line:1:17, endln:1:18
-      |vpiFullName:work@carryadd.a
-      |vpiActual:
-      \_LogicTypespec: , line:5:7, endln:5:18
   |vpiPort:
   \_Port: (b), line:1:20, endln:1:21
     |vpiParent:
     \_Module: work@carryadd (work@carryadd), file:${SURELOG_DIR}/tests/CarryAdd/dut.sv, line:1:1, endln:24:10
     |vpiName:b
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@carryadd.b.b), line:1:20, endln:1:21
-      |vpiParent:
-      \_Port: (b), line:1:20, endln:1:21
-      |vpiName:b
-      |vpiFullName:work@carryadd.b.b
-      |vpiActual:
-      \_LogicNet: (work@carryadd.b), line:1:20, endln:1:21
-    |vpiTypedef:
-    \_RefTypespec: (work@carryadd.b)
-      |vpiParent:
-      \_Port: (b), line:1:20, endln:1:21
-      |vpiFullName:work@carryadd.b
-      |vpiActual:
-      \_LogicTypespec: , line:5:7, endln:5:18
   |vpiPort:
   \_Port: (y), line:1:23, endln:1:24
     |vpiParent:
     \_Module: work@carryadd (work@carryadd), file:${SURELOG_DIR}/tests/CarryAdd/dut.sv, line:1:1, endln:24:10
     |vpiName:y
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@carryadd.y.y), line:1:23, endln:1:24
-      |vpiParent:
-      \_Port: (y), line:1:23, endln:1:24
-      |vpiName:y
-      |vpiFullName:work@carryadd.y.y
-      |vpiActual:
-      \_LogicNet: (work@carryadd.y), line:1:23, endln:1:24
-    |vpiTypedef:
-    \_RefTypespec: (work@carryadd.y)
-      |vpiParent:
-      \_Port: (y), line:1:23, endln:1:24
-      |vpiFullName:work@carryadd.y
-      |vpiActual:
-      \_LogicTypespec: , line:6:8, endln:6:19
-  |vpiGenStmt:
-  \_GenRegion: 
-    |vpiParent:
-    \_Module: work@carryadd (work@carryadd), file:${SURELOG_DIR}/tests/CarryAdd/dut.sv, line:1:1, endln:24:10
-    |vpiStmt:
-    \_Begin: (work@carryadd)
-      |vpiParent:
-      \_GenRegion: 
-      |vpiFullName:work@carryadd
-\_weaklyReferenced:
-\_IntTypespec: , line:3:1, endln:3:20
-\_LogicTypespec: , line:5:7, endln:5:18
-  |vpiRange:
-  \_Range: , line:5:7, endln:5:18
-    |vpiParent:
-    \_LogicTypespec: , line:5:7, endln:5:18
-    |vpiLeftRange:
-    \_Operation: , line:5:8, endln:5:15
-      |vpiParent:
-      \_Range: , line:5:7, endln:5:18
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (WIDTH), line:5:8, endln:5:13
-        |vpiParent:
-        \_Operation: , line:5:8, endln:5:15
-        |vpiName:WIDTH
-      |vpiOperand:
-      \_Constant: , line:5:14, endln:5:15
-        |vpiParent:
-        \_Operation: , line:5:8, endln:5:15
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:5:16, endln:5:17
-      |vpiParent:
-      \_Range: , line:5:7, endln:5:18
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:5:7, endln:5:18
-  |vpiRange:
-  \_Range: , line:5:7, endln:5:18
-    |vpiParent:
-    \_LogicTypespec: , line:5:7, endln:5:18
-    |vpiLeftRange:
-    \_Operation: , line:5:8, endln:5:15
-      |vpiParent:
-      \_Range: , line:5:7, endln:5:18
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (WIDTH), line:5:8, endln:5:13
-        |vpiParent:
-        \_Operation: , line:5:8, endln:5:15
-        |vpiName:WIDTH
-      |vpiOperand:
-      \_Constant: , line:5:14, endln:5:15
-        |vpiParent:
-        \_Operation: , line:5:8, endln:5:15
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:5:16, endln:5:17
-      |vpiParent:
-      \_Range: , line:5:7, endln:5:18
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:6:8, endln:6:19
-  |vpiRange:
-  \_Range: , line:6:8, endln:6:19
-    |vpiParent:
-    \_LogicTypespec: , line:6:8, endln:6:19
-    |vpiLeftRange:
-    \_Operation: , line:6:9, endln:6:16
-      |vpiParent:
-      \_Range: , line:6:8, endln:6:19
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (WIDTH), line:6:9, endln:6:14
-        |vpiParent:
-        \_Operation: , line:6:9, endln:6:16
-        |vpiName:WIDTH
-      |vpiOperand:
-      \_Constant: , line:6:15, endln:6:16
-        |vpiParent:
-        \_Operation: , line:6:9, endln:6:16
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:6:17, endln:6:18
-      |vpiParent:
-      \_Range: , line:6:8, endln:6:19
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

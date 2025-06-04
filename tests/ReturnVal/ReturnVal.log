@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 37
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/ReturnVal/dut.sv
+FILE: ${SURELOG_DIR}/tests/ReturnVal/dut.sv
 n<> u<36> t<Top_level_rule> c<1> l<1:1> el<10:1>
-  n<> u<1> t<Null_rule> p<36> s<35> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<36> s<35> l<1:1>
   n<> u<35> t<Source_text> p<36> c<34> l<1:1> el<9:11>
     n<> u<34> t<Description> p<35> c<33> l<1:1> el<9:11>
       n<> u<33> t<Package_declaration> p<34> c<2> l<1:1> el<9:11>
@@ -52,70 +52,93 @@ Package                                                1
 RefTypespec                                            1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ReturnVal/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ReturnVal/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ReturnVal/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallPackages:
-\_Package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/ReturnVal/dut.sv, line:1:1, endln:9:11
+|vpiAllPackages:
+\_Package: my_pkg (my_pkg), file:${SURELOG_DIR}/tests/ReturnVal/dut.sv, line:1:1, endln:9:11
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:my_pkg
-  |vpiFullName:my_pkg::
-  |vpiDefName:my_pkg
-  |vpiTaskFunc:
+  |vpiInternalScope:
   \_Function: (my_pkg::assign_1), line:2:4, endln:3:15
     |vpiParent:
-    \_Package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/ReturnVal/dut.sv, line:1:1, endln:9:11
+    \_Package: my_pkg (my_pkg), file:${SURELOG_DIR}/tests/ReturnVal/dut.sv, line:1:1, endln:9:11
     |vpiName:assign_1
     |vpiFullName:my_pkg::assign_1
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiInstance:
-    \_Package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/ReturnVal/dut.sv, line:1:1, endln:9:11
-  |vpiTaskFunc:
+    \_Package: my_pkg (my_pkg), file:${SURELOG_DIR}/tests/ReturnVal/dut.sv, line:1:1, endln:9:11
+  |vpiInternalScope:
   \_Function: (my_pkg::assign_2), line:4:4, endln:5:15
     |vpiParent:
-    \_Package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/ReturnVal/dut.sv, line:1:1, endln:9:11
+    \_Package: my_pkg (my_pkg), file:${SURELOG_DIR}/tests/ReturnVal/dut.sv, line:1:1, endln:9:11
     |vpiName:assign_2
     |vpiFullName:my_pkg::assign_2
-    |vpiVisibility:1
-    |vpiAutomatic:1
-    |vpiReturn:
-    \_LogicVar: (my_pkg::assign_2), line:4:23, endln:4:28
+    |vpiVariables:
+    \_LogicVar: (my_pkg::assign_2)
       |vpiParent:
       \_Function: (my_pkg::assign_2), line:4:4, endln:5:15
       |vpiTypespec:
-      \_RefTypespec: (my_pkg::assign_2)
+      \_RefTypespec: (my_pkg::assign_2), line:4:23, endln:4:28
         |vpiParent:
-        \_LogicVar: (my_pkg::assign_2), line:4:23, endln:4:28
+        \_LogicVar: (my_pkg::assign_2)
         |vpiFullName:my_pkg::assign_2
         |vpiActual:
         \_LogicTypespec: , line:4:23, endln:4:28
       |vpiFullName:my_pkg::assign_2
-    |vpiInstance:
-    \_Package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/ReturnVal/dut.sv, line:1:1, endln:9:11
-  |vpiTaskFunc:
-  \_Function: (my_pkg::assign_3), line:6:4, endln:7:15
-    |vpiParent:
-    \_Package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/ReturnVal/dut.sv, line:1:1, endln:9:11
-    |vpiName:assign_3
-    |vpiFullName:my_pkg::assign_3
+    |vpiReg:
+    \_LogicVar: (my_pkg::assign_2)
+    |vpiTypedef:
+    \_LogicTypespec: , line:4:23, endln:4:28
+      |vpiParent:
+      \_Function: (my_pkg::assign_2), line:4:4, endln:5:15
+    |vpiImportTypespec:
+    \_LogicTypespec: , line:4:23, endln:4:28
+    |vpiImportTypespec:
+    \_LogicVar: (my_pkg::assign_2)
     |vpiVisibility:1
     |vpiAutomatic:1
     |vpiReturn:
+    \_LogicVar: (my_pkg::assign_2)
+    |vpiInstance:
+    \_Package: my_pkg (my_pkg), file:${SURELOG_DIR}/tests/ReturnVal/dut.sv, line:1:1, endln:9:11
+  |vpiInternalScope:
+  \_Function: (my_pkg::assign_3), line:6:4, endln:7:15
+    |vpiParent:
+    \_Package: my_pkg (my_pkg), file:${SURELOG_DIR}/tests/ReturnVal/dut.sv, line:1:1, endln:9:11
+    |vpiName:assign_3
+    |vpiFullName:my_pkg::assign_3
+    |vpiVariables:
     \_LogicVar: (my_pkg::assign_3)
       |vpiParent:
       \_Function: (my_pkg::assign_3), line:6:4, endln:7:15
       |vpiFullName:my_pkg::assign_3
+    |vpiReg:
+    \_LogicVar: (my_pkg::assign_3)
+    |vpiImportTypespec:
+    \_LogicVar: (my_pkg::assign_3)
+    |vpiVisibility:1
+    |vpiAutomatic:1
+    |vpiReturn:
+    \_LogicVar: (my_pkg::assign_3)
     |vpiInstance:
-    \_Package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/ReturnVal/dut.sv, line:1:1, endln:9:11
-\_weaklyReferenced:
-\_LogicTypespec: , line:4:23, endln:4:28
-  |vpiInstance:
-  \_Package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/ReturnVal/dut.sv, line:1:1, endln:9:11
+    \_Package: my_pkg (my_pkg), file:${SURELOG_DIR}/tests/ReturnVal/dut.sv, line:1:1, endln:9:11
+  |vpiImportTypespec:
+  \_Function: (my_pkg::assign_1), line:2:4, endln:3:15
+  |vpiImportTypespec:
+  \_Function: (my_pkg::assign_2), line:4:4, endln:5:15
+  |vpiImportTypespec:
+  \_Function: (my_pkg::assign_3), line:6:4, endln:7:15
+  |vpiDefName:my_pkg
+  |vpiTaskFunc:
+  \_Function: (my_pkg::assign_1), line:2:4, endln:3:15
+  |vpiTaskFunc:
+  \_Function: (my_pkg::assign_2), line:4:4, endln:5:15
+  |vpiTaskFunc:
+  \_Function: (my_pkg::assign_3), line:6:4, endln:7:15
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

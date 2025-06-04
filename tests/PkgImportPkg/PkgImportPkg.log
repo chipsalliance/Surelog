@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 75
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/PkgImportPkg/dut.sv
+FILE: ${SURELOG_DIR}/tests/PkgImportPkg/dut.sv
 n<> u<74> t<Top_level_rule> c<1> l<1:1> el<18:1>
-  n<> u<1> t<Null_rule> p<74> s<73> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<74> s<73> l<1:1>
   n<> u<73> t<Source_text> p<74> c<33> l<1:1> el<17:21>
     n<> u<33> t<Description> p<73> c<32> s<45> l<1:1> el<5:26>
       n<> u<32> t<Package_declaration> p<33> c<2> l<1:1> el<5:26>
@@ -64,7 +64,7 @@ n<> u<74> t<Top_level_rule> c<1> l<1:1> el<18:1>
                 n<> u<51> t<PortDir_Out> p<56> s<55> l<14:3> el<14:9>
                 n<> u<55> t<Net_port_type> p<56> c<54> l<14:10> el<14:23>
                   n<> u<54> t<Data_type_or_implicit> p<55> c<53> l<14:10> el<14:23>
-                    n<> u<53> t<Data_type> p<54> c<52> l<14:10> el<14:23>
+                    n<otp_ast_req_t> u<53> t<Data_type> p<54> c<52> l<14:10> el<14:23>
                       n<otp_ast_req_t> u<52> t<StringConst> p<53> l<14:10> el<14:23>
               n<otp_ast_pwr_seq_o> u<57> t<StringConst> p<58> l<14:24> el<14:41>
             n<> u<66> t<Ansi_port_declaration> p<67> c<64> l<15:3> el<15:43>
@@ -72,7 +72,7 @@ n<> u<74> t<Top_level_rule> c<1> l<1:1> el<18:1>
                 n<> u<59> t<PortDir_Inp> p<64> s<63> l<15:3> el<15:8>
                 n<> u<63> t<Net_port_type> p<64> c<62> l<15:10> el<15:23>
                   n<> u<62> t<Data_type_or_implicit> p<63> c<61> l<15:10> el<15:23>
-                    n<> u<61> t<Data_type> p<62> c<60> l<15:10> el<15:23>
+                    n<otp_ast_rsp_t> u<61> t<Data_type> p<62> c<60> l<15:10> el<15:23>
                       n<otp_ast_rsp_t> u<60> t<StringConst> p<61> l<15:10> el<15:23>
               n<otp_ast_pwr_seq_h_i> u<65> t<StringConst> p<66> l<15:24> el<15:43>
         n<> u<70> t<ENDMODULE> p<71> s<69> l<17:1> el<17:10>
@@ -88,38 +88,33 @@ AST_DEBUG_END
 Constant                                               4
 Design                                                 1
 ImportTypespec                                         2
-LogicNet                                               2
 LogicTypespec                                          1
+LogicVar                                               1
 Module                                                 1
 Package                                                2
 Port                                                   2
 Range                                                  1
-RefObj                                                 2
-RefTypespec                                            3
+RefTypespec                                            4
+StructNet                                              1
 StructTypespec                                         1
 TypespecMember                                         1
-UnsupportedTypespec                                    1
+UnsupportedTypespec                                    2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PkgImportPkg/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/PkgImportPkg/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/PkgImportPkg/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallPackages:
-\_Package: otp_ctrl_pkg (otp_ctrl_pkg::), file:${SURELOG_DIR}/tests/PkgImportPkg/dut.sv, line:1:1, endln:5:26
+|vpiAllPackages:
+\_Package: otp_ctrl_pkg (otp_ctrl_pkg), file:${SURELOG_DIR}/tests/PkgImportPkg/dut.sv, line:1:1, endln:5:26
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:otp_ctrl_pkg
-  |vpiFullName:otp_ctrl_pkg::
   |vpiTypedef:
   \_StructTypespec: (otp_ctrl_pkg::otp_ast_req_t), line:2:11, endln:4:4
     |vpiParent:
-    \_Module: work@otp_ctrl (work@otp_ctrl), file:${SURELOG_DIR}/tests/PkgImportPkg/dut.sv, line:11:1, endln:17:21
+    \_Package: otp_ctrl_pkg (otp_ctrl_pkg), file:${SURELOG_DIR}/tests/PkgImportPkg/dut.sv, line:1:1, endln:5:26
     |vpiName:otp_ctrl_pkg::otp_ast_req_t
-    |vpiInstance:
-    \_Package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:${SURELOG_DIR}/tests/PkgImportPkg/dut.sv, line:7:1, endln:9:31
     |vpiPacked:1
     |vpiTypespecMember:
     \_TypespecMember: (pwr_seq), line:3:17, endln:3:24
@@ -127,72 +122,138 @@ Design: (unnamed)
       \_StructTypespec: (otp_ctrl_pkg::otp_ast_req_t), line:2:11, endln:4:4
       |vpiName:pwr_seq
       |vpiTypespec:
-      \_RefTypespec: (work@otp_ctrl.otp_ctrl_pkg::otp_ast_req_t.pwr_seq)
+      \_RefTypespec: (otp_ctrl_pkg::otp_ast_req_t::pwr_seq), line:3:5, endln:3:16
         |vpiParent:
         \_TypespecMember: (pwr_seq), line:3:17, endln:3:24
-        |vpiFullName:work@otp_ctrl.otp_ctrl_pkg::otp_ast_req_t.pwr_seq
+        |vpiFullName:otp_ctrl_pkg::otp_ast_req_t::pwr_seq
         |vpiActual:
         \_LogicTypespec: , line:3:5, endln:3:16
-      |vpiRefFile:${SURELOG_DIR}/tests/PkgImportPkg/dut.sv
-      |vpiRefLineNo:3
-      |vpiRefColumnNo:5
-      |vpiRefEndLineNo:3
-      |vpiRefEndColumnNo:16
+  |vpiTypedef:
+  \_LogicTypespec: , line:3:5, endln:3:16
+    |vpiParent:
+    \_Package: otp_ctrl_pkg (otp_ctrl_pkg), file:${SURELOG_DIR}/tests/PkgImportPkg/dut.sv, line:1:1, endln:5:26
+    |vpiRange:
+    \_Range: , line:3:11, endln:3:16
+      |vpiParent:
+      \_LogicTypespec: , line:3:5, endln:3:16
+      |vpiLeftRange:
+      \_Constant: , line:3:12, endln:3:13
+        |vpiParent:
+        \_Range: , line:3:11, endln:3:16
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:3:14, endln:3:15
+        |vpiParent:
+        \_Range: , line:3:11, endln:3:16
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiImportTypespec:
+  \_StructTypespec: (otp_ctrl_pkg::otp_ast_req_t), line:2:11, endln:4:4
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:3:5, endln:3:16
   |vpiDefName:otp_ctrl_pkg
   |vpiEndLabel:otp_ctrl_pkg
-|uhdmallPackages:
-\_Package: otp_ctrl_part_pkg (otp_ctrl_part_pkg::), file:${SURELOG_DIR}/tests/PkgImportPkg/dut.sv, line:7:1, endln:9:31
+|vpiAllPackages:
+\_Package: otp_ctrl_part_pkg (otp_ctrl_part_pkg), file:${SURELOG_DIR}/tests/PkgImportPkg/dut.sv, line:7:1, endln:9:31
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:otp_ctrl_part_pkg
-  |vpiFullName:otp_ctrl_part_pkg::
   |vpiTypedef:
-  \_StructTypespec: (otp_ctrl_pkg::otp_ast_req_t), line:2:11, endln:4:4
-  |vpiTypedef:
+  \_ImportTypespec: (otp_ctrl_pkg), line:8:10, endln:8:25
+    |vpiParent:
+    \_Package: otp_ctrl_part_pkg (otp_ctrl_part_pkg), file:${SURELOG_DIR}/tests/PkgImportPkg/dut.sv, line:7:1, endln:9:31
+    |vpiName:otp_ctrl_pkg
+    |vpiImportTypespecItem:
+    \_Constant: , line:8:10, endln:8:25
+      |vpiParent:
+      \_ImportTypespec: (otp_ctrl_pkg), line:8:10, endln:8:25
+      |vpiDecompile:*
+      |vpiSize:8
+      |STRING:*
+      |vpiConstType:8
+  |vpiImportTypespec:
   \_ImportTypespec: (otp_ctrl_pkg), line:8:10, endln:8:25
   |vpiDefName:otp_ctrl_part_pkg
   |vpiEndLabel:otp_ctrl_part_pkg
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@otp_ctrl (work@otp_ctrl), file:${SURELOG_DIR}/tests/PkgImportPkg/dut.sv, line:11:1, endln:17:21
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@otp_ctrl
-  |vpiTypedef:
-  \_StructTypespec: (otp_ctrl_pkg::otp_ast_req_t), line:2:11, endln:4:4
-  |vpiTypedef:
-  \_ImportTypespec: (otp_ctrl_pkg), line:12:10, endln:12:25
-  |vpiDefName:work@otp_ctrl
-  |vpiNet:
-  \_LogicNet: (work@otp_ctrl.otp_ast_pwr_seq_o), line:14:24, endln:14:41
-    |vpiParent:
-    \_Module: work@otp_ctrl (work@otp_ctrl), file:${SURELOG_DIR}/tests/PkgImportPkg/dut.sv, line:11:1, endln:17:21
-    |vpiName:otp_ast_pwr_seq_o
-    |vpiFullName:work@otp_ctrl.otp_ast_pwr_seq_o
-  |vpiNet:
-  \_LogicNet: (work@otp_ctrl.otp_ast_pwr_seq_h_i), line:15:24, endln:15:43
+  |vpiName:work@otp_ctrl
+  |vpiVariables:
+  \_LogicVar: (work@otp_ctrl.otp_ast_pwr_seq_h_i), line:15:24, endln:15:43
     |vpiParent:
     \_Module: work@otp_ctrl (work@otp_ctrl), file:${SURELOG_DIR}/tests/PkgImportPkg/dut.sv, line:11:1, endln:17:21
     |vpiName:otp_ast_pwr_seq_h_i
     |vpiFullName:work@otp_ctrl.otp_ast_pwr_seq_h_i
+    |vpiVisibility:1
+  |vpiReg:
+  \_LogicVar: (work@otp_ctrl.otp_ast_pwr_seq_h_i), line:15:24, endln:15:43
+  |vpiTypedef:
+  \_ImportTypespec: (otp_ctrl_pkg), line:12:10, endln:12:25
+    |vpiParent:
+    \_Module: work@otp_ctrl (work@otp_ctrl), file:${SURELOG_DIR}/tests/PkgImportPkg/dut.sv, line:11:1, endln:17:21
+    |vpiName:otp_ctrl_pkg
+    |vpiImportTypespecItem:
+    \_Constant: , line:12:10, endln:12:25
+      |vpiParent:
+      \_ImportTypespec: (otp_ctrl_pkg), line:12:10, endln:12:25
+      |vpiDecompile:*
+      |vpiSize:8
+      |STRING:*
+      |vpiConstType:8
+  |vpiTypedef:
+  \_UnsupportedTypespec: (otp_ast_rsp_t), line:15:10, endln:15:23
+    |vpiParent:
+    \_Module: work@otp_ctrl (work@otp_ctrl), file:${SURELOG_DIR}/tests/PkgImportPkg/dut.sv, line:11:1, endln:17:21
+    |vpiName:otp_ast_rsp_t
+  |vpiTypedef:
+  \_UnsupportedTypespec: (otp_ast_rsp_t), line:15:10, endln:15:23
+    |vpiParent:
+    \_Module: work@otp_ctrl (work@otp_ctrl), file:${SURELOG_DIR}/tests/PkgImportPkg/dut.sv, line:11:1, endln:17:21
+    |vpiName:otp_ast_rsp_t
+  |vpiImportTypespec:
+  \_ImportTypespec: (otp_ctrl_pkg), line:12:10, endln:12:25
+  |vpiImportTypespec:
+  \_StructNet: (work@otp_ctrl.otp_ast_pwr_seq_o), line:14:24, endln:14:41
+    |vpiParent:
+    \_Module: work@otp_ctrl (work@otp_ctrl), file:${SURELOG_DIR}/tests/PkgImportPkg/dut.sv, line:11:1, endln:17:21
+    |vpiTypespec:
+    \_RefTypespec: (work@otp_ctrl.otp_ast_pwr_seq_o.otp_ast_pwr_seq_o), line:14:10, endln:14:23
+      |vpiParent:
+      \_StructNet: (work@otp_ctrl.otp_ast_pwr_seq_o), line:14:24, endln:14:41
+      |vpiName:otp_ast_pwr_seq_o
+      |vpiFullName:work@otp_ctrl.otp_ast_pwr_seq_o.otp_ast_pwr_seq_o
+      |vpiActual:
+      \_StructTypespec: (otp_ctrl_pkg::otp_ast_req_t), line:2:11, endln:4:4
+    |vpiName:otp_ast_pwr_seq_o
+    |vpiFullName:work@otp_ctrl.otp_ast_pwr_seq_o
+  |vpiImportTypespec:
+  \_UnsupportedTypespec: (otp_ast_rsp_t), line:15:10, endln:15:23
+  |vpiImportTypespec:
+  \_LogicVar: (work@otp_ctrl.otp_ast_pwr_seq_h_i), line:15:24, endln:15:43
+  |vpiImportTypespec:
+  \_UnsupportedTypespec: (otp_ast_rsp_t), line:15:10, endln:15:23
+  |vpiDefName:work@otp_ctrl
+  |vpiNet:
+  \_StructNet: (work@otp_ctrl.otp_ast_pwr_seq_o), line:14:24, endln:14:41
   |vpiPort:
   \_Port: (otp_ast_pwr_seq_o), line:14:24, endln:14:41
     |vpiParent:
     \_Module: work@otp_ctrl (work@otp_ctrl), file:${SURELOG_DIR}/tests/PkgImportPkg/dut.sv, line:11:1, endln:17:21
     |vpiName:otp_ast_pwr_seq_o
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@otp_ctrl.otp_ast_pwr_seq_o.otp_ast_pwr_seq_o), line:14:24, endln:14:41
+    |vpiTypespec:
+    \_RefTypespec: (work@otp_ctrl.otp_ast_pwr_seq_o.otp_ctrl_pkg::otp_ast_req_t), line:14:10, endln:14:23
       |vpiParent:
       \_Port: (otp_ast_pwr_seq_o), line:14:24, endln:14:41
-      |vpiName:otp_ast_pwr_seq_o
-      |vpiFullName:work@otp_ctrl.otp_ast_pwr_seq_o.otp_ast_pwr_seq_o
-      |vpiActual:
-      \_LogicNet: (work@otp_ctrl.otp_ast_pwr_seq_o), line:14:24, endln:14:41
-    |vpiTypedef:
-    \_RefTypespec: (work@otp_ctrl.otp_ast_pwr_seq_o)
-      |vpiParent:
-      \_Port: (otp_ast_pwr_seq_o), line:14:24, endln:14:41
-      |vpiFullName:work@otp_ctrl.otp_ast_pwr_seq_o
+      |vpiName:otp_ctrl_pkg::otp_ast_req_t
+      |vpiFullName:work@otp_ctrl.otp_ast_pwr_seq_o.otp_ctrl_pkg::otp_ast_req_t
       |vpiActual:
       \_StructTypespec: (otp_ctrl_pkg::otp_ast_req_t), line:2:11, endln:4:4
   |vpiPort:
@@ -201,50 +262,15 @@ Design: (unnamed)
     \_Module: work@otp_ctrl (work@otp_ctrl), file:${SURELOG_DIR}/tests/PkgImportPkg/dut.sv, line:11:1, endln:17:21
     |vpiName:otp_ast_pwr_seq_h_i
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@otp_ctrl.otp_ast_pwr_seq_h_i.otp_ast_pwr_seq_h_i), line:15:24, endln:15:43
+    |vpiTypespec:
+    \_RefTypespec: (work@otp_ctrl.otp_ast_pwr_seq_h_i.otp_ast_rsp_t), line:15:10, endln:15:23
       |vpiParent:
       \_Port: (otp_ast_pwr_seq_h_i), line:15:24, endln:15:43
-      |vpiName:otp_ast_pwr_seq_h_i
-      |vpiFullName:work@otp_ctrl.otp_ast_pwr_seq_h_i.otp_ast_pwr_seq_h_i
-      |vpiActual:
-      \_LogicNet: (work@otp_ctrl.otp_ast_pwr_seq_h_i), line:15:24, endln:15:43
-    |vpiTypedef:
-    \_RefTypespec: (work@otp_ctrl.otp_ast_pwr_seq_h_i)
-      |vpiParent:
-      \_Port: (otp_ast_pwr_seq_h_i), line:15:24, endln:15:43
-      |vpiFullName:work@otp_ctrl.otp_ast_pwr_seq_h_i
+      |vpiName:otp_ast_rsp_t
+      |vpiFullName:work@otp_ctrl.otp_ast_pwr_seq_h_i.otp_ast_rsp_t
       |vpiActual:
       \_UnsupportedTypespec: (otp_ast_rsp_t), line:15:10, endln:15:23
   |vpiEndLabel:otp_ctrl
-\_weaklyReferenced:
-\_LogicTypespec: , line:3:5, endln:3:16
-  |vpiParent:
-  \_TypespecMember: (pwr_seq), line:3:17, endln:3:24
-  |vpiInstance:
-  \_Package: otp_ctrl_pkg (otp_ctrl_pkg::), file:${SURELOG_DIR}/tests/PkgImportPkg/dut.sv, line:1:1, endln:5:26
-  |vpiRange:
-  \_Range: , line:3:11, endln:3:16
-    |vpiParent:
-    \_LogicTypespec: , line:3:5, endln:3:16
-    |vpiLeftRange:
-    \_Constant: , line:3:12, endln:3:13
-      |vpiParent:
-      \_Range: , line:3:11, endln:3:16
-      |vpiDecompile:1
-      |vpiSize:64
-      |UINT:1
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:3:14, endln:3:15
-      |vpiParent:
-      \_Range: , line:3:11, endln:3:16
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_UnsupportedTypespec: (otp_ast_rsp_t), line:15:10, endln:15:23
-  |vpiName:otp_ast_rsp_t
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

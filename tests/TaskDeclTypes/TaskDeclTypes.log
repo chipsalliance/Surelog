@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 62
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/TaskDeclTypes/dut.sv
+FILE: ${SURELOG_DIR}/tests/TaskDeclTypes/dut.sv
 n<> u<61> t<Top_level_rule> c<1> l<1:1> el<8:1>
-  n<> u<1> t<Null_rule> p<61> s<60> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<61> s<60> l<1:1>
   n<> u<60> t<Source_text> p<61> c<59> l<1:1> el<7:10>
     n<> u<59> t<Description> p<60> c<58> l<1:1> el<7:10>
       n<> u<58> t<Module_declaration> p<59> c<4> l<1:1> el<7:10>
@@ -23,8 +23,8 @@ n<> u<61> t<Top_level_rule> c<1> l<1:1> el<8:1>
                         n<> u<12> t<Tf_port_declaration> p<13> c<6> l<3:5> el<3:23>
                           n<> u<6> t<TfPortDir_Inp> p<12> s<9> l<3:5> el<3:10>
                           n<> u<9> t<Data_type_or_implicit> p<12> c<8> s<11> l<3:11> el<3:17>
-                            n<> u<8> t<Data_type> p<9> c<7> l<3:11> el<3:17>
-                              n<> u<7> t<String_type> p<8> l<3:11> el<3:17>
+                            n<string> u<8> t<Data_type> p<9> c<7> l<3:11> el<3:17>
+                              n<string> u<7> t<String_type> p<8> l<3:11> el<3:17>
                           n<> u<11> t<List_of_tf_variable_identifiers> p<12> c<10> l<3:18> el<3:22>
                             n<file> u<10> t<StringConst> p<11> l<3:18> el<3:22>
                       n<> u<32> t<Tf_item_declaration> p<50> c<31> s<48> l<4:5> el<4:29>
@@ -82,24 +82,60 @@ StringTypespec                                         1
 Task                                                   1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/TaskDeclTypes/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/TaskDeclTypes/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/TaskDeclTypes/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/TaskDeclTypes/dut.sv, line:1:1, endln:7:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
-  |vpiDefName:work@top
-  |vpiTaskFunc:
+  |vpiName:work@top
+  |vpiInternalScope:
   \_Task: (work@top.simutil_memload), line:2:3, endln:6:10
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/TaskDeclTypes/dut.sv, line:1:1, endln:7:10
     |vpiName:simutil_memload
     |vpiFullName:work@top.simutil_memload
+    |vpiTypedef:
+    \_StringTypespec: , line:3:11, endln:3:17
+      |vpiParent:
+      \_Task: (work@top.simutil_memload), line:2:3, endln:6:10
+    |vpiTypedef:
+    \_IntTypespec: , line:4:11, endln:4:14
+      |vpiParent:
+      \_Task: (work@top.simutil_memload), line:2:3, endln:6:10
+      |vpiSigned:1
+    |vpiTypedef:
+    \_LogicTypespec: , line:5:11, endln:5:16
+      |vpiParent:
+      \_Task: (work@top.simutil_memload), line:2:3, endln:6:10
+      |vpiRange:
+      \_Range: , line:5:11, endln:5:16
+        |vpiParent:
+        \_LogicTypespec: , line:5:11, endln:5:16
+        |vpiLeftRange:
+        \_Constant: , line:5:12, endln:5:13
+          |vpiParent:
+          \_Range: , line:5:11, endln:5:16
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiRightRange:
+        \_Constant: , line:5:14, endln:5:15
+          |vpiParent:
+          \_Range: , line:5:11, endln:5:16
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiImportTypespec:
+    \_StringTypespec: , line:3:11, endln:3:17
+    |vpiImportTypespec:
+    \_IntTypespec: , line:4:11, endln:4:14
+    |vpiImportTypespec:
+    \_LogicTypespec: , line:5:11, endln:5:16
     |vpiVisibility:1
     |vpiIODecl:
     \_IODecl: (file), line:3:18, endln:3:22
@@ -108,10 +144,11 @@ Design: (unnamed)
       |vpiDirection:1
       |vpiName:file
       |vpiTypedef:
-      \_RefTypespec: (work@top.simutil_memload.file)
+      \_RefTypespec: (work@top.simutil_memload.file.string), line:3:11, endln:3:17
         |vpiParent:
         \_IODecl: (file), line:3:18, endln:3:22
-        |vpiFullName:work@top.simutil_memload.file
+        |vpiName:string
+        |vpiFullName:work@top.simutil_memload.file.string
         |vpiActual:
         \_StringTypespec: , line:3:11, endln:3:17
     |vpiIODecl:
@@ -141,7 +178,7 @@ Design: (unnamed)
           |UINT:0
           |vpiConstType:9
       |vpiTypedef:
-      \_RefTypespec: (work@top.simutil_memload.files)
+      \_RefTypespec: (work@top.simutil_memload.files), line:4:11, endln:4:14
         |vpiParent:
         \_IODecl: (files), line:4:15, endln:4:20
         |vpiFullName:work@top.simutil_memload.files
@@ -154,39 +191,17 @@ Design: (unnamed)
       |vpiDirection:1
       |vpiName:implic
       |vpiTypedef:
-      \_RefTypespec: (work@top.simutil_memload.implic)
+      \_RefTypespec: (work@top.simutil_memload.implic), line:5:11, endln:5:16
         |vpiParent:
         \_IODecl: (implic), line:5:18, endln:5:24
         |vpiFullName:work@top.simutil_memload.implic
         |vpiActual:
         \_LogicTypespec: , line:5:11, endln:5:16
-    |vpiInstance:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/TaskDeclTypes/dut.sv, line:1:1, endln:7:10
-\_weaklyReferenced:
-\_StringTypespec: , line:3:11, endln:3:17
-\_IntTypespec: , line:4:11, endln:4:14
-  |vpiSigned:1
-\_LogicTypespec: , line:5:11, endln:5:16
-  |vpiRange:
-  \_Range: , line:5:11, endln:5:16
-    |vpiParent:
-    \_LogicTypespec: , line:5:11, endln:5:16
-    |vpiLeftRange:
-    \_Constant: , line:5:12, endln:5:13
-      |vpiParent:
-      \_Range: , line:5:11, endln:5:16
-      |vpiDecompile:1
-      |vpiSize:64
-      |UINT:1
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:5:14, endln:5:15
-      |vpiParent:
-      \_Range: , line:5:11, endln:5:16
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
+  |vpiImportTypespec:
+  \_Task: (work@top.simutil_memload), line:2:3, endln:6:10
+  |vpiDefName:work@top
+  |vpiTaskFunc:
+  \_Task: (work@top.simutil_memload), line:2:3, endln:6:10
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 611
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/PoundParam/dut.v
+FILE: ${SURELOG_DIR}/tests/PoundParam/dut.v
 n<> u<610> t<Top_level_rule> c<1> l<2:1> el<52:1>
-  n<> u<1> t<Null_rule> p<610> s<609> l<2:1> el<1:50>
+  n<> u<1> t<Null_rule> p<610> s<609> l<2:1> el<2:1>
   n<> u<609> t<Source_text> p<610> c<371> l<2:1> el<51:10>
     n<> u<371> t<Description> p<609> c<370> s<608> l<2:1> el<33:10>
       n<> u<370> t<Module_declaration> p<371> c<47> l<2:1> el<33:10>
@@ -451,7 +451,8 @@ n<> u<610> t<Top_level_rule> c<1> l<2:1> el<52:1>
             n<> u<520> t<Module_or_generate_item> p<521> c<519> l<39:2> el<43:47>
               n<> u<519> t<Module_instantiation> p<520> c<440> l<39:2> el<43:47>
                 n<dffr> u<440> t<StringConst> p<519> s<441> l<39:2> el<39:6>
-                n<#4> u<441> t<IntConst> p<519> s<518> l<39:7> el<39:9>
+                n<#4> u<441> t<IntConst> p<519> s<442> l<39:7> el<39:9>
+                n<> u<442> t<Parameter_value_assignment> p<519> s<518> l<39:7> el<39:9>
                 n<> u<518> t<Hierarchical_instance> p<519> c<444> l<39:11> el<43:46>
                   n<> u<444> t<Name_of_instance> p<518> c<443> s<517> l<39:11> el<39:19>
                     n<park_reg> u<443> t<StringConst> p<444> l<39:11> el<39:19>
@@ -533,7 +534,8 @@ n<> u<610> t<Top_level_rule> c<1> l<2:1> el<52:1>
             n<> u<603> t<Module_or_generate_item> p<604> c<602> l<45:2> el<49:47>
               n<> u<602> t<Module_instantiation> p<603> c<523> l<45:2> el<49:47>
                 n<dffr> u<523> t<StringConst> p<602> s<524> l<45:2> el<45:6>
-                n<#4> u<524> t<IntConst> p<602> s<601> l<45:7> el<45:9>
+                n<#4> u<524> t<IntConst> p<602> s<525> l<45:7> el<45:9>
+                n<> u<525> t<Parameter_value_assignment> p<602> s<601> l<45:7> el<45:9>
                 n<> u<601> t<Hierarchical_instance> p<602> c<527> l<45:10> el<49:46>
                   n<> u<527> t<Name_of_instance> p<601> c<526> s<600> l<45:10> el<45:15>
                     n<logic> u<526> t<StringConst> p<527> l<45:10> el<45:15>
@@ -624,48 +626,39 @@ there are 2 more instances of this message.
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 Always                                                 1
 Assignment                                             1
-Constant                                              34
+Constant                                              58
 ContAssign                                             1
 Design                                                 1
 EventControl                                           1
-IntTypespec                                            1
-LogicNet                                              13
-LogicTypespec                                         13
+LogicNet                                              14
+LogicTypespec                                          1
 Module                                                 2
-Operation                                             14
+ModuleTypespec                                         1
+Operation                                             24
 ParamAssign                                            1
 Parameter                                              1
-PartSelect                                             9
-Port                                                  27
-Range                                                  7
+PartSelect                                             5
+Port                                                  13
+Range                                                 23
 RefModule                                              2
-RefObj                                                33
-RefTypespec                                           15
+RefObj                                                23
+RefTypespec                                            1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PoundParam/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/PoundParam/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/PoundParam/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@dffr (work@dffr), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:2:1, endln:33:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@dffr
+  |vpiName:work@dffr
   |vpiParameter:
-  \_Parameter: (work@dffr.SIZE), line:5:11, endln:5:15
+  \_Parameter: (work@dffr.SIZE), line:5:11, endln:5:19
     |vpiParent:
     \_Module: work@dffr (work@dffr), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:2:1, endln:33:10
     |UINT:1
-    |vpiTypespec:
-    \_RefTypespec: (work@dffr.SIZE)
-      |vpiParent:
-      \_Parameter: (work@dffr.SIZE), line:5:11, endln:5:15
-      |vpiFullName:work@dffr.SIZE
-      |vpiActual:
-      \_IntTypespec: , line:5:1, endln:5:19
     |vpiName:SIZE
     |vpiFullName:work@dffr.SIZE
   |vpiParamAssign:
@@ -679,206 +672,164 @@ Design: (unnamed)
       |vpiDecompile:1
       |vpiSize:64
       |UINT:1
-      |vpiTypespec:
-      \_RefTypespec: (work@dffr)
-        |vpiParent:
-        \_Constant: , line:5:18, endln:5:19
-        |vpiFullName:work@dffr
-        |vpiActual:
-        \_IntTypespec: , line:5:1, endln:5:19
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (work@dffr.SIZE), line:5:11, endln:5:15
-  |vpiDefName:work@dffr
-  |vpiNet:
-  \_LogicNet: (work@dffr.q), line:18:17, endln:18:18
+    \_Parameter: (work@dffr.SIZE), line:5:11, endln:5:19
+  |vpiTypedef:
+  \_LogicTypespec: , line:18:1, endln:18:16
+    |vpiParent:
+    \_Module: work@dffr (work@dffr), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:2:1, endln:33:10
+    |vpiRange:
+    \_Range: , line:18:6, endln:18:16
+      |vpiParent:
+      \_LogicTypespec: , line:18:1, endln:18:16
+      |vpiLeftRange:
+      \_Operation: , line:18:7, endln:18:13
+        |vpiParent:
+        \_Range: , line:18:6, endln:18:16
+        |vpiOpType:11
+        |vpiOperand:
+        \_RefObj: (work@dffr.SIZE), line:18:7, endln:18:11
+          |vpiParent:
+          \_Operation: , line:18:7, endln:18:13
+          |vpiName:SIZE
+          |vpiFullName:work@dffr.SIZE
+          |vpiActual:
+          \_Parameter: (work@dffr.SIZE), line:5:11, endln:5:19
+        |vpiOperand:
+        \_Constant: , line:18:12, endln:18:13
+          |vpiParent:
+          \_Operation: , line:18:7, endln:18:13
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:18:14, endln:18:15
+        |vpiParent:
+        \_Range: , line:18:6, endln:18:16
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiImportTypespec:
+  \_LogicNet: (work@dffr.din), line:7:18, endln:7:21
+    |vpiParent:
+    \_Module: work@dffr (work@dffr), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:2:1, endln:33:10
+    |vpiName:din
+    |vpiFullName:work@dffr.din
+  |vpiImportTypespec:
+  \_LogicNet: (work@dffr.clk), line:9:9, endln:9:12
+    |vpiParent:
+    \_Module: work@dffr (work@dffr), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:2:1, endln:33:10
+    |vpiName:clk
+    |vpiFullName:work@dffr.clk
+  |vpiImportTypespec:
+  \_LogicNet: (work@dffr.rst), line:10:9, endln:10:12
+    |vpiParent:
+    \_Module: work@dffr (work@dffr), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:2:1, endln:33:10
+    |vpiName:rst
+    |vpiFullName:work@dffr.rst
+  |vpiImportTypespec:
+  \_LogicNet: (work@dffr.q), line:12:19, endln:12:20
     |vpiParent:
     \_Module: work@dffr (work@dffr), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:2:1, endln:33:10
     |vpiName:q
     |vpiFullName:work@dffr.q
     |vpiNetType:48
-  |vpiNet:
-  \_LogicNet: (work@dffr.din), line:2:14, endln:2:17
-    |vpiParent:
-    \_Module: work@dffr (work@dffr), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:2:1, endln:33:10
-    |vpiName:din
-    |vpiFullName:work@dffr.din
-  |vpiNet:
-  \_LogicNet: (work@dffr.clk), line:2:19, endln:2:22
-    |vpiParent:
-    \_Module: work@dffr (work@dffr), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:2:1, endln:33:10
-    |vpiName:clk
-    |vpiFullName:work@dffr.clk
-  |vpiNet:
-  \_LogicNet: (work@dffr.rst), line:2:24, endln:2:27
-    |vpiParent:
-    \_Module: work@dffr (work@dffr), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:2:1, endln:33:10
-    |vpiName:rst
-    |vpiFullName:work@dffr.rst
-  |vpiNet:
-  \_LogicNet: (work@dffr.se), line:2:32, endln:2:34
+  |vpiImportTypespec:
+  \_LogicNet: (work@dffr.se), line:14:9, endln:14:11
     |vpiParent:
     \_Module: work@dffr (work@dffr), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:2:1, endln:33:10
     |vpiName:se
     |vpiFullName:work@dffr.se
-  |vpiNet:
-  \_LogicNet: (work@dffr.si), line:2:36, endln:2:38
+  |vpiImportTypespec:
+  \_LogicNet: (work@dffr.si), line:15:18, endln:15:20
     |vpiParent:
     \_Module: work@dffr (work@dffr), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:2:1, endln:33:10
     |vpiName:si
     |vpiFullName:work@dffr.si
-  |vpiNet:
-  \_LogicNet: (work@dffr.so), line:2:40, endln:2:42
+  |vpiImportTypespec:
+  \_LogicNet: (work@dffr.so), line:16:19, endln:16:21
     |vpiParent:
     \_Module: work@dffr (work@dffr), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:2:1, endln:33:10
     |vpiName:so
     |vpiFullName:work@dffr.so
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:18:1, endln:18:16
+  |vpiImportTypespec:
+  \_LogicNet: (work@dffr.q), line:18:17, endln:18:18
+    |vpiParent:
+    \_Module: work@dffr (work@dffr), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:2:1, endln:33:10
+    |vpiTypespec:
+    \_RefTypespec: (work@dffr.q), line:18:1, endln:18:16
+      |vpiParent:
+      \_LogicNet: (work@dffr.q), line:18:17, endln:18:18
+      |vpiFullName:work@dffr.q
+      |vpiActual:
+      \_LogicTypespec: , line:18:1, endln:18:16
+    |vpiName:q
+    |vpiFullName:work@dffr.q
+    |vpiNetType:48
+  |vpiDefName:work@dffr
+  |vpiNet:
+  \_LogicNet: (work@dffr.din), line:7:18, endln:7:21
+  |vpiNet:
+  \_LogicNet: (work@dffr.clk), line:9:9, endln:9:12
+  |vpiNet:
+  \_LogicNet: (work@dffr.rst), line:10:9, endln:10:12
+  |vpiNet:
+  \_LogicNet: (work@dffr.q), line:12:19, endln:12:20
+  |vpiNet:
+  \_LogicNet: (work@dffr.se), line:14:9, endln:14:11
+  |vpiNet:
+  \_LogicNet: (work@dffr.si), line:15:18, endln:15:20
+  |vpiNet:
+  \_LogicNet: (work@dffr.so), line:16:19, endln:16:21
+  |vpiNet:
+  \_LogicNet: (work@dffr.q), line:18:17, endln:18:18
   |vpiPort:
   \_Port: (din), line:2:14, endln:2:17
     |vpiParent:
     \_Module: work@dffr (work@dffr), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:2:1, endln:33:10
     |vpiName:din
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@dffr.din.din), line:2:14, endln:2:17
-      |vpiParent:
-      \_Port: (din), line:2:14, endln:2:17
-      |vpiName:din
-      |vpiFullName:work@dffr.din.din
-      |vpiActual:
-      \_LogicNet: (work@dffr.din), line:2:14, endln:2:17
-    |vpiTypedef:
-    \_RefTypespec: (work@dffr.din)
-      |vpiParent:
-      \_Port: (din), line:2:14, endln:2:17
-      |vpiFullName:work@dffr.din
-      |vpiActual:
-      \_LogicTypespec: , line:7:7, endln:7:17
   |vpiPort:
   \_Port: (clk), line:2:19, endln:2:22
     |vpiParent:
     \_Module: work@dffr (work@dffr), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:2:1, endln:33:10
     |vpiName:clk
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@dffr.clk.clk), line:2:19, endln:2:22
-      |vpiParent:
-      \_Port: (clk), line:2:19, endln:2:22
-      |vpiName:clk
-      |vpiFullName:work@dffr.clk.clk
-      |vpiActual:
-      \_LogicNet: (work@dffr.clk), line:2:19, endln:2:22
-    |vpiTypedef:
-    \_RefTypespec: (work@dffr.clk)
-      |vpiParent:
-      \_Port: (clk), line:2:19, endln:2:22
-      |vpiFullName:work@dffr.clk
-      |vpiActual:
-      \_LogicTypespec: , line:9:9, endln:9:9
   |vpiPort:
   \_Port: (rst), line:2:24, endln:2:27
     |vpiParent:
     \_Module: work@dffr (work@dffr), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:2:1, endln:33:10
     |vpiName:rst
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@dffr.rst.rst), line:2:24, endln:2:27
-      |vpiParent:
-      \_Port: (rst), line:2:24, endln:2:27
-      |vpiName:rst
-      |vpiFullName:work@dffr.rst.rst
-      |vpiActual:
-      \_LogicNet: (work@dffr.rst), line:2:24, endln:2:27
-    |vpiTypedef:
-    \_RefTypespec: (work@dffr.rst)
-      |vpiParent:
-      \_Port: (rst), line:2:24, endln:2:27
-      |vpiFullName:work@dffr.rst
-      |vpiActual:
-      \_LogicTypespec: , line:10:9, endln:10:9
   |vpiPort:
   \_Port: (q), line:2:29, endln:2:30
     |vpiParent:
     \_Module: work@dffr (work@dffr), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:2:1, endln:33:10
     |vpiName:q
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@dffr.q), line:2:29, endln:2:30
-      |vpiParent:
-      \_Port: (q), line:2:29, endln:2:30
-      |vpiFullName:work@dffr.q
-      |vpiActual:
-      \_LogicNet: (work@dffr.q), line:18:17, endln:18:18
-    |vpiTypedef:
-    \_RefTypespec: (work@dffr.q)
-      |vpiParent:
-      \_Port: (q), line:2:29, endln:2:30
-      |vpiFullName:work@dffr.q
-      |vpiActual:
-      \_LogicTypespec: , line:12:8, endln:12:18
   |vpiPort:
   \_Port: (se), line:2:32, endln:2:34
     |vpiParent:
     \_Module: work@dffr (work@dffr), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:2:1, endln:33:10
     |vpiName:se
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@dffr.se.se), line:2:32, endln:2:34
-      |vpiParent:
-      \_Port: (se), line:2:32, endln:2:34
-      |vpiName:se
-      |vpiFullName:work@dffr.se.se
-      |vpiActual:
-      \_LogicNet: (work@dffr.se), line:2:32, endln:2:34
-    |vpiTypedef:
-    \_RefTypespec: (work@dffr.se)
-      |vpiParent:
-      \_Port: (se), line:2:32, endln:2:34
-      |vpiFullName:work@dffr.se
-      |vpiActual:
-      \_LogicTypespec: , line:14:9, endln:14:9
   |vpiPort:
   \_Port: (si), line:2:36, endln:2:38
     |vpiParent:
     \_Module: work@dffr (work@dffr), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:2:1, endln:33:10
     |vpiName:si
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@dffr.si.si), line:2:36, endln:2:38
-      |vpiParent:
-      \_Port: (si), line:2:36, endln:2:38
-      |vpiName:si
-      |vpiFullName:work@dffr.si.si
-      |vpiActual:
-      \_LogicNet: (work@dffr.si), line:2:36, endln:2:38
-    |vpiTypedef:
-    \_RefTypespec: (work@dffr.si)
-      |vpiParent:
-      \_Port: (si), line:2:36, endln:2:38
-      |vpiFullName:work@dffr.si
-      |vpiActual:
-      \_LogicTypespec: , line:15:7, endln:15:17
   |vpiPort:
   \_Port: (so), line:2:40, endln:2:42
     |vpiParent:
     \_Module: work@dffr (work@dffr), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:2:1, endln:33:10
     |vpiName:so
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@dffr.so.so), line:2:40, endln:2:42
-      |vpiParent:
-      \_Port: (so), line:2:40, endln:2:42
-      |vpiName:so
-      |vpiFullName:work@dffr.so.so
-      |vpiActual:
-      \_LogicNet: (work@dffr.so), line:2:40, endln:2:42
-    |vpiTypedef:
-    \_RefTypespec: (work@dffr.so)
-      |vpiParent:
-      \_Port: (so), line:2:40, endln:2:42
-      |vpiFullName:work@dffr.so
-      |vpiActual:
-      \_LogicTypespec: , line:16:8, endln:16:18
   |vpiProcess:
   \_Always: , line:26:1, endln:28:79
     |vpiParent:
@@ -899,7 +850,7 @@ Design: (unnamed)
           |vpiName:clk
           |vpiFullName:work@dffr.clk
           |vpiActual:
-          \_LogicNet: (work@dffr.clk), line:2:19, endln:2:22
+          \_LogicNet: (work@dffr.clk), line:9:9, endln:9:12
       |vpiStmt:
       \_Assignment: , line:28:2, endln:28:78
         |vpiParent:
@@ -917,7 +868,7 @@ Design: (unnamed)
             |vpiName:se
             |vpiFullName:work@dffr.se
             |vpiActual:
-            \_LogicNet: (work@dffr.se), line:2:32, endln:2:34
+            \_LogicNet: (work@dffr.se), line:14:9, endln:14:11
           |vpiOperand:
           \_PartSelect: si (work@dffr.si), line:28:23, endln:28:35
             |vpiParent:
@@ -925,6 +876,8 @@ Design: (unnamed)
             |vpiName:si
             |vpiFullName:work@dffr.si
             |vpiDefName:si
+            |vpiActual:
+            \_LogicNet: (work@dffr.si), line:15:18, endln:15:20
             |vpiConstantSelect:1
             |vpiLeftRange:
             \_Operation: , line:28:26, endln:28:32
@@ -937,6 +890,8 @@ Design: (unnamed)
                 \_Operation: , line:28:26, endln:28:32
                 |vpiName:SIZE
                 |vpiFullName:work@dffr.si.SIZE
+                |vpiActual:
+                \_Parameter: (work@dffr.SIZE), line:5:11, endln:5:19
               |vpiOperand:
               \_Constant: , line:28:31, endln:28:32
                 |vpiParent:
@@ -947,6 +902,8 @@ Design: (unnamed)
                 |vpiConstType:9
             |vpiRightRange:
             \_Constant: , line:28:33, endln:28:34
+              |vpiParent:
+              \_PartSelect: si (work@dffr.si), line:28:23, endln:28:35
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
@@ -963,7 +920,7 @@ Design: (unnamed)
               |vpiName:rst
               |vpiFullName:work@dffr.rst
               |vpiActual:
-              \_LogicNet: (work@dffr.rst), line:2:24, endln:2:27
+              \_LogicNet: (work@dffr.rst), line:10:9, endln:10:12
             |vpiOperand:
             \_Operation: , line:28:47, endln:28:59
               |vpiParent:
@@ -975,6 +932,8 @@ Design: (unnamed)
                 \_Operation: , line:28:47, endln:28:59
                 |vpiName:SIZE
                 |vpiFullName:work@dffr.SIZE
+                |vpiActual:
+                \_Parameter: (work@dffr.SIZE), line:5:11, endln:5:19
               |vpiOperand:
               \_Operation: , line:28:52, endln:28:58
                 |vpiParent:
@@ -982,6 +941,8 @@ Design: (unnamed)
                 |vpiOpType:33
                 |vpiOperand:
                 \_Constant: , line:28:53, endln:28:57
+                  |vpiParent:
+                  \_Operation: , line:28:52, endln:28:58
                   |vpiDecompile:1'b0
                   |vpiSize:1
                   |BIN:0
@@ -993,6 +954,8 @@ Design: (unnamed)
               |vpiName:din
               |vpiFullName:work@dffr.din
               |vpiDefName:din
+              |vpiActual:
+              \_LogicNet: (work@dffr.din), line:7:18, endln:7:21
               |vpiConstantSelect:1
               |vpiLeftRange:
               \_Operation: , line:28:67, endln:28:73
@@ -1005,6 +968,8 @@ Design: (unnamed)
                   \_Operation: , line:28:67, endln:28:73
                   |vpiName:SIZE
                   |vpiFullName:work@dffr.din.SIZE
+                  |vpiActual:
+                  \_Parameter: (work@dffr.SIZE), line:5:11, endln:5:19
                 |vpiOperand:
                 \_Constant: , line:28:72, endln:28:73
                   |vpiParent:
@@ -1015,22 +980,26 @@ Design: (unnamed)
                   |vpiConstType:9
               |vpiRightRange:
               \_Constant: , line:28:74, endln:28:75
+                |vpiParent:
+                \_PartSelect: din (work@dffr.din), line:28:63, endln:28:76
                 |vpiDecompile:0
                 |vpiSize:64
                 |UINT:0
                 |vpiConstType:9
         |vpiLhs:
-        \_PartSelect: q (work@dffr.q), line:28:2, endln:28:13
+        \_PartSelect: q (work@dffr.q), line:28:4, endln:28:12
           |vpiParent:
           \_Assignment: , line:28:2, endln:28:78
           |vpiName:q
           |vpiFullName:work@dffr.q
           |vpiDefName:q
+          |vpiActual:
+          \_LogicNet: (work@dffr.q), line:12:19, endln:12:20
           |vpiConstantSelect:1
           |vpiLeftRange:
           \_Operation: , line:28:4, endln:28:10
             |vpiParent:
-            \_PartSelect: q (work@dffr.q), line:28:2, endln:28:13
+            \_PartSelect: q (work@dffr.q), line:28:4, endln:28:12
             |vpiOpType:11
             |vpiOperand:
             \_RefObj: (work@dffr.q.SIZE), line:28:4, endln:28:8
@@ -1038,6 +1007,8 @@ Design: (unnamed)
               \_Operation: , line:28:4, endln:28:10
               |vpiName:SIZE
               |vpiFullName:work@dffr.q.SIZE
+              |vpiActual:
+              \_Parameter: (work@dffr.SIZE), line:5:11, endln:5:19
             |vpiOperand:
             \_Constant: , line:28:9, endln:28:10
               |vpiParent:
@@ -1048,6 +1019,8 @@ Design: (unnamed)
               |vpiConstType:9
           |vpiRightRange:
           \_Constant: , line:28:11, endln:28:12
+            |vpiParent:
+            \_PartSelect: q (work@dffr.q), line:28:4, endln:28:12
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
@@ -1064,6 +1037,8 @@ Design: (unnamed)
       |vpiName:q
       |vpiFullName:work@dffr.q
       |vpiDefName:q
+      |vpiActual:
+      \_LogicNet: (work@dffr.q), line:12:19, endln:12:20
       |vpiConstantSelect:1
       |vpiLeftRange:
       \_Operation: , line:30:25, endln:30:31
@@ -1076,6 +1051,8 @@ Design: (unnamed)
           \_Operation: , line:30:25, endln:30:31
           |vpiName:SIZE
           |vpiFullName:work@dffr.q.SIZE
+          |vpiActual:
+          \_Parameter: (work@dffr.SIZE), line:5:11, endln:5:19
         |vpiOperand:
         \_Constant: , line:30:30, endln:30:31
           |vpiParent:
@@ -1086,22 +1063,26 @@ Design: (unnamed)
           |vpiConstType:9
       |vpiRightRange:
       \_Constant: , line:30:32, endln:30:33
+        |vpiParent:
+        \_PartSelect: q (work@dffr.q), line:30:23, endln:30:34
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
         |vpiConstType:9
     |vpiLhs:
-    \_PartSelect: so (work@dffr.so), line:30:8, endln:30:20
+    \_PartSelect: so (work@dffr.so), line:30:11, endln:30:19
       |vpiParent:
       \_ContAssign: , line:30:8, endln:30:34
       |vpiName:so
       |vpiFullName:work@dffr.so
       |vpiDefName:so
+      |vpiActual:
+      \_LogicNet: (work@dffr.so), line:16:19, endln:16:21
       |vpiConstantSelect:1
       |vpiLeftRange:
       \_Operation: , line:30:11, endln:30:17
         |vpiParent:
-        \_PartSelect: so (work@dffr.so), line:30:8, endln:30:20
+        \_PartSelect: so (work@dffr.so), line:30:11, endln:30:19
         |vpiOpType:11
         |vpiOperand:
         \_RefObj: (work@dffr.so.SIZE), line:30:11, endln:30:15
@@ -1109,6 +1090,8 @@ Design: (unnamed)
           \_Operation: , line:30:11, endln:30:17
           |vpiName:SIZE
           |vpiFullName:work@dffr.so.SIZE
+          |vpiActual:
+          \_Parameter: (work@dffr.SIZE), line:5:11, endln:5:19
         |vpiOperand:
         \_Constant: , line:30:16, endln:30:17
           |vpiParent:
@@ -1119,583 +1102,125 @@ Design: (unnamed)
           |vpiConstType:9
       |vpiRightRange:
       \_Constant: , line:30:18, endln:30:19
+        |vpiParent:
+        \_PartSelect: so (work@dffr.so), line:30:11, endln:30:19
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
         |vpiConstType:9
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@test (work@test), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:35:1, endln:51:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@test
-  |vpiDefName:work@test
-  |vpiNet:
-  \_LogicNet: (work@test.pv1), line:35:13, endln:35:16
+  |vpiName:work@test
+  |vpiTypedef:
+  \_ModuleTypespec: (dffr), line:39:2, endln:39:6
+    |vpiParent:
+    \_Module: work@test (work@test), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:35:1, endln:51:10
+    |vpiName:dffr
+  |vpiImportTypespec:
+  \_ModuleTypespec: (dffr), line:39:2, endln:39:6
+  |vpiImportTypespec:
+  \_LogicNet: (work@test.pv1), line:36:14, endln:36:17
     |vpiParent:
     \_Module: work@test (work@test), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:35:1, endln:51:10
     |vpiName:pv1
     |vpiFullName:work@test.pv1
-  |vpiNet:
-  \_LogicNet: (work@test.pv2), line:35:17, endln:35:20
+  |vpiImportTypespec:
+  \_LogicNet: (work@test.pv2), line:36:18, endln:36:21
     |vpiParent:
     \_Module: work@test (work@test), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:35:1, endln:51:10
     |vpiName:pv2
     |vpiFullName:work@test.pv2
-  |vpiNet:
-  \_LogicNet: (work@test.next_pv), line:35:21, endln:35:28
+  |vpiImportTypespec:
+  \_LogicNet: (work@test.next_pv), line:36:22, endln:36:29
     |vpiParent:
     \_Module: work@test (work@test), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:35:1, endln:51:10
     |vpiName:next_pv
     |vpiFullName:work@test.next_pv
-  |vpiNet:
-  \_LogicNet: (work@test.clk), line:35:29, endln:35:32
+  |vpiImportTypespec:
+  \_LogicNet: (work@test.clk), line:37:7, endln:37:10
     |vpiParent:
     \_Module: work@test (work@test), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:35:1, endln:51:10
     |vpiName:clk
     |vpiFullName:work@test.clk
-  |vpiNet:
-  \_LogicNet: (work@test.reset), line:35:33, endln:35:38
+  |vpiImportTypespec:
+  \_LogicNet: (work@test.reset), line:37:11, endln:37:16
     |vpiParent:
     \_Module: work@test (work@test), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:35:1, endln:51:10
     |vpiName:reset
     |vpiFullName:work@test.reset
-  |vpiNet:
-  \_LogicNet: (work@test.se), line:35:39, endln:35:41
+  |vpiImportTypespec:
+  \_LogicNet: (work@test.se), line:37:17, endln:37:19
     |vpiParent:
     \_Module: work@test (work@test), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:35:1, endln:51:10
     |vpiName:se
     |vpiFullName:work@test.se
+  |vpiDefName:work@test
+  |vpiNet:
+  \_LogicNet: (work@test.pv1), line:36:14, endln:36:17
+  |vpiNet:
+  \_LogicNet: (work@test.pv2), line:36:18, endln:36:21
+  |vpiNet:
+  \_LogicNet: (work@test.next_pv), line:36:22, endln:36:29
+  |vpiNet:
+  \_LogicNet: (work@test.clk), line:37:7, endln:37:10
+  |vpiNet:
+  \_LogicNet: (work@test.reset), line:37:11, endln:37:16
+  |vpiNet:
+  \_LogicNet: (work@test.se), line:37:17, endln:37:19
   |vpiPort:
   \_Port: (pv1), line:35:13, endln:35:16
     |vpiParent:
     \_Module: work@test (work@test), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:35:1, endln:51:10
     |vpiName:pv1
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@test.pv1.pv1), line:35:13, endln:35:16
-      |vpiParent:
-      \_Port: (pv1), line:35:13, endln:35:16
-      |vpiName:pv1
-      |vpiFullName:work@test.pv1.pv1
-      |vpiActual:
-      \_LogicNet: (work@test.pv1), line:35:13, endln:35:16
-    |vpiTypedef:
-    \_RefTypespec: (work@test.pv1)
-      |vpiParent:
-      \_Port: (pv1), line:35:13, endln:35:16
-      |vpiFullName:work@test.pv1
-      |vpiActual:
-      \_LogicTypespec: , line:36:8, endln:36:13
   |vpiPort:
   \_Port: (pv2), line:35:17, endln:35:20
     |vpiParent:
     \_Module: work@test (work@test), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:35:1, endln:51:10
     |vpiName:pv2
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@test.pv2.pv2), line:35:17, endln:35:20
-      |vpiParent:
-      \_Port: (pv2), line:35:17, endln:35:20
-      |vpiName:pv2
-      |vpiFullName:work@test.pv2.pv2
-      |vpiActual:
-      \_LogicNet: (work@test.pv2), line:35:17, endln:35:20
-    |vpiTypedef:
-    \_RefTypespec: (work@test.pv2)
-      |vpiParent:
-      \_Port: (pv2), line:35:17, endln:35:20
-      |vpiFullName:work@test.pv2
-      |vpiActual:
-      \_LogicTypespec: , line:36:8, endln:36:13
   |vpiPort:
   \_Port: (next_pv), line:35:21, endln:35:28
     |vpiParent:
     \_Module: work@test (work@test), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:35:1, endln:51:10
     |vpiName:next_pv
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@test.next_pv.next_pv), line:35:21, endln:35:28
-      |vpiParent:
-      \_Port: (next_pv), line:35:21, endln:35:28
-      |vpiName:next_pv
-      |vpiFullName:work@test.next_pv.next_pv
-      |vpiActual:
-      \_LogicNet: (work@test.next_pv), line:35:21, endln:35:28
-    |vpiTypedef:
-    \_RefTypespec: (work@test.next_pv)
-      |vpiParent:
-      \_Port: (next_pv), line:35:21, endln:35:28
-      |vpiFullName:work@test.next_pv
-      |vpiActual:
-      \_LogicTypespec: , line:36:8, endln:36:13
   |vpiPort:
   \_Port: (clk), line:35:29, endln:35:32
     |vpiParent:
     \_Module: work@test (work@test), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:35:1, endln:51:10
     |vpiName:clk
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@test.clk.clk), line:35:29, endln:35:32
-      |vpiParent:
-      \_Port: (clk), line:35:29, endln:35:32
-      |vpiName:clk
-      |vpiFullName:work@test.clk.clk
-      |vpiActual:
-      \_LogicNet: (work@test.clk), line:35:29, endln:35:32
-    |vpiTypedef:
-    \_RefTypespec: (work@test.clk)
-      |vpiParent:
-      \_Port: (clk), line:35:29, endln:35:32
-      |vpiFullName:work@test.clk
-      |vpiActual:
-      \_LogicTypespec: , line:37:7, endln:37:7
   |vpiPort:
   \_Port: (reset), line:35:33, endln:35:38
     |vpiParent:
     \_Module: work@test (work@test), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:35:1, endln:51:10
     |vpiName:reset
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@test.reset.reset), line:35:33, endln:35:38
-      |vpiParent:
-      \_Port: (reset), line:35:33, endln:35:38
-      |vpiName:reset
-      |vpiFullName:work@test.reset.reset
-      |vpiActual:
-      \_LogicNet: (work@test.reset), line:35:33, endln:35:38
-    |vpiTypedef:
-    \_RefTypespec: (work@test.reset)
-      |vpiParent:
-      \_Port: (reset), line:35:33, endln:35:38
-      |vpiFullName:work@test.reset
-      |vpiActual:
-      \_LogicTypespec: , line:37:7, endln:37:7
   |vpiPort:
   \_Port: (se), line:35:39, endln:35:41
     |vpiParent:
     \_Module: work@test (work@test), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:35:1, endln:51:10
     |vpiName:se
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@test.se.se), line:35:39, endln:35:41
-      |vpiParent:
-      \_Port: (se), line:35:39, endln:35:41
-      |vpiName:se
-      |vpiFullName:work@test.se.se
-      |vpiActual:
-      \_LogicNet: (work@test.se), line:35:39, endln:35:41
-    |vpiTypedef:
-    \_RefTypespec: (work@test.se)
-      |vpiParent:
-      \_Port: (se), line:35:39, endln:35:41
-      |vpiFullName:work@test.se
-      |vpiActual:
-      \_LogicTypespec: , line:37:7, endln:37:7
   |vpiRefModule:
-  \_RefModule: work@dffr (park_reg), line:39:11, endln:39:19
+  \_RefModule: work@dffr (park_reg), line:39:2, endln:39:6
     |vpiParent:
     \_Module: work@test (work@test), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:35:1, endln:51:10
     |vpiName:park_reg
     |vpiDefName:work@dffr
     |vpiActual:
     \_Module: work@dffr (work@dffr), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:2:1, endln:33:10
-    |vpiPort:
-    \_Port: (din), line:39:20, endln:39:40
-      |vpiParent:
-      \_RefModule: work@dffr (park_reg), line:39:11, endln:39:19
-      |vpiName:din
-      |vpiHighConn:
-      \_PartSelect: next_pv (work@test.park_reg.din.next_pv), line:39:27, endln:39:39
-        |vpiParent:
-        \_Port: (din), line:39:20, endln:39:40
-        |vpiName:next_pv
-        |vpiFullName:work@test.park_reg.din.next_pv
-        |vpiDefName:next_pv
-        |vpiConstantSelect:1
-        |vpiLeftRange:
-        \_Constant: , line:39:35, endln:39:36
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-          |vpiConstType:9
-        |vpiRightRange:
-        \_Constant: , line:39:37, endln:39:38
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-    |vpiPort:
-    \_Port: (clk), line:40:21, endln:40:32
-      |vpiParent:
-      \_RefModule: work@dffr (park_reg), line:39:11, endln:39:19
-      |vpiName:clk
-      |vpiHighConn:
-      \_RefObj: (work@test.park_reg.clk.clk), line:40:28, endln:40:31
-        |vpiParent:
-        \_Port: (clk), line:40:21, endln:40:32
-        |vpiName:clk
-        |vpiFullName:work@test.park_reg.clk.clk
-        |vpiActual:
-        \_LogicNet: (work@test.clk), line:35:29, endln:35:32
-    |vpiPort:
-    \_Port: (q), line:41:21, endln:41:37
-      |vpiParent:
-      \_RefModule: work@dffr (park_reg), line:39:11, endln:39:19
-      |vpiName:q
-      |vpiHighConn:
-      \_PartSelect: pv1 (work@test.park_reg.q.pv1), line:41:28, endln:41:36
-        |vpiParent:
-        \_Port: (q), line:41:21, endln:41:37
-        |vpiName:pv1
-        |vpiFullName:work@test.park_reg.q.pv1
-        |vpiDefName:pv1
-        |vpiConstantSelect:1
-        |vpiLeftRange:
-        \_Constant: , line:41:32, endln:41:33
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-          |vpiConstType:9
-        |vpiRightRange:
-        \_Constant: , line:41:34, endln:41:35
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-    |vpiPort:
-    \_Port: (rst), line:42:21, endln:42:34
-      |vpiParent:
-      \_RefModule: work@dffr (park_reg), line:39:11, endln:39:19
-      |vpiName:rst
-      |vpiHighConn:
-      \_RefObj: (work@test.park_reg.rst.reset), line:42:28, endln:42:33
-        |vpiParent:
-        \_Port: (rst), line:42:21, endln:42:34
-        |vpiName:reset
-        |vpiFullName:work@test.park_reg.rst.reset
-        |vpiActual:
-        \_LogicNet: (work@test.reset), line:35:33, endln:35:38
-    |vpiPort:
-    \_Port: (se), line:43:21, endln:43:31
-      |vpiParent:
-      \_RefModule: work@dffr (park_reg), line:39:11, endln:39:19
-      |vpiName:se
-      |vpiHighConn:
-      \_RefObj: (work@test.park_reg.se.se), line:43:28, endln:43:30
-        |vpiParent:
-        \_Port: (se), line:43:21, endln:43:31
-        |vpiName:se
-        |vpiFullName:work@test.park_reg.se.se
-        |vpiActual:
-        \_LogicNet: (work@test.se), line:35:39, endln:35:41
-    |vpiPort:
-    \_Port: , line:43:33, endln:43:38
-      |vpiParent:
-      \_RefModule: work@dffr (park_reg), line:39:11, endln:39:19
-    |vpiPort:
-    \_Port: , line:43:40, endln:43:45
-      |vpiParent:
-      \_RefModule: work@dffr (park_reg), line:39:11, endln:39:19
   |vpiRefModule:
-  \_RefModule: work@dffr (logic), line:45:10, endln:45:15
+  \_RefModule: work@dffr (logic), line:45:2, endln:45:6
     |vpiParent:
     \_Module: work@test (work@test), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:35:1, endln:51:10
     |vpiName:logic
     |vpiDefName:work@dffr
     |vpiActual:
     \_Module: work@dffr (work@dffr), file:${SURELOG_DIR}/tests/PoundParam/dut.v, line:2:1, endln:33:10
-    |vpiPort:
-    \_Port: (din), line:45:16, endln:45:36
-      |vpiParent:
-      \_RefModule: work@dffr (logic), line:45:10, endln:45:15
-      |vpiName:din
-      |vpiHighConn:
-      \_PartSelect: next_pv (work@test.logic.din.next_pv), line:45:23, endln:45:35
-        |vpiParent:
-        \_Port: (din), line:45:16, endln:45:36
-        |vpiName:next_pv
-        |vpiFullName:work@test.logic.din.next_pv
-        |vpiDefName:next_pv
-        |vpiConstantSelect:1
-        |vpiLeftRange:
-        \_Constant: , line:45:31, endln:45:32
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-          |vpiConstType:9
-        |vpiRightRange:
-        \_Constant: , line:45:33, endln:45:34
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-    |vpiPort:
-    \_Port: (clk), line:46:21, endln:46:32
-      |vpiParent:
-      \_RefModule: work@dffr (logic), line:45:10, endln:45:15
-      |vpiName:clk
-      |vpiHighConn:
-      \_RefObj: (work@test.logic.clk.clk), line:46:28, endln:46:31
-        |vpiParent:
-        \_Port: (clk), line:46:21, endln:46:32
-        |vpiName:clk
-        |vpiFullName:work@test.logic.clk.clk
-        |vpiActual:
-        \_LogicNet: (work@test.clk), line:35:29, endln:35:32
-    |vpiPort:
-    \_Port: (q), line:47:21, endln:47:37
-      |vpiParent:
-      \_RefModule: work@dffr (logic), line:45:10, endln:45:15
-      |vpiName:q
-      |vpiHighConn:
-      \_PartSelect: pv2 (work@test.logic.q.pv2), line:47:28, endln:47:36
-        |vpiParent:
-        \_Port: (q), line:47:21, endln:47:37
-        |vpiName:pv2
-        |vpiFullName:work@test.logic.q.pv2
-        |vpiDefName:pv2
-        |vpiConstantSelect:1
-        |vpiLeftRange:
-        \_Constant: , line:47:32, endln:47:33
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-          |vpiConstType:9
-        |vpiRightRange:
-        \_Constant: , line:47:34, endln:47:35
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-    |vpiPort:
-    \_Port: (rst), line:48:21, endln:48:34
-      |vpiParent:
-      \_RefModule: work@dffr (logic), line:45:10, endln:45:15
-      |vpiName:rst
-      |vpiHighConn:
-      \_RefObj: (work@test.logic.rst.reset), line:48:28, endln:48:33
-        |vpiParent:
-        \_Port: (rst), line:48:21, endln:48:34
-        |vpiName:reset
-        |vpiFullName:work@test.logic.rst.reset
-        |vpiActual:
-        \_LogicNet: (work@test.reset), line:35:33, endln:35:38
-    |vpiPort:
-    \_Port: (se), line:49:21, endln:49:31
-      |vpiParent:
-      \_RefModule: work@dffr (logic), line:45:10, endln:45:15
-      |vpiName:se
-      |vpiHighConn:
-      \_RefObj: (work@test.logic.se.se), line:49:28, endln:49:30
-        |vpiParent:
-        \_Port: (se), line:49:21, endln:49:31
-        |vpiName:se
-        |vpiFullName:work@test.logic.se.se
-        |vpiActual:
-        \_LogicNet: (work@test.se), line:35:39, endln:35:41
-    |vpiPort:
-    \_Port: , line:49:33, endln:49:38
-      |vpiParent:
-      \_RefModule: work@dffr (logic), line:45:10, endln:45:15
-    |vpiPort:
-    \_Port: , line:49:40, endln:49:45
-      |vpiParent:
-      \_RefModule: work@dffr (logic), line:45:10, endln:45:15
-\_weaklyReferenced:
-\_IntTypespec: , line:5:1, endln:5:19
-\_LogicTypespec: , line:7:7, endln:7:17
-  |vpiRange:
-  \_Range: , line:7:7, endln:7:17
-    |vpiParent:
-    \_LogicTypespec: , line:7:7, endln:7:17
-    |vpiLeftRange:
-    \_Operation: , line:7:8, endln:7:14
-      |vpiParent:
-      \_Range: , line:7:7, endln:7:17
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (SIZE), line:7:8, endln:7:12
-        |vpiParent:
-        \_Operation: , line:7:8, endln:7:14
-        |vpiName:SIZE
-      |vpiOperand:
-      \_Constant: , line:7:13, endln:7:14
-        |vpiParent:
-        \_Operation: , line:7:8, endln:7:14
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:7:15, endln:7:16
-      |vpiParent:
-      \_Range: , line:7:7, endln:7:17
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:9:9, endln:9:9
-\_LogicTypespec: , line:10:9, endln:10:9
-\_LogicTypespec: , line:12:8, endln:12:18
-  |vpiRange:
-  \_Range: , line:12:8, endln:12:18
-    |vpiParent:
-    \_LogicTypespec: , line:12:8, endln:12:18
-    |vpiLeftRange:
-    \_Operation: , line:12:9, endln:12:15
-      |vpiParent:
-      \_Range: , line:12:8, endln:12:18
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (SIZE), line:12:9, endln:12:13
-        |vpiParent:
-        \_Operation: , line:12:9, endln:12:15
-        |vpiName:SIZE
-      |vpiOperand:
-      \_Constant: , line:12:14, endln:12:15
-        |vpiParent:
-        \_Operation: , line:12:9, endln:12:15
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:12:16, endln:12:17
-      |vpiParent:
-      \_Range: , line:12:8, endln:12:18
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:14:9, endln:14:9
-\_LogicTypespec: , line:15:7, endln:15:17
-  |vpiRange:
-  \_Range: , line:15:7, endln:15:17
-    |vpiParent:
-    \_LogicTypespec: , line:15:7, endln:15:17
-    |vpiLeftRange:
-    \_Operation: , line:15:8, endln:15:14
-      |vpiParent:
-      \_Range: , line:15:7, endln:15:17
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (SIZE), line:15:8, endln:15:12
-        |vpiParent:
-        \_Operation: , line:15:8, endln:15:14
-        |vpiName:SIZE
-      |vpiOperand:
-      \_Constant: , line:15:13, endln:15:14
-        |vpiParent:
-        \_Operation: , line:15:8, endln:15:14
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:15:15, endln:15:16
-      |vpiParent:
-      \_Range: , line:15:7, endln:15:17
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:16:8, endln:16:18
-  |vpiRange:
-  \_Range: , line:16:8, endln:16:18
-    |vpiParent:
-    \_LogicTypespec: , line:16:8, endln:16:18
-    |vpiLeftRange:
-    \_Operation: , line:16:9, endln:16:15
-      |vpiParent:
-      \_Range: , line:16:8, endln:16:18
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (SIZE), line:16:9, endln:16:13
-        |vpiParent:
-        \_Operation: , line:16:9, endln:16:15
-        |vpiName:SIZE
-      |vpiOperand:
-      \_Constant: , line:16:14, endln:16:15
-        |vpiParent:
-        \_Operation: , line:16:9, endln:16:15
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:16:16, endln:16:17
-      |vpiParent:
-      \_Range: , line:16:8, endln:16:18
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:36:8, endln:36:13
-  |vpiRange:
-  \_Range: , line:36:8, endln:36:13
-    |vpiParent:
-    \_LogicTypespec: , line:36:8, endln:36:13
-    |vpiLeftRange:
-    \_Constant: , line:36:9, endln:36:10
-      |vpiParent:
-      \_Range: , line:36:8, endln:36:13
-      |vpiDecompile:3
-      |vpiSize:64
-      |UINT:3
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:36:11, endln:36:12
-      |vpiParent:
-      \_Range: , line:36:8, endln:36:13
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:36:8, endln:36:13
-  |vpiRange:
-  \_Range: , line:36:8, endln:36:13
-    |vpiParent:
-    \_LogicTypespec: , line:36:8, endln:36:13
-    |vpiLeftRange:
-    \_Constant: , line:36:9, endln:36:10
-      |vpiParent:
-      \_Range: , line:36:8, endln:36:13
-      |vpiDecompile:3
-      |vpiSize:64
-      |UINT:3
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:36:11, endln:36:12
-      |vpiParent:
-      \_Range: , line:36:8, endln:36:13
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:36:8, endln:36:13
-  |vpiRange:
-  \_Range: , line:36:8, endln:36:13
-    |vpiParent:
-    \_LogicTypespec: , line:36:8, endln:36:13
-    |vpiLeftRange:
-    \_Constant: , line:36:9, endln:36:10
-      |vpiParent:
-      \_Range: , line:36:8, endln:36:13
-      |vpiDecompile:3
-      |vpiSize:64
-      |UINT:3
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:36:11, endln:36:12
-      |vpiParent:
-      \_Range: , line:36:8, endln:36:13
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:37:7, endln:37:7
-\_LogicTypespec: , line:37:7, endln:37:7
-\_LogicTypespec: , line:37:7, endln:37:7
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

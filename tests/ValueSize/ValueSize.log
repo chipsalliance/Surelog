@@ -5,9 +5,9 @@
 AST_DEBUG_BEGIN
 Count: 89
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/ValueSize/dut.sv
+FILE: ${SURELOG_DIR}/tests/ValueSize/dut.sv
 n<> u<88> t<Top_level_rule> c<1> l<1:1> el<13:1>
-  n<> u<1> t<Null_rule> p<88> s<87> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<88> s<87> l<1:1>
   n<> u<87> t<Source_text> p<88> c<86> l<1:1> el<12:11>
     n<> u<86> t<Description> p<87> c<85> l<1:1> el<12:11>
       n<> u<85> t<Package_declaration> p<86> c<2> l<1:1> el<12:11>
@@ -68,7 +68,7 @@ n<> u<88> t<Top_level_rule> c<1> l<1:1> el<13:1>
           n<> u<82> t<Package_or_generate_item_declaration> p<83> c<81> l<8:4> el<10:6>
             n<> u<81> t<Parameter_declaration> p<82> c<57> l<8:4> el<10:5>
               n<> u<57> t<Data_type_or_implicit> p<81> c<56> s<80> l<8:14> el<8:25>
-                n<> u<56> t<Data_type> p<57> c<55> l<8:14> el<8:25>
+                n<page_addr_t> u<56> t<Data_type> p<57> c<55> l<8:14> el<8:25>
                   n<page_addr_t> u<55> t<StringConst> p<56> l<8:14> el<8:25>
               n<> u<80> t<List_of_param_assignments> p<81> c<79> l<8:26> el<10:5>
                 n<> u<79> t<Param_assignment> p<80> c<58> l<8:26> el<10:5>
@@ -99,59 +99,57 @@ AST_DEBUG_END
 [INF:CP0300] Compilation...
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-BitTypespec                                            2
-Constant                                              14
+BitTypespec                                            1
+Constant                                              10
 Design                                                 1
-LogicTypespec                                          2
+LogicTypespec                                          1
 Module                                                 1
 Operation                                              6
 Package                                                1
-ParamAssign                                            4
-Parameter                                              4
-Range                                                  4
+ParamAssign                                            2
+Parameter                                              2
+Range                                                  2
 RefObj                                                 3
-RefTypespec                                           12
+RefTypespec                                            8
 StringTypespec                                         3
-StructTypespec                                         2
+StructTypespec                                         1
 TaggedPattern                                          3
-TypespecMember                                         2
+TypespecMember                                         1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ValueSize/slpp_unit/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ValueSize/slpp_unit/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ValueSize/slpp_unit/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallPackages:
-\_Package: flash_ctrl_pkg (flash_ctrl_pkg::), file:${SURELOG_DIR}/tests/ValueSize/dut.sv, line:1:1, endln:12:11
+|vpiAllPackages:
+\_Package: flash_ctrl_pkg (flash_ctrl_pkg), file:${SURELOG_DIR}/tests/ValueSize/dut.sv, line:1:1, endln:12:11
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:flash_ctrl_pkg
-  |vpiFullName:flash_ctrl_pkg::
   |vpiParameter:
-  \_Parameter: (flash_ctrl_pkg::SeedBank), line:7:24, endln:7:32
+  \_Parameter: (flash_ctrl_pkg::SeedBank), line:7:24, endln:7:36
     |vpiParent:
-    \_Package: flash_ctrl_pkg (flash_ctrl_pkg::), file:${SURELOG_DIR}/tests/ValueSize/dut.sv, line:1:1, endln:12:11
+    \_Package: flash_ctrl_pkg (flash_ctrl_pkg), file:${SURELOG_DIR}/tests/ValueSize/dut.sv, line:1:1, endln:12:11
     |UINT:0
     |vpiTypespec:
-    \_RefTypespec: (flash_ctrl_pkg::SeedBank)
+    \_RefTypespec: (flash_ctrl_pkg::SeedBank), line:7:14, endln:7:23
       |vpiParent:
-      \_Parameter: (flash_ctrl_pkg::SeedBank), line:7:24, endln:7:32
+      \_Parameter: (flash_ctrl_pkg::SeedBank), line:7:24, endln:7:36
       |vpiFullName:flash_ctrl_pkg::SeedBank
       |vpiActual:
       \_BitTypespec: , line:7:14, endln:7:23
     |vpiName:SeedBank
     |vpiFullName:flash_ctrl_pkg::SeedBank
   |vpiParameter:
-  \_Parameter: (flash_ctrl_pkg::SeedInfoPageSel), line:8:26, endln:8:41
+  \_Parameter: (flash_ctrl_pkg::SeedInfoPageSel), line:8:26, endln:10:5
     |vpiParent:
-    \_Package: flash_ctrl_pkg (flash_ctrl_pkg::), file:${SURELOG_DIR}/tests/ValueSize/dut.sv, line:1:1, endln:12:11
+    \_Package: flash_ctrl_pkg (flash_ctrl_pkg), file:${SURELOG_DIR}/tests/ValueSize/dut.sv, line:1:1, endln:12:11
     |vpiTypespec:
-    \_RefTypespec: (flash_ctrl_pkg::SeedInfoPageSel)
+    \_RefTypespec: (flash_ctrl_pkg::SeedInfoPageSel::page_addr_t), line:8:14, endln:8:25
       |vpiParent:
-      \_Parameter: (flash_ctrl_pkg::SeedInfoPageSel), line:8:26, endln:8:41
-      |vpiFullName:flash_ctrl_pkg::SeedInfoPageSel
+      \_Parameter: (flash_ctrl_pkg::SeedInfoPageSel), line:8:26, endln:10:5
+      |vpiName:page_addr_t
+      |vpiFullName:flash_ctrl_pkg::SeedInfoPageSel::page_addr_t
       |vpiActual:
       \_StructTypespec: (flash_ctrl_pkg::page_addr_t), line:3:11, endln:5:4
     |vpiName:SeedInfoPageSel
@@ -159,7 +157,7 @@ Design: (unnamed)
   |vpiParamAssign:
   \_ParamAssign: , line:7:24, endln:7:36
     |vpiParent:
-    \_Package: flash_ctrl_pkg (flash_ctrl_pkg::), file:${SURELOG_DIR}/tests/ValueSize/dut.sv, line:1:1, endln:12:11
+    \_Package: flash_ctrl_pkg (flash_ctrl_pkg), file:${SURELOG_DIR}/tests/ValueSize/dut.sv, line:1:1, endln:12:11
     |vpiRhs:
     \_Constant: , line:7:35, endln:7:36
       |vpiParent:
@@ -167,33 +165,26 @@ Design: (unnamed)
       |vpiDecompile:0
       |vpiSize:64
       |UINT:0
-      |vpiTypespec:
-      \_RefTypespec: (flash_ctrl_pkg)
-        |vpiParent:
-        \_Constant: , line:7:35, endln:7:36
-        |vpiFullName:flash_ctrl_pkg
-        |vpiActual:
-        \_BitTypespec: , line:7:14, endln:7:23
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (flash_ctrl_pkg::SeedBank), line:7:24, endln:7:32
+    \_Parameter: (flash_ctrl_pkg::SeedBank), line:7:24, endln:7:36
   |vpiParamAssign:
   \_ParamAssign: , line:8:26, endln:10:5
     |vpiParent:
-    \_Package: flash_ctrl_pkg (flash_ctrl_pkg::), file:${SURELOG_DIR}/tests/ValueSize/dut.sv, line:1:1, endln:12:11
+    \_Package: flash_ctrl_pkg (flash_ctrl_pkg), file:${SURELOG_DIR}/tests/ValueSize/dut.sv, line:1:1, endln:12:11
     |vpiRhs:
     \_Operation: , line:8:44, endln:10:5
       |vpiParent:
       \_ParamAssign: , line:8:26, endln:10:5
       |vpiOpType:75
       |vpiOperand:
-      \_TaggedPattern: , line:9:13, endln:9:30
+      \_TaggedPattern: , line:9:7, endln:9:30
         |vpiParent:
         \_Operation: , line:8:44, endln:10:5
         |vpiPattern:
         \_Operation: , line:9:13, endln:9:30
           |vpiParent:
-          \_Operation: , line:8:44, endln:10:5
+          \_TaggedPattern: , line:9:7, endln:9:30
           |vpiOpType:33
           |vpiOperand:
           \_RefObj: (flash_ctrl_pkg::SeedBank), line:9:14, endln:9:22
@@ -202,29 +193,30 @@ Design: (unnamed)
             |vpiName:SeedBank
             |vpiFullName:flash_ctrl_pkg::SeedBank
             |vpiActual:
-            \_Constant: , line:7:35, endln:7:36
+            \_Parameter: (flash_ctrl_pkg::SeedBank), line:7:24, endln:7:36
           |vpiOperand:
           \_Constant: , line:9:24, endln:9:29
+            |vpiParent:
+            \_Operation: , line:9:13, endln:9:30
             |vpiDecompile:2'b11
             |vpiSize:2
             |BIN:11
             |vpiConstType:3
         |vpiTypespec:
-        \_RefTypespec: (flash_ctrl_pkg)
+        \_RefTypespec: (flash_ctrl_pkg::addr), line:9:7, endln:9:11
           |vpiParent:
-          \_TaggedPattern: , line:9:13, endln:9:30
-          |vpiFullName:flash_ctrl_pkg
+          \_TaggedPattern: , line:9:7, endln:9:30
+          |vpiName:addr
+          |vpiFullName:flash_ctrl_pkg::addr
           |vpiActual:
           \_StringTypespec: (addr), line:9:7, endln:9:11
     |vpiLhs:
-    \_Parameter: (flash_ctrl_pkg::SeedInfoPageSel), line:8:26, endln:8:41
+    \_Parameter: (flash_ctrl_pkg::SeedInfoPageSel), line:8:26, endln:10:5
   |vpiTypedef:
   \_StructTypespec: (flash_ctrl_pkg::page_addr_t), line:3:11, endln:5:4
     |vpiParent:
-    \_Package: flash_ctrl_pkg (flash_ctrl_pkg::), file:${SURELOG_DIR}/tests/ValueSize/dut.sv, line:1:1, endln:12:11
+    \_Package: flash_ctrl_pkg (flash_ctrl_pkg), file:${SURELOG_DIR}/tests/ValueSize/dut.sv, line:1:1, endln:12:11
     |vpiName:flash_ctrl_pkg::page_addr_t
-    |vpiInstance:
-    \_Package: flash_ctrl_pkg (flash_ctrl_pkg::), file:${SURELOG_DIR}/tests/ValueSize/dut.sv, line:1:1, endln:12:11
     |vpiPacked:1
     |vpiTypespecMember:
     \_TypespecMember: (addr), line:4:18, endln:4:22
@@ -232,73 +224,88 @@ Design: (unnamed)
       \_StructTypespec: (flash_ctrl_pkg::page_addr_t), line:3:11, endln:5:4
       |vpiName:addr
       |vpiTypespec:
-      \_RefTypespec: (flash_ctrl_pkg::flash_ctrl_pkg::page_addr_t::addr)
+      \_RefTypespec: (flash_ctrl_pkg::page_addr_t::addr), line:4:6, endln:4:17
         |vpiParent:
         \_TypespecMember: (addr), line:4:18, endln:4:22
-        |vpiFullName:flash_ctrl_pkg::flash_ctrl_pkg::page_addr_t::addr
+        |vpiFullName:flash_ctrl_pkg::page_addr_t::addr
         |vpiActual:
         \_LogicTypespec: , line:4:6, endln:4:17
-      |vpiRefFile:${SURELOG_DIR}/tests/ValueSize/dut.sv
-      |vpiRefLineNo:4
-      |vpiRefColumnNo:6
-      |vpiRefEndLineNo:4
-      |vpiRefEndColumnNo:17
+  |vpiTypedef:
+  \_LogicTypespec: , line:4:6, endln:4:17
+    |vpiParent:
+    \_Package: flash_ctrl_pkg (flash_ctrl_pkg), file:${SURELOG_DIR}/tests/ValueSize/dut.sv, line:1:1, endln:12:11
+    |vpiRange:
+    \_Range: , line:4:12, endln:4:17
+      |vpiParent:
+      \_LogicTypespec: , line:4:6, endln:4:17
+      |vpiLeftRange:
+      \_Constant: , line:4:13, endln:4:14
+        |vpiParent:
+        \_Range: , line:4:12, endln:4:17
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:4:15, endln:4:16
+        |vpiParent:
+        \_Range: , line:4:12, endln:4:17
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_BitTypespec: , line:7:14, endln:7:23
+    |vpiParent:
+    \_Package: flash_ctrl_pkg (flash_ctrl_pkg), file:${SURELOG_DIR}/tests/ValueSize/dut.sv, line:1:1, endln:12:11
+    |vpiRange:
+    \_Range: , line:7:18, endln:7:23
+      |vpiParent:
+      \_BitTypespec: , line:7:14, endln:7:23
+      |vpiLeftRange:
+      \_Constant: , line:7:19, endln:7:20
+        |vpiParent:
+        \_Range: , line:7:18, endln:7:23
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:7:21, endln:7:22
+        |vpiParent:
+        \_Range: , line:7:18, endln:7:23
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_StringTypespec: (addr), line:9:7, endln:9:11
+    |vpiParent:
+    \_Package: flash_ctrl_pkg (flash_ctrl_pkg), file:${SURELOG_DIR}/tests/ValueSize/dut.sv, line:1:1, endln:12:11
+    |vpiName:addr
+  |vpiTypedef:
+  \_StringTypespec: (addr), line:9:7, endln:9:11
+    |vpiParent:
+    \_Package: flash_ctrl_pkg (flash_ctrl_pkg), file:${SURELOG_DIR}/tests/ValueSize/dut.sv, line:1:1, endln:12:11
+    |vpiName:addr
+  |vpiTypedef:
+  \_StringTypespec: (addr), line:9:7, endln:9:11
+    |vpiParent:
+    \_Package: flash_ctrl_pkg (flash_ctrl_pkg), file:${SURELOG_DIR}/tests/ValueSize/dut.sv, line:1:1, endln:12:11
+    |vpiName:addr
+  |vpiImportTypespec:
+  \_StructTypespec: (flash_ctrl_pkg::page_addr_t), line:3:11, endln:5:4
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:4:6, endln:4:17
+  |vpiImportTypespec:
+  \_BitTypespec: , line:7:14, endln:7:23
+  |vpiImportTypespec:
+  \_StringTypespec: (addr), line:9:7, endln:9:11
+  |vpiImportTypespec:
+  \_StringTypespec: (addr), line:9:7, endln:9:11
+  |vpiImportTypespec:
+  \_StringTypespec: (addr), line:9:7, endln:9:11
   |vpiDefName:flash_ctrl_pkg
-\_weaklyReferenced:
-\_LogicTypespec: , line:4:6, endln:4:17
-  |vpiParent:
-  \_TypespecMember: (addr), line:4:18, endln:4:22
-  |vpiInstance:
-  \_Package: flash_ctrl_pkg (flash_ctrl_pkg::), file:${SURELOG_DIR}/tests/ValueSize/dut.sv, line:1:1, endln:12:11
-  |vpiRange:
-  \_Range: , line:4:12, endln:4:17
-    |vpiParent:
-    \_LogicTypespec: , line:4:6, endln:4:17
-    |vpiLeftRange:
-    \_Constant: , line:4:13, endln:4:14
-      |vpiParent:
-      \_Range: , line:4:12, endln:4:17
-      |vpiDecompile:3
-      |vpiSize:64
-      |UINT:3
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:4:15, endln:4:16
-      |vpiParent:
-      \_Range: , line:4:12, endln:4:17
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_BitTypespec: , line:7:14, endln:7:23
-  |vpiParent:
-  \_Parameter: (flash_ctrl_pkg::SeedBank), line:7:24, endln:7:32
-  |vpiInstance:
-  \_Package: flash_ctrl_pkg (flash_ctrl_pkg::), file:${SURELOG_DIR}/tests/ValueSize/dut.sv, line:1:1, endln:12:11
-  |vpiRange:
-  \_Range: , line:7:18, endln:7:23
-    |vpiParent:
-    \_BitTypespec: , line:7:14, endln:7:23
-    |vpiLeftRange:
-    \_Constant: , line:7:19, endln:7:20
-      |vpiParent:
-      \_Range: , line:7:18, endln:7:23
-      |vpiDecompile:1
-      |vpiSize:64
-      |UINT:1
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:7:21, endln:7:22
-      |vpiParent:
-      \_Range: , line:7:18, endln:7:23
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_StringTypespec: (addr), line:9:7, endln:9:11
-  |vpiParent:
-  \_TaggedPattern: , line:9:13, endln:9:30
-  |vpiName:addr
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

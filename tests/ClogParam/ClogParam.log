@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 183
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/ClogParam/dut.sv
+FILE: ${SURELOG_DIR}/tests/ClogParam/dut.sv
 n<> u<182> t<Top_level_rule> c<1> l<1:1> el<20:1>
-  n<> u<1> t<Null_rule> p<182> s<181> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<182> s<181> l<1:1>
   n<> u<181> t<Source_text> p<182> c<74> l<1:1> el<19:16>
     n<> u<74> t<Description> p<181> c<73> s<180> l<1:1> el<5:29>
       n<> u<73> t<Module_declaration> p<74> c<13> l<1:1> el<5:29>
@@ -119,7 +119,7 @@ n<> u<182> t<Top_level_rule> c<1> l<1:1> el<20:1>
                 n<> u<126> t<Package_or_generate_item_declaration> p<127> c<125> l<12:4> el<12:50>
                   n<> u<125> t<Parameter_declaration> p<126> c<108> l<12:4> el<12:49>
                     n<> u<108> t<Data_type_or_implicit> p<125> c<107> s<124> l<12:14> el<12:25>
-                      n<> u<107> t<Data_type> p<108> c<106> l<12:14> el<12:25>
+                      n<part_info_t> u<107> t<Data_type> p<108> c<106> l<12:14> el<12:25>
                         n<part_info_t> u<106> t<StringConst> p<107> l<12:14> el<12:25>
                     n<> u<124> t<List_of_param_assignments> p<125> c<123> l<12:26> el<12:49>
                       n<> u<123> t<Param_assignment> p<124> c<109> l<12:26> el<12:49>
@@ -130,7 +130,7 @@ n<> u<182> t<Top_level_rule> c<1> l<1:1> el<20:1>
                               n<> u<119> t<Constant_primary> p<120> c<118> l<12:33> el<12:49>
                                 n<> u<118> t<Constant_cast> p<119> c<113> l<12:33> el<12:49>
                                   n<> u<113> t<Casting_type> p<118> c<112> s<117> l<12:33> el<12:44>
-                                    n<> u<112> t<Simple_type> p<113> c<111> l<12:33> el<12:44>
+                                    n<part_info_t> u<112> t<Simple_type> p<113> c<111> l<12:33> el<12:44>
                                       n<> u<111> t<Ps_type_identifier> p<112> c<110> l<12:33> el<12:44>
                                         n<part_info_t> u<110> t<StringConst> p<111> l<12:33> el<12:44>
                                   n<> u<117> t<Constant_expression> p<118> c<116> l<12:46> el<12:48>
@@ -197,41 +197,55 @@ Constant                                               2
 ContAssign                                             1
 Design                                                 1
 HierPath                                               1
-IntTypespec                                            6
-LogicNet                                               2
+IntTypespec                                            8
+IntVar                                                 2
 Module                                                 2
+ModuleTypespec                                         1
 Operation                                              1
 ParamAssign                                            4
 Parameter                                              4
 Port                                                   3
 RefModule                                              1
-RefObj                                                 8
+RefObj                                                 6
 RefTypespec                                            9
 StructTypespec                                         1
 SysFuncCall                                            1
 TypespecMember                                         1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ClogParam/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ClogParam/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ClogParam/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@otp_ctrl_ecc_reg (work@otp_ctrl_ecc_reg), file:${SURELOG_DIR}/tests/ClogParam/dut.sv, line:1:1, endln:5:29
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@otp_ctrl_ecc_reg
+  |vpiName:work@otp_ctrl_ecc_reg
+  |vpiVariables:
+  \_IntVar: (work@otp_ctrl_ecc_reg.a), line:1:36, endln:1:37
+    |vpiParent:
+    \_Module: work@otp_ctrl_ecc_reg (work@otp_ctrl_ecc_reg), file:${SURELOG_DIR}/tests/ClogParam/dut.sv, line:1:1, endln:5:29
+    |vpiTypespec:
+    \_RefTypespec: (work@otp_ctrl_ecc_reg.a), line:1:32, endln:1:35
+      |vpiParent:
+      \_IntVar: (work@otp_ctrl_ecc_reg.a), line:1:36, endln:1:37
+      |vpiFullName:work@otp_ctrl_ecc_reg.a
+      |vpiActual:
+      \_IntTypespec: , line:1:32, endln:1:35
+    |vpiName:a
+    |vpiFullName:work@otp_ctrl_ecc_reg.a
+    |vpiSigned:1
+    |vpiVisibility:1
   |vpiParameter:
-  \_Parameter: (work@otp_ctrl_ecc_reg.Depth), line:2:19, endln:2:24
+  \_Parameter: (work@otp_ctrl_ecc_reg.Depth), line:2:19, endln:2:30
     |vpiParent:
     \_Module: work@otp_ctrl_ecc_reg (work@otp_ctrl_ecc_reg), file:${SURELOG_DIR}/tests/ClogParam/dut.sv, line:1:1, endln:5:29
     |UINT:999
     |vpiTypespec:
-    \_RefTypespec: (work@otp_ctrl_ecc_reg.Depth)
+    \_RefTypespec: (work@otp_ctrl_ecc_reg.Depth), line:2:15, endln:2:18
       |vpiParent:
-      \_Parameter: (work@otp_ctrl_ecc_reg.Depth), line:2:19, endln:2:24
+      \_Parameter: (work@otp_ctrl_ecc_reg.Depth), line:2:19, endln:2:30
       |vpiFullName:work@otp_ctrl_ecc_reg.Depth
       |vpiActual:
       \_IntTypespec: , line:2:15, endln:2:18
@@ -239,13 +253,13 @@ Design: (unnamed)
     |vpiName:Depth
     |vpiFullName:work@otp_ctrl_ecc_reg.Depth
   |vpiParameter:
-  \_Parameter: (work@otp_ctrl_ecc_reg.Aw), line:3:19, endln:3:21
+  \_Parameter: (work@otp_ctrl_ecc_reg.Aw), line:3:19, endln:3:37
     |vpiParent:
     \_Module: work@otp_ctrl_ecc_reg (work@otp_ctrl_ecc_reg), file:${SURELOG_DIR}/tests/ClogParam/dut.sv, line:1:1, endln:5:29
     |vpiTypespec:
-    \_RefTypespec: (work@otp_ctrl_ecc_reg.Aw)
+    \_RefTypespec: (work@otp_ctrl_ecc_reg.Aw), line:3:15, endln:3:18
       |vpiParent:
-      \_Parameter: (work@otp_ctrl_ecc_reg.Aw), line:3:19, endln:3:21
+      \_Parameter: (work@otp_ctrl_ecc_reg.Aw), line:3:19, endln:3:37
       |vpiFullName:work@otp_ctrl_ecc_reg.Aw
       |vpiActual:
       \_IntTypespec: , line:3:15, endln:3:18
@@ -264,16 +278,9 @@ Design: (unnamed)
       |vpiDecompile:999
       |vpiSize:64
       |UINT:999
-      |vpiTypespec:
-      \_RefTypespec: (work@otp_ctrl_ecc_reg)
-        |vpiParent:
-        \_Constant: , line:2:27, endln:2:30
-        |vpiFullName:work@otp_ctrl_ecc_reg
-        |vpiActual:
-        \_IntTypespec: , line:2:15, endln:2:18
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (work@otp_ctrl_ecc_reg.Depth), line:2:19, endln:2:24
+    \_Parameter: (work@otp_ctrl_ecc_reg.Depth), line:2:19, endln:2:30
   |vpiParamAssign:
   \_ParamAssign: , line:3:19, endln:3:37
     |vpiParent:
@@ -288,32 +295,50 @@ Design: (unnamed)
         \_SysFuncCall: ($clog2), line:3:24, endln:3:37
         |vpiName:Depth
         |vpiFullName:work@otp_ctrl_ecc_reg.Depth
+        |vpiActual:
+        \_Parameter: (work@otp_ctrl_ecc_reg.Depth), line:2:19, endln:2:30
       |vpiName:$clog2
     |vpiLhs:
-    \_Parameter: (work@otp_ctrl_ecc_reg.Aw), line:3:19, endln:3:21
-  |vpiDefName:work@otp_ctrl_ecc_reg
-  |vpiNet:
-  \_LogicNet: (work@otp_ctrl_ecc_reg.a), line:1:36, endln:1:37
+    \_Parameter: (work@otp_ctrl_ecc_reg.Aw), line:3:19, endln:3:37
+  |vpiTypedef:
+  \_IntTypespec: , line:2:15, endln:2:18
     |vpiParent:
     \_Module: work@otp_ctrl_ecc_reg (work@otp_ctrl_ecc_reg), file:${SURELOG_DIR}/tests/ClogParam/dut.sv, line:1:1, endln:5:29
-    |vpiName:a
-    |vpiFullName:work@otp_ctrl_ecc_reg.a
+    |vpiSigned:1
+  |vpiTypedef:
+  \_IntTypespec: , line:3:15, endln:3:18
+    |vpiParent:
+    \_Module: work@otp_ctrl_ecc_reg (work@otp_ctrl_ecc_reg), file:${SURELOG_DIR}/tests/ClogParam/dut.sv, line:1:1, endln:5:29
+    |vpiSigned:1
+  |vpiTypedef:
+  \_IntTypespec: , line:1:32, endln:1:35
+    |vpiParent:
+    \_Module: work@otp_ctrl_ecc_reg (work@otp_ctrl_ecc_reg), file:${SURELOG_DIR}/tests/ClogParam/dut.sv, line:1:1, endln:5:29
+    |vpiSigned:1
+  |vpiTypedef:
+  \_IntTypespec: , line:1:32, endln:1:35
+    |vpiParent:
+    \_Module: work@otp_ctrl_ecc_reg (work@otp_ctrl_ecc_reg), file:${SURELOG_DIR}/tests/ClogParam/dut.sv, line:1:1, endln:5:29
+    |vpiSigned:1
+  |vpiImportTypespec:
+  \_IntTypespec: , line:2:15, endln:2:18
+  |vpiImportTypespec:
+  \_IntTypespec: , line:3:15, endln:3:18
+  |vpiImportTypespec:
+  \_IntTypespec: , line:1:32, endln:1:35
+  |vpiImportTypespec:
+  \_IntVar: (work@otp_ctrl_ecc_reg.a), line:1:36, endln:1:37
+  |vpiImportTypespec:
+  \_IntTypespec: , line:1:32, endln:1:35
+  |vpiDefName:work@otp_ctrl_ecc_reg
   |vpiPort:
   \_Port: (a), line:1:36, endln:1:37
     |vpiParent:
     \_Module: work@otp_ctrl_ecc_reg (work@otp_ctrl_ecc_reg), file:${SURELOG_DIR}/tests/ClogParam/dut.sv, line:1:1, endln:5:29
     |vpiName:a
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@otp_ctrl_ecc_reg.a.a), line:1:36, endln:1:37
-      |vpiParent:
-      \_Port: (a), line:1:36, endln:1:37
-      |vpiName:a
-      |vpiFullName:work@otp_ctrl_ecc_reg.a.a
-      |vpiActual:
-      \_LogicNet: (work@otp_ctrl_ecc_reg.a), line:1:36, endln:1:37
-    |vpiTypedef:
-    \_RefTypespec: (work@otp_ctrl_ecc_reg.a)
+    |vpiTypespec:
+    \_RefTypespec: (work@otp_ctrl_ecc_reg.a), line:1:32, endln:1:35
       |vpiParent:
       \_Port: (a), line:1:36, endln:1:37
       |vpiFullName:work@otp_ctrl_ecc_reg.a
@@ -329,6 +354,8 @@ Design: (unnamed)
       \_ContAssign: , line:4:11, endln:4:17
       |vpiName:Aw
       |vpiFullName:work@otp_ctrl_ecc_reg.Aw
+      |vpiActual:
+      \_Parameter: (work@otp_ctrl_ecc_reg.Aw), line:3:19, endln:3:37
     |vpiLhs:
     \_RefObj: (work@otp_ctrl_ecc_reg.a), line:4:11, endln:4:12
       |vpiParent:
@@ -336,34 +363,50 @@ Design: (unnamed)
       |vpiName:a
       |vpiFullName:work@otp_ctrl_ecc_reg.a
       |vpiActual:
-      \_LogicNet: (work@otp_ctrl_ecc_reg.a), line:1:36, endln:1:37
+      \_IntVar: (work@otp_ctrl_ecc_reg.a), line:1:36, endln:1:37
   |vpiEndLabel:otp_ctrl_ecc_reg
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClogParam/dut.sv, line:7:1, endln:19:16
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
-  |vpiParameter:
-  \_Parameter: (work@top.Info), line:12:26, endln:12:30
+  |vpiName:work@top
+  |vpiVariables:
+  \_IntVar: (work@top.o), line:7:23, endln:7:24
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClogParam/dut.sv, line:7:1, endln:19:16
     |vpiTypespec:
-    \_RefTypespec: (work@top.Info)
+    \_RefTypespec: (work@top.o), line:7:19, endln:7:22
       |vpiParent:
-      \_Parameter: (work@top.Info), line:12:26, endln:12:30
-      |vpiFullName:work@top.Info
+      \_IntVar: (work@top.o), line:7:23, endln:7:24
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_IntTypespec: , line:7:19, endln:7:22
+    |vpiName:o
+    |vpiFullName:work@top.o
+    |vpiSigned:1
+    |vpiVisibility:1
+  |vpiParameter:
+  \_Parameter: (work@top.Info), line:12:26, endln:12:49
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClogParam/dut.sv, line:7:1, endln:19:16
+    |vpiTypespec:
+    \_RefTypespec: (work@top.Info.part_info_t), line:12:14, endln:12:25
+      |vpiParent:
+      \_Parameter: (work@top.Info), line:12:26, endln:12:49
+      |vpiName:part_info_t
+      |vpiFullName:work@top.Info.part_info_t
       |vpiActual:
       \_StructTypespec: (part_info_t), line:8:12, endln:10:5
     |vpiName:Info
     |vpiFullName:work@top.Info
   |vpiParameter:
-  \_Parameter: (work@top.NumScrmblBlocks), line:13:19, endln:13:34
+  \_Parameter: (work@top.NumScrmblBlocks), line:13:19, endln:13:43
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClogParam/dut.sv, line:7:1, endln:19:16
     |vpiTypespec:
-    \_RefTypespec: (work@top.NumScrmblBlocks)
+    \_RefTypespec: (work@top.NumScrmblBlocks), line:13:15, endln:13:18
       |vpiParent:
-      \_Parameter: (work@top.NumScrmblBlocks), line:13:19, endln:13:34
+      \_Parameter: (work@top.NumScrmblBlocks), line:13:19, endln:13:43
       |vpiFullName:work@top.NumScrmblBlocks
       |vpiActual:
       \_IntTypespec: , line:13:15, endln:13:18
@@ -379,13 +422,6 @@ Design: (unnamed)
     \_Operation: , line:12:33, endln:12:49
       |vpiParent:
       \_ParamAssign: , line:12:26, endln:12:49
-      |vpiTypespec:
-      \_RefTypespec: (work@top)
-        |vpiParent:
-        \_Operation: , line:12:33, endln:12:49
-        |vpiFullName:work@top
-        |vpiActual:
-        \_StructTypespec: (part_info_t), line:8:12, endln:10:5
       |vpiOpType:67
       |vpiOperand:
       \_Constant: , line:12:46, endln:12:48
@@ -396,35 +432,37 @@ Design: (unnamed)
         |UINT:10
         |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (work@top.Info), line:12:26, endln:12:30
+    \_Parameter: (work@top.Info), line:12:26, endln:12:49
   |vpiParamAssign:
   \_ParamAssign: , line:13:19, endln:13:43
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClogParam/dut.sv, line:7:1, endln:19:16
     |vpiRhs:
-    \_HierPath: (Info.x), line:13:37, endln:13:43
+    \_HierPath: (Info.x), line:13:41, endln:13:43
       |vpiParent:
       \_ParamAssign: , line:13:19, endln:13:43
       |vpiActual:
-      \_RefObj: (Info), line:13:42, endln:13:43
+      \_RefObj: (Info), line:13:41, endln:13:43
         |vpiParent:
-        \_HierPath: (Info.x), line:13:37, endln:13:43
+        \_HierPath: (Info.x), line:13:41, endln:13:43
         |vpiName:Info
+        |vpiActual:
+        \_Parameter: (work@top.Info), line:12:26, endln:12:49
       |vpiActual:
       \_RefObj: (x), line:13:42, endln:13:43
         |vpiParent:
-        \_HierPath: (Info.x), line:13:37, endln:13:43
+        \_HierPath: (Info.x), line:13:41, endln:13:43
         |vpiName:x
+        |vpiActual:
+        \_TypespecMember: (x), line:9:11, endln:9:12
       |vpiName:Info.x
     |vpiLhs:
-    \_Parameter: (work@top.NumScrmblBlocks), line:13:19, endln:13:34
+    \_Parameter: (work@top.NumScrmblBlocks), line:13:19, endln:13:43
   |vpiTypedef:
   \_StructTypespec: (part_info_t), line:8:12, endln:10:5
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClogParam/dut.sv, line:7:1, endln:19:16
     |vpiName:part_info_t
-    |vpiInstance:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClogParam/dut.sv, line:7:1, endln:19:16
     |vpiPacked:1
     |vpiTypespecMember:
     \_TypespecMember: (x), line:9:11, endln:9:12
@@ -432,47 +470,67 @@ Design: (unnamed)
       \_StructTypespec: (part_info_t), line:8:12, endln:10:5
       |vpiName:x
       |vpiTypespec:
-      \_RefTypespec: (work@top.part_info_t.x)
+      \_RefTypespec: (work@top.part_info_t.x), line:9:7, endln:9:10
         |vpiParent:
         \_TypespecMember: (x), line:9:11, endln:9:12
         |vpiFullName:work@top.part_info_t.x
         |vpiActual:
         \_IntTypespec: , line:9:7, endln:9:10
-      |vpiRefFile:${SURELOG_DIR}/tests/ClogParam/dut.sv
-      |vpiRefLineNo:9
-      |vpiRefColumnNo:7
-      |vpiRefEndLineNo:9
-      |vpiRefEndColumnNo:10
-  |vpiDefName:work@top
-  |vpiNet:
-  \_LogicNet: (work@top.o), line:7:23, endln:7:24
+  |vpiTypedef:
+  \_IntTypespec: , line:9:7, endln:9:10
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClogParam/dut.sv, line:7:1, endln:19:16
-    |vpiName:o
-    |vpiFullName:work@top.o
+    |vpiSigned:1
+  |vpiTypedef:
+  \_IntTypespec: , line:13:15, endln:13:18
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClogParam/dut.sv, line:7:1, endln:19:16
+    |vpiSigned:1
+  |vpiTypedef:
+  \_ModuleTypespec: (otp_ctrl_ecc_reg), line:15:4, endln:15:20
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClogParam/dut.sv, line:7:1, endln:19:16
+    |vpiName:otp_ctrl_ecc_reg
+  |vpiTypedef:
+  \_IntTypespec: , line:7:19, endln:7:22
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClogParam/dut.sv, line:7:1, endln:19:16
+    |vpiSigned:1
+  |vpiTypedef:
+  \_IntTypespec: , line:7:19, endln:7:22
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClogParam/dut.sv, line:7:1, endln:19:16
+    |vpiSigned:1
+  |vpiImportTypespec:
+  \_StructTypespec: (part_info_t), line:8:12, endln:10:5
+  |vpiImportTypespec:
+  \_IntTypespec: , line:9:7, endln:9:10
+  |vpiImportTypespec:
+  \_IntTypespec: , line:13:15, endln:13:18
+  |vpiImportTypespec:
+  \_ModuleTypespec: (otp_ctrl_ecc_reg), line:15:4, endln:15:20
+  |vpiImportTypespec:
+  \_IntTypespec: , line:7:19, endln:7:22
+  |vpiImportTypespec:
+  \_IntVar: (work@top.o), line:7:23, endln:7:24
+  |vpiImportTypespec:
+  \_IntTypespec: , line:7:19, endln:7:22
+  |vpiDefName:work@top
   |vpiPort:
   \_Port: (o), line:7:23, endln:7:24
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClogParam/dut.sv, line:7:1, endln:19:16
     |vpiName:o
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@top.o.o), line:7:23, endln:7:24
-      |vpiParent:
-      \_Port: (o), line:7:23, endln:7:24
-      |vpiName:o
-      |vpiFullName:work@top.o.o
-      |vpiActual:
-      \_LogicNet: (work@top.o), line:7:23, endln:7:24
-    |vpiTypedef:
-    \_RefTypespec: (work@top.o)
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o), line:7:19, endln:7:22
       |vpiParent:
       \_Port: (o), line:7:23, endln:7:24
       |vpiFullName:work@top.o
       |vpiActual:
       \_IntTypespec: , line:7:19, endln:7:22
   |vpiRefModule:
-  \_RefModule: work@otp_ctrl_ecc_reg (u_otp_ctrl_ecc_reg), line:17:6, endln:17:24
+  \_RefModule: work@otp_ctrl_ecc_reg (u_otp_ctrl_ecc_reg), line:15:4, endln:15:20
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClogParam/dut.sv, line:7:1, endln:19:16
     |vpiName:u_otp_ctrl_ecc_reg
@@ -480,40 +538,19 @@ Design: (unnamed)
     |vpiActual:
     \_Module: work@otp_ctrl_ecc_reg (work@otp_ctrl_ecc_reg), file:${SURELOG_DIR}/tests/ClogParam/dut.sv, line:1:1, endln:5:29
     |vpiPort:
-    \_Port: (a), line:18:7, endln:18:12
+    \_Port: (a), line:18:8, endln:18:9
       |vpiParent:
-      \_RefModule: work@otp_ctrl_ecc_reg (u_otp_ctrl_ecc_reg), line:17:6, endln:17:24
+      \_RefModule: work@otp_ctrl_ecc_reg (u_otp_ctrl_ecc_reg), line:15:4, endln:15:20
       |vpiName:a
       |vpiHighConn:
       \_RefObj: (work@top.u_otp_ctrl_ecc_reg.a.o), line:18:10, endln:18:11
         |vpiParent:
-        \_Port: (a), line:18:7, endln:18:12
+        \_Port: (a), line:18:8, endln:18:9
         |vpiName:o
         |vpiFullName:work@top.u_otp_ctrl_ecc_reg.a.o
         |vpiActual:
-        \_LogicNet: (work@top.o), line:7:23, endln:7:24
+        \_IntVar: (work@top.o), line:7:23, endln:7:24
   |vpiEndLabel:top
-\_weaklyReferenced:
-\_IntTypespec: , line:2:15, endln:2:18
-  |vpiParent:
-  \_Parameter: (work@otp_ctrl_ecc_reg.Depth), line:2:19, endln:2:24
-  |vpiSigned:1
-\_IntTypespec: , line:3:15, endln:3:18
-  |vpiParent:
-  \_Parameter: (work@otp_ctrl_ecc_reg.Aw), line:3:19, endln:3:21
-  |vpiSigned:1
-\_IntTypespec: , line:9:7, endln:9:10
-  |vpiParent:
-  \_TypespecMember: (x), line:9:11, endln:9:12
-  |vpiSigned:1
-\_IntTypespec: , line:13:15, endln:13:18
-  |vpiParent:
-  \_Parameter: (work@top.NumScrmblBlocks), line:13:19, endln:13:34
-  |vpiSigned:1
-\_IntTypespec: , line:1:32, endln:1:35
-  |vpiSigned:1
-\_IntTypespec: , line:7:19, endln:7:22
-  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

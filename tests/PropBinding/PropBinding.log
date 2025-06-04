@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 83
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/PropBinding/dut.sv
+FILE: ${SURELOG_DIR}/tests/PropBinding/dut.sv
 n<> u<82> t<Top_level_rule> c<1> l<3:1> el<21:1>
-  n<> u<1> t<Null_rule> p<82> s<81> l<3:1> el<1:3>
+  n<> u<1> t<Null_rule> p<82> s<81> l<3:1> el<3:1>
   n<> u<81> t<Source_text> p<82> c<80> l<3:1> el<18:10>
     n<> u<80> t<Description> p<81> c<79> l<3:1> el<18:10>
       n<> u<79> t<Module_declaration> p<80> c<23> l<3:1> el<18:10>
@@ -95,29 +95,25 @@ Assert                                                 1
 Constant                                               1
 Design                                                 1
 LogicNet                                               3
-LogicTypespec                                          3
 Module                                                 1
 Operation                                              4
 Port                                                   3
 PropertyDecl                                           1
 PropertySpec                                           2
-RefObj                                                 7
-RefTypespec                                            3
+RefObj                                                 4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PropBinding/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/PropBinding/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/PropBinding/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@clock_divider_assertions (work@clock_divider_assertions), file:${SURELOG_DIR}/tests/PropBinding/dut.sv, line:3:1, endln:18:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@clock_divider_assertions
+  |vpiName:work@clock_divider_assertions
   |vpiPropertyDecl:
-  \_PropertyDecl: (work@clock_divider_assertions.p_reset), line:10:14, endln:10:21
+  \_PropertyDecl: (work@clock_divider_assertions.p_reset), line:10:5, endln:13:16
     |vpiParent:
     \_Module: work@clock_divider_assertions (work@clock_divider_assertions), file:${SURELOG_DIR}/tests/PropBinding/dut.sv, line:3:1, endln:18:10
     |vpiName:p_reset
@@ -125,7 +121,7 @@ Design: (unnamed)
     |vpiPropertySpec:
     \_PropertySpec: , line:11:9, endln:12:31
       |vpiParent:
-      \_PropertyDecl: (work@clock_divider_assertions.p_reset), line:10:14, endln:10:21
+      \_PropertyDecl: (work@clock_divider_assertions.p_reset), line:10:5, endln:13:16
       |vpiClockingEvent:
       \_Operation: , line:11:11, endln:11:22
         |vpiParent:
@@ -159,6 +155,8 @@ Design: (unnamed)
           |vpiOpType:53
           |vpiOperand:
           \_Constant: , line:12:19, endln:12:22
+            |vpiParent:
+            \_Operation: , line:12:19, endln:12:31
             |vpiDecompile:1
             |vpiSize:64
             |UINT:1
@@ -176,26 +174,7 @@ Design: (unnamed)
               |vpiFullName:work@clock_divider_assertions.p_reset.clk_out
               |vpiActual:
               \_LogicNet: (work@clock_divider_assertions.clk_out), line:6:11, endln:6:18
-  |vpiDefName:work@clock_divider_assertions
-  |vpiNet:
-  \_LogicNet: (work@clock_divider_assertions.clk), line:4:11, endln:4:14
-    |vpiParent:
-    \_Module: work@clock_divider_assertions (work@clock_divider_assertions), file:${SURELOG_DIR}/tests/PropBinding/dut.sv, line:3:1, endln:18:10
-    |vpiName:clk
-    |vpiFullName:work@clock_divider_assertions.clk
-  |vpiNet:
-  \_LogicNet: (work@clock_divider_assertions.reset), line:5:11, endln:5:16
-    |vpiParent:
-    \_Module: work@clock_divider_assertions (work@clock_divider_assertions), file:${SURELOG_DIR}/tests/PropBinding/dut.sv, line:3:1, endln:18:10
-    |vpiName:reset
-    |vpiFullName:work@clock_divider_assertions.reset
-  |vpiNet:
-  \_LogicNet: (work@clock_divider_assertions.clk_out), line:6:11, endln:6:18
-    |vpiParent:
-    \_Module: work@clock_divider_assertions (work@clock_divider_assertions), file:${SURELOG_DIR}/tests/PropBinding/dut.sv, line:3:1, endln:18:10
-    |vpiName:clk_out
-    |vpiFullName:work@clock_divider_assertions.clk_out
-  |vpiAssertion:
+  |vpiConcurrentAssertions:
   \_Assert: (work@clock_divider_assertions), line:16:5, endln:16:31
     |vpiParent:
     \_Module: work@clock_divider_assertions (work@clock_divider_assertions), file:${SURELOG_DIR}/tests/PropBinding/dut.sv, line:3:1, endln:18:10
@@ -211,74 +190,52 @@ Design: (unnamed)
         |vpiName:p_reset
         |vpiFullName:work@clock_divider_assertions.p_reset
         |vpiActual:
-        \_PropertyDecl: (work@clock_divider_assertions.p_reset), line:10:14, endln:10:21
+        \_PropertyDecl: (work@clock_divider_assertions.p_reset), line:10:5, endln:13:16
+  |vpiImportTypespec:
+  \_LogicNet: (work@clock_divider_assertions.clk), line:4:11, endln:4:14
+    |vpiParent:
+    \_Module: work@clock_divider_assertions (work@clock_divider_assertions), file:${SURELOG_DIR}/tests/PropBinding/dut.sv, line:3:1, endln:18:10
+    |vpiName:clk
+    |vpiFullName:work@clock_divider_assertions.clk
+  |vpiImportTypespec:
+  \_LogicNet: (work@clock_divider_assertions.reset), line:5:11, endln:5:16
+    |vpiParent:
+    \_Module: work@clock_divider_assertions (work@clock_divider_assertions), file:${SURELOG_DIR}/tests/PropBinding/dut.sv, line:3:1, endln:18:10
+    |vpiName:reset
+    |vpiFullName:work@clock_divider_assertions.reset
+  |vpiImportTypespec:
+  \_LogicNet: (work@clock_divider_assertions.clk_out), line:6:11, endln:6:18
+    |vpiParent:
+    \_Module: work@clock_divider_assertions (work@clock_divider_assertions), file:${SURELOG_DIR}/tests/PropBinding/dut.sv, line:3:1, endln:18:10
+    |vpiName:clk_out
+    |vpiFullName:work@clock_divider_assertions.clk_out
+  |vpiImportTypespec:
+  \_Assert: (work@clock_divider_assertions), line:16:5, endln:16:31
+  |vpiDefName:work@clock_divider_assertions
+  |vpiNet:
+  \_LogicNet: (work@clock_divider_assertions.clk), line:4:11, endln:4:14
+  |vpiNet:
+  \_LogicNet: (work@clock_divider_assertions.reset), line:5:11, endln:5:16
+  |vpiNet:
+  \_LogicNet: (work@clock_divider_assertions.clk_out), line:6:11, endln:6:18
   |vpiPort:
   \_Port: (clk), line:4:11, endln:4:14
     |vpiParent:
     \_Module: work@clock_divider_assertions (work@clock_divider_assertions), file:${SURELOG_DIR}/tests/PropBinding/dut.sv, line:3:1, endln:18:10
     |vpiName:clk
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@clock_divider_assertions.clk.clk), line:4:11, endln:4:14
-      |vpiParent:
-      \_Port: (clk), line:4:11, endln:4:14
-      |vpiName:clk
-      |vpiFullName:work@clock_divider_assertions.clk.clk
-      |vpiActual:
-      \_LogicNet: (work@clock_divider_assertions.clk), line:4:11, endln:4:14
-    |vpiTypedef:
-    \_RefTypespec: (work@clock_divider_assertions.clk)
-      |vpiParent:
-      \_Port: (clk), line:4:11, endln:4:14
-      |vpiFullName:work@clock_divider_assertions.clk
-      |vpiActual:
-      \_LogicTypespec: , line:4:11, endln:4:11
   |vpiPort:
   \_Port: (reset), line:5:11, endln:5:16
     |vpiParent:
     \_Module: work@clock_divider_assertions (work@clock_divider_assertions), file:${SURELOG_DIR}/tests/PropBinding/dut.sv, line:3:1, endln:18:10
     |vpiName:reset
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@clock_divider_assertions.reset.reset), line:5:11, endln:5:16
-      |vpiParent:
-      \_Port: (reset), line:5:11, endln:5:16
-      |vpiName:reset
-      |vpiFullName:work@clock_divider_assertions.reset.reset
-      |vpiActual:
-      \_LogicNet: (work@clock_divider_assertions.reset), line:5:11, endln:5:16
-    |vpiTypedef:
-    \_RefTypespec: (work@clock_divider_assertions.reset)
-      |vpiParent:
-      \_Port: (reset), line:5:11, endln:5:16
-      |vpiFullName:work@clock_divider_assertions.reset
-      |vpiActual:
-      \_LogicTypespec: , line:5:11, endln:5:11
   |vpiPort:
   \_Port: (clk_out), line:6:11, endln:6:18
     |vpiParent:
     \_Module: work@clock_divider_assertions (work@clock_divider_assertions), file:${SURELOG_DIR}/tests/PropBinding/dut.sv, line:3:1, endln:18:10
     |vpiName:clk_out
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@clock_divider_assertions.clk_out.clk_out), line:6:11, endln:6:18
-      |vpiParent:
-      \_Port: (clk_out), line:6:11, endln:6:18
-      |vpiName:clk_out
-      |vpiFullName:work@clock_divider_assertions.clk_out.clk_out
-      |vpiActual:
-      \_LogicNet: (work@clock_divider_assertions.clk_out), line:6:11, endln:6:18
-    |vpiTypedef:
-    \_RefTypespec: (work@clock_divider_assertions.clk_out)
-      |vpiParent:
-      \_Port: (clk_out), line:6:11, endln:6:18
-      |vpiFullName:work@clock_divider_assertions.clk_out
-      |vpiActual:
-      \_LogicTypespec: , line:6:11, endln:6:11
-\_weaklyReferenced:
-\_LogicTypespec: , line:4:11, endln:4:11
-\_LogicTypespec: , line:5:11, endln:5:11
-\_LogicTypespec: , line:6:11, endln:6:11
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

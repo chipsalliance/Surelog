@@ -2,15 +2,15 @@
 AST_DEBUG_BEGIN
 Count: 83
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/InterfHierPath/dut.sv
+FILE: ${SURELOG_DIR}/tests/InterfHierPath/dut.sv
 n<> u<82> t<Top_level_rule> c<1> l<1:1> el<17:1>
-  n<> u<1> t<Null_rule> p<82> s<81> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<82> s<81> l<1:1>
   n<> u<81> t<Source_text> p<82> c<30> l<1:1> el<16:10>
     n<> u<30> t<Description> p<81> c<29> s<80> l<1:1> el<5:13>
       n<> u<29> t<Interface_declaration> p<30> c<5> l<1:1> el<5:13>
         n<> u<5> t<Interface_ansi_header> p<29> c<2> s<27> l<1:1> el<1:25>
           n<> u<2> t<INTERFACE> p<5> s<4> l<1:1> el<1:10>
-          n<> u<4> t<Interface_identifier> p<5> c<3> l<1:11> el<1:24>
+          n<logic_gate_if> u<4> t<Interface_identifier> p<5> c<3> l<1:11> el<1:24>
             n<logic_gate_if> u<3> t<StringConst> p<4> l<1:11> el<1:24>
         n<> u<27> t<Non_port_interface_item> p<29> c<26> s<28> l<3:1> el<3:14>
           n<> u<26> t<Interface_or_generate_item> p<27> c<25> l<3:1> el<3:14>
@@ -93,39 +93,108 @@ AST_DEBUG_END
 [INF:CP0303] ${SURELOG_DIR}/tests/InterfHierPath/dut.sv:8:1: Compile module "work@or_ex".
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-Constant                                               4
+Constant                                              12
 ContAssign                                             1
 Design                                                 1
 HierPath                                               1
 Interface                                              1
 LogicNet                                               2
-LogicTypespec                                          2
+LogicTypespec                                          4
+LogicVar                                               1
 Module                                                 1
+ModuleTypespec                                         1
 Port                                                   1
-Range                                                  2
+Range                                                  6
 RefModule                                              1
-RefObj                                                 4
-RefTypespec                                            2
+RefObj                                                 3
+RefTypespec                                            4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/InterfHierPath/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/InterfHierPath/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/InterfHierPath/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallInterfaces:
+|vpiAllInterfaces:
 \_Interface: work@logic_gate_if (work@logic_gate_if), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:1:1, endln:5:13
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@logic_gate_if
-  |vpiDefName:work@logic_gate_if
-  |vpiNet:
+  |vpiName:work@logic_gate_if
+  |vpiVariables:
+  \_LogicVar: (work@logic_gate_if.a), line:3:12, endln:3:13
+    |vpiParent:
+    \_Interface: work@logic_gate_if (work@logic_gate_if), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:1:1, endln:5:13
+    |vpiTypespec:
+    \_RefTypespec: (work@logic_gate_if.a), line:3:1, endln:3:11
+      |vpiParent:
+      \_LogicVar: (work@logic_gate_if.a), line:3:12, endln:3:13
+      |vpiFullName:work@logic_gate_if.a
+      |vpiActual:
+      \_LogicTypespec: , line:3:1, endln:3:11
+    |vpiName:a
+    |vpiFullName:work@logic_gate_if.a
+    |vpiVisibility:1
+  |vpiReg:
+  \_LogicVar: (work@logic_gate_if.a), line:3:12, endln:3:13
+  |vpiTypedef:
+  \_LogicTypespec: , line:3:1, endln:3:11
+    |vpiParent:
+    \_Interface: work@logic_gate_if (work@logic_gate_if), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:1:1, endln:5:13
+    |vpiRange:
+    \_Range: , line:3:6, endln:3:11
+      |vpiParent:
+      \_LogicTypespec: , line:3:1, endln:3:11
+      |vpiLeftRange:
+      \_Constant: , line:3:7, endln:3:8
+        |vpiParent:
+        \_Range: , line:3:6, endln:3:11
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:3:9, endln:3:10
+        |vpiParent:
+        \_Range: , line:3:6, endln:3:11
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:3:1, endln:3:11
+    |vpiParent:
+    \_Interface: work@logic_gate_if (work@logic_gate_if), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:1:1, endln:5:13
+    |vpiRange:
+    \_Range: , line:3:6, endln:3:11
+      |vpiParent:
+      \_LogicTypespec: , line:3:1, endln:3:11
+      |vpiLeftRange:
+      \_Constant: , line:3:7, endln:3:8
+        |vpiParent:
+        \_Range: , line:3:6, endln:3:11
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:3:9, endln:3:10
+        |vpiParent:
+        \_Range: , line:3:6, endln:3:11
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:3:1, endln:3:11
+  |vpiImportTypespec:
+  \_LogicVar: (work@logic_gate_if.a), line:3:12, endln:3:13
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:3:1, endln:3:11
+  |vpiImportTypespec:
   \_LogicNet: (work@logic_gate_if.a), line:3:12, endln:3:13
     |vpiParent:
     \_Interface: work@logic_gate_if (work@logic_gate_if), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:1:1, endln:5:13
     |vpiTypespec:
-    \_RefTypespec: (work@logic_gate_if.a)
+    \_RefTypespec: (work@logic_gate_if.a), line:3:1, endln:3:11
       |vpiParent:
       \_LogicNet: (work@logic_gate_if.a), line:3:12, endln:3:13
       |vpiFullName:work@logic_gate_if.a
@@ -134,35 +203,98 @@ Design: (unnamed)
     |vpiName:a
     |vpiFullName:work@logic_gate_if.a
     |vpiNetType:36
-|uhdmallModules:
+  |vpiDefName:work@logic_gate_if
+  |vpiNet:
+  \_LogicNet: (work@logic_gate_if.a), line:3:12, endln:3:13
+|vpiAllModules:
 \_Module: work@or_ex (work@or_ex), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:8:1, endln:16:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@or_ex
-  |vpiDefName:work@or_ex
-  |vpiNet:
+  |vpiName:work@or_ex
+  |vpiTypedef:
+  \_ModuleTypespec: (logic_gate_if), line:12:3, endln:12:16
+    |vpiParent:
+    \_Module: work@or_ex (work@or_ex), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:8:1, endln:16:10
+    |vpiName:logic_gate_if
+  |vpiTypedef:
+  \_LogicTypespec: , line:9:11, endln:9:21
+    |vpiParent:
+    \_Module: work@or_ex (work@or_ex), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:8:1, endln:16:10
+    |vpiRange:
+    \_Range: , line:9:16, endln:9:21
+      |vpiParent:
+      \_LogicTypespec: , line:9:11, endln:9:21
+      |vpiLeftRange:
+      \_Constant: , line:9:17, endln:9:18
+        |vpiParent:
+        \_Range: , line:9:16, endln:9:21
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:9:19, endln:9:20
+        |vpiParent:
+        \_Range: , line:9:16, endln:9:21
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:9:11, endln:9:21
+    |vpiParent:
+    \_Module: work@or_ex (work@or_ex), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:8:1, endln:16:10
+    |vpiRange:
+    \_Range: , line:9:16, endln:9:21
+      |vpiParent:
+      \_LogicTypespec: , line:9:11, endln:9:21
+      |vpiLeftRange:
+      \_Constant: , line:9:17, endln:9:18
+        |vpiParent:
+        \_Range: , line:9:16, endln:9:21
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:9:19, endln:9:20
+        |vpiParent:
+        \_Range: , line:9:16, endln:9:21
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiImportTypespec:
+  \_ModuleTypespec: (logic_gate_if), line:12:3, endln:12:16
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:9:11, endln:9:21
+  |vpiImportTypespec:
   \_LogicNet: (work@or_ex.a), line:9:22, endln:9:23
     |vpiParent:
     \_Module: work@or_ex (work@or_ex), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:8:1, endln:16:10
+    |vpiTypespec:
+    \_RefTypespec: (work@or_ex.a), line:9:11, endln:9:21
+      |vpiParent:
+      \_LogicNet: (work@or_ex.a), line:9:22, endln:9:23
+      |vpiFullName:work@or_ex.a
+      |vpiActual:
+      \_LogicTypespec: , line:9:11, endln:9:21
     |vpiName:a
     |vpiFullName:work@or_ex.a
     |vpiNetType:36
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:9:11, endln:9:21
+  |vpiDefName:work@or_ex
+  |vpiNet:
+  \_LogicNet: (work@or_ex.a), line:9:22, endln:9:23
   |vpiPort:
   \_Port: (a), line:9:22, endln:9:23
     |vpiParent:
     \_Module: work@or_ex (work@or_ex), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:8:1, endln:16:10
     |vpiName:a
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@or_ex.a.a), line:9:22, endln:9:23
-      |vpiParent:
-      \_Port: (a), line:9:22, endln:9:23
-      |vpiName:a
-      |vpiFullName:work@or_ex.a.a
-      |vpiActual:
-      \_LogicNet: (work@or_ex.a), line:9:22, endln:9:23
-    |vpiTypedef:
-    \_RefTypespec: (work@or_ex.a)
+    |vpiTypespec:
+    \_RefTypespec: (work@or_ex.a), line:9:11, endln:9:16
       |vpiParent:
       \_Port: (a), line:9:22, endln:9:23
       |vpiFullName:work@or_ex.a
@@ -181,71 +313,32 @@ Design: (unnamed)
       |vpiActual:
       \_LogicNet: (work@or_ex.a), line:9:22, endln:9:23
     |vpiLhs:
-    \_HierPath: (lg.a), line:14:10, endln:14:14
+    \_HierPath: (lg.a), line:14:12, endln:14:14
       |vpiParent:
       \_ContAssign: , line:14:10, endln:14:18
       |vpiActual:
-      \_RefObj: (lg), line:14:13, endln:14:14
+      \_RefObj: (lg), line:14:12, endln:14:14
         |vpiParent:
-        \_HierPath: (lg.a), line:14:10, endln:14:14
+        \_HierPath: (lg.a), line:14:12, endln:14:14
         |vpiName:lg
+        |vpiActual:
+        \_RefModule: work@logic_gate_if (lg), line:12:3, endln:12:16
       |vpiActual:
       \_RefObj: (a), line:14:13, endln:14:14
         |vpiParent:
-        \_HierPath: (lg.a), line:14:10, endln:14:14
+        \_HierPath: (lg.a), line:14:12, endln:14:14
         |vpiName:a
+        |vpiActual:
+        \_LogicNet: (work@or_ex.a), line:9:22, endln:9:23
       |vpiName:lg.a
   |vpiRefModule:
-  \_RefModule: work@logic_gate_if (lg), line:12:17, endln:12:19
+  \_RefModule: work@logic_gate_if (lg), line:12:3, endln:12:16
     |vpiParent:
     \_Module: work@or_ex (work@or_ex), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:8:1, endln:16:10
     |vpiName:lg
     |vpiDefName:work@logic_gate_if
     |vpiActual:
     \_Interface: work@logic_gate_if (work@logic_gate_if), file:${SURELOG_DIR}/tests/InterfHierPath/dut.sv, line:1:1, endln:5:13
-\_weaklyReferenced:
-\_LogicTypespec: , line:3:1, endln:3:11
-  |vpiRange:
-  \_Range: , line:3:6, endln:3:11
-    |vpiParent:
-    \_LogicTypespec: , line:3:1, endln:3:11
-    |vpiLeftRange:
-    \_Constant: , line:3:7, endln:3:8
-      |vpiParent:
-      \_Range: , line:3:6, endln:3:11
-      |vpiDecompile:3
-      |vpiSize:64
-      |UINT:3
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:3:9, endln:3:10
-      |vpiParent:
-      \_Range: , line:3:6, endln:3:11
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:9:11, endln:9:21
-  |vpiRange:
-  \_Range: , line:9:16, endln:9:21
-    |vpiParent:
-    \_LogicTypespec: , line:9:11, endln:9:21
-    |vpiLeftRange:
-    \_Constant: , line:9:17, endln:9:18
-      |vpiParent:
-      \_Range: , line:9:16, endln:9:21
-      |vpiDecompile:3
-      |vpiSize:64
-      |UINT:3
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:9:19, endln:9:20
-      |vpiParent:
-      \_Range: , line:9:16, endln:9:21
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

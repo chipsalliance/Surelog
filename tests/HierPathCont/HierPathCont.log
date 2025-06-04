@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 153
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/HierPathCont/dut.sv
+FILE: ${SURELOG_DIR}/tests/HierPathCont/dut.sv
 n<> u<152> t<Top_level_rule> c<1> l<1:1> el<22:33>
-  n<> u<1> t<Null_rule> p<152> s<151> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<152> s<151> l<1:1>
   n<> u<151> t<Source_text> p<152> c<28> l<1:1> el<22:33>
     n<> u<28> t<Description> p<151> c<27> s<150> l<1:1> el<1:59>
       n<> u<27> t<Package_item> p<28> c<26> l<1:1> el<1:59>
@@ -68,7 +68,7 @@ n<> u<152> t<Top_level_rule> c<1> l<1:1> el<22:33>
                 n<> u<55> t<PortDir_Out> p<60> s<59> l<6:5> el<6:11>
                 n<> u<59> t<Net_port_type> p<60> c<58> l<6:12> el<6:30>
                   n<> u<58> t<Data_type_or_implicit> p<59> c<57> l<6:12> el<6:30>
-                    n<> u<57> t<Data_type> p<58> c<56> l<6:12> el<6:30>
+                    n<my_struct_packed_t> u<57> t<Data_type> p<58> c<56> l<6:12> el<6:30>
                       n<my_struct_packed_t> u<56> t<StringConst> p<57> l<6:12> el<6:30>
               n<out3> u<61> t<StringConst> p<62> l<6:31> el<6:35>
             n<> u<69> t<Ansi_port_declaration> p<70> c<67> l<7:5> el<7:21>
@@ -161,77 +161,181 @@ AST_DEBUG_END
 [INF:CP0303] ${SURELOG_DIR}/tests/HierPathCont/dut.sv:3:1: Compile module "work@unsized_single_bit_1".
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-Constant                                               8
+Constant                                              12
 ContAssign                                             4
 Design                                                 1
 HierPath                                               1
-LogicNet                                               4
-LogicTypespec                                          4
+LogicNet                                               3
+LogicTypespec                                          7
 Module                                                 1
 Operation                                              2
 Port                                                   4
-Range                                                  2
-RefObj                                                11
-RefTypespec                                            5
+Range                                                  4
+RefObj                                                 7
+RefTypespec                                            9
+StructNet                                              1
 StructTypespec                                         1
 TypespecMember                                         1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/HierPathCont/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/HierPathCont/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/HierPathCont/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@unsized_single_bit_1 (work@unsized_single_bit_1), file:${SURELOG_DIR}/tests/HierPathCont/dut.sv, line:3:1, endln:22:33
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@unsized_single_bit_1
-  |vpiDefName:work@unsized_single_bit_1
-  |vpiNet:
+  |vpiName:work@unsized_single_bit_1
+  |vpiTypedef:
+  \_LogicTypespec: , line:4:12, endln:4:22
+    |vpiParent:
+    \_Module: work@unsized_single_bit_1 (work@unsized_single_bit_1), file:${SURELOG_DIR}/tests/HierPathCont/dut.sv, line:3:1, endln:22:33
+    |vpiRange:
+    \_Range: , line:4:17, endln:4:22
+      |vpiParent:
+      \_LogicTypespec: , line:4:12, endln:4:22
+      |vpiLeftRange:
+      \_Constant: , line:4:18, endln:4:19
+        |vpiParent:
+        \_Range: , line:4:17, endln:4:22
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:4:20, endln:4:21
+        |vpiParent:
+        \_Range: , line:4:17, endln:4:22
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:5:12, endln:5:16
+    |vpiParent:
+    \_Module: work@unsized_single_bit_1 (work@unsized_single_bit_1), file:${SURELOG_DIR}/tests/HierPathCont/dut.sv, line:3:1, endln:22:33
+  |vpiTypedef:
+  \_LogicTypespec: , line:7:12, endln:7:16
+    |vpiParent:
+    \_Module: work@unsized_single_bit_1 (work@unsized_single_bit_1), file:${SURELOG_DIR}/tests/HierPathCont/dut.sv, line:3:1, endln:22:33
+  |vpiTypedef:
+  \_LogicTypespec: , line:4:12, endln:4:22
+    |vpiParent:
+    \_Module: work@unsized_single_bit_1 (work@unsized_single_bit_1), file:${SURELOG_DIR}/tests/HierPathCont/dut.sv, line:3:1, endln:22:33
+    |vpiRange:
+    \_Range: , line:4:17, endln:4:22
+      |vpiParent:
+      \_LogicTypespec: , line:4:12, endln:4:22
+      |vpiLeftRange:
+      \_Constant: , line:4:18, endln:4:19
+        |vpiParent:
+        \_Range: , line:4:17, endln:4:22
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:4:20, endln:4:21
+        |vpiParent:
+        \_Range: , line:4:17, endln:4:22
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:5:12, endln:5:16
+    |vpiParent:
+    \_Module: work@unsized_single_bit_1 (work@unsized_single_bit_1), file:${SURELOG_DIR}/tests/HierPathCont/dut.sv, line:3:1, endln:22:33
+  |vpiTypedef:
+  \_LogicTypespec: , line:7:12, endln:7:16
+    |vpiParent:
+    \_Module: work@unsized_single_bit_1 (work@unsized_single_bit_1), file:${SURELOG_DIR}/tests/HierPathCont/dut.sv, line:3:1, endln:22:33
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:4:12, endln:4:22
+  |vpiImportTypespec:
   \_LogicNet: (work@unsized_single_bit_1.out1), line:4:23, endln:4:27
     |vpiParent:
     \_Module: work@unsized_single_bit_1 (work@unsized_single_bit_1), file:${SURELOG_DIR}/tests/HierPathCont/dut.sv, line:3:1, endln:22:33
+    |vpiTypespec:
+    \_RefTypespec: (work@unsized_single_bit_1.out1), line:4:12, endln:4:22
+      |vpiParent:
+      \_LogicNet: (work@unsized_single_bit_1.out1), line:4:23, endln:4:27
+      |vpiFullName:work@unsized_single_bit_1.out1
+      |vpiActual:
+      \_LogicTypespec: , line:4:12, endln:4:22
     |vpiName:out1
     |vpiFullName:work@unsized_single_bit_1.out1
     |vpiNetType:1
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:5:12, endln:5:16
+  |vpiImportTypespec:
   \_LogicNet: (work@unsized_single_bit_1.out2), line:5:17, endln:5:21
     |vpiParent:
     \_Module: work@unsized_single_bit_1 (work@unsized_single_bit_1), file:${SURELOG_DIR}/tests/HierPathCont/dut.sv, line:3:1, endln:22:33
+    |vpiTypespec:
+    \_RefTypespec: (work@unsized_single_bit_1.out2), line:5:12, endln:5:16
+      |vpiParent:
+      \_LogicNet: (work@unsized_single_bit_1.out2), line:5:17, endln:5:21
+      |vpiFullName:work@unsized_single_bit_1.out2
+      |vpiActual:
+      \_LogicTypespec: , line:5:12, endln:5:16
     |vpiName:out2
     |vpiFullName:work@unsized_single_bit_1.out2
     |vpiNetType:1
-  |vpiNet:
-  \_LogicNet: (work@unsized_single_bit_1.out3), line:6:31, endln:6:35
+  |vpiImportTypespec:
+  \_StructNet: (work@unsized_single_bit_1.out3), line:6:31, endln:6:35
     |vpiParent:
     \_Module: work@unsized_single_bit_1 (work@unsized_single_bit_1), file:${SURELOG_DIR}/tests/HierPathCont/dut.sv, line:3:1, endln:22:33
+    |vpiTypespec:
+    \_RefTypespec: (work@unsized_single_bit_1.out3.out3), line:6:12, endln:6:30
+      |vpiParent:
+      \_StructNet: (work@unsized_single_bit_1.out3), line:6:31, endln:6:35
+      |vpiName:out3
+      |vpiFullName:work@unsized_single_bit_1.out3.out3
+      |vpiActual:
+      \_StructTypespec: (my_struct_packed_t), line:1:9, endln:1:39
     |vpiName:out3
     |vpiFullName:work@unsized_single_bit_1.out3
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:7:12, endln:7:16
+  |vpiImportTypespec:
   \_LogicNet: (work@unsized_single_bit_1.out4), line:7:17, endln:7:21
     |vpiParent:
     \_Module: work@unsized_single_bit_1 (work@unsized_single_bit_1), file:${SURELOG_DIR}/tests/HierPathCont/dut.sv, line:3:1, endln:22:33
+    |vpiTypespec:
+    \_RefTypespec: (work@unsized_single_bit_1.out4), line:7:12, endln:7:16
+      |vpiParent:
+      \_LogicNet: (work@unsized_single_bit_1.out4), line:7:17, endln:7:21
+      |vpiFullName:work@unsized_single_bit_1.out4
+      |vpiActual:
+      \_LogicTypespec: , line:7:12, endln:7:16
     |vpiName:out4
     |vpiFullName:work@unsized_single_bit_1.out4
     |vpiNetType:1
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:4:12, endln:4:22
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:5:12, endln:5:16
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:7:12, endln:7:16
+  |vpiDefName:work@unsized_single_bit_1
+  |vpiNet:
+  \_LogicNet: (work@unsized_single_bit_1.out1), line:4:23, endln:4:27
+  |vpiNet:
+  \_LogicNet: (work@unsized_single_bit_1.out2), line:5:17, endln:5:21
+  |vpiNet:
+  \_StructNet: (work@unsized_single_bit_1.out3), line:6:31, endln:6:35
+  |vpiNet:
+  \_LogicNet: (work@unsized_single_bit_1.out4), line:7:17, endln:7:21
   |vpiPort:
   \_Port: (out1), line:4:23, endln:4:27
     |vpiParent:
     \_Module: work@unsized_single_bit_1 (work@unsized_single_bit_1), file:${SURELOG_DIR}/tests/HierPathCont/dut.sv, line:3:1, endln:22:33
     |vpiName:out1
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@unsized_single_bit_1.out1.out1), line:4:23, endln:4:27
-      |vpiParent:
-      \_Port: (out1), line:4:23, endln:4:27
-      |vpiName:out1
-      |vpiFullName:work@unsized_single_bit_1.out1.out1
-      |vpiActual:
-      \_LogicNet: (work@unsized_single_bit_1.out1), line:4:23, endln:4:27
-    |vpiTypedef:
-    \_RefTypespec: (work@unsized_single_bit_1.out1)
+    |vpiTypespec:
+    \_RefTypespec: (work@unsized_single_bit_1.out1), line:4:12, endln:4:16
       |vpiParent:
       \_Port: (out1), line:4:23, endln:4:27
       |vpiFullName:work@unsized_single_bit_1.out1
@@ -243,16 +347,8 @@ Design: (unnamed)
     \_Module: work@unsized_single_bit_1 (work@unsized_single_bit_1), file:${SURELOG_DIR}/tests/HierPathCont/dut.sv, line:3:1, endln:22:33
     |vpiName:out2
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@unsized_single_bit_1.out2.out2), line:5:17, endln:5:21
-      |vpiParent:
-      \_Port: (out2), line:5:17, endln:5:21
-      |vpiName:out2
-      |vpiFullName:work@unsized_single_bit_1.out2.out2
-      |vpiActual:
-      \_LogicNet: (work@unsized_single_bit_1.out2), line:5:17, endln:5:21
-    |vpiTypedef:
-    \_RefTypespec: (work@unsized_single_bit_1.out2)
+    |vpiTypespec:
+    \_RefTypespec: (work@unsized_single_bit_1.out2), line:5:12, endln:5:16
       |vpiParent:
       \_Port: (out2), line:5:17, endln:5:21
       |vpiFullName:work@unsized_single_bit_1.out2
@@ -264,19 +360,12 @@ Design: (unnamed)
     \_Module: work@unsized_single_bit_1 (work@unsized_single_bit_1), file:${SURELOG_DIR}/tests/HierPathCont/dut.sv, line:3:1, endln:22:33
     |vpiName:out3
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@unsized_single_bit_1.out3.out3), line:6:31, endln:6:35
+    |vpiTypespec:
+    \_RefTypespec: (work@unsized_single_bit_1.out3.my_struct_packed_t), line:6:12, endln:6:30
       |vpiParent:
       \_Port: (out3), line:6:31, endln:6:35
-      |vpiName:out3
-      |vpiFullName:work@unsized_single_bit_1.out3.out3
-      |vpiActual:
-      \_LogicNet: (work@unsized_single_bit_1.out3), line:6:31, endln:6:35
-    |vpiTypedef:
-    \_RefTypespec: (work@unsized_single_bit_1.out3)
-      |vpiParent:
-      \_Port: (out3), line:6:31, endln:6:35
-      |vpiFullName:work@unsized_single_bit_1.out3
+      |vpiName:my_struct_packed_t
+      |vpiFullName:work@unsized_single_bit_1.out3.my_struct_packed_t
       |vpiActual:
       \_StructTypespec: (my_struct_packed_t), line:1:9, endln:1:39
   |vpiPort:
@@ -285,16 +374,8 @@ Design: (unnamed)
     \_Module: work@unsized_single_bit_1 (work@unsized_single_bit_1), file:${SURELOG_DIR}/tests/HierPathCont/dut.sv, line:3:1, endln:22:33
     |vpiName:out4
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@unsized_single_bit_1.out4.out4), line:7:17, endln:7:21
-      |vpiParent:
-      \_Port: (out4), line:7:17, endln:7:21
-      |vpiName:out4
-      |vpiFullName:work@unsized_single_bit_1.out4.out4
-      |vpiActual:
-      \_LogicNet: (work@unsized_single_bit_1.out4), line:7:17, endln:7:21
-    |vpiTypedef:
-    \_RefTypespec: (work@unsized_single_bit_1.out4)
+    |vpiTypespec:
+    \_RefTypespec: (work@unsized_single_bit_1.out4), line:7:12, endln:7:16
       |vpiParent:
       \_Port: (out4), line:7:17, endln:7:21
       |vpiFullName:work@unsized_single_bit_1.out4
@@ -366,19 +447,23 @@ Design: (unnamed)
       |BIN:1
       |vpiConstType:3
     |vpiLhs:
-    \_HierPath: (out3.a), line:17:10, endln:17:16
+    \_HierPath: (out3.a), line:17:14, endln:17:16
       |vpiParent:
       \_ContAssign: , line:17:10, endln:17:21
       |vpiActual:
-      \_RefObj: (out3), line:17:15, endln:17:16
+      \_RefObj: (out3), line:17:14, endln:17:16
         |vpiParent:
-        \_HierPath: (out3.a), line:17:10, endln:17:16
+        \_HierPath: (out3.a), line:17:14, endln:17:16
         |vpiName:out3
+        |vpiActual:
+        \_StructNet: (work@unsized_single_bit_1.out3), line:6:31, endln:6:35
       |vpiActual:
       \_RefObj: (a), line:17:15, endln:17:16
         |vpiParent:
-        \_HierPath: (out3.a), line:17:10, endln:17:16
+        \_HierPath: (out3.a), line:17:14, endln:17:16
         |vpiName:a
+        |vpiActual:
+        \_TypespecMember: (a), line:1:36, endln:1:37
       |vpiName:out3.a
   |vpiContAssign:
   \_ContAssign: , line:20:10, endln:20:31
@@ -396,7 +481,7 @@ Design: (unnamed)
         |vpiName:out3
         |vpiFullName:work@unsized_single_bit_1.out3
         |vpiActual:
-        \_LogicNet: (work@unsized_single_bit_1.out3), line:6:31, endln:6:35
+        \_StructNet: (work@unsized_single_bit_1.out3), line:6:31, endln:6:35
       |vpiOperand:
       \_Constant: , line:20:28, endln:20:30
         |vpiParent:
@@ -419,8 +504,6 @@ Design: (unnamed)
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:my_struct_packed_t
-  |vpiInstance:
-  \_Design: (unnamed)
   |vpiPacked:1
   |vpiTypespecMember:
   \_TypespecMember: (a), line:1:36, endln:1:37
@@ -428,21 +511,16 @@ Design: (unnamed)
     \_StructTypespec: (my_struct_packed_t), line:1:9, endln:1:39
     |vpiName:a
     |vpiTypespec:
-    \_RefTypespec: (my_struct_packed_t.a)
+    \_RefTypespec: (my_struct_packed_t.a), line:1:24, endln:1:35
       |vpiParent:
       \_TypespecMember: (a), line:1:36, endln:1:37
       |vpiFullName:my_struct_packed_t.a
       |vpiActual:
       \_LogicTypespec: , line:1:24, endln:1:35
-    |vpiRefFile:${SURELOG_DIR}/tests/HierPathCont/dut.sv
-    |vpiRefLineNo:1
-    |vpiRefColumnNo:24
-    |vpiRefEndLineNo:1
-    |vpiRefEndColumnNo:35
-\_weaklyReferenced:
+|vpiTypedef:
 \_LogicTypespec: , line:1:24, endln:1:35
   |vpiParent:
-  \_TypespecMember: (a), line:1:36, endln:1:37
+  \_Design: (unnamed)
   |vpiRange:
   \_Range: , line:1:30, endln:1:35
     |vpiParent:
@@ -463,29 +541,6 @@ Design: (unnamed)
       |vpiSize:64
       |UINT:0
       |vpiConstType:9
-\_LogicTypespec: , line:4:12, endln:4:22
-  |vpiRange:
-  \_Range: , line:4:17, endln:4:22
-    |vpiParent:
-    \_LogicTypespec: , line:4:12, endln:4:22
-    |vpiLeftRange:
-    \_Constant: , line:4:18, endln:4:19
-      |vpiParent:
-      \_Range: , line:4:17, endln:4:22
-      |vpiDecompile:3
-      |vpiSize:64
-      |UINT:3
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:4:20, endln:4:21
-      |vpiParent:
-      \_Range: , line:4:17, endln:4:22
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:5:12, endln:5:16
-\_LogicTypespec: , line:7:12, endln:7:16
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

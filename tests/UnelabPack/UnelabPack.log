@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 43
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/UnelabPack/dut.sv
+FILE: ${SURELOG_DIR}/tests/UnelabPack/dut.sv
 n<> u<42> t<Top_level_rule> c<1> l<1:1> el<8:1>
-  n<> u<1> t<Null_rule> p<42> s<41> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<42> s<41> l<1:1>
   n<> u<41> t<Source_text> p<42> c<19> l<1:1> el<7:11>
     n<> u<19> t<Description> p<41> c<18> s<40> l<1:1> el<3:11>
       n<> u<18> t<Package_declaration> p<19> c<2> l<1:1> el<3:11>
@@ -53,45 +53,34 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 Constant                                               3
 Design                                                 1
-IntTypespec                                            1
 Package                                                2
-ParamAssign                                            4
-Parameter                                              4
+ParamAssign                                            2
+Parameter                                              2
 RefObj                                                 3
-RefTypespec                                            3
+RefTypespec                                            1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/UnelabPack/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/UnelabPack/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/UnelabPack/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallPackages:
-\_Package: pkg1 (pkg1::), file:${SURELOG_DIR}/tests/UnelabPack/dut.sv, line:1:1, endln:3:11
+|vpiAllPackages:
+\_Package: pkg1 (pkg1), file:${SURELOG_DIR}/tests/UnelabPack/dut.sv, line:1:1, endln:3:11
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:pkg1
-  |vpiFullName:pkg1::
   |vpiParameter:
-  \_Parameter: (pkg1::X), line:2:12, endln:2:13
+  \_Parameter: (pkg1::X), line:2:12, endln:2:17
     |vpiParent:
-    \_Package: pkg1 (pkg1::), file:${SURELOG_DIR}/tests/UnelabPack/dut.sv, line:1:1, endln:3:11
+    \_Package: pkg1 (pkg1), file:${SURELOG_DIR}/tests/UnelabPack/dut.sv, line:1:1, endln:3:11
     |UINT:4
-    |vpiTypespec:
-    \_RefTypespec: (pkg1::X)
-      |vpiParent:
-      \_Parameter: (pkg1::X), line:2:12, endln:2:13
-      |vpiFullName:pkg1::X
-      |vpiActual:
-      \_IntTypespec: , line:2:1, endln:2:17
     |vpiLocalParam:1
     |vpiName:X
     |vpiFullName:pkg1::X
   |vpiParamAssign:
   \_ParamAssign: , line:2:12, endln:2:17
     |vpiParent:
-    \_Package: pkg1 (pkg1::), file:${SURELOG_DIR}/tests/UnelabPack/dut.sv, line:1:1, endln:3:11
+    \_Package: pkg1 (pkg1), file:${SURELOG_DIR}/tests/UnelabPack/dut.sv, line:1:1, endln:3:11
     |vpiRhs:
     \_Constant: , line:2:16, endln:2:17
       |vpiParent:
@@ -99,34 +88,26 @@ Design: (unnamed)
       |vpiDecompile:4
       |vpiSize:64
       |UINT:4
-      |vpiTypespec:
-      \_RefTypespec: (pkg1)
-        |vpiParent:
-        \_Constant: , line:2:16, endln:2:17
-        |vpiFullName:pkg1
-        |vpiActual:
-        \_IntTypespec: , line:2:1, endln:2:17
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (pkg1::X), line:2:12, endln:2:13
+    \_Parameter: (pkg1::X), line:2:12, endln:2:17
   |vpiDefName:pkg1
-|uhdmallPackages:
-\_Package: pkg2 (pkg2::), file:${SURELOG_DIR}/tests/UnelabPack/dut.sv, line:5:1, endln:7:11
+|vpiAllPackages:
+\_Package: pkg2 (pkg2), file:${SURELOG_DIR}/tests/UnelabPack/dut.sv, line:5:1, endln:7:11
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:pkg2
-  |vpiFullName:pkg2::
   |vpiParameter:
-  \_Parameter: (pkg2::Y), line:6:12, endln:6:13
+  \_Parameter: (pkg2::Y), line:6:12, endln:6:23
     |vpiParent:
-    \_Package: pkg2 (pkg2::), file:${SURELOG_DIR}/tests/UnelabPack/dut.sv, line:5:1, endln:7:11
+    \_Package: pkg2 (pkg2), file:${SURELOG_DIR}/tests/UnelabPack/dut.sv, line:5:1, endln:7:11
     |vpiLocalParam:1
     |vpiName:Y
     |vpiFullName:pkg2::Y
   |vpiParamAssign:
   \_ParamAssign: , line:6:12, endln:6:23
     |vpiParent:
-    \_Package: pkg2 (pkg2::), file:${SURELOG_DIR}/tests/UnelabPack/dut.sv, line:5:1, endln:7:11
+    \_Package: pkg2 (pkg2), file:${SURELOG_DIR}/tests/UnelabPack/dut.sv, line:5:1, endln:7:11
     |vpiRhs:
     \_RefObj: (pkg2::pkg1::X), line:6:16, endln:6:23
       |vpiParent:
@@ -134,12 +115,10 @@ Design: (unnamed)
       |vpiName:pkg1::X
       |vpiFullName:pkg2::pkg1::X
       |vpiActual:
-      \_Parameter: (pkg1::X), line:2:12, endln:2:13
+      \_Parameter: (pkg1::X), line:2:12, endln:2:17
     |vpiLhs:
-    \_Parameter: (pkg2::Y), line:6:12, endln:6:13
+    \_Parameter: (pkg2::Y), line:6:12, endln:6:23
   |vpiDefName:pkg2
-\_weaklyReferenced:
-\_IntTypespec: , line:2:1, endln:2:17
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

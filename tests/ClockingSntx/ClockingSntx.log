@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 234
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/ClockingSntx/dut.sv
+FILE: ${SURELOG_DIR}/tests/ClockingSntx/dut.sv
 n<> u<233> t<Top_level_rule> c<1> l<1:1> el<28:1>
-  n<> u<1> t<Null_rule> p<233> s<232> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<233> s<232> l<1:1>
   n<> u<232> t<Source_text> p<233> c<231> l<1:1> el<27:10>
     n<> u<231> t<Description> p<232> c<230> l<1:1> el<27:10>
       n<> u<230> t<Module_declaration> p<231> c<4> l<1:1> el<27:10>
@@ -247,79 +247,345 @@ AST_DEBUG_END
 Begin                                                  1
 ClockingBlock                                          3
 ClockingIODecl                                         6
-Constant                                               9
+Constant                                              19
 ContAssign                                             1
 DelayControl                                           2
 Design                                                 1
 EventControl                                           3
 HierPath                                               1
 Initial                                                1
-LogicNet                                              10
-LogicTypespec                                          7
+LogicNet                                               7
+LogicTypespec                                          3
 Module                                                 1
 Operation                                              4
 PartSelect                                             1
 Port                                                   6
-Range                                                  3
-RefObj                                                17
-RefTypespec                                            7
+Range                                                  8
+RefObj                                                11
+RefTypespec                                            3
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ClockingSntx/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ClockingSntx/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ClockingSntx/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingSntx/dut.sv, line:1:1, endln:27:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
-  |vpiDefName:work@top
-  |vpiNet:
+  |vpiName:work@top
+  |vpiInternalScope:
+  \_ClockingBlock: (work@top.mem), line:2:2, endln:4:13
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingSntx/dut.sv, line:1:1, endln:27:10
+    |vpiName:mem
+    |vpiFullName:work@top.mem
+    |vpiImportTypespec:
+    \_LogicNet: (work@top.mem.clock), line:2:17, endln:2:22
+      |vpiParent:
+      \_ClockingBlock: (work@top.mem), line:2:2, endln:4:13
+      |vpiName:clock
+      |vpiFullName:work@top.mem.clock
+      |vpiNetType:1
+    |vpiImportTypespec:
+    \_LogicNet: (work@top.mem.opcode), line:3:24, endln:3:30
+      |vpiParent:
+      \_ClockingBlock: (work@top.mem), line:2:2, endln:4:13
+      |vpiName:opcode
+      |vpiFullName:work@top.mem.opcode
+      |vpiNetType:1
+    |vpiImportTypespec:
+    \_LogicNet: (work@top.mem.regA), line:3:32, endln:3:36
+      |vpiParent:
+      \_ClockingBlock: (work@top.mem), line:2:2, endln:4:13
+      |vpiName:regA
+      |vpiFullName:work@top.mem.regA
+      |vpiNetType:1
+    |vpiImportTypespec:
+    \_LogicNet: (work@top.mem.regB), line:3:38, endln:3:47
+      |vpiParent:
+      \_ClockingBlock: (work@top.mem), line:2:2, endln:4:13
+      |vpiName:regB
+      |vpiFullName:work@top.mem.regB
+      |vpiNetType:1
+    |vpiClockingEvent:
+    \_EventControl: , line:2:15, endln:2:23
+      |vpiParent:
+      \_ClockingBlock: (work@top.mem), line:2:2, endln:4:13
+      |vpiCondition:
+      \_RefObj: (work@top.mem.clock), line:2:17, endln:2:22
+        |vpiParent:
+        \_EventControl: , line:2:15, endln:2:23
+        |vpiName:clock
+        |vpiFullName:work@top.mem.clock
+        |vpiActual:
+        \_LogicNet: (work@top.mem.clock), line:2:17, endln:2:22
+    |vpiClockingIODecl:
+    \_ClockingIODecl: (instruction), line:3:8, endln:3:49
+      |vpiParent:
+      \_ClockingBlock: (work@top.mem), line:2:2, endln:4:13
+      |vpiDirection:1
+      |vpiName:instruction
+      |vpiExpr:
+      \_Operation: , line:3:22, endln:3:49
+        |vpiParent:
+        \_ClockingIODecl: (instruction), line:3:8, endln:3:49
+        |vpiOpType:33
+        |vpiOperand:
+        \_RefObj: (work@top.mem.instruction.opcode), line:3:24, endln:3:30
+          |vpiParent:
+          \_Operation: , line:3:22, endln:3:49
+          |vpiName:opcode
+          |vpiFullName:work@top.mem.instruction.opcode
+          |vpiActual:
+          \_LogicNet: (work@top.mem.opcode), line:3:24, endln:3:30
+        |vpiOperand:
+        \_RefObj: (work@top.mem.instruction.regA), line:3:32, endln:3:36
+          |vpiParent:
+          \_Operation: , line:3:22, endln:3:49
+          |vpiName:regA
+          |vpiFullName:work@top.mem.instruction.regA
+          |vpiActual:
+          \_LogicNet: (work@top.mem.regA), line:3:32, endln:3:36
+        |vpiOperand:
+        \_PartSelect: regB (work@top.mem.instruction.regB), line:3:38, endln:3:47
+          |vpiParent:
+          \_Operation: , line:3:22, endln:3:49
+          |vpiName:regB
+          |vpiFullName:work@top.mem.instruction.regB
+          |vpiDefName:regB
+          |vpiActual:
+          \_LogicNet: (work@top.mem.regB), line:3:38, endln:3:47
+          |vpiConstantSelect:1
+          |vpiLeftRange:
+          \_Constant: , line:3:43, endln:3:44
+            |vpiParent:
+            \_PartSelect: regB (work@top.mem.instruction.regB), line:3:38, endln:3:47
+            |vpiDecompile:3
+            |vpiSize:64
+            |UINT:3
+            |vpiConstType:9
+          |vpiRightRange:
+          \_Constant: , line:3:45, endln:3:46
+            |vpiParent:
+            \_PartSelect: regB (work@top.mem.instruction.regB), line:3:38, endln:3:47
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+  |vpiInternalScope:
+  \_ClockingBlock: (work@top.cd1), line:12:2, endln:16:13
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingSntx/dut.sv, line:1:1, endln:27:10
+    |vpiName:cd1
+    |vpiFullName:work@top.cd1
+    |vpiImportTypespec:
+    \_LogicNet: (work@top.cd1.cpu1), line:15:21, endln:15:25
+      |vpiParent:
+      \_ClockingBlock: (work@top.cd1), line:12:2, endln:16:13
+      |vpiName:cpu1
+      |vpiFullName:work@top.cd1.cpu1
+      |vpiNetType:1
+    |vpiImportTypespec:
+    \_LogicNet: (work@top.cd1.state), line:15:26, endln:15:31
+      |vpiParent:
+      \_ClockingBlock: (work@top.cd1), line:12:2, endln:16:13
+      |vpiName:state
+      |vpiFullName:work@top.cd1.state
+      |vpiNetType:1
+    |vpiClockingEvent:
+    \_EventControl: , line:12:15, endln:12:30
+      |vpiParent:
+      \_ClockingBlock: (work@top.cd1), line:12:2, endln:16:13
+      |vpiCondition:
+      \_Operation: , line:12:17, endln:12:29
+        |vpiParent:
+        \_EventControl: , line:12:15, endln:12:30
+        |vpiOpType:39
+        |vpiOperand:
+        \_RefObj: (work@top.cd1.phi1), line:12:25, endln:12:29
+          |vpiParent:
+          \_Operation: , line:12:17, endln:12:29
+          |vpiName:phi1
+          |vpiFullName:work@top.cd1.phi1
+          |vpiActual:
+          \_LogicNet: (work@top.phi1), line:8:9, endln:8:13
+    |vpiClockingIODecl:
+    \_ClockingIODecl: (data), line:13:9, endln:13:13
+      |vpiParent:
+      \_ClockingBlock: (work@top.cd1), line:12:2, endln:16:13
+      |vpiDirection:1
+      |vpiName:data
+    |vpiClockingIODecl:
+    \_ClockingIODecl: (write), line:14:10, endln:14:15
+      |vpiParent:
+      \_ClockingBlock: (work@top.cd1), line:12:2, endln:16:13
+      |vpiDirection:2
+      |vpiName:write
+    |vpiClockingIODecl:
+    \_ClockingIODecl: (state), line:15:9, endln:15:31
+      |vpiParent:
+      \_ClockingBlock: (work@top.cd1), line:12:2, endln:16:13
+      |vpiDirection:1
+      |vpiName:state
+      |vpiExpr:
+      \_HierPath: (top.cpu1.state), line:15:17, endln:15:31
+        |vpiParent:
+        \_ClockingIODecl: (state), line:15:9, endln:15:31
+        |vpiActual:
+        \_RefObj: (top), line:15:17, endln:15:20
+          |vpiParent:
+          \_HierPath: (top.cpu1.state), line:15:17, endln:15:31
+          |vpiName:top
+          |vpiActual:
+          \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingSntx/dut.sv, line:1:1, endln:27:10
+        |vpiActual:
+        \_RefObj: (cpu1), line:15:21, endln:15:25
+          |vpiParent:
+          \_HierPath: (top.cpu1.state), line:15:17, endln:15:31
+          |vpiName:cpu1
+          |vpiActual:
+          \_LogicNet: (work@top.cd1.cpu1), line:15:21, endln:15:25
+        |vpiActual:
+        \_RefObj: (work@top.cd1.state.state), line:15:26, endln:15:31
+          |vpiParent:
+          \_HierPath: (top.cpu1.state), line:15:17, endln:15:31
+          |vpiName:state
+          |vpiFullName:work@top.cd1.state.state
+          |vpiActual:
+          \_LogicNet: (work@top.cd1.state), line:15:26, endln:15:31
+        |vpiName:top.cpu1.state
+  |vpiInternalScope:
+  \_ClockingBlock: (work@top.cd2), line:18:2, endln:21:13
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingSntx/dut.sv, line:1:1, endln:27:10
+    |vpiName:cd2
+    |vpiFullName:work@top.cd2
+    |vpiClockingEvent:
+    \_EventControl: , line:18:15, endln:18:30
+      |vpiParent:
+      \_ClockingBlock: (work@top.cd2), line:18:2, endln:21:13
+      |vpiCondition:
+      \_Operation: , line:18:17, endln:18:29
+        |vpiParent:
+        \_EventControl: , line:18:15, endln:18:30
+        |vpiOpType:39
+        |vpiOperand:
+        \_RefObj: (work@top.cd2.phi2), line:18:25, endln:18:29
+          |vpiParent:
+          \_Operation: , line:18:17, endln:18:29
+          |vpiName:phi2
+          |vpiFullName:work@top.cd2.phi2
+          |vpiActual:
+          \_LogicNet: (work@top.phi2), line:9:9, endln:9:13
+    |vpiClockingIODecl:
+    \_ClockingIODecl: (cmd), line:19:24, endln:19:27
+      |vpiParent:
+      \_ClockingBlock: (work@top.cd2), line:18:2, endln:21:13
+      |vpiDirection:2
+      |vpiName:cmd
+      |vpiInputSkew:
+      \_DelayControl: , line:19:9, endln:19:11
+        |vpiParent:
+        \_ClockingBlock: (work@top.cd2), line:18:2, endln:21:13
+        |#2
+      |vpiOutputSkew:
+      \_DelayControl: , line:19:19, endln:19:23
+        |vpiParent:
+        \_ClockingBlock: (work@top.cd2), line:18:2, endln:21:13
+        |#4
+    |vpiClockingIODecl:
+    \_ClockingIODecl: (enable), line:20:9, endln:20:15
+      |vpiParent:
+      \_ClockingBlock: (work@top.cd2), line:18:2, endln:21:13
+      |vpiDirection:1
+      |vpiName:enable
+  |vpiTypedef:
+  \_LogicTypespec: , line:8:41, endln:8:46
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingSntx/dut.sv, line:1:1, endln:27:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:11:2, endln:11:11
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingSntx/dut.sv, line:1:1, endln:27:10
+    |vpiRange:
+    \_Range: , line:11:6, endln:11:11
+      |vpiParent:
+      \_LogicTypespec: , line:11:2, endln:11:11
+      |vpiLeftRange:
+      \_Constant: , line:11:7, endln:11:8
+        |vpiParent:
+        \_Range: , line:11:6, endln:11:11
+        |vpiDecompile:8
+        |vpiSize:64
+        |UINT:8
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:11:9, endln:11:10
+        |vpiParent:
+        \_Range: , line:11:6, endln:11:11
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:8:41, endln:8:46
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingSntx/dut.sv, line:1:1, endln:27:10
+  |vpiImportTypespec:
   \_LogicNet: (work@top.phi1), line:8:9, endln:8:13
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingSntx/dut.sv, line:1:1, endln:27:10
     |vpiName:phi1
     |vpiFullName:work@top.phi1
-  |vpiNet:
+  |vpiImportTypespec:
   \_LogicNet: (work@top.data), line:8:28, endln:8:32
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingSntx/dut.sv, line:1:1, endln:27:10
     |vpiName:data
     |vpiFullName:work@top.data
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:8:41, endln:8:46
+  |vpiImportTypespec:
   \_LogicNet: (work@top.write), line:8:47, endln:8:52
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingSntx/dut.sv, line:1:1, endln:27:10
+    |vpiTypespec:
+    \_RefTypespec: (work@top.write), line:8:41, endln:8:46
+      |vpiParent:
+      \_LogicNet: (work@top.write), line:8:47, endln:8:52
+      |vpiFullName:work@top.write
+      |vpiActual:
+      \_LogicTypespec: , line:8:41, endln:8:46
     |vpiName:write
     |vpiFullName:work@top.write
     |vpiNetType:36
-  |vpiNet:
+  |vpiImportTypespec:
   \_LogicNet: (work@top.phi2), line:9:9, endln:9:13
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingSntx/dut.sv, line:1:1, endln:27:10
     |vpiName:phi2
     |vpiFullName:work@top.phi2
-  |vpiNet:
+  |vpiImportTypespec:
   \_LogicNet: (work@top.cmd), line:9:27, endln:9:30
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingSntx/dut.sv, line:1:1, endln:27:10
     |vpiName:cmd
     |vpiFullName:work@top.cmd
-  |vpiNet:
+  |vpiImportTypespec:
   \_LogicNet: (work@top.enable), line:9:38, endln:9:44
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingSntx/dut.sv, line:1:1, endln:27:10
     |vpiName:enable
     |vpiFullName:work@top.enable
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:11:2, endln:11:11
+  |vpiImportTypespec:
   \_LogicNet: (work@top.cmd_reg), line:11:12, endln:11:19
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingSntx/dut.sv, line:1:1, endln:27:10
     |vpiTypespec:
-    \_RefTypespec: (work@top.cmd_reg)
+    \_RefTypespec: (work@top.cmd_reg), line:11:2, endln:11:11
       |vpiParent:
       \_LogicNet: (work@top.cmd_reg), line:11:12, endln:11:19
       |vpiFullName:work@top.cmd_reg
@@ -328,85 +594,43 @@ Design: (unnamed)
     |vpiName:cmd_reg
     |vpiFullName:work@top.cmd_reg
     |vpiNetType:48
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:8:41, endln:8:46
+  |vpiDefName:work@top
   |vpiNet:
-  \_LogicNet: (work@top.clock), line:2:17, endln:2:22
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingSntx/dut.sv, line:1:1, endln:27:10
-    |vpiName:clock
-    |vpiFullName:work@top.clock
-    |vpiNetType:1
+  \_LogicNet: (work@top.phi1), line:8:9, endln:8:13
   |vpiNet:
-  \_LogicNet: (work@top.opcode), line:3:24, endln:3:30
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingSntx/dut.sv, line:1:1, endln:27:10
-    |vpiName:opcode
-    |vpiFullName:work@top.opcode
-    |vpiNetType:1
+  \_LogicNet: (work@top.data), line:8:28, endln:8:32
   |vpiNet:
-  \_LogicNet: (work@top.regA), line:3:32, endln:3:36
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingSntx/dut.sv, line:1:1, endln:27:10
-    |vpiName:regA
-    |vpiFullName:work@top.regA
-    |vpiNetType:1
+  \_LogicNet: (work@top.write), line:8:47, endln:8:52
+  |vpiNet:
+  \_LogicNet: (work@top.phi2), line:9:9, endln:9:13
+  |vpiNet:
+  \_LogicNet: (work@top.cmd), line:9:27, endln:9:30
+  |vpiNet:
+  \_LogicNet: (work@top.enable), line:9:38, endln:9:44
+  |vpiNet:
+  \_LogicNet: (work@top.cmd_reg), line:11:12, endln:11:19
   |vpiPort:
   \_Port: (phi1), line:8:9, endln:8:13
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingSntx/dut.sv, line:1:1, endln:27:10
     |vpiName:phi1
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@top.phi1.phi1), line:8:9, endln:8:13
-      |vpiParent:
-      \_Port: (phi1), line:8:9, endln:8:13
-      |vpiName:phi1
-      |vpiFullName:work@top.phi1.phi1
-      |vpiActual:
-      \_LogicNet: (work@top.phi1), line:8:9, endln:8:13
-    |vpiTypedef:
-    \_RefTypespec: (work@top.phi1)
-      |vpiParent:
-      \_Port: (phi1), line:8:9, endln:8:13
-      |vpiFullName:work@top.phi1
-      |vpiActual:
-      \_LogicTypespec: , line:8:9, endln:8:9
   |vpiPort:
   \_Port: (data), line:8:28, endln:8:32
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingSntx/dut.sv, line:1:1, endln:27:10
     |vpiName:data
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@top.data.data), line:8:28, endln:8:32
-      |vpiParent:
-      \_Port: (data), line:8:28, endln:8:32
-      |vpiName:data
-      |vpiFullName:work@top.data.data
-      |vpiActual:
-      \_LogicNet: (work@top.data), line:8:28, endln:8:32
-    |vpiTypedef:
-    \_RefTypespec: (work@top.data)
-      |vpiParent:
-      \_Port: (data), line:8:28, endln:8:32
-      |vpiFullName:work@top.data
-      |vpiActual:
-      \_LogicTypespec: , line:8:21, endln:8:27
   |vpiPort:
   \_Port: (write), line:8:47, endln:8:52
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingSntx/dut.sv, line:1:1, endln:27:10
     |vpiName:write
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@top.write.write), line:8:47, endln:8:52
-      |vpiParent:
-      \_Port: (write), line:8:47, endln:8:52
-      |vpiName:write
-      |vpiFullName:work@top.write.write
-      |vpiActual:
-      \_LogicNet: (work@top.write), line:8:47, endln:8:52
-    |vpiTypedef:
-    \_RefTypespec: (work@top.write)
+    |vpiTypespec:
+    \_RefTypespec: (work@top.write), line:8:41, endln:8:46
       |vpiParent:
       \_Port: (write), line:8:47, endln:8:52
       |vpiFullName:work@top.write
@@ -418,63 +642,18 @@ Design: (unnamed)
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingSntx/dut.sv, line:1:1, endln:27:10
     |vpiName:phi2
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@top.phi2.phi2), line:9:9, endln:9:13
-      |vpiParent:
-      \_Port: (phi2), line:9:9, endln:9:13
-      |vpiName:phi2
-      |vpiFullName:work@top.phi2.phi2
-      |vpiActual:
-      \_LogicNet: (work@top.phi2), line:9:9, endln:9:13
-    |vpiTypedef:
-    \_RefTypespec: (work@top.phi2)
-      |vpiParent:
-      \_Port: (phi2), line:9:9, endln:9:13
-      |vpiFullName:work@top.phi2
-      |vpiActual:
-      \_LogicTypespec: , line:9:9, endln:9:9
   |vpiPort:
   \_Port: (cmd), line:9:27, endln:9:30
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingSntx/dut.sv, line:1:1, endln:27:10
     |vpiName:cmd
     |vpiDirection:3
-    |vpiLowConn:
-    \_RefObj: (work@top.cmd.cmd), line:9:27, endln:9:30
-      |vpiParent:
-      \_Port: (cmd), line:9:27, endln:9:30
-      |vpiName:cmd
-      |vpiFullName:work@top.cmd.cmd
-      |vpiActual:
-      \_LogicNet: (work@top.cmd), line:9:27, endln:9:30
-    |vpiTypedef:
-    \_RefTypespec: (work@top.cmd)
-      |vpiParent:
-      \_Port: (cmd), line:9:27, endln:9:30
-      |vpiFullName:work@top.cmd
-      |vpiActual:
-      \_LogicTypespec: , line:9:21, endln:9:26
   |vpiPort:
   \_Port: (enable), line:9:38, endln:9:44
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingSntx/dut.sv, line:1:1, endln:27:10
     |vpiName:enable
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@top.enable.enable), line:9:38, endln:9:44
-      |vpiParent:
-      \_Port: (enable), line:9:38, endln:9:44
-      |vpiName:enable
-      |vpiFullName:work@top.enable.enable
-      |vpiActual:
-      \_LogicNet: (work@top.enable), line:9:38, endln:9:44
-    |vpiTypedef:
-    \_RefTypespec: (work@top.enable)
-      |vpiParent:
-      \_Port: (enable), line:9:38, endln:9:44
-      |vpiFullName:work@top.enable
-      |vpiActual:
-      \_LogicTypespec: , line:9:38, endln:9:38
   |vpiProcess:
   \_Initial: , line:22:2, endln:23:5
     |vpiParent:
@@ -527,244 +706,10 @@ Design: (unnamed)
       \_LogicNet: (work@top.cmd), line:9:27, endln:9:30
   |vpiClockingBlock:
   \_ClockingBlock: (work@top.mem), line:2:2, endln:4:13
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingSntx/dut.sv, line:1:1, endln:27:10
-    |vpiName:mem
-    |vpiFullName:work@top.mem
-    |vpiClockingEvent:
-    \_EventControl: , line:2:15, endln:2:23
-      |vpiParent:
-      \_ClockingBlock: (work@top.mem), line:2:2, endln:4:13
-      |vpiCondition:
-      \_RefObj: (work@top.mem.clock), line:2:17, endln:2:22
-        |vpiParent:
-        \_EventControl: , line:2:15, endln:2:23
-        |vpiName:clock
-        |vpiFullName:work@top.mem.clock
-        |vpiActual:
-        \_LogicNet: (work@top.clock), line:2:17, endln:2:22
-    |vpiClockingIODecl:
-    \_ClockingIODecl: (instruction), line:3:8, endln:3:49
-      |vpiParent:
-      \_ClockingBlock: (work@top.mem), line:2:2, endln:4:13
-      |vpiDirection:1
-      |vpiName:instruction
-      |vpiExpr:
-      \_Operation: , line:3:22, endln:3:49
-        |vpiParent:
-        \_ClockingIODecl: (instruction), line:3:8, endln:3:49
-        |vpiOpType:33
-        |vpiOperand:
-        \_RefObj: (work@top.mem.instruction.opcode), line:3:24, endln:3:30
-          |vpiParent:
-          \_Operation: , line:3:22, endln:3:49
-          |vpiName:opcode
-          |vpiFullName:work@top.mem.instruction.opcode
-          |vpiActual:
-          \_LogicNet: (work@top.opcode), line:3:24, endln:3:30
-        |vpiOperand:
-        \_RefObj: (work@top.mem.instruction.regA), line:3:32, endln:3:36
-          |vpiParent:
-          \_Operation: , line:3:22, endln:3:49
-          |vpiName:regA
-          |vpiFullName:work@top.mem.instruction.regA
-          |vpiActual:
-          \_LogicNet: (work@top.regA), line:3:32, endln:3:36
-        |vpiOperand:
-        \_PartSelect: regB (work@top.mem.instruction.regB), line:3:38, endln:3:47
-          |vpiParent:
-          \_Operation: , line:3:22, endln:3:49
-          |vpiName:regB
-          |vpiFullName:work@top.mem.instruction.regB
-          |vpiDefName:regB
-          |vpiConstantSelect:1
-          |vpiLeftRange:
-          \_Constant: , line:3:43, endln:3:44
-            |vpiDecompile:3
-            |vpiSize:64
-            |UINT:3
-            |vpiConstType:9
-          |vpiRightRange:
-          \_Constant: , line:3:45, endln:3:46
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-            |vpiConstType:9
   |vpiClockingBlock:
   \_ClockingBlock: (work@top.cd1), line:12:2, endln:16:13
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingSntx/dut.sv, line:1:1, endln:27:10
-    |vpiName:cd1
-    |vpiFullName:work@top.cd1
-    |vpiClockingEvent:
-    \_EventControl: , line:12:15, endln:12:30
-      |vpiParent:
-      \_ClockingBlock: (work@top.cd1), line:12:2, endln:16:13
-      |vpiCondition:
-      \_Operation: , line:12:17, endln:12:29
-        |vpiParent:
-        \_EventControl: , line:12:15, endln:12:30
-        |vpiOpType:39
-        |vpiOperand:
-        \_RefObj: (work@top.cd1.phi1), line:12:25, endln:12:29
-          |vpiParent:
-          \_Operation: , line:12:17, endln:12:29
-          |vpiName:phi1
-          |vpiFullName:work@top.cd1.phi1
-          |vpiActual:
-          \_LogicNet: (work@top.phi1), line:8:9, endln:8:13
-    |vpiClockingIODecl:
-    \_ClockingIODecl: (data), line:13:9, endln:13:13
-      |vpiParent:
-      \_ClockingBlock: (work@top.cd1), line:12:2, endln:16:13
-      |vpiDirection:1
-      |vpiName:data
-    |vpiClockingIODecl:
-    \_ClockingIODecl: (write), line:14:10, endln:14:15
-      |vpiParent:
-      \_ClockingBlock: (work@top.cd1), line:12:2, endln:16:13
-      |vpiDirection:2
-      |vpiName:write
-    |vpiClockingIODecl:
-    \_ClockingIODecl: (state), line:15:9, endln:15:31
-      |vpiParent:
-      \_ClockingBlock: (work@top.cd1), line:12:2, endln:16:13
-      |vpiDirection:1
-      |vpiName:state
-      |vpiExpr:
-      \_HierPath: (top.cpu1.state), line:15:17, endln:15:31
-        |vpiParent:
-        \_ClockingIODecl: (state), line:15:9, endln:15:31
-        |vpiActual:
-        \_RefObj: (top), line:15:17, endln:15:20
-          |vpiParent:
-          \_HierPath: (top.cpu1.state), line:15:17, endln:15:31
-          |vpiName:top
-        |vpiActual:
-        \_RefObj: (cpu1), line:15:21, endln:15:25
-          |vpiParent:
-          \_HierPath: (top.cpu1.state), line:15:17, endln:15:31
-          |vpiName:cpu1
-        |vpiActual:
-        \_RefObj: (work@top.cd1.state.state), line:15:26, endln:15:31
-          |vpiParent:
-          \_HierPath: (top.cpu1.state), line:15:17, endln:15:31
-          |vpiName:state
-          |vpiFullName:work@top.cd1.state.state
-        |vpiName:top.cpu1.state
   |vpiClockingBlock:
   \_ClockingBlock: (work@top.cd2), line:18:2, endln:21:13
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ClockingSntx/dut.sv, line:1:1, endln:27:10
-    |vpiName:cd2
-    |vpiFullName:work@top.cd2
-    |vpiClockingEvent:
-    \_EventControl: , line:18:15, endln:18:30
-      |vpiParent:
-      \_ClockingBlock: (work@top.cd2), line:18:2, endln:21:13
-      |vpiCondition:
-      \_Operation: , line:18:17, endln:18:29
-        |vpiParent:
-        \_EventControl: , line:18:15, endln:18:30
-        |vpiOpType:39
-        |vpiOperand:
-        \_RefObj: (work@top.cd2.phi2), line:18:25, endln:18:29
-          |vpiParent:
-          \_Operation: , line:18:17, endln:18:29
-          |vpiName:phi2
-          |vpiFullName:work@top.cd2.phi2
-          |vpiActual:
-          \_LogicNet: (work@top.phi2), line:9:9, endln:9:13
-    |vpiClockingIODecl:
-    \_ClockingIODecl: (cmd), line:19:24, endln:19:27
-      |vpiParent:
-      \_ClockingBlock: (work@top.cd2), line:18:2, endln:21:13
-      |vpiDirection:2
-      |vpiName:cmd
-      |vpiInputSkew:
-      \_DelayControl: , line:19:9, endln:19:11
-        |vpiParent:
-        \_ClockingBlock: (work@top.cd2), line:18:2, endln:21:13
-        |#2
-      |vpiOutputSkew:
-      \_DelayControl: , line:19:19, endln:19:23
-        |vpiParent:
-        \_ClockingBlock: (work@top.cd2), line:18:2, endln:21:13
-        |#4
-    |vpiClockingIODecl:
-    \_ClockingIODecl: (enable), line:20:9, endln:20:15
-      |vpiParent:
-      \_ClockingBlock: (work@top.cd2), line:18:2, endln:21:13
-      |vpiDirection:1
-      |vpiName:enable
-\_weaklyReferenced:
-\_LogicTypespec: , line:8:9, endln:8:9
-\_LogicTypespec: , line:8:21, endln:8:27
-  |vpiRange:
-  \_Range: , line:8:21, endln:8:27
-    |vpiParent:
-    \_LogicTypespec: , line:8:21, endln:8:27
-    |vpiLeftRange:
-    \_Constant: , line:8:22, endln:8:24
-      |vpiParent:
-      \_Range: , line:8:21, endln:8:27
-      |vpiDecompile:15
-      |vpiSize:64
-      |UINT:15
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:8:25, endln:8:26
-      |vpiParent:
-      \_Range: , line:8:21, endln:8:27
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:8:41, endln:8:46
-\_LogicTypespec: , line:9:9, endln:9:9
-\_LogicTypespec: , line:9:21, endln:9:26
-  |vpiRange:
-  \_Range: , line:9:21, endln:9:26
-    |vpiParent:
-    \_LogicTypespec: , line:9:21, endln:9:26
-    |vpiLeftRange:
-    \_Constant: , line:9:22, endln:9:23
-      |vpiParent:
-      \_Range: , line:9:21, endln:9:26
-      |vpiDecompile:8
-      |vpiSize:64
-      |UINT:8
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:9:24, endln:9:25
-      |vpiParent:
-      \_Range: , line:9:21, endln:9:26
-      |vpiDecompile:1
-      |vpiSize:64
-      |UINT:1
-      |vpiConstType:9
-\_LogicTypespec: , line:9:38, endln:9:38
-\_LogicTypespec: , line:11:2, endln:11:11
-  |vpiRange:
-  \_Range: , line:11:6, endln:11:11
-    |vpiParent:
-    \_LogicTypespec: , line:11:2, endln:11:11
-    |vpiLeftRange:
-    \_Constant: , line:11:7, endln:11:8
-      |vpiParent:
-      \_Range: , line:11:6, endln:11:11
-      |vpiDecompile:8
-      |vpiSize:64
-      |UINT:8
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:11:9, endln:11:10
-      |vpiParent:
-      \_Range: , line:11:6, endln:11:11
-      |vpiDecompile:1
-      |vpiSize:64
-      |UINT:1
-      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

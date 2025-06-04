@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 105
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/BitSelectSelect/dut.sv
+FILE: ${SURELOG_DIR}/tests/BitSelectSelect/dut.sv
 n<> u<104> t<Top_level_rule> c<1> l<2:1> el<10:1>
-  n<> u<1> t<Null_rule> p<104> s<103> l<2:1> el<1:2>
+  n<> u<1> t<Null_rule> p<104> s<103> l<2:1> el<2:1>
   n<> u<103> t<Source_text> p<104> c<102> l<2:1> el<9:10>
     n<> u<102> t<Description> p<103> c<101> l<2:1> el<9:10>
       n<> u<101> t<Module_declaration> p<102> c<13> l<2:1> el<9:10>
@@ -56,7 +56,7 @@ n<> u<104> t<Top_level_rule> c<1> l<2:1> el<10:1>
                 n<> u<70> t<Package_or_generate_item_declaration> p<71> c<69> l<7:4> el<7:30>
                   n<> u<69> t<Data_declaration> p<70> c<68> l<7:4> el<7:30>
                     n<> u<68> t<Variable_declaration> p<69> c<64> l<7:4> el<7:30>
-                      n<> u<64> t<Data_type> p<68> c<43> s<67> l<7:4> el<7:27>
+                      n<filter_ctl_t> u<64> t<Data_type> p<68> c<43> s<67> l<7:4> el<7:27>
                         n<filter_ctl_t> u<43> t<StringConst> p<64> s<53> l<7:4> el<7:16>
                         n<> u<53> t<Packed_dimension> p<64> c<52> s<63> l<7:17> el<7:22>
                           n<> u<52> t<Constant_range> p<53> c<47> l<7:18> el<7:21>
@@ -114,41 +114,68 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 BitSelect                                              2
-Constant                                               9
+Constant                                              13
 ContAssign                                             1
 Design                                                 1
 HierPath                                               1
-IntTypespec                                            1
-LogicNet                                               2
+IntTypespec                                            2
+IntVar                                                 1
 LogicTypespec                                          1
 Module                                                 1
 PackedArrayTypespec                                    1
+PackedArrayVar                                         1
 Port                                                   1
-Range                                                  3
-RefObj                                                 2
-RefTypespec                                            4
+Range                                                  5
+RefObj                                                 1
+RefTypespec                                            5
 StructTypespec                                         1
 TypespecMember                                         1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/BitSelectSelect/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/BitSelectSelect/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/BitSelectSelect/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectSelect/dut.sv, line:2:1, endln:9:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
+  |vpiName:work@top
+  |vpiVariables:
+  \_IntVar: (work@top.o), line:2:23, endln:2:24
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectSelect/dut.sv, line:2:1, endln:9:10
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o), line:2:19, endln:2:22
+      |vpiParent:
+      \_IntVar: (work@top.o), line:2:23, endln:2:24
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_IntTypespec: , line:2:19, endln:2:22
+    |vpiName:o
+    |vpiFullName:work@top.o
+    |vpiSigned:1
+    |vpiVisibility:1
+  |vpiVariables:
+  \_PackedArrayVar: (work@top.a), line:7:28, endln:7:29
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectSelect/dut.sv, line:2:1, endln:9:10
+    |vpiTypespec:
+    \_RefTypespec: (work@top.a.filter_ctl_t), line:7:4, endln:7:27
+      |vpiParent:
+      \_PackedArrayVar: (work@top.a), line:7:28, endln:7:29
+      |vpiName:filter_ctl_t
+      |vpiFullName:work@top.a.filter_ctl_t
+      |vpiActual:
+      \_PackedArrayTypespec: , line:7:17, endln:7:27
+    |vpiName:a
+    |vpiFullName:work@top.a
+    |vpiVisibility:1
   |vpiTypedef:
   \_StructTypespec: (filter_ctl_t), line:3:12, endln:5:5
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectSelect/dut.sv, line:2:1, endln:9:10
     |vpiName:filter_ctl_t
-    |vpiInstance:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectSelect/dut.sv, line:2:1, endln:9:10
     |vpiPacked:1
     |vpiTypespecMember:
     \_TypespecMember: (min_v), line:4:19, endln:4:24
@@ -156,53 +183,139 @@ Design: (unnamed)
       \_StructTypespec: (filter_ctl_t), line:3:12, endln:5:5
       |vpiName:min_v
       |vpiTypespec:
-      \_RefTypespec: (work@top.filter_ctl_t.min_v)
+      \_RefTypespec: (work@top.filter_ctl_t.min_v), line:4:7, endln:4:18
         |vpiParent:
         \_TypespecMember: (min_v), line:4:19, endln:4:24
         |vpiFullName:work@top.filter_ctl_t.min_v
         |vpiActual:
         \_LogicTypespec: , line:4:7, endln:4:18
-      |vpiRefFile:${SURELOG_DIR}/tests/BitSelectSelect/dut.sv
-      |vpiRefLineNo:4
-      |vpiRefColumnNo:7
-      |vpiRefEndLineNo:4
-      |vpiRefEndColumnNo:18
+  |vpiTypedef:
+  \_LogicTypespec: , line:4:7, endln:4:18
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectSelect/dut.sv, line:2:1, endln:9:10
+    |vpiRange:
+    \_Range: , line:4:13, endln:4:18
+      |vpiParent:
+      \_LogicTypespec: , line:4:7, endln:4:18
+      |vpiLeftRange:
+      \_Constant: , line:4:14, endln:4:15
+        |vpiParent:
+        \_Range: , line:4:13, endln:4:18
+        |vpiDecompile:9
+        |vpiSize:64
+        |UINT:9
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:4:16, endln:4:17
+        |vpiParent:
+        \_Range: , line:4:13, endln:4:18
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_IntTypespec: , line:2:19, endln:2:22
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectSelect/dut.sv, line:2:1, endln:9:10
+    |vpiSigned:1
+  |vpiTypedef:
+  \_PackedArrayTypespec: , line:7:17, endln:7:27
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectSelect/dut.sv, line:2:1, endln:9:10
+    |vpiRange:
+    \_Range: , line:7:17, endln:7:22
+      |vpiParent:
+      \_PackedArrayTypespec: , line:7:17, endln:7:27
+      |vpiLeftRange:
+      \_Constant: , line:7:18, endln:7:19
+        |vpiParent:
+        \_Range: , line:7:17, endln:7:22
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:7:20, endln:7:21
+        |vpiParent:
+        \_Range: , line:7:17, endln:7:22
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiRange:
+    \_Range: , line:7:22, endln:7:27
+      |vpiParent:
+      \_PackedArrayTypespec: , line:7:17, endln:7:27
+      |vpiLeftRange:
+      \_Constant: , line:7:23, endln:7:24
+        |vpiParent:
+        \_Range: , line:7:22, endln:7:27
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:7:25, endln:7:26
+        |vpiParent:
+        \_Range: , line:7:22, endln:7:27
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiElemTypespec:
+    \_RefTypespec: (work@top.filter_ctl_t), line:7:4, endln:7:16
+      |vpiParent:
+      \_PackedArrayTypespec: , line:7:17, endln:7:27
+      |vpiName:filter_ctl_t
+      |vpiFullName:work@top.filter_ctl_t
+      |vpiActual:
+      \_StructTypespec: (filter_ctl_t), line:3:12, endln:5:5
+  |vpiTypedef:
+  \_IntTypespec: , line:2:19, endln:2:22
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectSelect/dut.sv, line:2:1, endln:9:10
+    |vpiSigned:1
+  |vpiImportTypespec:
+  \_StructTypespec: (filter_ctl_t), line:3:12, endln:5:5
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:4:7, endln:4:18
+  |vpiImportTypespec:
+  \_IntTypespec: , line:2:19, endln:2:22
+  |vpiImportTypespec:
+  \_IntVar: (work@top.o), line:2:23, endln:2:24
+  |vpiImportTypespec:
+  \_PackedArrayTypespec: , line:7:17, endln:7:27
+  |vpiImportTypespec:
+  \_PackedArrayVar: (work@top.a), line:7:28, endln:7:29
+  |vpiImportTypespec:
+  \_IntTypespec: , line:2:19, endln:2:22
+  |vpiImportTypespec:
+  \_LogicNet: (work@top.a[0]), line:8:13, endln:8:14
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectSelect/dut.sv, line:2:1, endln:9:10
+    |vpiName:a[0]
+    |vpiFullName:work@top.a[0]
+    |vpiNetType:1
+  |vpiImportTypespec:
+  \_LogicNet: (work@top.min_v), line:8:19, endln:8:24
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectSelect/dut.sv, line:2:1, endln:9:10
+    |vpiName:min_v
+    |vpiFullName:work@top.min_v
+    |vpiNetType:1
   |vpiDefName:work@top
   |vpiNet:
-  \_LogicNet: (work@top.o), line:2:23, endln:2:24
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectSelect/dut.sv, line:2:1, endln:9:10
-    |vpiName:o
-    |vpiFullName:work@top.o
+  \_LogicNet: (work@top.a[0]), line:8:13, endln:8:14
   |vpiNet:
-  \_LogicNet: (work@top.a), line:7:28, endln:7:29
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectSelect/dut.sv, line:2:1, endln:9:10
-    |vpiTypespec:
-    \_RefTypespec: (work@top.a)
-      |vpiParent:
-      \_LogicNet: (work@top.a), line:7:28, endln:7:29
-      |vpiFullName:work@top.a
-      |vpiActual:
-      \_PackedArrayTypespec: , line:7:4, endln:7:22
-    |vpiName:a
-    |vpiFullName:work@top.a
+  \_LogicNet: (work@top.min_v), line:8:19, endln:8:24
   |vpiPort:
   \_Port: (o), line:2:23, endln:2:24
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/BitSelectSelect/dut.sv, line:2:1, endln:9:10
     |vpiName:o
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@top.o.o), line:2:23, endln:2:24
-      |vpiParent:
-      \_Port: (o), line:2:23, endln:2:24
-      |vpiName:o
-      |vpiFullName:work@top.o.o
-      |vpiActual:
-      \_LogicNet: (work@top.o), line:2:23, endln:2:24
-    |vpiTypedef:
-    \_RefTypespec: (work@top.o)
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o), line:2:19, endln:2:22
       |vpiParent:
       \_Port: (o), line:2:23, endln:2:24
       |vpiFullName:work@top.o
@@ -221,17 +334,21 @@ Design: (unnamed)
       |BIN:1
       |vpiConstType:3
     |vpiLhs:
-    \_HierPath: (a[0][0].min_v), line:8:11, endln:8:12
+    \_HierPath: (a[0][0].min_v), line:8:11, endln:8:24
       |vpiParent:
       \_ContAssign: , line:8:11, endln:8:29
       |vpiActual:
       \_BitSelect: (a[0]), line:8:11, endln:8:12
         |vpiParent:
-        \_HierPath: (a[0][0].min_v), line:8:11, endln:8:12
+        \_HierPath: (a[0][0].min_v), line:8:11, endln:8:24
         |vpiName:a
         |vpiFullName:a[0]
+        |vpiActual:
+        \_PackedArrayVar: (work@top.a), line:7:28, endln:7:29
         |vpiIndex:
         \_Constant: , line:8:13, endln:8:14
+          |vpiParent:
+          \_BitSelect: (a[0]), line:8:11, endln:8:12
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -239,10 +356,15 @@ Design: (unnamed)
       |vpiActual:
       \_BitSelect: (a[0][0]), line:8:13, endln:8:14
         |vpiParent:
-        \_HierPath: (a[0][0].min_v), line:8:11, endln:8:12
+        \_HierPath: (a[0][0].min_v), line:8:11, endln:8:24
+        |vpiName:a[0]
         |vpiFullName:a[0][0]
+        |vpiActual:
+        \_LogicNet: (work@top.a[0]), line:8:13, endln:8:14
         |vpiIndex:
         \_Constant: , line:8:16, endln:8:17
+          |vpiParent:
+          \_BitSelect: (a[0][0]), line:8:13, endln:8:14
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -250,83 +372,12 @@ Design: (unnamed)
       |vpiActual:
       \_RefObj: (a[0][0].min_v), line:8:19, endln:8:24
         |vpiParent:
-        \_HierPath: (a[0][0].min_v), line:8:11, endln:8:12
+        \_HierPath: (a[0][0].min_v), line:8:11, endln:8:24
         |vpiName:min_v
         |vpiFullName:a[0][0].min_v
+        |vpiActual:
+        \_LogicNet: (work@top.min_v), line:8:19, endln:8:24
       |vpiName:a[0][0].min_v
-\_weaklyReferenced:
-\_LogicTypespec: , line:4:7, endln:4:18
-  |vpiParent:
-  \_TypespecMember: (min_v), line:4:19, endln:4:24
-  |vpiRange:
-  \_Range: , line:4:13, endln:4:18
-    |vpiParent:
-    \_LogicTypespec: , line:4:7, endln:4:18
-    |vpiLeftRange:
-    \_Constant: , line:4:14, endln:4:15
-      |vpiParent:
-      \_Range: , line:4:13, endln:4:18
-      |vpiDecompile:9
-      |vpiSize:64
-      |UINT:9
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:4:16, endln:4:17
-      |vpiParent:
-      \_Range: , line:4:13, endln:4:18
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_IntTypespec: , line:2:19, endln:2:22
-  |vpiSigned:1
-\_PackedArrayTypespec: , line:7:4, endln:7:22
-  |vpiRange:
-  \_Range: , line:7:17, endln:7:22
-    |vpiParent:
-    \_PackedArrayTypespec: , line:7:4, endln:7:22
-    |vpiLeftRange:
-    \_Constant: , line:7:18, endln:7:19
-      |vpiParent:
-      \_Range: , line:7:17, endln:7:22
-      |vpiDecompile:1
-      |vpiSize:64
-      |UINT:1
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:7:20, endln:7:21
-      |vpiParent:
-      \_Range: , line:7:17, endln:7:22
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-  |vpiRange:
-  \_Range: , line:7:22, endln:7:27
-    |vpiParent:
-    \_PackedArrayTypespec: , line:7:4, endln:7:22
-    |vpiLeftRange:
-    \_Constant: , line:7:23, endln:7:24
-      |vpiParent:
-      \_Range: , line:7:22, endln:7:27
-      |vpiDecompile:2
-      |vpiSize:64
-      |UINT:2
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:7:25, endln:7:26
-      |vpiParent:
-      \_Range: , line:7:22, endln:7:27
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-  |vpiElemTypespec:
-  \_RefTypespec: 
-    |vpiParent:
-    \_PackedArrayTypespec: , line:7:4, endln:7:22
-    |vpiActual:
-    \_StructTypespec: (filter_ctl_t), line:3:12, endln:5:5
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

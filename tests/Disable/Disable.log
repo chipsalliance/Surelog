@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 39
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/Disable/dut.sv
+FILE: ${SURELOG_DIR}/tests/Disable/dut.sv
 n<> u<38> t<Top_level_rule> c<1> l<1:1> el<9:1>
-  n<> u<1> t<Null_rule> p<38> s<37> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<38> s<37> l<1:1>
   n<> u<37> t<Source_text> p<38> c<36> l<1:1> el<8:10>
     n<> u<36> t<Description> p<37> c<35> l<1:1> el<8:10>
       n<> u<35> t<Module_declaration> p<36> c<4> l<1:1> el<8:10>
@@ -47,37 +47,26 @@ AST_DEBUG_END
 [INF:CP0303] ${SURELOG_DIR}/tests/Disable/dut.sv:1:1: Compile module "work@top".
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-Begin                                                  1
+Begin                                                  2
 Design                                                 1
 Disable                                                1
 DisableFork                                            1
 ForeverStmt                                            1
 Initial                                                1
-LogicNet                                               1
 Module                                                 1
-NamedBegin                                             1
 RefObj                                                 1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/Disable/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/Disable/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/Disable/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/Disable/dut.sv, line:1:1, endln:8:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
+  |vpiName:work@top
   |vpiDefName:work@top
-  |vpiNet:
-  \_LogicNet: (work@top.loop), line:4:18, endln:4:22
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/Disable/dut.sv, line:1:1, endln:8:10
-    |vpiName:loop
-    |vpiFullName:work@top.loop
-    |vpiNetType:1
   |vpiProcess:
   \_Initial: , line:2:4, endln:7:7
     |vpiParent:
@@ -88,25 +77,25 @@ Design: (unnamed)
       \_Initial: , line:2:4, endln:7:7
       |vpiFullName:work@top
       |vpiStmt:
-      \_ForeverStmt: , line:3:7, endln:3:14
+      \_ForeverStmt: , line:3:7, endln:6:10
         |vpiParent:
         \_Begin: (work@top), line:2:12, endln:7:7
         |vpiStmt:
-        \_NamedBegin: (work@top.loop), line:3:23, endln:3:27
+        \_Begin: (work@top.loop), line:3:15, endln:6:10
           |vpiParent:
-          \_ForeverStmt: , line:3:7, endln:3:14
+          \_ForeverStmt: , line:3:7, endln:6:10
           |vpiName:loop
           |vpiFullName:work@top.loop
           |vpiStmt:
           \_Disable: , line:4:10, endln:4:23
             |vpiParent:
-            \_NamedBegin: (work@top.loop), line:3:23, endln:3:27
+            \_Begin: (work@top.loop), line:3:15, endln:6:10
             |vpiExpr:
-            \_NamedBegin: (work@top.loop), line:3:23, endln:3:27
+            \_Begin: (work@top.loop), line:3:15, endln:6:10
           |vpiStmt:
           \_DisableFork: , line:5:10, endln:5:23
             |vpiParent:
-            \_NamedBegin: (work@top.loop), line:3:23, endln:3:27
+            \_Begin: (work@top.loop), line:3:15, endln:6:10
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

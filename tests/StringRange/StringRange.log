@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 1427
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/StringRange/dut.sv
+FILE: ${SURELOG_DIR}/tests/StringRange/dut.sv
 n<> u<1426> t<Top_level_rule> c<1> l<1:1> el<87:1>
-  n<> u<1> t<Null_rule> p<1426> s<1425> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<1426> s<1425> l<1:1>
   n<> u<1425> t<Source_text> p<1426> c<586> l<1:1> el<86:10>
     n<> u<586> t<Description> p<1425> c<585> s<1424> l<1:1> el<37:10>
       n<> u<585> t<Module_declaration> p<586> c<29> l<1:1> el<37:10>
@@ -1440,7 +1440,7 @@ AST_DEBUG_END
 Always                                                 1
 Assignment                                             6
 Begin                                                  5
-Constant                                              68
+Constant                                             103
 ContAssign                                             3
 Design                                                 1
 ForStmt                                                1
@@ -1452,49 +1452,56 @@ IODecl                                                 2
 IfStmt                                                 1
 ImmediateAssert                                       18
 Initial                                                1
-IntTypespec                                            4
-IntVar                                                 2
+IntVar                                                 1
 IntegerTypespec                                        2
-LogicNet                                              22
-LogicTypespec                                         26
-LogicVar                                               2
+IntegerVar                                             1
+LogicNet                                              21
+LogicTypespec                                         28
+LogicVar                                               1
 Module                                                 2
-Operation                                             32
+ModuleTypespec                                         1
+Operation                                             38
 ParamAssign                                            5
 Parameter                                              5
 PartSelect                                             1
-Port                                                   5
-Range                                                 17
-RefObj                                                58
-RefTypespec                                           36
+Port                                                  21
+Range                                                 30
+RefModule                                              4
+RefObj                                                69
+RefTypespec                                           30
 RefVar                                                 1
-StringTypespec                                         1
 SysFuncCall                                            2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/StringRange/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/StringRange/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/StringRange/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:1:1, endln:37:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@Example
+  |vpiName:work@Example
+  |vpiVariables:
+  \_IntegerVar: (work@Example.j), line:30:13, endln:30:14
+    |vpiParent:
+    \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:1:1, endln:37:10
+    |vpiTypespec:
+    \_RefTypespec: (work@Example.j), line:30:5, endln:30:12
+      |vpiParent:
+      \_IntegerVar: (work@Example.j), line:30:13, endln:30:14
+      |vpiFullName:work@Example.j
+      |vpiActual:
+      \_IntegerTypespec: , line:30:5, endln:30:12
+    |vpiName:j
+    |vpiFullName:work@Example.j
+    |vpiSigned:1
+    |vpiVisibility:1
   |vpiParameter:
-  \_Parameter: (work@Example.OUTPUT), line:2:15, endln:2:21
+  \_Parameter: (work@Example.OUTPUT), line:2:15, endln:2:29
     |vpiParent:
     \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:1:1, endln:37:10
     |STRING:FOO
-    |vpiTypespec:
-    \_RefTypespec: (work@Example.OUTPUT)
-      |vpiParent:
-      \_Parameter: (work@Example.OUTPUT), line:2:15, endln:2:21
-      |vpiFullName:work@Example.OUTPUT
-      |vpiActual:
-      \_StringTypespec: 
     |vpiName:OUTPUT
     |vpiFullName:work@Example.OUTPUT
   |vpiParamAssign:
@@ -1508,37 +1515,86 @@ Design: (unnamed)
       |vpiDecompile:"FOO"
       |vpiSize:24
       |STRING:FOO
-      |vpiTypespec:
-      \_RefTypespec: (work@Example)
-        |vpiParent:
-        \_Constant: , line:2:24, endln:2:29
-        |vpiFullName:work@Example
-        |vpiActual:
-        \_StringTypespec: 
       |vpiConstType:6
     |vpiLhs:
-    \_Parameter: (work@Example.OUTPUT), line:2:15, endln:2:21
-  |vpiDefName:work@Example
-  |vpiTaskFunc:
+    \_Parameter: (work@Example.OUTPUT), line:2:15, endln:2:29
+  |vpiInternalScope:
   \_Function: (work@Example.flip), line:6:5, endln:9:16
     |vpiParent:
     \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:1:1, endln:37:10
     |vpiName:flip
     |vpiFullName:work@Example.flip
-    |vpiVisibility:1
-    |vpiAutomatic:1
-    |vpiReturn:
-    \_LogicVar: (work@Example.flip), line:6:24, endln:6:30
+    |vpiReg:
+    \_LogicVar: (work@Example.flip)
       |vpiParent:
       \_Function: (work@Example.flip), line:6:5, endln:9:16
       |vpiTypespec:
-      \_RefTypespec: (work@Example.flip)
+      \_RefTypespec: (work@Example.flip), line:6:24, endln:6:30
         |vpiParent:
-        \_LogicVar: (work@Example.flip), line:6:24, endln:6:30
+        \_LogicVar: (work@Example.flip)
         |vpiFullName:work@Example.flip
         |vpiActual:
         \_LogicTypespec: , line:6:24, endln:6:30
       |vpiFullName:work@Example.flip
+    |vpiTypedef:
+    \_LogicTypespec: , line:6:24, endln:6:30
+      |vpiParent:
+      \_Function: (work@Example.flip), line:6:5, endln:9:16
+      |vpiRange:
+      \_Range: , line:6:24, endln:6:30
+        |vpiParent:
+        \_LogicTypespec: , line:6:24, endln:6:30
+        |vpiLeftRange:
+        \_Constant: , line:6:25, endln:6:27
+          |vpiParent:
+          \_Range: , line:6:24, endln:6:30
+          |vpiDecompile:23
+          |vpiSize:64
+          |UINT:23
+          |vpiConstType:9
+        |vpiRightRange:
+        \_Constant: , line:6:28, endln:6:29
+          |vpiParent:
+          \_Range: , line:6:24, endln:6:30
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiSigned:1
+    |vpiTypedef:
+    \_LogicTypespec: , line:7:15, endln:7:21
+      |vpiParent:
+      \_Function: (work@Example.flip), line:6:5, endln:9:16
+      |vpiRange:
+      \_Range: , line:7:15, endln:7:21
+        |vpiParent:
+        \_LogicTypespec: , line:7:15, endln:7:21
+        |vpiLeftRange:
+        \_Constant: , line:7:16, endln:7:18
+          |vpiParent:
+          \_Range: , line:7:15, endln:7:21
+          |vpiDecompile:23
+          |vpiSize:64
+          |UINT:23
+          |vpiConstType:9
+        |vpiRightRange:
+        \_Constant: , line:7:19, endln:7:20
+          |vpiParent:
+          \_Range: , line:7:15, endln:7:21
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiImportTypespec:
+    \_LogicVar: (work@Example.flip)
+    |vpiImportTypespec:
+    \_LogicTypespec: , line:6:24, endln:6:30
+    |vpiImportTypespec:
+    \_LogicTypespec: , line:7:15, endln:7:21
+    |vpiVisibility:1
+    |vpiAutomatic:1
+    |vpiReturn:
+    \_LogicVar: (work@Example.flip)
     |vpiIODecl:
     \_IODecl: (inp), line:7:22, endln:7:25
       |vpiParent:
@@ -1546,7 +1602,7 @@ Design: (unnamed)
       |vpiDirection:1
       |vpiName:inp
       |vpiTypedef:
-      \_RefTypespec: (work@Example.flip.inp)
+      \_RefTypespec: (work@Example.flip.inp), line:7:15, endln:7:21
         |vpiParent:
         \_IODecl: (inp), line:7:22, endln:7:25
         |vpiFullName:work@Example.flip.inp
@@ -1578,66 +1634,326 @@ Design: (unnamed)
         |vpiName:flip
         |vpiFullName:work@Example.flip.flip
         |vpiActual:
-        \_LogicVar: (work@Example.flip.flip), line:6:24, endln:6:30
-    |vpiInstance:
+        \_LogicVar: (work@Example.flip)
+  |vpiInternalScope:
+  \_GenRegion: (work@Example), line:11:5, endln:28:16
+    |vpiParent:
     \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:1:1, endln:37:10
-  |vpiNet:
-  \_LogicNet: (work@Example.j), line:30:13, endln:30:14
+    |vpiFullName:work@Example
+    |vpiInternalScope:
+    \_Begin: (work@Example), line:12:9, endln:15:29
+      |vpiParent:
+      \_GenRegion: (work@Example), line:11:5, endln:28:16
+      |vpiFullName:work@Example
+      |vpiInternalScope:
+      \_Begin: (work@Example), line:13:13, endln:13:34
+        |vpiParent:
+        \_Begin: (work@Example), line:12:9, endln:15:29
+        |vpiFullName:work@Example
+        |vpiStmt:
+        \_ContAssign: , line:13:20, endln:13:33
+          |vpiParent:
+          \_Begin: (work@Example), line:13:13, endln:13:34
+          |vpiRhs:
+          \_RefObj: (work@Example.OUTPUT), line:13:27, endln:13:33
+            |vpiParent:
+            \_ContAssign: , line:13:20, endln:13:33
+            |vpiName:OUTPUT
+            |vpiFullName:work@Example.OUTPUT
+            |vpiActual:
+            \_Parameter: (work@Example.OUTPUT), line:2:15, endln:2:29
+          |vpiLhs:
+          \_RefObj: (work@Example.outA), line:13:20, endln:13:24
+            |vpiParent:
+            \_ContAssign: , line:13:20, endln:13:33
+            |vpiName:outA
+            |vpiFullName:work@Example.outA
+            |vpiActual:
+            \_LogicNet: (work@Example.outA), line:3:24, endln:3:28
+      |vpiInternalScope:
+      \_Begin: (work@Example), line:15:13, endln:15:29
+        |vpiParent:
+        \_Begin: (work@Example), line:12:9, endln:15:29
+        |vpiFullName:work@Example
+        |vpiStmt:
+        \_ContAssign: , line:15:20, endln:15:28
+          |vpiParent:
+          \_Begin: (work@Example), line:15:13, endln:15:29
+          |vpiRhs:
+          \_Constant: , line:15:27, endln:15:28
+            |vpiParent:
+            \_ContAssign: , line:15:20, endln:15:28
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+          |vpiLhs:
+          \_RefObj: (work@Example.outA), line:15:20, endln:15:24
+            |vpiParent:
+            \_ContAssign: , line:15:20, endln:15:28
+            |vpiName:outA
+            |vpiFullName:work@Example.outA
+            |vpiActual:
+            \_LogicNet: (work@Example.outA), line:3:24, endln:3:28
+      |vpiStmt:
+      \_GenIfElse: , line:12:9, endln:15:29
+        |vpiParent:
+        \_Begin: (work@Example), line:12:9, endln:15:29
+        |vpiCondition:
+        \_Operation: , line:12:13, endln:12:40
+          |vpiParent:
+          \_GenIfElse: , line:12:9, endln:15:29
+          |vpiOpType:14
+          |vpiOperand:
+          \_FuncCall: (flip), line:12:13, endln:12:24
+            |vpiParent:
+            \_Operation: , line:12:13, endln:12:40
+            |vpiArgument:
+            \_RefObj: (work@Example.OUTPUT), line:12:18, endln:12:24
+              |vpiParent:
+              \_FuncCall: (flip), line:12:13, endln:12:24
+              |vpiName:OUTPUT
+              |vpiFullName:work@Example.OUTPUT
+              |vpiActual:
+              \_Parameter: (work@Example.OUTPUT), line:2:15, endln:2:29
+            |vpiName:flip
+            |vpiFunction:
+            \_Function: (work@Example.flip), line:6:5, endln:9:16
+          |vpiOperand:
+          \_FuncCall: (flip), line:12:29, endln:12:39
+            |vpiParent:
+            \_Operation: , line:12:13, endln:12:40
+            |vpiArgument:
+            \_Constant: , line:12:34, endln:12:39
+              |vpiParent:
+              \_FuncCall: (flip), line:12:29, endln:12:39
+              |vpiDecompile:"BAR"
+              |vpiSize:24
+              |STRING:BAR
+              |vpiConstType:6
+            |vpiName:flip
+            |vpiFunction:
+            \_Function: (work@Example.flip), line:6:5, endln:9:16
+        |vpiStmt:
+        \_Begin: (work@Example), line:13:13, endln:13:34
+        |vpiElseStmt:
+        \_Begin: (work@Example), line:15:13, endln:15:29
+    |vpiStmt:
+    \_Begin: (work@Example), line:12:9, endln:15:29
+  |vpiTypedef:
+  \_LogicTypespec: , line:3:12, endln:3:23
+    |vpiParent:
+    \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:1:1, endln:37:10
+    |vpiRange:
+    \_Range: , line:3:17, endln:3:23
+      |vpiParent:
+      \_LogicTypespec: , line:3:12, endln:3:23
+      |vpiLeftRange:
+      \_Constant: , line:3:18, endln:3:20
+        |vpiParent:
+        \_Range: , line:3:17, endln:3:23
+        |vpiDecompile:23
+        |vpiSize:64
+        |UINT:23
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:3:21, endln:3:22
+        |vpiParent:
+        \_Range: , line:3:17, endln:3:23
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:4:12, endln:4:23
+    |vpiParent:
+    \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:1:1, endln:37:10
+    |vpiRange:
+    \_Range: , line:4:17, endln:4:23
+      |vpiParent:
+      \_LogicTypespec: , line:4:12, endln:4:23
+      |vpiLeftRange:
+      \_Constant: , line:4:18, endln:4:20
+        |vpiParent:
+        \_Range: , line:4:17, endln:4:23
+        |vpiDecompile:23
+        |vpiSize:64
+        |UINT:23
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:4:21, endln:4:22
+        |vpiParent:
+        \_Range: , line:4:17, endln:4:23
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:5:12, endln:5:15
+    |vpiParent:
+    \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:1:1, endln:37:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:5:12, endln:5:15
+    |vpiParent:
+    \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:1:1, endln:37:10
+  |vpiTypedef:
+  \_IntegerTypespec: , line:30:5, endln:30:12
+    |vpiParent:
+    \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:1:1, endln:37:10
+    |vpiSigned:1
+  |vpiTypedef:
+  \_LogicTypespec: , line:3:12, endln:3:23
+    |vpiParent:
+    \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:1:1, endln:37:10
+    |vpiRange:
+    \_Range: , line:3:17, endln:3:23
+      |vpiParent:
+      \_LogicTypespec: , line:3:12, endln:3:23
+      |vpiLeftRange:
+      \_Constant: , line:3:18, endln:3:20
+        |vpiParent:
+        \_Range: , line:3:17, endln:3:23
+        |vpiDecompile:23
+        |vpiSize:64
+        |UINT:23
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:3:21, endln:3:22
+        |vpiParent:
+        \_Range: , line:3:17, endln:3:23
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:4:12, endln:4:23
+    |vpiParent:
+    \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:1:1, endln:37:10
+    |vpiRange:
+    \_Range: , line:4:17, endln:4:23
+      |vpiParent:
+      \_LogicTypespec: , line:4:12, endln:4:23
+      |vpiLeftRange:
+      \_Constant: , line:4:18, endln:4:20
+        |vpiParent:
+        \_Range: , line:4:17, endln:4:23
+        |vpiDecompile:23
+        |vpiSize:64
+        |UINT:23
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:4:21, endln:4:22
+        |vpiParent:
+        \_Range: , line:4:17, endln:4:23
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:5:12, endln:5:15
+    |vpiParent:
+    \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:1:1, endln:37:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:5:12, endln:5:15
+    |vpiParent:
+    \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:1:1, endln:37:10
+  |vpiImportTypespec:
+  \_Function: (work@Example.flip), line:6:5, endln:9:16
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:3:12, endln:3:23
+  |vpiImportTypespec:
+  \_LogicNet: (work@Example.outA), line:3:24, endln:3:28
     |vpiParent:
     \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:1:1, endln:37:10
     |vpiTypespec:
-    \_RefTypespec: (work@Example.j)
+    \_RefTypespec: (work@Example.outA), line:3:12, endln:3:23
       |vpiParent:
-      \_LogicNet: (work@Example.j), line:30:13, endln:30:14
-      |vpiFullName:work@Example.j
+      \_LogicNet: (work@Example.outA), line:3:24, endln:3:28
+      |vpiFullName:work@Example.outA
       |vpiActual:
-      \_IntegerTypespec: , line:30:5, endln:30:12
-    |vpiName:j
-    |vpiFullName:work@Example.j
-  |vpiNet:
-  \_LogicNet: (work@Example.outA), line:1:16, endln:1:20
-    |vpiParent:
-    \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:1:1, endln:37:10
+      \_LogicTypespec: , line:3:12, endln:3:23
     |vpiName:outA
     |vpiFullName:work@Example.outA
     |vpiNetType:1
-  |vpiNet:
-  \_LogicNet: (work@Example.outB), line:1:22, endln:1:26
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:4:12, endln:4:23
+  |vpiImportTypespec:
+  \_LogicNet: (work@Example.outB), line:4:24, endln:4:28
     |vpiParent:
     \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:1:1, endln:37:10
+    |vpiTypespec:
+    \_RefTypespec: (work@Example.outB), line:4:12, endln:4:23
+      |vpiParent:
+      \_LogicNet: (work@Example.outB), line:4:24, endln:4:28
+      |vpiFullName:work@Example.outB
+      |vpiActual:
+      \_LogicTypespec: , line:4:12, endln:4:23
     |vpiName:outB
     |vpiFullName:work@Example.outB
     |vpiNetType:1
-  |vpiNet:
-  \_LogicNet: (work@Example.outC), line:1:28, endln:1:32
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:5:12, endln:5:15
+  |vpiImportTypespec:
+  \_LogicNet: (work@Example.outC), line:5:16, endln:5:20
     |vpiParent:
     \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:1:1, endln:37:10
+    |vpiTypespec:
+    \_RefTypespec: (work@Example.outC), line:5:12, endln:5:15
+      |vpiParent:
+      \_LogicNet: (work@Example.outC), line:5:16, endln:5:20
+      |vpiFullName:work@Example.outC
+      |vpiActual:
+      \_LogicTypespec: , line:5:12, endln:5:15
     |vpiName:outC
     |vpiFullName:work@Example.outC
     |vpiNetType:48
-  |vpiNet:
-  \_LogicNet: (work@Example.outD), line:1:34, endln:1:38
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:5:12, endln:5:15
+  |vpiImportTypespec:
+  \_LogicNet: (work@Example.outD), line:5:22, endln:5:26
     |vpiParent:
     \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:1:1, endln:37:10
+    |vpiTypespec:
+    \_RefTypespec: (work@Example.outD), line:5:12, endln:5:15
+      |vpiParent:
+      \_LogicNet: (work@Example.outD), line:5:22, endln:5:26
+      |vpiFullName:work@Example.outD
+      |vpiActual:
+      \_LogicTypespec: , line:5:12, endln:5:15
     |vpiName:outD
     |vpiFullName:work@Example.outD
     |vpiNetType:48
+  |vpiImportTypespec:
+  \_IntegerTypespec: , line:30:5, endln:30:12
+  |vpiImportTypespec:
+  \_IntegerVar: (work@Example.j), line:30:13, endln:30:14
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:3:12, endln:3:23
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:4:12, endln:4:23
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:5:12, endln:5:15
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:5:12, endln:5:15
+  |vpiDefName:work@Example
+  |vpiTaskFunc:
+  \_Function: (work@Example.flip), line:6:5, endln:9:16
+  |vpiNet:
+  \_LogicNet: (work@Example.outA), line:3:24, endln:3:28
+  |vpiNet:
+  \_LogicNet: (work@Example.outB), line:4:24, endln:4:28
+  |vpiNet:
+  \_LogicNet: (work@Example.outC), line:5:16, endln:5:20
+  |vpiNet:
+  \_LogicNet: (work@Example.outD), line:5:22, endln:5:26
   |vpiPort:
   \_Port: (outA), line:1:16, endln:1:20
     |vpiParent:
     \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:1:1, endln:37:10
     |vpiName:outA
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@Example.outA.outA), line:1:16, endln:1:20
-      |vpiParent:
-      \_Port: (outA), line:1:16, endln:1:20
-      |vpiName:outA
-      |vpiFullName:work@Example.outA.outA
-      |vpiActual:
-      \_LogicNet: (work@Example.outA), line:1:16, endln:1:20
-    |vpiTypedef:
-    \_RefTypespec: (work@Example.outA)
+    |vpiTypespec:
+    \_RefTypespec: (work@Example.outA), line:3:12, endln:3:16
       |vpiParent:
       \_Port: (outA), line:1:16, endln:1:20
       |vpiFullName:work@Example.outA
@@ -1649,16 +1965,8 @@ Design: (unnamed)
     \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:1:1, endln:37:10
     |vpiName:outB
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@Example.outB.outB), line:1:22, endln:1:26
-      |vpiParent:
-      \_Port: (outB), line:1:22, endln:1:26
-      |vpiName:outB
-      |vpiFullName:work@Example.outB.outB
-      |vpiActual:
-      \_LogicNet: (work@Example.outB), line:1:22, endln:1:26
-    |vpiTypedef:
-    \_RefTypespec: (work@Example.outB)
+    |vpiTypespec:
+    \_RefTypespec: (work@Example.outB), line:4:12, endln:4:16
       |vpiParent:
       \_Port: (outB), line:1:22, endln:1:26
       |vpiFullName:work@Example.outB
@@ -1670,16 +1978,8 @@ Design: (unnamed)
     \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:1:1, endln:37:10
     |vpiName:outC
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@Example.outC.outC), line:1:28, endln:1:32
-      |vpiParent:
-      \_Port: (outC), line:1:28, endln:1:32
-      |vpiName:outC
-      |vpiFullName:work@Example.outC.outC
-      |vpiActual:
-      \_LogicNet: (work@Example.outC), line:1:28, endln:1:32
-    |vpiTypedef:
-    \_RefTypespec: (work@Example.outC)
+    |vpiTypespec:
+    \_RefTypespec: (work@Example.outC), line:5:12, endln:5:15
       |vpiParent:
       \_Port: (outC), line:1:28, endln:1:32
       |vpiFullName:work@Example.outC
@@ -1691,16 +1991,8 @@ Design: (unnamed)
     \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:1:1, endln:37:10
     |vpiName:outD
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@Example.outD.outD), line:1:34, endln:1:38
-      |vpiParent:
-      \_Port: (outD), line:1:34, endln:1:38
-      |vpiName:outD
-      |vpiFullName:work@Example.outD.outD
-      |vpiActual:
-      \_LogicNet: (work@Example.outD), line:1:34, endln:1:38
-    |vpiTypedef:
-    \_RefTypespec: (work@Example.outD)
+    |vpiTypespec:
+    \_RefTypespec: (work@Example.outD), line:5:12, endln:5:15
       |vpiParent:
       \_Port: (outD), line:1:34, endln:1:38
       |vpiFullName:work@Example.outD
@@ -1715,35 +2007,20 @@ Design: (unnamed)
       |vpiParent:
       \_Initial: , line:31:5, endln:36:8
       |vpiFullName:work@Example
-      |vpiStmt:
-      \_Assignment: , line:32:9, endln:32:17
+      |vpiVariables:
+      \_RefVar: (work@Example), line:33:14, endln:33:15
         |vpiParent:
         \_Begin: (work@Example), line:31:13, endln:36:8
-        |vpiOpType:82
-        |vpiBlocking:1
-        |vpiRhs:
-        \_Constant: , line:32:16, endln:32:17
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiLhs:
-        \_RefObj: (work@Example.outD), line:32:9, endln:32:13
-          |vpiParent:
-          \_Assignment: , line:32:9, endln:32:17
-          |vpiName:outD
-          |vpiFullName:work@Example.outD
-          |vpiActual:
-          \_LogicNet: (work@Example.outD), line:1:34, endln:1:38
-      |vpiStmt:
-      \_ForStmt: (work@Example), line:33:9, endln:33:12
+        |vpiFullName:work@Example
+      |vpiInternalScope:
+      \_ForStmt: (work@Example), line:33:9, endln:35:26
         |vpiParent:
         \_Begin: (work@Example), line:31:13, endln:36:8
         |vpiFullName:work@Example
         |vpiForInitStmt:
         \_Assignment: , line:33:14, endln:33:19
           |vpiParent:
-          \_ForStmt: (work@Example), line:33:9, endln:33:12
+          \_ForStmt: (work@Example), line:33:9, endln:35:26
           |vpiRhs:
           \_Constant: , line:33:18, endln:33:19
             |vpiParent:
@@ -1753,15 +2030,11 @@ Design: (unnamed)
             |UINT:0
             |vpiConstType:9
           |vpiLhs:
-          \_RefVar: (work@Example.j), line:33:14, endln:33:15
-            |vpiParent:
-            \_Assignment: , line:33:14, endln:33:19
-            |vpiName:j
-            |vpiFullName:work@Example.j
+          \_RefVar: (work@Example), line:33:14, endln:33:15
         |vpiForIncStmt:
         \_Assignment: , line:33:52, endln:33:61
           |vpiParent:
-          \_ForStmt: (work@Example), line:33:9, endln:33:12
+          \_ForStmt: (work@Example), line:33:9, endln:35:26
           |vpiOpType:82
           |vpiBlocking:1
           |vpiRhs:
@@ -1776,7 +2049,7 @@ Design: (unnamed)
               |vpiName:j
               |vpiFullName:work@Example.j
               |vpiActual:
-              \_LogicNet: (work@Example.j), line:30:13, endln:30:14
+              \_IntegerVar: (work@Example.j), line:30:13, endln:30:14
             |vpiOperand:
             \_Constant: , line:33:60, endln:33:61
               |vpiParent:
@@ -1792,11 +2065,11 @@ Design: (unnamed)
             |vpiName:j
             |vpiFullName:work@Example.j
             |vpiActual:
-            \_LogicNet: (work@Example.j), line:30:13, endln:30:14
+            \_IntegerVar: (work@Example.j), line:30:13, endln:30:14
         |vpiCondition:
         \_Operation: , line:33:21, endln:33:50
           |vpiParent:
-          \_ForStmt: (work@Example), line:33:9, endln:33:12
+          \_ForStmt: (work@Example), line:33:9, endln:35:26
           |vpiOpType:15
           |vpiOperand:
           \_RefObj: (work@Example.j), line:33:21, endln:33:22
@@ -1805,7 +2078,7 @@ Design: (unnamed)
             |vpiName:j
             |vpiFullName:work@Example.j
             |vpiActual:
-            \_LogicNet: (work@Example.j), line:30:13, endln:30:14
+            \_IntegerVar: (work@Example.j), line:30:13, endln:30:14
           |vpiOperand:
           \_FuncCall: (flip), line:33:26, endln:33:50
             |vpiParent:
@@ -1821,15 +2094,21 @@ Design: (unnamed)
                 |vpiName:OUTPUT
                 |vpiFullName:work@Example.OUTPUT
                 |vpiDefName:OUTPUT
+                |vpiActual:
+                \_Parameter: (work@Example.OUTPUT), line:2:15, endln:2:29
                 |vpiConstantSelect:1
                 |vpiLeftRange:
                 \_Constant: , line:33:43, endln:33:45
+                  |vpiParent:
+                  \_PartSelect: OUTPUT (work@Example.OUTPUT), line:33:36, endln:33:48
                   |vpiDecompile:15
                   |vpiSize:64
                   |UINT:15
                   |vpiConstType:9
                 |vpiRightRange:
                 \_Constant: , line:33:46, endln:33:47
+                  |vpiParent:
+                  \_PartSelect: OUTPUT (work@Example.OUTPUT), line:33:36, endln:33:48
                   |vpiDecompile:8
                   |vpiSize:64
                   |UINT:8
@@ -1843,11 +2122,11 @@ Design: (unnamed)
         |vpiStmt:
         \_IfStmt: , line:34:13, endln:35:26
           |vpiParent:
-          \_ForStmt: (work@Example), line:33:9, endln:33:12
+          \_ForStmt: (work@Example), line:33:9, endln:35:26
           |vpiCondition:
           \_Operation: , line:34:17, endln:34:41
             |vpiParent:
-            \_ForStmt: (work@Example), line:33:9, endln:33:12
+            \_IfStmt: , line:34:13, endln:35:26
             |vpiOpType:14
             |vpiOperand:
             \_Operation: , line:34:17, endln:34:22
@@ -1861,7 +2140,7 @@ Design: (unnamed)
                 |vpiName:j
                 |vpiFullName:work@Example.j
                 |vpiActual:
-                \_LogicNet: (work@Example.j), line:30:13, endln:30:14
+                \_IntegerVar: (work@Example.j), line:30:13, endln:30:14
               |vpiOperand:
               \_Constant: , line:34:21, endln:34:22
                 |vpiParent:
@@ -1900,6 +2179,8 @@ Design: (unnamed)
             |vpiBlocking:1
             |vpiRhs:
             \_Constant: , line:35:24, endln:35:25
+              |vpiParent:
+              \_Assignment: , line:35:17, endln:35:25
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
@@ -1911,151 +2192,63 @@ Design: (unnamed)
               |vpiName:outD
               |vpiFullName:work@Example.outD
               |vpiActual:
-              \_LogicNet: (work@Example.outD), line:1:34, endln:1:38
-  |vpiGenStmt:
-  \_GenRegion: 
-    |vpiParent:
-    \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:1:1, endln:37:10
-    |vpiStmt:
-    \_Begin: (work@Example)
-      |vpiParent:
-      \_GenRegion: 
-      |vpiFullName:work@Example
+              \_LogicNet: (work@Example.outD), line:5:22, endln:5:26
+      |vpiImportTypespec:
+      \_RefVar: (work@Example), line:33:14, endln:33:15
       |vpiStmt:
-      \_GenIfElse: , line:12:9, endln:15:29
+      \_Assignment: , line:32:9, endln:32:17
         |vpiParent:
-        \_Begin: (work@Example)
-        |vpiCondition:
-        \_Operation: , line:12:13, endln:12:40
+        \_Begin: (work@Example), line:31:13, endln:36:8
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiRhs:
+        \_Constant: , line:32:16, endln:32:17
           |vpiParent:
-          \_GenIfElse: , line:12:9, endln:15:29
-          |vpiOpType:14
-          |vpiOperand:
-          \_FuncCall: (flip), line:12:13, endln:12:17
-            |vpiParent:
-            \_Operation: , line:12:13, endln:12:40
-            |vpiArgument:
-            \_RefObj: (work@Example.OUTPUT), line:12:18, endln:12:24
-              |vpiParent:
-              \_FuncCall: (flip), line:12:13, endln:12:17
-              |vpiName:OUTPUT
-              |vpiFullName:work@Example.OUTPUT
-            |vpiName:flip
-          |vpiOperand:
-          \_FuncCall: (flip), line:12:29, endln:12:33
-            |vpiParent:
-            \_Operation: , line:12:13, endln:12:40
-            |vpiArgument:
-            \_Constant: , line:12:34, endln:12:39
-              |vpiParent:
-              \_FuncCall: (flip), line:12:29, endln:12:33
-              |vpiDecompile:"BAR"
-              |vpiSize:24
-              |STRING:BAR
-              |vpiConstType:6
-            |vpiName:flip
-        |vpiStmt:
-        \_Begin: (work@Example)
+          \_Assignment: , line:32:9, endln:32:17
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiLhs:
+        \_RefObj: (work@Example.outD), line:32:9, endln:32:13
           |vpiParent:
-          \_GenIfElse: , line:12:9, endln:15:29
-          |vpiFullName:work@Example
-          |vpiStmt:
-          \_ContAssign: , line:13:20, endln:13:33
-            |vpiParent:
-            \_Begin: (work@Example)
-            |vpiRhs:
-            \_RefObj: (work@Example.OUTPUT), line:13:27, endln:13:33
-              |vpiParent:
-              \_ContAssign: , line:13:20, endln:13:33
-              |vpiName:OUTPUT
-              |vpiFullName:work@Example.OUTPUT
-            |vpiLhs:
-            \_RefObj: (work@Example.outA), line:13:20, endln:13:24
-              |vpiParent:
-              \_ContAssign: , line:13:20, endln:13:33
-              |vpiName:outA
-              |vpiFullName:work@Example.outA
-        |vpiElseStmt:
-        \_Begin: (work@Example)
-          |vpiParent:
-          \_GenIfElse: , line:12:9, endln:15:29
-          |vpiFullName:work@Example
-          |vpiStmt:
-          \_ContAssign: , line:15:20, endln:15:28
-            |vpiParent:
-            \_Begin: (work@Example)
-            |vpiRhs:
-            \_Constant: , line:15:27, endln:15:28
-              |vpiParent:
-              \_ContAssign: , line:15:20, endln:15:28
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-              |vpiConstType:9
-            |vpiLhs:
-            \_RefObj: (work@Example.outA), line:15:20, endln:15:24
-              |vpiParent:
-              \_ContAssign: , line:15:20, endln:15:28
-              |vpiName:outA
-              |vpiFullName:work@Example.outA
-|uhdmallModules:
+          \_Assignment: , line:32:9, endln:32:17
+          |vpiName:outD
+          |vpiFullName:work@Example.outD
+          |vpiActual:
+          \_LogicNet: (work@Example.outD), line:5:22, endln:5:26
+      |vpiStmt:
+      \_ForStmt: (work@Example), line:33:9, endln:35:26
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
+  |vpiName:work@top
   |vpiParameter:
-  \_Parameter: (work@top.W), line:60:15, endln:60:16
+  \_Parameter: (work@top.W), line:60:15, endln:60:21
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
     |UINT:10
-    |vpiTypespec:
-    \_RefTypespec: (work@top.W)
-      |vpiParent:
-      \_Parameter: (work@top.W), line:60:15, endln:60:16
-      |vpiFullName:work@top.W
-      |vpiActual:
-      \_IntTypespec: , line:60:5, endln:60:21
     |vpiName:W
     |vpiFullName:work@top.W
   |vpiParameter:
-  \_Parameter: (work@top.X), line:61:15, endln:61:16
+  \_Parameter: (work@top.X), line:61:15, endln:61:20
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
     |UINT:3
-    |vpiTypespec:
-    \_RefTypespec: (work@top.X)
-      |vpiParent:
-      \_Parameter: (work@top.X), line:61:15, endln:61:16
-      |vpiFullName:work@top.X
-      |vpiActual:
-      \_IntTypespec: , line:61:5, endln:61:20
     |vpiName:X
     |vpiFullName:work@top.X
   |vpiParameter:
-  \_Parameter: (work@top.Y), line:62:23, endln:62:24
+  \_Parameter: (work@top.Y), line:62:23, endln:62:40
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
-    |vpiTypespec:
-    \_RefTypespec: (work@top.Y)
-      |vpiParent:
-      \_Parameter: (work@top.Y), line:62:23, endln:62:24
-      |vpiFullName:work@top.Y
-      |vpiActual:
-      \_IntTypespec: , line:62:16, endln:62:22
     |vpiLocalParam:1
     |vpiName:Y
     |vpiFullName:work@top.Y
   |vpiParameter:
-  \_Parameter: (work@top.Z), line:63:23, endln:63:24
+  \_Parameter: (work@top.Z), line:63:23, endln:63:48
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
-    |vpiTypespec:
-    \_RefTypespec: (work@top.Z)
-      |vpiParent:
-      \_Parameter: (work@top.Z), line:63:23, endln:63:24
-      |vpiFullName:work@top.Z
-      |vpiActual:
-      \_IntTypespec: , line:63:16, endln:63:22
     |vpiLocalParam:1
     |vpiName:Z
     |vpiFullName:work@top.Z
@@ -2070,16 +2263,9 @@ Design: (unnamed)
       |vpiDecompile:10
       |vpiSize:64
       |UINT:10
-      |vpiTypespec:
-      \_RefTypespec: (work@top)
-        |vpiParent:
-        \_Constant: , line:60:19, endln:60:21
-        |vpiFullName:work@top
-        |vpiActual:
-        \_IntTypespec: , line:60:5, endln:60:21
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (work@top.W), line:60:15, endln:60:16
+    \_Parameter: (work@top.W), line:60:15, endln:60:21
   |vpiParamAssign:
   \_ParamAssign: , line:61:15, endln:61:20
     |vpiParent:
@@ -2091,16 +2277,9 @@ Design: (unnamed)
       |vpiDecompile:3
       |vpiSize:64
       |UINT:3
-      |vpiTypespec:
-      \_RefTypespec: (work@top)
-        |vpiParent:
-        \_Constant: , line:61:19, endln:61:20
-        |vpiFullName:work@top
-        |vpiActual:
-        \_IntTypespec: , line:61:5, endln:61:20
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (work@top.X), line:61:15, endln:61:16
+    \_Parameter: (work@top.X), line:61:15, endln:61:20
   |vpiParamAssign:
   \_ParamAssign: , line:62:23, endln:62:40
     |vpiParent:
@@ -2120,27 +2299,31 @@ Design: (unnamed)
           \_Operation: , line:62:34, endln:62:39
           |vpiName:W
           |vpiFullName:work@top.W
+          |vpiActual:
+          \_Parameter: (work@top.W), line:60:15, endln:60:21
         |vpiOperand:
         \_RefObj: (work@top.X), line:62:38, endln:62:39
           |vpiParent:
           \_Operation: , line:62:34, endln:62:39
           |vpiName:X
           |vpiFullName:work@top.X
+          |vpiActual:
+          \_Parameter: (work@top.X), line:61:15, endln:61:20
       |vpiName:$floor
     |vpiLhs:
-    \_Parameter: (work@top.Y), line:62:23, endln:62:24
+    \_Parameter: (work@top.Y), line:62:23, endln:62:40
   |vpiParamAssign:
   \_ParamAssign: , line:63:23, endln:63:48
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
     |vpiRhs:
-    \_FuncCall: (negate), line:63:27, endln:63:33
+    \_FuncCall: (negate), line:63:27, endln:63:47
       |vpiParent:
       \_ParamAssign: , line:63:23, endln:63:48
       |vpiArgument:
       \_SysFuncCall: ($floor), line:63:34, endln:63:47
         |vpiParent:
-        \_FuncCall: (negate), line:63:27, endln:63:33
+        \_FuncCall: (negate), line:63:27, endln:63:47
         |vpiArgument:
         \_Operation: , line:63:41, endln:63:46
           |vpiParent:
@@ -2152,39 +2335,44 @@ Design: (unnamed)
             \_Operation: , line:63:41, endln:63:46
             |vpiName:W
             |vpiFullName:work@top.W
+            |vpiActual:
+            \_Parameter: (work@top.W), line:60:15, endln:60:21
           |vpiOperand:
           \_RefObj: (work@top.X), line:63:45, endln:63:46
             |vpiParent:
             \_Operation: , line:63:41, endln:63:46
             |vpiName:X
             |vpiFullName:work@top.X
+            |vpiActual:
+            \_Parameter: (work@top.X), line:61:15, endln:61:20
         |vpiName:$floor
       |vpiName:negate
       |vpiFunction:
       \_Function: (work@top.negate), line:56:5, endln:59:16
     |vpiLhs:
-    \_Parameter: (work@top.Z), line:63:23, endln:63:24
-  |vpiDefName:work@top
-  |vpiTaskFunc:
+    \_Parameter: (work@top.Z), line:63:23, endln:63:48
+  |vpiInternalScope:
   \_Function: (work@top.negate), line:56:5, endln:59:16
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
     |vpiName:negate
     |vpiFullName:work@top.negate
-    |vpiVisibility:1
-    |vpiReturn:
-    \_IntVar: (work@top.negate), line:56:14, endln:56:20
+    |vpiTypedef:
+    \_IntegerTypespec: , line:57:15, endln:57:22
       |vpiParent:
       \_Function: (work@top.negate), line:56:5, endln:59:16
-      |vpiTypespec:
-      \_RefTypespec: (work@top.negate)
-        |vpiParent:
-        \_IntVar: (work@top.negate), line:56:14, endln:56:20
-        |vpiFullName:work@top.negate
-        |vpiActual:
-        \_LogicTypespec: , line:56:14, endln:56:20
+      |vpiSigned:1
+    |vpiImportTypespec:
+    \_IntVar: (work@top.negate)
+      |vpiParent:
+      \_Function: (work@top.negate), line:56:5, endln:59:16
       |vpiFullName:work@top.negate
       |vpiSigned:1
+    |vpiImportTypespec:
+    \_IntegerTypespec: , line:57:15, endln:57:22
+    |vpiVisibility:1
+    |vpiReturn:
+    \_IntVar: (work@top.negate)
     |vpiIODecl:
     \_IODecl: (inp), line:57:23, endln:57:26
       |vpiParent:
@@ -2192,7 +2380,7 @@ Design: (unnamed)
       |vpiDirection:1
       |vpiName:inp
       |vpiTypedef:
-      \_RefTypespec: (work@top.negate.inp)
+      \_RefTypespec: (work@top.negate.inp), line:57:15, endln:57:22
         |vpiParent:
         \_IODecl: (inp), line:57:23, endln:57:26
         |vpiFullName:work@top.negate.inp
@@ -2224,15 +2412,374 @@ Design: (unnamed)
         |vpiName:negate
         |vpiFullName:work@top.negate.negate
         |vpiActual:
-        \_IntVar: (work@top.negate.negate), line:56:14, endln:56:20
-    |vpiInstance:
+        \_IntVar: (work@top.negate)
+  |vpiTypedef:
+  \_ModuleTypespec: (Example), line:44:5, endln:44:12
+    |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
-  |vpiNet:
+    |vpiName:Example
+  |vpiTypedef:
+  \_LogicTypespec: , line:40:5, endln:40:16
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
+    |vpiRange:
+    \_Range: , line:40:10, endln:40:16
+      |vpiParent:
+      \_LogicTypespec: , line:40:5, endln:40:16
+      |vpiLeftRange:
+      \_Constant: , line:40:11, endln:40:13
+        |vpiParent:
+        \_Range: , line:40:10, endln:40:16
+        |vpiDecompile:23
+        |vpiSize:64
+        |UINT:23
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:40:14, endln:40:15
+        |vpiParent:
+        \_Range: , line:40:10, endln:40:16
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:40:5, endln:40:16
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
+    |vpiRange:
+    \_Range: , line:40:10, endln:40:16
+      |vpiParent:
+      \_LogicTypespec: , line:40:5, endln:40:16
+      |vpiLeftRange:
+      \_Constant: , line:40:11, endln:40:13
+        |vpiParent:
+        \_Range: , line:40:10, endln:40:16
+        |vpiDecompile:23
+        |vpiSize:64
+        |UINT:23
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:40:14, endln:40:15
+        |vpiParent:
+        \_Range: , line:40:10, endln:40:16
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:40:5, endln:40:16
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
+    |vpiRange:
+    \_Range: , line:40:10, endln:40:16
+      |vpiParent:
+      \_LogicTypespec: , line:40:5, endln:40:16
+      |vpiLeftRange:
+      \_Constant: , line:40:11, endln:40:13
+        |vpiParent:
+        \_Range: , line:40:10, endln:40:16
+        |vpiDecompile:23
+        |vpiSize:64
+        |UINT:23
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:40:14, endln:40:15
+        |vpiParent:
+        \_Range: , line:40:10, endln:40:16
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:40:5, endln:40:16
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
+    |vpiRange:
+    \_Range: , line:40:10, endln:40:16
+      |vpiParent:
+      \_LogicTypespec: , line:40:5, endln:40:16
+      |vpiLeftRange:
+      \_Constant: , line:40:11, endln:40:13
+        |vpiParent:
+        \_Range: , line:40:10, endln:40:16
+        |vpiDecompile:23
+        |vpiSize:64
+        |UINT:23
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:40:14, endln:40:15
+        |vpiParent:
+        \_Range: , line:40:10, endln:40:16
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:41:5, endln:41:16
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
+    |vpiRange:
+    \_Range: , line:41:10, endln:41:16
+      |vpiParent:
+      \_LogicTypespec: , line:41:5, endln:41:16
+      |vpiLeftRange:
+      \_Constant: , line:41:11, endln:41:13
+        |vpiParent:
+        \_Range: , line:41:10, endln:41:16
+        |vpiDecompile:23
+        |vpiSize:64
+        |UINT:23
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:41:14, endln:41:15
+        |vpiParent:
+        \_Range: , line:41:10, endln:41:16
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:41:5, endln:41:16
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
+    |vpiRange:
+    \_Range: , line:41:10, endln:41:16
+      |vpiParent:
+      \_LogicTypespec: , line:41:5, endln:41:16
+      |vpiLeftRange:
+      \_Constant: , line:41:11, endln:41:13
+        |vpiParent:
+        \_Range: , line:41:10, endln:41:16
+        |vpiDecompile:23
+        |vpiSize:64
+        |UINT:23
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:41:14, endln:41:15
+        |vpiParent:
+        \_Range: , line:41:10, endln:41:16
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:41:5, endln:41:16
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
+    |vpiRange:
+    \_Range: , line:41:10, endln:41:16
+      |vpiParent:
+      \_LogicTypespec: , line:41:5, endln:41:16
+      |vpiLeftRange:
+      \_Constant: , line:41:11, endln:41:13
+        |vpiParent:
+        \_Range: , line:41:10, endln:41:16
+        |vpiDecompile:23
+        |vpiSize:64
+        |UINT:23
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:41:14, endln:41:15
+        |vpiParent:
+        \_Range: , line:41:10, endln:41:16
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:41:5, endln:41:16
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
+    |vpiRange:
+    \_Range: , line:41:10, endln:41:16
+      |vpiParent:
+      \_LogicTypespec: , line:41:5, endln:41:16
+      |vpiLeftRange:
+      \_Constant: , line:41:11, endln:41:13
+        |vpiParent:
+        \_Range: , line:41:10, endln:41:16
+        |vpiDecompile:23
+        |vpiSize:64
+        |UINT:23
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:41:14, endln:41:15
+        |vpiParent:
+        \_Range: , line:41:10, endln:41:16
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:42:5, endln:42:9
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:42:5, endln:42:9
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:42:5, endln:42:9
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:42:5, endln:42:9
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:43:5, endln:43:9
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:43:5, endln:43:9
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:43:5, endln:43:9
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:43:5, endln:43:9
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:49:12, endln:49:36
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
+    |vpiRange:
+    \_Range: , line:49:17, endln:49:36
+      |vpiParent:
+      \_LogicTypespec: , line:49:12, endln:49:36
+      |vpiLeftRange:
+      \_Operation: , line:49:18, endln:49:32
+        |vpiParent:
+        \_Range: , line:49:17, endln:49:36
+        |vpiOpType:24
+        |vpiOperand:
+        \_Operation: , line:49:18, endln:49:28
+          |vpiParent:
+          \_Operation: , line:49:18, endln:49:32
+          |vpiOpType:11
+          |vpiOperand:
+          \_Operation: , line:49:18, endln:49:24
+            |vpiParent:
+            \_Operation: , line:49:18, endln:49:28
+            |vpiOpType:25
+            |vpiOperand:
+            \_Constant: , line:49:18, endln:49:20
+              |vpiParent:
+              \_Operation: , line:49:18, endln:49:24
+              |vpiDecompile:24
+              |vpiSize:64
+              |UINT:24
+              |vpiConstType:9
+            |vpiOperand:
+            \_Constant: , line:49:23, endln:49:24
+              |vpiParent:
+              \_Operation: , line:49:18, endln:49:24
+              |vpiDecompile:8
+              |vpiSize:64
+              |UINT:8
+              |vpiConstType:9
+          |vpiOperand:
+          \_Constant: , line:49:27, endln:49:28
+            |vpiParent:
+            \_Operation: , line:49:18, endln:49:28
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiOperand:
+        \_Constant: , line:49:31, endln:49:32
+          |vpiParent:
+          \_Operation: , line:49:18, endln:49:32
+          |vpiDecompile:4
+          |vpiSize:64
+          |UINT:4
+          |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:49:34, endln:49:35
+        |vpiParent:
+        \_Range: , line:49:17, endln:49:36
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:49:12, endln:49:36
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
+    |vpiRange:
+    \_Range: , line:49:17, endln:49:36
+      |vpiParent:
+      \_LogicTypespec: , line:49:12, endln:49:36
+      |vpiLeftRange:
+      \_Operation: , line:49:18, endln:49:32
+        |vpiParent:
+        \_Range: , line:49:17, endln:49:36
+        |vpiOpType:24
+        |vpiOperand:
+        \_Operation: , line:49:18, endln:49:28
+          |vpiParent:
+          \_Operation: , line:49:18, endln:49:32
+          |vpiOpType:11
+          |vpiOperand:
+          \_Operation: , line:49:18, endln:49:24
+            |vpiParent:
+            \_Operation: , line:49:18, endln:49:28
+            |vpiOpType:25
+            |vpiOperand:
+            \_Constant: , line:49:18, endln:49:20
+              |vpiParent:
+              \_Operation: , line:49:18, endln:49:24
+              |vpiDecompile:24
+              |vpiSize:64
+              |UINT:24
+              |vpiConstType:9
+            |vpiOperand:
+            \_Constant: , line:49:23, endln:49:24
+              |vpiParent:
+              \_Operation: , line:49:18, endln:49:24
+              |vpiDecompile:8
+              |vpiSize:64
+              |UINT:8
+              |vpiConstType:9
+          |vpiOperand:
+          \_Constant: , line:49:27, endln:49:28
+            |vpiParent:
+            \_Operation: , line:49:18, endln:49:28
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+        |vpiOperand:
+        \_Constant: , line:49:31, endln:49:32
+          |vpiParent:
+          \_Operation: , line:49:18, endln:49:32
+          |vpiDecompile:4
+          |vpiSize:64
+          |UINT:4
+          |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:49:34, endln:49:35
+        |vpiParent:
+        \_Range: , line:49:17, endln:49:36
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiImportTypespec:
+  \_Function: (work@top.negate), line:56:5, endln:59:16
+  |vpiImportTypespec:
+  \_ModuleTypespec: (Example), line:44:5, endln:44:12
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:40:5, endln:40:16
+  |vpiImportTypespec:
   \_LogicNet: (work@top.a1), line:40:17, endln:40:19
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
     |vpiTypespec:
-    \_RefTypespec: (work@top.a1)
+    \_RefTypespec: (work@top.a1), line:40:5, endln:40:16
       |vpiParent:
       \_LogicNet: (work@top.a1), line:40:17, endln:40:19
       |vpiFullName:work@top.a1
@@ -2241,12 +2788,14 @@ Design: (unnamed)
     |vpiName:a1
     |vpiFullName:work@top.a1
     |vpiNetType:1
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:40:5, endln:40:16
+  |vpiImportTypespec:
   \_LogicNet: (work@top.a2), line:40:21, endln:40:23
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
     |vpiTypespec:
-    \_RefTypespec: (work@top.a2)
+    \_RefTypespec: (work@top.a2), line:40:5, endln:40:16
       |vpiParent:
       \_LogicNet: (work@top.a2), line:40:21, endln:40:23
       |vpiFullName:work@top.a2
@@ -2255,12 +2804,14 @@ Design: (unnamed)
     |vpiName:a2
     |vpiFullName:work@top.a2
     |vpiNetType:1
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:40:5, endln:40:16
+  |vpiImportTypespec:
   \_LogicNet: (work@top.a3), line:40:25, endln:40:27
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
     |vpiTypespec:
-    \_RefTypespec: (work@top.a3)
+    \_RefTypespec: (work@top.a3), line:40:5, endln:40:16
       |vpiParent:
       \_LogicNet: (work@top.a3), line:40:25, endln:40:27
       |vpiFullName:work@top.a3
@@ -2269,12 +2820,14 @@ Design: (unnamed)
     |vpiName:a3
     |vpiFullName:work@top.a3
     |vpiNetType:1
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:40:5, endln:40:16
+  |vpiImportTypespec:
   \_LogicNet: (work@top.a4), line:40:29, endln:40:31
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
     |vpiTypespec:
-    \_RefTypespec: (work@top.a4)
+    \_RefTypespec: (work@top.a4), line:40:5, endln:40:16
       |vpiParent:
       \_LogicNet: (work@top.a4), line:40:29, endln:40:31
       |vpiFullName:work@top.a4
@@ -2283,12 +2836,14 @@ Design: (unnamed)
     |vpiName:a4
     |vpiFullName:work@top.a4
     |vpiNetType:1
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:41:5, endln:41:16
+  |vpiImportTypespec:
   \_LogicNet: (work@top.b1), line:41:17, endln:41:19
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
     |vpiTypespec:
-    \_RefTypespec: (work@top.b1)
+    \_RefTypespec: (work@top.b1), line:41:5, endln:41:16
       |vpiParent:
       \_LogicNet: (work@top.b1), line:41:17, endln:41:19
       |vpiFullName:work@top.b1
@@ -2297,12 +2852,14 @@ Design: (unnamed)
     |vpiName:b1
     |vpiFullName:work@top.b1
     |vpiNetType:1
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:41:5, endln:41:16
+  |vpiImportTypespec:
   \_LogicNet: (work@top.b2), line:41:21, endln:41:23
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
     |vpiTypespec:
-    \_RefTypespec: (work@top.b2)
+    \_RefTypespec: (work@top.b2), line:41:5, endln:41:16
       |vpiParent:
       \_LogicNet: (work@top.b2), line:41:21, endln:41:23
       |vpiFullName:work@top.b2
@@ -2311,12 +2868,14 @@ Design: (unnamed)
     |vpiName:b2
     |vpiFullName:work@top.b2
     |vpiNetType:1
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:41:5, endln:41:16
+  |vpiImportTypespec:
   \_LogicNet: (work@top.b3), line:41:25, endln:41:27
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
     |vpiTypespec:
-    \_RefTypespec: (work@top.b3)
+    \_RefTypespec: (work@top.b3), line:41:5, endln:41:16
       |vpiParent:
       \_LogicNet: (work@top.b3), line:41:25, endln:41:27
       |vpiFullName:work@top.b3
@@ -2325,12 +2884,14 @@ Design: (unnamed)
     |vpiName:b3
     |vpiFullName:work@top.b3
     |vpiNetType:1
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:41:5, endln:41:16
+  |vpiImportTypespec:
   \_LogicNet: (work@top.b4), line:41:29, endln:41:31
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
     |vpiTypespec:
-    \_RefTypespec: (work@top.b4)
+    \_RefTypespec: (work@top.b4), line:41:5, endln:41:16
       |vpiParent:
       \_LogicNet: (work@top.b4), line:41:29, endln:41:31
       |vpiFullName:work@top.b4
@@ -2339,12 +2900,14 @@ Design: (unnamed)
     |vpiName:b4
     |vpiFullName:work@top.b4
     |vpiNetType:1
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:42:5, endln:42:9
+  |vpiImportTypespec:
   \_LogicNet: (work@top.c1), line:42:17, endln:42:19
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
     |vpiTypespec:
-    \_RefTypespec: (work@top.c1)
+    \_RefTypespec: (work@top.c1), line:42:5, endln:42:9
       |vpiParent:
       \_LogicNet: (work@top.c1), line:42:17, endln:42:19
       |vpiFullName:work@top.c1
@@ -2353,12 +2916,14 @@ Design: (unnamed)
     |vpiName:c1
     |vpiFullName:work@top.c1
     |vpiNetType:1
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:42:5, endln:42:9
+  |vpiImportTypespec:
   \_LogicNet: (work@top.c2), line:42:21, endln:42:23
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
     |vpiTypespec:
-    \_RefTypespec: (work@top.c2)
+    \_RefTypespec: (work@top.c2), line:42:5, endln:42:9
       |vpiParent:
       \_LogicNet: (work@top.c2), line:42:21, endln:42:23
       |vpiFullName:work@top.c2
@@ -2367,12 +2932,14 @@ Design: (unnamed)
     |vpiName:c2
     |vpiFullName:work@top.c2
     |vpiNetType:1
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:42:5, endln:42:9
+  |vpiImportTypespec:
   \_LogicNet: (work@top.c3), line:42:25, endln:42:27
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
     |vpiTypespec:
-    \_RefTypespec: (work@top.c3)
+    \_RefTypespec: (work@top.c3), line:42:5, endln:42:9
       |vpiParent:
       \_LogicNet: (work@top.c3), line:42:25, endln:42:27
       |vpiFullName:work@top.c3
@@ -2381,12 +2948,14 @@ Design: (unnamed)
     |vpiName:c3
     |vpiFullName:work@top.c3
     |vpiNetType:1
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:42:5, endln:42:9
+  |vpiImportTypespec:
   \_LogicNet: (work@top.c4), line:42:29, endln:42:31
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
     |vpiTypespec:
-    \_RefTypespec: (work@top.c4)
+    \_RefTypespec: (work@top.c4), line:42:5, endln:42:9
       |vpiParent:
       \_LogicNet: (work@top.c4), line:42:29, endln:42:31
       |vpiFullName:work@top.c4
@@ -2395,12 +2964,14 @@ Design: (unnamed)
     |vpiName:c4
     |vpiFullName:work@top.c4
     |vpiNetType:1
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:43:5, endln:43:9
+  |vpiImportTypespec:
   \_LogicNet: (work@top.d1), line:43:17, endln:43:19
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
     |vpiTypespec:
-    \_RefTypespec: (work@top.d1)
+    \_RefTypespec: (work@top.d1), line:43:5, endln:43:9
       |vpiParent:
       \_LogicNet: (work@top.d1), line:43:17, endln:43:19
       |vpiFullName:work@top.d1
@@ -2409,12 +2980,14 @@ Design: (unnamed)
     |vpiName:d1
     |vpiFullName:work@top.d1
     |vpiNetType:1
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:43:5, endln:43:9
+  |vpiImportTypespec:
   \_LogicNet: (work@top.d2), line:43:21, endln:43:23
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
     |vpiTypespec:
-    \_RefTypespec: (work@top.d2)
+    \_RefTypespec: (work@top.d2), line:43:5, endln:43:9
       |vpiParent:
       \_LogicNet: (work@top.d2), line:43:21, endln:43:23
       |vpiFullName:work@top.d2
@@ -2423,12 +2996,14 @@ Design: (unnamed)
     |vpiName:d2
     |vpiFullName:work@top.d2
     |vpiNetType:1
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:43:5, endln:43:9
+  |vpiImportTypespec:
   \_LogicNet: (work@top.d3), line:43:25, endln:43:27
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
     |vpiTypespec:
-    \_RefTypespec: (work@top.d3)
+    \_RefTypespec: (work@top.d3), line:43:5, endln:43:9
       |vpiParent:
       \_LogicNet: (work@top.d3), line:43:25, endln:43:27
       |vpiFullName:work@top.d3
@@ -2437,12 +3012,14 @@ Design: (unnamed)
     |vpiName:d3
     |vpiFullName:work@top.d3
     |vpiNetType:1
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:43:5, endln:43:9
+  |vpiImportTypespec:
   \_LogicNet: (work@top.d4), line:43:29, endln:43:31
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
     |vpiTypespec:
-    \_RefTypespec: (work@top.d4)
+    \_RefTypespec: (work@top.d4), line:43:5, endln:43:9
       |vpiParent:
       \_LogicNet: (work@top.d4), line:43:29, endln:43:31
       |vpiFullName:work@top.d4
@@ -2451,29 +3028,69 @@ Design: (unnamed)
     |vpiName:d4
     |vpiFullName:work@top.d4
     |vpiNetType:1
-  |vpiNet:
-  \_LogicNet: (work@top.out), line:39:12, endln:39:15
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:49:12, endln:49:36
+  |vpiImportTypespec:
+  \_LogicNet: (work@top.out), line:49:37, endln:49:40
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
+    |vpiTypespec:
+    \_RefTypespec: (work@top.out), line:49:12, endln:49:36
+      |vpiParent:
+      \_LogicNet: (work@top.out), line:49:37, endln:49:40
+      |vpiFullName:work@top.out
+      |vpiActual:
+      \_LogicTypespec: , line:49:12, endln:49:36
     |vpiName:out
     |vpiFullName:work@top.out
     |vpiNetType:1
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:49:12, endln:49:36
+  |vpiDefName:work@top
+  |vpiTaskFunc:
+  \_Function: (work@top.negate), line:56:5, endln:59:16
+  |vpiNet:
+  \_LogicNet: (work@top.a1), line:40:17, endln:40:19
+  |vpiNet:
+  \_LogicNet: (work@top.a2), line:40:21, endln:40:23
+  |vpiNet:
+  \_LogicNet: (work@top.a3), line:40:25, endln:40:27
+  |vpiNet:
+  \_LogicNet: (work@top.a4), line:40:29, endln:40:31
+  |vpiNet:
+  \_LogicNet: (work@top.b1), line:41:17, endln:41:19
+  |vpiNet:
+  \_LogicNet: (work@top.b2), line:41:21, endln:41:23
+  |vpiNet:
+  \_LogicNet: (work@top.b3), line:41:25, endln:41:27
+  |vpiNet:
+  \_LogicNet: (work@top.b4), line:41:29, endln:41:31
+  |vpiNet:
+  \_LogicNet: (work@top.c1), line:42:17, endln:42:19
+  |vpiNet:
+  \_LogicNet: (work@top.c2), line:42:21, endln:42:23
+  |vpiNet:
+  \_LogicNet: (work@top.c3), line:42:25, endln:42:27
+  |vpiNet:
+  \_LogicNet: (work@top.c4), line:42:29, endln:42:31
+  |vpiNet:
+  \_LogicNet: (work@top.d1), line:43:17, endln:43:19
+  |vpiNet:
+  \_LogicNet: (work@top.d2), line:43:21, endln:43:23
+  |vpiNet:
+  \_LogicNet: (work@top.d3), line:43:25, endln:43:27
+  |vpiNet:
+  \_LogicNet: (work@top.d4), line:43:29, endln:43:31
+  |vpiNet:
+  \_LogicNet: (work@top.out), line:49:37, endln:49:40
   |vpiPort:
   \_Port: (out), line:39:12, endln:39:15
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
     |vpiName:out
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@top.out.out), line:39:12, endln:39:15
-      |vpiParent:
-      \_Port: (out), line:39:12, endln:39:15
-      |vpiName:out
-      |vpiFullName:work@top.out.out
-      |vpiActual:
-      \_LogicNet: (work@top.out), line:39:12, endln:39:15
-    |vpiTypedef:
-    \_RefTypespec: (work@top.out)
+    |vpiTypespec:
+    \_RefTypespec: (work@top.out), line:49:12, endln:49:16
       |vpiParent:
       \_Port: (out), line:39:12, endln:39:15
       |vpiFullName:work@top.out
@@ -2488,7 +3105,7 @@ Design: (unnamed)
       |vpiParent:
       \_Always: , line:65:5, endln:85:8
       |vpiFullName:work@top
-      |vpiStmt:
+      |vpiImportTypespec:
       \_ImmediateAssert: , line:66:9, endln:66:25
         |vpiParent:
         \_Begin: (work@top), line:65:17, endln:85:8
@@ -2513,7 +3130,7 @@ Design: (unnamed)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
-      |vpiStmt:
+      |vpiImportTypespec:
       \_ImmediateAssert: , line:67:9, endln:67:25
         |vpiParent:
         \_Begin: (work@top), line:65:17, endln:85:8
@@ -2538,7 +3155,7 @@ Design: (unnamed)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
-      |vpiStmt:
+      |vpiImportTypespec:
       \_ImmediateAssert: , line:68:9, endln:68:29
         |vpiParent:
         \_Begin: (work@top), line:65:17, endln:85:8
@@ -2563,7 +3180,7 @@ Design: (unnamed)
             |vpiSize:24
             |STRING:BAR
             |vpiConstType:6
-      |vpiStmt:
+      |vpiImportTypespec:
       \_ImmediateAssert: , line:69:9, endln:69:25
         |vpiParent:
         \_Begin: (work@top), line:65:17, endln:85:8
@@ -2588,7 +3205,7 @@ Design: (unnamed)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
-      |vpiStmt:
+      |vpiImportTypespec:
       \_ImmediateAssert: , line:70:9, endln:70:29
         |vpiParent:
         \_Begin: (work@top), line:65:17, endln:85:8
@@ -2613,7 +3230,7 @@ Design: (unnamed)
             |vpiSize:24
             |STRING:FOO
             |vpiConstType:6
-      |vpiStmt:
+      |vpiImportTypespec:
       \_ImmediateAssert: , line:71:9, endln:71:29
         |vpiParent:
         \_Begin: (work@top), line:65:17, endln:85:8
@@ -2638,7 +3255,7 @@ Design: (unnamed)
             |vpiSize:24
             |STRING:FOO
             |vpiConstType:6
-      |vpiStmt:
+      |vpiImportTypespec:
       \_ImmediateAssert: , line:72:9, endln:72:25
         |vpiParent:
         \_Begin: (work@top), line:65:17, endln:85:8
@@ -2663,7 +3280,7 @@ Design: (unnamed)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
-      |vpiStmt:
+      |vpiImportTypespec:
       \_ImmediateAssert: , line:73:9, endln:73:28
         |vpiParent:
         \_Begin: (work@top), line:65:17, endln:85:8
@@ -2688,7 +3305,7 @@ Design: (unnamed)
             |vpiSize:16
             |STRING:HI
             |vpiConstType:6
-      |vpiStmt:
+      |vpiImportTypespec:
       \_ImmediateAssert: , line:74:9, endln:74:25
         |vpiParent:
         \_Begin: (work@top), line:65:17, endln:85:8
@@ -2713,7 +3330,7 @@ Design: (unnamed)
             |vpiSize:64
             |UINT:1
             |vpiConstType:9
-      |vpiStmt:
+      |vpiImportTypespec:
       \_ImmediateAssert: , line:75:9, endln:75:25
         |vpiParent:
         \_Begin: (work@top), line:65:17, endln:85:8
@@ -2738,7 +3355,7 @@ Design: (unnamed)
             |vpiSize:64
             |UINT:1
             |vpiConstType:9
-      |vpiStmt:
+      |vpiImportTypespec:
       \_ImmediateAssert: , line:76:9, endln:76:25
         |vpiParent:
         \_Begin: (work@top), line:65:17, endln:85:8
@@ -2763,7 +3380,7 @@ Design: (unnamed)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
-      |vpiStmt:
+      |vpiImportTypespec:
       \_ImmediateAssert: , line:77:9, endln:77:25
         |vpiParent:
         \_Begin: (work@top), line:65:17, endln:85:8
@@ -2788,7 +3405,7 @@ Design: (unnamed)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
-      |vpiStmt:
+      |vpiImportTypespec:
       \_ImmediateAssert: , line:78:9, endln:78:25
         |vpiParent:
         \_Begin: (work@top), line:65:17, endln:85:8
@@ -2813,7 +3430,7 @@ Design: (unnamed)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
-      |vpiStmt:
+      |vpiImportTypespec:
       \_ImmediateAssert: , line:79:9, endln:79:25
         |vpiParent:
         \_Begin: (work@top), line:65:17, endln:85:8
@@ -2838,7 +3455,7 @@ Design: (unnamed)
             |vpiSize:64
             |UINT:0
             |vpiConstType:9
-      |vpiStmt:
+      |vpiImportTypespec:
       \_ImmediateAssert: , line:80:9, endln:80:25
         |vpiParent:
         \_Begin: (work@top), line:65:17, endln:85:8
@@ -2863,7 +3480,7 @@ Design: (unnamed)
             |vpiSize:64
             |UINT:1
             |vpiConstType:9
-      |vpiStmt:
+      |vpiImportTypespec:
       \_ImmediateAssert: , line:81:9, endln:81:25
         |vpiParent:
         \_Begin: (work@top), line:65:17, endln:85:8
@@ -2888,7 +3505,7 @@ Design: (unnamed)
             |vpiSize:64
             |UINT:1
             |vpiConstType:9
-      |vpiStmt:
+      |vpiImportTypespec:
       \_ImmediateAssert: , line:83:9, endln:83:24
         |vpiParent:
         \_Begin: (work@top), line:65:17, endln:85:8
@@ -2903,6 +3520,8 @@ Design: (unnamed)
             \_Operation: , line:83:16, endln:83:22
             |vpiName:Y
             |vpiFullName:work@top.Y
+            |vpiActual:
+            \_Parameter: (work@top.Y), line:62:23, endln:62:40
           |vpiOperand:
           \_Constant: , line:83:21, endln:83:22
             |vpiParent:
@@ -2911,7 +3530,7 @@ Design: (unnamed)
             |vpiSize:64
             |UINT:3
             |vpiConstType:9
-      |vpiStmt:
+      |vpiImportTypespec:
       \_ImmediateAssert: , line:84:9, endln:84:25
         |vpiParent:
         \_Begin: (work@top), line:65:17, endln:85:8
@@ -2926,6 +3545,8 @@ Design: (unnamed)
             \_Operation: , line:84:16, endln:84:23
             |vpiName:Z
             |vpiFullName:work@top.Z
+            |vpiActual:
+            \_Parameter: (work@top.Z), line:63:23, endln:63:48
           |vpiOperand:
           \_Operation: , line:84:21, endln:84:23
             |vpiParent:
@@ -2933,10 +3554,48 @@ Design: (unnamed)
             |vpiOpType:4
             |vpiOperand:
             \_Constant: , line:84:22, endln:84:23
+              |vpiParent:
+              \_Operation: , line:84:21, endln:84:23
               |vpiDecompile:3
               |vpiSize:64
               |UINT:3
               |vpiConstType:9
+      |vpiStmt:
+      \_ImmediateAssert: , line:66:9, endln:66:25
+      |vpiStmt:
+      \_ImmediateAssert: , line:67:9, endln:67:25
+      |vpiStmt:
+      \_ImmediateAssert: , line:68:9, endln:68:29
+      |vpiStmt:
+      \_ImmediateAssert: , line:69:9, endln:69:25
+      |vpiStmt:
+      \_ImmediateAssert: , line:70:9, endln:70:29
+      |vpiStmt:
+      \_ImmediateAssert: , line:71:9, endln:71:29
+      |vpiStmt:
+      \_ImmediateAssert: , line:72:9, endln:72:25
+      |vpiStmt:
+      \_ImmediateAssert: , line:73:9, endln:73:28
+      |vpiStmt:
+      \_ImmediateAssert: , line:74:9, endln:74:25
+      |vpiStmt:
+      \_ImmediateAssert: , line:75:9, endln:75:25
+      |vpiStmt:
+      \_ImmediateAssert: , line:76:9, endln:76:25
+      |vpiStmt:
+      \_ImmediateAssert: , line:77:9, endln:77:25
+      |vpiStmt:
+      \_ImmediateAssert: , line:78:9, endln:78:25
+      |vpiStmt:
+      \_ImmediateAssert: , line:79:9, endln:79:25
+      |vpiStmt:
+      \_ImmediateAssert: , line:80:9, endln:80:25
+      |vpiStmt:
+      \_ImmediateAssert: , line:81:9, endln:81:25
+      |vpiStmt:
+      \_ImmediateAssert: , line:83:9, endln:83:24
+      |vpiStmt:
+      \_ImmediateAssert: , line:84:9, endln:84:25
     |vpiAlwaysType:2
   |vpiContAssign:
   \_ContAssign: , line:50:12, endln:54:24
@@ -3082,439 +3741,231 @@ Design: (unnamed)
       |vpiName:out
       |vpiFullName:work@top.out
       |vpiActual:
-      \_LogicNet: (work@top.out), line:39:12, endln:39:15
-\_weaklyReferenced:
-\_StringTypespec: 
-\_LogicTypespec: , line:6:24, endln:6:30
-  |vpiRange:
-  \_Range: , line:6:24, endln:6:30
+      \_LogicNet: (work@top.out), line:49:37, endln:49:40
+  |vpiRefModule:
+  \_RefModule: work@Example (e1), line:44:5, endln:44:12
     |vpiParent:
-    \_LogicTypespec: , line:6:24, endln:6:30
-    |vpiLeftRange:
-    \_Constant: , line:6:25, endln:6:27
-      |vpiParent:
-      \_Range: , line:6:24, endln:6:30
-      |vpiDecompile:23
-      |vpiSize:64
-      |UINT:23
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:6:28, endln:6:29
-      |vpiParent:
-      \_Range: , line:6:24, endln:6:30
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:7:15, endln:7:21
-  |vpiRange:
-  \_Range: , line:7:15, endln:7:21
-    |vpiParent:
-    \_LogicTypespec: , line:7:15, endln:7:21
-    |vpiLeftRange:
-    \_Constant: , line:7:16, endln:7:18
-      |vpiParent:
-      \_Range: , line:7:15, endln:7:21
-      |vpiDecompile:23
-      |vpiSize:64
-      |UINT:23
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:7:19, endln:7:20
-      |vpiParent:
-      \_Range: , line:7:15, endln:7:21
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:56:14, endln:56:20
-  |vpiRange:
-  \_Range: , line:56:21, endln:56:27
-    |vpiParent:
-    \_LogicTypespec: , line:56:14, endln:56:20
-    |vpiLeftRange:
-    \_Constant: , line:56:22, endln:56:24
-      |vpiParent:
-      \_Range: , line:56:21, endln:56:27
-      |vpiDecompile:31
-      |vpiSize:64
-      |UINT:31
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:56:25, endln:56:26
-      |vpiParent:
-      \_Range: , line:56:21, endln:56:27
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-  |vpiSigned:1
-\_IntegerTypespec: , line:57:15, endln:57:22
-  |vpiSigned:1
-\_IntTypespec: , line:60:5, endln:60:21
-\_IntTypespec: , line:61:5, endln:61:20
-\_IntTypespec: , line:62:16, endln:62:22
-  |vpiParent:
-  \_Parameter: (work@top.Y), line:62:23, endln:62:24
-  |vpiSigned:1
-\_IntTypespec: , line:63:16, endln:63:22
-  |vpiParent:
-  \_Parameter: (work@top.Z), line:63:23, endln:63:24
-  |vpiSigned:1
-\_LogicTypespec: , line:3:12, endln:3:23
-  |vpiRange:
-  \_Range: , line:3:17, endln:3:23
-    |vpiParent:
-    \_LogicTypespec: , line:3:12, endln:3:23
-    |vpiLeftRange:
-    \_Constant: , line:3:18, endln:3:20
-      |vpiParent:
-      \_Range: , line:3:17, endln:3:23
-      |vpiDecompile:23
-      |vpiSize:64
-      |UINT:23
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:3:21, endln:3:22
-      |vpiParent:
-      \_Range: , line:3:17, endln:3:23
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:4:12, endln:4:23
-  |vpiRange:
-  \_Range: , line:4:17, endln:4:23
-    |vpiParent:
-    \_LogicTypespec: , line:4:12, endln:4:23
-    |vpiLeftRange:
-    \_Constant: , line:4:18, endln:4:20
-      |vpiParent:
-      \_Range: , line:4:17, endln:4:23
-      |vpiDecompile:23
-      |vpiSize:64
-      |UINT:23
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:4:21, endln:4:22
-      |vpiParent:
-      \_Range: , line:4:17, endln:4:23
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:5:12, endln:5:15
-\_LogicTypespec: , line:5:12, endln:5:15
-\_IntegerTypespec: , line:30:5, endln:30:12
-  |vpiSigned:1
-\_LogicVar: (work@Example.flip.flip), line:6:24, endln:6:30
-  |vpiParent:
-  \_RefObj: (work@Example.flip.flip), line:8:9, endln:8:13
-  |vpiTypespec:
-  \_RefTypespec: (work@Example.flip.flip)
-    |vpiParent:
-    \_LogicVar: (work@Example.flip.flip), line:6:24, endln:6:30
-    |vpiFullName:work@Example.flip.flip
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
+    |vpiName:e1
+    |vpiDefName:work@Example
     |vpiActual:
-    \_LogicTypespec: , line:6:24, endln:6:30
-  |vpiName:flip
-  |vpiFullName:work@Example.flip.flip
-\_LogicTypespec: , line:6:24, endln:6:30
-  |vpiParent:
-  \_RefTypespec: (work@Example.flip.flip)
-  |vpiRange:
-  \_Range: , line:6:24, endln:6:30
-    |vpiParent:
-    \_LogicTypespec: , line:6:24, endln:6:30
-    |vpiLeftRange:
-    \_Constant: , line:6:25, endln:6:27
+    \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:1:1, endln:37:10
+    |vpiPort:
+    \_Port: , line:44:25, endln:44:27
       |vpiParent:
-      \_Range: , line:6:24, endln:6:30
-      |vpiDecompile:23
-      |vpiSize:64
-      |UINT:23
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:6:28, endln:6:29
-      |vpiParent:
-      \_Range: , line:6:24, endln:6:30
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:49:12, endln:49:36
-  |vpiRange:
-  \_Range: , line:49:17, endln:49:36
-    |vpiParent:
-    \_LogicTypespec: , line:49:12, endln:49:36
-    |vpiLeftRange:
-    \_Operation: , line:49:18, endln:49:32
-      |vpiParent:
-      \_Range: , line:49:17, endln:49:36
-      |vpiOpType:24
-      |vpiOperand:
-      \_Operation: , line:49:18, endln:49:28
+      \_RefModule: work@Example (e1), line:44:5, endln:44:12
+      |vpiHighConn:
+      \_RefObj: (work@top.e1.a1), line:44:25, endln:44:27
         |vpiParent:
-        \_Operation: , line:49:18, endln:49:32
-        |vpiOpType:11
-        |vpiOperand:
-        \_Operation: , line:49:18, endln:49:24
-          |vpiParent:
-          \_Operation: , line:49:18, endln:49:28
-          |vpiOpType:25
-          |vpiOperand:
-          \_Constant: , line:49:18, endln:49:20
-            |vpiParent:
-            \_Operation: , line:49:18, endln:49:24
-            |vpiDecompile:24
-            |vpiSize:64
-            |UINT:24
-            |vpiConstType:9
-          |vpiOperand:
-          \_Constant: , line:49:23, endln:49:24
-            |vpiParent:
-            \_Operation: , line:49:18, endln:49:24
-            |vpiDecompile:8
-            |vpiSize:64
-            |UINT:8
-            |vpiConstType:9
-        |vpiOperand:
-        \_Constant: , line:49:27, endln:49:28
-          |vpiParent:
-          \_Operation: , line:49:18, endln:49:28
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-      |vpiOperand:
-      \_Constant: , line:49:31, endln:49:32
+        \_Port: , line:44:25, endln:44:27
+        |vpiName:a1
+        |vpiFullName:work@top.e1.a1
+        |vpiActual:
+        \_LogicNet: (work@top.a1), line:40:17, endln:40:19
+    |vpiPort:
+    \_Port: , line:44:29, endln:44:31
+      |vpiParent:
+      \_RefModule: work@Example (e1), line:44:5, endln:44:12
+      |vpiHighConn:
+      \_RefObj: (work@top.e1.b1), line:44:29, endln:44:31
         |vpiParent:
-        \_Operation: , line:49:18, endln:49:32
-        |vpiDecompile:4
-        |vpiSize:64
-        |UINT:4
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:49:34, endln:49:35
+        \_Port: , line:44:29, endln:44:31
+        |vpiName:b1
+        |vpiFullName:work@top.e1.b1
+        |vpiActual:
+        \_LogicNet: (work@top.b1), line:41:17, endln:41:19
+    |vpiPort:
+    \_Port: , line:44:33, endln:44:35
       |vpiParent:
-      \_Range: , line:49:17, endln:49:36
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:40:5, endln:40:16
-  |vpiRange:
-  \_Range: , line:40:10, endln:40:16
+      \_RefModule: work@Example (e1), line:44:5, endln:44:12
+      |vpiHighConn:
+      \_RefObj: (work@top.e1.c1), line:44:33, endln:44:35
+        |vpiParent:
+        \_Port: , line:44:33, endln:44:35
+        |vpiName:c1
+        |vpiFullName:work@top.e1.c1
+        |vpiActual:
+        \_LogicNet: (work@top.c1), line:42:17, endln:42:19
+    |vpiPort:
+    \_Port: , line:44:37, endln:44:39
+      |vpiParent:
+      \_RefModule: work@Example (e1), line:44:5, endln:44:12
+      |vpiHighConn:
+      \_RefObj: (work@top.e1.d1), line:44:37, endln:44:39
+        |vpiParent:
+        \_Port: , line:44:37, endln:44:39
+        |vpiName:d1
+        |vpiFullName:work@top.e1.d1
+        |vpiActual:
+        \_LogicNet: (work@top.d1), line:43:17, endln:43:19
+  |vpiRefModule:
+  \_RefModule: work@Example (e2), line:45:5, endln:45:12
     |vpiParent:
-    \_LogicTypespec: , line:40:5, endln:40:16
-    |vpiLeftRange:
-    \_Constant: , line:40:11, endln:40:13
-      |vpiParent:
-      \_Range: , line:40:10, endln:40:16
-      |vpiDecompile:23
-      |vpiSize:64
-      |UINT:23
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:40:14, endln:40:15
-      |vpiParent:
-      \_Range: , line:40:10, endln:40:16
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:40:5, endln:40:16
-  |vpiRange:
-  \_Range: , line:40:10, endln:40:16
-    |vpiParent:
-    \_LogicTypespec: , line:40:5, endln:40:16
-    |vpiLeftRange:
-    \_Constant: , line:40:11, endln:40:13
-      |vpiParent:
-      \_Range: , line:40:10, endln:40:16
-      |vpiDecompile:23
-      |vpiSize:64
-      |UINT:23
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:40:14, endln:40:15
-      |vpiParent:
-      \_Range: , line:40:10, endln:40:16
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:40:5, endln:40:16
-  |vpiRange:
-  \_Range: , line:40:10, endln:40:16
-    |vpiParent:
-    \_LogicTypespec: , line:40:5, endln:40:16
-    |vpiLeftRange:
-    \_Constant: , line:40:11, endln:40:13
-      |vpiParent:
-      \_Range: , line:40:10, endln:40:16
-      |vpiDecompile:23
-      |vpiSize:64
-      |UINT:23
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:40:14, endln:40:15
-      |vpiParent:
-      \_Range: , line:40:10, endln:40:16
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:40:5, endln:40:16
-  |vpiRange:
-  \_Range: , line:40:10, endln:40:16
-    |vpiParent:
-    \_LogicTypespec: , line:40:5, endln:40:16
-    |vpiLeftRange:
-    \_Constant: , line:40:11, endln:40:13
-      |vpiParent:
-      \_Range: , line:40:10, endln:40:16
-      |vpiDecompile:23
-      |vpiSize:64
-      |UINT:23
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:40:14, endln:40:15
-      |vpiParent:
-      \_Range: , line:40:10, endln:40:16
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:41:5, endln:41:16
-  |vpiRange:
-  \_Range: , line:41:10, endln:41:16
-    |vpiParent:
-    \_LogicTypespec: , line:41:5, endln:41:16
-    |vpiLeftRange:
-    \_Constant: , line:41:11, endln:41:13
-      |vpiParent:
-      \_Range: , line:41:10, endln:41:16
-      |vpiDecompile:23
-      |vpiSize:64
-      |UINT:23
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:41:14, endln:41:15
-      |vpiParent:
-      \_Range: , line:41:10, endln:41:16
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:41:5, endln:41:16
-  |vpiRange:
-  \_Range: , line:41:10, endln:41:16
-    |vpiParent:
-    \_LogicTypespec: , line:41:5, endln:41:16
-    |vpiLeftRange:
-    \_Constant: , line:41:11, endln:41:13
-      |vpiParent:
-      \_Range: , line:41:10, endln:41:16
-      |vpiDecompile:23
-      |vpiSize:64
-      |UINT:23
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:41:14, endln:41:15
-      |vpiParent:
-      \_Range: , line:41:10, endln:41:16
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:41:5, endln:41:16
-  |vpiRange:
-  \_Range: , line:41:10, endln:41:16
-    |vpiParent:
-    \_LogicTypespec: , line:41:5, endln:41:16
-    |vpiLeftRange:
-    \_Constant: , line:41:11, endln:41:13
-      |vpiParent:
-      \_Range: , line:41:10, endln:41:16
-      |vpiDecompile:23
-      |vpiSize:64
-      |UINT:23
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:41:14, endln:41:15
-      |vpiParent:
-      \_Range: , line:41:10, endln:41:16
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:41:5, endln:41:16
-  |vpiRange:
-  \_Range: , line:41:10, endln:41:16
-    |vpiParent:
-    \_LogicTypespec: , line:41:5, endln:41:16
-    |vpiLeftRange:
-    \_Constant: , line:41:11, endln:41:13
-      |vpiParent:
-      \_Range: , line:41:10, endln:41:16
-      |vpiDecompile:23
-      |vpiSize:64
-      |UINT:23
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:41:14, endln:41:15
-      |vpiParent:
-      \_Range: , line:41:10, endln:41:16
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:42:5, endln:42:9
-\_LogicTypespec: , line:42:5, endln:42:9
-\_LogicTypespec: , line:42:5, endln:42:9
-\_LogicTypespec: , line:42:5, endln:42:9
-\_LogicTypespec: , line:43:5, endln:43:9
-\_LogicTypespec: , line:43:5, endln:43:9
-\_LogicTypespec: , line:43:5, endln:43:9
-\_LogicTypespec: , line:43:5, endln:43:9
-\_IntVar: (work@top.negate.negate), line:56:14, endln:56:20
-  |vpiParent:
-  \_RefObj: (work@top.negate.negate), line:58:9, endln:58:15
-  |vpiTypespec:
-  \_RefTypespec: (work@top.negate.negate)
-    |vpiParent:
-    \_IntVar: (work@top.negate.negate), line:56:14, endln:56:20
-    |vpiFullName:work@top.negate.negate
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
+    |vpiName:e2
+    |vpiDefName:work@Example
     |vpiActual:
-    \_LogicTypespec: , line:56:14, endln:56:20
-  |vpiName:negate
-  |vpiFullName:work@top.negate.negate
-  |vpiSigned:1
-\_LogicTypespec: , line:56:14, endln:56:20
-  |vpiParent:
-  \_RefTypespec: (work@top.negate.negate)
-  |vpiRange:
-  \_Range: , line:56:21, endln:56:27
+    \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:1:1, endln:37:10
+    |vpiPort:
+    \_Port: , line:45:25, endln:45:27
+      |vpiParent:
+      \_RefModule: work@Example (e2), line:45:5, endln:45:12
+      |vpiHighConn:
+      \_RefObj: (work@top.e2.a2), line:45:25, endln:45:27
+        |vpiParent:
+        \_Port: , line:45:25, endln:45:27
+        |vpiName:a2
+        |vpiFullName:work@top.e2.a2
+        |vpiActual:
+        \_LogicNet: (work@top.a2), line:40:21, endln:40:23
+    |vpiPort:
+    \_Port: , line:45:29, endln:45:31
+      |vpiParent:
+      \_RefModule: work@Example (e2), line:45:5, endln:45:12
+      |vpiHighConn:
+      \_RefObj: (work@top.e2.b2), line:45:29, endln:45:31
+        |vpiParent:
+        \_Port: , line:45:29, endln:45:31
+        |vpiName:b2
+        |vpiFullName:work@top.e2.b2
+        |vpiActual:
+        \_LogicNet: (work@top.b2), line:41:21, endln:41:23
+    |vpiPort:
+    \_Port: , line:45:33, endln:45:35
+      |vpiParent:
+      \_RefModule: work@Example (e2), line:45:5, endln:45:12
+      |vpiHighConn:
+      \_RefObj: (work@top.e2.c2), line:45:33, endln:45:35
+        |vpiParent:
+        \_Port: , line:45:33, endln:45:35
+        |vpiName:c2
+        |vpiFullName:work@top.e2.c2
+        |vpiActual:
+        \_LogicNet: (work@top.c2), line:42:21, endln:42:23
+    |vpiPort:
+    \_Port: , line:45:37, endln:45:39
+      |vpiParent:
+      \_RefModule: work@Example (e2), line:45:5, endln:45:12
+      |vpiHighConn:
+      \_RefObj: (work@top.e2.d2), line:45:37, endln:45:39
+        |vpiParent:
+        \_Port: , line:45:37, endln:45:39
+        |vpiName:d2
+        |vpiFullName:work@top.e2.d2
+        |vpiActual:
+        \_LogicNet: (work@top.d2), line:43:21, endln:43:23
+  |vpiRefModule:
+  \_RefModule: work@Example (e3), line:46:5, endln:46:12
     |vpiParent:
-    \_LogicTypespec: , line:56:14, endln:56:20
-    |vpiLeftRange:
-    \_Constant: , line:56:22, endln:56:24
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
+    |vpiName:e3
+    |vpiDefName:work@Example
+    |vpiActual:
+    \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:1:1, endln:37:10
+    |vpiPort:
+    \_Port: , line:46:25, endln:46:27
       |vpiParent:
-      \_Range: , line:56:21, endln:56:27
-      |vpiDecompile:31
-      |vpiSize:64
-      |UINT:31
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:56:25, endln:56:26
+      \_RefModule: work@Example (e3), line:46:5, endln:46:12
+      |vpiHighConn:
+      \_RefObj: (work@top.e3.a3), line:46:25, endln:46:27
+        |vpiParent:
+        \_Port: , line:46:25, endln:46:27
+        |vpiName:a3
+        |vpiFullName:work@top.e3.a3
+        |vpiActual:
+        \_LogicNet: (work@top.a3), line:40:25, endln:40:27
+    |vpiPort:
+    \_Port: , line:46:29, endln:46:31
       |vpiParent:
-      \_Range: , line:56:21, endln:56:27
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-  |vpiSigned:1
+      \_RefModule: work@Example (e3), line:46:5, endln:46:12
+      |vpiHighConn:
+      \_RefObj: (work@top.e3.b3), line:46:29, endln:46:31
+        |vpiParent:
+        \_Port: , line:46:29, endln:46:31
+        |vpiName:b3
+        |vpiFullName:work@top.e3.b3
+        |vpiActual:
+        \_LogicNet: (work@top.b3), line:41:25, endln:41:27
+    |vpiPort:
+    \_Port: , line:46:33, endln:46:35
+      |vpiParent:
+      \_RefModule: work@Example (e3), line:46:5, endln:46:12
+      |vpiHighConn:
+      \_RefObj: (work@top.e3.c3), line:46:33, endln:46:35
+        |vpiParent:
+        \_Port: , line:46:33, endln:46:35
+        |vpiName:c3
+        |vpiFullName:work@top.e3.c3
+        |vpiActual:
+        \_LogicNet: (work@top.c3), line:42:25, endln:42:27
+    |vpiPort:
+    \_Port: , line:46:37, endln:46:39
+      |vpiParent:
+      \_RefModule: work@Example (e3), line:46:5, endln:46:12
+      |vpiHighConn:
+      \_RefObj: (work@top.e3.d3), line:46:37, endln:46:39
+        |vpiParent:
+        \_Port: , line:46:37, endln:46:39
+        |vpiName:d3
+        |vpiFullName:work@top.e3.d3
+        |vpiActual:
+        \_LogicNet: (work@top.d3), line:43:25, endln:43:27
+  |vpiRefModule:
+  \_RefModule: work@Example (e4), line:47:5, endln:47:12
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:39:1, endln:86:10
+    |vpiName:e4
+    |vpiDefName:work@Example
+    |vpiActual:
+    \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/StringRange/dut.sv, line:1:1, endln:37:10
+    |vpiPort:
+    \_Port: , line:47:25, endln:47:27
+      |vpiParent:
+      \_RefModule: work@Example (e4), line:47:5, endln:47:12
+      |vpiHighConn:
+      \_RefObj: (work@top.e4.a4), line:47:25, endln:47:27
+        |vpiParent:
+        \_Port: , line:47:25, endln:47:27
+        |vpiName:a4
+        |vpiFullName:work@top.e4.a4
+        |vpiActual:
+        \_LogicNet: (work@top.a4), line:40:29, endln:40:31
+    |vpiPort:
+    \_Port: , line:47:29, endln:47:31
+      |vpiParent:
+      \_RefModule: work@Example (e4), line:47:5, endln:47:12
+      |vpiHighConn:
+      \_RefObj: (work@top.e4.b4), line:47:29, endln:47:31
+        |vpiParent:
+        \_Port: , line:47:29, endln:47:31
+        |vpiName:b4
+        |vpiFullName:work@top.e4.b4
+        |vpiActual:
+        \_LogicNet: (work@top.b4), line:41:29, endln:41:31
+    |vpiPort:
+    \_Port: , line:47:33, endln:47:35
+      |vpiParent:
+      \_RefModule: work@Example (e4), line:47:5, endln:47:12
+      |vpiHighConn:
+      \_RefObj: (work@top.e4.c4), line:47:33, endln:47:35
+        |vpiParent:
+        \_Port: , line:47:33, endln:47:35
+        |vpiName:c4
+        |vpiFullName:work@top.e4.c4
+        |vpiActual:
+        \_LogicNet: (work@top.c4), line:42:29, endln:42:31
+    |vpiPort:
+    \_Port: , line:47:37, endln:47:39
+      |vpiParent:
+      \_RefModule: work@Example (e4), line:47:5, endln:47:12
+      |vpiHighConn:
+      \_RefObj: (work@top.e4.d4), line:47:37, endln:47:39
+        |vpiParent:
+        \_Port: , line:47:37, endln:47:39
+        |vpiName:d4
+        |vpiFullName:work@top.e4.d4
+        |vpiActual:
+        \_LogicNet: (work@top.d4), line:43:29, endln:43:31
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

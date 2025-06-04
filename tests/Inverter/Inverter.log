@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 95
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/Inverter/dut.sv
+FILE: ${SURELOG_DIR}/tests/Inverter/dut.sv
 n<> u<94> t<Top_level_rule> c<1> l<1:1> el<13:1>
-  n<> u<1> t<Null_rule> p<94> s<93> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<94> s<93> l<1:1>
   n<> u<93> t<Source_text> p<94> c<54> l<1:1> el<12:10>
     n<> u<54> t<Description> p<93> c<53> s<92> l<1:1> el<5:10>
       n<> u<53> t<Module_declaration> p<54> c<19> l<1:1> el<5:10>
@@ -108,56 +108,90 @@ AST_DEBUG_END
 ContAssign                                             1
 Design                                                 1
 LogicNet                                               4
-LogicTypespec                                          4
+LogicTypespec                                          8
 Module                                                 2
+ModuleTypespec                                         1
 Operation                                              1
-Port                                                   4
+Port                                                   8
+RefModule                                              2
 RefObj                                                 6
-RefTypespec                                            4
+RefTypespec                                            8
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/Inverter/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/Inverter/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/Inverter/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@inverter (work@inverter), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:7:1, endln:12:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@inverter
-  |vpiDefName:work@inverter
-  |vpiNet:
+  |vpiName:work@inverter
+  |vpiTypedef:
+  \_LogicTypespec: , line:8:8, endln:8:12
+    |vpiParent:
+    \_Module: work@inverter (work@inverter), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:7:1, endln:12:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:9:9, endln:9:13
+    |vpiParent:
+    \_Module: work@inverter (work@inverter), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:7:1, endln:12:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:8:8, endln:8:12
+    |vpiParent:
+    \_Module: work@inverter (work@inverter), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:7:1, endln:12:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:9:9, endln:9:13
+    |vpiParent:
+    \_Module: work@inverter (work@inverter), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:7:1, endln:12:10
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:8:8, endln:8:12
+  |vpiImportTypespec:
   \_LogicNet: (work@inverter.a), line:8:13, endln:8:14
     |vpiParent:
     \_Module: work@inverter (work@inverter), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:7:1, endln:12:10
+    |vpiTypespec:
+    \_RefTypespec: (work@inverter.a), line:8:8, endln:8:12
+      |vpiParent:
+      \_LogicNet: (work@inverter.a), line:8:13, endln:8:14
+      |vpiFullName:work@inverter.a
+      |vpiActual:
+      \_LogicTypespec: , line:8:8, endln:8:12
     |vpiName:a
     |vpiFullName:work@inverter.a
     |vpiNetType:1
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:9:9, endln:9:13
+  |vpiImportTypespec:
   \_LogicNet: (work@inverter.b), line:9:14, endln:9:15
     |vpiParent:
     \_Module: work@inverter (work@inverter), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:7:1, endln:12:10
+    |vpiTypespec:
+    \_RefTypespec: (work@inverter.b), line:9:9, endln:9:13
+      |vpiParent:
+      \_LogicNet: (work@inverter.b), line:9:14, endln:9:15
+      |vpiFullName:work@inverter.b
+      |vpiActual:
+      \_LogicTypespec: , line:9:9, endln:9:13
     |vpiName:b
     |vpiFullName:work@inverter.b
     |vpiNetType:1
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:8:8, endln:8:12
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:9:9, endln:9:13
+  |vpiDefName:work@inverter
+  |vpiNet:
+  \_LogicNet: (work@inverter.a), line:8:13, endln:8:14
+  |vpiNet:
+  \_LogicNet: (work@inverter.b), line:9:14, endln:9:15
   |vpiPort:
   \_Port: (a), line:8:13, endln:8:14
     |vpiParent:
     \_Module: work@inverter (work@inverter), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:7:1, endln:12:10
     |vpiName:a
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@inverter.a.a), line:8:13, endln:8:14
-      |vpiParent:
-      \_Port: (a), line:8:13, endln:8:14
-      |vpiName:a
-      |vpiFullName:work@inverter.a.a
-      |vpiActual:
-      \_LogicNet: (work@inverter.a), line:8:13, endln:8:14
-    |vpiTypedef:
-    \_RefTypespec: (work@inverter.a)
+    |vpiTypespec:
+    \_RefTypespec: (work@inverter.a), line:8:8, endln:8:12
       |vpiParent:
       \_Port: (a), line:8:13, endln:8:14
       |vpiFullName:work@inverter.a
@@ -169,16 +203,8 @@ Design: (unnamed)
     \_Module: work@inverter (work@inverter), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:7:1, endln:12:10
     |vpiName:b
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@inverter.b.b), line:9:14, endln:9:15
-      |vpiParent:
-      \_Port: (b), line:9:14, endln:9:15
-      |vpiName:b
-      |vpiFullName:work@inverter.b.b
-      |vpiActual:
-      \_LogicNet: (work@inverter.b), line:9:14, endln:9:15
-    |vpiTypedef:
-    \_RefTypespec: (work@inverter.b)
+    |vpiTypespec:
+    \_RefTypespec: (work@inverter.b), line:9:9, endln:9:13
       |vpiParent:
       \_Port: (b), line:9:14, endln:9:15
       |vpiFullName:work@inverter.b
@@ -209,42 +235,92 @@ Design: (unnamed)
       |vpiFullName:work@inverter.b
       |vpiActual:
       \_LogicNet: (work@inverter.b), line:9:14, endln:9:15
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:1:1, endln:5:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
-  |vpiDefName:work@top
-  |vpiNet:
+  |vpiName:work@top
+  |vpiTypedef:
+  \_ModuleTypespec: (inverter), line:3:3, endln:3:11
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:1:1, endln:5:10
+    |vpiName:inverter
+  |vpiTypedef:
+  \_LogicTypespec: , line:1:18, endln:1:22
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:1:1, endln:5:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:2:9, endln:2:13
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:1:1, endln:5:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:1:18, endln:1:22
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:1:1, endln:5:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:2:9, endln:2:13
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:1:1, endln:5:10
+  |vpiImportTypespec:
+  \_ModuleTypespec: (inverter), line:3:3, endln:3:11
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:1:18, endln:1:22
+  |vpiImportTypespec:
   \_LogicNet: (work@top.a), line:1:23, endln:1:24
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:1:1, endln:5:10
+    |vpiTypespec:
+    \_RefTypespec: (work@top.a), line:1:18, endln:1:22
+      |vpiParent:
+      \_LogicNet: (work@top.a), line:1:23, endln:1:24
+      |vpiFullName:work@top.a
+      |vpiActual:
+      \_LogicTypespec: , line:1:18, endln:1:22
     |vpiName:a
     |vpiFullName:work@top.a
     |vpiNetType:1
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:2:9, endln:2:13
+  |vpiImportTypespec:
   \_LogicNet: (work@top.b), line:2:14, endln:2:15
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:1:1, endln:5:10
+    |vpiTypespec:
+    \_RefTypespec: (work@top.b), line:2:9, endln:2:13
+      |vpiParent:
+      \_LogicNet: (work@top.b), line:2:14, endln:2:15
+      |vpiFullName:work@top.b
+      |vpiActual:
+      \_LogicTypespec: , line:2:9, endln:2:13
     |vpiName:b
     |vpiFullName:work@top.b
     |vpiNetType:1
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:1:18, endln:1:22
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:2:9, endln:2:13
+  |vpiImportTypespec:
+  \_LogicNet: (work@top.tmp), line:3:17, endln:3:20
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:1:1, endln:5:10
+    |vpiName:tmp
+    |vpiFullName:work@top.tmp
+    |vpiNetType:1
+  |vpiDefName:work@top
+  |vpiNet:
+  \_LogicNet: (work@top.a), line:1:23, endln:1:24
+  |vpiNet:
+  \_LogicNet: (work@top.b), line:2:14, endln:2:15
+  |vpiNet:
+  \_LogicNet: (work@top.tmp), line:3:17, endln:3:20
   |vpiPort:
   \_Port: (a), line:1:23, endln:1:24
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:1:1, endln:5:10
     |vpiName:a
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@top.a.a), line:1:23, endln:1:24
-      |vpiParent:
-      \_Port: (a), line:1:23, endln:1:24
-      |vpiName:a
-      |vpiFullName:work@top.a.a
-      |vpiActual:
-      \_LogicNet: (work@top.a), line:1:23, endln:1:24
-    |vpiTypedef:
-    \_RefTypespec: (work@top.a)
+    |vpiTypespec:
+    \_RefTypespec: (work@top.a), line:1:18, endln:1:22
       |vpiParent:
       \_Port: (a), line:1:23, endln:1:24
       |vpiFullName:work@top.a
@@ -256,26 +332,77 @@ Design: (unnamed)
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:1:1, endln:5:10
     |vpiName:b
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@top.b.b), line:2:14, endln:2:15
-      |vpiParent:
-      \_Port: (b), line:2:14, endln:2:15
-      |vpiName:b
-      |vpiFullName:work@top.b.b
-      |vpiActual:
-      \_LogicNet: (work@top.b), line:2:14, endln:2:15
-    |vpiTypedef:
-    \_RefTypespec: (work@top.b)
+    |vpiTypespec:
+    \_RefTypespec: (work@top.b), line:2:9, endln:2:13
       |vpiParent:
       \_Port: (b), line:2:14, endln:2:15
       |vpiFullName:work@top.b
       |vpiActual:
       \_LogicTypespec: , line:2:9, endln:2:13
-\_weaklyReferenced:
-\_LogicTypespec: , line:8:8, endln:8:12
-\_LogicTypespec: , line:9:9, endln:9:13
-\_LogicTypespec: , line:1:18, endln:1:22
-\_LogicTypespec: , line:2:9, endln:2:13
+  |vpiRefModule:
+  \_RefModule: work@inverter (i1), line:3:3, endln:3:11
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:1:1, endln:5:10
+    |vpiName:i1
+    |vpiDefName:work@inverter
+    |vpiActual:
+    \_Module: work@inverter (work@inverter), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:7:1, endln:12:10
+    |vpiPort:
+    \_Port: , line:3:15, endln:3:16
+      |vpiParent:
+      \_RefModule: work@inverter (i1), line:3:3, endln:3:11
+      |vpiHighConn:
+      \_RefObj: (work@top.i1.a), line:3:15, endln:3:16
+        |vpiParent:
+        \_Port: , line:3:15, endln:3:16
+        |vpiName:a
+        |vpiFullName:work@top.i1.a
+        |vpiActual:
+        \_LogicNet: (work@top.a), line:1:23, endln:1:24
+    |vpiPort:
+    \_Port: , line:3:17, endln:3:20
+      |vpiParent:
+      \_RefModule: work@inverter (i1), line:3:3, endln:3:11
+      |vpiHighConn:
+      \_RefObj: (work@top.i1.tmp), line:3:17, endln:3:20
+        |vpiParent:
+        \_Port: , line:3:17, endln:3:20
+        |vpiName:tmp
+        |vpiFullName:work@top.i1.tmp
+        |vpiActual:
+        \_LogicNet: (work@top.tmp), line:3:17, endln:3:20
+  |vpiRefModule:
+  \_RefModule: work@inverter (i2), line:4:3, endln:4:11
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:1:1, endln:5:10
+    |vpiName:i2
+    |vpiDefName:work@inverter
+    |vpiActual:
+    \_Module: work@inverter (work@inverter), file:${SURELOG_DIR}/tests/Inverter/dut.sv, line:7:1, endln:12:10
+    |vpiPort:
+    \_Port: , line:4:15, endln:4:18
+      |vpiParent:
+      \_RefModule: work@inverter (i2), line:4:3, endln:4:11
+      |vpiHighConn:
+      \_RefObj: (work@top.i2.tmp), line:4:15, endln:4:18
+        |vpiParent:
+        \_Port: , line:4:15, endln:4:18
+        |vpiName:tmp
+        |vpiFullName:work@top.i2.tmp
+        |vpiActual:
+        \_LogicNet: (work@top.tmp), line:3:17, endln:3:20
+    |vpiPort:
+    \_Port: , line:4:19, endln:4:20
+      |vpiParent:
+      \_RefModule: work@inverter (i2), line:4:3, endln:4:11
+      |vpiHighConn:
+      \_RefObj: (work@top.i2.b), line:4:19, endln:4:20
+        |vpiParent:
+        \_Port: , line:4:19, endln:4:20
+        |vpiName:b
+        |vpiFullName:work@top.i2.b
+        |vpiActual:
+        \_LogicNet: (work@top.b), line:2:14, endln:2:15
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

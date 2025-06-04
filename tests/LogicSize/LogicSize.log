@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 113
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/LogicSize/dut.sv
+FILE: ${SURELOG_DIR}/tests/LogicSize/dut.sv
 n<> u<112> t<Top_level_rule> c<1> l<1:1> el<14:1>
-  n<> u<1> t<Null_rule> p<112> s<111> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<112> s<111> l<1:1>
   n<> u<111> t<Source_text> p<112> c<49> l<1:1> el<13:10>
     n<> u<49> t<Description> p<111> c<48> s<110> l<1:1> el<4:10>
       n<> u<48> t<Module_declaration> p<49> c<13> l<1:1> el<4:10>
@@ -127,36 +127,35 @@ Constant                                               2
 ContAssign                                             1
 Design                                                 1
 LogicNet                                               2
-LogicTypespec                                          4
+LogicTypespec                                          6
 Module                                                 2
+ModuleTypespec                                         1
 ParamAssign                                            2
 Parameter                                              2
 Port                                                   3
 RefModule                                              1
-RefObj                                                 5
+RefObj                                                 3
 RefTypespec                                            6
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/LogicSize/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/LogicSize/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/LogicSize/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/LogicSize/dut.sv, line:1:1, endln:4:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@dut
+  |vpiName:work@dut
   |vpiParameter:
-  \_Parameter: (work@dut.P), line:2:20, endln:2:21
+  \_Parameter: (work@dut.P), line:2:20, endln:2:25
     |vpiParent:
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/LogicSize/dut.sv, line:1:1, endln:4:10
     |UINT:0
     |vpiTypespec:
-    \_RefTypespec: (work@dut.P)
+    \_RefTypespec: (work@dut.P), line:2:14, endln:2:19
       |vpiParent:
-      \_Parameter: (work@dut.P), line:2:20, endln:2:21
+      \_Parameter: (work@dut.P), line:2:20, endln:2:25
       |vpiFullName:work@dut.P
       |vpiActual:
       \_LogicTypespec: , line:2:14, endln:2:19
@@ -173,40 +172,52 @@ Design: (unnamed)
       |vpiDecompile:0
       |vpiSize:64
       |UINT:0
-      |vpiTypespec:
-      \_RefTypespec: (work@dut)
-        |vpiParent:
-        \_Constant: , line:2:24, endln:2:25
-        |vpiFullName:work@dut
-        |vpiActual:
-        \_LogicTypespec: , line:2:14, endln:2:19
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (work@dut.P), line:2:20, endln:2:21
-  |vpiDefName:work@dut
-  |vpiNet:
+    \_Parameter: (work@dut.P), line:2:20, endln:2:25
+  |vpiTypedef:
+  \_LogicTypespec: , line:2:14, endln:2:19
+    |vpiParent:
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/LogicSize/dut.sv, line:1:1, endln:4:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:1:19, endln:1:24
+    |vpiParent:
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/LogicSize/dut.sv, line:1:1, endln:4:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:1:19, endln:1:24
+    |vpiParent:
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/LogicSize/dut.sv, line:1:1, endln:4:10
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:2:14, endln:2:19
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:1:19, endln:1:24
+  |vpiImportTypespec:
   \_LogicNet: (work@dut.a), line:1:25, endln:1:26
     |vpiParent:
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/LogicSize/dut.sv, line:1:1, endln:4:10
+    |vpiTypespec:
+    \_RefTypespec: (work@dut.a), line:1:19, endln:1:24
+      |vpiParent:
+      \_LogicNet: (work@dut.a), line:1:25, endln:1:26
+      |vpiFullName:work@dut.a
+      |vpiActual:
+      \_LogicTypespec: , line:1:19, endln:1:24
     |vpiName:a
     |vpiFullName:work@dut.a
     |vpiNetType:36
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:1:19, endln:1:24
+  |vpiDefName:work@dut
+  |vpiNet:
+  \_LogicNet: (work@dut.a), line:1:25, endln:1:26
   |vpiPort:
   \_Port: (a), line:1:25, endln:1:26
     |vpiParent:
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/LogicSize/dut.sv, line:1:1, endln:4:10
     |vpiName:a
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@dut.a.a), line:1:25, endln:1:26
-      |vpiParent:
-      \_Port: (a), line:1:25, endln:1:26
-      |vpiName:a
-      |vpiFullName:work@dut.a.a
-      |vpiActual:
-      \_LogicNet: (work@dut.a), line:1:25, endln:1:26
-    |vpiTypedef:
-    \_RefTypespec: (work@dut.a)
+    |vpiTypespec:
+    \_RefTypespec: (work@dut.a), line:1:19, endln:1:24
       |vpiParent:
       \_Port: (a), line:1:25, endln:1:26
       |vpiFullName:work@dut.a
@@ -222,6 +233,8 @@ Design: (unnamed)
       \_ContAssign: , line:3:11, endln:3:16
       |vpiName:P
       |vpiFullName:work@dut.P
+      |vpiActual:
+      \_Parameter: (work@dut.P), line:2:20, endln:2:25
     |vpiLhs:
     \_RefObj: (work@dut.a), line:3:11, endln:3:12
       |vpiParent:
@@ -230,20 +243,20 @@ Design: (unnamed)
       |vpiFullName:work@dut.a
       |vpiActual:
       \_LogicNet: (work@dut.a), line:1:25, endln:1:26
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/LogicSize/dut.sv, line:6:1, endln:13:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
+  |vpiName:work@top
   |vpiParameter:
-  \_Parameter: (work@top.X), line:7:20, endln:7:21
+  \_Parameter: (work@top.X), line:7:20, endln:7:25
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/LogicSize/dut.sv, line:6:1, endln:13:10
     |UINT:0
     |vpiTypespec:
-    \_RefTypespec: (work@top.X)
+    \_RefTypespec: (work@top.X), line:7:14, endln:7:19
       |vpiParent:
-      \_Parameter: (work@top.X), line:7:20, endln:7:21
+      \_Parameter: (work@top.X), line:7:20, endln:7:25
       |vpiFullName:work@top.X
       |vpiActual:
       \_LogicTypespec: , line:7:14, endln:7:19
@@ -260,47 +273,66 @@ Design: (unnamed)
       |vpiDecompile:0
       |vpiSize:64
       |UINT:0
-      |vpiTypespec:
-      \_RefTypespec: (work@top)
-        |vpiParent:
-        \_Constant: , line:7:24, endln:7:25
-        |vpiFullName:work@top
-        |vpiActual:
-        \_LogicTypespec: , line:7:14, endln:7:19
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (work@top.X), line:7:20, endln:7:21
-  |vpiDefName:work@top
-  |vpiNet:
+    \_Parameter: (work@top.X), line:7:20, endln:7:25
+  |vpiTypedef:
+  \_LogicTypespec: , line:7:14, endln:7:19
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/LogicSize/dut.sv, line:6:1, endln:13:10
+  |vpiTypedef:
+  \_ModuleTypespec: (dut), line:8:4, endln:8:7
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/LogicSize/dut.sv, line:6:1, endln:13:10
+    |vpiName:dut
+  |vpiTypedef:
+  \_LogicTypespec: , line:6:19, endln:6:24
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/LogicSize/dut.sv, line:6:1, endln:13:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:6:19, endln:6:24
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/LogicSize/dut.sv, line:6:1, endln:13:10
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:7:14, endln:7:19
+  |vpiImportTypespec:
+  \_ModuleTypespec: (dut), line:8:4, endln:8:7
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:6:19, endln:6:24
+  |vpiImportTypespec:
   \_LogicNet: (work@top.o), line:6:25, endln:6:26
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/LogicSize/dut.sv, line:6:1, endln:13:10
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o), line:6:19, endln:6:24
+      |vpiParent:
+      \_LogicNet: (work@top.o), line:6:25, endln:6:26
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_LogicTypespec: , line:6:19, endln:6:24
     |vpiName:o
     |vpiFullName:work@top.o
     |vpiNetType:36
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:6:19, endln:6:24
+  |vpiDefName:work@top
+  |vpiNet:
+  \_LogicNet: (work@top.o), line:6:25, endln:6:26
   |vpiPort:
   \_Port: (o), line:6:25, endln:6:26
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/LogicSize/dut.sv, line:6:1, endln:13:10
     |vpiName:o
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@top.o.o), line:6:25, endln:6:26
-      |vpiParent:
-      \_Port: (o), line:6:25, endln:6:26
-      |vpiName:o
-      |vpiFullName:work@top.o.o
-      |vpiActual:
-      \_LogicNet: (work@top.o), line:6:25, endln:6:26
-    |vpiTypedef:
-    \_RefTypespec: (work@top.o)
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o), line:6:19, endln:6:24
       |vpiParent:
       \_Port: (o), line:6:25, endln:6:26
       |vpiFullName:work@top.o
       |vpiActual:
       \_LogicTypespec: , line:6:19, endln:6:24
   |vpiRefModule:
-  \_RefModule: work@dut (u_dut), line:10:6, endln:10:11
+  \_RefModule: work@dut (u_dut), line:8:4, endln:8:7
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/LogicSize/dut.sv, line:6:1, endln:13:10
     |vpiName:u_dut
@@ -308,27 +340,18 @@ Design: (unnamed)
     |vpiActual:
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/LogicSize/dut.sv, line:1:1, endln:4:10
     |vpiPort:
-    \_Port: (a), line:11:7, endln:11:12
+    \_Port: (a), line:11:8, endln:11:9
       |vpiParent:
-      \_RefModule: work@dut (u_dut), line:10:6, endln:10:11
+      \_RefModule: work@dut (u_dut), line:8:4, endln:8:7
       |vpiName:a
       |vpiHighConn:
       \_RefObj: (work@top.u_dut.a.o), line:11:10, endln:11:11
         |vpiParent:
-        \_Port: (a), line:11:7, endln:11:12
+        \_Port: (a), line:11:8, endln:11:9
         |vpiName:o
         |vpiFullName:work@top.u_dut.a.o
         |vpiActual:
         \_LogicNet: (work@top.o), line:6:25, endln:6:26
-\_weaklyReferenced:
-\_LogicTypespec: , line:2:14, endln:2:19
-  |vpiParent:
-  \_Parameter: (work@dut.P), line:2:20, endln:2:21
-\_LogicTypespec: , line:7:14, endln:7:19
-  |vpiParent:
-  \_Parameter: (work@top.X), line:7:20, endln:7:21
-\_LogicTypespec: , line:1:19, endln:1:24
-\_LogicTypespec: , line:6:19, endln:6:24
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

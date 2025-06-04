@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 283
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/FuncSideEffect/dut.sv
+FILE: ${SURELOG_DIR}/tests/FuncSideEffect/dut.sv
 n<> u<282> t<Top_level_rule> c<1> l<1:1> el<24:1>
-  n<> u<1> t<Null_rule> p<282> s<281> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<282> s<281> l<1:1>
   n<> u<281> t<Source_text> p<282> c<280> l<1:1> el<23:10>
     n<> u<280> t<Description> p<281> c<279> l<1:1> el<23:10>
       n<> u<279> t<Module_declaration> p<280> c<57> l<1:1> el<23:10>
@@ -294,7 +294,7 @@ AST_DEBUG_END
 Assignment                                             4
 Begin                                                  1
 BitSelect                                              1
-Constant                                              26
+Constant                                              36
 ContAssign                                             1
 Design                                                 1
 FuncCall                                               3
@@ -303,47 +303,101 @@ IODecl                                                 3
 IfStmt                                                 1
 LogicNet                                               3
 LogicTypespec                                         10
-LogicVar                                               5
+LogicVar                                               2
 Module                                                 1
 Operation                                              5
 Port                                                   3
-Range                                                 10
-RefObj                                                14
+Range                                                 15
+RefObj                                                11
 RefTypespec                                           11
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FuncSideEffect/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/FuncSideEffect/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/FuncSideEffect/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@const_fold_func_top (work@const_fold_func_top), file:${SURELOG_DIR}/tests/FuncSideEffect/dut.sv, line:1:1, endln:23:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@const_fold_func_top
-  |vpiDefName:work@const_fold_func_top
-  |vpiTaskFunc:
+  |vpiName:work@const_fold_func_top
+  |vpiInternalScope:
   \_Function: (work@const_fold_func_top.flip), line:7:5, endln:10:16
     |vpiParent:
     \_Module: work@const_fold_func_top (work@const_fold_func_top), file:${SURELOG_DIR}/tests/FuncSideEffect/dut.sv, line:1:1, endln:23:10
     |vpiName:flip
     |vpiFullName:work@const_fold_func_top.flip
-    |vpiVisibility:1
-    |vpiAutomatic:1
-    |vpiReturn:
-    \_LogicVar: (work@const_fold_func_top.flip), line:7:24, endln:7:29
+    |vpiReg:
+    \_LogicVar: (work@const_fold_func_top.flip)
       |vpiParent:
       \_Function: (work@const_fold_func_top.flip), line:7:5, endln:10:16
       |vpiTypespec:
-      \_RefTypespec: (work@const_fold_func_top.flip)
+      \_RefTypespec: (work@const_fold_func_top.flip), line:7:24, endln:7:29
         |vpiParent:
-        \_LogicVar: (work@const_fold_func_top.flip), line:7:24, endln:7:29
+        \_LogicVar: (work@const_fold_func_top.flip)
         |vpiFullName:work@const_fold_func_top.flip
         |vpiActual:
         \_LogicTypespec: , line:7:24, endln:7:29
       |vpiFullName:work@const_fold_func_top.flip
+    |vpiTypedef:
+    \_LogicTypespec: , line:7:24, endln:7:29
+      |vpiParent:
+      \_Function: (work@const_fold_func_top.flip), line:7:5, endln:10:16
+      |vpiRange:
+      \_Range: , line:7:24, endln:7:29
+        |vpiParent:
+        \_LogicTypespec: , line:7:24, endln:7:29
+        |vpiLeftRange:
+        \_Constant: , line:7:25, endln:7:26
+          |vpiParent:
+          \_Range: , line:7:24, endln:7:29
+          |vpiDecompile:3
+          |vpiSize:64
+          |UINT:3
+          |vpiConstType:9
+        |vpiRightRange:
+        \_Constant: , line:7:27, endln:7:28
+          |vpiParent:
+          \_Range: , line:7:24, endln:7:29
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiSigned:1
+    |vpiTypedef:
+    \_LogicTypespec: , line:8:15, endln:8:20
+      |vpiParent:
+      \_Function: (work@const_fold_func_top.flip), line:7:5, endln:10:16
+      |vpiRange:
+      \_Range: , line:8:15, endln:8:20
+        |vpiParent:
+        \_LogicTypespec: , line:8:15, endln:8:20
+        |vpiLeftRange:
+        \_Constant: , line:8:16, endln:8:17
+          |vpiParent:
+          \_Range: , line:8:15, endln:8:20
+          |vpiDecompile:3
+          |vpiSize:64
+          |UINT:3
+          |vpiConstType:9
+        |vpiRightRange:
+        \_Constant: , line:8:18, endln:8:19
+          |vpiParent:
+          \_Range: , line:8:15, endln:8:20
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiImportTypespec:
+    \_LogicVar: (work@const_fold_func_top.flip)
+    |vpiImportTypespec:
+    \_LogicTypespec: , line:7:24, endln:7:29
+    |vpiImportTypespec:
+    \_LogicTypespec: , line:8:15, endln:8:20
+    |vpiVisibility:1
+    |vpiAutomatic:1
+    |vpiReturn:
+    \_LogicVar: (work@const_fold_func_top.flip)
     |vpiIODecl:
     \_IODecl: (inp), line:8:21, endln:8:24
       |vpiParent:
@@ -351,7 +405,7 @@ Design: (unnamed)
       |vpiDirection:1
       |vpiName:inp
       |vpiTypedef:
-      \_RefTypespec: (work@const_fold_func_top.flip.inp)
+      \_RefTypespec: (work@const_fold_func_top.flip.inp), line:8:15, endln:8:20
         |vpiParent:
         \_IODecl: (inp), line:8:21, endln:8:24
         |vpiFullName:work@const_fold_func_top.flip.inp
@@ -383,56 +437,26 @@ Design: (unnamed)
         |vpiName:flip
         |vpiFullName:work@const_fold_func_top.flip.flip
         |vpiActual:
-        \_LogicVar: (work@const_fold_func_top.flip.flip), line:7:24, endln:7:29
-    |vpiInstance:
-    \_Module: work@const_fold_func_top (work@const_fold_func_top), file:${SURELOG_DIR}/tests/FuncSideEffect/dut.sv, line:1:1, endln:23:10
-  |vpiTaskFunc:
+        \_LogicVar: (work@const_fold_func_top.flip)
+  |vpiInternalScope:
   \_Function: (work@const_fold_func_top.pow_flip_b), line:12:3, endln:20:14
     |vpiParent:
     \_Module: work@const_fold_func_top (work@const_fold_func_top), file:${SURELOG_DIR}/tests/FuncSideEffect/dut.sv, line:1:1, endln:23:10
     |vpiName:pow_flip_b
     |vpiFullName:work@const_fold_func_top.pow_flip_b
-    |vpiVisibility:1
-    |vpiAutomatic:1
-    |vpiReturn:
-    \_LogicVar: (work@const_fold_func_top.pow_flip_b), line:12:22, endln:12:27
+    |vpiReg:
+    \_LogicVar: (work@const_fold_func_top.pow_flip_b)
       |vpiParent:
       \_Function: (work@const_fold_func_top.pow_flip_b), line:12:3, endln:20:14
       |vpiTypespec:
-      \_RefTypespec: (work@const_fold_func_top.pow_flip_b)
+      \_RefTypespec: (work@const_fold_func_top.pow_flip_b), line:12:22, endln:12:27
         |vpiParent:
-        \_LogicVar: (work@const_fold_func_top.pow_flip_b), line:12:22, endln:12:27
+        \_LogicVar: (work@const_fold_func_top.pow_flip_b)
         |vpiFullName:work@const_fold_func_top.pow_flip_b
         |vpiActual:
         \_LogicTypespec: , line:12:22, endln:12:27
       |vpiFullName:work@const_fold_func_top.pow_flip_b
-    |vpiIODecl:
-    \_IODecl: (base), line:13:17, endln:13:21
-      |vpiParent:
-      \_Function: (work@const_fold_func_top.pow_flip_b), line:12:3, endln:20:14
-      |vpiDirection:1
-      |vpiName:base
-      |vpiTypedef:
-      \_RefTypespec: (work@const_fold_func_top.pow_flip_b.base)
-        |vpiParent:
-        \_IODecl: (base), line:13:17, endln:13:21
-        |vpiFullName:work@const_fold_func_top.pow_flip_b.base
-        |vpiActual:
-        \_LogicTypespec: , line:13:11, endln:13:16
-    |vpiIODecl:
-    \_IODecl: (exp), line:13:23, endln:13:26
-      |vpiParent:
-      \_Function: (work@const_fold_func_top.pow_flip_b), line:12:3, endln:20:14
-      |vpiDirection:1
-      |vpiName:exp
-      |vpiTypedef:
-      \_RefTypespec: (work@const_fold_func_top.pow_flip_b.exp)
-        |vpiParent:
-        \_IODecl: (exp), line:13:23, endln:13:26
-        |vpiFullName:work@const_fold_func_top.pow_flip_b.exp
-        |vpiActual:
-        \_LogicTypespec: , line:13:11, endln:13:16
-    |vpiStmt:
+    |vpiInternalScope:
     \_Begin: (work@const_fold_func_top.pow_flip_b), line:14:5, endln:19:8
       |vpiParent:
       \_Function: (work@const_fold_func_top.pow_flip_b), line:12:3, endln:20:14
@@ -465,15 +489,17 @@ Design: (unnamed)
             |UINT:1
             |vpiConstType:9
         |vpiLhs:
-        \_BitSelect: (work@const_fold_func_top.pow_flip_b.out2), line:15:9, endln:15:18
+        \_BitSelect: (work@const_fold_func_top.pow_flip_b.out2), line:15:13, endln:15:18
           |vpiParent:
           \_Assignment: , line:15:9, endln:15:29
           |vpiName:out2
           |vpiFullName:work@const_fold_func_top.pow_flip_b.out2
+          |vpiActual:
+          \_LogicNet: (work@const_fold_func_top.out2), line:4:22, endln:4:26
           |vpiIndex:
           \_RefObj: (work@const_fold_func_top.pow_flip_b.exp), line:15:14, endln:15:17
             |vpiParent:
-            \_BitSelect: (work@const_fold_func_top.pow_flip_b.out2), line:15:9, endln:15:18
+            \_BitSelect: (work@const_fold_func_top.pow_flip_b.out2), line:15:13, endln:15:18
             |vpiName:exp
             |vpiFullName:work@const_fold_func_top.pow_flip_b.exp
             |vpiActual:
@@ -486,6 +512,8 @@ Design: (unnamed)
         |vpiBlocking:1
         |vpiRhs:
         \_Constant: , line:16:22, endln:16:23
+          |vpiParent:
+          \_Assignment: , line:16:9, endln:16:23
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
@@ -497,7 +525,7 @@ Design: (unnamed)
           |vpiName:pow_flip_b
           |vpiFullName:work@const_fold_func_top.pow_flip_b.pow_flip_b
           |vpiActual:
-          \_LogicVar: (work@const_fold_func_top.pow_flip_b.pow_flip_b), line:12:22, endln:12:27
+          \_LogicVar: (work@const_fold_func_top.pow_flip_b)
       |vpiStmt:
       \_IfStmt: , line:17:9, endln:18:65
         |vpiParent:
@@ -505,7 +533,7 @@ Design: (unnamed)
         |vpiCondition:
         \_Operation: , line:17:13, endln:17:20
           |vpiParent:
-          \_Begin: (work@const_fold_func_top.pow_flip_b), line:14:5, endln:19:8
+          \_IfStmt: , line:17:9, endln:18:65
           |vpiOpType:18
           |vpiOperand:
           \_RefObj: (work@const_fold_func_top.pow_flip_b.exp), line:17:13, endln:17:16
@@ -592,46 +620,315 @@ Design: (unnamed)
             |vpiName:pow_flip_b
             |vpiFullName:work@const_fold_func_top.pow_flip_b.pow_flip_b
             |vpiActual:
-            \_LogicVar: (work@const_fold_func_top.pow_flip_b.pow_flip_b), line:12:22, endln:12:27
-    |vpiInstance:
+            \_LogicVar: (work@const_fold_func_top.pow_flip_b)
+    |vpiTypedef:
+    \_LogicTypespec: , line:12:22, endln:12:27
+      |vpiParent:
+      \_Function: (work@const_fold_func_top.pow_flip_b), line:12:3, endln:20:14
+      |vpiRange:
+      \_Range: , line:12:22, endln:12:27
+        |vpiParent:
+        \_LogicTypespec: , line:12:22, endln:12:27
+        |vpiLeftRange:
+        \_Constant: , line:12:23, endln:12:24
+          |vpiParent:
+          \_Range: , line:12:22, endln:12:27
+          |vpiDecompile:3
+          |vpiSize:64
+          |UINT:3
+          |vpiConstType:9
+        |vpiRightRange:
+        \_Constant: , line:12:25, endln:12:26
+          |vpiParent:
+          \_Range: , line:12:22, endln:12:27
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiSigned:1
+    |vpiTypedef:
+    \_LogicTypespec: , line:13:11, endln:13:16
+      |vpiParent:
+      \_Function: (work@const_fold_func_top.pow_flip_b), line:12:3, endln:20:14
+      |vpiRange:
+      \_Range: , line:13:11, endln:13:16
+        |vpiParent:
+        \_LogicTypespec: , line:13:11, endln:13:16
+        |vpiLeftRange:
+        \_Constant: , line:13:12, endln:13:13
+          |vpiParent:
+          \_Range: , line:13:11, endln:13:16
+          |vpiDecompile:3
+          |vpiSize:64
+          |UINT:3
+          |vpiConstType:9
+        |vpiRightRange:
+        \_Constant: , line:13:14, endln:13:15
+          |vpiParent:
+          \_Range: , line:13:11, endln:13:16
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiImportTypespec:
+    \_LogicVar: (work@const_fold_func_top.pow_flip_b)
+    |vpiImportTypespec:
+    \_LogicTypespec: , line:12:22, endln:12:27
+    |vpiImportTypespec:
+    \_LogicTypespec: , line:13:11, endln:13:16
+    |vpiVisibility:1
+    |vpiAutomatic:1
+    |vpiReturn:
+    \_LogicVar: (work@const_fold_func_top.pow_flip_b)
+    |vpiIODecl:
+    \_IODecl: (base), line:13:17, endln:13:21
+      |vpiParent:
+      \_Function: (work@const_fold_func_top.pow_flip_b), line:12:3, endln:20:14
+      |vpiDirection:1
+      |vpiName:base
+      |vpiTypedef:
+      \_RefTypespec: (work@const_fold_func_top.pow_flip_b.base), line:13:11, endln:13:16
+        |vpiParent:
+        \_IODecl: (base), line:13:17, endln:13:21
+        |vpiFullName:work@const_fold_func_top.pow_flip_b.base
+        |vpiActual:
+        \_LogicTypespec: , line:13:11, endln:13:16
+    |vpiIODecl:
+    \_IODecl: (exp), line:13:23, endln:13:26
+      |vpiParent:
+      \_Function: (work@const_fold_func_top.pow_flip_b), line:12:3, endln:20:14
+      |vpiDirection:1
+      |vpiName:exp
+      |vpiTypedef:
+      \_RefTypespec: (work@const_fold_func_top.pow_flip_b.exp), line:13:11, endln:13:16
+        |vpiParent:
+        \_IODecl: (exp), line:13:23, endln:13:26
+        |vpiFullName:work@const_fold_func_top.pow_flip_b.exp
+        |vpiActual:
+        \_LogicTypespec: , line:13:11, endln:13:16
+    |vpiStmt:
+    \_Begin: (work@const_fold_func_top.pow_flip_b), line:14:5, endln:19:8
+  |vpiTypedef:
+  \_LogicTypespec: , line:2:11, endln:2:21
+    |vpiParent:
     \_Module: work@const_fold_func_top (work@const_fold_func_top), file:${SURELOG_DIR}/tests/FuncSideEffect/dut.sv, line:1:1, endln:23:10
-  |vpiNet:
+    |vpiRange:
+    \_Range: , line:2:16, endln:2:21
+      |vpiParent:
+      \_LogicTypespec: , line:2:11, endln:2:21
+      |vpiLeftRange:
+      \_Constant: , line:2:17, endln:2:18
+        |vpiParent:
+        \_Range: , line:2:16, endln:2:21
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:2:19, endln:2:20
+        |vpiParent:
+        \_Range: , line:2:16, endln:2:21
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:3:12, endln:3:22
+    |vpiParent:
+    \_Module: work@const_fold_func_top (work@const_fold_func_top), file:${SURELOG_DIR}/tests/FuncSideEffect/dut.sv, line:1:1, endln:23:10
+    |vpiRange:
+    \_Range: , line:3:17, endln:3:22
+      |vpiParent:
+      \_LogicTypespec: , line:3:12, endln:3:22
+      |vpiLeftRange:
+      \_Constant: , line:3:18, endln:3:19
+        |vpiParent:
+        \_Range: , line:3:17, endln:3:22
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:3:20, endln:3:21
+        |vpiParent:
+        \_Range: , line:3:17, endln:3:22
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:4:12, endln:4:21
+    |vpiParent:
+    \_Module: work@const_fold_func_top (work@const_fold_func_top), file:${SURELOG_DIR}/tests/FuncSideEffect/dut.sv, line:1:1, endln:23:10
+    |vpiRange:
+    \_Range: , line:4:16, endln:4:21
+      |vpiParent:
+      \_LogicTypespec: , line:4:12, endln:4:21
+      |vpiLeftRange:
+      \_Constant: , line:4:17, endln:4:18
+        |vpiParent:
+        \_Range: , line:4:16, endln:4:21
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:4:19, endln:4:20
+        |vpiParent:
+        \_Range: , line:4:16, endln:4:21
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:2:11, endln:2:21
+    |vpiParent:
+    \_Module: work@const_fold_func_top (work@const_fold_func_top), file:${SURELOG_DIR}/tests/FuncSideEffect/dut.sv, line:1:1, endln:23:10
+    |vpiRange:
+    \_Range: , line:2:16, endln:2:21
+      |vpiParent:
+      \_LogicTypespec: , line:2:11, endln:2:21
+      |vpiLeftRange:
+      \_Constant: , line:2:17, endln:2:18
+        |vpiParent:
+        \_Range: , line:2:16, endln:2:21
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:2:19, endln:2:20
+        |vpiParent:
+        \_Range: , line:2:16, endln:2:21
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:3:12, endln:3:22
+    |vpiParent:
+    \_Module: work@const_fold_func_top (work@const_fold_func_top), file:${SURELOG_DIR}/tests/FuncSideEffect/dut.sv, line:1:1, endln:23:10
+    |vpiRange:
+    \_Range: , line:3:17, endln:3:22
+      |vpiParent:
+      \_LogicTypespec: , line:3:12, endln:3:22
+      |vpiLeftRange:
+      \_Constant: , line:3:18, endln:3:19
+        |vpiParent:
+        \_Range: , line:3:17, endln:3:22
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:3:20, endln:3:21
+        |vpiParent:
+        \_Range: , line:3:17, endln:3:22
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:4:12, endln:4:21
+    |vpiParent:
+    \_Module: work@const_fold_func_top (work@const_fold_func_top), file:${SURELOG_DIR}/tests/FuncSideEffect/dut.sv, line:1:1, endln:23:10
+    |vpiRange:
+    \_Range: , line:4:16, endln:4:21
+      |vpiParent:
+      \_LogicTypespec: , line:4:12, endln:4:21
+      |vpiLeftRange:
+      \_Constant: , line:4:17, endln:4:18
+        |vpiParent:
+        \_Range: , line:4:16, endln:4:21
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:4:19, endln:4:20
+        |vpiParent:
+        \_Range: , line:4:16, endln:4:21
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiImportTypespec:
+  \_Function: (work@const_fold_func_top.flip), line:7:5, endln:10:16
+  |vpiImportTypespec:
+  \_Function: (work@const_fold_func_top.pow_flip_b), line:12:3, endln:20:14
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:2:11, endln:2:21
+  |vpiImportTypespec:
   \_LogicNet: (work@const_fold_func_top.inp), line:2:22, endln:2:25
     |vpiParent:
     \_Module: work@const_fold_func_top (work@const_fold_func_top), file:${SURELOG_DIR}/tests/FuncSideEffect/dut.sv, line:1:1, endln:23:10
+    |vpiTypespec:
+    \_RefTypespec: (work@const_fold_func_top.inp), line:2:11, endln:2:21
+      |vpiParent:
+      \_LogicNet: (work@const_fold_func_top.inp), line:2:22, endln:2:25
+      |vpiFullName:work@const_fold_func_top.inp
+      |vpiActual:
+      \_LogicTypespec: , line:2:11, endln:2:21
     |vpiName:inp
     |vpiFullName:work@const_fold_func_top.inp
     |vpiNetType:1
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:3:12, endln:3:22
+  |vpiImportTypespec:
   \_LogicNet: (work@const_fold_func_top.out1), line:3:23, endln:3:27
     |vpiParent:
     \_Module: work@const_fold_func_top (work@const_fold_func_top), file:${SURELOG_DIR}/tests/FuncSideEffect/dut.sv, line:1:1, endln:23:10
+    |vpiTypespec:
+    \_RefTypespec: (work@const_fold_func_top.out1), line:3:12, endln:3:22
+      |vpiParent:
+      \_LogicNet: (work@const_fold_func_top.out1), line:3:23, endln:3:27
+      |vpiFullName:work@const_fold_func_top.out1
+      |vpiActual:
+      \_LogicTypespec: , line:3:12, endln:3:22
     |vpiName:out1
     |vpiFullName:work@const_fold_func_top.out1
     |vpiNetType:1
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:4:12, endln:4:21
+  |vpiImportTypespec:
   \_LogicNet: (work@const_fold_func_top.out2), line:4:22, endln:4:26
     |vpiParent:
     \_Module: work@const_fold_func_top (work@const_fold_func_top), file:${SURELOG_DIR}/tests/FuncSideEffect/dut.sv, line:1:1, endln:23:10
+    |vpiTypespec:
+    \_RefTypespec: (work@const_fold_func_top.out2), line:4:12, endln:4:21
+      |vpiParent:
+      \_LogicNet: (work@const_fold_func_top.out2), line:4:22, endln:4:26
+      |vpiFullName:work@const_fold_func_top.out2
+      |vpiActual:
+      \_LogicTypespec: , line:4:12, endln:4:21
     |vpiName:out2
     |vpiFullName:work@const_fold_func_top.out2
     |vpiNetType:48
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:2:11, endln:2:21
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:3:12, endln:3:22
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:4:12, endln:4:21
+  |vpiDefName:work@const_fold_func_top
+  |vpiTaskFunc:
+  \_Function: (work@const_fold_func_top.flip), line:7:5, endln:10:16
+  |vpiTaskFunc:
+  \_Function: (work@const_fold_func_top.pow_flip_b), line:12:3, endln:20:14
+  |vpiNet:
+  \_LogicNet: (work@const_fold_func_top.inp), line:2:22, endln:2:25
+  |vpiNet:
+  \_LogicNet: (work@const_fold_func_top.out1), line:3:23, endln:3:27
+  |vpiNet:
+  \_LogicNet: (work@const_fold_func_top.out2), line:4:22, endln:4:26
   |vpiPort:
   \_Port: (inp), line:2:22, endln:2:25
     |vpiParent:
     \_Module: work@const_fold_func_top (work@const_fold_func_top), file:${SURELOG_DIR}/tests/FuncSideEffect/dut.sv, line:1:1, endln:23:10
     |vpiName:inp
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@const_fold_func_top.inp.inp), line:2:22, endln:2:25
-      |vpiParent:
-      \_Port: (inp), line:2:22, endln:2:25
-      |vpiName:inp
-      |vpiFullName:work@const_fold_func_top.inp.inp
-      |vpiActual:
-      \_LogicNet: (work@const_fold_func_top.inp), line:2:22, endln:2:25
-    |vpiTypedef:
-    \_RefTypespec: (work@const_fold_func_top.inp)
+    |vpiTypespec:
+    \_RefTypespec: (work@const_fold_func_top.inp), line:2:11, endln:2:15
       |vpiParent:
       \_Port: (inp), line:2:22, endln:2:25
       |vpiFullName:work@const_fold_func_top.inp
@@ -643,16 +940,8 @@ Design: (unnamed)
     \_Module: work@const_fold_func_top (work@const_fold_func_top), file:${SURELOG_DIR}/tests/FuncSideEffect/dut.sv, line:1:1, endln:23:10
     |vpiName:out1
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@const_fold_func_top.out1.out1), line:3:23, endln:3:27
-      |vpiParent:
-      \_Port: (out1), line:3:23, endln:3:27
-      |vpiName:out1
-      |vpiFullName:work@const_fold_func_top.out1.out1
-      |vpiActual:
-      \_LogicNet: (work@const_fold_func_top.out1), line:3:23, endln:3:27
-    |vpiTypedef:
-    \_RefTypespec: (work@const_fold_func_top.out1)
+    |vpiTypespec:
+    \_RefTypespec: (work@const_fold_func_top.out1), line:3:12, endln:3:16
       |vpiParent:
       \_Port: (out1), line:3:23, endln:3:27
       |vpiFullName:work@const_fold_func_top.out1
@@ -664,16 +953,8 @@ Design: (unnamed)
     \_Module: work@const_fold_func_top (work@const_fold_func_top), file:${SURELOG_DIR}/tests/FuncSideEffect/dut.sv, line:1:1, endln:23:10
     |vpiName:out2
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@const_fold_func_top.out2.out2), line:4:22, endln:4:26
-      |vpiParent:
-      \_Port: (out2), line:4:22, endln:4:26
-      |vpiName:out2
-      |vpiFullName:work@const_fold_func_top.out2.out2
-      |vpiActual:
-      \_LogicNet: (work@const_fold_func_top.out2), line:4:22, endln:4:26
-    |vpiTypedef:
-    \_RefTypespec: (work@const_fold_func_top.out2)
+    |vpiTypespec:
+    \_RefTypespec: (work@const_fold_func_top.out2), line:4:12, endln:4:15
       |vpiParent:
       \_Port: (out2), line:4:22, endln:4:26
       |vpiFullName:work@const_fold_func_top.out2
@@ -714,259 +995,6 @@ Design: (unnamed)
       |vpiFullName:work@const_fold_func_top.out1
       |vpiActual:
       \_LogicNet: (work@const_fold_func_top.out1), line:3:23, endln:3:27
-\_weaklyReferenced:
-\_LogicTypespec: , line:7:24, endln:7:29
-  |vpiRange:
-  \_Range: , line:7:24, endln:7:29
-    |vpiParent:
-    \_LogicTypespec: , line:7:24, endln:7:29
-    |vpiLeftRange:
-    \_Constant: , line:7:25, endln:7:26
-      |vpiParent:
-      \_Range: , line:7:24, endln:7:29
-      |vpiDecompile:3
-      |vpiSize:64
-      |UINT:3
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:7:27, endln:7:28
-      |vpiParent:
-      \_Range: , line:7:24, endln:7:29
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:8:15, endln:8:20
-  |vpiRange:
-  \_Range: , line:8:15, endln:8:20
-    |vpiParent:
-    \_LogicTypespec: , line:8:15, endln:8:20
-    |vpiLeftRange:
-    \_Constant: , line:8:16, endln:8:17
-      |vpiParent:
-      \_Range: , line:8:15, endln:8:20
-      |vpiDecompile:3
-      |vpiSize:64
-      |UINT:3
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:8:18, endln:8:19
-      |vpiParent:
-      \_Range: , line:8:15, endln:8:20
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:12:22, endln:12:27
-  |vpiRange:
-  \_Range: , line:12:22, endln:12:27
-    |vpiParent:
-    \_LogicTypespec: , line:12:22, endln:12:27
-    |vpiLeftRange:
-    \_Constant: , line:12:23, endln:12:24
-      |vpiParent:
-      \_Range: , line:12:22, endln:12:27
-      |vpiDecompile:3
-      |vpiSize:64
-      |UINT:3
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:12:25, endln:12:26
-      |vpiParent:
-      \_Range: , line:12:22, endln:12:27
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:13:11, endln:13:16
-  |vpiRange:
-  \_Range: , line:13:11, endln:13:16
-    |vpiParent:
-    \_LogicTypespec: , line:13:11, endln:13:16
-    |vpiLeftRange:
-    \_Constant: , line:13:12, endln:13:13
-      |vpiParent:
-      \_Range: , line:13:11, endln:13:16
-      |vpiDecompile:3
-      |vpiSize:64
-      |UINT:3
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:13:14, endln:13:15
-      |vpiParent:
-      \_Range: , line:13:11, endln:13:16
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:2:11, endln:2:21
-  |vpiRange:
-  \_Range: , line:2:16, endln:2:21
-    |vpiParent:
-    \_LogicTypespec: , line:2:11, endln:2:21
-    |vpiLeftRange:
-    \_Constant: , line:2:17, endln:2:18
-      |vpiParent:
-      \_Range: , line:2:16, endln:2:21
-      |vpiDecompile:3
-      |vpiSize:64
-      |UINT:3
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:2:19, endln:2:20
-      |vpiParent:
-      \_Range: , line:2:16, endln:2:21
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:3:12, endln:3:22
-  |vpiRange:
-  \_Range: , line:3:17, endln:3:22
-    |vpiParent:
-    \_LogicTypespec: , line:3:12, endln:3:22
-    |vpiLeftRange:
-    \_Constant: , line:3:18, endln:3:19
-      |vpiParent:
-      \_Range: , line:3:17, endln:3:22
-      |vpiDecompile:3
-      |vpiSize:64
-      |UINT:3
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:3:20, endln:3:21
-      |vpiParent:
-      \_Range: , line:3:17, endln:3:22
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:4:12, endln:4:21
-  |vpiRange:
-  \_Range: , line:4:16, endln:4:21
-    |vpiParent:
-    \_LogicTypespec: , line:4:12, endln:4:21
-    |vpiLeftRange:
-    \_Constant: , line:4:17, endln:4:18
-      |vpiParent:
-      \_Range: , line:4:16, endln:4:21
-      |vpiDecompile:3
-      |vpiSize:64
-      |UINT:3
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:4:19, endln:4:20
-      |vpiParent:
-      \_Range: , line:4:16, endln:4:21
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicVar: (work@const_fold_func_top.flip.flip), line:7:24, endln:7:29
-  |vpiParent:
-  \_RefObj: (work@const_fold_func_top.flip.flip), line:9:9, endln:9:13
-  |vpiTypespec:
-  \_RefTypespec: (work@const_fold_func_top.flip.flip)
-    |vpiParent:
-    \_LogicVar: (work@const_fold_func_top.flip.flip), line:7:24, endln:7:29
-    |vpiFullName:work@const_fold_func_top.flip.flip
-    |vpiActual:
-    \_LogicTypespec: , line:7:24, endln:7:29
-  |vpiName:flip
-  |vpiFullName:work@const_fold_func_top.flip.flip
-\_LogicTypespec: , line:7:24, endln:7:29
-  |vpiParent:
-  \_RefTypespec: (work@const_fold_func_top.flip.flip)
-  |vpiRange:
-  \_Range: , line:7:24, endln:7:29
-    |vpiParent:
-    \_LogicTypespec: , line:7:24, endln:7:29
-    |vpiLeftRange:
-    \_Constant: , line:7:25, endln:7:26
-      |vpiParent:
-      \_Range: , line:7:24, endln:7:29
-      |vpiDecompile:3
-      |vpiSize:64
-      |UINT:3
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:7:27, endln:7:28
-      |vpiParent:
-      \_Range: , line:7:24, endln:7:29
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicVar: (work@const_fold_func_top.pow_flip_b.pow_flip_b), line:12:22, endln:12:27
-  |vpiParent:
-  \_RefObj: (work@const_fold_func_top.pow_flip_b.pow_flip_b), line:16:9, endln:16:19
-  |vpiTypespec:
-  \_RefTypespec: (work@const_fold_func_top.pow_flip_b.pow_flip_b)
-    |vpiParent:
-    \_LogicVar: (work@const_fold_func_top.pow_flip_b.pow_flip_b), line:12:22, endln:12:27
-    |vpiFullName:work@const_fold_func_top.pow_flip_b.pow_flip_b
-    |vpiActual:
-    \_LogicTypespec: , line:12:22, endln:12:27
-  |vpiName:pow_flip_b
-  |vpiFullName:work@const_fold_func_top.pow_flip_b.pow_flip_b
-\_LogicTypespec: , line:12:22, endln:12:27
-  |vpiParent:
-  \_RefTypespec: (work@const_fold_func_top.pow_flip_b.pow_flip_b)
-  |vpiRange:
-  \_Range: , line:12:22, endln:12:27
-    |vpiParent:
-    \_LogicTypespec: , line:12:22, endln:12:27
-    |vpiLeftRange:
-    \_Constant: , line:12:23, endln:12:24
-      |vpiParent:
-      \_Range: , line:12:22, endln:12:27
-      |vpiDecompile:3
-      |vpiSize:64
-      |UINT:3
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:12:25, endln:12:26
-      |vpiParent:
-      \_Range: , line:12:22, endln:12:27
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicVar: (work@const_fold_func_top.pow_flip_b.pow_flip_b), line:12:22, endln:12:27
-  |vpiParent:
-  \_RefObj: (work@const_fold_func_top.pow_flip_b.pow_flip_b), line:18:13, endln:18:23
-  |vpiTypespec:
-  \_RefTypespec: (work@const_fold_func_top.pow_flip_b.pow_flip_b)
-    |vpiParent:
-    \_LogicVar: (work@const_fold_func_top.pow_flip_b.pow_flip_b), line:12:22, endln:12:27
-    |vpiFullName:work@const_fold_func_top.pow_flip_b.pow_flip_b
-    |vpiActual:
-    \_LogicTypespec: , line:12:22, endln:12:27
-  |vpiName:pow_flip_b
-  |vpiFullName:work@const_fold_func_top.pow_flip_b.pow_flip_b
-\_LogicTypespec: , line:12:22, endln:12:27
-  |vpiParent:
-  \_RefTypespec: (work@const_fold_func_top.pow_flip_b.pow_flip_b)
-  |vpiRange:
-  \_Range: , line:12:22, endln:12:27
-    |vpiParent:
-    \_LogicTypespec: , line:12:22, endln:12:27
-    |vpiLeftRange:
-    \_Constant: , line:12:23, endln:12:24
-      |vpiParent:
-      \_Range: , line:12:22, endln:12:27
-      |vpiDecompile:3
-      |vpiSize:64
-      |UINT:3
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:12:25, endln:12:26
-      |vpiParent:
-      \_Range: , line:12:22, endln:12:27
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

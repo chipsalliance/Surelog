@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 56
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/TopFunc/dut.sv
+FILE: ${SURELOG_DIR}/tests/TopFunc/dut.sv
 n<> u<55> t<Top_level_rule> c<1> l<1:1> el<8:1>
-  n<> u<1> t<Null_rule> p<55> s<54> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<55> s<54> l<1:1>
   n<> u<54> t<Source_text> p<55> c<22> l<1:1> el<7:10>
     n<> u<22> t<Description> p<54> c<21> s<53> l<1:1> el<3:12>
       n<> u<21> t<Package_item> p<22> c<20> l<1:1> el<3:12>
@@ -69,50 +69,64 @@ ContAssign                                             1
 Design                                                 1
 FuncCall                                               1
 Function                                               1
-IntTypespec                                            2
-IntVar                                                 1
-LogicNet                                               1
+IntTypespec                                            3
+IntVar                                                 2
 Module                                                 1
 Port                                                   1
-RefObj                                                 2
-RefTypespec                                            2
+RefObj                                                 1
+RefTypespec                                            3
 ReturnStmt                                             1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/TopFunc/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/TopFunc/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/TopFunc/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/TopFunc/dut.sv, line:5:1, endln:7:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
-  |vpiDefName:work@top
-  |vpiNet:
-  \_LogicNet: (work@top.o), line:5:23, endln:5:24
+  |vpiName:work@top
+  |vpiVariables:
+  \_IntVar: (work@top.o), line:5:23, endln:5:24
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/TopFunc/dut.sv, line:5:1, endln:7:10
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o), line:5:19, endln:5:22
+      |vpiParent:
+      \_IntVar: (work@top.o), line:5:23, endln:5:24
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_IntTypespec: , line:5:19, endln:5:22
     |vpiName:o
     |vpiFullName:work@top.o
+    |vpiSigned:1
+    |vpiVisibility:1
+  |vpiTypedef:
+  \_IntTypespec: , line:5:19, endln:5:22
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/TopFunc/dut.sv, line:5:1, endln:7:10
+    |vpiSigned:1
+  |vpiTypedef:
+  \_IntTypespec: , line:5:19, endln:5:22
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/TopFunc/dut.sv, line:5:1, endln:7:10
+    |vpiSigned:1
+  |vpiImportTypespec:
+  \_IntTypespec: , line:5:19, endln:5:22
+  |vpiImportTypespec:
+  \_IntVar: (work@top.o), line:5:23, endln:5:24
+  |vpiImportTypespec:
+  \_IntTypespec: , line:5:19, endln:5:22
+  |vpiDefName:work@top
   |vpiPort:
   \_Port: (o), line:5:23, endln:5:24
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/TopFunc/dut.sv, line:5:1, endln:7:10
     |vpiName:o
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@top.o.o), line:5:23, endln:5:24
-      |vpiParent:
-      \_Port: (o), line:5:23, endln:5:24
-      |vpiName:o
-      |vpiFullName:work@top.o.o
-      |vpiActual:
-      \_LogicNet: (work@top.o), line:5:23, endln:5:24
-    |vpiTypedef:
-    \_RefTypespec: (work@top.o)
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o), line:5:19, endln:5:22
       |vpiParent:
       \_Port: (o), line:5:23, endln:5:24
       |vpiFullName:work@top.o
@@ -136,43 +150,51 @@ Design: (unnamed)
       |vpiName:o
       |vpiFullName:work@top.o
       |vpiActual:
-      \_LogicNet: (work@top.o), line:5:23, endln:5:24
+      \_IntVar: (work@top.o), line:5:23, endln:5:24
 |vpiTaskFunc:
 \_Function: (get_1), line:1:1, endln:3:12
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:get_1
-  |vpiMethod:1
-  |vpiVisibility:1
-  |vpiAutomatic:1
-  |vpiReturn:
-  \_IntVar: (get_1), line:1:20, endln:1:23
+  |vpiVariables:
+  \_IntVar: (get_1)
     |vpiParent:
     \_Function: (get_1), line:1:1, endln:3:12
     |vpiTypespec:
-    \_RefTypespec: (get_1)
+    \_RefTypespec: (get_1), line:1:20, endln:1:23
       |vpiParent:
-      \_IntVar: (get_1), line:1:20, endln:1:23
+      \_IntVar: (get_1)
       |vpiFullName:get_1
       |vpiActual:
       \_IntTypespec: , line:1:20, endln:1:23
     |vpiFullName:get_1
     |vpiSigned:1
+  |vpiTypedef:
+  \_IntTypespec: , line:1:20, endln:1:23
+    |vpiParent:
+    \_Function: (get_1), line:1:1, endln:3:12
+    |vpiSigned:1
+  |vpiImportTypespec:
+  \_IntTypespec: , line:1:20, endln:1:23
+  |vpiImportTypespec:
+  \_IntVar: (get_1)
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiAutomatic:1
+  |vpiReturn:
+  \_IntVar: (get_1)
   |vpiStmt:
-  \_ReturnStmt: , line:2:4, endln:2:10
+  \_ReturnStmt: , line:2:4, endln:2:12
     |vpiParent:
     \_Function: (get_1), line:1:1, endln:3:12
     |vpiCondition:
     \_Constant: , line:2:11, endln:2:12
+      |vpiParent:
+      \_ReturnStmt: , line:2:4, endln:2:12
       |vpiDecompile:1
       |vpiSize:64
       |UINT:1
       |vpiConstType:9
-\_weaklyReferenced:
-\_IntTypespec: , line:1:20, endln:1:23
-  |vpiSigned:1
-\_IntTypespec: , line:5:19, endln:5:22
-  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 228
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv
+FILE: ${SURELOG_DIR}/tests/StructStructHierPath/dut.sv
 n<> u<227> t<Top_level_rule> c<1> l<2:1> el<38:1>
-  n<> u<1> t<Null_rule> p<227> s<226> l<2:1> el<1:2>
+  n<> u<1> t<Null_rule> p<227> s<226> l<2:1> el<2:1>
   n<> u<226> t<Source_text> p<227> c<140> l<2:1> el<37:10>
     n<> u<140> t<Description> p<226> c<139> s<225> l<2:1> el<26:26>
       n<> u<139> t<Package_declaration> p<140> c<2> l<2:1> el<26:26>
@@ -137,7 +137,7 @@ n<> u<227> t<Top_level_rule> c<1> l<2:1> el<38:1>
                   n<> u<123> t<Packed_keyword> p<131> s<130> l<19:16> el<19:22>
                   n<> u<130> t<Struct_union_member> p<131> c<126> l<21:3> el<21:18>
                     n<> u<126> t<Data_type_or_void> p<130> c<125> s<129> l<21:3> el<21:8>
-                      n<> u<125> t<Data_type> p<126> c<124> l<21:3> el<21:8>
+                      n<gpr_t> u<125> t<Data_type> p<126> c<124> l<21:3> el<21:8>
                         n<gpr_t> u<124> t<StringConst> p<125> l<21:3> el<21:8>
                     n<> u<129> t<List_of_variable_decl_assignments> p<130> c<128> l<21:14> el<21:17>
                       n<> u<128> t<Variable_decl_assignment> p<129> c<127> l<21:14> el<21:17>
@@ -156,7 +156,7 @@ n<> u<227> t<Top_level_rule> c<1> l<2:1> el<38:1>
                 n<> u<143> t<PortDir_Inp> p<148> s<147> l<28:17> el<28:22>
                 n<> u<147> t<Net_port_type> p<148> c<146> l<28:24> el<28:29>
                   n<> u<146> t<Data_type_or_implicit> p<147> c<145> l<28:24> el<28:29>
-                    n<> u<145> t<Data_type> p<146> c<144> l<28:24> el<28:29>
+                    n<ctl_t> u<145> t<Data_type> p<146> c<144> l<28:24> el<28:29>
                       n<ctl_t> u<144> t<StringConst> p<145> l<28:24> el<28:29>
               n<ctl> u<149> t<StringConst> p<150> l<28:31> el<28:34>
         n<> u<161> t<Non_port_module_item> p<224> c<160> s<173> l<29:3> el<29:27>
@@ -246,63 +246,34 @@ EventControl                                           1
 HierPath                                               1
 IfStmt                                                 1
 ImportTypespec                                         1
-LogicNet                                               4
+LogicNet                                               1
 LogicTypespec                                          7
 Module                                                 1
 Operation                                              4
 Package                                                1
 Port                                                   1
 Range                                                  3
-RefObj                                                 8
-RefTypespec                                           11
+RefObj                                                 7
+RefTypespec                                           12
+StructNet                                              1
 StructTypespec                                         4
 TypespecMember                                         9
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/StructStructHierPath/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/StructStructHierPath/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/StructStructHierPath/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallPackages:
-\_Package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:2:1, endln:26:26
+|vpiAllPackages:
+\_Package: riscv_isa_pkg (riscv_isa_pkg), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:2:1, endln:26:26
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:riscv_isa_pkg
-  |vpiFullName:riscv_isa_pkg::
-  |vpiTypedef:
-  \_StructTypespec: (riscv_isa_pkg::ctl_t), line:19:9, endln:23:2
-    |vpiParent:
-    \_Module: work@r5p_wbu (work@r5p_wbu), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:28:1, endln:37:10
-    |vpiName:riscv_isa_pkg::ctl_t
-    |vpiInstance:
-    \_Package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:2:1, endln:26:26
-    |vpiPacked:1
-    |vpiTypespecMember:
-    \_TypespecMember: (gpr), line:21:14, endln:21:17
-      |vpiParent:
-      \_StructTypespec: (riscv_isa_pkg::ctl_t), line:19:9, endln:23:2
-      |vpiName:gpr
-      |vpiTypespec:
-      \_RefTypespec: (work@r5p_wbu.riscv_isa_pkg::ctl_t.gpr)
-        |vpiParent:
-        \_TypespecMember: (gpr), line:21:14, endln:21:17
-        |vpiFullName:work@r5p_wbu.riscv_isa_pkg::ctl_t.gpr
-        |vpiActual:
-        \_StructTypespec: (riscv_isa_pkg::gpr_t), line:4:9, endln:15:2
-      |vpiRefFile:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv
-      |vpiRefLineNo:21
-      |vpiRefColumnNo:3
-      |vpiRefEndLineNo:21
-      |vpiRefEndColumnNo:8
   |vpiTypedef:
   \_StructTypespec: (riscv_isa_pkg::gpr_t), line:4:9, endln:15:2
     |vpiParent:
-    \_Module: work@r5p_wbu (work@r5p_wbu), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:28:1, endln:37:10
+    \_Package: riscv_isa_pkg (riscv_isa_pkg), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:2:1, endln:26:26
     |vpiName:riscv_isa_pkg::gpr_t
-    |vpiInstance:
-    \_Package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:2:1, endln:26:26
     |vpiPacked:1
     |vpiTypespecMember:
     \_TypespecMember: (e), line:9:5, endln:9:6
@@ -310,60 +281,316 @@ Design: (unnamed)
       \_StructTypespec: (riscv_isa_pkg::gpr_t), line:4:9, endln:15:2
       |vpiName:e
       |vpiTypespec:
-      \_RefTypespec: (work@r5p_wbu.riscv_isa_pkg::gpr_t.e)
+      \_RefTypespec: (riscv_isa_pkg::gpr_t::e), line:5:3, endln:9:4
         |vpiParent:
         \_TypespecMember: (e), line:9:5, endln:9:6
-        |vpiFullName:work@r5p_wbu.riscv_isa_pkg::gpr_t.e
+        |vpiFullName:riscv_isa_pkg::gpr_t::e
         |vpiActual:
-        \_StructTypespec: , line:5:3, endln:5:9
-      |vpiRefFile:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv
-      |vpiRefLineNo:5
-      |vpiRefColumnNo:3
-      |vpiRefEndLineNo:9
-      |vpiRefEndColumnNo:4
+        \_StructTypespec: , line:5:3, endln:9:4
     |vpiTypespecMember:
     \_TypespecMember: (a), line:14:5, endln:14:6
       |vpiParent:
       \_StructTypespec: (riscv_isa_pkg::gpr_t), line:4:9, endln:15:2
       |vpiName:a
       |vpiTypespec:
-      \_RefTypespec: (work@r5p_wbu.riscv_isa_pkg::gpr_t.a)
+      \_RefTypespec: (riscv_isa_pkg::gpr_t::a), line:10:3, endln:14:4
         |vpiParent:
         \_TypespecMember: (a), line:14:5, endln:14:6
-        |vpiFullName:work@r5p_wbu.riscv_isa_pkg::gpr_t.a
+        |vpiFullName:riscv_isa_pkg::gpr_t::a
         |vpiActual:
-        \_StructTypespec: , line:10:3, endln:10:9
-      |vpiRefFile:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv
-      |vpiRefLineNo:10
-      |vpiRefColumnNo:3
-      |vpiRefEndLineNo:14
-      |vpiRefEndColumnNo:4
+        \_StructTypespec: , line:10:3, endln:14:4
+  |vpiTypedef:
+  \_StructTypespec: , line:5:3, endln:9:4
+    |vpiParent:
+    \_Package: riscv_isa_pkg (riscv_isa_pkg), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:2:1, endln:26:26
+    |vpiPacked:1
+    |vpiTypespecMember:
+    \_TypespecMember: (rs1), line:6:19, endln:6:22
+      |vpiParent:
+      \_StructTypespec: , line:5:3, endln:9:4
+      |vpiName:rs1
+      |vpiTypespec:
+      \_RefTypespec: (riscv_isa_pkg::rs1), line:6:5, endln:6:10
+        |vpiParent:
+        \_TypespecMember: (rs1), line:6:19, endln:6:22
+        |vpiFullName:riscv_isa_pkg::rs1
+        |vpiActual:
+        \_LogicTypespec: , line:6:5, endln:6:10
+    |vpiTypespecMember:
+    \_TypespecMember: (rs2), line:7:19, endln:7:22
+      |vpiParent:
+      \_StructTypespec: , line:5:3, endln:9:4
+      |vpiName:rs2
+      |vpiTypespec:
+      \_RefTypespec: (riscv_isa_pkg::rs2), line:7:5, endln:7:10
+        |vpiParent:
+        \_TypespecMember: (rs2), line:7:19, endln:7:22
+        |vpiFullName:riscv_isa_pkg::rs2
+        |vpiActual:
+        \_LogicTypespec: , line:7:5, endln:7:10
+    |vpiTypespecMember:
+    \_TypespecMember: (rd), line:8:19, endln:8:21
+      |vpiParent:
+      \_StructTypespec: , line:5:3, endln:9:4
+      |vpiName:rd
+      |vpiTypespec:
+      \_RefTypespec: (riscv_isa_pkg::rd), line:8:5, endln:8:10
+        |vpiParent:
+        \_TypespecMember: (rd), line:8:19, endln:8:21
+        |vpiFullName:riscv_isa_pkg::rd
+        |vpiActual:
+        \_LogicTypespec: , line:8:5, endln:8:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:6:5, endln:6:10
+    |vpiParent:
+    \_Package: riscv_isa_pkg (riscv_isa_pkg), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:2:1, endln:26:26
+  |vpiTypedef:
+  \_LogicTypespec: , line:7:5, endln:7:10
+    |vpiParent:
+    \_Package: riscv_isa_pkg (riscv_isa_pkg), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:2:1, endln:26:26
+  |vpiTypedef:
+  \_LogicTypespec: , line:8:5, endln:8:10
+    |vpiParent:
+    \_Package: riscv_isa_pkg (riscv_isa_pkg), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:2:1, endln:26:26
+  |vpiTypedef:
+  \_StructTypespec: , line:10:3, endln:14:4
+    |vpiParent:
+    \_Package: riscv_isa_pkg (riscv_isa_pkg), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:2:1, endln:26:26
+    |vpiPacked:1
+    |vpiTypespecMember:
+    \_TypespecMember: (rs1), line:11:19, endln:11:22
+      |vpiParent:
+      \_StructTypespec: , line:10:3, endln:14:4
+      |vpiName:rs1
+      |vpiTypespec:
+      \_RefTypespec: (riscv_isa_pkg::rs1), line:11:5, endln:11:18
+        |vpiParent:
+        \_TypespecMember: (rs1), line:11:19, endln:11:22
+        |vpiFullName:riscv_isa_pkg::rs1
+        |vpiActual:
+        \_LogicTypespec: , line:11:5, endln:11:18
+    |vpiTypespecMember:
+    \_TypespecMember: (rs2), line:12:19, endln:12:22
+      |vpiParent:
+      \_StructTypespec: , line:10:3, endln:14:4
+      |vpiName:rs2
+      |vpiTypespec:
+      \_RefTypespec: (riscv_isa_pkg::rs2), line:12:5, endln:12:18
+        |vpiParent:
+        \_TypespecMember: (rs2), line:12:19, endln:12:22
+        |vpiFullName:riscv_isa_pkg::rs2
+        |vpiActual:
+        \_LogicTypespec: , line:12:5, endln:12:18
+    |vpiTypespecMember:
+    \_TypespecMember: (rd), line:13:19, endln:13:21
+      |vpiParent:
+      \_StructTypespec: , line:10:3, endln:14:4
+      |vpiName:rd
+      |vpiTypespec:
+      \_RefTypespec: (riscv_isa_pkg::rd), line:13:5, endln:13:18
+        |vpiParent:
+        \_TypespecMember: (rd), line:13:19, endln:13:21
+        |vpiFullName:riscv_isa_pkg::rd
+        |vpiActual:
+        \_LogicTypespec: , line:13:5, endln:13:18
+  |vpiTypedef:
+  \_LogicTypespec: , line:11:5, endln:11:18
+    |vpiParent:
+    \_Package: riscv_isa_pkg (riscv_isa_pkg), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:2:1, endln:26:26
+    |vpiRange:
+    \_Range: , line:11:11, endln:11:18
+      |vpiParent:
+      \_LogicTypespec: , line:11:5, endln:11:18
+      |vpiLeftRange:
+      \_Operation: , line:11:12, endln:11:15
+        |vpiParent:
+        \_Range: , line:11:11, endln:11:18
+        |vpiOpType:11
+        |vpiOperand:
+        \_Constant: , line:11:12, endln:11:13
+          |vpiParent:
+          \_Operation: , line:11:12, endln:11:15
+          |vpiDecompile:5
+          |vpiSize:64
+          |UINT:5
+          |vpiConstType:9
+        |vpiOperand:
+        \_Constant: , line:11:14, endln:11:15
+          |vpiParent:
+          \_Operation: , line:11:12, endln:11:15
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:11:16, endln:11:17
+        |vpiParent:
+        \_Range: , line:11:11, endln:11:18
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:12:5, endln:12:18
+    |vpiParent:
+    \_Package: riscv_isa_pkg (riscv_isa_pkg), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:2:1, endln:26:26
+    |vpiRange:
+    \_Range: , line:12:11, endln:12:18
+      |vpiParent:
+      \_LogicTypespec: , line:12:5, endln:12:18
+      |vpiLeftRange:
+      \_Operation: , line:12:12, endln:12:15
+        |vpiParent:
+        \_Range: , line:12:11, endln:12:18
+        |vpiOpType:11
+        |vpiOperand:
+        \_Constant: , line:12:12, endln:12:13
+          |vpiParent:
+          \_Operation: , line:12:12, endln:12:15
+          |vpiDecompile:5
+          |vpiSize:64
+          |UINT:5
+          |vpiConstType:9
+        |vpiOperand:
+        \_Constant: , line:12:14, endln:12:15
+          |vpiParent:
+          \_Operation: , line:12:12, endln:12:15
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:12:16, endln:12:17
+        |vpiParent:
+        \_Range: , line:12:11, endln:12:18
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:13:5, endln:13:18
+    |vpiParent:
+    \_Package: riscv_isa_pkg (riscv_isa_pkg), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:2:1, endln:26:26
+    |vpiRange:
+    \_Range: , line:13:11, endln:13:18
+      |vpiParent:
+      \_LogicTypespec: , line:13:5, endln:13:18
+      |vpiLeftRange:
+      \_Operation: , line:13:12, endln:13:15
+        |vpiParent:
+        \_Range: , line:13:11, endln:13:18
+        |vpiOpType:11
+        |vpiOperand:
+        \_Constant: , line:13:12, endln:13:13
+          |vpiParent:
+          \_Operation: , line:13:12, endln:13:15
+          |vpiDecompile:5
+          |vpiSize:64
+          |UINT:5
+          |vpiConstType:9
+        |vpiOperand:
+        \_Constant: , line:13:14, endln:13:15
+          |vpiParent:
+          \_Operation: , line:13:12, endln:13:15
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:13:16, endln:13:17
+        |vpiParent:
+        \_Range: , line:13:11, endln:13:18
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_StructTypespec: (riscv_isa_pkg::ctl_t), line:19:9, endln:23:2
+    |vpiParent:
+    \_Package: riscv_isa_pkg (riscv_isa_pkg), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:2:1, endln:26:26
+    |vpiName:riscv_isa_pkg::ctl_t
+    |vpiPacked:1
+    |vpiTypespecMember:
+    \_TypespecMember: (gpr), line:21:14, endln:21:17
+      |vpiParent:
+      \_StructTypespec: (riscv_isa_pkg::ctl_t), line:19:9, endln:23:2
+      |vpiName:gpr
+      |vpiTypespec:
+      \_RefTypespec: (riscv_isa_pkg::ctl_t::gpr::gpr_t), line:21:3, endln:21:8
+        |vpiParent:
+        \_TypespecMember: (gpr), line:21:14, endln:21:17
+        |vpiName:gpr_t
+        |vpiFullName:riscv_isa_pkg::ctl_t::gpr::gpr_t
+        |vpiActual:
+        \_StructTypespec: (riscv_isa_pkg::gpr_t), line:4:9, endln:15:2
+  |vpiImportTypespec:
+  \_StructTypespec: (riscv_isa_pkg::gpr_t), line:4:9, endln:15:2
+  |vpiImportTypespec:
+  \_StructTypespec: , line:5:3, endln:9:4
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:6:5, endln:6:10
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:7:5, endln:7:10
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:8:5, endln:8:10
+  |vpiImportTypespec:
+  \_StructTypespec: , line:10:3, endln:14:4
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:11:5, endln:11:18
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:12:5, endln:12:18
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:13:5, endln:13:18
+  |vpiImportTypespec:
+  \_StructTypespec: (riscv_isa_pkg::ctl_t), line:19:9, endln:23:2
   |vpiDefName:riscv_isa_pkg
   |vpiEndLabel:riscv_isa_pkg
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@r5p_wbu (work@r5p_wbu), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:28:1, endln:37:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@r5p_wbu
-  |vpiTypedef:
-  \_StructTypespec: (riscv_isa_pkg::ctl_t), line:19:9, endln:23:2
-  |vpiTypedef:
-  \_StructTypespec: (riscv_isa_pkg::gpr_t), line:4:9, endln:15:2
+  |vpiName:work@r5p_wbu
   |vpiTypedef:
   \_ImportTypespec: (riscv_isa_pkg), line:29:10, endln:29:26
-  |vpiDefName:work@r5p_wbu
-  |vpiNet:
-  \_LogicNet: (work@r5p_wbu.ctl), line:28:31, endln:28:34
     |vpiParent:
     \_Module: work@r5p_wbu (work@r5p_wbu), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:28:1, endln:37:10
+    |vpiName:riscv_isa_pkg
+    |vpiImportTypespecItem:
+    \_Constant: , line:29:10, endln:29:26
+      |vpiParent:
+      \_ImportTypespec: (riscv_isa_pkg), line:29:10, endln:29:26
+      |vpiDecompile:*
+      |vpiSize:8
+      |STRING:*
+      |vpiConstType:8
+  |vpiTypedef:
+  \_LogicTypespec: , line:30:3, endln:30:6
+    |vpiParent:
+    \_Module: work@r5p_wbu (work@r5p_wbu), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:28:1, endln:37:10
+  |vpiImportTypespec:
+  \_ImportTypespec: (riscv_isa_pkg), line:29:10, endln:29:26
+  |vpiImportTypespec:
+  \_StructNet: (work@r5p_wbu.ctl), line:28:31, endln:28:34
+    |vpiParent:
+    \_Module: work@r5p_wbu (work@r5p_wbu), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:28:1, endln:37:10
+    |vpiTypespec:
+    \_RefTypespec: (work@r5p_wbu.ctl.ctl), line:28:24, endln:28:29
+      |vpiParent:
+      \_StructNet: (work@r5p_wbu.ctl), line:28:31, endln:28:34
+      |vpiName:ctl
+      |vpiFullName:work@r5p_wbu.ctl.ctl
+      |vpiActual:
+      \_StructTypespec: (riscv_isa_pkg::ctl_t), line:19:9, endln:23:2
     |vpiName:ctl
     |vpiFullName:work@r5p_wbu.ctl
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:30:3, endln:30:6
+  |vpiImportTypespec:
   \_LogicNet: (work@r5p_wbu.wen), line:30:7, endln:30:10
     |vpiParent:
     \_Module: work@r5p_wbu (work@r5p_wbu), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:28:1, endln:37:10
     |vpiTypespec:
-    \_RefTypespec: (work@r5p_wbu.wen)
+    \_RefTypespec: (work@r5p_wbu.wen), line:30:3, endln:30:6
       |vpiParent:
       \_LogicNet: (work@r5p_wbu.wen), line:30:7, endln:30:10
       |vpiFullName:work@r5p_wbu.wen
@@ -372,39 +599,41 @@ Design: (unnamed)
     |vpiName:wen
     |vpiFullName:work@r5p_wbu.wen
     |vpiNetType:48
-  |vpiNet:
+  |vpiImportTypespec:
   \_LogicNet: (work@r5p_wbu.clk), line:31:23, endln:31:26
     |vpiParent:
     \_Module: work@r5p_wbu (work@r5p_wbu), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:28:1, endln:37:10
     |vpiName:clk
     |vpiFullName:work@r5p_wbu.clk
     |vpiNetType:1
-  |vpiNet:
+  |vpiImportTypespec:
   \_LogicNet: (work@r5p_wbu.rst), line:32:7, endln:32:10
     |vpiParent:
     \_Module: work@r5p_wbu (work@r5p_wbu), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:28:1, endln:37:10
     |vpiName:rst
     |vpiFullName:work@r5p_wbu.rst
     |vpiNetType:1
+  |vpiDefName:work@r5p_wbu
+  |vpiNet:
+  \_StructNet: (work@r5p_wbu.ctl), line:28:31, endln:28:34
+  |vpiNet:
+  \_LogicNet: (work@r5p_wbu.wen), line:30:7, endln:30:10
+  |vpiNet:
+  \_LogicNet: (work@r5p_wbu.clk), line:31:23, endln:31:26
+  |vpiNet:
+  \_LogicNet: (work@r5p_wbu.rst), line:32:7, endln:32:10
   |vpiPort:
   \_Port: (ctl), line:28:31, endln:28:34
     |vpiParent:
     \_Module: work@r5p_wbu (work@r5p_wbu), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:28:1, endln:37:10
     |vpiName:ctl
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@r5p_wbu.ctl.ctl), line:28:31, endln:28:34
+    |vpiTypespec:
+    \_RefTypespec: (work@r5p_wbu.ctl.riscv_isa_pkg::ctl_t), line:28:24, endln:28:29
       |vpiParent:
       \_Port: (ctl), line:28:31, endln:28:34
-      |vpiName:ctl
-      |vpiFullName:work@r5p_wbu.ctl.ctl
-      |vpiActual:
-      \_LogicNet: (work@r5p_wbu.ctl), line:28:31, endln:28:34
-    |vpiTypedef:
-    \_RefTypespec: (work@r5p_wbu.ctl)
-      |vpiParent:
-      \_Port: (ctl), line:28:31, endln:28:34
-      |vpiFullName:work@r5p_wbu.ctl
+      |vpiName:riscv_isa_pkg::ctl_t
+      |vpiFullName:work@r5p_wbu.ctl.riscv_isa_pkg::ctl_t
       |vpiActual:
       \_StructTypespec: (riscv_isa_pkg::ctl_t), line:19:9, endln:23:2
   |vpiProcess:
@@ -435,7 +664,7 @@ Design: (unnamed)
         |vpiCondition:
         \_RefObj: (work@r5p_wbu.rst), line:32:7, endln:32:10
           |vpiParent:
-          \_EventControl: , line:31:13, endln:31:27
+          \_IfStmt: , line:32:3, endln:34:6
           |vpiName:rst
           |vpiFullName:work@r5p_wbu.rst
           |vpiActual:
@@ -445,6 +674,27 @@ Design: (unnamed)
           |vpiParent:
           \_IfStmt: , line:32:3, endln:34:6
           |vpiFullName:work@r5p_wbu
+          |vpiImportTypespec:
+          \_LogicNet: (work@r5p_wbu.gpr), line:33:16, endln:33:19
+            |vpiParent:
+            \_Begin: (work@r5p_wbu), line:32:12, endln:34:6
+            |vpiName:gpr
+            |vpiFullName:work@r5p_wbu.gpr
+            |vpiNetType:1
+          |vpiImportTypespec:
+          \_LogicNet: (work@r5p_wbu.e), line:33:20, endln:33:21
+            |vpiParent:
+            \_Begin: (work@r5p_wbu), line:32:12, endln:34:6
+            |vpiName:e
+            |vpiFullName:work@r5p_wbu.e
+            |vpiNetType:1
+          |vpiImportTypespec:
+          \_LogicNet: (work@r5p_wbu.rd), line:33:22, endln:33:24
+            |vpiParent:
+            \_Begin: (work@r5p_wbu), line:32:12, endln:34:6
+            |vpiName:rd
+            |vpiFullName:work@r5p_wbu.rd
+            |vpiNetType:1
           |vpiStmt:
           \_Assignment: , line:33:5, endln:33:24
             |vpiParent:
@@ -459,22 +709,30 @@ Design: (unnamed)
                 |vpiParent:
                 \_HierPath: (ctl.gpr.e.rd), line:33:12, endln:33:24
                 |vpiName:ctl
+                |vpiActual:
+                \_StructNet: (work@r5p_wbu.ctl), line:28:31, endln:28:34
               |vpiActual:
               \_RefObj: (gpr), line:33:16, endln:33:19
                 |vpiParent:
                 \_HierPath: (ctl.gpr.e.rd), line:33:12, endln:33:24
                 |vpiName:gpr
+                |vpiActual:
+                \_LogicNet: (work@r5p_wbu.gpr), line:33:16, endln:33:19
               |vpiActual:
               \_RefObj: (e), line:33:20, endln:33:21
                 |vpiParent:
                 \_HierPath: (ctl.gpr.e.rd), line:33:12, endln:33:24
                 |vpiName:e
+                |vpiActual:
+                \_LogicNet: (work@r5p_wbu.e), line:33:20, endln:33:21
               |vpiActual:
               \_RefObj: (work@r5p_wbu.rd), line:33:22, endln:33:24
                 |vpiParent:
                 \_HierPath: (ctl.gpr.e.rd), line:33:12, endln:33:24
                 |vpiName:rd
                 |vpiFullName:work@r5p_wbu.rd
+                |vpiActual:
+                \_LogicNet: (work@r5p_wbu.rd), line:33:22, endln:33:24
               |vpiName:ctl.gpr.e.rd
             |vpiLhs:
             \_RefObj: (work@r5p_wbu.wen), line:33:5, endln:33:8
@@ -485,251 +743,6 @@ Design: (unnamed)
               |vpiActual:
               \_LogicNet: (work@r5p_wbu.wen), line:30:7, endln:30:10
     |vpiAlwaysType:3
-\_weaklyReferenced:
-\_StructTypespec: , line:5:3, endln:5:9
-  |vpiParent:
-  \_TypespecMember: (e), line:9:5, endln:9:6
-  |vpiInstance:
-  \_Package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:2:1, endln:26:26
-  |vpiPacked:1
-  |vpiTypespecMember:
-  \_TypespecMember: (rs1), line:6:19, endln:6:22
-    |vpiParent:
-    \_StructTypespec: , line:5:3, endln:5:9
-    |vpiName:rs1
-    |vpiTypespec:
-    \_RefTypespec: (work@r5p_wbu.riscv_isa_pkg::gpr_t.e.rs1)
-      |vpiParent:
-      \_TypespecMember: (rs1), line:6:19, endln:6:22
-      |vpiFullName:work@r5p_wbu.riscv_isa_pkg::gpr_t.e.rs1
-      |vpiActual:
-      \_LogicTypespec: , line:6:5, endln:6:10
-    |vpiRefFile:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv
-    |vpiRefLineNo:6
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:6
-    |vpiRefEndColumnNo:10
-  |vpiTypespecMember:
-  \_TypespecMember: (rs2), line:7:19, endln:7:22
-    |vpiParent:
-    \_StructTypespec: , line:5:3, endln:5:9
-    |vpiName:rs2
-    |vpiTypespec:
-    \_RefTypespec: (work@r5p_wbu.riscv_isa_pkg::gpr_t.e.rs2)
-      |vpiParent:
-      \_TypespecMember: (rs2), line:7:19, endln:7:22
-      |vpiFullName:work@r5p_wbu.riscv_isa_pkg::gpr_t.e.rs2
-      |vpiActual:
-      \_LogicTypespec: , line:7:5, endln:7:10
-    |vpiRefFile:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv
-    |vpiRefLineNo:7
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:7
-    |vpiRefEndColumnNo:10
-  |vpiTypespecMember:
-  \_TypespecMember: (rd), line:8:19, endln:8:21
-    |vpiParent:
-    \_StructTypespec: , line:5:3, endln:5:9
-    |vpiName:rd
-    |vpiTypespec:
-    \_RefTypespec: (work@r5p_wbu.riscv_isa_pkg::gpr_t.e.rd)
-      |vpiParent:
-      \_TypespecMember: (rd), line:8:19, endln:8:21
-      |vpiFullName:work@r5p_wbu.riscv_isa_pkg::gpr_t.e.rd
-      |vpiActual:
-      \_LogicTypespec: , line:8:5, endln:8:10
-    |vpiRefFile:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv
-    |vpiRefLineNo:8
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:8
-    |vpiRefEndColumnNo:10
-\_LogicTypespec: , line:6:5, endln:6:10
-  |vpiParent:
-  \_TypespecMember: (rs1), line:6:19, endln:6:22
-  |vpiInstance:
-  \_Package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:2:1, endln:26:26
-\_LogicTypespec: , line:7:5, endln:7:10
-  |vpiParent:
-  \_TypespecMember: (rs2), line:7:19, endln:7:22
-  |vpiInstance:
-  \_Package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:2:1, endln:26:26
-\_LogicTypespec: , line:8:5, endln:8:10
-  |vpiParent:
-  \_TypespecMember: (rd), line:8:19, endln:8:21
-  |vpiInstance:
-  \_Package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:2:1, endln:26:26
-\_StructTypespec: , line:10:3, endln:10:9
-  |vpiParent:
-  \_TypespecMember: (a), line:14:5, endln:14:6
-  |vpiInstance:
-  \_Package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:2:1, endln:26:26
-  |vpiPacked:1
-  |vpiTypespecMember:
-  \_TypespecMember: (rs1), line:11:19, endln:11:22
-    |vpiParent:
-    \_StructTypespec: , line:10:3, endln:10:9
-    |vpiName:rs1
-    |vpiTypespec:
-    \_RefTypespec: (work@r5p_wbu.riscv_isa_pkg::gpr_t.a.rs1)
-      |vpiParent:
-      \_TypespecMember: (rs1), line:11:19, endln:11:22
-      |vpiFullName:work@r5p_wbu.riscv_isa_pkg::gpr_t.a.rs1
-      |vpiActual:
-      \_LogicTypespec: , line:11:5, endln:11:18
-    |vpiRefFile:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv
-    |vpiRefLineNo:11
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:11
-    |vpiRefEndColumnNo:18
-  |vpiTypespecMember:
-  \_TypespecMember: (rs2), line:12:19, endln:12:22
-    |vpiParent:
-    \_StructTypespec: , line:10:3, endln:10:9
-    |vpiName:rs2
-    |vpiTypespec:
-    \_RefTypespec: (work@r5p_wbu.riscv_isa_pkg::gpr_t.a.rs2)
-      |vpiParent:
-      \_TypespecMember: (rs2), line:12:19, endln:12:22
-      |vpiFullName:work@r5p_wbu.riscv_isa_pkg::gpr_t.a.rs2
-      |vpiActual:
-      \_LogicTypespec: , line:12:5, endln:12:18
-    |vpiRefFile:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv
-    |vpiRefLineNo:12
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:12
-    |vpiRefEndColumnNo:18
-  |vpiTypespecMember:
-  \_TypespecMember: (rd), line:13:19, endln:13:21
-    |vpiParent:
-    \_StructTypespec: , line:10:3, endln:10:9
-    |vpiName:rd
-    |vpiTypespec:
-    \_RefTypespec: (work@r5p_wbu.riscv_isa_pkg::gpr_t.a.rd)
-      |vpiParent:
-      \_TypespecMember: (rd), line:13:19, endln:13:21
-      |vpiFullName:work@r5p_wbu.riscv_isa_pkg::gpr_t.a.rd
-      |vpiActual:
-      \_LogicTypespec: , line:13:5, endln:13:18
-    |vpiRefFile:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv
-    |vpiRefLineNo:13
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:13
-    |vpiRefEndColumnNo:18
-\_LogicTypespec: , line:11:5, endln:11:18
-  |vpiParent:
-  \_TypespecMember: (rs1), line:11:19, endln:11:22
-  |vpiInstance:
-  \_Package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:2:1, endln:26:26
-  |vpiRange:
-  \_Range: , line:11:11, endln:11:18
-    |vpiParent:
-    \_LogicTypespec: , line:11:5, endln:11:18
-    |vpiLeftRange:
-    \_Operation: , line:11:12, endln:11:15
-      |vpiParent:
-      \_Range: , line:11:11, endln:11:18
-      |vpiOpType:11
-      |vpiOperand:
-      \_Constant: , line:11:12, endln:11:13
-        |vpiParent:
-        \_Operation: , line:11:12, endln:11:15
-        |vpiDecompile:5
-        |vpiSize:64
-        |UINT:5
-        |vpiConstType:9
-      |vpiOperand:
-      \_Constant: , line:11:14, endln:11:15
-        |vpiParent:
-        \_Operation: , line:11:12, endln:11:15
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:11:16, endln:11:17
-      |vpiParent:
-      \_Range: , line:11:11, endln:11:18
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:12:5, endln:12:18
-  |vpiParent:
-  \_TypespecMember: (rs2), line:12:19, endln:12:22
-  |vpiInstance:
-  \_Package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:2:1, endln:26:26
-  |vpiRange:
-  \_Range: , line:12:11, endln:12:18
-    |vpiParent:
-    \_LogicTypespec: , line:12:5, endln:12:18
-    |vpiLeftRange:
-    \_Operation: , line:12:12, endln:12:15
-      |vpiParent:
-      \_Range: , line:12:11, endln:12:18
-      |vpiOpType:11
-      |vpiOperand:
-      \_Constant: , line:12:12, endln:12:13
-        |vpiParent:
-        \_Operation: , line:12:12, endln:12:15
-        |vpiDecompile:5
-        |vpiSize:64
-        |UINT:5
-        |vpiConstType:9
-      |vpiOperand:
-      \_Constant: , line:12:14, endln:12:15
-        |vpiParent:
-        \_Operation: , line:12:12, endln:12:15
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:12:16, endln:12:17
-      |vpiParent:
-      \_Range: , line:12:11, endln:12:18
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:13:5, endln:13:18
-  |vpiParent:
-  \_TypespecMember: (rd), line:13:19, endln:13:21
-  |vpiInstance:
-  \_Package: riscv_isa_pkg (riscv_isa_pkg::), file:${SURELOG_DIR}/tests/StructStructHierPath/dut.sv, line:2:1, endln:26:26
-  |vpiRange:
-  \_Range: , line:13:11, endln:13:18
-    |vpiParent:
-    \_LogicTypespec: , line:13:5, endln:13:18
-    |vpiLeftRange:
-    \_Operation: , line:13:12, endln:13:15
-      |vpiParent:
-      \_Range: , line:13:11, endln:13:18
-      |vpiOpType:11
-      |vpiOperand:
-      \_Constant: , line:13:12, endln:13:13
-        |vpiParent:
-        \_Operation: , line:13:12, endln:13:15
-        |vpiDecompile:5
-        |vpiSize:64
-        |UINT:5
-        |vpiConstType:9
-      |vpiOperand:
-      \_Constant: , line:13:14, endln:13:15
-        |vpiParent:
-        \_Operation: , line:13:12, endln:13:15
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:13:16, endln:13:17
-      |vpiParent:
-      \_Range: , line:13:11, endln:13:18
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:30:3, endln:30:6
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

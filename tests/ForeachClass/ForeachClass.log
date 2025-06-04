@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 112
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/ForeachClass/dut.sv
+FILE: ${SURELOG_DIR}/tests/ForeachClass/dut.sv
 n<> u<111> t<Top_level_rule> c<1> l<1:1> el<18:1>
-  n<> u<1> t<Null_rule> p<111> s<110> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<111> s<110> l<1:1>
   n<> u<110> t<Source_text> p<111> c<109> l<1:1> el<17:11>
     n<> u<109> t<Description> p<110> c<108> l<1:1> el<17:11>
       n<> u<108> t<Package_declaration> p<109> c<2> l<1:1> el<17:11>
@@ -42,7 +42,7 @@ n<> u<111> t<Top_level_rule> c<1> l<1:1> el<18:1>
                 n<> u<36> t<Block_item_declaration> p<103> c<35> s<101> l<9:5> el<9:25>
                   n<> u<35> t<Data_declaration> p<36> c<34> l<9:5> el<9:25>
                     n<> u<34> t<Variable_declaration> p<35> c<30> l<9:5> el<9:25>
-                      n<> u<30> t<Data_type> p<34> c<29> s<33> l<9:5> el<9:16>
+                      n<uvm_reg_map> u<30> t<Data_type> p<34> c<29> s<33> l<9:5> el<9:16>
                         n<uvm_reg_map> u<29> t<StringConst> p<30> l<9:5> el<9:16>
                       n<> u<33> t<List_of_variable_decl_assignments> p<34> c<32> l<9:17> el<9:24>
                         n<> u<32> t<Variable_decl_assignment> p<33> c<31> l<9:17> el<9:24>
@@ -120,116 +120,175 @@ AST_DEBUG_END
 [INF:CP0302] ${SURELOG_DIR}/tests/ForeachClass/dut.sv:3:3: Compile class "uvm::uvm_reg_map".
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+ArrayTypespec                                          1
+ArrayVar                                               1
 Assignment                                             1
 Begin                                                  3
 BitSelect                                              2
 ClassDefn                                              1
-ClassTypespec                                          2
+ClassTypespec                                          1
 ClassVar                                               1
+Constant                                               1
 Design                                                 1
 ForeachStmt                                            1
 Function                                               1
 HierPath                                               3
 IfStmt                                                 1
-LogicVar                                               1
-Operation                                              3
+LogicTypespec                                          1
+LogicVar                                               2
+Operation                                              4
 Package                                                1
+Range                                                  1
 RefObj                                                 8
-RefTypespec                                            2
+RefTypespec                                            5
 RefVar                                                 1
 UnsupportedTypespec                                    1
 === UHDM Object Stats End ===
+[ERR:UH0734] ${SURELOG_DIR}/tests/ForeachClass/dut.sv:12:16: Failed to bind object: "id: 20, name: addrs".
+[ERR:EL0535] ${SURELOG_DIR}/tests/ForeachClass/dut.sv:12:16: Illegal implicit net "id:20, name: addrs".
+[ERR:UH0734] ${SURELOG_DIR}/tests/ForeachClass/dut.sv:12:17: Failed to bind object: "id: 21, name: i".
+[ERR:EL0535] ${SURELOG_DIR}/tests/ForeachClass/dut.sv:12:17: Illegal implicit net "id:21, name: i".
+[ERR:UH0734] ${SURELOG_DIR}/tests/ForeachClass/dut.sv:12:29: Failed to bind object: "id: 25, name: min".
+[ERR:EL0535] ${SURELOG_DIR}/tests/ForeachClass/dut.sv:12:29: Illegal implicit net "id:25, name: min".
+[ERR:UH0734] ${SURELOG_DIR}/tests/ForeachClass/dut.sv:12:41: Failed to bind object: "id: 27, name: addrs".
+[ERR:EL0535] ${SURELOG_DIR}/tests/ForeachClass/dut.sv:12:41: Illegal implicit net "id:27, name: addrs".
+[ERR:UH0734] ${SURELOG_DIR}/tests/ForeachClass/dut.sv:12:42: Failed to bind object: "id: 28, name: i".
+[ERR:EL0535] ${SURELOG_DIR}/tests/ForeachClass/dut.sv:12:42: Illegal implicit net "id:28, name: i".
+[ERR:UH0734] ${SURELOG_DIR}/tests/ForeachClass/dut.sv:12:54: Failed to bind object: "id: 32, name: max".
+[ERR:EL0535] ${SURELOG_DIR}/tests/ForeachClass/dut.sv:12:54: Illegal implicit net "id:32, name: max".
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ForeachClass/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ForeachClass/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ForeachClass/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallPackages:
-\_Package: uvm (uvm::), file:${SURELOG_DIR}/tests/ForeachClass/dut.sv, line:1:1, endln:17:11
+|vpiAllPackages:
+\_Package: uvm (uvm), file:${SURELOG_DIR}/tests/ForeachClass/dut.sv, line:1:1, endln:17:11
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:uvm
-  |vpiFullName:uvm::
-  |vpiDefName:uvm
-  |vpiClassDefn:
+  |vpiInternalScope:
   \_ClassDefn: (uvm::uvm_reg_map), file:${SURELOG_DIR}/tests/ForeachClass/dut.sv, line:3:3, endln:5:11
     |vpiParent:
-    \_Package: uvm (uvm::), file:${SURELOG_DIR}/tests/ForeachClass/dut.sv, line:1:1, endln:17:11
+    \_Package: uvm (uvm), file:${SURELOG_DIR}/tests/ForeachClass/dut.sv, line:1:1, endln:17:11
     |vpiName:uvm_reg_map
     |vpiFullName:uvm::uvm_reg_map
-  |vpiTaskFunc:
+    |vpiVariables:
+    \_LogicVar: (uvm::uvm_reg_map), line:4:17, endln:4:33
+      |vpiParent:
+      \_ClassDefn: (uvm::uvm_reg_map), file:${SURELOG_DIR}/tests/ForeachClass/dut.sv, line:3:3, endln:5:11
+      |vpiTypespec:
+      \_RefTypespec: (uvm::uvm_reg_map), line:4:11, endln:4:16
+        |vpiParent:
+        \_LogicVar: (uvm::uvm_reg_map), line:4:17, endln:4:33
+        |vpiFullName:uvm::uvm_reg_map
+        |vpiActual:
+        \_LogicTypespec: , line:4:11, endln:4:16
+      |vpiFullName:uvm::uvm_reg_map
+    |vpiVariables:
+    \_ArrayVar: (uvm::uvm_reg_map::m_mems_by_offset), line:4:17, endln:4:33
+      |vpiParent:
+      \_ClassDefn: (uvm::uvm_reg_map), file:${SURELOG_DIR}/tests/ForeachClass/dut.sv, line:3:3, endln:5:11
+      |vpiSize:1
+      |vpiTypespec:
+      \_RefTypespec: (uvm::uvm_reg_map::m_mems_by_offset), line:4:33, endln:4:37
+        |vpiParent:
+        \_ArrayVar: (uvm::uvm_reg_map::m_mems_by_offset), line:4:17, endln:4:33
+        |vpiFullName:uvm::uvm_reg_map::m_mems_by_offset
+        |vpiActual:
+        \_ArrayTypespec: , line:4:33, endln:4:37
+      |vpiName:m_mems_by_offset
+      |vpiFullName:uvm::uvm_reg_map::m_mems_by_offset
+      |vpiAutomatic:1
+      |vpiRandType:1
+      |vpiVisibility:3
+      |vpiArrayType:1
+      |vpiRange:
+      \_Range: , line:4:33, endln:4:37
+        |vpiParent:
+        \_ArrayVar: (uvm::uvm_reg_map::m_mems_by_offset), line:4:17, endln:4:33
+        |vpiRightRange:
+        \_Operation: , line:4:34, endln:4:36
+          |vpiParent:
+          \_Range: , line:4:33, endln:4:37
+          |vpiOpType:11
+          |vpiOperand:
+          \_Constant: , line:4:34, endln:4:36
+            |vpiParent:
+            \_Operation: , line:4:34, endln:4:36
+            |vpiDecompile:10
+            |vpiSize:64
+            |UINT:10
+            |vpiConstType:9
+      |vpiReg:
+      \_LogicVar: (uvm::uvm_reg_map), line:4:17, endln:4:33
+    |vpiReg:
+    \_LogicVar: (uvm::uvm_reg_map), line:4:17, endln:4:33
+    |vpiRegArray:
+    \_ArrayVar: (uvm::uvm_reg_map::m_mems_by_offset), line:4:17, endln:4:33
+    |vpiTypedef:
+    \_LogicTypespec: , line:4:11, endln:4:16
+      |vpiParent:
+      \_ClassDefn: (uvm::uvm_reg_map), file:${SURELOG_DIR}/tests/ForeachClass/dut.sv, line:3:3, endln:5:11
+    |vpiTypedef:
+    \_ArrayTypespec: , line:4:33, endln:4:37
+      |vpiParent:
+      \_ClassDefn: (uvm::uvm_reg_map), file:${SURELOG_DIR}/tests/ForeachClass/dut.sv, line:3:3, endln:5:11
+      |vpiElemTypespec:
+      \_RefTypespec: (uvm::uvm_reg_map), line:4:11, endln:4:16
+        |vpiParent:
+        \_ArrayTypespec: , line:4:33, endln:4:37
+        |vpiFullName:uvm::uvm_reg_map
+        |vpiActual:
+        \_LogicTypespec: , line:4:11, endln:4:16
+    |vpiImportTypespec:
+    \_LogicTypespec: , line:4:11, endln:4:16
+    |vpiImportTypespec:
+    \_LogicVar: (uvm::uvm_reg_map), line:4:17, endln:4:33
+    |vpiImportTypespec:
+    \_ArrayVar: (uvm::uvm_reg_map::m_mems_by_offset), line:4:17, endln:4:33
+    |vpiImportTypespec:
+    \_ArrayTypespec: , line:4:33, endln:4:37
+  |vpiInternalScope:
   \_Function: (uvm::f1), line:8:3, endln:15:14
     |vpiParent:
-    \_Package: uvm (uvm::), file:${SURELOG_DIR}/tests/ForeachClass/dut.sv, line:1:1, endln:17:11
+    \_Package: uvm (uvm), file:${SURELOG_DIR}/tests/ForeachClass/dut.sv, line:1:1, endln:17:11
     |vpiName:f1
     |vpiFullName:uvm::f1
     |vpiVariables:
-    \_ClassVar: (uvm::f1::top_map), line:9:17, endln:9:24
-      |vpiParent:
-      \_Begin: (uvm::f1), line:11:5, endln:14:8
-      |vpiTypespec:
-      \_RefTypespec: (uvm::f1::top_map)
-        |vpiParent:
-        \_ClassVar: (uvm::f1::top_map), line:9:17, endln:9:24
-        |vpiFullName:uvm::f1::top_map
-        |vpiActual:
-        \_ClassTypespec: , line:9:5, endln:9:16
-      |vpiName:top_map
-      |vpiFullName:uvm::f1::top_map
-    |vpiVisibility:1
-    |vpiReturn:
     \_LogicVar: (uvm::f1)
       |vpiParent:
       \_Function: (uvm::f1), line:8:3, endln:15:14
       |vpiFullName:uvm::f1
-    |vpiStmt:
-    \_Begin: (uvm::f1), line:11:5, endln:14:8
+    |vpiReg:
+    \_LogicVar: (uvm::f1)
+    |vpiInternalScope:
+    \_Begin: (uvm::f1)
       |vpiParent:
       \_Function: (uvm::f1), line:8:3, endln:15:14
       |vpiFullName:uvm::f1
       |vpiVariables:
       \_ClassVar: (uvm::f1::top_map), line:9:17, endln:9:24
-      |vpiStmt:
-      \_ForeachStmt: (uvm::f1), line:11:5, endln:11:12
         |vpiParent:
-        \_Begin: (uvm::f1), line:11:5, endln:14:8
+        \_Begin: (uvm::f1)
+        |vpiTypespec:
+        \_RefTypespec: (uvm::f1::top_map::uvm::uvm_reg_map), line:9:5, endln:9:16
+          |vpiParent:
+          \_ClassVar: (uvm::f1::top_map), line:9:17, endln:9:24
+          |vpiName:uvm::uvm_reg_map
+          |vpiFullName:uvm::f1::top_map::uvm::uvm_reg_map
+          |vpiActual:
+          \_ClassTypespec: (uvm_reg_map), line:9:5, endln:9:16
+        |vpiName:top_map
+        |vpiFullName:uvm::f1::top_map
+      |vpiInternalScope:
+      \_ForeachStmt: (uvm::f1), line:11:5, endln:14:8
+        |vpiParent:
+        \_Begin: (uvm::f1)
         |vpiFullName:uvm::f1
-        |vpiVariables:
-        \_HierPath: (top_map.m_mems_by_offset)
-          |vpiParent:
-          \_ForeachStmt: (uvm::f1), line:11:5, endln:11:12
-          |vpiActual:
-          \_RefObj: (uvm::f1::top_map), line:11:14, endln:11:21
-            |vpiParent:
-            \_HierPath: (top_map.m_mems_by_offset)
-            |vpiName:top_map
-            |vpiFullName:uvm::f1::top_map
-          |vpiActual:
-          \_RefObj: (uvm::f1::m_mems_by_offset)
-            |vpiParent:
-            \_HierPath: (top_map.m_mems_by_offset)
-            |vpiName:m_mems_by_offset
-            |vpiFullName:uvm::f1::m_mems_by_offset
-          |vpiFullName:top_map.m_mems_by_offset
-        |vpiLoopVars:
-        \_RefVar: (uvm::f1::range), line:11:39, endln:11:44
-          |vpiParent:
-          \_ForeachStmt: (uvm::f1), line:11:5, endln:11:12
-          |vpiTypespec:
-          \_RefTypespec: (uvm::f1::range)
-            |vpiParent:
-            \_RefVar: (uvm::f1::range), line:11:39, endln:11:44
-            |vpiFullName:uvm::f1::range
-            |vpiActual:
-            \_UnsupportedTypespec: (range), line:11:39, endln:11:44
-          |vpiName:range
-          |vpiFullName:uvm::f1::range
-        |vpiStmt:
+        |vpiInternalScope:
         \_Begin: (uvm::f1), line:11:47, endln:14:8
           |vpiParent:
-          \_ForeachStmt: (uvm::f1), line:11:5, endln:11:12
+          \_ForeachStmt: (uvm::f1), line:11:5, endln:14:8
           |vpiFullName:uvm::f1
           |vpiStmt:
           \_IfStmt: , line:12:7, endln:13:10
@@ -238,7 +297,7 @@ Design: (unnamed)
             |vpiCondition:
             \_Operation: , line:12:11, endln:12:57
               |vpiParent:
-              \_Begin: (uvm::f1), line:11:47, endln:14:8
+              \_IfStmt: , line:12:7, endln:13:10
               |vpiOpType:26
               |vpiOperand:
               \_Operation: , line:12:11, endln:12:32
@@ -246,7 +305,7 @@ Design: (unnamed)
                 \_Operation: , line:12:11, endln:12:57
                 |vpiOpType:19
                 |vpiOperand:
-                \_BitSelect: (uvm::f1::addrs), line:12:17, endln:12:18
+                \_BitSelect: (uvm::f1::addrs), line:12:16, endln:12:19
                   |vpiParent:
                   \_Operation: , line:12:11, endln:12:32
                   |vpiName:addrs
@@ -254,7 +313,7 @@ Design: (unnamed)
                   |vpiIndex:
                   \_RefObj: (uvm::f1::i), line:12:17, endln:12:18
                     |vpiParent:
-                    \_BitSelect: (uvm::f1::addrs), line:12:17, endln:12:18
+                    \_BitSelect: (uvm::f1::addrs), line:12:16, endln:12:19
                     |vpiName:i
                     |vpiFullName:uvm::f1::i
                 |vpiOperand:
@@ -266,6 +325,8 @@ Design: (unnamed)
                     |vpiParent:
                     \_HierPath: (range.min), line:12:23, endln:12:32
                     |vpiName:range
+                    |vpiActual:
+                    \_RefVar: (uvm::f1::range), line:11:39, endln:11:44
                   |vpiActual:
                   \_RefObj: (uvm::f1::min), line:12:29, endln:12:32
                     |vpiParent:
@@ -279,7 +340,7 @@ Design: (unnamed)
                 \_Operation: , line:12:11, endln:12:57
                 |vpiOpType:21
                 |vpiOperand:
-                \_BitSelect: (uvm::f1::addrs), line:12:42, endln:12:43
+                \_BitSelect: (uvm::f1::addrs), line:12:41, endln:12:44
                   |vpiParent:
                   \_Operation: , line:12:36, endln:12:57
                   |vpiName:addrs
@@ -287,7 +348,7 @@ Design: (unnamed)
                   |vpiIndex:
                   \_RefObj: (uvm::f1::i), line:12:42, endln:12:43
                     |vpiParent:
-                    \_BitSelect: (uvm::f1::addrs), line:12:42, endln:12:43
+                    \_BitSelect: (uvm::f1::addrs), line:12:41, endln:12:44
                     |vpiName:i
                     |vpiFullName:uvm::f1::i
                 |vpiOperand:
@@ -299,6 +360,8 @@ Design: (unnamed)
                     |vpiParent:
                     \_HierPath: (range.max), line:12:48, endln:12:57
                     |vpiName:range
+                    |vpiActual:
+                    \_RefVar: (uvm::f1::range), line:11:39, endln:11:44
                   |vpiActual:
                   \_RefObj: (uvm::f1::max), line:12:54, endln:12:57
                     |vpiParent:
@@ -311,19 +374,86 @@ Design: (unnamed)
               |vpiParent:
               \_IfStmt: , line:12:7, endln:13:10
               |vpiFullName:uvm::f1
+        |vpiImportTypespec:
+        \_RefVar: (uvm::f1::range), line:11:39, endln:11:44
+          |vpiParent:
+          \_ForeachStmt: (uvm::f1), line:11:5, endln:14:8
+          |vpiTypespec:
+          \_RefTypespec: (uvm::f1::range::range), line:11:39, endln:11:44
+            |vpiParent:
+            \_RefVar: (uvm::f1::range), line:11:39, endln:11:44
+            |vpiName:range
+            |vpiFullName:uvm::f1::range::range
+            |vpiActual:
+            \_UnsupportedTypespec: (range), line:11:39, endln:11:44
+          |vpiName:range
+          |vpiFullName:uvm::f1::range
+        |vpiVariables:
+        \_HierPath: (top_map.m_mems_by_offset), line:11:14, endln:11:38
+          |vpiParent:
+          \_ForeachStmt: (uvm::f1), line:11:5, endln:14:8
+          |vpiActual:
+          \_RefObj: (uvm::f1::top_map), line:11:14, endln:11:21
+            |vpiParent:
+            \_HierPath: (top_map.m_mems_by_offset), line:11:14, endln:11:38
+            |vpiName:top_map
+            |vpiFullName:uvm::f1::top_map
+            |vpiActual:
+            \_ClassVar: (uvm::f1::top_map), line:9:17, endln:9:24
+          |vpiActual:
+          \_RefObj: (uvm::f1::m_mems_by_offset), line:11:22, endln:11:38
+            |vpiParent:
+            \_HierPath: (top_map.m_mems_by_offset), line:11:14, endln:11:38
+            |vpiName:m_mems_by_offset
+            |vpiFullName:uvm::f1::m_mems_by_offset
+            |vpiActual:
+            \_ArrayVar: (uvm::uvm_reg_map::m_mems_by_offset), line:4:17, endln:4:33
+          |vpiFullName:top_map.m_mems_by_offset
+        |vpiLoopVars:
+        \_RefVar: (uvm::f1::range), line:11:39, endln:11:44
+        |vpiStmt:
+        \_Begin: (uvm::f1), line:11:47, endln:14:8
+      |vpiTypedef:
+      \_ClassTypespec: (uvm_reg_map), line:9:5, endln:9:16
+        |vpiParent:
+        \_Begin: (uvm::f1)
+        |vpiName:uvm_reg_map
+        |vpiClassDefn:
+        \_ClassDefn: (uvm::uvm_reg_map), file:${SURELOG_DIR}/tests/ForeachClass/dut.sv, line:3:3, endln:5:11
+      |vpiTypedef:
+      \_UnsupportedTypespec: (range), line:11:39, endln:11:44
+        |vpiParent:
+        \_Begin: (uvm::f1)
+        |vpiName:range
+      |vpiImportTypespec:
+      \_ClassTypespec: (uvm_reg_map), line:9:5, endln:9:16
+      |vpiImportTypespec:
+      \_ClassVar: (uvm::f1::top_map), line:9:17, endln:9:24
+      |vpiImportTypespec:
+      \_UnsupportedTypespec: (range), line:11:39, endln:11:44
+      |vpiStmt:
+      \_ForeachStmt: (uvm::f1), line:11:5, endln:14:8
+    |vpiImportTypespec:
+    \_LogicVar: (uvm::f1)
+    |vpiVisibility:1
+    |vpiReturn:
+    \_LogicVar: (uvm::f1)
+    |vpiStmt:
+    \_Begin: (uvm::f1)
     |vpiInstance:
-    \_Package: uvm (uvm::), file:${SURELOG_DIR}/tests/ForeachClass/dut.sv, line:1:1, endln:17:11
-\_weaklyReferenced:
-\_ClassTypespec: , line:9:5, endln:9:16
+    \_Package: uvm (uvm), file:${SURELOG_DIR}/tests/ForeachClass/dut.sv, line:1:1, endln:17:11
+  |vpiImportTypespec:
+  \_ClassDefn: (uvm::uvm_reg_map), file:${SURELOG_DIR}/tests/ForeachClass/dut.sv, line:3:3, endln:5:11
+  |vpiImportTypespec:
+  \_Function: (uvm::f1), line:8:3, endln:15:14
+  |vpiDefName:uvm
   |vpiClassDefn:
   \_ClassDefn: (uvm::uvm_reg_map), file:${SURELOG_DIR}/tests/ForeachClass/dut.sv, line:3:3, endln:5:11
-\_UnsupportedTypespec: (range), line:11:39, endln:11:44
-  |vpiParent:
-  \_RefVar: (uvm::f1::range), line:11:39, endln:11:44
-  |vpiName:range
+  |vpiTaskFunc:
+  \_Function: (uvm::f1), line:8:3, endln:15:14
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 12
 [WARNING] : 1
 [   NOTE] : 0

@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 108
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/PackEnumVal/dut.sv
+FILE: ${SURELOG_DIR}/tests/PackEnumVal/dut.sv
 n<> u<107> t<Top_level_rule> c<1> l<2:1> el<20:1>
-  n<> u<1> t<Null_rule> p<107> s<106> l<2:1> el<1:2>
+  n<> u<1> t<Null_rule> p<107> s<106> l<2:1> el<2:1>
   n<> u<106> t<Source_text> p<107> c<59> l<2:1> el<18:10>
     n<> u<59> t<Description> p<106> c<58> s<105> l<2:1> el<13:11>
       n<> u<58> t<Package_declaration> p<59> c<2> l<2:1> el<13:11>
@@ -43,7 +43,7 @@ n<> u<107> t<Top_level_rule> c<1> l<2:1> el<20:1>
                 n<> u<35> t<Tf_port_list> p<53> c<34> s<50> l<9:38> el<9:49>
                   n<> u<34> t<Tf_port_item> p<35> c<32> l<9:38> el<9:49>
                     n<> u<32> t<Data_type_or_implicit> p<34> c<31> s<33> l<9:38> el<9:45>
-                      n<> u<31> t<Data_type> p<32> c<30> l<9:38> el<9:45>
+                      n<lc_tx_t> u<31> t<Data_type> p<32> c<30> l<9:38> el<9:45>
                         n<lc_tx_t> u<30> t<StringConst> p<31> l<9:38> el<9:45>
                     n<val> u<33> t<StringConst> p<34> l<9:46> el<9:49>
                 n<> u<50> t<Function_statement_or_null> p<53> c<49> s<52> l<10:5> el<10:22>
@@ -126,80 +126,58 @@ FuncCall                                               1
 Function                                               1
 IODecl                                                 1
 LogicNet                                               2
-LogicTypespec                                          4
+LogicTypespec                                          6
 LogicVar                                               1
 Module                                                 2
 Operation                                              1
 Package                                                1
 Port                                                   2
-RefObj                                                 6
-RefTypespec                                            5
+RefObj                                                 4
+RefTypespec                                            7
 ReturnStmt                                             1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PackEnumVal/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/PackEnumVal/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/PackEnumVal/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallPackages:
-\_Package: test_package (test_package::), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:2:1, endln:13:11
+|vpiAllPackages:
+\_Package: test_package (test_package), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:2:1, endln:13:11
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:test_package
-  |vpiFullName:test_package::
-  |vpiTypedef:
-  \_EnumTypespec: (test_package::lc_tx_t), line:9:38, endln:9:45
-    |vpiParent:
-    \_Package: test_package (test_package::), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:2:1, endln:13:11
-    |vpiName:test_package::lc_tx_t
-    |vpiInstance:
-    \_Package: test_package (test_package::), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:2:1, endln:13:11
-    |vpiBaseTypespec:
-    \_RefTypespec: (test_package::test_package::lc_tx_t)
-      |vpiParent:
-      \_EnumTypespec: (test_package::lc_tx_t), line:9:38, endln:9:45
-      |vpiFullName:test_package::test_package::lc_tx_t
-      |vpiActual:
-      \_LogicTypespec: , line:4:16, endln:4:21
-    |vpiEnumConst:
-    \_EnumConst: (On), line:5:5, endln:5:12
-      |vpiParent:
-      \_EnumTypespec: (test_package::lc_tx_t), line:9:38, endln:9:45
-      |vpiName:On
-      |UINT:1
-      |vpiDecompile:1
-      |vpiSize:64
-    |vpiEnumConst:
-    \_EnumConst: (Off), line:6:5, endln:6:12
-      |vpiParent:
-      \_EnumTypespec: (test_package::lc_tx_t), line:9:38, endln:9:45
-      |vpiName:Off
-      |UINT:0
-      |vpiDecompile:0
-      |vpiSize:64
-  |vpiDefName:test_package
-  |vpiTaskFunc:
+  |vpiInternalScope:
   \_Function: (test_package::test_true), line:9:3, endln:11:26
     |vpiParent:
-    \_Package: test_package (test_package::), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:2:1, endln:13:11
+    \_Package: test_package (test_package), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:2:1, endln:13:11
     |vpiName:test_true
     |vpiFullName:test_package::test_true
-    |vpiVisibility:1
-    |vpiAutomatic:1
-    |vpiReturn:
-    \_LogicVar: (test_package::test_true), line:9:22, endln:9:27
+    |vpiVariables:
+    \_LogicVar: (test_package::test_true)
       |vpiParent:
       \_Function: (test_package::test_true), line:9:3, endln:11:26
       |vpiTypespec:
-      \_RefTypespec: (test_package::test_true)
+      \_RefTypespec: (test_package::test_true), line:9:22, endln:9:27
         |vpiParent:
-        \_LogicVar: (test_package::test_true), line:9:22, endln:9:27
+        \_LogicVar: (test_package::test_true)
         |vpiFullName:test_package::test_true
         |vpiActual:
         \_LogicTypespec: , line:9:22, endln:9:27
       |vpiFullName:test_package::test_true
+    |vpiReg:
+    \_LogicVar: (test_package::test_true)
+    |vpiTypedef:
+    \_LogicTypespec: , line:9:22, endln:9:27
+      |vpiParent:
+      \_Function: (test_package::test_true), line:9:3, endln:11:26
+    |vpiImportTypespec:
+    \_LogicTypespec: , line:9:22, endln:9:27
+    |vpiImportTypespec:
+    \_LogicVar: (test_package::test_true)
+    |vpiVisibility:1
+    |vpiAutomatic:1
+    |vpiReturn:
+    \_LogicVar: (test_package::test_true)
     |vpiIODecl:
     \_IODecl: (val), line:9:46, endln:9:49
       |vpiParent:
@@ -207,20 +185,21 @@ Design: (unnamed)
       |vpiDirection:1
       |vpiName:val
       |vpiTypedef:
-      \_RefTypespec: (test_package::test_true::val)
+      \_RefTypespec: (test_package::test_true::val::lc_tx_t), line:4:11, endln:7:12
         |vpiParent:
         \_IODecl: (val), line:9:46, endln:9:49
-        |vpiFullName:test_package::test_true::val
+        |vpiName:lc_tx_t
+        |vpiFullName:test_package::test_true::val::lc_tx_t
         |vpiActual:
-        \_EnumTypespec: (test_package::lc_tx_t), line:9:38, endln:9:45
+        \_EnumTypespec: (test_package::lc_tx_t), line:4:11, endln:7:12
     |vpiStmt:
-    \_ReturnStmt: , line:10:5, endln:10:11
+    \_ReturnStmt: , line:10:5, endln:10:21
       |vpiParent:
       \_Function: (test_package::test_true), line:9:3, endln:11:26
       |vpiCondition:
       \_Operation: , line:10:12, endln:10:21
         |vpiParent:
-        \_ReturnStmt: , line:10:5, endln:10:11
+        \_ReturnStmt: , line:10:5, endln:10:21
         |vpiOpType:14
         |vpiOperand:
         \_RefObj: (test_package::test_true::On), line:10:12, endln:10:14
@@ -239,43 +218,118 @@ Design: (unnamed)
           |vpiActual:
           \_IODecl: (val), line:9:46, endln:9:49
     |vpiInstance:
-    \_Package: test_package (test_package::), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:2:1, endln:13:11
-|uhdmallModules:
+    \_Package: test_package (test_package), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:2:1, endln:13:11
+  |vpiTypedef:
+  \_LogicTypespec: , line:4:16, endln:4:21
+    |vpiParent:
+    \_Package: test_package (test_package), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:2:1, endln:13:11
+  |vpiTypedef:
+  \_EnumTypespec: (test_package::lc_tx_t), line:4:11, endln:7:12
+    |vpiParent:
+    \_Package: test_package (test_package), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:2:1, endln:13:11
+    |vpiName:test_package::lc_tx_t
+    |vpiBaseTypespec:
+    \_RefTypespec: (test_package::lc_tx_t), line:4:16, endln:4:21
+      |vpiParent:
+      \_EnumTypespec: (test_package::lc_tx_t), line:4:11, endln:7:12
+      |vpiFullName:test_package::lc_tx_t
+      |vpiActual:
+      \_LogicTypespec: , line:4:16, endln:4:21
+    |vpiEnumConst:
+    \_EnumConst: (On), line:5:5, endln:5:12
+      |vpiParent:
+      \_EnumTypespec: (test_package::lc_tx_t), line:4:11, endln:7:12
+      |vpiName:On
+      |UINT:1
+      |vpiDecompile:1
+      |vpiSize:64
+    |vpiEnumConst:
+    \_EnumConst: (Off), line:6:5, endln:6:12
+      |vpiParent:
+      \_EnumTypespec: (test_package::lc_tx_t), line:4:11, endln:7:12
+      |vpiName:Off
+      |UINT:0
+      |vpiDecompile:0
+      |vpiSize:64
+  |vpiImportTypespec:
+  \_Function: (test_package::test_true), line:9:3, endln:11:26
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:4:16, endln:4:21
+  |vpiImportTypespec:
+  \_EnumTypespec: (test_package::lc_tx_t), line:4:11, endln:7:12
+  |vpiDefName:test_package
+  |vpiTaskFunc:
+  \_Function: (test_package::test_true), line:9:3, endln:11:26
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:16:1, endln:18:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
-  |vpiDefName:work@top
-  |vpiNet:
+  |vpiName:work@top
+  |vpiTypedef:
+  \_LogicTypespec: , line:16:18, endln:16:23
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:16:1, endln:18:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:16:34, endln:16:39
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:16:1, endln:18:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:16:18, endln:16:23
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:16:1, endln:18:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:16:34, endln:16:39
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:16:1, endln:18:10
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:16:18, endln:16:23
+  |vpiImportTypespec:
   \_LogicNet: (work@top.i), line:16:24, endln:16:25
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:16:1, endln:18:10
+    |vpiTypespec:
+    \_RefTypespec: (work@top.i), line:16:18, endln:16:23
+      |vpiParent:
+      \_LogicNet: (work@top.i), line:16:24, endln:16:25
+      |vpiFullName:work@top.i
+      |vpiActual:
+      \_LogicTypespec: , line:16:18, endln:16:23
     |vpiName:i
     |vpiFullName:work@top.i
     |vpiNetType:36
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:16:34, endln:16:39
+  |vpiImportTypespec:
   \_LogicNet: (work@top.o), line:16:40, endln:16:41
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:16:1, endln:18:10
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o), line:16:34, endln:16:39
+      |vpiParent:
+      \_LogicNet: (work@top.o), line:16:40, endln:16:41
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_LogicTypespec: , line:16:34, endln:16:39
     |vpiName:o
     |vpiFullName:work@top.o
     |vpiNetType:36
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:16:18, endln:16:23
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:16:34, endln:16:39
+  |vpiDefName:work@top
+  |vpiNet:
+  \_LogicNet: (work@top.i), line:16:24, endln:16:25
+  |vpiNet:
+  \_LogicNet: (work@top.o), line:16:40, endln:16:41
   |vpiPort:
   \_Port: (i), line:16:24, endln:16:25
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:16:1, endln:18:10
     |vpiName:i
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@top.i.i), line:16:24, endln:16:25
-      |vpiParent:
-      \_Port: (i), line:16:24, endln:16:25
-      |vpiName:i
-      |vpiFullName:work@top.i.i
-      |vpiActual:
-      \_LogicNet: (work@top.i), line:16:24, endln:16:25
-    |vpiTypedef:
-    \_RefTypespec: (work@top.i)
+    |vpiTypespec:
+    \_RefTypespec: (work@top.i), line:16:18, endln:16:23
       |vpiParent:
       \_Port: (i), line:16:24, endln:16:25
       |vpiFullName:work@top.i
@@ -287,16 +341,8 @@ Design: (unnamed)
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:16:1, endln:18:10
     |vpiName:o
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@top.o.o), line:16:40, endln:16:41
-      |vpiParent:
-      \_Port: (o), line:16:40, endln:16:41
-      |vpiName:o
-      |vpiFullName:work@top.o.o
-      |vpiActual:
-      \_LogicNet: (work@top.o), line:16:40, endln:16:41
-    |vpiTypedef:
-    \_RefTypespec: (work@top.o)
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o), line:16:34, endln:16:39
       |vpiParent:
       \_Port: (o), line:16:40, endln:16:41
       |vpiFullName:work@top.o
@@ -307,13 +353,13 @@ Design: (unnamed)
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:16:1, endln:18:10
     |vpiRhs:
-    \_FuncCall: (test_package::test_true), line:17:14, endln:17:26
+    \_FuncCall: (test_package::test_true), line:17:14, endln:17:40
       |vpiParent:
       \_ContAssign: , line:17:10, endln:17:40
       |vpiArgument:
       \_RefObj: (work@top.i), line:17:38, endln:17:39
         |vpiParent:
-        \_FuncCall: (test_package::test_true), line:17:14, endln:17:26
+        \_FuncCall: (test_package::test_true), line:17:14, endln:17:40
         |vpiName:i
         |vpiFullName:work@top.i
         |vpiActual:
@@ -329,15 +375,6 @@ Design: (unnamed)
       |vpiFullName:work@top.o
       |vpiActual:
       \_LogicNet: (work@top.o), line:16:40, endln:16:41
-\_weaklyReferenced:
-\_LogicTypespec: , line:4:16, endln:4:21
-  |vpiInstance:
-  \_Package: test_package (test_package::), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:2:1, endln:13:11
-\_LogicTypespec: , line:9:22, endln:9:27
-  |vpiInstance:
-  \_Package: test_package (test_package::), file:${SURELOG_DIR}/tests/PackEnumVal/dut.sv, line:2:1, endln:13:11
-\_LogicTypespec: , line:16:18, endln:16:23
-\_LogicTypespec: , line:16:34, endln:16:39
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

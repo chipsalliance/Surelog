@@ -2,15 +2,15 @@
 AST_DEBUG_BEGIN
 Count: 55
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/InvalidTypeParam/dut.sv
+FILE: ${SURELOG_DIR}/tests/InvalidTypeParam/dut.sv
 n<> u<54> t<Top_level_rule> c<1> l<1:1> el<8:1>
-  n<> u<1> t<Null_rule> p<54> s<53> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<54> s<53> l<1:1>
   n<> u<53> t<Source_text> p<54> c<28> l<1:1> el<7:10>
     n<> u<28> t<Description> p<53> c<27> s<52> l<1:1> el<4:13>
       n<> u<27> t<Interface_declaration> p<28> c<5> l<1:1> el<4:13>
         n<> u<5> t<Interface_ansi_header> p<27> c<2> s<15> l<1:1> el<1:21>
           n<> u<2> t<INTERFACE> p<5> s<4> l<1:1> el<1:10>
-          n<> u<4> t<Interface_identifier> p<5> c<3> l<1:11> el<1:20>
+          n<Interface> u<4> t<Interface_identifier> p<5> c<3> l<1:11> el<1:20>
             n<Interface> u<3> t<StringConst> p<4> l<1:11> el<1:20>
         n<> u<15> t<Non_port_interface_item> p<27> c<14> s<25> l<2:5> el<2:22>
           n<> u<14> t<Interface_or_generate_item> p<15> c<13> l<2:5> el<2:22>
@@ -67,44 +67,81 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 Design                                                 1
 Interface                                              1
-LogicNet                                               1
+LogicNet                                               2
 Module                                                 1
+ModuleTypespec                                         1
 RefModule                                              1
+RefTypespec                                            2
 TypeParameter                                          1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/InvalidTypeParam/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/InvalidTypeParam/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/InvalidTypeParam/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallInterfaces:
+|vpiAllInterfaces:
 \_Interface: work@Interface (work@Interface), file:${SURELOG_DIR}/tests/InvalidTypeParam/dut.sv, line:1:1, endln:4:13
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@Interface
+  |vpiName:work@Interface
   |vpiParameter:
   \_TypeParameter: (work@Interface.P), line:2:20, endln:2:21
     |vpiParent:
     \_Interface: work@Interface (work@Interface), file:${SURELOG_DIR}/tests/InvalidTypeParam/dut.sv, line:1:1, endln:4:13
     |vpiName:P
     |vpiFullName:work@Interface.P
-  |vpiDefName:work@Interface
-  |vpiNet:
+  |vpiTypedef:
+  \_TypeParameter: (work@Interface.P), line:2:20, endln:2:21
+  |vpiImportTypespec:
+  \_TypeParameter: (work@Interface.P), line:2:20, endln:2:21
+  |vpiImportTypespec:
   \_LogicNet: (work@Interface.x), line:3:7, endln:3:8
     |vpiParent:
     \_Interface: work@Interface (work@Interface), file:${SURELOG_DIR}/tests/InvalidTypeParam/dut.sv, line:1:1, endln:4:13
+    |vpiTypespec:
+    \_RefTypespec: (work@Interface.x.P), line:3:5, endln:3:6
+      |vpiParent:
+      \_LogicNet: (work@Interface.x), line:3:7, endln:3:8
+      |vpiName:P
+      |vpiFullName:work@Interface.x.P
+      |vpiActual:
+      \_TypeParameter: (work@Interface.P), line:2:20, endln:2:21
     |vpiName:x
     |vpiFullName:work@Interface.x
-|uhdmallModules:
+  |vpiImportTypespec:
+  \_LogicNet: (work@Interface.x), line:3:7, endln:3:8
+    |vpiParent:
+    \_Interface: work@Interface (work@Interface), file:${SURELOG_DIR}/tests/InvalidTypeParam/dut.sv, line:1:1, endln:4:13
+    |vpiTypespec:
+    \_RefTypespec: (work@Interface.x.P), line:3:5, endln:3:6
+      |vpiParent:
+      \_LogicNet: (work@Interface.x), line:3:7, endln:3:8
+      |vpiName:P
+      |vpiFullName:work@Interface.x.P
+      |vpiActual:
+      \_TypeParameter: (work@Interface.P), line:2:20, endln:2:21
+    |vpiName:x
+    |vpiFullName:work@Interface.x
+  |vpiDefName:work@Interface
+  |vpiNet:
+  \_LogicNet: (work@Interface.x), line:3:7, endln:3:8
+  |vpiNet:
+  \_LogicNet: (work@Interface.x), line:3:7, endln:3:8
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/InvalidTypeParam/dut.sv, line:5:1, endln:7:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
+  |vpiName:work@top
+  |vpiTypedef:
+  \_ModuleTypespec: (Interface), line:6:5, endln:6:14
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/InvalidTypeParam/dut.sv, line:5:1, endln:7:10
+    |vpiName:Interface
+  |vpiImportTypespec:
+  \_ModuleTypespec: (Interface), line:6:5, endln:6:14
   |vpiDefName:work@top
   |vpiRefModule:
-  \_RefModule: work@Interface (intf), line:6:20, endln:6:24
+  \_RefModule: work@Interface (intf), line:6:5, endln:6:14
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/InvalidTypeParam/dut.sv, line:5:1, endln:7:10
     |vpiName:intf

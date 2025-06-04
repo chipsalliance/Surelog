@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 157
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/DynArrayKind/dut.sv
+FILE: ${SURELOG_DIR}/tests/DynArrayKind/dut.sv
 n<> u<156> t<Top_level_rule> c<1> l<1:1> el<11:1>
-  n<> u<1> t<Null_rule> p<156> s<155> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<156> s<155> l<1:1>
   n<> u<155> t<Source_text> p<156> c<154> l<1:1> el<9:10>
     n<> u<154> t<Description> p<155> c<153> l<1:1> el<9:10>
       n<> u<153> t<Module_declaration> p<154> c<4> l<1:1> el<9:10>
@@ -139,8 +139,8 @@ n<> u<156> t<Top_level_rule> c<1> l<1:1> el<11:1>
                           n<assoc_string> u<121> t<StringConst> p<126> s<125> l<7:8> el<7:20>
                           n<> u<125> t<Variable_dimension> p<126> c<124> l<7:21> el<7:29>
                             n<> u<124> t<Associative_dimension> p<125> c<123> l<7:21> el<7:29>
-                              n<> u<123> t<Data_type> p<124> c<122> l<7:22> el<7:28>
-                                n<> u<122> t<String_type> p<123> l<7:22> el<7:28>
+                              n<string> u<123> t<Data_type> p<124> c<122> l<7:22> el<7:28>
+                                n<string> u<122> t<String_type> p<123> l<7:22> el<7:28>
         n<> u<151> t<Non_port_module_item> p<153> c<150> s<152> l<8:4> el<8:18>
           n<> u<150> t<Module_or_generate_item> p<151> c<149> l<8:4> el<8:18>
             n<> u<149> t<Module_common_item> p<150> c<148> l<8:4> el<8:18>
@@ -165,131 +165,579 @@ AST_DEBUG_END
 [INF:CP0303] ${SURELOG_DIR}/tests/DynArrayKind/dut.sv:1:1: Compile module "work@top".
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+ArrayTypespec                                          9
+ArrayVar                                               7
+Constant                                              21
 Design                                                 1
-IntTypespec                                            7
-LogicNet                                               7
+IntTypespec                                           10
+IntVar                                                 7
 Module                                                 1
-RefTypespec                                            7
+Range                                                 11
+RefTypespec                                           27
+StringTypespec                                         1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/DynArrayKind/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/DynArrayKind/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/DynArrayKind/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
-  |vpiDefName:work@top
-  |vpiNet:
-  \_LogicNet: (work@top.dynamic1), line:2:8, endln:2:16
+  |vpiName:work@top
+  |vpiVariables:
+  \_IntVar: (work@top), line:2:8, endln:2:16
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
     |vpiTypespec:
-    \_RefTypespec: (work@top.dynamic1)
+    \_RefTypespec: (work@top), line:2:4, endln:2:7
       |vpiParent:
-      \_LogicNet: (work@top.dynamic1), line:2:8, endln:2:16
+      \_IntVar: (work@top), line:2:8, endln:2:16
+      |vpiFullName:work@top
+      |vpiActual:
+      \_IntTypespec: , line:2:4, endln:2:7
+    |vpiFullName:work@top
+  |vpiVariables:
+  \_ArrayVar: (work@top.dynamic1), line:2:8, endln:2:16
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
+    |vpiSize:1
+    |vpiTypespec:
+    \_RefTypespec: (work@top.dynamic1), line:2:17, endln:2:19
+      |vpiParent:
+      \_ArrayVar: (work@top.dynamic1), line:2:8, endln:2:16
       |vpiFullName:work@top.dynamic1
       |vpiActual:
-      \_IntTypespec: , line:2:4, endln:2:19
+      \_ArrayTypespec: , line:2:17, endln:2:19
     |vpiName:dynamic1
     |vpiFullName:work@top.dynamic1
-  |vpiNet:
-  \_LogicNet: (work@top.dynamic2), line:3:8, endln:3:16
+    |vpiSigned:1
+    |vpiRandType:1
+    |vpiVisibility:1
+    |vpiArrayType:2
+    |vpiReg:
+    \_IntVar: (work@top), line:2:8, endln:2:16
+  |vpiVariables:
+  \_IntVar: (work@top), line:3:8, endln:3:16
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
     |vpiTypespec:
-    \_RefTypespec: (work@top.dynamic2)
+    \_RefTypespec: (work@top), line:3:4, endln:3:7
       |vpiParent:
-      \_LogicNet: (work@top.dynamic2), line:3:8, endln:3:16
+      \_IntVar: (work@top), line:3:8, endln:3:16
+      |vpiFullName:work@top
+      |vpiActual:
+      \_IntTypespec: , line:3:4, endln:3:7
+    |vpiFullName:work@top
+  |vpiVariables:
+  \_ArrayVar: (work@top.dynamic2), line:3:8, endln:3:16
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
+    |vpiSize:1
+    |vpiTypespec:
+    \_RefTypespec: (work@top.dynamic2), line:3:17, endln:3:19
+      |vpiParent:
+      \_ArrayVar: (work@top.dynamic2), line:3:8, endln:3:16
       |vpiFullName:work@top.dynamic2
       |vpiActual:
-      \_IntTypespec: , line:3:4, endln:3:19
+      \_ArrayTypespec: , line:3:17, endln:3:19
     |vpiName:dynamic2
     |vpiFullName:work@top.dynamic2
-  |vpiNet:
-  \_LogicNet: (work@top.dynamic3), line:4:8, endln:4:16
+    |vpiSigned:1
+    |vpiRandType:1
+    |vpiVisibility:1
+    |vpiArrayType:2
+    |vpiRange:
+    \_Range: , line:3:19, endln:3:24
+      |vpiParent:
+      \_ArrayVar: (work@top.dynamic2), line:3:8, endln:3:16
+      |vpiLeftRange:
+      \_Constant: , line:3:20, endln:3:21
+        |vpiParent:
+        \_Range: , line:3:19, endln:3:24
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:3:22, endln:3:23
+        |vpiParent:
+        \_Range: , line:3:19, endln:3:24
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiReg:
+    \_IntVar: (work@top), line:3:8, endln:3:16
+  |vpiVariables:
+  \_IntVar: (work@top.dynamic3), line:4:8, endln:4:16
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
     |vpiTypespec:
-    \_RefTypespec: (work@top.dynamic3)
+    \_RefTypespec: (work@top.dynamic3), line:4:4, endln:4:7
       |vpiParent:
-      \_LogicNet: (work@top.dynamic3), line:4:8, endln:4:16
+      \_IntVar: (work@top.dynamic3), line:4:8, endln:4:16
       |vpiFullName:work@top.dynamic3
       |vpiActual:
-      \_IntTypespec: , line:4:4, endln:4:22
+      \_IntTypespec: , line:4:4, endln:4:7
     |vpiName:dynamic3
     |vpiFullName:work@top.dynamic3
-  |vpiNet:
-  \_LogicNet: (work@top.dynamic4), line:5:8, endln:5:16
+  |vpiVariables:
+  \_ArrayVar: (work@top.dynamic3), line:4:8, endln:4:16
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
+    |vpiSize:1
+    |vpiTypespec:
+    \_RefTypespec: (work@top.dynamic3), line:4:22, endln:4:24
+      |vpiParent:
+      \_ArrayVar: (work@top.dynamic3), line:4:8, endln:4:16
+      |vpiFullName:work@top.dynamic3
+      |vpiActual:
+      \_ArrayTypespec: , line:4:22, endln:4:24
+    |vpiName:dynamic3
+    |vpiFullName:work@top.dynamic3
+    |vpiSigned:1
+    |vpiRandType:1
+    |vpiVisibility:1
+    |vpiArrayType:2
+  |vpiVariables:
+  \_IntVar: (work@top.dynamic4), line:5:8, endln:5:16
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
     |vpiTypespec:
-    \_RefTypespec: (work@top.dynamic4)
+    \_RefTypespec: (work@top.dynamic4), line:5:4, endln:5:7
       |vpiParent:
-      \_LogicNet: (work@top.dynamic4), line:5:8, endln:5:16
+      \_IntVar: (work@top.dynamic4), line:5:8, endln:5:16
       |vpiFullName:work@top.dynamic4
       |vpiActual:
-      \_IntTypespec: , line:5:4, endln:5:22
+      \_IntTypespec: , line:5:4, endln:5:7
     |vpiName:dynamic4
     |vpiFullName:work@top.dynamic4
-  |vpiNet:
-  \_LogicNet: (work@top.assoc), line:6:8, endln:6:13
+  |vpiVariables:
+  \_ArrayVar: (work@top.dynamic4), line:5:8, endln:5:16
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
+    |vpiSize:1
+    |vpiTypespec:
+    \_RefTypespec: (work@top.dynamic4), line:5:24, endln:5:29
+      |vpiParent:
+      \_ArrayVar: (work@top.dynamic4), line:5:8, endln:5:16
+      |vpiFullName:work@top.dynamic4
+      |vpiActual:
+      \_ArrayTypespec: , line:5:24, endln:5:29
+    |vpiName:dynamic4
+    |vpiFullName:work@top.dynamic4
+    |vpiSigned:1
+    |vpiRandType:1
+    |vpiVisibility:1
+    |vpiArrayType:2
+  |vpiVariables:
+  \_IntVar: (work@top), line:6:8, endln:6:13
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
     |vpiTypespec:
-    \_RefTypespec: (work@top.assoc)
+    \_RefTypespec: (work@top), line:6:4, endln:6:7
       |vpiParent:
-      \_LogicNet: (work@top.assoc), line:6:8, endln:6:13
+      \_IntVar: (work@top), line:6:8, endln:6:13
+      |vpiFullName:work@top
+      |vpiActual:
+      \_IntTypespec: , line:6:4, endln:6:7
+    |vpiFullName:work@top
+  |vpiVariables:
+  \_ArrayVar: (work@top.assoc), line:6:8, endln:6:13
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
+    |vpiSize:1
+    |vpiTypespec:
+    \_RefTypespec: (work@top.assoc), line:6:14, endln:6:19
+      |vpiParent:
+      \_ArrayVar: (work@top.assoc), line:6:8, endln:6:13
       |vpiFullName:work@top.assoc
       |vpiActual:
-      \_IntTypespec: , line:6:4, endln:6:19
+      \_ArrayTypespec: , line:6:8, endln:6:13
     |vpiName:assoc
     |vpiFullName:work@top.assoc
-  |vpiNet:
-  \_LogicNet: (work@top.assoc_string), line:7:8, endln:7:20
+    |vpiSigned:1
+    |vpiRandType:1
+    |vpiVisibility:1
+    |vpiArrayType:3
+    |vpiReg:
+    \_IntVar: (work@top), line:6:8, endln:6:13
+  |vpiVariables:
+  \_IntVar: (work@top), line:7:8, endln:7:20
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
     |vpiTypespec:
-    \_RefTypespec: (work@top.assoc_string)
+    \_RefTypespec: (work@top), line:7:4, endln:7:7
       |vpiParent:
-      \_LogicNet: (work@top.assoc_string), line:7:8, endln:7:20
+      \_IntVar: (work@top), line:7:8, endln:7:20
+      |vpiFullName:work@top
+      |vpiActual:
+      \_IntTypespec: , line:7:4, endln:7:7
+    |vpiFullName:work@top
+  |vpiVariables:
+  \_ArrayVar: (work@top.assoc_string), line:7:8, endln:7:20
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
+    |vpiSize:1
+    |vpiTypespec:
+    \_RefTypespec: (work@top.assoc_string), line:7:21, endln:7:29
+      |vpiParent:
+      \_ArrayVar: (work@top.assoc_string), line:7:8, endln:7:20
       |vpiFullName:work@top.assoc_string
       |vpiActual:
-      \_IntTypespec: , line:7:4, endln:7:29
+      \_ArrayTypespec: , line:7:8, endln:7:20
     |vpiName:assoc_string
     |vpiFullName:work@top.assoc_string
-  |vpiNet:
-  \_LogicNet: (work@top.queue), line:8:8, endln:8:13
+    |vpiSigned:1
+    |vpiRandType:1
+    |vpiVisibility:1
+    |vpiArrayType:3
+    |vpiReg:
+    \_IntVar: (work@top), line:7:8, endln:7:20
+  |vpiVariables:
+  \_IntVar: (work@top), line:8:8, endln:8:13
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
     |vpiTypespec:
-    \_RefTypespec: (work@top.queue)
+    \_RefTypespec: (work@top), line:8:4, endln:8:7
       |vpiParent:
-      \_LogicNet: (work@top.queue), line:8:8, endln:8:13
+      \_IntVar: (work@top), line:8:8, endln:8:13
+      |vpiFullName:work@top
+      |vpiActual:
+      \_IntTypespec: , line:8:4, endln:8:7
+    |vpiFullName:work@top
+  |vpiVariables:
+  \_ArrayVar: (work@top.queue), line:8:8, endln:8:13
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
+    |vpiSize:1
+    |vpiTypespec:
+    \_RefTypespec: (work@top.queue), line:8:14, endln:8:17
+      |vpiParent:
+      \_ArrayVar: (work@top.queue), line:8:8, endln:8:13
       |vpiFullName:work@top.queue
       |vpiActual:
-      \_IntTypespec: , line:8:4, endln:8:17
+      \_ArrayTypespec: , line:8:14, endln:8:17
     |vpiName:queue
     |vpiFullName:work@top.queue
-\_weaklyReferenced:
-\_IntTypespec: , line:2:4, endln:2:19
-  |vpiSigned:1
-\_IntTypespec: , line:3:4, endln:3:19
-  |vpiSigned:1
-\_IntTypespec: , line:4:4, endln:4:22
-  |vpiSigned:1
-\_IntTypespec: , line:5:4, endln:5:22
-  |vpiSigned:1
-\_IntTypespec: , line:6:4, endln:6:19
-  |vpiSigned:1
-\_IntTypespec: , line:7:4, endln:7:29
-  |vpiSigned:1
-\_IntTypespec: , line:8:4, endln:8:17
-  |vpiSigned:1
+    |vpiSigned:1
+    |vpiRandType:1
+    |vpiVisibility:1
+    |vpiArrayType:4
+    |vpiReg:
+    \_IntVar: (work@top), line:8:8, endln:8:13
+  |vpiRegArray:
+  \_ArrayVar: (work@top.dynamic1), line:2:8, endln:2:16
+  |vpiRegArray:
+  \_ArrayVar: (work@top.dynamic2), line:3:8, endln:3:16
+  |vpiRegArray:
+  \_ArrayVar: (work@top.dynamic3), line:4:8, endln:4:16
+  |vpiRegArray:
+  \_ArrayVar: (work@top.dynamic4), line:5:8, endln:5:16
+  |vpiRegArray:
+  \_ArrayVar: (work@top.assoc), line:6:8, endln:6:13
+  |vpiRegArray:
+  \_ArrayVar: (work@top.assoc_string), line:7:8, endln:7:20
+  |vpiRegArray:
+  \_ArrayVar: (work@top.queue), line:8:8, endln:8:13
+  |vpiTypedef:
+  \_IntTypespec: , line:2:4, endln:2:7
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
+    |vpiSigned:1
+  |vpiTypedef:
+  \_ArrayTypespec: , line:2:17, endln:2:19
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
+    |vpiElemTypespec:
+    \_RefTypespec: (work@top), line:2:4, endln:2:7
+      |vpiParent:
+      \_ArrayTypespec: , line:2:17, endln:2:19
+      |vpiFullName:work@top
+      |vpiActual:
+      \_IntTypespec: , line:2:4, endln:2:7
+  |vpiTypedef:
+  \_IntTypespec: , line:3:4, endln:3:7
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
+    |vpiSigned:1
+  |vpiTypedef:
+  \_ArrayTypespec: , line:3:17, endln:3:19
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
+    |vpiElemTypespec:
+    \_RefTypespec: (work@top), line:3:4, endln:3:7
+      |vpiParent:
+      \_ArrayTypespec: , line:3:17, endln:3:19
+      |vpiFullName:work@top
+      |vpiActual:
+      \_IntTypespec: , line:3:4, endln:3:7
+  |vpiTypedef:
+  \_IntTypespec: , line:4:4, endln:4:7
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
+    |vpiSigned:1
+  |vpiTypedef:
+  \_ArrayTypespec: , line:4:22, endln:4:24
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
+    |vpiArrayType:2
+    |vpiElemTypespec:
+    \_RefTypespec: (work@top), line:4:8, endln:4:16
+      |vpiParent:
+      \_ArrayTypespec: , line:4:22, endln:4:24
+      |vpiFullName:work@top
+      |vpiActual:
+      \_ArrayTypespec: , line:4:17, endln:4:22
+  |vpiTypedef:
+  \_ArrayTypespec: , line:4:17, endln:4:22
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
+    |vpiRange:
+    \_Range: , line:4:17, endln:4:22
+      |vpiParent:
+      \_ArrayTypespec: , line:4:17, endln:4:22
+      |vpiLeftRange:
+      \_Constant: , line:4:18, endln:4:19
+        |vpiParent:
+        \_Range: , line:4:17, endln:4:22
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:4:20, endln:4:21
+        |vpiParent:
+        \_Range: , line:4:17, endln:4:22
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiElemTypespec:
+    \_RefTypespec: (work@top), line:4:4, endln:4:7
+      |vpiParent:
+      \_ArrayTypespec: , line:4:17, endln:4:22
+      |vpiFullName:work@top
+      |vpiActual:
+      \_IntTypespec: , line:4:4, endln:4:7
+  |vpiTypedef:
+  \_IntTypespec: , line:4:4, endln:4:7
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
+  |vpiTypedef:
+  \_IntTypespec: , line:5:4, endln:5:7
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
+    |vpiSigned:1
+  |vpiTypedef:
+  \_ArrayTypespec: , line:5:24, endln:5:29
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
+    |vpiArrayType:2
+    |vpiElemTypespec:
+    \_RefTypespec: (work@top), line:5:8, endln:5:16
+      |vpiParent:
+      \_ArrayTypespec: , line:5:24, endln:5:29
+      |vpiFullName:work@top
+      |vpiActual:
+      \_ArrayTypespec: , line:5:17, endln:5:29
+  |vpiTypedef:
+  \_ArrayTypespec: , line:5:17, endln:5:29
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
+    |vpiRange:
+    \_Range: , line:5:17, endln:5:22
+      |vpiParent:
+      \_ArrayTypespec: , line:5:17, endln:5:29
+      |vpiLeftRange:
+      \_Constant: , line:5:18, endln:5:19
+        |vpiParent:
+        \_Range: , line:5:17, endln:5:22
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:5:20, endln:5:21
+        |vpiParent:
+        \_Range: , line:5:17, endln:5:22
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiRange:
+    \_Range: , line:5:24, endln:5:29
+      |vpiParent:
+      \_ArrayTypespec: , line:5:17, endln:5:29
+      |vpiLeftRange:
+      \_Constant: , line:5:25, endln:5:26
+        |vpiParent:
+        \_Range: , line:5:24, endln:5:29
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:5:27, endln:5:28
+        |vpiParent:
+        \_Range: , line:5:24, endln:5:29
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiElemTypespec:
+    \_RefTypespec: (work@top), line:5:4, endln:5:7
+      |vpiParent:
+      \_ArrayTypespec: , line:5:17, endln:5:29
+      |vpiFullName:work@top
+      |vpiActual:
+      \_IntTypespec: , line:5:4, endln:5:7
+  |vpiTypedef:
+  \_IntTypespec: , line:5:4, endln:5:7
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
+  |vpiTypedef:
+  \_IntTypespec: , line:6:4, endln:6:7
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
+    |vpiSigned:1
+  |vpiTypedef:
+  \_IntTypespec: , line:6:15, endln:6:18
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
+    |vpiSigned:1
+  |vpiTypedef:
+  \_ArrayTypespec: , line:6:8, endln:6:13
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
+    |vpiIndexTypespec:
+    \_RefTypespec: (work@top), line:6:14, endln:6:19
+      |vpiParent:
+      \_ArrayTypespec: , line:6:8, endln:6:13
+      |vpiFullName:work@top
+      |vpiActual:
+      \_IntTypespec: , line:6:15, endln:6:18
+    |vpiElemTypespec:
+    \_RefTypespec: (work@top), line:6:4, endln:6:7
+      |vpiParent:
+      \_ArrayTypespec: , line:6:8, endln:6:13
+      |vpiFullName:work@top
+      |vpiActual:
+      \_IntTypespec: , line:6:4, endln:6:7
+  |vpiTypedef:
+  \_IntTypespec: , line:7:4, endln:7:7
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
+    |vpiSigned:1
+  |vpiTypedef:
+  \_StringTypespec: , line:7:22, endln:7:28
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
+  |vpiTypedef:
+  \_ArrayTypespec: , line:7:8, endln:7:20
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
+    |vpiIndexTypespec:
+    \_RefTypespec: (work@top), line:7:21, endln:7:29
+      |vpiParent:
+      \_ArrayTypespec: , line:7:8, endln:7:20
+      |vpiFullName:work@top
+      |vpiActual:
+      \_StringTypespec: , line:7:22, endln:7:28
+    |vpiElemTypespec:
+    \_RefTypespec: (work@top), line:7:4, endln:7:7
+      |vpiParent:
+      \_ArrayTypespec: , line:7:8, endln:7:20
+      |vpiFullName:work@top
+      |vpiActual:
+      \_IntTypespec: , line:7:4, endln:7:7
+  |vpiTypedef:
+  \_IntTypespec: , line:8:4, endln:8:7
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
+    |vpiSigned:1
+  |vpiTypedef:
+  \_ArrayTypespec: , line:8:14, endln:8:17
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/DynArrayKind/dut.sv, line:1:1, endln:9:10
+    |vpiElemTypespec:
+    \_RefTypespec: (work@top), line:8:4, endln:8:7
+      |vpiParent:
+      \_ArrayTypespec: , line:8:14, endln:8:17
+      |vpiFullName:work@top
+      |vpiActual:
+      \_IntTypespec: , line:8:4, endln:8:7
+  |vpiImportTypespec:
+  \_IntTypespec: , line:2:4, endln:2:7
+  |vpiImportTypespec:
+  \_IntVar: (work@top), line:2:8, endln:2:16
+  |vpiImportTypespec:
+  \_ArrayVar: (work@top.dynamic1), line:2:8, endln:2:16
+  |vpiImportTypespec:
+  \_ArrayTypespec: , line:2:17, endln:2:19
+  |vpiImportTypespec:
+  \_IntTypespec: , line:3:4, endln:3:7
+  |vpiImportTypespec:
+  \_IntVar: (work@top), line:3:8, endln:3:16
+  |vpiImportTypespec:
+  \_ArrayVar: (work@top.dynamic2), line:3:8, endln:3:16
+  |vpiImportTypespec:
+  \_ArrayTypespec: , line:3:17, endln:3:19
+  |vpiImportTypespec:
+  \_IntTypespec: , line:4:4, endln:4:7
+  |vpiImportTypespec:
+  \_IntVar: (work@top.dynamic3), line:4:8, endln:4:16
+  |vpiImportTypespec:
+  \_ArrayVar: (work@top.dynamic3), line:4:8, endln:4:16
+  |vpiImportTypespec:
+  \_ArrayTypespec: , line:4:22, endln:4:24
+  |vpiImportTypespec:
+  \_ArrayTypespec: , line:4:17, endln:4:22
+  |vpiImportTypespec:
+  \_IntTypespec: , line:4:4, endln:4:7
+  |vpiImportTypespec:
+  \_IntTypespec: , line:5:4, endln:5:7
+  |vpiImportTypespec:
+  \_IntVar: (work@top.dynamic4), line:5:8, endln:5:16
+  |vpiImportTypespec:
+  \_ArrayVar: (work@top.dynamic4), line:5:8, endln:5:16
+  |vpiImportTypespec:
+  \_ArrayTypespec: , line:5:24, endln:5:29
+  |vpiImportTypespec:
+  \_ArrayTypespec: , line:5:17, endln:5:29
+  |vpiImportTypespec:
+  \_IntTypespec: , line:5:4, endln:5:7
+  |vpiImportTypespec:
+  \_IntTypespec: , line:6:4, endln:6:7
+  |vpiImportTypespec:
+  \_IntTypespec: , line:6:15, endln:6:18
+  |vpiImportTypespec:
+  \_IntVar: (work@top), line:6:8, endln:6:13
+  |vpiImportTypespec:
+  \_ArrayVar: (work@top.assoc), line:6:8, endln:6:13
+  |vpiImportTypespec:
+  \_ArrayTypespec: , line:6:8, endln:6:13
+  |vpiImportTypespec:
+  \_IntTypespec: , line:7:4, endln:7:7
+  |vpiImportTypespec:
+  \_StringTypespec: , line:7:22, endln:7:28
+  |vpiImportTypespec:
+  \_IntVar: (work@top), line:7:8, endln:7:20
+  |vpiImportTypespec:
+  \_ArrayVar: (work@top.assoc_string), line:7:8, endln:7:20
+  |vpiImportTypespec:
+  \_ArrayTypespec: , line:7:8, endln:7:20
+  |vpiImportTypespec:
+  \_IntTypespec: , line:8:4, endln:8:7
+  |vpiImportTypespec:
+  \_IntVar: (work@top), line:8:8, endln:8:13
+  |vpiImportTypespec:
+  \_ArrayVar: (work@top.queue), line:8:8, endln:8:13
+  |vpiImportTypespec:
+  \_ArrayTypespec: , line:8:14, endln:8:17
+  |vpiDefName:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

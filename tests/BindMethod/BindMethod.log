@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 91
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/BindMethod/dut.sv
+FILE: ${SURELOG_DIR}/tests/BindMethod/dut.sv
 n<> u<90> t<Top_level_rule> c<1> l<1:1> el<24:1>
-  n<> u<1> t<Null_rule> p<90> s<89> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<90> s<89> l<1:1>
   n<> u<89> t<Source_text> p<90> c<88> l<1:1> el<23:11>
     n<> u<88> t<Description> p<89> c<87> l<1:1> el<23:11>
       n<> u<87> t<Package_declaration> p<88> c<2> l<1:1> el<23:11>
@@ -68,7 +68,7 @@ n<> u<90> t<Top_level_rule> c<1> l<1:1> el<24:1>
                 n<> u<62> t<Block_item_declaration> p<82> c<61> s<80> l<19:3> el<19:26>
                   n<> u<61> t<Data_declaration> p<62> c<60> l<19:3> el<19:26>
                     n<> u<60> t<Variable_declaration> p<61> c<56> l<19:3> el<19:26>
-                      n<> u<56> t<Data_type> p<60> c<55> s<59> l<19:3> el<19:21>
+                      n<uvm_vreg_field_cbs> u<56> t<Data_type> p<60> c<55> s<59> l<19:3> el<19:21>
                         n<uvm_vreg_field_cbs> u<55> t<StringConst> p<56> l<19:3> el<19:21>
                       n<> u<59> t<List_of_variable_decl_assignments> p<60> c<58> l<19:22> el<19:25>
                         n<> u<58> t<Variable_decl_assignment> p<59> c<57> l<19:22> el<19:25>
@@ -103,42 +103,149 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 Assignment                                             2
 Begin                                                  1
-ClassDefn                                              4
-ClassTypespec                                          2
+ClassDefn                                              3
+ClassTypespec                                          1
 ClassVar                                               1
 Design                                                 1
+Extends                                                1
 Function                                               1
+FunctionDecl                                           1
 HierPath                                               2
-IntTypespec                                            1
-IntVar                                                 1
+IntTypespec                                            2
+IntVar                                                 2
 MethodFuncCall                                         1
 Package                                                1
 RefObj                                                 3
-RefTypespec                                            2
+RefTypespec                                            4
 Task                                                   2
+TaskDecl                                               1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/BindMethod/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/BindMethod/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/BindMethod/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallPackages:
-\_Package: uvm (uvm::), file:${SURELOG_DIR}/tests/BindMethod/dut.sv, line:1:1, endln:23:11
+|vpiAllPackages:
+\_Package: uvm (uvm), file:${SURELOG_DIR}/tests/BindMethod/dut.sv, line:1:1, endln:23:11
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:uvm
-  |vpiFullName:uvm::
-  |vpiDefName:uvm
-  |vpiClassDefn:
+  |vpiInternalScope:
+  \_ClassDefn: (uvm::uvm_vreg_field_cb_iter), file:${SURELOG_DIR}/tests/BindMethod/dut.sv, line:4:1, endln:7:9
+    |vpiParent:
+    \_Package: uvm (uvm), file:${SURELOG_DIR}/tests/BindMethod/dut.sv, line:1:1, endln:23:11
+    |vpiName:uvm_vreg_field_cb_iter
+    |vpiFullName:uvm::uvm_vreg_field_cb_iter
+    |vpiInternalScope:
+    \_Function: (uvm::uvm_vreg_field_cb_iter::first), line:5:1, endln:5:37
+      |vpiParent:
+      \_ClassDefn: (uvm::uvm_vreg_field_cb_iter), file:${SURELOG_DIR}/tests/BindMethod/dut.sv, line:4:1, endln:7:9
+      |vpiName:first
+      |vpiFullName:uvm::uvm_vreg_field_cb_iter::first
+      |vpiVariables:
+      \_IntVar: (uvm::uvm_vreg_field_cb_iter::first)
+        |vpiParent:
+        \_Function: (uvm::uvm_vreg_field_cb_iter::first), line:5:1, endln:5:37
+        |vpiTypespec:
+        \_RefTypespec: (uvm::uvm_vreg_field_cb_iter::first), line:5:25, endln:5:28
+          |vpiParent:
+          \_IntVar: (uvm::uvm_vreg_field_cb_iter::first)
+          |vpiFullName:uvm::uvm_vreg_field_cb_iter::first
+          |vpiActual:
+          \_IntTypespec: , line:5:25, endln:5:28
+        |vpiFullName:uvm::uvm_vreg_field_cb_iter::first
+        |vpiSigned:1
+      |vpiTypedef:
+      \_IntTypespec: , line:5:25, endln:5:28
+        |vpiParent:
+        \_Function: (uvm::uvm_vreg_field_cb_iter::first), line:5:1, endln:5:37
+        |vpiSigned:1
+      |vpiImportTypespec:
+      \_IntTypespec: , line:5:25, endln:5:28
+      |vpiImportTypespec:
+      \_IntVar: (uvm::uvm_vreg_field_cb_iter::first)
+      |vpiMethod:1
+      |vpiAccessType:2
+      |vpiVisibility:1
+      |vpiVirtual:1
+      |vpiReturn:
+      \_IntVar: (uvm::uvm_vreg_field_cb_iter::first)
+    |vpiImportTypespec:
+    \_Function: (uvm::uvm_vreg_field_cb_iter::first), line:5:1, endln:5:37
+    |vpiMethod:
+    \_Function: (uvm::uvm_vreg_field_cb_iter::first), line:5:1, endln:5:37
+    |vpiTaskFuncDecl:
+    \_FunctionDecl: (uvm::uvm_vreg_field_cb_iter::first), line:5:1, endln:5:37
+      |vpiParent:
+      \_ClassDefn: (uvm::uvm_vreg_field_cb_iter), file:${SURELOG_DIR}/tests/BindMethod/dut.sv, line:4:1, endln:7:9
+      |vpiName:first
+      |vpiFullName:uvm::uvm_vreg_field_cb_iter::first
+      |vpiTaskFunc:
+      \_Function: (uvm::uvm_vreg_field_cb_iter::first), line:5:1, endln:5:37
+    |vpiDerivedClasses:
+    \_ClassDefn: (uvm::uvm_vreg_field_cbs), file:${SURELOG_DIR}/tests/BindMethod/dut.sv, line:9:1, endln:11:9
+      |vpiParent:
+      \_Package: uvm (uvm), file:${SURELOG_DIR}/tests/BindMethod/dut.sv, line:1:1, endln:23:11
+      |vpiName:uvm_vreg_field_cbs
+      |vpiFullName:uvm::uvm_vreg_field_cbs
+      |vpiVariables:
+      \_IntVar: (uvm::uvm_vreg_field_cbs::fname), line:10:7, endln:10:12
+        |vpiParent:
+        \_ClassDefn: (uvm::uvm_vreg_field_cbs), file:${SURELOG_DIR}/tests/BindMethod/dut.sv, line:9:1, endln:11:9
+        |vpiTypespec:
+        \_RefTypespec: (uvm::uvm_vreg_field_cbs::fname), line:10:3, endln:10:6
+          |vpiParent:
+          \_IntVar: (uvm::uvm_vreg_field_cbs::fname), line:10:7, endln:10:12
+          |vpiFullName:uvm::uvm_vreg_field_cbs::fname
+          |vpiActual:
+          \_IntTypespec: , line:10:3, endln:10:6
+        |vpiName:fname
+        |vpiFullName:uvm::uvm_vreg_field_cbs::fname
+        |vpiSigned:1
+        |vpiAutomatic:1
+        |vpiVisibility:1
+      |vpiTypedef:
+      \_IntTypespec: , line:10:3, endln:10:6
+        |vpiParent:
+        \_ClassDefn: (uvm::uvm_vreg_field_cbs), file:${SURELOG_DIR}/tests/BindMethod/dut.sv, line:9:1, endln:11:9
+        |vpiSigned:1
+      |vpiTypedef:
+      \_ClassTypespec: (uvm_vreg_field_cb_iter), line:9:34, endln:9:56
+        |vpiParent:
+        \_ClassDefn: (uvm::uvm_vreg_field_cbs), file:${SURELOG_DIR}/tests/BindMethod/dut.sv, line:9:1, endln:11:9
+        |vpiName:uvm_vreg_field_cb_iter
+        |vpiClassDefn:
+        \_ClassDefn: (uvm::uvm_vreg_field_cb_iter), file:${SURELOG_DIR}/tests/BindMethod/dut.sv, line:4:1, endln:7:9
+      |vpiImportTypespec:
+      \_IntTypespec: , line:10:3, endln:10:6
+      |vpiImportTypespec:
+      \_IntVar: (uvm::uvm_vreg_field_cbs::fname), line:10:7, endln:10:12
+      |vpiImportTypespec:
+      \_ClassTypespec: (uvm_vreg_field_cb_iter), line:9:34, endln:9:56
+      |vpiExtends:
+      \_Extends: , line:9:34, endln:9:56
+        |vpiParent:
+        \_ClassDefn: (uvm::uvm_vreg_field_cbs), file:${SURELOG_DIR}/tests/BindMethod/dut.sv, line:9:1, endln:11:9
+        |vpiClassTypespec:
+        \_RefTypespec: (uvm::uvm_vreg_field_cbs::uvm_vreg_field_cb_iter), line:9:34, endln:9:56
+          |vpiParent:
+          \_Extends: , line:9:34, endln:9:56
+          |vpiName:uvm_vreg_field_cb_iter
+          |vpiFullName:uvm::uvm_vreg_field_cbs::uvm_vreg_field_cb_iter
+          |vpiActual:
+          \_ClassTypespec: (uvm_vreg_field_cb_iter), line:9:34, endln:9:56
+      |vpiClassTypespec:
+      \_ClassTypespec: (uvm_vreg_field_cb_iter), line:9:34, endln:9:56
+  |vpiInternalScope:
+  \_ClassDefn: (uvm::uvm_vreg_field_cbs), file:${SURELOG_DIR}/tests/BindMethod/dut.sv, line:9:1, endln:11:9
+  |vpiInternalScope:
   \_ClassDefn: (uvm::uvm_vreg), file:${SURELOG_DIR}/tests/BindMethod/dut.sv, line:14:1, endln:16:9
     |vpiParent:
-    \_Package: uvm (uvm::), file:${SURELOG_DIR}/tests/BindMethod/dut.sv, line:1:1, endln:23:11
+    \_Package: uvm (uvm), file:${SURELOG_DIR}/tests/BindMethod/dut.sv, line:1:1, endln:23:11
     |vpiName:uvm_vreg
     |vpiFullName:uvm::uvm_vreg
-    |vpiMethod:
-    \_Task: (uvm::uvm_vreg::write), line:15:4, endln:15:24
+    |vpiInternalScope:
+    \_Task: (uvm::uvm_vreg::write), line:15:4, endln:15:25
       |vpiParent:
       \_ClassDefn: (uvm::uvm_vreg), file:${SURELOG_DIR}/tests/BindMethod/dut.sv, line:14:1, endln:16:9
       |vpiName:write
@@ -146,37 +253,46 @@ Design: (unnamed)
       |vpiMethod:1
       |vpiAccessType:2
       |vpiVisibility:1
-    |vpiMethod:
+    |vpiInternalScope:
     \_Task: (uvm::uvm_vreg::write), line:18:1, endln:21:8
       |vpiParent:
       \_ClassDefn: (uvm::uvm_vreg), file:${SURELOG_DIR}/tests/BindMethod/dut.sv, line:14:1, endln:16:9
       |vpiName:write
       |vpiFullName:uvm::uvm_vreg::write
-      |vpiVariables:
-      \_ClassVar: (uvm::uvm_vreg::write::cbs), line:19:22, endln:19:25
-        |vpiParent:
-        \_Begin: (uvm::uvm_vreg::write), line:20:3, endln:20:27
-        |vpiTypespec:
-        \_RefTypespec: (uvm::uvm_vreg::write::cbs)
-          |vpiParent:
-          \_ClassVar: (uvm::uvm_vreg::write::cbs), line:19:22, endln:19:25
-          |vpiFullName:uvm::uvm_vreg::write::cbs
-          |vpiActual:
-          \_ClassTypespec: , line:19:3, endln:19:21
-        |vpiName:cbs
-        |vpiFullName:uvm::uvm_vreg::write::cbs
-      |vpiVisibility:1
-      |vpiStmt:
-      \_Begin: (uvm::uvm_vreg::write), line:20:3, endln:20:27
+      |vpiInternalScope:
+      \_Begin: (uvm::uvm_vreg::write), line:19:3, endln:20:27
         |vpiParent:
         \_Task: (uvm::uvm_vreg::write), line:18:1, endln:21:8
         |vpiFullName:uvm::uvm_vreg::write
         |vpiVariables:
         \_ClassVar: (uvm::uvm_vreg::write::cbs), line:19:22, endln:19:25
+          |vpiParent:
+          \_Begin: (uvm::uvm_vreg::write), line:19:3, endln:20:27
+          |vpiTypespec:
+          \_RefTypespec: (uvm::uvm_vreg::write::cbs::uvm::uvm_vreg_field_cbs), line:19:3, endln:19:21
+            |vpiParent:
+            \_ClassVar: (uvm::uvm_vreg::write::cbs), line:19:22, endln:19:25
+            |vpiName:uvm::uvm_vreg_field_cbs
+            |vpiFullName:uvm::uvm_vreg::write::cbs::uvm::uvm_vreg_field_cbs
+            |vpiActual:
+            \_ClassTypespec: (uvm_vreg_field_cbs), line:19:3, endln:19:21
+          |vpiName:cbs
+          |vpiFullName:uvm::uvm_vreg::write::cbs
+        |vpiTypedef:
+        \_ClassTypespec: (uvm_vreg_field_cbs), line:19:3, endln:19:21
+          |vpiParent:
+          \_Begin: (uvm::uvm_vreg::write), line:19:3, endln:20:27
+          |vpiName:uvm_vreg_field_cbs
+          |vpiClassDefn:
+          \_ClassDefn: (uvm::uvm_vreg_field_cbs), file:${SURELOG_DIR}/tests/BindMethod/dut.sv, line:9:1, endln:11:9
+        |vpiImportTypespec:
+        \_ClassTypespec: (uvm_vreg_field_cbs), line:19:3, endln:19:21
+        |vpiImportTypespec:
+        \_ClassVar: (uvm::uvm_vreg::write::cbs), line:19:22, endln:19:25
         |vpiStmt:
         \_Assignment: , line:20:3, endln:20:26
           |vpiParent:
-          \_Begin: (uvm::uvm_vreg::write), line:20:3, endln:20:27
+          \_Begin: (uvm::uvm_vreg::write), line:19:3, endln:20:27
           |vpiOpType:82
           |vpiBlocking:1
           |vpiRhs:
@@ -188,70 +304,67 @@ Design: (unnamed)
               |vpiParent:
               \_HierPath: (cbs.first), line:20:15, endln:20:26
               |vpiName:cbs
+              |vpiActual:
+              \_ClassVar: (uvm::uvm_vreg::write::cbs), line:19:22, endln:19:25
             |vpiActual:
-            \_MethodFuncCall: (first), line:20:19, endln:20:24
+            \_MethodFuncCall: (first), line:20:19, endln:20:26
               |vpiParent:
               \_HierPath: (cbs.first), line:20:15, endln:20:26
               |vpiName:first
             |vpiName:cbs.first
           |vpiLhs:
-          \_HierPath: (cbs.fname), line:20:3, endln:20:12
+          \_HierPath: (cbs.fname), line:20:6, endln:20:12
             |vpiParent:
             \_Assignment: , line:20:3, endln:20:26
             |vpiActual:
-            \_RefObj: (cbs), line:20:7, endln:20:12
+            \_RefObj: (cbs), line:20:6, endln:20:12
               |vpiParent:
-              \_HierPath: (cbs.fname), line:20:3, endln:20:12
+              \_HierPath: (cbs.fname), line:20:6, endln:20:12
               |vpiName:cbs
+              |vpiActual:
+              \_ClassVar: (uvm::uvm_vreg::write::cbs), line:19:22, endln:19:25
             |vpiActual:
             \_RefObj: (fname), line:20:7, endln:20:12
               |vpiParent:
-              \_HierPath: (cbs.fname), line:20:3, endln:20:12
+              \_HierPath: (cbs.fname), line:20:6, endln:20:12
               |vpiName:fname
+              |vpiActual:
+              \_IntVar: (uvm::uvm_vreg_field_cbs::fname), line:10:7, endln:10:12
             |vpiName:cbs.fname
+      |vpiVisibility:1
+      |vpiStmt:
+      \_Begin: (uvm::uvm_vreg::write), line:19:3, endln:20:27
       |vpiInstance:
-      \_Package: uvm (uvm::), file:${SURELOG_DIR}/tests/BindMethod/dut.sv, line:1:1, endln:23:11
+      \_Package: uvm (uvm), file:${SURELOG_DIR}/tests/BindMethod/dut.sv, line:1:1, endln:23:11
+    |vpiImportTypespec:
+    \_Task: (uvm::uvm_vreg::write), line:15:4, endln:15:25
+    |vpiImportTypespec:
+    \_Task: (uvm::uvm_vreg::write), line:18:1, endln:21:8
+    |vpiMethod:
+    \_Task: (uvm::uvm_vreg::write), line:15:4, endln:15:25
+    |vpiMethod:
+    \_Task: (uvm::uvm_vreg::write), line:18:1, endln:21:8
+    |vpiTaskFuncDecl:
+    \_TaskDecl: (uvm::uvm_vreg::write), line:15:4, endln:15:25
+      |vpiParent:
+      \_ClassDefn: (uvm::uvm_vreg), file:${SURELOG_DIR}/tests/BindMethod/dut.sv, line:14:1, endln:16:9
+      |vpiName:write
+      |vpiFullName:uvm::uvm_vreg::write
+      |vpiTaskFunc:
+      \_Task: (uvm::uvm_vreg::write), line:15:4, endln:15:25
+  |vpiImportTypespec:
+  \_ClassDefn: (uvm::uvm_vreg_field_cb_iter), file:${SURELOG_DIR}/tests/BindMethod/dut.sv, line:4:1, endln:7:9
+  |vpiImportTypespec:
+  \_ClassDefn: (uvm::uvm_vreg_field_cbs), file:${SURELOG_DIR}/tests/BindMethod/dut.sv, line:9:1, endln:11:9
+  |vpiImportTypespec:
+  \_ClassDefn: (uvm::uvm_vreg), file:${SURELOG_DIR}/tests/BindMethod/dut.sv, line:14:1, endln:16:9
+  |vpiDefName:uvm
   |vpiClassDefn:
   \_ClassDefn: (uvm::uvm_vreg_field_cb_iter), file:${SURELOG_DIR}/tests/BindMethod/dut.sv, line:4:1, endln:7:9
-    |vpiParent:
-    \_Package: uvm (uvm::), file:${SURELOG_DIR}/tests/BindMethod/dut.sv, line:1:1, endln:23:11
-    |vpiName:uvm_vreg_field_cb_iter
-    |vpiFullName:uvm::uvm_vreg_field_cb_iter
-    |vpiMethod:
-    \_Function: (uvm::uvm_vreg_field_cb_iter::first), line:5:1, endln:5:7
-      |vpiParent:
-      \_ClassDefn: (uvm::uvm_vreg_field_cb_iter), file:${SURELOG_DIR}/tests/BindMethod/dut.sv, line:4:1, endln:7:9
-      |vpiName:first
-      |vpiFullName:uvm::uvm_vreg_field_cb_iter::first
-      |vpiMethod:1
-      |vpiAccessType:2
-      |vpiVisibility:1
-      |vpiVirtual:1
-      |vpiReturn:
-      \_IntVar: (uvm::uvm_vreg_field_cb_iter::first), line:5:25, endln:5:28
-        |vpiParent:
-        \_Function: (uvm::uvm_vreg_field_cb_iter::first), line:5:1, endln:5:7
-        |vpiTypespec:
-        \_RefTypespec: (uvm::uvm_vreg_field_cb_iter::first)
-          |vpiParent:
-          \_IntVar: (uvm::uvm_vreg_field_cb_iter::first), line:5:25, endln:5:28
-          |vpiFullName:uvm::uvm_vreg_field_cb_iter::first
-          |vpiActual:
-          \_IntTypespec: , line:5:25, endln:5:28
-        |vpiFullName:uvm::uvm_vreg_field_cb_iter::first
-        |vpiSigned:1
   |vpiClassDefn:
   \_ClassDefn: (uvm::uvm_vreg_field_cbs), file:${SURELOG_DIR}/tests/BindMethod/dut.sv, line:9:1, endln:11:9
-    |vpiParent:
-    \_Package: uvm (uvm::), file:${SURELOG_DIR}/tests/BindMethod/dut.sv, line:1:1, endln:23:11
-    |vpiName:uvm_vreg_field_cbs
-    |vpiFullName:uvm::uvm_vreg_field_cbs
-\_weaklyReferenced:
-\_ClassTypespec: , line:19:3, endln:19:21
   |vpiClassDefn:
-  \_ClassDefn: (uvm::uvm_vreg_field_cbs), file:${SURELOG_DIR}/tests/BindMethod/dut.sv, line:9:1, endln:11:9
-\_IntTypespec: , line:5:25, endln:5:28
-  |vpiSigned:1
+  \_ClassDefn: (uvm::uvm_vreg), file:${SURELOG_DIR}/tests/BindMethod/dut.sv, line:14:1, endln:16:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

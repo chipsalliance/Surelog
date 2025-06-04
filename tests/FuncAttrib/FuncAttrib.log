@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 250
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/FuncAttrib/dut.sv
+FILE: ${SURELOG_DIR}/tests/FuncAttrib/dut.sv
 n<> u<249> t<Top_level_rule> c<1> l<1:1> el<23:1>
-  n<> u<1> t<Null_rule> p<249> s<248> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<249> s<248> l<1:1>
   n<> u<248> t<Source_text> p<249> c<72> l<1:1> el<22:10>
     n<> u<72> t<Description> p<248> c<71> s<247> l<1:1> el<7:12>
       n<> u<71> t<Package_item> p<72> c<70> l<1:1> el<7:12>
@@ -261,7 +261,7 @@ AST_DEBUG_END
 Always                                                 1
 Assignment                                             3
 Attribute                                              1
-Constant                                              13
+Constant                                              27
 Design                                                 1
 EventControl                                           1
 FuncCall                                               1
@@ -269,79 +269,294 @@ Function                                               1
 IODecl                                                 2
 IfElse                                                 1
 LogicNet                                               5
-LogicTypespec                                          8
+LogicTypespec                                         13
 LogicVar                                               1
 Module                                                 1
 Operation                                              2
 Port                                                   5
-Range                                                  6
-RefObj                                                14
-RefTypespec                                            8
+Range                                                 13
+RefObj                                                 9
+RefTypespec                                           13
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FuncAttrib/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/FuncAttrib/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/FuncAttrib/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@foo (work@foo), file:${SURELOG_DIR}/tests/FuncAttrib/dut.sv, line:9:1, endln:22:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@foo
-  |vpiDefName:work@foo
-  |vpiNet:
-  \_LogicNet: (work@foo.clk), line:9:12, endln:9:15
+  |vpiName:work@foo
+  |vpiTypedef:
+  \_LogicTypespec: , line:10:8, endln:10:12
     |vpiParent:
     \_Module: work@foo (work@foo), file:${SURELOG_DIR}/tests/FuncAttrib/dut.sv, line:9:1, endln:22:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:11:8, endln:11:12
+    |vpiParent:
+    \_Module: work@foo (work@foo), file:${SURELOG_DIR}/tests/FuncAttrib/dut.sv, line:9:1, endln:22:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:12:8, endln:12:18
+    |vpiParent:
+    \_Module: work@foo (work@foo), file:${SURELOG_DIR}/tests/FuncAttrib/dut.sv, line:9:1, endln:22:10
+    |vpiRange:
+    \_Range: , line:12:13, endln:12:18
+      |vpiParent:
+      \_LogicTypespec: , line:12:8, endln:12:18
+      |vpiLeftRange:
+      \_Constant: , line:12:14, endln:12:15
+        |vpiParent:
+        \_Range: , line:12:13, endln:12:18
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:12:16, endln:12:17
+        |vpiParent:
+        \_Range: , line:12:13, endln:12:18
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:13:8, endln:13:18
+    |vpiParent:
+    \_Module: work@foo (work@foo), file:${SURELOG_DIR}/tests/FuncAttrib/dut.sv, line:9:1, endln:22:10
+    |vpiRange:
+    \_Range: , line:13:13, endln:13:18
+      |vpiParent:
+      \_LogicTypespec: , line:13:8, endln:13:18
+      |vpiLeftRange:
+      \_Constant: , line:13:14, endln:13:15
+        |vpiParent:
+        \_Range: , line:13:13, endln:13:18
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:13:16, endln:13:17
+        |vpiParent:
+        \_Range: , line:13:13, endln:13:18
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:14:8, endln:14:18
+    |vpiParent:
+    \_Module: work@foo (work@foo), file:${SURELOG_DIR}/tests/FuncAttrib/dut.sv, line:9:1, endln:22:10
+    |vpiRange:
+    \_Range: , line:14:13, endln:14:18
+      |vpiParent:
+      \_LogicTypespec: , line:14:8, endln:14:18
+      |vpiLeftRange:
+      \_Constant: , line:14:14, endln:14:15
+        |vpiParent:
+        \_Range: , line:14:13, endln:14:18
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:14:16, endln:14:17
+        |vpiParent:
+        \_Range: , line:14:13, endln:14:18
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:10:8, endln:10:12
+    |vpiParent:
+    \_Module: work@foo (work@foo), file:${SURELOG_DIR}/tests/FuncAttrib/dut.sv, line:9:1, endln:22:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:11:8, endln:11:12
+    |vpiParent:
+    \_Module: work@foo (work@foo), file:${SURELOG_DIR}/tests/FuncAttrib/dut.sv, line:9:1, endln:22:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:12:8, endln:12:18
+    |vpiParent:
+    \_Module: work@foo (work@foo), file:${SURELOG_DIR}/tests/FuncAttrib/dut.sv, line:9:1, endln:22:10
+    |vpiRange:
+    \_Range: , line:12:13, endln:12:18
+      |vpiParent:
+      \_LogicTypespec: , line:12:8, endln:12:18
+      |vpiLeftRange:
+      \_Constant: , line:12:14, endln:12:15
+        |vpiParent:
+        \_Range: , line:12:13, endln:12:18
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:12:16, endln:12:17
+        |vpiParent:
+        \_Range: , line:12:13, endln:12:18
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:13:8, endln:13:18
+    |vpiParent:
+    \_Module: work@foo (work@foo), file:${SURELOG_DIR}/tests/FuncAttrib/dut.sv, line:9:1, endln:22:10
+    |vpiRange:
+    \_Range: , line:13:13, endln:13:18
+      |vpiParent:
+      \_LogicTypespec: , line:13:8, endln:13:18
+      |vpiLeftRange:
+      \_Constant: , line:13:14, endln:13:15
+        |vpiParent:
+        \_Range: , line:13:13, endln:13:18
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:13:16, endln:13:17
+        |vpiParent:
+        \_Range: , line:13:13, endln:13:18
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:14:8, endln:14:18
+    |vpiParent:
+    \_Module: work@foo (work@foo), file:${SURELOG_DIR}/tests/FuncAttrib/dut.sv, line:9:1, endln:22:10
+    |vpiRange:
+    \_Range: , line:14:13, endln:14:18
+      |vpiParent:
+      \_LogicTypespec: , line:14:8, endln:14:18
+      |vpiLeftRange:
+      \_Constant: , line:14:14, endln:14:15
+        |vpiParent:
+        \_Range: , line:14:13, endln:14:18
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:14:16, endln:14:17
+        |vpiParent:
+        \_Range: , line:14:13, endln:14:18
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:10:8, endln:10:12
+  |vpiImportTypespec:
+  \_LogicNet: (work@foo.clk), line:10:13, endln:10:16
+    |vpiParent:
+    \_Module: work@foo (work@foo), file:${SURELOG_DIR}/tests/FuncAttrib/dut.sv, line:9:1, endln:22:10
+    |vpiTypespec:
+    \_RefTypespec: (work@foo.clk), line:10:8, endln:10:12
+      |vpiParent:
+      \_LogicNet: (work@foo.clk), line:10:13, endln:10:16
+      |vpiFullName:work@foo.clk
+      |vpiActual:
+      \_LogicTypespec: , line:10:8, endln:10:12
     |vpiName:clk
     |vpiFullName:work@foo.clk
     |vpiNetType:1
-  |vpiNet:
-  \_LogicNet: (work@foo.rst), line:9:17, endln:9:20
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:11:8, endln:11:12
+  |vpiImportTypespec:
+  \_LogicNet: (work@foo.rst), line:11:13, endln:11:16
     |vpiParent:
     \_Module: work@foo (work@foo), file:${SURELOG_DIR}/tests/FuncAttrib/dut.sv, line:9:1, endln:22:10
+    |vpiTypespec:
+    \_RefTypespec: (work@foo.rst), line:11:8, endln:11:12
+      |vpiParent:
+      \_LogicNet: (work@foo.rst), line:11:13, endln:11:16
+      |vpiFullName:work@foo.rst
+      |vpiActual:
+      \_LogicTypespec: , line:11:8, endln:11:12
     |vpiName:rst
     |vpiFullName:work@foo.rst
     |vpiNetType:1
-  |vpiNet:
-  \_LogicNet: (work@foo.inp_a), line:9:22, endln:9:27
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:12:8, endln:12:18
+  |vpiImportTypespec:
+  \_LogicNet: (work@foo.inp_a), line:12:19, endln:12:24
     |vpiParent:
     \_Module: work@foo (work@foo), file:${SURELOG_DIR}/tests/FuncAttrib/dut.sv, line:9:1, endln:22:10
+    |vpiTypespec:
+    \_RefTypespec: (work@foo.inp_a), line:12:8, endln:12:18
+      |vpiParent:
+      \_LogicNet: (work@foo.inp_a), line:12:19, endln:12:24
+      |vpiFullName:work@foo.inp_a
+      |vpiActual:
+      \_LogicTypespec: , line:12:8, endln:12:18
     |vpiName:inp_a
     |vpiFullName:work@foo.inp_a
     |vpiNetType:1
-  |vpiNet:
-  \_LogicNet: (work@foo.inp_b), line:9:29, endln:9:34
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:13:8, endln:13:18
+  |vpiImportTypespec:
+  \_LogicNet: (work@foo.inp_b), line:13:19, endln:13:24
     |vpiParent:
     \_Module: work@foo (work@foo), file:${SURELOG_DIR}/tests/FuncAttrib/dut.sv, line:9:1, endln:22:10
+    |vpiTypespec:
+    \_RefTypespec: (work@foo.inp_b), line:13:8, endln:13:18
+      |vpiParent:
+      \_LogicNet: (work@foo.inp_b), line:13:19, endln:13:24
+      |vpiFullName:work@foo.inp_b
+      |vpiActual:
+      \_LogicTypespec: , line:13:8, endln:13:18
     |vpiName:inp_b
     |vpiFullName:work@foo.inp_b
     |vpiNetType:1
-  |vpiNet:
-  \_LogicNet: (work@foo.out), line:9:36, endln:9:39
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:14:8, endln:14:18
+  |vpiImportTypespec:
+  \_LogicNet: (work@foo.out), line:14:19, endln:14:22
     |vpiParent:
     \_Module: work@foo (work@foo), file:${SURELOG_DIR}/tests/FuncAttrib/dut.sv, line:9:1, endln:22:10
+    |vpiTypespec:
+    \_RefTypespec: (work@foo.out), line:14:8, endln:14:18
+      |vpiParent:
+      \_LogicNet: (work@foo.out), line:14:19, endln:14:22
+      |vpiFullName:work@foo.out
+      |vpiActual:
+      \_LogicTypespec: , line:14:8, endln:14:18
     |vpiName:out
     |vpiFullName:work@foo.out
     |vpiNetType:48
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:10:8, endln:10:12
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:11:8, endln:11:12
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:12:8, endln:12:18
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:13:8, endln:13:18
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:14:8, endln:14:18
+  |vpiDefName:work@foo
+  |vpiNet:
+  \_LogicNet: (work@foo.clk), line:10:13, endln:10:16
+  |vpiNet:
+  \_LogicNet: (work@foo.rst), line:11:13, endln:11:16
+  |vpiNet:
+  \_LogicNet: (work@foo.inp_a), line:12:19, endln:12:24
+  |vpiNet:
+  \_LogicNet: (work@foo.inp_b), line:13:19, endln:13:24
+  |vpiNet:
+  \_LogicNet: (work@foo.out), line:14:19, endln:14:22
   |vpiPort:
   \_Port: (clk), line:9:12, endln:9:15
     |vpiParent:
     \_Module: work@foo (work@foo), file:${SURELOG_DIR}/tests/FuncAttrib/dut.sv, line:9:1, endln:22:10
     |vpiName:clk
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@foo.clk.clk), line:9:12, endln:9:15
-      |vpiParent:
-      \_Port: (clk), line:9:12, endln:9:15
-      |vpiName:clk
-      |vpiFullName:work@foo.clk.clk
-      |vpiActual:
-      \_LogicNet: (work@foo.clk), line:9:12, endln:9:15
-    |vpiTypedef:
-    \_RefTypespec: (work@foo.clk)
+    |vpiTypespec:
+    \_RefTypespec: (work@foo.clk), line:10:8, endln:10:12
       |vpiParent:
       \_Port: (clk), line:9:12, endln:9:15
       |vpiFullName:work@foo.clk
@@ -353,16 +568,8 @@ Design: (unnamed)
     \_Module: work@foo (work@foo), file:${SURELOG_DIR}/tests/FuncAttrib/dut.sv, line:9:1, endln:22:10
     |vpiName:rst
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@foo.rst.rst), line:9:17, endln:9:20
-      |vpiParent:
-      \_Port: (rst), line:9:17, endln:9:20
-      |vpiName:rst
-      |vpiFullName:work@foo.rst.rst
-      |vpiActual:
-      \_LogicNet: (work@foo.rst), line:9:17, endln:9:20
-    |vpiTypedef:
-    \_RefTypespec: (work@foo.rst)
+    |vpiTypespec:
+    \_RefTypespec: (work@foo.rst), line:11:8, endln:11:12
       |vpiParent:
       \_Port: (rst), line:9:17, endln:9:20
       |vpiFullName:work@foo.rst
@@ -374,16 +581,8 @@ Design: (unnamed)
     \_Module: work@foo (work@foo), file:${SURELOG_DIR}/tests/FuncAttrib/dut.sv, line:9:1, endln:22:10
     |vpiName:inp_a
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@foo.inp_a.inp_a), line:9:22, endln:9:27
-      |vpiParent:
-      \_Port: (inp_a), line:9:22, endln:9:27
-      |vpiName:inp_a
-      |vpiFullName:work@foo.inp_a.inp_a
-      |vpiActual:
-      \_LogicNet: (work@foo.inp_a), line:9:22, endln:9:27
-    |vpiTypedef:
-    \_RefTypespec: (work@foo.inp_a)
+    |vpiTypespec:
+    \_RefTypespec: (work@foo.inp_a), line:12:8, endln:12:12
       |vpiParent:
       \_Port: (inp_a), line:9:22, endln:9:27
       |vpiFullName:work@foo.inp_a
@@ -395,16 +594,8 @@ Design: (unnamed)
     \_Module: work@foo (work@foo), file:${SURELOG_DIR}/tests/FuncAttrib/dut.sv, line:9:1, endln:22:10
     |vpiName:inp_b
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@foo.inp_b.inp_b), line:9:29, endln:9:34
-      |vpiParent:
-      \_Port: (inp_b), line:9:29, endln:9:34
-      |vpiName:inp_b
-      |vpiFullName:work@foo.inp_b.inp_b
-      |vpiActual:
-      \_LogicNet: (work@foo.inp_b), line:9:29, endln:9:34
-    |vpiTypedef:
-    \_RefTypespec: (work@foo.inp_b)
+    |vpiTypespec:
+    \_RefTypespec: (work@foo.inp_b), line:13:8, endln:13:12
       |vpiParent:
       \_Port: (inp_b), line:9:29, endln:9:34
       |vpiFullName:work@foo.inp_b
@@ -416,16 +607,8 @@ Design: (unnamed)
     \_Module: work@foo (work@foo), file:${SURELOG_DIR}/tests/FuncAttrib/dut.sv, line:9:1, endln:22:10
     |vpiName:out
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@foo.out.out), line:9:36, endln:9:39
-      |vpiParent:
-      \_Port: (out), line:9:36, endln:9:39
-      |vpiName:out
-      |vpiFullName:work@foo.out.out
-      |vpiActual:
-      \_LogicNet: (work@foo.out), line:9:36, endln:9:39
-    |vpiTypedef:
-    \_RefTypespec: (work@foo.out)
+    |vpiTypespec:
+    \_RefTypespec: (work@foo.out), line:14:8, endln:14:11
       |vpiParent:
       \_Port: (out), line:9:36, endln:9:39
       |vpiFullName:work@foo.out
@@ -451,7 +634,7 @@ Design: (unnamed)
           |vpiName:clk
           |vpiFullName:work@foo.clk
           |vpiActual:
-          \_LogicNet: (work@foo.clk), line:9:12, endln:9:15
+          \_LogicNet: (work@foo.clk), line:10:13, endln:10:16
       |vpiStmt:
       \_IfElse: , line:17:3, endln:20:53
         |vpiParent:
@@ -459,11 +642,11 @@ Design: (unnamed)
         |vpiCondition:
         \_RefObj: (work@foo.rst), line:17:7, endln:17:10
           |vpiParent:
-          \_EventControl: , line:16:8, endln:16:22
+          \_IfElse: , line:17:3, endln:20:53
           |vpiName:rst
           |vpiFullName:work@foo.rst
           |vpiActual:
-          \_LogicNet: (work@foo.rst), line:9:17, endln:9:20
+          \_LogicNet: (work@foo.rst), line:11:13, endln:11:16
         |vpiStmt:
         \_Assignment: , line:17:12, endln:17:20
           |vpiParent:
@@ -471,6 +654,8 @@ Design: (unnamed)
           |vpiOpType:82
           |vpiRhs:
           \_Constant: , line:17:19, endln:17:20
+            |vpiParent:
+            \_Assignment: , line:17:12, endln:17:20
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
@@ -482,7 +667,7 @@ Design: (unnamed)
             |vpiName:out
             |vpiFullName:work@foo.out
             |vpiActual:
-            \_LogicNet: (work@foo.out), line:9:36, endln:9:39
+            \_LogicNet: (work@foo.out), line:14:19, endln:14:22
         |vpiElseStmt:
         \_Assignment: , line:19:5, endln:20:52
           |vpiParent:
@@ -499,7 +684,7 @@ Design: (unnamed)
               |vpiName:inp_a
               |vpiFullName:work@foo.inp_a
               |vpiActual:
-              \_LogicNet: (work@foo.inp_a), line:9:22, endln:9:27
+              \_LogicNet: (work@foo.inp_a), line:12:19, endln:12:24
             |vpiArgument:
             \_RefObj: (work@foo.inp_b), line:20:46, endln:20:51
               |vpiParent:
@@ -507,7 +692,7 @@ Design: (unnamed)
               |vpiName:inp_b
               |vpiFullName:work@foo.inp_b
               |vpiActual:
-              \_LogicNet: (work@foo.inp_b), line:9:29, endln:9:34
+              \_LogicNet: (work@foo.inp_b), line:13:19, endln:13:24
             |vpiName:do_add
             |vpiFunction:
             \_Function: (do_add), line:1:1, endln:7:12
@@ -518,27 +703,110 @@ Design: (unnamed)
             |vpiName:out
             |vpiFullName:work@foo.out
             |vpiActual:
-            \_LogicNet: (work@foo.out), line:9:36, endln:9:39
+            \_LogicNet: (work@foo.out), line:14:19, endln:14:22
     |vpiAlwaysType:1
 |vpiTaskFunc:
 \_Function: (do_add), line:1:1, endln:7:12
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:do_add
-  |vpiMethod:1
-  |vpiVisibility:1
-  |vpiReturn:
-  \_LogicVar: (do_add), line:1:10, endln:1:15
+  |vpiReg:
+  \_LogicVar: (do_add)
     |vpiParent:
     \_Function: (do_add), line:1:1, endln:7:12
     |vpiTypespec:
-    \_RefTypespec: (do_add)
+    \_RefTypespec: (do_add), line:1:10, endln:1:15
       |vpiParent:
-      \_LogicVar: (do_add), line:1:10, endln:1:15
+      \_LogicVar: (do_add)
       |vpiFullName:do_add
       |vpiActual:
       \_LogicTypespec: , line:1:10, endln:1:15
     |vpiFullName:do_add
+  |vpiTypedef:
+  \_LogicTypespec: , line:1:10, endln:1:15
+    |vpiParent:
+    \_Function: (do_add), line:1:1, endln:7:12
+    |vpiRange:
+    \_Range: , line:1:10, endln:1:15
+      |vpiParent:
+      \_LogicTypespec: , line:1:10, endln:1:15
+      |vpiLeftRange:
+      \_Constant: , line:1:11, endln:1:12
+        |vpiParent:
+        \_Range: , line:1:10, endln:1:15
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:1:13, endln:1:14
+        |vpiParent:
+        \_Range: , line:1:10, endln:1:15
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiSigned:1
+  |vpiTypedef:
+  \_LogicTypespec: , line:2:7, endln:2:12
+    |vpiParent:
+    \_Function: (do_add), line:1:1, endln:7:12
+    |vpiRange:
+    \_Range: , line:2:7, endln:2:12
+      |vpiParent:
+      \_LogicTypespec: , line:2:7, endln:2:12
+      |vpiLeftRange:
+      \_Constant: , line:2:8, endln:2:9
+        |vpiParent:
+        \_Range: , line:2:7, endln:2:12
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:2:10, endln:2:11
+        |vpiParent:
+        \_Range: , line:2:7, endln:2:12
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:3:7, endln:3:12
+    |vpiParent:
+    \_Function: (do_add), line:1:1, endln:7:12
+    |vpiRange:
+    \_Range: , line:3:7, endln:3:12
+      |vpiParent:
+      \_LogicTypespec: , line:3:7, endln:3:12
+      |vpiLeftRange:
+      \_Constant: , line:3:8, endln:3:9
+        |vpiParent:
+        \_Range: , line:3:7, endln:3:12
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:3:10, endln:3:11
+        |vpiParent:
+        \_Range: , line:3:7, endln:3:12
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiImportTypespec:
+  \_LogicVar: (do_add)
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:1:10, endln:1:15
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:2:7, endln:2:12
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:3:7, endln:3:12
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiReturn:
+  \_LogicVar: (do_add)
   |vpiIODecl:
   \_IODecl: (inp_a), line:2:13, endln:2:18
     |vpiParent:
@@ -546,7 +814,7 @@ Design: (unnamed)
     |vpiDirection:1
     |vpiName:inp_a
     |vpiTypedef:
-    \_RefTypespec: (do_add.inp_a)
+    \_RefTypespec: (do_add.inp_a), line:2:7, endln:2:12
       |vpiParent:
       \_IODecl: (inp_a), line:2:13, endln:2:18
       |vpiFullName:do_add.inp_a
@@ -559,7 +827,7 @@ Design: (unnamed)
     |vpiDirection:1
     |vpiName:inp_b
     |vpiTypedef:
-    \_RefTypespec: (do_add.inp_b)
+    \_RefTypespec: (do_add.inp_b), line:3:7, endln:3:12
       |vpiParent:
       \_IODecl: (inp_b), line:3:13, endln:3:18
       |vpiFullName:do_add.inp_b
@@ -582,147 +850,24 @@ Design: (unnamed)
         \_Operation: , line:5:10, endln:5:23
         |vpiName:inp_a
         |vpiFullName:do_add.inp_a
+        |vpiActual:
+        \_IODecl: (inp_a), line:2:13, endln:2:18
       |vpiOperand:
       \_RefObj: (do_add.inp_b), line:5:18, endln:5:23
         |vpiParent:
         \_Operation: , line:5:10, endln:5:23
         |vpiName:inp_b
         |vpiFullName:do_add.inp_b
+        |vpiActual:
+        \_IODecl: (inp_b), line:3:13, endln:3:18
     |vpiLhs:
     \_RefObj: (do_add.do_add), line:5:1, endln:5:7
       |vpiParent:
       \_Assignment: , line:5:1, endln:5:23
       |vpiName:do_add
       |vpiFullName:do_add.do_add
-\_weaklyReferenced:
-\_LogicTypespec: , line:1:10, endln:1:15
-  |vpiRange:
-  \_Range: , line:1:10, endln:1:15
-    |vpiParent:
-    \_LogicTypespec: , line:1:10, endln:1:15
-    |vpiLeftRange:
-    \_Constant: , line:1:11, endln:1:12
-      |vpiParent:
-      \_Range: , line:1:10, endln:1:15
-      |vpiDecompile:7
-      |vpiSize:64
-      |UINT:7
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:1:13, endln:1:14
-      |vpiParent:
-      \_Range: , line:1:10, endln:1:15
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:2:7, endln:2:12
-  |vpiRange:
-  \_Range: , line:2:7, endln:2:12
-    |vpiParent:
-    \_LogicTypespec: , line:2:7, endln:2:12
-    |vpiLeftRange:
-    \_Constant: , line:2:8, endln:2:9
-      |vpiParent:
-      \_Range: , line:2:7, endln:2:12
-      |vpiDecompile:7
-      |vpiSize:64
-      |UINT:7
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:2:10, endln:2:11
-      |vpiParent:
-      \_Range: , line:2:7, endln:2:12
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:3:7, endln:3:12
-  |vpiRange:
-  \_Range: , line:3:7, endln:3:12
-    |vpiParent:
-    \_LogicTypespec: , line:3:7, endln:3:12
-    |vpiLeftRange:
-    \_Constant: , line:3:8, endln:3:9
-      |vpiParent:
-      \_Range: , line:3:7, endln:3:12
-      |vpiDecompile:7
-      |vpiSize:64
-      |UINT:7
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:3:10, endln:3:11
-      |vpiParent:
-      \_Range: , line:3:7, endln:3:12
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:10:8, endln:10:12
-\_LogicTypespec: , line:11:8, endln:11:12
-\_LogicTypespec: , line:12:8, endln:12:18
-  |vpiRange:
-  \_Range: , line:12:13, endln:12:18
-    |vpiParent:
-    \_LogicTypespec: , line:12:8, endln:12:18
-    |vpiLeftRange:
-    \_Constant: , line:12:14, endln:12:15
-      |vpiParent:
-      \_Range: , line:12:13, endln:12:18
-      |vpiDecompile:7
-      |vpiSize:64
-      |UINT:7
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:12:16, endln:12:17
-      |vpiParent:
-      \_Range: , line:12:13, endln:12:18
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:13:8, endln:13:18
-  |vpiRange:
-  \_Range: , line:13:13, endln:13:18
-    |vpiParent:
-    \_LogicTypespec: , line:13:8, endln:13:18
-    |vpiLeftRange:
-    \_Constant: , line:13:14, endln:13:15
-      |vpiParent:
-      \_Range: , line:13:13, endln:13:18
-      |vpiDecompile:7
-      |vpiSize:64
-      |UINT:7
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:13:16, endln:13:17
-      |vpiParent:
-      \_Range: , line:13:13, endln:13:18
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:14:8, endln:14:18
-  |vpiRange:
-  \_Range: , line:14:13, endln:14:18
-    |vpiParent:
-    \_LogicTypespec: , line:14:8, endln:14:18
-    |vpiLeftRange:
-    \_Constant: , line:14:14, endln:14:15
-      |vpiParent:
-      \_Range: , line:14:13, endln:14:18
-      |vpiDecompile:7
-      |vpiSize:64
-      |UINT:7
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:14:16, endln:14:17
-      |vpiParent:
-      \_Range: , line:14:13, endln:14:18
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
+      |vpiActual:
+      \_LogicVar: (do_add)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

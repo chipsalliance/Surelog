@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 37
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/UnaryPlus/dut.sv
+FILE: ${SURELOG_DIR}/tests/UnaryPlus/dut.sv
 n<> u<36> t<Top_level_rule> c<1> l<1:1> el<5:1>
-  n<> u<1> t<Null_rule> p<36> s<35> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<36> s<35> l<1:1>
   n<> u<35> t<Source_text> p<36> c<34> l<1:1> el<4:10>
     n<> u<34> t<Description> p<35> c<33> l<1:1> el<4:10>
       n<> u<33> t<Module_declaration> p<34> c<4> l<1:1> el<4:10>
@@ -46,69 +46,76 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 Assignment                                             1
+Begin                                                  1
 Constant                                               2
 Design                                                 1
 GenFor                                                 1
-LogicNet                                               1
 Module                                                 1
-NamedBegin                                             1
 Operation                                              2
 RefObj                                                 2
-RefTypespec                                            1
 RefVar                                                 1
-UnsupportedTypespec                                    1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/UnaryPlus/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/UnaryPlus/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/UnaryPlus/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@alert_handler_reg_wrap (work@alert_handler_reg_wrap), file:${SURELOG_DIR}/tests/UnaryPlus/dut.sv, line:1:1, endln:4:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@alert_handler_reg_wrap
-  |vpiDefName:work@alert_handler_reg_wrap
-  |vpiNet:
-  \_LogicNet: (work@alert_handler_reg_wrap.i_word), line:2:26, endln:2:32
+  |vpiName:work@alert_handler_reg_wrap
+  |vpiInternalScope:
+  \_GenFor: (work@alert_handler_reg_wrap), line:2:2, endln:3:6
     |vpiParent:
     \_Module: work@alert_handler_reg_wrap (work@alert_handler_reg_wrap), file:${SURELOG_DIR}/tests/UnaryPlus/dut.sv, line:1:1, endln:4:10
-    |vpiName:i_word
-    |vpiFullName:work@alert_handler_reg_wrap.i_word
-    |vpiNetType:1
-  |vpiGenStmt:
-  \_GenFor: 
-    |vpiParent:
-    \_Module: work@alert_handler_reg_wrap (work@alert_handler_reg_wrap), file:${SURELOG_DIR}/tests/UnaryPlus/dut.sv, line:1:1, endln:4:10
+    |vpiFullName:work@alert_handler_reg_wrap
+    |vpiVariables:
+    \_RefVar: (work@alert_handler_reg_wrap.i_word), line:2:14, endln:2:20
+      |vpiParent:
+      \_GenFor: (work@alert_handler_reg_wrap), line:2:2, endln:3:6
+      |vpiName:i_word
+      |vpiFullName:work@alert_handler_reg_wrap.i_word
+    |vpiInternalScope:
+    \_Begin: (work@alert_handler_reg_wrap.g_dmem_intg_check), line:2:48, endln:3:6
+      |vpiParent:
+      \_GenFor: (work@alert_handler_reg_wrap), line:2:2, endln:3:6
+      |vpiName:g_dmem_intg_check
+      |vpiFullName:work@alert_handler_reg_wrap.g_dmem_intg_check
+    |vpiImportTypespec:
+    \_RefVar: (work@alert_handler_reg_wrap.i_word), line:2:14, endln:2:20
+    |vpiImportTypespec:
+    \_LogicNet: (work@alert_handler_reg_wrap.i_word), line:2:26, endln:2:32
+      |vpiParent:
+      \_GenFor: (work@alert_handler_reg_wrap), line:2:2, endln:3:6
+      |vpiName:i_word
+      |vpiFullName:work@alert_handler_reg_wrap.i_word
+      |vpiNetType:1
+    |vpiImportTypespec:
+    \_LogicNet: (work@alert_handler_reg_wrap.i_word), line:2:40, endln:2:46
+      |vpiParent:
+      \_GenFor: (work@alert_handler_reg_wrap), line:2:2, endln:3:6
+      |vpiName:i_word
+      |vpiFullName:work@alert_handler_reg_wrap.i_word
+      |vpiNetType:1
     |vpiForInitStmt:
     \_Assignment: , line:2:7, endln:2:24
       |vpiParent:
-      \_GenFor: 
+      \_GenFor: (work@alert_handler_reg_wrap), line:2:2, endln:3:6
       |vpiRhs:
       \_Constant: , line:2:23, endln:2:24
+        |vpiParent:
+        \_Assignment: , line:2:7, endln:2:24
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
         |vpiConstType:9
       |vpiLhs:
       \_RefVar: (work@alert_handler_reg_wrap.i_word), line:2:14, endln:2:20
-        |vpiParent:
-        \_Assignment: , line:2:7, endln:2:24
-        |vpiTypespec:
-        \_RefTypespec: (work@alert_handler_reg_wrap.i_word)
-          |vpiParent:
-          \_RefVar: (work@alert_handler_reg_wrap.i_word), line:2:14, endln:2:20
-          |vpiFullName:work@alert_handler_reg_wrap.i_word
-          |vpiActual:
-          \_UnsupportedTypespec: (i_word), line:2:14, endln:2:20
-        |vpiName:i_word
-        |vpiFullName:work@alert_handler_reg_wrap.i_word
     |vpiCondition:
     \_Operation: , line:2:26, endln:2:36
       |vpiParent:
-      \_GenFor: 
+      \_GenFor: (work@alert_handler_reg_wrap), line:2:2, endln:3:6
       |vpiOpType:20
       |vpiOperand:
       \_RefObj: (work@alert_handler_reg_wrap.i_word), line:2:26, endln:2:32
@@ -129,7 +136,7 @@ Design: (unnamed)
     |vpiForIncStmt:
     \_Operation: , line:2:38, endln:2:46
       |vpiParent:
-      \_GenFor: 
+      \_GenFor: (work@alert_handler_reg_wrap), line:2:2, endln:3:6
       |vpiOpType:62
       |vpiOperand:
       \_RefObj: (work@alert_handler_reg_wrap.i_word), line:2:40, endln:2:46
@@ -138,16 +145,10 @@ Design: (unnamed)
         |vpiName:i_word
         |vpiFullName:work@alert_handler_reg_wrap.i_word
         |vpiActual:
-        \_LogicNet: (work@alert_handler_reg_wrap.i_word), line:2:26, endln:2:32
+        \_LogicNet: (work@alert_handler_reg_wrap.i_word), line:2:40, endln:2:46
     |vpiStmt:
-    \_NamedBegin: (work@alert_handler_reg_wrap.g_dmem_intg_check)
-      |vpiParent:
-      \_GenFor: 
-      |vpiName:g_dmem_intg_check
-      |vpiFullName:work@alert_handler_reg_wrap.g_dmem_intg_check
-\_weaklyReferenced:
-\_UnsupportedTypespec: (i_word), line:2:14, endln:2:20
-  |vpiName:i_word
+    \_Begin: (work@alert_handler_reg_wrap.g_dmem_intg_check), line:2:48, endln:3:6
+  |vpiDefName:work@alert_handler_reg_wrap
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 61
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/LateBindingFuncArg/dut.sv
+FILE: ${SURELOG_DIR}/tests/LateBindingFuncArg/dut.sv
 n<> u<60> t<Top_level_rule> c<1> l<1:1> el<8:1>
-  n<> u<1> t<Null_rule> p<60> s<59> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<60> s<59> l<1:1>
   n<> u<59> t<Source_text> p<60> c<5> l<1:1> el<7:10>
     n<> u<5> t<Description> p<59> c<4> s<58> l<1:1> el<1:22>
       n<> u<4> t<Top_directives> p<5> c<3> l<1:1> el<1:22>
@@ -73,46 +73,61 @@ Assignment                                             1
 Design                                                 1
 Function                                               1
 IODecl                                                 1
-IntegerTypespec                                        3
-IntegerVar                                             2
+IntegerTypespec                                        2
+IntegerVar                                             1
 Module                                                 1
 RefObj                                                 2
-RefTypespec                                            3
+RefTypespec                                            2
 SysFuncCall                                            2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/LateBindingFuncArg/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/LateBindingFuncArg/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/LateBindingFuncArg/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/LateBindingFuncArg/dut.sv, line:3:1, endln:7:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
-  |vpiDefName:work@top
-  |vpiTaskFunc:
+  |vpiName:work@top
+  |vpiInternalScope:
   \_Function: (work@top.doFoo), line:4:5, endln:6:16
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/LateBindingFuncArg/dut.sv, line:3:1, endln:7:10
     |vpiName:doFoo
     |vpiFullName:work@top.doFoo
-    |vpiVisibility:1
-    |vpiReturn:
-    \_IntegerVar: (work@top.doFoo), line:4:14, endln:4:21
+    |vpiVariables:
+    \_IntegerVar: (work@top.doFoo)
       |vpiParent:
       \_Function: (work@top.doFoo), line:4:5, endln:6:16
       |vpiTypespec:
-      \_RefTypespec: (work@top.doFoo)
+      \_RefTypespec: (work@top.doFoo), line:4:14, endln:4:21
         |vpiParent:
-        \_IntegerVar: (work@top.doFoo), line:4:14, endln:4:21
+        \_IntegerVar: (work@top.doFoo)
         |vpiFullName:work@top.doFoo
         |vpiActual:
         \_IntegerTypespec: , line:4:14, endln:4:21
       |vpiFullName:work@top.doFoo
       |vpiSigned:1
+    |vpiTypedef:
+    \_IntegerTypespec: , line:4:14, endln:4:21
+      |vpiParent:
+      \_Function: (work@top.doFoo), line:4:5, endln:6:16
+      |vpiSigned:1
+    |vpiTypedef:
+    \_IntegerTypespec: , line:4:34, endln:4:41
+      |vpiParent:
+      \_Function: (work@top.doFoo), line:4:5, endln:6:16
+      |vpiSigned:1
+    |vpiImportTypespec:
+    \_IntegerTypespec: , line:4:14, endln:4:21
+    |vpiImportTypespec:
+    \_IntegerVar: (work@top.doFoo)
+    |vpiImportTypespec:
+    \_IntegerTypespec: , line:4:34, endln:4:41
+    |vpiVisibility:1
+    |vpiReturn:
+    \_IntegerVar: (work@top.doFoo)
     |vpiIODecl:
     \_IODecl: (depth), line:4:42, endln:4:47
       |vpiParent:
@@ -120,7 +135,7 @@ Design: (unnamed)
       |vpiDirection:1
       |vpiName:depth
       |vpiTypedef:
-      \_RefTypespec: (work@top.doFoo.depth)
+      \_RefTypespec: (work@top.doFoo.depth), line:4:34, endln:4:41
         |vpiParent:
         \_IODecl: (depth), line:4:42, endln:4:47
         |vpiFullName:work@top.doFoo.depth
@@ -137,13 +152,13 @@ Design: (unnamed)
         |vpiParent:
         \_Assignment: , line:5:9, endln:5:37
         |vpiArgument:
-        \_SysFuncCall: ($bits), line:5:24, endln:5:36
+        \_SysFuncCall: ($bits), line:5:30, endln:5:35
           |vpiParent:
           \_SysFuncCall: ($clog2), line:5:17, endln:5:37
           |vpiArgument:
           \_RefObj: (work@top.doFoo.depth), line:5:30, endln:5:35
             |vpiParent:
-            \_SysFuncCall: ($bits), line:5:24, endln:5:36
+            \_SysFuncCall: ($bits), line:5:30, endln:5:35
             |vpiName:depth
             |vpiFullName:work@top.doFoo.depth
             |vpiActual:
@@ -157,31 +172,12 @@ Design: (unnamed)
         |vpiName:doFoo
         |vpiFullName:work@top.doFoo.doFoo
         |vpiActual:
-        \_IntegerVar: (work@top.doFoo.doFoo), line:4:14, endln:4:21
-    |vpiInstance:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/LateBindingFuncArg/dut.sv, line:3:1, endln:7:10
-\_weaklyReferenced:
-\_IntegerTypespec: , line:4:14, endln:4:21
-  |vpiSigned:1
-\_IntegerTypespec: , line:4:34, endln:4:41
-  |vpiSigned:1
-\_IntegerVar: (work@top.doFoo.doFoo), line:4:14, endln:4:21
-  |vpiParent:
-  \_RefObj: (work@top.doFoo.doFoo), line:5:9, endln:5:14
-  |vpiTypespec:
-  \_RefTypespec: (work@top.doFoo.doFoo)
-    |vpiParent:
-    \_IntegerVar: (work@top.doFoo.doFoo), line:4:14, endln:4:21
-    |vpiFullName:work@top.doFoo.doFoo
-    |vpiActual:
-    \_IntegerTypespec: , line:4:14, endln:4:21
-  |vpiName:doFoo
-  |vpiFullName:work@top.doFoo.doFoo
-  |vpiSigned:1
-\_IntegerTypespec: , line:4:14, endln:4:21
-  |vpiParent:
-  \_RefTypespec: (work@top.doFoo.doFoo)
-  |vpiSigned:1
+        \_IntegerVar: (work@top.doFoo)
+  |vpiImportTypespec:
+  \_Function: (work@top.doFoo), line:4:5, endln:6:16
+  |vpiDefName:work@top
+  |vpiTaskFunc:
+  \_Function: (work@top.doFoo), line:4:5, endln:6:16
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

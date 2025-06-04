@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 34
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/FileResolutionFunction/dut.sv
+FILE: ${SURELOG_DIR}/tests/FileResolutionFunction/dut.sv
 n<> u<33> t<Top_level_rule> c<1> l<2:1> el<7:1>
-  n<> u<1> t<Null_rule> p<33> s<32> l<2:1> el<1:2>
+  n<> u<1> t<Null_rule> p<33> s<32> l<2:1> el<2:1>
   n<> u<32> t<Source_text> p<33> c<10> l<2:1> el<5:12>
     n<> u<10> t<Description> p<32> c<9> s<31> l<2:1> el<2:40>
       n<> u<9> t<Package_item> p<10> c<8> l<2:1> el<2:40>
@@ -50,8 +50,6 @@ RealVar                                                1
 RefTypespec                                            2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FileResolutionFunction/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/FileResolutionFunction/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/FileResolutionFunction/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
@@ -61,65 +59,74 @@ Design: (unnamed)
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:my_real
-  |vpiInstance:
-  \_Design: (unnamed)
-  |vpiFunction:
-  \_Function: (my_function2), line:4:1, endln:5:12
-    |vpiParent:
-    \_Design: (unnamed)
-    |vpiName:my_function2
-    |vpiMethod:1
-    |vpiVisibility:1
-    |vpiAutomatic:1
-    |vpiReturn:
-    \_RealVar: (my_function2), line:4:20, endln:4:24
-      |vpiParent:
-      \_Function: (my_function2), line:4:1, endln:5:12
-      |vpiTypespec:
-      \_RefTypespec: (my_function2)
-        |vpiParent:
-        \_RealVar: (my_function2), line:4:20, endln:4:24
-        |vpiFullName:my_function2
-        |vpiActual:
-        \_RealTypespec: , line:4:20, endln:4:24
-      |vpiFullName:my_function2
-    |vpiIODecl:
-    \_IODecl: (driver), line:4:49, endln:4:55
-      |vpiParent:
-      \_Function: (my_function2), line:4:1, endln:5:12
-      |vpiDirection:1
-      |vpiName:driver
-      |vpiRange:
-      \_Range: , line:4:56, endln:4:58
-        |vpiParent:
-        \_IODecl: (driver), line:4:49, endln:4:55
-        |vpiLeftRange:
-        \_Constant: , line:4:56, endln:4:57
-          |vpiParent:
-          \_Range: , line:4:56, endln:4:58
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-          |vpiConstType:9
-        |vpiRightRange:
-        \_Constant: , line:4:56, endln:4:57
-          |vpiParent:
-          \_Range: , line:4:56, endln:4:58
-          |vpiDecompile:unsized
-          |STRING:unsized
-          |vpiConstType:6
-      |vpiTypedef:
-      \_RefTypespec: (my_function2.driver)
-        |vpiParent:
-        \_IODecl: (driver), line:4:49, endln:4:55
-        |vpiFullName:my_function2.driver
-        |vpiActual:
-        \_RealTypespec: , line:4:44, endln:4:48
 |vpiTaskFunc:
 \_Function: (my_function2), line:4:1, endln:5:12
-\_weaklyReferenced:
-\_RealTypespec: , line:4:20, endln:4:24
-\_RealTypespec: , line:4:44, endln:4:48
+  |vpiParent:
+  \_Design: (unnamed)
+  |vpiName:my_function2
+  |vpiVariables:
+  \_RealVar: (my_function2)
+    |vpiParent:
+    \_Function: (my_function2), line:4:1, endln:5:12
+    |vpiTypespec:
+    \_RefTypespec: (my_function2), line:4:20, endln:4:24
+      |vpiParent:
+      \_RealVar: (my_function2)
+      |vpiFullName:my_function2
+      |vpiActual:
+      \_RealTypespec: , line:4:20, endln:4:24
+    |vpiFullName:my_function2
+  |vpiTypedef:
+  \_RealTypespec: , line:4:20, endln:4:24
+    |vpiParent:
+    \_Function: (my_function2), line:4:1, endln:5:12
+  |vpiTypedef:
+  \_RealTypespec: , line:4:44, endln:4:48
+    |vpiParent:
+    \_Function: (my_function2), line:4:1, endln:5:12
+  |vpiImportTypespec:
+  \_RealTypespec: , line:4:20, endln:4:24
+  |vpiImportTypespec:
+  \_RealVar: (my_function2)
+  |vpiImportTypespec:
+  \_RealTypespec: , line:4:44, endln:4:48
+  |vpiMethod:1
+  |vpiVisibility:1
+  |vpiAutomatic:1
+  |vpiReturn:
+  \_RealVar: (my_function2)
+  |vpiIODecl:
+  \_IODecl: (driver), line:4:49, endln:4:55
+    |vpiParent:
+    \_Function: (my_function2), line:4:1, endln:5:12
+    |vpiDirection:1
+    |vpiName:driver
+    |vpiRange:
+    \_Range: , line:4:56, endln:4:58
+      |vpiParent:
+      \_IODecl: (driver), line:4:49, endln:4:55
+      |vpiLeftRange:
+      \_Constant: , line:4:56, endln:4:57
+        |vpiParent:
+        \_Range: , line:4:56, endln:4:58
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:4:56, endln:4:57
+        |vpiParent:
+        \_Range: , line:4:56, endln:4:58
+        |vpiDecompile:unsized
+        |STRING:unsized
+        |vpiConstType:6
+    |vpiTypedef:
+    \_RefTypespec: (my_function2.driver), line:4:44, endln:4:48
+      |vpiParent:
+      \_IODecl: (driver), line:4:49, endln:4:55
+      |vpiFullName:my_function2.driver
+      |vpiActual:
+      \_RealTypespec: , line:4:44, endln:4:48
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

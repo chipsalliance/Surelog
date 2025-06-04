@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 64
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/ForeachClassParent/dut.sv
+FILE: ${SURELOG_DIR}/tests/ForeachClassParent/dut.sv
 n<> u<63> t<Top_level_rule> c<1> l<1:1> el<19:1>
-  n<> u<1> t<Null_rule> p<63> s<62> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<63> s<62> l<1:1>
   n<> u<62> t<Source_text> p<63> c<61> l<1:1> el<18:11>
     n<> u<61> t<Description> p<62> c<60> l<1:1> el<18:11>
       n<> u<60> t<Package_declaration> p<61> c<2> l<1:1> el<18:11>
@@ -21,7 +21,7 @@ n<> u<63> t<Top_level_rule> c<1> l<1:1> el<19:1>
                     n<> u<5> t<ClassItemQualifier_Protected> p<6> l<4:3> el<4:12>
                   n<> u<18> t<Data_declaration> p<19> c<17> l<4:13> el<4:43>
                     n<> u<17> t<Variable_declaration> p<18> c<8> l<4:13> el<4:43>
-                      n<> u<8> t<Data_type> p<17> c<7> s<16> l<4:13> el<4:22>
+                      n<uvm_phase> u<8> t<Data_type> p<17> c<7> s<16> l<4:13> el<4:22>
                         n<uvm_phase> u<7> t<StringConst> p<8> l<4:13> el<4:22>
                       n<> u<16> t<List_of_variable_decl_assignments> p<17> c<15> l<4:23> el<4:42>
                         n<> u<15> t<Variable_decl_assignment> p<16> c<9> l<4:23> el<4:42>
@@ -73,96 +73,201 @@ AST_DEBUG_END
 [INF:CP0302] ${SURELOG_DIR}/tests/ForeachClassParent/dut.sv:7:1: Compile class "uvm::uvm_phase".
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+ArrayTypespec                                          1
+ArrayVar                                               1
 Begin                                                  1
-ClassDefn                                              3
+ClassDefn                                              2
+ClassTypespec                                          1
+ClassVar                                               1
+Constant                                               1
 Design                                                 1
+Extends                                                1
 ForeachStmt                                            1
 Function                                               1
 Package                                                1
-RefTypespec                                            2
+Range                                                  1
+RefTypespec                                            5
 RefVar                                                 2
-UnsupportedTypespec                                    2
+UnsupportedTypespec                                    1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ForeachClassParent/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ForeachClassParent/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ForeachClassParent/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallPackages:
-\_Package: uvm (uvm::), file:${SURELOG_DIR}/tests/ForeachClassParent/dut.sv, line:1:1, endln:18:11
+|vpiAllPackages:
+\_Package: uvm (uvm), file:${SURELOG_DIR}/tests/ForeachClassParent/dut.sv, line:1:1, endln:18:11
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:uvm
-  |vpiFullName:uvm::
+  |vpiInternalScope:
+  \_ClassDefn: (uvm::root), file:${SURELOG_DIR}/tests/ForeachClassParent/dut.sv, line:3:1, endln:5:9
+    |vpiParent:
+    \_Package: uvm (uvm), file:${SURELOG_DIR}/tests/ForeachClassParent/dut.sv, line:1:1, endln:18:11
+    |vpiName:root
+    |vpiFullName:uvm::root
+    |vpiVariables:
+    \_ClassVar: (uvm::root), line:4:23, endln:4:39
+      |vpiParent:
+      \_ClassDefn: (uvm::root), file:${SURELOG_DIR}/tests/ForeachClassParent/dut.sv, line:3:1, endln:5:9
+      |vpiTypespec:
+      \_RefTypespec: (uvm::root::uvm_phase), line:4:13, endln:4:22
+        |vpiParent:
+        \_ClassVar: (uvm::root), line:4:23, endln:4:39
+        |vpiName:uvm_phase
+        |vpiFullName:uvm::root::uvm_phase
+        |vpiActual:
+        \_ClassTypespec: (uvm_phase), line:4:13, endln:4:22
+      |vpiFullName:uvm::root
+    |vpiVariables:
+    \_ArrayVar: (uvm::root::m_type_overrides), line:4:23, endln:4:39
+      |vpiParent:
+      \_ClassDefn: (uvm::root), file:${SURELOG_DIR}/tests/ForeachClassParent/dut.sv, line:3:1, endln:5:9
+      |vpiSize:1
+      |vpiTypespec:
+      \_RefTypespec: (uvm::root::m_type_overrides), line:4:39, endln:4:42
+        |vpiParent:
+        \_ArrayVar: (uvm::root::m_type_overrides), line:4:23, endln:4:39
+        |vpiFullName:uvm::root::m_type_overrides
+        |vpiActual:
+        \_ArrayTypespec: , line:4:39, endln:4:42
+      |vpiName:m_type_overrides
+      |vpiFullName:uvm::root::m_type_overrides
+      |vpiAutomatic:1
+      |vpiRandType:1
+      |vpiVisibility:2
+      |vpiArrayType:4
+      |vpiReg:
+      \_ClassVar: (uvm::root), line:4:23, endln:4:39
+    |vpiRegArray:
+    \_ArrayVar: (uvm::root::m_type_overrides), line:4:23, endln:4:39
+    |vpiTypedef:
+    \_ClassTypespec: (uvm_phase), line:4:13, endln:4:22
+      |vpiParent:
+      \_ClassDefn: (uvm::root), file:${SURELOG_DIR}/tests/ForeachClassParent/dut.sv, line:3:1, endln:5:9
+      |vpiName:uvm_phase
+      |vpiClassDefn:
+      \_ClassDefn: (uvm::uvm_phase), file:${SURELOG_DIR}/tests/ForeachClassParent/dut.sv, line:7:1, endln:8:9
+    |vpiTypedef:
+    \_ArrayTypespec: , line:4:39, endln:4:42
+      |vpiParent:
+      \_ClassDefn: (uvm::root), file:${SURELOG_DIR}/tests/ForeachClassParent/dut.sv, line:3:1, endln:5:9
+      |vpiElemTypespec:
+      \_RefTypespec: (uvm::root::uvm_phase), line:4:13, endln:4:22
+        |vpiParent:
+        \_ArrayTypespec: , line:4:39, endln:4:42
+        |vpiName:uvm_phase
+        |vpiFullName:uvm::root::uvm_phase
+        |vpiActual:
+        \_ClassTypespec: (uvm_phase), line:4:13, endln:4:22
+    |vpiImportTypespec:
+    \_ClassTypespec: (uvm_phase), line:4:13, endln:4:22
+    |vpiImportTypespec:
+    \_ClassVar: (uvm::root), line:4:23, endln:4:39
+    |vpiImportTypespec:
+    \_ArrayVar: (uvm::root::m_type_overrides), line:4:23, endln:4:39
+    |vpiImportTypespec:
+    \_ArrayTypespec: , line:4:39, endln:4:42
+    |vpiDerivedClasses:
+    \_ClassDefn: (uvm::uvm_phase), file:${SURELOG_DIR}/tests/ForeachClassParent/dut.sv, line:7:1, endln:8:9
+      |vpiParent:
+      \_Package: uvm (uvm), file:${SURELOG_DIR}/tests/ForeachClassParent/dut.sv, line:1:1, endln:18:11
+      |vpiName:uvm_phase
+      |vpiFullName:uvm::uvm_phase
+      |vpiInternalScope:
+      \_Function: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:10:3, endln:15:14
+        |vpiParent:
+        \_ClassDefn: (uvm::uvm_phase), file:${SURELOG_DIR}/tests/ForeachClassParent/dut.sv, line:7:1, endln:8:9
+        |vpiName:get_adjacent_predecessor_nodes
+        |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes
+        |vpiInternalScope:
+        \_ForeachStmt: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:12:6, endln:13:9
+          |vpiParent:
+          \_Function: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:10:3, endln:15:14
+          |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes
+          |vpiInternalScope:
+          \_Begin: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:12:40, endln:13:9
+            |vpiParent:
+            \_ForeachStmt: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:12:6, endln:13:9
+            |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes
+          |vpiImportTypespec:
+          \_RefVar: (uvm::uvm_phase::get_adjacent_predecessor_nodes::m_type_overrides), line:12:15, endln:12:31
+            |vpiParent:
+            \_ForeachStmt: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:12:6, endln:13:9
+            |vpiName:m_type_overrides
+            |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::m_type_overrides
+          |vpiImportTypespec:
+          \_RefVar: (uvm::uvm_phase::get_adjacent_predecessor_nodes::index), line:12:32, endln:12:37
+            |vpiParent:
+            \_ForeachStmt: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:12:6, endln:13:9
+            |vpiTypespec:
+            \_RefTypespec: (uvm::uvm_phase::get_adjacent_predecessor_nodes::index::index), line:12:32, endln:12:37
+              |vpiParent:
+              \_RefVar: (uvm::uvm_phase::get_adjacent_predecessor_nodes::index), line:12:32, endln:12:37
+              |vpiName:index
+              |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::index::index
+              |vpiActual:
+              \_UnsupportedTypespec: (index), line:12:32, endln:12:37
+            |vpiName:index
+            |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::index
+          |vpiVariables:
+          \_RefVar: (uvm::uvm_phase::get_adjacent_predecessor_nodes::m_type_overrides), line:12:15, endln:12:31
+          |vpiLoopVars:
+          \_RefVar: (uvm::uvm_phase::get_adjacent_predecessor_nodes::index), line:12:32, endln:12:37
+          |vpiStmt:
+          \_Begin: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:12:40, endln:13:9
+        |vpiTypedef:
+        \_UnsupportedTypespec: (index), line:12:32, endln:12:37
+          |vpiParent:
+          \_Function: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:10:3, endln:15:14
+          |vpiName:index
+        |vpiImportTypespec:
+        \_UnsupportedTypespec: (index), line:12:32, endln:12:37
+        |vpiVisibility:1
+        |vpiStmt:
+        \_ForeachStmt: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:12:6, endln:13:9
+        |vpiInstance:
+        \_Package: uvm (uvm), file:${SURELOG_DIR}/tests/ForeachClassParent/dut.sv, line:1:1, endln:18:11
+      |vpiTypedef:
+      \_ClassTypespec: (root), line:7:25, endln:7:29
+        |vpiParent:
+        \_ClassDefn: (uvm::uvm_phase), file:${SURELOG_DIR}/tests/ForeachClassParent/dut.sv, line:7:1, endln:8:9
+        |vpiName:root
+        |vpiClassDefn:
+        \_ClassDefn: (uvm::root), file:${SURELOG_DIR}/tests/ForeachClassParent/dut.sv, line:3:1, endln:5:9
+      |vpiImportTypespec:
+      \_Function: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:10:3, endln:15:14
+      |vpiImportTypespec:
+      \_ClassTypespec: (root), line:7:25, endln:7:29
+      |vpiExtends:
+      \_Extends: , line:7:25, endln:7:29
+        |vpiParent:
+        \_ClassDefn: (uvm::uvm_phase), file:${SURELOG_DIR}/tests/ForeachClassParent/dut.sv, line:7:1, endln:8:9
+        |vpiClassTypespec:
+        \_RefTypespec: (uvm::uvm_phase::root), line:7:25, endln:7:29
+          |vpiParent:
+          \_Extends: , line:7:25, endln:7:29
+          |vpiName:root
+          |vpiFullName:uvm::uvm_phase::root
+          |vpiActual:
+          \_ClassTypespec: (root), line:7:25, endln:7:29
+      |vpiMethod:
+      \_Function: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:10:3, endln:15:14
+      |vpiClassTypespec:
+      \_ClassTypespec: (root), line:7:25, endln:7:29
+    |vpiClassTypespec:
+    \_ClassTypespec: (uvm_phase), line:4:13, endln:4:22
+  |vpiInternalScope:
+  \_ClassDefn: (uvm::uvm_phase), file:${SURELOG_DIR}/tests/ForeachClassParent/dut.sv, line:7:1, endln:8:9
+  |vpiImportTypespec:
+  \_ClassDefn: (uvm::root), file:${SURELOG_DIR}/tests/ForeachClassParent/dut.sv, line:3:1, endln:5:9
+  |vpiImportTypespec:
+  \_ClassDefn: (uvm::uvm_phase), file:${SURELOG_DIR}/tests/ForeachClassParent/dut.sv, line:7:1, endln:8:9
   |vpiDefName:uvm
   |vpiClassDefn:
   \_ClassDefn: (uvm::root), file:${SURELOG_DIR}/tests/ForeachClassParent/dut.sv, line:3:1, endln:5:9
-    |vpiParent:
-    \_Package: uvm (uvm::), file:${SURELOG_DIR}/tests/ForeachClassParent/dut.sv, line:1:1, endln:18:11
-    |vpiName:root
-    |vpiFullName:uvm::root
   |vpiClassDefn:
   \_ClassDefn: (uvm::uvm_phase), file:${SURELOG_DIR}/tests/ForeachClassParent/dut.sv, line:7:1, endln:8:9
-    |vpiParent:
-    \_Package: uvm (uvm::), file:${SURELOG_DIR}/tests/ForeachClassParent/dut.sv, line:1:1, endln:18:11
-    |vpiName:uvm_phase
-    |vpiFullName:uvm::uvm_phase
-    |vpiMethod:
-    \_Function: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:10:3, endln:15:14
-      |vpiParent:
-      \_ClassDefn: (uvm::uvm_phase), file:${SURELOG_DIR}/tests/ForeachClassParent/dut.sv, line:7:1, endln:8:9
-      |vpiName:get_adjacent_predecessor_nodes
-      |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes
-      |vpiVisibility:1
-      |vpiStmt:
-      \_ForeachStmt: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:12:6, endln:12:13
-        |vpiParent:
-        \_Function: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:10:3, endln:15:14
-        |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes
-        |vpiVariables:
-        \_RefVar: (uvm::uvm_phase::get_adjacent_predecessor_nodes::m_type_overrides), line:12:15, endln:12:31
-          |vpiParent:
-          \_ForeachStmt: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:12:6, endln:12:13
-          |vpiTypespec:
-          \_RefTypespec: (uvm::uvm_phase::get_adjacent_predecessor_nodes::m_type_overrides)
-            |vpiParent:
-            \_RefVar: (uvm::uvm_phase::get_adjacent_predecessor_nodes::m_type_overrides), line:12:15, endln:12:31
-            |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::m_type_overrides
-            |vpiActual:
-            \_UnsupportedTypespec: (m_type_overrides), line:12:15, endln:12:31
-          |vpiName:m_type_overrides
-          |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::m_type_overrides
-        |vpiLoopVars:
-        \_RefVar: (uvm::uvm_phase::get_adjacent_predecessor_nodes::index), line:12:32, endln:12:37
-          |vpiParent:
-          \_ForeachStmt: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:12:6, endln:12:13
-          |vpiTypespec:
-          \_RefTypespec: (uvm::uvm_phase::get_adjacent_predecessor_nodes::index)
-            |vpiParent:
-            \_RefVar: (uvm::uvm_phase::get_adjacent_predecessor_nodes::index), line:12:32, endln:12:37
-            |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::index
-            |vpiActual:
-            \_UnsupportedTypespec: (index), line:12:32, endln:12:37
-          |vpiName:index
-          |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes::index
-        |vpiStmt:
-        \_Begin: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:12:40, endln:13:9
-          |vpiParent:
-          \_ForeachStmt: (uvm::uvm_phase::get_adjacent_predecessor_nodes), line:12:6, endln:12:13
-          |vpiFullName:uvm::uvm_phase::get_adjacent_predecessor_nodes
-      |vpiInstance:
-      \_Package: uvm (uvm::), file:${SURELOG_DIR}/tests/ForeachClassParent/dut.sv, line:1:1, endln:18:11
-\_weaklyReferenced:
-\_UnsupportedTypespec: (m_type_overrides), line:12:15, endln:12:31
-  |vpiName:m_type_overrides
-  |vpiInstance:
-  \_Package: uvm (uvm::), file:${SURELOG_DIR}/tests/ForeachClassParent/dut.sv, line:1:1, endln:18:11
-\_UnsupportedTypespec: (index), line:12:32, endln:12:37
-  |vpiParent:
-  \_RefVar: (uvm::uvm_phase::get_adjacent_predecessor_nodes::index), line:12:32, endln:12:37
-  |vpiName:index
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

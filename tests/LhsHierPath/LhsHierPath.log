@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 133
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/LhsHierPath/dut.sv
+FILE: ${SURELOG_DIR}/tests/LhsHierPath/dut.sv
 n<> u<132> t<Top_level_rule> c<1> l<1:1> el<18:1>
-  n<> u<1> t<Null_rule> p<132> s<131> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<132> s<131> l<1:1>
   n<> u<131> t<Source_text> p<132> c<48> l<1:1> el<17:10>
     n<> u<48> t<Description> p<131> c<47> s<130> l<1:1> el<9:11>
       n<> u<47> t<Package_declaration> p<48> c<2> l<1:1> el<9:11>
@@ -36,7 +36,7 @@ n<> u<132> t<Top_level_rule> c<1> l<1:1> el<18:1>
                   n<> u<22> t<Packed_keyword> p<40> s<39> l<6:19> el<6:25>
                   n<> u<39> t<Struct_union_member> p<40> c<35> l<7:7> el<7:34>
                     n<> u<35> t<Data_type_or_void> p<39> c<34> s<38> l<7:7> el<7:22>
-                      n<> u<34> t<Data_type> p<35> c<23> l<7:7> el<7:22>
+                      n<ast_dif_t> u<34> t<Data_type> p<35> c<23> l<7:7> el<7:22>
                         n<ast_dif_t> u<23> t<StringConst> p<34> s<33> l<7:7> el<7:16>
                         n<> u<33> t<Packed_dimension> p<34> c<32> l<7:17> el<7:22>
                           n<> u<32> t<Constant_range> p<33> c<27> l<7:18> el<7:21>
@@ -72,7 +72,7 @@ n<> u<132> t<Top_level_rule> c<1> l<1:1> el<18:1>
                 n<> u<69> t<Package_or_generate_item_declaration> p<70> c<68> l<12:4> el<12:40>
                   n<> u<68> t<Data_declaration> p<69> c<67> l<12:4> el<12:40>
                     n<> u<67> t<Variable_declaration> p<68> c<63> l<12:4> el<12:40>
-                      n<> u<63> t<Data_type> p<67> c<61> s<66> l<12:4> el<12:27>
+                      n<my_pkg::ast_alert_rsp_t> u<63> t<Data_type> p<67> c<61> s<66> l<12:4> el<12:27>
                         n<> u<61> t<Class_scope> p<63> c<60> s<62> l<12:4> el<12:12>
                           n<> u<60> t<Class_type> p<61> c<59> l<12:4> el<12:10>
                             n<my_pkg> u<59> t<StringConst> p<60> l<12:4> el<12:10>
@@ -151,63 +151,36 @@ Constant                                               5
 ContAssign                                             1
 Design                                                 1
 HierPath                                               3
-LogicNet                                               2
-LogicTypespec                                          2
+LogicNet                                               1
+LogicTypespec                                          1
 Module                                                 1
 Package                                                1
 PackedArrayTypespec                                    1
 Port                                                   1
 Range                                                  1
-RefObj                                                 6
-RefTypespec                                            5
+RefObj                                                 5
+RefTypespec                                            4
 StructTypespec                                         2
+StructVar                                              1
 TypespecMember                                         2
 === UHDM Object Stats End ===
+[ERR:UH0734] ${SURELOG_DIR}/tests/LhsHierPath/dut.sv:14:35: Failed to bind object: "id: 24, name: p".
+[ERR:UH0734] ${SURELOG_DIR}/tests/LhsHierPath/dut.sv:16:41: Failed to bind object: "id: 32, name: p".
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/LhsHierPath/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/LhsHierPath/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/LhsHierPath/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallPackages:
-\_Package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/LhsHierPath/dut.sv, line:1:1, endln:9:11
+|vpiAllPackages:
+\_Package: my_pkg (my_pkg), file:${SURELOG_DIR}/tests/LhsHierPath/dut.sv, line:1:1, endln:9:11
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:my_pkg
-  |vpiFullName:my_pkg::
-  |vpiTypedef:
-  \_StructTypespec: (my_pkg::ast_alert_rsp_t), line:6:12, endln:8:5
-    |vpiParent:
-    \_Package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/LhsHierPath/dut.sv, line:1:1, endln:9:11
-    |vpiName:my_pkg::ast_alert_rsp_t
-    |vpiInstance:
-    \_Package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/LhsHierPath/dut.sv, line:1:1, endln:9:11
-    |vpiPacked:1
-    |vpiTypespecMember:
-    \_TypespecMember: (alerts_ack), line:7:23, endln:7:33
-      |vpiParent:
-      \_StructTypespec: (my_pkg::ast_alert_rsp_t), line:6:12, endln:8:5
-      |vpiName:alerts_ack
-      |vpiTypespec:
-      \_RefTypespec: (my_pkg::my_pkg::ast_alert_rsp_t::alerts_ack)
-        |vpiParent:
-        \_TypespecMember: (alerts_ack), line:7:23, endln:7:33
-        |vpiFullName:my_pkg::my_pkg::ast_alert_rsp_t::alerts_ack
-        |vpiActual:
-        \_PackedArrayTypespec: , line:7:7, endln:7:22
-      |vpiRefFile:${SURELOG_DIR}/tests/LhsHierPath/dut.sv
-      |vpiRefLineNo:7
-      |vpiRefColumnNo:7
-      |vpiRefEndLineNo:7
-      |vpiRefEndColumnNo:22
   |vpiTypedef:
   \_StructTypespec: (my_pkg::ast_dif_t), line:2:12, endln:4:5
     |vpiParent:
-    \_Package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/LhsHierPath/dut.sv, line:1:1, endln:9:11
+    \_Package: my_pkg (my_pkg), file:${SURELOG_DIR}/tests/LhsHierPath/dut.sv, line:1:1, endln:9:11
     |vpiName:my_pkg::ast_dif_t
-    |vpiInstance:
-    \_Package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/LhsHierPath/dut.sv, line:1:1, endln:9:11
     |vpiPacked:1
     |vpiTypespecMember:
     \_TypespecMember: (p), line:3:13, endln:3:14
@@ -215,64 +188,113 @@ Design: (unnamed)
       \_StructTypespec: (my_pkg::ast_dif_t), line:2:12, endln:4:5
       |vpiName:p
       |vpiTypespec:
-      \_RefTypespec: (my_pkg::my_pkg::ast_dif_t::p)
+      \_RefTypespec: (my_pkg::ast_dif_t::p), line:3:7, endln:3:12
         |vpiParent:
         \_TypespecMember: (p), line:3:13, endln:3:14
-        |vpiFullName:my_pkg::my_pkg::ast_dif_t::p
+        |vpiFullName:my_pkg::ast_dif_t::p
         |vpiActual:
         \_LogicTypespec: , line:3:7, endln:3:12
-      |vpiRefFile:${SURELOG_DIR}/tests/LhsHierPath/dut.sv
-      |vpiRefLineNo:3
-      |vpiRefColumnNo:7
-      |vpiRefEndLineNo:3
-      |vpiRefEndColumnNo:12
+  |vpiTypedef:
+  \_LogicTypespec: , line:3:7, endln:3:12
+    |vpiParent:
+    \_Package: my_pkg (my_pkg), file:${SURELOG_DIR}/tests/LhsHierPath/dut.sv, line:1:1, endln:9:11
+  |vpiTypedef:
+  \_StructTypespec: (my_pkg::ast_alert_rsp_t), line:6:12, endln:8:5
+    |vpiParent:
+    \_Package: my_pkg (my_pkg), file:${SURELOG_DIR}/tests/LhsHierPath/dut.sv, line:1:1, endln:9:11
+    |vpiName:my_pkg::ast_alert_rsp_t
+    |vpiPacked:1
+    |vpiTypespecMember:
+    \_TypespecMember: (alerts_ack), line:7:23, endln:7:33
+      |vpiParent:
+      \_StructTypespec: (my_pkg::ast_alert_rsp_t), line:6:12, endln:8:5
+      |vpiName:alerts_ack
+      |vpiTypespec:
+      \_RefTypespec: (my_pkg::ast_alert_rsp_t::alerts_ack::ast_dif_t), line:7:7, endln:7:22
+        |vpiParent:
+        \_TypespecMember: (alerts_ack), line:7:23, endln:7:33
+        |vpiName:ast_dif_t
+        |vpiFullName:my_pkg::ast_alert_rsp_t::alerts_ack::ast_dif_t
+        |vpiActual:
+        \_PackedArrayTypespec: , line:7:17, endln:7:22
+  |vpiTypedef:
+  \_PackedArrayTypespec: , line:7:17, endln:7:22
+    |vpiParent:
+    \_Package: my_pkg (my_pkg), file:${SURELOG_DIR}/tests/LhsHierPath/dut.sv, line:1:1, endln:9:11
+    |vpiRange:
+    \_Range: , line:7:17, endln:7:22
+      |vpiParent:
+      \_PackedArrayTypespec: , line:7:17, endln:7:22
+      |vpiLeftRange:
+      \_Constant: , line:7:18, endln:7:19
+        |vpiParent:
+        \_Range: , line:7:17, endln:7:22
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:7:20, endln:7:21
+        |vpiParent:
+        \_Range: , line:7:17, endln:7:22
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiElemTypespec:
+    \_RefTypespec: (my_pkg::ast_dif_t), line:7:7, endln:7:16
+      |vpiParent:
+      \_PackedArrayTypespec: , line:7:17, endln:7:22
+      |vpiName:ast_dif_t
+      |vpiFullName:my_pkg::ast_dif_t
+      |vpiActual:
+      \_StructTypespec: (my_pkg::ast_dif_t), line:2:12, endln:4:5
+  |vpiImportTypespec:
+  \_StructTypespec: (my_pkg::ast_dif_t), line:2:12, endln:4:5
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:3:7, endln:3:12
+  |vpiImportTypespec:
+  \_StructTypespec: (my_pkg::ast_alert_rsp_t), line:6:12, endln:8:5
+  |vpiImportTypespec:
+  \_PackedArrayTypespec: , line:7:17, endln:7:22
   |vpiDefName:my_pkg
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/LhsHierPath/dut.sv, line:11:1, endln:17:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
-  |vpiDefName:work@top
-  |vpiNet:
+  |vpiName:work@top
+  |vpiVariables:
+  \_StructVar: (work@top.ast_alert_o), line:12:28, endln:12:39
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/LhsHierPath/dut.sv, line:11:1, endln:17:10
+    |vpiTypespec:
+    \_RefTypespec: (work@top.ast_alert_o.my_pkg::ast_alert_rsp_t), line:12:4, endln:12:27
+      |vpiParent:
+      \_StructVar: (work@top.ast_alert_o), line:12:28, endln:12:39
+      |vpiName:my_pkg::ast_alert_rsp_t
+      |vpiFullName:work@top.ast_alert_o.my_pkg::ast_alert_rsp_t
+      |vpiActual:
+      \_StructTypespec: (my_pkg::ast_alert_rsp_t), line:6:12, endln:8:5
+    |vpiName:ast_alert_o
+    |vpiFullName:work@top.ast_alert_o
+    |vpiVisibility:1
+  |vpiImportTypespec:
   \_LogicNet: (work@top.o), line:11:19, endln:11:20
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/LhsHierPath/dut.sv, line:11:1, endln:17:10
     |vpiName:o
     |vpiFullName:work@top.o
+  |vpiImportTypespec:
+  \_StructVar: (work@top.ast_alert_o), line:12:28, endln:12:39
+  |vpiDefName:work@top
   |vpiNet:
-  \_LogicNet: (work@top.ast_alert_o), line:12:28, endln:12:39
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/LhsHierPath/dut.sv, line:11:1, endln:17:10
-    |vpiTypespec:
-    \_RefTypespec: (work@top.ast_alert_o)
-      |vpiParent:
-      \_LogicNet: (work@top.ast_alert_o), line:12:28, endln:12:39
-      |vpiFullName:work@top.ast_alert_o
-      |vpiActual:
-      \_StructTypespec: (my_pkg::ast_alert_rsp_t), line:6:12, endln:8:5
-    |vpiName:ast_alert_o
-    |vpiFullName:work@top.ast_alert_o
+  \_LogicNet: (work@top.o), line:11:19, endln:11:20
   |vpiPort:
   \_Port: (o), line:11:19, endln:11:20
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/LhsHierPath/dut.sv, line:11:1, endln:17:10
     |vpiName:o
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@top.o.o), line:11:19, endln:11:20
-      |vpiParent:
-      \_Port: (o), line:11:19, endln:11:20
-      |vpiName:o
-      |vpiFullName:work@top.o.o
-      |vpiActual:
-      \_LogicNet: (work@top.o), line:11:19, endln:11:20
-    |vpiTypedef:
-    \_RefTypespec: (work@top.o)
-      |vpiParent:
-      \_Port: (o), line:11:19, endln:11:20
-      |vpiFullName:work@top.o
-      |vpiActual:
-      \_LogicTypespec: , line:11:19, endln:11:19
   |vpiProcess:
   \_Always: , line:13:4, endln:15:7
     |vpiParent:
@@ -290,27 +312,35 @@ Design: (unnamed)
         |vpiBlocking:1
         |vpiRhs:
         \_Constant: , line:14:37, endln:14:41
+          |vpiParent:
+          \_Assignment: , line:14:7, endln:14:41
           |vpiDecompile:1'b1
           |vpiSize:1
           |BIN:1
           |vpiConstType:3
         |vpiLhs:
-        \_HierPath: (ast_alert_o.alerts_ack[0].p), line:14:7, endln:14:34
+        \_HierPath: (ast_alert_o.alerts_ack[0].p), line:14:18, endln:14:35
           |vpiParent:
           \_Assignment: , line:14:7, endln:14:41
           |vpiActual:
-          \_RefObj: (ast_alert_o), line:14:19, endln:14:29
+          \_RefObj: (ast_alert_o), line:14:18, endln:14:29
             |vpiParent:
-            \_HierPath: (ast_alert_o.alerts_ack[0].p), line:14:7, endln:14:34
+            \_HierPath: (ast_alert_o.alerts_ack[0].p), line:14:18, endln:14:35
             |vpiName:ast_alert_o
+            |vpiActual:
+            \_StructVar: (work@top.ast_alert_o), line:12:28, endln:12:39
           |vpiActual:
           \_BitSelect: (alerts_ack[0]), line:14:19, endln:14:29
             |vpiParent:
-            \_HierPath: (ast_alert_o.alerts_ack[0].p), line:14:7, endln:14:34
+            \_HierPath: (ast_alert_o.alerts_ack[0].p), line:14:18, endln:14:35
             |vpiName:alerts_ack
             |vpiFullName:alerts_ack[0]
+            |vpiActual:
+            \_TypespecMember: (alerts_ack), line:7:23, endln:7:33
             |vpiIndex:
             \_Constant: , line:14:30, endln:14:31
+              |vpiParent:
+              \_BitSelect: (alerts_ack[0]), line:14:19, endln:14:29
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
@@ -318,7 +348,7 @@ Design: (unnamed)
           |vpiActual:
           \_RefObj: (alerts_ack[0].p), line:14:35, endln:14:35
             |vpiParent:
-            \_HierPath: (ast_alert_o.alerts_ack[0].p), line:14:7, endln:14:34
+            \_HierPath: (ast_alert_o.alerts_ack[0].p), line:14:18, endln:14:35
             |vpiName:p
             |vpiFullName:alerts_ack[0].p
           |vpiName:ast_alert_o.alerts_ack[0].p
@@ -336,14 +366,20 @@ Design: (unnamed)
         |vpiParent:
         \_HierPath: (ast_alert_o.alerts_ack[0].p), line:16:15, endln:16:42
         |vpiName:ast_alert_o
+        |vpiActual:
+        \_StructVar: (work@top.ast_alert_o), line:12:28, endln:12:39
       |vpiActual:
       \_BitSelect: (ast_alert_o.alerts_ack[0]), line:16:27, endln:16:37
         |vpiParent:
         \_HierPath: (ast_alert_o.alerts_ack[0].p), line:16:15, endln:16:42
-        |vpiName:alerts_ack
+        |vpiName:ast_alert_o.alerts_ack
         |vpiFullName:ast_alert_o.alerts_ack[0]
+        |vpiActual:
+        \_TypespecMember: (alerts_ack), line:7:23, endln:7:33
         |vpiIndex:
         \_Constant: , line:16:38, endln:16:39
+          |vpiParent:
+          \_BitSelect: (ast_alert_o.alerts_ack[0]), line:16:27, endln:16:37
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -363,48 +399,9 @@ Design: (unnamed)
       |vpiFullName:work@top.o
       |vpiActual:
       \_LogicNet: (work@top.o), line:11:19, endln:11:20
-\_weaklyReferenced:
-\_LogicTypespec: , line:3:7, endln:3:12
-  |vpiParent:
-  \_TypespecMember: (p), line:3:13, endln:3:14
-  |vpiInstance:
-  \_Package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/LhsHierPath/dut.sv, line:1:1, endln:9:11
-\_PackedArrayTypespec: , line:7:7, endln:7:22
-  |vpiParent:
-  \_TypespecMember: (alerts_ack), line:7:23, endln:7:33
-  |vpiInstance:
-  \_Package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/LhsHierPath/dut.sv, line:1:1, endln:9:11
-  |vpiRange:
-  \_Range: , line:7:17, endln:7:22
-    |vpiParent:
-    \_PackedArrayTypespec: , line:7:7, endln:7:22
-    |vpiLeftRange:
-    \_Constant: , line:7:18, endln:7:19
-      |vpiParent:
-      \_Range: , line:7:17, endln:7:22
-      |vpiDecompile:1
-      |vpiSize:64
-      |UINT:1
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:7:20, endln:7:21
-      |vpiParent:
-      \_Range: , line:7:17, endln:7:22
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-  |vpiElemTypespec:
-  \_RefTypespec: (my_pkg::my_pkg::ast_alert_rsp_t::alerts_ack)
-    |vpiParent:
-    \_PackedArrayTypespec: , line:7:7, endln:7:22
-    |vpiFullName:my_pkg::my_pkg::ast_alert_rsp_t::alerts_ack
-    |vpiActual:
-    \_StructTypespec: (my_pkg::ast_dif_t), line:2:12, endln:4:5
-\_LogicTypespec: , line:11:19, endln:11:19
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 2
 [WARNING] : 2
 [   NOTE] : 1

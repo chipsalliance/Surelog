@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 40
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/ImplicitFunc/dut.sv
+FILE: ${SURELOG_DIR}/tests/ImplicitFunc/dut.sv
 n<> u<39> t<Top_level_rule> c<1> l<1:1> el<13:1>
-  n<> u<1> t<Null_rule> p<39> s<38> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<39> s<38> l<1:1>
   n<> u<38> t<Source_text> p<39> c<37> l<1:1> el<11:10>
     n<> u<37> t<Description> p<38> c<36> l<1:1> el<11:10>
       n<> u<36> t<Module_declaration> p<37> c<4> l<1:1> el<11:10>
@@ -51,82 +51,101 @@ AST_DEBUG_END
 Constant                                               4
 Design                                                 1
 Function                                               2
-LogicTypespec                                          2
-LogicVar                                               4
+LogicTypespec                                          1
+LogicVar                                               2
 Module                                                 1
 Range                                                  2
-RefTypespec                                            2
+RefTypespec                                            1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ImplicitFunc/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ImplicitFunc/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ImplicitFunc/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ImplicitFunc/dut.sv, line:1:1, endln:11:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@dut
-  |vpiDefName:work@dut
-  |vpiTaskFunc:
+  |vpiName:work@dut
+  |vpiInternalScope:
   \_Function: (work@dut.foo), line:3:4, endln:5:15
     |vpiParent:
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ImplicitFunc/dut.sv, line:1:1, endln:11:10
     |vpiName:foo
     |vpiFullName:work@dut.foo
-    |vpiVisibility:1
-    |vpiReturn:
-    \_LogicVar: (work@dut.foo), line:3:13, endln:3:18
+    |vpiVariables:
+    \_LogicVar: (work@dut.foo)
       |vpiParent:
       \_Function: (work@dut.foo), line:3:4, endln:5:15
       |vpiTypespec:
-      \_RefTypespec: (work@dut.foo)
+      \_RefTypespec: (work@dut.foo), line:3:13, endln:3:18
         |vpiParent:
-        \_LogicVar: (work@dut.foo), line:3:13, endln:3:18
+        \_LogicVar: (work@dut.foo)
         |vpiFullName:work@dut.foo
         |vpiActual:
         \_LogicTypespec: , line:3:13, endln:3:18
       |vpiFullName:work@dut.foo
-    |vpiInstance:
-    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ImplicitFunc/dut.sv, line:1:1, endln:11:10
-  |vpiTaskFunc:
+    |vpiReg:
+    \_LogicVar: (work@dut.foo)
+    |vpiTypedef:
+    \_LogicTypespec: , line:3:13, endln:3:18
+      |vpiParent:
+      \_Function: (work@dut.foo), line:3:4, endln:5:15
+      |vpiRange:
+      \_Range: , line:3:13, endln:3:18
+        |vpiParent:
+        \_LogicTypespec: , line:3:13, endln:3:18
+        |vpiLeftRange:
+        \_Constant: , line:3:14, endln:3:15
+          |vpiParent:
+          \_Range: , line:3:13, endln:3:18
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiRightRange:
+        \_Constant: , line:3:16, endln:3:17
+          |vpiParent:
+          \_Range: , line:3:13, endln:3:18
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+      |vpiSigned:1
+    |vpiImportTypespec:
+    \_LogicVar: (work@dut.foo)
+    |vpiImportTypespec:
+    \_LogicTypespec: , line:3:13, endln:3:18
+    |vpiVisibility:1
+    |vpiReturn:
+    \_LogicVar: (work@dut.foo)
+  |vpiInternalScope:
   \_Function: (work@dut.bar), line:7:4, endln:9:15
     |vpiParent:
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ImplicitFunc/dut.sv, line:1:1, endln:11:10
     |vpiName:bar
     |vpiFullName:work@dut.bar
-    |vpiVisibility:1
-    |vpiReturn:
+    |vpiVariables:
     \_LogicVar: (work@dut.bar)
       |vpiParent:
       \_Function: (work@dut.bar), line:7:4, endln:9:15
       |vpiFullName:work@dut.bar
-    |vpiInstance:
-    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ImplicitFunc/dut.sv, line:1:1, endln:11:10
-\_weaklyReferenced:
-\_LogicTypespec: , line:3:13, endln:3:18
-  |vpiRange:
-  \_Range: , line:3:13, endln:3:18
-    |vpiParent:
-    \_LogicTypespec: , line:3:13, endln:3:18
-    |vpiLeftRange:
-    \_Constant: , line:3:14, endln:3:15
-      |vpiParent:
-      \_Range: , line:3:13, endln:3:18
-      |vpiDecompile:1
-      |vpiSize:64
-      |UINT:1
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:3:16, endln:3:17
-      |vpiParent:
-      \_Range: , line:3:13, endln:3:18
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
+    |vpiReg:
+    \_LogicVar: (work@dut.bar)
+    |vpiImportTypespec:
+    \_LogicVar: (work@dut.bar)
+    |vpiVisibility:1
+    |vpiReturn:
+    \_LogicVar: (work@dut.bar)
+  |vpiImportTypespec:
+  \_Function: (work@dut.foo), line:3:4, endln:5:15
+  |vpiImportTypespec:
+  \_Function: (work@dut.bar), line:7:4, endln:9:15
+  |vpiDefName:work@dut
+  |vpiTaskFunc:
+  \_Function: (work@dut.foo), line:3:4, endln:5:15
+  |vpiTaskFunc:
+  \_Function: (work@dut.bar), line:7:4, endln:9:15
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

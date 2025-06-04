@@ -3,9 +3,9 @@
 AST_DEBUG_BEGIN
 Count: 65
 LIB: work
-FILE f<11>:${SURELOG_DIR}/tests/ClassExtends/dut.sv
+FILE: ${SURELOG_DIR}/tests/ClassExtends/dut.sv
 n<> u<64> t<Top_level_rule> c<1> l<1:1> el<29:1>
-  n<> u<1> t<Null_rule> p<64> s<63> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<64> s<63> l<1:1>
   n<> u<63> t<Source_text> p<64> c<19> l<1:1> el<28:11>
     n<> u<19> t<Description> p<63> c<18> s<30> l<1:1> el<10:11>
       n<> u<18> t<Package_declaration> p<19> c<2> l<1:1> el<10:11>
@@ -21,7 +21,7 @@ n<> u<64> t<Top_level_rule> c<1> l<1:1> el<29:1>
           n<> u<15> t<Package_or_generate_item_declaration> p<16> c<14> l<8:1> el<8:15>
             n<> u<14> t<Data_declaration> p<15> c<13> l<8:1> el<8:15>
               n<> u<13> t<Type_declaration> p<14> c<11> l<8:1> el<8:15>
-                n<> u<11> t<Data_type> p<13> c<10> s<12> l<8:9> el<8:11>
+                n<c1> u<11> t<Data_type> p<13> c<10> s<12> l<8:9> el<8:11>
                   n<c1> u<10> t<StringConst> p<11> l<8:9> el<8:11>
                 n<c3> u<12> t<StringConst> p<13> l<8:12> el<8:14>
         n<> u<17> t<ENDPACKAGE> p<18> l<10:1> el<10:11>
@@ -58,7 +58,7 @@ n<> u<64> t<Top_level_rule> c<1> l<1:1> el<29:1>
                 n<> u<52> t<Class_property> p<53> c<51> l<23:4> el<23:18>
                   n<> u<51> t<Data_declaration> p<52> c<50> l<23:4> el<23:18>
                     n<> u<50> t<Variable_declaration> p<51> c<46> l<23:4> el<23:18>
-                      n<> u<46> t<Data_type> p<50> c<44> s<49> l<23:4> el<23:11>
+                      n<p3::c33> u<46> t<Data_type> p<50> c<44> s<49> l<23:4> el<23:11>
                         n<> u<44> t<Class_scope> p<46> c<43> s<45> l<23:4> el<23:8>
                           n<> u<43> t<Class_type> p<44> c<42> l<23:4> el<23:6>
                             n<p3> u<42> t<StringConst> p<43> l<23:4> el<23:6>
@@ -78,60 +78,113 @@ AST_DEBUG_END
 [INF:CP0302] ${SURELOG_DIR}/tests/ClassExtends/dut.sv:13:1: Compile class "p3::c33".
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-ClassDefn                                              4
+ClassDefn                                              3
 Constant                                               1
 Design                                                 1
+Extends                                                1
 ImportTypespec                                         1
+LogicVar                                               1
 Package                                                3
+RefTypespec                                            1
+UnsupportedTypespec                                    1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ClassExtends/slpp_unit/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ClassExtends/slpp_unit/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ClassExtends/slpp_unit/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallPackages:
-\_Package: p1 (p1::), file:${SURELOG_DIR}/tests/ClassExtends/dut.sv, line:1:1, endln:10:11
+|vpiAllPackages:
+\_Package: p1 (p1), file:${SURELOG_DIR}/tests/ClassExtends/dut.sv, line:1:1, endln:10:11
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:p1
-  |vpiFullName:p1::
+  |vpiInternalScope:
+  \_ClassDefn: (p1::c1), file:${SURELOG_DIR}/tests/ClassExtends/dut.sv, line:3:1, endln:5:9
+    |vpiParent:
+    \_Package: p1 (p1), file:${SURELOG_DIR}/tests/ClassExtends/dut.sv, line:1:1, endln:10:11
+    |vpiName:c1
+    |vpiFullName:p1::c1
+  |vpiImportTypespec:
+  \_ClassDefn: (p1::c1), file:${SURELOG_DIR}/tests/ClassExtends/dut.sv, line:3:1, endln:5:9
   |vpiDefName:p1
   |vpiClassDefn:
   \_ClassDefn: (p1::c1), file:${SURELOG_DIR}/tests/ClassExtends/dut.sv, line:3:1, endln:5:9
-    |vpiParent:
-    \_Package: p1 (p1::), file:${SURELOG_DIR}/tests/ClassExtends/dut.sv, line:1:1, endln:10:11
-    |vpiName:c1
-    |vpiFullName:p1::c1
-|uhdmallPackages:
-\_Package: p3 (p3::), file:${SURELOG_DIR}/tests/ClassExtends/dut.sv, line:12:1, endln:15:11
+|vpiAllPackages:
+\_Package: p3 (p3), file:${SURELOG_DIR}/tests/ClassExtends/dut.sv, line:12:1, endln:15:11
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:p3
-  |vpiFullName:p3::
+  |vpiInternalScope:
+  \_ClassDefn: (p3::c33), file:${SURELOG_DIR}/tests/ClassExtends/dut.sv, line:13:1, endln:14:9
+    |vpiParent:
+    \_Package: p3 (p3), file:${SURELOG_DIR}/tests/ClassExtends/dut.sv, line:12:1, endln:15:11
+    |vpiName:c33
+    |vpiFullName:p3::c33
+  |vpiImportTypespec:
+  \_ClassDefn: (p3::c33), file:${SURELOG_DIR}/tests/ClassExtends/dut.sv, line:13:1, endln:14:9
   |vpiDefName:p3
   |vpiClassDefn:
   \_ClassDefn: (p3::c33), file:${SURELOG_DIR}/tests/ClassExtends/dut.sv, line:13:1, endln:14:9
-    |vpiParent:
-    \_Package: p3 (p3::), file:${SURELOG_DIR}/tests/ClassExtends/dut.sv, line:12:1, endln:15:11
-    |vpiName:c33
-    |vpiFullName:p3::c33
-|uhdmallPackages:
-\_Package: p2 (p2::), file:${SURELOG_DIR}/tests/ClassExtends/dut.sv, line:17:1, endln:28:11
+|vpiAllPackages:
+\_Package: p2 (p2), file:${SURELOG_DIR}/tests/ClassExtends/dut.sv, line:17:1, endln:28:11
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:p2
-  |vpiFullName:p2::
+  |vpiInternalScope:
+  \_ClassDefn: (p2::c2), file:${SURELOG_DIR}/tests/ClassExtends/dut.sv, line:21:1, endln:26:9
+    |vpiParent:
+    \_Package: p2 (p2), file:${SURELOG_DIR}/tests/ClassExtends/dut.sv, line:17:1, endln:28:11
+    |vpiName:c2
+    |vpiFullName:p2::c2
+    |vpiVariables:
+    \_LogicVar: (p2::c2::inst1), line:23:12, endln:23:17
+      |vpiParent:
+      \_ClassDefn: (p2::c2), file:${SURELOG_DIR}/tests/ClassExtends/dut.sv, line:21:1, endln:26:9
+      |vpiName:inst1
+      |vpiFullName:p2::c2::inst1
+      |vpiAutomatic:1
+      |vpiVisibility:1
+    |vpiReg:
+    \_LogicVar: (p2::c2::inst1), line:23:12, endln:23:17
+    |vpiTypedef:
+    \_UnsupportedTypespec: (p3::c33), line:23:4, endln:23:11
+      |vpiParent:
+      \_ClassDefn: (p2::c2), file:${SURELOG_DIR}/tests/ClassExtends/dut.sv, line:21:1, endln:26:9
+      |vpiName:p3::c33
+    |vpiImportTypespec:
+    \_UnsupportedTypespec: (p3::c33), line:23:4, endln:23:11
+    |vpiImportTypespec:
+    \_LogicVar: (p2::c2::inst1), line:23:12, endln:23:17
+    |vpiExtends:
+    \_Extends: , line:21:18, endln:21:20
+      |vpiParent:
+      \_ClassDefn: (p2::c2), file:${SURELOG_DIR}/tests/ClassExtends/dut.sv, line:21:1, endln:26:9
+      |vpiClassTypespec:
+      \_RefTypespec: (p2::c2::c3), line:21:18, endln:21:20
+        |vpiParent:
+        \_Extends: , line:21:18, endln:21:20
+        |vpiName:c3
+        |vpiFullName:p2::c2::c3
   |vpiTypedef:
+  \_ImportTypespec: (p1), line:19:8, endln:19:13
+    |vpiParent:
+    \_Package: p2 (p2), file:${SURELOG_DIR}/tests/ClassExtends/dut.sv, line:17:1, endln:28:11
+    |vpiName:p1
+    |vpiImportTypespecItem:
+    \_Constant: , line:19:8, endln:19:13
+      |vpiParent:
+      \_ImportTypespec: (p1), line:19:8, endln:19:13
+      |vpiDecompile:*
+      |vpiSize:8
+      |STRING:*
+      |vpiConstType:8
+  |vpiImportTypespec:
+  \_ClassDefn: (p2::c2), file:${SURELOG_DIR}/tests/ClassExtends/dut.sv, line:21:1, endln:26:9
+  |vpiImportTypespec:
   \_ImportTypespec: (p1), line:19:8, endln:19:13
   |vpiDefName:p2
   |vpiClassDefn:
   \_ClassDefn: (p2::c2), file:${SURELOG_DIR}/tests/ClassExtends/dut.sv, line:21:1, endln:26:9
-    |vpiParent:
-    \_Package: p2 (p2::), file:${SURELOG_DIR}/tests/ClassExtends/dut.sv, line:17:1, endln:28:11
-    |vpiName:c2
-    |vpiFullName:p2::c2
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

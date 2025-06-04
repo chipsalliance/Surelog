@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 95
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/PartSelectParent/dut.sv
+FILE: ${SURELOG_DIR}/tests/PartSelectParent/dut.sv
 n<> u<94> t<Top_level_rule> c<1> l<1:1> el<9:1>
-  n<> u<1> t<Null_rule> p<94> s<93> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<94> s<93> l<1:1>
   n<> u<93> t<Source_text> p<94> c<92> l<1:1> el<8:10>
     n<> u<92> t<Description> p<93> c<91> l<1:1> el<8:10>
       n<> u<91> t<Module_declaration> p<92> c<13> l<1:1> el<8:10>
@@ -109,50 +109,65 @@ Constant                                               7
 ContAssign                                             1
 Design                                                 1
 Initial                                                1
-IntTypespec                                            1
-LogicNet                                               1
+IntTypespec                                            2
+IntVar                                                 1
 Module                                                 1
 Operation                                              2
 PartSelect                                             2
 Port                                                   1
-RefObj                                                 2
-RefTypespec                                            1
+RefObj                                                 1
+RefTypespec                                            2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PartSelectParent/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/PartSelectParent/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/PartSelectParent/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PartSelectParent/dut.sv, line:1:1, endln:8:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
-  |vpiDefName:work@top
-  |vpiNet:
-  \_LogicNet: (work@top.o), line:1:23, endln:1:24
+  |vpiName:work@top
+  |vpiVariables:
+  \_IntVar: (work@top.o), line:1:23, endln:1:24
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PartSelectParent/dut.sv, line:1:1, endln:8:10
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o), line:1:19, endln:1:22
+      |vpiParent:
+      \_IntVar: (work@top.o), line:1:23, endln:1:24
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_IntTypespec: , line:1:19, endln:1:22
     |vpiName:o
     |vpiFullName:work@top.o
+    |vpiSigned:1
+    |vpiVisibility:1
+  |vpiTypedef:
+  \_IntTypespec: , line:1:19, endln:1:22
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PartSelectParent/dut.sv, line:1:1, endln:8:10
+    |vpiSigned:1
+  |vpiTypedef:
+  \_IntTypespec: , line:1:19, endln:1:22
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PartSelectParent/dut.sv, line:1:1, endln:8:10
+    |vpiSigned:1
+  |vpiImportTypespec:
+  \_IntTypespec: , line:1:19, endln:1:22
+  |vpiImportTypespec:
+  \_IntVar: (work@top.o), line:1:23, endln:1:24
+  |vpiImportTypespec:
+  \_IntTypespec: , line:1:19, endln:1:22
+  |vpiDefName:work@top
   |vpiPort:
   \_Port: (o), line:1:23, endln:1:24
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PartSelectParent/dut.sv, line:1:1, endln:8:10
     |vpiName:o
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@top.o.o), line:1:23, endln:1:24
-      |vpiParent:
-      \_Port: (o), line:1:23, endln:1:24
-      |vpiName:o
-      |vpiFullName:work@top.o.o
-      |vpiActual:
-      \_LogicNet: (work@top.o), line:1:23, endln:1:24
-    |vpiTypedef:
-    \_RefTypespec: (work@top.o)
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o), line:1:19, endln:1:22
       |vpiParent:
       \_Port: (o), line:1:23, endln:1:24
       |vpiFullName:work@top.o
@@ -175,6 +190,8 @@ Design: (unnamed)
         |vpiBlocking:1
         |vpiRhs:
         \_Constant: , line:3:11, endln:3:12
+          |vpiParent:
+          \_Assignment: , line:3:7, endln:3:12
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -186,7 +203,7 @@ Design: (unnamed)
           |vpiName:o
           |vpiFullName:work@top.o
           |vpiActual:
-          \_LogicNet: (work@top.o), line:1:23, endln:1:24
+          \_IntVar: (work@top.o), line:1:23, endln:1:24
       |vpiStmt:
       \_Assignment: , line:4:7, endln:4:23
         |vpiParent:
@@ -195,6 +212,8 @@ Design: (unnamed)
         |vpiBlocking:1
         |vpiRhs:
         \_Constant: , line:4:18, endln:4:23
+          |vpiParent:
+          \_Assignment: , line:4:7, endln:4:23
           |vpiDecompile:2'b11
           |vpiSize:2
           |BIN:11
@@ -205,21 +224,27 @@ Design: (unnamed)
           \_Assignment: , line:4:7, endln:4:23
           |vpiOpType:33
           |vpiOperand:
-          \_PartSelect: o (work@top.o), line:4:8, endln:4:14
+          \_PartSelect: o (work@top.o), line:4:10, endln:4:13
             |vpiParent:
             \_Operation: , line:4:7, endln:4:15
             |vpiName:o
             |vpiFullName:work@top.o
             |vpiDefName:o
+            |vpiActual:
+            \_IntVar: (work@top.o), line:1:23, endln:1:24
             |vpiConstantSelect:1
             |vpiLeftRange:
             \_Constant: , line:4:10, endln:4:11
+              |vpiParent:
+              \_PartSelect: o (work@top.o), line:4:10, endln:4:13
               |vpiDecompile:1
               |vpiSize:64
               |UINT:1
               |vpiConstType:9
             |vpiRightRange:
             \_Constant: , line:4:12, endln:4:13
+              |vpiParent:
+              \_PartSelect: o (work@top.o), line:4:10, endln:4:13
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
@@ -237,33 +262,36 @@ Design: (unnamed)
       |BIN:11
       |vpiConstType:3
     |vpiLhs:
-    \_Operation: , line:7:14, endln:7:20
+    \_Operation: , line:7:13, endln:7:21
       |vpiParent:
       \_ContAssign: , line:7:13, endln:7:29
       |vpiOpType:33
       |vpiOperand:
-      \_PartSelect: o (work@top.o), line:7:14, endln:7:20
+      \_PartSelect: o (work@top.o), line:7:16, endln:7:19
         |vpiParent:
-        \_Operation: , line:7:14, endln:7:20
+        \_Operation: , line:7:13, endln:7:21
         |vpiName:o
         |vpiFullName:work@top.o
         |vpiDefName:o
+        |vpiActual:
+        \_IntVar: (work@top.o), line:1:23, endln:1:24
         |vpiConstantSelect:1
         |vpiLeftRange:
         \_Constant: , line:7:16, endln:7:17
+          |vpiParent:
+          \_PartSelect: o (work@top.o), line:7:16, endln:7:19
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
           |vpiConstType:9
         |vpiRightRange:
         \_Constant: , line:7:18, endln:7:19
+          |vpiParent:
+          \_PartSelect: o (work@top.o), line:7:16, endln:7:19
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
           |vpiConstType:9
-\_weaklyReferenced:
-\_IntTypespec: , line:1:19, endln:1:22
-  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

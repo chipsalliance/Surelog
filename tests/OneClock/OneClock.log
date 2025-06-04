@@ -3,9 +3,9 @@
 AST_DEBUG_BEGIN
 Count: 121
 LIB: work
-FILE f<11>:${SURELOG_DIR}/tests/OneClock/tb.v
+FILE: ${SURELOG_DIR}/tests/OneClock/tb.v
 n<> u<120> t<Top_level_rule> c<1> l<2:1> el<20:1>
-  n<> u<1> t<Null_rule> p<120> s<119> l<2:1> el<1:45>
+  n<> u<1> t<Null_rule> p<120> s<119> l<2:1> el<2:1>
   n<> u<119> t<Source_text> p<120> c<118> l<2:1> el<19:10>
     n<> u<118> t<Description> p<119> c<117> l<2:1> el<19:10>
       n<> u<117> t<Module_declaration> p<118> c<4> l<2:1> el<19:10>
@@ -146,24 +146,27 @@ RefTypespec                                            1
 SysFuncCall                                            3
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/OneClock/slpp_unit/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/OneClock/slpp_unit/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/OneClock/slpp_unit/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@tb (work@tb), file:${SURELOG_DIR}/tests/OneClock/tb.v, line:2:1, endln:19:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@tb
-  |vpiDefName:work@tb
-  |vpiNet:
+  |vpiName:work@tb
+  |vpiTypedef:
+  \_LogicTypespec: , line:3:3, endln:3:6
+    |vpiParent:
+    \_Module: work@tb (work@tb), file:${SURELOG_DIR}/tests/OneClock/tb.v, line:2:1, endln:19:10
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:3:3, endln:3:6
+  |vpiImportTypespec:
   \_LogicNet: (work@tb.clk), line:3:7, endln:3:10
     |vpiParent:
     \_Module: work@tb (work@tb), file:${SURELOG_DIR}/tests/OneClock/tb.v, line:2:1, endln:19:10
     |vpiTypespec:
-    \_RefTypespec: (work@tb.clk)
+    \_RefTypespec: (work@tb.clk), line:3:3, endln:3:6
       |vpiParent:
       \_LogicNet: (work@tb.clk), line:3:7, endln:3:10
       |vpiFullName:work@tb.clk
@@ -172,6 +175,9 @@ Design: (unnamed)
     |vpiName:clk
     |vpiFullName:work@tb.clk
     |vpiNetType:48
+  |vpiDefName:work@tb
+  |vpiNet:
+  \_LogicNet: (work@tb.clk), line:3:7, endln:3:10
   |vpiProcess:
   \_Initial: , line:5:3, endln:8:6
     |vpiParent:
@@ -208,14 +214,14 @@ Design: (unnamed)
           \_LogicNet: (work@tb.clk), line:3:7, endln:3:10
         |vpiName:$monitor
       |vpiStmt:
-      \_DelayControl: , line:7:5, endln:7:9
+      \_DelayControl: , line:7:5, endln:7:19
         |vpiParent:
         \_Begin: (work@tb), line:5:11, endln:8:6
         |#100
         |vpiStmt:
         \_SysFuncCall: ($finish), line:7:10, endln:7:19
           |vpiParent:
-          \_DelayControl: , line:7:5, endln:7:9
+          \_DelayControl: , line:7:5, endln:7:19
           |vpiName:$finish
   |vpiProcess:
   \_Initial: , line:10:3, endln:13:6
@@ -234,6 +240,8 @@ Design: (unnamed)
         |vpiBlocking:1
         |vpiRhs:
         \_Constant: , line:12:11, endln:12:12
+          |vpiParent:
+          \_Assignment: , line:12:5, endln:12:12
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
@@ -251,14 +259,14 @@ Design: (unnamed)
     |vpiParent:
     \_Module: work@tb (work@tb), file:${SURELOG_DIR}/tests/OneClock/tb.v, line:2:1, endln:19:10
     |vpiStmt:
-    \_DelayControl: , line:16:5, endln:16:7
+    \_DelayControl: , line:16:5, endln:16:18
       |vpiParent:
       \_Always: , line:15:3, endln:16:19
       |#5
       |vpiStmt:
       \_Assignment: , line:16:8, endln:16:18
         |vpiParent:
-        \_DelayControl: , line:16:5, endln:16:7
+        \_DelayControl: , line:16:5, endln:16:18
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
@@ -283,8 +291,6 @@ Design: (unnamed)
           |vpiActual:
           \_LogicNet: (work@tb.clk), line:3:7, endln:3:10
     |vpiAlwaysType:1
-\_weaklyReferenced:
-\_LogicTypespec: , line:3:3, endln:3:6
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

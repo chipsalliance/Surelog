@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 220
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv
+FILE: ${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv
 n<> u<219> t<Top_level_rule> c<1> l<1:1> el<20:1>
-  n<> u<1> t<Null_rule> p<219> s<218> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<219> s<218> l<1:1>
   n<> u<218> t<Source_text> p<219> c<99> l<1:1> el<19:10>
     n<> u<99> t<Description> p<218> c<98> s<217> l<1:1> el<9:11>
       n<> u<98> t<Package_declaration> p<99> c<2> l<1:1> el<9:11>
@@ -231,53 +231,49 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 Always                                                 1
 Assignment                                             2
-Begin                                                  1
-Constant                                              21
+Begin                                                  2
+Constant                                              18
 Design                                                 1
 ForStmt                                                1
 HierPath                                               1
 ImportTypespec                                         1
-IntTypespec                                           17
-IntVar                                                 1
-LogicNet                                               2
+IntTypespec                                            6
+IntVar                                                 2
 LogicTypespec                                          1
 Module                                                 2
-NamedBegin                                             1
 Operation                                              4
 Package                                                1
-ParamAssign                                            9
-Parameter                                             12
+ParamAssign                                            3
+Parameter                                              3
 PartSelect                                             1
 Port                                                   1
 Range                                                  2
-RefObj                                                 8
-RefTypespec                                           25
+RefObj                                                 7
+RefTypespec                                           11
+StructNet                                              1
 StructTypespec                                         1
 TypespecMember                                         1
 VarSelect                                              1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PartSelectNoParent/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/PartSelectNoParent/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/PartSelectNoParent/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallPackages:
-\_Package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
+|vpiAllPackages:
+\_Package: my_pkg (my_pkg), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:my_pkg
-  |vpiFullName:my_pkg::
   |vpiParameter:
-  \_Parameter: (my_pkg::Shares), line:2:18, endln:2:24
+  \_Parameter: (my_pkg::Shares), line:2:18, endln:2:28
     |vpiParent:
-    \_Package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
+    \_Package: my_pkg (my_pkg), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
     |UINT:2
     |vpiTypespec:
-    \_RefTypespec: (my_pkg::Shares)
+    \_RefTypespec: (my_pkg::Shares), line:2:14, endln:2:17
       |vpiParent:
-      \_Parameter: (my_pkg::Shares), line:2:18, endln:2:24
+      \_Parameter: (my_pkg::Shares), line:2:18, endln:2:28
       |vpiFullName:my_pkg::Shares
       |vpiActual:
       \_IntTypespec: , line:2:14, endln:2:17
@@ -285,14 +281,14 @@ Design: (unnamed)
     |vpiName:Shares
     |vpiFullName:my_pkg::Shares
   |vpiParameter:
-  \_Parameter: (my_pkg::KeyWidth), line:3:18, endln:3:26
+  \_Parameter: (my_pkg::KeyWidth), line:3:18, endln:3:32
     |vpiParent:
-    \_Package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
+    \_Package: my_pkg (my_pkg), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
     |UINT:256
     |vpiTypespec:
-    \_RefTypespec: (my_pkg::KeyWidth)
+    \_RefTypespec: (my_pkg::KeyWidth), line:3:14, endln:3:17
       |vpiParent:
-      \_Parameter: (my_pkg::KeyWidth), line:3:18, endln:3:26
+      \_Parameter: (my_pkg::KeyWidth), line:3:18, endln:3:32
       |vpiFullName:my_pkg::KeyWidth
       |vpiActual:
       \_IntTypespec: , line:3:14, endln:3:17
@@ -300,14 +296,14 @@ Design: (unnamed)
     |vpiName:KeyWidth
     |vpiFullName:my_pkg::KeyWidth
   |vpiParameter:
-  \_Parameter: (my_pkg::NumRegsKey), line:4:18, endln:4:28
+  \_Parameter: (my_pkg::NumRegsKey), line:4:18, endln:4:32
     |vpiParent:
-    \_Package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
+    \_Package: my_pkg (my_pkg), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
     |UINT:8
     |vpiTypespec:
-    \_RefTypespec: (my_pkg::NumRegsKey)
+    \_RefTypespec: (my_pkg::NumRegsKey), line:4:14, endln:4:17
       |vpiParent:
-      \_Parameter: (my_pkg::NumRegsKey), line:4:18, endln:4:28
+      \_Parameter: (my_pkg::NumRegsKey), line:4:18, endln:4:32
       |vpiFullName:my_pkg::NumRegsKey
       |vpiActual:
       \_IntTypespec: , line:4:14, endln:4:17
@@ -317,7 +313,7 @@ Design: (unnamed)
   |vpiParamAssign:
   \_ParamAssign: , line:2:18, endln:2:28
     |vpiParent:
-    \_Package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
+    \_Package: my_pkg (my_pkg), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
     |vpiRhs:
     \_Constant: , line:2:27, endln:2:28
       |vpiParent:
@@ -325,20 +321,13 @@ Design: (unnamed)
       |vpiDecompile:2
       |vpiSize:64
       |UINT:2
-      |vpiTypespec:
-      \_RefTypespec: (my_pkg)
-        |vpiParent:
-        \_Constant: , line:2:27, endln:2:28
-        |vpiFullName:my_pkg
-        |vpiActual:
-        \_IntTypespec: , line:2:14, endln:2:17
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (my_pkg::Shares), line:2:18, endln:2:24
+    \_Parameter: (my_pkg::Shares), line:2:18, endln:2:28
   |vpiParamAssign:
   \_ParamAssign: , line:3:18, endln:3:32
     |vpiParent:
-    \_Package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
+    \_Package: my_pkg (my_pkg), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
     |vpiRhs:
     \_Constant: , line:3:29, endln:3:32
       |vpiParent:
@@ -346,20 +335,13 @@ Design: (unnamed)
       |vpiDecompile:256
       |vpiSize:64
       |UINT:256
-      |vpiTypespec:
-      \_RefTypespec: (my_pkg)
-        |vpiParent:
-        \_Constant: , line:3:29, endln:3:32
-        |vpiFullName:my_pkg
-        |vpiActual:
-        \_IntTypespec: , line:3:14, endln:3:17
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (my_pkg::KeyWidth), line:3:18, endln:3:26
+    \_Parameter: (my_pkg::KeyWidth), line:3:18, endln:3:32
   |vpiParamAssign:
   \_ParamAssign: , line:4:18, endln:4:32
     |vpiParent:
-    \_Package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
+    \_Package: my_pkg (my_pkg), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
     |vpiRhs:
     \_Constant: , line:4:31, endln:4:32
       |vpiParent:
@@ -367,23 +349,29 @@ Design: (unnamed)
       |vpiDecompile:8
       |vpiSize:64
       |UINT:8
-      |vpiTypespec:
-      \_RefTypespec: (my_pkg)
-        |vpiParent:
-        \_Constant: , line:4:31, endln:4:32
-        |vpiFullName:my_pkg
-        |vpiActual:
-        \_IntTypespec: , line:4:14, endln:4:17
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (my_pkg::NumRegsKey), line:4:18, endln:4:28
+    \_Parameter: (my_pkg::NumRegsKey), line:4:18, endln:4:32
+  |vpiTypedef:
+  \_IntTypespec: , line:2:14, endln:2:17
+    |vpiParent:
+    \_Package: my_pkg (my_pkg), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
+    |vpiSigned:1
+  |vpiTypedef:
+  \_IntTypespec: , line:3:14, endln:3:17
+    |vpiParent:
+    \_Package: my_pkg (my_pkg), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
+    |vpiSigned:1
+  |vpiTypedef:
+  \_IntTypespec: , line:4:14, endln:4:17
+    |vpiParent:
+    \_Package: my_pkg (my_pkg), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
+    |vpiSigned:1
   |vpiTypedef:
   \_StructTypespec: (my_pkg::hw_key_req_t), line:6:12, endln:8:5
     |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:11:1, endln:19:10
+    \_Package: my_pkg (my_pkg), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
     |vpiName:my_pkg::hw_key_req_t
-    |vpiInstance:
-    \_Package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
     |vpiPacked:1
     |vpiTypespecMember:
     \_TypespecMember: (key), line:7:40, endln:7:43
@@ -391,216 +379,169 @@ Design: (unnamed)
       \_StructTypespec: (my_pkg::hw_key_req_t), line:6:12, endln:8:5
       |vpiName:key
       |vpiTypespec:
-      \_RefTypespec: (work@top.my_pkg::hw_key_req_t.key)
+      \_RefTypespec: (my_pkg::hw_key_req_t::key), line:7:7, endln:7:39
         |vpiParent:
         \_TypespecMember: (key), line:7:40, endln:7:43
-        |vpiFullName:work@top.my_pkg::hw_key_req_t.key
+        |vpiFullName:my_pkg::hw_key_req_t::key
         |vpiActual:
         \_LogicTypespec: , line:7:7, endln:7:39
-      |vpiRefFile:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv
-      |vpiRefLineNo:7
-      |vpiRefColumnNo:7
-      |vpiRefEndLineNo:7
-      |vpiRefEndColumnNo:39
+  |vpiTypedef:
+  \_LogicTypespec: , line:7:7, endln:7:39
+    |vpiParent:
+    \_Package: my_pkg (my_pkg), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
+    |vpiRange:
+    \_Range: , line:7:13, endln:7:25
+      |vpiParent:
+      \_LogicTypespec: , line:7:7, endln:7:39
+      |vpiLeftRange:
+      \_Operation: , line:7:14, endln:7:22
+        |vpiParent:
+        \_Range: , line:7:13, endln:7:25
+        |vpiOpType:11
+        |vpiOperand:
+        \_RefObj: (my_pkg::Shares), line:7:14, endln:7:20
+          |vpiParent:
+          \_Operation: , line:7:14, endln:7:22
+          |vpiName:Shares
+          |vpiFullName:my_pkg::Shares
+          |vpiActual:
+          \_Parameter: (my_pkg::Shares), line:2:18, endln:2:28
+        |vpiOperand:
+        \_Constant: , line:7:21, endln:7:22
+          |vpiParent:
+          \_Operation: , line:7:14, endln:7:22
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:7:23, endln:7:24
+        |vpiParent:
+        \_Range: , line:7:13, endln:7:25
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiRange:
+    \_Range: , line:7:25, endln:7:39
+      |vpiParent:
+      \_LogicTypespec: , line:7:7, endln:7:39
+      |vpiLeftRange:
+      \_Operation: , line:7:26, endln:7:36
+        |vpiParent:
+        \_Range: , line:7:25, endln:7:39
+        |vpiOpType:11
+        |vpiOperand:
+        \_RefObj: (my_pkg::KeyWidth), line:7:26, endln:7:34
+          |vpiParent:
+          \_Operation: , line:7:26, endln:7:36
+          |vpiName:KeyWidth
+          |vpiFullName:my_pkg::KeyWidth
+          |vpiActual:
+          \_Parameter: (my_pkg::KeyWidth), line:3:18, endln:3:32
+        |vpiOperand:
+        \_Constant: , line:7:35, endln:7:36
+          |vpiParent:
+          \_Operation: , line:7:26, endln:7:36
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:7:37, endln:7:38
+        |vpiParent:
+        \_Range: , line:7:25, endln:7:39
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiImportTypespec:
+  \_IntTypespec: , line:2:14, endln:2:17
+  |vpiImportTypespec:
+  \_IntTypespec: , line:3:14, endln:3:17
+  |vpiImportTypespec:
+  \_IntTypespec: , line:4:14, endln:4:17
+  |vpiImportTypespec:
+  \_StructTypespec: (my_pkg::hw_key_req_t), line:6:12, endln:8:5
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:7:7, endln:7:39
   |vpiDefName:my_pkg
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:11:1, endln:19:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
-  |vpiParameter:
-  \_Parameter: (work@top.KeyWidth), line:3:18, endln:3:26
+  |vpiName:work@top
+  |vpiVariables:
+  \_IntVar: (work@top.o), line:11:23, endln:11:24
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:11:1, endln:19:10
-    |UINT:256
     |vpiTypespec:
-    \_RefTypespec: (work@top.KeyWidth)
+    \_RefTypespec: (work@top.o), line:11:19, endln:11:22
       |vpiParent:
-      \_Parameter: (work@top.KeyWidth), line:3:18, endln:3:26
-      |vpiFullName:work@top.KeyWidth
+      \_IntVar: (work@top.o), line:11:23, endln:11:24
+      |vpiFullName:work@top.o
       |vpiActual:
-      \_IntTypespec: , line:3:14, endln:3:17
-    |vpiSigned:1
-    |vpiName:KeyWidth
-    |vpiFullName:work@top.KeyWidth
-    |vpiImported:my_pkg
-  |vpiParameter:
-  \_Parameter: (work@top.NumRegsKey), line:4:18, endln:4:28
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:11:1, endln:19:10
-    |UINT:8
-    |vpiTypespec:
-    \_RefTypespec: (work@top.NumRegsKey)
-      |vpiParent:
-      \_Parameter: (work@top.NumRegsKey), line:4:18, endln:4:28
-      |vpiFullName:work@top.NumRegsKey
-      |vpiActual:
-      \_IntTypespec: , line:4:14, endln:4:17
-    |vpiSigned:1
-    |vpiName:NumRegsKey
-    |vpiFullName:work@top.NumRegsKey
-    |vpiImported:my_pkg
-  |vpiParameter:
-  \_Parameter: (work@top.Shares), line:2:18, endln:2:24
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:11:1, endln:19:10
-    |UINT:2
-    |vpiTypespec:
-    \_RefTypespec: (work@top.Shares)
-      |vpiParent:
-      \_Parameter: (work@top.Shares), line:2:18, endln:2:24
-      |vpiFullName:work@top.Shares
-      |vpiActual:
-      \_IntTypespec: , line:2:14, endln:2:17
-    |vpiSigned:1
-    |vpiName:Shares
-    |vpiFullName:work@top.Shares
-    |vpiImported:my_pkg
-  |vpiParamAssign:
-  \_ParamAssign: , line:2:18, endln:2:28
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:11:1, endln:19:10
-    |vpiRhs:
-    \_Constant: , line:2:27, endln:2:28
-      |vpiParent:
-      \_ParamAssign: , line:2:18, endln:2:28
-      |vpiDecompile:2
-      |vpiSize:64
-      |UINT:2
-      |vpiTypespec:
-      \_RefTypespec: (work@top)
-        |vpiParent:
-        \_Constant: , line:2:27, endln:2:28
-        |vpiFullName:work@top
-        |vpiActual:
-        \_IntTypespec: , line:2:14, endln:2:17
-      |vpiConstType:9
-    |vpiLhs:
-    \_Parameter: (work@top.Shares), line:2:18, endln:2:24
-      |vpiParent:
-      \_ParamAssign: , line:2:18, endln:2:28
-      |UINT:2
-      |vpiTypespec:
-      \_RefTypespec: (work@top.Shares)
-        |vpiParent:
-        \_Parameter: (work@top.Shares), line:2:18, endln:2:24
-        |vpiFullName:work@top.Shares
-        |vpiActual:
-        \_IntTypespec: , line:2:14, endln:2:17
-      |vpiSigned:1
-      |vpiName:Shares
-      |vpiFullName:work@top.Shares
-      |vpiImported:my_pkg
-  |vpiParamAssign:
-  \_ParamAssign: , line:3:18, endln:3:32
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:11:1, endln:19:10
-    |vpiRhs:
-    \_Constant: , line:3:29, endln:3:32
-      |vpiParent:
-      \_ParamAssign: , line:3:18, endln:3:32
-      |vpiDecompile:256
-      |vpiSize:64
-      |UINT:256
-      |vpiTypespec:
-      \_RefTypespec: (work@top)
-        |vpiParent:
-        \_Constant: , line:3:29, endln:3:32
-        |vpiFullName:work@top
-        |vpiActual:
-        \_IntTypespec: , line:3:14, endln:3:17
-      |vpiConstType:9
-    |vpiLhs:
-    \_Parameter: (work@top.KeyWidth), line:3:18, endln:3:26
-      |vpiParent:
-      \_ParamAssign: , line:3:18, endln:3:32
-      |UINT:256
-      |vpiTypespec:
-      \_RefTypespec: (work@top.KeyWidth)
-        |vpiParent:
-        \_Parameter: (work@top.KeyWidth), line:3:18, endln:3:26
-        |vpiFullName:work@top.KeyWidth
-        |vpiActual:
-        \_IntTypespec: , line:3:14, endln:3:17
-      |vpiSigned:1
-      |vpiName:KeyWidth
-      |vpiFullName:work@top.KeyWidth
-      |vpiImported:my_pkg
-  |vpiParamAssign:
-  \_ParamAssign: , line:4:18, endln:4:32
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:11:1, endln:19:10
-    |vpiRhs:
-    \_Constant: , line:4:31, endln:4:32
-      |vpiParent:
-      \_ParamAssign: , line:4:18, endln:4:32
-      |vpiDecompile:8
-      |vpiSize:64
-      |UINT:8
-      |vpiTypespec:
-      \_RefTypespec: (work@top)
-        |vpiParent:
-        \_Constant: , line:4:31, endln:4:32
-        |vpiFullName:work@top
-        |vpiActual:
-        \_IntTypespec: , line:4:14, endln:4:17
-      |vpiConstType:9
-    |vpiLhs:
-    \_Parameter: (work@top.NumRegsKey), line:4:18, endln:4:28
-      |vpiParent:
-      \_ParamAssign: , line:4:18, endln:4:32
-      |UINT:8
-      |vpiTypespec:
-      \_RefTypespec: (work@top.NumRegsKey)
-        |vpiParent:
-        \_Parameter: (work@top.NumRegsKey), line:4:18, endln:4:28
-        |vpiFullName:work@top.NumRegsKey
-        |vpiActual:
-        \_IntTypespec: , line:4:14, endln:4:17
-      |vpiSigned:1
-      |vpiName:NumRegsKey
-      |vpiFullName:work@top.NumRegsKey
-      |vpiImported:my_pkg
-  |vpiTypedef:
-  \_StructTypespec: (my_pkg::hw_key_req_t), line:6:12, endln:8:5
-  |vpiTypedef:
-  \_ImportTypespec: (my_pkg), line:12:11, endln:12:20
-  |vpiDefName:work@top
-  |vpiNet:
-  \_LogicNet: (work@top.o), line:11:23, endln:11:24
-    |vpiParent:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:11:1, endln:19:10
+      \_IntTypespec: , line:11:19, endln:11:22
     |vpiName:o
     |vpiFullName:work@top.o
-  |vpiNet:
-  \_LogicNet: (work@top.keymgr_key_i), line:13:17, endln:13:29
+    |vpiSigned:1
+    |vpiVisibility:1
+  |vpiTypedef:
+  \_ImportTypespec: (my_pkg), line:12:11, endln:12:20
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:11:1, endln:19:10
+    |vpiName:my_pkg
+    |vpiImportTypespecItem:
+    \_Constant: , line:12:11, endln:12:20
+      |vpiParent:
+      \_ImportTypespec: (my_pkg), line:12:11, endln:12:20
+      |vpiDecompile:*
+      |vpiSize:8
+      |STRING:*
+      |vpiConstType:8
+  |vpiTypedef:
+  \_IntTypespec: , line:11:19, endln:11:22
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:11:1, endln:19:10
+    |vpiSigned:1
+  |vpiTypedef:
+  \_IntTypespec: , line:11:19, endln:11:22
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:11:1, endln:19:10
+    |vpiSigned:1
+  |vpiImportTypespec:
+  \_ImportTypespec: (my_pkg), line:12:11, endln:12:20
+  |vpiImportTypespec:
+  \_IntTypespec: , line:11:19, endln:11:22
+  |vpiImportTypespec:
+  \_IntVar: (work@top.o), line:11:23, endln:11:24
+  |vpiImportTypespec:
+  \_StructNet: (work@top.keymgr_key_i), line:13:17, endln:13:29
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:11:1, endln:19:10
     |vpiTypespec:
-    \_RefTypespec: (work@top.keymgr_key_i)
+    \_RefTypespec: (work@top.keymgr_key_i.keymgr_key_i), line:13:4, endln:13:16
       |vpiParent:
-      \_LogicNet: (work@top.keymgr_key_i), line:13:17, endln:13:29
-      |vpiFullName:work@top.keymgr_key_i
+      \_StructNet: (work@top.keymgr_key_i), line:13:17, endln:13:29
+      |vpiName:keymgr_key_i
+      |vpiFullName:work@top.keymgr_key_i.keymgr_key_i
       |vpiActual:
       \_StructTypespec: (my_pkg::hw_key_req_t), line:6:12, endln:8:5
     |vpiName:keymgr_key_i
     |vpiFullName:work@top.keymgr_key_i
+  |vpiImportTypespec:
+  \_IntTypespec: , line:11:19, endln:11:22
+  |vpiDefName:work@top
+  |vpiNet:
+  \_StructNet: (work@top.keymgr_key_i), line:13:17, endln:13:29
   |vpiPort:
   \_Port: (o), line:11:23, endln:11:24
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:11:1, endln:19:10
     |vpiName:o
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@top.o.o), line:11:23, endln:11:24
-      |vpiParent:
-      \_Port: (o), line:11:23, endln:11:24
-      |vpiName:o
-      |vpiFullName:work@top.o.o
-      |vpiActual:
-      \_LogicNet: (work@top.o), line:11:23, endln:11:24
-    |vpiTypedef:
-    \_RefTypespec: (work@top.o)
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o), line:11:19, endln:11:22
       |vpiParent:
       \_Port: (o), line:11:23, endln:11:24
       |vpiFullName:work@top.o
@@ -611,79 +552,42 @@ Design: (unnamed)
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:11:1, endln:19:10
     |vpiStmt:
-    \_NamedBegin: (work@top.key_sideload_get), line:14:24, endln:14:40
+    \_Begin: (work@top.key_sideload_get), line:14:16, endln:18:7
       |vpiParent:
       \_Always: , line:14:4, endln:18:7
       |vpiName:key_sideload_get
       |vpiFullName:work@top.key_sideload_get
-      |vpiStmt:
-      \_ForStmt: (work@top.key_sideload_get), line:15:7, endln:15:10
+      |vpiVariables:
+      \_IntVar: (work@top.key_sideload_get.i), line:15:16, endln:15:17
         |vpiParent:
-        \_NamedBegin: (work@top.key_sideload_get), line:14:24, endln:14:40
-        |vpiFullName:work@top.key_sideload_get
-        |vpiForInitStmt:
-        \_Assignment: , line:15:12, endln:15:21
+        \_Begin: (work@top.key_sideload_get), line:14:16, endln:18:7
+        |vpiTypespec:
+        \_RefTypespec: (work@top.key_sideload_get.i), line:15:12, endln:15:15
           |vpiParent:
-          \_ForStmt: (work@top.key_sideload_get), line:15:7, endln:15:10
-          |vpiRhs:
-          \_Constant: , line:15:20, endln:15:21
-            |vpiParent:
-            \_Assignment: , line:15:12, endln:15:21
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-            |vpiConstType:9
-          |vpiLhs:
           \_IntVar: (work@top.key_sideload_get.i), line:15:16, endln:15:17
-            |vpiParent:
-            \_Assignment: , line:15:12, endln:15:21
-            |vpiTypespec:
-            \_RefTypespec: (work@top.key_sideload_get.i)
-              |vpiParent:
-              \_IntVar: (work@top.key_sideload_get.i), line:15:16, endln:15:17
-              |vpiFullName:work@top.key_sideload_get.i
-              |vpiActual:
-              \_IntTypespec: , line:15:12, endln:15:15
-            |vpiName:i
-            |vpiFullName:work@top.key_sideload_get.i
-            |vpiSigned:1
-        |vpiForIncStmt:
-        \_Operation: , line:15:39, endln:15:42
-          |vpiParent:
-          \_ForStmt: (work@top.key_sideload_get), line:15:7, endln:15:10
-          |vpiOpType:62
-          |vpiOperand:
-          \_RefObj: (work@top.key_sideload_get.i), line:15:39, endln:15:40
-            |vpiParent:
-            \_Operation: , line:15:39, endln:15:42
-            |vpiName:i
-            |vpiFullName:work@top.key_sideload_get.i
-            |vpiActual:
-            \_IntVar: (work@top.key_sideload_get.i), line:15:16, endln:15:17
-        |vpiCondition:
-        \_Operation: , line:15:23, endln:15:37
-          |vpiParent:
-          \_ForStmt: (work@top.key_sideload_get), line:15:7, endln:15:10
-          |vpiOpType:20
-          |vpiOperand:
-          \_RefObj: (work@top.key_sideload_get.i), line:15:23, endln:15:24
-            |vpiParent:
-            \_Operation: , line:15:23, endln:15:37
-            |vpiName:i
-            |vpiFullName:work@top.key_sideload_get.i
-            |vpiActual:
-            \_IntVar: (work@top.key_sideload_get.i), line:15:16, endln:15:17
-          |vpiOperand:
-          \_RefObj: (work@top.key_sideload_get.NumRegsKey), line:15:27, endln:15:37
-            |vpiParent:
-            \_Operation: , line:15:23, endln:15:37
-            |vpiName:NumRegsKey
-            |vpiFullName:work@top.key_sideload_get.NumRegsKey
-        |vpiStmt:
+          |vpiFullName:work@top.key_sideload_get.i
+          |vpiActual:
+          \_IntTypespec: , line:15:12, endln:15:15
+        |vpiName:i
+        |vpiFullName:work@top.key_sideload_get.i
+        |vpiSigned:1
+      |vpiInternalScope:
+      \_ForStmt: (work@top.key_sideload_get), line:15:7, endln:17:10
+        |vpiParent:
+        \_Begin: (work@top.key_sideload_get), line:14:16, endln:18:7
+        |vpiFullName:work@top.key_sideload_get
+        |vpiInternalScope:
         \_Begin: (work@top.key_sideload_get), line:15:44, endln:17:10
           |vpiParent:
-          \_ForStmt: (work@top.key_sideload_get), line:15:7, endln:15:10
+          \_ForStmt: (work@top.key_sideload_get), line:15:7, endln:17:10
           |vpiFullName:work@top.key_sideload_get
+          |vpiImportTypespec:
+          \_LogicNet: (work@top.key_sideload_get.key), line:16:27, endln:16:41
+            |vpiParent:
+            \_Begin: (work@top.key_sideload_get), line:15:44, endln:17:10
+            |vpiName:key
+            |vpiFullName:work@top.key_sideload_get.key
+            |vpiNetType:1
           |vpiStmt:
           \_Assignment: , line:16:10, endln:16:41
             |vpiParent:
@@ -699,12 +603,16 @@ Design: (unnamed)
                 |vpiParent:
                 \_HierPath: (keymgr_key_i.key[0][31:0]), line:16:14, endln:16:41
                 |vpiName:keymgr_key_i
+                |vpiActual:
+                \_StructNet: (work@top.keymgr_key_i), line:13:17, endln:13:29
               |vpiActual:
               \_VarSelect: (work@top.key_sideload_get.keymgr_key_i.key[0][31:0].key), line:16:27, endln:16:41
                 |vpiParent:
                 \_HierPath: (keymgr_key_i.key[0][31:0]), line:16:14, endln:16:41
                 |vpiName:key
                 |vpiFullName:work@top.key_sideload_get.keymgr_key_i.key[0][31:0].key
+                |vpiActual:
+                \_LogicNet: (work@top.key_sideload_get.key), line:16:27, endln:16:41
                 |vpiIndex:
                 \_Constant: , line:16:31, endln:16:32
                   |vpiParent:
@@ -714,21 +622,27 @@ Design: (unnamed)
                   |UINT:0
                   |vpiConstType:9
                 |vpiIndex:
-                \_PartSelect: key (work@top.key_sideload_get.keymgr_key_i.key[0][31:0].key.key), line:16:34, endln:16:40
+                \_PartSelect: key (work@top.key_sideload_get.keymgr_key_i.key[0][31:0].key), line:16:34, endln:16:40
                   |vpiParent:
-                  \_VarSelect: (work@top.key_sideload_get.keymgr_key_i.key[0][31:0].key), line:16:27, endln:16:41
+                  \_HierPath: (keymgr_key_i.key[0][31:0]), line:16:14, endln:16:41
                   |vpiName:key
-                  |vpiFullName:work@top.key_sideload_get.keymgr_key_i.key[0][31:0].key.key
+                  |vpiFullName:work@top.key_sideload_get.keymgr_key_i.key[0][31:0].key
                   |vpiDefName:key
+                  |vpiActual:
+                  \_LogicNet: (work@top.key_sideload_get.key), line:16:27, endln:16:41
                   |vpiConstantSelect:1
                   |vpiLeftRange:
                   \_Constant: , line:16:34, endln:16:36
+                    |vpiParent:
+                    \_PartSelect: key (work@top.key_sideload_get.keymgr_key_i.key[0][31:0].key), line:16:34, endln:16:40
                     |vpiDecompile:31
                     |vpiSize:64
                     |UINT:31
                     |vpiConstType:9
                   |vpiRightRange:
                   \_Constant: , line:16:39, endln:16:40
+                    |vpiParent:
+                    \_PartSelect: key (work@top.key_sideload_get.keymgr_key_i.key[0][31:0].key), line:16:34, endln:16:40
                     |vpiDecompile:0
                     |vpiSize:64
                     |UINT:0
@@ -741,156 +655,76 @@ Design: (unnamed)
               |vpiName:o
               |vpiFullName:work@top.key_sideload_get.o
               |vpiActual:
-              \_LogicNet: (work@top.o), line:11:23, endln:11:24
+              \_IntVar: (work@top.o), line:11:23, endln:11:24
+        |vpiImportTypespec:
+        \_LogicNet: (work@top.key_sideload_get.NumRegsKey), line:15:27, endln:15:37
+          |vpiParent:
+          \_ForStmt: (work@top.key_sideload_get), line:15:7, endln:17:10
+          |vpiName:NumRegsKey
+          |vpiFullName:work@top.key_sideload_get.NumRegsKey
+          |vpiNetType:1
+        |vpiForInitStmt:
+        \_Assignment: , line:15:12, endln:15:21
+          |vpiParent:
+          \_ForStmt: (work@top.key_sideload_get), line:15:7, endln:17:10
+          |vpiRhs:
+          \_Constant: , line:15:20, endln:15:21
+            |vpiParent:
+            \_Assignment: , line:15:12, endln:15:21
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+          |vpiLhs:
+          \_IntVar: (work@top.key_sideload_get.i), line:15:16, endln:15:17
+        |vpiForIncStmt:
+        \_Operation: , line:15:39, endln:15:42
+          |vpiParent:
+          \_ForStmt: (work@top.key_sideload_get), line:15:7, endln:17:10
+          |vpiOpType:62
+          |vpiOperand:
+          \_RefObj: (work@top.key_sideload_get.i), line:15:39, endln:15:40
+            |vpiParent:
+            \_Operation: , line:15:39, endln:15:42
+            |vpiName:i
+            |vpiFullName:work@top.key_sideload_get.i
+            |vpiActual:
+            \_IntVar: (work@top.key_sideload_get.i), line:15:16, endln:15:17
+        |vpiCondition:
+        \_Operation: , line:15:23, endln:15:37
+          |vpiParent:
+          \_ForStmt: (work@top.key_sideload_get), line:15:7, endln:17:10
+          |vpiOpType:20
+          |vpiOperand:
+          \_RefObj: (work@top.key_sideload_get.i), line:15:23, endln:15:24
+            |vpiParent:
+            \_Operation: , line:15:23, endln:15:37
+            |vpiName:i
+            |vpiFullName:work@top.key_sideload_get.i
+            |vpiActual:
+            \_IntVar: (work@top.key_sideload_get.i), line:15:16, endln:15:17
+          |vpiOperand:
+          \_RefObj: (work@top.key_sideload_get.NumRegsKey), line:15:27, endln:15:37
+            |vpiParent:
+            \_Operation: , line:15:23, endln:15:37
+            |vpiName:NumRegsKey
+            |vpiFullName:work@top.key_sideload_get.NumRegsKey
+            |vpiActual:
+            \_LogicNet: (work@top.key_sideload_get.NumRegsKey), line:15:27, endln:15:37
+        |vpiStmt:
+        \_Begin: (work@top.key_sideload_get), line:15:44, endln:17:10
+      |vpiTypedef:
+      \_IntTypespec: , line:15:12, endln:15:15
+        |vpiParent:
+        \_Begin: (work@top.key_sideload_get), line:14:16, endln:18:7
+        |vpiSigned:1
+      |vpiImportTypespec:
+      \_IntTypespec: , line:15:12, endln:15:15
+      |vpiImportTypespec:
+      \_IntVar: (work@top.key_sideload_get.i), line:15:16, endln:15:17
+      |vpiStmt:
+      \_ForStmt: (work@top.key_sideload_get), line:15:7, endln:17:10
     |vpiAlwaysType:2
-\_weaklyReferenced:
-\_IntTypespec: , line:2:14, endln:2:17
-  |vpiParent:
-  \_Parameter: (my_pkg::Shares), line:2:18, endln:2:24
-  |vpiInstance:
-  \_Package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
-  |vpiSigned:1
-\_IntTypespec: , line:3:14, endln:3:17
-  |vpiParent:
-  \_Parameter: (my_pkg::KeyWidth), line:3:18, endln:3:26
-  |vpiInstance:
-  \_Package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
-  |vpiSigned:1
-\_IntTypespec: , line:4:14, endln:4:17
-  |vpiParent:
-  \_Parameter: (my_pkg::NumRegsKey), line:4:18, endln:4:28
-  |vpiInstance:
-  \_Package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
-  |vpiSigned:1
-\_LogicTypespec: , line:7:7, endln:7:39
-  |vpiParent:
-  \_TypespecMember: (key), line:7:40, endln:7:43
-  |vpiInstance:
-  \_Package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
-  |vpiRange:
-  \_Range: , line:7:13, endln:7:25
-    |vpiParent:
-    \_LogicTypespec: , line:7:7, endln:7:39
-    |vpiLeftRange:
-    \_Operation: , line:7:14, endln:7:22
-      |vpiParent:
-      \_Range: , line:7:13, endln:7:25
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (work@top.my_pkg::hw_key_req_t.key.Shares), line:7:14, endln:7:20
-        |vpiParent:
-        \_Operation: , line:7:14, endln:7:22
-        |vpiName:Shares
-        |vpiFullName:work@top.my_pkg::hw_key_req_t.key.Shares
-        |vpiActual:
-        \_Constant: , line:2:27, endln:2:28
-      |vpiOperand:
-      \_Constant: , line:7:21, endln:7:22
-        |vpiParent:
-        \_Operation: , line:7:14, endln:7:22
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:7:23, endln:7:24
-      |vpiParent:
-      \_Range: , line:7:13, endln:7:25
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-  |vpiRange:
-  \_Range: , line:7:25, endln:7:39
-    |vpiParent:
-    \_LogicTypespec: , line:7:7, endln:7:39
-    |vpiLeftRange:
-    \_Operation: , line:7:26, endln:7:36
-      |vpiParent:
-      \_Range: , line:7:25, endln:7:39
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (work@top.my_pkg::hw_key_req_t.key.KeyWidth), line:7:26, endln:7:34
-        |vpiParent:
-        \_Operation: , line:7:26, endln:7:36
-        |vpiName:KeyWidth
-        |vpiFullName:work@top.my_pkg::hw_key_req_t.key.KeyWidth
-        |vpiActual:
-        \_Constant: , line:3:29, endln:3:32
-      |vpiOperand:
-      \_Constant: , line:7:35, endln:7:36
-        |vpiParent:
-        \_Operation: , line:7:26, endln:7:36
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:7:37, endln:7:38
-      |vpiParent:
-      \_Range: , line:7:25, endln:7:39
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_IntTypespec: , line:3:14, endln:3:17
-  |vpiParent:
-  \_RefTypespec: (work@top.KeyWidth)
-  |vpiInstance:
-  \_Package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
-  |vpiSigned:1
-\_IntTypespec: , line:4:14, endln:4:17
-  |vpiParent:
-  \_RefTypespec: (work@top.NumRegsKey)
-  |vpiInstance:
-  \_Package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
-  |vpiSigned:1
-\_IntTypespec: , line:2:14, endln:2:17
-  |vpiParent:
-  \_RefTypespec: (work@top.Shares)
-  |vpiInstance:
-  \_Package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
-  |vpiSigned:1
-\_IntTypespec: , line:2:14, endln:2:17
-  |vpiParent:
-  \_RefTypespec: (work@top)
-  |vpiInstance:
-  \_Package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
-  |vpiSigned:1
-\_IntTypespec: , line:2:14, endln:2:17
-  |vpiParent:
-  \_RefTypespec: (work@top.Shares)
-  |vpiInstance:
-  \_Package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
-  |vpiSigned:1
-\_IntTypespec: , line:3:14, endln:3:17
-  |vpiParent:
-  \_RefTypespec: (work@top)
-  |vpiInstance:
-  \_Package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
-  |vpiSigned:1
-\_IntTypespec: , line:3:14, endln:3:17
-  |vpiParent:
-  \_RefTypespec: (work@top.KeyWidth)
-  |vpiInstance:
-  \_Package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
-  |vpiSigned:1
-\_IntTypespec: , line:4:14, endln:4:17
-  |vpiParent:
-  \_RefTypespec: (work@top)
-  |vpiInstance:
-  \_Package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
-  |vpiSigned:1
-\_IntTypespec: , line:4:14, endln:4:17
-  |vpiParent:
-  \_RefTypespec: (work@top.NumRegsKey)
-  |vpiInstance:
-  \_Package: my_pkg (my_pkg::), file:${SURELOG_DIR}/tests/PartSelectNoParent/dut.sv, line:1:1, endln:9:11
-  |vpiSigned:1
-\_IntTypespec: , line:15:12, endln:15:15
-  |vpiSigned:1
-\_IntTypespec: , line:11:19, endln:11:22
-  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

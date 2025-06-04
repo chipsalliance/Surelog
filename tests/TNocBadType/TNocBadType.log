@@ -2,15 +2,15 @@
 AST_DEBUG_BEGIN
 Count: 58
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/TNocBadType/dut.sv
+FILE: ${SURELOG_DIR}/tests/TNocBadType/dut.sv
 n<> u<57> t<Top_level_rule> c<1> l<1:1> el<14:1>
-  n<> u<1> t<Null_rule> p<57> s<56> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<57> s<56> l<1:1>
   n<> u<56> t<Source_text> p<57> c<18> l<1:1> el<13:10>
     n<> u<18> t<Description> p<56> c<17> s<55> l<1:1> el<4:13>
       n<> u<17> t<Interface_declaration> p<18> c<5> l<1:1> el<4:13>
         n<> u<5> t<Interface_ansi_header> p<17> c<2> s<15> l<1:1> el<1:22>
           n<> u<2> t<INTERFACE> p<5> s<4> l<1:1> el<1:10>
-          n<> u<4> t<Interface_identifier> p<5> c<3> l<1:11> el<1:21>
+          n<tnoc_types> u<4> t<Interface_identifier> p<5> c<3> l<1:11> el<1:21>
             n<tnoc_types> u<3> t<StringConst> p<4> l<1:11> el<1:21>
         n<> u<15> t<Non_port_interface_item> p<17> c<14> s<16> l<2:2> el<2:33>
           n<> u<14> t<Interface_or_generate_item> p<15> c<13> l<2:2> el<2:33>
@@ -72,23 +72,21 @@ Design                                                 1
 IntTypespec                                            1
 Interface                                              1
 InterfaceTypespec                                      1
-LogicNet                                               2
+LogicNet                                               1
 Module                                                 1
-RefTypespec                                            2
+RefTypespec                                            1
 UnsupportedTypespec                                    1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/TNocBadType/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/TNocBadType/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/TNocBadType/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallInterfaces:
+|vpiAllInterfaces:
 \_Interface: work@tnoc_types (work@tnoc_types), file:${SURELOG_DIR}/tests/TNocBadType/dut.sv, line:1:1, endln:4:13
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@tnoc_types
+  |vpiName:work@tnoc_types
   |vpiTypedef:
   \_IntTypespec: (tnoc_common_header), line:2:10, endln:2:13
     |vpiParent:
@@ -97,44 +95,47 @@ Design: (unnamed)
     |vpiInstance:
     \_Interface: work@tnoc_types (work@tnoc_types), file:${SURELOG_DIR}/tests/TNocBadType/dut.sv, line:1:1, endln:4:13
     |vpiSigned:1
+  |vpiImportTypespec:
+  \_IntTypespec: (tnoc_common_header), line:2:10, endln:2:13
   |vpiDefName:work@tnoc_types
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/TNocBadType/dut.sv, line:7:1, endln:13:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
-  |vpiDefName:work@top
-  |vpiNet:
-  \_LogicNet: (work@top.types), line:8:16, endln:8:21
+  |vpiName:work@top
+  |vpiTypedef:
+  \_InterfaceTypespec: (tnoc_types), line:8:4, endln:8:14
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/TNocBadType/dut.sv, line:7:1, endln:13:10
-    |vpiTypespec:
-    \_RefTypespec: (work@top.types)
-      |vpiParent:
-      \_LogicNet: (work@top.types), line:8:16, endln:8:21
-      |vpiFullName:work@top.types
-      |vpiActual:
-      \_InterfaceTypespec: (tnoc_types), line:8:4, endln:8:14
-    |vpiName:types
-    |vpiFullName:work@top.types
-  |vpiNet:
+    |vpiName:tnoc_types
+    |vpiInterface:
+    \_Interface: work@tnoc_types (work@tnoc_types), file:${SURELOG_DIR}/tests/TNocBadType/dut.sv, line:1:1, endln:4:13
+  |vpiTypedef:
+  \_UnsupportedTypespec: (tnoc_common_header), line:12:3, endln:12:21
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/TNocBadType/dut.sv, line:7:1, endln:13:10
+    |vpiName:tnoc_common_header
+  |vpiImportTypespec:
+  \_InterfaceTypespec: (tnoc_types), line:8:4, endln:8:14
+  |vpiImportTypespec:
+  \_UnsupportedTypespec: (tnoc_common_header), line:12:3, endln:12:21
+  |vpiImportTypespec:
   \_LogicNet: (work@top.common_header), line:12:23, endln:12:36
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/TNocBadType/dut.sv, line:7:1, endln:13:10
     |vpiTypespec:
-    \_RefTypespec: (work@top.common_header)
+    \_RefTypespec: (work@top.common_header.tnoc_common_header), line:12:3, endln:12:21
       |vpiParent:
       \_LogicNet: (work@top.common_header), line:12:23, endln:12:36
-      |vpiFullName:work@top.common_header
+      |vpiName:tnoc_common_header
+      |vpiFullName:work@top.common_header.tnoc_common_header
       |vpiActual:
       \_UnsupportedTypespec: (tnoc_common_header), line:12:3, endln:12:21
     |vpiName:common_header
     |vpiFullName:work@top.common_header
-\_weaklyReferenced:
-\_InterfaceTypespec: (tnoc_types), line:8:4, endln:8:14
-  |vpiName:tnoc_types
-\_UnsupportedTypespec: (tnoc_common_header), line:12:3, endln:12:21
-  |vpiName:tnoc_common_header
+  |vpiDefName:work@top
+  |vpiNet:
+  \_LogicNet: (work@top.common_header), line:12:23, endln:12:36
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

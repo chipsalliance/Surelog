@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 113
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/ExtendClassMember/dut.sv
+FILE: ${SURELOG_DIR}/tests/ExtendClassMember/dut.sv
 n<> u<112> t<Top_level_rule> c<1> l<1:1> el<27:1>
-  n<> u<1> t<Null_rule> p<112> s<111> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<112> s<111> l<1:1>
   n<> u<111> t<Source_text> p<112> c<110> l<1:1> el<26:11>
     n<> u<110> t<Description> p<111> c<109> l<1:1> el<26:11>
       n<> u<109> t<Package_declaration> p<110> c<2> l<1:1> el<26:11>
@@ -38,7 +38,7 @@ n<> u<112> t<Top_level_rule> c<1> l<1:1> el<27:1>
                 n<> u<28> t<Parameter_port_declaration> p<29> c<27> l<9:37> el<9:65>
                   n<> u<27> t<List_of_type_assignments> p<28> c<24> l<9:42> el<9:65>
                     n<RSP> u<24> t<StringConst> p<27> s<26> l<9:42> el<9:45>
-                    n<> u<26> t<Data_type> p<27> c<25> l<9:48> el<9:65>
+                    n<uvm_sequence_item> u<26> t<Data_type> p<27> c<25> l<9:48> el<9:65>
                       n<uvm_sequence_item> u<25> t<StringConst> p<26> l<9:48> el<9:65>
               n<> u<42> t<EXTENDS> p<44> s<40> l<9:67> el<9:74>
               n<> u<40> t<Class_type> p<44> c<39> s<43> l<9:75> el<9:94>
@@ -62,12 +62,12 @@ n<> u<112> t<Top_level_rule> c<1> l<1:1> el<27:1>
                 n<> u<52> t<Parameter_port_declaration> p<58> c<51> s<57> l<12:34> el<12:62>
                   n<> u<51> t<List_of_type_assignments> p<52> c<48> l<12:39> el<12:62>
                     n<REQ> u<48> t<StringConst> p<51> s<50> l<12:39> el<12:42>
-                    n<> u<50> t<Data_type> p<51> c<49> l<12:45> el<12:62>
+                    n<uvm_sequence_item> u<50> t<Data_type> p<51> c<49> l<12:45> el<12:62>
                       n<uvm_sequence_item> u<49> t<StringConst> p<50> l<12:45> el<12:62>
                 n<> u<57> t<Parameter_port_declaration> p<58> c<56> l<13:34> el<13:48>
                   n<> u<56> t<List_of_type_assignments> p<57> c<53> l<13:39> el<13:48>
                     n<RSP> u<53> t<StringConst> p<56> s<55> l<13:39> el<13:42>
-                    n<> u<55> t<Data_type> p<56> c<54> l<13:45> el<13:48>
+                    n<REQ> u<55> t<Data_type> p<56> c<54> l<13:45> el<13:48>
                       n<REQ> u<54> t<StringConst> p<55> l<13:45> el<13:48>
               n<> u<80> t<EXTENDS> p<82> s<60> l<13:50> el<13:57>
               n<> u<60> t<Class_type> p<82> c<59> s<78> l<13:58> el<13:76>
@@ -76,7 +76,7 @@ n<> u<112> t<Top_level_rule> c<1> l<1:1> el<27:1>
                 n<> u<77> t<Class_property> p<78> c<76> l<15:3> el<15:60>
                   n<> u<76> t<Data_declaration> p<77> c<75> l<15:3> el<15:60>
                     n<> u<75> t<Variable_declaration> p<76> c<71> l<15:3> el<15:60>
-                      n<> u<71> t<Data_type> p<75> c<61> s<74> l<15:3> el<15:37>
+                      n<uvm_sequencer_analysis_fifo> u<71> t<Data_type> p<75> c<61> s<74> l<15:3> el<15:37>
                         n<uvm_sequencer_analysis_fifo> u<61> t<StringConst> p<71> s<70> l<15:3> el<15:30>
                         n<> u<70> t<Parameter_value_assignment> p<71> c<69> l<15:31> el<15:37>
                           n<> u<69> t<List_of_parameter_assignments> p<70> c<68> l<15:33> el<15:36>
@@ -124,58 +124,148 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 Assignment                                             1
-ClassDefn                                              5
+BitTypespec                                            1
+BitVar                                                 1
+ClassDefn                                              3
 ClassTypespec                                          1
 ClassVar                                               1
-Constant                                               1
+Constant                                               2
 Design                                                 1
+Extends                                                2
 Function                                               1
 HierPath                                               1
+Module                                                 1
 Package                                                1
 RefObj                                                 2
-RefTypespec                                            4
+RefTypespec                                            7
 TypeParameter                                          3
 UnsupportedTypespec                                    2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ExtendClassMember/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ExtendClassMember/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ExtendClassMember/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallPackages:
-\_Package: pkg (pkg::), file:${SURELOG_DIR}/tests/ExtendClassMember/dut.sv, line:1:1, endln:26:11
+|vpiAllPackages:
+\_Package: pkg (pkg), file:${SURELOG_DIR}/tests/ExtendClassMember/dut.sv, line:1:1, endln:26:11
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:pkg
-  |vpiFullName:pkg::
-  |vpiDefName:pkg
-  |vpiClassDefn:
-  \_ClassDefn: (pkg::uvm_sequencer_analysis_fifo), file:${SURELOG_DIR}/tests/ExtendClassMember/dut.sv, line:9:1, endln:10:9
+  |vpiInternalScope:
+  \_ClassDefn: (pkg::uvm_tlm_fifo), file:${SURELOG_DIR}/tests/ExtendClassMember/dut.sv, line:3:1, endln:7:9
     |vpiParent:
-    \_Package: pkg (pkg::), file:${SURELOG_DIR}/tests/ExtendClassMember/dut.sv, line:1:1, endln:26:11
-    |vpiName:uvm_sequencer_analysis_fifo
-    |vpiFullName:pkg::uvm_sequencer_analysis_fifo
-    |vpiParameter:
-    \_TypeParameter: (pkg::uvm_sequencer_analysis_fifo::RSP), line:9:42, endln:9:45
+    \_Package: pkg (pkg), file:${SURELOG_DIR}/tests/ExtendClassMember/dut.sv, line:1:1, endln:26:11
+    |vpiName:uvm_tlm_fifo
+    |vpiFullName:pkg::uvm_tlm_fifo
+    |vpiVariables:
+    \_BitVar: (pkg::uvm_tlm_fifo::print_enabled), line:5:6, endln:5:19
       |vpiParent:
-      \_ClassDefn: (pkg::uvm_sequencer_analysis_fifo), file:${SURELOG_DIR}/tests/ExtendClassMember/dut.sv, line:9:1, endln:10:9
-      |vpiName:RSP
-      |vpiFullName:pkg::uvm_sequencer_analysis_fifo::RSP
+      \_ClassDefn: (pkg::uvm_tlm_fifo), file:${SURELOG_DIR}/tests/ExtendClassMember/dut.sv, line:3:1, endln:7:9
       |vpiTypespec:
-      \_RefTypespec: (pkg::uvm_sequencer_analysis_fifo::RSP)
+      \_RefTypespec: (pkg::uvm_tlm_fifo::print_enabled), line:5:2, endln:5:5
         |vpiParent:
-        \_TypeParameter: (pkg::uvm_sequencer_analysis_fifo::RSP), line:9:42, endln:9:45
-        |vpiFullName:pkg::uvm_sequencer_analysis_fifo::RSP
+        \_BitVar: (pkg::uvm_tlm_fifo::print_enabled), line:5:6, endln:5:19
+        |vpiFullName:pkg::uvm_tlm_fifo::print_enabled
         |vpiActual:
-        \_UnsupportedTypespec: (uvm_sequence_item), line:9:48, endln:9:65
-  |vpiClassDefn:
+        \_BitTypespec: , line:5:2, endln:5:5
+      |vpiName:print_enabled
+      |vpiFullName:pkg::uvm_tlm_fifo::print_enabled
+      |vpiAutomatic:1
+      |vpiVisibility:1
+      |vpiExpr:
+      \_Constant: , line:5:22, endln:5:23
+        |vpiParent:
+        \_BitVar: (pkg::uvm_tlm_fifo::print_enabled), line:5:6, endln:5:19
+        |vpiDecompile:1
+        |vpiSize:1
+        |UINT:1
+        |vpiConstType:9
+    |vpiTypedef:
+    \_BitTypespec: , line:5:2, endln:5:5
+      |vpiParent:
+      \_ClassDefn: (pkg::uvm_tlm_fifo), file:${SURELOG_DIR}/tests/ExtendClassMember/dut.sv, line:3:1, endln:7:9
+    |vpiImportTypespec:
+    \_BitTypespec: , line:5:2, endln:5:5
+    |vpiImportTypespec:
+    \_BitVar: (pkg::uvm_tlm_fifo::print_enabled), line:5:6, endln:5:19
+    |vpiDerivedClasses:
+    \_ClassDefn: (pkg::uvm_sequencer_analysis_fifo), file:${SURELOG_DIR}/tests/ExtendClassMember/dut.sv, line:9:1, endln:10:9
+      |vpiParent:
+      \_Package: pkg (pkg), file:${SURELOG_DIR}/tests/ExtendClassMember/dut.sv, line:1:1, endln:26:11
+      |vpiName:uvm_sequencer_analysis_fifo
+      |vpiFullName:pkg::uvm_sequencer_analysis_fifo
+      |vpiParameter:
+      \_TypeParameter: (pkg::uvm_sequencer_analysis_fifo::RSP), line:9:42, endln:9:45
+        |vpiParent:
+        \_ClassDefn: (pkg::uvm_sequencer_analysis_fifo), file:${SURELOG_DIR}/tests/ExtendClassMember/dut.sv, line:9:1, endln:10:9
+        |vpiName:RSP
+        |vpiFullName:pkg::uvm_sequencer_analysis_fifo::RSP
+        |vpiTypespec:
+        \_RefTypespec: (pkg::uvm_sequencer_analysis_fifo::RSP::uvm_sequence_item), line:9:48, endln:9:65
+          |vpiParent:
+          \_TypeParameter: (pkg::uvm_sequencer_analysis_fifo::RSP), line:9:42, endln:9:45
+          |vpiName:uvm_sequence_item
+          |vpiFullName:pkg::uvm_sequencer_analysis_fifo::RSP::uvm_sequence_item
+          |vpiActual:
+          \_UnsupportedTypespec: (uvm_sequence_item), line:9:48, endln:9:65
+      |vpiTypedef:
+      \_UnsupportedTypespec: (uvm_sequence_item), line:9:48, endln:9:65
+        |vpiParent:
+        \_ClassDefn: (pkg::uvm_sequencer_analysis_fifo), file:${SURELOG_DIR}/tests/ExtendClassMember/dut.sv, line:9:1, endln:10:9
+        |vpiName:uvm_sequence_item
+      |vpiTypedef:
+      \_TypeParameter: (pkg::uvm_sequencer_analysis_fifo::RSP), line:9:42, endln:9:45
+      |vpiTypedef:
+      \_ClassTypespec: (uvm_tlm_fifo), line:9:75, endln:9:87
+        |vpiParent:
+        \_ClassDefn: (pkg::uvm_sequencer_analysis_fifo), file:${SURELOG_DIR}/tests/ExtendClassMember/dut.sv, line:9:1, endln:10:9
+        |vpiName:uvm_tlm_fifo
+        |vpiClassDefn:
+        \_ClassDefn: (pkg::uvm_tlm_fifo), file:${SURELOG_DIR}/tests/ExtendClassMember/dut.sv, line:3:1, endln:7:9
+      |vpiImportTypespec:
+      \_UnsupportedTypespec: (uvm_sequence_item), line:9:48, endln:9:65
+      |vpiImportTypespec:
+      \_TypeParameter: (pkg::uvm_sequencer_analysis_fifo::RSP), line:9:42, endln:9:45
+      |vpiImportTypespec:
+      \_ClassTypespec: (uvm_tlm_fifo), line:9:75, endln:9:87
+      |vpiExtends:
+      \_Extends: , line:9:75, endln:9:87
+        |vpiParent:
+        \_ClassDefn: (pkg::uvm_sequencer_analysis_fifo), file:${SURELOG_DIR}/tests/ExtendClassMember/dut.sv, line:9:1, endln:10:9
+        |vpiClassTypespec:
+        \_RefTypespec: (pkg::uvm_sequencer_analysis_fifo::uvm_tlm_fifo), line:9:75, endln:9:87
+          |vpiParent:
+          \_Extends: , line:9:75, endln:9:87
+          |vpiName:uvm_tlm_fifo
+          |vpiFullName:pkg::uvm_sequencer_analysis_fifo::uvm_tlm_fifo
+          |vpiActual:
+          \_ClassTypespec: (uvm_tlm_fifo), line:9:75, endln:9:87
+      |vpiClassTypespec:
+      \_ClassTypespec: (uvm_tlm_fifo), line:9:75, endln:9:87
+  |vpiInternalScope:
+  \_ClassDefn: (pkg::uvm_sequencer_analysis_fifo), file:${SURELOG_DIR}/tests/ExtendClassMember/dut.sv, line:9:1, endln:10:9
+  |vpiInternalScope:
   \_ClassDefn: (pkg::uvm_sequencer_param_base), file:${SURELOG_DIR}/tests/ExtendClassMember/dut.sv, line:12:1, endln:16:9
     |vpiParent:
-    \_Package: pkg (pkg::), file:${SURELOG_DIR}/tests/ExtendClassMember/dut.sv, line:1:1, endln:26:11
+    \_Package: pkg (pkg), file:${SURELOG_DIR}/tests/ExtendClassMember/dut.sv, line:1:1, endln:26:11
     |vpiName:uvm_sequencer_param_base
     |vpiFullName:pkg::uvm_sequencer_param_base
+    |vpiVariables:
+    \_ClassVar: (pkg::uvm_sequencer_param_base::sqr_rsp_analysis_fifo), line:15:38, endln:15:59
+      |vpiParent:
+      \_ClassDefn: (pkg::uvm_sequencer_param_base), file:${SURELOG_DIR}/tests/ExtendClassMember/dut.sv, line:12:1, endln:16:9
+      |vpiTypespec:
+      \_RefTypespec: (pkg::uvm_sequencer_param_base::sqr_rsp_analysis_fifo::uvm_sequencer_analysis_fifo), line:15:3, endln:15:37
+        |vpiParent:
+        \_ClassVar: (pkg::uvm_sequencer_param_base::sqr_rsp_analysis_fifo), line:15:38, endln:15:59
+        |vpiName:uvm_sequencer_analysis_fifo
+        |vpiFullName:pkg::uvm_sequencer_param_base::sqr_rsp_analysis_fifo::uvm_sequencer_analysis_fifo
+        |vpiActual:
+        \_ClassTypespec: (uvm_sequencer_analysis_fifo), line:15:3, endln:15:30
+      |vpiName:sqr_rsp_analysis_fifo
+      |vpiFullName:pkg::uvm_sequencer_param_base::sqr_rsp_analysis_fifo
+      |vpiAutomatic:1
+      |vpiVisibility:1
     |vpiParameter:
     \_TypeParameter: (pkg::uvm_sequencer_param_base::REQ), line:12:39, endln:12:42
       |vpiParent:
@@ -183,10 +273,11 @@ Design: (unnamed)
       |vpiName:REQ
       |vpiFullName:pkg::uvm_sequencer_param_base::REQ
       |vpiTypespec:
-      \_RefTypespec: (pkg::uvm_sequencer_param_base::REQ)
+      \_RefTypespec: (pkg::uvm_sequencer_param_base::REQ::uvm_sequence_item), line:12:45, endln:12:62
         |vpiParent:
         \_TypeParameter: (pkg::uvm_sequencer_param_base::REQ), line:12:39, endln:12:42
-        |vpiFullName:pkg::uvm_sequencer_param_base::REQ
+        |vpiName:uvm_sequence_item
+        |vpiFullName:pkg::uvm_sequencer_param_base::REQ::uvm_sequence_item
         |vpiActual:
         \_UnsupportedTypespec: (uvm_sequence_item), line:12:45, endln:12:62
     |vpiParameter:
@@ -196,78 +287,110 @@ Design: (unnamed)
       |vpiName:RSP
       |vpiFullName:pkg::uvm_sequencer_param_base::RSP
       |vpiTypespec:
-      \_RefTypespec: (pkg::uvm_sequencer_param_base::RSP)
+      \_RefTypespec: (pkg::uvm_sequencer_param_base::RSP::REQ), line:13:45, endln:13:48
         |vpiParent:
         \_TypeParameter: (pkg::uvm_sequencer_param_base::RSP), line:13:39, endln:13:42
-        |vpiFullName:pkg::uvm_sequencer_param_base::RSP
+        |vpiName:REQ
+        |vpiFullName:pkg::uvm_sequencer_param_base::RSP::REQ
         |vpiActual:
-        \_UnsupportedTypespec: (uvm_sequence_item), line:12:45, endln:12:62
-    |vpiMethod:
-    \_Function: (pkg::uvm_sequencer_param_base::new), line:19:1, endln:23:12
+        \_TypeParameter: (pkg::uvm_sequencer_param_base::REQ), line:12:39, endln:12:42
+    |vpiInternalScope:
+    \_Function: (pkg::uvm_sequencer_param_base::new), line:19:1, endln:21:42
       |vpiParent:
       \_ClassDefn: (pkg::uvm_sequencer_param_base), file:${SURELOG_DIR}/tests/ExtendClassMember/dut.sv, line:12:1, endln:16:9
       |vpiName:new
       |vpiFullName:pkg::uvm_sequencer_param_base::new
       |vpiMethod:1
-      |vpiReturn:
-      \_ClassVar: (pkg::uvm_sequencer_param_base::new)
-        |vpiParent:
-        \_Function: (pkg::uvm_sequencer_param_base::new), line:19:1, endln:23:12
-        |vpiTypespec:
-        \_RefTypespec: (pkg::uvm_sequencer_param_base::new)
-          |vpiParent:
-          \_ClassVar: (pkg::uvm_sequencer_param_base::new)
-          |vpiFullName:pkg::uvm_sequencer_param_base::new
-          |vpiActual:
-          \_ClassTypespec: 
-        |vpiFullName:pkg::uvm_sequencer_param_base::new
       |vpiStmt:
       \_Assignment: , line:21:3, endln:21:42
         |vpiParent:
-        \_Function: (pkg::uvm_sequencer_param_base::new), line:19:1, endln:23:12
+        \_Function: (pkg::uvm_sequencer_param_base::new), line:19:1, endln:21:42
         |vpiOpType:82
         |vpiBlocking:1
         |vpiRhs:
         \_Constant: , line:21:41, endln:21:42
+          |vpiParent:
+          \_Assignment: , line:21:3, endln:21:42
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
           |vpiConstType:9
         |vpiLhs:
-        \_HierPath: (sqr_rsp_analysis_fifo.print_enabled), line:21:3, endln:21:38
+        \_HierPath: (sqr_rsp_analysis_fifo.print_enabled), line:21:24, endln:21:38
           |vpiParent:
           \_Assignment: , line:21:3, endln:21:42
           |vpiActual:
-          \_RefObj: (sqr_rsp_analysis_fifo), line:21:25, endln:21:38
+          \_RefObj: (sqr_rsp_analysis_fifo), line:21:24, endln:21:38
             |vpiParent:
-            \_HierPath: (sqr_rsp_analysis_fifo.print_enabled), line:21:3, endln:21:38
+            \_HierPath: (sqr_rsp_analysis_fifo.print_enabled), line:21:24, endln:21:38
             |vpiName:sqr_rsp_analysis_fifo
+            |vpiActual:
+            \_ClassVar: (pkg::uvm_sequencer_param_base::sqr_rsp_analysis_fifo), line:15:38, endln:15:59
           |vpiActual:
           \_RefObj: (print_enabled), line:21:25, endln:21:38
             |vpiParent:
-            \_HierPath: (sqr_rsp_analysis_fifo.print_enabled), line:21:3, endln:21:38
+            \_HierPath: (sqr_rsp_analysis_fifo.print_enabled), line:21:24, endln:21:38
             |vpiName:print_enabled
+            |vpiActual:
+            \_BitVar: (pkg::uvm_tlm_fifo::print_enabled), line:5:6, endln:5:19
           |vpiName:sqr_rsp_analysis_fifo.print_enabled
       |vpiInstance:
-      \_Package: pkg (pkg::), file:${SURELOG_DIR}/tests/ExtendClassMember/dut.sv, line:1:1, endln:26:11
+      \_Package: pkg (pkg), file:${SURELOG_DIR}/tests/ExtendClassMember/dut.sv, line:1:1, endln:26:11
+    |vpiTypedef:
+    \_UnsupportedTypespec: (uvm_sequence_item), line:12:45, endln:12:62
+      |vpiParent:
+      \_ClassDefn: (pkg::uvm_sequencer_param_base), file:${SURELOG_DIR}/tests/ExtendClassMember/dut.sv, line:12:1, endln:16:9
+      |vpiName:uvm_sequence_item
+    |vpiTypedef:
+    \_TypeParameter: (pkg::uvm_sequencer_param_base::REQ), line:12:39, endln:12:42
+    |vpiTypedef:
+    \_TypeParameter: (pkg::uvm_sequencer_param_base::RSP), line:13:39, endln:13:42
+    |vpiTypedef:
+    \_ClassTypespec: (uvm_sequencer_analysis_fifo), line:15:3, endln:15:30
+      |vpiParent:
+      \_ClassDefn: (pkg::uvm_sequencer_param_base), file:${SURELOG_DIR}/tests/ExtendClassMember/dut.sv, line:12:1, endln:16:9
+      |vpiName:uvm_sequencer_analysis_fifo
+      |vpiClassDefn:
+      \_ClassDefn: (pkg::uvm_sequencer_analysis_fifo), file:${SURELOG_DIR}/tests/ExtendClassMember/dut.sv, line:9:1, endln:10:9
+    |vpiImportTypespec:
+    \_UnsupportedTypespec: (uvm_sequence_item), line:12:45, endln:12:62
+    |vpiImportTypespec:
+    \_TypeParameter: (pkg::uvm_sequencer_param_base::REQ), line:12:39, endln:12:42
+    |vpiImportTypespec:
+    \_TypeParameter: (pkg::uvm_sequencer_param_base::RSP), line:13:39, endln:13:42
+    |vpiImportTypespec:
+    \_ClassTypespec: (uvm_sequencer_analysis_fifo), line:15:3, endln:15:30
+    |vpiImportTypespec:
+    \_ClassVar: (pkg::uvm_sequencer_param_base::sqr_rsp_analysis_fifo), line:15:38, endln:15:59
+    |vpiImportTypespec:
+    \_Function: (pkg::uvm_sequencer_param_base::new), line:19:1, endln:21:42
+    |vpiExtends:
+    \_Extends: , line:13:58, endln:13:76
+      |vpiParent:
+      \_ClassDefn: (pkg::uvm_sequencer_param_base), file:${SURELOG_DIR}/tests/ExtendClassMember/dut.sv, line:12:1, endln:16:9
+      |vpiClassTypespec:
+      \_RefTypespec: (pkg::uvm_sequencer_param_base::uvm_sequencer_base), line:13:58, endln:13:76
+        |vpiParent:
+        \_Extends: , line:13:58, endln:13:76
+        |vpiName:uvm_sequencer_base
+        |vpiFullName:pkg::uvm_sequencer_param_base::uvm_sequencer_base
+    |vpiMethod:
+    \_Function: (pkg::uvm_sequencer_param_base::new), line:19:1, endln:21:42
+    |vpiClassTypespec:
+    \_ClassTypespec: (uvm_sequencer_analysis_fifo), line:15:3, endln:15:30
+  |vpiImportTypespec:
+  \_ClassDefn: (pkg::uvm_tlm_fifo), file:${SURELOG_DIR}/tests/ExtendClassMember/dut.sv, line:3:1, endln:7:9
+  |vpiImportTypespec:
+  \_ClassDefn: (pkg::uvm_sequencer_analysis_fifo), file:${SURELOG_DIR}/tests/ExtendClassMember/dut.sv, line:9:1, endln:10:9
+  |vpiImportTypespec:
+  \_ClassDefn: (pkg::uvm_sequencer_param_base), file:${SURELOG_DIR}/tests/ExtendClassMember/dut.sv, line:12:1, endln:16:9
+  |vpiDefName:pkg
   |vpiClassDefn:
   \_ClassDefn: (pkg::uvm_tlm_fifo), file:${SURELOG_DIR}/tests/ExtendClassMember/dut.sv, line:3:1, endln:7:9
-    |vpiParent:
-    \_Package: pkg (pkg::), file:${SURELOG_DIR}/tests/ExtendClassMember/dut.sv, line:1:1, endln:26:11
-    |vpiName:uvm_tlm_fifo
-    |vpiFullName:pkg::uvm_tlm_fifo
-\_weaklyReferenced:
-\_ClassTypespec: 
+  |vpiClassDefn:
+  \_ClassDefn: (pkg::uvm_sequencer_analysis_fifo), file:${SURELOG_DIR}/tests/ExtendClassMember/dut.sv, line:9:1, endln:10:9
   |vpiClassDefn:
   \_ClassDefn: (pkg::uvm_sequencer_param_base), file:${SURELOG_DIR}/tests/ExtendClassMember/dut.sv, line:12:1, endln:16:9
-\_UnsupportedTypespec: (uvm_sequence_item), line:9:48, endln:9:65
-  |vpiParent:
-  \_TypeParameter: (pkg::uvm_sequencer_analysis_fifo::RSP), line:9:42, endln:9:45
-  |vpiName:uvm_sequence_item
-\_UnsupportedTypespec: (uvm_sequence_item), line:12:45, endln:12:62
-  |vpiParent:
-  \_TypeParameter: (pkg::uvm_sequencer_param_base::RSP), line:13:39, endln:13:42
-  |vpiName:uvm_sequence_item
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

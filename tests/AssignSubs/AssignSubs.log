@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 162
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/AssignSubs/dut.sv
+FILE: ${SURELOG_DIR}/tests/AssignSubs/dut.sv
 n<> u<161> t<Top_level_rule> c<1> l<1:1> el<20:1>
-  n<> u<1> t<Null_rule> p<161> s<160> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<161> s<160> l<1:1>
   n<> u<160> t<Source_text> p<161> c<30> l<1:1> el<19:10>
     n<> u<30> t<Description> p<160> c<29> s<159> l<1:1> el<5:11>
       n<> u<29> t<Package_declaration> p<30> c<2> l<1:1> el<5:11>
@@ -172,153 +172,272 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 Always                                                 1
+ArrayTypespec                                          1
+ArrayVar                                               1
 Assignment                                             2
 Begin                                                  2
 BitSelect                                              1
-Constant                                               9
+Constant                                              12
 Design                                                 1
 EnumConst                                              1
 EnumTypespec                                           1
 EventControl                                           1
 GenFor                                                 1
 ImportTypespec                                         1
-LogicNet                                               3
-LogicTypespec                                          3
+LogicNet                                               1
+LogicTypespec                                          2
+LogicVar                                               1
 Module                                                 2
-Operation                                              4
+Operation                                              5
 Package                                                1
 Port                                                   1
-Range                                                  2
-RefObj                                                 6
+Range                                                  4
+RefObj                                                 5
 RefTypespec                                            4
 RefVar                                                 1
-UnsupportedTypespec                                    1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/AssignSubs/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/AssignSubs/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/AssignSubs/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallPackages:
-\_Package: pkg (pkg::), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:1:1, endln:5:11
+|vpiAllPackages:
+\_Package: pkg (pkg), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:1:1, endln:5:11
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:pkg
-  |vpiFullName:pkg::
   |vpiTypedef:
-  \_EnumTypespec: (pkg::priv_lvl_e), line:2:2, endln:4:16
+  \_LogicTypespec: , line:2:15, endln:2:26
     |vpiParent:
-    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:7:1, endln:19:10
-    |vpiName:pkg::priv_lvl_e
-    |vpiInstance:
-    \_Package: pkg (pkg::), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:1:1, endln:5:11
-    |vpiBaseTypespec:
-    \_RefTypespec: (work@dut.pkg::priv_lvl_e)
+    \_Package: pkg (pkg), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:1:1, endln:5:11
+    |vpiRange:
+    \_Range: , line:2:21, endln:2:26
       |vpiParent:
-      \_EnumTypespec: (pkg::priv_lvl_e), line:2:2, endln:4:16
-      |vpiFullName:work@dut.pkg::priv_lvl_e
+      \_LogicTypespec: , line:2:15, endln:2:26
+      |vpiLeftRange:
+      \_Constant: , line:2:22, endln:2:23
+        |vpiParent:
+        \_Range: , line:2:21, endln:2:26
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:2:24, endln:2:25
+        |vpiParent:
+        \_Range: , line:2:21, endln:2:26
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_EnumTypespec: (pkg::priv_lvl_e), line:2:10, endln:4:15
+    |vpiParent:
+    \_Package: pkg (pkg), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:1:1, endln:5:11
+    |vpiName:pkg::priv_lvl_e
+    |vpiBaseTypespec:
+    \_RefTypespec: (pkg::priv_lvl_e), line:2:15, endln:2:26
+      |vpiParent:
+      \_EnumTypespec: (pkg::priv_lvl_e), line:2:10, endln:4:15
+      |vpiFullName:pkg::priv_lvl_e
       |vpiActual:
       \_LogicTypespec: , line:2:15, endln:2:26
     |vpiEnumConst:
     \_EnumConst: (PRIV_LVL_M), line:3:3, endln:3:21
       |vpiParent:
-      \_EnumTypespec: (pkg::priv_lvl_e), line:2:2, endln:4:16
+      \_EnumTypespec: (pkg::priv_lvl_e), line:2:10, endln:4:15
       |vpiName:PRIV_LVL_M
       |BIN:11
       |vpiDecompile:4'b11
       |vpiSize:4
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:2:15, endln:2:26
+  |vpiImportTypespec:
+  \_EnumTypespec: (pkg::priv_lvl_e), line:2:10, endln:4:15
   |vpiDefName:pkg
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:7:1, endln:19:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@dut
-  |vpiTypedef:
-  \_EnumTypespec: (pkg::priv_lvl_e), line:2:2, endln:4:16
-  |vpiTypedef:
-  \_ImportTypespec: (pkg), line:10:9, endln:10:15
-  |vpiDefName:work@dut
-  |vpiNet:
-  \_LogicNet: (work@dut.c), line:12:14, endln:12:15
+  |vpiName:work@dut
+  |vpiVariables:
+  \_LogicVar: (work@dut), line:12:14, endln:12:15
     |vpiParent:
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:7:1, endln:19:10
     |vpiTypespec:
-    \_RefTypespec: (work@dut.c)
+    \_RefTypespec: (work@dut), line:12:2, endln:12:13
       |vpiParent:
-      \_LogicNet: (work@dut.c), line:12:14, endln:12:15
+      \_LogicVar: (work@dut), line:12:14, endln:12:15
+      |vpiFullName:work@dut
+      |vpiActual:
+      \_LogicTypespec: , line:12:2, endln:12:13
+    |vpiFullName:work@dut
+  |vpiVariables:
+  \_ArrayVar: (work@dut.c), line:12:14, endln:12:15
+    |vpiParent:
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:7:1, endln:19:10
+    |vpiSize:1
+    |vpiTypespec:
+    \_RefTypespec: (work@dut.c), line:12:16, endln:12:19
+      |vpiParent:
+      \_ArrayVar: (work@dut.c), line:12:14, endln:12:15
       |vpiFullName:work@dut.c
       |vpiActual:
-      \_LogicTypespec: , line:12:2, endln:12:19
+      \_ArrayTypespec: , line:12:16, endln:12:19
     |vpiName:c
     |vpiFullName:work@dut.c
-    |vpiNetType:36
-  |vpiNet:
-  \_LogicNet: (work@dut.a0), line:7:12, endln:7:14
-    |vpiParent:
-    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:7:1, endln:19:10
-    |vpiName:a0
-    |vpiFullName:work@dut.a0
-  |vpiNet:
-  \_LogicNet: (work@dut.i), line:14:21, endln:14:22
-    |vpiParent:
-    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:7:1, endln:19:10
-    |vpiName:i
-    |vpiFullName:work@dut.i
-    |vpiNetType:1
-  |vpiPort:
-  \_Port: (a0), line:7:12, endln:7:14
-    |vpiParent:
-    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:7:1, endln:19:10
-    |vpiName:a0
-    |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@dut.a0.a0), line:7:12, endln:7:14
+    |vpiRandType:1
+    |vpiVisibility:1
+    |vpiArrayType:1
+    |vpiRange:
+    \_Range: , line:12:16, endln:12:19
       |vpiParent:
-      \_Port: (a0), line:7:12, endln:7:14
-      |vpiName:a0
-      |vpiFullName:work@dut.a0.a0
-      |vpiActual:
-      \_LogicNet: (work@dut.a0), line:7:12, endln:7:14
-    |vpiTypedef:
-    \_RefTypespec: (work@dut.a0)
-      |vpiParent:
-      \_Port: (a0), line:7:12, endln:7:14
-      |vpiFullName:work@dut.a0
-      |vpiActual:
-      \_LogicTypespec: , line:8:8, endln:8:8
-  |vpiGenStmt:
-  \_GenFor: 
+      \_ArrayVar: (work@dut.c), line:12:14, endln:12:15
+      |vpiRightRange:
+      \_Operation: , line:12:17, endln:12:18
+        |vpiParent:
+        \_Range: , line:12:16, endln:12:19
+        |vpiOpType:11
+        |vpiOperand:
+        \_Constant: , line:12:17, endln:12:18
+          |vpiParent:
+          \_Operation: , line:12:17, endln:12:18
+          |vpiDecompile:4
+          |vpiSize:64
+          |UINT:4
+          |vpiConstType:9
+    |vpiReg:
+    \_LogicVar: (work@dut), line:12:14, endln:12:15
+  |vpiReg:
+  \_LogicVar: (work@dut), line:12:14, endln:12:15
+  |vpiRegArray:
+  \_ArrayVar: (work@dut.c), line:12:14, endln:12:15
+  |vpiInternalScope:
+  \_GenFor: (work@dut), line:14:2, endln:18:5
     |vpiParent:
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:7:1, endln:19:10
+    |vpiFullName:work@dut
+    |vpiVariables:
+    \_RefVar: (work@dut.i), line:14:14, endln:14:15
+      |vpiParent:
+      \_GenFor: (work@dut), line:14:2, endln:18:5
+      |vpiName:i
+      |vpiFullName:work@dut.i
+    |vpiInternalScope:
+    \_Begin: (work@dut), line:14:33, endln:18:5
+      |vpiParent:
+      \_GenFor: (work@dut), line:14:2, endln:18:5
+      |vpiFullName:work@dut
+      |vpiStmt:
+      \_Always: , line:15:3, endln:17:6
+        |vpiParent:
+        \_Begin: (work@dut), line:14:33, endln:18:5
+        |vpiStmt:
+        \_EventControl: , line:15:10, endln:15:23
+          |vpiParent:
+          \_Always: , line:15:3, endln:17:6
+          |vpiCondition:
+          \_Operation: , line:15:12, endln:15:22
+            |vpiParent:
+            \_EventControl: , line:15:10, endln:15:23
+            |vpiOpType:39
+            |vpiOperand:
+            \_RefObj: (work@dut.a0), line:15:20, endln:15:22
+              |vpiParent:
+              \_Operation: , line:15:12, endln:15:22
+              |vpiName:a0
+              |vpiFullName:work@dut.a0
+              |vpiActual:
+              \_LogicNet: (work@dut.a0), line:8:8, endln:8:10
+          |vpiStmt:
+          \_Begin: (work@dut), line:15:24, endln:17:6
+            |vpiParent:
+            \_EventControl: , line:15:10, endln:15:23
+            |vpiFullName:work@dut
+            |vpiImportTypespec:
+            \_LogicNet: (work@dut.PRIV_LVL_M), line:16:12, endln:16:22
+              |vpiParent:
+              \_Begin: (work@dut), line:15:24, endln:17:6
+              |vpiName:PRIV_LVL_M
+              |vpiFullName:work@dut.PRIV_LVL_M
+              |vpiNetType:1
+            |vpiImportTypespec:
+            \_LogicNet: (work@dut.i), line:16:6, endln:16:7
+              |vpiParent:
+              \_Begin: (work@dut), line:15:24, endln:17:6
+              |vpiName:i
+              |vpiFullName:work@dut.i
+              |vpiNetType:1
+            |vpiStmt:
+            \_Assignment: , line:16:4, endln:16:23
+              |vpiParent:
+              \_Begin: (work@dut), line:15:24, endln:17:6
+              |vpiOpType:82
+              |vpiBlocking:1
+              |vpiRhs:
+              \_Operation: , line:16:11, endln:16:23
+                |vpiParent:
+                \_Assignment: , line:16:4, endln:16:23
+                |vpiOpType:33
+                |vpiOperand:
+                \_RefObj: (work@dut.PRIV_LVL_M), line:16:12, endln:16:22
+                  |vpiParent:
+                  \_Operation: , line:16:11, endln:16:23
+                  |vpiName:PRIV_LVL_M
+                  |vpiFullName:work@dut.PRIV_LVL_M
+                  |vpiActual:
+                  \_LogicNet: (work@dut.PRIV_LVL_M), line:16:12, endln:16:22
+              |vpiLhs:
+              \_BitSelect: (work@dut.c), line:16:5, endln:16:8
+                |vpiParent:
+                \_Assignment: , line:16:4, endln:16:23
+                |vpiName:c
+                |vpiFullName:work@dut.c
+                |vpiActual:
+                \_ArrayVar: (work@dut.c), line:12:14, endln:12:15
+                |vpiIndex:
+                \_RefObj: (work@dut.i), line:16:6, endln:16:7
+                  |vpiParent:
+                  \_BitSelect: (work@dut.c), line:16:5, endln:16:8
+                  |vpiName:i
+                  |vpiFullName:work@dut.i
+                  |vpiActual:
+                  \_LogicNet: (work@dut.i), line:16:6, endln:16:7
+        |vpiAlwaysType:1
+    |vpiImportTypespec:
+    \_RefVar: (work@dut.i), line:14:14, endln:14:15
+    |vpiImportTypespec:
+    \_LogicNet: (work@dut.i), line:14:21, endln:14:22
+      |vpiParent:
+      \_GenFor: (work@dut), line:14:2, endln:18:5
+      |vpiName:i
+      |vpiFullName:work@dut.i
+      |vpiNetType:1
+    |vpiImportTypespec:
+    \_LogicNet: (work@dut.i), line:14:28, endln:14:29
+      |vpiParent:
+      \_GenFor: (work@dut), line:14:2, endln:18:5
+      |vpiName:i
+      |vpiFullName:work@dut.i
+      |vpiNetType:1
     |vpiForInitStmt:
     \_Assignment: , line:14:7, endln:14:19
       |vpiParent:
-      \_GenFor: 
+      \_GenFor: (work@dut), line:14:2, endln:18:5
       |vpiRhs:
       \_Constant: , line:14:18, endln:14:19
+        |vpiParent:
+        \_Assignment: , line:14:7, endln:14:19
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
         |vpiConstType:9
       |vpiLhs:
       \_RefVar: (work@dut.i), line:14:14, endln:14:15
-        |vpiParent:
-        \_Assignment: , line:14:7, endln:14:19
-        |vpiTypespec:
-        \_RefTypespec: (work@dut.i)
-          |vpiParent:
-          \_RefVar: (work@dut.i), line:14:14, endln:14:15
-          |vpiFullName:work@dut.i
-          |vpiActual:
-          \_UnsupportedTypespec: (i), line:14:14, endln:14:15
-        |vpiName:i
-        |vpiFullName:work@dut.i
     |vpiCondition:
     \_Operation: , line:14:21, endln:14:26
       |vpiParent:
-      \_GenFor: 
+      \_GenFor: (work@dut), line:14:2, endln:18:5
       |vpiOpType:20
       |vpiOperand:
       \_RefObj: (work@dut.i), line:14:21, endln:14:22
@@ -337,125 +456,93 @@ Design: (unnamed)
         |UINT:1
         |vpiConstType:9
     |vpiForIncStmt:
-    \_Operation: , line:14:28, endln:14:29
+    \_Operation: , line:14:28, endln:14:31
       |vpiParent:
-      \_GenFor: 
+      \_GenFor: (work@dut), line:14:2, endln:18:5
       |vpiOpType:62
       |vpiOperand:
-      \_RefObj: (work@dut.i)
+      \_RefObj: (work@dut.i), line:14:28, endln:14:29
         |vpiParent:
-        \_GenFor: 
+        \_Operation: , line:14:28, endln:14:31
         |vpiName:i
         |vpiFullName:work@dut.i
         |vpiActual:
-        \_LogicNet: (work@dut.i), line:14:21, endln:14:22
+        \_LogicNet: (work@dut.i), line:14:28, endln:14:29
     |vpiStmt:
-    \_Begin: (work@dut)
+    \_Begin: (work@dut), line:14:33, endln:18:5
+  |vpiTypedef:
+  \_ImportTypespec: (pkg), line:10:9, endln:10:15
+    |vpiParent:
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:7:1, endln:19:10
+    |vpiName:pkg
+    |vpiImportTypespecItem:
+    \_Constant: , line:10:9, endln:10:15
       |vpiParent:
-      \_GenFor: 
-      |vpiFullName:work@dut
-      |vpiStmt:
-      \_Always: , line:15:3, endln:17:6
+      \_ImportTypespec: (pkg), line:10:9, endln:10:15
+      |vpiDecompile:*
+      |vpiSize:8
+      |STRING:*
+      |vpiConstType:8
+  |vpiTypedef:
+  \_LogicTypespec: , line:12:2, endln:12:13
+    |vpiParent:
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:7:1, endln:19:10
+    |vpiRange:
+    \_Range: , line:12:8, endln:12:13
+      |vpiParent:
+      \_LogicTypespec: , line:12:2, endln:12:13
+      |vpiLeftRange:
+      \_Constant: , line:12:9, endln:12:10
         |vpiParent:
-        \_Begin: (work@dut)
-        |vpiStmt:
-        \_EventControl: , line:15:10, endln:15:23
-          |vpiParent:
-          \_Always: , line:15:3, endln:17:6
-          |vpiCondition:
-          \_Operation: , line:15:12, endln:15:22
-            |vpiParent:
-            \_EventControl: , line:15:10, endln:15:23
-            |vpiOpType:39
-            |vpiOperand:
-            \_RefObj: (work@dut.a0), line:15:20, endln:15:22
-              |vpiParent:
-              \_Operation: , line:15:12, endln:15:22
-              |vpiName:a0
-              |vpiFullName:work@dut.a0
-          |vpiStmt:
-          \_Begin: (work@dut), line:15:24, endln:17:6
-            |vpiParent:
-            \_EventControl: , line:15:10, endln:15:23
-            |vpiFullName:work@dut
-            |vpiStmt:
-            \_Assignment: , line:16:4, endln:16:23
-              |vpiParent:
-              \_Begin: (work@dut), line:15:24, endln:17:6
-              |vpiOpType:82
-              |vpiBlocking:1
-              |vpiRhs:
-              \_Operation: , line:16:11, endln:16:23
-                |vpiParent:
-                \_Assignment: , line:16:4, endln:16:23
-                |vpiOpType:33
-                |vpiOperand:
-                \_RefObj: (work@dut.PRIV_LVL_M), line:16:12, endln:16:22
-                  |vpiParent:
-                  \_Operation: , line:16:11, endln:16:23
-                  |vpiName:PRIV_LVL_M
-                  |vpiFullName:work@dut.PRIV_LVL_M
-              |vpiLhs:
-              \_BitSelect: (work@dut.c), line:16:4, endln:16:8
-                |vpiParent:
-                \_Assignment: , line:16:4, endln:16:23
-                |vpiName:c
-                |vpiFullName:work@dut.c
-                |vpiIndex:
-                \_RefObj: (work@dut.i), line:16:6, endln:16:7
-                  |vpiParent:
-                  \_BitSelect: (work@dut.c), line:16:4, endln:16:8
-                  |vpiName:i
-                  |vpiFullName:work@dut.i
-        |vpiAlwaysType:1
-\_weaklyReferenced:
-\_LogicTypespec: , line:2:15, endln:2:26
-  |vpiInstance:
-  \_Package: pkg (pkg::), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:1:1, endln:5:11
-  |vpiRange:
-  \_Range: , line:2:21, endln:2:26
+        \_Range: , line:12:8, endln:12:13
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:12:11, endln:12:12
+        |vpiParent:
+        \_Range: , line:12:8, endln:12:13
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_ArrayTypespec: , line:12:16, endln:12:19
     |vpiParent:
-    \_LogicTypespec: , line:2:15, endln:2:26
-    |vpiLeftRange:
-    \_Constant: , line:2:22, endln:2:23
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:7:1, endln:19:10
+    |vpiElemTypespec:
+    \_RefTypespec: (work@dut), line:12:2, endln:12:13
       |vpiParent:
-      \_Range: , line:2:21, endln:2:26
-      |vpiDecompile:3
-      |vpiSize:64
-      |UINT:3
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:2:24, endln:2:25
-      |vpiParent:
-      \_Range: , line:2:21, endln:2:26
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_UnsupportedTypespec: (i), line:14:14, endln:14:15
-  |vpiName:i
-\_LogicTypespec: , line:8:8, endln:8:8
-\_LogicTypespec: , line:12:2, endln:12:19
-  |vpiRange:
-  \_Range: , line:12:8, endln:12:13
+      \_ArrayTypespec: , line:12:16, endln:12:19
+      |vpiFullName:work@dut
+      |vpiActual:
+      \_LogicTypespec: , line:12:2, endln:12:13
+  |vpiImportTypespec:
+  \_ImportTypespec: (pkg), line:10:9, endln:10:15
+  |vpiImportTypespec:
+  \_LogicNet: (work@dut.a0), line:8:8, endln:8:10
     |vpiParent:
-    \_LogicTypespec: , line:12:2, endln:12:19
-    |vpiLeftRange:
-    \_Constant: , line:12:9, endln:12:10
-      |vpiParent:
-      \_Range: , line:12:8, endln:12:13
-      |vpiDecompile:3
-      |vpiSize:64
-      |UINT:3
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:12:11, endln:12:12
-      |vpiParent:
-      \_Range: , line:12:8, endln:12:13
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:7:1, endln:19:10
+    |vpiName:a0
+    |vpiFullName:work@dut.a0
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:12:2, endln:12:13
+  |vpiImportTypespec:
+  \_LogicVar: (work@dut), line:12:14, endln:12:15
+  |vpiImportTypespec:
+  \_ArrayVar: (work@dut.c), line:12:14, endln:12:15
+  |vpiImportTypespec:
+  \_ArrayTypespec: , line:12:16, endln:12:19
+  |vpiDefName:work@dut
+  |vpiNet:
+  \_LogicNet: (work@dut.a0), line:8:8, endln:8:10
+  |vpiPort:
+  \_Port: (a0), line:7:12, endln:7:14
+    |vpiParent:
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/AssignSubs/dut.sv, line:7:1, endln:19:10
+    |vpiName:a0
+    |vpiDirection:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

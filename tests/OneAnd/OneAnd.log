@@ -3,9 +3,9 @@
 AST_DEBUG_BEGIN
 Count: 56
 LIB: work
-FILE f<11>:${SURELOG_DIR}/tests/OneAnd/dut.v
+FILE: ${SURELOG_DIR}/tests/OneAnd/dut.v
 n<> u<55> t<Top_level_rule> c<1> l<1:1> el<7:1>
-  n<> u<1> t<Null_rule> p<55> s<54> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<55> s<54> l<1:1>
   n<> u<54> t<Source_text> p<55> c<53> l<1:1> el<5:10>
     n<> u<53> t<Description> p<54> c<52> l<1:1> el<5:10>
       n<> u<52> t<Module_declaration> p<53> c<29> l<1:1> el<5:10>
@@ -18,7 +18,7 @@ n<> u<55> t<Top_level_rule> c<1> l<1:1> el<7:1>
                 n<> u<4> t<PortDir_Inp> p<9> s<8> l<1:12> el<1:17>
                 n<> u<8> t<Net_port_type> p<9> c<7> l<1:18> el<1:23>
                   n<> u<7> t<Data_type_or_implicit> p<8> c<6> l<1:18> el<1:23>
-                    n<> u<6> t<Data_type> p<7> c<5> l<1:18> el<1:23>
+                    n<logic> u<6> t<Data_type> p<7> c<5> l<1:18> el<1:23>
                       n<logic> u<5> t<StringConst> p<6> l<1:18> el<1:23>
               n<a> u<10> t<StringConst> p<11> l<1:24> el<1:25>
             n<> u<19> t<Ansi_port_declaration> p<28> c<17> s<27> l<1:27> el<1:40>
@@ -26,7 +26,7 @@ n<> u<55> t<Top_level_rule> c<1> l<1:1> el<7:1>
                 n<> u<12> t<PortDir_Inp> p<17> s<16> l<1:27> el<1:32>
                 n<> u<16> t<Net_port_type> p<17> c<15> l<1:33> el<1:38>
                   n<> u<15> t<Data_type_or_implicit> p<16> c<14> l<1:33> el<1:38>
-                    n<> u<14> t<Data_type> p<15> c<13> l<1:33> el<1:38>
+                    n<logic> u<14> t<Data_type> p<15> c<13> l<1:33> el<1:38>
                       n<logic> u<13> t<StringConst> p<14> l<1:33> el<1:38>
               n<b> u<18> t<StringConst> p<19> l<1:39> el<1:40>
             n<> u<27> t<Ansi_port_declaration> p<28> c<25> l<1:42> el<1:56>
@@ -34,7 +34,7 @@ n<> u<55> t<Top_level_rule> c<1> l<1:1> el<7:1>
                 n<> u<20> t<PortDir_Out> p<25> s<24> l<1:42> el<1:48>
                 n<> u<24> t<Net_port_type> p<25> c<23> l<1:49> el<1:54>
                   n<> u<23> t<Data_type_or_implicit> p<24> c<22> l<1:49> el<1:54>
-                    n<> u<22> t<Data_type> p<23> c<21> l<1:49> el<1:54>
+                    n<logic> u<22> t<Data_type> p<23> c<21> l<1:49> el<1:54>
                       n<logic> u<21> t<StringConst> p<22> l<1:49> el<1:54>
               n<o> u<26> t<StringConst> p<27> l<1:55> el<1:56>
         n<> u<50> t<Non_port_module_item> p<52> c<49> s<51> l<3:3> el<3:20>
@@ -63,9 +63,9 @@ AST_DEBUG_END
 AST_DEBUG_BEGIN
 Count: 502
 LIB: work
-FILE f<12>:${SURELOG_DIR}/tests/OneAnd/tb.v
+FILE: ${SURELOG_DIR}/tests/OneAnd/tb.v
 n<> u<501> t<Top_level_rule> c<1> l<1:1> el<31:1>
-  n<> u<1> t<Null_rule> p<501> s<500> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<501> s<500> l<1:1>
   n<> u<500> t<Source_text> p<501> c<499> l<1:1> el<30:10>
     n<> u<499> t<Description> p<500> c<498> l<1:1> el<30:10>
       n<> u<498> t<Module_declaration> p<499> c<13> l<1:1> el<30:10>
@@ -78,7 +78,7 @@ n<> u<501> t<Top_level_rule> c<1> l<1:1> el<31:1>
                 n<> u<4> t<PortDir_Out> p<9> s<8> l<1:15> el<1:21>
                 n<> u<8> t<Net_port_type> p<9> c<7> l<1:22> el<1:27>
                   n<> u<7> t<Data_type_or_implicit> p<8> c<6> l<1:22> el<1:27>
-                    n<> u<6> t<Data_type> p<7> c<5> l<1:22> el<1:27>
+                    n<logic> u<6> t<Data_type> p<7> c<5> l<1:22> el<1:27>
                       n<logic> u<5> t<StringConst> p<6> l<1:22> el<1:27>
               n<o> u<10> t<StringConst> p<11> l<1:28> el<1:29>
         n<> u<25> t<Non_port_module_item> p<498> c<24> s<82> l<2:3> el<2:14>
@@ -581,79 +581,122 @@ DelayControl                                           8
 Design                                                 1
 ImmediateAssert                                        4
 Initial                                                2
-LogicNet                                               6
-LogicTypespec                                          6
+LogicNet                                               4
+LogicTypespec                                         10
+LogicVar                                               2
 Module                                                 2
+ModuleTypespec                                         1
 Operation                                              9
-Port                                                   4
-RefObj                                                30
-RefTypespec                                            6
+Port                                                   7
+RefModule                                              1
+RefObj                                                29
+RefTypespec                                           10
 SysFuncCall                                           11
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/OneAnd/slpp_unit/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/OneAnd/slpp_unit/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/OneAnd/slpp_unit/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@and_tb (work@and_tb), file:${SURELOG_DIR}/tests/OneAnd/tb.v, line:1:1, endln:30:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@and_tb
-  |vpiDefName:work@and_tb
-  |vpiNet:
+  |vpiName:work@and_tb
+  |vpiVariables:
+  \_LogicVar: (work@and_tb.a), line:2:9, endln:2:10
+    |vpiParent:
+    \_Module: work@and_tb (work@and_tb), file:${SURELOG_DIR}/tests/OneAnd/tb.v, line:1:1, endln:30:10
+    |vpiTypespec:
+    \_RefTypespec: (work@and_tb.a.logic), line:2:3, endln:2:8
+      |vpiParent:
+      \_LogicVar: (work@and_tb.a), line:2:9, endln:2:10
+      |vpiName:logic
+      |vpiFullName:work@and_tb.a.logic
+      |vpiActual:
+      \_LogicTypespec: , line:2:3, endln:2:8
+    |vpiName:a
+    |vpiFullName:work@and_tb.a
+    |vpiVisibility:1
+  |vpiVariables:
+  \_LogicVar: (work@and_tb.b), line:2:12, endln:2:13
+    |vpiParent:
+    \_Module: work@and_tb (work@and_tb), file:${SURELOG_DIR}/tests/OneAnd/tb.v, line:1:1, endln:30:10
+    |vpiTypespec:
+    \_RefTypespec: (work@and_tb.b.logic), line:2:3, endln:2:8
+      |vpiParent:
+      \_LogicVar: (work@and_tb.b), line:2:12, endln:2:13
+      |vpiName:logic
+      |vpiFullName:work@and_tb.b.logic
+      |vpiActual:
+      \_LogicTypespec: , line:2:3, endln:2:8
+    |vpiName:b
+    |vpiFullName:work@and_tb.b
+    |vpiVisibility:1
+  |vpiReg:
+  \_LogicVar: (work@and_tb.a), line:2:9, endln:2:10
+  |vpiReg:
+  \_LogicVar: (work@and_tb.b), line:2:12, endln:2:13
+  |vpiTypedef:
+  \_ModuleTypespec: (dut), line:28:3, endln:28:6
+    |vpiParent:
+    \_Module: work@and_tb (work@and_tb), file:${SURELOG_DIR}/tests/OneAnd/tb.v, line:1:1, endln:30:10
+    |vpiName:dut
+  |vpiTypedef:
+  \_LogicTypespec: , line:1:22, endln:1:27
+    |vpiParent:
+    \_Module: work@and_tb (work@and_tb), file:${SURELOG_DIR}/tests/OneAnd/tb.v, line:1:1, endln:30:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:2:3, endln:2:8
+    |vpiParent:
+    \_Module: work@and_tb (work@and_tb), file:${SURELOG_DIR}/tests/OneAnd/tb.v, line:1:1, endln:30:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:2:3, endln:2:8
+    |vpiParent:
+    \_Module: work@and_tb (work@and_tb), file:${SURELOG_DIR}/tests/OneAnd/tb.v, line:1:1, endln:30:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:1:22, endln:1:27
+    |vpiParent:
+    \_Module: work@and_tb (work@and_tb), file:${SURELOG_DIR}/tests/OneAnd/tb.v, line:1:1, endln:30:10
+  |vpiImportTypespec:
+  \_ModuleTypespec: (dut), line:28:3, endln:28:6
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:1:22, endln:1:27
+  |vpiImportTypespec:
   \_LogicNet: (work@and_tb.o), line:1:28, endln:1:29
     |vpiParent:
     \_Module: work@and_tb (work@and_tb), file:${SURELOG_DIR}/tests/OneAnd/tb.v, line:1:1, endln:30:10
+    |vpiTypespec:
+    \_RefTypespec: (work@and_tb.o), line:1:22, endln:1:27
+      |vpiParent:
+      \_LogicNet: (work@and_tb.o), line:1:28, endln:1:29
+      |vpiFullName:work@and_tb.o
+      |vpiActual:
+      \_LogicTypespec: , line:1:22, endln:1:27
     |vpiName:o
     |vpiFullName:work@and_tb.o
     |vpiNetType:36
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:2:3, endln:2:8
+  |vpiImportTypespec:
+  \_LogicVar: (work@and_tb.a), line:2:9, endln:2:10
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:2:3, endln:2:8
+  |vpiImportTypespec:
+  \_LogicVar: (work@and_tb.b), line:2:12, endln:2:13
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:1:22, endln:1:27
+  |vpiDefName:work@and_tb
   |vpiNet:
-  \_LogicNet: (work@and_tb.a), line:2:9, endln:2:10
-    |vpiParent:
-    \_Module: work@and_tb (work@and_tb), file:${SURELOG_DIR}/tests/OneAnd/tb.v, line:1:1, endln:30:10
-    |vpiTypespec:
-    \_RefTypespec: (work@and_tb.a)
-      |vpiParent:
-      \_LogicNet: (work@and_tb.a), line:2:9, endln:2:10
-      |vpiFullName:work@and_tb.a
-      |vpiActual:
-      \_LogicTypespec: , line:2:3, endln:2:10
-    |vpiName:a
-    |vpiFullName:work@and_tb.a
-    |vpiNetType:36
-  |vpiNet:
-  \_LogicNet: (work@and_tb.b), line:2:12, endln:2:13
-    |vpiParent:
-    \_Module: work@and_tb (work@and_tb), file:${SURELOG_DIR}/tests/OneAnd/tb.v, line:1:1, endln:30:10
-    |vpiTypespec:
-    \_RefTypespec: (work@and_tb.b)
-      |vpiParent:
-      \_LogicNet: (work@and_tb.b), line:2:12, endln:2:13
-      |vpiFullName:work@and_tb.b
-      |vpiActual:
-      \_LogicTypespec: , line:2:3, endln:2:10
-    |vpiName:b
-    |vpiFullName:work@and_tb.b
-    |vpiNetType:36
+  \_LogicNet: (work@and_tb.o), line:1:28, endln:1:29
   |vpiPort:
   \_Port: (o), line:1:28, endln:1:29
     |vpiParent:
     \_Module: work@and_tb (work@and_tb), file:${SURELOG_DIR}/tests/OneAnd/tb.v, line:1:1, endln:30:10
     |vpiName:o
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@and_tb.o.o), line:1:28, endln:1:29
-      |vpiParent:
-      \_Port: (o), line:1:28, endln:1:29
-      |vpiName:o
-      |vpiFullName:work@and_tb.o.o
-      |vpiActual:
-      \_LogicNet: (work@and_tb.o), line:1:28, endln:1:29
-    |vpiTypedef:
-    \_RefTypespec: (work@and_tb.o)
+    |vpiTypespec:
+    \_RefTypespec: (work@and_tb.o), line:1:22, endln:1:27
       |vpiParent:
       \_Port: (o), line:1:28, endln:1:29
       |vpiFullName:work@and_tb.o
@@ -692,7 +735,7 @@ Design: (unnamed)
           |vpiName:a
           |vpiFullName:work@and_tb.a
           |vpiActual:
-          \_LogicNet: (work@and_tb.a), line:2:9, endln:2:10
+          \_LogicVar: (work@and_tb.a), line:2:9, endln:2:10
         |vpiArgument:
         \_RefObj: (work@and_tb.b), line:5:48, endln:5:49
           |vpiParent:
@@ -700,7 +743,7 @@ Design: (unnamed)
           |vpiName:b
           |vpiFullName:work@and_tb.b
           |vpiActual:
-          \_LogicNet: (work@and_tb.b), line:2:12, endln:2:13
+          \_LogicVar: (work@and_tb.b), line:2:12, endln:2:13
         |vpiArgument:
         \_RefObj: (work@and_tb.o), line:5:51, endln:5:52
           |vpiParent:
@@ -711,14 +754,14 @@ Design: (unnamed)
           \_LogicNet: (work@and_tb.o), line:1:28, endln:1:29
         |vpiName:$monitor
       |vpiStmt:
-      \_DelayControl: , line:6:5, endln:6:9
+      \_DelayControl: , line:6:5, endln:6:19
         |vpiParent:
         \_Begin: (work@and_tb), line:4:11, endln:7:6
         |#100
         |vpiStmt:
         \_SysFuncCall: ($finish), line:6:10, endln:6:19
           |vpiParent:
-          \_DelayControl: , line:6:5, endln:6:9
+          \_DelayControl: , line:6:5, endln:6:19
           |vpiName:$finish
   |vpiProcess:
   \_Initial: , line:9:3, endln:26:6
@@ -729,6 +772,294 @@ Design: (unnamed)
       |vpiParent:
       \_Initial: , line:9:3, endln:26:6
       |vpiFullName:work@and_tb
+      |vpiImportTypespec:
+      \_ImmediateAssert: , line:13:9, endln:13:79
+        |vpiParent:
+        \_Begin: (work@and_tb), line:10:3, endln:26:6
+        |vpiExpr:
+        \_Operation: , line:13:16, endln:13:28
+          |vpiParent:
+          \_ImmediateAssert: , line:13:9, endln:13:79
+          |vpiOpType:14
+          |vpiOperand:
+          \_RefObj: (work@and_tb.o), line:13:16, endln:13:17
+            |vpiParent:
+            \_Operation: , line:13:16, endln:13:28
+            |vpiName:o
+            |vpiFullName:work@and_tb.o
+            |vpiActual:
+            \_LogicNet: (work@and_tb.o), line:1:28, endln:1:29
+          |vpiOperand:
+          \_Operation: , line:13:22, endln:13:27
+            |vpiParent:
+            \_Operation: , line:13:16, endln:13:28
+            |vpiOpType:28
+            |vpiOperand:
+            \_RefObj: (work@and_tb.a), line:13:22, endln:13:23
+              |vpiParent:
+              \_Operation: , line:13:22, endln:13:27
+              |vpiName:a
+              |vpiFullName:work@and_tb.a
+              |vpiActual:
+              \_LogicVar: (work@and_tb.a), line:2:9, endln:2:10
+            |vpiOperand:
+            \_RefObj: (work@and_tb.b), line:13:26, endln:13:27
+              |vpiParent:
+              \_Operation: , line:13:22, endln:13:27
+              |vpiName:b
+              |vpiFullName:work@and_tb.b
+              |vpiActual:
+              \_LogicVar: (work@and_tb.b), line:2:12, endln:2:13
+        |vpiStmt:
+        \_SysFuncCall: ($display), line:13:30, endln:13:45
+          |vpiParent:
+          \_ImmediateAssert: , line:13:9, endln:13:79
+          |vpiArgument:
+          \_Constant: , line:13:39, endln:13:44
+            |vpiParent:
+            \_SysFuncCall: ($display), line:13:30, endln:13:45
+            |vpiDecompile:"OK!"
+            |vpiSize:24
+            |STRING:OK!
+            |vpiConstType:6
+          |vpiName:$display
+        |vpiElseStmt:
+        \_SysFuncCall: ($fatal), line:13:52, endln:13:78
+          |vpiParent:
+          \_ImmediateAssert: , line:13:9, endln:13:79
+          |vpiArgument:
+          \_Constant: , line:13:59, endln:13:60
+            |vpiParent:
+            \_SysFuncCall: ($fatal), line:13:52, endln:13:78
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+          |vpiArgument:
+          \_Constant: , line:13:62, endln:13:77
+            |vpiParent:
+            \_SysFuncCall: ($fatal), line:13:52, endln:13:78
+            |vpiDecompile:"o != (a & b)!"
+            |vpiSize:104
+            |STRING:o != (a & b)!
+            |vpiConstType:6
+          |vpiName:$fatal
+      |vpiImportTypespec:
+      \_ImmediateAssert: , line:17:9, endln:17:79
+        |vpiParent:
+        \_Begin: (work@and_tb), line:10:3, endln:26:6
+        |vpiExpr:
+        \_Operation: , line:17:16, endln:17:28
+          |vpiParent:
+          \_ImmediateAssert: , line:17:9, endln:17:79
+          |vpiOpType:14
+          |vpiOperand:
+          \_RefObj: (work@and_tb.o), line:17:16, endln:17:17
+            |vpiParent:
+            \_Operation: , line:17:16, endln:17:28
+            |vpiName:o
+            |vpiFullName:work@and_tb.o
+            |vpiActual:
+            \_LogicNet: (work@and_tb.o), line:1:28, endln:1:29
+          |vpiOperand:
+          \_Operation: , line:17:22, endln:17:27
+            |vpiParent:
+            \_Operation: , line:17:16, endln:17:28
+            |vpiOpType:28
+            |vpiOperand:
+            \_RefObj: (work@and_tb.a), line:17:22, endln:17:23
+              |vpiParent:
+              \_Operation: , line:17:22, endln:17:27
+              |vpiName:a
+              |vpiFullName:work@and_tb.a
+              |vpiActual:
+              \_LogicVar: (work@and_tb.a), line:2:9, endln:2:10
+            |vpiOperand:
+            \_RefObj: (work@and_tb.b), line:17:26, endln:17:27
+              |vpiParent:
+              \_Operation: , line:17:22, endln:17:27
+              |vpiName:b
+              |vpiFullName:work@and_tb.b
+              |vpiActual:
+              \_LogicVar: (work@and_tb.b), line:2:12, endln:2:13
+        |vpiStmt:
+        \_SysFuncCall: ($display), line:17:30, endln:17:45
+          |vpiParent:
+          \_ImmediateAssert: , line:17:9, endln:17:79
+          |vpiArgument:
+          \_Constant: , line:17:39, endln:17:44
+            |vpiParent:
+            \_SysFuncCall: ($display), line:17:30, endln:17:45
+            |vpiDecompile:"OK!"
+            |vpiSize:24
+            |STRING:OK!
+            |vpiConstType:6
+          |vpiName:$display
+        |vpiElseStmt:
+        \_SysFuncCall: ($fatal), line:17:52, endln:17:78
+          |vpiParent:
+          \_ImmediateAssert: , line:17:9, endln:17:79
+          |vpiArgument:
+          \_Constant: , line:17:59, endln:17:60
+            |vpiParent:
+            \_SysFuncCall: ($fatal), line:17:52, endln:17:78
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+          |vpiArgument:
+          \_Constant: , line:17:62, endln:17:77
+            |vpiParent:
+            \_SysFuncCall: ($fatal), line:17:52, endln:17:78
+            |vpiDecompile:"o != (a & b)!"
+            |vpiSize:104
+            |STRING:o != (a & b)!
+            |vpiConstType:6
+          |vpiName:$fatal
+      |vpiImportTypespec:
+      \_ImmediateAssert: , line:21:9, endln:21:79
+        |vpiParent:
+        \_Begin: (work@and_tb), line:10:3, endln:26:6
+        |vpiExpr:
+        \_Operation: , line:21:16, endln:21:28
+          |vpiParent:
+          \_ImmediateAssert: , line:21:9, endln:21:79
+          |vpiOpType:14
+          |vpiOperand:
+          \_RefObj: (work@and_tb.o), line:21:16, endln:21:17
+            |vpiParent:
+            \_Operation: , line:21:16, endln:21:28
+            |vpiName:o
+            |vpiFullName:work@and_tb.o
+            |vpiActual:
+            \_LogicNet: (work@and_tb.o), line:1:28, endln:1:29
+          |vpiOperand:
+          \_Operation: , line:21:22, endln:21:27
+            |vpiParent:
+            \_Operation: , line:21:16, endln:21:28
+            |vpiOpType:28
+            |vpiOperand:
+            \_RefObj: (work@and_tb.a), line:21:22, endln:21:23
+              |vpiParent:
+              \_Operation: , line:21:22, endln:21:27
+              |vpiName:a
+              |vpiFullName:work@and_tb.a
+              |vpiActual:
+              \_LogicVar: (work@and_tb.a), line:2:9, endln:2:10
+            |vpiOperand:
+            \_RefObj: (work@and_tb.b), line:21:26, endln:21:27
+              |vpiParent:
+              \_Operation: , line:21:22, endln:21:27
+              |vpiName:b
+              |vpiFullName:work@and_tb.b
+              |vpiActual:
+              \_LogicVar: (work@and_tb.b), line:2:12, endln:2:13
+        |vpiStmt:
+        \_SysFuncCall: ($display), line:21:30, endln:21:45
+          |vpiParent:
+          \_ImmediateAssert: , line:21:9, endln:21:79
+          |vpiArgument:
+          \_Constant: , line:21:39, endln:21:44
+            |vpiParent:
+            \_SysFuncCall: ($display), line:21:30, endln:21:45
+            |vpiDecompile:"OK!"
+            |vpiSize:24
+            |STRING:OK!
+            |vpiConstType:6
+          |vpiName:$display
+        |vpiElseStmt:
+        \_SysFuncCall: ($fatal), line:21:52, endln:21:78
+          |vpiParent:
+          \_ImmediateAssert: , line:21:9, endln:21:79
+          |vpiArgument:
+          \_Constant: , line:21:59, endln:21:60
+            |vpiParent:
+            \_SysFuncCall: ($fatal), line:21:52, endln:21:78
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+          |vpiArgument:
+          \_Constant: , line:21:62, endln:21:77
+            |vpiParent:
+            \_SysFuncCall: ($fatal), line:21:52, endln:21:78
+            |vpiDecompile:"o != (a & b)!"
+            |vpiSize:104
+            |STRING:o != (a & b)!
+            |vpiConstType:6
+          |vpiName:$fatal
+      |vpiImportTypespec:
+      \_ImmediateAssert: , line:25:9, endln:25:79
+        |vpiParent:
+        \_Begin: (work@and_tb), line:10:3, endln:26:6
+        |vpiExpr:
+        \_Operation: , line:25:16, endln:25:28
+          |vpiParent:
+          \_ImmediateAssert: , line:25:9, endln:25:79
+          |vpiOpType:14
+          |vpiOperand:
+          \_RefObj: (work@and_tb.o), line:25:16, endln:25:17
+            |vpiParent:
+            \_Operation: , line:25:16, endln:25:28
+            |vpiName:o
+            |vpiFullName:work@and_tb.o
+            |vpiActual:
+            \_LogicNet: (work@and_tb.o), line:1:28, endln:1:29
+          |vpiOperand:
+          \_Operation: , line:25:22, endln:25:27
+            |vpiParent:
+            \_Operation: , line:25:16, endln:25:28
+            |vpiOpType:28
+            |vpiOperand:
+            \_RefObj: (work@and_tb.a), line:25:22, endln:25:23
+              |vpiParent:
+              \_Operation: , line:25:22, endln:25:27
+              |vpiName:a
+              |vpiFullName:work@and_tb.a
+              |vpiActual:
+              \_LogicVar: (work@and_tb.a), line:2:9, endln:2:10
+            |vpiOperand:
+            \_RefObj: (work@and_tb.b), line:25:26, endln:25:27
+              |vpiParent:
+              \_Operation: , line:25:22, endln:25:27
+              |vpiName:b
+              |vpiFullName:work@and_tb.b
+              |vpiActual:
+              \_LogicVar: (work@and_tb.b), line:2:12, endln:2:13
+        |vpiStmt:
+        \_SysFuncCall: ($display), line:25:30, endln:25:45
+          |vpiParent:
+          \_ImmediateAssert: , line:25:9, endln:25:79
+          |vpiArgument:
+          \_Constant: , line:25:39, endln:25:44
+            |vpiParent:
+            \_SysFuncCall: ($display), line:25:30, endln:25:45
+            |vpiDecompile:"OK!"
+            |vpiSize:24
+            |STRING:OK!
+            |vpiConstType:6
+          |vpiName:$display
+        |vpiElseStmt:
+        \_SysFuncCall: ($fatal), line:25:52, endln:25:78
+          |vpiParent:
+          \_ImmediateAssert: , line:25:9, endln:25:79
+          |vpiArgument:
+          \_Constant: , line:25:59, endln:25:60
+            |vpiParent:
+            \_SysFuncCall: ($fatal), line:25:52, endln:25:78
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+          |vpiArgument:
+          \_Constant: , line:25:62, endln:25:77
+            |vpiParent:
+            \_SysFuncCall: ($fatal), line:25:52, endln:25:78
+            |vpiDecompile:"o != (a & b)!"
+            |vpiSize:104
+            |STRING:o != (a & b)!
+            |vpiConstType:6
+          |vpiName:$fatal
       |vpiStmt:
       \_Assignment: , line:11:6, endln:11:14
         |vpiParent:
@@ -737,6 +1068,8 @@ Design: (unnamed)
         |vpiBlocking:1
         |vpiRhs:
         \_Constant: , line:11:10, endln:11:14
+          |vpiParent:
+          \_Assignment: , line:11:6, endln:11:14
           |vpiDecompile:1'b0
           |vpiSize:1
           |BIN:0
@@ -748,7 +1081,7 @@ Design: (unnamed)
           |vpiName:a
           |vpiFullName:work@and_tb.a
           |vpiActual:
-          \_LogicNet: (work@and_tb.a), line:2:9, endln:2:10
+          \_LogicVar: (work@and_tb.a), line:2:9, endln:2:10
       |vpiStmt:
       \_Assignment: , line:12:6, endln:12:14
         |vpiParent:
@@ -757,6 +1090,8 @@ Design: (unnamed)
         |vpiBlocking:1
         |vpiRhs:
         \_Constant: , line:12:10, endln:12:14
+          |vpiParent:
+          \_Assignment: , line:12:6, endln:12:14
           |vpiDecompile:1'b0
           |vpiSize:1
           |BIN:0
@@ -768,97 +1103,29 @@ Design: (unnamed)
           |vpiName:b
           |vpiFullName:work@and_tb.b
           |vpiActual:
-          \_LogicNet: (work@and_tb.b), line:2:12, endln:2:13
+          \_LogicVar: (work@and_tb.b), line:2:12, endln:2:13
       |vpiStmt:
-      \_DelayControl: , line:13:6, endln:13:8
+      \_DelayControl: , line:13:6, endln:13:79
         |vpiParent:
         \_Begin: (work@and_tb), line:10:3, endln:26:6
         |#1
         |vpiStmt:
         \_ImmediateAssert: , line:13:9, endln:13:79
-          |vpiParent:
-          \_DelayControl: , line:13:6, endln:13:8
-          |vpiExpr:
-          \_Operation: , line:13:16, endln:13:28
-            |vpiParent:
-            \_ImmediateAssert: , line:13:9, endln:13:79
-            |vpiOpType:14
-            |vpiOperand:
-            \_RefObj: (work@and_tb.o), line:13:16, endln:13:17
-              |vpiParent:
-              \_Operation: , line:13:16, endln:13:28
-              |vpiName:o
-              |vpiFullName:work@and_tb.o
-              |vpiActual:
-              \_LogicNet: (work@and_tb.o), line:1:28, endln:1:29
-            |vpiOperand:
-            \_Operation: , line:13:22, endln:13:27
-              |vpiParent:
-              \_Operation: , line:13:16, endln:13:28
-              |vpiOpType:28
-              |vpiOperand:
-              \_RefObj: (work@and_tb.a), line:13:22, endln:13:23
-                |vpiParent:
-                \_Operation: , line:13:22, endln:13:27
-                |vpiName:a
-                |vpiFullName:work@and_tb.a
-                |vpiActual:
-                \_LogicNet: (work@and_tb.a), line:2:9, endln:2:10
-              |vpiOperand:
-              \_RefObj: (work@and_tb.b), line:13:26, endln:13:27
-                |vpiParent:
-                \_Operation: , line:13:22, endln:13:27
-                |vpiName:b
-                |vpiFullName:work@and_tb.b
-                |vpiActual:
-                \_LogicNet: (work@and_tb.b), line:2:12, endln:2:13
-          |vpiStmt:
-          \_SysFuncCall: ($display), line:13:30, endln:13:45
-            |vpiParent:
-            \_ImmediateAssert: , line:13:9, endln:13:79
-            |vpiArgument:
-            \_Constant: , line:13:39, endln:13:44
-              |vpiParent:
-              \_SysFuncCall: ($display), line:13:30, endln:13:45
-              |vpiDecompile:"OK!"
-              |vpiSize:24
-              |STRING:OK!
-              |vpiConstType:6
-            |vpiName:$display
-          |vpiElseStmt:
-          \_SysFuncCall: ($fatal), line:13:52, endln:13:78
-            |vpiParent:
-            \_ImmediateAssert: , line:13:9, endln:13:79
-            |vpiArgument:
-            \_Constant: , line:13:59, endln:13:60
-              |vpiParent:
-              \_SysFuncCall: ($fatal), line:13:52, endln:13:78
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-            |vpiArgument:
-            \_Constant: , line:13:62, endln:13:77
-              |vpiParent:
-              \_SysFuncCall: ($fatal), line:13:52, endln:13:78
-              |vpiDecompile:"o != (a & b)!"
-              |vpiSize:104
-              |STRING:o != (a & b)!
-              |vpiConstType:6
-            |vpiName:$fatal
       |vpiStmt:
-      \_DelayControl: , line:14:6, endln:14:8
+      \_DelayControl: , line:14:6, endln:15:14
         |vpiParent:
         \_Begin: (work@and_tb), line:10:3, endln:26:6
         |#5
         |vpiStmt:
         \_Assignment: , line:15:6, endln:15:14
           |vpiParent:
-          \_DelayControl: , line:14:6, endln:14:8
+          \_DelayControl: , line:14:6, endln:15:14
           |vpiOpType:82
           |vpiBlocking:1
           |vpiRhs:
           \_Constant: , line:15:10, endln:15:14
+            |vpiParent:
+            \_Assignment: , line:15:6, endln:15:14
             |vpiDecompile:1'b0
             |vpiSize:1
             |BIN:0
@@ -870,7 +1137,7 @@ Design: (unnamed)
             |vpiName:a
             |vpiFullName:work@and_tb.a
             |vpiActual:
-            \_LogicNet: (work@and_tb.a), line:2:9, endln:2:10
+            \_LogicVar: (work@and_tb.a), line:2:9, endln:2:10
       |vpiStmt:
       \_Assignment: , line:16:6, endln:16:14
         |vpiParent:
@@ -879,6 +1146,8 @@ Design: (unnamed)
         |vpiBlocking:1
         |vpiRhs:
         \_Constant: , line:16:10, endln:16:14
+          |vpiParent:
+          \_Assignment: , line:16:6, endln:16:14
           |vpiDecompile:1'b1
           |vpiSize:1
           |BIN:1
@@ -890,97 +1159,29 @@ Design: (unnamed)
           |vpiName:b
           |vpiFullName:work@and_tb.b
           |vpiActual:
-          \_LogicNet: (work@and_tb.b), line:2:12, endln:2:13
+          \_LogicVar: (work@and_tb.b), line:2:12, endln:2:13
       |vpiStmt:
-      \_DelayControl: , line:17:6, endln:17:8
+      \_DelayControl: , line:17:6, endln:17:79
         |vpiParent:
         \_Begin: (work@and_tb), line:10:3, endln:26:6
         |#1
         |vpiStmt:
         \_ImmediateAssert: , line:17:9, endln:17:79
-          |vpiParent:
-          \_DelayControl: , line:17:6, endln:17:8
-          |vpiExpr:
-          \_Operation: , line:17:16, endln:17:28
-            |vpiParent:
-            \_ImmediateAssert: , line:17:9, endln:17:79
-            |vpiOpType:14
-            |vpiOperand:
-            \_RefObj: (work@and_tb.o), line:17:16, endln:17:17
-              |vpiParent:
-              \_Operation: , line:17:16, endln:17:28
-              |vpiName:o
-              |vpiFullName:work@and_tb.o
-              |vpiActual:
-              \_LogicNet: (work@and_tb.o), line:1:28, endln:1:29
-            |vpiOperand:
-            \_Operation: , line:17:22, endln:17:27
-              |vpiParent:
-              \_Operation: , line:17:16, endln:17:28
-              |vpiOpType:28
-              |vpiOperand:
-              \_RefObj: (work@and_tb.a), line:17:22, endln:17:23
-                |vpiParent:
-                \_Operation: , line:17:22, endln:17:27
-                |vpiName:a
-                |vpiFullName:work@and_tb.a
-                |vpiActual:
-                \_LogicNet: (work@and_tb.a), line:2:9, endln:2:10
-              |vpiOperand:
-              \_RefObj: (work@and_tb.b), line:17:26, endln:17:27
-                |vpiParent:
-                \_Operation: , line:17:22, endln:17:27
-                |vpiName:b
-                |vpiFullName:work@and_tb.b
-                |vpiActual:
-                \_LogicNet: (work@and_tb.b), line:2:12, endln:2:13
-          |vpiStmt:
-          \_SysFuncCall: ($display), line:17:30, endln:17:45
-            |vpiParent:
-            \_ImmediateAssert: , line:17:9, endln:17:79
-            |vpiArgument:
-            \_Constant: , line:17:39, endln:17:44
-              |vpiParent:
-              \_SysFuncCall: ($display), line:17:30, endln:17:45
-              |vpiDecompile:"OK!"
-              |vpiSize:24
-              |STRING:OK!
-              |vpiConstType:6
-            |vpiName:$display
-          |vpiElseStmt:
-          \_SysFuncCall: ($fatal), line:17:52, endln:17:78
-            |vpiParent:
-            \_ImmediateAssert: , line:17:9, endln:17:79
-            |vpiArgument:
-            \_Constant: , line:17:59, endln:17:60
-              |vpiParent:
-              \_SysFuncCall: ($fatal), line:17:52, endln:17:78
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-            |vpiArgument:
-            \_Constant: , line:17:62, endln:17:77
-              |vpiParent:
-              \_SysFuncCall: ($fatal), line:17:52, endln:17:78
-              |vpiDecompile:"o != (a & b)!"
-              |vpiSize:104
-              |STRING:o != (a & b)!
-              |vpiConstType:6
-            |vpiName:$fatal
       |vpiStmt:
-      \_DelayControl: , line:18:6, endln:18:8
+      \_DelayControl: , line:18:6, endln:19:14
         |vpiParent:
         \_Begin: (work@and_tb), line:10:3, endln:26:6
         |#5
         |vpiStmt:
         \_Assignment: , line:19:6, endln:19:14
           |vpiParent:
-          \_DelayControl: , line:18:6, endln:18:8
+          \_DelayControl: , line:18:6, endln:19:14
           |vpiOpType:82
           |vpiBlocking:1
           |vpiRhs:
           \_Constant: , line:19:10, endln:19:14
+            |vpiParent:
+            \_Assignment: , line:19:6, endln:19:14
             |vpiDecompile:1'b1
             |vpiSize:1
             |BIN:1
@@ -992,7 +1193,7 @@ Design: (unnamed)
             |vpiName:a
             |vpiFullName:work@and_tb.a
             |vpiActual:
-            \_LogicNet: (work@and_tb.a), line:2:9, endln:2:10
+            \_LogicVar: (work@and_tb.a), line:2:9, endln:2:10
       |vpiStmt:
       \_Assignment: , line:20:6, endln:20:14
         |vpiParent:
@@ -1001,6 +1202,8 @@ Design: (unnamed)
         |vpiBlocking:1
         |vpiRhs:
         \_Constant: , line:20:10, endln:20:14
+          |vpiParent:
+          \_Assignment: , line:20:6, endln:20:14
           |vpiDecompile:1'b0
           |vpiSize:1
           |BIN:0
@@ -1012,97 +1215,29 @@ Design: (unnamed)
           |vpiName:b
           |vpiFullName:work@and_tb.b
           |vpiActual:
-          \_LogicNet: (work@and_tb.b), line:2:12, endln:2:13
+          \_LogicVar: (work@and_tb.b), line:2:12, endln:2:13
       |vpiStmt:
-      \_DelayControl: , line:21:6, endln:21:8
+      \_DelayControl: , line:21:6, endln:21:79
         |vpiParent:
         \_Begin: (work@and_tb), line:10:3, endln:26:6
         |#1
         |vpiStmt:
         \_ImmediateAssert: , line:21:9, endln:21:79
-          |vpiParent:
-          \_DelayControl: , line:21:6, endln:21:8
-          |vpiExpr:
-          \_Operation: , line:21:16, endln:21:28
-            |vpiParent:
-            \_ImmediateAssert: , line:21:9, endln:21:79
-            |vpiOpType:14
-            |vpiOperand:
-            \_RefObj: (work@and_tb.o), line:21:16, endln:21:17
-              |vpiParent:
-              \_Operation: , line:21:16, endln:21:28
-              |vpiName:o
-              |vpiFullName:work@and_tb.o
-              |vpiActual:
-              \_LogicNet: (work@and_tb.o), line:1:28, endln:1:29
-            |vpiOperand:
-            \_Operation: , line:21:22, endln:21:27
-              |vpiParent:
-              \_Operation: , line:21:16, endln:21:28
-              |vpiOpType:28
-              |vpiOperand:
-              \_RefObj: (work@and_tb.a), line:21:22, endln:21:23
-                |vpiParent:
-                \_Operation: , line:21:22, endln:21:27
-                |vpiName:a
-                |vpiFullName:work@and_tb.a
-                |vpiActual:
-                \_LogicNet: (work@and_tb.a), line:2:9, endln:2:10
-              |vpiOperand:
-              \_RefObj: (work@and_tb.b), line:21:26, endln:21:27
-                |vpiParent:
-                \_Operation: , line:21:22, endln:21:27
-                |vpiName:b
-                |vpiFullName:work@and_tb.b
-                |vpiActual:
-                \_LogicNet: (work@and_tb.b), line:2:12, endln:2:13
-          |vpiStmt:
-          \_SysFuncCall: ($display), line:21:30, endln:21:45
-            |vpiParent:
-            \_ImmediateAssert: , line:21:9, endln:21:79
-            |vpiArgument:
-            \_Constant: , line:21:39, endln:21:44
-              |vpiParent:
-              \_SysFuncCall: ($display), line:21:30, endln:21:45
-              |vpiDecompile:"OK!"
-              |vpiSize:24
-              |STRING:OK!
-              |vpiConstType:6
-            |vpiName:$display
-          |vpiElseStmt:
-          \_SysFuncCall: ($fatal), line:21:52, endln:21:78
-            |vpiParent:
-            \_ImmediateAssert: , line:21:9, endln:21:79
-            |vpiArgument:
-            \_Constant: , line:21:59, endln:21:60
-              |vpiParent:
-              \_SysFuncCall: ($fatal), line:21:52, endln:21:78
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-            |vpiArgument:
-            \_Constant: , line:21:62, endln:21:77
-              |vpiParent:
-              \_SysFuncCall: ($fatal), line:21:52, endln:21:78
-              |vpiDecompile:"o != (a & b)!"
-              |vpiSize:104
-              |STRING:o != (a & b)!
-              |vpiConstType:6
-            |vpiName:$fatal
       |vpiStmt:
-      \_DelayControl: , line:22:6, endln:22:8
+      \_DelayControl: , line:22:6, endln:23:14
         |vpiParent:
         \_Begin: (work@and_tb), line:10:3, endln:26:6
         |#5
         |vpiStmt:
         \_Assignment: , line:23:6, endln:23:14
           |vpiParent:
-          \_DelayControl: , line:22:6, endln:22:8
+          \_DelayControl: , line:22:6, endln:23:14
           |vpiOpType:82
           |vpiBlocking:1
           |vpiRhs:
           \_Constant: , line:23:10, endln:23:14
+            |vpiParent:
+            \_Assignment: , line:23:6, endln:23:14
             |vpiDecompile:1'b1
             |vpiSize:1
             |BIN:1
@@ -1114,7 +1249,7 @@ Design: (unnamed)
             |vpiName:a
             |vpiFullName:work@and_tb.a
             |vpiActual:
-            \_LogicNet: (work@and_tb.a), line:2:9, endln:2:10
+            \_LogicVar: (work@and_tb.a), line:2:9, endln:2:10
       |vpiStmt:
       \_Assignment: , line:24:6, endln:24:14
         |vpiParent:
@@ -1123,6 +1258,8 @@ Design: (unnamed)
         |vpiBlocking:1
         |vpiRhs:
         \_Constant: , line:24:10, endln:24:14
+          |vpiParent:
+          \_Assignment: , line:24:6, endln:24:14
           |vpiDecompile:1'b1
           |vpiSize:1
           |BIN:1
@@ -1134,127 +1271,156 @@ Design: (unnamed)
           |vpiName:b
           |vpiFullName:work@and_tb.b
           |vpiActual:
-          \_LogicNet: (work@and_tb.b), line:2:12, endln:2:13
+          \_LogicVar: (work@and_tb.b), line:2:12, endln:2:13
       |vpiStmt:
-      \_DelayControl: , line:25:6, endln:25:8
+      \_DelayControl: , line:25:6, endln:25:79
         |vpiParent:
         \_Begin: (work@and_tb), line:10:3, endln:26:6
         |#1
         |vpiStmt:
         \_ImmediateAssert: , line:25:9, endln:25:79
-          |vpiParent:
-          \_DelayControl: , line:25:6, endln:25:8
-          |vpiExpr:
-          \_Operation: , line:25:16, endln:25:28
-            |vpiParent:
-            \_ImmediateAssert: , line:25:9, endln:25:79
-            |vpiOpType:14
-            |vpiOperand:
-            \_RefObj: (work@and_tb.o), line:25:16, endln:25:17
-              |vpiParent:
-              \_Operation: , line:25:16, endln:25:28
-              |vpiName:o
-              |vpiFullName:work@and_tb.o
-              |vpiActual:
-              \_LogicNet: (work@and_tb.o), line:1:28, endln:1:29
-            |vpiOperand:
-            \_Operation: , line:25:22, endln:25:27
-              |vpiParent:
-              \_Operation: , line:25:16, endln:25:28
-              |vpiOpType:28
-              |vpiOperand:
-              \_RefObj: (work@and_tb.a), line:25:22, endln:25:23
-                |vpiParent:
-                \_Operation: , line:25:22, endln:25:27
-                |vpiName:a
-                |vpiFullName:work@and_tb.a
-                |vpiActual:
-                \_LogicNet: (work@and_tb.a), line:2:9, endln:2:10
-              |vpiOperand:
-              \_RefObj: (work@and_tb.b), line:25:26, endln:25:27
-                |vpiParent:
-                \_Operation: , line:25:22, endln:25:27
-                |vpiName:b
-                |vpiFullName:work@and_tb.b
-                |vpiActual:
-                \_LogicNet: (work@and_tb.b), line:2:12, endln:2:13
-          |vpiStmt:
-          \_SysFuncCall: ($display), line:25:30, endln:25:45
-            |vpiParent:
-            \_ImmediateAssert: , line:25:9, endln:25:79
-            |vpiArgument:
-            \_Constant: , line:25:39, endln:25:44
-              |vpiParent:
-              \_SysFuncCall: ($display), line:25:30, endln:25:45
-              |vpiDecompile:"OK!"
-              |vpiSize:24
-              |STRING:OK!
-              |vpiConstType:6
-            |vpiName:$display
-          |vpiElseStmt:
-          \_SysFuncCall: ($fatal), line:25:52, endln:25:78
-            |vpiParent:
-            \_ImmediateAssert: , line:25:9, endln:25:79
-            |vpiArgument:
-            \_Constant: , line:25:59, endln:25:60
-              |vpiParent:
-              \_SysFuncCall: ($fatal), line:25:52, endln:25:78
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-            |vpiArgument:
-            \_Constant: , line:25:62, endln:25:77
-              |vpiParent:
-              \_SysFuncCall: ($fatal), line:25:52, endln:25:78
-              |vpiDecompile:"o != (a & b)!"
-              |vpiSize:104
-              |STRING:o != (a & b)!
-              |vpiConstType:6
-            |vpiName:$fatal
-|uhdmallModules:
+  |vpiRefModule:
+  \_RefModule: work@dut (dut1), line:28:3, endln:28:6
+    |vpiParent:
+    \_Module: work@and_tb (work@and_tb), file:${SURELOG_DIR}/tests/OneAnd/tb.v, line:1:1, endln:30:10
+    |vpiName:dut1
+    |vpiDefName:work@dut
+    |vpiActual:
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneAnd/dut.v, line:1:1, endln:5:10
+    |vpiPort:
+    \_Port: , line:28:12, endln:28:13
+      |vpiParent:
+      \_RefModule: work@dut (dut1), line:28:3, endln:28:6
+      |vpiHighConn:
+      \_RefObj: (work@and_tb.dut1.a), line:28:12, endln:28:13
+        |vpiParent:
+        \_Port: , line:28:12, endln:28:13
+        |vpiName:a
+        |vpiFullName:work@and_tb.dut1.a
+        |vpiActual:
+        \_LogicVar: (work@and_tb.a), line:2:9, endln:2:10
+    |vpiPort:
+    \_Port: , line:28:14, endln:28:15
+      |vpiParent:
+      \_RefModule: work@dut (dut1), line:28:3, endln:28:6
+      |vpiHighConn:
+      \_RefObj: (work@and_tb.dut1.b), line:28:14, endln:28:15
+        |vpiParent:
+        \_Port: , line:28:14, endln:28:15
+        |vpiName:b
+        |vpiFullName:work@and_tb.dut1.b
+        |vpiActual:
+        \_LogicVar: (work@and_tb.b), line:2:12, endln:2:13
+    |vpiPort:
+    \_Port: , line:28:16, endln:28:17
+      |vpiParent:
+      \_RefModule: work@dut (dut1), line:28:3, endln:28:6
+      |vpiHighConn:
+      \_RefObj: (work@and_tb.dut1.o), line:28:16, endln:28:17
+        |vpiParent:
+        \_Port: , line:28:16, endln:28:17
+        |vpiName:o
+        |vpiFullName:work@and_tb.dut1.o
+        |vpiActual:
+        \_LogicNet: (work@and_tb.o), line:1:28, endln:1:29
+|vpiAllModules:
 \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneAnd/dut.v, line:1:1, endln:5:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@dut
-  |vpiDefName:work@dut
-  |vpiNet:
+  |vpiName:work@dut
+  |vpiTypedef:
+  \_LogicTypespec: , line:1:18, endln:1:23
+    |vpiParent:
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneAnd/dut.v, line:1:1, endln:5:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:1:33, endln:1:38
+    |vpiParent:
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneAnd/dut.v, line:1:1, endln:5:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:1:49, endln:1:54
+    |vpiParent:
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneAnd/dut.v, line:1:1, endln:5:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:1:18, endln:1:23
+    |vpiParent:
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneAnd/dut.v, line:1:1, endln:5:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:1:33, endln:1:38
+    |vpiParent:
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneAnd/dut.v, line:1:1, endln:5:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:1:49, endln:1:54
+    |vpiParent:
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneAnd/dut.v, line:1:1, endln:5:10
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:1:18, endln:1:23
+  |vpiImportTypespec:
   \_LogicNet: (work@dut.a), line:1:24, endln:1:25
     |vpiParent:
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneAnd/dut.v, line:1:1, endln:5:10
+    |vpiTypespec:
+    \_RefTypespec: (work@dut.a), line:1:18, endln:1:23
+      |vpiParent:
+      \_LogicNet: (work@dut.a), line:1:24, endln:1:25
+      |vpiFullName:work@dut.a
+      |vpiActual:
+      \_LogicTypespec: , line:1:18, endln:1:23
     |vpiName:a
     |vpiFullName:work@dut.a
     |vpiNetType:36
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:1:33, endln:1:38
+  |vpiImportTypespec:
   \_LogicNet: (work@dut.b), line:1:39, endln:1:40
     |vpiParent:
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneAnd/dut.v, line:1:1, endln:5:10
+    |vpiTypespec:
+    \_RefTypespec: (work@dut.b), line:1:33, endln:1:38
+      |vpiParent:
+      \_LogicNet: (work@dut.b), line:1:39, endln:1:40
+      |vpiFullName:work@dut.b
+      |vpiActual:
+      \_LogicTypespec: , line:1:33, endln:1:38
     |vpiName:b
     |vpiFullName:work@dut.b
     |vpiNetType:36
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:1:49, endln:1:54
+  |vpiImportTypespec:
   \_LogicNet: (work@dut.o), line:1:55, endln:1:56
     |vpiParent:
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneAnd/dut.v, line:1:1, endln:5:10
+    |vpiTypespec:
+    \_RefTypespec: (work@dut.o), line:1:49, endln:1:54
+      |vpiParent:
+      \_LogicNet: (work@dut.o), line:1:55, endln:1:56
+      |vpiFullName:work@dut.o
+      |vpiActual:
+      \_LogicTypespec: , line:1:49, endln:1:54
     |vpiName:o
     |vpiFullName:work@dut.o
     |vpiNetType:36
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:1:18, endln:1:23
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:1:33, endln:1:38
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:1:49, endln:1:54
+  |vpiDefName:work@dut
+  |vpiNet:
+  \_LogicNet: (work@dut.a), line:1:24, endln:1:25
+  |vpiNet:
+  \_LogicNet: (work@dut.b), line:1:39, endln:1:40
+  |vpiNet:
+  \_LogicNet: (work@dut.o), line:1:55, endln:1:56
   |vpiPort:
   \_Port: (a), line:1:24, endln:1:25
     |vpiParent:
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneAnd/dut.v, line:1:1, endln:5:10
     |vpiName:a
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@dut.a.a), line:1:24, endln:1:25
-      |vpiParent:
-      \_Port: (a), line:1:24, endln:1:25
-      |vpiName:a
-      |vpiFullName:work@dut.a.a
-      |vpiActual:
-      \_LogicNet: (work@dut.a), line:1:24, endln:1:25
-    |vpiTypedef:
-    \_RefTypespec: (work@dut.a)
+    |vpiTypespec:
+    \_RefTypespec: (work@dut.a), line:1:18, endln:1:23
       |vpiParent:
       \_Port: (a), line:1:24, endln:1:25
       |vpiFullName:work@dut.a
@@ -1266,16 +1432,8 @@ Design: (unnamed)
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneAnd/dut.v, line:1:1, endln:5:10
     |vpiName:b
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@dut.b.b), line:1:39, endln:1:40
-      |vpiParent:
-      \_Port: (b), line:1:39, endln:1:40
-      |vpiName:b
-      |vpiFullName:work@dut.b.b
-      |vpiActual:
-      \_LogicNet: (work@dut.b), line:1:39, endln:1:40
-    |vpiTypedef:
-    \_RefTypespec: (work@dut.b)
+    |vpiTypespec:
+    \_RefTypespec: (work@dut.b), line:1:33, endln:1:38
       |vpiParent:
       \_Port: (b), line:1:39, endln:1:40
       |vpiFullName:work@dut.b
@@ -1287,16 +1445,8 @@ Design: (unnamed)
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/OneAnd/dut.v, line:1:1, endln:5:10
     |vpiName:o
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@dut.o.o), line:1:55, endln:1:56
-      |vpiParent:
-      \_Port: (o), line:1:55, endln:1:56
-      |vpiName:o
-      |vpiFullName:work@dut.o.o
-      |vpiActual:
-      \_LogicNet: (work@dut.o), line:1:55, endln:1:56
-    |vpiTypedef:
-    \_RefTypespec: (work@dut.o)
+    |vpiTypespec:
+    \_RefTypespec: (work@dut.o), line:1:49, endln:1:54
       |vpiParent:
       \_Port: (o), line:1:55, endln:1:56
       |vpiFullName:work@dut.o
@@ -1335,13 +1485,6 @@ Design: (unnamed)
       |vpiFullName:work@dut.o
       |vpiActual:
       \_LogicNet: (work@dut.o), line:1:55, endln:1:56
-\_weaklyReferenced:
-\_LogicTypespec: , line:1:22, endln:1:27
-\_LogicTypespec: , line:2:3, endln:2:10
-\_LogicTypespec: , line:2:3, endln:2:10
-\_LogicTypespec: , line:1:18, endln:1:23
-\_LogicTypespec: , line:1:33, endln:1:38
-\_LogicTypespec: , line:1:49, endln:1:54
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

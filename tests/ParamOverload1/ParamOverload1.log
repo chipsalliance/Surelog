@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 175
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/ParamOverload1/dut.sv
+FILE: ${SURELOG_DIR}/tests/ParamOverload1/dut.sv
 n<> u<174> t<Top_level_rule> c<1> l<1:1> el<12:1>
-  n<> u<1> t<Null_rule> p<174> s<173> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<174> s<173> l<1:1>
   n<> u<173> t<Source_text> p<174> c<81> l<1:1> el<10:10>
     n<> u<81> t<Description> p<173> c<80> s<172> l<1:1> el<4:10>
       n<> u<80> t<Module_declaration> p<81> c<13> l<1:1> el<4:10>
@@ -187,62 +187,68 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 ArrayTypespec                                          1
 BitSelect                                              1
-Constant                                               9
+Constant                                               7
 ContAssign                                             1
 Design                                                 1
-IntTypespec                                            3
-LogicNet                                               2
+IntTypespec                                            5
+IntVar                                                 2
 Module                                                 2
+ModuleTypespec                                         1
 Operation                                              2
 ParamAssign                                            1
 Parameter                                              1
 Port                                                   5
 Range                                                  1
 RefModule                                              3
-RefObj                                                 6
-RefTypespec                                            4
+RefObj                                                 4
+RefTypespec                                            6
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamOverload1/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ParamOverload1/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ParamOverload1/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamOverload1/dut.sv, line:1:1, endln:4:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@dut
+  |vpiName:work@dut
+  |vpiVariables:
+  \_IntVar: (work@dut.x), line:1:23, endln:1:24
+    |vpiParent:
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamOverload1/dut.sv, line:1:1, endln:4:10
+    |vpiTypespec:
+    \_RefTypespec: (work@dut.x), line:1:19, endln:1:22
+      |vpiParent:
+      \_IntVar: (work@dut.x), line:1:23, endln:1:24
+      |vpiFullName:work@dut.x
+      |vpiActual:
+      \_IntTypespec: , line:1:19, endln:1:22
+    |vpiName:x
+    |vpiFullName:work@dut.x
+    |vpiSigned:1
+    |vpiVisibility:1
   |vpiParameter:
-  \_Parameter: (work@dut.P), line:2:18, endln:2:19
+  \_Parameter: (work@dut.P), line:2:18, endln:2:42
     |vpiParent:
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamOverload1/dut.sv, line:1:1, endln:4:10
     |vpiSize:1
     |vpiTypespec:
-    \_RefTypespec: (work@dut.P)
+    \_RefTypespec: (work@dut.P), line:2:14, endln:2:17
       |vpiParent:
-      \_Parameter: (work@dut.P), line:2:18, endln:2:19
+      \_Parameter: (work@dut.P), line:2:18, endln:2:42
       |vpiFullName:work@dut.P
       |vpiActual:
-      \_ArrayTypespec: , line:2:14, endln:2:23
+      \_ArrayTypespec: , line:2:20, endln:2:23
     |vpiSigned:1
     |vpiRange:
-    \_Range: , line:2:21, endln:2:22
+    \_Range: , line:2:20, endln:2:23
       |vpiParent:
-      \_Parameter: (work@dut.P), line:2:18, endln:2:19
-      |vpiLeftRange:
-      \_Constant: 
-        |vpiParent:
-        \_Range: , line:2:21, endln:2:22
-        |vpiDecompile:0
-        |vpiSize:64
-        |UINT:0
-        |vpiConstType:9
+      \_Parameter: (work@dut.P), line:2:18, endln:2:42
       |vpiRightRange:
       \_Operation: , line:2:21, endln:2:22
         |vpiParent:
-        \_Range: , line:2:21, endln:2:22
+        \_Range: , line:2:20, endln:2:23
         |vpiOpType:11
         |vpiOperand:
         \_Constant: , line:2:21, endln:2:22
@@ -252,11 +258,6 @@ Design: (unnamed)
           |vpiSize:64
           |UINT:5
           |vpiConstType:9
-        |vpiOperand:
-        \_Constant: 
-          |vpiSize:64
-          |INT:1
-          |vpiConstType:7
     |vpiName:P
     |vpiFullName:work@dut.P
   |vpiParamAssign:
@@ -270,59 +271,93 @@ Design: (unnamed)
       |vpiOpType:75
       |vpiOperand:
       \_Constant: , line:2:28, endln:2:29
+        |vpiParent:
+        \_Operation: , line:2:26, endln:2:42
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
         |vpiConstType:9
       |vpiOperand:
       \_Constant: , line:2:31, endln:2:32
+        |vpiParent:
+        \_Operation: , line:2:26, endln:2:42
         |vpiDecompile:2
         |vpiSize:64
         |UINT:2
         |vpiConstType:9
       |vpiOperand:
       \_Constant: , line:2:34, endln:2:35
+        |vpiParent:
+        \_Operation: , line:2:26, endln:2:42
         |vpiDecompile:3
         |vpiSize:64
         |UINT:3
         |vpiConstType:9
       |vpiOperand:
       \_Constant: , line:2:37, endln:2:38
+        |vpiParent:
+        \_Operation: , line:2:26, endln:2:42
         |vpiDecompile:4
         |vpiSize:64
         |UINT:4
         |vpiConstType:9
       |vpiOperand:
       \_Constant: , line:2:40, endln:2:41
+        |vpiParent:
+        \_Operation: , line:2:26, endln:2:42
         |vpiDecompile:5
         |vpiSize:64
         |UINT:5
         |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (work@dut.P), line:2:18, endln:2:19
-  |vpiDefName:work@dut
-  |vpiNet:
-  \_LogicNet: (work@dut.x), line:1:23, endln:1:24
+    \_Parameter: (work@dut.P), line:2:18, endln:2:42
+  |vpiTypedef:
+  \_IntTypespec: , line:2:14, endln:2:17
     |vpiParent:
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamOverload1/dut.sv, line:1:1, endln:4:10
-    |vpiName:x
-    |vpiFullName:work@dut.x
+    |vpiSigned:1
+  |vpiTypedef:
+  \_ArrayTypespec: , line:2:20, endln:2:23
+    |vpiParent:
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamOverload1/dut.sv, line:1:1, endln:4:10
+    |vpiRange:
+    \_Range: , line:2:20, endln:2:23
+    |vpiElemTypespec:
+    \_RefTypespec: (work@dut), line:2:14, endln:2:17
+      |vpiParent:
+      \_ArrayTypespec: , line:2:20, endln:2:23
+      |vpiFullName:work@dut
+      |vpiActual:
+      \_IntTypespec: , line:2:14, endln:2:17
+  |vpiTypedef:
+  \_IntTypespec: , line:1:19, endln:1:22
+    |vpiParent:
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamOverload1/dut.sv, line:1:1, endln:4:10
+    |vpiSigned:1
+  |vpiTypedef:
+  \_IntTypespec: , line:1:19, endln:1:22
+    |vpiParent:
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamOverload1/dut.sv, line:1:1, endln:4:10
+    |vpiSigned:1
+  |vpiImportTypespec:
+  \_IntTypespec: , line:2:14, endln:2:17
+  |vpiImportTypespec:
+  \_ArrayTypespec: , line:2:20, endln:2:23
+  |vpiImportTypespec:
+  \_IntTypespec: , line:1:19, endln:1:22
+  |vpiImportTypespec:
+  \_IntVar: (work@dut.x), line:1:23, endln:1:24
+  |vpiImportTypespec:
+  \_IntTypespec: , line:1:19, endln:1:22
+  |vpiDefName:work@dut
   |vpiPort:
   \_Port: (x), line:1:23, endln:1:24
     |vpiParent:
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamOverload1/dut.sv, line:1:1, endln:4:10
     |vpiName:x
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@dut.x.x), line:1:23, endln:1:24
-      |vpiParent:
-      \_Port: (x), line:1:23, endln:1:24
-      |vpiName:x
-      |vpiFullName:work@dut.x.x
-      |vpiActual:
-      \_LogicNet: (work@dut.x), line:1:23, endln:1:24
-    |vpiTypedef:
-    \_RefTypespec: (work@dut.x)
+    |vpiTypespec:
+    \_RefTypespec: (work@dut.x), line:1:19, endln:1:22
       |vpiParent:
       \_Port: (x), line:1:23, endln:1:24
       |vpiFullName:work@dut.x
@@ -333,15 +368,17 @@ Design: (unnamed)
     |vpiParent:
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamOverload1/dut.sv, line:1:1, endln:4:10
     |vpiRhs:
-    \_BitSelect: (work@dut.P), line:3:17, endln:3:18
+    \_BitSelect: (work@dut.P), line:3:16, endln:3:19
       |vpiParent:
       \_ContAssign: , line:3:11, endln:3:19
       |vpiName:P
       |vpiFullName:work@dut.P
+      |vpiActual:
+      \_Parameter: (work@dut.P), line:2:18, endln:2:42
       |vpiIndex:
       \_Constant: , line:3:17, endln:3:18
         |vpiParent:
-        \_BitSelect: (work@dut.P), line:3:17, endln:3:18
+        \_BitSelect: (work@dut.P), line:3:16, endln:3:19
         |vpiDecompile:2
         |vpiSize:64
         |UINT:2
@@ -353,42 +390,66 @@ Design: (unnamed)
       |vpiName:x
       |vpiFullName:work@dut.x
       |vpiActual:
-      \_LogicNet: (work@dut.x), line:1:23, endln:1:24
-|uhdmallModules:
+      \_IntVar: (work@dut.x), line:1:23, endln:1:24
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverload1/dut.sv, line:6:1, endln:10:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
-  |vpiDefName:work@top
-  |vpiNet:
-  \_LogicNet: (work@top.o), line:6:23, endln:6:24
+  |vpiName:work@top
+  |vpiVariables:
+  \_IntVar: (work@top.o), line:6:23, endln:6:24
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverload1/dut.sv, line:6:1, endln:10:10
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o), line:6:19, endln:6:22
+      |vpiParent:
+      \_IntVar: (work@top.o), line:6:23, endln:6:24
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_IntTypespec: , line:6:19, endln:6:22
     |vpiName:o
     |vpiFullName:work@top.o
+    |vpiSigned:1
+    |vpiVisibility:1
+  |vpiTypedef:
+  \_ModuleTypespec: (dut), line:7:4, endln:7:7
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverload1/dut.sv, line:6:1, endln:10:10
+    |vpiName:dut
+  |vpiTypedef:
+  \_IntTypespec: , line:6:19, endln:6:22
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverload1/dut.sv, line:6:1, endln:10:10
+    |vpiSigned:1
+  |vpiTypedef:
+  \_IntTypespec: , line:6:19, endln:6:22
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverload1/dut.sv, line:6:1, endln:10:10
+    |vpiSigned:1
+  |vpiImportTypespec:
+  \_ModuleTypespec: (dut), line:7:4, endln:7:7
+  |vpiImportTypespec:
+  \_IntTypespec: , line:6:19, endln:6:22
+  |vpiImportTypespec:
+  \_IntVar: (work@top.o), line:6:23, endln:6:24
+  |vpiImportTypespec:
+  \_IntTypespec: , line:6:19, endln:6:22
+  |vpiDefName:work@top
   |vpiPort:
   \_Port: (o), line:6:23, endln:6:24
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverload1/dut.sv, line:6:1, endln:10:10
     |vpiName:o
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@top.o.o), line:6:23, endln:6:24
-      |vpiParent:
-      \_Port: (o), line:6:23, endln:6:24
-      |vpiName:o
-      |vpiFullName:work@top.o.o
-      |vpiActual:
-      \_LogicNet: (work@top.o), line:6:23, endln:6:24
-    |vpiTypedef:
-    \_RefTypespec: (work@top.o)
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o), line:6:19, endln:6:22
       |vpiParent:
       \_Port: (o), line:6:23, endln:6:24
       |vpiFullName:work@top.o
       |vpiActual:
       \_IntTypespec: , line:6:19, endln:6:22
   |vpiRefModule:
-  \_RefModule: work@dut (u_dut1), line:7:29, endln:7:35
+  \_RefModule: work@dut (u_dut1), line:7:4, endln:7:7
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverload1/dut.sv, line:6:1, endln:10:10
     |vpiName:u_dut1
@@ -396,20 +457,20 @@ Design: (unnamed)
     |vpiActual:
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamOverload1/dut.sv, line:1:1, endln:4:10
     |vpiPort:
-    \_Port: (x), line:7:36, endln:7:41
+    \_Port: (x), line:7:37, endln:7:38
       |vpiParent:
-      \_RefModule: work@dut (u_dut1), line:7:29, endln:7:35
+      \_RefModule: work@dut (u_dut1), line:7:4, endln:7:7
       |vpiName:x
       |vpiHighConn:
       \_RefObj: (work@top.u_dut1.x.o), line:7:39, endln:7:40
         |vpiParent:
-        \_Port: (x), line:7:36, endln:7:41
+        \_Port: (x), line:7:37, endln:7:38
         |vpiName:o
         |vpiFullName:work@top.u_dut1.x.o
         |vpiActual:
-        \_LogicNet: (work@top.o), line:6:23, endln:6:24
+        \_IntVar: (work@top.o), line:6:23, endln:6:24
   |vpiRefModule:
-  \_RefModule: work@dut (u_dut2), line:8:8, endln:8:14
+  \_RefModule: work@dut (u_dut2), line:8:4, endln:8:7
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverload1/dut.sv, line:6:1, endln:10:10
     |vpiName:u_dut2
@@ -417,20 +478,20 @@ Design: (unnamed)
     |vpiActual:
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamOverload1/dut.sv, line:1:1, endln:4:10
     |vpiPort:
-    \_Port: (x), line:8:15, endln:8:20
+    \_Port: (x), line:8:16, endln:8:17
       |vpiParent:
-      \_RefModule: work@dut (u_dut2), line:8:8, endln:8:14
+      \_RefModule: work@dut (u_dut2), line:8:4, endln:8:7
       |vpiName:x
       |vpiHighConn:
       \_RefObj: (work@top.u_dut2.x.o), line:8:18, endln:8:19
         |vpiParent:
-        \_Port: (x), line:8:15, endln:8:20
+        \_Port: (x), line:8:16, endln:8:17
         |vpiName:o
         |vpiFullName:work@top.u_dut2.x.o
         |vpiActual:
-        \_LogicNet: (work@top.o), line:6:23, endln:6:24
+        \_IntVar: (work@top.o), line:6:23, endln:6:24
   |vpiRefModule:
-  \_RefModule: work@dut (u_dut3), line:9:20, endln:9:26
+  \_RefModule: work@dut (u_dut3), line:9:4, endln:9:7
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamOverload1/dut.sv, line:6:1, endln:10:10
     |vpiName:u_dut3
@@ -438,37 +499,18 @@ Design: (unnamed)
     |vpiActual:
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/ParamOverload1/dut.sv, line:1:1, endln:4:10
     |vpiPort:
-    \_Port: (x), line:9:27, endln:9:32
+    \_Port: (x), line:9:28, endln:9:29
       |vpiParent:
-      \_RefModule: work@dut (u_dut3), line:9:20, endln:9:26
+      \_RefModule: work@dut (u_dut3), line:9:4, endln:9:7
       |vpiName:x
       |vpiHighConn:
       \_RefObj: (work@top.u_dut3.x.o), line:9:30, endln:9:31
         |vpiParent:
-        \_Port: (x), line:9:27, endln:9:32
+        \_Port: (x), line:9:28, endln:9:29
         |vpiName:o
         |vpiFullName:work@top.u_dut3.x.o
         |vpiActual:
-        \_LogicNet: (work@top.o), line:6:23, endln:6:24
-\_weaklyReferenced:
-\_ArrayTypespec: , line:2:14, endln:2:23
-  |vpiParent:
-  \_Parameter: (work@dut.P), line:2:18, endln:2:19
-  |vpiRange:
-  \_Range: , line:2:21, endln:2:22
-  |vpiElemTypespec:
-  \_RefTypespec: (work@dut.P)
-    |vpiParent:
-    \_ArrayTypespec: , line:2:14, endln:2:23
-    |vpiFullName:work@dut.P
-    |vpiActual:
-    \_IntTypespec: , line:2:14, endln:2:17
-\_IntTypespec: , line:2:14, endln:2:17
-  |vpiSigned:1
-\_IntTypespec: , line:1:19, endln:1:22
-  |vpiSigned:1
-\_IntTypespec: , line:6:19, endln:6:22
-  |vpiSigned:1
+        \_IntVar: (work@top.o), line:6:23, endln:6:24
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

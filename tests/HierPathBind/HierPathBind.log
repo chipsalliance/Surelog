@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 115
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/HierPathBind/dut.sv
+FILE: ${SURELOG_DIR}/tests/HierPathBind/dut.sv
 n<> u<114> t<Top_level_rule> c<1> l<1:1> el<16:1>
-  n<> u<1> t<Null_rule> p<114> s<113> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<114> s<113> l<1:1>
   n<> u<113> t<Source_text> p<114> c<31> l<1:1> el<15:10>
     n<> u<31> t<Description> p<113> c<30> s<112> l<1:1> el<3:10>
       n<> u<30> t<Module_declaration> p<31> c<13> l<1:1> el<3:10>
@@ -129,52 +129,65 @@ Constant                                               1
 ContAssign                                             2
 Design                                                 1
 HierPath                                               2
-LogicNet                                               3
-LogicTypespec                                          3
+LogicNet                                               2
+LogicTypespec                                          5
 Module                                                 2
+ModuleTypespec                                         1
 Port                                                   3
 RefModule                                              1
-RefObj                                                 8
-RefTypespec                                            4
+RefObj                                                 6
+RefTypespec                                            6
+StructNet                                              1
 StructTypespec                                         1
 TypespecMember                                         1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/HierPathBind/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/HierPathBind/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/HierPathBind/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/HierPathBind/dut.sv, line:1:1, endln:3:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@dut
-  |vpiDefName:work@dut
-  |vpiNet:
+  |vpiName:work@dut
+  |vpiTypedef:
+  \_LogicTypespec: , line:1:20, endln:1:25
+    |vpiParent:
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/HierPathBind/dut.sv, line:1:1, endln:3:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:1:20, endln:1:25
+    |vpiParent:
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/HierPathBind/dut.sv, line:1:1, endln:3:10
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:1:20, endln:1:25
+  |vpiImportTypespec:
   \_LogicNet: (work@dut.o), line:1:26, endln:1:27
     |vpiParent:
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/HierPathBind/dut.sv, line:1:1, endln:3:10
+    |vpiTypespec:
+    \_RefTypespec: (work@dut.o), line:1:20, endln:1:25
+      |vpiParent:
+      \_LogicNet: (work@dut.o), line:1:26, endln:1:27
+      |vpiFullName:work@dut.o
+      |vpiActual:
+      \_LogicTypespec: , line:1:20, endln:1:25
     |vpiName:o
     |vpiFullName:work@dut.o
     |vpiNetType:36
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:1:20, endln:1:25
+  |vpiDefName:work@dut
+  |vpiNet:
+  \_LogicNet: (work@dut.o), line:1:26, endln:1:27
   |vpiPort:
   \_Port: (o), line:1:26, endln:1:27
     |vpiParent:
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/HierPathBind/dut.sv, line:1:1, endln:3:10
     |vpiName:o
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@dut.o.o), line:1:26, endln:1:27
-      |vpiParent:
-      \_Port: (o), line:1:26, endln:1:27
-      |vpiName:o
-      |vpiFullName:work@dut.o.o
-      |vpiActual:
-      \_LogicNet: (work@dut.o), line:1:26, endln:1:27
-    |vpiTypedef:
-    \_RefTypespec: (work@dut.o)
+    |vpiTypespec:
+    \_RefTypespec: (work@dut.o), line:1:20, endln:1:25
       |vpiParent:
       \_Port: (o), line:1:26, endln:1:27
       |vpiFullName:work@dut.o
@@ -200,18 +213,16 @@ Design: (unnamed)
       |vpiFullName:work@dut.o
       |vpiActual:
       \_LogicNet: (work@dut.o), line:1:26, endln:1:27
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathBind/dut.sv, line:5:1, endln:15:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
+  |vpiName:work@top
   |vpiTypedef:
   \_StructTypespec: (alert_rx_t), line:6:12, endln:8:5
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathBind/dut.sv, line:5:1, endln:15:10
     |vpiName:alert_rx_t
-    |vpiInstance:
-    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathBind/dut.sv, line:5:1, endln:15:10
     |vpiPacked:1
     |vpiTypespecMember:
     \_TypespecMember: (ping_p), line:7:16, endln:7:22
@@ -219,54 +230,89 @@ Design: (unnamed)
       \_StructTypespec: (alert_rx_t), line:6:12, endln:8:5
       |vpiName:ping_p
       |vpiTypespec:
-      \_RefTypespec: (work@top.alert_rx_t.ping_p)
+      \_RefTypespec: (work@top.alert_rx_t.ping_p), line:7:7, endln:7:12
         |vpiParent:
         \_TypespecMember: (ping_p), line:7:16, endln:7:22
         |vpiFullName:work@top.alert_rx_t.ping_p
         |vpiActual:
         \_LogicTypespec: , line:7:7, endln:7:12
-      |vpiRefFile:${SURELOG_DIR}/tests/HierPathBind/dut.sv
-      |vpiRefLineNo:7
-      |vpiRefColumnNo:7
-      |vpiRefEndLineNo:7
-      |vpiRefEndColumnNo:12
-  |vpiDefName:work@top
-  |vpiNet:
+  |vpiTypedef:
+  \_LogicTypespec: , line:7:7, endln:7:12
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathBind/dut.sv, line:5:1, endln:15:10
+  |vpiTypedef:
+  \_ModuleTypespec: (dut), line:12:4, endln:12:7
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathBind/dut.sv, line:5:1, endln:15:10
+    |vpiName:dut
+  |vpiTypedef:
+  \_LogicTypespec: , line:5:20, endln:5:25
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathBind/dut.sv, line:5:1, endln:15:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:5:20, endln:5:25
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathBind/dut.sv, line:5:1, endln:15:10
+  |vpiImportTypespec:
+  \_StructTypespec: (alert_rx_t), line:6:12, endln:8:5
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:7:7, endln:7:12
+  |vpiImportTypespec:
+  \_ModuleTypespec: (dut), line:12:4, endln:12:7
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:5:20, endln:5:25
+  |vpiImportTypespec:
   \_LogicNet: (work@top.o), line:5:26, endln:5:27
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathBind/dut.sv, line:5:1, endln:15:10
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o), line:5:20, endln:5:25
+      |vpiParent:
+      \_LogicNet: (work@top.o), line:5:26, endln:5:27
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_LogicTypespec: , line:5:20, endln:5:25
     |vpiName:o
     |vpiFullName:work@top.o
     |vpiNetType:36
-  |vpiNet:
-  \_LogicNet: (work@top.alert_rx_i), line:10:16, endln:10:26
+  |vpiImportTypespec:
+  \_StructNet: (work@top.alert_rx_i), line:10:16, endln:10:26
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathBind/dut.sv, line:5:1, endln:15:10
     |vpiTypespec:
-    \_RefTypespec: (work@top.alert_rx_i)
+    \_RefTypespec: (work@top.alert_rx_i.alert_rx_i), line:10:4, endln:10:14
       |vpiParent:
-      \_LogicNet: (work@top.alert_rx_i), line:10:16, endln:10:26
-      |vpiFullName:work@top.alert_rx_i
+      \_StructNet: (work@top.alert_rx_i), line:10:16, endln:10:26
+      |vpiName:alert_rx_i
+      |vpiFullName:work@top.alert_rx_i.alert_rx_i
       |vpiActual:
       \_StructTypespec: (alert_rx_t), line:6:12, endln:8:5
     |vpiName:alert_rx_i
     |vpiFullName:work@top.alert_rx_i
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:5:20, endln:5:25
+  |vpiImportTypespec:
+  \_LogicNet: (work@top.ping_p), line:14:26, endln:14:32
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathBind/dut.sv, line:5:1, endln:15:10
+    |vpiName:ping_p
+    |vpiFullName:work@top.ping_p
+    |vpiNetType:1
+  |vpiDefName:work@top
+  |vpiNet:
+  \_LogicNet: (work@top.o), line:5:26, endln:5:27
+  |vpiNet:
+  \_StructNet: (work@top.alert_rx_i), line:10:16, endln:10:26
+  |vpiNet:
+  \_LogicNet: (work@top.ping_p), line:14:26, endln:14:32
   |vpiPort:
   \_Port: (o), line:5:26, endln:5:27
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathBind/dut.sv, line:5:1, endln:15:10
     |vpiName:o
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@top.o.o), line:5:26, endln:5:27
-      |vpiParent:
-      \_Port: (o), line:5:26, endln:5:27
-      |vpiName:o
-      |vpiFullName:work@top.o.o
-      |vpiActual:
-      \_LogicNet: (work@top.o), line:5:26, endln:5:27
-    |vpiTypedef:
-    \_RefTypespec: (work@top.o)
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o), line:5:20, endln:5:25
       |vpiParent:
       \_Port: (o), line:5:26, endln:5:27
       |vpiFullName:work@top.o
@@ -285,12 +331,16 @@ Design: (unnamed)
         |vpiParent:
         \_HierPath: (alert_rx_i.ping_p), line:14:15, endln:14:32
         |vpiName:alert_rx_i
+        |vpiActual:
+        \_StructNet: (work@top.alert_rx_i), line:10:16, endln:10:26
       |vpiActual:
       \_RefObj: (work@top.ping_p), line:14:26, endln:14:32
         |vpiParent:
         \_HierPath: (alert_rx_i.ping_p), line:14:15, endln:14:32
         |vpiName:ping_p
         |vpiFullName:work@top.ping_p
+        |vpiActual:
+        \_LogicNet: (work@top.ping_p), line:14:26, endln:14:32
       |vpiName:alert_rx_i.ping_p
     |vpiLhs:
     \_RefObj: (work@top.o), line:14:11, endln:14:12
@@ -301,7 +351,7 @@ Design: (unnamed)
       |vpiActual:
       \_LogicNet: (work@top.o), line:5:26, endln:5:27
   |vpiRefModule:
-  \_RefModule: work@dut (d), line:12:8, endln:12:9
+  \_RefModule: work@dut (d), line:12:4, endln:12:7
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathBind/dut.sv, line:5:1, endln:15:10
     |vpiName:d
@@ -309,32 +359,30 @@ Design: (unnamed)
     |vpiActual:
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/HierPathBind/dut.sv, line:1:1, endln:3:10
     |vpiPort:
-    \_Port: (o), line:12:10, endln:12:31
+    \_Port: (o), line:12:11, endln:12:12
       |vpiParent:
-      \_RefModule: work@dut (d), line:12:8, endln:12:9
+      \_RefModule: work@dut (d), line:12:4, endln:12:7
       |vpiName:o
       |vpiHighConn:
       \_HierPath: (alert_rx_i.ping_p), line:12:13, endln:12:30
         |vpiParent:
-        \_Port: (o), line:12:10, endln:12:31
+        \_Port: (o), line:12:11, endln:12:12
         |vpiActual:
         \_RefObj: (alert_rx_i), line:12:13, endln:12:23
           |vpiParent:
           \_HierPath: (alert_rx_i.ping_p), line:12:13, endln:12:30
           |vpiName:alert_rx_i
+          |vpiActual:
+          \_StructNet: (work@top.alert_rx_i), line:10:16, endln:10:26
         |vpiActual:
         \_RefObj: (work@top.d.o.ping_p), line:12:24, endln:12:30
           |vpiParent:
           \_HierPath: (alert_rx_i.ping_p), line:12:13, endln:12:30
           |vpiName:ping_p
           |vpiFullName:work@top.d.o.ping_p
+          |vpiActual:
+          \_LogicNet: (work@top.ping_p), line:14:26, endln:14:32
         |vpiName:alert_rx_i.ping_p
-\_weaklyReferenced:
-\_LogicTypespec: , line:7:7, endln:7:12
-  |vpiParent:
-  \_TypespecMember: (ping_p), line:7:16, endln:7:22
-\_LogicTypespec: , line:1:20, endln:1:25
-\_LogicTypespec: , line:5:20, endln:5:25
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

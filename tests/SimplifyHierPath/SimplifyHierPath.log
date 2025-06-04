@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 119
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/SimplifyHierPath/dut.sv
+FILE: ${SURELOG_DIR}/tests/SimplifyHierPath/dut.sv
 n<> u<118> t<Top_level_rule> c<1> l<1:1> el<13:1>
-  n<> u<1> t<Null_rule> p<118> s<117> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<118> s<117> l<1:1>
   n<> u<117> t<Source_text> p<118> c<79> l<1:1> el<11:10>
     n<> u<79> t<Description> p<117> c<78> s<116> l<1:1> el<5:10>
       n<> u<78> t<Module_declaration> p<79> c<11> l<1:1> el<5:10>
@@ -129,46 +129,37 @@ AST_DEBUG_END
 [INF:CP0303] ${SURELOG_DIR}/tests/SimplifyHierPath/dut.sv:7:1: Compile module "work@module_scope_top".
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-Constant                                               7
+Constant                                              15
 ContAssign                                             1
 Design                                                 1
 HierPath                                               2
-IntTypespec                                            1
 LogicNet                                               2
-LogicTypespec                                          2
+LogicTypespec                                          4
 Module                                                 2
+ModuleTypespec                                         1
 ParamAssign                                            1
 Parameter                                              1
 Port                                                   3
-Range                                                  3
+Range                                                  7
 RefModule                                              1
-RefObj                                                 7
+RefObj                                                 5
 RefTypespec                                            4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/SimplifyHierPath/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/SimplifyHierPath/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/SimplifyHierPath/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@module_scope_Example (work@module_scope_Example), file:${SURELOG_DIR}/tests/SimplifyHierPath/dut.sv, line:1:1, endln:5:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@module_scope_Example
+  |vpiName:work@module_scope_Example
   |vpiParameter:
-  \_Parameter: (work@module_scope_Example.v1), line:2:21, endln:2:23
+  \_Parameter: (work@module_scope_Example.v1), line:2:21, endln:2:28
     |vpiParent:
     \_Module: work@module_scope_Example (work@module_scope_Example), file:${SURELOG_DIR}/tests/SimplifyHierPath/dut.sv, line:1:1, endln:5:10
     |UINT:10
-    |vpiTypespec:
-    \_RefTypespec: (work@module_scope_Example.v1)
-      |vpiParent:
-      \_Parameter: (work@module_scope_Example.v1), line:2:21, endln:2:23
-      |vpiFullName:work@module_scope_Example.v1
-      |vpiActual:
-      \_IntTypespec: , line:2:14, endln:2:20
     |vpiName:v1
     |vpiFullName:work@module_scope_Example.v1
   |vpiParamAssign:
@@ -182,40 +173,86 @@ Design: (unnamed)
       |vpiDecompile:10
       |vpiSize:64
       |UINT:10
-      |vpiTypespec:
-      \_RefTypespec: (work@module_scope_Example)
-        |vpiParent:
-        \_Constant: , line:2:26, endln:2:28
-        |vpiFullName:work@module_scope_Example
-        |vpiActual:
-        \_IntTypespec: , line:2:14, endln:2:20
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (work@module_scope_Example.v1), line:2:21, endln:2:23
-  |vpiDefName:work@module_scope_Example
-  |vpiNet:
-  \_LogicNet: (work@module_scope_Example.o1), line:1:29, endln:1:31
+    \_Parameter: (work@module_scope_Example.v1), line:2:21, endln:2:28
+  |vpiTypedef:
+  \_LogicTypespec: , line:3:11, endln:3:22
     |vpiParent:
     \_Module: work@module_scope_Example (work@module_scope_Example), file:${SURELOG_DIR}/tests/SimplifyHierPath/dut.sv, line:1:1, endln:5:10
+    |vpiRange:
+    \_Range: , line:3:16, endln:3:22
+      |vpiParent:
+      \_LogicTypespec: , line:3:11, endln:3:22
+      |vpiLeftRange:
+      \_Constant: , line:3:17, endln:3:19
+        |vpiParent:
+        \_Range: , line:3:16, endln:3:22
+        |vpiDecompile:31
+        |vpiSize:64
+        |UINT:31
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:3:20, endln:3:21
+        |vpiParent:
+        \_Range: , line:3:16, endln:3:22
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:3:11, endln:3:22
+    |vpiParent:
+    \_Module: work@module_scope_Example (work@module_scope_Example), file:${SURELOG_DIR}/tests/SimplifyHierPath/dut.sv, line:1:1, endln:5:10
+    |vpiRange:
+    \_Range: , line:3:16, endln:3:22
+      |vpiParent:
+      \_LogicTypespec: , line:3:11, endln:3:22
+      |vpiLeftRange:
+      \_Constant: , line:3:17, endln:3:19
+        |vpiParent:
+        \_Range: , line:3:16, endln:3:22
+        |vpiDecompile:31
+        |vpiSize:64
+        |UINT:31
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:3:20, endln:3:21
+        |vpiParent:
+        \_Range: , line:3:16, endln:3:22
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:3:11, endln:3:22
+  |vpiImportTypespec:
+  \_LogicNet: (work@module_scope_Example.o1), line:3:23, endln:3:25
+    |vpiParent:
+    \_Module: work@module_scope_Example (work@module_scope_Example), file:${SURELOG_DIR}/tests/SimplifyHierPath/dut.sv, line:1:1, endln:5:10
+    |vpiTypespec:
+    \_RefTypespec: (work@module_scope_Example.o1), line:3:11, endln:3:22
+      |vpiParent:
+      \_LogicNet: (work@module_scope_Example.o1), line:3:23, endln:3:25
+      |vpiFullName:work@module_scope_Example.o1
+      |vpiActual:
+      \_LogicTypespec: , line:3:11, endln:3:22
     |vpiName:o1
     |vpiFullName:work@module_scope_Example.o1
     |vpiNetType:1
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:3:11, endln:3:22
+  |vpiDefName:work@module_scope_Example
+  |vpiNet:
+  \_LogicNet: (work@module_scope_Example.o1), line:3:23, endln:3:25
   |vpiPort:
   \_Port: (o1), line:1:29, endln:1:31
     |vpiParent:
     \_Module: work@module_scope_Example (work@module_scope_Example), file:${SURELOG_DIR}/tests/SimplifyHierPath/dut.sv, line:1:1, endln:5:10
     |vpiName:o1
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@module_scope_Example.o1.o1), line:1:29, endln:1:31
-      |vpiParent:
-      \_Port: (o1), line:1:29, endln:1:31
-      |vpiName:o1
-      |vpiFullName:work@module_scope_Example.o1.o1
-      |vpiActual:
-      \_LogicNet: (work@module_scope_Example.o1), line:1:29, endln:1:31
-    |vpiTypedef:
-    \_RefTypespec: (work@module_scope_Example.o1)
+    |vpiTypespec:
+    \_RefTypespec: (work@module_scope_Example.o1), line:3:11, endln:3:15
       |vpiParent:
       \_Port: (o1), line:1:29, endln:1:31
       |vpiFullName:work@module_scope_Example.o1
@@ -234,64 +271,132 @@ Design: (unnamed)
         |vpiParent:
         \_HierPath: (module_scope_Example.v1), line:4:37, endln:4:60
         |vpiName:module_scope_Example
+        |vpiActual:
+        \_Module: work@module_scope_Example (work@module_scope_Example), file:${SURELOG_DIR}/tests/SimplifyHierPath/dut.sv, line:1:1, endln:5:10
       |vpiActual:
       \_RefObj: (work@module_scope_Example.v1), line:4:58, endln:4:60
         |vpiParent:
         \_HierPath: (module_scope_Example.v1), line:4:37, endln:4:60
         |vpiName:v1
         |vpiFullName:work@module_scope_Example.v1
+        |vpiActual:
+        \_Parameter: (work@module_scope_Example.v1), line:2:21, endln:2:28
       |vpiName:module_scope_Example.v1
     |vpiLhs:
-    \_HierPath: (module_scope_Example.o1), line:4:11, endln:4:34
+    \_HierPath: (module_scope_Example.o1), line:4:31, endln:4:34
       |vpiParent:
       \_ContAssign: , line:4:11, endln:4:60
       |vpiActual:
-      \_RefObj: (module_scope_Example), line:4:32, endln:4:34
+      \_RefObj: (module_scope_Example), line:4:31, endln:4:34
         |vpiParent:
-        \_HierPath: (module_scope_Example.o1), line:4:11, endln:4:34
+        \_HierPath: (module_scope_Example.o1), line:4:31, endln:4:34
         |vpiName:module_scope_Example
+        |vpiActual:
+        \_Module: work@module_scope_Example (work@module_scope_Example), file:${SURELOG_DIR}/tests/SimplifyHierPath/dut.sv, line:1:1, endln:5:10
       |vpiActual:
       \_RefObj: (o1), line:4:32, endln:4:34
         |vpiParent:
-        \_HierPath: (module_scope_Example.o1), line:4:11, endln:4:34
+        \_HierPath: (module_scope_Example.o1), line:4:31, endln:4:34
         |vpiName:o1
+        |vpiActual:
+        \_LogicNet: (work@module_scope_Example.o1), line:3:23, endln:3:25
       |vpiName:module_scope_Example.o1
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@module_scope_top (work@module_scope_top), file:${SURELOG_DIR}/tests/SimplifyHierPath/dut.sv, line:7:1, endln:11:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@module_scope_top
-  |vpiDefName:work@module_scope_top
-  |vpiNet:
+  |vpiName:work@module_scope_top
+  |vpiTypedef:
+  \_ModuleTypespec: (module_scope_Example), line:10:4, endln:10:24
+    |vpiParent:
+    \_Module: work@module_scope_top (work@module_scope_top), file:${SURELOG_DIR}/tests/SimplifyHierPath/dut.sv, line:7:1, endln:11:10
+    |vpiName:module_scope_Example
+  |vpiTypedef:
+  \_LogicTypespec: , line:8:11, endln:8:22
+    |vpiParent:
+    \_Module: work@module_scope_top (work@module_scope_top), file:${SURELOG_DIR}/tests/SimplifyHierPath/dut.sv, line:7:1, endln:11:10
+    |vpiRange:
+    \_Range: , line:8:16, endln:8:22
+      |vpiParent:
+      \_LogicTypespec: , line:8:11, endln:8:22
+      |vpiLeftRange:
+      \_Constant: , line:8:17, endln:8:19
+        |vpiParent:
+        \_Range: , line:8:16, endln:8:22
+        |vpiDecompile:31
+        |vpiSize:64
+        |UINT:31
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:8:20, endln:8:21
+        |vpiParent:
+        \_Range: , line:8:16, endln:8:22
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:8:11, endln:8:22
+    |vpiParent:
+    \_Module: work@module_scope_top (work@module_scope_top), file:${SURELOG_DIR}/tests/SimplifyHierPath/dut.sv, line:7:1, endln:11:10
+    |vpiRange:
+    \_Range: , line:8:16, endln:8:22
+      |vpiParent:
+      \_LogicTypespec: , line:8:11, endln:8:22
+      |vpiLeftRange:
+      \_Constant: , line:8:17, endln:8:19
+        |vpiParent:
+        \_Range: , line:8:16, endln:8:22
+        |vpiDecompile:31
+        |vpiSize:64
+        |UINT:31
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:8:20, endln:8:21
+        |vpiParent:
+        \_Range: , line:8:16, endln:8:22
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiImportTypespec:
+  \_ModuleTypespec: (module_scope_Example), line:10:4, endln:10:24
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:8:11, endln:8:22
+  |vpiImportTypespec:
   \_LogicNet: (work@module_scope_top.a1), line:8:23, endln:8:25
     |vpiParent:
     \_Module: work@module_scope_top (work@module_scope_top), file:${SURELOG_DIR}/tests/SimplifyHierPath/dut.sv, line:7:1, endln:11:10
+    |vpiTypespec:
+    \_RefTypespec: (work@module_scope_top.a1), line:8:11, endln:8:22
+      |vpiParent:
+      \_LogicNet: (work@module_scope_top.a1), line:8:23, endln:8:25
+      |vpiFullName:work@module_scope_top.a1
+      |vpiActual:
+      \_LogicTypespec: , line:8:11, endln:8:22
     |vpiName:a1
     |vpiFullName:work@module_scope_top.a1
     |vpiNetType:1
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:8:11, endln:8:22
+  |vpiDefName:work@module_scope_top
+  |vpiNet:
+  \_LogicNet: (work@module_scope_top.a1), line:8:23, endln:8:25
   |vpiPort:
   \_Port: (a1), line:8:23, endln:8:25
     |vpiParent:
     \_Module: work@module_scope_top (work@module_scope_top), file:${SURELOG_DIR}/tests/SimplifyHierPath/dut.sv, line:7:1, endln:11:10
     |vpiName:a1
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@module_scope_top.a1.a1), line:8:23, endln:8:25
-      |vpiParent:
-      \_Port: (a1), line:8:23, endln:8:25
-      |vpiName:a1
-      |vpiFullName:work@module_scope_top.a1.a1
-      |vpiActual:
-      \_LogicNet: (work@module_scope_top.a1), line:8:23, endln:8:25
-    |vpiTypedef:
-    \_RefTypespec: (work@module_scope_top.a1)
+    |vpiTypespec:
+    \_RefTypespec: (work@module_scope_top.a1), line:8:11, endln:8:15
       |vpiParent:
       \_Port: (a1), line:8:23, endln:8:25
       |vpiFullName:work@module_scope_top.a1
       |vpiActual:
       \_LogicTypespec: , line:8:11, endln:8:22
   |vpiRefModule:
-  \_RefModule: work@module_scope_Example (a), line:10:25, endln:10:26
+  \_RefModule: work@module_scope_Example (a), line:10:4, endln:10:24
     |vpiParent:
     \_Module: work@module_scope_top (work@module_scope_top), file:${SURELOG_DIR}/tests/SimplifyHierPath/dut.sv, line:7:1, endln:11:10
     |vpiName:a
@@ -299,83 +404,18 @@ Design: (unnamed)
     |vpiActual:
     \_Module: work@module_scope_Example (work@module_scope_Example), file:${SURELOG_DIR}/tests/SimplifyHierPath/dut.sv, line:1:1, endln:5:10
     |vpiPort:
-    \_Port: , line:10:27, endln:10:29
+    \_Port: (a1), line:10:27, endln:10:29
       |vpiParent:
-      \_RefModule: work@module_scope_Example (a), line:10:25, endln:10:26
+      \_RefModule: work@module_scope_Example (a), line:10:4, endln:10:24
+      |vpiName:a1
       |vpiHighConn:
-      \_RefObj: (work@module_scope_top.a.a1), line:10:27, endln:10:29
+      \_RefObj: (work@module_scope_top.a.a1.a1), line:10:27, endln:10:29
         |vpiParent:
-        \_Port: , line:10:27, endln:10:29
+        \_Port: (a1), line:10:27, endln:10:29
         |vpiName:a1
-        |vpiFullName:work@module_scope_top.a.a1
+        |vpiFullName:work@module_scope_top.a.a1.a1
         |vpiActual:
         \_LogicNet: (work@module_scope_top.a1), line:8:23, endln:8:25
-\_weaklyReferenced:
-\_IntTypespec: , line:2:14, endln:2:20
-  |vpiParent:
-  \_Parameter: (work@module_scope_Example.v1), line:2:21, endln:2:23
-  |vpiRange:
-  \_Range: , line:2:14, endln:2:20
-    |vpiParent:
-    \_IntTypespec: , line:2:14, endln:2:20
-    |vpiLeftRange:
-    \_Constant: , line:2:15, endln:2:17
-      |vpiParent:
-      \_Range: , line:2:14, endln:2:20
-      |vpiDecompile:31
-      |vpiSize:64
-      |UINT:31
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:2:18, endln:2:19
-      |vpiParent:
-      \_Range: , line:2:14, endln:2:20
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:3:11, endln:3:22
-  |vpiRange:
-  \_Range: , line:3:16, endln:3:22
-    |vpiParent:
-    \_LogicTypespec: , line:3:11, endln:3:22
-    |vpiLeftRange:
-    \_Constant: , line:3:17, endln:3:19
-      |vpiParent:
-      \_Range: , line:3:16, endln:3:22
-      |vpiDecompile:31
-      |vpiSize:64
-      |UINT:31
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:3:20, endln:3:21
-      |vpiParent:
-      \_Range: , line:3:16, endln:3:22
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:8:11, endln:8:22
-  |vpiRange:
-  \_Range: , line:8:16, endln:8:22
-    |vpiParent:
-    \_LogicTypespec: , line:8:11, endln:8:22
-    |vpiLeftRange:
-    \_Constant: , line:8:17, endln:8:19
-      |vpiParent:
-      \_Range: , line:8:16, endln:8:22
-      |vpiDecompile:31
-      |vpiSize:64
-      |UINT:31
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:8:20, endln:8:21
-      |vpiParent:
-      \_Range: , line:8:16, endln:8:22
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

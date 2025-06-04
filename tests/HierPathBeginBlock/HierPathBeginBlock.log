@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 280
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/HierPathBeginBlock/dut.sv
+FILE: ${SURELOG_DIR}/tests/HierPathBeginBlock/dut.sv
 n<> u<279> t<Top_level_rule> c<1> l<1:1> el<34:1>
-  n<> u<1> t<Null_rule> p<279> s<278> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<279> s<278> l<1:1>
   n<> u<278> t<Source_text> p<279> c<277> l<1:1> el<33:10>
     n<> u<277> t<Description> p<278> c<276> l<1:1> el<33:10>
       n<> u<276> t<Module_declaration> p<277> c<38> l<1:1> el<33:10>
@@ -289,80 +289,524 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 Assignment                                             8
-Begin                                                  2
-Constant                                              15
+Begin                                                  6
+Constant                                              31
 ContAssign                                             4
 Design                                                 1
 GenIf                                                  3
 HierPath                                               4
 Initial                                                1
 LogicNet                                               4
-LogicTypespec                                          8
+LogicTypespec                                         12
 LogicVar                                               4
 Module                                                 1
-NamedBegin                                             4
 Port                                                   4
-Range                                                  4
-RefObj                                                20
-RefTypespec                                            8
+Range                                                 12
+RefObj                                                16
+RefTypespec                                           12
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/HierPathBeginBlock/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/HierPathBeginBlock/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/HierPathBeginBlock/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@matching_end_labels_top (work@matching_end_labels_top), file:${SURELOG_DIR}/tests/HierPathBeginBlock/dut.sv, line:1:1, endln:33:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@matching_end_labels_top
-  |vpiDefName:work@matching_end_labels_top
-  |vpiNet:
+  |vpiName:work@matching_end_labels_top
+  |vpiInternalScope:
+  \_Begin: (work@matching_end_labels_top), line:20:12, endln:31:8
+    |vpiParent:
+    \_Module: work@matching_end_labels_top (work@matching_end_labels_top), file:${SURELOG_DIR}/tests/HierPathBeginBlock/dut.sv, line:1:1, endln:33:10
+    |vpiFullName:work@matching_end_labels_top
+    |vpiInternalScope:
+    \_Begin: (work@matching_end_labels_top.blk3), line:21:16, endln:24:12
+      |vpiParent:
+      \_Begin: (work@matching_end_labels_top), line:20:12, endln:31:8
+      |vpiName:blk3
+      |vpiFullName:work@matching_end_labels_top.blk3
+      |vpiVariables:
+      \_LogicVar: (work@matching_end_labels_top.blk3.x), line:22:17, endln:22:18
+        |vpiParent:
+        \_Begin: (work@matching_end_labels_top.blk3), line:21:16, endln:24:12
+        |vpiTypespec:
+        \_RefTypespec: (work@matching_end_labels_top.blk3.x), line:22:13, endln:22:16
+          |vpiParent:
+          \_LogicVar: (work@matching_end_labels_top.blk3.x), line:22:17, endln:22:18
+          |vpiFullName:work@matching_end_labels_top.blk3.x
+          |vpiActual:
+          \_LogicTypespec: , line:22:13, endln:22:16
+        |vpiName:x
+        |vpiFullName:work@matching_end_labels_top.blk3.x
+      |vpiReg:
+      \_LogicVar: (work@matching_end_labels_top.blk3.x), line:22:17, endln:22:18
+      |vpiTypedef:
+      \_LogicTypespec: , line:22:13, endln:22:16
+        |vpiParent:
+        \_Begin: (work@matching_end_labels_top.blk3), line:21:16, endln:24:12
+      |vpiImportTypespec:
+      \_LogicTypespec: , line:22:13, endln:22:16
+      |vpiImportTypespec:
+      \_LogicVar: (work@matching_end_labels_top.blk3.x), line:22:17, endln:22:18
+      |vpiStmt:
+      \_Assignment: , line:22:17, endln:22:18
+        |vpiParent:
+        \_Begin: (work@matching_end_labels_top.blk3), line:21:16, endln:24:12
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiLhs:
+        \_LogicVar: (work@matching_end_labels_top.blk3.x), line:22:17, endln:22:18
+      |vpiStmt:
+      \_ContAssign: , line:23:20, endln:23:25
+        |vpiParent:
+        \_Begin: (work@matching_end_labels_top.blk3), line:21:16, endln:24:12
+        |vpiRhs:
+        \_Constant: , line:23:24, endln:23:25
+          |vpiParent:
+          \_ContAssign: , line:23:20, endln:23:25
+          |vpiDecompile:3
+          |vpiSize:64
+          |UINT:3
+          |vpiConstType:9
+        |vpiLhs:
+        \_RefObj: (work@matching_end_labels_top.blk3.x), line:23:20, endln:23:21
+          |vpiParent:
+          \_ContAssign: , line:23:20, endln:23:25
+          |vpiName:x
+          |vpiFullName:work@matching_end_labels_top.blk3.x
+          |vpiActual:
+          \_LogicVar: (work@matching_end_labels_top.blk3.x), line:22:17, endln:22:18
+    |vpiInternalScope:
+    \_Begin: (work@matching_end_labels_top.blk4), line:26:16, endln:29:19
+      |vpiParent:
+      \_Begin: (work@matching_end_labels_top), line:20:12, endln:31:8
+      |vpiName:blk4
+      |vpiFullName:work@matching_end_labels_top.blk4
+      |vpiVariables:
+      \_LogicVar: (work@matching_end_labels_top.blk4.x), line:27:17, endln:27:18
+        |vpiParent:
+        \_Begin: (work@matching_end_labels_top.blk4), line:26:16, endln:29:19
+        |vpiTypespec:
+        \_RefTypespec: (work@matching_end_labels_top.blk4.x), line:27:13, endln:27:16
+          |vpiParent:
+          \_LogicVar: (work@matching_end_labels_top.blk4.x), line:27:17, endln:27:18
+          |vpiFullName:work@matching_end_labels_top.blk4.x
+          |vpiActual:
+          \_LogicTypespec: , line:27:13, endln:27:16
+        |vpiName:x
+        |vpiFullName:work@matching_end_labels_top.blk4.x
+      |vpiReg:
+      \_LogicVar: (work@matching_end_labels_top.blk4.x), line:27:17, endln:27:18
+      |vpiTypedef:
+      \_LogicTypespec: , line:27:13, endln:27:16
+        |vpiParent:
+        \_Begin: (work@matching_end_labels_top.blk4), line:26:16, endln:29:19
+      |vpiImportTypespec:
+      \_LogicTypespec: , line:27:13, endln:27:16
+      |vpiImportTypespec:
+      \_LogicVar: (work@matching_end_labels_top.blk4.x), line:27:17, endln:27:18
+      |vpiStmt:
+      \_Assignment: , line:27:17, endln:27:18
+        |vpiParent:
+        \_Begin: (work@matching_end_labels_top.blk4), line:26:16, endln:29:19
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiLhs:
+        \_LogicVar: (work@matching_end_labels_top.blk4.x), line:27:17, endln:27:18
+      |vpiStmt:
+      \_ContAssign: , line:28:20, endln:28:25
+        |vpiParent:
+        \_Begin: (work@matching_end_labels_top.blk4), line:26:16, endln:29:19
+        |vpiRhs:
+        \_Constant: , line:28:24, endln:28:25
+          |vpiParent:
+          \_ContAssign: , line:28:20, endln:28:25
+          |vpiDecompile:4
+          |vpiSize:64
+          |UINT:4
+          |vpiConstType:9
+        |vpiLhs:
+        \_RefObj: (work@matching_end_labels_top.blk4.x), line:28:20, endln:28:21
+          |vpiParent:
+          \_ContAssign: , line:28:20, endln:28:25
+          |vpiName:x
+          |vpiFullName:work@matching_end_labels_top.blk4.x
+          |vpiActual:
+          \_LogicVar: (work@matching_end_labels_top.blk4.x), line:27:17, endln:27:18
+    |vpiStmt:
+    \_GenIf: , line:21:9, endln:24:12
+      |vpiParent:
+      \_Begin: (work@matching_end_labels_top), line:20:12, endln:31:8
+      |vpiCondition:
+      \_Constant: , line:21:13, endln:21:14
+        |vpiParent:
+        \_GenIf: , line:21:9, endln:24:12
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+      |vpiStmt:
+      \_Begin: (work@matching_end_labels_top.blk3), line:21:16, endln:24:12
+    |vpiStmt:
+    \_ContAssign: , line:25:16, endln:25:29
+      |vpiParent:
+      \_Begin: (work@matching_end_labels_top), line:20:12, endln:31:8
+      |vpiRhs:
+      \_HierPath: (blk3.x), line:25:23, endln:25:29
+        |vpiParent:
+        \_ContAssign: , line:25:16, endln:25:29
+        |vpiActual:
+        \_RefObj: (blk3), line:25:23, endln:25:27
+          |vpiParent:
+          \_HierPath: (blk3.x), line:25:23, endln:25:29
+          |vpiName:blk3
+          |vpiActual:
+          \_Begin: (work@matching_end_labels_top.blk3), line:21:16, endln:24:12
+        |vpiActual:
+        \_RefObj: (work@matching_end_labels_top.x), line:25:28, endln:25:29
+          |vpiParent:
+          \_HierPath: (blk3.x), line:25:23, endln:25:29
+          |vpiName:x
+          |vpiFullName:work@matching_end_labels_top.x
+          |vpiActual:
+          \_LogicVar: (work@matching_end_labels_top.blk3.x), line:22:17, endln:22:18
+        |vpiName:blk3.x
+      |vpiLhs:
+      \_RefObj: (work@matching_end_labels_top.out3), line:25:16, endln:25:20
+        |vpiParent:
+        \_ContAssign: , line:25:16, endln:25:29
+        |vpiName:out3
+        |vpiFullName:work@matching_end_labels_top.out3
+        |vpiActual:
+        \_LogicNet: (work@matching_end_labels_top.out3), line:3:17, endln:3:21
+    |vpiStmt:
+    \_GenIf: , line:26:9, endln:29:19
+      |vpiParent:
+      \_Begin: (work@matching_end_labels_top), line:20:12, endln:31:8
+      |vpiCondition:
+      \_Constant: , line:26:13, endln:26:14
+        |vpiParent:
+        \_GenIf: , line:26:9, endln:29:19
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+      |vpiStmt:
+      \_Begin: (work@matching_end_labels_top.blk4), line:26:16, endln:29:19
+    |vpiStmt:
+    \_ContAssign: , line:30:16, endln:30:29
+      |vpiParent:
+      \_Begin: (work@matching_end_labels_top), line:20:12, endln:31:8
+      |vpiRhs:
+      \_HierPath: (blk4.x), line:30:23, endln:30:29
+        |vpiParent:
+        \_ContAssign: , line:30:16, endln:30:29
+        |vpiActual:
+        \_RefObj: (blk4), line:30:23, endln:30:27
+          |vpiParent:
+          \_HierPath: (blk4.x), line:30:23, endln:30:29
+          |vpiName:blk4
+          |vpiActual:
+          \_Begin: (work@matching_end_labels_top.blk4), line:26:16, endln:29:19
+        |vpiActual:
+        \_RefObj: (work@matching_end_labels_top.x), line:30:28, endln:30:29
+          |vpiParent:
+          \_HierPath: (blk4.x), line:30:23, endln:30:29
+          |vpiName:x
+          |vpiFullName:work@matching_end_labels_top.x
+          |vpiActual:
+          \_LogicVar: (work@matching_end_labels_top.blk4.x), line:27:17, endln:27:18
+        |vpiName:blk4.x
+      |vpiLhs:
+      \_RefObj: (work@matching_end_labels_top.out4), line:30:16, endln:30:20
+        |vpiParent:
+        \_ContAssign: , line:30:16, endln:30:29
+        |vpiName:out4
+        |vpiFullName:work@matching_end_labels_top.out4
+        |vpiActual:
+        \_LogicNet: (work@matching_end_labels_top.out4), line:3:23, endln:3:27
+  |vpiTypedef:
+  \_LogicTypespec: , line:2:12, endln:2:21
+    |vpiParent:
+    \_Module: work@matching_end_labels_top (work@matching_end_labels_top), file:${SURELOG_DIR}/tests/HierPathBeginBlock/dut.sv, line:1:1, endln:33:10
+    |vpiRange:
+    \_Range: , line:2:16, endln:2:21
+      |vpiParent:
+      \_LogicTypespec: , line:2:12, endln:2:21
+      |vpiLeftRange:
+      \_Constant: , line:2:17, endln:2:18
+        |vpiParent:
+        \_Range: , line:2:16, endln:2:21
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:2:19, endln:2:20
+        |vpiParent:
+        \_Range: , line:2:16, endln:2:21
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:2:12, endln:2:21
+    |vpiParent:
+    \_Module: work@matching_end_labels_top (work@matching_end_labels_top), file:${SURELOG_DIR}/tests/HierPathBeginBlock/dut.sv, line:1:1, endln:33:10
+    |vpiRange:
+    \_Range: , line:2:16, endln:2:21
+      |vpiParent:
+      \_LogicTypespec: , line:2:12, endln:2:21
+      |vpiLeftRange:
+      \_Constant: , line:2:17, endln:2:18
+        |vpiParent:
+        \_Range: , line:2:16, endln:2:21
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:2:19, endln:2:20
+        |vpiParent:
+        \_Range: , line:2:16, endln:2:21
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:2:12, endln:2:21
+    |vpiParent:
+    \_Module: work@matching_end_labels_top (work@matching_end_labels_top), file:${SURELOG_DIR}/tests/HierPathBeginBlock/dut.sv, line:1:1, endln:33:10
+    |vpiRange:
+    \_Range: , line:2:16, endln:2:21
+      |vpiParent:
+      \_LogicTypespec: , line:2:12, endln:2:21
+      |vpiLeftRange:
+      \_Constant: , line:2:17, endln:2:18
+        |vpiParent:
+        \_Range: , line:2:16, endln:2:21
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:2:19, endln:2:20
+        |vpiParent:
+        \_Range: , line:2:16, endln:2:21
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:2:12, endln:2:21
+    |vpiParent:
+    \_Module: work@matching_end_labels_top (work@matching_end_labels_top), file:${SURELOG_DIR}/tests/HierPathBeginBlock/dut.sv, line:1:1, endln:33:10
+    |vpiRange:
+    \_Range: , line:2:16, endln:2:21
+      |vpiParent:
+      \_LogicTypespec: , line:2:12, endln:2:21
+      |vpiLeftRange:
+      \_Constant: , line:2:17, endln:2:18
+        |vpiParent:
+        \_Range: , line:2:16, endln:2:21
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:2:19, endln:2:20
+        |vpiParent:
+        \_Range: , line:2:16, endln:2:21
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:2:12, endln:2:21
+    |vpiParent:
+    \_Module: work@matching_end_labels_top (work@matching_end_labels_top), file:${SURELOG_DIR}/tests/HierPathBeginBlock/dut.sv, line:1:1, endln:33:10
+    |vpiRange:
+    \_Range: , line:2:16, endln:2:21
+      |vpiParent:
+      \_LogicTypespec: , line:2:12, endln:2:21
+      |vpiLeftRange:
+      \_Constant: , line:2:17, endln:2:18
+        |vpiParent:
+        \_Range: , line:2:16, endln:2:21
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:2:19, endln:2:20
+        |vpiParent:
+        \_Range: , line:2:16, endln:2:21
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:2:12, endln:2:21
+    |vpiParent:
+    \_Module: work@matching_end_labels_top (work@matching_end_labels_top), file:${SURELOG_DIR}/tests/HierPathBeginBlock/dut.sv, line:1:1, endln:33:10
+    |vpiRange:
+    \_Range: , line:2:16, endln:2:21
+      |vpiParent:
+      \_LogicTypespec: , line:2:12, endln:2:21
+      |vpiLeftRange:
+      \_Constant: , line:2:17, endln:2:18
+        |vpiParent:
+        \_Range: , line:2:16, endln:2:21
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:2:19, endln:2:20
+        |vpiParent:
+        \_Range: , line:2:16, endln:2:21
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:2:12, endln:2:21
+    |vpiParent:
+    \_Module: work@matching_end_labels_top (work@matching_end_labels_top), file:${SURELOG_DIR}/tests/HierPathBeginBlock/dut.sv, line:1:1, endln:33:10
+    |vpiRange:
+    \_Range: , line:2:16, endln:2:21
+      |vpiParent:
+      \_LogicTypespec: , line:2:12, endln:2:21
+      |vpiLeftRange:
+      \_Constant: , line:2:17, endln:2:18
+        |vpiParent:
+        \_Range: , line:2:16, endln:2:21
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:2:19, endln:2:20
+        |vpiParent:
+        \_Range: , line:2:16, endln:2:21
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:2:12, endln:2:21
+    |vpiParent:
+    \_Module: work@matching_end_labels_top (work@matching_end_labels_top), file:${SURELOG_DIR}/tests/HierPathBeginBlock/dut.sv, line:1:1, endln:33:10
+    |vpiRange:
+    \_Range: , line:2:16, endln:2:21
+      |vpiParent:
+      \_LogicTypespec: , line:2:12, endln:2:21
+      |vpiLeftRange:
+      \_Constant: , line:2:17, endln:2:18
+        |vpiParent:
+        \_Range: , line:2:16, endln:2:21
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:2:19, endln:2:20
+        |vpiParent:
+        \_Range: , line:2:16, endln:2:21
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:2:12, endln:2:21
+  |vpiImportTypespec:
   \_LogicNet: (work@matching_end_labels_top.out1), line:3:5, endln:3:9
     |vpiParent:
     \_Module: work@matching_end_labels_top (work@matching_end_labels_top), file:${SURELOG_DIR}/tests/HierPathBeginBlock/dut.sv, line:1:1, endln:33:10
+    |vpiTypespec:
+    \_RefTypespec: (work@matching_end_labels_top.out1), line:2:12, endln:2:21
+      |vpiParent:
+      \_LogicNet: (work@matching_end_labels_top.out1), line:3:5, endln:3:9
+      |vpiFullName:work@matching_end_labels_top.out1
+      |vpiActual:
+      \_LogicTypespec: , line:2:12, endln:2:21
     |vpiName:out1
     |vpiFullName:work@matching_end_labels_top.out1
     |vpiNetType:48
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:2:12, endln:2:21
+  |vpiImportTypespec:
   \_LogicNet: (work@matching_end_labels_top.out2), line:3:11, endln:3:15
     |vpiParent:
     \_Module: work@matching_end_labels_top (work@matching_end_labels_top), file:${SURELOG_DIR}/tests/HierPathBeginBlock/dut.sv, line:1:1, endln:33:10
+    |vpiTypespec:
+    \_RefTypespec: (work@matching_end_labels_top.out2), line:2:12, endln:2:21
+      |vpiParent:
+      \_LogicNet: (work@matching_end_labels_top.out2), line:3:11, endln:3:15
+      |vpiFullName:work@matching_end_labels_top.out2
+      |vpiActual:
+      \_LogicTypespec: , line:2:12, endln:2:21
     |vpiName:out2
     |vpiFullName:work@matching_end_labels_top.out2
     |vpiNetType:48
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:2:12, endln:2:21
+  |vpiImportTypespec:
   \_LogicNet: (work@matching_end_labels_top.out3), line:3:17, endln:3:21
     |vpiParent:
     \_Module: work@matching_end_labels_top (work@matching_end_labels_top), file:${SURELOG_DIR}/tests/HierPathBeginBlock/dut.sv, line:1:1, endln:33:10
+    |vpiTypespec:
+    \_RefTypespec: (work@matching_end_labels_top.out3), line:2:12, endln:2:21
+      |vpiParent:
+      \_LogicNet: (work@matching_end_labels_top.out3), line:3:17, endln:3:21
+      |vpiFullName:work@matching_end_labels_top.out3
+      |vpiActual:
+      \_LogicTypespec: , line:2:12, endln:2:21
     |vpiName:out3
     |vpiFullName:work@matching_end_labels_top.out3
     |vpiNetType:48
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:2:12, endln:2:21
+  |vpiImportTypespec:
   \_LogicNet: (work@matching_end_labels_top.out4), line:3:23, endln:3:27
     |vpiParent:
     \_Module: work@matching_end_labels_top (work@matching_end_labels_top), file:${SURELOG_DIR}/tests/HierPathBeginBlock/dut.sv, line:1:1, endln:33:10
+    |vpiTypespec:
+    \_RefTypespec: (work@matching_end_labels_top.out4), line:2:12, endln:2:21
+      |vpiParent:
+      \_LogicNet: (work@matching_end_labels_top.out4), line:3:23, endln:3:27
+      |vpiFullName:work@matching_end_labels_top.out4
+      |vpiActual:
+      \_LogicTypespec: , line:2:12, endln:2:21
     |vpiName:out4
     |vpiFullName:work@matching_end_labels_top.out4
     |vpiNetType:48
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:2:12, endln:2:21
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:2:12, endln:2:21
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:2:12, endln:2:21
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:2:12, endln:2:21
+  |vpiDefName:work@matching_end_labels_top
+  |vpiNet:
+  \_LogicNet: (work@matching_end_labels_top.out1), line:3:5, endln:3:9
+  |vpiNet:
+  \_LogicNet: (work@matching_end_labels_top.out2), line:3:11, endln:3:15
+  |vpiNet:
+  \_LogicNet: (work@matching_end_labels_top.out3), line:3:17, endln:3:21
+  |vpiNet:
+  \_LogicNet: (work@matching_end_labels_top.out4), line:3:23, endln:3:27
   |vpiPort:
   \_Port: (out1), line:3:5, endln:3:9
     |vpiParent:
     \_Module: work@matching_end_labels_top (work@matching_end_labels_top), file:${SURELOG_DIR}/tests/HierPathBeginBlock/dut.sv, line:1:1, endln:33:10
     |vpiName:out1
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@matching_end_labels_top.out1.out1), line:3:5, endln:3:9
-      |vpiParent:
-      \_Port: (out1), line:3:5, endln:3:9
-      |vpiName:out1
-      |vpiFullName:work@matching_end_labels_top.out1.out1
-      |vpiActual:
-      \_LogicNet: (work@matching_end_labels_top.out1), line:3:5, endln:3:9
-    |vpiTypedef:
-    \_RefTypespec: (work@matching_end_labels_top.out1)
+    |vpiTypespec:
+    \_RefTypespec: (work@matching_end_labels_top.out1), line:2:12, endln:2:15
       |vpiParent:
       \_Port: (out1), line:3:5, endln:3:9
       |vpiFullName:work@matching_end_labels_top.out1
@@ -374,16 +818,8 @@ Design: (unnamed)
     \_Module: work@matching_end_labels_top (work@matching_end_labels_top), file:${SURELOG_DIR}/tests/HierPathBeginBlock/dut.sv, line:1:1, endln:33:10
     |vpiName:out2
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@matching_end_labels_top.out2.out2), line:3:11, endln:3:15
-      |vpiParent:
-      \_Port: (out2), line:3:11, endln:3:15
-      |vpiName:out2
-      |vpiFullName:work@matching_end_labels_top.out2.out2
-      |vpiActual:
-      \_LogicNet: (work@matching_end_labels_top.out2), line:3:11, endln:3:15
-    |vpiTypedef:
-    \_RefTypespec: (work@matching_end_labels_top.out2)
+    |vpiTypespec:
+    \_RefTypespec: (work@matching_end_labels_top.out2), line:2:12, endln:2:15
       |vpiParent:
       \_Port: (out2), line:3:11, endln:3:15
       |vpiFullName:work@matching_end_labels_top.out2
@@ -395,16 +831,8 @@ Design: (unnamed)
     \_Module: work@matching_end_labels_top (work@matching_end_labels_top), file:${SURELOG_DIR}/tests/HierPathBeginBlock/dut.sv, line:1:1, endln:33:10
     |vpiName:out3
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@matching_end_labels_top.out3.out3), line:3:17, endln:3:21
-      |vpiParent:
-      \_Port: (out3), line:3:17, endln:3:21
-      |vpiName:out3
-      |vpiFullName:work@matching_end_labels_top.out3.out3
-      |vpiActual:
-      \_LogicNet: (work@matching_end_labels_top.out3), line:3:17, endln:3:21
-    |vpiTypedef:
-    \_RefTypespec: (work@matching_end_labels_top.out3)
+    |vpiTypespec:
+    \_RefTypespec: (work@matching_end_labels_top.out3), line:2:12, endln:2:15
       |vpiParent:
       \_Port: (out3), line:3:17, endln:3:21
       |vpiFullName:work@matching_end_labels_top.out3
@@ -416,16 +844,8 @@ Design: (unnamed)
     \_Module: work@matching_end_labels_top (work@matching_end_labels_top), file:${SURELOG_DIR}/tests/HierPathBeginBlock/dut.sv, line:1:1, endln:33:10
     |vpiName:out4
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@matching_end_labels_top.out4.out4), line:3:23, endln:3:27
-      |vpiParent:
-      \_Port: (out4), line:3:23, endln:3:27
-      |vpiName:out4
-      |vpiFullName:work@matching_end_labels_top.out4.out4
-      |vpiActual:
-      \_LogicNet: (work@matching_end_labels_top.out4), line:3:23, endln:3:27
-    |vpiTypedef:
-    \_RefTypespec: (work@matching_end_labels_top.out4)
+    |vpiTypespec:
+    \_RefTypespec: (work@matching_end_labels_top.out4), line:2:12, endln:2:15
       |vpiParent:
       \_Port: (out4), line:3:23, endln:3:27
       |vpiFullName:work@matching_end_labels_top.out4
@@ -440,8 +860,8 @@ Design: (unnamed)
       |vpiParent:
       \_Initial: , line:5:5, endln:18:8
       |vpiFullName:work@matching_end_labels_top
-      |vpiStmt:
-      \_NamedBegin: (work@matching_end_labels_top.blk1), line:6:17, endln:6:21
+      |vpiInternalScope:
+      \_Begin: (work@matching_end_labels_top.blk1), line:6:9, endln:9:12
         |vpiParent:
         \_Begin: (work@matching_end_labels_top), line:5:13, endln:18:8
         |vpiName:blk1
@@ -449,9 +869,9 @@ Design: (unnamed)
         |vpiVariables:
         \_LogicVar: (work@matching_end_labels_top.blk1.x), line:7:17, endln:7:18
           |vpiParent:
-          \_NamedBegin: (work@matching_end_labels_top.blk1), line:6:17, endln:6:21
+          \_Begin: (work@matching_end_labels_top.blk1), line:6:9, endln:9:12
           |vpiTypespec:
-          \_RefTypespec: (work@matching_end_labels_top.blk1.x)
+          \_RefTypespec: (work@matching_end_labels_top.blk1.x), line:7:13, endln:7:16
             |vpiParent:
             \_LogicVar: (work@matching_end_labels_top.blk1.x), line:7:17, endln:7:18
             |vpiFullName:work@matching_end_labels_top.blk1.x
@@ -459,14 +879,26 @@ Design: (unnamed)
             \_LogicTypespec: , line:7:13, endln:7:16
           |vpiName:x
           |vpiFullName:work@matching_end_labels_top.blk1.x
+        |vpiReg:
+        \_LogicVar: (work@matching_end_labels_top.blk1.x), line:7:17, endln:7:18
+        |vpiTypedef:
+        \_LogicTypespec: , line:7:13, endln:7:16
+          |vpiParent:
+          \_Begin: (work@matching_end_labels_top.blk1), line:6:9, endln:9:12
+        |vpiImportTypespec:
+        \_LogicTypespec: , line:7:13, endln:7:16
+        |vpiImportTypespec:
+        \_LogicVar: (work@matching_end_labels_top.blk1.x), line:7:17, endln:7:18
         |vpiStmt:
         \_Assignment: , line:8:13, endln:8:18
           |vpiParent:
-          \_NamedBegin: (work@matching_end_labels_top.blk1), line:6:17, endln:6:21
+          \_Begin: (work@matching_end_labels_top.blk1), line:6:9, endln:9:12
           |vpiOpType:82
           |vpiBlocking:1
           |vpiRhs:
           \_Constant: , line:8:17, endln:8:18
+            |vpiParent:
+            \_Assignment: , line:8:13, endln:8:18
             |vpiDecompile:1
             |vpiSize:64
             |UINT:1
@@ -479,6 +911,60 @@ Design: (unnamed)
             |vpiFullName:work@matching_end_labels_top.blk1.x
             |vpiActual:
             \_LogicVar: (work@matching_end_labels_top.blk1.x), line:7:17, endln:7:18
+      |vpiInternalScope:
+      \_Begin: (work@matching_end_labels_top.blk2), line:12:9, endln:15:19
+        |vpiParent:
+        \_Begin: (work@matching_end_labels_top), line:5:13, endln:18:8
+        |vpiName:blk2
+        |vpiFullName:work@matching_end_labels_top.blk2
+        |vpiVariables:
+        \_LogicVar: (work@matching_end_labels_top.blk2.x), line:13:17, endln:13:18
+          |vpiParent:
+          \_Begin: (work@matching_end_labels_top.blk2), line:12:9, endln:15:19
+          |vpiTypespec:
+          \_RefTypespec: (work@matching_end_labels_top.blk2.x), line:13:13, endln:13:16
+            |vpiParent:
+            \_LogicVar: (work@matching_end_labels_top.blk2.x), line:13:17, endln:13:18
+            |vpiFullName:work@matching_end_labels_top.blk2.x
+            |vpiActual:
+            \_LogicTypespec: , line:13:13, endln:13:16
+          |vpiName:x
+          |vpiFullName:work@matching_end_labels_top.blk2.x
+        |vpiReg:
+        \_LogicVar: (work@matching_end_labels_top.blk2.x), line:13:17, endln:13:18
+        |vpiTypedef:
+        \_LogicTypespec: , line:13:13, endln:13:16
+          |vpiParent:
+          \_Begin: (work@matching_end_labels_top.blk2), line:12:9, endln:15:19
+        |vpiImportTypespec:
+        \_LogicTypespec: , line:13:13, endln:13:16
+        |vpiImportTypespec:
+        \_LogicVar: (work@matching_end_labels_top.blk2.x), line:13:17, endln:13:18
+        |vpiStmt:
+        \_Assignment: , line:14:13, endln:14:18
+          |vpiParent:
+          \_Begin: (work@matching_end_labels_top.blk2), line:12:9, endln:15:19
+          |vpiOpType:82
+          |vpiBlocking:1
+          |vpiRhs:
+          \_Constant: , line:14:17, endln:14:18
+            |vpiParent:
+            \_Assignment: , line:14:13, endln:14:18
+            |vpiDecompile:2
+            |vpiSize:64
+            |UINT:2
+            |vpiConstType:9
+          |vpiLhs:
+          \_RefObj: (work@matching_end_labels_top.blk2.x), line:14:13, endln:14:14
+            |vpiParent:
+            \_Assignment: , line:14:13, endln:14:18
+            |vpiName:x
+            |vpiFullName:work@matching_end_labels_top.blk2.x
+            |vpiActual:
+            \_LogicVar: (work@matching_end_labels_top.blk2.x), line:13:17, endln:13:18
+        |vpiEndLabel:blk2
+      |vpiStmt:
+      \_Begin: (work@matching_end_labels_top.blk1), line:6:9, endln:9:12
       |vpiStmt:
       \_Assignment: , line:10:9, endln:10:22
         |vpiParent:
@@ -494,12 +980,16 @@ Design: (unnamed)
             |vpiParent:
             \_HierPath: (blk1.x), line:10:16, endln:10:22
             |vpiName:blk1
+            |vpiActual:
+            \_Begin: (work@matching_end_labels_top.blk1), line:6:9, endln:9:12
           |vpiActual:
           \_RefObj: (work@matching_end_labels_top.x), line:10:21, endln:10:22
             |vpiParent:
             \_HierPath: (blk1.x), line:10:16, endln:10:22
             |vpiName:x
             |vpiFullName:work@matching_end_labels_top.x
+            |vpiActual:
+            \_LogicVar: (work@matching_end_labels_top.blk1.x), line:7:17, endln:7:18
           |vpiName:blk1.x
         |vpiLhs:
         \_RefObj: (work@matching_end_labels_top.out1), line:10:9, endln:10:13
@@ -510,45 +1000,7 @@ Design: (unnamed)
           |vpiActual:
           \_LogicNet: (work@matching_end_labels_top.out1), line:3:5, endln:3:9
       |vpiStmt:
-      \_NamedBegin: (work@matching_end_labels_top.blk2), line:12:17, endln:12:21
-        |vpiParent:
-        \_Begin: (work@matching_end_labels_top), line:5:13, endln:18:8
-        |vpiName:blk2
-        |vpiFullName:work@matching_end_labels_top.blk2
-        |vpiVariables:
-        \_LogicVar: (work@matching_end_labels_top.blk2.x), line:13:17, endln:13:18
-          |vpiParent:
-          \_NamedBegin: (work@matching_end_labels_top.blk2), line:12:17, endln:12:21
-          |vpiTypespec:
-          \_RefTypespec: (work@matching_end_labels_top.blk2.x)
-            |vpiParent:
-            \_LogicVar: (work@matching_end_labels_top.blk2.x), line:13:17, endln:13:18
-            |vpiFullName:work@matching_end_labels_top.blk2.x
-            |vpiActual:
-            \_LogicTypespec: , line:13:13, endln:13:16
-          |vpiName:x
-          |vpiFullName:work@matching_end_labels_top.blk2.x
-        |vpiStmt:
-        \_Assignment: , line:14:13, endln:14:18
-          |vpiParent:
-          \_NamedBegin: (work@matching_end_labels_top.blk2), line:12:17, endln:12:21
-          |vpiOpType:82
-          |vpiBlocking:1
-          |vpiRhs:
-          \_Constant: , line:14:17, endln:14:18
-            |vpiDecompile:2
-            |vpiSize:64
-            |UINT:2
-            |vpiConstType:9
-          |vpiLhs:
-          \_RefObj: (work@matching_end_labels_top.blk2.x), line:14:13, endln:14:14
-            |vpiParent:
-            \_Assignment: , line:14:13, endln:14:18
-            |vpiName:x
-            |vpiFullName:work@matching_end_labels_top.blk2.x
-            |vpiActual:
-            \_LogicVar: (work@matching_end_labels_top.blk2.x), line:13:17, endln:13:18
-        |vpiEndLabel:blk2
+      \_Begin: (work@matching_end_labels_top.blk2), line:12:9, endln:15:19
       |vpiStmt:
       \_Assignment: , line:16:9, endln:16:22
         |vpiParent:
@@ -564,12 +1016,16 @@ Design: (unnamed)
             |vpiParent:
             \_HierPath: (blk2.x), line:16:16, endln:16:22
             |vpiName:blk2
+            |vpiActual:
+            \_Begin: (work@matching_end_labels_top.blk2), line:12:9, endln:15:19
           |vpiActual:
           \_RefObj: (work@matching_end_labels_top.x), line:16:21, endln:16:22
             |vpiParent:
             \_HierPath: (blk2.x), line:16:16, endln:16:22
             |vpiName:x
             |vpiFullName:work@matching_end_labels_top.x
+            |vpiActual:
+            \_LogicVar: (work@matching_end_labels_top.blk2.x), line:13:17, endln:13:18
           |vpiName:blk2.x
         |vpiLhs:
         \_RefObj: (work@matching_end_labels_top.out2), line:16:9, endln:16:13
@@ -580,273 +1036,19 @@ Design: (unnamed)
           |vpiActual:
           \_LogicNet: (work@matching_end_labels_top.out2), line:3:11, endln:3:15
   |vpiGenStmt:
-  \_GenIf: , line:20:5, endln:20:7
+  \_GenIf: , line:20:5, endln:31:8
     |vpiParent:
     \_Module: work@matching_end_labels_top (work@matching_end_labels_top), file:${SURELOG_DIR}/tests/HierPathBeginBlock/dut.sv, line:1:1, endln:33:10
     |vpiCondition:
     \_Constant: , line:20:9, endln:20:10
       |vpiParent:
-      \_GenIf: , line:20:5, endln:20:7
+      \_GenIf: , line:20:5, endln:31:8
       |vpiDecompile:1
       |vpiSize:64
       |UINT:1
       |vpiConstType:9
     |vpiStmt:
-    \_Begin: (work@matching_end_labels_top)
-      |vpiParent:
-      \_GenIf: , line:20:5, endln:20:7
-      |vpiFullName:work@matching_end_labels_top
-      |vpiStmt:
-      \_GenIf: , line:21:9, endln:21:11
-        |vpiParent:
-        \_Begin: (work@matching_end_labels_top)
-        |vpiCondition:
-        \_Constant: , line:21:13, endln:21:14
-          |vpiParent:
-          \_GenIf: , line:21:9, endln:21:11
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiStmt:
-        \_NamedBegin: (work@matching_end_labels_top.blk3)
-          |vpiParent:
-          \_GenIf: , line:21:9, endln:21:11
-          |vpiName:blk3
-          |vpiFullName:work@matching_end_labels_top.blk3
-          |vpiStmt:
-          \_Assignment: , line:22:17, endln:22:18
-            |vpiParent:
-            \_NamedBegin: (work@matching_end_labels_top.blk3)
-            |vpiOpType:82
-            |vpiBlocking:1
-            |vpiLhs:
-            \_LogicVar: (work@matching_end_labels_top.blk3.x), line:22:17, endln:22:18
-              |vpiParent:
-              \_Assignment: , line:22:17, endln:22:18
-              |vpiTypespec:
-              \_RefTypespec: (work@matching_end_labels_top.blk3.x)
-                |vpiParent:
-                \_LogicVar: (work@matching_end_labels_top.blk3.x), line:22:17, endln:22:18
-                |vpiFullName:work@matching_end_labels_top.blk3.x
-                |vpiActual:
-                \_LogicTypespec: , line:22:13, endln:22:16
-              |vpiName:x
-              |vpiFullName:work@matching_end_labels_top.blk3.x
-          |vpiStmt:
-          \_ContAssign: , line:23:20, endln:23:25
-            |vpiParent:
-            \_NamedBegin: (work@matching_end_labels_top.blk3)
-            |vpiRhs:
-            \_Constant: , line:23:24, endln:23:25
-              |vpiParent:
-              \_ContAssign: , line:23:20, endln:23:25
-              |vpiDecompile:3
-              |vpiSize:64
-              |UINT:3
-              |vpiConstType:9
-            |vpiLhs:
-            \_RefObj: (work@matching_end_labels_top.blk3.x), line:23:20, endln:23:21
-              |vpiParent:
-              \_ContAssign: , line:23:20, endln:23:25
-              |vpiName:x
-              |vpiFullName:work@matching_end_labels_top.blk3.x
-      |vpiStmt:
-      \_ContAssign: , line:25:16, endln:25:29
-        |vpiParent:
-        \_Begin: (work@matching_end_labels_top)
-        |vpiRhs:
-        \_HierPath: (blk3.x), line:25:23, endln:25:29
-          |vpiParent:
-          \_ContAssign: , line:25:16, endln:25:29
-          |vpiActual:
-          \_RefObj: (blk3), line:25:23, endln:25:27
-            |vpiParent:
-            \_HierPath: (blk3.x), line:25:23, endln:25:29
-            |vpiName:blk3
-          |vpiActual:
-          \_RefObj: (work@matching_end_labels_top.x), line:25:28, endln:25:29
-            |vpiParent:
-            \_HierPath: (blk3.x), line:25:23, endln:25:29
-            |vpiName:x
-            |vpiFullName:work@matching_end_labels_top.x
-          |vpiName:blk3.x
-        |vpiLhs:
-        \_RefObj: (work@matching_end_labels_top.out3), line:25:16, endln:25:20
-          |vpiParent:
-          \_ContAssign: , line:25:16, endln:25:29
-          |vpiName:out3
-          |vpiFullName:work@matching_end_labels_top.out3
-      |vpiStmt:
-      \_GenIf: , line:26:9, endln:26:11
-        |vpiParent:
-        \_Begin: (work@matching_end_labels_top)
-        |vpiCondition:
-        \_Constant: , line:26:13, endln:26:14
-          |vpiParent:
-          \_GenIf: , line:26:9, endln:26:11
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiStmt:
-        \_NamedBegin: (work@matching_end_labels_top.blk4)
-          |vpiParent:
-          \_GenIf: , line:26:9, endln:26:11
-          |vpiName:blk4
-          |vpiFullName:work@matching_end_labels_top.blk4
-          |vpiStmt:
-          \_Assignment: , line:27:17, endln:27:18
-            |vpiParent:
-            \_NamedBegin: (work@matching_end_labels_top.blk4)
-            |vpiOpType:82
-            |vpiBlocking:1
-            |vpiLhs:
-            \_LogicVar: (work@matching_end_labels_top.blk4.x), line:27:17, endln:27:18
-              |vpiParent:
-              \_Assignment: , line:27:17, endln:27:18
-              |vpiTypespec:
-              \_RefTypespec: (work@matching_end_labels_top.blk4.x)
-                |vpiParent:
-                \_LogicVar: (work@matching_end_labels_top.blk4.x), line:27:17, endln:27:18
-                |vpiFullName:work@matching_end_labels_top.blk4.x
-                |vpiActual:
-                \_LogicTypespec: , line:27:13, endln:27:16
-              |vpiName:x
-              |vpiFullName:work@matching_end_labels_top.blk4.x
-          |vpiStmt:
-          \_ContAssign: , line:28:20, endln:28:25
-            |vpiParent:
-            \_NamedBegin: (work@matching_end_labels_top.blk4)
-            |vpiRhs:
-            \_Constant: , line:28:24, endln:28:25
-              |vpiParent:
-              \_ContAssign: , line:28:20, endln:28:25
-              |vpiDecompile:4
-              |vpiSize:64
-              |UINT:4
-              |vpiConstType:9
-            |vpiLhs:
-            \_RefObj: (work@matching_end_labels_top.blk4.x), line:28:20, endln:28:21
-              |vpiParent:
-              \_ContAssign: , line:28:20, endln:28:25
-              |vpiName:x
-              |vpiFullName:work@matching_end_labels_top.blk4.x
-      |vpiStmt:
-      \_ContAssign: , line:30:16, endln:30:29
-        |vpiParent:
-        \_Begin: (work@matching_end_labels_top)
-        |vpiRhs:
-        \_HierPath: (blk4.x), line:30:23, endln:30:29
-          |vpiParent:
-          \_ContAssign: , line:30:16, endln:30:29
-          |vpiActual:
-          \_RefObj: (blk4), line:30:23, endln:30:27
-            |vpiParent:
-            \_HierPath: (blk4.x), line:30:23, endln:30:29
-            |vpiName:blk4
-          |vpiActual:
-          \_RefObj: (work@matching_end_labels_top.x), line:30:28, endln:30:29
-            |vpiParent:
-            \_HierPath: (blk4.x), line:30:23, endln:30:29
-            |vpiName:x
-            |vpiFullName:work@matching_end_labels_top.x
-          |vpiName:blk4.x
-        |vpiLhs:
-        \_RefObj: (work@matching_end_labels_top.out4), line:30:16, endln:30:20
-          |vpiParent:
-          \_ContAssign: , line:30:16, endln:30:29
-          |vpiName:out4
-          |vpiFullName:work@matching_end_labels_top.out4
-\_weaklyReferenced:
-\_LogicTypespec: , line:7:13, endln:7:16
-\_LogicTypespec: , line:13:13, endln:13:16
-\_LogicTypespec: , line:22:13, endln:22:16
-\_LogicTypespec: , line:27:13, endln:27:16
-\_LogicTypespec: , line:2:12, endln:2:21
-  |vpiRange:
-  \_Range: , line:2:16, endln:2:21
-    |vpiParent:
-    \_LogicTypespec: , line:2:12, endln:2:21
-    |vpiLeftRange:
-    \_Constant: , line:2:17, endln:2:18
-      |vpiParent:
-      \_Range: , line:2:16, endln:2:21
-      |vpiDecompile:7
-      |vpiSize:64
-      |UINT:7
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:2:19, endln:2:20
-      |vpiParent:
-      \_Range: , line:2:16, endln:2:21
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:2:12, endln:2:21
-  |vpiRange:
-  \_Range: , line:2:16, endln:2:21
-    |vpiParent:
-    \_LogicTypespec: , line:2:12, endln:2:21
-    |vpiLeftRange:
-    \_Constant: , line:2:17, endln:2:18
-      |vpiParent:
-      \_Range: , line:2:16, endln:2:21
-      |vpiDecompile:7
-      |vpiSize:64
-      |UINT:7
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:2:19, endln:2:20
-      |vpiParent:
-      \_Range: , line:2:16, endln:2:21
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:2:12, endln:2:21
-  |vpiRange:
-  \_Range: , line:2:16, endln:2:21
-    |vpiParent:
-    \_LogicTypespec: , line:2:12, endln:2:21
-    |vpiLeftRange:
-    \_Constant: , line:2:17, endln:2:18
-      |vpiParent:
-      \_Range: , line:2:16, endln:2:21
-      |vpiDecompile:7
-      |vpiSize:64
-      |UINT:7
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:2:19, endln:2:20
-      |vpiParent:
-      \_Range: , line:2:16, endln:2:21
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:2:12, endln:2:21
-  |vpiRange:
-  \_Range: , line:2:16, endln:2:21
-    |vpiParent:
-    \_LogicTypespec: , line:2:12, endln:2:21
-    |vpiLeftRange:
-    \_Constant: , line:2:17, endln:2:18
-      |vpiParent:
-      \_Range: , line:2:16, endln:2:21
-      |vpiDecompile:7
-      |vpiSize:64
-      |UINT:7
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:2:19, endln:2:20
-      |vpiParent:
-      \_Range: , line:2:16, endln:2:21
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
+    \_Begin: (work@matching_end_labels_top), line:20:12, endln:31:8
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

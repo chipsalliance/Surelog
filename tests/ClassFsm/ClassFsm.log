@@ -3,9 +3,9 @@
 AST_DEBUG_BEGIN
 Count: 580
 LIB: work
-FILE f<11>:${SURELOG_DIR}/tests/ClassFsm/dut.sv
+FILE: ${SURELOG_DIR}/tests/ClassFsm/dut.sv
 n<> u<579> t<Top_level_rule> c<1> l<1:1> el<88:1>
-  n<> u<1> t<Null_rule> p<579> s<578> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<579> s<578> l<1:1>
   n<> u<578> t<Source_text> p<579> c<577> l<1:1> el<87:10>
     n<> u<577> t<Description> p<578> c<576> l<1:1> el<87:10>
       n<> u<576> t<Module_declaration> p<577> c<23> l<1:1> el<87:10>
@@ -595,71 +595,103 @@ Always                                                 2
 Assignment                                             4
 Begin                                                  8
 BitSelect                                              5
+BitTypespec                                            2
+BitVar                                                 2
 CaseItem                                               4
 CaseStmt                                               1
-ClassDefn                                              3
+ClassDefn                                              2
 ClassTypespec                                          1
-Constant                                               9
+ClassVar                                               1
+Constant                                              17
 Design                                                 1
 EventControl                                           2
+Extends                                                1
 FuncCall                                               8
 IODecl                                                 2
 IfElse                                                 5
-IntTypespec                                            5
-LogicNet                                               4
-LogicTypespec                                          4
+IntTypespec                                            1
+LogicNet                                               3
+LogicTypespec                                          1
 MethodFuncCall                                         2
 Module                                                 1
 Operation                                              2
 ParamAssign                                            4
 Parameter                                              4
 Port                                                   3
-RefObj                                                28
-RefTypespec                                           14
+Range                                                  4
+RefObj                                                25
+RefTypespec                                            6
 Task                                                   7
 TaskCall                                               4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ClassFsm/slpp_unit/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ClassFsm/slpp_unit/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ClassFsm/slpp_unit/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@fsm_class (work@fsm_class), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:1:1, endln:87:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@fsm_class
-  |vpiDefName:work@fsm_class
-  |vpiClassDefn:
+  |vpiName:work@fsm_class
+  |vpiVariables:
+  \_ClassVar: (work@fsm_class.P), line:81:15, endln:81:16
+    |vpiParent:
+    \_Module: work@fsm_class (work@fsm_class), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:1:1, endln:87:10
+    |vpiTypespec:
+    \_RefTypespec: (work@fsm_class.P.specificFSM), line:81:3, endln:81:14
+      |vpiParent:
+      \_ClassVar: (work@fsm_class.P), line:81:15, endln:81:16
+      |vpiName:specificFSM
+      |vpiFullName:work@fsm_class.P.specificFSM
+      |vpiActual:
+      \_ClassTypespec: (specificFSM), line:81:3, endln:81:14
+    |vpiName:P
+    |vpiFullName:work@fsm_class.P
+    |vpiVisibility:1
+  |vpiInternalScope:
   \_ClassDefn: (work@fsm_class::baseFsm), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:3:3, endln:24:11
     |vpiParent:
     \_Module: work@fsm_class (work@fsm_class), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:1:1, endln:87:10
     |vpiName:baseFsm
     |vpiFullName:work@fsm_class::baseFsm
-    |vpiMethod:
+    |vpiVariables:
+    \_BitVar: (work@fsm_class::baseFsm::current_state), line:5:15, endln:5:28
+      |vpiParent:
+      \_ClassDefn: (work@fsm_class::baseFsm), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:3:3, endln:24:11
+      |vpiTypespec:
+      \_RefTypespec: (work@fsm_class::baseFsm::current_state), line:5:5, endln:5:14
+        |vpiParent:
+        \_BitVar: (work@fsm_class::baseFsm::current_state), line:5:15, endln:5:28
+        |vpiFullName:work@fsm_class::baseFsm::current_state
+        |vpiActual:
+        \_BitTypespec: , line:5:5, endln:5:14
+      |vpiName:current_state
+      |vpiFullName:work@fsm_class::baseFsm::current_state
+      |vpiAutomatic:1
+      |vpiVisibility:1
+    |vpiVariables:
+    \_BitVar: (work@fsm_class::baseFsm::next_state), line:6:15, endln:6:25
+      |vpiParent:
+      \_ClassDefn: (work@fsm_class::baseFsm), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:3:3, endln:24:11
+      |vpiTypespec:
+      \_RefTypespec: (work@fsm_class::baseFsm::next_state), line:6:5, endln:6:14
+        |vpiParent:
+        \_BitVar: (work@fsm_class::baseFsm::next_state), line:6:15, endln:6:25
+        |vpiFullName:work@fsm_class::baseFsm::next_state
+        |vpiActual:
+        \_BitTypespec: , line:6:5, endln:6:14
+      |vpiName:next_state
+      |vpiFullName:work@fsm_class::baseFsm::next_state
+      |vpiAutomatic:1
+      |vpiVisibility:1
+    |vpiInternalScope:
     \_Task: (work@fsm_class::baseFsm::next_state_transition), line:8:5, endln:14:12
       |vpiParent:
       \_ClassDefn: (work@fsm_class::baseFsm), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:3:3, endln:24:11
       |vpiName:next_state_transition
       |vpiFullName:work@fsm_class::baseFsm::next_state_transition
-      |vpiMethod:1
-      |vpiVisibility:1
-      |vpiIODecl:
-      \_IODecl: (state_to_bit), line:8:43, endln:8:55
-        |vpiParent:
-        \_Task: (work@fsm_class::baseFsm::next_state_transition), line:8:5, endln:14:12
-        |vpiDirection:1
-        |vpiName:state_to_bit
-        |vpiTypedef:
-        \_RefTypespec: (work@fsm_class::baseFsm::next_state_transition::state_to_bit)
-          |vpiParent:
-          \_IODecl: (state_to_bit), line:8:43, endln:8:55
-          |vpiFullName:work@fsm_class::baseFsm::next_state_transition::state_to_bit
-          |vpiActual:
-          \_IntTypespec: , line:8:39, endln:8:42
-      |vpiStmt:
+      |vpiInternalScope:
       \_Begin: (work@fsm_class::baseFsm::next_state_transition), line:10:7, endln:13:10
         |vpiParent:
         \_Task: (work@fsm_class::baseFsm::next_state_transition), line:8:5, endln:14:12
@@ -672,6 +704,8 @@ Design: (unnamed)
           |vpiBlocking:1
           |vpiRhs:
           \_Constant: , line:11:22, endln:11:23
+            |vpiParent:
+            \_Assignment: , line:11:9, endln:11:23
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
@@ -682,6 +716,8 @@ Design: (unnamed)
             \_Assignment: , line:11:9, endln:11:23
             |vpiName:next_state
             |vpiFullName:work@fsm_class::baseFsm::next_state_transition::next_state
+            |vpiActual:
+            \_BitVar: (work@fsm_class::baseFsm::next_state), line:6:15, endln:6:25
         |vpiStmt:
         \_Assignment: , line:12:9, endln:12:41
           |vpiParent:
@@ -690,44 +726,59 @@ Design: (unnamed)
           |vpiBlocking:1
           |vpiRhs:
           \_Constant: , line:12:37, endln:12:41
+            |vpiParent:
+            \_Assignment: , line:12:9, endln:12:41
             |vpiDecompile:1'b1
             |vpiSize:1
             |BIN:1
             |vpiConstType:3
           |vpiLhs:
-          \_BitSelect: (work@fsm_class::baseFsm::next_state_transition::next_state), line:12:9, endln:12:34
+          \_BitSelect: (work@fsm_class::baseFsm::next_state_transition::next_state), line:12:20, endln:12:34
             |vpiParent:
             \_Assignment: , line:12:9, endln:12:41
             |vpiName:next_state
             |vpiFullName:work@fsm_class::baseFsm::next_state_transition::next_state
+            |vpiActual:
+            \_BitVar: (work@fsm_class::baseFsm::next_state), line:6:15, endln:6:25
             |vpiIndex:
             \_RefObj: (work@fsm_class::baseFsm::next_state_transition::state_to_bit), line:12:21, endln:12:33
               |vpiParent:
-              \_BitSelect: (work@fsm_class::baseFsm::next_state_transition::next_state), line:12:9, endln:12:34
+              \_BitSelect: (work@fsm_class::baseFsm::next_state_transition::next_state), line:12:20, endln:12:34
               |vpiName:state_to_bit
               |vpiFullName:work@fsm_class::baseFsm::next_state_transition::state_to_bit
-    |vpiMethod:
+              |vpiActual:
+              \_IODecl: (state_to_bit), line:8:43, endln:8:55
+      |vpiTypedef:
+      \_IntTypespec: , line:8:39, endln:8:42
+        |vpiParent:
+        \_Task: (work@fsm_class::baseFsm::next_state_transition), line:8:5, endln:14:12
+        |vpiSigned:1
+      |vpiImportTypespec:
+      \_IntTypespec: , line:8:39, endln:8:42
+      |vpiMethod:1
+      |vpiVisibility:1
+      |vpiIODecl:
+      \_IODecl: (state_to_bit), line:8:43, endln:8:55
+        |vpiParent:
+        \_Task: (work@fsm_class::baseFsm::next_state_transition), line:8:5, endln:14:12
+        |vpiDirection:1
+        |vpiName:state_to_bit
+        |vpiTypedef:
+        \_RefTypespec: (work@fsm_class::baseFsm::next_state_transition::state_to_bit), line:8:39, endln:8:42
+          |vpiParent:
+          \_IODecl: (state_to_bit), line:8:43, endln:8:55
+          |vpiFullName:work@fsm_class::baseFsm::next_state_transition::state_to_bit
+          |vpiActual:
+          \_IntTypespec: , line:8:39, endln:8:42
+      |vpiStmt:
+      \_Begin: (work@fsm_class::baseFsm::next_state_transition), line:10:7, endln:13:10
+    |vpiInternalScope:
     \_Task: (work@fsm_class::baseFsm::current_state_transition), line:15:5, endln:23:12
       |vpiParent:
       \_ClassDefn: (work@fsm_class::baseFsm), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:3:3, endln:24:11
       |vpiName:current_state_transition
       |vpiFullName:work@fsm_class::baseFsm::current_state_transition
-      |vpiMethod:1
-      |vpiVisibility:1
-      |vpiIODecl:
-      \_IODecl: (reset), line:15:48, endln:15:53
-        |vpiParent:
-        \_Task: (work@fsm_class::baseFsm::current_state_transition), line:15:5, endln:23:12
-        |vpiDirection:1
-        |vpiName:reset
-        |vpiTypedef:
-        \_RefTypespec: (work@fsm_class::baseFsm::current_state_transition::reset)
-          |vpiParent:
-          \_IODecl: (reset), line:15:48, endln:15:53
-          |vpiFullName:work@fsm_class::baseFsm::current_state_transition::reset
-          |vpiActual:
-          \_LogicTypespec: , line:15:42, endln:15:47
-      |vpiStmt:
+      |vpiInternalScope:
       \_Begin: (work@fsm_class::baseFsm::current_state_transition), line:17:7, endln:22:10
         |vpiParent:
         \_Task: (work@fsm_class::baseFsm::current_state_transition), line:15:5, endln:23:12
@@ -739,7 +790,7 @@ Design: (unnamed)
           |vpiCondition:
           \_RefObj: (work@fsm_class::baseFsm::current_state_transition::reset), line:18:11, endln:18:16
             |vpiParent:
-            \_Begin: (work@fsm_class::baseFsm::current_state_transition), line:17:7, endln:22:10
+            \_IfElse: , line:18:7, endln:21:37
             |vpiName:reset
             |vpiFullName:work@fsm_class::baseFsm::current_state_transition::reset
             |vpiActual:
@@ -752,6 +803,8 @@ Design: (unnamed)
             |vpiBlocking:1
             |vpiRhs:
             \_Constant: , line:19:25, endln:19:26
+              |vpiParent:
+              \_Assignment: , line:19:9, endln:19:26
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
@@ -762,6 +815,8 @@ Design: (unnamed)
               \_Assignment: , line:19:9, endln:19:26
               |vpiName:current_state
               |vpiFullName:work@fsm_class::baseFsm::current_state_transition::current_state
+              |vpiActual:
+              \_BitVar: (work@fsm_class::baseFsm::current_state), line:5:15, endln:5:28
           |vpiElseStmt:
           \_Assignment: , line:21:9, endln:21:36
             |vpiParent:
@@ -773,559 +828,657 @@ Design: (unnamed)
               \_Assignment: , line:21:9, endln:21:36
               |vpiName:next_state
               |vpiFullName:work@fsm_class::baseFsm::current_state_transition::next_state
+              |vpiActual:
+              \_BitVar: (work@fsm_class::baseFsm::next_state), line:6:15, endln:6:25
             |vpiLhs:
             \_RefObj: (work@fsm_class::baseFsm::current_state_transition::current_state), line:21:9, endln:21:22
               |vpiParent:
               \_Assignment: , line:21:9, endln:21:36
               |vpiName:current_state
               |vpiFullName:work@fsm_class::baseFsm::current_state_transition::current_state
-  |vpiClassDefn:
+              |vpiActual:
+              \_BitVar: (work@fsm_class::baseFsm::current_state), line:5:15, endln:5:28
+      |vpiTypedef:
+      \_LogicTypespec: , line:15:42, endln:15:47
+        |vpiParent:
+        \_Task: (work@fsm_class::baseFsm::current_state_transition), line:15:5, endln:23:12
+      |vpiImportTypespec:
+      \_LogicTypespec: , line:15:42, endln:15:47
+      |vpiMethod:1
+      |vpiVisibility:1
+      |vpiIODecl:
+      \_IODecl: (reset), line:15:48, endln:15:53
+        |vpiParent:
+        \_Task: (work@fsm_class::baseFsm::current_state_transition), line:15:5, endln:23:12
+        |vpiDirection:1
+        |vpiName:reset
+        |vpiTypedef:
+        \_RefTypespec: (work@fsm_class::baseFsm::current_state_transition::reset), line:15:42, endln:15:47
+          |vpiParent:
+          \_IODecl: (reset), line:15:48, endln:15:53
+          |vpiFullName:work@fsm_class::baseFsm::current_state_transition::reset
+          |vpiActual:
+          \_LogicTypespec: , line:15:42, endln:15:47
+      |vpiStmt:
+      \_Begin: (work@fsm_class::baseFsm::current_state_transition), line:17:7, endln:22:10
+    |vpiTypedef:
+    \_BitTypespec: , line:5:5, endln:5:14
+      |vpiParent:
+      \_ClassDefn: (work@fsm_class::baseFsm), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:3:3, endln:24:11
+      |vpiRange:
+      \_Range: , line:5:9, endln:5:14
+        |vpiParent:
+        \_BitTypespec: , line:5:5, endln:5:14
+        |vpiLeftRange:
+        \_Constant: , line:5:10, endln:5:11
+          |vpiParent:
+          \_Range: , line:5:9, endln:5:14
+          |vpiDecompile:3
+          |vpiSize:64
+          |UINT:3
+          |vpiConstType:9
+        |vpiRightRange:
+        \_Constant: , line:5:12, endln:5:13
+          |vpiParent:
+          \_Range: , line:5:9, endln:5:14
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiTypedef:
+    \_BitTypespec: , line:6:5, endln:6:14
+      |vpiParent:
+      \_ClassDefn: (work@fsm_class::baseFsm), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:3:3, endln:24:11
+      |vpiRange:
+      \_Range: , line:6:9, endln:6:14
+        |vpiParent:
+        \_BitTypespec: , line:6:5, endln:6:14
+        |vpiLeftRange:
+        \_Constant: , line:6:10, endln:6:11
+          |vpiParent:
+          \_Range: , line:6:9, endln:6:14
+          |vpiDecompile:3
+          |vpiSize:64
+          |UINT:3
+          |vpiConstType:9
+        |vpiRightRange:
+        \_Constant: , line:6:12, endln:6:13
+          |vpiParent:
+          \_Range: , line:6:9, endln:6:14
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+    |vpiImportTypespec:
+    \_Task: (work@fsm_class::baseFsm::next_state_transition), line:8:5, endln:14:12
+    |vpiImportTypespec:
+    \_Task: (work@fsm_class::baseFsm::current_state_transition), line:15:5, endln:23:12
+    |vpiImportTypespec:
+    \_BitTypespec: , line:5:5, endln:5:14
+    |vpiImportTypespec:
+    \_BitVar: (work@fsm_class::baseFsm::current_state), line:5:15, endln:5:28
+    |vpiImportTypespec:
+    \_BitTypespec: , line:6:5, endln:6:14
+    |vpiImportTypespec:
+    \_BitVar: (work@fsm_class::baseFsm::next_state), line:6:15, endln:6:25
+    |vpiMethod:
+    \_Task: (work@fsm_class::baseFsm::next_state_transition), line:8:5, endln:14:12
+    |vpiMethod:
+    \_Task: (work@fsm_class::baseFsm::current_state_transition), line:15:5, endln:23:12
+    |vpiDerivedClasses:
+    \_ClassDefn: (work@fsm_class::specificFSM), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:26:3, endln:79:11
+      |vpiParent:
+      \_Module: work@fsm_class (work@fsm_class), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:1:1, endln:87:10
+      |vpiName:specificFSM
+      |vpiFullName:work@fsm_class::specificFSM
+      |vpiParameter:
+      \_Parameter: (work@fsm_class::specificFSM::STATE_00_BIT), line:28:17, endln:28:33
+        |vpiParent:
+        \_ClassDefn: (work@fsm_class::specificFSM), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:26:3, endln:79:11
+        |UINT:0
+        |vpiLocalParam:1
+        |vpiName:STATE_00_BIT
+        |vpiFullName:work@fsm_class::specificFSM::STATE_00_BIT
+      |vpiParameter:
+      \_Parameter: (work@fsm_class::specificFSM::STATE_01_BIT), line:29:17, endln:29:33
+        |vpiParent:
+        \_ClassDefn: (work@fsm_class::specificFSM), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:26:3, endln:79:11
+        |UINT:1
+        |vpiLocalParam:1
+        |vpiName:STATE_01_BIT
+        |vpiFullName:work@fsm_class::specificFSM::STATE_01_BIT
+      |vpiParameter:
+      \_Parameter: (work@fsm_class::specificFSM::STATE_10_BIT), line:30:17, endln:30:33
+        |vpiParent:
+        \_ClassDefn: (work@fsm_class::specificFSM), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:26:3, endln:79:11
+        |UINT:2
+        |vpiLocalParam:1
+        |vpiName:STATE_10_BIT
+        |vpiFullName:work@fsm_class::specificFSM::STATE_10_BIT
+      |vpiParameter:
+      \_Parameter: (work@fsm_class::specificFSM::STATE_11_BIT), line:31:17, endln:31:33
+        |vpiParent:
+        \_ClassDefn: (work@fsm_class::specificFSM), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:26:3, endln:79:11
+        |UINT:3
+        |vpiLocalParam:1
+        |vpiName:STATE_11_BIT
+        |vpiFullName:work@fsm_class::specificFSM::STATE_11_BIT
+      |vpiParamAssign:
+      \_ParamAssign: , line:28:17, endln:28:33
+        |vpiParent:
+        \_ClassDefn: (work@fsm_class::specificFSM), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:26:3, endln:79:11
+        |vpiRhs:
+        \_Constant: , line:28:32, endln:28:33
+          |vpiParent:
+          \_ParamAssign: , line:28:17, endln:28:33
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+        |vpiLhs:
+        \_Parameter: (work@fsm_class::specificFSM::STATE_00_BIT), line:28:17, endln:28:33
+      |vpiParamAssign:
+      \_ParamAssign: , line:29:17, endln:29:33
+        |vpiParent:
+        \_ClassDefn: (work@fsm_class::specificFSM), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:26:3, endln:79:11
+        |vpiRhs:
+        \_Constant: , line:29:32, endln:29:33
+          |vpiParent:
+          \_ParamAssign: , line:29:17, endln:29:33
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiLhs:
+        \_Parameter: (work@fsm_class::specificFSM::STATE_01_BIT), line:29:17, endln:29:33
+      |vpiParamAssign:
+      \_ParamAssign: , line:30:17, endln:30:33
+        |vpiParent:
+        \_ClassDefn: (work@fsm_class::specificFSM), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:26:3, endln:79:11
+        |vpiRhs:
+        \_Constant: , line:30:32, endln:30:33
+          |vpiParent:
+          \_ParamAssign: , line:30:17, endln:30:33
+          |vpiDecompile:2
+          |vpiSize:64
+          |UINT:2
+          |vpiConstType:9
+        |vpiLhs:
+        \_Parameter: (work@fsm_class::specificFSM::STATE_10_BIT), line:30:17, endln:30:33
+      |vpiParamAssign:
+      \_ParamAssign: , line:31:17, endln:31:33
+        |vpiParent:
+        \_ClassDefn: (work@fsm_class::specificFSM), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:26:3, endln:79:11
+        |vpiRhs:
+        \_Constant: , line:31:32, endln:31:33
+          |vpiParent:
+          \_ParamAssign: , line:31:17, endln:31:33
+          |vpiDecompile:3
+          |vpiSize:64
+          |UINT:3
+          |vpiConstType:9
+        |vpiLhs:
+        \_Parameter: (work@fsm_class::specificFSM::STATE_11_BIT), line:31:17, endln:31:33
+      |vpiInternalScope:
+      \_Task: (work@fsm_class::specificFSM::from_state_00), line:33:5, endln:40:12
+        |vpiParent:
+        \_ClassDefn: (work@fsm_class::specificFSM), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:26:3, endln:79:11
+        |vpiName:from_state_00
+        |vpiFullName:work@fsm_class::specificFSM::from_state_00
+        |vpiInternalScope:
+        \_Begin: (work@fsm_class::specificFSM::from_state_00), line:34:7, endln:39:10
+          |vpiParent:
+          \_Task: (work@fsm_class::specificFSM::from_state_00), line:33:5, endln:40:12
+          |vpiFullName:work@fsm_class::specificFSM::from_state_00
+          |vpiStmt:
+          \_IfElse: , line:35:7, endln:38:46
+            |vpiParent:
+            \_Begin: (work@fsm_class::specificFSM::from_state_00), line:34:7, endln:39:10
+            |vpiCondition:
+            \_RefObj: (work@fsm_class::specificFSM::from_state_00::x), line:35:11, endln:35:12
+              |vpiParent:
+              \_IfElse: , line:35:7, endln:38:46
+              |vpiName:x
+              |vpiFullName:work@fsm_class::specificFSM::from_state_00::x
+              |vpiActual:
+              \_LogicNet: (work@fsm_class.x), line:1:49, endln:1:50
+            |vpiStmt:
+            \_FuncCall: (next_state_transition), line:36:9, endln:36:45
+              |vpiParent:
+              \_IfElse: , line:35:7, endln:38:46
+              |vpiArgument:
+              \_RefObj: (work@fsm_class::specificFSM::from_state_00::STATE_01_BIT), line:36:32, endln:36:44
+                |vpiParent:
+                \_FuncCall: (next_state_transition), line:36:9, endln:36:45
+                |vpiName:STATE_01_BIT
+                |vpiFullName:work@fsm_class::specificFSM::from_state_00::STATE_01_BIT
+                |vpiActual:
+                \_Parameter: (work@fsm_class::specificFSM::STATE_01_BIT), line:29:17, endln:29:33
+              |vpiName:next_state_transition
+            |vpiElseStmt:
+            \_FuncCall: (next_state_transition), line:38:9, endln:38:45
+              |vpiParent:
+              \_IfElse: , line:35:7, endln:38:46
+              |vpiArgument:
+              \_RefObj: (work@fsm_class::specificFSM::from_state_00::STATE_00_BIT), line:38:32, endln:38:44
+                |vpiParent:
+                \_FuncCall: (next_state_transition), line:38:9, endln:38:45
+                |vpiName:STATE_00_BIT
+                |vpiFullName:work@fsm_class::specificFSM::from_state_00::STATE_00_BIT
+                |vpiActual:
+                \_Parameter: (work@fsm_class::specificFSM::STATE_00_BIT), line:28:17, endln:28:33
+              |vpiName:next_state_transition
+        |vpiMethod:1
+        |vpiVisibility:1
+        |vpiStmt:
+        \_Begin: (work@fsm_class::specificFSM::from_state_00), line:34:7, endln:39:10
+      |vpiInternalScope:
+      \_Task: (work@fsm_class::specificFSM::from_state_01), line:42:5, endln:49:12
+        |vpiParent:
+        \_ClassDefn: (work@fsm_class::specificFSM), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:26:3, endln:79:11
+        |vpiName:from_state_01
+        |vpiFullName:work@fsm_class::specificFSM::from_state_01
+        |vpiInternalScope:
+        \_Begin: (work@fsm_class::specificFSM::from_state_01), line:43:7, endln:48:10
+          |vpiParent:
+          \_Task: (work@fsm_class::specificFSM::from_state_01), line:42:5, endln:49:12
+          |vpiFullName:work@fsm_class::specificFSM::from_state_01
+          |vpiStmt:
+          \_IfElse: , line:44:9, endln:47:49
+            |vpiParent:
+            \_Begin: (work@fsm_class::specificFSM::from_state_01), line:43:7, endln:48:10
+            |vpiCondition:
+            \_Operation: , line:44:13, endln:44:15
+              |vpiParent:
+              \_IfElse: , line:44:9, endln:47:49
+              |vpiOpType:4
+              |vpiOperand:
+              \_RefObj: (work@fsm_class::specificFSM::from_state_01::x), line:44:14, endln:44:15
+                |vpiParent:
+                \_Operation: , line:44:13, endln:44:15
+                |vpiName:x
+                |vpiFullName:work@fsm_class::specificFSM::from_state_01::x
+                |vpiActual:
+                \_LogicNet: (work@fsm_class.x), line:1:49, endln:1:50
+            |vpiStmt:
+            \_FuncCall: (next_state_transition), line:45:12, endln:45:48
+              |vpiParent:
+              \_IfElse: , line:44:9, endln:47:49
+              |vpiArgument:
+              \_RefObj: (work@fsm_class::specificFSM::from_state_01::STATE_10_BIT), line:45:35, endln:45:47
+                |vpiParent:
+                \_FuncCall: (next_state_transition), line:45:12, endln:45:48
+                |vpiName:STATE_10_BIT
+                |vpiFullName:work@fsm_class::specificFSM::from_state_01::STATE_10_BIT
+                |vpiActual:
+                \_Parameter: (work@fsm_class::specificFSM::STATE_10_BIT), line:30:17, endln:30:33
+              |vpiName:next_state_transition
+            |vpiElseStmt:
+            \_FuncCall: (next_state_transition), line:47:12, endln:47:48
+              |vpiParent:
+              \_IfElse: , line:44:9, endln:47:49
+              |vpiArgument:
+              \_RefObj: (work@fsm_class::specificFSM::from_state_01::STATE_01_BIT), line:47:35, endln:47:47
+                |vpiParent:
+                \_FuncCall: (next_state_transition), line:47:12, endln:47:48
+                |vpiName:STATE_01_BIT
+                |vpiFullName:work@fsm_class::specificFSM::from_state_01::STATE_01_BIT
+                |vpiActual:
+                \_Parameter: (work@fsm_class::specificFSM::STATE_01_BIT), line:29:17, endln:29:33
+              |vpiName:next_state_transition
+        |vpiMethod:1
+        |vpiVisibility:1
+        |vpiStmt:
+        \_Begin: (work@fsm_class::specificFSM::from_state_01), line:43:7, endln:48:10
+      |vpiInternalScope:
+      \_Task: (work@fsm_class::specificFSM::from_state_10), line:51:5, endln:58:12
+        |vpiParent:
+        \_ClassDefn: (work@fsm_class::specificFSM), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:26:3, endln:79:11
+        |vpiName:from_state_10
+        |vpiFullName:work@fsm_class::specificFSM::from_state_10
+        |vpiInternalScope:
+        \_Begin: (work@fsm_class::specificFSM::from_state_10), line:52:7, endln:57:10
+          |vpiParent:
+          \_Task: (work@fsm_class::specificFSM::from_state_10), line:51:5, endln:58:12
+          |vpiFullName:work@fsm_class::specificFSM::from_state_10
+          |vpiStmt:
+          \_IfElse: , line:53:9, endln:56:49
+            |vpiParent:
+            \_Begin: (work@fsm_class::specificFSM::from_state_10), line:52:7, endln:57:10
+            |vpiCondition:
+            \_RefObj: (work@fsm_class::specificFSM::from_state_10::x), line:53:13, endln:53:14
+              |vpiParent:
+              \_IfElse: , line:53:9, endln:56:49
+              |vpiName:x
+              |vpiFullName:work@fsm_class::specificFSM::from_state_10::x
+              |vpiActual:
+              \_LogicNet: (work@fsm_class.x), line:1:49, endln:1:50
+            |vpiStmt:
+            \_FuncCall: (next_state_transition), line:54:12, endln:54:48
+              |vpiParent:
+              \_IfElse: , line:53:9, endln:56:49
+              |vpiArgument:
+              \_RefObj: (work@fsm_class::specificFSM::from_state_10::STATE_11_BIT), line:54:35, endln:54:47
+                |vpiParent:
+                \_FuncCall: (next_state_transition), line:54:12, endln:54:48
+                |vpiName:STATE_11_BIT
+                |vpiFullName:work@fsm_class::specificFSM::from_state_10::STATE_11_BIT
+                |vpiActual:
+                \_Parameter: (work@fsm_class::specificFSM::STATE_11_BIT), line:31:17, endln:31:33
+              |vpiName:next_state_transition
+            |vpiElseStmt:
+            \_FuncCall: (next_state_transition), line:56:12, endln:56:48
+              |vpiParent:
+              \_IfElse: , line:53:9, endln:56:49
+              |vpiArgument:
+              \_RefObj: (work@fsm_class::specificFSM::from_state_10::STATE_10_BIT), line:56:35, endln:56:47
+                |vpiParent:
+                \_FuncCall: (next_state_transition), line:56:12, endln:56:48
+                |vpiName:STATE_10_BIT
+                |vpiFullName:work@fsm_class::specificFSM::from_state_10::STATE_10_BIT
+                |vpiActual:
+                \_Parameter: (work@fsm_class::specificFSM::STATE_10_BIT), line:30:17, endln:30:33
+              |vpiName:next_state_transition
+        |vpiMethod:1
+        |vpiVisibility:1
+        |vpiStmt:
+        \_Begin: (work@fsm_class::specificFSM::from_state_10), line:52:7, endln:57:10
+      |vpiInternalScope:
+      \_Task: (work@fsm_class::specificFSM::from_state_11), line:60:5, endln:67:13
+        |vpiParent:
+        \_ClassDefn: (work@fsm_class::specificFSM), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:26:3, endln:79:11
+        |vpiName:from_state_11
+        |vpiFullName:work@fsm_class::specificFSM::from_state_11
+        |vpiInternalScope:
+        \_Begin: (work@fsm_class::specificFSM::from_state_11), line:61:7, endln:66:10
+          |vpiParent:
+          \_Task: (work@fsm_class::specificFSM::from_state_11), line:60:5, endln:67:13
+          |vpiFullName:work@fsm_class::specificFSM::from_state_11
+          |vpiStmt:
+          \_IfElse: , line:62:9, endln:65:48
+            |vpiParent:
+            \_Begin: (work@fsm_class::specificFSM::from_state_11), line:61:7, endln:66:10
+            |vpiCondition:
+            \_RefObj: (work@fsm_class::specificFSM::from_state_11::x), line:62:13, endln:62:14
+              |vpiParent:
+              \_IfElse: , line:62:9, endln:65:48
+              |vpiName:x
+              |vpiFullName:work@fsm_class::specificFSM::from_state_11::x
+              |vpiActual:
+              \_LogicNet: (work@fsm_class.x), line:1:49, endln:1:50
+            |vpiStmt:
+            \_FuncCall: (next_state_transition), line:63:11, endln:63:47
+              |vpiParent:
+              \_IfElse: , line:62:9, endln:65:48
+              |vpiArgument:
+              \_RefObj: (work@fsm_class::specificFSM::from_state_11::STATE_00_BIT), line:63:34, endln:63:46
+                |vpiParent:
+                \_FuncCall: (next_state_transition), line:63:11, endln:63:47
+                |vpiName:STATE_00_BIT
+                |vpiFullName:work@fsm_class::specificFSM::from_state_11::STATE_00_BIT
+                |vpiActual:
+                \_Parameter: (work@fsm_class::specificFSM::STATE_00_BIT), line:28:17, endln:28:33
+              |vpiName:next_state_transition
+            |vpiElseStmt:
+            \_FuncCall: (next_state_transition), line:65:11, endln:65:47
+              |vpiParent:
+              \_IfElse: , line:62:9, endln:65:48
+              |vpiArgument:
+              \_RefObj: (work@fsm_class::specificFSM::from_state_11::STATE_11_BIT), line:65:34, endln:65:46
+                |vpiParent:
+                \_FuncCall: (next_state_transition), line:65:11, endln:65:47
+                |vpiName:STATE_11_BIT
+                |vpiFullName:work@fsm_class::specificFSM::from_state_11::STATE_11_BIT
+                |vpiActual:
+                \_Parameter: (work@fsm_class::specificFSM::STATE_11_BIT), line:31:17, endln:31:33
+              |vpiName:next_state_transition
+        |vpiMethod:1
+        |vpiVisibility:1
+        |vpiStmt:
+        \_Begin: (work@fsm_class::specificFSM::from_state_11), line:61:7, endln:66:10
+      |vpiInternalScope:
+      \_Task: (work@fsm_class::specificFSM::main_comb), line:69:6, endln:78:12
+        |vpiParent:
+        \_ClassDefn: (work@fsm_class::specificFSM), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:26:3, endln:79:11
+        |vpiName:main_comb
+        |vpiFullName:work@fsm_class::specificFSM::main_comb
+        |vpiInternalScope:
+        \_Begin: (work@fsm_class::specificFSM::main_comb), line:70:7, endln:77:10
+          |vpiParent:
+          \_Task: (work@fsm_class::specificFSM::main_comb), line:69:6, endln:78:12
+          |vpiFullName:work@fsm_class::specificFSM::main_comb
+          |vpiStmt:
+          \_CaseStmt: , line:71:9, endln:76:16
+            |vpiParent:
+            \_Begin: (work@fsm_class::specificFSM::main_comb), line:70:7, endln:77:10
+            |vpiCaseType:1
+            |vpiCondition:
+            \_Constant: , line:71:15, endln:71:19
+              |vpiParent:
+              \_CaseStmt: , line:71:9, endln:76:16
+              |vpiDecompile:1'b1
+              |vpiSize:1
+              |BIN:1
+              |vpiConstType:3
+            |vpiCaseItem:
+            \_CaseItem: , line:72:11, endln:72:54
+              |vpiParent:
+              \_CaseStmt: , line:71:9, endln:76:16
+              |vpiExpr:
+              \_BitSelect: (work@fsm_class::specificFSM::main_comb::current_state), line:72:24, endln:72:38
+                |vpiParent:
+                \_CaseItem: , line:72:11, endln:72:54
+                |vpiName:current_state
+                |vpiFullName:work@fsm_class::specificFSM::main_comb::current_state
+                |vpiActual:
+                \_BitVar: (work@fsm_class::baseFsm::current_state), line:5:15, endln:5:28
+                |vpiIndex:
+                \_RefObj: (work@fsm_class::specificFSM::main_comb::STATE_00_BIT), line:72:25, endln:72:37
+                  |vpiParent:
+                  \_BitSelect: (work@fsm_class::specificFSM::main_comb::current_state), line:72:24, endln:72:38
+                  |vpiName:STATE_00_BIT
+                  |vpiFullName:work@fsm_class::specificFSM::main_comb::STATE_00_BIT
+                  |vpiActual:
+                  \_Parameter: (work@fsm_class::specificFSM::STATE_00_BIT), line:28:17, endln:28:33
+              |vpiStmt:
+              \_TaskCall: (from_state_00), line:72:40, endln:72:53
+                |vpiParent:
+                \_CaseItem: , line:72:11, endln:72:54
+                |vpiName:from_state_00
+                |vpiTask:
+                \_Task: (work@fsm_class::specificFSM::from_state_00), line:33:5, endln:40:12
+            |vpiCaseItem:
+            \_CaseItem: , line:73:11, endln:73:54
+              |vpiParent:
+              \_CaseStmt: , line:71:9, endln:76:16
+              |vpiExpr:
+              \_BitSelect: (work@fsm_class::specificFSM::main_comb::current_state), line:73:24, endln:73:38
+                |vpiParent:
+                \_CaseItem: , line:73:11, endln:73:54
+                |vpiName:current_state
+                |vpiFullName:work@fsm_class::specificFSM::main_comb::current_state
+                |vpiActual:
+                \_BitVar: (work@fsm_class::baseFsm::current_state), line:5:15, endln:5:28
+                |vpiIndex:
+                \_RefObj: (work@fsm_class::specificFSM::main_comb::STATE_01_BIT), line:73:25, endln:73:37
+                  |vpiParent:
+                  \_BitSelect: (work@fsm_class::specificFSM::main_comb::current_state), line:73:24, endln:73:38
+                  |vpiName:STATE_01_BIT
+                  |vpiFullName:work@fsm_class::specificFSM::main_comb::STATE_01_BIT
+                  |vpiActual:
+                  \_Parameter: (work@fsm_class::specificFSM::STATE_01_BIT), line:29:17, endln:29:33
+              |vpiStmt:
+              \_TaskCall: (from_state_01), line:73:40, endln:73:53
+                |vpiParent:
+                \_CaseItem: , line:73:11, endln:73:54
+                |vpiName:from_state_01
+                |vpiTask:
+                \_Task: (work@fsm_class::specificFSM::from_state_01), line:42:5, endln:49:12
+            |vpiCaseItem:
+            \_CaseItem: , line:74:11, endln:74:54
+              |vpiParent:
+              \_CaseStmt: , line:71:9, endln:76:16
+              |vpiExpr:
+              \_BitSelect: (work@fsm_class::specificFSM::main_comb::current_state), line:74:24, endln:74:38
+                |vpiParent:
+                \_CaseItem: , line:74:11, endln:74:54
+                |vpiName:current_state
+                |vpiFullName:work@fsm_class::specificFSM::main_comb::current_state
+                |vpiActual:
+                \_BitVar: (work@fsm_class::baseFsm::current_state), line:5:15, endln:5:28
+                |vpiIndex:
+                \_RefObj: (work@fsm_class::specificFSM::main_comb::STATE_10_BIT), line:74:25, endln:74:37
+                  |vpiParent:
+                  \_BitSelect: (work@fsm_class::specificFSM::main_comb::current_state), line:74:24, endln:74:38
+                  |vpiName:STATE_10_BIT
+                  |vpiFullName:work@fsm_class::specificFSM::main_comb::STATE_10_BIT
+                  |vpiActual:
+                  \_Parameter: (work@fsm_class::specificFSM::STATE_10_BIT), line:30:17, endln:30:33
+              |vpiStmt:
+              \_TaskCall: (from_state_10), line:74:40, endln:74:53
+                |vpiParent:
+                \_CaseItem: , line:74:11, endln:74:54
+                |vpiName:from_state_10
+                |vpiTask:
+                \_Task: (work@fsm_class::specificFSM::from_state_10), line:51:5, endln:58:12
+            |vpiCaseItem:
+            \_CaseItem: , line:75:11, endln:75:54
+              |vpiParent:
+              \_CaseStmt: , line:71:9, endln:76:16
+              |vpiExpr:
+              \_BitSelect: (work@fsm_class::specificFSM::main_comb::current_state), line:75:24, endln:75:38
+                |vpiParent:
+                \_CaseItem: , line:75:11, endln:75:54
+                |vpiName:current_state
+                |vpiFullName:work@fsm_class::specificFSM::main_comb::current_state
+                |vpiActual:
+                \_BitVar: (work@fsm_class::baseFsm::current_state), line:5:15, endln:5:28
+                |vpiIndex:
+                \_RefObj: (work@fsm_class::specificFSM::main_comb::STATE_11_BIT), line:75:25, endln:75:37
+                  |vpiParent:
+                  \_BitSelect: (work@fsm_class::specificFSM::main_comb::current_state), line:75:24, endln:75:38
+                  |vpiName:STATE_11_BIT
+                  |vpiFullName:work@fsm_class::specificFSM::main_comb::STATE_11_BIT
+                  |vpiActual:
+                  \_Parameter: (work@fsm_class::specificFSM::STATE_11_BIT), line:31:17, endln:31:33
+              |vpiStmt:
+              \_TaskCall: (from_state_11), line:75:40, endln:75:53
+                |vpiParent:
+                \_CaseItem: , line:75:11, endln:75:54
+                |vpiName:from_state_11
+                |vpiTask:
+                \_Task: (work@fsm_class::specificFSM::from_state_11), line:60:5, endln:67:13
+        |vpiMethod:1
+        |vpiVisibility:1
+        |vpiStmt:
+        \_Begin: (work@fsm_class::specificFSM::main_comb), line:70:7, endln:77:10
+      |vpiTypedef:
+      \_ClassTypespec: (baseFsm), line:26:29, endln:26:36
+        |vpiParent:
+        \_ClassDefn: (work@fsm_class::specificFSM), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:26:3, endln:79:11
+        |vpiName:baseFsm
+        |vpiClassDefn:
+        \_ClassDefn: (work@fsm_class::baseFsm), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:3:3, endln:24:11
+      |vpiImportTypespec:
+      \_Task: (work@fsm_class::specificFSM::from_state_00), line:33:5, endln:40:12
+      |vpiImportTypespec:
+      \_Task: (work@fsm_class::specificFSM::from_state_01), line:42:5, endln:49:12
+      |vpiImportTypespec:
+      \_Task: (work@fsm_class::specificFSM::from_state_10), line:51:5, endln:58:12
+      |vpiImportTypespec:
+      \_Task: (work@fsm_class::specificFSM::from_state_11), line:60:5, endln:67:13
+      |vpiImportTypespec:
+      \_Task: (work@fsm_class::specificFSM::main_comb), line:69:6, endln:78:12
+      |vpiImportTypespec:
+      \_ClassTypespec: (baseFsm), line:26:29, endln:26:36
+      |vpiExtends:
+      \_Extends: , line:26:29, endln:26:36
+        |vpiParent:
+        \_ClassDefn: (work@fsm_class::specificFSM), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:26:3, endln:79:11
+        |vpiClassTypespec:
+        \_RefTypespec: (work@fsm_class::specificFSM::baseFsm), line:26:29, endln:26:36
+          |vpiParent:
+          \_Extends: , line:26:29, endln:26:36
+          |vpiName:baseFsm
+          |vpiFullName:work@fsm_class::specificFSM::baseFsm
+          |vpiActual:
+          \_ClassTypespec: (baseFsm), line:26:29, endln:26:36
+      |vpiMethod:
+      \_Task: (work@fsm_class::specificFSM::from_state_00), line:33:5, endln:40:12
+      |vpiMethod:
+      \_Task: (work@fsm_class::specificFSM::from_state_01), line:42:5, endln:49:12
+      |vpiMethod:
+      \_Task: (work@fsm_class::specificFSM::from_state_10), line:51:5, endln:58:12
+      |vpiMethod:
+      \_Task: (work@fsm_class::specificFSM::from_state_11), line:60:5, endln:67:13
+      |vpiMethod:
+      \_Task: (work@fsm_class::specificFSM::main_comb), line:69:6, endln:78:12
+      |vpiClassTypespec:
+      \_ClassTypespec: (baseFsm), line:26:29, endln:26:36
+  |vpiInternalScope:
   \_ClassDefn: (work@fsm_class::specificFSM), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:26:3, endln:79:11
+  |vpiTypedef:
+  \_ClassTypespec: (specificFSM), line:81:3, endln:81:14
     |vpiParent:
     \_Module: work@fsm_class (work@fsm_class), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:1:1, endln:87:10
     |vpiName:specificFSM
-    |vpiFullName:work@fsm_class::specificFSM
-    |vpiParameter:
-    \_Parameter: (work@fsm_class::specificFSM::STATE_00_BIT), line:28:17, endln:28:29
-      |vpiParent:
-      \_ClassDefn: (work@fsm_class::specificFSM), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:26:3, endln:79:11
-      |UINT:0
-      |vpiTypespec:
-      \_RefTypespec: (work@fsm_class::specificFSM::STATE_00_BIT)
-        |vpiParent:
-        \_Parameter: (work@fsm_class::specificFSM::STATE_00_BIT), line:28:17, endln:28:29
-        |vpiFullName:work@fsm_class::specificFSM::STATE_00_BIT
-        |vpiActual:
-        \_IntTypespec: , line:28:5, endln:28:33
-      |vpiLocalParam:1
-      |vpiName:STATE_00_BIT
-      |vpiFullName:work@fsm_class::specificFSM::STATE_00_BIT
-    |vpiParameter:
-    \_Parameter: (work@fsm_class::specificFSM::STATE_01_BIT), line:29:17, endln:29:29
-      |vpiParent:
-      \_ClassDefn: (work@fsm_class::specificFSM), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:26:3, endln:79:11
-      |UINT:1
-      |vpiTypespec:
-      \_RefTypespec: (work@fsm_class::specificFSM::STATE_01_BIT)
-        |vpiParent:
-        \_Parameter: (work@fsm_class::specificFSM::STATE_01_BIT), line:29:17, endln:29:29
-        |vpiFullName:work@fsm_class::specificFSM::STATE_01_BIT
-        |vpiActual:
-        \_IntTypespec: , line:29:5, endln:29:33
-      |vpiLocalParam:1
-      |vpiName:STATE_01_BIT
-      |vpiFullName:work@fsm_class::specificFSM::STATE_01_BIT
-    |vpiParameter:
-    \_Parameter: (work@fsm_class::specificFSM::STATE_10_BIT), line:30:17, endln:30:29
-      |vpiParent:
-      \_ClassDefn: (work@fsm_class::specificFSM), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:26:3, endln:79:11
-      |UINT:2
-      |vpiTypespec:
-      \_RefTypespec: (work@fsm_class::specificFSM::STATE_10_BIT)
-        |vpiParent:
-        \_Parameter: (work@fsm_class::specificFSM::STATE_10_BIT), line:30:17, endln:30:29
-        |vpiFullName:work@fsm_class::specificFSM::STATE_10_BIT
-        |vpiActual:
-        \_IntTypespec: , line:30:5, endln:30:33
-      |vpiLocalParam:1
-      |vpiName:STATE_10_BIT
-      |vpiFullName:work@fsm_class::specificFSM::STATE_10_BIT
-    |vpiParameter:
-    \_Parameter: (work@fsm_class::specificFSM::STATE_11_BIT), line:31:17, endln:31:29
-      |vpiParent:
-      \_ClassDefn: (work@fsm_class::specificFSM), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:26:3, endln:79:11
-      |UINT:3
-      |vpiTypespec:
-      \_RefTypespec: (work@fsm_class::specificFSM::STATE_11_BIT)
-        |vpiParent:
-        \_Parameter: (work@fsm_class::specificFSM::STATE_11_BIT), line:31:17, endln:31:29
-        |vpiFullName:work@fsm_class::specificFSM::STATE_11_BIT
-        |vpiActual:
-        \_IntTypespec: , line:31:5, endln:31:33
-      |vpiLocalParam:1
-      |vpiName:STATE_11_BIT
-      |vpiFullName:work@fsm_class::specificFSM::STATE_11_BIT
-    |vpiParamAssign:
-    \_ParamAssign: , line:28:17, endln:28:33
-      |vpiParent:
-      \_ClassDefn: (work@fsm_class::specificFSM), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:26:3, endln:79:11
-      |vpiRhs:
-      \_Constant: , line:28:32, endln:28:33
-        |vpiParent:
-        \_ParamAssign: , line:28:17, endln:28:33
-        |vpiDecompile:0
-        |vpiSize:64
-        |UINT:0
-        |vpiTypespec:
-        \_RefTypespec: (work@fsm_class::specificFSM)
-          |vpiParent:
-          \_Constant: , line:28:32, endln:28:33
-          |vpiFullName:work@fsm_class::specificFSM
-          |vpiActual:
-          \_IntTypespec: , line:28:5, endln:28:33
-        |vpiConstType:9
-      |vpiLhs:
-      \_Parameter: (work@fsm_class::specificFSM::STATE_00_BIT), line:28:17, endln:28:29
-    |vpiParamAssign:
-    \_ParamAssign: , line:29:17, endln:29:33
-      |vpiParent:
-      \_ClassDefn: (work@fsm_class::specificFSM), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:26:3, endln:79:11
-      |vpiRhs:
-      \_Constant: , line:29:32, endln:29:33
-        |vpiParent:
-        \_ParamAssign: , line:29:17, endln:29:33
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiTypespec:
-        \_RefTypespec: (work@fsm_class::specificFSM)
-          |vpiParent:
-          \_Constant: , line:29:32, endln:29:33
-          |vpiFullName:work@fsm_class::specificFSM
-          |vpiActual:
-          \_IntTypespec: , line:29:5, endln:29:33
-        |vpiConstType:9
-      |vpiLhs:
-      \_Parameter: (work@fsm_class::specificFSM::STATE_01_BIT), line:29:17, endln:29:29
-    |vpiParamAssign:
-    \_ParamAssign: , line:30:17, endln:30:33
-      |vpiParent:
-      \_ClassDefn: (work@fsm_class::specificFSM), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:26:3, endln:79:11
-      |vpiRhs:
-      \_Constant: , line:30:32, endln:30:33
-        |vpiParent:
-        \_ParamAssign: , line:30:17, endln:30:33
-        |vpiDecompile:2
-        |vpiSize:64
-        |UINT:2
-        |vpiTypespec:
-        \_RefTypespec: (work@fsm_class::specificFSM)
-          |vpiParent:
-          \_Constant: , line:30:32, endln:30:33
-          |vpiFullName:work@fsm_class::specificFSM
-          |vpiActual:
-          \_IntTypespec: , line:30:5, endln:30:33
-        |vpiConstType:9
-      |vpiLhs:
-      \_Parameter: (work@fsm_class::specificFSM::STATE_10_BIT), line:30:17, endln:30:29
-    |vpiParamAssign:
-    \_ParamAssign: , line:31:17, endln:31:33
-      |vpiParent:
-      \_ClassDefn: (work@fsm_class::specificFSM), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:26:3, endln:79:11
-      |vpiRhs:
-      \_Constant: , line:31:32, endln:31:33
-        |vpiParent:
-        \_ParamAssign: , line:31:17, endln:31:33
-        |vpiDecompile:3
-        |vpiSize:64
-        |UINT:3
-        |vpiTypespec:
-        \_RefTypespec: (work@fsm_class::specificFSM)
-          |vpiParent:
-          \_Constant: , line:31:32, endln:31:33
-          |vpiFullName:work@fsm_class::specificFSM
-          |vpiActual:
-          \_IntTypespec: , line:31:5, endln:31:33
-        |vpiConstType:9
-      |vpiLhs:
-      \_Parameter: (work@fsm_class::specificFSM::STATE_11_BIT), line:31:17, endln:31:29
-    |vpiMethod:
-    \_Task: (work@fsm_class::specificFSM::from_state_00), line:33:5, endln:40:12
-      |vpiParent:
-      \_ClassDefn: (work@fsm_class::specificFSM), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:26:3, endln:79:11
-      |vpiName:from_state_00
-      |vpiFullName:work@fsm_class::specificFSM::from_state_00
-      |vpiMethod:1
-      |vpiVisibility:1
-      |vpiStmt:
-      \_Begin: (work@fsm_class::specificFSM::from_state_00), line:34:7, endln:39:10
-        |vpiParent:
-        \_Task: (work@fsm_class::specificFSM::from_state_00), line:33:5, endln:40:12
-        |vpiFullName:work@fsm_class::specificFSM::from_state_00
-        |vpiStmt:
-        \_IfElse: , line:35:7, endln:38:46
-          |vpiParent:
-          \_Begin: (work@fsm_class::specificFSM::from_state_00), line:34:7, endln:39:10
-          |vpiCondition:
-          \_RefObj: (work@fsm_class::specificFSM::from_state_00::x), line:35:11, endln:35:12
-            |vpiParent:
-            \_Begin: (work@fsm_class::specificFSM::from_state_00), line:34:7, endln:39:10
-            |vpiName:x
-            |vpiFullName:work@fsm_class::specificFSM::from_state_00::x
-          |vpiStmt:
-          \_FuncCall: (next_state_transition), line:36:9, endln:36:45
-            |vpiParent:
-            \_IfElse: , line:35:7, endln:38:46
-            |vpiArgument:
-            \_RefObj: (work@fsm_class::specificFSM::from_state_00::STATE_01_BIT), line:36:32, endln:36:44
-              |vpiParent:
-              \_FuncCall: (next_state_transition), line:36:9, endln:36:45
-              |vpiName:STATE_01_BIT
-              |vpiFullName:work@fsm_class::specificFSM::from_state_00::STATE_01_BIT
-            |vpiName:next_state_transition
-          |vpiElseStmt:
-          \_FuncCall: (next_state_transition), line:38:9, endln:38:45
-            |vpiParent:
-            \_IfElse: , line:35:7, endln:38:46
-            |vpiArgument:
-            \_RefObj: (work@fsm_class::specificFSM::from_state_00::STATE_00_BIT), line:38:32, endln:38:44
-              |vpiParent:
-              \_FuncCall: (next_state_transition), line:38:9, endln:38:45
-              |vpiName:STATE_00_BIT
-              |vpiFullName:work@fsm_class::specificFSM::from_state_00::STATE_00_BIT
-            |vpiName:next_state_transition
-    |vpiMethod:
-    \_Task: (work@fsm_class::specificFSM::from_state_01), line:42:5, endln:49:12
-      |vpiParent:
-      \_ClassDefn: (work@fsm_class::specificFSM), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:26:3, endln:79:11
-      |vpiName:from_state_01
-      |vpiFullName:work@fsm_class::specificFSM::from_state_01
-      |vpiMethod:1
-      |vpiVisibility:1
-      |vpiStmt:
-      \_Begin: (work@fsm_class::specificFSM::from_state_01), line:43:7, endln:48:10
-        |vpiParent:
-        \_Task: (work@fsm_class::specificFSM::from_state_01), line:42:5, endln:49:12
-        |vpiFullName:work@fsm_class::specificFSM::from_state_01
-        |vpiStmt:
-        \_IfElse: , line:44:9, endln:47:49
-          |vpiParent:
-          \_Begin: (work@fsm_class::specificFSM::from_state_01), line:43:7, endln:48:10
-          |vpiCondition:
-          \_Operation: , line:44:13, endln:44:15
-            |vpiParent:
-            \_Begin: (work@fsm_class::specificFSM::from_state_01), line:43:7, endln:48:10
-            |vpiOpType:4
-            |vpiOperand:
-            \_RefObj: (work@fsm_class::specificFSM::from_state_01::x), line:44:14, endln:44:15
-              |vpiParent:
-              \_Operation: , line:44:13, endln:44:15
-              |vpiName:x
-              |vpiFullName:work@fsm_class::specificFSM::from_state_01::x
-          |vpiStmt:
-          \_FuncCall: (next_state_transition), line:45:12, endln:45:48
-            |vpiParent:
-            \_IfElse: , line:44:9, endln:47:49
-            |vpiArgument:
-            \_RefObj: (work@fsm_class::specificFSM::from_state_01::STATE_10_BIT), line:45:35, endln:45:47
-              |vpiParent:
-              \_FuncCall: (next_state_transition), line:45:12, endln:45:48
-              |vpiName:STATE_10_BIT
-              |vpiFullName:work@fsm_class::specificFSM::from_state_01::STATE_10_BIT
-            |vpiName:next_state_transition
-          |vpiElseStmt:
-          \_FuncCall: (next_state_transition), line:47:12, endln:47:48
-            |vpiParent:
-            \_IfElse: , line:44:9, endln:47:49
-            |vpiArgument:
-            \_RefObj: (work@fsm_class::specificFSM::from_state_01::STATE_01_BIT), line:47:35, endln:47:47
-              |vpiParent:
-              \_FuncCall: (next_state_transition), line:47:12, endln:47:48
-              |vpiName:STATE_01_BIT
-              |vpiFullName:work@fsm_class::specificFSM::from_state_01::STATE_01_BIT
-            |vpiName:next_state_transition
-    |vpiMethod:
-    \_Task: (work@fsm_class::specificFSM::from_state_10), line:51:5, endln:58:12
-      |vpiParent:
-      \_ClassDefn: (work@fsm_class::specificFSM), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:26:3, endln:79:11
-      |vpiName:from_state_10
-      |vpiFullName:work@fsm_class::specificFSM::from_state_10
-      |vpiMethod:1
-      |vpiVisibility:1
-      |vpiStmt:
-      \_Begin: (work@fsm_class::specificFSM::from_state_10), line:52:7, endln:57:10
-        |vpiParent:
-        \_Task: (work@fsm_class::specificFSM::from_state_10), line:51:5, endln:58:12
-        |vpiFullName:work@fsm_class::specificFSM::from_state_10
-        |vpiStmt:
-        \_IfElse: , line:53:9, endln:56:49
-          |vpiParent:
-          \_Begin: (work@fsm_class::specificFSM::from_state_10), line:52:7, endln:57:10
-          |vpiCondition:
-          \_RefObj: (work@fsm_class::specificFSM::from_state_10::x), line:53:13, endln:53:14
-            |vpiParent:
-            \_Begin: (work@fsm_class::specificFSM::from_state_10), line:52:7, endln:57:10
-            |vpiName:x
-            |vpiFullName:work@fsm_class::specificFSM::from_state_10::x
-          |vpiStmt:
-          \_FuncCall: (next_state_transition), line:54:12, endln:54:48
-            |vpiParent:
-            \_IfElse: , line:53:9, endln:56:49
-            |vpiArgument:
-            \_RefObj: (work@fsm_class::specificFSM::from_state_10::STATE_11_BIT), line:54:35, endln:54:47
-              |vpiParent:
-              \_FuncCall: (next_state_transition), line:54:12, endln:54:48
-              |vpiName:STATE_11_BIT
-              |vpiFullName:work@fsm_class::specificFSM::from_state_10::STATE_11_BIT
-            |vpiName:next_state_transition
-          |vpiElseStmt:
-          \_FuncCall: (next_state_transition), line:56:12, endln:56:48
-            |vpiParent:
-            \_IfElse: , line:53:9, endln:56:49
-            |vpiArgument:
-            \_RefObj: (work@fsm_class::specificFSM::from_state_10::STATE_10_BIT), line:56:35, endln:56:47
-              |vpiParent:
-              \_FuncCall: (next_state_transition), line:56:12, endln:56:48
-              |vpiName:STATE_10_BIT
-              |vpiFullName:work@fsm_class::specificFSM::from_state_10::STATE_10_BIT
-            |vpiName:next_state_transition
-    |vpiMethod:
-    \_Task: (work@fsm_class::specificFSM::from_state_11), line:60:5, endln:67:13
-      |vpiParent:
-      \_ClassDefn: (work@fsm_class::specificFSM), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:26:3, endln:79:11
-      |vpiName:from_state_11
-      |vpiFullName:work@fsm_class::specificFSM::from_state_11
-      |vpiMethod:1
-      |vpiVisibility:1
-      |vpiStmt:
-      \_Begin: (work@fsm_class::specificFSM::from_state_11), line:61:7, endln:66:10
-        |vpiParent:
-        \_Task: (work@fsm_class::specificFSM::from_state_11), line:60:5, endln:67:13
-        |vpiFullName:work@fsm_class::specificFSM::from_state_11
-        |vpiStmt:
-        \_IfElse: , line:62:9, endln:65:48
-          |vpiParent:
-          \_Begin: (work@fsm_class::specificFSM::from_state_11), line:61:7, endln:66:10
-          |vpiCondition:
-          \_RefObj: (work@fsm_class::specificFSM::from_state_11::x), line:62:13, endln:62:14
-            |vpiParent:
-            \_Begin: (work@fsm_class::specificFSM::from_state_11), line:61:7, endln:66:10
-            |vpiName:x
-            |vpiFullName:work@fsm_class::specificFSM::from_state_11::x
-          |vpiStmt:
-          \_FuncCall: (next_state_transition), line:63:11, endln:63:47
-            |vpiParent:
-            \_IfElse: , line:62:9, endln:65:48
-            |vpiArgument:
-            \_RefObj: (work@fsm_class::specificFSM::from_state_11::STATE_00_BIT), line:63:34, endln:63:46
-              |vpiParent:
-              \_FuncCall: (next_state_transition), line:63:11, endln:63:47
-              |vpiName:STATE_00_BIT
-              |vpiFullName:work@fsm_class::specificFSM::from_state_11::STATE_00_BIT
-            |vpiName:next_state_transition
-          |vpiElseStmt:
-          \_FuncCall: (next_state_transition), line:65:11, endln:65:47
-            |vpiParent:
-            \_IfElse: , line:62:9, endln:65:48
-            |vpiArgument:
-            \_RefObj: (work@fsm_class::specificFSM::from_state_11::STATE_11_BIT), line:65:34, endln:65:46
-              |vpiParent:
-              \_FuncCall: (next_state_transition), line:65:11, endln:65:47
-              |vpiName:STATE_11_BIT
-              |vpiFullName:work@fsm_class::specificFSM::from_state_11::STATE_11_BIT
-            |vpiName:next_state_transition
-    |vpiMethod:
-    \_Task: (work@fsm_class::specificFSM::main_comb), line:69:6, endln:78:12
-      |vpiParent:
-      \_ClassDefn: (work@fsm_class::specificFSM), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:26:3, endln:79:11
-      |vpiName:main_comb
-      |vpiFullName:work@fsm_class::specificFSM::main_comb
-      |vpiMethod:1
-      |vpiVisibility:1
-      |vpiStmt:
-      \_Begin: (work@fsm_class::specificFSM::main_comb), line:70:7, endln:77:10
-        |vpiParent:
-        \_Task: (work@fsm_class::specificFSM::main_comb), line:69:6, endln:78:12
-        |vpiFullName:work@fsm_class::specificFSM::main_comb
-        |vpiStmt:
-        \_CaseStmt: , line:71:9, endln:76:16
-          |vpiParent:
-          \_Begin: (work@fsm_class::specificFSM::main_comb), line:70:7, endln:77:10
-          |vpiCaseType:1
-          |vpiCondition:
-          \_Constant: , line:71:15, endln:71:19
-            |vpiParent:
-            \_CaseStmt: , line:71:9, endln:76:16
-            |vpiDecompile:1'b1
-            |vpiSize:1
-            |BIN:1
-            |vpiConstType:3
-          |vpiCaseItem:
-          \_CaseItem: , line:72:11, endln:72:54
-            |vpiParent:
-            \_CaseStmt: , line:71:9, endln:76:16
-            |vpiExpr:
-            \_BitSelect: (work@fsm_class::specificFSM::main_comb::current_state), line:72:25, endln:72:37
-              |vpiParent:
-              \_Begin: (work@fsm_class::specificFSM::main_comb), line:70:7, endln:77:10
-              |vpiName:current_state
-              |vpiFullName:work@fsm_class::specificFSM::main_comb::current_state
-              |vpiIndex:
-              \_RefObj: (work@fsm_class::specificFSM::main_comb::STATE_00_BIT), line:72:25, endln:72:37
-                |vpiParent:
-                \_BitSelect: (work@fsm_class::specificFSM::main_comb::current_state), line:72:25, endln:72:37
-                |vpiName:STATE_00_BIT
-                |vpiFullName:work@fsm_class::specificFSM::main_comb::STATE_00_BIT
-            |vpiStmt:
-            \_TaskCall: (from_state_00), line:72:40, endln:72:53
-              |vpiParent:
-              \_CaseItem: , line:72:11, endln:72:54
-              |vpiName:from_state_00
-              |vpiTask:
-              \_Task: (work@fsm_class::specificFSM::from_state_00), line:33:5, endln:40:12
-          |vpiCaseItem:
-          \_CaseItem: , line:73:11, endln:73:54
-            |vpiParent:
-            \_CaseStmt: , line:71:9, endln:76:16
-            |vpiExpr:
-            \_BitSelect: (work@fsm_class::specificFSM::main_comb::current_state), line:73:25, endln:73:37
-              |vpiParent:
-              \_Begin: (work@fsm_class::specificFSM::main_comb), line:70:7, endln:77:10
-              |vpiName:current_state
-              |vpiFullName:work@fsm_class::specificFSM::main_comb::current_state
-              |vpiIndex:
-              \_RefObj: (work@fsm_class::specificFSM::main_comb::STATE_01_BIT), line:73:25, endln:73:37
-                |vpiParent:
-                \_BitSelect: (work@fsm_class::specificFSM::main_comb::current_state), line:73:25, endln:73:37
-                |vpiName:STATE_01_BIT
-                |vpiFullName:work@fsm_class::specificFSM::main_comb::STATE_01_BIT
-            |vpiStmt:
-            \_TaskCall: (from_state_01), line:73:40, endln:73:53
-              |vpiParent:
-              \_CaseItem: , line:73:11, endln:73:54
-              |vpiName:from_state_01
-              |vpiTask:
-              \_Task: (work@fsm_class::specificFSM::from_state_01), line:42:5, endln:49:12
-          |vpiCaseItem:
-          \_CaseItem: , line:74:11, endln:74:54
-            |vpiParent:
-            \_CaseStmt: , line:71:9, endln:76:16
-            |vpiExpr:
-            \_BitSelect: (work@fsm_class::specificFSM::main_comb::current_state), line:74:25, endln:74:37
-              |vpiParent:
-              \_Begin: (work@fsm_class::specificFSM::main_comb), line:70:7, endln:77:10
-              |vpiName:current_state
-              |vpiFullName:work@fsm_class::specificFSM::main_comb::current_state
-              |vpiIndex:
-              \_RefObj: (work@fsm_class::specificFSM::main_comb::STATE_10_BIT), line:74:25, endln:74:37
-                |vpiParent:
-                \_BitSelect: (work@fsm_class::specificFSM::main_comb::current_state), line:74:25, endln:74:37
-                |vpiName:STATE_10_BIT
-                |vpiFullName:work@fsm_class::specificFSM::main_comb::STATE_10_BIT
-            |vpiStmt:
-            \_TaskCall: (from_state_10), line:74:40, endln:74:53
-              |vpiParent:
-              \_CaseItem: , line:74:11, endln:74:54
-              |vpiName:from_state_10
-              |vpiTask:
-              \_Task: (work@fsm_class::specificFSM::from_state_10), line:51:5, endln:58:12
-          |vpiCaseItem:
-          \_CaseItem: , line:75:11, endln:75:54
-            |vpiParent:
-            \_CaseStmt: , line:71:9, endln:76:16
-            |vpiExpr:
-            \_BitSelect: (work@fsm_class::specificFSM::main_comb::current_state), line:75:25, endln:75:37
-              |vpiParent:
-              \_Begin: (work@fsm_class::specificFSM::main_comb), line:70:7, endln:77:10
-              |vpiName:current_state
-              |vpiFullName:work@fsm_class::specificFSM::main_comb::current_state
-              |vpiIndex:
-              \_RefObj: (work@fsm_class::specificFSM::main_comb::STATE_11_BIT), line:75:25, endln:75:37
-                |vpiParent:
-                \_BitSelect: (work@fsm_class::specificFSM::main_comb::current_state), line:75:25, endln:75:37
-                |vpiName:STATE_11_BIT
-                |vpiFullName:work@fsm_class::specificFSM::main_comb::STATE_11_BIT
-            |vpiStmt:
-            \_TaskCall: (from_state_11), line:75:40, endln:75:53
-              |vpiParent:
-              \_CaseItem: , line:75:11, endln:75:54
-              |vpiName:from_state_11
-              |vpiTask:
-              \_Task: (work@fsm_class::specificFSM::from_state_11), line:60:5, endln:67:13
-  |vpiNet:
+    |vpiClassDefn:
+    \_ClassDefn: (work@fsm_class::specificFSM), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:26:3, endln:79:11
+  |vpiImportTypespec:
+  \_ClassDefn: (work@fsm_class::baseFsm), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:3:3, endln:24:11
+  |vpiImportTypespec:
+  \_ClassDefn: (work@fsm_class::specificFSM), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:26:3, endln:79:11
+  |vpiImportTypespec:
   \_LogicNet: (work@fsm_class.clk), line:1:25, endln:1:28
     |vpiParent:
     \_Module: work@fsm_class (work@fsm_class), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:1:1, endln:87:10
     |vpiName:clk
     |vpiFullName:work@fsm_class.clk
-  |vpiNet:
+  |vpiImportTypespec:
   \_LogicNet: (work@fsm_class.reset), line:1:36, endln:1:41
     |vpiParent:
     \_Module: work@fsm_class (work@fsm_class), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:1:1, endln:87:10
     |vpiName:reset
     |vpiFullName:work@fsm_class.reset
-  |vpiNet:
+  |vpiImportTypespec:
   \_LogicNet: (work@fsm_class.x), line:1:49, endln:1:50
     |vpiParent:
     \_Module: work@fsm_class (work@fsm_class), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:1:1, endln:87:10
     |vpiName:x
     |vpiFullName:work@fsm_class.x
+  |vpiImportTypespec:
+  \_ClassTypespec: (specificFSM), line:81:3, endln:81:14
+  |vpiImportTypespec:
+  \_ClassVar: (work@fsm_class.P), line:81:15, endln:81:16
+  |vpiDefName:work@fsm_class
+  |vpiClassDefn:
+  \_ClassDefn: (work@fsm_class::baseFsm), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:3:3, endln:24:11
+  |vpiClassDefn:
+  \_ClassDefn: (work@fsm_class::specificFSM), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:26:3, endln:79:11
   |vpiNet:
-  \_LogicNet: (work@fsm_class.P), line:81:15, endln:81:16
-    |vpiParent:
-    \_Module: work@fsm_class (work@fsm_class), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:1:1, endln:87:10
-    |vpiTypespec:
-    \_RefTypespec: (work@fsm_class.P)
-      |vpiParent:
-      \_LogicNet: (work@fsm_class.P), line:81:15, endln:81:16
-      |vpiFullName:work@fsm_class.P
-      |vpiActual:
-      \_ClassTypespec: (specificFSM), line:81:3, endln:81:14
-    |vpiName:P
-    |vpiFullName:work@fsm_class.P
+  \_LogicNet: (work@fsm_class.clk), line:1:25, endln:1:28
+  |vpiNet:
+  \_LogicNet: (work@fsm_class.reset), line:1:36, endln:1:41
+  |vpiNet:
+  \_LogicNet: (work@fsm_class.x), line:1:49, endln:1:50
   |vpiPort:
   \_Port: (clk), line:1:25, endln:1:28
     |vpiParent:
     \_Module: work@fsm_class (work@fsm_class), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:1:1, endln:87:10
     |vpiName:clk
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@fsm_class.clk.clk), line:1:25, endln:1:28
-      |vpiParent:
-      \_Port: (clk), line:1:25, endln:1:28
-      |vpiName:clk
-      |vpiFullName:work@fsm_class.clk.clk
-      |vpiActual:
-      \_LogicNet: (work@fsm_class.clk), line:1:25, endln:1:28
-    |vpiTypedef:
-    \_RefTypespec: (work@fsm_class.clk)
-      |vpiParent:
-      \_Port: (clk), line:1:25, endln:1:28
-      |vpiFullName:work@fsm_class.clk
-      |vpiActual:
-      \_LogicTypespec: , line:1:25, endln:1:25
   |vpiPort:
   \_Port: (reset), line:1:36, endln:1:41
     |vpiParent:
     \_Module: work@fsm_class (work@fsm_class), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:1:1, endln:87:10
     |vpiName:reset
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@fsm_class.reset.reset), line:1:36, endln:1:41
-      |vpiParent:
-      \_Port: (reset), line:1:36, endln:1:41
-      |vpiName:reset
-      |vpiFullName:work@fsm_class.reset.reset
-      |vpiActual:
-      \_LogicNet: (work@fsm_class.reset), line:1:36, endln:1:41
-    |vpiTypedef:
-    \_RefTypespec: (work@fsm_class.reset)
-      |vpiParent:
-      \_Port: (reset), line:1:36, endln:1:41
-      |vpiFullName:work@fsm_class.reset
-      |vpiActual:
-      \_LogicTypespec: , line:1:36, endln:1:36
   |vpiPort:
   \_Port: (x), line:1:49, endln:1:50
     |vpiParent:
     \_Module: work@fsm_class (work@fsm_class), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:1:1, endln:87:10
     |vpiName:x
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@fsm_class.x.x), line:1:49, endln:1:50
-      |vpiParent:
-      \_Port: (x), line:1:49, endln:1:50
-      |vpiName:x
-      |vpiFullName:work@fsm_class.x.x
-      |vpiActual:
-      \_LogicNet: (work@fsm_class.x), line:1:49, endln:1:50
-    |vpiTypedef:
-    \_RefTypespec: (work@fsm_class.x)
-      |vpiParent:
-      \_Port: (x), line:1:49, endln:1:50
-      |vpiFullName:work@fsm_class.x
-      |vpiActual:
-      \_LogicTypespec: , line:1:49, endln:1:49
   |vpiProcess:
   \_Always: , line:82:3, endln:84:6
     |vpiParent:
@@ -1353,13 +1506,13 @@ Design: (unnamed)
         \_EventControl: , line:82:10, endln:82:24
         |vpiFullName:work@fsm_class
         |vpiStmt:
-        \_MethodFuncCall: (current_state_transition), line:83:7, endln:83:31
+        \_MethodFuncCall: (current_state_transition), line:83:5, endln:83:33
           |vpiParent:
           \_Begin: (work@fsm_class), line:82:24, endln:84:6
           |vpiArgument:
           \_Constant: , line:83:32, endln:83:33
             |vpiParent:
-            \_MethodFuncCall: (current_state_transition), line:83:7, endln:83:31
+            \_MethodFuncCall: (current_state_transition), line:83:5, endln:83:33
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
@@ -1368,9 +1521,11 @@ Design: (unnamed)
           |vpiPrefix:
           \_RefObj: (work@fsm_class.P), line:83:5, endln:83:6
             |vpiParent:
-            \_MethodFuncCall: (current_state_transition), line:83:7, endln:83:31
+            \_MethodFuncCall: (current_state_transition), line:83:5, endln:83:33
             |vpiName:P
             |vpiFullName:work@fsm_class.P
+            |vpiActual:
+            \_ClassVar: (work@fsm_class.P), line:81:15, endln:81:16
     |vpiAlwaysType:1
   |vpiProcess:
   \_Always: , line:85:3, endln:86:15
@@ -1381,32 +1536,19 @@ Design: (unnamed)
       |vpiParent:
       \_Always: , line:85:3, endln:86:15
       |vpiStmt:
-      \_MethodFuncCall: (main_comb), line:86:5, endln:86:14
+      \_MethodFuncCall: (main_comb), line:86:3, endln:86:14
         |vpiParent:
         \_EventControl: , line:85:10, endln:85:12
         |vpiName:main_comb
         |vpiPrefix:
         \_RefObj: (work@fsm_class.P), line:86:3, endln:86:4
           |vpiParent:
-          \_MethodFuncCall: (main_comb), line:86:5, endln:86:14
+          \_MethodFuncCall: (main_comb), line:86:3, endln:86:14
           |vpiName:P
           |vpiFullName:work@fsm_class.P
+          |vpiActual:
+          \_ClassVar: (work@fsm_class.P), line:81:15, endln:81:16
     |vpiAlwaysType:1
-\_weaklyReferenced:
-\_IntTypespec: , line:8:39, endln:8:42
-  |vpiSigned:1
-\_LogicTypespec: , line:15:42, endln:15:47
-\_IntTypespec: , line:28:5, endln:28:33
-\_IntTypespec: , line:29:5, endln:29:33
-\_IntTypespec: , line:30:5, endln:30:33
-\_IntTypespec: , line:31:5, endln:31:33
-\_LogicTypespec: , line:1:25, endln:1:25
-\_LogicTypespec: , line:1:36, endln:1:36
-\_LogicTypespec: , line:1:49, endln:1:49
-\_ClassTypespec: (specificFSM), line:81:3, endln:81:14
-  |vpiName:specificFSM
-  |vpiClassDefn:
-  \_ClassDefn: (work@fsm_class::specificFSM), file:${SURELOG_DIR}/tests/ClassFsm/dut.sv, line:26:3, endln:79:11
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

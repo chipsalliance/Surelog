@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 36
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/PortExpr/dut.sv
+FILE: ${SURELOG_DIR}/tests/PortExpr/dut.sv
 n<> u<35> t<Top_level_rule> c<1> l<1:1> el<7:1>
-  n<> u<1> t<Null_rule> p<35> s<34> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<35> s<34> l<1:1>
   n<> u<34> t<Source_text> p<35> c<33> l<1:1> el<6:10>
     n<> u<33> t<Description> p<34> c<32> l<1:1> el<6:10>
       n<> u<32> t<Module_declaration> p<33> c<16> l<1:1> el<6:10>
@@ -48,37 +48,43 @@ there are 1 more instances of this message.
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 Design                                                 1
 LogicNet                                               3
-LogicTypespec                                          2
 Module                                                 1
 Port                                                   3
-RefObj                                                 2
-RefTypespec                                            2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PortExpr/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/PortExpr/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/PortExpr/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PortExpr/dut.sv, line:1:1, endln:6:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
-  |vpiDefName:work@top
-  |vpiNet:
+  |vpiName:work@top
+  |vpiImportTypespec:
   \_LogicNet: (work@top.op[79]), line:4:11, endln:4:23
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PortExpr/dut.sv, line:1:1, endln:6:10
     |vpiName:op[79]
     |vpiFullName:work@top.op[79]
-  |vpiNet:
+  |vpiImportTypespec:
   \_LogicNet: (work@top.op[78]), line:5:11, endln:5:23
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PortExpr/dut.sv, line:1:1, endln:6:10
     |vpiName:op[78]
     |vpiFullName:work@top.op[78]
+  |vpiImportTypespec:
+  \_LogicNet: (work@top), line:2:4, endln:2:36
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PortExpr/dut.sv, line:1:1, endln:6:10
+    |vpiFullName:work@top
+  |vpiDefName:work@top
+  |vpiNet:
+  \_LogicNet: (work@top.op[79]), line:4:11, endln:4:23
+  |vpiNet:
+  \_LogicNet: (work@top.op[78]), line:5:11, endln:5:23
+  |vpiNet:
+  \_LogicNet: (work@top), line:2:4, endln:2:36
   |vpiPort:
   \_Port: , line:2:4, endln:2:36
     |vpiParent:
@@ -90,45 +96,12 @@ Design: (unnamed)
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PortExpr/dut.sv, line:1:1, endln:6:10
     |vpiName:op[79]
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@top.op[79].op[79]), line:4:11, endln:4:23
-      |vpiParent:
-      \_Port: (op[79]), line:4:11, endln:4:23
-      |vpiName:op[79]
-      |vpiFullName:work@top.op[79].op[79]
-      |vpiActual:
-      \_LogicNet: (work@top.op[79]), line:4:11, endln:4:23
-    |vpiTypedef:
-    \_RefTypespec: (work@top.op[79])
-      |vpiParent:
-      \_Port: (op[79]), line:4:11, endln:4:23
-      |vpiFullName:work@top.op[79]
-      |vpiActual:
-      \_LogicTypespec: , line:4:11, endln:4:11
   |vpiPort:
   \_Port: (op[78]), line:5:11, endln:5:23
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/PortExpr/dut.sv, line:1:1, endln:6:10
     |vpiName:op[78]
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@top.op[78].op[78]), line:5:11, endln:5:23
-      |vpiParent:
-      \_Port: (op[78]), line:5:11, endln:5:23
-      |vpiName:op[78]
-      |vpiFullName:work@top.op[78].op[78]
-      |vpiActual:
-      \_LogicNet: (work@top.op[78]), line:5:11, endln:5:23
-    |vpiTypedef:
-    \_RefTypespec: (work@top.op[78])
-      |vpiParent:
-      \_Port: (op[78]), line:5:11, endln:5:23
-      |vpiFullName:work@top.op[78]
-      |vpiActual:
-      \_LogicTypespec: , line:5:11, endln:5:11
-\_weaklyReferenced:
-\_LogicTypespec: , line:4:11, endln:4:11
-\_LogicTypespec: , line:5:11, endln:5:11
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

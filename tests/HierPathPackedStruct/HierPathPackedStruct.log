@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 132
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/HierPathPackedStruct/dut.sv
+FILE: ${SURELOG_DIR}/tests/HierPathPackedStruct/dut.sv
 n<> u<131> t<Top_level_rule> c<1> l<1:1> el<18:1>
-  n<> u<1> t<Null_rule> p<131> s<130> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<131> s<130> l<1:1>
   n<> u<130> t<Source_text> p<131> c<45> l<1:1> el<17:10>
     n<> u<45> t<Description> p<130> c<44> s<72> l<1:1> el<4:16>
       n<> u<44> t<Package_item> p<45> c<43> l<1:1> el<4:16>
@@ -61,7 +61,7 @@ n<> u<131> t<Top_level_rule> c<1> l<1:1> el<18:1>
                 n<> u<48> t<Packed_keyword> p<66> s<65> l<6:16> el<6:22>
                 n<> u<65> t<Struct_union_member> p<66> c<61> l<7:3> el<7:27>
                   n<> u<61> t<Data_type_or_void> p<65> c<60> s<64> l<7:3> el<7:21>
-                    n<> u<60> t<Data_type> p<61> c<49> l<7:3> el<7:21>
+                    n<fourty_two_t> u<60> t<Data_type> p<61> c<49> l<7:3> el<7:21>
                       n<fourty_two_t> u<49> t<StringConst> p<60> s<59> l<7:3> el<7:15>
                       n<> u<59> t<Packed_dimension> p<60> c<58> l<7:16> el<7:21>
                         n<> u<58> t<Constant_range> p<59> c<53> l<7:17> el<7:20>
@@ -88,7 +88,7 @@ n<> u<131> t<Top_level_rule> c<1> l<1:1> el<18:1>
                 n<> u<75> t<PortDir_Inp> p<80> s<79> l<10:17> el<10:22>
                 n<> u<79> t<Net_port_type> p<80> c<78> l<10:23> el<10:28>
                   n<> u<78> t<Data_type_or_implicit> p<79> c<77> l<10:23> el<10:28>
-                    n<> u<77> t<Data_type> p<78> c<76> l<10:23> el<10:28>
+                    n<foo_t> u<77> t<Data_type> p<78> c<76> l<10:23> el<10:28>
                       n<foo_t> u<76> t<StringConst> p<77> l<10:23> el<10:28>
               n<a> u<81> t<StringConst> p<82> l<10:29> el<10:30>
         n<> u<126> t<Non_port_module_item> p<128> c<125> s<127> l<14:4> el<16:7>
@@ -146,67 +146,74 @@ Constant                                               9
 Design                                                 1
 GenIf                                                  1
 HierPath                                               2
-LogicNet                                               1
 LogicTypespec                                          2
 Module                                                 2
 Operation                                              1
 PackedArrayTypespec                                    1
 Port                                                   1
 Range                                                  3
-RefObj                                                 3
-RefTypespec                                            5
+RefObj                                                 2
+RefTypespec                                            6
 StructTypespec                                         2
+StructVar                                              1
 SysFuncCall                                            1
 TypespecMember                                         3
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/HierPathPackedStruct/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/HierPathPackedStruct/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/HierPathPackedStruct/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@some_mod (work@some_mod), file:${SURELOG_DIR}/tests/HierPathPackedStruct/dut.sv, line:10:1, endln:17:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@some_mod
-  |vpiDefName:work@some_mod
-  |vpiNet:
-  \_LogicNet: (work@some_mod.a), line:10:29, endln:10:30
+  |vpiName:work@some_mod
+  |vpiVariables:
+  \_StructVar: (work@some_mod.a), line:10:29, endln:10:30
     |vpiParent:
     \_Module: work@some_mod (work@some_mod), file:${SURELOG_DIR}/tests/HierPathPackedStruct/dut.sv, line:10:1, endln:17:10
+    |vpiTypespec:
+    \_RefTypespec: (work@some_mod.a.foo_t), line:10:23, endln:10:28
+      |vpiParent:
+      \_StructVar: (work@some_mod.a), line:10:29, endln:10:30
+      |vpiName:foo_t
+      |vpiFullName:work@some_mod.a.foo_t
+      |vpiActual:
+      \_StructTypespec: (foo_t), line:6:9, endln:8:2
     |vpiName:a
     |vpiFullName:work@some_mod.a
+    |vpiVisibility:1
+  |vpiInternalScope:
+  \_Begin: (work@some_mod), line:14:32, endln:16:7
+    |vpiParent:
+    \_Module: work@some_mod (work@some_mod), file:${SURELOG_DIR}/tests/HierPathPackedStruct/dut.sv, line:10:1, endln:17:10
+    |vpiFullName:work@some_mod
+  |vpiImportTypespec:
+  \_StructVar: (work@some_mod.a), line:10:29, endln:10:30
+  |vpiDefName:work@some_mod
   |vpiPort:
   \_Port: (a), line:10:29, endln:10:30
     |vpiParent:
     \_Module: work@some_mod (work@some_mod), file:${SURELOG_DIR}/tests/HierPathPackedStruct/dut.sv, line:10:1, endln:17:10
     |vpiName:a
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@some_mod.a.a), line:10:29, endln:10:30
+    |vpiTypespec:
+    \_RefTypespec: (work@some_mod.a.foo_t), line:10:23, endln:10:28
       |vpiParent:
       \_Port: (a), line:10:29, endln:10:30
-      |vpiName:a
-      |vpiFullName:work@some_mod.a.a
-      |vpiActual:
-      \_LogicNet: (work@some_mod.a), line:10:29, endln:10:30
-    |vpiTypedef:
-    \_RefTypespec: (work@some_mod.a)
-      |vpiParent:
-      \_Port: (a), line:10:29, endln:10:30
-      |vpiFullName:work@some_mod.a
+      |vpiName:foo_t
+      |vpiFullName:work@some_mod.a.foo_t
       |vpiActual:
       \_StructTypespec: (foo_t), line:6:9, endln:8:2
   |vpiGenStmt:
-  \_GenIf: , line:14:4, endln:14:6
+  \_GenIf: , line:14:4, endln:16:7
     |vpiParent:
     \_Module: work@some_mod (work@some_mod), file:${SURELOG_DIR}/tests/HierPathPackedStruct/dut.sv, line:10:1, endln:17:10
     |vpiCondition:
     \_Operation: , line:14:8, endln:14:30
       |vpiParent:
-      \_GenIf: , line:14:4, endln:14:6
+      \_GenIf: , line:14:4, endln:16:7
       |vpiOpType:15
       |vpiOperand:
       \_SysFuncCall: ($bits), line:14:8, endln:14:24
@@ -221,16 +228,20 @@ Design: (unnamed)
             |vpiParent:
             \_HierPath: (a.pair[0]), line:14:14, endln:14:23
             |vpiName:a
+            |vpiActual:
+            \_StructVar: (work@some_mod.a), line:10:29, endln:10:30
           |vpiActual:
-          \_BitSelect: (work@some_mod.a.pair[0].pair), line:14:21, endln:14:22
+          \_BitSelect: (work@some_mod.a.pair[0].pair), line:14:20, endln:14:23
             |vpiParent:
             \_HierPath: (a.pair[0]), line:14:14, endln:14:23
             |vpiName:pair
             |vpiFullName:work@some_mod.a.pair[0].pair
+            |vpiActual:
+            \_TypespecMember: (pair), line:7:22, endln:7:26
             |vpiIndex:
             \_Constant: , line:14:21, endln:14:22
               |vpiParent:
-              \_BitSelect: (work@some_mod.a.pair[0].pair), line:14:21, endln:14:22
+              \_BitSelect: (work@some_mod.a.pair[0].pair), line:14:20, endln:14:23
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
@@ -246,42 +257,12 @@ Design: (unnamed)
         |UINT:42
         |vpiConstType:9
     |vpiStmt:
-    \_Begin: (work@some_mod)
-      |vpiParent:
-      \_GenIf: , line:14:4, endln:14:6
-      |vpiFullName:work@some_mod
-|vpiTypedef:
-\_StructTypespec: (foo_t), line:6:9, endln:8:2
-  |vpiParent:
-  \_Design: (unnamed)
-  |vpiName:foo_t
-  |vpiInstance:
-  \_Design: (unnamed)
-  |vpiPacked:1
-  |vpiTypespecMember:
-  \_TypespecMember: (pair), line:7:22, endln:7:26
-    |vpiParent:
-    \_StructTypespec: (foo_t), line:6:9, endln:8:2
-    |vpiName:pair
-    |vpiTypespec:
-    \_RefTypespec: (foo_t.pair)
-      |vpiParent:
-      \_TypespecMember: (pair), line:7:22, endln:7:26
-      |vpiFullName:foo_t.pair
-      |vpiActual:
-      \_PackedArrayTypespec: , line:7:3, endln:7:21
-    |vpiRefFile:${SURELOG_DIR}/tests/HierPathPackedStruct/dut.sv
-    |vpiRefLineNo:7
-    |vpiRefColumnNo:3
-    |vpiRefEndLineNo:7
-    |vpiRefEndColumnNo:21
+    \_Begin: (work@some_mod), line:14:32, endln:16:7
 |vpiTypedef:
 \_StructTypespec: (fourty_two_t), line:1:9, endln:4:2
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:fourty_two_t
-  |vpiInstance:
-  \_Design: (unnamed)
   |vpiPacked:1
   |vpiTypespecMember:
   \_TypespecMember: (foo), line:2:16, endln:2:19
@@ -289,38 +270,28 @@ Design: (unnamed)
     \_StructTypespec: (fourty_two_t), line:1:9, endln:4:2
     |vpiName:foo
     |vpiTypespec:
-    \_RefTypespec: (fourty_two_t.foo)
+    \_RefTypespec: (fourty_two_t.foo), line:2:3, endln:2:15
       |vpiParent:
       \_TypespecMember: (foo), line:2:16, endln:2:19
       |vpiFullName:fourty_two_t.foo
       |vpiActual:
       \_LogicTypespec: , line:2:3, endln:2:15
-    |vpiRefFile:${SURELOG_DIR}/tests/HierPathPackedStruct/dut.sv
-    |vpiRefLineNo:2
-    |vpiRefColumnNo:3
-    |vpiRefEndLineNo:2
-    |vpiRefEndColumnNo:15
   |vpiTypespecMember:
   \_TypespecMember: (bar), line:3:16, endln:3:19
     |vpiParent:
     \_StructTypespec: (fourty_two_t), line:1:9, endln:4:2
     |vpiName:bar
     |vpiTypespec:
-    \_RefTypespec: (fourty_two_t.bar)
+    \_RefTypespec: (fourty_two_t.bar), line:3:3, endln:3:15
       |vpiParent:
       \_TypespecMember: (bar), line:3:16, endln:3:19
       |vpiFullName:fourty_two_t.bar
       |vpiActual:
       \_LogicTypespec: , line:3:3, endln:3:15
-    |vpiRefFile:${SURELOG_DIR}/tests/HierPathPackedStruct/dut.sv
-    |vpiRefLineNo:3
-    |vpiRefColumnNo:3
-    |vpiRefEndLineNo:3
-    |vpiRefEndColumnNo:15
-\_weaklyReferenced:
+|vpiTypedef:
 \_LogicTypespec: , line:2:3, endln:2:15
   |vpiParent:
-  \_TypespecMember: (foo), line:2:16, endln:2:19
+  \_Design: (unnamed)
   |vpiRange:
   \_Range: , line:2:9, endln:2:15
     |vpiParent:
@@ -341,9 +312,10 @@ Design: (unnamed)
       |vpiSize:64
       |UINT:0
       |vpiConstType:9
+|vpiTypedef:
 \_LogicTypespec: , line:3:3, endln:3:15
   |vpiParent:
-  \_TypespecMember: (bar), line:3:16, endln:3:19
+  \_Design: (unnamed)
   |vpiRange:
   \_Range: , line:3:9, endln:3:15
     |vpiParent:
@@ -364,13 +336,33 @@ Design: (unnamed)
       |vpiSize:64
       |UINT:0
       |vpiConstType:9
-\_PackedArrayTypespec: , line:7:3, endln:7:21
+|vpiTypedef:
+\_StructTypespec: (foo_t), line:6:9, endln:8:2
   |vpiParent:
+  \_Design: (unnamed)
+  |vpiName:foo_t
+  |vpiPacked:1
+  |vpiTypespecMember:
   \_TypespecMember: (pair), line:7:22, endln:7:26
+    |vpiParent:
+    \_StructTypespec: (foo_t), line:6:9, endln:8:2
+    |vpiName:pair
+    |vpiTypespec:
+    \_RefTypespec: (foo_t.pair.fourty_two_t), line:7:3, endln:7:21
+      |vpiParent:
+      \_TypespecMember: (pair), line:7:22, endln:7:26
+      |vpiName:fourty_two_t
+      |vpiFullName:foo_t.pair.fourty_two_t
+      |vpiActual:
+      \_PackedArrayTypespec: , line:7:16, endln:7:21
+|vpiTypedef:
+\_PackedArrayTypespec: , line:7:16, endln:7:21
+  |vpiParent:
+  \_Design: (unnamed)
   |vpiRange:
   \_Range: , line:7:16, endln:7:21
     |vpiParent:
-    \_PackedArrayTypespec: , line:7:3, endln:7:21
+    \_PackedArrayTypespec: , line:7:16, endln:7:21
     |vpiLeftRange:
     \_Constant: , line:7:17, endln:7:18
       |vpiParent:
@@ -388,10 +380,10 @@ Design: (unnamed)
       |UINT:0
       |vpiConstType:9
   |vpiElemTypespec:
-  \_RefTypespec: (foo_t.pair)
+  \_RefTypespec: (fourty_two_t), line:7:3, endln:7:15
     |vpiParent:
-    \_PackedArrayTypespec: , line:7:3, endln:7:21
-    |vpiFullName:foo_t.pair
+    \_PackedArrayTypespec: , line:7:16, endln:7:21
+    |vpiName:fourty_two_t
     |vpiActual:
     \_StructTypespec: (fourty_two_t), line:1:9, endln:4:2
 ===================

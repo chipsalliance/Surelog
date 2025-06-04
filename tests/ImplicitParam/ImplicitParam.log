@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 63
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/ImplicitParam/dut.sv
+FILE: ${SURELOG_DIR}/tests/ImplicitParam/dut.sv
 n<> u<62> t<Top_level_rule> c<1> l<1:1> el<5:1>
-  n<> u<1> t<Null_rule> p<62> s<61> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<62> s<61> l<1:1>
   n<> u<61> t<Source_text> p<62> c<60> l<1:1> el<4:10>
     n<> u<60> t<Description> p<61> c<59> l<1:1> el<4:10>
       n<> u<59> t<Module_declaration> p<60> c<13> l<1:1> el<4:10>
@@ -73,55 +73,53 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 Constant                                               4
 Design                                                 1
-IntTypespec                                            3
-LogicNet                                               1
+IntTypespec                                            2
+IntVar                                                 1
 Module                                                 1
 ParamAssign                                            2
 Parameter                                              2
 Port                                                   1
 Range                                                  1
-RefObj                                                 1
-RefTypespec                                            5
+RefTypespec                                            2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ImplicitParam/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ImplicitParam/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ImplicitParam/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ImplicitParam/dut.sv, line:1:1, endln:4:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
+  |vpiName:work@top
+  |vpiVariables:
+  \_IntVar: (work@top.o), line:1:23, endln:1:24
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ImplicitParam/dut.sv, line:1:1, endln:4:10
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o), line:1:19, endln:1:22
+      |vpiParent:
+      \_IntVar: (work@top.o), line:1:23, endln:1:24
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_IntTypespec: , line:1:19, endln:1:22
+    |vpiName:o
+    |vpiFullName:work@top.o
+    |vpiSigned:1
+    |vpiVisibility:1
   |vpiParameter:
-  \_Parameter: (work@top.P), line:2:24, endln:2:25
+  \_Parameter: (work@top.P), line:2:24, endln:2:30
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ImplicitParam/dut.sv, line:1:1, endln:4:10
     |UINT:15
-    |vpiTypespec:
-    \_RefTypespec: (work@top.P)
-      |vpiParent:
-      \_Parameter: (work@top.P), line:2:24, endln:2:25
-      |vpiFullName:work@top.P
-      |vpiActual:
-      \_IntTypespec: , line:2:15, endln:2:23
     |vpiLocalParam:1
     |vpiName:P
     |vpiFullName:work@top.P
   |vpiParameter:
-  \_Parameter: (work@top.n), line:3:29, endln:3:30
+  \_Parameter: (work@top.n), line:3:29, endln:3:46
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ImplicitParam/dut.sv, line:1:1, endln:4:10
     |HEX:80000000
-    |vpiTypespec:
-    \_RefTypespec: (work@top.n)
-      |vpiParent:
-      \_Parameter: (work@top.n), line:3:29, endln:3:30
-      |vpiFullName:work@top.n
-      |vpiActual:
-      \_IntTypespec: , line:3:15, endln:3:21
     |vpiLocalParam:1
     |vpiName:n
     |vpiFullName:work@top.n
@@ -136,16 +134,9 @@ Design: (unnamed)
       |vpiDecompile:15
       |vpiSize:64
       |UINT:15
-      |vpiTypespec:
-      \_RefTypespec: (work@top)
-        |vpiParent:
-        \_Constant: , line:2:28, endln:2:30
-        |vpiFullName:work@top
-        |vpiActual:
-        \_IntTypespec: , line:2:15, endln:2:23
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (work@top.P), line:2:24, endln:2:25
+    \_Parameter: (work@top.P), line:2:24, endln:2:30
   |vpiParamAssign:
   \_ParamAssign: , line:3:29, endln:3:46
     |vpiParent:
@@ -157,74 +148,39 @@ Design: (unnamed)
       |vpiDecompile:32'h80000000
       |vpiSize:32
       |HEX:80000000
-      |vpiTypespec:
-      \_RefTypespec: (work@top)
-        |vpiParent:
-        \_Constant: , line:3:33, endln:3:46
-        |vpiFullName:work@top
-        |vpiActual:
-        \_IntTypespec: , line:3:15, endln:3:21
       |vpiConstType:5
     |vpiLhs:
-    \_Parameter: (work@top.n), line:3:29, endln:3:30
-  |vpiDefName:work@top
-  |vpiNet:
-  \_LogicNet: (work@top.o), line:1:23, endln:1:24
+    \_Parameter: (work@top.n), line:3:29, endln:3:46
+  |vpiTypedef:
+  \_IntTypespec: , line:1:19, endln:1:22
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ImplicitParam/dut.sv, line:1:1, endln:4:10
-    |vpiName:o
-    |vpiFullName:work@top.o
+    |vpiSigned:1
+  |vpiTypedef:
+  \_IntTypespec: , line:1:19, endln:1:22
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ImplicitParam/dut.sv, line:1:1, endln:4:10
+    |vpiSigned:1
+  |vpiImportTypespec:
+  \_IntTypespec: , line:1:19, endln:1:22
+  |vpiImportTypespec:
+  \_IntVar: (work@top.o), line:1:23, endln:1:24
+  |vpiImportTypespec:
+  \_IntTypespec: , line:1:19, endln:1:22
+  |vpiDefName:work@top
   |vpiPort:
   \_Port: (o), line:1:23, endln:1:24
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ImplicitParam/dut.sv, line:1:1, endln:4:10
     |vpiName:o
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@top.o.o), line:1:23, endln:1:24
-      |vpiParent:
-      \_Port: (o), line:1:23, endln:1:24
-      |vpiName:o
-      |vpiFullName:work@top.o.o
-      |vpiActual:
-      \_LogicNet: (work@top.o), line:1:23, endln:1:24
-    |vpiTypedef:
-    \_RefTypespec: (work@top.o)
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o), line:1:19, endln:1:22
       |vpiParent:
       \_Port: (o), line:1:23, endln:1:24
       |vpiFullName:work@top.o
       |vpiActual:
       \_IntTypespec: , line:1:19, endln:1:22
-\_weaklyReferenced:
-\_IntTypespec: , line:2:15, endln:2:23
-  |vpiParent:
-  \_Parameter: (work@top.P), line:2:24, endln:2:25
-\_IntTypespec: , line:3:15, endln:3:21
-  |vpiParent:
-  \_Parameter: (work@top.n), line:3:29, endln:3:30
-  |vpiSigned:1
-  |vpiRange:
-  \_Range: , line:3:22, endln:3:28
-    |vpiParent:
-    \_IntTypespec: , line:3:15, endln:3:21
-    |vpiLeftRange:
-    \_Constant: , line:3:23, endln:3:25
-      |vpiParent:
-      \_Range: , line:3:22, endln:3:28
-      |vpiDecompile:63
-      |vpiSize:64
-      |UINT:63
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:3:26, endln:3:27
-      |vpiParent:
-      \_Range: , line:3:22, endln:3:28
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_IntTypespec: , line:1:19, endln:1:22
-  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

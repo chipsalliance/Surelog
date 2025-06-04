@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 48
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/BindingPort/dut.sv
+FILE: ${SURELOG_DIR}/tests/BindingPort/dut.sv
 n<> u<47> t<Top_level_rule> c<1> l<4:1> el<22:50>
-  n<> u<1> t<Null_rule> p<47> s<46> l<4:1> el<1:4>
+  n<> u<1> t<Null_rule> p<47> s<46> l<4:1> el<4:1>
   n<> u<46> t<Source_text> p<47> c<14> l<4:1> el<22:50>
     n<> u<14> t<Description> p<46> c<13> s<27> l<4:1> el<10:10>
       n<> u<13> t<Module_declaration> p<14> c<11> l<4:1> el<10:10>
@@ -60,88 +60,54 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 Design                                                 1
 LogicNet                                               2
-LogicTypespec                                          2
 Module                                                 2
 Port                                                   2
-RefObj                                                 2
-RefTypespec                                            2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/BindingPort/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/BindingPort/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/BindingPort/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@UART (work@UART), file:${SURELOG_DIR}/tests/BindingPort/dut.sv, line:4:1, endln:10:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@UART
-  |vpiDefName:work@UART
-  |vpiNet:
+  |vpiName:work@UART
+  |vpiImportTypespec:
   \_LogicNet: (work@UART.clk), line:5:11, endln:5:14
     |vpiParent:
     \_Module: work@UART (work@UART), file:${SURELOG_DIR}/tests/BindingPort/dut.sv, line:4:1, endln:10:10
     |vpiName:clk
     |vpiFullName:work@UART.clk
+  |vpiDefName:work@UART
+  |vpiNet:
+  \_LogicNet: (work@UART.clk), line:5:11, endln:5:14
   |vpiPort:
   \_Port: (clk), line:5:11, endln:5:14
     |vpiParent:
     \_Module: work@UART (work@UART), file:${SURELOG_DIR}/tests/BindingPort/dut.sv, line:4:1, endln:10:10
     |vpiName:clk
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@UART.clk.clk), line:5:11, endln:5:14
-      |vpiParent:
-      \_Port: (clk), line:5:11, endln:5:14
-      |vpiName:clk
-      |vpiFullName:work@UART.clk.clk
-      |vpiActual:
-      \_LogicNet: (work@UART.clk), line:5:11, endln:5:14
-    |vpiTypedef:
-    \_RefTypespec: (work@UART.clk)
-      |vpiParent:
-      \_Port: (clk), line:5:11, endln:5:14
-      |vpiFullName:work@UART.clk
-      |vpiActual:
-      \_LogicTypespec: , line:5:11, endln:5:11
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/BindingPort/dut.sv, line:13:1, endln:19:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@UART_assertions
-  |vpiDefName:work@UART_assertions
-  |vpiNet:
+  |vpiName:work@UART_assertions
+  |vpiImportTypespec:
   \_LogicNet: (work@UART_assertions.clk), line:14:11, endln:14:14
     |vpiParent:
     \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/BindingPort/dut.sv, line:13:1, endln:19:10
     |vpiName:clk
     |vpiFullName:work@UART_assertions.clk
+  |vpiDefName:work@UART_assertions
+  |vpiNet:
+  \_LogicNet: (work@UART_assertions.clk), line:14:11, endln:14:14
   |vpiPort:
   \_Port: (clk), line:14:11, endln:14:14
     |vpiParent:
     \_Module: work@UART_assertions (work@UART_assertions), file:${SURELOG_DIR}/tests/BindingPort/dut.sv, line:13:1, endln:19:10
     |vpiName:clk
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@UART_assertions.clk.clk), line:14:11, endln:14:14
-      |vpiParent:
-      \_Port: (clk), line:14:11, endln:14:14
-      |vpiName:clk
-      |vpiFullName:work@UART_assertions.clk.clk
-      |vpiActual:
-      \_LogicNet: (work@UART_assertions.clk), line:14:11, endln:14:14
-    |vpiTypedef:
-    \_RefTypespec: (work@UART_assertions.clk)
-      |vpiParent:
-      \_Port: (clk), line:14:11, endln:14:14
-      |vpiFullName:work@UART_assertions.clk
-      |vpiActual:
-      \_LogicTypespec: , line:14:11, endln:14:11
-\_weaklyReferenced:
-\_LogicTypespec: , line:5:11, endln:5:11
-\_LogicTypespec: , line:14:11, endln:14:11
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

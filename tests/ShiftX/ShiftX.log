@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 53
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/ShiftX/dut.sv
+FILE: ${SURELOG_DIR}/tests/ShiftX/dut.sv
 n<> u<52> t<Top_level_rule> c<1> l<2:1> el<7:10>
-  n<> u<1> t<Null_rule> p<52> s<51> l<2:1> el<1:2>
+  n<> u<1> t<Null_rule> p<52> s<51> l<2:1> el<2:1>
   n<> u<51> t<Source_text> p<52> c<50> l<2:1> el<7:10>
     n<> u<50> t<Description> p<51> c<49> l<2:1> el<7:10>
       n<> u<49> t<Module_declaration> p<50> c<4> l<2:1> el<7:10>
@@ -61,44 +61,72 @@ AST_DEBUG_END
 [INF:CP0303] ${SURELOG_DIR}/tests/ShiftX/dut.sv:2:1: Compile module "work@top".
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-Constant                                               4
+Constant                                               6
 ContAssign                                             1
 Design                                                 1
-LogicNet                                               1
 LogicTypespec                                          1
+LogicVar                                               1
 Module                                                 1
 Operation                                              1
-Range                                                  1
+Range                                                  2
 RefObj                                                 1
 RefTypespec                                            1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ShiftX/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ShiftX/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ShiftX/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ShiftX/dut.sv, line:2:1, endln:7:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
-  |vpiDefName:work@top
-  |vpiNet:
-  \_LogicNet: (work@top.sxc), line:3:18, endln:3:21
+  |vpiName:work@top
+  |vpiVariables:
+  \_LogicVar: (work@top.sxc), line:3:18, endln:3:21
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ShiftX/dut.sv, line:2:1, endln:7:10
     |vpiTypespec:
-    \_RefTypespec: (work@top.sxc)
+    \_RefTypespec: (work@top.sxc), line:3:5, endln:3:17
       |vpiParent:
-      \_LogicNet: (work@top.sxc), line:3:18, endln:3:21
+      \_LogicVar: (work@top.sxc), line:3:18, endln:3:21
       |vpiFullName:work@top.sxc
       |vpiActual:
       \_LogicTypespec: , line:3:5, endln:3:17
     |vpiName:sxc
     |vpiFullName:work@top.sxc
-    |vpiNetType:36
+    |vpiVisibility:1
+  |vpiReg:
+  \_LogicVar: (work@top.sxc), line:3:18, endln:3:21
+  |vpiTypedef:
+  \_LogicTypespec: , line:3:5, endln:3:17
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ShiftX/dut.sv, line:2:1, endln:7:10
+    |vpiRange:
+    \_Range: , line:3:11, endln:3:17
+      |vpiParent:
+      \_LogicTypespec: , line:3:5, endln:3:17
+      |vpiLeftRange:
+      \_Constant: , line:3:12, endln:3:14
+        |vpiParent:
+        \_Range: , line:3:11, endln:3:17
+        |vpiDecompile:63
+        |vpiSize:64
+        |UINT:63
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:3:15, endln:3:16
+        |vpiParent:
+        \_Range: , line:3:11, endln:3:17
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:3:5, endln:3:17
+  |vpiImportTypespec:
+  \_LogicVar: (work@top.sxc), line:3:18, endln:3:21
+  |vpiDefName:work@top
   |vpiContAssign:
   \_ContAssign: , line:5:12, endln:5:25
     |vpiParent:
@@ -131,29 +159,7 @@ Design: (unnamed)
       |vpiName:sxc
       |vpiFullName:work@top.sxc
       |vpiActual:
-      \_LogicNet: (work@top.sxc), line:3:18, endln:3:21
-\_weaklyReferenced:
-\_LogicTypespec: , line:3:5, endln:3:17
-  |vpiRange:
-  \_Range: , line:3:11, endln:3:17
-    |vpiParent:
-    \_LogicTypespec: , line:3:5, endln:3:17
-    |vpiLeftRange:
-    \_Constant: , line:3:12, endln:3:14
-      |vpiParent:
-      \_Range: , line:3:11, endln:3:17
-      |vpiDecompile:63
-      |vpiSize:64
-      |UINT:63
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:3:15, endln:3:16
-      |vpiParent:
-      \_Range: , line:3:11, endln:3:17
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
+      \_LogicVar: (work@top.sxc), line:3:18, endln:3:21
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

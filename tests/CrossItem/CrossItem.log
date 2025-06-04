@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 231
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/CrossItem/dut.sv
+FILE: ${SURELOG_DIR}/tests/CrossItem/dut.sv
 n<> u<230> t<Top_level_rule> c<1> l<1:1> el<26:1>
-  n<> u<1> t<Null_rule> p<230> s<229> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<230> s<229> l<1:1>
   n<> u<229> t<Source_text> p<230> c<228> l<1:1> el<25:10>
     n<> u<228> t<Description> p<229> c<227> l<1:1> el<25:10>
       n<> u<227> t<Module_declaration> p<228> c<4> l<1:1> el<25:10>
@@ -53,7 +53,7 @@ n<> u<230> t<Top_level_rule> c<1> l<1:1> el<26:1>
                     n<> u<99> t<Coverage_spec_or_option> p<220> c<98> s<157> l<4:2> el<10:3>
                       n<> u<98> t<Coverage_spec> p<99> c<97> l<4:2> el<10:3>
                         n<> u<97> t<Cover_point> p<98> c<38> l<4:2> el<10:3>
-                          n<> u<38> t<Data_type_or_implicit> p<97> s<39> l<4:2> el<3:33>
+                          n<> u<38> t<Data_type_or_implicit> p<97> s<39> l<4:2> el<4:2>
                           n<a> u<39> t<StringConst> p<97> s<43> l<4:2> el<4:3>
                           n<> u<43> t<Expression> p<97> c<42> s<96> l<4:16> el<4:19>
                             n<> u<42> t<Primary> p<43> c<41> l<4:16> el<4:19>
@@ -115,7 +115,7 @@ n<> u<230> t<Top_level_rule> c<1> l<1:1> el<26:1>
                     n<> u<157> t<Coverage_spec_or_option> p<220> c<156> s<218> l<11:2> el<17:3>
                       n<> u<156> t<Coverage_spec> p<157> c<155> l<11:2> el<17:3>
                         n<> u<155> t<Cover_point> p<156> c<100> l<11:2> el<17:3>
-                          n<> u<100> t<Data_type_or_implicit> p<155> s<101> l<11:2> el<10:5>
+                          n<> u<100> t<Data_type_or_implicit> p<155> s<101> l<11:2> el<11:2>
                           n<b> u<101> t<StringConst> p<155> s<105> l<11:2> el<11:3>
                           n<> u<105> t<Expression> p<155> c<104> s<154> l<11:16> el<11:19>
                             n<> u<104> t<Primary> p<105> c<103> l<11:16> el<11:19>
@@ -240,95 +240,108 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 BitTypespec                                            2
-Constant                                               4
+BitVar                                                 2
+Constant                                               8
 Design                                                 1
-LogicNet                                               2
 Module                                                 1
-Range                                                  2
+Range                                                  4
 RefTypespec                                            2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/CrossItem/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/CrossItem/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/CrossItem/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/CrossItem/dut.sv, line:1:1, endln:25:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
-  |vpiDefName:work@top
-  |vpiNet:
-  \_LogicNet: (work@top.v_a), line:2:12, endln:2:15
+  |vpiName:work@top
+  |vpiVariables:
+  \_BitVar: (work@top.v_a), line:2:12, endln:2:15
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/CrossItem/dut.sv, line:1:1, endln:25:10
     |vpiTypespec:
-    \_RefTypespec: (work@top.v_a)
+    \_RefTypespec: (work@top.v_a), line:2:2, endln:2:11
       |vpiParent:
-      \_LogicNet: (work@top.v_a), line:2:12, endln:2:15
+      \_BitVar: (work@top.v_a), line:2:12, endln:2:15
       |vpiFullName:work@top.v_a
       |vpiActual:
       \_BitTypespec: , line:2:2, endln:2:11
     |vpiName:v_a
     |vpiFullName:work@top.v_a
-  |vpiNet:
-  \_LogicNet: (work@top.v_b), line:2:17, endln:2:20
+    |vpiVisibility:1
+  |vpiVariables:
+  \_BitVar: (work@top.v_b), line:2:17, endln:2:20
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/CrossItem/dut.sv, line:1:1, endln:25:10
     |vpiTypespec:
-    \_RefTypespec: (work@top.v_b)
+    \_RefTypespec: (work@top.v_b), line:2:2, endln:2:11
       |vpiParent:
-      \_LogicNet: (work@top.v_b), line:2:17, endln:2:20
+      \_BitVar: (work@top.v_b), line:2:17, endln:2:20
       |vpiFullName:work@top.v_b
       |vpiActual:
       \_BitTypespec: , line:2:2, endln:2:11
     |vpiName:v_b
     |vpiFullName:work@top.v_b
-\_weaklyReferenced:
-\_BitTypespec: , line:2:2, endln:2:11
-  |vpiRange:
-  \_Range: , line:2:6, endln:2:11
+    |vpiVisibility:1
+  |vpiTypedef:
+  \_BitTypespec: , line:2:2, endln:2:11
     |vpiParent:
-    \_BitTypespec: , line:2:2, endln:2:11
-    |vpiLeftRange:
-    \_Constant: , line:2:7, endln:2:8
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/CrossItem/dut.sv, line:1:1, endln:25:10
+    |vpiRange:
+    \_Range: , line:2:6, endln:2:11
       |vpiParent:
-      \_Range: , line:2:6, endln:2:11
-      |vpiDecompile:7
-      |vpiSize:64
-      |UINT:7
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:2:9, endln:2:10
-      |vpiParent:
-      \_Range: , line:2:6, endln:2:11
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_BitTypespec: , line:2:2, endln:2:11
-  |vpiRange:
-  \_Range: , line:2:6, endln:2:11
+      \_BitTypespec: , line:2:2, endln:2:11
+      |vpiLeftRange:
+      \_Constant: , line:2:7, endln:2:8
+        |vpiParent:
+        \_Range: , line:2:6, endln:2:11
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:2:9, endln:2:10
+        |vpiParent:
+        \_Range: , line:2:6, endln:2:11
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_BitTypespec: , line:2:2, endln:2:11
     |vpiParent:
-    \_BitTypespec: , line:2:2, endln:2:11
-    |vpiLeftRange:
-    \_Constant: , line:2:7, endln:2:8
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/CrossItem/dut.sv, line:1:1, endln:25:10
+    |vpiRange:
+    \_Range: , line:2:6, endln:2:11
       |vpiParent:
-      \_Range: , line:2:6, endln:2:11
-      |vpiDecompile:7
-      |vpiSize:64
-      |UINT:7
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:2:9, endln:2:10
-      |vpiParent:
-      \_Range: , line:2:6, endln:2:11
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
+      \_BitTypespec: , line:2:2, endln:2:11
+      |vpiLeftRange:
+      \_Constant: , line:2:7, endln:2:8
+        |vpiParent:
+        \_Range: , line:2:6, endln:2:11
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:2:9, endln:2:10
+        |vpiParent:
+        \_Range: , line:2:6, endln:2:11
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiImportTypespec:
+  \_BitTypespec: , line:2:2, endln:2:11
+  |vpiImportTypespec:
+  \_BitVar: (work@top.v_a), line:2:12, endln:2:15
+  |vpiImportTypespec:
+  \_BitTypespec: , line:2:2, endln:2:11
+  |vpiImportTypespec:
+  \_BitVar: (work@top.v_b), line:2:17, endln:2:20
+  |vpiDefName:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

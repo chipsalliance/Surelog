@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 113
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/CondOpPattern/dut.sv
+FILE: ${SURELOG_DIR}/tests/CondOpPattern/dut.sv
 n<> u<112> t<Top_level_rule> c<1> l<1:1> el<14:1>
-  n<> u<1> t<Null_rule> p<112> s<111> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<112> s<111> l<1:1>
   n<> u<111> t<Source_text> p<112> c<110> l<1:1> el<12:10>
     n<> u<110> t<Description> p<111> c<109> l<1:1> el<12:10>
       n<> u<109> t<Module_declaration> p<110> c<17> l<1:1> el<12:10>
@@ -51,7 +51,7 @@ n<> u<112> t<Top_level_rule> c<1> l<1:1> el<14:1>
             n<> u<46> t<Output_declaration> p<47> c<43> l<5:1> el<5:13>
               n<> u<43> t<Net_port_type> p<46> c<42> s<45> l<5:8> el<5:9>
                 n<> u<42> t<Data_type_or_implicit> p<43> c<41> l<5:8> el<5:9>
-                  n<> u<41> t<Data_type> p<42> c<40> l<5:8> el<5:9>
+                  n<T> u<41> t<Data_type> p<42> c<40> l<5:8> el<5:9>
                     n<T> u<40> t<StringConst> p<41> l<5:8> el<5:9>
               n<> u<45> t<List_of_port_identifiers> p<46> c<44> l<5:10> el<5:13>
                 n<out> u<44> t<StringConst> p<45> l<5:10> el<5:13>
@@ -124,37 +124,34 @@ AST_DEBUG_END
 Constant                                               4
 ContAssign                                             1
 Design                                                 1
-LogicNet                                               2
-LogicTypespec                                          3
+LogicNet                                               1
+LogicTypespec                                          4
 Module                                                 1
 Operation                                              3
 Port                                                   2
-RefObj                                                 4
-RefTypespec                                            8
+RefObj                                                 2
+RefTypespec                                           10
 StringTypespec                                         4
+StructNet                                              1
 StructTypespec                                         1
 TaggedPattern                                          4
 TypespecMember                                         2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/CondOpPattern/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/CondOpPattern/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/CondOpPattern/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/CondOpPattern/dut.sv, line:1:1, endln:12:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@Example
+  |vpiName:work@Example
   |vpiTypedef:
   \_StructTypespec: (T), line:2:9, endln:4:2
     |vpiParent:
     \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/CondOpPattern/dut.sv, line:1:1, endln:12:10
     |vpiName:T
-    |vpiInstance:
-    \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/CondOpPattern/dut.sv, line:1:1, endln:12:10
     |vpiPacked:1
     |vpiTypespecMember:
     \_TypespecMember: (a), line:3:11, endln:3:12
@@ -162,64 +159,119 @@ Design: (unnamed)
       \_StructTypespec: (T), line:2:9, endln:4:2
       |vpiName:a
       |vpiTypespec:
-      \_RefTypespec: (work@Example.T.a)
+      \_RefTypespec: (work@Example.T.a), line:3:5, endln:3:10
         |vpiParent:
         \_TypespecMember: (a), line:3:11, endln:3:12
         |vpiFullName:work@Example.T.a
         |vpiActual:
         \_LogicTypespec: , line:3:5, endln:3:10
-      |vpiRefFile:${SURELOG_DIR}/tests/CondOpPattern/dut.sv
-      |vpiRefLineNo:3
-      |vpiRefColumnNo:5
-      |vpiRefEndLineNo:3
-      |vpiRefEndColumnNo:10
     |vpiTypespecMember:
     \_TypespecMember: (b), line:3:14, endln:3:15
       |vpiParent:
       \_StructTypespec: (T), line:2:9, endln:4:2
       |vpiName:b
       |vpiTypespec:
-      \_RefTypespec: (work@Example.T.b)
+      \_RefTypespec: (work@Example.T.b), line:3:5, endln:3:10
         |vpiParent:
         \_TypespecMember: (b), line:3:14, endln:3:15
         |vpiFullName:work@Example.T.b
         |vpiActual:
         \_LogicTypespec: , line:3:5, endln:3:10
-      |vpiRefFile:${SURELOG_DIR}/tests/CondOpPattern/dut.sv
-      |vpiRefLineNo:3
-      |vpiRefColumnNo:5
-      |vpiRefEndLineNo:3
-      |vpiRefEndColumnNo:10
-  |vpiDefName:work@Example
-  |vpiNet:
-  \_LogicNet: (work@Example.flag), line:1:16, endln:1:20
+  |vpiTypedef:
+  \_LogicTypespec: , line:3:5, endln:3:10
     |vpiParent:
     \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/CondOpPattern/dut.sv, line:1:1, endln:12:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:3:5, endln:3:10
+    |vpiParent:
+    \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/CondOpPattern/dut.sv, line:1:1, endln:12:10
+  |vpiTypedef:
+  \_StringTypespec: (a), line:9:10, endln:9:11
+    |vpiParent:
+    \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/CondOpPattern/dut.sv, line:1:1, endln:12:10
+    |vpiName:a
+  |vpiTypedef:
+  \_StringTypespec: (b), line:9:19, endln:9:20
+    |vpiParent:
+    \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/CondOpPattern/dut.sv, line:1:1, endln:12:10
+    |vpiName:b
+  |vpiTypedef:
+  \_StringTypespec: (a), line:10:10, endln:10:11
+    |vpiParent:
+    \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/CondOpPattern/dut.sv, line:1:1, endln:12:10
+    |vpiName:a
+  |vpiTypedef:
+  \_StringTypespec: (b), line:10:19, endln:10:20
+    |vpiParent:
+    \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/CondOpPattern/dut.sv, line:1:1, endln:12:10
+    |vpiName:b
+  |vpiTypedef:
+  \_LogicTypespec: , line:6:7, endln:6:12
+    |vpiParent:
+    \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/CondOpPattern/dut.sv, line:1:1, endln:12:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:6:7, endln:6:12
+    |vpiParent:
+    \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/CondOpPattern/dut.sv, line:1:1, endln:12:10
+  |vpiImportTypespec:
+  \_StructTypespec: (T), line:2:9, endln:4:2
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:3:5, endln:3:10
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:3:5, endln:3:10
+  |vpiImportTypespec:
+  \_StringTypespec: (a), line:9:10, endln:9:11
+  |vpiImportTypespec:
+  \_StringTypespec: (b), line:9:19, endln:9:20
+  |vpiImportTypespec:
+  \_StringTypespec: (a), line:10:10, endln:10:11
+  |vpiImportTypespec:
+  \_StringTypespec: (b), line:10:19, endln:10:20
+  |vpiImportTypespec:
+  \_StructNet: (work@Example.out), line:5:10, endln:5:13
+    |vpiParent:
+    \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/CondOpPattern/dut.sv, line:1:1, endln:12:10
+    |vpiTypespec:
+    \_RefTypespec: (work@Example.out.out), line:5:8, endln:5:9
+      |vpiParent:
+      \_StructNet: (work@Example.out), line:5:10, endln:5:13
+      |vpiName:out
+      |vpiFullName:work@Example.out.out
+      |vpiActual:
+      \_StructTypespec: (T), line:2:9, endln:4:2
+    |vpiName:out
+    |vpiFullName:work@Example.out
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:6:7, endln:6:12
+  |vpiImportTypespec:
+  \_LogicNet: (work@Example.flag), line:6:13, endln:6:17
+    |vpiParent:
+    \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/CondOpPattern/dut.sv, line:1:1, endln:12:10
+    |vpiTypespec:
+    \_RefTypespec: (work@Example.flag), line:6:7, endln:6:12
+      |vpiParent:
+      \_LogicNet: (work@Example.flag), line:6:13, endln:6:17
+      |vpiFullName:work@Example.flag
+      |vpiActual:
+      \_LogicTypespec: , line:6:7, endln:6:12
     |vpiName:flag
     |vpiFullName:work@Example.flag
     |vpiNetType:36
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:6:7, endln:6:12
+  |vpiDefName:work@Example
   |vpiNet:
-  \_LogicNet: (work@Example.out), line:1:22, endln:1:25
-    |vpiParent:
-    \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/CondOpPattern/dut.sv, line:1:1, endln:12:10
-    |vpiName:out
-    |vpiFullName:work@Example.out
+  \_StructNet: (work@Example.out), line:5:10, endln:5:13
+  |vpiNet:
+  \_LogicNet: (work@Example.flag), line:6:13, endln:6:17
   |vpiPort:
   \_Port: (flag), line:1:16, endln:1:20
     |vpiParent:
     \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/CondOpPattern/dut.sv, line:1:1, endln:12:10
     |vpiName:flag
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@Example.flag.flag), line:1:16, endln:1:20
-      |vpiParent:
-      \_Port: (flag), line:1:16, endln:1:20
-      |vpiName:flag
-      |vpiFullName:work@Example.flag.flag
-      |vpiActual:
-      \_LogicNet: (work@Example.flag), line:1:16, endln:1:20
-    |vpiTypedef:
-    \_RefTypespec: (work@Example.flag)
+    |vpiTypespec:
+    \_RefTypespec: (work@Example.flag), line:6:7, endln:6:12
       |vpiParent:
       \_Port: (flag), line:1:16, endln:1:20
       |vpiFullName:work@Example.flag
@@ -231,19 +283,12 @@ Design: (unnamed)
     \_Module: work@Example (work@Example), file:${SURELOG_DIR}/tests/CondOpPattern/dut.sv, line:1:1, endln:12:10
     |vpiName:out
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@Example.out.out), line:1:22, endln:1:25
+    |vpiTypespec:
+    \_RefTypespec: (work@Example.out.T), line:5:8, endln:5:9
       |vpiParent:
       \_Port: (out), line:1:22, endln:1:25
-      |vpiName:out
-      |vpiFullName:work@Example.out.out
-      |vpiActual:
-      \_LogicNet: (work@Example.out), line:1:22, endln:1:25
-    |vpiTypedef:
-    \_RefTypespec: (work@Example.out)
-      |vpiParent:
-      \_Port: (out), line:1:22, endln:1:25
-      |vpiFullName:work@Example.out
+      |vpiName:T
+      |vpiFullName:work@Example.out.T
       |vpiActual:
       \_StructTypespec: (T), line:2:9, endln:4:2
   |vpiContAssign:
@@ -262,44 +307,50 @@ Design: (unnamed)
         |vpiName:flag
         |vpiFullName:work@Example.flag
         |vpiActual:
-        \_LogicNet: (work@Example.flag), line:1:16, endln:1:20
+        \_LogicNet: (work@Example.flag), line:6:13, endln:6:17
       |vpiOperand:
       \_Operation: , line:9:7, endln:9:28
         |vpiParent:
         \_Operation: , line:8:5, endln:10:28
         |vpiOpType:75
         |vpiOperand:
-        \_TaggedPattern: , line:9:13, endln:9:17
+        \_TaggedPattern: , line:9:10, endln:9:17
           |vpiParent:
           \_Operation: , line:9:7, endln:9:28
           |vpiPattern:
           \_Constant: , line:9:13, endln:9:17
+            |vpiParent:
+            \_TaggedPattern: , line:9:10, endln:9:17
             |vpiDecompile:1'b1
             |vpiSize:1
             |BIN:1
             |vpiConstType:3
           |vpiTypespec:
-          \_RefTypespec: (work@Example)
+          \_RefTypespec: (work@Example.a), line:9:10, endln:9:11
             |vpiParent:
-            \_TaggedPattern: , line:9:13, endln:9:17
-            |vpiFullName:work@Example
+            \_TaggedPattern: , line:9:10, endln:9:17
+            |vpiName:a
+            |vpiFullName:work@Example.a
             |vpiActual:
             \_StringTypespec: (a), line:9:10, endln:9:11
         |vpiOperand:
-        \_TaggedPattern: , line:9:22, endln:9:26
+        \_TaggedPattern: , line:9:19, endln:9:26
           |vpiParent:
           \_Operation: , line:9:7, endln:9:28
           |vpiPattern:
           \_Constant: , line:9:22, endln:9:26
+            |vpiParent:
+            \_TaggedPattern: , line:9:19, endln:9:26
             |vpiDecompile:1'b0
             |vpiSize:1
             |BIN:0
             |vpiConstType:3
           |vpiTypespec:
-          \_RefTypespec: (work@Example)
+          \_RefTypespec: (work@Example.b), line:9:19, endln:9:20
             |vpiParent:
-            \_TaggedPattern: , line:9:22, endln:9:26
-            |vpiFullName:work@Example
+            \_TaggedPattern: , line:9:19, endln:9:26
+            |vpiName:b
+            |vpiFullName:work@Example.b
             |vpiActual:
             \_StringTypespec: (b), line:9:19, endln:9:20
       |vpiOperand:
@@ -308,37 +359,43 @@ Design: (unnamed)
         \_Operation: , line:8:5, endln:10:28
         |vpiOpType:75
         |vpiOperand:
-        \_TaggedPattern: , line:10:13, endln:10:17
+        \_TaggedPattern: , line:10:10, endln:10:17
           |vpiParent:
           \_Operation: , line:10:7, endln:10:28
           |vpiPattern:
           \_Constant: , line:10:13, endln:10:17
+            |vpiParent:
+            \_TaggedPattern: , line:10:10, endln:10:17
             |vpiDecompile:1'b1
             |vpiSize:1
             |BIN:1
             |vpiConstType:3
           |vpiTypespec:
-          \_RefTypespec: (work@Example)
+          \_RefTypespec: (work@Example.a), line:10:10, endln:10:11
             |vpiParent:
-            \_TaggedPattern: , line:10:13, endln:10:17
-            |vpiFullName:work@Example
+            \_TaggedPattern: , line:10:10, endln:10:17
+            |vpiName:a
+            |vpiFullName:work@Example.a
             |vpiActual:
             \_StringTypespec: (a), line:10:10, endln:10:11
         |vpiOperand:
-        \_TaggedPattern: , line:10:22, endln:10:26
+        \_TaggedPattern: , line:10:19, endln:10:26
           |vpiParent:
           \_Operation: , line:10:7, endln:10:28
           |vpiPattern:
           \_Constant: , line:10:22, endln:10:26
+            |vpiParent:
+            \_TaggedPattern: , line:10:19, endln:10:26
             |vpiDecompile:1'b1
             |vpiSize:1
             |BIN:1
             |vpiConstType:3
           |vpiTypespec:
-          \_RefTypespec: (work@Example)
+          \_RefTypespec: (work@Example.b), line:10:19, endln:10:20
             |vpiParent:
-            \_TaggedPattern: , line:10:22, endln:10:26
-            |vpiFullName:work@Example
+            \_TaggedPattern: , line:10:19, endln:10:26
+            |vpiName:b
+            |vpiFullName:work@Example.b
             |vpiActual:
             \_StringTypespec: (b), line:10:19, endln:10:20
     |vpiLhs:
@@ -348,31 +405,7 @@ Design: (unnamed)
       |vpiName:out
       |vpiFullName:work@Example.out
       |vpiActual:
-      \_LogicNet: (work@Example.out), line:1:22, endln:1:25
-\_weaklyReferenced:
-\_LogicTypespec: , line:3:5, endln:3:10
-  |vpiParent:
-  \_TypespecMember: (a), line:3:11, endln:3:12
-\_LogicTypespec: , line:3:5, endln:3:10
-  |vpiParent:
-  \_TypespecMember: (b), line:3:14, endln:3:15
-\_StringTypespec: (a), line:9:10, endln:9:11
-  |vpiParent:
-  \_TaggedPattern: , line:9:13, endln:9:17
-  |vpiName:a
-\_StringTypespec: (b), line:9:19, endln:9:20
-  |vpiParent:
-  \_TaggedPattern: , line:9:22, endln:9:26
-  |vpiName:b
-\_StringTypespec: (a), line:10:10, endln:10:11
-  |vpiParent:
-  \_TaggedPattern: , line:10:13, endln:10:17
-  |vpiName:a
-\_StringTypespec: (b), line:10:19, endln:10:20
-  |vpiParent:
-  \_TaggedPattern: , line:10:22, endln:10:26
-  |vpiName:b
-\_LogicTypespec: , line:6:7, endln:6:12
+      \_StructNet: (work@Example.out), line:5:10, endln:5:13
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

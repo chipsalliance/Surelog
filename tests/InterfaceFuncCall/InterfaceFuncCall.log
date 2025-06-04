@@ -2,15 +2,15 @@
 AST_DEBUG_BEGIN
 Count: 148
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/InterfaceFuncCall/dut.sv
+FILE: ${SURELOG_DIR}/tests/InterfaceFuncCall/dut.sv
 n<> u<147> t<Top_level_rule> c<1> l<1:1> el<17:1>
-  n<> u<1> t<Null_rule> p<147> s<146> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<147> s<146> l<1:1>
   n<> u<146> t<Source_text> p<147> c<66> l<1:1> el<16:10>
     n<> u<66> t<Description> p<146> c<65> s<145> l<1:1> el<7:13>
       n<> u<65> t<Interface_declaration> p<66> c<5> l<1:1> el<7:13>
         n<> u<5> t<Interface_ansi_header> p<65> c<2> s<21> l<1:1> el<1:15>
           n<> u<2> t<INTERFACE> p<5> s<4> l<1:1> el<1:10>
-          n<> u<4> t<Interface_identifier> p<5> c<3> l<1:11> el<1:14>
+          n<Foo> u<4> t<Interface_identifier> p<5> c<3> l<1:11> el<1:14>
             n<Foo> u<3> t<StringConst> p<4> l<1:11> el<1:14>
         n<> u<21> t<Non_port_interface_item> p<65> c<20> s<63> l<2:5> el<2:30>
           n<> u<20> t<Interface_or_generate_item> p<21> c<19> l<2:5> el<2:30>
@@ -165,45 +165,36 @@ Function                                               1
 HierPath                                               2
 IODecl                                                 1
 Initial                                                1
-IntTypespec                                            1
 IntegerTypespec                                        2
 IntegerVar                                             1
 Interface                                              1
 MethodFuncCall                                         2
 Module                                                 1
+ModuleTypespec                                         1
 Operation                                              2
 ParamAssign                                            1
 Parameter                                              1
 RefModule                                              2
 RefObj                                                 5
-RefTypespec                                            4
+RefTypespec                                            2
 ReturnStmt                                             1
 SysFuncCall                                            2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/InterfaceFuncCall/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/InterfaceFuncCall/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/InterfaceFuncCall/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallInterfaces:
+|vpiAllInterfaces:
 \_Interface: work@Foo (work@Foo), file:${SURELOG_DIR}/tests/InterfaceFuncCall/dut.sv, line:1:1, endln:7:13
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@Foo
+  |vpiName:work@Foo
   |vpiParameter:
-  \_Parameter: (work@Foo.MULTIPLIER), line:2:15, endln:2:25
+  \_Parameter: (work@Foo.MULTIPLIER), line:2:15, endln:2:29
     |vpiParent:
     \_Interface: work@Foo (work@Foo), file:${SURELOG_DIR}/tests/InterfaceFuncCall/dut.sv, line:1:1, endln:7:13
     |UINT:7
-    |vpiTypespec:
-    \_RefTypespec: (work@Foo.MULTIPLIER)
-      |vpiParent:
-      \_Parameter: (work@Foo.MULTIPLIER), line:2:15, endln:2:25
-      |vpiFullName:work@Foo.MULTIPLIER
-      |vpiActual:
-      \_IntTypespec: , line:2:5, endln:2:29
     |vpiName:MULTIPLIER
     |vpiFullName:work@Foo.MULTIPLIER
   |vpiParamAssign:
@@ -217,37 +208,45 @@ Design: (unnamed)
       |vpiDecompile:7
       |vpiSize:64
       |UINT:7
-      |vpiTypespec:
-      \_RefTypespec: (work@Foo)
-        |vpiParent:
-        \_Constant: , line:2:28, endln:2:29
-        |vpiFullName:work@Foo
-        |vpiActual:
-        \_IntTypespec: , line:2:5, endln:2:29
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (work@Foo.MULTIPLIER), line:2:15, endln:2:25
-  |vpiDefName:work@Foo
-  |vpiTaskFunc:
+    \_Parameter: (work@Foo.MULTIPLIER), line:2:15, endln:2:29
+  |vpiInternalScope:
   \_Function: (work@Foo.bar), line:3:5, endln:6:16
     |vpiParent:
     \_Interface: work@Foo (work@Foo), file:${SURELOG_DIR}/tests/InterfaceFuncCall/dut.sv, line:1:1, endln:7:13
     |vpiName:bar
     |vpiFullName:work@Foo.bar
-    |vpiVisibility:1
-    |vpiReturn:
-    \_IntegerVar: (work@Foo.bar), line:3:14, endln:3:21
+    |vpiTypedef:
+    \_IntegerTypespec: , line:3:14, endln:3:21
+      |vpiParent:
+      \_Function: (work@Foo.bar), line:3:5, endln:6:16
+      |vpiSigned:1
+    |vpiTypedef:
+    \_IntegerTypespec: , line:4:15, endln:4:22
+      |vpiParent:
+      \_Function: (work@Foo.bar), line:3:5, endln:6:16
+      |vpiSigned:1
+    |vpiImportTypespec:
+    \_IntegerTypespec: , line:3:14, endln:3:21
+    |vpiImportTypespec:
+    \_IntegerVar: (work@Foo.bar)
       |vpiParent:
       \_Function: (work@Foo.bar), line:3:5, endln:6:16
       |vpiTypespec:
-      \_RefTypespec: (work@Foo.bar)
+      \_RefTypespec: (work@Foo.bar), line:3:14, endln:3:21
         |vpiParent:
-        \_IntegerVar: (work@Foo.bar), line:3:14, endln:3:21
+        \_IntegerVar: (work@Foo.bar)
         |vpiFullName:work@Foo.bar
         |vpiActual:
         \_IntegerTypespec: , line:3:14, endln:3:21
       |vpiFullName:work@Foo.bar
       |vpiSigned:1
+    |vpiImportTypespec:
+    \_IntegerTypespec: , line:4:15, endln:4:22
+    |vpiVisibility:1
+    |vpiReturn:
+    \_IntegerVar: (work@Foo.bar)
     |vpiIODecl:
     \_IODecl: (x), line:4:23, endln:4:24
       |vpiParent:
@@ -255,20 +254,20 @@ Design: (unnamed)
       |vpiDirection:1
       |vpiName:x
       |vpiTypedef:
-      \_RefTypespec: (work@Foo.bar.x)
+      \_RefTypespec: (work@Foo.bar.x), line:4:15, endln:4:22
         |vpiParent:
         \_IODecl: (x), line:4:23, endln:4:24
         |vpiFullName:work@Foo.bar.x
         |vpiActual:
         \_IntegerTypespec: , line:4:15, endln:4:22
     |vpiStmt:
-    \_ReturnStmt: , line:5:9, endln:5:15
+    \_ReturnStmt: , line:5:9, endln:5:34
       |vpiParent:
       \_Function: (work@Foo.bar), line:3:5, endln:6:16
       |vpiCondition:
       \_Operation: , line:5:16, endln:5:34
         |vpiParent:
-        \_ReturnStmt: , line:5:9, endln:5:15
+        \_ReturnStmt: , line:5:9, endln:5:34
         |vpiOpType:25
         |vpiOperand:
         \_Operation: , line:5:16, endln:5:21
@@ -281,25 +280,41 @@ Design: (unnamed)
             \_Operation: , line:5:16, endln:5:21
             |vpiName:x
             |vpiFullName:work@Foo.bar.x
+            |vpiActual:
+            \_IODecl: (x), line:4:23, endln:4:24
           |vpiOperand:
           \_RefObj: (work@Foo.bar.x), line:5:20, endln:5:21
             |vpiParent:
             \_Operation: , line:5:16, endln:5:21
             |vpiName:x
             |vpiFullName:work@Foo.bar.x
+            |vpiActual:
+            \_IODecl: (x), line:4:23, endln:4:24
         |vpiOperand:
         \_RefObj: (work@Foo.bar.MULTIPLIER), line:5:24, endln:5:34
           |vpiParent:
           \_Operation: , line:5:16, endln:5:34
           |vpiName:MULTIPLIER
           |vpiFullName:work@Foo.bar.MULTIPLIER
-    |vpiInstance:
-    \_Interface: work@Foo (work@Foo), file:${SURELOG_DIR}/tests/InterfaceFuncCall/dut.sv, line:1:1, endln:7:13
-|uhdmallModules:
+          |vpiActual:
+          \_Parameter: (work@Foo.MULTIPLIER), line:2:15, endln:2:29
+  |vpiImportTypespec:
+  \_Function: (work@Foo.bar), line:3:5, endln:6:16
+  |vpiDefName:work@Foo
+  |vpiTaskFunc:
+  \_Function: (work@Foo.bar), line:3:5, endln:6:16
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/InterfaceFuncCall/dut.sv, line:9:1, endln:16:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
+  |vpiName:work@top
+  |vpiTypedef:
+  \_ModuleTypespec: (Foo), line:10:5, endln:10:8
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/InterfaceFuncCall/dut.sv, line:9:1, endln:16:10
+    |vpiName:Foo
+  |vpiImportTypespec:
+  \_ModuleTypespec: (Foo), line:10:5, endln:10:8
   |vpiDefName:work@top
   |vpiProcess:
   \_Initial: , line:12:5, endln:15:8
@@ -323,14 +338,16 @@ Design: (unnamed)
             |vpiParent:
             \_HierPath: (foo_1.bar), line:13:18, endln:13:30
             |vpiName:foo_1
+            |vpiActual:
+            \_RefModule: work@Foo (foo_1), line:10:5, endln:10:8
           |vpiActual:
-          \_MethodFuncCall: (bar), line:13:24, endln:13:27
+          \_MethodFuncCall: (bar), line:13:24, endln:13:30
             |vpiParent:
             \_HierPath: (foo_1.bar), line:13:18, endln:13:30
             |vpiArgument:
             \_Constant: , line:13:28, endln:13:29
               |vpiParent:
-              \_MethodFuncCall: (bar), line:13:24, endln:13:27
+              \_MethodFuncCall: (bar), line:13:24, endln:13:30
               |vpiDecompile:3
               |vpiSize:64
               |UINT:3
@@ -351,14 +368,16 @@ Design: (unnamed)
             |vpiParent:
             \_HierPath: (foo_2.bar), line:14:18, endln:14:30
             |vpiName:foo_2
+            |vpiActual:
+            \_RefModule: work@Foo (foo_2), line:11:5, endln:11:8
           |vpiActual:
-          \_MethodFuncCall: (bar), line:14:24, endln:14:27
+          \_MethodFuncCall: (bar), line:14:24, endln:14:30
             |vpiParent:
             \_HierPath: (foo_2.bar), line:14:18, endln:14:30
             |vpiArgument:
             \_Constant: , line:14:28, endln:14:29
               |vpiParent:
-              \_MethodFuncCall: (bar), line:14:24, endln:14:27
+              \_MethodFuncCall: (bar), line:14:24, endln:14:30
               |vpiDecompile:3
               |vpiSize:64
               |UINT:3
@@ -367,7 +386,7 @@ Design: (unnamed)
           |vpiName:foo_2.bar
         |vpiName:$display
   |vpiRefModule:
-  \_RefModule: work@Foo (foo_1), line:10:9, endln:10:14
+  \_RefModule: work@Foo (foo_1), line:10:5, endln:10:8
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/InterfaceFuncCall/dut.sv, line:9:1, endln:16:10
     |vpiName:foo_1
@@ -375,19 +394,13 @@ Design: (unnamed)
     |vpiActual:
     \_Interface: work@Foo (work@Foo), file:${SURELOG_DIR}/tests/InterfaceFuncCall/dut.sv, line:1:1, endln:7:13
   |vpiRefModule:
-  \_RefModule: work@Foo (foo_2), line:11:27, endln:11:32
+  \_RefModule: work@Foo (foo_2), line:11:5, endln:11:8
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/InterfaceFuncCall/dut.sv, line:9:1, endln:16:10
     |vpiName:foo_2
     |vpiDefName:work@Foo
     |vpiActual:
     \_Interface: work@Foo (work@Foo), file:${SURELOG_DIR}/tests/InterfaceFuncCall/dut.sv, line:1:1, endln:7:13
-\_weaklyReferenced:
-\_IntTypespec: , line:2:5, endln:2:29
-\_IntegerTypespec: , line:3:14, endln:3:21
-  |vpiSigned:1
-\_IntegerTypespec: , line:4:15, endln:4:22
-  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

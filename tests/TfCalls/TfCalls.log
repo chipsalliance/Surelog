@@ -3,9 +3,9 @@
 AST_DEBUG_BEGIN
 Count: 49
 LIB: work
-FILE f<11>:${SURELOG_DIR}/tests/TfCalls/top.v
+FILE: ${SURELOG_DIR}/tests/TfCalls/top.v
 n<> u<48> t<Top_level_rule> c<1> l<1:1> el<6:1>
-  n<> u<1> t<Null_rule> p<48> s<47> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<48> s<47> l<1:1>
   n<> u<47> t<Source_text> p<48> c<46> l<1:1> el<5:10>
     n<> u<46> t<Description> p<47> c<45> l<1:1> el<5:10>
       n<> u<45> t<Module_declaration> p<46> c<17> l<1:1> el<5:10>
@@ -64,80 +64,50 @@ Constant                                               1
 Design                                                 1
 Initial                                                1
 LogicNet                                               2
-LogicTypespec                                          2
 Module                                                 1
 Port                                                   2
-RefObj                                                 3
-RefTypespec                                            2
+RefObj                                                 1
 SysFuncCall                                            1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/TfCalls/slpp_unit/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/TfCalls/slpp_unit/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/TfCalls/slpp_unit/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@m1 (work@m1), file:${SURELOG_DIR}/tests/TfCalls/top.v, line:1:1, endln:5:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@m1
-  |vpiDefName:work@m1
-  |vpiNet:
+  |vpiName:work@m1
+  |vpiImportTypespec:
   \_LogicNet: (work@m1.clk), line:1:17, endln:1:20
     |vpiParent:
     \_Module: work@m1 (work@m1), file:${SURELOG_DIR}/tests/TfCalls/top.v, line:1:1, endln:5:10
     |vpiName:clk
     |vpiFullName:work@m1.clk
-  |vpiNet:
+  |vpiImportTypespec:
   \_LogicNet: (work@m1.out), line:1:29, endln:1:32
     |vpiParent:
     \_Module: work@m1 (work@m1), file:${SURELOG_DIR}/tests/TfCalls/top.v, line:1:1, endln:5:10
     |vpiName:out
     |vpiFullName:work@m1.out
+  |vpiDefName:work@m1
+  |vpiNet:
+  \_LogicNet: (work@m1.clk), line:1:17, endln:1:20
+  |vpiNet:
+  \_LogicNet: (work@m1.out), line:1:29, endln:1:32
   |vpiPort:
   \_Port: (clk), line:1:17, endln:1:20
     |vpiParent:
     \_Module: work@m1 (work@m1), file:${SURELOG_DIR}/tests/TfCalls/top.v, line:1:1, endln:5:10
     |vpiName:clk
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@m1.clk.clk), line:1:17, endln:1:20
-      |vpiParent:
-      \_Port: (clk), line:1:17, endln:1:20
-      |vpiName:clk
-      |vpiFullName:work@m1.clk.clk
-      |vpiActual:
-      \_LogicNet: (work@m1.clk), line:1:17, endln:1:20
-    |vpiTypedef:
-    \_RefTypespec: (work@m1.clk)
-      |vpiParent:
-      \_Port: (clk), line:1:17, endln:1:20
-      |vpiFullName:work@m1.clk
-      |vpiActual:
-      \_LogicTypespec: , line:1:17, endln:1:17
   |vpiPort:
   \_Port: (out), line:1:29, endln:1:32
     |vpiParent:
     \_Module: work@m1 (work@m1), file:${SURELOG_DIR}/tests/TfCalls/top.v, line:1:1, endln:5:10
     |vpiName:out
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@m1.out.out), line:1:29, endln:1:32
-      |vpiParent:
-      \_Port: (out), line:1:29, endln:1:32
-      |vpiName:out
-      |vpiFullName:work@m1.out.out
-      |vpiActual:
-      \_LogicNet: (work@m1.out), line:1:29, endln:1:32
-    |vpiTypedef:
-    \_RefTypespec: (work@m1.out)
-      |vpiParent:
-      \_Port: (out), line:1:29, endln:1:32
-      |vpiFullName:work@m1.out
-      |vpiActual:
-      \_LogicTypespec: , line:1:29, endln:1:29
   |vpiProcess:
   \_Initial: , line:2:3, endln:4:6
     |vpiParent:
@@ -168,9 +138,6 @@ Design: (unnamed)
           |vpiActual:
           \_LogicNet: (work@m1.clk), line:1:17, endln:1:20
         |vpiName:$display
-\_weaklyReferenced:
-\_LogicTypespec: , line:1:17, endln:1:17
-\_LogicTypespec: , line:1:29, endln:1:29
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

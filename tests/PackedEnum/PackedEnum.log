@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 81
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/PackedEnum/dut.sv
+FILE: ${SURELOG_DIR}/tests/PackedEnum/dut.sv
 n<> u<80> t<Top_level_rule> c<1> l<1:1> el<9:1>
-  n<> u<1> t<Null_rule> p<80> s<79> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<80> s<79> l<1:1>
   n<> u<79> t<Source_text> p<80> c<78> l<1:1> el<8:10>
     n<> u<78> t<Description> p<79> c<77> l<1:1> el<8:10>
       n<> u<77> t<Module_declaration> p<78> c<4> l<1:1> el<8:10>
@@ -47,7 +47,7 @@ n<> u<80> t<Top_level_rule> c<1> l<1:1> el<9:1>
                         n<> u<30> t<Packed_keyword> p<65> s<47> l<4:11> el<4:17>
                         n<> u<47> t<Struct_union_member> p<65> c<43> s<64> l<5:7> el<5:38>
                           n<> u<43> t<Data_type_or_void> p<47> c<42> s<46> l<5:7> el<5:21>
-                            n<> u<42> t<Data_type> p<43> c<31> l<5:7> el<5:21>
+                            n<cstate_e> u<42> t<Data_type> p<43> c<31> l<5:7> el<5:21>
                               n<cstate_e> u<31> t<StringConst> p<42> s<41> l<5:7> el<5:15>
                               n<> u<41> t<Packed_dimension> p<42> c<40> l<5:16> el<5:21>
                                 n<> u<40> t<Constant_range> p<41> c<35> l<5:17> el<5:20>
@@ -93,45 +93,59 @@ Constant                                               8
 Design                                                 1
 EnumConst                                              2
 EnumTypespec                                           1
-LogicNet                                               1
 LogicTypespec                                          2
 Module                                                 2
 PackedArrayTypespec                                    1
 Range                                                  2
 RefTypespec                                            5
 StructTypespec                                         1
+StructVar                                              1
 TypespecMember                                         2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PackedEnum/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/PackedEnum/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/PackedEnum/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PackedEnum/dut.sv, line:1:1, endln:8:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@dut
+  |vpiName:work@dut
+  |vpiVariables:
+  \_StructVar: (work@dut.hw2reg_wrap_t), line:7:6, endln:7:19
+    |vpiParent:
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PackedEnum/dut.sv, line:1:1, endln:8:10
+    |vpiTypespec:
+    \_RefTypespec: (work@dut.hw2reg_wrap_t), line:4:4, endln:4:17
+      |vpiParent:
+      \_StructVar: (work@dut.hw2reg_wrap_t), line:7:6, endln:7:19
+      |vpiFullName:work@dut.hw2reg_wrap_t
+      |vpiActual:
+      \_StructTypespec: , line:4:4, endln:7:5
+    |vpiName:hw2reg_wrap_t
+    |vpiFullName:work@dut.hw2reg_wrap_t
+    |vpiVisibility:1
   |vpiTypedef:
-  \_EnumTypespec: (cstate_e), line:2:4, endln:2:47
+  \_LogicTypespec: , line:2:17, endln:2:22
+    |vpiParent:
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PackedEnum/dut.sv, line:1:1, endln:8:10
+  |vpiTypedef:
+  \_EnumTypespec: (cstate_e), line:2:12, endln:2:46
     |vpiParent:
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PackedEnum/dut.sv, line:1:1, endln:8:10
     |vpiName:cstate_e
-    |vpiInstance:
-    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PackedEnum/dut.sv, line:1:1, endln:8:10
     |vpiBaseTypespec:
-    \_RefTypespec: (work@dut.cstate_e)
+    \_RefTypespec: (work@dut.cstate_e), line:2:17, endln:2:22
       |vpiParent:
-      \_EnumTypespec: (cstate_e), line:2:4, endln:2:47
+      \_EnumTypespec: (cstate_e), line:2:12, endln:2:46
       |vpiFullName:work@dut.cstate_e
       |vpiActual:
       \_LogicTypespec: , line:2:17, endln:2:22
     |vpiEnumConst:
     \_EnumConst: (c), line:2:24, endln:2:29
       |vpiParent:
-      \_EnumTypespec: (cstate_e), line:2:4, endln:2:47
+      \_EnumTypespec: (cstate_e), line:2:12, endln:2:46
       |vpiName:c
       |UINT:0
       |vpiDecompile:0
@@ -139,116 +153,110 @@ Design: (unnamed)
     |vpiEnumConst:
     \_EnumConst: (d), line:2:31, endln:2:36
       |vpiParent:
-      \_EnumTypespec: (cstate_e), line:2:4, endln:2:47
+      \_EnumTypespec: (cstate_e), line:2:12, endln:2:46
       |vpiName:d
       |UINT:1
       |vpiDecompile:1
       |vpiSize:64
-  |vpiDefName:work@dut
-  |vpiNet:
-  \_LogicNet: (work@dut.hw2reg_wrap_t), line:7:6, endln:7:19
+  |vpiTypedef:
+  \_StructTypespec: , line:4:4, endln:7:5
     |vpiParent:
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PackedEnum/dut.sv, line:1:1, endln:8:10
-    |vpiTypespec:
-    \_RefTypespec: (work@dut.hw2reg_wrap_t)
+    |vpiPacked:1
+    |vpiTypespecMember:
+    \_TypespecMember: (class_esc_state), line:5:22, endln:5:37
       |vpiParent:
-      \_LogicNet: (work@dut.hw2reg_wrap_t), line:7:6, endln:7:19
-      |vpiFullName:work@dut.hw2reg_wrap_t
-      |vpiActual:
-      \_StructTypespec: , line:4:4, endln:4:17
-    |vpiName:hw2reg_wrap_t
-    |vpiFullName:work@dut.hw2reg_wrap_t
-\_weaklyReferenced:
-\_LogicTypespec: , line:2:17, endln:2:22
-\_StructTypespec: , line:4:4, endln:4:17
-  |vpiPacked:1
-  |vpiTypespecMember:
-  \_TypespecMember: (class_esc_state), line:5:22, endln:5:37
+      \_StructTypespec: , line:4:4, endln:7:5
+      |vpiName:class_esc_state
+      |vpiTypespec:
+      \_RefTypespec: (work@dut.class_esc_state.cstate_e), line:5:7, endln:5:21
+        |vpiParent:
+        \_TypespecMember: (class_esc_state), line:5:22, endln:5:37
+        |vpiName:cstate_e
+        |vpiFullName:work@dut.class_esc_state.cstate_e
+        |vpiActual:
+        \_PackedArrayTypespec: , line:5:16, endln:5:21
+    |vpiTypespecMember:
+    \_TypespecMember: (blah), line:6:19, endln:6:23
+      |vpiParent:
+      \_StructTypespec: , line:4:4, endln:7:5
+      |vpiName:blah
+      |vpiTypespec:
+      \_RefTypespec: (work@dut.blah), line:6:7, endln:6:18
+        |vpiParent:
+        \_TypespecMember: (blah), line:6:19, endln:6:23
+        |vpiFullName:work@dut.blah
+        |vpiActual:
+        \_LogicTypespec: , line:6:7, endln:6:18
+  |vpiTypedef:
+  \_PackedArrayTypespec: , line:5:16, endln:5:21
     |vpiParent:
-    \_StructTypespec: , line:4:4, endln:4:17
-    |vpiName:class_esc_state
-    |vpiTypespec:
-    \_RefTypespec: (class_esc_state)
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PackedEnum/dut.sv, line:1:1, endln:8:10
+    |vpiRange:
+    \_Range: , line:5:16, endln:5:21
       |vpiParent:
-      \_TypespecMember: (class_esc_state), line:5:22, endln:5:37
-      |vpiFullName:class_esc_state
+      \_PackedArrayTypespec: , line:5:16, endln:5:21
+      |vpiLeftRange:
+      \_Constant: , line:5:17, endln:5:18
+        |vpiParent:
+        \_Range: , line:5:16, endln:5:21
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:5:19, endln:5:20
+        |vpiParent:
+        \_Range: , line:5:16, endln:5:21
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiElemTypespec:
+    \_RefTypespec: (work@dut.cstate_e), line:5:7, endln:5:15
+      |vpiParent:
+      \_PackedArrayTypespec: , line:5:16, endln:5:21
+      |vpiName:cstate_e
+      |vpiFullName:work@dut.cstate_e
       |vpiActual:
-      \_PackedArrayTypespec: , line:5:7, endln:5:21
-    |vpiRefFile:${SURELOG_DIR}/tests/PackedEnum/dut.sv
-    |vpiRefLineNo:5
-    |vpiRefColumnNo:7
-    |vpiRefEndLineNo:5
-    |vpiRefEndColumnNo:21
-  |vpiTypespecMember:
-  \_TypespecMember: (blah), line:6:19, endln:6:23
+      \_EnumTypespec: (cstate_e), line:2:12, endln:2:46
+  |vpiTypedef:
+  \_LogicTypespec: , line:6:7, endln:6:18
     |vpiParent:
-    \_StructTypespec: , line:4:4, endln:4:17
-    |vpiName:blah
-    |vpiTypespec:
-    \_RefTypespec: (blah)
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/PackedEnum/dut.sv, line:1:1, endln:8:10
+    |vpiRange:
+    \_Range: , line:6:13, endln:6:18
       |vpiParent:
-      \_TypespecMember: (blah), line:6:19, endln:6:23
-      |vpiFullName:blah
-      |vpiActual:
       \_LogicTypespec: , line:6:7, endln:6:18
-    |vpiRefFile:${SURELOG_DIR}/tests/PackedEnum/dut.sv
-    |vpiRefLineNo:6
-    |vpiRefColumnNo:7
-    |vpiRefEndLineNo:6
-    |vpiRefEndColumnNo:18
-\_PackedArrayTypespec: , line:5:7, endln:5:21
-  |vpiParent:
-  \_TypespecMember: (class_esc_state), line:5:22, endln:5:37
-  |vpiRange:
-  \_Range: , line:5:16, endln:5:21
-    |vpiParent:
-    \_PackedArrayTypespec: , line:5:7, endln:5:21
-    |vpiLeftRange:
-    \_Constant: , line:5:17, endln:5:18
-      |vpiParent:
-      \_Range: , line:5:16, endln:5:21
-      |vpiDecompile:1
-      |vpiSize:64
-      |UINT:1
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:5:19, endln:5:20
-      |vpiParent:
-      \_Range: , line:5:16, endln:5:21
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-  |vpiElemTypespec:
-  \_RefTypespec: (class_esc_state)
-    |vpiParent:
-    \_PackedArrayTypespec: , line:5:7, endln:5:21
-    |vpiFullName:class_esc_state
-    |vpiActual:
-    \_EnumTypespec: (cstate_e), line:2:4, endln:2:47
-\_LogicTypespec: , line:6:7, endln:6:18
-  |vpiParent:
-  \_TypespecMember: (blah), line:6:19, endln:6:23
-  |vpiRange:
-  \_Range: , line:6:13, endln:6:18
-    |vpiParent:
-    \_LogicTypespec: , line:6:7, endln:6:18
-    |vpiLeftRange:
-    \_Constant: , line:6:14, endln:6:15
-      |vpiParent:
-      \_Range: , line:6:13, endln:6:18
-      |vpiDecompile:3
-      |vpiSize:64
-      |UINT:3
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:6:16, endln:6:17
-      |vpiParent:
-      \_Range: , line:6:13, endln:6:18
-      |vpiDecompile:2
-      |vpiSize:64
-      |UINT:2
-      |vpiConstType:9
+      |vpiLeftRange:
+      \_Constant: , line:6:14, endln:6:15
+        |vpiParent:
+        \_Range: , line:6:13, endln:6:18
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:6:16, endln:6:17
+        |vpiParent:
+        \_Range: , line:6:13, endln:6:18
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
+        |vpiConstType:9
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:2:17, endln:2:22
+  |vpiImportTypespec:
+  \_EnumTypespec: (cstate_e), line:2:12, endln:2:46
+  |vpiImportTypespec:
+  \_StructTypespec: , line:4:4, endln:7:5
+  |vpiImportTypespec:
+  \_PackedArrayTypespec: , line:5:16, endln:5:21
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:6:7, endln:6:18
+  |vpiImportTypespec:
+  \_StructVar: (work@dut.hw2reg_wrap_t), line:7:6, endln:7:19
+  |vpiDefName:work@dut
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

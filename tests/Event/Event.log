@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 22
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/Event/dut.sv
+FILE: ${SURELOG_DIR}/tests/Event/dut.sv
 n<> u<21> t<Top_level_rule> c<1> l<1:1> el<5:1>
-  n<> u<1> t<Null_rule> p<21> s<20> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<21> s<20> l<1:1>
   n<> u<20> t<Source_text> p<21> c<19> l<1:1> el<3:10>
     n<> u<19> t<Description> p<20> c<18> l<1:1> el<3:10>
       n<> u<18> t<Module_declaration> p<19> c<4> l<1:1> el<3:10>
@@ -32,38 +32,26 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 Design                                                 1
 EventTypespec                                          1
-LogicNet                                               1
 Module                                                 1
-RefTypespec                                            1
+NamedEvent                                             1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/Event/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/Event/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/Event/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@t (work@t), file:${SURELOG_DIR}/tests/Event/dut.sv, line:1:1, endln:3:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@t
-  |vpiDefName:work@t
-  |vpiNet:
-  \_LogicNet: (work@t.e), line:2:11, endln:2:12
+  |vpiName:work@t
+  |vpiTypedef:
+  \_EventTypespec: , line:2:5, endln:2:10
     |vpiParent:
     \_Module: work@t (work@t), file:${SURELOG_DIR}/tests/Event/dut.sv, line:1:1, endln:3:10
-    |vpiTypespec:
-    \_RefTypespec: (work@t.e)
-      |vpiParent:
-      \_LogicNet: (work@t.e), line:2:11, endln:2:12
-      |vpiFullName:work@t.e
-      |vpiActual:
-      \_EventTypespec: , line:2:5, endln:2:10
-    |vpiName:e
-    |vpiFullName:work@t.e
-\_weaklyReferenced:
-\_EventTypespec: , line:2:5, endln:2:10
+  |vpiImportTypespec:
+  \_EventTypespec: , line:2:5, endln:2:10
+  |vpiDefName:work@t
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

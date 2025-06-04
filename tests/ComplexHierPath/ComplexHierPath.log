@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 211
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/ComplexHierPath/dut.sv
+FILE: ${SURELOG_DIR}/tests/ComplexHierPath/dut.sv
 n<> u<210> t<Top_level_rule> c<1> l<1:1> el<21:10>
-  n<> u<1> t<Null_rule> p<210> s<209> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<210> s<209> l<1:1>
   n<> u<209> t<Source_text> p<210> c<5> l<1:1> el<21:10>
     n<> u<5> t<Description> p<209> c<4> s<208> l<1:1> el<1:22>
       n<> u<4> t<Top_directives> p<5> c<3> l<1:1> el<1:22>
@@ -219,57 +219,381 @@ AST_DEBUG_END
 [INF:CP0303] ${SURELOG_DIR}/tests/ComplexHierPath/dut.sv:2:1: Compile module "work@genblk_dive_top".
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-Begin                                                  1
+Begin                                                  5
 Constant                                               5
 ContAssign                                             4
 Design                                                 1
 GenIf                                                  4
 GenRegion                                              1
 HierPath                                               6
-LogicNet                                               1
-LogicTypespec                                          1
+LogicNet                                               5
+LogicTypespec                                          6
 Module                                                 1
-NamedBegin                                             4
 Port                                                   1
-RefObj                                                18
-RefTypespec                                            1
+RefObj                                                17
+RefTypespec                                            6
 === UHDM Object Stats End ===
+[ERR:UH0734] ${SURELOG_DIR}/tests/ComplexHierPath/dut.sv:20:20: Failed to bind object: "id: 42, name: Z".
+[ERR:EL0535] ${SURELOG_DIR}/tests/ComplexHierPath/dut.sv:20:20: Illegal implicit net "id:42, name: Z".
+[ERR:UH0734] ${SURELOG_DIR}/tests/ComplexHierPath/dut.sv:20:22: Failed to bind object: "id: 43, name: A".
+[ERR:EL0535] ${SURELOG_DIR}/tests/ComplexHierPath/dut.sv:20:22: Illegal implicit net "id:43, name: A".
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ComplexHierPath/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ComplexHierPath/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ComplexHierPath/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@genblk_dive_top (work@genblk_dive_top), file:${SURELOG_DIR}/tests/ComplexHierPath/dut.sv, line:2:1, endln:21:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@genblk_dive_top
-  |vpiDefName:work@genblk_dive_top
-  |vpiNet:
+  |vpiName:work@genblk_dive_top
+  |vpiInternalScope:
+  \_GenRegion: (work@genblk_dive_top), line:3:9, endln:19:20
+    |vpiParent:
+    \_Module: work@genblk_dive_top (work@genblk_dive_top), file:${SURELOG_DIR}/tests/ComplexHierPath/dut.sv, line:2:1, endln:21:10
+    |vpiFullName:work@genblk_dive_top
+    |vpiInternalScope:
+    \_Begin: (work@genblk_dive_top), line:4:17, endln:18:20
+      |vpiParent:
+      \_GenRegion: (work@genblk_dive_top), line:3:9, endln:19:20
+      |vpiFullName:work@genblk_dive_top
+      |vpiInternalScope:
+      \_Begin: (work@genblk_dive_top.Z), line:4:24, endln:18:20
+        |vpiParent:
+        \_Begin: (work@genblk_dive_top), line:4:17, endln:18:20
+        |vpiName:Z
+        |vpiFullName:work@genblk_dive_top.Z
+        |vpiInternalScope:
+        \_Begin: (work@genblk_dive_top.Z.A), line:5:32, endln:17:28
+          |vpiParent:
+          \_Begin: (work@genblk_dive_top.Z), line:4:24, endln:18:20
+          |vpiName:A
+          |vpiFullName:work@genblk_dive_top.Z.A
+          |vpiInternalScope:
+          \_Begin: (work@genblk_dive_top.Z.A.B), line:7:40, endln:15:36
+            |vpiParent:
+            \_Begin: (work@genblk_dive_top.Z.A), line:5:32, endln:17:28
+            |vpiName:B
+            |vpiFullName:work@genblk_dive_top.Z.A.B
+            |vpiInternalScope:
+            \_Begin: (work@genblk_dive_top.Z.A.B.C), line:9:48, endln:13:44
+              |vpiParent:
+              \_Begin: (work@genblk_dive_top.Z.A.B), line:7:40, endln:15:36
+              |vpiName:C
+              |vpiFullName:work@genblk_dive_top.Z.A.B.C
+              |vpiTypedef:
+              \_LogicTypespec: , line:10:49, endln:10:53
+                |vpiParent:
+                \_Begin: (work@genblk_dive_top.Z.A.B.C), line:9:48, endln:13:44
+              |vpiTypedef:
+              \_LogicTypespec: , line:12:49, endln:12:53
+                |vpiParent:
+                \_Begin: (work@genblk_dive_top.Z.A.B.C), line:9:48, endln:13:44
+              |vpiImportTypespec:
+              \_LogicTypespec: , line:10:49, endln:10:53
+              |vpiImportTypespec:
+              \_LogicNet: (work@genblk_dive_top.Z.A.B.C.x), line:10:54, endln:10:55
+                |vpiParent:
+                \_Begin: (work@genblk_dive_top.Z.A.B.C), line:9:48, endln:13:44
+                |vpiTypespec:
+                \_RefTypespec: (work@genblk_dive_top.Z.A.B.C.x), line:10:49, endln:10:53
+                  |vpiParent:
+                  \_LogicNet: (work@genblk_dive_top.Z.A.B.C.x), line:10:54, endln:10:55
+                  |vpiFullName:work@genblk_dive_top.Z.A.B.C.x
+                  |vpiActual:
+                  \_LogicTypespec: , line:10:49, endln:10:53
+                |vpiName:x
+                |vpiFullName:work@genblk_dive_top.Z.A.B.C.x
+                |vpiNetType:1
+              |vpiImportTypespec:
+              \_LogicTypespec: , line:12:49, endln:12:53
+              |vpiImportTypespec:
+              \_LogicNet: (work@genblk_dive_top.Z.A.B.C.z), line:12:54, endln:12:55
+                |vpiParent:
+                \_Begin: (work@genblk_dive_top.Z.A.B.C), line:9:48, endln:13:44
+                |vpiTypespec:
+                \_RefTypespec: (work@genblk_dive_top.Z.A.B.C.z), line:12:49, endln:12:53
+                  |vpiParent:
+                  \_LogicNet: (work@genblk_dive_top.Z.A.B.C.z), line:12:54, endln:12:55
+                  |vpiFullName:work@genblk_dive_top.Z.A.B.C.z
+                  |vpiActual:
+                  \_LogicTypespec: , line:12:49, endln:12:53
+                |vpiName:z
+                |vpiFullName:work@genblk_dive_top.Z.A.B.C.z
+                |vpiNetType:1
+              |vpiStmt:
+              \_ContAssign: , line:11:56, endln:11:63
+                |vpiParent:
+                \_Begin: (work@genblk_dive_top.Z.A.B.C), line:9:48, endln:13:44
+                |vpiRhs:
+                \_Constant: , line:11:62, endln:11:63
+                  |vpiParent:
+                  \_ContAssign: , line:11:56, endln:11:63
+                  |vpiDecompile:0
+                  |vpiSize:64
+                  |UINT:0
+                  |vpiConstType:9
+                |vpiLhs:
+                \_HierPath: (B.x), line:11:57, endln:11:59
+                  |vpiParent:
+                  \_ContAssign: , line:11:56, endln:11:63
+                  |vpiActual:
+                  \_RefObj: (B), line:11:57, endln:11:59
+                    |vpiParent:
+                    \_HierPath: (B.x), line:11:57, endln:11:59
+                    |vpiName:B
+                    |vpiActual:
+                    \_Begin: (work@genblk_dive_top.Z.A.B), line:7:40, endln:15:36
+                  |vpiActual:
+                  \_RefObj: (x), line:11:58, endln:11:59
+                    |vpiParent:
+                    \_HierPath: (B.x), line:11:57, endln:11:59
+                    |vpiName:x
+                    |vpiActual:
+                    \_LogicNet: (work@genblk_dive_top.Z.A.B.x), line:8:46, endln:8:47
+                  |vpiName:B.x
+            |vpiTypedef:
+            \_LogicTypespec: , line:8:41, endln:8:45
+              |vpiParent:
+              \_Begin: (work@genblk_dive_top.Z.A.B), line:7:40, endln:15:36
+            |vpiImportTypespec:
+            \_LogicTypespec: , line:8:41, endln:8:45
+            |vpiImportTypespec:
+            \_LogicNet: (work@genblk_dive_top.Z.A.B.x), line:8:46, endln:8:47
+              |vpiParent:
+              \_Begin: (work@genblk_dive_top.Z.A.B), line:7:40, endln:15:36
+              |vpiTypespec:
+              \_RefTypespec: (work@genblk_dive_top.Z.A.B.x), line:8:41, endln:8:45
+                |vpiParent:
+                \_LogicNet: (work@genblk_dive_top.Z.A.B.x), line:8:46, endln:8:47
+                |vpiFullName:work@genblk_dive_top.Z.A.B.x
+                |vpiActual:
+                \_LogicTypespec: , line:8:41, endln:8:45
+              |vpiName:x
+              |vpiFullName:work@genblk_dive_top.Z.A.B.x
+              |vpiNetType:1
+            |vpiStmt:
+            \_GenIf: , line:9:41, endln:13:44
+              |vpiParent:
+              \_Begin: (work@genblk_dive_top.Z.A.B), line:7:40, endln:15:36
+              |vpiCondition:
+              \_Constant: , line:9:45, endln:9:46
+                |vpiParent:
+                \_GenIf: , line:9:41, endln:13:44
+                |vpiDecompile:1
+                |vpiSize:64
+                |UINT:1
+                |vpiConstType:9
+              |vpiStmt:
+              \_Begin: (work@genblk_dive_top.Z.A.B.C), line:9:48, endln:13:44
+            |vpiStmt:
+            \_ContAssign: , line:14:48, endln:14:61
+              |vpiParent:
+              \_Begin: (work@genblk_dive_top.Z.A.B), line:7:40, endln:15:36
+              |vpiRhs:
+              \_HierPath: (A.B.C.x), line:14:54, endln:14:61
+                |vpiParent:
+                \_ContAssign: , line:14:48, endln:14:61
+                |vpiActual:
+                \_RefObj: (A), line:14:54, endln:14:55
+                  |vpiParent:
+                  \_HierPath: (A.B.C.x), line:14:54, endln:14:61
+                  |vpiName:A
+                  |vpiActual:
+                  \_Begin: (work@genblk_dive_top.Z.A), line:5:32, endln:17:28
+                |vpiActual:
+                \_RefObj: (B), line:14:56, endln:14:57
+                  |vpiParent:
+                  \_HierPath: (A.B.C.x), line:14:54, endln:14:61
+                  |vpiName:B
+                  |vpiActual:
+                  \_Begin: (work@genblk_dive_top.Z.A.B), line:7:40, endln:15:36
+                |vpiActual:
+                \_RefObj: (C), line:14:58, endln:14:59
+                  |vpiParent:
+                  \_HierPath: (A.B.C.x), line:14:54, endln:14:61
+                  |vpiName:C
+                  |vpiActual:
+                  \_Begin: (work@genblk_dive_top.Z.A.B.C), line:9:48, endln:13:44
+                |vpiActual:
+                \_RefObj: (work@genblk_dive_top.Z.A.B.x), line:14:60, endln:14:61
+                  |vpiParent:
+                  \_HierPath: (A.B.C.x), line:14:54, endln:14:61
+                  |vpiName:x
+                  |vpiFullName:work@genblk_dive_top.Z.A.B.x
+                  |vpiActual:
+                  \_LogicNet: (work@genblk_dive_top.Z.A.B.C.x), line:10:54, endln:10:55
+                |vpiName:A.B.C.x
+              |vpiLhs:
+              \_HierPath: (A.x), line:14:49, endln:14:51
+                |vpiParent:
+                \_ContAssign: , line:14:48, endln:14:61
+                |vpiActual:
+                \_RefObj: (A), line:14:49, endln:14:51
+                  |vpiParent:
+                  \_HierPath: (A.x), line:14:49, endln:14:51
+                  |vpiName:A
+                  |vpiActual:
+                  \_Begin: (work@genblk_dive_top.Z.A), line:5:32, endln:17:28
+                |vpiActual:
+                \_RefObj: (x), line:14:50, endln:14:51
+                  |vpiParent:
+                  \_HierPath: (A.x), line:14:49, endln:14:51
+                  |vpiName:x
+                  |vpiActual:
+                  \_LogicNet: (work@genblk_dive_top.Z.A.x), line:6:38, endln:6:39
+                |vpiName:A.x
+          |vpiTypedef:
+          \_LogicTypespec: , line:6:33, endln:6:37
+            |vpiParent:
+            \_Begin: (work@genblk_dive_top.Z.A), line:5:32, endln:17:28
+          |vpiImportTypespec:
+          \_LogicTypespec: , line:6:33, endln:6:37
+          |vpiImportTypespec:
+          \_LogicNet: (work@genblk_dive_top.Z.A.x), line:6:38, endln:6:39
+            |vpiParent:
+            \_Begin: (work@genblk_dive_top.Z.A), line:5:32, endln:17:28
+            |vpiTypespec:
+            \_RefTypespec: (work@genblk_dive_top.Z.A.x), line:6:33, endln:6:37
+              |vpiParent:
+              \_LogicNet: (work@genblk_dive_top.Z.A.x), line:6:38, endln:6:39
+              |vpiFullName:work@genblk_dive_top.Z.A.x
+              |vpiActual:
+              \_LogicTypespec: , line:6:33, endln:6:37
+            |vpiName:x
+            |vpiFullName:work@genblk_dive_top.Z.A.x
+            |vpiNetType:1
+          |vpiStmt:
+          \_GenIf: , line:7:33, endln:15:36
+            |vpiParent:
+            \_Begin: (work@genblk_dive_top.Z.A), line:5:32, endln:17:28
+            |vpiCondition:
+            \_Constant: , line:7:37, endln:7:38
+              |vpiParent:
+              \_GenIf: , line:7:33, endln:15:36
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
+            |vpiStmt:
+            \_Begin: (work@genblk_dive_top.Z.A.B), line:7:40, endln:15:36
+          |vpiStmt:
+          \_ContAssign: , line:16:40, endln:16:51
+            |vpiParent:
+            \_Begin: (work@genblk_dive_top.Z.A), line:5:32, endln:17:28
+            |vpiRhs:
+            \_HierPath: (B.x), line:16:48, endln:16:51
+              |vpiParent:
+              \_ContAssign: , line:16:40, endln:16:51
+              |vpiActual:
+              \_RefObj: (B), line:16:48, endln:16:49
+                |vpiParent:
+                \_HierPath: (B.x), line:16:48, endln:16:51
+                |vpiName:B
+                |vpiActual:
+                \_Begin: (work@genblk_dive_top.Z.A.B), line:7:40, endln:15:36
+              |vpiActual:
+              \_RefObj: (work@genblk_dive_top.Z.A.x), line:16:50, endln:16:51
+                |vpiParent:
+                \_HierPath: (B.x), line:16:48, endln:16:51
+                |vpiName:x
+                |vpiFullName:work@genblk_dive_top.Z.A.x
+                |vpiActual:
+                \_LogicNet: (work@genblk_dive_top.Z.A.B.x), line:8:46, endln:8:47
+              |vpiName:B.x
+            |vpiLhs:
+            \_HierPath: (B.C.x), line:16:41, endln:16:45
+              |vpiParent:
+              \_ContAssign: , line:16:40, endln:16:51
+              |vpiActual:
+              \_RefObj: (B), line:16:41, endln:16:43
+                |vpiParent:
+                \_HierPath: (B.C.x), line:16:41, endln:16:45
+                |vpiName:B
+                |vpiActual:
+                \_Begin: (work@genblk_dive_top.Z.A.B), line:7:40, endln:15:36
+              |vpiActual:
+              \_RefObj: (C), line:16:42, endln:16:43
+                |vpiParent:
+                \_HierPath: (B.C.x), line:16:41, endln:16:45
+                |vpiName:C
+                |vpiActual:
+                \_Begin: (work@genblk_dive_top.Z.A.B.C), line:9:48, endln:13:44
+              |vpiActual:
+              \_RefObj: (x), line:16:44, endln:16:45
+                |vpiParent:
+                \_HierPath: (B.C.x), line:16:41, endln:16:45
+                |vpiName:x
+                |vpiActual:
+                \_LogicNet: (work@genblk_dive_top.Z.A.B.C.x), line:10:54, endln:10:55
+              |vpiName:B.C.x
+        |vpiStmt:
+        \_GenIf: , line:5:25, endln:17:28
+          |vpiParent:
+          \_Begin: (work@genblk_dive_top.Z), line:4:24, endln:18:20
+          |vpiCondition:
+          \_Constant: , line:5:29, endln:5:30
+            |vpiParent:
+            \_GenIf: , line:5:25, endln:17:28
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+            |vpiConstType:9
+          |vpiStmt:
+          \_Begin: (work@genblk_dive_top.Z.A), line:5:32, endln:17:28
+      |vpiStmt:
+      \_GenIf: , line:4:17, endln:18:20
+        |vpiParent:
+        \_Begin: (work@genblk_dive_top), line:4:17, endln:18:20
+        |vpiCondition:
+        \_Constant: , line:4:21, endln:4:22
+          |vpiParent:
+          \_GenIf: , line:4:17, endln:18:20
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+        |vpiStmt:
+        \_Begin: (work@genblk_dive_top.Z), line:4:24, endln:18:20
+    |vpiStmt:
+    \_Begin: (work@genblk_dive_top), line:4:17, endln:18:20
+  |vpiTypedef:
+  \_LogicTypespec: , line:2:31, endln:2:35
+    |vpiParent:
+    \_Module: work@genblk_dive_top (work@genblk_dive_top), file:${SURELOG_DIR}/tests/ComplexHierPath/dut.sv, line:2:1, endln:21:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:2:31, endln:2:35
+    |vpiParent:
+    \_Module: work@genblk_dive_top (work@genblk_dive_top), file:${SURELOG_DIR}/tests/ComplexHierPath/dut.sv, line:2:1, endln:21:10
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:2:31, endln:2:35
+  |vpiImportTypespec:
   \_LogicNet: (work@genblk_dive_top.x), line:2:36, endln:2:37
     |vpiParent:
     \_Module: work@genblk_dive_top (work@genblk_dive_top), file:${SURELOG_DIR}/tests/ComplexHierPath/dut.sv, line:2:1, endln:21:10
+    |vpiTypespec:
+    \_RefTypespec: (work@genblk_dive_top.x), line:2:31, endln:2:35
+      |vpiParent:
+      \_LogicNet: (work@genblk_dive_top.x), line:2:36, endln:2:37
+      |vpiFullName:work@genblk_dive_top.x
+      |vpiActual:
+      \_LogicTypespec: , line:2:31, endln:2:35
     |vpiName:x
     |vpiFullName:work@genblk_dive_top.x
     |vpiNetType:1
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:2:31, endln:2:35
+  |vpiDefName:work@genblk_dive_top
+  |vpiNet:
+  \_LogicNet: (work@genblk_dive_top.x), line:2:36, endln:2:37
   |vpiPort:
   \_Port: (x), line:2:36, endln:2:37
     |vpiParent:
     \_Module: work@genblk_dive_top (work@genblk_dive_top), file:${SURELOG_DIR}/tests/ComplexHierPath/dut.sv, line:2:1, endln:21:10
     |vpiName:x
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@genblk_dive_top.x.x), line:2:36, endln:2:37
-      |vpiParent:
-      \_Port: (x), line:2:36, endln:2:37
-      |vpiName:x
-      |vpiFullName:work@genblk_dive_top.x.x
-      |vpiActual:
-      \_LogicNet: (work@genblk_dive_top.x), line:2:36, endln:2:37
-    |vpiTypedef:
-    \_RefTypespec: (work@genblk_dive_top.x)
+    |vpiTypespec:
+    \_RefTypespec: (work@genblk_dive_top.x), line:2:31, endln:2:35
       |vpiParent:
       \_Port: (x), line:2:36, endln:2:37
       |vpiFullName:work@genblk_dive_top.x
@@ -299,6 +623,8 @@ Design: (unnamed)
         \_HierPath: (Z.A.x), line:20:20, endln:20:25
         |vpiName:x
         |vpiFullName:work@genblk_dive_top.x
+        |vpiActual:
+        \_LogicNet: (work@genblk_dive_top.x), line:2:36, endln:2:37
       |vpiName:Z.A.x
     |vpiLhs:
     \_RefObj: (work@genblk_dive_top.x), line:20:16, endln:20:17
@@ -308,204 +634,9 @@ Design: (unnamed)
       |vpiFullName:work@genblk_dive_top.x
       |vpiActual:
       \_LogicNet: (work@genblk_dive_top.x), line:2:36, endln:2:37
-  |vpiGenStmt:
-  \_GenRegion: 
-    |vpiParent:
-    \_Module: work@genblk_dive_top (work@genblk_dive_top), file:${SURELOG_DIR}/tests/ComplexHierPath/dut.sv, line:2:1, endln:21:10
-    |vpiStmt:
-    \_Begin: (work@genblk_dive_top)
-      |vpiParent:
-      \_GenRegion: 
-      |vpiFullName:work@genblk_dive_top
-      |vpiStmt:
-      \_GenIf: , line:4:17, endln:4:19
-        |vpiParent:
-        \_Begin: (work@genblk_dive_top)
-        |vpiCondition:
-        \_Constant: , line:4:21, endln:4:22
-          |vpiParent:
-          \_GenIf: , line:4:17, endln:4:19
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-          |vpiConstType:9
-        |vpiStmt:
-        \_NamedBegin: (work@genblk_dive_top.Z)
-          |vpiParent:
-          \_GenIf: , line:4:17, endln:4:19
-          |vpiName:Z
-          |vpiFullName:work@genblk_dive_top.Z
-          |vpiStmt:
-          \_GenIf: , line:5:25, endln:5:27
-            |vpiParent:
-            \_NamedBegin: (work@genblk_dive_top.Z)
-            |vpiCondition:
-            \_Constant: , line:5:29, endln:5:30
-              |vpiParent:
-              \_GenIf: , line:5:25, endln:5:27
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-              |vpiConstType:9
-            |vpiStmt:
-            \_NamedBegin: (work@genblk_dive_top.Z.A)
-              |vpiParent:
-              \_GenIf: , line:5:25, endln:5:27
-              |vpiName:A
-              |vpiFullName:work@genblk_dive_top.Z.A
-              |vpiStmt:
-              \_GenIf: , line:7:33, endln:7:35
-                |vpiParent:
-                \_NamedBegin: (work@genblk_dive_top.Z.A)
-                |vpiCondition:
-                \_Constant: , line:7:37, endln:7:38
-                  |vpiParent:
-                  \_GenIf: , line:7:33, endln:7:35
-                  |vpiDecompile:1
-                  |vpiSize:64
-                  |UINT:1
-                  |vpiConstType:9
-                |vpiStmt:
-                \_NamedBegin: (work@genblk_dive_top.Z.A.B)
-                  |vpiParent:
-                  \_GenIf: , line:7:33, endln:7:35
-                  |vpiName:B
-                  |vpiFullName:work@genblk_dive_top.Z.A.B
-                  |vpiStmt:
-                  \_GenIf: , line:9:41, endln:9:43
-                    |vpiParent:
-                    \_NamedBegin: (work@genblk_dive_top.Z.A.B)
-                    |vpiCondition:
-                    \_Constant: , line:9:45, endln:9:46
-                      |vpiParent:
-                      \_GenIf: , line:9:41, endln:9:43
-                      |vpiDecompile:1
-                      |vpiSize:64
-                      |UINT:1
-                      |vpiConstType:9
-                    |vpiStmt:
-                    \_NamedBegin: (work@genblk_dive_top.Z.A.B.C)
-                      |vpiParent:
-                      \_GenIf: , line:9:41, endln:9:43
-                      |vpiName:C
-                      |vpiFullName:work@genblk_dive_top.Z.A.B.C
-                      |vpiStmt:
-                      \_ContAssign: , line:11:56, endln:11:63
-                        |vpiParent:
-                        \_NamedBegin: (work@genblk_dive_top.Z.A.B.C)
-                        |vpiRhs:
-                        \_Constant: , line:11:62, endln:11:63
-                          |vpiParent:
-                          \_ContAssign: , line:11:56, endln:11:63
-                          |vpiDecompile:0
-                          |vpiSize:64
-                          |UINT:0
-                          |vpiConstType:9
-                        |vpiLhs:
-                        \_HierPath: (B.x), line:11:56, endln:11:59
-                          |vpiParent:
-                          \_ContAssign: , line:11:56, endln:11:63
-                          |vpiActual:
-                          \_RefObj: (B), line:11:58, endln:11:59
-                            |vpiParent:
-                            \_HierPath: (B.x), line:11:56, endln:11:59
-                            |vpiName:B
-                          |vpiActual:
-                          \_RefObj: (x), line:11:58, endln:11:59
-                            |vpiParent:
-                            \_HierPath: (B.x), line:11:56, endln:11:59
-                            |vpiName:x
-                          |vpiName:B.x
-                  |vpiStmt:
-                  \_ContAssign: , line:14:48, endln:14:61
-                    |vpiParent:
-                    \_NamedBegin: (work@genblk_dive_top.Z.A.B)
-                    |vpiRhs:
-                    \_HierPath: (A.B.C.x), line:14:54, endln:14:61
-                      |vpiParent:
-                      \_ContAssign: , line:14:48, endln:14:61
-                      |vpiActual:
-                      \_RefObj: (A), line:14:54, endln:14:55
-                        |vpiParent:
-                        \_HierPath: (A.B.C.x), line:14:54, endln:14:61
-                        |vpiName:A
-                      |vpiActual:
-                      \_RefObj: (B), line:14:56, endln:14:57
-                        |vpiParent:
-                        \_HierPath: (A.B.C.x), line:14:54, endln:14:61
-                        |vpiName:B
-                      |vpiActual:
-                      \_RefObj: (C), line:14:58, endln:14:59
-                        |vpiParent:
-                        \_HierPath: (A.B.C.x), line:14:54, endln:14:61
-                        |vpiName:C
-                      |vpiActual:
-                      \_RefObj: (work@genblk_dive_top.Z.A.B.x), line:14:60, endln:14:61
-                        |vpiParent:
-                        \_HierPath: (A.B.C.x), line:14:54, endln:14:61
-                        |vpiName:x
-                        |vpiFullName:work@genblk_dive_top.Z.A.B.x
-                      |vpiName:A.B.C.x
-                    |vpiLhs:
-                    \_HierPath: (A.x), line:14:48, endln:14:51
-                      |vpiParent:
-                      \_ContAssign: , line:14:48, endln:14:61
-                      |vpiActual:
-                      \_RefObj: (A), line:14:50, endln:14:51
-                        |vpiParent:
-                        \_HierPath: (A.x), line:14:48, endln:14:51
-                        |vpiName:A
-                      |vpiActual:
-                      \_RefObj: (x), line:14:50, endln:14:51
-                        |vpiParent:
-                        \_HierPath: (A.x), line:14:48, endln:14:51
-                        |vpiName:x
-                      |vpiName:A.x
-              |vpiStmt:
-              \_ContAssign: , line:16:40, endln:16:51
-                |vpiParent:
-                \_NamedBegin: (work@genblk_dive_top.Z.A)
-                |vpiRhs:
-                \_HierPath: (B.x), line:16:48, endln:16:51
-                  |vpiParent:
-                  \_ContAssign: , line:16:40, endln:16:51
-                  |vpiActual:
-                  \_RefObj: (B), line:16:48, endln:16:49
-                    |vpiParent:
-                    \_HierPath: (B.x), line:16:48, endln:16:51
-                    |vpiName:B
-                  |vpiActual:
-                  \_RefObj: (work@genblk_dive_top.Z.A.x), line:16:50, endln:16:51
-                    |vpiParent:
-                    \_HierPath: (B.x), line:16:48, endln:16:51
-                    |vpiName:x
-                    |vpiFullName:work@genblk_dive_top.Z.A.x
-                  |vpiName:B.x
-                |vpiLhs:
-                \_HierPath: (B.C.x), line:16:40, endln:16:45
-                  |vpiParent:
-                  \_ContAssign: , line:16:40, endln:16:51
-                  |vpiActual:
-                  \_RefObj: (B), line:16:42, endln:16:43
-                    |vpiParent:
-                    \_HierPath: (B.C.x), line:16:40, endln:16:45
-                    |vpiName:B
-                  |vpiActual:
-                  \_RefObj: (C), line:16:42, endln:16:43
-                    |vpiParent:
-                    \_HierPath: (B.C.x), line:16:40, endln:16:45
-                    |vpiName:C
-                  |vpiActual:
-                  \_RefObj: (x), line:16:44, endln:16:45
-                    |vpiParent:
-                    \_HierPath: (B.C.x), line:16:40, endln:16:45
-                    |vpiName:x
-                  |vpiName:B.C.x
-\_weaklyReferenced:
-\_LogicTypespec: , line:2:31, endln:2:35
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 4
 [WARNING] : 1
 [   NOTE] : 0

@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 265
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/InterfImport/dut.sv
+FILE: ${SURELOG_DIR}/tests/InterfImport/dut.sv
 n<> u<264> t<Top_level_rule> c<1> l<1:1> el<35:1>
-  n<> u<1> t<Null_rule> p<264> s<263> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<264> s<263> l<1:1>
   n<> u<263> t<Source_text> p<264> c<19> l<1:1> el<34:13>
     n<> u<19> t<Description> p<263> c<18> s<262> l<1:1> el<4:11>
       n<> u<18> t<Package_declaration> p<19> c<2> l<1:1> el<4:11>
@@ -28,7 +28,7 @@ n<> u<264> t<Top_level_rule> c<1> l<1:1> el<35:1>
       n<> u<261> t<Interface_declaration> p<262> c<41> l<6:1> el<34:13>
         n<> u<41> t<Interface_ansi_header> p<261> c<20> s<61> l<6:1> el<10:3>
           n<> u<20> t<INTERFACE> p<41> s<22> l<6:1> el<6:10>
-          n<> u<22> t<Interface_identifier> p<41> c<21> s<25> l<6:11> el<6:31>
+          n<tnoc_port_control_if> u<22> t<Interface_identifier> p<41> c<21> s<25> l<6:11> el<6:31>
             n<tnoc_port_control_if> u<21> t<StringConst> p<22> l<6:11> el<6:31>
           n<> u<25> t<Package_import_declaration> p<41> c<24> s<40> l<7:3> el<7:23>
             n<> u<24> t<Package_import_item> p<25> c<23> l<7:11> el<7:22>
@@ -37,7 +37,7 @@ n<> u<264> t<Top_level_rule> c<1> l<1:1> el<35:1>
             n<> u<39> t<Parameter_port_declaration> p<40> c<38> l<9:3> el<9:76>
               n<> u<38> t<Parameter_declaration> p<39> c<28> l<9:3> el<9:76>
                 n<> u<28> t<Data_type_or_implicit> p<38> c<27> s<37> l<9:13> el<9:31>
-                  n<> u<27> t<Data_type> p<28> c<26> l<9:13> el<9:31>
+                  n<tnoc_packet_config> u<27> t<Data_type> p<28> c<26> l<9:13> el<9:31>
                     n<tnoc_packet_config> u<26> t<StringConst> p<27> l<9:13> el<9:31>
                 n<> u<37> t<List_of_param_assignments> p<38> c<36> l<9:33> el<9:76>
                   n<> u<36> t<Param_assignment> p<37> c<29> l<9:33> el<9:76>
@@ -274,57 +274,48 @@ AST_DEBUG_END
 [INF:CP0304] ${SURELOG_DIR}/tests/InterfImport/dut.sv:6:1: Compile interface "work@tnoc_port_control_if".
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-Constant                                              15
+Constant                                              34
 Design                                                 1
 HierPath                                               1
 IODecl                                                10
 ImportTypespec                                         1
-IntTypespec                                            5
+IntTypespec                                            1
 Interface                                              1
 LogicNet                                               5
-LogicTypespec                                          5
+LogicTypespec                                         10
+LogicVar                                               5
 Modport                                                2
-Operation                                              5
+Operation                                             15
 Package                                                1
-ParamAssign                                            5
-Parameter                                              6
-Range                                                  5
-RefObj                                                 8
+ParamAssign                                            3
+Parameter                                              3
+Range                                                 15
+RefObj                                                18
 RefTypespec                                           13
 UnsupportedTypespec                                    1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/InterfImport/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/InterfImport/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/InterfImport/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallPackages:
-\_Package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:1:1, endln:4:11
+|vpiAllPackages:
+\_Package: tnoc_pkg (tnoc_pkg), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:1:1, endln:4:11
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:tnoc_pkg
-  |vpiFullName:tnoc_pkg::
   |vpiParameter:
-  \_Parameter: (tnoc_pkg::TNOC_DEFAULT_PACKET_CONFIG), line:2:15, endln:2:41
+  \_Parameter: (tnoc_pkg::TNOC_DEFAULT_PACKET_CONFIG), line:2:15, endln:2:46
     |vpiParent:
-    \_Package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:1:1, endln:4:11
+    \_Package: tnoc_pkg (tnoc_pkg), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:1:1, endln:4:11
     |UINT:1
-    |vpiTypespec:
-    \_RefTypespec: (tnoc_pkg::TNOC_DEFAULT_PACKET_CONFIG)
-      |vpiParent:
-      \_Parameter: (tnoc_pkg::TNOC_DEFAULT_PACKET_CONFIG), line:2:15, endln:2:41
-      |vpiFullName:tnoc_pkg::TNOC_DEFAULT_PACKET_CONFIG
-      |vpiActual:
-      \_IntTypespec: , line:2:4, endln:2:46
     |vpiLocalParam:1
     |vpiName:TNOC_DEFAULT_PACKET_CONFIG
     |vpiFullName:tnoc_pkg::TNOC_DEFAULT_PACKET_CONFIG
   |vpiParamAssign:
   \_ParamAssign: , line:2:15, endln:2:46
     |vpiParent:
-    \_Package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:1:1, endln:4:11
+    \_Package: tnoc_pkg (tnoc_pkg), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:1:1, endln:4:11
     |vpiRhs:
     \_Constant: , line:2:45, endln:2:46
       |vpiParent:
@@ -332,59 +323,117 @@ Design: (unnamed)
       |vpiDecompile:1
       |vpiSize:64
       |UINT:1
-      |vpiTypespec:
-      \_RefTypespec: (tnoc_pkg)
-        |vpiParent:
-        \_Constant: , line:2:45, endln:2:46
-        |vpiFullName:tnoc_pkg
-        |vpiActual:
-        \_IntTypespec: , line:2:4, endln:2:46
       |vpiConstType:9
     |vpiLhs:
-    \_Parameter: (tnoc_pkg::TNOC_DEFAULT_PACKET_CONFIG), line:2:15, endln:2:41
+    \_Parameter: (tnoc_pkg::TNOC_DEFAULT_PACKET_CONFIG), line:2:15, endln:2:46
   |vpiDefName:tnoc_pkg
-|uhdmallInterfaces:
+|vpiAllInterfaces:
 \_Interface: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@tnoc_port_control_if
-  |vpiParameter:
-  \_Parameter: (work@tnoc_port_control_if.TNOC_DEFAULT_PACKET_CONFIG), line:2:15, endln:2:41
+  |vpiName:work@tnoc_port_control_if
+  |vpiVariables:
+  \_LogicVar: (work@tnoc_port_control_if.request), line:13:25, endln:13:32
     |vpiParent:
     \_Interface: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
-    |UINT:1
     |vpiTypespec:
-    \_RefTypespec: (work@tnoc_port_control_if.TNOC_DEFAULT_PACKET_CONFIG)
+    \_RefTypespec: (work@tnoc_port_control_if.request), line:13:3, endln:13:23
       |vpiParent:
-      \_Parameter: (work@tnoc_port_control_if.TNOC_DEFAULT_PACKET_CONFIG), line:2:15, endln:2:41
-      |vpiFullName:work@tnoc_port_control_if.TNOC_DEFAULT_PACKET_CONFIG
+      \_LogicVar: (work@tnoc_port_control_if.request), line:13:25, endln:13:32
+      |vpiFullName:work@tnoc_port_control_if.request
       |vpiActual:
-      \_IntTypespec: , line:2:4, endln:2:46
-    |vpiLocalParam:1
-    |vpiName:TNOC_DEFAULT_PACKET_CONFIG
-    |vpiFullName:work@tnoc_port_control_if.TNOC_DEFAULT_PACKET_CONFIG
-    |vpiImported:tnoc_pkg
-  |vpiParameter:
-  \_Parameter: (work@tnoc_port_control_if.PACKET_CONFIG), line:9:33, endln:9:46
+      \_LogicTypespec: , line:13:3, endln:13:23
+    |vpiName:request
+    |vpiFullName:work@tnoc_port_control_if.request
+    |vpiVisibility:1
+  |vpiVariables:
+  \_LogicVar: (work@tnoc_port_control_if.grant), line:14:25, endln:14:30
     |vpiParent:
     \_Interface: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
     |vpiTypespec:
-    \_RefTypespec: (work@tnoc_port_control_if.PACKET_CONFIG)
+    \_RefTypespec: (work@tnoc_port_control_if.grant), line:14:3, endln:14:23
       |vpiParent:
-      \_Parameter: (work@tnoc_port_control_if.PACKET_CONFIG), line:9:33, endln:9:46
-      |vpiFullName:work@tnoc_port_control_if.PACKET_CONFIG
+      \_LogicVar: (work@tnoc_port_control_if.grant), line:14:25, endln:14:30
+      |vpiFullName:work@tnoc_port_control_if.grant
+      |vpiActual:
+      \_LogicTypespec: , line:14:3, endln:14:23
+    |vpiName:grant
+    |vpiFullName:work@tnoc_port_control_if.grant
+    |vpiVisibility:1
+  |vpiVariables:
+  \_LogicVar: (work@tnoc_port_control_if.free), line:15:25, endln:15:29
+    |vpiParent:
+    \_Interface: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
+    |vpiTypespec:
+    \_RefTypespec: (work@tnoc_port_control_if.free), line:15:3, endln:15:23
+      |vpiParent:
+      \_LogicVar: (work@tnoc_port_control_if.free), line:15:25, endln:15:29
+      |vpiFullName:work@tnoc_port_control_if.free
+      |vpiActual:
+      \_LogicTypespec: , line:15:3, endln:15:23
+    |vpiName:free
+    |vpiFullName:work@tnoc_port_control_if.free
+    |vpiVisibility:1
+  |vpiVariables:
+  \_LogicVar: (work@tnoc_port_control_if.start_of_packet), line:16:25, endln:16:40
+    |vpiParent:
+    \_Interface: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
+    |vpiTypespec:
+    \_RefTypespec: (work@tnoc_port_control_if.start_of_packet), line:16:3, endln:16:23
+      |vpiParent:
+      \_LogicVar: (work@tnoc_port_control_if.start_of_packet), line:16:25, endln:16:40
+      |vpiFullName:work@tnoc_port_control_if.start_of_packet
+      |vpiActual:
+      \_LogicTypespec: , line:16:3, endln:16:23
+    |vpiName:start_of_packet
+    |vpiFullName:work@tnoc_port_control_if.start_of_packet
+    |vpiVisibility:1
+  |vpiVariables:
+  \_LogicVar: (work@tnoc_port_control_if.end_of_packet), line:17:25, endln:17:38
+    |vpiParent:
+    \_Interface: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
+    |vpiTypespec:
+    \_RefTypespec: (work@tnoc_port_control_if.end_of_packet), line:17:3, endln:17:23
+      |vpiParent:
+      \_LogicVar: (work@tnoc_port_control_if.end_of_packet), line:17:25, endln:17:38
+      |vpiFullName:work@tnoc_port_control_if.end_of_packet
+      |vpiActual:
+      \_LogicTypespec: , line:17:3, endln:17:23
+    |vpiName:end_of_packet
+    |vpiFullName:work@tnoc_port_control_if.end_of_packet
+    |vpiVisibility:1
+  |vpiReg:
+  \_LogicVar: (work@tnoc_port_control_if.request), line:13:25, endln:13:32
+  |vpiReg:
+  \_LogicVar: (work@tnoc_port_control_if.grant), line:14:25, endln:14:30
+  |vpiReg:
+  \_LogicVar: (work@tnoc_port_control_if.free), line:15:25, endln:15:29
+  |vpiReg:
+  \_LogicVar: (work@tnoc_port_control_if.start_of_packet), line:16:25, endln:16:40
+  |vpiReg:
+  \_LogicVar: (work@tnoc_port_control_if.end_of_packet), line:17:25, endln:17:38
+  |vpiParameter:
+  \_Parameter: (work@tnoc_port_control_if.PACKET_CONFIG), line:9:33, endln:9:76
+    |vpiParent:
+    \_Interface: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
+    |vpiTypespec:
+    \_RefTypespec: (work@tnoc_port_control_if.PACKET_CONFIG.tnoc_packet_config), line:9:13, endln:9:31
+      |vpiParent:
+      \_Parameter: (work@tnoc_port_control_if.PACKET_CONFIG), line:9:33, endln:9:76
+      |vpiName:tnoc_packet_config
+      |vpiFullName:work@tnoc_port_control_if.PACKET_CONFIG.tnoc_packet_config
       |vpiActual:
       \_UnsupportedTypespec: (tnoc_packet_config), line:9:13, endln:9:31
     |vpiName:PACKET_CONFIG
     |vpiFullName:work@tnoc_port_control_if.PACKET_CONFIG
   |vpiParameter:
-  \_Parameter: (work@tnoc_port_control_if.CHANNELS), line:11:19, endln:11:27
+  \_Parameter: (work@tnoc_port_control_if.CHANNELS), line:11:19, endln:11:61
     |vpiParent:
     \_Interface: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
     |vpiTypespec:
-    \_RefTypespec: (work@tnoc_port_control_if.CHANNELS)
+    \_RefTypespec: (work@tnoc_port_control_if.CHANNELS), line:11:15, endln:11:18
       |vpiParent:
-      \_Parameter: (work@tnoc_port_control_if.CHANNELS), line:11:19, endln:11:27
+      \_Parameter: (work@tnoc_port_control_if.CHANNELS), line:11:19, endln:11:61
       |vpiFullName:work@tnoc_port_control_if.CHANNELS
       |vpiActual:
       \_IntTypespec: , line:11:15, endln:11:18
@@ -392,41 +441,6 @@ Design: (unnamed)
     |vpiLocalParam:1
     |vpiName:CHANNELS
     |vpiFullName:work@tnoc_port_control_if.CHANNELS
-  |vpiParamAssign:
-  \_ParamAssign: , line:2:15, endln:2:46
-    |vpiParent:
-    \_Interface: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
-    |vpiRhs:
-    \_Constant: , line:2:45, endln:2:46
-      |vpiParent:
-      \_ParamAssign: , line:2:15, endln:2:46
-      |vpiDecompile:1
-      |vpiSize:64
-      |UINT:1
-      |vpiTypespec:
-      \_RefTypespec: (work@tnoc_port_control_if)
-        |vpiParent:
-        \_Constant: , line:2:45, endln:2:46
-        |vpiFullName:work@tnoc_port_control_if
-        |vpiActual:
-        \_IntTypespec: , line:2:4, endln:2:46
-      |vpiConstType:9
-    |vpiLhs:
-    \_Parameter: (work@tnoc_port_control_if.TNOC_DEFAULT_PACKET_CONFIG), line:2:15, endln:2:41
-      |vpiParent:
-      \_ParamAssign: , line:2:15, endln:2:46
-      |UINT:1
-      |vpiTypespec:
-      \_RefTypespec: (work@tnoc_port_control_if.TNOC_DEFAULT_PACKET_CONFIG)
-        |vpiParent:
-        \_Parameter: (work@tnoc_port_control_if.TNOC_DEFAULT_PACKET_CONFIG), line:2:15, endln:2:41
-        |vpiFullName:work@tnoc_port_control_if.TNOC_DEFAULT_PACKET_CONFIG
-        |vpiActual:
-        \_IntTypespec: , line:2:4, endln:2:46
-      |vpiLocalParam:1
-      |vpiName:TNOC_DEFAULT_PACKET_CONFIG
-      |vpiFullName:work@tnoc_port_control_if.TNOC_DEFAULT_PACKET_CONFIG
-      |vpiImported:tnoc_pkg
   |vpiParamAssign:
   \_ParamAssign: , line:9:33, endln:9:76
     |vpiParent:
@@ -437,38 +451,462 @@ Design: (unnamed)
       \_ParamAssign: , line:9:33, endln:9:76
       |vpiName:TNOC_DEFAULT_PACKET_CONFIG
       |vpiFullName:work@tnoc_port_control_if.TNOC_DEFAULT_PACKET_CONFIG
+      |vpiActual:
+      \_LogicNet: (work@tnoc_port_control_if.TNOC_DEFAULT_PACKET_CONFIG), line:9:50, endln:9:76
     |vpiLhs:
-    \_Parameter: (work@tnoc_port_control_if.PACKET_CONFIG), line:9:33, endln:9:46
+    \_Parameter: (work@tnoc_port_control_if.PACKET_CONFIG), line:9:33, endln:9:76
   |vpiParamAssign:
   \_ParamAssign: , line:11:19, endln:11:61
     |vpiParent:
     \_Interface: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
     |vpiRhs:
-    \_HierPath: (PACKET_CONFIG.virtual_channels), line:11:31, endln:11:61
+    \_HierPath: (PACKET_CONFIG.virtual_channels), line:11:44, endln:11:61
       |vpiParent:
       \_ParamAssign: , line:11:19, endln:11:61
       |vpiActual:
-      \_RefObj: (PACKET_CONFIG), line:11:45, endln:11:61
+      \_RefObj: (PACKET_CONFIG), line:11:44, endln:11:61
         |vpiParent:
-        \_HierPath: (PACKET_CONFIG.virtual_channels), line:11:31, endln:11:61
+        \_HierPath: (PACKET_CONFIG.virtual_channels), line:11:44, endln:11:61
         |vpiName:PACKET_CONFIG
+        |vpiActual:
+        \_Parameter: (work@tnoc_port_control_if.PACKET_CONFIG), line:9:33, endln:9:76
       |vpiActual:
       \_RefObj: (virtual_channels), line:11:45, endln:11:61
         |vpiParent:
-        \_HierPath: (PACKET_CONFIG.virtual_channels), line:11:31, endln:11:61
+        \_HierPath: (PACKET_CONFIG.virtual_channels), line:11:44, endln:11:61
         |vpiName:virtual_channels
+        |vpiActual:
+        \_LogicNet: (work@tnoc_port_control_if.virtual_channels), line:11:45, endln:11:61
       |vpiName:PACKET_CONFIG.virtual_channels
     |vpiLhs:
-    \_Parameter: (work@tnoc_port_control_if.CHANNELS), line:11:19, endln:11:27
+    \_Parameter: (work@tnoc_port_control_if.CHANNELS), line:11:19, endln:11:61
   |vpiTypedef:
   \_ImportTypespec: (tnoc_pkg), line:7:11, endln:7:22
-  |vpiDefName:work@tnoc_port_control_if
-  |vpiNet:
+    |vpiParent:
+    \_Interface: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
+    |vpiName:tnoc_pkg
+    |vpiImportTypespecItem:
+    \_Constant: , line:7:11, endln:7:22
+      |vpiParent:
+      \_ImportTypespec: (tnoc_pkg), line:7:11, endln:7:22
+      |vpiDecompile:*
+      |vpiSize:8
+      |STRING:*
+      |vpiConstType:8
+  |vpiTypedef:
+  \_UnsupportedTypespec: (tnoc_packet_config), line:9:13, endln:9:31
+    |vpiParent:
+    \_Interface: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
+    |vpiName:tnoc_packet_config
+  |vpiTypedef:
+  \_IntTypespec: , line:11:15, endln:11:18
+    |vpiParent:
+    \_Interface: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
+    |vpiSigned:1
+  |vpiTypedef:
+  \_LogicTypespec: , line:13:3, endln:13:23
+    |vpiParent:
+    \_Interface: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
+    |vpiRange:
+    \_Range: , line:13:9, endln:13:23
+      |vpiParent:
+      \_LogicTypespec: , line:13:3, endln:13:23
+      |vpiLeftRange:
+      \_Operation: , line:13:10, endln:13:20
+        |vpiParent:
+        \_Range: , line:13:9, endln:13:23
+        |vpiOpType:11
+        |vpiOperand:
+        \_RefObj: (work@tnoc_port_control_if.CHANNELS), line:13:10, endln:13:18
+          |vpiParent:
+          \_Operation: , line:13:10, endln:13:20
+          |vpiName:CHANNELS
+          |vpiFullName:work@tnoc_port_control_if.CHANNELS
+          |vpiActual:
+          \_Parameter: (work@tnoc_port_control_if.CHANNELS), line:11:19, endln:11:61
+        |vpiOperand:
+        \_Constant: , line:13:19, endln:13:20
+          |vpiParent:
+          \_Operation: , line:13:10, endln:13:20
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:13:21, endln:13:22
+        |vpiParent:
+        \_Range: , line:13:9, endln:13:23
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:14:3, endln:14:23
+    |vpiParent:
+    \_Interface: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
+    |vpiRange:
+    \_Range: , line:14:9, endln:14:23
+      |vpiParent:
+      \_LogicTypespec: , line:14:3, endln:14:23
+      |vpiLeftRange:
+      \_Operation: , line:14:10, endln:14:20
+        |vpiParent:
+        \_Range: , line:14:9, endln:14:23
+        |vpiOpType:11
+        |vpiOperand:
+        \_RefObj: (work@tnoc_port_control_if.CHANNELS), line:14:10, endln:14:18
+          |vpiParent:
+          \_Operation: , line:14:10, endln:14:20
+          |vpiName:CHANNELS
+          |vpiFullName:work@tnoc_port_control_if.CHANNELS
+          |vpiActual:
+          \_Parameter: (work@tnoc_port_control_if.CHANNELS), line:11:19, endln:11:61
+        |vpiOperand:
+        \_Constant: , line:14:19, endln:14:20
+          |vpiParent:
+          \_Operation: , line:14:10, endln:14:20
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:14:21, endln:14:22
+        |vpiParent:
+        \_Range: , line:14:9, endln:14:23
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:15:3, endln:15:23
+    |vpiParent:
+    \_Interface: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
+    |vpiRange:
+    \_Range: , line:15:9, endln:15:23
+      |vpiParent:
+      \_LogicTypespec: , line:15:3, endln:15:23
+      |vpiLeftRange:
+      \_Operation: , line:15:10, endln:15:20
+        |vpiParent:
+        \_Range: , line:15:9, endln:15:23
+        |vpiOpType:11
+        |vpiOperand:
+        \_RefObj: (work@tnoc_port_control_if.CHANNELS), line:15:10, endln:15:18
+          |vpiParent:
+          \_Operation: , line:15:10, endln:15:20
+          |vpiName:CHANNELS
+          |vpiFullName:work@tnoc_port_control_if.CHANNELS
+          |vpiActual:
+          \_Parameter: (work@tnoc_port_control_if.CHANNELS), line:11:19, endln:11:61
+        |vpiOperand:
+        \_Constant: , line:15:19, endln:15:20
+          |vpiParent:
+          \_Operation: , line:15:10, endln:15:20
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:15:21, endln:15:22
+        |vpiParent:
+        \_Range: , line:15:9, endln:15:23
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:16:3, endln:16:23
+    |vpiParent:
+    \_Interface: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
+    |vpiRange:
+    \_Range: , line:16:9, endln:16:23
+      |vpiParent:
+      \_LogicTypespec: , line:16:3, endln:16:23
+      |vpiLeftRange:
+      \_Operation: , line:16:10, endln:16:20
+        |vpiParent:
+        \_Range: , line:16:9, endln:16:23
+        |vpiOpType:11
+        |vpiOperand:
+        \_RefObj: (work@tnoc_port_control_if.CHANNELS), line:16:10, endln:16:18
+          |vpiParent:
+          \_Operation: , line:16:10, endln:16:20
+          |vpiName:CHANNELS
+          |vpiFullName:work@tnoc_port_control_if.CHANNELS
+          |vpiActual:
+          \_Parameter: (work@tnoc_port_control_if.CHANNELS), line:11:19, endln:11:61
+        |vpiOperand:
+        \_Constant: , line:16:19, endln:16:20
+          |vpiParent:
+          \_Operation: , line:16:10, endln:16:20
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:16:21, endln:16:22
+        |vpiParent:
+        \_Range: , line:16:9, endln:16:23
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:17:3, endln:17:23
+    |vpiParent:
+    \_Interface: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
+    |vpiRange:
+    \_Range: , line:17:9, endln:17:23
+      |vpiParent:
+      \_LogicTypespec: , line:17:3, endln:17:23
+      |vpiLeftRange:
+      \_Operation: , line:17:10, endln:17:20
+        |vpiParent:
+        \_Range: , line:17:9, endln:17:23
+        |vpiOpType:11
+        |vpiOperand:
+        \_RefObj: (work@tnoc_port_control_if.CHANNELS), line:17:10, endln:17:18
+          |vpiParent:
+          \_Operation: , line:17:10, endln:17:20
+          |vpiName:CHANNELS
+          |vpiFullName:work@tnoc_port_control_if.CHANNELS
+          |vpiActual:
+          \_Parameter: (work@tnoc_port_control_if.CHANNELS), line:11:19, endln:11:61
+        |vpiOperand:
+        \_Constant: , line:17:19, endln:17:20
+          |vpiParent:
+          \_Operation: , line:17:10, endln:17:20
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:17:21, endln:17:22
+        |vpiParent:
+        \_Range: , line:17:9, endln:17:23
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:13:3, endln:13:23
+    |vpiParent:
+    \_Interface: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
+    |vpiRange:
+    \_Range: , line:13:9, endln:13:23
+      |vpiParent:
+      \_LogicTypespec: , line:13:3, endln:13:23
+      |vpiLeftRange:
+      \_Operation: , line:13:10, endln:13:20
+        |vpiParent:
+        \_Range: , line:13:9, endln:13:23
+        |vpiOpType:11
+        |vpiOperand:
+        \_RefObj: (work@tnoc_port_control_if.CHANNELS), line:13:10, endln:13:18
+          |vpiParent:
+          \_Operation: , line:13:10, endln:13:20
+          |vpiName:CHANNELS
+          |vpiFullName:work@tnoc_port_control_if.CHANNELS
+          |vpiActual:
+          \_Parameter: (work@tnoc_port_control_if.CHANNELS), line:11:19, endln:11:61
+        |vpiOperand:
+        \_Constant: , line:13:19, endln:13:20
+          |vpiParent:
+          \_Operation: , line:13:10, endln:13:20
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:13:21, endln:13:22
+        |vpiParent:
+        \_Range: , line:13:9, endln:13:23
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:14:3, endln:14:23
+    |vpiParent:
+    \_Interface: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
+    |vpiRange:
+    \_Range: , line:14:9, endln:14:23
+      |vpiParent:
+      \_LogicTypespec: , line:14:3, endln:14:23
+      |vpiLeftRange:
+      \_Operation: , line:14:10, endln:14:20
+        |vpiParent:
+        \_Range: , line:14:9, endln:14:23
+        |vpiOpType:11
+        |vpiOperand:
+        \_RefObj: (work@tnoc_port_control_if.CHANNELS), line:14:10, endln:14:18
+          |vpiParent:
+          \_Operation: , line:14:10, endln:14:20
+          |vpiName:CHANNELS
+          |vpiFullName:work@tnoc_port_control_if.CHANNELS
+          |vpiActual:
+          \_Parameter: (work@tnoc_port_control_if.CHANNELS), line:11:19, endln:11:61
+        |vpiOperand:
+        \_Constant: , line:14:19, endln:14:20
+          |vpiParent:
+          \_Operation: , line:14:10, endln:14:20
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:14:21, endln:14:22
+        |vpiParent:
+        \_Range: , line:14:9, endln:14:23
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:15:3, endln:15:23
+    |vpiParent:
+    \_Interface: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
+    |vpiRange:
+    \_Range: , line:15:9, endln:15:23
+      |vpiParent:
+      \_LogicTypespec: , line:15:3, endln:15:23
+      |vpiLeftRange:
+      \_Operation: , line:15:10, endln:15:20
+        |vpiParent:
+        \_Range: , line:15:9, endln:15:23
+        |vpiOpType:11
+        |vpiOperand:
+        \_RefObj: (work@tnoc_port_control_if.CHANNELS), line:15:10, endln:15:18
+          |vpiParent:
+          \_Operation: , line:15:10, endln:15:20
+          |vpiName:CHANNELS
+          |vpiFullName:work@tnoc_port_control_if.CHANNELS
+          |vpiActual:
+          \_Parameter: (work@tnoc_port_control_if.CHANNELS), line:11:19, endln:11:61
+        |vpiOperand:
+        \_Constant: , line:15:19, endln:15:20
+          |vpiParent:
+          \_Operation: , line:15:10, endln:15:20
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:15:21, endln:15:22
+        |vpiParent:
+        \_Range: , line:15:9, endln:15:23
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:16:3, endln:16:23
+    |vpiParent:
+    \_Interface: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
+    |vpiRange:
+    \_Range: , line:16:9, endln:16:23
+      |vpiParent:
+      \_LogicTypespec: , line:16:3, endln:16:23
+      |vpiLeftRange:
+      \_Operation: , line:16:10, endln:16:20
+        |vpiParent:
+        \_Range: , line:16:9, endln:16:23
+        |vpiOpType:11
+        |vpiOperand:
+        \_RefObj: (work@tnoc_port_control_if.CHANNELS), line:16:10, endln:16:18
+          |vpiParent:
+          \_Operation: , line:16:10, endln:16:20
+          |vpiName:CHANNELS
+          |vpiFullName:work@tnoc_port_control_if.CHANNELS
+          |vpiActual:
+          \_Parameter: (work@tnoc_port_control_if.CHANNELS), line:11:19, endln:11:61
+        |vpiOperand:
+        \_Constant: , line:16:19, endln:16:20
+          |vpiParent:
+          \_Operation: , line:16:10, endln:16:20
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:16:21, endln:16:22
+        |vpiParent:
+        \_Range: , line:16:9, endln:16:23
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_LogicTypespec: , line:17:3, endln:17:23
+    |vpiParent:
+    \_Interface: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
+    |vpiRange:
+    \_Range: , line:17:9, endln:17:23
+      |vpiParent:
+      \_LogicTypespec: , line:17:3, endln:17:23
+      |vpiLeftRange:
+      \_Operation: , line:17:10, endln:17:20
+        |vpiParent:
+        \_Range: , line:17:9, endln:17:23
+        |vpiOpType:11
+        |vpiOperand:
+        \_RefObj: (work@tnoc_port_control_if.CHANNELS), line:17:10, endln:17:18
+          |vpiParent:
+          \_Operation: , line:17:10, endln:17:20
+          |vpiName:CHANNELS
+          |vpiFullName:work@tnoc_port_control_if.CHANNELS
+          |vpiActual:
+          \_Parameter: (work@tnoc_port_control_if.CHANNELS), line:11:19, endln:11:61
+        |vpiOperand:
+        \_Constant: , line:17:19, endln:17:20
+          |vpiParent:
+          \_Operation: , line:17:10, endln:17:20
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:17:21, endln:17:22
+        |vpiParent:
+        \_Range: , line:17:9, endln:17:23
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiImportTypespec:
+  \_ImportTypespec: (tnoc_pkg), line:7:11, endln:7:22
+  |vpiImportTypespec:
+  \_UnsupportedTypespec: (tnoc_packet_config), line:9:13, endln:9:31
+  |vpiImportTypespec:
+  \_IntTypespec: , line:11:15, endln:11:18
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:13:3, endln:13:23
+  |vpiImportTypespec:
+  \_LogicVar: (work@tnoc_port_control_if.request), line:13:25, endln:13:32
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:14:3, endln:14:23
+  |vpiImportTypespec:
+  \_LogicVar: (work@tnoc_port_control_if.grant), line:14:25, endln:14:30
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:15:3, endln:15:23
+  |vpiImportTypespec:
+  \_LogicVar: (work@tnoc_port_control_if.free), line:15:25, endln:15:29
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:16:3, endln:16:23
+  |vpiImportTypespec:
+  \_LogicVar: (work@tnoc_port_control_if.start_of_packet), line:16:25, endln:16:40
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:17:3, endln:17:23
+  |vpiImportTypespec:
+  \_LogicVar: (work@tnoc_port_control_if.end_of_packet), line:17:25, endln:17:38
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:13:3, endln:13:23
+  |vpiImportTypespec:
   \_LogicNet: (work@tnoc_port_control_if.request), line:13:25, endln:13:32
     |vpiParent:
     \_Interface: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
     |vpiTypespec:
-    \_RefTypespec: (work@tnoc_port_control_if.request)
+    \_RefTypespec: (work@tnoc_port_control_if.request), line:13:3, endln:13:23
       |vpiParent:
       \_LogicNet: (work@tnoc_port_control_if.request), line:13:25, endln:13:32
       |vpiFullName:work@tnoc_port_control_if.request
@@ -477,12 +915,14 @@ Design: (unnamed)
     |vpiName:request
     |vpiFullName:work@tnoc_port_control_if.request
     |vpiNetType:36
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:14:3, endln:14:23
+  |vpiImportTypespec:
   \_LogicNet: (work@tnoc_port_control_if.grant), line:14:25, endln:14:30
     |vpiParent:
     \_Interface: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
     |vpiTypespec:
-    \_RefTypespec: (work@tnoc_port_control_if.grant)
+    \_RefTypespec: (work@tnoc_port_control_if.grant), line:14:3, endln:14:23
       |vpiParent:
       \_LogicNet: (work@tnoc_port_control_if.grant), line:14:25, endln:14:30
       |vpiFullName:work@tnoc_port_control_if.grant
@@ -491,12 +931,14 @@ Design: (unnamed)
     |vpiName:grant
     |vpiFullName:work@tnoc_port_control_if.grant
     |vpiNetType:36
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:15:3, endln:15:23
+  |vpiImportTypespec:
   \_LogicNet: (work@tnoc_port_control_if.free), line:15:25, endln:15:29
     |vpiParent:
     \_Interface: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
     |vpiTypespec:
-    \_RefTypespec: (work@tnoc_port_control_if.free)
+    \_RefTypespec: (work@tnoc_port_control_if.free), line:15:3, endln:15:23
       |vpiParent:
       \_LogicNet: (work@tnoc_port_control_if.free), line:15:25, endln:15:29
       |vpiFullName:work@tnoc_port_control_if.free
@@ -505,12 +947,14 @@ Design: (unnamed)
     |vpiName:free
     |vpiFullName:work@tnoc_port_control_if.free
     |vpiNetType:36
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:16:3, endln:16:23
+  |vpiImportTypespec:
   \_LogicNet: (work@tnoc_port_control_if.start_of_packet), line:16:25, endln:16:40
     |vpiParent:
     \_Interface: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
     |vpiTypespec:
-    \_RefTypespec: (work@tnoc_port_control_if.start_of_packet)
+    \_RefTypespec: (work@tnoc_port_control_if.start_of_packet), line:16:3, endln:16:23
       |vpiParent:
       \_LogicNet: (work@tnoc_port_control_if.start_of_packet), line:16:25, endln:16:40
       |vpiFullName:work@tnoc_port_control_if.start_of_packet
@@ -519,12 +963,14 @@ Design: (unnamed)
     |vpiName:start_of_packet
     |vpiFullName:work@tnoc_port_control_if.start_of_packet
     |vpiNetType:36
-  |vpiNet:
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:17:3, endln:17:23
+  |vpiImportTypespec:
   \_LogicNet: (work@tnoc_port_control_if.end_of_packet), line:17:25, endln:17:38
     |vpiParent:
     \_Interface: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
     |vpiTypespec:
-    \_RefTypespec: (work@tnoc_port_control_if.end_of_packet)
+    \_RefTypespec: (work@tnoc_port_control_if.end_of_packet), line:17:3, endln:17:23
       |vpiParent:
       \_LogicNet: (work@tnoc_port_control_if.end_of_packet), line:17:25, endln:17:38
       |vpiFullName:work@tnoc_port_control_if.end_of_packet
@@ -533,250 +979,45 @@ Design: (unnamed)
     |vpiName:end_of_packet
     |vpiFullName:work@tnoc_port_control_if.end_of_packet
     |vpiNetType:36
+  |vpiImportTypespec:
+  \_LogicNet: (work@tnoc_port_control_if.TNOC_DEFAULT_PACKET_CONFIG), line:9:50, endln:9:76
+    |vpiParent:
+    \_Interface: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
+    |vpiName:TNOC_DEFAULT_PACKET_CONFIG
+    |vpiFullName:work@tnoc_port_control_if.TNOC_DEFAULT_PACKET_CONFIG
+    |vpiNetType:1
+  |vpiImportTypespec:
+  \_LogicNet: (work@tnoc_port_control_if.virtual_channels), line:11:45, endln:11:61
+    |vpiParent:
+    \_Interface: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
+    |vpiName:virtual_channels
+    |vpiFullName:work@tnoc_port_control_if.virtual_channels
+    |vpiNetType:1
+  |vpiDefName:work@tnoc_port_control_if
+  |vpiNet:
+  \_LogicNet: (work@tnoc_port_control_if.request), line:13:25, endln:13:32
+  |vpiNet:
+  \_LogicNet: (work@tnoc_port_control_if.grant), line:14:25, endln:14:30
+  |vpiNet:
+  \_LogicNet: (work@tnoc_port_control_if.free), line:15:25, endln:15:29
+  |vpiNet:
+  \_LogicNet: (work@tnoc_port_control_if.start_of_packet), line:16:25, endln:16:40
+  |vpiNet:
+  \_LogicNet: (work@tnoc_port_control_if.end_of_packet), line:17:25, endln:17:38
+  |vpiNet:
+  \_LogicNet: (work@tnoc_port_control_if.TNOC_DEFAULT_PACKET_CONFIG), line:9:50, endln:9:76
+  |vpiNet:
+  \_LogicNet: (work@tnoc_port_control_if.virtual_channels), line:11:45, endln:11:61
   |vpiModport:
   \_Modport: (controller), line:27:11, endln:27:21
     |vpiParent:
     \_Interface: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
     |vpiName:controller
-    |vpiIODecl:
-    \_IODecl: (request), line:28:13, endln:28:20
-      |vpiParent:
-      \_Modport: (controller), line:27:11, endln:27:21
-      |vpiDirection:1
-      |vpiName:request
-    |vpiIODecl:
-    \_IODecl: (grant), line:29:13, endln:29:18
-      |vpiParent:
-      \_Modport: (controller), line:27:11, endln:27:21
-      |vpiDirection:2
-      |vpiName:grant
-    |vpiIODecl:
-    \_IODecl: (free), line:30:13, endln:30:17
-      |vpiParent:
-      \_Modport: (controller), line:27:11, endln:27:21
-      |vpiDirection:1
-      |vpiName:free
-    |vpiIODecl:
-    \_IODecl: (start_of_packet), line:31:13, endln:31:28
-      |vpiParent:
-      \_Modport: (controller), line:27:11, endln:27:21
-      |vpiDirection:1
-      |vpiName:start_of_packet
-    |vpiIODecl:
-    \_IODecl: (end_of_packet), line:32:13, endln:32:26
-      |vpiParent:
-      \_Modport: (controller), line:27:11, endln:27:21
-      |vpiDirection:1
-      |vpiName:end_of_packet
   |vpiModport:
   \_Modport: (requester), line:19:11, endln:19:20
     |vpiParent:
     \_Interface: work@tnoc_port_control_if (work@tnoc_port_control_if), file:${SURELOG_DIR}/tests/InterfImport/dut.sv, line:6:1, endln:34:13
     |vpiName:requester
-    |vpiIODecl:
-    \_IODecl: (request), line:20:13, endln:20:20
-      |vpiParent:
-      \_Modport: (requester), line:19:11, endln:19:20
-      |vpiDirection:2
-      |vpiName:request
-    |vpiIODecl:
-    \_IODecl: (grant), line:21:13, endln:21:18
-      |vpiParent:
-      \_Modport: (requester), line:19:11, endln:19:20
-      |vpiDirection:1
-      |vpiName:grant
-    |vpiIODecl:
-    \_IODecl: (free), line:22:13, endln:22:17
-      |vpiParent:
-      \_Modport: (requester), line:19:11, endln:19:20
-      |vpiDirection:2
-      |vpiName:free
-    |vpiIODecl:
-    \_IODecl: (start_of_packet), line:23:13, endln:23:28
-      |vpiParent:
-      \_Modport: (requester), line:19:11, endln:19:20
-      |vpiDirection:2
-      |vpiName:start_of_packet
-    |vpiIODecl:
-    \_IODecl: (end_of_packet), line:24:13, endln:24:26
-      |vpiParent:
-      \_Modport: (requester), line:19:11, endln:19:20
-      |vpiDirection:2
-      |vpiName:end_of_packet
-\_weaklyReferenced:
-\_IntTypespec: , line:2:4, endln:2:46
-\_IntTypespec: , line:2:4, endln:2:46
-  |vpiParent:
-  \_RefTypespec: (work@tnoc_port_control_if.TNOC_DEFAULT_PACKET_CONFIG)
-\_IntTypespec: , line:2:4, endln:2:46
-  |vpiParent:
-  \_RefTypespec: (work@tnoc_port_control_if)
-\_IntTypespec: , line:2:4, endln:2:46
-  |vpiParent:
-  \_RefTypespec: (work@tnoc_port_control_if.TNOC_DEFAULT_PACKET_CONFIG)
-\_UnsupportedTypespec: (tnoc_packet_config), line:9:13, endln:9:31
-  |vpiParent:
-  \_Parameter: (work@tnoc_port_control_if.PACKET_CONFIG), line:9:33, endln:9:46
-  |vpiName:tnoc_packet_config
-\_IntTypespec: , line:11:15, endln:11:18
-  |vpiParent:
-  \_Parameter: (work@tnoc_port_control_if.CHANNELS), line:11:19, endln:11:27
-  |vpiSigned:1
-\_LogicTypespec: , line:13:3, endln:13:23
-  |vpiRange:
-  \_Range: , line:13:9, endln:13:23
-    |vpiParent:
-    \_LogicTypespec: , line:13:3, endln:13:23
-    |vpiLeftRange:
-    \_Operation: , line:13:10, endln:13:20
-      |vpiParent:
-      \_Range: , line:13:9, endln:13:23
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (CHANNELS), line:13:10, endln:13:18
-        |vpiParent:
-        \_Operation: , line:13:10, endln:13:20
-        |vpiName:CHANNELS
-      |vpiOperand:
-      \_Constant: , line:13:19, endln:13:20
-        |vpiParent:
-        \_Operation: , line:13:10, endln:13:20
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:13:21, endln:13:22
-      |vpiParent:
-      \_Range: , line:13:9, endln:13:23
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:14:3, endln:14:23
-  |vpiRange:
-  \_Range: , line:14:9, endln:14:23
-    |vpiParent:
-    \_LogicTypespec: , line:14:3, endln:14:23
-    |vpiLeftRange:
-    \_Operation: , line:14:10, endln:14:20
-      |vpiParent:
-      \_Range: , line:14:9, endln:14:23
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (CHANNELS), line:14:10, endln:14:18
-        |vpiParent:
-        \_Operation: , line:14:10, endln:14:20
-        |vpiName:CHANNELS
-      |vpiOperand:
-      \_Constant: , line:14:19, endln:14:20
-        |vpiParent:
-        \_Operation: , line:14:10, endln:14:20
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:14:21, endln:14:22
-      |vpiParent:
-      \_Range: , line:14:9, endln:14:23
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:15:3, endln:15:23
-  |vpiRange:
-  \_Range: , line:15:9, endln:15:23
-    |vpiParent:
-    \_LogicTypespec: , line:15:3, endln:15:23
-    |vpiLeftRange:
-    \_Operation: , line:15:10, endln:15:20
-      |vpiParent:
-      \_Range: , line:15:9, endln:15:23
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (CHANNELS), line:15:10, endln:15:18
-        |vpiParent:
-        \_Operation: , line:15:10, endln:15:20
-        |vpiName:CHANNELS
-      |vpiOperand:
-      \_Constant: , line:15:19, endln:15:20
-        |vpiParent:
-        \_Operation: , line:15:10, endln:15:20
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:15:21, endln:15:22
-      |vpiParent:
-      \_Range: , line:15:9, endln:15:23
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:16:3, endln:16:23
-  |vpiRange:
-  \_Range: , line:16:9, endln:16:23
-    |vpiParent:
-    \_LogicTypespec: , line:16:3, endln:16:23
-    |vpiLeftRange:
-    \_Operation: , line:16:10, endln:16:20
-      |vpiParent:
-      \_Range: , line:16:9, endln:16:23
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (CHANNELS), line:16:10, endln:16:18
-        |vpiParent:
-        \_Operation: , line:16:10, endln:16:20
-        |vpiName:CHANNELS
-      |vpiOperand:
-      \_Constant: , line:16:19, endln:16:20
-        |vpiParent:
-        \_Operation: , line:16:10, endln:16:20
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:16:21, endln:16:22
-      |vpiParent:
-      \_Range: , line:16:9, endln:16:23
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_LogicTypespec: , line:17:3, endln:17:23
-  |vpiRange:
-  \_Range: , line:17:9, endln:17:23
-    |vpiParent:
-    \_LogicTypespec: , line:17:3, endln:17:23
-    |vpiLeftRange:
-    \_Operation: , line:17:10, endln:17:20
-      |vpiParent:
-      \_Range: , line:17:9, endln:17:23
-      |vpiOpType:11
-      |vpiOperand:
-      \_RefObj: (CHANNELS), line:17:10, endln:17:18
-        |vpiParent:
-        \_Operation: , line:17:10, endln:17:20
-        |vpiName:CHANNELS
-      |vpiOperand:
-      \_Constant: , line:17:19, endln:17:20
-        |vpiParent:
-        \_Operation: , line:17:10, endln:17:20
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:17:21, endln:17:22
-      |vpiParent:
-      \_Range: , line:17:9, endln:17:23
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

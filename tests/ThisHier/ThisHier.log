@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 143
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/ThisHier/dut.sv
+FILE: ${SURELOG_DIR}/tests/ThisHier/dut.sv
 n<> u<142> t<Top_level_rule> c<1> l<1:1> el<34:1>
-  n<> u<1> t<Null_rule> p<142> s<141> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<142> s<141> l<1:1>
   n<> u<141> t<Source_text> p<142> c<137> l<1:1> el<33:12>
     n<> u<137> t<Description> p<141> c<136> s<140> l<1:1> el<33:11>
       n<> u<136> t<Package_declaration> p<137> c<2> l<1:1> el<33:11>
@@ -153,165 +153,385 @@ AST_DEBUG_END
 [INF:CP0302] ${SURELOG_DIR}/tests/ThisHier/dut.sv:19:1: Compile class "uvm::uvm_phase".
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
+ArrayTypespec                                          2
+ArrayVar                                               2
 Assignment                                             2
-ClassDefn                                              5
-ClassTypespec                                          1
-ClassVar                                               1
+BitTypespec                                            2
+BitVar                                                 2
+ClassDefn                                              3
+ClassTypespec                                          2
+Constant                                               4
 Design                                                 1
+Extends                                                2
 Function                                               3
+FunctionDecl                                           1
 HierPath                                               3
+IntTypespec                                            1
+IntVar                                                 1
 Package                                                1
-RefObj                                                 8
-RefTypespec                                            1
+Range                                                  4
+RefObj                                                12
+RefTypespec                                           13
 VarSelect                                              2
 === UHDM Object Stats End ===
+[ERR:UH0734] ${SURELOG_DIR}/tests/ThisHier/dut.sv:27:25: Failed to bind object: "id: 12, name: size".
+[ERR:EL0535] ${SURELOG_DIR}/tests/ThisHier/dut.sv:27:25: Illegal implicit net "id:12, name: size".
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ThisHier/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ThisHier/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ThisHier/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallPackages:
-\_Package: uvm (uvm::), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:1:1, endln:33:11
+|vpiAllPackages:
+\_Package: uvm (uvm), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:1:1, endln:33:11
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:uvm
-  |vpiFullName:uvm::
-  |vpiDefName:uvm
-  |vpiClassDefn:
-  \_ClassDefn: (uvm::uvm_barrier), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:8:1, endln:17:9
-    |vpiParent:
-    \_Package: uvm (uvm::), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:1:1, endln:33:11
-    |vpiName:uvm_barrier
-    |vpiFullName:uvm::uvm_barrier
-    |vpiMethod:
-    \_Function: (uvm::uvm_barrier::new), line:12:3, endln:15:14
-      |vpiParent:
-      \_ClassDefn: (uvm::uvm_barrier), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:8:1, endln:17:9
-      |vpiName:new
-      |vpiFullName:uvm::uvm_barrier::new
-      |vpiMethod:1
-      |vpiReturn:
-      \_ClassVar: (uvm::uvm_barrier::new)
-        |vpiParent:
-        \_Function: (uvm::uvm_barrier::new), line:12:3, endln:15:14
-        |vpiTypespec:
-        \_RefTypespec: (uvm::uvm_barrier::new)
-          |vpiParent:
-          \_ClassVar: (uvm::uvm_barrier::new)
-          |vpiFullName:uvm::uvm_barrier::new
-          |vpiActual:
-          \_ClassTypespec: 
-        |vpiFullName:uvm::uvm_barrier::new
-      |vpiStmt:
-      \_Assignment: , line:13:5, endln:13:31
-        |vpiParent:
-        \_Function: (uvm::uvm_barrier::new), line:12:3, endln:15:14
-        |vpiOpType:82
-        |vpiBlocking:1
-        |vpiRhs:
-        \_RefObj: (uvm::uvm_barrier::new::threshold), line:13:22, endln:13:31
-          |vpiParent:
-          \_Assignment: , line:13:5, endln:13:31
-          |vpiName:threshold
-          |vpiFullName:uvm::uvm_barrier::new::threshold
-        |vpiLhs:
-        \_HierPath: (this.threshold), line:13:5, endln:13:9
-          |vpiParent:
-          \_Assignment: , line:13:5, endln:13:31
-          |vpiActual:
-          \_RefObj: (this), line:13:10, endln:13:19
-            |vpiParent:
-            \_HierPath: (this.threshold), line:13:5, endln:13:9
-            |vpiName:this
-          |vpiActual:
-          \_RefObj: (uvm::uvm_barrier::new::threshold)
-            |vpiParent:
-            \_HierPath: (this.threshold), line:13:5, endln:13:9
-            |vpiName:threshold
-            |vpiFullName:uvm::uvm_barrier::new::threshold
-          |vpiName:this.threshold
-  |vpiClassDefn:
+  |vpiInternalScope:
   \_ClassDefn: (uvm::uvm_object), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:3:1, endln:5:9
     |vpiParent:
-    \_Package: uvm (uvm::), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:1:1, endln:33:11
+    \_Package: uvm (uvm), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:1:1, endln:33:11
     |vpiName:uvm_object
     |vpiFullName:uvm::uvm_object
-  |vpiClassDefn:
-  \_ClassDefn: (uvm::uvm_phase), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:19:1, endln:22:9
-    |vpiParent:
-    \_Package: uvm (uvm::), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:1:1, endln:33:11
-    |vpiName:uvm_phase
-    |vpiFullName:uvm::uvm_phase
-    |vpiMethod:
-    \_Function: (uvm::uvm_phase::add), line:21:1, endln:21:7
+    |vpiVariables:
+    \_BitVar: (uvm::uvm_object), line:4:16, endln:4:28
       |vpiParent:
-      \_ClassDefn: (uvm::uvm_phase), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:19:1, endln:22:9
-      |vpiName:add
-      |vpiFullName:uvm::uvm_phase::add
-      |vpiMethod:1
-      |vpiAccessType:2
-      |vpiVisibility:1
-    |vpiMethod:
-    \_Function: (uvm::uvm_phase::add), line:24:1, endln:30:12
-      |vpiParent:
-      \_ClassDefn: (uvm::uvm_phase), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:19:1, endln:22:9
-      |vpiName:add
-      |vpiFullName:uvm::uvm_phase::add
-      |vpiVisibility:1
-      |vpiStmt:
-      \_Assignment: , line:27:5, endln:27:50
+      \_ClassDefn: (uvm::uvm_object), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:3:1, endln:5:9
+      |vpiTypespec:
+      \_RefTypespec: (uvm::uvm_object), line:4:11, endln:4:14
         |vpiParent:
-        \_Function: (uvm::uvm_phase::add), line:24:1, endln:30:12
-        |vpiOpType:82
-        |vpiBlocking:1
-        |vpiRhs:
-        \_HierPath: (super.m_successors), line:27:32, endln:27:50
+        \_BitVar: (uvm::uvm_object), line:4:16, endln:4:28
+        |vpiFullName:uvm::uvm_object
+        |vpiActual:
+        \_BitTypespec: , line:4:11, endln:4:14
+      |vpiFullName:uvm::uvm_object
+    |vpiVariables:
+    \_ArrayVar: (uvm::uvm_object::m_successors), line:4:16, endln:4:28
+      |vpiParent:
+      \_ClassDefn: (uvm::uvm_object), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:3:1, endln:5:9
+      |vpiSize:1
+      |vpiTypespec:
+      \_RefTypespec: (uvm::uvm_object::m_successors), line:4:28, endln:4:39
+        |vpiParent:
+        \_ArrayVar: (uvm::uvm_object::m_successors), line:4:16, endln:4:28
+        |vpiFullName:uvm::uvm_object::m_successors
+        |vpiActual:
+        \_ArrayTypespec: , line:4:16, endln:4:28
+      |vpiName:m_successors
+      |vpiFullName:uvm::uvm_object::m_successors
+      |vpiAutomatic:1
+      |vpiRandType:1
+      |vpiVisibility:2
+      |vpiArrayType:3
+      |vpiReg:
+      \_BitVar: (uvm::uvm_object), line:4:16, endln:4:28
+    |vpiRegArray:
+    \_ArrayVar: (uvm::uvm_object::m_successors), line:4:16, endln:4:28
+    |vpiTypedef:
+    \_ClassTypespec: (uvm_phase), line:4:29, endln:4:38
+      |vpiParent:
+      \_ClassDefn: (uvm::uvm_object), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:3:1, endln:5:9
+      |vpiName:uvm_phase
+      |vpiClassDefn:
+      \_ClassDefn: (uvm::uvm_phase), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:19:1, endln:22:9
+    |vpiTypedef:
+    \_BitTypespec: , line:4:11, endln:4:14
+      |vpiParent:
+      \_ClassDefn: (uvm::uvm_object), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:3:1, endln:5:9
+    |vpiTypedef:
+    \_ArrayTypespec: , line:4:16, endln:4:28
+      |vpiParent:
+      \_ClassDefn: (uvm::uvm_object), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:3:1, endln:5:9
+      |vpiIndexTypespec:
+      \_RefTypespec: (uvm::uvm_object::uvm_phase), line:4:28, endln:4:39
+        |vpiParent:
+        \_ArrayTypespec: , line:4:16, endln:4:28
+        |vpiName:uvm_phase
+        |vpiFullName:uvm::uvm_object::uvm_phase
+        |vpiActual:
+        \_ClassTypespec: (uvm_phase), line:4:29, endln:4:38
+      |vpiElemTypespec:
+      \_RefTypespec: (uvm::uvm_object), line:4:11, endln:4:14
+        |vpiParent:
+        \_ArrayTypespec: , line:4:16, endln:4:28
+        |vpiFullName:uvm::uvm_object
+        |vpiActual:
+        \_BitTypespec: , line:4:11, endln:4:14
+    |vpiImportTypespec:
+    \_ClassTypespec: (uvm_phase), line:4:29, endln:4:38
+    |vpiImportTypespec:
+    \_BitTypespec: , line:4:11, endln:4:14
+    |vpiImportTypespec:
+    \_BitVar: (uvm::uvm_object), line:4:16, endln:4:28
+    |vpiImportTypespec:
+    \_ArrayVar: (uvm::uvm_object::m_successors), line:4:16, endln:4:28
+    |vpiImportTypespec:
+    \_ArrayTypespec: , line:4:16, endln:4:28
+    |vpiDerivedClasses:
+    \_ClassDefn: (uvm::uvm_phase), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:19:1, endln:22:9
+      |vpiParent:
+      \_Package: uvm (uvm), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:1:1, endln:33:11
+      |vpiName:uvm_phase
+      |vpiFullName:uvm::uvm_phase
+      |vpiVariables:
+      \_BitVar: (uvm::uvm_phase), line:20:16, endln:20:30
+        |vpiParent:
+        \_ClassDefn: (uvm::uvm_phase), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:19:1, endln:22:9
+        |vpiTypespec:
+        \_RefTypespec: (uvm::uvm_phase), line:20:11, endln:20:14
           |vpiParent:
-          \_Assignment: , line:27:5, endln:27:50
+          \_BitVar: (uvm::uvm_phase), line:20:16, endln:20:30
+          |vpiFullName:uvm::uvm_phase
           |vpiActual:
-          \_RefObj: (super), line:27:38, endln:27:50
-            |vpiParent:
-            \_HierPath: (super.m_successors), line:27:32, endln:27:50
-            |vpiName:super
-          |vpiActual:
-          \_RefObj: (m_successors), line:27:38, endln:27:50
-            |vpiParent:
-            \_HierPath: (super.m_successors), line:27:32, endln:27:50
-            |vpiName:m_successors
-          |vpiName:super.m_successors
-        |vpiLhs:
-        \_HierPath: (this.m_predecessors.size), line:27:5, endln:27:9
+          \_BitTypespec: , line:20:11, endln:20:14
+        |vpiFullName:uvm::uvm_phase
+      |vpiVariables:
+      \_ArrayVar: (uvm::uvm_phase::m_predecessors), line:20:16, endln:20:30
+        |vpiParent:
+        \_ClassDefn: (uvm::uvm_phase), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:19:1, endln:22:9
+        |vpiSize:1
+        |vpiTypespec:
+        \_RefTypespec: (uvm::uvm_phase::m_predecessors), line:20:30, endln:20:41
           |vpiParent:
-          \_Assignment: , line:27:5, endln:27:50
+          \_ArrayVar: (uvm::uvm_phase::m_predecessors), line:20:16, endln:20:30
+          |vpiFullName:uvm::uvm_phase::m_predecessors
           |vpiActual:
-          \_RefObj: (this), line:27:10, endln:27:24
+          \_ArrayTypespec: , line:20:16, endln:20:30
+        |vpiName:m_predecessors
+        |vpiFullName:uvm::uvm_phase::m_predecessors
+        |vpiAutomatic:1
+        |vpiRandType:1
+        |vpiVisibility:2
+        |vpiArrayType:3
+        |vpiReg:
+        \_BitVar: (uvm::uvm_phase), line:20:16, endln:20:30
+      |vpiRegArray:
+      \_ArrayVar: (uvm::uvm_phase::m_predecessors), line:20:16, endln:20:30
+      |vpiInternalScope:
+      \_Function: (uvm::uvm_phase::add), line:21:1, endln:21:28
+        |vpiParent:
+        \_ClassDefn: (uvm::uvm_phase), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:19:1, endln:22:9
+        |vpiName:add
+        |vpiFullName:uvm::uvm_phase::add
+        |vpiMethod:1
+        |vpiAccessType:2
+        |vpiVisibility:1
+      |vpiInternalScope:
+      \_Function: (uvm::uvm_phase::add), line:24:1, endln:30:12
+        |vpiParent:
+        \_ClassDefn: (uvm::uvm_phase), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:19:1, endln:22:9
+        |vpiName:add
+        |vpiFullName:uvm::uvm_phase::add
+        |vpiVisibility:1
+        |vpiStmt:
+        \_Assignment: , line:27:5, endln:27:50
+          |vpiParent:
+          \_Function: (uvm::uvm_phase::add), line:24:1, endln:30:12
+          |vpiOpType:82
+          |vpiBlocking:1
+          |vpiRhs:
+          \_HierPath: (super.m_successors), line:27:32, endln:27:50
             |vpiParent:
-            \_HierPath: (this.m_predecessors.size), line:27:5, endln:27:9
-            |vpiName:this
+            \_Assignment: , line:27:5, endln:27:50
+            |vpiActual:
+            \_RefObj: (super), line:27:32, endln:27:37
+              |vpiParent:
+              \_HierPath: (super.m_successors), line:27:32, endln:27:50
+              |vpiName:super
+              |vpiActual:
+              \_ClassDefn: (uvm::uvm_object), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:3:1, endln:5:9
+            |vpiActual:
+            \_RefObj: (m_successors), line:27:38, endln:27:50
+              |vpiParent:
+              \_HierPath: (super.m_successors), line:27:32, endln:27:50
+              |vpiName:m_successors
+              |vpiActual:
+              \_ArrayVar: (uvm::uvm_object::m_successors), line:4:16, endln:4:28
+            |vpiName:super.m_successors
+          |vpiLhs:
+          \_HierPath: (this.m_predecessors.size), line:27:5, endln:27:29
+            |vpiParent:
+            \_Assignment: , line:27:5, endln:27:50
+            |vpiActual:
+            \_RefObj: (this), line:27:5, endln:27:9
+              |vpiParent:
+              \_HierPath: (this.m_predecessors.size), line:27:5, endln:27:29
+              |vpiName:this
+              |vpiActual:
+              \_ClassDefn: (uvm::uvm_phase), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:19:1, endln:22:9
+            |vpiActual:
+            \_RefObj: (uvm::uvm_phase::add::m_predecessors), line:27:10, endln:27:24
+              |vpiParent:
+              \_HierPath: (this.m_predecessors.size), line:27:5, endln:27:29
+              |vpiName:m_predecessors
+              |vpiFullName:uvm::uvm_phase::add::m_predecessors
+              |vpiActual:
+              \_ArrayVar: (uvm::uvm_phase::m_predecessors), line:20:16, endln:20:30
+            |vpiActual:
+            \_RefObj: (uvm::uvm_phase::add::size), line:27:25, endln:27:29
+              |vpiParent:
+              \_HierPath: (this.m_predecessors.size), line:27:5, endln:27:29
+              |vpiName:size
+              |vpiFullName:uvm::uvm_phase::add::size
+            |vpiName:this.m_predecessors.size
+        |vpiInstance:
+        \_Package: uvm (uvm), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:1:1, endln:33:11
+      |vpiTypedef:
+      \_ClassTypespec: (uvm_phase), line:20:31, endln:20:40
+        |vpiParent:
+        \_ClassDefn: (uvm::uvm_phase), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:19:1, endln:22:9
+        |vpiName:uvm_phase
+        |vpiClassDefn:
+        \_ClassDefn: (uvm::uvm_phase), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:19:1, endln:22:9
+      |vpiTypedef:
+      \_BitTypespec: , line:20:11, endln:20:14
+        |vpiParent:
+        \_ClassDefn: (uvm::uvm_phase), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:19:1, endln:22:9
+      |vpiTypedef:
+      \_ArrayTypespec: , line:20:16, endln:20:30
+        |vpiParent:
+        \_ClassDefn: (uvm::uvm_phase), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:19:1, endln:22:9
+        |vpiIndexTypespec:
+        \_RefTypespec: (uvm::uvm_phase::uvm_phase), line:20:30, endln:20:41
+          |vpiParent:
+          \_ArrayTypespec: , line:20:16, endln:20:30
+          |vpiName:uvm_phase
+          |vpiFullName:uvm::uvm_phase::uvm_phase
           |vpiActual:
-          \_RefObj: (uvm::uvm_phase::add::m_predecessors)
-            |vpiParent:
-            \_HierPath: (this.m_predecessors.size), line:27:5, endln:27:9
-            |vpiName:m_predecessors
-            |vpiFullName:uvm::uvm_phase::add::m_predecessors
+          \_ClassTypespec: (uvm_phase), line:20:31, endln:20:40
+        |vpiElemTypespec:
+        \_RefTypespec: (uvm::uvm_phase), line:20:11, endln:20:14
+          |vpiParent:
+          \_ArrayTypespec: , line:20:16, endln:20:30
+          |vpiFullName:uvm::uvm_phase
           |vpiActual:
-          \_RefObj: (uvm::uvm_phase::add::size)
-            |vpiParent:
-            \_HierPath: (this.m_predecessors.size), line:27:5, endln:27:9
-            |vpiName:size
-            |vpiFullName:uvm::uvm_phase::add::size
-          |vpiName:this.m_predecessors.size
-      |vpiInstance:
-      \_Package: uvm (uvm::), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:1:1, endln:33:11
-\_weaklyReferenced:
-\_ClassTypespec: 
+          \_BitTypespec: , line:20:11, endln:20:14
+      |vpiTypedef:
+      \_ClassTypespec: (uvm_object), line:19:25, endln:19:35
+        |vpiParent:
+        \_ClassDefn: (uvm::uvm_phase), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:19:1, endln:22:9
+        |vpiName:uvm_object
+        |vpiClassDefn:
+        \_ClassDefn: (uvm::uvm_object), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:3:1, endln:5:9
+      |vpiImportTypespec:
+      \_Function: (uvm::uvm_phase::add), line:21:1, endln:21:28
+      |vpiImportTypespec:
+      \_ClassTypespec: (uvm_phase), line:20:31, endln:20:40
+      |vpiImportTypespec:
+      \_BitTypespec: , line:20:11, endln:20:14
+      |vpiImportTypespec:
+      \_BitVar: (uvm::uvm_phase), line:20:16, endln:20:30
+      |vpiImportTypespec:
+      \_ArrayVar: (uvm::uvm_phase::m_predecessors), line:20:16, endln:20:30
+      |vpiImportTypespec:
+      \_ArrayTypespec: , line:20:16, endln:20:30
+      |vpiImportTypespec:
+      \_Function: (uvm::uvm_phase::add), line:24:1, endln:30:12
+      |vpiImportTypespec:
+      \_ClassTypespec: (uvm_object), line:19:25, endln:19:35
+      |vpiExtends:
+      \_Extends: , line:19:25, endln:19:35
+        |vpiParent:
+        \_ClassDefn: (uvm::uvm_phase), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:19:1, endln:22:9
+        |vpiClassTypespec:
+        \_RefTypespec: (uvm::uvm_phase::uvm_object), line:19:25, endln:19:35
+          |vpiParent:
+          \_Extends: , line:19:25, endln:19:35
+          |vpiName:uvm_object
+          |vpiFullName:uvm::uvm_phase::uvm_object
+          |vpiActual:
+          \_ClassTypespec: (uvm_object), line:19:25, endln:19:35
+      |vpiMethod:
+      \_Function: (uvm::uvm_phase::add), line:21:1, endln:21:28
+      |vpiMethod:
+      \_Function: (uvm::uvm_phase::add), line:24:1, endln:30:12
+      |vpiTaskFuncDecl:
+      \_FunctionDecl: (uvm::uvm_phase::add), line:21:1, endln:21:28
+        |vpiParent:
+        \_ClassDefn: (uvm::uvm_phase), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:19:1, endln:22:9
+        |vpiName:add
+        |vpiFullName:uvm::uvm_phase::add
+        |vpiTaskFunc:
+        \_Function: (uvm::uvm_phase::add), line:21:1, endln:21:28
+      |vpiClassTypespec:
+      \_ClassTypespec: (uvm_phase), line:20:31, endln:20:40
+      |vpiClassTypespec:
+      \_ClassTypespec: (uvm_object), line:19:25, endln:19:35
+    |vpiDerivedClasses:
+    \_ClassDefn: (uvm::uvm_barrier), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:8:1, endln:17:9
+      |vpiParent:
+      \_Package: uvm (uvm), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:1:1, endln:33:11
+      |vpiName:uvm_barrier
+      |vpiFullName:uvm::uvm_barrier
+      |vpiVariables:
+      \_IntVar: (uvm::uvm_barrier::threshold), line:10:20, endln:10:29
+        |vpiParent:
+        \_ClassDefn: (uvm::uvm_barrier), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:8:1, endln:17:9
+        |vpiTypespec:
+        \_RefTypespec: (uvm::uvm_barrier::threshold), line:10:10, endln:10:13
+          |vpiParent:
+          \_IntVar: (uvm::uvm_barrier::threshold), line:10:20, endln:10:29
+          |vpiFullName:uvm::uvm_barrier::threshold
+          |vpiActual:
+          \_IntTypespec: , line:10:10, endln:10:13
+        |vpiName:threshold
+        |vpiFullName:uvm::uvm_barrier::threshold
+        |vpiSigned:1
+        |vpiAutomatic:1
+        |vpiVisibility:3
+      |vpiTypedef:
+      \_IntTypespec: , line:10:10, endln:10:13
+        |vpiParent:
+        \_ClassDefn: (uvm::uvm_barrier), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:8:1, endln:17:9
+        |vpiSigned:1
+      |vpiTypedef:
+      \_ClassTypespec: (uvm_object), line:8:27, endln:8:37
+        |vpiParent:
+        \_ClassDefn: (uvm::uvm_barrier), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:8:1, endln:17:9
+        |vpiName:uvm_object
+        |vpiClassDefn:
+        \_ClassDefn: (uvm::uvm_object), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:3:1, endln:5:9
+      |vpiImportTypespec:
+      \_IntTypespec: , line:10:10, endln:10:13
+      |vpiImportTypespec:
+      \_IntVar: (uvm::uvm_barrier::threshold), line:10:20, endln:10:29
+      |vpiImportTypespec:
+      \_ClassTypespec: (uvm_object), line:8:27, endln:8:37
+      |vpiExtends:
+      \_Extends: , line:8:27, endln:8:37
+        |vpiParent:
+        \_ClassDefn: (uvm::uvm_barrier), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:8:1, endln:17:9
+        |vpiClassTypespec:
+        \_RefTypespec: (uvm::uvm_barrier::uvm_object), line:8:27, endln:8:37
+          |vpiParent:
+          \_Extends: , line:8:27, endln:8:37
+          |vpiName:uvm_object
+          |vpiFullName:uvm::uvm_barrier::uvm_object
+          |vpiActual:
+          \_ClassTypespec: (uvm_object), line:8:27, endln:8:37
+      |vpiClassTypespec:
+      \_ClassTypespec: (uvm_object), line:8:27, endln:8:37
+    |vpiClassTypespec:
+    \_ClassTypespec: (uvm_phase), line:4:29, endln:4:38
+  |vpiInternalScope:
+  \_ClassDefn: (uvm::uvm_barrier), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:8:1, endln:17:9
+  |vpiInternalScope:
+  \_ClassDefn: (uvm::uvm_phase), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:19:1, endln:22:9
+  |vpiImportTypespec:
+  \_ClassDefn: (uvm::uvm_object), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:3:1, endln:5:9
+  |vpiImportTypespec:
+  \_ClassDefn: (uvm::uvm_barrier), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:8:1, endln:17:9
+  |vpiImportTypespec:
+  \_ClassDefn: (uvm::uvm_phase), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:19:1, endln:22:9
+  |vpiDefName:uvm
+  |vpiClassDefn:
+  \_ClassDefn: (uvm::uvm_object), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:3:1, endln:5:9
   |vpiClassDefn:
   \_ClassDefn: (uvm::uvm_barrier), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:8:1, endln:17:9
+  |vpiClassDefn:
+  \_ClassDefn: (uvm::uvm_phase), file:${SURELOG_DIR}/tests/ThisHier/dut.sv, line:19:1, endln:22:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 2
 [WARNING] : 1
 [   NOTE] : 0

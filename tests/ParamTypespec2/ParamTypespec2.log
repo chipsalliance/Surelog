@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 171
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv
+FILE: ${SURELOG_DIR}/tests/ParamTypespec2/dut.sv
 n<> u<170> t<Top_level_rule> c<1> l<1:1> el<27:1>
-  n<> u<1> t<Null_rule> p<170> s<169> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<170> s<169> l<1:1>
   n<> u<169> t<Source_text> p<170> c<58> l<1:1> el<26:10>
     n<> u<58> t<Description> p<169> c<57> s<116> l<1:1> el<10:26>
       n<> u<57> t<Package_declaration> p<58> c<2> l<1:1> el<10:26>
@@ -37,7 +37,7 @@ n<> u<170> t<Top_level_rule> c<1> l<1:1> el<27:1>
           n<> u<53> t<Package_or_generate_item_declaration> p<54> c<52> l<7:3> el<8:55>
             n<> u<52> t<Parameter_declaration> p<53> c<29> l<7:3> el<8:54>
               n<> u<29> t<Data_type_or_implicit> p<52> c<28> s<51> l<7:13> el<7:21>
-                n<> u<28> t<Data_type> p<29> c<27> l<7:13> el<7:21>
+                n<esc_tx_t> u<28> t<Data_type> p<29> c<27> l<7:13> el<7:21>
                   n<esc_tx_t> u<27> t<StringConst> p<28> l<7:13> el<7:21>
               n<> u<51> t<List_of_param_assignments> p<52> c<50> l<7:22> el<8:54>
                 n<> u<50> t<Param_assignment> p<51> c<30> l<7:22> el<8:54>
@@ -77,7 +77,7 @@ n<> u<170> t<Top_level_rule> c<1> l<1:1> el<27:1>
                 n<> u<64> t<PortDir_Inp> p<79> s<78> l<15:4> el<15:9>
                 n<> u<78> t<Net_port_type> p<79> c<77> l<15:10> el<15:24>
                   n<> u<77> t<Data_type_or_implicit> p<78> c<76> l<15:10> el<15:24>
-                    n<> u<76> t<Data_type> p<77> c<65> l<15:10> el<15:24>
+                    n<esc_tx_t> u<76> t<Data_type> p<77> c<65> l<15:10> el<15:24>
                       n<esc_tx_t> u<65> t<StringConst> p<76> s<75> l<15:10> el<15:18>
                       n<> u<75> t<Packed_dimension> p<76> c<74> l<15:19> el<15:24>
                         n<> u<74> t<Constant_range> p<75> c<69> l<15:20> el<15:23>
@@ -113,7 +113,7 @@ n<> u<170> t<Top_level_rule> c<1> l<1:1> el<27:1>
                       n<> u<106> t<Primary> p<107> c<105> l<18:15> el<18:22>
                         n<> u<105> t<Cast> p<106> c<100> l<18:15> el<18:22>
                           n<> u<100> t<Casting_type> p<105> c<99> s<104> l<18:15> el<18:18>
-                            n<> u<99> t<Simple_type> p<100> c<98> l<18:15> el<18:18>
+                            n<int> u<99> t<Simple_type> p<100> c<98> l<18:15> el<18:18>
                               n<> u<98> t<Integer_type> p<99> c<97> l<18:15> el<18:18>
                                 n<> u<97> t<IntegerAtomType_Int> p<98> l<18:15> el<18:18>
                           n<> u<104> t<Expression> p<105> c<103> l<18:20> el<18:21>
@@ -182,51 +182,51 @@ AST_DEBUG_END
 [INF:CP0303] ${SURELOG_DIR}/tests/ParamTypespec2/dut.sv:21:1: Compile module "work@top".
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-Constant                                              12
+Constant                                              14
 ContAssign                                             1
 Design                                                 1
 ImportTypespec                                         1
-IntTypespec                                            3
-LogicNet                                               3
-LogicTypespec                                          8
+IntTypespec                                            4
+IntVar                                                 2
+LogicTypespec                                          2
 Module                                                 2
-Operation                                              7
+ModuleTypespec                                         1
+Operation                                              6
 Package                                                1
-PackedArrayTypespec                                    1
-ParamAssign                                            3
-Parameter                                              4
+PackedArrayTypespec                                    2
+PackedArrayVar                                         1
+ParamAssign                                            1
+Parameter                                              1
 Port                                                   5
-Range                                                  1
+Range                                                  3
 RefModule                                              1
-RefObj                                                 7
-RefTypespec                                           26
-StringTypespec                                         8
-StructTypespec                                         4
-TaggedPattern                                          8
-TypespecMember                                         8
+RefObj                                                 4
+RefTypespec                                           18
+StringTypespec                                         6
+StructTypespec                                         1
+TaggedPattern                                          6
+TypespecMember                                         2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamTypespec2/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ParamTypespec2/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ParamTypespec2/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallPackages:
-\_Package: prim_esc_pkg (prim_esc_pkg::), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:1:1, endln:10:26
+|vpiAllPackages:
+\_Package: prim_esc_pkg (prim_esc_pkg), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:1:1, endln:10:26
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:prim_esc_pkg
-  |vpiFullName:prim_esc_pkg::
   |vpiParameter:
-  \_Parameter: (prim_esc_pkg::ESC_TX_DEFAULT), line:7:22, endln:7:36
+  \_Parameter: (prim_esc_pkg::ESC_TX_DEFAULT), line:7:22, endln:8:54
     |vpiParent:
-    \_Package: prim_esc_pkg (prim_esc_pkg::), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:1:1, endln:10:26
+    \_Package: prim_esc_pkg (prim_esc_pkg), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:1:1, endln:10:26
     |vpiTypespec:
-    \_RefTypespec: (prim_esc_pkg::ESC_TX_DEFAULT)
+    \_RefTypespec: (prim_esc_pkg::ESC_TX_DEFAULT::esc_tx_t), line:7:13, endln:7:21
       |vpiParent:
-      \_Parameter: (prim_esc_pkg::ESC_TX_DEFAULT), line:7:22, endln:7:36
-      |vpiFullName:prim_esc_pkg::ESC_TX_DEFAULT
+      \_Parameter: (prim_esc_pkg::ESC_TX_DEFAULT), line:7:22, endln:8:54
+      |vpiName:esc_tx_t
+      |vpiFullName:prim_esc_pkg::ESC_TX_DEFAULT::esc_tx_t
       |vpiActual:
       \_StructTypespec: (prim_esc_pkg::esc_tx_t), line:2:11, endln:5:4
     |vpiName:ESC_TX_DEFAULT
@@ -234,55 +234,59 @@ Design: (unnamed)
   |vpiParamAssign:
   \_ParamAssign: , line:7:22, endln:8:54
     |vpiParent:
-    \_Package: prim_esc_pkg (prim_esc_pkg::), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:1:1, endln:10:26
+    \_Package: prim_esc_pkg (prim_esc_pkg), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:1:1, endln:10:26
     |vpiRhs:
     \_Operation: , line:7:39, endln:8:54
       |vpiParent:
       \_ParamAssign: , line:7:22, endln:8:54
       |vpiOpType:75
       |vpiOperand:
-      \_TaggedPattern: , line:7:49, endln:7:53
+      \_TaggedPattern: , line:7:41, endln:7:53
         |vpiParent:
         \_Operation: , line:7:39, endln:8:54
         |vpiPattern:
         \_Constant: , line:7:49, endln:7:53
+          |vpiParent:
+          \_TaggedPattern: , line:7:41, endln:7:53
           |vpiDecompile:1'b0
           |vpiSize:1
           |BIN:0
           |vpiConstType:3
         |vpiTypespec:
-        \_RefTypespec: (prim_esc_pkg)
+        \_RefTypespec: (prim_esc_pkg::esc_p), line:7:41, endln:7:46
           |vpiParent:
-          \_TaggedPattern: , line:7:49, endln:7:53
-          |vpiFullName:prim_esc_pkg
+          \_TaggedPattern: , line:7:41, endln:7:53
+          |vpiName:esc_p
+          |vpiFullName:prim_esc_pkg::esc_p
           |vpiActual:
           \_StringTypespec: (esc_p), line:7:41, endln:7:46
       |vpiOperand:
-      \_TaggedPattern: , line:8:49, endln:8:53
+      \_TaggedPattern: , line:8:41, endln:8:53
         |vpiParent:
         \_Operation: , line:7:39, endln:8:54
         |vpiPattern:
         \_Constant: , line:8:49, endln:8:53
+          |vpiParent:
+          \_TaggedPattern: , line:8:41, endln:8:53
           |vpiDecompile:1'b1
           |vpiSize:1
           |BIN:1
           |vpiConstType:3
         |vpiTypespec:
-        \_RefTypespec: (prim_esc_pkg)
+        \_RefTypespec: (prim_esc_pkg::esc_n), line:8:41, endln:8:46
           |vpiParent:
-          \_TaggedPattern: , line:8:49, endln:8:53
-          |vpiFullName:prim_esc_pkg
+          \_TaggedPattern: , line:8:41, endln:8:53
+          |vpiName:esc_n
+          |vpiFullName:prim_esc_pkg::esc_n
           |vpiActual:
           \_StringTypespec: (esc_n), line:8:41, endln:8:46
     |vpiLhs:
-    \_Parameter: (prim_esc_pkg::ESC_TX_DEFAULT), line:7:22, endln:7:36
+    \_Parameter: (prim_esc_pkg::ESC_TX_DEFAULT), line:7:22, endln:8:54
   |vpiTypedef:
   \_StructTypespec: (prim_esc_pkg::esc_tx_t), line:2:11, endln:5:4
     |vpiParent:
-    \_Module: work@nmi_gen (work@nmi_gen), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:12:1, endln:19:10
+    \_Package: prim_esc_pkg (prim_esc_pkg), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:1:1, endln:10:26
     |vpiName:prim_esc_pkg::esc_tx_t
-    |vpiInstance:
-    \_Package: prim_esc_pkg (prim_esc_pkg::), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:1:1, endln:10:26
     |vpiPacked:1
     |vpiTypespecMember:
     \_TypespecMember: (esc_p), line:3:11, endln:3:16
@@ -290,170 +294,240 @@ Design: (unnamed)
       \_StructTypespec: (prim_esc_pkg::esc_tx_t), line:2:11, endln:5:4
       |vpiName:esc_p
       |vpiTypespec:
-      \_RefTypespec: (work@nmi_gen.prim_esc_pkg::esc_tx_t.esc_p)
+      \_RefTypespec: (prim_esc_pkg::esc_tx_t::esc_p), line:3:5, endln:3:10
         |vpiParent:
         \_TypespecMember: (esc_p), line:3:11, endln:3:16
-        |vpiFullName:work@nmi_gen.prim_esc_pkg::esc_tx_t.esc_p
+        |vpiFullName:prim_esc_pkg::esc_tx_t::esc_p
         |vpiActual:
         \_LogicTypespec: , line:3:5, endln:3:10
-      |vpiRefFile:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv
-      |vpiRefLineNo:3
-      |vpiRefColumnNo:5
-      |vpiRefEndLineNo:3
-      |vpiRefEndColumnNo:10
     |vpiTypespecMember:
     \_TypespecMember: (esc_n), line:4:11, endln:4:16
       |vpiParent:
       \_StructTypespec: (prim_esc_pkg::esc_tx_t), line:2:11, endln:5:4
       |vpiName:esc_n
       |vpiTypespec:
-      \_RefTypespec: (work@nmi_gen.prim_esc_pkg::esc_tx_t.esc_n)
+      \_RefTypespec: (prim_esc_pkg::esc_tx_t::esc_n), line:4:5, endln:4:10
         |vpiParent:
         \_TypespecMember: (esc_n), line:4:11, endln:4:16
-        |vpiFullName:work@nmi_gen.prim_esc_pkg::esc_tx_t.esc_n
+        |vpiFullName:prim_esc_pkg::esc_tx_t::esc_n
         |vpiActual:
         \_LogicTypespec: , line:4:5, endln:4:10
-      |vpiRefFile:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv
-      |vpiRefLineNo:4
-      |vpiRefColumnNo:5
-      |vpiRefEndLineNo:4
-      |vpiRefEndColumnNo:10
+  |vpiTypedef:
+  \_LogicTypespec: , line:3:5, endln:3:10
+    |vpiParent:
+    \_Package: prim_esc_pkg (prim_esc_pkg), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:1:1, endln:10:26
+  |vpiTypedef:
+  \_LogicTypespec: , line:4:5, endln:4:10
+    |vpiParent:
+    \_Package: prim_esc_pkg (prim_esc_pkg), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:1:1, endln:10:26
+  |vpiTypedef:
+  \_StringTypespec: (esc_p), line:7:41, endln:7:46
+    |vpiParent:
+    \_Package: prim_esc_pkg (prim_esc_pkg), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:1:1, endln:10:26
+    |vpiName:esc_p
+  |vpiTypedef:
+  \_StringTypespec: (esc_n), line:8:41, endln:8:46
+    |vpiParent:
+    \_Package: prim_esc_pkg (prim_esc_pkg), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:1:1, endln:10:26
+    |vpiName:esc_n
+  |vpiTypedef:
+  \_StringTypespec: (esc_p), line:7:41, endln:7:46
+    |vpiParent:
+    \_Package: prim_esc_pkg (prim_esc_pkg), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:1:1, endln:10:26
+    |vpiName:esc_p
+  |vpiTypedef:
+  \_StringTypespec: (esc_n), line:8:41, endln:8:46
+    |vpiParent:
+    \_Package: prim_esc_pkg (prim_esc_pkg), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:1:1, endln:10:26
+    |vpiName:esc_n
+  |vpiTypedef:
+  \_StringTypespec: (esc_p), line:7:41, endln:7:46
+    |vpiParent:
+    \_Package: prim_esc_pkg (prim_esc_pkg), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:1:1, endln:10:26
+    |vpiName:esc_p
+  |vpiTypedef:
+  \_StringTypespec: (esc_n), line:8:41, endln:8:46
+    |vpiParent:
+    \_Package: prim_esc_pkg (prim_esc_pkg), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:1:1, endln:10:26
+    |vpiName:esc_n
+  |vpiImportTypespec:
+  \_StructTypespec: (prim_esc_pkg::esc_tx_t), line:2:11, endln:5:4
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:3:5, endln:3:10
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:4:5, endln:4:10
+  |vpiImportTypespec:
+  \_StringTypespec: (esc_p), line:7:41, endln:7:46
+  |vpiImportTypespec:
+  \_StringTypespec: (esc_n), line:8:41, endln:8:46
+  |vpiImportTypespec:
+  \_StringTypespec: (esc_p), line:7:41, endln:7:46
+  |vpiImportTypespec:
+  \_StringTypespec: (esc_n), line:8:41, endln:8:46
+  |vpiImportTypespec:
+  \_StringTypespec: (esc_p), line:7:41, endln:7:46
+  |vpiImportTypespec:
+  \_StringTypespec: (esc_n), line:8:41, endln:8:46
   |vpiDefName:prim_esc_pkg
   |vpiEndLabel:prim_esc_pkg
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@nmi_gen (work@nmi_gen), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:12:1, endln:19:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@nmi_gen
-  |vpiParameter:
-  \_Parameter: (work@nmi_gen.ESC_TX_DEFAULT), line:7:22, endln:7:36
+  |vpiName:work@nmi_gen
+  |vpiVariables:
+  \_PackedArrayVar: (work@nmi_gen.a), line:15:25, endln:15:26
     |vpiParent:
     \_Module: work@nmi_gen (work@nmi_gen), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:12:1, endln:19:10
     |vpiTypespec:
-    \_RefTypespec: (work@nmi_gen.ESC_TX_DEFAULT)
+    \_RefTypespec: (work@nmi_gen.a.esc_tx_t), line:15:10, endln:15:24
       |vpiParent:
-      \_Parameter: (work@nmi_gen.ESC_TX_DEFAULT), line:7:22, endln:7:36
-      |vpiFullName:work@nmi_gen.ESC_TX_DEFAULT
+      \_PackedArrayVar: (work@nmi_gen.a), line:15:25, endln:15:26
+      |vpiName:esc_tx_t
+      |vpiFullName:work@nmi_gen.a.esc_tx_t
       |vpiActual:
-      \_StructTypespec: (prim_esc_pkg::esc_tx_t), line:2:11, endln:5:4
-    |vpiName:ESC_TX_DEFAULT
-    |vpiFullName:work@nmi_gen.ESC_TX_DEFAULT
-    |vpiImported:prim_esc_pkg
-  |vpiParamAssign:
-  \_ParamAssign: , line:7:22, endln:8:54
-    |vpiParent:
-    \_Module: work@nmi_gen (work@nmi_gen), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:12:1, endln:19:10
-    |vpiRhs:
-    \_Operation: , line:7:39, endln:8:54
-      |vpiParent:
-      \_ParamAssign: , line:7:22, endln:8:54
-      |vpiOpType:75
-      |vpiOperand:
-      \_TaggedPattern: , line:7:49, endln:7:53
-        |vpiParent:
-        \_Operation: , line:7:39, endln:8:54
-        |vpiPattern:
-        \_Constant: , line:7:49, endln:7:53
-          |vpiParent:
-          \_TaggedPattern: , line:7:49, endln:7:53
-          |vpiDecompile:1'b0
-          |vpiSize:1
-          |BIN:0
-          |vpiConstType:3
-        |vpiTypespec:
-        \_RefTypespec: (work@nmi_gen)
-          |vpiParent:
-          \_TaggedPattern: , line:7:49, endln:7:53
-          |vpiFullName:work@nmi_gen
-          |vpiActual:
-          \_StringTypespec: (esc_p), line:7:41, endln:7:46
-      |vpiOperand:
-      \_TaggedPattern: , line:8:49, endln:8:53
-        |vpiParent:
-        \_Operation: , line:7:39, endln:8:54
-        |vpiPattern:
-        \_Constant: , line:8:49, endln:8:53
-          |vpiParent:
-          \_TaggedPattern: , line:8:49, endln:8:53
-          |vpiDecompile:1'b1
-          |vpiSize:1
-          |BIN:1
-          |vpiConstType:3
-        |vpiTypespec:
-        \_RefTypespec: (work@nmi_gen)
-          |vpiParent:
-          \_TaggedPattern: , line:8:49, endln:8:53
-          |vpiFullName:work@nmi_gen
-          |vpiActual:
-          \_StringTypespec: (esc_n), line:8:41, endln:8:46
-    |vpiLhs:
-    \_Parameter: (work@nmi_gen.ESC_TX_DEFAULT), line:7:22, endln:7:36
-      |vpiParent:
-      \_ParamAssign: , line:7:22, endln:8:54
-      |vpiTypespec:
-      \_RefTypespec: (work@nmi_gen.ESC_TX_DEFAULT)
-        |vpiParent:
-        \_Parameter: (work@nmi_gen.ESC_TX_DEFAULT), line:7:22, endln:7:36
-        |vpiFullName:work@nmi_gen.ESC_TX_DEFAULT
-        |vpiActual:
-        \_StructTypespec: (prim_esc_pkg::esc_tx_t), line:2:11, endln:5:4
-      |vpiName:ESC_TX_DEFAULT
-      |vpiFullName:work@nmi_gen.ESC_TX_DEFAULT
-      |vpiImported:prim_esc_pkg
-  |vpiTypedef:
-  \_StructTypespec: (prim_esc_pkg::esc_tx_t), line:2:11, endln:5:4
-  |vpiTypedef:
-  \_ImportTypespec: (prim_esc_pkg), line:13:11, endln:13:26
-  |vpiDefName:work@nmi_gen
-  |vpiNet:
-  \_LogicNet: (work@nmi_gen.a), line:15:25, endln:15:26
-    |vpiParent:
-    \_Module: work@nmi_gen (work@nmi_gen), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:12:1, endln:19:10
+      \_PackedArrayTypespec: , line:15:19, endln:15:24
     |vpiName:a
     |vpiFullName:work@nmi_gen.a
-  |vpiNet:
-  \_LogicNet: (work@nmi_gen.x), line:16:15, endln:16:16
+    |vpiVisibility:1
+  |vpiVariables:
+  \_IntVar: (work@nmi_gen.x), line:16:15, endln:16:16
     |vpiParent:
     \_Module: work@nmi_gen (work@nmi_gen), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:12:1, endln:19:10
+    |vpiTypespec:
+    \_RefTypespec: (work@nmi_gen.x), line:16:11, endln:16:14
+      |vpiParent:
+      \_IntVar: (work@nmi_gen.x), line:16:15, endln:16:16
+      |vpiFullName:work@nmi_gen.x
+      |vpiActual:
+      \_IntTypespec: , line:16:11, endln:16:14
     |vpiName:x
     |vpiFullName:work@nmi_gen.x
+    |vpiSigned:1
+    |vpiVisibility:1
+  |vpiTypedef:
+  \_ImportTypespec: (prim_esc_pkg), line:13:11, endln:13:26
+    |vpiParent:
+    \_Module: work@nmi_gen (work@nmi_gen), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:12:1, endln:19:10
+    |vpiName:prim_esc_pkg
+    |vpiImportTypespecItem:
+    \_Constant: , line:13:11, endln:13:26
+      |vpiParent:
+      \_ImportTypespec: (prim_esc_pkg), line:13:11, endln:13:26
+      |vpiDecompile:*
+      |vpiSize:8
+      |STRING:*
+      |vpiConstType:8
+  |vpiTypedef:
+  \_PackedArrayTypespec: , line:15:19, endln:15:24
+    |vpiParent:
+    \_Module: work@nmi_gen (work@nmi_gen), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:12:1, endln:19:10
+    |vpiRange:
+    \_Range: , line:15:19, endln:15:24
+      |vpiParent:
+      \_PackedArrayTypespec: , line:15:19, endln:15:24
+      |vpiLeftRange:
+      \_Constant: , line:15:20, endln:15:21
+        |vpiParent:
+        \_Range: , line:15:19, endln:15:24
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:15:22, endln:15:23
+        |vpiParent:
+        \_Range: , line:15:19, endln:15:24
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiElemTypespec:
+    \_RefTypespec: (work@nmi_gen.esc_tx_t), line:15:10, endln:15:18
+      |vpiParent:
+      \_PackedArrayTypespec: , line:15:19, endln:15:24
+      |vpiName:esc_tx_t
+      |vpiFullName:work@nmi_gen.esc_tx_t
+      |vpiActual:
+      \_StructTypespec: (prim_esc_pkg::esc_tx_t), line:2:11, endln:5:4
+  |vpiTypedef:
+  \_IntTypespec: , line:16:11, endln:16:14
+    |vpiParent:
+    \_Module: work@nmi_gen (work@nmi_gen), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:12:1, endln:19:10
+    |vpiSigned:1
+  |vpiTypedef:
+  \_PackedArrayTypespec: , line:15:19, endln:15:24
+    |vpiParent:
+    \_Module: work@nmi_gen (work@nmi_gen), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:12:1, endln:19:10
+    |vpiRange:
+    \_Range: , line:15:19, endln:15:24
+      |vpiParent:
+      \_PackedArrayTypespec: , line:15:19, endln:15:24
+      |vpiLeftRange:
+      \_Constant: , line:15:20, endln:15:21
+        |vpiParent:
+        \_Range: , line:15:19, endln:15:24
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:15:22, endln:15:23
+        |vpiParent:
+        \_Range: , line:15:19, endln:15:24
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiElemTypespec:
+    \_RefTypespec: (work@nmi_gen.esc_tx_t), line:15:10, endln:15:18
+      |vpiParent:
+      \_PackedArrayTypespec: , line:15:19, endln:15:24
+      |vpiName:esc_tx_t
+      |vpiFullName:work@nmi_gen.esc_tx_t
+      |vpiActual:
+      \_StructTypespec: (prim_esc_pkg::esc_tx_t), line:2:11, endln:5:4
+  |vpiTypedef:
+  \_IntTypespec: , line:16:11, endln:16:14
+    |vpiParent:
+    \_Module: work@nmi_gen (work@nmi_gen), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:12:1, endln:19:10
+    |vpiSigned:1
+  |vpiImportTypespec:
+  \_ImportTypespec: (prim_esc_pkg), line:13:11, endln:13:26
+  |vpiImportTypespec:
+  \_PackedArrayTypespec: , line:15:19, endln:15:24
+  |vpiImportTypespec:
+  \_PackedArrayVar: (work@nmi_gen.a), line:15:25, endln:15:26
+  |vpiImportTypespec:
+  \_IntTypespec: , line:16:11, endln:16:14
+  |vpiImportTypespec:
+  \_IntVar: (work@nmi_gen.x), line:16:15, endln:16:16
+  |vpiImportTypespec:
+  \_PackedArrayTypespec: , line:15:19, endln:15:24
+  |vpiImportTypespec:
+  \_IntTypespec: , line:16:11, endln:16:14
+  |vpiDefName:work@nmi_gen
   |vpiPort:
   \_Port: (a), line:15:25, endln:15:26
     |vpiParent:
     \_Module: work@nmi_gen (work@nmi_gen), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:12:1, endln:19:10
     |vpiName:a
     |vpiDirection:1
-    |vpiLowConn:
-    \_RefObj: (work@nmi_gen.a.a), line:15:25, endln:15:26
-      |vpiParent:
-      \_Port: (a), line:15:25, endln:15:26
-      |vpiName:a
-      |vpiFullName:work@nmi_gen.a.a
-      |vpiActual:
-      \_LogicNet: (work@nmi_gen.a), line:15:25, endln:15:26
-    |vpiTypedef:
-    \_RefTypespec: (work@nmi_gen.a)
+    |vpiTypespec:
+    \_RefTypespec: (work@nmi_gen.a), line:15:10, endln:15:18
       |vpiParent:
       \_Port: (a), line:15:25, endln:15:26
       |vpiFullName:work@nmi_gen.a
       |vpiActual:
-      \_PackedArrayTypespec: , line:15:10, endln:15:24
+      \_PackedArrayTypespec: , line:15:19, endln:15:24
   |vpiPort:
   \_Port: (x), line:16:15, endln:16:16
     |vpiParent:
     \_Module: work@nmi_gen (work@nmi_gen), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:12:1, endln:19:10
     |vpiName:x
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@nmi_gen.x.x), line:16:15, endln:16:16
-      |vpiParent:
-      \_Port: (x), line:16:15, endln:16:16
-      |vpiName:x
-      |vpiFullName:work@nmi_gen.x.x
-      |vpiActual:
-      \_LogicNet: (work@nmi_gen.x), line:16:15, endln:16:16
-    |vpiTypedef:
-    \_RefTypespec: (work@nmi_gen.x)
+    |vpiTypespec:
+    \_RefTypespec: (work@nmi_gen.x), line:16:11, endln:16:14
       |vpiParent:
       \_Port: (x), line:16:15, endln:16:16
       |vpiFullName:work@nmi_gen.x
@@ -467,13 +541,6 @@ Design: (unnamed)
     \_Operation: , line:18:15, endln:18:22
       |vpiParent:
       \_ContAssign: , line:18:11, endln:18:22
-      |vpiTypespec:
-      \_RefTypespec: (work@nmi_gen)
-        |vpiParent:
-        \_Operation: , line:18:15, endln:18:22
-        |vpiFullName:work@nmi_gen
-        |vpiActual:
-        \_IntTypespec: , line:18:15, endln:18:18
       |vpiOpType:67
       |vpiOperand:
       \_RefObj: (work@nmi_gen.a), line:18:20, endln:18:21
@@ -482,7 +549,7 @@ Design: (unnamed)
         |vpiName:a
         |vpiFullName:work@nmi_gen.a
         |vpiActual:
-        \_LogicNet: (work@nmi_gen.a), line:15:25, endln:15:26
+        \_PackedArrayVar: (work@nmi_gen.a), line:15:25, endln:15:26
     |vpiLhs:
     \_RefObj: (work@nmi_gen.x), line:18:11, endln:18:12
       |vpiParent:
@@ -490,42 +557,66 @@ Design: (unnamed)
       |vpiName:x
       |vpiFullName:work@nmi_gen.x
       |vpiActual:
-      \_LogicNet: (work@nmi_gen.x), line:16:15, endln:16:16
-|uhdmallModules:
+      \_IntVar: (work@nmi_gen.x), line:16:15, endln:16:16
+|vpiAllModules:
 \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:21:1, endln:26:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@top
-  |vpiDefName:work@top
-  |vpiNet:
-  \_LogicNet: (work@top.o), line:21:23, endln:21:24
+  |vpiName:work@top
+  |vpiVariables:
+  \_IntVar: (work@top.o), line:21:23, endln:21:24
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:21:1, endln:26:10
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o), line:21:19, endln:21:22
+      |vpiParent:
+      \_IntVar: (work@top.o), line:21:23, endln:21:24
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_IntTypespec: , line:21:19, endln:21:22
     |vpiName:o
     |vpiFullName:work@top.o
+    |vpiSigned:1
+    |vpiVisibility:1
+  |vpiTypedef:
+  \_ModuleTypespec: (nmi_gen), line:22:4, endln:22:11
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:21:1, endln:26:10
+    |vpiName:nmi_gen
+  |vpiTypedef:
+  \_IntTypespec: , line:21:19, endln:21:22
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:21:1, endln:26:10
+    |vpiSigned:1
+  |vpiTypedef:
+  \_IntTypespec: , line:21:19, endln:21:22
+    |vpiParent:
+    \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:21:1, endln:26:10
+    |vpiSigned:1
+  |vpiImportTypespec:
+  \_ModuleTypespec: (nmi_gen), line:22:4, endln:22:11
+  |vpiImportTypespec:
+  \_IntTypespec: , line:21:19, endln:21:22
+  |vpiImportTypespec:
+  \_IntVar: (work@top.o), line:21:23, endln:21:24
+  |vpiImportTypespec:
+  \_IntTypespec: , line:21:19, endln:21:22
+  |vpiDefName:work@top
   |vpiPort:
   \_Port: (o), line:21:23, endln:21:24
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:21:1, endln:26:10
     |vpiName:o
     |vpiDirection:2
-    |vpiLowConn:
-    \_RefObj: (work@top.o.o), line:21:23, endln:21:24
-      |vpiParent:
-      \_Port: (o), line:21:23, endln:21:24
-      |vpiName:o
-      |vpiFullName:work@top.o.o
-      |vpiActual:
-      \_LogicNet: (work@top.o), line:21:23, endln:21:24
-    |vpiTypedef:
-    \_RefTypespec: (work@top.o)
+    |vpiTypespec:
+    \_RefTypespec: (work@top.o), line:21:19, endln:21:22
       |vpiParent:
       \_Port: (o), line:21:23, endln:21:24
       |vpiFullName:work@top.o
       |vpiActual:
       \_IntTypespec: , line:21:19, endln:21:22
   |vpiRefModule:
-  \_RefModule: work@nmi_gen (u_nmi_gen), line:22:12, endln:22:21
+  \_RefModule: work@nmi_gen (u_nmi_gen), line:22:4, endln:22:11
     |vpiParent:
     \_Module: work@top (work@top), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:21:1, endln:26:10
     |vpiName:u_nmi_gen
@@ -533,17 +624,19 @@ Design: (unnamed)
     |vpiActual:
     \_Module: work@nmi_gen (work@nmi_gen), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:12:1, endln:19:10
     |vpiPort:
-    \_Port: (a), line:23:7, endln:23:44
+    \_Port: (a), line:23:8, endln:23:9
       |vpiParent:
-      \_RefModule: work@nmi_gen (u_nmi_gen), line:22:12, endln:22:21
+      \_RefModule: work@nmi_gen (u_nmi_gen), line:22:4, endln:22:11
       |vpiName:a
       |vpiHighConn:
       \_Operation: , line:23:10, endln:23:43
         |vpiParent:
-        \_Port: (a), line:23:7, endln:23:44
+        \_Port: (a), line:23:8, endln:23:9
         |vpiOpType:34
         |vpiOperand:
         \_Constant: , line:23:11, endln:23:12
+          |vpiParent:
+          \_Operation: , line:23:10, endln:23:43
           |vpiDecompile:3
           |vpiSize:64
           |UINT:3
@@ -559,182 +652,20 @@ Design: (unnamed)
             \_Operation: , line:23:12, endln:23:42
             |vpiName:prim_esc_pkg::ESC_TX_DEFAULT
             |vpiActual:
-            \_Parameter: (prim_esc_pkg::ESC_TX_DEFAULT), line:7:22, endln:7:36
+            \_Parameter: (prim_esc_pkg::ESC_TX_DEFAULT), line:7:22, endln:8:54
     |vpiPort:
-    \_Port: (x), line:24:7, endln:24:12
+    \_Port: (x), line:24:8, endln:24:9
       |vpiParent:
-      \_RefModule: work@nmi_gen (u_nmi_gen), line:22:12, endln:22:21
+      \_RefModule: work@nmi_gen (u_nmi_gen), line:22:4, endln:22:11
       |vpiName:x
       |vpiHighConn:
       \_RefObj: (work@top.u_nmi_gen.x.o), line:24:10, endln:24:11
         |vpiParent:
-        \_Port: (x), line:24:7, endln:24:12
+        \_Port: (x), line:24:8, endln:24:9
         |vpiName:o
         |vpiFullName:work@top.u_nmi_gen.x.o
         |vpiActual:
-        \_LogicNet: (work@top.o), line:21:23, endln:21:24
-\_weaklyReferenced:
-\_LogicTypespec: , line:3:5, endln:3:10
-  |vpiParent:
-  \_TypespecMember: (esc_p), line:3:11, endln:3:16
-  |vpiInstance:
-  \_Package: prim_esc_pkg (prim_esc_pkg::), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:1:1, endln:10:26
-\_LogicTypespec: , line:4:5, endln:4:10
-  |vpiParent:
-  \_TypespecMember: (esc_n), line:4:11, endln:4:16
-  |vpiInstance:
-  \_Package: prim_esc_pkg (prim_esc_pkg::), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:1:1, endln:10:26
-\_StringTypespec: (esc_p), line:7:41, endln:7:46
-  |vpiParent:
-  \_TaggedPattern: , line:7:49, endln:7:53
-  |vpiName:esc_p
-\_StringTypespec: (esc_n), line:8:41, endln:8:46
-  |vpiParent:
-  \_TaggedPattern: , line:8:49, endln:8:53
-  |vpiName:esc_n
-\_StructTypespec: (prim_esc_pkg::esc_tx_t), line:2:11, endln:5:4
-  |vpiParent:
-  \_RefTypespec: (work@nmi_gen.ESC_TX_DEFAULT)
-  |vpiName:prim_esc_pkg::esc_tx_t
-  |vpiInstance:
-  \_Package: prim_esc_pkg (prim_esc_pkg::), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:1:1, endln:10:26
-  |vpiPacked:1
-  |vpiTypespecMember:
-  \_TypespecMember: (esc_p), line:3:11, endln:3:16
-    |vpiParent:
-    \_StructTypespec: (prim_esc_pkg::esc_tx_t), line:2:11, endln:5:4
-    |vpiName:esc_p
-    |vpiTypespec:
-    \_RefTypespec: (work@nmi_gen.ESC_TX_DEFAULT.prim_esc_pkg::esc_tx_t.esc_p)
-      |vpiParent:
-      \_TypespecMember: (esc_p), line:3:11, endln:3:16
-      |vpiFullName:work@nmi_gen.ESC_TX_DEFAULT.prim_esc_pkg::esc_tx_t.esc_p
-      |vpiActual:
-      \_LogicTypespec: , line:3:5, endln:3:10
-    |vpiRefFile:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv
-    |vpiRefLineNo:3
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:3
-    |vpiRefEndColumnNo:10
-  |vpiTypespecMember:
-  \_TypespecMember: (esc_n), line:4:11, endln:4:16
-    |vpiParent:
-    \_StructTypespec: (prim_esc_pkg::esc_tx_t), line:2:11, endln:5:4
-    |vpiName:esc_n
-    |vpiTypespec:
-    \_RefTypespec: (work@nmi_gen.ESC_TX_DEFAULT.prim_esc_pkg::esc_tx_t.esc_n)
-      |vpiParent:
-      \_TypespecMember: (esc_n), line:4:11, endln:4:16
-      |vpiFullName:work@nmi_gen.ESC_TX_DEFAULT.prim_esc_pkg::esc_tx_t.esc_n
-      |vpiActual:
-      \_LogicTypespec: , line:4:5, endln:4:10
-    |vpiRefFile:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv
-    |vpiRefLineNo:4
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:4
-    |vpiRefEndColumnNo:10
-\_LogicTypespec: , line:3:5, endln:3:10
-  |vpiParent:
-  \_RefTypespec: (work@nmi_gen.ESC_TX_DEFAULT.prim_esc_pkg::esc_tx_t.esc_p)
-  |vpiInstance:
-  \_Package: prim_esc_pkg (prim_esc_pkg::), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:1:1, endln:10:26
-\_LogicTypespec: , line:4:5, endln:4:10
-  |vpiParent:
-  \_RefTypespec: (work@nmi_gen.ESC_TX_DEFAULT.prim_esc_pkg::esc_tx_t.esc_n)
-  |vpiInstance:
-  \_Package: prim_esc_pkg (prim_esc_pkg::), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:1:1, endln:10:26
-\_StringTypespec: (esc_p), line:7:41, endln:7:46
-  |vpiParent:
-  \_RefTypespec: (work@nmi_gen)
-  |vpiName:esc_p
-\_StringTypespec: (esc_n), line:8:41, endln:8:46
-  |vpiParent:
-  \_RefTypespec: (work@nmi_gen)
-  |vpiName:esc_n
-\_StructTypespec: (prim_esc_pkg::esc_tx_t), line:2:11, endln:5:4
-  |vpiParent:
-  \_RefTypespec: (work@nmi_gen.ESC_TX_DEFAULT)
-  |vpiName:prim_esc_pkg::esc_tx_t
-  |vpiInstance:
-  \_Package: prim_esc_pkg (prim_esc_pkg::), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:1:1, endln:10:26
-  |vpiPacked:1
-  |vpiTypespecMember:
-  \_TypespecMember: (esc_p), line:3:11, endln:3:16
-    |vpiParent:
-    \_StructTypespec: (prim_esc_pkg::esc_tx_t), line:2:11, endln:5:4
-    |vpiName:esc_p
-    |vpiTypespec:
-    \_RefTypespec: (work@nmi_gen.ESC_TX_DEFAULT.prim_esc_pkg::esc_tx_t.esc_p)
-      |vpiParent:
-      \_TypespecMember: (esc_p), line:3:11, endln:3:16
-      |vpiFullName:work@nmi_gen.ESC_TX_DEFAULT.prim_esc_pkg::esc_tx_t.esc_p
-      |vpiActual:
-      \_LogicTypespec: , line:3:5, endln:3:10
-    |vpiRefFile:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv
-    |vpiRefLineNo:3
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:3
-    |vpiRefEndColumnNo:10
-  |vpiTypespecMember:
-  \_TypespecMember: (esc_n), line:4:11, endln:4:16
-    |vpiParent:
-    \_StructTypespec: (prim_esc_pkg::esc_tx_t), line:2:11, endln:5:4
-    |vpiName:esc_n
-    |vpiTypespec:
-    \_RefTypespec: (work@nmi_gen.ESC_TX_DEFAULT.prim_esc_pkg::esc_tx_t.esc_n)
-      |vpiParent:
-      \_TypespecMember: (esc_n), line:4:11, endln:4:16
-      |vpiFullName:work@nmi_gen.ESC_TX_DEFAULT.prim_esc_pkg::esc_tx_t.esc_n
-      |vpiActual:
-      \_LogicTypespec: , line:4:5, endln:4:10
-    |vpiRefFile:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv
-    |vpiRefLineNo:4
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:4
-    |vpiRefEndColumnNo:10
-\_LogicTypespec: , line:3:5, endln:3:10
-  |vpiParent:
-  \_RefTypespec: (work@nmi_gen.ESC_TX_DEFAULT.prim_esc_pkg::esc_tx_t.esc_p)
-  |vpiInstance:
-  \_Package: prim_esc_pkg (prim_esc_pkg::), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:1:1, endln:10:26
-\_LogicTypespec: , line:4:5, endln:4:10
-  |vpiParent:
-  \_RefTypespec: (work@nmi_gen.ESC_TX_DEFAULT.prim_esc_pkg::esc_tx_t.esc_n)
-  |vpiInstance:
-  \_Package: prim_esc_pkg (prim_esc_pkg::), file:${SURELOG_DIR}/tests/ParamTypespec2/dut.sv, line:1:1, endln:10:26
-\_IntTypespec: , line:18:15, endln:18:18
-  |vpiSigned:1
-\_PackedArrayTypespec: , line:15:10, endln:15:24
-  |vpiRange:
-  \_Range: , line:15:19, endln:15:24
-    |vpiParent:
-    \_PackedArrayTypespec: , line:15:10, endln:15:24
-    |vpiLeftRange:
-    \_Constant: , line:15:20, endln:15:21
-      |vpiParent:
-      \_Range: , line:15:19, endln:15:24
-      |vpiDecompile:2
-      |vpiSize:64
-      |UINT:2
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:15:22, endln:15:23
-      |vpiParent:
-      \_Range: , line:15:19, endln:15:24
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-  |vpiElemTypespec:
-  \_RefTypespec: 
-    |vpiParent:
-    \_PackedArrayTypespec: , line:15:10, endln:15:24
-    |vpiActual:
-    \_StructTypespec: (prim_esc_pkg::esc_tx_t), line:2:11, endln:5:4
-\_IntTypespec: , line:16:11, endln:16:14
-  |vpiSigned:1
-\_IntTypespec: , line:21:19, endln:21:22
-  |vpiSigned:1
+        \_IntVar: (work@top.o), line:21:23, endln:21:24
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

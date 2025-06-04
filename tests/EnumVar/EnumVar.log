@@ -2,9 +2,9 @@
 AST_DEBUG_BEGIN
 Count: 79
 LIB: work
-FILE f<10>:${SURELOG_DIR}/tests/EnumVar/dut.sv
+FILE: ${SURELOG_DIR}/tests/EnumVar/dut.sv
 n<> u<78> t<Top_level_rule> c<1> l<1:1> el<15:1>
-  n<> u<1> t<Null_rule> p<78> s<77> l<1:1> el<1:0>
+  n<> u<1> t<Null_rule> p<78> s<77> l<1:1>
   n<> u<77> t<Source_text> p<78> c<37> l<1:1> el<14:10>
     n<> u<37> t<Description> p<77> c<36> s<40> l<1:1> el<9:11>
       n<> u<36> t<Package_declaration> p<37> c<2> l<1:1> el<9:11>
@@ -38,7 +38,7 @@ n<> u<78> t<Top_level_rule> c<1> l<1:1> el<15:1>
           n<> u<33> t<Package_or_generate_item_declaration> p<34> c<32> l<8:3> el<8:26>
             n<> u<32> t<Data_declaration> p<33> c<31> l<8:3> el<8:26>
               n<> u<31> t<Type_declaration> p<32> c<29> l<8:3> el<8:26>
-                n<> u<29> t<Data_type> p<31> c<28> s<30> l<8:11> el<8:17>
+                n<enum_t> u<29> t<Data_type> p<31> c<28> s<30> l<8:11> el<8:17>
                   n<enum_t> u<28> t<StringConst> p<29> l<8:11> el<8:17>
                 n<alias_t> u<30> t<StringConst> p<31> l<8:18> el<8:25>
         n<> u<35> t<ENDPACKAGE> p<36> l<9:1> el<9:11>
@@ -57,7 +57,7 @@ n<> u<78> t<Top_level_rule> c<1> l<1:1> el<15:1>
                 n<> u<54> t<Package_or_generate_item_declaration> p<55> c<53> l<12:3> el<12:17>
                   n<> u<53> t<Data_declaration> p<54> c<52> l<12:3> el<12:17>
                     n<> u<52> t<Variable_declaration> p<53> c<48> l<12:3> el<12:17>
-                      n<> u<48> t<Data_type> p<52> c<46> s<51> l<12:3> el<12:14>
+                      n<pkg::enum_t> u<48> t<Data_type> p<52> c<46> s<51> l<12:3> el<12:14>
                         n<> u<46> t<Class_scope> p<48> c<45> s<47> l<12:3> el<12:8>
                           n<> u<45> t<Class_type> p<46> c<44> l<12:3> el<12:6>
                             n<pkg> u<44> t<StringConst> p<45> l<12:3> el<12:6>
@@ -72,7 +72,7 @@ n<> u<78> t<Top_level_rule> c<1> l<1:1> el<15:1>
                 n<> u<69> t<Package_or_generate_item_declaration> p<70> c<68> l<13:3> el<13:18>
                   n<> u<68> t<Data_declaration> p<69> c<67> l<13:3> el<13:18>
                     n<> u<67> t<Variable_declaration> p<68> c<63> l<13:3> el<13:18>
-                      n<> u<63> t<Data_type> p<67> c<61> s<66> l<13:3> el<13:15>
+                      n<pkg::alias_t> u<63> t<Data_type> p<67> c<61> s<66> l<13:3> el<13:15>
                         n<> u<61> t<Class_scope> p<63> c<60> s<62> l<13:3> el<13:8>
                           n<> u<60> t<Class_type> p<61> c<59> l<13:3> el<13:6>
                             n<pkg> u<59> t<StringConst> p<60> l<13:3> el<13:6>
@@ -92,45 +92,65 @@ Constant                                               2
 Design                                                 1
 EnumConst                                              3
 EnumTypespec                                           1
-LogicNet                                               2
+EnumVar                                                1
 LogicTypespec                                          1
+LogicVar                                               1
 Module                                                 2
 Package                                                1
 Range                                                  1
-RefTypespec                                            3
+RefTypespec                                            2
 UnsupportedTypespec                                    1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/EnumVar/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/EnumVar/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/EnumVar/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 Design: (unnamed)
 |vpiName:unnamed
-|uhdmallPackages:
-\_Package: pkg (pkg::), file:${SURELOG_DIR}/tests/EnumVar/dut.sv, line:1:1, endln:9:11
+|vpiAllPackages:
+\_Package: pkg (pkg), file:${SURELOG_DIR}/tests/EnumVar/dut.sv, line:1:1, endln:9:11
   |vpiParent:
   \_Design: (unnamed)
   |vpiName:pkg
-  |vpiFullName:pkg::
   |vpiTypedef:
-  \_EnumTypespec: (pkg::enum_t), line:2:3, endln:6:12
+  \_LogicTypespec: , line:2:16, endln:2:26
     |vpiParent:
-    \_Package: pkg (pkg::), file:${SURELOG_DIR}/tests/EnumVar/dut.sv, line:1:1, endln:9:11
-    |vpiName:pkg::enum_t
-    |vpiInstance:
-    \_Package: pkg (pkg::), file:${SURELOG_DIR}/tests/EnumVar/dut.sv, line:1:1, endln:9:11
-    |vpiBaseTypespec:
-    \_RefTypespec: (pkg::pkg::enum_t)
+    \_Package: pkg (pkg), file:${SURELOG_DIR}/tests/EnumVar/dut.sv, line:1:1, endln:9:11
+    |vpiRange:
+    \_Range: , line:2:21, endln:2:26
       |vpiParent:
-      \_EnumTypespec: (pkg::enum_t), line:2:3, endln:6:12
-      |vpiFullName:pkg::pkg::enum_t
+      \_LogicTypespec: , line:2:16, endln:2:26
+      |vpiLeftRange:
+      \_Constant: , line:2:22, endln:2:23
+        |vpiParent:
+        \_Range: , line:2:21, endln:2:26
+        |vpiDecompile:7
+        |vpiSize:64
+        |UINT:7
+        |vpiConstType:9
+      |vpiRightRange:
+      \_Constant: , line:2:24, endln:2:25
+        |vpiParent:
+        \_Range: , line:2:21, endln:2:26
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+  |vpiTypedef:
+  \_EnumTypespec: (pkg::enum_t), line:2:11, endln:6:11
+    |vpiParent:
+    \_Package: pkg (pkg), file:${SURELOG_DIR}/tests/EnumVar/dut.sv, line:1:1, endln:9:11
+    |vpiName:pkg::enum_t
+    |vpiBaseTypespec:
+    \_RefTypespec: (pkg::enum_t), line:2:16, endln:2:26
+      |vpiParent:
+      \_EnumTypespec: (pkg::enum_t), line:2:11, endln:6:11
+      |vpiFullName:pkg::enum_t
       |vpiActual:
       \_LogicTypespec: , line:2:16, endln:2:26
     |vpiEnumConst:
     \_EnumConst: (ONE), line:3:5, endln:3:8
       |vpiParent:
-      \_EnumTypespec: (pkg::enum_t), line:2:3, endln:6:12
+      \_EnumTypespec: (pkg::enum_t), line:2:11, endln:6:11
       |vpiName:ONE
       |INT:0
       |vpiDecompile:0
@@ -138,7 +158,7 @@ Design: (unnamed)
     |vpiEnumConst:
     \_EnumConst: (TWO), line:4:5, endln:4:8
       |vpiParent:
-      \_EnumTypespec: (pkg::enum_t), line:2:3, endln:6:12
+      \_EnumTypespec: (pkg::enum_t), line:2:11, endln:6:11
       |vpiName:TWO
       |INT:1
       |vpiDecompile:1
@@ -146,70 +166,57 @@ Design: (unnamed)
     |vpiEnumConst:
     \_EnumConst: (THREE), line:5:5, endln:5:10
       |vpiParent:
-      \_EnumTypespec: (pkg::enum_t), line:2:3, endln:6:12
+      \_EnumTypespec: (pkg::enum_t), line:2:11, endln:6:11
       |vpiName:THREE
       |INT:2
       |vpiDecompile:2
       |vpiSize:8
+  |vpiImportTypespec:
+  \_LogicTypespec: , line:2:16, endln:2:26
+  |vpiImportTypespec:
+  \_EnumTypespec: (pkg::enum_t), line:2:11, endln:6:11
   |vpiDefName:pkg
-|uhdmallModules:
+|vpiAllModules:
 \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/EnumVar/dut.sv, line:11:1, endln:14:10
   |vpiParent:
   \_Design: (unnamed)
-  |vpiFullName:work@dut
-  |vpiDefName:work@dut
-  |vpiNet:
-  \_LogicNet: (work@dut.a), line:12:15, endln:12:16
+  |vpiName:work@dut
+  |vpiVariables:
+  \_EnumVar: (work@dut.a), line:12:15, endln:12:16
     |vpiParent:
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/EnumVar/dut.sv, line:11:1, endln:14:10
     |vpiTypespec:
-    \_RefTypespec: (work@dut.a)
+    \_RefTypespec: (work@dut.a.pkg::enum_t), line:12:3, endln:12:14
       |vpiParent:
-      \_LogicNet: (work@dut.a), line:12:15, endln:12:16
-      |vpiFullName:work@dut.a
+      \_EnumVar: (work@dut.a), line:12:15, endln:12:16
+      |vpiName:pkg::enum_t
+      |vpiFullName:work@dut.a.pkg::enum_t
       |vpiActual:
-      \_EnumTypespec: (pkg::enum_t), line:2:3, endln:6:12
+      \_EnumTypespec: (pkg::enum_t), line:2:11, endln:6:11
     |vpiName:a
     |vpiFullName:work@dut.a
-  |vpiNet:
-  \_LogicNet: (work@dut.b), line:13:16, endln:13:17
+    |vpiVisibility:1
+  |vpiVariables:
+  \_LogicVar: (work@dut.b), line:13:16, endln:13:17
     |vpiParent:
     \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/EnumVar/dut.sv, line:11:1, endln:14:10
-    |vpiTypespec:
-    \_RefTypespec: (work@dut.b)
-      |vpiParent:
-      \_LogicNet: (work@dut.b), line:13:16, endln:13:17
-      |vpiFullName:work@dut.b
-      |vpiActual:
-      \_UnsupportedTypespec: (pkg::alias_t), line:13:3, endln:13:8
     |vpiName:b
     |vpiFullName:work@dut.b
-\_weaklyReferenced:
-\_LogicTypespec: , line:2:16, endln:2:26
-  |vpiInstance:
-  \_Package: pkg (pkg::), file:${SURELOG_DIR}/tests/EnumVar/dut.sv, line:1:1, endln:9:11
-  |vpiRange:
-  \_Range: , line:2:21, endln:2:26
+    |vpiVisibility:1
+  |vpiReg:
+  \_LogicVar: (work@dut.b), line:13:16, endln:13:17
+  |vpiTypedef:
+  \_UnsupportedTypespec: (pkg::alias_t), line:13:3, endln:13:15
     |vpiParent:
-    \_LogicTypespec: , line:2:16, endln:2:26
-    |vpiLeftRange:
-    \_Constant: , line:2:22, endln:2:23
-      |vpiParent:
-      \_Range: , line:2:21, endln:2:26
-      |vpiDecompile:7
-      |vpiSize:64
-      |UINT:7
-      |vpiConstType:9
-    |vpiRightRange:
-    \_Constant: , line:2:24, endln:2:25
-      |vpiParent:
-      \_Range: , line:2:21, endln:2:26
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_UnsupportedTypespec: (pkg::alias_t), line:13:3, endln:13:8
-  |vpiName:pkg::alias_t
+    \_Module: work@dut (work@dut), file:${SURELOG_DIR}/tests/EnumVar/dut.sv, line:11:1, endln:14:10
+    |vpiName:pkg::alias_t
+  |vpiImportTypespec:
+  \_EnumVar: (work@dut.a), line:12:15, endln:12:16
+  |vpiImportTypespec:
+  \_UnsupportedTypespec: (pkg::alias_t), line:13:3, endln:13:15
+  |vpiImportTypespec:
+  \_LogicVar: (work@dut.b), line:13:16, endln:13:17
+  |vpiDefName:work@dut
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
