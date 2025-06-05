@@ -107,7 +107,8 @@ AstNode AstListener::getNodeParent(const AstNode& node) const {
   return AstNode();
 }
 
-AstNode AstListener::getNodeParent(const AstNode& node, VObjectType type) const {
+AstNode AstListener::getNodeParent(const AstNode& node,
+                                   VObjectType type) const {
   if (node) {
     NodeId parentId = m_objects[(RawNodeId)node.m_index].m_parent;
     while (parentId) {
@@ -307,6 +308,14 @@ AstNode AstListener::getNodeOfTypeInHierarchy(
   return AstNode();
 }
 
+AstNode AstListener::getNodeChild(const AstNode& node) const {
+  if (node && node.m_object->m_child) {
+    return AstNode(node.m_object->m_child,
+                   &m_objects[(RawNodeId)node.m_object->m_child]);
+  }
+  return AstNode();
+}
+
 AstNode AstListener::getNodeChild(const AstNode& node, VObjectType type) const {
   if (node) {
     for (NodeId childId = m_objects[(RawNodeId)node.m_index].m_child; childId;
@@ -356,6 +365,12 @@ bool AstListener::isOnCallstack(const std::set<VObjectType>& types,
     }
   }
   return false;
+}
+
+void AstListener::enterSourceFile(Session* session, PathId fileId,
+                                  const std::string& sourceText) {
+  m_visited.clear();
+  m_session = session;
 }
 
 void AstListener::listen(Session* session, PathId fileId,

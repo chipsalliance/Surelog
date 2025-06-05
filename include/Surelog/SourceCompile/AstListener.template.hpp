@@ -32,6 +32,7 @@
 #include <Surelog/SourceCompile/VObjectTypes.h>
 
 #include <cstdint>
+#include <iterator>
 #include <string>
 #include <string_view>
 #include <type_traits>
@@ -102,6 +103,50 @@ struct AstNodeHash final {
   }
 };
 
+class AstNodeIterationHelper final {
+ public:
+  class Iterator final {
+   public:
+    using value_type = AstNode;
+    using difference_type = std::ptrdiff_t;
+    using pointer = const AstNode*;
+    using reference = const AstNode&;
+    using iterator_category = std::forward_iterator_tag;
+
+    Iterator(const AstListener* listener) : m_listener(listener), m_node() {}
+    Iterator(const AstListener* listener, const AstNode& node)
+        : m_listener(listener), m_node(node) {}
+
+    reference operator*() const { return m_node; }
+    pointer operator->() const { return &m_node; }
+
+    Iterator& operator++();
+    Iterator operator++(int);
+
+    friend bool operator==(const Iterator& a, const Iterator& b) {
+      return (a.m_listener == b.m_listener) && (a.m_node == b.m_node);
+    }
+    friend bool operator!=(const Iterator& a, const Iterator& b) {
+      return !((a.m_listener == b.m_listener) && (a.m_node == b.m_node));
+    }
+
+   private:
+    const AstListener* const m_listener = nullptr;
+    AstNode m_node;
+  };
+
+  AstNodeIterationHelper(const AstListener* listener, const AstNode& node)
+      : m_listener(listener), m_node(node) {}
+  ~AstNodeIterationHelper() = default;
+
+  Iterator begin() { return Iterator(m_listener, m_node); }
+  Iterator end() { return Iterator(m_listener); }
+
+ private:
+  const AstListener* const m_listener = nullptr;
+  const AstNode m_node;
+};
+
 class AstListener {
  protected:
   using astnode_set_t = std::set<AstNode, AstNodeLessComparer>;
@@ -116,7 +161,7 @@ class AstListener {
     return true;
   }
   virtual void enterSourceFile(Session* session, PathId fileId,
-                               const std::string& sourceText) {}
+                               const std::string& sourceText);
   virtual void leaveSourceFile(PathId fileId, const std::string& sourceText) {}
 
   virtual void enter(const AstNode& node) {}
@@ -168,9 +213,18 @@ class AstListener {
   AstNode getNodeNextSibling(const AstNode& node,
                              const std::set<VObjectType>& types) const;
 
+  AstNode getNodeChild(const AstNode& node) const;
   AstNode getNodeChild(const AstNode& node, VObjectType type) const;
   AstNode getNodeChild(const AstNode& node,
                        const std::set<VObjectType>& types) const;
+
+  AstNodeIterationHelper getNodeChildren(const AstNode& node) const {
+    return AstNodeIterationHelper(this, getNodeChild(node));
+  }
+
+  AstNodeIterationHelper getNodeSiblings(const AstNode& node) const {
+    return AstNodeIterationHelper(this, getNodeNextSibling(node));
+  }
 
   bool getNodeChildren(const AstNode& node, astnode_vector_t& children) const;
   bool getNodeSiblings(const AstNode& node, astnode_vector_t& siblings) const;
@@ -199,6 +253,19 @@ class AstListener {
   const VObject* m_objects = nullptr;
   size_t m_count = 0;
 };
+
+inline AstNodeIterationHelper::Iterator&
+AstNodeIterationHelper::Iterator::operator++() {
+  m_node = m_listener->getNodeNextSibling(m_node);
+  return *this;
+}
+
+inline AstNodeIterationHelper::Iterator
+AstNodeIterationHelper::Iterator::operator++(int) {
+  Iterator tmp(m_listener, m_node);
+  m_node = m_listener->getNodeNextSibling(m_node);
+  return tmp;
+}
 }  // namespace SURELOG
 
 #endif  // SURELOG_ASTLISTENER_H
