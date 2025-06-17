@@ -123,10 +123,10 @@ pound_pound_delay: Pound_Pound_delay;
 
 macro_definition
   : define_directive
+  | simple_args_macro_definition
   | multiline_args_macro_definition
   | simple_no_args_macro_definition
   | multiline_no_args_macro_definition
-  | simple_args_macro_definition
   ;
 
 include_directive
