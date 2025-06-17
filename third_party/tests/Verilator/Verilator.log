@@ -1824,15 +1824,6 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WRN:PP0113] ${SURELOG_DIR}/third_party/tests/Verilator/t_pp_display.v:20:9: Unused macro argument "left".
 [ERR:PP0109] ${SURELOG_DIR}/third_party/tests/Verilator/t_pp_display.v:34: Macro instantiation omits argument 1 (x) for "thru",
 ${SURELOG_DIR}/third_party/tests/Verilator/t_pp_display.v:17:9: No default value for argument 1 (x) in macro definition.
-[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_pp_display.v:21:3: Syntax error: no viable alternative at input '$display("left side: \"right side\"" // The 'left' as the variable name shouldn't match the "left" in the `" string\n   initial',
-   initial begin
-   ^--.
-[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_pp_display.v:20:15: Syntax error: no viable alternative at input '("left side: \"right side\""',
-      $display("left side: \"right side\"" // The 'left' as the variable name shouldn't match the "left" in the `" string
-               ^--.
-[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_pp_display.v:31: Syntax error: extraneous input ')' expecting {Pound_Pound_delay, Pound_delay, ATSTAR, AT_PARENS_STAR, ';', ':', 'virtual', 'type', 'bind', 'const', 'static', 'local', 'super', '{', '->', 'if', 'foreach', 'automatic', 'localparam', 'parameter', 'import', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'signed', 'unsigned', 'var', 'void', '$', '++', '--', DOLLAR_UNIT, '(*', 'assert', 'assume', 'cover', 'expect', 'disable', '##', '#', 'begin', 'end', 'case', 'for', 'assign', 'deassign', 'force', 'release', 'fork', 'repeat', '@', 'return', 'break', 'continue', 'wait', 'wait_order', 'unique', 'unique0', 'priority', 'casez', 'casex', 'randcase', 'forever', 'while', 'do', 'restrict', 'let', ''', 'randsequence', 'this', DOLLAR_ROOT, 'randomize', 'sample', '->>', 'nettype', Escaped_identifier, Simple_identifier, SURELOG_MACRO_NOT_DEFINED},
-);
-^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_pp_display.v:39:15: Syntax error: no viable alternative at input '$display(`',
       $display(`"standalone`");
                ^--.
@@ -1846,7 +1837,7 @@ ${SURELOG_DIR}/third_party/tests/Verilator/t_pp_display.v:17:9: No default value
       $display("Line %0d File \"%s\"",49,"${SURELOG_DIR}/third_party/tests/Verilator/t_pp_display.v");
       ^--.
 [  FATAL] : 0
-[ SYNTAX] : 7
+[ SYNTAX] : 4
 [  ERROR] : 1
 [WARNING] : 1
 [   NOTE] : 0
@@ -5638,7 +5629,7 @@ Processing: -cd t_sv_bus_mux_demux +incdir+. -parse -noelab -nocache -nobuiltin 
 [   NOTE] : 0
 Processed 837 tests.
 [  FATAL] : 0
-[ SYNTAX] : 136
+[ SYNTAX] : 133
 [  ERROR] : 154
 [WARNING] : 43
 [   NOTE] : 0
