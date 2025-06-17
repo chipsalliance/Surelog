@@ -235,9 +235,15 @@ class AstListener {
                                    const std::set<VObjectType>& types,
                                    size_t depth = 4) const;
 
-  bool isOnCallstack(VObjectType type, size_t depth = 4) const;
-  bool isOnCallstack(const std::set<VObjectType>& types,
-                     size_t depth = 4) const;
+  size_t getNodeChildCount(const AstNode& node) const;
+  size_t getNodeChildCount(const AstNode& node, VObjectType type) const;
+  size_t getNodeChildCount(const AstNode& node,
+                           const std::set<VObjectType>& types) const;
+
+  size_t getNodeSiblingCount(const AstNode& node) const;
+  size_t getNodeSiblingCount(const AstNode& node, VObjectType type) const;
+  size_t getNodeSiblingCount(const AstNode& node,
+                             const std::set<VObjectType>& types) const;
 
  private:
   // clang-format off
@@ -247,7 +253,6 @@ class AstListener {
  protected:
   Session* m_session = nullptr;
   astnode_set_t m_visited;
-  astnode_stack_t m_callstack;
 
  private:
   const VObject* m_objects = nullptr;

@@ -68,7 +68,8 @@ class AstTraceListener final : public AstListener {
 
   void enterSourceFile(Session* session, SURELOG::PathId fileId,
                        const std::string& sourceText) final {
-    m_session = session;
+    AstListener::enterSourceFile(session, fileId, sourceText);
+
     FileSystem* const fileSystem = m_session->getFileSystem();
 
     m_strm << std::string(m_indent++ * 2, ' ') << __func__ << ": "
@@ -83,6 +84,8 @@ class AstTraceListener final : public AstListener {
   }
   void leaveSourceFile(SURELOG::PathId fileId,
                        const std::string& sourceText) final {
+    AstListener::leaveSourceFile(fileId, sourceText);
+
     FileSystem* const fileSystem = m_session->getFileSystem();
     m_strm << std::string(2 * --m_indent, ' ') << __func__ << ": "
            << SURELOG::PathIdPP(fileId, fileSystem) << std::endl;

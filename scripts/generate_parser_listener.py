@@ -807,7 +807,7 @@ def _generate_SV3_1aPreprocessorTreeListener_cpp(tokens: list, rules: list, temp
 
 
 def _generate_SV3_1aParserTreeListener_cpp(tokens: list, rules: list, template_filepath: str, output_filepath: str):
-  rule_case_statements = [f'    case SV3_1aParser::Rule{rule}: nodeId = addVObject(ctx, VObjectType::pa{rule}); break;' for rule in rules]
+  rule_case_statements = [f'      case SV3_1aParser::Rule{rule}: addVObject(ctx, VObjectType::pa{rule}); break;' for rule in rules]
   visit_case_statements = [
     f'    case SV3_1aParser::{token}: nodeId = addVObject(node, VObjectType::pa{token}); break;'
     for token in tokens if token not in ['Escaped_identifier', 'PREPROC_BEGIN', 'PREPROC_END']

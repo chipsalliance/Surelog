@@ -51,7 +51,7 @@ SV3_1aParserTreeListener::SV3_1aParserTreeListener(
 }
 
 NodeId SV3_1aParserTreeListener::addVObject(antlr4::tree::TerminalNode *node,
-                                           VObjectType objectType) {
+                                            VObjectType objectType) {
   // This call connect the node to the tree i.e. parenting and shouldn't
   // be replaced with node->getSymbol() as second argument. Also, the
   // returned id doesn't get collected in orphans and so parenting gets
@@ -104,7 +104,7 @@ NodeId SV3_1aParserTreeListener::mergeSubTree(NodeId ppNodeId) {
 }
 
 void SV3_1aParserTreeListener::mergeSubTrees(antlr4::tree::ParseTree *tree,
-                                            NodeId ppNodeId) {
+                                             NodeId ppNodeId) {
   const vobjects_t &ppObjects = m_ppFileContent->getVObjects();
   for (NodeId ppChildNodeId = ppObjects[ppNodeId].m_child; ppChildNodeId;
        ppChildNodeId = ppObjects[ppChildNodeId].m_sibling) {
@@ -155,7 +155,7 @@ void SV3_1aParserTreeListener::enterString_value(
 }
 
 void SV3_1aParserTreeListener::overrideLocation(NodeId nodeId,
-                                               antlr4::Token *token) {
+                                                antlr4::Token *token) {
   VObject *const object = m_fileContent->MutableObject(nodeId);
   std::tie(object->m_fileId, object->m_startLine, object->m_startColumn,
            object->m_endLine, object->m_endColumn) =
@@ -234,7 +234,7 @@ void SV3_1aParserTreeListener::visitPreprocBegin(antlr4::Token *token) {
 }
 
 void SV3_1aParserTreeListener::visitPreprocEnd(antlr4::Token *token,
-                                              NodeId ppNodeId) {
+                                               NodeId ppNodeId) {
   antlr4::Token *const endToken = token;
   antlr4::Token *const beginToken = m_preprocBeginStack.back();
   m_preprocBeginStack.pop_back();
@@ -418,10 +418,11 @@ void SV3_1aParserTreeListener::exitEveryRule(antlr4::ParserRuleContext *ctx) {
   if (!shouldAddVObject) return;
 
   // clang-format off
-  NodeId nodeId;
-  switch (ctx->getRuleIndex()) {
+  if (shouldAddVObject) {
+    switch (ctx->getRuleIndex()) {
 <RULE_CASE_STATEMENTS>
-    default: break;
+      default: break;
+    }
   }
   // clang-format on
 
