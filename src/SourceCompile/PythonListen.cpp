@@ -21,6 +21,8 @@
  * Created on June 4, 2017, 8:09 PM
  */
 
+#ifdef SURELOG_WITH_PYTHON
+
 #include "Surelog/SourceCompile/PythonListen.h"
 
 #include "Surelog/API/SV3_1aPythonListener.h"
@@ -85,3 +87,5 @@ bool PythonListen::listen() {
   return true;
 }
 }  // namespace SURELOG
+
+#endif  // SURELOG_WITH_PYTHON

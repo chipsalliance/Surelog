@@ -1260,7 +1260,8 @@ bool Compiler::compile() {
   // Python Listener
   if (parseOk && (clp->pythonListener() || clp->pythonEvalScriptPerFile())) {
     if (!parserInitialized) pythoninit_();
-    if (!compileFileSet_(CompileSourceFile::Action::PythonAPI, true, m_compilers))
+    if (!compileFileSet_(CompileSourceFile::Action::PythonAPI, true,
+                         m_compilers))
       return false;
     if (!compileFileSet_(CompileSourceFile::Action::PythonAPI, true,
                          m_compilersParentFiles))

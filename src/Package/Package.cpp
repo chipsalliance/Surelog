@@ -23,6 +23,9 @@
 
 #include "Surelog/Package/Package.h"
 
+#include <uhdm/Serializer.h>
+#include <uhdm/package.h>
+
 #include <cstdint>
 #include <string_view>
 
@@ -31,9 +34,6 @@
 #include "Surelog/Design/DesignComponent.h"
 #include "Surelog/Design/FileContent.h"
 #include "Surelog/Testbench/ClassDefinition.h"
-
-#include <uhdm/Serializer.h>
-#include <uhdm/package.h>
 
 namespace SURELOG {
 

@@ -3021,7 +3021,7 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
 
 class AlwaysWithForLoop : public VpiListener {
  public:
-  explicit AlwaysWithForLoop() {}
+  explicit AlwaysWithForLoop() = default;
   ~AlwaysWithForLoop() override = default;
   void leaveForStmt(const uhdm::ForStmt* object, vpiHandle handle) override {
     containtsForStmt = true;

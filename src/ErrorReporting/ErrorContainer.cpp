@@ -53,8 +53,6 @@ ErrorContainer::ErrorContainer(Session* session)
   /* Do nothing here */
 }
 
-ErrorContainer::~ErrorContainer() {}
-
 void ErrorContainer::init() {
   if (ErrorDefinition::init()) {
     LogListener* const logListener = m_session->getLogListener();

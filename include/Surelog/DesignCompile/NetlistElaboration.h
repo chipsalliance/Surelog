@@ -35,8 +35,8 @@
 #include <string_view>
 
 // UHDM
-#include <uhdm/interface_array.h>
 #include <uhdm/interface.h>
+#include <uhdm/interface_array.h>
 #include <uhdm/modport.h>
 #include <uhdm/typespec.h>
 #include <uhdm/uhdm_types.h>

@@ -25,6 +25,8 @@
 #define SURELOG_PYTHONAPICACHE_H
 #pragma once
 
+#ifdef SURELOG_WITH_PYTHON
+
 #include <Surelog/Cache/Cache.h>
 #include <Surelog/Cache/PythonAPICache.capnp.h>
 #include <Surelog/Common/PathId.h>
@@ -62,5 +64,7 @@ class PythonAPICache final : Cache {
 };
 
 };  // namespace SURELOG
+
+#endif  // SURELOG_WITH_PYTHON
 
 #endif /* SURELOG_PYTHONAPICACHE_H */

@@ -82,11 +82,6 @@ namespace SURELOG {
 CompileDesign::CompileDesign(Session* session, Compiler* compiler)
     : m_session(session), m_compiler(compiler) {}
 
-CompileDesign::~CompileDesign() {
-  // TODO: ownership not clear.
-  // delete m_compiler;
-}
-
 uhdm::Serializer& CompileDesign::getSerializer() {
   return m_compiler->getSerializer();
 }

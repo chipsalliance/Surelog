@@ -21,6 +21,8 @@
  * Created on April 16, 2017, 8:28 PM
  */
 
+#ifdef SURELOG_WITH_PYTHON
+
 #include "Surelog/API/SV3_1aPythonListener.h"
 
 #include <cstdint>
@@ -48,7 +50,8 @@ SV3_1aPythonListener::~SV3_1aPythonListener() = default;
 
 void SV3_1aPythonListener::logError(ErrorDefinition::ErrorType error,
                                     antlr4::ParserRuleContext* ctx,
-                                    const std::string& object, bool printColumn) {
+                                    const std::string& object,
+                                    bool printColumn) {
   LineColumn lineCol = ParseUtils::getLineColumn(getTokenStream(), ctx);
 
   Location loc(
@@ -77,3 +80,5 @@ void SV3_1aPythonListener::logError(ErrorDefinition::ErrorType error,
                                                               showDuplicates);
 }
 }  // namespace SURELOG
+
+#endif  // SURELOG_WITH_PYTHON

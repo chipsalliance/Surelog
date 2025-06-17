@@ -38,7 +38,12 @@ class MacroInfo;
 
 class IncludeFileInfo final {
  public:
-  enum class Context : uint16_t { None = 0, Include = 1, Macro = 2, Directive = 3 };
+  enum class Context : uint16_t {
+    None = 0,
+    Include = 1,
+    Macro = 2,
+    Directive = 3
+  };
   enum class Action : uint16_t { None = 0, Push = 1, Pop = 2 };
 
   IncludeFileInfo(Context context, Action action, PathId sectionFileId,

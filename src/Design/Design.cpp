@@ -22,6 +22,8 @@
  * Created on July 1, 2017, 1:23 PM
  */
 
+#include <uhdm/design.h>
+
 #include <cstdint>
 #include <iterator>
 #include <map>
@@ -51,7 +53,6 @@
 #include "Surelog/Testbench/ClassDefinition.h"
 #include "Surelog/Testbench/Program.h"
 #include "Surelog/Utils/StringUtils.h"
-#include <uhdm/design.h>
 
 namespace SURELOG {
 

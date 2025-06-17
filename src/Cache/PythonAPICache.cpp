@@ -23,6 +23,8 @@
 
 #include "Surelog/Cache/PythonAPICache.h"
 
+#ifdef SURELOG_WITH_PYTHON
+
 #include <capnp/blob.h>
 #include <capnp/list.h>
 #include <capnp/serialize-packed.h>
@@ -247,3 +249,5 @@ bool PythonAPICache::save() {
   return true;
 }
 }  // namespace SURELOG
+
+#endif  // SURELOG_WITH_PYTHON

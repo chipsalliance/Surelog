@@ -23,6 +23,8 @@
  * Created on March 25, 2018, 10:27 PM
  */
 
+#include <uhdm/import_typespec.h>
+
 #include <string_view>
 #include <utility>
 #include <vector>
@@ -38,8 +40,6 @@
 #include "Surelog/Testbench/TaskMethod.h"
 #include "Surelog/Testbench/TypeDef.h"
 #include "Surelog/Testbench/Variable.h"
-
-#include <uhdm/import_typespec.h>
 
 namespace SURELOG {
 void DesignComponent::addFileContent(const FileContent* fileContent,

@@ -58,7 +58,7 @@ class CompileDesign {
   // Note: takes owernship of compiler
   CompileDesign(Session* session, Compiler* compiler);
   CompileDesign(const CompileDesign& orig) = delete;
-  virtual ~CompileDesign();  // Used in MockCompileDesign
+  virtual ~CompileDesign() = default;  // Used in MockCompileDesign
 
   bool compile();
   bool elaborate();

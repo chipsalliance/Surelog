@@ -75,8 +75,8 @@ std::unique_ptr<FileContent> ParserHarness::parse(std::string_view content) {
   m_h->m_csf = std::make_unique<CompileSourceFile>(
       m_session, BadPathId, m_h->m_compiler.get(), m_h->m_unit.get(),
       m_h->m_lib.get());
-  m_h->m_pf.reset(new ParseFile(m_session, content, m_h->m_csf.get(),
-                                m_h->m_unit.get(), m_h->m_lib.get()));
+  m_h->m_pf = std::make_unique<ParseFile>(m_session, content, m_h->m_csf.get(),
+                                          m_h->m_unit.get(), m_h->m_lib.get());
   std::unique_ptr<FileContent> file_content_result(
       std::make_unique<FileContent>(m_session, BadPathId, m_h->m_lib.get(),
                                     nullptr, BadPathId));

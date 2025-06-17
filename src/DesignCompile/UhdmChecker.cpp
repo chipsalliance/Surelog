@@ -431,7 +431,8 @@ bool UhdmChecker::reportHtml(PathId uhdmFileId, float overallCoverage) {
   }
 
   report << "<h2 style=\"text-decoration: underline\">"
-         << "All Uncovered: " << "</h2>\n";
+         << "All Uncovered: "
+         << "</h2>\n";
   report << allUncovered << "\n";
   report << "</body>\n</html>\n";
   fileSystem->close(report);
@@ -499,7 +500,8 @@ float UhdmChecker::reportCoverage(PathId uhdmFileId) {
           firstUncoveredLine = cItr.first;
           report << "\n\n"
                  << fileSystem->toPath(fC->getFileId()) << ":" << cItr.first
-                 << ": " << " Missing models\n";
+                 << ": "
+                 << " Missing models\n";
           fileNamePrinted = true;
         }
         report << "Line: " << cItr.first << "\n";
@@ -530,7 +532,8 @@ float UhdmChecker::reportCoverage(PathId uhdmFileId) {
   report << "\nOrdered coverage:\n";
   for (const auto& covFile : m_coverageMap) {
     report << covFile.second.first << ":" << covFile.second.second << ": "
-           << std::setprecision(3) << covFile.first << "% " << "\n";
+           << std::setprecision(3) << covFile.first << "% "
+           << "\n";
   }
   fileSystem->close(report);
   return overallCoverage;

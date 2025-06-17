@@ -1451,8 +1451,8 @@ uhdm::Any* CompileHelper::compileVariable(
 
     obj->setParent(pscope);
     if ((array_var->getTypespec() == nullptr) || associative) {
-      array_var->getVariables(true)->emplace_back((uhdm::Variables*)obj);
-      ((uhdm::Variables*)obj)->setName("");
+      array_var->getVariables(true)->emplace_back(obj);
+      obj->setName("");
     }
     if (array_var->getTypespec() == nullptr) {
       uhdm::ArrayTypespec* attps = s.make<uhdm::ArrayTypespec>();

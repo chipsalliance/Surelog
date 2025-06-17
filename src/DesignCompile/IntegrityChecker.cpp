@@ -41,7 +41,7 @@ IntegrityChecker::IntegrityChecker(Session* session)
           uhdm::UhdmType::PreprocMacroInstance,
       }) {}
 
-static std::string asSymbol(const uhdm::Any* const object) {
+static std::string asSymbol(const uhdm::Any* object) {
   return StrCat(object->getUhdmId(), ", ",
                 uhdm::UhdmName(object->getUhdmType()), ", ", object->getName());
 }
@@ -60,8 +60,7 @@ std::string_view IntegrityChecker::toString(LineColumnRelation relation) const {
   return "VeryBad";
 }
 
-bool IntegrityChecker::isBuiltInPackageOnStack(
-    const uhdm::Any* const object) const {
+bool IntegrityChecker::isBuiltInPackageOnStack(const uhdm::Any* object) const {
   static constexpr std::string_view kBuiltIn{"builtin"};
   return ((object->getUhdmType() == uhdm::UhdmType::Package) &&
           (object->getName() == kBuiltIn)) ||
@@ -73,7 +72,7 @@ bool IntegrityChecker::isBuiltInPackageOnStack(
              }) != m_callstack.rend();
 }
 
-bool IntegrityChecker::isUVMMember(const uhdm::Any* const object) const {
+bool IntegrityChecker::isUVMMember(const uhdm::Any* object) const {
   std::string_view filepath = object->getFile();
   return (filepath.find("\\uvm_") != std::string_view::npos) ||
          (filepath.find("/uvm_") != std::string_view::npos) ||
@@ -82,7 +81,7 @@ bool IntegrityChecker::isUVMMember(const uhdm::Any* const object) const {
 }
 
 template <typename T>
-void IntegrityChecker::reportDuplicates(const uhdm::Any* const object,
+void IntegrityChecker::reportDuplicates(const uhdm::Any* object,
                                         const std::vector<T*>& collection,
                                         uint32_t vpiRelation) const {
   if (isUVMMember(object)) return;
@@ -145,7 +144,7 @@ IntegrityChecker::getLineColumnRelation(uint32_t csl, uint16_t csc,
 }
 
 std::set<const uhdm::PreprocMacroInstance*> IntegrityChecker::getMacroInstances(
-    const uhdm::Any* const object) const {
+    const uhdm::Any* object) const {
   std::pair<any_macro_instance_map_t::const_iterator,
             any_macro_instance_map_t::const_iterator>
       bounds = m_anyMacroInstance.equal_range(object);
@@ -157,8 +156,7 @@ std::set<const uhdm::PreprocMacroInstance*> IntegrityChecker::getMacroInstances(
   return pmis;
 }
 
-void IntegrityChecker::reportInvalidLocation(
-    const uhdm::Any* const object) const {
+void IntegrityChecker::reportInvalidLocation(const uhdm::Any* object) const {
   if ((object->getStartLine() == 0) && (object->getEndLine() == 0) &&
       (object->getStartColumn() == 0) && (object->getEndColumn() == 0))
     return;
@@ -492,8 +490,7 @@ void IntegrityChecker::reportInvalidLocation(
   }
 }
 
-void IntegrityChecker::reportMissingLocation(
-    const uhdm::Any* const object) const {
+void IntegrityChecker::reportMissingLocation(const uhdm::Any* object) const {
   if ((object->getStartLine() != 0) && (object->getStartColumn() != 0) &&
       (object->getEndLine() != 0) && (object->getEndColumn() != 0))
     return;
@@ -602,14 +599,14 @@ std::string_view IntegrityChecker::stripDecorations(std::string_view name) {
   return name;
 }
 
-bool IntegrityChecker::areNamedSame(const uhdm::Any* const object,
-                                    const uhdm::Any* const actual) {
+bool IntegrityChecker::areNamedSame(const uhdm::Any* object,
+                                    const uhdm::Any* actual) {
   std::string_view objectName = stripDecorations(object->getName());
   std::string_view actualName = stripDecorations(actual->getName());
   return (objectName == actualName);
 }
 
-void IntegrityChecker::reportInvalidNames(const uhdm::Any* const object) const {
+void IntegrityChecker::reportInvalidNames(const uhdm::Any* object) const {
   // Implicit function return type are unnammed.
   if (isImplicitFunctionReturnType(object)) return;
 
@@ -686,7 +683,7 @@ void IntegrityChecker::reportInvalidNames(const uhdm::Any* const object) const {
   }
 }
 
-void IntegrityChecker::reportInvalidFile(const uhdm::Any* const object) const {
+void IntegrityChecker::reportInvalidFile(const uhdm::Any* object) const {
   if (object->getUhdmType() == uhdm::UhdmType::Design) return;
 
   std::string_view filename = object->getFile();
@@ -703,7 +700,7 @@ void IntegrityChecker::reportInvalidFile(const uhdm::Any* const object) const {
   }
 }
 
-void IntegrityChecker::reportNullActual(const uhdm::Any* const object) const {
+void IntegrityChecker::reportNullActual(const uhdm::Any* object) const {
   if (isBuiltInPackageOnStack(object)) return;
 
   bool shouldReport = false;
@@ -759,8 +756,7 @@ void IntegrityChecker::reportNullActual(const uhdm::Any* const object) const {
   }
 }
 
-void IntegrityChecker::enterAny(const uhdm::Any* const object,
-                                uint32_t vpiRelation) {
+void IntegrityChecker::enterAny(const uhdm::Any* object, uint32_t vpiRelation) {
   if (isBuiltInPackageOnStack(object)) return;
   if (isUVMMember(object)) return;
 
@@ -929,1190 +925,1190 @@ void IntegrityChecker::enterAny(const uhdm::Any* const object,
 }
 
 void IntegrityChecker::enterAliasCollection(
-    const uhdm::Any* const object, const uhdm::AliasCollection& objects,
+    const uhdm::Any* object, const uhdm::AliasCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterAlwaysCollection(
-    const uhdm::Any* const object, const uhdm::AlwaysCollection& objects,
+    const uhdm::Any* object, const uhdm::AlwaysCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
-void IntegrityChecker::enterAnyCollection(const uhdm::Any* const object,
+void IntegrityChecker::enterAnyCollection(const uhdm::Any* object,
                                           const uhdm::AnyCollection& objects,
                                           uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterAnyPatternCollection(
-    const uhdm::Any* const object, const uhdm::AnyPatternCollection& objects,
+    const uhdm::Any* object, const uhdm::AnyPatternCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterArrayExprCollection(
-    const uhdm::Any* const object, const uhdm::ArrayExprCollection& objects,
+    const uhdm::Any* object, const uhdm::ArrayExprCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterArrayNetCollection(
-    const uhdm::Any* const object, const uhdm::ArrayNetCollection& objects,
+    const uhdm::Any* object, const uhdm::ArrayNetCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterArrayTypespecCollection(
-    const uhdm::Any* const object, const uhdm::ArrayTypespecCollection& objects,
+    const uhdm::Any* object, const uhdm::ArrayTypespecCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterArrayVarCollection(
-    const uhdm::Any* const object, const uhdm::ArrayVarCollection& objects,
+    const uhdm::Any* object, const uhdm::ArrayVarCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterAssertCollection(
-    const uhdm::Any* const object, const uhdm::AssertCollection& objects,
+    const uhdm::Any* object, const uhdm::AssertCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterAssignStmtCollection(
-    const uhdm::Any* const object, const uhdm::AssignStmtCollection& objects,
+    const uhdm::Any* object, const uhdm::AssignStmtCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterAssignmentCollection(
-    const uhdm::Any* const object, const uhdm::AssignmentCollection& objects,
+    const uhdm::Any* object, const uhdm::AssignmentCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterAssumeCollection(
-    const uhdm::Any* const object, const uhdm::AssumeCollection& objects,
+    const uhdm::Any* object, const uhdm::AssumeCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterAtomicStmtCollection(
-    const uhdm::Any* const object, const uhdm::AtomicStmtCollection& objects,
+    const uhdm::Any* object, const uhdm::AtomicStmtCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterAttributeCollection(
-    const uhdm::Any* const object, const uhdm::AttributeCollection& objects,
+    const uhdm::Any* object, const uhdm::AttributeCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterBeginCollection(
-    const uhdm::Any* const object, const uhdm::BeginCollection& objects,
+    const uhdm::Any* object, const uhdm::BeginCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterBitSelectCollection(
-    const uhdm::Any* const object, const uhdm::BitSelectCollection& objects,
+    const uhdm::Any* object, const uhdm::BitSelectCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterBitTypespecCollection(
-    const uhdm::Any* const object, const uhdm::BitTypespecCollection& objects,
+    const uhdm::Any* object, const uhdm::BitTypespecCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterBitVarCollection(
-    const uhdm::Any* const object, const uhdm::BitVarCollection& objects,
+    const uhdm::Any* object, const uhdm::BitVarCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterBreakStmtCollection(
-    const uhdm::Any* const object, const uhdm::BreakStmtCollection& objects,
+    const uhdm::Any* object, const uhdm::BreakStmtCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterByteTypespecCollection(
-    const uhdm::Any* const object, const uhdm::ByteTypespecCollection& objects,
+    const uhdm::Any* object, const uhdm::ByteTypespecCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterByteVarCollection(
-    const uhdm::Any* const object, const uhdm::ByteVarCollection& objects,
+    const uhdm::Any* object, const uhdm::ByteVarCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterCaseItemCollection(
-    const uhdm::Any* const object, const uhdm::CaseItemCollection& objects,
+    const uhdm::Any* object, const uhdm::CaseItemCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterCasePropertyCollection(
-    const uhdm::Any* const object, const uhdm::CasePropertyCollection& objects,
+    const uhdm::Any* object, const uhdm::CasePropertyCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterCasePropertyItemCollection(
-    const uhdm::Any* const object,
-    const uhdm::CasePropertyItemCollection& objects, uint32_t vpiRelation) {
+    const uhdm::Any* object, const uhdm::CasePropertyItemCollection& objects,
+    uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterCaseStmtCollection(
-    const uhdm::Any* const object, const uhdm::CaseStmtCollection& objects,
+    const uhdm::Any* object, const uhdm::CaseStmtCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterChandleTypespecCollection(
-    const uhdm::Any* const object,
-    const uhdm::ChandleTypespecCollection& objects, uint32_t vpiRelation) {
+    const uhdm::Any* object, const uhdm::ChandleTypespecCollection& objects,
+    uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterChandleVarCollection(
-    const uhdm::Any* const object, const uhdm::ChandleVarCollection& objects,
+    const uhdm::Any* object, const uhdm::ChandleVarCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterCheckerDeclCollection(
-    const uhdm::Any* const object, const uhdm::CheckerDeclCollection& objects,
+    const uhdm::Any* object, const uhdm::CheckerDeclCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterCheckerInstCollection(
-    const uhdm::Any* const object, const uhdm::CheckerInstCollection& objects,
+    const uhdm::Any* object, const uhdm::CheckerInstCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterCheckerInstPortCollection(
-    const uhdm::Any* const object,
-    const uhdm::CheckerInstPortCollection& objects, uint32_t vpiRelation) {
+    const uhdm::Any* object, const uhdm::CheckerInstPortCollection& objects,
+    uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterCheckerPortCollection(
-    const uhdm::Any* const object, const uhdm::CheckerPortCollection& objects,
+    const uhdm::Any* object, const uhdm::CheckerPortCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterClassDefnCollection(
-    const uhdm::Any* const object, const uhdm::ClassDefnCollection& objects,
+    const uhdm::Any* object, const uhdm::ClassDefnCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterClassObjCollection(
-    const uhdm::Any* const object, const uhdm::ClassObjCollection& objects,
+    const uhdm::Any* object, const uhdm::ClassObjCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterClassTypespecCollection(
-    const uhdm::Any* const object, const uhdm::ClassTypespecCollection& objects,
+    const uhdm::Any* object, const uhdm::ClassTypespecCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterClassVarCollection(
-    const uhdm::Any* const object, const uhdm::ClassVarCollection& objects,
+    const uhdm::Any* object, const uhdm::ClassVarCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterClockedPropertyCollection(
-    const uhdm::Any* const object,
-    const uhdm::ClockedPropertyCollection& objects, uint32_t vpiRelation) {
+    const uhdm::Any* object, const uhdm::ClockedPropertyCollection& objects,
+    uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterClockedSeqCollection(
-    const uhdm::Any* const object, const uhdm::ClockedSeqCollection& objects,
+    const uhdm::Any* object, const uhdm::ClockedSeqCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterClockingBlockCollection(
-    const uhdm::Any* const object, const uhdm::ClockingBlockCollection& objects,
+    const uhdm::Any* object, const uhdm::ClockingBlockCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterClockingIODeclCollection(
-    const uhdm::Any* const object,
-    const uhdm::ClockingIODeclCollection& objects, uint32_t vpiRelation) {
+    const uhdm::Any* object, const uhdm::ClockingIODeclCollection& objects,
+    uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterConcurrentAssertionsCollection(
-    const uhdm::Any* const object,
+    const uhdm::Any* object,
     const uhdm::ConcurrentAssertionsCollection& objects, uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterConstantCollection(
-    const uhdm::Any* const object, const uhdm::ConstantCollection& objects,
+    const uhdm::Any* object, const uhdm::ConstantCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterConstrForeachCollection(
-    const uhdm::Any* const object, const uhdm::ConstrForeachCollection& objects,
+    const uhdm::Any* object, const uhdm::ConstrForeachCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterConstrIfCollection(
-    const uhdm::Any* const object, const uhdm::ConstrIfCollection& objects,
+    const uhdm::Any* object, const uhdm::ConstrIfCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterConstrIfElseCollection(
-    const uhdm::Any* const object, const uhdm::ConstrIfElseCollection& objects,
+    const uhdm::Any* object, const uhdm::ConstrIfElseCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterConstraintCollection(
-    const uhdm::Any* const object, const uhdm::ConstraintCollection& objects,
+    const uhdm::Any* object, const uhdm::ConstraintCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterConstraintExprCollection(
-    const uhdm::Any* const object,
-    const uhdm::ConstraintExprCollection& objects, uint32_t vpiRelation) {
+    const uhdm::Any* object, const uhdm::ConstraintExprCollection& objects,
+    uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterConstraintOrderingCollection(
-    const uhdm::Any* const object,
-    const uhdm::ConstraintOrderingCollection& objects, uint32_t vpiRelation) {
+    const uhdm::Any* object, const uhdm::ConstraintOrderingCollection& objects,
+    uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterContAssignBitCollection(
-    const uhdm::Any* const object, const uhdm::ContAssignBitCollection& objects,
+    const uhdm::Any* object, const uhdm::ContAssignBitCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterContAssignCollection(
-    const uhdm::Any* const object, const uhdm::ContAssignCollection& objects,
+    const uhdm::Any* object, const uhdm::ContAssignCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterContinueStmtCollection(
-    const uhdm::Any* const object, const uhdm::ContinueStmtCollection& objects,
+    const uhdm::Any* object, const uhdm::ContinueStmtCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterCoverCollection(
-    const uhdm::Any* const object, const uhdm::CoverCollection& objects,
+    const uhdm::Any* object, const uhdm::CoverCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterDeassignCollection(
-    const uhdm::Any* const object, const uhdm::DeassignCollection& objects,
+    const uhdm::Any* object, const uhdm::DeassignCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterDefParamCollection(
-    const uhdm::Any* const object, const uhdm::DefParamCollection& objects,
+    const uhdm::Any* object, const uhdm::DefParamCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterDelayControlCollection(
-    const uhdm::Any* const object, const uhdm::DelayControlCollection& objects,
+    const uhdm::Any* object, const uhdm::DelayControlCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterDelayTermCollection(
-    const uhdm::Any* const object, const uhdm::DelayTermCollection& objects,
+    const uhdm::Any* object, const uhdm::DelayTermCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterDesignCollection(
-    const uhdm::Any* const object, const uhdm::DesignCollection& objects,
+    const uhdm::Any* object, const uhdm::DesignCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterDisableCollection(
-    const uhdm::Any* const object, const uhdm::DisableCollection& objects,
+    const uhdm::Any* object, const uhdm::DisableCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterDisableForkCollection(
-    const uhdm::Any* const object, const uhdm::DisableForkCollection& objects,
+    const uhdm::Any* object, const uhdm::DisableForkCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterDisablesCollection(
-    const uhdm::Any* const object, const uhdm::DisablesCollection& objects,
+    const uhdm::Any* object, const uhdm::DisablesCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterDistItemCollection(
-    const uhdm::Any* const object, const uhdm::DistItemCollection& objects,
+    const uhdm::Any* object, const uhdm::DistItemCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterDistributionCollection(
-    const uhdm::Any* const object, const uhdm::DistributionCollection& objects,
+    const uhdm::Any* object, const uhdm::DistributionCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterDoWhileCollection(
-    const uhdm::Any* const object, const uhdm::DoWhileCollection& objects,
+    const uhdm::Any* object, const uhdm::DoWhileCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterEnumConstCollection(
-    const uhdm::Any* const object, const uhdm::EnumConstCollection& objects,
+    const uhdm::Any* object, const uhdm::EnumConstCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterEnumNetCollection(
-    const uhdm::Any* const object, const uhdm::EnumNetCollection& objects,
+    const uhdm::Any* object, const uhdm::EnumNetCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterEnumTypespecCollection(
-    const uhdm::Any* const object, const uhdm::EnumTypespecCollection& objects,
+    const uhdm::Any* object, const uhdm::EnumTypespecCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterEnumVarCollection(
-    const uhdm::Any* const object, const uhdm::EnumVarCollection& objects,
+    const uhdm::Any* object, const uhdm::EnumVarCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterEventControlCollection(
-    const uhdm::Any* const object, const uhdm::EventControlCollection& objects,
+    const uhdm::Any* object, const uhdm::EventControlCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterEventStmtCollection(
-    const uhdm::Any* const object, const uhdm::EventStmtCollection& objects,
+    const uhdm::Any* object, const uhdm::EventStmtCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterEventTypespecCollection(
-    const uhdm::Any* const object, const uhdm::EventTypespecCollection& objects,
+    const uhdm::Any* object, const uhdm::EventTypespecCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterExpectStmtCollection(
-    const uhdm::Any* const object, const uhdm::ExpectStmtCollection& objects,
+    const uhdm::Any* object, const uhdm::ExpectStmtCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
-void IntegrityChecker::enterExprCollection(const uhdm::Any* const object,
+void IntegrityChecker::enterExprCollection(const uhdm::Any* object,
                                            const uhdm::ExprCollection& objects,
                                            uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterExtendsCollection(
-    const uhdm::Any* const object, const uhdm::ExtendsCollection& objects,
+    const uhdm::Any* object, const uhdm::ExtendsCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterFinalStmtCollection(
-    const uhdm::Any* const object, const uhdm::FinalStmtCollection& objects,
+    const uhdm::Any* object, const uhdm::FinalStmtCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterForStmtCollection(
-    const uhdm::Any* const object, const uhdm::ForStmtCollection& objects,
+    const uhdm::Any* object, const uhdm::ForStmtCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterForceCollection(
-    const uhdm::Any* const object, const uhdm::ForceCollection& objects,
+    const uhdm::Any* object, const uhdm::ForceCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterForeachStmtCollection(
-    const uhdm::Any* const object, const uhdm::ForeachStmtCollection& objects,
+    const uhdm::Any* object, const uhdm::ForeachStmtCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterForeverStmtCollection(
-    const uhdm::Any* const object, const uhdm::ForeverStmtCollection& objects,
+    const uhdm::Any* object, const uhdm::ForeverStmtCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterForkStmtCollection(
-    const uhdm::Any* const object, const uhdm::ForkStmtCollection& objects,
+    const uhdm::Any* object, const uhdm::ForkStmtCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterFuncCallCollection(
-    const uhdm::Any* const object, const uhdm::FuncCallCollection& objects,
+    const uhdm::Any* object, const uhdm::FuncCallCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterFunctionCollection(
-    const uhdm::Any* const object, const uhdm::FunctionCollection& objects,
+    const uhdm::Any* object, const uhdm::FunctionCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterFunctionDeclCollection(
-    const uhdm::Any* const object, const uhdm::FunctionDeclCollection& objects,
+    const uhdm::Any* object, const uhdm::FunctionDeclCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterGateArrayCollection(
-    const uhdm::Any* const object, const uhdm::GateArrayCollection& objects,
+    const uhdm::Any* object, const uhdm::GateArrayCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
-void IntegrityChecker::enterGateCollection(const uhdm::Any* const object,
+void IntegrityChecker::enterGateCollection(const uhdm::Any* object,
                                            const uhdm::GateCollection& objects,
                                            uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterGenCaseCollection(
-    const uhdm::Any* const object, const uhdm::GenCaseCollection& objects,
+    const uhdm::Any* object, const uhdm::GenCaseCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterGenForCollection(
-    const uhdm::Any* const object, const uhdm::GenForCollection& objects,
+    const uhdm::Any* object, const uhdm::GenForCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterGenIfCollection(
-    const uhdm::Any* const object, const uhdm::GenIfCollection& objects,
+    const uhdm::Any* object, const uhdm::GenIfCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterGenIfElseCollection(
-    const uhdm::Any* const object, const uhdm::GenIfElseCollection& objects,
+    const uhdm::Any* object, const uhdm::GenIfElseCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterGenRegionCollection(
-    const uhdm::Any* const object, const uhdm::GenRegionCollection& objects,
+    const uhdm::Any* object, const uhdm::GenRegionCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterGenScopeArrayCollection(
-    const uhdm::Any* const object, const uhdm::GenScopeArrayCollection& objects,
+    const uhdm::Any* object, const uhdm::GenScopeArrayCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterGenScopeCollection(
-    const uhdm::Any* const object, const uhdm::GenScopeCollection& objects,
+    const uhdm::Any* object, const uhdm::GenScopeCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterGenStmtCollection(
-    const uhdm::Any* const object, const uhdm::GenStmtCollection& objects,
+    const uhdm::Any* object, const uhdm::GenStmtCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterGenVarCollection(
-    const uhdm::Any* const object, const uhdm::GenVarCollection& objects,
+    const uhdm::Any* object, const uhdm::GenVarCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterHierPathCollection(
-    const uhdm::Any* const object, const uhdm::HierPathCollection& objects,
+    const uhdm::Any* object, const uhdm::HierPathCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterIODeclCollection(
-    const uhdm::Any* const object, const uhdm::IODeclCollection& objects,
+    const uhdm::Any* object, const uhdm::IODeclCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterIfElseCollection(
-    const uhdm::Any* const object, const uhdm::IfElseCollection& objects,
+    const uhdm::Any* object, const uhdm::IfElseCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterIfStmtCollection(
-    const uhdm::Any* const object, const uhdm::IfStmtCollection& objects,
+    const uhdm::Any* object, const uhdm::IfStmtCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterImmediateAssertCollection(
-    const uhdm::Any* const object,
-    const uhdm::ImmediateAssertCollection& objects, uint32_t vpiRelation) {
+    const uhdm::Any* object, const uhdm::ImmediateAssertCollection& objects,
+    uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterImmediateAssumeCollection(
-    const uhdm::Any* const object,
-    const uhdm::ImmediateAssumeCollection& objects, uint32_t vpiRelation) {
+    const uhdm::Any* object, const uhdm::ImmediateAssumeCollection& objects,
+    uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterImmediateCoverCollection(
-    const uhdm::Any* const object,
-    const uhdm::ImmediateCoverCollection& objects, uint32_t vpiRelation) {
+    const uhdm::Any* object, const uhdm::ImmediateCoverCollection& objects,
+    uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterImplicationCollection(
-    const uhdm::Any* const object, const uhdm::ImplicationCollection& objects,
+    const uhdm::Any* object, const uhdm::ImplicationCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterImportTypespecCollection(
-    const uhdm::Any* const object,
-    const uhdm::ImportTypespecCollection& objects, uint32_t vpiRelation) {
+    const uhdm::Any* object, const uhdm::ImportTypespecCollection& objects,
+    uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterIndexedPartSelectCollection(
-    const uhdm::Any* const object,
-    const uhdm::IndexedPartSelectCollection& objects, uint32_t vpiRelation) {
+    const uhdm::Any* object, const uhdm::IndexedPartSelectCollection& objects,
+    uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterInitialCollection(
-    const uhdm::Any* const object, const uhdm::InitialCollection& objects,
+    const uhdm::Any* object, const uhdm::InitialCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterInstanceArrayCollection(
-    const uhdm::Any* const object, const uhdm::InstanceArrayCollection& objects,
+    const uhdm::Any* object, const uhdm::InstanceArrayCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterInstanceCollection(
-    const uhdm::Any* const object, const uhdm::InstanceCollection& objects,
+    const uhdm::Any* object, const uhdm::InstanceCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterIntTypespecCollection(
-    const uhdm::Any* const object, const uhdm::IntTypespecCollection& objects,
+    const uhdm::Any* object, const uhdm::IntTypespecCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterIntVarCollection(
-    const uhdm::Any* const object, const uhdm::IntVarCollection& objects,
+    const uhdm::Any* object, const uhdm::IntVarCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterIntegerNetCollection(
-    const uhdm::Any* const object, const uhdm::IntegerNetCollection& objects,
+    const uhdm::Any* object, const uhdm::IntegerNetCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterIntegerTypespecCollection(
-    const uhdm::Any* const object,
-    const uhdm::IntegerTypespecCollection& objects, uint32_t vpiRelation) {
+    const uhdm::Any* object, const uhdm::IntegerTypespecCollection& objects,
+    uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterIntegerVarCollection(
-    const uhdm::Any* const object, const uhdm::IntegerVarCollection& objects,
+    const uhdm::Any* object, const uhdm::IntegerVarCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterInterfaceArrayCollection(
-    const uhdm::Any* const object,
-    const uhdm::InterfaceArrayCollection& objects, uint32_t vpiRelation) {
+    const uhdm::Any* object, const uhdm::InterfaceArrayCollection& objects,
+    uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterInterfaceCollection(
-    const uhdm::Any* const object, const uhdm::InterfaceCollection& objects,
+    const uhdm::Any* object, const uhdm::InterfaceCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterInterfaceTFDeclCollection(
-    const uhdm::Any* const object,
-    const uhdm::InterfaceTFDeclCollection& objects, uint32_t vpiRelation) {
+    const uhdm::Any* object, const uhdm::InterfaceTFDeclCollection& objects,
+    uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterInterfaceTypespecCollection(
-    const uhdm::Any* const object,
-    const uhdm::InterfaceTypespecCollection& objects, uint32_t vpiRelation) {
+    const uhdm::Any* object, const uhdm::InterfaceTypespecCollection& objects,
+    uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterLetDeclCollection(
-    const uhdm::Any* const object, const uhdm::LetDeclCollection& objects,
+    const uhdm::Any* object, const uhdm::LetDeclCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterLetExprCollection(
-    const uhdm::Any* const object, const uhdm::LetExprCollection& objects,
+    const uhdm::Any* object, const uhdm::LetExprCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterLogicNetCollection(
-    const uhdm::Any* const object, const uhdm::LogicNetCollection& objects,
+    const uhdm::Any* object, const uhdm::LogicNetCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterLogicTypespecCollection(
-    const uhdm::Any* const object, const uhdm::LogicTypespecCollection& objects,
+    const uhdm::Any* object, const uhdm::LogicTypespecCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterLogicVarCollection(
-    const uhdm::Any* const object, const uhdm::LogicVarCollection& objects,
+    const uhdm::Any* object, const uhdm::LogicVarCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterLongIntTypespecCollection(
-    const uhdm::Any* const object,
-    const uhdm::LongIntTypespecCollection& objects, uint32_t vpiRelation) {
+    const uhdm::Any* object, const uhdm::LongIntTypespecCollection& objects,
+    uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterLongIntVarCollection(
-    const uhdm::Any* const object, const uhdm::LongIntVarCollection& objects,
+    const uhdm::Any* object, const uhdm::LongIntVarCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterMethodFuncCallCollection(
-    const uhdm::Any* const object,
-    const uhdm::MethodFuncCallCollection& objects, uint32_t vpiRelation) {
+    const uhdm::Any* object, const uhdm::MethodFuncCallCollection& objects,
+    uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterMethodTaskCallCollection(
-    const uhdm::Any* const object,
-    const uhdm::MethodTaskCallCollection& objects, uint32_t vpiRelation) {
+    const uhdm::Any* object, const uhdm::MethodTaskCallCollection& objects,
+    uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterModPathCollection(
-    const uhdm::Any* const object, const uhdm::ModPathCollection& objects,
+    const uhdm::Any* object, const uhdm::ModPathCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterModportCollection(
-    const uhdm::Any* const object, const uhdm::ModportCollection& objects,
+    const uhdm::Any* object, const uhdm::ModportCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterModuleArrayCollection(
-    const uhdm::Any* const object, const uhdm::ModuleArrayCollection& objects,
+    const uhdm::Any* object, const uhdm::ModuleArrayCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterModuleCollection(
-    const uhdm::Any* const object, const uhdm::ModuleCollection& objects,
+    const uhdm::Any* object, const uhdm::ModuleCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterModuleTypespecCollection(
-    const uhdm::Any* const object,
-    const uhdm::ModuleTypespecCollection& objects, uint32_t vpiRelation) {
+    const uhdm::Any* object, const uhdm::ModuleTypespecCollection& objects,
+    uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterMulticlockSequenceExprCollection(
-    const uhdm::Any* const object,
+    const uhdm::Any* object,
     const uhdm::MulticlockSequenceExprCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterNamedEventArrayCollection(
-    const uhdm::Any* const object,
-    const uhdm::NamedEventArrayCollection& objects, uint32_t vpiRelation) {
+    const uhdm::Any* object, const uhdm::NamedEventArrayCollection& objects,
+    uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterNamedEventCollection(
-    const uhdm::Any* const object, const uhdm::NamedEventCollection& objects,
+    const uhdm::Any* object, const uhdm::NamedEventCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterNetBitCollection(
-    const uhdm::Any* const object, const uhdm::NetBitCollection& objects,
+    const uhdm::Any* object, const uhdm::NetBitCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
-void IntegrityChecker::enterNetCollection(const uhdm::Any* const object,
+void IntegrityChecker::enterNetCollection(const uhdm::Any* object,
                                           const uhdm::NetCollection& objects,
                                           uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterNetDriversCollection(
-    const uhdm::Any* const object, const uhdm::NetDriversCollection& objects,
+    const uhdm::Any* object, const uhdm::NetDriversCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterNetLoadsCollection(
-    const uhdm::Any* const object, const uhdm::NetLoadsCollection& objects,
+    const uhdm::Any* object, const uhdm::NetLoadsCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
-void IntegrityChecker::enterNetsCollection(const uhdm::Any* const object,
+void IntegrityChecker::enterNetsCollection(const uhdm::Any* object,
                                            const uhdm::NetsCollection& objects,
                                            uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterNullStmtCollection(
-    const uhdm::Any* const object, const uhdm::NullStmtCollection& objects,
+    const uhdm::Any* object, const uhdm::NullStmtCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterOperationCollection(
-    const uhdm::Any* const object, const uhdm::OperationCollection& objects,
+    const uhdm::Any* object, const uhdm::OperationCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterOrderedWaitCollection(
-    const uhdm::Any* const object, const uhdm::OrderedWaitCollection& objects,
+    const uhdm::Any* object, const uhdm::OrderedWaitCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterPackageCollection(
-    const uhdm::Any* const object, const uhdm::PackageCollection& objects,
+    const uhdm::Any* object, const uhdm::PackageCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterPackedArrayNetCollection(
-    const uhdm::Any* const object,
-    const uhdm::PackedArrayNetCollection& objects, uint32_t vpiRelation) {
+    const uhdm::Any* object, const uhdm::PackedArrayNetCollection& objects,
+    uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterPackedArrayTypespecCollection(
-    const uhdm::Any* const object,
-    const uhdm::PackedArrayTypespecCollection& objects, uint32_t vpiRelation) {
+    const uhdm::Any* object, const uhdm::PackedArrayTypespecCollection& objects,
+    uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterPackedArrayVarCollection(
-    const uhdm::Any* const object,
-    const uhdm::PackedArrayVarCollection& objects, uint32_t vpiRelation) {
+    const uhdm::Any* object, const uhdm::PackedArrayVarCollection& objects,
+    uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterParamAssignCollection(
-    const uhdm::Any* const object, const uhdm::ParamAssignCollection& objects,
+    const uhdm::Any* object, const uhdm::ParamAssignCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterParameterCollection(
-    const uhdm::Any* const object, const uhdm::ParameterCollection& objects,
+    const uhdm::Any* object, const uhdm::ParameterCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterPartSelectCollection(
-    const uhdm::Any* const object, const uhdm::PartSelectCollection& objects,
+    const uhdm::Any* object, const uhdm::PartSelectCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterPathTermCollection(
-    const uhdm::Any* const object, const uhdm::PathTermCollection& objects,
+    const uhdm::Any* object, const uhdm::PathTermCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterPortBitCollection(
-    const uhdm::Any* const object, const uhdm::PortBitCollection& objects,
+    const uhdm::Any* object, const uhdm::PortBitCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
-void IntegrityChecker::enterPortCollection(const uhdm::Any* const object,
+void IntegrityChecker::enterPortCollection(const uhdm::Any* object,
                                            const uhdm::PortCollection& objects,
                                            uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterPortsCollection(
-    const uhdm::Any* const object, const uhdm::PortsCollection& objects,
+    const uhdm::Any* object, const uhdm::PortsCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterPreprocMacroDefinitionCollection(
-    const uhdm::Any* const object,
+    const uhdm::Any* object,
     const uhdm::PreprocMacroDefinitionCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterPreprocMacroInstanceCollection(
-    const uhdm::Any* const object,
+    const uhdm::Any* object,
     const uhdm::PreprocMacroInstanceCollection& objects, uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterPrimTermCollection(
-    const uhdm::Any* const object, const uhdm::PrimTermCollection& objects,
+    const uhdm::Any* object, const uhdm::PrimTermCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterPrimitiveArrayCollection(
-    const uhdm::Any* const object,
-    const uhdm::PrimitiveArrayCollection& objects, uint32_t vpiRelation) {
+    const uhdm::Any* object, const uhdm::PrimitiveArrayCollection& objects,
+    uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterPrimitiveCollection(
-    const uhdm::Any* const object, const uhdm::PrimitiveCollection& objects,
+    const uhdm::Any* object, const uhdm::PrimitiveCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterProcessCollection(
-    const uhdm::Any* const object, const uhdm::ProcessCollection& objects,
+    const uhdm::Any* object, const uhdm::ProcessCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterProgramArrayCollection(
-    const uhdm::Any* const object, const uhdm::ProgramArrayCollection& objects,
+    const uhdm::Any* object, const uhdm::ProgramArrayCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterProgramCollection(
-    const uhdm::Any* const object, const uhdm::ProgramCollection& objects,
+    const uhdm::Any* object, const uhdm::ProgramCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterPropFormalDeclCollection(
-    const uhdm::Any* const object,
-    const uhdm::PropFormalDeclCollection& objects, uint32_t vpiRelation) {
+    const uhdm::Any* object, const uhdm::PropFormalDeclCollection& objects,
+    uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterPropertyDeclCollection(
-    const uhdm::Any* const object, const uhdm::PropertyDeclCollection& objects,
+    const uhdm::Any* object, const uhdm::PropertyDeclCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterPropertyInstCollection(
-    const uhdm::Any* const object, const uhdm::PropertyInstCollection& objects,
+    const uhdm::Any* object, const uhdm::PropertyInstCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterPropertySpecCollection(
-    const uhdm::Any* const object, const uhdm::PropertySpecCollection& objects,
+    const uhdm::Any* object, const uhdm::PropertySpecCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterPropertyTypespecCollection(
-    const uhdm::Any* const object,
-    const uhdm::PropertyTypespecCollection& objects, uint32_t vpiRelation) {
+    const uhdm::Any* object, const uhdm::PropertyTypespecCollection& objects,
+    uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterRangeCollection(
-    const uhdm::Any* const object, const uhdm::RangeCollection& objects,
+    const uhdm::Any* object, const uhdm::RangeCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterRealTypespecCollection(
-    const uhdm::Any* const object, const uhdm::RealTypespecCollection& objects,
+    const uhdm::Any* object, const uhdm::RealTypespecCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterRealVarCollection(
-    const uhdm::Any* const object, const uhdm::RealVarCollection& objects,
+    const uhdm::Any* object, const uhdm::RealVarCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterRefModuleCollection(
-    const uhdm::Any* const object, const uhdm::RefModuleCollection& objects,
+    const uhdm::Any* object, const uhdm::RefModuleCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterRefObjCollection(
-    const uhdm::Any* const object, const uhdm::RefObjCollection& objects,
+    const uhdm::Any* object, const uhdm::RefObjCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterRefTypespecCollection(
-    const uhdm::Any* const object, const uhdm::RefTypespecCollection& objects,
+    const uhdm::Any* object, const uhdm::RefTypespecCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterRefVarCollection(
-    const uhdm::Any* const object, const uhdm::RefVarCollection& objects,
+    const uhdm::Any* object, const uhdm::RefVarCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterRegArrayCollection(
-    const uhdm::Any* const object, const uhdm::RegArrayCollection& objects,
+    const uhdm::Any* object, const uhdm::RegArrayCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
-void IntegrityChecker::enterRegCollection(const uhdm::Any* const object,
+void IntegrityChecker::enterRegCollection(const uhdm::Any* object,
                                           const uhdm::RegCollection& objects,
                                           uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterReleaseCollection(
-    const uhdm::Any* const object, const uhdm::ReleaseCollection& objects,
+    const uhdm::Any* object, const uhdm::ReleaseCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterRepeatCollection(
-    const uhdm::Any* const object, const uhdm::RepeatCollection& objects,
+    const uhdm::Any* object, const uhdm::RepeatCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterRepeatControlCollection(
-    const uhdm::Any* const object, const uhdm::RepeatControlCollection& objects,
+    const uhdm::Any* object, const uhdm::RepeatControlCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterRestrictCollection(
-    const uhdm::Any* const object, const uhdm::RestrictCollection& objects,
+    const uhdm::Any* object, const uhdm::RestrictCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterReturnStmtCollection(
-    const uhdm::Any* const object, const uhdm::ReturnStmtCollection& objects,
+    const uhdm::Any* object, const uhdm::ReturnStmtCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterScopeCollection(
-    const uhdm::Any* const object, const uhdm::ScopeCollection& objects,
+    const uhdm::Any* object, const uhdm::ScopeCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterSeqFormalDeclCollection(
-    const uhdm::Any* const object, const uhdm::SeqFormalDeclCollection& objects,
+    const uhdm::Any* object, const uhdm::SeqFormalDeclCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterSequenceDeclCollection(
-    const uhdm::Any* const object, const uhdm::SequenceDeclCollection& objects,
+    const uhdm::Any* object, const uhdm::SequenceDeclCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterSequenceInstCollection(
-    const uhdm::Any* const object, const uhdm::SequenceInstCollection& objects,
+    const uhdm::Any* object, const uhdm::SequenceInstCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterSequenceTypespecCollection(
-    const uhdm::Any* const object,
-    const uhdm::SequenceTypespecCollection& objects, uint32_t vpiRelation) {
+    const uhdm::Any* object, const uhdm::SequenceTypespecCollection& objects,
+    uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterShortIntTypespecCollection(
-    const uhdm::Any* const object,
-    const uhdm::ShortIntTypespecCollection& objects, uint32_t vpiRelation) {
+    const uhdm::Any* object, const uhdm::ShortIntTypespecCollection& objects,
+    uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterShortIntVarCollection(
-    const uhdm::Any* const object, const uhdm::ShortIntVarCollection& objects,
+    const uhdm::Any* object, const uhdm::ShortIntVarCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterShortRealTypespecCollection(
-    const uhdm::Any* const object,
-    const uhdm::ShortRealTypespecCollection& objects, uint32_t vpiRelation) {
+    const uhdm::Any* object, const uhdm::ShortRealTypespecCollection& objects,
+    uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterShortRealVarCollection(
-    const uhdm::Any* const object, const uhdm::ShortRealVarCollection& objects,
+    const uhdm::Any* object, const uhdm::ShortRealVarCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterSimpleExprCollection(
-    const uhdm::Any* const object, const uhdm::SimpleExprCollection& objects,
+    const uhdm::Any* object, const uhdm::SimpleExprCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterSoftDisableCollection(
-    const uhdm::Any* const object, const uhdm::SoftDisableCollection& objects,
+    const uhdm::Any* object, const uhdm::SoftDisableCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterSourceFileCollection(
-    const uhdm::Any* const object, const uhdm::SourceFileCollection& objects,
+    const uhdm::Any* object, const uhdm::SourceFileCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterSpecParamCollection(
-    const uhdm::Any* const object, const uhdm::SpecParamCollection& objects,
+    const uhdm::Any* object, const uhdm::SpecParamCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterStringTypespecCollection(
-    const uhdm::Any* const object,
-    const uhdm::StringTypespecCollection& objects, uint32_t vpiRelation) {
+    const uhdm::Any* object, const uhdm::StringTypespecCollection& objects,
+    uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterStringVarCollection(
-    const uhdm::Any* const object, const uhdm::StringVarCollection& objects,
+    const uhdm::Any* object, const uhdm::StringVarCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterStructNetCollection(
-    const uhdm::Any* const object, const uhdm::StructNetCollection& objects,
+    const uhdm::Any* object, const uhdm::StructNetCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterStructPatternCollection(
-    const uhdm::Any* const object, const uhdm::StructPatternCollection& objects,
+    const uhdm::Any* object, const uhdm::StructPatternCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterStructTypespecCollection(
-    const uhdm::Any* const object,
-    const uhdm::StructTypespecCollection& objects, uint32_t vpiRelation) {
+    const uhdm::Any* object, const uhdm::StructTypespecCollection& objects,
+    uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterStructVarCollection(
-    const uhdm::Any* const object, const uhdm::StructVarCollection& objects,
+    const uhdm::Any* object, const uhdm::StructVarCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterSwitchArrayCollection(
-    const uhdm::Any* const object, const uhdm::SwitchArrayCollection& objects,
+    const uhdm::Any* object, const uhdm::SwitchArrayCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterSwitchTranCollection(
-    const uhdm::Any* const object, const uhdm::SwitchTranCollection& objects,
+    const uhdm::Any* object, const uhdm::SwitchTranCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterSysFuncCallCollection(
-    const uhdm::Any* const object, const uhdm::SysFuncCallCollection& objects,
+    const uhdm::Any* object, const uhdm::SysFuncCallCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterSysTaskCallCollection(
-    const uhdm::Any* const object, const uhdm::SysTaskCallCollection& objects,
+    const uhdm::Any* object, const uhdm::SysTaskCallCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterTFCallCollection(
-    const uhdm::Any* const object, const uhdm::TFCallCollection& objects,
+    const uhdm::Any* object, const uhdm::TFCallCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterTableEntryCollection(
-    const uhdm::Any* const object, const uhdm::TableEntryCollection& objects,
+    const uhdm::Any* object, const uhdm::TableEntryCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterTaggedPatternCollection(
-    const uhdm::Any* const object, const uhdm::TaggedPatternCollection& objects,
+    const uhdm::Any* object, const uhdm::TaggedPatternCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterTaskCallCollection(
-    const uhdm::Any* const object, const uhdm::TaskCallCollection& objects,
+    const uhdm::Any* object, const uhdm::TaskCallCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
-void IntegrityChecker::enterTaskCollection(const uhdm::Any* const object,
+void IntegrityChecker::enterTaskCollection(const uhdm::Any* object,
                                            const uhdm::TaskCollection& objects,
                                            uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterTaskDeclCollection(
-    const uhdm::Any* const object, const uhdm::TaskDeclCollection& objects,
+    const uhdm::Any* object, const uhdm::TaskDeclCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterTaskFuncCollection(
-    const uhdm::Any* const object, const uhdm::TaskFuncCollection& objects,
+    const uhdm::Any* object, const uhdm::TaskFuncCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterTaskFuncDeclCollection(
-    const uhdm::Any* const object, const uhdm::TaskFuncDeclCollection& objects,
+    const uhdm::Any* object, const uhdm::TaskFuncDeclCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
-void IntegrityChecker::enterTchkCollection(const uhdm::Any* const object,
+void IntegrityChecker::enterTchkCollection(const uhdm::Any* object,
                                            const uhdm::TchkCollection& objects,
                                            uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterTchkTermCollection(
-    const uhdm::Any* const object, const uhdm::TchkTermCollection& objects,
+    const uhdm::Any* object, const uhdm::TchkTermCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterThreadCollection(
-    const uhdm::Any* const object, const uhdm::ThreadCollection& objects,
+    const uhdm::Any* object, const uhdm::ThreadCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterTimeNetCollection(
-    const uhdm::Any* const object, const uhdm::TimeNetCollection& objects,
+    const uhdm::Any* object, const uhdm::TimeNetCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterTimeTypespecCollection(
-    const uhdm::Any* const object, const uhdm::TimeTypespecCollection& objects,
+    const uhdm::Any* object, const uhdm::TimeTypespecCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterTimeVarCollection(
-    const uhdm::Any* const object, const uhdm::TimeVarCollection& objects,
+    const uhdm::Any* object, const uhdm::TimeVarCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterTypeParameterCollection(
-    const uhdm::Any* const object, const uhdm::TypeParameterCollection& objects,
+    const uhdm::Any* object, const uhdm::TypeParameterCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterTypedefTypespecCollection(
-    const uhdm::Any* const object,
-    const uhdm::TypedefTypespecCollection& objects, uint32_t vpiRelation) {
+    const uhdm::Any* object, const uhdm::TypedefTypespecCollection& objects,
+    uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterTypespecCollection(
-    const uhdm::Any* const object, const uhdm::TypespecCollection& objects,
+    const uhdm::Any* object, const uhdm::TypespecCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterTypespecMemberCollection(
-    const uhdm::Any* const object,
-    const uhdm::TypespecMemberCollection& objects, uint32_t vpiRelation) {
-  reportDuplicates(object, objects, vpiRelation);
-}
-void IntegrityChecker::enterUdpArrayCollection(
-    const uhdm::Any* const object, const uhdm::UdpArrayCollection& objects,
+    const uhdm::Any* object, const uhdm::TypespecMemberCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
-void IntegrityChecker::enterUdpCollection(const uhdm::Any* const object,
+void IntegrityChecker::enterUdpArrayCollection(
+    const uhdm::Any* object, const uhdm::UdpArrayCollection& objects,
+    uint32_t vpiRelation) {
+  reportDuplicates(object, objects, vpiRelation);
+}
+void IntegrityChecker::enterUdpCollection(const uhdm::Any* object,
                                           const uhdm::UdpCollection& objects,
                                           uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterUdpDefnCollection(
-    const uhdm::Any* const object, const uhdm::UdpDefnCollection& objects,
+    const uhdm::Any* object, const uhdm::UdpDefnCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterUnionTypespecCollection(
-    const uhdm::Any* const object, const uhdm::UnionTypespecCollection& objects,
+    const uhdm::Any* object, const uhdm::UnionTypespecCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterUnionVarCollection(
-    const uhdm::Any* const object, const uhdm::UnionVarCollection& objects,
+    const uhdm::Any* object, const uhdm::UnionVarCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterUnsupportedExprCollection(
-    const uhdm::Any* const object,
-    const uhdm::UnsupportedExprCollection& objects, uint32_t vpiRelation) {
+    const uhdm::Any* object, const uhdm::UnsupportedExprCollection& objects,
+    uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterUnsupportedStmtCollection(
-    const uhdm::Any* const object,
-    const uhdm::UnsupportedStmtCollection& objects, uint32_t vpiRelation) {
+    const uhdm::Any* object, const uhdm::UnsupportedStmtCollection& objects,
+    uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterUnsupportedTypespecCollection(
-    const uhdm::Any* const object,
-    const uhdm::UnsupportedTypespecCollection& objects, uint32_t vpiRelation) {
+    const uhdm::Any* object, const uhdm::UnsupportedTypespecCollection& objects,
+    uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterUserSystfCollection(
-    const uhdm::Any* const object, const uhdm::UserSystfCollection& objects,
+    const uhdm::Any* object, const uhdm::UserSystfCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterVarBitCollection(
-    const uhdm::Any* const object, const uhdm::VarBitCollection& objects,
+    const uhdm::Any* object, const uhdm::VarBitCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterVarSelectCollection(
-    const uhdm::Any* const object, const uhdm::VarSelectCollection& objects,
+    const uhdm::Any* object, const uhdm::VarSelectCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterVariablesCollection(
-    const uhdm::Any* const object, const uhdm::VariablesCollection& objects,
+    const uhdm::Any* object, const uhdm::VariablesCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterVirtualInterfaceVarCollection(
-    const uhdm::Any* const object,
-    const uhdm::VirtualInterfaceVarCollection& objects, uint32_t vpiRelation) {
+    const uhdm::Any* object, const uhdm::VirtualInterfaceVarCollection& objects,
+    uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterVoidTypespecCollection(
-    const uhdm::Any* const object, const uhdm::VoidTypespecCollection& objects,
+    const uhdm::Any* object, const uhdm::VoidTypespecCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterWaitForkCollection(
-    const uhdm::Any* const object, const uhdm::WaitForkCollection& objects,
+    const uhdm::Any* object, const uhdm::WaitForkCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterWaitStmtCollection(
-    const uhdm::Any* const object, const uhdm::WaitStmtCollection& objects,
+    const uhdm::Any* object, const uhdm::WaitStmtCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterWaitsCollection(
-    const uhdm::Any* const object, const uhdm::WaitsCollection& objects,
+    const uhdm::Any* object, const uhdm::WaitsCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 void IntegrityChecker::enterWhileStmtCollection(
-    const uhdm::Any* const object, const uhdm::WhileStmtCollection& objects,
+    const uhdm::Any* object, const uhdm::WhileStmtCollection& objects,
     uint32_t vpiRelation) {
   reportDuplicates(object, objects, vpiRelation);
 }
 
 void IntegrityChecker::populateAnyMacroInstanceCache(
-    const uhdm::PreprocMacroInstance* const pmi) {
+    const uhdm::PreprocMacroInstance* pmi) {
   if (const uhdm::AnyCollection* const objects = pmi->getObjects()) {
     for (const uhdm::Any* any : *objects) {
       m_anyMacroInstance.emplace(any, pmi);
@@ -2141,7 +2137,7 @@ void IntegrityChecker::populateAnyMacroInstanceCache() {
   }
 }
 
-void IntegrityChecker::check(const uhdm::Design* const object) {
+void IntegrityChecker::check(const uhdm::Design* object) {
   m_design = object;
   populateAnyMacroInstanceCache();
   listenAny(object);

@@ -1328,20 +1328,20 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
             if (opType == vpiAssignmentPatternOp) {
               if (m_helper.substituteAssignedValue(hexpr, m_compileDesign)) {
                 hexpr = m_helper.expandPatternAssignment(
-                    tps, (uhdm::Expr*)hexpr, parent_comp, m_compileDesign,
-                    Reduce::Yes, netlist->getParent());
+                    tps, hexpr, parent_comp, m_compileDesign, Reduce::Yes,
+                    netlist->getParent());
               }
             }
             hexpr = (uhdm::Expr*)m_helper.defaultPatternAssignment(
-                tps, (uhdm::Expr*)hexpr, parent_comp, m_compileDesign,
-                Reduce::Yes, netlist->getParent());
+                tps, hexpr, parent_comp, m_compileDesign, Reduce::Yes,
+                netlist->getParent());
             if (p) {
               if (const uhdm::Any* lowc = p->getLowConn()) {
                 if (lowc->getUhdmType() == uhdm::UhdmType::RefObj) {
                   uhdm::RefObj* ref = (uhdm::RefObj*)lowc;
                   m_helper.reorderAssignmentPattern(
-                      parent_comp, ref->getActual(), (uhdm::Expr*)hexpr,
-                      m_compileDesign, netlist->getParent(), 0);
+                      parent_comp, ref->getActual(), hexpr, m_compileDesign,
+                      netlist->getParent(), 0);
                 }
               }
             }

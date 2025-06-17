@@ -57,8 +57,8 @@
 #include <uhdm/int_typespec.h>
 #include <uhdm/io_decl.h>
 #include <uhdm/method_func_call.h>
-#include <uhdm/module_array.h>
 #include <uhdm/module.h>
+#include <uhdm/module_array.h>
 #include <uhdm/primitive.h>
 #include <uhdm/property_decl.h>
 #include <uhdm/range.h>

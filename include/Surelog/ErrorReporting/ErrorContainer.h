@@ -63,7 +63,7 @@ class ErrorContainer final {
 
   explicit ErrorContainer(Session* session);
   ErrorContainer(const ErrorContainer& orig) = delete;
-  virtual ~ErrorContainer();
+  virtual ~ErrorContainer() = default;
 
   Session* getSession() { return m_session; }
 

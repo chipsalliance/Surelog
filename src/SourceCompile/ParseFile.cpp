@@ -49,8 +49,8 @@
 #include "Surelog/SourceCompile/AntlrParserHandler.h"
 #include "Surelog/SourceCompile/CompileSourceFile.h"
 #include "Surelog/SourceCompile/IncludeFileInfo.h"
-#include "Surelog/SourceCompile/SV3_1aTreeShapeListener.h"
 #include "Surelog/SourceCompile/SV3_1aParserTreeListener.h"
+#include "Surelog/SourceCompile/SV3_1aTreeShapeListener.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
 #include "Surelog/Utils/StringUtils.h"
 #include "Surelog/Utils/Timer.h"
@@ -685,9 +685,9 @@ bool ParseFile::parse() {
       if (clp->parseTree()) {
         FileContent* const ppFileContent =
             getCompileSourceFile()->getPreprocessor()->getFileContent();
-        m_listener = new SV3_1aParserTreeListener(m_session, this,
-                                                 m_antlrParserHandler->m_tokens,
-                                                 m_offsetLine, ppFileContent);
+        m_listener = new SV3_1aParserTreeListener(
+            m_session, this, m_antlrParserHandler->m_tokens, m_offsetLine,
+            ppFileContent);
       } else {
         m_listener = new SV3_1aTreeShapeListener(
             m_session, this, m_antlrParserHandler->m_tokens, m_offsetLine);

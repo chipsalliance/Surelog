@@ -23,6 +23,10 @@
  * Created on October 20, 2017, 10:29 PM
  */
 
+#include <uhdm/Serializer.h>
+#include <uhdm/interface.h>
+#include <uhdm/module.h>
+
 #include <cstddef>
 #include <cstdint>
 #include <string_view>
@@ -35,10 +39,6 @@
 #include "Surelog/Design/Modport.h"
 #include "Surelog/Design/Signal.h"
 #include "Surelog/SourceCompile/VObjectTypes.h"
-
-#include <uhdm/Serializer.h>
-#include <uhdm/interface.h>
-#include <uhdm/module.h>
 
 namespace SURELOG {
 

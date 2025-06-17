@@ -38,7 +38,7 @@ class Session;
 class Precompiled final {
  public:
   explicit Precompiled(Session *session);
-  Precompiled(const Precompiled&) = delete;
+  Precompiled(const Precompiled &) = delete;
 
   void addPrecompiled(std::string_view package_name, std::string_view fileName);
 

@@ -2624,8 +2624,7 @@ uhdm::Any *CompileHelper::compileExpression(
                               result = uhdm::clone_tree(
                                   (uhdm::Any *)param_ass->getRhs(),
                                   &elaboratorContext);
-                              result->setParent(
-                                  const_cast<uhdm::ParamAssign *>(param_ass));
+                              result->setParent(param_ass);
                               fC->populateCoreMembers(child, child, result);
                               uhdm::Typespec *tps = nullptr;
                               const uhdm::Any *lhs = param_ass->getLhs();
@@ -2700,8 +2699,7 @@ uhdm::Any *CompileHelper::compileExpression(
                             result = uhdm::clone_tree(
                                 (uhdm::Any *)param_ass->getRhs(),
                                 &elaboratorContext);
-                            result->setParent(
-                                const_cast<uhdm::ParamAssign *>(param_ass));
+                            result->setParent(param_ass);
                             fC->populateCoreMembers(child, child, result);
                           }
                           uhdm::Typespec *tps = nullptr;

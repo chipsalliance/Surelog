@@ -21,11 +21,11 @@
 #include <uhdm/constant.h>
 #include <uhdm/vpi_user.h>
 
-#include "Surelog/Common/Session.h"
-
 #include <cstdint>
 #include <limits>
 #include <string_view>
+
+#include "Surelog/Common/Session.h"
 
 namespace SURELOG {
 

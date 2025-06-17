@@ -38,7 +38,7 @@ namespace SURELOG {
 class Session;
 
 class SV3_1aParserTreeListener final : public SV3_1aParserBaseListener,
-                                      public SV3_1aTreeShapeHelper {
+                                       public SV3_1aTreeShapeHelper {
   using vobjects_t = std::vector<VObject>;
 
   using visited_tokens_t = std::set<const antlr4::Token*>;
@@ -49,8 +49,8 @@ class SV3_1aParserTreeListener final : public SV3_1aParserBaseListener,
 
  public:
   SV3_1aParserTreeListener(Session* session, ParseFile* pf,
-                          antlr4::CommonTokenStream* tokens,
-                          uint32_t lineOffset, FileContent* ppFileContent);
+                           antlr4::CommonTokenStream* tokens,
+                           uint32_t lineOffset, FileContent* ppFileContent);
   ~SV3_1aParserTreeListener() final = default;
 
   void enterString_value(SV3_1aParser::String_valueContext* ctx) final;

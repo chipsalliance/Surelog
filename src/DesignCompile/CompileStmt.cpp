@@ -1051,7 +1051,8 @@ uhdm::AnyCollection* CompileHelper::compileStmt(
       break;
     }
     case VObjectType::paNet_declaration: {
-      compileNetDeclaration(component, fC, the_stmt, false, compileDesign, nullptr);
+      compileNetDeclaration(component, fC, the_stmt, false, compileDesign,
+                            nullptr);
       break;
     }
     default:

@@ -79,17 +79,17 @@ inline bool ObjectBinder::areSimilarNames(std::string_view name1,
   return !name1.empty() && name1 == name2;
 }
 
-inline bool ObjectBinder::areSimilarNames(const uhdm::Any* const object1,
+inline bool ObjectBinder::areSimilarNames(const uhdm::Any* object1,
                                           std::string_view name2) const {
   return areSimilarNames(object1->getName(), name2);
 }
 
-inline bool ObjectBinder::areSimilarNames(
-    const uhdm::Any* const object1, const uhdm::Any* const object2) const {
+inline bool ObjectBinder::areSimilarNames(const uhdm::Any* object1,
+                                          const uhdm::Any* object2) const {
   return areSimilarNames(object1->getName(), object2->getName());
 }
 
-bool ObjectBinder::isInElaboratedTree(const uhdm::Any* const object) {
+bool ObjectBinder::isInElaboratedTree(const uhdm::Any* object) {
   const uhdm::Any* p = object;
   while (p != nullptr) {
     if (const uhdm::Instance* const inst = any_cast<uhdm::Instance>(p)) {
@@ -135,8 +135,8 @@ const T* ObjectBinder::getParent(const uhdm::Any* object) const {
   return nullptr;
 }
 
-const uhdm::Package* ObjectBinder::getPackage(
-    std::string_view name, const uhdm::Any* const object) const {
+const uhdm::Package* ObjectBinder::getPackage(std::string_view name,
+                                              const uhdm::Any* object) const {
   if (const uhdm::Package* const p = getParent<uhdm::Package>(object)) {
     if (areSimilarNames(p, name)) {
       return p;
@@ -156,8 +156,8 @@ const uhdm::Package* ObjectBinder::getPackage(
   return nullptr;
 }
 
-const uhdm::Module* ObjectBinder::getModule(
-    std::string_view defname, const uhdm::Any* const object) const {
+const uhdm::Module* ObjectBinder::getModule(std::string_view defname,
+                                            const uhdm::Any* object) const {
   if (const uhdm::Module* const m = getParent<uhdm::Module>(object)) {
     if (m->getDefName() == defname) {
       return m;
@@ -178,7 +178,7 @@ const uhdm::Module* ObjectBinder::getModule(
 }
 
 const uhdm::Interface* ObjectBinder::getInterface(
-    std::string_view defname, const uhdm::Any* const object) const {
+    std::string_view defname, const uhdm::Any* object) const {
   if (const uhdm::Interface* const m = getParent<uhdm::Interface>(object)) {
     if (m->getDefName() == defname) {
       return m;
@@ -200,8 +200,7 @@ const uhdm::Interface* ObjectBinder::getInterface(
 }
 
 const uhdm::ClassDefn* ObjectBinder::getClassDefn(
-    const uhdm::ClassDefnCollection* const collection,
-    std::string_view name) const {
+    const uhdm::ClassDefnCollection* collection, std::string_view name) const {
   if (collection != nullptr) {
     for (const uhdm::ClassDefn* c : *collection) {
       if (areSimilarNames(c, name)) {
@@ -257,20 +256,21 @@ const uhdm::ClassDefn* ObjectBinder::getClassDefn(
   return nullptr;
 }
 
-void ObjectBinder::enterHierPath(const uhdm::HierPath* const object,
+void ObjectBinder::enterHierPath(const uhdm::HierPath* object,
                                  uint32_t vpiRelation) {
   m_prefixStack.emplace_back(object);
 }
 
-void ObjectBinder::leaveHierPath(const uhdm::HierPath* const object,
+void ObjectBinder::leaveHierPath(const uhdm::HierPath* object,
                                  uint32_t vpiRelation) {
   if (!m_prefixStack.empty() && (m_prefixStack.back() == object)) {
     m_prefixStack.pop_back();
   }
 }
 
-const uhdm::Any* ObjectBinder::findInTypespec(
-    std::string_view name, RefType refType, const uhdm::Typespec* const scope) {
+const uhdm::Any* ObjectBinder::findInTypespec(std::string_view name,
+                                              RefType refType,
+                                              const uhdm::Typespec* scope) {
   if (scope == nullptr) return nullptr;
   if (!m_searched.emplace(scope).second) return nullptr;
 
@@ -350,8 +350,7 @@ const uhdm::Any* ObjectBinder::findInTypespec(
 }
 
 const uhdm::Any* ObjectBinder::findInRefTypespec(
-    std::string_view name, RefType refType,
-    const uhdm::RefTypespec* const scope) {
+    std::string_view name, RefType refType, const uhdm::RefTypespec* scope) {
   if (scope == nullptr) return nullptr;
 
   if (const uhdm::Typespec* const ts = scope->getActual()) {
@@ -362,8 +361,8 @@ const uhdm::Any* ObjectBinder::findInRefTypespec(
 
 template <typename T>
 const uhdm::Any* ObjectBinder::findInCollection(
-    std::string_view name, RefType refType,
-    const std::vector<T*>* const collection, const uhdm::Any* const scope) {
+    std::string_view name, RefType refType, const std::vector<T*>* collection,
+    const uhdm::Any* scope) {
   if (collection == nullptr) return nullptr;
 
   std::string_view shortName = name;
@@ -433,7 +432,7 @@ const uhdm::Any* ObjectBinder::findInCollection(
 
 const uhdm::Any* ObjectBinder::findInScope(std::string_view name,
                                            RefType refType,
-                                           const uhdm::Scope* const scope) {
+                                           const uhdm::Scope* scope) {
   if (scope == nullptr) return nullptr;
 
   if (areSimilarNames(scope, name)) {
@@ -476,8 +475,9 @@ const uhdm::Any* ObjectBinder::findInScope(std::string_view name,
   return nullptr;
 }
 
-const uhdm::Any* ObjectBinder::findInInstance(
-    std::string_view name, RefType refType, const uhdm::Instance* const scope) {
+const uhdm::Any* ObjectBinder::findInInstance(std::string_view name,
+                                              RefType refType,
+                                              const uhdm::Instance* scope) {
   if (scope == nullptr) return nullptr;
 
   if (const uhdm::Any* const actual =
@@ -497,9 +497,9 @@ const uhdm::Any* ObjectBinder::findInInstance(
   return findInScope(name, refType, scope);
 }
 
-const uhdm::Any* ObjectBinder::findInInterface(
-    std::string_view name, RefType refType,
-    const uhdm::Interface* const scope) {
+const uhdm::Any* ObjectBinder::findInInterface(std::string_view name,
+                                               RefType refType,
+                                               const uhdm::Interface* scope) {
   if (scope == nullptr) return nullptr;
   if (!m_searched.emplace(scope).second) return nullptr;
 
@@ -520,7 +520,7 @@ const uhdm::Any* ObjectBinder::findInInterface(
 
 const uhdm::Any* ObjectBinder::findInPackage(std::string_view name,
                                              RefType refType,
-                                             const uhdm::Package* const scope) {
+                                             const uhdm::Package* scope) {
   if (scope == nullptr) return nullptr;
   if (!m_searched.emplace(scope).second) return nullptr;
 
@@ -559,7 +559,7 @@ const uhdm::Any* ObjectBinder::findInPackage(std::string_view name,
 
 const uhdm::Any* ObjectBinder::findInUdpDefn(std::string_view name,
                                              RefType refType,
-                                             const uhdm::UdpDefn* const scope) {
+                                             const uhdm::UdpDefn* scope) {
   if (scope == nullptr) return nullptr;
   if (!m_searched.emplace(scope).second) return nullptr;
 
@@ -570,7 +570,7 @@ const uhdm::Any* ObjectBinder::findInUdpDefn(std::string_view name,
 
 const uhdm::Any* ObjectBinder::findInProgram(std::string_view name,
                                              RefType refType,
-                                             const uhdm::Program* const scope) {
+                                             const uhdm::Program* scope) {
   if (scope == nullptr) return nullptr;
   if (!m_searched.emplace(scope).second) return nullptr;
 
@@ -590,8 +590,9 @@ const uhdm::Any* ObjectBinder::findInProgram(std::string_view name,
   return findInInstance(name, refType, scope);
 }
 
-const uhdm::Any* ObjectBinder::findInFunction(
-    std::string_view name, RefType refType, const uhdm::Function* const scope) {
+const uhdm::Any* ObjectBinder::findInFunction(std::string_view name,
+                                              RefType refType,
+                                              const uhdm::Function* scope) {
   if (scope == nullptr) return nullptr;
   if (!m_searched.emplace(scope).second) return nullptr;
 
@@ -619,7 +620,7 @@ const uhdm::Any* ObjectBinder::findInFunction(
 
 const uhdm::Any* ObjectBinder::findInTask(std::string_view name,
                                           RefType refType,
-                                          const uhdm::Task* const scope) {
+                                          const uhdm::Task* scope) {
   if (scope == nullptr) return nullptr;
   if (!m_searched.emplace(scope).second) return nullptr;
 
@@ -643,7 +644,7 @@ const uhdm::Any* ObjectBinder::findInTask(std::string_view name,
 
 const uhdm::Any* ObjectBinder::findInForStmt(std::string_view name,
                                              RefType refType,
-                                             const uhdm::ForStmt* const scope) {
+                                             const uhdm::ForStmt* scope) {
   if (scope == nullptr) return nullptr;
   if (!m_searched.emplace(scope).second) return nullptr;
 
@@ -674,8 +675,7 @@ const uhdm::Any* ObjectBinder::findInForStmt(std::string_view name,
 }
 
 const uhdm::Any* ObjectBinder::findInForeachStmt(
-    std::string_view name, RefType refType,
-    const uhdm::ForeachStmt* const scope) {
+    std::string_view name, RefType refType, const uhdm::ForeachStmt* scope) {
   if (scope == nullptr) return nullptr;
   if (!m_searched.emplace(scope).second) return nullptr;
 
@@ -689,7 +689,7 @@ const uhdm::Any* ObjectBinder::findInForeachStmt(
 
 template <typename T>
 const uhdm::Any* ObjectBinder::findInScope_sub(
-    std::string_view name, RefType refType, const T* const scope,
+    std::string_view name, RefType refType, const T* scope,
     typename std::enable_if<
         std::is_same<uhdm::Begin, typename std::decay<T>::type>::value ||
         std::is_same<uhdm::ForkStmt,
@@ -733,9 +733,9 @@ const uhdm::Any* ObjectBinder::findInScope_sub(
   return findInScope(name, refType, scope);
 }
 
-const uhdm::Any* ObjectBinder::findInClassDefn(
-    std::string_view name, RefType refType,
-    const uhdm::ClassDefn* const scope) {
+const uhdm::Any* ObjectBinder::findInClassDefn(std::string_view name,
+                                               RefType refType,
+                                               const uhdm::ClassDefn* scope) {
   if (scope == nullptr) return nullptr;
   if (!m_searched.emplace(scope).second) return nullptr;
 
@@ -749,8 +749,7 @@ const uhdm::Any* ObjectBinder::findInClassDefn(
   if (areSimilarNames(name, "this")) {
     return scope;
   } else if (areSimilarNames(name, "super")) {
-    if (const uhdm::Extends* ext =
-            static_cast<const uhdm::ClassDefn*>(scope)->getExtends()) {
+    if (const uhdm::Extends* ext = scope->getExtends()) {
       if (const uhdm::RefTypespec* rt = ext->getClassTypespec()) {
         if (const uhdm::ClassTypespec* cts =
                 rt->getActual<uhdm::ClassTypespec>())
@@ -788,7 +787,7 @@ const uhdm::Any* ObjectBinder::findInClassDefn(
 
 const uhdm::Any* ObjectBinder::findInModule(std::string_view name,
                                             RefType refType,
-                                            const uhdm::Module* const scope) {
+                                            const uhdm::Module* scope) {
   if (scope == nullptr) return nullptr;
   if (!m_searched.emplace(scope).second) return nullptr;
 
@@ -816,7 +815,7 @@ const uhdm::Any* ObjectBinder::findInModule(std::string_view name,
 
 const uhdm::Any* ObjectBinder::findInDesign(std::string_view name,
                                             RefType refType,
-                                            const uhdm::Design* const scope) {
+                                            const uhdm::Design* scope) {
   if (scope == nullptr) return nullptr;
   if (!m_searched.emplace(scope).second) return nullptr;
 
@@ -851,7 +850,7 @@ const uhdm::Any* ObjectBinder::findInDesign(std::string_view name,
   return nullptr;
 }
 
-const uhdm::Any* ObjectBinder::getPrefix(const uhdm::Any* const object) {
+const uhdm::Any* ObjectBinder::getPrefix(const uhdm::Any* object) {
   if (object == nullptr) return nullptr;
   if (m_prefixStack.empty()) return nullptr;
   if (m_prefixStack.back() != object->getParent()) return nullptr;
@@ -967,7 +966,7 @@ const uhdm::Any* ObjectBinder::getPrefix(const uhdm::Any* const object) {
 }
 
 const uhdm::Any* ObjectBinder::bindObjectInScope(std::string_view name,
-                                                 const uhdm::Any* const object,
+                                                 const uhdm::Any* object,
                                                  const uhdm::Any* scope) {
   if (name.empty()) return nullptr;
   if (scope == nullptr) return nullptr;
@@ -1117,7 +1116,7 @@ const uhdm::Any* ObjectBinder::bindObjectInScope(std::string_view name,
   return nullptr;
 }
 
-const uhdm::Any* ObjectBinder::bindObject(const uhdm::Any* const object) {
+const uhdm::Any* ObjectBinder::bindObject(const uhdm::Any* object) {
   std::string_view name = object->getName();
   name = StringUtils::trim(name);
   if (name.empty()) return nullptr;
@@ -1153,7 +1152,7 @@ const uhdm::Any* ObjectBinder::bindObject(const uhdm::Any* const object) {
   return bindObjectInScope(name, object, scope);
 }
 
-void ObjectBinder::enterBitSelect(const uhdm::BitSelect* const object,
+void ObjectBinder::enterBitSelect(const uhdm::BitSelect* object,
                                   uint32_t vpiRelation) {
   if (object->getActual() != nullptr) return;
 
@@ -1172,8 +1171,8 @@ void ObjectBinder::enterBitSelect(const uhdm::BitSelect* const object,
 //   }
 // }
 
-void ObjectBinder::enterIndexedPartSelect(
-    const uhdm::IndexedPartSelect* const object, uint32_t vpiRelation) {
+void ObjectBinder::enterIndexedPartSelect(const uhdm::IndexedPartSelect* object,
+                                          uint32_t vpiRelation) {
   if (object->getActual() != nullptr) return;
 
   if (const uhdm::Any* actual = bindObject(object)) {
@@ -1182,7 +1181,7 @@ void ObjectBinder::enterIndexedPartSelect(
   }
 }
 
-void ObjectBinder::enterPartSelect(const uhdm::PartSelect* const object,
+void ObjectBinder::enterPartSelect(const uhdm::PartSelect* object,
                                    uint32_t vpiRelation) {
   if (object->getActual() != nullptr) return;
 
@@ -1192,7 +1191,7 @@ void ObjectBinder::enterPartSelect(const uhdm::PartSelect* const object,
   }
 }
 
-void ObjectBinder::enterVarSelect(const uhdm::VarSelect* const object,
+void ObjectBinder::enterVarSelect(const uhdm::VarSelect* object,
                                   uint32_t vpiRelation) {
   if (object->getActual() != nullptr) return;
 
@@ -1202,7 +1201,7 @@ void ObjectBinder::enterVarSelect(const uhdm::VarSelect* const object,
   }
 }
 
-void ObjectBinder::enterRefModule(const uhdm::RefModule* const object,
+void ObjectBinder::enterRefModule(const uhdm::RefModule* object,
                                   uint32_t vpiRelation) {
   if (object->getActual() != nullptr) return;
 
@@ -1216,7 +1215,7 @@ void ObjectBinder::enterRefModule(const uhdm::RefModule* const object,
   }
 }
 
-void ObjectBinder::enterRefObj(const uhdm::RefObj* const object,
+void ObjectBinder::enterRefObj(const uhdm::RefObj* object,
                                uint32_t vpiRelation) {
   if (object->getActual() != nullptr) return;
 
@@ -1292,7 +1291,7 @@ void ObjectBinder::enterRefObj(const uhdm::RefObj* const object,
   }
 }
 
-void ObjectBinder::enterRefTypespec(const uhdm::RefTypespec* const object,
+void ObjectBinder::enterRefTypespec(const uhdm::RefTypespec* object,
                                     uint32_t vpiRelation) {
   const uhdm::Typespec* const object_Actual_typespec = object->getActual();
   if ((object_Actual_typespec != nullptr) &&
@@ -1314,7 +1313,7 @@ void ObjectBinder::enterRefTypespec(const uhdm::RefTypespec* const object,
   }
 }
 
-void ObjectBinder::enterClassDefn(const uhdm::ClassDefn* const object,
+void ObjectBinder::enterClassDefn(const uhdm::ClassDefn* object,
                                   uint32_t vpiRelation) {
   const uhdm::Extends* extends = object->getExtends();
   if (extends == nullptr) return;
@@ -1493,7 +1492,7 @@ bool ObjectBinder::createDefaultNets() {
   return result;
 }
 
-void ObjectBinder::bind(const uhdm::Design* const object, bool report) {
+void ObjectBinder::bind(const uhdm::Design* object, bool report) {
   listenDesign(object);
   while (createDefaultNets()) {
     // Nothing to do here!

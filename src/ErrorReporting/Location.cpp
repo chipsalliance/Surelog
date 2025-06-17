@@ -46,8 +46,9 @@ bool Location::operator<(const Location &rhs) const {
 }
 
 std::ostream &operator<<(std::ostream &strm, const Location &location) {
-  strm << "file-id=" << location.m_fileId << ", " << "line=" << location.m_line
-       << ", " << "column=" << location.m_column << ", "
+  strm << "file-id=" << location.m_fileId << ", "
+       << "line=" << location.m_line << ", "
+       << "column=" << location.m_column << ", "
        << "object=" << location.m_object;
   return strm;
 }

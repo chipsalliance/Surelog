@@ -47,16 +47,16 @@ class ValuedComponentI;
 
 class ObjectBinder final : protected uhdm::UhdmListener {
  private:
-  typedef std::map<const ValuedComponentI*, uhdm::BaseClass*>
-      ForwardComponentMap;
-  typedef std::map<const uhdm::BaseClass*, const ValuedComponentI*>
-      ReverseComponentMap;
-  typedef std::vector<const uhdm::Design*> DesignStack;
-  typedef std::vector<const uhdm::Package*> PackageStack;
-  typedef std::vector<const uhdm::Any*> PrefixStack;
-  typedef std::vector<std::tuple<const uhdm::Any*, const ValuedComponentI*>>
-      Unbounded;
-  typedef std::set<const uhdm::Any*> Searched;
+  using ForwardComponentMap =
+      std::map<const ValuedComponentI*, uhdm::BaseClass*>;
+  using ReverseComponentMap =
+      std::map<const uhdm::BaseClass*, const ValuedComponentI*>;
+  using DesignStack = std::vector<const uhdm::Design*>;
+  using PackageStack = std::vector<const uhdm::Package*>;
+  using PrefixStack = std::vector<const uhdm::Any*>;
+  using Unbounded =
+      std::vector<std::tuple<const uhdm::Any*, const ValuedComponentI*>>;
+  using Searched = std::set<const uhdm::Any*>;
 
   enum class RefType {
     Object,
@@ -67,50 +67,46 @@ class ObjectBinder final : protected uhdm::UhdmListener {
   ObjectBinder(Session* session, const ForwardComponentMap& componentMap,
                uhdm::Serializer& serializer, bool muteStdout);
 
-  void bind(const uhdm::Design* const object, bool report);
+  void bind(const uhdm::Design* object, bool report);
   void bind(const std::vector<const uhdm::Design*>& objects, bool report);
 
  private:
-  void enterHierPath(const uhdm::HierPath* const object,
-                     uint32_t vpiRelation) final;
-  void leaveHierPath(const uhdm::HierPath* const object,
-                     uint32_t vpiRelation) final;
+  void enterHierPath(const uhdm::HierPath* object, uint32_t vpiRelation) final;
+  void leaveHierPath(const uhdm::HierPath* object, uint32_t vpiRelation) final;
 
-  void enterBitSelect(const uhdm::BitSelect* const object,
+  void enterBitSelect(const uhdm::BitSelect* object,
                       uint32_t vpiRelation) final;
-  void enterVarSelect(const uhdm::VarSelect* const object,
+  void enterVarSelect(const uhdm::VarSelect* object,
                       uint32_t vpiRelation) final;
 
-  // void enterChandle_var(const uhdm::ChandleVar* const object) final;
+  // void enterChandle_var(const uhdm::ChandleVar* object) final;
 
-  void enterIndexedPartSelect(const uhdm::IndexedPartSelect* const object,
+  void enterIndexedPartSelect(const uhdm::IndexedPartSelect* object,
                               uint32_t vpiRelation) final;
 
-  void enterPartSelect(const uhdm::PartSelect* const object,
+  void enterPartSelect(const uhdm::PartSelect* object,
                        uint32_t vpiRelation) final;
 
-  void enterRefModule(const uhdm::RefModule* const object,
+  void enterRefModule(const uhdm::RefModule* object,
                       uint32_t vpiRelation) final;
 
-  void enterRefObj(const uhdm::RefObj* const object,
-                   uint32_t vpiRelation) final;
+  void enterRefObj(const uhdm::RefObj* object, uint32_t vpiRelation) final;
 
-  void enterRefTypespec(const uhdm::RefTypespec* const object,
+  void enterRefTypespec(const uhdm::RefTypespec* object,
                         uint32_t vpiRelation) final;
 
-  void enterClassDefn(const uhdm::ClassDefn* const object,
+  void enterClassDefn(const uhdm::ClassDefn* object,
                       uint32_t vpiRelation) final;
 
  private:
   bool areSimilarNames(std::string_view name1, std::string_view name2) const;
-  bool areSimilarNames(const uhdm::Any* const object1,
-                       std::string_view name2) const;
-  bool areSimilarNames(const uhdm::Any* const object1,
-                       const uhdm::Any* const object2) const;
-  static bool isInElaboratedTree(const uhdm::Any* const object);
+  bool areSimilarNames(const uhdm::Any* object1, std::string_view name2) const;
+  bool areSimilarNames(const uhdm::Any* object1,
+                       const uhdm::Any* object2) const;
+  static bool isInElaboratedTree(const uhdm::Any* object);
 
   VObjectType getDefaultNetType(const ValuedComponentI* component) const;
-  const uhdm::Any* getPrefix(const uhdm::Any* const object);
+  const uhdm::Any* getPrefix(const uhdm::Any* object);
 
   template <typename T>
   const T* getParent(const uhdm::Any* object) const;
@@ -123,57 +119,56 @@ class ObjectBinder final : protected uhdm::UhdmListener {
                                       const uhdm::Any* object) const;
 
   const uhdm::ClassDefn* getClassDefn(
-      const uhdm::ClassDefnCollection* const collection,
-      std::string_view name) const;
+      const uhdm::ClassDefnCollection* collection, std::string_view name) const;
   const uhdm::ClassDefn* getClassDefn(std::string_view name,
                                       const uhdm::Any* object) const;
 
   const uhdm::Any* findInTypespec(std::string_view name, RefType refType,
-                                  const uhdm::Typespec* const scope);
+                                  const uhdm::Typespec* scope);
   const uhdm::Any* findInRefTypespec(std::string_view name, RefType refType,
-                                     const uhdm::RefTypespec* const scope);
+                                     const uhdm::RefTypespec* scope);
   template <typename T>
   const uhdm::Any* findInCollection(std::string_view name, RefType refType,
-                                    const std::vector<T*>* const collection,
-                                    const uhdm::Any* const scope);
+                                    const std::vector<T*>* collection,
+                                    const uhdm::Any* scope);
   const uhdm::Any* findInScope(std::string_view name, RefType refType,
-                               const uhdm::Scope* const scope);
+                               const uhdm::Scope* scope);
   const uhdm::Any* findInInstance(std::string_view name, RefType refType,
-                                  const uhdm::Instance* const scope);
+                                  const uhdm::Instance* scope);
   const uhdm::Any* findInInterface(std::string_view name, RefType refType,
-                                   const uhdm::Interface* const scope);
+                                   const uhdm::Interface* scope);
   const uhdm::Any* findInPackage(std::string_view name, RefType refType,
-                                 const uhdm::Package* const scope);
+                                 const uhdm::Package* scope);
   const uhdm::Any* findInUdpDefn(std::string_view name, RefType refType,
-                                 const uhdm::UdpDefn* const scope);
+                                 const uhdm::UdpDefn* scope);
   const uhdm::Any* findInProgram(std::string_view name, RefType refType,
-                                 const uhdm::Program* const scope);
+                                 const uhdm::Program* scope);
   const uhdm::Any* findInFunction(std::string_view name, RefType refType,
-                                  const uhdm::Function* const scope);
+                                  const uhdm::Function* scope);
   const uhdm::Any* findInTask(std::string_view name, RefType refType,
-                              const uhdm::Task* const scope);
+                              const uhdm::Task* scope);
   const uhdm::Any* findInForStmt(std::string_view name, RefType refType,
-                                 const uhdm::ForStmt* const scope);
+                                 const uhdm::ForStmt* scope);
   const uhdm::Any* findInForeachStmt(std::string_view name, RefType refType,
-                                     const uhdm::ForeachStmt* const scope);
+                                     const uhdm::ForeachStmt* scope);
   template <typename T>
   const uhdm::Any* findInScope_sub(
-      std::string_view name, RefType refType, const T* const scope,
+      std::string_view name, RefType refType, const T* scope,
       typename std::enable_if<
           std::is_same<uhdm::Begin, typename std::decay<T>::type>::value ||
           std::is_same<uhdm::ForkStmt,
                        typename std::decay<T>::type>::value>::type* = 0);
   const uhdm::Any* findInClassDefn(std::string_view name, RefType refType,
-                                   const uhdm::ClassDefn* const scope);
+                                   const uhdm::ClassDefn* scope);
   const uhdm::Any* findInModule(std::string_view name, RefType refType,
-                                const uhdm::Module* const scope);
+                                const uhdm::Module* scope);
   const uhdm::Any* findInDesign(std::string_view name, RefType refType,
-                                const uhdm::Design* const scope);
+                                const uhdm::Design* scope);
 
-  const uhdm::Any* bindObject(const uhdm::Any* const object);
+  const uhdm::Any* bindObject(const uhdm::Any* object);
   const uhdm::Any* bindObjectInScope(std::string_view name,
-                                     const uhdm::Any* const object,
-                                     const uhdm::Any* const scope);
+                                     const uhdm::Any* object,
+                                     const uhdm::Any* scope);
 
   void reportErrors();
   bool createDefaultNets();

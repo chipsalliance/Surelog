@@ -51,8 +51,8 @@ class DesignListener final : public uhdm::VpiListener {
   void enterModule(const uhdm::Module *object, vpiHandle handle) final {
     std::string_view instName = object->getName();
     m_flatTraversal = (instName.empty()) &&
-                      ((object->getParent() == 0) ||
-                       ((object->getParent() != 0) &&
+                      ((object->getParent() == nullptr) ||
+                       ((object->getParent() != nullptr) &&
                         (object->getParent()->getVpiType() != vpiModule)));
     if (m_flatTraversal)
       std::cout << "Entering Module Definition: " << object->getDefName() << " "

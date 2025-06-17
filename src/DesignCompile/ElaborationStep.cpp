@@ -2051,8 +2051,8 @@ uhdm::Any* ElaborationStep::makeVar_(
     vars->emplace_back(array_var);
     obj->setParent(array_var);
     if ((array_var->getTypespec() == nullptr) || associative) {
-      array_var->getVariables(true)->emplace_back((uhdm::Variables*)obj);
-      ((uhdm::Variables*)obj)->setName("");
+      array_var->getVariables(true)->emplace_back(obj);
+      obj->setName("");
     }
     if (array_var->getTypespec() == nullptr) {
       uhdm::RefTypespec* tsRef = s.make<uhdm::RefTypespec>();
@@ -2075,7 +2075,7 @@ uhdm::Any* ElaborationStep::makeVar_(
     } else if (obj->getUhdmType() == uhdm::UhdmType::LogicVar) {
       ((uhdm::LogicVar*)obj)->setName(signame);
     }
-    vars->emplace_back((uhdm::Variables*)obj);
+    vars->emplace_back(obj);
   }
 
   if (assignExp) {
