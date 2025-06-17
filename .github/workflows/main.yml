@@ -393,3 +393,82 @@ jobs:
 #         keep_latest: 5
 #       env:
 #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+# Code formatting
+  CodeFormatting:
+    runs-on: ubuntu-24.04
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install Dependencies
+      run: |
+        # clang-format 18 seems to still settle and has different
+        # outcome with minor versions. So using stable 17 for now.
+        sudo apt-get install clang-format-17
+
+    - name: Run formatting style check
+      run: |
+        export CLANG_FORMAT=clang-format-17
+        "${CLANG_FORMAT}" --version
+        ./.github/bin/run-clang-format.sh
+
+
+# Code Tideness
+  ClangTidy:
+    runs-on: ubuntu-24.04
+
+    steps:
+    - name: Install Dependencies
+      run: |
+        sudo apt-get update -qq
+        sudo apt -qq -y install clang-tidy-18 \
+                                g++-11 default-jre cmake \
+                                uuid-dev build-essential
+
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+        architecture: x64
+
+    - name: Setup Python Packages
+      run: pip3 install build orderedmultidict psutil
+
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: Create Cache Timestamp
+      id: cache_timestamp
+      uses: nanzm/get-time-action@v2.0
+      with:
+        format: 'YYYY-MM-DD-HH-mm-ss'
+
+    - name: Retrieve cached results
+      uses: actions/cache@v3
+      with:
+        path: |
+          /home/runner/.cache/clang-tidy
+          /home/runner/.cache/ccache
+        key: clang-tidy-${{ steps.cache_timestamp.outputs.time }}
+        restore-keys: clang-tidy-
+
+    - name: Configure shell
+      run: |
+        echo 'PATH=/usr/lib/ccache:'"$PATH" >> $GITHUB_ENV
+
+    - name: Prepare source
+      run: |
+        make run-cmake-release_no_tcmalloc
+        make -j2 -C build surelog  # creates all relevant artifacts
+        ln -sf build/compile_commands.json .
+
+    - name: Run clang tidy
+      run: |
+        export CLANG_TIDY=clang-tidy-18
+        "${CLANG_TIDY}" --version
+        ./.github/bin/run-clang-tidy.sh limited \
+           || (cat Surelog_clang-tidy.out ; exit 1)

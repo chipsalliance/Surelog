@@ -133,7 +133,6 @@ jobs:
         rm ${{ env.build-artifact-name }}.tar.gz
 
         python3 scripts/regression.py run       \
-          --uhdm-lint-filepath bin/uhdm-lint    \
           --jobs $(nproc)                       \
           --num_shards=${{ matrix.num_shards }} \
           --shard=${{ matrix.shard }}
@@ -217,11 +216,15 @@ jobs:
 
     - name: Install Dependencies
       run: |
-        sudo apt-get install clang-format
-        clang-format --version
+        # clang-format 18 seems to still settle and has different
+        # outcome with minor versions. So using stable 17 for now.
+        sudo apt-get install clang-format-17
 
     - name: Run formatting style check
-      run: ./.github/bin/run-clang-format.sh
+      run: |
+        export CLANG_FORMAT=clang-format-17
+        "${CLANG_FORMAT}" --version
+        ./.github/bin/run-clang-format.sh
 
 
 # Code Tideness
@@ -243,17 +246,27 @@ jobs:
         architecture: x64
 
     - name: Setup Python Packages
-      run: pip3 install orderedmultidict psutil
+      run: pip3 install build orderedmultidict psutil
 
     - name: Checkout code
       uses: actions/checkout@v4
       with:
         submodules: recursive
 
-    - name: Use ccache
-      uses: hendrikmuhs/ccache-action@v1.2
+    - name: Create Cache Timestamp
+      id: cache_timestamp
+      uses: nanzm/get-time-action@v2.0
       with:
-        key: clang-tidy-codegen
+        format: 'YYYY-MM-DD-HH-mm-ss'
+
+    - name: Retrieve cached results
+      uses: actions/cache@v3
+      with:
+        path: |
+          /home/runner/.cache/clang-tidy
+          /home/runner/.cache/ccache
+        key: clang-tidy-${{ steps.cache_timestamp.outputs.time }}
+        restore-keys: clang-tidy-
 
     - name: Configure shell
       run: |
@@ -261,12 +274,13 @@ jobs:
 
     - name: Prepare source
       run: |
-        make run-cmake-release
-        make -j2 -C build GenerateParser
-        make -j2 -C build GenerateParserListeners
-        make -j2 -C build GenerateCacheSerializers
+        make run-cmake-release_no_tcmalloc
+        make -j2 -C build surelog  # creates all relevant artifacts
         ln -sf build/compile_commands.json .
 
     - name: Run clang tidy
       run: |
-        ./.github/bin/run-clang-tidy.sh limited
+        export CLANG_TIDY=clang-tidy-18
+        "${CLANG_TIDY}" --version
+        ./.github/bin/run-clang-tidy.sh limited \
+           || (cat Surelog_clang-tidy.out ; exit 1)
