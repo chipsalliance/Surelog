@@ -824,6 +824,14 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
         if (exp && (exp->UhdmType() == uhdmconstant)) {
           constant* c = (constant*)exp;
           value = m_exprBuilder.fromVpiValue(c->VpiValue(), c->VpiSize());
+          bool invalidValue = false;
+          int32_t ct = c->VpiConstType();
+          if (ct == vpiIntConst || ct == vpiUIntConst || ct == vpiDecConst ||
+              ct == vpiBinaryConst || ct == vpiHexConst || ct == vpiOctConst) {
+            UHDM::ExprEval eval;
+            int64_t v = eval.get_value(invalidValue, c);
+            if (!invalidValue) val = v;
+          }
         } else {
           value = m_exprBuilder.evalExpr(fC, enumValueId, scope);
           value->setValid();
