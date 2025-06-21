@@ -267,6 +267,10 @@ void SV3_1aParserTreeListener::processPendingTokens(
     return;  // Wait until the source_text rule is visited!
   }
 
+  if (tree->getTreeType() == antlr4::tree::ParseTreeType::ERROR) {
+    tree = tree->parent;
+  }
+
   while ((m_lastVisitedTokenIndex < endTokenIndex) &&
          (m_lastVisitedTokenIndex < m_tokens->size())) {
     antlr4::Token *const lastToken = m_tokens->get(m_lastVisitedTokenIndex);
@@ -406,16 +410,11 @@ void SV3_1aParserTreeListener::enterEveryRule(antlr4::ParserRuleContext *ctx) {
 }
 
 void SV3_1aParserTreeListener::exitEveryRule(antlr4::ParserRuleContext *ctx) {
-  bool shouldAddVObject = m_paused == 0;
-  if (!shouldAddVObject) {
-    for (const antlr4::tree::ParseTree *child : ctx->children) {
-      if (NodeIdFromContext(child)) {
-        shouldAddVObject = true;
-        break;
-      }
-    }
-  }
-  if (!shouldAddVObject) return;
+  const bool shouldAddVObject =
+      std::any_of(ctx->children.cbegin(), ctx->children.cend(),
+                  [this](antlr4::tree::ParseTree *child) {
+                    return NodeIdFromContext(child);
+                  });
 
   // clang-format off
   if (shouldAddVObject) {
@@ -491,7 +490,11 @@ void SV3_1aParserTreeListener::visitTerminal(antlr4::tree::TerminalNode *node) {
 }
 
 void SV3_1aParserTreeListener::visitErrorNode(antlr4::tree::ErrorNode *node) {
-  if (node->getText().find("<missing ") != 0) {
+  const std::string text = node->getText();
+  if (!StringUtils::startsWith(text, "<missing ") &&
+      (text != PreprocessFile::MacroNotDefined) &&
+      (text != PreprocessFile::PP__Line__Marking) &&
+      (text != PreprocessFile::PP__File__Marking)) {
     addVObject(node, VObjectType::slUnparsable_Text);
   }
 }

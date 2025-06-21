@@ -556,8 +556,7 @@ def _run_one(params):
 
         content = _normalize_log(content, {
           workspace_dirpath: '${SURELOG_DIR}',
-          '${SURELOG_DIR}/out/build/bin': '${DEPENDS_DIR}',
-          '${SURELOG_DIR}/build/bin': '${DEPENDS_DIR}',
+          '\${SURELOG_DIR}/out/build/': '\${SURELOG_DIR}/build/',
         })
 
         open(surelog_log_filepath, 'wt', encoding='cp850').write(content)

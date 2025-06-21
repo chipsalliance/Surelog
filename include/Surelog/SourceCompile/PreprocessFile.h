@@ -172,9 +172,12 @@ class PreprocessFile final {
   }
 
   /* Markings */
-  static const char* const MacroNotDefined;
-  static const char* const PP__Line__Marking;
-  static const char* const PP__File__Marking;
+  static constexpr std::string_view MacroNotDefined =
+      "SURELOG_MACRO_NOT_DEFINED";
+  static constexpr std::string_view PP__Line__Marking =
+      "SURELOG__LINE__MARKING";
+  static constexpr std::string_view PP__File__Marking =
+      "SURELOG__FILE__MARKING";
 
  public:
   /* Instructions passed from calling scope */

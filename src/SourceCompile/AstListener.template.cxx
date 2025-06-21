@@ -160,7 +160,7 @@ AstNode AstListener::getNodePrevSibling(const AstNode& node,
     NodeId id = m_objects[(RawNodeId)node.m_object->m_parent].m_child;
     NodeId pid;
     while (id && (id != node.m_index)) {
-      if (pid && (m_objects[(RawNodeId)id].m_type == type)) pid = id;
+      if (m_objects[(RawNodeId)id].m_type == type) pid = id;
       id = m_objects[(RawNodeId)id].m_sibling;
     }
     if (pid && (id == node.m_index)) {
@@ -176,11 +176,9 @@ AstNode AstListener::getNodePrevSibling(
     NodeId id = m_objects[(RawNodeId)node.m_object->m_parent].m_child;
     NodeId pid;
     while (id && (id != node.m_index)) {
-      if (pid) {
-        std::set<VObjectType>::const_iterator it =
-            types.find(m_objects[(RawNodeId)id].m_type);
-        if (it != types.cend()) pid = id;
-      }
+      std::set<VObjectType>::const_iterator it =
+          types.find(m_objects[(RawNodeId)id].m_type);
+      if (it != types.cend()) pid = id;
       id = m_objects[(RawNodeId)id].m_sibling;
     }
     if (pid && (id == node.m_index)) {

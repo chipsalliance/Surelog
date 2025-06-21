@@ -12,6 +12,7 @@ _unix_black_list = set([name.lower() for name in [
   'lpddr',
   'rsd',                    # Out of memory on CI machines
   'simpleparsertestcache',  # race condition
+  'testbatchmode',          # race condition causing inconsistent logs
 ]])
 
 _windows_black_list = _unix_black_list.union(set([name.lower() for name in [

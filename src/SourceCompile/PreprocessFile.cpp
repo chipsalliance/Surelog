@@ -72,10 +72,6 @@ using antlr4::Parser;
 using antlr4::Recognizer;
 using antlr4::Token;
 
-const char* const PreprocessFile::MacroNotDefined = "SURELOG_MACRO_NOT_DEFINED";
-const char* const PreprocessFile::PP__Line__Marking = "SURELOG__LINE__MARKING";
-const char* const PreprocessFile::PP__File__Marking = "SURELOG__FILE__MARKING";
-
 IncludeFileInfo PreprocessFile::s_badIncludeFileInfo(
     IncludeFileInfo::Context::None, IncludeFileInfo::Action::None, BadPathId, 0,
     0, 0, 0, BadSymbolId, 0, 0);
@@ -1139,18 +1135,17 @@ PreprocessFile::evaluateMacro_(
       std::string pp_result = std::get<0>(pp->getPreProcessedFileContent());
       if (callingLine && callingFile && !callingFile->isMacroBody()) {
         CommandLineParser* const clp = m_session->getCommandLineParser();
-        pp_result = std::regex_replace(
-            pp_result, std::regex(PP__File__Marking),
+        pp_result = StringUtils::replaceAll(
+            pp_result, PP__File__Marking,
             StrCat("\"",
                    fileSystem->toPath(callingFile->getFileId(callingLine)),
                    "\""));
         if (clp->disableLineMarkings()) {
           pp_result =
-              std::regex_replace(pp_result, std::regex(PP__Line__Marking), "0");
+              StringUtils::replaceAll(pp_result, PP__Line__Marking, "0");
         } else {
-          pp_result =
-              std::regex_replace(pp_result, std::regex(PP__Line__Marking),
-                                 std::to_string(callingLine));
+          pp_result = StringUtils::replaceAll(pp_result, PP__Line__Marking,
+                                              std::to_string(callingLine));
         }
       }
       result = pp_result;
@@ -1263,8 +1258,10 @@ PreprocessFile::getMacro(
     return {true, StrCat("`", name), {{1, 1}}, {1, name.length() + 2}};
   }
 
-  return {
-      false, MacroNotDefined, {{1, 1}}, {1, std::strlen(MacroNotDefined) + 1}};
+  return {false,
+          std::move(std::string(MacroNotDefined)),
+          {{1, 1}},
+          {1, MacroNotDefined.length() + 1}};
 }
 
 PathId PreprocessFile::getFileId(uint32_t line) const {
