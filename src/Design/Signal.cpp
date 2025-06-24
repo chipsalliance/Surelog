@@ -64,6 +64,19 @@ Signal::Signal(const FileContent* fileContent, NodeId nodeId,
       m_var(false),
       m_signed(is_signed) {}
 
+Signal::Signal(const FileContent* fileContent, NodeId nodeId, NodeId portExpressionId) : m_fileContent(fileContent),
+      m_nodeId(nodeId),
+      m_type(VObjectType::slNoType),
+      m_direction(VObjectType::slNoType),
+      m_interfaceDef(nullptr),
+      m_modPort(nullptr),
+      m_dataType(nullptr),
+      m_lowConn(nullptr),
+      m_port_expression(portExpressionId),
+      m_const(false),
+      m_var(false),
+      m_signed(false) {}
+
 Signal::Signal(const FileContent* fileContent, NodeId nodeId, VObjectType type,
                NodeId packedDimension, VObjectType direction, NodeId typeSpecId,
                NodeId unpackedDimension, bool is_signed)

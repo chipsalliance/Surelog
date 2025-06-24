@@ -52,6 +52,7 @@ class Signal final {
          NodeId unpackedDimension, bool is_signed);
   Signal(const FileContent* fileContent, NodeId node, NodeId interfaceTypeName,
          VObjectType subnettype, NodeId unpackedDimension, bool is_signed);
+  Signal(const FileContent* fileContent, NodeId node, NodeId portExpression);
 
   VObjectType getType() const { return m_type; }
   VObjectType getDirection() const { return m_direction; }
@@ -82,6 +83,7 @@ class Signal final {
   void setRand() { m_rand = true; }
   void setRandc() { m_randc = true; }
   void setSigned() { m_signed = true; }
+  void setExplicitlyNamed() { m_explicitlyNamed = true; }
   bool isConst() const { return m_const; }
   bool isVar() const { return m_var; }
   bool isSigned() const { return m_signed; }
@@ -90,6 +92,7 @@ class Signal final {
   bool isProtected() const { return m_protected; }
   bool isRand() const { return m_rand; }
   bool isRandc() const { return m_randc; }
+  bool isExplicitlyNamed() const { return m_explicitlyNamed; }
   void setDelay(NodeId id) { m_delay = id; }
   void setDriveStrength(NodeId id) { m_drive_strength = id; }
   void setDefaultValue(NodeId id) { m_default_value = id; }
@@ -103,6 +106,7 @@ class Signal final {
   NodeId getDelay() const { return m_delay; }
   NodeId getDriveStrength() const { return m_drive_strength; }
   NodeId getDefaultValue() const { return m_default_value; }
+  NodeId getPortExpression() const { return m_port_expression; }
   const DataType* getDataType() const { return m_dataType; }
 
   std::vector<UHDM::attribute*>* attributes() { return m_attributes; }
@@ -124,6 +128,7 @@ class Signal final {
   NodeId m_delay;
   NodeId m_drive_strength;
   NodeId m_default_value;
+  NodeId m_port_expression;
   bool m_const = false;
   bool m_var = false;
   bool m_signed = false;
@@ -132,6 +137,7 @@ class Signal final {
   bool m_protected = false;
   bool m_rand = false;
   bool m_randc = false;
+  bool m_explicitlyNamed = false;
   std::vector<UHDM::attribute*>* m_attributes = nullptr;
 };
 

@@ -1515,6 +1515,22 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
       if (signal->getType() != VObjectType::slNoType) {
         return true;
       }
+      if (signal->isExplicitlyNamed()) {
+        DesignComponent* component = instance->getDefinition();
+        if (component) {
+          std::string_view signalname = fC->SymName(signal->getPortExpression());
+          if (fC->Type(signal->getPortExpression()) == VObjectType::paPort_expression) {
+            NodeId Port_reference = fC->Child(signal->getPortExpression());
+            NodeId Actual = fC->Child(Port_reference);
+            signalname = fC->SymName(Actual);
+          }
+          for (auto port : component->getPorts()) {
+            if (port->getName() == signalname) {
+              return true;
+            }
+          }
+        }
+      }
       if (def == nullptr) {
         while (instance) {
           for (Parameter* p : instance->getTypeParams()) {
