@@ -2738,13 +2738,16 @@ bool NetlistElaboration::elab_ports_nets_(
         if (do_ports) continue;
         std::string signame;
         if (fC->Type(sig->getNodeId()) == VObjectType::slStringConst) {
-          if (sig->isExplicitlyNamed() && (fC->Type(sig->getPortExpression()) == VObjectType::slStringConst)) {
+          if (sig->isExplicitlyNamed() && (fC->Type(sig->getPortExpression()) ==
+                                           VObjectType::slStringConst)) {
             signame = sig->getFileContent()->SymName(sig->getPortExpression());
-          } else if (sig->isExplicitlyNamed() && (fC->Type(sig->getPortExpression()) == VObjectType::paPort_expression)) {
+          } else if (sig->isExplicitlyNamed() &&
+                     (fC->Type(sig->getPortExpression()) ==
+                      VObjectType::paPort_expression)) {
             port* dest_port = (*netlist->ports())[portIndex];
             any* exp = m_helper.compileExpression(
-                comp, fC, sig->getPortExpression(), m_compileDesign,
-                Reduce::No, dest_port, instance, false);
+                comp, fC, sig->getPortExpression(), m_compileDesign, Reduce::No,
+                dest_port, instance, false);
             if (exp->UhdmType() == uhdmoperation) {
               operation* op = (operation*)exp;
               // We don't compute proper typespec

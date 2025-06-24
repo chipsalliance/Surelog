@@ -1633,9 +1633,11 @@ void setDirectionAndType(DesignComponent* component, const FileContent* fC,
           found = true;
         }
         if (port->isExplicitlyNamed()) {
-          if (fC->Type(port->getPortExpression()) == VObjectType::slStringConst) {
+          if (fC->Type(port->getPortExpression()) ==
+              VObjectType::slStringConst) {
             port_name = fC->SymName(port->getPortExpression());
-          } else if (fC->Type(port->getPortExpression()) == VObjectType::paPort_expression) {
+          } else if (fC->Type(port->getPortExpression()) ==
+                     VObjectType::paPort_expression) {
             NodeId Port_reference = fC->Child(port->getPortExpression());
             NodeId Actual = fC->Child(Port_reference);
             port_name = fC->SymName(Actual);
@@ -1761,8 +1763,7 @@ bool CompileHelper::compilePortDeclaration(DesignComponent* component,
         if (fC->Sibling(Port_reference)) {
           Actual = Port_expression;
         }
-        Signal* signal =
-            new Signal(fC, explicitName, Actual);
+        Signal* signal = new Signal(fC, explicitName, Actual);
         signal->setExplicitlyNamed();
         component->getPorts().push_back(signal);
       } else {

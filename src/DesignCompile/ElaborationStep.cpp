@@ -1518,8 +1518,10 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
       if (signal->isExplicitlyNamed()) {
         DesignComponent* component = instance->getDefinition();
         if (component) {
-          std::string_view signalname = fC->SymName(signal->getPortExpression());
-          if (fC->Type(signal->getPortExpression()) == VObjectType::paPort_expression) {
+          std::string_view signalname =
+              fC->SymName(signal->getPortExpression());
+          if (fC->Type(signal->getPortExpression()) ==
+              VObjectType::paPort_expression) {
             NodeId Port_reference = fC->Child(signal->getPortExpression());
             NodeId Actual = fC->Child(Port_reference);
             signalname = fC->SymName(Actual);

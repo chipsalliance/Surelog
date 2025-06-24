@@ -64,7 +64,9 @@ Signal::Signal(const FileContent* fileContent, NodeId nodeId,
       m_var(false),
       m_signed(is_signed) {}
 
-Signal::Signal(const FileContent* fileContent, NodeId nodeId, NodeId portExpressionId) : m_fileContent(fileContent),
+Signal::Signal(const FileContent* fileContent, NodeId nodeId,
+               NodeId portExpressionId)
+    : m_fileContent(fileContent),
       m_nodeId(nodeId),
       m_type(VObjectType::slNoType),
       m_direction(VObjectType::slNoType),
