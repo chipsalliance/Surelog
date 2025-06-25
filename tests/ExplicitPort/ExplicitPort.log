@@ -1,0 +1,278 @@
+[INF:CM0023] Creating log file "${SURELOG_DIR}/build/regression/ExplicitPort/slpp_all/surelog.log".
+AST_DEBUG_BEGIN
+LIB:  work
+FILE: ${SURELOG_DIR}/tests/ExplicitPort/dut.sv
+n<> u<0> t<_INVALID_> f<0> l<0:0>
+n<> u<1> t<Null_rule> p<31> s<30> l<1:1> el<1:0>
+n<module> u<2> t<Module_keyword> p<19> s<3> l<1:1> el<1:7>
+n<InoutConnect> u<3> t<StringConst> p<19> s<18> l<1:8> el<1:20>
+n<X1> u<4> t<StringConst> p<10> s<9> l<2:22> el<2:24>
+n<internal> u<5> t<StringConst> p<8> s<7> l<2:25> el<2:33>
+n<> u<6> t<Constant_bit_select> p<7> l<2:33> el<2:33>
+n<> u<7> t<Constant_select> p<8> c<6> l<2:33> el<2:33>
+n<> u<8> t<Port_reference> p<9> c<5> l<2:25> el<2:33>
+n<> u<9> t<Port_expression> p<10> c<8> l<2:25> el<2:33>
+n<> u<10> t<Port> p<18> c<4> s<17> l<2:21> el<2:34>
+n<X2> u<11> t<StringConst> p<17> s<16> l<3:22> el<3:24>
+n<internal> u<12> t<StringConst> p<15> s<14> l<3:25> el<3:33>
+n<> u<13> t<Constant_bit_select> p<14> l<3:33> el<3:33>
+n<> u<14> t<Constant_select> p<15> c<13> l<3:33> el<3:33>
+n<> u<15> t<Port_reference> p<16> c<12> l<3:25> el<3:33>
+n<> u<16> t<Port_expression> p<17> c<15> l<3:25> el<3:33>
+n<> u<17> t<Port> p<18> c<11> l<3:21> el<3:34>
+n<> u<18> t<List_of_ports> p<19> c<10> l<1:20> el<4:22>
+n<> u<19> t<Module_nonansi_header> p<28> c<2> s<26> l<1:1> el<4:23>
+n<> u<20> t<Data_type_or_implicit> p<21> l<5:10> el<5:10>
+n<> u<21> t<Net_port_type> p<24> c<20> s<23> l<5:10> el<5:10>
+n<internal> u<22> t<StringConst> p<23> l<5:10> el<5:18>
+n<> u<23> t<List_of_port_identifiers> p<24> c<22> l<5:10> el<5:18>
+n<> u<24> t<Inout_declaration> p<25> c<21> l<5:4> el<5:18>
+n<> u<25> t<Port_declaration> p<26> c<24> l<5:4> el<5:18>
+n<> u<26> t<Module_item> p<28> c<25> s<27> l<5:4> el<5:19>
+n<> u<27> t<ENDMODULE> p<28> l<6:1> el<6:10>
+n<> u<28> t<Module_declaration> p<29> c<19> l<1:1> el<6:10>
+n<> u<29> t<Description> p<30> c<28> l<1:1> el<6:10>
+n<> u<30> t<Source_text> p<31> c<29> l<1:1> el<6:10>
+n<> u<31> t<Top_level_rule> c<1> l<1:1> el<7:1>
+AST_DEBUG_END
+[WRN:PA0205] ${SURELOG_DIR}/tests/ExplicitPort/dut.sv:1:1: No timescale set for "InoutConnect".
+[INF:CP0300] Compilation...
+[INF:CP0303] ${SURELOG_DIR}/tests/ExplicitPort/dut.sv:1:1: Compile module "work@InoutConnect".
+[NTE:CP0309] ${SURELOG_DIR}/tests/ExplicitPort/dut.sv:5:10: Implicit port type (wire) for "internal".
+[WRN:CP0310] ${SURELOG_DIR}/tests/ExplicitPort/dut.sv:3:22: Port "X2" definition missing its direction (input, output, inout).
+[ERR:CP0340] ${SURELOG_DIR}/tests/ExplicitPort/dut.sv:3:22: Port "X2" of unspecified type.
+[INF:EL0526] Design Elaboration...
+[NTE:EL0503] ${SURELOG_DIR}/tests/ExplicitPort/dut.sv:1:1: Top level module "work@InoutConnect".
+[NTE:EL0508] Nb Top level modules: 1.
+[NTE:EL0509] Max instance depth: 1.
+[NTE:EL0510] Nb instances: 1.
+[NTE:EL0511] Nb leaf instances: 1.
+[INF:UH0706] Creating UHDM Model...
+=== UHDM Object Stats Begin (Non-Elaborated Model) ===
+design                                                 1
+logic_net                                              5
+logic_typespec                                         4
+logic_var                                              1
+module_inst                                            2
+port                                                   6
+ref_obj                                                6
+ref_typespec                                           6
+=== UHDM Object Stats End ===
+[INF:UH0707] Elaborating UHDM...
+=== UHDM Object Stats Begin (Elaborated Model) ===
+design                                                 1
+logic_net                                              5
+logic_typespec                                         4
+logic_var                                              1
+module_inst                                            2
+port                                                   9
+ref_obj                                                9
+ref_typespec                                           8
+=== UHDM Object Stats End ===
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ExplicitPort/slpp_all/surelog.uhdm ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ExplicitPort/slpp_all/checker/surelog.chk.html ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ExplicitPort/slpp_all/surelog.uhdm ...
+[INF:UH0711] Decompiling UHDM...
+====== UHDM =======
+design: (work@InoutConnect)
+|vpiElaborated:1
+|vpiName:work@InoutConnect
+|uhdmallModules:
+\_module_inst: work@InoutConnect (work@InoutConnect), file:${SURELOG_DIR}/tests/ExplicitPort/dut.sv, line:1:1, endln:6:10
+  |vpiParent:
+  \_design: (work@InoutConnect)
+  |vpiFullName:work@InoutConnect
+  |vpiDefName:work@InoutConnect
+  |vpiNet:
+  \_logic_net: (work@InoutConnect.internal), line:5:10, endln:5:18
+    |vpiParent:
+    \_module_inst: work@InoutConnect (work@InoutConnect), file:${SURELOG_DIR}/tests/ExplicitPort/dut.sv, line:1:1, endln:6:10
+    |vpiName:internal
+    |vpiFullName:work@InoutConnect.internal
+  |vpiNet:
+  \_logic_net: (work@InoutConnect.X1), line:2:22, endln:2:24
+    |vpiParent:
+    \_module_inst: work@InoutConnect (work@InoutConnect), file:${SURELOG_DIR}/tests/ExplicitPort/dut.sv, line:1:1, endln:6:10
+    |vpiName:X1
+    |vpiFullName:work@InoutConnect.X1
+  |vpiNet:
+  \_logic_net: (work@InoutConnect.X2), line:3:22, endln:3:24
+    |vpiParent:
+    \_module_inst: work@InoutConnect (work@InoutConnect), file:${SURELOG_DIR}/tests/ExplicitPort/dut.sv, line:1:1, endln:6:10
+    |vpiName:X2
+    |vpiFullName:work@InoutConnect.X2
+  |vpiPort:
+  \_port: (X1), line:2:22, endln:2:24
+    |vpiParent:
+    \_module_inst: work@InoutConnect (work@InoutConnect), file:${SURELOG_DIR}/tests/ExplicitPort/dut.sv, line:1:1, endln:6:10
+    |vpiName:X1
+    |vpiDirection:3
+    |vpiLowConn:
+    \_ref_obj: (work@InoutConnect.internal)
+      |vpiParent:
+      \_module_inst: work@InoutConnect (work@InoutConnect), file:${SURELOG_DIR}/tests/ExplicitPort/dut.sv, line:1:1, endln:6:10
+      |vpiName:internal
+      |vpiFullName:work@InoutConnect.internal
+      |vpiActual:
+      \_logic_net: (work@InoutConnect.internal), line:5:10, endln:5:18
+    |vpiTypedef:
+    \_ref_typespec: (work@InoutConnect.X1)
+      |vpiParent:
+      \_port: (X1), line:2:22, endln:2:24
+      |vpiFullName:work@InoutConnect.X1
+      |vpiActual:
+      \_logic_typespec: , line:5:10, endln:5:10
+  |vpiPort:
+  \_port: (X2), line:3:22, endln:3:24
+    |vpiParent:
+    \_module_inst: work@InoutConnect (work@InoutConnect), file:${SURELOG_DIR}/tests/ExplicitPort/dut.sv, line:1:1, endln:6:10
+    |vpiName:X2
+    |vpiDirection:3
+    |vpiLowConn:
+    \_ref_obj: (work@InoutConnect.internal)
+      |vpiParent:
+      \_module_inst: work@InoutConnect (work@InoutConnect), file:${SURELOG_DIR}/tests/ExplicitPort/dut.sv, line:1:1, endln:6:10
+      |vpiName:internal
+      |vpiFullName:work@InoutConnect.internal
+      |vpiActual:
+      \_logic_net: (work@InoutConnect.internal), line:5:10, endln:5:18
+  |vpiPort:
+  \_port: (internal), line:5:10, endln:5:18
+    |vpiParent:
+    \_module_inst: work@InoutConnect (work@InoutConnect), file:${SURELOG_DIR}/tests/ExplicitPort/dut.sv, line:1:1, endln:6:10
+    |vpiName:internal
+    |vpiDirection:3
+    |vpiLowConn:
+    \_ref_obj: (work@InoutConnect.internal.internal), line:5:10, endln:5:18
+      |vpiParent:
+      \_port: (internal), line:5:10, endln:5:18
+      |vpiName:internal
+      |vpiFullName:work@InoutConnect.internal.internal
+      |vpiActual:
+      \_logic_net: (work@InoutConnect.internal), line:5:10, endln:5:18
+    |vpiTypedef:
+    \_ref_typespec: (work@InoutConnect.internal)
+      |vpiParent:
+      \_port: (internal), line:5:10, endln:5:18
+      |vpiFullName:work@InoutConnect.internal
+      |vpiActual:
+      \_logic_typespec: , line:5:10, endln:5:10
+|uhdmtopModules:
+\_module_inst: work@InoutConnect (work@InoutConnect), file:${SURELOG_DIR}/tests/ExplicitPort/dut.sv, line:1:1, endln:6:10
+  |vpiName:work@InoutConnect
+  |vpiVariables:
+  \_logic_var: (work@InoutConnect.X2), line:3:22, endln:3:24
+    |vpiParent:
+    \_module_inst: work@InoutConnect (work@InoutConnect), file:${SURELOG_DIR}/tests/ExplicitPort/dut.sv, line:1:1, endln:6:10
+    |vpiName:X2
+    |vpiFullName:work@InoutConnect.X2
+    |vpiAutomatic:1
+    |vpiVisibility:1
+  |vpiDefName:work@InoutConnect
+  |vpiTop:1
+  |vpiNet:
+  \_logic_net: (work@InoutConnect.internal), line:5:10, endln:5:18
+    |vpiParent:
+    \_module_inst: work@InoutConnect (work@InoutConnect), file:${SURELOG_DIR}/tests/ExplicitPort/dut.sv, line:1:1, endln:6:10
+    |vpiTypespec:
+    \_ref_typespec: (work@InoutConnect.internal)
+      |vpiParent:
+      \_logic_net: (work@InoutConnect.internal), line:5:10, endln:5:18
+      |vpiFullName:work@InoutConnect.internal
+      |vpiActual:
+      \_logic_typespec: , line:5:10, endln:5:10
+    |vpiName:internal
+    |vpiFullName:work@InoutConnect.internal
+  |vpiNet:
+  \_logic_net: (work@InoutConnect.X1), line:2:22, endln:2:24
+    |vpiParent:
+    \_module_inst: work@InoutConnect (work@InoutConnect), file:${SURELOG_DIR}/tests/ExplicitPort/dut.sv, line:1:1, endln:6:10
+    |vpiTypespec:
+    \_ref_typespec: (work@InoutConnect.X1)
+      |vpiParent:
+      \_logic_net: (work@InoutConnect.X1), line:2:22, endln:2:24
+      |vpiFullName:work@InoutConnect.X1
+      |vpiActual:
+      \_logic_typespec: , line:5:10, endln:5:10
+    |vpiName:X1
+    |vpiFullName:work@InoutConnect.X1
+  |vpiTopModule:1
+  |vpiPort:
+  \_port: (X1), line:2:22, endln:2:24
+    |vpiParent:
+    \_module_inst: work@InoutConnect (work@InoutConnect), file:${SURELOG_DIR}/tests/ExplicitPort/dut.sv, line:1:1, endln:6:10
+    |vpiName:X1
+    |vpiDirection:3
+    |vpiLowConn:
+    \_ref_obj: (work@InoutConnect.internal), line:2:22, endln:2:24
+      |vpiParent:
+      \_port: (X1), line:2:22, endln:2:24
+      |vpiName:internal
+      |vpiFullName:work@InoutConnect.internal
+      |vpiActual:
+      \_logic_net: (work@InoutConnect.internal), line:5:10, endln:5:18
+    |vpiTypedef:
+    \_ref_typespec: (work@InoutConnect.X1)
+      |vpiParent:
+      \_port: (X1), line:2:22, endln:2:24
+      |vpiFullName:work@InoutConnect.X1
+      |vpiActual:
+      \_logic_typespec: , line:5:10, endln:5:10
+    |vpiInstance:
+    \_module_inst: work@InoutConnect (work@InoutConnect), file:${SURELOG_DIR}/tests/ExplicitPort/dut.sv, line:1:1, endln:6:10
+  |vpiPort:
+  \_port: (X2), line:3:22, endln:3:24
+    |vpiParent:
+    \_module_inst: work@InoutConnect (work@InoutConnect), file:${SURELOG_DIR}/tests/ExplicitPort/dut.sv, line:1:1, endln:6:10
+    |vpiName:X2
+    |vpiDirection:3
+    |vpiLowConn:
+    \_ref_obj: (work@InoutConnect.internal), line:3:22, endln:3:24
+      |vpiParent:
+      \_port: (X2), line:3:22, endln:3:24
+      |vpiName:internal
+      |vpiFullName:work@InoutConnect.internal
+      |vpiActual:
+      \_logic_net: (work@InoutConnect.internal), line:5:10, endln:5:18
+    |vpiInstance:
+    \_module_inst: work@InoutConnect (work@InoutConnect), file:${SURELOG_DIR}/tests/ExplicitPort/dut.sv, line:1:1, endln:6:10
+  |vpiPort:
+  \_port: (internal), line:5:10, endln:5:18
+    |vpiParent:
+    \_module_inst: work@InoutConnect (work@InoutConnect), file:${SURELOG_DIR}/tests/ExplicitPort/dut.sv, line:1:1, endln:6:10
+    |vpiName:internal
+    |vpiDirection:3
+    |vpiLowConn:
+    \_ref_obj: (work@InoutConnect.internal), line:5:10, endln:5:18
+      |vpiParent:
+      \_port: (internal), line:5:10, endln:5:18
+      |vpiName:internal
+      |vpiFullName:work@InoutConnect.internal
+      |vpiActual:
+      \_logic_net: (work@InoutConnect.internal), line:5:10, endln:5:18
+    |vpiTypedef:
+    \_ref_typespec: (work@InoutConnect.internal)
+      |vpiParent:
+      \_port: (internal), line:5:10, endln:5:18
+      |vpiFullName:work@InoutConnect.internal
+      |vpiActual:
+      \_logic_typespec: , line:5:10, endln:5:10
+    |vpiInstance:
+    \_module_inst: work@InoutConnect (work@InoutConnect), file:${SURELOG_DIR}/tests/ExplicitPort/dut.sv, line:1:1, endln:6:10
+\_weaklyReferenced:
+\_logic_typespec: , line:5:10, endln:5:10
+\_logic_typespec: , line:5:10, endln:5:10
+  |vpiParent:
+  \_logic_net: (work@InoutConnect.X1), line:2:22, endln:2:24
+\_logic_typespec: , line:5:10, endln:5:10
+\_logic_typespec: , line:5:10, endln:5:10
+===================
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 1
+[WARNING] : 2
+[   NOTE] : 6
+
+============================== Begin RoundTrip Results ==============================
+[roundtrip]: ${SURELOG_DIR}/tests/ExplicitPort/dut.sv | ${SURELOG_DIR}/build/regression/ExplicitPort/roundtrip/dut_000.sv | 4 | 6 |
+============================== End RoundTrip Results ==============================
