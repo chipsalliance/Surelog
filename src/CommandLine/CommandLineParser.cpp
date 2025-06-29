@@ -25,6 +25,7 @@
 
 #include <cstdint>
 #include <filesystem>
+#include <fstream>
 #include <map>
 #include <nlohmann/json.hpp>
 #include <string>
@@ -1484,6 +1485,9 @@ bool CommandLineParser::parse(int32_t argc, const char** argv,
     fileSystem->printConfiguration(std::cout);
   }
 
+  // Parse through all files to find all include files
+  findAllIncludeFiles();
+
   status = setupCache_();
   if (!status) return status;
 
@@ -1622,5 +1626,50 @@ bool CommandLineParser::cleanCache() {
   }
 
   return noError;
+}
+
+// Recursively finds all include files in a source file and its includes.
+void CommandLineParser::findAllIncludes(const std::filesystem::path& filePath,
+                                        std::set<std::string>& visited) {
+  if (!std::filesystem::exists(filePath)) return;
+
+  if (visited.count(filePath.string())) return;  // Prevent cycles
+  visited.insert(filePath.string());
+
+  std::ifstream file(filePath);
+  if (!file.is_open()) return;
+
+  std::regex includeRegex("^\\s*`include\\s+\"([^\"]+)\"");
+  std::string line;
+  while (std::getline(file, line)) {
+    std::smatch match;
+    if (std::regex_search(line, match, includeRegex)) {
+      std::string includeFile = match[1].str();
+      SymbolTable* const symbols = m_session->getSymbolTable();
+      FileSystem* const fileSystem = m_session->getFileSystem();
+      PathId fileId = fileSystem->locate(
+          includeFile, m_session->getCommandLineParser()->getIncludePaths(),
+          symbols);
+      if (m_sourceFileSet.find(fileId) == m_sourceFileSet.end()) {
+        m_sourceFiles.emplace_back(fileId);
+        m_sourceFileSet.emplace(fileId);
+      }
+
+      // Try to resolve the include path relative to the current file
+      std::filesystem::path nextPath = filePath.parent_path() / includeFile;
+      findAllIncludes(nextPath, visited);
+    }
+  }
+}
+
+void CommandLineParser::findAllIncludeFiles() {
+  std::set<std::string> visited;
+  if (FileSystem* const fs = m_session->getFileSystem()) {
+    PathIdVector sourceFiles = m_sourceFiles;
+    for (const PathId sourceFile : sourceFiles) {
+      const std::filesystem::path filePath = fs->toPlatformAbsPath(sourceFile);
+      findAllIncludes(filePath, visited);
+    }
+  }
 }
 }  // namespace SURELOG
