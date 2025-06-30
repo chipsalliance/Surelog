@@ -1666,7 +1666,7 @@ void CommandLineParser::findAllIncludeFiles() {
   std::set<std::string> visited;
   if (FileSystem* const fs = m_session->getFileSystem()) {
     PathIdVector sourceFiles = m_sourceFiles;
-    for (const PathId sourceFile : sourceFiles) {
+    for (const PathId& sourceFile : sourceFiles) {
       const std::filesystem::path filePath = fs->toPlatformAbsPath(sourceFile);
       findAllIncludes(filePath, visited);
     }
