@@ -1671,6 +1671,5 @@ void CommandLineParser::findAllIncludeFiles() {
       findAllIncludes(filePath, visited);
     }
   }
-  
 }
 }  // namespace SURELOG
