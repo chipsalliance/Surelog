@@ -1639,7 +1639,7 @@ void CommandLineParser::findAllIncludes(const std::filesystem::path& filePath,
   std::ifstream file(filePath);
   if (!file.is_open()) return;
 
-  std::regex includeRegex("^\\s*`include\\s+\"([^\"]+)\"");
+  const std::regex includeRegex(R"("^\\s*`include\\s+\"([^\"]+)\"")");
   std::string line;
   while (std::getline(file, line)) {
     std::smatch match;
@@ -1650,7 +1650,7 @@ void CommandLineParser::findAllIncludes(const std::filesystem::path& filePath,
       PathId fileId = fileSystem->locate(
           includeFile, m_session->getCommandLineParser()->getIncludePaths(),
           symbols);
-      if (m_sourceFileSet.find(fileId) == m_sourceFileSet.end()) {
+      if (fileId && m_sourceFileSet.find(fileId) == m_sourceFileSet.end()) {
         m_sourceFiles.emplace_back(fileId);
         m_sourceFileSet.emplace(fileId);
       }
@@ -1671,5 +1671,6 @@ void CommandLineParser::findAllIncludeFiles() {
       findAllIncludes(filePath, visited);
     }
   }
+  
 }
 }  // namespace SURELOG
