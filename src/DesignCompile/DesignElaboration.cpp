@@ -62,6 +62,7 @@
 #include <uhdm/uhdm.h>
 #include <uhdm/uhdm_types.h>
 #include <uhdm/vpi_user.h>
+#include <uhdm/vpi_visitor.h>
 
 #include <algorithm>
 #include <cstdint>
@@ -724,6 +725,8 @@ void DesignElaboration::elaborateInstance_(
     ModuleInstanceFactory* factory, ModuleInstance* parent, Config* config,
     std::vector<ModuleInstance*>& parentSubInstances) {
   if (!parent) return;
+  // Turn to true to debug instance parameters
+  bool debugInstParam = false;
 
   CommandLineParser* clp =
       m_compileDesign->getCompiler()->getCommandLineParser();
@@ -1459,8 +1462,6 @@ void DesignElaboration::elaborateInstance_(
         }
 
         libName = fC->getLibrary()->getName();
-        // fullName = parent->getModuleName() + "." + instName;
-        // def = design->getComponentDefinition(fullName);
         NodeId blockId = childId;
         if (fC->Type(fC->Child(blockId)) ==
             VObjectType::paGenerate_begin_end_block) {
@@ -1484,11 +1485,22 @@ void DesignElaboration::elaborateInstance_(
           design->addModuleDefinition(indexedModName, (ModuleDefinition*)def);
         }
 
-        // std::cout << "Inst:" << fullName << ", modName:" << modName <<
-        // std::endl; for (auto param : parent->getMappedValues()) {
-        //  std::cout << param.first << " " << param.second.first->uhdmValue()
-        //  << std::endl;
-        //}
+        if (debugInstParam) {
+          fullName = std::string(parent->getModuleName()) + std::string(".") +
+                     instName;
+
+          std::cout << "Inst:" << fullName << ", modName:" << modName
+                    << std::endl;
+          for (auto param : parent->getMappedValues()) {
+            std::cout << param.first << " " << param.second.first->uhdmValue()
+                      << std::endl;
+          }
+          for (auto param : parent->getComplexValues()) {
+            std::cout << param.first << std::endl;
+            UHDM::decompile(param.second);
+            std::cout << std::endl;
+          }
+        }
 
         // Compile generate block
         ((ModuleDefinition*)def)->setGenBlockId(blockId);
@@ -1633,6 +1645,23 @@ void DesignElaboration::elaborateInstance_(
             fC->sl_collect(subInstanceId, VObjectType::slStringConst);
         const std::string_view libName = fC->getLibrary()->getName();
         mname = fC->SymName(moduleName);
+
+        if (debugInstParam) {
+          std::string fullName = std::string(parent->getModuleName()) +
+                                 std::string(".") + instName;
+
+          std::cout << "Inst:" << fullName << ", modName:" << modName
+                    << std::endl;
+          for (auto param : parent->getMappedValues()) {
+            std::cout << param.first << " " << param.second.first->uhdmValue()
+                      << std::endl;
+          }
+          for (auto param : parent->getComplexValues()) {
+            std::cout << param.first << std::endl;
+            UHDM::decompile(param.second);
+            std::cout << std::endl;
+          }
+        }
 
         std::vector<std::string> libs;
         if (config) {
@@ -2419,7 +2448,7 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
             m_helper.checkForLoops(true);
             UHDM::expr* expr = (UHDM::expr*)m_helper.compileExpression(
                 instance->getDefinition(), param.fC, exprId, m_compileDesign,
-                isMultidimension ? Reduce::No : Reduce::Yes, nullptr, instance,
+                isMultidimension ? Reduce::Yes : Reduce::Yes, nullptr, instance,
                 false);
             m_helper.checkForLoops(false);
             Value* value = nullptr;

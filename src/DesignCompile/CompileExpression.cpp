@@ -773,8 +773,11 @@ any *CompileHelper::decodeHierPath(hier_path *path, bool &invalidValue,
         m_exprEvalPlaceHolder->Param_assigns()->begin(),
         m_exprEvalPlaceHolder->Param_assigns()->end());
   }
-  any *res = eval.decodeHierPath(path, invalidValue, m_exprEvalPlaceHolder,
-                                 pexpr, returnTypespec, muteErrors);
+  any *res =
+      eval.decodeHierPath(path, invalidValue, m_exprEvalPlaceHolder, pexpr,
+                          returnTypespec ? UHDM::ExprEval::ReturnType::TYPESPEC
+                                         : UHDM::ExprEval::ReturnType::VALUE,
+                          muteErrors);
 
   if (res == nullptr) {
     if ((reduce == Reduce::Yes) && (!muteErrors)) {
@@ -882,6 +885,44 @@ any *CompileHelper::getValue(std::string_view name, DesignComponent *component,
             c->VpiConstType(sval->vpiValType());
             c->VpiSize(sval->getSize());
             result = c;
+          }
+        }
+
+        if (UHDM::VectorOfparam_assign *param_assigns =
+                pack->getParam_assigns()) {
+          for (param_assign *param : *param_assigns) {
+            if (param && param->Lhs()) {
+              const std::string_view param_name = param->Lhs()->VpiName();
+              if (param_name == varName) {
+                if (substituteAssignedValue(param->Rhs(), compileDesign)) {
+                  if (param->Rhs()->UhdmType() == uhdmoperation) {
+                    operation *op = (operation *)param->Rhs();
+                    int32_t opType = op->VpiOpType();
+                    if (opType == vpiAssignmentPatternOp) {
+                      const any *lhs = param->Lhs();
+                      any *rhs = param->Rhs();
+                      const typespec *ts = nullptr;
+                      if (lhs->UhdmType() == uhdmparameter) {
+                        if (const ref_typespec *rt =
+                                ((parameter *)lhs)->Typespec()) {
+                          ts = rt->Actual_typespec();
+                        }
+                      }
+                      rhs = expandPatternAssignment(ts, (expr *)rhs, component,
+                                                    compileDesign, instance);
+                      param->Rhs(rhs);
+                      reorderAssignmentPattern(component, lhs, rhs,
+                                               compileDesign, instance, 0);
+                    }
+                  }
+
+                  ElaboratorContext elaboratorContext(&s, false, true);
+                  result = UHDM::clone_tree(param->Rhs(), &elaboratorContext);
+                  if (result != nullptr) result->VpiParent(param);
+                  break;
+                }
+              }
+            }
           }
         }
       }
