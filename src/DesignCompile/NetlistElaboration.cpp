@@ -731,10 +731,6 @@ ModuleInstance* NetlistElaboration::getInterfaceInstance_(
         NodeId Expression = fC->Sibling(formalId);
         if (orderedConnection) {
           Expression = formalId;
-          NodeId Primary = fC->Child(Expression);
-          NodeId Primary_literal = fC->Child(Primary);
-          NodeId formalNameId = fC->Child(Primary_literal);
-          formalName = fC->SymName(formalNameId);
         } else {
           NodeId tmp = Expression;
           if (fC->Type(tmp) == VObjectType::paOPEN_PARENS) {
