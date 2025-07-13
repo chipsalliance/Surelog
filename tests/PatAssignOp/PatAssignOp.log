@@ -511,13 +511,13 @@ AST_DEBUG_END
 [WRN:EL0513] Nb undefined instances: 1.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-array_typespec                                         3
+array_typespec                                         4
 begin                                                  2
 bit_select                                             2
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              52
+constant                                              48
 design                                                 1
 enum_const                                             5
 enum_typespec                                          1
@@ -526,30 +526,30 @@ function                                               9
 gen_if                                                 2
 gen_scope                                              2
 gen_scope_array                                        2
-int_typespec                                          20
+int_typespec                                          21
 int_var                                                4
 io_decl                                               11
 logic_var                                              1
 module_inst                                            5
-operation                                             20
+operation                                             17
 package                                                2
 param_assign                                          12
 parameter                                             13
-range                                                  5
+range                                                  6
 ref_module                                             3
 ref_obj                                               23
-ref_typespec                                          40
+ref_typespec                                          42
 task                                                   9
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-array_typespec                                         3
+array_typespec                                         4
 begin                                                  2
 bit_select                                             2
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              52
+constant                                              48
 design                                                 1
 enum_const                                            10
 enum_typespec                                          2
@@ -558,19 +558,19 @@ function                                              18
 gen_if                                                 2
 gen_scope                                              3
 gen_scope_array                                        3
-int_typespec                                          20
+int_typespec                                          21
 int_var                                                4
 io_decl                                               22
 logic_var                                              1
 module_inst                                            6
-operation                                             20
+operation                                             17
 package                                                2
 param_assign                                          12
 parameter                                             13
-range                                                  5
+range                                                  6
 ref_module                                             3
 ref_obj                                               23
-ref_typespec                                          45
+ref_typespec                                          47
 task                                                  18
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PatAssignOp/slpp_all/surelog.uhdm ...
@@ -1624,6 +1624,13 @@ design: (work@top)
     \_operation: , line:8:9, endln:8:84
       |vpiParent:
       \_param_assign: , line:7:18, endln:8:84
+      |vpiTypespec:
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_operation: , line:8:9, endln:8:84
+        |vpiFullName:work@top
+        |vpiActual:
+        \_array_typespec: , line:7:14, endln:7:62
       |vpiOpType:75
       |vpiReordered:1
       |vpiOperand:
@@ -1918,6 +1925,40 @@ design: (work@top)
 \_int_typespec: , line:66:14, endln:66:17
   |vpiSigned:1
 \_int_typespec: , line:66:26, endln:66:29
+  |vpiSigned:1
+\_array_typespec: , line:7:14, endln:7:62
+  |vpiParent:
+  \_ref_typespec: (work@top)
+  |vpiRange:
+  \_range: , line:7:44, endln:7:62
+    |vpiParent:
+    \_array_typespec: , line:7:14, endln:7:62
+    |vpiLeftRange:
+    \_ref_obj: (work@top.coh_noc_dims_p), line:7:45, endln:7:59
+      |vpiParent:
+      \_range: , line:7:44, endln:7:62
+      |vpiName:coh_noc_dims_p
+      |vpiFullName:work@top.coh_noc_dims_p
+      |vpiActual:
+      \_parameter: (work@top.coh_noc_dims_p), line:3:14, endln:3:28
+    |vpiRightRange:
+    \_constant: , line:7:60, endln:7:61
+      |vpiParent:
+      \_range: , line:7:44, endln:7:62
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_typespec: (work@top)
+    |vpiParent:
+    \_array_typespec: , line:7:14, endln:7:62
+    |vpiFullName:work@top
+    |vpiActual:
+    \_int_typespec: , line:7:14, endln:7:17
+\_int_typespec: , line:7:14, endln:7:17
+  |vpiParent:
+  \_ref_typespec: (work@top)
   |vpiSigned:1
 \_int_typespec: , line:3:3, endln:3:40
   |vpiParent:

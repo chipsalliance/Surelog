@@ -380,7 +380,7 @@ parameter                                             10
 port                                                   6
 ref_module                                             4
 ref_obj                                               14
-ref_typespec                                          43
+ref_typespec                                          45
 struct_typespec                                        7
 typespec_member                                        7
 === UHDM Object Stats End ===
@@ -403,7 +403,7 @@ parameter                                             10
 port                                                   8
 ref_module                                             4
 ref_obj                                               19
-ref_typespec                                          45
+ref_typespec                                          47
 struct_typespec                                        7
 typespec_member                                        7
 === UHDM Object Stats End ===
@@ -1009,9 +1009,18 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ComplexParamOverload2/dut.sv, line:57:1, endln:66:10
     |vpiRhs:
     \_constant: , line:59:36, endln:59:37
+      |vpiParent:
+      \_param_assign: , line:59:24, endln:59:37
       |vpiDecompile:2
       |vpiSize:32
       |UINT:2
+      |vpiTypespec:
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:59:36, endln:59:37
+        |vpiFullName:work@top
+        |vpiActual:
+        \_struct_typespec: (pinmux_pkg::struct2_t), line:14:12, endln:16:5
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.TargetCfg), line:59:24, endln:59:33
@@ -1054,9 +1063,18 @@ design: (work@top)
       \_module_inst: work@almost_top (work@top.u_top), file:${SURELOG_DIR}/tests/ComplexParamOverload2/dut.sv, line:61:4, endln:65:6
       |vpiRhs:
       \_constant: , line:48:36, endln:48:37
+        |vpiParent:
+        \_param_assign: , line:48:24, endln:48:37
         |vpiDecompile:1
         |vpiSize:32
         |UINT:1
+        |vpiTypespec:
+        \_ref_typespec: (work@top.u_top)
+          |vpiParent:
+          \_constant: , line:48:36, endln:48:37
+          |vpiFullName:work@top.u_top
+          |vpiActual:
+          \_struct_typespec: (pinmux_pkg::struct1_t), line:6:12, endln:8:5
         |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@top.u_top.TargetCfg), line:48:24, endln:48:33

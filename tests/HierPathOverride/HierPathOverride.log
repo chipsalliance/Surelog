@@ -363,64 +363,64 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 bit_select                                             1
-constant                                             130
+constant                                             137
 cont_assign                                            3
 design                                                 1
-enum_const                                            30
-enum_typespec                                         15
+enum_const                                            32
+enum_typespec                                         16
 gen_if                                                 2
 gen_scope                                              4
 gen_scope_array                                        4
 hier_path                                              1
 import_typespec                                        5
-int_typespec                                          43
-logic_typespec                                        15
+int_typespec                                          46
+logic_typespec                                        16
 module_inst                                           15
 named_begin                                            2
-operation                                             29
+operation                                             32
 package                                                4
-packed_array_typespec                                 13
+packed_array_typespec                                 14
 param_assign                                          24
-parameter                                             31
-range                                                 28
+parameter                                             32
+range                                                 30
 ref_module                                             3
-ref_obj                                               17
-ref_typespec                                         126
-string_typespec                                       12
-struct_typespec                                       13
-tagged_pattern                                        12
-typespec_member                                       13
+ref_obj                                               16
+ref_typespec                                         137
+string_typespec                                       15
+struct_typespec                                       14
+tagged_pattern                                        15
+typespec_member                                       14
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
 bit_select                                             1
-constant                                             130
+constant                                             137
 cont_assign                                            6
 design                                                 1
-enum_const                                            30
-enum_typespec                                         15
+enum_const                                            32
+enum_typespec                                         16
 gen_if                                                 2
 gen_scope                                              8
 gen_scope_array                                        8
 hier_path                                              1
 import_typespec                                        5
-int_typespec                                          43
-logic_typespec                                        15
+int_typespec                                          46
+logic_typespec                                        16
 module_inst                                           16
 named_begin                                            2
-operation                                             29
+operation                                             32
 package                                                4
-packed_array_typespec                                 13
+packed_array_typespec                                 14
 param_assign                                          26
-parameter                                             31
-range                                                 28
+parameter                                             32
+range                                                 30
 ref_module                                             3
-ref_obj                                               20
-ref_typespec                                         130
-string_typespec                                       12
-struct_typespec                                       13
-tagged_pattern                                        12
-typespec_member                                       13
+ref_obj                                               19
+ref_typespec                                         141
+string_typespec                                       15
+struct_typespec                                       14
+tagged_pattern                                        15
+typespec_member                                       14
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/HierPathOverride/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/HierPathOverride/slpp_all/checker/surelog.chk.html ...
@@ -1332,13 +1332,6 @@ design: (work@top)
     \_operation: , line:17:46, endln:19:5
       |vpiParent:
       \_param_assign: , line:17:27, endln:19:5
-      |vpiTypespec:
-      \_ref_typespec: (work@top)
-        |vpiParent:
-        \_operation: , line:17:46, endln:19:5
-        |vpiFullName:work@top
-        |vpiActual:
-        \_struct_typespec: (pinmux_pkg::target_cfg_t), line:13:12, endln:15:5
       |vpiOpType:75
       |vpiOperand:
       \_constant: , line:18:21, endln:18:34
@@ -1362,13 +1355,32 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathOverride/dut.sv, line:44:1, endln:50:10
     |vpiRhs:
-    \_ref_obj: (work@top.DefaultTargetCfg), line:46:39, endln:46:55
+    \_operation: , line:46:39, endln:46:55
       |vpiParent:
       \_param_assign: , line:46:27, endln:46:55
-      |vpiName:DefaultTargetCfg
-      |vpiFullName:work@top.DefaultTargetCfg
-      |vpiActual:
-      \_parameter: (work@top.DefaultTargetCfg), line:17:27, endln:17:43
+      |vpiTypespec:
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_operation: , line:46:39, endln:46:55
+        |vpiFullName:work@top
+        |vpiActual:
+        \_struct_typespec: (pinmux_pkg::target_cfg_t), line:13:12, endln:15:5
+      |vpiOpType:75
+      |vpiOperand:
+      \_constant: , line:18:21, endln:18:34
+        |vpiParent:
+        \_operation: , line:46:39, endln:46:55
+        |vpiDecompile:001001001001001001001001001001001001001001001001001001001001001001001001
+        |vpiSize:72
+        |BIN:001001001001001001001001001001001001001001001001001001001001001001001001
+        |vpiTypespec:
+        \_ref_typespec: (work@top)
+          |vpiParent:
+          \_constant: , line:18:21, endln:18:34
+          |vpiFullName:work@top
+          |vpiActual:
+          \_int_typespec: 
+        |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@top.TargetCfg), line:46:27, endln:46:36
   |vpiTypedef:
@@ -2071,6 +2083,16 @@ design: (work@top)
       |vpiSize:64
       |UINT:0
       |vpiConstType:9
+\_int_typespec: 
+  |vpiParent:
+  \_ref_typespec: (work@top)
+  |UINT:3
+\_operation: , line:17:46, endln:19:5
+  |vpiParent:
+  \_param_assign: , line:17:27, endln:19:5
+  |vpiOpType:75
+  |vpiOperand:
+  \_constant: , line:18:21, endln:18:34
 \_struct_typespec: (pinmux_pkg::target_cfg_t), line:13:12, endln:15:5
   |vpiParent:
   \_ref_typespec: (work@top)
@@ -2185,13 +2207,13 @@ design: (work@top)
   |vpiParent:
   \_ref_typespec: (work@top)
   |UINT:3
-\_operation: , line:17:46, endln:19:5
+\_operation: , line:46:39, endln:46:55
   |vpiParent:
-  \_param_assign: , line:17:27, endln:19:5
+  \_param_assign: , line:46:27, endln:46:55
   |vpiTypespec:
   \_ref_typespec: (work@top)
     |vpiParent:
-    \_operation: , line:17:46, endln:19:5
+    \_operation: , line:46:39, endln:46:55
     |vpiFullName:work@top
     |vpiActual:
     \_struct_typespec: (pinmux_pkg::target_cfg_t), line:13:12, endln:15:5

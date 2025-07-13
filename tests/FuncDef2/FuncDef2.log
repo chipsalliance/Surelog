@@ -3637,7 +3637,7 @@ bit_select                                            39
 bit_typespec                                           9
 bit_var                                                4
 break_stmt                                             2
-constant                                             351
+constant                                             373
 design                                                 1
 enum_const                                           124
 enum_typespec                                         25
@@ -3660,22 +3660,22 @@ logic_typespec                                        42
 logic_var                                             66
 module_inst                                           58
 named_begin                                            3
-operation                                            120
+operation                                            123
 package                                                2
-param_assign                                         140
-parameter                                            147
+param_assign                                         136
+parameter                                            144
 port                                                   6
 range                                                 25
-ref_obj                                              496
-ref_typespec                                         579
+ref_obj                                              493
+ref_typespec                                         613
 ref_var                                                1
 return_stmt                                           88
-short_int_typespec                                   104
-string_typespec                                       96
-struct_typespec                                       15
+short_int_typespec                                   112
+string_typespec                                      120
+struct_typespec                                       16
 sys_func_call                                          5
-tagged_pattern                                        96
-typespec_member                                      110
+tagged_pattern                                       120
+typespec_member                                      118
 unsupported_typespec                                  10
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -3689,7 +3689,7 @@ bit_select                                            76
 bit_typespec                                           9
 bit_var                                                4
 break_stmt                                             5
-constant                                             353
+constant                                             375
 design                                                 1
 enum_const                                           124
 enum_typespec                                         25
@@ -3712,22 +3712,22 @@ logic_typespec                                        42
 logic_var                                             66
 module_inst                                           58
 named_begin                                            3
-operation                                            270
+operation                                            273
 package                                                2
-param_assign                                         140
-parameter                                            147
+param_assign                                         136
+parameter                                            144
 port                                                   9
 range                                                 25
-ref_obj                                             1079
-ref_typespec                                         817
+ref_obj                                             1076
+ref_typespec                                         851
 ref_var                                                1
 return_stmt                                          220
-short_int_typespec                                   104
-string_typespec                                       96
-struct_typespec                                       15
+short_int_typespec                                   112
+string_typespec                                      120
+struct_typespec                                       16
 sys_func_call                                         10
-tagged_pattern                                        96
-typespec_member                                      110
+tagged_pattern                                       120
+typespec_member                                      118
 unsupported_typespec                                  10
 === UHDM Object Stats End ===
 [ERR:UH0725] ${SURELOG_DIR}/tests/FuncDef2/dut.sv:417:33: Unresolved hierarchical reference "receiver_if.valid[i]".
@@ -20797,13 +20797,88 @@ design: (work@tnoc_vc_splitter)
     |vpiParent:
     \_module_inst: work@tnoc_vc_splitter (work@tnoc_vc_splitter), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:404:1, endln:433:10
     |vpiRhs:
-    \_ref_obj: (work@tnoc_vc_splitter.TNOC_DEFAULT_PACKET_CONFIG), line:407:51, endln:407:77
+    \_operation: , line:407:51, endln:407:77
       |vpiParent:
       \_param_assign: , line:407:35, endln:407:77
-      |vpiName:TNOC_DEFAULT_PACKET_CONFIG
-      |vpiFullName:work@tnoc_vc_splitter.TNOC_DEFAULT_PACKET_CONFIG
-      |vpiActual:
-      \_parameter: (work@tnoc_vc_splitter.TNOC_DEFAULT_PACKET_CONFIG), line:55:35, endln:55:61
+      |vpiTypespec:
+      \_ref_typespec: (work@tnoc_vc_splitter)
+        |vpiParent:
+        \_operation: , line:407:51, endln:407:77
+        |vpiFullName:work@tnoc_vc_splitter
+        |vpiActual:
+        \_struct_typespec: (tnoc_pkg::tnoc_packet_config), line:387:5, endln:387:23
+      |vpiOpType:75
+      |vpiOperand:
+      \_constant: , line:56:23, endln:56:24
+        |vpiParent:
+        \_operation: , line:407:51, endln:407:77
+        |vpiDecompile:3
+        |vpiSize:16
+        |UINT:3
+        |vpiConstType:9
+      |vpiOperand:
+      \_constant: , line:57:23, endln:57:24
+        |vpiParent:
+        \_operation: , line:407:51, endln:407:77
+        |vpiDecompile:3
+        |vpiSize:16
+        |UINT:3
+        |vpiConstType:9
+      |vpiOperand:
+      \_constant: , line:58:23, endln:58:24
+        |vpiParent:
+        \_operation: , line:407:51, endln:407:77
+        |vpiDecompile:2
+        |vpiSize:16
+        |UINT:2
+        |vpiTypespec:
+        \_ref_typespec: (work@tnoc_vc_splitter)
+          |vpiParent:
+          \_constant: , line:58:23, endln:58:24
+          |vpiFullName:work@tnoc_vc_splitter
+          |vpiActual:
+          \_int_typespec: , line:409:15, endln:409:18
+        |vpiConstType:9
+      |vpiOperand:
+      \_constant: , line:59:23, endln:59:26
+        |vpiParent:
+        \_operation: , line:407:51, endln:407:77
+        |vpiDecompile:256
+        |vpiSize:16
+        |UINT:256
+        |vpiConstType:9
+      |vpiOperand:
+      \_constant: , line:60:23, endln:60:25
+        |vpiParent:
+        \_operation: , line:407:51, endln:407:77
+        |vpiDecompile:64
+        |vpiSize:16
+        |UINT:64
+        |vpiConstType:9
+      |vpiOperand:
+      \_constant: , line:61:23, endln:61:26
+        |vpiParent:
+        \_operation: , line:407:51, endln:407:77
+        |vpiDecompile:256
+        |vpiSize:16
+        |UINT:256
+        |vpiConstType:9
+      |vpiOperand:
+      \_constant: , line:62:23, endln:62:26
+        |vpiParent:
+        \_operation: , line:407:51, endln:407:77
+        |vpiDecompile:256
+        |vpiSize:16
+        |UINT:256
+        |vpiConstType:9
+      |vpiOperand:
+      \_constant: , line:63:23, endln:63:27
+        |vpiParent:
+        \_operation: , line:407:51, endln:407:77
+        |vpiDecompile:4096
+        |vpiSize:16
+        |UINT:4096
+        |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@tnoc_vc_splitter.PACKET_CONFIG), line:407:35, endln:407:48
   |vpiParamAssign:
@@ -20856,13 +20931,6 @@ design: (work@tnoc_vc_splitter)
     \_operation: , line:55:65, endln:64:4
       |vpiParent:
       \_param_assign: , line:55:35, endln:64:4
-      |vpiTypespec:
-      \_ref_typespec: (work@tnoc_vc_splitter)
-        |vpiParent:
-        \_operation: , line:55:65, endln:64:4
-        |vpiFullName:work@tnoc_vc_splitter
-        |vpiActual:
-        \_struct_typespec: (tnoc_pkg::tnoc_packet_config), line:387:5, endln:387:23
       |vpiOpType:75
       |vpiOperand:
       \_constant: , line:56:23, endln:56:24
@@ -20887,13 +20955,6 @@ design: (work@tnoc_vc_splitter)
         |vpiDecompile:2
         |vpiSize:16
         |UINT:2
-        |vpiTypespec:
-        \_ref_typespec: (work@tnoc_vc_splitter)
-          |vpiParent:
-          \_constant: , line:58:23, endln:58:24
-          |vpiFullName:work@tnoc_vc_splitter
-          |vpiActual:
-          \_int_typespec: , line:409:15, endln:409:18
         |vpiConstType:9
       |vpiOperand:
       \_constant: , line:59:23, endln:59:26
@@ -31908,12 +31969,6 @@ design: (work@tnoc_vc_splitter)
   |vpiParent:
   \_parameter: (work@tnoc_vc_splitter.CHANNELS), line:409:35, endln:409:43
   |vpiSigned:1
-\_unsupported_typespec: (tnoc_types), line:411:3, endln:411:13
-  |vpiName:tnoc_types
-\_unsupported_typespec: (tnoc_flit_if), line:412:3, endln:412:15
-  |vpiName:tnoc_flit_if
-\_unsupported_typespec: (tnoc_flit_if), line:413:3, endln:413:15
-  |vpiName:tnoc_flit_if
 \_struct_typespec: (tnoc_pkg::tnoc_packet_config), line:387:5, endln:387:23
   |vpiParent:
   \_ref_typespec: (work@tnoc_vc_splitter)
@@ -32109,13 +32164,13 @@ design: (work@tnoc_vc_splitter)
   |vpiParent:
   \_ref_typespec: (work@tnoc_vc_splitter)
   |vpiSigned:1
-\_operation: , line:55:65, endln:64:4
+\_operation: , line:407:51, endln:407:77
   |vpiParent:
-  \_param_assign: , line:55:35, endln:64:4
+  \_param_assign: , line:407:35, endln:407:77
   |vpiTypespec:
   \_ref_typespec: (work@tnoc_vc_splitter)
     |vpiParent:
-    \_operation: , line:55:65, endln:64:4
+    \_operation: , line:407:51, endln:407:77
     |vpiFullName:work@tnoc_vc_splitter
     |vpiActual:
     \_struct_typespec: (tnoc_pkg::tnoc_packet_config), line:387:5, endln:387:23
@@ -32327,6 +32382,32 @@ design: (work@tnoc_vc_splitter)
   |vpiInstance:
   \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
   |vpiSigned:1
+\_unsupported_typespec: (tnoc_types), line:411:3, endln:411:13
+  |vpiName:tnoc_types
+\_unsupported_typespec: (tnoc_flit_if), line:412:3, endln:412:15
+  |vpiName:tnoc_flit_if
+\_unsupported_typespec: (tnoc_flit_if), line:413:3, endln:413:15
+  |vpiName:tnoc_flit_if
+\_operation: , line:55:65, endln:64:4
+  |vpiParent:
+  \_param_assign: , line:55:35, endln:64:4
+  |vpiOpType:75
+  |vpiOperand:
+  \_constant: , line:56:23, endln:56:24
+  |vpiOperand:
+  \_constant: , line:57:23, endln:57:24
+  |vpiOperand:
+  \_constant: , line:58:23, endln:58:24
+  |vpiOperand:
+  \_constant: , line:59:23, endln:59:26
+  |vpiOperand:
+  \_constant: , line:60:23, endln:60:25
+  |vpiOperand:
+  \_constant: , line:61:23, endln:61:26
+  |vpiOperand:
+  \_constant: , line:62:23, endln:62:26
+  |vpiOperand:
+  \_constant: , line:63:23, endln:63:27
 \_unsupported_typespec: (tnoc_types), line:411:3, endln:411:13
   |vpiParent:
   \_logic_net: (work@tnoc_vc_splitter.types), line:411:25, endln:411:30

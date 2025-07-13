@@ -421,7 +421,7 @@ param_assign                                          12
 parameter                                             12
 ref_module                                             4
 ref_obj                                                6
-ref_typespec                                          46
+ref_typespec                                          48
 struct_typespec                                       10
 typespec_member                                       10
 === UHDM Object Stats End ===
@@ -442,7 +442,7 @@ param_assign                                          12
 parameter                                             12
 ref_module                                             4
 ref_obj                                                7
-ref_typespec                                          46
+ref_typespec                                          48
 struct_typespec                                       10
 typespec_member                                       10
 === UHDM Object Stats End ===
@@ -1116,9 +1116,18 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/ComplexParamOverload/dut.sv, line:65:1, endln:74:10
     |vpiRhs:
     \_constant: , line:67:36, endln:67:38
+      |vpiParent:
+      \_param_assign: , line:67:24, endln:67:38
       |vpiDecompile:20
       |vpiSize:32
       |UINT:20
+      |vpiTypespec:
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:67:36, endln:67:38
+        |vpiFullName:work@top
+        |vpiActual:
+        \_struct_typespec: (pinmux_pkg::struct2_t), line:14:12, endln:16:5
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.TargetCfg), line:67:24, endln:67:33
@@ -1166,13 +1175,16 @@ design: (work@top)
       |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:56:36, endln:56:37
+        |vpiParent:
+        \_param_assign: , line:56:24, endln:56:37
         |vpiDecompile:20
         |vpiSize:32
         |UINT:20
         |vpiTypespec:
-        \_ref_typespec: 
+        \_ref_typespec: (work@top.u_top)
           |vpiParent:
           \_constant: , line:56:36, endln:56:37
+          |vpiFullName:work@top.u_top
           |vpiActual:
           \_struct_typespec: (pinmux_pkg::struct1_t), line:6:12, endln:8:5
         |vpiConstType:9
@@ -1238,9 +1250,18 @@ design: (work@top)
         \_module_inst: work@prim_pad_attr (work@top.u_top.u_prim_pad_attr), file:${SURELOG_DIR}/tests/ComplexParamOverload/dut.sv, line:58:4, endln:62:6
         |vpiRhs:
         \_constant: , line:44:36, endln:44:38
+          |vpiParent:
+          \_param_assign: , line:44:24, endln:44:38
           |vpiDecompile:77
           |vpiSize:32
           |UINT:77
+          |vpiTypespec:
+          \_ref_typespec: (work@top.u_top.u_prim_pad_attr)
+            |vpiParent:
+            \_constant: , line:44:36, endln:44:38
+            |vpiFullName:work@top.u_top.u_prim_pad_attr
+            |vpiActual:
+            \_struct_typespec: (pinmux_pkg::struct3_t), line:22:12, endln:24:5
           |vpiConstType:9
         |vpiLhs:
         \_parameter: (work@top.u_top.u_prim_pad_attr.TargetCfg), line:44:24, endln:44:33

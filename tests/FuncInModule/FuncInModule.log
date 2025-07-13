@@ -1011,28 +1011,28 @@ AST_DEBUG_END
 assignment                                            21
 begin                                                 11
 bit_select                                             9
-bit_typespec                                          12
+bit_typespec                                          14
 bit_var                                                6
-constant                                             213
+constant                                             234
 design                                                 1
 for_stmt                                               2
-func_call                                             10
+func_call                                             11
 function                                               3
 if_else                                                3
-int_typespec                                          17
+int_typespec                                          16
 int_var                                                5
 integer_typespec                                       1
 io_decl                                                3
 logic_net                                              1
 logic_typespec                                         2
-logic_var                                              4
-module_inst                                            7
-operation                                             37
-param_assign                                          42
-parameter                                             42
-range                                                 38
-ref_obj                                               62
-ref_typespec                                          51
+logic_var                                             21
+module_inst                                           24
+operation                                             39
+param_assign                                         102
+parameter                                            102
+range                                                 42
+ref_obj                                               59
+ref_typespec                                          69
 return_stmt                                            3
 while_stmt                                             1
 === UHDM Object Stats End ===
@@ -1041,28 +1041,28 @@ while_stmt                                             1
 assignment                                            36
 begin                                                 22
 bit_select                                            18
-bit_typespec                                          12
+bit_typespec                                          14
 bit_var                                               14
-constant                                             213
+constant                                             234
 design                                                 1
 for_stmt                                               4
-func_call                                             10
+func_call                                             11
 function                                               6
 if_else                                                6
-int_typespec                                          17
+int_typespec                                          16
 int_var                                               11
 integer_typespec                                       1
 io_decl                                                6
 logic_net                                              1
 logic_typespec                                         2
-logic_var                                              4
-module_inst                                            7
-operation                                             54
-param_assign                                          42
-parameter                                             42
-range                                                 38
-ref_obj                                               97
-ref_typespec                                          69
+logic_var                                             21
+module_inst                                           24
+operation                                             56
+param_assign                                         102
+parameter                                            102
+range                                                 42
+ref_obj                                               94
+ref_typespec                                          87
 return_stmt                                            6
 while_stmt                                             2
 === UHDM Object Stats End ===
@@ -2437,20 +2437,27 @@ design: (work@rggen_or_reducer)
     |vpiParent:
     \_module_inst: work@rggen_or_reducer (work@rggen_or_reducer), file:${SURELOG_DIR}/tests/FuncInModule/dut.sv, line:2:1, endln:71:10
     |vpiRhs:
-    \_constant: , line:67:47, endln:67:70
+    \_func_call: (get_next_n), line:67:47, endln:67:57
       |vpiParent:
       \_param_assign: , line:67:33, endln:67:70
-      |vpiDecompile:3
-      |vpiSize:32
-      |UINT:3
-      |vpiTypespec:
-      \_ref_typespec: (work@rggen_or_reducer)
+      |vpiArgument:
+      \_constant: , line:67:58, endln:67:69
         |vpiParent:
-        \_constant: , line:67:47, endln:67:70
-        |vpiFullName:work@rggen_or_reducer
-        |vpiActual:
-        \_int_typespec: , line:67:15, endln:67:18
-      |vpiConstType:9
+        \_func_call: (get_next_n), line:67:47, endln:67:57
+        |vpiDecompile:64'b0000000000000100000000000000010000000000000001000000000000000000
+        |vpiSize:64
+        |BIN:0000000000000100000000000000010000000000000001000000000000000000
+        |vpiTypespec:
+        \_ref_typespec: (work@rggen_or_reducer)
+          |vpiParent:
+          \_constant: , line:67:58, endln:67:69
+          |vpiFullName:work@rggen_or_reducer
+          |vpiActual:
+          \_bit_typespec: , line:54:37, endln:54:40
+        |vpiConstType:3
+      |vpiName:get_next_n
+      |vpiFunction:
+      \_function: (work@rggen_or_reducer.get_next_n), line:54:3, endln:63:14
     |vpiLhs:
     \_parameter: (work@rggen_or_reducer.NEXT_N), line:67:33, endln:67:39
   |vpiDefName:work@rggen_or_reducer
@@ -3887,13 +3894,47 @@ design: (work@rggen_or_reducer)
     |vpiParent:
     \_logic_typespec: , line:69:3, endln:69:32
     |vpiLeftRange:
-    \_constant: , line:69:10, endln:69:16
+    \_operation: , line:69:10, endln:69:18
       |vpiParent:
       \_range: , line:69:9, endln:69:21
-      |vpiDecompile:2
-      |vpiSize:64
-      |INT:2
-      |vpiConstType:7
+      |vpiOpType:11
+      |vpiOperand:
+      \_func_call: (get_next_n), line:69:10, endln:69:16
+        |vpiParent:
+        \_operation: , line:69:10, endln:69:18
+        |vpiTypespec:
+        \_ref_typespec: (work@rggen_or_reducer.next_data)
+          |vpiParent:
+          \_func_call: (get_next_n), line:69:10, endln:69:16
+          |vpiFullName:work@rggen_or_reducer.next_data
+          |vpiActual:
+          \_int_typespec: , line:67:15, endln:67:18
+        |vpiArgument:
+        \_constant: , line:67:58, endln:67:69
+          |vpiParent:
+          \_func_call: (get_next_n), line:69:10, endln:69:16
+          |vpiDecompile:64'b0000000000000100000000000000010000000000000001000000000000000000
+          |vpiSize:64
+          |BIN:0000000000000100000000000000010000000000000001000000000000000000
+          |vpiTypespec:
+          \_ref_typespec: (work@rggen_or_reducer.next_data)
+            |vpiParent:
+            \_constant: , line:67:58, endln:67:69
+            |vpiFullName:work@rggen_or_reducer.next_data
+            |vpiActual:
+            \_bit_typespec: , line:54:37, endln:54:40
+          |vpiConstType:3
+        |vpiName:get_next_n
+        |vpiFunction:
+        \_function: (work@rggen_or_reducer.get_next_n), line:54:3, endln:63:14
+      |vpiOperand:
+      \_constant: , line:69:17, endln:69:18
+        |vpiParent:
+        \_operation: , line:69:10, endln:69:18
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
     |vpiRightRange:
     \_constant: , line:69:19, endln:69:20
       |vpiParent:
