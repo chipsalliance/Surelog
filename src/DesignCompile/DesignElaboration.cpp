@@ -1495,7 +1495,7 @@ void DesignElaboration::elaborateInstance_(
             std::cout << param.first << " " << param.second.first->uhdmValue()
                       << std::endl;
           }
-          for (auto param : parent->getComplexValues()) {
+          for (auto& param : parent->getComplexValues()) {
             std::cout << param.first << std::endl;
             UHDM::decompile(param.second);
             std::cout << std::endl;
@@ -1656,7 +1656,7 @@ void DesignElaboration::elaborateInstance_(
             std::cout << param.first << " " << param.second.first->uhdmValue()
                       << std::endl;
           }
-          for (auto param : parent->getComplexValues()) {
+          for (auto& param : parent->getComplexValues()) {
             std::cout << param.first << std::endl;
             UHDM::decompile(param.second);
             std::cout << std::endl;
