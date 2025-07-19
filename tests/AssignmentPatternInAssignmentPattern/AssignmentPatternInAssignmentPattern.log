@@ -320,55 +320,55 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 1.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                             143
+constant                                             145
 design                                                 1
-enum_const                                            72
-enum_typespec                                         24
+enum_const                                            74
+enum_typespec                                         25
 import_typespec                                        2
 int_typespec                                          63
 logic_net                                              1
-logic_typespec                                        24
+logic_typespec                                        25
 module_inst                                           10
 operation                                             37
 package                                                4
 param_assign                                          48
 parameter                                             60
 port                                                   3
-range                                                 24
+range                                                 25
 ref_module                                             1
 ref_obj                                               23
-ref_typespec                                         211
+ref_typespec                                         222
 string_typespec                                       46
-struct_typespec                                       24
+struct_typespec                                       25
 struct_var                                             1
 tagged_pattern                                        46
-typespec_member                                       36
+typespec_member                                       37
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                             143
+constant                                             145
 design                                                 1
-enum_const                                            72
-enum_typespec                                         24
+enum_const                                            74
+enum_typespec                                         25
 import_typespec                                        2
 int_typespec                                          63
 logic_net                                              1
-logic_typespec                                        24
+logic_typespec                                        25
 module_inst                                           10
 operation                                             39
 package                                                4
 param_assign                                          48
 parameter                                             60
 port                                                   4
-range                                                 24
+range                                                 25
 ref_module                                             1
 ref_obj                                               24
-ref_typespec                                         213
+ref_typespec                                         225
 string_typespec                                       46
-struct_typespec                                       24
+struct_typespec                                       25
 struct_var                                             1
 tagged_pattern                                        46
-typespec_member                                       36
+typespec_member                                       37
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/AssignmentPatternInAssignmentPattern/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/AssignmentPatternInAssignmentPattern/slpp_all/checker/surelog.chk.html ...
@@ -2098,6 +2098,10 @@ design: (work@top)
       \_operation: , line:30:15, endln:30:42
         |vpiParent:
         \_operation: , line:28:45, endln:31:4
+        |vpiTypespec:
+        \_ref_typespec: 
+          |vpiActual:
+          \_struct_typespec: (pkg::mp_region_cfg_t), line:21:11, endln:23:4
         |vpiOpType:75
         |vpiOperand:
         \_constant: , line:30:31, endln:30:40
@@ -2323,6 +2327,10 @@ design: (work@top)
         \_operation: , line:30:15, endln:30:42
           |vpiParent:
           \_operation: , line:28:45, endln:31:4
+          |vpiTypespec:
+          \_ref_typespec: 
+            |vpiActual:
+            \_struct_typespec: (pkg::mp_region_cfg_t), line:21:11, endln:23:4
           |vpiOpType:75
           |vpiOperand:
           \_constant: , line:30:31, endln:30:40
@@ -2380,6 +2388,13 @@ design: (work@top)
           |vpiParent:
           \_operation: , line:42:17, endln:42:27
           |vpiSize:4
+          |vpiTypespec:
+          \_ref_typespec: (work@top.f.DATA_REG)
+            |vpiParent:
+            \_operation: , line:30:15, endln:30:42
+            |vpiFullName:work@top.f.DATA_REG
+            |vpiActual:
+            \_struct_typespec: (pkg::mp_region_cfg_t), line:21:11, endln:23:4
           |vpiOpType:75
           |vpiOperand:
           \_constant: , line:30:31, endln:30:40
@@ -3721,14 +3736,227 @@ design: (work@top)
 \_operation: , line:28:45, endln:31:4
   |vpiParent:
   \_param_assign: , line:28:32, endln:31:4
+  |vpiTypespec:
+  \_ref_typespec: 
+    |vpiActual:
+    \_struct_typespec: (pkg::data_region_attr_t), line:24:11, endln:27:4
   |vpiOpType:75
   |vpiOperand:
   \_constant: , line:29:15, endln:29:24
   |vpiOperand:
   \_operation: , line:30:15, endln:30:42
+\_struct_typespec: (pkg::mp_region_cfg_t), line:21:11, endln:23:4
+  |vpiParent:
+  \_ref_typespec: (work@top.f.HwDataAttr.pkg::data_region_attr_t.cfg)
+  |vpiName:pkg::mp_region_cfg_t
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/AssignmentPatternInAssignmentPattern/dut.sv, line:6:1, endln:33:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (en), line:22:13, endln:22:15
+    |vpiParent:
+    \_struct_typespec: (pkg::mp_region_cfg_t), line:21:11, endln:23:4
+    |vpiName:en
+    |vpiTypespec:
+    \_ref_typespec: (work@top.f.HwDataAttr.pkg::data_region_attr_t.cfg.pkg::mp_region_cfg_t.en)
+      |vpiParent:
+      \_typespec_member: (en), line:22:13, endln:22:15
+      |vpiFullName:work@top.f.HwDataAttr.pkg::data_region_attr_t.cfg.pkg::mp_region_cfg_t.en
+      |vpiActual:
+      \_enum_typespec: (pkg::mubi4_t), line:11:3, endln:14:13
+    |vpiRefFile:${SURELOG_DIR}/tests/AssignmentPatternInAssignmentPattern/dut.sv
+    |vpiRefLineNo:22
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:22
+    |vpiRefEndColumnNo:12
+\_ref_typespec: (work@top.f.HwDataAttr.pkg::data_region_attr_t.cfg)
+  |vpiParent:
+  \_typespec_member: (cfg), line:26:21, endln:26:24
+  |vpiFullName:work@top.f.HwDataAttr.pkg::data_region_attr_t.cfg
+  |vpiActual:
+  \_struct_typespec: (pkg::mp_region_cfg_t), line:21:11, endln:23:4
+\_typespec_member: (cfg), line:26:21, endln:26:24
+  |vpiParent:
+  \_struct_typespec: (pkg::data_region_attr_t), line:24:11, endln:27:4
+  |vpiName:cfg
+  |vpiTypespec:
+  \_ref_typespec: (work@top.f.HwDataAttr.pkg::data_region_attr_t.cfg)
+  |vpiRefFile:${SURELOG_DIR}/tests/AssignmentPatternInAssignmentPattern/dut.sv
+  |vpiRefLineNo:26
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:26
+  |vpiRefEndColumnNo:20
+\_struct_typespec: (pkg::data_region_attr_t), line:24:11, endln:27:4
+  |vpiParent:
+  \_ref_typespec: (work@top.f.HwDataAttr)
+  |vpiName:pkg::data_region_attr_t
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/AssignmentPatternInAssignmentPattern/dut.sv, line:6:1, endln:33:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (phase), line:25:27, endln:25:32
+    |vpiParent:
+    \_struct_typespec: (pkg::data_region_attr_t), line:24:11, endln:27:4
+    |vpiName:phase
+    |vpiTypespec:
+    \_ref_typespec: (work@top.f.HwDataAttr.pkg::data_region_attr_t.phase)
+      |vpiParent:
+      \_typespec_member: (phase), line:25:27, endln:25:32
+      |vpiFullName:work@top.f.HwDataAttr.pkg::data_region_attr_t.phase
+      |vpiActual:
+      \_enum_typespec: (pkg::flash_lcmgr_phase_e), line:15:3, endln:20:25
+    |vpiRefFile:${SURELOG_DIR}/tests/AssignmentPatternInAssignmentPattern/dut.sv
+    |vpiRefLineNo:25
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:25
+    |vpiRefEndColumnNo:24
+  |vpiTypespecMember:
+  \_typespec_member: (cfg), line:26:21, endln:26:24
+\_ref_typespec: (work@top.f.HwDataAttr)
+  |vpiParent:
+  \_parameter: (work@top.f.HwDataAttr), line:28:32, endln:28:42
+  |vpiFullName:work@top.f.HwDataAttr
+  |vpiActual:
+  \_struct_typespec: (pkg::data_region_attr_t), line:24:11, endln:27:4
+\_parameter: (work@top.f.HwDataAttr), line:28:32, endln:28:42
+  |vpiParent:
+  \_param_assign: , line:28:32, endln:31:4
+  |vpiTypespec:
+  \_ref_typespec: (work@top.f.HwDataAttr)
+  |vpiName:HwDataAttr
+  |vpiFullName:work@top.f.HwDataAttr
+  |vpiImported:pkg
+\_enum_typespec: (pkg::flash_lcmgr_phase_e), line:15:3, endln:20:25
+  |vpiParent:
+  \_ref_typespec: (work@top.f.HwDataAttr.pkg::data_region_attr_t.phase)
+  |vpiName:pkg::flash_lcmgr_phase_e
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/AssignmentPatternInAssignmentPattern/dut.sv, line:6:1, endln:33:11
+  |vpiBaseTypespec:
+  \_ref_typespec: (work@top.f.HwDataAttr.pkg::data_region_attr_t.phase.pkg::flash_lcmgr_phase_e)
+    |vpiParent:
+    \_enum_typespec: (pkg::flash_lcmgr_phase_e), line:15:3, endln:20:25
+    |vpiFullName:work@top.f.HwDataAttr.pkg::data_region_attr_t.phase.pkg::flash_lcmgr_phase_e
+    |vpiActual:
+    \_logic_typespec: , line:15:16, endln:15:27
+  |vpiEnumConst:
+  \_enum_const: (PhaseSeed), line:16:5, endln:16:14
+    |vpiParent:
+    \_enum_typespec: (pkg::flash_lcmgr_phase_e), line:15:3, endln:20:25
+    |vpiName:PhaseSeed
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:2
+  |vpiEnumConst:
+  \_enum_const: (PhaseRma), line:17:5, endln:17:13
+    |vpiParent:
+    \_enum_typespec: (pkg::flash_lcmgr_phase_e), line:15:3, endln:20:25
+    |vpiName:PhaseRma
+    |INT:1
+    |vpiDecompile:1
+    |vpiSize:2
+  |vpiEnumConst:
+  \_enum_const: (PhaseNone), line:18:5, endln:18:14
+    |vpiParent:
+    \_enum_typespec: (pkg::flash_lcmgr_phase_e), line:15:3, endln:20:25
+    |vpiName:PhaseNone
+    |INT:2
+    |vpiDecompile:2
+    |vpiSize:2
+  |vpiEnumConst:
+  \_enum_const: (PhaseInvalid), line:19:5, endln:19:17
+    |vpiParent:
+    \_enum_typespec: (pkg::flash_lcmgr_phase_e), line:15:3, endln:20:25
+    |vpiName:PhaseInvalid
+    |INT:3
+    |vpiDecompile:3
+    |vpiSize:2
+\_logic_typespec: , line:15:16, endln:15:27
+  |vpiParent:
+  \_ref_typespec: (work@top.f.HwDataAttr.pkg::data_region_attr_t.phase.pkg::flash_lcmgr_phase_e)
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/AssignmentPatternInAssignmentPattern/dut.sv, line:6:1, endln:33:11
+  |vpiRange:
+  \_range: , line:15:22, endln:15:27
+    |vpiParent:
+    \_logic_typespec: , line:15:16, endln:15:27
+    |vpiLeftRange:
+    \_constant: , line:15:23, endln:15:24
+      |vpiParent:
+      \_range: , line:15:22, endln:15:27
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:15:25, endln:15:26
+      |vpiParent:
+      \_range: , line:15:22, endln:15:27
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_enum_typespec: (pkg::mubi4_t), line:11:3, endln:14:13
+  |vpiParent:
+  \_ref_typespec: (work@top.f.HwDataAttr.pkg::data_region_attr_t.cfg.pkg::mp_region_cfg_t.en)
+  |vpiName:pkg::mubi4_t
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/AssignmentPatternInAssignmentPattern/dut.sv, line:6:1, endln:33:11
+  |vpiBaseTypespec:
+  \_ref_typespec: (work@top.f.HwDataAttr.pkg::data_region_attr_t.cfg.pkg::mp_region_cfg_t.en.pkg::mubi4_t)
+    |vpiParent:
+    \_enum_typespec: (pkg::mubi4_t), line:11:3, endln:14:13
+    |vpiFullName:work@top.f.HwDataAttr.pkg::data_region_attr_t.cfg.pkg::mp_region_cfg_t.en.pkg::mubi4_t
+    |vpiActual:
+    \_logic_typespec: , line:11:16, endln:11:38
+  |vpiEnumConst:
+  \_enum_const: (MuBi4True), line:12:5, endln:12:21
+    |vpiParent:
+    \_enum_typespec: (pkg::mubi4_t), line:11:3, endln:14:13
+    |vpiName:MuBi4True
+    |HEX:6
+    |vpiDecompile:4'h6
+    |vpiSize:4
+  |vpiEnumConst:
+  \_enum_const: (MuBi4False), line:13:5, endln:13:22
+    |vpiParent:
+    \_enum_typespec: (pkg::mubi4_t), line:11:3, endln:14:13
+    |vpiName:MuBi4False
+    |HEX:9
+    |vpiDecompile:4'h9
+    |vpiSize:4
+\_logic_typespec: , line:11:16, endln:11:38
+  |vpiParent:
+  \_ref_typespec: (work@top.f.HwDataAttr.pkg::data_region_attr_t.cfg.pkg::mp_region_cfg_t.en.pkg::mubi4_t)
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/AssignmentPatternInAssignmentPattern/dut.sv, line:6:1, endln:33:11
+  |vpiRange:
+  \_range: , line:11:22, endln:11:38
+    |vpiParent:
+    \_logic_typespec: , line:11:16, endln:11:38
+    |vpiLeftRange:
+    \_constant: , line:11:23, endln:11:33
+      |vpiParent:
+      \_range: , line:11:22, endln:11:38
+      |vpiDecompile:3
+      |vpiSize:64
+      |INT:3
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:11:36, endln:11:37
+      |vpiParent:
+      \_range: , line:11:22, endln:11:38
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 \_operation: , line:28:45, endln:31:4
   |vpiParent:
   \_param_assign: , line:28:32, endln:31:4
+  |vpiTypespec:
+  \_ref_typespec: 
+    |vpiActual:
+    \_struct_typespec: (pkg::data_region_attr_t), line:24:11, endln:27:4
   |vpiOpType:75
   |vpiOperand:
   \_constant: , line:29:15, endln:29:24
@@ -3752,6 +3980,13 @@ design: (work@top)
     |vpiParent:
     \_operation: , line:42:17, endln:42:27
     |vpiSize:4
+    |vpiTypespec:
+    \_ref_typespec: (work@top.f.DATA_REG)
+      |vpiParent:
+      \_operation: , line:30:15, endln:30:42
+      |vpiFullName:work@top.f.DATA_REG
+      |vpiActual:
+      \_struct_typespec: (pkg::mp_region_cfg_t), line:21:11, endln:23:4
     |vpiOpType:75
     |vpiOperand:
     \_constant: , line:30:31, endln:30:40
@@ -3777,6 +4012,84 @@ design: (work@top)
     |vpiFullName:work@top.f.DATA_REG
     |vpiActual:
     \_struct_typespec: (pkg::data_region_attr_t), line:24:11, endln:27:4
+\_struct_typespec: (pkg::mp_region_cfg_t), line:21:11, endln:23:4
+  |vpiParent:
+  \_ref_typespec: (work@top.f.DATA_REG)
+  |vpiName:pkg::mp_region_cfg_t
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/AssignmentPatternInAssignmentPattern/dut.sv, line:6:1, endln:33:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (en), line:22:13, endln:22:15
+    |vpiParent:
+    \_struct_typespec: (pkg::mp_region_cfg_t), line:21:11, endln:23:4
+    |vpiName:en
+    |vpiTypespec:
+    \_ref_typespec: (work@top.f.DATA_REG.pkg::mp_region_cfg_t.en)
+      |vpiParent:
+      \_typespec_member: (en), line:22:13, endln:22:15
+      |vpiFullName:work@top.f.DATA_REG.pkg::mp_region_cfg_t.en
+      |vpiActual:
+      \_enum_typespec: (pkg::mubi4_t), line:11:3, endln:14:13
+    |vpiRefFile:${SURELOG_DIR}/tests/AssignmentPatternInAssignmentPattern/dut.sv
+    |vpiRefLineNo:22
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:22
+    |vpiRefEndColumnNo:12
+\_enum_typespec: (pkg::mubi4_t), line:11:3, endln:14:13
+  |vpiParent:
+  \_ref_typespec: (work@top.f.DATA_REG.pkg::mp_region_cfg_t.en)
+  |vpiName:pkg::mubi4_t
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/AssignmentPatternInAssignmentPattern/dut.sv, line:6:1, endln:33:11
+  |vpiBaseTypespec:
+  \_ref_typespec: (work@top.f.DATA_REG.pkg::mp_region_cfg_t.en.pkg::mubi4_t)
+    |vpiParent:
+    \_enum_typespec: (pkg::mubi4_t), line:11:3, endln:14:13
+    |vpiFullName:work@top.f.DATA_REG.pkg::mp_region_cfg_t.en.pkg::mubi4_t
+    |vpiActual:
+    \_logic_typespec: , line:11:16, endln:11:38
+  |vpiEnumConst:
+  \_enum_const: (MuBi4True), line:12:5, endln:12:21
+    |vpiParent:
+    \_enum_typespec: (pkg::mubi4_t), line:11:3, endln:14:13
+    |vpiName:MuBi4True
+    |HEX:6
+    |vpiDecompile:4'h6
+    |vpiSize:4
+  |vpiEnumConst:
+  \_enum_const: (MuBi4False), line:13:5, endln:13:22
+    |vpiParent:
+    \_enum_typespec: (pkg::mubi4_t), line:11:3, endln:14:13
+    |vpiName:MuBi4False
+    |HEX:9
+    |vpiDecompile:4'h9
+    |vpiSize:4
+\_logic_typespec: , line:11:16, endln:11:38
+  |vpiParent:
+  \_ref_typespec: (work@top.f.DATA_REG.pkg::mp_region_cfg_t.en.pkg::mubi4_t)
+  |vpiInstance:
+  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/AssignmentPatternInAssignmentPattern/dut.sv, line:6:1, endln:33:11
+  |vpiRange:
+  \_range: , line:11:22, endln:11:38
+    |vpiParent:
+    \_logic_typespec: , line:11:16, endln:11:38
+    |vpiLeftRange:
+    \_constant: , line:11:23, endln:11:33
+      |vpiParent:
+      \_range: , line:11:22, endln:11:38
+      |vpiDecompile:3
+      |vpiSize:64
+      |INT:3
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:11:36, endln:11:37
+      |vpiParent:
+      \_range: , line:11:22, endln:11:38
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 \_struct_typespec: (pkg::data_region_attr_t), line:24:11, endln:27:4
   |vpiParent:
   \_ref_typespec: (work@top.HwDataAttr)

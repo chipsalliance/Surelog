@@ -316,7 +316,7 @@ param_assign                                           6
 parameter                                              6
 ref_module                                             5
 ref_obj                                                3
-ref_typespec                                          28
+ref_typespec                                          29
 struct_typespec                                        4
 typespec_member                                        8
 === UHDM Object Stats End ===
@@ -341,7 +341,7 @@ param_assign                                           7
 parameter                                              6
 ref_module                                             5
 ref_obj                                                3
-ref_typespec                                          30
+ref_typespec                                          31
 struct_typespec                                        4
 typespec_member                                        8
 === UHDM Object Stats End ===
@@ -763,9 +763,18 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/HierPathEval/dut.sv, line:46:1, endln:55:10
     |vpiRhs:
     \_constant: , line:48:39, endln:48:40
+      |vpiParent:
+      \_param_assign: , line:48:27, endln:48:40
       |vpiDecompile:2
       |vpiSize:2
       |UINT:2
+      |vpiTypespec:
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:48:39, endln:48:40
+        |vpiFullName:work@top
+        |vpiActual:
+        \_struct_typespec: (pinmux_pkg::target_cfg_t), line:9:12, endln:12:5
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.TargetCfg), line:48:27, endln:48:36

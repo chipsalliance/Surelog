@@ -152,20 +152,20 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 1.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              20
+constant                                              22
 cont_assign                                            4
 design                                                 1
 hier_path                                              4
 logic_net                                              2
 logic_typespec                                        16
 module_inst                                            5
-operation                                             10
+operation                                             11
 package                                                2
 param_assign                                           4
 parameter                                              4
 port                                                   4
 ref_obj                                               16
-ref_typespec                                          46
+ref_typespec                                          47
 string_typespec                                       14
 struct_net                                             2
 struct_typespec                                        8
@@ -174,20 +174,20 @@ typespec_member                                       16
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              20
+constant                                              22
 cont_assign                                            6
 design                                                 1
 hier_path                                              4
 logic_net                                              2
 logic_typespec                                        16
 module_inst                                            5
-operation                                             10
+operation                                             11
 package                                                2
 param_assign                                           4
 parameter                                              4
 port                                                   6
 ref_obj                                               20
-ref_typespec                                          48
+ref_typespec                                          49
 string_typespec                                       14
 struct_net                                             2
 struct_typespec                                        8
@@ -337,41 +337,27 @@ design: (work@my_module)
     \_operation: , line:9:50, endln:12:4
       |vpiParent:
       \_param_assign: , line:9:35, endln:12:4
+      |vpiTypespec:
+      \_ref_typespec: 
+        |vpiActual:
+        \_struct_typespec: (my_package::my_struct), line:4:11, endln:7:4
       |vpiOpType:75
       |vpiOperand:
-      \_tagged_pattern: , line:10:8, endln:10:12
+      \_constant: , line:10:8, endln:10:12
         |vpiParent:
         \_operation: , line:9:50, endln:12:4
-        |vpiPattern:
-        \_constant: , line:10:8, endln:10:12
-          |vpiDecompile:1'b1
-          |vpiSize:1
-          |BIN:1
-          |vpiConstType:3
-        |vpiTypespec:
-        \_ref_typespec: (my_package)
-          |vpiParent:
-          \_tagged_pattern: , line:10:8, endln:10:12
-          |vpiFullName:my_package
-          |vpiActual:
-          \_string_typespec: (a), line:10:5, endln:10:6
+        |vpiDecompile:1'b1
+        |vpiSize:1
+        |BIN:1
+        |vpiConstType:3
       |vpiOperand:
-      \_tagged_pattern: , line:11:8, endln:11:12
+      \_constant: , line:11:8, endln:11:12
         |vpiParent:
         \_operation: , line:9:50, endln:12:4
-        |vpiPattern:
-        \_constant: , line:11:8, endln:11:12
-          |vpiDecompile:1'b0
-          |vpiSize:1
-          |BIN:0
-          |vpiConstType:3
-        |vpiTypespec:
-        \_ref_typespec: (my_package)
-          |vpiParent:
-          \_tagged_pattern: , line:11:8, endln:11:12
-          |vpiFullName:my_package
-          |vpiActual:
-          \_string_typespec: (b), line:11:5, endln:11:6
+        |vpiDecompile:1'b0
+        |vpiSize:1
+        |BIN:0
+        |vpiConstType:3
     |vpiLhs:
     \_parameter: (my_package::my_parameter), line:9:35, endln:9:47
   |vpiTypedef:
@@ -627,7 +613,7 @@ design: (work@my_module)
     |vpiRhs:
     \_constant: , line:10:8, endln:10:12
       |vpiParent:
-      \_operation: , line:9:50, endln:12:4
+      \_cont_assign: , line:21:8, endln:21:38
       |vpiDecompile:1'b1
       |vpiSize:1
       |BIN:1
@@ -671,14 +657,6 @@ design: (work@my_module)
   \_typespec_member: (b), line:6:11, endln:6:12
   |vpiInstance:
   \_package: my_package (my_package::), file:${SURELOG_DIR}/tests/PackStructField/dut.sv, line:2:1, endln:14:24
-\_string_typespec: (a), line:10:5, endln:10:6
-  |vpiParent:
-  \_tagged_pattern: , line:10:8, endln:10:12
-  |vpiName:a
-\_string_typespec: (b), line:11:5, endln:11:6
-  |vpiParent:
-  \_tagged_pattern: , line:11:8, endln:11:12
-  |vpiName:b
 \_logic_typespec: , line:5:5, endln:5:10
   |vpiParent:
   \_typespec_member: (a), line:5:11, endln:5:12
@@ -697,72 +675,19 @@ design: (work@my_module)
   |vpiParent:
   \_tagged_pattern: , line:11:8, endln:11:12
   |vpiName:b
-\_operation: , line:9:50, endln:12:4
+\_cont_assign: , line:21:8, endln:21:38
   |vpiParent:
-  \_parameter: (my_package::my_parameter), line:9:35, endln:9:47
-  |vpiTypespec:
-  \_ref_typespec: (my_package::my_parameter)
-    |vpiParent:
-    \_operation: , line:9:50, endln:12:4
-    |vpiFullName:my_package::my_parameter
-    |vpiActual:
-    \_struct_typespec: (my_package::my_struct), line:4:11, endln:7:4
-  |vpiOpType:75
-  |vpiOperand:
+  \_module_inst: work@my_module (work@my_module), file:${SURELOG_DIR}/tests/PackStructField/dut.sv, line:16:1, endln:24:22
+  |vpiRhs:
   \_constant: , line:10:8, endln:10:12
-  |vpiOperand:
-  \_constant: , line:11:8, endln:11:12
-\_struct_typespec: (my_package::my_struct), line:4:11, endln:7:4
-  |vpiParent:
-  \_ref_typespec: (my_package::my_parameter)
-  |vpiName:my_package::my_struct
-  |vpiInstance:
-  \_package: my_package (my_package::), file:${SURELOG_DIR}/tests/PackStructField/dut.sv, line:2:1, endln:14:24
-  |vpiPacked:1
-  |vpiTypespecMember:
-  \_typespec_member: (a), line:5:11, endln:5:12
+  |vpiLhs:
+  \_ref_obj: (work@my_module.x), line:21:8, endln:21:9
     |vpiParent:
-    \_struct_typespec: (my_package::my_struct), line:4:11, endln:7:4
-    |vpiName:a
-    |vpiTypespec:
-    \_ref_typespec: (my_package::my_parameter::my_package::my_struct::a)
-      |vpiParent:
-      \_typespec_member: (a), line:5:11, endln:5:12
-      |vpiFullName:my_package::my_parameter::my_package::my_struct::a
-      |vpiActual:
-      \_logic_typespec: , line:5:5, endln:5:10
-    |vpiRefFile:${SURELOG_DIR}/tests/PackStructField/dut.sv
-    |vpiRefLineNo:5
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:5
-    |vpiRefEndColumnNo:10
-  |vpiTypespecMember:
-  \_typespec_member: (b), line:6:11, endln:6:12
-    |vpiParent:
-    \_struct_typespec: (my_package::my_struct), line:4:11, endln:7:4
-    |vpiName:b
-    |vpiTypespec:
-    \_ref_typespec: (my_package::my_parameter::my_package::my_struct::b)
-      |vpiParent:
-      \_typespec_member: (b), line:6:11, endln:6:12
-      |vpiFullName:my_package::my_parameter::my_package::my_struct::b
-      |vpiActual:
-      \_logic_typespec: , line:6:5, endln:6:10
-    |vpiRefFile:${SURELOG_DIR}/tests/PackStructField/dut.sv
-    |vpiRefLineNo:6
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:6
-    |vpiRefEndColumnNo:10
-\_logic_typespec: , line:5:5, endln:5:10
-  |vpiParent:
-  \_ref_typespec: (my_package::my_parameter::my_package::my_struct::a)
-  |vpiInstance:
-  \_package: my_package (my_package::), file:${SURELOG_DIR}/tests/PackStructField/dut.sv, line:2:1, endln:14:24
-\_logic_typespec: , line:6:5, endln:6:10
-  |vpiParent:
-  \_ref_typespec: (my_package::my_parameter::my_package::my_struct::b)
-  |vpiInstance:
-  \_package: my_package (my_package::), file:${SURELOG_DIR}/tests/PackStructField/dut.sv, line:2:1, endln:14:24
+    \_cont_assign: , line:21:8, endln:21:38
+    |vpiName:x
+    |vpiFullName:work@my_module.x
+    |vpiActual:
+    \_logic_net: (work@my_module.x), line:17:34, endln:17:35
 \_cont_assign: , line:22:8, endln:22:38
   |vpiParent:
   \_module_inst: work@my_module (work@my_module), file:${SURELOG_DIR}/tests/PackStructField/dut.sv, line:16:1, endln:24:22

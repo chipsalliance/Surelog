@@ -3163,7 +3163,7 @@ bool CompileHelper::isMultidimensional(UHDM::typespec* ts,
       bit_typespec* lts = (bit_typespec*)ts;
       if (lts->Ranges() && lts->Ranges()->size() > 1) isMultiDimension = true;
     } else if (ttps == uhdmstruct_typespec) {
-      //isMultiDimension = true;
+      // isMultiDimension = true;
     }
   }
   return isMultiDimension;
@@ -5224,24 +5224,19 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
               if (valIndex > (int32_t)(size - 1)) {
                 break;
               }
-              {
-                int shift = (csize - 1 - i);
-                if (shift < 0 || shift >= 64) {
-                  return result;
-                }
+
+              int shift = (csize - 1 - i);
+              if (shift < 0 || shift >= 64) {
+                return result;
               }
-              values[valIndex] = (v & (1ULL << (csize - 1 - i))) ? 1 : 0;
+
+              values[valIndex] = (v & (1ULL << (shift))) ? 1 : 0;
               valIndex++;
             }
             opIndex++;
           }
         }
       }
-    }
-  }
-  for (uint32_t i = 0; i < size; i++) {
-    if (vars && ((int32_t)i < (int32_t)(vars->size()))) {
-      ((variables*)(*vars)[i])->VpiValue("UINT:" + std::to_string(values[i]));
     }
   }
 
@@ -5262,6 +5257,14 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
           for (uint32_t i = 0; i < size; i++) {
             vars->push_back(s.MakeEnum_var());
           }
+
+          for (uint32_t i = 0; i < size; i++) {
+            if (vars && ((int32_t)i < (int32_t)(vars->size()))) {
+              ((variables*)(*vars)[i])
+                  ->VpiValue("UINT:" + std::to_string(values[i]));
+            }
+          }
+
           result = array;
         }
       }
@@ -5283,6 +5286,10 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
       result->VpiValue("UINT:" + std::to_string(value));
       result->VpiDecompile(std::to_string(size) + "\'d" +
                            std::to_string(value));
+    }
+  } else if (tps->UhdmType() == uhdmstruct_typespec) {
+    if (!invalidValue) {
+      result = rhs;
     }
   }
   return result;

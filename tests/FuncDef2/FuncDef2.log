@@ -3637,7 +3637,7 @@ bit_select                                            39
 bit_typespec                                           9
 bit_var                                                4
 break_stmt                                             2
-constant                                             373
+constant                                             349
 design                                                 1
 enum_const                                           124
 enum_typespec                                         25
@@ -3652,7 +3652,7 @@ hier_path                                             74
 if_else                                               20
 if_stmt                                               18
 import_typespec                                        1
-int_typespec                                         132
+int_typespec                                         130
 int_var                                               88
 io_decl                                               72
 logic_net                                              7
@@ -3660,22 +3660,22 @@ logic_typespec                                        42
 logic_var                                             66
 module_inst                                           58
 named_begin                                            3
-operation                                            123
+operation                                            120
 package                                                2
 param_assign                                         136
 parameter                                            144
 port                                                   6
 range                                                 25
 ref_obj                                              493
-ref_typespec                                         613
+ref_typespec                                         563
 ref_var                                                1
 return_stmt                                           88
-short_int_typespec                                   112
-string_typespec                                      120
-struct_typespec                                       16
+short_int_typespec                                    96
+string_typespec                                       88
+struct_typespec                                       14
 sys_func_call                                          5
-tagged_pattern                                       120
-typespec_member                                      118
+tagged_pattern                                        88
+typespec_member                                      102
 unsupported_typespec                                  10
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -3689,7 +3689,7 @@ bit_select                                            76
 bit_typespec                                           9
 bit_var                                                4
 break_stmt                                             5
-constant                                             375
+constant                                             351
 design                                                 1
 enum_const                                           124
 enum_typespec                                         25
@@ -3704,7 +3704,7 @@ hier_path                                            159
 if_else                                               50
 if_stmt                                               45
 import_typespec                                        1
-int_typespec                                         132
+int_typespec                                         130
 int_var                                              193
 io_decl                                              180
 logic_net                                              7
@@ -3712,22 +3712,22 @@ logic_typespec                                        42
 logic_var                                             66
 module_inst                                           58
 named_begin                                            3
-operation                                            273
+operation                                            270
 package                                                2
 param_assign                                         136
 parameter                                            144
 port                                                   9
 range                                                 25
 ref_obj                                             1076
-ref_typespec                                         851
+ref_typespec                                         801
 ref_var                                                1
 return_stmt                                          220
-short_int_typespec                                   112
-string_typespec                                      120
-struct_typespec                                       16
+short_int_typespec                                    96
+string_typespec                                       88
+struct_typespec                                       14
 sys_func_call                                         10
-tagged_pattern                                       120
-typespec_member                                      118
+tagged_pattern                                        88
+typespec_member                                      102
 unsupported_typespec                                  10
 === UHDM Object Stats End ===
 [ERR:UH0725] ${SURELOG_DIR}/tests/FuncDef2/dut.sv:417:33: Unresolved hierarchical reference "receiver_if.valid[i]".
@@ -20931,6 +20931,10 @@ design: (work@tnoc_vc_splitter)
     \_operation: , line:55:65, endln:64:4
       |vpiParent:
       \_param_assign: , line:55:35, endln:64:4
+      |vpiTypespec:
+      \_ref_typespec: 
+        |vpiActual:
+        \_struct_typespec: (tnoc_pkg::tnoc_packet_config), line:387:5, endln:387:23
       |vpiOpType:75
       |vpiOperand:
       \_constant: , line:56:23, endln:56:24
@@ -32164,36 +32168,15 @@ design: (work@tnoc_vc_splitter)
   |vpiParent:
   \_ref_typespec: (work@tnoc_vc_splitter)
   |vpiSigned:1
-\_operation: , line:407:51, endln:407:77
-  |vpiParent:
-  \_param_assign: , line:407:35, endln:407:77
-  |vpiTypespec:
-  \_ref_typespec: (work@tnoc_vc_splitter)
-    |vpiParent:
-    \_operation: , line:407:51, endln:407:77
-    |vpiFullName:work@tnoc_vc_splitter
-    |vpiActual:
-    \_struct_typespec: (tnoc_pkg::tnoc_packet_config), line:387:5, endln:387:23
-  |vpiOpType:75
-  |vpiOperand:
-  \_constant: , line:56:23, endln:56:24
-  |vpiOperand:
-  \_constant: , line:57:23, endln:57:24
-  |vpiOperand:
-  \_constant: , line:58:23, endln:58:24
-  |vpiOperand:
-  \_constant: , line:59:23, endln:59:26
-  |vpiOperand:
-  \_constant: , line:60:23, endln:60:25
-  |vpiOperand:
-  \_constant: , line:61:23, endln:61:26
-  |vpiOperand:
-  \_constant: , line:62:23, endln:62:26
-  |vpiOperand:
-  \_constant: , line:63:23, endln:63:27
+\_unsupported_typespec: (tnoc_types), line:411:3, endln:411:13
+  |vpiName:tnoc_types
+\_unsupported_typespec: (tnoc_flit_if), line:412:3, endln:412:15
+  |vpiName:tnoc_flit_if
+\_unsupported_typespec: (tnoc_flit_if), line:413:3, endln:413:15
+  |vpiName:tnoc_flit_if
 \_struct_typespec: (tnoc_pkg::tnoc_packet_config), line:387:5, endln:387:23
   |vpiParent:
-  \_ref_typespec: (work@tnoc_vc_splitter)
+  \_ref_typespec: (work@tnoc_vc_splitter.TNOC_DEFAULT_PACKET_CONFIG)
   |vpiName:tnoc_pkg::tnoc_packet_config
   |vpiInstance:
   \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
@@ -32204,10 +32187,10 @@ design: (work@tnoc_vc_splitter)
     \_struct_typespec: (tnoc_pkg::tnoc_packet_config), line:387:5, endln:387:23
     |vpiName:size_x
     |vpiTypespec:
-    \_ref_typespec: (work@tnoc_vc_splitter.tnoc_pkg::tnoc_packet_config.size_x)
+    \_ref_typespec: (work@tnoc_vc_splitter.TNOC_DEFAULT_PACKET_CONFIG.tnoc_pkg::tnoc_packet_config.size_x)
       |vpiParent:
       \_typespec_member: (size_x), line:45:15, endln:45:21
-      |vpiFullName:work@tnoc_vc_splitter.tnoc_pkg::tnoc_packet_config.size_x
+      |vpiFullName:work@tnoc_vc_splitter.TNOC_DEFAULT_PACKET_CONFIG.tnoc_pkg::tnoc_packet_config.size_x
       |vpiActual:
       \_short_int_typespec: , line:45:5, endln:45:13
     |vpiRefFile:${SURELOG_DIR}/tests/FuncDef2/dut.sv
@@ -32221,10 +32204,10 @@ design: (work@tnoc_vc_splitter)
     \_struct_typespec: (tnoc_pkg::tnoc_packet_config), line:387:5, endln:387:23
     |vpiName:size_y
     |vpiTypespec:
-    \_ref_typespec: (work@tnoc_vc_splitter.tnoc_pkg::tnoc_packet_config.size_y)
+    \_ref_typespec: (work@tnoc_vc_splitter.TNOC_DEFAULT_PACKET_CONFIG.tnoc_pkg::tnoc_packet_config.size_y)
       |vpiParent:
       \_typespec_member: (size_y), line:46:15, endln:46:21
-      |vpiFullName:work@tnoc_vc_splitter.tnoc_pkg::tnoc_packet_config.size_y
+      |vpiFullName:work@tnoc_vc_splitter.TNOC_DEFAULT_PACKET_CONFIG.tnoc_pkg::tnoc_packet_config.size_y
       |vpiActual:
       \_short_int_typespec: , line:46:5, endln:46:13
     |vpiRefFile:${SURELOG_DIR}/tests/FuncDef2/dut.sv
@@ -32238,10 +32221,10 @@ design: (work@tnoc_vc_splitter)
     \_struct_typespec: (tnoc_pkg::tnoc_packet_config), line:387:5, endln:387:23
     |vpiName:virtual_channels
     |vpiTypespec:
-    \_ref_typespec: (work@tnoc_vc_splitter.tnoc_pkg::tnoc_packet_config.virtual_channels)
+    \_ref_typespec: (work@tnoc_vc_splitter.TNOC_DEFAULT_PACKET_CONFIG.tnoc_pkg::tnoc_packet_config.virtual_channels)
       |vpiParent:
       \_typespec_member: (virtual_channels), line:47:15, endln:47:31
-      |vpiFullName:work@tnoc_vc_splitter.tnoc_pkg::tnoc_packet_config.virtual_channels
+      |vpiFullName:work@tnoc_vc_splitter.TNOC_DEFAULT_PACKET_CONFIG.tnoc_pkg::tnoc_packet_config.virtual_channels
       |vpiActual:
       \_short_int_typespec: , line:47:5, endln:47:13
     |vpiRefFile:${SURELOG_DIR}/tests/FuncDef2/dut.sv
@@ -32255,10 +32238,10 @@ design: (work@tnoc_vc_splitter)
     \_struct_typespec: (tnoc_pkg::tnoc_packet_config), line:387:5, endln:387:23
     |vpiName:tags
     |vpiTypespec:
-    \_ref_typespec: (work@tnoc_vc_splitter.tnoc_pkg::tnoc_packet_config.tags)
+    \_ref_typespec: (work@tnoc_vc_splitter.TNOC_DEFAULT_PACKET_CONFIG.tnoc_pkg::tnoc_packet_config.tags)
       |vpiParent:
       \_typespec_member: (tags), line:48:15, endln:48:19
-      |vpiFullName:work@tnoc_vc_splitter.tnoc_pkg::tnoc_packet_config.tags
+      |vpiFullName:work@tnoc_vc_splitter.TNOC_DEFAULT_PACKET_CONFIG.tnoc_pkg::tnoc_packet_config.tags
       |vpiActual:
       \_short_int_typespec: , line:48:5, endln:48:13
     |vpiRefFile:${SURELOG_DIR}/tests/FuncDef2/dut.sv
@@ -32272,10 +32255,10 @@ design: (work@tnoc_vc_splitter)
     \_struct_typespec: (tnoc_pkg::tnoc_packet_config), line:387:5, endln:387:23
     |vpiName:address_width
     |vpiTypespec:
-    \_ref_typespec: (work@tnoc_vc_splitter.tnoc_pkg::tnoc_packet_config.address_width)
+    \_ref_typespec: (work@tnoc_vc_splitter.TNOC_DEFAULT_PACKET_CONFIG.tnoc_pkg::tnoc_packet_config.address_width)
       |vpiParent:
       \_typespec_member: (address_width), line:49:15, endln:49:28
-      |vpiFullName:work@tnoc_vc_splitter.tnoc_pkg::tnoc_packet_config.address_width
+      |vpiFullName:work@tnoc_vc_splitter.TNOC_DEFAULT_PACKET_CONFIG.tnoc_pkg::tnoc_packet_config.address_width
       |vpiActual:
       \_short_int_typespec: , line:49:5, endln:49:13
     |vpiRefFile:${SURELOG_DIR}/tests/FuncDef2/dut.sv
@@ -32289,10 +32272,10 @@ design: (work@tnoc_vc_splitter)
     \_struct_typespec: (tnoc_pkg::tnoc_packet_config), line:387:5, endln:387:23
     |vpiName:data_width
     |vpiTypespec:
-    \_ref_typespec: (work@tnoc_vc_splitter.tnoc_pkg::tnoc_packet_config.data_width)
+    \_ref_typespec: (work@tnoc_vc_splitter.TNOC_DEFAULT_PACKET_CONFIG.tnoc_pkg::tnoc_packet_config.data_width)
       |vpiParent:
       \_typespec_member: (data_width), line:50:15, endln:50:25
-      |vpiFullName:work@tnoc_vc_splitter.tnoc_pkg::tnoc_packet_config.data_width
+      |vpiFullName:work@tnoc_vc_splitter.TNOC_DEFAULT_PACKET_CONFIG.tnoc_pkg::tnoc_packet_config.data_width
       |vpiActual:
       \_short_int_typespec: , line:50:5, endln:50:13
     |vpiRefFile:${SURELOG_DIR}/tests/FuncDef2/dut.sv
@@ -32306,10 +32289,10 @@ design: (work@tnoc_vc_splitter)
     \_struct_typespec: (tnoc_pkg::tnoc_packet_config), line:387:5, endln:387:23
     |vpiName:max_data_width
     |vpiTypespec:
-    \_ref_typespec: (work@tnoc_vc_splitter.tnoc_pkg::tnoc_packet_config.max_data_width)
+    \_ref_typespec: (work@tnoc_vc_splitter.TNOC_DEFAULT_PACKET_CONFIG.tnoc_pkg::tnoc_packet_config.max_data_width)
       |vpiParent:
       \_typespec_member: (max_data_width), line:51:15, endln:51:29
-      |vpiFullName:work@tnoc_vc_splitter.tnoc_pkg::tnoc_packet_config.max_data_width
+      |vpiFullName:work@tnoc_vc_splitter.TNOC_DEFAULT_PACKET_CONFIG.tnoc_pkg::tnoc_packet_config.max_data_width
       |vpiActual:
       \_short_int_typespec: , line:51:5, endln:51:13
     |vpiRefFile:${SURELOG_DIR}/tests/FuncDef2/dut.sv
@@ -32323,10 +32306,10 @@ design: (work@tnoc_vc_splitter)
     \_struct_typespec: (tnoc_pkg::tnoc_packet_config), line:387:5, endln:387:23
     |vpiName:max_byte_length
     |vpiTypespec:
-    \_ref_typespec: (work@tnoc_vc_splitter.tnoc_pkg::tnoc_packet_config.max_byte_length)
+    \_ref_typespec: (work@tnoc_vc_splitter.TNOC_DEFAULT_PACKET_CONFIG.tnoc_pkg::tnoc_packet_config.max_byte_length)
       |vpiParent:
       \_typespec_member: (max_byte_length), line:52:15, endln:52:30
-      |vpiFullName:work@tnoc_vc_splitter.tnoc_pkg::tnoc_packet_config.max_byte_length
+      |vpiFullName:work@tnoc_vc_splitter.TNOC_DEFAULT_PACKET_CONFIG.tnoc_pkg::tnoc_packet_config.max_byte_length
       |vpiActual:
       \_short_int_typespec: , line:52:5, endln:52:13
     |vpiRefFile:${SURELOG_DIR}/tests/FuncDef2/dut.sv
@@ -32334,80 +32317,69 @@ design: (work@tnoc_vc_splitter)
     |vpiRefColumnNo:5
     |vpiRefEndLineNo:52
     |vpiRefEndColumnNo:13
+\_ref_typespec: (work@tnoc_vc_splitter.TNOC_DEFAULT_PACKET_CONFIG)
+  |vpiParent:
+  \_parameter: (work@tnoc_vc_splitter.TNOC_DEFAULT_PACKET_CONFIG), line:55:35, endln:55:61
+  |vpiFullName:work@tnoc_vc_splitter.TNOC_DEFAULT_PACKET_CONFIG
+  |vpiActual:
+  \_struct_typespec: (tnoc_pkg::tnoc_packet_config), line:387:5, endln:387:23
+\_parameter: (work@tnoc_vc_splitter.TNOC_DEFAULT_PACKET_CONFIG), line:55:35, endln:55:61
+  |vpiParent:
+  \_param_assign: , line:55:35, endln:64:4
+  |vpiTypespec:
+  \_ref_typespec: (work@tnoc_vc_splitter.TNOC_DEFAULT_PACKET_CONFIG)
+  |vpiLocalParam:1
+  |vpiName:TNOC_DEFAULT_PACKET_CONFIG
+  |vpiFullName:work@tnoc_vc_splitter.TNOC_DEFAULT_PACKET_CONFIG
+  |vpiImported:tnoc_pkg
 \_short_int_typespec: , line:45:5, endln:45:13
   |vpiParent:
-  \_ref_typespec: (work@tnoc_vc_splitter.tnoc_pkg::tnoc_packet_config.size_x)
+  \_ref_typespec: (work@tnoc_vc_splitter.TNOC_DEFAULT_PACKET_CONFIG.tnoc_pkg::tnoc_packet_config.size_x)
   |vpiInstance:
   \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
   |vpiSigned:1
 \_short_int_typespec: , line:46:5, endln:46:13
   |vpiParent:
-  \_ref_typespec: (work@tnoc_vc_splitter.tnoc_pkg::tnoc_packet_config.size_y)
+  \_ref_typespec: (work@tnoc_vc_splitter.TNOC_DEFAULT_PACKET_CONFIG.tnoc_pkg::tnoc_packet_config.size_y)
   |vpiInstance:
   \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
   |vpiSigned:1
 \_short_int_typespec: , line:47:5, endln:47:13
   |vpiParent:
-  \_ref_typespec: (work@tnoc_vc_splitter.tnoc_pkg::tnoc_packet_config.virtual_channels)
+  \_ref_typespec: (work@tnoc_vc_splitter.TNOC_DEFAULT_PACKET_CONFIG.tnoc_pkg::tnoc_packet_config.virtual_channels)
   |vpiInstance:
   \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
   |vpiSigned:1
 \_short_int_typespec: , line:48:5, endln:48:13
   |vpiParent:
-  \_ref_typespec: (work@tnoc_vc_splitter.tnoc_pkg::tnoc_packet_config.tags)
+  \_ref_typespec: (work@tnoc_vc_splitter.TNOC_DEFAULT_PACKET_CONFIG.tnoc_pkg::tnoc_packet_config.tags)
   |vpiInstance:
   \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
   |vpiSigned:1
 \_short_int_typespec: , line:49:5, endln:49:13
   |vpiParent:
-  \_ref_typespec: (work@tnoc_vc_splitter.tnoc_pkg::tnoc_packet_config.address_width)
+  \_ref_typespec: (work@tnoc_vc_splitter.TNOC_DEFAULT_PACKET_CONFIG.tnoc_pkg::tnoc_packet_config.address_width)
   |vpiInstance:
   \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
   |vpiSigned:1
 \_short_int_typespec: , line:50:5, endln:50:13
   |vpiParent:
-  \_ref_typespec: (work@tnoc_vc_splitter.tnoc_pkg::tnoc_packet_config.data_width)
+  \_ref_typespec: (work@tnoc_vc_splitter.TNOC_DEFAULT_PACKET_CONFIG.tnoc_pkg::tnoc_packet_config.data_width)
   |vpiInstance:
   \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
   |vpiSigned:1
 \_short_int_typespec: , line:51:5, endln:51:13
   |vpiParent:
-  \_ref_typespec: (work@tnoc_vc_splitter.tnoc_pkg::tnoc_packet_config.max_data_width)
+  \_ref_typespec: (work@tnoc_vc_splitter.TNOC_DEFAULT_PACKET_CONFIG.tnoc_pkg::tnoc_packet_config.max_data_width)
   |vpiInstance:
   \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
   |vpiSigned:1
 \_short_int_typespec: , line:52:5, endln:52:13
   |vpiParent:
-  \_ref_typespec: (work@tnoc_vc_splitter.tnoc_pkg::tnoc_packet_config.max_byte_length)
+  \_ref_typespec: (work@tnoc_vc_splitter.TNOC_DEFAULT_PACKET_CONFIG.tnoc_pkg::tnoc_packet_config.max_byte_length)
   |vpiInstance:
   \_package: tnoc_pkg (tnoc_pkg::), file:${SURELOG_DIR}/tests/FuncDef2/dut.sv, line:40:1, endln:400:11
   |vpiSigned:1
-\_unsupported_typespec: (tnoc_types), line:411:3, endln:411:13
-  |vpiName:tnoc_types
-\_unsupported_typespec: (tnoc_flit_if), line:412:3, endln:412:15
-  |vpiName:tnoc_flit_if
-\_unsupported_typespec: (tnoc_flit_if), line:413:3, endln:413:15
-  |vpiName:tnoc_flit_if
-\_operation: , line:55:65, endln:64:4
-  |vpiParent:
-  \_param_assign: , line:55:35, endln:64:4
-  |vpiOpType:75
-  |vpiOperand:
-  \_constant: , line:56:23, endln:56:24
-  |vpiOperand:
-  \_constant: , line:57:23, endln:57:24
-  |vpiOperand:
-  \_constant: , line:58:23, endln:58:24
-  |vpiOperand:
-  \_constant: , line:59:23, endln:59:26
-  |vpiOperand:
-  \_constant: , line:60:23, endln:60:25
-  |vpiOperand:
-  \_constant: , line:61:23, endln:61:26
-  |vpiOperand:
-  \_constant: , line:62:23, endln:62:26
-  |vpiOperand:
-  \_constant: , line:63:23, endln:63:27
 \_unsupported_typespec: (tnoc_types), line:411:3, endln:411:13
   |vpiParent:
   \_logic_net: (work@tnoc_vc_splitter.types), line:411:25, endln:411:30

@@ -2448,7 +2448,7 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
             m_helper.checkForLoops(true);
             UHDM::expr* expr = (UHDM::expr*)m_helper.compileExpression(
                 instance->getDefinition(), param.fC, exprId, m_compileDesign,
-                isMultidimension ? Reduce::Yes : Reduce::Yes, nullptr, instance,
+                isMultidimension ? Reduce::No : Reduce::Yes, nullptr, instance,
                 false);
             m_helper.checkForLoops(false);
             Value* value = nullptr;

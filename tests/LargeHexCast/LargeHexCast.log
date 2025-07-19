@@ -397,7 +397,7 @@ package                                                4
 param_assign                                          12
 parameter                                             16
 range                                                 14
-ref_typespec                                          77
+ref_typespec                                          81
 string_typespec                                       20
 struct_typespec                                       14
 tagged_pattern                                        20
@@ -428,7 +428,7 @@ package                                                4
 param_assign                                          12
 parameter                                             16
 range                                                 14
-ref_typespec                                          82
+ref_typespec                                          86
 string_typespec                                       20
 struct_typespec                                       14
 tagged_pattern                                        20
@@ -1916,15 +1916,149 @@ design: (work@kmac_entropy)
 \_operation: , line:6:31, endln:8:5
   |vpiParent:
   \_param_assign: , line:6:27, endln:8:5
+  |vpiTypespec:
+  \_ref_typespec: 
+    |vpiActual:
+    \_struct_typespec: (kmac_pkg::app_config_t), line:2:12, endln:4:5
   |vpiOpType:75
   |vpiOperand:
   \_operation: , line:7:15, endln:7:53
+\_struct_typespec: (kmac_pkg::app_config_t), line:2:12, endln:4:5
+  |vpiParent:
+  \_ref_typespec: (work@kmac_entropy.A)
+  |vpiName:kmac_pkg::app_config_t
+  |vpiInstance:
+  \_package: kmac_pkg (kmac_pkg::), file:${SURELOG_DIR}/tests/LargeHexCast/dut.sv, line:1:1, endln:13:22
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (Prefix), line:3:20, endln:3:26
+    |vpiParent:
+    \_struct_typespec: (kmac_pkg::app_config_t), line:2:12, endln:4:5
+    |vpiName:Prefix
+    |vpiTypespec:
+    \_ref_typespec: (work@kmac_entropy.A.kmac_pkg::app_config_t.Prefix)
+      |vpiParent:
+      \_typespec_member: (Prefix), line:3:20, endln:3:26
+      |vpiFullName:work@kmac_entropy.A.kmac_pkg::app_config_t.Prefix
+      |vpiActual:
+      \_logic_typespec: , line:3:7, endln:3:19
+    |vpiRefFile:${SURELOG_DIR}/tests/LargeHexCast/dut.sv
+    |vpiRefLineNo:3
+    |vpiRefColumnNo:7
+    |vpiRefEndLineNo:3
+    |vpiRefEndColumnNo:19
+\_ref_typespec: (work@kmac_entropy.A)
+  |vpiParent:
+  \_parameter: (work@kmac_entropy.A), line:6:27, endln:6:28
+  |vpiFullName:work@kmac_entropy.A
+  |vpiActual:
+  \_struct_typespec: (kmac_pkg::app_config_t), line:2:12, endln:4:5
+\_parameter: (work@kmac_entropy.A), line:6:27, endln:6:28
+  |vpiParent:
+  \_param_assign: , line:6:27, endln:8:5
+  |vpiTypespec:
+  \_ref_typespec: (work@kmac_entropy.A)
+  |vpiName:A
+  |vpiFullName:work@kmac_entropy.A
+  |vpiImported:kmac_pkg
+\_logic_typespec: , line:3:7, endln:3:19
+  |vpiParent:
+  \_ref_typespec: (work@kmac_entropy.A.kmac_pkg::app_config_t.Prefix)
+  |vpiInstance:
+  \_package: kmac_pkg (kmac_pkg::), file:${SURELOG_DIR}/tests/LargeHexCast/dut.sv, line:1:1, endln:13:22
+  |vpiRange:
+  \_range: , line:3:13, endln:3:19
+    |vpiParent:
+    \_logic_typespec: , line:3:7, endln:3:19
+    |vpiLeftRange:
+    \_constant: , line:3:14, endln:3:16
+      |vpiParent:
+      \_range: , line:3:13, endln:3:19
+      |vpiDecompile:95
+      |vpiSize:64
+      |UINT:95
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:17, endln:3:18
+      |vpiParent:
+      \_range: , line:3:13, endln:3:19
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 \_operation: , line:10:31, endln:12:5
   |vpiParent:
   \_param_assign: , line:10:27, endln:12:5
+  |vpiTypespec:
+  \_ref_typespec: 
+    |vpiActual:
+    \_struct_typespec: (kmac_pkg::app_config_t), line:2:12, endln:4:5
   |vpiOpType:75
   |vpiOperand:
   \_constant: , line:11:15, endln:11:48
+\_struct_typespec: (kmac_pkg::app_config_t), line:2:12, endln:4:5
+  |vpiParent:
+  \_ref_typespec: (work@kmac_entropy.B)
+  |vpiName:kmac_pkg::app_config_t
+  |vpiInstance:
+  \_package: kmac_pkg (kmac_pkg::), file:${SURELOG_DIR}/tests/LargeHexCast/dut.sv, line:1:1, endln:13:22
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (Prefix), line:3:20, endln:3:26
+    |vpiParent:
+    \_struct_typespec: (kmac_pkg::app_config_t), line:2:12, endln:4:5
+    |vpiName:Prefix
+    |vpiTypespec:
+    \_ref_typespec: (work@kmac_entropy.B.kmac_pkg::app_config_t.Prefix)
+      |vpiParent:
+      \_typespec_member: (Prefix), line:3:20, endln:3:26
+      |vpiFullName:work@kmac_entropy.B.kmac_pkg::app_config_t.Prefix
+      |vpiActual:
+      \_logic_typespec: , line:3:7, endln:3:19
+    |vpiRefFile:${SURELOG_DIR}/tests/LargeHexCast/dut.sv
+    |vpiRefLineNo:3
+    |vpiRefColumnNo:7
+    |vpiRefEndLineNo:3
+    |vpiRefEndColumnNo:19
+\_ref_typespec: (work@kmac_entropy.B)
+  |vpiParent:
+  \_parameter: (work@kmac_entropy.B), line:10:27, endln:10:28
+  |vpiFullName:work@kmac_entropy.B
+  |vpiActual:
+  \_struct_typespec: (kmac_pkg::app_config_t), line:2:12, endln:4:5
+\_parameter: (work@kmac_entropy.B), line:10:27, endln:10:28
+  |vpiParent:
+  \_param_assign: , line:10:27, endln:12:5
+  |vpiTypespec:
+  \_ref_typespec: (work@kmac_entropy.B)
+  |vpiName:B
+  |vpiFullName:work@kmac_entropy.B
+  |vpiImported:kmac_pkg
+\_logic_typespec: , line:3:7, endln:3:19
+  |vpiParent:
+  \_ref_typespec: (work@kmac_entropy.B.kmac_pkg::app_config_t.Prefix)
+  |vpiInstance:
+  \_package: kmac_pkg (kmac_pkg::), file:${SURELOG_DIR}/tests/LargeHexCast/dut.sv, line:1:1, endln:13:22
+  |vpiRange:
+  \_range: , line:3:13, endln:3:19
+    |vpiParent:
+    \_logic_typespec: , line:3:7, endln:3:19
+    |vpiLeftRange:
+    \_constant: , line:3:14, endln:3:16
+      |vpiParent:
+      \_range: , line:3:13, endln:3:19
+      |vpiDecompile:95
+      |vpiSize:64
+      |UINT:95
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:17, endln:3:18
+      |vpiParent:
+      \_range: , line:3:13, endln:3:19
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 \_struct_typespec: (kmac_pkg::app_config_t), line:2:12, endln:4:5
   |vpiParent:
   \_ref_typespec: (work@kmac_entropy.A)

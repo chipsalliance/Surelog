@@ -122,7 +122,7 @@ operation                                             14
 param_assign                                           2
 parameter                                              3
 range                                                  6
-ref_typespec                                          53
+ref_typespec                                          56
 string_typespec                                       28
 struct_typespec                                        6
 tagged_pattern                                        28
@@ -138,7 +138,7 @@ operation                                             14
 param_assign                                           2
 parameter                                              3
 range                                                  6
-ref_typespec                                          53
+ref_typespec                                          56
 string_typespec                                       28
 struct_typespec                                        6
 tagged_pattern                                        28
@@ -527,10 +527,7 @@ design: (work@top)
   |vpiParent:
   \_param_assign: , line:8:23, endln:12:4
   |vpiTypespec:
-  \_ref_typespec: (work@top)
-    |vpiParent:
-    \_operation: , line:8:37, endln:12:4
-    |vpiFullName:work@top
+  \_ref_typespec: 
     |vpiActual:
     \_struct_typespec: (complex_t), line:2:11, endln:6:4
   |vpiOpType:75
@@ -542,7 +539,7 @@ design: (work@top)
   \_constant: , line:11:9, endln:11:13
 \_struct_typespec: (complex_t), line:2:11, endln:6:4
   |vpiParent:
-  \_ref_typespec: (work@top)
+  \_ref_typespec: (work@top.RSP_DEFAULT)
   |vpiName:complex_t
   |vpiPacked:1
   |vpiTypespecMember:
@@ -551,10 +548,10 @@ design: (work@top)
     \_struct_typespec: (complex_t), line:2:11, endln:6:4
     |vpiName:addr
     |vpiTypespec:
-    \_ref_typespec: (work@top.complex_t.addr)
+    \_ref_typespec: (work@top.RSP_DEFAULT.complex_t.addr)
       |vpiParent:
       \_typespec_member: (addr), line:3:17, endln:3:21
-      |vpiFullName:work@top.complex_t.addr
+      |vpiFullName:work@top.RSP_DEFAULT.complex_t.addr
       |vpiActual:
       \_logic_typespec: , line:3:5, endln:3:16
     |vpiRefFile:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv
@@ -568,10 +565,10 @@ design: (work@top)
     \_struct_typespec: (complex_t), line:2:11, endln:6:4
     |vpiName:sel
     |vpiTypespec:
-    \_ref_typespec: (work@top.complex_t.sel)
+    \_ref_typespec: (work@top.RSP_DEFAULT.complex_t.sel)
       |vpiParent:
       \_typespec_member: (sel), line:4:11, endln:4:14
-      |vpiFullName:work@top.complex_t.sel
+      |vpiFullName:work@top.RSP_DEFAULT.complex_t.sel
       |vpiActual:
       \_logic_typespec: , line:4:5, endln:4:10
     |vpiRefFile:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv
@@ -585,10 +582,10 @@ design: (work@top)
     \_struct_typespec: (complex_t), line:2:11, endln:6:4
     |vpiName:rd
     |vpiTypespec:
-    \_ref_typespec: (work@top.complex_t.rd)
+    \_ref_typespec: (work@top.RSP_DEFAULT.complex_t.rd)
       |vpiParent:
       \_typespec_member: (rd), line:5:11, endln:5:13
-      |vpiFullName:work@top.complex_t.rd
+      |vpiFullName:work@top.RSP_DEFAULT.complex_t.rd
       |vpiActual:
       \_logic_typespec: , line:5:5, endln:5:10
     |vpiRefFile:${SURELOG_DIR}/tests/TaggedPatternLogic/dut.sv
@@ -596,9 +593,22 @@ design: (work@top)
     |vpiRefColumnNo:5
     |vpiRefEndLineNo:5
     |vpiRefEndColumnNo:10
+\_ref_typespec: (work@top.RSP_DEFAULT)
+  |vpiParent:
+  \_parameter: (work@top.RSP_DEFAULT), line:8:23, endln:8:34
+  |vpiFullName:work@top.RSP_DEFAULT
+  |vpiActual:
+  \_struct_typespec: (complex_t), line:2:11, endln:6:4
+\_parameter: (work@top.RSP_DEFAULT), line:8:23, endln:8:34
+  |vpiParent:
+  \_param_assign: , line:8:23, endln:12:4
+  |vpiTypespec:
+  \_ref_typespec: (work@top.RSP_DEFAULT)
+  |vpiName:RSP_DEFAULT
+  |vpiFullName:work@top.RSP_DEFAULT
 \_logic_typespec: , line:3:5, endln:3:16
   |vpiParent:
-  \_ref_typespec: (work@top.complex_t.addr)
+  \_ref_typespec: (work@top.RSP_DEFAULT.complex_t.addr)
   |vpiRange:
   \_range: , line:3:11, endln:3:16
     |vpiParent:
@@ -621,10 +631,10 @@ design: (work@top)
       |vpiConstType:9
 \_logic_typespec: , line:4:5, endln:4:10
   |vpiParent:
-  \_ref_typespec: (work@top.complex_t.sel)
+  \_ref_typespec: (work@top.RSP_DEFAULT.complex_t.sel)
 \_logic_typespec: , line:5:5, endln:5:10
   |vpiParent:
-  \_ref_typespec: (work@top.complex_t.rd)
+  \_ref_typespec: (work@top.RSP_DEFAULT.complex_t.rd)
 \_struct_typespec: (complex_t), line:2:11, endln:6:4
   |vpiParent:
   \_ref_typespec: (work@top.RSP_DEFAULT)

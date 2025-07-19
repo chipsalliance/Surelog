@@ -337,49 +337,49 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 1.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                             116
+constant                                              86
 design                                                 1
 enum_const                                             2
 enum_typespec                                          2
 int_typespec                                           3
 int_var                                                1
 logic_net                                              1
-logic_typespec                                        38
+logic_typespec                                        28
 module_inst                                           12
-operation                                             17
+operation                                             12
 param_assign                                           6
 parameter                                              9
-range                                                 38
+range                                                 28
 ref_module                                             2
 ref_obj                                                2
-ref_typespec                                          78
-string_typespec                                       18
-struct_typespec                                       16
-tagged_pattern                                        18
-typespec_member                                       32
+ref_typespec                                          58
+string_typespec                                       12
+struct_typespec                                       11
+tagged_pattern                                        12
+typespec_member                                       22
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                             116
+constant                                              86
 design                                                 1
 enum_const                                             2
 enum_typespec                                          2
 int_typespec                                           3
 int_var                                                1
 logic_net                                              1
-logic_typespec                                        38
+logic_typespec                                        28
 module_inst                                           12
-operation                                             17
+operation                                             12
 param_assign                                           6
 parameter                                              9
-range                                                 38
+range                                                 28
 ref_module                                             2
 ref_obj                                                2
-ref_typespec                                          78
-string_typespec                                       18
-struct_typespec                                       16
-tagged_pattern                                        18
-typespec_member                                       32
+ref_typespec                                          58
+string_typespec                                       12
+struct_typespec                                       11
+tagged_pattern                                        12
+typespec_member                                       22
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/EnumConstElab/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/EnumConstElab/slpp_all/checker/surelog.chk.html ...
@@ -1172,206 +1172,6 @@ design: (work@top)
       |vpiSize:64
       |UINT:0
       |vpiConstType:9
-\_operation: , line:36:36, endln:39:5
-  |vpiParent:
-  \_param_assign: , line:36:23, endln:39:5
-  |vpiTypespec:
-  \_ref_typespec: (work@top)
-    |vpiParent:
-    \_operation: , line:36:36, endln:39:5
-    |vpiFullName:work@top
-    |vpiActual:
-    \_struct_typespec: (struct_t), line:27:12, endln:30:5
-  |vpiOpType:75
-  |vpiOperand:
-  \_constant: , line:37:10, endln:37:19
-  |vpiOperand:
-  \_constant: , line:38:10, endln:38:12
-\_struct_typespec: (struct_t), line:27:12, endln:30:5
-  |vpiParent:
-  \_ref_typespec: (work@top)
-  |vpiName:struct_t
-  |vpiPacked:1
-  |vpiTypespecMember:
-  \_typespec_member: (a), line:28:19, endln:28:20
-    |vpiParent:
-    \_struct_typespec: (struct_t), line:27:12, endln:30:5
-    |vpiName:a
-    |vpiTypespec:
-    \_ref_typespec: (work@top.struct_t.a)
-      |vpiParent:
-      \_typespec_member: (a), line:28:19, endln:28:20
-      |vpiFullName:work@top.struct_t.a
-      |vpiActual:
-      \_logic_typespec: , line:28:7, endln:28:18
-    |vpiRefFile:${SURELOG_DIR}/tests/EnumConstElab/dut.sv
-    |vpiRefLineNo:28
-    |vpiRefColumnNo:7
-    |vpiRefEndLineNo:28
-    |vpiRefEndColumnNo:18
-  |vpiTypespecMember:
-  \_typespec_member: (b), line:29:19, endln:29:20
-    |vpiParent:
-    \_struct_typespec: (struct_t), line:27:12, endln:30:5
-    |vpiName:b
-    |vpiTypespec:
-    \_ref_typespec: (work@top.struct_t.b)
-      |vpiParent:
-      \_typespec_member: (b), line:29:19, endln:29:20
-      |vpiFullName:work@top.struct_t.b
-      |vpiActual:
-      \_logic_typespec: , line:29:7, endln:29:18
-    |vpiRefFile:${SURELOG_DIR}/tests/EnumConstElab/dut.sv
-    |vpiRefLineNo:29
-    |vpiRefColumnNo:7
-    |vpiRefEndLineNo:29
-    |vpiRefEndColumnNo:18
-\_logic_typespec: , line:28:7, endln:28:18
-  |vpiParent:
-  \_ref_typespec: (work@top.struct_t.a)
-  |vpiRange:
-  \_range: , line:28:13, endln:28:18
-    |vpiParent:
-    \_logic_typespec: , line:28:7, endln:28:18
-    |vpiLeftRange:
-    \_constant: , line:28:14, endln:28:15
-      |vpiParent:
-      \_range: , line:28:13, endln:28:18
-      |vpiDecompile:1
-      |vpiSize:64
-      |UINT:1
-      |vpiConstType:9
-    |vpiRightRange:
-    \_constant: , line:28:16, endln:28:17
-      |vpiParent:
-      \_range: , line:28:13, endln:28:18
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_logic_typespec: , line:29:7, endln:29:18
-  |vpiParent:
-  \_ref_typespec: (work@top.struct_t.b)
-  |vpiRange:
-  \_range: , line:29:13, endln:29:18
-    |vpiParent:
-    \_logic_typespec: , line:29:7, endln:29:18
-    |vpiLeftRange:
-    \_constant: , line:29:14, endln:29:15
-      |vpiParent:
-      \_range: , line:29:13, endln:29:18
-      |vpiDecompile:2
-      |vpiSize:64
-      |UINT:2
-      |vpiConstType:9
-    |vpiRightRange:
-    \_constant: , line:29:16, endln:29:17
-      |vpiParent:
-      \_range: , line:29:13, endln:29:18
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_struct_typespec: (struct_t), line:27:12, endln:30:5
-  |vpiParent:
-  \_ref_typespec: (work@top.u_ctrl_reg_shadowed)
-  |vpiName:struct_t
-  |vpiPacked:1
-  |vpiTypespecMember:
-  \_typespec_member: (a), line:28:19, endln:28:20
-    |vpiParent:
-    \_struct_typespec: (struct_t), line:27:12, endln:30:5
-    |vpiName:a
-    |vpiTypespec:
-    \_ref_typespec: (work@top.u_ctrl_reg_shadowed.struct_t.a)
-      |vpiParent:
-      \_typespec_member: (a), line:28:19, endln:28:20
-      |vpiFullName:work@top.u_ctrl_reg_shadowed.struct_t.a
-      |vpiActual:
-      \_logic_typespec: , line:28:7, endln:28:18
-    |vpiRefFile:${SURELOG_DIR}/tests/EnumConstElab/dut.sv
-    |vpiRefLineNo:28
-    |vpiRefColumnNo:7
-    |vpiRefEndLineNo:28
-    |vpiRefEndColumnNo:18
-  |vpiTypespecMember:
-  \_typespec_member: (b), line:29:19, endln:29:20
-    |vpiParent:
-    \_struct_typespec: (struct_t), line:27:12, endln:30:5
-    |vpiName:b
-    |vpiTypespec:
-    \_ref_typespec: (work@top.u_ctrl_reg_shadowed.struct_t.b)
-      |vpiParent:
-      \_typespec_member: (b), line:29:19, endln:29:20
-      |vpiFullName:work@top.u_ctrl_reg_shadowed.struct_t.b
-      |vpiActual:
-      \_logic_typespec: , line:29:7, endln:29:18
-    |vpiRefFile:${SURELOG_DIR}/tests/EnumConstElab/dut.sv
-    |vpiRefLineNo:29
-    |vpiRefColumnNo:7
-    |vpiRefEndLineNo:29
-    |vpiRefEndColumnNo:18
-\_logic_typespec: , line:28:7, endln:28:18
-  |vpiParent:
-  \_ref_typespec: (work@top.u_ctrl_reg_shadowed.struct_t.a)
-  |vpiRange:
-  \_range: , line:28:13, endln:28:18
-    |vpiParent:
-    \_logic_typespec: , line:28:7, endln:28:18
-    |vpiLeftRange:
-    \_constant: , line:28:14, endln:28:15
-      |vpiParent:
-      \_range: , line:28:13, endln:28:18
-      |vpiDecompile:1
-      |vpiSize:64
-      |UINT:1
-      |vpiConstType:9
-    |vpiRightRange:
-    \_constant: , line:28:16, endln:28:17
-      |vpiParent:
-      \_range: , line:28:13, endln:28:18
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_logic_typespec: , line:29:7, endln:29:18
-  |vpiParent:
-  \_ref_typespec: (work@top.u_ctrl_reg_shadowed.struct_t.b)
-  |vpiRange:
-  \_range: , line:29:13, endln:29:18
-    |vpiParent:
-    \_logic_typespec: , line:29:7, endln:29:18
-    |vpiLeftRange:
-    \_constant: , line:29:14, endln:29:15
-      |vpiParent:
-      \_range: , line:29:13, endln:29:18
-      |vpiDecompile:2
-      |vpiSize:64
-      |UINT:2
-      |vpiConstType:9
-    |vpiRightRange:
-    \_constant: , line:29:16, endln:29:17
-      |vpiParent:
-      \_range: , line:29:13, endln:29:18
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_operation: , line:42:15, endln:42:25
-  |vpiParent:
-  \_param_assign: , line:16:23, endln:19:5
-  |vpiTypespec:
-  \_ref_typespec: (work@top.u_ctrl_reg_shadowed)
-    |vpiParent:
-    \_operation: , line:42:15, endln:42:25
-    |vpiFullName:work@top.u_ctrl_reg_shadowed
-    |vpiActual:
-    \_struct_typespec: (struct_t), line:27:12, endln:30:5
-  |vpiOpType:75
-  |vpiOperand:
-  \_constant: , line:37:10, endln:37:19
-  |vpiOperand:
-  \_constant: , line:38:10, endln:38:12
 \_struct_typespec: (struct_t), line:27:12, endln:30:5
   |vpiParent:
   \_ref_typespec: (work@top.u_ctrl_reg_shadowed)

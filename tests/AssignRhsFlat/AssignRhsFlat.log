@@ -128,16 +128,16 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 1.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              17
+constant                                              15
 cont_assign                                            2
 design                                                 1
 int_typespec                                           6
 logic_net                                              1
 logic_typespec                                         2
 module_inst                                            3
-operation                                             11
+operation                                             10
 ref_obj                                                2
-ref_typespec                                          23
+ref_typespec                                          25
 string_typespec                                       12
 struct_typespec                                        3
 struct_var                                             1
@@ -146,16 +146,16 @@ typespec_member                                        7
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              17
+constant                                              15
 cont_assign                                            3
 design                                                 1
 int_typespec                                           6
 logic_net                                              1
 logic_typespec                                         2
 module_inst                                            3
-operation                                             14
+operation                                             13
 ref_obj                                                3
-ref_typespec                                          23
+ref_typespec                                          26
 string_typespec                                       12
 struct_typespec                                        3
 struct_var                                             1
@@ -398,6 +398,13 @@ design: (work@dut)
       \_operation: , line:12:47, endln:12:60
         |vpiParent:
         \_operation: , line:12:15, endln:12:61
+        |vpiTypespec:
+        \_ref_typespec: (work@dut)
+          |vpiParent:
+          \_operation: , line:12:47, endln:12:60
+          |vpiFullName:work@dut
+          |vpiActual:
+          \_struct_typespec: , line:4:3, endln:4:9
         |vpiOpType:75
         |vpiOperand:
         \_constant: , line:12:58, endln:12:59
@@ -550,6 +557,10 @@ design: (work@dut)
   \_operation: , line:12:47, endln:12:60
     |vpiParent:
     \_operation: , line:12:15, endln:12:61
+    |vpiTypespec:
+    \_ref_typespec: 
+      |vpiActual:
+      \_struct_typespec: , line:4:3, endln:4:9
     |vpiOpType:75
     |vpiOperand:
     \_constant: , line:12:58, endln:12:59
