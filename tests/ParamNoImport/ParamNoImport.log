@@ -129,43 +129,43 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 1.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              25
+constant                                              23
 design                                                 1
 int_typespec                                           1
-logic_typespec                                         7
+logic_typespec                                         6
 module_inst                                            7
 operation                                              9
 package                                                2
 param_assign                                           6
 parameter                                              7
-range                                                  7
+range                                                  6
 ref_module                                             1
 ref_obj                                                1
-ref_typespec                                          25
+ref_typespec                                          24
 string_typespec                                        7
-struct_typespec                                        7
+struct_typespec                                        6
 tagged_pattern                                         7
-typespec_member                                        7
+typespec_member                                        6
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              25
+constant                                              23
 design                                                 1
 int_typespec                                           1
-logic_typespec                                         7
+logic_typespec                                         6
 module_inst                                            7
 operation                                              9
 package                                                2
 param_assign                                           6
 parameter                                              7
-range                                                  7
+range                                                  6
 ref_module                                             1
 ref_obj                                                1
-ref_typespec                                          25
+ref_typespec                                          24
 string_typespec                                        7
-struct_typespec                                        7
+struct_typespec                                        6
 tagged_pattern                                         7
-typespec_member                                        7
+typespec_member                                        6
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamNoImport/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ParamNoImport/slpp_all/checker/surelog.chk.html ...
@@ -275,24 +275,19 @@ design: (work@dut)
     \_operation: , line:9:47, endln:11:2
       |vpiParent:
       \_param_assign: , line:9:25, endln:11:2
+      |vpiTypespec:
+      \_ref_typespec: 
+        |vpiActual:
+        \_struct_typespec: (pkg::pwr_ast_rsp_t), line:6:9, endln:8:2
       |vpiOpType:75
       |vpiOperand:
-      \_tagged_pattern: , line:10:17, endln:10:22
+      \_constant: , line:10:17, endln:10:22
         |vpiParent:
         \_operation: , line:9:47, endln:11:2
-        |vpiPattern:
-        \_constant: , line:10:17, endln:10:22
-          |vpiDecompile:2'b10
-          |vpiSize:2
-          |BIN:10
-          |vpiConstType:3
-        |vpiTypespec:
-        \_ref_typespec: (pkg)
-          |vpiParent:
-          \_tagged_pattern: , line:10:17, endln:10:22
-          |vpiFullName:pkg
-          |vpiActual:
-          \_string_typespec: (slow_clk_val), line:10:3, endln:10:15
+        |vpiDecompile:2'b10
+        |vpiSize:2
+        |BIN:10
+        |vpiConstType:3
     |vpiLhs:
     \_parameter: (pkg::PWR_AST_RSP_DEFAULT), line:9:25, endln:9:44
   |vpiTypedef:
@@ -445,10 +440,6 @@ design: (work@dut)
       |vpiSize:64
       |UINT:0
       |vpiConstType:9
-\_string_typespec: (slow_clk_val), line:10:3, endln:10:15
-  |vpiParent:
-  \_tagged_pattern: , line:10:17, endln:10:22
-  |vpiName:slow_clk_val
 \_logic_typespec: , line:7:3, endln:7:14
   |vpiParent:
   \_typespec_member: (slow_clk_val), line:7:15, endln:7:27
@@ -478,68 +469,6 @@ design: (work@dut)
   |vpiParent:
   \_tagged_pattern: , line:10:17, endln:10:22
   |vpiName:slow_clk_val
-\_struct_typespec: (pkg::pwr_ast_rsp_t), line:6:9, endln:8:2
-  |vpiParent:
-  \_ref_typespec: (work@dut.t)
-  |vpiName:pkg::pwr_ast_rsp_t
-  |vpiInstance:
-  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamNoImport/dut.sv, line:5:1, endln:12:11
-  |vpiPacked:1
-  |vpiTypespecMember:
-  \_typespec_member: (slow_clk_val), line:7:15, endln:7:27
-    |vpiParent:
-    \_struct_typespec: (pkg::pwr_ast_rsp_t), line:6:9, endln:8:2
-    |vpiName:slow_clk_val
-    |vpiTypespec:
-    \_ref_typespec: (work@dut.t.pkg::pwr_ast_rsp_t.slow_clk_val)
-      |vpiParent:
-      \_typespec_member: (slow_clk_val), line:7:15, endln:7:27
-      |vpiFullName:work@dut.t.pkg::pwr_ast_rsp_t.slow_clk_val
-      |vpiActual:
-      \_logic_typespec: , line:7:3, endln:7:14
-    |vpiRefFile:${SURELOG_DIR}/tests/ParamNoImport/dut.sv
-    |vpiRefLineNo:7
-    |vpiRefColumnNo:3
-    |vpiRefEndLineNo:7
-    |vpiRefEndColumnNo:14
-\_logic_typespec: , line:7:3, endln:7:14
-  |vpiParent:
-  \_ref_typespec: (work@dut.t.pkg::pwr_ast_rsp_t.slow_clk_val)
-  |vpiInstance:
-  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamNoImport/dut.sv, line:5:1, endln:12:11
-  |vpiRange:
-  \_range: , line:7:9, endln:7:14
-    |vpiParent:
-    \_logic_typespec: , line:7:3, endln:7:14
-    |vpiLeftRange:
-    \_constant: , line:7:10, endln:7:11
-      |vpiParent:
-      \_range: , line:7:9, endln:7:14
-      |vpiDecompile:1
-      |vpiSize:64
-      |UINT:1
-      |vpiConstType:9
-    |vpiRightRange:
-    \_constant: , line:7:12, endln:7:13
-      |vpiParent:
-      \_range: , line:7:9, endln:7:14
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_operation: , line:9:47, endln:11:2
-  |vpiParent:
-  \_param_assign: , line:1:26, endln:1:42
-  |vpiTypespec:
-  \_ref_typespec: (work@dut.t)
-    |vpiParent:
-    \_operation: , line:9:47, endln:11:2
-    |vpiFullName:work@dut.t
-    |vpiActual:
-    \_struct_typespec: (pkg::pwr_ast_rsp_t), line:6:9, endln:8:2
-  |vpiOpType:75
-  |vpiOperand:
-  \_constant: , line:10:17, endln:10:22
 \_struct_typespec: (pkg::pwr_ast_rsp_t), line:6:9, endln:8:2
   |vpiParent:
   \_ref_typespec: (work@dut.t)

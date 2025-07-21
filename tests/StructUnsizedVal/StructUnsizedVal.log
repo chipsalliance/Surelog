@@ -253,45 +253,45 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 1.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                             100
+constant                                              92
 design                                                 1
 hier_path                                              1
 import_typespec                                        1
 int_typespec                                          10
-logic_typespec                                        30
+logic_typespec                                        26
 module_inst                                           14
 operation                                              7
 package                                                2
 packed_array_typespec                                  2
 param_assign                                          18
 parameter                                             20
-range                                                 32
+range                                                 28
 ref_module                                             3
 ref_obj                                                7
-ref_typespec                                          68
-struct_typespec                                       13
-typespec_member                                       13
+ref_typespec                                          65
+struct_typespec                                       11
+typespec_member                                       11
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                             100
+constant                                              92
 design                                                 1
 hier_path                                              1
 import_typespec                                        1
 int_typespec                                          10
-logic_typespec                                        30
+logic_typespec                                        26
 module_inst                                           14
 operation                                              7
 package                                                2
 packed_array_typespec                                  2
 param_assign                                          18
 parameter                                             20
-range                                                 32
+range                                                 28
 ref_module                                             3
 ref_obj                                                7
-ref_typespec                                          68
-struct_typespec                                       13
-typespec_member                                       13
+ref_typespec                                          65
+struct_typespec                                       11
+typespec_member                                       11
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/StructUnsizedVal/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/StructUnsizedVal/slpp_all/checker/surelog.chk.html ...
@@ -903,15 +903,15 @@ design: (work@top)
       |vpiRhs:
       \_constant: , line:17:53, endln:17:64
         |vpiParent:
-        \_param_assign: , line:7:21, endln:7:37
+        \_param_assign: , line:17:46, endln:17:64
         |vpiDecompile:18446744073709551615
         |vpiSize:64
         |UINT:18446744073709551615
         |vpiTypespec:
-        \_ref_typespec: (work@dut)
+        \_ref_typespec: (work@top.d)
           |vpiParent:
           \_constant: , line:17:53, endln:17:64
-          |vpiFullName:work@dut
+          |vpiFullName:work@top.d
           |vpiActual:
           \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
         |vpiConstType:9
@@ -944,9 +944,18 @@ design: (work@top)
       \_module_inst: work@dut (work@top.d), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:22:3, endln:22:11
       |vpiRhs:
       \_constant: , line:7:35, endln:7:37
+        |vpiParent:
+        \_param_assign: , line:7:21, endln:7:37
         |vpiDecompile:18446744073709551615
         |vpiSize:64
         |UINT:18446744073709551615
+        |vpiTypespec:
+        \_ref_typespec: (work@top.d)
+          |vpiParent:
+          \_constant: , line:7:35, endln:7:37
+          |vpiFullName:work@top.d
+          |vpiActual:
+          \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
         |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@top.d.InitDefault), line:7:21, endln:7:32
@@ -1456,89 +1465,6 @@ design: (work@top)
     \_constant: , line:10:35, endln:10:36
       |vpiParent:
       \_range: , line:10:31, endln:10:37
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
-  |vpiParent:
-  \_ref_typespec: (work@dut)
-  |vpiName:pkg::init_t
-  |vpiInstance:
-  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
-  |vpiPacked:1
-  |vpiTypespecMember:
-  \_typespec_member: (key), line:5:11, endln:5:14
-    |vpiParent:
-    \_struct_typespec: (pkg::init_t), line:4:11, endln:6:4
-    |vpiName:key
-    |vpiTypespec:
-    \_ref_typespec: (work@dut.pkg::init_t.key)
-      |vpiParent:
-      \_typespec_member: (key), line:5:11, endln:5:14
-      |vpiFullName:work@dut.pkg::init_t.key
-      |vpiActual:
-      \_logic_typespec: (key), line:3:11, endln:3:28
-    |vpiRefFile:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv
-    |vpiRefLineNo:5
-    |vpiRefColumnNo:5
-    |vpiRefEndLineNo:5
-    |vpiRefEndColumnNo:8
-\_logic_typespec: (key), line:3:11, endln:3:28
-  |vpiParent:
-  \_ref_typespec: (work@dut.pkg::init_t.key)
-  |vpiName:key
-  |vpiTypedefAlias:
-  \_ref_typespec: (work@dut.pkg::init_t.key.key)
-    |vpiParent:
-    \_logic_typespec: (key), line:3:11, endln:3:28
-    |vpiFullName:work@dut.pkg::init_t.key.key
-    |vpiActual:
-    \_logic_typespec: (key), line:3:11, endln:3:28
-  |vpiInstance:
-  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
-  |vpiRange:
-  \_range: , line:3:17, endln:3:28
-    |vpiParent:
-    \_logic_typespec: (key), line:3:11, endln:3:28
-    |vpiLeftRange:
-    \_constant: , line:3:18, endln:3:23
-      |vpiParent:
-      \_range: , line:3:17, endln:3:28
-      |vpiDecompile:63
-      |vpiSize:64
-      |INT:63
-      |vpiConstType:7
-    |vpiRightRange:
-    \_constant: , line:3:26, endln:3:27
-      |vpiParent:
-      \_range: , line:3:17, endln:3:28
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_logic_typespec: (key), line:3:11, endln:3:28
-  |vpiParent:
-  \_ref_typespec: (work@dut.pkg::init_t.key.key)
-  |vpiName:key
-  |vpiInstance:
-  \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/StructUnsizedVal/dut.sv, line:1:1, endln:8:11
-  |vpiRange:
-  \_range: , line:3:17, endln:3:28
-    |vpiParent:
-    \_logic_typespec: (key), line:3:11, endln:3:28
-    |vpiLeftRange:
-    \_constant: , line:3:18, endln:3:23
-      |vpiParent:
-      \_range: , line:3:17, endln:3:28
-      |vpiDecompile:63
-      |vpiSize:64
-      |INT:63
-      |vpiConstType:7
-    |vpiRightRange:
-    \_constant: , line:3:26, endln:3:27
-      |vpiParent:
-      \_range: , line:3:17, endln:3:28
       |vpiDecompile:0
       |vpiSize:64
       |UINT:0

@@ -478,7 +478,7 @@ parameter                                              7
 range                                                  8
 ref_module                                             1
 ref_obj                                                5
-ref_typespec                                          48
+ref_typespec                                          49
 string_typespec                                       10
 struct_typespec                                        6
 tagged_pattern                                        10
@@ -510,7 +510,7 @@ parameter                                              7
 range                                                  8
 ref_module                                             1
 ref_obj                                                5
-ref_typespec                                          53
+ref_typespec                                          54
 string_typespec                                       10
 struct_typespec                                        6
 tagged_pattern                                        10
@@ -1788,10 +1788,7 @@ design: (work@top)
   |vpiParent:
   \_param_assign: , line:10:30, endln:10:58
   |vpiTypespec:
-  \_ref_typespec: (work@top)
-    |vpiParent:
-    \_operation: , line:10:41, endln:10:58
-    |vpiFullName:work@top
+  \_ref_typespec: 
     |vpiActual:
     \_struct_typespec: (pkg::complex_t), line:2:11, endln:5:4
   |vpiOpType:75
@@ -1801,7 +1798,7 @@ design: (work@top)
   \_constant: , line:10:55, endln:10:57
 \_struct_typespec: (pkg::complex_t), line:2:11, endln:5:4
   |vpiParent:
-  \_ref_typespec: (work@top)
+  \_ref_typespec: (work@top.init_val)
   |vpiName:pkg::complex_t
   |vpiInstance:
   \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplexVerilator/dut.sv, line:1:1, endln:6:11
@@ -1812,10 +1809,10 @@ design: (work@top)
     \_struct_typespec: (pkg::complex_t), line:2:11, endln:5:4
     |vpiName:a
     |vpiTypespec:
-    \_ref_typespec: (work@top.pkg::complex_t.a)
+    \_ref_typespec: (work@top.init_val.pkg::complex_t.a)
       |vpiParent:
       \_typespec_member: (a), line:3:11, endln:3:12
-      |vpiFullName:work@top.pkg::complex_t.a
+      |vpiFullName:work@top.init_val.pkg::complex_t.a
       |vpiActual:
       \_logic_typespec: , line:3:5, endln:3:10
     |vpiRefFile:${SURELOG_DIR}/tests/ParamComplexVerilator/dut.sv
@@ -1829,10 +1826,10 @@ design: (work@top)
     \_struct_typespec: (pkg::complex_t), line:2:11, endln:5:4
     |vpiName:b
     |vpiTypespec:
-    \_ref_typespec: (work@top.pkg::complex_t.b)
+    \_ref_typespec: (work@top.init_val.pkg::complex_t.b)
       |vpiParent:
       \_typespec_member: (b), line:4:17, endln:4:18
-      |vpiFullName:work@top.pkg::complex_t.b
+      |vpiFullName:work@top.init_val.pkg::complex_t.b
       |vpiActual:
       \_logic_typespec: , line:4:5, endln:4:16
     |vpiRefFile:${SURELOG_DIR}/tests/ParamComplexVerilator/dut.sv
@@ -1840,14 +1837,28 @@ design: (work@top)
     |vpiRefColumnNo:5
     |vpiRefEndLineNo:4
     |vpiRefEndColumnNo:16
+\_ref_typespec: (work@top.init_val)
+  |vpiParent:
+  \_parameter: (work@top.init_val), line:10:30, endln:10:38
+  |vpiFullName:work@top.init_val
+  |vpiActual:
+  \_struct_typespec: (pkg::complex_t), line:2:11, endln:5:4
+\_parameter: (work@top.init_val), line:10:30, endln:10:38
+  |vpiParent:
+  \_param_assign: , line:10:30, endln:10:58
+  |vpiTypespec:
+  \_ref_typespec: (work@top.init_val)
+  |vpiLocalParam:1
+  |vpiName:init_val
+  |vpiFullName:work@top.init_val
 \_logic_typespec: , line:3:5, endln:3:10
   |vpiParent:
-  \_ref_typespec: (work@top.pkg::complex_t.a)
+  \_ref_typespec: (work@top.init_val.pkg::complex_t.a)
   |vpiInstance:
   \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplexVerilator/dut.sv, line:1:1, endln:6:11
 \_logic_typespec: , line:4:5, endln:4:16
   |vpiParent:
-  \_ref_typespec: (work@top.pkg::complex_t.b)
+  \_ref_typespec: (work@top.init_val.pkg::complex_t.b)
   |vpiInstance:
   \_package: pkg (pkg::), file:${SURELOG_DIR}/tests/ParamComplexVerilator/dut.sv, line:1:1, endln:6:11
   |vpiRange:

@@ -193,47 +193,47 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 1.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              53
+constant                                              44
 cont_assign                                            1
 design                                                 1
 logic_net                                              3
-logic_typespec                                        18
+logic_typespec                                        15
 logic_var                                              1
 module_inst                                            8
-operation                                             10
+operation                                              7
 param_assign                                           4
 parameter                                              6
 port                                                   3
-range                                                 20
+range                                                 17
 ref_module                                             1
 ref_obj                                                6
-ref_typespec                                          36
-string_typespec                                        7
-struct_typespec                                        9
-tagged_pattern                                         7
-typespec_member                                        9
+ref_typespec                                          28
+string_typespec                                        4
+struct_typespec                                        6
+tagged_pattern                                         4
+typespec_member                                        6
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              53
+constant                                              44
 cont_assign                                            2
 design                                                 1
 logic_net                                              3
-logic_typespec                                        18
+logic_typespec                                        15
 logic_var                                              1
 module_inst                                            8
-operation                                             10
+operation                                              7
 param_assign                                           4
 parameter                                              6
 port                                                   4
-range                                                 20
+range                                                 17
 ref_module                                             1
 ref_obj                                               10
-ref_typespec                                          37
-string_typespec                                        7
-struct_typespec                                        9
-tagged_pattern                                         7
-typespec_member                                        9
+ref_typespec                                          29
+string_typespec                                        4
+struct_typespec                                        6
+tagged_pattern                                         4
+typespec_member                                        6
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/TypespecExpr/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/TypespecExpr/slpp_all/checker/surelog.chk.html ...
@@ -651,64 +651,6 @@ design: (work@Mod2)
   |vpiParent:
   \_tagged_pattern: , line:7:36, endln:7:38
   |vpiName:x
-\_struct_typespec: (Struct), line:6:12, endln:6:44
-  |vpiParent:
-  \_ref_typespec: (work@Mod2)
-  |vpiName:Struct
-  |vpiPacked:1
-  |vpiTypespecMember:
-  \_typespec_member: (x), line:6:40, endln:6:41
-    |vpiParent:
-    \_struct_typespec: (Struct), line:6:12, endln:6:44
-    |vpiName:x
-    |vpiTypespec:
-    \_ref_typespec: (work@Mod2.Struct.x)
-      |vpiParent:
-      \_typespec_member: (x), line:6:40, endln:6:41
-      |vpiFullName:work@Mod2.Struct.x
-      |vpiActual:
-      \_logic_typespec: , line:6:28, endln:6:39
-    |vpiRefFile:${SURELOG_DIR}/tests/TypespecExpr/dut.sv
-    |vpiRefLineNo:6
-    |vpiRefColumnNo:28
-    |vpiRefEndLineNo:6
-    |vpiRefEndColumnNo:39
-\_logic_typespec: , line:6:28, endln:6:39
-  |vpiParent:
-  \_ref_typespec: (work@Mod2.Struct.x)
-  |vpiRange:
-  \_range: , line:6:33, endln:6:39
-    |vpiParent:
-    \_logic_typespec: , line:6:28, endln:6:39
-    |vpiLeftRange:
-    \_constant: , line:6:34, endln:6:36
-      |vpiParent:
-      \_range: , line:6:33, endln:6:39
-      |vpiDecompile:31
-      |vpiSize:64
-      |UINT:31
-      |vpiConstType:9
-    |vpiRightRange:
-    \_constant: , line:6:37, endln:6:38
-      |vpiParent:
-      \_range: , line:6:33, endln:6:39
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_operation: , line:7:30, endln:7:40
-  |vpiParent:
-  \_param_assign: , line:7:21, endln:7:40
-  |vpiTypespec:
-  \_ref_typespec: (work@Mod2)
-    |vpiParent:
-    \_operation: , line:7:30, endln:7:40
-    |vpiFullName:work@Mod2
-    |vpiActual:
-    \_struct_typespec: (Struct), line:6:12, endln:6:44
-  |vpiOpType:75
-  |vpiOperand:
-  \_constant: , line:7:36, endln:7:38
 \_struct_typespec: (Struct), line:6:12, endln:6:44
   |vpiParent:
   \_ref_typespec: (work@Mod2)

@@ -231,7 +231,7 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assignment                                             4
 begin                                                  2
-constant                                              57
+constant                                              55
 cont_assign                                            1
 design                                                 1
 func_call                                              3
@@ -239,23 +239,23 @@ function                                               4
 indexed_part_select                                    4
 io_decl                                                4
 logic_net                                              2
-logic_typespec                                        15
+logic_typespec                                        14
 logic_var                                              8
 module_inst                                            7
 package                                                2
 param_assign                                           6
 parameter                                              6
 port                                                   2
-range                                                 22
+range                                                 21
 ref_obj                                                9
-ref_typespec                                          19
+ref_typespec                                          18
 return_stmt                                            4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
 assignment                                             6
 begin                                                  4
-constant                                              57
+constant                                              55
 cont_assign                                            2
 design                                                 1
 func_call                                              6
@@ -263,14 +263,14 @@ function                                               8
 indexed_part_select                                    8
 io_decl                                                8
 logic_net                                              2
-logic_typespec                                        15
+logic_typespec                                        14
 logic_var                                             12
 module_inst                                            7
 package                                                2
 param_assign                                           6
 parameter                                              6
 port                                                   3
-range                                                 22
+range                                                 21
 ref_obj                                               15
 ref_typespec                                          28
 return_stmt                                            8
@@ -607,6 +607,13 @@ design: (work@top)
           \_indexed_part_select: state_in (my_pkg::sbox4_16bit::state_in), line:8:47, endln:8:53
             |vpiParent:
             \_func_call: (sbox4_8bit), line:8:27, endln:8:55
+            |vpiTypespec:
+            \_ref_typespec: (my_pkg::sbox4_16bit::state_in)
+              |vpiParent:
+              \_indexed_part_select: state_in (my_pkg::sbox4_16bit::state_in), line:8:47, endln:8:53
+              |vpiFullName:my_pkg::sbox4_16bit::state_in
+              |vpiActual:
+              \_logic_typespec: , line:2:46, endln:2:51
             |vpiName:state_in
             |vpiFullName:my_pkg::sbox4_16bit::state_in
             |vpiDefName:state_in
@@ -891,6 +898,13 @@ design: (work@top)
         \_indexed_part_select: state_in (my_pkg::sbox4_16bit::state_in), line:8:47, endln:8:53
           |vpiParent:
           \_func_call: (sbox4_8bit), line:8:27, endln:8:55
+          |vpiTypespec:
+          \_ref_typespec: (my_pkg::sbox4_16bit::state_in)
+            |vpiParent:
+            \_indexed_part_select: state_in (my_pkg::sbox4_16bit::state_in), line:8:47, endln:8:53
+            |vpiFullName:my_pkg::sbox4_16bit::state_in
+            |vpiActual:
+            \_logic_typespec: , line:2:46, endln:2:51
           |vpiName:state_in
           |vpiFullName:my_pkg::sbox4_16bit::state_in
           |vpiDefName:state_in

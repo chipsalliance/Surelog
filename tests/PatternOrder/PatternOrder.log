@@ -111,15 +111,15 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 1.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              13
+constant                                              11
 design                                                 1
 int_typespec                                           4
 logic_net                                              1
 logic_typespec                                         4
 module_inst                                            3
-operation                                              8
+operation                                              7
 real_typespec                                          4
-ref_typespec                                          27
+ref_typespec                                          29
 string_typespec                                        9
 struct_typespec                                        6
 struct_var                                             1
@@ -128,15 +128,15 @@ typespec_member                                       14
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              13
+constant                                              11
 design                                                 1
 int_typespec                                           4
 logic_net                                              1
 logic_typespec                                         4
 module_inst                                            3
-operation                                              8
+operation                                              7
 real_typespec                                          4
-ref_typespec                                          27
+ref_typespec                                          29
 string_typespec                                        9
 struct_typespec                                        6
 struct_var                                             1
@@ -192,6 +192,10 @@ design: (work@top)
     \_operation: , line:8:9, endln:8:57
       |vpiParent:
       \_struct_var: (work@top.ABC), line:8:3, endln:8:57
+      |vpiTypespec:
+      \_ref_typespec: 
+        |vpiActual:
+        \_struct_typespec: , line:2:4, endln:2:10
       |vpiOpType:75
       |vpiOperand:
       \_constant: , line:8:35, endln:8:36
@@ -208,16 +212,12 @@ design: (work@top)
         |vpiOpType:75
         |vpiOperand:
         \_constant: , line:8:18, endln:8:22
-          |vpiParent:
-          \_operation: , line:8:16, endln:8:28
           |vpiDecompile:1'b1
           |vpiSize:1
           |BIN:1
           |vpiConstType:3
         |vpiOperand:
         \_constant: , line:8:24, endln:8:27
-          |vpiParent:
-          \_operation: , line:8:16, endln:8:28
           |vpiDecompile:1.0
           |vpiSize:64
           |REAL:1.000000
@@ -226,6 +226,10 @@ design: (work@top)
       \_operation: , line:8:43, endln:8:56
         |vpiParent:
         \_operation: , line:8:9, endln:8:57
+        |vpiTypespec:
+        \_ref_typespec: 
+          |vpiActual:
+          \_struct_typespec: , line:4:3, endln:4:9
         |vpiOpType:75
         |vpiOperand:
         \_constant: , line:8:54, endln:8:55

@@ -136,14 +136,14 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 1.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              25
+constant                                              23
 cont_assign                                            4
 design                                                 1
 hier_path                                              2
 int_typespec                                           4
 logic_net                                              6
 logic_typespec                                         6
-module_inst                                            3
+module_inst                                            4
 operation                                              8
 param_assign                                           2
 parameter                                              2
@@ -155,14 +155,14 @@ typespec_member                                        3
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              25
+constant                                              23
 cont_assign                                            6
 design                                                 1
 hier_path                                              2
 int_typespec                                           4
 logic_net                                              6
 logic_typespec                                         6
-module_inst                                            3
+module_inst                                            4
 operation                                             10
 param_assign                                           2
 parameter                                              2
@@ -315,16 +315,12 @@ design: (work@Foo)
         \_struct_typespec: (width_t), line:2:9, endln:4:2
       |vpiOpType:67
       |vpiOperand:
-      \_operation: , line:7:34, endln:7:38
+      \_constant: , line:7:34, endln:7:38
         |vpiParent:
         \_operation: , line:7:26, endln:7:38
-        |vpiOpType:33
-        |vpiOperand:
-        \_constant: , line:7:35, endln:7:37
-          |vpiDecompile:32
-          |vpiSize:64
-          |UINT:32
-          |vpiConstType:9
+        |vpiSize:64
+        |BIN:0000000000000000000000000000000000000000000000000000000000100000
+        |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@Foo.w), line:7:22, endln:7:23
   |vpiDefName:work@Foo

@@ -264,45 +264,45 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 1.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                             159
+constant                                             151
 design                                                 1
 hier_path                                              1
 import_typespec                                        1
 int_typespec                                          17
-logic_typespec                                        50
+logic_typespec                                        46
 module_inst                                            9
 operation                                             16
 package                                                2
 packed_array_typespec                                  4
 param_assign                                          20
 parameter                                             22
-range                                                 54
+range                                                 50
 ref_module                                             1
 ref_obj                                               14
-ref_typespec                                          97
-struct_typespec                                       12
-typespec_member                                       24
+ref_typespec                                          94
+struct_typespec                                       11
+typespec_member                                       22
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                             159
+constant                                             151
 design                                                 1
 hier_path                                              1
 import_typespec                                        1
 int_typespec                                          17
-logic_typespec                                        50
+logic_typespec                                        46
 module_inst                                            9
 operation                                             16
 package                                                2
 packed_array_typespec                                  4
 param_assign                                          20
 parameter                                             22
-range                                                 54
+range                                                 50
 ref_module                                             1
 ref_obj                                               14
-ref_typespec                                          97
-struct_typespec                                       12
-typespec_member                                       24
+ref_typespec                                          94
+struct_typespec                                       11
+typespec_member                                       22
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/LargeValue2Struct/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/LargeValue2Struct/slpp_all/checker/surelog.chk.html ...
@@ -1050,9 +1050,18 @@ design: (work@top)
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/LargeValue2Struct/dut.sv, line:21:1, endln:30:10
     |vpiRhs:
     \_constant: , line:13:7, endln:13:76
+      |vpiParent:
+      \_param_assign: , line:12:30, endln:13:76
       |vpiDecompile:256'hcebeb96ffe0eced795f8b2cfe23c1e519e4fa08047a6bcfb811b04f0a479006e
       |vpiSize:256
       |HEX:cebeb96ffe0eced795f8b2cfe23c1e519e4fa08047a6bcfb811b04f0a479006e
+      |vpiTypespec:
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:13:7, endln:13:76
+        |vpiFullName:work@top
+        |vpiActual:
+        \_struct_typespec: (pack::scrmbl_key_init_t), line:7:9, endln:10:4
       |vpiConstType:5
     |vpiLhs:
     \_parameter: (work@top.RndCnstScrmblKeyInitDefault), line:12:30, endln:12:57
@@ -1063,7 +1072,7 @@ design: (work@top)
     |vpiRhs:
     \_constant: , line:23:52, endln:23:79
       |vpiParent:
-      \_param_assign: , line:12:30, endln:13:76
+      \_param_assign: , line:23:29, endln:23:79
       |vpiDecompile:256'hcebeb96ffe0eced795f8b2cfe23c1e519e4fa08047a6bcfb811b04f0a479006e
       |vpiSize:256
       |HEX:cebeb96ffe0eced795f8b2cfe23c1e519e4fa08047a6bcfb811b04f0a479006e

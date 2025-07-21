@@ -207,45 +207,45 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 1.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              64
+constant                                              50
 design                                                 1
 import_typespec                                        1
 logic_net                                              1
-logic_typespec                                        21
+logic_typespec                                        16
 module_inst                                           12
-operation                                             15
+operation                                             11
 package                                                2
 param_assign                                          10
 parameter                                             13
-range                                                 21
+range                                                 16
 ref_module                                             2
-ref_typespec                                          56
-string_typespec                                       12
+ref_typespec                                          44
+string_typespec                                        9
 struct_net                                             1
-struct_typespec                                       15
-tagged_pattern                                        12
-typespec_member                                       15
+struct_typespec                                       10
+tagged_pattern                                         9
+typespec_member                                       10
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              64
+constant                                              50
 design                                                 1
 import_typespec                                        1
 logic_net                                              1
-logic_typespec                                        21
+logic_typespec                                        16
 module_inst                                           12
-operation                                             15
+operation                                             11
 package                                                2
 param_assign                                          10
 parameter                                             13
-range                                                 21
+range                                                 16
 ref_module                                             2
-ref_typespec                                          56
-string_typespec                                       12
+ref_typespec                                          44
+string_typespec                                        9
 struct_net                                             1
-struct_typespec                                       15
-tagged_pattern                                        12
-typespec_member                                       15
+struct_typespec                                       10
+tagged_pattern                                         9
+typespec_member                                       10
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PAssignType/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/PAssignType/slpp_all/checker/surelog.chk.html ...
@@ -605,10 +605,7 @@ design: (work@aes_core)
       |vpiParent:
       \_param_assign: , line:6:22, endln:8:2
       |vpiTypespec:
-      \_ref_typespec: (work@aes_core)
-        |vpiParent:
-        \_operation: , line:6:35, endln:8:2
-        |vpiFullName:work@aes_core
+      \_ref_typespec: 
         |vpiActual:
         \_struct_typespec: (aes_pkg::ctrl_reg_t), line:2:9, endln:4:2
       |vpiOpType:75
@@ -935,7 +932,7 @@ design: (work@aes_core)
       |vpiConstType:9
 \_struct_typespec: (aes_pkg::ctrl_reg_t), line:2:9, endln:4:2
   |vpiParent:
-  \_ref_typespec: (work@aes_core)
+  \_ref_typespec: (work@aes_core.CTRL_RESET)
   |vpiName:aes_pkg::ctrl_reg_t
   |vpiInstance:
   \_package: aes_pkg (aes_pkg::), file:${SURELOG_DIR}/tests/PAssignType/dut.sv, line:1:1, endln:9:11
@@ -946,10 +943,10 @@ design: (work@aes_core)
     \_struct_typespec: (aes_pkg::ctrl_reg_t), line:2:9, endln:4:2
     |vpiName:manual_operation
     |vpiTypespec:
-    \_ref_typespec: (work@aes_core.aes_pkg::ctrl_reg_t.manual_operation)
+    \_ref_typespec: (work@aes_core.CTRL_RESET.aes_pkg::ctrl_reg_t.manual_operation)
       |vpiParent:
       \_typespec_member: (manual_operation), line:3:15, endln:3:31
-      |vpiFullName:work@aes_core.aes_pkg::ctrl_reg_t.manual_operation
+      |vpiFullName:work@aes_core.CTRL_RESET.aes_pkg::ctrl_reg_t.manual_operation
       |vpiActual:
       \_logic_typespec: , line:3:3, endln:3:14
     |vpiRefFile:${SURELOG_DIR}/tests/PAssignType/dut.sv
@@ -957,71 +954,23 @@ design: (work@aes_core)
     |vpiRefColumnNo:3
     |vpiRefEndLineNo:3
     |vpiRefEndColumnNo:14
-\_logic_typespec: , line:3:3, endln:3:14
+\_ref_typespec: (work@aes_core.CTRL_RESET)
   |vpiParent:
-  \_ref_typespec: (work@aes_core.aes_pkg::ctrl_reg_t.manual_operation)
-  |vpiInstance:
-  \_package: aes_pkg (aes_pkg::), file:${SURELOG_DIR}/tests/PAssignType/dut.sv, line:1:1, endln:9:11
-  |vpiRange:
-  \_range: , line:3:8, endln:3:14
-    |vpiParent:
-    \_logic_typespec: , line:3:3, endln:3:14
-    |vpiLeftRange:
-    \_constant: , line:3:9, endln:3:11
-      |vpiParent:
-      \_range: , line:3:8, endln:3:14
-      |vpiDecompile:31
-      |vpiSize:64
-      |UINT:31
-      |vpiConstType:9
-    |vpiRightRange:
-    \_constant: , line:3:12, endln:3:13
-      |vpiParent:
-      \_range: , line:3:8, endln:3:14
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_operation: , line:6:35, endln:8:2
+  \_parameter: (work@aes_core.CTRL_RESET), line:6:22, endln:6:32
+  |vpiFullName:work@aes_core.CTRL_RESET
+  |vpiActual:
+  \_struct_typespec: (aes_pkg::ctrl_reg_t), line:2:9, endln:4:2
+\_parameter: (work@aes_core.CTRL_RESET), line:6:22, endln:6:32
   |vpiParent:
   \_param_assign: , line:6:22, endln:8:2
   |vpiTypespec:
-  \_ref_typespec: (work@aes_core)
-    |vpiParent:
-    \_operation: , line:6:35, endln:8:2
-    |vpiFullName:work@aes_core
-    |vpiActual:
-    \_struct_typespec: (aes_pkg::ctrl_reg_t), line:2:9, endln:4:2
-  |vpiOpType:75
-  |vpiOperand:
-  \_constant: , line:7:21, endln:7:23
-\_struct_typespec: (aes_pkg::ctrl_reg_t), line:2:9, endln:4:2
-  |vpiParent:
-  \_ref_typespec: (work@aes_core)
-  |vpiName:aes_pkg::ctrl_reg_t
-  |vpiInstance:
-  \_package: aes_pkg (aes_pkg::), file:${SURELOG_DIR}/tests/PAssignType/dut.sv, line:1:1, endln:9:11
-  |vpiPacked:1
-  |vpiTypespecMember:
-  \_typespec_member: (manual_operation), line:3:15, endln:3:31
-    |vpiParent:
-    \_struct_typespec: (aes_pkg::ctrl_reg_t), line:2:9, endln:4:2
-    |vpiName:manual_operation
-    |vpiTypespec:
-    \_ref_typespec: (work@aes_core.aes_pkg::ctrl_reg_t.manual_operation)
-      |vpiParent:
-      \_typespec_member: (manual_operation), line:3:15, endln:3:31
-      |vpiFullName:work@aes_core.aes_pkg::ctrl_reg_t.manual_operation
-      |vpiActual:
-      \_logic_typespec: , line:3:3, endln:3:14
-    |vpiRefFile:${SURELOG_DIR}/tests/PAssignType/dut.sv
-    |vpiRefLineNo:3
-    |vpiRefColumnNo:3
-    |vpiRefEndLineNo:3
-    |vpiRefEndColumnNo:14
+  \_ref_typespec: (work@aes_core.CTRL_RESET)
+  |vpiName:CTRL_RESET
+  |vpiFullName:work@aes_core.CTRL_RESET
+  |vpiImported:aes_pkg
 \_logic_typespec: , line:3:3, endln:3:14
   |vpiParent:
-  \_ref_typespec: (work@aes_core.aes_pkg::ctrl_reg_t.manual_operation)
+  \_ref_typespec: (work@aes_core.CTRL_RESET.aes_pkg::ctrl_reg_t.manual_operation)
   |vpiInstance:
   \_package: aes_pkg (aes_pkg::), file:${SURELOG_DIR}/tests/PAssignType/dut.sv, line:1:1, endln:9:11
   |vpiRange:
