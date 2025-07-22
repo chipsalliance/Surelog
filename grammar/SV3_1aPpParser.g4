@@ -113,7 +113,7 @@ unterminated_string: DOUBLE_QUOTE string_blob* CR;
 
 macro_actual_args: macro_arg* (COMMA macro_arg*)*;
 
-comment: One_line_comment | Block_comment;
+comment: One_line_comment | ESCAPED_LINE_COMMENT | Block_comment;
 
 integral_number: INTEGRAL_NUMBER;
 
@@ -473,11 +473,19 @@ macro_arguments
   ;
 
 escaped_macro_definition_body
-  : escaped_macro_definition_body_alt1
-  | escaped_macro_definition_body_alt2
+  : escaped_macro_definition_body_inner ESCAPED_CR Spaces* (
+    One_line_comment
+    | CR
+    | EOF
+  )
+  | escaped_macro_definition_body_inner (
+    One_line_comment
+    | CR Spaces*
+    | EOF
+  )
   ;
 
-escaped_macro_definition_body_alt1
+escaped_macro_definition_body_inner
   : (
     unterminated_string
     | Macro_identifier
@@ -499,7 +507,8 @@ escaped_macro_definition_body_alt1
     | Spaces
     | Fixed_point_number
     | STRING
-    | comment
+    | ESCAPED_LINE_COMMENT
+    | Block_comment
     | TICK_QUOTE
     | TICK_BACKSLASH_TICK_QUOTE
     | TICK_TICK
@@ -508,41 +517,7 @@ escaped_macro_definition_body_alt1
     | CLOSE_CURLY
     | OPEN_BRACKET
     | CLOSE_BRACKET
-  )*? ESCAPED_CR Spaces* (CR | EOF)
-  ;
-
-escaped_macro_definition_body_alt2
-  : (
-    unterminated_string
-    | Macro_identifier
-    | Macro_Escaped_identifier
-    | escaped_identifier
-    | Simple_identifier
-    | integral_number
-    | TEXT_CR
-    | pound_delay
-    | pound_pound_delay
-    | ESCAPED_CR
-    | OPEN_PARENS
-    | CLOSE_PARENS
-    | COMMA
-    | ASSIGN_OP
-    | DOUBLE_QUOTE
-    | TICK_VARIABLE
-    | directive_in_macro
-    | Spaces
-    | Fixed_point_number
-    | STRING
-    | comment
-    | TICK_QUOTE
-    | TICK_BACKSLASH_TICK_QUOTE
-    | TICK_TICK
-    | Special
-    | OPEN_CURLY
-    | CLOSE_CURLY
-    | OPEN_BRACKET
-    | CLOSE_BRACKET
-  )*? (CR Spaces* | EOF)
+  )*?
   ;
 
 simple_macro_definition_body

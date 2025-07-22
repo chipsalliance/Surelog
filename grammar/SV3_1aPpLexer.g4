@@ -19,7 +19,7 @@ lexer grammar SV3_1aPpLexer;
 ESCAPED_IDENTIFIER: '\\' ~[WS\r\t\n]*? WS |
                     '\\' ( OPEN_BRACKET? [A-Za-z0-9_$+-.]+ CLOSE_BRACKET?)* WS;
 
-
+ESCAPED_LINE_COMMENT: '//' ~[\\\r\n]* ESCAPED_CR;
 
 // A.9.2 Comments
 

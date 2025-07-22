@@ -94,6 +94,8 @@ void SV3_1aPpTreeShapeListener::enterComment(
         m_pp->append(ctx->Block_comment()->getText());
       } else if (ctx->One_line_comment()) {
         m_pp->append(ctx->One_line_comment()->getText());
+      } else if (ctx->ESCAPED_LINE_COMMENT()) {
+        m_pp->append(ctx->ESCAPED_LINE_COMMENT()->getText());
       }
     }
   }
@@ -172,6 +174,9 @@ void SV3_1aPpTreeShapeListener::exitComment(
                    VObjectType::ppComment);
       } else if (ctx->One_line_comment()) {
         addVObject(ctx, ctx->One_line_comment()->getText(),
+                   VObjectType::ppComment);
+      } else if (ctx->ESCAPED_LINE_COMMENT()) {
+        addVObject(ctx, ctx->ESCAPED_LINE_COMMENT()->getText(),
                    VObjectType::ppComment);
       }
     } else {
