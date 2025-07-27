@@ -938,6 +938,8 @@ design: (work@ok)
     |vpiSize:2
 |uhdmtopModules:
 \_module_inst: work@ok (work@ok), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:3:1, endln:7:10
+  |vpiParent:
+  \_design: (work@ok)
   |vpiName:work@ok
   |vpiDefName:work@ok
   |vpiTop:1
@@ -978,6 +980,8 @@ design: (work@ok)
       \_logic_net: (work@ok.b), line:5:8, endln:5:9
 |uhdmtopModules:
 \_module_inst: work@bad1 (work@bad1), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:14:1, endln:22:10
+  |vpiParent:
+  \_design: (work@ok)
   |vpiName:work@bad1
   |vpiDefName:work@bad1
   |vpiTop:1
@@ -1062,6 +1066,8 @@ design: (work@ok)
       |vpiFullName:work@bad1.b
 |uhdmtopModules:
 \_module_inst: work@bad2 (work@bad2), file:${SURELOG_DIR}/tests/DefaultNetType/dut.sv, line:28:1, endln:49:10
+  |vpiParent:
+  \_design: (work@ok)
   |vpiName:work@bad2
   |vpiVariables:
   \_enum_var: (work@bad2.currentState), line:30:22, endln:30:34
@@ -1207,13 +1213,9 @@ design: (work@ok)
           |vpiParent:
           \_case_stmt: , line:40:9, endln:44:16
           |vpiExpr:
-          \_ref_obj: (work@bad2.MODE_A), line:41:13, endln:41:19
-            |vpiParent:
-            \_case_item: , line:41:13, endln:41:38
-            |vpiName:MODE_A
-            |vpiFullName:work@bad2.MODE_A
-            |vpiActual:
-            \_enum_const: (MODE_A), line:24:15, endln:24:21
+          \_constant: , line:41:13, endln:41:19
+            |vpiSize:64
+            |INT:0
           |vpiStmt:
           \_assignment: , line:41:21, endln:41:37
             |vpiParent:
@@ -1239,13 +1241,9 @@ design: (work@ok)
           |vpiParent:
           \_case_stmt: , line:40:9, endln:44:16
           |vpiExpr:
-          \_ref_obj: (work@bad2.MODE_B), line:42:13, endln:42:19
-            |vpiParent:
-            \_case_item: , line:42:13, endln:42:39
-            |vpiName:MODE_B
-            |vpiFullName:work@bad2.MODE_B
-            |vpiActual:
-            \_enum_const: (MODE_B), line:24:23, endln:24:29
+          \_constant: , line:42:13, endln:42:19
+            |vpiSize:64
+            |INT:1
           |vpiStmt:
           \_assignment: , line:42:21, endln:42:38
             |vpiParent:

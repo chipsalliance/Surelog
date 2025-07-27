@@ -5085,6 +5085,7 @@ vpiHandle UhdmWriter::write(PathId uhdmFileId) {
       writeInstance(mod, inst, m, m_compileDesign, modPortMap, instanceMap,
                     exprBuilder);
       uhdm_top_modules->push_back(m);
+      m->VpiParent(d);
     }
     d->TopModules(uhdm_top_modules);
   }
