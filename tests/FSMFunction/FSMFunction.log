@@ -1160,7 +1160,7 @@ case_stmt                                              2
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              87
+constant                                              85
 cont_assign                                            1
 delay_control                                         12
 design                                                 1
@@ -1175,7 +1175,7 @@ int_typespec                                          17
 int_var                                                4
 io_decl                                               14
 logic_net                                             16
-logic_typespec                                        27
+logic_typespec                                        26
 logic_var                                             11
 module_inst                                            6
 named_begin                                            2
@@ -1184,9 +1184,9 @@ package                                                2
 param_assign                                          11
 parameter                                             11
 port                                                  12
-range                                                 23
+range                                                 22
 ref_obj                                               80
-ref_typespec                                          72
+ref_typespec                                          71
 task                                                   9
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -1199,7 +1199,7 @@ case_stmt                                              4
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              87
+constant                                              85
 cont_assign                                            2
 delay_control                                         24
 design                                                 1
@@ -1214,7 +1214,7 @@ int_typespec                                          17
 int_var                                                4
 io_decl                                               28
 logic_net                                             16
-logic_typespec                                        27
+logic_typespec                                        26
 logic_var                                             11
 module_inst                                            6
 named_begin                                            4
@@ -1223,9 +1223,9 @@ package                                                2
 param_assign                                          11
 parameter                                             11
 port                                                  18
-range                                                 23
+range                                                 22
 ref_obj                                              136
-ref_typespec                                          89
+ref_typespec                                          88
 task                                                  18
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FSMFunction/slpp_unit/surelog.uhdm ...
@@ -3006,6 +3006,8 @@ design: (work@fsm_using_function)
       \_logic_net: (work@fsm_using_function.next_state), line:27:27, endln:27:37
 |uhdmtopModules:
 \_module_inst: work@fsm_using_function (work@fsm_using_function), file:${SURELOG_DIR}/tests/FSMFunction/top.sv, line:6:1, endln:94:10
+  |vpiParent:
+  \_design: (work@fsm_using_function)
   |vpiName:work@fsm_using_function
   |vpiParameter:
   \_parameter: (work@fsm_using_function.SIZE), line:23:11, endln:23:15
@@ -3101,7 +3103,7 @@ design: (work@fsm_using_function)
         \_constant: , line:74:5, endln:74:9
         |vpiFullName:work@fsm_using_function
         |vpiActual:
-        \_logic_typespec: 
+        \_int_typespec: , line:24:1, endln:24:53
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@fsm_using_function.IDLE), line:24:11, endln:24:15
@@ -4747,17 +4749,6 @@ design: (work@fsm_using_function)
       |INT:0
 \_logic_typespec: 
 \_logic_typespec: 
-\_logic_typespec: 
-  |vpiRange:
-  \_range: 
-    |vpiParent:
-    \_logic_typespec: 
-    |vpiLeftRange:
-    \_constant: 
-      |UINT:2
-    |vpiRightRange:
-    \_constant: 
-      |UINT:0
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
