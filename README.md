@@ -278,6 +278,8 @@ target_link_libraries(<your project name> surelog)
 
 ## Sister project:
 * [UHDM](https://github.com/chipsalliance/UHDM/) - Full SystemVerilog (VHDL later) VPI API for interfacing with 3rd party tools
+* [uhdm2rtlil](https://github.com/alainmarcel/uhdm2rtlil) - SystemVerilog frontend for Yosys by the way of Surelog/UHDM/RTLIL
+* [synlig](https://github.com/chipsalliance/synlig) - SystemVerilog frontend for Yosys by the way the Yosys AST 
 
 ## Similar projects:
 * [hdlConvertor](https://github.com/Nic30/hdlConvertor/) - SystemVerilog and VHDL parser, preprocessor and code generator for Python/C++ written in C++
@@ -289,6 +291,7 @@ target_link_libraries(<your project name> surelog)
 * [pyVHDLParser](https://github.com/Paebbels/pyVHDLParser) - python vhdl parser with 2008 support
 * [rust_hdl](https://github.com/kraigher/rust_hdl) - rust vhdl 2008 parser
 * [slang](https://github.com/MikePopoloski/slang) - Parser and compiler library for SystemVerilog.
+* [yosys-slang](https://github.com/povik/yosys-slang) - SystemVerilog frontend for Yosys
 * [sv-parser](https://github.com/dalance/sv-parser) - Rust, SystemVerilog parser library fully compliant with IEEE 1800-2017
 * [systemc-clang](https://github.com/anikau31/systemc-clang) - SystemC Parser using the Clang Front-end
 * [v2sc](https://github.com/denisgav/v2sc) - vhdl to systemc
