@@ -300,7 +300,8 @@ PP TREE: (top_level_rule null_rule (source_text (description (module module)) (d
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 attribute                                              2
-constant                                              11
+constant                                              12
+cont_assign                                            2
 design                                                 1
 enum_const                                             8
 enum_typespec                                          2
@@ -308,10 +309,10 @@ enum_var                                               2
 interface_inst                                         4
 interface_typespec                                     9
 io_decl                                                7
-logic_net                                             13
-logic_typespec                                         8
+logic_net                                             14
+logic_typespec                                         9
 modport                                                7
-module_inst                                            7
+module_inst                                            8
 operation                                              4
 packed_array_typespec                                  1
 param_assign                                           1
@@ -319,7 +320,7 @@ parameter                                              1
 port                                                   9
 range                                                  2
 ref_obj                                               11
-ref_typespec                                          19
+ref_typespec                                          20
 unsupported_typespec                                   3
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ModPortTest/slpp_unit/surelog.uhdm ...
@@ -747,6 +748,33 @@ design: (work@dff0_test)
       |vpiFullName:work@dff0_test.n1
       |vpiActual:
       \_logic_typespec: , line:3:10, endln:3:10
+  |vpiContAssign:
+  \_cont_assign: , line:4:7, endln:4:9
+    |vpiParent:
+    \_module_inst: work@dff0_test (work@dff0_test), file:${SURELOG_DIR}/tests/ModPortTest/top.v, line:1:1, endln:5:10
+    |vpiNetDeclAssign:1
+    |vpiRhs:
+    \_constant: , line:4:12, endln:4:17
+      |vpiParent:
+      \_cont_assign: , line:4:7, endln:4:9
+      |vpiDecompile:32'd0
+      |vpiSize:32
+      |DEC:0
+      |vpiConstType:1
+    |vpiLhs:
+    \_logic_net: (work@dff0_test.n1), line:4:7, endln:4:17
+      |vpiParent:
+      \_cont_assign: , line:4:7, endln:4:9
+      |vpiTypespec:
+      \_ref_typespec: (work@dff0_test.n1)
+        |vpiParent:
+        \_logic_net: (work@dff0_test.n1), line:4:7, endln:4:17
+        |vpiFullName:work@dff0_test.n1
+        |vpiActual:
+        \_logic_typespec: , line:4:3, endln:4:6
+      |vpiName:n1
+      |vpiFullName:work@dff0_test.n1
+      |vpiNetType:48
 |uhdmtopModules:
 \_module_inst: work@memory_ctrl1 (work@memory_ctrl1), file:${SURELOG_DIR}/tests/ModPortTest/top.v, line:36:1, endln:43:10
   |vpiParent:
@@ -976,8 +1004,6 @@ design: (work@dff0_test)
 \_weaklyReferenced:
 \_logic_typespec: , line:3:10, endln:3:10
 \_logic_typespec: , line:4:3, endln:4:6
-  |vpiParent:
-  \_logic_net: (work@dff0_test.n1), line:4:7, endln:4:17
 \_interface_typespec: (mem_if), line:36:22, endln:36:28
   |vpiName:mem_if
 \_logic_typespec: , line:29:25, endln:29:29
@@ -1013,6 +1039,9 @@ design: (work@dff0_test)
   |vpiName:mem_if
 \_unsupported_typespec: (DD), line:51:1, endln:51:3
   |vpiName:DD
+\_logic_typespec: , line:4:3, endln:4:6
+  |vpiParent:
+  \_ref_typespec: (work@dff0_test.n1)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

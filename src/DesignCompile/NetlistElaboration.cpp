@@ -2408,7 +2408,7 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
       parentNetlist->getSymbolTable().emplace(parentSymbol, obj);
     if (netlist) netlist->getSymbolTable().emplace(signame, obj);
 
-    if (exp && (!signalIsPort)) {
+    if (exp) {
       cont_assign* assign = s.MakeCont_assign();
       assign->VpiNetDeclAssign(true);
       fC->populateCoreMembers(id, id, assign);

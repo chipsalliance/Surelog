@@ -65,29 +65,31 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 1.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              11
+constant                                              14
+cont_assign                                            2
 design                                                 1
-logic_net                                              2
-logic_typespec                                         3
-module_inst                                            5
+logic_net                                              3
+logic_typespec                                         4
+module_inst                                            6
 port                                                   2
-range                                                  4
+range                                                  5
 ref_module                                             1
 ref_obj                                                2
-ref_typespec                                           3
+ref_typespec                                           4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              11
+constant                                              14
+cont_assign                                            3
 design                                                 1
-logic_net                                              2
-logic_typespec                                         3
-module_inst                                            5
+logic_net                                              3
+logic_typespec                                         4
+module_inst                                            6
 port                                                   3
-range                                                  4
+range                                                  5
 ref_module                                             1
 ref_obj                                                3
-ref_typespec                                           4
+ref_typespec                                           5
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PortDefaultValue/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/PortDefaultValue/slpp_all/checker/surelog.chk.html ...
@@ -211,6 +213,21 @@ design: (work@top)
         \_logic_typespec: , line:7:7, endln:7:12
       |vpiInstance:
       \_module_inst: work@bus_conn (work@top.u1), file:${SURELOG_DIR}/tests/PortDefaultValue/dut.sv, line:3:1, endln:3:15
+    |vpiContAssign:
+    \_cont_assign: , line:7:13, endln:7:19
+      |vpiParent:
+      \_module_inst: work@bus_conn (work@top.u1), file:${SURELOG_DIR}/tests/PortDefaultValue/dut.sv, line:3:1, endln:3:15
+      |vpiNetDeclAssign:1
+      |vpiRhs:
+      \_constant: , line:7:22, endln:7:27
+        |vpiParent:
+        \_cont_assign: , line:7:13, endln:7:19
+        |vpiDecompile:8'hFF
+        |vpiSize:8
+        |HEX:FF
+        |vpiConstType:5
+      |vpiLhs:
+      \_logic_net: (work@top.u1.datain), line:7:13, endln:7:19
 \_weaklyReferenced:
 \_logic_typespec: , line:7:7, endln:7:12
   |vpiRange:
@@ -234,8 +251,6 @@ design: (work@top)
       |UINT:0
       |vpiConstType:9
 \_logic_typespec: , line:7:7, endln:7:12
-  |vpiParent:
-  \_logic_net: (work@top.u1.datain), line:7:13, endln:7:19
   |vpiRange:
   \_range: , line:7:7, endln:7:12
     |vpiParent:
@@ -257,6 +272,48 @@ design: (work@top)
       |UINT:0
       |vpiConstType:9
 \_logic_typespec: , line:7:7, endln:7:12
+  |vpiRange:
+  \_range: , line:7:7, endln:7:12
+    |vpiParent:
+    \_logic_typespec: , line:7:7, endln:7:12
+    |vpiLeftRange:
+    \_constant: , line:7:8, endln:7:9
+      |vpiParent:
+      \_range: , line:7:7, endln:7:12
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:7:10, endln:7:11
+      |vpiParent:
+      \_range: , line:7:7, endln:7:12
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_cont_assign: , line:7:13, endln:7:19
+  |vpiParent:
+  \_module_inst: work@bus_conn (work@top.u1), file:${SURELOG_DIR}/tests/PortDefaultValue/dut.sv, line:3:1, endln:3:15
+  |vpiNetDeclAssign:1
+  |vpiRhs:
+  \_constant: , line:7:22, endln:7:27
+  |vpiLhs:
+  \_logic_net: (work@top.u1.datain), line:7:13, endln:7:19
+    |vpiParent:
+    \_cont_assign: , line:7:13, endln:7:19
+    |vpiTypespec:
+    \_ref_typespec: (work@top.u1.datain)
+      |vpiParent:
+      \_logic_net: (work@top.u1.datain), line:7:13, endln:7:19
+      |vpiFullName:work@top.u1.datain
+      |vpiActual:
+      \_logic_typespec: , line:7:7, endln:7:12
+    |vpiName:datain
+    |vpiFullName:work@top.u1.datain
+\_logic_typespec: , line:7:7, endln:7:12
+  |vpiParent:
+  \_ref_typespec: (work@top.u1.datain)
   |vpiRange:
   \_range: , line:7:7, endln:7:12
     |vpiParent:
