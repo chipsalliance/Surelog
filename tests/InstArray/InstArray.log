@@ -86,31 +86,33 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 2.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              21
+constant                                              23
+cont_assign                                            4
 design                                                 1
-logic_net                                              5
-logic_typespec                                         8
+logic_net                                              7
+logic_typespec                                        10
 module_array                                           2
-module_inst                                            9
+module_inst                                           10
 module_typespec                                        2
 port                                                   6
 range                                                  8
 ref_obj                                                8
-ref_typespec                                          10
+ref_typespec                                          12
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              21
+constant                                              23
+cont_assign                                            8
 design                                                 1
-logic_net                                              5
-logic_typespec                                         8
+logic_net                                              7
+logic_typespec                                        10
 module_array                                           2
-module_inst                                            9
+module_inst                                           10
 module_typespec                                        2
 port                                                  11
 range                                                  8
 ref_obj                                               17
-ref_typespec                                          15
+ref_typespec                                          17
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/InstArray/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/InstArray/slpp_all/checker/surelog.chk.html ...
@@ -337,6 +339,21 @@ design: (work@top)
         \_logic_typespec: , line:7:7, endln:7:7
       |vpiInstance:
       \_module_inst: work@bus_conn (work@top.u1[0]), file:${SURELOG_DIR}/tests/InstArray/dut.sv, line:3:3, endln:3:37
+    |vpiContAssign:
+    \_cont_assign: , line:7:7, endln:7:13
+      |vpiParent:
+      \_module_inst: work@bus_conn (work@top.u1[0]), file:${SURELOG_DIR}/tests/InstArray/dut.sv, line:3:3, endln:3:37
+      |vpiNetDeclAssign:1
+      |vpiRhs:
+      \_constant: , line:7:16, endln:7:20
+        |vpiParent:
+        \_cont_assign: , line:7:7, endln:7:13
+        |vpiDecompile:1'b1
+        |vpiSize:1
+        |BIN:1
+        |vpiConstType:3
+      |vpiLhs:
+      \_logic_net: (work@top.u1[0].datain), line:7:7, endln:7:13
   |vpiModule:
   \_module_inst: work@bus_conn (work@top.u1[1]), file:${SURELOG_DIR}/tests/InstArray/dut.sv, line:3:3, endln:3:37
     |vpiParent:
@@ -392,6 +409,21 @@ design: (work@top)
         \_logic_typespec: , line:7:7, endln:7:7
       |vpiInstance:
       \_module_inst: work@bus_conn (work@top.u1[1]), file:${SURELOG_DIR}/tests/InstArray/dut.sv, line:3:3, endln:3:37
+    |vpiContAssign:
+    \_cont_assign: , line:7:7, endln:7:13
+      |vpiParent:
+      \_module_inst: work@bus_conn (work@top.u1[1]), file:${SURELOG_DIR}/tests/InstArray/dut.sv, line:3:3, endln:3:37
+      |vpiNetDeclAssign:1
+      |vpiRhs:
+      \_constant: , line:7:16, endln:7:20
+        |vpiParent:
+        \_cont_assign: , line:7:7, endln:7:13
+        |vpiDecompile:1'b1
+        |vpiSize:1
+        |BIN:1
+        |vpiConstType:3
+      |vpiLhs:
+      \_logic_net: (work@top.u1[1].datain), line:7:7, endln:7:13
   |vpiModuleArray:
   \_module_array: (work@bus_conn), line:3:13, endln:3:15
     |vpiParent:
@@ -478,12 +510,8 @@ design: (work@top)
       |vpiConstType:9
 \_logic_typespec: , line:7:7, endln:7:7
 \_logic_typespec: , line:7:7, endln:7:7
-  |vpiParent:
-  \_logic_net: (work@top.u1[0].datain), line:7:7, endln:7:13
 \_logic_typespec: , line:7:7, endln:7:7
 \_logic_typespec: , line:7:7, endln:7:7
-  |vpiParent:
-  \_logic_net: (work@top.u1[1].datain), line:7:7, endln:7:13
 \_module_typespec: (bus_conn), line:3:3, endln:3:11
   |vpiName:bus_conn
 \_logic_typespec: , line:7:7, endln:7:7
@@ -508,6 +536,50 @@ design: (work@top)
       |vpiSize:64
       |UINT:0
       |vpiConstType:9
+\_cont_assign: , line:7:7, endln:7:13
+  |vpiParent:
+  \_module_inst: work@bus_conn (work@top.u1[0]), file:${SURELOG_DIR}/tests/InstArray/dut.sv, line:3:3, endln:3:37
+  |vpiNetDeclAssign:1
+  |vpiRhs:
+  \_constant: , line:7:16, endln:7:20
+  |vpiLhs:
+  \_logic_net: (work@top.u1[0].datain), line:7:7, endln:7:13
+    |vpiParent:
+    \_cont_assign: , line:7:7, endln:7:13
+    |vpiTypespec:
+    \_ref_typespec: (work@top.u1[0].datain)
+      |vpiParent:
+      \_logic_net: (work@top.u1[0].datain), line:7:7, endln:7:13
+      |vpiFullName:work@top.u1[0].datain
+      |vpiActual:
+      \_logic_typespec: , line:7:7, endln:7:7
+    |vpiName:datain
+    |vpiFullName:work@top.u1[0].datain
+\_logic_typespec: , line:7:7, endln:7:7
+  |vpiParent:
+  \_ref_typespec: (work@top.u1[0].datain)
+\_cont_assign: , line:7:7, endln:7:13
+  |vpiParent:
+  \_module_inst: work@bus_conn (work@top.u1[1]), file:${SURELOG_DIR}/tests/InstArray/dut.sv, line:3:3, endln:3:37
+  |vpiNetDeclAssign:1
+  |vpiRhs:
+  \_constant: , line:7:16, endln:7:20
+  |vpiLhs:
+  \_logic_net: (work@top.u1[1].datain), line:7:7, endln:7:13
+    |vpiParent:
+    \_cont_assign: , line:7:7, endln:7:13
+    |vpiTypespec:
+    \_ref_typespec: (work@top.u1[1].datain)
+      |vpiParent:
+      \_logic_net: (work@top.u1[1].datain), line:7:7, endln:7:13
+      |vpiFullName:work@top.u1[1].datain
+      |vpiActual:
+      \_logic_typespec: , line:7:7, endln:7:7
+    |vpiName:datain
+    |vpiFullName:work@top.u1[1].datain
+\_logic_typespec: , line:7:7, endln:7:7
+  |vpiParent:
+  \_ref_typespec: (work@top.u1[1].datain)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
