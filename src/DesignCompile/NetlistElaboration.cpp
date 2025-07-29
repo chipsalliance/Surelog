@@ -620,7 +620,16 @@ bool NetlistElaboration::elaborate_(ModuleInstance* instance, bool recurse) {
         assigns->push_back(assign);
       }
     }
-    netlist->process_stmts(component->getProcesses());
+
+    UHDM::VectorOfprocess_stmt* processes = netlist->process_stmts();
+    if (processes == nullptr) {
+      netlist->process_stmts(component->getProcesses());
+    } else {
+      if (component->getProcesses())
+        for (auto proc : *component->getProcesses()) {
+          netlist->process_stmts()->push_back(proc);
+        }
+    }
   }
 
   if (recurse) {
@@ -2408,7 +2417,10 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
       parentNetlist->getSymbolTable().emplace(parentSymbol, obj);
     if (netlist) netlist->getSymbolTable().emplace(signame, obj);
 
-    if (exp) {
+    if (exp && ((!signalIsPort) ||
+                (signalIsPort &&
+                 (sig->getDirection() != VObjectType::paPortDir_Out)))) {
+      // Cont assign for input port
       cont_assign* assign = s.MakeCont_assign();
       assign->VpiNetDeclAssign(true);
       fC->populateCoreMembers(id, id, assign);
@@ -2431,6 +2443,26 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
         assigns = netlist->cont_assigns();
       }
       assigns->push_back(assign);
+    } else if (exp && signalIsPort &&
+               (sig->getDirection() == VObjectType::paPortDir_Out)) {
+      // Initial statement for output port
+      initial* init = s.MakeInitial();
+      UHDM::VectorOfprocess_stmt* processes = netlist->process_stmts();
+      if (processes == nullptr) {
+        netlist->process_stmts(s.MakeProcess_stmtVec());
+        processes = netlist->process_stmts();
+      }
+      netlist->process_stmts()->push_back(init);
+      UHDM::assignment* assign_stmt = s.MakeAssignment();
+      init->Stmt(assign_stmt);
+      UHDM::ref_obj* ref = s.MakeRef_obj();
+      ref->VpiName(sig->getName());
+      ref->VpiParent(assign_stmt);
+      fC->populateCoreMembers(sig->getNodeId(), sig->getNodeId(), ref);
+      assign_stmt->Lhs(ref);
+      fC->populateCoreMembers(id, id, assign_stmt);
+      assign_stmt->VpiParent(init);
+      assign_stmt->Rhs(exp);
     }
   } else {
     // Vars
