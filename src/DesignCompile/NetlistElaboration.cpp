@@ -621,7 +621,7 @@ bool NetlistElaboration::elaborate_(ModuleInstance* instance, bool recurse) {
       }
     }
 
-    UHDM::VectorOfprocess_stmt * processes = netlist->process_stmts();
+    UHDM::VectorOfprocess_stmt* processes = netlist->process_stmts();
     if (processes == nullptr) {
       netlist->process_stmts(component->getProcesses());
     } else {
@@ -2417,7 +2417,9 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
       parentNetlist->getSymbolTable().emplace(parentSymbol, obj);
     if (netlist) netlist->getSymbolTable().emplace(signame, obj);
 
-    if (exp && ((!signalIsPort) || (signalIsPort && (sig->getDirection() != VObjectType::paPortDir_Out)))) {
+    if (exp && ((!signalIsPort) ||
+                (signalIsPort &&
+                 (sig->getDirection() != VObjectType::paPortDir_Out)))) {
       // Cont assign for input port
       cont_assign* assign = s.MakeCont_assign();
       assign->VpiNetDeclAssign(true);
@@ -2441,10 +2443,11 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
         assigns = netlist->cont_assigns();
       }
       assigns->push_back(assign);
-    } else if (exp && signalIsPort && (sig->getDirection() == VObjectType::paPortDir_Out)) {
+    } else if (exp && signalIsPort &&
+               (sig->getDirection() == VObjectType::paPortDir_Out)) {
       // Initial statement for output port
       initial* init = s.MakeInitial();
-      UHDM::VectorOfprocess_stmt * processes = netlist->process_stmts();
+      UHDM::VectorOfprocess_stmt* processes = netlist->process_stmts();
       if (processes == nullptr) {
         netlist->process_stmts(s.MakeProcess_stmtVec());
         processes = netlist->process_stmts();
