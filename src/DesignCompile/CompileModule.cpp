@@ -50,7 +50,6 @@
 // UHDM
 #include <uhdm/Serializer.h>
 #include <uhdm/always.h>
-#include <uhdm/assign_stmt.h>
 #include <uhdm/assignment.h>
 #include <uhdm/clocking_block.h>
 #include <uhdm/constant.h>

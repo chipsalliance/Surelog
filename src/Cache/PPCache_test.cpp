@@ -24,16 +24,12 @@
 #include <gtest/gtest.h>
 
 #include <algorithm>
-#include <chrono>
 #include <filesystem>
-#include <fstream>
 #include <iostream>
 #include <iterator>
-#include <map>
 #include <memory>
 #include <string>
 #include <system_error>
-#include <thread>
 #include <vector>
 
 #include "Surelog/CommandLine/CommandLineParser.h"
@@ -44,7 +40,6 @@
 #include "Surelog/SourceCompile/Compiler.h"
 #include "Surelog/SourceCompile/ParseFile.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
-#include "Surelog/Utils/StringUtils.h"
 
 namespace SURELOG {
 

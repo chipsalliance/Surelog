@@ -23,16 +23,12 @@
 
 #include "Surelog/API/PythonAPI.h"
 
-#include <antlr4-runtime.h>
-
 #include <cstdint>
 #include <string>
 #include <vector>
 
-#include "Surelog/Common/FileSystem.h"
 #include "Surelog/Design/Design.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
 #include "Surelog/Utils/StringUtils.h"
 
 #ifdef SURELOG_WITH_PYTHON
@@ -49,7 +45,6 @@ using NodeId = SURELOG::NodeId;
 
 #include <cstring>
 #include <filesystem>
-#include <iostream>
 
 namespace SURELOG {
 std::string PythonAPI::m_invalidScriptResult = "INVALID_PYTHON_SCRIPT_RESULT";

@@ -28,7 +28,6 @@
 #include "Surelog/Design/FileContent.h"
 
 // UHDM
-#include <uhdm/uhdm.h>
 
 namespace SURELOG {
 DummyType::DummyType(const FileContent* fC, NodeId nameId, NodeId structId)

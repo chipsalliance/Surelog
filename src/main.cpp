@@ -33,12 +33,10 @@
 #include <system_error>
 #include <utility>
 #else
-#include <sys/param.h>
 #include <unistd.h>
 #endif
 
 #include <string.h>
-#include <sys/stat.h>
 
 #include <fstream>
 #include <iostream>

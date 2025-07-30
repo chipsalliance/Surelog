@@ -30,7 +30,6 @@
 #include <capnp/serialize-packed.h>
 #include <fcntl.h>
 #include <sys/stat.h>
-#include <sys/types.h>
 
 #include <algorithm>
 #include <cstddef>
@@ -64,7 +63,6 @@
 #include "Surelog/SourceCompile/PreprocessFile.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
 #include "Surelog/Utils/StringUtils.h"
-#include "Surelog/config.h"
 
 #if defined(_MSC_VER)
 #include <io.h>
@@ -72,7 +70,6 @@
 #include <unistd.h>
 #endif
 
-#include <iostream>
 #include <limits>
 
 namespace SURELOG {

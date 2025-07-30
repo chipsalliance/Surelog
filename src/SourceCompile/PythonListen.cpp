@@ -24,10 +24,6 @@
 #include "Surelog/SourceCompile/PythonListen.h"
 
 #include "Surelog/API/SV3_1aPythonListener.h"
-#include "Surelog/Cache/PythonAPICache.h"
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/SourceCompile/AntlrParserHandler.h"
-#include "Surelog/SourceCompile/ParseFile.h"
 
 namespace SURELOG {
 

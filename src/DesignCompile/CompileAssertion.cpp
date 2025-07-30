@@ -36,7 +36,6 @@
 #include <uhdm/uhdm_types.h>
 
 #include <cstdint>
-#include <iostream>
 #include <string_view>
 
 namespace SURELOG {

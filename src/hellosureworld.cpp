@@ -37,7 +37,6 @@
 #include "Surelog/SourceCompile/SymbolTable.h"
 
 // UHDM
-#include <uhdm/uhdm.h>
 
 int main(int argc, const char** argv) {
   // Read command line, compile a design, use -parse argument

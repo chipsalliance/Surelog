@@ -23,13 +23,6 @@
 
 #include "Surelog/API/SV3_1aPythonListener.h"
 
-#include <cstdint>
-
-#include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/SourceCompile/PythonListen.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "Surelog/Utils/ParseUtils.h"
-
 namespace SURELOG {
 SV3_1aPythonListener::SV3_1aPythonListener(PythonListen* pl,
                                            PyThreadState* interpState,

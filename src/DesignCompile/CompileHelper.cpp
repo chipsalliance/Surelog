@@ -70,7 +70,6 @@
 #include <uhdm/BaseClass.h>
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/ExprEval.h>
-#include <uhdm/VpiListener.h>
 #include <uhdm/clone_tree.h>
 #include <uhdm/expr.h>
 #include <uhdm/sv_vpi_user.h>
@@ -84,7 +83,6 @@
 #include <cstdlib>
 #include <cstring>
 #include <functional>
-#include <iostream>
 #include <map>
 #include <string>
 #include <string_view>

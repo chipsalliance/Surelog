@@ -52,7 +52,7 @@ class ValuedComponentI : public RTTI {
 
   ValuedComponentI(const ValuedComponentI* parentScope,
                    ValuedComponentI* definition)
-      : m_parentScope(parentScope), m_definition(definition) {};
+      : m_parentScope(parentScope), m_definition(definition){};
 
   ~ValuedComponentI() override = default;
 

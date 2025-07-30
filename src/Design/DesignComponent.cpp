@@ -36,8 +36,6 @@
 #include "Surelog/Design/Task.h"
 #include "Surelog/Design/ValuedComponentI.h"
 #include "Surelog/SourceCompile/VObjectTypes.h"
-#include "Surelog/Testbench/FunctionMethod.h"
-#include "Surelog/Testbench/TaskMethod.h"
 #include "Surelog/Testbench/TypeDef.h"
 #include "Surelog/Testbench/Variable.h"
 

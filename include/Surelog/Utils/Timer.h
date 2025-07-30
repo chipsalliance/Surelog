@@ -27,7 +27,6 @@
 
 #include <chrono>
 #include <cmath>
-#include <iostream>
 #include <ratio>
 
 namespace SURELOG {

@@ -23,7 +23,6 @@
 
 #include "Surelog/Utils/StringUtils.h"
 
-#include <algorithm>
 #include <array>
 #include <cctype>
 #include <cstddef>
