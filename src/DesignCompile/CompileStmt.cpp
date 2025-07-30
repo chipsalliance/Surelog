@@ -53,6 +53,7 @@
 #include "Surelog/SourceCompile/VObjectTypes.h"
 #include "Surelog/Testbench/ClassDefinition.h"
 #include "Surelog/Testbench/Property.h"
+#include "Surelog/Testbench/Variable.h"
 #include "Surelog/Utils/StringUtils.h"
 
 // UHDM

@@ -27,6 +27,7 @@
 
 #include <Surelog/Common/Containers.h>
 #include <Surelog/Common/NodeId.h>
+#include <Surelog/Common/RTTI.h>
 #include <Surelog/Design/DataType.h>
 #include <Surelog/Design/DesignComponent.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>

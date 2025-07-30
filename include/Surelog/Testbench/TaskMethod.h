@@ -27,6 +27,7 @@
 
 #include <Surelog/Common/NodeId.h>
 #include <Surelog/Design/Task.h>
+#include <Surelog/DesignCompile/CompileHelper.h>
 
 #include <string_view>
 

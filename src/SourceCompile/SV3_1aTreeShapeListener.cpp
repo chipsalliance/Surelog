@@ -24,6 +24,7 @@
 #include "Surelog/SourceCompile/SV3_1aTreeShapeListener.h"
 
 #include <antlr4-runtime.h>
+#include <parser/SV3_1aParser.h>
 
 #include <cctype>
 #include <cstdint>
@@ -37,12 +38,16 @@
 #include "Surelog/Common/PathId.h"
 #include "Surelog/Common/SymbolId.h"
 #include "Surelog/Design/Design.h"
+#include "Surelog/Design/DesignElement.h"
 #include "Surelog/Design/FileContent.h"
+#include "Surelog/Design/TimeInfo.h"
 #include "Surelog/ErrorReporting/ErrorDefinition.h"
+#include "Surelog/SourceCompile/CommonListenerHelper.h"
 #include "Surelog/SourceCompile/CompilationUnit.h"
 #include "Surelog/SourceCompile/Compiler.h"
 #include "Surelog/SourceCompile/IncludeFileInfo.h"
 #include "Surelog/SourceCompile/ParseFile.h"
+#include "Surelog/SourceCompile/SV3_1aTreeShapeHelper.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
 #include "Surelog/SourceCompile/VObjectTypes.h"
 #include "Surelog/Utils/ParseUtils.h"

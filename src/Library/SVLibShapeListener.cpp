@@ -24,6 +24,7 @@
 #include "Surelog/Library/SVLibShapeListener.h"
 
 #include <antlr4-runtime.h>
+#include <parser/SV3_1aParser.h>
 
 #include <regex>
 #include <string>
@@ -41,8 +42,10 @@
 #include "Surelog/Library/Library.h"
 #include "Surelog/Library/LibrarySet.h"
 #include "Surelog/Library/ParseLibraryDef.h"
+#include "Surelog/SourceCompile/CommonListenerHelper.h"
 #include "Surelog/SourceCompile/IncludeFileInfo.h"
 #include "Surelog/SourceCompile/ParseFile.h"
+#include "Surelog/SourceCompile/SV3_1aTreeShapeHelper.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
 #include "Surelog/SourceCompile/VObjectTypes.h"
 #include "Surelog/Utils/ParseUtils.h"

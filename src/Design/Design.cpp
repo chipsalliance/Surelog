@@ -32,6 +32,7 @@
 #include <utility>
 #include <vector>
 
+#include "Surelog/Common/Containers.h"
 #include "Surelog/Common/NodeId.h"
 #include "Surelog/Design/DefParam.h"
 #include "Surelog/Design/DesignComponent.h"

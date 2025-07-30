@@ -25,6 +25,7 @@
 #define SURELOG_TESTBENCHELABORATION_H
 #pragma once
 
+#include <Surelog/Design/Design.h>
 #include <Surelog/DesignCompile/ElaborationStep.h>
 
 namespace SURELOG {

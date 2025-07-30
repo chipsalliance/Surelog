@@ -26,6 +26,7 @@
 #include <iostream>
 #include <string_view>
 
+#include "Surelog/Common/PathId.h"
 #include "Surelog/Design/ModuleDefinition.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
 

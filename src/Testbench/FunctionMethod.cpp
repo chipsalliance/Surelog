@@ -23,6 +23,9 @@
 
 #include "Surelog/Testbench/FunctionMethod.h"
 
+#include "Surelog/Design/Function.h"
+#include "Surelog/DesignCompile/CompileHelper.h"
+
 namespace SURELOG {
 
 bool FunctionMethod::compile(CompileHelper& compile_helper) {

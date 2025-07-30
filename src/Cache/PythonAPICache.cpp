@@ -38,7 +38,9 @@
 #include <vector>
 
 #include "Surelog/API/PythonAPI.h"
+#include "Surelog/Cache/Cache.capnp.h"
 #include "Surelog/Cache/Cache.h"
+#include "Surelog/Cache/PythonAPICache.capnp.h"
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Common/PathId.h"
@@ -48,6 +50,7 @@
 #include "Surelog/Library/Library.h"
 #include "Surelog/SourceCompile/CompileSourceFile.h"
 #include "Surelog/SourceCompile/ParseFile.h"
+#include "Surelog/SourceCompile/PreprocessFile.h"
 #include "Surelog/SourceCompile/PythonListen.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
 

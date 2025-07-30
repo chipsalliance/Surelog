@@ -46,6 +46,7 @@
 
 #include "Surelog/Cache/PPCache.h"
 #include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Common/Containers.h"
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Common/PathId.h"
 #include "Surelog/Common/SymbolId.h"
@@ -59,6 +60,7 @@
 #include "Surelog/SourceCompile/CompileSourceFile.h"
 #include "Surelog/SourceCompile/Compiler.h"
 #include "Surelog/SourceCompile/IncludeFileInfo.h"
+#include "Surelog/SourceCompile/LoopCheck.h"
 #include "Surelog/SourceCompile/MacroInfo.h"
 #include "Surelog/SourceCompile/SV3_1aPpTreeShapeListener.h"
 #include "Surelog/SourceCompile/SymbolTable.h"

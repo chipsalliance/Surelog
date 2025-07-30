@@ -28,6 +28,7 @@
 #include <Surelog/Common/Containers.h>
 #include <Surelog/Common/PathId.h>
 #include <Surelog/Design/DesignComponent.h>
+#include <Surelog/Design/ValuedComponentI.h>
 #include <Surelog/DesignCompile/CompileHelper.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
 

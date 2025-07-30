@@ -51,6 +51,7 @@
 #include "Surelog/Design/ModuleInstance.h"
 #include "Surelog/Design/Netlist.h"
 #include "Surelog/Design/Parameter.h"
+#include "Surelog/Design/Scope.h"
 #include "Surelog/Design/SimpleType.h"
 #include "Surelog/Design/Struct.h"
 #include "Surelog/Design/TfPortItem.h"

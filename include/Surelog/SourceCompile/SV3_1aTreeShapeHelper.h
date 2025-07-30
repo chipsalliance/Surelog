@@ -29,6 +29,7 @@
 #include <Surelog/Common/PathId.h>
 #include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/DesignElement.h>
+#include <Surelog/Design/TimeInfo.h>
 #include <Surelog/ErrorReporting/ErrorDefinition.h>
 #include <Surelog/ErrorReporting/Location.h>
 #include <Surelog/SourceCompile/CommonListenerHelper.h>

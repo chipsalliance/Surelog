@@ -44,6 +44,8 @@
 #include "Surelog/Testbench/CoverGroupDefinition.h"
 #include "Surelog/Testbench/FunctionMethod.h"
 #include "Surelog/Testbench/Property.h"
+#include "Surelog/Testbench/TaskMethod.h"
+#include "Surelog/Testbench/Variable.h"
 #include "Surelog/Utils/StringUtils.h"
 
 // UHDM

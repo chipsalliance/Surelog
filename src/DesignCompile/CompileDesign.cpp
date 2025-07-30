@@ -51,6 +51,7 @@
 #include "Surelog/Expression/Value.h"
 #include "Surelog/Library/Library.h"
 #include "Surelog/Package/Package.h"
+#include "Surelog/SourceCompile/CompileSourceFile.h"
 #include "Surelog/SourceCompile/Compiler.h"
 #include "Surelog/SourceCompile/IncludeFileInfo.h"
 #include "Surelog/SourceCompile/SymbolTable.h"

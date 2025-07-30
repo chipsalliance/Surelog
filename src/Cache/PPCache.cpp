@@ -40,7 +40,11 @@
 #include <utility>
 #include <vector>
 
+#include "Surelog/Cache/Cache.capnp.h"
+#include "Surelog/Cache/Cache.h"
+#include "Surelog/Cache/PPCache.capnp.h"
 #include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Common/Containers.h"
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Common/PathId.h"
 #include "Surelog/Common/SymbolId.h"
