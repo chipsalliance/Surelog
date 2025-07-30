@@ -49,6 +49,7 @@
 #include "Surelog/SourceCompile/CompileSourceFile.h"
 #include "Surelog/SourceCompile/ParseFile.h"
 #include "Surelog/SourceCompile/PreprocessFile.h"
+#include "Surelog/SourceCompile/PythonListen.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
 
 #if defined(_MSC_VER)

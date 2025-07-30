@@ -27,8 +27,10 @@
 #include <string>
 #include <vector>
 
+#include "Surelog/Common/FileSystem.h"
 #include "Surelog/Design/Design.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
 #include "Surelog/Utils/StringUtils.h"
 
 #ifdef SURELOG_WITH_PYTHON
