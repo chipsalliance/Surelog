@@ -23,6 +23,7 @@
 
 #include "Surelog/SourceCompile/AnalyzeFile.h"
 
+#include <cctype>
 #include <cstdint>
 #include <iostream>
 #include <regex>

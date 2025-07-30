@@ -26,6 +26,8 @@
 #include <process.h>
 
 #include <cstdint>
+#include <cstdio>
+#include <cstdlib>
 #include <filesystem>
 #include <string_view>
 #include <system_error>

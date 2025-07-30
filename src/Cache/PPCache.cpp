@@ -24,16 +24,20 @@
 #include "Surelog/Cache/PPCache.h"
 
 #include <capnp/blob.h>
+#include <capnp/common.h>
 #include <capnp/list.h>
+#include <capnp/message.h>
 #include <capnp/serialize-packed.h>
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 
+#include <algorithm>
 #include <cstddef>
 #include <cstdint>
 #include <string>
 #include <string_view>
+#include <utility>
 #include <vector>
 
 #include "Surelog/CommandLine/CommandLineParser.h"

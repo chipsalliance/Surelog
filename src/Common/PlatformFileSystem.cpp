@@ -26,11 +26,17 @@
 #include <algorithm>
 #include <cstddef>
 #include <cstdint>
+#include <cstdlib>
 #include <filesystem>
 #include <fstream>
+#include <iomanip>
 #include <iostream>
+#include <iterator>
+#include <limits>
 #include <mutex>
+#include <regex>
 #include <set>
+#include <sstream>
 #include <string>
 #include <string_view>
 #include <system_error>

@@ -25,8 +25,11 @@
 
 #include <algorithm>
 #include <array>
+#include <cctype>
 #include <cstddef>
 #include <cstdint>
+#include <cstdlib>
+#include <ios>
 #include <locale>
 #include <map>
 #include <regex>

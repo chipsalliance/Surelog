@@ -23,17 +23,25 @@
 
 #include "Surelog/SourceCompile/Compiler.h"
 
+#include <algorithm>
 #include <climits>
+#include <cmath>
 #include <cstddef>
 #include <cstdint>
+#include <cstdlib>
 #include <filesystem>
 #include <fstream>
+#include <iomanip>
 #include <iostream>
+#include <iterator>
 #include <map>
 #include <nlohmann/json.hpp>
+#include <regex>
+#include <sstream>
 #include <string>
 #include <string_view>
 #include <thread>
+#include <utility>
 #include <vector>
 
 #include "Surelog/API/PythonAPI.h"

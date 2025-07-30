@@ -26,6 +26,7 @@
 #pragma once
 
 #include <ParserRuleContext.h>
+#include <antlr4-runtime.h>
 
 #include <cstdint>
 #include <string>

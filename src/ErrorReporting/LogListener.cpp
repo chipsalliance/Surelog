@@ -25,6 +25,7 @@
 
 #include <cstdint>
 #include <iostream>
+#include <mutex>
 #include <string_view>
 
 #include "Surelog/Common/FileSystem.h"

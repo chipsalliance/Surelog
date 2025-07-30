@@ -27,9 +27,11 @@
 
 #include <ANTLRErrorListener.h>
 #include <Surelog/Common/PathId.h>
+#include <antlr4-runtime.h>
 
 #include <cstddef>
 #include <cstdint>
+#include <exception>
 #include <string>
 #include <vector>
 

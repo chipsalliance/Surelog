@@ -24,17 +24,21 @@
 #include "Surelog/SourceCompile/PreprocessFile.h"
 
 #include <antlr4-runtime.h>
+#include <ctype.h>
 #include <parser/SV3_1aPpLexer.h>
 #include <parser/SV3_1aPpParser.h>
 
 #include <algorithm>
+#include <cctype>
 #include <cstddef>
 #include <cstdint>
+#include <exception>
 #include <functional>
 #include <iostream>
 #include <memory>
 #include <regex>
 #include <set>
+#include <sstream>
 #include <string>
 #include <string_view>
 #include <utility>

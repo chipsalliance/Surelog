@@ -26,6 +26,7 @@
 #pragma once
 
 #include <ANTLRErrorListener.h>
+#include <antlr4-runtime.h>
 
 #include <cstddef>
 #include <exception>

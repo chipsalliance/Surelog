@@ -23,13 +23,19 @@
 
 #include "Surelog/CommandLine/CommandLineParser.h"
 
+#include <time.h>
+
+#include <cctype>
 #include <cstdint>
 #include <filesystem>
+#include <initializer_list>
 #include <map>
 #include <nlohmann/json.hpp>
+#include <sstream>
 #include <string>
 #include <string_view>
 #include <system_error>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 

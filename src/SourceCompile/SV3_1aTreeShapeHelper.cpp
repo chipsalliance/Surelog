@@ -26,6 +26,7 @@
 #include <antlr4-runtime.h>
 
 #include <cstdint>
+#include <cstdlib>
 #include <string>
 #include <string_view>
 #include <tuple>

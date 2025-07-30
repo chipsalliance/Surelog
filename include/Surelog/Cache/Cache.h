@@ -29,6 +29,7 @@
 #include <Surelog/Common/PathId.h>
 #include <Surelog/ErrorReporting/Error.h>
 #include <capnp/blob.h>
+#include <capnp/common.h>
 #include <capnp/list.h>
 
 #include <cstdint>

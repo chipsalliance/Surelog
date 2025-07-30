@@ -25,6 +25,7 @@
 
 #include <antlr4-runtime.h>
 
+#include <cctype>
 #include <cstdint>
 #include <regex>
 #include <string>

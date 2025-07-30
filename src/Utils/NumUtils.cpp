@@ -24,11 +24,15 @@
 #include "Surelog/Utils/NumUtils.h"
 
 #include <bitset>
+#include <cctype>
 #include <cstdint>
 #include <cstdlib>
 #include <cstring>
 #include <string>
 #include <string_view>
+#include <system_error>
+#include <type_traits>
+#include <utility>
 
 namespace SURELOG {
 

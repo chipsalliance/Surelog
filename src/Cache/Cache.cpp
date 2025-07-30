@@ -24,6 +24,7 @@
 #include "Surelog/Cache/Cache.h"
 
 #include <capnp/blob.h>
+#include <capnp/common.h>
 #include <capnp/list.h>
 #include <capnp/serialize-packed.h>
 

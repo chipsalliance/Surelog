@@ -36,9 +36,12 @@
 #include <algorithm>
 #include <cstddef>
 #include <cstdint>
+#include <cstdio>
 #include <filesystem>
 #include <fstream>
+#include <iomanip>
 #include <iostream>
+#include <iterator>
 #include <map>
 #include <regex>
 #include <sstream>

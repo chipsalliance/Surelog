@@ -27,6 +27,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <exception>
 #include <string>
 
 #include "Surelog/Common/FileSystem.h"

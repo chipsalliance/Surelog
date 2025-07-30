@@ -31,8 +31,10 @@
 #include <cstdint>
 #include <filesystem>
 #include <functional>
+#include <ios>
 #include <istream>
 #include <map>
+#include <ostream>
 #include <regex>
 #include <set>
 #include <sstream>
