@@ -32,6 +32,11 @@
 #include <system_error>
 #include <vector>
 
+#if defined(__APPLE__)
+#include <chrono>
+#include <thread>
+#endif
+
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Common/PathId.h"
