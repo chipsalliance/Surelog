@@ -58,9 +58,11 @@
 #include "Surelog/Testbench/Program.h"
 
 // UHDM
+#include <uhdm/Serializer.h>
 #include <uhdm/include_file_info.h>
 #include <uhdm/param_assign.h>
 #include <uhdm/uhdm_types.h>
+#include <uhdm/vpi_user.h>
 #include <uhdm/vpi_visitor.h>
 
 #include <climits>

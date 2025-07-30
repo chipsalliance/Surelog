@@ -31,6 +31,7 @@
 #include <uhdm/ref_typespec.h>
 #include <uhdm/struct_typespec.h>
 #include <uhdm/typespec_member.h>
+#include <uhdm/uhdm_types.h>
 
 namespace SURELOG {
 

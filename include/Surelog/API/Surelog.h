@@ -27,6 +27,7 @@
 
 // UHDM
 #include <uhdm/sv_vpi_user.h>
+#include <uhdm/vpi_user.h>
 
 namespace SURELOG {
 

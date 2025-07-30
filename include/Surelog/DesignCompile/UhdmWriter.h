@@ -41,6 +41,7 @@
 #include <uhdm/Serializer.h>
 #include <uhdm/containers.h>
 #include <uhdm/uhdm_forward_decl.h>
+#include <uhdm/vpi_user.h>
 
 #include <string>
 

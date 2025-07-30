@@ -28,6 +28,9 @@
 #include "Surelog/SourceCompile/ParseFile.h"
 #include "Surelog/SourceCompile/ParseTreeListener.h"
 
+// UHDM
+#include <uhdm/vpi_user.h>
+
 namespace SURELOG {
 
 scompiler* start_compiler(CommandLineParser* clp) {
