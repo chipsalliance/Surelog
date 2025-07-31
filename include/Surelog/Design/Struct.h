@@ -26,12 +26,8 @@
 #pragma once
 
 #include <Surelog/Common/RTTI.h>
-#include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/DataType.h>
 #include <Surelog/DesignCompile/CompileHelper.h>
-
-#include <map>
-#include <string>
 
 namespace SURELOG {
 

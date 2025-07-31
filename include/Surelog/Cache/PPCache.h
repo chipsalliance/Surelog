@@ -25,6 +25,7 @@
 #define SURELOG_PPCACHE_H
 #pragma once
 
+#include <Surelog/Cache/Cache.capnp.h>
 #include <Surelog/Cache/Cache.h>
 #include <Surelog/Cache/PPCache.capnp.h>
 #include <Surelog/Common/PathId.h>

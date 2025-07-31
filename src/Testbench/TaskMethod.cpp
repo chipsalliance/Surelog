@@ -23,6 +23,9 @@
 
 #include "Surelog/Testbench/TaskMethod.h"
 
+#include "Surelog/Design/Task.h"
+#include "Surelog/DesignCompile/CompileHelper.h"
+
 namespace SURELOG {
 
 bool TaskMethod::compile(CompileHelper& compile_helper) {

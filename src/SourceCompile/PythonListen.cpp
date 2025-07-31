@@ -27,7 +27,6 @@
 #include "Surelog/Cache/PythonAPICache.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
 #include "Surelog/SourceCompile/AntlrParserHandler.h"
-#include "Surelog/SourceCompile/ParseFile.h"
 
 namespace SURELOG {
 

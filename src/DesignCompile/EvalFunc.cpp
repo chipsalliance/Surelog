@@ -28,20 +28,15 @@
 #include "Surelog/DesignCompile/CompileHelper.h"
 #include "Surelog/Expression/Value.h"
 #include "Surelog/SourceCompile/Compiler.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
-#include "Surelog/Utils/StringUtils.h"
 
 // UHDM
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/ExprEval.h>
-#include <uhdm/clone_tree.h>
 #include <uhdm/expr.h>
 #include <uhdm/uhdm.h>
 #include <uhdm/uhdm_types.h>
 
-#include <bitset>
 #include <cstdint>
-#include <iostream>
 #include <string>
 #include <string_view>
 #include <vector>

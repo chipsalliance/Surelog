@@ -32,6 +32,7 @@
 // UHDM
 #include <uhdm/ExprEval.h>
 #include <uhdm/expr.h>
+#include <uhdm/uhdm_types.h>
 
 namespace SURELOG {
 

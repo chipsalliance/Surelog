@@ -28,10 +28,13 @@
 #include "Surelog/Common/NodeId.h"
 #include "Surelog/Common/PathId.h"
 #include "Surelog/Design/DataType.h"
+#include "Surelog/Design/DesignComponent.h"
 #include "Surelog/Design/DummyType.h"
 #include "Surelog/Design/Enum.h"
 #include "Surelog/Design/FileCNodeId.h"
 #include "Surelog/Design/FileContent.h"
+#include "Surelog/Design/Function.h"
+#include "Surelog/Design/LetStmt.h"
 #include "Surelog/Design/ModuleDefinition.h"
 #include "Surelog/Design/ModuleInstance.h"
 #include "Surelog/Design/Netlist.h"
@@ -39,6 +42,7 @@
 #include "Surelog/Design/Parameter.h"
 #include "Surelog/Design/Signal.h"
 #include "Surelog/Design/SimpleType.h"
+#include "Surelog/Design/Statement.h"
 #include "Surelog/Design/Struct.h"
 #include "Surelog/Design/TfPortItem.h"
 #include "Surelog/Design/Union.h"
@@ -66,7 +70,6 @@
 #include <uhdm/BaseClass.h>
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/ExprEval.h>
-#include <uhdm/VpiListener.h>
 #include <uhdm/clone_tree.h>
 #include <uhdm/expr.h>
 #include <uhdm/sv_vpi_user.h>
@@ -77,9 +80,9 @@
 #include <algorithm>
 #include <climits>
 #include <cstdint>
+#include <cstdlib>
 #include <cstring>
 #include <functional>
-#include <iostream>
 #include <map>
 #include <string>
 #include <string_view>

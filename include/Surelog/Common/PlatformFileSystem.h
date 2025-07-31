@@ -30,12 +30,18 @@
 #include <Surelog/Common/SymbolId.h>
 
 #include <cstdint>
+#include <filesystem>
 #include <functional>
+#include <ios>
+#include <istream>
 #include <memory>
 #include <mutex>
+#include <ostream>
+#include <regex>
 #include <set>
 #include <string>
 #include <string_view>
+#include <type_traits>
 #include <utility>
 #include <vector>
 

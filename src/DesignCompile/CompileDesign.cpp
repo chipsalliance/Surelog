@@ -51,6 +51,7 @@
 #include "Surelog/Expression/Value.h"
 #include "Surelog/Library/Library.h"
 #include "Surelog/Package/Package.h"
+#include "Surelog/SourceCompile/CompileSourceFile.h"
 #include "Surelog/SourceCompile/Compiler.h"
 #include "Surelog/SourceCompile/IncludeFileInfo.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
@@ -58,9 +59,11 @@
 #include "Surelog/Testbench/Program.h"
 
 // UHDM
+#include <uhdm/Serializer.h>
 #include <uhdm/include_file_info.h>
 #include <uhdm/param_assign.h>
 #include <uhdm/uhdm_types.h>
+#include <uhdm/vpi_user.h>
 #include <uhdm/vpi_visitor.h>
 
 #include <climits>

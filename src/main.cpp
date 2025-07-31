@@ -26,17 +26,17 @@
 #include <process.h>
 
 #include <cstdint>
+#include <cstdio>
+#include <cstdlib>
 #include <filesystem>
 #include <string_view>
 #include <system_error>
 #include <utility>
 #else
-#include <sys/param.h>
 #include <unistd.h>
 #endif
 
 #include <string.h>
-#include <sys/stat.h>
 
 #include <fstream>
 #include <iostream>

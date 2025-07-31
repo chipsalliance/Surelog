@@ -24,17 +24,21 @@
 #include "Surelog/SourceCompile/PreprocessFile.h"
 
 #include <antlr4-runtime.h>
+#include <ctype.h>
 #include <parser/SV3_1aPpLexer.h>
 #include <parser/SV3_1aPpParser.h>
 
 #include <algorithm>
+#include <cctype>
 #include <cstddef>
 #include <cstdint>
+#include <exception>
 #include <functional>
 #include <iostream>
 #include <memory>
 #include <regex>
 #include <set>
+#include <sstream>
 #include <string>
 #include <string_view>
 #include <utility>
@@ -42,6 +46,7 @@
 
 #include "Surelog/Cache/PPCache.h"
 #include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Common/Containers.h"
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Common/PathId.h"
 #include "Surelog/Common/SymbolId.h"
@@ -55,6 +60,7 @@
 #include "Surelog/SourceCompile/CompileSourceFile.h"
 #include "Surelog/SourceCompile/Compiler.h"
 #include "Surelog/SourceCompile/IncludeFileInfo.h"
+#include "Surelog/SourceCompile/LoopCheck.h"
 #include "Surelog/SourceCompile/MacroInfo.h"
 #include "Surelog/SourceCompile/SV3_1aPpTreeShapeListener.h"
 #include "Surelog/SourceCompile/SymbolTable.h"

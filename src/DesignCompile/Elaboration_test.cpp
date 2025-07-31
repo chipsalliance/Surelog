@@ -19,7 +19,6 @@
 
 #include <cstdint>
 #include <iostream>
-#include <string>
 #include <string_view>
 #include <tuple>
 #include <vector>
@@ -42,8 +41,8 @@
 #include <uhdm/int_typespec.h>
 #include <uhdm/module_inst.h>
 #include <uhdm/param_assign.h>
-#include <uhdm/ref_typespec.h>
 #include <uhdm/variables.h>
+#include <uhdm/vpi_uhdm.h>
 #include <uhdm/vpi_user.h>
 #include <uhdm/vpi_visitor.h>
 

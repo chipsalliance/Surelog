@@ -23,6 +23,7 @@
 
 #include "Surelog/ErrorReporting/Error.h"
 
+#include <algorithm>
 #include <cstdint>
 #include <vector>
 

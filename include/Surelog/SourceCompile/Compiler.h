@@ -41,7 +41,6 @@ limitations under the License.
 #endif
 
 #include <map>
-#include <set>
 #include <string>
 #include <vector>
 
