@@ -23,7 +23,17 @@
 
 #include "Surelog/API/SV3_1aPythonListener.h"
 
+#ifdef SURELOG_WITH_PYTHON
+#include <antlr4-runtime.h>
+
+#include <cstdint>
+#include <string>
+#include <vector>
+
+#include "Surelog/ErrorReporting/Error.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
+#include "Surelog/ErrorReporting/ErrorDefinition.h"
+#include "Surelog/ErrorReporting/Location.h"
 #include "Surelog/SourceCompile/PythonListen.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
 #include "Surelog/Utils/ParseUtils.h"
@@ -76,3 +86,5 @@ void SV3_1aPythonListener::logError(ErrorDefinition::ErrorType error,
                                                               showDuplicates);
 }
 }  // namespace SURELOG
+
+#endif  // SURELOG_WITH_PYTHON
