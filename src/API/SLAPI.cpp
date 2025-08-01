@@ -39,10 +39,14 @@
 
 #include <algorithm>
 #include <cstdint>
-#include <iostream>
 #include <iterator>
 #include <string>
 #include <vector>
+
+#ifndef SURELOG_WITH_PYTHON
+// In that case we print some messages with std::cerr
+#include <iostream>
+#endif
 
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Design/Design.h"

@@ -24,29 +24,34 @@
 #include "Surelog/API/PythonAPI.h"
 
 #include <cstdint>
+#include <cstdio>
+#include <cstring>
+#include <filesystem>
 #include <string>
 #include <vector>
 
-#include "Surelog/Common/FileSystem.h"
 #include "Surelog/Design/Design.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
-#include "Surelog/SourceCompile/SymbolTable.h"
 #include "Surelog/Utils/StringUtils.h"
 
 #ifdef SURELOG_WITH_PYTHON
 #include <Python.h>
 
+#include <iostream>
+#include <memory>
+
 #include "Surelog/API/SLAPI.h"
 #include "Surelog/API/SV3_1aPythonListener.h"
 #include "Surelog/API/VObjectTypes_py.h"
 #include "Surelog/API/slapi_scripts.h"
+#include "Surelog/Common/FileSystem.h"
+#include "Surelog/Common/NodeId.h"
+#include "Surelog/Common/PathId.h"
+#include "Surelog/SourceCompile/SymbolTable.h"
 
 using NodeId = SURELOG::NodeId;
 #include <Surelog/API/slapi_wrap.cxx>  // NOLINT(bugprone-suspicious-include)
 #endif
-
-#include <cstring>
-#include <filesystem>
 
 namespace SURELOG {
 std::string PythonAPI::m_invalidScriptResult = "INVALID_PYTHON_SCRIPT_RESULT";

@@ -31,6 +31,8 @@
 #include <Surelog/SourceCompile/CompileSourceFile.h>
 #include <Surelog/SourceCompile/ParseFile.h>
 
+#include <vector>
+
 namespace SURELOG {
 
 class SV3_1aPythonListener;
