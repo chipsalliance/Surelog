@@ -28,10 +28,6 @@
 #include <Surelog/Common/NodeId.h>
 
 // UHDM
-#include <uhdm/uhdm_forward_decl.h>
-
-#include <map>
-#include <string>
 
 namespace SURELOG {
 

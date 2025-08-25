@@ -23,11 +23,14 @@
 
 #include "Surelog/SourceCompile/PythonListen.h"
 
+#ifdef SURELOG_WITH_PYTHON
+
 #include "Surelog/API/SV3_1aPythonListener.h"
 #include "Surelog/Cache/PythonAPICache.h"
+#include "Surelog/ErrorReporting/Error.h"
 #include "Surelog/ErrorReporting/ErrorContainer.h"
 #include "Surelog/SourceCompile/AntlrParserHandler.h"
-#include "Surelog/SourceCompile/ParseFile.h"
+#include "Surelog/SourceCompile/CompileSourceFile.h"
 
 namespace SURELOG {
 
@@ -85,3 +88,4 @@ bool PythonListen::listen() {
   return true;
 }
 }  // namespace SURELOG
+#endif  // SURELOG_WITH_PYTHON

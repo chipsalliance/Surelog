@@ -24,17 +24,18 @@
 #include <gtest/gtest.h>
 
 #include <algorithm>
-#include <chrono>
 #include <filesystem>
-#include <fstream>
 #include <iostream>
 #include <iterator>
-#include <map>
 #include <memory>
 #include <string>
 #include <system_error>
-#include <thread>
 #include <vector>
+
+#if defined(__APPLE__)
+#include <chrono>
+#include <thread>
+#endif
 
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"
@@ -44,7 +45,6 @@
 #include "Surelog/SourceCompile/Compiler.h"
 #include "Surelog/SourceCompile/ParseFile.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
-#include "Surelog/Utils/StringUtils.h"
 
 namespace SURELOG {
 

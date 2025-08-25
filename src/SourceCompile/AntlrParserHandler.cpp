@@ -24,10 +24,11 @@
 
 #include "Surelog/SourceCompile/AntlrParserHandler.h"
 
+#include <antlr4-runtime.h>
 #include <parser/SV3_1aLexer.h>
 #include <parser/SV3_1aParser.h>
 
-#include "Surelog/SourceCompile/AntlrParserErrorListener.h"
+#include "Surelog/SourceCompile/AntlrParserErrorListener.h"  // IWYU pragma: keep
 
 namespace SURELOG {
 

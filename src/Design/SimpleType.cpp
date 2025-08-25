@@ -29,7 +29,6 @@
 #include "Surelog/Design/FileContent.h"
 
 // UHDM
-#include <uhdm/uhdm.h>
 
 namespace SURELOG {
 

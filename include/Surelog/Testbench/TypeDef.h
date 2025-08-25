@@ -27,10 +27,8 @@
 
 #include <Surelog/Common/NodeId.h>
 #include <Surelog/Common/RTTI.h>
-#include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/DataType.h>
 
-#include <string>
 #include <string_view>
 
 namespace SURELOG {
@@ -56,5 +54,5 @@ class TypeDef final : public DataType {
   bool m_forwardDeclaration;
 };
 
-};     // namespace SURELOG
+}  // namespace SURELOG
 #endif /* SURELOG_TYPEDEF_H */

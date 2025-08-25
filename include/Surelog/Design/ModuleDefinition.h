@@ -29,7 +29,6 @@
 #include <Surelog/Common/Containers.h>
 #include <Surelog/Common/NodeId.h>
 #include <Surelog/Common/RTTI.h>
-#include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/ClockingBlock.h>
 #include <Surelog/Design/DesignComponent.h>
 #include <Surelog/Design/ModPort.h>

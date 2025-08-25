@@ -48,6 +48,7 @@
 #include "Surelog/SourceCompile/AntlrParserHandler.h"
 #include "Surelog/SourceCompile/CompileSourceFile.h"
 #include "Surelog/SourceCompile/IncludeFileInfo.h"
+#include "Surelog/SourceCompile/PreprocessFile.h"
 #include "Surelog/SourceCompile/SV3_1aTreeShapeListener.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
 #include "Surelog/Utils/StringUtils.h"

@@ -23,6 +23,8 @@
 
 #include "Surelog/DesignCompile/UVMElaboration.h"
 
+#include "Surelog/DesignCompile/TestbenchElaboration.h"
+
 namespace SURELOG {
 
 UVMElaboration::UVMElaboration(CompileDesign* compileDesign)

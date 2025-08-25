@@ -27,6 +27,7 @@
 
 #include <Surelog/Common/PathId.h>
 #include <Surelog/Common/RTTI.h>
+#include <Surelog/Design/ModuleDefinition.h>
 #include <Surelog/Design/ValuedComponentI.h>
 #include <Surelog/Expression/ExprBuilder.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>

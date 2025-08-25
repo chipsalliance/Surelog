@@ -2,7 +2,6 @@
 #define SURELOG_CONTAINERS_H
 #pragma once
 
-#include <cstdint>
 #include <map>
 #include <string>
 #include <string_view>

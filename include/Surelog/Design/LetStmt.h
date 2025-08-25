@@ -25,14 +25,9 @@
 #define SURELOG_LETSTMT_H
 #pragma once
 
-#include <Surelog/Common/SymbolId.h>
-
 // UHDM
 #include <uhdm/containers.h>
 #include <uhdm/uhdm_forward_decl.h>
-
-#include <map>
-#include <string>
 
 namespace SURELOG {
 

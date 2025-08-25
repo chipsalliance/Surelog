@@ -25,7 +25,6 @@
 #define SURELOG_ELABORATORHARNESS_H
 #pragma once
 
-#include <string>
 #include <string_view>
 #include <tuple>
 

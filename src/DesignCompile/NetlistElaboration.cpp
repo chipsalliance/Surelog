@@ -29,6 +29,7 @@
 
 #include <algorithm>
 #include <cstdint>
+#include <cstdlib>
 #include <map>
 #include <set>
 #include <string>
@@ -53,10 +54,10 @@
 #include "Surelog/Design/Parameter.h"
 #include "Surelog/Design/SimpleType.h"
 #include "Surelog/Design/Struct.h"
-#include "Surelog/Design/Union.h"
 #include "Surelog/Design/ValuedComponentI.h"
 #include "Surelog/DesignCompile/CompileDesign.h"
 #include "Surelog/DesignCompile/CompileHelper.h"
+#include "Surelog/DesignCompile/TestbenchElaboration.h"
 #include "Surelog/DesignCompile/UhdmWriter.h"
 #include "Surelog/ErrorReporting/Error.h"
 #include "Surelog/ErrorReporting/ErrorDefinition.h"

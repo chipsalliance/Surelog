@@ -29,6 +29,7 @@
 #include <uhdm/typespec.h>
 
 #include <cstdint>
+#include <cstdlib>
 #include <string>
 #include <string_view>
 

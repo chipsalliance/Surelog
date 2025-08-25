@@ -24,19 +24,26 @@
 #include "Surelog/Cache/PPCache.h"
 
 #include <capnp/blob.h>
+#include <capnp/common.h>
 #include <capnp/list.h>
+#include <capnp/message.h>
 #include <capnp/serialize-packed.h>
 #include <fcntl.h>
 #include <sys/stat.h>
-#include <sys/types.h>
 
+#include <algorithm>
 #include <cstddef>
 #include <cstdint>
 #include <string>
 #include <string_view>
+#include <utility>
 #include <vector>
 
+#include "Surelog/Cache/Cache.capnp.h"
+#include "Surelog/Cache/Cache.h"
+#include "Surelog/Cache/PPCache.capnp.h"
 #include "Surelog/CommandLine/CommandLineParser.h"
+#include "Surelog/Common/Containers.h"
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Common/PathId.h"
 #include "Surelog/Common/SymbolId.h"
@@ -56,7 +63,6 @@
 #include "Surelog/SourceCompile/PreprocessFile.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
 #include "Surelog/Utils/StringUtils.h"
-#include "Surelog/config.h"
 
 #if defined(_MSC_VER)
 #include <io.h>
@@ -64,7 +70,6 @@
 #include <unistd.h>
 #endif
 
-#include <iostream>
 #include <limits>
 
 namespace SURELOG {

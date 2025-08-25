@@ -24,11 +24,11 @@
 #include "Surelog/Cache/PythonAPICache.h"
 
 #include <capnp/blob.h>
+#include <capnp/common.h>
 #include <capnp/list.h>
+#include <capnp/message.h>
 #include <capnp/serialize-packed.h>
 #include <fcntl.h>
-#include <sys/stat.h>
-#include <sys/types.h>
 
 #include <cstdint>
 #include <string>
@@ -36,7 +36,9 @@
 #include <vector>
 
 #include "Surelog/API/PythonAPI.h"
+#include "Surelog/Cache/Cache.capnp.h"
 #include "Surelog/Cache/Cache.h"
+#include "Surelog/Cache/PythonAPICache.capnp.h"
 #include "Surelog/CommandLine/CommandLineParser.h"
 #include "Surelog/Common/FileSystem.h"
 #include "Surelog/Common/PathId.h"
@@ -46,6 +48,7 @@
 #include "Surelog/Library/Library.h"
 #include "Surelog/SourceCompile/CompileSourceFile.h"
 #include "Surelog/SourceCompile/ParseFile.h"
+#include "Surelog/SourceCompile/PreprocessFile.h"
 #include "Surelog/SourceCompile/PythonListen.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
 

@@ -28,7 +28,6 @@
 #include <Surelog/Common/PathId.h>
 
 #include <memory>
-#include <string>
 #include <string_view>
 
 namespace SURELOG {

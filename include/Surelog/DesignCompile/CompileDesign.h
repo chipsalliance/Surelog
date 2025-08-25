@@ -35,8 +35,8 @@
 // UHDM
 #include <uhdm/Serializer.h>
 #include <uhdm/containers.h>
-#include <uhdm/sv_vpi_user.h>
 #include <uhdm/typespec.h>
+#include <uhdm/vpi_user.h>
 
 #include <mutex>
 

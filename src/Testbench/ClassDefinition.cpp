@@ -36,6 +36,7 @@
 #include "Surelog/Testbench/Constraint.h"
 #include "Surelog/Testbench/CoverGroupDefinition.h"
 #include "Surelog/Testbench/Property.h"
+#include "Surelog/Testbench/TaskMethod.h"
 
 namespace SURELOG {
 

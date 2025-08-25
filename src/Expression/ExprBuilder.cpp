@@ -34,6 +34,7 @@
 #include "Surelog/ErrorReporting/ErrorContainer.h"
 #include "Surelog/ErrorReporting/ErrorDefinition.h"
 #include "Surelog/ErrorReporting/Location.h"
+#include "Surelog/Expression/Value.h"
 #include "Surelog/Package/Package.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
 #include "Surelog/SourceCompile/VObjectTypes.h"

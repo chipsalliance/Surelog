@@ -25,6 +25,9 @@
 
 #include <ostream>
 
+#include "Surelog/Common/PathId.h"
+#include "Surelog/Common/SymbolId.h"
+
 namespace SURELOG {
 
 bool Location::operator==(const Location &rhs) const {

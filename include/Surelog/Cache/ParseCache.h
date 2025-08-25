@@ -28,6 +28,7 @@
 #include <Surelog/Cache/Cache.h>
 #include <Surelog/Cache/ParseCache.capnp.h>
 #include <Surelog/Common/PathId.h>
+#include <capnp/common.h>
 #include <capnp/list.h>
 
 namespace SURELOG {

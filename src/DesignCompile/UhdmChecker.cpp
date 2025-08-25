@@ -43,10 +43,10 @@
 // UHDM
 #include <uhdm/Serializer.h>
 #include <uhdm/uhdm.h>
-#include <uhdm/vpi_visitor.h>
 
 #include <cstdint>
 #include <iomanip>
+#include <map>
 #include <ostream>
 #include <set>
 #include <sstream>

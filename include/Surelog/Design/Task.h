@@ -27,10 +27,8 @@
 
 #include <Surelog/Common/NodeId.h>
 #include <Surelog/Common/RTTI.h>
-#include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/Function.h>
 
-#include <string>
 #include <string_view>
 
 namespace SURELOG {

@@ -26,6 +26,7 @@
 #include <antlr4-runtime.h>
 
 #include <cstddef>
+#include <exception>
 #include <string>
 
 #include "Surelog/Common/SymbolId.h"

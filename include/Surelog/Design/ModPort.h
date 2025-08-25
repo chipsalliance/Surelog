@@ -26,7 +26,6 @@
 #pragma once
 
 #include <Surelog/Common/NodeId.h>
-#include <Surelog/Common/SymbolId.h>
 #include <Surelog/Design/Signal.h>
 
 #include <string_view>

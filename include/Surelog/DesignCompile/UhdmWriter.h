@@ -28,6 +28,7 @@
 #include <Surelog/Common/Containers.h>
 #include <Surelog/Common/PathId.h>
 #include <Surelog/Design/DesignComponent.h>
+#include <Surelog/Design/ValuedComponentI.h>
 #include <Surelog/DesignCompile/CompileHelper.h>
 #include <Surelog/SourceCompile/VObjectTypes.h>
 
@@ -41,6 +42,7 @@
 #include <uhdm/Serializer.h>
 #include <uhdm/containers.h>
 #include <uhdm/uhdm_forward_decl.h>
+#include <uhdm/vpi_user.h>
 
 #include <string>
 
