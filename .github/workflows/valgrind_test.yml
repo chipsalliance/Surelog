@@ -1,0 +1,51 @@
+name: Valgrind Test
+
+on:
+    - push
+    - pull_request
+    - workflow_dispatch
+jobs:
+    valgrind:
+        runs-on: ubuntu-latest
+        
+        steps:
+          - uses: actions/checkout@v3
+          
+          - name: Install dependencies
+            run: |
+              sudo apt-get update
+              sudo apt-get install -y valgrind
+          
+          - name: Build project
+            run: |
+              cd $GITHUB_WORKSPACE
+              mkdir -p build
+              cd build
+              cmake ..
+              make
+          
+          - name: Run Valgrind tests
+            run: |
+              cd $GITHUB_WORKSPACE/tests
+              for test in $(find . -type f -executable -name "*test*"); do
+                valgrind --leak-check=full \
+                  --show-leak-kinds=all \
+                  --track-origins=yes \
+                  --verbose \
+                  --log-file=valgrind_report_$(basename $test).txt \
+                  ./$test
+              done
+          
+          - name: Upload Valgrind reports
+            if: always()
+            uses: actions/upload-artifact@v3
+            with:
+              name: valgrind-reports
+              path: tests/valgrind_report_*.txt
+          
+          - name: Check for memory leaks
+            run: |
+              if grep -l "ERROR SUMMARY: [1-9]" tests/valgrind_report_*.txt 2>/dev/null; then
+                echo "Memory leaks detected!"
+                exit 1
+              fi
