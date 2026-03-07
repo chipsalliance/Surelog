@@ -1157,11 +1157,13 @@ void DesignElaboration::elaborateInstance_(
                                allSubInstances);
             parent->addSubInstance(child);
 
-            // First try the simple expression evaluator (handles i = i + 1, etc.)
+            // First try the simple expression evaluator (handles i = i + 1,
+            // etc.)
             Value* newVal = m_exprBuilder.evalExpr(fC, expr, parent);
             if (!newVal->isValid()) {
-              // Fallback: use full expression compilation for complex increments
-              // like step = step * CHUNK (where CHUNK is a parameter)
+              // Fallback: use full expression compilation for complex
+              // increments like step = step * CHUNK (where CHUNK is a
+              // parameter)
               m_helper.checkForLoops(true);
               int64_t newValInt = m_helper.getValue(
                   validValue, parentDef, fC, expr, m_compileDesign, Reduce::Yes,

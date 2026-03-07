@@ -1999,7 +1999,9 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
             for (auto a : *sig->attributes()) a->VpiParent(logicn);
           }
           logicn->VpiSigned(sig->isSigned());
-          logicn->VpiNetType(UhdmWriter::getVpiNetType(netKeyword != VObjectType::slNoType ? netKeyword : sig->getType()));
+          logicn->VpiNetType(UhdmWriter::getVpiNetType(
+              netKeyword != VObjectType::slNoType ? netKeyword
+                                                  : sig->getType()));
           // Move range to typespec for simple types
           // logicn->Ranges(packedDimensions);
           ref_typespec* rt = s.MakeRef_typespec();
@@ -2115,9 +2117,13 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
           stv->VpiParent(pnets);
           for (auto r : *packedDimensions) r->VpiParent(pnets);
           obj = pnets;
-          pnets->VpiNetType(UhdmWriter::getVpiNetType(netKeyword != VObjectType::slNoType ? netKeyword : sig->getType()));
+          pnets->VpiNetType(UhdmWriter::getVpiNetType(
+              netKeyword != VObjectType::slNoType ? netKeyword
+                                                  : sig->getType()));
         } else {
-          stv->VpiNetType(UhdmWriter::getVpiNetType(netKeyword != VObjectType::slNoType ? netKeyword : sig->getType()));
+          stv->VpiNetType(UhdmWriter::getVpiNetType(
+              netKeyword != VObjectType::slNoType ? netKeyword
+                                                  : sig->getType()));
         }
       } else if (const Struct* st = datatype_cast<const Struct*>(dtype)) {
         struct_net* stv = s.MakeStruct_net();
@@ -2139,9 +2145,13 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
           stv->VpiParent(pnets);
           for (auto r : *packedDimensions) r->VpiParent(pnets);
           obj = pnets;
-          pnets->VpiNetType(UhdmWriter::getVpiNetType(netKeyword != VObjectType::slNoType ? netKeyword : sig->getType()));
+          pnets->VpiNetType(UhdmWriter::getVpiNetType(
+              netKeyword != VObjectType::slNoType ? netKeyword
+                                                  : sig->getType()));
         } else {
-          stv->VpiNetType(UhdmWriter::getVpiNetType(netKeyword != VObjectType::slNoType ? netKeyword : sig->getType()));
+          stv->VpiNetType(UhdmWriter::getVpiNetType(
+              netKeyword != VObjectType::slNoType ? netKeyword
+                                                  : sig->getType()));
         }
       } else if (dtype->getCategory() == DataType::Category::PARAMETER ||
                  dtype->getCategory() == DataType::Category::SIMPLE_TYPEDEF) {
@@ -2163,7 +2173,9 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
             for (auto a : *sig->attributes()) a->VpiParent(logicn);
           }
           logicn->VpiSigned(sig->isSigned());
-          logicn->VpiNetType(UhdmWriter::getVpiNetType(netKeyword != VObjectType::slNoType ? netKeyword : sig->getType()));
+          logicn->VpiNetType(UhdmWriter::getVpiNetType(
+              netKeyword != VObjectType::slNoType ? netKeyword
+                                                  : sig->getType()));
           // Move range to typespec for simple types
           // logicn->Ranges(packedDimensions);
           ref_typespec* rt = s.MakeRef_typespec();
@@ -2194,9 +2206,13 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
             stv->VpiParent(pnets);
             for (auto r : *packedDimensions) r->VpiParent(pnets);
             obj = pnets;
-            pnets->VpiNetType(UhdmWriter::getVpiNetType(netKeyword != VObjectType::slNoType ? netKeyword : sig->getType()));
+            pnets->VpiNetType(UhdmWriter::getVpiNetType(
+                netKeyword != VObjectType::slNoType ? netKeyword
+                                                    : sig->getType()));
           } else {
-            stv->VpiNetType(UhdmWriter::getVpiNetType(netKeyword != VObjectType::slNoType ? netKeyword : sig->getType()));
+            stv->VpiNetType(UhdmWriter::getVpiNetType(
+                netKeyword != VObjectType::slNoType ? netKeyword
+                                                    : sig->getType()));
           }
         } else if (spec->UhdmType() == uhdmenum_typespec) {
           enum_net* stv = s.MakeEnum_net();
@@ -2219,9 +2235,13 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
             stv->VpiParent(pnets);
             for (auto r : *packedDimensions) r->VpiParent(pnets);
             obj = pnets;
-            pnets->VpiNetType(UhdmWriter::getVpiNetType(netKeyword != VObjectType::slNoType ? netKeyword : sig->getType()));
+            pnets->VpiNetType(UhdmWriter::getVpiNetType(
+                netKeyword != VObjectType::slNoType ? netKeyword
+                                                    : sig->getType()));
           } else {
-            stv->VpiNetType(UhdmWriter::getVpiNetType(netKeyword != VObjectType::slNoType ? netKeyword : sig->getType()));
+            stv->VpiNetType(UhdmWriter::getVpiNetType(
+                netKeyword != VObjectType::slNoType ? netKeyword
+                                                    : sig->getType()));
           }
         } else if (spec->UhdmType() == uhdmbit_typespec) {
           bit_var* logicn = s.MakeBit_var();
@@ -2274,7 +2294,8 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
           for (auto a : *sig->attributes()) a->VpiParent(logicn);
         }
         logicn->VpiSigned(sig->isSigned());
-        logicn->VpiNetType(UhdmWriter::getVpiNetType(netKeyword != VObjectType::slNoType ? netKeyword : sig->getType()));
+        logicn->VpiNetType(UhdmWriter::getVpiNetType(
+            netKeyword != VObjectType::slNoType ? netKeyword : sig->getType()));
         ref_typespec* rt = s.MakeRef_typespec();
         rt->VpiParent(logicn);
         rt->Actual_typespec(tps);
@@ -2379,7 +2400,8 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
     } else {
       logic_net* logicn = s.MakeLogic_net();
       logicn->VpiSigned(sig->isSigned());
-      logicn->VpiNetType(UhdmWriter::getVpiNetType(netKeyword != VObjectType::slNoType ? netKeyword : sig->getType()));
+      logicn->VpiNetType(UhdmWriter::getVpiNetType(
+          netKeyword != VObjectType::slNoType ? netKeyword : sig->getType()));
       if (sig->attributes()) {
         logicn->Attributes(sig->attributes());
         for (auto a : *sig->attributes()) a->VpiParent(logicn);
