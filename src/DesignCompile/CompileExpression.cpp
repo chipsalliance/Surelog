@@ -3518,6 +3518,17 @@ UHDM::any *CompileHelper::compileAssignmentPattern(
         if (any *exp =
                 compileExpression(component, fC, Expression, compileDesign,
                                   reduce, operation, instance, false)) {
+          // If reduce mode returned a typespec instead of an expression value
+          // (e.g., struct_typespec returned for a signal reference like
+          // pipe[3].f1[63:0]), recompile without reduction to get the actual
+          // expression (hier_path).
+          if (any_cast<typespec *>(exp)) {
+            if (any *tmp =
+                    compileExpression(component, fC, Expression, compileDesign,
+                                      Reduce::No, operation, instance, false)) {
+              exp = tmp;
+            }
+          }
           if (reduce == Reduce::Yes) {
             if (exp->UhdmType() == uhdmoperation) {
               UHDM::operation *op = (UHDM::operation *)exp;
