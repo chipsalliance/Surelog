@@ -1269,42 +1269,55 @@ void DesignElaboration::elaborateInstance_(
             }
             NodeId caseItem = tmp;
             bool nomatch = true;
+            NodeId defaultGenItem;  // saved default block for fallback
             while (nomatch) {
               NodeId exprItem = fC->Child(caseItem);
               if (fC->Type(exprItem) ==
-                  VObjectType::paGenerate_item)  // Default block
-                nomatch = false;
-              while (nomatch) {
-                // Find if one of the case expr matches the case expr
-                if (fC->Type(exprItem) == VObjectType::paConstant_expression) {
-                  m_helper.checkForLoops(true);
-                  const UHDM::any* caseExpr = m_helper.compileExpression(
-                      parentDef, fC, exprItem, m_compileDesign, Reduce::Yes,
-                      nullptr, parent, false);
-                  m_helper.checkForLoops(false);
-                  caseExpr = resize(m_compileDesign->getSerializer(), caseExpr,
-                                    maxsize, is_overall_unsigned);
-                  UHDM::ExprEval eval;
-                  bool invalidValue = false;
-                  int64_t caseVal = eval.get_value(
-                      invalidValue, any_cast<const UHDM::expr*>(caseExpr),
-                      true);
-                  if (invalidValue) {
-                    Location loc(fC->getFileId(exprItem), fC->Line(exprItem),
-                                 fC->Column(exprItem));
-                    Error err(ErrorDefinition::ELAB_INVALID_CASE_STMT_VALUE,
-                              loc);
-                    m_compileDesign->getCompiler()
-                        ->getErrorContainer()
-                        ->addError(err, false, false);
-                  }
-                  if (condVal == caseVal) {
-                    nomatch = false;
+                  VObjectType::paGenerate_item) {  // Default block
+                // Save default as fallback; don't match yet so specific
+                // labels that appear later in source order take priority.
+                defaultGenItem = exprItem;
+              } else {
+                while (nomatch) {
+                  // Find if one of the case expr matches the case expr
+                  if (fC->Type(exprItem) ==
+                      VObjectType::paConstant_expression) {
+                    m_helper.checkForLoops(true);
+                    const UHDM::any* caseExpr = m_helper.compileExpression(
+                        parentDef, fC, exprItem, m_compileDesign, Reduce::Yes,
+                        nullptr, parent, false);
+                    m_helper.checkForLoops(false);
+                    caseExpr = resize(m_compileDesign->getSerializer(),
+                                      caseExpr, maxsize, is_overall_unsigned);
+                    UHDM::ExprEval eval;
+                    bool invalidValue = false;
+                    int64_t caseVal = eval.get_value(
+                        invalidValue, any_cast<const UHDM::expr*>(caseExpr),
+                        true);
+                    if (invalidValue) {
+                      Location loc(fC->getFileId(exprItem), fC->Line(exprItem),
+                                   fC->Column(exprItem));
+                      Error err(ErrorDefinition::ELAB_INVALID_CASE_STMT_VALUE,
+                                loc);
+                      m_compileDesign->getCompiler()
+                          ->getErrorContainer()
+                          ->addError(err, false, false);
+                    }
+                    if (condVal == caseVal) {
+                      nomatch = false;
+                      break;
+                    }
+                  } else
                     break;
-                  }
-                } else
-                  break;
-                exprItem = fC->Sibling(exprItem);
+                  exprItem = fC->Sibling(exprItem);
+                }
+                if (!nomatch) {
+                  // We found a specific match
+                  while (fC->Type(exprItem) ==
+                         VObjectType::paConstant_expression)
+                    exprItem = fC->Sibling(exprItem);
+                  childId = exprItem;
+                }
               }
 
               if (nomatch) {
@@ -1313,12 +1326,11 @@ void DesignElaboration::elaborateInstance_(
                 if (!caseItem) break;
                 if (fC->Type(caseItem) != VObjectType::paCase_generate_item)
                   break;
-              } else {
-                // We found a match
-                while (fC->Type(exprItem) == VObjectType::paConstant_expression)
-                  exprItem = fC->Sibling(exprItem);
-                childId = exprItem;
               }
+            }
+            // If no specific case matched, fall back to default if present
+            if (nomatch && defaultGenItem) {
+              childId = defaultGenItem;
             }
           } else {              // If-Else stmt
             if (condVal > 0) {  // If branch

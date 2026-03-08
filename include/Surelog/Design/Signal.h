@@ -120,9 +120,10 @@ class Signal final {
   const FileContent* m_fileContent = nullptr;
   NodeId m_nodeId;
   VObjectType m_type = VObjectType::slNoType;
-  // Preserved original net keyword for typed net declarations (e.g., "wand integer").
-  // When set, m_type holds the data type (e.g., paIntegerAtomType_Integer) and
-  // m_subNetType holds the net keyword (e.g., paNetType_Wand).
+  // Preserved original net keyword for typed net declarations (e.g., "wand
+  // integer"). When set, m_type holds the data type (e.g.,
+  // paIntegerAtomType_Integer) and m_subNetType holds the net keyword (e.g.,
+  // paNetType_Wand).
   VObjectType m_subNetType = VObjectType::slNoType;
   VObjectType m_direction = VObjectType::slNoType;
   ModuleDefinition* m_interfaceDef = nullptr;
