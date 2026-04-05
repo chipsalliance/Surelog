@@ -214,9 +214,34 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
     isMultidimensional = assign->isMultidimensional();
     const std::string_view paramName =
         assign->getFileContent()->SymName(assign->getParamId());
+    // Localparams cannot be overridden from outside their defining scope.
+    // Computed here (outside the if(mod_assign) block) so it's accessible
+    // when building inst_assign->Rhs below.
+    bool isLocalParam =
+        (mod_assign && mod_assign->Lhs() &&
+         mod_assign->Lhs()->UhdmType() == uhdmparameter &&
+         ((const parameter*)mod_assign->Lhs())->VpiLocalParam());
+    // Capture the definition-level Rhs (before any parent-scope override).
+    const any* defRhs = mod_assign ? mod_assign->Rhs() : nullptr;
+    // A localparam only needs protection from ancestor inheritance when the
+    // parent scope also has a same-named parameter (e.g., generate-scope
+    // localparam WIDTH_A=6 shadowing a module-level WIDTH_A=5). A genvar
+    // index like 'i' has no same-named param in the parent, so it should
+    // not be affected.
+    bool localParamShadowsParent = false;
+    if (isLocalParam && instance->getParent()) {
+      Value* parentVal =
+          instance->getParent()->getValue(paramName, m_exprBuilder);
+      localParamShadowsParent = (parentVal && parentVal->isValid());
+    }
     if (mod_assign) {
-      const any* rhs = mod_assign->Rhs();
-      expr* complexVal = instance->getComplexValue(paramName);
+      const any* rhs = defRhs;
+      // Skip getComplexValue() only when a same-named param exists in the
+      // parent: getComplexValue() walks the parent netlist chain and would
+      // incorrectly inherit that ancestor value instead of the local one.
+      expr* complexVal = localParamShadowsParent
+                             ? nullptr
+                             : instance->getComplexValue(paramName);
       if (complexVal) {
         rhs = complexVal;
       }
@@ -370,7 +395,16 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
       }
     }
     if ((overriden == false) && (!isMultidimensional)) {
-      Value* value = instance->getValue(paramName, m_exprBuilder);
+      // For localparams that shadow a same-named parent param, use the
+      // definition-level constant directly rather than walking the parent
+      // instance chain (which would incorrectly inherit the ancestor value).
+      Value* value = nullptr;
+      if (localParamShadowsParent && defRhs &&
+          defRhs->UhdmType() == uhdmconstant) {
+        const constant* lc = (const constant*)defRhs;
+        value = m_exprBuilder.fromVpiValue(lc->VpiValue(), lc->VpiSize());
+      }
+      if (!value) value = instance->getValue(paramName, m_exprBuilder);
       if (value && value->isValid()) {
         constant* c = s.MakeConstant();
         const any* orig_p = mod_assign->Lhs();
