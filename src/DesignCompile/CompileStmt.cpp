@@ -2402,7 +2402,7 @@ bool CompileHelper::compileFunction(DesignComponent* component,
     if (Return_data_type) {
       var = any_cast<variables*>(
           compileVariable(component, fC, Return_data_type, compileDesign,
-                          Reduce::No, nullptr, instance, false));
+                          Reduce::No, nullptr, nullptr, false));
       if (var) {
         // Explicit return type
         var->VpiName("");
