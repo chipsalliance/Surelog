@@ -2374,7 +2374,11 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
         nets->push_back((net*)obj);
       }
     } else if (subnettype == VObjectType::paStruct_union) {
-      // Implicit type
+      // Implicit (anonymous) packed struct net.  Mirror the typedef'd
+      // struct_typespec branch below so an unpacked dim — e.g.
+      // `struct packed {...} name[N]` — is wrapped in an array_net
+      // rather than being silently dropped (which would otherwise leave
+      // every access as a single-struct bit-select on a 6-bit net).
       struct_net* stv = s.MakeStruct_net();
       stv->VpiName(signame);
       if (sig->attributes()) {
@@ -2387,12 +2391,30 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
       stv->Typespec(rt);
       tps->VpiParent(stv);
       obj = stv;
-      stv->VpiName(signame);
-      if (nets == nullptr) {
-        nets = s.MakeNetVec();
-        netlist->nets(nets);
+      if (unpackedDimensions) {
+        array_net* array_net = s.MakeArray_net();
+        array_net->Nets(s.MakeNetVec());
+        array_net->Ranges(unpackedDimensions);
+        array_net->VpiName(signame);
+        array_net->VpiSize(unpackedSize);
+        for (auto r : *unpackedDimensions) r->VpiParent(array_net);
+        fC->populateCoreMembers(sig->getNodeId(), sig->getNodeId(), array_net);
+        if (array_nets == nullptr) {
+          array_nets = s.MakeArray_netVec();
+          netlist->array_nets(array_nets);
+        }
+        array_nets->push_back(array_net);
+        obj->VpiParent(array_net);
+        UHDM::VectorOfnet* array_n = array_net->Nets();
+        array_n->push_back((net*)obj);
+        array_net->Attributes(((net*)obj)->Attributes());
+      } else {
+        if (nets == nullptr) {
+          nets = s.MakeNetVec();
+          netlist->nets(nets);
+        }
+        nets->push_back(stv);
       }
-      nets->push_back(stv);
     } else if (tps && tps->UhdmType() == uhdmstruct_typespec) {
       struct_net* stv = s.MakeStruct_net();
       stv->VpiName(signame);
