@@ -4514,14 +4514,20 @@ UHDM::any *CompileHelper::compileBits(
     }
   }
 
-  if ((reduce == Reduce::Yes) && tps && (!invalidValue)) {
+  // For `$size`, defer to the sys_func_call form so the elaboration
+  // step's `reduceExpr` evaluates the dim-index argument correctly.
+  // `Bits()`/`eval.size()` (called above) only inspects the FIRST
+  // argument's typespec — it ignores the dim-index entirely and uses
+  // the wrong range (`ranges->back()`) for multi-dim types.  For
+  // `$bits` the folded value is still right (sum of all bits).
+  if ((reduce == Reduce::Yes) && tps && (!invalidValue) && !sizeMode) {
     UHDM::constant *c = s.MakeConstant();
     c->VpiValue("UINT:" + std::to_string(bits));
     c->VpiDecompile(std::to_string(bits));
     c->VpiConstType(vpiUIntConst);
     c->VpiSize(64);
     result = c;
-  } else if ((reduce == Reduce::Yes) && exp && (!invalidValue)) {
+  } else if ((reduce == Reduce::Yes) && exp && (!invalidValue) && !sizeMode) {
     UHDM::constant *c = s.MakeConstant();
     c->VpiValue("UINT:" + std::to_string(bits));
     c->VpiDecompile(std::to_string(bits));

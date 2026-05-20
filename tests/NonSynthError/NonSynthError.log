@@ -75,29 +75,27 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 begin                                                  1
 class_defn                                             1
-constant                                               3
 design                                                 1
 initial                                                1
-int_typespec                                           4
+int_typespec                                           3
+int_var                                                3
 module_inst                                            5
 param_assign                                           2
 parameter                                              2
-ref_typespec                                           5
-sys_func_call                                          1
+sys_func_call                                          4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
 begin                                                  2
 class_defn                                             2
-constant                                               3
 design                                                 1
 initial                                                2
-int_typespec                                           4
+int_typespec                                           3
+int_var                                                3
 module_inst                                            5
 param_assign                                           2
 parameter                                              2
-ref_typespec                                           5
-sys_func_call                                          2
+sys_func_call                                          5
 === UHDM Object Stats End ===
 [WRN:UH0720] ${SURELOG_DIR}/tests/NonSynthError/dut.sv:10:1: Non-synthesizable construct "A".
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/NonSynthError/slpp_all/surelog.uhdm ...
@@ -117,14 +115,6 @@ design: (work@dut)
   \_parameter: (work@dut.S), line:4:11, endln:4:12
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/NonSynthError/dut.sv, line:2:1, endln:13:10
-    |UINT:32
-    |vpiTypespec:
-    \_ref_typespec: (work@dut.S)
-      |vpiParent:
-      \_parameter: (work@dut.S), line:4:11, endln:4:12
-      |vpiFullName:work@dut.S
-      |vpiActual:
-      \_int_typespec: , line:4:1, endln:4:25
     |vpiName:S
     |vpiFullName:work@dut.S
   |vpiParamAssign:
@@ -132,20 +122,15 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/NonSynthError/dut.sv, line:2:1, endln:13:10
     |vpiRhs:
-    \_constant: , line:4:15, endln:4:20
+    \_sys_func_call: ($size), line:4:15, endln:4:20
       |vpiParent:
       \_param_assign: , line:4:11, endln:4:25
-      |vpiDecompile:32
-      |vpiSize:64
-      |UINT:32
-      |vpiTypespec:
-      \_ref_typespec: (work@dut)
+      |vpiArgument:
+      \_int_var: (work@dut), line:4:21, endln:4:24
         |vpiParent:
-        \_constant: , line:4:15, endln:4:20
+        \_sys_func_call: ($size), line:4:15, endln:4:20
         |vpiFullName:work@dut
-        |vpiActual:
-        \_int_typespec: , line:4:1, endln:4:25
-      |vpiConstType:9
+      |vpiName:$size
     |vpiLhs:
     \_parameter: (work@dut.S), line:4:11, endln:4:12
   |vpiDefName:work@dut
@@ -173,14 +158,6 @@ design: (work@dut)
   \_parameter: (work@dut.S), line:4:11, endln:4:12
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/NonSynthError/dut.sv, line:2:1, endln:13:10
-    |UINT:32
-    |vpiTypespec:
-    \_ref_typespec: (work@dut.S)
-      |vpiParent:
-      \_parameter: (work@dut.S), line:4:11, endln:4:12
-      |vpiFullName:work@dut.S
-      |vpiActual:
-      \_int_typespec: , line:4:1, endln:4:25
     |vpiName:S
     |vpiFullName:work@dut.S
   |vpiParamAssign:
@@ -188,20 +165,15 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/NonSynthError/dut.sv, line:2:1, endln:13:10
     |vpiRhs:
-    \_constant: , line:4:15, endln:4:25
+    \_sys_func_call: ($size), line:4:15, endln:4:20
       |vpiParent:
       \_param_assign: , line:4:11, endln:4:25
-      |vpiDecompile:32
-      |vpiSize:32
-      |UINT:32
-      |vpiTypespec:
-      \_ref_typespec: (work@dut)
+      |vpiArgument:
+      \_int_var: (work@dut), line:4:21, endln:4:24
         |vpiParent:
-        \_constant: , line:4:15, endln:4:25
+        \_sys_func_call: ($size), line:4:15, endln:4:20
         |vpiFullName:work@dut
-        |vpiActual:
-        \_int_typespec: , line:4:1, endln:4:25
-      |vpiConstType:9
+      |vpiName:$size
     |vpiLhs:
     \_parameter: (work@dut.S), line:4:11, endln:4:12
   |vpiDefName:work@dut
@@ -222,11 +194,6 @@ design: (work@dut)
       |vpiParent:
       \_initial: , line:6:1, endln:8:4
       |vpiFullName:work@dut
-\_weaklyReferenced:
-\_int_typespec: , line:4:1, endln:4:25
-\_int_typespec: , line:4:1, endln:4:25
-  |vpiParent:
-  \_ref_typespec: (work@dut.S)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -238,3 +205,7 @@ design: (work@dut)
 [LINT]: ${SURELOG_DIR}/tests/NonSynthError/dut.sv:10:1: Non synthesizable construct, A
 [LINT]: ${SURELOG_DIR}/tests/NonSynthError/dut.sv:10:1: Non synthesizable construct, A
 ============================== End Linting Results ==============================
+
+============================== Begin RoundTrip Results ==============================
+[roundtrip]: ${SURELOG_DIR}/tests/NonSynthError/dut.sv | ${SURELOG_DIR}/build/regression/NonSynthError/roundtrip/dut_000.sv | 2 | 13 |
+============================== End RoundTrip Results ==============================
