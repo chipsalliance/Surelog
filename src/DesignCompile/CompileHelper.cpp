@@ -4033,6 +4033,7 @@ UHDM::constant* CompileHelper::adjustSize(const UHDM::typespec* ts,
               // 2's complement
               std::string v = std::string(c->VpiValue());
               v.erase(0, 4);
+              bool emit_binary = false;
               if (signedLhs) {
                 const std::string res = twosComplement(v);
                 // Convert to int32_t
@@ -4045,16 +4046,31 @@ UHDM::constant* CompileHelper::adjustSize(const UHDM::typespec* ts,
                   }
                   orig_size = size;
                 }
-                val = std::strtoll(v.c_str(), nullptr, 2);
+                // `strtoll` saturates at LLONG_MAX when the binary string
+                // exceeds 63 bits (e.g. `1'sb1` extended to 83 bits),
+                // silently losing both the value and the sign.  For
+                // size > 63, keep the constant in binary form so the
+                // downstream consumer sees the correct bit pattern.
+                if (size > 63) {
+                  emit_binary = true;
+                } else {
+                  val = std::strtoll(v.c_str(), nullptr, 2);
+                }
               }
               if (uniquify) {
                 UHDM::ElaboratorContext elaboratorContext(&s, false, true);
                 c = (UHDM::constant*)UHDM::clone_tree(c, &elaboratorContext);
                 result = c;
               }
-              c->VpiValue("INT:" + std::to_string(val));
-              c->VpiDecompile(std::to_string(val));
-              c->VpiConstType(vpiIntConst);
+              if (emit_binary) {
+                c->VpiValue("BIN:" + v);
+                c->VpiDecompile(v);
+                c->VpiConstType(vpiBinaryConst);
+              } else {
+                c->VpiValue("INT:" + std::to_string(val));
+                c->VpiDecompile(std::to_string(val));
+                c->VpiConstType(vpiIntConst);
+              }
             } else if ((orig_size == 1) && (val == 1)) {
               uint64_t mask = NumUtils::getMask(size);
               if (uniquify) {
