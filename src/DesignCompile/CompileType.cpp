@@ -1936,6 +1936,16 @@ UHDM::typespec* CompileHelper::compileTypespec(
             pats->Elem_typespec(resultRef);
             pats->Ranges(ranges);
             result = pats;
+          } else if (dstype == uhdmbit_typespec) {
+            // `bit8_t [3:0] a` (typedef-of-bit packed array) — wrap the
+            // referenced typedef in a packed_array_typespec carrying the
+            // outer ranges, mirroring the logic_typespec branch above.
+            // Without this, the outer dimension is silently dropped and
+            // the field ends up the width of just the typedef.
+            packed_array_typespec* pats = s.MakePacked_array_typespec();
+            pats->Elem_typespec(resultRef);
+            pats->Ranges(ranges);
+            result = pats;
           } else if (dstype == uhdmarray_typespec ||
                      dstype == uhdminterface_typespec) {
             array_typespec* pats = s.MakeArray_typespec();
