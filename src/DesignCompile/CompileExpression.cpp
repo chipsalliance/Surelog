@@ -1299,9 +1299,41 @@ UHDM::any *CompileHelper::compileSelectExpression(
           }
         } else if (fC->Type(Bit_select) == VObjectType::slStringConst) {
           NodeId tmp = fC->Sibling(Bit_select);
-          if (((fC->Type(tmp) == VObjectType::paConstant_bit_select) ||
-               (fC->Type(tmp) == VObjectType::paBit_select)) &&
-              fC->Child(tmp)) {
+          // `field[hi:lo]` / `field[base +-: width]` inside a hier_path
+          // (e.g., `s.b[1:0]` on a struct LHS).  The Select grammar
+          // emits an empty paBit_select between the field name and the
+          // range node, so peek past it.  Without this, the part-select
+          // / indexed-part-select silently vanished from the hier_path,
+          // and the LHS reduced to the whole field (issue exposed by
+          // `struct_part_select_write`).
+          NodeId rangeNode;
+          if ((fC->Type(tmp) == VObjectType::paBit_select ||
+               fC->Type(tmp) == VObjectType::paConstant_bit_select) &&
+              !fC->Child(tmp)) {
+            NodeId after = fC->Sibling(tmp);
+            VObjectType afterType = fC->Type(after);
+            if (afterType == VObjectType::paPart_select_range ||
+                afterType == VObjectType::paConstant_part_select_range) {
+              rangeNode = after;
+            }
+          }
+          if (rangeNode) {
+            std::string field_name(fC->SymName(Bit_select));
+            NodeId Constant_range = fC->Child(rangeNode);
+            if (expr *sel = (expr *)compilePartSelectRange(
+                    component, fC, Constant_range, field_name, compileDesign,
+                    reduce, path, instance, muteErrors)) {
+              fC->populateCoreMembers(Bit_select, rangeNode, sel);
+              sel->VpiParent(path);
+              elems->push_back(sel);
+              hname.append(".").append(field_name).append(
+                  decompileHelper(sel));
+            }
+            // Advance past the empty paBit_select and paPart_select_range.
+            Bit_select = rangeNode;
+          } else if (((fC->Type(tmp) == VObjectType::paConstant_bit_select) ||
+                      (fC->Type(tmp) == VObjectType::paBit_select)) &&
+                     fC->Child(tmp)) {
             any *sel =
                 compileExpression(component, fC, Bit_select, compileDesign,
                                   reduce, pexpr, instance, muteErrors);
