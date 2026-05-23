@@ -157,7 +157,7 @@ bit_select                                             2
 constant                                               7
 cont_assign                                            1
 design                                                 1
-hier_path                                              3
+hier_path                                              2
 logic_net                                              3
 logic_typespec                                         5
 module_inst                                            4
@@ -180,7 +180,7 @@ bit_select                                             4
 constant                                               7
 cont_assign                                            2
 design                                                 1
-hier_path                                              5
+hier_path                                              4
 logic_net                                              3
 logic_typespec                                         5
 module_inst                                            4
@@ -394,23 +394,24 @@ design: (work@top)
             \_hier_path: (ast_alert_o.alerts_ack[0].p), line:14:7, endln:14:34
             |vpiName:ast_alert_o
           |vpiActual:
-          \_bit_select: (alerts_ack[0]), line:14:19, endln:14:29
+          \_bit_select: (work@top.ast_alert_o.alerts_ack[0].p.alerts_ack), line:14:19, endln:14:32
             |vpiParent:
             \_hier_path: (ast_alert_o.alerts_ack[0].p), line:14:7, endln:14:34
             |vpiName:alerts_ack
-            |vpiFullName:alerts_ack[0]
+            |vpiFullName:work@top.ast_alert_o.alerts_ack[0].p.alerts_ack
             |vpiIndex:
             \_constant: , line:14:30, endln:14:31
+              |vpiParent:
+              \_bit_select: (work@top.ast_alert_o.alerts_ack[0].p.alerts_ack), line:14:19, endln:14:32
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
               |vpiConstType:9
           |vpiActual:
-          \_ref_obj: (alerts_ack[0].p), line:14:35, endln:14:35
+          \_ref_obj: (p), line:14:33, endln:14:34
             |vpiParent:
             \_hier_path: (ast_alert_o.alerts_ack[0].p), line:14:7, endln:14:34
             |vpiName:p
-            |vpiFullName:alerts_ack[0].p
           |vpiName:ast_alert_o.alerts_ack[0].p
     |vpiAlwaysType:2
   |vpiContAssign:
@@ -540,21 +541,20 @@ design: (work@top)
             |vpiActual:
             \_struct_var: (work@top.ast_alert_o), line:12:28, endln:12:39
           |vpiActual:
-          \_bit_select: (alerts_ack[0]), line:14:19, endln:14:29
+          \_bit_select: (work@top.ast_alert_o.alerts_ack[0].p.alerts_ack), line:14:19, endln:14:32
             |vpiParent:
             \_hier_path: (ast_alert_o.alerts_ack[0].p), line:14:7, endln:14:34
             |vpiName:alerts_ack
-            |vpiFullName:alerts_ack[0]
+            |vpiFullName:work@top.ast_alert_o.alerts_ack[0].p.alerts_ack
             |vpiActual:
             \_typespec_member: (alerts_ack), line:7:23, endln:7:33
             |vpiIndex:
             \_constant: , line:14:30, endln:14:31
           |vpiActual:
-          \_ref_obj: (alerts_ack[0].p), line:14:35, endln:14:35
+          \_ref_obj: (p), line:14:33, endln:14:34
             |vpiParent:
             \_hier_path: (ast_alert_o.alerts_ack[0].p), line:14:7, endln:14:34
             |vpiName:p
-            |vpiFullName:alerts_ack[0].p
             |vpiActual:
             \_typespec_member: (p), line:3:13, endln:3:14
           |vpiName:ast_alert_o.alerts_ack[0].p

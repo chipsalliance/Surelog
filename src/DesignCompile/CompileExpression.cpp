@@ -1298,27 +1298,78 @@ UHDM::any *CompileHelper::compileSelectExpression(
             hname.append(".").append(fC->SymName(nameId));
           }
         } else if (fC->Type(Bit_select) == VObjectType::slStringConst) {
-          NodeId tmp = fC->Sibling(Bit_select);
-          // `field[hi:lo]` / `field[base +-: width]` inside a hier_path
-          // (e.g., `s.b[1:0]` on a struct LHS).  The Select grammar
-          // emits an empty paBit_select between the field name and the
-          // range node, so peek past it.  Without this, the part-select
-          // / indexed-part-select silently vanished from the hier_path,
-          // and the LHS reduced to the whole field (issue exposed by
-          // `struct_part_select_write`).
+          // A field name inside a hier_path is followed by a chain of
+          // selects in the Select grammar.  Walk the chain and emit a
+          // Path_elem for each operation:
+          //   `field`               → ref_obj(field)
+          //   `field[hi:lo]`        → part_select(field, hi, lo)
+          //   `field[idx]`          → bit_select(field, idx)
+          //   `field[i0][i1]...`    → var_select(field, [i0,i1,...])
+          //   `field[idx][hi:lo]`   → bit_select(field, idx) + part_select(_, hi, lo)
+          //
+          // The Select grammar interleaves empty paBit_select sentinels
+          // between an indexed paBit_select and a trailing range, so
+          // peek past them.  Without this, part-selects following an
+          // indexed bit-select silently vanish (issue exposed by
+          // `svtypes_struct_array` umbrella test, e.g. `s2.a[7][1:0]`).
+          std::string field_name(fC->SymName(Bit_select));
+
+          // Collect indexed bit-selects on the field.  Surelog's
+          // grammar may bundle multiple consecutive indices into a
+          // single paBit_select whose children are sibling Expression
+          // nodes (e.g., `a[0][0][2:3]` → one paBit_select with two
+          // Expression children + a trailing paPart_select_range), so
+          // walk both the outer paBit_select chain AND the Expression
+          // children of each.
+          std::vector<NodeId> idx_exprs;  // Expression NodeIds (one per index)
+          NodeId last_indexed;            // last paBit_select containing indices
+          NodeId cursor = fC->Sibling(Bit_select);
+          while (cursor &&
+                 (fC->Type(cursor) == VObjectType::paBit_select ||
+                  fC->Type(cursor) == VObjectType::paConstant_bit_select) &&
+                 fC->Child(cursor)) {
+            last_indexed = cursor;
+            NodeId bitexp = fC->Child(cursor);
+            while (bitexp &&
+                   (fC->Type(bitexp) == VObjectType::paExpression ||
+                    fC->Type(bitexp) == VObjectType::paConstant_expression)) {
+              idx_exprs.push_back(bitexp);
+              bitexp = fC->Sibling(bitexp);
+            }
+            cursor = fC->Sibling(cursor);
+          }
+          // Detect a trailing part-select range (possibly behind an
+          // empty paBit_select sentinel).
           NodeId rangeNode;
-          if ((fC->Type(tmp) == VObjectType::paBit_select ||
-               fC->Type(tmp) == VObjectType::paConstant_bit_select) &&
-              !fC->Child(tmp)) {
-            NodeId after = fC->Sibling(tmp);
+          if (cursor &&
+              (fC->Type(cursor) == VObjectType::paBit_select ||
+               fC->Type(cursor) == VObjectType::paConstant_bit_select) &&
+              !fC->Child(cursor)) {
+            NodeId after = fC->Sibling(cursor);
             VObjectType afterType = fC->Type(after);
             if (afterType == VObjectType::paPart_select_range ||
                 afterType == VObjectType::paConstant_part_select_range) {
               rangeNode = after;
             }
+          } else if (cursor &&
+                     (fC->Type(cursor) == VObjectType::paPart_select_range ||
+                      fC->Type(cursor) ==
+                          VObjectType::paConstant_part_select_range)) {
+            rangeNode = cursor;
           }
-          if (rangeNode) {
-            std::string field_name(fC->SymName(Bit_select));
+          NodeId advance_to = Bit_select;
+
+          if (idx_exprs.empty() && !rangeNode) {
+            // Bare ref_obj (no selects).
+            ref_obj *r2 = s.MakeRef_obj();
+            r2->VpiName(field_name);
+            r2->VpiFullName(field_name);
+            r2->VpiParent(path);
+            fC->populateCoreMembers(Bit_select, Bit_select, r2);
+            elems->push_back(r2);
+            hname.append(".").append(field_name);
+          } else if (idx_exprs.empty() && rangeNode) {
+            // `field[hi:lo]`.
             NodeId Constant_range = fC->Child(rangeNode);
             if (expr *sel = (expr *)compilePartSelectRange(
                     component, fC, Constant_range, field_name, compileDesign,
@@ -1329,39 +1380,62 @@ UHDM::any *CompileHelper::compileSelectExpression(
               hname.append(".").append(field_name).append(
                   decompileHelper(sel));
             }
-            // Advance past the empty paBit_select and paPart_select_range.
-            Bit_select = rangeNode;
-          } else if (((fC->Type(tmp) == VObjectType::paConstant_bit_select) ||
-                      (fC->Type(tmp) == VObjectType::paBit_select)) &&
-                     fC->Child(tmp)) {
-            any *sel =
-                compileExpression(component, fC, Bit_select, compileDesign,
-                                  reduce, pexpr, instance, muteErrors);
-            if (sel) {
-              hname.append(".")
-                  .append(sel->VpiName())
-                  .append(decompileHelper(sel));
-              if (sel->UhdmType() == uhdmhier_path) {
-                hier_path *p = (hier_path *)sel;
-                for (auto el : *p->Path_elems()) {
-                  el->VpiParent(path);
-                  elems->push_back(el);
-                }
-                break;
-              } else {
-                sel->VpiParent(path);
-                elems->push_back(sel);
-              }
-            }
+            advance_to = rangeNode;
           } else {
-            ref_obj *r2 = s.MakeRef_obj();
-            r2->VpiName(fC->SymName(Bit_select));
-            r2->VpiFullName(fC->SymName(Bit_select));
-            r2->VpiParent(path);
-            fC->populateCoreMembers(Bit_select, Bit_select, r2);
-            elems->push_back(r2);
-            hname.append(".").append(fC->SymName(Bit_select));
+            // One or more indexed bit-selects on the field, possibly
+            // followed by a trailing range.  Emit a bit_select (single
+            // index) or var_select (multiple indices) carrying the
+            // field name and the index value(s); then emit a part_select
+            // for the trailing range if present.
+            std::string idx_str;
+            if (idx_exprs.size() == 1) {
+              bit_select *bsel = s.MakeBit_select();
+              bsel->VpiName(field_name);
+              bsel->VpiParent(path);
+              if (expr *idx = (expr *)compileExpression(
+                      component, fC, idx_exprs[0], compileDesign, reduce, bsel,
+                      instance, muteErrors)) {
+                bsel->VpiIndex(idx);
+                idx->VpiParent(bsel);
+                idx_str = "[" + decompileHelper(idx) + "]";
+              }
+              fC->populateCoreMembers(Bit_select, last_indexed, bsel);
+              elems->push_back(bsel);
+            } else {
+              var_select *vsel = s.MakeVar_select();
+              vsel->VpiName(field_name);
+              vsel->VpiParent(path);
+              VectorOfexpr *vexprs = s.MakeExprVec();
+              vsel->Exprs(vexprs);
+              for (NodeId iexpr : idx_exprs) {
+                if (expr *idx = (expr *)compileExpression(
+                        component, fC, iexpr, compileDesign, reduce, vsel,
+                        instance, muteErrors)) {
+                  vexprs->push_back(idx);
+                  idx->VpiParent(vsel);
+                  idx_str += "[" + decompileHelper(idx) + "]";
+                }
+              }
+              fC->populateCoreMembers(Bit_select, last_indexed, vsel);
+              elems->push_back(vsel);
+            }
+            hname.append(".").append(field_name).append(idx_str);
+            advance_to = last_indexed;
+
+            if (rangeNode) {
+              NodeId Constant_range = fC->Child(rangeNode);
+              if (expr *psel = (expr *)compilePartSelectRange(
+                      component, fC, Constant_range, "", compileDesign,
+                      reduce, path, instance, muteErrors)) {
+                fC->populateCoreMembers(rangeNode, rangeNode, psel);
+                psel->VpiParent(path);
+                elems->push_back(psel);
+                hname.append(decompileHelper(psel));
+              }
+              advance_to = rangeNode;
+            }
           }
+          Bit_select = advance_to;
         }
         Bit_select = fC->Sibling(Bit_select);
       }
