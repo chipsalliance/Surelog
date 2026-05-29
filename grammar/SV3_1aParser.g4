@@ -422,11 +422,19 @@ parameter_override
   ;
 
 bind_directive
-  : BIND identifier (
-    COLON? identifier constant_bit_select (
-      COMMA identifier constant_bit_select
-    )*
-  )? bind_instantiation
+  : BIND (
+      // bind <hierarchical_id> bind_instantiation
+      // (IEEE 1800-2017 23.11 form 2: bind_target_instance).
+      // Hierarchical paths like `$root.top.foo_i` or `top.foo_i`.
+      hierarchical_identifier
+    | // bind <module_id> [: <inst_list>] bind_instantiation
+      // (form 1: bind_target_scope [: bind_target_instance_list]).
+      identifier (
+        COLON identifier constant_bit_select (
+          COMMA identifier constant_bit_select
+        )*
+      )?
+  ) bind_instantiation
   ;
 
 bind_instantiation
