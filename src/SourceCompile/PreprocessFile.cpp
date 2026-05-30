@@ -927,8 +927,14 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
                                         actual_args[i]);
       StringUtils::replaceInTokenVector(body_tokens, formal, actual_args[i]);
     } else if (formal_arg_default.size() == 2) {
-      const std::string default_val =
-          std::regex_replace(formal_arg_default[1], ws_re, "");
+      // Trim leading/trailing whitespace but PRESERVE interior whitespace —
+      // a default like `function automatic [31:0] f` is multi-token and
+      // collapsing it to `functionautomatic[31:0]f` produces a syntax error
+      // at the use site (yosys/tests/simple/macro_arg_spaces.sv).  The
+      // formal name (line 898 above) is a single identifier so stripping
+      // ws there is fine.
+      const std::string default_val(
+          StringUtils::trim(formal_arg_default[1]));
       StringUtils::replaceInTokenVector(body_tokens, {"``", formal, "``"},
                                         default_val);
       StringUtils::replaceInTokenVector(body_tokens, "``" + formal + "``",
