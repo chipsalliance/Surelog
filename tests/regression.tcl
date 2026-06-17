@@ -315,12 +315,12 @@ proc load_tests { } {
     set totaltest 0
     foreach file $fileList {
         if {$VERIFICATION == 0} {
-            regexp {([a-zA-Z0-9_/:-]+)/([a-zA-Z0-9_-]+)\.sl} $file tmp testdir testname
+            regexp {([a-zA-Z0-9_\./:-]+)/([a-zA-Z0-9_-]+)\.sl} $file tmp testdir testname
         } else {
             if {$TESTTARGET == "src" || [regexp {\.json} $TESTTARGET]} {
-                regexp {([a-zA-Z0-9_/:-]+)/([a-zA-Z0-9_\.-]+\.json)} $file tmp testdir testname
+                regexp {([a-zA-Z0-9\._/:-]+)/([a-zA-Z0-9_\.-]+\.json)} $file tmp testdir testname
             } else {
-                regexp {([a-zA-Z0-9_/:-]+)/([a-zA-Z0-9_\.-]+)\.slv} $file tmp testdir testname
+                regexp {([a-zA-Z0-9\._/:-]+)/([a-zA-Z0-9_\.-]+)\.slv} $file tmp testdir testname
             }
         }
         regsub [pwd]/ $testdir "" testdir
