@@ -47,6 +47,27 @@
          rdata_o = mem[addr_q];
      end
    end
- 
+
+   // Self-checking: $clog2(RomSize) with RomSize == 19 must evaluate to 5.
+   // The GOOD branch instantiates a defined module; the BAD branch
+   // instantiates an undefined module, so an incorrect $clog2 evaluation
+   // produces an elaboration error.
+   if ($clog2(RomSize) == 5) begin : gen_clog2
+     GOOD g_clog2();
+   end else begin : gen_clog2
+     BAD b_clog2();
+   end
+
+   // Self-checking: the width-cast $clog2(RomSize)'(RomSize) is a 5-bit
+   // value holding 19, i.e. 5'd19.
+   if ($clog2(RomSize)'(RomSize) == 5'd19) begin : gen_cast
+     GOOD g_cast();
+   end else begin : gen_cast
+     BAD b_cast();
+   end
+
  endmodule
- 
+
+ module GOOD ();
+ endmodule
+
