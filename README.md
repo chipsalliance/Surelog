@@ -25,7 +25,7 @@ We started maintaining a list of ideas for contribution under [Help Wanted](http
  * The preprocessor and the parser use Antlr 4.10 as a parser generator, we track Antlr/main.
  * The preprocessor and the parser ASTs are made persistent on disk using Cap'n'Proto, enabling incremental compilation.
  * The tool is built thread safe and performs multithread parsing.
- * Large files/modules/packages are splitted for multi-threading compilation.
+ * Large files/modules/packages are split for multi-threading compilation.
  * Surelog accepts IEEE Simulator-compliant project specification.
  * Surelog issues Errors/Warning/Info/Notes about language compliance.
  * Surelog allows for pre-compiled packages (UVM,...).
@@ -205,7 +205,7 @@ target_link_libraries(<your project name> surelog)
    -lineoffsetascomments Writes the preprocessor line offsets as comments as opposed as parser directives
    -nocache              Default allows to create a cache for include files, this option prevents it
    -cache <dir>          Specifies the cache directory, default is slpp_all/cache or slpp_unit/cache
-   -nohash               Don't use hash mechanism for cache file path, always treat cache as valid (no timestamp/dependancy check)
+   -nohash               Don't use hash mechanism for cache file path, always treat cache as valid (no timestamp/dependency check)
    -createcache          Create cache for precompiled packages
    -filterdirectives     Filters out simple directives like default_nettype in pre-processor's output
    -filterprotected      Filters out protected regions in pre-processor's output
@@ -216,7 +216,7 @@ target_link_libraries(<your project name> surelog)
    -nonote               Filters out NOTE messages
    -nowarning            Filters out WARNING messages
    -synth                Reports non-synthesizable constructs
-                         Honnors //pragma translate_off  ,  //pragma translate_on
+                         Honors //pragma translate_off  ,  //pragma translate_on
    -formal               Reports non-synthesizable constructs line -synth
                          but still allows model checking constructs
    -o <path>             Turns on all compilation stages, produces all outputs under that path
@@ -235,7 +235,7 @@ target_link_libraries(<your project name> surelog)
 ```
 ### C++ API
 
- * Surelog comes in the form of a library libsurelog.a and can be linked to an executalble.
+ * Surelog comes in the form of a library libsurelog.a and can be linked to an executable.
  * Extensive API is provided to browse:
    * the preprocessor file contents in AST form,
    * the post-parsing file contents in AST form,
@@ -261,7 +261,7 @@ target_link_libraries(<your project name> surelog)
  * Waivers can be installed in slwaivers.py files in the execution directory or install directory /usr/local/lib/surelog-python
 
 ### Large design compilation on Linux
- * It is recommanded to use the -lowmem -mp <nb processor> options in conjunction for large designs.
+ * It is recommended to use the -lowmem -mp <nb processor> options in conjunction for large designs.
  * The preprocessing will occur using one process, but the parsing will occur using multiple processes.
  * The elaboration and UHDM creation will use a single process.
  * Surelog spawns sub-Surelog processes to achieve the overall compilation.
