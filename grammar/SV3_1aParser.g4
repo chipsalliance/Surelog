@@ -30,6 +30,21 @@ options {
     }
   }
 
+  // The optional time unit after a `#`-delay (`#1ns`, `#1step`) or a number
+  // (`1ns`) is lexed as a Simple_identifier, so without this guard it would
+  // greedily eat the next identifier — `x <= #1 y - 1` parsed as
+  // `x <= #1(y) - 1`, dropping `y` and turning the RHS into a unary `-1`.  A
+  // real time unit ABUTS the preceding number/`#`-delay with no whitespace; a
+  // space means the identifier starts the following expression.  Match only
+  // when the identifier is adjacent so `#1ns`/`#1step` keep working while
+  // `#1 y` leaves `y` in the expression.
+  bool isTimeUnit() {
+    antlr4::Token* prev = _input->LT(-1);
+    antlr4::Token* cur = _input->LT(1);
+    if (prev == nullptr || cur == nullptr) return false;
+    return cur->getStartIndex() == prev->getStopIndex() + 1;
+  }
+
   bool isInterfaceGenerator(antlr4::ParserRuleContext* ctx) {
     std::vector<size_t> parent_ids(20);
     getCallingContext(ctx, parent_ids);
@@ -3631,7 +3646,7 @@ null_keyword: NULL_KEYWORD;
 time_literal: Integral_number time_unit | Real_number time_unit;
 //REMOVED | Unsigned_number time_unit | Fixed_point_number time_unit;
 
-time_unit: Simple_identifier;
+time_unit: {isTimeUnit()}? Simple_identifier;
 
 implicit_class_handle
   : this_keyword
