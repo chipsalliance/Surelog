@@ -366,11 +366,11 @@ n<> u<360> t<Udp_instantiation> p<361> c<336> l<25:2> el<25:62>
 n<> u<361> t<Module_or_generate_item> p<362> c<360> l<25:2> el<25:62>
 n<> u<362> t<Non_port_module_item> p<363> c<361> l<25:2> el<25:62>
 n<> u<363> t<Module_item> p<384> c<362> s<382> l<25:2> el<25:62>
-n<BUFG> u<364> t<StringConst> p<379> s<368> l<27:1> el<27:5>
-n<bg> u<365> t<StringConst> p<366> l<27:9> el<27:11>
-n<> u<366> t<Name_of_instance> p<367> c<365> l<27:9> el<27:11>
-n<#5> u<367> t<IntConst> p<368> c<366> l<27:6> el<27:11>
-n<> u<368> t<Delay2> p<379> c<367> s<378> l<27:6> el<27:11>
+n<BUFG> u<364> t<StringConst> p<379> s<366> l<27:1> el<27:5>
+n<#5> u<365> t<IntConst> p<366> l<27:6> el<27:8>
+n<> u<366> t<Delay2> p<379> c<365> s<378> l<27:6> el<27:8>
+n<bg> u<367> t<StringConst> p<368> l<27:9> el<27:11>
+n<> u<368> t<Name_of_instance> p<378> c<367> s<373> l<27:9> el<27:11>
 n<out> u<369> t<StringConst> p<370> l<27:12> el<27:15>
 n<> u<370> t<Ps_or_hierarchical_identifier> p<373> c<369> s<372> l<27:12> el<27:15>
 n<> u<371> t<Constant_bit_select> p<372> l<27:15> el<27:15>
@@ -380,7 +380,7 @@ n<in> u<374> t<StringConst> p<375> l<27:17> el<27:19>
 n<> u<375> t<Primary_literal> p<376> c<374> l<27:17> el<27:19>
 n<> u<376> t<Primary> p<377> c<375> l<27:17> el<27:19>
 n<> u<377> t<Expression> p<378> c<376> l<27:17> el<27:19>
-n<> u<378> t<Udp_instance> p<379> c<373> l<27:11> el<27:20>
+n<> u<378> t<Udp_instance> p<379> c<368> l<27:9> el<27:20>
 n<> u<379> t<Udp_instantiation> p<380> c<364> l<27:1> el<27:21>
 n<> u<380> t<Module_or_generate_item> p<381> c<379> l<27:1> el<27:21>
 n<> u<381> t<Non_port_module_item> p<382> c<380> l<27:1> el<27:21>
@@ -416,16 +416,16 @@ constant                                              68
 design                                                 1
 int_typespec                                          10
 io_decl                                                2
-logic_net                                             20
+logic_net                                             22
 logic_typespec                                         6
 module_inst                                           11
 operation                                             18
 param_assign                                          16
 parameter                                             16
 port                                                  10
-prim_term                                              2
+prim_term                                              4
 range                                                  9
-ref_obj                                               20
+ref_obj                                               22
 ref_typespec                                          28
 sys_func_call                                          3
 table_entry                                            2
@@ -438,16 +438,16 @@ constant                                              68
 design                                                 1
 int_typespec                                          10
 io_decl                                                2
-logic_net                                             20
+logic_net                                             22
 logic_typespec                                         6
 module_inst                                           11
 operation                                             18
 param_assign                                          16
 parameter                                             16
 port                                                  14
-prim_term                                              4
+prim_term                                              6
 range                                                  9
-ref_obj                                               30
+ref_obj                                               32
 ref_typespec                                          28
 sys_func_call                                          3
 table_entry                                            2
@@ -929,12 +929,54 @@ design: (work@iNToRecFN)
     |vpiLhs:
     \_parameter: (work@iNToRecFN.intWidth2), line:23:55, endln:23:64
   |vpiDefName:work@iNToRecFN
+  |vpiNet:
+  \_logic_net: (work@iNToRecFN.out), line:27:12, endln:27:15
+    |vpiParent:
+    \_module_inst: work@iNToRecFN (work@iNToRecFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:23:1, endln:29:10
+    |vpiName:out
+    |vpiFullName:work@iNToRecFN.out
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@iNToRecFN.in), line:27:17, endln:27:19
+    |vpiParent:
+    \_module_inst: work@iNToRecFN (work@iNToRecFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:23:1, endln:29:10
+    |vpiName:in
+    |vpiFullName:work@iNToRecFN.in
+    |vpiNetType:1
   |vpiPrimitive:
-  \_udp: BUFG (work@iNToRecFN.BUFG), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:27:1, endln:27:21
+  \_udp: BUFG (work@iNToRecFN.bg), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:27:1, endln:27:21
     |vpiParent:
     \_module_inst: work@iNToRecFN (work@iNToRecFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:23:1, endln:29:10
     |vpiDefName:BUFG
-    |vpiFullName:work@iNToRecFN.BUFG
+    |vpiName:bg
+    |vpiFullName:work@iNToRecFN.bg
+    |vpiPrimTerm:
+    \_prim_term: , line:27:12, endln:27:15
+      |vpiParent:
+      \_udp: BUFG (work@iNToRecFN.bg), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:27:1, endln:27:21
+      |vpiDirection:2
+      |vpiExpr:
+      \_ref_obj: (work@iNToRecFN.bg.out), line:27:12, endln:27:15
+        |vpiParent:
+        \_udp: BUFG (work@iNToRecFN.bg), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:27:1, endln:27:21
+        |vpiName:out
+        |vpiFullName:work@iNToRecFN.bg.out
+        |vpiActual:
+        \_logic_net: (work@iNToRecFN.out), line:27:12, endln:27:15
+    |vpiPrimTerm:
+    \_prim_term: , line:27:17, endln:27:19
+      |vpiParent:
+      \_udp: BUFG (work@iNToRecFN.bg), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:27:1, endln:27:21
+      |vpiDirection:1
+      |vpiTermIndex:1
+      |vpiExpr:
+      \_ref_obj: (work@iNToRecFN.bg.in), line:27:17, endln:27:19
+        |vpiParent:
+        \_udp: BUFG (work@iNToRecFN.bg), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:27:1, endln:27:21
+        |vpiName:in
+        |vpiFullName:work@iNToRecFN.bg.in
+        |vpiActual:
+        \_logic_net: (work@iNToRecFN.in), line:27:17, endln:27:19
 |uhdmtopModules:
 \_module_inst: work@iNToRecFN (work@iNToRecFN), file:${SURELOG_DIR}/tests/Delay2Param/dut.sv, line:23:1, endln:29:10
   |vpiParent:
@@ -1404,7 +1446,7 @@ design: (work@iNToRecFN)
     |vpiName:bg
     |vpiFullName:work@iNToRecFN.bg
     |vpiDelay:
-    \_constant: , line:27:6, endln:27:11
+    \_constant: , line:27:6, endln:27:8
       |vpiDecompile:#5
       |vpiSize:64
       |UINT:5
@@ -1632,7 +1674,7 @@ design: (work@iNToRecFN)
 [LINT]: ${SURELOG_DIR}/tests/Delay2Param/dut.sv:18:7: Non synthesizable construct,
 [LINT]: ${SURELOG_DIR}/tests/Delay2Param/dut.sv:19:7: Non synthesizable construct,
 [LINT]: ${SURELOG_DIR}/tests/Delay2Param/dut.sv:14:1: Non synthesizable construct,
-[LINT]: ${SURELOG_DIR}/tests/Delay2Param/dut.sv:27:1: Non synthesizable construct,
+[LINT]: ${SURELOG_DIR}/tests/Delay2Param/dut.sv:27:1: Non synthesizable construct, bg
 [LINT]: ${SURELOG_DIR}/tests/Delay2Param/dut.sv:27:1: Non synthesizable construct, bg
 ============================== End Linting Results ==============================
 

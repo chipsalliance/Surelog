@@ -1,7 +1,7 @@
-[INF:CM0023] Creating log file "/home/alain/Surelog/tests/ClogCast/slpp_all/surelog.log".
+[INF:CM0023] Creating log file "${SURELOG_DIR}/build/regression/ClogCast/slpp_all/surelog.log".
 AST_DEBUG_BEGIN
 LIB:  work
-FILE: /home/alain/Surelog/tests/ClogCast/dut.sv
+FILE: ${SURELOG_DIR}/tests/ClogCast/dut.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<503> s<502> l<3:2> el<1:5>
 n<module> u<2> t<Module_keyword> p<57> s<3> l<3:2> el<3:8>
@@ -507,14 +507,14 @@ n<> u<501> t<Description> p<502> c<500> l<71:2> el<72:11>
 n<> u<502> t<Source_text> p<503> c<493> l<3:2> el<72:11>
 n<> u<503> t<Top_level_rule> c<1> l<3:2> el<74:1>
 AST_DEBUG_END
-[WRN:PA0205] /home/alain/Surelog/tests/ClogCast/dut.sv:3:2: No timescale set for "debug_rom".
-[WRN:PA0205] /home/alain/Surelog/tests/ClogCast/dut.sv:71:2: No timescale set for "GOOD".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ClogCast/dut.sv:3:2: No timescale set for "debug_rom".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ClogCast/dut.sv:71:2: No timescale set for "GOOD".
 [INF:CP0300] Compilation...
-[INF:CP0303] /home/alain/Surelog/tests/ClogCast/dut.sv:71:2: Compile module "work@GOOD".
-[INF:CP0303] /home/alain/Surelog/tests/ClogCast/dut.sv:3:2: Compile module "work@debug_rom".
+[INF:CP0303] ${SURELOG_DIR}/tests/ClogCast/dut.sv:71:2: Compile module "work@GOOD".
+[INF:CP0303] ${SURELOG_DIR}/tests/ClogCast/dut.sv:3:2: Compile module "work@debug_rom".
 AST_DEBUG_BEGIN
 LIB:  work
-FILE: /home/alain/Surelog/tests/ClogCast/builtin.sv
+FILE: ${SURELOG_DIR}/tests/ClogCast/builtin.sv
 n<> u<0> t<_INVALID_> f<0> l<0:0>
 n<> u<1> t<Null_rule> p<249> s<248> f<0> l<1:3> el<1:3>
 n<mailbox> u<2> t<StringConst> p<102> s<16> f<0> l<1:9> el<1:16>
@@ -770,18 +770,100 @@ AST_DEBUG_END
 [INF:CP0302] Compile class "work@process".
 [INF:CP0302] Compile class "work@semaphore".
 [INF:EL0526] Design Elaboration...
-[INF:CP0335] /home/alain/Surelog/tests/ClogCast/dut.sv:55:30: Compile generate block "work@debug_rom.gen_clog2".
-[INF:CP0335] /home/alain/Surelog/tests/ClogCast/dut.sv:63:44: Compile generate block "work@debug_rom.gen_cast".
-[NTE:EL0503] /home/alain/Surelog/tests/ClogCast/dut.sv:3:2: Top level module "work@debug_rom".
+[INF:CP0335] ${SURELOG_DIR}/tests/ClogCast/dut.sv:55:30: Compile generate block "work@debug_rom.gen_clog2".
+[INF:CP0335] ${SURELOG_DIR}/tests/ClogCast/dut.sv:63:44: Compile generate block "work@debug_rom.gen_cast".
+[NTE:EL0503] ${SURELOG_DIR}/tests/ClogCast/dut.sv:3:2: Top level module "work@debug_rom".
 [NTE:EL0508] Nb Top level modules: 1.
 [NTE:EL0509] Max instance depth: 3.
 [NTE:EL0510] Nb instances: 3.
 [NTE:EL0511] Nb leaf instances: 2.
 [INF:UH0706] Creating UHDM Model...
+=== UHDM Object Stats Begin (Non-Elaborated Model) ===
+always                                                 2
+assignment                                             3
+begin                                                  3
+bit_select                                             1
+class_defn                                             8
+class_typespec                                         4
+class_var                                              3
+constant                                              87
+design                                                 1
+enum_const                                             5
+enum_typespec                                          1
+enum_var                                               1
+event_control                                          1
+function                                               9
+gen_if_else                                            2
+gen_scope                                              4
+gen_scope_array                                        4
+if_stmt                                                2
+int_typespec                                          11
+int_var                                                4
+integer_typespec                                       3
+io_decl                                               11
+logic_net                                             10
+logic_typespec                                        16
+logic_var                                              3
+module_inst                                            7
+named_begin                                            5
+operation                                             18
+package                                                2
+param_assign                                           2
+parameter                                              2
+part_select                                            1
+port                                                   8
+range                                                 17
+ref_module                                             6
+ref_obj                                               23
+ref_typespec                                          37
+sys_func_call                                          5
+task                                                   9
+=== UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
-[INF:UH0708] Writing UHDM DB: /home/alain/Surelog/tests/ClogCast/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: /home/alain/Surelog/tests/ClogCast/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: /home/alain/Surelog/tests/ClogCast/slpp_all/surelog.uhdm ...
+=== UHDM Object Stats Begin (Elaborated Model) ===
+always                                                 4
+assignment                                             6
+begin                                                  6
+bit_select                                             2
+class_defn                                             8
+class_typespec                                         4
+class_var                                              3
+constant                                              88
+design                                                 1
+enum_const                                            10
+enum_typespec                                          2
+enum_var                                               1
+event_control                                          2
+function                                              18
+gen_if_else                                            2
+gen_scope                                              6
+gen_scope_array                                        6
+if_stmt                                                4
+int_typespec                                          11
+int_var                                                4
+integer_typespec                                       3
+io_decl                                               22
+logic_net                                             10
+logic_typespec                                        16
+logic_var                                              3
+module_inst                                            9
+named_begin                                            6
+operation                                             23
+package                                                2
+param_assign                                           2
+parameter                                              2
+part_select                                            2
+port                                                  12
+range                                                 17
+ref_module                                             6
+ref_obj                                               36
+ref_typespec                                          47
+sys_func_call                                          6
+task                                                  18
+=== UHDM Object Stats End ===
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ClogCast/slpp_all/surelog.uhdm ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ClogCast/slpp_all/checker/surelog.chk.html ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/ClogCast/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 design: (work@debug_rom)
@@ -833,14 +915,14 @@ design: (work@debug_rom)
     |vpiName:system
     |vpiFullName:builtin::system
 |uhdmallClasses:
-\_class_defn: (work@mailbox), file:/home/alain/Surelog/tests/ClogCast/builtin.sv, line:1:3, endln:27:11
+\_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/ClogCast/builtin.sv, line:1:3, endln:27:11
   |vpiParent:
   \_design: (work@debug_rom)
   |vpiName:work@mailbox
   |vpiMethod:
   \_function: (work@mailbox::new), line:3:5, endln:4:16
     |vpiParent:
-    \_class_defn: (work@mailbox), file:/home/alain/Surelog/tests/ClogCast/builtin.sv, line:1:3, endln:27:11
+    \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/ClogCast/builtin.sv, line:1:3, endln:27:11
     |vpiName:new
     |vpiFullName:work@mailbox::new
     |vpiMethod:1
@@ -878,7 +960,7 @@ design: (work@debug_rom)
   |vpiMethod:
   \_function: (work@mailbox::num), line:6:5, endln:7:16
     |vpiParent:
-    \_class_defn: (work@mailbox), file:/home/alain/Surelog/tests/ClogCast/builtin.sv, line:1:3, endln:27:11
+    \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/ClogCast/builtin.sv, line:1:3, endln:27:11
     |vpiName:num
     |vpiFullName:work@mailbox::num
     |vpiMethod:1
@@ -899,7 +981,7 @@ design: (work@debug_rom)
   |vpiMethod:
   \_task: (work@mailbox::put), line:9:5, endln:10:12
     |vpiParent:
-    \_class_defn: (work@mailbox), file:/home/alain/Surelog/tests/ClogCast/builtin.sv, line:1:3, endln:27:11
+    \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/ClogCast/builtin.sv, line:1:3, endln:27:11
     |vpiName:put
     |vpiFullName:work@mailbox::put
     |vpiMethod:1
@@ -913,7 +995,7 @@ design: (work@debug_rom)
   |vpiMethod:
   \_function: (work@mailbox::try_put), line:12:5, endln:13:16
     |vpiParent:
-    \_class_defn: (work@mailbox), file:/home/alain/Surelog/tests/ClogCast/builtin.sv, line:1:3, endln:27:11
+    \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/ClogCast/builtin.sv, line:1:3, endln:27:11
     |vpiName:try_put
     |vpiFullName:work@mailbox::try_put
     |vpiMethod:1
@@ -932,7 +1014,7 @@ design: (work@debug_rom)
   |vpiMethod:
   \_task: (work@mailbox::get), line:15:5, endln:16:12
     |vpiParent:
-    \_class_defn: (work@mailbox), file:/home/alain/Surelog/tests/ClogCast/builtin.sv, line:1:3, endln:27:11
+    \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/ClogCast/builtin.sv, line:1:3, endln:27:11
     |vpiName:get
     |vpiFullName:work@mailbox::get
     |vpiMethod:1
@@ -946,7 +1028,7 @@ design: (work@debug_rom)
   |vpiMethod:
   \_function: (work@mailbox::try_get), line:18:5, endln:19:16
     |vpiParent:
-    \_class_defn: (work@mailbox), file:/home/alain/Surelog/tests/ClogCast/builtin.sv, line:1:3, endln:27:11
+    \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/ClogCast/builtin.sv, line:1:3, endln:27:11
     |vpiName:try_get
     |vpiFullName:work@mailbox::try_get
     |vpiMethod:1
@@ -973,7 +1055,7 @@ design: (work@debug_rom)
   |vpiMethod:
   \_task: (work@mailbox::peek), line:21:5, endln:22:12
     |vpiParent:
-    \_class_defn: (work@mailbox), file:/home/alain/Surelog/tests/ClogCast/builtin.sv, line:1:3, endln:27:11
+    \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/ClogCast/builtin.sv, line:1:3, endln:27:11
     |vpiName:peek
     |vpiFullName:work@mailbox::peek
     |vpiMethod:1
@@ -987,7 +1069,7 @@ design: (work@debug_rom)
   |vpiMethod:
   \_function: (work@mailbox::try_peek), line:24:5, endln:25:16
     |vpiParent:
-    \_class_defn: (work@mailbox), file:/home/alain/Surelog/tests/ClogCast/builtin.sv, line:1:3, endln:27:11
+    \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/ClogCast/builtin.sv, line:1:3, endln:27:11
     |vpiName:try_peek
     |vpiFullName:work@mailbox::try_peek
     |vpiMethod:1
@@ -1012,14 +1094,14 @@ design: (work@debug_rom)
       |vpiDirection:6
       |vpiName:message
 |uhdmallClasses:
-\_class_defn: (work@process), file:/home/alain/Surelog/tests/ClogCast/builtin.sv, line:30:3, endln:52:11
+\_class_defn: (work@process), file:${SURELOG_DIR}/tests/ClogCast/builtin.sv, line:30:3, endln:52:11
   |vpiParent:
   \_design: (work@debug_rom)
   |vpiName:work@process
   |vpiTypedef:
   \_enum_typespec: (state), line:32:5, endln:32:74
     |vpiParent:
-    \_class_defn: (work@process), file:/home/alain/Surelog/tests/ClogCast/builtin.sv, line:30:3, endln:52:11
+    \_class_defn: (work@process), file:${SURELOG_DIR}/tests/ClogCast/builtin.sv, line:30:3, endln:52:11
     |vpiName:state
     |vpiEnumConst:
     \_enum_const: (FINISHED), line:32:20, endln:32:28
@@ -1064,7 +1146,7 @@ design: (work@debug_rom)
   |vpiMethod:
   \_function: (work@process::self), line:34:5, endln:34:11
     |vpiParent:
-    \_class_defn: (work@process), file:/home/alain/Surelog/tests/ClogCast/builtin.sv, line:30:3, endln:52:11
+    \_class_defn: (work@process), file:${SURELOG_DIR}/tests/ClogCast/builtin.sv, line:30:3, endln:52:11
     |vpiName:self
     |vpiFullName:work@process::self
     |vpiMethod:1
@@ -1084,7 +1166,7 @@ design: (work@debug_rom)
   |vpiMethod:
   \_function: (work@process::status), line:37:5, endln:38:16
     |vpiParent:
-    \_class_defn: (work@process), file:/home/alain/Surelog/tests/ClogCast/builtin.sv, line:30:3, endln:52:11
+    \_class_defn: (work@process), file:${SURELOG_DIR}/tests/ClogCast/builtin.sv, line:30:3, endln:52:11
     |vpiName:status
     |vpiFullName:work@process::status
     |vpiMethod:1
@@ -1104,7 +1186,7 @@ design: (work@debug_rom)
   |vpiMethod:
   \_task: (work@process::kill), line:40:5, endln:41:12
     |vpiParent:
-    \_class_defn: (work@process), file:/home/alain/Surelog/tests/ClogCast/builtin.sv, line:30:3, endln:52:11
+    \_class_defn: (work@process), file:${SURELOG_DIR}/tests/ClogCast/builtin.sv, line:30:3, endln:52:11
     |vpiName:kill
     |vpiFullName:work@process::kill
     |vpiMethod:1
@@ -1112,7 +1194,7 @@ design: (work@debug_rom)
   |vpiMethod:
   \_task: (work@process::await), line:43:5, endln:44:12
     |vpiParent:
-    \_class_defn: (work@process), file:/home/alain/Surelog/tests/ClogCast/builtin.sv, line:30:3, endln:52:11
+    \_class_defn: (work@process), file:${SURELOG_DIR}/tests/ClogCast/builtin.sv, line:30:3, endln:52:11
     |vpiName:await
     |vpiFullName:work@process::await
     |vpiMethod:1
@@ -1120,7 +1202,7 @@ design: (work@debug_rom)
   |vpiMethod:
   \_task: (work@process::suspend), line:46:5, endln:47:12
     |vpiParent:
-    \_class_defn: (work@process), file:/home/alain/Surelog/tests/ClogCast/builtin.sv, line:30:3, endln:52:11
+    \_class_defn: (work@process), file:${SURELOG_DIR}/tests/ClogCast/builtin.sv, line:30:3, endln:52:11
     |vpiName:suspend
     |vpiFullName:work@process::suspend
     |vpiMethod:1
@@ -1128,20 +1210,20 @@ design: (work@debug_rom)
   |vpiMethod:
   \_task: (work@process::resume), line:49:5, endln:50:12
     |vpiParent:
-    \_class_defn: (work@process), file:/home/alain/Surelog/tests/ClogCast/builtin.sv, line:30:3, endln:52:11
+    \_class_defn: (work@process), file:${SURELOG_DIR}/tests/ClogCast/builtin.sv, line:30:3, endln:52:11
     |vpiName:resume
     |vpiFullName:work@process::resume
     |vpiMethod:1
     |vpiVisibility:1
 |uhdmallClasses:
-\_class_defn: (work@semaphore), file:/home/alain/Surelog/tests/ClogCast/builtin.sv, line:55:3, endln:69:11
+\_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/ClogCast/builtin.sv, line:55:3, endln:69:11
   |vpiParent:
   \_design: (work@debug_rom)
   |vpiName:work@semaphore
   |vpiMethod:
   \_function: (work@semaphore::new), line:57:5, endln:58:16
     |vpiParent:
-    \_class_defn: (work@semaphore), file:/home/alain/Surelog/tests/ClogCast/builtin.sv, line:55:3, endln:69:11
+    \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/ClogCast/builtin.sv, line:55:3, endln:69:11
     |vpiName:new
     |vpiFullName:work@semaphore::new
     |vpiMethod:1
@@ -1179,7 +1261,7 @@ design: (work@debug_rom)
   |vpiMethod:
   \_task: (work@semaphore::put), line:60:5, endln:61:12
     |vpiParent:
-    \_class_defn: (work@semaphore), file:/home/alain/Surelog/tests/ClogCast/builtin.sv, line:55:3, endln:69:11
+    \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/ClogCast/builtin.sv, line:55:3, endln:69:11
     |vpiName:put
     |vpiFullName:work@semaphore::put
     |vpiMethod:1
@@ -1206,7 +1288,7 @@ design: (work@debug_rom)
   |vpiMethod:
   \_task: (work@semaphore::get), line:63:5, endln:64:12
     |vpiParent:
-    \_class_defn: (work@semaphore), file:/home/alain/Surelog/tests/ClogCast/builtin.sv, line:55:3, endln:69:11
+    \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/ClogCast/builtin.sv, line:55:3, endln:69:11
     |vpiName:get
     |vpiFullName:work@semaphore::get
     |vpiMethod:1
@@ -1233,7 +1315,7 @@ design: (work@debug_rom)
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:66:5, endln:67:16
     |vpiParent:
-    \_class_defn: (work@semaphore), file:/home/alain/Surelog/tests/ClogCast/builtin.sv, line:55:3, endln:69:11
+    \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/ClogCast/builtin.sv, line:55:3, endln:69:11
     |vpiName:try_get
     |vpiFullName:work@semaphore::try_get
     |vpiMethod:1
@@ -1271,20 +1353,20 @@ design: (work@debug_rom)
         |vpiActual:
         \_int_typespec: , line:66:26, endln:66:29
 |uhdmallModules:
-\_module_inst: work@GOOD (work@GOOD), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:71:2, endln:72:11
+\_module_inst: work@GOOD (work@GOOD), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:71:2, endln:72:11
   |vpiParent:
   \_design: (work@debug_rom)
   |vpiFullName:work@GOOD
   |vpiDefName:work@GOOD
 |uhdmallModules:
-\_module_inst: work@debug_rom (work@debug_rom), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:3:2, endln:69:11
+\_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:69:11
   |vpiParent:
   \_design: (work@debug_rom)
   |vpiFullName:work@debug_rom
   |vpiParameter:
   \_parameter: (work@debug_rom.RomSize), line:10:28, endln:10:35
     |vpiParent:
-    \_module_inst: work@debug_rom (work@debug_rom), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:3:2, endln:69:11
+    \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:69:11
     |UINT:19
     |vpiTypespec:
     \_ref_typespec: (work@debug_rom.RomSize)
@@ -1299,7 +1381,7 @@ design: (work@debug_rom)
   |vpiParamAssign:
   \_param_assign: , line:10:28, endln:10:40
     |vpiParent:
-    \_module_inst: work@debug_rom (work@debug_rom), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:3:2, endln:69:11
+    \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:69:11
     |vpiRhs:
     \_constant: , line:10:38, endln:10:40
       |vpiParent:
@@ -1321,35 +1403,35 @@ design: (work@debug_rom)
   |vpiNet:
   \_logic_net: (work@debug_rom.clk_i), line:4:25, endln:4:30
     |vpiParent:
-    \_module_inst: work@debug_rom (work@debug_rom), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:3:2, endln:69:11
+    \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:69:11
     |vpiName:clk_i
     |vpiFullName:work@debug_rom.clk_i
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@debug_rom.req_i), line:5:25, endln:5:30
     |vpiParent:
-    \_module_inst: work@debug_rom (work@debug_rom), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:3:2, endln:69:11
+    \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:69:11
     |vpiName:req_i
     |vpiFullName:work@debug_rom.req_i
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@debug_rom.addr_i), line:6:25, endln:6:31
     |vpiParent:
-    \_module_inst: work@debug_rom (work@debug_rom), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:3:2, endln:69:11
+    \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:69:11
     |vpiName:addr_i
     |vpiFullName:work@debug_rom.addr_i
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@debug_rom.rdata_o), line:7:25, endln:7:32
     |vpiParent:
-    \_module_inst: work@debug_rom (work@debug_rom), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:3:2, endln:69:11
+    \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:69:11
     |vpiName:rdata_o
     |vpiFullName:work@debug_rom.rdata_o
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@debug_rom.mem), line:12:36, endln:12:39
     |vpiParent:
-    \_module_inst: work@debug_rom (work@debug_rom), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:3:2, endln:69:11
+    \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:69:11
     |vpiTypespec:
     \_ref_typespec: (work@debug_rom.mem)
       |vpiParent:
@@ -1363,7 +1445,7 @@ design: (work@debug_rom)
   |vpiNet:
   \_logic_net: (work@debug_rom.addr_q), line:34:32, endln:34:38
     |vpiParent:
-    \_module_inst: work@debug_rom (work@debug_rom), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:3:2, endln:69:11
+    \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:69:11
     |vpiTypespec:
     \_ref_typespec: (work@debug_rom.addr_q)
       |vpiParent:
@@ -1377,7 +1459,7 @@ design: (work@debug_rom)
   |vpiPort:
   \_port: (clk_i), line:4:25, endln:4:30
     |vpiParent:
-    \_module_inst: work@debug_rom (work@debug_rom), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:3:2, endln:69:11
+    \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:69:11
     |vpiName:clk_i
     |vpiDirection:1
     |vpiLowConn:
@@ -1398,7 +1480,7 @@ design: (work@debug_rom)
   |vpiPort:
   \_port: (req_i), line:5:25, endln:5:30
     |vpiParent:
-    \_module_inst: work@debug_rom (work@debug_rom), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:3:2, endln:69:11
+    \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:69:11
     |vpiName:req_i
     |vpiDirection:1
     |vpiLowConn:
@@ -1419,7 +1501,7 @@ design: (work@debug_rom)
   |vpiPort:
   \_port: (addr_i), line:6:25, endln:6:31
     |vpiParent:
-    \_module_inst: work@debug_rom (work@debug_rom), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:3:2, endln:69:11
+    \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:69:11
     |vpiName:addr_i
     |vpiDirection:1
     |vpiLowConn:
@@ -1440,7 +1522,7 @@ design: (work@debug_rom)
   |vpiPort:
   \_port: (rdata_o), line:7:25, endln:7:32
     |vpiParent:
-    \_module_inst: work@debug_rom (work@debug_rom), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:3:2, endln:69:11
+    \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:69:11
     |vpiName:rdata_o
     |vpiDirection:2
     |vpiLowConn:
@@ -1461,7 +1543,7 @@ design: (work@debug_rom)
   |vpiProcess:
   \_always: , line:36:4, endln:40:7
     |vpiParent:
-    \_module_inst: work@debug_rom (work@debug_rom), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:3:2, endln:69:11
+    \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:69:11
     |vpiStmt:
     \_event_control: , line:36:14, endln:36:30
       |vpiParent:
@@ -1569,7 +1651,7 @@ design: (work@debug_rom)
   |vpiProcess:
   \_always: , line:44:4, endln:49:7
     |vpiParent:
-    \_module_inst: work@debug_rom (work@debug_rom), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:3:2, endln:69:11
+    \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:69:11
     |vpiStmt:
     \_named_begin: (work@debug_rom.p_outmux), line:44:24, endln:44:32
       |vpiParent:
@@ -1668,7 +1750,7 @@ design: (work@debug_rom)
   |vpiGenStmt:
   \_gen_if_else: 
     |vpiParent:
-    \_module_inst: work@debug_rom (work@debug_rom), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:3:2, endln:69:11
+    \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:69:11
     |vpiCondition:
     \_operation: , line:55:8, endln:55:28
       |vpiParent:
@@ -1720,7 +1802,7 @@ design: (work@debug_rom)
   |vpiGenStmt:
   \_gen_if_else: 
     |vpiParent:
-    \_module_inst: work@debug_rom (work@debug_rom), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:3:2, endln:69:11
+    \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:69:11
     |vpiCondition:
     \_operation: , line:63:8, endln:63:42
       |vpiParent:
@@ -1777,14 +1859,14 @@ design: (work@debug_rom)
         |vpiName:b_cast
         |vpiDefName:work@BAD
 |uhdmtopModules:
-\_module_inst: work@debug_rom (work@debug_rom), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:3:2, endln:69:11
+\_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:69:11
   |vpiParent:
   \_design: (work@debug_rom)
   |vpiName:work@debug_rom
   |vpiVariables:
   \_logic_var: (work@debug_rom.mem), line:12:36, endln:32:5
     |vpiParent:
-    \_module_inst: work@debug_rom (work@debug_rom), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:3:2, endln:69:11
+    \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:69:11
     |vpiTypespec:
     \_ref_typespec: (work@debug_rom.mem)
       |vpiParent:
@@ -1918,7 +2000,7 @@ design: (work@debug_rom)
   |vpiVariables:
   \_logic_var: (work@debug_rom.addr_q), line:34:32, endln:34:38
     |vpiParent:
-    \_module_inst: work@debug_rom (work@debug_rom), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:3:2, endln:69:11
+    \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:69:11
     |vpiTypespec:
     \_ref_typespec: (work@debug_rom.addr_q)
       |vpiParent:
@@ -1932,7 +2014,7 @@ design: (work@debug_rom)
   |vpiParameter:
   \_parameter: (work@debug_rom.RomSize), line:10:28, endln:10:35
     |vpiParent:
-    \_module_inst: work@debug_rom (work@debug_rom), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:3:2, endln:69:11
+    \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:69:11
     |UINT:19
     |vpiTypespec:
     \_ref_typespec: (work@debug_rom.RomSize)
@@ -1947,7 +2029,7 @@ design: (work@debug_rom)
   |vpiParamAssign:
   \_param_assign: , line:10:28, endln:10:40
     |vpiParent:
-    \_module_inst: work@debug_rom (work@debug_rom), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:3:2, endln:69:11
+    \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:69:11
     |vpiRhs:
     \_constant: , line:10:38, endln:10:40
       |vpiParent:
@@ -1970,7 +2052,7 @@ design: (work@debug_rom)
   |vpiNet:
   \_logic_net: (work@debug_rom.clk_i), line:4:25, endln:4:30
     |vpiParent:
-    \_module_inst: work@debug_rom (work@debug_rom), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:3:2, endln:69:11
+    \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:69:11
     |vpiTypespec:
     \_ref_typespec: (work@debug_rom.clk_i)
       |vpiParent:
@@ -1984,7 +2066,7 @@ design: (work@debug_rom)
   |vpiNet:
   \_logic_net: (work@debug_rom.req_i), line:5:25, endln:5:30
     |vpiParent:
-    \_module_inst: work@debug_rom (work@debug_rom), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:3:2, endln:69:11
+    \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:69:11
     |vpiTypespec:
     \_ref_typespec: (work@debug_rom.req_i)
       |vpiParent:
@@ -1998,7 +2080,7 @@ design: (work@debug_rom)
   |vpiNet:
   \_logic_net: (work@debug_rom.addr_i), line:6:25, endln:6:31
     |vpiParent:
-    \_module_inst: work@debug_rom (work@debug_rom), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:3:2, endln:69:11
+    \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:69:11
     |vpiTypespec:
     \_ref_typespec: (work@debug_rom.addr_i)
       |vpiParent:
@@ -2012,7 +2094,7 @@ design: (work@debug_rom)
   |vpiNet:
   \_logic_net: (work@debug_rom.rdata_o), line:7:25, endln:7:32
     |vpiParent:
-    \_module_inst: work@debug_rom (work@debug_rom), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:3:2, endln:69:11
+    \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:69:11
     |vpiTypespec:
     \_ref_typespec: (work@debug_rom.rdata_o)
       |vpiParent:
@@ -2027,7 +2109,7 @@ design: (work@debug_rom)
   |vpiPort:
   \_port: (clk_i), line:4:25, endln:4:30
     |vpiParent:
-    \_module_inst: work@debug_rom (work@debug_rom), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:3:2, endln:69:11
+    \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:69:11
     |vpiName:clk_i
     |vpiDirection:1
     |vpiLowConn:
@@ -2046,11 +2128,11 @@ design: (work@debug_rom)
       |vpiActual:
       \_logic_typespec: , line:4:11, endln:4:16
     |vpiInstance:
-    \_module_inst: work@debug_rom (work@debug_rom), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:3:2, endln:69:11
+    \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:69:11
   |vpiPort:
   \_port: (req_i), line:5:25, endln:5:30
     |vpiParent:
-    \_module_inst: work@debug_rom (work@debug_rom), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:3:2, endln:69:11
+    \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:69:11
     |vpiName:req_i
     |vpiDirection:1
     |vpiLowConn:
@@ -2069,11 +2151,11 @@ design: (work@debug_rom)
       |vpiActual:
       \_logic_typespec: , line:5:11, endln:5:16
     |vpiInstance:
-    \_module_inst: work@debug_rom (work@debug_rom), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:3:2, endln:69:11
+    \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:69:11
   |vpiPort:
   \_port: (addr_i), line:6:25, endln:6:31
     |vpiParent:
-    \_module_inst: work@debug_rom (work@debug_rom), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:3:2, endln:69:11
+    \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:69:11
     |vpiName:addr_i
     |vpiDirection:1
     |vpiLowConn:
@@ -2092,11 +2174,11 @@ design: (work@debug_rom)
       |vpiActual:
       \_logic_typespec: , line:6:11, endln:6:23
     |vpiInstance:
-    \_module_inst: work@debug_rom (work@debug_rom), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:3:2, endln:69:11
+    \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:69:11
   |vpiPort:
   \_port: (rdata_o), line:7:25, endln:7:32
     |vpiParent:
-    \_module_inst: work@debug_rom (work@debug_rom), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:3:2, endln:69:11
+    \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:69:11
     |vpiName:rdata_o
     |vpiDirection:2
     |vpiLowConn:
@@ -2115,11 +2197,11 @@ design: (work@debug_rom)
       |vpiActual:
       \_logic_typespec: , line:7:11, endln:7:23
     |vpiInstance:
-    \_module_inst: work@debug_rom (work@debug_rom), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:3:2, endln:69:11
+    \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:69:11
   |vpiProcess:
   \_always: , line:36:4, endln:40:7
     |vpiParent:
-    \_module_inst: work@debug_rom (work@debug_rom), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:3:2, endln:69:11
+    \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:69:11
     |vpiStmt:
     \_event_control: , line:36:14, endln:36:30
       |vpiParent:
@@ -2194,7 +2276,7 @@ design: (work@debug_rom)
   |vpiProcess:
   \_always: , line:44:4, endln:49:7
     |vpiParent:
-    \_module_inst: work@debug_rom (work@debug_rom), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:3:2, endln:69:11
+    \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:69:11
     |vpiStmt:
     \_named_begin: (work@debug_rom.p_outmux), line:44:24, endln:44:32
       |vpiParent:
@@ -2284,7 +2366,7 @@ design: (work@debug_rom)
   |vpiGenScopeArray:
   \_gen_scope_array: (work@debug_rom.gen_clog2), line:55:30, endln:57:7
     |vpiParent:
-    \_module_inst: work@debug_rom (work@debug_rom), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:3:2, endln:69:11
+    \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:69:11
     |vpiName:gen_clog2
     |vpiFullName:work@debug_rom.gen_clog2
     |vpiGenScope:
@@ -2293,18 +2375,18 @@ design: (work@debug_rom)
       \_gen_scope_array: (work@debug_rom.gen_clog2), line:55:30, endln:57:7
       |vpiFullName:work@debug_rom.gen_clog2
       |vpiModule:
-      \_module_inst: work@GOOD (work@debug_rom.gen_clog2.g_clog2), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:56:6, endln:56:21
+      \_module_inst: work@GOOD (work@debug_rom.gen_clog2.g_clog2), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:56:6, endln:56:21
         |vpiParent:
         \_gen_scope: (work@debug_rom.gen_clog2), line:55:30, endln:57:7
         |vpiName:g_clog2
         |vpiFullName:work@debug_rom.gen_clog2.g_clog2
         |vpiDefName:work@GOOD
-        |vpiDefFile:/home/alain/Surelog/tests/ClogCast/dut.sv
+        |vpiDefFile:${SURELOG_DIR}/tests/ClogCast/dut.sv
         |vpiDefLineNo:71
   |vpiGenScopeArray:
   \_gen_scope_array: (work@debug_rom.gen_cast), line:63:44, endln:65:7
     |vpiParent:
-    \_module_inst: work@debug_rom (work@debug_rom), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:3:2, endln:69:11
+    \_module_inst: work@debug_rom (work@debug_rom), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:3:2, endln:69:11
     |vpiName:gen_cast
     |vpiFullName:work@debug_rom.gen_cast
     |vpiGenScope:
@@ -2313,13 +2395,13 @@ design: (work@debug_rom)
       \_gen_scope_array: (work@debug_rom.gen_cast), line:63:44, endln:65:7
       |vpiFullName:work@debug_rom.gen_cast
       |vpiModule:
-      \_module_inst: work@GOOD (work@debug_rom.gen_cast.g_cast), file:/home/alain/Surelog/tests/ClogCast/dut.sv, line:64:6, endln:64:20
+      \_module_inst: work@GOOD (work@debug_rom.gen_cast.g_cast), file:${SURELOG_DIR}/tests/ClogCast/dut.sv, line:64:6, endln:64:20
         |vpiParent:
         \_gen_scope: (work@debug_rom.gen_cast), line:63:44, endln:65:7
         |vpiName:g_cast
         |vpiFullName:work@debug_rom.gen_cast.g_cast
         |vpiDefName:work@GOOD
-        |vpiDefFile:/home/alain/Surelog/tests/ClogCast/dut.sv
+        |vpiDefFile:${SURELOG_DIR}/tests/ClogCast/dut.sv
         |vpiDefLineNo:71
 \_weaklyReferenced:
 \_int_typespec: , line:10:15, endln:10:27
@@ -2353,7 +2435,7 @@ design: (work@debug_rom)
     |vpiName:$clog2
 \_function: (work@mailbox::new), line:3:5, endln:4:16
   |vpiParent:
-  \_class_defn: (work@mailbox), file:/home/alain/Surelog/tests/ClogCast/builtin.sv, line:1:3, endln:27:11
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/ClogCast/builtin.sv, line:1:3, endln:27:11
   |vpiName:new
   |vpiFullName:work@mailbox::new
   |vpiMethod:1
@@ -2376,12 +2458,12 @@ design: (work@debug_rom)
       \_int_typespec: , line:3:19, endln:3:22
 \_class_typespec: 
   |vpiClassDefn:
-  \_class_defn: (work@mailbox), file:/home/alain/Surelog/tests/ClogCast/builtin.sv, line:1:3, endln:27:11
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/ClogCast/builtin.sv, line:1:3, endln:27:11
 \_int_typespec: , line:3:19, endln:3:22
   |vpiSigned:1
 \_function: (work@mailbox::num), line:6:5, endln:7:16
   |vpiParent:
-  \_class_defn: (work@mailbox), file:/home/alain/Surelog/tests/ClogCast/builtin.sv, line:1:3, endln:27:11
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/ClogCast/builtin.sv, line:1:3, endln:27:11
   |vpiName:num
   |vpiFullName:work@mailbox::num
   |vpiMethod:1
@@ -2392,7 +2474,7 @@ design: (work@debug_rom)
   |vpiSigned:1
 \_function: (work@mailbox::try_put), line:12:5, endln:13:16
   |vpiParent:
-  \_class_defn: (work@mailbox), file:/home/alain/Surelog/tests/ClogCast/builtin.sv, line:1:3, endln:27:11
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/ClogCast/builtin.sv, line:1:3, endln:27:11
   |vpiName:try_put
   |vpiFullName:work@mailbox::try_put
   |vpiMethod:1
@@ -2407,7 +2489,7 @@ design: (work@debug_rom)
     |vpiName:message
 \_function: (work@mailbox::try_get), line:18:5, endln:19:16
   |vpiParent:
-  \_class_defn: (work@mailbox), file:/home/alain/Surelog/tests/ClogCast/builtin.sv, line:1:3, endln:27:11
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/ClogCast/builtin.sv, line:1:3, endln:27:11
   |vpiName:try_get
   |vpiFullName:work@mailbox::try_get
   |vpiMethod:1
@@ -2424,7 +2506,7 @@ design: (work@debug_rom)
   |vpiSigned:1
 \_function: (work@mailbox::try_peek), line:24:5, endln:25:16
   |vpiParent:
-  \_class_defn: (work@mailbox), file:/home/alain/Surelog/tests/ClogCast/builtin.sv, line:1:3, endln:27:11
+  \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/ClogCast/builtin.sv, line:1:3, endln:27:11
   |vpiName:try_peek
   |vpiFullName:work@mailbox::try_peek
   |vpiMethod:1
@@ -2441,7 +2523,7 @@ design: (work@debug_rom)
   |vpiSigned:1
 \_enum_typespec: (state), line:32:5, endln:32:74
   |vpiParent:
-  \_class_defn: (work@process), file:/home/alain/Surelog/tests/ClogCast/builtin.sv, line:30:3, endln:52:11
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/ClogCast/builtin.sv, line:30:3, endln:52:11
   |vpiName:state
   |vpiEnumConst:
   \_enum_const: (FINISHED), line:32:20, endln:32:28
@@ -2485,7 +2567,7 @@ design: (work@debug_rom)
     |vpiSize:64
 \_function: (work@process::self), line:34:5, endln:34:11
   |vpiParent:
-  \_class_defn: (work@process), file:/home/alain/Surelog/tests/ClogCast/builtin.sv, line:30:3, endln:52:11
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/ClogCast/builtin.sv, line:30:3, endln:52:11
   |vpiName:self
   |vpiFullName:work@process::self
   |vpiMethod:1
@@ -2494,10 +2576,10 @@ design: (work@debug_rom)
   \_class_var: (work@process::self), line:34:21, endln:34:28
 \_class_typespec: , line:34:21, endln:34:28
   |vpiClassDefn:
-  \_class_defn: (work@process), file:/home/alain/Surelog/tests/ClogCast/builtin.sv, line:30:3, endln:52:11
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/ClogCast/builtin.sv, line:30:3, endln:52:11
 \_function: (work@process::status), line:37:5, endln:38:16
   |vpiParent:
-  \_class_defn: (work@process), file:/home/alain/Surelog/tests/ClogCast/builtin.sv, line:30:3, endln:52:11
+  \_class_defn: (work@process), file:${SURELOG_DIR}/tests/ClogCast/builtin.sv, line:30:3, endln:52:11
   |vpiName:status
   |vpiFullName:work@process::status
   |vpiMethod:1
@@ -2506,7 +2588,7 @@ design: (work@debug_rom)
   \_enum_var: (work@process::status), line:37:14, endln:37:19
 \_function: (work@semaphore::new), line:57:5, endln:58:16
   |vpiParent:
-  \_class_defn: (work@semaphore), file:/home/alain/Surelog/tests/ClogCast/builtin.sv, line:55:3, endln:69:11
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/ClogCast/builtin.sv, line:55:3, endln:69:11
   |vpiName:new
   |vpiFullName:work@semaphore::new
   |vpiMethod:1
@@ -2529,7 +2611,7 @@ design: (work@debug_rom)
       \_int_typespec: , line:57:18, endln:57:21
 \_class_typespec: 
   |vpiClassDefn:
-  \_class_defn: (work@semaphore), file:/home/alain/Surelog/tests/ClogCast/builtin.sv, line:55:3, endln:69:11
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/ClogCast/builtin.sv, line:55:3, endln:69:11
 \_int_typespec: , line:57:18, endln:57:21
   |vpiSigned:1
 \_int_typespec: , line:60:14, endln:60:17
@@ -2538,7 +2620,7 @@ design: (work@debug_rom)
   |vpiSigned:1
 \_function: (work@semaphore::try_get), line:66:5, endln:67:16
   |vpiParent:
-  \_class_defn: (work@semaphore), file:/home/alain/Surelog/tests/ClogCast/builtin.sv, line:55:3, endln:69:11
+  \_class_defn: (work@semaphore), file:${SURELOG_DIR}/tests/ClogCast/builtin.sv, line:55:3, endln:69:11
   |vpiName:try_get
   |vpiFullName:work@semaphore::try_get
   |vpiMethod:1
