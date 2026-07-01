@@ -1845,6 +1845,15 @@ void DesignElaboration::elaborateInstance_(
               if (fC->Type(unpackedDimId) ==
                   VObjectType::paUnpacked_dimension) {
                 NodeId constantRangeId = fC->Child(unpackedDimId);
+                // A SIZE dimension `[N]` is a bare constant_expression (no `:`),
+                // a RANGE `[msb:lsb]` is a constant_range.  They must be handled
+                // differently: `[N]` denotes indices [0 : N-1] (N instances),
+                // NOT the `[N:0]` range (N+1 instances) the old code produced for
+                // both.  So `myif m[2]` / `child c[2]` are TWO instances (m[0],
+                // m[1]) — matching Verilator/slang and the SV unpacked-dimension
+                // rule (github interface/module array off-by-one).
+                const bool isRange =
+                    (fC->Type(constantRangeId) == VObjectType::paConstant_range);
                 NodeId leftNode = fC->Child(constantRangeId);
                 NodeId rightNode = fC->Sibling(leftNode);
                 bool validValue;
@@ -1854,15 +1863,21 @@ void DesignElaboration::elaborateInstance_(
                     Reduce::Yes, nullptr, parent, false);
                 m_helper.checkForLoops(false);
                 int64_t right = 0;
-                if (rightNode && (fC->Type(rightNode) ==
-                                  VObjectType::paConstant_expression)) {
+                if (isRange && rightNode &&
+                    (fC->Type(rightNode) ==
+                     VObjectType::paConstant_expression)) {
                   m_helper.checkForLoops(true);
                   right = m_helper.getValue(
                       validValue, parentDef, fC, rightNode, m_compileDesign,
                       Reduce::Yes, nullptr, parent, false);
                   m_helper.checkForLoops(false);
                 }
-                if (left < right) {
+                if (!isRange) {
+                  // Size form [N] -> indices [0 : N-1].
+                  from.push_back(0);
+                  to.push_back(left - 1);
+                  index.push_back(0);
+                } else if (left < right) {
                   from.push_back(left);
                   to.push_back(right);
                   index.push_back(left);
