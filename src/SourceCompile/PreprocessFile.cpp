@@ -724,7 +724,7 @@ void PreprocessFile::checkMacroArguments_(
     } else if (s1 == "``") {
       if (i > 0) s1 = tokens[i - 1];
       s1 = StringUtils::trim(s1);
-      s2 = tokens[i + 1];
+      s2 = (i + 1 < tokens.size()) ? tokens[i + 1] : std::string();
       s2 = StringUtils::trim(s2);
       check = true;
     }
