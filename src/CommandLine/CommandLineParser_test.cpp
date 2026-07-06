@@ -498,5 +498,35 @@ TEST(CommandLineParserTest, WorkingDirectories4) {
                  [&](const PathId& id) { return fileSystem->toPath(id); });
   EXPECT_EQ(expectedSourceFiles, actualSourceFiles);
 }
+
+TEST(CommandLineParserTest, InvalidNumericArgumentsDoNotCrash) {
+  // Regression: these arguments previously reached an unguarded std::stoi (or,
+  // for a lone -cmd_ign, an unsigned-underflow out-of-bounds vector read) and
+  // terminated the process with an uncaught exception. They must now be handled
+  // gracefully (return without throwing/crashing).
+  const fs::path programPath = FileSystem::getProgramPath().string();
+  const std::vector<std::vector<std::string>> argSets{
+      {programPath.string(), "-mt", "auto"},
+      {programPath.string(), "-mt", "99999999999"},
+      {programPath.string(), "-split", "foo"},
+      {programPath.string(), "-d", "."},
+      {programPath.string(), "-cmd_ign", "cmd", "notanumber"},
+      {programPath.string(), "-cmd_ign"},
+  };
+
+  std::unique_ptr<TestFileSystem> fileSystem(new TestFileSystem());
+  for (const std::vector<std::string>& args : argSets) {
+    std::vector<const char*> cargs;
+    cargs.reserve(args.size());
+    std::transform(args.begin(), args.end(), std::back_inserter(cargs),
+                   [](const std::string& arg) { return arg.c_str(); });
+    std::unique_ptr<SymbolTable> symbolTable(new SymbolTable);
+    std::unique_ptr<ErrorContainer> errors(
+        new ErrorContainer(symbolTable.get()));
+    std::unique_ptr<CommandLineParser> clp(
+        new CommandLineParser(errors.get(), symbolTable.get()));
+    clp->parseCommandLine(cargs.size(), cargs.data());
+  }
+}
 }  // namespace
 }  // namespace SURELOG

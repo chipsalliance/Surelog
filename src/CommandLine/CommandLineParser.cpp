@@ -49,6 +49,7 @@
 #include "Surelog/ErrorReporting/ErrorDefinition.h"
 #include "Surelog/ErrorReporting/Location.h"
 #include "Surelog/SourceCompile/SymbolTable.h"
+#include "Surelog/Utils/NumUtils.h"
 #include "Surelog/Utils/StringUtils.h"
 #include "Surelog/surelog-version.h"
 
@@ -593,9 +594,10 @@ void CommandLineParser::processArgs_(const std::vector<std::string>& args,
     std::string arg(undecorateArg(args[i]));
     if (arg == "-cmd_ign") {
       // ignore command and drop <N> following arguments
-      if (i < args.size() - 2) {
-        const int32_t argcount = std::stoi(args[i + 2]);
-        if (argcount < 0 || argcount > 100) {  // just a sane limit
+      if (i + 2 < args.size()) {
+        int32_t argcount = 0;
+        if (NumUtils::parseInt32(args[i + 2], &argcount) == nullptr ||
+            argcount < 0 || argcount > 100) {  // just a sane limit
           std::cerr << "Illegal argument count for -cmd_ign (" << args[i + 2]
                     << ")" << std::endl;
           return;
@@ -942,8 +944,9 @@ bool CommandLineParser::parseCommandLine(int32_t argc, const char** argv) {
       } else if (all_arguments[i] == "coverelab") {
         // Ignored!
       } else if (is_number(all_arguments[i])) {
-        int32_t debugLevel = std::stoi(all_arguments[i]);
-        if (debugLevel < 0 || debugLevel > 4) {
+        int32_t debugLevel = 0;
+        if (NumUtils::parseInt32(all_arguments[i], &debugLevel) == nullptr ||
+            debugLevel < 0 || debugLevel > 4) {
           Location loc(m_symbolTable->registerSymbol(all_arguments[i]));
           Error err(ErrorDefinition::CMD_DEBUG_INCORRECT_LEVEL, loc);
           m_errors->addError(err);
@@ -1052,7 +1055,12 @@ bool CommandLineParser::parseCommandLine(int32_t argc, const char** argv) {
         break;
       }
       i++;
-      m_nbLinesForFileSplitting = std::stoi(all_arguments[i]);
+      if (NumUtils::parseUint32(all_arguments[i], &m_nbLinesForFileSplitting) ==
+          nullptr) {
+        Location loc(m_symbolTable->registerSymbol(all_arguments[i]));
+        Error err(ErrorDefinition::CMD_SPLIT_FILE_MISSING_SIZE, loc);
+        m_errors->addError(err);
+      }
     } else if (all_arguments[i] == "-builtin") {
       i++;
     } else if (all_arguments[i] == "-exe") {
@@ -1097,8 +1105,11 @@ bool CommandLineParser::parseCommandLine(int32_t argc, const char** argv) {
         uint32_t concurentThreadsSupported =
             std::thread::hardware_concurrency();
         maxMT = concurentThreadsSupported;
-      } else {
-        maxMT = std::stoi(all_arguments[i]);
+      } else if (NumUtils::parseUint32(all_arguments[i], &maxMT) == nullptr) {
+        Location loc(m_symbolTable->registerSymbol(all_arguments[i]));
+        Error err(ErrorDefinition::CMD_MT_INCORRECT_LEVEL, loc);
+        m_errors->addError(err);
+        maxMT = 0;
       }
       if (maxMT > 512) {
         Location loc(m_symbolTable->registerSymbol(all_arguments[i]));
