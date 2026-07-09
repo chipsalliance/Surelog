@@ -610,6 +610,14 @@ void SValue::mod(const Value* a, const Value* b) {
   const SValue* aval = (const SValue*)a;
   const SValue* bval = (const SValue*)b;
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
+  if (bval->m_value.s_int == 0) {
+    // Modulo by zero: mirror div() and produce an invalid value instead of
+    // executing a hardware modulo, which raises SIGFPE.
+    m_valid = 0;
+    m_value.s_int = 0;
+    m_negative = 0;
+    return;
+  }
   switch (aval->getType()) {
     case Value::Type::Scalar:
       m_negative = 0;
@@ -1540,6 +1548,15 @@ void LValue::mod(const Value* a, const Value* b) {
   m_valueArray[0].m_size =
       (a->getSize(0) > b->getSize(0)) ? a->getSize(0) : b->getSize(0);
   if (!m_valid) return;
+  if (!b->getValueL(0)) {
+    // Modulo by zero: mirror div() and produce an invalid value instead of
+    // executing a hardware modulo, which raises SIGFPE.
+    m_valueArray[0].m_value.s_int = 0;
+    m_valid = 0;
+    m_negative = 0;
+    m_type = Value::Type::Unsigned;
+    return;
+  }
   switch (a->getType()) {
     case Value::Type::Scalar:
       m_negative = 0;
