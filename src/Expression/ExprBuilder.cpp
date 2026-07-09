@@ -1028,15 +1028,19 @@ Value* ExprBuilder::fromString(std::string_view value) {
     uint32_t i = 0;
     for (i = 0; i < value.size(); i++) {
       if (value[i] == '\'') {
-        base = value[i + 1];
-        if (base == 's' || base == 'S') base = value[i + 2];
+        if (i + 1 < value.size()) base = value[i + 1];
+        if ((base == 's' || base == 'S') && i + 2 < value.size())
+          base = value[i + 2];
         break;
       }
     }
+    // Guard against a malformed literal whose apostrophe is at/near the end
+    // (e.g. "4'"): std::string_view::substr(pos) throws std::out_of_range when
+    // pos > size().
     if (value.find_first_of("sS") != std::string::npos) {
-      sval = value.substr(i + 3);
+      if (i + 3 <= value.size()) sval = value.substr(i + 3);
     } else {
-      sval = value.substr(i + 2);
+      if (i + 2 <= value.size()) sval = value.substr(i + 2);
     }
     sval = StringUtils::replaceAll(sval, "_", "");
     // No check for validity of sval being a legal parse-able value.

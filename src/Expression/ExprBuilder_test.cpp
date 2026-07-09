@@ -93,6 +93,20 @@ TEST(ExprBuilderTest, BuildFrom) {
     EXPECT_EQ(v6->uhdmValue(), "UINT:11");
   }
 }
+TEST(ExprBuilderTest, FromStringMalformedLiteralDoesNotCrash) {
+  // Malformed based-literals whose apostrophe is at or near the end previously
+  // read/substr'd past the end of the string_view and crashed with
+  // std::out_of_range; they must now be handled without crashing.
+  ExprBuilder builder;
+  std::unique_ptr<Value> v1(builder.fromString("4'"));
+  EXPECT_NE(v1, nullptr);
+  std::unique_ptr<Value> v2(builder.fromString("'"));
+  EXPECT_NE(v2, nullptr);
+  std::unique_ptr<Value> v3(builder.fromString("4's"));
+  EXPECT_NE(v3, nullptr);
+  std::unique_ptr<Value> v4(builder.fromString("'s"));
+  EXPECT_NE(v4, nullptr);
+}
 TEST(ExprBuilderTest, ExprFromParseTree1) {
   ExprBuilder builder;
   ParserHarness harness;
