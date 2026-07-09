@@ -5009,10 +5009,15 @@ int32_t CompileHelper::adjustOpSize(const typespec* tps, expr* cop,
         fileSystem->toPathId(rtps->VpiFile(),
                              compileDesign->getCompiler()->getSymbolTable()),
         rtps->VpiLineNo(), true);
-    int32_t ncsize = fullSize / innerSize;
-    // Fix the size of the member:
-    adjustUnsized(any_cast<constant*>(cop), ncsize);
-    cop->VpiSize(ncsize);
+    // innerSize is a Bits() result and can be 0 when the width is unresolvable
+    // (e.g. a cyclic or too-deeply-nested type trips loop detection); guard the
+    // division to avoid a divide-by-zero crash and leave the size unchanged.
+    if (innerSize != 0) {
+      int32_t ncsize = fullSize / innerSize;
+      // Fix the size of the member:
+      adjustUnsized(any_cast<constant*>(cop), ncsize);
+      cop->VpiSize(ncsize);
+    }
   } else {
     int32_t ncsize = Bits(
         rtps, invalidValue, component, compileDesign, Reduce::Yes, instance,
@@ -5132,7 +5137,7 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
                   }
                 }
                 values[valIndex] =
-                    (defaultval & (1 << (csize - 1 - i))) ? 1 : 0;
+                    (defaultval & ((uint64_t)1 << (csize - 1 - i))) ? 1 : 0;
                 valIndex++;
               }
             }
@@ -5186,7 +5191,8 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
                     }
                   }
                   if (found) {
-                    values[valIndex] = (val & (1 << (csize - 1 - i))) ? 1 : 0;
+                    values[valIndex] =
+                        (val & ((uint64_t)1 << (csize - 1 - i))) ? 1 : 0;
                   }
                   valIndex++;
                 }
