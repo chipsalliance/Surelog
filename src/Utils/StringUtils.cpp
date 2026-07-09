@@ -93,14 +93,14 @@ std::vector<std::string_view>& StringUtils::tokenize(
   if (str.empty()) return result;
 
   std::array<bool, 256> separators = {false};
-  for (char ch : any_of_separators) {
-    separators[(int32_t)ch] = true;
+  for (unsigned char ch : any_of_separators) {
+    separators[ch] = true;
   }
 
   size_t start = 0;
   size_t end = 0;
-  for (char ch : str) {
-    if (separators[(int32_t)ch]) {
+  for (unsigned char ch : str) {
+    if (separators[ch]) {
       result.emplace_back(str.data() + start, end - start);
       end = start = end + 1;
     } else {
@@ -126,8 +126,8 @@ std::vector<std::string_view>& StringUtils::tokenizeBalanced(
   if (str.empty()) return result;
 
   std::array<bool, 256> separators = {false};
-  for (char ch : any_of_separators) {
-    separators[(int32_t)ch] = true;
+  for (unsigned char ch : any_of_separators) {
+    separators[ch] = true;
   }
 
   const uint32_t stringSize = str.size();
@@ -149,7 +149,7 @@ std::vector<std::string_view>& StringUtils::tokenizeBalanced(
     } else if (str[i] == ')' || str[i] == ']' || str[i] == '}') {
       level--;
     }
-    if ((level == 0) && separators[(int32_t)str[i]]) {
+    if ((level == 0) && separators[(uint8_t)str[i]]) {
       result.emplace_back(str.data() + start, end - start);
       start = end = i + 1;
     } else {
