@@ -28,6 +28,7 @@
 
 #include <cctype>
 #include <cstdint>
+#include <cstdlib>
 #include <regex>
 #include <string>
 #include <string_view>
@@ -697,7 +698,11 @@ void SV3_1aTreeShapeListener::enterTimescale_directive(
   if (std::regex_match(value, base_match, base_regex)) {
     std::ssub_match base1_sub_match = base_match[1];
     std::string base1 = base1_sub_match.str();
-    compUnitTimeInfo.m_timeUnitValue = std::stoi(base1);
+    // Use non-throwing atoi (as the preprocessor-side sibling does): the regex
+    // group is unbounded digits, so std::stoi would throw std::out_of_range on
+    // a value exceeding int range and crash the parser. An overflowed value is
+    // still != 1/10/100 and is reported below.
+    compUnitTimeInfo.m_timeUnitValue = atoi(base1.c_str());
     if ((compUnitTimeInfo.m_timeUnitValue != 1) &&
         (compUnitTimeInfo.m_timeUnitValue != 10) &&
         (compUnitTimeInfo.m_timeUnitValue != 100)) {
@@ -706,7 +711,7 @@ void SV3_1aTreeShapeListener::enterTimescale_directive(
     compUnitTimeInfo.m_timeUnit = TimeInfo::unitFromString(base_match[2].str());
     std::ssub_match base2_sub_match = base_match[3];
     std::string base2 = base2_sub_match.str();
-    compUnitTimeInfo.m_timePrecisionValue = std::stoi(base2);
+    compUnitTimeInfo.m_timePrecisionValue = atoi(base2.c_str());
     if ((compUnitTimeInfo.m_timePrecisionValue != 1) &&
         (compUnitTimeInfo.m_timePrecisionValue != 10) &&
         (compUnitTimeInfo.m_timePrecisionValue != 100)) {
