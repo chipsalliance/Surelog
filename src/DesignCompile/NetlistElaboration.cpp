@@ -1310,6 +1310,33 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
               parent_comp, fC, Expression, m_compileDesign, Reduce::Yes,
               nullptr, parent);
           m_helper.checkForLoops(false);
+          // A port actual that selects an interface struct MEMBER
+          // (`.sys_wdt(sub.req.wdt)`, or inside an expression like
+          // `.sys_wen(sub.req.wen & sub.trn)`) reduces the member access to the
+          // WHOLE struct_net — the member is dropped (a net member has no
+          // constant value, so hierarchicalSelector returns the containing
+          // struct_net).  Recompile WITHOUT reduction so the hier_path (with the
+          // member) is preserved (degu SoC tcb_dev_gpio sys_wdt/sys_wen/...).
+          bool needsUnreduced = (hexpr && hexpr->UhdmType() == uhdmstruct_net);
+          if (hexpr && hexpr->UhdmType() == uhdmoperation) {
+            operation* op = (operation*)hexpr;
+            if (op->Operands())
+              for (auto o : *op->Operands())
+                if (o && o->UhdmType() == uhdmstruct_net) {
+                  needsUnreduced = true;
+                  break;
+                }
+          }
+          if (needsUnreduced) {
+            m_helper.checkForLoops(true);
+            expr* he2 = (expr*)m_helper.compileExpression(
+                parent_comp, fC, Expression, m_compileDesign, Reduce::No,
+                nullptr, parent);
+            m_helper.checkForLoops(false);
+            if (he2 && (he2->UhdmType() == uhdmhier_path ||
+                        he2->UhdmType() == uhdmoperation))
+              hexpr = he2;
+          }
           NodeId Primary = fC->Child(Expression);
           NodeId Primary_literal = fC->Child(Primary);
           sigId = fC->Child(Primary_literal);
