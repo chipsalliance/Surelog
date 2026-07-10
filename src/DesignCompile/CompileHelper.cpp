@@ -3626,7 +3626,8 @@ bool CompileHelper::compileParameterDeclaration(
         UHDM::any* expr = compileExpression(
             component, fC, actual_value, compileDesign,
             isMultiDimension ? Reduce::No : reduce, param, nullptr);
-        UHDM::UHDM_OBJECT_TYPE exprtype = expr->UhdmType();
+        UHDM::UHDM_OBJECT_TYPE exprtype =
+            expr ? expr->UhdmType() : UHDM::uhdmconstant;
         if (expr) {
           expr = defaultPatternAssignment(ts, expr, component, compileDesign,
                                           instance);
@@ -3653,7 +3654,7 @@ bool CompileHelper::compileParameterDeclaration(
           adjustSize(ts, component, compileDesign, instance, c);
           Value* val = m_exprBuilder.fromVpiValue(c->VpiValue(), size);
           component->setValue(the_name, val, m_exprBuilder);
-        } else if ((reduce == Reduce::Yes) && (!isMultiDimension)) {
+        } else if (expr && (reduce == Reduce::Yes) && (!isMultiDimension)) {
           UHDM::expr* the_expr = (UHDM::expr*)expr;
           if (the_expr->Typespec() == nullptr) {
             ref_typespec* tsRef = s.MakeRef_typespec();
@@ -4028,7 +4029,7 @@ UHDM::constant* CompileHelper::adjustSize(const UHDM::typespec* ts,
           }
         } else if (ttype == uhdmint_typespec) {
           if (constantIsSigned) {
-            uint64_t msb = val & 1 << (orig_size - 1);
+            uint64_t msb = val & ((uint64_t)1 << (orig_size - 1));
             if (msb) {
               // 2's complement
               std::string v = std::string(c->VpiValue());
