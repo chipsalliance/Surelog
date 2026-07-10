@@ -152,5 +152,24 @@ TEST(ExprBuilderTest, ExprFromParseTree2) {
     EXPECT_EQ(val->getValueUL(), 16);
   }
 }
+
+TEST(ExprBuilderTest, ModuloByZeroDoesNotCrash) {
+  ExprBuilder builder;
+  ParserHarness harness;
+  auto fC = harness.parse(
+      "module top();"
+      "parameter p = 4 % 0;"
+      "endmodule");
+  NodeId root = fC->getRootNode();
+  std::vector<NodeId> assigns =
+      fC->sl_collect_all(root, VObjectType::paParam_assignment);
+  for (NodeId param_assign : assigns) {
+    NodeId param = fC->Child(param_assign);
+    NodeId rhs = fC->Sibling(param);
+    // Modulo by zero must not crash (SIGFPE); it yields an invalid value.
+    std::unique_ptr<Value> val(builder.evalExpr(fC.get(), rhs));
+    EXPECT_FALSE(val->isValid());
+  }
+}
 }  // namespace
 }  // namespace SURELOG
