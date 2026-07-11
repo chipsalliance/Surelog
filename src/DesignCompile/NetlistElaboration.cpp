@@ -675,6 +675,27 @@ bool NetlistElaboration::elaborate_(ModuleInstance* instance, bool recurse) {
   return true;
 }
 
+// Propagate an interface's parameter overrides (struct/complex values + a CLONE
+// of the elaborated param_assigns) from the connected instance onto an
+// interface-port copy, so reads of `t.CFG...` see the instance override.
+static void propagateIfaceParams_(Serializer& s, ModuleInstance* refInst,
+                                  ModuleInstance* dst, Netlist* dstNetlist) {
+  if (!refInst || !dst) return;
+  for (const auto& cv : refInst->getComplexValues())
+    dst->setComplexValue(cv.first, cv.second);
+  if (Netlist* refNl = refInst->getNetlist()) {
+    if (UHDM::VectorOfparam_assign* pa = refNl->param_assigns()) {
+      if (dstNetlist && dstNetlist->param_assigns() == nullptr && !pa->empty()) {
+        ElaboratorContext ctx(&s, false, true);
+        UHDM::VectorOfparam_assign* clone = s.MakeParam_assignVec();
+        for (auto p : *pa)
+          clone->push_back((param_assign*)UHDM::clone_tree(p, &ctx));
+        dstNetlist->param_assigns(clone);
+      }
+    }
+  }
+}
+
 ModuleInstance* NetlistElaboration::getInterfaceInstance_(
     ModuleInstance* instance, std::string_view portName) {
   ModuleInstance* parent = instance->getParent();
@@ -813,7 +834,11 @@ ModuleInstance* NetlistElaboration::getInterfaceInstance_(
         }
         if (formalName == portName) {
           for (auto inst : parent->getAllSubInstances()) {
-            if (inst->getInstanceName() == sigName) {
+            // A modport actual `inst.mp` names the interface INSTANCE `inst`
+            // (baseName); `sigName` (`inst.mp`) matches no sub-instance, so also
+            // match the base instance name to reach the parameterized instance.
+            if (inst->getInstanceName() == sigName ||
+                (!selectName.empty() && inst->getInstanceName() == baseName)) {
               return inst;
             }
           }
@@ -2766,6 +2791,9 @@ bool NetlistElaboration::elab_ports_nets_(
                                                 m_exprBuilder,
                                                 itr.second.second);
                   }
+                  propagateIfaceParams_(m_compileDesign->getSerializer(),
+                                        interfaceRefInstance, interfaceInstance,
+                                        netlistInterf);
                 }
                 instance->addSubInstance(interfaceInstance);
                 elab_modport_(instance, interfaceInstance, sigName,
@@ -2788,6 +2816,9 @@ bool NetlistElaboration::elab_ports_nets_(
                   interfaceInstance->setValue(itr.first, itr.second.first,
                                               m_exprBuilder, itr.second.second);
                 }
+                propagateIfaceParams_(m_compileDesign->getSerializer(),
+                                      interfaceRefInstance, interfaceInstance,
+                                      netlistInterf);
               }
 
               modport* mp = elab_modport_(

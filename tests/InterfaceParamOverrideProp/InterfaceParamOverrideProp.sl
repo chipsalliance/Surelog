@@ -1,0 +1,1 @@
+-parse -mt 0 -elabuhdm -nobuiltin dut.sv

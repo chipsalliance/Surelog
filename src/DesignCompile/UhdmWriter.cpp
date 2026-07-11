@@ -4408,6 +4408,19 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
           interf->VpiParent(m);
         }
       }
+      // Interface-port copies (`sub (.t(inst.mp))`) are only attached here, never
+      // sent through writeElabInterface, so their parameter overrides were
+      // missing.  Emit them now from the copy's ModuleInstance, which carries the
+      // connected instance's overrides propagated during netlist elaboration.
+      for (interface_inst* interf : *subInterfaces) {
+        if (interf->Param_assigns()) continue;
+        for (const auto& e : netlist->getInstanceMap()) {
+          if (e.second.second == interf && e.second.first) {
+            writeElabParameters(s, e.second.first, interf, exprBuilder);
+            break;
+          }
+        }
+      }
     }
   }
   std::map<ModuleInstance*, module_inst*> tempInstanceMap;
