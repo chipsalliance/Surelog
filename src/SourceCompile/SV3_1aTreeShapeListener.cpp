@@ -214,6 +214,9 @@ void SV3_1aTreeShapeListener::exitSlline(SV3_1aParser::SllineContext *ctx) {
   std::string text(StringUtils::unquoted(ctx->String()->getText()));
   std::vector<std::string_view> parts;
   StringUtils::tokenize(text, "^", parts);
+  // A malformed SLline String may tokenize to fewer than two parts; ignore it
+  // rather than indexing out of bounds.
+  if (parts.size() < 2) return;
   std::string_view symbol = StringUtils::unquoted(parts[0]);
   std::string_view file = StringUtils::unquoted(parts[1]);
 

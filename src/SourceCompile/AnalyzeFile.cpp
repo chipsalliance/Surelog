@@ -62,6 +62,10 @@ void AnalyzeFile::checkSLlineDirective_(std::string_view line,
     text = StringUtils::unquoted(text);
     std::vector<std::string_view> parts;
     StringUtils::tokenize(text, "^", parts);
+    // A malformed SLline line may tokenize to fewer than two parts (an empty
+    // remainder yields none, a "^"-less one yields a single part); ignore it
+    // rather than indexing out of bounds.
+    if (parts.size() < 2) return;
     std::string_view symbol = StringUtils::unquoted(parts[0]);
     std::string_view file = StringUtils::unquoted(parts[1]);
     info.m_sectionSymbolId = m_clp->getSymbolTable()->registerSymbol(symbol);
