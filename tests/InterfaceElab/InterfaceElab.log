@@ -173,9 +173,9 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 0.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              21
+constant                                              22
 design                                                 1
-int_typespec                                           2
+int_typespec                                           6
 interface_inst                                         4
 interface_typespec                                     6
 io_decl                                                4
@@ -185,19 +185,19 @@ logic_var                                              2
 modport                                                4
 module_inst                                            9
 operation                                              6
-param_assign                                           2
-parameter                                              2
+param_assign                                           3
+parameter                                              5
 port                                                   7
 range                                                  5
 ref_module                                             3
 ref_obj                                               10
-ref_typespec                                          12
+ref_typespec                                          16
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              21
+constant                                              22
 design                                                 1
-int_typespec                                           2
+int_typespec                                           6
 interface_inst                                         4
 interface_typespec                                     6
 io_decl                                                4
@@ -207,13 +207,13 @@ logic_var                                              2
 modport                                                4
 module_inst                                            9
 operation                                              6
-param_assign                                           2
-parameter                                              2
+param_assign                                           3
+parameter                                              5
 port                                                   8
 range                                                  5
 ref_module                                             3
 ref_obj                                               12
-ref_typespec                                          13
+ref_typespec                                          17
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/InterfaceElab/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/InterfaceElab/slpp_all/checker/surelog.chk.html ...
@@ -618,6 +618,42 @@ design: (work@testharness)
           |vpiName:addr
           |vpiFullName:work@testharness.i_peripherals.i_apb_to_reg.reg_o.addr
           |vpiVisibility:1
+        |vpiParameter:
+        \_parameter: (work@testharness.i_peripherals.i_apb_to_reg.reg_o.ADDR_WIDTH), line:4:17, endln:4:27
+          |vpiParent:
+          \_interface_inst: work@REG_BUS (work@testharness.i_peripherals.i_apb_to_reg.reg_o), file:${SURELOG_DIR}/tests/InterfaceElab/dut.sv, line:27:0
+          |vpiTypespec:
+          \_ref_typespec: (work@testharness.i_peripherals.i_apb_to_reg.reg_o.ADDR_WIDTH)
+            |vpiParent:
+            \_parameter: (work@testharness.i_peripherals.i_apb_to_reg.reg_o.ADDR_WIDTH), line:4:17, endln:4:27
+            |vpiFullName:work@testharness.i_peripherals.i_apb_to_reg.reg_o.ADDR_WIDTH
+            |vpiActual:
+            \_int_typespec: , line:4:13, endln:4:16
+          |vpiSigned:1
+          |vpiName:ADDR_WIDTH
+          |vpiFullName:work@testharness.i_peripherals.i_apb_to_reg.reg_o.ADDR_WIDTH
+        |vpiParamAssign:
+        \_param_assign: , line:4:17, endln:4:32
+          |vpiParent:
+          \_interface_inst: work@REG_BUS (work@testharness.i_peripherals.i_apb_to_reg.reg_o), file:${SURELOG_DIR}/tests/InterfaceElab/dut.sv, line:27:0
+          |vpiOverriden:1
+          |vpiRhs:
+          \_constant: , line:4:30, endln:4:32
+            |vpiParent:
+            \_param_assign: , line:4:17, endln:4:32
+            |vpiDecompile:32
+            |vpiSize:32
+            |UINT:32
+            |vpiTypespec:
+            \_ref_typespec: (work@testharness.i_peripherals.i_apb_to_reg.reg_o)
+              |vpiParent:
+              \_constant: , line:4:30, endln:4:32
+              |vpiFullName:work@testharness.i_peripherals.i_apb_to_reg.reg_o
+              |vpiActual:
+              \_int_typespec: , line:4:13, endln:4:16
+            |vpiConstType:9
+          |vpiLhs:
+          \_parameter: (work@testharness.i_peripherals.i_apb_to_reg.reg_o.ADDR_WIDTH), line:4:17, endln:4:27
         |vpiDefName:work@REG_BUS
         |vpiModport:
         \_modport: (out), line:11:11, endln:11:14
@@ -694,6 +730,10 @@ design: (work@testharness)
   |vpiIsModPort:1
 \_interface_typespec: (REG_BUS), line:16:3, endln:16:10
   |vpiName:REG_BUS
+\_int_typespec: , line:4:13, endln:4:16
+  |vpiParent:
+  \_ref_typespec: (work@testharness.i_peripherals.i_apb_to_reg.reg_o)
+  |vpiSigned:1
 \_logic_typespec: , line:6:9, endln:6:14
 \_logic_typespec: , line:9:3, endln:9:25
   |vpiParent:
@@ -759,6 +799,10 @@ design: (work@testharness)
 \_int_typespec: , line:4:13, endln:4:16
   |vpiParent:
   \_ref_typespec: (work@testharness.i_peripherals.reg_bus.ADDR_WIDTH)
+  |vpiSigned:1
+\_int_typespec: , line:4:13, endln:4:16
+  |vpiParent:
+  \_ref_typespec: (work@testharness.i_peripherals.i_apb_to_reg.reg_o.ADDR_WIDTH)
   |vpiSigned:1
 ===================
 [  FATAL] : 0

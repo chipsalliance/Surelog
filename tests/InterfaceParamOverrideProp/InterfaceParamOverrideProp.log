@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file "${SURELOG_DIR}/tests/InterfaceParamOverrideProp/slpp_all/surelog.log".
+[INF:CM0023] Creating log file "${SURELOG_DIR}/build/regression/InterfaceParamOverrideProp/slpp_all/surelog.log".
 [WRN:PA0205] ${SURELOG_DIR}/tests/InterfaceParamOverrideProp/dut.sv:4:1: No timescale set for "p".
 [WRN:PA0205] ${SURELOG_DIR}/tests/InterfaceParamOverrideProp/dut.sv:9:1: No timescale set for "tif".
 [WRN:PA0205] ${SURELOG_DIR}/tests/InterfaceParamOverrideProp/dut.sv:13:1: No timescale set for "leaf".
@@ -17,10 +17,70 @@
 [NTE:EL0510] Nb instances: 3.
 [NTE:EL0511] Nb leaf instances: 0.
 [INF:UH0706] Creating UHDM Model...
+=== UHDM Object Stats Begin (Non-Elaborated Model) ===
+constant                                              60
+cont_assign                                            1
+design                                                 1
+hier_path                                              3
+int_typespec                                          24
+interface_inst                                         5
+interface_typespec                                    12
+io_decl                                                5
+logic_net                                              9
+logic_typespec                                        13
+logic_var                                              3
+modport                                                5
+module_inst                                           14
+operation                                             41
+package                                                2
+param_assign                                          10
+parameter                                             15
+port                                                  14
+range                                                 19
+ref_module                                             3
+ref_obj                                               23
+ref_typespec                                         129
+string_typespec                                       33
+struct_typespec                                       44
+tagged_pattern                                        33
+typespec_member                                       44
+=== UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
-[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/tests/InterfaceParamOverrideProp/slpp_all/surelog.uhdm ...
+=== UHDM Object Stats Begin (Elaborated Model) ===
+constant                                              60
+cont_assign                                            2
+design                                                 1
+hier_path                                              5
+int_typespec                                          24
+interface_inst                                         5
+interface_typespec                                    12
+io_decl                                                5
+logic_net                                              9
+logic_typespec                                        13
+logic_var                                              3
+modport                                                5
+module_inst                                           14
+operation                                             41
+package                                                2
+param_assign                                          10
+parameter                                             15
+port                                                  19
+range                                                 19
+ref_module                                             3
+ref_obj                                               36
+ref_typespec                                         134
+string_typespec                                       33
+struct_typespec                                       44
+tagged_pattern                                        33
+typespec_member                                       44
+=== UHDM Object Stats End ===
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/InterfaceParamOverrideProp/slpp_all/surelog.uhdm ...
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 0
 [WARNING] : 5
 [   NOTE] : 5
+
+============================== Begin RoundTrip Results ==============================
+[roundtrip]: ${SURELOG_DIR}/tests/InterfaceParamOverrideProp/dut.sv | ${SURELOG_DIR}/build/regression/InterfaceParamOverrideProp/roundtrip/dut_000.sv | 12 | 23 |
+============================== End RoundTrip Results ==============================
