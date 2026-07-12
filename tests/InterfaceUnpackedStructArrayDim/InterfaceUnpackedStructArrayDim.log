@@ -1,0 +1,1128 @@
+[INF:CM0023] Creating log file "${SURELOG_DIR}/build/regression/InterfaceUnpackedStructArrayDim/slpp_all/surelog.log".
+[WRN:PA0205] ${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv:7:1: No timescale set for "p".
+[WRN:PA0205] ${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv:10:1: No timescale set for "bus_if".
+[WRN:PA0205] ${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv:15:1: No timescale set for "sub".
+[WRN:PA0205] ${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv:18:1: No timescale set for "top".
+[INF:CP0300] Compilation...
+[INF:CP0301] ${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv:7:1: Compile package "p".
+[INF:CP0304] ${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv:10:1: Compile interface "work@bus_if".
+[INF:CP0303] ${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv:15:1: Compile module "work@sub".
+[INF:CP0303] ${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv:18:1: Compile module "work@top".
+[INF:EL0526] Design Elaboration...
+[NTE:EL0503] ${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv:18:1: Top level module "work@top".
+[NTE:EL0508] Nb Top level modules: 1.
+[NTE:EL0509] Max instance depth: 2.
+[NTE:EL0510] Nb instances: 2.
+[NTE:EL0511] Nb leaf instances: 0.
+[INF:UH0706] Creating UHDM Model...
+=== UHDM Object Stats Begin (Non-Elaborated Model) ===
+array_net                                              3
+bit_select                                             1
+constant                                              35
+cont_assign                                            1
+design                                                 1
+hier_path                                              3
+import_typespec                                        1
+int_typespec                                           6
+interface_inst                                         4
+interface_typespec                                     6
+io_decl                                                4
+logic_net                                              7
+logic_typespec                                        10
+modport                                                4
+module_inst                                           10
+package                                                2
+param_assign                                           3
+parameter                                              5
+port                                                   8
+range                                                 15
+ref_module                                             2
+ref_obj                                               16
+ref_typespec                                          24
+struct_net                                             2
+struct_typespec                                        2
+typespec_member                                        4
+=== UHDM Object Stats End ===
+[INF:UH0707] Elaborating UHDM...
+=== UHDM Object Stats Begin (Elaborated Model) ===
+array_net                                              3
+bit_select                                             2
+constant                                              35
+cont_assign                                            2
+design                                                 1
+hier_path                                              5
+import_typespec                                        1
+int_typespec                                           6
+interface_inst                                         4
+interface_typespec                                     6
+io_decl                                                4
+logic_net                                              7
+logic_typespec                                        10
+modport                                                4
+module_inst                                           10
+package                                                2
+param_assign                                           3
+parameter                                              5
+port                                                  11
+range                                                 15
+ref_module                                             2
+ref_obj                                               25
+ref_typespec                                          27
+struct_net                                             2
+struct_typespec                                        2
+typespec_member                                        4
+=== UHDM Object Stats End ===
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/InterfaceUnpackedStructArrayDim/slpp_all/surelog.uhdm ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/InterfaceUnpackedStructArrayDim/slpp_all/checker/surelog.chk.html ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/InterfaceUnpackedStructArrayDim/slpp_all/surelog.uhdm ...
+[INF:UH0711] Decompiling UHDM...
+====== UHDM =======
+design: (work@top)
+|vpiElaborated:1
+|vpiName:work@top
+|uhdmallPackages:
+\_package: p (p::), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:7:1, endln:9:11
+  |vpiParent:
+  \_design: (work@top)
+  |vpiName:p
+  |vpiFullName:p::
+  |vpiTypedef:
+  \_struct_typespec: (p::pkt_t), line:8:11, endln:8:58
+    |vpiParent:
+    \_package: p (p::), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:7:1, endln:9:11
+    |vpiName:p::pkt_t
+    |vpiInstance:
+    \_package: p (p::), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:7:1, endln:9:11
+    |vpiPacked:1
+    |vpiTypespecMember:
+    \_typespec_member: (a), line:8:39, endln:8:40
+      |vpiParent:
+      \_struct_typespec: (p::pkt_t), line:8:11, endln:8:58
+      |vpiName:a
+      |vpiTypespec:
+      \_ref_typespec: (p::p::pkt_t::a)
+        |vpiParent:
+        \_typespec_member: (a), line:8:39, endln:8:40
+        |vpiFullName:p::p::pkt_t::a
+        |vpiActual:
+        \_logic_typespec: , line:8:27, endln:8:38
+      |vpiRefFile:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv
+      |vpiRefLineNo:8
+      |vpiRefColumnNo:27
+      |vpiRefEndLineNo:8
+      |vpiRefEndColumnNo:38
+    |vpiTypespecMember:
+    \_typespec_member: (b), line:8:54, endln:8:55
+      |vpiParent:
+      \_struct_typespec: (p::pkt_t), line:8:11, endln:8:58
+      |vpiName:b
+      |vpiTypespec:
+      \_ref_typespec: (p::p::pkt_t::b)
+        |vpiParent:
+        \_typespec_member: (b), line:8:54, endln:8:55
+        |vpiFullName:p::p::pkt_t::b
+        |vpiActual:
+        \_logic_typespec: , line:8:42, endln:8:53
+      |vpiRefFile:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv
+      |vpiRefLineNo:8
+      |vpiRefColumnNo:42
+      |vpiRefEndLineNo:8
+      |vpiRefEndColumnNo:53
+  |vpiDefName:p
+|uhdmtopPackages:
+\_package: p (p::), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:7:1, endln:9:11
+  |vpiParent:
+  \_design: (work@top)
+  |vpiName:p
+  |vpiFullName:p::
+  |vpiTypedef:
+  \_struct_typespec: (p::pkt_t), line:8:11, endln:12:18
+    |vpiParent:
+    \_interface_inst: work@bus_if (work@bus_if), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:10:1, endln:14:13
+    |vpiName:p::pkt_t
+    |vpiInstance:
+    \_package: p (p::), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:7:1, endln:9:11
+    |vpiPacked:1
+    |vpiTypespecMember:
+    \_typespec_member: (a), line:8:39, endln:8:40
+      |vpiParent:
+      \_struct_typespec: (p::pkt_t), line:8:11, endln:12:18
+      |vpiName:a
+      |vpiTypespec:
+      \_ref_typespec: (work@bus_if.p::pkt_t.a)
+        |vpiParent:
+        \_typespec_member: (a), line:8:39, endln:8:40
+        |vpiFullName:work@bus_if.p::pkt_t.a
+        |vpiActual:
+        \_logic_typespec: , line:8:27, endln:8:38
+      |vpiRefFile:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv
+      |vpiRefLineNo:8
+      |vpiRefColumnNo:27
+      |vpiRefEndLineNo:8
+      |vpiRefEndColumnNo:38
+    |vpiTypespecMember:
+    \_typespec_member: (b), line:8:54, endln:8:55
+      |vpiParent:
+      \_struct_typespec: (p::pkt_t), line:8:11, endln:12:18
+      |vpiName:b
+      |vpiTypespec:
+      \_ref_typespec: (work@bus_if.p::pkt_t.b)
+        |vpiParent:
+        \_typespec_member: (b), line:8:54, endln:8:55
+        |vpiFullName:work@bus_if.p::pkt_t.b
+        |vpiActual:
+        \_logic_typespec: , line:8:42, endln:8:53
+      |vpiRefFile:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv
+      |vpiRefLineNo:8
+      |vpiRefColumnNo:42
+      |vpiRefEndLineNo:8
+      |vpiRefEndColumnNo:53
+  |vpiDefName:p
+  |vpiTop:1
+|uhdmallInterfaces:
+\_interface_inst: work@bus_if (work@bus_if), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:10:1, endln:14:13
+  |vpiParent:
+  \_design: (work@top)
+  |vpiFullName:work@bus_if
+  |vpiParameter:
+  \_parameter: (work@bus_if.N), line:10:34, endln:10:35
+    |vpiParent:
+    \_interface_inst: work@bus_if (work@bus_if), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:10:1, endln:14:13
+    |UINT:1
+    |vpiTypespec:
+    \_ref_typespec: (work@bus_if.N)
+      |vpiParent:
+      \_parameter: (work@bus_if.N), line:10:34, endln:10:35
+      |vpiFullName:work@bus_if.N
+      |vpiActual:
+      \_int_typespec: , line:10:30, endln:10:33
+    |vpiSigned:1
+    |vpiName:N
+    |vpiFullName:work@bus_if.N
+  |vpiParamAssign:
+  \_param_assign: , line:10:34, endln:10:39
+    |vpiParent:
+    \_interface_inst: work@bus_if (work@bus_if), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:10:1, endln:14:13
+    |vpiRhs:
+    \_constant: , line:10:38, endln:10:39
+      |vpiParent:
+      \_param_assign: , line:10:34, endln:10:39
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiTypespec:
+      \_ref_typespec: (work@bus_if)
+        |vpiParent:
+        \_constant: , line:10:38, endln:10:39
+        |vpiFullName:work@bus_if
+        |vpiActual:
+        \_int_typespec: , line:10:30, endln:10:33
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@bus_if.N), line:10:34, endln:10:35
+  |vpiTypedef:
+  \_struct_typespec: (p::pkt_t), line:8:11, endln:12:18
+  |vpiTypedef:
+  \_import_typespec: (p), line:11:10, endln:11:14
+  |vpiDefName:work@bus_if
+  |vpiNet:
+  \_logic_net: (work@bus_if.arr), line:12:9, endln:12:12
+    |vpiParent:
+    \_interface_inst: work@bus_if (work@bus_if), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:10:1, endln:14:13
+    |vpiTypespec:
+    \_ref_typespec: (work@bus_if.arr)
+      |vpiParent:
+      \_logic_net: (work@bus_if.arr), line:12:9, endln:12:12
+      |vpiFullName:work@bus_if.arr
+      |vpiActual:
+      \_struct_typespec: (p::pkt_t), line:8:11, endln:12:18
+    |vpiName:arr
+    |vpiFullName:work@bus_if.arr
+  |vpiArrayNet:
+  \_array_net: (work@bus_if.arr), line:12:9, endln:12:12
+    |vpiParent:
+    \_interface_inst: work@bus_if (work@bus_if), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:10:1, endln:14:13
+    |vpiSize:1
+    |vpiName:arr
+    |vpiFullName:work@bus_if.arr
+    |vpiRange:
+    \_range: , line:12:13, endln:12:18
+      |vpiParent:
+      \_array_net: (work@bus_if.arr), line:12:9, endln:12:12
+      |vpiLeftRange:
+      \_constant: , line:12:14, endln:12:15
+        |vpiParent:
+        \_range: , line:12:13, endln:12:18
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiRightRange:
+      \_ref_obj: (work@bus_if.arr.N), line:12:16, endln:12:17
+        |vpiParent:
+        \_range: , line:12:13, endln:12:18
+        |vpiName:N
+        |vpiFullName:work@bus_if.arr.N
+    |vpiNet:
+    \_logic_net: (work@bus_if.arr.arr)
+      |vpiParent:
+      \_array_net: (work@bus_if.arr), line:12:9, endln:12:12
+      |vpiTypespec:
+      \_ref_typespec: (work@bus_if.arr.arr)
+        |vpiParent:
+        \_logic_net: (work@bus_if.arr.arr)
+        |vpiFullName:work@bus_if.arr.arr
+        |vpiActual:
+        \_struct_typespec: (p::pkt_t), line:8:11, endln:12:18
+      |vpiName:arr
+      |vpiFullName:work@bus_if.arr.arr
+  |vpiModport:
+  \_modport: (mp), line:13:11, endln:13:13
+    |vpiParent:
+    \_interface_inst: work@bus_if (work@bus_if), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:10:1, endln:14:13
+    |vpiName:mp
+    |vpiIODecl:
+    \_io_decl: (arr), line:13:21, endln:13:24
+      |vpiParent:
+      \_modport: (mp), line:13:11, endln:13:13
+      |vpiDirection:1
+      |vpiName:arr
+|uhdmallModules:
+\_module_inst: work@sub (work@sub), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:15:1, endln:17:10
+  |vpiParent:
+  \_design: (work@top)
+  |vpiFullName:work@sub
+  |vpiDefName:work@sub
+  |vpiNet:
+  \_logic_net: (work@sub.o), line:15:45, endln:15:46
+    |vpiParent:
+    \_module_inst: work@sub (work@sub), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:15:1, endln:17:10
+    |vpiName:o
+    |vpiFullName:work@sub.o
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@sub.s), line:15:23, endln:15:24
+    |vpiParent:
+    \_module_inst: work@sub (work@sub), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:15:1, endln:17:10
+    |vpiName:s
+    |vpiFullName:work@sub.s
+  |vpiPort:
+  \_port: (s), line:15:23, endln:15:24
+    |vpiParent:
+    \_module_inst: work@sub (work@sub), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:15:1, endln:17:10
+    |vpiName:s
+    |vpiDirection:3
+    |vpiLowConn:
+    \_ref_obj: (work@sub.s.s), line:15:23, endln:15:24
+      |vpiParent:
+      \_port: (s), line:15:23, endln:15:24
+      |vpiName:s
+      |vpiFullName:work@sub.s.s
+      |vpiActual:
+      \_modport: (mp), line:13:11, endln:13:13
+    |vpiTypedef:
+    \_ref_typespec: (work@sub.s)
+      |vpiParent:
+      \_port: (s), line:15:23, endln:15:24
+      |vpiFullName:work@sub.s
+      |vpiActual:
+      \_interface_typespec: (mp), line:15:20, endln:15:22
+  |vpiPort:
+  \_port: (o), line:15:45, endln:15:46
+    |vpiParent:
+    \_module_inst: work@sub (work@sub), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:15:1, endln:17:10
+    |vpiName:o
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@sub.o.o), line:15:45, endln:15:46
+      |vpiParent:
+      \_port: (o), line:15:45, endln:15:46
+      |vpiName:o
+      |vpiFullName:work@sub.o.o
+      |vpiActual:
+      \_logic_net: (work@sub.o), line:15:45, endln:15:46
+    |vpiTypedef:
+    \_ref_typespec: (work@sub.o)
+      |vpiParent:
+      \_port: (o), line:15:45, endln:15:46
+      |vpiFullName:work@sub.o
+      |vpiActual:
+      \_logic_typespec: , line:15:33, endln:15:44
+  |vpiContAssign:
+  \_cont_assign: , line:16:10, endln:16:24
+    |vpiParent:
+    \_module_inst: work@sub (work@sub), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:15:1, endln:17:10
+    |vpiRhs:
+    \_hier_path: (s.arr[1].a), line:16:14, endln:16:24
+      |vpiParent:
+      \_cont_assign: , line:16:10, endln:16:24
+      |vpiActual:
+      \_ref_obj: (s), line:16:14, endln:16:15
+        |vpiParent:
+        \_hier_path: (s.arr[1].a), line:16:14, endln:16:24
+        |vpiName:s
+      |vpiActual:
+      \_bit_select: (s.arr[1]), line:16:16, endln:16:19
+        |vpiParent:
+        \_hier_path: (s.arr[1].a), line:16:14, endln:16:24
+        |vpiName:arr
+        |vpiFullName:s.arr[1]
+        |vpiIndex:
+        \_constant: , line:16:20, endln:16:21
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiActual:
+      \_ref_obj: (work@sub.a), line:16:23, endln:16:24
+        |vpiParent:
+        \_hier_path: (s.arr[1].a), line:16:14, endln:16:24
+        |vpiName:a
+        |vpiFullName:work@sub.a
+      |vpiName:s.arr[1].a
+    |vpiLhs:
+    \_ref_obj: (work@sub.o), line:16:10, endln:16:11
+      |vpiParent:
+      \_cont_assign: , line:16:10, endln:16:24
+      |vpiName:o
+      |vpiFullName:work@sub.o
+      |vpiActual:
+      \_logic_net: (work@sub.o), line:15:45, endln:15:46
+|uhdmallModules:
+\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:18:1, endln:21:10
+  |vpiParent:
+  \_design: (work@top)
+  |vpiFullName:work@top
+  |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.o), line:18:32, endln:18:33
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:18:1, endln:21:10
+    |vpiName:o
+    |vpiFullName:work@top.o
+    |vpiNetType:36
+  |vpiPort:
+  \_port: (o), line:18:32, endln:18:33
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:18:1, endln:21:10
+    |vpiName:o
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.o.o), line:18:32, endln:18:33
+      |vpiParent:
+      \_port: (o), line:18:32, endln:18:33
+      |vpiName:o
+      |vpiFullName:work@top.o.o
+      |vpiActual:
+      \_logic_net: (work@top.o), line:18:32, endln:18:33
+    |vpiTypedef:
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_port: (o), line:18:32, endln:18:33
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_logic_typespec: , line:18:20, endln:18:31
+  |vpiRefModule:
+  \_ref_module: work@bus_if (bus), line:19:19, endln:19:22
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:18:1, endln:21:10
+    |vpiName:bus
+    |vpiDefName:work@bus_if
+    |vpiActual:
+    \_interface_inst: work@bus_if (work@bus_if), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:10:1, endln:14:13
+  |vpiRefModule:
+  \_ref_module: work@sub (u), line:20:7, endln:20:8
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:18:1, endln:21:10
+    |vpiName:u
+    |vpiDefName:work@sub
+    |vpiActual:
+    \_module_inst: work@sub (work@sub), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:15:1, endln:17:10
+    |vpiPort:
+    \_port: (s), line:20:10, endln:20:20
+      |vpiParent:
+      \_ref_module: work@sub (u), line:20:7, endln:20:8
+      |vpiName:s
+      |vpiHighConn:
+      \_hier_path: (bus.mp), line:20:13, endln:20:19
+        |vpiParent:
+        \_port: (s), line:20:10, endln:20:20
+        |vpiActual:
+        \_ref_obj: (bus), line:20:13, endln:20:16
+          |vpiParent:
+          \_hier_path: (bus.mp), line:20:13, endln:20:19
+          |vpiName:bus
+        |vpiActual:
+        \_ref_obj: (work@top.u.s.mp), line:20:17, endln:20:19
+          |vpiParent:
+          \_hier_path: (bus.mp), line:20:13, endln:20:19
+          |vpiName:mp
+          |vpiFullName:work@top.u.s.mp
+        |vpiName:bus.mp
+    |vpiPort:
+    \_port: (o), line:20:22, endln:20:27
+      |vpiParent:
+      \_ref_module: work@sub (u), line:20:7, endln:20:8
+      |vpiName:o
+      |vpiHighConn:
+      \_ref_obj: (work@top.u.o.o), line:20:25, endln:20:26
+        |vpiParent:
+        \_port: (o), line:20:22, endln:20:27
+        |vpiName:o
+        |vpiFullName:work@top.u.o.o
+        |vpiActual:
+        \_logic_net: (work@top.o), line:18:32, endln:18:33
+|uhdmtopModules:
+\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:18:1, endln:21:10
+  |vpiParent:
+  \_design: (work@top)
+  |vpiName:work@top
+  |vpiDefName:work@top
+  |vpiTop:1
+  |vpiNet:
+  \_logic_net: (work@top.o), line:18:32, endln:18:33
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:18:1, endln:21:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_logic_net: (work@top.o), line:18:32, endln:18:33
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_logic_typespec: , line:18:20, endln:18:31
+    |vpiName:o
+    |vpiFullName:work@top.o
+    |vpiNetType:36
+  |vpiTopModule:1
+  |vpiPort:
+  \_port: (o), line:18:32, endln:18:33
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:18:1, endln:21:10
+    |vpiName:o
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.o), line:18:32, endln:18:33
+      |vpiParent:
+      \_port: (o), line:18:32, endln:18:33
+      |vpiName:o
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_logic_net: (work@top.o), line:18:32, endln:18:33
+    |vpiTypedef:
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_port: (o), line:18:32, endln:18:33
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_logic_typespec: , line:18:20, endln:18:31
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:18:1, endln:21:10
+  |vpiInterface:
+  \_interface_inst: work@bus_if (work@top.bus), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:19:3, endln:19:26
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:18:1, endln:21:10
+    |vpiName:bus
+    |vpiFullName:work@top.bus
+    |vpiParameter:
+    \_parameter: (work@top.bus.N), line:10:34, endln:10:35
+      |vpiParent:
+      \_interface_inst: work@bus_if (work@top.bus), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:19:3, endln:19:26
+      |UINT:1
+      |vpiTypespec:
+      \_ref_typespec: (work@top.bus.N)
+        |vpiParent:
+        \_parameter: (work@top.bus.N), line:10:34, endln:10:35
+        |vpiFullName:work@top.bus.N
+        |vpiActual:
+        \_int_typespec: , line:10:30, endln:10:33
+      |vpiSigned:1
+      |vpiName:N
+      |vpiFullName:work@top.bus.N
+    |vpiParamAssign:
+    \_param_assign: , line:10:34, endln:10:39
+      |vpiParent:
+      \_interface_inst: work@bus_if (work@top.bus), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:19:3, endln:19:26
+      |vpiOverriden:1
+      |vpiRhs:
+      \_constant: , line:10:38, endln:10:39
+        |vpiParent:
+        \_param_assign: , line:10:34, endln:10:39
+        |vpiDecompile:1
+        |vpiSize:32
+        |UINT:1
+        |vpiTypespec:
+        \_ref_typespec: (work@top.bus)
+          |vpiParent:
+          \_constant: , line:10:38, endln:10:39
+          |vpiFullName:work@top.bus
+          |vpiActual:
+          \_int_typespec: , line:10:30, endln:10:33
+        |vpiConstType:9
+      |vpiLhs:
+      \_parameter: (work@top.bus.N), line:10:34, endln:10:35
+    |vpiTypedef:
+    \_struct_typespec: (p::pkt_t), line:8:11, endln:12:18
+    |vpiTypedef:
+    \_import_typespec: (p), line:11:10, endln:11:14
+    |vpiDefName:work@bus_if
+    |vpiDefFile:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv
+    |vpiDefLineNo:10
+    |vpiArrayNet:
+    \_array_net: (work@top.bus.arr), line:12:9, endln:12:12
+      |vpiParent:
+      \_interface_inst: work@bus_if (work@top.bus), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:19:3, endln:19:26
+      |vpiSize:2
+      |vpiName:arr
+      |vpiFullName:work@top.bus.arr
+      |vpiRange:
+      \_range: , line:12:13, endln:12:18
+        |vpiParent:
+        \_array_net: (work@top.bus.arr), line:12:9, endln:12:12
+        |vpiLeftRange:
+        \_constant: , line:12:14, endln:12:15
+          |vpiParent:
+          \_range: , line:12:13, endln:12:18
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:12:16, endln:12:17
+          |vpiParent:
+          \_range: , line:12:13, endln:12:18
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+          |vpiConstType:9
+      |vpiNet:
+      \_struct_net: (work@top.bus.arr.arr), line:12:9, endln:12:18
+        |vpiParent:
+        \_array_net: (work@top.bus.arr), line:12:9, endln:12:12
+        |vpiTypespec:
+        \_ref_typespec: (work@top.bus.arr.arr)
+          |vpiParent:
+          \_struct_net: (work@top.bus.arr.arr), line:12:9, endln:12:18
+          |vpiFullName:work@top.bus.arr.arr
+          |vpiActual:
+          \_struct_typespec: (p::pkt_t), line:8:11, endln:12:18
+        |vpiName:arr
+        |vpiFullName:work@top.bus.arr.arr
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:18:1, endln:21:10
+    |vpiModport:
+    \_modport: (mp), line:13:11, endln:13:13
+      |vpiParent:
+      \_interface_inst: work@bus_if (work@top.bus), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:19:3, endln:19:26
+      |vpiName:mp
+      |vpiIODecl:
+      \_io_decl: (arr), line:13:21, endln:13:24
+        |vpiParent:
+        \_modport: (mp), line:13:11, endln:13:13
+        |vpiDirection:1
+        |vpiName:arr
+      |vpiInterface:
+      \_interface_inst: work@bus_if (work@top.bus), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:19:3, endln:19:26
+  |vpiModule:
+  \_module_inst: work@sub (work@top.u), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:20:3, endln:20:29
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:18:1, endln:21:10
+    |vpiName:u
+    |vpiFullName:work@top.u
+    |vpiDefName:work@sub
+    |vpiDefFile:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv
+    |vpiDefLineNo:15
+    |vpiNet:
+    \_logic_net: (work@top.u.o), line:15:45, endln:15:46
+      |vpiParent:
+      \_module_inst: work@sub (work@top.u), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:20:3, endln:20:29
+      |vpiTypespec:
+      \_ref_typespec: (work@top.u.o)
+        |vpiParent:
+        \_logic_net: (work@top.u.o), line:15:45, endln:15:46
+        |vpiFullName:work@top.u.o
+        |vpiActual:
+        \_logic_typespec: , line:15:33, endln:15:44
+      |vpiName:o
+      |vpiFullName:work@top.u.o
+      |vpiNetType:36
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:18:1, endln:21:10
+    |vpiPort:
+    \_port: (s), line:15:23, endln:15:24
+      |vpiParent:
+      \_module_inst: work@sub (work@top.u), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:20:3, endln:20:29
+      |vpiName:s
+      |vpiDirection:3
+      |vpiHighConn:
+      \_hier_path: (bus.mp), line:20:13, endln:20:19
+        |vpiParent:
+        \_port: (s), line:15:23, endln:15:24
+        |vpiActual:
+        \_ref_obj: (bus), line:20:13, endln:20:16
+          |vpiParent:
+          \_hier_path: (bus.mp), line:20:13, endln:20:19
+          |vpiName:bus
+          |vpiActual:
+          \_interface_inst: work@bus_if (work@top.bus), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:19:3, endln:19:26
+        |vpiActual:
+        \_ref_obj: (work@top.u.s.mp), line:20:17, endln:20:19
+          |vpiParent:
+          \_hier_path: (bus.mp), line:20:13, endln:20:19
+          |vpiName:mp
+          |vpiFullName:work@top.u.s.mp
+          |vpiActual:
+          \_modport: (mp), line:13:11, endln:13:13
+        |vpiName:bus.mp
+      |vpiLowConn:
+      \_ref_obj: (work@top.u.s), line:20:11, endln:20:12
+        |vpiParent:
+        \_port: (s), line:15:23, endln:15:24
+        |vpiFullName:work@top.u.s
+        |vpiActual:
+        \_modport: (mp), line:13:11, endln:13:13
+      |vpiTypedef:
+      \_ref_typespec: (work@top.u.s)
+        |vpiParent:
+        \_port: (s), line:15:23, endln:15:24
+        |vpiFullName:work@top.u.s
+        |vpiActual:
+        \_interface_typespec: (mp), line:15:20, endln:15:22
+      |vpiInstance:
+      \_module_inst: work@sub (work@top.u), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:20:3, endln:20:29
+    |vpiPort:
+    \_port: (o), line:15:45, endln:15:46
+      |vpiParent:
+      \_module_inst: work@sub (work@top.u), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:20:3, endln:20:29
+      |vpiName:o
+      |vpiDirection:2
+      |vpiHighConn:
+      \_ref_obj: (work@top.o), line:20:25, endln:20:26
+        |vpiParent:
+        \_port: (o), line:15:45, endln:15:46
+        |vpiName:o
+        |vpiFullName:work@top.o
+        |vpiActual:
+        \_logic_net: (work@top.o), line:18:32, endln:18:33
+      |vpiLowConn:
+      \_ref_obj: (work@top.u.o), line:20:23, endln:20:24
+        |vpiParent:
+        \_port: (o), line:15:45, endln:15:46
+        |vpiName:o
+        |vpiFullName:work@top.u.o
+        |vpiActual:
+        \_logic_net: (work@top.u.o), line:15:45, endln:15:46
+      |vpiTypedef:
+      \_ref_typespec: (work@top.u.o)
+        |vpiParent:
+        \_port: (o), line:15:45, endln:15:46
+        |vpiFullName:work@top.u.o
+        |vpiActual:
+        \_logic_typespec: , line:15:33, endln:15:44
+      |vpiInstance:
+      \_module_inst: work@sub (work@top.u), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:20:3, endln:20:29
+    |vpiInterface:
+    \_interface_inst: work@bus_if (work@top.u.s), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:20:0
+      |vpiParent:
+      \_module_inst: work@sub (work@top.u), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:20:3, endln:20:29
+      |vpiName:s
+      |vpiFullName:work@top.u.s
+      |vpiParameter:
+      \_parameter: (work@top.u.s.N), line:10:34, endln:10:35
+        |vpiParent:
+        \_interface_inst: work@bus_if (work@top.u.s), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:20:0
+        |UINT:1
+        |vpiTypespec:
+        \_ref_typespec: (work@top.u.s.N)
+          |vpiParent:
+          \_parameter: (work@top.u.s.N), line:10:34, endln:10:35
+          |vpiFullName:work@top.u.s.N
+          |vpiActual:
+          \_int_typespec: , line:10:30, endln:10:33
+        |vpiSigned:1
+        |vpiName:N
+        |vpiFullName:work@top.u.s.N
+      |vpiParamAssign:
+      \_param_assign: , line:10:34, endln:10:39
+        |vpiParent:
+        \_interface_inst: work@bus_if (work@top.u.s), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:20:0
+        |vpiOverriden:1
+        |vpiRhs:
+        \_constant: , line:10:38, endln:10:39
+          |vpiParent:
+          \_param_assign: , line:10:34, endln:10:39
+          |vpiDecompile:1
+          |vpiSize:32
+          |UINT:1
+          |vpiTypespec:
+          \_ref_typespec: (work@top.u.s)
+            |vpiParent:
+            \_constant: , line:10:38, endln:10:39
+            |vpiFullName:work@top.u.s
+            |vpiActual:
+            \_int_typespec: , line:10:30, endln:10:33
+          |vpiConstType:9
+        |vpiLhs:
+        \_parameter: (work@top.u.s.N), line:10:34, endln:10:35
+      |vpiDefName:work@bus_if
+      |vpiModport:
+      \_modport: (mp), line:13:11, endln:13:13
+        |vpiParent:
+        \_interface_inst: work@bus_if (work@top.u.s), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:20:0
+        |vpiName:mp
+        |vpiIODecl:
+        \_io_decl: (arr), line:13:21, endln:13:24
+          |vpiParent:
+          \_modport: (mp), line:13:11, endln:13:13
+          |vpiDirection:1
+          |vpiName:arr
+          |vpiExpr:
+          \_struct_net: (arr.arr), line:12:9, endln:12:18
+            |vpiParent:
+            \_array_net: (arr), line:12:9, endln:12:12
+            |vpiTypespec:
+            \_ref_typespec: (arr.arr)
+              |vpiParent:
+              \_struct_net: (arr.arr), line:12:9, endln:12:18
+              |vpiFullName:arr.arr
+              |vpiActual:
+              \_struct_typespec: (p::pkt_t), line:8:11, endln:12:18
+            |vpiName:arr
+            |vpiFullName:arr.arr
+        |vpiInterface:
+        \_interface_inst: work@bus_if (work@top.u.s), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:20:0
+    |vpiContAssign:
+    \_cont_assign: , line:16:10, endln:16:24
+      |vpiParent:
+      \_module_inst: work@sub (work@top.u), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:20:3, endln:20:29
+      |vpiRhs:
+      \_hier_path: (s.arr[1].a), line:16:14, endln:16:24
+        |vpiParent:
+        \_cont_assign: , line:16:10, endln:16:24
+        |vpiActual:
+        \_ref_obj: (s), line:16:14, endln:16:15
+          |vpiParent:
+          \_hier_path: (s.arr[1].a), line:16:14, endln:16:24
+          |vpiName:s
+          |vpiActual:
+          \_interface_inst: work@bus_if (work@top.u.s), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:20:0
+        |vpiActual:
+        \_bit_select: (s.arr[1]), line:16:16, endln:16:19
+          |vpiParent:
+          \_hier_path: (s.arr[1].a), line:16:14, endln:16:24
+          |vpiName:arr
+          |vpiFullName:s.arr[1]
+          |vpiActual:
+          \_struct_net: (arr.arr), line:12:9, endln:12:18
+          |vpiIndex:
+          \_constant: , line:16:20, endln:16:21
+        |vpiActual:
+        \_ref_obj: (work@top.u.a), line:16:23, endln:16:24
+          |vpiParent:
+          \_hier_path: (s.arr[1].a), line:16:14, endln:16:24
+          |vpiName:a
+          |vpiFullName:work@top.u.a
+          |vpiActual:
+          \_typespec_member: (a), line:8:39, endln:8:40
+        |vpiName:s.arr[1].a
+      |vpiLhs:
+      \_ref_obj: (work@top.u.o), line:16:10, endln:16:11
+        |vpiParent:
+        \_cont_assign: , line:16:10, endln:16:24
+        |vpiName:o
+        |vpiFullName:work@top.u.o
+        |vpiActual:
+        \_logic_net: (work@top.u.o), line:15:45, endln:15:46
+\_weaklyReferenced:
+\_logic_typespec: , line:8:27, endln:8:38
+  |vpiParent:
+  \_typespec_member: (a), line:8:39, endln:8:40
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:7:1, endln:9:11
+  |vpiRange:
+  \_range: , line:8:33, endln:8:38
+    |vpiParent:
+    \_logic_typespec: , line:8:27, endln:8:38
+    |vpiLeftRange:
+    \_constant: , line:8:34, endln:8:35
+      |vpiParent:
+      \_range: , line:8:33, endln:8:38
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:8:36, endln:8:37
+      |vpiParent:
+      \_range: , line:8:33, endln:8:38
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:8:42, endln:8:53
+  |vpiParent:
+  \_typespec_member: (b), line:8:54, endln:8:55
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:7:1, endln:9:11
+  |vpiRange:
+  \_range: , line:8:48, endln:8:53
+    |vpiParent:
+    \_logic_typespec: , line:8:42, endln:8:53
+    |vpiLeftRange:
+    \_constant: , line:8:49, endln:8:50
+      |vpiParent:
+      \_range: , line:8:48, endln:8:53
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:8:51, endln:8:52
+      |vpiParent:
+      \_range: , line:8:48, endln:8:53
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:8:27, endln:8:38
+  |vpiParent:
+  \_typespec_member: (a), line:8:39, endln:8:40
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:7:1, endln:9:11
+  |vpiRange:
+  \_range: , line:8:33, endln:8:38
+    |vpiParent:
+    \_logic_typespec: , line:8:27, endln:8:38
+    |vpiLeftRange:
+    \_constant: , line:8:34, endln:8:35
+      |vpiParent:
+      \_range: , line:8:33, endln:8:38
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:8:36, endln:8:37
+      |vpiParent:
+      \_range: , line:8:33, endln:8:38
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:8:42, endln:8:53
+  |vpiParent:
+  \_typespec_member: (b), line:8:54, endln:8:55
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:7:1, endln:9:11
+  |vpiRange:
+  \_range: , line:8:48, endln:8:53
+    |vpiParent:
+    \_logic_typespec: , line:8:42, endln:8:53
+    |vpiLeftRange:
+    \_constant: , line:8:49, endln:8:50
+      |vpiParent:
+      \_range: , line:8:48, endln:8:53
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:8:51, endln:8:52
+      |vpiParent:
+      \_range: , line:8:48, endln:8:53
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:10:30, endln:10:33
+  |vpiParent:
+  \_parameter: (work@bus_if.N), line:10:34, endln:10:35
+  |vpiSigned:1
+\_logic_typespec: , line:18:20, endln:18:31
+  |vpiRange:
+  \_range: , line:18:26, endln:18:31
+    |vpiParent:
+    \_logic_typespec: , line:18:20, endln:18:31
+    |vpiLeftRange:
+    \_constant: , line:18:27, endln:18:28
+      |vpiParent:
+      \_range: , line:18:26, endln:18:31
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:18:29, endln:18:30
+      |vpiParent:
+      \_range: , line:18:26, endln:18:31
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:18:20, endln:18:31
+  |vpiParent:
+  \_logic_net: (work@top.o), line:18:32, endln:18:33
+  |vpiRange:
+  \_range: , line:18:26, endln:18:31
+    |vpiParent:
+    \_logic_typespec: , line:18:20, endln:18:31
+    |vpiLeftRange:
+    \_constant: , line:18:27, endln:18:28
+      |vpiParent:
+      \_range: , line:18:26, endln:18:31
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:18:29, endln:18:30
+      |vpiParent:
+      \_range: , line:18:26, endln:18:31
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_interface_typespec: (mp), line:15:20, endln:15:22
+  |vpiParent:
+  \_interface_typespec: (bus_if), line:15:13, endln:15:19
+  |vpiName:mp
+  |vpiIsModPort:1
+\_interface_typespec: (bus_if), line:15:13, endln:15:19
+  |vpiName:bus_if
+\_int_typespec: , line:10:30, endln:10:33
+  |vpiParent:
+  \_ref_typespec: (work@top.u.s)
+  |vpiSigned:1
+\_array_net: (arr), line:12:9, endln:12:12
+  |vpiSize:2
+  |vpiName:arr
+  |vpiRange:
+  \_range: , line:12:13, endln:12:18
+    |vpiParent:
+    \_array_net: (arr), line:12:9, endln:12:12
+    |vpiLeftRange:
+    \_constant: , line:12:14, endln:12:15
+      |vpiParent:
+      \_range: , line:12:13, endln:12:18
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:12:16, endln:12:17
+      |vpiParent:
+      \_range: , line:12:13, endln:12:18
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiNet:
+  \_struct_net: (arr.arr), line:12:9, endln:12:18
+\_logic_typespec: , line:15:33, endln:15:44
+  |vpiRange:
+  \_range: , line:15:39, endln:15:44
+    |vpiParent:
+    \_logic_typespec: , line:15:33, endln:15:44
+    |vpiLeftRange:
+    \_constant: , line:15:40, endln:15:41
+      |vpiParent:
+      \_range: , line:15:39, endln:15:44
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:15:42, endln:15:43
+      |vpiParent:
+      \_range: , line:15:39, endln:15:44
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:15:33, endln:15:44
+  |vpiRange:
+  \_range: , line:15:39, endln:15:44
+    |vpiParent:
+    \_logic_typespec: , line:15:33, endln:15:44
+    |vpiLeftRange:
+    \_constant: , line:15:40, endln:15:41
+      |vpiParent:
+      \_range: , line:15:39, endln:15:44
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:15:42, endln:15:43
+      |vpiParent:
+      \_range: , line:15:39, endln:15:44
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_interface_typespec: (mp), line:15:20, endln:15:22
+  |vpiParent:
+  \_interface_typespec: (bus_if), line:15:13, endln:15:19
+  |vpiName:mp
+  |vpiIsModPort:1
+\_interface_typespec: (bus_if), line:15:13, endln:15:19
+  |vpiName:bus_if
+\_logic_typespec: , line:15:33, endln:15:44
+  |vpiRange:
+  \_range: , line:15:39, endln:15:44
+    |vpiParent:
+    \_logic_typespec: , line:15:33, endln:15:44
+    |vpiLeftRange:
+    \_constant: , line:15:40, endln:15:41
+      |vpiParent:
+      \_range: , line:15:39, endln:15:44
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:15:42, endln:15:43
+      |vpiParent:
+      \_range: , line:15:39, endln:15:44
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:18:20, endln:18:31
+  |vpiRange:
+  \_range: , line:18:26, endln:18:31
+    |vpiParent:
+    \_logic_typespec: , line:18:20, endln:18:31
+    |vpiLeftRange:
+    \_constant: , line:18:27, endln:18:28
+      |vpiParent:
+      \_range: , line:18:26, endln:18:31
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:18:29, endln:18:30
+      |vpiParent:
+      \_range: , line:18:26, endln:18:31
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:10:30, endln:10:33
+  |vpiParent:
+  \_ref_typespec: (work@top.bus.N)
+  |vpiSigned:1
+\_int_typespec: , line:10:30, endln:10:33
+  |vpiParent:
+  \_ref_typespec: (work@top.u.s.N)
+  |vpiSigned:1
+===================
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 0
+[WARNING] : 4
+[   NOTE] : 5
+
+============================== Begin RoundTrip Results ==============================
+[roundtrip]: ${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv | ${SURELOG_DIR}/build/regression/InterfaceUnpackedStructArrayDim/roundtrip/dut_000.sv | 9 | 21 |
+============================== End RoundTrip Results ==============================
