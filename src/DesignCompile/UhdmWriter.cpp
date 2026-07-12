@@ -892,6 +892,56 @@ void UhdmWriter::writeNets(DesignComponent* mod,
         dest_net->VpiParent(parent);
         dest_nets->push_back(dest_net);
 
+        // A DEFINITION-level unpacked-array net (e.g. an interface's
+        // `pkt_t arr [0:N]`) is otherwise emitted as JUST the element net,
+        // dropping the [lo:hi] dimension — whereas the elaborated instance
+        // wraps it in an array_net (NetlistElaboration::elabSignal), so an
+        // unpacked struct array collapses to a single-element net in the
+        // definition.  Additionally emit an array_net in the interface
+        // definition's Array_nets() carrying the dimension (the plain
+        // element net is kept in Nets() for backward compatibility).
+        if (instance == nullptr && parent &&
+            parent->UhdmType() == uhdminterface_inst) {
+          if (const NodeId unpackedDim = orig_net->getUnpackedDimension()) {
+            int32_t unpackedSize = 0;
+            if (std::vector<range*>* ranges = m_helper.compileRanges(
+                    mod, fC, unpackedDim, m_compileDesign, Reduce::No, nullptr,
+                    nullptr, unpackedSize, false)) {
+              array_net* anet = s.MakeArray_net();
+              anet->VpiName(orig_net->getName());
+              anet->VpiParent(parent);
+              anet->Ranges(ranges);
+              for (auto r : *ranges) r->VpiParent(anet);
+              anet->VpiSize(unpackedSize);
+              fC->populateCoreMembers(orig_net->getNodeId(),
+                                      orig_net->getNodeId(), anet);
+              // Fresh inner element net (a copy of the collapsed element) so the
+              // array_net carries the element type without stealing the Nets()
+              // entry's parent.
+              logic_net* elem = s.MakeLogic_net();
+              elem->VpiName(orig_net->getName());
+              elem->VpiNetType(dest_net->VpiNetType());
+              elem->VpiParent(anet);
+              if (dest_net->Typespec()) {
+                ref_typespec* ert = s.MakeRef_typespec();
+                ert->VpiParent(elem);
+                ert->Actual_typespec(dest_net->Typespec()->Actual_typespec());
+                elem->Typespec(ert);
+              }
+              VectorOfnet* innerNets = s.MakeNetVec();
+              innerNets->push_back(elem);
+              anet->Nets(innerNets);
+              interface_inst* iface = (interface_inst*)parent;
+              VectorOfarray_net* anets = iface->Array_nets();
+              if (anets == nullptr) {
+                anets = s.MakeArray_netVec();
+                iface->Array_nets(anets);
+              }
+              anets->push_back(anet);
+            }
+          }
+        }
+
         // Handle attributes (similar to writePorts)
         if (orig_net->attributes()) {
           dest_net->Attributes(orig_net->attributes());
