@@ -1845,24 +1845,29 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
       UHDM::typespec* spec = sit->getTypespec();
       spec = m_helper.elabTypespec(component, spec, m_compileDesign, nullptr,
                                    instance);
-      variables* var = m_helper.getSimpleVarFromTypespec(spec, packedDimensions,
-                                                         m_compileDesign);
-      var->VpiConstantVariable(sig->isConst());
-      var->VpiSigned(sig->isSigned());
-      var->VpiName(signame);
-      if (var->Typespec() == nullptr) {
-        ref_typespec* specRef = s.MakeRef_typespec();
-        specRef->VpiParent(var);
-        var->Typespec(specRef);
+      // getSimpleVarFromTypespec returns null for typespecs it does not handle
+      // (e.g. a typedef of chandle/event/interface); guard the dereference and
+      // let the fallback below build a variable, matching the sibling call
+      // sites (e.g. the Parameter branch and CompileType).
+      if (variables* var = m_helper.getSimpleVarFromTypespec(
+              spec, packedDimensions, m_compileDesign)) {
+        var->VpiConstantVariable(sig->isConst());
+        var->VpiSigned(sig->isSigned());
+        var->VpiName(signame);
+        if (var->Typespec() == nullptr) {
+          ref_typespec* specRef = s.MakeRef_typespec();
+          specRef->VpiParent(var);
+          var->Typespec(specRef);
+        }
+        var->Typespec()->Actual_typespec(spec);
+        if (assignExp != nullptr) {
+          var->Expr(assignExp);
+          assignExp->VpiParent(var);
+        }
+        obj = var;
+        found = true;
+        break;
       }
-      var->Typespec()->Actual_typespec(spec);
-      if (assignExp != nullptr) {
-        var->Expr(assignExp);
-        assignExp->VpiParent(var);
-      }
-      obj = var;
-      found = true;
-      break;
     } else if (/*const ClassDefinition* cl = */ datatype_cast<
                const ClassDefinition*>(dtype)) {
       class_var* stv = s.MakeClass_var();
