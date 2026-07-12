@@ -101,33 +101,33 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 constant                                               1
 design                                                 1
-int_typespec                                           1
+int_typespec                                           2
 interface_inst                                         5
 interface_typespec                                     4
 logic_net                                              3
 module_inst                                            3
 param_assign                                           1
-parameter                                              1
+parameter                                              2
 port                                                   3
 ref_module                                             1
 ref_obj                                                4
-ref_typespec                                           4
+ref_typespec                                           5
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
 constant                                               1
 design                                                 1
-int_typespec                                           1
+int_typespec                                           2
 interface_inst                                         5
 interface_typespec                                     4
 logic_net                                              3
 module_inst                                            3
 param_assign                                           1
-parameter                                              1
+parameter                                              2
 port                                                   3
 ref_module                                             1
 ref_obj                                                4
-ref_typespec                                           4
+ref_typespec                                           5
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/InterfTypeBad/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/InterfTypeBad/slpp_all/checker/surelog.chk.html ...
@@ -276,6 +276,21 @@ design: (work@dut)
       \_interface_inst: work@tnoc_flit_if (work@dut.tnoc), file:${SURELOG_DIR}/tests/InterfTypeBad/dut.sv, line:16:1, endln:16:29
       |vpiName:types
       |vpiFullName:work@dut.tnoc.types
+      |vpiParameter:
+      \_parameter: (work@dut.tnoc.types.PACKET_CONFIG), line:2:18, endln:2:31
+        |vpiParent:
+        \_interface_inst: work@tnoc_types (work@dut.tnoc.types), file:${SURELOG_DIR}/tests/InterfTypeBad/dut.sv, line:13:0
+        |UINT:1
+        |vpiTypespec:
+        \_ref_typespec: (work@dut.tnoc.types.PACKET_CONFIG)
+          |vpiParent:
+          \_parameter: (work@dut.tnoc.types.PACKET_CONFIG), line:2:18, endln:2:31
+          |vpiFullName:work@dut.tnoc.types.PACKET_CONFIG
+          |vpiActual:
+          \_int_typespec: , line:2:13, endln:2:16
+        |vpiSigned:1
+        |vpiName:PACKET_CONFIG
+        |vpiFullName:work@dut.tnoc.types.PACKET_CONFIG
       |vpiDefName:work@tnoc_types
     |vpiPort:
     \_port: (types), line:7:15, endln:7:20
@@ -312,6 +327,10 @@ design: (work@dut)
   |vpiName:tnoc_types
 \_interface_typespec: (tnoc_types), line:15:1, endln:15:11
   |vpiName:tnoc_types
+\_int_typespec: , line:2:13, endln:2:16
+  |vpiParent:
+  \_ref_typespec: (work@dut.tnoc.types.PACKET_CONFIG)
+  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

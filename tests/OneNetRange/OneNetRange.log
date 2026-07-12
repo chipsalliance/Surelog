@@ -31,7 +31,7 @@ design                                                 1
 hier_path                                             12
 immediate_assert                                       2
 initial                                                1
-int_typespec                                          12
+int_typespec                                          16
 interface_inst                                         6
 interface_typespec                                     3
 logic_net                                             26
@@ -39,13 +39,13 @@ logic_typespec                                        32
 module_inst                                           17
 operation                                             48
 param_assign                                          13
-parameter                                             13
+parameter                                             17
 port                                                  33
 program                                                2
 range                                                 46
 ref_module                                             6
 ref_obj                                               72
-ref_typespec                                          59
+ref_typespec                                          63
 sys_func_call                                          9
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -59,7 +59,7 @@ design                                                 1
 hier_path                                             16
 immediate_assert                                       2
 initial                                                1
-int_typespec                                          12
+int_typespec                                          16
 interface_inst                                         6
 interface_typespec                                     3
 logic_net                                             26
@@ -67,13 +67,13 @@ logic_typespec                                        32
 module_inst                                           17
 operation                                             48
 param_assign                                          13
-parameter                                             13
+parameter                                             17
 port                                                  38
 program                                                2
 range                                                 46
 ref_module                                             6
 ref_obj                                               88
-ref_typespec                                          64
+ref_typespec                                          68
 sys_func_call                                          9
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/OneNetRange/slpp_unit/surelog.uhdm ...
@@ -1786,6 +1786,34 @@ design: (work@TOP)
         \_module_inst: work@middle (work@TOP.dut1.middle1), file:${SURELOG_DIR}/tests/OneNetRange/dut.v, line:4:3, endln:4:43
         |vpiName:conn
         |vpiFullName:work@TOP.dut1.middle1.conn
+        |vpiParameter:
+        \_parameter: (work@TOP.dut1.middle1.conn.width), line:8:33, endln:8:38
+          |vpiParent:
+          \_interface_inst: work@ConnectTB (work@TOP.dut1.middle1.conn), file:${SURELOG_DIR}/tests/OneNetRange/dut.v, line:4:0
+          |UINT:1
+          |vpiTypespec:
+          \_ref_typespec: (work@TOP.dut1.middle1.conn.width)
+            |vpiParent:
+            \_parameter: (work@TOP.dut1.middle1.conn.width), line:8:33, endln:8:38
+            |vpiFullName:work@TOP.dut1.middle1.conn.width
+            |vpiActual:
+            \_int_typespec: , line:8:23, endln:8:42
+          |vpiName:width
+          |vpiFullName:work@TOP.dut1.middle1.conn.width
+        |vpiParameter:
+        \_parameter: (work@TOP.dut1.middle1.conn.width), line:8:33, endln:8:38
+          |vpiParent:
+          \_interface_inst: work@ConnectTB (work@TOP.dut1.middle1.conn), file:${SURELOG_DIR}/tests/OneNetRange/dut.v, line:4:0
+          |UINT:1
+          |vpiTypespec:
+          \_ref_typespec: (work@TOP.dut1.middle1.conn.width)
+            |vpiParent:
+            \_parameter: (work@TOP.dut1.middle1.conn.width), line:8:33, endln:8:38
+            |vpiFullName:work@TOP.dut1.middle1.conn.width
+            |vpiActual:
+            \_int_typespec: , line:8:23, endln:8:42
+          |vpiName:width
+          |vpiFullName:work@TOP.dut1.middle1.conn.width
         |vpiDefName:work@ConnectTB
         |vpiPort:
         \_port: (con_i), line:8:68, endln:8:73
@@ -2823,6 +2851,12 @@ design: (work@TOP)
 \_int_typespec: , line:11:17, endln:11:36
   |vpiParent:
   \_ref_typespec: (work@TOP.dut1.middle1.width)
+\_int_typespec: , line:8:23, endln:8:42
+  |vpiParent:
+  \_ref_typespec: (work@TOP.dut1.middle1.conn.width)
+\_int_typespec: , line:8:23, endln:8:42
+  |vpiParent:
+  \_ref_typespec: (work@TOP.dut1.middle1.conn.width)
 \_int_typespec: , line:15:14, endln:15:33
   |vpiParent:
   \_ref_typespec: (work@TOP.dut1.middle1.sub1.width)
