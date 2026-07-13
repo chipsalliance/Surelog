@@ -894,6 +894,11 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
   for (uint32_t i = 0; i < formal_args.size(); i++) {
     std::vector<std::string> formal_arg_default;
     StringUtils::tokenize(formal_args[i], "=", formal_arg_default);
+    if (formal_arg_default.empty()) {
+      // Empty formal argument (e.g. produced by a malformed default value);
+      // nothing to substitute, so skip it instead of indexing an empty vector.
+      continue;
+    }
     const std::string formal =
         std::regex_replace(formal_arg_default[0], ws_re, "");
     bool empty_actual = true;
