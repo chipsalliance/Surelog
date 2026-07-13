@@ -3363,6 +3363,7 @@ UHDM::any* CompileHelper::defaultPatternAssignment(const UHDM::typespec* tps,
           if (const UHDM::ref_typespec* rt = pattern->Typespec()) {
             ptps = rt->Actual_typespec();
           }
+          if (ptps == nullptr) break;
           if (ptps->VpiName() == "default") {
             UHDM::ExprEval eval;
             expr* expat = (expr*)pattern->Pattern();
