@@ -104,6 +104,24 @@ bool CompileHelper::substituteAssignedValue(const UHDM::any *oper,
   return substitute;
 }
 
+any *CompileHelper::getParamTypespec(std::string_view name,
+                                     DesignComponent *component) {
+  if (component == nullptr) return nullptr;
+  if (UHDM::VectorOfparam_assign *pas = component->getParam_assigns()) {
+    for (UHDM::param_assign *pa : *pas) {
+      if (pa && pa->Lhs() && pa->Lhs()->VpiName() == name) {
+        if (const UHDM::parameter *p =
+                any_cast<const UHDM::parameter *>(pa->Lhs())) {
+          if (const UHDM::ref_typespec *rt = p->Typespec()) {
+            return (UHDM::any *)rt->Actual_typespec();
+          }
+        }
+      }
+    }
+  }
+  return nullptr;
+}
+
 any *CompileHelper::getObject(std::string_view name, DesignComponent *component,
                               CompileDesign *compileDesign,
                               ValuedComponentI *instance, const any *pexpr) {
@@ -760,10 +778,16 @@ any *CompileHelper::decodeHierPath(hier_path *path, bool &invalidValue,
     auto ret = getTaskFunc(name, component, compileDesign, instance, pexpr);
     return ret.first;
   };
+  UHDM::GetObjectFunctor getTypespecFunctor =
+      [&](std::string_view name, const any *inst,
+          const any *pexpr) -> UHDM::any * {
+    return getParamTypespec(name, component);
+  };
   UHDM::ExprEval eval(muteErrors);
   eval.setGetObjectFunctor(getObjectFunctor);
   eval.setGetValueFunctor(getValueFunctor);
   eval.setGetTaskFuncFunctor(getTaskFuncFunctor);
+  eval.setGetTypespecFunctor(getTypespecFunctor);
   if (m_exprEvalPlaceHolder == nullptr) {
     m_exprEvalPlaceHolder = compileDesign->getSerializer().MakeModule_inst();
     m_exprEvalPlaceHolder->Param_assigns(
@@ -819,10 +843,16 @@ expr *CompileHelper::reduceExpr(any *result, bool &invalidValue,
     auto ret = getTaskFunc(name, component, compileDesign, instance, pexpr);
     return ret.first;
   };
+  UHDM::GetObjectFunctor getTypespecFunctor =
+      [&](std::string_view name, const any *inst,
+          const any *pexpr) -> UHDM::any * {
+    return getParamTypespec(name, component);
+  };
   UHDM::ExprEval eval(muteErrors);
   eval.setGetObjectFunctor(getObjectFunctor);
   eval.setGetValueFunctor(getValueFunctor);
   eval.setGetTaskFuncFunctor(getTaskFuncFunctor);
+  eval.setGetTypespecFunctor(getTypespecFunctor);
   if (m_exprEvalPlaceHolder == nullptr) {
     m_exprEvalPlaceHolder = compileDesign->getSerializer().MakeModule_inst();
     m_exprEvalPlaceHolder->Param_assigns(
@@ -4216,10 +4246,16 @@ uint64_t CompileHelper::Bits(const UHDM::any *typespec, bool &invalidValue,
     auto ret = getTaskFunc(name, component, compileDesign, instance, nullptr);
     return ret.first;
   };
+  UHDM::GetObjectFunctor getTypespecFunctor =
+      [&](std::string_view name, const any *inst,
+          const any *pexpr) -> UHDM::any * {
+    return getParamTypespec(name, component);
+  };
   UHDM::ExprEval eval;
   eval.setGetObjectFunctor(getObjectFunctor);
   eval.setGetValueFunctor(getValueFunctor);
   eval.setGetTaskFuncFunctor(getTaskFuncFunctor);
+  eval.setGetTypespecFunctor(getTypespecFunctor);
   if (m_exprEvalPlaceHolder == nullptr) {
     m_exprEvalPlaceHolder = compileDesign->getSerializer().MakeModule_inst();
     m_exprEvalPlaceHolder->Param_assigns(
