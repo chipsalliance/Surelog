@@ -34,20 +34,34 @@ make install
 ```
 
 ### Testing Commands
+
+**IMPORTANT: The official regression harness is the Python script
+`scripts/regression.py`, NOT `tests/regression.tcl` (the tcl script is
+legacy).** All golden-log generation, comparison, and CI use `regression.py`.
+
 ```bash
+# Run the whole regression (or a subset) against a given build's surelog binary.
+# `--filters` takes one or more regexes matched against test names.
+# `--build-dirpath` points at the dir containing bin/surelog (relative to the
+# workspace root, or absolute).
+python3 scripts/regression.py run --filters <TestNameRegex> --build-dirpath <build>
+
+# Regenerate/refresh the golden .log for the matched test(s) in place:
+python3 scripts/regression.py update --filters <TestNameRegex> --build-dirpath <build>
+
+# Modes: run | report | update | extract.  Tests are auto-discovered by
+# globbing tests/<Name>/<Name>.sl (and third_party/tests) — no manifest.
+# Golden logs are stored as tests/<Name>/<Name>.log with paths normalized to
+# ${SURELOG_DIR}.  When surelog lives in the uhdm2rtlil superbuild, use
+# --build-dirpath /home/alain/uhdm2rtlil/build/third_party/Surelog
+
+# Legacy tcl harness (avoid — kept only for reference):
+#   cd build && tclsh ../tests/regression.tcl diff_mode show_diff
+
 # Run unit tests
 make test/unittest
 
-# Run regression tests
-make test/regression
-
-# Run both unit and regression tests  
-make test
-
-# Run tests in parallel with custom options
-cd build && tclsh ../tests/regression.tcl diff_mode show_diff
-
-# Run specific test
+# Run specific test manually
 cd build && ../bin/surelog ../tests/<TestName>/dut.sv
 
 # Run valgrind memory checks

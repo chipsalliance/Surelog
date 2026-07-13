@@ -611,6 +611,14 @@ class CompileHelper final {
                        CompileDesign* compileDesign, ValuedComponentI* instance,
                        const UHDM::any* pexpr);
 
+  // Resolves a parameter name to its DECLARED typespec (not its value) from the
+  // component's param_assigns.  Used by the ExprEval typespec functor to
+  // navigate struct/packed member layouts of parameters whose value is a
+  // typespec-less assignment-pattern operation; declaration types are
+  // instance-independent, so this does not affect value resolution.
+  UHDM::any* getParamTypespec(std::string_view name,
+                              DesignComponent* component);
+
   void reorderAssignmentPattern(DesignComponent* mod, const UHDM::any* lhs,
                                 UHDM::any* rhs, CompileDesign* compileDesign,
                                 ValuedComponentI* instance, uint32_t level);
