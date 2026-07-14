@@ -624,8 +624,7 @@ class CompileHelper final {
   // TYPE definition, since the interface instance isn't bound yet at
   // generate-elaboration time.  Returns a UHDM constant, or nullptr.
   UHDM::any* resolveInterfacePortMember(DesignComponent* component,
-                                        std::string_view baseName,
-                                        std::string_view memberName,
+                                        UHDM::hier_path* path,
                                         CompileDesign* compileDesign,
                                         const FileContent* fC, NodeId locId);
 
