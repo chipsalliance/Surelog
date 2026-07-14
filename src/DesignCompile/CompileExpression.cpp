@@ -1186,30 +1186,40 @@ UHDM::any *CompileHelper::resolveInterfacePortMember(
     DesignComponent *component, std::string_view baseName,
     std::string_view memberName, CompileDesign *compileDesign,
     const FileContent *fC, NodeId locId) {
-  if (component == nullptr) return nullptr;
-  for (Signal *port : component->getPorts()) {
-    if (port->getName() != baseName) continue;
-    if (!port->isInterface()) return nullptr;
-    DesignComponent *ifaceDef = port->getInterfaceDef();
-    if (ifaceDef == nullptr) {
-      const std::string tn = port->getInterfaceTypeName();
-      if (!tn.empty()) {
-        Design *des = compileDesign->getCompiler()->getDesign();
-        ifaceDef = des->getComponentDefinition(tn);
-        if (ifaceDef == nullptr)
-          ifaceDef = des->getComponentDefinition(StrCat("work@", tn));
+  // Walk up the enclosing-scope chain: when the read sits inside a nested
+  // generate block (`generate if (ALIGNED) begin: aligned for (i<sub.BYT) ...`),
+  // `component` is the gen-scope definition, which has no ports — the interface
+  // port `sub` lives on the enclosing MODULE definition (the degu SoC
+  // logsize2byteena aligned/unaligned byte-enable loops).
+  for (const ValuedComponentI *scope = component; scope;
+       scope = scope->getParentScope()) {
+    const DesignComponent *dc =
+        valuedcomponenti_cast<const DesignComponent *>(scope);
+    if (dc == nullptr) continue;
+    for (Signal *port : const_cast<DesignComponent *>(dc)->getPorts()) {
+      if (port->getName() != baseName) continue;
+      if (!port->isInterface()) return nullptr;
+      DesignComponent *ifaceDef = port->getInterfaceDef();
+      if (ifaceDef == nullptr) {
+        const std::string tn = port->getInterfaceTypeName();
+        if (!tn.empty()) {
+          Design *des = compileDesign->getCompiler()->getDesign();
+          ifaceDef = des->getComponentDefinition(tn);
+          if (ifaceDef == nullptr)
+            ifaceDef = des->getComponentDefinition(StrCat("work@", tn));
+        }
       }
-    }
-    if (ifaceDef) {
-      // Evaluate the interface's param/localparam (e.g. `BYT = DAT/8`) in the
-      // interface definition's own context (default/overridden params).
-      if (any *v = getValue(memberName, ifaceDef, compileDesign, Reduce::Yes,
-                            nullptr, fC->getFileId(), fC->Line(locId), nullptr,
-                            true)) {
-        if (v->UhdmType() == uhdmconstant) return v;
+      if (ifaceDef) {
+        // Evaluate the interface's param/localparam (e.g. `BYT = DAT/8`) in the
+        // interface definition's own context (default/overridden params).
+        if (any *v = getValue(memberName, ifaceDef, compileDesign, Reduce::Yes,
+                              nullptr, fC->getFileId(), fC->Line(locId), nullptr,
+                              true)) {
+          if (v->UhdmType() == uhdmconstant) return v;
+        }
       }
+      return nullptr;
     }
-    return nullptr;
   }
   return nullptr;
 }
