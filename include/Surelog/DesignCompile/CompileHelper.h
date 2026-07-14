@@ -619,6 +619,16 @@ class CompileHelper final {
   UHDM::any* getParamTypespec(std::string_view name,
                               DesignComponent* component);
 
+  // Resolve a value read of an interface-port localparam `<port>.<member>`
+  // (e.g. a generate-for bound `i < sub.CFG_BUS_BYT`) via the port's interface
+  // TYPE definition, since the interface instance isn't bound yet at
+  // generate-elaboration time.  Returns a UHDM constant, or nullptr.
+  UHDM::any* resolveInterfacePortMember(DesignComponent* component,
+                                        std::string_view baseName,
+                                        std::string_view memberName,
+                                        CompileDesign* compileDesign,
+                                        const FileContent* fC, NodeId locId);
+
   void reorderAssignmentPattern(DesignComponent* mod, const UHDM::any* lhs,
                                 UHDM::any* rhs, CompileDesign* compileDesign,
                                 ValuedComponentI* instance, uint32_t level);

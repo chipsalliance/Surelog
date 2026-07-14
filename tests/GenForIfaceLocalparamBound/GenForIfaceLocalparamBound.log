@@ -1,0 +1,1375 @@
+[INF:CM0023] Creating log file "${SURELOG_DIR}/build/regression/GenForIfaceLocalparamBound/slpp_all/surelog.log".
+[WRN:PA0205] ${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv:9:1: No timescale set for "bus_if".
+[WRN:PA0205] ${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv:14:1: No timescale set for "child".
+[WRN:PA0205] ${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv:22:1: No timescale set for "top".
+[INF:CP0300] Compilation...
+[INF:CP0304] ${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv:9:1: Compile interface "work@bus_if".
+[INF:CP0303] ${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv:14:1: Compile module "work@child".
+[INF:CP0303] ${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv:22:1: Compile module "work@top".
+[INF:EL0526] Design Elaboration...
+[INF:CP0335] ${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv:16:42: Compile generate block "work@top.c.g[0]".
+[INF:CP0335] ${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv:16:42: Compile generate block "work@top.c.g[1]".
+[INF:CP0335] ${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv:16:42: Compile generate block "work@top.c.g[2]".
+[INF:CP0335] ${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv:16:42: Compile generate block "work@top.c.g[3]".
+[NTE:EL0503] ${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv:22:1: Top level module "work@top".
+[NTE:EL0508] Nb Top level modules: 1.
+[NTE:EL0509] Max instance depth: 2.
+[NTE:EL0510] Nb instances: 2.
+[NTE:EL0511] Nb leaf instances: 0.
+[INF:UH0706] Creating UHDM Model...
+=== UHDM Object Stats Begin (Non-Elaborated Model) ===
+begin                                                  1
+bit_select                                             8
+constant                                              91
+cont_assign                                            5
+design                                                 1
+gen_region                                             1
+gen_scope                                              8
+gen_scope_array                                        8
+hier_path                                             10
+int_typespec                                          28
+interface_inst                                         4
+interface_typespec                                     3
+logic_net                                              9
+logic_typespec                                        12
+logic_var                                              2
+module_inst                                            9
+operation                                             19
+param_assign                                           4
+parameter                                             14
+port                                                  10
+range                                                 17
+ref_module                                             2
+ref_obj                                               46
+ref_typespec                                          48
+=== UHDM Object Stats End ===
+[INF:UH0707] Elaborating UHDM...
+=== UHDM Object Stats Begin (Elaborated Model) ===
+begin                                                  1
+bit_select                                            16
+constant                                              91
+cont_assign                                           10
+design                                                 1
+gen_region                                             1
+gen_scope                                             12
+gen_scope_array                                       12
+hier_path                                             15
+int_typespec                                          28
+interface_inst                                         4
+interface_typespec                                     3
+logic_net                                              9
+logic_typespec                                        12
+logic_var                                              2
+module_inst                                            9
+operation                                             19
+param_assign                                           4
+parameter                                             14
+port                                                  14
+range                                                 17
+ref_module                                             2
+ref_obj                                               67
+ref_typespec                                          56
+=== UHDM Object Stats End ===
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/GenForIfaceLocalparamBound/slpp_all/surelog.uhdm ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/GenForIfaceLocalparamBound/slpp_all/checker/surelog.chk.html ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/GenForIfaceLocalparamBound/slpp_all/surelog.uhdm ...
+[INF:UH0711] Decompiling UHDM...
+====== UHDM =======
+design: (work@top)
+|vpiElaborated:1
+|vpiName:work@top
+|uhdmallInterfaces:
+\_interface_inst: work@bus_if (work@bus_if), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:9:1, endln:12:13
+  |vpiParent:
+  \_design: (work@top)
+  |vpiFullName:work@bus_if
+  |vpiParameter:
+  \_parameter: (work@bus_if.DAT), line:9:34, endln:9:37
+    |vpiParent:
+    \_interface_inst: work@bus_if (work@bus_if), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:9:1, endln:12:13
+    |UINT:32
+    |vpiTypespec:
+    \_ref_typespec: (work@bus_if.DAT)
+      |vpiParent:
+      \_parameter: (work@bus_if.DAT), line:9:34, endln:9:37
+      |vpiFullName:work@bus_if.DAT
+      |vpiActual:
+      \_int_typespec: , line:9:30, endln:9:33
+    |vpiSigned:1
+    |vpiName:DAT
+    |vpiFullName:work@bus_if.DAT
+  |vpiParameter:
+  \_parameter: (work@bus_if.BYT), line:10:27, endln:10:30
+    |vpiParent:
+    \_interface_inst: work@bus_if (work@bus_if), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:9:1, endln:12:13
+    |vpiTypespec:
+    \_ref_typespec: (work@bus_if.BYT)
+      |vpiParent:
+      \_parameter: (work@bus_if.BYT), line:10:27, endln:10:30
+      |vpiFullName:work@bus_if.BYT
+      |vpiActual:
+      \_int_typespec: , line:10:14, endln:10:26
+    |vpiLocalParam:1
+    |vpiName:BYT
+    |vpiFullName:work@bus_if.BYT
+  |vpiParamAssign:
+  \_param_assign: , line:9:34, endln:9:42
+    |vpiParent:
+    \_interface_inst: work@bus_if (work@bus_if), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:9:1, endln:12:13
+    |vpiRhs:
+    \_constant: , line:9:40, endln:9:42
+      |vpiParent:
+      \_param_assign: , line:9:34, endln:9:42
+      |vpiDecompile:32
+      |vpiSize:64
+      |UINT:32
+      |vpiTypespec:
+      \_ref_typespec: (work@bus_if)
+        |vpiParent:
+        \_constant: , line:9:40, endln:9:42
+        |vpiFullName:work@bus_if
+        |vpiActual:
+        \_int_typespec: , line:9:30, endln:9:33
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@bus_if.DAT), line:9:34, endln:9:37
+  |vpiParamAssign:
+  \_param_assign: , line:10:27, endln:10:38
+    |vpiParent:
+    \_interface_inst: work@bus_if (work@bus_if), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:9:1, endln:12:13
+    |vpiRhs:
+    \_operation: , line:10:33, endln:10:38
+      |vpiParent:
+      \_param_assign: , line:10:27, endln:10:38
+      |vpiOpType:12
+      |vpiOperand:
+      \_ref_obj: (work@bus_if.DAT), line:10:33, endln:10:36
+        |vpiParent:
+        \_operation: , line:10:33, endln:10:38
+        |vpiName:DAT
+        |vpiFullName:work@bus_if.DAT
+      |vpiOperand:
+      \_constant: , line:10:37, endln:10:38
+        |vpiParent:
+        \_operation: , line:10:33, endln:10:38
+        |vpiDecompile:8
+        |vpiSize:64
+        |UINT:8
+        |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@bus_if.BYT), line:10:27, endln:10:30
+  |vpiDefName:work@bus_if
+  |vpiNet:
+  \_logic_net: (work@bus_if.ben), line:11:19, endln:11:22
+    |vpiParent:
+    \_interface_inst: work@bus_if (work@bus_if), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:9:1, endln:12:13
+    |vpiTypespec:
+    \_ref_typespec: (work@bus_if.ben)
+      |vpiParent:
+      \_logic_net: (work@bus_if.ben), line:11:19, endln:11:22
+      |vpiFullName:work@bus_if.ben
+      |vpiActual:
+      \_logic_typespec: , line:11:3, endln:11:18
+    |vpiName:ben
+    |vpiFullName:work@bus_if.ben
+    |vpiNetType:36
+|uhdmallModules:
+\_module_inst: work@child (work@child), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:14:1, endln:20:10
+  |vpiParent:
+  \_design: (work@top)
+  |vpiFullName:work@child
+  |vpiDefName:work@child
+  |vpiNet:
+  \_logic_net: (work@child.o), line:14:46, endln:14:47
+    |vpiParent:
+    \_module_inst: work@child (work@child), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:14:1, endln:20:10
+    |vpiName:o
+    |vpiFullName:work@child.o
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@child.sub), line:14:22, endln:14:25
+    |vpiParent:
+    \_module_inst: work@child (work@child), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:14:1, endln:20:10
+    |vpiName:sub
+    |vpiFullName:work@child.sub
+  |vpiPort:
+  \_port: (sub), line:14:22, endln:14:25
+    |vpiParent:
+    \_module_inst: work@child (work@child), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:14:1, endln:20:10
+    |vpiName:sub
+    |vpiDirection:3
+    |vpiLowConn:
+    \_ref_obj: (work@child.sub.sub), line:14:22, endln:14:25
+      |vpiParent:
+      \_port: (sub), line:14:22, endln:14:25
+      |vpiName:sub
+      |vpiFullName:work@child.sub.sub
+      |vpiActual:
+      \_interface_inst: work@bus_if (work@bus_if), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:9:1, endln:12:13
+    |vpiTypedef:
+    \_ref_typespec: (work@child.sub)
+      |vpiParent:
+      \_port: (sub), line:14:22, endln:14:25
+      |vpiFullName:work@child.sub
+      |vpiActual:
+      \_interface_typespec: (bus_if), line:14:15, endln:14:21
+  |vpiPort:
+  \_port: (o), line:14:46, endln:14:47
+    |vpiParent:
+    \_module_inst: work@child (work@child), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:14:1, endln:20:10
+    |vpiName:o
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@child.o.o), line:14:46, endln:14:47
+      |vpiParent:
+      \_port: (o), line:14:46, endln:14:47
+      |vpiName:o
+      |vpiFullName:work@child.o.o
+      |vpiActual:
+      \_logic_net: (work@child.o), line:14:46, endln:14:47
+    |vpiTypedef:
+    \_ref_typespec: (work@child.o)
+      |vpiParent:
+      \_port: (o), line:14:46, endln:14:47
+      |vpiFullName:work@child.o
+      |vpiActual:
+      \_logic_typespec: , line:14:34, endln:14:45
+  |vpiGenStmt:
+  \_gen_region: 
+    |vpiParent:
+    \_module_inst: work@child (work@child), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:14:1, endln:20:10
+    |vpiStmt:
+    \_begin: (work@child)
+      |vpiParent:
+      \_gen_region: 
+      |vpiFullName:work@child
+|uhdmallModules:
+\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:22:1, endln:26:10
+  |vpiParent:
+  \_design: (work@top)
+  |vpiFullName:work@top
+  |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.ben_i), line:22:31, endln:22:36
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:22:1, endln:26:10
+    |vpiName:ben_i
+    |vpiFullName:work@top.ben_i
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.o), line:22:57, endln:22:58
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:22:1, endln:26:10
+    |vpiName:o
+    |vpiFullName:work@top.o
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.sub), line:25:17, endln:25:20
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:22:1, endln:26:10
+    |vpiName:sub
+    |vpiFullName:work@top.sub
+    |vpiNetType:1
+  |vpiPort:
+  \_port: (ben_i), line:22:31, endln:22:36
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:22:1, endln:26:10
+    |vpiName:ben_i
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@top.ben_i.ben_i), line:22:31, endln:22:36
+      |vpiParent:
+      \_port: (ben_i), line:22:31, endln:22:36
+      |vpiName:ben_i
+      |vpiFullName:work@top.ben_i.ben_i
+      |vpiActual:
+      \_logic_net: (work@top.ben_i), line:22:31, endln:22:36
+    |vpiTypedef:
+    \_ref_typespec: (work@top.ben_i)
+      |vpiParent:
+      \_port: (ben_i), line:22:31, endln:22:36
+      |vpiFullName:work@top.ben_i
+      |vpiActual:
+      \_logic_typespec: , line:22:19, endln:22:30
+  |vpiPort:
+  \_port: (o), line:22:57, endln:22:58
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:22:1, endln:26:10
+    |vpiName:o
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.o.o), line:22:57, endln:22:58
+      |vpiParent:
+      \_port: (o), line:22:57, endln:22:58
+      |vpiName:o
+      |vpiFullName:work@top.o.o
+      |vpiActual:
+      \_logic_net: (work@top.o), line:22:57, endln:22:58
+    |vpiTypedef:
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_port: (o), line:22:57, endln:22:58
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_logic_typespec: , line:22:45, endln:22:56
+  |vpiContAssign:
+  \_cont_assign: , line:24:10, endln:24:25
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:22:1, endln:26:10
+    |vpiRhs:
+    \_ref_obj: (work@top.ben_i), line:24:20, endln:24:25
+      |vpiParent:
+      \_cont_assign: , line:24:10, endln:24:25
+      |vpiName:ben_i
+      |vpiFullName:work@top.ben_i
+      |vpiActual:
+      \_logic_net: (work@top.ben_i), line:22:31, endln:22:36
+    |vpiLhs:
+    \_hier_path: (sub.ben), line:24:10, endln:24:17
+      |vpiParent:
+      \_cont_assign: , line:24:10, endln:24:25
+      |vpiActual:
+      \_ref_obj: (sub), line:24:14, endln:24:17
+        |vpiParent:
+        \_hier_path: (sub.ben), line:24:10, endln:24:17
+        |vpiName:sub
+      |vpiActual:
+      \_ref_obj: (ben), line:24:14, endln:24:17
+        |vpiParent:
+        \_hier_path: (sub.ben), line:24:10, endln:24:17
+        |vpiName:ben
+      |vpiName:sub.ben
+  |vpiRefModule:
+  \_ref_module: work@bus_if (sub), line:23:22, endln:23:25
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:22:1, endln:26:10
+    |vpiName:sub
+    |vpiDefName:work@bus_if
+    |vpiActual:
+    \_interface_inst: work@bus_if (work@bus_if), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:9:1, endln:12:13
+  |vpiRefModule:
+  \_ref_module: work@child (c), line:25:9, endln:25:10
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:22:1, endln:26:10
+    |vpiName:c
+    |vpiDefName:work@child
+    |vpiActual:
+    \_module_inst: work@child (work@child), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:14:1, endln:20:10
+    |vpiPort:
+    \_port: (sub), line:25:12, endln:25:21
+      |vpiParent:
+      \_ref_module: work@child (c), line:25:9, endln:25:10
+      |vpiName:sub
+      |vpiHighConn:
+      \_ref_obj: (work@top.c.sub.sub), line:25:17, endln:25:20
+        |vpiParent:
+        \_port: (sub), line:25:12, endln:25:21
+        |vpiName:sub
+        |vpiFullName:work@top.c.sub.sub
+        |vpiActual:
+        \_logic_net: (work@top.sub), line:25:17, endln:25:20
+    |vpiPort:
+    \_port: (o), line:25:23, endln:25:28
+      |vpiParent:
+      \_ref_module: work@child (c), line:25:9, endln:25:10
+      |vpiName:o
+      |vpiHighConn:
+      \_ref_obj: (work@top.c.o.o), line:25:26, endln:25:27
+        |vpiParent:
+        \_port: (o), line:25:23, endln:25:28
+        |vpiName:o
+        |vpiFullName:work@top.c.o.o
+        |vpiActual:
+        \_logic_net: (work@top.o), line:22:57, endln:22:58
+|uhdmtopModules:
+\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:22:1, endln:26:10
+  |vpiParent:
+  \_design: (work@top)
+  |vpiName:work@top
+  |vpiDefName:work@top
+  |vpiTop:1
+  |vpiNet:
+  \_logic_net: (work@top.ben_i), line:22:31, endln:22:36
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:22:1, endln:26:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.ben_i)
+      |vpiParent:
+      \_logic_net: (work@top.ben_i), line:22:31, endln:22:36
+      |vpiFullName:work@top.ben_i
+      |vpiActual:
+      \_logic_typespec: , line:22:19, endln:22:30
+    |vpiName:ben_i
+    |vpiFullName:work@top.ben_i
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.o), line:22:57, endln:22:58
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:22:1, endln:26:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_logic_net: (work@top.o), line:22:57, endln:22:58
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_logic_typespec: , line:22:45, endln:22:56
+    |vpiName:o
+    |vpiFullName:work@top.o
+    |vpiNetType:36
+  |vpiTopModule:1
+  |vpiPort:
+  \_port: (ben_i), line:22:31, endln:22:36
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:22:1, endln:26:10
+    |vpiName:ben_i
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@top.ben_i), line:22:31, endln:22:36
+      |vpiParent:
+      \_port: (ben_i), line:22:31, endln:22:36
+      |vpiName:ben_i
+      |vpiFullName:work@top.ben_i
+      |vpiActual:
+      \_logic_net: (work@top.ben_i), line:22:31, endln:22:36
+    |vpiTypedef:
+    \_ref_typespec: (work@top.ben_i)
+      |vpiParent:
+      \_port: (ben_i), line:22:31, endln:22:36
+      |vpiFullName:work@top.ben_i
+      |vpiActual:
+      \_logic_typespec: , line:22:19, endln:22:30
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:22:1, endln:26:10
+  |vpiPort:
+  \_port: (o), line:22:57, endln:22:58
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:22:1, endln:26:10
+    |vpiName:o
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.o), line:22:57, endln:22:58
+      |vpiParent:
+      \_port: (o), line:22:57, endln:22:58
+      |vpiName:o
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_logic_net: (work@top.o), line:22:57, endln:22:58
+    |vpiTypedef:
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_port: (o), line:22:57, endln:22:58
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_logic_typespec: , line:22:45, endln:22:56
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:22:1, endln:26:10
+  |vpiInterface:
+  \_interface_inst: work@bus_if (work@top.sub), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:23:3, endln:23:29
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:22:1, endln:26:10
+    |vpiName:sub
+    |vpiFullName:work@top.sub
+    |vpiVariables:
+    \_logic_var: (work@top.sub.ben), line:11:19, endln:11:22
+      |vpiParent:
+      \_interface_inst: work@bus_if (work@top.sub), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:23:3, endln:23:29
+      |vpiTypespec:
+      \_ref_typespec: (work@top.sub.ben)
+        |vpiParent:
+        \_logic_var: (work@top.sub.ben), line:11:19, endln:11:22
+        |vpiFullName:work@top.sub.ben
+        |vpiActual:
+        \_logic_typespec: , line:11:3, endln:11:18
+      |vpiName:ben
+      |vpiFullName:work@top.sub.ben
+      |vpiVisibility:1
+    |vpiParameter:
+    \_parameter: (work@top.sub.DAT), line:9:34, endln:9:37
+      |vpiParent:
+      \_interface_inst: work@bus_if (work@top.sub), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:23:3, endln:23:29
+      |UINT:32
+      |vpiTypespec:
+      \_ref_typespec: (work@top.sub.DAT)
+        |vpiParent:
+        \_parameter: (work@top.sub.DAT), line:9:34, endln:9:37
+        |vpiFullName:work@top.sub.DAT
+        |vpiActual:
+        \_int_typespec: , line:9:30, endln:9:33
+      |vpiSigned:1
+      |vpiName:DAT
+      |vpiFullName:work@top.sub.DAT
+    |vpiParameter:
+    \_parameter: (work@top.sub.BYT), line:10:27, endln:10:30
+      |vpiParent:
+      \_interface_inst: work@bus_if (work@top.sub), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:23:3, endln:23:29
+      |vpiTypespec:
+      \_ref_typespec: (work@top.sub.BYT)
+        |vpiParent:
+        \_parameter: (work@top.sub.BYT), line:10:27, endln:10:30
+        |vpiFullName:work@top.sub.BYT
+        |vpiActual:
+        \_int_typespec: , line:10:14, endln:10:26
+      |vpiLocalParam:1
+      |vpiName:BYT
+      |vpiFullName:work@top.sub.BYT
+    |vpiParamAssign:
+    \_param_assign: , line:9:34, endln:9:42
+      |vpiParent:
+      \_interface_inst: work@bus_if (work@top.sub), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:23:3, endln:23:29
+      |vpiOverriden:1
+      |vpiRhs:
+      \_constant: , line:9:40, endln:9:42
+        |vpiParent:
+        \_param_assign: , line:9:34, endln:9:42
+        |vpiDecompile:32
+        |vpiSize:32
+        |UINT:32
+        |vpiTypespec:
+        \_ref_typespec: (work@top.sub)
+          |vpiParent:
+          \_constant: , line:9:40, endln:9:42
+          |vpiFullName:work@top.sub
+          |vpiActual:
+          \_int_typespec: , line:9:30, endln:9:33
+        |vpiConstType:9
+      |vpiLhs:
+      \_parameter: (work@top.sub.DAT), line:9:34, endln:9:37
+    |vpiParamAssign:
+    \_param_assign: , line:10:27, endln:10:38
+      |vpiParent:
+      \_interface_inst: work@bus_if (work@top.sub), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:23:3, endln:23:29
+      |vpiRhs:
+      \_constant: , line:10:33, endln:10:38
+        |vpiParent:
+        \_param_assign: , line:10:27, endln:10:38
+        |vpiDecompile:4
+        |vpiSize:32
+        |INT:4
+        |vpiTypespec:
+        \_ref_typespec: (work@top.sub)
+          |vpiParent:
+          \_constant: , line:10:33, endln:10:38
+          |vpiFullName:work@top.sub
+          |vpiActual:
+          \_int_typespec: , line:10:14, endln:10:26
+        |vpiConstType:7
+      |vpiLhs:
+      \_parameter: (work@top.sub.BYT), line:10:27, endln:10:30
+    |vpiDefName:work@bus_if
+    |vpiDefFile:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv
+    |vpiDefLineNo:9
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:22:1, endln:26:10
+  |vpiModule:
+  \_module_inst: work@child (work@top.c), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:25:3, endln:25:30
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:22:1, endln:26:10
+    |vpiName:c
+    |vpiFullName:work@top.c
+    |vpiDefName:work@child
+    |vpiDefFile:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv
+    |vpiDefLineNo:14
+    |vpiNet:
+    \_logic_net: (work@top.c.o), line:14:46, endln:14:47
+      |vpiParent:
+      \_module_inst: work@child (work@top.c), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:25:3, endln:25:30
+      |vpiTypespec:
+      \_ref_typespec: (work@top.c.o)
+        |vpiParent:
+        \_logic_net: (work@top.c.o), line:14:46, endln:14:47
+        |vpiFullName:work@top.c.o
+        |vpiActual:
+        \_logic_typespec: , line:14:34, endln:14:45
+      |vpiName:o
+      |vpiFullName:work@top.c.o
+      |vpiNetType:36
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:22:1, endln:26:10
+    |vpiPort:
+    \_port: (sub), line:14:22, endln:14:25
+      |vpiParent:
+      \_module_inst: work@child (work@top.c), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:25:3, endln:25:30
+      |vpiName:sub
+      |vpiDirection:3
+      |vpiHighConn:
+      \_ref_obj: (work@top.sub), line:25:17, endln:25:20
+        |vpiParent:
+        \_port: (sub), line:14:22, endln:14:25
+        |vpiName:sub
+        |vpiFullName:work@top.sub
+        |vpiActual:
+        \_interface_inst: work@bus_if (work@top.sub), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:23:3, endln:23:29
+      |vpiLowConn:
+      \_ref_obj: (work@top.c.sub), line:25:13, endln:25:16
+        |vpiParent:
+        \_port: (sub), line:14:22, endln:14:25
+        |vpiFullName:work@top.c.sub
+        |vpiActual:
+        \_interface_inst: work@bus_if (work@top.c.sub), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:25:0
+      |vpiTypedef:
+      \_ref_typespec: (work@top.c.sub)
+        |vpiParent:
+        \_port: (sub), line:14:22, endln:14:25
+        |vpiFullName:work@top.c.sub
+        |vpiActual:
+        \_interface_typespec: (bus_if), line:14:15, endln:14:21
+      |vpiInstance:
+      \_module_inst: work@child (work@top.c), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:25:3, endln:25:30
+    |vpiPort:
+    \_port: (o), line:14:46, endln:14:47
+      |vpiParent:
+      \_module_inst: work@child (work@top.c), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:25:3, endln:25:30
+      |vpiName:o
+      |vpiDirection:2
+      |vpiHighConn:
+      \_ref_obj: (work@top.o), line:25:26, endln:25:27
+        |vpiParent:
+        \_port: (o), line:14:46, endln:14:47
+        |vpiName:o
+        |vpiFullName:work@top.o
+        |vpiActual:
+        \_logic_net: (work@top.o), line:22:57, endln:22:58
+      |vpiLowConn:
+      \_ref_obj: (work@top.c.o), line:25:24, endln:25:25
+        |vpiParent:
+        \_port: (o), line:14:46, endln:14:47
+        |vpiName:o
+        |vpiFullName:work@top.c.o
+        |vpiActual:
+        \_logic_net: (work@top.c.o), line:14:46, endln:14:47
+      |vpiTypedef:
+      \_ref_typespec: (work@top.c.o)
+        |vpiParent:
+        \_port: (o), line:14:46, endln:14:47
+        |vpiFullName:work@top.c.o
+        |vpiActual:
+        \_logic_typespec: , line:14:34, endln:14:45
+      |vpiInstance:
+      \_module_inst: work@child (work@top.c), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:25:3, endln:25:30
+    |vpiInterface:
+    \_interface_inst: work@bus_if (work@top.c.sub), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:25:0
+      |vpiParent:
+      \_module_inst: work@child (work@top.c), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:25:3, endln:25:30
+      |vpiName:sub
+      |vpiFullName:work@top.c.sub
+      |vpiVariables:
+      \_logic_var: (work@top.c.sub.ben), line:11:19, endln:11:22
+        |vpiParent:
+        \_interface_inst: work@bus_if (work@top.c.sub), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:25:0
+        |vpiTypespec:
+        \_ref_typespec: (work@top.c.sub.ben)
+          |vpiParent:
+          \_logic_var: (work@top.c.sub.ben), line:11:19, endln:11:22
+          |vpiFullName:work@top.c.sub.ben
+          |vpiActual:
+          \_logic_typespec: , line:11:3, endln:11:18
+        |vpiName:ben
+        |vpiFullName:work@top.c.sub.ben
+        |vpiVisibility:1
+      |vpiParameter:
+      \_parameter: (work@top.c.sub.DAT), line:9:34, endln:9:37
+        |vpiParent:
+        \_interface_inst: work@bus_if (work@top.c.sub), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:25:0
+        |UINT:32
+        |vpiTypespec:
+        \_ref_typespec: (work@top.c.sub.DAT)
+          |vpiParent:
+          \_parameter: (work@top.c.sub.DAT), line:9:34, endln:9:37
+          |vpiFullName:work@top.c.sub.DAT
+          |vpiActual:
+          \_int_typespec: , line:9:30, endln:9:33
+        |vpiSigned:1
+        |vpiName:DAT
+        |vpiFullName:work@top.c.sub.DAT
+      |vpiParameter:
+      \_parameter: (work@top.c.sub.BYT), line:10:27, endln:10:30
+        |vpiParent:
+        \_interface_inst: work@bus_if (work@top.c.sub), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:25:0
+        |vpiTypespec:
+        \_ref_typespec: (work@top.c.sub.BYT)
+          |vpiParent:
+          \_parameter: (work@top.c.sub.BYT), line:10:27, endln:10:30
+          |vpiFullName:work@top.c.sub.BYT
+          |vpiActual:
+          \_int_typespec: , line:10:14, endln:10:26
+        |vpiLocalParam:1
+        |vpiName:BYT
+        |vpiFullName:work@top.c.sub.BYT
+      |vpiParameter:
+      \_parameter: (work@top.c.sub.DAT), line:9:34, endln:9:37
+        |vpiParent:
+        \_interface_inst: work@bus_if (work@top.c.sub), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:25:0
+        |UINT:32
+        |vpiTypespec:
+        \_ref_typespec: (work@top.c.sub.DAT)
+          |vpiParent:
+          \_parameter: (work@top.c.sub.DAT), line:9:34, endln:9:37
+          |vpiFullName:work@top.c.sub.DAT
+          |vpiActual:
+          \_int_typespec: , line:9:30, endln:9:33
+        |vpiSigned:1
+        |vpiName:DAT
+        |vpiFullName:work@top.c.sub.DAT
+      |vpiParameter:
+      \_parameter: (work@top.c.sub.BYT), line:10:27, endln:10:30
+        |vpiParent:
+        \_interface_inst: work@bus_if (work@top.c.sub), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:25:0
+        |vpiTypespec:
+        \_ref_typespec: (work@top.c.sub.BYT)
+          |vpiParent:
+          \_parameter: (work@top.c.sub.BYT), line:10:27, endln:10:30
+          |vpiFullName:work@top.c.sub.BYT
+          |vpiActual:
+          \_int_typespec: , line:10:14, endln:10:26
+        |vpiLocalParam:1
+        |vpiName:BYT
+        |vpiFullName:work@top.c.sub.BYT
+      |vpiDefName:work@bus_if
+    |vpiInterface:
+    \_interface_inst: work@bus_if (work@top.c.sub), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:25:0
+    |vpiGenScopeArray:
+    \_gen_scope_array: (work@top.c.g[0]), line:16:42, endln:18:8
+      |vpiParent:
+      \_module_inst: work@child (work@top.c), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:25:3, endln:25:30
+      |vpiName:g[0]
+      |vpiFullName:work@top.c.g[0]
+      |vpiGenScope:
+      \_gen_scope: (work@top.c.g[0]), line:16:42, endln:18:8
+        |vpiParent:
+        \_gen_scope_array: (work@top.c.g[0]), line:16:42, endln:18:8
+        |vpiFullName:work@top.c.g[0]
+        |vpiParameter:
+        \_parameter: (work@top.c.g[0].i), line:16:0
+          |vpiParent:
+          \_gen_scope: (work@top.c.g[0]), line:16:42, endln:18:8
+          |UINT:0
+          |vpiTypespec:
+          \_ref_typespec: (work@top.c.g[0].i)
+            |vpiParent:
+            \_parameter: (work@top.c.g[0].i), line:16:0
+            |vpiFullName:work@top.c.g[0].i
+            |vpiActual:
+            \_int_typespec: 
+          |vpiLocalParam:1
+          |vpiName:i
+          |vpiFullName:work@top.c.g[0].i
+        |vpiContAssign:
+        \_cont_assign: , line:17:14, endln:17:31
+          |vpiParent:
+          \_gen_scope: (work@top.c.g[0]), line:16:42, endln:18:8
+          |vpiRhs:
+          \_hier_path: (sub.ben[i]), line:17:21, endln:17:31
+            |vpiParent:
+            \_cont_assign: , line:17:14, endln:17:31
+            |vpiActual:
+            \_ref_obj: (sub), line:17:21, endln:17:24
+              |vpiParent:
+              \_hier_path: (sub.ben[i]), line:17:21, endln:17:31
+              |vpiName:sub
+              |vpiActual:
+              \_interface_inst: work@bus_if (work@top.c.sub), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:25:0
+            |vpiActual:
+            \_bit_select: (work@top.c.g[0].sub.ben[i].ben), line:17:29, endln:17:30
+              |vpiParent:
+              \_hier_path: (sub.ben[i]), line:17:21, endln:17:31
+              |vpiName:ben
+              |vpiFullName:work@top.c.g[0].sub.ben[i].ben
+              |vpiActual:
+              \_logic_var: (work@top.c.sub.ben), line:11:19, endln:11:22
+              |vpiIndex:
+              \_ref_obj: (work@top.c.g[0].sub.ben[i].i), line:17:29, endln:17:30
+                |vpiParent:
+                \_bit_select: (work@top.c.g[0].sub.ben[i].ben), line:17:29, endln:17:30
+                |vpiName:i
+                |vpiFullName:work@top.c.g[0].sub.ben[i].i
+                |vpiActual:
+                \_parameter: (work@top.c.g[0].i), line:16:0
+            |vpiName:sub.ben[i]
+          |vpiLhs:
+          \_bit_select: (work@top.c.o), line:17:14, endln:17:18
+            |vpiParent:
+            \_cont_assign: , line:17:14, endln:17:31
+            |vpiName:o
+            |vpiFullName:work@top.c.o
+            |vpiActual:
+            \_logic_net: (work@top.c.o), line:14:46, endln:14:47
+            |vpiIndex:
+            \_ref_obj: (work@top.c.g[0].i), line:17:16, endln:17:17
+              |vpiParent:
+              \_bit_select: (work@top.c.o), line:17:14, endln:17:18
+              |vpiName:i
+              |vpiFullName:work@top.c.g[0].i
+              |vpiActual:
+              \_parameter: (work@top.c.g[0].i), line:16:0
+    |vpiGenScopeArray:
+    \_gen_scope_array: (work@top.c.g[1]), line:16:42, endln:18:8
+      |vpiParent:
+      \_module_inst: work@child (work@top.c), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:25:3, endln:25:30
+      |vpiName:g[1]
+      |vpiFullName:work@top.c.g[1]
+      |vpiGenScope:
+      \_gen_scope: (work@top.c.g[1]), line:16:42, endln:18:8
+        |vpiParent:
+        \_gen_scope_array: (work@top.c.g[1]), line:16:42, endln:18:8
+        |vpiFullName:work@top.c.g[1]
+        |vpiParameter:
+        \_parameter: (work@top.c.g[1].i), line:16:0
+          |vpiParent:
+          \_gen_scope: (work@top.c.g[1]), line:16:42, endln:18:8
+          |UINT:1
+          |vpiTypespec:
+          \_ref_typespec: (work@top.c.g[1].i)
+            |vpiParent:
+            \_parameter: (work@top.c.g[1].i), line:16:0
+            |vpiFullName:work@top.c.g[1].i
+            |vpiActual:
+            \_int_typespec: 
+          |vpiLocalParam:1
+          |vpiName:i
+          |vpiFullName:work@top.c.g[1].i
+        |vpiContAssign:
+        \_cont_assign: , line:17:14, endln:17:31
+          |vpiParent:
+          \_gen_scope: (work@top.c.g[1]), line:16:42, endln:18:8
+          |vpiRhs:
+          \_hier_path: (sub.ben[i]), line:17:21, endln:17:31
+            |vpiParent:
+            \_cont_assign: , line:17:14, endln:17:31
+            |vpiActual:
+            \_ref_obj: (sub), line:17:21, endln:17:24
+              |vpiParent:
+              \_hier_path: (sub.ben[i]), line:17:21, endln:17:31
+              |vpiName:sub
+              |vpiActual:
+              \_interface_inst: work@bus_if (work@top.c.sub), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:25:0
+            |vpiActual:
+            \_bit_select: (work@top.c.g[1].sub.ben[i].ben), line:17:29, endln:17:30
+              |vpiParent:
+              \_hier_path: (sub.ben[i]), line:17:21, endln:17:31
+              |vpiName:ben
+              |vpiFullName:work@top.c.g[1].sub.ben[i].ben
+              |vpiActual:
+              \_logic_var: (work@top.c.sub.ben), line:11:19, endln:11:22
+              |vpiIndex:
+              \_ref_obj: (work@top.c.g[1].sub.ben[i].i), line:17:29, endln:17:30
+                |vpiParent:
+                \_bit_select: (work@top.c.g[1].sub.ben[i].ben), line:17:29, endln:17:30
+                |vpiName:i
+                |vpiFullName:work@top.c.g[1].sub.ben[i].i
+                |vpiActual:
+                \_parameter: (work@top.c.g[1].i), line:16:0
+            |vpiName:sub.ben[i]
+          |vpiLhs:
+          \_bit_select: (work@top.c.o), line:17:14, endln:17:18
+            |vpiParent:
+            \_cont_assign: , line:17:14, endln:17:31
+            |vpiName:o
+            |vpiFullName:work@top.c.o
+            |vpiActual:
+            \_logic_net: (work@top.c.o), line:14:46, endln:14:47
+            |vpiIndex:
+            \_ref_obj: (work@top.c.g[1].i), line:17:16, endln:17:17
+              |vpiParent:
+              \_bit_select: (work@top.c.o), line:17:14, endln:17:18
+              |vpiName:i
+              |vpiFullName:work@top.c.g[1].i
+              |vpiActual:
+              \_parameter: (work@top.c.g[1].i), line:16:0
+    |vpiGenScopeArray:
+    \_gen_scope_array: (work@top.c.g[2]), line:16:42, endln:18:8
+      |vpiParent:
+      \_module_inst: work@child (work@top.c), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:25:3, endln:25:30
+      |vpiName:g[2]
+      |vpiFullName:work@top.c.g[2]
+      |vpiGenScope:
+      \_gen_scope: (work@top.c.g[2]), line:16:42, endln:18:8
+        |vpiParent:
+        \_gen_scope_array: (work@top.c.g[2]), line:16:42, endln:18:8
+        |vpiFullName:work@top.c.g[2]
+        |vpiParameter:
+        \_parameter: (work@top.c.g[2].i), line:16:0
+          |vpiParent:
+          \_gen_scope: (work@top.c.g[2]), line:16:42, endln:18:8
+          |UINT:2
+          |vpiTypespec:
+          \_ref_typespec: (work@top.c.g[2].i)
+            |vpiParent:
+            \_parameter: (work@top.c.g[2].i), line:16:0
+            |vpiFullName:work@top.c.g[2].i
+            |vpiActual:
+            \_int_typespec: 
+          |vpiLocalParam:1
+          |vpiName:i
+          |vpiFullName:work@top.c.g[2].i
+        |vpiContAssign:
+        \_cont_assign: , line:17:14, endln:17:31
+          |vpiParent:
+          \_gen_scope: (work@top.c.g[2]), line:16:42, endln:18:8
+          |vpiRhs:
+          \_hier_path: (sub.ben[i]), line:17:21, endln:17:31
+            |vpiParent:
+            \_cont_assign: , line:17:14, endln:17:31
+            |vpiActual:
+            \_ref_obj: (sub), line:17:21, endln:17:24
+              |vpiParent:
+              \_hier_path: (sub.ben[i]), line:17:21, endln:17:31
+              |vpiName:sub
+              |vpiActual:
+              \_interface_inst: work@bus_if (work@top.c.sub), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:25:0
+            |vpiActual:
+            \_bit_select: (work@top.c.g[2].sub.ben[i].ben), line:17:29, endln:17:30
+              |vpiParent:
+              \_hier_path: (sub.ben[i]), line:17:21, endln:17:31
+              |vpiName:ben
+              |vpiFullName:work@top.c.g[2].sub.ben[i].ben
+              |vpiActual:
+              \_logic_var: (work@top.c.sub.ben), line:11:19, endln:11:22
+              |vpiIndex:
+              \_ref_obj: (work@top.c.g[2].sub.ben[i].i), line:17:29, endln:17:30
+                |vpiParent:
+                \_bit_select: (work@top.c.g[2].sub.ben[i].ben), line:17:29, endln:17:30
+                |vpiName:i
+                |vpiFullName:work@top.c.g[2].sub.ben[i].i
+                |vpiActual:
+                \_parameter: (work@top.c.g[2].i), line:16:0
+            |vpiName:sub.ben[i]
+          |vpiLhs:
+          \_bit_select: (work@top.c.o), line:17:14, endln:17:18
+            |vpiParent:
+            \_cont_assign: , line:17:14, endln:17:31
+            |vpiName:o
+            |vpiFullName:work@top.c.o
+            |vpiActual:
+            \_logic_net: (work@top.c.o), line:14:46, endln:14:47
+            |vpiIndex:
+            \_ref_obj: (work@top.c.g[2].i), line:17:16, endln:17:17
+              |vpiParent:
+              \_bit_select: (work@top.c.o), line:17:14, endln:17:18
+              |vpiName:i
+              |vpiFullName:work@top.c.g[2].i
+              |vpiActual:
+              \_parameter: (work@top.c.g[2].i), line:16:0
+    |vpiGenScopeArray:
+    \_gen_scope_array: (work@top.c.g[3]), line:16:42, endln:18:8
+      |vpiParent:
+      \_module_inst: work@child (work@top.c), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:25:3, endln:25:30
+      |vpiName:g[3]
+      |vpiFullName:work@top.c.g[3]
+      |vpiGenScope:
+      \_gen_scope: (work@top.c.g[3]), line:16:42, endln:18:8
+        |vpiParent:
+        \_gen_scope_array: (work@top.c.g[3]), line:16:42, endln:18:8
+        |vpiFullName:work@top.c.g[3]
+        |vpiParameter:
+        \_parameter: (work@top.c.g[3].i), line:16:0
+          |vpiParent:
+          \_gen_scope: (work@top.c.g[3]), line:16:42, endln:18:8
+          |UINT:3
+          |vpiTypespec:
+          \_ref_typespec: (work@top.c.g[3].i)
+            |vpiParent:
+            \_parameter: (work@top.c.g[3].i), line:16:0
+            |vpiFullName:work@top.c.g[3].i
+            |vpiActual:
+            \_int_typespec: 
+          |vpiLocalParam:1
+          |vpiName:i
+          |vpiFullName:work@top.c.g[3].i
+        |vpiContAssign:
+        \_cont_assign: , line:17:14, endln:17:31
+          |vpiParent:
+          \_gen_scope: (work@top.c.g[3]), line:16:42, endln:18:8
+          |vpiRhs:
+          \_hier_path: (sub.ben[i]), line:17:21, endln:17:31
+            |vpiParent:
+            \_cont_assign: , line:17:14, endln:17:31
+            |vpiActual:
+            \_ref_obj: (sub), line:17:21, endln:17:24
+              |vpiParent:
+              \_hier_path: (sub.ben[i]), line:17:21, endln:17:31
+              |vpiName:sub
+              |vpiActual:
+              \_interface_inst: work@bus_if (work@top.c.sub), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:25:0
+            |vpiActual:
+            \_bit_select: (work@top.c.g[3].sub.ben[i].ben), line:17:29, endln:17:30
+              |vpiParent:
+              \_hier_path: (sub.ben[i]), line:17:21, endln:17:31
+              |vpiName:ben
+              |vpiFullName:work@top.c.g[3].sub.ben[i].ben
+              |vpiActual:
+              \_logic_var: (work@top.c.sub.ben), line:11:19, endln:11:22
+              |vpiIndex:
+              \_ref_obj: (work@top.c.g[3].sub.ben[i].i), line:17:29, endln:17:30
+                |vpiParent:
+                \_bit_select: (work@top.c.g[3].sub.ben[i].ben), line:17:29, endln:17:30
+                |vpiName:i
+                |vpiFullName:work@top.c.g[3].sub.ben[i].i
+                |vpiActual:
+                \_parameter: (work@top.c.g[3].i), line:16:0
+            |vpiName:sub.ben[i]
+          |vpiLhs:
+          \_bit_select: (work@top.c.o), line:17:14, endln:17:18
+            |vpiParent:
+            \_cont_assign: , line:17:14, endln:17:31
+            |vpiName:o
+            |vpiFullName:work@top.c.o
+            |vpiActual:
+            \_logic_net: (work@top.c.o), line:14:46, endln:14:47
+            |vpiIndex:
+            \_ref_obj: (work@top.c.g[3].i), line:17:16, endln:17:17
+              |vpiParent:
+              \_bit_select: (work@top.c.o), line:17:14, endln:17:18
+              |vpiName:i
+              |vpiFullName:work@top.c.g[3].i
+              |vpiActual:
+              \_parameter: (work@top.c.g[3].i), line:16:0
+  |vpiContAssign:
+  \_cont_assign: , line:24:10, endln:24:25
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:22:1, endln:26:10
+    |vpiRhs:
+    \_ref_obj: (work@top.ben_i), line:24:20, endln:24:25
+      |vpiParent:
+      \_cont_assign: , line:24:10, endln:24:25
+      |vpiName:ben_i
+      |vpiFullName:work@top.ben_i
+      |vpiActual:
+      \_logic_net: (work@top.ben_i), line:22:31, endln:22:36
+    |vpiLhs:
+    \_hier_path: (sub.ben), line:24:10, endln:24:17
+      |vpiParent:
+      \_cont_assign: , line:24:10, endln:24:25
+      |vpiActual:
+      \_ref_obj: (sub), line:24:14, endln:24:17
+        |vpiParent:
+        \_hier_path: (sub.ben), line:24:10, endln:24:17
+        |vpiName:sub
+        |vpiActual:
+        \_interface_inst: work@bus_if (work@top.sub), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:23:3, endln:23:29
+      |vpiActual:
+      \_ref_obj: (ben), line:24:14, endln:24:17
+        |vpiParent:
+        \_hier_path: (sub.ben), line:24:10, endln:24:17
+        |vpiName:ben
+        |vpiActual:
+        \_logic_var: (work@top.sub.ben), line:11:19, endln:11:22
+      |vpiName:sub.ben
+\_weaklyReferenced:
+\_int_typespec: , line:9:30, endln:9:33
+  |vpiParent:
+  \_parameter: (work@bus_if.DAT), line:9:34, endln:9:37
+  |vpiSigned:1
+\_int_typespec: , line:10:14, endln:10:26
+  |vpiParent:
+  \_parameter: (work@bus_if.BYT), line:10:27, endln:10:30
+\_logic_typespec: , line:22:19, endln:22:30
+  |vpiRange:
+  \_range: , line:22:25, endln:22:30
+    |vpiParent:
+    \_logic_typespec: , line:22:19, endln:22:30
+    |vpiLeftRange:
+    \_constant: , line:22:26, endln:22:27
+      |vpiParent:
+      \_range: , line:22:25, endln:22:30
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:22:28, endln:22:29
+      |vpiParent:
+      \_range: , line:22:25, endln:22:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:22:45, endln:22:56
+  |vpiRange:
+  \_range: , line:22:51, endln:22:56
+    |vpiParent:
+    \_logic_typespec: , line:22:45, endln:22:56
+    |vpiLeftRange:
+    \_constant: , line:22:52, endln:22:53
+      |vpiParent:
+      \_range: , line:22:51, endln:22:56
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:22:54, endln:22:55
+      |vpiParent:
+      \_range: , line:22:51, endln:22:56
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:22:19, endln:22:30
+  |vpiParent:
+  \_logic_net: (work@top.ben_i), line:22:31, endln:22:36
+  |vpiRange:
+  \_range: , line:22:25, endln:22:30
+    |vpiParent:
+    \_logic_typespec: , line:22:19, endln:22:30
+    |vpiLeftRange:
+    \_constant: , line:22:26, endln:22:27
+      |vpiParent:
+      \_range: , line:22:25, endln:22:30
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:22:28, endln:22:29
+      |vpiParent:
+      \_range: , line:22:25, endln:22:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:22:45, endln:22:56
+  |vpiParent:
+  \_logic_net: (work@top.o), line:22:57, endln:22:58
+  |vpiRange:
+  \_range: , line:22:51, endln:22:56
+    |vpiParent:
+    \_logic_typespec: , line:22:45, endln:22:56
+    |vpiLeftRange:
+    \_constant: , line:22:52, endln:22:53
+      |vpiParent:
+      \_range: , line:22:51, endln:22:56
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:22:54, endln:22:55
+      |vpiParent:
+      \_range: , line:22:51, endln:22:56
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:11:3, endln:11:18
+  |vpiParent:
+  \_logic_var: (work@top.sub.ben), line:11:19, endln:11:22
+  |vpiRange:
+  \_range: , line:11:9, endln:11:18
+    |vpiParent:
+    \_logic_typespec: , line:11:3, endln:11:18
+    |vpiLeftRange:
+    \_constant: , line:11:10, endln:11:13
+      |vpiParent:
+      \_range: , line:11:9, endln:11:18
+      |vpiDecompile:3
+      |vpiSize:64
+      |INT:3
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:11:16, endln:11:17
+      |vpiParent:
+      \_range: , line:11:9, endln:11:18
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_interface_typespec: (bus_if), line:14:15, endln:14:21
+  |vpiName:bus_if
+\_logic_typespec: , line:11:3, endln:11:18
+  |vpiParent:
+  \_logic_var: (work@top.c.sub.ben), line:11:19, endln:11:22
+  |vpiRange:
+  \_range: , line:11:9, endln:11:18
+    |vpiParent:
+    \_logic_typespec: , line:11:3, endln:11:18
+    |vpiLeftRange:
+    \_constant: , line:11:10, endln:11:13
+      |vpiParent:
+      \_range: , line:11:9, endln:11:18
+      |vpiDecompile:3
+      |vpiSize:64
+      |INT:3
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:11:16, endln:11:17
+      |vpiParent:
+      \_range: , line:11:9, endln:11:18
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:14:34, endln:14:45
+  |vpiRange:
+  \_range: , line:14:40, endln:14:45
+    |vpiParent:
+    \_logic_typespec: , line:14:34, endln:14:45
+    |vpiLeftRange:
+    \_constant: , line:14:41, endln:14:42
+      |vpiParent:
+      \_range: , line:14:40, endln:14:45
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:14:43, endln:14:44
+      |vpiParent:
+      \_range: , line:14:40, endln:14:45
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:14:34, endln:14:45
+  |vpiParent:
+  \_logic_net: (work@top.c.o), line:14:46, endln:14:47
+  |vpiRange:
+  \_range: , line:14:40, endln:14:45
+    |vpiParent:
+    \_logic_typespec: , line:14:34, endln:14:45
+    |vpiLeftRange:
+    \_constant: , line:14:41, endln:14:42
+      |vpiParent:
+      \_range: , line:14:40, endln:14:45
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:14:43, endln:14:44
+      |vpiParent:
+      \_range: , line:14:40, endln:14:45
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:11:3, endln:11:18
+  |vpiRange:
+  \_range: , line:11:9, endln:11:18
+    |vpiParent:
+    \_logic_typespec: , line:11:3, endln:11:18
+    |vpiLeftRange:
+    \_operation: , line:11:10, endln:11:15
+      |vpiParent:
+      \_range: , line:11:9, endln:11:18
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (BYT), line:11:10, endln:11:13
+        |vpiParent:
+        \_operation: , line:11:10, endln:11:15
+        |vpiName:BYT
+      |vpiOperand:
+      \_constant: , line:11:14, endln:11:15
+        |vpiParent:
+        \_operation: , line:11:10, endln:11:15
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:11:16, endln:11:17
+      |vpiParent:
+      \_range: , line:11:9, endln:11:18
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_interface_typespec: (bus_if), line:14:15, endln:14:21
+  |vpiName:bus_if
+\_logic_typespec: , line:14:34, endln:14:45
+  |vpiRange:
+  \_range: , line:14:40, endln:14:45
+    |vpiParent:
+    \_logic_typespec: , line:14:34, endln:14:45
+    |vpiLeftRange:
+    \_constant: , line:14:41, endln:14:42
+      |vpiParent:
+      \_range: , line:14:40, endln:14:45
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:14:43, endln:14:44
+      |vpiParent:
+      \_range: , line:14:40, endln:14:45
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:22:19, endln:22:30
+  |vpiRange:
+  \_range: , line:22:25, endln:22:30
+    |vpiParent:
+    \_logic_typespec: , line:22:19, endln:22:30
+    |vpiLeftRange:
+    \_constant: , line:22:26, endln:22:27
+      |vpiParent:
+      \_range: , line:22:25, endln:22:30
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:22:28, endln:22:29
+      |vpiParent:
+      \_range: , line:22:25, endln:22:30
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:22:45, endln:22:56
+  |vpiRange:
+  \_range: , line:22:51, endln:22:56
+    |vpiParent:
+    \_logic_typespec: , line:22:45, endln:22:56
+    |vpiLeftRange:
+    \_constant: , line:22:52, endln:22:53
+      |vpiParent:
+      \_range: , line:22:51, endln:22:56
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:22:54, endln:22:55
+      |vpiParent:
+      \_range: , line:22:51, endln:22:56
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:9:30, endln:9:33
+  |vpiParent:
+  \_ref_typespec: (work@top.sub.DAT)
+  |vpiSigned:1
+\_int_typespec: , line:10:14, endln:10:26
+  |vpiParent:
+  \_ref_typespec: (work@top.sub.BYT)
+\_int_typespec: , line:9:30, endln:9:33
+  |vpiParent:
+  \_ref_typespec: (work@top.c.sub.DAT)
+  |vpiSigned:1
+\_int_typespec: , line:10:14, endln:10:26
+  |vpiParent:
+  \_ref_typespec: (work@top.c.sub.BYT)
+\_int_typespec: , line:9:30, endln:9:33
+  |vpiParent:
+  \_ref_typespec: (work@top.c.sub.DAT)
+  |vpiSigned:1
+\_int_typespec: , line:10:14, endln:10:26
+  |vpiParent:
+  \_ref_typespec: (work@top.c.sub.BYT)
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+\_int_typespec: 
+===================
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 0
+[WARNING] : 3
+[   NOTE] : 5
+
+============================== Begin RoundTrip Results ==============================
+[roundtrip]: ${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv | ${SURELOG_DIR}/build/regression/GenForIfaceLocalparamBound/roundtrip/dut_000.sv | 11 | 26 |
+============================== End RoundTrip Results ==============================

@@ -1182,6 +1182,38 @@ any *CompileHelper::getValue(std::string_view name, DesignComponent *component,
   return result;
 }
 
+UHDM::any *CompileHelper::resolveInterfacePortMember(
+    DesignComponent *component, std::string_view baseName,
+    std::string_view memberName, CompileDesign *compileDesign,
+    const FileContent *fC, NodeId locId) {
+  if (component == nullptr) return nullptr;
+  for (Signal *port : component->getPorts()) {
+    if (port->getName() != baseName) continue;
+    if (!port->isInterface()) return nullptr;
+    DesignComponent *ifaceDef = port->getInterfaceDef();
+    if (ifaceDef == nullptr) {
+      const std::string tn = port->getInterfaceTypeName();
+      if (!tn.empty()) {
+        Design *des = compileDesign->getCompiler()->getDesign();
+        ifaceDef = des->getComponentDefinition(tn);
+        if (ifaceDef == nullptr)
+          ifaceDef = des->getComponentDefinition(StrCat("work@", tn));
+      }
+    }
+    if (ifaceDef) {
+      // Evaluate the interface's param/localparam (e.g. `BYT = DAT/8`) in the
+      // interface definition's own context (default/overridden params).
+      if (any *v = getValue(memberName, ifaceDef, compileDesign, Reduce::Yes,
+                            nullptr, fC->getFileId(), fC->Line(locId), nullptr,
+                            true)) {
+        if (v->UhdmType() == uhdmconstant) return v;
+      }
+    }
+    return nullptr;
+  }
+  return nullptr;
+}
+
 UHDM::any *CompileHelper::compileSelectExpression(
     DesignComponent *component, const FileContent *fC, NodeId Bit_select,
     std::string_view name, CompileDesign *compileDesign, Reduce reduce,
@@ -1474,6 +1506,26 @@ UHDM::any *CompileHelper::compileSelectExpression(
       fC->populateCoreMembers(Bit_select, Bit_select, path);
       path->VpiParent(pexpr);
       result = path;
+      // Fast-path: a value read of an interface-port localparam `sub.BYT`
+      // (e.g. a generate-for bound `for (i=0; i<sub.CFG_BUS_BYT; i++)` in a
+      // module that takes an interface port — the degu SoC logsize2byteena
+      // byte-enable loops).  The interface INSTANCE isn't bound to the port yet
+      // at generate-elaboration time, so resolve the member from the port's
+      // interface TYPE definition and return its constant; otherwise the bound
+      // stays a non-constant hier_path and the loop silently drops.  Only a
+      // plain 2-level `base.member` (no selects/brackets) qualifies.
+      if (reduce == Reduce::Yes && component &&
+          hname.find('[') == std::string::npos) {
+        const size_t dot = hname.find('.');
+        if (dot != std::string::npos &&
+            hname.find('.', dot + 1) == std::string::npos) {
+          if (any *v = resolveInterfacePortMember(
+                  component, hname.substr(0, dot), hname.substr(dot + 1),
+                  compileDesign, fC, Bit_select)) {
+            result = v;
+          }
+        }
+      }
       break;
     }
     Bit_select = fC->Sibling(Bit_select);
