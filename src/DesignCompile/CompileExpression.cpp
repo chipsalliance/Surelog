@@ -1183,9 +1183,13 @@ any *CompileHelper::getValue(std::string_view name, DesignComponent *component,
 }
 
 UHDM::any *CompileHelper::resolveInterfacePortMember(
-    DesignComponent *component, std::string_view baseName,
-    std::string_view memberName, CompileDesign *compileDesign,
-    const FileContent *fC, NodeId locId) {
+    DesignComponent *component, UHDM::hier_path *path,
+    CompileDesign *compileDesign, const FileContent *fC, NodeId locId) {
+  if (path == nullptr || path->Path_elems() == nullptr ||
+      path->Path_elems()->size() < 2)
+    return nullptr;
+  const std::string baseName =
+      std::string(path->Path_elems()->at(0)->VpiName());
   // Walk up the enclosing-scope chain: when the read sits inside a nested
   // generate block (`generate if (ALIGNED) begin: aligned for (i<sub.BYT) ...`),
   // `component` is the gen-scope definition, which has no ports — the interface
@@ -1209,14 +1213,41 @@ UHDM::any *CompileHelper::resolveInterfacePortMember(
             ifaceDef = des->getComponentDefinition(StrCat("work@", tn));
         }
       }
-      if (ifaceDef) {
-        // Evaluate the interface's param/localparam (e.g. `BYT = DAT/8`) in the
-        // interface definition's own context (default/overridden params).
-        if (any *v = getValue(memberName, ifaceDef, compileDesign, Reduce::Yes,
-                              nullptr, fC->getFileId(), fC->Line(locId), nullptr,
-                              true)) {
+      if (ifaceDef == nullptr) return nullptr;
+      UHDM::VectorOfany &elems = *path->Path_elems();
+      if (elems.size() == 2) {
+        // `sub.BYT`: a single param/localparam read — evaluate the member in
+        // the interface definition's own context (default/overridden params).
+        if (any *v = getValue(std::string(elems.at(1)->VpiName()), ifaceDef,
+                              compileDesign, Reduce::Yes, nullptr,
+                              fC->getFileId(), fC->Line(locId), nullptr, true)) {
           if (v->UhdmType() == uhdmconstant) return v;
         }
+        return nullptr;
+      }
+      // `sub.CFG.HSK.DLY`: a nested struct-PARAMETER field chain (`CFG` is a
+      // struct param of the interface, `.HSK.DLY` walks its members).  Build a
+      // sub-path from the member elements (dropping the interface-port base) and
+      // decode it in the interface definition, where the struct-param-field
+      // navigation resolves it to a constant.  Needed for the degu SoC
+      // demultiplexer / register generate conditions `if (sub.CFG.HSK.DLY==N)`.
+      UHDM::Serializer &s = compileDesign->getSerializer();
+      UHDM::hier_path *sub = s.MakeHier_path();
+      UHDM::VectorOfany *sub_elems = s.MakeAnyVec();
+      std::string sub_name;
+      for (size_t i = 1; i < elems.size(); i++) {
+        sub_elems->push_back(elems.at(i));
+        if (i > 1) sub_name += ".";
+        sub_name += std::string(elems.at(i)->VpiName());
+      }
+      sub->Path_elems(sub_elems);
+      sub->VpiName(sub_name);
+      sub->VpiFullName(sub_name);
+      bool invalid = false;
+      if (any *v = decodeHierPath(sub, invalid, ifaceDef, compileDesign,
+                                  Reduce::Yes, nullptr, fC->getFileId(),
+                                  fC->Line(locId), nullptr, true, false)) {
+        if (!invalid && v->UhdmType() == uhdmconstant) return v;
       }
       return nullptr;
     }
@@ -1522,18 +1553,16 @@ UHDM::any *CompileHelper::compileSelectExpression(
       // byte-enable loops).  The interface INSTANCE isn't bound to the port yet
       // at generate-elaboration time, so resolve the member from the port's
       // interface TYPE definition and return its constant; otherwise the bound
-      // stays a non-constant hier_path and the loop silently drops.  Only a
-      // plain 2-level `base.member` (no selects/brackets) qualifies.
+      // stays a non-constant hier_path and the loop/branch silently drops.  A
+      // plain dotted `base.member[.field...]` (no array selects/brackets)
+      // qualifies — either a direct localparam (`sub.BYT`) or a nested
+      // struct-parameter field chain (`sub.CFG.HSK.DLY`).
       if (reduce == Reduce::Yes && component &&
-          hname.find('[') == std::string::npos) {
-        const size_t dot = hname.find('.');
-        if (dot != std::string::npos &&
-            hname.find('.', dot + 1) == std::string::npos) {
-          if (any *v = resolveInterfacePortMember(
-                  component, hname.substr(0, dot), hname.substr(dot + 1),
-                  compileDesign, fC, Bit_select)) {
-            result = v;
-          }
+          hname.find('[') == std::string::npos &&
+          hname.find('.') != std::string::npos) {
+        if (any *v = resolveInterfacePortMember(component, path, compileDesign,
+                                                fC, Bit_select)) {
+          result = v;
         }
       }
       break;
