@@ -2259,7 +2259,7 @@ bool CompileHelper::compileClassConstructorDeclaration(
       if (Statement) {
         VectorOfany* sts = compileStmt(component, fC, Statement, compileDesign,
                                        Reduce::No, func);
-        if (sts) {
+        if (sts && !sts->empty()) {
           any* st = (*sts)[0];
           st->VpiParent(func);
           func->Stmt(st);
