@@ -2537,7 +2537,7 @@ bool CompileHelper::compileFunction(DesignComponent* component,
     if (Statement) {
       VectorOfany* sts = compileStmt(component, fC, Statement, compileDesign,
                                      reduce, func, instance);
-      if (sts) {
+      if (sts && !sts->empty()) {
         any* st = (*sts)[0];
         UHDM_OBJECT_TYPE stmt_type = st->UhdmType();
         if (stmt_type == uhdmparam_assign) {
