@@ -2175,7 +2175,25 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
                      (exprtype == UHDM::uhdmsys_func_call) ||
                      (exprtype == UHDM::uhdmindexed_part_select) ||
                      (exprtype == UHDM::uhdmhier_path)) {
-            if (instance) {
+            // An interface-port hier_path override (`.SYS_DAT(sub.CFG.BUS.DAT)`,
+            // where `sub` is an interface port of the instantiating module):
+            // resolve `<port>.<member>` through the port's interface TYPE
+            // definition to a constant, so the child instance receives a real
+            // width instead of an unresolvable hier_path (which later surfaces
+            // as UHDM_UNRESOLVED_HIER_PATH during full elaboration).
+            // `parentDefinition` owns the `sub` port.  rp32 degu/mouse SoC
+            // peripherals (tcb_lite_dev_gpio/uart).
+            if (exprtype == UHDM::uhdmhier_path) {
+              if (UHDM::any* iv = m_helper.resolveInterfacePortMember(
+                      parentDefinition, (UHDM::hier_path*)complexV,
+                      m_compileDesign, parentFile, expr)) {
+                if (iv->UhdmType() == UHDM::uhdmconstant) {
+                  UHDM::constant* c = (UHDM::constant*)iv;
+                  value = m_exprBuilder.fromVpiValue(c->VpiValue(), c->VpiSize());
+                }
+              }
+            }
+            if (value == nullptr && instance) {
               complex = true;
               if (m_helper.substituteAssignedValue(complexV, m_compileDesign)) {
                 instance->setComplexValue(name, complexV);
