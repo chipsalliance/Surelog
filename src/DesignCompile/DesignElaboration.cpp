@@ -1743,6 +1743,14 @@ void DesignElaboration::elaborateInstance_(
           }
         }
 
+        // Built-in primitive definitions are created without a FileContent, so
+        // getNodeIds()/getFileContents() are empty. Treat them as undefined
+        // here so the instance takes the existing black-box path below.
+        if (def && (def->getNodeIds().empty() ||
+                    def->getFileContents().empty())) {
+          def = nullptr;
+        }
+
         if (def) childId = def->getNodeIds()[0];
 
         NodeId tmpId = fC->Sibling(moduleName);
@@ -1816,6 +1824,13 @@ void DesignElaboration::elaborateInstance_(
               default:
                 break;
             }
+          }
+
+          // A use-clause above may have re-resolved def to a built-in
+          // primitive, which carries no FileContent/NodeId.
+          if (def && (def->getNodeIds().empty() ||
+                      def->getFileContents().empty())) {
+            def = nullptr;
           }
 
           if (def)
