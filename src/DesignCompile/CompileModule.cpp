@@ -1284,6 +1284,12 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
             VObjectType port_direction_type = VObjectType::slNoType;
             while (modport_ports_declaration) {
               NodeId port_declaration = fC->Child(modport_ports_declaration);
+              // modport_ports_declaration allows leading attribute_instance
+              // nodes; skip them before classifying, as done for UDP port
+              // declarations above.
+              while (fC->Type(port_declaration) ==
+                     VObjectType::paAttribute_instance)
+                port_declaration = fC->Sibling(port_declaration);
               VObjectType port_declaration_type = fC->Type(port_declaration);
               if (port_declaration_type ==
                   VObjectType::paModport_simple_ports_declaration) {
