@@ -1793,6 +1793,26 @@ interface_inst* NetlistElaboration::elab_interface_(
         v->VpiParent(sm);
       }
     }
+    // Expose the interface's elaborated parameters/localparams on the UHDM
+    // interface_inst.  An interface reached only through a modport PORT
+    // (`tcb_lite_if.man tcb_lsu`, e.g. a core synthesised standalone) never went
+    // through elab_parameters_ for its OWN scope, so localparams computed from
+    // the interface's CFG (`CFG_BUS_BYT = CFG.BUS.DAT/8`,
+    // `CFG_BUS_SIZ = $clog2($clog2(CFG_BUS_BYT)+1)`) had no per-instance constant
+    // value — a read of the modport-port param, or of a struct-field width that
+    // uses it (`logic [CFG_BUS_SIZ-1:0] siz`), then resolved to nothing.
+    // Elaborate them from the interface's (default or overridden) parameters and
+    // hand the valued param_assigns to the interface_inst.
+    if (netl->param_assigns() == nullptr) {
+      elab_parameters_(interf_instance, true);
+      elab_parameters_(interf_instance, false);
+    }
+    if (auto pas = netl->param_assigns()) {
+      if (sm->Param_assigns() == nullptr) {
+        sm->Param_assigns(pas);
+        for (auto pa : *pas) pa->VpiParent(sm);
+      }
+    }
   }
   return sm;
 }
