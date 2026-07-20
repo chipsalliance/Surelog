@@ -2196,11 +2196,13 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
             var->Attributes(sig->attributes());
             for (auto a : *sig->attributes()) a->VpiParent(var);
           }
-          var->Expr(exp);
           var->VpiConstantVariable(sig->isConst());
           var->VpiSigned(sig->isSigned());
           var->VpiName(signame);
-          exp->VpiParent(var);
+          if (exp) {
+            var->Expr(exp);
+            exp->VpiParent(var);
+          }
           obj = var;
         }
       } else if (const Enum* en = datatype_cast<const Enum*>(dtype)) {
@@ -2386,11 +2388,13 @@ bool NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
             var->Attributes(sig->attributes());
             for (auto a : *sig->attributes()) a->VpiParent(var);
           }
-          var->Expr(exp);
           var->VpiConstantVariable(sig->isConst());
           var->VpiSigned(sig->isSigned());
           var->VpiName(signame);
-          exp->VpiParent(var);
+          if (exp) {
+            var->Expr(exp);
+            exp->VpiParent(var);
+          }
           obj = var;
         }
       } else {
