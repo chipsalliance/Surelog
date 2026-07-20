@@ -20,55 +20,55 @@
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 begin                                                  1
 bit_select                                             8
-constant                                              91
+constant                                              95
 cont_assign                                            5
 design                                                 1
 gen_region                                             1
 gen_scope                                              8
 gen_scope_array                                        8
 hier_path                                             10
-int_typespec                                          28
+int_typespec                                          23
 interface_inst                                         4
 interface_typespec                                     3
 logic_net                                              9
 logic_typespec                                        12
 logic_var                                              2
 module_inst                                            9
-operation                                             19
-param_assign                                           4
-parameter                                             14
+operation                                             20
+param_assign                                           6
+parameter                                              8
 port                                                  10
 range                                                 17
 ref_module                                             2
 ref_obj                                               46
-ref_typespec                                          48
+ref_typespec                                          44
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
 begin                                                  1
 bit_select                                            16
-constant                                              91
+constant                                              95
 cont_assign                                           10
 design                                                 1
 gen_region                                             1
 gen_scope                                             12
 gen_scope_array                                       12
 hier_path                                             15
-int_typespec                                          28
+int_typespec                                          23
 interface_inst                                         4
 interface_typespec                                     3
 logic_net                                              9
 logic_typespec                                        12
 logic_var                                              2
 module_inst                                            9
-operation                                             19
-param_assign                                           4
-parameter                                             14
+operation                                             20
+param_assign                                           6
+parameter                                              8
 port                                                  14
 range                                                 17
 ref_module                                             2
 ref_obj                                               67
-ref_typespec                                          56
+ref_typespec                                          52
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/GenForIfaceLocalparamBound/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/GenForIfaceLocalparamBound/slpp_all/checker/surelog.chk.html ...
@@ -666,64 +666,39 @@ design: (work@top)
         |vpiName:ben
         |vpiFullName:work@top.c.sub.ben
         |vpiVisibility:1
-      |vpiParameter:
-      \_parameter: (work@top.c.sub.DAT), line:9:34, endln:9:37
+      |vpiParamAssign:
+      \_param_assign: , line:9:34, endln:9:42
         |vpiParent:
         \_interface_inst: work@bus_if (work@top.c.sub), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:25:0
-        |UINT:32
-        |vpiTypespec:
-        \_ref_typespec: (work@top.c.sub.DAT)
+        |vpiRhs:
+        \_constant: , line:9:40, endln:9:42
           |vpiParent:
-          \_parameter: (work@top.c.sub.DAT), line:9:34, endln:9:37
-          |vpiFullName:work@top.c.sub.DAT
-          |vpiActual:
-          \_int_typespec: , line:9:30, endln:9:33
-        |vpiSigned:1
-        |vpiName:DAT
-        |vpiFullName:work@top.c.sub.DAT
-      |vpiParameter:
-      \_parameter: (work@top.c.sub.BYT), line:10:27, endln:10:30
+          \_param_assign: , line:9:34, endln:9:42
+          |vpiDecompile:32
+          |vpiSize:32
+          |UINT:32
+          |vpiTypespec:
+          \_ref_typespec: (work@top.c.sub)
+            |vpiParent:
+            \_constant: , line:9:40, endln:9:42
+            |vpiFullName:work@top.c.sub
+            |vpiActual:
+            \_int_typespec: , line:9:30, endln:9:33
+          |vpiConstType:9
+        |vpiLhs:
+        \_parameter: (work@bus_if.DAT), line:9:34, endln:9:37
+      |vpiParamAssign:
+      \_param_assign: , line:10:27, endln:10:38
         |vpiParent:
         \_interface_inst: work@bus_if (work@top.c.sub), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:25:0
-        |vpiTypespec:
-        \_ref_typespec: (work@top.c.sub.BYT)
-          |vpiParent:
-          \_parameter: (work@top.c.sub.BYT), line:10:27, endln:10:30
-          |vpiFullName:work@top.c.sub.BYT
-          |vpiActual:
-          \_int_typespec: , line:10:14, endln:10:26
-        |vpiLocalParam:1
-        |vpiName:BYT
-        |vpiFullName:work@top.c.sub.BYT
-      |vpiParameter:
-      \_parameter: (work@top.c.sub.DAT), line:9:34, endln:9:37
-        |vpiParent:
-        \_interface_inst: work@bus_if (work@top.c.sub), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:25:0
-        |UINT:32
-        |vpiTypespec:
-        \_ref_typespec: (work@top.c.sub.DAT)
-          |vpiParent:
-          \_parameter: (work@top.c.sub.DAT), line:9:34, endln:9:37
-          |vpiFullName:work@top.c.sub.DAT
-          |vpiActual:
-          \_int_typespec: , line:9:30, endln:9:33
-        |vpiSigned:1
-        |vpiName:DAT
-        |vpiFullName:work@top.c.sub.DAT
-      |vpiParameter:
-      \_parameter: (work@top.c.sub.BYT), line:10:27, endln:10:30
-        |vpiParent:
-        \_interface_inst: work@bus_if (work@top.c.sub), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:25:0
-        |vpiTypespec:
-        \_ref_typespec: (work@top.c.sub.BYT)
-          |vpiParent:
-          \_parameter: (work@top.c.sub.BYT), line:10:27, endln:10:30
-          |vpiFullName:work@top.c.sub.BYT
-          |vpiActual:
-          \_int_typespec: , line:10:14, endln:10:26
-        |vpiLocalParam:1
-        |vpiName:BYT
-        |vpiFullName:work@top.c.sub.BYT
+        |vpiRhs:
+        \_constant: , line:10:33, endln:10:36
+          |vpiDecompile:4
+          |vpiSize:32
+          |INT:4
+          |vpiConstType:7
+        |vpiLhs:
+        \_parameter: (work@bus_if.BYT), line:10:27, endln:10:30
       |vpiDefName:work@bus_if
     |vpiInterface:
     \_interface_inst: work@bus_if (work@top.c.sub), file:${SURELOG_DIR}/tests/GenForIfaceLocalparamBound/dut.sv, line:25:0
@@ -1345,20 +1320,6 @@ design: (work@top)
 \_int_typespec: , line:10:14, endln:10:26
   |vpiParent:
   \_ref_typespec: (work@top.sub.BYT)
-\_int_typespec: , line:9:30, endln:9:33
-  |vpiParent:
-  \_ref_typespec: (work@top.c.sub.DAT)
-  |vpiSigned:1
-\_int_typespec: , line:10:14, endln:10:26
-  |vpiParent:
-  \_ref_typespec: (work@top.c.sub.BYT)
-\_int_typespec: , line:9:30, endln:9:33
-  |vpiParent:
-  \_ref_typespec: (work@top.c.sub.DAT)
-  |vpiSigned:1
-\_int_typespec: , line:10:14, endln:10:26
-  |vpiParent:
-  \_ref_typespec: (work@top.c.sub.BYT)
 \_int_typespec: 
 \_int_typespec: 
 \_int_typespec: 

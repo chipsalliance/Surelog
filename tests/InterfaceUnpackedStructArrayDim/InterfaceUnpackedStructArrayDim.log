@@ -23,7 +23,7 @@ cont_assign                                            1
 design                                                 1
 hier_path                                              3
 import_typespec                                        1
-int_typespec                                           6
+int_typespec                                           4
 interface_inst                                         4
 interface_typespec                                     6
 io_decl                                                4
@@ -33,12 +33,12 @@ modport                                                4
 module_inst                                           10
 package                                                2
 param_assign                                           3
-parameter                                              5
+parameter                                              3
 port                                                   8
 range                                                 15
 ref_module                                             2
 ref_obj                                               16
-ref_typespec                                          24
+ref_typespec                                          22
 struct_net                                             2
 struct_typespec                                        2
 typespec_member                                        4
@@ -52,7 +52,7 @@ cont_assign                                            2
 design                                                 1
 hier_path                                              5
 import_typespec                                        1
-int_typespec                                           6
+int_typespec                                           4
 interface_inst                                         4
 interface_typespec                                     6
 io_decl                                                4
@@ -62,12 +62,12 @@ modport                                                4
 module_inst                                           10
 package                                                2
 param_assign                                           3
-parameter                                              5
+parameter                                              3
 port                                                  11
 range                                                 15
 ref_module                                             2
 ref_obj                                               25
-ref_typespec                                          27
+ref_typespec                                          25
 struct_net                                             2
 struct_typespec                                        2
 typespec_member                                        4
@@ -726,21 +726,6 @@ design: (work@top)
       \_module_inst: work@sub (work@top.u), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:20:3, endln:20:29
       |vpiName:s
       |vpiFullName:work@top.u.s
-      |vpiParameter:
-      \_parameter: (work@top.u.s.N), line:10:34, endln:10:35
-        |vpiParent:
-        \_interface_inst: work@bus_if (work@top.u.s), file:${SURELOG_DIR}/tests/InterfaceUnpackedStructArrayDim/dut.sv, line:20:0
-        |UINT:1
-        |vpiTypespec:
-        \_ref_typespec: (work@top.u.s.N)
-          |vpiParent:
-          \_parameter: (work@top.u.s.N), line:10:34, endln:10:35
-          |vpiFullName:work@top.u.s.N
-          |vpiActual:
-          \_int_typespec: , line:10:30, endln:10:33
-        |vpiSigned:1
-        |vpiName:N
-        |vpiFullName:work@top.u.s.N
       |vpiParamAssign:
       \_param_assign: , line:10:34, endln:10:39
         |vpiParent:
@@ -763,6 +748,19 @@ design: (work@top)
           |vpiConstType:9
         |vpiLhs:
         \_parameter: (work@top.u.s.N), line:10:34, endln:10:35
+          |vpiParent:
+          \_param_assign: , line:10:34, endln:10:39
+          |UINT:1
+          |vpiTypespec:
+          \_ref_typespec: (work@top.u.s.N)
+            |vpiParent:
+            \_parameter: (work@top.u.s.N), line:10:34, endln:10:35
+            |vpiFullName:work@top.u.s.N
+            |vpiActual:
+            \_int_typespec: , line:10:30, endln:10:33
+          |vpiSigned:1
+          |vpiName:N
+          |vpiFullName:work@top.u.s.N
       |vpiDefName:work@bus_if
       |vpiModport:
       \_modport: (mp), line:13:11, endln:13:13
@@ -992,6 +990,10 @@ design: (work@top)
   |vpiParent:
   \_ref_typespec: (work@top.u.s)
   |vpiSigned:1
+\_int_typespec: , line:10:30, endln:10:33
+  |vpiParent:
+  \_ref_typespec: (work@top.u.s.N)
+  |vpiSigned:1
 \_array_net: (arr), line:12:9, endln:12:12
   |vpiSize:2
   |vpiName:arr
@@ -1111,10 +1113,6 @@ design: (work@top)
 \_int_typespec: , line:10:30, endln:10:33
   |vpiParent:
   \_ref_typespec: (work@top.bus.N)
-  |vpiSigned:1
-\_int_typespec: , line:10:30, endln:10:33
-  |vpiParent:
-  \_ref_typespec: (work@top.u.s.N)
   |vpiSigned:1
 ===================
 [  FATAL] : 0
