@@ -22,7 +22,7 @@
 always                                                 2
 assignment                                             4
 begin                                                  4
-constant                                              90
+constant                                              95
 cont_assign                                            6
 design                                                 1
 event_control                                          2
@@ -35,33 +35,33 @@ hier_path                                             29
 if_else                                                2
 if_stmt                                                2
 import_typespec                                        1
-int_typespec                                          16
+int_typespec                                          14
 interface_inst                                         4
 interface_typespec                                     3
 logic_net                                             17
 logic_typespec                                        26
 logic_var                                             10
 module_inst                                           11
-operation                                             86
+operation                                             94
 package                                                2
-param_assign                                           8
-parameter                                             14
+param_assign                                           9
+parameter                                             12
 port                                                  13
 range                                                 18
 ref_module                                             2
 ref_obj                                               81
-ref_typespec                                         175
-string_typespec                                       71
-struct_typespec                                       30
-tagged_pattern                                        71
-typespec_member                                       30
+ref_typespec                                         181
+string_typespec                                       79
+struct_typespec                                       26
+tagged_pattern                                        79
+typespec_member                                       26
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
 always                                                 3
 assignment                                             6
 begin                                                  4
-constant                                              91
+constant                                              96
 cont_assign                                           11
 design                                                 1
 event_control                                          3
@@ -74,26 +74,26 @@ hier_path                                             41
 if_else                                                3
 if_stmt                                                3
 import_typespec                                        1
-int_typespec                                          16
+int_typespec                                          14
 interface_inst                                         4
 interface_typespec                                     3
 logic_net                                             17
 logic_typespec                                        26
 logic_var                                             10
 module_inst                                           11
-operation                                             89
+operation                                             97
 package                                                2
-param_assign                                           8
-parameter                                             14
+param_assign                                           9
+parameter                                             12
 port                                                  19
 range                                                 18
 ref_module                                             2
 ref_obj                                              117
-ref_typespec                                         181
-string_typespec                                       71
-struct_typespec                                       30
-tagged_pattern                                        71
-typespec_member                                       30
+ref_typespec                                         187
+string_typespec                                       79
+struct_typespec                                       26
+tagged_pattern                                        79
+typespec_member                                       26
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/GenIfIfaceParamStructField/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/GenIfIfaceParamStructField/slpp_all/checker/surelog.chk.html ...
@@ -1694,32 +1694,45 @@ design: (work@top)
         |vpiName:rsp_sel
         |vpiFullName:work@top.c.sub.rsp_sel
         |vpiVisibility:1
-      |vpiParameter:
-      \_parameter: (work@top.c.sub.CFG), line:8:39, endln:8:42
+      |vpiParamAssign:
+      \_param_assign: , line:8:39, endln:8:55
         |vpiParent:
         \_interface_inst: work@bus_if (work@top.c.sub), file:${SURELOG_DIR}/tests/GenIfIfaceParamStructField/dut.sv, line:29:0
-        |vpiTypespec:
-        \_ref_typespec: (work@top.c.sub.CFG)
+        |vpiRhs:
+        \_operation: , line:8:45, endln:8:48
           |vpiParent:
-          \_parameter: (work@top.c.sub.CFG), line:8:39, endln:8:42
-          |vpiFullName:work@top.c.sub.CFG
-          |vpiActual:
-          \_struct_typespec: (p::cfg_t), line:5:11, endln:5:39
-        |vpiName:CFG
-        |vpiFullName:work@top.c.sub.CFG
-      |vpiParameter:
-      \_parameter: (work@top.c.sub.CFG), line:8:39, endln:8:42
-        |vpiParent:
-        \_interface_inst: work@bus_if (work@top.c.sub), file:${SURELOG_DIR}/tests/GenIfIfaceParamStructField/dut.sv, line:29:0
-        |vpiTypespec:
-        \_ref_typespec: (work@top.c.sub.CFG)
+          \_param_assign: , line:8:39, endln:8:55
+          |vpiOpType:75
+          |vpiOperand:
+          \_operation: , line:6:37, endln:6:46
+            |vpiParent:
+            \_operation: , line:8:45, endln:8:48
+            |vpiTypespec:
+            \_ref_typespec: 
+              |vpiActual:
+              \_struct_typespec: (p::hsk_t), line:4:11, endln:4:46
+            |vpiOpType:75
+            |vpiOperand:
+            \_constant: , line:6:44, endln:6:45
+              |vpiParent:
+              \_operation: , line:6:37, endln:6:46
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
+        |vpiLhs:
+        \_parameter: (work@top.c.sub.CFG), line:8:39, endln:8:42
           |vpiParent:
-          \_parameter: (work@top.c.sub.CFG), line:8:39, endln:8:42
+          \_param_assign: , line:8:39, endln:8:55
+          |vpiTypespec:
+          \_ref_typespec: (work@top.c.sub.CFG)
+            |vpiParent:
+            \_parameter: (work@top.c.sub.CFG), line:8:39, endln:8:42
+            |vpiFullName:work@top.c.sub.CFG
+            |vpiActual:
+            \_struct_typespec: (p::cfg_t), line:5:11, endln:5:39
+          |vpiName:CFG
           |vpiFullName:work@top.c.sub.CFG
-          |vpiActual:
-          \_struct_typespec: (p::cfg_t), line:5:11, endln:5:39
-        |vpiName:CFG
-        |vpiFullName:work@top.c.sub.CFG
       |vpiDefName:work@bus_if
     |vpiInterface:
     \_interface_inst: work@bus_if (work@top.c.sub), file:${SURELOG_DIR}/tests/GenIfIfaceParamStructField/dut.sv, line:29:0
@@ -2587,6 +2600,69 @@ design: (work@top)
       |vpiSize:64
       |UINT:0
       |vpiConstType:9
+\_struct_typespec: (p::cfg_t), line:5:11, endln:5:39
+  |vpiParent:
+  \_ref_typespec: (work@top.c.sub.CFG)
+  |vpiName:p::cfg_t
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/GenIfIfaceParamStructField/dut.sv, line:3:1, endln:7:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (HSK), line:5:33, endln:5:36
+    |vpiParent:
+    \_struct_typespec: (p::cfg_t), line:5:11, endln:5:39
+    |vpiName:HSK
+    |vpiTypespec:
+    \_ref_typespec: (work@top.c.sub.CFG.p::cfg_t.HSK)
+      |vpiParent:
+      \_typespec_member: (HSK), line:5:33, endln:5:36
+      |vpiFullName:work@top.c.sub.CFG.p::cfg_t.HSK
+      |vpiActual:
+      \_struct_typespec: (p::hsk_t), line:4:11, endln:4:46
+    |vpiRefFile:${SURELOG_DIR}/tests/GenIfIfaceParamStructField/dut.sv
+    |vpiRefLineNo:5
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:5
+    |vpiRefEndColumnNo:32
+\_struct_typespec: (p::hsk_t), line:4:11, endln:4:46
+  |vpiParent:
+  \_ref_typespec: (work@top.c.sub.CFG.p::cfg_t.HSK)
+  |vpiName:p::hsk_t
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/GenIfIfaceParamStructField/dut.sv, line:3:1, endln:7:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (DLY), line:4:40, endln:4:43
+    |vpiParent:
+    \_struct_typespec: (p::hsk_t), line:4:11, endln:4:46
+    |vpiName:DLY
+    |vpiTypespec:
+    \_ref_typespec: (work@top.c.sub.CFG.p::cfg_t.HSK.p::hsk_t.DLY)
+      |vpiParent:
+      \_typespec_member: (DLY), line:4:40, endln:4:43
+      |vpiFullName:work@top.c.sub.CFG.p::cfg_t.HSK.p::hsk_t.DLY
+      |vpiActual:
+      \_int_typespec: , line:4:27, endln:4:39
+    |vpiRefFile:${SURELOG_DIR}/tests/GenIfIfaceParamStructField/dut.sv
+    |vpiRefLineNo:4
+    |vpiRefColumnNo:27
+    |vpiRefEndLineNo:4
+    |vpiRefEndColumnNo:39
+\_int_typespec: , line:4:27, endln:4:39
+  |vpiParent:
+  \_ref_typespec: (work@top.c.sub.CFG.p::cfg_t.HSK.p::hsk_t.DLY)
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/GenIfIfaceParamStructField/dut.sv, line:3:1, endln:7:11
+\_operation: , line:8:45, endln:8:48
+  |vpiParent:
+  \_param_assign: , line:8:39, endln:8:55
+  |vpiTypespec:
+  \_ref_typespec: 
+    |vpiActual:
+    \_struct_typespec: (p::cfg_t), line:5:11, endln:5:39
+  |vpiOpType:75
+  |vpiOperand:
+  \_operation: , line:6:37, endln:6:46
 \_operation: , line:6:37, endln:6:46
   |vpiParent:
   \_operation: , line:8:45, endln:8:48
@@ -2804,112 +2880,6 @@ design: (work@top)
 \_int_typespec: , line:4:27, endln:4:39
   |vpiParent:
   \_ref_typespec: (work@top.sub.CFG.p::cfg_t.HSK.p::hsk_t.DLY)
-  |vpiInstance:
-  \_package: p (p::), file:${SURELOG_DIR}/tests/GenIfIfaceParamStructField/dut.sv, line:3:1, endln:7:11
-\_struct_typespec: (p::cfg_t), line:5:11, endln:5:39
-  |vpiParent:
-  \_ref_typespec: (work@top.c.sub.CFG)
-  |vpiName:p::cfg_t
-  |vpiInstance:
-  \_package: p (p::), file:${SURELOG_DIR}/tests/GenIfIfaceParamStructField/dut.sv, line:3:1, endln:7:11
-  |vpiPacked:1
-  |vpiTypespecMember:
-  \_typespec_member: (HSK), line:5:33, endln:5:36
-    |vpiParent:
-    \_struct_typespec: (p::cfg_t), line:5:11, endln:5:39
-    |vpiName:HSK
-    |vpiTypespec:
-    \_ref_typespec: (work@top.c.sub.CFG.p::cfg_t.HSK)
-      |vpiParent:
-      \_typespec_member: (HSK), line:5:33, endln:5:36
-      |vpiFullName:work@top.c.sub.CFG.p::cfg_t.HSK
-      |vpiActual:
-      \_struct_typespec: (p::hsk_t), line:4:11, endln:4:46
-    |vpiRefFile:${SURELOG_DIR}/tests/GenIfIfaceParamStructField/dut.sv
-    |vpiRefLineNo:5
-    |vpiRefColumnNo:27
-    |vpiRefEndLineNo:5
-    |vpiRefEndColumnNo:32
-\_struct_typespec: (p::hsk_t), line:4:11, endln:4:46
-  |vpiParent:
-  \_ref_typespec: (work@top.c.sub.CFG.p::cfg_t.HSK)
-  |vpiName:p::hsk_t
-  |vpiInstance:
-  \_package: p (p::), file:${SURELOG_DIR}/tests/GenIfIfaceParamStructField/dut.sv, line:3:1, endln:7:11
-  |vpiPacked:1
-  |vpiTypespecMember:
-  \_typespec_member: (DLY), line:4:40, endln:4:43
-    |vpiParent:
-    \_struct_typespec: (p::hsk_t), line:4:11, endln:4:46
-    |vpiName:DLY
-    |vpiTypespec:
-    \_ref_typespec: (work@top.c.sub.CFG.p::cfg_t.HSK.p::hsk_t.DLY)
-      |vpiParent:
-      \_typespec_member: (DLY), line:4:40, endln:4:43
-      |vpiFullName:work@top.c.sub.CFG.p::cfg_t.HSK.p::hsk_t.DLY
-      |vpiActual:
-      \_int_typespec: , line:4:27, endln:4:39
-    |vpiRefFile:${SURELOG_DIR}/tests/GenIfIfaceParamStructField/dut.sv
-    |vpiRefLineNo:4
-    |vpiRefColumnNo:27
-    |vpiRefEndLineNo:4
-    |vpiRefEndColumnNo:39
-\_int_typespec: , line:4:27, endln:4:39
-  |vpiParent:
-  \_ref_typespec: (work@top.c.sub.CFG.p::cfg_t.HSK.p::hsk_t.DLY)
-  |vpiInstance:
-  \_package: p (p::), file:${SURELOG_DIR}/tests/GenIfIfaceParamStructField/dut.sv, line:3:1, endln:7:11
-\_struct_typespec: (p::cfg_t), line:5:11, endln:5:39
-  |vpiParent:
-  \_ref_typespec: (work@top.c.sub.CFG)
-  |vpiName:p::cfg_t
-  |vpiInstance:
-  \_package: p (p::), file:${SURELOG_DIR}/tests/GenIfIfaceParamStructField/dut.sv, line:3:1, endln:7:11
-  |vpiPacked:1
-  |vpiTypespecMember:
-  \_typespec_member: (HSK), line:5:33, endln:5:36
-    |vpiParent:
-    \_struct_typespec: (p::cfg_t), line:5:11, endln:5:39
-    |vpiName:HSK
-    |vpiTypespec:
-    \_ref_typespec: (work@top.c.sub.CFG.p::cfg_t.HSK)
-      |vpiParent:
-      \_typespec_member: (HSK), line:5:33, endln:5:36
-      |vpiFullName:work@top.c.sub.CFG.p::cfg_t.HSK
-      |vpiActual:
-      \_struct_typespec: (p::hsk_t), line:4:11, endln:4:46
-    |vpiRefFile:${SURELOG_DIR}/tests/GenIfIfaceParamStructField/dut.sv
-    |vpiRefLineNo:5
-    |vpiRefColumnNo:27
-    |vpiRefEndLineNo:5
-    |vpiRefEndColumnNo:32
-\_struct_typespec: (p::hsk_t), line:4:11, endln:4:46
-  |vpiParent:
-  \_ref_typespec: (work@top.c.sub.CFG.p::cfg_t.HSK)
-  |vpiName:p::hsk_t
-  |vpiInstance:
-  \_package: p (p::), file:${SURELOG_DIR}/tests/GenIfIfaceParamStructField/dut.sv, line:3:1, endln:7:11
-  |vpiPacked:1
-  |vpiTypespecMember:
-  \_typespec_member: (DLY), line:4:40, endln:4:43
-    |vpiParent:
-    \_struct_typespec: (p::hsk_t), line:4:11, endln:4:46
-    |vpiName:DLY
-    |vpiTypespec:
-    \_ref_typespec: (work@top.c.sub.CFG.p::cfg_t.HSK.p::hsk_t.DLY)
-      |vpiParent:
-      \_typespec_member: (DLY), line:4:40, endln:4:43
-      |vpiFullName:work@top.c.sub.CFG.p::cfg_t.HSK.p::hsk_t.DLY
-      |vpiActual:
-      \_int_typespec: , line:4:27, endln:4:39
-    |vpiRefFile:${SURELOG_DIR}/tests/GenIfIfaceParamStructField/dut.sv
-    |vpiRefLineNo:4
-    |vpiRefColumnNo:27
-    |vpiRefEndLineNo:4
-    |vpiRefEndColumnNo:39
-\_int_typespec: , line:4:27, endln:4:39
-  |vpiParent:
-  \_ref_typespec: (work@top.c.sub.CFG.p::cfg_t.HSK.p::hsk_t.DLY)
   |vpiInstance:
   \_package: p (p::), file:${SURELOG_DIR}/tests/GenIfIfaceParamStructField/dut.sv, line:3:1, endln:7:11
 ===================

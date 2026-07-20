@@ -95,7 +95,18 @@ UHDM::expr* ModuleInstance::getComplexValue(std::string_view name) const {
       }
     }
 
-    if (instance->getType() != VObjectType::paModule_instantiation)
+    // A module boundary stops the upward walk (module params don't leak in from
+    // an enclosing scope).  An INTERFACE is likewise a scoping boundary: its
+    // parameters come from its own default / instantiation override, never from
+    // the module it is a port of — without this an interface reached through a
+    // port (`tcb_lite_if.man tcb_lsu`) inherits the enclosing module's
+    // same-named parameter (rp32 `r5p_degu`'s own `CFG` shadowing the
+    // interface's `CFG`), so `CFG_BUS_* = CFG.BUS.DAT/8` resolves against the
+    // wrong CFG and collapses.
+    const DesignComponent* def = instance->getDefinition();
+    const bool isIface =
+        def && (def->getType() == VObjectType::paInterface_declaration);
+    if (instance->getType() != VObjectType::paModule_instantiation && !isIface)
       instance = instance->getParent();
     else
       instance = nullptr;
