@@ -35,6 +35,7 @@
 #include <cstdint>
 #include <functional>
 #include <map>
+#include <set>
 #include <string_view>
 #include <vector>
 
@@ -110,6 +111,11 @@ class UhdmWriter final {
                       ModuleInstance* instance = nullptr);
   bool writeElabInterface(UHDM::Serializer& s, ModuleInstance* instance,
                           UHDM::interface_inst* m, ExprBuilder& exprBuilder);
+  // Fire the deferred elaboration system-task diagnostics ($error/$fatal/
+  // $warning/$info) stored on a module/interface DEFINITION, but only once and
+  // only when the (instantiated) elaborated instance is written -- so a module
+  // that is never instantiated in this configuration reports nothing.
+  void fireElabSysCalls(DesignComponent* mod);
   void writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
                      UHDM::any* m, CompileDesign* compileDesign,
                      ModPortMap& modPortMap, InstanceMap& instanceMap,
@@ -150,6 +156,7 @@ class UhdmWriter final {
   UHDM::design* m_uhdmDesign;
   ComponentMap m_componentMap;
   CompileHelper m_helper;
+  std::set<DesignComponent*> m_firedElabSysCalls;
 };
 
 }  // namespace SURELOG

@@ -1,0 +1,64 @@
+[INF:CM0023] Creating log file "${SURELOG_DIR}/build/regression/ElabDefinitionDiagnostics/slpp_all/surelog.log".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ElabDefinitionDiagnostics/dut.sv:8:1: No timescale set for "dut".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ElabDefinitionDiagnostics/dut.sv:15:1: No timescale set for "unused_stub".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ElabDefinitionDiagnostics/dut.sv:21:1: No timescale set for "used_stub".
+[WRN:PA0205] ${SURELOG_DIR}/tests/ElabDefinitionDiagnostics/dut.sv:27:1: No timescale set for "ElabDefinitionDiagnostics".
+[INF:CP0300] Compilation...
+[INF:CP0303] ${SURELOG_DIR}/tests/ElabDefinitionDiagnostics/dut.sv:27:1: Compile module "work@ElabDefinitionDiagnostics".
+[INF:CP0303] ${SURELOG_DIR}/tests/ElabDefinitionDiagnostics/dut.sv:8:1: Compile module "work@dut".
+[INF:CP0303] ${SURELOG_DIR}/tests/ElabDefinitionDiagnostics/dut.sv:15:1: Compile module "work@unused_stub".
+[INF:CP0303] ${SURELOG_DIR}/tests/ElabDefinitionDiagnostics/dut.sv:21:1: Compile module "work@used_stub".
+[INF:CP0302] Compile class "work@mailbox".
+[INF:CP0302] Compile class "work@process".
+[INF:CP0302] Compile class "work@semaphore".
+[INF:EL0526] Design Elaboration...
+[NTE:EL0503] ${SURELOG_DIR}/tests/ElabDefinitionDiagnostics/dut.sv:27:1: Top level module "work@ElabDefinitionDiagnostics".
+[NTE:EL0508] Nb Top level modules: 1.
+[NTE:EL0509] Max instance depth: 2.
+[NTE:EL0510] Nb instances: 3.
+[NTE:EL0511] Nb leaf instances: 2.
+[INF:UH0706] Creating UHDM Model...
+=== UHDM Object Stats Begin (Non-Elaborated Model) ===
+class_defn                                             8
+class_typespec                                         4
+class_var                                              3
+constant                                              49
+cont_assign                                            6
+design                                                 1
+enum_const                                             5
+enum_typespec                                          1
+enum_var                                               1
+function                                               9
+int_typespec                                          12
+int_var                                                4
+io_decl                                               11
+logic_net                                              8
+logic_typespec                                        15
+logic_var                                              4
+module_inst                                           12
+operation                                             10
+package                                                2
+packed_array_typespec                                  1
+param_assign                                           3
+parameter                                              3
+part_select                                            1
+port                                                   7
+range                                                 12
+ref_module                                             2
+ref_obj                                               20
+ref_typespec                                          34
+sys_task_call                                          2
+task                                                   9
+=== UHDM Object Stats End ===
+[ERR:EL0547] ${SURELOG_DIR}/tests/ElabDefinitionDiagnostics/dut.sv:23:3: Elaboration error "used_stub: instantiated stub error".
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ElabDefinitionDiagnostics/slpp_all/surelog.uhdm ...
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 1
+[WARNING] : 4
+[   NOTE] : 5
+
+============================== Begin RoundTrip Results ==============================
+[roundtrip]: ${SURELOG_DIR}/tests/ElabDefinitionDiagnostics/builtin.sv | ${SURELOG_DIR}/build/regression/ElabDefinitionDiagnostics/roundtrip/builtin_000.sv | 0 | 0 |
+[roundtrip]: ${SURELOG_DIR}/tests/ElabDefinitionDiagnostics/dut.sv     | ${SURELOG_DIR}/build/regression/ElabDefinitionDiagnostics/roundtrip/dut_000.sv     | 9 | 32 |
+============================== End RoundTrip Results ==============================

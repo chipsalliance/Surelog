@@ -674,6 +674,15 @@ class CompileHelper final {
 
   void setElabMode(bool on) { m_elabMode = on; }
 
+  // When true, reduction errors (e.g. divide-by-zero) raised while computing a
+  // typespec's ranges are muted.  Set only around definition-level typedef
+  // binding (ElaborationStep::bindTypedefs_), where a parameter-dependent range
+  // (`logic [A/B-1:0]`) is evaluated with the module's *default* parameter
+  // values (e.g. a struct config `'0`) that are meant to be overridden at
+  // instantiation.  Genuine errors are still reported when the real instance is
+  // elaborated (DesignElaboration::collectParams_).
+  void setMuteTypedefRangeErrors(bool on) { m_muteTypedefRangeErrors = on; }
+
  private:
   ErrorContainer* m_errors = nullptr;
   SymbolTable* m_symbols = nullptr;
@@ -698,6 +707,7 @@ class CompileHelper final {
   int32_t m_stackLevel = 0;
   bool m_unwind = false;
   bool m_elabMode = true;
+  bool m_muteTypedefRangeErrors = false;
 };
 
 }  // namespace SURELOG

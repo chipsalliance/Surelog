@@ -106,6 +106,12 @@ bool ElaborationStep::bindTypedefs_() {
   SymbolTable* symbols = compiler->getSymbolTable();
   Design* design = compiler->getDesign();
   Serializer& s = m_compileDesign->getSerializer();
+  // Binding a typedef whose range depends on a parameter (`logic [A/B-1:0]`)
+  // evaluates it with the module's DEFAULT parameter values (e.g. a struct
+  // config `'0`), which may legitimately divide by zero; those are not user
+  // errors (the real range is computed per-instance in
+  // DesignElaboration::collectParams_).  Mute range-reduction errors here.
+  m_helper.setMuteTypedefRangeErrors(true);
   std::vector<std::pair<TypeDef*, DesignComponent*>> defs;
   std::map<std::string, typespec*, std::less<>> specs;
   for (const auto& file : design->getAllFileContents()) {
@@ -415,6 +421,7 @@ bool ElaborationStep::bindTypedefs_() {
   swapTypespecPointersInUhdm(s, m_compileDesign->getSwapedObjects());
   swapTypespecPointersInTypedef(design, m_compileDesign->getSwapedObjects());
 
+  m_helper.setMuteTypedefRangeErrors(false);
   return true;
 }
 

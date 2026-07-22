@@ -1,0 +1,1 @@
+-parse -sverilog -top ElabDefinitionDiagnostics dut.sv
