@@ -1285,7 +1285,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
   int32_t size;
   VectorOfrange* ranges =
       compileRanges(component, fC, Packed_dimension, compileDesign, reduce,
-                    pstmt, instance, size, false);
+                    pstmt, instance, size, m_muteTypedefRangeErrors);
   switch (the_type) {
     case VObjectType::paConstant_mintypmax_expression:
     case VObjectType::paConstant_primary: {

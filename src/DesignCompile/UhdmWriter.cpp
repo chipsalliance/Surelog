@@ -2342,6 +2342,9 @@ bool UhdmWriter::writeElabGenScope(Serializer& s, ModuleInstance* instance,
         et->VpiParent(m);
       }
     }
+    // Fire the deferred elaboration system-task diagnostics now that this
+    // (instantiated) module/interface is part of the elaborated design.
+    fireElabSysCalls(mod);
     // Assertions
     if (mod->getAssertions()) {
       m->Assertions(mod->getAssertions());
@@ -4010,6 +4013,45 @@ void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod, scope* m) {
   }
 }
 
+void UhdmWriter::fireElabSysCalls(DesignComponent* mod) {
+  if (mod == nullptr || mod->getElabSysCalls().empty()) return;
+  // Fire once per definition (matches the historical definition-time behavior:
+  // one diagnostic per module, not one per instance).
+  if (!m_firedElabSysCalls.insert(mod).second) return;
+  FileSystem* const fileSystem = FileSystem::getInstance();
+  Compiler* compiler = m_compileDesign->getCompiler();
+  ErrorContainer* errors = compiler->getErrorContainer();
+  SymbolTable* symbols = compiler->getSymbolTable();
+  for (UHDM::tf_call* et : mod->getElabSysCalls()) {
+    const std::string_view name = et->VpiName();
+    std::string_view text;
+    if (et->Tf_call_args() && !et->Tf_call_args()->empty()) {
+      if (const UHDM::constant* c =
+              any_cast<const UHDM::constant*>(et->Tf_call_args()->at(0))) {
+        text = c->VpiValue();
+        if (text.substr(0, 7) == "STRING:") text = text.substr(7);
+      }
+    }
+    const PathId fileId = fileSystem->toPathId(et->VpiFile(), symbols);
+    Location loc(fileId, et->VpiLineNo(), et->VpiColumnNo(),
+                 symbols->registerSymbol(text));
+    ErrorDefinition::ErrorType type = ErrorDefinition::NO_ERROR_MESSAGE;
+    if (name == "fatal") {
+      type = ErrorDefinition::ELAB_SYSTEM_FATAL;
+    } else if (name == "error") {
+      type = ErrorDefinition::ELAB_SYSTEM_ERROR;
+    } else if (name == "warning") {
+      type = ErrorDefinition::ELAB_SYSTEM_WARNING;
+    } else if (name == "info") {
+      type = ErrorDefinition::ELAB_SYSTEM_INFO;
+    } else {
+      continue;
+    }
+    Error err(type, loc);
+    errors->addError(err);
+  }
+}
+
 bool UhdmWriter::writeElabModule(Serializer& s, ModuleInstance* instance,
                                  module_inst* m, ExprBuilder& exprBuilder) {
   Netlist* netlist = instance->getNetlist();
@@ -4045,6 +4087,9 @@ bool UhdmWriter::writeElabModule(Serializer& s, ModuleInstance* instance,
         et->VpiParent(m);
       }
     }
+    // Fire the deferred elaboration system-task diagnostics now that this
+    // (instantiated) module/interface is part of the elaborated design.
+    fireElabSysCalls(mod);
     // Assertions
     if (mod->getAssertions()) {
       m->Assertions(mod->getAssertions());
@@ -4193,6 +4238,9 @@ bool UhdmWriter::writeElabInterface(Serializer& s, ModuleInstance* instance,
         et->VpiParent(m);
       }
     }
+    // Fire the deferred elaboration system-task diagnostics now that this
+    // (instantiated) module/interface is part of the elaborated design.
+    fireElabSysCalls(mod);
     // Assertions
     if (mod->getAssertions()) {
       m->Assertions(mod->getAssertions());

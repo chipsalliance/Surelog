@@ -5504,23 +5504,13 @@ bool CompileHelper::elaborationSystemTask(DesignComponent* component,
   c->VpiDecompile(text);
   c->VpiConstType(vpiStringConst);
   component->addElabSysCall(scall);
-  Location loc(fC->getFileId(id), fC->Line(id), fC->Column(id),
-               m_symbols->registerSymbol(text));
-  if (name == "fatal") {
-    Error err(ErrorDefinition::ELAB_SYSTEM_FATAL, loc);
-    m_errors->addError(err);
-  } else if (name == "error") {
-    Error err(ErrorDefinition::ELAB_SYSTEM_ERROR, loc);
-    m_errors->addError(err);
-  }
-  if (name == "warning") {
-    Error err(ErrorDefinition::ELAB_SYSTEM_WARNING, loc);
-    m_errors->addError(err);
-  }
-  if (name == "info") {
-    Error err(ErrorDefinition::ELAB_SYSTEM_INFO, loc);
-    m_errors->addError(err);
-  }
+  // Do NOT emit the diagnostic here: this runs while compiling the module
+  // DEFINITION, before the instantiation hierarchy is known, so it would fire
+  // even for a module that is only conditionally instantiated and excluded in
+  // this configuration (e.g. CVA6 `cva6_accel_first_pass_decoder`, guarded by
+  // `if (CVA6Cfg.EnableAccelerator)` = false).  The stored elab sys call is
+  // instead fired by UhdmWriter when the ELABORATED (instantiated) module is
+  // written, so it only reports for modules actually present in the design.
   return true;
 }
 
