@@ -1,0 +1,1 @@
+-parse -sverilog -top StructParamFuncBodyFieldCompare dut.sv

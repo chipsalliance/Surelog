@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>/home/alain/Surelog/tests/StructParamFuncBodyFieldCompare/dut.sv Cov: 97% </h3>
+<pre style="margin:0; padding:0 ">   1: // Repro of CVA6 core/include/build_config_pkg.sv:138 UH0725.</pre>
+<pre style="margin:0; padding:0 ">   2: // A struct-typed parameter's value comes from a constant function</pre>
+<pre style="margin:0; padding:0 ">   3: // (`build_config`) whose body assigns a bit field from a *comparison* of two</pre>
+<pre style="margin:0; padding:0 ">   4: // struct-argument fields: `r.flag = (c.NrRules > 0) && (c.Length > 0)`.</pre>
+<pre style="margin:0; padding:0 ">   5: // When another localparam (the INTERRUPTS-style `INT`) references a field of</pre>
+<pre style="margin:0; padding:0 ">   6: // the struct parameter, `reduceExpr` const-evaluates `build_config`; during</pre>
+<pre style="margin:0; padding:0 ">   7: // scope setup `evalFunc` re-clones the `Cfg = build_config(Base)` param, which</pre>
+<pre style="margin:0; padding:0 ">   8: // re-enters the function-result typespec whose member carries the not-yet-</pre>
+<pre style="margin:0; padding:0 ">   9: // evaluated struct-arg field refs (`c.NrRules` / `c.Length`) -- unreachable in</pre>
+<pre style="margin:0; padding:0 ">  10: // that detached clone -> UHDM_UNRESOLVED_HIER_PATH.  The scope-setup clone must</pre>
+<pre style="margin:0; padding:0 ">  11: // be muted (ExprEval::evalFunc).</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12: package cfg_pkg;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   parameter int unsigned NrMaxRules = 16;</pre>
+<pre id="id14" style="background-color: #FFB6C1; margin:0; padding:0 ">  14:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:     int unsigned                 XLEN;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:     int unsigned                 NrRules;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:     logic [NrMaxRules-1:0][63:0] Length;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   } user_cfg_t;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:     int unsigned XLEN;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:     logic        Flag;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   } cfg_t;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   function automatic cfg_t build_config(user_cfg_t c);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:     cfg_t r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:     r.XLEN = c.XLEN;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:     r.Flag = (c.NrRules > 0) && (c.Length > 0);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:     return r;</pre>
+<pre style="margin:0; padding:0 ">  28:   endfunction</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   localparam user_cfg_t Base = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:       XLEN: unsigned'(64),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:       NrRules: unsigned'(2),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:       Length: 1024'({64'b0, 64'b0})};</pre>
+<pre style="margin:0; padding:0 ">  33: endpackage</pre>
+<pre style="margin:0; padding:0 ">  34: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35: module StructParamFuncBodyFieldCompare #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:     parameter cfg_pkg::cfg_t Cfg = cfg_pkg::build_config(cfg_pkg::Base)</pre>
+<pre style="margin:0; padding:0 ">  37: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     input  logic                a_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:     output logic [Cfg.XLEN-1:0] b_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:     output logic                f_o</pre>
+<pre style="margin:0; padding:0 ">  41: );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   localparam type it_t = struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:     logic [Cfg.XLEN-1:0] S_SW;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:     logic [Cfg.XLEN-1:0] M_SW;</pre>
+<pre style="margin:0; padding:0 ">  45:   };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   localparam it_t INT = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:       S_SW: (Cfg.XLEN'(1) << (Cfg.XLEN - 1)) | Cfg.XLEN'(1),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:       M_SW: (Cfg.XLEN'(1) << (Cfg.XLEN - 1)) | Cfg.XLEN'(3)</pre>
+<pre style="margin:0; padding:0 ">  49:   };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   assign b_o = a_i ? INT.S_SW : INT.M_SW;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:   assign f_o = Cfg.Flag;</pre>
+<pre style="margin:0; padding:0 ">  52: endmodule</pre>
+</body>
+</html>
