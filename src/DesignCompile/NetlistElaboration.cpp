@@ -30,6 +30,7 @@
 #include <algorithm>
 #include <cstdint>
 #include <cstdlib>
+#include <functional>
 #include <map>
 #include <set>
 #include <string>
@@ -304,53 +305,109 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
                 // `interrupts_t` / `INTERRUPTS`.  The parameter typespec and the
                 // pattern operation's typespec are distinct objects of the same
                 // struct type, so reduce both.
-                auto reduceStructRanges = [&](const UHDM::typespec* t) {
-                  if (t == nullptr || t->UhdmType() != uhdmstruct_typespec)
-                    return;
-                  auto reduceBound = [&](UHDM::expr* b) -> UHDM::expr* {
-                    if (b == nullptr || b->UhdmType() == uhdmconstant)
-                      return nullptr;
-                    bool inv = false;
-                    m_helper.checkForLoops(true);
-                    UHDM::expr* red = m_helper.reduceExpr(
-                        b, inv, mod, m_compileDesign, instance,
-                        fileSystem->toPathId(
-                            b->VpiFile(),
-                            m_compileDesign->getCompiler()->getSymbolTable()),
-                        b->VpiLineNo(), nullptr, true);
-                    m_helper.checkForLoops(false);
-                    if (red && !inv && red->UhdmType() == uhdmconstant)
-                      return red;
+                auto reduceBound = [&](UHDM::expr* b) -> UHDM::expr* {
+                  if (b == nullptr || b->UhdmType() == uhdmconstant)
                     return nullptr;
-                  };
-                  for (typespec_member* memb :
-                       *((struct_typespec*)t)->Members()) {
-                    const UHDM::typespec* mtps = nullptr;
-                    if (UHDM::ref_typespec* mrt = memb->Typespec())
-                      mtps = mrt->Actual_typespec();
-                    UHDM::VectorOfrange* ranges = nullptr;
-                    if (mtps) {
-                      if (mtps->UhdmType() == uhdmlogic_typespec)
-                        ranges = ((UHDM::logic_typespec*)mtps)->Ranges();
-                      else if (mtps->UhdmType() == uhdmpacked_array_typespec)
-                        ranges = ((UHDM::packed_array_typespec*)mtps)->Ranges();
-                      else if (mtps->UhdmType() == uhdmarray_typespec)
-                        ranges = ((UHDM::array_typespec*)mtps)->Ranges();
-                    }
-                    if (ranges == nullptr) continue;
-                    for (UHDM::range* r : *ranges) {
-                      if (UHDM::expr* red = reduceBound(r->Left_expr()))
-                        r->Left_expr(red);
-                      if (UHDM::expr* red = reduceBound(r->Right_expr()))
-                        r->Right_expr(red);
-                    }
+                  bool inv = false;
+                  m_helper.checkForLoops(true);
+                  UHDM::expr* red = m_helper.reduceExpr(
+                      b, inv, mod, m_compileDesign, instance,
+                      fileSystem->toPathId(
+                          b->VpiFile(),
+                          m_compileDesign->getCompiler()->getSymbolTable()),
+                      b->VpiLineNo(), nullptr, true);
+                  m_helper.checkForLoops(false);
+                  if (red && !inv && red->UhdmType() == uhdmconstant)
+                    return red;
+                  return nullptr;
+                };
+                auto reduceRangeVec = [&](UHDM::VectorOfrange* ranges) {
+                  if (ranges == nullptr) return;
+                  for (UHDM::range* r : *ranges) {
+                    if (UHDM::expr* red = reduceBound(r->Left_expr()))
+                      r->Left_expr(red);
+                    if (UHDM::expr* red = reduceBound(r->Right_expr()))
+                      r->Right_expr(red);
                   }
                 };
-                reduceStructRanges(tps);
-                if (rhs->UhdmType() == uhdmoperation) {
-                  if (const UHDM::ref_typespec* ort =
-                          ((operation*)rhs)->Typespec())
-                    reduceStructRanges(ort->Actual_typespec());
+                // Reduce the member ranges of a struct typespec and the direct
+                // ranges of packed/array typespecs (e.g. a cast size
+                // `CVA6Cfg.XLEN'(..)` whose typespec is `logic [CVA6Cfg.XLEN-1:0]`).
+                std::function<void(const UHDM::typespec*)> reduceTypespecRanges =
+                    [&](const UHDM::typespec* t) {
+                  if (t == nullptr) return;
+                  switch (t->UhdmType()) {
+                    case uhdmstruct_typespec:
+                      for (typespec_member* memb :
+                           *((struct_typespec*)t)->Members()) {
+                        if (UHDM::ref_typespec* mrt = memb->Typespec())
+                          reduceTypespecRanges(mrt->Actual_typespec());
+                      }
+                      break;
+                    case uhdmlogic_typespec:
+                      reduceRangeVec(((UHDM::logic_typespec*)t)->Ranges());
+                      break;
+                    case uhdmpacked_array_typespec:
+                      reduceRangeVec(
+                          ((UHDM::packed_array_typespec*)t)->Ranges());
+                      break;
+                    case uhdmarray_typespec:
+                      reduceRangeVec(((UHDM::array_typespec*)t)->Ranges());
+                      break;
+                    default:
+                      break;
+                  }
+                };
+                // Recursively walk the pattern's value expressions, reducing
+                // cast/operation typespec ranges and folding any hier_path
+                // operand (e.g. `CVA6Cfg.XLEN`) to a constant.  Without this,
+                // flattenPatternAssignments below deep-clones these init
+                // expressions and the struct-parameter field references become
+                // unreachable in the detached clone context — reported as
+                // UHDM_UNRESOLVED_HIER_PATH (CVA6 core/cva6.sv `INTERRUPTS`).
+                std::function<void(UHDM::any*)> reduceExprTree =
+                    [&](UHDM::any* e) {
+                  if (e == nullptr) return;
+                  switch (e->UhdmType()) {
+                    case uhdmoperation: {
+                      UHDM::operation* op = (UHDM::operation*)e;
+                      if (UHDM::ref_typespec* ort = op->Typespec())
+                        reduceTypespecRanges(ort->Actual_typespec());
+                      if (UHDM::VectorOfany* ops = op->Operands()) {
+                        for (size_t i = 0; i < ops->size(); i++) {
+                          UHDM::any* o = (*ops)[i];
+                          if (o && o->UhdmType() == uhdmhier_path) {
+                            if (UHDM::expr* red = reduceBound((UHDM::expr*)o)) {
+                              (*ops)[i] = red;
+                              continue;
+                            }
+                          }
+                          reduceExprTree(o);
+                        }
+                      }
+                      break;
+                    }
+                    case uhdmtagged_pattern:
+                      reduceExprTree(((UHDM::tagged_pattern*)e)->Pattern());
+                      break;
+                    default:
+                      break;
+                  }
+                };
+                // Only struct-typed parameters need this: a struct-typed
+                // parameter's field (`Cfg.XLEN`) may appear both in the struct
+                // member ranges AND in the pattern init value expressions, and
+                // flattenPatternAssignments deep-clones both.  Restricting to
+                // struct typespecs keeps the reduction surgical (a non-struct
+                // param's ranges are handled by the normal elaboration path).
+                if (tps->UhdmType() == uhdmstruct_typespec) {
+                  reduceTypespecRanges(tps);
+                  if (rhs->UhdmType() == uhdmoperation) {
+                    if (const UHDM::ref_typespec* ort =
+                            ((operation*)rhs)->Typespec())
+                      reduceTypespecRanges(ort->Actual_typespec());
+                    reduceExprTree(rhs);
+                  }
                 }
                 UHDM::ExprEval eval;
                 if (expr* tmp =
