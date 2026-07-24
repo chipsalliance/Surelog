@@ -48,7 +48,7 @@ void Config::addInstanceUseClause(std::string_view instance,
 void Config::addCellUseClause(std::string_view cell, const UseClause& use) {
   auto previous = m_cellUseClauses.find(cell);
   if (previous != m_cellUseClauses.end()) {
-    m_instanceUseClauses.erase(previous);
+    m_cellUseClauses.erase(previous);
   }
   m_cellUseClauses.emplace(cell, use);
 }
