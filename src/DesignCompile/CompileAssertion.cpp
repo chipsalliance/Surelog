@@ -498,11 +498,20 @@ UHDM::property_decl* CompileHelper::compilePropertyDeclaration(
       Property_spec = fC->Sibling(Property_spec);
     }
   }
-  NodeId Clocking_event = fC->Child(Property_spec);
-  NodeId Property_expr = fC->Sibling(Clocking_event);
-  if (Property_expr == InvalidNodeId) {
-    Property_expr = Clocking_event;
-    Clocking_event = InvalidNodeId;
+  // property_spec ::= [clocking_event] [ disable iff (expression_or_dist) ]
+  //                   property_expr
+  // Both leading parts are optional, so select by node type rather than by
+  // position; otherwise a `disable iff` condition is taken as the property
+  // expression.
+  NodeId Clocking_event = InvalidNodeId;
+  NodeId Property_expr = fC->Child(Property_spec);
+  if (fC->Type(Property_expr) == VObjectType::paClocking_event) {
+    Clocking_event = Property_expr;
+    Property_expr = fC->Sibling(Property_expr);
+  }
+  if (fC->Type(Property_expr) == VObjectType::paExpression_or_dist) {
+    // The `disable iff` condition; not the property expression.
+    Property_expr = fC->Sibling(Property_expr);
   }
   UHDM::property_spec* prop_spec = s.MakeProperty_spec();
   prop_spec->VpiParent(result);
@@ -559,6 +568,15 @@ UHDM::sequence_decl* CompileHelper::compileSequenceDeclaration(
       prop_port_decl->Typespec(rtps);
       Sequence_port_item = fC->Sibling(Sequence_port_item);
     }
+    Sequence_expr = fC->Sibling(Sequence_expr);
+  }
+  // sequence_declaration ::= sequence name [(ports)] ;
+  //                          { assertion_variable_declaration } sequence_expr ;
+  // Skip the optional local variable declarations, as
+  // compilePropertyDeclaration already does, so the sequence body is not
+  // mistaken for one of them.
+  while (fC->Type(Sequence_expr) ==
+         VObjectType::paAssertion_variable_declaration) {
     Sequence_expr = fC->Sibling(Sequence_expr);
   }
   NodeId lookup = fC->Child(Sequence_expr);
