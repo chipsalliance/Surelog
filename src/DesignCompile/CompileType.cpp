@@ -1682,6 +1682,12 @@ UHDM::typespec* CompileHelper::compileTypespec(
 
       while (struct_or_union_member) {
         NodeId Data_type_or_void = fC->Child(struct_or_union_member);
+        // struct_union_member ::= { attribute_instance } [random_qualifier]
+        // data_type_or_void ... - skip the optional leading attributes.
+        while (fC->Type(Data_type_or_void) ==
+               VObjectType::paAttribute_instance) {
+          Data_type_or_void = fC->Sibling(Data_type_or_void);
+        }
         NodeId Data_type = fC->Child(Data_type_or_void);
         NodeId List_of_variable_decl_assignments =
             fC->Sibling(Data_type_or_void);
