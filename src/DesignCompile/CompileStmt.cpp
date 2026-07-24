@@ -1767,6 +1767,12 @@ std::vector<io_decl*>* CompileHelper::compileTfPortList(
     io_decl* decl = s.MakeIo_decl();
     ios->push_back(decl);
     NodeId tf_data_type_or_implicit = fC->Child(tf_port_item);
+    // tf_port_item ::= { attribute_instance } [ tf_port_direction ] ...
+    // Skip the optional leading attributes before classifying the node.
+    while (fC->Type(tf_data_type_or_implicit) ==
+           VObjectType::paAttribute_instance) {
+      tf_data_type_or_implicit = fC->Sibling(tf_data_type_or_implicit);
+    }
     NodeId tf_data_type = fC->Child(tf_data_type_or_implicit);
     VObjectType tf_port_direction_type = fC->Type(tf_data_type_or_implicit);
     if (tf_port_direction_type != VObjectType::paData_type_or_implicit)
@@ -1786,7 +1792,7 @@ std::vector<io_decl*>* CompileHelper::compileTfPortList(
     if (fC->Type(type) == VObjectType::paVIRTUAL) type = fC->Sibling(type);
 
     NodeId unpackedDimension =
-        fC->Sibling(fC->Sibling(fC->Child(tf_port_item)));
+        fC->Sibling(fC->Sibling(tf_data_type_or_implicit));
     if (unpackedDimension &&
         (fC->Type(unpackedDimension) != VObjectType::paVariable_dimension))
       unpackedDimension = fC->Sibling(unpackedDimension);
