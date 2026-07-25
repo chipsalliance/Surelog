@@ -77,14 +77,28 @@ void SV3_1aPpTreeShapeListener::enterTop_level_rule(
 
 void SV3_1aPpTreeShapeListener::enterComment(
     SV3_1aPpParser::CommentContext *ctx) {
+  // Strip `translate_off`..`translate_on` regions from the synthesizable model
+  // under `-synth` OR the lighter `-filterprotected` (which only removes these
+  // pragma-guarded regions, WITHOUT the full non-synthesizable-object filtering
+  // that `-synth` also performs — the uhdm2rtlil synthesis flow wants the former
+  // but must keep $display/assertions/etc.).
   if (m_pp->getCompileSourceFile()
+              ->getCommandLineParser()
+              ->reportNonSynthesizable() ||
+      m_pp->getCompileSourceFile()
           ->getCommandLineParser()
-          ->reportNonSynthesizable()) {
+          ->filterProtectedRegions()) {
     if (ctx->One_line_comment()) {
+      // Accept the `synopsys`, `synthesis` and `pragma` pragma prefixes — CVA6
+      // and many other designs guard simulation-only code with
+      // `// synthesis translate_off`, which must be excluded from the
+      // synthesizable model just like `synopsys`/`pragma translate_off`.
       static const std::regex reg1(R"(\/\/\s*synopsys\s+translate_off\s*)");
       static const std::regex reg2(R"(\/\/\s*pragma\s+translate_off\s*)");
+      static const std::regex reg3(R"(\/\/\s*synthesis\s+translate_off\s*)");
       const std::string &text = ctx->One_line_comment()->getText();
-      if (std::regex_match(text, reg1) || std::regex_match(text, reg2)) {
+      if (std::regex_match(text, reg1) || std::regex_match(text, reg2) ||
+          std::regex_match(text, reg3)) {
         m_filterProtectedRegions = true;
         m_inProtectedRegion = true;
       }
@@ -104,13 +118,18 @@ void SV3_1aPpTreeShapeListener::enterComment(
     }
   }
   if (m_pp->getCompileSourceFile()
+              ->getCommandLineParser()
+              ->reportNonSynthesizable() ||
+      m_pp->getCompileSourceFile()
           ->getCommandLineParser()
-          ->reportNonSynthesizable()) {
+          ->filterProtectedRegions()) {
     if (ctx->One_line_comment()) {
       static const std::regex reg1(R"(\/\/\s*synopsys\s+translate_on\s*)");
       static const std::regex reg2(R"(\/\/\s*pragma\s+translate_on\s*)");
+      static const std::regex reg3(R"(\/\/\s*synthesis\s+translate_on\s*)");
       const std::string &text = ctx->One_line_comment()->getText();
-      if (std::regex_match(text, reg1) || std::regex_match(text, reg2)) {
+      if (std::regex_match(text, reg1) || std::regex_match(text, reg2) ||
+          std::regex_match(text, reg3)) {
         if (!m_pp->getCompileSourceFile()
                  ->getCommandLineParser()
                  ->filterProtectedRegions()) {
