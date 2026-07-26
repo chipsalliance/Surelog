@@ -1664,7 +1664,7 @@ void SV3_1aPpTreeShapeListener::exitText_blob(
     } else if (ctx->ESCAPED_CR()) {
       addVObject(ctx, VObjectType::ppESCAPED_CR);
     } else if (ctx->STRING()) {
-      addVObject(ctx, ctx->ESCAPED_CR()->getText(), VObjectType::ppString);
+      addVObject(ctx, ctx->STRING()->getText(), VObjectType::ppString);
     } else if (ctx->OPEN_PARENS()) {
       addVObject(ctx, ctx->getText(), VObjectType::ppText_blob);
     } else if (ctx->CLOSE_PARENS()) {
