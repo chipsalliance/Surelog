@@ -610,7 +610,7 @@ void CommandLineParser::processArgs_(const std::vector<std::string>& args,
       }
       continue;
     } else if (arg == "-cmd_ren") {
-      if (i < args.size() - 2) {
+      if (i + 2 < args.size()) {
         cmd_rename[args[i + 1]] = args[i + 2];
         i += 2;  // also skip two arguments
       } else {
@@ -619,7 +619,7 @@ void CommandLineParser::processArgs_(const std::vector<std::string>& args,
       }
       continue;
     } else if (arg == "-cmd_mrg") {
-      if (i < args.size() - 2) {
+      if (i + 2 < args.size()) {
         cmd_merge[args[i + 1]] = args[i + 2];
         i += 2;  // also skip two arguments
       } else {
@@ -631,7 +631,7 @@ void CommandLineParser::processArgs_(const std::vector<std::string>& args,
     auto cmd_ignore_it = cmd_ignore.find(arg);
     if (cmd_ignore_it != cmd_ignore.end()) {
       // found arg in list of commands to be ignored
-      if (i < args.size() - cmd_ignore_it->second) {
+      if (i + cmd_ignore_it->second < args.size()) {
         i += cmd_ignore_it->second;
       } else {
         std::cerr << "Missing arguments to ignored command " << arg
