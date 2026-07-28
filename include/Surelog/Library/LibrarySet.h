@@ -27,9 +27,9 @@
 
 #include <Surelog/Common/PathId.h>
 
+#include <deque>
 #include <ostream>
 #include <string_view>
-#include <vector>
 
 namespace SURELOG {
 
@@ -42,7 +42,7 @@ class LibrarySet final {
   LibrarySet() = default;
 
   Library* addLibrary(std::string_view name, SymbolTable* symbolTable);
-  std::vector<Library>& getLibraries() { return m_libraries; }
+  std::deque<Library>& getLibraries() { return m_libraries; }
   Library* getLibrary(std::string_view libName);
   Library* getLibrary(PathId fileId);
   void checkErrors(SymbolTable* symbols, ErrorContainer* errors) const;
@@ -50,7 +50,11 @@ class LibrarySet final {
 
  private:
   LibrarySet(const LibrarySet& orig) = default;
-  std::vector<Library> m_libraries;
+  // A deque (not a vector) so that Library* pointers handed out by
+  // addLibrary()/getLibrary() stay valid when a later library is added -- a
+  // library map file may recursively parse a nested .map/.cfg that appends
+  // more libraries while an earlier Library* is still in use.
+  std::deque<Library> m_libraries;
 };
 
 }  // namespace SURELOG
