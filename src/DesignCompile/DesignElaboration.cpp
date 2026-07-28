@@ -2378,9 +2378,15 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
               complex = true;
               instance->setComplexValue(name, complexV);
               instance->setOverridenParam(name);
-              m_helper.reorderAssignmentPattern(module, p->getUhdmParam(),
-                                                complexV, m_compileDesign,
-                                                instance, 0);
+              // An out-of-range positional override leaves p null (no declared
+              // parameter to reorder against); the out-of-range error is
+              // already reported above. Guard the reorder as the sibling call
+              // below does.
+              if (p) {
+                m_helper.reorderAssignmentPattern(module, p->getUhdmParam(),
+                                                  complexV, m_compileDesign,
+                                                  instance, 0);
+              }
             }
           }
         }
