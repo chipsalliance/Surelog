@@ -2337,6 +2337,28 @@ UHDM::any *CompileHelper::compileExpression(
               rval = fC->Sibling(rval);
           }
           if (opType == VObjectType::paINSIDE) {
+            // When ANY `[lo:hi]` range member is present, the braces parse as
+            // a true Open_range_list (each member wrapped in a Value_range
+            // node) instead of the false-Concatenation shape below.  The old
+            // navigation (Child(Child(rval))) then landed INSIDE the first
+            // Value_range and compiled ONLY its low bound — `rm inside
+            // {[3'b000:3'b010]}` lost the range entirely (CVA6 decoder FP
+            // rounding-mode checks flagged legal instructions illegal).
+            // compileExpression on a Value_range node builds the proper
+            // vpiListOp(lo, hi).
+            if (fC->Type(rval) == VObjectType::paOpen_range_list) {
+              NodeId Member = fC->Child(rval);
+              while (Member) {
+                if (UHDM::any *exp = compileExpression(
+                        component, fC, Member, compileDesign, reduce,
+                        operation, instance, muteErrors)) {
+                  operands->push_back(exp);
+                }
+                Member = fC->Sibling(Member);
+              }
+              // RHS is done, skip handling below
+              break;
+            }
             // Because open_range_list is stored in { }, it is being interpreted
             // as a concatenation operation. Code below constructs it manually.
             // Example tree:
