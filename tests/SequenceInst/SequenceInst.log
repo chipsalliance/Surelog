@@ -531,23 +531,23 @@ assert_stmt                                            4
 begin                                                  2
 clocked_seq                                            2
 clocking_block                                         2
-constant                                               4
+constant                                               6
 delay_control                                          1
 design                                                 1
 event_control                                          3
 func_call                                              2
 if_else                                                1
-logic_net                                             16
+logic_net                                             19
 logic_typespec                                         9
 logic_var                                              8
 module_inst                                            2
-operation                                             19
+operation                                             22
 port                                                  14
 prop_formal_decl                                      12
 property_decl                                          2
 property_inst                                          2
 property_spec                                          6
-ref_obj                                               50
+ref_obj                                               52
 ref_typespec                                          21
 sequence_inst                                          2
 === UHDM Object Stats End ===
@@ -558,23 +558,23 @@ assert_stmt                                            8
 begin                                                  4
 clocked_seq                                            4
 clocking_block                                         3
-constant                                               4
+constant                                               6
 delay_control                                          2
 design                                                 1
 event_control                                          5
 func_call                                              2
 if_else                                                2
-logic_net                                             16
+logic_net                                             19
 logic_typespec                                         9
 logic_var                                              8
 module_inst                                            2
-operation                                             37
+operation                                             43
 port                                                  21
 prop_formal_decl                                      24
 property_decl                                          4
 property_inst                                          4
 property_spec                                         12
-ref_obj                                               86
+ref_obj                                               90
 ref_typespec                                          33
 sequence_inst                                          4
 === UHDM Object Stats End ===
@@ -635,13 +635,56 @@ design: (work@m)
         |vpiActual:
         \_logic_net: (work@m.clk), line:9:5, endln:9:9
       |vpiPropertyExpr:
-      \_ref_obj: (work@m.p_triggers.rst), line:9:23, endln:9:26
+      \_operation: , line:9:28, endln:9:69
         |vpiParent:
         \_property_spec: , line:9:5, endln:9:69
-        |vpiName:rst
-        |vpiFullName:work@m.p_triggers.rst
-        |vpiActual:
-        \_logic_net: (work@m.rst), line:3:9, endln:3:12
+        |vpiOpType:51
+        |vpiOperand:
+        \_operation: , line:9:29, endln:9:59
+          |vpiParent:
+          \_operation: , line:9:28, endln:9:69
+          |vpiOpType:54
+          |vpiOperand:
+          \_ref_obj: (work@m.p_triggers.start_event), line:9:29, endln:9:40
+            |vpiParent:
+            \_operation: , line:9:29, endln:9:59
+            |vpiName:start_event
+            |vpiFullName:work@m.p_triggers.start_event
+            |vpiActual:
+            \_logic_net: (work@m.start_event), line:9:29, endln:9:40
+          |vpiOperand:
+          \_constant: , line:9:41, endln:9:44
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+            |vpiConstType:9
+          |vpiOperand:
+          \_operation: , line:9:45, endln:9:59
+            |vpiParent:
+            \_operation: , line:9:29, endln:9:59
+            |vpiOpType:61
+            |vpiOperand:
+            \_ref_obj: (work@m.p_triggers.end_event), line:9:45, endln:9:54
+              |vpiParent:
+              \_operation: , line:9:29, endln:9:59
+              |vpiName:end_event
+              |vpiFullName:work@m.p_triggers.end_event
+              |vpiActual:
+              \_logic_net: (work@m.end_event), line:9:45, endln:9:54
+            |vpiOperand:
+            \_constant: , line:9:57, endln:9:58
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
+        |vpiOperand:
+        \_ref_obj: (work@m.p_triggers.form), line:9:65, endln:9:69
+          |vpiParent:
+          \_operation: , line:9:28, endln:9:69
+          |vpiName:form
+          |vpiFullName:work@m.p_triggers.form
+          |vpiActual:
+          \_logic_net: (work@m.form), line:9:65, endln:9:69
   |vpiPropertyDecl:
   \_property_decl: (work@m.p_multiclock), line:12:12, endln:12:24
     |vpiParent:
@@ -839,6 +882,27 @@ design: (work@m)
     \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/SequenceInst/dut.sv, line:1:1, endln:30:10
     |vpiName:clk
     |vpiFullName:work@m.clk
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@m.start_event), line:9:29, endln:9:40
+    |vpiParent:
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/SequenceInst/dut.sv, line:1:1, endln:30:10
+    |vpiName:start_event
+    |vpiFullName:work@m.start_event
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@m.end_event), line:9:45, endln:9:54
+    |vpiParent:
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/SequenceInst/dut.sv, line:1:1, endln:30:10
+    |vpiName:end_event
+    |vpiFullName:work@m.end_event
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@m.form), line:9:65, endln:9:69
+    |vpiParent:
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/SequenceInst/dut.sv, line:1:1, endln:30:10
+    |vpiName:form
+    |vpiFullName:work@m.form
     |vpiNetType:1
   |vpiNet:
   \_logic_net: (work@m.clkw), line:13:5, endln:13:10
@@ -1402,13 +1466,48 @@ design: (work@m)
         |vpiActual:
         \_logic_net: (work@m.clk), line:9:5, endln:9:9
       |vpiPropertyExpr:
-      \_ref_obj: (work@m.p_triggers.rst), line:9:23, endln:9:26
+      \_operation: , line:9:28, endln:9:69
         |vpiParent:
         \_property_spec: , line:9:5, endln:9:69
-        |vpiName:rst
-        |vpiFullName:work@m.p_triggers.rst
-        |vpiActual:
-        \_logic_var: (work@m.rst), line:3:9, endln:3:12
+        |vpiOpType:51
+        |vpiOperand:
+        \_operation: , line:9:29, endln:9:59
+          |vpiParent:
+          \_operation: , line:9:28, endln:9:69
+          |vpiOpType:54
+          |vpiOperand:
+          \_ref_obj: (work@m.p_triggers.start_event), line:9:29, endln:9:40
+            |vpiParent:
+            \_operation: , line:9:29, endln:9:59
+            |vpiName:start_event
+            |vpiFullName:work@m.p_triggers.start_event
+            |vpiActual:
+            \_logic_net: (work@m.start_event), line:9:29, endln:9:40
+          |vpiOperand:
+          \_constant: , line:9:41, endln:9:44
+          |vpiOperand:
+          \_operation: , line:9:45, endln:9:59
+            |vpiParent:
+            \_operation: , line:9:29, endln:9:59
+            |vpiOpType:61
+            |vpiOperand:
+            \_ref_obj: (work@m.p_triggers.end_event), line:9:45, endln:9:54
+              |vpiParent:
+              \_operation: , line:9:45, endln:9:59
+              |vpiName:end_event
+              |vpiFullName:work@m.p_triggers.end_event
+              |vpiActual:
+              \_logic_net: (work@m.end_event), line:9:45, endln:9:54
+            |vpiOperand:
+            \_constant: , line:9:57, endln:9:58
+        |vpiOperand:
+        \_ref_obj: (work@m.p_triggers.form), line:9:65, endln:9:69
+          |vpiParent:
+          \_operation: , line:9:28, endln:9:69
+          |vpiName:form
+          |vpiFullName:work@m.p_triggers.form
+          |vpiActual:
+          \_logic_net: (work@m.form), line:9:65, endln:9:69
   |vpiPropertyDecl:
   \_property_decl: (work@m.p_multiclock), line:12:12, endln:12:24
     |vpiParent:
