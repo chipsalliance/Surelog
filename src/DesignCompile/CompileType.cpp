@@ -1273,6 +1273,14 @@ UHDM::typespec* CompileHelper::compileTypespec(
   if (fC->Type(Packed_dimension) == VObjectType::paStruct_union_member ||
       fC->Type(Packed_dimension) == VObjectType::slStringConst) {
     Packed_dimension = fC->Sibling(Packed_dimension);
+    // An anonymous struct/union has ALL of its members as siblings before
+    // any trailing packed dimension — a single skip only handled one-member
+    // structs, so `struct packed { a; b; } [N-1:0] x;` silently LOST the
+    // outer [N-1:0] (CVA6 cva6_tlb tags_q/content_q collapsed to a single
+    // element).  Skip every member.
+    while (fC->Type(Packed_dimension) == VObjectType::paStruct_union_member) {
+      Packed_dimension = fC->Sibling(Packed_dimension);
+    }
   }
 
   if (fC->Type(Packed_dimension) == VObjectType::paSigning_Signed ||
