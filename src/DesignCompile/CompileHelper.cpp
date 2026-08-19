@@ -3506,16 +3506,45 @@ bool CompileHelper::compileParameterDeclaration(
       p->VpiName(fC->SymName(Identifier));
       fC->populateCoreMembers(Identifier, Identifier, p);
       NodeId Data_type = fC->Child(Constant_param_expression);
-      if (typespec* tps =
-              compileTypespec(component, fC, Data_type, compileDesign,
-                              Reduce::No, p, nullptr, false)) {
+      typespec* tps = compileTypespec(component, fC, Data_type, compileDesign,
+                                      Reduce::No, p, nullptr, false);
+      typespec* borrowed_tps = nullptr;
+      if (tps == nullptr) {
+        // `parameter type A = B` where B is ANOTHER type parameter of the
+        // same list.  compileTypespec is called with no instance here, so
+        // its paExpression case cannot bindTypespec(B) and returns null —
+        // the parameter is then left with NO typespec at all, and every
+        // port declared `A` collapses to 1 bit (CVA6's hpdcache modules
+        // chain `parameter type fifo_data_t = hpdcache_mem_req_t`).  B is
+        // already in `parameters` if it was declared earlier, so resolve
+        // the chain directly against that list.
+        NodeId nameId = Data_type;
+        while (nameId && fC->Type(nameId) != VObjectType::slStringConst)
+          nameId = fC->Child(nameId);
+        if (nameId) {
+          const std::string_view refName = fC->SymName(nameId);
+          for (UHDM::any* prev : *parameters) {
+            if (prev == p) continue;
+            if (prev->UhdmType() != UHDM::uhdmtype_parameter) continue;
+            if (prev->VpiName() != refName) continue;
+            if (UHDM::ref_typespec* prt =
+                    ((UHDM::type_parameter*)prev)->Typespec())
+              borrowed_tps = prt->Actual_typespec();
+            break;
+          }
+        }
+      }
+      if (tps || borrowed_tps) {
         if (p->Typespec() == nullptr) {
           ref_typespec* tpsRef = s.MakeRef_typespec();
           tpsRef->VpiParent(p);
           p->Typespec(tpsRef);
         }
-        p->Typespec()->Actual_typespec(tps);
-        tps->VpiParent(p);
+        // A borrowed typespec still BELONGS to the parameter it was declared
+        // on — point at it without re-parenting, or the original loses its
+        // owner and the chain breaks in the other direction.
+        p->Typespec()->Actual_typespec(tps ? tps : borrowed_tps);
+        if (tps) tps->VpiParent(p);
       }
       if (localParam) {
         p->VpiLocalParam(true);
