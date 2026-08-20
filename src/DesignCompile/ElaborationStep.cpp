@@ -84,6 +84,7 @@ namespace SURELOG {
 
 using namespace UHDM;  // NOLINT (using a bunch of these)
 
+
 ElaborationStep::ElaborationStep(CompileDesign* compileDesign)
     : m_compileDesign(compileDesign) {
   m_exprBuilder.seterrorReporting(
@@ -1702,6 +1703,58 @@ UHDM::typespec* ElaborationStep::elabTypeParameter_(DesignComponent* component,
         spec->VpiParent(uparam);
       }
       break;
+    }
+  }
+
+  // `localparam type rt_t = id_t [DEPTH-1:0]` where `id_t` is a `parameter
+  // type` OVERRIDDEN at this instantiation.  The packed_array_typespec was
+  // built at definition time, so its element is `id_t`'s DECLARATION DEFAULT
+  // (typically the erased `= logic`, one bit).  This localparam is not itself
+  // overridden, so nothing above re-resolves it, and the element stays 1 bit
+  // even though the instance binds something wider — `rt[idx]` then becomes an
+  // unscaled BIT select instead of an element select, reading bit `idx`
+  // instead of the element at `idx * ELEM_W`.  (CVA6
+  // hpdcache_mem_resp_demux's `mem_resp_rt_i[int'(mem_resp_id_i)]`: correct
+  // only for index 0.)
+  //
+  // compileParameterDeclaration recorded the element's source name on the
+  // Elem_typespec reference; re-bind it against this instance.
+  if (spec && instance &&
+      spec->UhdmType() == UHDM_OBJECT_TYPE::uhdmpacked_array_typespec) {
+    packed_array_typespec* pats = (packed_array_typespec*)spec;
+    if (ref_typespec* elemRef = pats->Elem_typespec()) {
+      const std::string_view elemName = elemRef->VpiName();
+      if (!elemName.empty()) {
+        if (const typespec* bound =
+                bindTypespec(elemName, instance, s)) {
+          const typespec* cur = elemRef->Actual_typespec();
+          if (bound != cur) {
+            packed_array_typespec* reb = s.MakePacked_array_typespec();
+            reb->VpiParent(pats->VpiParent());
+            reb->VpiFile(pats->VpiFile());
+            reb->VpiLineNo(pats->VpiLineNo());
+            reb->VpiColumnNo(pats->VpiColumnNo());
+            reb->VpiEndLineNo(pats->VpiEndLineNo());
+            reb->VpiEndColumnNo(pats->VpiEndColumnNo());
+            ref_typespec* nr = s.MakeRef_typespec();
+            nr->Actual_typespec((typespec*)bound);
+            nr->VpiName(elemName);
+            nr->VpiParent(reb);
+            reb->Elem_typespec(nr);
+            reb->Ranges(pats->Ranges());
+            spec = reb;
+            if (uparam->UhdmType() == uhdmtype_parameter) {
+              type_parameter* tparam = (type_parameter*)uparam;
+              if (tparam->Typespec() == nullptr) {
+                ref_typespec* r = s.MakeRef_typespec();
+                r->VpiParent(tparam);
+                tparam->Typespec(r);
+              }
+              tparam->Typespec()->Actual_typespec(spec);
+            }
+          }
+        }
+      }
     }
   }
   return spec;

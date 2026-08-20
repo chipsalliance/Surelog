@@ -710,6 +710,12 @@ class CompileHelper final {
   bool m_muteTypedefRangeErrors = false;
 };
 
+// Resolve a type name against an instance's type parameters, walking up the
+// hierarchy.  Defined in CompileType.cpp.
+const UHDM::typespec* bindTypespec(std::string_view name,
+                                   ValuedComponentI* instance,
+                                   UHDM::Serializer& s);
+
 }  // namespace SURELOG
 
 #endif /* SURELOG_COMPILEHELPER_H */
