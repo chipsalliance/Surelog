@@ -3560,6 +3560,15 @@ bool CompileHelper::compileParameterDeclaration(
             ref_typespec* elemRef = s.MakeRef_typespec();
             elemRef->Actual_typespec(elemTs);
             elemRef->VpiParent(pats);
+            // Record WHICH type the element came from.  When that name is a
+            // `parameter type` this resolved to its DECLARATION DEFAULT, and
+            // an instance that overrides the parameter needs the element
+            // re-resolved against its own binding — elabTypeParameter_ uses
+            // this name to do that.  Without it a child declared
+            // `parameter type id_t = logic` and instantiated with a 2-bit
+            // type keeps a 1-BIT element, and `arr[idx]` degenerates into an
+            // unscaled bit select (CVA6 hpdcache_mem_resp_demux's routing).
+            elemRef->VpiName(elemName);
             pats->Elem_typespec(elemRef);
             range* rg = s.MakeRange();
             rg->Left_expr((expr*)compileExpression(
