@@ -3509,6 +3509,75 @@ bool CompileHelper::compileParameterDeclaration(
       typespec* tps = compileTypespec(component, fC, Data_type, compileDesign,
                                       Reduce::No, p, nullptr, false);
       typespec* borrowed_tps = nullptr;
+
+      // `parameter type X = <other type> [msb:lsb]` — a named type carrying a
+      // PACKED DIMENSION.  The grammar parses this as an EXPRESSION (a
+      // Constant_primary naming the type, with a Constant_select holding the
+      // range) rather than as a data type, so compileTypespec sizes it as a
+      // plain integer: `type rt_t = resp_id_t [DEPTH-1:0]` came out 32 bits
+      // regardless of the element type (CVA6 hpdcache_mem_resp_demux's
+      // rt_t, 32 instead of 8).  Detect the shape and build the
+      // packed_array_typespec the declaration actually means.
+      {
+        NodeId elemNameId = Data_type;
+        while (elemNameId && fC->Type(elemNameId) != VObjectType::slStringConst)
+          elemNameId = fC->Child(elemNameId);
+        NodeId selectId = elemNameId ? fC->Sibling(elemNameId) : InvalidNodeId;
+        // Constant_select -> [Constant_bit_select] Constant_part_select_range
+        NodeId rangeId;
+        if (selectId && fC->Type(selectId) == VObjectType::paConstant_select) {
+          for (NodeId c = fC->Child(selectId); c; c = fC->Sibling(c)) {
+            if (fC->Type(c) == VObjectType::paConstant_part_select_range) {
+              NodeId cr = fC->Child(c);
+              if (cr && fC->Type(cr) == VObjectType::paConstant_range)
+                rangeId = cr;
+              break;
+            }
+          }
+        }
+        if (rangeId) {
+          // Element type: another type parameter in this same list (the
+          // common case), else whatever compileTypespec makes of the bare
+          // name on its own.
+          typespec* elemTs = nullptr;
+          const std::string_view elemName = fC->SymName(elemNameId);
+          for (UHDM::any* prev : *parameters) {
+            if (prev == p) continue;
+            if (prev->UhdmType() != UHDM::uhdmtype_parameter) continue;
+            if (prev->VpiName() != elemName) continue;
+            if (UHDM::ref_typespec* prt =
+                    ((UHDM::type_parameter*)prev)->Typespec())
+              elemTs = prt->Actual_typespec();
+            break;
+          }
+          if (elemTs == nullptr)
+            elemTs = compileTypespec(component, fC, elemNameId, compileDesign,
+                                     Reduce::No, p, nullptr, false);
+          NodeId lexpr = fC->Child(rangeId);
+          NodeId rexpr = lexpr ? fC->Sibling(lexpr) : InvalidNodeId;
+          if (elemTs && lexpr && rexpr) {
+            packed_array_typespec* pats = s.MakePacked_array_typespec();
+            ref_typespec* elemRef = s.MakeRef_typespec();
+            elemRef->Actual_typespec(elemTs);
+            elemRef->VpiParent(pats);
+            pats->Elem_typespec(elemRef);
+            range* rg = s.MakeRange();
+            rg->Left_expr((expr*)compileExpression(
+                component, fC, lexpr, compileDesign, Reduce::No, rg, nullptr));
+            rg->Right_expr((expr*)compileExpression(
+                component, fC, rexpr, compileDesign, Reduce::No, rg, nullptr));
+            rg->VpiParent(pats);
+            VectorOfrange* rgs = s.MakeRangeVec();
+            rgs->push_back(rg);
+            pats->Ranges(rgs);
+            fC->populateCoreMembers(Data_type, Data_type, pats);
+            // Do NOT re-parent elemTs: like the chained case below, the
+            // element typespec still belongs to its own declaration.
+            tps = pats;
+          }
+        }
+      }
+
       if (tps == nullptr) {
         // `parameter type A = B` where B is ANOTHER type parameter of the
         // same list.  compileTypespec is called with no instance here, so
