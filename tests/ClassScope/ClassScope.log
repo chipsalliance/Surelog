@@ -10144,7 +10144,7 @@ AST_DEBUG_END
 begin                                                 24
 bit_select                                            32
 class_defn                                             1
-constant                                             903
+constant                                             905
 delay_control                                         18
 design                                                 1
 gen_if                                                 8
@@ -10156,15 +10156,16 @@ integer_typespec                                       1
 interface_inst                                        49
 logic_typespec                                         4
 module_inst                                           46
-operation                                            134
+operation                                            135
 package                                                2
+packed_array_typespec                                  1
 param_assign                                         242
 parameter                                            242
 part_select                                           31
-range                                                  3
+range                                                  4
 ref_module                                            96
-ref_obj                                              533
-ref_typespec                                          94
+ref_obj                                              534
+ref_typespec                                          95
 sys_func_call                                        213
 type_parameter                                        15
 unsupported_typespec                                  38
@@ -10174,7 +10175,7 @@ unsupported_typespec                                  38
 begin                                                 32
 bit_select                                            32
 class_defn                                             1
-constant                                             919
+constant                                             921
 delay_control                                        122
 design                                                 1
 gen_if                                                 8
@@ -10186,15 +10187,16 @@ integer_typespec                                       1
 interface_inst                                        73
 logic_typespec                                         4
 module_inst                                           70
-operation                                            151
+operation                                            152
 package                                                2
+packed_array_typespec                                  1
 param_assign                                         444
 parameter                                            434
 part_select                                           31
-range                                                  3
+range                                                  4
 ref_module                                            96
-ref_obj                                             1282
-ref_typespec                                         126
+ref_obj                                             1283
+ref_typespec                                         127
 sys_func_call                                        510
 type_parameter                                        15
 unsupported_typespec                                  38
@@ -10374,7 +10376,7 @@ design: (work@top)
       \_type_parameter: (work@C::T), line:6:21, endln:6:22
       |vpiFullName:work@C::T
       |vpiActual:
-      \_integer_typespec: , line:6:25, endln:6:48
+      \_packed_array_typespec: , line:6:25, endln:6:48
   |vpiParamAssign:
   \_param_assign: , line:2:15, endln:2:26
     |vpiParent:
@@ -24170,30 +24172,24 @@ design: (work@top)
 \_logic_typespec: , line:3:30, endln:3:35
   |vpiParent:
   \_type_parameter: (work@C::PARAM_T), line:3:20, endln:3:27
-\_integer_typespec: , line:6:25, endln:6:48
+\_packed_array_typespec: , line:6:25, endln:6:48
   |vpiParent:
   \_type_parameter: (work@C::T), line:6:21, endln:6:22
-  |vpiExpr:
-  \_part_select: PARAM_T (work@C::T::PARAM_T), line:6:25, endln:6:48
+  |vpiRange:
+  \_range: 
     |vpiParent:
-    \_type_parameter: (work@C::T), line:6:21, endln:6:22
-    |vpiName:PARAM_T
-    |vpiFullName:work@C::T::PARAM_T
-    |vpiDefName:PARAM_T
-    |vpiActual:
-    \_type_parameter: (work@C::PARAM_T), line:3:20, endln:3:27
-    |vpiConstantSelect:1
+    \_packed_array_typespec: , line:6:25, endln:6:48
     |vpiLeftRange:
     \_operation: , line:6:34, endln:6:45
       |vpiParent:
-      \_part_select: PARAM_T (work@C::T::PARAM_T), line:6:25, endln:6:48
+      \_range: 
       |vpiOpType:11
       |vpiOperand:
-      \_ref_obj: (work@C::T::PARAM_T::PARAM_E), line:6:34, endln:6:41
+      \_ref_obj: (work@C::T::PARAM_E), line:6:34, endln:6:41
         |vpiParent:
         \_operation: , line:6:34, endln:6:45
         |vpiName:PARAM_E
-        |vpiFullName:work@C::T::PARAM_T::PARAM_E
+        |vpiFullName:work@C::T::PARAM_E
         |vpiActual:
         \_parameter: (work@C::PARAM_E), line:2:15, endln:2:22
       |vpiOperand:
@@ -24210,6 +24206,13 @@ design: (work@top)
       |vpiSize:64
       |UINT:0
       |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_typespec: (work@C::T)
+    |vpiParent:
+    \_packed_array_typespec: , line:6:25, endln:6:48
+    |vpiFullName:work@C::T
+    |vpiActual:
+    \_logic_typespec: , line:3:30, endln:3:35
 \_int_typespec: , line:44:13, endln:44:36
 \_unsupported_typespec: (T), line:45:40, endln:45:41
   |vpiParent:
