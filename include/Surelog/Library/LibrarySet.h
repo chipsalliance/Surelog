@@ -26,6 +26,10 @@
 #pragma once
 
 #include <Surelog/Common/PathId.h>
+// Library must be complete here: std::deque -- unlike std::vector -- is not
+// one of the containers the standard allows to instantiate with an incomplete
+// element type, and MSVC's implementation takes sizeof(Library) eagerly.
+#include <Surelog/Library/Library.h>
 
 #include <deque>
 #include <ostream>
@@ -34,7 +38,6 @@
 namespace SURELOG {
 
 class ErrorContainer;
-class Library;
 class SymbolTable;
 
 class LibrarySet final {
