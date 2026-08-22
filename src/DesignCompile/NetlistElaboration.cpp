@@ -298,13 +298,13 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
                 // `Cfg.XLEN`) in a struct typespec's member ranges to constants
                 // using this instance's parameter values.
                 // flattenPatternAssignments below clones the pattern operation
-                // AND its struct typespec; a cloned member range that references
-                // a struct-typed parameter is unreachable in that detached clone
-                // context and reported as UHDM_UNRESOLVED_HIER_PATH (and
-                // mis-sizes the flattened value) — CVA6 core/cva6.sv
-                // `interrupts_t` / `INTERRUPTS`.  The parameter typespec and the
-                // pattern operation's typespec are distinct objects of the same
-                // struct type, so reduce both.
+                // AND its struct typespec; a cloned member range that
+                // references a struct-typed parameter is unreachable in that
+                // detached clone context and reported as
+                // UHDM_UNRESOLVED_HIER_PATH (and mis-sizes the flattened value)
+                // — CVA6 core/cva6.sv `interrupts_t` / `INTERRUPTS`.  The
+                // parameter typespec and the pattern operation's typespec are
+                // distinct objects of the same struct type, so reduce both.
                 auto reduceBound = [&](UHDM::expr* b) -> UHDM::expr* {
                   if (b == nullptr || b->UhdmType() == uhdmconstant)
                     return nullptr;
@@ -332,32 +332,33 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
                 };
                 // Reduce the member ranges of a struct typespec and the direct
                 // ranges of packed/array typespecs (e.g. a cast size
-                // `CVA6Cfg.XLEN'(..)` whose typespec is `logic [CVA6Cfg.XLEN-1:0]`).
-                std::function<void(const UHDM::typespec*)> reduceTypespecRanges =
-                    [&](const UHDM::typespec* t) {
-                  if (t == nullptr) return;
-                  switch (t->UhdmType()) {
-                    case uhdmstruct_typespec:
-                      for (typespec_member* memb :
-                           *((struct_typespec*)t)->Members()) {
-                        if (UHDM::ref_typespec* mrt = memb->Typespec())
-                          reduceTypespecRanges(mrt->Actual_typespec());
+                // `CVA6Cfg.XLEN'(..)` whose typespec is `logic
+                // [CVA6Cfg.XLEN-1:0]`).
+                std::function<void(const UHDM::typespec*)>
+                    reduceTypespecRanges = [&](const UHDM::typespec* t) {
+                      if (t == nullptr) return;
+                      switch (t->UhdmType()) {
+                        case uhdmstruct_typespec:
+                          for (typespec_member* memb :
+                               *((struct_typespec*)t)->Members()) {
+                            if (UHDM::ref_typespec* mrt = memb->Typespec())
+                              reduceTypespecRanges(mrt->Actual_typespec());
+                          }
+                          break;
+                        case uhdmlogic_typespec:
+                          reduceRangeVec(((UHDM::logic_typespec*)t)->Ranges());
+                          break;
+                        case uhdmpacked_array_typespec:
+                          reduceRangeVec(
+                              ((UHDM::packed_array_typespec*)t)->Ranges());
+                          break;
+                        case uhdmarray_typespec:
+                          reduceRangeVec(((UHDM::array_typespec*)t)->Ranges());
+                          break;
+                        default:
+                          break;
                       }
-                      break;
-                    case uhdmlogic_typespec:
-                      reduceRangeVec(((UHDM::logic_typespec*)t)->Ranges());
-                      break;
-                    case uhdmpacked_array_typespec:
-                      reduceRangeVec(
-                          ((UHDM::packed_array_typespec*)t)->Ranges());
-                      break;
-                    case uhdmarray_typespec:
-                      reduceRangeVec(((UHDM::array_typespec*)t)->Ranges());
-                      break;
-                    default:
-                      break;
-                  }
-                };
+                    };
                 // Recursively walk the pattern's value expressions, reducing
                 // cast/operation typespec ranges and folding any hier_path
                 // operand (e.g. `CVA6Cfg.XLEN`) to a constant.  Without this,
@@ -367,33 +368,33 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
                 // UHDM_UNRESOLVED_HIER_PATH (CVA6 core/cva6.sv `INTERRUPTS`).
                 std::function<void(UHDM::any*)> reduceExprTree =
                     [&](UHDM::any* e) {
-                  if (e == nullptr) return;
-                  switch (e->UhdmType()) {
-                    case uhdmoperation: {
-                      UHDM::operation* op = (UHDM::operation*)e;
-                      if (UHDM::ref_typespec* ort = op->Typespec())
-                        reduceTypespecRanges(ort->Actual_typespec());
-                      if (UHDM::VectorOfany* ops = op->Operands()) {
-                        for (size_t i = 0; i < ops->size(); i++) {
-                          UHDM::any* o = (*ops)[i];
-                          if (o && o->UhdmType() == uhdmhier_path) {
-                            if (UHDM::expr* red = reduceBound((UHDM::expr*)o)) {
-                              (*ops)[i] = red;
-                              continue;
+                      if (e == nullptr) return;
+                      switch (e->UhdmType()) {
+                        case uhdmoperation: {
+                          UHDM::operation* op = (UHDM::operation*)e;
+                          if (UHDM::ref_typespec* ort = op->Typespec())
+                            reduceTypespecRanges(ort->Actual_typespec());
+                          if (UHDM::VectorOfany* ops = op->Operands()) {
+                            for (UHDM::any*& o : *ops) {
+                              if (o && o->UhdmType() == uhdmhier_path) {
+                                if (UHDM::expr* red =
+                                        reduceBound((UHDM::expr*)o)) {
+                                  o = red;
+                                  continue;
+                                }
+                              }
+                              reduceExprTree(o);
                             }
                           }
-                          reduceExprTree(o);
+                          break;
                         }
+                        case uhdmtagged_pattern:
+                          reduceExprTree(((UHDM::tagged_pattern*)e)->Pattern());
+                          break;
+                        default:
+                          break;
                       }
-                      break;
-                    }
-                    case uhdmtagged_pattern:
-                      reduceExprTree(((UHDM::tagged_pattern*)e)->Pattern());
-                      break;
-                    default:
-                      break;
-                  }
-                };
+                    };
                 // Only struct-typed parameters need this: a struct-typed
                 // parameter's field (`Cfg.XLEN`) may appear both in the struct
                 // member ranges AND in the pattern init value expressions, and
@@ -801,7 +802,8 @@ static void propagateIfaceParams_(Serializer& s, ModuleInstance* refInst,
     dst->setComplexValue(cv.first, cv.second);
   if (Netlist* refNl = refInst->getNetlist()) {
     if (UHDM::VectorOfparam_assign* pa = refNl->param_assigns()) {
-      if (dstNetlist && dstNetlist->param_assigns() == nullptr && !pa->empty()) {
+      if (dstNetlist && dstNetlist->param_assigns() == nullptr &&
+          !pa->empty()) {
         ElaboratorContext ctx(&s, false, true);
         UHDM::VectorOfparam_assign* clone = s.MakeParam_assignVec();
         for (auto p : *pa)
@@ -951,8 +953,9 @@ ModuleInstance* NetlistElaboration::getInterfaceInstance_(
         if (formalName == portName) {
           for (auto inst : parent->getAllSubInstances()) {
             // A modport actual `inst.mp` names the interface INSTANCE `inst`
-            // (baseName); `sigName` (`inst.mp`) matches no sub-instance, so also
-            // match the base instance name to reach the parameterized instance.
+            // (baseName); `sigName` (`inst.mp`) matches no sub-instance, so
+            // also match the base instance name to reach the parameterized
+            // instance.
             if (inst->getInstanceName() == sigName ||
                 (!selectName.empty() && inst->getInstanceName() == baseName)) {
               return inst;
@@ -1456,8 +1459,9 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
           // `.sys_wen(sub.req.wen & sub.trn)`) reduces the member access to the
           // WHOLE struct_net — the member is dropped (a net member has no
           // constant value, so hierarchicalSelector returns the containing
-          // struct_net).  Recompile WITHOUT reduction so the hier_path (with the
-          // member) is preserved (degu SoC tcb_dev_gpio sys_wdt/sys_wen/...).
+          // struct_net).  Recompile WITHOUT reduction so the hier_path (with
+          // the member) is preserved (degu SoC tcb_dev_gpio
+          // sys_wdt/sys_wen/...).
           bool needsUnreduced = (hexpr && hexpr->UhdmType() == uhdmstruct_net);
           if (hexpr && hexpr->UhdmType() == uhdmoperation) {
             operation* op = (operation*)hexpr;
@@ -1911,14 +1915,14 @@ interface_inst* NetlistElaboration::elab_interface_(
     }
     // Expose the interface's elaborated parameters/localparams on the UHDM
     // interface_inst.  An interface reached only through a modport PORT
-    // (`tcb_lite_if.man tcb_lsu`, e.g. a core synthesised standalone) never went
-    // through elab_parameters_ for its OWN scope, so localparams computed from
-    // the interface's CFG (`CFG_BUS_BYT = CFG.BUS.DAT/8`,
-    // `CFG_BUS_SIZ = $clog2($clog2(CFG_BUS_BYT)+1)`) had no per-instance constant
-    // value — a read of the modport-port param, or of a struct-field width that
-    // uses it (`logic [CFG_BUS_SIZ-1:0] siz`), then resolved to nothing.
-    // Elaborate them from the interface's (default or overridden) parameters and
-    // hand the valued param_assigns to the interface_inst.
+    // (`tcb_lite_if.man tcb_lsu`, e.g. a core synthesised standalone) never
+    // went through elab_parameters_ for its OWN scope, so localparams computed
+    // from the interface's CFG (`CFG_BUS_BYT = CFG.BUS.DAT/8`, `CFG_BUS_SIZ =
+    // $clog2($clog2(CFG_BUS_BYT)+1)`) had no per-instance constant value — a
+    // read of the modport-port param, or of a struct-field width that uses it
+    // (`logic [CFG_BUS_SIZ-1:0] siz`), then resolved to nothing. Elaborate them
+    // from the interface's (default or overridden) parameters and hand the
+    // valued param_assigns to the interface_inst.
     if (netl->param_assigns() == nullptr) {
       elab_parameters_(interf_instance, true);
       elab_parameters_(interf_instance, false);

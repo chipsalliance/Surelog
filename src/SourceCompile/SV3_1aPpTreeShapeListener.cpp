@@ -80,11 +80,11 @@ void SV3_1aPpTreeShapeListener::enterComment(
   // Strip `translate_off`..`translate_on` regions from the synthesizable model
   // under `-synth` OR the lighter `-filterprotected` (which only removes these
   // pragma-guarded regions, WITHOUT the full non-synthesizable-object filtering
-  // that `-synth` also performs — the uhdm2rtlil synthesis flow wants the former
-  // but must keep $display/assertions/etc.).
+  // that `-synth` also performs — the uhdm2rtlil synthesis flow wants the
+  // former but must keep $display/assertions/etc.).
   if (m_pp->getCompileSourceFile()
-              ->getCommandLineParser()
-              ->reportNonSynthesizable() ||
+          ->getCommandLineParser()
+          ->reportNonSynthesizable() ||
       m_pp->getCompileSourceFile()
           ->getCommandLineParser()
           ->filterProtectedRegions()) {
@@ -118,8 +118,8 @@ void SV3_1aPpTreeShapeListener::enterComment(
     }
   }
   if (m_pp->getCompileSourceFile()
-              ->getCommandLineParser()
-              ->reportNonSynthesizable() ||
+          ->getCommandLineParser()
+          ->reportNonSynthesizable() ||
       m_pp->getCompileSourceFile()
           ->getCommandLineParser()
           ->filterProtectedRegions()) {

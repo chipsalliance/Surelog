@@ -915,9 +915,9 @@ void UhdmWriter::writeNets(DesignComponent* mod,
               anet->VpiSize(unpackedSize);
               fC->populateCoreMembers(orig_net->getNodeId(),
                                       orig_net->getNodeId(), anet);
-              // Fresh inner element net (a copy of the collapsed element) so the
-              // array_net carries the element type without stealing the Nets()
-              // entry's parent.
+              // Fresh inner element net (a copy of the collapsed element) so
+              // the array_net carries the element type without stealing the
+              // Nets() entry's parent.
               logic_net* elem = s.MakeLogic_net();
               elem->VpiName(orig_net->getName());
               elem->VpiNetType(dest_net->VpiNetType());
@@ -4506,10 +4506,11 @@ void UhdmWriter::writeInstance(ModuleDefinition* mod, ModuleInstance* instance,
           interf->VpiParent(m);
         }
       }
-      // Interface-port copies (`sub (.t(inst.mp))`) are only attached here, never
-      // sent through writeElabInterface, so their parameter overrides were
-      // missing.  Emit them now from the copy's ModuleInstance, which carries the
-      // connected instance's overrides propagated during netlist elaboration.
+      // Interface-port copies (`sub (.t(inst.mp))`) are only attached here,
+      // never sent through writeElabInterface, so their parameter overrides
+      // were missing.  Emit them now from the copy's ModuleInstance, which
+      // carries the connected instance's overrides propagated during netlist
+      // elaboration.
       for (interface_inst* interf : *subInterfaces) {
         if (interf->Param_assigns()) continue;
         for (const auto& e : netlist->getInstanceMap()) {

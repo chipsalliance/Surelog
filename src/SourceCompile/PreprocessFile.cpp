@@ -938,8 +938,7 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
       // at the use site (yosys/tests/simple/macro_arg_spaces.sv).  The
       // formal name (line 898 above) is a single identifier so stripping
       // ws there is fine.
-      const std::string default_val(
-          StringUtils::trim(formal_arg_default[1]));
+      const std::string default_val(StringUtils::trim(formal_arg_default[1]));
       StringUtils::replaceInTokenVector(body_tokens, {"``", formal, "``"},
                                         default_val);
       StringUtils::replaceInTokenVector(body_tokens, "``" + formal + "``",

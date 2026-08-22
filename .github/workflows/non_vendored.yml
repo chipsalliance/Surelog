@@ -58,8 +58,18 @@ jobs:
         cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=17 -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DJSON_BuildTests=OFF . && cmake --build build && sudo cmake --install build
         popd
 
-        git clone --depth 1 --branch v1.84 https://github.com/chipsalliance/UHDM.git
+        # Track the exact UHDM revision this tree is pinned to (the submodule
+        # gitlink is present even though we checked out without submodules).
+        # Surelog master routinely uses UHDM APIs that are newer than the
+        # latest UHDM release tag, so pinning to a tag here breaks the build.
+        UHDM_COMMIT=$(git rev-parse HEAD:third_party/UHDM)
+        echo "Building UHDM at ${UHDM_COMMIT}"
+        # Blobless clone: cheap, but still lets us check out an exact SHA and
+        # keeps the tags UHDM's CMakeLists uses to derive its version.
+        # No submodules needed: gtest & capnp come from the host below.
+        git clone --filter=blob:none https://github.com/chipsalliance/UHDM.git
         pushd UHDM
+        git checkout "${UHDM_COMMIT}"
         cmake -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DUHDM_USE_HOST_GTEST=ON -DUHDM_USE_HOST_CAPNP=ON . && cmake --build build && sudo cmake --install build
         popd
 

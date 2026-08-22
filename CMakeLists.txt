@@ -95,6 +95,12 @@ endif()
 set(WITH_STATIC_CRT OFF CACHE BOOL "Use Static CRT")
 set(ANTLR_BUILD_CPP_TESTS OFF CACHE BOOL "Skip ANTLR tests")
 
+# Must come before any add_subdirectory() of a vendored dependency: some of them
+# (antlr4) use CMAKE_INSTALL_INCLUDEDIR & friends in their install() rules
+# without including GNUInstallDirs first. Left undefined, those destinations
+# become absolute paths ("/antlr4-runtime") and escape CMAKE_INSTALL_PREFIX.
+include(GNUInstallDirs)
+
 if(SURELOG_USE_HOST_ANTLR)
   find_package(ANTLR REQUIRED)
 else()
@@ -796,8 +802,6 @@ if (NOT QUICK_COMP)
   add_dependencies(hellosureworld PrecompileOVM)
   add_dependencies(hellosureworld PrecompileUVM)
 endif()
-
-include(GNUInstallDirs)
 
 # Installation target
 if (QUICK_COMP)
