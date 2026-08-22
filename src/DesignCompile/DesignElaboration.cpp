@@ -1746,8 +1746,8 @@ void DesignElaboration::elaborateInstance_(
         // Built-in primitive definitions are created without a FileContent, so
         // getNodeIds()/getFileContents() are empty. Treat them as undefined
         // here so the instance takes the existing black-box path below.
-        if (def && (def->getNodeIds().empty() ||
-                    def->getFileContents().empty())) {
+        if (def &&
+            (def->getNodeIds().empty() || def->getFileContents().empty())) {
           def = nullptr;
         }
 
@@ -1828,8 +1828,8 @@ void DesignElaboration::elaborateInstance_(
 
           // A use-clause above may have re-resolved def to a built-in
           // primitive, which carries no FileContent/NodeId.
-          if (def && (def->getNodeIds().empty() ||
-                      def->getFileContents().empty())) {
+          if (def &&
+              (def->getNodeIds().empty() || def->getFileContents().empty())) {
             def = nullptr;
           }
 
@@ -1860,15 +1860,16 @@ void DesignElaboration::elaborateInstance_(
               if (fC->Type(unpackedDimId) ==
                   VObjectType::paUnpacked_dimension) {
                 NodeId constantRangeId = fC->Child(unpackedDimId);
-                // A SIZE dimension `[N]` is a bare constant_expression (no `:`),
-                // a RANGE `[msb:lsb]` is a constant_range.  They must be handled
-                // differently: `[N]` denotes indices [0 : N-1] (N instances),
-                // NOT the `[N:0]` range (N+1 instances) the old code produced for
-                // both.  So `myif m[2]` / `child c[2]` are TWO instances (m[0],
-                // m[1]) — matching Verilator/slang and the SV unpacked-dimension
-                // rule (github interface/module array off-by-one).
-                const bool isRange =
-                    (fC->Type(constantRangeId) == VObjectType::paConstant_range);
+                // A SIZE dimension `[N]` is a bare constant_expression (no
+                // `:`), a RANGE `[msb:lsb]` is a constant_range.  They must be
+                // handled differently: `[N]` denotes indices [0 : N-1] (N
+                // instances), NOT the `[N:0]` range (N+1 instances) the old
+                // code produced for both.  So `myif m[2]` / `child c[2]` are
+                // TWO instances (m[0], m[1]) — matching Verilator/slang and the
+                // SV unpacked-dimension rule (github interface/module array
+                // off-by-one).
+                const bool isRange = (fC->Type(constantRangeId) ==
+                                      VObjectType::paConstant_range);
                 NodeId leftNode = fC->Child(constantRangeId);
                 NodeId rightNode = fC->Sibling(leftNode);
                 bool validValue;
@@ -2190,21 +2191,22 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
                      (exprtype == UHDM::uhdmsys_func_call) ||
                      (exprtype == UHDM::uhdmindexed_part_select) ||
                      (exprtype == UHDM::uhdmhier_path)) {
-            // An interface-port hier_path override (`.SYS_DAT(sub.CFG.BUS.DAT)`,
-            // where `sub` is an interface port of the instantiating module):
-            // resolve `<port>.<member>` through the port's interface TYPE
-            // definition to a constant, so the child instance receives a real
-            // width instead of an unresolvable hier_path (which later surfaces
-            // as UHDM_UNRESOLVED_HIER_PATH during full elaboration).
-            // `parentDefinition` owns the `sub` port.  rp32 degu/mouse SoC
-            // peripherals (tcb_lite_dev_gpio/uart).
+            // An interface-port hier_path override
+            // (`.SYS_DAT(sub.CFG.BUS.DAT)`, where `sub` is an interface port of
+            // the instantiating module): resolve `<port>.<member>` through the
+            // port's interface TYPE definition to a constant, so the child
+            // instance receives a real width instead of an unresolvable
+            // hier_path (which later surfaces as UHDM_UNRESOLVED_HIER_PATH
+            // during full elaboration). `parentDefinition` owns the `sub` port.
+            // rp32 degu/mouse SoC peripherals (tcb_lite_dev_gpio/uart).
             if (exprtype == UHDM::uhdmhier_path) {
               if (UHDM::any* iv = m_helper.resolveInterfacePortMember(
                       parentDefinition, (UHDM::hier_path*)complexV,
                       m_compileDesign, parentFile, expr)) {
                 if (iv->UhdmType() == UHDM::uhdmconstant) {
                   UHDM::constant* c = (UHDM::constant*)iv;
-                  value = m_exprBuilder.fromVpiValue(c->VpiValue(), c->VpiSize());
+                  value =
+                      m_exprBuilder.fromVpiValue(c->VpiValue(), c->VpiSize());
                 }
               }
             }

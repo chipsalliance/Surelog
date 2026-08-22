@@ -84,7 +84,6 @@ namespace SURELOG {
 
 using namespace UHDM;  // NOLINT (using a bunch of these)
 
-
 ElaborationStep::ElaborationStep(CompileDesign* compileDesign)
     : m_compileDesign(compileDesign) {
   m_exprBuilder.seterrorReporting(
@@ -1725,8 +1724,7 @@ UHDM::typespec* ElaborationStep::elabTypeParameter_(DesignComponent* component,
     if (ref_typespec* elemRef = pats->Elem_typespec()) {
       const std::string_view elemName = elemRef->VpiName();
       if (!elemName.empty()) {
-        if (const typespec* bound =
-                bindTypespec(elemName, instance, s)) {
+        if (const typespec* bound = bindTypespec(elemName, instance, s)) {
           const typespec* cur = elemRef->Actual_typespec();
           if (bound != cur) {
             packed_array_typespec* reb = s.MakePacked_array_typespec();

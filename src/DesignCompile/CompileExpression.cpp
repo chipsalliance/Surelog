@@ -1191,9 +1191,9 @@ UHDM::any *CompileHelper::resolveInterfacePortMember(
   const std::string baseName =
       std::string(path->Path_elems()->at(0)->VpiName());
   // Walk up the enclosing-scope chain: when the read sits inside a nested
-  // generate block (`generate if (ALIGNED) begin: aligned for (i<sub.BYT) ...`),
-  // `component` is the gen-scope definition, which has no ports — the interface
-  // port `sub` lives on the enclosing MODULE definition (the degu SoC
+  // generate block (`generate if (ALIGNED) begin: aligned for (i<sub.BYT)
+  // ...`), `component` is the gen-scope definition, which has no ports — the
+  // interface port `sub` lives on the enclosing MODULE definition (the degu SoC
   // logsize2byteena aligned/unaligned byte-enable loops).
   for (const ValuedComponentI *scope = component; scope;
        scope = scope->getParentScope()) {
@@ -1218,17 +1218,18 @@ UHDM::any *CompileHelper::resolveInterfacePortMember(
       if (elems.size() == 2) {
         // `sub.BYT`: a single param/localparam read — evaluate the member in
         // the interface definition's own context (default/overridden params).
-        if (any *v = getValue(std::string(elems.at(1)->VpiName()), ifaceDef,
-                              compileDesign, Reduce::Yes, nullptr,
-                              fC->getFileId(), fC->Line(locId), nullptr, true)) {
+        if (any *v =
+                getValue(std::string(elems.at(1)->VpiName()), ifaceDef,
+                         compileDesign, Reduce::Yes, nullptr, fC->getFileId(),
+                         fC->Line(locId), nullptr, true)) {
           if (v->UhdmType() == uhdmconstant) return v;
         }
         return nullptr;
       }
       // `sub.CFG.HSK.DLY`: a nested struct-PARAMETER field chain (`CFG` is a
       // struct param of the interface, `.HSK.DLY` walks its members).  Build a
-      // sub-path from the member elements (dropping the interface-port base) and
-      // decode it in the interface definition, where the struct-param-field
+      // sub-path from the member elements (dropping the interface-port base)
+      // and decode it in the interface definition, where the struct-param-field
       // navigation resolves it to a constant.  Needed for the degu SoC
       // demultiplexer / register generate conditions `if (sub.CFG.HSK.DLY==N)`.
       UHDM::Serializer &s = compileDesign->getSerializer();
@@ -1408,7 +1409,8 @@ UHDM::any *CompileHelper::compileSelectExpression(
           //   `field[hi:lo]`        → part_select(field, hi, lo)
           //   `field[idx]`          → bit_select(field, idx)
           //   `field[i0][i1]...`    → var_select(field, [i0,i1,...])
-          //   `field[idx][hi:lo]`   → bit_select(field, idx) + part_select(_, hi, lo)
+          //   `field[idx][hi:lo]`   → bit_select(field, idx) + part_select(_,
+          //   hi, lo)
           //
           // The Select grammar interleaves empty paBit_select sentinels
           // between an indexed paBit_select and a trailing range, so
@@ -1425,7 +1427,7 @@ UHDM::any *CompileHelper::compileSelectExpression(
           // walk both the outer paBit_select chain AND the Expression
           // children of each.
           std::vector<NodeId> idx_exprs;  // Expression NodeIds (one per index)
-          NodeId last_indexed;            // last paBit_select containing indices
+          NodeId last_indexed;  // last paBit_select containing indices
           NodeId cursor = fC->Sibling(Bit_select);
           while (cursor &&
                  (fC->Type(cursor) == VObjectType::paBit_select ||
@@ -1480,8 +1482,7 @@ UHDM::any *CompileHelper::compileSelectExpression(
               fC->populateCoreMembers(Bit_select, rangeNode, sel);
               sel->VpiParent(path);
               elems->push_back(sel);
-              hname.append(".").append(field_name).append(
-                  decompileHelper(sel));
+              hname.append(".").append(field_name).append(decompileHelper(sel));
             }
             advance_to = rangeNode;
           } else {
@@ -1528,8 +1529,8 @@ UHDM::any *CompileHelper::compileSelectExpression(
             if (rangeNode) {
               NodeId Constant_range = fC->Child(rangeNode);
               if (expr *psel = (expr *)compilePartSelectRange(
-                      component, fC, Constant_range, "", compileDesign,
-                      reduce, path, instance, muteErrors)) {
+                      component, fC, Constant_range, "", compileDesign, reduce,
+                      path, instance, muteErrors)) {
                 fC->populateCoreMembers(rangeNode, rangeNode, psel);
                 psel->VpiParent(path);
                 elems->push_back(psel);
@@ -2350,8 +2351,8 @@ UHDM::any *CompileHelper::compileExpression(
               NodeId Member = fC->Child(rval);
               while (Member) {
                 if (UHDM::any *exp = compileExpression(
-                        component, fC, Member, compileDesign, reduce,
-                        operation, instance, muteErrors)) {
+                        component, fC, Member, compileDesign, reduce, operation,
+                        instance, muteErrors)) {
                   operands->push_back(exp);
                 }
                 Member = fC->Sibling(Member);
