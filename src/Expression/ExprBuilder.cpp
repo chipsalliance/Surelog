@@ -69,6 +69,25 @@ Value* ExprBuilder::clone(Value* val) {
 //              and fix the intended places.
 //
 // NOLINTBEGIN(*.DeadStores)
+
+static bool isDottedMemberTail(const FileContent* fC, NodeId sib) {
+  // Trailing member-access shape after a base identifier: either a direct
+  // sibling StringConst (`.u`) or a Constant_select/Select whose children
+  // include a StringConst member name (a pure index select has only
+  // bit-select children).  Such paths cannot be evaluated by this 64-bit
+  // Value engine — looking up just the base identifier hands back the whole
+  // packed struct value as the member's value.
+  if (!sib) return false;
+  if (fC->Type(sib) == VObjectType::slStringConst) return true;
+  if ((fC->Type(sib) == VObjectType::paConstant_select) ||
+      (fC->Type(sib) == VObjectType::paSelect)) {
+    for (NodeId c = fC->Child(sib); c; c = fC->Sibling(c)) {
+      if (fC->Type(c) == VObjectType::slStringConst) return true;
+    }
+  }
+  return false;
+}
+
 Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
                              ValuedComponentI* instance, bool muteErrors) {
   Value* value = m_valueFactory.newLValue();
@@ -220,6 +239,18 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         value = evalExpr(fC, child, instance, muteErrors);
         break;
       case VObjectType::paHierarchical_identifier: {
+        // A DOTTED member path (`CFG.u.sidWidth`) cannot be evaluated by this
+        // 64-bit Value engine: recursing evaluates only the BASE identifier
+        // and hands back the whole packed struct value as the member's value
+        // (and a >64-bit value saturates to 0xFF..F through strtoull on the
+        // way into an LValue).  Leave it invalid for the UHDM-level
+        // evaluator, which resolves member selects properly
+        // (param_nested_struct_field_width's `SID_W = CFG.u.sidWidth`).
+        NodeId first = fC->Child(child);
+        if (first && fC->Sibling(first)) {
+          value->setInvalid();
+          break;
+        }
         m_valueFactory.deleteValue(value);
         value = evalExpr(fC, child, instance, muteErrors);
         break;
@@ -533,6 +564,18 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
           if (sval == nullptr) fullName = StrCat(packageName, "::", name);
         } else {
           const std::string_view name = fC->SymName(child);
+          // A DOTTED member path (`CFG.u.sidWidth` — the trailing member
+          // names are SIBLING StringConsts) cannot be evaluated by this
+          // 64-bit Value engine: looking up just the BASE hands back the
+          // whole packed struct value as the member's value (and a >64-bit
+          // value saturates through strtoull on its way into an LValue).
+          // Leave it invalid for the UHDM-level evaluator
+          // (param_nested_struct_field_width's `SID_W = CFG.u.sidWidth`).
+          if (isDottedMemberTail(fC, fC->Sibling(child))) {
+            muteErrors = true;
+            value->setInvalid();
+            break;
+          }
           if (instance) {
             if (instance->getComplexValue(name)) {
               muteErrors = true;
@@ -755,6 +798,17 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         Value* sval = nullptr;
         std::string fullName;
         const std::string_view name = fC->SymName(parent);
+        // A DOTTED member path (`CFG.u.sidWidth` — trailing member names are
+        // SIBLING StringConsts of the base) cannot be evaluated by this
+        // 64-bit Value engine: looking up just the BASE hands back the whole
+        // packed struct value as the member's value (saturated through
+        // strtoull for >64 bits).  Leave it invalid for the UHDM-level
+        // evaluator (param_nested_struct_field_width's SID_W).
+        if (isDottedMemberTail(fC, fC->Sibling(parent))) {
+          muteErrors = true;
+          value->setInvalid();
+          break;
+        }
         if (instance) {
           if (instance->getComplexValue(name)) {
             muteErrors = true;
