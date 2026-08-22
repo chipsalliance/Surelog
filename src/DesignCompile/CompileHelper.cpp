@@ -3760,8 +3760,17 @@ bool CompileHelper::compileParameterDeclaration(
             if (!invalidValue) size = sizetmp;
           }
           adjustSize(ts, component, compileDesign, instance, c);
-          Value* val = m_exprBuilder.fromVpiValue(c->VpiValue(), size);
-          component->setValue(the_name, val, m_exprBuilder);
+          // A value wider than 64 bits must NOT enter the Value store: the
+          // StValue accessors convert through strtoull/strtoll, which
+          // SATURATE, so a 96-bit function-computed struct parameter read
+          // back through getValueUL() becomes 0xFFFF...F and every member
+          // select of it folds to stamped garbage
+          // (param_nested_struct_field_width's SID_W).  The constant stays
+          // on the parameter/param_assign for the UHDM-level evaluator.
+          if (size <= 64) {
+            Value* val = m_exprBuilder.fromVpiValue(c->VpiValue(), size);
+            component->setValue(the_name, val, m_exprBuilder);
+          }
         } else if (expr && (reduce == Reduce::Yes) && (!isMultiDimension)) {
           UHDM::expr* the_expr = (UHDM::expr*)expr;
           if (the_expr->Typespec() == nullptr) {
