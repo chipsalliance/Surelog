@@ -4609,10 +4609,12 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(
   } else if (fC->Type(Variable_lvalue) == VObjectType::paVariable_lvalue) {
     AssignOp_Assign = fC->Sibling(Variable_lvalue);
     NodeId Hierarchical_identifier = fC->Child(Variable_lvalue);
+    bool lhs_from_inner_hier = false;
     if (fC->Type(fC->Child(Hierarchical_identifier)) ==
         VObjectType::paHierarchical_identifier) {
       Hierarchical_identifier = fC->Child(Hierarchical_identifier);
       Hierarchical_identifier = fC->Child(Hierarchical_identifier);
+      lhs_from_inner_hier = true;
     } else if (fC->Type(Hierarchical_identifier) !=
                VObjectType::paPs_or_hierarchical_identifier) {
       Hierarchical_identifier = Variable_lvalue;
@@ -4621,6 +4623,58 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(
     lhs_rf = any_cast<expr*>(
         compileExpression(component, fC, Hierarchical_identifier, compileDesign,
                           Reduce::No, assign, instance));
+    // A select trailing the LAST member of a hierarchical lvalue
+    // (`d[i][j].field[k] = ...`) is a Select sibling of the
+    // Ps_or_hierarchical_identifier, OUTSIDE the Hierarchical_identifier the
+    // lhs was compiled from, so it was silently dropped.  Merge it into the
+    // hier_path the same way compileContinuousAssignment does for
+    // Constant_select: the trailing ref_obj member becomes an indexed
+    // bit_select / var_select / part_select.  Only when the compile really
+    // started inside the inner Hierarchical_identifier — for the flat
+    // `s.field[k]` shape the member name itself lives in the Select and the
+    // normal hier_path builder already consumed the whole chain — and only
+    // when the Select carries pure selects (a StringConst inside it is a
+    // mid-path member name this merge cannot represent).
+    if (lhs_from_inner_hier) {
+      NodeId Ps_or_hier = fC->Child(Variable_lvalue);
+      if ((fC->Type(Ps_or_hier) ==
+           VObjectType::paPs_or_hierarchical_identifier) &&
+          (lhs_rf != nullptr) && (lhs_rf->UhdmType() == uhdmhier_path)) {
+        NodeId Select = fC->Sibling(Ps_or_hier);
+        bool pure_selects = (fC->Type(Select) == VObjectType::paSelect) &&
+                            fC->Child(Select);
+        for (NodeId sc = fC->Child(Select); pure_selects && sc;
+             sc = fC->Sibling(sc)) {
+          if (fC->Type(sc) != VObjectType::paBit_select &&
+              fC->Type(sc) != VObjectType::paPart_select_range &&
+              fC->Type(sc) != VObjectType::paConstant_part_select_range)
+            pure_selects = false;
+        }
+        if (pure_selects) {
+          if (UHDM::any* sel = compileSelectExpression(
+                  component, fC, fC->Child(Select), "", compileDesign,
+                  Reduce::No, lhs_rf, instance, false)) {
+            hier_path* path = (hier_path*)lhs_rf;
+            any* last = path->Path_elems()->back();
+            if (last->UhdmType() == uhdmref_obj &&
+                sel->UhdmType() == uhdmbit_select) {
+              ref_obj* last_ro = (ref_obj*)last;
+              bit_select* sel_bs = (bit_select*)sel;
+              path->Path_elems()->pop_back();
+              sel_bs->VpiName(last->VpiName());
+              sel_bs->VpiFullName(
+                  StrCat(last_ro->VpiFullName(), decompileHelper(sel)));
+            }
+            path->Path_elems()->push_back(sel);
+            sel->VpiParent(path);
+            std::string path_name(path->VpiName());
+            path_name += decompileHelper(sel);
+            path->VpiName(path_name);
+            path->VpiFullName(path_name);
+          }
+        }
+      }
+    }
     NodeId Expression;
     if (fC->Type(AssignOp_Assign) == VObjectType::paExpression) {
       Expression = AssignOp_Assign;
