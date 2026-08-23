@@ -96,8 +96,17 @@ void CompileHelper::evalScheduledExprs(DesignComponent* component,
                    expr_eval.m_lineNumber, expr_eval.m_pexpr);
     if (result && result->UhdmType() == uhdmconstant) {
       UHDM::constant* c = (UHDM::constant*)result;
-      Value* val = m_exprBuilder.fromVpiValue(c->VpiValue(), c->VpiSize());
-      component->setValue(name, val, m_exprBuilder);
+      // Do NOT feed a value wider than 64 bits into the Value store: the
+      // Value/StValue accessors convert through strtoull/strtoll, which
+      // SATURATE (a 96-bit struct value read back as 0xFFFF...F), and every
+      // downstream member select of the parameter then folds to garbage that
+      // is stamped as a "valid" constant (param_nested_struct_field_width's
+      // SID_W).  The UHDM param_assign RHS below still carries the full
+      // constant, which the UHDM-level evaluator and consumers handle.
+      if (c->VpiSize() <= 64) {
+        Value* val = m_exprBuilder.fromVpiValue(c->VpiValue(), c->VpiSize());
+        component->setValue(name, val, m_exprBuilder);
+      }
       for (ParamAssign* pass : component->getParamAssignVec()) {
         if (param_assign* upass = pass->getUhdmParamAssign()) {
           if (upass->Lhs()->VpiName() == name) {
