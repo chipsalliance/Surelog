@@ -355,7 +355,7 @@ gen_scope_array                                        2
 hier_path                                              2
 import_typespec                                        1
 int_typespec                                          17
-integer_typespec                                      41
+integer_typespec                                      42
 module_inst                                            8
 operation                                             56
 package                                                2
@@ -365,7 +365,7 @@ parameter                                             52
 range                                                 11
 ref_module                                             3
 ref_obj                                               39
-ref_typespec                                         162
+ref_typespec                                         165
 string_typespec                                       21
 struct_typespec                                       41
 sys_func_call                                          4
@@ -387,7 +387,7 @@ gen_scope_array                                        3
 hier_path                                              2
 import_typespec                                        1
 int_typespec                                          17
-integer_typespec                                      41
+integer_typespec                                      42
 module_inst                                            9
 operation                                             56
 package                                                2
@@ -397,7 +397,7 @@ parameter                                             52
 range                                                 11
 ref_module                                             3
 ref_obj                                               39
-ref_typespec                                         162
+ref_typespec                                         165
 string_typespec                                       21
 struct_typespec                                       41
 sys_func_call                                          4
@@ -1676,6 +1676,13 @@ design: (work@testbench)
         |vpiDecompile:1
         |vpiSize:32
         |UINT:1
+        |vpiTypespec:
+        \_ref_typespec: (work@testbench)
+          |vpiParent:
+          \_constant: , line:11:24, endln:11:25
+          |vpiFullName:work@testbench
+          |vpiActual:
+          \_integer_typespec: , line:7:5, endln:7:21
         |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@testbench.proc_param_lp), line:43:34, endln:43:47
@@ -1690,6 +1697,13 @@ design: (work@testbench)
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
+      |vpiTypespec:
+      \_ref_typespec: (work@testbench)
+        |vpiParent:
+        \_constant: , line:44:47, endln:44:70
+        |vpiFullName:work@testbench
+        |vpiActual:
+        \_integer_typespec: , line:7:5, endln:7:21
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@testbench.cce_ucode_p), line:44:18, endln:44:29
@@ -2478,6 +2492,11 @@ design: (work@testbench)
 \_integer_typespec: , line:7:5, endln:7:21
   |vpiParent:
   \_ref_typespec: (work@testbench.bp_common_pkg::bp_proc_param_s.cce_ucode)
+  |vpiInstance:
+  \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
+\_integer_typespec: , line:7:5, endln:7:21
+  |vpiParent:
+  \_ref_typespec: (work@testbench)
   |vpiInstance:
   \_package: bp_common_pkg (bp_common_pkg::), file:${SURELOG_DIR}/tests/ConcatOrder/dut.sv, line:1:1, endln:32:11
 \_struct_typespec: (bp_common_pkg::bp_proc_param_s), line:5:10, endln:8:4

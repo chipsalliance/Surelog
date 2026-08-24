@@ -289,15 +289,15 @@ AST_DEBUG_END
 [INF:CP0303] ${SURELOG_DIR}/tests/HierPathEval/dut.sv:46:1: Compile module "work@top".
 [INF:EL0526] Design Elaboration...
 [INF:CP0335] ${SURELOG_DIR}/tests/HierPathEval/dut.sv:37:11: Compile generate block "work@top.u_prim_pad_attr.gen_outer_if".
-[INF:CP0335] ${SURELOG_DIR}/tests/HierPathEval/dut.sv:23:6: Compile generate block "work@top.u_prim_pad_attr.gen_outer_if.u_impl_generic.gen_inner_if_true".
+[INF:CP0335] ${SURELOG_DIR}/tests/HierPathEval/dut.sv:27:6: Compile generate block "work@top.u_prim_pad_attr.gen_outer_if.u_impl_generic.gen_inner_if_false".
 [NTE:EL0503] ${SURELOG_DIR}/tests/HierPathEval/dut.sv:46:1: Top level module "work@top".
 [NTE:EL0508] Nb Top level modules: 1.
-[NTE:EL0509] Max instance depth: 6.
-[NTE:EL0510] Nb instances: 4.
-[NTE:EL0511] Nb leaf instances: 1.
+[NTE:EL0509] Max instance depth: 4.
+[NTE:EL0510] Nb instances: 3.
+[NTE:EL0511] Nb leaf instances: 0.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              24
+constant                                              25
 design                                                 1
 enum_const                                             6
 enum_typespec                                          6
@@ -308,21 +308,21 @@ gen_scope_array                                        4
 hier_path                                              1
 import_typespec                                        5
 logic_typespec                                        10
-module_inst                                           14
+module_inst                                           13
 named_begin                                            3
 operation                                              2
 package                                                4
 param_assign                                           6
 parameter                                              6
-ref_module                                             5
+ref_module                                             4
 ref_obj                                                3
-ref_typespec                                          29
+ref_typespec                                          30
 struct_typespec                                        4
 typespec_member                                        8
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              24
+constant                                              25
 design                                                 1
 enum_const                                             6
 enum_typespec                                          6
@@ -333,15 +333,15 @@ gen_scope_array                                        8
 hier_path                                              1
 import_typespec                                        5
 logic_typespec                                        10
-module_inst                                           18
+module_inst                                           14
 named_begin                                            3
 operation                                              2
 package                                                4
 param_assign                                           7
 parameter                                              6
-ref_module                                             5
+ref_module                                             4
 ref_obj                                                3
-ref_typespec                                          31
+ref_typespec                                          32
 struct_typespec                                        4
 typespec_member                                        8
 === UHDM Object Stats End ===
@@ -818,9 +818,9 @@ design: (work@top)
       \_constant: , line:35:35, endln:35:36
         |vpiParent:
         \_param_assign: , line:35:25, endln:35:36
-        |vpiDecompile:1
+        |vpiDecompile:1'b0
         |vpiSize:1
-        |UINT:1
+        |BIN:0
         |vpiTypespec:
         \_ref_typespec: (work@top.u_prim_pad_attr)
           |vpiParent:
@@ -828,7 +828,7 @@ design: (work@top)
           |vpiFullName:work@top.u_prim_pad_attr
           |vpiActual:
           \_enum_typespec: (prim_pad_wrapper_pkg::pad_type_e), line:2:4, endln:4:17
-        |vpiConstType:9
+        |vpiConstType:3
       |vpiLhs:
       \_parameter: (work@top.u_prim_pad_attr.PadType), line:35:25, endln:35:32
     |vpiTypedef:
@@ -880,9 +880,9 @@ design: (work@top)
             \_constant: , line:21:44, endln:21:45
               |vpiParent:
               \_param_assign: , line:21:25, endln:21:45
-              |vpiDecompile:1
+              |vpiDecompile:1'b0
               |vpiSize:1
-              |UINT:1
+              |BIN:0
               |vpiTypespec:
               \_ref_typespec: (work@top.u_prim_pad_attr.gen_outer_if.u_impl_generic)
                 |vpiParent:
@@ -890,7 +890,7 @@ design: (work@top)
                 |vpiFullName:work@top.u_prim_pad_attr.gen_outer_if.u_impl_generic
                 |vpiActual:
                 \_enum_typespec: (prim_pad_wrapper_pkg::pad_type_e), line:2:4, endln:4:17
-              |vpiConstType:9
+              |vpiConstType:3
             |vpiLhs:
             \_parameter: (work@top.u_prim_pad_attr.gen_outer_if.u_impl_generic.PadTypeInGeneric), line:21:25, endln:21:41
           |vpiTypedef:
@@ -901,25 +901,16 @@ design: (work@top)
           |vpiDefFile:${SURELOG_DIR}/tests/HierPathEval/dut.sv
           |vpiDefLineNo:19
           |vpiGenScopeArray:
-          \_gen_scope_array: (work@top.u_prim_pad_attr.gen_outer_if.u_impl_generic.gen_inner_if_true), line:23:6, endln:25:10
+          \_gen_scope_array: (work@top.u_prim_pad_attr.gen_outer_if.u_impl_generic.gen_inner_if_false), line:27:6, endln:29:9
             |vpiParent:
             \_module_inst: work@prim_generic_pad_attr (work@top.u_prim_pad_attr.gen_outer_if.u_impl_generic), file:${SURELOG_DIR}/tests/HierPathEval/dut.sv, line:38:8, endln:42:10
-            |vpiName:gen_inner_if_true
-            |vpiFullName:work@top.u_prim_pad_attr.gen_outer_if.u_impl_generic.gen_inner_if_true
+            |vpiName:gen_inner_if_false
+            |vpiFullName:work@top.u_prim_pad_attr.gen_outer_if.u_impl_generic.gen_inner_if_false
             |vpiGenScope:
-            \_gen_scope: (work@top.u_prim_pad_attr.gen_outer_if.u_impl_generic.gen_inner_if_true), line:23:6, endln:25:10
+            \_gen_scope: (work@top.u_prim_pad_attr.gen_outer_if.u_impl_generic.gen_inner_if_false), line:27:6, endln:29:9
               |vpiParent:
-              \_gen_scope_array: (work@top.u_prim_pad_attr.gen_outer_if.u_impl_generic.gen_inner_if_true), line:23:6, endln:25:10
-              |vpiFullName:work@top.u_prim_pad_attr.gen_outer_if.u_impl_generic.gen_inner_if_true
-              |vpiModule:
-              \_module_inst: work@GOOD (work@top.u_prim_pad_attr.gen_outer_if.u_impl_generic.gen_inner_if_true.good), file:${SURELOG_DIR}/tests/HierPathEval/dut.sv, line:24:9, endln:24:21
-                |vpiParent:
-                \_gen_scope: (work@top.u_prim_pad_attr.gen_outer_if.u_impl_generic.gen_inner_if_true), line:23:6, endln:25:10
-                |vpiName:good
-                |vpiFullName:work@top.u_prim_pad_attr.gen_outer_if.u_impl_generic.gen_inner_if_true.good
-                |vpiDefName:work@GOOD
-                |vpiDefFile:${SURELOG_DIR}/tests/HierPathEval/dut.sv
-                |vpiDefLineNo:16
+              \_gen_scope_array: (work@top.u_prim_pad_attr.gen_outer_if.u_impl_generic.gen_inner_if_false), line:27:6, endln:29:9
+              |vpiFullName:work@top.u_prim_pad_attr.gen_outer_if.u_impl_generic.gen_inner_if_false
 \_weaklyReferenced:
 \_logic_typespec: , line:2:17, endln:2:22
   |vpiInstance:
@@ -1060,25 +1051,16 @@ design: (work@top)
   |vpiDefFile:${SURELOG_DIR}/tests/HierPathEval/dut.sv
   |vpiDefLineNo:19
   |vpiGenScopeArray:
-  \_gen_scope_array: (work@top.u_prim_pad_attr.gen_outer_if.u_impl_generic.gen_inner_if_true), line:23:6, endln:25:10
+  \_gen_scope_array: (work@top.u_prim_pad_attr.gen_outer_if.u_impl_generic.gen_inner_if_false), line:27:6, endln:29:9
     |vpiParent:
     \_module_inst: work@prim_generic_pad_attr (work@top.u_prim_pad_attr.gen_outer_if.u_impl_generic), file:${SURELOG_DIR}/tests/HierPathEval/dut.sv, line:38:8, endln:42:10
-    |vpiName:gen_inner_if_true
-    |vpiFullName:work@top.u_prim_pad_attr.gen_outer_if.u_impl_generic.gen_inner_if_true
+    |vpiName:gen_inner_if_false
+    |vpiFullName:work@top.u_prim_pad_attr.gen_outer_if.u_impl_generic.gen_inner_if_false
     |vpiGenScope:
-    \_gen_scope: (work@top.u_prim_pad_attr.gen_outer_if.u_impl_generic.gen_inner_if_true), line:23:6, endln:25:10
+    \_gen_scope: (work@top.u_prim_pad_attr.gen_outer_if.u_impl_generic.gen_inner_if_false), line:27:6, endln:29:9
       |vpiParent:
-      \_gen_scope_array: (work@top.u_prim_pad_attr.gen_outer_if.u_impl_generic.gen_inner_if_true), line:23:6, endln:25:10
-      |vpiFullName:work@top.u_prim_pad_attr.gen_outer_if.u_impl_generic.gen_inner_if_true
-      |vpiModule:
-      \_module_inst: work@GOOD (work@top.u_prim_pad_attr.gen_outer_if.u_impl_generic.gen_inner_if_true.good), file:${SURELOG_DIR}/tests/HierPathEval/dut.sv, line:24:9, endln:24:21
-        |vpiParent:
-        \_gen_scope: (work@top.u_prim_pad_attr.gen_outer_if.u_impl_generic.gen_inner_if_true), line:23:6, endln:25:10
-        |vpiName:good
-        |vpiFullName:work@top.u_prim_pad_attr.gen_outer_if.u_impl_generic.gen_inner_if_true.good
-        |vpiDefName:work@GOOD
-        |vpiDefFile:${SURELOG_DIR}/tests/HierPathEval/dut.sv
-        |vpiDefLineNo:16
+      \_gen_scope_array: (work@top.u_prim_pad_attr.gen_outer_if.u_impl_generic.gen_inner_if_false), line:27:6, endln:29:9
+      |vpiFullName:work@top.u_prim_pad_attr.gen_outer_if.u_impl_generic.gen_inner_if_false
 \_gen_scope: (work@top.u_prim_pad_attr.gen_outer_if), line:37:11, endln:43:7
   |vpiParent:
   \_gen_scope_array: (work@top.u_prim_pad_attr.gen_outer_if), line:37:11, endln:43:7

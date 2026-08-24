@@ -525,64 +525,64 @@ AST_DEBUG_END
 assignment                                             8
 begin                                                  3
 bit_typespec                                          10
-constant                                             119
+constant                                             123
 design                                                 1
-func_call                                              3
+func_call                                              2
 function                                               2
 gen_if_else                                            2
 hier_path                                             13
-int_typespec                                          31
+int_typespec                                          32
 io_decl                                                2
-logic_typespec                                         9
-logic_var                                              2
-module_inst                                           14
+logic_typespec                                        10
+logic_var                                              1
+module_inst                                           13
 named_begin                                            3
-operation                                             38
+operation                                             36
 package                                                6
-param_assign                                          20
-parameter                                             20
-range                                                 18
+param_assign                                          18
+parameter                                             18
+range                                                 20
 ref_module                                             3
-ref_obj                                               35
-ref_typespec                                         111
+ref_obj                                               33
+ref_typespec                                         110
 return_stmt                                            2
-string_typespec                                       20
-struct_typespec                                        9
-struct_var                                             6
-tagged_pattern                                        20
-typespec_member                                       23
+string_typespec                                       16
+struct_typespec                                       10
+struct_var                                             5
+tagged_pattern                                        16
+typespec_member                                       26
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
 assignment                                            14
 begin                                                  5
 bit_typespec                                          10
-constant                                             119
+constant                                             123
 design                                                 1
-func_call                                              3
+func_call                                              2
 function                                               4
 gen_if_else                                            2
 hier_path                                             25
-int_typespec                                          31
+int_typespec                                          32
 io_decl                                                4
-logic_typespec                                         9
-logic_var                                              2
-module_inst                                           14
+logic_typespec                                        10
+logic_var                                              1
+module_inst                                           13
 named_begin                                            3
-operation                                             44
+operation                                             42
 package                                                6
-param_assign                                          20
-parameter                                             20
-range                                                 18
+param_assign                                          18
+parameter                                             18
+range                                                 20
 ref_module                                             3
-ref_obj                                               61
-ref_typespec                                         117
+ref_obj                                               59
+ref_typespec                                         116
 return_stmt                                            4
-string_typespec                                       20
-struct_typespec                                        9
-struct_var                                            10
-tagged_pattern                                        20
-typespec_member                                       23
+string_typespec                                       16
+struct_typespec                                       10
+struct_var                                             9
+tagged_pattern                                        16
+typespec_member                                       26
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FuncStructValSimple/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/FuncStructValSimple/slpp_all/checker/surelog.chk.html ...
@@ -1196,13 +1196,13 @@ design: (work@top)
         |vpiActual:
         \_int_typespec: , line:11:5, endln:11:17
       |vpiExpr:
-      \_constant: , line:79:22, endln:79:45
+      \_constant: 
         |vpiDecompile:2
         |vpiSize:64
         |INT:2
         |vpiConstType:7
       |vpiExpr:
-      \_constant: , line:79:22, endln:79:45
+      \_constant: 
       |vpiRefFile:${SURELOG_DIR}/tests/FuncStructValSimple/dut.sv
       |vpiRefLineNo:11
       |vpiRefColumnNo:5
@@ -1827,11 +1827,20 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/FuncStructValSimple/dut.sv, line:64:1, endln:82:10
     |vpiRhs:
-    \_struct_var: , line:67:46, endln:68:35
+    \_constant: , line:67:46, endln:68:35
+      |vpiParent:
+      \_param_assign: , line:67:36, endln:68:35
+      |vpiDecompile:1088'b00000000000000000000000000100000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+      |vpiSize:1088
+      |BIN:00000000000000000000000000100000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
       |vpiTypespec:
-      \_ref_typespec: 
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:67:46, endln:68:35
+        |vpiFullName:work@top
         |vpiActual:
         \_struct_typespec: (config_pkg::cva6_cfg_t), line:9:11, endln:13:4
+      |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@top.CVA6Cfg), line:67:36, endln:67:43
   |vpiDefName:work@top
@@ -1866,9 +1875,9 @@ design: (work@top)
       \_constant: , line:85:56, endln:85:57
         |vpiParent:
         \_param_assign: , line:85:42, endln:85:57
-        |vpiDecompile:2
+        |vpiDecompile:32'b00000000000000000000000000000010
         |vpiSize:32
-        |INT:2
+        |BIN:00000000000000000000000000000010
         |vpiTypespec:
         \_ref_typespec: (work@top.u1)
           |vpiParent:
@@ -1876,7 +1885,7 @@ design: (work@top)
           |vpiFullName:work@top.u1
           |vpiActual:
           \_int_typespec: , line:85:29, endln:85:41
-        |vpiConstType:7
+        |vpiConstType:3
       |vpiLhs:
       \_parameter: (work@top.u1.INPUT_WIDTH), line:85:42, endln:85:53
     |vpiDefName:work@popcount
@@ -2575,6 +2584,13 @@ design: (work@top)
       \_tagged_pattern: , line:27:12, endln:27:34
       |vpiSize:1
       |BIN:1
+      |vpiTypespec:
+      \_ref_typespec: (cva6_config_pkg)
+        |vpiParent:
+        \_constant: , line:27:12, endln:27:34
+        |vpiFullName:cva6_config_pkg
+        |vpiActual:
+        \_bit_typespec: , line:4:5, endln:4:8
       |vpiConstType:3
     |vpiTypespec:
     \_ref_typespec: (cva6_config_pkg)
@@ -2644,7 +2660,7 @@ design: (work@top)
       |vpiActual:
       \_int_typespec: , line:11:5, endln:11:17
     |vpiExpr:
-    \_constant: , line:79:22, endln:79:45
+    \_constant: 
       |vpiParent:
       \_typespec_member: (INSTR_PER_FETCH), line:11:18, endln:11:33
       |vpiDecompile:2
@@ -2652,7 +2668,7 @@ design: (work@top)
       |INT:2
       |vpiConstType:7
     |vpiExpr:
-    \_constant: , line:79:22, endln:79:45
+    \_constant: 
     |vpiRefFile:${SURELOG_DIR}/tests/FuncStructValSimple/dut.sv
     |vpiRefLineNo:11
     |vpiRefColumnNo:5

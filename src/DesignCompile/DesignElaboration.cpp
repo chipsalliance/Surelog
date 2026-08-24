@@ -2538,6 +2538,22 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
                 isMultidimension ? Reduce::No : Reduce::Yes, nullptr, instance,
                 false);
             m_helper.checkForLoops(false);
+            // A multidimensional param skips reduction (Reduce::No), but a
+            // HIER-PATH value (`Implementation.PipeRegs[opgrp]`) is useless
+            // unreduced — the value store gets nothing and every downstream
+            // read is invalid.  Retry reduced and keep the result when it
+            // folds all the way to a constant (fpnew's per-opgroup pipeline
+            // register localparams).
+            if (isMultidimension && expr &&
+                (expr->UhdmType() == UHDM::uhdmhier_path)) {
+              m_helper.checkForLoops(true);
+              UHDM::expr* rexpr = (UHDM::expr*)m_helper.compileExpression(
+                  instance->getDefinition(), param.fC, exprId, m_compileDesign,
+                  Reduce::Yes, nullptr, instance, false);
+              m_helper.checkForLoops(false);
+              if (rexpr && (rexpr->UhdmType() == UHDM::uhdmconstant))
+                expr = rexpr;
+            }
             Value* value = nullptr;
             bool complex = false;
             UHDM::typespec* ts = nullptr;
@@ -2643,6 +2659,13 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
             }
             if ((!complex) && value && value->isValid()) {
               instance->setValue(name, value, m_exprBuilder, fC->Line(ident));
+            } else if ((!complex) && expr &&
+                       (expr->UhdmType() == UHDM::uhdmconstant)) {
+              // A >64-bit constant (e.g. a folded 160-bit packed-array
+              // localparam) cannot be held by the legacy Value engine;
+              // keep it as a complex value so netlist elaboration stamps
+              // the constant instead of leaving the raw expression.
+              instance->setComplexValue(name, expr);
             }
           }
         }

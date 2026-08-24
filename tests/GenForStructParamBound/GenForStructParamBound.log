@@ -46,7 +46,7 @@ port                                                   2
 range                                                  2
 ref_module                                             1
 ref_obj                                               25
-ref_typespec                                          95
+ref_typespec                                          97
 string_typespec                                       24
 struct_typespec                                       22
 tagged_pattern                                        24
@@ -85,7 +85,7 @@ port                                                   3
 range                                                  2
 ref_module                                             1
 ref_obj                                               28
-ref_typespec                                          96
+ref_typespec                                          98
 string_typespec                                       24
 struct_typespec                                       22
 tagged_pattern                                        24
@@ -998,6 +998,12 @@ design: (work@top)
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
+          |vpiTypespec:
+          \_ref_typespec: 
+            |vpiParent:
+            \_constant: , line:10:39, endln:10:40
+            |vpiActual:
+            \_int_typespec: , line:8:27, endln:8:39
           |vpiConstType:9
       |vpiReg:
       \_logic_var: (work@top.b.dly), line:13:9, endln:13:12
@@ -1518,18 +1524,71 @@ design: (work@top)
   |vpiInstance:
   \_package: p (p::), file:${SURELOG_DIR}/tests/GenForStructParamBound/dut.sv, line:7:1, endln:11:11
 \_logic_typespec: , line:23:20, endln:23:25
-\_operation: , line:10:30, endln:10:57
+\_int_typespec: , line:8:27, endln:8:39
   |vpiParent:
-  \_param_assign: , line:10:20, endln:10:57
+  \_ref_typespec: (work@top.CFG_DEF.p::cfg_t.HSK.p::hsk_t.DLY)
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/GenForStructParamBound/dut.sv, line:7:1, endln:11:11
+\_ref_typespec: (work@top.CFG_DEF.p::cfg_t.HSK.p::hsk_t.DLY)
+  |vpiParent:
+  \_typespec_member: (DLY), line:8:40, endln:8:43
+  |vpiFullName:work@top.CFG_DEF.p::cfg_t.HSK.p::hsk_t.DLY
+  |vpiActual:
+  \_int_typespec: , line:8:27, endln:8:39
+\_typespec_member: (DLY), line:8:40, endln:8:43
+  |vpiParent:
+  \_struct_typespec: (p::hsk_t), line:8:11, endln:8:57
+  |vpiName:DLY
   |vpiTypespec:
-  \_ref_typespec: 
-    |vpiActual:
-    \_struct_typespec: (p::cfg_t), line:9:11, endln:9:57
-  |vpiOpType:75
-  |vpiOperand:
-  \_operation: , line:10:37, endln:10:47
-  |vpiOperand:
-  \_constant: , line:10:54, endln:10:56
+  \_ref_typespec: (work@top.CFG_DEF.p::cfg_t.HSK.p::hsk_t.DLY)
+  |vpiRefFile:${SURELOG_DIR}/tests/GenForStructParamBound/dut.sv
+  |vpiRefLineNo:8
+  |vpiRefColumnNo:27
+  |vpiRefEndLineNo:8
+  |vpiRefEndColumnNo:39
+\_struct_typespec: (p::hsk_t), line:8:11, endln:8:57
+  |vpiParent:
+  \_ref_typespec: (work@top.CFG_DEF.p::cfg_t.HSK)
+  |vpiName:p::hsk_t
+  |vpiInstance:
+  \_package: p (p::), file:${SURELOG_DIR}/tests/GenForStructParamBound/dut.sv, line:7:1, endln:11:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (DLY), line:8:40, endln:8:43
+  |vpiTypespecMember:
+  \_typespec_member: (HLD), line:8:51, endln:8:54
+    |vpiParent:
+    \_struct_typespec: (p::hsk_t), line:8:11, endln:8:57
+    |vpiName:HLD
+    |vpiTypespec:
+    \_ref_typespec: (work@top.CFG_DEF.p::cfg_t.HSK.p::hsk_t.HLD)
+      |vpiParent:
+      \_typespec_member: (HLD), line:8:51, endln:8:54
+      |vpiFullName:work@top.CFG_DEF.p::cfg_t.HSK.p::hsk_t.HLD
+      |vpiActual:
+      \_logic_typespec: , line:8:45, endln:8:50
+    |vpiRefFile:${SURELOG_DIR}/tests/GenForStructParamBound/dut.sv
+    |vpiRefLineNo:8
+    |vpiRefColumnNo:45
+    |vpiRefEndLineNo:8
+    |vpiRefEndColumnNo:50
+\_ref_typespec: (work@top.CFG_DEF.p::cfg_t.HSK)
+  |vpiParent:
+  \_typespec_member: (HSK), line:9:33, endln:9:36
+  |vpiFullName:work@top.CFG_DEF.p::cfg_t.HSK
+  |vpiActual:
+  \_struct_typespec: (p::hsk_t), line:8:11, endln:8:57
+\_typespec_member: (HSK), line:9:33, endln:9:36
+  |vpiParent:
+  \_struct_typespec: (p::cfg_t), line:9:11, endln:9:57
+  |vpiName:HSK
+  |vpiTypespec:
+  \_ref_typespec: (work@top.CFG_DEF.p::cfg_t.HSK)
+  |vpiRefFile:${SURELOG_DIR}/tests/GenForStructParamBound/dut.sv
+  |vpiRefLineNo:9
+  |vpiRefColumnNo:27
+  |vpiRefEndLineNo:9
+  |vpiRefEndColumnNo:32
 \_struct_typespec: (p::cfg_t), line:9:11, endln:9:57
   |vpiParent:
   \_ref_typespec: (work@top.CFG_DEF)
@@ -1539,21 +1598,6 @@ design: (work@top)
   |vpiPacked:1
   |vpiTypespecMember:
   \_typespec_member: (HSK), line:9:33, endln:9:36
-    |vpiParent:
-    \_struct_typespec: (p::cfg_t), line:9:11, endln:9:57
-    |vpiName:HSK
-    |vpiTypespec:
-    \_ref_typespec: (work@top.CFG_DEF.p::cfg_t.HSK)
-      |vpiParent:
-      \_typespec_member: (HSK), line:9:33, endln:9:36
-      |vpiFullName:work@top.CFG_DEF.p::cfg_t.HSK
-      |vpiActual:
-      \_struct_typespec: (p::hsk_t), line:8:11, endln:8:57
-    |vpiRefFile:${SURELOG_DIR}/tests/GenForStructParamBound/dut.sv
-    |vpiRefLineNo:9
-    |vpiRefColumnNo:27
-    |vpiRefEndLineNo:9
-    |vpiRefEndColumnNo:32
   |vpiTypespecMember:
   \_typespec_member: (DAT), line:9:51, endln:9:54
     |vpiParent:
@@ -1586,52 +1630,6 @@ design: (work@top)
   |vpiName:CFG_DEF
   |vpiFullName:work@top.CFG_DEF
   |vpiImported:p
-\_struct_typespec: (p::hsk_t), line:8:11, endln:8:57
-  |vpiParent:
-  \_ref_typespec: (work@top.CFG_DEF.p::cfg_t.HSK)
-  |vpiName:p::hsk_t
-  |vpiInstance:
-  \_package: p (p::), file:${SURELOG_DIR}/tests/GenForStructParamBound/dut.sv, line:7:1, endln:11:11
-  |vpiPacked:1
-  |vpiTypespecMember:
-  \_typespec_member: (DLY), line:8:40, endln:8:43
-    |vpiParent:
-    \_struct_typespec: (p::hsk_t), line:8:11, endln:8:57
-    |vpiName:DLY
-    |vpiTypespec:
-    \_ref_typespec: (work@top.CFG_DEF.p::cfg_t.HSK.p::hsk_t.DLY)
-      |vpiParent:
-      \_typespec_member: (DLY), line:8:40, endln:8:43
-      |vpiFullName:work@top.CFG_DEF.p::cfg_t.HSK.p::hsk_t.DLY
-      |vpiActual:
-      \_int_typespec: , line:8:27, endln:8:39
-    |vpiRefFile:${SURELOG_DIR}/tests/GenForStructParamBound/dut.sv
-    |vpiRefLineNo:8
-    |vpiRefColumnNo:27
-    |vpiRefEndLineNo:8
-    |vpiRefEndColumnNo:39
-  |vpiTypespecMember:
-  \_typespec_member: (HLD), line:8:51, endln:8:54
-    |vpiParent:
-    \_struct_typespec: (p::hsk_t), line:8:11, endln:8:57
-    |vpiName:HLD
-    |vpiTypespec:
-    \_ref_typespec: (work@top.CFG_DEF.p::cfg_t.HSK.p::hsk_t.HLD)
-      |vpiParent:
-      \_typespec_member: (HLD), line:8:51, endln:8:54
-      |vpiFullName:work@top.CFG_DEF.p::cfg_t.HSK.p::hsk_t.HLD
-      |vpiActual:
-      \_logic_typespec: , line:8:45, endln:8:50
-    |vpiRefFile:${SURELOG_DIR}/tests/GenForStructParamBound/dut.sv
-    |vpiRefLineNo:8
-    |vpiRefColumnNo:45
-    |vpiRefEndLineNo:8
-    |vpiRefEndColumnNo:50
-\_int_typespec: , line:8:27, endln:8:39
-  |vpiParent:
-  \_ref_typespec: (work@top.CFG_DEF.p::cfg_t.HSK.p::hsk_t.DLY)
-  |vpiInstance:
-  \_package: p (p::), file:${SURELOG_DIR}/tests/GenForStructParamBound/dut.sv, line:7:1, endln:11:11
 \_logic_typespec: , line:8:45, endln:8:50
   |vpiParent:
   \_ref_typespec: (work@top.CFG_DEF.p::cfg_t.HSK.p::hsk_t.HLD)
@@ -1642,6 +1640,18 @@ design: (work@top)
   \_ref_typespec: (work@top.CFG_DEF.p::cfg_t.DAT)
   |vpiInstance:
   \_package: p (p::), file:${SURELOG_DIR}/tests/GenForStructParamBound/dut.sv, line:7:1, endln:11:11
+\_operation: , line:10:30, endln:10:57
+  |vpiParent:
+  \_param_assign: , line:10:20, endln:10:57
+  |vpiTypespec:
+  \_ref_typespec: 
+    |vpiActual:
+    \_struct_typespec: (p::cfg_t), line:9:11, endln:9:57
+  |vpiOpType:75
+  |vpiOperand:
+  \_operation: , line:10:37, endln:10:47
+  |vpiOperand:
+  \_constant: , line:10:54, endln:10:56
 \_logic_typespec: , line:23:20, endln:23:25
 \_struct_typespec: (p::cfg_t), line:9:11, endln:9:57
   |vpiParent:

@@ -39,6 +39,21 @@ make install
 `scripts/regression.py`, NOT `tests/regression.tcl` (the tcl script is
 legacy).** All golden-log generation, comparison, and CI use `regression.py`.
 
+**MANDATORY before ANY commit/PR that changes Surelog source: run the full
+regression and refresh the golden logs.**  Elaborator/ExprEval changes alter
+the UHDM dumps embedded in the golden `.log` files, so skipping this leaves
+every affected test failing with diffs in CI:
+
+```bash
+python3 scripts/regression.py run    --build-dirpath <build> --jobs <N>
+# ANALYZE the diffs first (--show-diffs, or inspect the per-test *.log in the
+# output dir): confirm every change is an intended consequence of your edit
+# (e.g. new typespec refs, newly folded constants) and NOT corruption.
+python3 scripts/regression.py update --build-dirpath <build> --jobs <N>
+# Re-run to verify clean, then commit the updated tests/**/*.log golden files
+# TOGETHER with the source change.
+```
+
 ```bash
 # Run the whole regression (or a subset) against a given build's surelog binary.
 # `--filters` takes one or more regexes matched against test names.

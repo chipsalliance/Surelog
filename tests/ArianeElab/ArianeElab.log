@@ -20176,7 +20176,7 @@ bit_typespec                                         353
 byte_typespec                                          8
 case_item                                            126
 case_stmt                                             30
-constant                                            8556
+constant                                            8652
 cont_assign                                           30
 design                                                 1
 enum_const                                           933
@@ -20205,7 +20205,7 @@ logic_var                                            116
 long_int_typespec                                      4
 module_inst                                           52
 named_begin                                            5
-operation                                           2034
+operation                                           2082
 package                                                6
 packed_array_typespec                                 90
 param_assign                                        1309
@@ -20215,7 +20215,7 @@ port                                                  42
 range                                               1670
 ref_module                                             6
 ref_obj                                             1740
-ref_typespec                                        5532
+ref_typespec                                        5629
 return_stmt                                          212
 string_typespec                                      836
 string_var                                             8
@@ -20238,7 +20238,7 @@ bit_typespec                                         353
 byte_typespec                                          8
 case_item                                            497
 case_stmt                                            120
-constant                                            8675
+constant                                            8771
 cont_assign                                          122
 design                                                 1
 enum_const                                           933
@@ -20267,7 +20267,7 @@ logic_var                                            224
 long_int_typespec                                      4
 module_inst                                           56
 named_begin                                            5
-operation                                           3354
+operation                                           3402
 package                                                6
 packed_array_typespec                                 90
 param_assign                                        1429
@@ -20277,7 +20277,7 @@ port                                                  84
 range                                               1670
 ref_module                                             6
 ref_obj                                             3945
-ref_typespec                                        6485
+ref_typespec                                        6582
 return_stmt                                          684
 string_typespec                                      836
 string_var                                            22
@@ -73664,6 +73664,13 @@ design: (work@top)
     \_operation: , line:1519:65, endln:1526:4
       |vpiParent:
       \_param_assign: , line:1519:49, endln:1526:4
+      |vpiTypespec:
+      \_ref_typespec: (fpnew_pkg)
+        |vpiParent:
+        \_operation: , line:1519:65, endln:1526:4
+        |vpiFullName:fpnew_pkg
+        |vpiActual:
+        \_packed_array_typespec: , line:1519:14, endln:1519:48
       |vpiOpType:75
       |vpiOperand:
       \_operation: , line:1520:5, endln:1520:14
@@ -119682,7 +119689,7 @@ design: (work@top)
                           \_constant: , line:1994:22, endln:1994:24
                           |vpiFullName:work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.i_fpnew_bulk
                           |vpiActual:
-                          \_int_typespec: , line:1964:14, endln:1964:26
+                          \_int_typespec: , line:1663:5, endln:1663:17
                         |vpiConstType:9
                       |vpiOperand:
                       \_constant: , line:1995:22, endln:1995:39
@@ -119699,6 +119706,12 @@ design: (work@top)
                         |vpiDecompile:1'b1
                         |vpiSize:1
                         |BIN:1
+                        |vpiTypespec:
+                        \_ref_typespec: 
+                          |vpiParent:
+                          \_constant: , line:1996:22, endln:1996:26
+                          |vpiActual:
+                          \_logic_typespec: , line:1665:5, endln:1665:10
                         |vpiConstType:3
                       |vpiOperand:
                       \_constant: , line:1997:22, endln:1997:52
@@ -120015,7 +120028,7 @@ design: (work@top)
                         \_constant: , line:1964:42, endln:1964:56
                         |vpiFullName:work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.i_fpnew_bulk
                         |vpiActual:
-                        \_int_typespec: , line:1964:14, endln:1964:26
+                        \_int_typespec: , line:1663:5, endln:1663:17
                       |vpiConstType:9
                     |vpiLhs:
                     \_parameter: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.i_fpnew_bulk.WIDTH), line:1964:27, endln:1964:32
@@ -172407,6 +172420,321 @@ design: (work@top)
       |vpiSize:64
       |UINT:0
       |vpiConstType:9
+\_int_typespec: , line:1663:5, endln:1663:17
+  |vpiParent:
+  \_ref_typespec: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.fpnew_pkg::fpu_features_t.Width)
+  |vpiInstance:
+  \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:1485:1, endln:1955:11
+\_ref_typespec: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.fpnew_pkg::fpu_features_t.Width)
+  |vpiParent:
+  \_typespec_member: (Width), line:1663:18, endln:1663:23
+  |vpiFullName:work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.fpnew_pkg::fpu_features_t.Width
+  |vpiActual:
+  \_int_typespec: , line:1663:5, endln:1663:17
+\_typespec_member: (Width), line:1663:18, endln:1663:23
+  |vpiParent:
+  \_struct_typespec: (fpnew_pkg::fpu_features_t), line:1662:11, endln:1668:4
+  |vpiName:Width
+  |vpiTypespec:
+  \_ref_typespec: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.fpnew_pkg::fpu_features_t.Width)
+  |vpiRefFile:${SURELOG_DIR}/tests/ArianeElab/dut.sv
+  |vpiRefLineNo:1663
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:1663
+  |vpiRefEndColumnNo:17
+\_struct_typespec: (fpnew_pkg::fpu_features_t), line:1662:11, endln:1668:4
+  |vpiParent:
+  \_ref_typespec: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen)
+  |vpiName:fpnew_pkg::fpu_features_t
+  |vpiInstance:
+  \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:1485:1, endln:1955:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (Width), line:1663:18, endln:1663:23
+  |vpiTypespecMember:
+  \_typespec_member: (EnableVectors), line:1664:18, endln:1664:31
+    |vpiParent:
+    \_struct_typespec: (fpnew_pkg::fpu_features_t), line:1662:11, endln:1668:4
+    |vpiName:EnableVectors
+    |vpiTypespec:
+    \_ref_typespec: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.fpnew_pkg::fpu_features_t.EnableVectors)
+      |vpiParent:
+      \_typespec_member: (EnableVectors), line:1664:18, endln:1664:31
+      |vpiFullName:work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.fpnew_pkg::fpu_features_t.EnableVectors
+      |vpiActual:
+      \_logic_typespec: , line:1664:5, endln:1664:10
+    |vpiRefFile:${SURELOG_DIR}/tests/ArianeElab/dut.sv
+    |vpiRefLineNo:1664
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:1664
+    |vpiRefEndColumnNo:10
+  |vpiTypespecMember:
+  \_typespec_member: (EnableNanBox), line:1665:18, endln:1665:30
+    |vpiParent:
+    \_struct_typespec: (fpnew_pkg::fpu_features_t), line:1662:11, endln:1668:4
+    |vpiName:EnableNanBox
+    |vpiTypespec:
+    \_ref_typespec: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.fpnew_pkg::fpu_features_t.EnableNanBox)
+      |vpiParent:
+      \_typespec_member: (EnableNanBox), line:1665:18, endln:1665:30
+      |vpiFullName:work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.fpnew_pkg::fpu_features_t.EnableNanBox
+      |vpiActual:
+      \_logic_typespec: , line:1665:5, endln:1665:10
+    |vpiRefFile:${SURELOG_DIR}/tests/ArianeElab/dut.sv
+    |vpiRefLineNo:1665
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:1665
+    |vpiRefEndColumnNo:10
+  |vpiTypespecMember:
+  \_typespec_member: (FpFmtMask), line:1666:18, endln:1666:27
+    |vpiParent:
+    \_struct_typespec: (fpnew_pkg::fpu_features_t), line:1662:11, endln:1668:4
+    |vpiName:FpFmtMask
+    |vpiTypespec:
+    \_ref_typespec: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.fpnew_pkg::fpu_features_t.FpFmtMask)
+      |vpiParent:
+      \_typespec_member: (FpFmtMask), line:1666:18, endln:1666:27
+      |vpiFullName:work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.fpnew_pkg::fpu_features_t.FpFmtMask
+      |vpiActual:
+      \_logic_typespec: (fmt_logic_t), line:1528:11, endln:1528:37
+    |vpiRefFile:${SURELOG_DIR}/tests/ArianeElab/dut.sv
+    |vpiRefLineNo:1666
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:1666
+    |vpiRefEndColumnNo:16
+  |vpiTypespecMember:
+  \_typespec_member: (IntFmtMask), line:1667:18, endln:1667:28
+    |vpiParent:
+    \_struct_typespec: (fpnew_pkg::fpu_features_t), line:1662:11, endln:1668:4
+    |vpiName:IntFmtMask
+    |vpiTypespec:
+    \_ref_typespec: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.fpnew_pkg::fpu_features_t.IntFmtMask)
+      |vpiParent:
+      \_typespec_member: (IntFmtMask), line:1667:18, endln:1667:28
+      |vpiFullName:work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.fpnew_pkg::fpu_features_t.IntFmtMask
+      |vpiActual:
+      \_logic_typespec: (ifmt_logic_t), line:1566:11, endln:1566:38
+    |vpiRefFile:${SURELOG_DIR}/tests/ArianeElab/dut.sv
+    |vpiRefLineNo:1667
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:1667
+    |vpiRefEndColumnNo:17
+\_ref_typespec: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen)
+  |vpiParent:
+  \_operation: , line:2015:25, endln:2015:37
+  |vpiFullName:work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen
+  |vpiActual:
+  \_struct_typespec: (fpnew_pkg::fpu_features_t), line:1662:11, endln:1668:4
+\_operation: , line:2015:25, endln:2015:37
+  |vpiParent:
+  \_param_assign: , line:1993:38, endln:1999:6
+  |vpiTypespec:
+  \_ref_typespec: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen)
+  |vpiOpType:75
+  |vpiOperand:
+  \_constant: , line:1994:22, endln:1994:24
+    |vpiParent:
+    \_operation: , line:2015:25, endln:2015:37
+    |vpiDecompile:64
+    |vpiSize:32
+    |UINT:64
+    |vpiTypespec:
+    \_ref_typespec: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen)
+      |vpiParent:
+      \_constant: , line:1994:22, endln:1994:24
+      |vpiFullName:work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen
+      |vpiActual:
+      \_int_typespec: , line:1663:5, endln:1663:17
+    |vpiConstType:9
+  |vpiOperand:
+  \_constant: , line:1995:22, endln:1995:39
+    |vpiParent:
+    \_operation: , line:2015:25, endln:2015:37
+    |vpiDecompile:1'b0
+    |vpiSize:1
+    |BIN:0
+    |vpiConstType:3
+  |vpiOperand:
+  \_constant: , line:1996:22, endln:1996:26
+    |vpiParent:
+    \_operation: , line:2015:25, endln:2015:37
+    |vpiDecompile:1'b1
+    |vpiSize:1
+    |BIN:1
+    |vpiConstType:3
+  |vpiOperand:
+  \_constant: , line:1997:22, endln:1997:52
+    |vpiParent:
+    \_operation: , line:2015:25, endln:2015:37
+    |vpiSize:5
+    |BIN:11000
+    |vpiConstType:3
+  |vpiOperand:
+  \_operation: , line:1998:22, endln:1998:76
+    |vpiParent:
+    \_operation: , line:2015:25, endln:2015:37
+    |vpiSize:4
+    |vpiOpType:33
+    |vpiOperand:
+    \_constant: , line:1998:23, endln:1998:28
+      |vpiParent:
+      \_operation: , line:1998:22, endln:1998:76
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiOperand:
+    \_constant: , line:1998:37, endln:1998:42
+      |vpiParent:
+      \_operation: , line:1998:22, endln:1998:76
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiOperand:
+    \_constant: , line:1998:65, endln:1998:69
+      |vpiParent:
+      \_operation: , line:1998:22, endln:1998:76
+      |vpiDecompile:1'b1
+      |vpiSize:1
+      |BIN:1
+      |vpiConstType:3
+    |vpiOperand:
+    \_constant: , line:1998:71, endln:1998:75
+      |vpiParent:
+      \_operation: , line:1998:22, endln:1998:76
+      |vpiDecompile:1'b1
+      |vpiSize:1
+      |BIN:1
+      |vpiConstType:3
+\_logic_typespec: , line:1664:5, endln:1664:10
+  |vpiParent:
+  \_ref_typespec: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.fpnew_pkg::fpu_features_t.EnableVectors)
+  |vpiInstance:
+  \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:1485:1, endln:1955:11
+\_logic_typespec: , line:1665:5, endln:1665:10
+  |vpiParent:
+  \_ref_typespec: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.fpnew_pkg::fpu_features_t.EnableNanBox)
+  |vpiInstance:
+  \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:1485:1, endln:1955:11
+\_logic_typespec: (fmt_logic_t), line:1528:11, endln:1528:37
+  |vpiParent:
+  \_ref_typespec: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.fpnew_pkg::fpu_features_t.FpFmtMask)
+  |vpiName:fmt_logic_t
+  |vpiTypedefAlias:
+  \_ref_typespec: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.fpnew_pkg::fpu_features_t.FpFmtMask.fmt_logic_t)
+    |vpiParent:
+    \_logic_typespec: (fmt_logic_t), line:1528:11, endln:1528:37
+    |vpiFullName:work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.fpnew_pkg::fpu_features_t.FpFmtMask.fmt_logic_t
+    |vpiActual:
+    \_logic_typespec: (fmt_logic_t), line:1528:11, endln:1528:37
+  |vpiInstance:
+  \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:1485:1, endln:1955:11
+  |vpiRange:
+  \_range: , line:1528:17, endln:1528:37
+    |vpiParent:
+    \_logic_typespec: (fmt_logic_t), line:1528:11, endln:1528:37
+    |vpiLeftRange:
+    \_constant: , line:1528:18, endln:1528:19
+      |vpiParent:
+      \_range: , line:1528:17, endln:1528:37
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:1528:20, endln:1528:34
+      |vpiParent:
+      \_range: , line:1528:17, endln:1528:37
+      |vpiDecompile:4
+      |vpiSize:64
+      |INT:4
+      |vpiConstType:7
+\_logic_typespec: (fmt_logic_t), line:1528:11, endln:1528:37
+  |vpiParent:
+  \_ref_typespec: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.fpnew_pkg::fpu_features_t.FpFmtMask.fmt_logic_t)
+  |vpiName:fmt_logic_t
+  |vpiInstance:
+  \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:1485:1, endln:1955:11
+  |vpiRange:
+  \_range: , line:1528:17, endln:1528:37
+    |vpiParent:
+    \_logic_typespec: (fmt_logic_t), line:1528:11, endln:1528:37
+    |vpiLeftRange:
+    \_constant: , line:1528:18, endln:1528:19
+      |vpiParent:
+      \_range: , line:1528:17, endln:1528:37
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:1528:20, endln:1528:34
+      |vpiParent:
+      \_range: , line:1528:17, endln:1528:37
+      |vpiDecompile:4
+      |vpiSize:64
+      |INT:4
+      |vpiConstType:7
+\_logic_typespec: (ifmt_logic_t), line:1566:11, endln:1566:38
+  |vpiParent:
+  \_ref_typespec: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.fpnew_pkg::fpu_features_t.IntFmtMask)
+  |vpiName:ifmt_logic_t
+  |vpiTypedefAlias:
+  \_ref_typespec: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.fpnew_pkg::fpu_features_t.IntFmtMask.ifmt_logic_t)
+    |vpiParent:
+    \_logic_typespec: (ifmt_logic_t), line:1566:11, endln:1566:38
+    |vpiFullName:work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.fpnew_pkg::fpu_features_t.IntFmtMask.ifmt_logic_t
+    |vpiActual:
+    \_logic_typespec: (ifmt_logic_t), line:1566:11, endln:1566:38
+  |vpiInstance:
+  \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:1485:1, endln:1955:11
+  |vpiRange:
+  \_range: , line:1566:17, endln:1566:38
+    |vpiParent:
+    \_logic_typespec: (ifmt_logic_t), line:1566:11, endln:1566:38
+    |vpiLeftRange:
+    \_constant: , line:1566:18, endln:1566:19
+      |vpiParent:
+      \_range: , line:1566:17, endln:1566:38
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:1566:20, endln:1566:35
+      |vpiParent:
+      \_range: , line:1566:17, endln:1566:38
+      |vpiDecompile:3
+      |vpiSize:64
+      |INT:3
+      |vpiConstType:7
+\_logic_typespec: (ifmt_logic_t), line:1566:11, endln:1566:38
+  |vpiParent:
+  \_ref_typespec: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.fpnew_pkg::fpu_features_t.IntFmtMask.ifmt_logic_t)
+  |vpiName:ifmt_logic_t
+  |vpiInstance:
+  \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:1485:1, endln:1955:11
+  |vpiRange:
+  \_range: , line:1566:17, endln:1566:38
+    |vpiParent:
+    \_logic_typespec: (ifmt_logic_t), line:1566:11, endln:1566:38
+    |vpiLeftRange:
+    \_constant: , line:1566:18, endln:1566:19
+      |vpiParent:
+      \_range: , line:1566:17, endln:1566:38
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:1566:20, endln:1566:35
+      |vpiParent:
+      \_range: , line:1566:17, endln:1566:38
+      |vpiDecompile:3
+      |vpiSize:64
+      |INT:3
+      |vpiConstType:7
 \_int_typespec: , line:1505:14, endln:1505:26
   |vpiParent:
   \_ref_typespec: 
@@ -172713,9 +173041,11 @@ design: (work@top)
       |vpiSize:64
       |INT:3
       |vpiConstType:7
-\_int_typespec: , line:1964:14, endln:1964:26
+\_int_typespec: , line:1663:5, endln:1663:17
   |vpiParent:
   \_ref_typespec: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.i_fpnew_bulk)
+  |vpiInstance:
+  \_package: fpnew_pkg (fpnew_pkg::), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:1485:1, endln:1955:11
 \_operation: , line:2016:25, endln:2016:43
   |vpiParent:
   \_param_assign: , line:1961:45, endln:1961:87

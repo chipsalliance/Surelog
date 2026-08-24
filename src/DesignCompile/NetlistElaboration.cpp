@@ -665,6 +665,19 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
             m_compileDesign, isMultidimensional ? Reduce::No : Reduce::Yes,
             inst_assign, instance);
         m_helper.checkForLoops(false);
+        // A multidimensional param skips reduction, but an unreduced
+        // HIER-PATH value (`Implementation.PipeRegs[opgrp]`) stamps a
+        // useless expression; retry reduced and keep a full constant fold
+        // (fpnew's per-opgroup pipeline register localparams).
+        if (isMultidimensional && rhs &&
+            (rhs->UhdmType() == UHDM::uhdmhier_path)) {
+          m_helper.checkForLoops(true);
+          expr* rrhs = (expr*)m_helper.compileExpression(
+              mod, assign->getFileContent(), assign->getAssignId(),
+              m_compileDesign, Reduce::Yes, inst_assign, instance);
+          m_helper.checkForLoops(false);
+          if (rrhs && (rrhs->UhdmType() == UHDM::uhdmconstant)) rhs = rrhs;
+        }
         inst_assign->Rhs(rhs);
       }
     }

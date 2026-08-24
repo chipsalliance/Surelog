@@ -264,45 +264,45 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 1.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                             151
+constant                                             160
 design                                                 1
 hier_path                                              1
 import_typespec                                        1
 int_typespec                                          17
-logic_typespec                                        46
+logic_typespec                                        50
 module_inst                                            9
 operation                                             16
 package                                                2
 packed_array_typespec                                  4
 param_assign                                          20
 parameter                                             22
-range                                                 50
+range                                                 54
 ref_module                                             1
 ref_obj                                               14
-ref_typespec                                          94
-struct_typespec                                       11
-typespec_member                                       22
+ref_typespec                                          99
+struct_typespec                                       12
+typespec_member                                       24
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                             151
+constant                                             160
 design                                                 1
 hier_path                                              1
 import_typespec                                        1
 int_typespec                                          17
-logic_typespec                                        46
+logic_typespec                                        50
 module_inst                                            9
 operation                                             16
 package                                                2
 packed_array_typespec                                  4
 param_assign                                          20
 parameter                                             22
-range                                                 50
+range                                                 54
 ref_module                                             1
 ref_obj                                               14
-ref_typespec                                          94
-struct_typespec                                       11
-typespec_member                                       22
+ref_typespec                                          99
+struct_typespec                                       12
+typespec_member                                       24
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/LargeValue2Struct/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/LargeValue2Struct/slpp_all/checker/surelog.chk.html ...
@@ -1911,6 +1911,180 @@ design: (work@top)
       |UINT:0
       |vpiConstType:9
 \_int_typespec: , line:24:1, endln:24:31
+\_struct_typespec: (pack::scrmbl_key_init_t), line:7:9, endln:10:4
+  |vpiParent:
+  \_ref_typespec: (work@top)
+  |vpiName:pack::scrmbl_key_init_t
+  |vpiInstance:
+  \_package: pack (pack::), file:${SURELOG_DIR}/tests/LargeValue2Struct/dut.sv, line:1:1, endln:14:11
+  |vpiPacked:1
+  |vpiTypespecMember:
+  \_typespec_member: (key), line:8:18, endln:8:21
+    |vpiParent:
+    \_struct_typespec: (pack::scrmbl_key_init_t), line:7:9, endln:10:4
+    |vpiName:key
+    |vpiTypespec:
+    \_ref_typespec: (work@top.pack::scrmbl_key_init_t.key)
+      |vpiParent:
+      \_typespec_member: (key), line:8:18, endln:8:21
+      |vpiFullName:work@top.pack::scrmbl_key_init_t.key
+      |vpiActual:
+      \_logic_typespec: (sram_key_t), line:4:11, endln:4:35
+    |vpiRefFile:${SURELOG_DIR}/tests/LargeValue2Struct/dut.sv
+    |vpiRefLineNo:8
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:8
+    |vpiRefEndColumnNo:15
+  |vpiTypespecMember:
+  \_typespec_member: (nonce), line:9:18, endln:9:23
+    |vpiParent:
+    \_struct_typespec: (pack::scrmbl_key_init_t), line:7:9, endln:10:4
+    |vpiName:nonce
+    |vpiTypespec:
+    \_ref_typespec: (work@top.pack::scrmbl_key_init_t.nonce)
+      |vpiParent:
+      \_typespec_member: (nonce), line:9:18, endln:9:23
+      |vpiFullName:work@top.pack::scrmbl_key_init_t.nonce
+      |vpiActual:
+      \_logic_typespec: (sram_nonce_t), line:5:11, endln:5:35
+    |vpiRefFile:${SURELOG_DIR}/tests/LargeValue2Struct/dut.sv
+    |vpiRefLineNo:9
+    |vpiRefColumnNo:5
+    |vpiRefEndLineNo:9
+    |vpiRefEndColumnNo:17
+\_ref_typespec: (work@top)
+  |vpiParent:
+  \_constant: , line:23:52, endln:23:79
+  |vpiFullName:work@top
+  |vpiActual:
+  \_struct_typespec: (pack::scrmbl_key_init_t), line:7:9, endln:10:4
+\_constant: , line:23:52, endln:23:79
+  |vpiParent:
+  \_param_assign: , line:12:30, endln:13:76
+  |vpiDecompile:256'hcebeb96ffe0eced795f8b2cfe23c1e519e4fa08047a6bcfb811b04f0a479006e
+  |vpiSize:256
+  |HEX:cebeb96ffe0eced795f8b2cfe23c1e519e4fa08047a6bcfb811b04f0a479006e
+  |vpiTypespec:
+  \_ref_typespec: (work@top)
+  |vpiConstType:5
+\_logic_typespec: (sram_key_t), line:4:11, endln:4:35
+  |vpiParent:
+  \_ref_typespec: (work@top.pack::scrmbl_key_init_t.key)
+  |vpiName:sram_key_t
+  |vpiTypedefAlias:
+  \_ref_typespec: (work@top.pack::scrmbl_key_init_t.key.sram_key_t)
+    |vpiParent:
+    \_logic_typespec: (sram_key_t), line:4:11, endln:4:35
+    |vpiFullName:work@top.pack::scrmbl_key_init_t.key.sram_key_t
+    |vpiActual:
+    \_logic_typespec: (sram_key_t), line:4:11, endln:4:35
+  |vpiInstance:
+  \_package: pack (pack::), file:${SURELOG_DIR}/tests/LargeValue2Struct/dut.sv, line:1:1, endln:14:11
+  |vpiRange:
+  \_range: , line:4:17, endln:4:35
+    |vpiParent:
+    \_logic_typespec: (sram_key_t), line:4:11, endln:4:35
+    |vpiLeftRange:
+    \_constant: , line:4:18, endln:4:30
+      |vpiParent:
+      \_range: , line:4:17, endln:4:35
+      |vpiDecompile:127
+      |vpiSize:64
+      |INT:127
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:4:33, endln:4:34
+      |vpiParent:
+      \_range: , line:4:17, endln:4:35
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: (sram_key_t), line:4:11, endln:4:35
+  |vpiParent:
+  \_ref_typespec: (work@top.pack::scrmbl_key_init_t.key.sram_key_t)
+  |vpiName:sram_key_t
+  |vpiInstance:
+  \_package: pack (pack::), file:${SURELOG_DIR}/tests/LargeValue2Struct/dut.sv, line:1:1, endln:14:11
+  |vpiRange:
+  \_range: , line:4:17, endln:4:35
+    |vpiParent:
+    \_logic_typespec: (sram_key_t), line:4:11, endln:4:35
+    |vpiLeftRange:
+    \_constant: , line:4:18, endln:4:30
+      |vpiParent:
+      \_range: , line:4:17, endln:4:35
+      |vpiDecompile:127
+      |vpiSize:64
+      |INT:127
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:4:33, endln:4:34
+      |vpiParent:
+      \_range: , line:4:17, endln:4:35
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: (sram_nonce_t), line:5:11, endln:5:35
+  |vpiParent:
+  \_ref_typespec: (work@top.pack::scrmbl_key_init_t.nonce)
+  |vpiName:sram_nonce_t
+  |vpiTypedefAlias:
+  \_ref_typespec: (work@top.pack::scrmbl_key_init_t.nonce.sram_nonce_t)
+    |vpiParent:
+    \_logic_typespec: (sram_nonce_t), line:5:11, endln:5:35
+    |vpiFullName:work@top.pack::scrmbl_key_init_t.nonce.sram_nonce_t
+    |vpiActual:
+    \_logic_typespec: (sram_nonce_t), line:5:11, endln:5:35
+  |vpiInstance:
+  \_package: pack (pack::), file:${SURELOG_DIR}/tests/LargeValue2Struct/dut.sv, line:1:1, endln:14:11
+  |vpiRange:
+  \_range: , line:5:17, endln:5:35
+    |vpiParent:
+    \_logic_typespec: (sram_nonce_t), line:5:11, endln:5:35
+    |vpiLeftRange:
+    \_constant: , line:5:18, endln:5:30
+      |vpiParent:
+      \_range: , line:5:17, endln:5:35
+      |vpiDecompile:127
+      |vpiSize:64
+      |INT:127
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:5:33, endln:5:34
+      |vpiParent:
+      \_range: , line:5:17, endln:5:35
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: (sram_nonce_t), line:5:11, endln:5:35
+  |vpiParent:
+  \_ref_typespec: (work@top.pack::scrmbl_key_init_t.nonce.sram_nonce_t)
+  |vpiName:sram_nonce_t
+  |vpiInstance:
+  \_package: pack (pack::), file:${SURELOG_DIR}/tests/LargeValue2Struct/dut.sv, line:1:1, endln:14:11
+  |vpiRange:
+  \_range: , line:5:17, endln:5:35
+    |vpiParent:
+    \_logic_typespec: (sram_nonce_t), line:5:11, endln:5:35
+    |vpiLeftRange:
+    \_constant: , line:5:18, endln:5:30
+      |vpiParent:
+      \_range: , line:5:17, endln:5:35
+      |vpiDecompile:127
+      |vpiSize:64
+      |INT:127
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:5:33, endln:5:34
+      |vpiParent:
+      \_range: , line:5:17, endln:5:35
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 \_struct_typespec: (pack::scrmbl_key_init_t), line:7:9, endln:10:4
   |vpiParent:
   \_ref_typespec: (work@top.RndCnstScrmblKeyInitDefault)

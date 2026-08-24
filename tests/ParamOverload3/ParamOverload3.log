@@ -643,7 +643,7 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assignment                                             1
 bit_select                                             7
-constant                                             269
+constant                                             325
 cont_assign                                            3
 design                                                 1
 enum_const                                            10
@@ -662,14 +662,14 @@ logic_typespec                                         2
 logic_var                                             10
 module_inst                                           27
 named_begin                                            3
-operation                                            101
+operation                                            129
 package                                                2
 packed_array_typespec                                  4
 param_assign                                          53
 parameter                                             59
 range                                                  6
 ref_obj                                               54
-ref_typespec                                         181
+ref_typespec                                         238
 return_stmt                                            2
 string_typespec                                       50
 struct_typespec                                        4
@@ -682,7 +682,7 @@ unsupported_typespec                                   7
 === UHDM Object Stats Begin (Elaborated Model) ===
 assignment                                             1
 bit_select                                            12
-constant                                             270
+constant                                             326
 cont_assign                                            4
 design                                                 1
 enum_const                                            10
@@ -701,14 +701,14 @@ logic_typespec                                         2
 logic_var                                             10
 module_inst                                           27
 named_begin                                            3
-operation                                            105
+operation                                            133
 package                                                2
 packed_array_typespec                                  4
 param_assign                                          58
 parameter                                             59
 range                                                  6
 ref_obj                                               63
-ref_typespec                                         198
+ref_typespec                                         255
 return_stmt                                            4
 string_typespec                                       50
 struct_typespec                                        4
@@ -1346,6 +1346,13 @@ design: (work@top)
     \_operation: , line:20:65, endln:27:4
       |vpiParent:
       \_param_assign: , line:20:49, endln:27:4
+      |vpiTypespec:
+      \_ref_typespec: (fpnew_pkg)
+        |vpiParent:
+        \_operation: , line:20:65, endln:27:4
+        |vpiFullName:fpnew_pkg
+        |vpiActual:
+        \_packed_array_typespec: , line:20:14, endln:20:48
       |vpiOpType:75
       |vpiOperand:
       \_operation: , line:21:5, endln:21:14
@@ -2197,6 +2204,13 @@ design: (work@top)
     \_operation: , line:45:63, endln:45:74
       |vpiParent:
       \_param_assign: , line:45:46, endln:45:85
+      |vpiTypespec:
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_operation: , line:45:63, endln:45:74
+        |vpiFullName:work@top
+        |vpiActual:
+        \_unsupported_typespec: (fpnew_pkg::fpu_features_t), line:45:14, endln:45:25
       |vpiOpType:75
       |vpiOperand:
       \_tagged_pattern: , line:30:20, endln:30:22
@@ -3173,6 +3187,23 @@ design: (work@top)
   |vpiTypespec:
   \_ref_typespec: 
   |vpiConstType:9
+\_unsupported_typespec: (fpnew_pkg::fpu_features_t), line:45:14, endln:45:25
+  |vpiParent:
+  \_ref_typespec: (work@top.Features)
+  |vpiName:fpnew_pkg::fpu_features_t
+\_ref_typespec: (work@top.Features)
+  |vpiParent:
+  \_parameter: (work@top.Features), line:45:46, endln:45:54
+  |vpiFullName:work@top.Features
+  |vpiActual:
+  \_unsupported_typespec: (fpnew_pkg::fpu_features_t), line:45:14, endln:45:25
+\_parameter: (work@top.Features), line:45:46, endln:45:54
+  |vpiParent:
+  \_param_assign: , line:45:46, endln:45:85
+  |vpiTypespec:
+  \_ref_typespec: (work@top.Features)
+  |vpiName:Features
+  |vpiFullName:work@top.Features
 \_string_typespec: (Width), line:30:5, endln:30:10
   |vpiParent:
   \_ref_typespec: (work@top)
@@ -3636,6 +3667,8 @@ design: (work@top)
 ============================== Begin Linting Results ==============================
 [LINT]: ${SURELOG_DIR}/tests/ParamOverload3/dut.sv:29:14: Unsupported typespec, fpu_features_t
 [LINT]:   \_ ${SURELOG_DIR}/tests/ParamOverload3/dut.sv:29:29:
+[LINT]: ${SURELOG_DIR}/tests/ParamOverload3/dut.sv:45:14: Unsupported typespec, fpnew_pkg::fpu_features_t
+[LINT]:   \_ :0:0:
 [LINT]: ${SURELOG_DIR}/tests/ParamOverload3/dut.sv:45:14: Unsupported typespec, fpnew_pkg::fpu_features_t
 [LINT]:   \_ :0:0:
 ============================== End Linting Results ==============================

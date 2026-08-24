@@ -527,7 +527,7 @@ bit_select                                             1
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                             142
+constant                                             146
 design                                                 1
 enum_const                                             9
 enum_typespec                                          3
@@ -539,17 +539,17 @@ int_typespec                                          47
 int_var                                                4
 io_decl                                               11
 logic_net                                              1
-logic_typespec                                        18
+logic_typespec                                        20
 logic_var                                              2
 module_inst                                           11
 operation                                             55
 package                                                6
 param_assign                                          20
 parameter                                             27
-range                                                 35
+range                                                 37
 ref_module                                             1
 ref_obj                                                5
-ref_typespec                                         130
+ref_typespec                                         133
 string_typespec                                       22
 struct_typespec                                       16
 tagged_pattern                                        22
@@ -563,7 +563,7 @@ bit_select                                             1
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                             142
+constant                                             146
 design                                                 1
 enum_const                                            14
 enum_typespec                                          4
@@ -575,17 +575,17 @@ int_typespec                                          47
 int_var                                                4
 io_decl                                               22
 logic_net                                              1
-logic_typespec                                        18
+logic_typespec                                        20
 logic_var                                              2
 module_inst                                           11
 operation                                             55
 package                                                6
 param_assign                                          20
 parameter                                             27
-range                                                 35
+range                                                 37
 ref_module                                             1
 ref_obj                                                5
-ref_typespec                                         135
+ref_typespec                                         138
 string_typespec                                       22
 struct_typespec                                       16
 tagged_pattern                                        22
@@ -2264,6 +2264,13 @@ design: (work@top)
           |vpiDecompile:56
           |vpiSize:11
           |UINT:56
+          |vpiTypespec:
+          \_ref_typespec: (work@top.u_otp_ctrl_lci)
+            |vpiParent:
+            \_constant: , line:18:19, endln:18:21
+            |vpiFullName:work@top.u_otp_ctrl_lci
+            |vpiActual:
+            \_logic_typespec: , line:3:5, endln:3:17
           |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@top.u_otp_ctrl_lci.Info), line:33:25, endln:33:29
@@ -3102,6 +3109,31 @@ design: (work@top)
 \_logic_typespec: , line:3:5, endln:3:17
   |vpiParent:
   \_ref_typespec: (work@top.u_otp_ctrl_lci.Info.otp_ctrl_pkg::part_info_t.size)
+  |vpiInstance:
+  \_package: otp_ctrl_pkg (otp_ctrl_pkg::), file:${SURELOG_DIR}/tests/ParamArray/dut.sv, line:1:1, endln:6:11
+  |vpiRange:
+  \_range: , line:3:11, endln:3:17
+    |vpiParent:
+    \_logic_typespec: , line:3:5, endln:3:17
+    |vpiLeftRange:
+    \_constant: , line:3:12, endln:3:14
+      |vpiParent:
+      \_range: , line:3:11, endln:3:17
+      |vpiDecompile:10
+      |vpiSize:64
+      |UINT:10
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:15, endln:3:16
+      |vpiParent:
+      \_range: , line:3:11, endln:3:17
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:3:5, endln:3:17
+  |vpiParent:
+  \_ref_typespec: (work@top.u_otp_ctrl_lci)
   |vpiInstance:
   \_package: otp_ctrl_pkg (otp_ctrl_pkg::), file:${SURELOG_DIR}/tests/ParamArray/dut.sv, line:1:1, endln:6:11
   |vpiRange:
