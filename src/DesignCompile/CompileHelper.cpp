@@ -4650,8 +4650,8 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(
            VObjectType::paPs_or_hierarchical_identifier) &&
           (lhs_rf != nullptr) && (lhs_rf->UhdmType() == uhdmhier_path)) {
         NodeId Select = fC->Sibling(Ps_or_hier);
-        bool pure_selects = (fC->Type(Select) == VObjectType::paSelect) &&
-                            fC->Child(Select);
+        bool pure_selects =
+            (fC->Type(Select) == VObjectType::paSelect) && fC->Child(Select);
         for (NodeId sc = fC->Child(Select); pure_selects && sc;
              sc = fC->Sibling(sc)) {
           if (fC->Type(sc) != VObjectType::paBit_select &&
