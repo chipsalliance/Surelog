@@ -370,7 +370,7 @@ enum_const                                             7
 enum_typespec                                          7
 hier_path                                              1
 import_typespec                                        2
-int_typespec                                          20
+int_typespec                                          19
 int_var                                                2
 logic_net                                              4
 module_inst                                           19
@@ -393,7 +393,7 @@ enum_const                                             7
 enum_typespec                                          7
 hier_path                                              1
 import_typespec                                        2
-int_typespec                                          20
+int_typespec                                          19
 int_var                                                2
 logic_net                                              4
 module_inst                                           19
@@ -1125,9 +1125,9 @@ design: (work@top)
         \_constant: , line:36:28, endln:36:29
           |vpiParent:
           \_param_assign: , line:36:18, endln:36:29
-          |vpiDecompile:1
+          |vpiDecompile:32'b00000000000000000000000000000001
           |vpiSize:32
-          |UINT:1
+          |BIN:00000000000000000000000000000001
           |vpiTypespec:
           \_ref_typespec: (work@top.u_top.u_prim_pad_attr)
             |vpiParent:
@@ -1135,7 +1135,7 @@ design: (work@top)
             |vpiFullName:work@top.u_top.u_prim_pad_attr
             |vpiActual:
             \_int_typespec: , line:36:14, endln:36:17
-          |vpiConstType:9
+          |vpiConstType:3
         |vpiLhs:
         \_parameter: (work@top.u_top.u_prim_pad_attr.PadType), line:36:18, endln:36:25
       |vpiDefName:work@prim_pad_attr
@@ -1195,9 +1195,9 @@ design: (work@top)
           \_constant: , line:25:28, endln:25:29
             |vpiParent:
             \_param_assign: , line:25:18, endln:25:29
-            |vpiDecompile:1
+            |vpiDecompile:32'b00000000000000000000000000000001
             |vpiSize:32
-            |UINT:1
+            |BIN:00000000000000000000000000000001
             |vpiTypespec:
             \_ref_typespec: (work@top.u_top.u_prim_pad_attr.u_submodule)
               |vpiParent:
@@ -1205,7 +1205,7 @@ design: (work@top)
               |vpiFullName:work@top.u_top.u_prim_pad_attr.u_submodule
               |vpiActual:
               \_int_typespec: , line:25:14, endln:25:17
-            |vpiConstType:9
+            |vpiConstType:3
           |vpiLhs:
           \_parameter: (work@top.u_top.u_prim_pad_attr.u_submodule.PadType), line:25:18, endln:25:25
         |vpiDefName:work@prim_submodule
@@ -1288,10 +1288,10 @@ design: (work@top)
             |vpiRhs:
             \_constant: , line:20:37, endln:20:38
               |vpiParent:
-              \_param_assign: , line:20:18, endln:20:38
-              |vpiDecompile:1
+              \_cont_assign: , line:21:11, endln:21:31
+              |vpiDecompile:32'b00000000000000000000000000000001
               |vpiSize:32
-              |UINT:1
+              |BIN:00000000000000000000000000000001
               |vpiTypespec:
               \_ref_typespec: (work@top.u_top.u_prim_pad_attr.u_submodule.u_impl_generic)
                 |vpiParent:
@@ -1299,7 +1299,7 @@ design: (work@top)
                 |vpiFullName:work@top.u_top.u_prim_pad_attr.u_submodule.u_impl_generic
                 |vpiActual:
                 \_int_typespec: , line:20:14, endln:20:17
-              |vpiConstType:9
+              |vpiConstType:3
             |vpiLhs:
             \_parameter: (work@top.u_top.u_prim_pad_attr.u_submodule.u_impl_generic.PadTypeInGeneric), line:20:18, endln:20:34
           |vpiDefName:work@prim_generic_pad_attr
@@ -1344,19 +1344,6 @@ design: (work@top)
             \_module_inst: work@prim_generic_pad_attr (work@top.u_top.u_prim_pad_attr.u_submodule.u_impl_generic), file:${SURELOG_DIR}/tests/ComplexParamOverload2/dut.sv, line:27:4, endln:31:6
             |vpiRhs:
             \_constant: , line:20:37, endln:20:38
-              |vpiParent:
-              \_cont_assign: , line:21:11, endln:21:31
-              |vpiDecompile:1
-              |vpiSize:32
-              |UINT:1
-              |vpiTypespec:
-              \_ref_typespec: (work@top.u_top.u_prim_pad_attr.u_submodule.u_impl_generic)
-                |vpiParent:
-                \_constant: , line:20:37, endln:20:38
-                |vpiFullName:work@top.u_top.u_prim_pad_attr.u_submodule.u_impl_generic
-                |vpiActual:
-                \_int_typespec: , line:20:14, endln:20:17
-              |vpiConstType:9
             |vpiLhs:
             \_ref_obj: (work@top.u_top.u_prim_pad_attr.u_submodule.u_impl_generic.o), line:21:11, endln:21:12
               |vpiParent:
@@ -1535,10 +1522,6 @@ design: (work@top)
     |vpiFullName:work@top.u_top.u_prim_pad_attr.u_submodule.u_impl_generic.o
     |vpiActual:
     \_logic_net: (work@prim_generic_pad_attr.o), line:19:41, endln:19:42
-\_int_typespec: , line:20:14, endln:20:17
-  |vpiParent:
-  \_ref_typespec: (work@top.u_top.u_prim_pad_attr.u_submodule.u_impl_generic)
-  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -321,6 +321,47 @@ any *CompileHelper::getObject(std::string_view name, DesignComponent *component,
       }
     }
   }
+  // A complex value handed back as a bare pattern OPERATION loses its
+  // parameter's typespec, and ExprEval's member/element selection then has
+  // no geometry — `Implementation.UnitTypes[opgrp]` on a >64-bit struct
+  // parameter (resolved through the complex value) bit-selected instead of
+  // element-selecting, stamping garbage localparam values (fpnew_top).
+  // Attach the declaring parameter's typespec (monotone: only when absent).
+  if (result && result->UhdmType() == uhdmoperation) {
+    operation *op0 = (operation *)result;
+    if (op0->Typespec() == nullptr) {
+      const parameter *p0 = nullptr;
+      auto scan_component = [&](DesignComponent *dc, std::string_view pname) {
+        if (!dc || p0) return;
+        for (ParamAssign *pass : dc->getParamAssignVec()) {
+          if (param_assign *pa = pass->getUhdmParamAssign()) {
+            if (pa->Lhs() && (pa->Lhs()->VpiName() == pname ||
+                              pa->Lhs()->VpiName() == name)) {
+              p0 = any_cast<const parameter *>(pa->Lhs());
+              break;
+            }
+          }
+        }
+      };
+      if (name.find("::") != std::string_view::npos) {
+        std::vector<std::string_view> res;
+        StringUtils::tokenizeMulti(name, "::", res);
+        if (res.size() > 1) {
+          Design *design = compileDesign->getCompiler()->getDesign();
+          if (Package *pack = design->getPackage(res[0]))
+            scan_component(pack, res[1]);
+        }
+      }
+      scan_component(component, name);
+      if (p0 && p0->Typespec() && p0->Typespec()->Actual_typespec()) {
+        UHDM::Serializer &ser = compileDesign->getSerializer();
+        ref_typespec *rt0 = ser.MakeRef_typespec();
+        rt0->Actual_typespec((typespec *)p0->Typespec()->Actual_typespec());
+        rt0->VpiParent(op0);
+        op0->Typespec(rt0);
+      }
+    }
+  }
   return result;
 }
 
@@ -868,6 +909,24 @@ expr *CompileHelper::reduceExpr(any *result, bool &invalidValue,
   return m_unwind ? nullptr : res;
 }
 
+// A >64-bit parameter's value resolves through its complex value — a bare
+// pattern operation carrying no typespec.  Attach the declaring parameter's
+// typespec so downstream member/element selection (ExprEval) knows the
+// struct geometry (e.g. fpnew Implementation.UnitTypes[opgrp]).
+static void attachDeclParamTypespec(any *result, const any *lhs,
+                                    UHDM::Serializer &s) {
+  if (!result || !lhs) return;
+  if (result->UhdmType() != uhdmoperation) return;
+  operation *rop = (operation *)result;
+  if (rop->Typespec() != nullptr) return;
+  const parameter *lp = any_cast<const parameter *>(lhs);
+  if (!lp || !lp->Typespec() || !lp->Typespec()->Actual_typespec()) return;
+  ref_typespec *rt0 = s.MakeRef_typespec();
+  rt0->Actual_typespec((typespec *)lp->Typespec()->Actual_typespec());
+  rt0->VpiParent(rop);
+  rop->Typespec(rt0);
+}
+
 any *CompileHelper::getValue(std::string_view name, DesignComponent *component,
                              CompileDesign *compileDesign, Reduce reduce,
                              ValuedComponentI *instance, PathId fileId,
@@ -893,6 +952,30 @@ any *CompileHelper::getValue(std::string_view name, DesignComponent *component,
           result = val;
           if (result && (result->UhdmType() == uhdmoperation)) {
             operation *op = (operation *)result;
+            // A >64-bit package parameter resolves through its complex
+            // value: a bare pattern operation with no typespec. Attach the
+            // declaring parameter's typespec so pattern flattening and
+            // member/element selection know the struct geometry
+            // (fpnew_pkg::Implementation.UnitTypes[opgrp]).
+            if (op->Typespec() == nullptr) {
+              if (UHDM::VectorOfparam_assign *ppa = pack->getParam_assigns()) {
+                for (param_assign *pa : *ppa) {
+                  if (pa && pa->Lhs() && pa->Lhs()->VpiName() == varName) {
+                    if (const parameter *lp =
+                            any_cast<const parameter *>(pa->Lhs())) {
+                      if (lp->Typespec() && lp->Typespec()->Actual_typespec()) {
+                        ref_typespec *rt0 = s.MakeRef_typespec();
+                        rt0->Actual_typespec(
+                            (typespec *)lp->Typespec()->Actual_typespec());
+                        rt0->VpiParent(op);
+                        op->Typespec(rt0);
+                      }
+                    }
+                    break;
+                  }
+                }
+              }
+            }
             const UHDM::typespec *opts = nullptr;
             if (ref_typespec *rt = op->Typespec()) {
               opts = rt->Actual_typespec();
@@ -949,6 +1032,25 @@ any *CompileHelper::getValue(std::string_view name, DesignComponent *component,
                   ElaboratorContext elaboratorContext(&s, false, true);
                   result = UHDM::clone_tree(param->Rhs(), &elaboratorContext);
                   if (result != nullptr) result->VpiParent(param);
+                  // Bare pattern operation (>64-bit complex value): give the
+                  // clone the declaring parameter's typespec so member /
+                  // element selection downstream knows the struct geometry.
+                  if (result && result->UhdmType() == uhdmoperation) {
+                    operation *rop = (operation *)result;
+                    if (rop->Typespec() == nullptr) {
+                      if (const parameter *lp =
+                              any_cast<const parameter *>(param->Lhs())) {
+                        if (lp->Typespec() &&
+                            lp->Typespec()->Actual_typespec()) {
+                          ref_typespec *rt0 = s.MakeRef_typespec();
+                          rt0->Actual_typespec(
+                              (typespec *)lp->Typespec()->Actual_typespec());
+                          rt0->VpiParent(rop);
+                          rop->Typespec(rt0);
+                        }
+                      }
+                    }
+                  }
                   break;
                 }
               }
@@ -962,6 +1064,27 @@ any *CompileHelper::getValue(std::string_view name, DesignComponent *component,
   if ((result == nullptr) && instance) {
     if (expr *val = instance->getComplexValue(name)) {
       result = val;
+      if (result->UhdmType() == uhdmoperation &&
+          ((operation *)result)->Typespec() == nullptr) {
+        ValuedComponentI *ti = instance;
+        while (ti) {
+          if (ModuleInstance *mi =
+                  valuedcomponenti_cast<ModuleInstance *>(ti)) {
+            if (Netlist *nl = mi->getNetlist()) {
+              if (UHDM::VectorOfparam_assign *pas = nl->param_assigns()) {
+                for (param_assign *pa : *pas) {
+                  if (pa && pa->Lhs() && pa->Lhs()->VpiName() == name) {
+                    attachDeclParamTypespec(result, pa->Lhs(), s);
+                    break;
+                  }
+                }
+              }
+            }
+          }
+          if (((operation *)result)->Typespec() != nullptr) break;
+          ti = (ValuedComponentI *)ti->getParentScope();
+        }
+      }
       if (result->UhdmType() == uhdmconstant) {
         sval = instance->getValue(name);
         if (sval && sval->isValid()) {
@@ -1019,6 +1142,7 @@ any *CompileHelper::getValue(std::string_view name, DesignComponent *component,
 
                   ElaboratorContext elaboratorContext(&s, false, true);
                   result = UHDM::clone_tree(param->Rhs(), &elaboratorContext);
+                  attachDeclParamTypespec(result, param->Lhs(), s);
                   break;
                 }
               }
