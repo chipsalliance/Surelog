@@ -4503,6 +4503,100 @@ uint64_t CompileHelper::Bits(const UHDM::any *typespec, bool &invalidValue,
         m_exprEvalPlaceHolder->Param_assigns()->begin(),
         m_exprEvalPlaceHolder->Param_assigns()->end());
   }
+  // A struct whose members are typed by TYPE PARAMETERS is sized here with
+  // the parameters' DEFAULTS: the struct typespec is built once, at
+  // definition time, so its members point at `parameter type tag_t = logic`
+  // (1 bit) no matter what the instance overrides them with.  CVA6's
+  // hpdcache_mshr computes `$bits(mshr_entry_t)` that way and got 10 bits
+  // instead of 57, mis-sizing the whole MSHR RAM (every ack field read out
+  // of the wrong slice).  Substitute each member typed by a type parameter
+  // with THIS instance's override before summing.
+  if (typespec && (typespec->UhdmType() == uhdmstruct_typespec) && !sizeMode) {
+    if (ModuleInstance *minst =
+            valuedcomponenti_cast<ModuleInstance *>(instance)) {
+      const struct_typespec *sts = (const struct_typespec *)typespec;
+      // The instance's type-param override may not have its UHDM object
+      // built yet at this point in elaboration; fall back to compiling the
+      // override's declared type from the Parameter's own source node (the
+      // same path ElaborationStep uses when uparam has no typespec).
+      auto param_ts = [&](Parameter *p,
+                          ValuedComponentI *ctx) -> const UHDM::typespec * {
+        if (p == nullptr) return nullptr;
+        if (any *up = p->getUhdmParam())
+          if (type_parameter *tp = any_cast<type_parameter *>(up))
+            if (const ref_typespec *rt = tp->Typespec())
+              if (const UHDM::typespec *a = rt->Actual_typespec()) return a;
+        if (p->getFileContent() && p->getNodeType())
+          return compileTypespec(component, p->getFileContent(),
+                                 p->getNodeType(), compileDesign, Reduce::Yes,
+                                 nullptr, ctx, false);
+        return nullptr;
+      };
+      // Same declaration site => same type (clone_tree copies compare equal
+      // here even when the pointers differ).
+      auto same_decl = [](const UHDM::typespec *a,
+                          const UHDM::typespec *b) -> bool {
+        if (a == b) return true;
+        if ((a == nullptr) || (b == nullptr)) return false;
+        return (a->UhdmType() == b->UhdmType()) &&
+               (a->VpiFile() == b->VpiFile()) &&
+               (a->VpiLineNo() == b->VpiLineNo()) &&
+               (a->VpiColumnNo() == b->VpiColumnNo()) &&
+               (a->VpiEndLineNo() == b->VpiEndLineNo()) &&
+               (a->VpiEndColumnNo() == b->VpiEndColumnNo());
+      };
+      std::vector<std::pair<const UHDM::typespec *, const UHDM::typespec *>>
+          subst;
+      for (Parameter *p : minst->getTypeParams()) {
+        // The override is declared in the PARENT's scope.
+        ValuedComponentI *povr = minst->getParent()
+                                     ? (ValuedComponentI *)minst->getParent()
+                                     : (ValuedComponentI *)minst;
+        const UHDM::typespec *ov = param_ts(p, povr);
+        if (ov == nullptr) continue;
+        const UHDM::typespec *def = nullptr;
+        if (DesignComponent *dc = minst->getDefinition())
+          def = param_ts(dc->getParameter(p->getName()), minst);
+        if ((def != nullptr) && !same_decl(def, ov))
+          subst.emplace_back(def, ov);
+      }
+      if (!subst.empty() && (sts->Members() != nullptr)) {
+        bool ok = true;
+        bool any_subst = false;
+        uint64_t total = 0;
+        for (typespec_member *memb : *sts->Members()) {
+          const UHDM::typespec *mt = nullptr;
+          if (const ref_typespec *rt = memb->Typespec())
+            mt = rt->Actual_typespec();
+          if (mt == nullptr) {
+            ok = false;
+            break;
+          }
+          const UHDM::typespec *use = mt;
+          for (const auto &sub : subst) {
+            if (same_decl(mt, sub.first)) {
+              use = sub.second;
+              any_subst = true;
+              break;
+            }
+          }
+          bool iv = false;
+          uint64_t w = eval.size(use, iv, m_exprEvalPlaceHolder, nullptr, true);
+          if (iv || (w == 0)) {
+            ok = false;
+            break;
+          }
+          total += w;
+        }
+        if (ok && any_subst && (total > 0)) {
+          if (m_checkForLoops) {
+            m_stackLevel--;
+          }
+          return total;
+        }
+      }
+    }
+  }
   uint64_t size = eval.size(typespec, invalidValue, m_exprEvalPlaceHolder,
                             nullptr, !sizeMode);
   if (m_checkForLoops) {
