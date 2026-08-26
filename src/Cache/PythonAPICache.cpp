@@ -28,6 +28,7 @@
 #include <capnp/list.h>
 #include <capnp/message.h>
 #include <capnp/serialize-packed.h>
+#include <kj/exception.h>
 #include <fcntl.h>
 
 #include <cstdint>
@@ -123,14 +124,19 @@ bool PythonAPICache::checkCacheIsValid(PathId cacheFileId) const {
   if (fd < 0) return false;
 
   bool result = false;
-  do {
+  try {
     ::capnp::ReaderOptions options;
     options.traversalLimitInWords = std::numeric_limits<uint64_t>::max();
     options.nestingLimit = 1024;
     ::capnp::PackedFdMessageReader message(fd, options);
     const ::PythonAPICache::Reader& root = message.getRoot<::PythonAPICache>();
     result = checkCacheIsValid(cacheFileId, root);
-  } while (false);
+  } catch (const ::kj::Exception& e) {
+    // A truncated or corrupt cache file makes Cap'n Proto throw a
+    // kj::Exception; treat it as an invalid cache (recompile) instead of
+    // letting the exception abort the whole tool.
+    result = false;
+  }
 
   ::close(fd);
   return result;
