@@ -290,13 +290,14 @@ logic_typespec                                        16
 module_inst                                            5
 operation                                              5
 package                                                2
+packed_array_typespec                                  3
 packed_array_var                                       1
 param_assign                                           2
 parameter                                              2
 port                                                   2
 range                                                 14
 ref_obj                                                9
-ref_typespec                                          30
+ref_typespec                                          33
 struct_typespec                                        2
 struct_var                                             1
 type_parameter                                         1
@@ -319,13 +320,14 @@ logic_typespec                                        16
 module_inst                                            5
 operation                                              6
 package                                                2
+packed_array_typespec                                  3
 packed_array_var                                       1
 param_assign                                           2
 parameter                                              2
 port                                                   3
 range                                                 14
 ref_obj                                               14
-ref_typespec                                          31
+ref_typespec                                          34
 struct_typespec                                        2
 struct_var                                             1
 type_parameter                                         1
@@ -785,7 +787,7 @@ design: (work@axi_adapter_arbiter)
       \_port: (req_i), line:19:34, endln:19:39
       |vpiFullName:work@axi_adapter_arbiter.req_i
       |vpiActual:
-      \_struct_typespec: (std_cache_pkg::bypass_req_t), line:2:12, endln:12:2
+      \_packed_array_typespec: , line:19:13, endln:19:33
   |vpiProcess:
   \_always: , line:21:5, endln:25:8
     |vpiParent:
@@ -990,7 +992,7 @@ design: (work@axi_adapter_arbiter)
       \_port: (req_i), line:19:34, endln:19:39
       |vpiFullName:work@axi_adapter_arbiter.req_i
       |vpiActual:
-      \_struct_typespec: (std_cache_pkg::bypass_req_t), line:2:12, endln:12:2
+      \_packed_array_typespec: , line:19:13, endln:19:33
     |vpiInstance:
     \_module_inst: work@axi_adapter_arbiter (work@axi_adapter_arbiter), file:${SURELOG_DIR}/tests/HierPathPackedVar/dut.sv, line:16:1, endln:26:10
   |vpiProcess:
@@ -1366,9 +1368,73 @@ design: (work@axi_adapter_arbiter)
       |UINT:0
       |vpiConstType:9
 \_int_typespec: , line:17:5, endln:17:27
+\_packed_array_typespec: , line:19:13, endln:19:33
+  |vpiRange:
+  \_range: , line:19:19, endln:19:33
+    |vpiParent:
+    \_packed_array_typespec: , line:19:13, endln:19:33
+    |vpiLeftRange:
+    \_constant: , line:19:20, endln:19:28
+      |vpiParent:
+      \_range: , line:19:19, endln:19:33
+      |vpiDecompile:3
+      |vpiSize:64
+      |INT:3
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:19:31, endln:19:32
+      |vpiParent:
+      \_range: , line:19:19, endln:19:33
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_typespec: 
+    |vpiParent:
+    \_packed_array_typespec: , line:19:13, endln:19:33
+    |vpiActual:
+    \_struct_typespec: (std_cache_pkg::bypass_req_t), line:2:12, endln:12:2
 \_logic_typespec: , line:20:5, endln:20:8
   |vpiParent:
   \_logic_net: (work@axi_adapter_arbiter.state_d), line:20:9, endln:20:16
+\_packed_array_typespec: , line:19:13, endln:19:33
+  |vpiRange:
+  \_range: , line:19:19, endln:19:33
+    |vpiParent:
+    \_packed_array_typespec: , line:19:13, endln:19:33
+    |vpiLeftRange:
+    \_operation: , line:19:20, endln:19:30
+      |vpiParent:
+      \_range: , line:19:19, endln:19:33
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (NR_PORTS), line:19:20, endln:19:28
+        |vpiParent:
+        \_operation: , line:19:20, endln:19:30
+        |vpiName:NR_PORTS
+      |vpiOperand:
+      \_constant: , line:19:29, endln:19:30
+        |vpiParent:
+        \_operation: , line:19:20, endln:19:30
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:19:31, endln:19:32
+      |vpiParent:
+      \_range: , line:19:19, endln:19:33
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiElemTypespec:
+  \_ref_typespec: 
+    |vpiParent:
+    \_packed_array_typespec: , line:19:13, endln:19:33
+    |vpiActual:
+    \_struct_typespec: (std_cache_pkg::bypass_req_t), line:2:12, endln:12:2
 \_logic_typespec: , line:20:5, endln:20:8
 \_int_typespec: , line:17:5, endln:17:27
   |vpiParent:

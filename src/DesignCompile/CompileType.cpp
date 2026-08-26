@@ -1933,8 +1933,34 @@ UHDM::typespec* CompileHelper::compileTypespec(
         }
       }
       if (result == nullptr) {
-        result = compileDatastructureTypespec(
-            component, fC, type, compileDesign, reduce, instance, "", typeName);
+        // `tp_t [N-1:0] member;` where tp_t is a TYPE PARAMETER.  Resolve the
+        // parameter against the component's own list FIRST: at the point a
+        // struct's members are compiled, compileDatastructureTypespec returns
+        // null for such a name, so the packed-dimension wrap below never ran
+        // and the element type was patched in later WITHOUT the ranges — the
+        // member ended up ONE element wide.  CVA6's forwarding_t
+        // (`writeback_t [NrWbPorts-1:0] wb;` and
+        // `scoreboard_entry_t [NR_SB_ENTRIES-1:0] sbe;`) measured 518 bits
+        // instead of 3860, so scoreboard and issue_read_operands could not be
+        // compared port-for-port at all.  Gated on `ranges` so a bare type
+        // parameter name keeps resolving exactly as before.
+        if (ranges != nullptr && component) {
+          if (UHDM::VectorOfany* params = component->getParameters()) {
+            for (any* param : *params) {
+              if (param->UhdmType() == uhdmtype_parameter &&
+                  param->VpiName() == typeName) {
+                if (ref_typespec* rt = ((type_parameter*)param)->Typespec())
+                  result = rt->Actual_typespec();
+                break;
+              }
+            }
+          }
+        }
+        if (result == nullptr) {
+          result = compileDatastructureTypespec(
+              component, fC, type, compileDesign, reduce, instance, "",
+              typeName);
+        }
         if (ranges && result) {
           UHDM_OBJECT_TYPE dstype = result->UhdmType();
           ref_typespec* resultRef = s.MakeRef_typespec();
