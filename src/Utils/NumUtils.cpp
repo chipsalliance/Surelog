@@ -84,6 +84,11 @@ std::string NumUtils::toBinary(int32_t size, uint64_t val) {
       }
     }
   }
+  // Clamp size to the bit field width: a wider field (for instance an
+  // element of a sized concatenation exceeding bitFieldSize bits) makes
+  // the size_t reserve() argument below underflow, throwing
+  // std::length_error.
+  if (size > bitFieldSize) size = bitFieldSize;
   std::string result;
   result.reserve(bitFieldSize - size + 1);
   for (uint32_t i = bitFieldSize - size; i < bitFieldSize; i++)
