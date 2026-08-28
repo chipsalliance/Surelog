@@ -4964,7 +4964,44 @@ UHDM::any *CompileHelper::compileBits(
     }
   }
 
-  if (bits == 0) {
+  // `$bits(v)` where v's declared type is a TYPE PARAMETER must NOT be folded
+  // here: at definition-compile time the parameter has no binding yet, so
+  // getTypespec() returns its DEFAULT (`parameter type T = logic` -> 1 bit) and
+  // the query freezes at 1 for every instantiation.  CVA6 cva6_rvfi_probes gates
+  // its whole output on
+  //     if ($bits(rvfi_probes_o.instr) == $bits(instr)) rvfi_probes_o.instr = instr;
+  // which became `1204 == 1`, leaving the 6974-bit output stuck at '0.  Leaving
+  // the sys_func_call unevaluated defers the query to elaboration, where the
+  // type parameter is bound.
+  bool unbound_type_param_arg = false;
+  if (component && typeSpecId &&
+      (fC->Type(typeSpecId) == VObjectType::slStringConst)) {
+    const std::string_view argName = fC->SymName(typeSpecId);
+    Signal *asig = nullptr;
+    for (auto sg : component->getPorts())
+      if (sg->getName() == argName) { asig = sg; break; }
+    if (asig == nullptr)
+      for (auto sg : component->getSignals())
+        if (sg->getName() == argName) { asig = sg; break; }
+    if (asig) {
+      if (NodeId tid = asig->getTypeSpecId()) {
+        if (fC->Type(tid) == VObjectType::slStringConst) {
+          const std::string_view tname = fC->SymName(tid);
+          if (UHDM::VectorOfany *params = component->getParameters()) {
+            for (any *param : *params) {
+              if ((param->UhdmType() == uhdmtype_parameter) &&
+                  (param->VpiName() == tname)) {
+                unbound_type_param_arg = true;
+                break;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  if (bits == 0 && !unbound_type_param_arg) {
     tps =
         getTypespec(component, fC, typeSpecId, compileDesign, reduce, instance);
     if (m_elabMode && (reduce == Reduce::No) && tps) {
