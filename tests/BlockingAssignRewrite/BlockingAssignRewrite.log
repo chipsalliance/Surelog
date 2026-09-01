@@ -987,7 +987,7 @@ parameter                                             30
 port                                                  24
 range                                                 37
 ref_obj                                               71
-ref_typespec                                          80
+ref_typespec                                          87
 ref_var                                                1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -1020,7 +1020,7 @@ parameter                                             30
 port                                                  36
 range                                                 37
 ref_obj                                              106
-ref_typespec                                          95
+ref_typespec                                         102
 ref_var                                                2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/BlockingAssignRewrite/slpp_all/surelog.uhdm ...
@@ -1629,6 +1629,13 @@ design: (work@asym_ram_tdp_write_first_dc)
                 |vpiDecompile:0
                 |vpiSize:64
                 |UINT:0
+                |vpiTypespec:
+                \_ref_typespec: (work@asym_ram_tdp_write_first_dc.log2)
+                  |vpiParent:
+                  \_constant: , line:34:22, endln:34:23
+                  |vpiFullName:work@asym_ram_tdp_write_first_dc.log2
+                  |vpiActual:
+                  \_integer_typespec: , line:27:1, endln:27:8
                 |vpiConstType:9
               |vpiLhs:
               \_ref_var: (work@asym_ram_tdp_write_first_dc.log2.res), line:34:18, endln:34:21
@@ -2563,8 +2570,15 @@ design: (work@asym_ram_tdp_write_first_dc)
       |vpiParent:
       \_param_assign: , line:45:12, endln:45:35
       |vpiDecompile:2
-      |vpiSize:64
+      |vpiSize:32
       |UINT:2
+      |vpiTypespec:
+      \_ref_typespec: (work@asym_ram_tdp_write_first_dc)
+        |vpiParent:
+        \_constant: , line:45:24, endln:45:35
+        |vpiFullName:work@asym_ram_tdp_write_first_dc
+        |vpiActual:
+        \_integer_typespec: , line:27:1, endln:27:8
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@asym_ram_tdp_write_first_dc.log2RATIO), line:45:12, endln:45:21

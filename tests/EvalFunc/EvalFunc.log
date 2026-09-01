@@ -745,7 +745,7 @@ function                                               8
 if_else                                                1
 if_stmt                                                1
 int_typespec                                           2
-integer_typespec                                      27
+integer_typespec                                      28
 integer_var                                           16
 io_decl                                                8
 logic_typespec                                         2
@@ -757,7 +757,7 @@ param_assign                                          64
 parameter                                             64
 range                                                  3
 ref_obj                                               52
-ref_typespec                                          45
+ref_typespec                                          82
 ref_var                                                3
 return_stmt                                            6
 sys_func_call                                          1
@@ -774,7 +774,7 @@ function                                              16
 if_else                                                2
 if_stmt                                                2
 int_typespec                                           2
-integer_typespec                                      27
+integer_typespec                                      28
 integer_var                                           21
 io_decl                                               16
 logic_typespec                                         2
@@ -786,7 +786,7 @@ param_assign                                          64
 parameter                                             64
 range                                                  3
 ref_obj                                               96
-ref_typespec                                          60
+ref_typespec                                          97
 ref_var                                                6
 return_stmt                                           12
 sys_func_call                                          2
@@ -1258,6 +1258,13 @@ design: (work@top)
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiTypespec:
+            \_ref_typespec: (prim_util_pkg::_clog2)
+              |vpiParent:
+              \_constant: , line:6:19, endln:6:20
+              |vpiFullName:prim_util_pkg::_clog2
+              |vpiActual:
+              \_integer_typespec: , line:4:5, endln:4:12
             |vpiConstType:9
           |vpiLhs:
           \_ref_var: (prim_util_pkg::_clog2::result), line:6:10, endln:6:16
@@ -1923,6 +1930,13 @@ design: (work@top)
                 |vpiDecompile:0
                 |vpiSize:64
                 |UINT:0
+                |vpiTypespec:
+                \_ref_typespec: (work@top.log2)
+                  |vpiParent:
+                  \_constant: , line:43:12, endln:43:13
+                  |vpiFullName:work@top.log2
+                  |vpiActual:
+                  \_integer_typespec: , line:36:1, endln:36:8
                 |vpiConstType:9
               |vpiLhs:
               \_ref_var: (work@top.log2.res), line:43:8, endln:43:11
@@ -2094,6 +2108,12 @@ design: (work@top)
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiTypespec:
+          \_ref_typespec: 
+            |vpiParent:
+            \_constant: , line:54:10, endln:54:11
+            |vpiActual:
+            \_integer_typespec: , line:51:10, endln:51:17
           |vpiConstType:9
         |vpiLhs:
         \_ref_obj: (work@top.log2_2.log2_2), line:54:1, endln:54:7
@@ -2338,8 +2358,15 @@ design: (work@top)
       |vpiParent:
       \_param_assign: , line:64:12, endln:64:36
       |vpiDecompile:5
-      |vpiSize:64
+      |vpiSize:32
       |UINT:5
+      |vpiTypespec:
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:64:25, endln:64:36
+        |vpiFullName:work@top
+        |vpiActual:
+        \_integer_typespec: , line:36:1, endln:36:8
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.log2RATIO1), line:64:12, endln:64:22
@@ -2352,8 +2379,15 @@ design: (work@top)
       |vpiParent:
       \_param_assign: , line:65:12, endln:65:37
       |vpiDecompile:5
-      |vpiSize:64
+      |vpiSize:32
       |INT:5
+      |vpiTypespec:
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:65:25, endln:65:37
+        |vpiFullName:work@top
+        |vpiActual:
+        \_integer_typespec: , line:24:20, endln:24:27
       |vpiConstType:7
     |vpiLhs:
     \_parameter: (work@top.log2RATIO2), line:65:12, endln:65:22
@@ -2366,8 +2400,15 @@ design: (work@top)
       |vpiParent:
       \_param_assign: , line:66:12, endln:66:38
       |vpiDecompile:5
-      |vpiSize:64
+      |vpiSize:32
       |UINT:5
+      |vpiTypespec:
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:66:25, endln:66:38
+        |vpiFullName:work@top
+        |vpiActual:
+        \_integer_typespec: , line:51:10, endln:51:17
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.log2RATIO3), line:66:12, endln:66:22
@@ -2380,8 +2421,15 @@ design: (work@top)
       |vpiParent:
       \_param_assign: , line:67:12, endln:67:52
       |vpiDecompile:5
-      |vpiSize:64
+      |vpiSize:32
       |INT:5
+      |vpiTypespec:
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:67:25, endln:67:52
+        |vpiFullName:work@top
+        |vpiActual:
+        \_integer_typespec: , line:12:22, endln:12:29
       |vpiConstType:7
     |vpiLhs:
     \_parameter: (work@top.log2RATIO4), line:67:12, endln:67:22

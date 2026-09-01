@@ -99,7 +99,7 @@ case_stmt                                              1
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                            8151
+constant                                            8156
 cont_assign                                          685
 design                                                 1
 enum_const                                             5
@@ -123,20 +123,20 @@ integer_typespec                                       4
 integer_var                                            3
 io_decl                                               12
 logic_net                                           2089
-logic_typespec                                      2519
+logic_typespec                                      2520
 logic_var                                              8
 module_inst                                           17
 named_begin                                            1
-operation                                           2307
+operation                                           2310
 package                                                2
 param_assign                                         123
 parameter                                            171
 part_select                                           36
 port                                                1013
-range                                               2271
+range                                               2272
 ref_module                                             4
-ref_obj                                             3807
-ref_typespec                                        2886
+ref_obj                                             3810
+ref_typespec                                        2914
 ref_var                                                3
 sys_func_call                                          9
 sys_task_call                                          5
@@ -155,7 +155,7 @@ case_stmt                                              2
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                            8207
+constant                                            8212
 cont_assign                                         1280
 design                                                 1
 enum_const                                            10
@@ -179,20 +179,20 @@ integer_typespec                                       4
 integer_var                                            5
 io_decl                                               24
 logic_net                                           2089
-logic_typespec                                      2519
+logic_typespec                                      2520
 logic_var                                             16
 module_inst                                           17
 named_begin                                            1
-operation                                           3008
+operation                                           3011
 package                                                2
 param_assign                                         123
 parameter                                            171
 part_select                                           70
 port                                                1470
-range                                               2271
+range                                               2272
 ref_module                                             4
-ref_obj                                             6388
-ref_typespec                                        3407
+ref_obj                                             6391
+ref_typespec                                        3435
 ref_var                                                6
 sys_func_call                                          9
 sys_task_call                                          9
@@ -4019,6 +4019,12 @@ design: (work@axi_interconnect_wrapper)
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiTypespec:
+            \_ref_typespec: 
+              |vpiParent:
+              \_constant: , line:202:16, endln:202:17
+              |vpiActual:
+              \_logic_typespec: , line:196:5, endln:196:25
             |vpiConstType:9
           |vpiLhs:
           \_ref_obj: (work@axi_interconnect.calcBaseAddrs.base), line:202:9, endln:202:13
@@ -4044,6 +4050,13 @@ design: (work@axi_interconnect_wrapper)
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
+              |vpiTypespec:
+              \_ref_typespec: (work@axi_interconnect.calcBaseAddrs)
+                |vpiParent:
+                \_constant: , line:203:18, endln:203:19
+                |vpiFullName:work@axi_interconnect.calcBaseAddrs
+                |vpiActual:
+                \_integer_typespec: , line:195:5, endln:195:12
               |vpiConstType:9
             |vpiLhs:
             \_ref_var: (work@axi_interconnect.calcBaseAddrs.i), line:203:14, endln:203:15
@@ -64030,6 +64043,7 @@ design: (work@axi_interconnect_wrapper)
     \_param_assign: , line:218:11, endln:218:73
       |vpiParent:
       \_module_inst: work@axi_interconnect (work@axi_interconnect_wrapper.axi_interconnect), file:${SURELOG_DIR}/third_party/tests/AxiInterconnect/axi_interconnect_wrapper.v, line:1108:1, endln:1213:3
+      |vpiOverriden:1
       |vpiRhs:
       \_constant: , line:218:29, endln:218:73
         |vpiParent:
@@ -64037,6 +64051,13 @@ design: (work@axi_interconnect_wrapper)
         |vpiDecompile:128'b00000011000000000000000000000000000000100000000000000000000000000000000100000000000000000000000000000000000000000000000000000000
         |vpiSize:128
         |BIN:00000011000000000000000000000000000000100000000000000000000000000000000100000000000000000000000000000000000000000000000000000000
+        |vpiTypespec:
+        \_ref_typespec: (work@axi_interconnect_wrapper.axi_interconnect)
+          |vpiParent:
+          \_constant: , line:218:29, endln:218:73
+          |vpiFullName:work@axi_interconnect_wrapper.axi_interconnect
+          |vpiActual:
+          \_logic_typespec: , line:194:10, endln:194:44
         |vpiConstType:3
       |vpiLhs:
       \_parameter: (work@axi_interconnect_wrapper.axi_interconnect.M_BASE_ADDR_INT), line:218:11, endln:218:26
@@ -116928,6 +116949,52 @@ design: (work@axi_interconnect_wrapper)
   |UINT:4
 \_int_typespec: 
   |UINT:1
+\_logic_typespec: , line:194:10, endln:194:44
+  |vpiParent:
+  \_ref_typespec: 
+  |vpiRange:
+  \_range: , line:194:10, endln:194:44
+    |vpiParent:
+    \_logic_typespec: , line:194:10, endln:194:44
+    |vpiLeftRange:
+    \_operation: , line:194:11, endln:194:41
+      |vpiParent:
+      \_range: , line:194:10, endln:194:44
+      |vpiOpType:11
+      |vpiOperand:
+      \_constant: , line:194:11, endln:194:39
+        |vpiDecompile:128
+        |vpiSize:64
+        |INT:128
+        |vpiConstType:7
+      |vpiOperand:
+      \_constant: , line:194:40, endln:194:41
+        |vpiParent:
+        \_operation: , line:194:11, endln:194:41
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:194:42, endln:194:43
+      |vpiParent:
+      \_range: , line:194:10, endln:194:44
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_ref_typespec: 
+  |vpiParent:
+  \_constant: , line:218:57, endln:218:73
+  |vpiActual:
+  \_logic_typespec: , line:194:10, endln:194:44
+\_constant: , line:218:57, endln:218:73
+  |vpiDecompile:00000011000000000000000000000000000000100000000000000000000000000000000100000000000000000000000000000000000000000000000000000000
+  |vpiSize:128
+  |BIN:00000011000000000000000000000000000000100000000000000000000000000000000100000000000000000000000000000000000000000000000000000000
+  |vpiTypespec:
+  \_ref_typespec: 
+  |vpiConstType:3
 \_logic_typespec: , line:90:12, endln:90:16
 \_logic_typespec: , line:91:12, endln:91:16
 \_logic_typespec: , line:96:12, endln:96:39

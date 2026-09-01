@@ -553,7 +553,7 @@ param_assign                                          14
 parameter                                             14
 range                                                  7
 ref_obj                                                8
-ref_typespec                                          35
+ref_typespec                                          41
 ref_var                                                1
 task                                                   9
 === UHDM Object Stats End ===
@@ -589,7 +589,7 @@ param_assign                                          14
 parameter                                             14
 range                                                  7
 ref_obj                                               16
-ref_typespec                                          41
+ref_typespec                                          47
 ref_var                                                2
 task                                                  18
 === UHDM Object Stats End ===
@@ -1247,6 +1247,12 @@ design: (work@my_opt_reduce_or)
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiTypespec:
+          \_ref_typespec: 
+            |vpiParent:
+            \_constant: , line:10:35, endln:10:36
+            |vpiActual:
+            \_integer_typespec: , line:7:14, endln:7:21
           |vpiConstType:9
         |vpiLhs:
         \_ref_obj: (work@my_opt_reduce_or.count_nonconst_bits.count_nonconst_bits), line:10:13, endln:10:32
@@ -1272,6 +1278,13 @@ design: (work@my_opt_reduce_or)
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiTypespec:
+            \_ref_typespec: (work@my_opt_reduce_or.count_nonconst_bits)
+              |vpiParent:
+              \_constant: , line:11:22, endln:11:23
+              |vpiFullName:work@my_opt_reduce_or.count_nonconst_bits
+              |vpiActual:
+              \_integer_typespec: , line:8:9, endln:8:16
             |vpiConstType:9
           |vpiLhs:
           \_ref_var: (work@my_opt_reduce_or.count_nonconst_bits.i), line:11:18, endln:11:19

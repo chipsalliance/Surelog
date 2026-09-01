@@ -580,7 +580,7 @@ parameter                                             39
 range                                                 12
 ref_module                                             1
 ref_obj                                               30
-ref_typespec                                          49
+ref_typespec                                          53
 sys_task_call                                          4
 === UHDM Object Stats End ===
 [INF:EL0549] ${SURELOG_DIR}/tests/ArrayExprFuncArg/dut.sv:18:4: Elaboration info "VADDR[0] == 3".
@@ -614,7 +614,7 @@ parameter                                             39
 range                                                 13
 ref_module                                             1
 ref_obj                                               44
-ref_typespec                                          53
+ref_typespec                                          57
 sys_task_call                                          8
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ArrayExprFuncArg/slpp_all/surelog.uhdm ...
@@ -927,6 +927,13 @@ design: (work@main)
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiTypespec:
+          \_ref_typespec: (work@top.ASSIGN_VADDR)
+            |vpiParent:
+            \_constant: , line:11:17, endln:11:18
+            |vpiFullName:work@top.ASSIGN_VADDR
+            |vpiActual:
+            \_int_typespec: , line:11:9, endln:11:12
           |vpiConstType:9
         |vpiLhs:
         \_int_var: (work@top.ASSIGN_VADDR.i), line:11:13, endln:11:14
@@ -1106,6 +1113,12 @@ design: (work@main)
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiTypespec:
+          \_ref_typespec: 
+            |vpiParent:
+            \_constant: , line:26:21, endln:26:22
+            |vpiActual:
+            \_int_typespec: , line:25:17, endln:25:29
           |vpiConstType:9
         |vpiLhs:
         \_ref_obj: (work@top.MAX_VADDR_CNT.MAX_VADDR_CNT), line:26:5, endln:26:18
@@ -1131,6 +1144,13 @@ design: (work@main)
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiTypespec:
+            \_ref_typespec: (work@top.MAX_VADDR_CNT)
+              |vpiParent:
+              \_constant: , line:27:18, endln:27:19
+              |vpiFullName:work@top.MAX_VADDR_CNT
+              |vpiActual:
+              \_int_typespec: , line:27:10, endln:27:13
             |vpiConstType:9
           |vpiLhs:
           \_int_var: (work@top.MAX_VADDR_CNT.i), line:27:14, endln:27:15
@@ -1641,7 +1661,7 @@ design: (work@main)
           \_constant: , line:34:37, endln:34:62
           |vpiFullName:work@main.top1
           |vpiActual:
-          \_int_typespec: , line:34:12, endln:34:24
+          \_int_typespec: , line:25:17, endln:25:29
         |vpiConstType:3
       |vpiLhs:
       \_parameter: (work@main.top1.MAX_VADDR), line:34:25, endln:34:34

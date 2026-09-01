@@ -757,9 +757,9 @@ func_call                                             24
 function                                              17
 if_stmt                                                2
 import_typespec                                        3
-int_typespec                                          41
+int_typespec                                          42
 int_var                                                8
-integer_typespec                                      17
+integer_typespec                                      19
 integer_var                                            8
 io_decl                                               19
 logic_net                                              1
@@ -772,7 +772,7 @@ param_assign                                          83
 parameter                                             86
 range                                                  5
 ref_obj                                               65
-ref_typespec                                         139
+ref_typespec                                         150
 ref_var                                                2
 return_stmt                                            8
 task                                                   9
@@ -795,9 +795,9 @@ func_call                                             28
 function                                              35
 if_stmt                                                5
 import_typespec                                        3
-int_typespec                                          41
+int_typespec                                          42
 int_var                                               20
-integer_typespec                                      17
+integer_typespec                                      19
 integer_var                                           12
 io_decl                                               39
 logic_net                                              1
@@ -810,7 +810,7 @@ param_assign                                          83
 parameter                                             86
 range                                                  8
 ref_obj                                              116
-ref_typespec                                         172
+ref_typespec                                         183
 ref_var                                                4
 return_stmt                                           17
 task                                                  18
@@ -1868,6 +1868,13 @@ design: (work@flash_ctrl_info_cfg)
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiTypespec:
+            \_ref_typespec: (prim_util_pkg::_clog2)
+              |vpiParent:
+              \_constant: , line:9:19, endln:9:20
+              |vpiFullName:prim_util_pkg::_clog2
+              |vpiActual:
+              \_integer_typespec: , line:7:5, endln:7:12
             |vpiConstType:9
           |vpiLhs:
           \_ref_var: (prim_util_pkg::_clog2::result), line:9:10, endln:9:16
@@ -2151,6 +2158,12 @@ design: (work@flash_ctrl_info_cfg)
       |vpiDecompile:10
       |vpiSize:64
       |UINT:10
+      |vpiTypespec:
+      \_ref_typespec: 
+        |vpiParent:
+        \_constant: , line:28:5, endln:28:7
+        |vpiActual:
+        \_int_typespec: , line:36:5, endln:36:8
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (flash_ctrl_pkg::InfosPerBank), line:27:15, endln:27:27
@@ -2163,6 +2176,12 @@ design: (work@flash_ctrl_info_cfg)
       |vpiDecompile:4
       |vpiSize:64
       |INT:4
+      |vpiTypespec:
+      \_ref_typespec: 
+        |vpiParent:
+        \_constant: 
+        |vpiActual:
+        \_integer_typespec: , line:15:20, endln:15:27
       |vpiConstType:7
     |vpiLhs:
     \_parameter: (flash_ctrl_pkg::InfoPageW), line:33:16, endln:33:25
@@ -2276,6 +2295,12 @@ design: (work@flash_ctrl_info_cfg)
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiTypespec:
+          \_ref_typespec: 
+            |vpiParent:
+            \_constant: , line:36:23, endln:36:24
+            |vpiActual:
+            \_int_typespec: , line:36:5, endln:36:8
           |vpiConstType:9
         |vpiLhs:
         \_int_var: (flash_ctrl_pkg::max_info_pages::current_max), line:36:9, endln:36:20
@@ -2307,6 +2332,13 @@ design: (work@flash_ctrl_info_cfg)
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiTypespec:
+            \_ref_typespec: (flash_ctrl_pkg::max_info_pages)
+              |vpiParent:
+              \_constant: , line:37:18, endln:37:19
+              |vpiFullName:flash_ctrl_pkg::max_info_pages
+              |vpiActual:
+              \_int_typespec: , line:37:10, endln:37:13
             |vpiConstType:9
           |vpiLhs:
           \_int_var: (flash_ctrl_pkg::max_info_pages::i), line:37:14, endln:37:15
@@ -3113,6 +3145,13 @@ design: (work@flash_ctrl_info_cfg)
       |vpiDecompile:10
       |vpiSize:64
       |UINT:10
+      |vpiTypespec:
+      \_ref_typespec: (work@flash_ctrl_info_cfg)
+        |vpiParent:
+        \_constant: , line:28:5, endln:28:7
+        |vpiFullName:work@flash_ctrl_info_cfg
+        |vpiActual:
+        \_int_typespec: , line:36:5, endln:36:8
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@flash_ctrl_info_cfg.InfosPerBank), line:27:15, endln:27:27
@@ -3140,6 +3179,13 @@ design: (work@flash_ctrl_info_cfg)
       |vpiDecompile:4
       |vpiSize:64
       |INT:4
+      |vpiTypespec:
+      \_ref_typespec: (work@flash_ctrl_info_cfg)
+        |vpiParent:
+        \_constant: 
+        |vpiFullName:work@flash_ctrl_info_cfg
+        |vpiActual:
+        \_integer_typespec: , line:15:20, endln:15:27
       |vpiConstType:7
     |vpiLhs:
     \_parameter: (work@flash_ctrl_info_cfg.InfoPageW), line:33:16, endln:33:25
@@ -4810,11 +4856,23 @@ design: (work@flash_ctrl_info_cfg)
   |vpiInstance:
   \_package: flash_ctrl_pkg (flash_ctrl_pkg::), file:${SURELOG_DIR}/tests/EvalFuncPack/dut.sv, line:24:1, endln:45:11
   |vpiSigned:1
+\_int_typespec: , line:36:5, endln:36:8
+  |vpiParent:
+  \_ref_typespec: (work@flash_ctrl_info_cfg)
+  |vpiInstance:
+  \_package: flash_ctrl_pkg (flash_ctrl_pkg::), file:${SURELOG_DIR}/tests/EvalFuncPack/dut.sv, line:24:1, endln:45:11
+  |vpiSigned:1
 \_int_typespec: , line:27:11, endln:27:14
   |vpiParent:
   \_ref_typespec: (work@flash_ctrl_info_cfg.InfosPerBank)
   |vpiInstance:
   \_package: flash_ctrl_pkg (flash_ctrl_pkg::), file:${SURELOG_DIR}/tests/EvalFuncPack/dut.sv, line:24:1, endln:45:11
+  |vpiSigned:1
+\_integer_typespec: , line:15:20, endln:15:27
+  |vpiParent:
+  \_ref_typespec: (work@flash_ctrl_info_cfg)
+  |vpiInstance:
+  \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFuncPack/dut.sv, line:2:1, endln:22:11
   |vpiSigned:1
 \_int_typespec: , line:33:12, endln:33:15
   |vpiParent:
@@ -5080,7 +5138,7 @@ design: (work@flash_ctrl_info_cfg)
           |vpiParent:
           \_constant: , line:61:8, endln:61:17
           |vpiActual:
-          \_int_typespec: , line:33:12, endln:33:15
+          \_integer_typespec: , line:15:20, endln:15:27
         |vpiConstType:7
       |vpiOperand:
       \_constant: , line:61:18, endln:61:19
@@ -5098,6 +5156,12 @@ design: (work@flash_ctrl_info_cfg)
       |vpiSize:64
       |UINT:0
       |vpiConstType:9
+\_integer_typespec: , line:15:20, endln:15:27
+  |vpiParent:
+  \_ref_typespec: 
+  |vpiInstance:
+  \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/EvalFuncPack/dut.sv, line:2:1, endln:22:11
+  |vpiSigned:1
 \_int_typespec: , line:33:12, endln:33:15
   |vpiParent:
   \_ref_typespec: (work@flash_ctrl_info_cfg.InfoPageW)

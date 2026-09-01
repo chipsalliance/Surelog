@@ -116,7 +116,7 @@ design                                                 1
 func_call                                              2
 function                                               4
 import_typespec                                        2
-int_typespec                                          13
+int_typespec                                          14
 int_var                                               11
 logic_net                                              1
 logic_var                                              1
@@ -126,7 +126,7 @@ param_assign                                           2
 parameter                                              2
 port                                                   2
 ref_obj                                                9
-ref_typespec                                          14
+ref_typespec                                          16
 return_stmt                                            4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -139,7 +139,7 @@ design                                                 1
 func_call                                              2
 function                                               8
 import_typespec                                        2
-int_typespec                                          13
+int_typespec                                          14
 int_var                                               23
 logic_net                                              1
 logic_var                                              1
@@ -149,7 +149,7 @@ param_assign                                           2
 parameter                                              2
 port                                                   3
 ref_obj                                               15
-ref_typespec                                          27
+ref_typespec                                          29
 return_stmt                                            8
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/PkgImportFunc/slpp_all/surelog.uhdm ...
@@ -523,6 +523,13 @@ design: (work@top)
           |vpiDecompile:5
           |vpiSize:64
           |UINT:5
+          |vpiTypespec:
+          \_ref_typespec: (lc_ctrl_state_pkg::get_5)
+            |vpiParent:
+            \_constant: , line:3:20, endln:3:21
+            |vpiFullName:lc_ctrl_state_pkg::get_5
+            |vpiActual:
+            \_int_typespec: , line:3:7, endln:3:10
           |vpiConstType:9
         |vpiLhs:
         \_int_var: (lc_ctrl_state_pkg::get_5::result), line:3:11, endln:3:17
@@ -661,6 +668,13 @@ design: (work@top)
       |vpiDecompile:5
       |vpiSize:32
       |UINT:5
+      |vpiTypespec:
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:3:20, endln:3:21
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:3:7, endln:3:10
       |vpiConstType:9
     |vpiLhs:
     \_ref_obj: (work@top.o), line:13:11, endln:13:12
@@ -1008,6 +1022,12 @@ design: (work@top)
     |vpiFullName:work@top.o
     |vpiActual:
     \_logic_net: (work@top.o), line:12:23, endln:12:24
+\_int_typespec: , line:3:7, endln:3:10
+  |vpiParent:
+  \_ref_typespec: (work@top)
+  |vpiInstance:
+  \_package: prim_util_pkg (prim_util_pkg::), file:${SURELOG_DIR}/tests/PkgImportFunc/dut.sv, line:1:1, endln:6:11
+  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
