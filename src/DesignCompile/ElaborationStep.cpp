@@ -193,9 +193,21 @@ bool ElaborationStep::bindTypedefs_() {
           typespec* tpclone = nullptr;
           if (Packed_dimension &&
               fC->Type(Packed_dimension) == VObjectType::paPacked_dimension) {
+            // Module-scope typedef dimensions (`typedef entry_t
+            // [FlushEntries-1:0] dir_t`) must stay SYMBOLIC: reducing here
+            // folds them with the module's DEFAULT parameter values (a
+            // struct config '0 gave [-1:0] — hpdcache_flush's directory
+            // collapsed from 8 entries to 2), and the shared typespec is
+            // never re-elaborated per instance.  Packages and file scopes
+            // have final parameter values, so reduction stays correct there.
+            Reduce tdReduce =
+                (valuedcomponenti_cast<Package*>(comp) ||
+                 valuedcomponenti_cast<FileContent*>(comp))
+                    ? Reduce::Yes
+                    : Reduce::No;
             tpclone = m_helper.compileTypespec(
                 defTuple.second, typd->getFileContent(),
-                typd->getDefinitionNode(), m_compileDesign, Reduce::Yes,
+                typd->getDefinitionNode(), m_compileDesign, tdReduce,
                 nullptr, nullptr, false);
           } else if (typespec* tps = def->getTypespec()) {
             ElaboratorContext elaboratorContext(&s, false, true);
