@@ -300,7 +300,7 @@ AST_DEBUG_END
 assignment                                             4
 begin                                                  1
 bit_select                                             1
-constant                                              99
+constant                                             113
 cont_assign                                            1
 design                                                 1
 func_call                                              3
@@ -308,23 +308,23 @@ function                                               2
 if_stmt                                                1
 io_decl                                                3
 logic_net                                              6
-logic_typespec                                        26
+logic_typespec                                        33
 logic_var                                             10
 module_inst                                            9
 operation                                              5
 param_assign                                          34
 parameter                                             34
 port                                                   6
-range                                                 29
+range                                                 36
 ref_obj                                               17
-ref_typespec                                          43
+ref_typespec                                          52
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
 assignment                                             8
 begin                                                  2
 bit_select                                             2
-constant                                              99
+constant                                             113
 cont_assign                                            2
 design                                                 1
 func_call                                              6
@@ -332,16 +332,16 @@ function                                               4
 if_stmt                                                2
 io_decl                                                6
 logic_net                                              6
-logic_typespec                                        26
+logic_typespec                                        33
 logic_var                                             10
 module_inst                                            9
 operation                                             10
 param_assign                                          34
 parameter                                             34
 port                                                   9
-range                                                 29
+range                                                 36
 ref_obj                                               31
-ref_typespec                                          49
+ref_typespec                                          58
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FuncSideEffect/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/FuncSideEffect/slpp_all/checker/surelog.chk.html ...
@@ -522,6 +522,12 @@ design: (work@const_fold_func_top)
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
+          |vpiTypespec:
+          \_ref_typespec: 
+            |vpiParent:
+            \_constant: , line:16:22, endln:16:23
+            |vpiActual:
+            \_logic_typespec: , line:12:22, endln:12:27
           |vpiConstType:9
         |vpiLhs:
         \_ref_obj: (work@const_fold_func_top.pow_flip_b.pow_flip_b), line:16:9, endln:16:19

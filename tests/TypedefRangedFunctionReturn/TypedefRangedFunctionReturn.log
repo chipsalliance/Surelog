@@ -119,13 +119,13 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 1.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              22
+constant                                              28
 cont_assign                                            2
 design                                                 1
 func_call                                              2
 function                                               1
 logic_net                                              2
-logic_typespec                                         6
+logic_typespec                                         9
 logic_var                                              2
 module_inst                                            5
 operation                                              1
@@ -134,20 +134,20 @@ packed_array_var                                       1
 param_assign                                           1
 parameter                                              1
 port                                                   2
-range                                                  9
+range                                                 12
 ref_obj                                                5
-ref_typespec                                           7
+ref_typespec                                          11
 return_stmt                                            1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              22
+constant                                              28
 cont_assign                                            3
 design                                                 1
 func_call                                              2
 function                                               2
 logic_net                                              2
-logic_typespec                                         6
+logic_typespec                                         9
 logic_var                                              2
 module_inst                                            5
 operation                                              2
@@ -156,9 +156,9 @@ packed_array_var                                       1
 param_assign                                           1
 parameter                                              1
 port                                                   3
-range                                                  9
+range                                                 12
 ref_obj                                                7
-ref_typespec                                           8
+ref_typespec                                          12
 return_stmt                                            2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/TypedefRangedFunctionReturn/slpp_all/surelog.uhdm ...
@@ -399,6 +399,13 @@ design: (work@top)
       \_cont_assign: , line:13:11, endln:13:24
       |vpiSize:64
       |BIN:1101111010101101101111101110111110101011110011010001001000110100
+      |vpiTypespec:
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: 
+        |vpiFullName:work@top
+        |vpiActual:
+        \_logic_typespec: , line:9:23, endln:9:33
       |vpiConstType:3
     |vpiLhs:
     \_ref_obj: (work@top.o), line:13:11, endln:13:12
@@ -524,6 +531,93 @@ design: (work@top)
     \_constant: , line:6:29, endln:6:30
       |vpiParent:
       \_range: , line:6:25, endln:6:31
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:9:23, endln:9:33
+  |vpiParent:
+  \_ref_typespec: (work@top)
+  |vpiElemTypespec:
+  \_ref_typespec: (work@top)
+    |vpiParent:
+    \_logic_typespec: , line:9:23, endln:9:33
+    |vpiFullName:work@top
+    |vpiActual:
+    \_logic_typespec: (word), line:7:12, endln:7:24
+  |vpiRange:
+  \_range: , line:9:28, endln:9:33
+    |vpiParent:
+    \_logic_typespec: , line:9:23, endln:9:33
+    |vpiLeftRange:
+    \_constant: , line:9:29, endln:9:30
+      |vpiParent:
+      \_range: , line:9:28, endln:9:33
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:9:31, endln:9:32
+      |vpiParent:
+      \_range: , line:9:28, endln:9:33
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: (word), line:7:12, endln:7:24
+  |vpiParent:
+  \_ref_typespec: (work@top)
+  |vpiName:word
+  |vpiTypedefAlias:
+  \_ref_typespec: (work@top.word)
+    |vpiParent:
+    \_logic_typespec: (word), line:7:12, endln:7:24
+    |vpiFullName:work@top.word
+    |vpiActual:
+    \_logic_typespec: (word), line:7:12, endln:7:24
+  |vpiRange:
+  \_range: , line:7:18, endln:7:24
+    |vpiParent:
+    \_logic_typespec: (word), line:7:12, endln:7:24
+    |vpiLeftRange:
+    \_constant: , line:7:19, endln:7:21
+      |vpiParent:
+      \_range: , line:7:18, endln:7:24
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:7:22, endln:7:23
+      |vpiParent:
+      \_range: , line:7:18, endln:7:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: (word), line:7:12, endln:7:24
+  |vpiParent:
+  \_ref_typespec: (work@top.word)
+  |vpiName:word
+  |vpiInstance:
+  \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TypedefRangedFunctionReturn/dut.sv, line:6:1, endln:14:10
+  |vpiRange:
+  \_range: , line:7:18, endln:7:24
+    |vpiParent:
+    \_logic_typespec: (word), line:7:12, endln:7:24
+    |vpiLeftRange:
+    \_constant: , line:7:19, endln:7:21
+      |vpiParent:
+      \_range: , line:7:18, endln:7:24
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:7:22, endln:7:23
+      |vpiParent:
+      \_range: , line:7:18, endln:7:24
       |vpiDecompile:0
       |vpiSize:64
       |UINT:0

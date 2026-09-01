@@ -44,7 +44,7 @@ int_var                                                2
 io_decl                                                2
 logic_typespec                                         2
 logic_var                                              1
-module_inst                                            8
+module_inst                                            9
 operation                                              2
 package                                                2
 param_assign                                           4
@@ -52,7 +52,7 @@ parameter                                              4
 range                                                  2
 ref_module                                             2
 ref_obj                                               13
-ref_typespec                                           8
+ref_typespec                                          10
 return_stmt                                           10
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FuncCase/slpp_unit/surelog.uhdm ...
@@ -410,6 +410,12 @@ design: (work@top)
             |vpiDecompile:2
             |vpiSize:64
             |UINT:2
+            |vpiTypespec:
+            \_ref_typespec: 
+              |vpiParent:
+              \_constant: , line:10:23, endln:10:24
+              |vpiActual:
+              \_int_typespec: , line:7:20, endln:7:32
             |vpiConstType:9
       |vpiCaseItem:
       \_case_item: , line:11:7, endln:11:25
@@ -570,8 +576,15 @@ design: (work@top)
       |vpiParent:
       \_param_assign: , line:25:14, endln:25:39
       |vpiDecompile:2
-      |vpiSize:64
+      |vpiSize:32
       |UINT:2
+      |vpiTypespec:
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:25:18, endln:25:39
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:7:20, endln:7:32
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@top.p), line:25:14, endln:25:15

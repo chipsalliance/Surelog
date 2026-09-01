@@ -255,12 +255,12 @@ integer_typespec                                       4
 integer_var                                            2
 io_decl                                                2
 logic_var                                              4
-module_inst                                            7
+module_inst                                            8
 operation                                              2
 param_assign                                          24
 parameter                                             24
 ref_obj                                               12
-ref_typespec                                          14
+ref_typespec                                          24
 return_stmt                                            2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -277,12 +277,12 @@ integer_typespec                                       4
 integer_var                                            2
 io_decl                                                4
 logic_var                                              4
-module_inst                                            7
+module_inst                                            8
 operation                                              4
 param_assign                                          24
 parameter                                             24
 ref_obj                                               20
-ref_typespec                                          22
+ref_typespec                                          32
 return_stmt                                            4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FuncStatic/slpp_all/surelog.uhdm ...
@@ -476,6 +476,12 @@ design: (work@test)
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
+          |vpiTypespec:
+          \_ref_typespec: 
+            |vpiParent:
+            \_constant: , line:4:20, endln:4:21
+            |vpiActual:
+            \_int_typespec: , line:4:10, endln:4:13
           |vpiConstType:9
         |vpiLhs:
         \_int_var: (work@test.accumulate1.acc), line:4:14, endln:4:17
@@ -593,6 +599,12 @@ design: (work@test)
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
+          |vpiTypespec:
+          \_ref_typespec: 
+            |vpiParent:
+            \_constant: , line:10:13, endln:10:14
+            |vpiActual:
+            \_int_typespec: , line:10:3, endln:10:6
           |vpiConstType:9
         |vpiLhs:
         \_int_var: (work@test.accumulate2.acc), line:10:7, endln:10:10
@@ -687,8 +699,15 @@ design: (work@test)
       |vpiParent:
       \_param_assign: , line:15:12, endln:15:35
       |vpiDecompile:3
-      |vpiSize:64
+      |vpiSize:32
       |UINT:3
+      |vpiTypespec:
+      \_ref_typespec: (work@test)
+        |vpiParent:
+        \_constant: , line:15:21, endln:15:35
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:4:10, endln:4:13
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test.value1), line:15:12, endln:15:18
@@ -701,8 +720,15 @@ design: (work@test)
       |vpiParent:
       \_param_assign: , line:16:12, endln:16:35
       |vpiDecompile:4
-      |vpiSize:64
+      |vpiSize:32
       |UINT:4
+      |vpiTypespec:
+      \_ref_typespec: (work@test)
+        |vpiParent:
+        \_constant: , line:16:21, endln:16:35
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:4:10, endln:4:13
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test.value2), line:16:12, endln:16:18
@@ -715,8 +741,15 @@ design: (work@test)
       |vpiParent:
       \_param_assign: , line:17:12, endln:17:35
       |vpiDecompile:3
-      |vpiSize:64
+      |vpiSize:32
       |UINT:3
+      |vpiTypespec:
+      \_ref_typespec: (work@test)
+        |vpiParent:
+        \_constant: , line:17:21, endln:17:35
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:10:3, endln:10:6
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test.value3), line:17:12, endln:17:18
@@ -729,8 +762,15 @@ design: (work@test)
       |vpiParent:
       \_param_assign: , line:18:12, endln:18:35
       |vpiDecompile:4
-      |vpiSize:64
+      |vpiSize:32
       |UINT:4
+      |vpiTypespec:
+      \_ref_typespec: (work@test)
+        |vpiParent:
+        \_constant: , line:18:21, endln:18:35
+        |vpiFullName:work@test
+        |vpiActual:
+        \_int_typespec: , line:10:3, endln:10:6
       |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@test.value4), line:18:12, endln:18:18

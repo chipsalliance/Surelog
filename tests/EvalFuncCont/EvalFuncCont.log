@@ -599,7 +599,7 @@ parameter                                             10
 port                                                   2
 range                                                  4
 ref_obj                                               14
-ref_typespec                                          37
+ref_typespec                                          41
 sys_func_call                                          5
 task                                                   9
 while_stmt                                             1
@@ -637,7 +637,7 @@ parameter                                             10
 port                                                   3
 range                                                  4
 ref_obj                                               24
-ref_typespec                                          44
+ref_typespec                                          48
 sys_func_call                                         10
 task                                                  18
 while_stmt                                             2
@@ -1285,6 +1285,12 @@ design: (work@t)
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
+          |vpiTypespec:
+          \_ref_typespec: 
+            |vpiParent:
+            \_constant: , line:22:17, endln:22:18
+            |vpiActual:
+            \_integer_typespec: , line:20:13, endln:20:20
           |vpiConstType:9
         |vpiLhs:
         \_ref_obj: (work@t.num_out.num_out), line:22:7, endln:22:14
@@ -1625,8 +1631,15 @@ design: (work@t)
       |vpiParent:
       \_param_assign: , line:16:15, endln:16:39
       |vpiDecompile:4
-      |vpiSize:64
+      |vpiSize:32
       |INT:4
+      |vpiTypespec:
+      \_ref_typespec: (work@t)
+        |vpiParent:
+        \_constant: , line:16:25, endln:16:39
+        |vpiFullName:work@t
+        |vpiActual:
+        \_integer_typespec: , line:20:13, endln:20:20
       |vpiConstType:7
     |vpiLhs:
     \_parameter: (work@t.NUM_OUT), line:16:15, endln:16:22

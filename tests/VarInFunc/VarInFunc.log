@@ -394,7 +394,7 @@ begin                                                  1
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              23
+constant                                              25
 cont_assign                                            2
 design                                                 1
 enum_const                                             5
@@ -406,16 +406,16 @@ int_typespec                                           9
 int_var                                                4
 io_decl                                               11
 logic_net                                              4
-logic_typespec                                         8
+logic_typespec                                         9
 logic_var                                              4
 module_inst                                            5
 package                                                2
 param_assign                                           2
 parameter                                              2
 port                                                   4
-range                                                  8
+range                                                  9
 ref_obj                                                9
-ref_typespec                                          22
+ref_typespec                                          24
 return_stmt                                            1
 task                                                   9
 === UHDM Object Stats End ===
@@ -427,7 +427,7 @@ begin                                                  2
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              23
+constant                                              25
 cont_assign                                            3
 design                                                 1
 enum_const                                            10
@@ -439,16 +439,16 @@ int_typespec                                           9
 int_var                                                4
 io_decl                                               22
 logic_net                                              4
-logic_typespec                                         8
+logic_typespec                                         9
 logic_var                                              6
 module_inst                                            5
 package                                                2
 param_assign                                           2
 parameter                                              2
 port                                                   6
-range                                                  8
+range                                                  9
 ref_obj                                               14
-ref_typespec                                          31
+ref_typespec                                          33
 return_stmt                                            2
 task                                                  18
 === UHDM Object Stats End ===
@@ -1000,6 +1000,13 @@ design: (work@top)
           |vpiDecompile:3'b1
           |vpiSize:3
           |BIN:1
+          |vpiTypespec:
+          \_ref_typespec: (work@top.compute_next_state)
+            |vpiParent:
+            \_constant: , line:4:32, endln:4:36
+            |vpiFullName:work@top.compute_next_state
+            |vpiActual:
+            \_logic_typespec: , line:3:5, endln:3:16
           |vpiConstType:3
         |vpiLhs:
         \_ref_obj: (work@top.compute_next_state.function_variable), line:4:12, endln:4:29
@@ -1256,6 +1263,13 @@ design: (work@top)
       |vpiDecompile:3'b1
       |vpiSize:3
       |BIN:1
+      |vpiTypespec:
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:4:32, endln:4:36
+        |vpiFullName:work@top
+        |vpiActual:
+        \_logic_typespec: , line:3:5, endln:3:16
       |vpiConstType:3
     |vpiLhs:
     \_ref_obj: (work@top.b), line:7:10, endln:7:11
@@ -1585,6 +1599,29 @@ design: (work@top)
     \_constant: , line:1:31, endln:1:32
       |vpiParent:
       \_range: , line:1:28, endln:1:33
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:3:5, endln:3:16
+  |vpiParent:
+  \_ref_typespec: (work@top)
+  |vpiRange:
+  \_range: , line:3:11, endln:3:16
+    |vpiParent:
+    \_logic_typespec: , line:3:5, endln:3:16
+    |vpiLeftRange:
+    \_constant: , line:3:12, endln:3:13
+      |vpiParent:
+      \_range: , line:3:11, endln:3:16
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:14, endln:3:15
+      |vpiParent:
+      \_range: , line:3:11, endln:3:16
       |vpiDecompile:0
       |vpiSize:64
       |UINT:0

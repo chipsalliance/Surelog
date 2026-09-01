@@ -20215,7 +20215,7 @@ port                                                  42
 range                                               1670
 ref_module                                             6
 ref_obj                                             1740
-ref_typespec                                        5629
+ref_typespec                                        5631
 return_stmt                                          212
 string_typespec                                      836
 string_var                                             8
@@ -20277,7 +20277,7 @@ port                                                  84
 range                                               1670
 ref_module                                             6
 ref_obj                                             3945
-ref_typespec                                        6582
+ref_typespec                                        6584
 return_stmt                                          684
 string_typespec                                      836
 string_var                                            22
@@ -76464,6 +76464,12 @@ design: (work@top)
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+          |vpiTypespec:
+          \_ref_typespec: 
+            |vpiParent:
+            \_constant: , line:1770:34, endln:1770:35
+            |vpiActual:
+            \_int_typespec: , line:1770:15, endln:1770:27
           |vpiConstType:9
         |vpiLhs:
         \_int_var: (fpnew_pkg::max_fp_width::res), line:1770:28, endln:1770:31
@@ -76495,6 +76501,13 @@ design: (work@top)
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+            |vpiTypespec:
+            \_ref_typespec: (fpnew_pkg::max_fp_width)
+              |vpiParent:
+              \_constant: , line:1771:27, endln:1771:28
+              |vpiFullName:fpnew_pkg::max_fp_width
+              |vpiActual:
+              \_int_typespec: , line:1771:10, endln:1771:22
             |vpiConstType:9
           |vpiLhs:
           \_int_var: (fpnew_pkg::max_fp_width::i), line:1771:23, endln:1771:24
@@ -120135,7 +120148,7 @@ design: (work@top)
                             \_constant: , line:1972:40, endln:1972:89
                             |vpiFullName:work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.i_fpnew_bulk.gen_nanbox_check[0]
                             |vpiActual:
-                            \_int_typespec: , line:1972:16, endln:1972:28
+                            \_int_typespec: , line:1764:22, endln:1764:34
                           |vpiConstType:9
                         |vpiLhs:
                         \_parameter: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.i_fpnew_bulk.gen_nanbox_check[0].FP_WIDTH), line:1972:29, endln:1972:37
@@ -120583,7 +120596,7 @@ design: (work@top)
                             \_constant: , line:1972:40, endln:1972:89
                             |vpiFullName:work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.i_fpnew_bulk.gen_nanbox_check[1]
                             |vpiActual:
-                            \_int_typespec: , line:1972:16, endln:1972:28
+                            \_int_typespec: , line:1764:22, endln:1764:34
                           |vpiConstType:9
                         |vpiLhs:
                         \_parameter: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.i_fpnew_bulk.gen_nanbox_check[1].FP_WIDTH), line:1972:29, endln:1972:37
@@ -120682,7 +120695,7 @@ design: (work@top)
                             \_constant: , line:1972:40, endln:1972:89
                             |vpiFullName:work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.i_fpnew_bulk.gen_nanbox_check[2]
                             |vpiActual:
-                            \_int_typespec: , line:1972:16, endln:1972:28
+                            \_int_typespec: , line:1764:22, endln:1764:34
                           |vpiConstType:9
                         |vpiLhs:
                         \_parameter: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.i_fpnew_bulk.gen_nanbox_check[2].FP_WIDTH), line:1972:29, endln:1972:37
@@ -121130,7 +121143,7 @@ design: (work@top)
                             \_constant: , line:1972:40, endln:1972:89
                             |vpiFullName:work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.i_fpnew_bulk.gen_nanbox_check[3]
                             |vpiActual:
-                            \_int_typespec: , line:1972:16, endln:1972:28
+                            \_int_typespec: , line:1764:22, endln:1764:34
                           |vpiConstType:9
                         |vpiLhs:
                         \_parameter: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.i_fpnew_bulk.gen_nanbox_check[3].FP_WIDTH), line:1972:29, endln:1972:37
@@ -121578,7 +121591,7 @@ design: (work@top)
                             \_constant: , line:1972:40, endln:1972:89
                             |vpiFullName:work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.i_fpnew_bulk.gen_nanbox_check[4]
                             |vpiActual:
-                            \_int_typespec: , line:1972:16, endln:1972:28
+                            \_int_typespec: , line:1764:22, endln:1764:34
                           |vpiConstType:9
                         |vpiLhs:
                         \_parameter: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.i_fpnew_bulk.gen_nanbox_check[4].FP_WIDTH), line:1972:29, endln:1972:37
@@ -174085,39 +174098,6 @@ design: (work@top)
   \_constant: , line:1969:42, endln:1969:67
   |vpiLhs:
   \_parameter: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.i_fpnew_bulk.NUM_FORMATS), line:1969:27, endln:1969:38
-\_int_typespec: , line:1972:16, endln:1972:28
-  |vpiParent:
-  \_parameter: (FP_WIDTH), line:1972:29, endln:1972:37
-\_parameter: (FP_WIDTH), line:1972:29, endln:1972:37
-  |vpiParent:
-  \_param_assign: , line:1972:29, endln:1972:89
-  |UINT:32
-  |vpiTypespec:
-  \_ref_typespec: (FP_WIDTH)
-    |vpiParent:
-    \_parameter: (FP_WIDTH), line:1972:29, endln:1972:37
-    |vpiFullName:FP_WIDTH
-    |vpiActual:
-    \_int_typespec: , line:1972:16, endln:1972:28
-  |vpiLocalParam:1
-  |vpiName:FP_WIDTH
-\_param_assign: , line:1972:29, endln:1972:89
-  |vpiRhs:
-  \_constant: , line:1972:40, endln:1972:89
-    |vpiParent:
-    \_param_assign: , line:1972:29, endln:1972:89
-    |vpiDecompile:32
-    |vpiSize:32
-    |UINT:32
-    |vpiTypespec:
-    \_ref_typespec: 
-      |vpiParent:
-      \_constant: , line:1972:40, endln:1972:89
-      |vpiActual:
-      \_int_typespec: , line:1972:16, endln:1972:28
-    |vpiConstType:9
-  |vpiLhs:
-  \_parameter: (FP_WIDTH), line:1972:29, endln:1972:37
 \_param_assign: , line:1972:29, endln:1972:89
   |vpiParent:
   \_gen_scope: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.i_fpnew_bulk.gen_nanbox_check[0]), line:1971:56, endln:1983:6
@@ -174125,39 +174105,6 @@ design: (work@top)
   \_constant: , line:1972:40, endln:1972:89
   |vpiLhs:
   \_parameter: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.i_fpnew_bulk.gen_nanbox_check[0].FP_WIDTH), line:1972:29, endln:1972:37
-\_int_typespec: , line:1972:16, endln:1972:28
-  |vpiParent:
-  \_parameter: (FP_WIDTH), line:1972:29, endln:1972:37
-\_parameter: (FP_WIDTH), line:1972:29, endln:1972:37
-  |vpiParent:
-  \_param_assign: , line:1972:29, endln:1972:89
-  |UINT:64
-  |vpiTypespec:
-  \_ref_typespec: (FP_WIDTH)
-    |vpiParent:
-    \_parameter: (FP_WIDTH), line:1972:29, endln:1972:37
-    |vpiFullName:FP_WIDTH
-    |vpiActual:
-    \_int_typespec: , line:1972:16, endln:1972:28
-  |vpiLocalParam:1
-  |vpiName:FP_WIDTH
-\_param_assign: , line:1972:29, endln:1972:89
-  |vpiRhs:
-  \_constant: , line:1972:40, endln:1972:89
-    |vpiParent:
-    \_param_assign: , line:1972:29, endln:1972:89
-    |vpiDecompile:64
-    |vpiSize:32
-    |UINT:64
-    |vpiTypespec:
-    \_ref_typespec: 
-      |vpiParent:
-      \_constant: , line:1972:40, endln:1972:89
-      |vpiActual:
-      \_int_typespec: , line:1972:16, endln:1972:28
-    |vpiConstType:9
-  |vpiLhs:
-  \_parameter: (FP_WIDTH), line:1972:29, endln:1972:37
 \_param_assign: , line:1972:29, endln:1972:89
   |vpiParent:
   \_gen_scope: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.i_fpnew_bulk.gen_nanbox_check[1]), line:1971:56, endln:1983:6
@@ -174165,39 +174112,6 @@ design: (work@top)
   \_constant: , line:1972:40, endln:1972:89
   |vpiLhs:
   \_parameter: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.i_fpnew_bulk.gen_nanbox_check[1].FP_WIDTH), line:1972:29, endln:1972:37
-\_int_typespec: , line:1972:16, endln:1972:28
-  |vpiParent:
-  \_parameter: (FP_WIDTH), line:1972:29, endln:1972:37
-\_parameter: (FP_WIDTH), line:1972:29, endln:1972:37
-  |vpiParent:
-  \_param_assign: , line:1972:29, endln:1972:89
-  |UINT:16
-  |vpiTypespec:
-  \_ref_typespec: (FP_WIDTH)
-    |vpiParent:
-    \_parameter: (FP_WIDTH), line:1972:29, endln:1972:37
-    |vpiFullName:FP_WIDTH
-    |vpiActual:
-    \_int_typespec: , line:1972:16, endln:1972:28
-  |vpiLocalParam:1
-  |vpiName:FP_WIDTH
-\_param_assign: , line:1972:29, endln:1972:89
-  |vpiRhs:
-  \_constant: , line:1972:40, endln:1972:89
-    |vpiParent:
-    \_param_assign: , line:1972:29, endln:1972:89
-    |vpiDecompile:16
-    |vpiSize:32
-    |UINT:16
-    |vpiTypespec:
-    \_ref_typespec: 
-      |vpiParent:
-      \_constant: , line:1972:40, endln:1972:89
-      |vpiActual:
-      \_int_typespec: , line:1972:16, endln:1972:28
-    |vpiConstType:9
-  |vpiLhs:
-  \_parameter: (FP_WIDTH), line:1972:29, endln:1972:37
 \_param_assign: , line:1972:29, endln:1972:89
   |vpiParent:
   \_gen_scope: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.i_fpnew_bulk.gen_nanbox_check[2]), line:1971:56, endln:1983:6
@@ -174205,39 +174119,6 @@ design: (work@top)
   \_constant: , line:1972:40, endln:1972:89
   |vpiLhs:
   \_parameter: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.i_fpnew_bulk.gen_nanbox_check[2].FP_WIDTH), line:1972:29, endln:1972:37
-\_int_typespec: , line:1972:16, endln:1972:28
-  |vpiParent:
-  \_parameter: (FP_WIDTH), line:1972:29, endln:1972:37
-\_parameter: (FP_WIDTH), line:1972:29, endln:1972:37
-  |vpiParent:
-  \_param_assign: , line:1972:29, endln:1972:89
-  |UINT:8
-  |vpiTypespec:
-  \_ref_typespec: (FP_WIDTH)
-    |vpiParent:
-    \_parameter: (FP_WIDTH), line:1972:29, endln:1972:37
-    |vpiFullName:FP_WIDTH
-    |vpiActual:
-    \_int_typespec: , line:1972:16, endln:1972:28
-  |vpiLocalParam:1
-  |vpiName:FP_WIDTH
-\_param_assign: , line:1972:29, endln:1972:89
-  |vpiRhs:
-  \_constant: , line:1972:40, endln:1972:89
-    |vpiParent:
-    \_param_assign: , line:1972:29, endln:1972:89
-    |vpiDecompile:8
-    |vpiSize:32
-    |UINT:8
-    |vpiTypespec:
-    \_ref_typespec: 
-      |vpiParent:
-      \_constant: , line:1972:40, endln:1972:89
-      |vpiActual:
-      \_int_typespec: , line:1972:16, endln:1972:28
-    |vpiConstType:9
-  |vpiLhs:
-  \_parameter: (FP_WIDTH), line:1972:29, endln:1972:37
 \_param_assign: , line:1972:29, endln:1972:89
   |vpiParent:
   \_gen_scope: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.i_fpnew_bulk.gen_nanbox_check[3]), line:1971:56, endln:1983:6
@@ -174245,39 +174126,6 @@ design: (work@top)
   \_constant: , line:1972:40, endln:1972:89
   |vpiLhs:
   \_parameter: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.i_fpnew_bulk.gen_nanbox_check[3].FP_WIDTH), line:1972:29, endln:1972:37
-\_int_typespec: , line:1972:16, endln:1972:28
-  |vpiParent:
-  \_parameter: (FP_WIDTH), line:1972:29, endln:1972:37
-\_parameter: (FP_WIDTH), line:1972:29, endln:1972:37
-  |vpiParent:
-  \_param_assign: , line:1972:29, endln:1972:89
-  |UINT:16
-  |vpiTypespec:
-  \_ref_typespec: (FP_WIDTH)
-    |vpiParent:
-    \_parameter: (FP_WIDTH), line:1972:29, endln:1972:37
-    |vpiFullName:FP_WIDTH
-    |vpiActual:
-    \_int_typespec: , line:1972:16, endln:1972:28
-  |vpiLocalParam:1
-  |vpiName:FP_WIDTH
-\_param_assign: , line:1972:29, endln:1972:89
-  |vpiRhs:
-  \_constant: , line:1972:40, endln:1972:89
-    |vpiParent:
-    \_param_assign: , line:1972:29, endln:1972:89
-    |vpiDecompile:16
-    |vpiSize:32
-    |UINT:16
-    |vpiTypespec:
-    \_ref_typespec: 
-      |vpiParent:
-      \_constant: , line:1972:40, endln:1972:89
-      |vpiActual:
-      \_int_typespec: , line:1972:16, endln:1972:28
-    |vpiConstType:9
-  |vpiLhs:
-  \_parameter: (FP_WIDTH), line:1972:29, endln:1972:37
 \_param_assign: , line:1972:29, endln:1972:89
   |vpiParent:
   \_gen_scope: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.fpu_gen.i_fpnew_bulk.gen_nanbox_check[4]), line:1971:56, endln:1983:6

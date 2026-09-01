@@ -75,7 +75,7 @@ cont_assign                                            2
 design                                                 1
 func_call                                              2
 function                                               1
-int_typespec                                           4
+int_typespec                                           5
 int_var                                                2
 logic_net                                              1
 logic_var                                              1
@@ -84,7 +84,7 @@ param_assign                                           1
 parameter                                              1
 port                                                   2
 ref_obj                                                5
-ref_typespec                                           5
+ref_typespec                                           7
 return_stmt                                            1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -94,7 +94,7 @@ cont_assign                                            3
 design                                                 1
 func_call                                              2
 function                                               1
-int_typespec                                           4
+int_typespec                                           5
 int_var                                                2
 logic_net                                              1
 logic_var                                              1
@@ -103,7 +103,7 @@ param_assign                                           1
 parameter                                              1
 port                                                   3
 ref_obj                                                7
-ref_typespec                                           6
+ref_typespec                                           8
 return_stmt                                            1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/TopFunc/slpp_all/surelog.uhdm ...
@@ -196,6 +196,12 @@ design: (work@top)
       |vpiDecompile:1
       |vpiSize:64
       |UINT:1
+      |vpiTypespec:
+      \_ref_typespec: 
+        |vpiParent:
+        \_constant: , line:2:11, endln:2:12
+        |vpiActual:
+        \_int_typespec: , line:1:20, endln:1:23
       |vpiConstType:9
 |uhdmtopModules:
 \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/TopFunc/dut.sv, line:5:1, endln:7:10
@@ -254,6 +260,13 @@ design: (work@top)
       |vpiDecompile:1
       |vpiSize:32
       |UINT:1
+      |vpiTypespec:
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:2:11, endln:2:12
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:1:20, endln:1:23
       |vpiConstType:9
     |vpiLhs:
     \_ref_obj: (work@top.o), line:6:11, endln:6:12
@@ -285,6 +298,10 @@ design: (work@top)
     |vpiFullName:work@top.o
     |vpiActual:
     \_logic_net: (work@top.o), line:5:23, endln:5:24
+\_int_typespec: , line:1:20, endln:1:23
+  |vpiParent:
+  \_ref_typespec: (work@top)
+  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

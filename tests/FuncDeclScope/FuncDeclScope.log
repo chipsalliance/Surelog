@@ -313,7 +313,7 @@ function                                               4
 gen_if_else                                            2
 gen_scope                                              4
 gen_scope_array                                        4
-int_typespec                                          12
+int_typespec                                          14
 int_var                                                6
 interface_inst                                         3
 logic_net                                              2
@@ -325,7 +325,7 @@ param_assign                                           6
 parameter                                              6
 ref_module                                             1
 ref_obj                                               12
-ref_typespec                                          20
+ref_typespec                                          24
 return_stmt                                            4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -339,7 +339,7 @@ function                                               6
 gen_if_else                                            2
 gen_scope                                              5
 gen_scope_array                                        5
-int_typespec                                          12
+int_typespec                                          14
 int_var                                                6
 interface_inst                                         3
 logic_net                                              2
@@ -351,7 +351,7 @@ param_assign                                           6
 parameter                                              6
 ref_module                                             1
 ref_obj                                               13
-ref_typespec                                          20
+ref_typespec                                          24
 return_stmt                                            6
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FuncDeclScope/slpp_all/surelog.uhdm ...
@@ -839,6 +839,13 @@ design: (work@top)
             |vpiDecompile:1
             |vpiSize:32
             |UINT:1
+            |vpiTypespec:
+            \_ref_typespec: (work@top.interf.gen_block)
+              |vpiParent:
+              \_constant: , line:11:17, endln:11:18
+              |vpiFullName:work@top.interf.gen_block
+              |vpiActual:
+              \_int_typespec: , line:10:26, endln:10:29
             |vpiConstType:9
           |vpiLhs:
           \_ref_obj: (work@top.interf.gen_block.o), line:14:14, endln:14:15
@@ -878,6 +885,12 @@ design: (work@top)
               |vpiDecompile:1
               |vpiSize:64
               |UINT:1
+              |vpiTypespec:
+              \_ref_typespec: 
+                |vpiParent:
+                \_constant: , line:11:17, endln:11:18
+                |vpiActual:
+                \_int_typespec: , line:10:26, endln:10:29
               |vpiConstType:9
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top.gen_block), line:29:19, endln:35:19
@@ -901,6 +914,13 @@ design: (work@top)
           |vpiDecompile:1
           |vpiSize:32
           |UINT:1
+          |vpiTypespec:
+          \_ref_typespec: (work@top.gen_block)
+            |vpiParent:
+            \_constant: , line:31:17, endln:31:18
+            |vpiFullName:work@top.gen_block
+            |vpiActual:
+            \_int_typespec: , line:30:26, endln:30:29
           |vpiConstType:9
         |vpiLhs:
         \_ref_obj: (work@top.gen_block.o), line:34:14, endln:34:15
@@ -940,6 +960,12 @@ design: (work@top)
             |vpiDecompile:1
             |vpiSize:64
             |UINT:1
+            |vpiTypespec:
+            \_ref_typespec: 
+              |vpiParent:
+              \_constant: , line:31:17, endln:31:18
+              |vpiActual:
+              \_int_typespec: , line:30:26, endln:30:29
             |vpiConstType:9
 \_weaklyReferenced:
 \_int_typespec: , line:2:14, endln:2:26
@@ -987,6 +1013,10 @@ design: (work@top)
 \_int_typespec: , line:2:14, endln:2:26
   |vpiParent:
   \_ref_typespec: (work@top.interf.Depth)
+\_int_typespec: , line:10:26, endln:10:29
+  |vpiParent:
+  \_ref_typespec: (work@top.interf.gen_block)
+  |vpiSigned:1
 \_gen_scope: (work@top.gen_block), line:29:19, endln:35:19
   |vpiParent:
   \_gen_scope_array: (work@top.gen_block), line:29:19, endln:35:19
@@ -1014,6 +1044,10 @@ design: (work@top)
   |vpiFullName:work@top.gen_block
   |vpiGenScope:
   \_gen_scope: (work@top.gen_block), line:29:19, endln:35:19
+\_int_typespec: , line:30:26, endln:30:29
+  |vpiParent:
+  \_ref_typespec: (work@top.gen_block)
+  |vpiSigned:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
