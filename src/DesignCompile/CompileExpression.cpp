@@ -1316,6 +1316,89 @@ any *CompileHelper::getValue(std::string_view name, DesignComponent *component,
       setBreakpointHere++;
     }
   }
+  // A Value-store constant carries no typespec, so an ascending-range base
+  // read (`CPK_FORMATS[fmt]` on fpnew_pkg's `logic [0:4]`) later defaults to
+  // DESCENDING index mapping and reads MIRRORED — the CPK term of
+  // get_conv_lane_formats never fired and every CONV lane above 0 lost its
+  // FP64/CPK width.  Re-attach the declaring parameter's typespec: search
+  // the component chain, then every package (same last-resort spirit as
+  // getTaskFunc).
+  if (result != nullptr && result->UhdmType() == uhdmconstant &&
+      ((UHDM::constant *)result)->Typespec() == nullptr) {
+    std::string_view bare = name;
+    if (auto pos = name.rfind("::"); pos != std::string_view::npos)
+      bare = name.substr(pos + 2);
+    const UHDM::parameter *declp = nullptr;
+    DesignComponent *declc = nullptr;
+    for (DesignComponent *comp = component; comp && !declp;
+         comp = valuedcomponenti_cast<DesignComponent *>(
+             (DesignComponent *)comp->getParentScope())) {
+      if (comp->getParameters()) {
+        for (auto p : *comp->getParameters()) {
+          if (p->VpiName() == bare) {
+            declp = any_cast<const UHDM::parameter *>(p);
+            declc = comp;
+            break;
+          }
+        }
+      }
+    }
+    if (declp == nullptr) {
+      Design *design = compileDesign->getCompiler()->getDesign();
+      for (auto &pentry : design->getPackageDefinitions()) {
+        Package *pack = pentry.second;
+        if (pack == nullptr || pack->getParameters() == nullptr) continue;
+        for (auto p : *pack->getParameters()) {
+          if (p->VpiName() == bare) {
+            declp = any_cast<const UHDM::parameter *>(p);
+            declc = pack;
+            break;
+          }
+        }
+        if (declp) break;
+      }
+    }
+    // Attach ONLY for a provably ASCENDING single-range logic vector — the
+    // one shape where the missing typespec flips the read (everything else
+    // keeps the historical typeless behavior, containing the blast radius).
+    if (declp && declp->Typespec() && declp->Typespec()->Actual_typespec()) {
+      const UHDM::typespec *dts0 = declp->Typespec()->Actual_typespec();
+      if (const UHDM::logic_typespec *lts =
+              any_cast<const UHDM::logic_typespec *>(dts0)) {
+        if (lts->Ranges() && lts->Ranges()->size() == 1) {
+          UHDM::range *r0 = lts->Ranges()->at(0);
+          bool ok = false;
+          int64_t lv = 0, rv = 0;
+          if (r0->Left_expr() && r0->Right_expr()) {
+            bool inv = false;
+            UHDM::expr *le =
+                reduceExpr((any *)r0->Left_expr(), inv,
+                           declc ? declc : component, compileDesign, nullptr,
+                           fileId, lineNumber, nullptr, true);
+            UHDM::expr *re =
+                reduceExpr((any *)r0->Right_expr(), inv,
+                           declc ? declc : component, compileDesign, nullptr,
+                           fileId, lineNumber, nullptr, true);
+            if (!inv && le && re &&
+                le->UhdmType() == uhdmconstant &&
+                re->UhdmType() == uhdmconstant) {
+              UHDM::ExprEval eval;
+              bool giv = false;
+              lv = eval.get_value(giv, le);
+              rv = eval.get_value(giv, re);
+              ok = !giv;
+            }
+          }
+          if (ok && lv < rv) {
+            ref_typespec *rt = s.MakeRef_typespec();
+            rt->Actual_typespec((UHDM::typespec *)dts0);
+            rt->VpiParent(result);
+            ((UHDM::constant *)result)->Typespec(rt);
+          }
+        }
+      }
+    }
+  }
   if (m_checkForLoops) {
     m_stackLevel--;
   }
