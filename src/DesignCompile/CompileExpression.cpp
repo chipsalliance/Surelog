@@ -474,6 +474,22 @@ std::pair<UHDM::task_func *, DesignComponent *> CompileHelper::getTaskFunc(
       }
     }
   }
+  // Unqualified call inside a package function body evaluated from a
+  // module/gen-scope context (fpnew_pkg::get_conv_lane_int_formats calling
+  // get_conv_lane_formats): the caller's component chain never reaches the
+  // enclosing package, the eval scope carries no owning-package link, and the
+  // file-content scan above does not cover package-scoped functions.  Search
+  // every package as the true last resort (same spirit as the all-files scan).
+  for (Package *pack : design->getOrderedPackageDefinitions()) {
+    if (pack && pack->getTask_funcs()) {
+      for (UHDM::task_func *tf : *pack->getTask_funcs()) {
+        if (tf->VpiName() == name) {
+          result = std::make_pair(tf, pack);
+          return result;
+        }
+      }
+    }
+  }
   return result;
 }
 
