@@ -30,6 +30,7 @@
 #include <cstdint>
 #include <cstring>
 #include <functional>
+#include <algorithm>
 #include <map>
 #include <queue>
 #include <string>
@@ -152,6 +153,43 @@ bool ElaborationStep::bindTypedefs_() {
       TypeDef* typd = typed.second;
       defs.emplace_back(typd, classp);
     }
+  }
+
+  // getTypeDefMap() is name-ordered, so a typedef whose BASE is a
+  // later-alphabetical typedef of the SAME scope binds first, finds the base
+  // still DUMMY (no typespec yet), and comes out unsupported_typespec
+  // (`typedef pair_t [1:0][1:0] entry_t;` with `typedef word_t [1:0]
+  // pair_t;` — hpdcache_memctrl's hpdcache_data_entry_t left
+  // data_wentry/data_rentry as 1-bit nets and dropped every data-SRAM
+  // connection).  Reorder by the actual BY-NAME dependency: when a
+  // typedef's definition node is a plain type name naming another typedef
+  // of the same scope, emit that base first.  Everything else keeps its
+  // original position (source line order is NOT usable here — typedefs of
+  // one package can come from different include files whose line numbers
+  // interleave), and a cycle falls back to the original order.
+  {
+    std::vector<std::pair<TypeDef*, DesignComponent*>> ordered;
+    ordered.reserve(defs.size());
+    std::map<DesignComponent*, std::map<std::string_view, size_t>> byScope;
+    for (size_t i = 0; i < defs.size(); i++)
+      byScope[defs[i].second].emplace(defs[i].first->getName(), i);
+    std::vector<char> emitted(defs.size(), 0);
+    std::function<void(size_t)> emit = [&](size_t i) {
+      if (emitted[i]) return;
+      emitted[i] = 1;  // mark before recursing: breaks dependency cycles
+      TypeDef* typd = defs[i].first;
+      const FileContent* fC = typd->getFileContent();
+      NodeId defNode = typd->getDefinitionNode();
+      if (fC && defNode &&
+          fC->Type(defNode) == VObjectType::slStringConst) {
+        auto& scopeMap = byScope[defs[i].second];
+        auto it = scopeMap.find(fC->SymName(defNode));
+        if (it != scopeMap.end() && it->second != i) emit(it->second);
+      }
+      ordered.push_back(defs[i]);
+    };
+    for (size_t i = 0; i < defs.size(); i++) emit(i);
+    defs = std::move(ordered);
   }
 
   for (auto& defTuple : defs) {
