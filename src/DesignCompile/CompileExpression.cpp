@@ -838,7 +838,34 @@ any *CompileHelper::decodeHierPath(hier_path *path, bool &invalidValue,
   UHDM::GetObjectFunctor getTypespecFunctor =
       [&](std::string_view name, const any *inst,
           const any *pexpr) -> UHDM::any * {
-    return getParamTypespec(name, component);
+    if (UHDM::any *ts = getParamTypespec(name, component)) return ts;
+    // A `P[k]` element-select reduced from inside a GENERATE SCOPE reduces with
+    // the gen-scope component, which does not carry the enclosing module's
+    // localparams — so getParamTypespec above misses `P`.  Walk the instance
+    // hierarchy's netlist param_assigns the same way getObject() resolves the
+    // value, and return the parameter's DECLARED typespec (OpenTitan prim_count
+    // instantiates prim_flop with `.ResetValue(ResetValues[k])` and reads
+    // `cnt_d[k] = ... ResetValues[k]` in a `for (genvar k...)` loop).
+    if (ModuleInstance *mi =
+            valuedcomponenti_cast<ModuleInstance *>(instance)) {
+      while (mi) {
+        if (Netlist *nl = mi->getNetlist()) {
+          if (nl->param_assigns()) {
+            for (auto pa : *nl->param_assigns()) {
+              if (pa->Lhs() && pa->Lhs()->VpiName() == name) {
+                if (const UHDM::parameter *p =
+                        any_cast<const UHDM::parameter *>(pa->Lhs())) {
+                  if (const UHDM::ref_typespec *rt = p->Typespec())
+                    return (UHDM::any *)rt->Actual_typespec();
+                }
+              }
+            }
+          }
+        }
+        mi = mi->getParent();
+      }
+    }
+    return nullptr;
   };
   UHDM::ExprEval eval(muteErrors);
   eval.setGetObjectFunctor(getObjectFunctor);
@@ -903,7 +930,34 @@ expr *CompileHelper::reduceExpr(any *result, bool &invalidValue,
   UHDM::GetObjectFunctor getTypespecFunctor =
       [&](std::string_view name, const any *inst,
           const any *pexpr) -> UHDM::any * {
-    return getParamTypespec(name, component);
+    if (UHDM::any *ts = getParamTypespec(name, component)) return ts;
+    // A `P[k]` element-select reduced from inside a GENERATE SCOPE reduces with
+    // the gen-scope component, which does not carry the enclosing module's
+    // localparams — so getParamTypespec above misses `P`.  Walk the instance
+    // hierarchy's netlist param_assigns the same way getObject() resolves the
+    // value, and return the parameter's DECLARED typespec (OpenTitan prim_count
+    // instantiates prim_flop with `.ResetValue(ResetValues[k])` and reads
+    // `cnt_d[k] = ... ResetValues[k]` in a `for (genvar k...)` loop).
+    if (ModuleInstance *mi =
+            valuedcomponenti_cast<ModuleInstance *>(instance)) {
+      while (mi) {
+        if (Netlist *nl = mi->getNetlist()) {
+          if (nl->param_assigns()) {
+            for (auto pa : *nl->param_assigns()) {
+              if (pa->Lhs() && pa->Lhs()->VpiName() == name) {
+                if (const UHDM::parameter *p =
+                        any_cast<const UHDM::parameter *>(pa->Lhs())) {
+                  if (const UHDM::ref_typespec *rt = p->Typespec())
+                    return (UHDM::any *)rt->Actual_typespec();
+                }
+              }
+            }
+          }
+        }
+        mi = mi->getParent();
+      }
+    }
+    return nullptr;
   };
   UHDM::ExprEval eval(muteErrors);
   eval.setGetObjectFunctor(getObjectFunctor);
@@ -4586,7 +4640,34 @@ uint64_t CompileHelper::Bits(const UHDM::any *typespec, bool &invalidValue,
   UHDM::GetObjectFunctor getTypespecFunctor =
       [&](std::string_view name, const any *inst,
           const any *pexpr) -> UHDM::any * {
-    return getParamTypespec(name, component);
+    if (UHDM::any *ts = getParamTypespec(name, component)) return ts;
+    // A `P[k]` element-select reduced from inside a GENERATE SCOPE reduces with
+    // the gen-scope component, which does not carry the enclosing module's
+    // localparams — so getParamTypespec above misses `P`.  Walk the instance
+    // hierarchy's netlist param_assigns the same way getObject() resolves the
+    // value, and return the parameter's DECLARED typespec (OpenTitan prim_count
+    // instantiates prim_flop with `.ResetValue(ResetValues[k])` and reads
+    // `cnt_d[k] = ... ResetValues[k]` in a `for (genvar k...)` loop).
+    if (ModuleInstance *mi =
+            valuedcomponenti_cast<ModuleInstance *>(instance)) {
+      while (mi) {
+        if (Netlist *nl = mi->getNetlist()) {
+          if (nl->param_assigns()) {
+            for (auto pa : *nl->param_assigns()) {
+              if (pa->Lhs() && pa->Lhs()->VpiName() == name) {
+                if (const UHDM::parameter *p =
+                        any_cast<const UHDM::parameter *>(pa->Lhs())) {
+                  if (const UHDM::ref_typespec *rt = p->Typespec())
+                    return (UHDM::any *)rt->Actual_typespec();
+                }
+              }
+            }
+          }
+        }
+        mi = mi->getParent();
+      }
+    }
+    return nullptr;
   };
   UHDM::ExprEval eval;
   eval.setGetObjectFunctor(getObjectFunctor);
