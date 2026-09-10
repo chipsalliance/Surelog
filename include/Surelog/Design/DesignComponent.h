@@ -127,7 +127,11 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
 
   const DataTypeMap& getDataTypeMap() const { return m_dataTypes; }
   const DataType* getDataType(std::string_view name) const;
-  void insertDataType(std::string_view dataTypeName, DataType* dataType);
+  // overwrite=true lets a LOCAL declaration replace a same-named entry brought
+  // in earlier by a wildcard `import pkg::*` (LRM 26.3: a local declaration
+  // shadows a wildcard-imported name).  Imports use the default (first wins).
+  void insertDataType(std::string_view dataTypeName, DataType* dataType,
+                      bool overwrite = false);
 
   const TypeDefMap& getTypeDefMap() const { return m_typedefs; }
   const TypeDef* getTypeDef(std::string_view name) const;
