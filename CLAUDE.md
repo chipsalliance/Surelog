@@ -200,6 +200,32 @@ This ScratchPad.sv file is the primary test file for debugging new issues. The c
 - `-nobuiltin`: Disable built-in types
 - `-synth`: Synthesis mode
 
+### Inspecting a UHDM object pointer from gdb (`UHDM::decompile`)
+
+`third_party/UHDM/templates/vpi_visitor.h` exports
+`std::string UHDM::decompile(const UHDM::any* handle)` — a recursive textual dump
+of any UHDM object. This is the fastest way to see what a `const any*` / `expr*`
+/ `constant*` actually holds while stepping in gdb (far better than poking at
+raw fields). Build a **debug** Surelog (`cd third_party/Surelog && make debug` →
+`dbuild/bin/surelog`, or configure the superbuild with
+`-DCMAKE_BUILD_TYPE=Debug`) so symbols resolve, then from a gdb prompt:
+
+```gdb
+# dump the object a pointer refers to (returns a std::string):
+call UHDM::decompile((const UHDM::any*)$rdi)
+p UHDM::decompile(rhs)            # rhs is a UHDM::expr* in scope
+# to catch a specific fold, break where the value is built and dump operands:
+break UHDM::ExprEval::reduceBitSelect
+call UHDM::decompile((const UHDM::any*)op)
+```
+
+Because `decompile` returns a `std::string`, gdb prints it directly. Combine
+with a conditional breakpoint on the *creating* call (e.g. `s.MakeConstant`, or
+the `cont_assign::Rhs` setter) and `bt` to get the backtrace of who folded a
+wrong constant — this pinpoints an elusive fold site that stderr `fprintf`
+probes miss (Surelog reduces expressions through several dispatch layers; the
+call that actually builds a given constant is often not the obvious one).
+
 ## Important Notes
 
 - Thread count can be controlled with `-mt <threads>` (0 = single-threaded, "max" = one per core)

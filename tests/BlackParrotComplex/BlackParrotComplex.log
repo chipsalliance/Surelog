@@ -3147,14 +3147,18 @@ AST_DEBUG_END
 [INF:CP0302] Compile class "work@process".
 [INF:CP0302] Compile class "work@semaphore".
 [INF:EL0526] Design Elaboration...
+[INF:CP0335] ${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv:85:3: Compile generate block "work@bottom.genblk1".
 [NTE:EL0503] ${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv:3:1: Top level module "work@top".
 [NTE:EL0503] ${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv:67:1: Top level module "work@middle".
 [NTE:EL0503] ${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv:79:1: Top level module "work@bottom".
 [NTE:EL0504] Multiple top level modules in design.
+[WRN:EL0500] ${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv:85:3: Cannot find a module definition for "work@bottom.genblk1::BAD".
 [NTE:EL0508] Nb Top level modules: 3.
-[NTE:EL0509] Max instance depth: 1.
-[NTE:EL0510] Nb instances: 3.
+[NTE:EL0509] Max instance depth: 3.
+[NTE:EL0510] Nb instances: 4.
 [NTE:EL0511] Nb leaf instances: 2.
+[WRN:EL0512] Nb undefined modules: 1.
+[WRN:EL0513] Nb undefined instances: 1.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 array_typespec                                         6
@@ -3171,18 +3175,20 @@ enum_typespec                                          1
 enum_var                                               1
 function                                               9
 gen_if                                                 3
+gen_scope                                              2
+gen_scope_array                                        2
 initial                                                1
 int_typespec                                          19
 int_var                                                4
 io_decl                                               11
 logic_var                                              1
-module_inst                                            9
+module_inst                                           10
 operation                                            423
 package                                                2
 param_assign                                          22
 parameter                                             23
 range                                                 27
-ref_module                                             3
+ref_module                                             4
 ref_obj                                               81
 ref_typespec                                          46
 sys_func_call                                          2
@@ -3205,18 +3211,20 @@ enum_typespec                                          2
 enum_var                                               1
 function                                              18
 gen_if                                                 3
+gen_scope                                              3
+gen_scope_array                                        3
 initial                                                2
 int_typespec                                          19
 int_var                                                4
 io_decl                                               22
 logic_var                                              1
-module_inst                                            9
+module_inst                                           11
 operation                                            423
 package                                                2
 param_assign                                          22
 parameter                                             23
 range                                                 27
-ref_module                                             3
+ref_module                                             4
 ref_obj                                               82
 ref_typespec                                          51
 sys_func_call                                          3
@@ -8262,15 +8270,33 @@ design: (work@top)
     \_constant: , line:82:17, endln:82:22
       |vpiParent:
       \_param_assign: , line:82:13, endln:82:22
-      |vpiDecompile:3
-      |vpiSize:64
-      |UINT:3
-      |vpiConstType:9
+      |vpiDecompile:1'b0
+      |vpiSize:1
+      |BIN:0
+      |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@bottom.A), line:82:13, endln:82:14
   |vpiDefName:work@bottom
   |vpiTop:1
   |vpiTopModule:1
+  |vpiGenScopeArray:
+  \_gen_scope_array: (work@bottom.genblk1), line:85:3, endln:85:13
+    |vpiParent:
+    \_module_inst: work@bottom (work@bottom), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:79:1, endln:88:10
+    |vpiName:genblk1
+    |vpiFullName:work@bottom.genblk1
+    |vpiGenScope:
+    \_gen_scope: (work@bottom.genblk1), line:85:3, endln:85:13
+      |vpiParent:
+      \_gen_scope_array: (work@bottom.genblk1), line:85:3, endln:85:13
+      |vpiFullName:work@bottom.genblk1
+      |vpiModule:
+      \_module_inst: work@bottom.genblk1::BAD (work@bottom.genblk1.bad), file:${SURELOG_DIR}/tests/BlackParrotComplex/dut.sv, line:85:3, endln:85:13
+        |vpiParent:
+        \_gen_scope: (work@bottom.genblk1), line:85:3, endln:85:13
+        |vpiName:bad
+        |vpiFullName:work@bottom.genblk1.bad
+        |vpiDefName:work@bottom.genblk1::BAD
 \_weaklyReferenced:
 \_array_typespec: , line:81:13, endln:81:24
   |vpiParent:
@@ -9105,5 +9131,5 @@ design: (work@top)
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 0
-[WARNING] : 3
+[WARNING] : 6
 [   NOTE] : 8
