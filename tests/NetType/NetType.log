@@ -324,12 +324,64 @@ design: (work@dut)
     |vpiRefEndLineNo:24
     |vpiRefEndColumnNo:6
 |vpiTypedef:
-\_real_typespec: (my_real), line:9:9, endln:9:13
+\_real_typespec: (my_real), line:39:9, endln:39:13
   |vpiParent:
   \_design: (work@dut)
   |vpiName:my_real
   |vpiInstance:
   \_design: (work@dut)
+  |vpiFunction:
+  \_function: (my_function2), line:41:1, endln:42:12
+    |vpiParent:
+    \_design: (work@dut)
+    |vpiName:my_function2
+    |vpiMethod:1
+    |vpiVisibility:1
+    |vpiAutomatic:1
+    |vpiReturn:
+    \_real_var: (my_function2), line:41:20, endln:41:24
+      |vpiParent:
+      \_function: (my_function2), line:41:1, endln:42:12
+      |vpiTypespec:
+      \_ref_typespec: (my_function2)
+        |vpiParent:
+        \_real_var: (my_function2), line:41:20, endln:41:24
+        |vpiFullName:my_function2
+        |vpiActual:
+        \_real_typespec: , line:41:20, endln:41:24
+      |vpiFullName:my_function2
+    |vpiIODecl:
+    \_io_decl: (driver), line:41:49, endln:41:55
+      |vpiParent:
+      \_function: (my_function2), line:41:1, endln:42:12
+      |vpiDirection:1
+      |vpiName:driver
+      |vpiRange:
+      \_range: , line:41:56, endln:41:58
+        |vpiParent:
+        \_io_decl: (driver), line:41:49, endln:41:55
+        |vpiLeftRange:
+        \_constant: , line:41:56, endln:41:57
+          |vpiParent:
+          \_range: , line:41:56, endln:41:58
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+        |vpiRightRange:
+        \_constant: , line:41:56, endln:41:57
+          |vpiParent:
+          \_range: , line:41:56, endln:41:58
+          |vpiDecompile:unsized
+          |STRING:unsized
+          |vpiConstType:6
+      |vpiTypedef:
+      \_ref_typespec: (my_function2.driver)
+        |vpiParent:
+        \_io_decl: (driver), line:41:49, endln:41:55
+        |vpiFullName:my_function2.driver
+        |vpiActual:
+        \_real_typespec: , line:41:44, endln:41:48
 |vpiTypedef:
 \_unsupported_typespec: (myalias), line:18:9, endln:18:24
   |vpiParent:
@@ -633,56 +685,6 @@ design: (work@dut)
 \_function: (Tsum), line:28:1, endln:32:12
 |vpiTaskFunc:
 \_function: (my_function2), line:41:1, endln:42:12
-  |vpiParent:
-  \_design: (work@dut)
-  |vpiName:my_function2
-  |vpiMethod:1
-  |vpiVisibility:1
-  |vpiAutomatic:1
-  |vpiReturn:
-  \_real_var: (my_function2), line:41:20, endln:41:24
-    |vpiParent:
-    \_function: (my_function2), line:41:1, endln:42:12
-    |vpiTypespec:
-    \_ref_typespec: (my_function2)
-      |vpiParent:
-      \_real_var: (my_function2), line:41:20, endln:41:24
-      |vpiFullName:my_function2
-      |vpiActual:
-      \_real_typespec: , line:41:20, endln:41:24
-    |vpiFullName:my_function2
-  |vpiIODecl:
-  \_io_decl: (driver), line:41:49, endln:41:55
-    |vpiParent:
-    \_function: (my_function2), line:41:1, endln:42:12
-    |vpiDirection:1
-    |vpiName:driver
-    |vpiRange:
-    \_range: , line:41:56, endln:41:58
-      |vpiParent:
-      \_io_decl: (driver), line:41:49, endln:41:55
-      |vpiLeftRange:
-      \_constant: , line:41:56, endln:41:57
-        |vpiParent:
-        \_range: , line:41:56, endln:41:58
-        |vpiDecompile:0
-        |vpiSize:64
-        |UINT:0
-        |vpiConstType:9
-      |vpiRightRange:
-      \_constant: , line:41:56, endln:41:57
-        |vpiParent:
-        \_range: , line:41:56, endln:41:58
-        |vpiDecompile:unsized
-        |STRING:unsized
-        |vpiConstType:6
-    |vpiTypedef:
-    \_ref_typespec: (my_function2.driver)
-      |vpiParent:
-      \_io_decl: (driver), line:41:49, endln:41:55
-      |vpiFullName:my_function2.driver
-      |vpiActual:
-      \_real_typespec: , line:41:44, endln:41:48
 |uhdmtopModules:
 \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/NetType/dut.sv, line:11:1, endln:15:10
   |vpiParent:
@@ -698,7 +700,7 @@ design: (work@dut)
       \_real_var: (work@dut.my_real_net), line:13:13, endln:13:24
       |vpiFullName:work@dut.my_real_net
       |vpiActual:
-      \_real_typespec: (my_real), line:9:9, endln:9:13
+      \_real_typespec: (my_real), line:39:9, endln:39:13
     |vpiName:my_real_net
     |vpiFullName:work@dut.my_real_net
     |vpiVisibility:1
@@ -736,12 +738,12 @@ design: (work@dut)
 
 ============================== Begin Linting Results ==============================
 [LINT]: ${SURELOG_DIR}/tests/NetType/dut.sv:23:3: Non synthesizable construct,
-[LINT]: ${SURELOG_DIR}/tests/NetType/dut.sv:9:9: Non synthesizable construct, my_real
-[LINT]: ${SURELOG_DIR}/tests/NetType/dut.sv:23:3: Non synthesizable construct,
-[LINT]: ${SURELOG_DIR}/tests/NetType/dut.sv:23:3: Non synthesizable construct,
 [LINT]: ${SURELOG_DIR}/tests/NetType/dut.sv:41:20: Non synthesizable construct,
 [LINT]: ${SURELOG_DIR}/tests/NetType/dut.sv:41:20: Non synthesizable construct,
 [LINT]: ${SURELOG_DIR}/tests/NetType/dut.sv:41:44: Non synthesizable construct,
+[LINT]: ${SURELOG_DIR}/tests/NetType/dut.sv:39:9: Non synthesizable construct, my_real
+[LINT]: ${SURELOG_DIR}/tests/NetType/dut.sv:23:3: Non synthesizable construct,
+[LINT]: ${SURELOG_DIR}/tests/NetType/dut.sv:23:3: Non synthesizable construct,
 [LINT]: ${SURELOG_DIR}/tests/NetType/dut.sv:13:13: Non synthesizable construct, my_real_net
 [LINT]: ${SURELOG_DIR}/tests/NetType/dut.sv:18:9: Unsupported typespec, myalias
 [LINT]:   \_ :0:0:

@@ -101,7 +101,13 @@ void DesignComponent::append(DesignComponent* comp) {
 }
 
 void DesignComponent::insertDataType(std::string_view dataTypeName,
-                                     DataType* dataType) {
+                                     DataType* dataType, bool overwrite) {
+  if (overwrite) {
+    if (auto it = m_dataTypes.find(dataTypeName); it != m_dataTypes.end()) {
+      it->second = dataType;
+      return;
+    }
+  }
   m_dataTypes.emplace(dataTypeName, dataType);
 }
 

@@ -633,7 +633,12 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
   VObjectType base_type = fC->Type(data_type);
 
   DataType* type = new DataType(fC, data_type, name, base_type);
-  if (scope) scope->insertDataType(name, type);
+  // A local typedef shadows any same-named type brought in by a wildcard
+  // `import pkg::*` earlier in the scope (LRM 26.3) — override, since the
+  // import (processed at the module header) inserted first and emplace would
+  // keep it (kmac_errchk's local 6-bit `st_e` vs the wildcard kmac_pkg::st_e at
+  // 10-bit).
+  if (scope) scope->insertDataType(name, type, /*overwrite=*/true);
 
   // Enum or Struct or Union
   NodeId enum_base_type = fC->Child(data_type);
