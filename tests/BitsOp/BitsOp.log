@@ -28,7 +28,7 @@ assignment                                             1
 begin                                                  2
 bit_typespec                                           5
 bit_var                                                1
-constant                                             313
+constant                                             321
 cont_assign                                            2
 design                                                 1
 enum_const                                             4
@@ -36,23 +36,22 @@ enum_typespec                                          2
 hier_path                                              8
 if_stmt                                                2
 import_typespec                                        1
-int_typespec                                          83
-integer_typespec                                       2
+int_typespec                                          79
 logic_net                                             10
-logic_typespec                                        45
+logic_typespec                                        51
 logic_var                                              4
 module_inst                                           16
 named_begin                                            1
-operation                                             77
+operation                                             83
 package                                                8
 packed_array_typespec                                  5
 param_assign                                          96
 parameter                                             96
 part_select                                            1
 port                                                   2
-range                                                 48
-ref_obj                                               77
-ref_typespec                                         231
+range                                                 54
+ref_obj                                               83
+ref_typespec                                         229
 struct_net                                             2
 struct_typespec                                        9
 sys_func_call                                         29
@@ -65,7 +64,7 @@ assignment                                             2
 begin                                                  4
 bit_typespec                                           5
 bit_var                                                1
-constant                                             313
+constant                                             321
 cont_assign                                            3
 design                                                 1
 enum_const                                             4
@@ -73,23 +72,22 @@ enum_typespec                                          2
 hier_path                                              8
 if_stmt                                                4
 import_typespec                                        1
-int_typespec                                          83
-integer_typespec                                       2
+int_typespec                                          79
 logic_net                                             10
-logic_typespec                                        45
+logic_typespec                                        51
 logic_var                                              4
 module_inst                                           16
 named_begin                                            2
-operation                                             80
+operation                                             86
 package                                                8
 packed_array_typespec                                  5
 param_assign                                          96
 parameter                                             96
 part_select                                            2
 port                                                   3
-range                                                 48
-ref_obj                                               84
-ref_typespec                                         233
+range                                                 54
+ref_obj                                               90
+ref_typespec                                         231
 struct_net                                             2
 struct_typespec                                        9
 sys_func_call                                         29
@@ -1024,7 +1022,7 @@ design: (work@dut)
         \_operation: , line:53:51, endln:53:67
         |vpiFullName:hmac_pkg
         |vpiActual:
-        \_int_typespec: (NumAlerts), line:52:18, endln:52:18
+        \_logic_typespec: , line:53:51, endln:53:60
       |vpiOpType:67
       |vpiOperand:
       \_constant: , line:53:62, endln:53:66
@@ -2046,7 +2044,6 @@ design: (work@dut)
   \_parameter: (hmac_pkg::AlertAsyncOn), line:53:36, endln:53:48
     |vpiParent:
     \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/BitsOp/dut.sv, line:48:1, endln:62:11
-    |UINT:1
     |vpiTypespec:
     \_ref_typespec: (hmac_pkg::AlertAsyncOn)
       |vpiParent:
@@ -2131,20 +2128,25 @@ design: (work@dut)
     |vpiParent:
     \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/BitsOp/dut.sv, line:48:1, endln:62:11
     |vpiRhs:
-    \_constant: , line:53:51, endln:53:67
+    \_operation: , line:53:51, endln:53:67
       |vpiParent:
       \_param_assign: , line:53:36, endln:53:67
-      |vpiDecompile:1
-      |vpiSize:1
-      |UINT:1
       |vpiTypespec:
       \_ref_typespec: (hmac_pkg)
         |vpiParent:
-        \_constant: , line:53:51, endln:53:67
+        \_operation: , line:53:51, endln:53:67
         |vpiFullName:hmac_pkg
         |vpiActual:
-        \_logic_typespec: , line:53:14, endln:53:35
-      |vpiConstType:9
+        \_logic_typespec: , line:53:51, endln:53:60
+      |vpiOpType:67
+      |vpiOperand:
+      \_constant: , line:53:62, endln:53:66
+        |vpiParent:
+        \_operation: , line:53:51, endln:53:67
+        |vpiDecompile:1'b1
+        |vpiSize:1
+        |BIN:1
+        |vpiConstType:3
     |vpiLhs:
     \_parameter: (hmac_pkg::AlertAsyncOn), line:53:36, endln:53:48
   |vpiParamAssign:
@@ -3892,6 +3894,37 @@ design: (work@dut)
       |vpiSize:64
       |UINT:0
       |vpiConstType:9
+\_logic_typespec: , line:53:51, endln:53:60
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_logic_typespec: , line:53:51, endln:53:60
+    |vpiLeftRange:
+    \_operation: 
+      |vpiParent:
+      \_range: 
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (NumAlerts), line:53:51, endln:53:60
+        |vpiParent:
+        \_operation: 
+        |vpiName:NumAlerts
+        |vpiActual:
+        \_parameter: (hmac_pkg::NumAlerts), line:52:18, endln:52:27
+      |vpiOperand:
+      \_constant: 
+        |vpiParent:
+        \_operation: 
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 \_int_typespec: , line:55:14, endln:55:17
   |vpiParent:
   \_parameter: (hmac_pkg::MsgFifoDepth), line:55:18, endln:55:30
@@ -3954,11 +3987,37 @@ design: (work@dut)
       |vpiSize:64
       |UINT:0
       |vpiConstType:9
-\_int_typespec: (NumAlerts), line:52:18, endln:52:18
-  |vpiName:NumAlerts
-  |vpiInstance:
-  \_package: hmac_pkg (hmac_pkg::), file:${SURELOG_DIR}/tests/BitsOp/dut.sv, line:48:1, endln:62:11
-  |UINT:1
+\_logic_typespec: , line:53:51, endln:53:60
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_logic_typespec: , line:53:51, endln:53:60
+    |vpiLeftRange:
+    \_operation: 
+      |vpiParent:
+      \_range: 
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (NumAlerts), line:53:51, endln:53:60
+        |vpiParent:
+        \_operation: 
+        |vpiName:NumAlerts
+        |vpiActual:
+        \_parameter: (hmac_pkg::NumAlerts), line:52:18, endln:52:27
+      |vpiOperand:
+      \_constant: 
+        |vpiParent:
+        \_operation: 
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 \_int_typespec: , line:55:14, endln:55:17
   |vpiParent:
   \_parameter: (hmac_pkg::MsgFifoDepth), line:55:18, endln:55:30

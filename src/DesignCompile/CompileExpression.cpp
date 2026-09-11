@@ -2974,9 +2974,80 @@ UHDM::any *CompileHelper::compileExpression(
               operands->push_back(operand);
               operand->VpiParent(operation);
             }
-            if (UHDM::typespec *tps =
-                    compileTypespec(component, fC, Simple_type, compileDesign,
-                                    reduce, operation, instance, false)) {
+            // SIZE cast `PARAM'(expr)` vs TYPE cast `typename'(expr)`.  When
+            // the casting type is a bare identifier that resolves to a VALUE
+            // parameter/localparam (e.g. `localparam int ConcatW = W+InW;
+            // ConcatW'(x)`), this is a size cast whose width is the parameter's
+            // VALUE, NOT a type cast to the parameter's data type.  Surelog
+            // would otherwise compileTypespec() the identifier to the
+            // localparam's declared type (`int` -> 32 bits), silently
+            // truncating the operand (prim_packer `ConcatW'(shiftr_data) <<
+            // pos_q` dropped the high bits).  Emit a logic_typespec with an
+            // unreduced `[PARAM-1:0]` packed range so the width stays
+            // parameter-dependent and resolves per-instance during elaboration
+            // (a folded value here would use the definition's DEFAULT params,
+            // wrong for overridden instances).  A typedef / TYPE parameter
+            // keeps the existing type-cast path.
+            UHDM::typespec *sizeCastTps = nullptr;
+            if (NodeId Ident = fC->Child(Simple_type)) {
+              if (fC->Type(Ident) == VObjectType::paPs_type_identifier) {
+                if (NodeId nameId = fC->Child(Ident)) {
+                  if (fC->Type(nameId) == VObjectType::slStringConst) {
+                    const std::string_view pname = fC->SymName(nameId);
+                    bool isValueParam = false;
+                    if (component) {
+                      const auto &pmap = component->getParameterMap();
+                      auto it = pmap.find(pname);
+                      if (it != pmap.end() && it->second &&
+                          !it->second->isTypeParam())
+                        isValueParam = true;
+                    }
+                    UHDM::any *widthRef =
+                        isValueParam ? compileExpression(
+                                           component, fC, nameId, compileDesign,
+                                           Reduce::No, nullptr, instance, true)
+                                     : nullptr;
+                    if (isValueParam && widthRef &&
+                        widthRef->UhdmType() != uhdmunsupported_typespec) {
+                      UHDM::constant *one = s.MakeConstant();
+                      one->VpiValue("UINT:1");
+                      one->VpiConstType(vpiUIntConst);
+                      one->VpiSize(64);
+                      UHDM::operation *sub = s.MakeOperation();
+                      sub->VpiOpType(vpiSubOp);
+                      UHDM::VectorOfany *subOps = s.MakeAnyVec();
+                      subOps->push_back(widthRef);
+                      subOps->push_back(one);
+                      sub->Operands(subOps);
+                      widthRef->VpiParent(sub);
+                      one->VpiParent(sub);
+                      UHDM::constant *zero = s.MakeConstant();
+                      zero->VpiValue("UINT:0");
+                      zero->VpiConstType(vpiUIntConst);
+                      zero->VpiSize(64);
+                      UHDM::range *rng = s.MakeRange();
+                      rng->Left_expr(sub);
+                      rng->Right_expr(zero);
+                      sub->VpiParent(rng);
+                      zero->VpiParent(rng);
+                      UHDM::VectorOfrange *ranges = s.MakeRangeVec();
+                      ranges->push_back(rng);
+                      UHDM::logic_typespec *lts = s.MakeLogic_typespec();
+                      lts->Ranges(ranges);
+                      rng->VpiParent(lts);
+                      fC->populateCoreMembers(Simple_type, Simple_type, lts);
+                      sizeCastTps = lts;
+                    }
+                  }
+                }
+              }
+            }
+            UHDM::typespec *tps =
+                sizeCastTps
+                    ? sizeCastTps
+                    : compileTypespec(component, fC, Simple_type, compileDesign,
+                                      reduce, operation, instance, false);
+            if (tps) {
               if (operation->Typespec() == nullptr) {
                 ref_typespec *rttps = s.MakeRef_typespec();
                 rttps->VpiParent(operation);

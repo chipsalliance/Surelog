@@ -136,41 +136,41 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 1.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              23
+constant                                              27
 cont_assign                                            4
 design                                                 1
-hier_path                                              2
-int_typespec                                           4
+hier_path                                              1
+int_typespec                                           3
 logic_net                                              6
-logic_typespec                                         6
-module_inst                                            4
-operation                                              8
-param_assign                                           2
-parameter                                              2
-range                                                  8
-ref_obj                                                4
-ref_typespec                                          17
-struct_typespec                                        3
-typespec_member                                        3
-=== UHDM Object Stats End ===
-[INF:UH0707] Elaborating UHDM...
-=== UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              23
-cont_assign                                            6
-design                                                 1
-hier_path                                              2
-int_typespec                                           4
-logic_net                                              6
-logic_typespec                                         6
+logic_typespec                                         8
 module_inst                                            4
 operation                                             10
 param_assign                                           2
 parameter                                              2
-range                                                  8
+range                                                 10
 ref_obj                                                4
-ref_typespec                                          19
-struct_typespec                                        3
-typespec_member                                        3
+ref_typespec                                          16
+struct_typespec                                        2
+typespec_member                                        2
+=== UHDM Object Stats End ===
+[INF:UH0707] Elaborating UHDM...
+=== UHDM Object Stats Begin (Elaborated Model) ===
+constant                                              27
+cont_assign                                            6
+design                                                 1
+hier_path                                              1
+int_typespec                                           3
+logic_net                                              6
+logic_typespec                                         8
+module_inst                                            4
+operation                                             12
+param_assign                                           2
+parameter                                              2
+range                                                 10
+ref_obj                                                4
+ref_typespec                                          18
+struct_typespec                                        2
+typespec_member                                        2
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/CastStructMember/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/CastStructMember/slpp_all/checker/surelog.chk.html ...
@@ -383,7 +383,7 @@ design: (work@Foo)
         \_operation: , line:9:20, endln:9:25
         |vpiFullName:work@Foo
         |vpiActual:
-        \_struct_typespec: (width_t), line:2:9, endln:4:2
+        \_logic_typespec: , line:9:20, endln:9:21
       |vpiOpType:67
       |vpiOperand:
       \_constant: , line:9:23, endln:9:24
@@ -524,7 +524,7 @@ design: (work@Foo)
     \_operation: , line:9:20, endln:9:25
     |vpiFullName:work@Foo
     |vpiActual:
-    \_struct_typespec: (width_t), line:2:9, endln:4:2
+    \_logic_typespec: , line:9:20, endln:9:21
   |vpiOpType:67
   |vpiOperand:
   \_constant: , line:9:23, endln:9:24
@@ -569,33 +569,40 @@ design: (work@Foo)
       |vpiSize:64
       |UINT:0
       |vpiConstType:9
-\_struct_typespec: (width_t), line:2:9, endln:4:2
+\_logic_typespec: , line:9:20, endln:9:21
   |vpiParent:
   \_ref_typespec: (work@Foo)
-  |vpiName:width_t
-  |vpiInstance:
-  \_design: (work@Foo)
-  |vpiTypespecMember:
-  \_typespec_member: (WIDTH), line:3:7, endln:3:12
+  |vpiRange:
+  \_range: 
     |vpiParent:
-    \_struct_typespec: (width_t), line:2:9, endln:4:2
-    |vpiName:WIDTH
-    |vpiTypespec:
-    \_ref_typespec: (work@Foo.width_t.WIDTH)
+    \_logic_typespec: , line:9:20, endln:9:21
+    |vpiLeftRange:
+    \_operation: 
       |vpiParent:
-      \_typespec_member: (WIDTH), line:3:7, endln:3:12
-      |vpiFullName:work@Foo.width_t.WIDTH
-      |vpiActual:
-      \_int_typespec: , line:3:3, endln:3:6
-    |vpiRefFile:${SURELOG_DIR}/tests/CastStructMember/dut.sv
-    |vpiRefLineNo:3
-    |vpiRefColumnNo:3
-    |vpiRefEndLineNo:3
-    |vpiRefEndColumnNo:6
-\_int_typespec: , line:3:3, endln:3:6
-  |vpiParent:
-  \_ref_typespec: (work@Foo.width_t.WIDTH)
-  |vpiSigned:1
+      \_range: 
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@Foo.w), line:9:20, endln:9:21
+        |vpiParent:
+        \_operation: 
+        |vpiName:w
+        |vpiFullName:work@Foo.w
+        |vpiActual:
+        \_parameter: (work@Foo.w), line:7:22, endln:7:23
+      |vpiOperand:
+      \_constant: 
+        |vpiParent:
+        \_operation: 
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

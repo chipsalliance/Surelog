@@ -1328,7 +1328,7 @@ case_stmt                                              1
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                             180
+constant                                             188
 cont_assign                                            8
 design                                                 1
 enum_const                                            23
@@ -1341,22 +1341,22 @@ gen_if_else                                            1
 gen_scope                                              2
 gen_scope_array                                        2
 if_else                                                1
-int_typespec                                          39
+int_typespec                                          36
 int_var                                                5
 integer_typespec                                       2
 io_decl                                               11
 logic_net                                             21
-logic_typespec                                        20
+logic_typespec                                        24
 logic_var                                              2
 module_inst                                           22
-operation                                             63
+operation                                             67
 package                                                4
 param_assign                                          35
 parameter                                             35
 port                                                   4
-range                                                 24
+range                                                 28
 ref_module                                             2
-ref_obj                                               69
+ref_obj                                               72
 ref_typespec                                         119
 string_typespec                                        3
 sys_func_call                                          3
@@ -1374,7 +1374,7 @@ case_stmt                                              1
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                             180
+constant                                             188
 cont_assign                                           12
 design                                                 1
 enum_const                                            28
@@ -1387,22 +1387,22 @@ gen_if_else                                            1
 gen_scope                                              3
 gen_scope_array                                        3
 if_else                                                3
-int_typespec                                          39
+int_typespec                                          36
 int_var                                                5
 integer_typespec                                       2
 io_decl                                               22
 logic_net                                             21
-logic_typespec                                        20
+logic_typespec                                        24
 logic_var                                              2
 module_inst                                           22
-operation                                             83
+operation                                             87
 package                                                4
 param_assign                                          35
 parameter                                             35
 port                                                   6
-range                                                 24
+range                                                 28
 ref_module                                             2
-ref_obj                                               97
+ref_obj                                              100
 ref_typespec                                         132
 string_typespec                                        3
 sys_func_call                                          3
@@ -2530,7 +2530,7 @@ design: (work@dut1)
             \_operation: , line:28:22, endln:28:47
             |vpiFullName:work@dut1
             |vpiActual:
-            \_int_typespec: , line:24:14, endln:24:26
+            \_logic_typespec: , line:28:22, endln:28:38
           |vpiOpType:67
           |vpiOperand:
           \_ref_obj: (work@dut1.device), line:28:40, endln:28:46
@@ -2837,7 +2837,7 @@ design: (work@dut1)
             \_operation: , line:60:28, endln:60:46
             |vpiFullName:work@dut3
             |vpiActual:
-            \_int_typespec: (LfsrDw), line:54:45, endln:54:45
+            \_logic_typespec: , line:60:28, endln:60:34
           |vpiOpType:67
           |vpiOperand:
           \_ref_obj: (work@dut3.entropy_i), line:60:36, endln:60:45
@@ -3605,7 +3605,7 @@ design: (work@dut1)
             \_operation: , line:28:22, endln:28:47
             |vpiFullName:work@dut1
             |vpiActual:
-            \_int_typespec: , line:24:14, endln:24:26
+            \_logic_typespec: , line:28:22, endln:28:38
           |vpiOpType:67
           |vpiOperand:
           \_ref_obj: (work@dut1.device), line:28:40, endln:28:46
@@ -4280,7 +4280,7 @@ design: (work@dut1)
             \_operation: , line:60:28, endln:60:46
             |vpiFullName:work@dut3
             |vpiActual:
-            \_int_typespec: (LfsrDw), line:54:45, endln:54:45
+            \_logic_typespec: , line:60:28, endln:60:34
           |vpiOpType:67
           |vpiOperand:
           \_ref_obj: (work@dut3.entropy_i), line:60:36, endln:60:45
@@ -4553,7 +4553,7 @@ design: (work@dut1)
         \_operation: , line:96:33, endln:96:69
         |vpiFullName:work@dut5
         |vpiActual:
-        \_int_typespec: (width_p), line:85:13, endln:85:13
+        \_logic_typespec: , line:96:33, endln:96:40
       |vpiOpType:67
       |vpiOperand:
       \_operation: , line:96:44, endln:96:68
@@ -4725,23 +4725,74 @@ design: (work@dut1)
 \_int_typespec: , line:24:14, endln:24:26
   |vpiParent:
   \_parameter: (work@dut1.NumBitsDeviceSel), line:24:27, endln:24:43
-  |vpiExpr:
-  \_ref_obj: (work@dut1.NumBitsDeviceSel.NumBitsDeviceSel)
+\_logic_typespec: , line:28:22, endln:28:38
+  |vpiRange:
+  \_range: 
     |vpiParent:
-    \_int_typespec: , line:24:14, endln:24:26
-    |vpiName:NumBitsDeviceSel
-    |vpiFullName:work@dut1.NumBitsDeviceSel.NumBitsDeviceSel
-    |vpiActual:
-    \_parameter: (work@dut1.NumBitsDeviceSel), line:24:27, endln:24:43
+    \_logic_typespec: , line:28:22, endln:28:38
+    |vpiLeftRange:
+    \_operation: 
+      |vpiParent:
+      \_range: 
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (NumBitsDeviceSel), line:28:22, endln:28:38
+        |vpiParent:
+        \_operation: 
+        |vpiName:NumBitsDeviceSel
+        |vpiActual:
+        \_parameter: (work@dut1.NumBitsDeviceSel), line:24:27, endln:24:43
+      |vpiOperand:
+      \_constant: 
+        |vpiParent:
+        \_operation: 
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 \_string_typespec: 
 \_unsupported_typespec: (num_out_p), line:47:20, endln:47:29
   |vpiName:num_out_p
 \_int_typespec: , line:54:26, endln:54:38
   |vpiParent:
   \_parameter: (work@dut3.LfsrDw), line:54:45, endln:54:51
-\_int_typespec: (LfsrDw), line:54:45, endln:54:45
-  |vpiName:LfsrDw
-  |UINT:3
+\_logic_typespec: , line:60:28, endln:60:34
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_logic_typespec: , line:60:28, endln:60:34
+    |vpiLeftRange:
+    \_operation: 
+      |vpiParent:
+      \_range: 
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (LfsrDw), line:60:28, endln:60:34
+        |vpiParent:
+        \_operation: 
+        |vpiName:LfsrDw
+        |vpiActual:
+        \_parameter: (work@dut3.LfsrDw), line:54:45, endln:54:51
+      |vpiOperand:
+      \_constant: 
+        |vpiParent:
+        \_operation: 
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 \_int_typespec: , line:86:13, endln:86:16
   |vpiParent:
   \_parameter: (work@dut5.TxWidth), line:86:17, endln:86:24
@@ -5355,8 +5406,6 @@ design: (work@dut1)
 \_int_typespec: , line:24:14, endln:24:26
   |vpiParent:
   \_ref_typespec: (work@dut1.NumBitsDeviceSel)
-  |vpiExpr:
-  \_ref_obj: (work@dut1.NumBitsDeviceSel.NumBitsDeviceSel)
 \_string_typespec: 
   |vpiParent:
   \_ref_typespec: (work@dut2.num_out_p)
@@ -5592,7 +5641,7 @@ design: (work@dut1)
     \_operation: , line:96:33, endln:96:69
     |vpiFullName:work@dut5
     |vpiActual:
-    \_int_typespec: (width_p), line:85:13, endln:85:13
+    \_logic_typespec: , line:96:33, endln:96:40
   |vpiOpType:67
   |vpiOperand:
   \_operation: , line:96:44, endln:96:68
@@ -5637,11 +5686,40 @@ design: (work@dut1)
       |vpiSize:64
       |UINT:0
       |vpiConstType:9
-\_int_typespec: (width_p), line:85:13, endln:85:13
+\_logic_typespec: , line:96:33, endln:96:40
   |vpiParent:
   \_ref_typespec: (work@dut5)
-  |vpiName:width_p
-  |INT:-1
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_logic_typespec: , line:96:33, endln:96:40
+    |vpiLeftRange:
+    \_operation: 
+      |vpiParent:
+      \_range: 
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@dut5.width_p), line:96:33, endln:96:40
+        |vpiParent:
+        \_operation: 
+        |vpiName:width_p
+        |vpiFullName:work@dut5.width_p
+        |vpiActual:
+        \_parameter: (work@dut5.width_p), line:85:13, endln:85:20
+      |vpiOperand:
+      \_constant: 
+        |vpiParent:
+        \_operation: 
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
