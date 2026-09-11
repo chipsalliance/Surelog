@@ -498,6 +498,42 @@ bool CompileHelper::compileTfPortList(Procedure* parent, const FileContent* fC,
   return result;
 }
 
+namespace {
+// Parse a Verilog Integral_number token used as an enum-member range bound
+// ("12'h003", "5'd31", "31", "8'b1010") into its integer value.  Used to expand
+// ranged enum members `name[hi:lo] = base` into the indexed constants
+// name<lo>..name<hi> (LRM 6.19.1).
+static int64_t parseEnumRangeBound(std::string_view tok) {
+  std::string s(tok);
+  s.erase(std::remove(s.begin(), s.end(), '_'), s.end());
+  int base = 10;
+  std::string digits = s;
+  const size_t q = s.find('\'');
+  if (q != std::string::npos) {
+    size_t bi = q + 1;
+    if (bi < s.size() && (s[bi] == 's' || s[bi] == 'S')) bi++;
+    if (bi < s.size()) {
+      const char b = (s[bi] >= 'A' && s[bi] <= 'Z') ? (s[bi] + 32) : s[bi];
+      if (b == 'h') base = 16;
+      else if (b == 'o') base = 8;
+      else if (b == 'b') base = 2;
+      else base = 10;  // 'd'
+      bi++;
+    }
+    digits = s.substr(bi);
+  }
+  int64_t v = 0;
+  if (!digits.empty()) {
+    try {
+      v = std::stoll(digits, nullptr, base);
+    } catch (...) {
+      v = 0;
+    }
+  }
+  return v;
+}
+}  // namespace
+
 const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
                                               const FileContent* fC,
                                               NodeId data_declaration,
@@ -824,7 +860,17 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
     while (enum_name_declaration) {
       NodeId enumNameId = fC->Child(enum_name_declaration);
       const std::string_view enumName = fC->SymName(enumNameId);
+      // A ranged member `name[hi:lo] = base` (or `name[N]`): the tree-shape
+      // listener emits the range bounds as slIntConst children between the name
+      // and the value.  Collect them; the value expression is the sibling that
+      // follows.
       NodeId enumValueId = fC->Sibling(enumNameId);
+      std::vector<int64_t> rangeBounds;
+      while (enumValueId &&
+             fC->Type(enumValueId) == VObjectType::slIntConst) {
+        rangeBounds.push_back(parseEnumRangeBound(fC->SymName(enumValueId)));
+        enumValueId = fC->Sibling(enumValueId);
+      }
       Value* value = nullptr;
       if (enumValueId) {
         any* exp = compileExpression(scope, fC, enumValueId, compileDesign,
@@ -849,30 +895,72 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
         value = m_exprBuilder.getValueFactory().newLValue();
         value->set(val, Value::Type::Integer, baseSize);
       }
-      the_enum->addValue(enumName, fC->Line(enumNameId), value);
-      val++;
-      if (scope) scope->setValue(enumName, value, m_exprBuilder);
-      Variable* variable =
-          new Variable(type, fC, enumValueId, InvalidNodeId, enumName);
-      if (scope) scope->addVariable(variable);
+      if (rangeBounds.empty()) {
+        // Ordinary (non-ranged) enum member — unchanged behaviour.
+        the_enum->addValue(enumName, fC->Line(enumNameId), value);
+        val++;
+        if (scope) scope->setValue(enumName, value, m_exprBuilder);
+        Variable* variable =
+            new Variable(type, fC, enumValueId, InvalidNodeId, enumName);
+        if (scope) scope->addVariable(variable);
 
-      enum_const* econst = s.MakeEnum_const();
-      econst->VpiName(enumName);
-      econst->VpiParent(enum_t);
-      fC->populateCoreMembers(enum_name_declaration, enum_name_declaration,
-                              econst);
-      econst->VpiValue(value->uhdmValue());
-      if (enumValueId) {
-        if (any* exp = compileExpression(scope, fC, enumValueId, compileDesign,
-                                         reduce, econst, nullptr)) {
-          UHDM::ExprEval eval;
-          econst->VpiDecompile(eval.prettyPrint(exp));
+        enum_const* econst = s.MakeEnum_const();
+        econst->VpiName(enumName);
+        econst->VpiParent(enum_t);
+        fC->populateCoreMembers(enum_name_declaration, enum_name_declaration,
+                                econst);
+        econst->VpiValue(value->uhdmValue());
+        if (enumValueId) {
+          if (any* exp = compileExpression(scope, fC, enumValueId,
+                                           compileDesign, reduce, econst,
+                                           nullptr)) {
+            UHDM::ExprEval eval;
+            econst->VpiDecompile(eval.prettyPrint(exp));
+          }
+        } else {
+          econst->VpiDecompile(value->decompiledValue());
         }
+        econst->VpiSize(value->getSize());
+        econsts->push_back(econst);
       } else {
-        econst->VpiDecompile(value->decompiledValue());
+        // Ranged member `name[hi:lo] = base` → indexed constants
+        // name<firstIdx>..name<lastIdx>, `base` assigned to the first index and
+        // incrementing.  `name[N]` (single bound) → name0..name(N-1).
+        int64_t firstIdx = 0;
+        int64_t lastIdx = 0;
+        if (rangeBounds.size() == 1) {
+          firstIdx = 0;
+          lastIdx = rangeBounds[0] - 1;
+        } else {
+          firstIdx = rangeBounds[0];
+          lastIdx = rangeBounds[1];
+        }
+        const int64_t step = (lastIdx >= firstIdx) ? 1 : -1;
+        const int64_t baseInt = val;  // numeric value of the first index
+        for (int64_t i = firstIdx;; i += step) {
+          const std::string nm =
+              std::string(enumName).append(std::to_string(i));
+          Value* v = m_exprBuilder.getValueFactory().newLValue();
+          v->set(baseInt + (i - firstIdx), Value::Type::Integer, baseSize);
+          the_enum->addValue(nm, fC->Line(enumNameId), v);
+          if (scope) scope->setValue(nm, v, m_exprBuilder);
+          Variable* variable =
+              new Variable(type, fC, enumValueId, InvalidNodeId, nm);
+          if (scope) scope->addVariable(variable);
+
+          enum_const* econst = s.MakeEnum_const();
+          econst->VpiName(nm);
+          econst->VpiParent(enum_t);
+          fC->populateCoreMembers(enum_name_declaration, enum_name_declaration,
+                                  econst);
+          econst->VpiValue(v->uhdmValue());
+          econst->VpiDecompile(v->decompiledValue());
+          econst->VpiSize(v->getSize());
+          econsts->push_back(econst);
+          if (i == lastIdx) break;
+        }
+        val = baseInt + (std::llabs(lastIdx - firstIdx) + 1);
       }
-      econst->VpiSize(value->getSize());
-      econsts->push_back(econst);
       enum_name_declaration = fC->Sibling(enum_name_declaration);
     }
 
