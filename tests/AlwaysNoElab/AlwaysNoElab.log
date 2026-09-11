@@ -424,7 +424,7 @@ begin                                                  1
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              26
+constant                                              28
 design                                                 1
 enum_const                                             5
 enum_typespec                                          1
@@ -434,14 +434,14 @@ int_typespec                                          14
 int_var                                                5
 io_decl                                               11
 logic_net                                              2
-logic_typespec                                         2
+logic_typespec                                         3
 logic_var                                              2
 module_inst                                            4
-operation                                              7
+operation                                              8
 package                                                2
 param_assign                                           4
 parameter                                              4
-range                                                  3
+range                                                  4
 ref_obj                                                6
 ref_typespec                                          24
 sys_func_call                                          1
@@ -455,7 +455,7 @@ begin                                                  2
 class_defn                                             8
 class_typespec                                         4
 class_var                                              3
-constant                                              26
+constant                                              28
 design                                                 1
 enum_const                                            10
 enum_typespec                                          2
@@ -465,14 +465,14 @@ int_typespec                                          14
 int_var                                                5
 io_decl                                               22
 logic_net                                              2
-logic_typespec                                         2
+logic_typespec                                         3
 logic_var                                              2
 module_inst                                            4
-operation                                              8
+operation                                              9
 package                                                2
 param_assign                                           4
 parameter                                              4
-range                                                  3
+range                                                  4
 ref_obj                                                8
 ref_typespec                                          30
 sys_func_call                                          1
@@ -1119,7 +1119,7 @@ design: (work@dut)
             \_operation: , line:9:22, endln:9:47
             |vpiFullName:work@dut
             |vpiActual:
-            \_int_typespec: , line:5:14, endln:5:26
+            \_logic_typespec: , line:9:22, endln:9:38
           |vpiOpType:67
           |vpiOperand:
           \_ref_obj: (work@dut.device), line:9:40, endln:9:46
@@ -1265,7 +1265,7 @@ design: (work@dut)
             \_operation: , line:9:22, endln:9:47
             |vpiFullName:work@dut
             |vpiActual:
-            \_int_typespec: , line:5:14, endln:5:26
+            \_logic_typespec: , line:9:22, endln:9:38
           |vpiOpType:67
           |vpiOperand:
           \_ref_obj: (work@dut.device), line:9:40, endln:9:46
@@ -1292,14 +1292,37 @@ design: (work@dut)
 \_int_typespec: , line:5:14, endln:5:26
   |vpiParent:
   \_parameter: (work@dut.NumBitsDeviceSel), line:5:27, endln:5:43
-  |vpiExpr:
-  \_ref_obj: (work@dut.NumBitsDeviceSel.NumBitsDeviceSel)
+\_logic_typespec: , line:9:22, endln:9:38
+  |vpiRange:
+  \_range: 
     |vpiParent:
-    \_int_typespec: , line:5:14, endln:5:26
-    |vpiName:NumBitsDeviceSel
-    |vpiFullName:work@dut.NumBitsDeviceSel.NumBitsDeviceSel
-    |vpiActual:
-    \_parameter: (work@dut.NumBitsDeviceSel), line:5:27, endln:5:43
+    \_logic_typespec: , line:9:22, endln:9:38
+    |vpiLeftRange:
+    \_operation: 
+      |vpiParent:
+      \_range: 
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (NumBitsDeviceSel), line:9:22, endln:9:38
+        |vpiParent:
+        \_operation: 
+        |vpiName:NumBitsDeviceSel
+        |vpiActual:
+        \_parameter: (work@dut.NumBitsDeviceSel), line:5:27, endln:5:43
+      |vpiOperand:
+      \_constant: 
+        |vpiParent:
+        \_operation: 
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 \_function: (work@mailbox::new), line:3:5, endln:4:16
   |vpiParent:
   \_class_defn: (work@mailbox), file:${SURELOG_DIR}/tests/AlwaysNoElab/builtin.sv, line:1:3, endln:27:11
@@ -1576,8 +1599,6 @@ design: (work@dut)
 \_int_typespec: , line:5:14, endln:5:26
   |vpiParent:
   \_ref_typespec: (work@dut.NumBitsDeviceSel)
-  |vpiExpr:
-  \_ref_obj: (work@dut.NumBitsDeviceSel.NumBitsDeviceSel)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
