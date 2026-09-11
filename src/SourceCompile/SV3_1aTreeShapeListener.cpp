@@ -857,6 +857,24 @@ void SV3_1aTreeShapeListener::enterSurelog_macro_not_defined(
   logError(ErrorDefinition::PA_UNKOWN_MACRO, ctx, text);
 }
 
+void SV3_1aTreeShapeListener::exitEnum_name_declaration(
+    SV3_1aParser::Enum_name_declarationContext *ctx) {
+  // A ranged enum member `name[hi:lo] = base` (LRM 6.19.1 — e.g. rv32_csr_pkg's
+  // `csr__mhpmcounter[12'h003:12'h01f] = 12'hb03`) declares the indexed members
+  // name<lo>..name<hi>.  The grammar captures the `[hi:lo]` Integral_number
+  // bounds, but the default (generated) listener emitted only the rule node and
+  // dropped the bounds, so CompileHelper::compileTypeDef collapsed the member to
+  // a single `name` constant and the indexed members were lost (a reference to
+  // `csr__mhpmcounter3` then resolved to nothing).  Emit an slIntConst VObject
+  // for each bound so it lands as a child of the enum_name_declaration (in parse
+  // order, between the name and the value); compileTypeDef expands the range.
+  for (antlr4::tree::TerminalNode *num : ctx->Integral_number()) {
+    addVObject((antlr4::ParserRuleContext *)num, num->getText(),
+               VObjectType::slIntConst);
+  }
+  addVObject(ctx, VObjectType::paEnum_name_declaration);
+}
+
 void SV3_1aTreeShapeListener::exitInitVal_Integral(
     SV3_1aParser::InitVal_IntegralContext *ctx) {
   auto number = ctx->Integral_number();
