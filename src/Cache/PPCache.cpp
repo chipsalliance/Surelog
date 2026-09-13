@@ -28,8 +28,8 @@
 #include <capnp/list.h>
 #include <capnp/message.h>
 #include <capnp/serialize-packed.h>
-#include <kj/exception.h>
 #include <fcntl.h>
+#include <kj/exception.h>
 #include <sys/stat.h>
 
 #include <algorithm>

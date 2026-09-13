@@ -514,10 +514,14 @@ static int64_t parseEnumRangeBound(std::string_view tok) {
     if (bi < s.size() && (s[bi] == 's' || s[bi] == 'S')) bi++;
     if (bi < s.size()) {
       const char b = (s[bi] >= 'A' && s[bi] <= 'Z') ? (s[bi] + 32) : s[bi];
-      if (b == 'h') base = 16;
-      else if (b == 'o') base = 8;
-      else if (b == 'b') base = 2;
-      else base = 10;  // 'd'
+      if (b == 'h')
+        base = 16;
+      else if (b == 'o')
+        base = 8;
+      else if (b == 'b')
+        base = 2;
+      else
+        base = 10;  // 'd'
       bi++;
     }
     digits = s.substr(bi);
@@ -866,8 +870,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       // follows.
       NodeId enumValueId = fC->Sibling(enumNameId);
       std::vector<int64_t> rangeBounds;
-      while (enumValueId &&
-             fC->Type(enumValueId) == VObjectType::slIntConst) {
+      while (enumValueId && fC->Type(enumValueId) == VObjectType::slIntConst) {
         rangeBounds.push_back(parseEnumRangeBound(fC->SymName(enumValueId)));
         enumValueId = fC->Sibling(enumValueId);
       }
@@ -911,9 +914,9 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
                                 econst);
         econst->VpiValue(value->uhdmValue());
         if (enumValueId) {
-          if (any* exp = compileExpression(scope, fC, enumValueId,
-                                           compileDesign, reduce, econst,
-                                           nullptr)) {
+          if (any* exp =
+                  compileExpression(scope, fC, enumValueId, compileDesign,
+                                    reduce, econst, nullptr)) {
             UHDM::ExprEval eval;
             econst->VpiDecompile(eval.prettyPrint(exp));
           }
