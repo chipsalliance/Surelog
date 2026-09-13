@@ -1425,16 +1425,13 @@ any *CompileHelper::getValue(std::string_view name, DesignComponent *component,
           int64_t lv = 0, rv = 0;
           if (r0->Left_expr() && r0->Right_expr()) {
             bool inv = false;
-            UHDM::expr *le =
-                reduceExpr((any *)r0->Left_expr(), inv,
-                           declc ? declc : component, compileDesign, nullptr,
-                           fileId, lineNumber, nullptr, true);
-            UHDM::expr *re =
-                reduceExpr((any *)r0->Right_expr(), inv,
-                           declc ? declc : component, compileDesign, nullptr,
-                           fileId, lineNumber, nullptr, true);
-            if (!inv && le && re &&
-                le->UhdmType() == uhdmconstant &&
+            UHDM::expr *le = reduceExpr(
+                (any *)r0->Left_expr(), inv, declc ? declc : component,
+                compileDesign, nullptr, fileId, lineNumber, nullptr, true);
+            UHDM::expr *re = reduceExpr(
+                (any *)r0->Right_expr(), inv, declc ? declc : component,
+                compileDesign, nullptr, fileId, lineNumber, nullptr, true);
+            if (!inv && le && re && le->UhdmType() == uhdmconstant &&
                 re->UhdmType() == uhdmconstant) {
               UHDM::ExprEval eval;
               bool giv = false;
@@ -5225,7 +5222,8 @@ UHDM::any *CompileHelper::compileBits(
         for (NodeId sib = fC->Sibling(first); sib; sib = fC->Sibling(sib)) {
           VObjectType t = fC->Type(sib);
           if (t == VObjectType::paList_of_arguments) has_args = true;
-          if (t == VObjectType::paSelect || t == VObjectType::paConstant_select ||
+          if (t == VObjectType::paSelect ||
+              t == VObjectType::paConstant_select ||
               t == VObjectType::paBit_select ||
               t == VObjectType::paConstant_bit_select ||
               t == VObjectType::paConstant_expression ||
@@ -5254,9 +5252,10 @@ UHDM::any *CompileHelper::compileBits(
   // `$bits(v)` where v's declared type is a TYPE PARAMETER must NOT be folded
   // here: at definition-compile time the parameter has no binding yet, so
   // getTypespec() returns its DEFAULT (`parameter type T = logic` -> 1 bit) and
-  // the query freezes at 1 for every instantiation.  CVA6 cva6_rvfi_probes gates
-  // its whole output on
-  //     if ($bits(rvfi_probes_o.instr) == $bits(instr)) rvfi_probes_o.instr = instr;
+  // the query freezes at 1 for every instantiation.  CVA6 cva6_rvfi_probes
+  // gates its whole output on
+  //     if ($bits(rvfi_probes_o.instr) == $bits(instr)) rvfi_probes_o.instr =
+  //     instr;
   // which became `1204 == 1`, leaving the 6974-bit output stuck at '0.  Leaving
   // the sys_func_call unevaluated defers the query to elaboration, where the
   // type parameter is bound.
@@ -5266,10 +5265,16 @@ UHDM::any *CompileHelper::compileBits(
     const std::string_view argName = fC->SymName(typeSpecId);
     Signal *asig = nullptr;
     for (auto sg : component->getPorts())
-      if (sg->getName() == argName) { asig = sg; break; }
+      if (sg->getName() == argName) {
+        asig = sg;
+        break;
+      }
     if (asig == nullptr)
       for (auto sg : component->getSignals())
-        if (sg->getName() == argName) { asig = sg; break; }
+        if (sg->getName() == argName) {
+          asig = sg;
+          break;
+        }
     if (asig) {
       if (NodeId tid = asig->getTypeSpecId()) {
         if (fC->Type(tid) == VObjectType::slStringConst) {
@@ -5301,20 +5306,24 @@ UHDM::any *CompileHelper::compileBits(
     if (m_elabMode || (reduce == Reduce::Yes)) {
       const typespec *cur = getTypespec(component, fC, typeSpecId,
                                         compileDesign, reduce, instance);
-      auto member_of = [](const typespec *t, std::string_view n) -> const typespec * {
+      auto member_of = [](const typespec *t,
+                          std::string_view n) -> const typespec * {
         if (const struct_typespec *st = any_cast<const struct_typespec *>(t))
           if (st->Members())
             for (typespec_member *m : *st->Members())
               if (m->VpiName() == n)
-                return m->Typespec() ? m->Typespec()->Actual_typespec() : nullptr;
+                return m->Typespec() ? m->Typespec()->Actual_typespec()
+                                     : nullptr;
         return nullptr;
       };
       auto elem_of = [](const typespec *t) -> const typespec * {
         if (const packed_array_typespec *pa =
                 any_cast<const packed_array_typespec *>(t))
-          return pa->Elem_typespec() ? pa->Elem_typespec()->Actual_typespec() : nullptr;
+          return pa->Elem_typespec() ? pa->Elem_typespec()->Actual_typespec()
+                                     : nullptr;
         if (const array_typespec *at = any_cast<const array_typespec *>(t))
-          return at->Elem_typespec() ? at->Elem_typespec()->Actual_typespec() : nullptr;
+          return at->Elem_typespec() ? at->Elem_typespec()->Actual_typespec()
+                                     : nullptr;
         return nullptr;
       };
       auto const_val = [&](NodeId n, int64_t &v) -> bool {
@@ -5330,12 +5339,12 @@ UHDM::any *CompileHelper::compileBits(
       };
       // Bits of `t` with `strip` outer packed ranges removed.
       auto bits_stripped = [&](const typespec *t, int strip) -> uint64_t {
-        uint64_t total = Bits(t, invalidValue, component, compileDesign, reduce,
-                              instance, fC->getFileId(typeSpecId),
-                              fC->Line(typeSpecId), sizeMode);
+        uint64_t total =
+            Bits(t, invalidValue, component, compileDesign, reduce, instance,
+                 fC->getFileId(typeSpecId), fC->Line(typeSpecId), sizeMode);
         if (strip == 0 || invalidValue) return total;
         for (int i = 0; i < strip; i++) {
-          if (const typespec *el = elem_of(t)) {   // explicit element type
+          if (const typespec *el = elem_of(t)) {  // explicit element type
             total = Bits(el, invalidValue, component, compileDesign, reduce,
                          instance, fC->getFileId(typeSpecId),
                          fC->Line(typeSpecId), sizeMode);
@@ -5352,15 +5361,15 @@ UHDM::any *CompileHelper::compileBits(
           bool inv = false;
           UHDM::ExprEval eval;
           int64_t l = eval.get_value(
-              inv, reduceExpr(const_cast<expr *>(r->Left_expr()), inv,
-                              component, compileDesign, instance,
-                              fC->getFileId(typeSpecId), fC->Line(typeSpecId),
-                              pexpr, muteErrors));
+              inv,
+              reduceExpr(const_cast<expr *>(r->Left_expr()), inv, component,
+                         compileDesign, instance, fC->getFileId(typeSpecId),
+                         fC->Line(typeSpecId), pexpr, muteErrors));
           int64_t r2 = eval.get_value(
-              inv, reduceExpr(const_cast<expr *>(r->Right_expr()), inv,
-                              component, compileDesign, instance,
-                              fC->getFileId(typeSpecId), fC->Line(typeSpecId),
-                              pexpr, muteErrors));
+              inv,
+              reduceExpr(const_cast<expr *>(r->Right_expr()), inv, component,
+                         compileDesign, instance, fC->getFileId(typeSpecId),
+                         fC->Line(typeSpecId), pexpr, muteErrors));
           uint64_t outer = (uint64_t)((l > r2) ? (l - r2) : (r2 - l)) + 1;
           if (inv || outer == 0 || total % outer) return 0;
           total /= outer;
@@ -5370,29 +5379,36 @@ UHDM::any *CompileHelper::compileBits(
       // Parse-tree scan: member names / index selects after the base, the
       // element selects AFTER the last member name, a trailing part-select.
       std::vector<std::string_view> members;
-      bool indexed_base = false;     // an index select before the last member
-      int pendingElem = 0;           // element selects after the last member
-      NodeId partRange;              // trailing part-select range node
+      bool indexed_base = false;  // an index select before the last member
+      int pendingElem = 0;        // element selects after the last member
+      NodeId partRange;           // trailing part-select range node
       auto note_index = [&]() {
-        if (members.empty()) indexed_base = true; else pendingElem++;
+        if (members.empty())
+          indexed_base = true;
+        else
+          pendingElem++;
       };
       auto note_member = [&](std::string_view n) {
         if (!members.empty() && pendingElem) indexed_base = true;
         pendingElem = 0;
         members.push_back(n);
       };
-      for (NodeId sib = fC->Sibling(selPrimFirst); sib; sib = fC->Sibling(sib)) {
+      for (NodeId sib = fC->Sibling(selPrimFirst); sib;
+           sib = fC->Sibling(sib)) {
         VObjectType t = fC->Type(sib);
         if (t == VObjectType::slStringConst) {
           note_member(fC->SymName(sib));
         } else if (t == VObjectType::paConstant_expression ||
                    t == VObjectType::paExpression) {
           note_index();
-        } else if (t == VObjectType::paSelect || t == VObjectType::paConstant_select) {
+        } else if (t == VObjectType::paSelect ||
+                   t == VObjectType::paConstant_select) {
           for (NodeId c = fC->Child(sib); c; c = fC->Sibling(c)) {
             VObjectType ct = fC->Type(c);
-            if (ct == VObjectType::paBit_select || ct == VObjectType::paConstant_bit_select) {
-              for (NodeId ix = fC->Child(c); ix; ix = fC->Sibling(ix)) note_index();
+            if (ct == VObjectType::paBit_select ||
+                ct == VObjectType::paConstant_bit_select) {
+              for (NodeId ix = fC->Child(c); ix; ix = fC->Sibling(ix))
+                note_index();
             } else if (ct == VObjectType::paPart_select_range ||
                        ct == VObjectType::paConstant_part_select_range) {
               partRange = fC->Child(c);
@@ -5419,7 +5435,8 @@ UHDM::any *CompileHelper::compileBits(
         NodeId b = a ? fC->Sibling(a) : InvalidNodeId;
         int64_t l = 0, r = 0;
         VObjectType rt = fC->Type(partRange);
-        if ((rt == VObjectType::paConstant_range || rt == VObjectType::paRange_expression) &&
+        if ((rt == VObjectType::paConstant_range ||
+             rt == VObjectType::paRange_expression) &&
             a && b && const_val(a, l) && const_val(b, r))
           bits = (uint64_t)((l > r) ? (l - r) : (r - l)) + 1;
         else if ((rt == VObjectType::paConstant_indexed_range ||
@@ -5448,12 +5465,16 @@ UHDM::any *CompileHelper::compileBits(
             bits = Bits(exp, invalidValue, component, compileDesign, reduce,
                         instance, fC->getFileId(typeSpecId),
                         fC->Line(typeSpecId), sizeMode);
-          if (invalidValue || bits == 0) { exp = nullptr; bits = 0; invalidValue = false; }
+          if (invalidValue || bits == 0) {
+            exp = nullptr;
+            bits = 0;
+            invalidValue = false;
+          }
         }
         // else: the symbolic $bits/$size call
       } else {
         reduce = Reduce::Yes;
-        tps = cur;   // folded below through the typespec branch
+        tps = cur;  // folded below through the typespec branch
       }
     }
   } else if (bits == 0 && !unbound_type_param_arg) {

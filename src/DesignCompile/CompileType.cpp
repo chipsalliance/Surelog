@@ -1957,9 +1957,9 @@ UHDM::typespec* CompileHelper::compileTypespec(
           }
         }
         if (result == nullptr) {
-          result = compileDatastructureTypespec(
-              component, fC, type, compileDesign, reduce, instance, "",
-              typeName);
+          result =
+              compileDatastructureTypespec(component, fC, type, compileDesign,
+                                           reduce, instance, "", typeName);
         }
         if (ranges && result) {
           UHDM_OBJECT_TYPE dstype = result->UhdmType();

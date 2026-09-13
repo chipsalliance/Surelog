@@ -27,10 +27,10 @@
 #include <uhdm/expr.h>
 #include <uhdm/uhdm_types.h>
 
+#include <algorithm>
 #include <cstdint>
 #include <cstring>
 #include <functional>
-#include <algorithm>
 #include <map>
 #include <queue>
 #include <string>
@@ -180,8 +180,7 @@ bool ElaborationStep::bindTypedefs_() {
       TypeDef* typd = defs[i].first;
       const FileContent* fC = typd->getFileContent();
       NodeId defNode = typd->getDefinitionNode();
-      if (fC && defNode &&
-          fC->Type(defNode) == VObjectType::slStringConst) {
+      if (fC && defNode && fC->Type(defNode) == VObjectType::slStringConst) {
         auto& scopeMap = byScope[defs[i].second];
         auto it = scopeMap.find(fC->SymName(defNode));
         if (it != scopeMap.end() && it->second != i) emit(it->second);
@@ -238,15 +237,14 @@ bool ElaborationStep::bindTypedefs_() {
             // collapsed from 8 entries to 2), and the shared typespec is
             // never re-elaborated per instance.  Packages and file scopes
             // have final parameter values, so reduction stays correct there.
-            Reduce tdReduce =
-                (valuedcomponenti_cast<Package*>(comp) ||
-                 valuedcomponenti_cast<FileContent*>(comp))
-                    ? Reduce::Yes
-                    : Reduce::No;
+            Reduce tdReduce = (valuedcomponenti_cast<Package*>(comp) ||
+                               valuedcomponenti_cast<FileContent*>(comp))
+                                  ? Reduce::Yes
+                                  : Reduce::No;
             tpclone = m_helper.compileTypespec(
                 defTuple.second, typd->getFileContent(),
-                typd->getDefinitionNode(), m_compileDesign, tdReduce,
-                nullptr, nullptr, false);
+                typd->getDefinitionNode(), m_compileDesign, tdReduce, nullptr,
+                nullptr, false);
           } else if (typespec* tps = def->getTypespec()) {
             ElaboratorContext elaboratorContext(&s, false, true);
             tpclone =
