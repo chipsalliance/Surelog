@@ -5169,6 +5169,14 @@ UHDM::any *CompileHelper::compileBits(
   bool invalidValue = false;
   const typespec *tps = nullptr;
   const any *exp = nullptr;
+  // `$bits(arr[idx].member)`, `$bits(s.f)`, `$bits(x[hi:lo])`: a SELECTED or
+  // hierarchical primary.  Sizing the first identifier's typespec sizes the
+  // wrong object (OpenTitan kmac_app's `$bits(app_i[app_id].strb)` folded to
+  // the whole 140-bit app_req_t instead of the 8-bit strb member, so its
+  // strb->byte-mask loop ran 140 times); size the compiled expression instead,
+  // or leave the call symbolic when that cannot be evaluated.
+  bool selectedPrimary = false;
+  NodeId selPrimFirst;
   switch (fC->Type(Expression)) {
     case VObjectType::paIntegerAtomType_Byte:
     case VObjectType::paIntegerAtomType_Int:
@@ -5208,9 +5216,37 @@ UHDM::any *CompileHelper::compileBits(
       } else if (fC->Type(Primary_literal) ==
                  VObjectType::paComplex_func_call) {
         typeSpecId = Primary_literal;
+        // A selected / hierarchical name (`arr[idx].member`, `s.f[7:4]`)
+        // parses as a Complex_func_call whose children are the identifier
+        // followed by index expressions, member names and Select nodes — a
+        // real call carries a List_of_arguments instead.
+        NodeId first = fC->Child(Primary_literal);
+        bool has_args = false, has_select = false;
+        for (NodeId sib = fC->Sibling(first); sib; sib = fC->Sibling(sib)) {
+          VObjectType t = fC->Type(sib);
+          if (t == VObjectType::paList_of_arguments) has_args = true;
+          if (t == VObjectType::paSelect || t == VObjectType::paConstant_select ||
+              t == VObjectType::paBit_select ||
+              t == VObjectType::paConstant_bit_select ||
+              t == VObjectType::paConstant_expression ||
+              t == VObjectType::slStringConst)
+            has_select = true;
+        }
+        if (has_select && !has_args &&
+            fC->Type(first) == VObjectType::slStringConst) {
+          selectedPrimary = true;
+          selPrimFirst = first;
+        }
       } else {
         NodeId StringConst = fC->Child(Primary_literal);
         typeSpecId = StringConst;
+        if (fC->Sibling(StringConst) ||
+            fC->Type(StringConst) == VObjectType::paHierarchical_identifier) {
+          selectedPrimary = true;
+          selPrimFirst = StringConst;
+          if (fC->Type(StringConst) == VObjectType::paHierarchical_identifier)
+            selPrimFirst = fC->Child(StringConst);
+        }
       }
     }
   }
@@ -5252,7 +5288,175 @@ UHDM::any *CompileHelper::compileBits(
     }
   }
 
-  if (bits == 0 && !unbound_type_param_arg) {
+  if (selectedPrimary) {
+    // A selected primary.  getTypespec() on the whole selected name resolves
+    // `x.member` chains, but (a) stops at the element struct when the base is
+    // INDEX-selected (`app_i[app_id].strb` on a packed array of structs sized
+    // as the whole 140-bit struct), (b) ignores a trailing part-select
+    // (`s.data[7:4]`), (c) sizes a trailing element select of a multi-range
+    // member as the whole member (`keymgr_key_i.key[0]`).  Correct those from
+    // the PARSE TREE (no compileExpression() of the argument: the hier_path
+    // it would leave in the model is bound at elaboration and reported as
+    // unresolved).  Not sizable -> the symbolic $bits/$size call.
+    if (m_elabMode || (reduce == Reduce::Yes)) {
+      const typespec *cur = getTypespec(component, fC, typeSpecId,
+                                        compileDesign, reduce, instance);
+      auto member_of = [](const typespec *t, std::string_view n) -> const typespec * {
+        if (const struct_typespec *st = any_cast<const struct_typespec *>(t))
+          if (st->Members())
+            for (typespec_member *m : *st->Members())
+              if (m->VpiName() == n)
+                return m->Typespec() ? m->Typespec()->Actual_typespec() : nullptr;
+        return nullptr;
+      };
+      auto elem_of = [](const typespec *t) -> const typespec * {
+        if (const packed_array_typespec *pa =
+                any_cast<const packed_array_typespec *>(t))
+          return pa->Elem_typespec() ? pa->Elem_typespec()->Actual_typespec() : nullptr;
+        if (const array_typespec *at = any_cast<const array_typespec *>(t))
+          return at->Elem_typespec() ? at->Elem_typespec()->Actual_typespec() : nullptr;
+        return nullptr;
+      };
+      auto const_val = [&](NodeId n, int64_t &v) -> bool {
+        UHDM::any *e = compileExpression(component, fC, n, compileDesign,
+                                         Reduce::Yes, pexpr, instance, true);
+        if (const constant *c = any_cast<const constant *>(e)) {
+          bool inv = false;
+          UHDM::ExprEval eval;
+          v = eval.get_value(inv, c);
+          return !inv;
+        }
+        return false;
+      };
+      // Bits of `t` with `strip` outer packed ranges removed.
+      auto bits_stripped = [&](const typespec *t, int strip) -> uint64_t {
+        uint64_t total = Bits(t, invalidValue, component, compileDesign, reduce,
+                              instance, fC->getFileId(typeSpecId),
+                              fC->Line(typeSpecId), sizeMode);
+        if (strip == 0 || invalidValue) return total;
+        for (int i = 0; i < strip; i++) {
+          if (const typespec *el = elem_of(t)) {   // explicit element type
+            total = Bits(el, invalidValue, component, compileDesign, reduce,
+                         instance, fC->getFileId(typeSpecId),
+                         fC->Line(typeSpecId), sizeMode);
+            t = el;
+            continue;
+          }
+          VectorOfrange *ranges = nullptr;
+          if (const logic_typespec *lt = any_cast<const logic_typespec *>(t))
+            ranges = lt->Ranges();
+          else if (const bit_typespec *bt = any_cast<const bit_typespec *>(t))
+            ranges = bt->Ranges();
+          if (!ranges || (int)ranges->size() <= i) return 0;
+          range *r = ranges->at(i);
+          bool inv = false;
+          UHDM::ExprEval eval;
+          int64_t l = eval.get_value(
+              inv, reduceExpr(const_cast<expr *>(r->Left_expr()), inv,
+                              component, compileDesign, instance,
+                              fC->getFileId(typeSpecId), fC->Line(typeSpecId),
+                              pexpr, muteErrors));
+          int64_t r2 = eval.get_value(
+              inv, reduceExpr(const_cast<expr *>(r->Right_expr()), inv,
+                              component, compileDesign, instance,
+                              fC->getFileId(typeSpecId), fC->Line(typeSpecId),
+                              pexpr, muteErrors));
+          uint64_t outer = (uint64_t)((l > r2) ? (l - r2) : (r2 - l)) + 1;
+          if (inv || outer == 0 || total % outer) return 0;
+          total /= outer;
+        }
+        return total;
+      };
+      // Parse-tree scan: member names / index selects after the base, the
+      // element selects AFTER the last member name, a trailing part-select.
+      std::vector<std::string_view> members;
+      bool indexed_base = false;     // an index select before the last member
+      int pendingElem = 0;           // element selects after the last member
+      NodeId partRange;              // trailing part-select range node
+      auto note_index = [&]() {
+        if (members.empty()) indexed_base = true; else pendingElem++;
+      };
+      auto note_member = [&](std::string_view n) {
+        if (!members.empty() && pendingElem) indexed_base = true;
+        pendingElem = 0;
+        members.push_back(n);
+      };
+      for (NodeId sib = fC->Sibling(selPrimFirst); sib; sib = fC->Sibling(sib)) {
+        VObjectType t = fC->Type(sib);
+        if (t == VObjectType::slStringConst) {
+          note_member(fC->SymName(sib));
+        } else if (t == VObjectType::paConstant_expression ||
+                   t == VObjectType::paExpression) {
+          note_index();
+        } else if (t == VObjectType::paSelect || t == VObjectType::paConstant_select) {
+          for (NodeId c = fC->Child(sib); c; c = fC->Sibling(c)) {
+            VObjectType ct = fC->Type(c);
+            if (ct == VObjectType::paBit_select || ct == VObjectType::paConstant_bit_select) {
+              for (NodeId ix = fC->Child(c); ix; ix = fC->Sibling(ix)) note_index();
+            } else if (ct == VObjectType::paPart_select_range ||
+                       ct == VObjectType::paConstant_part_select_range) {
+              partRange = fC->Child(c);
+            } else if (ct == VObjectType::slStringConst) {
+              note_member(fC->SymName(c));
+            }
+          }
+        }
+      }
+      bool ok = (cur != nullptr);
+      // (a) an index-selected base: the lookup stopped at the element struct —
+      // descend the member names it skipped (as far as they resolve).
+      if (ok && indexed_base) {
+        for (std::string_view m : members) {
+          if (const typespec *mt = member_of(cur, m)) cur = mt;
+        }
+      } else if (ok && !members.empty()) {
+        // The lookup may still have stopped one level short.
+        if (const typespec *mt = member_of(cur, members.back())) cur = mt;
+      }
+      if (ok && partRange) {
+        // (b) a trailing part-select is its own range
+        NodeId a = fC->Child(partRange);
+        NodeId b = a ? fC->Sibling(a) : InvalidNodeId;
+        int64_t l = 0, r = 0;
+        VObjectType rt = fC->Type(partRange);
+        if ((rt == VObjectType::paConstant_range || rt == VObjectType::paRange_expression) &&
+            a && b && const_val(a, l) && const_val(b, r))
+          bits = (uint64_t)((l > r) ? (l - r) : (r - l)) + 1;
+        else if ((rt == VObjectType::paConstant_indexed_range ||
+                  rt == VObjectType::paIndexed_range) &&
+                 b && const_val(b, r) && r > 0)
+          bits = (uint64_t)r;
+        else
+          ok = false;
+      } else if (ok) {
+        // The whole-name lookup already applied trailing element selects
+        // (`keymgr_key_i.key[0]` resolves to the 256-bit share); size as is.
+        bits = bits_stripped(cur, 0);
+      }
+      if (invalidValue || !ok || bits == 0) {
+        bits = 0;
+        invalidValue = false;
+        if (!(indexed_base && !members.empty()) && (reduce == Reduce::Yes)) {
+          // The pre-existing fallback: size the compiled expression (an
+          // interface member `a.data`, an unpacked struct element `e.d[17]`,
+          // a plain element select `routing_matrix_p[0][i]`).  Skipped for an
+          // index-selected base FOLLOWED BY A MEMBER (`app_i[app_id].strb`),
+          // where Bits() sizes the whole element struct — that stays symbolic.
+          exp = compileExpression(component, fC, Expression, compileDesign,
+                                  Reduce::Yes, pexpr, instance, true);
+          if (exp && typeSpecId)
+            bits = Bits(exp, invalidValue, component, compileDesign, reduce,
+                        instance, fC->getFileId(typeSpecId),
+                        fC->Line(typeSpecId), sizeMode);
+          if (invalidValue || bits == 0) { exp = nullptr; bits = 0; invalidValue = false; }
+        }
+        // else: the symbolic $bits/$size call
+      } else {
+        reduce = Reduce::Yes;
+        tps = cur;   // folded below through the typespec branch
+      }
+    }
+  } else if (bits == 0 && !unbound_type_param_arg) {
     tps =
         getTypespec(component, fC, typeSpecId, compileDesign, reduce, instance);
     if (m_elabMode && (reduce == Reduce::No) && tps) {

@@ -3496,6 +3496,12 @@ expression
     | GREATER_EQUAL
     | INSIDE
   ) attribute_instance* expression
+  // `expr inside { open_range_list }` binds at the relational level (IEEE
+  // 1800-2017 Table 11-2), NOT below the conditional operator: as the last
+  // alternative it parsed `a inside {..} ? x : b inside {..} ? y : z` as
+  // `((a inside {..}) ? x : b) inside {..} ? y : z` (OpenTitan reg_top
+  // window steering).
+  | expression INSIDE OPEN_CURLY open_range_list CLOSE_CURLY
   | expression (
     EQUIV
     | NOTEQUAL
@@ -3522,7 +3528,6 @@ expression
   | <assoc = right> expression (IMPLY | EQUIVALENCE) attribute_instance* expression
   | expression MATCHES pattern (LOGICAL_AND expression)* QMARK attribute_instance* expression COLON
       expression
-  | expression INSIDE OPEN_CURLY open_range_list CLOSE_CURLY
   ;
 
 value_range
