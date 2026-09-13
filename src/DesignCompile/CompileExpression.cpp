@@ -3448,9 +3448,48 @@ UHDM::any *CompileHelper::compileExpression(
             if (fC->Type(Constant_expression) == VObjectType::paSimple_type) {
               NodeId Integer_type = fC->Child(Constant_expression);
               NodeId Type = fC->Child(Integer_type);
-              exp_slice =
-                  compileBits(component, fC, Type, compileDesign, Reduce::Yes,
-                              operation, instance, false, muteErrors);
+              // `slice_size ::= simple_type | constant_expression`: a bare
+              // identifier parses as a simple_type (ps_type_identifier) even
+              // when it names a VALUE parameter (`{<<LfsrIdxDw{col}}` in
+              // prim_lfsr's non-linear output layer).  $bits of a non-type
+              // silently produced a 0 slice size (read as 1: a full bit
+              // reversal instead of a 6-bit-slice reversal).  Resolve a value
+              // parameter as the constant expression it is.
+              bool isValueParam = false;
+              if (fC->Type(Integer_type) == VObjectType::paPs_type_identifier &&
+                  fC->Type(Type) == VObjectType::slStringConst && component) {
+                const std::string_view nm = fC->SymName(Type);
+                const auto &pmap = component->getParameterMap();
+                auto it = pmap.find(nm);
+                if (it != pmap.end() && it->second &&
+                    !it->second->isTypeParam()) {
+                  isValueParam = true;
+                } else {
+                  // A function declared inside a generate block compiles with
+                  // the generate scope as its component, whose parameter map
+                  // does not hold the enclosing module's parameters
+                  // (prim_lfsr's gen_out_non_linear).  getValue walks the
+                  // instance / generate-scope chain (and, for a type name,
+                  // yields its typespec instead).
+                  UHDM::any *v = getValue(
+                      nm, component, compileDesign, Reduce::No, instance,
+                      fC->getFileId(Type), fC->Line(Type), operation, true);
+                  if (v && (dynamic_cast<UHDM::typespec *>(v) == nullptr))
+                    isValueParam = true;
+                  else if (v == nullptr &&
+                           component->getDataType(nm) == nullptr)
+                    isValueParam = true;
+                }
+              }
+              if (isValueParam) {
+                exp_slice =
+                    compileExpression(component, fC, Type, compileDesign,
+                                      reduce, operation, instance, muteErrors);
+              } else {
+                exp_slice =
+                    compileBits(component, fC, Type, compileDesign, Reduce::Yes,
+                                operation, instance, false, muteErrors);
+              }
             } else {
               exp_slice = compileExpression(component, fC, Constant_expression,
                                             compileDesign, reduce, operation,
