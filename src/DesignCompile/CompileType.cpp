@@ -1367,16 +1367,35 @@ UHDM::typespec* CompileHelper::compileTypespec(
         fC->populateCoreMembers(enum_name_declaration, enum_name_declaration,
                                 econst);
         econst->VpiValue(value->uhdmValue());
+        econst->VpiSize(value->getSize());
         if (enumValueId) {
           any* exp =
               compileExpression(component, fC, enumValueId, compileDesign,
                                 Reduce::No, pstmt, nullptr);
           UHDM::ExprEval eval;
           econst->VpiDecompile(eval.prettyPrint(exp));
+          // A member value the 64-bit Value evaluator could not hold — a
+          // concatenation of parameters wider than 64 bits (OpenTitan
+          // lc_ctrl_state_pkg's 320-bit lc_state_e / 384-bit lc_cnt_e members
+          // `{A11, B10, ...}`) — left VpiValue EMPTY, so every consumer saw 0
+          // and no `case` arm on those states ever matched.  Reduce the
+          // compiled expression instead and take the constant's (BIN/HEX
+          // string) value and size.
+          if (econst->VpiValue().empty() || !value->isValid()) {
+            any* red =
+                compileExpression(component, fC, enumValueId, compileDesign,
+                                  Reduce::Yes, pstmt, nullptr);
+            if (red && red->UhdmType() == uhdmconstant) {
+              constant* c = (constant*)red;
+              if (!c->VpiValue().empty()) {
+                econst->VpiValue(c->VpiValue());
+                if (c->VpiSize() > 0) econst->VpiSize(c->VpiSize());
+              }
+            }
+          }
         } else {
           econst->VpiDecompile(value->decompiledValue());
         }
-        econst->VpiSize(value->getSize());
         econsts->push_back(econst);
         enum_name_declaration = fC->Sibling(enum_name_declaration);
       }
