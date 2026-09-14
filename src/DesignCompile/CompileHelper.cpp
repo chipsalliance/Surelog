@@ -3224,7 +3224,17 @@ always* CompileHelper::compileAlwaysBlock(DesignComponent* component,
       break;
   }
   NodeId Statement = fC->Sibling(always_keyword);
+  // `always_comb (* xprop_off *) begin … end` (pulp_riscv_dbg dm_csrs /
+  // dm_mem): the attribute instance sits between the keyword and the
+  // statement; taking it as the statement raised UH0701 "Unsupported
+  // statement Attr_spec" and DROPPED the whole always block.
+  while (Statement && fC->Type(Statement) == VObjectType::paAttribute_instance)
+    Statement = fC->Sibling(Statement);
   NodeId Statement_item = fC->Child(Statement);
+  // … or the attribute instance is the Statement's first child.
+  while (Statement_item &&
+         fC->Type(Statement_item) == VObjectType::paAttribute_instance)
+    Statement_item = fC->Sibling(Statement_item);
   VectorOfany* stmts = nullptr;
   if (fC->Type(Statement_item) == VObjectType::slStringConst) {
     stmts = compileStmt(component, fC, Statement_item, compileDesign,
