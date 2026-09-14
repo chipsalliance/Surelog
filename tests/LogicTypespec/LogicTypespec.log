@@ -91,28 +91,28 @@ AST_DEBUG_END
 constant                                              22
 design                                                 1
 logic_net                                              1
-logic_typespec                                         3
+logic_typespec                                         5
 logic_var                                              1
 module_inst                                            4
 package                                                2
 packed_array_typespec                                  2
 packed_array_var                                       1
 range                                                 11
-ref_typespec                                           2
+ref_typespec                                           4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
 constant                                              22
 design                                                 1
 logic_net                                              1
-logic_typespec                                         3
+logic_typespec                                         5
 logic_var                                              1
 module_inst                                            4
 package                                                2
 packed_array_typespec                                  2
 packed_array_var                                       1
 range                                                 11
-ref_typespec                                           2
+ref_typespec                                           4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/LogicTypespec/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/LogicTypespec/slpp_all/checker/surelog.chk.html ...
@@ -164,7 +164,7 @@ design: (work@logic_typespec)
   |vpiName:my_package
   |vpiFullName:my_package::
   |vpiTypedef:
-  \_logic_typespec: (my_package::typedef_logic_typespec), line:2:9, endln:7:44
+  \_logic_typespec: (my_package::typedef_logic_typespec), line:2:9, endln:2:20
     |vpiParent:
     \_package: my_package (my_package::), file:${SURELOG_DIR}/tests/LogicTypespec/dut.sv, line:1:1, endln:3:23
     |vpiName:my_package::typedef_logic_typespec
@@ -173,7 +173,7 @@ design: (work@logic_typespec)
     |vpiRange:
     \_range: , line:2:15, endln:2:20
       |vpiParent:
-      \_logic_typespec: (my_package::typedef_logic_typespec), line:2:9, endln:7:44
+      \_logic_typespec: (my_package::typedef_logic_typespec), line:2:9, endln:2:20
       |vpiLeftRange:
       \_constant: , line:2:16, endln:2:17
         |vpiParent:
@@ -209,7 +209,7 @@ design: (work@logic_typespec)
       \_logic_net: (work@logic_typespec.my_instance), line:7:50, endln:7:61
       |vpiFullName:work@logic_typespec.my_instance
       |vpiActual:
-      \_logic_typespec: (my_package::typedef_logic_typespec), line:2:9, endln:7:44
+      \_logic_typespec: 
     |vpiName:my_instance
     |vpiFullName:work@logic_typespec.my_instance
   |vpiEndLabel:logic_typespec
@@ -301,6 +301,53 @@ design: (work@logic_typespec)
     \_constant: , line:2:18, endln:2:19
       |vpiParent:
       \_range: , line:2:15, endln:2:20
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: 
+  |vpiElemTypespec:
+  \_ref_typespec: 
+    |vpiParent:
+    \_logic_typespec: 
+    |vpiActual:
+    \_logic_typespec: (my_package::typedef_logic_typespec), line:2:9, endln:2:20
+  |vpiRange:
+  \_range: , line:7:39, endln:7:44
+    |vpiParent:
+    \_logic_typespec: 
+    |vpiLeftRange:
+    \_constant: , line:7:40, endln:7:41
+      |vpiParent:
+      \_range: , line:7:39, endln:7:44
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:7:42, endln:7:43
+      |vpiParent:
+      \_range: , line:7:39, endln:7:44
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:7:44, endln:7:49
+    |vpiParent:
+    \_logic_typespec: 
+    |vpiLeftRange:
+    \_constant: , line:7:45, endln:7:46
+      |vpiParent:
+      \_range: , line:7:44, endln:7:49
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:7:47, endln:7:48
+      |vpiParent:
+      \_range: , line:7:44, endln:7:49
       |vpiDecompile:0
       |vpiSize:64
       |UINT:0

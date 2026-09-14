@@ -1595,7 +1595,36 @@ UHDM::typespec* CompileHelper::compileTypespec(
             }
           }
         }
-        if (ranges) {
+        if (ranges && isPacked &&
+            (result->UhdmType() == uhdmlogic_typespec ||
+             result->UhdmType() == uhdmbit_typespec)) {
+          // `pkg::t [N-1:0] member;` where pkg::t is a typedef'd logic/bit
+          // vector: the outer packed dimension was DROPPED here (only
+          // struct/enum/class typedefs were wrapped), so the member ended
+          // up the width of the bare typedef.  OpenTitan dma_pkg::sys_req_t's
+          // `top_racl_pkg::racl_role_t [SYS_NUM_REQ_CH-1:0] racl_vec` came
+          // out one element wide (183 bits instead of 184) and the dma top
+          // could not be compared port-for-port.  Mirror the slStringConst
+          // branch: a logic_typespec / packed_array_typespec carrying the
+          // outer ranges with the typedef as its Elem_typespec.
+          ref_typespec* resultRef = s.MakeRef_typespec();
+          resultRef->Actual_typespec(result);
+          if (result->UhdmType() == uhdmlogic_typespec) {
+            logic_typespec* pats = s.MakeLogic_typespec();
+            pats->Elem_typespec(resultRef);
+            resultRef->VpiParent(pats);
+            pats->Ranges(ranges);
+            for (auto r : *ranges) r->VpiParent(pats);
+            result = pats;
+          } else {
+            packed_array_typespec* pats = s.MakePacked_array_typespec();
+            pats->Elem_typespec(resultRef);
+            resultRef->VpiParent(pats);
+            pats->Ranges(ranges);
+            for (auto r : *ranges) r->VpiParent(pats);
+            result = pats;
+          }
+        } else if (ranges) {
           if ((result->UhdmType() != uhdmlogic_typespec) &&
               (result->UhdmType() != uhdmbit_typespec) &&
               (result->UhdmType() != uhdmint_typespec)) {
