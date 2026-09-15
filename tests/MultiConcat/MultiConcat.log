@@ -1673,7 +1673,7 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 0.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                             897
+constant                                             899
 design                                                 1
 enum_const                                            58
 enum_typespec                                          8
@@ -1687,11 +1687,11 @@ param_assign                                          36
 parameter                                             36
 range                                                 46
 ref_obj                                              615
-ref_typespec                                         107
+ref_typespec                                         109
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                             897
+constant                                             899
 design                                                 1
 enum_const                                            58
 enum_typespec                                          8
@@ -1705,7 +1705,7 @@ param_assign                                          36
 parameter                                             36
 range                                                 46
 ref_obj                                              615
-ref_typespec                                         107
+ref_typespec                                         109
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/MultiConcat/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/MultiConcat/slpp_all/checker/surelog.chk.html ...
@@ -4820,6 +4820,7 @@ design: (unnamed)
   \_parameter: (lc_ctrl_pkg::LC_TX_DEFAULT), line:34:21, endln:34:34
     |vpiParent:
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
+    |UINT:5
     |vpiTypespec:
     \_ref_typespec: (lc_ctrl_pkg::LC_TX_DEFAULT)
       |vpiParent:
@@ -4970,25 +4971,20 @@ design: (unnamed)
     |vpiParent:
     \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
     |vpiRhs:
-    \_operation: , line:34:37, endln:34:50
+    \_constant: , line:34:37, endln:34:50
       |vpiParent:
       \_param_assign: , line:34:21, endln:34:50
+      |vpiDecompile:5
+      |vpiSize:4
+      |UINT:5
       |vpiTypespec:
       \_ref_typespec: (lc_ctrl_pkg)
         |vpiParent:
-        \_operation: , line:34:37, endln:34:50
+        \_constant: , line:34:37, endln:34:50
         |vpiFullName:lc_ctrl_pkg
         |vpiActual:
         \_logic_typespec: (lc_tx_t), line:33:11, endln:33:30
-      |vpiOpType:67
-      |vpiOperand:
-      \_constant: , line:34:46, endln:34:49
-        |vpiParent:
-        \_operation: , line:34:37, endln:34:50
-        |vpiDecompile:4'b0101
-        |vpiSize:4
-        |BIN:0101
-        |vpiConstType:3
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (lc_ctrl_pkg::LC_TX_DEFAULT), line:34:21, endln:34:34
   |vpiParamAssign:
@@ -7206,37 +7202,6 @@ design: (unnamed)
     |vpiParent:
     \_logic_typespec: (lc_tx_t), line:33:11, endln:33:30
     |vpiFullName:lc_ctrl_pkg::LC_TX_DEFAULT::lc_tx_t
-    |vpiActual:
-    \_logic_typespec: (lc_ctrl_pkg::lc_tx_t), line:33:11, endln:33:30
-  |vpiInstance:
-  \_package: lc_ctrl_pkg (lc_ctrl_pkg::), file:${SURELOG_DIR}/tests/MultiConcat/dut.sv, line:2:1, endln:172:25
-  |vpiRange:
-  \_range: , line:33:17, endln:33:30
-    |vpiParent:
-    \_logic_typespec: (lc_tx_t), line:33:11, endln:33:30
-    |vpiLeftRange:
-    \_constant: , line:33:18, endln:33:25
-      |vpiParent:
-      \_range: , line:33:17, endln:33:30
-      |vpiDecompile:3
-      |vpiSize:64
-      |INT:3
-      |vpiConstType:7
-    |vpiRightRange:
-    \_constant: , line:33:28, endln:33:29
-      |vpiParent:
-      \_range: , line:33:17, endln:33:30
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_logic_typespec: (lc_tx_t), line:33:11, endln:33:30
-  |vpiName:lc_tx_t
-  |vpiTypedefAlias:
-  \_ref_typespec: (lc_tx_t)
-    |vpiParent:
-    \_logic_typespec: (lc_tx_t), line:33:11, endln:33:30
-    |vpiFullName:lc_tx_t
     |vpiActual:
     \_logic_typespec: (lc_ctrl_pkg::lc_tx_t), line:33:11, endln:33:30
   |vpiInstance:
