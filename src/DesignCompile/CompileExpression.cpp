@@ -4920,7 +4920,8 @@ const typespec *CompileHelper::getTypespec(DesignComponent *component,
                                            const FileContent *fC, NodeId id,
                                            CompileDesign *compileDesign,
                                            Reduce reduce,
-                                           ValuedComponentI *instance) {
+                                           ValuedComponentI *instance,
+                                           bool muteErrors) {
   if (loopDetected(fC->getFileId(), fC->Line(id), compileDesign, instance)) {
     return nullptr;
   }
@@ -4972,7 +4973,8 @@ const typespec *CompileHelper::getTypespec(DesignComponent *component,
           bool invalidValue = false;
           result = (typespec *)decodeHierPath(
               (hier_path *)exp, invalidValue, component, compileDesign, reduce,
-              instance, fC->getFileId(), fC->Line(id), nullptr, false, true);
+              instance, fC->getFileId(), fC->Line(id), nullptr, muteErrors,
+              true);
         } else if (exp->UhdmType() == uhdmbit_select) {
           bit_select *select = (bit_select *)exp;
           basename = select->VpiName();
@@ -5343,8 +5345,15 @@ UHDM::any *CompileHelper::compileBits(
     // it would leave in the model is bound at elaboration and reported as
     // unresolved).  Not sizable -> the symbolic $bits/$size call.
     if (m_elabMode || (reduce == Reduce::Yes)) {
+      // Errors muted: an index-selected base (`rom_digest_i[k].data` with a
+      // genvar `k`, OpenTitan keymgr_input_checks' `$bits(...)` parameter
+      // override) does not decode as a whole hierarchical path, and the
+      // parse-tree walk below sizes the member from the base typespec
+      // instead.  Reporting the failed decode here was a spurious
+      // UHDM_UNRESOLVED_HIER_PATH on a correctly sized `$bits`.
       const typespec *cur = getTypespec(component, fC, typeSpecId,
-                                        compileDesign, reduce, instance);
+                                        compileDesign, reduce, instance,
+                                        /*muteErrors=*/true);
       auto member_of = [](const typespec *t,
                           std::string_view n) -> const typespec * {
         if (const struct_typespec *st = any_cast<const struct_typespec *>(t))

@@ -426,7 +426,8 @@ class CompileHelper final {
   const UHDM::typespec* getTypespec(DesignComponent* component,
                                     const FileContent* fC, NodeId id,
                                     CompileDesign* compileDesign, Reduce reduce,
-                                    ValuedComponentI* instance);
+                                    ValuedComponentI* instance,
+                                    bool muteErrors = false);
 
   UHDM::any* compileComplexFuncCall(DesignComponent* component,
                                     const FileContent* fC, NodeId nodeId,
