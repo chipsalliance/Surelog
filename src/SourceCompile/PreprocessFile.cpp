@@ -986,8 +986,15 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
     body += token;
   }
   if (!actual_args.empty() && formal_args.empty()) {
+    // The macro declares no formal arguments, so the parenthesized text that
+    // follows it is not an argument list: it is ordinary source text that has
+    // to be reproduced as-is (`module `CALIPTRA_ICG (input clk, input en);`).
+    // Emit every comma-separated piece, not just the first one.
     body += "(";
-    body += actual_args[0];
+    for (uint32_t i = 0; i < actual_args.size(); i++) {
+      if (i != 0) body += ",";
+      body += actual_args[i];
+    }
     body += ")";
   }
   // *** Body processing

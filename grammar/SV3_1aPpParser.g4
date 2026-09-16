@@ -648,6 +648,8 @@ paired_parens
       | escaped_identifier
       | comment
       | Special
+      | pound_delay
+      | pound_pound_delay
       | ANY
     )* CLOSE_PARENS
   )
@@ -667,6 +669,8 @@ paired_parens
       | escaped_identifier
       | comment
       | Special
+      | pound_delay
+      | pound_pound_delay
       | ANY
     )* CLOSE_CURLY
   )
@@ -686,6 +690,8 @@ paired_parens
       | escaped_identifier
       | comment
       | Special
+      | pound_delay
+      | pound_pound_delay
       | ANY
     )* CLOSE_BRACKET
   )
