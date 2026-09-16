@@ -314,14 +314,23 @@ void SV3_1aPpTreeShapeListener::enterInclude_directive(
       logError(ErrorDefinition::PP_PROCESSING_INCLUDE_FILE, loc, true);
     }
 
-    // Detect include loop
+    // Detect include loop.  A file that is already on the include stack is
+    // allowed to appear ONCE more: the standard `ifndef GUARD / define GUARD`
+    // header idiom makes that second visit expand to nothing, and headers that
+    // include each other that way are legal and common (Caliptra's
+    // caliptra_prim_assert.sv <-> caliptra_prim_flop_macros.sv).  A file
+    // appearing a third time is genuinely recursive (no effective guard) and
+    // still errors, so infinite recursion is still caught immediately.
+    uint32_t onStack = 0;
     PreprocessFile *tmp = m_pp;
     while (tmp) {
       if (tmp->getFileId(0) == fileId) {
-        Location loc(m_pp->getFileId(startLineCol.first), startLineCol.first,
-                     startLineCol.second, (SymbolId)fileId);
-        logError(ErrorDefinition::PP_RECURSIVE_INCLUDE_DIRECTIVE, loc, true);
-        return;
+        if (++onStack > 1) {
+          Location loc(m_pp->getFileId(startLineCol.first), startLineCol.first,
+                       startLineCol.second, (SymbolId)fileId);
+          logError(ErrorDefinition::PP_RECURSIVE_INCLUDE_DIRECTIVE, loc, true);
+          return;
+        }
       }
       tmp = tmp->getIncluder();
     }

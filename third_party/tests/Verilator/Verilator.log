@@ -4214,14 +4214,11 @@ At file "${SURELOG_DIR}/third_party/tests/Verilator/t_preproc_inc2.vh"  line 4
 text.
     ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_preproc.v:75:2: Syntax error: mismatched input ',' expecting ')',
-(a,b)(a)
+(a,b)(a,b)
   ^--.
-[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_preproc.v:78: Syntax error: extraneous input '$' expecting {'this', 'randomize', 'sample', Escaped_identifier, Simple_identifier},
-$display("left side: \"right side\"")
-^--.
-[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_preproc.v:78:8: Syntax error: missing ';' at '(',
-$display("left side: \"right side\"")
-        ^--.
+[SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_preproc.v:75:7: Syntax error: mismatched input ',' expecting ')',
+(a,b)(a,b)
+       ^--.
 [SNT:PA0207] ${SURELOG_DIR}/third_party/tests/Verilator/t_preproc.v:78:9: Syntax error: mismatched input '"left side: \"right side\""' expecting {'virtual', 'type', 'enum', 'struct', 'union', 'string', 'chandle', 'event', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', DOLLAR_UNIT, 'this', 'randomize', 'sample', Escaped_identifier, Simple_identifier},
 $display("left side: \"right side\"")
          ^--.
@@ -4238,7 +4235,7 @@ bar_suffix  more
 	$c("Zap(\"","bug2","\");");
  ^--.
 [  FATAL] : 0
-[ SYNTAX] : 13
+[ SYNTAX] : 12
 [  ERROR] : 28
 [WARNING] : 22
 [   NOTE] : 0
@@ -5773,7 +5770,7 @@ Processing: -cd t_sv_bus_mux_demux +incdir+. -parse -noelab -nocache -nobuiltin 
 [   NOTE] : 0
 Processed 837 tests.
 [  FATAL] : 0
-[ SYNTAX] : 181
+[ SYNTAX] : 180
 [  ERROR] : 154
 [WARNING] : 43
 [   NOTE] : 0
