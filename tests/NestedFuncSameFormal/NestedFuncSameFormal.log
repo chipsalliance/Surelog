@@ -1,4 +1,4 @@
-[INF:CM0023] Creating log file "/home/alain/uhdm2rtlil/build/third_party/Surelog/regression/NestedFuncSameFormal/slpp_all/surelog.log".
+[INF:CM0023] Creating log file "${SURELOG_DIR}/build/regression/NestedFuncSameFormal/slpp_all/surelog.log".
 [NTE:PP0128] ${SURELOG_DIR}/tests/NestedFuncSameFormal/dut.sv:2:53: Non ASCII character detected, replaced by space.
 AST_DEBUG_BEGIN
 LIB:  work
@@ -426,16 +426,16 @@ import_typespec                                        1
 io_decl                                                4
 logic_net                                             10
 logic_typespec                                        22
-logic_var                                             12
-module_inst                                           11
+logic_var                                             16
+module_inst                                           13
 operation                                              3
 package                                                2
-param_assign                                          15
-parameter                                             15
+param_assign                                          19
+parameter                                             19
 port                                                  10
 range                                                 35
 ref_obj                                               23
-ref_typespec                                          38
+ref_typespec                                          44
 return_stmt                                            4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -452,21 +452,21 @@ import_typespec                                        1
 io_decl                                               10
 logic_net                                             10
 logic_typespec                                        22
-logic_var                                             24
-module_inst                                           11
+logic_var                                             28
+module_inst                                           13
 operation                                              7
 package                                                2
-param_assign                                          15
-parameter                                             15
+param_assign                                          19
+parameter                                             19
 port                                                  15
 range                                                 35
 ref_obj                                               40
-ref_typespec                                          63
+ref_typespec                                          71
 return_stmt                                           10
 === UHDM Object Stats End ===
-[INF:UH0708] Writing UHDM DB: /home/alain/uhdm2rtlil/build/third_party/Surelog/regression/NestedFuncSameFormal/slpp_all/surelog.uhdm ...
-[INF:UH0709] Writing UHDM Html Coverage: /home/alain/uhdm2rtlil/build/third_party/Surelog/regression/NestedFuncSameFormal/slpp_all/checker/surelog.chk.html ...
-[INF:UH0710] Loading UHDM DB: /home/alain/uhdm2rtlil/build/third_party/Surelog/regression/NestedFuncSameFormal/slpp_all/surelog.uhdm ...
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/NestedFuncSameFormal/slpp_all/surelog.uhdm ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/NestedFuncSameFormal/slpp_all/checker/surelog.chk.html ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/NestedFuncSameFormal/slpp_all/surelog.uhdm ...
 [INF:UH0711] Decompiling UHDM...
 ====== UHDM =======
 design: (work@dut)
@@ -1538,6 +1538,13 @@ design: (work@dut)
       \_func_call: (inner), line:21:20, endln:21:32
         |vpiParent:
         \_func_call: (outer), line:21:14, endln:21:33
+        |vpiTypespec:
+        \_ref_typespec: (work@dut)
+          |vpiParent:
+          \_func_call: (inner), line:21:20, endln:21:32
+          |vpiFullName:work@dut
+          |vpiActual:
+          \_logic_typespec: , line:6:40, endln:6:45
         |vpiArgument:
         \_operation: , line:21:26, endln:21:31
           |vpiParent:
@@ -1592,6 +1599,13 @@ design: (work@dut)
       \_func_call: (inner), line:22:20, endln:22:28
         |vpiParent:
         \_func_call: (outer), line:22:14, endln:22:29
+        |vpiTypespec:
+        \_ref_typespec: (work@dut)
+          |vpiParent:
+          \_func_call: (inner), line:22:20, endln:22:28
+          |vpiFullName:work@dut
+          |vpiActual:
+          \_logic_typespec: , line:6:40, endln:6:45
         |vpiArgument:
         \_ref_obj: (work@dut.a), line:22:26, endln:22:27
           |vpiParent:
@@ -2124,6 +2138,13 @@ design: (work@dut)
       \_func_call: (inner), line:21:20, endln:21:32
         |vpiParent:
         \_func_call: (outer), line:21:14, endln:21:33
+        |vpiTypespec:
+        \_ref_typespec: (work@dut)
+          |vpiParent:
+          \_func_call: (inner), line:21:20, endln:21:32
+          |vpiFullName:work@dut
+          |vpiActual:
+          \_logic_typespec: , line:6:40, endln:6:45
         |vpiArgument:
         \_operation: , line:21:26, endln:21:31
           |vpiParent:
@@ -2178,6 +2199,13 @@ design: (work@dut)
       \_func_call: (inner), line:22:20, endln:22:28
         |vpiParent:
         \_func_call: (outer), line:22:14, endln:22:29
+        |vpiTypespec:
+        \_ref_typespec: (work@dut)
+          |vpiParent:
+          \_func_call: (inner), line:22:20, endln:22:28
+          |vpiFullName:work@dut
+          |vpiActual:
+          \_logic_typespec: , line:6:40, endln:6:45
         |vpiArgument:
         \_ref_obj: (work@dut.a), line:22:26, endln:22:27
           |vpiParent:
