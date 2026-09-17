@@ -3044,6 +3044,60 @@ UHDM::any *CompileHelper::compileExpression(
                     ? sizeCastTps
                     : compileTypespec(component, fC, Simple_type, compileDesign,
                                       reduce, operation, instance, false);
+            // `pt.MEMBER'(x)` — the casting type is a hierarchical VALUE
+            // (a member of a struct-valued parameter: VeeR's
+            // `pt.ICCM_BANK_BITS'(bank)`).  The parse tree is a StringConst
+            // followed by a Constant_select; compileTypespec() of the bare
+            // name resolved `pt` to the struct TYPE, so the cast took the
+            // whole struct's width (128) and the surrounding concatenation
+            // lost its other operands.  Compile the whole hierarchical name
+            // as an expression and make it a size cast, as for a bare value
+            // parameter above.
+            if (tps && !sizeCastTps &&
+                (tps->UhdmType() == uhdmstruct_typespec ||
+                 tps->UhdmType() == uhdmunion_typespec) &&
+                fC->Type(Simple_type) == VObjectType::slStringConst) {
+              NodeId sel = fC->Sibling(Simple_type);
+              if (sel && fC->Type(sel) == VObjectType::paConstant_select &&
+                  fC->Child(sel) &&
+                  fC->Type(fC->Child(sel)) == VObjectType::slStringConst) {
+                UHDM::any *widthRef =
+                    compileExpression(component, fC, Simple_type, compileDesign,
+                                      Reduce::No, nullptr, instance, true);
+                if (widthRef &&
+                    widthRef->UhdmType() != uhdmunsupported_typespec) {
+                  UHDM::constant *one = s.MakeConstant();
+                  one->VpiValue("UINT:1");
+                  one->VpiConstType(vpiUIntConst);
+                  one->VpiSize(64);
+                  UHDM::operation *sub = s.MakeOperation();
+                  sub->VpiOpType(vpiSubOp);
+                  UHDM::VectorOfany *subOps = s.MakeAnyVec();
+                  subOps->push_back(widthRef);
+                  subOps->push_back(one);
+                  sub->Operands(subOps);
+                  widthRef->VpiParent(sub);
+                  one->VpiParent(sub);
+                  UHDM::constant *zero = s.MakeConstant();
+                  zero->VpiValue("UINT:0");
+                  zero->VpiConstType(vpiUIntConst);
+                  zero->VpiSize(64);
+                  UHDM::range *rng = s.MakeRange();
+                  rng->Left_expr(sub);
+                  rng->Right_expr(zero);
+                  sub->VpiParent(rng);
+                  zero->VpiParent(rng);
+                  UHDM::VectorOfrange *ranges = s.MakeRangeVec();
+                  ranges->push_back(rng);
+                  UHDM::logic_typespec *lts = s.MakeLogic_typespec();
+                  lts->Ranges(ranges);
+                  rng->VpiParent(lts);
+                  fC->populateCoreMembers(Simple_type, sel, lts);
+                  sizeCastTps = lts;
+                  tps = lts;
+                }
+              }
+            }
             if (tps) {
               if (operation->Typespec() == nullptr) {
                 ref_typespec *rttps = s.MakeRef_typespec();
