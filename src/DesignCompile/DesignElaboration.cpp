@@ -2657,7 +2657,42 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
             if ((!complex) && (value == nullptr)) {
               value = m_exprBuilder.evalExpr(param.fC, exprId, instance, true);
             }
-            if ((!complex) && value && value->isValid()) {
+            // A default that references an OVERRIDDEN parameter whose override
+            // only exists as a COMPLEX value (`.AW($clog2(<96-bit concat>...))`
+            // -- the reducer cannot fold the wide operand, so AW has no simple
+            // Value on this instance) has just been compiled to that same
+            // unreducible expression.  evalExpr cannot see complex values: it
+            // resolves the reference to the DEFINITION default and hands back
+            // a perfectly valid, wrong constant.  caliptra's ahb_slv_sif got
+            // CLIENT_ADDR_WIDTH = 32 (its own default for AHB_ADDR_WIDTH)
+            // where the override makes it 13, and its `addr` port came out 32
+            // bits wide.  Keep the reduced expression as THIS parameter's
+            // complex value instead; netlist elaboration then emits it exactly
+            // as it already does for AW, and consumers fold both the same way.
+            // A default whose reduced form IS a constant is untouched -- that
+            // is the correct fold, and discarding it broke ClogParam's
+            // `$clog2(Info.x)` (Info is a complex struct override too).
+            bool refsComplexOverride = false;
+            if (!complex && !isMultidimension && expr &&
+                expr->UhdmType() != UHDM::uhdmconstant &&
+                !overridenParams.empty()) {
+              VObjectTypeUnorderedSet idTypes = {VObjectType::slStringConst};
+              for (NodeId rid : param.fC->sl_collect_all(exprId, idTypes)) {
+                const std::string_view rname = param.fC->SymName(rid);
+                if (rname == name) continue;
+                if (overridenParams.find(rname) == overridenParams.end())
+                  continue;
+                Value* rv = instance->getValue(rname, m_exprBuilder);
+                if ((rv == nullptr || !rv->isValid()) &&
+                    instance->getComplexValue(rname) != nullptr) {
+                  refsComplexOverride = true;
+                  break;
+                }
+              }
+            }
+            if (refsComplexOverride) {
+              instance->setComplexValue(name, expr);
+            } else if ((!complex) && value && value->isValid()) {
               instance->setValue(name, value, m_exprBuilder, fC->Line(ident));
             } else if ((!complex) && expr &&
                        (expr->UhdmType() == UHDM::uhdmconstant)) {

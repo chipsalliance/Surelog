@@ -199,45 +199,45 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 1.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              25
+constant                                              16
 cont_assign                                            1
 design                                                 1
-hier_path                                              6
-int_typespec                                          38
+hier_path                                              4
+int_typespec                                          27
 int_var                                                2
 logic_net                                              2
 module_inst                                            8
-operation                                             24
+operation                                             15
 param_assign                                           8
 parameter                                              8
 port                                                   5
 ref_module                                             1
-ref_obj                                               21
-ref_typespec                                          66
-struct_typespec                                       24
-sys_func_call                                          3
-typespec_member                                       24
+ref_obj                                               17
+ref_typespec                                          46
+struct_typespec                                       15
+sys_func_call                                          2
+typespec_member                                       15
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              25
+constant                                              16
 cont_assign                                            2
 design                                                 1
-hier_path                                              6
-int_typespec                                          38
+hier_path                                              4
+int_typespec                                          27
 int_var                                                2
 logic_net                                              2
 module_inst                                            8
-operation                                             24
+operation                                             15
 param_assign                                           8
 parameter                                              8
 port                                                   7
 ref_module                                             1
-ref_obj                                               26
-ref_typespec                                          68
-struct_typespec                                       24
-sys_func_call                                          3
-typespec_member                                       24
+ref_obj                                               22
+ref_typespec                                          48
+struct_typespec                                       15
+sys_func_call                                          2
+typespec_member                                       15
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ClogParam/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ClogParam/slpp_all/checker/surelog.chk.html ...
@@ -738,29 +738,7 @@ design: (work@top)
         |vpiParent:
         \_param_assign: , line:3:19, endln:3:37
         |vpiArgument:
-        \_hier_path: (Info.x), line:3:31, endln:3:36
-          |vpiParent:
-          \_param_assign: , line:2:19, endln:2:30
-          |vpiTypespec:
-          \_ref_typespec: (work@top.u_otp_ctrl_ecc_reg.Info.x)
-            |vpiParent:
-            \_hier_path: (Info.x), line:3:31, endln:3:36
-            |vpiFullName:work@top.u_otp_ctrl_ecc_reg.Info.x
-            |vpiActual:
-            \_int_typespec: , line:13:15, endln:13:18
-          |vpiActual:
-          \_ref_obj: (Info), line:13:42, endln:13:43
-            |vpiParent:
-            \_hier_path: (Info.x), line:3:31, endln:3:36
-            |vpiName:Info
-            |vpiActual:
-            \_parameter: (work@top.Info), line:12:26, endln:12:30
-          |vpiActual:
-          \_ref_obj: (x), line:13:42, endln:13:43
-            |vpiParent:
-            \_hier_path: (Info.x), line:3:31, endln:3:36
-            |vpiName:x
-          |vpiName:Info.x
+        \_hier_path: (Info.x), line:16:15, endln:16:30
         |vpiName:$clog2
       |vpiLhs:
       \_parameter: (work@top.u_otp_ctrl_ecc_reg.Aw), line:3:19, endln:3:21
@@ -844,10 +822,6 @@ design: (work@top)
   \_int_var: (work@top.o), line:7:23, endln:7:24
   |vpiSigned:1
 \_int_typespec: , line:1:32, endln:1:35
-  |vpiSigned:1
-\_int_typespec: , line:13:15, endln:13:18
-  |vpiParent:
-  \_ref_typespec: (work@top.u_otp_ctrl_ecc_reg.Info.x)
   |vpiSigned:1
 \_int_typespec: , line:1:32, endln:1:35
   |vpiSigned:1
