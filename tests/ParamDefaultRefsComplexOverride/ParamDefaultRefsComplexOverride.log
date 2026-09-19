@@ -255,41 +255,41 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 1.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              87
+constant                                              85
 cont_assign                                            1
 design                                                 1
-int_typespec                                          16
+int_typespec                                           4
 logic_net                                              8
 logic_typespec                                        12
 module_inst                                            8
-operation                                             42
+operation                                             24
 param_assign                                           4
 parameter                                              4
 port                                                  10
 range                                                 16
 ref_module                                             1
 ref_obj                                               17
-ref_typespec                                          30
-sys_func_call                                          7
+ref_typespec                                          18
+sys_func_call                                          1
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              87
+constant                                              85
 cont_assign                                            2
 design                                                 1
-int_typespec                                          16
+int_typespec                                           4
 logic_net                                              8
 logic_typespec                                        12
 module_inst                                            8
-operation                                             42
+operation                                             24
 param_assign                                           4
 parameter                                              4
 port                                                  14
 range                                                 16
 ref_module                                             1
 ref_obj                                               25
-ref_typespec                                          34
-sys_func_call                                          7
+ref_typespec                                          22
+sys_func_call                                          1
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/ParamDefaultRefsComplexOverride/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/ParamDefaultRefsComplexOverride/slpp_all/checker/surelog.chk.html ...
@@ -644,69 +644,20 @@ design: (work@dut)
       \_module_inst: work@child (work@dut.u), file:${SURELOG_DIR}/tests/ParamDefaultRefsComplexOverride/dut.sv, line:27:3, endln:27:163
       |vpiOverriden:1
       |vpiRhs:
-      \_sys_func_call: ($clog2), line:27:15, endln:27:143
+      \_constant: , line:20:31, endln:20:33
         |vpiParent:
         \_param_assign: , line:20:26, endln:20:33
+        |vpiDecompile:13
+        |vpiSize:32
+        |UINT:13
         |vpiTypespec:
         \_ref_typespec: (work@dut.u)
           |vpiParent:
-          \_sys_func_call: ($clog2), line:27:15, endln:27:143
+          \_constant: , line:20:31, endln:20:33
           |vpiFullName:work@dut.u
           |vpiActual:
           \_int_typespec: , line:20:16, endln:20:33
-        |vpiArgument:
-        \_operation: , line:27:22, endln:27:142
-          |vpiParent:
-          \_sys_func_call: ($clog2), line:27:15, endln:27:143
-          |vpiOpType:28
-          |vpiOperand:
-          \_operation: , line:27:23, endln:27:128
-            |vpiParent:
-            \_operation: , line:27:22, endln:27:142
-            |vpiOpType:23
-            |vpiOperand:
-            \_operation: , line:27:24, endln:27:117
-              |vpiParent:
-              \_operation: , line:27:23, endln:27:128
-              |vpiOpType:30
-              |vpiOperand:
-              \_constant: , line:27:24, endln:27:69
-                |vpiParent:
-                \_operation: , line:27:24, endln:27:117
-                |vpiSize:96
-                |BIN:001000000000000001010000000000000010000000000000010000000000000000010000000001000000000000000000
-                |vpiConstType:3
-              |vpiOperand:
-              \_constant: , line:27:72, endln:27:117
-                |vpiParent:
-                \_operation: , line:27:24, endln:27:117
-                |vpiSize:96
-                |BIN:001000000000000001011111111111110010000000000000010011111111111100010000000001000001111111111111
-                |vpiConstType:3
-            |vpiOperand:
-            \_constant: , line:27:123, endln:27:125
-              |vpiParent:
-              \_operation: , line:27:23, endln:27:128
-              |vpiDecompile:0
-              |vpiSize:64
-              |INT:0
-              |vpiConstType:7
-          |vpiOperand:
-          \_constant: , line:27:132, endln:27:142
-            |vpiParent:
-            \_operation: , line:27:22, endln:27:142
-            |vpiDecompile:11111111111111111111111111111111
-            |vpiSize:32
-            |BIN:11111111111111111111111111111111
-            |vpiTypespec:
-            \_ref_typespec: (work@dut.u)
-              |vpiParent:
-              \_constant: , line:27:132, endln:27:142
-              |vpiFullName:work@dut.u
-              |vpiActual:
-              \_int_typespec: 
-            |vpiConstType:3
-        |vpiName:$clog2
+        |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@dut.u.AW), line:20:26, endln:20:28
     |vpiParamAssign:
@@ -714,7 +665,13 @@ design: (work@dut)
       |vpiParent:
       \_module_inst: work@child (work@dut.u), file:${SURELOG_DIR}/tests/ParamDefaultRefsComplexOverride/dut.sv, line:27:3, endln:27:163
       |vpiRhs:
-      \_sys_func_call: ($clog2), line:27:15, endln:27:143
+      \_constant: , line:20:50, endln:20:52
+        |vpiParent:
+        \_param_assign: , line:20:45, endln:20:52
+        |vpiDecompile:13
+        |vpiSize:64
+        |UINT:13
+        |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@dut.u.CW), line:20:45, endln:20:47
     |vpiDefName:work@child
@@ -922,88 +879,19 @@ design: (work@dut)
       |vpiSize:64
       |UINT:0
       |vpiConstType:9
-\_int_typespec: 
-  |UINT:1
 \_logic_typespec: , line:21:10, endln:21:24
   |vpiRange:
   \_range: , line:21:16, endln:21:24
     |vpiParent:
     \_logic_typespec: , line:21:10, endln:21:24
     |vpiLeftRange:
-    \_operation: , line:21:17, endln:21:21
+    \_constant: , line:21:17, endln:21:19
       |vpiParent:
       \_range: , line:21:16, endln:21:24
-      |vpiOpType:11
-      |vpiOperand:
-      \_sys_func_call: ($clog2), line:21:17, endln:21:19
-        |vpiParent:
-        \_operation: , line:21:17, endln:21:21
-        |vpiTypespec:
-        \_ref_typespec: 
-          |vpiParent:
-          \_sys_func_call: ($clog2), line:21:17, endln:21:19
-          |vpiActual:
-          \_int_typespec: , line:20:16, endln:20:33
-        |vpiArgument:
-        \_operation: , line:27:22, endln:27:142
-          |vpiParent:
-          \_sys_func_call: ($clog2), line:21:17, endln:21:19
-          |vpiOpType:28
-          |vpiOperand:
-          \_operation: , line:27:23, endln:27:128
-            |vpiParent:
-            \_operation: , line:27:22, endln:27:142
-            |vpiOpType:23
-            |vpiOperand:
-            \_operation: , line:27:24, endln:27:117
-              |vpiParent:
-              \_operation: , line:27:23, endln:27:128
-              |vpiOpType:30
-              |vpiOperand:
-              \_constant: , line:27:24, endln:27:69
-                |vpiParent:
-                \_operation: , line:27:24, endln:27:117
-                |vpiSize:96
-                |BIN:001000000000000001010000000000000010000000000000010000000000000000010000000001000000000000000000
-                |vpiConstType:3
-              |vpiOperand:
-              \_constant: , line:27:72, endln:27:117
-                |vpiParent:
-                \_operation: , line:27:24, endln:27:117
-                |vpiSize:96
-                |BIN:001000000000000001011111111111110010000000000000010011111111111100010000000001000001111111111111
-                |vpiConstType:3
-            |vpiOperand:
-            \_constant: , line:27:123, endln:27:125
-              |vpiParent:
-              \_operation: , line:27:23, endln:27:128
-              |vpiDecompile:0
-              |vpiSize:64
-              |INT:0
-              |vpiConstType:7
-          |vpiOperand:
-          \_constant: , line:27:132, endln:27:142
-            |vpiParent:
-            \_operation: , line:27:22, endln:27:142
-            |vpiDecompile:11111111111111111111111111111111
-            |vpiSize:32
-            |BIN:11111111111111111111111111111111
-            |vpiTypespec:
-            \_ref_typespec: 
-              |vpiParent:
-              \_constant: , line:27:132, endln:27:142
-              |vpiActual:
-              \_int_typespec: 
-            |vpiConstType:3
-        |vpiName:$clog2
-      |vpiOperand:
-      \_constant: , line:21:20, endln:21:21
-        |vpiParent:
-        \_operation: , line:21:17, endln:21:21
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
+      |vpiDecompile:12
+      |vpiSize:64
+      |INT:12
+      |vpiConstType:7
     |vpiRightRange:
     \_constant: , line:21:22, endln:21:23
       |vpiParent:
@@ -1012,93 +900,19 @@ design: (work@dut)
       |vpiSize:64
       |UINT:0
       |vpiConstType:9
-\_int_typespec: 
-  |vpiParent:
-  \_ref_typespec: 
-  |UINT:1
-\_int_typespec: , line:20:16, endln:20:33
-  |vpiParent:
-  \_ref_typespec: 
 \_logic_typespec: , line:21:35, endln:21:49
   |vpiRange:
   \_range: , line:21:41, endln:21:49
     |vpiParent:
     \_logic_typespec: , line:21:35, endln:21:49
     |vpiLeftRange:
-    \_operation: , line:21:42, endln:21:46
+    \_constant: , line:21:42, endln:21:44
       |vpiParent:
       \_range: , line:21:41, endln:21:49
-      |vpiOpType:11
-      |vpiOperand:
-      \_sys_func_call: ($clog2), line:21:42, endln:21:44
-        |vpiParent:
-        \_operation: , line:21:42, endln:21:46
-        |vpiTypespec:
-        \_ref_typespec: 
-          |vpiParent:
-          \_sys_func_call: ($clog2), line:21:42, endln:21:44
-          |vpiActual:
-          \_int_typespec: , line:20:16, endln:20:33
-        |vpiArgument:
-        \_operation: , line:27:22, endln:27:142
-          |vpiParent:
-          \_sys_func_call: ($clog2), line:21:42, endln:21:44
-          |vpiOpType:28
-          |vpiOperand:
-          \_operation: , line:27:23, endln:27:128
-            |vpiParent:
-            \_operation: , line:27:22, endln:27:142
-            |vpiOpType:23
-            |vpiOperand:
-            \_operation: , line:27:24, endln:27:117
-              |vpiParent:
-              \_operation: , line:27:23, endln:27:128
-              |vpiOpType:30
-              |vpiOperand:
-              \_constant: , line:27:24, endln:27:69
-                |vpiParent:
-                \_operation: , line:27:24, endln:27:117
-                |vpiSize:96
-                |BIN:001000000000000001010000000000000010000000000000010000000000000000010000000001000000000000000000
-                |vpiConstType:3
-              |vpiOperand:
-              \_constant: , line:27:72, endln:27:117
-                |vpiParent:
-                \_operation: , line:27:24, endln:27:117
-                |vpiSize:96
-                |BIN:001000000000000001011111111111110010000000000000010011111111111100010000000001000001111111111111
-                |vpiConstType:3
-            |vpiOperand:
-            \_constant: , line:27:123, endln:27:125
-              |vpiParent:
-              \_operation: , line:27:23, endln:27:128
-              |vpiDecompile:0
-              |vpiSize:64
-              |INT:0
-              |vpiConstType:7
-          |vpiOperand:
-          \_constant: , line:27:132, endln:27:142
-            |vpiParent:
-            \_operation: , line:27:22, endln:27:142
-            |vpiDecompile:11111111111111111111111111111111
-            |vpiSize:32
-            |BIN:11111111111111111111111111111111
-            |vpiTypespec:
-            \_ref_typespec: 
-              |vpiParent:
-              \_constant: , line:27:132, endln:27:142
-              |vpiActual:
-              \_int_typespec: 
-            |vpiConstType:3
-        |vpiName:$clog2
-      |vpiOperand:
-      \_constant: , line:21:45, endln:21:46
-        |vpiParent:
-        \_operation: , line:21:42, endln:21:46
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
+      |vpiDecompile:12
+      |vpiSize:64
+      |INT:12
+      |vpiConstType:7
     |vpiRightRange:
     \_constant: , line:21:47, endln:21:48
       |vpiParent:
@@ -1107,13 +921,6 @@ design: (work@dut)
       |vpiSize:64
       |UINT:0
       |vpiConstType:9
-\_int_typespec: 
-  |vpiParent:
-  \_ref_typespec: 
-  |UINT:1
-\_int_typespec: , line:20:16, endln:20:33
-  |vpiParent:
-  \_ref_typespec: 
 \_logic_typespec: , line:21:10, endln:21:24
   |vpiParent:
   \_logic_net: (work@dut.u.a), line:21:25, endln:21:26
@@ -1122,82 +929,13 @@ design: (work@dut)
     |vpiParent:
     \_logic_typespec: , line:21:10, endln:21:24
     |vpiLeftRange:
-    \_operation: , line:21:17, endln:21:21
+    \_constant: , line:21:17, endln:21:19
       |vpiParent:
       \_range: , line:21:16, endln:21:24
-      |vpiOpType:11
-      |vpiOperand:
-      \_sys_func_call: ($clog2), line:21:17, endln:21:19
-        |vpiParent:
-        \_operation: , line:21:17, endln:21:21
-        |vpiTypespec:
-        \_ref_typespec: (work@dut.u.a)
-          |vpiParent:
-          \_sys_func_call: ($clog2), line:21:17, endln:21:19
-          |vpiFullName:work@dut.u.a
-          |vpiActual:
-          \_int_typespec: , line:20:16, endln:20:33
-        |vpiArgument:
-        \_operation: , line:27:22, endln:27:142
-          |vpiParent:
-          \_sys_func_call: ($clog2), line:21:17, endln:21:19
-          |vpiOpType:28
-          |vpiOperand:
-          \_operation: , line:27:23, endln:27:128
-            |vpiParent:
-            \_operation: , line:27:22, endln:27:142
-            |vpiOpType:23
-            |vpiOperand:
-            \_operation: , line:27:24, endln:27:117
-              |vpiParent:
-              \_operation: , line:27:23, endln:27:128
-              |vpiOpType:30
-              |vpiOperand:
-              \_constant: , line:27:24, endln:27:69
-                |vpiParent:
-                \_operation: , line:27:24, endln:27:117
-                |vpiSize:96
-                |BIN:001000000000000001010000000000000010000000000000010000000000000000010000000001000000000000000000
-                |vpiConstType:3
-              |vpiOperand:
-              \_constant: , line:27:72, endln:27:117
-                |vpiParent:
-                \_operation: , line:27:24, endln:27:117
-                |vpiSize:96
-                |BIN:001000000000000001011111111111110010000000000000010011111111111100010000000001000001111111111111
-                |vpiConstType:3
-            |vpiOperand:
-            \_constant: , line:27:123, endln:27:125
-              |vpiParent:
-              \_operation: , line:27:23, endln:27:128
-              |vpiDecompile:0
-              |vpiSize:64
-              |INT:0
-              |vpiConstType:7
-          |vpiOperand:
-          \_constant: , line:27:132, endln:27:142
-            |vpiParent:
-            \_operation: , line:27:22, endln:27:142
-            |vpiDecompile:11111111111111111111111111111111
-            |vpiSize:32
-            |BIN:11111111111111111111111111111111
-            |vpiTypespec:
-            \_ref_typespec: (work@dut.u.a)
-              |vpiParent:
-              \_constant: , line:27:132, endln:27:142
-              |vpiFullName:work@dut.u.a
-              |vpiActual:
-              \_int_typespec: 
-            |vpiConstType:3
-        |vpiName:$clog2
-      |vpiOperand:
-      \_constant: , line:21:20, endln:21:21
-        |vpiParent:
-        \_operation: , line:21:17, endln:21:21
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
+      |vpiDecompile:12
+      |vpiSize:64
+      |INT:12
+      |vpiConstType:7
     |vpiRightRange:
     \_constant: , line:21:22, endln:21:23
       |vpiParent:
@@ -1206,93 +944,19 @@ design: (work@dut)
       |vpiSize:64
       |UINT:0
       |vpiConstType:9
-\_int_typespec: 
-  |vpiParent:
-  \_ref_typespec: (work@dut.u.a)
-  |UINT:1
-\_int_typespec: , line:20:16, endln:20:33
-  |vpiParent:
-  \_ref_typespec: (work@dut.u.a)
 \_logic_typespec: , line:21:35, endln:21:49
   |vpiRange:
   \_range: , line:21:41, endln:21:49
     |vpiParent:
     \_logic_typespec: , line:21:35, endln:21:49
     |vpiLeftRange:
-    \_operation: , line:21:42, endln:21:46
+    \_constant: , line:21:42, endln:21:44
       |vpiParent:
       \_range: , line:21:41, endln:21:49
-      |vpiOpType:11
-      |vpiOperand:
-      \_sys_func_call: ($clog2), line:21:42, endln:21:44
-        |vpiParent:
-        \_operation: , line:21:42, endln:21:46
-        |vpiTypespec:
-        \_ref_typespec: 
-          |vpiParent:
-          \_sys_func_call: ($clog2), line:21:42, endln:21:44
-          |vpiActual:
-          \_int_typespec: , line:20:16, endln:20:33
-        |vpiArgument:
-        \_operation: , line:27:22, endln:27:142
-          |vpiParent:
-          \_sys_func_call: ($clog2), line:21:42, endln:21:44
-          |vpiOpType:28
-          |vpiOperand:
-          \_operation: , line:27:23, endln:27:128
-            |vpiParent:
-            \_operation: , line:27:22, endln:27:142
-            |vpiOpType:23
-            |vpiOperand:
-            \_operation: , line:27:24, endln:27:117
-              |vpiParent:
-              \_operation: , line:27:23, endln:27:128
-              |vpiOpType:30
-              |vpiOperand:
-              \_constant: , line:27:24, endln:27:69
-                |vpiParent:
-                \_operation: , line:27:24, endln:27:117
-                |vpiSize:96
-                |BIN:001000000000000001010000000000000010000000000000010000000000000000010000000001000000000000000000
-                |vpiConstType:3
-              |vpiOperand:
-              \_constant: , line:27:72, endln:27:117
-                |vpiParent:
-                \_operation: , line:27:24, endln:27:117
-                |vpiSize:96
-                |BIN:001000000000000001011111111111110010000000000000010011111111111100010000000001000001111111111111
-                |vpiConstType:3
-            |vpiOperand:
-            \_constant: , line:27:123, endln:27:125
-              |vpiParent:
-              \_operation: , line:27:23, endln:27:128
-              |vpiDecompile:0
-              |vpiSize:64
-              |INT:0
-              |vpiConstType:7
-          |vpiOperand:
-          \_constant: , line:27:132, endln:27:142
-            |vpiParent:
-            \_operation: , line:27:22, endln:27:142
-            |vpiDecompile:11111111111111111111111111111111
-            |vpiSize:32
-            |BIN:11111111111111111111111111111111
-            |vpiTypespec:
-            \_ref_typespec: 
-              |vpiParent:
-              \_constant: , line:27:132, endln:27:142
-              |vpiActual:
-              \_int_typespec: 
-            |vpiConstType:3
-        |vpiName:$clog2
-      |vpiOperand:
-      \_constant: , line:21:45, endln:21:46
-        |vpiParent:
-        \_operation: , line:21:42, endln:21:46
-        |vpiDecompile:1
-        |vpiSize:64
-        |UINT:1
-        |vpiConstType:9
+      |vpiDecompile:12
+      |vpiSize:64
+      |INT:12
+      |vpiConstType:7
     |vpiRightRange:
     \_constant: , line:21:47, endln:21:48
       |vpiParent:
@@ -1301,13 +965,6 @@ design: (work@dut)
       |vpiSize:64
       |UINT:0
       |vpiConstType:9
-\_int_typespec: 
-  |vpiParent:
-  \_ref_typespec: 
-  |UINT:1
-\_int_typespec: , line:20:16, endln:20:33
-  |vpiParent:
-  \_ref_typespec: 
 \_logic_typespec: , line:21:10, endln:21:24
   |vpiRange:
   \_range: , line:21:16, endln:21:24
