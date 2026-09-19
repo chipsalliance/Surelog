@@ -417,25 +417,25 @@ AST_DEBUG_END
 assignment                                            12
 begin                                                  4
 bit_select                                            18
-constant                                              97
-cont_assign                                            3
+constant                                             107
+cont_assign                                            4
 design                                                 1
-func_call                                              6
+func_call                                              8
 function                                               4
 import_typespec                                        1
 io_decl                                                4
 logic_net                                             10
-logic_typespec                                        22
+logic_typespec                                        24
 logic_var                                             16
 module_inst                                           13
 operation                                              3
 package                                                2
-param_assign                                          19
-parameter                                             19
+param_assign                                          20
+parameter                                             20
 port                                                  10
-range                                                 35
-ref_obj                                               23
-ref_typespec                                          44
+range                                                 37
+ref_obj                                               25
+ref_typespec                                          47
 return_stmt                                            4
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -443,25 +443,25 @@ return_stmt                                            4
 assignment                                            24
 begin                                                 10
 bit_select                                            45
-constant                                              97
-cont_assign                                            6
+constant                                             107
+cont_assign                                            7
 design                                                 1
 func_call                                             12
 function                                              10
 import_typespec                                        1
 io_decl                                               10
 logic_net                                             10
-logic_typespec                                        22
+logic_typespec                                        24
 logic_var                                             28
 module_inst                                           13
 operation                                              7
 package                                                2
-param_assign                                          19
-parameter                                             19
+param_assign                                          20
+parameter                                             20
 port                                                  15
-range                                                 35
-ref_obj                                               40
-ref_typespec                                          71
+range                                                 37
+ref_obj                                               42
+ref_typespec                                          74
 return_stmt                                           10
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/NestedFuncSameFormal/slpp_all/surelog.uhdm ...
@@ -2240,21 +2240,20 @@ design: (work@dut)
     |vpiParent:
     \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/NestedFuncSameFormal/dut.sv, line:19:1, endln:24:10
     |vpiRhs:
-    \_func_call: (outer), line:23:14, endln:23:33
+    \_constant: 
       |vpiParent:
       \_cont_assign: , line:23:10, endln:23:33
-      |vpiArgument:
-      \_func_call: (inner), line:23:20, endln:23:32
+      |vpiDecompile:11
+      |vpiSize:2
+      |BIN:11
+      |vpiTypespec:
+      \_ref_typespec: (work@dut)
         |vpiParent:
-        \_func_call: (outer), line:23:14, endln:23:33
-        |vpiArgument:
-        \_constant: , line:23:26, endln:23:31
-        |vpiName:inner
-        |vpiFunction:
-        \_function: (gf_pkg::inner), line:12:3, endln:17:14
-      |vpiName:outer
-      |vpiFunction:
-      \_function: (gf_pkg::outer), line:6:3, endln:11:14
+        \_constant: 
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_logic_typespec: , line:7:5, endln:7:16
+      |vpiConstType:3
     |vpiLhs:
     \_ref_obj: (work@dut.z), line:23:10, endln:23:11
       |vpiParent:
@@ -2962,6 +2961,44 @@ design: (work@dut)
       |vpiSize:64
       |UINT:0
       |vpiConstType:9
+\_logic_typespec: , line:7:5, endln:7:16
+  |vpiParent:
+  \_ref_typespec: (work@dut)
+  |vpiInstance:
+  \_package: gf_pkg (gf_pkg::), file:${SURELOG_DIR}/tests/NestedFuncSameFormal/dut.sv, line:5:1, endln:18:11
+  |vpiRange:
+  \_range: , line:7:11, endln:7:16
+    |vpiParent:
+    \_logic_typespec: , line:7:5, endln:7:16
+    |vpiLeftRange:
+    \_constant: , line:7:12, endln:7:13
+      |vpiParent:
+      \_range: , line:7:11, endln:7:16
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:7:14, endln:7:15
+      |vpiParent:
+      \_range: , line:7:11, endln:7:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_cont_assign: , line:23:10, endln:23:33
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/NestedFuncSameFormal/dut.sv, line:19:1, endln:24:10
+  |vpiRhs:
+  \_constant: 
+  |vpiLhs:
+  \_ref_obj: (work@dut.z), line:23:10, endln:23:11
+    |vpiParent:
+    \_cont_assign: , line:23:10, endln:23:33
+    |vpiName:z
+    |vpiFullName:work@dut.z
+    |vpiActual:
+    \_logic_net: (work@dut.z), line:19:62, endln:19:63
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
