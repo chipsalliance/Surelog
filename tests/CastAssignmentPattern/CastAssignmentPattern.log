@@ -1,0 +1,1551 @@
+[INF:CM0023] Creating log file "${SURELOG_DIR}/build/regression/CastAssignmentPattern/slpp_all/surelog.log".
+[WRN:PA0205] ${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv:25:1: No timescale set for "dut".
+[INF:CP0300] Compilation...
+[INF:CP0303] ${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv:25:1: Compile module "work@dut".
+[INF:EL0526] Design Elaboration...
+[NTE:EL0503] ${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv:25:1: Top level module "work@dut".
+[NTE:EL0508] Nb Top level modules: 1.
+[NTE:EL0509] Max instance depth: 1.
+[NTE:EL0510] Nb instances: 1.
+[NTE:EL0511] Nb leaf instances: 0.
+[INF:UH0706] Creating UHDM Model...
+=== UHDM Object Stats Begin (Non-Elaborated Model) ===
+always                                                 2
+assignment                                             4
+begin                                                  2
+constant                                              36
+cont_assign                                            4
+design                                                 1
+event_control                                          2
+if_else                                                2
+logic_net                                             13
+logic_typespec                                        18
+module_inst                                            4
+operation                                             14
+port                                                  10
+range                                                 13
+ref_obj                                               31
+ref_typespec                                          40
+string_typespec                                       13
+struct_net                                             3
+struct_typespec                                        1
+tagged_pattern                                        13
+typespec_member                                        3
+=== UHDM Object Stats End ===
+[INF:UH0707] Elaborating UHDM...
+=== UHDM Object Stats Begin (Elaborated Model) ===
+always                                                 4
+assignment                                             8
+begin                                                  4
+constant                                              36
+cont_assign                                            7
+design                                                 1
+event_control                                          4
+if_else                                                4
+logic_net                                             13
+logic_typespec                                        18
+module_inst                                            4
+operation                                             26
+port                                                  15
+range                                                 13
+ref_obj                                               54
+ref_typespec                                          47
+string_typespec                                       13
+struct_net                                             3
+struct_typespec                                        1
+tagged_pattern                                        13
+typespec_member                                        3
+=== UHDM Object Stats End ===
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/CastAssignmentPattern/slpp_all/surelog.uhdm ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/CastAssignmentPattern/slpp_all/checker/surelog.chk.html ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/CastAssignmentPattern/slpp_all/surelog.uhdm ...
+[INF:UH0711] Decompiling UHDM...
+====== UHDM =======
+design: (work@dut)
+|vpiElaborated:1
+|vpiName:work@dut
+|uhdmallModules:
+\_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+  |vpiParent:
+  \_design: (work@dut)
+  |vpiFullName:work@dut
+  |vpiTypedef:
+  \_struct_typespec: (ent_t), line:32:11, endln:36:4
+    |vpiName:ent_t
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+    |vpiPacked:1
+    |vpiTypespecMember:
+    \_typespec_member: (free), line:33:17, endln:33:21
+      |vpiParent:
+      \_struct_typespec: (ent_t), line:32:11, endln:36:4
+      |vpiName:free
+      |vpiTypespec:
+      \_ref_typespec: (ent_t.free)
+        |vpiParent:
+        \_typespec_member: (free), line:33:17, endln:33:21
+        |vpiFullName:ent_t.free
+        |vpiActual:
+        \_logic_typespec: , line:33:5, endln:33:10
+      |vpiRefFile:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv
+      |vpiRefLineNo:33
+      |vpiRefColumnNo:5
+      |vpiRefEndLineNo:33
+      |vpiRefEndColumnNo:10
+    |vpiTypespecMember:
+    \_typespec_member: (data), line:34:17, endln:34:21
+      |vpiParent:
+      \_struct_typespec: (ent_t), line:32:11, endln:36:4
+      |vpiName:data
+      |vpiTypespec:
+      \_ref_typespec: (ent_t.data)
+        |vpiParent:
+        \_typespec_member: (data), line:34:17, endln:34:21
+        |vpiFullName:ent_t.data
+        |vpiActual:
+        \_logic_typespec: , line:34:5, endln:34:16
+      |vpiRefFile:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv
+      |vpiRefLineNo:34
+      |vpiRefColumnNo:5
+      |vpiRefEndLineNo:34
+      |vpiRefEndColumnNo:16
+    |vpiTypespecMember:
+    \_typespec_member: (tail), line:35:17, endln:35:21
+      |vpiParent:
+      \_struct_typespec: (ent_t), line:32:11, endln:36:4
+      |vpiName:tail
+      |vpiTypespec:
+      \_ref_typespec: (ent_t.tail)
+        |vpiParent:
+        \_typespec_member: (tail), line:35:17, endln:35:21
+        |vpiFullName:ent_t.tail
+        |vpiActual:
+        \_logic_typespec: , line:35:5, endln:35:10
+      |vpiRefFile:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv
+      |vpiRefLineNo:35
+      |vpiRefColumnNo:5
+      |vpiRefEndLineNo:35
+      |vpiRefEndColumnNo:10
+  |vpiDefName:work@dut
+  |vpiNet:
+  \_logic_net: (work@dut.clk_i), line:26:22, endln:26:27
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+    |vpiName:clk_i
+    |vpiFullName:work@dut.clk_i
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@dut.rst_ni), line:27:22, endln:27:28
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+    |vpiName:rst_ni
+    |vpiFullName:work@dut.rst_ni
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@dut.d_i), line:28:22, endln:28:25
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+    |vpiName:d_i
+    |vpiFullName:work@dut.d_i
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@dut.o_cast), line:29:22, endln:29:28
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+    |vpiName:o_cast
+    |vpiFullName:work@dut.o_cast
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@dut.o_bare), line:30:22, endln:30:28
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+    |vpiName:o_bare
+    |vpiFullName:work@dut.o_bare
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@dut.q_cast), line:38:9, endln:38:15
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q_cast)
+      |vpiParent:
+      \_logic_net: (work@dut.q_cast), line:38:9, endln:38:15
+      |vpiFullName:work@dut.q_cast
+      |vpiActual:
+      \_struct_typespec: (ent_t), line:32:11, endln:36:4
+    |vpiName:q_cast
+    |vpiFullName:work@dut.q_cast
+  |vpiNet:
+  \_logic_net: (work@dut.q_bare), line:38:17, endln:38:23
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q_bare)
+      |vpiParent:
+      \_logic_net: (work@dut.q_bare), line:38:17, endln:38:23
+      |vpiFullName:work@dut.q_bare
+      |vpiActual:
+      \_struct_typespec: (ent_t), line:32:11, endln:36:4
+    |vpiName:q_bare
+    |vpiFullName:work@dut.q_bare
+  |vpiNet:
+  \_logic_net: (work@dut.d), line:38:25, endln:38:26
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.d)
+      |vpiParent:
+      \_logic_net: (work@dut.d), line:38:25, endln:38:26
+      |vpiFullName:work@dut.d
+      |vpiActual:
+      \_struct_typespec: (ent_t), line:32:11, endln:36:4
+    |vpiName:d
+    |vpiFullName:work@dut.d
+  |vpiPort:
+  \_port: (clk_i), line:26:22, endln:26:27
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+    |vpiName:clk_i
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@dut.clk_i.clk_i), line:26:22, endln:26:27
+      |vpiParent:
+      \_port: (clk_i), line:26:22, endln:26:27
+      |vpiName:clk_i
+      |vpiFullName:work@dut.clk_i.clk_i
+      |vpiActual:
+      \_logic_net: (work@dut.clk_i), line:26:22, endln:26:27
+    |vpiTypedef:
+    \_ref_typespec: (work@dut.clk_i)
+      |vpiParent:
+      \_port: (clk_i), line:26:22, endln:26:27
+      |vpiFullName:work@dut.clk_i
+      |vpiActual:
+      \_logic_typespec: , line:26:10, endln:26:15
+  |vpiPort:
+  \_port: (rst_ni), line:27:22, endln:27:28
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+    |vpiName:rst_ni
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@dut.rst_ni.rst_ni), line:27:22, endln:27:28
+      |vpiParent:
+      \_port: (rst_ni), line:27:22, endln:27:28
+      |vpiName:rst_ni
+      |vpiFullName:work@dut.rst_ni.rst_ni
+      |vpiActual:
+      \_logic_net: (work@dut.rst_ni), line:27:22, endln:27:28
+    |vpiTypedef:
+    \_ref_typespec: (work@dut.rst_ni)
+      |vpiParent:
+      \_port: (rst_ni), line:27:22, endln:27:28
+      |vpiFullName:work@dut.rst_ni
+      |vpiActual:
+      \_logic_typespec: , line:27:10, endln:27:15
+  |vpiPort:
+  \_port: (d_i), line:28:22, endln:28:25
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+    |vpiName:d_i
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@dut.d_i.d_i), line:28:22, endln:28:25
+      |vpiParent:
+      \_port: (d_i), line:28:22, endln:28:25
+      |vpiName:d_i
+      |vpiFullName:work@dut.d_i.d_i
+      |vpiActual:
+      \_logic_net: (work@dut.d_i), line:28:22, endln:28:25
+    |vpiTypedef:
+    \_ref_typespec: (work@dut.d_i)
+      |vpiParent:
+      \_port: (d_i), line:28:22, endln:28:25
+      |vpiFullName:work@dut.d_i
+      |vpiActual:
+      \_logic_typespec: , line:28:10, endln:28:21
+  |vpiPort:
+  \_port: (o_cast), line:29:22, endln:29:28
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+    |vpiName:o_cast
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@dut.o_cast.o_cast), line:29:22, endln:29:28
+      |vpiParent:
+      \_port: (o_cast), line:29:22, endln:29:28
+      |vpiName:o_cast
+      |vpiFullName:work@dut.o_cast.o_cast
+      |vpiActual:
+      \_logic_net: (work@dut.o_cast), line:29:22, endln:29:28
+    |vpiTypedef:
+    \_ref_typespec: (work@dut.o_cast)
+      |vpiParent:
+      \_port: (o_cast), line:29:22, endln:29:28
+      |vpiFullName:work@dut.o_cast
+      |vpiActual:
+      \_logic_typespec: , line:29:10, endln:29:21
+  |vpiPort:
+  \_port: (o_bare), line:30:22, endln:30:28
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+    |vpiName:o_bare
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@dut.o_bare.o_bare), line:30:22, endln:30:28
+      |vpiParent:
+      \_port: (o_bare), line:30:22, endln:30:28
+      |vpiName:o_bare
+      |vpiFullName:work@dut.o_bare.o_bare
+      |vpiActual:
+      \_logic_net: (work@dut.o_bare), line:30:22, endln:30:28
+    |vpiTypedef:
+    \_ref_typespec: (work@dut.o_bare)
+      |vpiParent:
+      \_port: (o_bare), line:30:22, endln:30:28
+      |vpiFullName:work@dut.o_bare
+      |vpiActual:
+      \_logic_typespec: , line:30:10, endln:30:21
+  |vpiProcess:
+  \_always: , line:43:3, endln:46:6
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+    |vpiStmt:
+    \_event_control: , line:43:13, endln:43:47
+      |vpiParent:
+      \_always: , line:43:3, endln:46:6
+      |vpiCondition:
+      \_operation: , line:43:15, endln:43:46
+        |vpiParent:
+        \_event_control: , line:43:13, endln:43:47
+        |vpiOpType:35
+        |vpiOperand:
+        \_operation: , line:43:15, endln:43:28
+          |vpiParent:
+          \_operation: , line:43:15, endln:43:46
+          |vpiOpType:39
+          |vpiOperand:
+          \_ref_obj: (work@dut.clk_i), line:43:23, endln:43:28
+            |vpiParent:
+            \_operation: , line:43:15, endln:43:28
+            |vpiName:clk_i
+            |vpiFullName:work@dut.clk_i
+            |vpiActual:
+            \_logic_net: (work@dut.clk_i), line:26:22, endln:26:27
+        |vpiOperand:
+        \_operation: , line:43:32, endln:43:46
+          |vpiParent:
+          \_operation: , line:43:15, endln:43:46
+          |vpiOpType:40
+          |vpiOperand:
+          \_ref_obj: (work@dut.rst_ni), line:43:40, endln:43:46
+            |vpiParent:
+            \_operation: , line:43:32, endln:43:46
+            |vpiName:rst_ni
+            |vpiFullName:work@dut.rst_ni
+            |vpiActual:
+            \_logic_net: (work@dut.rst_ni), line:27:22, endln:27:28
+      |vpiStmt:
+      \_begin: (work@dut), line:43:48, endln:46:6
+        |vpiParent:
+        \_event_control: , line:43:13, endln:43:47
+        |vpiFullName:work@dut
+        |vpiStmt:
+        \_if_else: , line:44:5, endln:45:30
+          |vpiParent:
+          \_begin: (work@dut), line:43:48, endln:46:6
+          |vpiCondition:
+          \_operation: , line:44:9, endln:44:16
+            |vpiParent:
+            \_begin: (work@dut), line:43:48, endln:46:6
+            |vpiOpType:3
+            |vpiOperand:
+            \_ref_obj: (work@dut.rst_ni), line:44:10, endln:44:16
+              |vpiParent:
+              \_operation: , line:44:9, endln:44:16
+              |vpiName:rst_ni
+              |vpiFullName:work@dut.rst_ni
+              |vpiActual:
+              \_logic_net: (work@dut.rst_ni), line:27:22, endln:27:28
+          |vpiStmt:
+          \_assignment: , line:44:18, endln:44:59
+            |vpiParent:
+            \_if_else: , line:44:5, endln:45:30
+            |vpiOpType:82
+            |vpiRhs:
+            \_operation: , line:44:28, endln:44:59
+              |vpiParent:
+              \_assignment: , line:44:18, endln:44:59
+              |vpiTypespec:
+              \_ref_typespec: (work@dut)
+                |vpiParent:
+                \_operation: , line:44:28, endln:44:59
+                |vpiFullName:work@dut
+                |vpiActual:
+                \_struct_typespec: (ent_t), line:32:11, endln:36:4
+              |vpiOpType:67
+              |vpiOperand:
+              \_operation: , line:44:34, endln:44:59
+                |vpiParent:
+                \_operation: , line:44:28, endln:44:59
+                |vpiTypespec:
+                \_ref_typespec: (work@dut)
+                  |vpiParent:
+                  \_operation: , line:44:34, endln:44:59
+                  |vpiFullName:work@dut
+                  |vpiActual:
+                  \_struct_typespec: (ent_t), line:32:11, endln:36:4
+                |vpiOpType:75
+                |vpiOperand:
+                \_tagged_pattern: , line:44:41, endln:44:45
+                  |vpiParent:
+                  \_operation: , line:44:34, endln:44:59
+                  |vpiPattern:
+                  \_constant: , line:44:41, endln:44:45
+                    |vpiDecompile:1'b1
+                    |vpiSize:1
+                    |BIN:1
+                    |vpiConstType:3
+                  |vpiTypespec:
+                  \_ref_typespec: (work@dut)
+                    |vpiParent:
+                    \_tagged_pattern: , line:44:41, endln:44:45
+                    |vpiFullName:work@dut
+                    |vpiActual:
+                    \_string_typespec: (free), line:44:35, endln:44:39
+                |vpiOperand:
+                \_tagged_pattern: , line:44:56, endln:44:58
+                  |vpiParent:
+                  \_operation: , line:44:34, endln:44:59
+                  |vpiPattern:
+                  \_constant: , line:44:56, endln:44:58
+                    |vpiDecompile:'0
+                    |vpiSize:-1
+                    |BIN:0
+                    |vpiConstType:3
+                  |vpiTypespec:
+                  \_ref_typespec: (work@dut)
+                    |vpiParent:
+                    \_tagged_pattern: , line:44:56, endln:44:58
+                    |vpiFullName:work@dut
+                    |vpiActual:
+                    \_string_typespec: (default)
+            |vpiLhs:
+            \_ref_obj: (work@dut.q_cast), line:44:18, endln:44:24
+              |vpiParent:
+              \_assignment: , line:44:18, endln:44:59
+              |vpiName:q_cast
+              |vpiFullName:work@dut.q_cast
+              |vpiActual:
+              \_logic_net: (work@dut.q_cast), line:38:9, endln:38:15
+          |vpiElseStmt:
+          \_assignment: , line:45:18, endln:45:29
+            |vpiParent:
+            \_if_else: , line:44:5, endln:45:30
+            |vpiOpType:82
+            |vpiRhs:
+            \_ref_obj: (work@dut.d), line:45:28, endln:45:29
+              |vpiParent:
+              \_assignment: , line:45:18, endln:45:29
+              |vpiName:d
+              |vpiFullName:work@dut.d
+              |vpiActual:
+              \_logic_net: (work@dut.d), line:38:25, endln:38:26
+            |vpiLhs:
+            \_ref_obj: (work@dut.q_cast), line:45:18, endln:45:24
+              |vpiParent:
+              \_assignment: , line:45:18, endln:45:29
+              |vpiName:q_cast
+              |vpiFullName:work@dut.q_cast
+              |vpiActual:
+              \_logic_net: (work@dut.q_cast), line:38:9, endln:38:15
+    |vpiAlwaysType:3
+  |vpiProcess:
+  \_always: , line:49:3, endln:52:6
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+    |vpiStmt:
+    \_event_control: , line:49:13, endln:49:47
+      |vpiParent:
+      \_always: , line:49:3, endln:52:6
+      |vpiCondition:
+      \_operation: , line:49:15, endln:49:46
+        |vpiParent:
+        \_event_control: , line:49:13, endln:49:47
+        |vpiOpType:35
+        |vpiOperand:
+        \_operation: , line:49:15, endln:49:28
+          |vpiParent:
+          \_operation: , line:49:15, endln:49:46
+          |vpiOpType:39
+          |vpiOperand:
+          \_ref_obj: (work@dut.clk_i), line:49:23, endln:49:28
+            |vpiParent:
+            \_operation: , line:49:15, endln:49:28
+            |vpiName:clk_i
+            |vpiFullName:work@dut.clk_i
+            |vpiActual:
+            \_logic_net: (work@dut.clk_i), line:26:22, endln:26:27
+        |vpiOperand:
+        \_operation: , line:49:32, endln:49:46
+          |vpiParent:
+          \_operation: , line:49:15, endln:49:46
+          |vpiOpType:40
+          |vpiOperand:
+          \_ref_obj: (work@dut.rst_ni), line:49:40, endln:49:46
+            |vpiParent:
+            \_operation: , line:49:32, endln:49:46
+            |vpiName:rst_ni
+            |vpiFullName:work@dut.rst_ni
+            |vpiActual:
+            \_logic_net: (work@dut.rst_ni), line:27:22, endln:27:28
+      |vpiStmt:
+      \_begin: (work@dut), line:49:48, endln:52:6
+        |vpiParent:
+        \_event_control: , line:49:13, endln:49:47
+        |vpiFullName:work@dut
+        |vpiStmt:
+        \_if_else: , line:50:5, endln:51:30
+          |vpiParent:
+          \_begin: (work@dut), line:49:48, endln:52:6
+          |vpiCondition:
+          \_operation: , line:50:9, endln:50:16
+            |vpiParent:
+            \_begin: (work@dut), line:49:48, endln:52:6
+            |vpiOpType:3
+            |vpiOperand:
+            \_ref_obj: (work@dut.rst_ni), line:50:10, endln:50:16
+              |vpiParent:
+              \_operation: , line:50:9, endln:50:16
+              |vpiName:rst_ni
+              |vpiFullName:work@dut.rst_ni
+              |vpiActual:
+              \_logic_net: (work@dut.rst_ni), line:27:22, endln:27:28
+          |vpiStmt:
+          \_assignment: , line:50:18, endln:50:54
+            |vpiParent:
+            \_if_else: , line:50:5, endln:51:30
+            |vpiOpType:82
+            |vpiRhs:
+            \_operation: , line:50:28, endln:50:54
+              |vpiParent:
+              \_assignment: , line:50:18, endln:50:54
+              |vpiOpType:75
+              |vpiOperand:
+              \_tagged_pattern: , line:50:36, endln:50:40
+                |vpiParent:
+                \_operation: , line:50:28, endln:50:54
+                |vpiPattern:
+                \_constant: , line:50:36, endln:50:40
+                  |vpiDecompile:1'b1
+                  |vpiSize:1
+                  |BIN:1
+                  |vpiConstType:3
+                |vpiTypespec:
+                \_ref_typespec: (work@dut)
+                  |vpiParent:
+                  \_tagged_pattern: , line:50:36, endln:50:40
+                  |vpiFullName:work@dut
+                  |vpiActual:
+                  \_string_typespec: (free), line:50:30, endln:50:34
+              |vpiOperand:
+              \_tagged_pattern: , line:50:51, endln:50:53
+                |vpiParent:
+                \_operation: , line:50:28, endln:50:54
+                |vpiPattern:
+                \_constant: , line:50:51, endln:50:53
+                  |vpiDecompile:'0
+                  |vpiSize:-1
+                  |BIN:0
+                  |vpiConstType:3
+                |vpiTypespec:
+                \_ref_typespec: (work@dut)
+                  |vpiParent:
+                  \_tagged_pattern: , line:50:51, endln:50:53
+                  |vpiFullName:work@dut
+                  |vpiActual:
+                  \_string_typespec: (default), line:50:42, endln:50:49
+            |vpiLhs:
+            \_ref_obj: (work@dut.q_bare), line:50:18, endln:50:24
+              |vpiParent:
+              \_assignment: , line:50:18, endln:50:54
+              |vpiName:q_bare
+              |vpiFullName:work@dut.q_bare
+              |vpiActual:
+              \_logic_net: (work@dut.q_bare), line:38:17, endln:38:23
+          |vpiElseStmt:
+          \_assignment: , line:51:18, endln:51:29
+            |vpiParent:
+            \_if_else: , line:50:5, endln:51:30
+            |vpiOpType:82
+            |vpiRhs:
+            \_ref_obj: (work@dut.d), line:51:28, endln:51:29
+              |vpiParent:
+              \_assignment: , line:51:18, endln:51:29
+              |vpiName:d
+              |vpiFullName:work@dut.d
+              |vpiActual:
+              \_logic_net: (work@dut.d), line:38:25, endln:38:26
+            |vpiLhs:
+            \_ref_obj: (work@dut.q_bare), line:51:18, endln:51:24
+              |vpiParent:
+              \_assignment: , line:51:18, endln:51:29
+              |vpiName:q_bare
+              |vpiFullName:work@dut.q_bare
+              |vpiActual:
+              \_logic_net: (work@dut.q_bare), line:38:17, endln:38:23
+    |vpiAlwaysType:3
+  |vpiContAssign:
+  \_cont_assign: , line:40:10, endln:40:50
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+    |vpiRhs:
+    \_operation: , line:40:14, endln:40:50
+      |vpiParent:
+      \_cont_assign: , line:40:10, endln:40:50
+      |vpiOpType:75
+      |vpiOperand:
+      \_tagged_pattern: , line:40:22, endln:40:26
+        |vpiParent:
+        \_operation: , line:40:14, endln:40:50
+        |vpiPattern:
+        \_constant: , line:40:22, endln:40:26
+          |vpiDecompile:1'b0
+          |vpiSize:1
+          |BIN:0
+          |vpiConstType:3
+        |vpiTypespec:
+        \_ref_typespec: (work@dut)
+          |vpiParent:
+          \_tagged_pattern: , line:40:22, endln:40:26
+          |vpiFullName:work@dut
+          |vpiActual:
+          \_string_typespec: (free), line:40:16, endln:40:20
+      |vpiOperand:
+      \_tagged_pattern: , line:40:34, endln:40:37
+        |vpiParent:
+        \_operation: , line:40:14, endln:40:50
+        |vpiPattern:
+        \_ref_obj: (work@dut.d_i), line:40:34, endln:40:37
+          |vpiParent:
+          \_operation: , line:40:14, endln:40:50
+          |vpiName:d_i
+          |vpiFullName:work@dut.d_i
+          |vpiActual:
+          \_logic_net: (work@dut.d_i), line:28:22, endln:28:25
+        |vpiTypespec:
+        \_ref_typespec: (work@dut)
+          |vpiParent:
+          \_tagged_pattern: , line:40:34, endln:40:37
+          |vpiFullName:work@dut
+          |vpiActual:
+          \_string_typespec: (data), line:40:28, endln:40:32
+      |vpiOperand:
+      \_tagged_pattern: , line:40:45, endln:40:49
+        |vpiParent:
+        \_operation: , line:40:14, endln:40:50
+        |vpiPattern:
+        \_constant: , line:40:45, endln:40:49
+          |vpiDecompile:1'b1
+          |vpiSize:1
+          |BIN:1
+          |vpiConstType:3
+        |vpiTypespec:
+        \_ref_typespec: (work@dut)
+          |vpiParent:
+          \_tagged_pattern: , line:40:45, endln:40:49
+          |vpiFullName:work@dut
+          |vpiActual:
+          \_string_typespec: (tail), line:40:39, endln:40:43
+    |vpiLhs:
+    \_ref_obj: (work@dut.d), line:40:10, endln:40:11
+      |vpiParent:
+      \_cont_assign: , line:40:10, endln:40:50
+      |vpiName:d
+      |vpiFullName:work@dut.d
+      |vpiActual:
+      \_logic_net: (work@dut.d), line:38:25, endln:38:26
+  |vpiContAssign:
+  \_cont_assign: , line:54:10, endln:54:25
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+    |vpiRhs:
+    \_ref_obj: (work@dut.q_cast), line:54:19, endln:54:25
+      |vpiParent:
+      \_cont_assign: , line:54:10, endln:54:25
+      |vpiName:q_cast
+      |vpiFullName:work@dut.q_cast
+      |vpiActual:
+      \_logic_net: (work@dut.q_cast), line:38:9, endln:38:15
+    |vpiLhs:
+    \_ref_obj: (work@dut.o_cast), line:54:10, endln:54:16
+      |vpiParent:
+      \_cont_assign: , line:54:10, endln:54:25
+      |vpiName:o_cast
+      |vpiFullName:work@dut.o_cast
+      |vpiActual:
+      \_logic_net: (work@dut.o_cast), line:29:22, endln:29:28
+  |vpiContAssign:
+  \_cont_assign: , line:55:10, endln:55:25
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+    |vpiRhs:
+    \_ref_obj: (work@dut.q_bare), line:55:19, endln:55:25
+      |vpiParent:
+      \_cont_assign: , line:55:10, endln:55:25
+      |vpiName:q_bare
+      |vpiFullName:work@dut.q_bare
+      |vpiActual:
+      \_logic_net: (work@dut.q_bare), line:38:17, endln:38:23
+    |vpiLhs:
+    \_ref_obj: (work@dut.o_bare), line:55:10, endln:55:16
+      |vpiParent:
+      \_cont_assign: , line:55:10, endln:55:25
+      |vpiName:o_bare
+      |vpiFullName:work@dut.o_bare
+      |vpiActual:
+      \_logic_net: (work@dut.o_bare), line:30:22, endln:30:28
+|uhdmtopModules:
+\_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+  |vpiParent:
+  \_design: (work@dut)
+  |vpiName:work@dut
+  |vpiTypedef:
+  \_struct_typespec: (ent_t), line:32:11, endln:36:4
+  |vpiDefName:work@dut
+  |vpiTop:1
+  |vpiNet:
+  \_logic_net: (work@dut.clk_i), line:26:22, endln:26:27
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.clk_i)
+      |vpiParent:
+      \_logic_net: (work@dut.clk_i), line:26:22, endln:26:27
+      |vpiFullName:work@dut.clk_i
+      |vpiActual:
+      \_logic_typespec: , line:26:10, endln:26:15
+    |vpiName:clk_i
+    |vpiFullName:work@dut.clk_i
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@dut.rst_ni), line:27:22, endln:27:28
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.rst_ni)
+      |vpiParent:
+      \_logic_net: (work@dut.rst_ni), line:27:22, endln:27:28
+      |vpiFullName:work@dut.rst_ni
+      |vpiActual:
+      \_logic_typespec: , line:27:10, endln:27:15
+    |vpiName:rst_ni
+    |vpiFullName:work@dut.rst_ni
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@dut.d_i), line:28:22, endln:28:25
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.d_i)
+      |vpiParent:
+      \_logic_net: (work@dut.d_i), line:28:22, endln:28:25
+      |vpiFullName:work@dut.d_i
+      |vpiActual:
+      \_logic_typespec: , line:28:10, endln:28:21
+    |vpiName:d_i
+    |vpiFullName:work@dut.d_i
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@dut.o_cast), line:29:22, endln:29:28
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.o_cast)
+      |vpiParent:
+      \_logic_net: (work@dut.o_cast), line:29:22, endln:29:28
+      |vpiFullName:work@dut.o_cast
+      |vpiActual:
+      \_logic_typespec: , line:29:10, endln:29:21
+    |vpiName:o_cast
+    |vpiFullName:work@dut.o_cast
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@dut.o_bare), line:30:22, endln:30:28
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.o_bare)
+      |vpiParent:
+      \_logic_net: (work@dut.o_bare), line:30:22, endln:30:28
+      |vpiFullName:work@dut.o_bare
+      |vpiActual:
+      \_logic_typespec: , line:30:10, endln:30:21
+    |vpiName:o_bare
+    |vpiFullName:work@dut.o_bare
+    |vpiNetType:36
+  |vpiNet:
+  \_struct_net: (work@dut.q_cast), line:38:9, endln:38:15
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q_cast)
+      |vpiParent:
+      \_struct_net: (work@dut.q_cast), line:38:9, endln:38:15
+      |vpiFullName:work@dut.q_cast
+      |vpiActual:
+      \_struct_typespec: (ent_t), line:32:11, endln:36:4
+    |vpiName:q_cast
+    |vpiFullName:work@dut.q_cast
+  |vpiNet:
+  \_struct_net: (work@dut.q_bare), line:38:17, endln:38:23
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.q_bare)
+      |vpiParent:
+      \_struct_net: (work@dut.q_bare), line:38:17, endln:38:23
+      |vpiFullName:work@dut.q_bare
+      |vpiActual:
+      \_struct_typespec: (ent_t), line:32:11, endln:36:4
+    |vpiName:q_bare
+    |vpiFullName:work@dut.q_bare
+  |vpiNet:
+  \_struct_net: (work@dut.d), line:38:25, endln:38:26
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.d)
+      |vpiParent:
+      \_struct_net: (work@dut.d), line:38:25, endln:38:26
+      |vpiFullName:work@dut.d
+      |vpiActual:
+      \_struct_typespec: (ent_t), line:32:11, endln:36:4
+    |vpiName:d
+    |vpiFullName:work@dut.d
+  |vpiTopModule:1
+  |vpiPort:
+  \_port: (clk_i), line:26:22, endln:26:27
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+    |vpiName:clk_i
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@dut.clk_i), line:26:22, endln:26:27
+      |vpiParent:
+      \_port: (clk_i), line:26:22, endln:26:27
+      |vpiName:clk_i
+      |vpiFullName:work@dut.clk_i
+      |vpiActual:
+      \_logic_net: (work@dut.clk_i), line:26:22, endln:26:27
+    |vpiTypedef:
+    \_ref_typespec: (work@dut.clk_i)
+      |vpiParent:
+      \_port: (clk_i), line:26:22, endln:26:27
+      |vpiFullName:work@dut.clk_i
+      |vpiActual:
+      \_logic_typespec: , line:26:10, endln:26:15
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+  |vpiPort:
+  \_port: (rst_ni), line:27:22, endln:27:28
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+    |vpiName:rst_ni
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@dut.rst_ni), line:27:22, endln:27:28
+      |vpiParent:
+      \_port: (rst_ni), line:27:22, endln:27:28
+      |vpiName:rst_ni
+      |vpiFullName:work@dut.rst_ni
+      |vpiActual:
+      \_logic_net: (work@dut.rst_ni), line:27:22, endln:27:28
+    |vpiTypedef:
+    \_ref_typespec: (work@dut.rst_ni)
+      |vpiParent:
+      \_port: (rst_ni), line:27:22, endln:27:28
+      |vpiFullName:work@dut.rst_ni
+      |vpiActual:
+      \_logic_typespec: , line:27:10, endln:27:15
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+  |vpiPort:
+  \_port: (d_i), line:28:22, endln:28:25
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+    |vpiName:d_i
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@dut.d_i), line:28:22, endln:28:25
+      |vpiParent:
+      \_port: (d_i), line:28:22, endln:28:25
+      |vpiName:d_i
+      |vpiFullName:work@dut.d_i
+      |vpiActual:
+      \_logic_net: (work@dut.d_i), line:28:22, endln:28:25
+    |vpiTypedef:
+    \_ref_typespec: (work@dut.d_i)
+      |vpiParent:
+      \_port: (d_i), line:28:22, endln:28:25
+      |vpiFullName:work@dut.d_i
+      |vpiActual:
+      \_logic_typespec: , line:28:10, endln:28:21
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+  |vpiPort:
+  \_port: (o_cast), line:29:22, endln:29:28
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+    |vpiName:o_cast
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@dut.o_cast), line:29:22, endln:29:28
+      |vpiParent:
+      \_port: (o_cast), line:29:22, endln:29:28
+      |vpiName:o_cast
+      |vpiFullName:work@dut.o_cast
+      |vpiActual:
+      \_logic_net: (work@dut.o_cast), line:29:22, endln:29:28
+    |vpiTypedef:
+    \_ref_typespec: (work@dut.o_cast)
+      |vpiParent:
+      \_port: (o_cast), line:29:22, endln:29:28
+      |vpiFullName:work@dut.o_cast
+      |vpiActual:
+      \_logic_typespec: , line:29:10, endln:29:21
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+  |vpiPort:
+  \_port: (o_bare), line:30:22, endln:30:28
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+    |vpiName:o_bare
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@dut.o_bare), line:30:22, endln:30:28
+      |vpiParent:
+      \_port: (o_bare), line:30:22, endln:30:28
+      |vpiName:o_bare
+      |vpiFullName:work@dut.o_bare
+      |vpiActual:
+      \_logic_net: (work@dut.o_bare), line:30:22, endln:30:28
+    |vpiTypedef:
+    \_ref_typespec: (work@dut.o_bare)
+      |vpiParent:
+      \_port: (o_bare), line:30:22, endln:30:28
+      |vpiFullName:work@dut.o_bare
+      |vpiActual:
+      \_logic_typespec: , line:30:10, endln:30:21
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+  |vpiProcess:
+  \_always: , line:43:3, endln:46:6
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+    |vpiStmt:
+    \_event_control: , line:43:13, endln:43:47
+      |vpiParent:
+      \_always: , line:43:3, endln:46:6
+      |vpiCondition:
+      \_operation: , line:43:15, endln:43:46
+        |vpiParent:
+        \_event_control: , line:43:13, endln:43:47
+        |vpiOpType:35
+        |vpiOperand:
+        \_operation: , line:43:15, endln:43:28
+          |vpiParent:
+          \_operation: , line:43:15, endln:43:46
+          |vpiOpType:39
+          |vpiOperand:
+          \_ref_obj: (work@dut.clk_i), line:43:23, endln:43:28
+            |vpiParent:
+            \_operation: , line:43:15, endln:43:28
+            |vpiName:clk_i
+            |vpiFullName:work@dut.clk_i
+            |vpiActual:
+            \_logic_net: (work@dut.clk_i), line:26:22, endln:26:27
+        |vpiOperand:
+        \_operation: , line:43:32, endln:43:46
+          |vpiParent:
+          \_operation: , line:43:15, endln:43:46
+          |vpiOpType:40
+          |vpiOperand:
+          \_ref_obj: (work@dut.rst_ni), line:43:40, endln:43:46
+            |vpiParent:
+            \_operation: , line:43:32, endln:43:46
+            |vpiName:rst_ni
+            |vpiFullName:work@dut.rst_ni
+            |vpiActual:
+            \_logic_net: (work@dut.rst_ni), line:27:22, endln:27:28
+      |vpiStmt:
+      \_begin: (work@dut), line:43:48, endln:46:6
+        |vpiParent:
+        \_event_control: , line:43:13, endln:43:47
+        |vpiFullName:work@dut
+        |vpiStmt:
+        \_if_else: , line:44:5, endln:45:30
+          |vpiParent:
+          \_begin: (work@dut), line:43:48, endln:46:6
+          |vpiCondition:
+          \_operation: , line:44:9, endln:44:16
+            |vpiParent:
+            \_if_else: , line:44:5, endln:45:30
+            |vpiOpType:3
+            |vpiOperand:
+            \_ref_obj: (work@dut.rst_ni), line:44:10, endln:44:16
+              |vpiParent:
+              \_operation: , line:44:9, endln:44:16
+              |vpiName:rst_ni
+              |vpiFullName:work@dut.rst_ni
+              |vpiActual:
+              \_logic_net: (work@dut.rst_ni), line:27:22, endln:27:28
+          |vpiStmt:
+          \_assignment: , line:44:18, endln:44:59
+            |vpiParent:
+            \_if_else: , line:44:5, endln:45:30
+            |vpiOpType:82
+            |vpiRhs:
+            \_operation: , line:44:28, endln:44:59
+              |vpiParent:
+              \_assignment: , line:44:18, endln:44:59
+              |vpiTypespec:
+              \_ref_typespec: (work@dut)
+                |vpiParent:
+                \_operation: , line:44:28, endln:44:59
+                |vpiFullName:work@dut
+                |vpiActual:
+                \_struct_typespec: (ent_t), line:32:11, endln:36:4
+              |vpiOpType:67
+              |vpiOperand:
+              \_operation: , line:44:34, endln:44:59
+                |vpiParent:
+                \_operation: , line:44:28, endln:44:59
+                |vpiTypespec:
+                \_ref_typespec: (work@dut)
+                  |vpiParent:
+                  \_operation: , line:44:34, endln:44:59
+                  |vpiFullName:work@dut
+                  |vpiActual:
+                  \_struct_typespec: (ent_t), line:32:11, endln:36:4
+                |vpiOpType:75
+                |vpiOperand:
+                \_tagged_pattern: , line:44:41, endln:44:45
+                |vpiOperand:
+                \_tagged_pattern: , line:44:56, endln:44:58
+            |vpiLhs:
+            \_ref_obj: (work@dut.q_cast), line:44:18, endln:44:24
+              |vpiParent:
+              \_assignment: , line:44:18, endln:44:59
+              |vpiName:q_cast
+              |vpiFullName:work@dut.q_cast
+              |vpiActual:
+              \_struct_net: (work@dut.q_cast), line:38:9, endln:38:15
+          |vpiElseStmt:
+          \_assignment: , line:45:18, endln:45:29
+            |vpiParent:
+            \_if_else: , line:44:5, endln:45:30
+            |vpiOpType:82
+            |vpiRhs:
+            \_ref_obj: (work@dut.d), line:45:28, endln:45:29
+              |vpiParent:
+              \_assignment: , line:45:18, endln:45:29
+              |vpiName:d
+              |vpiFullName:work@dut.d
+              |vpiActual:
+              \_struct_net: (work@dut.d), line:38:25, endln:38:26
+            |vpiLhs:
+            \_ref_obj: (work@dut.q_cast), line:45:18, endln:45:24
+              |vpiParent:
+              \_assignment: , line:45:18, endln:45:29
+              |vpiName:q_cast
+              |vpiFullName:work@dut.q_cast
+              |vpiActual:
+              \_struct_net: (work@dut.q_cast), line:38:9, endln:38:15
+    |vpiAlwaysType:3
+  |vpiProcess:
+  \_always: , line:49:3, endln:52:6
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+    |vpiStmt:
+    \_event_control: , line:49:13, endln:49:47
+      |vpiParent:
+      \_always: , line:49:3, endln:52:6
+      |vpiCondition:
+      \_operation: , line:49:15, endln:49:46
+        |vpiParent:
+        \_event_control: , line:49:13, endln:49:47
+        |vpiOpType:35
+        |vpiOperand:
+        \_operation: , line:49:15, endln:49:28
+          |vpiParent:
+          \_operation: , line:49:15, endln:49:46
+          |vpiOpType:39
+          |vpiOperand:
+          \_ref_obj: (work@dut.clk_i), line:49:23, endln:49:28
+            |vpiParent:
+            \_operation: , line:49:15, endln:49:28
+            |vpiName:clk_i
+            |vpiFullName:work@dut.clk_i
+            |vpiActual:
+            \_logic_net: (work@dut.clk_i), line:26:22, endln:26:27
+        |vpiOperand:
+        \_operation: , line:49:32, endln:49:46
+          |vpiParent:
+          \_operation: , line:49:15, endln:49:46
+          |vpiOpType:40
+          |vpiOperand:
+          \_ref_obj: (work@dut.rst_ni), line:49:40, endln:49:46
+            |vpiParent:
+            \_operation: , line:49:32, endln:49:46
+            |vpiName:rst_ni
+            |vpiFullName:work@dut.rst_ni
+            |vpiActual:
+            \_logic_net: (work@dut.rst_ni), line:27:22, endln:27:28
+      |vpiStmt:
+      \_begin: (work@dut), line:49:48, endln:52:6
+        |vpiParent:
+        \_event_control: , line:49:13, endln:49:47
+        |vpiFullName:work@dut
+        |vpiStmt:
+        \_if_else: , line:50:5, endln:51:30
+          |vpiParent:
+          \_begin: (work@dut), line:49:48, endln:52:6
+          |vpiCondition:
+          \_operation: , line:50:9, endln:50:16
+            |vpiParent:
+            \_if_else: , line:50:5, endln:51:30
+            |vpiOpType:3
+            |vpiOperand:
+            \_ref_obj: (work@dut.rst_ni), line:50:10, endln:50:16
+              |vpiParent:
+              \_operation: , line:50:9, endln:50:16
+              |vpiName:rst_ni
+              |vpiFullName:work@dut.rst_ni
+              |vpiActual:
+              \_logic_net: (work@dut.rst_ni), line:27:22, endln:27:28
+          |vpiStmt:
+          \_assignment: , line:50:18, endln:50:54
+            |vpiParent:
+            \_if_else: , line:50:5, endln:51:30
+            |vpiOpType:82
+            |vpiRhs:
+            \_operation: , line:50:28, endln:50:54
+              |vpiParent:
+              \_assignment: , line:50:18, endln:50:54
+              |vpiOpType:75
+              |vpiOperand:
+              \_tagged_pattern: , line:50:36, endln:50:40
+              |vpiOperand:
+              \_tagged_pattern: , line:50:51, endln:50:53
+            |vpiLhs:
+            \_ref_obj: (work@dut.q_bare), line:50:18, endln:50:24
+              |vpiParent:
+              \_assignment: , line:50:18, endln:50:54
+              |vpiName:q_bare
+              |vpiFullName:work@dut.q_bare
+              |vpiActual:
+              \_struct_net: (work@dut.q_bare), line:38:17, endln:38:23
+          |vpiElseStmt:
+          \_assignment: , line:51:18, endln:51:29
+            |vpiParent:
+            \_if_else: , line:50:5, endln:51:30
+            |vpiOpType:82
+            |vpiRhs:
+            \_ref_obj: (work@dut.d), line:51:28, endln:51:29
+              |vpiParent:
+              \_assignment: , line:51:18, endln:51:29
+              |vpiName:d
+              |vpiFullName:work@dut.d
+              |vpiActual:
+              \_struct_net: (work@dut.d), line:38:25, endln:38:26
+            |vpiLhs:
+            \_ref_obj: (work@dut.q_bare), line:51:18, endln:51:24
+              |vpiParent:
+              \_assignment: , line:51:18, endln:51:29
+              |vpiName:q_bare
+              |vpiFullName:work@dut.q_bare
+              |vpiActual:
+              \_struct_net: (work@dut.q_bare), line:38:17, endln:38:23
+    |vpiAlwaysType:3
+  |vpiContAssign:
+  \_cont_assign: , line:40:10, endln:40:50
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+    |vpiRhs:
+    \_operation: , line:40:14, endln:40:50
+      |vpiParent:
+      \_cont_assign: , line:40:10, endln:40:50
+      |vpiOpType:75
+      |vpiOperand:
+      \_constant: , line:40:22, endln:40:26
+        |vpiParent:
+        \_operation: , line:40:14, endln:40:50
+        |vpiDecompile:1'b0
+        |vpiSize:1
+        |BIN:0
+        |vpiConstType:3
+      |vpiOperand:
+      \_ref_obj: (work@dut.d_i), line:40:34, endln:40:37
+        |vpiParent:
+        \_operation: , line:40:14, endln:40:50
+        |vpiSize:4
+        |vpiName:d_i
+        |vpiFullName:work@dut.d_i
+        |vpiActual:
+        \_logic_net: (work@dut.d_i), line:28:22, endln:28:25
+      |vpiOperand:
+      \_constant: , line:40:45, endln:40:49
+        |vpiParent:
+        \_operation: , line:40:14, endln:40:50
+        |vpiDecompile:1'b1
+        |vpiSize:1
+        |BIN:1
+        |vpiConstType:3
+    |vpiLhs:
+    \_ref_obj: (work@dut.d), line:40:10, endln:40:11
+      |vpiParent:
+      \_cont_assign: , line:40:10, endln:40:50
+      |vpiName:d
+      |vpiFullName:work@dut.d
+      |vpiActual:
+      \_struct_net: (work@dut.d), line:38:25, endln:38:26
+  |vpiContAssign:
+  \_cont_assign: , line:54:10, endln:54:25
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+    |vpiRhs:
+    \_ref_obj: (work@dut.q_cast), line:54:19, endln:54:25
+      |vpiParent:
+      \_cont_assign: , line:54:10, endln:54:25
+      |vpiName:q_cast
+      |vpiFullName:work@dut.q_cast
+      |vpiActual:
+      \_struct_net: (work@dut.q_cast), line:38:9, endln:38:15
+    |vpiLhs:
+    \_ref_obj: (work@dut.o_cast), line:54:10, endln:54:16
+      |vpiParent:
+      \_cont_assign: , line:54:10, endln:54:25
+      |vpiName:o_cast
+      |vpiFullName:work@dut.o_cast
+      |vpiActual:
+      \_logic_net: (work@dut.o_cast), line:29:22, endln:29:28
+  |vpiContAssign:
+  \_cont_assign: , line:55:10, endln:55:25
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+    |vpiRhs:
+    \_ref_obj: (work@dut.q_bare), line:55:19, endln:55:25
+      |vpiParent:
+      \_cont_assign: , line:55:10, endln:55:25
+      |vpiName:q_bare
+      |vpiFullName:work@dut.q_bare
+      |vpiActual:
+      \_struct_net: (work@dut.q_bare), line:38:17, endln:38:23
+    |vpiLhs:
+    \_ref_obj: (work@dut.o_bare), line:55:10, endln:55:16
+      |vpiParent:
+      \_cont_assign: , line:55:10, endln:55:25
+      |vpiName:o_bare
+      |vpiFullName:work@dut.o_bare
+      |vpiActual:
+      \_logic_net: (work@dut.o_bare), line:30:22, endln:30:28
+\_weaklyReferenced:
+\_logic_typespec: , line:33:5, endln:33:10
+  |vpiParent:
+  \_typespec_member: (free), line:33:17, endln:33:21
+\_logic_typespec: , line:34:5, endln:34:16
+  |vpiParent:
+  \_typespec_member: (data), line:34:17, endln:34:21
+  |vpiRange:
+  \_range: , line:34:11, endln:34:16
+    |vpiParent:
+    \_logic_typespec: , line:34:5, endln:34:16
+    |vpiLeftRange:
+    \_constant: , line:34:12, endln:34:13
+      |vpiParent:
+      \_range: , line:34:11, endln:34:16
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:34:14, endln:34:15
+      |vpiParent:
+      \_range: , line:34:11, endln:34:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:35:5, endln:35:10
+  |vpiParent:
+  \_typespec_member: (tail), line:35:17, endln:35:21
+\_string_typespec: (free), line:40:16, endln:40:20
+  |vpiParent:
+  \_tagged_pattern: , line:40:22, endln:40:26
+  |vpiName:free
+\_string_typespec: (data), line:40:28, endln:40:32
+  |vpiParent:
+  \_tagged_pattern: , line:40:34, endln:40:37
+  |vpiName:data
+\_string_typespec: (tail), line:40:39, endln:40:43
+  |vpiParent:
+  \_tagged_pattern: , line:40:45, endln:40:49
+  |vpiName:tail
+\_string_typespec: (free), line:44:35, endln:44:39
+  |vpiParent:
+  \_tagged_pattern: , line:44:41, endln:44:45
+  |vpiName:free
+\_string_typespec: (default)
+  |vpiParent:
+  \_tagged_pattern: , line:44:56, endln:44:58
+  |vpiName:default
+\_string_typespec: (free), line:50:30, endln:50:34
+  |vpiParent:
+  \_tagged_pattern: , line:50:36, endln:50:40
+  |vpiName:free
+\_string_typespec: (default), line:50:42, endln:50:49
+  |vpiParent:
+  \_tagged_pattern: , line:50:51, endln:50:53
+  |vpiName:default
+\_logic_typespec: , line:26:10, endln:26:15
+\_logic_typespec: , line:27:10, endln:27:15
+\_logic_typespec: , line:28:10, endln:28:21
+  |vpiRange:
+  \_range: , line:28:16, endln:28:21
+    |vpiParent:
+    \_logic_typespec: , line:28:10, endln:28:21
+    |vpiLeftRange:
+    \_constant: , line:28:17, endln:28:18
+      |vpiParent:
+      \_range: , line:28:16, endln:28:21
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:28:19, endln:28:20
+      |vpiParent:
+      \_range: , line:28:16, endln:28:21
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:29:10, endln:29:21
+  |vpiRange:
+  \_range: , line:29:16, endln:29:21
+    |vpiParent:
+    \_logic_typespec: , line:29:10, endln:29:21
+    |vpiLeftRange:
+    \_constant: , line:29:17, endln:29:18
+      |vpiParent:
+      \_range: , line:29:16, endln:29:21
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:29:19, endln:29:20
+      |vpiParent:
+      \_range: , line:29:16, endln:29:21
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:30:10, endln:30:21
+  |vpiRange:
+  \_range: , line:30:16, endln:30:21
+    |vpiParent:
+    \_logic_typespec: , line:30:10, endln:30:21
+    |vpiLeftRange:
+    \_constant: , line:30:17, endln:30:18
+      |vpiParent:
+      \_range: , line:30:16, endln:30:21
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:30:19, endln:30:20
+      |vpiParent:
+      \_range: , line:30:16, endln:30:21
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:26:10, endln:26:15
+  |vpiParent:
+  \_logic_net: (work@dut.clk_i), line:26:22, endln:26:27
+\_logic_typespec: , line:27:10, endln:27:15
+  |vpiParent:
+  \_logic_net: (work@dut.rst_ni), line:27:22, endln:27:28
+\_logic_typespec: , line:28:10, endln:28:21
+  |vpiParent:
+  \_logic_net: (work@dut.d_i), line:28:22, endln:28:25
+  |vpiRange:
+  \_range: , line:28:16, endln:28:21
+    |vpiParent:
+    \_logic_typespec: , line:28:10, endln:28:21
+    |vpiLeftRange:
+    \_constant: , line:28:17, endln:28:18
+      |vpiParent:
+      \_range: , line:28:16, endln:28:21
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:28:19, endln:28:20
+      |vpiParent:
+      \_range: , line:28:16, endln:28:21
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:29:10, endln:29:21
+  |vpiRange:
+  \_range: , line:29:16, endln:29:21
+    |vpiParent:
+    \_logic_typespec: , line:29:10, endln:29:21
+    |vpiLeftRange:
+    \_constant: , line:29:17, endln:29:18
+      |vpiParent:
+      \_range: , line:29:16, endln:29:21
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:29:19, endln:29:20
+      |vpiParent:
+      \_range: , line:29:16, endln:29:21
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:30:10, endln:30:21
+  |vpiRange:
+  \_range: , line:30:16, endln:30:21
+    |vpiParent:
+    \_logic_typespec: , line:30:10, endln:30:21
+    |vpiLeftRange:
+    \_constant: , line:30:17, endln:30:18
+      |vpiParent:
+      \_range: , line:30:16, endln:30:21
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:30:19, endln:30:20
+      |vpiParent:
+      \_range: , line:30:16, endln:30:21
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:26:10, endln:26:15
+\_logic_typespec: , line:27:10, endln:27:15
+\_logic_typespec: , line:28:10, endln:28:21
+  |vpiRange:
+  \_range: , line:28:16, endln:28:21
+    |vpiParent:
+    \_logic_typespec: , line:28:10, endln:28:21
+    |vpiLeftRange:
+    \_constant: , line:28:17, endln:28:18
+      |vpiParent:
+      \_range: , line:28:16, endln:28:21
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:28:19, endln:28:20
+      |vpiParent:
+      \_range: , line:28:16, endln:28:21
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:29:10, endln:29:21
+  |vpiRange:
+  \_range: , line:29:16, endln:29:21
+    |vpiParent:
+    \_logic_typespec: , line:29:10, endln:29:21
+    |vpiLeftRange:
+    \_constant: , line:29:17, endln:29:18
+      |vpiParent:
+      \_range: , line:29:16, endln:29:21
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:29:19, endln:29:20
+      |vpiParent:
+      \_range: , line:29:16, endln:29:21
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:30:10, endln:30:21
+  |vpiRange:
+  \_range: , line:30:16, endln:30:21
+    |vpiParent:
+    \_logic_typespec: , line:30:10, endln:30:21
+    |vpiLeftRange:
+    \_constant: , line:30:17, endln:30:18
+      |vpiParent:
+      \_range: , line:30:16, endln:30:21
+      |vpiDecompile:5
+      |vpiSize:64
+      |UINT:5
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:30:19, endln:30:20
+      |vpiParent:
+      \_range: , line:30:16, endln:30:21
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_operation: , line:40:14, endln:40:50
+  |vpiParent:
+  \_cont_assign: , line:40:10, endln:40:50
+  |vpiOpType:75
+  |vpiOperand:
+  \_constant: , line:40:22, endln:40:26
+  |vpiOperand:
+  \_ref_obj: (work@dut.d_i), line:40:34, endln:40:37
+    |vpiParent:
+    \_operation: , line:40:14, endln:40:50
+    |vpiSize:4
+    |vpiName:d_i
+    |vpiFullName:work@dut.d_i
+    |vpiActual:
+    \_logic_net: (work@dut.d_i), line:28:22, endln:28:25
+  |vpiOperand:
+  \_constant: , line:40:45, endln:40:49
+\_cont_assign: , line:40:10, endln:40:50
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv, line:25:1, endln:56:10
+  |vpiRhs:
+  \_operation: , line:40:14, endln:40:50
+  |vpiLhs:
+  \_ref_obj: (work@dut.d), line:40:10, endln:40:11
+    |vpiParent:
+    \_cont_assign: , line:40:10, endln:40:50
+    |vpiName:d
+    |vpiFullName:work@dut.d
+    |vpiActual:
+    \_struct_net: (work@dut.d), line:38:25, endln:38:26
+===================
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 0
+[WARNING] : 1
+[   NOTE] : 5
+
+============================== Begin RoundTrip Results ==============================
+[roundtrip]: ${SURELOG_DIR}/tests/CastAssignmentPattern/dut.sv | ${SURELOG_DIR}/build/regression/CastAssignmentPattern/roundtrip/dut_000.sv | 16 | 56 |
+============================== End RoundTrip Results ==============================
