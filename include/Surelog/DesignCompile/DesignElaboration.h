@@ -112,6 +112,15 @@ class DesignElaboration final : public TestbenchElaboration {
   std::map<std::string, Config, std::less<>> m_cellConfig;
   std::map<std::string, UseClause> m_instUseClause;
   std::map<std::string, UseClause> m_cellUseClause;
+  // Next unnamed-generate-block index per PARENT scope.  elaborateInstance_ is
+  // entered once per sub-instance batch, so a counter local to it restarts at 1
+  // for every sibling generate construct and hands them all the same `genblkN`
+  // name.  Two sibling `if (C) ... else ...` blocks then share one fullName,
+  // getComponentDefinition() returns the SAME ModuleDefinition for both, and
+  // that definition accumulates BOTH blocks' always statements -- each is then
+  // elaborated twice and drives its target net twice (CVA6 ex_stage: 81 driver
+  // conflicts).  Keyed by parent instance so numbering continues across calls.
+  std::map<const ModuleInstance*, uint32_t> m_genBlkIndex;
 };
 
 };  // namespace SURELOG
