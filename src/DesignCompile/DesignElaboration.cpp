@@ -777,7 +777,10 @@ void DesignElaboration::elaborateInstance_(
 
   std::vector<ModuleInstance*>& allSubInstances = parent->getAllSubInstances();
   std::string genBlkBaseName = "genblk";
-  uint32_t genBlkIndex = 1;
+  // Per-PARENT counter, not a local: see m_genBlkIndex in the header.  A local
+  // restarts at 1 on every entry, so sibling unnamed generate blocks all came
+  // out `genblk1`.
+  uint32_t& genBlkIndex = m_genBlkIndex.try_emplace(parent, 1).first->second;
   bool reuseInstance = false;
   std::string mname;
 
