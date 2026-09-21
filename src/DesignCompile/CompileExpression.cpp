@@ -2935,11 +2935,36 @@ UHDM::any *CompileHelper::compileExpression(
           NodeId Casting_type = fC->Child(child);
           NodeId Simple_type = fC->Child(Casting_type);
           UHDM::any *operand = nullptr;
+          bool patternUnderCast = false;
           if (Casting_type) {
             NodeId Expression = fC->Sibling(Casting_type);
-            operand =
-                compileExpression(component, fC, Expression, compileDesign,
-                                  reduce, nullptr, instance, muteErrors);
+            // `type'{...}` -- an assignment pattern under a CAST -- parses as a
+            // Concatenation, not an Assignment_pattern: the parser only builds
+            // the latter for a BARE `'{...}`.  Compiled as an ordinary
+            // expression the named field labels become operands in their own
+            // right, so `linked_data_t'{free: 1'b1, default: '0}` came out as a
+            // concat whose operands were ref_objs named `free` and `default`
+            // -- signals that do not exist, left undriven, and a value of the
+            // wrong width (2 bits instead of the struct's 6 in the reduced
+            // case; common_cells cc_id_queue's FFARNC reset).
+            //
+            // The parse tree does carry the structure -- Array_member_label /
+            // Expression pairs, exactly the child shape
+            // compileAssignmentPattern walks (its `with_key` stays true when
+            // the first child is not an Expression) -- so route it there.
+            patternUnderCast =
+                (fC->Type(Expression) == VObjectType::paConcatenation) &&
+                (fC->Type(fC->Child(Expression)) ==
+                 VObjectType::paArray_member_label);
+            if (patternUnderCast) {
+              operand = compileAssignmentPattern(component, fC, Expression,
+                                                 compileDesign, reduce, nullptr,
+                                                 instance);
+            } else {
+              operand =
+                  compileExpression(component, fC, Expression, compileDesign,
+                                    reduce, nullptr, instance, muteErrors);
+            }
           }
           if ((fC->Type(Simple_type) == VObjectType::paSigning_Unsigned) ||
               (fC->Type(Simple_type) == VObjectType::paSigning_Signed)) {
@@ -3107,6 +3132,25 @@ UHDM::any *CompileHelper::compileExpression(
               operation->Typespec()->Actual_typespec(tps);
               if (tps->UhdmType() == uhdmunsupported_typespec) {
                 component->needLateTypedefBinding(operation);
+              }
+              // Give the assignment pattern the SAME typespec as the cast.
+              // `t'{field: v, default: v}` is a pattern whose type IS the cast
+              // type, and a consumer needs it to know which member each tag
+              // names: without it `'{free: 1'b1, default: '0}` cannot tell that
+              // `free` is a member, falls back to filling everything with the
+              // default, and the reset value comes out all-zeros instead of
+              // free=1.  Only for the pattern-under-cast case; an ordinary cast
+              // operand keeps its own type.
+              if (patternUnderCast && operand &&
+                  operand->UhdmType() == uhdmoperation) {
+                UHDM::operation *pat = (UHDM::operation *)operand;
+                if (pat->VpiOpType() == vpiAssignmentPatternOp &&
+                    pat->Typespec() == nullptr) {
+                  ref_typespec *prt = s.MakeRef_typespec();
+                  prt->VpiParent(pat);
+                  pat->Typespec(prt);
+                  pat->Typespec()->Actual_typespec(tps);
+                }
               }
             }
             result = operation;
