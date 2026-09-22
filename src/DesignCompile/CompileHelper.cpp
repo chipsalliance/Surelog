@@ -503,7 +503,7 @@ namespace {
 // ("12'h003", "5'd31", "31", "8'b1010") into its integer value.  Used to expand
 // ranged enum members `name[hi:lo] = base` into the indexed constants
 // name<lo>..name<hi> (LRM 6.19.1).
-static int64_t parseEnumRangeBound(std::string_view tok) {
+int64_t parseEnumRangeBound(std::string_view tok) {
   std::string s(tok);
   s.erase(std::remove(s.begin(), s.end(), '_'), s.end());
   int base = 10;
@@ -5287,11 +5287,35 @@ int32_t CompileHelper::adjustOpSize(const typespec* tps, expr* cop,
         fileSystem->toPathId(rtps->VpiFile(),
                              compileDesign->getCompiler()->getSymbolTable()),
         rtps->VpiLineNo(), true);
-    // innerSize is a Bits() result and can be 0 when the width is unresolvable
-    // (e.g. a cyclic or too-deeply-nested type trips loop detection); guard the
-    // division to avoid a divide-by-zero crash and leave the size unchanged.
-    if (innerSize != 0) {
-      int32_t ncsize = fullSize / innerSize;
+    // Width of ONE pattern element.  `innerSize` is the INNERMOST dimension,
+    // so `fullSize / innerSize` is the element COUNT, not the element width --
+    // the two only coincide on a square array, which is why
+    // `logic [7:0][7:0]` folded correctly while `logic [15:0][7:0]` gave every
+    // element 16 bits instead of 8 (XiangShan's AES Rcon table `wire
+    // [15:0][7:0] _GEN = '{...}`: patternSize came out 256 for a 128-bit
+    // array, so only the first 8 elements fitted, each preceded by 8 zero
+    // bits, and every AES/SM4 key-schedule result built from it was wrong).
+    //
+    // The element count is what the pattern itself says: one operand per
+    // element.  Derive the width from that, and fall back to the old formula
+    // when the operand count is not available or does not divide the width
+    // (which keeps the 1-D `logic [N-1:0] x = '{bit, bit, ...}` case, where
+    // the elements ARE bits and fullSize / innerSize == 1, working).
+    uint64_t nelem = 0;
+    if (const operation* rop = any_cast<const operation*>(rhs)) {
+      if (rop->Operands()) nelem = rop->Operands()->size();
+    }
+    int32_t ncsize = 0;
+    if (nelem != 0 && fullSize != 0 && (fullSize % nelem) == 0) {
+      ncsize = (int32_t)(fullSize / nelem);
+    } else if (innerSize != 0) {
+      // innerSize is a Bits() result and can be 0 when the width is
+      // unresolvable (e.g. a cyclic or too-deeply-nested type trips loop
+      // detection); the guard avoids a divide-by-zero crash and leaves the
+      // size unchanged.
+      ncsize = (int32_t)(fullSize / innerSize);
+    }
+    if (ncsize != 0) {
       // Fix the size of the member:
       adjustUnsized(any_cast<constant*>(cop), ncsize);
       cop->VpiSize(ncsize);
@@ -5588,14 +5612,36 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
       c->VpiEndLineNo(rhs->VpiEndLineNo());
       c->VpiEndColumnNo(rhs->VpiEndColumnNo());
       result = c;
-      uint64_t value = 0;
-      for (uint64_t i = 0; i < patternSize; i++) {
-        value |= (values[i]) ? ((uint64_t)1 << (patternSize - 1 - i)) : 0;
+      // `values` is a PER-BIT array (MSB first) sized to the typespec, and is
+      // correct at any width.  Packing it into a uint64_t is not: above 63
+      // bits `(uint64_t)1 << (patternSize - 1 - i)` is undefined behaviour,
+      // and indexing past values.size() is too.  Emit BIN, which has no width
+      // limit, whenever the value does not fit.
+      const uint64_t nbits = std::min<uint64_t>(patternSize, values.size());
+      if (nbits > 64) {
+        std::string bin;
+        bin.reserve(nbits);
+        for (uint64_t i = 0; i < nbits; i++)
+          bin.push_back(values[i] ? '1' : '0');
+        result->VpiSize(size);
+        result->VpiValue("BIN:" + bin);
+        c->VpiConstType(vpiBinaryConst);
+        result->VpiDecompile(std::to_string(size) + "\'b" + bin);
+      } else {
+        uint64_t value = 0;
+        for (uint64_t i = 0; i < nbits; i++) {
+          value |= (values[i]) ? ((uint64_t)1 << (nbits - 1 - i)) : 0;
+        }
+        result->VpiSize(size);
+        result->VpiValue("UINT:" + std::to_string(value));
+        // Deliberately NOT setting VpiConstType here: the pre-existing path
+        // left it unset, and setting it makes adjustSize() take its UINT
+        // branch and rewrite VpiDecompile, which changes 9 unrelated goldens
+        // for no gain.  The >64-bit branch above does set it, because those
+        // constants are new and BIN handling in adjustSize() is what they want.
+        result->VpiDecompile(std::to_string(size) + "\'d" +
+                             std::to_string(value));
       }
-      result->VpiSize(size);
-      result->VpiValue("UINT:" + std::to_string(value));
-      result->VpiDecompile(std::to_string(size) + "\'d" +
-                           std::to_string(value));
     }
   } else if (tps->UhdmType() == uhdmstruct_typespec) {
     if (!invalidValue) {

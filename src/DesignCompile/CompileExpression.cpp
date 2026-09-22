@@ -5507,15 +5507,13 @@ UHDM::any *CompileHelper::compileBits(
           bool inv = false;
           UHDM::ExprEval eval;
           int64_t l = eval.get_value(
-              inv,
-              reduceExpr(const_cast<expr *>(r->Left_expr()), inv, component,
-                         compileDesign, instance, fC->getFileId(typeSpecId),
-                         fC->Line(typeSpecId), pexpr, muteErrors));
+              inv, reduceExpr(r->Left_expr(), inv, component, compileDesign,
+                              instance, fC->getFileId(typeSpecId),
+                              fC->Line(typeSpecId), pexpr, muteErrors));
           int64_t r2 = eval.get_value(
-              inv,
-              reduceExpr(const_cast<expr *>(r->Right_expr()), inv, component,
-                         compileDesign, instance, fC->getFileId(typeSpecId),
-                         fC->Line(typeSpecId), pexpr, muteErrors));
+              inv, reduceExpr(r->Right_expr(), inv, component, compileDesign,
+                              instance, fC->getFileId(typeSpecId),
+                              fC->Line(typeSpecId), pexpr, muteErrors));
           uint64_t outer = (uint64_t)((l > r2) ? (l - r2) : (r2 - l)) + 1;
           if (inv || outer == 0 || total % outer) return 0;
           total /= outer;
