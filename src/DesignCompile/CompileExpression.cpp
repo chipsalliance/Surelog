@@ -4289,7 +4289,40 @@ UHDM::any *CompileHelper::compileAssignmentPattern(
           }
           tagged_pattern *pattern = s.MakeTagged_pattern();
           fC->populateCoreMembers(Expression, Expression, pattern);
-          if (exp->UhdmType() == uhdmref_obj) {
+          // Substituting the value here resolves against the MODULE
+          // DEFINITION, where a parameter still holds its default.  The
+          // definition's cont_assigns are what every elaborated instance
+          // carries, so for a name declared by THIS component the stale
+          // constant outlives the override:
+          //
+          //   module child #(parameter W = 32'd0);
+          //     localparam AxiSize = size_t'($clog2(W/8));
+          //     assign plain = AxiSize;                       // re-resolved: 3
+          //     assign c = '{size: AxiSize, ...};             // frozen at 0
+          //   child #(.W(64)) u (...);
+          //
+          // PULP axi_lite_to_axi emits aw.size/ar.size = 0 instead of 3 that
+          // way.  Leaving the ref_obj lets elaboration resolve it per instance,
+          // exactly as the plain assignment already does.
+          //
+          // Only where the value can actually vary per instance, though.
+          // That needs BOTH: the name is declared by this component (a package
+          // localparam such as `'{default: pkg::D}` is fixed for every
+          // instance), AND the component takes overridable parameters at all.
+          // A module with no parameter ports -- or one referring to a
+          // localparam of its own that derives from none -- folds exactly as
+          // before, which consumers rely on.
+          bool ownParam = false;
+          if ((exp->UhdmType() == uhdmref_obj) && component &&
+              component->getParameter(((ref_obj *)exp)->VpiName()) != nullptr) {
+            for (const auto &entry : component->getParameterMap()) {
+              if (entry.second && entry.second->isPortParam()) {
+                ownParam = true;
+                break;
+              }
+            }
+          }
+          if (!ownParam && exp->UhdmType() == uhdmref_obj) {
             ref_obj *ref = (ref_obj *)exp;
             const std::string_view name = ref->VpiName();
             if (any *tmp = getValue(name, component, compileDesign, Reduce::Yes,
@@ -5507,15 +5540,13 @@ UHDM::any *CompileHelper::compileBits(
           bool inv = false;
           UHDM::ExprEval eval;
           int64_t l = eval.get_value(
-              inv,
-              reduceExpr(const_cast<expr *>(r->Left_expr()), inv, component,
-                         compileDesign, instance, fC->getFileId(typeSpecId),
-                         fC->Line(typeSpecId), pexpr, muteErrors));
+              inv, reduceExpr(r->Left_expr(), inv, component, compileDesign,
+                              instance, fC->getFileId(typeSpecId),
+                              fC->Line(typeSpecId), pexpr, muteErrors));
           int64_t r2 = eval.get_value(
-              inv,
-              reduceExpr(const_cast<expr *>(r->Right_expr()), inv, component,
-                         compileDesign, instance, fC->getFileId(typeSpecId),
-                         fC->Line(typeSpecId), pexpr, muteErrors));
+              inv, reduceExpr(r->Right_expr(), inv, component, compileDesign,
+                              instance, fC->getFileId(typeSpecId),
+                              fC->Line(typeSpecId), pexpr, muteErrors));
           uint64_t outer = (uint64_t)((l > r2) ? (l - r2) : (r2 - l)) + 1;
           if (inv || outer == 0 || total % outer) return 0;
           total /= outer;

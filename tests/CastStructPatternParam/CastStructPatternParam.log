@@ -600,7 +600,7 @@ AST_DEBUG_END
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 assignment                                             1
 bit_select                                            99
-constant                                             413
+constant                                             401
 cont_assign                                           66
 design                                                 1
 gen_for                                                1
@@ -611,17 +611,17 @@ int_typespec                                          39
 int_var                                                1
 integer_typespec                                       1
 logic_net                                             11
-logic_typespec                                        41
+logic_typespec                                        37
 module_inst                                           14
 named_begin                                            3
 operation                                             56
 param_assign                                          14
 parameter                                             47
 port                                                  15
-range                                                 47
+range                                                 43
 ref_module                                             3
-ref_obj                                               94
-ref_typespec                                         112
+ref_obj                                               96
+ref_typespec                                         108
 string_typespec                                        8
 struct_typespec                                        6
 tagged_pattern                                         8
@@ -631,7 +631,7 @@ typespec_member                                       12
 === UHDM Object Stats Begin (Elaborated Model) ===
 assignment                                             1
 bit_select                                           131
-constant                                             413
+constant                                             401
 cont_assign                                           98
 design                                                 1
 gen_for                                                1
@@ -642,17 +642,17 @@ int_typespec                                          39
 int_var                                                1
 integer_typespec                                       1
 logic_net                                             11
-logic_typespec                                        41
+logic_typespec                                        37
 module_inst                                           14
 named_begin                                            3
 operation                                             56
 param_assign                                          14
 parameter                                             47
 port                                                  21
-range                                                 47
+range                                                 43
 ref_module                                             3
-ref_obj                                              136
-ref_typespec                                         150
+ref_obj                                              138
+ref_typespec                                         146
 string_typespec                                        8
 struct_typespec                                        6
 tagged_pattern                                         8
@@ -806,20 +806,11 @@ design: (work@top)
         |vpiParent:
         \_operation: , line:25:22, endln:25:35
         |vpiPattern:
-        \_constant: , line:19:39, endln:19:41
+        \_ref_obj: (work@ip.A), line:25:27, endln:25:28
           |vpiParent:
-          \_param_assign: , line:19:35, endln:19:41
-          |vpiDecompile:'0
-          |vpiSize:-1
-          |BIN:0
-          |vpiTypespec:
-          \_ref_typespec: (work@ip)
-            |vpiParent:
-            \_constant: , line:19:39, endln:19:41
-            |vpiFullName:work@ip
-            |vpiActual:
-            \_logic_typespec: , line:19:23, endln:19:34
-          |vpiConstType:3
+          \_operation: , line:25:22, endln:25:35
+          |vpiName:A
+          |vpiFullName:work@ip.A
         |vpiTypespec:
         \_ref_typespec: (work@ip)
           |vpiParent:
@@ -832,20 +823,11 @@ design: (work@top)
         |vpiParent:
         \_operation: , line:25:22, endln:25:35
         |vpiPattern:
-        \_constant: , line:19:69, endln:19:71
+        \_ref_obj: (work@ip.B), line:25:33, endln:25:34
           |vpiParent:
-          \_param_assign: , line:19:65, endln:19:71
-          |vpiDecompile:'0
-          |vpiSize:-1
-          |BIN:0
-          |vpiTypespec:
-          \_ref_typespec: (work@ip)
-            |vpiParent:
-            \_constant: , line:19:69, endln:19:71
-            |vpiFullName:work@ip
-            |vpiActual:
-            \_logic_typespec: , line:19:53, endln:19:64
-          |vpiConstType:3
+          \_operation: , line:25:22, endln:25:35
+          |vpiName:B
+          |vpiFullName:work@ip.B
         |vpiTypespec:
         \_ref_typespec: (work@ip)
           |vpiParent:
@@ -4100,56 +4082,10 @@ design: (work@top)
   |vpiParent:
   \_parameter: (work@ip.W), line:24:18, endln:24:19
   |vpiSigned:1
-\_logic_typespec: , line:19:23, endln:19:34
-  |vpiParent:
-  \_ref_typespec: (work@ip)
-  |vpiRange:
-  \_range: , line:19:29, endln:19:34
-    |vpiParent:
-    \_logic_typespec: , line:19:23, endln:19:34
-    |vpiLeftRange:
-    \_constant: , line:19:30, endln:19:31
-      |vpiParent:
-      \_range: , line:19:29, endln:19:34
-      |vpiDecompile:7
-      |vpiSize:64
-      |UINT:7
-      |vpiConstType:9
-    |vpiRightRange:
-    \_constant: , line:19:32, endln:19:33
-      |vpiParent:
-      \_range: , line:19:29, endln:19:34
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
 \_string_typespec: (a), line:25:24, endln:25:25
   |vpiParent:
   \_tagged_pattern: , line:25:27, endln:25:28
   |vpiName:a
-\_logic_typespec: , line:19:53, endln:19:64
-  |vpiParent:
-  \_ref_typespec: (work@ip)
-  |vpiRange:
-  \_range: , line:19:59, endln:19:64
-    |vpiParent:
-    \_logic_typespec: , line:19:53, endln:19:64
-    |vpiLeftRange:
-    \_constant: , line:19:60, endln:19:61
-      |vpiParent:
-      \_range: , line:19:59, endln:19:64
-      |vpiDecompile:7
-      |vpiSize:64
-      |UINT:7
-      |vpiConstType:9
-    |vpiRightRange:
-    \_constant: , line:19:62, endln:19:63
-      |vpiParent:
-      \_range: , line:19:59, endln:19:64
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
 \_string_typespec: (b), line:25:30, endln:25:31
   |vpiParent:
   \_tagged_pattern: , line:25:33, endln:25:34
