@@ -1946,7 +1946,21 @@ UHDM::any *CompileHelper::compileExpression(
       operation->Operands(operands);
       operation->VpiOpType(vpiConcatOp);
       fC->populateCoreMembers(parent, parent, result);
+      // Callers reach this two ways.  Usually `parent` is the FIRST ELEMENT of
+      // a net_lvalue concatenation and the remaining elements are its
+      // siblings, so the walk below starts here.  But a net_lvalue that IS the
+      // concatenation `{a, b}` has another net_lvalue as its own child, and
+      // then its siblings are NOT part of it: in a POSITIONAL port connection
+      // list they are the following ports' actuals.  `inst u({r2,r1}, y)`
+      // therefore gave port `a` the value `{{r2,r1}, y}` -- absorbing y, whose
+      // own port got a duplicate connection -- and the instance was
+      // mis-driven.  CORE-V Wally's aes64e/aes64d do exactly this with
+      // `aesshiftrows64 srow({rs2,rs1}, ShiftRowsOut)`, leaving SboxEIn[7:0]
+      // undriven and diverging on 300 of 301 co-sim cycles.  Named connections
+      // were unaffected: they do not come through here.
       NodeId Expression = parent;
+      if (fC->Type(fC->Child(parent)) == VObjectType::paNet_lvalue)
+        Expression = fC->Child(parent);
       while (Expression) {
         if (UHDM::any *exp = compileExpression(
                 component, fC, fC->Child(Expression), compileDesign, reduce,
