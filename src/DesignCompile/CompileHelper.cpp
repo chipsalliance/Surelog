@@ -3339,6 +3339,9 @@ UHDM::any* CompileHelper::defaultPatternAssignment(const UHDM::typespec* tps,
   bool invalidValue = false;
   int32_t ncsize = 32;
   range* r = nullptr;
+  // Every unpacked dimension, not just the outermost: a `default:` pattern
+  // fills the INNERMOST elements, so a 2-D array needs a nested expansion.
+  const VectorOfrange* allRanges = nullptr;
   UHDM_OBJECT_TYPE ttps = tps->UhdmType();
   UHDM_OBJECT_TYPE baseType = uhdmint_typespec;
   if (ttps == uhdmlogic_typespec) {
@@ -3358,6 +3361,7 @@ UHDM::any* CompileHelper::defaultPatternAssignment(const UHDM::typespec* tps,
       baseType = ets->UhdmType();
       if (lts->Ranges() && !lts->Ranges()->empty()) {
         r = (*lts->Ranges())[0];
+        allRanges = lts->Ranges();
       }
       ncsize = Bits(
           ets, invalidValue, component, compileDesign, Reduce::Yes, instance,
@@ -3505,13 +3509,52 @@ UHDM::any* CompileHelper::defaultPatternAssignment(const UHDM::typespec* tps,
                 uint32_t min = std::min(lv, rv);
                 uint32_t size = max - min + 1;
                 if (baseType == uhdmint_typespec) {
-                  array_expr* array = s.MakeArray_expr();
-                  VectorOfexpr* exprs = s.MakeExprVec();
-                  array->Exprs(exprs);
-                  for (uint32_t i = 0; i < size; i++) {
-                    exprs->push_back(c);
+                  // Sizes of the REMAINING unpacked dimensions.  Expanding only
+                  // the outermost one (the historical behaviour) leaves each
+                  // row of `int P [N-1:0][0:1] = '{default: v}` holding the bare
+                  // element value, so `P[i][j]` has nothing to select and does
+                  // not reduce -- which is how axi_id_serialize's
+                  // `ret[IdMap[i][0]] = IdMap[i][1]` stopped the const function
+                  // `map_slv_ids()` from folding at all.
+                  std::vector<uint32_t> dims{size};
+                  if (allRanges) {
+                    for (uint32_t d = 1; d < allRanges->size(); d++) {
+                      range* rd = (*allRanges)[d];
+                      bool dInvalid = false;
+                      expr* dl = reduceExpr(
+                          rd->Left_expr(), dInvalid, component, compileDesign,
+                          instance,
+                          fileSystem->toPathId(
+                              rd->VpiFile(),
+                              compileDesign->getCompiler()->getSymbolTable()),
+                          rd->VpiLineNo(), nullptr);
+                      expr* dr = reduceExpr(
+                          rd->Right_expr(), dInvalid, component, compileDesign,
+                          instance,
+                          fileSystem->toPathId(
+                              rd->VpiFile(),
+                              compileDesign->getCompiler()->getSymbolTable()),
+                          rd->VpiLineNo(), nullptr);
+                      uint64_t dlv = eval.get_uvalue(dInvalid, dl);
+                      uint64_t drv = eval.get_uvalue(dInvalid, dr);
+                      if (dInvalid) { dims.clear(); break; }
+                      dims.push_back(
+                          static_cast<uint32_t>(std::max(dlv, drv) -
+                                                std::min(dlv, drv) + 1));
+                    }
                   }
-                  result = array;
+                  if (!dims.empty()) {
+                    std::function<any*(size_t)> build = [&](size_t d) -> any* {
+                      if (d == dims.size()) return c;
+                      array_expr* array = s.MakeArray_expr();
+                      VectorOfexpr* exprs = s.MakeExprVec();
+                      array->Exprs(exprs);
+                      for (uint32_t i = 0; i < dims[d]; i++)
+                        exprs->push_back((expr*)build(d + 1));
+                      return array;
+                    };
+                    result = build(0);
+                  }
                 }
               }
             }
