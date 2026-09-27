@@ -3511,9 +3511,9 @@ UHDM::any* CompileHelper::defaultPatternAssignment(const UHDM::typespec* tps,
                 if (baseType == uhdmint_typespec) {
                   // Sizes of the REMAINING unpacked dimensions.  Expanding only
                   // the outermost one (the historical behaviour) leaves each
-                  // row of `int P [N-1:0][0:1] = '{default: v}` holding the bare
-                  // element value, so `P[i][j]` has nothing to select and does
-                  // not reduce -- which is how axi_id_serialize's
+                  // row of `int P [N-1:0][0:1] = '{default: v}` holding the
+                  // bare element value, so `P[i][j]` has nothing to select and
+                  // does not reduce -- which is how axi_id_serialize's
                   // `ret[IdMap[i][0]] = IdMap[i][1]` stopped the const function
                   // `map_slv_ids()` from folding at all.
                   std::vector<uint32_t> dims{size};
@@ -3537,10 +3537,12 @@ UHDM::any* CompileHelper::defaultPatternAssignment(const UHDM::typespec* tps,
                           rd->VpiLineNo(), nullptr);
                       uint64_t dlv = eval.get_uvalue(dInvalid, dl);
                       uint64_t drv = eval.get_uvalue(dInvalid, dr);
-                      if (dInvalid) { dims.clear(); break; }
-                      dims.push_back(
-                          static_cast<uint32_t>(std::max(dlv, drv) -
-                                                std::min(dlv, drv) + 1));
+                      if (dInvalid) {
+                        dims.clear();
+                        break;
+                      }
+                      dims.push_back(static_cast<uint32_t>(
+                          std::max(dlv, drv) - std::min(dlv, drv) + 1));
                     }
                   }
                   if (!dims.empty()) {
