@@ -1749,6 +1749,13 @@ void setDirectionAndType(DesignComponent* component, const FileContent* fC,
           if (fC->Type(unpacked_dimension) ==
               VObjectType::paUnpacked_dimension) {
             port->setUnpackedDimension(unpacked_dimension);
+          } else if (fC->Type(unpacked_dimension) ==
+                     VObjectType::paVariable_dimension) {
+            // Same Variable_dimension wrapper for a non-ANSI `var` port.
+            NodeId inner = fC->Child(unpacked_dimension);
+            if (fC->Type(inner) == VObjectType::paUnpacked_dimension) {
+              port->setUnpackedDimension(inner);
+            }
           }
           if (fC->Type(unpacked_dimension) ==
               VObjectType::paConstant_expression) {
@@ -2068,6 +2075,16 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
     NodeId tmp = fC->Sibling(identifier);
     if (fC->Type(tmp) == VObjectType::paUnpacked_dimension) {
       unpackedDimension = tmp;
+    } else if (fC->Type(tmp) == VObjectType::paVariable_dimension) {
+      // A `var` port (`output var logic [W-1:0] o [N-1:0]`) is parsed through
+      // variable_port_header, whose dimension is a Variable_dimension wrapping
+      // the Unpacked_dimension; only the bare form was captured, so the port
+      // lost its unpacked dimension and elaborated as a scalar logic_var.
+      NodeId inner = fC->Child(tmp);
+      if (fC->Type(inner) == VObjectType::paUnpacked_dimension) {
+        unpackedDimension = inner;
+      }
+      tmp = fC->Sibling(tmp);
     }
     if (fC->Type(tmp) == VObjectType::paConstant_expression) {
       defaultValue = tmp;
@@ -3511,9 +3528,9 @@ UHDM::any* CompileHelper::defaultPatternAssignment(const UHDM::typespec* tps,
                 if (baseType == uhdmint_typespec) {
                   // Sizes of the REMAINING unpacked dimensions.  Expanding only
                   // the outermost one (the historical behaviour) leaves each
-                  // row of `int P [N-1:0][0:1] = '{default: v}` holding the bare
-                  // element value, so `P[i][j]` has nothing to select and does
-                  // not reduce -- which is how axi_id_serialize's
+                  // row of `int P [N-1:0][0:1] = '{default: v}` holding the
+                  // bare element value, so `P[i][j]` has nothing to select and
+                  // does not reduce -- which is how axi_id_serialize's
                   // `ret[IdMap[i][0]] = IdMap[i][1]` stopped the const function
                   // `map_slv_ids()` from folding at all.
                   std::vector<uint32_t> dims{size};
@@ -3537,10 +3554,12 @@ UHDM::any* CompileHelper::defaultPatternAssignment(const UHDM::typespec* tps,
                           rd->VpiLineNo(), nullptr);
                       uint64_t dlv = eval.get_uvalue(dInvalid, dl);
                       uint64_t drv = eval.get_uvalue(dInvalid, dr);
-                      if (dInvalid) { dims.clear(); break; }
-                      dims.push_back(
-                          static_cast<uint32_t>(std::max(dlv, drv) -
-                                                std::min(dlv, drv) + 1));
+                      if (dInvalid) {
+                        dims.clear();
+                        break;
+                      }
+                      dims.push_back(static_cast<uint32_t>(
+                          std::max(dlv, drv) - std::min(dlv, drv) + 1));
                     }
                   }
                   if (!dims.empty()) {
