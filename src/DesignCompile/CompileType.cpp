@@ -2132,6 +2132,21 @@ UHDM::typespec* CompileHelper::compileTypespec(
       result = tps;
       break;
     }
+    case VObjectType::paConstant_param_expression: {
+      // The default of a TYPE parameter, `parameter type id_t = logic
+      // [IdWidth-1:0]`, arrives wrapped in a Constant_param_expression whose
+      // child is the Data_type.  Without this case it fell to the default
+      // branch ("Unsupported data type"), the parameter had no typespec and
+      // `$bits(id_t)` written as a child's override actual could never fold
+      // -- every generate loop bounded by it elaborated zero iterations
+      // (common_cells id_queue under PULP axi_burst_splitter, #4189).
+      NodeId child = fC->Child(type);
+      if (child) {
+        return compileTypespec(component, fC, child, compileDesign, reduce,
+                               result, instance, false);
+      }
+      break;
+    }
     case VObjectType::paType_reference: {
       NodeId child = fC->Child(type);
       if (fC->Type(child) == VObjectType::paExpression) {

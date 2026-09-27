@@ -5291,6 +5291,72 @@ const typespec *CompileHelper::getTypespec(DesignComponent *component,
   if (result == nullptr) {
     if (ModuleInstance *inst =
             valuedcomponenti_cast<ModuleInstance *>(instance)) {
+      // A bare TYPE PARAMETER name (`$bits(id_t)` written as a child's
+      // parameter override actual, PULP axi_burst_splitter ->
+      // common_cells id_queue): the instantiating instance's binding lives
+      // in its getTypeParams() from design elaboration on, while the
+      // netlist param_assigns consulted below are only built by the later
+      // netlist elaboration.  Evaluated at override time, the name resolved
+      // to nothing, `$bits` stayed an unfolded call, the child's IdWidth
+      // never became a constant and every generate loop bounded by it
+      // elaborated zero iterations.
+      for (Parameter *tp : inst->getTypeParams()) {
+        if (tp->getName() != basename) continue;
+        const typespec *bound = nullptr;
+        if (const type_parameter *utp =
+                any_cast<const type_parameter *>(tp->getUhdmParam())) {
+          if (const UHDM::ref_typespec *rt = utp->Typespec()) {
+            bound = rt->Actual_typespec();
+          }
+        }
+        if (bound == nullptr && tp->getNodeType() &&
+            !loopDetected(fC->getFileId(), fC->Line(id), compileDesign,
+                          instance)) {
+          // A RELAYED binding (`.id_t(id_t)` through several instance
+          // levels, axi_burst_splitter -> gran -> ax_chan -> counters):
+          // the UHDM type_parameter is not materialized yet at this level.
+          // Compile the parameter's own type node in the PARENT instance,
+          // as elabTypeParameter_ does, which recurses up the relay.
+          ModuleInstance *parent = inst;
+          if (ModuleInstance *pinst = inst->getParent()) parent = pinst;
+          bound = compileTypespec(component, tp->getFileContent(),
+                                  tp->getNodeType(), compileDesign, Reduce::Yes,
+                                  nullptr, parent, true);
+        }
+        if (bound) {
+          result = suffixnames.empty()
+                       ? bound
+                       : getMemberTypespec(bound, suffixnames, 0);
+        }
+        break;
+      }
+      // A type parameter that keeps its DEFAULT, and whose default depends
+      // on a value parameter of the same module (`parameter type id_t =
+      // logic [IdWidth-1:0]` in axi_burst_splitter_gran_counters, IdWidth
+      // overridden by the parent): no binding exists on the instance, and
+      // the netlist param_assigns consulted below are not built yet when
+      // an override actual such as `.IdWidth($bits(id_t))` is evaluated.
+      // Compile the default type node against THIS instance.
+      if (result == nullptr && component) {
+        if (Parameter *dp = component->getParameter(basename)) {
+          if (dp->isTypeParam() && dp->getNodeType() &&
+              !loopDetected(fC->getFileId(), fC->Line(id), compileDesign,
+                            instance)) {
+            if (const typespec *def = compileTypespec(
+                    component, dp->getFileContent(), dp->getNodeType(),
+                    compileDesign, Reduce::Yes, nullptr, instance, true)) {
+              result = suffixnames.empty()
+                           ? def
+                           : getMemberTypespec(def, suffixnames, 0);
+            }
+          }
+        }
+      }
+    }
+  }
+  if (result == nullptr) {
+    if (ModuleInstance *inst =
+            valuedcomponenti_cast<ModuleInstance *>(instance)) {
       if (Netlist *netlist = inst->getNetlist()) {
         if (netlist->ports()) {
           for (port *p : *netlist->ports()) {
