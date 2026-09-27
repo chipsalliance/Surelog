@@ -5338,6 +5338,26 @@ int32_t CompileHelper::adjustOpSize(const typespec* tps, expr* cop,
       adjustUnsized(any_cast<constant*>(cop), ncsize);
       cop->VpiSize(ncsize);
     }
+  } else if (rtps->UhdmType() == uhdmpacked_array_typespec) {
+    // A positional pattern over a PACKED array (`unit_type_t [0:2] P =
+    // '{PARALLEL, PARALLEL, PARALLEL}`): each operand is one element, so
+    // size it to the element type.  This used to fall through to the
+    // generic branch below, which sized every operand to the WHOLE array --
+    // the first operand then filled all six bits and the other two were
+    // dropped.
+    packed_array_typespec* patps = (packed_array_typespec*)rtps;
+    if (const ref_typespec* ert = patps->Elem_typespec()) {
+      int32_t ncsize = Bits(
+          ert->Actual_typespec(), invalidValue, component, compileDesign,
+          Reduce::Yes, instance,
+          fileSystem->toPathId(rtps->VpiFile(),
+                               compileDesign->getCompiler()->getSymbolTable()),
+          rtps->VpiLineNo(), false);
+      if (ncsize > 0) {
+        adjustUnsized(any_cast<constant*>(cop), ncsize);
+        cop->VpiSize(ncsize);
+      }
+    }
   } else if (rtps->UhdmType() == uhdmlogic_typespec) {
     uint64_t fullSize = Bits(
         rtps, invalidValue, component, compileDesign, Reduce::Yes, instance,
@@ -5562,6 +5582,106 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
                 }
               }
             }
+          } else if (rtps->UhdmType() == uhdmpacked_array_typespec) {
+            // parameter unit_type_t [0:N-1] P = '{default: PARALLEL, 2: X};
+            // The default and every index-tagged entry are ELEMENT values:
+            // lay each one down at the element width, in the position the
+            // declared range gives that index (fpnew's FmtUnitTypes is
+            // `[0:NUM_FMT-1]`, so index 0 is the MSB element).  Without this
+            // branch the values stayed all-zero and every enum element read
+            // as its first enumerator.
+            const packed_array_typespec* patps =
+                (const packed_array_typespec*)rtps;
+            const typespec* petps = nullptr;
+            if (const ref_typespec* rt = patps->Elem_typespec()) {
+              petps = rt->Actual_typespec();
+            }
+            uint64_t ew = 0;
+            if (petps != nullptr) {
+              ew = Bits(petps, invalidValue, component, compileDesign,
+                        Reduce::Yes, instance,
+                        fileSystem->toPathId(
+                            rhs->VpiFile(),
+                            compileDesign->getCompiler()->getSymbolTable()),
+                        rhs->VpiLineNo(), false);
+            }
+            if (invalidValue || ew == 0 || ew > 64 || (size % ew) != 0) {
+              return result;
+            }
+            const uint64_t n = size / ew;
+            int64_t rl = 0, rr = (int64_t)n - 1;
+            if (patps->Ranges() && !patps->Ranges()->empty()) {
+              const range* r0 = patps->Ranges()->at(0);
+              bool rinv = false;
+              UHDM::ExprEval reval;
+              expr* le = reduceExpr(
+                  (expr*)r0->Left_expr(), rinv, component, compileDesign,
+                  instance,
+                  fileSystem->toPathId(
+                      rhs->VpiFile(),
+                      compileDesign->getCompiler()->getSymbolTable()),
+                  rhs->VpiLineNo(), nullptr);
+              expr* re = reduceExpr(
+                  (expr*)r0->Right_expr(), rinv, component, compileDesign,
+                  instance,
+                  fileSystem->toPathId(
+                      rhs->VpiFile(),
+                      compileDesign->getCompiler()->getSymbolTable()),
+                  rhs->VpiLineNo(), nullptr);
+              int64_t l = reval.get_value(rinv, le);
+              int64_t r = reval.get_value(rinv, re);
+              if (!rinv && (uint64_t)(std::abs(l - r) + 1) == n) {
+                rl = l;
+                rr = r;
+              }
+            }
+            // MSB-first position of the element carrying index `idx`.
+            auto elemPos = [&](int64_t idx, uint64_t& pos) -> bool {
+              const int64_t lo = std::min(rl, rr);
+              const int64_t hi = std::max(rl, rr);
+              if (idx < lo || idx > hi) return false;
+              pos = (rl <= rr) ? (uint64_t)(idx - rl) : (uint64_t)(rl - idx);
+              return true;
+            };
+            auto putElem = [&](uint64_t pos, uint64_t val) {
+              for (uint64_t i = 0; i < ew; i++) {
+                const uint64_t vi = pos * ew + i;
+                if (vi >= size) break;
+                values[vi] = (val >> (ew - 1 - i)) & 1ULL;
+              }
+            };
+            patternSize += size;
+            for (uint64_t e = 0; e < n; e++) {
+              putElem(e, (uint64_t)defaultval);
+            }
+            for (any* op : *operands) {
+              if (op->UhdmType() != uhdmtagged_pattern) continue;
+              tagged_pattern* tp = (tagged_pattern*)op;
+              const ref_typespec* rt = tp->Typespec();
+              const typespec* tpsi = rt ? rt->Actual_typespec() : nullptr;
+              if (tpsi == nullptr || tpsi->UhdmType() != uhdminteger_typespec) {
+                continue;
+              }
+              std::string_view v = ((integer_typespec*)tpsi)->VpiValue();
+              v.remove_prefix(std::string_view("INT:").length());
+              int64_t index = 0;
+              if (!NumUtils::parseInt64(v, &index)) continue;
+              bool einv = false;
+              UHDM::ExprEval eeval;
+              uint64_t val = eeval.get_uvalue(
+                  einv,
+                  reduceExpr(
+                      tp->Pattern(), einv, component, compileDesign, instance,
+                      fileSystem->toPathId(
+                          tp->Pattern()->VpiFile(),
+                          compileDesign->getCompiler()->getSymbolTable()),
+                      tp->Pattern()->VpiLineNo(), nullptr));
+              if (einv) {
+                return result;
+              }
+              uint64_t pos = 0;
+              if (elemPos(index, pos)) putElem(pos, val);
+            }
           } else if (rtps->UhdmType() == uhdmlogic_typespec) {
             // Apply default
             // parameter logic[7:0] P = '{default: 1};
@@ -5645,23 +5765,34 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
     if (etps != nullptr) {
       UHDM_OBJECT_TYPE etps_type = etps->UhdmType();
       if (size > 1) {
-        if (etps_type == uhdmenum_typespec) {
-          packed_array_var* array = s.MakePacked_array_var();
-          array->VpiSize(size);
-          array->Ranges(atps->Ranges());
-          array->Elements(vars);
-          for (uint32_t i = 0; i < size; i++) {
-            vars->push_back(s.MakeEnum_var());
-          }
-
-          for (uint32_t i = 0; i < size; i++) {
-            if (vars && ((int32_t)i < (int32_t)(vars->size()))) {
-              ((variables*)(*vars)[i])
-                  ->VpiValue("UINT:" + std::to_string(values[i]));
-            }
-          }
-
-          result = array;
+        if (etps_type == uhdmenum_typespec && patternSize) {
+          // A packed array of ENUMS folds to one BIN constant typed with the
+          // array typespec, exactly like a logic packed array does below:
+          // ExprEval's element select (reducePackedElemSelect) slices it by
+          // the declared ranges.  It used to be materialised as a
+          // packed_array_var holding one enum_var PER BIT (six elements for
+          // fpnew's three-format FmtUnitTypes), which no element select could
+          // read -- every `FmtUnitTypes[fmt] == PARALLEL` generate condition
+          // was unresolvable and fpnew_opgroup_block elaborated no arm.
+          std::string bin;
+          bin.reserve(size);
+          for (uint64_t i = 0; i < size; i++)
+            bin.push_back(values[i] ? '1' : '0');
+          constant* c = s.MakeConstant();
+          c->VpiFile(rhs->VpiFile());
+          c->VpiLineNo(rhs->VpiLineNo());
+          c->VpiColumnNo(rhs->VpiColumnNo());
+          c->VpiEndLineNo(rhs->VpiEndLineNo());
+          c->VpiEndColumnNo(rhs->VpiEndColumnNo());
+          c->VpiSize(size);
+          c->VpiValue("BIN:" + bin);
+          c->VpiConstType(vpiBinaryConst);
+          c->VpiDecompile(std::to_string(size) + "\'b" + bin);
+          ref_typespec* crt = s.MakeRef_typespec();
+          crt->VpiParent(c);
+          crt->Actual_typespec(const_cast<typespec*>(tps));
+          c->Typespec(crt);
+          result = c;
         }
       }
     }
