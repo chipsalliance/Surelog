@@ -1,0 +1,1 @@
+-parse -sverilog -top top dut.sv -nobuiltin
