@@ -49,7 +49,7 @@ class CommonTokenStream;
 
 namespace SURELOG {
 
-#define SV_MAX_IDENTIFIER_SIZE 1024
+#define SV_MAX_IDENTIFIER_SIZE 8192
 #define SV_MAX_STRING_SIZE (4 * 1024 * 1024)
 
 class ParseFile;
