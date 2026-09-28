@@ -3092,14 +3092,58 @@ UHDM::any *CompileHelper::compileExpression(
             // lost its other operands.  Compile the whole hierarchical name
             // as an expression and make it a size cast, as for a bare value
             // parameter above.
-            if (tps && !sizeCastTps &&
-                (tps->UhdmType() == uhdmstruct_typespec ||
-                 tps->UhdmType() == uhdmunion_typespec) &&
+            //
+            // The same shape inside a GENERATE BLOCK (VeeR's
+            // `pt.BHT_ARRAY_DEPTH'(bht_wr_en0[i] << bht_wr_addr0)` under
+            // `for (genvar i...) begin : BANKS`) does not even get that far:
+            // the generate scope does not see the module's parameters, so
+            // compileTypespec() returns an unsupported_typespec named `pt`,
+            // and on the elaborated instance the member's OWN type (a 15-bit
+            // logic) came back instead of its value -- the 256-entry BHT
+            // write enable was cast to 15 bits.  A dotted casting type is a
+            // VALUE whenever its base is a value parameter of the component,
+            // or nothing usable came back as a type.
+            bool dottedCast = false;
+            if (!sizeCastTps &&
                 fC->Type(Simple_type) == VObjectType::slStringConst) {
               NodeId sel = fC->Sibling(Simple_type);
               if (sel && fC->Type(sel) == VObjectType::paConstant_select &&
                   fC->Child(sel) &&
                   fC->Type(fC->Child(sel)) == VObjectType::slStringConst) {
+                const std::string_view baseName = fC->SymName(Simple_type);
+                bool baseIsValueParam = false;
+                if (component) {
+                  const auto &pmap = component->getParameterMap();
+                  auto it = pmap.find(baseName);
+                  if (it != pmap.end() && it->second &&
+                      !it->second->isTypeParam())
+                    baseIsValueParam = true;
+                }
+                // During elaboration `component` is the generate block's own
+                // scope, which has no parameters of its own; the enclosing
+                // instance holds the bound value (a struct parameter is a
+                // complex value).
+                if (!baseIsValueParam && instance) {
+                  ModuleInstance *mi =
+                      valuedcomponenti_cast<ModuleInstance *>(instance);
+                  for (int depth = 0; mi && depth < 8;
+                       depth++, mi = mi->getParent()) {
+                    if (mi->getValue(baseName, m_exprBuilder) ||
+                        mi->getComplexValue(baseName)) {
+                      baseIsValueParam = true;
+                      break;
+                    }
+                  }
+                }
+                dottedCast = baseIsValueParam || tps == nullptr ||
+                             tps->UhdmType() == uhdmstruct_typespec ||
+                             tps->UhdmType() == uhdmunion_typespec ||
+                             tps->UhdmType() == uhdmunsupported_typespec;
+              }
+            }
+            if (dottedCast) {
+              NodeId sel = fC->Sibling(Simple_type);
+              {
                 UHDM::any *widthRef =
                     compileExpression(component, fC, Simple_type, compileDesign,
                                       Reduce::No, nullptr, instance, true);
