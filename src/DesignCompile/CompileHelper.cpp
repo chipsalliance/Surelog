@@ -5441,6 +5441,31 @@ UHDM::expr* CompileHelper::expandPatternAssignment(const typespec* tps,
            rhs->VpiLineNo(), false);
   uint64_t patternSize = 0;
 
+  // The declared type may be a TYPE PARAMETER still at its definition
+  // default (`parameter type it_t = logic; parameter it_t INT = '0` in the
+  // child, overridden by the parent's struct) while the pattern itself
+  // carries the struct it was written for.  Folding CVA6 decoder's 9 x 64-bit
+  // INTERRUPTS pattern into that 1-bit `logic` produced `1'd1` -- once every
+  // member became foldable (Surelog #4195), where before the fold bailed on
+  // the unreducible casts.  A struct / array pattern is never folded into a
+  // bare `logic` declared type.
+  if (tps->UhdmType() == uhdmlogic_typespec) {
+    const logic_typespec* lts = (const logic_typespec*)tps;
+    const bool bareLogic =
+        (lts->Ranges() == nullptr || lts->Ranges()->empty()) &&
+        lts->Elem_typespec() == nullptr;
+    if (bareLogic) {
+      if (const ref_typespec* prt = rhs->Typespec()) {
+        if (const typespec* pts = prt->Actual_typespec()) {
+          const UHDM_OBJECT_TYPE pt = pts->UhdmType();
+          if (pt == uhdmstruct_typespec || pt == uhdmpacked_array_typespec ||
+              pt == uhdmarray_typespec)
+            return result;
+        }
+      }
+    }
+  }
+
   UHDM::ExprEval eval(true);
   rhs = eval.flattenPatternAssignments(s, tps, rhs);
 
