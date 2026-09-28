@@ -1443,33 +1443,21 @@ void DesignElaboration::elaborateInstance_(
                     Generate_item = fC->Sibling(Identifier);
                     modName = fC->SymName(Identifier);
                   }
-                  NodeId Module_or_generate_item = fC->Child(Generate_item);
-                  NodeId Module_common_item =
-                      fC->Child(Module_or_generate_item);
-                  NodeId Conditional_generate_construct =
-                      fC->Child(Module_common_item);
-                  NodeId If_generate_construct =
-                      fC->Child(Conditional_generate_construct);
-                  if (fC->Type(If_generate_construct) ==
-                      VObjectType::paIf_generate_construct) {
-                    if (fC->Type(childId) == VObjectType::paGenerate_item)
-                      childId = fC->Child(childId);
-                    blockIds = fC->sl_collect_all(childId, btypes, true);
-                    if (!blockIds.empty()) {
-                      NodeId blockId = blockIds[0];
-                      NodeId blockNameId = fC->Child(blockId);
-                      if (fC->Type(blockNameId) == VObjectType::slStringConst) {
-                        modName = fC->SymName(blockNameId);
-                        subInstanceId = fC->Sibling(blockNameId);
-                        childId = subInstanceId;
-                      } else {
-                        subInstanceId = childId;
-                      }
-                    }
-                  } else {
-                    subInstanceId = tmp;
-                    childId = subInstanceId;
-                  }
+                  // `else begin if (C) begin : A ... end else begin : B ...
+                  // end end` -- an UNNAMED else block whose content is a
+                  // nested if-generate.  This used to collect the first
+                  // begin/end block found inside (A, the nested if's own
+                  // if-arm) and elaborate it WITHOUT evaluating C: VeeR's
+                  // ifu_aln_ctl `else begin if (pt.BTB_BTAG_FOLD) begin :
+                  // btbfold_en ... else begin : btbfold` (FOLD = 0)
+                  // instantiated the folding tag hash, and every branch
+                  // tag came out of the wrong module.  A named outer block
+                  // (`else begin : outer if (C) ...`) already went through
+                  // the generic path below, which elaborates the block and
+                  // evaluates the nested condition on the way; the unnamed
+                  // block takes that path too.
+                  subInstanceId = tmp;
+                  childId = subInstanceId;
                 } else {
                   modName = fC->SymName(blockNameId);
                   subInstanceId = tmp;
