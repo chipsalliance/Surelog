@@ -136,38 +136,38 @@ AST_DEBUG_END
 [NTE:EL0511] Nb leaf instances: 1.
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
-constant                                              27
+constant                                              31
 cont_assign                                            4
 design                                                 1
-hier_path                                              1
-int_typespec                                           3
+hier_path                                              3
+int_typespec                                           2
 logic_net                                              6
-logic_typespec                                         8
+logic_typespec                                        10
 module_inst                                            4
-operation                                             10
+operation                                             12
 param_assign                                           2
 parameter                                              2
-range                                                 10
-ref_obj                                                4
+range                                                 12
+ref_obj                                                8
 ref_typespec                                          16
 struct_typespec                                        2
 typespec_member                                        2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
 === UHDM Object Stats Begin (Elaborated Model) ===
-constant                                              27
+constant                                              31
 cont_assign                                            6
 design                                                 1
-hier_path                                              1
-int_typespec                                           3
+hier_path                                              3
+int_typespec                                           2
 logic_net                                              6
-logic_typespec                                         8
+logic_typespec                                        10
 module_inst                                            4
-operation                                             12
+operation                                             14
 param_assign                                           2
 parameter                                              2
-range                                                 10
-ref_obj                                                4
+range                                                 12
+ref_obj                                                8
 ref_typespec                                          18
 struct_typespec                                        2
 typespec_member                                        2
@@ -362,10 +362,25 @@ design: (work@Foo)
     \_module_inst: work@Foo (work@Foo), file:${SURELOG_DIR}/tests/CastStructMember/dut.sv, line:6:1, endln:10:10
     |vpiNetDeclAssign:1
     |vpiRhs:
-    \_constant: , line:8:20, endln:8:31
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
+    \_operation: , line:8:20, endln:8:31
+      |vpiParent:
+      \_cont_assign: , line:8:15, endln:8:17
+      |vpiTypespec:
+      \_ref_typespec: (work@Foo)
+        |vpiParent:
+        \_operation: , line:8:20, endln:8:31
+        |vpiFullName:work@Foo
+        |vpiActual:
+        \_logic_typespec: , line:8:20, endln:8:27
+      |vpiOpType:67
+      |vpiOperand:
+      \_constant: , line:8:29, endln:8:30
+        |vpiParent:
+        \_operation: , line:8:20, endln:8:31
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
     |vpiLhs:
     \_logic_net: (work@Foo.t1), line:8:15, endln:8:17
   |vpiContAssign:
@@ -515,6 +530,103 @@ design: (work@Foo)
   |vpiParent:
   \_ref_typespec: (work@Foo.w.width_t.WIDTH)
   |vpiSigned:1
+\_operation: , line:8:20, endln:8:31
+  |vpiParent:
+  \_cont_assign: , line:8:15, endln:8:17
+  |vpiTypespec:
+  \_ref_typespec: (work@Foo)
+    |vpiParent:
+    \_operation: , line:8:20, endln:8:31
+    |vpiFullName:work@Foo
+    |vpiActual:
+    \_logic_typespec: , line:8:20, endln:8:27
+  |vpiOpType:67
+  |vpiOperand:
+  \_constant: , line:8:29, endln:8:30
+\_cont_assign: , line:8:15, endln:8:17
+  |vpiParent:
+  \_module_inst: work@Foo (work@Foo), file:${SURELOG_DIR}/tests/CastStructMember/dut.sv, line:6:1, endln:10:10
+  |vpiNetDeclAssign:1
+  |vpiRhs:
+  \_operation: , line:8:20, endln:8:31
+  |vpiLhs:
+  \_logic_net: (work@Foo.t1), line:8:15, endln:8:17
+    |vpiParent:
+    \_cont_assign: , line:8:15, endln:8:17
+    |vpiTypespec:
+    \_ref_typespec: (work@Foo.t1)
+      |vpiParent:
+      \_logic_net: (work@Foo.t1), line:8:15, endln:8:17
+      |vpiFullName:work@Foo.t1
+      |vpiActual:
+      \_logic_typespec: , line:8:3, endln:8:14
+    |vpiName:t1
+    |vpiFullName:work@Foo.t1
+    |vpiNetType:1
+\_logic_typespec: , line:8:3, endln:8:14
+  |vpiRange:
+  \_range: , line:8:8, endln:8:14
+    |vpiParent:
+    \_logic_typespec: , line:8:3, endln:8:14
+    |vpiLeftRange:
+    \_constant: , line:8:9, endln:8:11
+      |vpiParent:
+      \_range: , line:8:8, endln:8:14
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:8:12, endln:8:13
+      |vpiParent:
+      \_range: , line:8:8, endln:8:14
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:8:20, endln:8:27
+  |vpiParent:
+  \_ref_typespec: (work@Foo)
+  |vpiRange:
+  \_range: 
+    |vpiParent:
+    \_logic_typespec: , line:8:20, endln:8:27
+    |vpiLeftRange:
+    \_operation: 
+      |vpiParent:
+      \_range: 
+      |vpiOpType:11
+      |vpiOperand:
+      \_hier_path: (w.WIDTH), line:8:20, endln:8:21
+        |vpiParent:
+        \_operation: 
+        |vpiActual:
+        \_ref_obj: (w), line:8:22, endln:8:27
+          |vpiParent:
+          \_hier_path: (w.WIDTH), line:8:20, endln:8:21
+          |vpiName:w
+          |vpiActual:
+          \_parameter: (work@Foo.w), line:7:22, endln:7:23
+        |vpiActual:
+        \_ref_obj: (WIDTH), line:8:22, endln:8:27
+          |vpiParent:
+          \_hier_path: (w.WIDTH), line:8:20, endln:8:21
+          |vpiName:WIDTH
+        |vpiName:w.WIDTH
+      |vpiOperand:
+      \_constant: 
+        |vpiParent:
+        \_operation: 
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: 
+      |vpiParent:
+      \_range: 
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 \_operation: , line:9:20, endln:9:25
   |vpiParent:
   \_cont_assign: , line:9:15, endln:9:17
