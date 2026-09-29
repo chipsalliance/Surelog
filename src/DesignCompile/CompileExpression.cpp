@@ -5192,16 +5192,24 @@ const typespec *CompileHelper::getTypespec(DesignComponent *component,
       }
       break;
     }
-    case VObjectType::paIntVec_TypeLogic: {
-      result = s.MakeLogic_typespec();
-      break;
-    }
-    case VObjectType::paIntVec_TypeBit: {
-      result = s.MakeBit_typespec();
-      break;
-    }
+    case VObjectType::paIntVec_TypeLogic:
+    case VObjectType::paIntVec_TypeBit:
     case VObjectType::paIntVec_TypeReg: {
-      result = s.MakeLogic_typespec();
+      // A vector type keyword followed by packed dimensions -- the data-type
+      // argument of `$bits(logic [31:0])` / `$bits(bit [3:0][7:0])` -- was a
+      // bare 1-bit typespec here, so those folded to 1 (a typedef'd or named
+      // argument went through compileTypespec and was right).  Let
+      // compileTypespec build the ranged typespec when a dimension follows.
+      NodeId Packed_dimension = fC->Sibling(id);
+      if (Packed_dimension &&
+          fC->Type(Packed_dimension) == VObjectType::paPacked_dimension) {
+        result = compileTypespec(component, fC, id, compileDesign, reduce,
+                                 nullptr, instance, /*isVariable=*/false);
+        break;
+      }
+      result = (fC->Type(id) == VObjectType::paIntVec_TypeBit)
+                   ? static_cast<typespec *>(s.MakeBit_typespec())
+                   : static_cast<typespec *>(s.MakeLogic_typespec());
       break;
     }
     case VObjectType::paClass_scope: {
