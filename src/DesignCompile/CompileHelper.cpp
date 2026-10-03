@@ -3891,9 +3891,58 @@ bool CompileHelper::compileParameterDeclaration(
           NodeId pattAssign = fC->sl_collect(
               actual_value, VObjectType::paConstant_concatenation);
           if (pattAssign != InvalidNodeId) {
-            if (!compileDesign->getCompiler()
-                     ->getCommandLineParser()
-                     ->reportNonSynthesizable()) {
+            // A concatenation assigned to a PACKED parameter
+            // (`localparam logic [31:0] IDCODE = {VER, PART, 4'h1, MFR,
+            // 1'b1}`) is an ordinary constant and must fold here: left as a
+            // "complex" operation it is cloned into every module that
+            // reads `pkg::IDCODE`, where the operand names are re-bound in
+            // THAT module's scope and resolve to nothing -- egret's rv_dm
+            // IdcodeValue reached the JTAG TAP as 0.  Only an unpacked /
+            // array target keeps the pattern-like treatment below.
+            // ...but only an honest concatenation.  Keep the complex
+            // treatment when an operand is an x/z/? literal
+            // (`{25'h?, OPCODE}` is a casez mask whose don't-care bits a
+            // folded constant would turn into 0s) or when the "concat" is
+            // really a mis-parsed cast assignment pattern
+            // (`int'{default: 1}`), which has no constant to fold to.
+            bool foldable = true;
+            for (NodeId lit :
+                 fC->sl_collect_all(actual_value, VObjectType::slIntConst)) {
+              const std::string_view txt = fC->SymName(lit);
+              if (txt.find_first_of("xXzZ?") != std::string_view::npos) {
+                foldable = false;
+                break;
+              }
+            }
+            if (foldable &&
+                (fC->sl_collect(actual_value,
+                                VObjectType::paAssignment_pattern) !=
+                     InvalidNodeId ||
+                 fC->sl_collect(actual_value,
+                                VObjectType::paArray_member_label) !=
+                     InvalidNodeId ||
+                 fC->sl_collect(actual_value, VObjectType::paDEFAULT) !=
+                     InvalidNodeId))
+              foldable = false;
+            bool packedTarget = false;
+            if (foldable && ts) {
+              switch (ts->UhdmType()) {
+                case UHDM::uhdmlogic_typespec:
+                case UHDM::uhdmbit_typespec:
+                case UHDM::uhdmint_typespec:
+                case UHDM::uhdminteger_typespec:
+                case UHDM::uhdmbyte_typespec:
+                case UHDM::uhdmshort_int_typespec:
+                case UHDM::uhdmlong_int_typespec:
+                  packedTarget = true;
+                  break;
+                default:
+                  break;
+              }
+            }
+            if (!packedTarget && !compileDesign->getCompiler()
+                                      ->getCommandLineParser()
+                                      ->reportNonSynthesizable()) {
               // More constant pushing with Synth option on
               isMultiDimension = true;
             }
