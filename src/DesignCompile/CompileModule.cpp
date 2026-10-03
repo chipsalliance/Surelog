@@ -721,8 +721,24 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
           ParameterPortListId = id;
           NodeId list_of_param_assignments = fC->Child(id);
           while (list_of_param_assignments) {
+            NodeId item = list_of_param_assignments;
+            // `#(parameter int W = 0, type addr_t = logic [W-1:0])`: the
+            // second item continues the parameter list with a bare `type`
+            // (parameter_port_declaration : TYPE list_of_type_assignments).
+            // The TYPE keyword leaves no node, so the item arrives as
+            // Parameter_port_declaration -> List_of_type_assignments and,
+            // handed over whole, took the VALUE-parameter path: `addr_t`
+            // became a net, the elaborated instance had no type parameter
+            // at all, and every port typed by it measured 1 bit (PULP
+            // axi_modify_address_intf's mst_aw/ar_addr_i).  Route it
+            // through the type-parameter path like paParameter_declaration.
+            if (fC->Type(item) == VObjectType::paParameter_port_declaration) {
+              NodeId sub = fC->Child(item);
+              if (fC->Type(sub) == VObjectType::paList_of_type_assignments)
+                item = sub;
+            }
             m_helper.compileParameterDeclaration(
-                m_module, fC, list_of_param_assignments, m_compileDesign,
+                m_module, fC, item, m_compileDesign,
                 m_instance != nullptr ? Reduce::Yes : Reduce::No, false,
                 m_instance, false, false);
             list_of_param_assignments = fC->Sibling(list_of_param_assignments);
