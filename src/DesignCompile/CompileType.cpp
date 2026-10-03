@@ -709,6 +709,13 @@ const UHDM::typespec* bindTypespec(std::string_view name,
         }
       }
     }
+    // The INNERMOST binding wins.  Walking on after a match let an ancestor's
+    // same-named type parameter overwrite it: PULP cc_spill_register relays
+    // `.data_t(data_t)` into cc_spill_register_flushable, and the lookup that
+    // had just found the register's `data_t` (the 66-bit response struct) went
+    // on to the slave above it and returned ITS `data_t` (the 64-bit data
+    // word), so the inner register lost the top two bits of every response.
+    if (result != nullptr) break;
     modInst = modInst->getParent();
   }
   return result;
