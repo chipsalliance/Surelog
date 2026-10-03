@@ -20176,7 +20176,7 @@ bit_typespec                                         353
 byte_typespec                                          8
 case_item                                            126
 case_stmt                                             30
-constant                                            8652
+constant                                            8575
 cont_assign                                           30
 design                                                 1
 enum_const                                           933
@@ -20196,26 +20196,26 @@ if_else                                               14
 if_stmt                                               18
 immediate_assert                                      14
 import_typespec                                        3
-int_typespec                                        1308
+int_typespec                                        1320
 int_var                                               71
 io_decl                                              224
 logic_net                                             13
-logic_typespec                                      1506
+logic_typespec                                      1479
 logic_var                                            116
 long_int_typespec                                      4
 module_inst                                           52
 named_begin                                            5
-operation                                           2082
+operation                                           2004
 package                                                6
 packed_array_typespec                                 90
 param_assign                                        1309
 parameter                                           1528
 part_select                                          116
 port                                                  42
-range                                               1670
+range                                               1659
 ref_module                                             6
-ref_obj                                             1740
-ref_typespec                                        5631
+ref_obj                                             1706
+ref_typespec                                        5628
 return_stmt                                          212
 string_typespec                                      836
 string_var                                             8
@@ -20238,7 +20238,7 @@ bit_typespec                                         353
 byte_typespec                                          8
 case_item                                            497
 case_stmt                                            120
-constant                                            8771
+constant                                            8694
 cont_assign                                          122
 design                                                 1
 enum_const                                           933
@@ -20258,26 +20258,26 @@ if_else                                               48
 if_stmt                                               36
 immediate_assert                                      63
 import_typespec                                        3
-int_typespec                                        1308
+int_typespec                                        1320
 int_var                                              144
 io_decl                                              573
 logic_net                                             13
-logic_typespec                                      1506
+logic_typespec                                      1479
 logic_var                                            224
 long_int_typespec                                      4
 module_inst                                           56
 named_begin                                            5
-operation                                           3402
+operation                                           3317
 package                                                6
 packed_array_typespec                                 90
 param_assign                                        1429
 parameter                                           1528
 part_select                                          442
 port                                                  84
-range                                               1670
+range                                               1659
 ref_module                                             6
-ref_obj                                             3945
-ref_typespec                                        6584
+ref_obj                                             3909
+ref_typespec                                        6580
 return_stmt                                          684
 string_typespec                                      836
 string_var                                            22
@@ -53041,6 +53041,7 @@ design: (work@top)
   \_parameter: (riscv::SSTATUS_SD), line:455:29, endln:455:39
     |vpiParent:
     \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:1:1, endln:671:11
+    |BIN:1000000000000000000000000000000000000000000000000000000000000000
     |vpiTypespec:
     \_ref_typespec: (riscv::SSTATUS_SD)
       |vpiParent:
@@ -53340,6 +53341,7 @@ design: (work@top)
   \_parameter: (riscv::MSTATUS_UXL), line:476:29, endln:476:40
     |vpiParent:
     \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:1:1, endln:671:11
+    |BIN:0000000000000000000000000000001100000000000000000000000000000000
     |vpiTypespec:
     \_ref_typespec: (riscv::MSTATUS_UXL)
       |vpiParent:
@@ -53354,6 +53356,7 @@ design: (work@top)
   \_parameter: (riscv::MSTATUS_SXL), line:477:29, endln:477:40
     |vpiParent:
     \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:1:1, endln:671:11
+    |BIN:0000000000000000000000000000110000000000000000000000000000000000
     |vpiTypespec:
     \_ref_typespec: (riscv::MSTATUS_SXL)
       |vpiParent:
@@ -53368,6 +53371,7 @@ design: (work@top)
   \_parameter: (riscv::MSTATUS_SD), line:478:29, endln:478:39
     |vpiParent:
     \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:1:1, endln:671:11
+    |BIN:1000000000000000000000000000000000000000000000000000000000000000
     |vpiTypespec:
     \_ref_typespec: (riscv::MSTATUS_SD)
       |vpiParent:
@@ -55672,44 +55676,19 @@ design: (work@top)
     |vpiParent:
     \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:1:1, endln:671:11
     |vpiRhs:
-    \_operation: , line:455:44, endln:455:95
+    \_constant: , line:455:44, endln:455:95
       |vpiParent:
       \_param_assign: , line:455:29, endln:455:95
-      |vpiOpType:33
-      |vpiReordered:1
-      |vpiOperand:
-      \_constant: , line:455:82, endln:455:94
-        |vpiDecompile:31'h00000000
-        |vpiSize:31
-        |HEX:00000000
-        |vpiConstType:5
-      |vpiOperand:
-      \_operation: , line:455:70, endln:455:80
+      |vpiSize:64
+      |BIN:1000000000000000000000000000000000000000000000000000000000000000
+      |vpiTypespec:
+      \_ref_typespec: (riscv)
         |vpiParent:
-        \_operation: , line:455:44, endln:455:95
-        |vpiOpType:4
-        |vpiOperand:
-        \_ref_obj: (riscv::IS_XLEN64), line:455:71, endln:455:80
-          |vpiParent:
-          \_operation: , line:455:70, endln:455:80
-          |vpiName:IS_XLEN64
-          |vpiFullName:riscv::IS_XLEN64
-          |vpiActual:
-          \_parameter: (riscv::IS_XLEN64), line:22:16, endln:22:25
-      |vpiOperand:
-      \_constant: , line:455:56, endln:455:68
-        |vpiDecompile:31'h00000000
-        |vpiSize:31
-        |HEX:00000000
-        |vpiConstType:5
-      |vpiOperand:
-      \_ref_obj: (riscv::IS_XLEN64), line:455:45, endln:455:54
-        |vpiParent:
-        \_operation: , line:455:44, endln:455:95
-        |vpiName:IS_XLEN64
-        |vpiFullName:riscv::IS_XLEN64
+        \_constant: , line:455:44, endln:455:95
+        |vpiFullName:riscv
         |vpiActual:
-        \_parameter: (riscv::IS_XLEN64), line:22:16, endln:22:25
+        \_logic_typespec: , line:455:16, endln:455:28
+      |vpiConstType:3
     |vpiLhs:
     \_parameter: (riscv::SSTATUS_SD), line:455:29, endln:455:39
   |vpiParamAssign:
@@ -56116,38 +56095,19 @@ design: (work@top)
     |vpiParent:
     \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:1:1, endln:671:11
     |vpiRhs:
-    \_operation: , line:476:44, endln:476:93
+    \_constant: , line:476:44, endln:476:93
       |vpiParent:
       \_param_assign: , line:476:29, endln:476:93
-      |vpiOpType:33
-      |vpiOperand:
-      \_constant: , line:476:45, endln:476:56
-        |vpiDecompile:30'h0000000
-        |vpiSize:30
-        |HEX:0000000
-        |vpiConstType:5
-      |vpiOperand:
-      \_ref_obj: (riscv::IS_XLEN64), line:476:58, endln:476:67
+      |vpiSize:64
+      |BIN:0000000000000000000000000000001100000000000000000000000000000000
+      |vpiTypespec:
+      \_ref_typespec: (riscv)
         |vpiParent:
-        \_operation: , line:476:44, endln:476:93
-        |vpiName:IS_XLEN64
-        |vpiFullName:riscv::IS_XLEN64
+        \_constant: , line:476:44, endln:476:93
+        |vpiFullName:riscv
         |vpiActual:
-        \_parameter: (riscv::IS_XLEN64), line:22:16, endln:22:25
-      |vpiOperand:
-      \_ref_obj: (riscv::IS_XLEN64), line:476:69, endln:476:78
-        |vpiParent:
-        \_operation: , line:476:44, endln:476:93
-        |vpiName:IS_XLEN64
-        |vpiFullName:riscv::IS_XLEN64
-        |vpiActual:
-        \_parameter: (riscv::IS_XLEN64), line:22:16, endln:22:25
-      |vpiOperand:
-      \_constant: , line:476:80, endln:476:92
-        |vpiDecompile:32'h00000000
-        |vpiSize:32
-        |HEX:00000000
-        |vpiConstType:5
+        \_logic_typespec: , line:476:16, endln:476:28
+      |vpiConstType:3
     |vpiLhs:
     \_parameter: (riscv::MSTATUS_UXL), line:476:29, endln:476:40
   |vpiParamAssign:
@@ -56155,38 +56115,19 @@ design: (work@top)
     |vpiParent:
     \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:1:1, endln:671:11
     |vpiRhs:
-    \_operation: , line:477:44, endln:477:93
+    \_constant: , line:477:44, endln:477:93
       |vpiParent:
       \_param_assign: , line:477:29, endln:477:93
-      |vpiOpType:33
-      |vpiOperand:
-      \_constant: , line:477:45, endln:477:56
-        |vpiDecompile:28'h0000000
-        |vpiSize:28
-        |HEX:0000000
-        |vpiConstType:5
-      |vpiOperand:
-      \_ref_obj: (riscv::IS_XLEN64), line:477:58, endln:477:67
+      |vpiSize:64
+      |BIN:0000000000000000000000000000110000000000000000000000000000000000
+      |vpiTypespec:
+      \_ref_typespec: (riscv)
         |vpiParent:
-        \_operation: , line:477:44, endln:477:93
-        |vpiName:IS_XLEN64
-        |vpiFullName:riscv::IS_XLEN64
+        \_constant: , line:477:44, endln:477:93
+        |vpiFullName:riscv
         |vpiActual:
-        \_parameter: (riscv::IS_XLEN64), line:22:16, endln:22:25
-      |vpiOperand:
-      \_ref_obj: (riscv::IS_XLEN64), line:477:69, endln:477:78
-        |vpiParent:
-        \_operation: , line:477:44, endln:477:93
-        |vpiName:IS_XLEN64
-        |vpiFullName:riscv::IS_XLEN64
-        |vpiActual:
-        \_parameter: (riscv::IS_XLEN64), line:22:16, endln:22:25
-      |vpiOperand:
-      \_constant: , line:477:80, endln:477:92
-        |vpiDecompile:34'h00000000
-        |vpiSize:34
-        |HEX:00000000
-        |vpiConstType:5
+        \_logic_typespec: , line:477:16, endln:477:28
+      |vpiConstType:3
     |vpiLhs:
     \_parameter: (riscv::MSTATUS_SXL), line:477:29, endln:477:40
   |vpiParamAssign:
@@ -56194,44 +56135,19 @@ design: (work@top)
     |vpiParent:
     \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:1:1, endln:671:11
     |vpiRhs:
-    \_operation: , line:478:44, endln:478:95
+    \_constant: , line:478:44, endln:478:95
       |vpiParent:
       \_param_assign: , line:478:29, endln:478:95
-      |vpiOpType:33
-      |vpiReordered:1
-      |vpiOperand:
-      \_constant: , line:478:82, endln:478:94
-        |vpiDecompile:31'h00000000
-        |vpiSize:31
-        |HEX:00000000
-        |vpiConstType:5
-      |vpiOperand:
-      \_operation: , line:478:70, endln:478:80
+      |vpiSize:64
+      |BIN:1000000000000000000000000000000000000000000000000000000000000000
+      |vpiTypespec:
+      \_ref_typespec: (riscv)
         |vpiParent:
-        \_operation: , line:478:44, endln:478:95
-        |vpiOpType:4
-        |vpiOperand:
-        \_ref_obj: (riscv::IS_XLEN64), line:478:71, endln:478:80
-          |vpiParent:
-          \_operation: , line:478:70, endln:478:80
-          |vpiName:IS_XLEN64
-          |vpiFullName:riscv::IS_XLEN64
-          |vpiActual:
-          \_parameter: (riscv::IS_XLEN64), line:22:16, endln:22:25
-      |vpiOperand:
-      \_constant: , line:478:56, endln:478:68
-        |vpiDecompile:31'h00000000
-        |vpiSize:31
-        |HEX:00000000
-        |vpiConstType:5
-      |vpiOperand:
-      \_ref_obj: (riscv::IS_XLEN64), line:478:45, endln:478:54
-        |vpiParent:
-        \_operation: , line:478:44, endln:478:95
-        |vpiName:IS_XLEN64
-        |vpiFullName:riscv::IS_XLEN64
+        \_constant: , line:478:44, endln:478:95
+        |vpiFullName:riscv
         |vpiActual:
-        \_parameter: (riscv::IS_XLEN64), line:22:16, endln:22:25
+        \_logic_typespec: , line:478:16, endln:478:28
+      |vpiConstType:3
     |vpiLhs:
     \_parameter: (riscv::MSTATUS_SD), line:478:29, endln:478:39
   |vpiTypedef:
@@ -62858,6 +62774,7 @@ design: (work@top)
   \_parameter: (ariane_pkg::ARIANE_MARCHID), line:855:30, endln:855:44
     |vpiParent:
     \_package: ariane_pkg (ariane_pkg::), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:674:1, endln:1483:11
+    |BIN:0000000000000000000000000000000000000000000000000000000000000011
     |vpiTypespec:
     \_ref_typespec: (ariane_pkg::ARIANE_MARCHID)
       |vpiParent:
@@ -63006,6 +62923,7 @@ design: (work@top)
   \_parameter: (ariane_pkg::SMODE_STATUS_READ_MASK), line:905:29, endln:905:51
     |vpiParent:
     \_package: ariane_pkg (ariane_pkg::), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:674:1, endln:1483:11
+    |UINT:9223372049740587315
     |vpiTypespec:
     \_ref_typespec: (ariane_pkg::SMODE_STATUS_READ_MASK)
       |vpiParent:
@@ -64282,38 +64200,19 @@ design: (work@top)
     |vpiParent:
     \_package: ariane_pkg (ariane_pkg::), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:674:1, endln:1483:11
     |vpiRhs:
-    \_operation: , line:855:47, endln:855:78
+    \_constant: , line:855:47, endln:855:78
       |vpiParent:
       \_param_assign: , line:855:30, endln:855:78
-      |vpiOpType:33
-      |vpiOperand:
-      \_operation: , line:855:48, endln:855:70
+      |vpiSize:64
+      |BIN:0000000000000000000000000000000000000000000000000000000000000011
+      |vpiTypespec:
+      \_ref_typespec: (ariane_pkg)
         |vpiParent:
-        \_operation: , line:855:47, endln:855:78
-        |vpiOpType:34
-        |vpiOperand:
-        \_constant: , line:855:49, endln:855:63
-          |vpiDecompile:32
-          |vpiSize:64
-          |INT:32
-          |vpiConstType:7
-        |vpiOperand:
-        \_operation: , line:855:63, endln:855:69
-          |vpiParent:
-          \_operation: , line:855:48, endln:855:70
-          |vpiOpType:33
-          |vpiOperand:
-          \_constant: , line:855:64, endln:855:68
-            |vpiDecompile:1'b0
-            |vpiSize:1
-            |BIN:0
-            |vpiConstType:3
-      |vpiOperand:
-      \_constant: , line:855:72, endln:855:77
-        |vpiDecompile:32'd3
-        |vpiSize:32
-        |DEC:3
-        |vpiConstType:1
+        \_constant: , line:855:47, endln:855:78
+        |vpiFullName:ariane_pkg
+        |vpiActual:
+        \_logic_typespec: (riscv::xlen_t), line:30:13, endln:30:29
+      |vpiConstType:3
     |vpiLhs:
     \_parameter: (ariane_pkg::ARIANE_MARCHID), line:855:30, endln:855:44
   |vpiParamAssign:
@@ -64602,57 +64501,20 @@ design: (work@top)
     |vpiParent:
     \_package: ariane_pkg (ariane_pkg::), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:674:1, endln:1483:11
     |vpiRhs:
-    \_operation: , line:905:54, endln:916:71
+    \_constant: , line:905:54, endln:915:72
       |vpiParent:
       \_param_assign: , line:905:29, endln:916:71
-      |vpiOpType:29
-      |vpiOperand:
-      \_constant: , line:905:54, endln:914:73
+      |vpiDecompile:9223372049740587315
+      |vpiSize:64
+      |UINT:9223372049740587315
+      |vpiTypespec:
+      \_ref_typespec: (ariane_pkg)
         |vpiParent:
-        \_operation: , line:905:54, endln:916:71
-        |vpiDecompile:12885811507
-        |vpiSize:64
-        |UINT:12885811507
-        |vpiConstType:9
-      |vpiOperand:
-      \_operation: , line:916:54, endln:916:61
-        |vpiParent:
-        \_operation: , line:905:54, endln:916:71
-        |vpiOpType:33
-        |vpiReordered:1
-        |vpiOperand:
-        \_constant: , line:455:82, endln:455:94
-          |vpiParent:
-          \_operation: , line:916:54, endln:916:61
-          |vpiDecompile:31'h00000000
-          |vpiSize:31
-          |HEX:00000000
-          |vpiConstType:5
-        |vpiOperand:
-        \_operation: , line:455:70, endln:455:80
-          |vpiParent:
-          \_operation: , line:916:54, endln:916:61
-          |vpiOpType:4
-          |vpiOperand:
-          \_ref_obj: (ariane_pkg::IS_XLEN64), line:455:71, endln:455:80
-            |vpiParent:
-            \_operation: , line:455:70, endln:455:80
-            |vpiName:IS_XLEN64
-            |vpiFullName:ariane_pkg::IS_XLEN64
-        |vpiOperand:
-        \_constant: , line:455:56, endln:455:68
-          |vpiParent:
-          \_operation: , line:916:54, endln:916:61
-          |vpiDecompile:31'h00000000
-          |vpiSize:31
-          |HEX:00000000
-          |vpiConstType:5
-        |vpiOperand:
-        \_ref_obj: (ariane_pkg::IS_XLEN64), line:455:45, endln:455:54
-          |vpiParent:
-          \_operation: , line:916:54, endln:916:61
-          |vpiName:IS_XLEN64
-          |vpiFullName:ariane_pkg::IS_XLEN64
+        \_constant: , line:905:54, endln:915:72
+        |vpiFullName:ariane_pkg
+        |vpiActual:
+        \_logic_typespec: , line:905:16, endln:905:28
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (ariane_pkg::SMODE_STATUS_READ_MASK), line:905:29, endln:905:51
   |vpiParamAssign:
@@ -80833,6 +80695,7 @@ design: (work@top)
   \_parameter: (work@ariane.ARIANE_MARCHID), line:855:30, endln:855:44
     |vpiParent:
     \_module_inst: work@ariane (work@ariane), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:2058:1, endln:2067:10
+    |BIN:0000000000000000000000000000000000000000000000000000000000000011
     |vpiTypespec:
     \_ref_typespec: (work@ariane.ARIANE_MARCHID)
       |vpiParent:
@@ -81662,6 +81525,7 @@ design: (work@top)
   \_parameter: (work@ariane.SMODE_STATUS_READ_MASK), line:905:29, endln:905:51
     |vpiParent:
     \_module_inst: work@ariane (work@ariane), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:2058:1, endln:2067:10
+    |UINT:9223372049740587315
     |vpiTypespec:
     \_ref_typespec: (work@ariane.SMODE_STATUS_READ_MASK)
       |vpiParent:
@@ -83379,68 +83243,24 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@ariane (work@ariane), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:2058:1, endln:2067:10
     |vpiRhs:
-    \_operation: , line:855:47, endln:855:78
+    \_constant: , line:855:47, endln:855:78
       |vpiParent:
       \_param_assign: , line:855:30, endln:855:78
-      |vpiOpType:33
-      |vpiOperand:
-      \_operation: , line:855:48, endln:855:70
+      |vpiSize:64
+      |BIN:0000000000000000000000000000000000000000000000000000000000000011
+      |vpiTypespec:
+      \_ref_typespec: (work@ariane)
         |vpiParent:
-        \_operation: , line:855:47, endln:855:78
-        |vpiOpType:34
-        |vpiOperand:
-        \_operation: , line:855:49, endln:855:63
-          |vpiParent:
-          \_operation: , line:855:48, endln:855:70
-          |vpiOpType:11
-          |vpiOperand:
-          \_constant: , line:855:49, endln:855:56
-            |vpiParent:
-            \_operation: , line:855:49, endln:855:63
-            |vpiDecompile:64
-            |vpiSize:32
-            |UINT:64
-            |vpiTypespec:
-            \_ref_typespec: (work@ariane)
-              |vpiParent:
-              \_constant: , line:855:49, endln:855:56
-              |vpiFullName:work@ariane
-              |vpiActual:
-              \_int_typespec: , line:15:5, endln:15:25
-            |vpiConstType:9
-          |vpiOperand:
-          \_constant: , line:855:61, endln:855:63
-            |vpiParent:
-            \_operation: , line:855:49, endln:855:63
-            |vpiDecompile:32
-            |vpiSize:64
-            |UINT:32
-            |vpiConstType:9
-        |vpiOperand:
-        \_operation: , line:855:63, endln:855:69
-          |vpiParent:
-          \_operation: , line:855:48, endln:855:70
-          |vpiOpType:33
-          |vpiOperand:
-          \_constant: , line:855:64, endln:855:68
-            |vpiParent:
-            \_operation: , line:855:63, endln:855:69
-            |vpiDecompile:1'b0
-            |vpiSize:1
-            |BIN:0
-            |vpiConstType:3
-      |vpiOperand:
-      \_constant: , line:855:72, endln:855:77
-        |vpiParent:
-        \_operation: , line:855:47, endln:855:78
-        |vpiDecompile:32'd3
-        |vpiSize:32
-        |DEC:3
-        |vpiConstType:1
+        \_constant: , line:855:47, endln:855:78
+        |vpiFullName:work@ariane
+        |vpiActual:
+        \_logic_typespec: (xlen_t), line:30:13, endln:30:29
+      |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@ariane.ARIANE_MARCHID), line:855:30, endln:855:44
       |vpiParent:
       \_param_assign: , line:855:30, endln:855:78
+      |BIN:0000000000000000000000000000000000000000000000000000000000000011
       |vpiTypespec:
       \_ref_typespec: (work@ariane.ARIANE_MARCHID)
         |vpiParent:
@@ -83871,61 +83691,25 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@ariane (work@ariane), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:2058:1, endln:2067:10
     |vpiRhs:
-    \_operation: , line:905:54, endln:916:71
+    \_constant: , line:905:54, endln:915:72
       |vpiParent:
       \_param_assign: , line:905:29, endln:916:71
-      |vpiOpType:29
-      |vpiOperand:
-      \_constant: , line:905:54, endln:914:73
+      |vpiDecompile:9223372049740587315
+      |vpiSize:64
+      |UINT:9223372049740587315
+      |vpiTypespec:
+      \_ref_typespec: (work@ariane)
         |vpiParent:
-        \_operation: , line:905:54, endln:916:71
-        |vpiDecompile:12885811507
-        |vpiSize:64
-        |UINT:12885811507
-        |vpiConstType:9
-      |vpiOperand:
-      \_operation: , line:916:54, endln:916:61
-        |vpiParent:
-        \_operation: , line:905:54, endln:916:71
-        |vpiOpType:33
-        |vpiReordered:1
-        |vpiOperand:
-        \_constant: , line:455:82, endln:455:94
-          |vpiParent:
-          \_operation: , line:916:54, endln:916:61
-          |vpiDecompile:31'h00000000
-          |vpiSize:31
-          |HEX:00000000
-          |vpiConstType:5
-        |vpiOperand:
-        \_operation: , line:455:70, endln:455:80
-          |vpiParent:
-          \_operation: , line:916:54, endln:916:61
-          |vpiOpType:4
-          |vpiOperand:
-          \_ref_obj: (work@ariane.IS_XLEN64), line:455:71, endln:455:80
-            |vpiParent:
-            \_operation: , line:455:70, endln:455:80
-            |vpiName:IS_XLEN64
-            |vpiFullName:work@ariane.IS_XLEN64
-        |vpiOperand:
-        \_constant: , line:455:56, endln:455:68
-          |vpiParent:
-          \_operation: , line:916:54, endln:916:61
-          |vpiDecompile:31'h00000000
-          |vpiSize:31
-          |HEX:00000000
-          |vpiConstType:5
-        |vpiOperand:
-        \_ref_obj: (work@ariane.IS_XLEN64), line:455:45, endln:455:54
-          |vpiParent:
-          \_operation: , line:916:54, endln:916:61
-          |vpiName:IS_XLEN64
-          |vpiFullName:work@ariane.IS_XLEN64
+        \_constant: , line:905:54, endln:915:72
+        |vpiFullName:work@ariane
+        |vpiActual:
+        \_logic_typespec: , line:905:16, endln:905:28
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@ariane.SMODE_STATUS_READ_MASK), line:905:29, endln:905:51
       |vpiParent:
       \_param_assign: , line:905:29, endln:916:71
+      |UINT:9223372049740587315
       |vpiTypespec:
       \_ref_typespec: (work@ariane.SMODE_STATUS_READ_MASK)
         |vpiParent:
@@ -89344,6 +89128,7 @@ design: (work@top)
   \_parameter: (work@ex_stage.ARIANE_MARCHID), line:855:30, endln:855:44
     |vpiParent:
     \_module_inst: work@ex_stage (work@ex_stage), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:2025:1, endln:2055:10
+    |BIN:0000000000000000000000000000000000000000000000000000000000000011
     |vpiTypespec:
     \_ref_typespec: (work@ex_stage.ARIANE_MARCHID)
       |vpiParent:
@@ -90173,6 +89958,7 @@ design: (work@top)
   \_parameter: (work@ex_stage.SMODE_STATUS_READ_MASK), line:905:29, endln:905:51
     |vpiParent:
     \_module_inst: work@ex_stage (work@ex_stage), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:2025:1, endln:2055:10
+    |UINT:9223372049740587315
     |vpiTypespec:
     \_ref_typespec: (work@ex_stage.SMODE_STATUS_READ_MASK)
       |vpiParent:
@@ -91904,68 +91690,24 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@ex_stage (work@ex_stage), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:2025:1, endln:2055:10
     |vpiRhs:
-    \_operation: , line:855:47, endln:855:78
+    \_constant: , line:855:47, endln:855:78
       |vpiParent:
       \_param_assign: , line:855:30, endln:855:78
-      |vpiOpType:33
-      |vpiOperand:
-      \_operation: , line:855:48, endln:855:70
+      |vpiSize:64
+      |BIN:0000000000000000000000000000000000000000000000000000000000000011
+      |vpiTypespec:
+      \_ref_typespec: (work@ex_stage)
         |vpiParent:
-        \_operation: , line:855:47, endln:855:78
-        |vpiOpType:34
-        |vpiOperand:
-        \_operation: , line:855:49, endln:855:63
-          |vpiParent:
-          \_operation: , line:855:48, endln:855:70
-          |vpiOpType:11
-          |vpiOperand:
-          \_constant: , line:855:49, endln:855:56
-            |vpiParent:
-            \_operation: , line:855:49, endln:855:63
-            |vpiDecompile:64
-            |vpiSize:32
-            |UINT:64
-            |vpiTypespec:
-            \_ref_typespec: (work@ex_stage)
-              |vpiParent:
-              \_constant: , line:855:49, endln:855:56
-              |vpiFullName:work@ex_stage
-              |vpiActual:
-              \_int_typespec: , line:15:5, endln:15:25
-            |vpiConstType:9
-          |vpiOperand:
-          \_constant: , line:855:61, endln:855:63
-            |vpiParent:
-            \_operation: , line:855:49, endln:855:63
-            |vpiDecompile:32
-            |vpiSize:64
-            |UINT:32
-            |vpiConstType:9
-        |vpiOperand:
-        \_operation: , line:855:63, endln:855:69
-          |vpiParent:
-          \_operation: , line:855:48, endln:855:70
-          |vpiOpType:33
-          |vpiOperand:
-          \_constant: , line:855:64, endln:855:68
-            |vpiParent:
-            \_operation: , line:855:63, endln:855:69
-            |vpiDecompile:1'b0
-            |vpiSize:1
-            |BIN:0
-            |vpiConstType:3
-      |vpiOperand:
-      \_constant: , line:855:72, endln:855:77
-        |vpiParent:
-        \_operation: , line:855:47, endln:855:78
-        |vpiDecompile:32'd3
-        |vpiSize:32
-        |DEC:3
-        |vpiConstType:1
+        \_constant: , line:855:47, endln:855:78
+        |vpiFullName:work@ex_stage
+        |vpiActual:
+        \_logic_typespec: (xlen_t), line:30:13, endln:30:29
+      |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@ex_stage.ARIANE_MARCHID), line:855:30, endln:855:44
       |vpiParent:
       \_param_assign: , line:855:30, endln:855:78
+      |BIN:0000000000000000000000000000000000000000000000000000000000000011
       |vpiTypespec:
       \_ref_typespec: (work@ex_stage.ARIANE_MARCHID)
         |vpiParent:
@@ -92396,61 +92138,25 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@ex_stage (work@ex_stage), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:2025:1, endln:2055:10
     |vpiRhs:
-    \_operation: , line:905:54, endln:916:71
+    \_constant: , line:905:54, endln:915:72
       |vpiParent:
       \_param_assign: , line:905:29, endln:916:71
-      |vpiOpType:29
-      |vpiOperand:
-      \_constant: , line:905:54, endln:914:73
+      |vpiDecompile:9223372049740587315
+      |vpiSize:64
+      |UINT:9223372049740587315
+      |vpiTypespec:
+      \_ref_typespec: (work@ex_stage)
         |vpiParent:
-        \_operation: , line:905:54, endln:916:71
-        |vpiDecompile:12885811507
-        |vpiSize:64
-        |UINT:12885811507
-        |vpiConstType:9
-      |vpiOperand:
-      \_operation: , line:916:54, endln:916:61
-        |vpiParent:
-        \_operation: , line:905:54, endln:916:71
-        |vpiOpType:33
-        |vpiReordered:1
-        |vpiOperand:
-        \_constant: , line:455:82, endln:455:94
-          |vpiParent:
-          \_operation: , line:916:54, endln:916:61
-          |vpiDecompile:31'h00000000
-          |vpiSize:31
-          |HEX:00000000
-          |vpiConstType:5
-        |vpiOperand:
-        \_operation: , line:455:70, endln:455:80
-          |vpiParent:
-          \_operation: , line:916:54, endln:916:61
-          |vpiOpType:4
-          |vpiOperand:
-          \_ref_obj: (work@ex_stage.IS_XLEN64), line:455:71, endln:455:80
-            |vpiParent:
-            \_operation: , line:455:70, endln:455:80
-            |vpiName:IS_XLEN64
-            |vpiFullName:work@ex_stage.IS_XLEN64
-        |vpiOperand:
-        \_constant: , line:455:56, endln:455:68
-          |vpiParent:
-          \_operation: , line:916:54, endln:916:61
-          |vpiDecompile:31'h00000000
-          |vpiSize:31
-          |HEX:00000000
-          |vpiConstType:5
-        |vpiOperand:
-        \_ref_obj: (work@ex_stage.IS_XLEN64), line:455:45, endln:455:54
-          |vpiParent:
-          \_operation: , line:916:54, endln:916:61
-          |vpiName:IS_XLEN64
-          |vpiFullName:work@ex_stage.IS_XLEN64
+        \_constant: , line:905:54, endln:915:72
+        |vpiFullName:work@ex_stage
+        |vpiActual:
+        \_logic_typespec: , line:905:16, endln:905:28
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@ex_stage.SMODE_STATUS_READ_MASK), line:905:29, endln:905:51
       |vpiParent:
       \_param_assign: , line:905:29, endln:916:71
+      |UINT:9223372049740587315
       |vpiTypespec:
       \_ref_typespec: (work@ex_stage.SMODE_STATUS_READ_MASK)
         |vpiParent:
@@ -94307,6 +94013,7 @@ design: (work@top)
   \_parameter: (work@fpu_wrap.ARIANE_MARCHID), line:855:30, endln:855:44
     |vpiParent:
     \_module_inst: work@fpu_wrap (work@fpu_wrap), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:1990:1, endln:2023:10
+    |BIN:0000000000000000000000000000000000000000000000000000000000000011
     |vpiTypespec:
     \_ref_typespec: (work@fpu_wrap.ARIANE_MARCHID)
       |vpiParent:
@@ -95136,6 +94843,7 @@ design: (work@top)
   \_parameter: (work@fpu_wrap.SMODE_STATUS_READ_MASK), line:905:29, endln:905:51
     |vpiParent:
     \_module_inst: work@fpu_wrap (work@fpu_wrap), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:1990:1, endln:2023:10
+    |UINT:9223372049740587315
     |vpiTypespec:
     \_ref_typespec: (work@fpu_wrap.SMODE_STATUS_READ_MASK)
       |vpiParent:
@@ -96840,68 +96548,24 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@fpu_wrap (work@fpu_wrap), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:1990:1, endln:2023:10
     |vpiRhs:
-    \_operation: , line:855:47, endln:855:78
+    \_constant: , line:855:47, endln:855:78
       |vpiParent:
       \_param_assign: , line:855:30, endln:855:78
-      |vpiOpType:33
-      |vpiOperand:
-      \_operation: , line:855:48, endln:855:70
+      |vpiSize:64
+      |BIN:0000000000000000000000000000000000000000000000000000000000000011
+      |vpiTypespec:
+      \_ref_typespec: (work@fpu_wrap)
         |vpiParent:
-        \_operation: , line:855:47, endln:855:78
-        |vpiOpType:34
-        |vpiOperand:
-        \_operation: , line:855:49, endln:855:63
-          |vpiParent:
-          \_operation: , line:855:48, endln:855:70
-          |vpiOpType:11
-          |vpiOperand:
-          \_constant: , line:855:49, endln:855:56
-            |vpiParent:
-            \_operation: , line:855:49, endln:855:63
-            |vpiDecompile:64
-            |vpiSize:32
-            |UINT:64
-            |vpiTypespec:
-            \_ref_typespec: (work@fpu_wrap)
-              |vpiParent:
-              \_constant: , line:855:49, endln:855:56
-              |vpiFullName:work@fpu_wrap
-              |vpiActual:
-              \_int_typespec: , line:15:5, endln:15:25
-            |vpiConstType:9
-          |vpiOperand:
-          \_constant: , line:855:61, endln:855:63
-            |vpiParent:
-            \_operation: , line:855:49, endln:855:63
-            |vpiDecompile:32
-            |vpiSize:64
-            |UINT:32
-            |vpiConstType:9
-        |vpiOperand:
-        \_operation: , line:855:63, endln:855:69
-          |vpiParent:
-          \_operation: , line:855:48, endln:855:70
-          |vpiOpType:33
-          |vpiOperand:
-          \_constant: , line:855:64, endln:855:68
-            |vpiParent:
-            \_operation: , line:855:63, endln:855:69
-            |vpiDecompile:1'b0
-            |vpiSize:1
-            |BIN:0
-            |vpiConstType:3
-      |vpiOperand:
-      \_constant: , line:855:72, endln:855:77
-        |vpiParent:
-        \_operation: , line:855:47, endln:855:78
-        |vpiDecompile:32'd3
-        |vpiSize:32
-        |DEC:3
-        |vpiConstType:1
+        \_constant: , line:855:47, endln:855:78
+        |vpiFullName:work@fpu_wrap
+        |vpiActual:
+        \_logic_typespec: (xlen_t), line:30:13, endln:30:29
+      |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@fpu_wrap.ARIANE_MARCHID), line:855:30, endln:855:44
       |vpiParent:
       \_param_assign: , line:855:30, endln:855:78
+      |BIN:0000000000000000000000000000000000000000000000000000000000000011
       |vpiTypespec:
       \_ref_typespec: (work@fpu_wrap.ARIANE_MARCHID)
         |vpiParent:
@@ -97332,61 +96996,25 @@ design: (work@top)
     |vpiParent:
     \_module_inst: work@fpu_wrap (work@fpu_wrap), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:1990:1, endln:2023:10
     |vpiRhs:
-    \_operation: , line:905:54, endln:916:71
+    \_constant: , line:905:54, endln:915:72
       |vpiParent:
       \_param_assign: , line:905:29, endln:916:71
-      |vpiOpType:29
-      |vpiOperand:
-      \_constant: , line:905:54, endln:914:73
+      |vpiDecompile:9223372049740587315
+      |vpiSize:64
+      |UINT:9223372049740587315
+      |vpiTypespec:
+      \_ref_typespec: (work@fpu_wrap)
         |vpiParent:
-        \_operation: , line:905:54, endln:916:71
-        |vpiDecompile:12885811507
-        |vpiSize:64
-        |UINT:12885811507
-        |vpiConstType:9
-      |vpiOperand:
-      \_operation: , line:916:54, endln:916:61
-        |vpiParent:
-        \_operation: , line:905:54, endln:916:71
-        |vpiOpType:33
-        |vpiReordered:1
-        |vpiOperand:
-        \_constant: , line:455:82, endln:455:94
-          |vpiParent:
-          \_operation: , line:916:54, endln:916:61
-          |vpiDecompile:31'h00000000
-          |vpiSize:31
-          |HEX:00000000
-          |vpiConstType:5
-        |vpiOperand:
-        \_operation: , line:455:70, endln:455:80
-          |vpiParent:
-          \_operation: , line:916:54, endln:916:61
-          |vpiOpType:4
-          |vpiOperand:
-          \_ref_obj: (work@fpu_wrap.IS_XLEN64), line:455:71, endln:455:80
-            |vpiParent:
-            \_operation: , line:455:70, endln:455:80
-            |vpiName:IS_XLEN64
-            |vpiFullName:work@fpu_wrap.IS_XLEN64
-        |vpiOperand:
-        \_constant: , line:455:56, endln:455:68
-          |vpiParent:
-          \_operation: , line:916:54, endln:916:61
-          |vpiDecompile:31'h00000000
-          |vpiSize:31
-          |HEX:00000000
-          |vpiConstType:5
-        |vpiOperand:
-        \_ref_obj: (work@fpu_wrap.IS_XLEN64), line:455:45, endln:455:54
-          |vpiParent:
-          \_operation: , line:916:54, endln:916:61
-          |vpiName:IS_XLEN64
-          |vpiFullName:work@fpu_wrap.IS_XLEN64
+        \_constant: , line:905:54, endln:915:72
+        |vpiFullName:work@fpu_wrap
+        |vpiActual:
+        \_logic_typespec: , line:905:16, endln:905:28
+      |vpiConstType:9
     |vpiLhs:
     \_parameter: (work@fpu_wrap.SMODE_STATUS_READ_MASK), line:905:29, endln:905:51
       |vpiParent:
       \_param_assign: , line:905:29, endln:916:71
+      |UINT:9223372049740587315
       |vpiTypespec:
       \_ref_typespec: (work@fpu_wrap.SMODE_STATUS_READ_MASK)
         |vpiParent:
@@ -98640,6 +98268,7 @@ design: (work@top)
     \_parameter: (work@top.i_ariane.ARIANE_MARCHID), line:855:30, endln:855:44
       |vpiParent:
       \_module_inst: work@ariane (work@top.i_ariane), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:2070:5, endln:2072:21
+      |BIN:0000000000000000000000000000000000000000000000000000000000000011
       |vpiTypespec:
       \_ref_typespec: (work@top.i_ariane.ARIANE_MARCHID)
         |vpiParent:
@@ -99469,6 +99098,7 @@ design: (work@top)
     \_parameter: (work@top.i_ariane.SMODE_STATUS_READ_MASK), line:905:29, endln:905:51
       |vpiParent:
       \_module_inst: work@ariane (work@top.i_ariane), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:2070:5, endln:2072:21
+      |UINT:9223372049740587315
       |vpiTypespec:
       \_ref_typespec: (work@top.i_ariane.SMODE_STATUS_READ_MASK)
         |vpiParent:
@@ -100534,49 +100164,20 @@ design: (work@top)
       |vpiParent:
       \_module_inst: work@ariane (work@top.i_ariane), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:2070:5, endln:2072:21
       |vpiRhs:
-      \_operation: , line:855:47, endln:855:78
+      \_constant: , line:855:47, endln:855:78
         |vpiParent:
         \_param_assign: , line:855:30, endln:855:78
+        |vpiDecompile:64'b0000000000000000000000000000000000000000000000000000000000000011
+        |vpiSize:64
+        |BIN:0000000000000000000000000000000000000000000000000000000000000011
         |vpiTypespec:
         \_ref_typespec: (work@top.i_ariane)
           |vpiParent:
-          \_operation: , line:855:47, endln:855:78
+          \_constant: , line:855:47, endln:855:78
           |vpiFullName:work@top.i_ariane
           |vpiActual:
           \_logic_typespec: (xlen_t), line:30:13, endln:30:29
-        |vpiOpType:33
-        |vpiOperand:
-        \_operation: , line:855:48, endln:855:70
-          |vpiParent:
-          \_operation: , line:855:47, endln:855:78
-          |vpiOpType:34
-          |vpiOperand:
-          \_constant: , line:855:49, endln:855:63
-            |vpiDecompile:32
-            |vpiSize:64
-            |INT:32
-            |vpiConstType:7
-          |vpiOperand:
-          \_operation: , line:855:63, endln:855:69
-            |vpiParent:
-            \_operation: , line:855:48, endln:855:70
-            |vpiOpType:33
-            |vpiOperand:
-            \_constant: , line:855:64, endln:855:68
-              |vpiParent:
-              \_operation: , line:855:63, endln:855:69
-              |vpiDecompile:1'b0
-              |vpiSize:1
-              |BIN:0
-              |vpiConstType:3
-        |vpiOperand:
-        \_constant: , line:855:72, endln:855:77
-          |vpiParent:
-          \_operation: , line:855:47, endln:855:78
-          |vpiDecompile:32'd3
-          |vpiSize:32
-          |DEC:3
-          |vpiConstType:1
+        |vpiConstType:3
       |vpiLhs:
       \_parameter: (work@top.i_ariane.ARIANE_MARCHID), line:855:30, endln:855:44
     |vpiParamAssign:
@@ -100873,57 +100474,20 @@ design: (work@top)
       |vpiParent:
       \_module_inst: work@ariane (work@top.i_ariane), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:2070:5, endln:2072:21
       |vpiRhs:
-      \_operation: , line:905:54, endln:916:71
+      \_constant: , line:905:54, endln:916:71
         |vpiParent:
         \_param_assign: , line:905:29, endln:916:71
-        |vpiOpType:29
-        |vpiOperand:
-        \_constant: , line:905:54, endln:914:73
+        |vpiDecompile:9223372049740587315
+        |vpiSize:64
+        |UINT:9223372049740587315
+        |vpiTypespec:
+        \_ref_typespec: (work@top.i_ariane)
           |vpiParent:
-          \_operation: , line:905:54, endln:916:71
-          |vpiDecompile:12885811507
-          |vpiSize:64
-          |UINT:12885811507
-          |vpiConstType:9
-        |vpiOperand:
-        \_operation: , line:916:54, endln:916:61
-          |vpiParent:
-          \_operation: , line:905:54, endln:916:71
-          |vpiOpType:33
-          |vpiReordered:1
-          |vpiOperand:
-          \_constant: , line:455:82, endln:455:94
-            |vpiParent:
-            \_operation: , line:916:54, endln:916:61
-            |vpiDecompile:31'h00000000
-            |vpiSize:31
-            |HEX:00000000
-            |vpiConstType:5
-          |vpiOperand:
-          \_operation: , line:455:70, endln:455:80
-            |vpiParent:
-            \_operation: , line:916:54, endln:916:61
-            |vpiOpType:4
-            |vpiOperand:
-            \_ref_obj: (work@top.i_ariane.IS_XLEN64), line:455:71, endln:455:80
-              |vpiParent:
-              \_operation: , line:455:70, endln:455:80
-              |vpiName:IS_XLEN64
-              |vpiFullName:work@top.i_ariane.IS_XLEN64
-          |vpiOperand:
-          \_constant: , line:455:56, endln:455:68
-            |vpiParent:
-            \_operation: , line:916:54, endln:916:61
-            |vpiDecompile:31'h00000000
-            |vpiSize:31
-            |HEX:00000000
-            |vpiConstType:5
-          |vpiOperand:
-          \_ref_obj: (work@top.i_ariane.IS_XLEN64), line:455:45, endln:455:54
-            |vpiParent:
-            \_operation: , line:916:54, endln:916:61
-            |vpiName:IS_XLEN64
-            |vpiFullName:work@top.i_ariane.IS_XLEN64
+          \_constant: , line:905:54, endln:916:71
+          |vpiFullName:work@top.i_ariane
+          |vpiActual:
+          \_logic_typespec: , line:905:16, endln:905:28
+        |vpiConstType:9
       |vpiLhs:
       \_parameter: (work@top.i_ariane.SMODE_STATUS_READ_MASK), line:905:29, endln:905:51
     |vpiParamAssign:
@@ -105436,6 +105000,7 @@ design: (work@top)
       \_parameter: (work@top.i_ariane.ex_stage_i.ARIANE_MARCHID), line:855:30, endln:855:44
         |vpiParent:
         \_module_inst: work@ex_stage (work@top.i_ariane.ex_stage_i), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:2061:3, endln:2064:23
+        |BIN:0000000000000000000000000000000000000000000000000000000000000011
         |vpiTypespec:
         \_ref_typespec: (work@top.i_ariane.ex_stage_i.ARIANE_MARCHID)
           |vpiParent:
@@ -106265,6 +105830,7 @@ design: (work@top)
       \_parameter: (work@top.i_ariane.ex_stage_i.SMODE_STATUS_READ_MASK), line:905:29, endln:905:51
         |vpiParent:
         \_module_inst: work@ex_stage (work@top.i_ariane.ex_stage_i), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:2061:3, endln:2064:23
+        |UINT:9223372049740587315
         |vpiTypespec:
         \_ref_typespec: (work@top.i_ariane.ex_stage_i.SMODE_STATUS_READ_MASK)
           |vpiParent:
@@ -107374,49 +106940,20 @@ design: (work@top)
         |vpiParent:
         \_module_inst: work@ex_stage (work@top.i_ariane.ex_stage_i), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:2061:3, endln:2064:23
         |vpiRhs:
-        \_operation: , line:855:47, endln:855:78
+        \_constant: , line:855:47, endln:855:78
           |vpiParent:
           \_param_assign: , line:855:30, endln:855:78
+          |vpiDecompile:64'b0000000000000000000000000000000000000000000000000000000000000011
+          |vpiSize:64
+          |BIN:0000000000000000000000000000000000000000000000000000000000000011
           |vpiTypespec:
           \_ref_typespec: (work@top.i_ariane.ex_stage_i)
             |vpiParent:
-            \_operation: , line:855:47, endln:855:78
+            \_constant: , line:855:47, endln:855:78
             |vpiFullName:work@top.i_ariane.ex_stage_i
             |vpiActual:
             \_logic_typespec: (xlen_t), line:30:13, endln:30:29
-          |vpiOpType:33
-          |vpiOperand:
-          \_operation: , line:855:48, endln:855:70
-            |vpiParent:
-            \_operation: , line:855:47, endln:855:78
-            |vpiOpType:34
-            |vpiOperand:
-            \_constant: , line:855:49, endln:855:63
-              |vpiDecompile:32
-              |vpiSize:64
-              |INT:32
-              |vpiConstType:7
-            |vpiOperand:
-            \_operation: , line:855:63, endln:855:69
-              |vpiParent:
-              \_operation: , line:855:48, endln:855:70
-              |vpiOpType:33
-              |vpiOperand:
-              \_constant: , line:855:64, endln:855:68
-                |vpiParent:
-                \_operation: , line:855:63, endln:855:69
-                |vpiDecompile:1'b0
-                |vpiSize:1
-                |BIN:0
-                |vpiConstType:3
-          |vpiOperand:
-          \_constant: , line:855:72, endln:855:77
-            |vpiParent:
-            \_operation: , line:855:47, endln:855:78
-            |vpiDecompile:32'd3
-            |vpiSize:32
-            |DEC:3
-            |vpiConstType:1
+          |vpiConstType:3
         |vpiLhs:
         \_parameter: (work@top.i_ariane.ex_stage_i.ARIANE_MARCHID), line:855:30, endln:855:44
       |vpiParamAssign:
@@ -107713,57 +107250,20 @@ design: (work@top)
         |vpiParent:
         \_module_inst: work@ex_stage (work@top.i_ariane.ex_stage_i), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:2061:3, endln:2064:23
         |vpiRhs:
-        \_operation: , line:905:54, endln:916:71
+        \_constant: , line:905:54, endln:916:71
           |vpiParent:
           \_param_assign: , line:905:29, endln:916:71
-          |vpiOpType:29
-          |vpiOperand:
-          \_constant: , line:905:54, endln:914:73
+          |vpiDecompile:9223372049740587315
+          |vpiSize:64
+          |UINT:9223372049740587315
+          |vpiTypespec:
+          \_ref_typespec: (work@top.i_ariane.ex_stage_i)
             |vpiParent:
-            \_operation: , line:905:54, endln:916:71
-            |vpiDecompile:12885811507
-            |vpiSize:64
-            |UINT:12885811507
-            |vpiConstType:9
-          |vpiOperand:
-          \_operation: , line:916:54, endln:916:61
-            |vpiParent:
-            \_operation: , line:905:54, endln:916:71
-            |vpiOpType:33
-            |vpiReordered:1
-            |vpiOperand:
-            \_constant: , line:455:82, endln:455:94
-              |vpiParent:
-              \_operation: , line:916:54, endln:916:61
-              |vpiDecompile:31'h00000000
-              |vpiSize:31
-              |HEX:00000000
-              |vpiConstType:5
-            |vpiOperand:
-            \_operation: , line:455:70, endln:455:80
-              |vpiParent:
-              \_operation: , line:916:54, endln:916:61
-              |vpiOpType:4
-              |vpiOperand:
-              \_ref_obj: (work@top.i_ariane.ex_stage_i.IS_XLEN64), line:455:71, endln:455:80
-                |vpiParent:
-                \_operation: , line:455:70, endln:455:80
-                |vpiName:IS_XLEN64
-                |vpiFullName:work@top.i_ariane.ex_stage_i.IS_XLEN64
-            |vpiOperand:
-            \_constant: , line:455:56, endln:455:68
-              |vpiParent:
-              \_operation: , line:916:54, endln:916:61
-              |vpiDecompile:31'h00000000
-              |vpiSize:31
-              |HEX:00000000
-              |vpiConstType:5
-            |vpiOperand:
-            \_ref_obj: (work@top.i_ariane.ex_stage_i.IS_XLEN64), line:455:45, endln:455:54
-              |vpiParent:
-              \_operation: , line:916:54, endln:916:61
-              |vpiName:IS_XLEN64
-              |vpiFullName:work@top.i_ariane.ex_stage_i.IS_XLEN64
+            \_constant: , line:905:54, endln:916:71
+            |vpiFullName:work@top.i_ariane.ex_stage_i
+            |vpiActual:
+            \_logic_typespec: , line:905:16, endln:905:28
+          |vpiConstType:9
         |vpiLhs:
         \_parameter: (work@top.i_ariane.ex_stage_i.SMODE_STATUS_READ_MASK), line:905:29, endln:905:51
       |vpiParamAssign:
@@ -112429,6 +111929,7 @@ design: (work@top)
             \_parameter: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.ARIANE_MARCHID), line:855:30, endln:855:44
               |vpiParent:
               \_param_assign: , line:855:30, endln:855:78
+              |BIN:0000000000000000000000000000000000000000000000000000000000000011
               |vpiTypespec:
               \_ref_typespec: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.ARIANE_MARCHID)
                 |vpiParent:
@@ -113258,6 +112759,7 @@ design: (work@top)
             \_parameter: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.SMODE_STATUS_READ_MASK), line:905:29, endln:905:51
               |vpiParent:
               \_param_assign: , line:905:29, endln:916:71
+              |UINT:9223372049740587315
               |vpiTypespec:
               \_ref_typespec: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.SMODE_STATUS_READ_MASK)
                 |vpiParent:
@@ -114297,49 +113799,20 @@ design: (work@top)
               |vpiParent:
               \_module_inst: work@fpu_wrap (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:2035:13, endln:2050:15
               |vpiRhs:
-              \_operation: , line:855:47, endln:855:78
+              \_constant: , line:855:47, endln:855:78
                 |vpiParent:
                 \_param_assign: , line:855:30, endln:855:78
+                |vpiDecompile:64'b0000000000000000000000000000000000000000000000000000000000000011
+                |vpiSize:64
+                |BIN:0000000000000000000000000000000000000000000000000000000000000011
                 |vpiTypespec:
                 \_ref_typespec: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i)
                   |vpiParent:
-                  \_operation: , line:855:47, endln:855:78
+                  \_constant: , line:855:47, endln:855:78
                   |vpiFullName:work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i
                   |vpiActual:
                   \_logic_typespec: (xlen_t), line:30:13, endln:30:29
-                |vpiOpType:33
-                |vpiOperand:
-                \_operation: , line:855:48, endln:855:70
-                  |vpiParent:
-                  \_operation: , line:855:47, endln:855:78
-                  |vpiOpType:34
-                  |vpiOperand:
-                  \_constant: , line:855:49, endln:855:63
-                    |vpiDecompile:32
-                    |vpiSize:64
-                    |INT:32
-                    |vpiConstType:7
-                  |vpiOperand:
-                  \_operation: , line:855:63, endln:855:69
-                    |vpiParent:
-                    \_operation: , line:855:48, endln:855:70
-                    |vpiOpType:33
-                    |vpiOperand:
-                    \_constant: , line:855:64, endln:855:68
-                      |vpiParent:
-                      \_operation: , line:855:63, endln:855:69
-                      |vpiDecompile:1'b0
-                      |vpiSize:1
-                      |BIN:0
-                      |vpiConstType:3
-                |vpiOperand:
-                \_constant: , line:855:72, endln:855:77
-                  |vpiParent:
-                  \_operation: , line:855:47, endln:855:78
-                  |vpiDecompile:32'd3
-                  |vpiSize:32
-                  |DEC:3
-                  |vpiConstType:1
+                |vpiConstType:3
               |vpiLhs:
               \_parameter: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.ARIANE_MARCHID), line:855:30, endln:855:44
             |vpiParamAssign:
@@ -114636,57 +114109,20 @@ design: (work@top)
               |vpiParent:
               \_module_inst: work@fpu_wrap (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:2035:13, endln:2050:15
               |vpiRhs:
-              \_operation: , line:905:54, endln:916:71
+              \_constant: , line:905:54, endln:916:71
                 |vpiParent:
                 \_param_assign: , line:905:29, endln:916:71
-                |vpiOpType:29
-                |vpiOperand:
-                \_constant: , line:905:54, endln:914:73
+                |vpiDecompile:9223372049740587315
+                |vpiSize:64
+                |UINT:9223372049740587315
+                |vpiTypespec:
+                \_ref_typespec: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i)
                   |vpiParent:
-                  \_operation: , line:905:54, endln:916:71
-                  |vpiDecompile:12885811507
-                  |vpiSize:64
-                  |UINT:12885811507
-                  |vpiConstType:9
-                |vpiOperand:
-                \_operation: , line:916:54, endln:916:61
-                  |vpiParent:
-                  \_operation: , line:905:54, endln:916:71
-                  |vpiOpType:33
-                  |vpiReordered:1
-                  |vpiOperand:
-                  \_constant: , line:455:82, endln:455:94
-                    |vpiParent:
-                    \_operation: , line:916:54, endln:916:61
-                    |vpiDecompile:31'h00000000
-                    |vpiSize:31
-                    |HEX:00000000
-                    |vpiConstType:5
-                  |vpiOperand:
-                  \_operation: , line:455:70, endln:455:80
-                    |vpiParent:
-                    \_operation: , line:916:54, endln:916:61
-                    |vpiOpType:4
-                    |vpiOperand:
-                    \_ref_obj: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.IS_XLEN64), line:455:71, endln:455:80
-                      |vpiParent:
-                      \_operation: , line:455:70, endln:455:80
-                      |vpiName:IS_XLEN64
-                      |vpiFullName:work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.IS_XLEN64
-                  |vpiOperand:
-                  \_constant: , line:455:56, endln:455:68
-                    |vpiParent:
-                    \_operation: , line:916:54, endln:916:61
-                    |vpiDecompile:31'h00000000
-                    |vpiSize:31
-                    |HEX:00000000
-                    |vpiConstType:5
-                  |vpiOperand:
-                  \_ref_obj: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.IS_XLEN64), line:455:45, endln:455:54
-                    |vpiParent:
-                    \_operation: , line:916:54, endln:916:61
-                    |vpiName:IS_XLEN64
-                    |vpiFullName:work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.IS_XLEN64
+                  \_constant: , line:905:54, endln:916:71
+                  |vpiFullName:work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i
+                  |vpiActual:
+                  \_logic_typespec: , line:905:16, endln:905:28
+                |vpiConstType:9
               |vpiLhs:
               \_parameter: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.SMODE_STATUS_READ_MASK), line:905:29, endln:905:51
             |vpiParamAssign:
@@ -161767,9 +161203,32 @@ design: (work@top)
   \_ref_typespec: (work@ariane.XF8VEC)
   |vpiInstance:
   \_package: ariane_pkg (ariane_pkg::), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:674:1, endln:1483:11
-\_int_typespec: , line:15:5, endln:15:25
+\_logic_typespec: (xlen_t), line:30:13, endln:30:29
   |vpiParent:
   \_ref_typespec: (work@ariane)
+  |vpiName:xlen_t
+  |vpiInstance:
+  \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:1:1, endln:671:11
+  |vpiRange:
+  \_range: , line:30:19, endln:30:29
+    |vpiParent:
+    \_logic_typespec: (xlen_t), line:30:13, endln:30:29
+    |vpiLeftRange:
+    \_constant: , line:30:20, endln:30:24
+      |vpiParent:
+      \_range: , line:30:19, endln:30:29
+      |vpiDecompile:63
+      |vpiSize:64
+      |INT:63
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:30:27, endln:30:28
+      |vpiParent:
+      \_range: , line:30:19, endln:30:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 \_logic_typespec: (xlen_t), line:30:13, endln:30:29
   |vpiParent:
   \_ref_typespec: (work@ariane.ARIANE_MARCHID)
@@ -161940,6 +161399,31 @@ design: (work@top)
   \_ref_typespec: (work@ariane.ZERO_TVAL)
   |vpiInstance:
   \_package: ariane_pkg (ariane_pkg::), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:674:1, endln:1483:11
+\_logic_typespec: , line:905:16, endln:905:28
+  |vpiParent:
+  \_ref_typespec: (work@ariane)
+  |vpiInstance:
+  \_package: ariane_pkg (ariane_pkg::), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:674:1, endln:1483:11
+  |vpiRange:
+  \_range: , line:905:22, endln:905:28
+    |vpiParent:
+    \_logic_typespec: , line:905:16, endln:905:28
+    |vpiLeftRange:
+    \_constant: , line:905:23, endln:905:25
+      |vpiParent:
+      \_range: , line:905:22, endln:905:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:905:26, endln:905:27
+      |vpiParent:
+      \_range: , line:905:22, endln:905:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 \_logic_typespec: , line:905:16, endln:905:28
   |vpiParent:
   \_ref_typespec: (work@ariane.SMODE_STATUS_READ_MASK)
@@ -164297,9 +163781,32 @@ design: (work@top)
   \_ref_typespec: (work@ex_stage.XF8VEC)
   |vpiInstance:
   \_package: ariane_pkg (ariane_pkg::), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:674:1, endln:1483:11
-\_int_typespec: , line:15:5, endln:15:25
+\_logic_typespec: (xlen_t), line:30:13, endln:30:29
   |vpiParent:
   \_ref_typespec: (work@ex_stage)
+  |vpiName:xlen_t
+  |vpiInstance:
+  \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:1:1, endln:671:11
+  |vpiRange:
+  \_range: , line:30:19, endln:30:29
+    |vpiParent:
+    \_logic_typespec: (xlen_t), line:30:13, endln:30:29
+    |vpiLeftRange:
+    \_constant: , line:30:20, endln:30:24
+      |vpiParent:
+      \_range: , line:30:19, endln:30:29
+      |vpiDecompile:63
+      |vpiSize:64
+      |INT:63
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:30:27, endln:30:28
+      |vpiParent:
+      \_range: , line:30:19, endln:30:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 \_logic_typespec: (xlen_t), line:30:13, endln:30:29
   |vpiParent:
   \_ref_typespec: (work@ex_stage.ARIANE_MARCHID)
@@ -164470,6 +163977,31 @@ design: (work@top)
   \_ref_typespec: (work@ex_stage.ZERO_TVAL)
   |vpiInstance:
   \_package: ariane_pkg (ariane_pkg::), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:674:1, endln:1483:11
+\_logic_typespec: , line:905:16, endln:905:28
+  |vpiParent:
+  \_ref_typespec: (work@ex_stage)
+  |vpiInstance:
+  \_package: ariane_pkg (ariane_pkg::), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:674:1, endln:1483:11
+  |vpiRange:
+  \_range: , line:905:22, endln:905:28
+    |vpiParent:
+    \_logic_typespec: , line:905:16, endln:905:28
+    |vpiLeftRange:
+    \_constant: , line:905:23, endln:905:25
+      |vpiParent:
+      \_range: , line:905:22, endln:905:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:905:26, endln:905:27
+      |vpiParent:
+      \_range: , line:905:22, endln:905:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 \_logic_typespec: , line:905:16, endln:905:28
   |vpiParent:
   \_ref_typespec: (work@ex_stage.SMODE_STATUS_READ_MASK)
@@ -166898,9 +166430,32 @@ design: (work@top)
   \_ref_typespec: (work@fpu_wrap.XF8VEC)
   |vpiInstance:
   \_package: ariane_pkg (ariane_pkg::), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:674:1, endln:1483:11
-\_int_typespec: , line:15:5, endln:15:25
+\_logic_typespec: (xlen_t), line:30:13, endln:30:29
   |vpiParent:
   \_ref_typespec: (work@fpu_wrap)
+  |vpiName:xlen_t
+  |vpiInstance:
+  \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:1:1, endln:671:11
+  |vpiRange:
+  \_range: , line:30:19, endln:30:29
+    |vpiParent:
+    \_logic_typespec: (xlen_t), line:30:13, endln:30:29
+    |vpiLeftRange:
+    \_constant: , line:30:20, endln:30:24
+      |vpiParent:
+      \_range: , line:30:19, endln:30:29
+      |vpiDecompile:63
+      |vpiSize:64
+      |INT:63
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:30:27, endln:30:28
+      |vpiParent:
+      \_range: , line:30:19, endln:30:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 \_logic_typespec: (xlen_t), line:30:13, endln:30:29
   |vpiParent:
   \_ref_typespec: (work@fpu_wrap.ARIANE_MARCHID)
@@ -167071,6 +166626,31 @@ design: (work@top)
   \_ref_typespec: (work@fpu_wrap.ZERO_TVAL)
   |vpiInstance:
   \_package: ariane_pkg (ariane_pkg::), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:674:1, endln:1483:11
+\_logic_typespec: , line:905:16, endln:905:28
+  |vpiParent:
+  \_ref_typespec: (work@fpu_wrap)
+  |vpiInstance:
+  \_package: ariane_pkg (ariane_pkg::), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:674:1, endln:1483:11
+  |vpiRange:
+  \_range: , line:905:22, endln:905:28
+    |vpiParent:
+    \_logic_typespec: , line:905:16, endln:905:28
+    |vpiLeftRange:
+    \_constant: , line:905:23, endln:905:25
+      |vpiParent:
+      \_range: , line:905:22, endln:905:28
+      |vpiDecompile:63
+      |vpiSize:64
+      |UINT:63
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:905:26, endln:905:27
+      |vpiParent:
+      \_range: , line:905:22, endln:905:28
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
 \_logic_typespec: , line:905:16, endln:905:28
   |vpiParent:
   \_ref_typespec: (work@fpu_wrap.SMODE_STATUS_READ_MASK)
@@ -167393,32 +166973,6 @@ design: (work@top)
   |vpiParent:
   \_tagged_pattern: , line:2011:19, endln:2011:41
   |vpiName:PipeConfig
-\_logic_typespec: (xlen_t), line:30:13, endln:30:29
-  |vpiParent:
-  \_ref_typespec: (work@top.i_ariane)
-  |vpiName:xlen_t
-  |vpiInstance:
-  \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:1:1, endln:671:11
-  |vpiRange:
-  \_range: , line:30:19, endln:30:29
-    |vpiParent:
-    \_logic_typespec: (xlen_t), line:30:13, endln:30:29
-    |vpiLeftRange:
-    \_constant: , line:30:20, endln:30:24
-      |vpiParent:
-      \_range: , line:30:19, endln:30:29
-      |vpiDecompile:63
-      |vpiSize:64
-      |INT:63
-      |vpiConstType:7
-    |vpiRightRange:
-    \_constant: , line:30:27, endln:30:28
-      |vpiParent:
-      \_range: , line:30:19, endln:30:29
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
 \_operation: , line:706:51, endln:728:6
   |vpiParent:
   \_param_assign: , line:706:29, endln:728:6
@@ -168120,32 +167674,6 @@ design: (work@top)
   |vpiParent:
   \_ref_typespec: (work@top.i_ariane)
   |vpiName:dataaddr
-\_logic_typespec: (xlen_t), line:30:13, endln:30:29
-  |vpiParent:
-  \_ref_typespec: (work@top.i_ariane.ex_stage_i)
-  |vpiName:xlen_t
-  |vpiInstance:
-  \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:1:1, endln:671:11
-  |vpiRange:
-  \_range: , line:30:19, endln:30:29
-    |vpiParent:
-    \_logic_typespec: (xlen_t), line:30:13, endln:30:29
-    |vpiLeftRange:
-    \_constant: , line:30:20, endln:30:24
-      |vpiParent:
-      \_range: , line:30:19, endln:30:29
-      |vpiDecompile:63
-      |vpiSize:64
-      |INT:63
-      |vpiConstType:7
-    |vpiRightRange:
-    \_constant: , line:30:27, endln:30:28
-      |vpiParent:
-      \_range: , line:30:19, endln:30:29
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
 \_operation: , line:706:51, endln:728:6
   |vpiParent:
   \_param_assign: , line:706:29, endln:728:6
@@ -168847,88 +168375,6 @@ design: (work@top)
   |vpiParent:
   \_ref_typespec: (work@top.i_ariane.ex_stage_i)
   |vpiName:dataaddr
-\_operation: , line:855:47, endln:855:78
-  |vpiParent:
-  \_param_assign: , line:855:30, endln:855:78
-  |vpiTypespec:
-  \_ref_typespec: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i)
-    |vpiParent:
-    \_operation: , line:855:47, endln:855:78
-    |vpiFullName:work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i
-    |vpiActual:
-    \_logic_typespec: (xlen_t), line:30:13, endln:30:29
-  |vpiOpType:33
-  |vpiOperand:
-  \_operation: , line:855:48, endln:855:70
-    |vpiParent:
-    \_operation: , line:855:47, endln:855:78
-    |vpiOpType:34
-    |vpiOperand:
-    \_operation: , line:855:49, endln:855:63
-      |vpiParent:
-      \_operation: , line:855:48, endln:855:70
-      |vpiOpType:11
-      |vpiOperand:
-      \_constant: , line:855:49, endln:855:56
-        |vpiParent:
-        \_operation: , line:855:49, endln:855:63
-        |vpiDecompile:64
-        |vpiSize:32
-        |UINT:64
-        |vpiTypespec:
-        \_ref_typespec: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i)
-          |vpiParent:
-          \_constant: , line:855:49, endln:855:56
-          |vpiFullName:work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i
-          |vpiActual:
-          \_int_typespec: , line:15:5, endln:15:25
-        |vpiConstType:9
-      |vpiOperand:
-      \_constant: , line:855:61, endln:855:63
-        |vpiParent:
-        \_operation: , line:855:49, endln:855:63
-        |vpiDecompile:32
-        |vpiSize:64
-        |UINT:32
-        |vpiConstType:9
-    |vpiOperand:
-    \_operation: , line:855:63, endln:855:69
-      |vpiParent:
-      \_operation: , line:855:48, endln:855:70
-      |vpiOpType:33
-      |vpiOperand:
-      \_constant: , line:855:64, endln:855:68
-  |vpiOperand:
-  \_constant: , line:855:72, endln:855:77
-\_logic_typespec: (xlen_t), line:30:13, endln:30:29
-  |vpiParent:
-  \_ref_typespec: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i)
-  |vpiName:xlen_t
-  |vpiInstance:
-  \_package: riscv (riscv::), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:1:1, endln:671:11
-  |vpiRange:
-  \_range: , line:30:19, endln:30:29
-    |vpiParent:
-    \_logic_typespec: (xlen_t), line:30:13, endln:30:29
-    |vpiLeftRange:
-    \_constant: , line:30:20, endln:30:24
-      |vpiParent:
-      \_range: , line:30:19, endln:30:29
-      |vpiDecompile:63
-      |vpiSize:64
-      |INT:63
-      |vpiConstType:7
-    |vpiRightRange:
-    \_constant: , line:30:27, endln:30:28
-      |vpiParent:
-      \_range: , line:30:19, endln:30:29
-      |vpiDecompile:0
-      |vpiSize:64
-      |UINT:0
-      |vpiConstType:9
-\_int_typespec: , line:15:5, endln:15:25
-  |vpiParent:
-  \_ref_typespec: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i)
 \_param_assign: , line:682:16, endln:682:31
   |vpiParent:
   \_module_inst: work@fpu_wrap (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:2035:13, endln:2050:15
@@ -169890,7 +169336,7 @@ design: (work@top)
   |vpiParent:
   \_module_inst: work@fpu_wrap (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:2035:13, endln:2050:15
   |vpiRhs:
-  \_operation: , line:855:47, endln:855:78
+  \_constant: , line:855:47, endln:855:78
   |vpiLhs:
   \_parameter: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.ARIANE_MARCHID), line:855:30, endln:855:44
 \_param_assign: , line:857:30, endln:867:86
@@ -169996,44 +169442,11 @@ design: (work@top)
   \_constant: , line:902:32, endln:902:36
   |vpiLhs:
   \_parameter: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.ZERO_TVAL), line:902:20, endln:902:29
-\_operation: , line:905:54, endln:916:71
-  |vpiParent:
-  \_param_assign: , line:905:29, endln:916:71
-  |vpiOpType:29
-  |vpiOperand:
-  \_constant: , line:905:54, endln:914:73
-  |vpiOperand:
-  \_operation: , line:916:54, endln:916:61
-    |vpiParent:
-    \_operation: , line:905:54, endln:916:71
-    |vpiOpType:33
-    |vpiReordered:1
-    |vpiOperand:
-    \_constant: , line:455:82, endln:455:94
-    |vpiOperand:
-    \_operation: , line:455:70, endln:455:80
-      |vpiParent:
-      \_operation: , line:916:54, endln:916:61
-      |vpiOpType:4
-      |vpiOperand:
-      \_ref_obj: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.IS_XLEN64), line:455:71, endln:455:80
-        |vpiParent:
-        \_operation: , line:455:70, endln:455:80
-        |vpiName:IS_XLEN64
-        |vpiFullName:work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.IS_XLEN64
-    |vpiOperand:
-    \_constant: , line:455:56, endln:455:68
-    |vpiOperand:
-    \_ref_obj: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.IS_XLEN64), line:455:45, endln:455:54
-      |vpiParent:
-      \_operation: , line:916:54, endln:916:61
-      |vpiName:IS_XLEN64
-      |vpiFullName:work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.IS_XLEN64
 \_param_assign: , line:905:29, endln:916:71
   |vpiParent:
   \_module_inst: work@fpu_wrap (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i), file:${SURELOG_DIR}/tests/ArianeElab/dut.sv, line:2035:13, endln:2050:15
   |vpiRhs:
-  \_operation: , line:905:54, endln:916:71
+  \_constant: , line:905:54, endln:916:71
   |vpiLhs:
   \_parameter: (work@top.i_ariane.ex_stage_i.fpu_gen.fpu_i.SMODE_STATUS_READ_MASK), line:905:29, endln:905:51
 \_param_assign: , line:918:29, endln:923:73
