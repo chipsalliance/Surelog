@@ -1676,6 +1676,32 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
           UHDM::typespec* ts =
               compileTypespec(component, fC, Data_type, compileDesign,
                               Reduce::No, parent, nullptr, false);
+          // Compile the declaration the way the ANSI body path does
+          // (compileStmt -> compileDataDeclaration): it keeps the unpacked
+          // dimension written after the name, so `reg [63:0] tbl [0:3];`
+          // is an array_var.  Building each local from its data type alone
+          // dropped that dimension and left a 64-bit logic_var.
+          // (no scope is passed: compileDataDeclaration would register the
+          // variables on it, and compileFunction installs this function's
+          // list from the vector returned here.)
+          std::map<std::string, variables*> declared;
+          if (VectorOfany* decls = compileDataDeclaration(
+                  component, fC, fC->Child(Data_declaration), compileDesign,
+                  Reduce::No, nullptr, nullptr)) {
+            for (any* st : *decls) {
+              variables* var = nullptr;
+              if (assignment* as = any_cast<assignment*>(st)) {
+                var = any_cast<variables*>(as->Lhs());
+                // The declaration wrapper is not a statement of this
+                // function (its initializer, if any, was never executed on
+                // this path): drop it rather than leave an orphan.
+                s.Erase(as);
+              } else {
+                var = any_cast<variables*>(st);
+              }
+              if (var) declared.emplace(std::string(var->VpiName()), var);
+            }
+          }
           NodeId List_of_variable_decl_assignments = fC->Sibling(Data_type);
           NodeId Variable_decl_assignment =
               fC->Child(List_of_variable_decl_assignments);
@@ -1684,12 +1710,14 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
             const std::string_view name = fC->SymName(nameId);
             std::map<std::string, io_decl*>::iterator itr = ioMap.find(name);
             if (itr == ioMap.end()) {
-              if (variables* var = (variables*)compileVariable(
-                      component, fC, Data_type, compileDesign, Reduce::No,
-                      parent, nullptr, false)) {
-                var->VpiAutomatic(!is_static);
+              variables* var = nullptr;
+              auto dit = declared.find(std::string(name));
+              if (dit != declared.end()) {
+                var = dit->second;
+              } else if ((var = (variables*)compileVariable(
+                              component, fC, Data_type, compileDesign,
+                              Reduce::No, parent, nullptr, false))) {
                 var->VpiName(name);
-                vars->push_back(var);
                 if (ts != nullptr) {
                   if (var->Typespec() == nullptr) {
                     ref_typespec* tsRef = s.MakeRef_typespec();
@@ -1698,6 +1726,11 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
                   }
                   var->Typespec()->Actual_typespec(ts);
                 }
+              }
+              if (var) {
+                var->VpiAutomatic(!is_static);
+                var->VpiParent(parent);
+                vars->push_back(var);
               }
             } else if (ts != nullptr) {
               if (itr->second->Typespec() == nullptr) {
