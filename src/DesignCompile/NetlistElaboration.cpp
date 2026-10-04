@@ -703,8 +703,41 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
         const any* rhs = inst_assign->Rhs();
         if (rhs && rhs->UhdmType() == uhdmconstant) {
           constant* c = (constant*)rhs;
-          m_helper.adjustSize(tps, instance->getDefinition(), m_compileDesign,
-                              instance, c);
+          // An UNTYPED parameter (`parameter LFSR_POLY = 31'h10000001`,
+          // no data type, no range) takes the type and size of its final
+          // value (LRM 6.20.2): overridden with a SIZED literal
+          // (`.LFSR_POLY(58'h8000000001)`), the override's size is the
+          // parameter's size.  Resizing the constant to the DEFAULT's
+          // typespec (31 bits) dropped bit 39 of verilog-ethernet's
+          // 10G scrambler polynomial.  Only a sized literal is trusted:
+          // an unsized override keeps the historical adjustment.
+          int32_t litSize = 0;
+          if (inst_assign->VpiOverriden()) {
+            if (Parameter* p = mod->getParameter(paramName)) {
+              if (!p->getNodeType()) {
+                const std::string_view dec = c->VpiDecompile();
+                size_t q = dec.find('\'');
+                if (q != std::string_view::npos && q > 0) {
+                  int32_t n = 0;
+                  bool digits = true;
+                  for (size_t i = 0; i < q; i++) {
+                    if (dec[i] < '0' || dec[i] > '9') {
+                      digits = false;
+                      break;
+                    }
+                    n = n * 10 + (dec[i] - '0');
+                  }
+                  if (digits && n > 0) litSize = n;
+                }
+              }
+            }
+          }
+          if (litSize > 0) {
+            c->VpiSize(litSize);
+          } else {
+            m_helper.adjustSize(tps, instance->getDefinition(), m_compileDesign,
+                                instance, c);
+          }
         }
       }
     }
