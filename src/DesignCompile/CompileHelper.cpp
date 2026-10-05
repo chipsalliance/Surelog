@@ -201,6 +201,12 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
       if (!object_name.empty()) {
         if (param.first != object_name) continue;
       }
+      // A parameter the scope declares ITSELF is not shadowed by the import
+      // (LRM 26.3); the reverse order (import first) is resolved in
+      // DesignComponent::insertParameter.
+      if (Parameter* local = scope->getParameter(param.first);
+          local && local->importedPackage().empty())
+        continue;
       Parameter* orig = param.second;
       Parameter* clone = new Parameter(*orig);
       clone->setImportedPackage(pack_name);
@@ -244,6 +250,12 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
       if (!object_name.empty()) {
         UHDM::param_assign* pass = orig->getUhdmParamAssign();
         if (pass->Lhs()->VpiName() != object_name) continue;
+      }
+      if (const UHDM::param_assign* pass = orig->getUhdmParamAssign();
+          pass && pass->Lhs()) {
+        if (Parameter* local = scope->getParameter(pass->Lhs()->VpiName());
+            local && local->importedPackage().empty())
+          continue;
       }
       ParamAssign* clone = new ParamAssign(*orig);
       scope->addParamAssign(clone);

@@ -155,6 +155,7 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   const ParameterMap& getParameterMap() const { return m_parameterMap; }
   Parameter* getParameter(std::string_view name) const;
   void insertParameter(Parameter* p);
+  void dropImportedUhdmParameter(std::string_view name);
   const ParameterVec& getOrderedParameters() const {
     return m_orderedParameters;
   }
