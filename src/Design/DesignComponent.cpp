@@ -23,6 +23,10 @@
  * Created on March 25, 2018, 10:27 PM
  */
 
+#include <uhdm/param_assign.h>
+#include <uhdm/parameter.h>
+#include <uhdm/type_parameter.h>
+
 #include <algorithm>
 #include <string_view>
 #include <utility>
@@ -39,10 +43,6 @@
 #include "Surelog/SourceCompile/VObjectTypes.h"
 #include "Surelog/Testbench/TypeDef.h"
 #include "Surelog/Testbench/Variable.h"
-
-#include <uhdm/param_assign.h>
-#include <uhdm/parameter.h>
-#include <uhdm/type_parameter.h>
 
 namespace SURELOG {
 void DesignComponent::addFileContent(const FileContent* fileContent,
@@ -232,10 +232,9 @@ void DesignComponent::insertParameter(Parameter* p) {
     Parameter* prev = itr->second;
     if (!prev->importedPackage().empty() && p->importedPackage().empty()) {
       itr->second = p;
-      m_orderedParameters.erase(
-          std::remove(m_orderedParameters.begin(), m_orderedParameters.end(),
-                      prev),
-          m_orderedParameters.end());
+      m_orderedParameters.erase(std::remove(m_orderedParameters.begin(),
+                                            m_orderedParameters.end(), prev),
+                                m_orderedParameters.end());
       dropImportedUhdmParameter(p->getName());
     }
   } else {
