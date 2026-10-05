@@ -23,6 +23,7 @@
  * Created on March 25, 2018, 10:27 PM
  */
 
+#include <algorithm>
 #include <string_view>
 #include <utility>
 #include <vector>
@@ -38,6 +39,10 @@
 #include "Surelog/SourceCompile/VObjectTypes.h"
 #include "Surelog/Testbench/TypeDef.h"
 #include "Surelog/Testbench/Variable.h"
+
+#include <uhdm/param_assign.h>
+#include <uhdm/parameter.h>
+#include <uhdm/type_parameter.h>
 
 namespace SURELOG {
 void DesignComponent::addFileContent(const FileContent* fileContent,
@@ -213,8 +218,57 @@ Parameter* DesignComponent::getParameter(std::string_view name) const {
 }
 
 void DesignComponent::insertParameter(Parameter* p) {
-  m_parameterMap.emplace(p->getName(), p);
+  // LRM 26.3: a declaration local to the scope takes precedence over a name
+  // made visible by a wildcard import.  `module m import pkg::*; #(parameter
+  // T CoproInstr [N] = ...)` compiles the import BEFORE the parameter port
+  // list, so a clone of the package's unrelated `CoproInstr` is already in
+  // the map; `emplace` kept it, and every later lookup of the local
+  // parameter (its typespec, its range) landed on the package's parameter --
+  // the module's table was laid out with the package element's width and
+  // count (CVA6 compressed_instr_decoder: 73-bit copro_issue_resp_t x 10 for
+  // a 65-bit copro_compressed_resp_t x 2, every decode miss).
+  ParameterMap::iterator itr = m_parameterMap.find(p->getName());
+  if (itr != m_parameterMap.end()) {
+    Parameter* prev = itr->second;
+    if (!prev->importedPackage().empty() && p->importedPackage().empty()) {
+      itr->second = p;
+      m_orderedParameters.erase(
+          std::remove(m_orderedParameters.begin(), m_orderedParameters.end(),
+                      prev),
+          m_orderedParameters.end());
+      dropImportedUhdmParameter(p->getName());
+    }
+  } else {
+    m_parameterMap.emplace(p->getName(), p);
+  }
   m_orderedParameters.push_back(p);
+}
+
+// Remove the UHDM nodes an earlier `import pkg::*` cloned into this scope for
+// a parameter the scope now declares itself (see insertParameter).
+void DesignComponent::dropImportedUhdmParameter(std::string_view name) {
+  if (std::vector<UHDM::any*>* params = getParameters()) {
+    for (auto it = params->begin(); it != params->end();) {
+      bool imported = false;
+      if ((*it)->VpiName() == name) {
+        if ((*it)->UhdmType() == UHDM::uhdmparameter)
+          imported = !((UHDM::parameter*)*it)->VpiImported().empty();
+        else if ((*it)->UhdmType() == UHDM::uhdmtype_parameter)
+          imported = !((UHDM::type_parameter*)*it)->VpiImported().empty();
+      }
+      it = imported ? params->erase(it) : it + 1;
+    }
+  }
+  if (std::vector<UHDM::param_assign*>* assigns = getParam_assigns()) {
+    for (auto it = assigns->begin(); it != assigns->end();) {
+      bool imported = false;
+      const UHDM::any* lhs = (*it)->Lhs();
+      if (lhs && lhs->VpiName() == name &&
+          lhs->UhdmType() == UHDM::uhdmparameter)
+        imported = !((const UHDM::parameter*)lhs)->VpiImported().empty();
+      it = imported ? assigns->erase(it) : it + 1;
+    }
+  }
 }
 
 void DesignComponent::insertLetStmt(std::string_view name, LetStmt* decl) {
