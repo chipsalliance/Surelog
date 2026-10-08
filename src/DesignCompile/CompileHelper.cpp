@@ -903,6 +903,33 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
           }
         } else {
           value = m_exprBuilder.evalExpr(fC, enumValueId, scope);
+          // ExprBuilder has no size-cast (`(W+1)'('d4)`, even `3'('d2)`)
+          // and forcing the invalid result valid published 0 for every such
+          // member: SCR1's scr1_dm type_scr1_abs_err_e ABS_ERR_CMD /
+          // ABS_ERR_NOHALT / ABS_ERR_EXCEPTION all read as ABS_ERR_NONE.
+          // Reduce the compiled expression instead when the evaluator gave
+          // up.
+          if (!value->isValid()) {
+            if (any* red =
+                    compileExpression(scope, fC, enumValueId, compileDesign,
+                                      Reduce::Yes, pstmt, nullptr)) {
+              if (red->UhdmType() == uhdmconstant) {
+                constant* c = (constant*)red;
+                if (!c->VpiValue().empty()) {
+                  if (Value* v2 = m_exprBuilder.fromVpiValue(c->VpiValue(),
+                                                             c->VpiSize())) {
+                    if (v2->isValid()) {
+                      value = v2;
+                      bool invalidValue = false;
+                      UHDM::ExprEval eval;
+                      int64_t v = eval.get_value(invalidValue, c);
+                      if (!invalidValue) val = v;
+                    }
+                  }
+                }
+              }
+            }
+          }
           value->setValid();
         }
       }

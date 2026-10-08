@@ -1356,6 +1356,27 @@ UHDM::typespec* CompileHelper::compileTypespec(
         Value* value = nullptr;
         if (enumValueId) {
           value = m_exprBuilder.evalExpr(fC, enumValueId, component);
+          // ExprBuilder has no size-cast (`(W+1)'('d4)`, even `3'('d2)`);
+          // forcing its invalid result valid published 0 for every such
+          // member (SCR1 scr1_dm's type_scr1_abs_err_e).  Reduce the
+          // compiled expression instead when the evaluator gave up; the
+          // econst-level fallback below still covers values wider than the
+          // 64-bit Value.
+          if (!value->isValid()) {
+            if (any* red =
+                    compileExpression(component, fC, enumValueId, compileDesign,
+                                      Reduce::Yes, pstmt, nullptr)) {
+              if (red->UhdmType() == uhdmconstant) {
+                constant* c = (constant*)red;
+                if (!c->VpiValue().empty()) {
+                  if (Value* v2 = m_exprBuilder.fromVpiValue(c->VpiValue(),
+                                                             c->VpiSize())) {
+                    if (v2->isValid()) value = v2;
+                  }
+                }
+              }
+            }
+          }
           value->setValid();
         } else {
           value = m_exprBuilder.getValueFactory().newLValue();
