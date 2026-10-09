@@ -4691,9 +4691,23 @@ std::vector<UHDM::range *> *CompileHelper::compileRanges(
         }
         if (rexp && (rexp->UhdmType() == uhdmref_obj) &&
             (reduce == Reduce::Yes)) {
-          if (typespec *assoc_tps =
-                  compileTypespec(component, fC, rexpr, compileDesign, reduce,
-                                  nullptr, instance, true)) {
+          // A dimension written `[ name ]` whose name did not reduce to a
+          // value is an ASSOCIATIVE array only if the name is a TYPE.  A
+          // $unit localparam declared in ANOTHER file is not visible to the
+          // reduce at this point, and treating that name as a key type turned
+          // `input logic x [W]` into an associative array with no size at all
+          // (RSD: SourceCAM's `dispatchedSrcRegNum
+          // [DISPATCH_WIDTH][SRC_OP_NUM]` with DISPATCH_WIDTH from
+          // BasicTypes.sv -- the consumer read the "associative" marker's bytes
+          // as the element count).  An unknown name compiles to an
+          // unsupported_typespec, which is not a type: leave the dimension as
+          // the expression, to be resolved at elaboration like every other
+          // parameter reference.
+          typespec *assoc_tps =
+              compileTypespec(component, fC, rexpr, compileDesign, reduce,
+                              nullptr, instance, true);
+          if (assoc_tps &&
+              (assoc_tps->UhdmType() != uhdmunsupported_typespec)) {
             associativeArray = true;
             UHDM::range *range = s.MakeRange();
 
