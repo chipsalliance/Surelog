@@ -2227,6 +2227,16 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
                                VObjectType::slNoType, unpackedDimension, false);
         s->setStatic();
         s->setTypespecId(if_type_name_s);
+        // The name is either an interface or a TYPEDEF -- which one is only
+        // known at elaboration (bindPortType_).  A typedef under a grouped
+        // direction keyword may carry a packed dimension of its own
+        // (`RISCV_ISF_Common [DECODE_WIDTH-1:0] isf,` in RSD's
+        // DecodedBranchResolver); dropping it here elaborated the port as
+        // ONE element (32 bits instead of 64).  Keep it on the port; an
+        // interface never has one.
+        NodeId typedefPacked = fC->Sibling(if_type_name_s);
+        if (fC->Type(typedefPacked) == VObjectType::paPacked_dimension)
+          s->setPackedDimension(typedefPacked);
         component->getPorts().push_back(s);
         // DO NOT create signals for interfaces:
         // component->getSignals().push_back(signal);
