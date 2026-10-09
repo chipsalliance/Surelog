@@ -538,7 +538,7 @@ event_control                                          3
 func_call                                              2
 if_else                                                1
 logic_net                                             19
-logic_typespec                                         9
+logic_typespec                                        11
 logic_var                                              8
 module_inst                                            2
 operation                                             22
@@ -548,7 +548,7 @@ property_decl                                          2
 property_inst                                          2
 property_spec                                          6
 ref_obj                                               52
-ref_typespec                                          21
+ref_typespec                                          35
 sequence_inst                                          2
 === UHDM Object Stats End ===
 [INF:UH0707] Elaborating UHDM...
@@ -565,7 +565,7 @@ event_control                                          5
 func_call                                              2
 if_else                                                2
 logic_net                                             19
-logic_typespec                                         9
+logic_typespec                                        11
 logic_var                                              8
 module_inst                                            2
 operation                                             43
@@ -575,7 +575,7 @@ property_decl                                          4
 property_inst                                          4
 property_spec                                         12
 ref_obj                                               90
-ref_typespec                                          33
+ref_typespec                                          54
 sequence_inst                                          4
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/SequenceInst/slpp_all/surelog.uhdm ...
@@ -814,6 +814,13 @@ design: (work@m)
               \_logic_net: (work@m.z), line:13:41, endln:13:42
   |vpiDefName:work@m
   |vpiNet:
+  \_logic_net: (work@m.a), line:1:16, endln:1:17
+    |vpiParent:
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/SequenceInst/dut.sv, line:1:1, endln:30:10
+    |vpiName:a
+    |vpiFullName:work@m.a
+    |vpiNetType:36
+  |vpiNet:
   \_logic_net: (work@m.b), line:1:19, endln:1:20
     |vpiParent:
     \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/SequenceInst/dut.sv, line:1:1, endln:30:10
@@ -868,13 +875,6 @@ design: (work@m)
       \_logic_typespec: , line:3:3, endln:3:8
     |vpiName:rst
     |vpiFullName:work@m.rst
-    |vpiNetType:36
-  |vpiNet:
-  \_logic_net: (work@m.a), line:1:16, endln:1:17
-    |vpiParent:
-    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/SequenceInst/dut.sv, line:1:1, endln:30:10
-    |vpiName:a
-    |vpiFullName:work@m.a
     |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@m.clk), line:9:5, endln:9:9
@@ -1204,6 +1204,13 @@ design: (work@m)
       |vpiFullName:work@m.a.a
       |vpiActual:
       \_logic_net: (work@m.a), line:1:16, endln:1:17
+    |vpiTypedef:
+    \_ref_typespec: (work@m.a)
+      |vpiParent:
+      \_port: (a), line:1:16, endln:1:17
+      |vpiFullName:work@m.a
+      |vpiActual:
+      \_logic_typespec: , line:1:10, endln:1:15
   |vpiPort:
   \_port: (b), line:1:19, endln:1:20
     |vpiParent:
@@ -1218,6 +1225,13 @@ design: (work@m)
       |vpiFullName:work@m.b.b
       |vpiActual:
       \_logic_net: (work@m.b), line:1:19, endln:1:20
+    |vpiTypedef:
+    \_ref_typespec: (work@m.b)
+      |vpiParent:
+      \_port: (b), line:1:19, endln:1:20
+      |vpiFullName:work@m.b
+      |vpiActual:
+      \_logic_typespec: , line:1:10, endln:1:15
   |vpiPort:
   \_port: (c), line:1:22, endln:1:23
     |vpiParent:
@@ -1232,6 +1246,13 @@ design: (work@m)
       |vpiFullName:work@m.c.c
       |vpiActual:
       \_logic_net: (work@m.c), line:1:22, endln:1:23
+    |vpiTypedef:
+    \_ref_typespec: (work@m.c)
+      |vpiParent:
+      \_port: (c), line:1:22, endln:1:23
+      |vpiFullName:work@m.c
+      |vpiActual:
+      \_logic_typespec: , line:1:10, endln:1:15
   |vpiPort:
   \_port: (d), line:1:25, endln:1:26
     |vpiParent:
@@ -1246,6 +1267,13 @@ design: (work@m)
       |vpiFullName:work@m.d.d
       |vpiActual:
       \_logic_net: (work@m.d), line:1:25, endln:1:26
+    |vpiTypedef:
+    \_ref_typespec: (work@m.d)
+      |vpiParent:
+      \_port: (d), line:1:25, endln:1:26
+      |vpiFullName:work@m.d
+      |vpiActual:
+      \_logic_typespec: , line:1:10, endln:1:15
   |vpiPort:
   \_port: (rst1), line:1:28, endln:1:32
     |vpiParent:
@@ -1260,6 +1288,13 @@ design: (work@m)
       |vpiFullName:work@m.rst1.rst1
       |vpiActual:
       \_logic_net: (work@m.rst1), line:1:28, endln:1:32
+    |vpiTypedef:
+    \_ref_typespec: (work@m.rst1)
+      |vpiParent:
+      \_port: (rst1), line:1:28, endln:1:32
+      |vpiFullName:work@m.rst1
+      |vpiActual:
+      \_logic_typespec: , line:1:10, endln:1:15
   |vpiPort:
   \_port: (clk1), line:1:34, endln:1:38
     |vpiParent:
@@ -1274,6 +1309,13 @@ design: (work@m)
       |vpiFullName:work@m.clk1.clk1
       |vpiActual:
       \_logic_net: (work@m.clk1), line:1:34, endln:1:38
+    |vpiTypedef:
+    \_ref_typespec: (work@m.clk1)
+      |vpiParent:
+      \_port: (clk1), line:1:34, endln:1:38
+      |vpiFullName:work@m.clk1
+      |vpiActual:
+      \_logic_typespec: , line:1:10, endln:1:15
   |vpiPort:
   \_port: (clk2), line:1:40, endln:1:44
     |vpiParent:
@@ -1288,6 +1330,13 @@ design: (work@m)
       |vpiFullName:work@m.clk2.clk2
       |vpiActual:
       \_logic_net: (work@m.clk2), line:1:40, endln:1:44
+    |vpiTypedef:
+    \_ref_typespec: (work@m.clk2)
+      |vpiParent:
+      \_port: (clk2), line:1:40, endln:1:44
+      |vpiFullName:work@m.clk2
+      |vpiActual:
+      \_logic_typespec: , line:1:10, endln:1:15
   |vpiProcess:
   \_always: , line:20:3, endln:26:6
     |vpiParent:
@@ -1672,6 +1721,20 @@ design: (work@m)
               |vpiActual:
               \_logic_net: (work@m.z), line:13:41, endln:13:42
   |vpiVariables:
+  \_logic_var: (work@m.a), line:1:16, endln:1:17
+    |vpiParent:
+    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/SequenceInst/dut.sv, line:1:1, endln:30:10
+    |vpiTypespec:
+    \_ref_typespec: (work@m.a)
+      |vpiParent:
+      \_logic_var: (work@m.a), line:1:16, endln:1:17
+      |vpiFullName:work@m.a
+      |vpiActual:
+      \_logic_typespec: , line:1:10, endln:1:15
+    |vpiName:a
+    |vpiFullName:work@m.a
+    |vpiVisibility:1
+  |vpiVariables:
   \_logic_var: (work@m.b), line:1:19, endln:1:20
     |vpiParent:
     \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/SequenceInst/dut.sv, line:1:1, endln:30:10
@@ -1681,7 +1744,7 @@ design: (work@m)
       \_logic_var: (work@m.b), line:1:19, endln:1:20
       |vpiFullName:work@m.b
       |vpiActual:
-      \_logic_typespec: , line:1:19, endln:1:20
+      \_logic_typespec: , line:1:10, endln:1:15
     |vpiName:b
     |vpiFullName:work@m.b
     |vpiVisibility:1
@@ -1695,7 +1758,7 @@ design: (work@m)
       \_logic_var: (work@m.c), line:1:22, endln:1:23
       |vpiFullName:work@m.c
       |vpiActual:
-      \_logic_typespec: , line:1:22, endln:1:23
+      \_logic_typespec: , line:1:10, endln:1:15
     |vpiName:c
     |vpiFullName:work@m.c
     |vpiVisibility:1
@@ -1709,7 +1772,7 @@ design: (work@m)
       \_logic_var: (work@m.d), line:1:25, endln:1:26
       |vpiFullName:work@m.d
       |vpiActual:
-      \_logic_typespec: , line:1:25, endln:1:26
+      \_logic_typespec: , line:1:10, endln:1:15
     |vpiName:d
     |vpiFullName:work@m.d
     |vpiVisibility:1
@@ -1723,7 +1786,7 @@ design: (work@m)
       \_logic_var: (work@m.rst1), line:1:28, endln:1:32
       |vpiFullName:work@m.rst1
       |vpiActual:
-      \_logic_typespec: , line:1:28, endln:1:32
+      \_logic_typespec: , line:1:10, endln:1:15
     |vpiName:rst1
     |vpiFullName:work@m.rst1
     |vpiVisibility:1
@@ -1737,7 +1800,7 @@ design: (work@m)
       \_logic_var: (work@m.clk1), line:1:34, endln:1:38
       |vpiFullName:work@m.clk1
       |vpiActual:
-      \_logic_typespec: , line:1:34, endln:1:38
+      \_logic_typespec: , line:1:10, endln:1:15
     |vpiName:clk1
     |vpiFullName:work@m.clk1
     |vpiVisibility:1
@@ -1751,7 +1814,7 @@ design: (work@m)
       \_logic_var: (work@m.clk2), line:1:40, endln:1:44
       |vpiFullName:work@m.clk2
       |vpiActual:
-      \_logic_typespec: , line:1:40, endln:1:44
+      \_logic_typespec: , line:1:10, endln:1:15
     |vpiName:clk2
     |vpiFullName:work@m.clk2
     |vpiVisibility:1
@@ -1768,20 +1831,6 @@ design: (work@m)
       \_logic_typespec: , line:3:3, endln:3:8
     |vpiName:rst
     |vpiFullName:work@m.rst
-    |vpiVisibility:1
-  |vpiVariables:
-  \_logic_var: (work@m.a), line:1:16, endln:1:17
-    |vpiParent:
-    \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/SequenceInst/dut.sv, line:1:1, endln:30:10
-    |vpiTypespec:
-    \_ref_typespec: (work@m.a)
-      |vpiParent:
-      \_logic_var: (work@m.a), line:1:16, endln:1:17
-      |vpiFullName:work@m.a
-      |vpiActual:
-      \_logic_typespec: , line:1:16, endln:1:17
-    |vpiName:a
-    |vpiFullName:work@m.a
     |vpiVisibility:1
   |vpiDefName:work@m
   |vpiTop:1
@@ -2033,6 +2082,13 @@ design: (work@m)
       |vpiFullName:work@m.a
       |vpiActual:
       \_logic_var: (work@m.a), line:1:16, endln:1:17
+    |vpiTypedef:
+    \_ref_typespec: (work@m.a)
+      |vpiParent:
+      \_port: (a), line:1:16, endln:1:17
+      |vpiFullName:work@m.a
+      |vpiActual:
+      \_logic_typespec: , line:1:10, endln:1:15
     |vpiInstance:
     \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/SequenceInst/dut.sv, line:1:1, endln:30:10
   |vpiPort:
@@ -2049,6 +2105,13 @@ design: (work@m)
       |vpiFullName:work@m.b
       |vpiActual:
       \_logic_var: (work@m.b), line:1:19, endln:1:20
+    |vpiTypedef:
+    \_ref_typespec: (work@m.b)
+      |vpiParent:
+      \_port: (b), line:1:19, endln:1:20
+      |vpiFullName:work@m.b
+      |vpiActual:
+      \_logic_typespec: , line:1:10, endln:1:15
     |vpiInstance:
     \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/SequenceInst/dut.sv, line:1:1, endln:30:10
   |vpiPort:
@@ -2065,6 +2128,13 @@ design: (work@m)
       |vpiFullName:work@m.c
       |vpiActual:
       \_logic_var: (work@m.c), line:1:22, endln:1:23
+    |vpiTypedef:
+    \_ref_typespec: (work@m.c)
+      |vpiParent:
+      \_port: (c), line:1:22, endln:1:23
+      |vpiFullName:work@m.c
+      |vpiActual:
+      \_logic_typespec: , line:1:10, endln:1:15
     |vpiInstance:
     \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/SequenceInst/dut.sv, line:1:1, endln:30:10
   |vpiPort:
@@ -2081,6 +2151,13 @@ design: (work@m)
       |vpiFullName:work@m.d
       |vpiActual:
       \_logic_var: (work@m.d), line:1:25, endln:1:26
+    |vpiTypedef:
+    \_ref_typespec: (work@m.d)
+      |vpiParent:
+      \_port: (d), line:1:25, endln:1:26
+      |vpiFullName:work@m.d
+      |vpiActual:
+      \_logic_typespec: , line:1:10, endln:1:15
     |vpiInstance:
     \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/SequenceInst/dut.sv, line:1:1, endln:30:10
   |vpiPort:
@@ -2097,6 +2174,13 @@ design: (work@m)
       |vpiFullName:work@m.rst1
       |vpiActual:
       \_logic_var: (work@m.rst1), line:1:28, endln:1:32
+    |vpiTypedef:
+    \_ref_typespec: (work@m.rst1)
+      |vpiParent:
+      \_port: (rst1), line:1:28, endln:1:32
+      |vpiFullName:work@m.rst1
+      |vpiActual:
+      \_logic_typespec: , line:1:10, endln:1:15
     |vpiInstance:
     \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/SequenceInst/dut.sv, line:1:1, endln:30:10
   |vpiPort:
@@ -2113,6 +2197,13 @@ design: (work@m)
       |vpiFullName:work@m.clk1
       |vpiActual:
       \_logic_var: (work@m.clk1), line:1:34, endln:1:38
+    |vpiTypedef:
+    \_ref_typespec: (work@m.clk1)
+      |vpiParent:
+      \_port: (clk1), line:1:34, endln:1:38
+      |vpiFullName:work@m.clk1
+      |vpiActual:
+      \_logic_typespec: , line:1:10, endln:1:15
     |vpiInstance:
     \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/SequenceInst/dut.sv, line:1:1, endln:30:10
   |vpiPort:
@@ -2129,6 +2220,13 @@ design: (work@m)
       |vpiFullName:work@m.clk2
       |vpiActual:
       \_logic_var: (work@m.clk2), line:1:40, endln:1:44
+    |vpiTypedef:
+    \_ref_typespec: (work@m.clk2)
+      |vpiParent:
+      \_port: (clk2), line:1:40, endln:1:44
+      |vpiFullName:work@m.clk2
+      |vpiActual:
+      \_logic_typespec: , line:1:10, endln:1:15
     |vpiInstance:
     \_module_inst: work@m (work@m), file:${SURELOG_DIR}/tests/SequenceInst/dut.sv, line:1:1, endln:30:10
   |vpiProcess:
@@ -2238,16 +2336,20 @@ design: (work@m)
                   |vpiName:p_triggers
     |vpiAlwaysType:1
 \_weaklyReferenced:
-\_logic_typespec: , line:1:19, endln:1:20
-\_logic_typespec: , line:1:22, endln:1:23
-\_logic_typespec: , line:1:25, endln:1:26
-\_logic_typespec: , line:1:28, endln:1:32
-\_logic_typespec: , line:1:34, endln:1:38
-\_logic_typespec: , line:1:40, endln:1:44
+\_logic_typespec: , line:1:10, endln:1:15
+\_logic_typespec: , line:1:10, endln:1:15
+  |vpiParent:
+  \_logic_var: (work@m.clk2), line:1:40, endln:1:44
 \_logic_typespec: , line:3:3, endln:3:8
   |vpiParent:
   \_logic_var: (work@m.rst), line:3:9, endln:3:12
-\_logic_typespec: , line:1:16, endln:1:17
+\_logic_typespec: , line:1:10, endln:1:15
+\_logic_typespec: , line:1:10, endln:1:15
+\_logic_typespec: , line:1:10, endln:1:15
+\_logic_typespec: , line:1:10, endln:1:15
+\_logic_typespec: , line:1:10, endln:1:15
+\_logic_typespec: , line:1:10, endln:1:15
+\_logic_typespec: , line:1:10, endln:1:15
 \_logic_typespec: , line:3:3, endln:3:8
 ===================
 [  FATAL] : 0

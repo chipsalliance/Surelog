@@ -138,15 +138,14 @@ import_typespec                                        1
 interface_inst                                         2
 interface_typespec                                     6
 io_decl                                                2
-logic_net                                              6
-logic_typespec                                         7
-logic_var                                              1
+logic_net                                              7
+logic_typespec                                         8
 modport                                                2
 module_inst                                            3
 package                                                2
 port                                                   6
 ref_obj                                                9
-ref_typespec                                          11
+ref_typespec                                          12
 struct_net                                             1
 struct_typespec                                        2
 typespec_member                                        4
@@ -161,15 +160,14 @@ import_typespec                                        1
 interface_inst                                         2
 interface_typespec                                     6
 io_decl                                                2
-logic_net                                              6
-logic_typespec                                         7
-logic_var                                              1
+logic_net                                              7
+logic_typespec                                         8
 modport                                                2
 module_inst                                            3
 package                                                2
 port                                                   7
 ref_obj                                               13
-ref_typespec                                          12
+ref_typespec                                          13
 struct_net                                             1
 struct_typespec                                        2
 typespec_member                                        4
@@ -297,6 +295,13 @@ design: (work@BypassNetwork)
     |vpiFullName:work@ControllerIF.clk
     |vpiNetType:36
   |vpiNet:
+  \_logic_net: (work@ControllerIF.rst), line:15:14, endln:15:17
+    |vpiParent:
+    \_interface_inst: work@ControllerIF (work@ControllerIF), file:${SURELOG_DIR}/tests/InterfBinding/dut.sv, line:12:1, endln:25:13
+    |vpiName:rst
+    |vpiFullName:work@ControllerIF.rst
+    |vpiNetType:36
+  |vpiNet:
   \_logic_net: (work@ControllerIF.backEnd), line:18:21, endln:18:28
     |vpiParent:
     \_interface_inst: work@ControllerIF (work@ControllerIF), file:${SURELOG_DIR}/tests/InterfBinding/dut.sv, line:12:1, endln:25:13
@@ -309,13 +314,6 @@ design: (work@BypassNetwork)
       \_struct_typespec: (pack::PipelineControll), line:2:9, endln:6:2
     |vpiName:backEnd
     |vpiFullName:work@ControllerIF.backEnd
-  |vpiNet:
-  \_logic_net: (work@ControllerIF.rst), line:15:14, endln:15:17
-    |vpiParent:
-    \_interface_inst: work@ControllerIF (work@ControllerIF), file:${SURELOG_DIR}/tests/InterfBinding/dut.sv, line:12:1, endln:25:13
-    |vpiName:rst
-    |vpiFullName:work@ControllerIF.rst
-    |vpiNetType:36
   |vpiModport:
   \_modport: (BypassNetwork), line:20:12, endln:20:25
     |vpiParent:
@@ -465,20 +463,6 @@ design: (work@BypassNetwork)
     \_module_inst: work@BypassNetwork (work@BypassNetwork), file:${SURELOG_DIR}/tests/InterfBinding/dut.sv, line:29:1, endln:36:10
     |vpiName:ctrl
     |vpiFullName:work@BypassNetwork.ctrl
-    |vpiVariables:
-    \_logic_var: (work@BypassNetwork.ctrl.rst), line:15:14, endln:15:17
-      |vpiParent:
-      \_interface_inst: work@ControllerIF (work@BypassNetwork.ctrl), file:${SURELOG_DIR}/tests/InterfBinding/dut.sv, line:29:0
-      |vpiTypespec:
-      \_ref_typespec: (work@BypassNetwork.ctrl.rst)
-        |vpiParent:
-        \_logic_var: (work@BypassNetwork.ctrl.rst), line:15:14, endln:15:17
-        |vpiFullName:work@BypassNetwork.ctrl.rst
-        |vpiActual:
-        \_logic_typespec: , line:15:14, endln:15:17
-      |vpiName:rst
-      |vpiFullName:work@BypassNetwork.ctrl.rst
-      |vpiVisibility:1
     |vpiDefName:work@ControllerIF
     |vpiModport:
     \_modport: (BypassNetwork), line:20:12, endln:20:25
@@ -540,7 +524,14 @@ design: (work@BypassNetwork)
         |vpiName:rst
         |vpiFullName:work@BypassNetwork.ctrl.rst
         |vpiActual:
-        \_logic_var: (work@BypassNetwork.ctrl.rst), line:15:14, endln:15:17
+        \_logic_net: (rst), line:15:14, endln:15:17
+      |vpiTypedef:
+      \_ref_typespec: (work@BypassNetwork.ctrl.rst)
+        |vpiParent:
+        \_port: (rst), line:15:14, endln:15:17
+        |vpiFullName:work@BypassNetwork.ctrl.rst
+        |vpiActual:
+        \_logic_typespec: , line:15:8, endln:15:13
   |vpiContAssign:
   \_cont_assign: , line:33:9, endln:33:25
     |vpiParent:
@@ -602,6 +593,7 @@ design: (work@BypassNetwork)
 \_interface_typespec: (ControllerIF), line:30:5, endln:30:17
   |vpiName:ControllerIF
 \_logic_typespec: , line:14:8, endln:14:13
+\_logic_typespec: , line:15:8, endln:15:13
 \_logic_net: (clk), line:14:14, endln:14:17
   |vpiTypespec:
   \_ref_typespec: (clk)
@@ -615,7 +607,19 @@ design: (work@BypassNetwork)
 \_logic_typespec: , line:14:8, endln:14:13
   |vpiParent:
   \_logic_net: (clk), line:14:14, endln:14:17
-\_logic_typespec: , line:15:14, endln:15:17
+\_logic_net: (rst), line:15:14, endln:15:17
+  |vpiTypespec:
+  \_ref_typespec: (rst)
+    |vpiParent:
+    \_logic_net: (rst), line:15:14, endln:15:17
+    |vpiFullName:rst
+    |vpiActual:
+    \_logic_typespec: , line:15:8, endln:15:13
+  |vpiName:rst
+  |vpiNetType:36
+\_logic_typespec: , line:15:8, endln:15:13
+  |vpiParent:
+  \_logic_net: (rst), line:15:14, endln:15:17
 \_interface_typespec: (BypassNetwork), line:30:18, endln:30:31
   |vpiParent:
   \_interface_typespec: (ControllerIF), line:30:5, endln:30:17
