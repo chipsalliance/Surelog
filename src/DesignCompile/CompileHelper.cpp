@@ -2059,12 +2059,45 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
   NodeId identifier = fC->Sibling(net_port_header);
   NodeId net_port_type = fC->Child(net_port_header);
   VObjectType dir_type = fC->Type(net_port_type);
-  if (dir_type == VObjectType::paPortDir_Out ||
-      dir_type == VObjectType::paPortDir_Inp ||
-      dir_type == VObjectType::paPortDir_Inout ||
-      dir_type == VObjectType::paPortDir_Ref) {
-    port_direction = dir_type;
-    net_port_type = fC->Sibling(net_port_type);
+  const bool has_dir = (dir_type == VObjectType::paPortDir_Out ||
+                        dir_type == VObjectType::paPortDir_Inp ||
+                        dir_type == VObjectType::paPortDir_Inout ||
+                        dir_type == VObjectType::paPortDir_Ref);
+  // A port of a GROUPED ANSI list -- the direction keyword written once for
+  // several typed declarations:
+  //
+  //     input
+  //         logic [3:0] a,
+  //         logic [3:0] b,     // no PortDir node of its own
+  //         logic [N-1:0] c,
+  //
+  // reaches this function without a PortDir child.  Only `a` went through the
+  // directed path below; `b` and `c` fell into the last branch, which was
+  // written for interface ports and creates a Signal with NO packed dimension
+  // and no entry in the component's signals -- so they elaborated as 1-bit
+  // nets with no typespec at all (RSD's CircularRangePicker: `request` 1 bit
+  // instead of 16, `tailPtr` 1 instead of 4, in 12 of its modules).  A
+  // declaration that carries its own vector data type is handled exactly like
+  // the directed one, with the direction inherited from the group.
+  bool typed_no_dir = false;
+  if (!has_dir &&
+      fC->Type(net_port_header) != VObjectType::paInterface_port_header) {
+    NodeId dtoi = fC->Child(net_port_type);
+    if (fC->Type(dtoi) == VObjectType::paData_type_or_implicit) {
+      NodeId dt = fC->Child(dtoi);
+      if (fC->Type(dt) == VObjectType::paData_type) {
+        VObjectType t = fC->Type(fC->Child(dt));
+        typed_no_dir = (t == VObjectType::paIntVec_TypeReg ||
+                        t == VObjectType::paIntVec_TypeLogic ||
+                        t == VObjectType::paIntVec_TypeBit);
+      }
+    }
+  }
+  if (has_dir || typed_no_dir) {
+    if (has_dir) {
+      port_direction = dir_type;
+      net_port_type = fC->Sibling(net_port_type);
+    }
     NodeId NetType = fC->Child(net_port_type);
     if (fC->Type(NetType) == VObjectType::paData_type_or_implicit) {
       NodeId Data_type = fC->Child(NetType);
@@ -2177,6 +2210,9 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
       NodeId unpackedDimension = fC->Sibling(identifier);
       if (fC->Type(unpackedDimension) != VObjectType::paUnpacked_dimension)
         unpackedDimension = InvalidNodeId;
+      // A module port with a vector data type and no direction keyword of its
+      // own is a grouped ANSI declaration and took the directed path above;
+      // what reaches here is an interface port header.
       if (fC->Type(if_type_name_s) == VObjectType::paIntVec_TypeReg ||
           fC->Type(if_type_name_s) == VObjectType::paIntVec_TypeLogic) {
         Signal* signal =
