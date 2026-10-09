@@ -123,38 +123,38 @@ AST_DEBUG_END
 [INF:UH0706] Creating UHDM Model...
 === UHDM Object Stats Begin (Non-Elaborated Model) ===
 begin                                                  1
-constant                                              17
+constant                                              19
 design                                                 1
 gen_if                                                 1
 gen_scope                                              2
 gen_scope_array                                        2
-int_typespec                                           7
-module_inst                                            6
-operation                                              5
-param_assign                                           6
-parameter                                              6
-range                                                  2
-ref_module                                             2
-ref_obj                                                4
-ref_typespec                                          11
-=== UHDM Object Stats End ===
-[INF:UH0707] Elaborating UHDM...
-=== UHDM Object Stats Begin (Elaborated Model) ===
-begin                                                  1
-constant                                              17
-design                                                 1
-gen_if                                                 1
-gen_scope                                              3
-gen_scope_array                                        3
-int_typespec                                           7
+int_typespec                                           9
 module_inst                                            7
 operation                                              5
 param_assign                                           6
 parameter                                              6
-range                                                  2
+range                                                  3
 ref_module                                             2
-ref_obj                                                4
-ref_typespec                                          11
+ref_obj                                                3
+ref_typespec                                          14
+=== UHDM Object Stats End ===
+[INF:UH0707] Elaborating UHDM...
+=== UHDM Object Stats Begin (Elaborated Model) ===
+begin                                                  1
+constant                                              19
+design                                                 1
+gen_if                                                 1
+gen_scope                                              3
+gen_scope_array                                        3
+int_typespec                                           9
+module_inst                                            8
+operation                                              5
+param_assign                                           6
+parameter                                              6
+range                                                  3
+ref_module                                             2
+ref_obj                                                3
+ref_typespec                                          14
 === UHDM Object Stats End ===
 [INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/FileLocalParam/slpp_all/surelog.uhdm ...
 [INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/FileLocalParam/slpp_all/checker/surelog.chk.html ...
@@ -319,6 +319,13 @@ design: (work@top)
       |vpiDecompile:17'b00000000000000000000000000010000
       |vpiSize:17
       |BIN:00000000000000000000000000010000
+      |vpiTypespec:
+      \_ref_typespec: (work@top)
+        |vpiParent:
+        \_constant: , line:13:16, endln:13:19
+        |vpiFullName:work@top
+        |vpiActual:
+        \_int_typespec: , line:3:12, endln:3:22
       |vpiConstType:3
     |vpiLhs:
     \_parameter: (work@top.D), line:13:13, endln:13:14
@@ -380,6 +387,51 @@ design: (work@top)
 \_int_typespec: , line:1:1, endln:1:58
   |vpiParent:
   \_ref_typespec: (MAP)
+\_int_typespec: , line:3:12, endln:3:22
+  |vpiParent:
+  \_ref_typespec: 
+  |vpiRange:
+  \_range: , line:3:12, endln:3:22
+    |vpiParent:
+    \_int_typespec: , line:3:12, endln:3:22
+    |vpiLeftRange:
+    \_constant: , line:3:13, endln:3:19
+      |vpiParent:
+      \_range: , line:3:12, endln:3:22
+      |vpiDecompile:16
+      |vpiSize:32
+      |UINT:16
+      |vpiTypespec:
+      \_ref_typespec: 
+        |vpiParent:
+        \_constant: , line:3:13, endln:3:19
+        |vpiActual:
+        \_int_typespec: , line:1:1, endln:1:58
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:20, endln:3:21
+      |vpiParent:
+      \_range: , line:3:12, endln:3:22
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_ref_typespec: 
+  |vpiParent:
+  \_constant: , line:13:16, endln:13:19
+  |vpiActual:
+  \_int_typespec: , line:3:12, endln:3:22
+\_constant: , line:13:16, endln:13:19
+  |vpiParent:
+  \_param_assign: , line:3:23, endln:5:48
+  |vpiSize:17
+  |BIN:00000000000000000000000000010000
+  |vpiTypespec:
+  \_ref_typespec: 
+  |vpiConstType:3
+\_int_typespec: , line:1:1, endln:1:58
+  |vpiParent:
+  \_ref_typespec: 
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

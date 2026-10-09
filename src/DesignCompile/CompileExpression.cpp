@@ -3503,6 +3503,42 @@ UHDM::any *CompileHelper::compileExpression(
                 }
               }
             }
+            // A $unit localparam declared in ANOTHER file: the compilation
+            // unit is shared, so the name is visible everywhere, but neither
+            // the instance, the component nor a package owns it.  When the
+            // caller needs a VALUE (a generate-for bound, `for (genvar gi =
+            // 0; gi < FETCH_WIDTH; gi++)` with FETCH_WIDTH at file scope in
+            // RSD's BasicTypes.sv) the lookup below handed back a ref_obj,
+            // the comparison had no value and the loop elaborated to ZERO
+            // scopes, silently.  Same last resort as compileTypespec's
+            // typedef lookup: scan every file's own parameter assignments.
+            if ((result == nullptr) && (reduce == Reduce::Yes) &&
+                !compileDesign->getCompiler()
+                     ->getCommandLineParser()
+                     ->fileunit()) {
+              Design *design = compileDesign->getCompiler()->getDesign();
+              for (const auto &file : design->getAllFileContents()) {
+                FileContent *fileC = file.second;
+                if (fileC == nullptr || fileC == component) continue;
+                UHDM::VectorOfparam_assign *fparams = fileC->getParam_assigns();
+                if (fparams == nullptr) continue;
+                for (param_assign *param_ass : *fparams) {
+                  if (param_ass == nullptr || param_ass->Lhs() == nullptr)
+                    continue;
+                  if (param_ass->Lhs()->VpiName() != name) continue;
+                  if (substituteAssignedValue(param_ass->Rhs(),
+                                              compileDesign)) {
+                    ElaboratorContext elaboratorContext(&s, false, true);
+                    result =
+                        UHDM::clone_tree(param_ass->Rhs(), &elaboratorContext);
+                    result->VpiParent(param_ass);
+                    fC->populateCoreMembers(child, child, result);
+                  }
+                  break;
+                }
+                if (result) break;
+              }
+            }
             if (result == nullptr) {
               UHDM::ref_obj *ref = s.MakeRef_obj();
               ref->VpiName(name);
