@@ -1576,7 +1576,8 @@ std::pair<std::vector<UHDM::io_decl*>*, std::vector<UHDM::variables*>*>
 CompileHelper::compileTfPortDecl(DesignComponent* component,
                                  UHDM::task_func* parent, const FileContent* fC,
                                  NodeId tf_item_decl,
-                                 CompileDesign* compileDesign) {
+                                 CompileDesign* compileDesign,
+                                 std::vector<UHDM::any*>* inits) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   std::vector<io_decl*>* ios = parent->Io_decls();
   if (ios == nullptr) ios = s.MakeIo_declVec();
@@ -1692,10 +1693,20 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
               variables* var = nullptr;
               if (assignment* as = any_cast<assignment*>(st)) {
                 var = any_cast<variables*>(as->Lhs());
-                // The declaration wrapper is not a statement of this
-                // function (its initializer, if any, was never executed on
-                // this path): drop it rather than leave an orphan.
-                s.Erase(as);
+                // The declaration wrapper carries the initializer.  Dropping
+                // it here meant `reg [5:0] th12 = div < 1 ? 6 : ...;` after a
+                // non-ANSI `input [3:0] div;` never ran: RSD's FP32DivSqrter
+                // SRT table read an undriven th12 and every quotient digit
+                // was wrong.  Hand it to the caller to run before the body
+                // (the ANSI path gets the same statement from compileStmt);
+                // without a collector it stays dropped as before.
+                // Never Erase it: its right-hand expression tree keeps
+                // VpiParent pointers into the freed object, and the writer's
+                // lateBinding walk over every ref_obj crashed on them (three
+                // such functions in one module, upstream since #4204).  A
+                // caller without a collector keeps it reachable as an
+                // orphan whose parents stay valid.
+                if (inits && as->Rhs() != nullptr) inits->push_back(as);
               } else {
                 var = any_cast<variables*>(st);
               }
@@ -1748,6 +1759,41 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
     tf_item_decl = fC->Sibling(tf_item_decl);
   }
   return results;
+}
+
+void CompileHelper::prependTfLocalInits(UHDM::task_func* tf,
+                                        std::vector<UHDM::any*>& inits,
+                                        CompileDesign* compileDesign) {
+  if (inits.empty()) return;
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  begin* body = nullptr;
+  if (tf->Stmt() && tf->Stmt()->UhdmType() == uhdmbegin) {
+    body = (begin*)tf->Stmt();
+    if (body->Stmts() == nullptr) body->Stmts(s.MakeAnyVec());
+  } else {
+    body = s.MakeBegin();
+    body->VpiParent(tf);
+    body->Stmts(s.MakeAnyVec());
+    if (any* st = tf->Stmt()) {
+      if (st->VpiFile().empty() == false) body->VpiFile(st->VpiFile());
+      body->VpiLineNo(st->VpiLineNo());
+      body->VpiColumnNo(st->VpiColumnNo());
+      body->VpiEndLineNo(st->VpiEndLineNo());
+      body->VpiEndColumnNo(st->VpiEndColumnNo());
+      st->VpiParent(body);
+      body->Stmts()->push_back(st);
+    } else if (!inits.empty()) {
+      any* first = inits.front();
+      body->VpiFile(first->VpiFile());
+      body->VpiLineNo(first->VpiLineNo());
+      body->VpiColumnNo(first->VpiColumnNo());
+    }
+    tf->Stmt(body);
+  }
+  VectorOfany* stmts = body->Stmts();
+  for (any* init : inits) init->VpiParent(body);
+  stmts->insert(stmts->begin(), inits.begin(), inits.end());
+  inits.clear();
 }
 
 std::vector<io_decl*>* CompileHelper::compileTfPortList(
@@ -2042,6 +2088,7 @@ bool CompileHelper::compileTask(DesignComponent* component,
   fC->populateCoreMembers(nodeId, task_decl, task);
   NodeId Tf_port_list = fC->Sibling(task_name);
   NodeId Statement_or_null;
+  std::vector<UHDM::any*> tf_inits;
   if (fC->Type(Tf_port_list) == VObjectType::paTf_port_list) {
     Statement_or_null = fC->Sibling(Tf_port_list);
     task->Io_decls(
@@ -2050,7 +2097,8 @@ bool CompileHelper::compileTask(DesignComponent* component,
     NodeId Block_item_declaration = fC->Child(Tf_port_list);
     if (fC->Type(Block_item_declaration) !=
         VObjectType::paBlock_item_declaration) {
-      compileTfPortDecl(component, task, fC, Tf_port_list, compileDesign);
+      compileTfPortDecl(component, task, fC, Tf_port_list, compileDesign,
+                        &tf_inits);
       while (fC->Type(Tf_port_list) == VObjectType::paTf_item_declaration) {
         NodeId Tf_port_declaration = fC->Child(Tf_port_list);
         if (fC->Type(Tf_port_declaration) ==
@@ -2093,8 +2141,8 @@ bool CompileHelper::compileTask(DesignComponent* component,
         break;
       if (fC->Type(fC->Child(Statement_or_null)) ==
           VObjectType::paTf_port_declaration) {
-        compileTfPortDecl(component, task, fC, Statement_or_null,
-                          compileDesign);
+        compileTfPortDecl(component, task, fC, Statement_or_null, compileDesign,
+                          &tf_inits);
         while (fC->Type(Statement_or_null) ==
                VObjectType::paTf_item_declaration) {
           NodeId Tf_port_declaration = fC->Child(Statement_or_null);
@@ -2198,6 +2246,7 @@ bool CompileHelper::compileTask(DesignComponent* component,
       }
     }
   }
+  prependTfLocalInits(task, tf_inits, compileDesign);
   return true;
 }
 
@@ -2457,13 +2506,14 @@ bool CompileHelper::compileFunction(DesignComponent* component,
   }
 
   NodeId Function_statement_or_null = Tf_port_list;
+  std::vector<UHDM::any*> tf_inits;
   if (fC->Type(Tf_port_list) == VObjectType::paTf_port_list) {
     func->Io_decls(
         compileTfPortList(component, func, fC, Tf_port_list, compileDesign));
     Function_statement_or_null = fC->Sibling(Tf_port_list);
   } else if (fC->Type(Tf_port_list) == VObjectType::paTf_item_declaration) {
-    auto results =
-        compileTfPortDecl(component, func, fC, Tf_port_list, compileDesign);
+    auto results = compileTfPortDecl(component, func, fC, Tf_port_list,
+                                     compileDesign, &tf_inits);
     func->Io_decls(results.first);
     func->Variables(results.second);
     while (fC->Type(Tf_port_list) == VObjectType::paTf_item_declaration) {
@@ -2614,6 +2664,7 @@ bool CompileHelper::compileFunction(DesignComponent* component,
       }
     }
   }
+  prependTfLocalInits(func, tf_inits, compileDesign);
   return true;
 }
 
@@ -2651,9 +2702,11 @@ Task* CompileHelper::compileTaskPrototype(DesignComponent* scope,
     task->Io_decls(
         compileTfPortList(scope, task, fC, Tf_port_list, compileDesign));
   } else if (fC->Type(Tf_port_list) == VObjectType::paTf_item_declaration) {
-    auto results =
-        compileTfPortDecl(scope, task, fC, Tf_port_list, compileDesign);
+    std::vector<UHDM::any*> tf_inits;
+    auto results = compileTfPortDecl(scope, task, fC, Tf_port_list,
+                                     compileDesign, &tf_inits);
     task->Io_decls(results.first);
+    prependTfLocalInits(task, tf_inits, compileDesign);
   }
 
   Task* result = new Task(scope, fC, id, taskName);
@@ -2743,9 +2796,11 @@ Function* CompileHelper::compileFunctionPrototype(
     func->Io_decls(
         compileTfPortList(scope, func, fC, Tf_port_list, compileDesign));
   } else if (fC->Type(Tf_port_list) == VObjectType::paTf_item_declaration) {
-    auto results =
-        compileTfPortDecl(scope, func, fC, Tf_port_list, compileDesign);
+    std::vector<UHDM::any*> tf_inits;
+    auto results = compileTfPortDecl(scope, func, fC, Tf_port_list,
+                                     compileDesign, &tf_inits);
     func->Io_decls(results.first);
+    prependTfLocalInits(func, tf_inits, compileDesign);
   }
 
   DataType* returnType = new DataType();

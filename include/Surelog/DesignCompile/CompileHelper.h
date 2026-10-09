@@ -246,10 +246,20 @@ class CompileHelper final {
                                                  NodeId id,
                                                  CompileDesign* compileDesign);
 
+  // `inits`, when given, receives the initializer assignments of the
+  // function-local declarations met on the non-ANSI path (`reg [5:0] th =
+  // expr;` after `input [3:0] div;`), to be prepended to the body by the
+  // caller -- see prependTfLocalInits.
   std::pair<std::vector<UHDM::io_decl*>*, std::vector<UHDM::variables*>*>
   compileTfPortDecl(DesignComponent* scope, UHDM::task_func* parent,
                     const FileContent* fC, NodeId id,
-                    CompileDesign* compileDesign);
+                    CompileDesign* compileDesign,
+                    std::vector<UHDM::any*>* inits = nullptr);
+  // Run the collected local initializers before the body: inserted at the
+  // front of the body `begin`, or wrapped with a single statement in a new
+  // one.  The ANSI port-list path gets the same statements from compileStmt.
+  void prependTfLocalInits(UHDM::task_func* tf, std::vector<UHDM::any*>& inits,
+                           CompileDesign* compileDesign);
 
   UHDM::atomic_stmt* compileCaseStmt(DesignComponent* component,
                                      const FileContent* fC, NodeId nodeId,
