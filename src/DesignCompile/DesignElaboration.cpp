@@ -2535,8 +2535,19 @@ std::vector<std::string_view> DesignElaboration::collectParams_(
             // read is invalid.  Retry reduced and keep the result when it
             // folds all the way to a constant (fpnew's per-opgroup pipeline
             // register localparams).
+            // The same holds for a CONSTANT-FUNCTION CALL: `localparam bit
+            // [N-1:0][15:0] SUB_N_LIST = get_sub_n_list(N);` (rggen's
+            // or_reducer) stayed a func_call, fell through to the legacy
+            // ExprBuilder::evalExpr -- which cannot run a user function and
+            // answered INT:0 -- and the instance's parameter was stored as
+            // UINT:1.  Every `SUB_N_LIST[i] == 2` then compared 1 == 2, the
+            // reducer took its ELSE arm with no OR at all, and rggen_mux
+            // dropped every entry but the first (19 of 64 input vectors wrong;
+            // block_0 / block_1 / uart_csr diverged with it).  It hid behind
+            // the default N = 1, where the else arm IS the right one.
             if (isMultidimension && expr &&
-                (expr->UhdmType() == UHDM::uhdmhier_path)) {
+                ((expr->UhdmType() == UHDM::uhdmhier_path) ||
+                 (expr->UhdmType() == UHDM::uhdmfunc_call))) {
               m_helper.checkForLoops(true);
               UHDM::expr* rexpr = (UHDM::expr*)m_helper.compileExpression(
                   instance->getDefinition(), param.fC, exprId, m_compileDesign,
