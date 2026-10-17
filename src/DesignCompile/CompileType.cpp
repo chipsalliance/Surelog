@@ -2237,6 +2237,29 @@ UHDM::typespec* CompileHelper::compileTypespec(
       result = tps;
       break;
     }
+    case VObjectType::paVar_data_type: {
+      // `var_data_type: data_type | var_type data_type_or_implicit` -- a port
+      // or variable declared with the `var` keyword and a packed range:
+      //   input var [UP_PORT_WIDTH-1:0] i_up;      (rggen_bit_field_counter)
+      // The node carries the `var` keyword as its first child and the type
+      // (possibly implicit) after it.  Without a case it fell to the default
+      // "Unsupported data type" error and the port had no typespec; the bare
+      // `input var i_clk` form never reached here, which is why it worked.
+      NodeId child = fC->Child(type);
+      while (child && fC->Type(child) == VObjectType::paVar_type)
+        child = fC->Sibling(child);
+      if (child) {
+        // isVariable: `var [W-1:0]` is a VARIABLE with an implicit type, so
+        // a bare packed dimension is `logic [W-1:0]` (6.8), not the
+        // parameter-implicit `int` the Packed_dimension case otherwise picks.
+        return compileTypespec(component, fC, child, compileDesign, reduce,
+                               result, instance, true);
+      }
+      logic_typespec* tps = s.MakeLogic_typespec();
+      fC->populateCoreMembers(type, type, tps);
+      result = tps;
+      break;
+    }
     case VObjectType::paImplicit_data_type: {
       // Interconnect
       logic_typespec* tps = s.MakeLogic_typespec();
