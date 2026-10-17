@@ -1,0 +1,4634 @@
+[INF:CM0023] Creating log file "${SURELOG_DIR}/build/regression/IfaceMemberSelectActual/slpp_unit/surelog.log".
+[INF:CM0020] Separate compilation-unit mode is on.
+[WRN:PA0205] ${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv:5:1: No timescale set for "flit_if".
+[WRN:PA0205] ${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv:13:1: No timescale set for "fifo".
+[WRN:PA0205] ${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv:27:1: No timescale set for "dut".
+[INF:CP0300] Compilation...
+[INF:CP0303] ${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv:27:1: Compile module "work@dut".
+[INF:CP0303] ${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv:13:1: Compile module "work@fifo".
+[INF:CP0304] ${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv:5:1: Compile interface "work@flit_if".
+[INF:EL0526] Design Elaboration...
+[INF:CP0335] ${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv:33:41: Compile generate block "work@dut.g[0]".
+[INF:CP0335] ${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv:33:41: Compile generate block "work@dut.g[1]".
+[NTE:EL0503] ${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv:27:1: Top level module "work@dut".
+[NTE:EL0508] Nb Top level modules: 1.
+[NTE:EL0509] Max instance depth: 3.
+[NTE:EL0510] Nb instances: 3.
+[NTE:EL0511] Nb leaf instances: 0.
+[INF:UH0706] Creating UHDM Model...
+=== UHDM Object Stats Begin (Non-Elaborated Model) ===
+always                                                 1
+array_net                                              1
+array_typespec                                         2
+array_var                                              2
+assignment                                             6
+begin                                                  2
+bit_select                                            44
+constant                                             170
+cont_assign                                            8
+design                                                 1
+event_control                                          1
+gen_for                                                1
+gen_scope                                              4
+gen_scope_array                                        4
+hier_path                                             36
+if_else                                                2
+if_stmt                                                1
+int_typespec                                          41
+int_var                                                1
+interface_inst                                         3
+interface_typespec                                    12
+io_decl                                               12
+logic_net                                             32
+logic_typespec                                        46
+logic_var                                              7
+modport                                                4
+module_inst                                           10
+named_begin                                            1
+operation                                             47
+param_assign                                          11
+parameter                                              9
+port                                                  50
+range                                                 35
+ref_module                                             3
+ref_obj                                              130
+ref_typespec                                         114
+=== UHDM Object Stats End ===
+[INF:UH0707] Elaborating UHDM...
+=== UHDM Object Stats Begin (Elaborated Model) ===
+always                                                 7
+array_net                                              1
+array_typespec                                         2
+array_var                                              2
+assignment                                            36
+begin                                                 14
+bit_select                                            80
+constant                                             176
+cont_assign                                           12
+design                                                 1
+event_control                                          7
+gen_for                                                1
+gen_scope                                              6
+gen_scope_array                                        6
+hier_path                                             64
+if_else                                               14
+if_stmt                                                7
+int_typespec                                          41
+int_var                                                1
+interface_inst                                         3
+interface_typespec                                    12
+io_decl                                               12
+logic_net                                             32
+logic_typespec                                        46
+logic_var                                              7
+modport                                                4
+module_inst                                           12
+named_begin                                            1
+operation                                             73
+param_assign                                          13
+parameter                                              9
+port                                                  96
+range                                                 35
+ref_module                                             3
+ref_obj                                              312
+ref_typespec                                         166
+=== UHDM Object Stats End ===
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/IfaceMemberSelectActual/slpp_unit/surelog.uhdm ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/IfaceMemberSelectActual/slpp_unit/checker/surelog.chk.html ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/IfaceMemberSelectActual/slpp_unit/surelog.uhdm ...
+[INF:UH0711] Decompiling UHDM...
+====== UHDM =======
+design: (work@dut)
+|vpiElaborated:1
+|vpiName:work@dut
+|uhdmallInterfaces:
+\_interface_inst: work@flit_if (work@flit_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:5:1, endln:11:13
+  |vpiParent:
+  \_design: (work@dut)
+  |vpiFullName:work@flit_if
+  |vpiParameter:
+  \_parameter: (work@flit_if.CHANNELS), line:5:35, endln:5:43
+    |vpiParent:
+    \_interface_inst: work@flit_if (work@flit_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:5:1, endln:11:13
+    |UINT:2
+    |vpiTypespec:
+    \_ref_typespec: (work@flit_if.CHANNELS)
+      |vpiParent:
+      \_parameter: (work@flit_if.CHANNELS), line:5:35, endln:5:43
+      |vpiFullName:work@flit_if.CHANNELS
+      |vpiActual:
+      \_int_typespec: , line:5:31, endln:5:34
+    |vpiSigned:1
+    |vpiName:CHANNELS
+    |vpiFullName:work@flit_if.CHANNELS
+  |vpiParameter:
+  \_parameter: (work@flit_if.W), line:5:63, endln:5:64
+    |vpiParent:
+    \_interface_inst: work@flit_if (work@flit_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:5:1, endln:11:13
+    |UINT:8
+    |vpiTypespec:
+    \_ref_typespec: (work@flit_if.W)
+      |vpiParent:
+      \_parameter: (work@flit_if.W), line:5:63, endln:5:64
+      |vpiFullName:work@flit_if.W
+      |vpiActual:
+      \_int_typespec: , line:5:59, endln:5:62
+    |vpiSigned:1
+    |vpiName:W
+    |vpiFullName:work@flit_if.W
+  |vpiParamAssign:
+  \_param_assign: , line:5:35, endln:5:47
+    |vpiParent:
+    \_interface_inst: work@flit_if (work@flit_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:5:1, endln:11:13
+    |vpiRhs:
+    \_constant: , line:5:46, endln:5:47
+      |vpiParent:
+      \_param_assign: , line:5:35, endln:5:47
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiTypespec:
+      \_ref_typespec: (work@flit_if)
+        |vpiParent:
+        \_constant: , line:5:46, endln:5:47
+        |vpiFullName:work@flit_if
+        |vpiActual:
+        \_int_typespec: , line:5:31, endln:5:34
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@flit_if.CHANNELS), line:5:35, endln:5:43
+  |vpiParamAssign:
+  \_param_assign: , line:5:63, endln:5:68
+    |vpiParent:
+    \_interface_inst: work@flit_if (work@flit_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:5:1, endln:11:13
+    |vpiRhs:
+    \_constant: , line:5:67, endln:5:68
+      |vpiParent:
+      \_param_assign: , line:5:63, endln:5:68
+      |vpiDecompile:8
+      |vpiSize:64
+      |UINT:8
+      |vpiTypespec:
+      \_ref_typespec: (work@flit_if)
+        |vpiParent:
+        \_constant: , line:5:67, endln:5:68
+        |vpiFullName:work@flit_if
+        |vpiActual:
+        \_int_typespec: , line:5:59, endln:5:62
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@flit_if.W), line:5:63, endln:5:64
+  |vpiDefName:work@flit_if
+  |vpiNet:
+  \_logic_net: (work@flit_if.valid), line:6:24, endln:6:29
+    |vpiParent:
+    \_interface_inst: work@flit_if (work@flit_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:5:1, endln:11:13
+    |vpiTypespec:
+    \_ref_typespec: (work@flit_if.valid)
+      |vpiParent:
+      \_logic_net: (work@flit_if.valid), line:6:24, endln:6:29
+      |vpiFullName:work@flit_if.valid
+      |vpiActual:
+      \_logic_typespec: , line:6:3, endln:6:23
+    |vpiName:valid
+    |vpiFullName:work@flit_if.valid
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@flit_if.ready), line:7:24, endln:7:29
+    |vpiParent:
+    \_interface_inst: work@flit_if (work@flit_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:5:1, endln:11:13
+    |vpiTypespec:
+    \_ref_typespec: (work@flit_if.ready)
+      |vpiParent:
+      \_logic_net: (work@flit_if.ready), line:7:24, endln:7:29
+      |vpiFullName:work@flit_if.ready
+      |vpiActual:
+      \_logic_typespec: , line:7:3, endln:7:23
+    |vpiName:ready
+    |vpiFullName:work@flit_if.ready
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@flit_if.flit), line:8:24, endln:8:28
+    |vpiParent:
+    \_interface_inst: work@flit_if (work@flit_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:5:1, endln:11:13
+    |vpiTypespec:
+    \_ref_typespec: (work@flit_if.flit)
+      |vpiParent:
+      \_logic_net: (work@flit_if.flit), line:8:24, endln:8:28
+      |vpiFullName:work@flit_if.flit
+      |vpiActual:
+      \_logic_typespec: , line:8:3, endln:8:39
+    |vpiName:flit
+    |vpiFullName:work@flit_if.flit
+    |vpiNetType:36
+  |vpiArrayNet:
+  \_array_net: (work@flit_if.flit), line:8:24, endln:8:28
+    |vpiParent:
+    \_interface_inst: work@flit_if (work@flit_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:5:1, endln:11:13
+    |vpiSize:1
+    |vpiName:flit
+    |vpiFullName:work@flit_if.flit
+    |vpiRange:
+    \_range: , line:8:30, endln:8:38
+      |vpiParent:
+      \_array_net: (work@flit_if.flit), line:8:24, endln:8:28
+      |vpiLeftRange:
+      \_constant: 
+        |vpiParent:
+        \_range: , line:8:30, endln:8:38
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiRightRange:
+      \_operation: , line:8:30, endln:8:38
+        |vpiParent:
+        \_range: , line:8:30, endln:8:38
+        |vpiOpType:11
+        |vpiOperand:
+        \_ref_obj: (work@flit_if.flit.CHANNELS), line:8:30, endln:8:38
+          |vpiParent:
+          \_operation: , line:8:30, endln:8:38
+          |vpiName:CHANNELS
+          |vpiFullName:work@flit_if.flit.CHANNELS
+        |vpiOperand:
+        \_constant: 
+          |vpiSize:64
+          |INT:1
+          |vpiConstType:7
+    |vpiNet:
+    \_logic_net: (work@flit_if.flit.flit)
+      |vpiParent:
+      \_array_net: (work@flit_if.flit), line:8:24, endln:8:28
+      |vpiTypespec:
+      \_ref_typespec: (work@flit_if.flit.flit)
+        |vpiParent:
+        \_logic_net: (work@flit_if.flit.flit)
+        |vpiFullName:work@flit_if.flit.flit
+        |vpiActual:
+        \_logic_typespec: , line:8:3, endln:8:39
+      |vpiName:flit
+      |vpiFullName:work@flit_if.flit.flit
+      |vpiNetType:36
+  |vpiModport:
+  \_modport: (receiver), line:9:11, endln:9:19
+    |vpiParent:
+    \_interface_inst: work@flit_if (work@flit_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:5:1, endln:11:13
+    |vpiName:receiver
+    |vpiIODecl:
+    \_io_decl: (valid), line:9:27, endln:9:32
+      |vpiParent:
+      \_modport: (receiver), line:9:11, endln:9:19
+      |vpiDirection:1
+      |vpiName:valid
+    |vpiIODecl:
+    \_io_decl: (flit), line:9:34, endln:9:38
+      |vpiParent:
+      \_modport: (receiver), line:9:11, endln:9:19
+      |vpiDirection:1
+      |vpiName:flit
+    |vpiIODecl:
+    \_io_decl: (ready), line:9:47, endln:9:52
+      |vpiParent:
+      \_modport: (receiver), line:9:11, endln:9:19
+      |vpiDirection:2
+      |vpiName:ready
+  |vpiModport:
+  \_modport: (sender), line:10:11, endln:10:17
+    |vpiParent:
+    \_interface_inst: work@flit_if (work@flit_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:5:1, endln:11:13
+    |vpiName:sender
+    |vpiIODecl:
+    \_io_decl: (valid), line:10:28, endln:10:33
+      |vpiParent:
+      \_modport: (sender), line:10:11, endln:10:17
+      |vpiDirection:2
+      |vpiName:valid
+    |vpiIODecl:
+    \_io_decl: (flit), line:10:35, endln:10:39
+      |vpiParent:
+      \_modport: (sender), line:10:11, endln:10:17
+      |vpiDirection:2
+      |vpiName:flit
+    |vpiIODecl:
+    \_io_decl: (ready), line:10:47, endln:10:52
+      |vpiParent:
+      \_modport: (sender), line:10:11, endln:10:17
+      |vpiDirection:1
+      |vpiName:ready
+|uhdmallModules:
+\_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:1, endln:46:10
+  |vpiParent:
+  \_design: (work@dut)
+  |vpiFullName:work@dut
+  |vpiParameter:
+  \_parameter: (work@dut.CHANNELS), line:27:28, endln:27:36
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:1, endln:46:10
+    |UINT:2
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.CHANNELS)
+      |vpiParent:
+      \_parameter: (work@dut.CHANNELS), line:27:28, endln:27:36
+      |vpiFullName:work@dut.CHANNELS
+      |vpiActual:
+      \_int_typespec: , line:27:24, endln:27:27
+    |vpiSigned:1
+    |vpiName:CHANNELS
+    |vpiFullName:work@dut.CHANNELS
+  |vpiParamAssign:
+  \_param_assign: , line:27:28, endln:27:40
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:1, endln:46:10
+    |vpiRhs:
+    \_constant: , line:27:39, endln:27:40
+      |vpiParent:
+      \_param_assign: , line:27:28, endln:27:40
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiTypespec:
+      \_ref_typespec: (work@dut)
+        |vpiParent:
+        \_constant: , line:27:39, endln:27:40
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_int_typespec: , line:27:24, endln:27:27
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@dut.CHANNELS), line:27:28, endln:27:36
+  |vpiDefName:work@dut
+  |vpiNet:
+  \_logic_net: (work@dut.clk), line:28:16, endln:28:19
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:1, endln:46:10
+    |vpiName:clk
+    |vpiFullName:work@dut.clk
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@dut.rst_n), line:28:21, endln:28:26
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:1, endln:46:10
+    |vpiName:rst_n
+    |vpiFullName:work@dut.rst_n
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@dut.empty), line:32:24, endln:32:29
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:1, endln:46:10
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.empty)
+      |vpiParent:
+      \_logic_net: (work@dut.empty), line:32:24, endln:32:29
+      |vpiFullName:work@dut.empty
+      |vpiActual:
+      \_logic_typespec: , line:32:3, endln:32:23
+    |vpiName:empty
+    |vpiFullName:work@dut.empty
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@dut.receiver_if), line:29:20, endln:29:31
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:1, endln:46:10
+    |vpiName:receiver_if
+    |vpiFullName:work@dut.receiver_if
+  |vpiNet:
+  \_logic_net: (work@dut.sender_if), line:30:20, endln:30:29
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:1, endln:46:10
+    |vpiName:sender_if
+    |vpiFullName:work@dut.sender_if
+  |vpiPort:
+  \_port: (clk), line:28:16, endln:28:19
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:1, endln:46:10
+    |vpiName:clk
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@dut.clk.clk), line:28:16, endln:28:19
+      |vpiParent:
+      \_port: (clk), line:28:16, endln:28:19
+      |vpiName:clk
+      |vpiFullName:work@dut.clk.clk
+      |vpiActual:
+      \_logic_net: (work@dut.clk), line:28:16, endln:28:19
+    |vpiTypedef:
+    \_ref_typespec: (work@dut.clk)
+      |vpiParent:
+      \_port: (clk), line:28:16, endln:28:19
+      |vpiFullName:work@dut.clk
+      |vpiActual:
+      \_logic_typespec: , line:28:10, endln:28:15
+  |vpiPort:
+  \_port: (rst_n), line:28:21, endln:28:26
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:1, endln:46:10
+    |vpiName:rst_n
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@dut.rst_n.rst_n), line:28:21, endln:28:26
+      |vpiParent:
+      \_port: (rst_n), line:28:21, endln:28:26
+      |vpiName:rst_n
+      |vpiFullName:work@dut.rst_n.rst_n
+      |vpiActual:
+      \_logic_net: (work@dut.rst_n), line:28:21, endln:28:26
+    |vpiTypedef:
+    \_ref_typespec: (work@dut.rst_n)
+      |vpiParent:
+      \_port: (rst_n), line:28:21, endln:28:26
+      |vpiFullName:work@dut.rst_n
+      |vpiActual:
+      \_logic_typespec: , line:28:10, endln:28:15
+  |vpiPort:
+  \_port: (receiver_if), line:29:20, endln:29:31
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:1, endln:46:10
+    |vpiName:receiver_if
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@dut.receiver_if.receiver_if), line:29:20, endln:29:31
+      |vpiParent:
+      \_port: (receiver_if), line:29:20, endln:29:31
+      |vpiName:receiver_if
+      |vpiFullName:work@dut.receiver_if.receiver_if
+      |vpiActual:
+      \_modport: (receiver), line:9:11, endln:9:19
+    |vpiTypedef:
+    \_ref_typespec: (work@dut.receiver_if)
+      |vpiParent:
+      \_port: (receiver_if), line:29:20, endln:29:31
+      |vpiFullName:work@dut.receiver_if
+      |vpiActual:
+      \_interface_typespec: (receiver), line:29:11, endln:29:19
+  |vpiPort:
+  \_port: (sender_if), line:30:20, endln:30:29
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:1, endln:46:10
+    |vpiName:sender_if
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@dut.sender_if.sender_if), line:30:20, endln:30:29
+      |vpiParent:
+      \_port: (sender_if), line:30:20, endln:30:29
+      |vpiName:sender_if
+      |vpiFullName:work@dut.sender_if.sender_if
+      |vpiActual:
+      \_modport: (sender), line:10:11, endln:10:17
+    |vpiTypedef:
+    \_ref_typespec: (work@dut.sender_if)
+      |vpiParent:
+      \_port: (sender_if), line:30:20, endln:30:29
+      |vpiFullName:work@dut.sender_if
+      |vpiActual:
+      \_interface_typespec: (sender), line:30:11, endln:30:17
+  |vpiGenStmt:
+  \_gen_for: 
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:1, endln:46:10
+    |vpiForInitStmt:
+    \_assignment: , line:33:8, endln:33:20
+      |vpiParent:
+      \_gen_for: 
+      |vpiRhs:
+      \_constant: , line:33:19, endln:33:20
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiLhs:
+      \_int_var: (work@dut.i), line:33:15, endln:33:16
+        |vpiParent:
+        \_assignment: , line:33:8, endln:33:20
+        |vpiTypespec:
+        \_ref_typespec: (work@dut.i)
+          |vpiParent:
+          \_int_var: (work@dut.i), line:33:15, endln:33:16
+          |vpiFullName:work@dut.i
+          |vpiActual:
+          \_int_typespec: , line:33:15, endln:33:16
+        |vpiName:i
+        |vpiFullName:work@dut.i
+        |vpiSigned:1
+    |vpiCondition:
+    \_operation: , line:33:22, endln:33:34
+      |vpiParent:
+      \_gen_for: 
+      |vpiOpType:20
+      |vpiOperand:
+      \_ref_obj: (work@dut.i), line:33:22, endln:33:23
+        |vpiParent:
+        \_operation: , line:33:22, endln:33:34
+        |vpiName:i
+        |vpiFullName:work@dut.i
+        |vpiActual:
+        \_int_var: (work@dut.i), line:33:15, endln:33:16
+      |vpiOperand:
+      \_ref_obj: (work@dut.CHANNELS), line:33:26, endln:33:34
+        |vpiParent:
+        \_operation: , line:33:22, endln:33:34
+        |vpiName:CHANNELS
+        |vpiFullName:work@dut.CHANNELS
+    |vpiForIncStmt:
+    \_operation: , line:33:36, endln:33:39
+      |vpiParent:
+      \_gen_for: 
+      |vpiOpType:63
+      |vpiOperand:
+      \_ref_obj: (work@dut.i), line:33:38, endln:33:39
+        |vpiParent:
+        \_operation: , line:33:36, endln:33:39
+        |vpiName:i
+        |vpiFullName:work@dut.i
+        |vpiActual:
+        \_int_var: (work@dut.i), line:33:15, endln:33:16
+    |vpiStmt:
+    \_named_begin: (work@dut.g)
+      |vpiParent:
+      \_gen_for: 
+      |vpiName:g
+      |vpiFullName:work@dut.g
+      |vpiStmt:
+      \_ref_module: work@fifo (u_fifo), line:34:10, endln:34:16
+        |vpiParent:
+        \_named_begin: (work@dut.g)
+        |vpiName:u_fifo
+        |vpiDefName:work@fifo
+        |vpiPort:
+        \_port: (clk), line:35:7, endln:35:21
+          |vpiParent:
+          \_ref_module: work@fifo (u_fifo), line:34:10, endln:34:16
+          |vpiName:clk
+          |vpiHighConn:
+          \_ref_obj: (work@dut.g.u_fifo.clk.clk), line:35:17, endln:35:20
+            |vpiParent:
+            \_port: (clk), line:35:7, endln:35:21
+            |vpiName:clk
+            |vpiFullName:work@dut.g.u_fifo.clk.clk
+        |vpiPort:
+        \_port: (rst_n), line:36:7, endln:36:23
+          |vpiParent:
+          \_ref_module: work@fifo (u_fifo), line:34:10, endln:34:16
+          |vpiName:rst_n
+          |vpiHighConn:
+          \_ref_obj: (work@dut.g.u_fifo.rst_n.rst_n), line:36:17, endln:36:22
+            |vpiParent:
+            \_port: (rst_n), line:36:7, endln:36:23
+            |vpiName:rst_n
+            |vpiFullName:work@dut.g.u_fifo.rst_n.rst_n
+        |vpiPort:
+        \_port: (i_push), line:37:7, endln:37:38
+          |vpiParent:
+          \_ref_module: work@fifo (u_fifo), line:34:10, endln:34:16
+          |vpiName:i_push
+          |vpiHighConn:
+          \_hier_path: (receiver_if.valid[i]), line:37:17, endln:37:37
+            |vpiParent:
+            \_port: (i_push), line:37:7, endln:37:38
+            |vpiActual:
+            \_ref_obj: (receiver_if), line:37:17, endln:37:28
+              |vpiParent:
+              \_hier_path: (receiver_if.valid[i]), line:37:17, endln:37:37
+              |vpiName:receiver_if
+            |vpiActual:
+            \_bit_select: (work@dut.g.u_fifo.i_push.receiver_if.valid[i].valid), line:37:35, endln:37:36
+              |vpiParent:
+              \_hier_path: (receiver_if.valid[i]), line:37:17, endln:37:37
+              |vpiName:valid
+              |vpiFullName:work@dut.g.u_fifo.i_push.receiver_if.valid[i].valid
+              |vpiIndex:
+              \_ref_obj: (work@dut.g.u_fifo.i_push.receiver_if.valid[i].i), line:37:35, endln:37:36
+                |vpiParent:
+                \_bit_select: (work@dut.g.u_fifo.i_push.receiver_if.valid[i].valid), line:37:35, endln:37:36
+                |vpiName:i
+                |vpiFullName:work@dut.g.u_fifo.i_push.receiver_if.valid[i].i
+            |vpiName:receiver_if.valid[i]
+        |vpiPort:
+        \_port: (i_data), line:38:7, endln:38:37
+          |vpiParent:
+          \_ref_module: work@fifo (u_fifo), line:34:10, endln:34:16
+          |vpiName:i_data
+          |vpiHighConn:
+          \_hier_path: (receiver_if.flit[i]), line:38:17, endln:38:36
+            |vpiParent:
+            \_port: (i_data), line:38:7, endln:38:37
+            |vpiActual:
+            \_ref_obj: (receiver_if), line:38:17, endln:38:28
+              |vpiParent:
+              \_hier_path: (receiver_if.flit[i]), line:38:17, endln:38:36
+              |vpiName:receiver_if
+            |vpiActual:
+            \_bit_select: (work@dut.g.u_fifo.i_data.receiver_if.flit[i].flit), line:38:34, endln:38:35
+              |vpiParent:
+              \_hier_path: (receiver_if.flit[i]), line:38:17, endln:38:36
+              |vpiName:flit
+              |vpiFullName:work@dut.g.u_fifo.i_data.receiver_if.flit[i].flit
+              |vpiIndex:
+              \_ref_obj: (work@dut.g.u_fifo.i_data.receiver_if.flit[i].i), line:38:34, endln:38:35
+                |vpiParent:
+                \_bit_select: (work@dut.g.u_fifo.i_data.receiver_if.flit[i].flit), line:38:34, endln:38:35
+                |vpiName:i
+                |vpiFullName:work@dut.g.u_fifo.i_data.receiver_if.flit[i].i
+            |vpiName:receiver_if.flit[i]
+        |vpiPort:
+        \_port: (i_pop), line:39:7, endln:39:36
+          |vpiParent:
+          \_ref_module: work@fifo (u_fifo), line:34:10, endln:34:16
+          |vpiName:i_pop
+          |vpiHighConn:
+          \_hier_path: (sender_if.ready[i]), line:39:17, endln:39:35
+            |vpiParent:
+            \_port: (i_pop), line:39:7, endln:39:36
+            |vpiActual:
+            \_ref_obj: (sender_if), line:39:17, endln:39:26
+              |vpiParent:
+              \_hier_path: (sender_if.ready[i]), line:39:17, endln:39:35
+              |vpiName:sender_if
+            |vpiActual:
+            \_bit_select: (work@dut.g.u_fifo.i_pop.sender_if.ready[i].ready), line:39:33, endln:39:34
+              |vpiParent:
+              \_hier_path: (sender_if.ready[i]), line:39:17, endln:39:35
+              |vpiName:ready
+              |vpiFullName:work@dut.g.u_fifo.i_pop.sender_if.ready[i].ready
+              |vpiIndex:
+              \_ref_obj: (work@dut.g.u_fifo.i_pop.sender_if.ready[i].i), line:39:33, endln:39:34
+                |vpiParent:
+                \_bit_select: (work@dut.g.u_fifo.i_pop.sender_if.ready[i].ready), line:39:33, endln:39:34
+                |vpiName:i
+                |vpiFullName:work@dut.g.u_fifo.i_pop.sender_if.ready[i].i
+            |vpiName:sender_if.ready[i]
+        |vpiPort:
+        \_port: (o_empty), line:40:7, endln:40:26
+          |vpiParent:
+          \_ref_module: work@fifo (u_fifo), line:34:10, endln:34:16
+          |vpiName:o_empty
+          |vpiHighConn:
+          \_bit_select: (work@dut.g.u_fifo.empty), line:40:23, endln:40:24
+            |vpiParent:
+            \_port: (o_empty), line:40:7, endln:40:26
+            |vpiName:empty
+            |vpiFullName:work@dut.g.u_fifo.empty
+            |vpiIndex:
+            \_ref_obj: (work@dut.g.u_fifo.i), line:40:23, endln:40:24
+              |vpiParent:
+              \_bit_select: (work@dut.g.u_fifo.empty), line:40:23, endln:40:24
+              |vpiName:i
+              |vpiFullName:work@dut.g.u_fifo.i
+        |vpiPort:
+        \_port: (o_data), line:41:7, endln:41:35
+          |vpiParent:
+          \_ref_module: work@fifo (u_fifo), line:34:10, endln:34:16
+          |vpiName:o_data
+          |vpiHighConn:
+          \_hier_path: (sender_if.flit[i]), line:41:17, endln:41:34
+            |vpiParent:
+            \_port: (o_data), line:41:7, endln:41:35
+            |vpiActual:
+            \_ref_obj: (sender_if), line:41:17, endln:41:26
+              |vpiParent:
+              \_hier_path: (sender_if.flit[i]), line:41:17, endln:41:34
+              |vpiName:sender_if
+            |vpiActual:
+            \_bit_select: (work@dut.g.u_fifo.o_data.sender_if.flit[i].flit), line:41:32, endln:41:33
+              |vpiParent:
+              \_hier_path: (sender_if.flit[i]), line:41:17, endln:41:34
+              |vpiName:flit
+              |vpiFullName:work@dut.g.u_fifo.o_data.sender_if.flit[i].flit
+              |vpiIndex:
+              \_ref_obj: (work@dut.g.u_fifo.o_data.sender_if.flit[i].i), line:41:32, endln:41:33
+                |vpiParent:
+                \_bit_select: (work@dut.g.u_fifo.o_data.sender_if.flit[i].flit), line:41:32, endln:41:33
+                |vpiName:i
+                |vpiFullName:work@dut.g.u_fifo.o_data.sender_if.flit[i].i
+            |vpiName:sender_if.flit[i]
+      |vpiStmt:
+      \_cont_assign: , line:43:12, endln:43:39
+        |vpiParent:
+        \_named_begin: (work@dut.g)
+        |vpiRhs:
+        \_constant: , line:43:35, endln:43:39
+          |vpiParent:
+          \_cont_assign: , line:43:12, endln:43:39
+          |vpiDecompile:1'b1
+          |vpiSize:1
+          |BIN:1
+          |vpiConstType:3
+        |vpiLhs:
+        \_hier_path: (receiver_if.ready[i]), line:43:12, endln:43:32
+          |vpiParent:
+          \_cont_assign: , line:43:12, endln:43:39
+          |vpiActual:
+          \_ref_obj: (receiver_if), line:43:24, endln:43:29
+            |vpiParent:
+            \_hier_path: (receiver_if.ready[i]), line:43:12, endln:43:32
+            |vpiName:receiver_if
+          |vpiActual:
+          \_bit_select: (work@dut.g.receiver_if.ready[i].ready), line:43:24, endln:43:32
+            |vpiParent:
+            \_hier_path: (receiver_if.ready[i]), line:43:12, endln:43:32
+            |vpiName:ready
+            |vpiFullName:work@dut.g.receiver_if.ready[i].ready
+            |vpiIndex:
+            \_ref_obj: (work@dut.g.receiver_if.ready[i].i), line:43:30, endln:43:31
+              |vpiParent:
+              \_bit_select: (work@dut.g.receiver_if.ready[i].ready), line:43:24, endln:43:32
+              |vpiName:i
+              |vpiFullName:work@dut.g.receiver_if.ready[i].i
+          |vpiName:receiver_if.ready[i]
+      |vpiStmt:
+      \_cont_assign: , line:44:12, endln:44:44
+        |vpiParent:
+        \_named_begin: (work@dut.g)
+        |vpiRhs:
+        \_operation: , line:44:35, endln:44:44
+          |vpiParent:
+          \_cont_assign: , line:44:12, endln:44:44
+          |vpiOpType:4
+          |vpiOperand:
+          \_bit_select: (work@dut.g.empty), line:44:42, endln:44:43
+            |vpiParent:
+            \_operation: , line:44:35, endln:44:44
+            |vpiName:empty
+            |vpiFullName:work@dut.g.empty
+            |vpiIndex:
+            \_ref_obj: (work@dut.g.i), line:44:42, endln:44:43
+              |vpiParent:
+              \_bit_select: (work@dut.g.empty), line:44:42, endln:44:43
+              |vpiName:i
+              |vpiFullName:work@dut.g.i
+        |vpiLhs:
+        \_hier_path: (sender_if.valid[i]), line:44:12, endln:44:30
+          |vpiParent:
+          \_cont_assign: , line:44:12, endln:44:44
+          |vpiActual:
+          \_ref_obj: (sender_if), line:44:22, endln:44:27
+            |vpiParent:
+            \_hier_path: (sender_if.valid[i]), line:44:12, endln:44:30
+            |vpiName:sender_if
+          |vpiActual:
+          \_bit_select: (work@dut.g.sender_if.valid[i].valid), line:44:22, endln:44:30
+            |vpiParent:
+            \_hier_path: (sender_if.valid[i]), line:44:12, endln:44:30
+            |vpiName:valid
+            |vpiFullName:work@dut.g.sender_if.valid[i].valid
+            |vpiIndex:
+            \_ref_obj: (work@dut.g.sender_if.valid[i].i), line:44:28, endln:44:29
+              |vpiParent:
+              \_bit_select: (work@dut.g.sender_if.valid[i].valid), line:44:22, endln:44:30
+              |vpiName:i
+              |vpiFullName:work@dut.g.sender_if.valid[i].i
+          |vpiName:sender_if.valid[i]
+|uhdmallModules:
+\_module_inst: work@fifo (work@fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:13:1, endln:25:10
+  |vpiParent:
+  \_design: (work@dut)
+  |vpiFullName:work@fifo
+  |vpiParameter:
+  \_parameter: (work@fifo.W), line:13:29, endln:13:30
+    |vpiParent:
+    \_module_inst: work@fifo (work@fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:13:1, endln:25:10
+    |UINT:8
+    |vpiTypespec:
+    \_ref_typespec: (work@fifo.W)
+      |vpiParent:
+      \_parameter: (work@fifo.W), line:13:29, endln:13:30
+      |vpiFullName:work@fifo.W
+      |vpiActual:
+      \_int_typespec: , line:13:25, endln:13:28
+    |vpiSigned:1
+    |vpiName:W
+    |vpiFullName:work@fifo.W
+  |vpiParamAssign:
+  \_param_assign: , line:13:29, endln:13:34
+    |vpiParent:
+    \_module_inst: work@fifo (work@fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:13:1, endln:25:10
+    |vpiRhs:
+    \_constant: , line:13:33, endln:13:34
+      |vpiParent:
+      \_param_assign: , line:13:29, endln:13:34
+      |vpiDecompile:8
+      |vpiSize:64
+      |UINT:8
+      |vpiTypespec:
+      \_ref_typespec: (work@fifo)
+        |vpiParent:
+        \_constant: , line:13:33, endln:13:34
+        |vpiFullName:work@fifo
+        |vpiActual:
+        \_int_typespec: , line:13:25, endln:13:28
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@fifo.W), line:13:29, endln:13:30
+  |vpiDefName:work@fifo
+  |vpiNet:
+  \_logic_net: (work@fifo.clk), line:14:24, endln:14:27
+    |vpiParent:
+    \_module_inst: work@fifo (work@fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:13:1, endln:25:10
+    |vpiName:clk
+    |vpiFullName:work@fifo.clk
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@fifo.rst_n), line:14:29, endln:14:34
+    |vpiParent:
+    \_module_inst: work@fifo (work@fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:13:1, endln:25:10
+    |vpiName:rst_n
+    |vpiFullName:work@fifo.rst_n
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@fifo.i_push), line:15:24, endln:15:30
+    |vpiParent:
+    \_module_inst: work@fifo (work@fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:13:1, endln:25:10
+    |vpiName:i_push
+    |vpiFullName:work@fifo.i_push
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@fifo.i_data), line:16:24, endln:16:30
+    |vpiParent:
+    \_module_inst: work@fifo (work@fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:13:1, endln:25:10
+    |vpiName:i_data
+    |vpiFullName:work@fifo.i_data
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@fifo.i_pop), line:17:24, endln:17:29
+    |vpiParent:
+    \_module_inst: work@fifo (work@fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:13:1, endln:25:10
+    |vpiName:i_pop
+    |vpiFullName:work@fifo.i_pop
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@fifo.o_empty), line:18:24, endln:18:31
+    |vpiParent:
+    \_module_inst: work@fifo (work@fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:13:1, endln:25:10
+    |vpiName:o_empty
+    |vpiFullName:work@fifo.o_empty
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@fifo.o_data), line:19:24, endln:19:30
+    |vpiParent:
+    \_module_inst: work@fifo (work@fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:13:1, endln:25:10
+    |vpiName:o_data
+    |vpiFullName:work@fifo.o_data
+    |vpiNetType:36
+  |vpiPort:
+  \_port: (clk), line:14:24, endln:14:27
+    |vpiParent:
+    \_module_inst: work@fifo (work@fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:13:1, endln:25:10
+    |vpiName:clk
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@fifo.clk.clk), line:14:24, endln:14:27
+      |vpiParent:
+      \_port: (clk), line:14:24, endln:14:27
+      |vpiName:clk
+      |vpiFullName:work@fifo.clk.clk
+      |vpiActual:
+      \_logic_net: (work@fifo.clk), line:14:24, endln:14:27
+    |vpiTypedef:
+    \_ref_typespec: (work@fifo.clk)
+      |vpiParent:
+      \_port: (clk), line:14:24, endln:14:27
+      |vpiFullName:work@fifo.clk
+      |vpiActual:
+      \_logic_typespec: , line:14:10, endln:14:15
+  |vpiPort:
+  \_port: (rst_n), line:14:29, endln:14:34
+    |vpiParent:
+    \_module_inst: work@fifo (work@fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:13:1, endln:25:10
+    |vpiName:rst_n
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@fifo.rst_n.rst_n), line:14:29, endln:14:34
+      |vpiParent:
+      \_port: (rst_n), line:14:29, endln:14:34
+      |vpiName:rst_n
+      |vpiFullName:work@fifo.rst_n.rst_n
+      |vpiActual:
+      \_logic_net: (work@fifo.rst_n), line:14:29, endln:14:34
+    |vpiTypedef:
+    \_ref_typespec: (work@fifo.rst_n)
+      |vpiParent:
+      \_port: (rst_n), line:14:29, endln:14:34
+      |vpiFullName:work@fifo.rst_n
+      |vpiActual:
+      \_logic_typespec: , line:14:10, endln:14:15
+  |vpiPort:
+  \_port: (i_push), line:15:24, endln:15:30
+    |vpiParent:
+    \_module_inst: work@fifo (work@fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:13:1, endln:25:10
+    |vpiName:i_push
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@fifo.i_push.i_push), line:15:24, endln:15:30
+      |vpiParent:
+      \_port: (i_push), line:15:24, endln:15:30
+      |vpiName:i_push
+      |vpiFullName:work@fifo.i_push.i_push
+      |vpiActual:
+      \_logic_net: (work@fifo.i_push), line:15:24, endln:15:30
+    |vpiTypedef:
+    \_ref_typespec: (work@fifo.i_push)
+      |vpiParent:
+      \_port: (i_push), line:15:24, endln:15:30
+      |vpiFullName:work@fifo.i_push
+      |vpiActual:
+      \_logic_typespec: , line:15:10, endln:15:15
+  |vpiPort:
+  \_port: (i_data), line:16:24, endln:16:30
+    |vpiParent:
+    \_module_inst: work@fifo (work@fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:13:1, endln:25:10
+    |vpiName:i_data
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@fifo.i_data.i_data), line:16:24, endln:16:30
+      |vpiParent:
+      \_port: (i_data), line:16:24, endln:16:30
+      |vpiName:i_data
+      |vpiFullName:work@fifo.i_data.i_data
+      |vpiActual:
+      \_logic_net: (work@fifo.i_data), line:16:24, endln:16:30
+    |vpiTypedef:
+    \_ref_typespec: (work@fifo.i_data)
+      |vpiParent:
+      \_port: (i_data), line:16:24, endln:16:30
+      |vpiFullName:work@fifo.i_data
+      |vpiActual:
+      \_logic_typespec: , line:16:10, endln:16:23
+  |vpiPort:
+  \_port: (i_pop), line:17:24, endln:17:29
+    |vpiParent:
+    \_module_inst: work@fifo (work@fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:13:1, endln:25:10
+    |vpiName:i_pop
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@fifo.i_pop.i_pop), line:17:24, endln:17:29
+      |vpiParent:
+      \_port: (i_pop), line:17:24, endln:17:29
+      |vpiName:i_pop
+      |vpiFullName:work@fifo.i_pop.i_pop
+      |vpiActual:
+      \_logic_net: (work@fifo.i_pop), line:17:24, endln:17:29
+    |vpiTypedef:
+    \_ref_typespec: (work@fifo.i_pop)
+      |vpiParent:
+      \_port: (i_pop), line:17:24, endln:17:29
+      |vpiFullName:work@fifo.i_pop
+      |vpiActual:
+      \_logic_typespec: , line:17:10, endln:17:15
+  |vpiPort:
+  \_port: (o_empty), line:18:24, endln:18:31
+    |vpiParent:
+    \_module_inst: work@fifo (work@fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:13:1, endln:25:10
+    |vpiName:o_empty
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@fifo.o_empty.o_empty), line:18:24, endln:18:31
+      |vpiParent:
+      \_port: (o_empty), line:18:24, endln:18:31
+      |vpiName:o_empty
+      |vpiFullName:work@fifo.o_empty.o_empty
+      |vpiActual:
+      \_logic_net: (work@fifo.o_empty), line:18:24, endln:18:31
+    |vpiTypedef:
+    \_ref_typespec: (work@fifo.o_empty)
+      |vpiParent:
+      \_port: (o_empty), line:18:24, endln:18:31
+      |vpiFullName:work@fifo.o_empty
+      |vpiActual:
+      \_logic_typespec: , line:18:10, endln:18:15
+  |vpiPort:
+  \_port: (o_data), line:19:24, endln:19:30
+    |vpiParent:
+    \_module_inst: work@fifo (work@fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:13:1, endln:25:10
+    |vpiName:o_data
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@fifo.o_data.o_data), line:19:24, endln:19:30
+      |vpiParent:
+      \_port: (o_data), line:19:24, endln:19:30
+      |vpiName:o_data
+      |vpiFullName:work@fifo.o_data.o_data
+      |vpiActual:
+      \_logic_net: (work@fifo.o_data), line:19:24, endln:19:30
+    |vpiTypedef:
+    \_ref_typespec: (work@fifo.o_data)
+      |vpiParent:
+      \_port: (o_data), line:19:24, endln:19:30
+      |vpiFullName:work@fifo.o_data
+      |vpiActual:
+      \_logic_typespec: , line:19:10, endln:19:23
+  |vpiProcess:
+  \_always: , line:21:3, endln:24:37
+    |vpiParent:
+    \_module_inst: work@fifo (work@fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:13:1, endln:25:10
+    |vpiStmt:
+    \_event_control: , line:21:13, endln:21:42
+      |vpiParent:
+      \_always: , line:21:3, endln:24:37
+      |vpiCondition:
+      \_operation: , line:21:15, endln:21:41
+        |vpiParent:
+        \_event_control: , line:21:13, endln:21:42
+        |vpiOpType:37
+        |vpiOperand:
+        \_operation: , line:21:15, endln:21:26
+          |vpiParent:
+          \_operation: , line:21:15, endln:21:41
+          |vpiOpType:39
+          |vpiOperand:
+          \_ref_obj: (work@fifo.clk), line:21:23, endln:21:26
+            |vpiParent:
+            \_operation: , line:21:15, endln:21:26
+            |vpiName:clk
+            |vpiFullName:work@fifo.clk
+            |vpiActual:
+            \_logic_net: (work@fifo.clk), line:14:24, endln:14:27
+        |vpiOperand:
+        \_operation: , line:21:28, endln:21:41
+          |vpiParent:
+          \_operation: , line:21:15, endln:21:41
+          |vpiOpType:40
+          |vpiOperand:
+          \_ref_obj: (work@fifo.rst_n), line:21:36, endln:21:41
+            |vpiParent:
+            \_operation: , line:21:28, endln:21:41
+            |vpiName:rst_n
+            |vpiFullName:work@fifo.rst_n
+            |vpiActual:
+            \_logic_net: (work@fifo.rst_n), line:14:29, endln:14:34
+      |vpiStmt:
+      \_if_else: , line:22:5, endln:24:37
+        |vpiParent:
+        \_event_control: , line:21:13, endln:21:42
+        |vpiCondition:
+        \_operation: , line:22:9, endln:22:15
+          |vpiParent:
+          \_event_control: , line:21:13, endln:21:42
+          |vpiOpType:3
+          |vpiOperand:
+          \_ref_obj: (work@fifo.rst_n), line:22:10, endln:22:15
+            |vpiParent:
+            \_operation: , line:22:9, endln:22:15
+            |vpiName:rst_n
+            |vpiFullName:work@fifo.rst_n
+            |vpiActual:
+            \_logic_net: (work@fifo.rst_n), line:14:29, endln:14:34
+        |vpiStmt:
+        \_begin: (work@fifo), line:22:17, endln:22:57
+          |vpiParent:
+          \_if_else: , line:22:5, endln:24:37
+          |vpiFullName:work@fifo
+          |vpiStmt:
+          \_assignment: , line:22:23, endln:22:35
+            |vpiParent:
+            \_begin: (work@fifo), line:22:17, endln:22:57
+            |vpiOpType:82
+            |vpiRhs:
+            \_constant: , line:22:33, endln:22:35
+              |vpiDecompile:'0
+              |vpiSize:-1
+              |BIN:0
+              |vpiConstType:3
+            |vpiLhs:
+            \_ref_obj: (work@fifo.o_data), line:22:23, endln:22:29
+              |vpiParent:
+              \_assignment: , line:22:23, endln:22:35
+              |vpiName:o_data
+              |vpiFullName:work@fifo.o_data
+              |vpiActual:
+              \_logic_net: (work@fifo.o_data), line:19:24, endln:19:30
+          |vpiStmt:
+          \_assignment: , line:22:37, endln:22:52
+            |vpiParent:
+            \_begin: (work@fifo), line:22:17, endln:22:57
+            |vpiOpType:82
+            |vpiRhs:
+            \_constant: , line:22:48, endln:22:52
+              |vpiDecompile:1'b1
+              |vpiSize:1
+              |BIN:1
+              |vpiConstType:3
+            |vpiLhs:
+            \_ref_obj: (work@fifo.o_empty), line:22:37, endln:22:44
+              |vpiParent:
+              \_assignment: , line:22:37, endln:22:52
+              |vpiName:o_empty
+              |vpiFullName:work@fifo.o_empty
+              |vpiActual:
+              \_logic_net: (work@fifo.o_empty), line:18:24, endln:18:31
+        |vpiElseStmt:
+        \_if_else: , line:23:10, endln:24:37
+          |vpiParent:
+          \_if_else: , line:22:5, endln:24:37
+          |vpiCondition:
+          \_ref_obj: (work@fifo.i_push), line:23:14, endln:23:20
+            |vpiParent:
+            \_if_else: , line:22:5, endln:24:37
+            |vpiName:i_push
+            |vpiFullName:work@fifo.i_push
+            |vpiActual:
+            \_logic_net: (work@fifo.i_push), line:15:24, endln:15:30
+          |vpiStmt:
+          \_begin: (work@fifo), line:23:22, endln:23:66
+            |vpiParent:
+            \_if_else: , line:23:10, endln:24:37
+            |vpiFullName:work@fifo
+            |vpiStmt:
+            \_assignment: , line:23:28, endln:23:44
+              |vpiParent:
+              \_begin: (work@fifo), line:23:22, endln:23:66
+              |vpiOpType:82
+              |vpiRhs:
+              \_ref_obj: (work@fifo.i_data), line:23:38, endln:23:44
+                |vpiParent:
+                \_assignment: , line:23:28, endln:23:44
+                |vpiName:i_data
+                |vpiFullName:work@fifo.i_data
+                |vpiActual:
+                \_logic_net: (work@fifo.i_data), line:16:24, endln:16:30
+              |vpiLhs:
+              \_ref_obj: (work@fifo.o_data), line:23:28, endln:23:34
+                |vpiParent:
+                \_assignment: , line:23:28, endln:23:44
+                |vpiName:o_data
+                |vpiFullName:work@fifo.o_data
+                |vpiActual:
+                \_logic_net: (work@fifo.o_data), line:19:24, endln:19:30
+            |vpiStmt:
+            \_assignment: , line:23:46, endln:23:61
+              |vpiParent:
+              \_begin: (work@fifo), line:23:22, endln:23:66
+              |vpiOpType:82
+              |vpiRhs:
+              \_constant: , line:23:57, endln:23:61
+                |vpiDecompile:1'b0
+                |vpiSize:1
+                |BIN:0
+                |vpiConstType:3
+              |vpiLhs:
+              \_ref_obj: (work@fifo.o_empty), line:23:46, endln:23:53
+                |vpiParent:
+                \_assignment: , line:23:46, endln:23:61
+                |vpiName:o_empty
+                |vpiFullName:work@fifo.o_empty
+                |vpiActual:
+                \_logic_net: (work@fifo.o_empty), line:18:24, endln:18:31
+          |vpiElseStmt:
+          \_if_stmt: , line:24:10, endln:24:37
+            |vpiParent:
+            \_if_else: , line:23:10, endln:24:37
+            |vpiCondition:
+            \_ref_obj: (work@fifo.i_pop), line:24:14, endln:24:19
+              |vpiParent:
+              \_if_else: , line:23:10, endln:24:37
+              |vpiName:i_pop
+              |vpiFullName:work@fifo.i_pop
+              |vpiActual:
+              \_logic_net: (work@fifo.i_pop), line:17:24, endln:17:29
+            |vpiStmt:
+            \_assignment: , line:24:21, endln:24:36
+              |vpiParent:
+              \_if_stmt: , line:24:10, endln:24:37
+              |vpiOpType:82
+              |vpiRhs:
+              \_constant: , line:24:32, endln:24:36
+                |vpiDecompile:1'b1
+                |vpiSize:1
+                |BIN:1
+                |vpiConstType:3
+              |vpiLhs:
+              \_ref_obj: (work@fifo.o_empty), line:24:21, endln:24:28
+                |vpiParent:
+                \_assignment: , line:24:21, endln:24:36
+                |vpiName:o_empty
+                |vpiFullName:work@fifo.o_empty
+                |vpiActual:
+                \_logic_net: (work@fifo.o_empty), line:18:24, endln:18:31
+    |vpiAlwaysType:3
+|uhdmtopModules:
+\_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:1, endln:46:10
+  |vpiParent:
+  \_design: (work@dut)
+  |vpiName:work@dut
+  |vpiVariables:
+  \_logic_var: (work@dut.empty), line:32:24, endln:32:29
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:1, endln:46:10
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.empty)
+      |vpiParent:
+      \_logic_var: (work@dut.empty), line:32:24, endln:32:29
+      |vpiFullName:work@dut.empty
+      |vpiActual:
+      \_logic_typespec: , line:32:3, endln:32:23
+    |vpiName:empty
+    |vpiFullName:work@dut.empty
+    |vpiVisibility:1
+  |vpiParameter:
+  \_parameter: (work@dut.CHANNELS), line:27:28, endln:27:36
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:1, endln:46:10
+    |UINT:2
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.CHANNELS)
+      |vpiParent:
+      \_parameter: (work@dut.CHANNELS), line:27:28, endln:27:36
+      |vpiFullName:work@dut.CHANNELS
+      |vpiActual:
+      \_int_typespec: , line:27:24, endln:27:27
+    |vpiSigned:1
+    |vpiName:CHANNELS
+    |vpiFullName:work@dut.CHANNELS
+  |vpiParamAssign:
+  \_param_assign: , line:27:28, endln:27:40
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:1, endln:46:10
+    |vpiRhs:
+    \_constant: , line:27:39, endln:27:40
+      |vpiParent:
+      \_param_assign: , line:27:28, endln:27:40
+      |vpiDecompile:2
+      |vpiSize:32
+      |UINT:2
+      |vpiTypespec:
+      \_ref_typespec: (work@dut)
+        |vpiParent:
+        \_constant: , line:27:39, endln:27:40
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_int_typespec: , line:27:24, endln:27:27
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@dut.CHANNELS), line:27:28, endln:27:36
+  |vpiDefName:work@dut
+  |vpiTop:1
+  |vpiNet:
+  \_logic_net: (work@dut.clk), line:28:16, endln:28:19
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:1, endln:46:10
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.clk)
+      |vpiParent:
+      \_logic_net: (work@dut.clk), line:28:16, endln:28:19
+      |vpiFullName:work@dut.clk
+      |vpiActual:
+      \_logic_typespec: , line:28:10, endln:28:15
+    |vpiName:clk
+    |vpiFullName:work@dut.clk
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@dut.rst_n), line:28:21, endln:28:26
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:1, endln:46:10
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.rst_n)
+      |vpiParent:
+      \_logic_net: (work@dut.rst_n), line:28:21, endln:28:26
+      |vpiFullName:work@dut.rst_n
+      |vpiActual:
+      \_logic_typespec: , line:28:10, endln:28:15
+    |vpiName:rst_n
+    |vpiFullName:work@dut.rst_n
+    |vpiNetType:36
+  |vpiTopModule:1
+  |vpiPort:
+  \_port: (clk), line:28:16, endln:28:19
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:1, endln:46:10
+    |vpiName:clk
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@dut.clk), line:28:16, endln:28:19
+      |vpiParent:
+      \_port: (clk), line:28:16, endln:28:19
+      |vpiName:clk
+      |vpiFullName:work@dut.clk
+      |vpiActual:
+      \_logic_net: (work@dut.clk), line:28:16, endln:28:19
+    |vpiTypedef:
+    \_ref_typespec: (work@dut.clk)
+      |vpiParent:
+      \_port: (clk), line:28:16, endln:28:19
+      |vpiFullName:work@dut.clk
+      |vpiActual:
+      \_logic_typespec: , line:28:10, endln:28:15
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:1, endln:46:10
+  |vpiPort:
+  \_port: (rst_n), line:28:21, endln:28:26
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:1, endln:46:10
+    |vpiName:rst_n
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@dut.rst_n), line:28:21, endln:28:26
+      |vpiParent:
+      \_port: (rst_n), line:28:21, endln:28:26
+      |vpiName:rst_n
+      |vpiFullName:work@dut.rst_n
+      |vpiActual:
+      \_logic_net: (work@dut.rst_n), line:28:21, endln:28:26
+    |vpiTypedef:
+    \_ref_typespec: (work@dut.rst_n)
+      |vpiParent:
+      \_port: (rst_n), line:28:21, endln:28:26
+      |vpiFullName:work@dut.rst_n
+      |vpiActual:
+      \_logic_typespec: , line:28:10, endln:28:15
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:1, endln:46:10
+  |vpiPort:
+  \_port: (receiver_if), line:29:20, endln:29:31
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:1, endln:46:10
+    |vpiName:receiver_if
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@dut.receiver_if), line:29:20, endln:29:31
+      |vpiParent:
+      \_port: (receiver_if), line:29:20, endln:29:31
+      |vpiFullName:work@dut.receiver_if
+      |vpiActual:
+      \_modport: (receiver), line:9:11, endln:9:19
+    |vpiTypedef:
+    \_ref_typespec: (work@dut.receiver_if)
+      |vpiParent:
+      \_port: (receiver_if), line:29:20, endln:29:31
+      |vpiFullName:work@dut.receiver_if
+      |vpiActual:
+      \_interface_typespec: (receiver), line:29:11, endln:29:19
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:1, endln:46:10
+  |vpiPort:
+  \_port: (sender_if), line:30:20, endln:30:29
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:1, endln:46:10
+    |vpiName:sender_if
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@dut.sender_if), line:30:20, endln:30:29
+      |vpiParent:
+      \_port: (sender_if), line:30:20, endln:30:29
+      |vpiFullName:work@dut.sender_if
+      |vpiActual:
+      \_modport: (sender), line:10:11, endln:10:17
+    |vpiTypedef:
+    \_ref_typespec: (work@dut.sender_if)
+      |vpiParent:
+      \_port: (sender_if), line:30:20, endln:30:29
+      |vpiFullName:work@dut.sender_if
+      |vpiActual:
+      \_interface_typespec: (sender), line:30:11, endln:30:17
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:1, endln:46:10
+  |vpiInterface:
+  \_interface_inst: work@flit_if (work@dut.receiver_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:0
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:1, endln:46:10
+    |vpiName:receiver_if
+    |vpiFullName:work@dut.receiver_if
+    |vpiVariables:
+    \_logic_var: (work@dut.receiver_if.valid), line:6:24, endln:6:29
+      |vpiParent:
+      \_interface_inst: work@flit_if (work@dut.receiver_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:0
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.receiver_if.valid)
+        |vpiParent:
+        \_logic_var: (work@dut.receiver_if.valid), line:6:24, endln:6:29
+        |vpiFullName:work@dut.receiver_if.valid
+        |vpiActual:
+        \_logic_typespec: , line:6:3, endln:6:23
+      |vpiName:valid
+      |vpiFullName:work@dut.receiver_if.valid
+      |vpiVisibility:1
+    |vpiVariables:
+    \_logic_var: (work@dut.receiver_if.ready), line:7:24, endln:7:29
+      |vpiParent:
+      \_interface_inst: work@flit_if (work@dut.receiver_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:0
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.receiver_if.ready)
+        |vpiParent:
+        \_logic_var: (work@dut.receiver_if.ready), line:7:24, endln:7:29
+        |vpiFullName:work@dut.receiver_if.ready
+        |vpiActual:
+        \_logic_typespec: , line:7:3, endln:7:23
+      |vpiName:ready
+      |vpiFullName:work@dut.receiver_if.ready
+      |vpiVisibility:1
+    |vpiVariables:
+    \_array_var: (work@dut.receiver_if.flit), line:8:24, endln:8:28
+      |vpiParent:
+      \_interface_inst: work@flit_if (work@dut.receiver_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:0
+      |vpiSize:2
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.receiver_if.flit)
+        |vpiParent:
+        \_array_var: (work@dut.receiver_if.flit), line:8:24, endln:8:28
+        |vpiFullName:work@dut.receiver_if.flit
+        |vpiActual:
+        \_array_typespec: 
+      |vpiName:flit
+      |vpiFullName:work@dut.receiver_if.flit
+      |vpiRandType:1
+      |vpiVisibility:1
+      |vpiArrayType:1
+      |vpiRange:
+      \_range: , line:8:30, endln:8:38
+        |vpiParent:
+        \_array_var: (work@dut.receiver_if.flit), line:8:24, endln:8:28
+        |vpiLeftRange:
+        \_constant: 
+          |vpiParent:
+          \_range: , line:8:30, endln:8:38
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+        |vpiRightRange:
+        \_operation: , line:8:30, endln:8:38
+          |vpiParent:
+          \_range: , line:8:30, endln:8:38
+          |vpiOpType:11
+          |vpiOperand:
+          \_constant: , line:8:30, endln:8:38
+            |vpiParent:
+            \_operation: , line:8:30, endln:8:38
+            |vpiDecompile:2
+            |vpiSize:32
+            |UINT:2
+            |vpiTypespec:
+            \_ref_typespec: (work@dut.receiver_if.flit)
+              |vpiParent:
+              \_constant: , line:8:30, endln:8:38
+              |vpiFullName:work@dut.receiver_if.flit
+              |vpiActual:
+              \_int_typespec: 
+            |vpiConstType:9
+          |vpiOperand:
+          \_constant: 
+            |vpiSize:64
+            |INT:1
+            |vpiConstType:7
+      |vpiReg:
+      \_logic_var: (work@dut.receiver_if.flit), line:8:24, endln:8:28
+        |vpiParent:
+        \_array_var: (work@dut.receiver_if.flit), line:8:24, endln:8:28
+        |vpiTypespec:
+        \_ref_typespec: (work@dut.receiver_if.flit)
+          |vpiParent:
+          \_logic_var: (work@dut.receiver_if.flit), line:8:24, endln:8:28
+          |vpiFullName:work@dut.receiver_if.flit
+          |vpiActual:
+          \_logic_typespec: , line:8:3, endln:8:16
+        |vpiFullName:work@dut.receiver_if.flit
+    |vpiParamAssign:
+    \_param_assign: , line:5:35, endln:5:47
+      |vpiParent:
+      \_interface_inst: work@flit_if (work@dut.receiver_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:0
+      |vpiRhs:
+      \_constant: , line:5:46, endln:5:47
+        |vpiParent:
+        \_param_assign: , line:5:35, endln:5:47
+        |vpiDecompile:2
+        |vpiSize:32
+        |UINT:2
+        |vpiTypespec:
+        \_ref_typespec: (work@dut.receiver_if)
+          |vpiParent:
+          \_constant: , line:5:46, endln:5:47
+          |vpiFullName:work@dut.receiver_if
+          |vpiActual:
+          \_int_typespec: , line:5:31, endln:5:34
+        |vpiConstType:9
+      |vpiLhs:
+      \_parameter: (work@flit_if.CHANNELS), line:5:35, endln:5:43
+    |vpiParamAssign:
+    \_param_assign: , line:5:63, endln:5:68
+      |vpiParent:
+      \_interface_inst: work@flit_if (work@dut.receiver_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:0
+      |vpiRhs:
+      \_constant: , line:5:67, endln:5:68
+        |vpiParent:
+        \_param_assign: , line:5:63, endln:5:68
+        |vpiDecompile:8
+        |vpiSize:32
+        |UINT:8
+        |vpiTypespec:
+        \_ref_typespec: (work@dut.receiver_if)
+          |vpiParent:
+          \_constant: , line:5:67, endln:5:68
+          |vpiFullName:work@dut.receiver_if
+          |vpiActual:
+          \_int_typespec: , line:5:59, endln:5:62
+        |vpiConstType:9
+      |vpiLhs:
+      \_parameter: (work@flit_if.W), line:5:63, endln:5:64
+    |vpiDefName:work@flit_if
+    |vpiModport:
+    \_modport: (receiver), line:9:11, endln:9:19
+      |vpiParent:
+      \_interface_inst: work@flit_if (work@dut.receiver_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:0
+      |vpiName:receiver
+      |vpiIODecl:
+      \_io_decl: (valid), line:9:27, endln:9:32
+        |vpiParent:
+        \_modport: (receiver), line:9:11, endln:9:19
+        |vpiDirection:1
+        |vpiName:valid
+        |vpiExpr:
+        \_logic_var: (work@dut.receiver_if.valid), line:6:24, endln:6:29
+      |vpiIODecl:
+      \_io_decl: (flit), line:9:34, endln:9:38
+        |vpiParent:
+        \_modport: (receiver), line:9:11, endln:9:19
+        |vpiDirection:1
+        |vpiName:flit
+        |vpiExpr:
+        \_array_var: (work@dut.receiver_if.flit), line:8:24, endln:8:28
+      |vpiIODecl:
+      \_io_decl: (ready), line:9:47, endln:9:52
+        |vpiParent:
+        \_modport: (receiver), line:9:11, endln:9:19
+        |vpiDirection:2
+        |vpiName:ready
+        |vpiExpr:
+        \_logic_var: (work@dut.receiver_if.ready), line:7:24, endln:7:29
+      |vpiInterface:
+      \_interface_inst: work@flit_if (work@dut.receiver_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:0
+  |vpiInterface:
+  \_interface_inst: work@flit_if (work@dut.sender_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:0
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:1, endln:46:10
+    |vpiName:sender_if
+    |vpiFullName:work@dut.sender_if
+    |vpiVariables:
+    \_logic_var: (work@dut.sender_if.valid), line:6:24, endln:6:29
+      |vpiParent:
+      \_interface_inst: work@flit_if (work@dut.sender_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:0
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.sender_if.valid)
+        |vpiParent:
+        \_logic_var: (work@dut.sender_if.valid), line:6:24, endln:6:29
+        |vpiFullName:work@dut.sender_if.valid
+        |vpiActual:
+        \_logic_typespec: , line:6:3, endln:6:23
+      |vpiName:valid
+      |vpiFullName:work@dut.sender_if.valid
+      |vpiVisibility:1
+    |vpiVariables:
+    \_logic_var: (work@dut.sender_if.ready), line:7:24, endln:7:29
+      |vpiParent:
+      \_interface_inst: work@flit_if (work@dut.sender_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:0
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.sender_if.ready)
+        |vpiParent:
+        \_logic_var: (work@dut.sender_if.ready), line:7:24, endln:7:29
+        |vpiFullName:work@dut.sender_if.ready
+        |vpiActual:
+        \_logic_typespec: , line:7:3, endln:7:23
+      |vpiName:ready
+      |vpiFullName:work@dut.sender_if.ready
+      |vpiVisibility:1
+    |vpiVariables:
+    \_array_var: (work@dut.sender_if.flit), line:8:24, endln:8:28
+      |vpiParent:
+      \_interface_inst: work@flit_if (work@dut.sender_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:0
+      |vpiSize:2
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.sender_if.flit)
+        |vpiParent:
+        \_array_var: (work@dut.sender_if.flit), line:8:24, endln:8:28
+        |vpiFullName:work@dut.sender_if.flit
+        |vpiActual:
+        \_array_typespec: 
+      |vpiName:flit
+      |vpiFullName:work@dut.sender_if.flit
+      |vpiRandType:1
+      |vpiVisibility:1
+      |vpiArrayType:1
+      |vpiRange:
+      \_range: , line:8:30, endln:8:38
+        |vpiParent:
+        \_array_var: (work@dut.sender_if.flit), line:8:24, endln:8:28
+        |vpiLeftRange:
+        \_constant: 
+          |vpiParent:
+          \_range: , line:8:30, endln:8:38
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+          |vpiConstType:9
+        |vpiRightRange:
+        \_operation: , line:8:30, endln:8:38
+          |vpiParent:
+          \_range: , line:8:30, endln:8:38
+          |vpiOpType:11
+          |vpiOperand:
+          \_constant: , line:8:30, endln:8:38
+            |vpiParent:
+            \_operation: , line:8:30, endln:8:38
+            |vpiDecompile:2
+            |vpiSize:32
+            |UINT:2
+            |vpiTypespec:
+            \_ref_typespec: (work@dut.sender_if.flit)
+              |vpiParent:
+              \_constant: , line:8:30, endln:8:38
+              |vpiFullName:work@dut.sender_if.flit
+              |vpiActual:
+              \_int_typespec: 
+            |vpiConstType:9
+          |vpiOperand:
+          \_constant: 
+            |vpiSize:64
+            |INT:1
+            |vpiConstType:7
+      |vpiReg:
+      \_logic_var: (work@dut.sender_if.flit), line:8:24, endln:8:28
+        |vpiParent:
+        \_array_var: (work@dut.sender_if.flit), line:8:24, endln:8:28
+        |vpiTypespec:
+        \_ref_typespec: (work@dut.sender_if.flit)
+          |vpiParent:
+          \_logic_var: (work@dut.sender_if.flit), line:8:24, endln:8:28
+          |vpiFullName:work@dut.sender_if.flit
+          |vpiActual:
+          \_logic_typespec: , line:8:3, endln:8:16
+        |vpiFullName:work@dut.sender_if.flit
+    |vpiParamAssign:
+    \_param_assign: , line:5:35, endln:5:47
+      |vpiParent:
+      \_interface_inst: work@flit_if (work@dut.sender_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:0
+      |vpiRhs:
+      \_constant: , line:5:46, endln:5:47
+        |vpiParent:
+        \_param_assign: , line:5:35, endln:5:47
+        |vpiDecompile:2
+        |vpiSize:32
+        |UINT:2
+        |vpiTypespec:
+        \_ref_typespec: (work@dut.sender_if)
+          |vpiParent:
+          \_constant: , line:5:46, endln:5:47
+          |vpiFullName:work@dut.sender_if
+          |vpiActual:
+          \_int_typespec: , line:5:31, endln:5:34
+        |vpiConstType:9
+      |vpiLhs:
+      \_parameter: (work@flit_if.CHANNELS), line:5:35, endln:5:43
+    |vpiParamAssign:
+    \_param_assign: , line:5:63, endln:5:68
+      |vpiParent:
+      \_interface_inst: work@flit_if (work@dut.sender_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:0
+      |vpiRhs:
+      \_constant: , line:5:67, endln:5:68
+        |vpiParent:
+        \_param_assign: , line:5:63, endln:5:68
+        |vpiDecompile:8
+        |vpiSize:32
+        |UINT:8
+        |vpiTypespec:
+        \_ref_typespec: (work@dut.sender_if)
+          |vpiParent:
+          \_constant: , line:5:67, endln:5:68
+          |vpiFullName:work@dut.sender_if
+          |vpiActual:
+          \_int_typespec: , line:5:59, endln:5:62
+        |vpiConstType:9
+      |vpiLhs:
+      \_parameter: (work@flit_if.W), line:5:63, endln:5:64
+    |vpiDefName:work@flit_if
+    |vpiModport:
+    \_modport: (sender), line:10:11, endln:10:17
+      |vpiParent:
+      \_interface_inst: work@flit_if (work@dut.sender_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:0
+      |vpiName:sender
+      |vpiIODecl:
+      \_io_decl: (valid), line:10:28, endln:10:33
+        |vpiParent:
+        \_modport: (sender), line:10:11, endln:10:17
+        |vpiDirection:2
+        |vpiName:valid
+        |vpiExpr:
+        \_logic_var: (work@dut.sender_if.valid), line:6:24, endln:6:29
+      |vpiIODecl:
+      \_io_decl: (flit), line:10:35, endln:10:39
+        |vpiParent:
+        \_modport: (sender), line:10:11, endln:10:17
+        |vpiDirection:2
+        |vpiName:flit
+        |vpiExpr:
+        \_array_var: (work@dut.sender_if.flit), line:8:24, endln:8:28
+      |vpiIODecl:
+      \_io_decl: (ready), line:10:47, endln:10:52
+        |vpiParent:
+        \_modport: (sender), line:10:11, endln:10:17
+        |vpiDirection:1
+        |vpiName:ready
+        |vpiExpr:
+        \_logic_var: (work@dut.sender_if.ready), line:7:24, endln:7:29
+      |vpiInterface:
+      \_interface_inst: work@flit_if (work@dut.sender_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:0
+  |vpiGenScopeArray:
+  \_gen_scope_array: (work@dut.g[0]), line:33:41, endln:45:6
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:1, endln:46:10
+    |vpiName:g[0]
+    |vpiFullName:work@dut.g[0]
+    |vpiGenScope:
+    \_gen_scope: (work@dut.g[0]), line:33:41, endln:45:6
+      |vpiParent:
+      \_gen_scope_array: (work@dut.g[0]), line:33:41, endln:45:6
+      |vpiFullName:work@dut.g[0]
+      |vpiParameter:
+      \_parameter: (work@dut.g[0].i), line:33:0
+        |vpiParent:
+        \_gen_scope: (work@dut.g[0]), line:33:41, endln:45:6
+        |UINT:0
+        |vpiTypespec:
+        \_ref_typespec: (work@dut.g[0].i)
+          |vpiParent:
+          \_parameter: (work@dut.g[0].i), line:33:0
+          |vpiFullName:work@dut.g[0].i
+          |vpiActual:
+          \_int_typespec: 
+        |vpiLocalParam:1
+        |vpiName:i
+        |vpiFullName:work@dut.g[0].i
+      |vpiContAssign:
+      \_cont_assign: , line:43:12, endln:43:39
+        |vpiParent:
+        \_gen_scope: (work@dut.g[0]), line:33:41, endln:45:6
+        |vpiRhs:
+        \_constant: , line:43:35, endln:43:39
+          |vpiParent:
+          \_cont_assign: , line:43:12, endln:43:39
+          |vpiDecompile:1'b1
+          |vpiSize:1
+          |BIN:1
+          |vpiConstType:3
+        |vpiLhs:
+        \_hier_path: (receiver_if.ready[i]), line:43:12, endln:43:32
+          |vpiParent:
+          \_cont_assign: , line:43:12, endln:43:39
+          |vpiActual:
+          \_ref_obj: (receiver_if), line:43:24, endln:43:29
+            |vpiParent:
+            \_hier_path: (receiver_if.ready[i]), line:43:12, endln:43:32
+            |vpiName:receiver_if
+            |vpiActual:
+            \_interface_inst: work@flit_if (work@dut.receiver_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:0
+          |vpiActual:
+          \_bit_select: (work@dut.g[0].receiver_if.ready[i].ready), line:43:24, endln:43:32
+            |vpiParent:
+            \_hier_path: (receiver_if.ready[i]), line:43:12, endln:43:32
+            |vpiName:ready
+            |vpiFullName:work@dut.g[0].receiver_if.ready[i].ready
+            |vpiActual:
+            \_logic_var: (work@dut.receiver_if.ready), line:7:24, endln:7:29
+            |vpiIndex:
+            \_ref_obj: (work@dut.g[0].receiver_if.ready[i].i), line:43:30, endln:43:31
+              |vpiParent:
+              \_bit_select: (work@dut.g[0].receiver_if.ready[i].ready), line:43:24, endln:43:32
+              |vpiName:i
+              |vpiFullName:work@dut.g[0].receiver_if.ready[i].i
+              |vpiActual:
+              \_parameter: (work@dut.g[0].i), line:33:0
+          |vpiName:receiver_if.ready[i]
+      |vpiContAssign:
+      \_cont_assign: , line:44:12, endln:44:44
+        |vpiParent:
+        \_gen_scope: (work@dut.g[0]), line:33:41, endln:45:6
+        |vpiRhs:
+        \_operation: , line:44:35, endln:44:44
+          |vpiParent:
+          \_cont_assign: , line:44:12, endln:44:44
+          |vpiOpType:4
+          |vpiOperand:
+          \_bit_select: (work@dut.g[0].empty), line:44:42, endln:44:43
+            |vpiParent:
+            \_operation: , line:44:35, endln:44:44
+            |vpiName:empty
+            |vpiFullName:work@dut.g[0].empty
+            |vpiActual:
+            \_logic_var: (work@dut.empty), line:32:24, endln:32:29
+            |vpiIndex:
+            \_ref_obj: (work@dut.g[0].i), line:44:42, endln:44:43
+              |vpiParent:
+              \_bit_select: (work@dut.g[0].empty), line:44:42, endln:44:43
+              |vpiName:i
+              |vpiFullName:work@dut.g[0].i
+              |vpiActual:
+              \_parameter: (work@dut.g[0].i), line:33:0
+        |vpiLhs:
+        \_hier_path: (sender_if.valid[i]), line:44:12, endln:44:30
+          |vpiParent:
+          \_cont_assign: , line:44:12, endln:44:44
+          |vpiActual:
+          \_ref_obj: (sender_if), line:44:22, endln:44:27
+            |vpiParent:
+            \_hier_path: (sender_if.valid[i]), line:44:12, endln:44:30
+            |vpiName:sender_if
+            |vpiActual:
+            \_interface_inst: work@flit_if (work@dut.sender_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:0
+          |vpiActual:
+          \_bit_select: (work@dut.g[0].sender_if.valid[i].valid), line:44:22, endln:44:30
+            |vpiParent:
+            \_hier_path: (sender_if.valid[i]), line:44:12, endln:44:30
+            |vpiName:valid
+            |vpiFullName:work@dut.g[0].sender_if.valid[i].valid
+            |vpiActual:
+            \_logic_var: (work@dut.sender_if.valid), line:6:24, endln:6:29
+            |vpiIndex:
+            \_ref_obj: (work@dut.g[0].sender_if.valid[i].i), line:44:28, endln:44:29
+              |vpiParent:
+              \_bit_select: (work@dut.g[0].sender_if.valid[i].valid), line:44:22, endln:44:30
+              |vpiName:i
+              |vpiFullName:work@dut.g[0].sender_if.valid[i].i
+              |vpiActual:
+              \_parameter: (work@dut.g[0].i), line:33:0
+          |vpiName:sender_if.valid[i]
+      |vpiModule:
+      \_module_inst: work@fifo (work@dut.g[0].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+        |vpiParent:
+        \_gen_scope: (work@dut.g[0]), line:33:41, endln:45:6
+        |vpiName:u_fifo
+        |vpiFullName:work@dut.g[0].u_fifo
+        |vpiParameter:
+        \_parameter: (work@dut.g[0].u_fifo.W), line:13:29, endln:13:30
+          |vpiParent:
+          \_param_assign: , line:13:29, endln:13:34
+          |UINT:8
+          |vpiTypespec:
+          \_ref_typespec: (work@dut.g[0].u_fifo.W)
+            |vpiParent:
+            \_parameter: (work@dut.g[0].u_fifo.W), line:13:29, endln:13:30
+            |vpiFullName:work@dut.g[0].u_fifo.W
+            |vpiActual:
+            \_int_typespec: , line:13:25, endln:13:28
+          |vpiSigned:1
+          |vpiName:W
+          |vpiFullName:work@dut.g[0].u_fifo.W
+        |vpiParamAssign:
+        \_param_assign: , line:13:29, endln:13:34
+          |vpiParent:
+          \_module_inst: work@fifo (work@dut.g[0].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+          |vpiRhs:
+          \_constant: , line:13:33, endln:13:34
+            |vpiParent:
+            \_param_assign: , line:13:29, endln:13:34
+            |vpiDecompile:8
+            |vpiSize:32
+            |UINT:8
+            |vpiTypespec:
+            \_ref_typespec: (work@dut.g[0].u_fifo)
+              |vpiParent:
+              \_constant: , line:13:33, endln:13:34
+              |vpiFullName:work@dut.g[0].u_fifo
+              |vpiActual:
+              \_int_typespec: , line:13:25, endln:13:28
+            |vpiConstType:9
+          |vpiLhs:
+          \_parameter: (work@dut.g[0].u_fifo.W), line:13:29, endln:13:30
+        |vpiDefName:work@fifo
+        |vpiDefFile:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv
+        |vpiDefLineNo:13
+        |vpiNet:
+        \_logic_net: (work@dut.g[0].u_fifo.clk), line:14:24, endln:14:27
+          |vpiParent:
+          \_module_inst: work@fifo (work@dut.g[0].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+          |vpiTypespec:
+          \_ref_typespec: (work@dut.g[0].u_fifo.clk)
+            |vpiParent:
+            \_logic_net: (work@dut.g[0].u_fifo.clk), line:14:24, endln:14:27
+            |vpiFullName:work@dut.g[0].u_fifo.clk
+            |vpiActual:
+            \_logic_typespec: , line:14:10, endln:14:15
+          |vpiName:clk
+          |vpiFullName:work@dut.g[0].u_fifo.clk
+          |vpiNetType:36
+        |vpiNet:
+        \_logic_net: (work@dut.g[0].u_fifo.rst_n), line:14:29, endln:14:34
+          |vpiParent:
+          \_module_inst: work@fifo (work@dut.g[0].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+          |vpiTypespec:
+          \_ref_typespec: (work@dut.g[0].u_fifo.rst_n)
+            |vpiParent:
+            \_logic_net: (work@dut.g[0].u_fifo.rst_n), line:14:29, endln:14:34
+            |vpiFullName:work@dut.g[0].u_fifo.rst_n
+            |vpiActual:
+            \_logic_typespec: , line:14:10, endln:14:15
+          |vpiName:rst_n
+          |vpiFullName:work@dut.g[0].u_fifo.rst_n
+          |vpiNetType:36
+        |vpiNet:
+        \_logic_net: (work@dut.g[0].u_fifo.i_push), line:15:24, endln:15:30
+          |vpiParent:
+          \_module_inst: work@fifo (work@dut.g[0].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+          |vpiTypespec:
+          \_ref_typespec: (work@dut.g[0].u_fifo.i_push)
+            |vpiParent:
+            \_logic_net: (work@dut.g[0].u_fifo.i_push), line:15:24, endln:15:30
+            |vpiFullName:work@dut.g[0].u_fifo.i_push
+            |vpiActual:
+            \_logic_typespec: , line:15:10, endln:15:15
+          |vpiName:i_push
+          |vpiFullName:work@dut.g[0].u_fifo.i_push
+          |vpiNetType:36
+        |vpiNet:
+        \_logic_net: (work@dut.g[0].u_fifo.i_data), line:16:24, endln:16:30
+          |vpiParent:
+          \_module_inst: work@fifo (work@dut.g[0].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+          |vpiTypespec:
+          \_ref_typespec: (work@dut.g[0].u_fifo.i_data)
+            |vpiParent:
+            \_logic_net: (work@dut.g[0].u_fifo.i_data), line:16:24, endln:16:30
+            |vpiFullName:work@dut.g[0].u_fifo.i_data
+            |vpiActual:
+            \_logic_typespec: , line:16:10, endln:16:23
+          |vpiName:i_data
+          |vpiFullName:work@dut.g[0].u_fifo.i_data
+          |vpiNetType:36
+        |vpiNet:
+        \_logic_net: (work@dut.g[0].u_fifo.i_pop), line:17:24, endln:17:29
+          |vpiParent:
+          \_module_inst: work@fifo (work@dut.g[0].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+          |vpiTypespec:
+          \_ref_typespec: (work@dut.g[0].u_fifo.i_pop)
+            |vpiParent:
+            \_logic_net: (work@dut.g[0].u_fifo.i_pop), line:17:24, endln:17:29
+            |vpiFullName:work@dut.g[0].u_fifo.i_pop
+            |vpiActual:
+            \_logic_typespec: , line:17:10, endln:17:15
+          |vpiName:i_pop
+          |vpiFullName:work@dut.g[0].u_fifo.i_pop
+          |vpiNetType:36
+        |vpiNet:
+        \_logic_net: (work@dut.g[0].u_fifo.o_empty), line:18:24, endln:18:31
+          |vpiParent:
+          \_module_inst: work@fifo (work@dut.g[0].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+          |vpiTypespec:
+          \_ref_typespec: (work@dut.g[0].u_fifo.o_empty)
+            |vpiParent:
+            \_logic_net: (work@dut.g[0].u_fifo.o_empty), line:18:24, endln:18:31
+            |vpiFullName:work@dut.g[0].u_fifo.o_empty
+            |vpiActual:
+            \_logic_typespec: , line:18:10, endln:18:15
+          |vpiName:o_empty
+          |vpiFullName:work@dut.g[0].u_fifo.o_empty
+          |vpiNetType:36
+        |vpiNet:
+        \_logic_net: (work@dut.g[0].u_fifo.o_data), line:19:24, endln:19:30
+          |vpiParent:
+          \_module_inst: work@fifo (work@dut.g[0].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+          |vpiTypespec:
+          \_ref_typespec: (work@dut.g[0].u_fifo.o_data)
+            |vpiParent:
+            \_logic_net: (work@dut.g[0].u_fifo.o_data), line:19:24, endln:19:30
+            |vpiFullName:work@dut.g[0].u_fifo.o_data
+            |vpiActual:
+            \_logic_typespec: , line:19:10, endln:19:23
+          |vpiName:o_data
+          |vpiFullName:work@dut.g[0].u_fifo.o_data
+          |vpiNetType:36
+        |vpiPort:
+        \_port: (clk), line:14:24, endln:14:27
+          |vpiParent:
+          \_module_inst: work@fifo (work@dut.g[0].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+          |vpiName:clk
+          |vpiDirection:1
+          |vpiHighConn:
+          \_ref_obj: (work@dut.g[0].clk), line:35:17, endln:35:20
+            |vpiParent:
+            \_port: (clk), line:14:24, endln:14:27
+            |vpiName:clk
+            |vpiFullName:work@dut.g[0].clk
+            |vpiActual:
+            \_logic_net: (work@dut.clk), line:28:16, endln:28:19
+          |vpiLowConn:
+          \_ref_obj: (work@dut.g[0].u_fifo.clk), line:35:8, endln:35:11
+            |vpiParent:
+            \_port: (clk), line:14:24, endln:14:27
+            |vpiName:clk
+            |vpiFullName:work@dut.g[0].u_fifo.clk
+            |vpiActual:
+            \_logic_net: (work@dut.g[0].u_fifo.clk), line:14:24, endln:14:27
+          |vpiTypedef:
+          \_ref_typespec: (work@dut.g[0].u_fifo.clk)
+            |vpiParent:
+            \_port: (clk), line:14:24, endln:14:27
+            |vpiFullName:work@dut.g[0].u_fifo.clk
+            |vpiActual:
+            \_logic_typespec: , line:14:10, endln:14:15
+          |vpiInstance:
+          \_module_inst: work@fifo (work@dut.g[0].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+        |vpiPort:
+        \_port: (rst_n), line:14:29, endln:14:34
+          |vpiParent:
+          \_module_inst: work@fifo (work@dut.g[0].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+          |vpiName:rst_n
+          |vpiDirection:1
+          |vpiHighConn:
+          \_ref_obj: (work@dut.g[0].rst_n), line:36:17, endln:36:22
+            |vpiParent:
+            \_port: (rst_n), line:14:29, endln:14:34
+            |vpiName:rst_n
+            |vpiFullName:work@dut.g[0].rst_n
+            |vpiActual:
+            \_logic_net: (work@dut.rst_n), line:28:21, endln:28:26
+          |vpiLowConn:
+          \_ref_obj: (work@dut.g[0].u_fifo.rst_n), line:36:8, endln:36:13
+            |vpiParent:
+            \_port: (rst_n), line:14:29, endln:14:34
+            |vpiName:rst_n
+            |vpiFullName:work@dut.g[0].u_fifo.rst_n
+            |vpiActual:
+            \_logic_net: (work@dut.g[0].u_fifo.rst_n), line:14:29, endln:14:34
+          |vpiTypedef:
+          \_ref_typespec: (work@dut.g[0].u_fifo.rst_n)
+            |vpiParent:
+            \_port: (rst_n), line:14:29, endln:14:34
+            |vpiFullName:work@dut.g[0].u_fifo.rst_n
+            |vpiActual:
+            \_logic_typespec: , line:14:10, endln:14:15
+          |vpiInstance:
+          \_module_inst: work@fifo (work@dut.g[0].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+        |vpiPort:
+        \_port: (i_push), line:15:24, endln:15:30
+          |vpiParent:
+          \_module_inst: work@fifo (work@dut.g[0].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+          |vpiName:i_push
+          |vpiDirection:1
+          |vpiHighConn:
+          \_hier_path: (receiver_if.valid[i]), line:37:17, endln:37:37
+            |vpiParent:
+            \_port: (i_push), line:15:24, endln:15:30
+            |vpiActual:
+            \_ref_obj: (receiver_if), line:37:17, endln:37:28
+              |vpiParent:
+              \_hier_path: (receiver_if.valid[i]), line:37:17, endln:37:37
+              |vpiName:receiver_if
+              |vpiActual:
+              \_interface_inst: work@flit_if (work@dut.receiver_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:0
+            |vpiActual:
+            \_bit_select: (work@dut.g[0].u_fifo.i_push.receiver_if.valid[i].valid), line:37:35, endln:37:36
+              |vpiParent:
+              \_hier_path: (receiver_if.valid[i]), line:37:17, endln:37:37
+              |vpiName:valid
+              |vpiFullName:work@dut.g[0].u_fifo.i_push.receiver_if.valid[i].valid
+              |vpiActual:
+              \_logic_var: (work@dut.receiver_if.valid), line:6:24, endln:6:29
+              |vpiIndex:
+              \_ref_obj: (work@dut.g[0].u_fifo.i_push.receiver_if.valid[i].i), line:37:35, endln:37:36
+                |vpiParent:
+                \_bit_select: (work@dut.g[0].u_fifo.i_push.receiver_if.valid[i].valid), line:37:35, endln:37:36
+                |vpiName:i
+                |vpiFullName:work@dut.g[0].u_fifo.i_push.receiver_if.valid[i].i
+                |vpiActual:
+                \_parameter: (work@dut.g[0].i), line:33:0
+            |vpiName:receiver_if.valid[i]
+          |vpiLowConn:
+          \_ref_obj: (work@dut.g[0].u_fifo.i_push), line:37:8, endln:37:14
+            |vpiParent:
+            \_port: (i_push), line:15:24, endln:15:30
+            |vpiName:i_push
+            |vpiFullName:work@dut.g[0].u_fifo.i_push
+            |vpiActual:
+            \_logic_net: (work@dut.g[0].u_fifo.i_push), line:15:24, endln:15:30
+          |vpiTypedef:
+          \_ref_typespec: (work@dut.g[0].u_fifo.i_push)
+            |vpiParent:
+            \_port: (i_push), line:15:24, endln:15:30
+            |vpiFullName:work@dut.g[0].u_fifo.i_push
+            |vpiActual:
+            \_logic_typespec: , line:15:10, endln:15:15
+          |vpiInstance:
+          \_module_inst: work@fifo (work@dut.g[0].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+        |vpiPort:
+        \_port: (i_data), line:16:24, endln:16:30
+          |vpiParent:
+          \_module_inst: work@fifo (work@dut.g[0].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+          |vpiName:i_data
+          |vpiDirection:1
+          |vpiHighConn:
+          \_hier_path: (receiver_if.flit[i]), line:38:17, endln:38:36
+            |vpiParent:
+            \_port: (i_data), line:16:24, endln:16:30
+            |vpiActual:
+            \_ref_obj: (receiver_if), line:38:17, endln:38:28
+              |vpiParent:
+              \_hier_path: (receiver_if.flit[i]), line:38:17, endln:38:36
+              |vpiName:receiver_if
+              |vpiActual:
+              \_interface_inst: work@flit_if (work@dut.receiver_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:0
+            |vpiActual:
+            \_bit_select: (work@dut.g[0].u_fifo.i_data.receiver_if.flit[i].flit), line:38:34, endln:38:35
+              |vpiParent:
+              \_hier_path: (receiver_if.flit[i]), line:38:17, endln:38:36
+              |vpiName:flit
+              |vpiFullName:work@dut.g[0].u_fifo.i_data.receiver_if.flit[i].flit
+              |vpiActual:
+              \_array_var: (work@dut.receiver_if.flit), line:8:24, endln:8:28
+              |vpiIndex:
+              \_ref_obj: (work@dut.g[0].u_fifo.i_data.receiver_if.flit[i].i), line:38:34, endln:38:35
+                |vpiParent:
+                \_bit_select: (work@dut.g[0].u_fifo.i_data.receiver_if.flit[i].flit), line:38:34, endln:38:35
+                |vpiName:i
+                |vpiFullName:work@dut.g[0].u_fifo.i_data.receiver_if.flit[i].i
+                |vpiActual:
+                \_parameter: (work@dut.g[0].i), line:33:0
+            |vpiName:receiver_if.flit[i]
+          |vpiLowConn:
+          \_ref_obj: (work@dut.g[0].u_fifo.i_data), line:38:8, endln:38:14
+            |vpiParent:
+            \_port: (i_data), line:16:24, endln:16:30
+            |vpiName:i_data
+            |vpiFullName:work@dut.g[0].u_fifo.i_data
+            |vpiActual:
+            \_logic_net: (work@dut.g[0].u_fifo.i_data), line:16:24, endln:16:30
+          |vpiTypedef:
+          \_ref_typespec: (work@dut.g[0].u_fifo.i_data)
+            |vpiParent:
+            \_port: (i_data), line:16:24, endln:16:30
+            |vpiFullName:work@dut.g[0].u_fifo.i_data
+            |vpiActual:
+            \_logic_typespec: , line:16:10, endln:16:23
+          |vpiInstance:
+          \_module_inst: work@fifo (work@dut.g[0].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+        |vpiPort:
+        \_port: (i_pop), line:17:24, endln:17:29
+          |vpiParent:
+          \_module_inst: work@fifo (work@dut.g[0].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+          |vpiName:i_pop
+          |vpiDirection:1
+          |vpiHighConn:
+          \_hier_path: (sender_if.ready[i]), line:39:17, endln:39:35
+            |vpiParent:
+            \_port: (i_pop), line:17:24, endln:17:29
+            |vpiActual:
+            \_ref_obj: (sender_if), line:39:17, endln:39:26
+              |vpiParent:
+              \_hier_path: (sender_if.ready[i]), line:39:17, endln:39:35
+              |vpiName:sender_if
+              |vpiActual:
+              \_interface_inst: work@flit_if (work@dut.sender_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:0
+            |vpiActual:
+            \_bit_select: (work@dut.g[0].u_fifo.i_pop.sender_if.ready[i].ready), line:39:33, endln:39:34
+              |vpiParent:
+              \_hier_path: (sender_if.ready[i]), line:39:17, endln:39:35
+              |vpiName:ready
+              |vpiFullName:work@dut.g[0].u_fifo.i_pop.sender_if.ready[i].ready
+              |vpiActual:
+              \_logic_var: (work@dut.sender_if.ready), line:7:24, endln:7:29
+              |vpiIndex:
+              \_ref_obj: (work@dut.g[0].u_fifo.i_pop.sender_if.ready[i].i), line:39:33, endln:39:34
+                |vpiParent:
+                \_bit_select: (work@dut.g[0].u_fifo.i_pop.sender_if.ready[i].ready), line:39:33, endln:39:34
+                |vpiName:i
+                |vpiFullName:work@dut.g[0].u_fifo.i_pop.sender_if.ready[i].i
+                |vpiActual:
+                \_parameter: (work@dut.g[0].i), line:33:0
+            |vpiName:sender_if.ready[i]
+          |vpiLowConn:
+          \_ref_obj: (work@dut.g[0].u_fifo.i_pop), line:39:8, endln:39:13
+            |vpiParent:
+            \_port: (i_pop), line:17:24, endln:17:29
+            |vpiName:i_pop
+            |vpiFullName:work@dut.g[0].u_fifo.i_pop
+            |vpiActual:
+            \_logic_net: (work@dut.g[0].u_fifo.i_pop), line:17:24, endln:17:29
+          |vpiTypedef:
+          \_ref_typespec: (work@dut.g[0].u_fifo.i_pop)
+            |vpiParent:
+            \_port: (i_pop), line:17:24, endln:17:29
+            |vpiFullName:work@dut.g[0].u_fifo.i_pop
+            |vpiActual:
+            \_logic_typespec: , line:17:10, endln:17:15
+          |vpiInstance:
+          \_module_inst: work@fifo (work@dut.g[0].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+        |vpiPort:
+        \_port: (o_empty), line:18:24, endln:18:31
+          |vpiParent:
+          \_module_inst: work@fifo (work@dut.g[0].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+          |vpiName:o_empty
+          |vpiDirection:2
+          |vpiHighConn:
+          \_bit_select: (work@dut.g[0].u_fifo.empty), line:40:23, endln:40:24
+            |vpiParent:
+            \_port: (o_empty), line:18:24, endln:18:31
+            |vpiName:empty
+            |vpiFullName:work@dut.g[0].u_fifo.empty
+            |vpiActual:
+            \_logic_var: (work@dut.empty), line:32:24, endln:32:29
+            |vpiIndex:
+            \_constant: , line:40:23, endln:40:24
+              |vpiParent:
+              \_bit_select: (work@dut.g[0].u_fifo.empty), line:40:23, endln:40:24
+              |vpiDecompile:0
+              |vpiSize:64
+              |UINT:0
+              |vpiConstType:9
+          |vpiLowConn:
+          \_ref_obj: (work@dut.g[0].u_fifo.o_empty), line:40:8, endln:40:15
+            |vpiParent:
+            \_port: (o_empty), line:18:24, endln:18:31
+            |vpiName:o_empty
+            |vpiFullName:work@dut.g[0].u_fifo.o_empty
+            |vpiActual:
+            \_logic_net: (work@dut.g[0].u_fifo.o_empty), line:18:24, endln:18:31
+          |vpiTypedef:
+          \_ref_typespec: (work@dut.g[0].u_fifo.o_empty)
+            |vpiParent:
+            \_port: (o_empty), line:18:24, endln:18:31
+            |vpiFullName:work@dut.g[0].u_fifo.o_empty
+            |vpiActual:
+            \_logic_typespec: , line:18:10, endln:18:15
+          |vpiInstance:
+          \_module_inst: work@fifo (work@dut.g[0].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+        |vpiPort:
+        \_port: (o_data), line:19:24, endln:19:30
+          |vpiParent:
+          \_module_inst: work@fifo (work@dut.g[0].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+          |vpiName:o_data
+          |vpiDirection:2
+          |vpiHighConn:
+          \_hier_path: (sender_if.flit[i]), line:41:17, endln:41:34
+            |vpiParent:
+            \_port: (o_data), line:19:24, endln:19:30
+            |vpiActual:
+            \_ref_obj: (sender_if), line:41:17, endln:41:26
+              |vpiParent:
+              \_hier_path: (sender_if.flit[i]), line:41:17, endln:41:34
+              |vpiName:sender_if
+              |vpiActual:
+              \_interface_inst: work@flit_if (work@dut.sender_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:0
+            |vpiActual:
+            \_bit_select: (work@dut.g[0].u_fifo.o_data.sender_if.flit[i].flit), line:41:32, endln:41:33
+              |vpiParent:
+              \_hier_path: (sender_if.flit[i]), line:41:17, endln:41:34
+              |vpiName:flit
+              |vpiFullName:work@dut.g[0].u_fifo.o_data.sender_if.flit[i].flit
+              |vpiActual:
+              \_array_var: (work@dut.sender_if.flit), line:8:24, endln:8:28
+              |vpiIndex:
+              \_ref_obj: (work@dut.g[0].u_fifo.o_data.sender_if.flit[i].i), line:41:32, endln:41:33
+                |vpiParent:
+                \_bit_select: (work@dut.g[0].u_fifo.o_data.sender_if.flit[i].flit), line:41:32, endln:41:33
+                |vpiName:i
+                |vpiFullName:work@dut.g[0].u_fifo.o_data.sender_if.flit[i].i
+                |vpiActual:
+                \_parameter: (work@dut.g[0].i), line:33:0
+            |vpiName:sender_if.flit[i]
+          |vpiLowConn:
+          \_ref_obj: (work@dut.g[0].u_fifo.o_data), line:41:8, endln:41:14
+            |vpiParent:
+            \_port: (o_data), line:19:24, endln:19:30
+            |vpiName:o_data
+            |vpiFullName:work@dut.g[0].u_fifo.o_data
+            |vpiActual:
+            \_logic_net: (work@dut.g[0].u_fifo.o_data), line:19:24, endln:19:30
+          |vpiTypedef:
+          \_ref_typespec: (work@dut.g[0].u_fifo.o_data)
+            |vpiParent:
+            \_port: (o_data), line:19:24, endln:19:30
+            |vpiFullName:work@dut.g[0].u_fifo.o_data
+            |vpiActual:
+            \_logic_typespec: , line:19:10, endln:19:23
+          |vpiInstance:
+          \_module_inst: work@fifo (work@dut.g[0].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+        |vpiProcess:
+        \_always: , line:21:3, endln:24:37
+          |vpiParent:
+          \_module_inst: work@fifo (work@dut.g[0].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+          |vpiStmt:
+          \_event_control: , line:21:13, endln:21:42
+            |vpiParent:
+            \_always: , line:21:3, endln:24:37
+            |vpiCondition:
+            \_operation: , line:21:15, endln:21:41
+              |vpiParent:
+              \_event_control: , line:21:13, endln:21:42
+              |vpiOpType:37
+              |vpiOperand:
+              \_operation: , line:21:15, endln:21:26
+                |vpiParent:
+                \_operation: , line:21:15, endln:21:41
+                |vpiOpType:39
+                |vpiOperand:
+                \_ref_obj: (work@dut.g[0].u_fifo.clk), line:21:23, endln:21:26
+                  |vpiParent:
+                  \_operation: , line:21:15, endln:21:26
+                  |vpiName:clk
+                  |vpiFullName:work@dut.g[0].u_fifo.clk
+                  |vpiActual:
+                  \_logic_net: (work@dut.g[0].u_fifo.clk), line:14:24, endln:14:27
+              |vpiOperand:
+              \_operation: , line:21:28, endln:21:41
+                |vpiParent:
+                \_operation: , line:21:15, endln:21:41
+                |vpiOpType:40
+                |vpiOperand:
+                \_ref_obj: (work@dut.g[0].u_fifo.rst_n), line:21:36, endln:21:41
+                  |vpiParent:
+                  \_operation: , line:21:28, endln:21:41
+                  |vpiName:rst_n
+                  |vpiFullName:work@dut.g[0].u_fifo.rst_n
+                  |vpiActual:
+                  \_logic_net: (work@dut.g[0].u_fifo.rst_n), line:14:29, endln:14:34
+            |vpiStmt:
+            \_if_else: , line:22:5, endln:24:37
+              |vpiParent:
+              \_event_control: , line:21:13, endln:21:42
+              |vpiCondition:
+              \_operation: , line:22:9, endln:22:15
+                |vpiParent:
+                \_if_else: , line:22:5, endln:24:37
+                |vpiOpType:3
+                |vpiOperand:
+                \_ref_obj: (work@dut.g[0].u_fifo.rst_n), line:22:10, endln:22:15
+                  |vpiParent:
+                  \_operation: , line:22:9, endln:22:15
+                  |vpiName:rst_n
+                  |vpiFullName:work@dut.g[0].u_fifo.rst_n
+                  |vpiActual:
+                  \_logic_net: (work@dut.g[0].u_fifo.rst_n), line:14:29, endln:14:34
+              |vpiStmt:
+              \_begin: (work@dut.g[0].u_fifo), line:22:17, endln:22:57
+                |vpiParent:
+                \_if_else: , line:22:5, endln:24:37
+                |vpiFullName:work@dut.g[0].u_fifo
+                |vpiStmt:
+                \_assignment: , line:22:23, endln:22:35
+                  |vpiParent:
+                  \_begin: (work@dut.g[0].u_fifo), line:22:17, endln:22:57
+                  |vpiOpType:82
+                  |vpiRhs:
+                  \_constant: , line:22:33, endln:22:35
+                    |vpiParent:
+                    \_assignment: , line:22:23, endln:22:35
+                    |vpiDecompile:'0
+                    |vpiSize:-1
+                    |BIN:0
+                    |vpiConstType:3
+                  |vpiLhs:
+                  \_ref_obj: (work@dut.g[0].u_fifo.o_data), line:22:23, endln:22:29
+                    |vpiParent:
+                    \_assignment: , line:22:23, endln:22:35
+                    |vpiName:o_data
+                    |vpiFullName:work@dut.g[0].u_fifo.o_data
+                    |vpiActual:
+                    \_logic_net: (work@dut.g[0].u_fifo.o_data), line:19:24, endln:19:30
+                |vpiStmt:
+                \_assignment: , line:22:37, endln:22:52
+                  |vpiParent:
+                  \_begin: (work@dut.g[0].u_fifo), line:22:17, endln:22:57
+                  |vpiOpType:82
+                  |vpiRhs:
+                  \_constant: , line:22:48, endln:22:52
+                  |vpiLhs:
+                  \_ref_obj: (work@dut.g[0].u_fifo.o_empty), line:22:37, endln:22:44
+                    |vpiParent:
+                    \_assignment: , line:22:37, endln:22:52
+                    |vpiName:o_empty
+                    |vpiFullName:work@dut.g[0].u_fifo.o_empty
+                    |vpiActual:
+                    \_logic_net: (work@dut.g[0].u_fifo.o_empty), line:18:24, endln:18:31
+              |vpiElseStmt:
+              \_if_else: , line:23:10, endln:24:37
+                |vpiParent:
+                \_if_else: , line:22:5, endln:24:37
+                |vpiCondition:
+                \_ref_obj: (work@dut.g[0].u_fifo.i_push), line:23:14, endln:23:20
+                  |vpiParent:
+                  \_if_else: , line:23:10, endln:24:37
+                  |vpiName:i_push
+                  |vpiFullName:work@dut.g[0].u_fifo.i_push
+                  |vpiActual:
+                  \_logic_net: (work@dut.g[0].u_fifo.i_push), line:15:24, endln:15:30
+                |vpiStmt:
+                \_begin: (work@dut.g[0].u_fifo), line:23:22, endln:23:66
+                  |vpiParent:
+                  \_if_else: , line:23:10, endln:24:37
+                  |vpiFullName:work@dut.g[0].u_fifo
+                  |vpiStmt:
+                  \_assignment: , line:23:28, endln:23:44
+                    |vpiParent:
+                    \_begin: (work@dut.g[0].u_fifo), line:23:22, endln:23:66
+                    |vpiOpType:82
+                    |vpiRhs:
+                    \_ref_obj: (work@dut.g[0].u_fifo.i_data), line:23:38, endln:23:44
+                      |vpiParent:
+                      \_assignment: , line:23:28, endln:23:44
+                      |vpiName:i_data
+                      |vpiFullName:work@dut.g[0].u_fifo.i_data
+                      |vpiActual:
+                      \_logic_net: (work@dut.g[0].u_fifo.i_data), line:16:24, endln:16:30
+                    |vpiLhs:
+                    \_ref_obj: (work@dut.g[0].u_fifo.o_data), line:23:28, endln:23:34
+                      |vpiParent:
+                      \_assignment: , line:23:28, endln:23:44
+                      |vpiName:o_data
+                      |vpiFullName:work@dut.g[0].u_fifo.o_data
+                      |vpiActual:
+                      \_logic_net: (work@dut.g[0].u_fifo.o_data), line:19:24, endln:19:30
+                  |vpiStmt:
+                  \_assignment: , line:23:46, endln:23:61
+                    |vpiParent:
+                    \_begin: (work@dut.g[0].u_fifo), line:23:22, endln:23:66
+                    |vpiOpType:82
+                    |vpiRhs:
+                    \_constant: , line:23:57, endln:23:61
+                    |vpiLhs:
+                    \_ref_obj: (work@dut.g[0].u_fifo.o_empty), line:23:46, endln:23:53
+                      |vpiParent:
+                      \_assignment: , line:23:46, endln:23:61
+                      |vpiName:o_empty
+                      |vpiFullName:work@dut.g[0].u_fifo.o_empty
+                      |vpiActual:
+                      \_logic_net: (work@dut.g[0].u_fifo.o_empty), line:18:24, endln:18:31
+                |vpiElseStmt:
+                \_if_stmt: , line:24:10, endln:24:37
+                  |vpiParent:
+                  \_if_else: , line:23:10, endln:24:37
+                  |vpiCondition:
+                  \_ref_obj: (work@dut.g[0].u_fifo.i_pop), line:24:14, endln:24:19
+                    |vpiParent:
+                    \_if_stmt: , line:24:10, endln:24:37
+                    |vpiName:i_pop
+                    |vpiFullName:work@dut.g[0].u_fifo.i_pop
+                    |vpiActual:
+                    \_logic_net: (work@dut.g[0].u_fifo.i_pop), line:17:24, endln:17:29
+                  |vpiStmt:
+                  \_assignment: , line:24:21, endln:24:36
+                    |vpiParent:
+                    \_if_stmt: , line:24:10, endln:24:37
+                    |vpiOpType:82
+                    |vpiRhs:
+                    \_constant: , line:24:32, endln:24:36
+                    |vpiLhs:
+                    \_ref_obj: (work@dut.g[0].u_fifo.o_empty), line:24:21, endln:24:28
+                      |vpiParent:
+                      \_assignment: , line:24:21, endln:24:36
+                      |vpiName:o_empty
+                      |vpiFullName:work@dut.g[0].u_fifo.o_empty
+                      |vpiActual:
+                      \_logic_net: (work@dut.g[0].u_fifo.o_empty), line:18:24, endln:18:31
+          |vpiAlwaysType:3
+  |vpiGenScopeArray:
+  \_gen_scope_array: (work@dut.g[1]), line:33:41, endln:45:6
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:1, endln:46:10
+    |vpiName:g[1]
+    |vpiFullName:work@dut.g[1]
+    |vpiGenScope:
+    \_gen_scope: (work@dut.g[1]), line:33:41, endln:45:6
+      |vpiParent:
+      \_gen_scope_array: (work@dut.g[1]), line:33:41, endln:45:6
+      |vpiFullName:work@dut.g[1]
+      |vpiParameter:
+      \_parameter: (work@dut.g[1].i), line:33:0
+        |vpiParent:
+        \_gen_scope: (work@dut.g[1]), line:33:41, endln:45:6
+        |UINT:1
+        |vpiTypespec:
+        \_ref_typespec: (work@dut.g[1].i)
+          |vpiParent:
+          \_parameter: (work@dut.g[1].i), line:33:0
+          |vpiFullName:work@dut.g[1].i
+          |vpiActual:
+          \_int_typespec: 
+        |vpiLocalParam:1
+        |vpiName:i
+        |vpiFullName:work@dut.g[1].i
+      |vpiContAssign:
+      \_cont_assign: , line:43:12, endln:43:39
+        |vpiParent:
+        \_gen_scope: (work@dut.g[1]), line:33:41, endln:45:6
+        |vpiRhs:
+        \_constant: , line:43:35, endln:43:39
+          |vpiParent:
+          \_cont_assign: , line:43:12, endln:43:39
+          |vpiDecompile:1'b1
+          |vpiSize:1
+          |BIN:1
+          |vpiConstType:3
+        |vpiLhs:
+        \_hier_path: (receiver_if.ready[i]), line:43:12, endln:43:32
+          |vpiParent:
+          \_cont_assign: , line:43:12, endln:43:39
+          |vpiActual:
+          \_ref_obj: (receiver_if), line:43:24, endln:43:29
+            |vpiParent:
+            \_hier_path: (receiver_if.ready[i]), line:43:12, endln:43:32
+            |vpiName:receiver_if
+            |vpiActual:
+            \_interface_inst: work@flit_if (work@dut.receiver_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:0
+          |vpiActual:
+          \_bit_select: (work@dut.g[1].receiver_if.ready[i].ready), line:43:24, endln:43:32
+            |vpiParent:
+            \_hier_path: (receiver_if.ready[i]), line:43:12, endln:43:32
+            |vpiName:ready
+            |vpiFullName:work@dut.g[1].receiver_if.ready[i].ready
+            |vpiActual:
+            \_logic_var: (work@dut.receiver_if.ready), line:7:24, endln:7:29
+            |vpiIndex:
+            \_ref_obj: (work@dut.g[1].receiver_if.ready[i].i), line:43:30, endln:43:31
+              |vpiParent:
+              \_bit_select: (work@dut.g[1].receiver_if.ready[i].ready), line:43:24, endln:43:32
+              |vpiName:i
+              |vpiFullName:work@dut.g[1].receiver_if.ready[i].i
+              |vpiActual:
+              \_parameter: (work@dut.g[1].i), line:33:0
+          |vpiName:receiver_if.ready[i]
+      |vpiContAssign:
+      \_cont_assign: , line:44:12, endln:44:44
+        |vpiParent:
+        \_gen_scope: (work@dut.g[1]), line:33:41, endln:45:6
+        |vpiRhs:
+        \_operation: , line:44:35, endln:44:44
+          |vpiParent:
+          \_cont_assign: , line:44:12, endln:44:44
+          |vpiOpType:4
+          |vpiOperand:
+          \_bit_select: (work@dut.g[1].empty), line:44:42, endln:44:43
+            |vpiParent:
+            \_operation: , line:44:35, endln:44:44
+            |vpiName:empty
+            |vpiFullName:work@dut.g[1].empty
+            |vpiActual:
+            \_logic_var: (work@dut.empty), line:32:24, endln:32:29
+            |vpiIndex:
+            \_ref_obj: (work@dut.g[1].i), line:44:42, endln:44:43
+              |vpiParent:
+              \_bit_select: (work@dut.g[1].empty), line:44:42, endln:44:43
+              |vpiName:i
+              |vpiFullName:work@dut.g[1].i
+              |vpiActual:
+              \_parameter: (work@dut.g[1].i), line:33:0
+        |vpiLhs:
+        \_hier_path: (sender_if.valid[i]), line:44:12, endln:44:30
+          |vpiParent:
+          \_cont_assign: , line:44:12, endln:44:44
+          |vpiActual:
+          \_ref_obj: (sender_if), line:44:22, endln:44:27
+            |vpiParent:
+            \_hier_path: (sender_if.valid[i]), line:44:12, endln:44:30
+            |vpiName:sender_if
+            |vpiActual:
+            \_interface_inst: work@flit_if (work@dut.sender_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:0
+          |vpiActual:
+          \_bit_select: (work@dut.g[1].sender_if.valid[i].valid), line:44:22, endln:44:30
+            |vpiParent:
+            \_hier_path: (sender_if.valid[i]), line:44:12, endln:44:30
+            |vpiName:valid
+            |vpiFullName:work@dut.g[1].sender_if.valid[i].valid
+            |vpiActual:
+            \_logic_var: (work@dut.sender_if.valid), line:6:24, endln:6:29
+            |vpiIndex:
+            \_ref_obj: (work@dut.g[1].sender_if.valid[i].i), line:44:28, endln:44:29
+              |vpiParent:
+              \_bit_select: (work@dut.g[1].sender_if.valid[i].valid), line:44:22, endln:44:30
+              |vpiName:i
+              |vpiFullName:work@dut.g[1].sender_if.valid[i].i
+              |vpiActual:
+              \_parameter: (work@dut.g[1].i), line:33:0
+          |vpiName:sender_if.valid[i]
+      |vpiModule:
+      \_module_inst: work@fifo (work@dut.g[1].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+        |vpiParent:
+        \_gen_scope: (work@dut.g[1]), line:33:41, endln:45:6
+        |vpiName:u_fifo
+        |vpiFullName:work@dut.g[1].u_fifo
+        |vpiParameter:
+        \_parameter: (work@dut.g[1].u_fifo.W), line:13:29, endln:13:30
+          |vpiParent:
+          \_param_assign: , line:13:29, endln:13:34
+          |UINT:8
+          |vpiTypespec:
+          \_ref_typespec: (work@dut.g[1].u_fifo.W)
+            |vpiParent:
+            \_parameter: (work@dut.g[1].u_fifo.W), line:13:29, endln:13:30
+            |vpiFullName:work@dut.g[1].u_fifo.W
+            |vpiActual:
+            \_int_typespec: , line:13:25, endln:13:28
+          |vpiSigned:1
+          |vpiName:W
+          |vpiFullName:work@dut.g[1].u_fifo.W
+        |vpiParamAssign:
+        \_param_assign: , line:13:29, endln:13:34
+          |vpiParent:
+          \_module_inst: work@fifo (work@dut.g[1].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+          |vpiRhs:
+          \_constant: , line:13:33, endln:13:34
+            |vpiParent:
+            \_param_assign: , line:13:29, endln:13:34
+            |vpiDecompile:8
+            |vpiSize:32
+            |UINT:8
+            |vpiTypespec:
+            \_ref_typespec: (work@dut.g[1].u_fifo)
+              |vpiParent:
+              \_constant: , line:13:33, endln:13:34
+              |vpiFullName:work@dut.g[1].u_fifo
+              |vpiActual:
+              \_int_typespec: , line:13:25, endln:13:28
+            |vpiConstType:9
+          |vpiLhs:
+          \_parameter: (work@dut.g[1].u_fifo.W), line:13:29, endln:13:30
+        |vpiDefName:work@fifo
+        |vpiDefFile:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv
+        |vpiDefLineNo:13
+        |vpiNet:
+        \_logic_net: (work@dut.g[1].u_fifo.clk), line:14:24, endln:14:27
+          |vpiParent:
+          \_module_inst: work@fifo (work@dut.g[1].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+          |vpiTypespec:
+          \_ref_typespec: (work@dut.g[1].u_fifo.clk)
+            |vpiParent:
+            \_logic_net: (work@dut.g[1].u_fifo.clk), line:14:24, endln:14:27
+            |vpiFullName:work@dut.g[1].u_fifo.clk
+            |vpiActual:
+            \_logic_typespec: , line:14:10, endln:14:15
+          |vpiName:clk
+          |vpiFullName:work@dut.g[1].u_fifo.clk
+          |vpiNetType:36
+        |vpiNet:
+        \_logic_net: (work@dut.g[1].u_fifo.rst_n), line:14:29, endln:14:34
+          |vpiParent:
+          \_module_inst: work@fifo (work@dut.g[1].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+          |vpiTypespec:
+          \_ref_typespec: (work@dut.g[1].u_fifo.rst_n)
+            |vpiParent:
+            \_logic_net: (work@dut.g[1].u_fifo.rst_n), line:14:29, endln:14:34
+            |vpiFullName:work@dut.g[1].u_fifo.rst_n
+            |vpiActual:
+            \_logic_typespec: , line:14:10, endln:14:15
+          |vpiName:rst_n
+          |vpiFullName:work@dut.g[1].u_fifo.rst_n
+          |vpiNetType:36
+        |vpiNet:
+        \_logic_net: (work@dut.g[1].u_fifo.i_push), line:15:24, endln:15:30
+          |vpiParent:
+          \_module_inst: work@fifo (work@dut.g[1].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+          |vpiTypespec:
+          \_ref_typespec: (work@dut.g[1].u_fifo.i_push)
+            |vpiParent:
+            \_logic_net: (work@dut.g[1].u_fifo.i_push), line:15:24, endln:15:30
+            |vpiFullName:work@dut.g[1].u_fifo.i_push
+            |vpiActual:
+            \_logic_typespec: , line:15:10, endln:15:15
+          |vpiName:i_push
+          |vpiFullName:work@dut.g[1].u_fifo.i_push
+          |vpiNetType:36
+        |vpiNet:
+        \_logic_net: (work@dut.g[1].u_fifo.i_data), line:16:24, endln:16:30
+          |vpiParent:
+          \_module_inst: work@fifo (work@dut.g[1].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+          |vpiTypespec:
+          \_ref_typespec: (work@dut.g[1].u_fifo.i_data)
+            |vpiParent:
+            \_logic_net: (work@dut.g[1].u_fifo.i_data), line:16:24, endln:16:30
+            |vpiFullName:work@dut.g[1].u_fifo.i_data
+            |vpiActual:
+            \_logic_typespec: , line:16:10, endln:16:23
+          |vpiName:i_data
+          |vpiFullName:work@dut.g[1].u_fifo.i_data
+          |vpiNetType:36
+        |vpiNet:
+        \_logic_net: (work@dut.g[1].u_fifo.i_pop), line:17:24, endln:17:29
+          |vpiParent:
+          \_module_inst: work@fifo (work@dut.g[1].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+          |vpiTypespec:
+          \_ref_typespec: (work@dut.g[1].u_fifo.i_pop)
+            |vpiParent:
+            \_logic_net: (work@dut.g[1].u_fifo.i_pop), line:17:24, endln:17:29
+            |vpiFullName:work@dut.g[1].u_fifo.i_pop
+            |vpiActual:
+            \_logic_typespec: , line:17:10, endln:17:15
+          |vpiName:i_pop
+          |vpiFullName:work@dut.g[1].u_fifo.i_pop
+          |vpiNetType:36
+        |vpiNet:
+        \_logic_net: (work@dut.g[1].u_fifo.o_empty), line:18:24, endln:18:31
+          |vpiParent:
+          \_module_inst: work@fifo (work@dut.g[1].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+          |vpiTypespec:
+          \_ref_typespec: (work@dut.g[1].u_fifo.o_empty)
+            |vpiParent:
+            \_logic_net: (work@dut.g[1].u_fifo.o_empty), line:18:24, endln:18:31
+            |vpiFullName:work@dut.g[1].u_fifo.o_empty
+            |vpiActual:
+            \_logic_typespec: , line:18:10, endln:18:15
+          |vpiName:o_empty
+          |vpiFullName:work@dut.g[1].u_fifo.o_empty
+          |vpiNetType:36
+        |vpiNet:
+        \_logic_net: (work@dut.g[1].u_fifo.o_data), line:19:24, endln:19:30
+          |vpiParent:
+          \_module_inst: work@fifo (work@dut.g[1].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+          |vpiTypespec:
+          \_ref_typespec: (work@dut.g[1].u_fifo.o_data)
+            |vpiParent:
+            \_logic_net: (work@dut.g[1].u_fifo.o_data), line:19:24, endln:19:30
+            |vpiFullName:work@dut.g[1].u_fifo.o_data
+            |vpiActual:
+            \_logic_typespec: , line:19:10, endln:19:23
+          |vpiName:o_data
+          |vpiFullName:work@dut.g[1].u_fifo.o_data
+          |vpiNetType:36
+        |vpiPort:
+        \_port: (clk), line:14:24, endln:14:27
+          |vpiParent:
+          \_module_inst: work@fifo (work@dut.g[1].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+          |vpiName:clk
+          |vpiDirection:1
+          |vpiHighConn:
+          \_ref_obj: (work@dut.g[1].clk), line:35:17, endln:35:20
+            |vpiParent:
+            \_port: (clk), line:14:24, endln:14:27
+            |vpiName:clk
+            |vpiFullName:work@dut.g[1].clk
+            |vpiActual:
+            \_logic_net: (work@dut.clk), line:28:16, endln:28:19
+          |vpiLowConn:
+          \_ref_obj: (work@dut.g[1].u_fifo.clk), line:35:8, endln:35:11
+            |vpiParent:
+            \_port: (clk), line:14:24, endln:14:27
+            |vpiName:clk
+            |vpiFullName:work@dut.g[1].u_fifo.clk
+            |vpiActual:
+            \_logic_net: (work@dut.g[1].u_fifo.clk), line:14:24, endln:14:27
+          |vpiTypedef:
+          \_ref_typespec: (work@dut.g[1].u_fifo.clk)
+            |vpiParent:
+            \_port: (clk), line:14:24, endln:14:27
+            |vpiFullName:work@dut.g[1].u_fifo.clk
+            |vpiActual:
+            \_logic_typespec: , line:14:10, endln:14:15
+          |vpiInstance:
+          \_module_inst: work@fifo (work@dut.g[1].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+        |vpiPort:
+        \_port: (rst_n), line:14:29, endln:14:34
+          |vpiParent:
+          \_module_inst: work@fifo (work@dut.g[1].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+          |vpiName:rst_n
+          |vpiDirection:1
+          |vpiHighConn:
+          \_ref_obj: (work@dut.g[1].rst_n), line:36:17, endln:36:22
+            |vpiParent:
+            \_port: (rst_n), line:14:29, endln:14:34
+            |vpiName:rst_n
+            |vpiFullName:work@dut.g[1].rst_n
+            |vpiActual:
+            \_logic_net: (work@dut.rst_n), line:28:21, endln:28:26
+          |vpiLowConn:
+          \_ref_obj: (work@dut.g[1].u_fifo.rst_n), line:36:8, endln:36:13
+            |vpiParent:
+            \_port: (rst_n), line:14:29, endln:14:34
+            |vpiName:rst_n
+            |vpiFullName:work@dut.g[1].u_fifo.rst_n
+            |vpiActual:
+            \_logic_net: (work@dut.g[1].u_fifo.rst_n), line:14:29, endln:14:34
+          |vpiTypedef:
+          \_ref_typespec: (work@dut.g[1].u_fifo.rst_n)
+            |vpiParent:
+            \_port: (rst_n), line:14:29, endln:14:34
+            |vpiFullName:work@dut.g[1].u_fifo.rst_n
+            |vpiActual:
+            \_logic_typespec: , line:14:10, endln:14:15
+          |vpiInstance:
+          \_module_inst: work@fifo (work@dut.g[1].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+        |vpiPort:
+        \_port: (i_push), line:15:24, endln:15:30
+          |vpiParent:
+          \_module_inst: work@fifo (work@dut.g[1].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+          |vpiName:i_push
+          |vpiDirection:1
+          |vpiHighConn:
+          \_hier_path: (receiver_if.valid[i]), line:37:17, endln:37:37
+            |vpiParent:
+            \_port: (i_push), line:15:24, endln:15:30
+            |vpiActual:
+            \_ref_obj: (receiver_if), line:37:17, endln:37:28
+              |vpiParent:
+              \_hier_path: (receiver_if.valid[i]), line:37:17, endln:37:37
+              |vpiName:receiver_if
+              |vpiActual:
+              \_interface_inst: work@flit_if (work@dut.receiver_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:0
+            |vpiActual:
+            \_bit_select: (work@dut.g[1].u_fifo.i_push.receiver_if.valid[i].valid), line:37:35, endln:37:36
+              |vpiParent:
+              \_hier_path: (receiver_if.valid[i]), line:37:17, endln:37:37
+              |vpiName:valid
+              |vpiFullName:work@dut.g[1].u_fifo.i_push.receiver_if.valid[i].valid
+              |vpiActual:
+              \_logic_var: (work@dut.receiver_if.valid), line:6:24, endln:6:29
+              |vpiIndex:
+              \_ref_obj: (work@dut.g[1].u_fifo.i_push.receiver_if.valid[i].i), line:37:35, endln:37:36
+                |vpiParent:
+                \_bit_select: (work@dut.g[1].u_fifo.i_push.receiver_if.valid[i].valid), line:37:35, endln:37:36
+                |vpiName:i
+                |vpiFullName:work@dut.g[1].u_fifo.i_push.receiver_if.valid[i].i
+                |vpiActual:
+                \_parameter: (work@dut.g[1].i), line:33:0
+            |vpiName:receiver_if.valid[i]
+          |vpiLowConn:
+          \_ref_obj: (work@dut.g[1].u_fifo.i_push), line:37:8, endln:37:14
+            |vpiParent:
+            \_port: (i_push), line:15:24, endln:15:30
+            |vpiName:i_push
+            |vpiFullName:work@dut.g[1].u_fifo.i_push
+            |vpiActual:
+            \_logic_net: (work@dut.g[1].u_fifo.i_push), line:15:24, endln:15:30
+          |vpiTypedef:
+          \_ref_typespec: (work@dut.g[1].u_fifo.i_push)
+            |vpiParent:
+            \_port: (i_push), line:15:24, endln:15:30
+            |vpiFullName:work@dut.g[1].u_fifo.i_push
+            |vpiActual:
+            \_logic_typespec: , line:15:10, endln:15:15
+          |vpiInstance:
+          \_module_inst: work@fifo (work@dut.g[1].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+        |vpiPort:
+        \_port: (i_data), line:16:24, endln:16:30
+          |vpiParent:
+          \_module_inst: work@fifo (work@dut.g[1].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+          |vpiName:i_data
+          |vpiDirection:1
+          |vpiHighConn:
+          \_hier_path: (receiver_if.flit[i]), line:38:17, endln:38:36
+            |vpiParent:
+            \_port: (i_data), line:16:24, endln:16:30
+            |vpiActual:
+            \_ref_obj: (receiver_if), line:38:17, endln:38:28
+              |vpiParent:
+              \_hier_path: (receiver_if.flit[i]), line:38:17, endln:38:36
+              |vpiName:receiver_if
+              |vpiActual:
+              \_interface_inst: work@flit_if (work@dut.receiver_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:0
+            |vpiActual:
+            \_bit_select: (work@dut.g[1].u_fifo.i_data.receiver_if.flit[i].flit), line:38:34, endln:38:35
+              |vpiParent:
+              \_hier_path: (receiver_if.flit[i]), line:38:17, endln:38:36
+              |vpiName:flit
+              |vpiFullName:work@dut.g[1].u_fifo.i_data.receiver_if.flit[i].flit
+              |vpiActual:
+              \_array_var: (work@dut.receiver_if.flit), line:8:24, endln:8:28
+              |vpiIndex:
+              \_ref_obj: (work@dut.g[1].u_fifo.i_data.receiver_if.flit[i].i), line:38:34, endln:38:35
+                |vpiParent:
+                \_bit_select: (work@dut.g[1].u_fifo.i_data.receiver_if.flit[i].flit), line:38:34, endln:38:35
+                |vpiName:i
+                |vpiFullName:work@dut.g[1].u_fifo.i_data.receiver_if.flit[i].i
+                |vpiActual:
+                \_parameter: (work@dut.g[1].i), line:33:0
+            |vpiName:receiver_if.flit[i]
+          |vpiLowConn:
+          \_ref_obj: (work@dut.g[1].u_fifo.i_data), line:38:8, endln:38:14
+            |vpiParent:
+            \_port: (i_data), line:16:24, endln:16:30
+            |vpiName:i_data
+            |vpiFullName:work@dut.g[1].u_fifo.i_data
+            |vpiActual:
+            \_logic_net: (work@dut.g[1].u_fifo.i_data), line:16:24, endln:16:30
+          |vpiTypedef:
+          \_ref_typespec: (work@dut.g[1].u_fifo.i_data)
+            |vpiParent:
+            \_port: (i_data), line:16:24, endln:16:30
+            |vpiFullName:work@dut.g[1].u_fifo.i_data
+            |vpiActual:
+            \_logic_typespec: , line:16:10, endln:16:23
+          |vpiInstance:
+          \_module_inst: work@fifo (work@dut.g[1].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+        |vpiPort:
+        \_port: (i_pop), line:17:24, endln:17:29
+          |vpiParent:
+          \_module_inst: work@fifo (work@dut.g[1].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+          |vpiName:i_pop
+          |vpiDirection:1
+          |vpiHighConn:
+          \_hier_path: (sender_if.ready[i]), line:39:17, endln:39:35
+            |vpiParent:
+            \_port: (i_pop), line:17:24, endln:17:29
+            |vpiActual:
+            \_ref_obj: (sender_if), line:39:17, endln:39:26
+              |vpiParent:
+              \_hier_path: (sender_if.ready[i]), line:39:17, endln:39:35
+              |vpiName:sender_if
+              |vpiActual:
+              \_interface_inst: work@flit_if (work@dut.sender_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:0
+            |vpiActual:
+            \_bit_select: (work@dut.g[1].u_fifo.i_pop.sender_if.ready[i].ready), line:39:33, endln:39:34
+              |vpiParent:
+              \_hier_path: (sender_if.ready[i]), line:39:17, endln:39:35
+              |vpiName:ready
+              |vpiFullName:work@dut.g[1].u_fifo.i_pop.sender_if.ready[i].ready
+              |vpiActual:
+              \_logic_var: (work@dut.sender_if.ready), line:7:24, endln:7:29
+              |vpiIndex:
+              \_ref_obj: (work@dut.g[1].u_fifo.i_pop.sender_if.ready[i].i), line:39:33, endln:39:34
+                |vpiParent:
+                \_bit_select: (work@dut.g[1].u_fifo.i_pop.sender_if.ready[i].ready), line:39:33, endln:39:34
+                |vpiName:i
+                |vpiFullName:work@dut.g[1].u_fifo.i_pop.sender_if.ready[i].i
+                |vpiActual:
+                \_parameter: (work@dut.g[1].i), line:33:0
+            |vpiName:sender_if.ready[i]
+          |vpiLowConn:
+          \_ref_obj: (work@dut.g[1].u_fifo.i_pop), line:39:8, endln:39:13
+            |vpiParent:
+            \_port: (i_pop), line:17:24, endln:17:29
+            |vpiName:i_pop
+            |vpiFullName:work@dut.g[1].u_fifo.i_pop
+            |vpiActual:
+            \_logic_net: (work@dut.g[1].u_fifo.i_pop), line:17:24, endln:17:29
+          |vpiTypedef:
+          \_ref_typespec: (work@dut.g[1].u_fifo.i_pop)
+            |vpiParent:
+            \_port: (i_pop), line:17:24, endln:17:29
+            |vpiFullName:work@dut.g[1].u_fifo.i_pop
+            |vpiActual:
+            \_logic_typespec: , line:17:10, endln:17:15
+          |vpiInstance:
+          \_module_inst: work@fifo (work@dut.g[1].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+        |vpiPort:
+        \_port: (o_empty), line:18:24, endln:18:31
+          |vpiParent:
+          \_module_inst: work@fifo (work@dut.g[1].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+          |vpiName:o_empty
+          |vpiDirection:2
+          |vpiHighConn:
+          \_bit_select: (work@dut.g[1].u_fifo.empty), line:40:23, endln:40:24
+            |vpiParent:
+            \_port: (o_empty), line:18:24, endln:18:31
+            |vpiName:empty
+            |vpiFullName:work@dut.g[1].u_fifo.empty
+            |vpiActual:
+            \_logic_var: (work@dut.empty), line:32:24, endln:32:29
+            |vpiIndex:
+            \_constant: , line:40:23, endln:40:24
+              |vpiParent:
+              \_bit_select: (work@dut.g[1].u_fifo.empty), line:40:23, endln:40:24
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+              |vpiConstType:9
+          |vpiLowConn:
+          \_ref_obj: (work@dut.g[1].u_fifo.o_empty), line:40:8, endln:40:15
+            |vpiParent:
+            \_port: (o_empty), line:18:24, endln:18:31
+            |vpiName:o_empty
+            |vpiFullName:work@dut.g[1].u_fifo.o_empty
+            |vpiActual:
+            \_logic_net: (work@dut.g[1].u_fifo.o_empty), line:18:24, endln:18:31
+          |vpiTypedef:
+          \_ref_typespec: (work@dut.g[1].u_fifo.o_empty)
+            |vpiParent:
+            \_port: (o_empty), line:18:24, endln:18:31
+            |vpiFullName:work@dut.g[1].u_fifo.o_empty
+            |vpiActual:
+            \_logic_typespec: , line:18:10, endln:18:15
+          |vpiInstance:
+          \_module_inst: work@fifo (work@dut.g[1].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+        |vpiPort:
+        \_port: (o_data), line:19:24, endln:19:30
+          |vpiParent:
+          \_module_inst: work@fifo (work@dut.g[1].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+          |vpiName:o_data
+          |vpiDirection:2
+          |vpiHighConn:
+          \_hier_path: (sender_if.flit[i]), line:41:17, endln:41:34
+            |vpiParent:
+            \_port: (o_data), line:19:24, endln:19:30
+            |vpiActual:
+            \_ref_obj: (sender_if), line:41:17, endln:41:26
+              |vpiParent:
+              \_hier_path: (sender_if.flit[i]), line:41:17, endln:41:34
+              |vpiName:sender_if
+              |vpiActual:
+              \_interface_inst: work@flit_if (work@dut.sender_if), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:0
+            |vpiActual:
+            \_bit_select: (work@dut.g[1].u_fifo.o_data.sender_if.flit[i].flit), line:41:32, endln:41:33
+              |vpiParent:
+              \_hier_path: (sender_if.flit[i]), line:41:17, endln:41:34
+              |vpiName:flit
+              |vpiFullName:work@dut.g[1].u_fifo.o_data.sender_if.flit[i].flit
+              |vpiActual:
+              \_array_var: (work@dut.sender_if.flit), line:8:24, endln:8:28
+              |vpiIndex:
+              \_ref_obj: (work@dut.g[1].u_fifo.o_data.sender_if.flit[i].i), line:41:32, endln:41:33
+                |vpiParent:
+                \_bit_select: (work@dut.g[1].u_fifo.o_data.sender_if.flit[i].flit), line:41:32, endln:41:33
+                |vpiName:i
+                |vpiFullName:work@dut.g[1].u_fifo.o_data.sender_if.flit[i].i
+                |vpiActual:
+                \_parameter: (work@dut.g[1].i), line:33:0
+            |vpiName:sender_if.flit[i]
+          |vpiLowConn:
+          \_ref_obj: (work@dut.g[1].u_fifo.o_data), line:41:8, endln:41:14
+            |vpiParent:
+            \_port: (o_data), line:19:24, endln:19:30
+            |vpiName:o_data
+            |vpiFullName:work@dut.g[1].u_fifo.o_data
+            |vpiActual:
+            \_logic_net: (work@dut.g[1].u_fifo.o_data), line:19:24, endln:19:30
+          |vpiTypedef:
+          \_ref_typespec: (work@dut.g[1].u_fifo.o_data)
+            |vpiParent:
+            \_port: (o_data), line:19:24, endln:19:30
+            |vpiFullName:work@dut.g[1].u_fifo.o_data
+            |vpiActual:
+            \_logic_typespec: , line:19:10, endln:19:23
+          |vpiInstance:
+          \_module_inst: work@fifo (work@dut.g[1].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+        |vpiProcess:
+        \_always: , line:21:3, endln:24:37
+          |vpiParent:
+          \_module_inst: work@fifo (work@dut.g[1].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+          |vpiStmt:
+          \_event_control: , line:21:13, endln:21:42
+            |vpiParent:
+            \_always: , line:21:3, endln:24:37
+            |vpiCondition:
+            \_operation: , line:21:15, endln:21:41
+              |vpiParent:
+              \_event_control: , line:21:13, endln:21:42
+              |vpiOpType:37
+              |vpiOperand:
+              \_operation: , line:21:15, endln:21:26
+                |vpiParent:
+                \_operation: , line:21:15, endln:21:41
+                |vpiOpType:39
+                |vpiOperand:
+                \_ref_obj: (work@dut.g[1].u_fifo.clk), line:21:23, endln:21:26
+                  |vpiParent:
+                  \_operation: , line:21:15, endln:21:26
+                  |vpiName:clk
+                  |vpiFullName:work@dut.g[1].u_fifo.clk
+                  |vpiActual:
+                  \_logic_net: (work@dut.g[1].u_fifo.clk), line:14:24, endln:14:27
+              |vpiOperand:
+              \_operation: , line:21:28, endln:21:41
+                |vpiParent:
+                \_operation: , line:21:15, endln:21:41
+                |vpiOpType:40
+                |vpiOperand:
+                \_ref_obj: (work@dut.g[1].u_fifo.rst_n), line:21:36, endln:21:41
+                  |vpiParent:
+                  \_operation: , line:21:28, endln:21:41
+                  |vpiName:rst_n
+                  |vpiFullName:work@dut.g[1].u_fifo.rst_n
+                  |vpiActual:
+                  \_logic_net: (work@dut.g[1].u_fifo.rst_n), line:14:29, endln:14:34
+            |vpiStmt:
+            \_if_else: , line:22:5, endln:24:37
+              |vpiParent:
+              \_event_control: , line:21:13, endln:21:42
+              |vpiCondition:
+              \_operation: , line:22:9, endln:22:15
+                |vpiParent:
+                \_if_else: , line:22:5, endln:24:37
+                |vpiOpType:3
+                |vpiOperand:
+                \_ref_obj: (work@dut.g[1].u_fifo.rst_n), line:22:10, endln:22:15
+                  |vpiParent:
+                  \_operation: , line:22:9, endln:22:15
+                  |vpiName:rst_n
+                  |vpiFullName:work@dut.g[1].u_fifo.rst_n
+                  |vpiActual:
+                  \_logic_net: (work@dut.g[1].u_fifo.rst_n), line:14:29, endln:14:34
+              |vpiStmt:
+              \_begin: (work@dut.g[1].u_fifo), line:22:17, endln:22:57
+                |vpiParent:
+                \_if_else: , line:22:5, endln:24:37
+                |vpiFullName:work@dut.g[1].u_fifo
+                |vpiStmt:
+                \_assignment: , line:22:23, endln:22:35
+                  |vpiParent:
+                  \_begin: (work@dut.g[1].u_fifo), line:22:17, endln:22:57
+                  |vpiOpType:82
+                  |vpiRhs:
+                  \_constant: , line:22:33, endln:22:35
+                    |vpiParent:
+                    \_assignment: , line:22:23, endln:22:35
+                    |vpiDecompile:'0
+                    |vpiSize:-1
+                    |BIN:0
+                    |vpiConstType:3
+                  |vpiLhs:
+                  \_ref_obj: (work@dut.g[1].u_fifo.o_data), line:22:23, endln:22:29
+                    |vpiParent:
+                    \_assignment: , line:22:23, endln:22:35
+                    |vpiName:o_data
+                    |vpiFullName:work@dut.g[1].u_fifo.o_data
+                    |vpiActual:
+                    \_logic_net: (work@dut.g[1].u_fifo.o_data), line:19:24, endln:19:30
+                |vpiStmt:
+                \_assignment: , line:22:37, endln:22:52
+                  |vpiParent:
+                  \_begin: (work@dut.g[1].u_fifo), line:22:17, endln:22:57
+                  |vpiOpType:82
+                  |vpiRhs:
+                  \_constant: , line:22:48, endln:22:52
+                  |vpiLhs:
+                  \_ref_obj: (work@dut.g[1].u_fifo.o_empty), line:22:37, endln:22:44
+                    |vpiParent:
+                    \_assignment: , line:22:37, endln:22:52
+                    |vpiName:o_empty
+                    |vpiFullName:work@dut.g[1].u_fifo.o_empty
+                    |vpiActual:
+                    \_logic_net: (work@dut.g[1].u_fifo.o_empty), line:18:24, endln:18:31
+              |vpiElseStmt:
+              \_if_else: , line:23:10, endln:24:37
+                |vpiParent:
+                \_if_else: , line:22:5, endln:24:37
+                |vpiCondition:
+                \_ref_obj: (work@dut.g[1].u_fifo.i_push), line:23:14, endln:23:20
+                  |vpiParent:
+                  \_if_else: , line:23:10, endln:24:37
+                  |vpiName:i_push
+                  |vpiFullName:work@dut.g[1].u_fifo.i_push
+                  |vpiActual:
+                  \_logic_net: (work@dut.g[1].u_fifo.i_push), line:15:24, endln:15:30
+                |vpiStmt:
+                \_begin: (work@dut.g[1].u_fifo), line:23:22, endln:23:66
+                  |vpiParent:
+                  \_if_else: , line:23:10, endln:24:37
+                  |vpiFullName:work@dut.g[1].u_fifo
+                  |vpiStmt:
+                  \_assignment: , line:23:28, endln:23:44
+                    |vpiParent:
+                    \_begin: (work@dut.g[1].u_fifo), line:23:22, endln:23:66
+                    |vpiOpType:82
+                    |vpiRhs:
+                    \_ref_obj: (work@dut.g[1].u_fifo.i_data), line:23:38, endln:23:44
+                      |vpiParent:
+                      \_assignment: , line:23:28, endln:23:44
+                      |vpiName:i_data
+                      |vpiFullName:work@dut.g[1].u_fifo.i_data
+                      |vpiActual:
+                      \_logic_net: (work@dut.g[1].u_fifo.i_data), line:16:24, endln:16:30
+                    |vpiLhs:
+                    \_ref_obj: (work@dut.g[1].u_fifo.o_data), line:23:28, endln:23:34
+                      |vpiParent:
+                      \_assignment: , line:23:28, endln:23:44
+                      |vpiName:o_data
+                      |vpiFullName:work@dut.g[1].u_fifo.o_data
+                      |vpiActual:
+                      \_logic_net: (work@dut.g[1].u_fifo.o_data), line:19:24, endln:19:30
+                  |vpiStmt:
+                  \_assignment: , line:23:46, endln:23:61
+                    |vpiParent:
+                    \_begin: (work@dut.g[1].u_fifo), line:23:22, endln:23:66
+                    |vpiOpType:82
+                    |vpiRhs:
+                    \_constant: , line:23:57, endln:23:61
+                    |vpiLhs:
+                    \_ref_obj: (work@dut.g[1].u_fifo.o_empty), line:23:46, endln:23:53
+                      |vpiParent:
+                      \_assignment: , line:23:46, endln:23:61
+                      |vpiName:o_empty
+                      |vpiFullName:work@dut.g[1].u_fifo.o_empty
+                      |vpiActual:
+                      \_logic_net: (work@dut.g[1].u_fifo.o_empty), line:18:24, endln:18:31
+                |vpiElseStmt:
+                \_if_stmt: , line:24:10, endln:24:37
+                  |vpiParent:
+                  \_if_else: , line:23:10, endln:24:37
+                  |vpiCondition:
+                  \_ref_obj: (work@dut.g[1].u_fifo.i_pop), line:24:14, endln:24:19
+                    |vpiParent:
+                    \_if_stmt: , line:24:10, endln:24:37
+                    |vpiName:i_pop
+                    |vpiFullName:work@dut.g[1].u_fifo.i_pop
+                    |vpiActual:
+                    \_logic_net: (work@dut.g[1].u_fifo.i_pop), line:17:24, endln:17:29
+                  |vpiStmt:
+                  \_assignment: , line:24:21, endln:24:36
+                    |vpiParent:
+                    \_if_stmt: , line:24:10, endln:24:37
+                    |vpiOpType:82
+                    |vpiRhs:
+                    \_constant: , line:24:32, endln:24:36
+                    |vpiLhs:
+                    \_ref_obj: (work@dut.g[1].u_fifo.o_empty), line:24:21, endln:24:28
+                      |vpiParent:
+                      \_assignment: , line:24:21, endln:24:36
+                      |vpiName:o_empty
+                      |vpiFullName:work@dut.g[1].u_fifo.o_empty
+                      |vpiActual:
+                      \_logic_net: (work@dut.g[1].u_fifo.o_empty), line:18:24, endln:18:31
+          |vpiAlwaysType:3
+\_weaklyReferenced:
+\_int_typespec: , line:27:24, endln:27:27
+  |vpiParent:
+  \_parameter: (work@dut.CHANNELS), line:27:28, endln:27:36
+  |vpiSigned:1
+\_int_typespec: , line:33:15, endln:33:16
+\_int_typespec: , line:13:25, endln:13:28
+  |vpiParent:
+  \_parameter: (work@fifo.W), line:13:29, endln:13:30
+  |vpiSigned:1
+\_int_typespec: , line:5:31, endln:5:34
+  |vpiParent:
+  \_parameter: (work@flit_if.CHANNELS), line:5:35, endln:5:43
+  |vpiSigned:1
+\_int_typespec: , line:5:59, endln:5:62
+  |vpiParent:
+  \_parameter: (work@flit_if.W), line:5:63, endln:5:64
+  |vpiSigned:1
+\_logic_typespec: , line:28:10, endln:28:15
+\_interface_typespec: (receiver), line:29:11, endln:29:19
+  |vpiParent:
+  \_interface_typespec: (flit_if), line:29:3, endln:29:10
+  |vpiName:receiver
+  |vpiIsModPort:1
+\_interface_typespec: (flit_if), line:29:3, endln:29:10
+  |vpiName:flit_if
+\_logic_typespec: , line:6:3, endln:6:23
+  |vpiParent:
+  \_logic_var: (work@dut.receiver_if.valid), line:6:24, endln:6:29
+  |vpiRange:
+  \_range: , line:6:9, endln:6:23
+    |vpiParent:
+    \_logic_typespec: , line:6:3, endln:6:23
+    |vpiLeftRange:
+    \_constant: , line:6:10, endln:6:18
+      |vpiParent:
+      \_range: , line:6:9, endln:6:23
+      |vpiDecompile:1
+      |vpiSize:64
+      |INT:1
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:6:21, endln:6:22
+      |vpiParent:
+      \_range: , line:6:9, endln:6:23
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:7:3, endln:7:23
+  |vpiParent:
+  \_logic_var: (work@dut.receiver_if.ready), line:7:24, endln:7:29
+  |vpiRange:
+  \_range: , line:7:9, endln:7:23
+    |vpiParent:
+    \_logic_typespec: , line:7:3, endln:7:23
+    |vpiLeftRange:
+    \_constant: , line:7:10, endln:7:18
+      |vpiParent:
+      \_range: , line:7:9, endln:7:23
+      |vpiDecompile:1
+      |vpiSize:64
+      |INT:1
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:7:21, endln:7:22
+      |vpiParent:
+      \_range: , line:7:9, endln:7:23
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:8:3, endln:8:16
+  |vpiParent:
+  \_logic_var: (work@dut.receiver_if.flit), line:8:24, endln:8:28
+  |vpiRange:
+  \_range: , line:8:9, endln:8:16
+    |vpiParent:
+    \_logic_typespec: , line:8:3, endln:8:16
+    |vpiLeftRange:
+    \_constant: , line:8:10, endln:8:11
+      |vpiParent:
+      \_range: , line:8:9, endln:8:16
+      |vpiDecompile:7
+      |vpiSize:64
+      |INT:7
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:8:14, endln:8:15
+      |vpiParent:
+      \_range: , line:8:9, endln:8:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: 
+  |vpiSigned:1
+\_array_typespec: 
+\_interface_typespec: (sender), line:30:11, endln:30:17
+  |vpiParent:
+  \_interface_typespec: (flit_if), line:30:3, endln:30:10
+  |vpiName:sender
+  |vpiIsModPort:1
+\_interface_typespec: (flit_if), line:30:3, endln:30:10
+  |vpiName:flit_if
+\_logic_typespec: , line:6:3, endln:6:23
+  |vpiParent:
+  \_logic_var: (work@dut.sender_if.valid), line:6:24, endln:6:29
+  |vpiRange:
+  \_range: , line:6:9, endln:6:23
+    |vpiParent:
+    \_logic_typespec: , line:6:3, endln:6:23
+    |vpiLeftRange:
+    \_constant: , line:6:10, endln:6:18
+      |vpiParent:
+      \_range: , line:6:9, endln:6:23
+      |vpiDecompile:1
+      |vpiSize:64
+      |INT:1
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:6:21, endln:6:22
+      |vpiParent:
+      \_range: , line:6:9, endln:6:23
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:7:3, endln:7:23
+  |vpiParent:
+  \_logic_var: (work@dut.sender_if.ready), line:7:24, endln:7:29
+  |vpiRange:
+  \_range: , line:7:9, endln:7:23
+    |vpiParent:
+    \_logic_typespec: , line:7:3, endln:7:23
+    |vpiLeftRange:
+    \_constant: , line:7:10, endln:7:18
+      |vpiParent:
+      \_range: , line:7:9, endln:7:23
+      |vpiDecompile:1
+      |vpiSize:64
+      |INT:1
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:7:21, endln:7:22
+      |vpiParent:
+      \_range: , line:7:9, endln:7:23
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:8:3, endln:8:16
+  |vpiParent:
+  \_logic_var: (work@dut.sender_if.flit), line:8:24, endln:8:28
+  |vpiRange:
+  \_range: , line:8:9, endln:8:16
+    |vpiParent:
+    \_logic_typespec: , line:8:3, endln:8:16
+    |vpiLeftRange:
+    \_constant: , line:8:10, endln:8:11
+      |vpiParent:
+      \_range: , line:8:9, endln:8:16
+      |vpiDecompile:7
+      |vpiSize:64
+      |INT:7
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:8:14, endln:8:15
+      |vpiParent:
+      \_range: , line:8:9, endln:8:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: 
+  |vpiSigned:1
+\_array_typespec: 
+\_logic_typespec: , line:28:10, endln:28:15
+  |vpiParent:
+  \_logic_net: (work@dut.rst_n), line:28:21, endln:28:26
+\_logic_typespec: , line:32:3, endln:32:23
+  |vpiParent:
+  \_logic_var: (work@dut.empty), line:32:24, endln:32:29
+  |vpiRange:
+  \_range: , line:32:9, endln:32:23
+    |vpiParent:
+    \_logic_typespec: , line:32:3, endln:32:23
+    |vpiLeftRange:
+    \_constant: , line:32:10, endln:32:18
+      |vpiParent:
+      \_range: , line:32:9, endln:32:23
+      |vpiDecompile:1
+      |vpiSize:64
+      |INT:1
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:32:21, endln:32:22
+      |vpiParent:
+      \_range: , line:32:9, endln:32:23
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_param_assign: , line:13:29, endln:13:34
+  |vpiParent:
+  \_module_inst: work@fifo (work@dut.g[0].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+  |vpiRhs:
+  \_constant: , line:13:33, endln:13:34
+  |vpiLhs:
+  \_parameter: (work@dut.g[0].u_fifo.W), line:13:29, endln:13:30
+\_logic_typespec: , line:14:10, endln:14:15
+\_logic_typespec: , line:15:10, endln:15:15
+\_logic_typespec: , line:16:10, endln:16:23
+  |vpiRange:
+  \_range: , line:16:16, endln:16:23
+    |vpiParent:
+    \_logic_typespec: , line:16:10, endln:16:23
+    |vpiLeftRange:
+    \_constant: , line:16:17, endln:16:18
+      |vpiParent:
+      \_range: , line:16:16, endln:16:23
+      |vpiDecompile:7
+      |vpiSize:64
+      |INT:7
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:16:21, endln:16:22
+      |vpiParent:
+      \_range: , line:16:16, endln:16:23
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:17:10, endln:17:15
+\_logic_typespec: , line:18:10, endln:18:15
+\_logic_typespec: , line:19:10, endln:19:23
+  |vpiRange:
+  \_range: , line:19:16, endln:19:23
+    |vpiParent:
+    \_logic_typespec: , line:19:10, endln:19:23
+    |vpiLeftRange:
+    \_constant: , line:19:17, endln:19:18
+      |vpiParent:
+      \_range: , line:19:16, endln:19:23
+      |vpiDecompile:7
+      |vpiSize:64
+      |INT:7
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:19:21, endln:19:22
+      |vpiParent:
+      \_range: , line:19:16, endln:19:23
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:14:10, endln:14:15
+  |vpiParent:
+  \_logic_net: (work@dut.g[0].u_fifo.rst_n), line:14:29, endln:14:34
+\_logic_typespec: , line:15:10, endln:15:15
+  |vpiParent:
+  \_logic_net: (work@dut.g[0].u_fifo.i_push), line:15:24, endln:15:30
+\_logic_typespec: , line:16:10, endln:16:23
+  |vpiParent:
+  \_logic_net: (work@dut.g[0].u_fifo.i_data), line:16:24, endln:16:30
+  |vpiRange:
+  \_range: , line:16:16, endln:16:23
+    |vpiParent:
+    \_logic_typespec: , line:16:10, endln:16:23
+    |vpiLeftRange:
+    \_constant: , line:16:17, endln:16:18
+      |vpiParent:
+      \_range: , line:16:16, endln:16:23
+      |vpiDecompile:7
+      |vpiSize:64
+      |INT:7
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:16:21, endln:16:22
+      |vpiParent:
+      \_range: , line:16:16, endln:16:23
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:17:10, endln:17:15
+  |vpiParent:
+  \_logic_net: (work@dut.g[0].u_fifo.i_pop), line:17:24, endln:17:29
+\_logic_typespec: , line:18:10, endln:18:15
+  |vpiParent:
+  \_logic_net: (work@dut.g[0].u_fifo.o_empty), line:18:24, endln:18:31
+\_logic_typespec: , line:19:10, endln:19:23
+  |vpiParent:
+  \_logic_net: (work@dut.g[0].u_fifo.o_data), line:19:24, endln:19:30
+  |vpiRange:
+  \_range: , line:19:16, endln:19:23
+    |vpiParent:
+    \_logic_typespec: , line:19:10, endln:19:23
+    |vpiLeftRange:
+    \_constant: , line:19:17, endln:19:18
+      |vpiParent:
+      \_range: , line:19:16, endln:19:23
+      |vpiDecompile:7
+      |vpiSize:64
+      |INT:7
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:19:21, endln:19:22
+      |vpiParent:
+      \_range: , line:19:16, endln:19:23
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_bit_select: (work@dut.g[0].u_fifo.empty), line:40:23, endln:40:24
+  |vpiParent:
+  \_port: (o_empty), line:18:24, endln:18:31
+  |vpiName:empty
+  |vpiFullName:work@dut.g[0].u_fifo.empty
+  |vpiIndex:
+  \_constant: , line:40:23, endln:40:24
+\_port: (o_empty), line:18:24, endln:18:31
+  |vpiParent:
+  \_module_inst: work@fifo (work@dut.g[0].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+  |vpiName:o_empty
+  |vpiDirection:2
+  |vpiHighConn:
+  \_bit_select: (work@dut.g[0].u_fifo.empty), line:40:23, endln:40:24
+  |vpiLowConn:
+  \_ref_obj: (work@dut.g[0].u_fifo.o_empty), line:40:8, endln:40:15
+    |vpiParent:
+    \_port: (o_empty), line:18:24, endln:18:31
+    |vpiName:o_empty
+    |vpiFullName:work@dut.g[0].u_fifo.o_empty
+    |vpiActual:
+    \_logic_net: (work@dut.g[0].u_fifo.o_empty), line:18:24, endln:18:31
+  |vpiTypedef:
+  \_ref_typespec: (work@dut.g[0].u_fifo.o_empty)
+    |vpiParent:
+    \_port: (o_empty), line:18:24, endln:18:31
+    |vpiFullName:work@dut.g[0].u_fifo.o_empty
+    |vpiActual:
+    \_logic_typespec: , line:18:10, endln:18:15
+\_param_assign: , line:13:29, endln:13:34
+  |vpiParent:
+  \_module_inst: work@fifo (work@dut.g[1].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+  |vpiRhs:
+  \_constant: , line:13:33, endln:13:34
+  |vpiLhs:
+  \_parameter: (work@dut.g[1].u_fifo.W), line:13:29, endln:13:30
+\_logic_typespec: , line:14:10, endln:14:15
+\_logic_typespec: , line:15:10, endln:15:15
+\_logic_typespec: , line:16:10, endln:16:23
+  |vpiRange:
+  \_range: , line:16:16, endln:16:23
+    |vpiParent:
+    \_logic_typespec: , line:16:10, endln:16:23
+    |vpiLeftRange:
+    \_constant: , line:16:17, endln:16:18
+      |vpiParent:
+      \_range: , line:16:16, endln:16:23
+      |vpiDecompile:7
+      |vpiSize:64
+      |INT:7
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:16:21, endln:16:22
+      |vpiParent:
+      \_range: , line:16:16, endln:16:23
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:17:10, endln:17:15
+\_logic_typespec: , line:18:10, endln:18:15
+\_logic_typespec: , line:19:10, endln:19:23
+  |vpiRange:
+  \_range: , line:19:16, endln:19:23
+    |vpiParent:
+    \_logic_typespec: , line:19:10, endln:19:23
+    |vpiLeftRange:
+    \_constant: , line:19:17, endln:19:18
+      |vpiParent:
+      \_range: , line:19:16, endln:19:23
+      |vpiDecompile:7
+      |vpiSize:64
+      |INT:7
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:19:21, endln:19:22
+      |vpiParent:
+      \_range: , line:19:16, endln:19:23
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:14:10, endln:14:15
+  |vpiParent:
+  \_logic_net: (work@dut.g[1].u_fifo.rst_n), line:14:29, endln:14:34
+\_logic_typespec: , line:15:10, endln:15:15
+  |vpiParent:
+  \_logic_net: (work@dut.g[1].u_fifo.i_push), line:15:24, endln:15:30
+\_logic_typespec: , line:16:10, endln:16:23
+  |vpiParent:
+  \_logic_net: (work@dut.g[1].u_fifo.i_data), line:16:24, endln:16:30
+  |vpiRange:
+  \_range: , line:16:16, endln:16:23
+    |vpiParent:
+    \_logic_typespec: , line:16:10, endln:16:23
+    |vpiLeftRange:
+    \_constant: , line:16:17, endln:16:18
+      |vpiParent:
+      \_range: , line:16:16, endln:16:23
+      |vpiDecompile:7
+      |vpiSize:64
+      |INT:7
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:16:21, endln:16:22
+      |vpiParent:
+      \_range: , line:16:16, endln:16:23
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:17:10, endln:17:15
+  |vpiParent:
+  \_logic_net: (work@dut.g[1].u_fifo.i_pop), line:17:24, endln:17:29
+\_logic_typespec: , line:18:10, endln:18:15
+  |vpiParent:
+  \_logic_net: (work@dut.g[1].u_fifo.o_empty), line:18:24, endln:18:31
+\_logic_typespec: , line:19:10, endln:19:23
+  |vpiParent:
+  \_logic_net: (work@dut.g[1].u_fifo.o_data), line:19:24, endln:19:30
+  |vpiRange:
+  \_range: , line:19:16, endln:19:23
+    |vpiParent:
+    \_logic_typespec: , line:19:10, endln:19:23
+    |vpiLeftRange:
+    \_constant: , line:19:17, endln:19:18
+      |vpiParent:
+      \_range: , line:19:16, endln:19:23
+      |vpiDecompile:7
+      |vpiSize:64
+      |INT:7
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:19:21, endln:19:22
+      |vpiParent:
+      \_range: , line:19:16, endln:19:23
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_bit_select: (work@dut.g[1].u_fifo.empty), line:40:23, endln:40:24
+  |vpiParent:
+  \_port: (o_empty), line:18:24, endln:18:31
+  |vpiName:empty
+  |vpiFullName:work@dut.g[1].u_fifo.empty
+  |vpiIndex:
+  \_constant: , line:40:23, endln:40:24
+\_port: (o_empty), line:18:24, endln:18:31
+  |vpiParent:
+  \_module_inst: work@fifo (work@dut.g[1].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+  |vpiName:o_empty
+  |vpiDirection:2
+  |vpiHighConn:
+  \_bit_select: (work@dut.g[1].u_fifo.empty), line:40:23, endln:40:24
+  |vpiLowConn:
+  \_ref_obj: (work@dut.g[1].u_fifo.o_empty), line:40:8, endln:40:15
+    |vpiParent:
+    \_port: (o_empty), line:18:24, endln:18:31
+    |vpiName:o_empty
+    |vpiFullName:work@dut.g[1].u_fifo.o_empty
+    |vpiActual:
+    \_logic_net: (work@dut.g[1].u_fifo.o_empty), line:18:24, endln:18:31
+  |vpiTypedef:
+  \_ref_typespec: (work@dut.g[1].u_fifo.o_empty)
+    |vpiParent:
+    \_port: (o_empty), line:18:24, endln:18:31
+    |vpiFullName:work@dut.g[1].u_fifo.o_empty
+    |vpiActual:
+    \_logic_typespec: , line:18:10, endln:18:15
+\_logic_typespec: , line:6:3, endln:6:23
+  |vpiRange:
+  \_range: , line:6:9, endln:6:23
+    |vpiParent:
+    \_logic_typespec: , line:6:3, endln:6:23
+    |vpiLeftRange:
+    \_operation: , line:6:10, endln:6:20
+      |vpiParent:
+      \_range: , line:6:9, endln:6:23
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (CHANNELS), line:6:10, endln:6:18
+        |vpiParent:
+        \_operation: , line:6:10, endln:6:20
+        |vpiName:CHANNELS
+      |vpiOperand:
+      \_constant: , line:6:19, endln:6:20
+        |vpiParent:
+        \_operation: , line:6:10, endln:6:20
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:21, endln:6:22
+      |vpiParent:
+      \_range: , line:6:9, endln:6:23
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:7:3, endln:7:23
+  |vpiRange:
+  \_range: , line:7:9, endln:7:23
+    |vpiParent:
+    \_logic_typespec: , line:7:3, endln:7:23
+    |vpiLeftRange:
+    \_operation: , line:7:10, endln:7:20
+      |vpiParent:
+      \_range: , line:7:9, endln:7:23
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (CHANNELS), line:7:10, endln:7:18
+        |vpiParent:
+        \_operation: , line:7:10, endln:7:20
+        |vpiName:CHANNELS
+      |vpiOperand:
+      \_constant: , line:7:19, endln:7:20
+        |vpiParent:
+        \_operation: , line:7:10, endln:7:20
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:7:21, endln:7:22
+      |vpiParent:
+      \_range: , line:7:9, endln:7:23
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:8:3, endln:8:39
+  |vpiRange:
+  \_range: , line:8:9, endln:8:16
+    |vpiParent:
+    \_logic_typespec: , line:8:3, endln:8:39
+    |vpiLeftRange:
+    \_operation: , line:8:10, endln:8:13
+      |vpiParent:
+      \_range: , line:8:9, endln:8:16
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (W), line:8:10, endln:8:11
+        |vpiParent:
+        \_operation: , line:8:10, endln:8:13
+        |vpiName:W
+      |vpiOperand:
+      \_constant: , line:8:12, endln:8:13
+        |vpiParent:
+        \_operation: , line:8:10, endln:8:13
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:8:14, endln:8:15
+      |vpiParent:
+      \_range: , line:8:9, endln:8:16
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:28:10, endln:28:15
+\_logic_typespec: , line:28:10, endln:28:15
+\_interface_typespec: (receiver), line:29:11, endln:29:19
+  |vpiParent:
+  \_interface_typespec: (flit_if), line:29:3, endln:29:10
+  |vpiName:receiver
+  |vpiIsModPort:1
+\_interface_typespec: (flit_if), line:29:3, endln:29:10
+  |vpiName:flit_if
+\_interface_typespec: (sender), line:30:11, endln:30:17
+  |vpiParent:
+  \_interface_typespec: (flit_if), line:30:3, endln:30:10
+  |vpiName:sender
+  |vpiIsModPort:1
+\_interface_typespec: (flit_if), line:30:3, endln:30:10
+  |vpiName:flit_if
+\_logic_typespec: , line:32:3, endln:32:23
+  |vpiRange:
+  \_range: , line:32:9, endln:32:23
+    |vpiParent:
+    \_logic_typespec: , line:32:3, endln:32:23
+    |vpiLeftRange:
+    \_operation: , line:32:10, endln:32:20
+      |vpiParent:
+      \_range: , line:32:9, endln:32:23
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (CHANNELS), line:32:10, endln:32:18
+        |vpiParent:
+        \_operation: , line:32:10, endln:32:20
+        |vpiName:CHANNELS
+      |vpiOperand:
+      \_constant: , line:32:19, endln:32:20
+        |vpiParent:
+        \_operation: , line:32:10, endln:32:20
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:32:21, endln:32:22
+      |vpiParent:
+      \_range: , line:32:9, endln:32:23
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:14:10, endln:14:15
+\_logic_typespec: , line:14:10, endln:14:15
+\_logic_typespec: , line:15:10, endln:15:15
+\_logic_typespec: , line:16:10, endln:16:23
+  |vpiRange:
+  \_range: , line:16:16, endln:16:23
+    |vpiParent:
+    \_logic_typespec: , line:16:10, endln:16:23
+    |vpiLeftRange:
+    \_operation: , line:16:17, endln:16:20
+      |vpiParent:
+      \_range: , line:16:16, endln:16:23
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (W), line:16:17, endln:16:18
+        |vpiParent:
+        \_operation: , line:16:17, endln:16:20
+        |vpiName:W
+      |vpiOperand:
+      \_constant: , line:16:19, endln:16:20
+        |vpiParent:
+        \_operation: , line:16:17, endln:16:20
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:16:21, endln:16:22
+      |vpiParent:
+      \_range: , line:16:16, endln:16:23
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:17:10, endln:17:15
+\_logic_typespec: , line:18:10, endln:18:15
+\_logic_typespec: , line:19:10, endln:19:23
+  |vpiRange:
+  \_range: , line:19:16, endln:19:23
+    |vpiParent:
+    \_logic_typespec: , line:19:10, endln:19:23
+    |vpiLeftRange:
+    \_operation: , line:19:17, endln:19:20
+      |vpiParent:
+      \_range: , line:19:16, endln:19:23
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (W), line:19:17, endln:19:18
+        |vpiParent:
+        \_operation: , line:19:17, endln:19:20
+        |vpiName:W
+      |vpiOperand:
+      \_constant: , line:19:19, endln:19:20
+        |vpiParent:
+        \_operation: , line:19:17, endln:19:20
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:19:21, endln:19:22
+      |vpiParent:
+      \_range: , line:19:16, endln:19:23
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:27:24, endln:27:27
+  |vpiParent:
+  \_ref_typespec: (work@dut.CHANNELS)
+  |vpiSigned:1
+\_cont_assign: , line:43:12, endln:43:39
+  |vpiParent:
+  \_gen_scope: (work@dut.g[0]), line:33:41, endln:45:6
+  |vpiRhs:
+  \_constant: , line:43:35, endln:43:39
+  |vpiLhs:
+  \_hier_path: (receiver_if.ready[i]), line:43:12, endln:43:32
+    |vpiParent:
+    \_cont_assign: , line:43:12, endln:43:39
+    |vpiActual:
+    \_ref_obj: (receiver_if), line:43:24, endln:43:29
+      |vpiParent:
+      \_hier_path: (receiver_if.ready[i]), line:43:12, endln:43:32
+      |vpiName:receiver_if
+    |vpiActual:
+    \_bit_select: (work@dut.g[0].receiver_if.ready[i].ready), line:43:24, endln:43:32
+      |vpiParent:
+      \_hier_path: (receiver_if.ready[i]), line:43:12, endln:43:32
+      |vpiName:ready
+      |vpiFullName:work@dut.g[0].receiver_if.ready[i].ready
+      |vpiIndex:
+      \_ref_obj: (work@dut.g[0].receiver_if.ready[i].i), line:43:30, endln:43:31
+        |vpiParent:
+        \_bit_select: (work@dut.g[0].receiver_if.ready[i].ready), line:43:24, endln:43:32
+        |vpiName:i
+        |vpiFullName:work@dut.g[0].receiver_if.ready[i].i
+    |vpiName:receiver_if.ready[i]
+\_gen_scope: (work@dut.g[0]), line:33:41, endln:45:6
+  |vpiParent:
+  \_gen_scope_array: (work@dut.g[0]), line:33:41, endln:45:6
+  |vpiFullName:work@dut.g[0]
+  |vpiParameter:
+  \_parameter: (work@dut.g[0].i), line:33:0
+  |vpiContAssign:
+  \_cont_assign: , line:43:12, endln:43:39
+  |vpiContAssign:
+  \_cont_assign: , line:44:12, endln:44:44
+    |vpiParent:
+    \_gen_scope: (work@dut.g[0]), line:33:41, endln:45:6
+    |vpiRhs:
+    \_operation: , line:44:35, endln:44:44
+      |vpiParent:
+      \_cont_assign: , line:44:12, endln:44:44
+      |vpiOpType:4
+      |vpiOperand:
+      \_bit_select: (work@dut.g[0].empty), line:44:42, endln:44:43
+        |vpiParent:
+        \_operation: , line:44:35, endln:44:44
+        |vpiName:empty
+        |vpiFullName:work@dut.g[0].empty
+        |vpiIndex:
+        \_ref_obj: (work@dut.g[0].i), line:44:42, endln:44:43
+          |vpiParent:
+          \_bit_select: (work@dut.g[0].empty), line:44:42, endln:44:43
+          |vpiName:i
+          |vpiFullName:work@dut.g[0].i
+    |vpiLhs:
+    \_hier_path: (sender_if.valid[i]), line:44:12, endln:44:30
+      |vpiParent:
+      \_cont_assign: , line:44:12, endln:44:44
+      |vpiActual:
+      \_ref_obj: (sender_if), line:44:22, endln:44:27
+        |vpiParent:
+        \_hier_path: (sender_if.valid[i]), line:44:12, endln:44:30
+        |vpiName:sender_if
+      |vpiActual:
+      \_bit_select: (work@dut.g[0].sender_if.valid[i].valid), line:44:22, endln:44:30
+        |vpiParent:
+        \_hier_path: (sender_if.valid[i]), line:44:12, endln:44:30
+        |vpiName:valid
+        |vpiFullName:work@dut.g[0].sender_if.valid[i].valid
+        |vpiIndex:
+        \_ref_obj: (work@dut.g[0].sender_if.valid[i].i), line:44:28, endln:44:29
+          |vpiParent:
+          \_bit_select: (work@dut.g[0].sender_if.valid[i].valid), line:44:22, endln:44:30
+          |vpiName:i
+          |vpiFullName:work@dut.g[0].sender_if.valid[i].i
+      |vpiName:sender_if.valid[i]
+  |vpiModule:
+  \_module_inst: work@fifo (work@dut.g[0].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+    |vpiParent:
+    \_gen_scope: (work@dut.g[0]), line:33:41, endln:45:6
+    |vpiName:u_fifo
+    |vpiFullName:work@dut.g[0].u_fifo
+    |vpiParameter:
+    \_parameter: (work@dut.g[0].u_fifo.W), line:13:29, endln:13:30
+    |vpiParamAssign:
+    \_param_assign: , line:13:29, endln:13:34
+    |vpiDefName:work@fifo
+    |vpiDefFile:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv
+    |vpiDefLineNo:13
+    |vpiNet:
+    \_logic_net: (work@dut.g[0].u_fifo.clk), line:14:24, endln:14:27
+    |vpiNet:
+    \_logic_net: (work@dut.g[0].u_fifo.rst_n), line:14:29, endln:14:34
+    |vpiNet:
+    \_logic_net: (work@dut.g[0].u_fifo.i_push), line:15:24, endln:15:30
+    |vpiNet:
+    \_logic_net: (work@dut.g[0].u_fifo.i_data), line:16:24, endln:16:30
+    |vpiNet:
+    \_logic_net: (work@dut.g[0].u_fifo.i_pop), line:17:24, endln:17:29
+    |vpiNet:
+    \_logic_net: (work@dut.g[0].u_fifo.o_empty), line:18:24, endln:18:31
+    |vpiNet:
+    \_logic_net: (work@dut.g[0].u_fifo.o_data), line:19:24, endln:19:30
+    |vpiPort:
+    \_port: (clk), line:14:24, endln:14:27
+      |vpiParent:
+      \_module_inst: work@fifo (work@dut.g[0].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+      |vpiName:clk
+      |vpiDirection:1
+      |vpiHighConn:
+      \_ref_obj: (work@dut.g[0].clk), line:35:17, endln:35:20
+        |vpiParent:
+        \_port: (clk), line:14:24, endln:14:27
+        |vpiName:clk
+        |vpiFullName:work@dut.g[0].clk
+        |vpiActual:
+        \_logic_net: (work@dut.clk), line:28:16, endln:28:19
+      |vpiLowConn:
+      \_ref_obj: (work@dut.g[0].u_fifo.clk), line:35:8, endln:35:11
+        |vpiParent:
+        \_port: (clk), line:14:24, endln:14:27
+        |vpiName:clk
+        |vpiFullName:work@dut.g[0].u_fifo.clk
+        |vpiActual:
+        \_logic_net: (work@dut.g[0].u_fifo.clk), line:14:24, endln:14:27
+      |vpiTypedef:
+      \_ref_typespec: (work@dut.g[0].u_fifo.clk)
+        |vpiParent:
+        \_port: (clk), line:14:24, endln:14:27
+        |vpiFullName:work@dut.g[0].u_fifo.clk
+        |vpiActual:
+        \_logic_typespec: , line:14:10, endln:14:15
+    |vpiPort:
+    \_port: (rst_n), line:14:29, endln:14:34
+      |vpiParent:
+      \_module_inst: work@fifo (work@dut.g[0].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+      |vpiName:rst_n
+      |vpiDirection:1
+      |vpiHighConn:
+      \_ref_obj: (work@dut.g[0].rst_n), line:36:17, endln:36:22
+        |vpiParent:
+        \_port: (rst_n), line:14:29, endln:14:34
+        |vpiName:rst_n
+        |vpiFullName:work@dut.g[0].rst_n
+        |vpiActual:
+        \_logic_net: (work@dut.rst_n), line:28:21, endln:28:26
+      |vpiLowConn:
+      \_ref_obj: (work@dut.g[0].u_fifo.rst_n), line:36:8, endln:36:13
+        |vpiParent:
+        \_port: (rst_n), line:14:29, endln:14:34
+        |vpiName:rst_n
+        |vpiFullName:work@dut.g[0].u_fifo.rst_n
+        |vpiActual:
+        \_logic_net: (work@dut.g[0].u_fifo.rst_n), line:14:29, endln:14:34
+      |vpiTypedef:
+      \_ref_typespec: (work@dut.g[0].u_fifo.rst_n)
+        |vpiParent:
+        \_port: (rst_n), line:14:29, endln:14:34
+        |vpiFullName:work@dut.g[0].u_fifo.rst_n
+        |vpiActual:
+        \_logic_typespec: , line:14:10, endln:14:15
+    |vpiPort:
+    \_port: (i_push), line:15:24, endln:15:30
+      |vpiParent:
+      \_module_inst: work@fifo (work@dut.g[0].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+      |vpiName:i_push
+      |vpiDirection:1
+      |vpiHighConn:
+      \_hier_path: (receiver_if.valid[i]), line:37:17, endln:37:37
+        |vpiParent:
+        \_port: (i_push), line:15:24, endln:15:30
+        |vpiActual:
+        \_ref_obj: (receiver_if), line:37:17, endln:37:28
+          |vpiParent:
+          \_hier_path: (receiver_if.valid[i]), line:37:17, endln:37:37
+          |vpiName:receiver_if
+        |vpiActual:
+        \_bit_select: (work@dut.g[0].u_fifo.i_push.receiver_if.valid[i].valid), line:37:35, endln:37:36
+          |vpiParent:
+          \_hier_path: (receiver_if.valid[i]), line:37:17, endln:37:37
+          |vpiName:valid
+          |vpiFullName:work@dut.g[0].u_fifo.i_push.receiver_if.valid[i].valid
+          |vpiIndex:
+          \_ref_obj: (work@dut.g[0].u_fifo.i_push.receiver_if.valid[i].i), line:37:35, endln:37:36
+            |vpiParent:
+            \_bit_select: (work@dut.g[0].u_fifo.i_push.receiver_if.valid[i].valid), line:37:35, endln:37:36
+            |vpiName:i
+            |vpiFullName:work@dut.g[0].u_fifo.i_push.receiver_if.valid[i].i
+        |vpiName:receiver_if.valid[i]
+      |vpiLowConn:
+      \_ref_obj: (work@dut.g[0].u_fifo.i_push), line:37:8, endln:37:14
+        |vpiParent:
+        \_port: (i_push), line:15:24, endln:15:30
+        |vpiName:i_push
+        |vpiFullName:work@dut.g[0].u_fifo.i_push
+        |vpiActual:
+        \_logic_net: (work@dut.g[0].u_fifo.i_push), line:15:24, endln:15:30
+      |vpiTypedef:
+      \_ref_typespec: (work@dut.g[0].u_fifo.i_push)
+        |vpiParent:
+        \_port: (i_push), line:15:24, endln:15:30
+        |vpiFullName:work@dut.g[0].u_fifo.i_push
+        |vpiActual:
+        \_logic_typespec: , line:15:10, endln:15:15
+    |vpiPort:
+    \_port: (i_data), line:16:24, endln:16:30
+      |vpiParent:
+      \_module_inst: work@fifo (work@dut.g[0].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+      |vpiName:i_data
+      |vpiDirection:1
+      |vpiHighConn:
+      \_hier_path: (receiver_if.flit[i]), line:38:17, endln:38:36
+        |vpiParent:
+        \_port: (i_data), line:16:24, endln:16:30
+        |vpiActual:
+        \_ref_obj: (receiver_if), line:38:17, endln:38:28
+          |vpiParent:
+          \_hier_path: (receiver_if.flit[i]), line:38:17, endln:38:36
+          |vpiName:receiver_if
+        |vpiActual:
+        \_bit_select: (work@dut.g[0].u_fifo.i_data.receiver_if.flit[i].flit), line:38:34, endln:38:35
+          |vpiParent:
+          \_hier_path: (receiver_if.flit[i]), line:38:17, endln:38:36
+          |vpiName:flit
+          |vpiFullName:work@dut.g[0].u_fifo.i_data.receiver_if.flit[i].flit
+          |vpiIndex:
+          \_ref_obj: (work@dut.g[0].u_fifo.i_data.receiver_if.flit[i].i), line:38:34, endln:38:35
+            |vpiParent:
+            \_bit_select: (work@dut.g[0].u_fifo.i_data.receiver_if.flit[i].flit), line:38:34, endln:38:35
+            |vpiName:i
+            |vpiFullName:work@dut.g[0].u_fifo.i_data.receiver_if.flit[i].i
+        |vpiName:receiver_if.flit[i]
+      |vpiLowConn:
+      \_ref_obj: (work@dut.g[0].u_fifo.i_data), line:38:8, endln:38:14
+        |vpiParent:
+        \_port: (i_data), line:16:24, endln:16:30
+        |vpiName:i_data
+        |vpiFullName:work@dut.g[0].u_fifo.i_data
+        |vpiActual:
+        \_logic_net: (work@dut.g[0].u_fifo.i_data), line:16:24, endln:16:30
+      |vpiTypedef:
+      \_ref_typespec: (work@dut.g[0].u_fifo.i_data)
+        |vpiParent:
+        \_port: (i_data), line:16:24, endln:16:30
+        |vpiFullName:work@dut.g[0].u_fifo.i_data
+        |vpiActual:
+        \_logic_typespec: , line:16:10, endln:16:23
+    |vpiPort:
+    \_port: (i_pop), line:17:24, endln:17:29
+      |vpiParent:
+      \_module_inst: work@fifo (work@dut.g[0].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+      |vpiName:i_pop
+      |vpiDirection:1
+      |vpiHighConn:
+      \_hier_path: (sender_if.ready[i]), line:39:17, endln:39:35
+        |vpiParent:
+        \_port: (i_pop), line:17:24, endln:17:29
+        |vpiActual:
+        \_ref_obj: (sender_if), line:39:17, endln:39:26
+          |vpiParent:
+          \_hier_path: (sender_if.ready[i]), line:39:17, endln:39:35
+          |vpiName:sender_if
+        |vpiActual:
+        \_bit_select: (work@dut.g[0].u_fifo.i_pop.sender_if.ready[i].ready), line:39:33, endln:39:34
+          |vpiParent:
+          \_hier_path: (sender_if.ready[i]), line:39:17, endln:39:35
+          |vpiName:ready
+          |vpiFullName:work@dut.g[0].u_fifo.i_pop.sender_if.ready[i].ready
+          |vpiIndex:
+          \_ref_obj: (work@dut.g[0].u_fifo.i_pop.sender_if.ready[i].i), line:39:33, endln:39:34
+            |vpiParent:
+            \_bit_select: (work@dut.g[0].u_fifo.i_pop.sender_if.ready[i].ready), line:39:33, endln:39:34
+            |vpiName:i
+            |vpiFullName:work@dut.g[0].u_fifo.i_pop.sender_if.ready[i].i
+        |vpiName:sender_if.ready[i]
+      |vpiLowConn:
+      \_ref_obj: (work@dut.g[0].u_fifo.i_pop), line:39:8, endln:39:13
+        |vpiParent:
+        \_port: (i_pop), line:17:24, endln:17:29
+        |vpiName:i_pop
+        |vpiFullName:work@dut.g[0].u_fifo.i_pop
+        |vpiActual:
+        \_logic_net: (work@dut.g[0].u_fifo.i_pop), line:17:24, endln:17:29
+      |vpiTypedef:
+      \_ref_typespec: (work@dut.g[0].u_fifo.i_pop)
+        |vpiParent:
+        \_port: (i_pop), line:17:24, endln:17:29
+        |vpiFullName:work@dut.g[0].u_fifo.i_pop
+        |vpiActual:
+        \_logic_typespec: , line:17:10, endln:17:15
+    |vpiPort:
+    \_port: (o_empty), line:18:24, endln:18:31
+    |vpiPort:
+    \_port: (o_data), line:19:24, endln:19:30
+      |vpiParent:
+      \_module_inst: work@fifo (work@dut.g[0].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+      |vpiName:o_data
+      |vpiDirection:2
+      |vpiHighConn:
+      \_hier_path: (sender_if.flit[i]), line:41:17, endln:41:34
+        |vpiParent:
+        \_port: (o_data), line:19:24, endln:19:30
+        |vpiActual:
+        \_ref_obj: (sender_if), line:41:17, endln:41:26
+          |vpiParent:
+          \_hier_path: (sender_if.flit[i]), line:41:17, endln:41:34
+          |vpiName:sender_if
+        |vpiActual:
+        \_bit_select: (work@dut.g[0].u_fifo.o_data.sender_if.flit[i].flit), line:41:32, endln:41:33
+          |vpiParent:
+          \_hier_path: (sender_if.flit[i]), line:41:17, endln:41:34
+          |vpiName:flit
+          |vpiFullName:work@dut.g[0].u_fifo.o_data.sender_if.flit[i].flit
+          |vpiIndex:
+          \_ref_obj: (work@dut.g[0].u_fifo.o_data.sender_if.flit[i].i), line:41:32, endln:41:33
+            |vpiParent:
+            \_bit_select: (work@dut.g[0].u_fifo.o_data.sender_if.flit[i].flit), line:41:32, endln:41:33
+            |vpiName:i
+            |vpiFullName:work@dut.g[0].u_fifo.o_data.sender_if.flit[i].i
+        |vpiName:sender_if.flit[i]
+      |vpiLowConn:
+      \_ref_obj: (work@dut.g[0].u_fifo.o_data), line:41:8, endln:41:14
+        |vpiParent:
+        \_port: (o_data), line:19:24, endln:19:30
+        |vpiName:o_data
+        |vpiFullName:work@dut.g[0].u_fifo.o_data
+        |vpiActual:
+        \_logic_net: (work@dut.g[0].u_fifo.o_data), line:19:24, endln:19:30
+      |vpiTypedef:
+      \_ref_typespec: (work@dut.g[0].u_fifo.o_data)
+        |vpiParent:
+        \_port: (o_data), line:19:24, endln:19:30
+        |vpiFullName:work@dut.g[0].u_fifo.o_data
+        |vpiActual:
+        \_logic_typespec: , line:19:10, endln:19:23
+    |vpiProcess:
+    \_always: , line:21:3, endln:24:37
+\_gen_scope_array: (work@dut.g[0]), line:33:41, endln:45:6
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:1, endln:46:10
+  |vpiName:g[0]
+  |vpiFullName:work@dut.g[0]
+  |vpiGenScope:
+  \_gen_scope: (work@dut.g[0]), line:33:41, endln:45:6
+\_int_typespec: 
+\_int_typespec: , line:13:25, endln:13:28
+  |vpiParent:
+  \_ref_typespec: (work@dut.g[0].u_fifo.W)
+  |vpiSigned:1
+\_ref_typespec: (work@dut.g[0].u_fifo.W)
+  |vpiParent:
+  \_parameter: (work@dut.g[0].u_fifo.W), line:13:29, endln:13:30
+  |vpiFullName:work@dut.g[0].u_fifo.W
+  |vpiActual:
+  \_int_typespec: , line:13:25, endln:13:28
+\_cont_assign: , line:43:12, endln:43:39
+  |vpiParent:
+  \_gen_scope: (work@dut.g[1]), line:33:41, endln:45:6
+  |vpiRhs:
+  \_constant: , line:43:35, endln:43:39
+  |vpiLhs:
+  \_hier_path: (receiver_if.ready[i]), line:43:12, endln:43:32
+    |vpiParent:
+    \_cont_assign: , line:43:12, endln:43:39
+    |vpiActual:
+    \_ref_obj: (receiver_if), line:43:24, endln:43:29
+      |vpiParent:
+      \_hier_path: (receiver_if.ready[i]), line:43:12, endln:43:32
+      |vpiName:receiver_if
+    |vpiActual:
+    \_bit_select: (work@dut.g[1].receiver_if.ready[i].ready), line:43:24, endln:43:32
+      |vpiParent:
+      \_hier_path: (receiver_if.ready[i]), line:43:12, endln:43:32
+      |vpiName:ready
+      |vpiFullName:work@dut.g[1].receiver_if.ready[i].ready
+      |vpiIndex:
+      \_ref_obj: (work@dut.g[1].receiver_if.ready[i].i), line:43:30, endln:43:31
+        |vpiParent:
+        \_bit_select: (work@dut.g[1].receiver_if.ready[i].ready), line:43:24, endln:43:32
+        |vpiName:i
+        |vpiFullName:work@dut.g[1].receiver_if.ready[i].i
+    |vpiName:receiver_if.ready[i]
+\_gen_scope: (work@dut.g[1]), line:33:41, endln:45:6
+  |vpiParent:
+  \_gen_scope_array: (work@dut.g[1]), line:33:41, endln:45:6
+  |vpiFullName:work@dut.g[1]
+  |vpiParameter:
+  \_parameter: (work@dut.g[1].i), line:33:0
+  |vpiContAssign:
+  \_cont_assign: , line:43:12, endln:43:39
+  |vpiContAssign:
+  \_cont_assign: , line:44:12, endln:44:44
+    |vpiParent:
+    \_gen_scope: (work@dut.g[1]), line:33:41, endln:45:6
+    |vpiRhs:
+    \_operation: , line:44:35, endln:44:44
+      |vpiParent:
+      \_cont_assign: , line:44:12, endln:44:44
+      |vpiOpType:4
+      |vpiOperand:
+      \_bit_select: (work@dut.g[1].empty), line:44:42, endln:44:43
+        |vpiParent:
+        \_operation: , line:44:35, endln:44:44
+        |vpiName:empty
+        |vpiFullName:work@dut.g[1].empty
+        |vpiIndex:
+        \_ref_obj: (work@dut.g[1].i), line:44:42, endln:44:43
+          |vpiParent:
+          \_bit_select: (work@dut.g[1].empty), line:44:42, endln:44:43
+          |vpiName:i
+          |vpiFullName:work@dut.g[1].i
+    |vpiLhs:
+    \_hier_path: (sender_if.valid[i]), line:44:12, endln:44:30
+      |vpiParent:
+      \_cont_assign: , line:44:12, endln:44:44
+      |vpiActual:
+      \_ref_obj: (sender_if), line:44:22, endln:44:27
+        |vpiParent:
+        \_hier_path: (sender_if.valid[i]), line:44:12, endln:44:30
+        |vpiName:sender_if
+      |vpiActual:
+      \_bit_select: (work@dut.g[1].sender_if.valid[i].valid), line:44:22, endln:44:30
+        |vpiParent:
+        \_hier_path: (sender_if.valid[i]), line:44:12, endln:44:30
+        |vpiName:valid
+        |vpiFullName:work@dut.g[1].sender_if.valid[i].valid
+        |vpiIndex:
+        \_ref_obj: (work@dut.g[1].sender_if.valid[i].i), line:44:28, endln:44:29
+          |vpiParent:
+          \_bit_select: (work@dut.g[1].sender_if.valid[i].valid), line:44:22, endln:44:30
+          |vpiName:i
+          |vpiFullName:work@dut.g[1].sender_if.valid[i].i
+      |vpiName:sender_if.valid[i]
+  |vpiModule:
+  \_module_inst: work@fifo (work@dut.g[1].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+    |vpiParent:
+    \_gen_scope: (work@dut.g[1]), line:33:41, endln:45:6
+    |vpiName:u_fifo
+    |vpiFullName:work@dut.g[1].u_fifo
+    |vpiParameter:
+    \_parameter: (work@dut.g[1].u_fifo.W), line:13:29, endln:13:30
+    |vpiParamAssign:
+    \_param_assign: , line:13:29, endln:13:34
+    |vpiDefName:work@fifo
+    |vpiDefFile:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv
+    |vpiDefLineNo:13
+    |vpiNet:
+    \_logic_net: (work@dut.g[1].u_fifo.clk), line:14:24, endln:14:27
+    |vpiNet:
+    \_logic_net: (work@dut.g[1].u_fifo.rst_n), line:14:29, endln:14:34
+    |vpiNet:
+    \_logic_net: (work@dut.g[1].u_fifo.i_push), line:15:24, endln:15:30
+    |vpiNet:
+    \_logic_net: (work@dut.g[1].u_fifo.i_data), line:16:24, endln:16:30
+    |vpiNet:
+    \_logic_net: (work@dut.g[1].u_fifo.i_pop), line:17:24, endln:17:29
+    |vpiNet:
+    \_logic_net: (work@dut.g[1].u_fifo.o_empty), line:18:24, endln:18:31
+    |vpiNet:
+    \_logic_net: (work@dut.g[1].u_fifo.o_data), line:19:24, endln:19:30
+    |vpiPort:
+    \_port: (clk), line:14:24, endln:14:27
+      |vpiParent:
+      \_module_inst: work@fifo (work@dut.g[1].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+      |vpiName:clk
+      |vpiDirection:1
+      |vpiHighConn:
+      \_ref_obj: (work@dut.g[1].clk), line:35:17, endln:35:20
+        |vpiParent:
+        \_port: (clk), line:14:24, endln:14:27
+        |vpiName:clk
+        |vpiFullName:work@dut.g[1].clk
+        |vpiActual:
+        \_logic_net: (work@dut.clk), line:28:16, endln:28:19
+      |vpiLowConn:
+      \_ref_obj: (work@dut.g[1].u_fifo.clk), line:35:8, endln:35:11
+        |vpiParent:
+        \_port: (clk), line:14:24, endln:14:27
+        |vpiName:clk
+        |vpiFullName:work@dut.g[1].u_fifo.clk
+        |vpiActual:
+        \_logic_net: (work@dut.g[1].u_fifo.clk), line:14:24, endln:14:27
+      |vpiTypedef:
+      \_ref_typespec: (work@dut.g[1].u_fifo.clk)
+        |vpiParent:
+        \_port: (clk), line:14:24, endln:14:27
+        |vpiFullName:work@dut.g[1].u_fifo.clk
+        |vpiActual:
+        \_logic_typespec: , line:14:10, endln:14:15
+    |vpiPort:
+    \_port: (rst_n), line:14:29, endln:14:34
+      |vpiParent:
+      \_module_inst: work@fifo (work@dut.g[1].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+      |vpiName:rst_n
+      |vpiDirection:1
+      |vpiHighConn:
+      \_ref_obj: (work@dut.g[1].rst_n), line:36:17, endln:36:22
+        |vpiParent:
+        \_port: (rst_n), line:14:29, endln:14:34
+        |vpiName:rst_n
+        |vpiFullName:work@dut.g[1].rst_n
+        |vpiActual:
+        \_logic_net: (work@dut.rst_n), line:28:21, endln:28:26
+      |vpiLowConn:
+      \_ref_obj: (work@dut.g[1].u_fifo.rst_n), line:36:8, endln:36:13
+        |vpiParent:
+        \_port: (rst_n), line:14:29, endln:14:34
+        |vpiName:rst_n
+        |vpiFullName:work@dut.g[1].u_fifo.rst_n
+        |vpiActual:
+        \_logic_net: (work@dut.g[1].u_fifo.rst_n), line:14:29, endln:14:34
+      |vpiTypedef:
+      \_ref_typespec: (work@dut.g[1].u_fifo.rst_n)
+        |vpiParent:
+        \_port: (rst_n), line:14:29, endln:14:34
+        |vpiFullName:work@dut.g[1].u_fifo.rst_n
+        |vpiActual:
+        \_logic_typespec: , line:14:10, endln:14:15
+    |vpiPort:
+    \_port: (i_push), line:15:24, endln:15:30
+      |vpiParent:
+      \_module_inst: work@fifo (work@dut.g[1].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+      |vpiName:i_push
+      |vpiDirection:1
+      |vpiHighConn:
+      \_hier_path: (receiver_if.valid[i]), line:37:17, endln:37:37
+        |vpiParent:
+        \_port: (i_push), line:15:24, endln:15:30
+        |vpiActual:
+        \_ref_obj: (receiver_if), line:37:17, endln:37:28
+          |vpiParent:
+          \_hier_path: (receiver_if.valid[i]), line:37:17, endln:37:37
+          |vpiName:receiver_if
+        |vpiActual:
+        \_bit_select: (work@dut.g[1].u_fifo.i_push.receiver_if.valid[i].valid), line:37:35, endln:37:36
+          |vpiParent:
+          \_hier_path: (receiver_if.valid[i]), line:37:17, endln:37:37
+          |vpiName:valid
+          |vpiFullName:work@dut.g[1].u_fifo.i_push.receiver_if.valid[i].valid
+          |vpiIndex:
+          \_ref_obj: (work@dut.g[1].u_fifo.i_push.receiver_if.valid[i].i), line:37:35, endln:37:36
+            |vpiParent:
+            \_bit_select: (work@dut.g[1].u_fifo.i_push.receiver_if.valid[i].valid), line:37:35, endln:37:36
+            |vpiName:i
+            |vpiFullName:work@dut.g[1].u_fifo.i_push.receiver_if.valid[i].i
+        |vpiName:receiver_if.valid[i]
+      |vpiLowConn:
+      \_ref_obj: (work@dut.g[1].u_fifo.i_push), line:37:8, endln:37:14
+        |vpiParent:
+        \_port: (i_push), line:15:24, endln:15:30
+        |vpiName:i_push
+        |vpiFullName:work@dut.g[1].u_fifo.i_push
+        |vpiActual:
+        \_logic_net: (work@dut.g[1].u_fifo.i_push), line:15:24, endln:15:30
+      |vpiTypedef:
+      \_ref_typespec: (work@dut.g[1].u_fifo.i_push)
+        |vpiParent:
+        \_port: (i_push), line:15:24, endln:15:30
+        |vpiFullName:work@dut.g[1].u_fifo.i_push
+        |vpiActual:
+        \_logic_typespec: , line:15:10, endln:15:15
+    |vpiPort:
+    \_port: (i_data), line:16:24, endln:16:30
+      |vpiParent:
+      \_module_inst: work@fifo (work@dut.g[1].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+      |vpiName:i_data
+      |vpiDirection:1
+      |vpiHighConn:
+      \_hier_path: (receiver_if.flit[i]), line:38:17, endln:38:36
+        |vpiParent:
+        \_port: (i_data), line:16:24, endln:16:30
+        |vpiActual:
+        \_ref_obj: (receiver_if), line:38:17, endln:38:28
+          |vpiParent:
+          \_hier_path: (receiver_if.flit[i]), line:38:17, endln:38:36
+          |vpiName:receiver_if
+        |vpiActual:
+        \_bit_select: (work@dut.g[1].u_fifo.i_data.receiver_if.flit[i].flit), line:38:34, endln:38:35
+          |vpiParent:
+          \_hier_path: (receiver_if.flit[i]), line:38:17, endln:38:36
+          |vpiName:flit
+          |vpiFullName:work@dut.g[1].u_fifo.i_data.receiver_if.flit[i].flit
+          |vpiIndex:
+          \_ref_obj: (work@dut.g[1].u_fifo.i_data.receiver_if.flit[i].i), line:38:34, endln:38:35
+            |vpiParent:
+            \_bit_select: (work@dut.g[1].u_fifo.i_data.receiver_if.flit[i].flit), line:38:34, endln:38:35
+            |vpiName:i
+            |vpiFullName:work@dut.g[1].u_fifo.i_data.receiver_if.flit[i].i
+        |vpiName:receiver_if.flit[i]
+      |vpiLowConn:
+      \_ref_obj: (work@dut.g[1].u_fifo.i_data), line:38:8, endln:38:14
+        |vpiParent:
+        \_port: (i_data), line:16:24, endln:16:30
+        |vpiName:i_data
+        |vpiFullName:work@dut.g[1].u_fifo.i_data
+        |vpiActual:
+        \_logic_net: (work@dut.g[1].u_fifo.i_data), line:16:24, endln:16:30
+      |vpiTypedef:
+      \_ref_typespec: (work@dut.g[1].u_fifo.i_data)
+        |vpiParent:
+        \_port: (i_data), line:16:24, endln:16:30
+        |vpiFullName:work@dut.g[1].u_fifo.i_data
+        |vpiActual:
+        \_logic_typespec: , line:16:10, endln:16:23
+    |vpiPort:
+    \_port: (i_pop), line:17:24, endln:17:29
+      |vpiParent:
+      \_module_inst: work@fifo (work@dut.g[1].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+      |vpiName:i_pop
+      |vpiDirection:1
+      |vpiHighConn:
+      \_hier_path: (sender_if.ready[i]), line:39:17, endln:39:35
+        |vpiParent:
+        \_port: (i_pop), line:17:24, endln:17:29
+        |vpiActual:
+        \_ref_obj: (sender_if), line:39:17, endln:39:26
+          |vpiParent:
+          \_hier_path: (sender_if.ready[i]), line:39:17, endln:39:35
+          |vpiName:sender_if
+        |vpiActual:
+        \_bit_select: (work@dut.g[1].u_fifo.i_pop.sender_if.ready[i].ready), line:39:33, endln:39:34
+          |vpiParent:
+          \_hier_path: (sender_if.ready[i]), line:39:17, endln:39:35
+          |vpiName:ready
+          |vpiFullName:work@dut.g[1].u_fifo.i_pop.sender_if.ready[i].ready
+          |vpiIndex:
+          \_ref_obj: (work@dut.g[1].u_fifo.i_pop.sender_if.ready[i].i), line:39:33, endln:39:34
+            |vpiParent:
+            \_bit_select: (work@dut.g[1].u_fifo.i_pop.sender_if.ready[i].ready), line:39:33, endln:39:34
+            |vpiName:i
+            |vpiFullName:work@dut.g[1].u_fifo.i_pop.sender_if.ready[i].i
+        |vpiName:sender_if.ready[i]
+      |vpiLowConn:
+      \_ref_obj: (work@dut.g[1].u_fifo.i_pop), line:39:8, endln:39:13
+        |vpiParent:
+        \_port: (i_pop), line:17:24, endln:17:29
+        |vpiName:i_pop
+        |vpiFullName:work@dut.g[1].u_fifo.i_pop
+        |vpiActual:
+        \_logic_net: (work@dut.g[1].u_fifo.i_pop), line:17:24, endln:17:29
+      |vpiTypedef:
+      \_ref_typespec: (work@dut.g[1].u_fifo.i_pop)
+        |vpiParent:
+        \_port: (i_pop), line:17:24, endln:17:29
+        |vpiFullName:work@dut.g[1].u_fifo.i_pop
+        |vpiActual:
+        \_logic_typespec: , line:17:10, endln:17:15
+    |vpiPort:
+    \_port: (o_empty), line:18:24, endln:18:31
+    |vpiPort:
+    \_port: (o_data), line:19:24, endln:19:30
+      |vpiParent:
+      \_module_inst: work@fifo (work@dut.g[1].u_fifo), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:34:5, endln:42:7
+      |vpiName:o_data
+      |vpiDirection:2
+      |vpiHighConn:
+      \_hier_path: (sender_if.flit[i]), line:41:17, endln:41:34
+        |vpiParent:
+        \_port: (o_data), line:19:24, endln:19:30
+        |vpiActual:
+        \_ref_obj: (sender_if), line:41:17, endln:41:26
+          |vpiParent:
+          \_hier_path: (sender_if.flit[i]), line:41:17, endln:41:34
+          |vpiName:sender_if
+        |vpiActual:
+        \_bit_select: (work@dut.g[1].u_fifo.o_data.sender_if.flit[i].flit), line:41:32, endln:41:33
+          |vpiParent:
+          \_hier_path: (sender_if.flit[i]), line:41:17, endln:41:34
+          |vpiName:flit
+          |vpiFullName:work@dut.g[1].u_fifo.o_data.sender_if.flit[i].flit
+          |vpiIndex:
+          \_ref_obj: (work@dut.g[1].u_fifo.o_data.sender_if.flit[i].i), line:41:32, endln:41:33
+            |vpiParent:
+            \_bit_select: (work@dut.g[1].u_fifo.o_data.sender_if.flit[i].flit), line:41:32, endln:41:33
+            |vpiName:i
+            |vpiFullName:work@dut.g[1].u_fifo.o_data.sender_if.flit[i].i
+        |vpiName:sender_if.flit[i]
+      |vpiLowConn:
+      \_ref_obj: (work@dut.g[1].u_fifo.o_data), line:41:8, endln:41:14
+        |vpiParent:
+        \_port: (o_data), line:19:24, endln:19:30
+        |vpiName:o_data
+        |vpiFullName:work@dut.g[1].u_fifo.o_data
+        |vpiActual:
+        \_logic_net: (work@dut.g[1].u_fifo.o_data), line:19:24, endln:19:30
+      |vpiTypedef:
+      \_ref_typespec: (work@dut.g[1].u_fifo.o_data)
+        |vpiParent:
+        \_port: (o_data), line:19:24, endln:19:30
+        |vpiFullName:work@dut.g[1].u_fifo.o_data
+        |vpiActual:
+        \_logic_typespec: , line:19:10, endln:19:23
+    |vpiProcess:
+    \_always: , line:21:3, endln:24:37
+\_gen_scope_array: (work@dut.g[1]), line:33:41, endln:45:6
+  |vpiParent:
+  \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/IfaceMemberSelectActual/dut.sv, line:27:1, endln:46:10
+  |vpiName:g[1]
+  |vpiFullName:work@dut.g[1]
+  |vpiGenScope:
+  \_gen_scope: (work@dut.g[1]), line:33:41, endln:45:6
+\_int_typespec: 
+\_int_typespec: , line:13:25, endln:13:28
+  |vpiParent:
+  \_ref_typespec: (work@dut.g[1].u_fifo.W)
+  |vpiSigned:1
+\_ref_typespec: (work@dut.g[1].u_fifo.W)
+  |vpiParent:
+  \_parameter: (work@dut.g[1].u_fifo.W), line:13:29, endln:13:30
+  |vpiFullName:work@dut.g[1].u_fifo.W
+  |vpiActual:
+  \_int_typespec: , line:13:25, endln:13:28
+===================
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 0
+[WARNING] : 3
+[   NOTE] : 5
