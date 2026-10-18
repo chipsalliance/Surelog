@@ -1,0 +1,2856 @@
+[INF:CM0023] Creating log file "${SURELOG_DIR}/build/regression/InstArraySizeExpr/slpp_unit/surelog.log".
+[INF:CM0020] Separate compilation-unit mode is on.
+[WRN:PA0205] ${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv:5:1: No timescale set for "I".
+[WRN:PA0205] ${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv:6:1: No timescale set for "child".
+[WRN:PA0205] ${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv:7:1: No timescale set for "dut".
+[INF:CP0300] Compilation...
+[INF:CP0304] ${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv:5:1: Compile interface "work@I".
+[INF:CP0303] ${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv:6:1: Compile module "work@child".
+[INF:CP0303] ${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv:7:1: Compile module "work@dut".
+[INF:EL0526] Design Elaboration...
+[NTE:EL0503] ${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv:7:1: Top level module "work@dut".
+[NTE:EL0508] Nb Top level modules: 1.
+[NTE:EL0509] Max instance depth: 2.
+[NTE:EL0510] Nb instances: 9.
+[NTE:EL0511] Nb leaf instances: 8.
+[INF:UH0706] Creating UHDM Model...
+=== UHDM Object Stats Begin (Non-Elaborated Model) ===
+constant                                             205
+cont_assign                                            2
+design                                                 1
+int_typespec                                          38
+interface_inst                                        53
+logic_net                                             23
+logic_typespec                                        67
+logic_var                                             26
+module_array                                          11
+module_inst                                           48
+module_typespec                                       11
+operation                                             84
+param_assign                                           4
+parameter                                              4
+port                                                  26
+range                                                 45
+ref_obj                                               43
+ref_typespec                                         122
+=== UHDM Object Stats End ===
+[INF:UH0707] Elaborating UHDM...
+=== UHDM Object Stats Begin (Elaborated Model) ===
+constant                                             205
+cont_assign                                           19
+design                                                 1
+int_typespec                                          38
+interface_inst                                        53
+logic_net                                             23
+logic_typespec                                        67
+logic_var                                             26
+module_array                                          11
+module_inst                                           48
+module_typespec                                       11
+operation                                            100
+param_assign                                           4
+parameter                                              4
+port                                                  60
+range                                                 45
+ref_obj                                              127
+ref_typespec                                         156
+=== UHDM Object Stats End ===
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/InstArraySizeExpr/slpp_unit/surelog.uhdm ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/InstArraySizeExpr/slpp_unit/checker/surelog.chk.html ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/InstArraySizeExpr/slpp_unit/surelog.uhdm ...
+[INF:UH0711] Decompiling UHDM...
+====== UHDM =======
+design: (work@dut)
+|vpiElaborated:1
+|vpiName:work@dut
+|uhdmallInterfaces:
+\_interface_inst: work@I (work@I), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:5:1, endln:5:35
+  |vpiParent:
+  \_design: (work@dut)
+  |vpiFullName:work@I
+  |vpiDefName:work@I
+  |vpiNet:
+  \_logic_net: (work@I.v), line:5:20, endln:5:21
+    |vpiParent:
+    \_interface_inst: work@I (work@I), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:5:1, endln:5:35
+    |vpiTypespec:
+    \_ref_typespec: (work@I.v)
+      |vpiParent:
+      \_logic_net: (work@I.v), line:5:20, endln:5:21
+      |vpiFullName:work@I.v
+      |vpiActual:
+      \_logic_typespec: , line:5:14, endln:5:19
+    |vpiName:v
+    |vpiFullName:work@I.v
+    |vpiNetType:36
+|uhdmallModules:
+\_module_inst: work@child (work@child), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:6:1, endln:6:69
+  |vpiParent:
+  \_design: (work@dut)
+  |vpiFullName:work@child
+  |vpiDefName:work@child
+  |vpiNet:
+  \_logic_net: (work@child.a), line:6:26, endln:6:27
+    |vpiParent:
+    \_module_inst: work@child (work@child), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:6:1, endln:6:69
+    |vpiName:a
+    |vpiFullName:work@child.a
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@child.y), line:6:42, endln:6:43
+    |vpiParent:
+    \_module_inst: work@child (work@child), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:6:1, endln:6:69
+    |vpiName:y
+    |vpiFullName:work@child.y
+    |vpiNetType:36
+  |vpiPort:
+  \_port: (a), line:6:26, endln:6:27
+    |vpiParent:
+    \_module_inst: work@child (work@child), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:6:1, endln:6:69
+    |vpiName:a
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@child.a.a), line:6:26, endln:6:27
+      |vpiParent:
+      \_port: (a), line:6:26, endln:6:27
+      |vpiName:a
+      |vpiFullName:work@child.a.a
+      |vpiActual:
+      \_logic_net: (work@child.a), line:6:26, endln:6:27
+    |vpiTypedef:
+    \_ref_typespec: (work@child.a)
+      |vpiParent:
+      \_port: (a), line:6:26, endln:6:27
+      |vpiFullName:work@child.a
+      |vpiActual:
+      \_logic_typespec: , line:6:20, endln:6:25
+  |vpiPort:
+  \_port: (y), line:6:42, endln:6:43
+    |vpiParent:
+    \_module_inst: work@child (work@child), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:6:1, endln:6:69
+    |vpiName:y
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@child.y.y), line:6:42, endln:6:43
+      |vpiParent:
+      \_port: (y), line:6:42, endln:6:43
+      |vpiName:y
+      |vpiFullName:work@child.y.y
+      |vpiActual:
+      \_logic_net: (work@child.y), line:6:42, endln:6:43
+    |vpiTypedef:
+    \_ref_typespec: (work@child.y)
+      |vpiParent:
+      \_port: (y), line:6:42, endln:6:43
+      |vpiFullName:work@child.y
+      |vpiActual:
+      \_logic_typespec: , line:6:36, endln:6:41
+  |vpiContAssign:
+  \_cont_assign: , line:6:53, endln:6:58
+    |vpiParent:
+    \_module_inst: work@child (work@child), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:6:1, endln:6:69
+    |vpiRhs:
+    \_ref_obj: (work@child.a), line:6:57, endln:6:58
+      |vpiParent:
+      \_cont_assign: , line:6:53, endln:6:58
+      |vpiName:a
+      |vpiFullName:work@child.a
+      |vpiActual:
+      \_logic_net: (work@child.a), line:6:26, endln:6:27
+    |vpiLhs:
+    \_ref_obj: (work@child.y), line:6:53, endln:6:54
+      |vpiParent:
+      \_cont_assign: , line:6:53, endln:6:58
+      |vpiName:y
+      |vpiFullName:work@child.y
+      |vpiActual:
+      \_logic_net: (work@child.y), line:6:42, endln:6:43
+|uhdmallModules:
+\_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+  |vpiParent:
+  \_design: (work@dut)
+  |vpiFullName:work@dut
+  |vpiParameter:
+  \_parameter: (work@dut.P), line:7:28, endln:7:29
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |UINT:2
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.P)
+      |vpiParent:
+      \_parameter: (work@dut.P), line:7:28, endln:7:29
+      |vpiFullName:work@dut.P
+      |vpiActual:
+      \_int_typespec: , line:7:24, endln:7:27
+    |vpiSigned:1
+    |vpiName:P
+    |vpiFullName:work@dut.P
+  |vpiParameter:
+  \_parameter: (work@dut.CH), line:8:18, endln:8:20
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |UINT:2
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.CH)
+      |vpiParent:
+      \_parameter: (work@dut.CH), line:8:18, endln:8:20
+      |vpiFullName:work@dut.CH
+      |vpiActual:
+      \_int_typespec: , line:8:14, endln:8:17
+    |vpiSigned:1
+    |vpiLocalParam:1
+    |vpiName:CH
+    |vpiFullName:work@dut.CH
+  |vpiParamAssign:
+  \_param_assign: , line:7:28, endln:7:33
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiRhs:
+    \_constant: , line:7:32, endln:7:33
+      |vpiParent:
+      \_param_assign: , line:7:28, endln:7:33
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiTypespec:
+      \_ref_typespec: (work@dut)
+        |vpiParent:
+        \_constant: , line:7:32, endln:7:33
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_int_typespec: , line:7:24, endln:7:27
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@dut.P), line:7:28, endln:7:29
+  |vpiParamAssign:
+  \_param_assign: , line:8:18, endln:8:24
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiRhs:
+    \_constant: , line:8:23, endln:8:24
+      |vpiParent:
+      \_param_assign: , line:8:18, endln:8:24
+      |vpiDecompile:2
+      |vpiSize:64
+      |UINT:2
+      |vpiTypespec:
+      \_ref_typespec: (work@dut)
+        |vpiParent:
+        \_constant: , line:8:23, endln:8:24
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_int_typespec: , line:8:14, endln:8:17
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@dut.CH), line:8:18, endln:8:20
+  |vpiDefName:work@dut
+  |vpiNet:
+  \_logic_net: (work@dut.a), line:7:47, endln:7:48
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:a
+    |vpiFullName:work@dut.a
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@dut.y), line:7:63, endln:7:64
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:y
+    |vpiFullName:work@dut.y
+    |vpiNetType:36
+  |vpiPort:
+  \_port: (a), line:7:47, endln:7:48
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:a
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@dut.a.a), line:7:47, endln:7:48
+      |vpiParent:
+      \_port: (a), line:7:47, endln:7:48
+      |vpiName:a
+      |vpiFullName:work@dut.a.a
+      |vpiActual:
+      \_logic_net: (work@dut.a), line:7:47, endln:7:48
+    |vpiTypedef:
+    \_ref_typespec: (work@dut.a)
+      |vpiParent:
+      \_port: (a), line:7:47, endln:7:48
+      |vpiFullName:work@dut.a
+      |vpiActual:
+      \_logic_typespec: , line:7:41, endln:7:46
+  |vpiPort:
+  \_port: (y), line:7:63, endln:7:64
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:y
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@dut.y.y), line:7:63, endln:7:64
+      |vpiParent:
+      \_port: (y), line:7:63, endln:7:64
+      |vpiName:y
+      |vpiFullName:work@dut.y.y
+      |vpiActual:
+      \_logic_net: (work@dut.y), line:7:63, endln:7:64
+    |vpiTypedef:
+    \_ref_typespec: (work@dut.y)
+      |vpiParent:
+      \_port: (y), line:7:63, endln:7:64
+      |vpiFullName:work@dut.y
+      |vpiActual:
+      \_logic_typespec: , line:7:57, endln:7:62
+  |vpiModuleArray:
+  \_module_array: (work@I), line:9:5, endln:9:7
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:a1
+    |vpiFullName:work@I
+    |vpiRange:
+    \_range: , line:9:8, endln:9:12
+      |vpiParent:
+      \_module_array: (work@I), line:9:5, endln:9:7
+      |vpiLeftRange:
+      \_constant: 
+        |vpiParent:
+        \_range: , line:9:8, endln:9:12
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiRightRange:
+      \_operation: , line:9:8, endln:9:12
+        |vpiParent:
+        \_range: , line:9:8, endln:9:12
+        |vpiOpType:11
+        |vpiOperand:
+        \_operation: , line:9:8, endln:9:12
+          |vpiParent:
+          \_operation: , line:9:8, endln:9:12
+          |vpiOpType:25
+          |vpiOperand:
+          \_ref_obj: (work@dut.a1.CH), line:9:8, endln:9:10
+            |vpiParent:
+            \_operation: , line:9:8, endln:9:12
+            |vpiName:CH
+            |vpiFullName:work@dut.a1.CH
+          |vpiOperand:
+          \_constant: , line:9:11, endln:9:12
+            |vpiParent:
+            \_operation: , line:9:8, endln:9:12
+            |vpiDecompile:2
+            |vpiSize:64
+            |UINT:2
+            |vpiConstType:9
+        |vpiOperand:
+        \_constant: 
+          |vpiSize:64
+          |INT:1
+          |vpiConstType:7
+    |vpiElemTypespec:
+    \_ref_typespec: (work@dut.a1)
+      |vpiParent:
+      \_module_array: (work@I), line:9:5, endln:9:7
+      |vpiFullName:work@dut.a1
+      |vpiActual:
+      \_module_typespec: (I), line:9:3, endln:9:4
+  |vpiModuleArray:
+  \_module_array: (work@I), line:10:5, endln:10:7
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:a2
+    |vpiFullName:work@I
+    |vpiRange:
+    \_range: , line:10:8, endln:10:12
+      |vpiParent:
+      \_module_array: (work@I), line:10:5, endln:10:7
+      |vpiLeftRange:
+      \_constant: 
+        |vpiParent:
+        \_range: , line:10:8, endln:10:12
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiRightRange:
+      \_operation: , line:10:8, endln:10:12
+        |vpiParent:
+        \_range: , line:10:8, endln:10:12
+        |vpiOpType:11
+        |vpiOperand:
+        \_operation: , line:10:8, endln:10:12
+          |vpiParent:
+          \_operation: , line:10:8, endln:10:12
+          |vpiOpType:24
+          |vpiOperand:
+          \_ref_obj: (work@dut.a2.CH), line:10:8, endln:10:10
+            |vpiParent:
+            \_operation: , line:10:8, endln:10:12
+            |vpiName:CH
+            |vpiFullName:work@dut.a2.CH
+          |vpiOperand:
+          \_constant: , line:10:11, endln:10:12
+            |vpiParent:
+            \_operation: , line:10:8, endln:10:12
+            |vpiDecompile:2
+            |vpiSize:64
+            |UINT:2
+            |vpiConstType:9
+        |vpiOperand:
+        \_constant: 
+          |vpiSize:64
+          |INT:1
+          |vpiConstType:7
+    |vpiElemTypespec:
+    \_ref_typespec: (work@dut.a2)
+      |vpiParent:
+      \_module_array: (work@I), line:10:5, endln:10:7
+      |vpiFullName:work@dut.a2
+      |vpiActual:
+      \_module_typespec: (I), line:10:3, endln:10:4
+  |vpiModuleArray:
+  \_module_array: (work@I), line:11:5, endln:11:7
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:a3
+    |vpiFullName:work@I
+    |vpiRange:
+    \_range: , line:11:8, endln:11:11
+      |vpiParent:
+      \_module_array: (work@I), line:11:5, endln:11:7
+      |vpiLeftRange:
+      \_constant: 
+        |vpiParent:
+        \_range: , line:11:8, endln:11:11
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiRightRange:
+      \_operation: , line:11:8, endln:11:11
+        |vpiParent:
+        \_range: , line:11:8, endln:11:11
+        |vpiOpType:11
+        |vpiOperand:
+        \_operation: , line:11:8, endln:11:11
+          |vpiParent:
+          \_operation: , line:11:8, endln:11:11
+          |vpiOpType:25
+          |vpiOperand:
+          \_constant: , line:11:8, endln:11:9
+            |vpiParent:
+            \_operation: , line:11:8, endln:11:11
+            |vpiDecompile:2
+            |vpiSize:64
+            |UINT:2
+            |vpiConstType:9
+          |vpiOperand:
+          \_constant: , line:11:10, endln:11:11
+            |vpiParent:
+            \_operation: , line:11:8, endln:11:11
+            |vpiDecompile:2
+            |vpiSize:64
+            |UINT:2
+            |vpiConstType:9
+        |vpiOperand:
+        \_constant: 
+          |vpiSize:64
+          |INT:1
+          |vpiConstType:7
+    |vpiElemTypespec:
+    \_ref_typespec: (work@dut.a3)
+      |vpiParent:
+      \_module_array: (work@I), line:11:5, endln:11:7
+      |vpiFullName:work@dut.a3
+      |vpiActual:
+      \_module_typespec: (I), line:11:3, endln:11:4
+  |vpiModuleArray:
+  \_module_array: (work@I), line:12:5, endln:12:7
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:a4
+    |vpiFullName:work@I
+    |vpiRange:
+    \_range: , line:12:8, endln:12:11
+      |vpiParent:
+      \_module_array: (work@I), line:12:5, endln:12:7
+      |vpiLeftRange:
+      \_constant: 
+        |vpiParent:
+        \_range: , line:12:8, endln:12:11
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiRightRange:
+      \_operation: , line:12:8, endln:12:11
+        |vpiParent:
+        \_range: , line:12:8, endln:12:11
+        |vpiOpType:11
+        |vpiOperand:
+        \_operation: , line:12:8, endln:12:11
+          |vpiParent:
+          \_operation: , line:12:8, endln:12:11
+          |vpiOpType:25
+          |vpiOperand:
+          \_constant: , line:12:8, endln:12:9
+            |vpiParent:
+            \_operation: , line:12:8, endln:12:11
+            |vpiDecompile:2
+            |vpiSize:64
+            |UINT:2
+            |vpiConstType:9
+          |vpiOperand:
+          \_ref_obj: (work@dut.a4.P), line:12:10, endln:12:11
+            |vpiParent:
+            \_operation: , line:12:8, endln:12:11
+            |vpiName:P
+            |vpiFullName:work@dut.a4.P
+        |vpiOperand:
+        \_constant: 
+          |vpiSize:64
+          |INT:1
+          |vpiConstType:7
+    |vpiElemTypespec:
+    \_ref_typespec: (work@dut.a4)
+      |vpiParent:
+      \_module_array: (work@I), line:12:5, endln:12:7
+      |vpiFullName:work@dut.a4
+      |vpiActual:
+      \_module_typespec: (I), line:12:3, endln:12:4
+  |vpiModuleArray:
+  \_module_array: (work@I), line:13:5, endln:13:7
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:a5
+    |vpiFullName:work@I
+    |vpiRange:
+    \_range: , line:13:8, endln:13:13
+      |vpiParent:
+      \_module_array: (work@I), line:13:5, endln:13:7
+      |vpiLeftRange:
+      \_constant: 
+        |vpiParent:
+        \_range: , line:13:8, endln:13:13
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiRightRange:
+      \_operation: , line:13:8, endln:13:13
+        |vpiParent:
+        \_range: , line:13:8, endln:13:13
+        |vpiOpType:11
+        |vpiOperand:
+        \_operation: , line:13:8, endln:13:13
+          |vpiParent:
+          \_operation: , line:13:8, endln:13:13
+          |vpiOpType:25
+          |vpiOperand:
+          \_ref_obj: (work@dut.a5.CH), line:13:8, endln:13:10
+            |vpiParent:
+            \_operation: , line:13:8, endln:13:13
+            |vpiName:CH
+            |vpiFullName:work@dut.a5.CH
+          |vpiOperand:
+          \_ref_obj: (work@dut.a5.CH), line:13:11, endln:13:13
+            |vpiParent:
+            \_operation: , line:13:8, endln:13:13
+            |vpiName:CH
+            |vpiFullName:work@dut.a5.CH
+        |vpiOperand:
+        \_constant: 
+          |vpiSize:64
+          |INT:1
+          |vpiConstType:7
+    |vpiElemTypespec:
+    \_ref_typespec: (work@dut.a5)
+      |vpiParent:
+      \_module_array: (work@I), line:13:5, endln:13:7
+      |vpiFullName:work@dut.a5
+      |vpiActual:
+      \_module_typespec: (I), line:13:3, endln:13:4
+  |vpiModuleArray:
+  \_module_array: (work@I), line:14:5, endln:14:7
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:a6
+    |vpiFullName:work@I
+    |vpiRange:
+    \_range: , line:14:8, endln:14:9
+      |vpiParent:
+      \_module_array: (work@I), line:14:5, endln:14:7
+      |vpiLeftRange:
+      \_constant: 
+        |vpiParent:
+        \_range: , line:14:8, endln:14:9
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiRightRange:
+      \_operation: , line:14:8, endln:14:9
+        |vpiParent:
+        \_range: , line:14:8, endln:14:9
+        |vpiOpType:11
+        |vpiOperand:
+        \_constant: , line:14:8, endln:14:9
+          |vpiParent:
+          \_operation: , line:14:8, endln:14:9
+          |vpiDecompile:4
+          |vpiSize:64
+          |UINT:4
+          |vpiConstType:9
+        |vpiOperand:
+        \_constant: 
+          |vpiSize:64
+          |INT:1
+          |vpiConstType:7
+    |vpiElemTypespec:
+    \_ref_typespec: (work@dut.a6)
+      |vpiParent:
+      \_module_array: (work@I), line:14:5, endln:14:7
+      |vpiFullName:work@dut.a6
+      |vpiActual:
+      \_module_typespec: (I), line:14:3, endln:14:4
+  |vpiModuleArray:
+  \_module_array: (work@I), line:15:5, endln:15:7
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:a7
+    |vpiFullName:work@I
+    |vpiRange:
+    \_range: , line:15:8, endln:15:10
+      |vpiParent:
+      \_module_array: (work@I), line:15:5, endln:15:7
+      |vpiLeftRange:
+      \_constant: 
+        |vpiParent:
+        \_range: , line:15:8, endln:15:10
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiRightRange:
+      \_operation: , line:15:8, endln:15:10
+        |vpiParent:
+        \_range: , line:15:8, endln:15:10
+        |vpiOpType:11
+        |vpiOperand:
+        \_ref_obj: (work@dut.a7.CH), line:15:8, endln:15:10
+          |vpiParent:
+          \_operation: , line:15:8, endln:15:10
+          |vpiName:CH
+          |vpiFullName:work@dut.a7.CH
+        |vpiOperand:
+        \_constant: 
+          |vpiSize:64
+          |INT:1
+          |vpiConstType:7
+    |vpiElemTypespec:
+    \_ref_typespec: (work@dut.a7)
+      |vpiParent:
+      \_module_array: (work@I), line:15:5, endln:15:7
+      |vpiFullName:work@dut.a7
+      |vpiActual:
+      \_module_typespec: (I), line:15:3, endln:15:4
+  |vpiModuleArray:
+  \_module_array: (work@child), line:16:9, endln:16:11
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:c1
+    |vpiFullName:work@child
+    |vpiRange:
+    \_range: , line:16:12, endln:16:16
+      |vpiParent:
+      \_module_array: (work@child), line:16:9, endln:16:11
+      |vpiLeftRange:
+      \_constant: 
+        |vpiParent:
+        \_range: , line:16:12, endln:16:16
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiRightRange:
+      \_operation: , line:16:12, endln:16:16
+        |vpiParent:
+        \_range: , line:16:12, endln:16:16
+        |vpiOpType:11
+        |vpiOperand:
+        \_operation: , line:16:12, endln:16:16
+          |vpiParent:
+          \_operation: , line:16:12, endln:16:16
+          |vpiOpType:25
+          |vpiOperand:
+          \_constant: , line:16:12, endln:16:13
+            |vpiParent:
+            \_operation: , line:16:12, endln:16:16
+            |vpiDecompile:2
+            |vpiSize:64
+            |UINT:2
+            |vpiConstType:9
+          |vpiOperand:
+          \_ref_obj: (work@dut.c1.CH), line:16:14, endln:16:16
+            |vpiParent:
+            \_operation: , line:16:12, endln:16:16
+            |vpiName:CH
+            |vpiFullName:work@dut.c1.CH
+        |vpiOperand:
+        \_constant: 
+          |vpiSize:64
+          |INT:1
+          |vpiConstType:7
+    |vpiElemTypespec:
+    \_ref_typespec: (work@dut.c1)
+      |vpiParent:
+      \_module_array: (work@child), line:16:9, endln:16:11
+      |vpiFullName:work@dut.c1
+      |vpiActual:
+      \_module_typespec: (child), line:16:3, endln:16:8
+    |vpiPort:
+    \_port: (a), line:16:18, endln:16:23
+      |vpiParent:
+      \_module_array: (work@child), line:16:9, endln:16:11
+      |vpiName:a
+      |vpiHighConn:
+      \_ref_obj: (work@dut.c1.a.a), line:16:21, endln:16:22
+        |vpiParent:
+        \_port: (a), line:16:18, endln:16:23
+        |vpiName:a
+        |vpiFullName:work@dut.c1.a.a
+        |vpiActual:
+        \_logic_net: (work@dut.a), line:7:47, endln:7:48
+    |vpiPort:
+    \_port: , line:16:25, endln:16:29
+      |vpiParent:
+      \_module_array: (work@child), line:16:9, endln:16:11
+  |vpiModuleArray:
+  \_module_array: (work@child), line:17:9, endln:17:11
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:c2
+    |vpiFullName:work@child
+    |vpiRange:
+    \_range: , line:17:11, endln:17:16
+      |vpiParent:
+      \_module_array: (work@child), line:17:9, endln:17:11
+      |vpiLeftRange:
+      \_constant: , line:17:12, endln:17:13
+        |vpiParent:
+        \_range: , line:17:11, endln:17:16
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:17:14, endln:17:15
+        |vpiParent:
+        \_range: , line:17:11, endln:17:16
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiElemTypespec:
+    \_ref_typespec: (work@dut.c2)
+      |vpiParent:
+      \_module_array: (work@child), line:17:9, endln:17:11
+      |vpiFullName:work@dut.c2
+      |vpiActual:
+      \_module_typespec: (child), line:17:3, endln:17:8
+    |vpiPort:
+    \_port: (a), line:17:17, endln:17:22
+      |vpiParent:
+      \_module_array: (work@child), line:17:9, endln:17:11
+      |vpiName:a
+      |vpiHighConn:
+      \_ref_obj: (work@dut.c2.a.a), line:17:20, endln:17:21
+        |vpiParent:
+        \_port: (a), line:17:17, endln:17:22
+        |vpiName:a
+        |vpiFullName:work@dut.c2.a.a
+        |vpiActual:
+        \_logic_net: (work@dut.a), line:7:47, endln:7:48
+    |vpiPort:
+    \_port: , line:17:24, endln:17:28
+      |vpiParent:
+      \_module_array: (work@child), line:17:9, endln:17:11
+  |vpiContAssign:
+  \_cont_assign: , line:18:10, endln:18:15
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiRhs:
+    \_ref_obj: (work@dut.a), line:18:14, endln:18:15
+      |vpiParent:
+      \_cont_assign: , line:18:10, endln:18:15
+      |vpiName:a
+      |vpiFullName:work@dut.a
+      |vpiActual:
+      \_logic_net: (work@dut.a), line:7:47, endln:7:48
+    |vpiLhs:
+    \_ref_obj: (work@dut.y), line:18:10, endln:18:11
+      |vpiParent:
+      \_cont_assign: , line:18:10, endln:18:15
+      |vpiName:y
+      |vpiFullName:work@dut.y
+      |vpiActual:
+      \_logic_net: (work@dut.y), line:7:63, endln:7:64
+|uhdmtopModules:
+\_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+  |vpiParent:
+  \_design: (work@dut)
+  |vpiName:work@dut
+  |vpiParameter:
+  \_parameter: (work@dut.P), line:7:28, endln:7:29
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |UINT:2
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.P)
+      |vpiParent:
+      \_parameter: (work@dut.P), line:7:28, endln:7:29
+      |vpiFullName:work@dut.P
+      |vpiActual:
+      \_int_typespec: , line:7:24, endln:7:27
+    |vpiSigned:1
+    |vpiName:P
+    |vpiFullName:work@dut.P
+  |vpiParameter:
+  \_parameter: (work@dut.CH), line:8:18, endln:8:20
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |UINT:2
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.CH)
+      |vpiParent:
+      \_parameter: (work@dut.CH), line:8:18, endln:8:20
+      |vpiFullName:work@dut.CH
+      |vpiActual:
+      \_int_typespec: , line:8:14, endln:8:17
+    |vpiSigned:1
+    |vpiLocalParam:1
+    |vpiName:CH
+    |vpiFullName:work@dut.CH
+  |vpiParamAssign:
+  \_param_assign: , line:7:28, endln:7:33
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiRhs:
+    \_constant: , line:7:32, endln:7:33
+      |vpiParent:
+      \_param_assign: , line:7:28, endln:7:33
+      |vpiDecompile:2
+      |vpiSize:32
+      |UINT:2
+      |vpiTypespec:
+      \_ref_typespec: (work@dut)
+        |vpiParent:
+        \_constant: , line:7:32, endln:7:33
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_int_typespec: , line:7:24, endln:7:27
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@dut.P), line:7:28, endln:7:29
+  |vpiParamAssign:
+  \_param_assign: , line:8:18, endln:8:24
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiRhs:
+    \_constant: , line:8:23, endln:8:24
+      |vpiParent:
+      \_param_assign: , line:8:18, endln:8:24
+      |vpiDecompile:2
+      |vpiSize:32
+      |UINT:2
+      |vpiTypespec:
+      \_ref_typespec: (work@dut)
+        |vpiParent:
+        \_constant: , line:8:23, endln:8:24
+        |vpiFullName:work@dut
+        |vpiActual:
+        \_int_typespec: , line:8:14, endln:8:17
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@dut.CH), line:8:18, endln:8:20
+  |vpiDefName:work@dut
+  |vpiTop:1
+  |vpiNet:
+  \_logic_net: (work@dut.a), line:7:47, endln:7:48
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.a)
+      |vpiParent:
+      \_logic_net: (work@dut.a), line:7:47, endln:7:48
+      |vpiFullName:work@dut.a
+      |vpiActual:
+      \_logic_typespec: , line:7:41, endln:7:46
+    |vpiName:a
+    |vpiFullName:work@dut.a
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@dut.y), line:7:63, endln:7:64
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiTypespec:
+    \_ref_typespec: (work@dut.y)
+      |vpiParent:
+      \_logic_net: (work@dut.y), line:7:63, endln:7:64
+      |vpiFullName:work@dut.y
+      |vpiActual:
+      \_logic_typespec: , line:7:57, endln:7:62
+    |vpiName:y
+    |vpiFullName:work@dut.y
+    |vpiNetType:36
+  |vpiTopModule:1
+  |vpiPort:
+  \_port: (a), line:7:47, endln:7:48
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:a
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@dut.a), line:7:47, endln:7:48
+      |vpiParent:
+      \_port: (a), line:7:47, endln:7:48
+      |vpiName:a
+      |vpiFullName:work@dut.a
+      |vpiActual:
+      \_logic_net: (work@dut.a), line:7:47, endln:7:48
+    |vpiTypedef:
+    \_ref_typespec: (work@dut.a)
+      |vpiParent:
+      \_port: (a), line:7:47, endln:7:48
+      |vpiFullName:work@dut.a
+      |vpiActual:
+      \_logic_typespec: , line:7:41, endln:7:46
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+  |vpiPort:
+  \_port: (y), line:7:63, endln:7:64
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:y
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@dut.y), line:7:63, endln:7:64
+      |vpiParent:
+      \_port: (y), line:7:63, endln:7:64
+      |vpiName:y
+      |vpiFullName:work@dut.y
+      |vpiActual:
+      \_logic_net: (work@dut.y), line:7:63, endln:7:64
+    |vpiTypedef:
+    \_ref_typespec: (work@dut.y)
+      |vpiParent:
+      \_port: (y), line:7:63, endln:7:64
+      |vpiFullName:work@dut.y
+      |vpiActual:
+      \_logic_typespec: , line:7:57, endln:7:62
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+  |vpiInterface:
+  \_interface_inst: work@I (work@dut.a1[0]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:9:3, endln:9:16
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:a1[0]
+    |vpiFullName:work@dut.a1[0]
+    |vpiVariables:
+    \_logic_var: (work@dut.a1[0].v), line:5:20, endln:5:21
+      |vpiParent:
+      \_interface_inst: work@I (work@dut.a1[0]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:9:3, endln:9:16
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.a1[0].v)
+        |vpiParent:
+        \_logic_var: (work@dut.a1[0].v), line:5:20, endln:5:21
+        |vpiFullName:work@dut.a1[0].v
+        |vpiActual:
+        \_logic_typespec: , line:5:14, endln:5:19
+      |vpiName:v
+      |vpiFullName:work@dut.a1[0].v
+      |vpiVisibility:1
+    |vpiDefName:work@I
+    |vpiDefFile:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv
+    |vpiDefLineNo:5
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+  |vpiInterface:
+  \_interface_inst: work@I (work@dut.a1[1]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:9:3, endln:9:16
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:a1[1]
+    |vpiFullName:work@dut.a1[1]
+    |vpiVariables:
+    \_logic_var: (work@dut.a1[1].v), line:5:20, endln:5:21
+      |vpiParent:
+      \_interface_inst: work@I (work@dut.a1[1]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:9:3, endln:9:16
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.a1[1].v)
+        |vpiParent:
+        \_logic_var: (work@dut.a1[1].v), line:5:20, endln:5:21
+        |vpiFullName:work@dut.a1[1].v
+        |vpiActual:
+        \_logic_typespec: , line:5:14, endln:5:19
+      |vpiName:v
+      |vpiFullName:work@dut.a1[1].v
+      |vpiVisibility:1
+    |vpiDefName:work@I
+    |vpiDefFile:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv
+    |vpiDefLineNo:5
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+  |vpiInterface:
+  \_interface_inst: work@I (work@dut.a1[2]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:9:3, endln:9:16
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:a1[2]
+    |vpiFullName:work@dut.a1[2]
+    |vpiVariables:
+    \_logic_var: (work@dut.a1[2].v), line:5:20, endln:5:21
+      |vpiParent:
+      \_interface_inst: work@I (work@dut.a1[2]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:9:3, endln:9:16
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.a1[2].v)
+        |vpiParent:
+        \_logic_var: (work@dut.a1[2].v), line:5:20, endln:5:21
+        |vpiFullName:work@dut.a1[2].v
+        |vpiActual:
+        \_logic_typespec: , line:5:14, endln:5:19
+      |vpiName:v
+      |vpiFullName:work@dut.a1[2].v
+      |vpiVisibility:1
+    |vpiDefName:work@I
+    |vpiDefFile:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv
+    |vpiDefLineNo:5
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+  |vpiInterface:
+  \_interface_inst: work@I (work@dut.a1[3]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:9:3, endln:9:16
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:a1[3]
+    |vpiFullName:work@dut.a1[3]
+    |vpiVariables:
+    \_logic_var: (work@dut.a1[3].v), line:5:20, endln:5:21
+      |vpiParent:
+      \_interface_inst: work@I (work@dut.a1[3]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:9:3, endln:9:16
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.a1[3].v)
+        |vpiParent:
+        \_logic_var: (work@dut.a1[3].v), line:5:20, endln:5:21
+        |vpiFullName:work@dut.a1[3].v
+        |vpiActual:
+        \_logic_typespec: , line:5:14, endln:5:19
+      |vpiName:v
+      |vpiFullName:work@dut.a1[3].v
+      |vpiVisibility:1
+    |vpiDefName:work@I
+    |vpiDefFile:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv
+    |vpiDefLineNo:5
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+  |vpiInterface:
+  \_interface_inst: work@I (work@dut.a2[0]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:10:3, endln:10:16
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:a2[0]
+    |vpiFullName:work@dut.a2[0]
+    |vpiVariables:
+    \_logic_var: (work@dut.a2[0].v), line:5:20, endln:5:21
+      |vpiParent:
+      \_interface_inst: work@I (work@dut.a2[0]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:10:3, endln:10:16
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.a2[0].v)
+        |vpiParent:
+        \_logic_var: (work@dut.a2[0].v), line:5:20, endln:5:21
+        |vpiFullName:work@dut.a2[0].v
+        |vpiActual:
+        \_logic_typespec: , line:5:14, endln:5:19
+      |vpiName:v
+      |vpiFullName:work@dut.a2[0].v
+      |vpiVisibility:1
+    |vpiDefName:work@I
+    |vpiDefFile:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv
+    |vpiDefLineNo:5
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+  |vpiInterface:
+  \_interface_inst: work@I (work@dut.a2[1]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:10:3, endln:10:16
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:a2[1]
+    |vpiFullName:work@dut.a2[1]
+    |vpiVariables:
+    \_logic_var: (work@dut.a2[1].v), line:5:20, endln:5:21
+      |vpiParent:
+      \_interface_inst: work@I (work@dut.a2[1]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:10:3, endln:10:16
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.a2[1].v)
+        |vpiParent:
+        \_logic_var: (work@dut.a2[1].v), line:5:20, endln:5:21
+        |vpiFullName:work@dut.a2[1].v
+        |vpiActual:
+        \_logic_typespec: , line:5:14, endln:5:19
+      |vpiName:v
+      |vpiFullName:work@dut.a2[1].v
+      |vpiVisibility:1
+    |vpiDefName:work@I
+    |vpiDefFile:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv
+    |vpiDefLineNo:5
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+  |vpiInterface:
+  \_interface_inst: work@I (work@dut.a2[2]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:10:3, endln:10:16
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:a2[2]
+    |vpiFullName:work@dut.a2[2]
+    |vpiVariables:
+    \_logic_var: (work@dut.a2[2].v), line:5:20, endln:5:21
+      |vpiParent:
+      \_interface_inst: work@I (work@dut.a2[2]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:10:3, endln:10:16
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.a2[2].v)
+        |vpiParent:
+        \_logic_var: (work@dut.a2[2].v), line:5:20, endln:5:21
+        |vpiFullName:work@dut.a2[2].v
+        |vpiActual:
+        \_logic_typespec: , line:5:14, endln:5:19
+      |vpiName:v
+      |vpiFullName:work@dut.a2[2].v
+      |vpiVisibility:1
+    |vpiDefName:work@I
+    |vpiDefFile:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv
+    |vpiDefLineNo:5
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+  |vpiInterface:
+  \_interface_inst: work@I (work@dut.a2[3]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:10:3, endln:10:16
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:a2[3]
+    |vpiFullName:work@dut.a2[3]
+    |vpiVariables:
+    \_logic_var: (work@dut.a2[3].v), line:5:20, endln:5:21
+      |vpiParent:
+      \_interface_inst: work@I (work@dut.a2[3]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:10:3, endln:10:16
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.a2[3].v)
+        |vpiParent:
+        \_logic_var: (work@dut.a2[3].v), line:5:20, endln:5:21
+        |vpiFullName:work@dut.a2[3].v
+        |vpiActual:
+        \_logic_typespec: , line:5:14, endln:5:19
+      |vpiName:v
+      |vpiFullName:work@dut.a2[3].v
+      |vpiVisibility:1
+    |vpiDefName:work@I
+    |vpiDefFile:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv
+    |vpiDefLineNo:5
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+  |vpiInterface:
+  \_interface_inst: work@I (work@dut.a3[0]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:11:3, endln:11:15
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:a3[0]
+    |vpiFullName:work@dut.a3[0]
+    |vpiVariables:
+    \_logic_var: (work@dut.a3[0].v), line:5:20, endln:5:21
+      |vpiParent:
+      \_interface_inst: work@I (work@dut.a3[0]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:11:3, endln:11:15
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.a3[0].v)
+        |vpiParent:
+        \_logic_var: (work@dut.a3[0].v), line:5:20, endln:5:21
+        |vpiFullName:work@dut.a3[0].v
+        |vpiActual:
+        \_logic_typespec: , line:5:14, endln:5:19
+      |vpiName:v
+      |vpiFullName:work@dut.a3[0].v
+      |vpiVisibility:1
+    |vpiDefName:work@I
+    |vpiDefFile:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv
+    |vpiDefLineNo:5
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+  |vpiInterface:
+  \_interface_inst: work@I (work@dut.a3[1]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:11:3, endln:11:15
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:a3[1]
+    |vpiFullName:work@dut.a3[1]
+    |vpiVariables:
+    \_logic_var: (work@dut.a3[1].v), line:5:20, endln:5:21
+      |vpiParent:
+      \_interface_inst: work@I (work@dut.a3[1]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:11:3, endln:11:15
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.a3[1].v)
+        |vpiParent:
+        \_logic_var: (work@dut.a3[1].v), line:5:20, endln:5:21
+        |vpiFullName:work@dut.a3[1].v
+        |vpiActual:
+        \_logic_typespec: , line:5:14, endln:5:19
+      |vpiName:v
+      |vpiFullName:work@dut.a3[1].v
+      |vpiVisibility:1
+    |vpiDefName:work@I
+    |vpiDefFile:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv
+    |vpiDefLineNo:5
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+  |vpiInterface:
+  \_interface_inst: work@I (work@dut.a3[2]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:11:3, endln:11:15
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:a3[2]
+    |vpiFullName:work@dut.a3[2]
+    |vpiVariables:
+    \_logic_var: (work@dut.a3[2].v), line:5:20, endln:5:21
+      |vpiParent:
+      \_interface_inst: work@I (work@dut.a3[2]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:11:3, endln:11:15
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.a3[2].v)
+        |vpiParent:
+        \_logic_var: (work@dut.a3[2].v), line:5:20, endln:5:21
+        |vpiFullName:work@dut.a3[2].v
+        |vpiActual:
+        \_logic_typespec: , line:5:14, endln:5:19
+      |vpiName:v
+      |vpiFullName:work@dut.a3[2].v
+      |vpiVisibility:1
+    |vpiDefName:work@I
+    |vpiDefFile:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv
+    |vpiDefLineNo:5
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+  |vpiInterface:
+  \_interface_inst: work@I (work@dut.a3[3]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:11:3, endln:11:15
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:a3[3]
+    |vpiFullName:work@dut.a3[3]
+    |vpiVariables:
+    \_logic_var: (work@dut.a3[3].v), line:5:20, endln:5:21
+      |vpiParent:
+      \_interface_inst: work@I (work@dut.a3[3]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:11:3, endln:11:15
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.a3[3].v)
+        |vpiParent:
+        \_logic_var: (work@dut.a3[3].v), line:5:20, endln:5:21
+        |vpiFullName:work@dut.a3[3].v
+        |vpiActual:
+        \_logic_typespec: , line:5:14, endln:5:19
+      |vpiName:v
+      |vpiFullName:work@dut.a3[3].v
+      |vpiVisibility:1
+    |vpiDefName:work@I
+    |vpiDefFile:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv
+    |vpiDefLineNo:5
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+  |vpiInterface:
+  \_interface_inst: work@I (work@dut.a4[0]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:12:3, endln:12:15
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:a4[0]
+    |vpiFullName:work@dut.a4[0]
+    |vpiVariables:
+    \_logic_var: (work@dut.a4[0].v), line:5:20, endln:5:21
+      |vpiParent:
+      \_interface_inst: work@I (work@dut.a4[0]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:12:3, endln:12:15
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.a4[0].v)
+        |vpiParent:
+        \_logic_var: (work@dut.a4[0].v), line:5:20, endln:5:21
+        |vpiFullName:work@dut.a4[0].v
+        |vpiActual:
+        \_logic_typespec: , line:5:14, endln:5:19
+      |vpiName:v
+      |vpiFullName:work@dut.a4[0].v
+      |vpiVisibility:1
+    |vpiDefName:work@I
+    |vpiDefFile:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv
+    |vpiDefLineNo:5
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+  |vpiInterface:
+  \_interface_inst: work@I (work@dut.a4[1]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:12:3, endln:12:15
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:a4[1]
+    |vpiFullName:work@dut.a4[1]
+    |vpiVariables:
+    \_logic_var: (work@dut.a4[1].v), line:5:20, endln:5:21
+      |vpiParent:
+      \_interface_inst: work@I (work@dut.a4[1]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:12:3, endln:12:15
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.a4[1].v)
+        |vpiParent:
+        \_logic_var: (work@dut.a4[1].v), line:5:20, endln:5:21
+        |vpiFullName:work@dut.a4[1].v
+        |vpiActual:
+        \_logic_typespec: , line:5:14, endln:5:19
+      |vpiName:v
+      |vpiFullName:work@dut.a4[1].v
+      |vpiVisibility:1
+    |vpiDefName:work@I
+    |vpiDefFile:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv
+    |vpiDefLineNo:5
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+  |vpiInterface:
+  \_interface_inst: work@I (work@dut.a4[2]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:12:3, endln:12:15
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:a4[2]
+    |vpiFullName:work@dut.a4[2]
+    |vpiVariables:
+    \_logic_var: (work@dut.a4[2].v), line:5:20, endln:5:21
+      |vpiParent:
+      \_interface_inst: work@I (work@dut.a4[2]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:12:3, endln:12:15
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.a4[2].v)
+        |vpiParent:
+        \_logic_var: (work@dut.a4[2].v), line:5:20, endln:5:21
+        |vpiFullName:work@dut.a4[2].v
+        |vpiActual:
+        \_logic_typespec: , line:5:14, endln:5:19
+      |vpiName:v
+      |vpiFullName:work@dut.a4[2].v
+      |vpiVisibility:1
+    |vpiDefName:work@I
+    |vpiDefFile:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv
+    |vpiDefLineNo:5
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+  |vpiInterface:
+  \_interface_inst: work@I (work@dut.a4[3]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:12:3, endln:12:15
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:a4[3]
+    |vpiFullName:work@dut.a4[3]
+    |vpiVariables:
+    \_logic_var: (work@dut.a4[3].v), line:5:20, endln:5:21
+      |vpiParent:
+      \_interface_inst: work@I (work@dut.a4[3]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:12:3, endln:12:15
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.a4[3].v)
+        |vpiParent:
+        \_logic_var: (work@dut.a4[3].v), line:5:20, endln:5:21
+        |vpiFullName:work@dut.a4[3].v
+        |vpiActual:
+        \_logic_typespec: , line:5:14, endln:5:19
+      |vpiName:v
+      |vpiFullName:work@dut.a4[3].v
+      |vpiVisibility:1
+    |vpiDefName:work@I
+    |vpiDefFile:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv
+    |vpiDefLineNo:5
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+  |vpiInterface:
+  \_interface_inst: work@I (work@dut.a5[0]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:13:3, endln:13:17
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:a5[0]
+    |vpiFullName:work@dut.a5[0]
+    |vpiVariables:
+    \_logic_var: (work@dut.a5[0].v), line:5:20, endln:5:21
+      |vpiParent:
+      \_interface_inst: work@I (work@dut.a5[0]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:13:3, endln:13:17
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.a5[0].v)
+        |vpiParent:
+        \_logic_var: (work@dut.a5[0].v), line:5:20, endln:5:21
+        |vpiFullName:work@dut.a5[0].v
+        |vpiActual:
+        \_logic_typespec: , line:5:14, endln:5:19
+      |vpiName:v
+      |vpiFullName:work@dut.a5[0].v
+      |vpiVisibility:1
+    |vpiDefName:work@I
+    |vpiDefFile:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv
+    |vpiDefLineNo:5
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+  |vpiInterface:
+  \_interface_inst: work@I (work@dut.a5[1]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:13:3, endln:13:17
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:a5[1]
+    |vpiFullName:work@dut.a5[1]
+    |vpiVariables:
+    \_logic_var: (work@dut.a5[1].v), line:5:20, endln:5:21
+      |vpiParent:
+      \_interface_inst: work@I (work@dut.a5[1]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:13:3, endln:13:17
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.a5[1].v)
+        |vpiParent:
+        \_logic_var: (work@dut.a5[1].v), line:5:20, endln:5:21
+        |vpiFullName:work@dut.a5[1].v
+        |vpiActual:
+        \_logic_typespec: , line:5:14, endln:5:19
+      |vpiName:v
+      |vpiFullName:work@dut.a5[1].v
+      |vpiVisibility:1
+    |vpiDefName:work@I
+    |vpiDefFile:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv
+    |vpiDefLineNo:5
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+  |vpiInterface:
+  \_interface_inst: work@I (work@dut.a5[2]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:13:3, endln:13:17
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:a5[2]
+    |vpiFullName:work@dut.a5[2]
+    |vpiVariables:
+    \_logic_var: (work@dut.a5[2].v), line:5:20, endln:5:21
+      |vpiParent:
+      \_interface_inst: work@I (work@dut.a5[2]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:13:3, endln:13:17
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.a5[2].v)
+        |vpiParent:
+        \_logic_var: (work@dut.a5[2].v), line:5:20, endln:5:21
+        |vpiFullName:work@dut.a5[2].v
+        |vpiActual:
+        \_logic_typespec: , line:5:14, endln:5:19
+      |vpiName:v
+      |vpiFullName:work@dut.a5[2].v
+      |vpiVisibility:1
+    |vpiDefName:work@I
+    |vpiDefFile:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv
+    |vpiDefLineNo:5
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+  |vpiInterface:
+  \_interface_inst: work@I (work@dut.a5[3]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:13:3, endln:13:17
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:a5[3]
+    |vpiFullName:work@dut.a5[3]
+    |vpiVariables:
+    \_logic_var: (work@dut.a5[3].v), line:5:20, endln:5:21
+      |vpiParent:
+      \_interface_inst: work@I (work@dut.a5[3]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:13:3, endln:13:17
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.a5[3].v)
+        |vpiParent:
+        \_logic_var: (work@dut.a5[3].v), line:5:20, endln:5:21
+        |vpiFullName:work@dut.a5[3].v
+        |vpiActual:
+        \_logic_typespec: , line:5:14, endln:5:19
+      |vpiName:v
+      |vpiFullName:work@dut.a5[3].v
+      |vpiVisibility:1
+    |vpiDefName:work@I
+    |vpiDefFile:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv
+    |vpiDefLineNo:5
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+  |vpiInterface:
+  \_interface_inst: work@I (work@dut.a6[0]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:14:3, endln:14:13
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:a6[0]
+    |vpiFullName:work@dut.a6[0]
+    |vpiVariables:
+    \_logic_var: (work@dut.a6[0].v), line:5:20, endln:5:21
+      |vpiParent:
+      \_interface_inst: work@I (work@dut.a6[0]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:14:3, endln:14:13
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.a6[0].v)
+        |vpiParent:
+        \_logic_var: (work@dut.a6[0].v), line:5:20, endln:5:21
+        |vpiFullName:work@dut.a6[0].v
+        |vpiActual:
+        \_logic_typespec: , line:5:14, endln:5:19
+      |vpiName:v
+      |vpiFullName:work@dut.a6[0].v
+      |vpiVisibility:1
+    |vpiDefName:work@I
+    |vpiDefFile:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv
+    |vpiDefLineNo:5
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+  |vpiInterface:
+  \_interface_inst: work@I (work@dut.a6[1]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:14:3, endln:14:13
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:a6[1]
+    |vpiFullName:work@dut.a6[1]
+    |vpiVariables:
+    \_logic_var: (work@dut.a6[1].v), line:5:20, endln:5:21
+      |vpiParent:
+      \_interface_inst: work@I (work@dut.a6[1]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:14:3, endln:14:13
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.a6[1].v)
+        |vpiParent:
+        \_logic_var: (work@dut.a6[1].v), line:5:20, endln:5:21
+        |vpiFullName:work@dut.a6[1].v
+        |vpiActual:
+        \_logic_typespec: , line:5:14, endln:5:19
+      |vpiName:v
+      |vpiFullName:work@dut.a6[1].v
+      |vpiVisibility:1
+    |vpiDefName:work@I
+    |vpiDefFile:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv
+    |vpiDefLineNo:5
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+  |vpiInterface:
+  \_interface_inst: work@I (work@dut.a6[2]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:14:3, endln:14:13
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:a6[2]
+    |vpiFullName:work@dut.a6[2]
+    |vpiVariables:
+    \_logic_var: (work@dut.a6[2].v), line:5:20, endln:5:21
+      |vpiParent:
+      \_interface_inst: work@I (work@dut.a6[2]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:14:3, endln:14:13
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.a6[2].v)
+        |vpiParent:
+        \_logic_var: (work@dut.a6[2].v), line:5:20, endln:5:21
+        |vpiFullName:work@dut.a6[2].v
+        |vpiActual:
+        \_logic_typespec: , line:5:14, endln:5:19
+      |vpiName:v
+      |vpiFullName:work@dut.a6[2].v
+      |vpiVisibility:1
+    |vpiDefName:work@I
+    |vpiDefFile:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv
+    |vpiDefLineNo:5
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+  |vpiInterface:
+  \_interface_inst: work@I (work@dut.a6[3]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:14:3, endln:14:13
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:a6[3]
+    |vpiFullName:work@dut.a6[3]
+    |vpiVariables:
+    \_logic_var: (work@dut.a6[3].v), line:5:20, endln:5:21
+      |vpiParent:
+      \_interface_inst: work@I (work@dut.a6[3]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:14:3, endln:14:13
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.a6[3].v)
+        |vpiParent:
+        \_logic_var: (work@dut.a6[3].v), line:5:20, endln:5:21
+        |vpiFullName:work@dut.a6[3].v
+        |vpiActual:
+        \_logic_typespec: , line:5:14, endln:5:19
+      |vpiName:v
+      |vpiFullName:work@dut.a6[3].v
+      |vpiVisibility:1
+    |vpiDefName:work@I
+    |vpiDefFile:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv
+    |vpiDefLineNo:5
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+  |vpiInterface:
+  \_interface_inst: work@I (work@dut.a7[0]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:15:3, endln:15:14
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:a7[0]
+    |vpiFullName:work@dut.a7[0]
+    |vpiVariables:
+    \_logic_var: (work@dut.a7[0].v), line:5:20, endln:5:21
+      |vpiParent:
+      \_interface_inst: work@I (work@dut.a7[0]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:15:3, endln:15:14
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.a7[0].v)
+        |vpiParent:
+        \_logic_var: (work@dut.a7[0].v), line:5:20, endln:5:21
+        |vpiFullName:work@dut.a7[0].v
+        |vpiActual:
+        \_logic_typespec: , line:5:14, endln:5:19
+      |vpiName:v
+      |vpiFullName:work@dut.a7[0].v
+      |vpiVisibility:1
+    |vpiDefName:work@I
+    |vpiDefFile:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv
+    |vpiDefLineNo:5
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+  |vpiInterface:
+  \_interface_inst: work@I (work@dut.a7[1]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:15:3, endln:15:14
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:a7[1]
+    |vpiFullName:work@dut.a7[1]
+    |vpiVariables:
+    \_logic_var: (work@dut.a7[1].v), line:5:20, endln:5:21
+      |vpiParent:
+      \_interface_inst: work@I (work@dut.a7[1]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:15:3, endln:15:14
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.a7[1].v)
+        |vpiParent:
+        \_logic_var: (work@dut.a7[1].v), line:5:20, endln:5:21
+        |vpiFullName:work@dut.a7[1].v
+        |vpiActual:
+        \_logic_typespec: , line:5:14, endln:5:19
+      |vpiName:v
+      |vpiFullName:work@dut.a7[1].v
+      |vpiVisibility:1
+    |vpiDefName:work@I
+    |vpiDefFile:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv
+    |vpiDefLineNo:5
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+  |vpiModule:
+  \_module_inst: work@child (work@dut.c1[0]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:16:3, endln:16:31
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:c1[0]
+    |vpiFullName:work@dut.c1[0]
+    |vpiDefName:work@child
+    |vpiDefFile:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv
+    |vpiDefLineNo:6
+    |vpiNet:
+    \_logic_net: (work@dut.c1[0].a), line:6:26, endln:6:27
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c1[0]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:16:3, endln:16:31
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.c1[0].a)
+        |vpiParent:
+        \_logic_net: (work@dut.c1[0].a), line:6:26, endln:6:27
+        |vpiFullName:work@dut.c1[0].a
+        |vpiActual:
+        \_logic_typespec: , line:6:20, endln:6:25
+      |vpiName:a
+      |vpiFullName:work@dut.c1[0].a
+      |vpiNetType:36
+    |vpiNet:
+    \_logic_net: (work@dut.c1[0].y), line:6:42, endln:6:43
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c1[0]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:16:3, endln:16:31
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.c1[0].y)
+        |vpiParent:
+        \_logic_net: (work@dut.c1[0].y), line:6:42, endln:6:43
+        |vpiFullName:work@dut.c1[0].y
+        |vpiActual:
+        \_logic_typespec: , line:6:36, endln:6:41
+      |vpiName:y
+      |vpiFullName:work@dut.c1[0].y
+      |vpiNetType:36
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiPort:
+    \_port: (a), line:6:26, endln:6:27
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c1[0]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:16:3, endln:16:31
+      |vpiName:a
+      |vpiDirection:1
+      |vpiHighConn:
+      \_ref_obj: (work@dut.a), line:16:21, endln:16:22
+        |vpiParent:
+        \_port: (a), line:6:26, endln:6:27
+        |vpiName:a
+        |vpiFullName:work@dut.a
+        |vpiActual:
+        \_logic_net: (work@dut.a), line:7:47, endln:7:48
+      |vpiLowConn:
+      \_ref_obj: (work@dut.c1[0].a), line:16:19, endln:16:20
+        |vpiParent:
+        \_port: (a), line:6:26, endln:6:27
+        |vpiName:a
+        |vpiFullName:work@dut.c1[0].a
+        |vpiActual:
+        \_logic_net: (work@dut.c1[0].a), line:6:26, endln:6:27
+      |vpiTypedef:
+      \_ref_typespec: (work@dut.c1[0].a)
+        |vpiParent:
+        \_port: (a), line:6:26, endln:6:27
+        |vpiFullName:work@dut.c1[0].a
+        |vpiActual:
+        \_logic_typespec: , line:6:20, endln:6:25
+      |vpiInstance:
+      \_module_inst: work@child (work@dut.c1[0]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:16:3, endln:16:31
+    |vpiPort:
+    \_port: (y), line:6:42, endln:6:43
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c1[0]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:16:3, endln:16:31
+      |vpiName:y
+      |vpiDirection:2
+      |vpiHighConn:
+      \_operation: , line:16:28, endln:16:29
+        |vpiParent:
+        \_port: (y), line:6:42, endln:6:43
+        |vpiOpType:36
+      |vpiLowConn:
+      \_ref_obj: (work@dut.c1[0].y), line:6:42, endln:6:43
+        |vpiParent:
+        \_port: (y), line:6:42, endln:6:43
+        |vpiName:y
+        |vpiFullName:work@dut.c1[0].y
+        |vpiActual:
+        \_logic_net: (work@dut.c1[0].y), line:6:42, endln:6:43
+      |vpiTypedef:
+      \_ref_typespec: (work@dut.c1[0].y)
+        |vpiParent:
+        \_port: (y), line:6:42, endln:6:43
+        |vpiFullName:work@dut.c1[0].y
+        |vpiActual:
+        \_logic_typespec: , line:6:36, endln:6:41
+      |vpiInstance:
+      \_module_inst: work@child (work@dut.c1[0]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:16:3, endln:16:31
+    |vpiContAssign:
+    \_cont_assign: , line:6:53, endln:6:58
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c1[0]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:16:3, endln:16:31
+      |vpiRhs:
+      \_ref_obj: (work@dut.c1[0].a), line:6:57, endln:6:58
+        |vpiParent:
+        \_cont_assign: , line:6:53, endln:6:58
+        |vpiName:a
+        |vpiFullName:work@dut.c1[0].a
+        |vpiActual:
+        \_logic_net: (work@dut.c1[0].a), line:6:26, endln:6:27
+      |vpiLhs:
+      \_ref_obj: (work@dut.c1[0].y), line:6:53, endln:6:54
+        |vpiParent:
+        \_cont_assign: , line:6:53, endln:6:58
+        |vpiName:y
+        |vpiFullName:work@dut.c1[0].y
+        |vpiActual:
+        \_logic_net: (work@dut.c1[0].y), line:6:42, endln:6:43
+  |vpiModule:
+  \_module_inst: work@child (work@dut.c1[1]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:16:3, endln:16:31
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:c1[1]
+    |vpiFullName:work@dut.c1[1]
+    |vpiDefName:work@child
+    |vpiDefFile:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv
+    |vpiDefLineNo:6
+    |vpiNet:
+    \_logic_net: (work@dut.c1[1].a), line:6:26, endln:6:27
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c1[1]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:16:3, endln:16:31
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.c1[1].a)
+        |vpiParent:
+        \_logic_net: (work@dut.c1[1].a), line:6:26, endln:6:27
+        |vpiFullName:work@dut.c1[1].a
+        |vpiActual:
+        \_logic_typespec: , line:6:20, endln:6:25
+      |vpiName:a
+      |vpiFullName:work@dut.c1[1].a
+      |vpiNetType:36
+    |vpiNet:
+    \_logic_net: (work@dut.c1[1].y), line:6:42, endln:6:43
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c1[1]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:16:3, endln:16:31
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.c1[1].y)
+        |vpiParent:
+        \_logic_net: (work@dut.c1[1].y), line:6:42, endln:6:43
+        |vpiFullName:work@dut.c1[1].y
+        |vpiActual:
+        \_logic_typespec: , line:6:36, endln:6:41
+      |vpiName:y
+      |vpiFullName:work@dut.c1[1].y
+      |vpiNetType:36
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiPort:
+    \_port: (a), line:6:26, endln:6:27
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c1[1]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:16:3, endln:16:31
+      |vpiName:a
+      |vpiDirection:1
+      |vpiHighConn:
+      \_ref_obj: (work@dut.a), line:16:21, endln:16:22
+        |vpiParent:
+        \_port: (a), line:6:26, endln:6:27
+        |vpiName:a
+        |vpiFullName:work@dut.a
+        |vpiActual:
+        \_logic_net: (work@dut.a), line:7:47, endln:7:48
+      |vpiLowConn:
+      \_ref_obj: (work@dut.c1[1].a), line:16:19, endln:16:20
+        |vpiParent:
+        \_port: (a), line:6:26, endln:6:27
+        |vpiName:a
+        |vpiFullName:work@dut.c1[1].a
+        |vpiActual:
+        \_logic_net: (work@dut.c1[1].a), line:6:26, endln:6:27
+      |vpiTypedef:
+      \_ref_typespec: (work@dut.c1[1].a)
+        |vpiParent:
+        \_port: (a), line:6:26, endln:6:27
+        |vpiFullName:work@dut.c1[1].a
+        |vpiActual:
+        \_logic_typespec: , line:6:20, endln:6:25
+      |vpiInstance:
+      \_module_inst: work@child (work@dut.c1[1]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:16:3, endln:16:31
+    |vpiPort:
+    \_port: (y), line:6:42, endln:6:43
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c1[1]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:16:3, endln:16:31
+      |vpiName:y
+      |vpiDirection:2
+      |vpiHighConn:
+      \_operation: , line:16:28, endln:16:29
+        |vpiParent:
+        \_port: (y), line:6:42, endln:6:43
+        |vpiOpType:36
+      |vpiLowConn:
+      \_ref_obj: (work@dut.c1[1].y), line:6:42, endln:6:43
+        |vpiParent:
+        \_port: (y), line:6:42, endln:6:43
+        |vpiName:y
+        |vpiFullName:work@dut.c1[1].y
+        |vpiActual:
+        \_logic_net: (work@dut.c1[1].y), line:6:42, endln:6:43
+      |vpiTypedef:
+      \_ref_typespec: (work@dut.c1[1].y)
+        |vpiParent:
+        \_port: (y), line:6:42, endln:6:43
+        |vpiFullName:work@dut.c1[1].y
+        |vpiActual:
+        \_logic_typespec: , line:6:36, endln:6:41
+      |vpiInstance:
+      \_module_inst: work@child (work@dut.c1[1]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:16:3, endln:16:31
+    |vpiContAssign:
+    \_cont_assign: , line:6:53, endln:6:58
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c1[1]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:16:3, endln:16:31
+      |vpiRhs:
+      \_ref_obj: (work@dut.c1[1].a), line:6:57, endln:6:58
+        |vpiParent:
+        \_cont_assign: , line:6:53, endln:6:58
+        |vpiName:a
+        |vpiFullName:work@dut.c1[1].a
+        |vpiActual:
+        \_logic_net: (work@dut.c1[1].a), line:6:26, endln:6:27
+      |vpiLhs:
+      \_ref_obj: (work@dut.c1[1].y), line:6:53, endln:6:54
+        |vpiParent:
+        \_cont_assign: , line:6:53, endln:6:58
+        |vpiName:y
+        |vpiFullName:work@dut.c1[1].y
+        |vpiActual:
+        \_logic_net: (work@dut.c1[1].y), line:6:42, endln:6:43
+  |vpiModule:
+  \_module_inst: work@child (work@dut.c1[2]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:16:3, endln:16:31
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:c1[2]
+    |vpiFullName:work@dut.c1[2]
+    |vpiDefName:work@child
+    |vpiDefFile:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv
+    |vpiDefLineNo:6
+    |vpiNet:
+    \_logic_net: (work@dut.c1[2].a), line:6:26, endln:6:27
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c1[2]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:16:3, endln:16:31
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.c1[2].a)
+        |vpiParent:
+        \_logic_net: (work@dut.c1[2].a), line:6:26, endln:6:27
+        |vpiFullName:work@dut.c1[2].a
+        |vpiActual:
+        \_logic_typespec: , line:6:20, endln:6:25
+      |vpiName:a
+      |vpiFullName:work@dut.c1[2].a
+      |vpiNetType:36
+    |vpiNet:
+    \_logic_net: (work@dut.c1[2].y), line:6:42, endln:6:43
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c1[2]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:16:3, endln:16:31
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.c1[2].y)
+        |vpiParent:
+        \_logic_net: (work@dut.c1[2].y), line:6:42, endln:6:43
+        |vpiFullName:work@dut.c1[2].y
+        |vpiActual:
+        \_logic_typespec: , line:6:36, endln:6:41
+      |vpiName:y
+      |vpiFullName:work@dut.c1[2].y
+      |vpiNetType:36
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiPort:
+    \_port: (a), line:6:26, endln:6:27
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c1[2]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:16:3, endln:16:31
+      |vpiName:a
+      |vpiDirection:1
+      |vpiHighConn:
+      \_ref_obj: (work@dut.a), line:16:21, endln:16:22
+        |vpiParent:
+        \_port: (a), line:6:26, endln:6:27
+        |vpiName:a
+        |vpiFullName:work@dut.a
+        |vpiActual:
+        \_logic_net: (work@dut.a), line:7:47, endln:7:48
+      |vpiLowConn:
+      \_ref_obj: (work@dut.c1[2].a), line:16:19, endln:16:20
+        |vpiParent:
+        \_port: (a), line:6:26, endln:6:27
+        |vpiName:a
+        |vpiFullName:work@dut.c1[2].a
+        |vpiActual:
+        \_logic_net: (work@dut.c1[2].a), line:6:26, endln:6:27
+      |vpiTypedef:
+      \_ref_typespec: (work@dut.c1[2].a)
+        |vpiParent:
+        \_port: (a), line:6:26, endln:6:27
+        |vpiFullName:work@dut.c1[2].a
+        |vpiActual:
+        \_logic_typespec: , line:6:20, endln:6:25
+      |vpiInstance:
+      \_module_inst: work@child (work@dut.c1[2]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:16:3, endln:16:31
+    |vpiPort:
+    \_port: (y), line:6:42, endln:6:43
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c1[2]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:16:3, endln:16:31
+      |vpiName:y
+      |vpiDirection:2
+      |vpiHighConn:
+      \_operation: , line:16:28, endln:16:29
+        |vpiParent:
+        \_port: (y), line:6:42, endln:6:43
+        |vpiOpType:36
+      |vpiLowConn:
+      \_ref_obj: (work@dut.c1[2].y), line:6:42, endln:6:43
+        |vpiParent:
+        \_port: (y), line:6:42, endln:6:43
+        |vpiName:y
+        |vpiFullName:work@dut.c1[2].y
+        |vpiActual:
+        \_logic_net: (work@dut.c1[2].y), line:6:42, endln:6:43
+      |vpiTypedef:
+      \_ref_typespec: (work@dut.c1[2].y)
+        |vpiParent:
+        \_port: (y), line:6:42, endln:6:43
+        |vpiFullName:work@dut.c1[2].y
+        |vpiActual:
+        \_logic_typespec: , line:6:36, endln:6:41
+      |vpiInstance:
+      \_module_inst: work@child (work@dut.c1[2]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:16:3, endln:16:31
+    |vpiContAssign:
+    \_cont_assign: , line:6:53, endln:6:58
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c1[2]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:16:3, endln:16:31
+      |vpiRhs:
+      \_ref_obj: (work@dut.c1[2].a), line:6:57, endln:6:58
+        |vpiParent:
+        \_cont_assign: , line:6:53, endln:6:58
+        |vpiName:a
+        |vpiFullName:work@dut.c1[2].a
+        |vpiActual:
+        \_logic_net: (work@dut.c1[2].a), line:6:26, endln:6:27
+      |vpiLhs:
+      \_ref_obj: (work@dut.c1[2].y), line:6:53, endln:6:54
+        |vpiParent:
+        \_cont_assign: , line:6:53, endln:6:58
+        |vpiName:y
+        |vpiFullName:work@dut.c1[2].y
+        |vpiActual:
+        \_logic_net: (work@dut.c1[2].y), line:6:42, endln:6:43
+  |vpiModule:
+  \_module_inst: work@child (work@dut.c1[3]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:16:3, endln:16:31
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:c1[3]
+    |vpiFullName:work@dut.c1[3]
+    |vpiDefName:work@child
+    |vpiDefFile:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv
+    |vpiDefLineNo:6
+    |vpiNet:
+    \_logic_net: (work@dut.c1[3].a), line:6:26, endln:6:27
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c1[3]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:16:3, endln:16:31
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.c1[3].a)
+        |vpiParent:
+        \_logic_net: (work@dut.c1[3].a), line:6:26, endln:6:27
+        |vpiFullName:work@dut.c1[3].a
+        |vpiActual:
+        \_logic_typespec: , line:6:20, endln:6:25
+      |vpiName:a
+      |vpiFullName:work@dut.c1[3].a
+      |vpiNetType:36
+    |vpiNet:
+    \_logic_net: (work@dut.c1[3].y), line:6:42, endln:6:43
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c1[3]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:16:3, endln:16:31
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.c1[3].y)
+        |vpiParent:
+        \_logic_net: (work@dut.c1[3].y), line:6:42, endln:6:43
+        |vpiFullName:work@dut.c1[3].y
+        |vpiActual:
+        \_logic_typespec: , line:6:36, endln:6:41
+      |vpiName:y
+      |vpiFullName:work@dut.c1[3].y
+      |vpiNetType:36
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiPort:
+    \_port: (a), line:6:26, endln:6:27
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c1[3]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:16:3, endln:16:31
+      |vpiName:a
+      |vpiDirection:1
+      |vpiHighConn:
+      \_ref_obj: (work@dut.a), line:16:21, endln:16:22
+        |vpiParent:
+        \_port: (a), line:6:26, endln:6:27
+        |vpiName:a
+        |vpiFullName:work@dut.a
+        |vpiActual:
+        \_logic_net: (work@dut.a), line:7:47, endln:7:48
+      |vpiLowConn:
+      \_ref_obj: (work@dut.c1[3].a), line:16:19, endln:16:20
+        |vpiParent:
+        \_port: (a), line:6:26, endln:6:27
+        |vpiName:a
+        |vpiFullName:work@dut.c1[3].a
+        |vpiActual:
+        \_logic_net: (work@dut.c1[3].a), line:6:26, endln:6:27
+      |vpiTypedef:
+      \_ref_typespec: (work@dut.c1[3].a)
+        |vpiParent:
+        \_port: (a), line:6:26, endln:6:27
+        |vpiFullName:work@dut.c1[3].a
+        |vpiActual:
+        \_logic_typespec: , line:6:20, endln:6:25
+      |vpiInstance:
+      \_module_inst: work@child (work@dut.c1[3]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:16:3, endln:16:31
+    |vpiPort:
+    \_port: (y), line:6:42, endln:6:43
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c1[3]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:16:3, endln:16:31
+      |vpiName:y
+      |vpiDirection:2
+      |vpiHighConn:
+      \_operation: , line:16:28, endln:16:29
+        |vpiParent:
+        \_port: (y), line:6:42, endln:6:43
+        |vpiOpType:36
+      |vpiLowConn:
+      \_ref_obj: (work@dut.c1[3].y), line:6:42, endln:6:43
+        |vpiParent:
+        \_port: (y), line:6:42, endln:6:43
+        |vpiName:y
+        |vpiFullName:work@dut.c1[3].y
+        |vpiActual:
+        \_logic_net: (work@dut.c1[3].y), line:6:42, endln:6:43
+      |vpiTypedef:
+      \_ref_typespec: (work@dut.c1[3].y)
+        |vpiParent:
+        \_port: (y), line:6:42, endln:6:43
+        |vpiFullName:work@dut.c1[3].y
+        |vpiActual:
+        \_logic_typespec: , line:6:36, endln:6:41
+      |vpiInstance:
+      \_module_inst: work@child (work@dut.c1[3]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:16:3, endln:16:31
+    |vpiContAssign:
+    \_cont_assign: , line:6:53, endln:6:58
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c1[3]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:16:3, endln:16:31
+      |vpiRhs:
+      \_ref_obj: (work@dut.c1[3].a), line:6:57, endln:6:58
+        |vpiParent:
+        \_cont_assign: , line:6:53, endln:6:58
+        |vpiName:a
+        |vpiFullName:work@dut.c1[3].a
+        |vpiActual:
+        \_logic_net: (work@dut.c1[3].a), line:6:26, endln:6:27
+      |vpiLhs:
+      \_ref_obj: (work@dut.c1[3].y), line:6:53, endln:6:54
+        |vpiParent:
+        \_cont_assign: , line:6:53, endln:6:58
+        |vpiName:y
+        |vpiFullName:work@dut.c1[3].y
+        |vpiActual:
+        \_logic_net: (work@dut.c1[3].y), line:6:42, endln:6:43
+  |vpiModule:
+  \_module_inst: work@child (work@dut.c2[0]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:17:3, endln:17:30
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:c2[0]
+    |vpiFullName:work@dut.c2[0]
+    |vpiDefName:work@child
+    |vpiDefFile:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv
+    |vpiDefLineNo:6
+    |vpiNet:
+    \_logic_net: (work@dut.c2[0].a), line:6:26, endln:6:27
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c2[0]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:17:3, endln:17:30
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.c2[0].a)
+        |vpiParent:
+        \_logic_net: (work@dut.c2[0].a), line:6:26, endln:6:27
+        |vpiFullName:work@dut.c2[0].a
+        |vpiActual:
+        \_logic_typespec: , line:6:20, endln:6:25
+      |vpiName:a
+      |vpiFullName:work@dut.c2[0].a
+      |vpiNetType:36
+    |vpiNet:
+    \_logic_net: (work@dut.c2[0].y), line:6:42, endln:6:43
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c2[0]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:17:3, endln:17:30
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.c2[0].y)
+        |vpiParent:
+        \_logic_net: (work@dut.c2[0].y), line:6:42, endln:6:43
+        |vpiFullName:work@dut.c2[0].y
+        |vpiActual:
+        \_logic_typespec: , line:6:36, endln:6:41
+      |vpiName:y
+      |vpiFullName:work@dut.c2[0].y
+      |vpiNetType:36
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiPort:
+    \_port: (a), line:6:26, endln:6:27
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c2[0]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:17:3, endln:17:30
+      |vpiName:a
+      |vpiDirection:1
+      |vpiHighConn:
+      \_ref_obj: (work@dut.a), line:17:20, endln:17:21
+        |vpiParent:
+        \_port: (a), line:6:26, endln:6:27
+        |vpiName:a
+        |vpiFullName:work@dut.a
+        |vpiActual:
+        \_logic_net: (work@dut.a), line:7:47, endln:7:48
+      |vpiLowConn:
+      \_ref_obj: (work@dut.c2[0].a), line:17:18, endln:17:19
+        |vpiParent:
+        \_port: (a), line:6:26, endln:6:27
+        |vpiName:a
+        |vpiFullName:work@dut.c2[0].a
+        |vpiActual:
+        \_logic_net: (work@dut.c2[0].a), line:6:26, endln:6:27
+      |vpiTypedef:
+      \_ref_typespec: (work@dut.c2[0].a)
+        |vpiParent:
+        \_port: (a), line:6:26, endln:6:27
+        |vpiFullName:work@dut.c2[0].a
+        |vpiActual:
+        \_logic_typespec: , line:6:20, endln:6:25
+      |vpiInstance:
+      \_module_inst: work@child (work@dut.c2[0]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:17:3, endln:17:30
+    |vpiPort:
+    \_port: (y), line:6:42, endln:6:43
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c2[0]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:17:3, endln:17:30
+      |vpiName:y
+      |vpiDirection:2
+      |vpiHighConn:
+      \_operation: , line:17:27, endln:17:28
+        |vpiParent:
+        \_port: (y), line:6:42, endln:6:43
+        |vpiOpType:36
+      |vpiLowConn:
+      \_ref_obj: (work@dut.c2[0].y), line:6:42, endln:6:43
+        |vpiParent:
+        \_port: (y), line:6:42, endln:6:43
+        |vpiName:y
+        |vpiFullName:work@dut.c2[0].y
+        |vpiActual:
+        \_logic_net: (work@dut.c2[0].y), line:6:42, endln:6:43
+      |vpiTypedef:
+      \_ref_typespec: (work@dut.c2[0].y)
+        |vpiParent:
+        \_port: (y), line:6:42, endln:6:43
+        |vpiFullName:work@dut.c2[0].y
+        |vpiActual:
+        \_logic_typespec: , line:6:36, endln:6:41
+      |vpiInstance:
+      \_module_inst: work@child (work@dut.c2[0]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:17:3, endln:17:30
+    |vpiContAssign:
+    \_cont_assign: , line:6:53, endln:6:58
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c2[0]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:17:3, endln:17:30
+      |vpiRhs:
+      \_ref_obj: (work@dut.c2[0].a), line:6:57, endln:6:58
+        |vpiParent:
+        \_cont_assign: , line:6:53, endln:6:58
+        |vpiName:a
+        |vpiFullName:work@dut.c2[0].a
+        |vpiActual:
+        \_logic_net: (work@dut.c2[0].a), line:6:26, endln:6:27
+      |vpiLhs:
+      \_ref_obj: (work@dut.c2[0].y), line:6:53, endln:6:54
+        |vpiParent:
+        \_cont_assign: , line:6:53, endln:6:58
+        |vpiName:y
+        |vpiFullName:work@dut.c2[0].y
+        |vpiActual:
+        \_logic_net: (work@dut.c2[0].y), line:6:42, endln:6:43
+  |vpiModule:
+  \_module_inst: work@child (work@dut.c2[1]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:17:3, endln:17:30
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:c2[1]
+    |vpiFullName:work@dut.c2[1]
+    |vpiDefName:work@child
+    |vpiDefFile:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv
+    |vpiDefLineNo:6
+    |vpiNet:
+    \_logic_net: (work@dut.c2[1].a), line:6:26, endln:6:27
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c2[1]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:17:3, endln:17:30
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.c2[1].a)
+        |vpiParent:
+        \_logic_net: (work@dut.c2[1].a), line:6:26, endln:6:27
+        |vpiFullName:work@dut.c2[1].a
+        |vpiActual:
+        \_logic_typespec: , line:6:20, endln:6:25
+      |vpiName:a
+      |vpiFullName:work@dut.c2[1].a
+      |vpiNetType:36
+    |vpiNet:
+    \_logic_net: (work@dut.c2[1].y), line:6:42, endln:6:43
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c2[1]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:17:3, endln:17:30
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.c2[1].y)
+        |vpiParent:
+        \_logic_net: (work@dut.c2[1].y), line:6:42, endln:6:43
+        |vpiFullName:work@dut.c2[1].y
+        |vpiActual:
+        \_logic_typespec: , line:6:36, endln:6:41
+      |vpiName:y
+      |vpiFullName:work@dut.c2[1].y
+      |vpiNetType:36
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiPort:
+    \_port: (a), line:6:26, endln:6:27
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c2[1]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:17:3, endln:17:30
+      |vpiName:a
+      |vpiDirection:1
+      |vpiHighConn:
+      \_ref_obj: (work@dut.a), line:17:20, endln:17:21
+        |vpiParent:
+        \_port: (a), line:6:26, endln:6:27
+        |vpiName:a
+        |vpiFullName:work@dut.a
+        |vpiActual:
+        \_logic_net: (work@dut.a), line:7:47, endln:7:48
+      |vpiLowConn:
+      \_ref_obj: (work@dut.c2[1].a), line:17:18, endln:17:19
+        |vpiParent:
+        \_port: (a), line:6:26, endln:6:27
+        |vpiName:a
+        |vpiFullName:work@dut.c2[1].a
+        |vpiActual:
+        \_logic_net: (work@dut.c2[1].a), line:6:26, endln:6:27
+      |vpiTypedef:
+      \_ref_typespec: (work@dut.c2[1].a)
+        |vpiParent:
+        \_port: (a), line:6:26, endln:6:27
+        |vpiFullName:work@dut.c2[1].a
+        |vpiActual:
+        \_logic_typespec: , line:6:20, endln:6:25
+      |vpiInstance:
+      \_module_inst: work@child (work@dut.c2[1]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:17:3, endln:17:30
+    |vpiPort:
+    \_port: (y), line:6:42, endln:6:43
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c2[1]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:17:3, endln:17:30
+      |vpiName:y
+      |vpiDirection:2
+      |vpiHighConn:
+      \_operation: , line:17:27, endln:17:28
+        |vpiParent:
+        \_port: (y), line:6:42, endln:6:43
+        |vpiOpType:36
+      |vpiLowConn:
+      \_ref_obj: (work@dut.c2[1].y), line:6:42, endln:6:43
+        |vpiParent:
+        \_port: (y), line:6:42, endln:6:43
+        |vpiName:y
+        |vpiFullName:work@dut.c2[1].y
+        |vpiActual:
+        \_logic_net: (work@dut.c2[1].y), line:6:42, endln:6:43
+      |vpiTypedef:
+      \_ref_typespec: (work@dut.c2[1].y)
+        |vpiParent:
+        \_port: (y), line:6:42, endln:6:43
+        |vpiFullName:work@dut.c2[1].y
+        |vpiActual:
+        \_logic_typespec: , line:6:36, endln:6:41
+      |vpiInstance:
+      \_module_inst: work@child (work@dut.c2[1]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:17:3, endln:17:30
+    |vpiContAssign:
+    \_cont_assign: , line:6:53, endln:6:58
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c2[1]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:17:3, endln:17:30
+      |vpiRhs:
+      \_ref_obj: (work@dut.c2[1].a), line:6:57, endln:6:58
+        |vpiParent:
+        \_cont_assign: , line:6:53, endln:6:58
+        |vpiName:a
+        |vpiFullName:work@dut.c2[1].a
+        |vpiActual:
+        \_logic_net: (work@dut.c2[1].a), line:6:26, endln:6:27
+      |vpiLhs:
+      \_ref_obj: (work@dut.c2[1].y), line:6:53, endln:6:54
+        |vpiParent:
+        \_cont_assign: , line:6:53, endln:6:58
+        |vpiName:y
+        |vpiFullName:work@dut.c2[1].y
+        |vpiActual:
+        \_logic_net: (work@dut.c2[1].y), line:6:42, endln:6:43
+  |vpiModule:
+  \_module_inst: work@child (work@dut.c2[2]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:17:3, endln:17:30
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:c2[2]
+    |vpiFullName:work@dut.c2[2]
+    |vpiDefName:work@child
+    |vpiDefFile:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv
+    |vpiDefLineNo:6
+    |vpiNet:
+    \_logic_net: (work@dut.c2[2].a), line:6:26, endln:6:27
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c2[2]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:17:3, endln:17:30
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.c2[2].a)
+        |vpiParent:
+        \_logic_net: (work@dut.c2[2].a), line:6:26, endln:6:27
+        |vpiFullName:work@dut.c2[2].a
+        |vpiActual:
+        \_logic_typespec: , line:6:20, endln:6:25
+      |vpiName:a
+      |vpiFullName:work@dut.c2[2].a
+      |vpiNetType:36
+    |vpiNet:
+    \_logic_net: (work@dut.c2[2].y), line:6:42, endln:6:43
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c2[2]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:17:3, endln:17:30
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.c2[2].y)
+        |vpiParent:
+        \_logic_net: (work@dut.c2[2].y), line:6:42, endln:6:43
+        |vpiFullName:work@dut.c2[2].y
+        |vpiActual:
+        \_logic_typespec: , line:6:36, endln:6:41
+      |vpiName:y
+      |vpiFullName:work@dut.c2[2].y
+      |vpiNetType:36
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiPort:
+    \_port: (a), line:6:26, endln:6:27
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c2[2]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:17:3, endln:17:30
+      |vpiName:a
+      |vpiDirection:1
+      |vpiHighConn:
+      \_ref_obj: (work@dut.a), line:17:20, endln:17:21
+        |vpiParent:
+        \_port: (a), line:6:26, endln:6:27
+        |vpiName:a
+        |vpiFullName:work@dut.a
+        |vpiActual:
+        \_logic_net: (work@dut.a), line:7:47, endln:7:48
+      |vpiLowConn:
+      \_ref_obj: (work@dut.c2[2].a), line:17:18, endln:17:19
+        |vpiParent:
+        \_port: (a), line:6:26, endln:6:27
+        |vpiName:a
+        |vpiFullName:work@dut.c2[2].a
+        |vpiActual:
+        \_logic_net: (work@dut.c2[2].a), line:6:26, endln:6:27
+      |vpiTypedef:
+      \_ref_typespec: (work@dut.c2[2].a)
+        |vpiParent:
+        \_port: (a), line:6:26, endln:6:27
+        |vpiFullName:work@dut.c2[2].a
+        |vpiActual:
+        \_logic_typespec: , line:6:20, endln:6:25
+      |vpiInstance:
+      \_module_inst: work@child (work@dut.c2[2]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:17:3, endln:17:30
+    |vpiPort:
+    \_port: (y), line:6:42, endln:6:43
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c2[2]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:17:3, endln:17:30
+      |vpiName:y
+      |vpiDirection:2
+      |vpiHighConn:
+      \_operation: , line:17:27, endln:17:28
+        |vpiParent:
+        \_port: (y), line:6:42, endln:6:43
+        |vpiOpType:36
+      |vpiLowConn:
+      \_ref_obj: (work@dut.c2[2].y), line:6:42, endln:6:43
+        |vpiParent:
+        \_port: (y), line:6:42, endln:6:43
+        |vpiName:y
+        |vpiFullName:work@dut.c2[2].y
+        |vpiActual:
+        \_logic_net: (work@dut.c2[2].y), line:6:42, endln:6:43
+      |vpiTypedef:
+      \_ref_typespec: (work@dut.c2[2].y)
+        |vpiParent:
+        \_port: (y), line:6:42, endln:6:43
+        |vpiFullName:work@dut.c2[2].y
+        |vpiActual:
+        \_logic_typespec: , line:6:36, endln:6:41
+      |vpiInstance:
+      \_module_inst: work@child (work@dut.c2[2]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:17:3, endln:17:30
+    |vpiContAssign:
+    \_cont_assign: , line:6:53, endln:6:58
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c2[2]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:17:3, endln:17:30
+      |vpiRhs:
+      \_ref_obj: (work@dut.c2[2].a), line:6:57, endln:6:58
+        |vpiParent:
+        \_cont_assign: , line:6:53, endln:6:58
+        |vpiName:a
+        |vpiFullName:work@dut.c2[2].a
+        |vpiActual:
+        \_logic_net: (work@dut.c2[2].a), line:6:26, endln:6:27
+      |vpiLhs:
+      \_ref_obj: (work@dut.c2[2].y), line:6:53, endln:6:54
+        |vpiParent:
+        \_cont_assign: , line:6:53, endln:6:58
+        |vpiName:y
+        |vpiFullName:work@dut.c2[2].y
+        |vpiActual:
+        \_logic_net: (work@dut.c2[2].y), line:6:42, endln:6:43
+  |vpiModule:
+  \_module_inst: work@child (work@dut.c2[3]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:17:3, endln:17:30
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:c2[3]
+    |vpiFullName:work@dut.c2[3]
+    |vpiDefName:work@child
+    |vpiDefFile:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv
+    |vpiDefLineNo:6
+    |vpiNet:
+    \_logic_net: (work@dut.c2[3].a), line:6:26, endln:6:27
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c2[3]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:17:3, endln:17:30
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.c2[3].a)
+        |vpiParent:
+        \_logic_net: (work@dut.c2[3].a), line:6:26, endln:6:27
+        |vpiFullName:work@dut.c2[3].a
+        |vpiActual:
+        \_logic_typespec: , line:6:20, endln:6:25
+      |vpiName:a
+      |vpiFullName:work@dut.c2[3].a
+      |vpiNetType:36
+    |vpiNet:
+    \_logic_net: (work@dut.c2[3].y), line:6:42, endln:6:43
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c2[3]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:17:3, endln:17:30
+      |vpiTypespec:
+      \_ref_typespec: (work@dut.c2[3].y)
+        |vpiParent:
+        \_logic_net: (work@dut.c2[3].y), line:6:42, endln:6:43
+        |vpiFullName:work@dut.c2[3].y
+        |vpiActual:
+        \_logic_typespec: , line:6:36, endln:6:41
+      |vpiName:y
+      |vpiFullName:work@dut.c2[3].y
+      |vpiNetType:36
+    |vpiInstance:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiPort:
+    \_port: (a), line:6:26, endln:6:27
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c2[3]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:17:3, endln:17:30
+      |vpiName:a
+      |vpiDirection:1
+      |vpiHighConn:
+      \_ref_obj: (work@dut.a), line:17:20, endln:17:21
+        |vpiParent:
+        \_port: (a), line:6:26, endln:6:27
+        |vpiName:a
+        |vpiFullName:work@dut.a
+        |vpiActual:
+        \_logic_net: (work@dut.a), line:7:47, endln:7:48
+      |vpiLowConn:
+      \_ref_obj: (work@dut.c2[3].a), line:17:18, endln:17:19
+        |vpiParent:
+        \_port: (a), line:6:26, endln:6:27
+        |vpiName:a
+        |vpiFullName:work@dut.c2[3].a
+        |vpiActual:
+        \_logic_net: (work@dut.c2[3].a), line:6:26, endln:6:27
+      |vpiTypedef:
+      \_ref_typespec: (work@dut.c2[3].a)
+        |vpiParent:
+        \_port: (a), line:6:26, endln:6:27
+        |vpiFullName:work@dut.c2[3].a
+        |vpiActual:
+        \_logic_typespec: , line:6:20, endln:6:25
+      |vpiInstance:
+      \_module_inst: work@child (work@dut.c2[3]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:17:3, endln:17:30
+    |vpiPort:
+    \_port: (y), line:6:42, endln:6:43
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c2[3]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:17:3, endln:17:30
+      |vpiName:y
+      |vpiDirection:2
+      |vpiHighConn:
+      \_operation: , line:17:27, endln:17:28
+        |vpiParent:
+        \_port: (y), line:6:42, endln:6:43
+        |vpiOpType:36
+      |vpiLowConn:
+      \_ref_obj: (work@dut.c2[3].y), line:6:42, endln:6:43
+        |vpiParent:
+        \_port: (y), line:6:42, endln:6:43
+        |vpiName:y
+        |vpiFullName:work@dut.c2[3].y
+        |vpiActual:
+        \_logic_net: (work@dut.c2[3].y), line:6:42, endln:6:43
+      |vpiTypedef:
+      \_ref_typespec: (work@dut.c2[3].y)
+        |vpiParent:
+        \_port: (y), line:6:42, endln:6:43
+        |vpiFullName:work@dut.c2[3].y
+        |vpiActual:
+        \_logic_typespec: , line:6:36, endln:6:41
+      |vpiInstance:
+      \_module_inst: work@child (work@dut.c2[3]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:17:3, endln:17:30
+    |vpiContAssign:
+    \_cont_assign: , line:6:53, endln:6:58
+      |vpiParent:
+      \_module_inst: work@child (work@dut.c2[3]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:17:3, endln:17:30
+      |vpiRhs:
+      \_ref_obj: (work@dut.c2[3].a), line:6:57, endln:6:58
+        |vpiParent:
+        \_cont_assign: , line:6:53, endln:6:58
+        |vpiName:a
+        |vpiFullName:work@dut.c2[3].a
+        |vpiActual:
+        \_logic_net: (work@dut.c2[3].a), line:6:26, endln:6:27
+      |vpiLhs:
+      \_ref_obj: (work@dut.c2[3].y), line:6:53, endln:6:54
+        |vpiParent:
+        \_cont_assign: , line:6:53, endln:6:58
+        |vpiName:y
+        |vpiFullName:work@dut.c2[3].y
+        |vpiActual:
+        \_logic_net: (work@dut.c2[3].y), line:6:42, endln:6:43
+  |vpiModuleArray:
+  \_module_array: (work@child), line:16:9, endln:16:11
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:c1
+    |vpiFullName:work@child
+    |vpiRange:
+    \_range: , line:16:12, endln:16:16
+      |vpiLeftRange:
+      \_constant: 
+        |vpiParent:
+        \_range: , line:16:12, endln:16:16
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiRightRange:
+      \_operation: , line:16:12, endln:16:16
+        |vpiParent:
+        \_range: , line:16:12, endln:16:16
+        |vpiOpType:11
+        |vpiOperand:
+        \_constant: , line:16:12, endln:16:16
+          |vpiDecompile:4
+          |vpiSize:64
+          |INT:4
+          |vpiConstType:7
+        |vpiOperand:
+        \_constant: 
+          |vpiSize:64
+          |INT:1
+          |vpiConstType:7
+    |vpiModule:
+    \_module_inst: work@child (work@dut.c1[0]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:16:3, endln:16:31
+    |vpiModule:
+    \_module_inst: work@child (work@dut.c1[1]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:16:3, endln:16:31
+    |vpiModule:
+    \_module_inst: work@child (work@dut.c1[2]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:16:3, endln:16:31
+    |vpiModule:
+    \_module_inst: work@child (work@dut.c1[3]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:16:3, endln:16:31
+    |vpiElemTypespec:
+    \_ref_typespec: (work@dut.c1)
+      |vpiParent:
+      \_module_array: (work@child), line:16:9, endln:16:11
+      |vpiFullName:work@dut.c1
+      |vpiActual:
+      \_module_typespec: (child), line:16:3, endln:16:8
+  |vpiModuleArray:
+  \_module_array: (work@child), line:17:9, endln:17:11
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiName:c2
+    |vpiFullName:work@child
+    |vpiRange:
+    \_range: , line:17:11, endln:17:16
+      |vpiLeftRange:
+      \_constant: , line:17:12, endln:17:13
+        |vpiParent:
+        \_range: , line:17:11, endln:17:16
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+      |vpiRightRange:
+      \_constant: , line:17:14, endln:17:15
+        |vpiParent:
+        \_range: , line:17:11, endln:17:16
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+    |vpiModule:
+    \_module_inst: work@child (work@dut.c2[0]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:17:3, endln:17:30
+    |vpiModule:
+    \_module_inst: work@child (work@dut.c2[1]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:17:3, endln:17:30
+    |vpiModule:
+    \_module_inst: work@child (work@dut.c2[2]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:17:3, endln:17:30
+    |vpiModule:
+    \_module_inst: work@child (work@dut.c2[3]), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:17:3, endln:17:30
+    |vpiElemTypespec:
+    \_ref_typespec: (work@dut.c2)
+      |vpiParent:
+      \_module_array: (work@child), line:17:9, endln:17:11
+      |vpiFullName:work@dut.c2
+      |vpiActual:
+      \_module_typespec: (child), line:17:3, endln:17:8
+  |vpiContAssign:
+  \_cont_assign: , line:18:10, endln:18:15
+    |vpiParent:
+    \_module_inst: work@dut (work@dut), file:${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv, line:7:1, endln:19:10
+    |vpiRhs:
+    \_ref_obj: (work@dut.a), line:18:14, endln:18:15
+      |vpiParent:
+      \_cont_assign: , line:18:10, endln:18:15
+      |vpiName:a
+      |vpiFullName:work@dut.a
+      |vpiActual:
+      \_logic_net: (work@dut.a), line:7:47, endln:7:48
+    |vpiLhs:
+    \_ref_obj: (work@dut.y), line:18:10, endln:18:11
+      |vpiParent:
+      \_cont_assign: , line:18:10, endln:18:15
+      |vpiName:y
+      |vpiFullName:work@dut.y
+      |vpiActual:
+      \_logic_net: (work@dut.y), line:7:63, endln:7:64
+\_weaklyReferenced:
+\_int_typespec: , line:7:24, endln:7:27
+  |vpiParent:
+  \_parameter: (work@dut.P), line:7:28, endln:7:29
+  |vpiSigned:1
+\_int_typespec: , line:8:14, endln:8:17
+  |vpiParent:
+  \_parameter: (work@dut.CH), line:8:18, endln:8:20
+  |vpiSigned:1
+\_module_typespec: (I), line:9:3, endln:9:4
+  |vpiParent:
+  \_module_array: (work@I), line:9:5, endln:9:7
+  |vpiName:I
+\_module_typespec: (I), line:10:3, endln:10:4
+  |vpiParent:
+  \_module_array: (work@I), line:10:5, endln:10:7
+  |vpiName:I
+\_module_typespec: (I), line:11:3, endln:11:4
+  |vpiParent:
+  \_module_array: (work@I), line:11:5, endln:11:7
+  |vpiName:I
+\_module_typespec: (I), line:12:3, endln:12:4
+  |vpiParent:
+  \_module_array: (work@I), line:12:5, endln:12:7
+  |vpiName:I
+\_module_typespec: (I), line:13:3, endln:13:4
+  |vpiParent:
+  \_module_array: (work@I), line:13:5, endln:13:7
+  |vpiName:I
+\_module_typespec: (I), line:14:3, endln:14:4
+  |vpiParent:
+  \_module_array: (work@I), line:14:5, endln:14:7
+  |vpiName:I
+\_module_typespec: (I), line:15:3, endln:15:4
+  |vpiParent:
+  \_module_array: (work@I), line:15:5, endln:15:7
+  |vpiName:I
+\_module_typespec: (child), line:16:3, endln:16:8
+  |vpiParent:
+  \_module_array: (work@child), line:16:9, endln:16:11
+  |vpiName:child
+\_module_typespec: (child), line:17:3, endln:17:8
+  |vpiParent:
+  \_module_array: (work@child), line:17:9, endln:17:11
+  |vpiName:child
+\_logic_typespec: , line:7:41, endln:7:46
+\_logic_typespec: , line:7:57, endln:7:62
+\_logic_typespec: , line:7:41, endln:7:46
+  |vpiParent:
+  \_logic_net: (work@dut.a), line:7:47, endln:7:48
+\_logic_typespec: , line:7:57, endln:7:62
+\_logic_typespec: , line:5:14, endln:5:19
+  |vpiParent:
+  \_logic_var: (work@dut.a1[0].v), line:5:20, endln:5:21
+\_logic_typespec: , line:5:14, endln:5:19
+  |vpiParent:
+  \_logic_var: (work@dut.a1[1].v), line:5:20, endln:5:21
+\_logic_typespec: , line:5:14, endln:5:19
+  |vpiParent:
+  \_logic_var: (work@dut.a1[2].v), line:5:20, endln:5:21
+\_logic_typespec: , line:5:14, endln:5:19
+  |vpiParent:
+  \_logic_var: (work@dut.a1[3].v), line:5:20, endln:5:21
+\_logic_typespec: , line:5:14, endln:5:19
+  |vpiParent:
+  \_logic_var: (work@dut.a2[0].v), line:5:20, endln:5:21
+\_logic_typespec: , line:5:14, endln:5:19
+  |vpiParent:
+  \_logic_var: (work@dut.a2[1].v), line:5:20, endln:5:21
+\_logic_typespec: , line:5:14, endln:5:19
+  |vpiParent:
+  \_logic_var: (work@dut.a2[2].v), line:5:20, endln:5:21
+\_logic_typespec: , line:5:14, endln:5:19
+  |vpiParent:
+  \_logic_var: (work@dut.a2[3].v), line:5:20, endln:5:21
+\_logic_typespec: , line:5:14, endln:5:19
+  |vpiParent:
+  \_logic_var: (work@dut.a3[0].v), line:5:20, endln:5:21
+\_logic_typespec: , line:5:14, endln:5:19
+  |vpiParent:
+  \_logic_var: (work@dut.a3[1].v), line:5:20, endln:5:21
+\_logic_typespec: , line:5:14, endln:5:19
+  |vpiParent:
+  \_logic_var: (work@dut.a3[2].v), line:5:20, endln:5:21
+\_logic_typespec: , line:5:14, endln:5:19
+  |vpiParent:
+  \_logic_var: (work@dut.a3[3].v), line:5:20, endln:5:21
+\_logic_typespec: , line:5:14, endln:5:19
+  |vpiParent:
+  \_logic_var: (work@dut.a4[0].v), line:5:20, endln:5:21
+\_logic_typespec: , line:5:14, endln:5:19
+  |vpiParent:
+  \_logic_var: (work@dut.a4[1].v), line:5:20, endln:5:21
+\_logic_typespec: , line:5:14, endln:5:19
+  |vpiParent:
+  \_logic_var: (work@dut.a4[2].v), line:5:20, endln:5:21
+\_logic_typespec: , line:5:14, endln:5:19
+  |vpiParent:
+  \_logic_var: (work@dut.a4[3].v), line:5:20, endln:5:21
+\_logic_typespec: , line:5:14, endln:5:19
+  |vpiParent:
+  \_logic_var: (work@dut.a5[0].v), line:5:20, endln:5:21
+\_logic_typespec: , line:5:14, endln:5:19
+  |vpiParent:
+  \_logic_var: (work@dut.a5[1].v), line:5:20, endln:5:21
+\_logic_typespec: , line:5:14, endln:5:19
+  |vpiParent:
+  \_logic_var: (work@dut.a5[2].v), line:5:20, endln:5:21
+\_logic_typespec: , line:5:14, endln:5:19
+  |vpiParent:
+  \_logic_var: (work@dut.a5[3].v), line:5:20, endln:5:21
+\_logic_typespec: , line:5:14, endln:5:19
+  |vpiParent:
+  \_logic_var: (work@dut.a6[0].v), line:5:20, endln:5:21
+\_logic_typespec: , line:5:14, endln:5:19
+  |vpiParent:
+  \_logic_var: (work@dut.a6[1].v), line:5:20, endln:5:21
+\_logic_typespec: , line:5:14, endln:5:19
+  |vpiParent:
+  \_logic_var: (work@dut.a6[2].v), line:5:20, endln:5:21
+\_logic_typespec: , line:5:14, endln:5:19
+  |vpiParent:
+  \_logic_var: (work@dut.a6[3].v), line:5:20, endln:5:21
+\_logic_typespec: , line:5:14, endln:5:19
+  |vpiParent:
+  \_logic_var: (work@dut.a7[0].v), line:5:20, endln:5:21
+\_logic_typespec: , line:5:14, endln:5:19
+  |vpiParent:
+  \_logic_var: (work@dut.a7[1].v), line:5:20, endln:5:21
+\_logic_typespec: , line:6:20, endln:6:25
+\_logic_typespec: , line:6:36, endln:6:41
+\_logic_typespec: , line:6:20, endln:6:25
+  |vpiParent:
+  \_logic_net: (work@dut.c1[0].a), line:6:26, endln:6:27
+\_logic_typespec: , line:6:36, endln:6:41
+\_logic_typespec: , line:6:20, endln:6:25
+\_logic_typespec: , line:6:36, endln:6:41
+\_logic_typespec: , line:6:20, endln:6:25
+  |vpiParent:
+  \_logic_net: (work@dut.c1[1].a), line:6:26, endln:6:27
+\_logic_typespec: , line:6:36, endln:6:41
+\_logic_typespec: , line:6:20, endln:6:25
+\_logic_typespec: , line:6:36, endln:6:41
+\_logic_typespec: , line:6:20, endln:6:25
+  |vpiParent:
+  \_logic_net: (work@dut.c1[2].a), line:6:26, endln:6:27
+\_logic_typespec: , line:6:36, endln:6:41
+\_logic_typespec: , line:6:20, endln:6:25
+\_logic_typespec: , line:6:36, endln:6:41
+\_logic_typespec: , line:6:20, endln:6:25
+  |vpiParent:
+  \_logic_net: (work@dut.c1[3].a), line:6:26, endln:6:27
+\_logic_typespec: , line:6:36, endln:6:41
+\_module_typespec: (child), line:16:3, endln:16:8
+  |vpiName:child
+\_logic_typespec: , line:6:20, endln:6:25
+\_logic_typespec: , line:6:36, endln:6:41
+\_logic_typespec: , line:6:20, endln:6:25
+  |vpiParent:
+  \_logic_net: (work@dut.c2[0].a), line:6:26, endln:6:27
+\_logic_typespec: , line:6:36, endln:6:41
+\_logic_typespec: , line:6:20, endln:6:25
+\_logic_typespec: , line:6:36, endln:6:41
+\_logic_typespec: , line:6:20, endln:6:25
+  |vpiParent:
+  \_logic_net: (work@dut.c2[1].a), line:6:26, endln:6:27
+\_logic_typespec: , line:6:36, endln:6:41
+\_logic_typespec: , line:6:20, endln:6:25
+\_logic_typespec: , line:6:36, endln:6:41
+\_logic_typespec: , line:6:20, endln:6:25
+  |vpiParent:
+  \_logic_net: (work@dut.c2[2].a), line:6:26, endln:6:27
+\_logic_typespec: , line:6:36, endln:6:41
+\_logic_typespec: , line:6:20, endln:6:25
+\_logic_typespec: , line:6:36, endln:6:41
+\_logic_typespec: , line:6:20, endln:6:25
+  |vpiParent:
+  \_logic_net: (work@dut.c2[3].a), line:6:26, endln:6:27
+\_logic_typespec: , line:6:36, endln:6:41
+\_module_typespec: (child), line:17:3, endln:17:8
+  |vpiName:child
+\_logic_typespec: , line:5:14, endln:5:19
+\_logic_typespec: , line:6:20, endln:6:25
+\_logic_typespec: , line:6:36, endln:6:41
+\_logic_typespec: , line:7:41, endln:7:46
+\_logic_typespec: , line:7:57, endln:7:62
+\_int_typespec: , line:7:24, endln:7:27
+  |vpiParent:
+  \_ref_typespec: (work@dut.P)
+  |vpiSigned:1
+\_int_typespec: , line:8:14, endln:8:17
+  |vpiParent:
+  \_ref_typespec: (work@dut.CH)
+  |vpiSigned:1
+===================
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 0
+[WARNING] : 3
+[   NOTE] : 5
+
+============================== Begin RoundTrip Results ==============================
+[roundtrip]: ${SURELOG_DIR}/tests/InstArraySizeExpr/dut.sv | ${SURELOG_DIR}/build/regression/InstArraySizeExpr/roundtrip/dut_000.sv | 12 | 19 |
+============================== End RoundTrip Results ==============================

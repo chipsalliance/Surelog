@@ -1861,8 +1861,14 @@ void DesignElaboration::elaborateInstance_(
                 // off-by-one).
                 const bool isRange = (fC->Type(constantRangeId) ==
                                       VObjectType::paConstant_range);
-                NodeId leftNode = fC->Child(constantRangeId);
-                NodeId rightNode = fC->Sibling(leftNode);
+                // The size form's node IS the constant_expression: its first
+                // child is only the first OPERAND of that expression, so
+                // `m[2*CHANNELS]` / `m[2*2]` sized the array by `2` (tnoc's
+                // tnoc_axi_write_read_mux: 2 of its 4 write_read_if elements
+                // existed).  A range form keeps the [left, right] children.
+                NodeId leftNode =
+                    isRange ? fC->Child(constantRangeId) : constantRangeId;
+                NodeId rightNode = isRange ? fC->Sibling(leftNode) : NodeId();
                 bool validValue;
                 m_helper.checkForLoops(true);
                 int64_t left = m_helper.getValue(
