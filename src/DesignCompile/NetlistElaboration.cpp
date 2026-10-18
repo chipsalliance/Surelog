@@ -1239,6 +1239,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
               }
             } else {
               any* exp = nullptr;
+              NodeId expId = Net_lvalue;
               if (fC->Type(Net_lvalue) == VObjectType::paNet_lvalue) {
                 NodeId Hierarchical_identifier = fC->Child(Net_lvalue);
                 if (fC->Type(fC->Child(Hierarchical_identifier)) ==
@@ -1249,17 +1250,44 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
                            VObjectType::paPs_or_hierarchical_identifier) {
                   Hierarchical_identifier = Net_lvalue;
                 }
+                expId = Hierarchical_identifier;
+              }
+              m_helper.checkForLoops(true);
+              exp = m_helper.compileExpression(parent_comp, fC, expId,
+                                               m_compileDesign, Reduce::Yes, p,
+                                               parent);
+              m_helper.checkForLoops(false);
+              // A reduced select of an INTERFACE member used as an actual
+              // (`.i_push(receiver_if.valid[i])`) comes back as the member
+              // variable itself, re-parented under the port: the interface
+              // base and the index are both gone, and a consumer sees a port
+              // bound to a bare `valid` it cannot place (tnoc's flit fifos
+              // lost every per-channel connection).  Keep the expression:
+              // compile it again without reduction.
+              auto isVarOrNet = [](const any* e) {
+                if (e == nullptr) return false;
+                switch (e->UhdmType()) {
+                  case uhdmlogic_var:
+                  case uhdmbit_var:
+                  case uhdmpacked_array_var:
+                  case uhdmarray_var:
+                  case uhdmstruct_var:
+                  case uhdmenum_var:
+                  case uhdmlogic_net:
+                  case uhdmarray_net:
+                  case uhdmstruct_net:
+                    return true;
+                  default:
+                    return false;
+                }
+              };
+              if (isVarOrNet(exp)) {
                 m_helper.checkForLoops(true);
-                exp = m_helper.compileExpression(
-                    parent_comp, fC, Hierarchical_identifier, m_compileDesign,
-                    Reduce::Yes, p, parent);
+                any* full = m_helper.compileExpression(parent_comp, fC, expId,
+                                                       m_compileDesign,
+                                                       Reduce::No, p, parent);
                 m_helper.checkForLoops(false);
-              } else {
-                m_helper.checkForLoops(true);
-                exp = m_helper.compileExpression(parent_comp, fC, Net_lvalue,
-                                                 m_compileDesign, Reduce::Yes,
-                                                 p, parent);
-                m_helper.checkForLoops(false);
+                if (full != nullptr && !isVarOrNet(full)) exp = full;
               }
               if (exp != nullptr) {
                 p->High_conn(exp);
@@ -1508,12 +1536,36 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
           // struct_net).  Recompile WITHOUT reduction so the hier_path (with
           // the member) is preserved (degu SoC tcb_dev_gpio
           // sys_wdt/sys_wen/...).
-          bool needsUnreduced = (hexpr && hexpr->UhdmType() == uhdmstruct_net);
+          // The same for a SELECT of an interface member
+          // (`.i_push(receiver_if.valid[i])`, `.o_data(sender_if.flit[i])`):
+          // reduction returns the member VARIABLE itself (a logic_var /
+          // packed_array_var re-parented under the port) -- the interface
+          // base and the index are both lost, and a consumer sees a port
+          // bound to a bare `valid` it cannot place (tnoc's flit fifos lost
+          // every per-channel connection).
+          auto isVarOrNet = [](const any* e) {
+            if (e == nullptr) return false;
+            switch (e->UhdmType()) {
+              case uhdmlogic_var:
+              case uhdmbit_var:
+              case uhdmpacked_array_var:
+              case uhdmarray_var:
+              case uhdmstruct_var:
+              case uhdmenum_var:
+              case uhdmlogic_net:
+              case uhdmarray_net:
+              case uhdmstruct_net:
+                return true;
+              default:
+                return false;
+            }
+          };
+          bool needsUnreduced = isVarOrNet(hexpr);
           if (hexpr && hexpr->UhdmType() == uhdmoperation) {
             operation* op = (operation*)hexpr;
             if (op->Operands())
               for (auto o : *op->Operands())
-                if (o && o->UhdmType() == uhdmstruct_net) {
+                if (isVarOrNet(o)) {
                   needsUnreduced = true;
                   break;
                 }
@@ -1525,7 +1577,10 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
                 nullptr, parent);
             m_helper.checkForLoops(false);
             if (he2 && (he2->UhdmType() == uhdmhier_path ||
-                        he2->UhdmType() == uhdmoperation))
+                        he2->UhdmType() == uhdmoperation ||
+                        he2->UhdmType() == uhdmbit_select ||
+                        he2->UhdmType() == uhdmpart_select ||
+                        he2->UhdmType() == uhdmindexed_part_select))
               hexpr = he2;
           }
           NodeId Primary = fC->Child(Expression);
