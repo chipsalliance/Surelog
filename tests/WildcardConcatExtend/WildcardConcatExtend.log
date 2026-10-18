@@ -1,0 +1,1870 @@
+[INF:CM0023] Creating log file "${SURELOG_DIR}/build/regression/WildcardConcatExtend/slpp_all/surelog.log".
+[WRN:PA0205] ${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv:5:1: No timescale set for "reg_dec".
+[WRN:PA0205] ${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv:12:1: No timescale set for "top".
+[INF:CP0300] Compilation...
+[INF:CP0303] ${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv:5:1: Compile module "work@reg_dec".
+[INF:CP0303] ${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv:12:1: Compile module "work@top".
+[INF:EL0526] Design Elaboration...
+[INF:CP0335] ${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv:8:38: Compile generate block "work@top.r1.dec[0]".
+[INF:CP0335] ${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv:8:38: Compile generate block "work@top.r2.dec[0]".
+[INF:CP0335] ${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv:8:38: Compile generate block "work@top.r2.dec[1]".
+[NTE:EL0503] ${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv:12:1: Top level module "work@top".
+[NTE:EL0508] Nb Top level modules: 1.
+[NTE:EL0509] Max instance depth: 2.
+[NTE:EL0510] Nb instances: 3.
+[NTE:EL0511] Nb leaf instances: 0.
+[INF:UH0706] Creating UHDM Model...
+=== UHDM Object Stats Begin (Non-Elaborated Model) ===
+assignment                                             1
+bit_select                                             8
+constant                                             124
+cont_assign                                            4
+design                                                 1
+gen_for                                                1
+gen_scope                                              6
+gen_scope_array                                        6
+int_typespec                                          13
+int_var                                                1
+logic_net                                             12
+logic_typespec                                        19
+module_inst                                           10
+named_begin                                            1
+operation                                             33
+param_assign                                           9
+parameter                                             12
+port                                                  16
+range                                                 28
+ref_module                                             2
+ref_obj                                               43
+ref_typespec                                          41
+=== UHDM Object Stats End ===
+[INF:UH0707] Elaborating UHDM...
+=== UHDM Object Stats Begin (Elaborated Model) ===
+assignment                                             1
+bit_select                                            14
+constant                                             124
+cont_assign                                            7
+design                                                 1
+gen_for                                                1
+gen_scope                                              9
+gen_scope_array                                        9
+int_typespec                                          13
+int_var                                                1
+logic_net                                             12
+logic_typespec                                        19
+module_inst                                           10
+named_begin                                            1
+operation                                             36
+param_assign                                           9
+parameter                                             12
+port                                                  23
+range                                                 28
+ref_module                                             2
+ref_obj                                               63
+ref_typespec                                          51
+=== UHDM Object Stats End ===
+[INF:UH0708] Writing UHDM DB: ${SURELOG_DIR}/build/regression/WildcardConcatExtend/slpp_all/surelog.uhdm ...
+[INF:UH0709] Writing UHDM Html Coverage: ${SURELOG_DIR}/build/regression/WildcardConcatExtend/slpp_all/checker/surelog.chk.html ...
+[INF:UH0710] Loading UHDM DB: ${SURELOG_DIR}/build/regression/WildcardConcatExtend/slpp_all/surelog.uhdm ...
+[INF:UH0711] Decompiling UHDM...
+====== UHDM =======
+design: (work@top)
+|vpiElaborated:1
+|vpiName:work@top
+|uhdmallModules:
+\_module_inst: work@reg_dec (work@reg_dec), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:5:1, endln:11:10
+  |vpiParent:
+  \_design: (work@top)
+  |vpiFullName:work@reg_dec
+  |vpiParameter:
+  \_parameter: (work@reg_dec.els_p), line:5:28, endln:5:33
+    |vpiParent:
+    \_module_inst: work@reg_dec (work@reg_dec), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:5:1, endln:11:10
+    |UINT:1
+    |vpiTypespec:
+    \_ref_typespec: (work@reg_dec.els_p)
+      |vpiParent:
+      \_parameter: (work@reg_dec.els_p), line:5:28, endln:5:33
+      |vpiFullName:work@reg_dec.els_p
+      |vpiActual:
+      \_int_typespec: , line:5:18, endln:5:37
+    |vpiName:els_p
+    |vpiFullName:work@reg_dec.els_p
+  |vpiParameter:
+  \_parameter: (work@reg_dec.reg_addr_width_p), line:5:49, endln:5:65
+    |vpiParent:
+    \_module_inst: work@reg_dec (work@reg_dec), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:5:1, endln:11:10
+    |UINT:40
+    |vpiTypespec:
+    \_ref_typespec: (work@reg_dec.reg_addr_width_p)
+      |vpiParent:
+      \_parameter: (work@reg_dec.reg_addr_width_p), line:5:49, endln:5:65
+      |vpiFullName:work@reg_dec.reg_addr_width_p
+      |vpiActual:
+      \_int_typespec: , line:5:39, endln:5:70
+    |vpiName:reg_addr_width_p
+    |vpiFullName:work@reg_dec.reg_addr_width_p
+  |vpiParameter:
+  \_parameter: (work@reg_dec.base_addr_p), line:6:62, endln:6:73
+    |vpiParent:
+    \_module_inst: work@reg_dec (work@reg_dec), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:5:1, endln:11:10
+    |BIN:0
+    |vpiTypespec:
+    \_ref_typespec: (work@reg_dec.base_addr_p)
+      |vpiParent:
+      \_parameter: (work@reg_dec.base_addr_p), line:6:62, endln:6:73
+      |vpiFullName:work@reg_dec.base_addr_p
+      |vpiActual:
+      \_int_typespec: , line:6:28, endln:6:39
+    |vpiName:base_addr_p
+    |vpiFullName:work@reg_dec.base_addr_p
+  |vpiParamAssign:
+  \_param_assign: , line:5:28, endln:5:37
+    |vpiParent:
+    \_module_inst: work@reg_dec (work@reg_dec), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:5:1, endln:11:10
+    |vpiRhs:
+    \_constant: , line:5:36, endln:5:37
+      |vpiParent:
+      \_param_assign: , line:5:28, endln:5:37
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiTypespec:
+      \_ref_typespec: (work@reg_dec)
+        |vpiParent:
+        \_constant: , line:5:36, endln:5:37
+        |vpiFullName:work@reg_dec
+        |vpiActual:
+        \_int_typespec: , line:5:18, endln:5:37
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@reg_dec.els_p), line:5:28, endln:5:33
+  |vpiParamAssign:
+  \_param_assign: , line:5:49, endln:5:70
+    |vpiParent:
+    \_module_inst: work@reg_dec (work@reg_dec), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:5:1, endln:11:10
+    |vpiRhs:
+    \_constant: , line:5:68, endln:5:70
+      |vpiParent:
+      \_param_assign: , line:5:49, endln:5:70
+      |vpiDecompile:40
+      |vpiSize:64
+      |UINT:40
+      |vpiTypespec:
+      \_ref_typespec: (work@reg_dec)
+        |vpiParent:
+        \_constant: , line:5:68, endln:5:70
+        |vpiFullName:work@reg_dec
+        |vpiActual:
+        \_int_typespec: , line:5:39, endln:5:70
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@reg_dec.reg_addr_width_p), line:5:49, endln:5:65
+  |vpiParamAssign:
+  \_param_assign: , line:6:62, endln:6:78
+    |vpiParent:
+    \_module_inst: work@reg_dec (work@reg_dec), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:5:1, endln:11:10
+    |vpiRhs:
+    \_constant: , line:6:76, endln:6:78
+      |vpiParent:
+      \_param_assign: , line:6:62, endln:6:78
+      |vpiDecompile:'0
+      |vpiSize:-1
+      |BIN:0
+      |vpiTypespec:
+      \_ref_typespec: (work@reg_dec)
+        |vpiParent:
+        \_constant: , line:6:76, endln:6:78
+        |vpiFullName:work@reg_dec
+        |vpiActual:
+        \_int_typespec: , line:6:28, endln:6:39
+      |vpiConstType:3
+    |vpiLhs:
+    \_parameter: (work@reg_dec.base_addr_p), line:6:62, endln:6:73
+  |vpiDefName:work@reg_dec
+  |vpiNet:
+  \_logic_net: (work@reg_dec.addr), line:7:39, endln:7:43
+    |vpiParent:
+    \_module_inst: work@reg_dec (work@reg_dec), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:5:1, endln:11:10
+    |vpiName:addr
+    |vpiFullName:work@reg_dec.addr
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@reg_dec.m), line:7:70, endln:7:71
+    |vpiParent:
+    \_module_inst: work@reg_dec (work@reg_dec), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:5:1, endln:11:10
+    |vpiName:m
+    |vpiFullName:work@reg_dec.m
+    |vpiNetType:36
+  |vpiPort:
+  \_port: (addr), line:7:39, endln:7:43
+    |vpiParent:
+    \_module_inst: work@reg_dec (work@reg_dec), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:5:1, endln:11:10
+    |vpiName:addr
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@reg_dec.addr.addr), line:7:39, endln:7:43
+      |vpiParent:
+      \_port: (addr), line:7:39, endln:7:43
+      |vpiName:addr
+      |vpiFullName:work@reg_dec.addr.addr
+      |vpiActual:
+      \_logic_net: (work@reg_dec.addr), line:7:39, endln:7:43
+    |vpiTypedef:
+    \_ref_typespec: (work@reg_dec.addr)
+      |vpiParent:
+      \_port: (addr), line:7:39, endln:7:43
+      |vpiFullName:work@reg_dec.addr
+      |vpiActual:
+      \_logic_typespec: , line:7:10, endln:7:38
+  |vpiPort:
+  \_port: (m), line:7:70, endln:7:71
+    |vpiParent:
+    \_module_inst: work@reg_dec (work@reg_dec), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:5:1, endln:11:10
+    |vpiName:m
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@reg_dec.m.m), line:7:70, endln:7:71
+      |vpiParent:
+      \_port: (m), line:7:70, endln:7:71
+      |vpiName:m
+      |vpiFullName:work@reg_dec.m.m
+      |vpiActual:
+      \_logic_net: (work@reg_dec.m), line:7:70, endln:7:71
+    |vpiTypedef:
+    \_ref_typespec: (work@reg_dec.m)
+      |vpiParent:
+      \_port: (m), line:7:70, endln:7:71
+      |vpiFullName:work@reg_dec.m
+      |vpiActual:
+      \_logic_typespec: , line:7:52, endln:7:69
+  |vpiGenStmt:
+  \_gen_for: 
+    |vpiParent:
+    \_module_inst: work@reg_dec (work@reg_dec), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:5:1, endln:11:10
+    |vpiForInitStmt:
+    \_assignment: , line:8:8, endln:8:20
+      |vpiParent:
+      \_gen_for: 
+      |vpiRhs:
+      \_constant: , line:8:19, endln:8:20
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiLhs:
+      \_int_var: (work@reg_dec.i), line:8:15, endln:8:16
+        |vpiParent:
+        \_assignment: , line:8:8, endln:8:20
+        |vpiTypespec:
+        \_ref_typespec: (work@reg_dec.i)
+          |vpiParent:
+          \_int_var: (work@reg_dec.i), line:8:15, endln:8:16
+          |vpiFullName:work@reg_dec.i
+          |vpiActual:
+          \_int_typespec: , line:8:15, endln:8:16
+        |vpiName:i
+        |vpiFullName:work@reg_dec.i
+        |vpiSigned:1
+    |vpiCondition:
+    \_operation: , line:8:22, endln:8:31
+      |vpiParent:
+      \_gen_for: 
+      |vpiOpType:20
+      |vpiOperand:
+      \_ref_obj: (work@reg_dec.i), line:8:22, endln:8:23
+        |vpiParent:
+        \_operation: , line:8:22, endln:8:31
+        |vpiName:i
+        |vpiFullName:work@reg_dec.i
+        |vpiActual:
+        \_int_var: (work@reg_dec.i), line:8:15, endln:8:16
+      |vpiOperand:
+      \_ref_obj: (work@reg_dec.els_p), line:8:26, endln:8:31
+        |vpiParent:
+        \_operation: , line:8:22, endln:8:31
+        |vpiName:els_p
+        |vpiFullName:work@reg_dec.els_p
+    |vpiForIncStmt:
+    \_operation: , line:8:33, endln:8:34
+      |vpiParent:
+      \_gen_for: 
+      |vpiOpType:62
+      |vpiOperand:
+      \_ref_obj: (work@reg_dec.i)
+        |vpiParent:
+        \_gen_for: 
+        |vpiName:i
+        |vpiFullName:work@reg_dec.i
+        |vpiActual:
+        \_int_var: (work@reg_dec.i), line:8:15, endln:8:16
+    |vpiStmt:
+    \_named_begin: (work@reg_dec.dec)
+      |vpiParent:
+      \_gen_for: 
+      |vpiName:dec
+      |vpiFullName:work@reg_dec.dec
+      |vpiStmt:
+      \_cont_assign: , line:9:12, endln:9:47
+        |vpiParent:
+        \_named_begin: (work@reg_dec.dec)
+        |vpiRhs:
+        \_operation: , line:9:19, endln:9:47
+          |vpiParent:
+          \_cont_assign: , line:9:12, endln:9:47
+          |vpiOpType:95
+          |vpiOperand:
+          \_ref_obj: (work@reg_dec.dec.addr), line:9:19, endln:9:23
+            |vpiParent:
+            \_operation: , line:9:19, endln:9:47
+            |vpiName:addr
+            |vpiFullName:work@reg_dec.dec.addr
+          |vpiOperand:
+          \_bit_select: (work@reg_dec.dec.base_addr_p), line:9:44, endln:9:45
+            |vpiParent:
+            \_operation: , line:9:19, endln:9:47
+            |vpiName:base_addr_p
+            |vpiFullName:work@reg_dec.dec.base_addr_p
+            |vpiIndex:
+            \_ref_obj: (work@reg_dec.dec.i), line:9:44, endln:9:45
+              |vpiParent:
+              \_bit_select: (work@reg_dec.dec.base_addr_p), line:9:44, endln:9:45
+              |vpiName:i
+              |vpiFullName:work@reg_dec.dec.i
+        |vpiLhs:
+        \_bit_select: (work@reg_dec.dec.m), line:9:12, endln:9:16
+          |vpiParent:
+          \_cont_assign: , line:9:12, endln:9:47
+          |vpiName:m
+          |vpiFullName:work@reg_dec.dec.m
+          |vpiIndex:
+          \_ref_obj: (work@reg_dec.dec.i), line:9:14, endln:9:15
+            |vpiParent:
+            \_bit_select: (work@reg_dec.dec.m), line:9:12, endln:9:16
+            |vpiName:i
+            |vpiFullName:work@reg_dec.dec.i
+|uhdmallModules:
+\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:12:1, endln:15:10
+  |vpiParent:
+  \_design: (work@top)
+  |vpiFullName:work@top
+  |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.addr), line:12:32, endln:12:36
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:12:1, endln:15:10
+    |vpiName:addr
+    |vpiFullName:work@top.addr
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.m1), line:12:51, endln:12:53
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:12:1, endln:15:10
+    |vpiName:m1
+    |vpiFullName:work@top.m1
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.m2), line:12:74, endln:12:76
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:12:1, endln:15:10
+    |vpiName:m2
+    |vpiFullName:work@top.m2
+    |vpiNetType:36
+  |vpiPort:
+  \_port: (addr), line:12:32, endln:12:36
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:12:1, endln:15:10
+    |vpiName:addr
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@top.addr.addr), line:12:32, endln:12:36
+      |vpiParent:
+      \_port: (addr), line:12:32, endln:12:36
+      |vpiName:addr
+      |vpiFullName:work@top.addr.addr
+      |vpiActual:
+      \_logic_net: (work@top.addr), line:12:32, endln:12:36
+    |vpiTypedef:
+    \_ref_typespec: (work@top.addr)
+      |vpiParent:
+      \_port: (addr), line:12:32, endln:12:36
+      |vpiFullName:work@top.addr
+      |vpiActual:
+      \_logic_typespec: , line:12:19, endln:12:31
+  |vpiPort:
+  \_port: (m1), line:12:51, endln:12:53
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:12:1, endln:15:10
+    |vpiName:m1
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.m1.m1), line:12:51, endln:12:53
+      |vpiParent:
+      \_port: (m1), line:12:51, endln:12:53
+      |vpiName:m1
+      |vpiFullName:work@top.m1.m1
+      |vpiActual:
+      \_logic_net: (work@top.m1), line:12:51, endln:12:53
+    |vpiTypedef:
+    \_ref_typespec: (work@top.m1)
+      |vpiParent:
+      \_port: (m1), line:12:51, endln:12:53
+      |vpiFullName:work@top.m1
+      |vpiActual:
+      \_logic_typespec: , line:12:45, endln:12:50
+  |vpiPort:
+  \_port: (m2), line:12:74, endln:12:76
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:12:1, endln:15:10
+    |vpiName:m2
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.m2.m2), line:12:74, endln:12:76
+      |vpiParent:
+      \_port: (m2), line:12:74, endln:12:76
+      |vpiName:m2
+      |vpiFullName:work@top.m2.m2
+      |vpiActual:
+      \_logic_net: (work@top.m2), line:12:74, endln:12:76
+    |vpiTypedef:
+    \_ref_typespec: (work@top.m2)
+      |vpiParent:
+      \_port: (m2), line:12:74, endln:12:76
+      |vpiFullName:work@top.m2
+      |vpiActual:
+      \_logic_typespec: , line:12:62, endln:12:73
+  |vpiRefModule:
+  \_ref_module: work@reg_dec (r1), line:13:85, endln:13:87
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:12:1, endln:15:10
+    |vpiName:r1
+    |vpiDefName:work@reg_dec
+    |vpiActual:
+    \_module_inst: work@reg_dec (work@reg_dec), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:5:1, endln:11:10
+    |vpiPort:
+    \_port: (addr), line:13:89, endln:13:100
+      |vpiParent:
+      \_ref_module: work@reg_dec (r1), line:13:85, endln:13:87
+      |vpiName:addr
+      |vpiHighConn:
+      \_ref_obj: (work@top.r1.addr.addr), line:13:95, endln:13:99
+        |vpiParent:
+        \_port: (addr), line:13:89, endln:13:100
+        |vpiName:addr
+        |vpiFullName:work@top.r1.addr.addr
+        |vpiActual:
+        \_logic_net: (work@top.addr), line:12:32, endln:12:36
+    |vpiPort:
+    \_port: (m), line:13:102, endln:13:108
+      |vpiParent:
+      \_ref_module: work@reg_dec (r1), line:13:85, endln:13:87
+      |vpiName:m
+      |vpiHighConn:
+      \_ref_obj: (work@top.r1.m.m1), line:13:105, endln:13:107
+        |vpiParent:
+        \_port: (m), line:13:102, endln:13:108
+        |vpiName:m1
+        |vpiFullName:work@top.r1.m.m1
+        |vpiActual:
+        \_logic_net: (work@top.m1), line:12:51, endln:12:53
+  |vpiRefModule:
+  \_ref_module: work@reg_dec (r2), line:14:83, endln:14:85
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:12:1, endln:15:10
+    |vpiName:r2
+    |vpiDefName:work@reg_dec
+    |vpiActual:
+    \_module_inst: work@reg_dec (work@reg_dec), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:5:1, endln:11:10
+    |vpiPort:
+    \_port: (addr), line:14:87, endln:14:98
+      |vpiParent:
+      \_ref_module: work@reg_dec (r2), line:14:83, endln:14:85
+      |vpiName:addr
+      |vpiHighConn:
+      \_ref_obj: (work@top.r2.addr.addr), line:14:93, endln:14:97
+        |vpiParent:
+        \_port: (addr), line:14:87, endln:14:98
+        |vpiName:addr
+        |vpiFullName:work@top.r2.addr.addr
+        |vpiActual:
+        \_logic_net: (work@top.addr), line:12:32, endln:12:36
+    |vpiPort:
+    \_port: (m), line:14:100, endln:14:106
+      |vpiParent:
+      \_ref_module: work@reg_dec (r2), line:14:83, endln:14:85
+      |vpiName:m
+      |vpiHighConn:
+      \_ref_obj: (work@top.r2.m.m2), line:14:103, endln:14:105
+        |vpiParent:
+        \_port: (m), line:14:100, endln:14:106
+        |vpiName:m2
+        |vpiFullName:work@top.r2.m.m2
+        |vpiActual:
+        \_logic_net: (work@top.m2), line:12:74, endln:12:76
+|uhdmtopModules:
+\_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:12:1, endln:15:10
+  |vpiParent:
+  \_design: (work@top)
+  |vpiName:work@top
+  |vpiDefName:work@top
+  |vpiTop:1
+  |vpiNet:
+  \_logic_net: (work@top.addr), line:12:32, endln:12:36
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:12:1, endln:15:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.addr)
+      |vpiParent:
+      \_logic_net: (work@top.addr), line:12:32, endln:12:36
+      |vpiFullName:work@top.addr
+      |vpiActual:
+      \_logic_typespec: , line:12:19, endln:12:31
+    |vpiName:addr
+    |vpiFullName:work@top.addr
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.m1), line:12:51, endln:12:53
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:12:1, endln:15:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.m1)
+      |vpiParent:
+      \_logic_net: (work@top.m1), line:12:51, endln:12:53
+      |vpiFullName:work@top.m1
+      |vpiActual:
+      \_logic_typespec: , line:12:45, endln:12:50
+    |vpiName:m1
+    |vpiFullName:work@top.m1
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.m2), line:12:74, endln:12:76
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:12:1, endln:15:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.m2)
+      |vpiParent:
+      \_logic_net: (work@top.m2), line:12:74, endln:12:76
+      |vpiFullName:work@top.m2
+      |vpiActual:
+      \_logic_typespec: , line:12:62, endln:12:73
+    |vpiName:m2
+    |vpiFullName:work@top.m2
+    |vpiNetType:36
+  |vpiTopModule:1
+  |vpiPort:
+  \_port: (addr), line:12:32, endln:12:36
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:12:1, endln:15:10
+    |vpiName:addr
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@top.addr), line:12:32, endln:12:36
+      |vpiParent:
+      \_port: (addr), line:12:32, endln:12:36
+      |vpiName:addr
+      |vpiFullName:work@top.addr
+      |vpiActual:
+      \_logic_net: (work@top.addr), line:12:32, endln:12:36
+    |vpiTypedef:
+    \_ref_typespec: (work@top.addr)
+      |vpiParent:
+      \_port: (addr), line:12:32, endln:12:36
+      |vpiFullName:work@top.addr
+      |vpiActual:
+      \_logic_typespec: , line:12:19, endln:12:31
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:12:1, endln:15:10
+  |vpiPort:
+  \_port: (m1), line:12:51, endln:12:53
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:12:1, endln:15:10
+    |vpiName:m1
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.m1), line:12:51, endln:12:53
+      |vpiParent:
+      \_port: (m1), line:12:51, endln:12:53
+      |vpiName:m1
+      |vpiFullName:work@top.m1
+      |vpiActual:
+      \_logic_net: (work@top.m1), line:12:51, endln:12:53
+    |vpiTypedef:
+    \_ref_typespec: (work@top.m1)
+      |vpiParent:
+      \_port: (m1), line:12:51, endln:12:53
+      |vpiFullName:work@top.m1
+      |vpiActual:
+      \_logic_typespec: , line:12:45, endln:12:50
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:12:1, endln:15:10
+  |vpiPort:
+  \_port: (m2), line:12:74, endln:12:76
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:12:1, endln:15:10
+    |vpiName:m2
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.m2), line:12:74, endln:12:76
+      |vpiParent:
+      \_port: (m2), line:12:74, endln:12:76
+      |vpiName:m2
+      |vpiFullName:work@top.m2
+      |vpiActual:
+      \_logic_net: (work@top.m2), line:12:74, endln:12:76
+    |vpiTypedef:
+    \_ref_typespec: (work@top.m2)
+      |vpiParent:
+      \_port: (m2), line:12:74, endln:12:76
+      |vpiFullName:work@top.m2
+      |vpiActual:
+      \_logic_typespec: , line:12:62, endln:12:73
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:12:1, endln:15:10
+  |vpiModule:
+  \_module_inst: work@reg_dec (work@top.r1), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:13:3, endln:13:110
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:12:1, endln:15:10
+    |vpiName:r1
+    |vpiFullName:work@top.r1
+    |vpiParameter:
+    \_parameter: (work@top.r1.els_p), line:5:28, endln:5:33
+      |vpiParent:
+      \_module_inst: work@reg_dec (work@top.r1), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:13:3, endln:13:110
+      |UINT:1
+      |vpiTypespec:
+      \_ref_typespec: (work@top.r1.els_p)
+        |vpiParent:
+        \_parameter: (work@top.r1.els_p), line:5:28, endln:5:33
+        |vpiFullName:work@top.r1.els_p
+        |vpiActual:
+        \_int_typespec: , line:5:18, endln:5:37
+      |vpiName:els_p
+      |vpiFullName:work@top.r1.els_p
+    |vpiParameter:
+    \_parameter: (work@top.r1.reg_addr_width_p), line:5:49, endln:5:65
+      |vpiParent:
+      \_module_inst: work@reg_dec (work@top.r1), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:13:3, endln:13:110
+      |UINT:40
+      |vpiTypespec:
+      \_ref_typespec: (work@top.r1.reg_addr_width_p)
+        |vpiParent:
+        \_parameter: (work@top.r1.reg_addr_width_p), line:5:49, endln:5:65
+        |vpiFullName:work@top.r1.reg_addr_width_p
+        |vpiActual:
+        \_int_typespec: , line:5:39, endln:5:70
+      |vpiName:reg_addr_width_p
+      |vpiFullName:work@top.r1.reg_addr_width_p
+    |vpiParameter:
+    \_parameter: (work@top.r1.base_addr_p), line:6:62, endln:6:73
+      |vpiParent:
+      \_module_inst: work@reg_dec (work@top.r1), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:13:3, endln:13:110
+      |BIN:0
+      |vpiTypespec:
+      \_ref_typespec: (work@top.r1.base_addr_p)
+        |vpiParent:
+        \_parameter: (work@top.r1.base_addr_p), line:6:62, endln:6:73
+        |vpiFullName:work@top.r1.base_addr_p
+        |vpiActual:
+        \_int_typespec: , line:6:28, endln:6:39
+      |vpiName:base_addr_p
+      |vpiFullName:work@top.r1.base_addr_p
+    |vpiParamAssign:
+    \_param_assign: , line:5:28, endln:5:37
+      |vpiParent:
+      \_module_inst: work@reg_dec (work@top.r1), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:13:3, endln:13:110
+      |vpiOverriden:1
+      |vpiRhs:
+      \_constant: , line:5:36, endln:5:37
+        |vpiParent:
+        \_param_assign: , line:5:28, endln:5:37
+        |vpiDecompile:1
+        |vpiSize:32
+        |UINT:1
+        |vpiTypespec:
+        \_ref_typespec: (work@top.r1)
+          |vpiParent:
+          \_constant: , line:5:36, endln:5:37
+          |vpiFullName:work@top.r1
+          |vpiActual:
+          \_int_typespec: , line:5:18, endln:5:37
+        |vpiConstType:9
+      |vpiLhs:
+      \_parameter: (work@top.r1.els_p), line:5:28, endln:5:33
+    |vpiParamAssign:
+    \_param_assign: , line:5:49, endln:5:70
+      |vpiParent:
+      \_module_inst: work@reg_dec (work@top.r1), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:13:3, endln:13:110
+      |vpiOverriden:1
+      |vpiRhs:
+      \_constant: , line:5:68, endln:5:70
+        |vpiParent:
+        \_param_assign: , line:5:49, endln:5:70
+        |vpiDecompile:40
+        |vpiSize:32
+        |UINT:40
+        |vpiTypespec:
+        \_ref_typespec: (work@top.r1)
+          |vpiParent:
+          \_constant: , line:5:68, endln:5:70
+          |vpiFullName:work@top.r1
+          |vpiActual:
+          \_int_typespec: , line:5:39, endln:5:70
+        |vpiConstType:9
+      |vpiLhs:
+      \_parameter: (work@top.r1.reg_addr_width_p), line:5:49, endln:5:65
+    |vpiParamAssign:
+    \_param_assign: , line:6:62, endln:6:78
+      |vpiParent:
+      \_module_inst: work@reg_dec (work@top.r1), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:13:3, endln:13:110
+      |vpiOverriden:1
+      |vpiRhs:
+      \_constant: , line:6:76, endln:6:78
+        |vpiParent:
+        \_param_assign: , line:6:62, endln:6:78
+        |vpiDecompile:64'b????????????????????????????????????????????????????????????????
+        |vpiSize:64
+        |BIN:????????????????????????????????????????????????????????????????
+        |vpiTypespec:
+        \_ref_typespec: (work@top.r1)
+          |vpiParent:
+          \_constant: , line:6:76, endln:6:78
+          |vpiFullName:work@top.r1
+          |vpiActual:
+          \_int_typespec: , line:6:28, endln:6:39
+        |vpiConstType:3
+      |vpiLhs:
+      \_parameter: (work@top.r1.base_addr_p), line:6:62, endln:6:73
+    |vpiDefName:work@reg_dec
+    |vpiDefFile:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv
+    |vpiDefLineNo:5
+    |vpiNet:
+    \_logic_net: (work@top.r1.addr), line:7:39, endln:7:43
+      |vpiParent:
+      \_module_inst: work@reg_dec (work@top.r1), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:13:3, endln:13:110
+      |vpiTypespec:
+      \_ref_typespec: (work@top.r1.addr)
+        |vpiParent:
+        \_logic_net: (work@top.r1.addr), line:7:39, endln:7:43
+        |vpiFullName:work@top.r1.addr
+        |vpiActual:
+        \_logic_typespec: , line:7:10, endln:7:38
+      |vpiName:addr
+      |vpiFullName:work@top.r1.addr
+      |vpiNetType:36
+    |vpiNet:
+    \_logic_net: (work@top.r1.m), line:7:70, endln:7:71
+      |vpiParent:
+      \_module_inst: work@reg_dec (work@top.r1), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:13:3, endln:13:110
+      |vpiTypespec:
+      \_ref_typespec: (work@top.r1.m)
+        |vpiParent:
+        \_logic_net: (work@top.r1.m), line:7:70, endln:7:71
+        |vpiFullName:work@top.r1.m
+        |vpiActual:
+        \_logic_typespec: , line:7:52, endln:7:69
+      |vpiName:m
+      |vpiFullName:work@top.r1.m
+      |vpiNetType:36
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:12:1, endln:15:10
+    |vpiPort:
+    \_port: (addr), line:7:39, endln:7:43
+      |vpiParent:
+      \_module_inst: work@reg_dec (work@top.r1), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:13:3, endln:13:110
+      |vpiName:addr
+      |vpiDirection:1
+      |vpiHighConn:
+      \_ref_obj: (work@top.addr), line:13:95, endln:13:99
+        |vpiParent:
+        \_port: (addr), line:7:39, endln:7:43
+        |vpiName:addr
+        |vpiFullName:work@top.addr
+        |vpiActual:
+        \_logic_net: (work@top.addr), line:12:32, endln:12:36
+      |vpiLowConn:
+      \_ref_obj: (work@top.r1.addr), line:13:90, endln:13:94
+        |vpiParent:
+        \_port: (addr), line:7:39, endln:7:43
+        |vpiName:addr
+        |vpiFullName:work@top.r1.addr
+        |vpiActual:
+        \_logic_net: (work@top.r1.addr), line:7:39, endln:7:43
+      |vpiTypedef:
+      \_ref_typespec: (work@top.r1.addr)
+        |vpiParent:
+        \_port: (addr), line:7:39, endln:7:43
+        |vpiFullName:work@top.r1.addr
+        |vpiActual:
+        \_logic_typespec: , line:7:10, endln:7:38
+      |vpiInstance:
+      \_module_inst: work@reg_dec (work@top.r1), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:13:3, endln:13:110
+    |vpiPort:
+    \_port: (m), line:7:70, endln:7:71
+      |vpiParent:
+      \_module_inst: work@reg_dec (work@top.r1), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:13:3, endln:13:110
+      |vpiName:m
+      |vpiDirection:2
+      |vpiHighConn:
+      \_ref_obj: (work@top.m1), line:13:105, endln:13:107
+        |vpiParent:
+        \_port: (m), line:7:70, endln:7:71
+        |vpiName:m1
+        |vpiFullName:work@top.m1
+        |vpiActual:
+        \_logic_net: (work@top.m1), line:12:51, endln:12:53
+      |vpiLowConn:
+      \_ref_obj: (work@top.r1.m), line:13:103, endln:13:104
+        |vpiParent:
+        \_port: (m), line:7:70, endln:7:71
+        |vpiName:m
+        |vpiFullName:work@top.r1.m
+        |vpiActual:
+        \_logic_net: (work@top.r1.m), line:7:70, endln:7:71
+      |vpiTypedef:
+      \_ref_typespec: (work@top.r1.m)
+        |vpiParent:
+        \_port: (m), line:7:70, endln:7:71
+        |vpiFullName:work@top.r1.m
+        |vpiActual:
+        \_logic_typespec: , line:7:52, endln:7:69
+      |vpiInstance:
+      \_module_inst: work@reg_dec (work@top.r1), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:13:3, endln:13:110
+    |vpiGenScopeArray:
+    \_gen_scope_array: (work@top.r1.dec[0]), line:8:38, endln:10:6
+      |vpiParent:
+      \_module_inst: work@reg_dec (work@top.r1), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:13:3, endln:13:110
+      |vpiName:dec[0]
+      |vpiFullName:work@top.r1.dec[0]
+      |vpiGenScope:
+      \_gen_scope: (work@top.r1.dec[0]), line:8:38, endln:10:6
+        |vpiParent:
+        \_gen_scope_array: (work@top.r1.dec[0]), line:8:38, endln:10:6
+        |vpiFullName:work@top.r1.dec[0]
+        |vpiParameter:
+        \_parameter: (work@top.r1.dec[0].i), line:8:0
+          |vpiParent:
+          \_gen_scope: (work@top.r1.dec[0]), line:8:38, endln:10:6
+          |UINT:0
+          |vpiTypespec:
+          \_ref_typespec: (work@top.r1.dec[0].i)
+            |vpiParent:
+            \_parameter: (work@top.r1.dec[0].i), line:8:0
+            |vpiFullName:work@top.r1.dec[0].i
+            |vpiActual:
+            \_int_typespec: 
+          |vpiLocalParam:1
+          |vpiName:i
+          |vpiFullName:work@top.r1.dec[0].i
+        |vpiContAssign:
+        \_cont_assign: , line:9:12, endln:9:47
+          |vpiParent:
+          \_gen_scope: (work@top.r1.dec[0]), line:8:38, endln:10:6
+          |vpiRhs:
+          \_operation: , line:9:19, endln:9:47
+            |vpiParent:
+            \_cont_assign: , line:9:12, endln:9:47
+            |vpiOpType:95
+            |vpiOperand:
+            \_ref_obj: (work@top.r1.dec[0].addr), line:9:19, endln:9:23
+              |vpiParent:
+              \_operation: , line:9:19, endln:9:47
+              |vpiName:addr
+              |vpiFullName:work@top.r1.dec[0].addr
+              |vpiActual:
+              \_logic_net: (work@top.r1.addr), line:7:39, endln:7:43
+            |vpiOperand:
+            \_bit_select: (work@top.r1.dec[0].base_addr_p), line:9:44, endln:9:45
+              |vpiParent:
+              \_operation: , line:9:19, endln:9:47
+              |vpiName:base_addr_p
+              |vpiFullName:work@top.r1.dec[0].base_addr_p
+              |vpiActual:
+              \_parameter: (work@top.r1.base_addr_p), line:6:62, endln:6:73
+              |vpiIndex:
+              \_ref_obj: (work@top.r1.dec[0].i), line:9:44, endln:9:45
+                |vpiParent:
+                \_bit_select: (work@top.r1.dec[0].base_addr_p), line:9:44, endln:9:45
+                |vpiName:i
+                |vpiFullName:work@top.r1.dec[0].i
+                |vpiActual:
+                \_parameter: (work@top.r1.dec[0].i), line:8:0
+          |vpiLhs:
+          \_bit_select: (work@top.r1.m), line:9:12, endln:9:16
+            |vpiParent:
+            \_cont_assign: , line:9:12, endln:9:47
+            |vpiName:m
+            |vpiFullName:work@top.r1.m
+            |vpiActual:
+            \_logic_net: (work@top.r1.m), line:7:70, endln:7:71
+            |vpiIndex:
+            \_ref_obj: (work@top.r1.dec[0].i), line:9:14, endln:9:15
+              |vpiParent:
+              \_bit_select: (work@top.r1.m), line:9:12, endln:9:16
+              |vpiName:i
+              |vpiFullName:work@top.r1.dec[0].i
+              |vpiActual:
+              \_parameter: (work@top.r1.dec[0].i), line:8:0
+  |vpiModule:
+  \_module_inst: work@reg_dec (work@top.r2), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:14:3, endln:14:108
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:12:1, endln:15:10
+    |vpiName:r2
+    |vpiFullName:work@top.r2
+    |vpiParameter:
+    \_parameter: (work@top.r2.els_p), line:5:28, endln:5:33
+      |vpiParent:
+      \_module_inst: work@reg_dec (work@top.r2), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:14:3, endln:14:108
+      |UINT:1
+      |vpiTypespec:
+      \_ref_typespec: (work@top.r2.els_p)
+        |vpiParent:
+        \_parameter: (work@top.r2.els_p), line:5:28, endln:5:33
+        |vpiFullName:work@top.r2.els_p
+        |vpiActual:
+        \_int_typespec: , line:5:18, endln:5:37
+      |vpiName:els_p
+      |vpiFullName:work@top.r2.els_p
+    |vpiParameter:
+    \_parameter: (work@top.r2.reg_addr_width_p), line:5:49, endln:5:65
+      |vpiParent:
+      \_module_inst: work@reg_dec (work@top.r2), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:14:3, endln:14:108
+      |UINT:40
+      |vpiTypespec:
+      \_ref_typespec: (work@top.r2.reg_addr_width_p)
+        |vpiParent:
+        \_parameter: (work@top.r2.reg_addr_width_p), line:5:49, endln:5:65
+        |vpiFullName:work@top.r2.reg_addr_width_p
+        |vpiActual:
+        \_int_typespec: , line:5:39, endln:5:70
+      |vpiName:reg_addr_width_p
+      |vpiFullName:work@top.r2.reg_addr_width_p
+    |vpiParameter:
+    \_parameter: (work@top.r2.base_addr_p), line:6:62, endln:6:73
+      |vpiParent:
+      \_module_inst: work@reg_dec (work@top.r2), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:14:3, endln:14:108
+      |BIN:0
+      |vpiTypespec:
+      \_ref_typespec: (work@top.r2.base_addr_p)
+        |vpiParent:
+        \_parameter: (work@top.r2.base_addr_p), line:6:62, endln:6:73
+        |vpiFullName:work@top.r2.base_addr_p
+        |vpiActual:
+        \_int_typespec: , line:6:28, endln:6:39
+      |vpiName:base_addr_p
+      |vpiFullName:work@top.r2.base_addr_p
+    |vpiParamAssign:
+    \_param_assign: , line:5:28, endln:5:37
+      |vpiParent:
+      \_module_inst: work@reg_dec (work@top.r2), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:14:3, endln:14:108
+      |vpiOverriden:1
+      |vpiRhs:
+      \_constant: , line:5:36, endln:5:37
+        |vpiParent:
+        \_param_assign: , line:5:28, endln:5:37
+        |vpiDecompile:2
+        |vpiSize:32
+        |UINT:2
+        |vpiTypespec:
+        \_ref_typespec: (work@top.r2)
+          |vpiParent:
+          \_constant: , line:5:36, endln:5:37
+          |vpiFullName:work@top.r2
+          |vpiActual:
+          \_int_typespec: , line:5:18, endln:5:37
+        |vpiConstType:9
+      |vpiLhs:
+      \_parameter: (work@top.r2.els_p), line:5:28, endln:5:33
+    |vpiParamAssign:
+    \_param_assign: , line:5:49, endln:5:70
+      |vpiParent:
+      \_module_inst: work@reg_dec (work@top.r2), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:14:3, endln:14:108
+      |vpiOverriden:1
+      |vpiRhs:
+      \_constant: , line:5:68, endln:5:70
+        |vpiParent:
+        \_param_assign: , line:5:49, endln:5:70
+        |vpiDecompile:40
+        |vpiSize:32
+        |UINT:40
+        |vpiTypespec:
+        \_ref_typespec: (work@top.r2)
+          |vpiParent:
+          \_constant: , line:5:68, endln:5:70
+          |vpiFullName:work@top.r2
+          |vpiActual:
+          \_int_typespec: , line:5:39, endln:5:70
+        |vpiConstType:9
+      |vpiLhs:
+      \_parameter: (work@top.r2.reg_addr_width_p), line:5:49, endln:5:65
+    |vpiParamAssign:
+    \_param_assign: , line:6:62, endln:6:78
+      |vpiParent:
+      \_module_inst: work@reg_dec (work@top.r2), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:14:3, endln:14:108
+      |vpiOverriden:1
+      |vpiRhs:
+      \_constant: , line:6:76, endln:6:78
+        |vpiParent:
+        \_param_assign: , line:6:62, endln:6:78
+        |vpiDecompile:80'b0000000000000000000000001000????????????0000000000000000000000000000000000001???
+        |vpiSize:80
+        |BIN:0000000000000000000000001000????????????0000000000000000000000000000000000001???
+        |vpiTypespec:
+        \_ref_typespec: (work@top.r2)
+          |vpiParent:
+          \_constant: , line:6:76, endln:6:78
+          |vpiFullName:work@top.r2
+          |vpiActual:
+          \_int_typespec: , line:6:28, endln:6:39
+        |vpiConstType:3
+      |vpiLhs:
+      \_parameter: (work@top.r2.base_addr_p), line:6:62, endln:6:73
+    |vpiDefName:work@reg_dec
+    |vpiDefFile:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv
+    |vpiDefLineNo:5
+    |vpiNet:
+    \_logic_net: (work@top.r2.addr), line:7:39, endln:7:43
+      |vpiParent:
+      \_module_inst: work@reg_dec (work@top.r2), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:14:3, endln:14:108
+      |vpiTypespec:
+      \_ref_typespec: (work@top.r2.addr)
+        |vpiParent:
+        \_logic_net: (work@top.r2.addr), line:7:39, endln:7:43
+        |vpiFullName:work@top.r2.addr
+        |vpiActual:
+        \_logic_typespec: , line:7:10, endln:7:38
+      |vpiName:addr
+      |vpiFullName:work@top.r2.addr
+      |vpiNetType:36
+    |vpiNet:
+    \_logic_net: (work@top.r2.m), line:7:70, endln:7:71
+      |vpiParent:
+      \_module_inst: work@reg_dec (work@top.r2), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:14:3, endln:14:108
+      |vpiTypespec:
+      \_ref_typespec: (work@top.r2.m)
+        |vpiParent:
+        \_logic_net: (work@top.r2.m), line:7:70, endln:7:71
+        |vpiFullName:work@top.r2.m
+        |vpiActual:
+        \_logic_typespec: , line:7:52, endln:7:69
+      |vpiName:m
+      |vpiFullName:work@top.r2.m
+      |vpiNetType:36
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:12:1, endln:15:10
+    |vpiPort:
+    \_port: (addr), line:7:39, endln:7:43
+      |vpiParent:
+      \_module_inst: work@reg_dec (work@top.r2), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:14:3, endln:14:108
+      |vpiName:addr
+      |vpiDirection:1
+      |vpiHighConn:
+      \_ref_obj: (work@top.addr), line:14:93, endln:14:97
+        |vpiParent:
+        \_port: (addr), line:7:39, endln:7:43
+        |vpiName:addr
+        |vpiFullName:work@top.addr
+        |vpiActual:
+        \_logic_net: (work@top.addr), line:12:32, endln:12:36
+      |vpiLowConn:
+      \_ref_obj: (work@top.r2.addr), line:14:88, endln:14:92
+        |vpiParent:
+        \_port: (addr), line:7:39, endln:7:43
+        |vpiName:addr
+        |vpiFullName:work@top.r2.addr
+        |vpiActual:
+        \_logic_net: (work@top.r2.addr), line:7:39, endln:7:43
+      |vpiTypedef:
+      \_ref_typespec: (work@top.r2.addr)
+        |vpiParent:
+        \_port: (addr), line:7:39, endln:7:43
+        |vpiFullName:work@top.r2.addr
+        |vpiActual:
+        \_logic_typespec: , line:7:10, endln:7:38
+      |vpiInstance:
+      \_module_inst: work@reg_dec (work@top.r2), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:14:3, endln:14:108
+    |vpiPort:
+    \_port: (m), line:7:70, endln:7:71
+      |vpiParent:
+      \_module_inst: work@reg_dec (work@top.r2), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:14:3, endln:14:108
+      |vpiName:m
+      |vpiDirection:2
+      |vpiHighConn:
+      \_ref_obj: (work@top.m2), line:14:103, endln:14:105
+        |vpiParent:
+        \_port: (m), line:7:70, endln:7:71
+        |vpiName:m2
+        |vpiFullName:work@top.m2
+        |vpiActual:
+        \_logic_net: (work@top.m2), line:12:74, endln:12:76
+      |vpiLowConn:
+      \_ref_obj: (work@top.r2.m), line:14:101, endln:14:102
+        |vpiParent:
+        \_port: (m), line:7:70, endln:7:71
+        |vpiName:m
+        |vpiFullName:work@top.r2.m
+        |vpiActual:
+        \_logic_net: (work@top.r2.m), line:7:70, endln:7:71
+      |vpiTypedef:
+      \_ref_typespec: (work@top.r2.m)
+        |vpiParent:
+        \_port: (m), line:7:70, endln:7:71
+        |vpiFullName:work@top.r2.m
+        |vpiActual:
+        \_logic_typespec: , line:7:52, endln:7:69
+      |vpiInstance:
+      \_module_inst: work@reg_dec (work@top.r2), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:14:3, endln:14:108
+    |vpiGenScopeArray:
+    \_gen_scope_array: (work@top.r2.dec[0]), line:8:38, endln:10:6
+      |vpiParent:
+      \_module_inst: work@reg_dec (work@top.r2), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:14:3, endln:14:108
+      |vpiName:dec[0]
+      |vpiFullName:work@top.r2.dec[0]
+      |vpiGenScope:
+      \_gen_scope: (work@top.r2.dec[0]), line:8:38, endln:10:6
+        |vpiParent:
+        \_gen_scope_array: (work@top.r2.dec[0]), line:8:38, endln:10:6
+        |vpiFullName:work@top.r2.dec[0]
+        |vpiParameter:
+        \_parameter: (work@top.r2.dec[0].i), line:8:0
+          |vpiParent:
+          \_gen_scope: (work@top.r2.dec[0]), line:8:38, endln:10:6
+          |UINT:0
+          |vpiTypespec:
+          \_ref_typespec: (work@top.r2.dec[0].i)
+            |vpiParent:
+            \_parameter: (work@top.r2.dec[0].i), line:8:0
+            |vpiFullName:work@top.r2.dec[0].i
+            |vpiActual:
+            \_int_typespec: 
+          |vpiLocalParam:1
+          |vpiName:i
+          |vpiFullName:work@top.r2.dec[0].i
+        |vpiContAssign:
+        \_cont_assign: , line:9:12, endln:9:47
+          |vpiParent:
+          \_gen_scope: (work@top.r2.dec[0]), line:8:38, endln:10:6
+          |vpiRhs:
+          \_operation: , line:9:19, endln:9:47
+            |vpiParent:
+            \_cont_assign: , line:9:12, endln:9:47
+            |vpiOpType:95
+            |vpiOperand:
+            \_ref_obj: (work@top.r2.dec[0].addr), line:9:19, endln:9:23
+              |vpiParent:
+              \_operation: , line:9:19, endln:9:47
+              |vpiName:addr
+              |vpiFullName:work@top.r2.dec[0].addr
+              |vpiActual:
+              \_logic_net: (work@top.r2.addr), line:7:39, endln:7:43
+            |vpiOperand:
+            \_bit_select: (work@top.r2.dec[0].base_addr_p), line:9:44, endln:9:45
+              |vpiParent:
+              \_operation: , line:9:19, endln:9:47
+              |vpiName:base_addr_p
+              |vpiFullName:work@top.r2.dec[0].base_addr_p
+              |vpiActual:
+              \_parameter: (work@top.r2.base_addr_p), line:6:62, endln:6:73
+              |vpiIndex:
+              \_ref_obj: (work@top.r2.dec[0].i), line:9:44, endln:9:45
+                |vpiParent:
+                \_bit_select: (work@top.r2.dec[0].base_addr_p), line:9:44, endln:9:45
+                |vpiName:i
+                |vpiFullName:work@top.r2.dec[0].i
+                |vpiActual:
+                \_parameter: (work@top.r2.dec[0].i), line:8:0
+          |vpiLhs:
+          \_bit_select: (work@top.r2.m), line:9:12, endln:9:16
+            |vpiParent:
+            \_cont_assign: , line:9:12, endln:9:47
+            |vpiName:m
+            |vpiFullName:work@top.r2.m
+            |vpiActual:
+            \_logic_net: (work@top.r2.m), line:7:70, endln:7:71
+            |vpiIndex:
+            \_ref_obj: (work@top.r2.dec[0].i), line:9:14, endln:9:15
+              |vpiParent:
+              \_bit_select: (work@top.r2.m), line:9:12, endln:9:16
+              |vpiName:i
+              |vpiFullName:work@top.r2.dec[0].i
+              |vpiActual:
+              \_parameter: (work@top.r2.dec[0].i), line:8:0
+    |vpiGenScopeArray:
+    \_gen_scope_array: (work@top.r2.dec[1]), line:8:38, endln:10:6
+      |vpiParent:
+      \_module_inst: work@reg_dec (work@top.r2), file:${SURELOG_DIR}/tests/WildcardConcatExtend/dut.sv, line:14:3, endln:14:108
+      |vpiName:dec[1]
+      |vpiFullName:work@top.r2.dec[1]
+      |vpiGenScope:
+      \_gen_scope: (work@top.r2.dec[1]), line:8:38, endln:10:6
+        |vpiParent:
+        \_gen_scope_array: (work@top.r2.dec[1]), line:8:38, endln:10:6
+        |vpiFullName:work@top.r2.dec[1]
+        |vpiParameter:
+        \_parameter: (work@top.r2.dec[1].i), line:8:0
+          |vpiParent:
+          \_gen_scope: (work@top.r2.dec[1]), line:8:38, endln:10:6
+          |UINT:1
+          |vpiTypespec:
+          \_ref_typespec: (work@top.r2.dec[1].i)
+            |vpiParent:
+            \_parameter: (work@top.r2.dec[1].i), line:8:0
+            |vpiFullName:work@top.r2.dec[1].i
+            |vpiActual:
+            \_int_typespec: 
+          |vpiLocalParam:1
+          |vpiName:i
+          |vpiFullName:work@top.r2.dec[1].i
+        |vpiContAssign:
+        \_cont_assign: , line:9:12, endln:9:47
+          |vpiParent:
+          \_gen_scope: (work@top.r2.dec[1]), line:8:38, endln:10:6
+          |vpiRhs:
+          \_operation: , line:9:19, endln:9:47
+            |vpiParent:
+            \_cont_assign: , line:9:12, endln:9:47
+            |vpiOpType:95
+            |vpiOperand:
+            \_ref_obj: (work@top.r2.dec[1].addr), line:9:19, endln:9:23
+              |vpiParent:
+              \_operation: , line:9:19, endln:9:47
+              |vpiName:addr
+              |vpiFullName:work@top.r2.dec[1].addr
+              |vpiActual:
+              \_logic_net: (work@top.r2.addr), line:7:39, endln:7:43
+            |vpiOperand:
+            \_bit_select: (work@top.r2.dec[1].base_addr_p), line:9:44, endln:9:45
+              |vpiParent:
+              \_operation: , line:9:19, endln:9:47
+              |vpiName:base_addr_p
+              |vpiFullName:work@top.r2.dec[1].base_addr_p
+              |vpiActual:
+              \_parameter: (work@top.r2.base_addr_p), line:6:62, endln:6:73
+              |vpiIndex:
+              \_ref_obj: (work@top.r2.dec[1].i), line:9:44, endln:9:45
+                |vpiParent:
+                \_bit_select: (work@top.r2.dec[1].base_addr_p), line:9:44, endln:9:45
+                |vpiName:i
+                |vpiFullName:work@top.r2.dec[1].i
+                |vpiActual:
+                \_parameter: (work@top.r2.dec[1].i), line:8:0
+          |vpiLhs:
+          \_bit_select: (work@top.r2.m), line:9:12, endln:9:16
+            |vpiParent:
+            \_cont_assign: , line:9:12, endln:9:47
+            |vpiName:m
+            |vpiFullName:work@top.r2.m
+            |vpiActual:
+            \_logic_net: (work@top.r2.m), line:7:70, endln:7:71
+            |vpiIndex:
+            \_ref_obj: (work@top.r2.dec[1].i), line:9:14, endln:9:15
+              |vpiParent:
+              \_bit_select: (work@top.r2.m), line:9:12, endln:9:16
+              |vpiName:i
+              |vpiFullName:work@top.r2.dec[1].i
+              |vpiActual:
+              \_parameter: (work@top.r2.dec[1].i), line:8:0
+\_weaklyReferenced:
+\_int_typespec: , line:5:18, endln:5:37
+\_int_typespec: , line:5:39, endln:5:70
+\_int_typespec: , line:6:28, endln:6:39
+  |vpiParent:
+  \_parameter: (work@reg_dec.base_addr_p), line:6:62, endln:6:73
+  |vpiRange:
+  \_range: , line:6:28, endln:6:39
+    |vpiParent:
+    \_int_typespec: , line:6:28, endln:6:39
+    |vpiLeftRange:
+    \_operation: , line:6:29, endln:6:36
+      |vpiParent:
+      \_range: , line:6:28, endln:6:39
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@reg_dec.base_addr_p.els_p), line:6:29, endln:6:34
+        |vpiParent:
+        \_operation: , line:6:29, endln:6:36
+        |vpiName:els_p
+        |vpiFullName:work@reg_dec.base_addr_p.els_p
+        |vpiActual:
+        \_parameter: (work@top.r1.els_p), line:5:28, endln:5:33
+      |vpiOperand:
+      \_constant: , line:6:35, endln:6:36
+        |vpiParent:
+        \_operation: , line:6:29, endln:6:36
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:37, endln:6:38
+      |vpiParent:
+      \_range: , line:6:28, endln:6:39
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:6:39, endln:6:61
+    |vpiParent:
+    \_int_typespec: , line:6:28, endln:6:39
+    |vpiLeftRange:
+    \_operation: , line:6:40, endln:6:58
+      |vpiParent:
+      \_range: , line:6:39, endln:6:61
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@reg_dec.base_addr_p.reg_addr_width_p), line:6:40, endln:6:56
+        |vpiParent:
+        \_operation: , line:6:40, endln:6:58
+        |vpiName:reg_addr_width_p
+        |vpiFullName:work@reg_dec.base_addr_p.reg_addr_width_p
+        |vpiActual:
+        \_parameter: (work@top.r1.reg_addr_width_p), line:5:49, endln:5:65
+      |vpiOperand:
+      \_constant: , line:6:57, endln:6:58
+        |vpiParent:
+        \_operation: , line:6:40, endln:6:58
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:59, endln:6:60
+      |vpiParent:
+      \_range: , line:6:39, endln:6:61
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:8:15, endln:8:16
+\_logic_typespec: , line:12:19, endln:12:31
+  |vpiRange:
+  \_range: , line:12:25, endln:12:31
+    |vpiParent:
+    \_logic_typespec: , line:12:19, endln:12:31
+    |vpiLeftRange:
+    \_constant: , line:12:26, endln:12:28
+      |vpiParent:
+      \_range: , line:12:25, endln:12:31
+      |vpiDecompile:39
+      |vpiSize:64
+      |UINT:39
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:12:29, endln:12:30
+      |vpiParent:
+      \_range: , line:12:25, endln:12:31
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:12:45, endln:12:50
+\_logic_typespec: , line:12:62, endln:12:73
+  |vpiRange:
+  \_range: , line:12:68, endln:12:73
+    |vpiParent:
+    \_logic_typespec: , line:12:62, endln:12:73
+    |vpiLeftRange:
+    \_constant: , line:12:69, endln:12:70
+      |vpiParent:
+      \_range: , line:12:68, endln:12:73
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:12:71, endln:12:72
+      |vpiParent:
+      \_range: , line:12:68, endln:12:73
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:12:19, endln:12:31
+  |vpiParent:
+  \_logic_net: (work@top.addr), line:12:32, endln:12:36
+  |vpiRange:
+  \_range: , line:12:25, endln:12:31
+    |vpiParent:
+    \_logic_typespec: , line:12:19, endln:12:31
+    |vpiLeftRange:
+    \_constant: , line:12:26, endln:12:28
+      |vpiParent:
+      \_range: , line:12:25, endln:12:31
+      |vpiDecompile:39
+      |vpiSize:64
+      |UINT:39
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:12:29, endln:12:30
+      |vpiParent:
+      \_range: , line:12:25, endln:12:31
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:12:45, endln:12:50
+  |vpiParent:
+  \_logic_net: (work@top.m1), line:12:51, endln:12:53
+\_logic_typespec: , line:12:62, endln:12:73
+  |vpiParent:
+  \_logic_net: (work@top.m2), line:12:74, endln:12:76
+  |vpiRange:
+  \_range: , line:12:68, endln:12:73
+    |vpiParent:
+    \_logic_typespec: , line:12:62, endln:12:73
+    |vpiLeftRange:
+    \_constant: , line:12:69, endln:12:70
+      |vpiParent:
+      \_range: , line:12:68, endln:12:73
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:12:71, endln:12:72
+      |vpiParent:
+      \_range: , line:12:68, endln:12:73
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:7:10, endln:7:38
+  |vpiRange:
+  \_range: , line:7:16, endln:7:38
+    |vpiParent:
+    \_logic_typespec: , line:7:10, endln:7:38
+    |vpiLeftRange:
+    \_constant: , line:7:17, endln:7:33
+      |vpiParent:
+      \_range: , line:7:16, endln:7:38
+      |vpiDecompile:39
+      |vpiSize:64
+      |INT:39
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:7:36, endln:7:37
+      |vpiParent:
+      \_range: , line:7:16, endln:7:38
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:7:52, endln:7:69
+  |vpiRange:
+  \_range: , line:7:58, endln:7:69
+    |vpiParent:
+    \_logic_typespec: , line:7:52, endln:7:69
+    |vpiLeftRange:
+    \_constant: , line:7:59, endln:7:64
+      |vpiParent:
+      \_range: , line:7:58, endln:7:69
+      |vpiDecompile:0
+      |vpiSize:64
+      |INT:0
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:7:67, endln:7:68
+      |vpiParent:
+      \_range: , line:7:58, endln:7:69
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:7:10, endln:7:38
+  |vpiParent:
+  \_logic_net: (work@top.r1.addr), line:7:39, endln:7:43
+  |vpiRange:
+  \_range: , line:7:16, endln:7:38
+    |vpiParent:
+    \_logic_typespec: , line:7:10, endln:7:38
+    |vpiLeftRange:
+    \_constant: , line:7:17, endln:7:33
+      |vpiParent:
+      \_range: , line:7:16, endln:7:38
+      |vpiDecompile:39
+      |vpiSize:64
+      |INT:39
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:7:36, endln:7:37
+      |vpiParent:
+      \_range: , line:7:16, endln:7:38
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:7:52, endln:7:69
+  |vpiParent:
+  \_logic_net: (work@top.r1.m), line:7:70, endln:7:71
+  |vpiRange:
+  \_range: , line:7:58, endln:7:69
+    |vpiParent:
+    \_logic_typespec: , line:7:52, endln:7:69
+    |vpiLeftRange:
+    \_constant: , line:7:59, endln:7:64
+      |vpiParent:
+      \_range: , line:7:58, endln:7:69
+      |vpiDecompile:0
+      |vpiSize:64
+      |INT:0
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:7:67, endln:7:68
+      |vpiParent:
+      \_range: , line:7:58, endln:7:69
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:7:10, endln:7:38
+  |vpiRange:
+  \_range: , line:7:16, endln:7:38
+    |vpiParent:
+    \_logic_typespec: , line:7:10, endln:7:38
+    |vpiLeftRange:
+    \_constant: , line:7:17, endln:7:33
+      |vpiParent:
+      \_range: , line:7:16, endln:7:38
+      |vpiDecompile:39
+      |vpiSize:64
+      |INT:39
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:7:36, endln:7:37
+      |vpiParent:
+      \_range: , line:7:16, endln:7:38
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:7:52, endln:7:69
+  |vpiRange:
+  \_range: , line:7:58, endln:7:69
+    |vpiParent:
+    \_logic_typespec: , line:7:52, endln:7:69
+    |vpiLeftRange:
+    \_constant: , line:7:59, endln:7:64
+      |vpiParent:
+      \_range: , line:7:58, endln:7:69
+      |vpiDecompile:1
+      |vpiSize:64
+      |INT:1
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:7:67, endln:7:68
+      |vpiParent:
+      \_range: , line:7:58, endln:7:69
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:7:10, endln:7:38
+  |vpiParent:
+  \_logic_net: (work@top.r2.addr), line:7:39, endln:7:43
+  |vpiRange:
+  \_range: , line:7:16, endln:7:38
+    |vpiParent:
+    \_logic_typespec: , line:7:10, endln:7:38
+    |vpiLeftRange:
+    \_constant: , line:7:17, endln:7:33
+      |vpiParent:
+      \_range: , line:7:16, endln:7:38
+      |vpiDecompile:39
+      |vpiSize:64
+      |INT:39
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:7:36, endln:7:37
+      |vpiParent:
+      \_range: , line:7:16, endln:7:38
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:7:52, endln:7:69
+  |vpiParent:
+  \_logic_net: (work@top.r2.m), line:7:70, endln:7:71
+  |vpiRange:
+  \_range: , line:7:58, endln:7:69
+    |vpiParent:
+    \_logic_typespec: , line:7:52, endln:7:69
+    |vpiLeftRange:
+    \_constant: , line:7:59, endln:7:64
+      |vpiParent:
+      \_range: , line:7:58, endln:7:69
+      |vpiDecompile:1
+      |vpiSize:64
+      |INT:1
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:7:67, endln:7:68
+      |vpiParent:
+      \_range: , line:7:58, endln:7:69
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:7:10, endln:7:38
+  |vpiRange:
+  \_range: , line:7:16, endln:7:38
+    |vpiParent:
+    \_logic_typespec: , line:7:10, endln:7:38
+    |vpiLeftRange:
+    \_operation: , line:7:17, endln:7:35
+      |vpiParent:
+      \_range: , line:7:16, endln:7:38
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (reg_addr_width_p), line:7:17, endln:7:33
+        |vpiParent:
+        \_operation: , line:7:17, endln:7:35
+        |vpiName:reg_addr_width_p
+      |vpiOperand:
+      \_constant: , line:7:34, endln:7:35
+        |vpiParent:
+        \_operation: , line:7:17, endln:7:35
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:7:36, endln:7:37
+      |vpiParent:
+      \_range: , line:7:16, endln:7:38
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:7:52, endln:7:69
+  |vpiRange:
+  \_range: , line:7:58, endln:7:69
+    |vpiParent:
+    \_logic_typespec: , line:7:52, endln:7:69
+    |vpiLeftRange:
+    \_operation: , line:7:59, endln:7:66
+      |vpiParent:
+      \_range: , line:7:58, endln:7:69
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (els_p), line:7:59, endln:7:64
+        |vpiParent:
+        \_operation: , line:7:59, endln:7:66
+        |vpiName:els_p
+      |vpiOperand:
+      \_constant: , line:7:65, endln:7:66
+        |vpiParent:
+        \_operation: , line:7:59, endln:7:66
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:7:67, endln:7:68
+      |vpiParent:
+      \_range: , line:7:58, endln:7:69
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:12:19, endln:12:31
+  |vpiRange:
+  \_range: , line:12:25, endln:12:31
+    |vpiParent:
+    \_logic_typespec: , line:12:19, endln:12:31
+    |vpiLeftRange:
+    \_constant: , line:12:26, endln:12:28
+      |vpiParent:
+      \_range: , line:12:25, endln:12:31
+      |vpiDecompile:39
+      |vpiSize:64
+      |UINT:39
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:12:29, endln:12:30
+      |vpiParent:
+      \_range: , line:12:25, endln:12:31
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:12:45, endln:12:50
+\_logic_typespec: , line:12:62, endln:12:73
+  |vpiRange:
+  \_range: , line:12:68, endln:12:73
+    |vpiParent:
+    \_logic_typespec: , line:12:62, endln:12:73
+    |vpiLeftRange:
+    \_constant: , line:12:69, endln:12:70
+      |vpiParent:
+      \_range: , line:12:68, endln:12:73
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:12:71, endln:12:72
+      |vpiParent:
+      \_range: , line:12:68, endln:12:73
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:5:18, endln:5:37
+  |vpiParent:
+  \_ref_typespec: (work@top.r1.els_p)
+\_int_typespec: , line:5:39, endln:5:70
+  |vpiParent:
+  \_ref_typespec: (work@top.r1.reg_addr_width_p)
+\_int_typespec: , line:6:28, endln:6:39
+  |vpiParent:
+  \_ref_typespec: (work@top.r1.base_addr_p)
+  |vpiRange:
+  \_range: , line:6:28, endln:6:39
+    |vpiParent:
+    \_int_typespec: , line:6:28, endln:6:39
+    |vpiLeftRange:
+    \_operation: , line:6:29, endln:6:36
+      |vpiParent:
+      \_range: , line:6:28, endln:6:39
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@top.r1.base_addr_p.els_p), line:6:29, endln:6:34
+        |vpiParent:
+        \_operation: , line:6:29, endln:6:36
+        |vpiName:els_p
+        |vpiFullName:work@top.r1.base_addr_p.els_p
+        |vpiActual:
+        \_parameter: (work@top.r1.els_p), line:5:28, endln:5:33
+      |vpiOperand:
+      \_constant: , line:6:35, endln:6:36
+        |vpiParent:
+        \_operation: , line:6:29, endln:6:36
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:37, endln:6:38
+      |vpiParent:
+      \_range: , line:6:28, endln:6:39
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:6:39, endln:6:61
+    |vpiParent:
+    \_int_typespec: , line:6:28, endln:6:39
+    |vpiLeftRange:
+    \_operation: , line:6:40, endln:6:58
+      |vpiParent:
+      \_range: , line:6:39, endln:6:61
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@top.r1.base_addr_p.reg_addr_width_p), line:6:40, endln:6:56
+        |vpiParent:
+        \_operation: , line:6:40, endln:6:58
+        |vpiName:reg_addr_width_p
+        |vpiFullName:work@top.r1.base_addr_p.reg_addr_width_p
+        |vpiActual:
+        \_parameter: (work@top.r1.reg_addr_width_p), line:5:49, endln:5:65
+      |vpiOperand:
+      \_constant: , line:6:57, endln:6:58
+        |vpiParent:
+        \_operation: , line:6:40, endln:6:58
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:59, endln:6:60
+      |vpiParent:
+      \_range: , line:6:39, endln:6:61
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: 
+\_int_typespec: , line:5:18, endln:5:37
+  |vpiParent:
+  \_ref_typespec: (work@top.r2.els_p)
+\_int_typespec: , line:5:39, endln:5:70
+  |vpiParent:
+  \_ref_typespec: (work@top.r2.reg_addr_width_p)
+\_int_typespec: , line:6:28, endln:6:39
+  |vpiParent:
+  \_ref_typespec: (work@top.r2.base_addr_p)
+  |vpiRange:
+  \_range: , line:6:28, endln:6:39
+    |vpiParent:
+    \_int_typespec: , line:6:28, endln:6:39
+    |vpiLeftRange:
+    \_operation: , line:6:29, endln:6:36
+      |vpiParent:
+      \_range: , line:6:28, endln:6:39
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@top.r2.base_addr_p.els_p), line:6:29, endln:6:34
+        |vpiParent:
+        \_operation: , line:6:29, endln:6:36
+        |vpiName:els_p
+        |vpiFullName:work@top.r2.base_addr_p.els_p
+        |vpiActual:
+        \_parameter: (work@top.r2.els_p), line:5:28, endln:5:33
+      |vpiOperand:
+      \_constant: , line:6:35, endln:6:36
+        |vpiParent:
+        \_operation: , line:6:29, endln:6:36
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:37, endln:6:38
+      |vpiParent:
+      \_range: , line:6:28, endln:6:39
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiRange:
+  \_range: , line:6:39, endln:6:61
+    |vpiParent:
+    \_int_typespec: , line:6:28, endln:6:39
+    |vpiLeftRange:
+    \_operation: , line:6:40, endln:6:58
+      |vpiParent:
+      \_range: , line:6:39, endln:6:61
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (work@top.r2.base_addr_p.reg_addr_width_p), line:6:40, endln:6:56
+        |vpiParent:
+        \_operation: , line:6:40, endln:6:58
+        |vpiName:reg_addr_width_p
+        |vpiFullName:work@top.r2.base_addr_p.reg_addr_width_p
+        |vpiActual:
+        \_parameter: (work@top.r2.reg_addr_width_p), line:5:49, endln:5:65
+      |vpiOperand:
+      \_constant: , line:6:57, endln:6:58
+        |vpiParent:
+        \_operation: , line:6:40, endln:6:58
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:6:59, endln:6:60
+      |vpiParent:
+      \_range: , line:6:39, endln:6:61
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: 
+\_int_typespec: 
+===================
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 0
+[WARNING] : 2
+[   NOTE] : 5
