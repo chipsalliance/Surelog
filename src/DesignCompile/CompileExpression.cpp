@@ -5084,7 +5084,7 @@ uint64_t CompileHelper::Bits(const UHDM::any *typespec, bool &invalidValue,
       // built yet at this point in elaboration; fall back to compiling the
       // override's declared type from the Parameter's own source node (the
       // same path ElaborationStep uses when uparam has no typespec).
-      auto param_ts = [&](Parameter *p,
+      auto param_ts = [&](Parameter *p, DesignComponent *comp,
                           ValuedComponentI *ctx) -> const UHDM::typespec * {
         if (p == nullptr) return nullptr;
         if (any *up = p->getUhdmParam())
@@ -5092,7 +5092,7 @@ uint64_t CompileHelper::Bits(const UHDM::any *typespec, bool &invalidValue,
             if (const ref_typespec *rt = tp->Typespec())
               if (const UHDM::typespec *a = rt->Actual_typespec()) return a;
         if (p->getFileContent() && p->getNodeType())
-          return compileTypespec(component, p->getFileContent(),
+          return compileTypespec(comp ? comp : component, p->getFileContent(),
                                  p->getNodeType(), compileDesign, Reduce::Yes,
                                  nullptr, ctx, false);
         return nullptr;
@@ -5112,18 +5112,34 @@ uint64_t CompileHelper::Bits(const UHDM::any *typespec, bool &invalidValue,
       };
       std::vector<std::pair<const UHDM::typespec *, const UHDM::typespec *>>
           subst;
-      for (Parameter *p : minst->getTypeParams()) {
-        // The override is declared in the PARENT's scope.
-        ValuedComponentI *povr = minst->getParent()
-                                     ? (ValuedComponentI *)minst->getParent()
-                                     : (ValuedComponentI *)minst;
-        const UHDM::typespec *ov = param_ts(p, povr);
-        if (ov == nullptr) continue;
-        const UHDM::typespec *def = nullptr;
-        if (DesignComponent *dc = minst->getDefinition())
-          def = param_ts(dc->getParameter(p->getName()), minst);
-        if ((def != nullptr) && !same_decl(def, ov))
-          subst.emplace_back(def, ov);
+      // The struct may have been DECLARED in an ancestor and handed down as
+      // a type parameter -- HPDcache's `hpdcache_dir_entry_t` is a typedef of
+      // hpdcache.sv whose `tag` member is typed by hpdcache's OWN
+      // `parameter type hpdcache_tag_t = logic`, relayed through
+      // hpdcache_ctrl to hpdcache_memctrl, which sizes its directory SRAMs
+      // with `$bits(hpdcache_dir_entry_t)`.  memctrl's own type parameters
+      // (even a same-named `hpdcache_tag_t`) are declared at OTHER source
+      // sites and never matched the member, so the struct measured 1+1+1+1+1
+      // = 5 instead of 48 and every directory entry was read back as a 5-bit
+      // slice -- a cache that never hits.  Collect the overrides of every
+      // ancestor instance too, nearest first, each compiled in the scope
+      // that declares it.
+      for (ModuleInstance *ai = minst; ai != nullptr; ai = ai->getParent()) {
+        DesignComponent *aidef = ai->getDefinition();
+        for (Parameter *p : ai->getTypeParams()) {
+          // The override is declared in the PARENT's scope.
+          ModuleInstance *apar = ai->getParent();
+          ValuedComponentI *povr =
+              apar ? (ValuedComponentI *)apar : (ValuedComponentI *)ai;
+          const UHDM::typespec *ov =
+              param_ts(p, apar ? apar->getDefinition() : aidef, povr);
+          if (ov == nullptr) continue;
+          const UHDM::typespec *def = nullptr;
+          if (aidef)
+            def = param_ts(aidef->getParameter(p->getName()), aidef, ai);
+          if ((def != nullptr) && !same_decl(def, ov))
+            subst.emplace_back(def, ov);
+        }
       }
       if (!subst.empty() && (sts->Members() != nullptr)) {
         bool ok = true;

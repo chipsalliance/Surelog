@@ -1,0 +1,1 @@
+-parse -d uhdm -elabuhdm -nobuiltin -nocache dut.sv
