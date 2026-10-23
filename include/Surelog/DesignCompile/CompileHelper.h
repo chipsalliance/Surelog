@@ -727,6 +727,12 @@ const UHDM::typespec* bindTypespec(std::string_view name,
                                    ValuedComponentI* instance,
                                    UHDM::Serializer& s);
 
+// Is `name` a TYPE parameter in scope: of the component (a module or package),
+// or -- when the component is a generate block, which has no parameters of
+// its own -- of an enclosing module instance.
+bool isTypeParameterName(std::string_view name, DesignComponent* component,
+                         SURELOG::ValuedComponentI* instance);
+
 }  // namespace SURELOG
 
 #endif /* SURELOG_COMPILEHELPER_H */

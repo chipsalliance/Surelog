@@ -838,6 +838,13 @@ any *CompileHelper::decodeHierPath(hier_path *path, bool &invalidValue,
   UHDM::GetObjectFunctor getTypespecFunctor =
       [&](std::string_view name, const any *inst,
           const any *pexpr) -> UHDM::any * {
+    // A TYPE parameter: the type bound on the instance, never the component's
+    // default (ExprEval asks for it when it folds a cast to that parameter).
+    if (instance && isTypeParameterName(name, component, instance)) {
+      if (const UHDM::typespec *bound =
+              bindTypespec(name, instance, compileDesign->getSerializer()))
+        return (UHDM::any *)bound;
+    }
     if (UHDM::any *ts = getParamTypespec(name, component)) return ts;
     // A `P[k]` element-select reduced from inside a GENERATE SCOPE reduces with
     // the gen-scope component, which does not carry the enclosing module's
@@ -930,6 +937,13 @@ expr *CompileHelper::reduceExpr(any *result, bool &invalidValue,
   UHDM::GetObjectFunctor getTypespecFunctor =
       [&](std::string_view name, const any *inst,
           const any *pexpr) -> UHDM::any * {
+    // A TYPE parameter: the type bound on the instance, never the component's
+    // default (ExprEval asks for it when it folds a cast to that parameter).
+    if (instance && isTypeParameterName(name, component, instance)) {
+      if (const UHDM::typespec *bound =
+              bindTypespec(name, instance, compileDesign->getSerializer()))
+        return (UHDM::any *)bound;
+    }
     if (UHDM::any *ts = getParamTypespec(name, component)) return ts;
     // A `P[k]` element-select reduced from inside a GENERATE SCOPE reduces with
     // the gen-scope component, which does not carry the enclosing module's
@@ -3191,6 +3205,24 @@ UHDM::any *CompileHelper::compileExpression(
               if (tps->UhdmType() == uhdmunsupported_typespec) {
                 component->needLateTypedefBinding(operation);
               }
+              // A cast to a TYPE PARAMETER compiled on the definition (no
+              // instance) can only carry the parameter's DEFAULT type; the
+              // elaborated instances reduce this same operation later, and
+              // ExprEval needs the parameter's NAME to pick up the type bound
+              // on the instance (see the vpiCastOp case there).
+              if (!sizeCastTps) {
+                if (NodeId Ident = fC->Child(Simple_type)) {
+                  if (fC->Type(Ident) == VObjectType::paPs_type_identifier) {
+                    if (NodeId nameId = fC->Child(Ident)) {
+                      if (fC->Type(nameId) == VObjectType::slStringConst) {
+                        const std::string_view tpname = fC->SymName(nameId);
+                        if (isTypeParameterName(tpname, component, instance))
+                          operation->Typespec()->VpiName(tpname);
+                      }
+                    }
+                  }
+                }
+              }
               // Give the assignment pattern the SAME typespec as the cast.
               // `t'{field: v, default: v}` is a pattern whose type IS the cast
               // type, and a consumer needs it to know which member each tag
@@ -4986,6 +5018,13 @@ uint64_t CompileHelper::Bits(const UHDM::any *typespec, bool &invalidValue,
   UHDM::GetObjectFunctor getTypespecFunctor =
       [&](std::string_view name, const any *inst,
           const any *pexpr) -> UHDM::any * {
+    // A TYPE parameter: the type bound on the instance, never the component's
+    // default (ExprEval asks for it when it folds a cast to that parameter).
+    if (instance && isTypeParameterName(name, component, instance)) {
+      if (const UHDM::typespec *bound =
+              bindTypespec(name, instance, compileDesign->getSerializer()))
+        return (UHDM::any *)bound;
+    }
     if (UHDM::any *ts = getParamTypespec(name, component)) return ts;
     // A `P[k]` element-select reduced from inside a GENERATE SCOPE reduces with
     // the gen-scope component, which does not carry the enclosing module's
