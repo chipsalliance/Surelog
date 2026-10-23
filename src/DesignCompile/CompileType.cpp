@@ -721,6 +721,26 @@ const UHDM::typespec* bindTypespec(std::string_view name,
   return result;
 }
 
+// Is `name` a TYPE parameter in scope: of the component (a module or package),
+// or -- when the component is a generate block, which has no parameters of
+// its own -- of an enclosing module instance.
+bool isTypeParameterName(std::string_view name, DesignComponent* component,
+                         SURELOG::ValuedComponentI* instance) {
+  if (component) {
+    const auto& pmap = component->getParameterMap();
+    auto it = pmap.find(name);
+    if (it != pmap.end() && it->second) return it->second->isTypeParam();
+  }
+  ModuleInstance* modInst = valuedcomponenti_cast<ModuleInstance*>(instance);
+  while (modInst) {
+    for (Parameter* param : modInst->getTypeParams()) {
+      if (param->getName() == name) return true;
+    }
+    modInst = modInst->getParent();
+  }
+  return false;
+}
+
 typespec* CompileHelper::compileDatastructureTypespec(
     DesignComponent* component, const FileContent* fC, NodeId type,
     CompileDesign* compileDesign, Reduce reduce,
